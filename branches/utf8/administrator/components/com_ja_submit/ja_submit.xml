@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<mosinstall type="component">
+	<name>ja_submit</name>
+	<creationDate>February 10, 2006</creationDate>
+	<author>Joomlart Team</author>
+	<copyright>Released under the GNU/GPL License, copyright Changpeng Zhao</copyright>
+	<authorEmail>joomlart@joomlart.com, nnth@joomlart.com, </authorEmail>
+	<authorUrl>www.joomlart.com</authorUrl>
+	<version>2.1</version>
+	<description>
+		<![CDATA[
+		<p style="font-weight: normal; line-height: 150%; font-size: 12px;">Компонент позволяет пользователям отправлять новости с фронт-энда сайта. Кроме того, при использовании библиотеки GD2, возможна отправка и автоматическое изменение размеров изображений для вводного и основного текста.<br>
+    <b>Система Submit Content</b> основана на "EZ CZ Submit" автор - Changpeng Zhao, обновлённой Ed Watkins. <b> Переработана <a href="http://www.joomlart.com" target="blank">NNTH - TuongAZ - JoomlArt Team</a></b><br>
+    Посетите сайт <a href="http://www.joomlart.com" target="blank">JoomlArt.com</a> - профессиональные шаблоны для Joomla/Mambo, скрипты для расширения возможностей "JA Submit". К переводу компонента лапку приложил lamer :)</p>
+	]]></description>
+</mosinstall>
