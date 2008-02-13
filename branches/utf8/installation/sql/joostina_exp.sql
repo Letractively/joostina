@@ -22,7 +22,7 @@ CREATE TABLE `#__banner` (
   `custombannercode` text,
   PRIMARY KEY  (`bid`),
   KEY `viewbanner` (`showBanner`)
-) ENGINE=MyISAM DEFAULT CHARSET=cp1251 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 #
 # Структура таблицы `#__bannerclient`
@@ -38,7 +38,7 @@ CREATE TABLE `#__bannerclient` (
   `checked_out_time` time default NULL,
   `editor` varchar(50) default NULL,
   PRIMARY KEY  (`cid`)
-) ENGINE=MyISAM DEFAULT CHARSET=cp1251;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 #
 # Структура таблицы `#__bannerfinish`
@@ -55,7 +55,7 @@ CREATE TABLE `#__bannerfinish` (
   `datestart` datetime NOT NULL default '0000-00-00 00:00:00',
   `dateend` datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`bid`)
-) ENGINE=MyISAM DEFAULT CHARSET=cp1251;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 #
 # Структура таблицы `#__categories`
@@ -82,7 +82,7 @@ CREATE TABLE `#__categories` (
   KEY `cat_idx` (`section`,`published`,`access`),
   KEY `idx_access` (`access`),
   KEY `idx_checkout` (`checked_out`)
-) ENGINE=MyISAM  DEFAULT CHARSET=cp1251;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 #
 # Структура таблицы `#__components`
@@ -102,7 +102,7 @@ CREATE TABLE `#__components` (
   `iscore` tinyint(4) NOT NULL default '0',
   `params` text NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=cp1251;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 #
 # Данные таблицы `#__components`
@@ -168,7 +168,7 @@ CREATE TABLE `#__contact_details` (
   `catid` SMALLINT UNSIGNED NOT NULL default '0',
   `access` tinyint(3) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=cp1251;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 #
 # Структура таблицы `#__content`
@@ -212,7 +212,7 @@ CREATE TABLE `#__content` (
   KEY `idx_catid` (`catid`),
   KEY `idx_mask` (`mask`),
   KEY `idx_created_by` (`created_by`)
-) ENGINE=MyISAM  DEFAULT CHARSET=cp1251;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 #
 # Структура таблицы `#__content_frontpage`
@@ -222,7 +222,7 @@ CREATE TABLE `#__content_frontpage` (
   `content_id` SMALLINT UNSIGNED NOT NULL default '0',
   `ordering` SMALLINT UNSIGNED NOT NULL default '0',
   PRIMARY KEY  (`content_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=cp1251;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 #
 # Структура таблицы `#__content_rating`
@@ -234,7 +234,7 @@ CREATE TABLE `#__content_rating` (
   `rating_count` SMALLINT UNSIGNED unsigned NOT NULL default '0',
   `lastip` varchar(50) NOT NULL default '',
   PRIMARY KEY  (`content_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=cp1251;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 #
 # Структура таблицы `#__core_log_items`
@@ -246,7 +246,7 @@ CREATE TABLE `#__core_log_items` (
   `item_table` varchar(50) NOT NULL default '',
   `item_id` SMALLINT UNSIGNED unsigned NOT NULL default '0',
   `hits` SMALLINT UNSIGNED unsigned NOT NULL default '0'
-) ENGINE=MyISAM DEFAULT CHARSET=cp1251;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 #
 # Структура таблицы `#__core_log_searches`
@@ -258,7 +258,7 @@ CREATE TABLE `#__core_log_searches` (
   `hits` SMALLINT UNSIGNED unsigned NOT NULL default '0',
   KEY `hits` (`hits`),
   KEY `search_term` (`search_term`(16))
-) ENGINE=MyISAM DEFAULT CHARSET=cp1251;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 #
 # Структура таблицы `#__groups`
@@ -268,7 +268,7 @@ CREATE TABLE `#__groups` (
   `id` tinyint(3) unsigned NOT NULL default '0',
   `name` varchar(50) NOT NULL default '',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=cp1251;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 #
 # Данные таблицы `#__groups`
@@ -298,7 +298,7 @@ CREATE TABLE `#__mambots` (
   `params` text NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `idx_folder` (`published`,`client_id`,`access`,`folder`)
-) ENGINE=MyISAM DEFAULT CHARSET=cp1251;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT INTO `#__mambots` VALUES (1,'Изображение MOS','mosimage','content',0,-10000,1,1,0,0,'0000-00-00 00:00:00','');
 INSERT INTO `#__mambots` VALUES (2,'Разбиение на страницы MOS','mospaging','content',0,10000,1,1,0,0,'0000-00-00 00:00:00','');
@@ -348,7 +348,7 @@ CREATE TABLE `#__menu` (
   PRIMARY KEY  (`id`),
   KEY `componentid` (`componentid`,`menutype`,`published`,`access`),
   KEY `menutype` (`menutype`)
-) ENGINE=MyISAM DEFAULT CHARSET=cp1251;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT INTO `#__menu` VALUES (1, 'mainmenu', 'Главная', 'index.php?option=com_frontpage', 'components', 1, 0, 10, 0, 1, 0, '0000-00-00 00:00:00', 0, 0, 0, 3, 'leading=2\r\nintro=4\r\nlink=1\r\nimage=1\r\npage_title=0\r\nheader=Добро пожаловать на главную страницу\r\norderby_sec=front\r\nprint=0\r\nemail=0\r\nback_button=0');
 # --------------------------------------------------------
@@ -368,7 +368,7 @@ CREATE TABLE `#__messages` (
   `subject` varchar(230) NOT NULL default '',
   `message` text NOT NULL,
   PRIMARY KEY  (`message_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=cp1251;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 #
 # Структура таблицы `#__messages_cfg`
@@ -379,7 +379,7 @@ CREATE TABLE `#__messages_cfg` (
   `cfg_name` varchar(100) NOT NULL default '',
   `cfg_value` varchar(255) NOT NULL default '',
   UNIQUE `idx_user_var_name` (`user_id`,`cfg_name`)
-) ENGINE=MyISAM DEFAULT CHARSET=cp1251;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 #
 # Структура таблицы `#__modules`
@@ -404,7 +404,7 @@ CREATE TABLE `#__modules` (
   PRIMARY KEY  (`id`),
   KEY `published` (`published`,`access`),
   KEY `newsfeeds` (`module`,`published`)
-) ENGINE=MyISAM DEFAULT CHARSET=cp1251;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 #
 # Данные таблицы `#__modules`
@@ -453,7 +453,7 @@ CREATE TABLE `#__modules_menu` (
   `moduleid` SMALLINT UNSIGNED NOT NULL default '0',
   `menuid` SMALLINT UNSIGNED NOT NULL default '0',
   PRIMARY KEY  (`moduleid`,`menuid`)
-) ENGINE=MyISAM DEFAULT CHARSET=cp1251;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 #
 # Данные таблицы `#__modules_menu`
@@ -503,7 +503,7 @@ CREATE TABLE `#__newsfeeds` (
   `code` int(2) NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `published` (`published`)
-) ENGINE=MyISAM DEFAULT CHARSET=cp1251;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 #
 # Структура таблицы `#__poll_data`
@@ -516,7 +516,7 @@ CREATE TABLE `#__poll_data` (
   `hits` SMALLINT UNSIGNED NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `pollid` (`pollid`,`text`(1))
-) ENGINE=MyISAM DEFAULT CHARSET=cp1251;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 #
 # Структура таблицы `#__poll_date`
@@ -529,7 +529,7 @@ CREATE TABLE `#__poll_date` (
   `poll_id` SMALLINT UNSIGNED NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `poll_id` (`poll_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=cp1251;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 #
 # Структура таблицы `#__polls`
@@ -545,7 +545,7 @@ CREATE TABLE `#__polls` (
   `access` SMALLINT UNSIGNED NOT NULL default '0',
   `lag` SMALLINT UNSIGNED NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=cp1251;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 #
 # Структура таблицы `#__poll_menu`
@@ -555,7 +555,7 @@ CREATE TABLE `#__poll_menu` (
   `pollid` SMALLINT UNSIGNED NOT NULL default '0',
   `menuid` SMALLINT UNSIGNED NOT NULL default '0',
   PRIMARY KEY  (`pollid`,`menuid`)
-) ENGINE=MyISAM DEFAULT CHARSET=cp1251;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 #
 # Структура таблицы `#__sections`
@@ -578,7 +578,7 @@ CREATE TABLE `#__sections` (
   `params` text NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `idx_scope` (`scope`)
-) ENGINE=MyISAM DEFAULT CHARSET=cp1251;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 #
 # Структура таблицы `#__session`
@@ -595,7 +595,7 @@ CREATE TABLE `#__session` (
   PRIMARY KEY  (`session_id`),
   KEY `whosonline` (`guest`,`usertype`),
   KEY `userid` (`userid`)
-) ENGINE=MEMORY DEFAULT CHARSET=cp1251;
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
 
 #
 # Структура таблицы `#__stats_agents`
@@ -606,7 +606,7 @@ CREATE TABLE `#__stats_agents` (
   `type` tinyint(1) unsigned NOT NULL default '0',
   `hits` SMALLINT UNSIGNED unsigned NOT NULL default '1',
   KEY `type_agent` (`type`,`agent`)
-) ENGINE=MyISAM DEFAULT CHARSET=cp1251;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
 #
@@ -618,7 +618,7 @@ CREATE TABLE `#__templates_menu` (
   `menuid` SMALLINT UNSIGNED NOT NULL default '0',
   `client_id` tinyint(4) NOT NULL default '0',
   PRIMARY KEY  (`template`,`menuid`)
-) ENGINE=MyISAM DEFAULT CHARSET=cp1251;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 # Данные таблицы `#__templates_menu`
 
@@ -636,7 +636,7 @@ CREATE TABLE `#__template_positions` (
   `position` varchar(10) NOT NULL default '',
   `description` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=cp1251;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 #
 # Данные таблицы `#__template_positions`
@@ -695,7 +695,7 @@ CREATE TABLE `#__users` (
   KEY `idxemail` (`email`),
   KEY `block_id` (`block`,`id`),
   KEY `username` (`username`)
-) ENGINE=MyISAM  DEFAULT CHARSET=cp1251;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 #
 # Структура таблицы `#__usertypes`
@@ -706,7 +706,7 @@ CREATE TABLE `#__usertypes` (
   `name` varchar(50) NOT NULL default '',
   `mask` varchar(11) NOT NULL default '',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=cp1251;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 #
 # Данные таблицы `#__usertypes`
@@ -743,7 +743,7 @@ CREATE TABLE `#__weblinks` (
   `params` text NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `catid` (`catid`,`published`,`archived`)
-) ENGINE=MyISAM DEFAULT CHARSET=cp1251;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 #
 # Структура таблицы `#__core_acl_aro`
@@ -760,7 +760,7 @@ CREATE TABLE `#__core_acl_aro` (
   UNIQUE KEY `#__gacl_section_value_value_aro` (`section_value`(100),`value`(100)),
   UNIQUE KEY `value` (`value`),
   KEY `#__gacl_hidden_aro` (`hidden`)
-) ENGINE=MyISAM  DEFAULT CHARSET=cp1251;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 #
 # Структура таблицы `#__core_acl_aro_groups`
@@ -775,7 +775,7 @@ CREATE TABLE `#__core_acl_aro_groups` (
   KEY `parent_id_aro_groups` (`parent_id`),
   KEY `#__gacl_parent_id_aro_groups` (`parent_id`),
   KEY `#__gacl_lft_rgt_aro_groups` (`lft`,`rgt`)
-) ENGINE=MyISAM DEFAULT CHARSET=cp1251;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 #
 # Данные таблицы `#__core_acl_aro_groups`
@@ -801,7 +801,7 @@ CREATE TABLE `#__core_acl_groups_aro_map` (
   `aro_id` SMALLINT UNSIGNED NOT NULL default '0',
   UNIQUE KEY `group_id_aro_id_groups_aro_map` (`group_id`,`section_value`,`aro_id`),
   KEY `aro_id` (`aro_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=cp1251;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 #
 # Структура таблицы `#__core_acl_aro_sections`
@@ -815,7 +815,7 @@ CREATE TABLE `#__core_acl_aro_sections` (
   PRIMARY KEY  (`section_id`),
   UNIQUE KEY `value_aro_sections` (`value`),
   KEY `hidden_aro_sections` (`hidden`)
-) ENGINE=MyISAM  DEFAULT CHARSET=cp1251;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 ;
 
 INSERT INTO `#__core_acl_aro_sections` VALUES (10,'users',1,'Users',0);
@@ -829,13 +829,13 @@ CREATE TABLE `#__jp_packvars` (
 				`value` varchar(255) default NULL,
 				`value2` LONGTEXT,
 				PRIMARY KEY  (`id`)
-)ENGINE=MyISAM DEFAULT CHARSET=cp1251;
+)ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `#__jp_def` (
   				`def_id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   				`directory` VARCHAR(255) NOT NULL,
   				PRIMARY KEY(`def_id`)
-)ENGINE=MyISAM DEFAULT CHARSET=cp1251;
+)ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE `#__jce_langs` (
@@ -844,9 +844,9 @@ CREATE TABLE `#__jce_langs` (
       `lang` varchar(100) NOT NULL default '',
       `published` tinyint(3) NOT NULL default '0',
 PRIMARY KEY (`id`)
-)ENGINE=MyISAM DEFAULT CHARSET=cp1251;
+)ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-insert into `#__jce_langs` values ('1', 'Русский (Russian cp1251)', 'ru', '1');
+insert into `#__jce_langs` values ('1', 'Русский (Russian utf8)', 'ru', '1');
 
 CREATE TABLE `#__jce_plugins` (
       `id` SMALLINT UNSIGNED NOT NULL auto_increment,
@@ -868,7 +868,7 @@ CREATE TABLE `#__jce_plugins` (
       `params` text NOT NULL,
 PRIMARY KEY  (`id`),
  UNIQUE KEY `plugin` (`plugin`) )
-ENGINE=MyISAM DEFAULT CHARSET=cp1251;
+ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 # плагины редактора JCE
 INSERT INTO `#__jce_plugins` VALUES (1, 'Меню содержимого', 'contextmenu', 'plugin', '', '', 18, 0, 1, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
@@ -937,7 +937,7 @@ CREATE TABLE `#__custom_quickicons` (
     `gid` int(3) default '25',
     `checked_out` SMALLINT UNSIGNED NOT NULL default '0',
     PRIMARY KEY  (`id`)
-	) ENGINE=MyISAM DEFAULT CHARSET=cp1251;
+	) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
 # Настройки компонента значков быстрого доступа
@@ -961,7 +961,7 @@ CREATE TABLE `#__xmap` (
   `name` varchar(30) NOT NULL default '',
   `value` varchar(100) default NULL,
   PRIMARY KEY  (`name`)
-) ENGINE=MyISAM DEFAULT CHARSET=cp1251;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 # базовые настройки
 INSERT INTO `#__xmap` VALUES ('version', '1.0');
@@ -999,4 +999,4 @@ CREATE TABLE `#__xmap_sitemap` (
   `lastvisit_xml` SMALLINT UNSIGNED default NULL,
   `lastvisit_html` SMALLINT UNSIGNED default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=cp1251 AUTO_INCREMENT=3;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=3;

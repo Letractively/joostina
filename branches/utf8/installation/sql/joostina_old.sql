@@ -846,7 +846,7 @@ CREATE TABLE `#__jce_langs` (
 PRIMARY KEY (`id`)
 ) ;
 
-insert into `#__jce_langs` values ('1', 'Русский (Russian cp1251)', 'ru', '1');
+insert into `#__jce_langs` values ('1', 'Русский (Russian utf8)', 'ru', '1');
 
 CREATE TABLE `#__jce_plugins` (
       `id` int(11) NOT NULL auto_increment,

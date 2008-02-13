@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
 * @package Joostina
 * @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
@@ -169,7 +169,7 @@ if ($siteUrl) {
         $config .= "\$mosConfig_MetaKeys = 'Joostina, joostina';\n";
         $config .= "\$mosConfig_MetaTitle = '1';\n";
         $config .= "\$mosConfig_MetaAuthor = '1';\n";
-        $config .= "\$mosConfig_locale = 'ru_RU.CP1251';\n";
+        $config .= "\$mosConfig_locale = 'ru_RU.UTF8';\n";
         $config .= "\$mosConfig_offset = '0';\n";
         $config .= "\$mosConfig_offset_user = '0';\n";
         $config .= "\$mosConfig_hideAuthor = '0';\n";
@@ -372,13 +372,13 @@ if ($siteUrl) {
         <script>alert('URL сайта не введен'); document.stepBack3.submit();</script>
 <?php
 }
-echo "<?xml version=\"1.0\" encoding=\"windows-1251\"?".">";
+echo "<?xml version=\"1.0\" encoding=\"utf-8\"?".">";
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>Joostina - Web-установка. Шаг 4...</title>
-<meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="shortcut icon" href="../images/favicon.ico" />
 <link rel="stylesheet" href="install.css" type="text/css" />
 <?php echo '<script language="JavaScript" src="'.$siteUrl.'/includes/js/jquery/jquery.js" type="text/javascript"></script>';?>

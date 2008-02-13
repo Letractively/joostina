@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
 * @package Joostina
 * @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
@@ -62,7 +62,7 @@ if (!$DBcreated){
 	// обработка разных версий MySQL
 	if(!$DBold)
 	// для старших версий MySQL
-		$sql = "CREATE DATABASE `$DBname` DEFAULT CHARACTER SET cp1251 COLLATE cp1251_general_ci";
+		$sql = "CREATE DATABASE `$DBname` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci";
 	else
 	// для младших версий MySQL
 		$sql = "CREATE DATABASE `$DBname`";
@@ -147,7 +147,7 @@ function db_err($step, $alert) {
 function populate_db( &$database, $sqlfile='mambo.sql') {
 	global $errors,$DBold;
 	// переводим в 'правильное русло'
-	if(!$DBold) $database->setQuery( "SET NAMES 'cp1251'" );
+	if(!$DBold) $database->setQuery( "SET NAMES 'utf8'" );
 
 	$database->query();
 	$mqr = @get_magic_quotes_runtime();
@@ -205,13 +205,13 @@ function split_sql($sql) {
 
 $isErr = intval( count( $errors ) );
 
-echo "<?xml version=\"1.0\" encoding=\"windows-1251\"?".">";
+echo "<?xml version=\"1.0\" encoding=\"utf-8\"?".">";
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>Joostina - Web-установка. Шаг 2 ...</title>
- <meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="shortcut icon" href="../images/favicon.ico" />
  <link rel="stylesheet" href="install.css" type="text/css" />
  <script type="text/javascript">
