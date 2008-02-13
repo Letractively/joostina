@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <mosinstall version="1.0.0" type="mambot" group="editors">
-    <name>отсутствует</name>
+    <name>РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚</name>
     <version></version>
-    <creationDate>Август 2004</creationDate>
+    <creationDate>РђРІРіСѓСЃС‚ 2004</creationDate>
     <author></author>
     <authorEmail>N/A</authorEmail>
     <authorUrl></authorUrl>
     <copyright>http://www.gnu.org/copyleft/gpl.html GNU/GPL</copyright>
     <license>LGPL</license>
-    <description>Загрузка базовых полей для ввода текста</description>
+    <description>Р—Р°РіСЂСѓР·РєР° Р±Р°Р·РѕРІС‹С… РїРѕР»РµР№ РґР»СЏ РІРІРѕРґР° С‚РµРєСЃС‚Р°</description>
 	<files>
 		<filename mambot="none">none.php</filename>
 	</files>

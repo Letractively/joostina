@@ -1,23 +1,23 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 $_MAMBOTS->registerFunction( 'onPrepareContent', 'botMosEmailCloak' );
 
 /**
-* Сокрытие от спамботов адресов электронной почты в содержимом, используя javascript
+* РЎРѕРєСЂС‹С‚РёРµ РѕС‚ СЃРїР°РјР±РѕС‚РѕРІ Р°РґСЂРµСЃРѕРІ СЌР»РµРєС‚СЂРѕРЅРЅРѕР№ РїРѕС‡С‚С‹ РІ СЃРѕРґРµСЂР¶РёРјРѕРј, РёСЃРїРѕР»СЊР·СѓСЏ javascript
 */
 function botMosEmailCloak( $published, &$row, &$params, $page=0 ) {
 	global $database, $_MAMBOTS;
@@ -41,7 +41,7 @@ function botMosEmailCloak( $published, &$row, &$params, $page=0 ) {
 	
 	// check if param query has previously been processed
 	if ( !isset($_MAMBOTS->_content_mambot_params['mosemailcloak']) ) {
-	// загрузка информации о параметрах мамбота
+	// Р·Р°РіСЂСѓР·РєР° РёРЅС„РѕСЂРјР°С†РёРё Рѕ РїР°СЂР°РјРµС‚СЂР°С… РјР°РјР±РѕС‚Р°
 		$query = "SELECT params"
 	. "\n FROM #__mambots"
 	. "\n WHERE element = 'mosemailcloak'"
@@ -67,20 +67,20 @@ function botMosEmailCloak( $published, &$row, &$params, $page=0 ) {
 	// anyText
  	$search_text 	= "([[:alnum:][:space:][:punct:]][^<>]+)";
 
-	// поиск кода ссылок вида <a href="mailto:email@amail.com">email@amail.com</a>
+	// РїРѕРёСЃРє РєРѕРґР° СЃСЃС‹Р»РѕРє РІРёРґР° <a href="mailto:email@amail.com">email@amail.com</a>
 	$pattern = botMosEmailCloak_searchPattern( $search_email, $search_email );
 	while( eregi( $pattern, $row->text, $regs ) ) {		
 		$mail 		= $regs[2] . $regs[3] . $regs[4];
 		$mail_text 	= $regs[5] . $regs[6] . $regs[7];
 
-		// проверка, отличается ли адрес почты от адреса почты в текстовом виде
+		// РїСЂРѕРІРµСЂРєР°, РѕС‚Р»РёС‡Р°РµС‚СЃСЏ Р»Рё Р°РґСЂРµСЃ РїРѕС‡С‚С‹ РѕС‚ Р°РґСЂРµСЃР° РїРѕС‡С‚С‹ РІ С‚РµРєСЃС‚РѕРІРѕРј РІРёРґРµ
 		if ( $mail_text ) {
 			$replacement 	= mosHTML::emailCloaking( $mail, $mode, $mail_text );
 		} else {
 			$replacement 	= mosHTML::emailCloaking( $mail, $mode );
 		}
 
-		// заменить найденный адрес e-mail замаскированным адресом
+		// Р·Р°РјРµРЅРёС‚СЊ РЅР°Р№РґРµРЅРЅС‹Р№ Р°РґСЂРµСЃ e-mail Р·Р°РјР°СЃРєРёСЂРѕРІР°РЅРЅС‹Рј Р°РґСЂРµСЃРѕРј
 		$row->text 	= str_replace( $regs[0], $replacement, $row->text );
 	}
 
@@ -92,7 +92,7 @@ function botMosEmailCloak( $published, &$row, &$params, $page=0 ) {
 
 		$replacement 	= mosHTML::emailCloaking( $mail, $mode, $mail_text, 0 );
 
-		// заменить найденный адрес e-mail замаскированным адресом
+		// Р·Р°РјРµРЅРёС‚СЊ РЅР°Р№РґРµРЅРЅС‹Р№ Р°РґСЂРµСЃ e-mail Р·Р°РјР°СЃРєРёСЂРѕРІР°РЅРЅС‹Рј Р°РґСЂРµСЃРѕРј
 		$row->text 	= str_replace( $regs[0], $replacement, $row->text );
 	}
 

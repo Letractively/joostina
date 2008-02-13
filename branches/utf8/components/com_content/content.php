@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 
 require_once( $mainframe->getPath( 'front_html', 'com_content' ) );
@@ -1154,7 +1154,7 @@ function showArchiveCategory( $id=0, $gid, &$access, $pop, $option, $year, $mont
 	$where = _where( -2, $access, $noauth, $gid, $id, NULL, $year, $month );
 	$where = ( count( $where ) ? "\n WHERE ". implode( "\n AND ", $where ) : '' );
 
-	// получение числа архивных объектов. оптимизировано по совету: smart ( http://joomlaforum.ru/index.php/topic,20369.msg119792.html#msg119792 )
+	// РїРѕР»СѓС‡РµРЅРёРµ С‡РёСЃР»Р° Р°СЂС…РёРІРЅС‹С… РѕР±СЉРµРєС‚РѕРІ. РѕРїС‚РёРјРёР·РёСЂРѕРІР°РЅРѕ РїРѕ СЃРѕРІРµС‚Сѓ: smart ( http://joomlaforum.ru/index.php/topic,20369.msg119792.html#msg119792 )
 	$query = "SELECT COUNT(a.id)"
 	. "\n FROM #__content as a"
 	. "\n WHERE a.state = -1"
@@ -1897,7 +1897,7 @@ function show( $row, $params, $gid, &$access, $pop, $option='com_content', $Item
 	// only permitted in the full text area
 	$page = intval( mosGetParam( $_REQUEST, 'limitstart', 0 ) );
 
-	// запись счетчика прочтения
+	// Р·Р°РїРёСЃСЊ СЃС‡РµС‚С‡РёРєР° РїСЂРѕС‡С‚РµРЅРёСЏ
 	if ( !$params->get( 'intro_only' ) && ($page == 0) && ($mosConfig_content_hits)) {
 		$obj = new mosContent( $database );
 		$obj->hit( $row->id );
@@ -1914,7 +1914,7 @@ function show( $row, $params, $gid, &$access, $pop, $option='com_content', $Item
 function editItem( $uid, $gid, &$access, $sectionid=0, $task, $Itemid ){
 	global $database, $my, $mainframe;
 	global $mosConfig_absolute_path, $mosConfig_live_site, $mosConfig_offset;
-	// boston, при редактировании материала с фронта отключаем показ всех модулей - пользователю будет не повадно переходить по ссылкам без сохранения, и место освободим
+	// boston, РїСЂРё СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёРё РјР°С‚РµСЂРёР°Р»Р° СЃ С„СЂРѕРЅС‚Р° РѕС‚РєР»СЋС‡Р°РµРј РїРѕРєР°Р· РІСЃРµС… РјРѕРґСѓР»РµР№ - РїРѕР»СЊР·РѕРІР°С‚РµР»СЋ Р±СѓРґРµС‚ РЅРµ РїРѕРІР°РґРЅРѕ РїРµСЂРµС…РѕРґРёС‚СЊ РїРѕ СЃСЃС‹Р»РєР°Рј Р±РµР· СЃРѕС…СЂР°РЅРµРЅРёСЏ, Рё РјРµСЃС‚Рѕ РѕСЃРІРѕР±РѕРґРёРј
 	global $mosConfig_module_on_edit_off ;
 	if($mosConfig_module_on_edit_off ==1) $GLOBALS['_MOS_MODULES']='' ;
 	
@@ -1990,7 +1990,7 @@ function editItem( $uid, $gid, &$access, $sectionid=0, $task, $Itemid ){
 		$row->publish_up 	= mosFormatDate( $row->publish_up, _CURRENT_SERVER_TIME_FORMAT );
 
 		if (trim( $row->publish_down ) == $nullDate || trim( $row->publish_down ) == '' || trim( $row->publish_down ) == '-' ) {
-			$row->publish_down = 'Никогда';
+			$row->publish_down = 'РќРёРєРѕРіРґР°';
 		}
 		$row->publish_down 	= mosFormatDate( $row->publish_down, _CURRENT_SERVER_TIME_FORMAT );
 
@@ -2026,7 +2026,7 @@ function editItem( $uid, $gid, &$access, $sectionid=0, $task, $Itemid ){
 		$row->ordering 		= 0;
 		$row->images 		= array();
 		$row->publish_up 	= date( 'Y-m-d H:i:s', time() + ( $mosConfig_offset * 60 * 60 ) );
-		$row->publish_down 	= 'Никогда';
+		$row->publish_down 	= 'РќРёРєРѕРіРґР°';
 		$row->creator 		= 0;
 		$row->modifier 		= 0;
 		$row->frontpage 	= 0;
@@ -2170,7 +2170,7 @@ function saveContent( &$access, $task ) {
 	}
 	$row->publish_up = mosFormatDate( $row->publish_up, _CURRENT_SERVER_TIME_FORMAT, -$mosConfig_offset );
 
-	if (trim( $row->publish_down ) == 'Никогда' || trim( $row->publish_down ) == '') {
+	if (trim( $row->publish_down ) == 'РќРёРєРѕРіРґР°' || trim( $row->publish_down ) == '') {
 		$row->publish_down = $nullDate;
 	} else {
 		if (strlen(trim( $row->publish_down )) <= 10) {
@@ -2285,7 +2285,7 @@ function saveContent( &$access, $task ) {
 		$users = $database->loadResultArray();
 		foreach ($users as $user_id) {
 			$msg = new mosMessage( $database );
-			$msg->send( $my->id, $user_id, "Новый объект", sprintf( _ON_NEW_CONTENT, $my->username, $row->title, $section, $category ) );
+			$msg->send( $my->id, $user_id, "РќРѕРІС‹Р№ РѕР±СЉРµРєС‚", sprintf( _ON_NEW_CONTENT, $my->username, $row->title, $section, $category ) );
 		}
 	}
 
@@ -2751,7 +2751,7 @@ function _where( $type=1, &$access, &$noauth, $gid, $id, $now=NULL, $year=NULL, 
 
 	$where[] = "s.published = 1";
 	$where[] = "cc.published = 1";
-	/* если сессии на фронте отключены - то значит авторизация не возможна, и проверять доступ по авторизации бесполезно */
+	/* РµСЃР»Рё СЃРµСЃСЃРёРё РЅР° С„СЂРѕРЅС‚Рµ РѕС‚РєР»СЋС‡РµРЅС‹ - С‚Рѕ Р·РЅР°С‡РёС‚ Р°РІС‚РѕСЂРёР·Р°С†РёСЏ РЅРµ РІРѕР·РјРѕР¶РЅР°, Рё РїСЂРѕРІРµСЂСЏС‚СЊ РґРѕСЃС‚СѓРї РїРѕ Р°РІС‚РѕСЂРёР·Р°С†РёРё Р±РµСЃРїРѕР»РµР·РЅРѕ */
 	if ( $noauth AND !$mosConfig_disable_access_control) {
 		$where[] = "a.access <= " . (int) $gid;
 		$where[] = "s.access <= " . (int) $gid;

@@ -1,17 +1,17 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// Установка флага, что это - родительский файл
+// РЈСЃС‚Р°РЅРѕРІРєР° С„Р»Р°РіР°, С‡С‚Рѕ СЌС‚Рѕ - СЂРѕРґРёС‚РµР»СЊСЃРєРёР№ С„Р°Р№Р»
 define( '_VALID_MOS', 1 );
 
 require( 'globals.php' );
@@ -25,15 +25,15 @@ if( (!empty( $_SERVER['HTTPS'] ) && strtolower( $_SERVER['HTTPS'] ) != 'off' || 
 
 require_once( 'includes/joomla.php' );
 
-// отображение состояния выключенного сайта
+// РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ СЃРѕСЃС‚РѕСЏРЅРёСЏ РІС‹РєР»СЋС‡РµРЅРЅРѕРіРѕ СЃР°Р№С‚Р°
 if ($mosConfig_offline == 1) {
 	require( $mosConfig_absolute_path .'/offline.php' );
 }
 
-// загрузка группы системного бота
+// Р·Р°РіСЂСѓР·РєР° РіСЂСѓРїРїС‹ СЃРёСЃС‚РµРјРЅРѕРіРѕ Р±РѕС‚Р°
 $_MAMBOTS->loadBotGroup( 'system' );
 
-// переключение событий onStart
+// РїРµСЂРµРєР»СЋС‡РµРЅРёРµ СЃРѕР±С‹С‚РёР№ onStart
 $_MAMBOTS->trigger( 'onStart' );
 
 if (file_exists( $mosConfig_absolute_path .'/components/com_sef/sef.php' )) {
@@ -43,13 +43,13 @@ if (file_exists( $mosConfig_absolute_path .'/components/com_sef/sef.php' )) {
 }
 require_once( $mosConfig_absolute_path .'/includes/frontend.php' );
 
-// запрос ожидаемых аргументов url (или формы)
+// Р·Р°РїСЂРѕСЃ РѕР¶РёРґР°РµРјС‹С… Р°СЂРіСѓРјРµРЅС‚РѕРІ url (РёР»Рё С„РѕСЂРјС‹)
 $option 	= strtolower( strval( mosGetParam( $_REQUEST, 'option' ) ) );
 $Itemid 	= intval( mosGetParam( $_REQUEST, 'Itemid', 0 ) );
 $no_html 	= intval( mosGetParam( $_REQUEST, 'no_html', 0 ) );
 $act 		= strval( mosGetParam( $_REQUEST, 'act', '' ) );
 
-// главное окно рабочего компонента API, для взаимодействия многих 'ядер'
+// РіР»Р°РІРЅРѕРµ РѕРєРЅРѕ СЂР°Р±РѕС‡РµРіРѕ РєРѕРјРїРѕРЅРµРЅС‚Р° API, РґР»СЏ РІР·Р°РёРјРѕРґРµР№СЃС‚РІРёСЏ РјРЅРѕРіРёС… 'СЏРґРµСЂ'
 $mainframe = new mosMainFrame( $database, $option, '.' );
 $mainframe->initSession();
 
@@ -63,7 +63,7 @@ if ($option == 'search') {
 	$option = 'com_search';
 }
 
-// загрузка файла русского языка по умолчанию
+// Р·Р°РіСЂСѓР·РєР° С„Р°Р№Р»Р° СЂСѓСЃСЃРєРѕРіРѕ СЏР·С‹РєР° РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
 if ($mosConfig_lang=='') {
 	$mosConfig_lang = 'russian';
 }
@@ -80,14 +80,14 @@ if ($option == 'login') {
 
 
 
-// обнаружение первого посещения
+// РѕР±РЅР°СЂСѓР¶РµРЅРёРµ РїРµСЂРІРѕРіРѕ РїРѕСЃРµС‰РµРЅРёСЏ
 $mainframe->detect();
 
 $gid = intval( $my->gid );
 
 $cur_template = $mainframe->getTemplate();
 
-// предварительный захват вывода компонента
+// РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅС‹Р№ Р·Р°С…РІР°С‚ РІС‹РІРѕРґР° РєРѕРјРїРѕРЅРµРЅС‚Р°
 require_once( $mosConfig_absolute_path . '/editor/editor.php' );
 
 ob_start();
@@ -110,34 +110,34 @@ ob_end_clean();
 
 initGzip();
 
-// при активном кешировании отправиим браузеру более "правильные" заголовки
-if(!$mosConfig_caching){ // не кэшируется
+// РїСЂРё Р°РєС‚РёРІРЅРѕРј РєРµС€РёСЂРѕРІР°РЅРёРё РѕС‚РїСЂР°РІРёРёРј Р±СЂР°СѓР·РµСЂСѓ Р±РѕР»РµРµ "РїСЂР°РІРёР»СЊРЅС‹Рµ" Р·Р°РіРѕР»РѕРІРєРё
+if(!$mosConfig_caching){ // РЅРµ РєСЌС€РёСЂСѓРµС‚СЃСЏ
 	header( 'Expires: Mon, 26 Jul 1997 05:00:00 GMT' );
 	header( 'Last-Modified: ' . gmdate( 'D, d M Y H:i:s' ) . ' GMT' );
 	header( 'Cache-Control: no-store, no-cache, must-revalidate' );
 	header( 'Cache-Control: post-check=0, pre-check=0', false );
 	header( 'Pragma: no-cache' );
-}else{ // кэшируется
+}else{ // РєСЌС€РёСЂСѓРµС‚СЃСЏ
 	header( 'Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT' );
-	// 60*60=3600 - использования кэширования на 1 час
+	// 60*60=3600 - РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ РєСЌС€РёСЂРѕРІР°РЅРёСЏ РЅР° 1 С‡Р°СЃ
 	header( 'Expires: '.gmdate('D, d M Y H:i:s',time()+3600).' GMT' );
 	header( 'Cache-Control: max-age=3600' );
 }
 
-// отображение состояния выключенного сайта при входе админа
+// РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ СЃРѕСЃС‚РѕСЏРЅРёСЏ РІС‹РєР»СЋС‡РµРЅРЅРѕРіРѕ СЃР°Р№С‚Р° РїСЂРё РІС…РѕРґРµ Р°РґРјРёРЅР°
 if (defined( '_ADMIN_OFFLINE' )) {
 	include( $mosConfig_absolute_path .'/offlinebar.php' );
 }
 
-// старт основного HTML
+// СЃС‚Р°СЂС‚ РѕСЃРЅРѕРІРЅРѕРіРѕ HTML
 if ( $no_html == 0 ) {
 	$customIndex2 = 'templates/'. $mainframe->getTemplate() .'/index2.php';
 	if (file_exists( $customIndex2 )) {
 		require( $customIndex2 );
 	} else {
-	// требуется для отделения номера ISO от константы  _ISO языкового файла языка
+	// С‚СЂРµР±СѓРµС‚СЃСЏ РґР»СЏ РѕС‚РґРµР»РµРЅРёСЏ РЅРѕРјРµСЂР° ISO РѕС‚ РєРѕРЅСЃС‚Р°РЅС‚С‹  _ISO СЏР·С‹РєРѕРІРѕРіРѕ С„Р°Р№Р»Р° СЏР·С‹РєР°
 	$iso = split( '=', _ISO );
-	// пролог xml
+	// РїСЂРѕР»РѕРі xml
 	echo '<?xml version="1.0" encoding="'. $iso[1] .'"?' .'>';
 	?>
 	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

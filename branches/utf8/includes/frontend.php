@@ -2,19 +2,19 @@
 /**
 * @version $Id: frontend.php 5928 2006-12-06 00:49:07Z friesengeist $
 * @package Joostina
-* @localized Авторские права (C) 2005 Joom.Ru - Русский дом Joomla!
-* @copyright Авторские права (C) 2005 Open Source Matters. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joomla! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных 
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @localized РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2005 Joom.Ru - Р СѓСЃСЃРєРёР№ РґРѕРј Joomla!
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2005 Open Source Matters. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joomla! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С… 
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 * 
 */
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 /**
 * Displays the capture output of the main element
 */
@@ -188,7 +188,7 @@ function mosLoadModules( $position='left', $style=0,$noindex=0) {
 	if($noindex == 1) echo '</noindex>';
 }
 /**
-* Шапка страницы
+* РЁР°РїРєР° СЃС‚СЂР°РЅРёС†С‹
 */
 function mosShowHead() {
 	global $database, $option, $my, $mainframe, $_VERSION, $task, $id,$mosConfig_disable_favicon;
@@ -227,10 +227,10 @@ function mosShowHead() {
 		$keys = implode(', ', array_unique(split(', ', $keys)));
 		$mainframe->_head['meta'][$_meta_keys_index][1] = $keys;
 	}
-// boston, отключение тега Generator
+// boston, РѕС‚РєР»СЋС‡РµРЅРёРµ С‚РµРіР° Generator
 	global $mosConfig_generator_off;
 	if($mosConfig_generator_off==0) $mainframe->addMetaTag( 'Generator', $_VERSION->CMS . ' - ' . $_VERSION->COPYRIGHT);
-//boston, дополнительные теги индексации
+//boston, РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рµ С‚РµРіРё РёРЅРґРµРєСЃР°С†РёРё
 	global $mosConfig_index_tag;
 	if($mosConfig_index_tag==1){
 		$mainframe->addMetaTag( 'distribution', 'global' );
@@ -244,14 +244,14 @@ function mosShowHead() {
 		$mainframe->addMetaTag( 'language', 'russian' );
 	}
 
-	// активируем кэширование
+	// Р°РєС‚РёРІРёСЂСѓРµРј РєСЌС€РёСЂРѕРІР°РЅРёРµ
 	if (isset($_SERVER['QUERY_STRING']) && !empty($_SERVER['QUERY_STRING'])) {
 	$cache =& mosCache::getCache('com_content');
 		echo $cache->call('mainframe->getHead', @$_SERVER['QUERY_STRING'], $id);
 	} else {
 		echo $mainframe->getHead();
 	}
-	// очистка ссылки на главную страницу даже при отключенном sef
+	// РѕС‡РёСЃС‚РєР° СЃСЃС‹Р»РєРё РЅР° РіР»Р°РІРЅСѓСЋ СЃС‚СЂР°РЅРёС†Сѓ РґР°Р¶Рµ РїСЂРё РѕС‚РєР»СЋС‡РµРЅРЅРѕРј sef
 	//if ( isset($mosConfig_sef) && $mosConfig_sef ) {
 		echo "<base href=\"$mosConfig_live_site/\" />\r\n";
 	//}
@@ -262,7 +262,7 @@ function mosShowHead() {
 		<?php
 	}
 
-	// boston, отключение RSS
+	// boston, РѕС‚РєР»СЋС‡РµРЅРёРµ RSS
 	global $mosConfig_syndicate_off;
 	if(!$mosConfig_syndicate_off){
 		$row = new mosComponent( $database );
@@ -342,7 +342,7 @@ function mosShowHead() {
 				<?php
 			}
 		}
-	}// boston, окончание хака отключения RSS
+	}// boston, РѕРєРѕРЅС‡Р°РЅРёРµ С…Р°РєР° РѕС‚РєР»СЋС‡РµРЅРёСЏ RSS
 	// favourites icon
 	if(!$mosConfig_disable_favicon){
 		if (!$mosConfig_favicon ) {

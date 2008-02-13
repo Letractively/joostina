@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <mosinstall version="1.0.0" type="mambot" group="content">
-	<name>Позиция загрузки модулей</name>
+	<name>РџРѕР·РёС†РёСЏ Р·Р°РіСЂСѓР·РєРё РјРѕРґСѓР»РµР№</name>
 	<author>Joostina! Project</author>
 	<creationDate>January 2005</creationDate>
 	<copyright>(C) 2007 Joostina Team.</copyright>
@@ -8,17 +8,17 @@
 	<authorEmail>joostinacms@gmail.com</authorEmail>
 	<authorUrl>www.joostina.ru</authorUrl>
 	<version>1.0.0 RE</version>
-	<description>Загрузка модулей в определенной позиции в пределах содержимого. Синтаксис: {mosloadposition user1}</description>
+	<description>Р—Р°РіСЂСѓР·РєР° РјРѕРґСѓР»РµР№ РІ РѕРїСЂРµРґРµР»РµРЅРЅРѕР№ РїРѕР·РёС†РёРё РІ РїСЂРµРґРµР»Р°С… СЃРѕРґРµСЂР¶РёРјРѕРіРѕ. РЎРёРЅС‚Р°РєСЃРёСЃ: {mosloadposition user1}</description>
 	<files>
 		<filename mambot="mosloadposition">mosloadposition.php</filename>
 	</files>
 	<params>
-		<param name="style" type="list" default="0" label="Стиль" description="Код, определяющий вложение модулей">
-			<option value="0">В таблице - в столбец</option>
-			<option value="1">В таблице - горизонтально</option>
-			<option value="-2">В тэгах DIV</option>
-			<option value="-3">В нескольких тэгах DIV</option>
-			<option value="-1">Без вложения - без обработки</option>
+		<param name="style" type="list" default="0" label="РЎС‚РёР»СЊ" description="РљРѕРґ, РѕРїСЂРµРґРµР»СЏСЋС‰РёР№ РІР»РѕР¶РµРЅРёРµ РјРѕРґСѓР»РµР№">
+			<option value="0">Р’ С‚Р°Р±Р»РёС†Рµ - РІ СЃС‚РѕР»Р±РµС†</option>
+			<option value="1">Р’ С‚Р°Р±Р»РёС†Рµ - РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅРѕ</option>
+			<option value="-2">Р’ С‚СЌРіР°С… DIV</option>
+			<option value="-3">Р’ РЅРµСЃРєРѕР»СЊРєРёС… С‚СЌРіР°С… DIV</option>
+			<option value="-1">Р‘РµР· РІР»РѕР¶РµРЅРёСЏ - Р±РµР· РѕР±СЂР°Р±РѕС‚РєРё</option>
 		</param>
 	</params>
 </mosinstall>

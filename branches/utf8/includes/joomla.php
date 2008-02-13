@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 define( '_MOS_MAMBO_INCLUDED', 1 );
 
@@ -64,7 +64,7 @@ if ( @$mosConfig_error_reporting === 0 || @$mosConfig_error_reporting === '0' ) 
 require_once( $mosConfig_absolute_path . '/includes/version.php' );
 require_once( $mosConfig_absolute_path . '/includes/database.php' );
 require_once( $mosConfig_absolute_path . '/includes/gacl.class.php' );
-/* подключение файла перенесено непосредственно в функцию отправки писем */
+/* РїРѕРґРєР»СЋС‡РµРЅРёРµ С„Р°Р№Р»Р° РїРµСЂРµРЅРµСЃРµРЅРѕ РЅРµРїРѕСЃСЂРµРґСЃС‚РІРµРЅРЅРѕ РІ С„СѓРЅРєС†РёСЋ РѕС‚РїСЂР°РІРєРё РїРёСЃРµРј */
 //require_once( $mosConfig_absolute_path . '/includes/phpmailer/class.phpmailer.php' );
 require_once( $mosConfig_absolute_path . '/includes/joomla.xml.php' );
 require_once( $mosConfig_absolute_path . '/includes/phpInputFilter/class.inputfilter.php' );
@@ -94,7 +94,7 @@ $_SERVER['REQUEST_URI'] = $request_uri;
 
 // current server time
 $now = date( 'Y-m-d H:i', time() );
-// раскомментировать для хранения данных в кэше базы данных
+// СЂР°СЃРєРѕРјРјРµРЅС‚РёСЂРѕРІР°С‚СЊ РґР»СЏ С…СЂР°РЅРµРЅРёСЏ РґР°РЅРЅС‹С… РІ РєСЌС€Рµ Р±Р°Р·С‹ РґР°РЅРЅС‹С…
 //$now = date( 'Y-m-d H:00', time() );
 DEFINE( '_CURRENT_SERVER_TIME', $now );
 DEFINE( '_CURRENT_SERVER_TIME_FORMAT', '%Y-%m-%d %H:%M:%S' );
@@ -306,7 +306,7 @@ class mosAbstractTasker {
 		* @return null
 		*/
 		function taskNotFound( $task ) {
-				echo 'Задача ' . $task . ' не найдена';
+				echo 'Р—Р°РґР°С‡Р° ' . $task . ' РЅРµ РЅР°Р№РґРµРЅР°';
 				return null;
 		}
 		/**
@@ -315,7 +315,7 @@ class mosAbstractTasker {
 		* @return null
 		*/
 		function methodNotFound( $name ) {
-				echo 'Метод ' . $name . ' не обнаружен';
+				echo 'РњРµС‚РѕРґ ' . $name . ' РЅРµ РѕР±РЅР°СЂСѓР¶РµРЅ';
 				return null;
 		}
 		/**
@@ -483,7 +483,7 @@ class mosMainFrame {
 				$title = trim( strip_tags( $title ) );
 				$tseparator = $GLOBALS['mosConfig_tseparator']? $GLOBALS['mosConfig_tseparator'] : ' - ';
 				if ( $pageparams != null ) {
-					$pageownname = trim( htmlspecialchars( $pageparams->get('page_name') ) ); // название страницы указанное в настройках пункта меню или свойствах содержимого
+					$pageownname = trim( htmlspecialchars( $pageparams->get('page_name') ) ); // РЅР°Р·РІР°РЅРёРµ СЃС‚СЂР°РЅРёС†С‹ СѓРєР°Р·Р°РЅРЅРѕРµ РІ РЅР°СЃС‚СЂРѕР№РєР°С… РїСѓРЅРєС‚Р° РјРµРЅСЋ РёР»Рё СЃРІРѕР№СЃС‚РІР°С… СЃРѕРґРµСЂР¶РёРјРѕРіРѕ
 					$page_title = $pageparams->get('no_site_name') ?
 					( $pageownname ? $pageownname : ( $title ? $title : $GLOBALS['mosConfig_sitename'] )) :
 					( $GLOBALS['mosConfig_pagetitles_first'] ? (( $pageownname ? $pageownname : $title ) . $tseparator . $GLOBALS['mosConfig_sitename']) :
@@ -759,7 +759,7 @@ class mosMainFrame {
 
 		if ($session_id != session_id()) {
 			// session id does not correspond to required session format
-			echo "<script>document.location.href='index.php?mosmsg=Необходимо авторизоваться.'</script>\n";
+			echo "<script>document.location.href='index.php?mosmsg=РќРµРѕР±С…РѕРґРёРјРѕ Р°РІС‚РѕСЂРёР·РѕРІР°С‚СЊСЃСЏ.'</script>\n";
 			exit();
 		}
 
@@ -782,7 +782,7 @@ class mosMainFrame {
 				. "\n AND gid = 0"
 				. "\n AND userid <> 0"
 				;
-				// если в настройка не указано что сессии админки не уничтожаются - выполняем запрос по очистке сессий
+				// РµСЃР»Рё РІ РЅР°СЃС‚СЂРѕР№РєР° РЅРµ СѓРєР°Р·Р°РЅРѕ С‡С‚Рѕ СЃРµСЃСЃРёРё Р°РґРјРёРЅРєРё РЅРµ СѓРЅРёС‡С‚РѕР¶Р°СЋС‚СЃСЏ - РІС‹РїРѕР»РЅСЏРµРј Р·Р°РїСЂРѕСЃ РїРѕ РѕС‡РёСЃС‚РєРµ СЃРµСЃСЃРёР№
 				if(!$mosConfig_adm_session_del){
 					$this->_db->setQuery( $query );
 					$this->_db->query();
@@ -811,7 +811,7 @@ class mosMainFrame {
 				$this->_db->setQuery( $query );
 				$count = $this->_db->loadResult();
 
-				// если в таблиц
+				// РµСЃР»Рё РІ С‚Р°Р±Р»РёС†
 				if ( $count == 0 ) {
 					$link 	= NULL;
 
@@ -850,7 +850,7 @@ class mosMainFrame {
 						$this->_db->setQuery( $query );
 						$this->_db->query();
 					}
-					echo "<script>document.location.href='index.php?mosmsg=Сессия администратора закончилась'</script>\n";
+					echo "<script>document.location.href='index.php?mosmsg=РЎРµСЃСЃРёСЏ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР° Р·Р°РєРѕРЅС‡РёР»Р°СЃСЊ'</script>\n";
 					exit();
 				} else {
 					// load variables into session, used to help secure /popups/ functionality
@@ -862,14 +862,14 @@ class mosMainFrame {
 		 if ($session_id == '') {
 			// no session_id as user has not attempted to login, or session.auto_start is switched on
 			if (ini_get( 'session.auto_start' ) || !ini_get( 'session.use_cookies' )) {
-				echo "<script>document.location.href='index.php?mosmsg=Вам необходимо авторизоваться. Если включен параметр PHP session.auto_start или выключен параметр session.use_cookies setting, то сначала вы должны их исправить перед тем, как сможете войти.'</script>\n";
+				echo "<script>document.location.href='index.php?mosmsg=Р’Р°Рј РЅРµРѕР±С…РѕРґРёРјРѕ Р°РІС‚РѕСЂРёР·РѕРІР°С‚СЊСЃСЏ. Р•СЃР»Рё РІРєР»СЋС‡РµРЅ РїР°СЂР°РјРµС‚СЂ PHP session.auto_start РёР»Рё РІС‹РєР»СЋС‡РµРЅ РїР°СЂР°РјРµС‚СЂ session.use_cookies setting, С‚Рѕ СЃРЅР°С‡Р°Р»Р° РІС‹ РґРѕР»Р¶РЅС‹ РёС… РёСЃРїСЂР°РІРёС‚СЊ РїРµСЂРµРґ С‚РµРј, РєР°Рє СЃРјРѕР¶РµС‚Рµ РІРѕР№С‚Рё.'</script>\n";
 			} else {
-				echo "<script>document.location.href='index.php?mosmsg=Вам необходимо авторизоваться'</script>\n";
+				echo "<script>document.location.href='index.php?mosmsg=Р’Р°Рј РЅРµРѕР±С…РѕРґРёРјРѕ Р°РІС‚РѕСЂРёР·РѕРІР°С‚СЊСЃСЏ'</script>\n";
 			}
 			exit();
 		} else {
 			// session id does not correspond to required session format
-			echo "<script>document.location.href='index.php?mosmsg=Неправильная сессия'</script>\n";
+			echo "<script>document.location.href='index.php?mosmsg=РќРµРїСЂР°РІРёР»СЊРЅР°СЏ СЃРµСЃСЃРёСЏ'</script>\n";
 			exit();
 		}
 
@@ -1184,16 +1184,16 @@ class mosMainFrame {
 
 		/**
 		* @return mosUser A user object with the information from the current session
-		* boston, + хак для отключения ведения сессий на фронте
+		* boston, + С…Р°Рє РґР»СЏ РѕС‚РєР»СЋС‡РµРЅРёСЏ РІРµРґРµРЅРёСЏ СЃРµСЃСЃРёР№ РЅР° С„СЂРѕРЅС‚Рµ
 		*/
 		function getUser() {
 			global $database,$mosConfig_session_front;
 			$user = new mosUser( $this->_db );
 			if($mosConfig_session_front ==1) {
-				// boston, параметры id и gid при инициализации объявляются как null - это вредит некоторым компонентам, проинициализируем их в нули
+				// boston, РїР°СЂР°РјРµС‚СЂС‹ id Рё gid РїСЂРё РёРЅРёС†РёР°Р»РёР·Р°С†РёРё РѕР±СЉСЏРІР»СЏСЋС‚СЃСЏ РєР°Рє null - СЌС‚Рѕ РІСЂРµРґРёС‚ РЅРµРєРѕС‚РѕСЂС‹Рј РєРѕРјРїРѕРЅРµРЅС‚Р°Рј, РїСЂРѕРёРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј РёС… РІ РЅСѓР»Рё
 				$user->id = 0;
 				$user->gid = 0;
-				return $user; // если сессии (авторизация) на фронте отключены - возвращаем пустой объект
+				return $user; // РµСЃР»Рё СЃРµСЃСЃРёРё (Р°РІС‚РѕСЂРёР·Р°С†РёСЏ) РЅР° С„СЂРѕРЅС‚Рµ РѕС‚РєР»СЋС‡РµРЅС‹ - РІРѕР·РІСЂР°С‰Р°РµРј РїСѓСЃС‚РѕР№ РѕР±СЉРµРєС‚
 			}
 			$user->id		= intval( $this->_session->userid );
 			$user->username	= $this->_session->username;
@@ -1228,10 +1228,10 @@ class mosMainFrame {
 						return null;
 				}
 		}
-/** boston, функция определения шаблона, если в панели управления указано что использовать один шаблон - сразу возвращаем его название, функцию не проводим до конца*/
+/** boston, С„СѓРЅРєС†РёСЏ РѕРїСЂРµРґРµР»РµРЅРёСЏ С€Р°Р±Р»РѕРЅР°, РµСЃР»Рё РІ РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ СѓРєР°Р·Р°РЅРѕ С‡С‚Рѕ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РѕРґРёРЅ С€Р°Р±Р»РѕРЅ - СЃСЂР°Р·Сѓ РІРѕР·РІСЂР°С‰Р°РµРј РµРіРѕ РЅР°Р·РІР°РЅРёРµ, С„СѓРЅРєС†РёСЋ РЅРµ РїСЂРѕРІРѕРґРёРј РґРѕ РєРѕРЅС†Р°*/
 		function _setTemplate( $isAdmin=false ) {
 				global $Itemid,$mosConfig_one_template;
-				if(!$isAdmin AND $mosConfig_one_template!='...') { // boston, если у нас в настройках указан шаблон и определение идёт не для панели управления - возвращаем название шаблона из глобальной конфигурации
+				if(!$isAdmin AND $mosConfig_one_template!='...') { // boston, РµСЃР»Рё Сѓ РЅР°СЃ РІ РЅР°СЃС‚СЂРѕР№РєР°С… СѓРєР°Р·Р°РЅ С€Р°Р±Р»РѕРЅ Рё РѕРїСЂРµРґРµР»РµРЅРёРµ РёРґС‘С‚ РЅРµ РґР»СЏ РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ - РІРѕР·РІСЂР°С‰Р°РµРј РЅР°Р·РІР°РЅРёРµ С€Р°Р±Р»РѕРЅР° РёР· РіР»РѕР±Р°Р»СЊРЅРѕР№ РєРѕРЅС„РёРіСѓСЂР°С†РёРё
 							$this->_template = $mosConfig_one_template;
 							return;
 				}
@@ -1302,7 +1302,7 @@ class mosMainFrame {
 
 		// security check to disable use of `/`, `\\` and `:` in $options variable
 		if (strpos($option, '/') !== false || strpos($option, '\\') !== false || strpos($option, ':') !== false) {
-			mosErrorAlert( 'В доступе отказано' );
+			mosErrorAlert( 'Р’ РґРѕСЃС‚СѓРїРµ РѕС‚РєР°Р·Р°РЅРѕ' );
 			return;
 		}
 
@@ -1985,8 +1985,8 @@ class mosHTML {
 		}
 
 		function writableCell( $folder, $relative=1, $text='', $visible=1 ) {
-			$writeable 		= '<b><font color="green">Доступен для записи</font></b>';
-			$unwriteable 	= '<b><font color="red">Недоступен для записи</font></b>';
+			$writeable 		= '<b><font color="green">Р”РѕСЃС‚СѓРїРµРЅ РґР»СЏ Р·Р°РїРёСЃРё</font></b>';
+			$unwriteable 	= '<b><font color="red">РќРµРґРѕСЃС‚СѓРїРµРЅ РґР»СЏ Р·Р°РїРёСЃРё</font></b>';
 
 			  echo '<tr>';
 			echo '<td class="item">';
@@ -2301,7 +2301,7 @@ class mosHTML {
 		}
 
 		/**
-		* Вывод значка печати, встроен хак индексации печатной версии
+		* Р’С‹РІРѕРґ Р·РЅР°С‡РєР° РїРµС‡Р°С‚Рё, РІСЃС‚СЂРѕРµРЅ С…Р°Рє РёРЅРґРµРєСЃР°С†РёРё РїРµС‡Р°С‚РЅРѕР№ РІРµСЂСЃРёРё
 		*/
 		function PrintIcon( &$row, &$params, $hide_js, $link, $status=NULL ) {
 			global $mosConfig_index_print,$cpr_i;
@@ -2463,11 +2463,11 @@ class mosCategory extends mosDBTable {
 		function check() {
 			// check for valid name
 			if (trim( $this->title ) == '') {
-				$this->_error = "Ваша категория должна содержать Заголовок.";
+				$this->_error = "Р’Р°С€Р° РєР°С‚РµРіРѕСЂРёСЏ РґРѕР»Р¶РЅР° СЃРѕРґРµСЂР¶Р°С‚СЊ Р—Р°РіРѕР»РѕРІРѕРє.";
 				return false;
 			}
 			if (trim( $this->name ) == '') {
-				$this->_error = "Ваша категория должна содержать Название.";
+				$this->_error = "Р’Р°С€Р° РєР°С‚РµРіРѕСЂРёСЏ РґРѕР»Р¶РЅР° СЃРѕРґРµСЂР¶Р°С‚СЊ РќР°Р·РІР°РЅРёРµ.";
 				return false;
 			}
 			$ignoreList = array('description');
@@ -2482,7 +2482,7 @@ class mosCategory extends mosDBTable {
 
 			$xid = intval( $this->_db->loadResult() );
 			if ($xid && $xid != intval( $this->id )) {
-				$this->_error = "Категория с таким названием уже существует. Повторите снова.";
+				$this->_error = "РљР°С‚РµРіРѕСЂРёСЏ СЃ С‚Р°РєРёРј РЅР°Р·РІР°РЅРёРµРј СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚. РџРѕРІС‚РѕСЂРёС‚Рµ СЃРЅРѕРІР°.";
 				return false;
 			}
 			return true;
@@ -2531,11 +2531,11 @@ class mosSection extends mosDBTable {
 		function check() {
 			// check for valid name
 			if (trim( $this->title ) == '') {
-				$this->_error = "Ваш раздел должен содержать заголовок.";
+				$this->_error = "Р’Р°С€ СЂР°Р·РґРµР» РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ Р·Р°РіРѕР»РѕРІРѕРє.";
 				return false;
 			}
 			if (trim( $this->name ) == '') {
-				$this->_error = "Ваш раздел должен иметь название.";
+				$this->_error = "Р’Р°С€ СЂР°Р·РґРµР» РґРѕР»Р¶РµРЅ РёРјРµС‚СЊ РЅР°Р·РІР°РЅРёРµ.";
 				return false;
 			}
 			$ignoreList = array('description');
@@ -2549,7 +2549,7 @@ class mosSection extends mosDBTable {
 			$this->_db->setQuery( $query );
 			$xid = intval( $this->_db->loadResult() );
 			if ($xid && $xid != intval( $this->id )) {
-				$this->_error = "Уже имеется раздел с таким названием. Пожалуйста, измените название раздела.";
+				$this->_error = "РЈР¶Рµ РёРјРµРµС‚СЃСЏ СЂР°Р·РґРµР» СЃ С‚Р°РєРёРј РЅР°Р·РІР°РЅРёРµРј. РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РёР·РјРµРЅРёС‚Рµ РЅР°Р·РІР°РЅРёРµ СЂР°Р·РґРµР»Р°.";
 				return false;
 			}
 		return true;
@@ -3356,7 +3356,7 @@ class mosModule extends mosDBTable {
 		function check() {
 				// check for valid name
 				if (trim( $this->title ) == '') {
-						$this->_error = "Ваш модуль должен содержать заголовок.";
+						$this->_error = "Р’Р°С€ РјРѕРґСѓР»СЊ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ Р·Р°РіРѕР»РѕРІРѕРє.";
 						return false;
 				}
 
@@ -3450,7 +3450,7 @@ class mosSession extends mosDBTable {
 	function update( $updateNulls=false ) {
 		$ret = $this->_db->updateObject( $this->_tbl, $this, 'session_id', $updateNulls );
 		if( !$ret ) {
-			$this->_error = strtolower(get_class( $this ))."::ошибка обновления <br />" . $this->_db->stderr();
+			$this->_error = strtolower(get_class( $this ))."::РѕС€РёР±РєР° РѕР±РЅРѕРІР»РµРЅРёСЏ <br />" . $this->_db->stderr();
 			return false;
 		} else {
 			return true;
@@ -3545,7 +3545,7 @@ function mosObjectToArray($p_obj) {
 /**
 * Checks the user agent string against known browsers
 */
-/* 05.08.07, boston, хак улучшенного определения браузеров*/
+/* 05.08.07, boston, С…Р°Рє СѓР»СѓС‡С€РµРЅРЅРѕРіРѕ РѕРїСЂРµРґРµР»РµРЅРёСЏ Р±СЂР°СѓР·РµСЂРѕРІ*/
 function mosGetBrowser( $agent ) {
 	global $mosConfig_absolute_path;
 	require( $mosConfig_absolute_path .'/includes/agent_browser.php' );
@@ -3754,14 +3754,14 @@ function mosToolTip( $tooltip, $title='', $width='', $image='tooltip.png', $text
 * @param string Box title
 * @returns HTML code for Warning
 */
-function mosWarning($warning, $title='Внимание!') {
+function mosWarning($warning, $title='Р’РЅРёРјР°РЅРёРµ!') {
 		global $mosConfig_live_site;
 
 	$mouseover 	= 'return overlib(\''. $warning .'\', CAPTION, \''.$title.'\', BELOW, RIGHT);';
 
-	$tip				 = "<!-- Предупреждение -->\n";
+	$tip				 = "<!-- РџСЂРµРґСѓРїСЂРµР¶РґРµРЅРёРµ -->\n";
 	$tip 		.= '<a href="javascript: void(0)" onmouseover="'. $mouseover .'" onmouseout="return nd();">';
-	$tip				 .= '<img src="'. $mosConfig_live_site .'/includes/js/ThemeOffice/warning.png" border="0"  alt="предупреждение"/></a>';
+	$tip				 .= '<img src="'. $mosConfig_live_site .'/includes/js/ThemeOffice/warning.png" border="0"  alt="РїСЂРµРґСѓРїСЂРµР¶РґРµРЅРёРµ"/></a>';
 
 		return $tip;
 }
@@ -3937,7 +3937,7 @@ function mosMail( $from, $fromname, $recipient, $subject, $body, $mode=0, $cc=NU
 	}
 		$mailssend = $mail->Send();
 		if( $mosConfig_debug ) {
-				//$mosDebug->message( "Письма отправлены: $mailssend");
+				//$mosDebug->message( "РџРёСЃСЊРјР° РѕС‚РїСЂР°РІР»РµРЅС‹: $mailssend");
 		}
 		if( $mail->error_count > 0 ) {
 				//$mosDebug->message( "The mail message $fromname <$from> about $subject to $recipient <b>failed</b><br /><pre>$body</pre>", false );
@@ -4147,7 +4147,7 @@ class mosMambotHandler {
 					$database->setQuery( $query );
 					// load query into class variable _content_mambots
 					if (!($this->_content_mambots = $database->loadObjectList())) {
-						//echo "Ошибка загрузки Мамбота: " . $database->getErrorMsg();
+						//echo "РћС€РёР±РєР° Р·Р°РіСЂСѓР·РєРё РњР°РјР±РѕС‚Р°: " . $database->getErrorMsg();
 						return false;
 					}
 						foreach ($this->_content_mambots as $bot) {
@@ -4166,7 +4166,7 @@ class mosMambotHandler {
 					. "\n ORDER BY ordering";
 					$database->setQuery( $query );
 					if (!($bots = $database->loadObjectList())) {
-						//echo "Ошибка загрузки Мамбота: " . $database->getErrorMsg();
+						//echo "РћС€РёР±РєР° Р·Р°РіСЂСѓР·РєРё РњР°РјР±РѕС‚Р°: " . $database->getErrorMsg();
 						return false;
 					}
 				break;
@@ -4282,7 +4282,7 @@ class mosMambotHandler {
 }
 
 /**
-* Создание табов
+* РЎРѕР·РґР°РЅРёРµ С‚Р°Р±РѕРІ
 * @package Joostina
 */
 class mosTabs {
@@ -4295,7 +4295,7 @@ class mosTabs {
 		*/
 		function mosTabs( $useCookies, $xhtml=null ) {
 				global $mosConfig_live_site, $mainframe,$mosConfig_gz_js_css;
-				// активация gzip сжатия css и js файлов
+				// Р°РєС‚РёРІР°С†РёСЏ gzip СЃР¶Р°С‚РёСЏ css Рё js С„Р°Р№Р»РѕРІ
 				if($mosConfig_gz_js_css){
 					$css_f = 'joostina.tabs.css.php';
 					$js_f = 'joostina.tabs.js.php';
@@ -4305,7 +4305,7 @@ class mosTabs {
 				}
 				$css	= '<link rel="stylesheet" type="text/css" media="all" href="'. $mosConfig_live_site . '/includes/js/tabs/'.$css_f.'" id="luna-tab-style-sheet" />';
 				$js		= '<script type="text/javascript" src="'. $mosConfig_live_site . '/includes/js/tabs/'.$js_f.'"></script>';
-				/* boston, хак, запрет повторного включения css и js файлов в документ*/
+				/* boston, С…Р°Рє, Р·Р°РїСЂРµС‚ РїРѕРІС‚РѕСЂРЅРѕРіРѕ РІРєР»СЋС‡РµРЅРёСЏ css Рё js С„Р°Р№Р»РѕРІ РІ РґРѕРєСѓРјРµРЅС‚*/
 				if(!defined( '_MTABS_LOADED' )){
 					define( '_MTABS_LOADED', 1 );
 
@@ -4359,13 +4359,13 @@ class mosTabs {
 }
 
 /**
-* Создание второго вида табов - используя эффекты Jquery
+* РЎРѕР·РґР°РЅРёРµ РІС‚РѕСЂРѕРіРѕ РІРёРґР° С‚Р°Р±РѕРІ - РёСЃРїРѕР»СЊР·СѓСЏ СЌС„С„РµРєС‚С‹ Jquery
 * @package Joostina
 */
 class joosXTabs {
-		/** @array - стек названий слоёв */
+		/** @array - СЃС‚РµРє РЅР°Р·РІР°РЅРёР№ СЃР»РѕС‘РІ */
 		var $divArray = null;
-		/** @str - первая панель, активна при первом отображении
+		/** @str - РїРµСЂРІР°СЏ РїР°РЅРµР»СЊ, Р°РєС‚РёРІРЅР° РїСЂРё РїРµСЂРІРѕРј РѕС‚РѕР±СЂР°Р¶РµРЅРёРё
 		var $firstTab = null;
 
 		/**
@@ -4387,7 +4387,7 @@ class joosXTabs {
 		}
 
 		/**
-		* Окончательное закрытие панелей
+		* РћРєРѕРЅС‡Р°С‚РµР»СЊРЅРѕРµ Р·Р°РєСЂС‹С‚РёРµ РїР°РЅРµР»РµР№
 		*/
 		function endPane() {
 				echo "</div>";
@@ -4395,8 +4395,8 @@ class joosXTabs {
 
 		/*
 		* Creates a tab with title text and starts that tabs page
-		* @param tabText - текст, отображаемый в заголовке таба
-		* @param paneid - уникальный идентификатор панели
+		* @param tabText - С‚РµРєСЃС‚, РѕС‚РѕР±СЂР°Р¶Р°РµРјС‹Р№ РІ Р·Р°РіРѕР»РѕРІРєРµ С‚Р°Р±Р°
+		* @param paneid - СѓРЅРёРєР°Р»СЊРЅС‹Р№ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ РїР°РЅРµР»Рё
 		*/
 		function startTab( $tabText, $paneid ) {
 				$this->divArray[]=$paneid;
@@ -4410,7 +4410,7 @@ class joosXTabs {
 		}
 
 		/*
-		* Закрытие одной панели
+		* Р—Р°РєСЂС‹С‚РёРµ РѕРґРЅРѕР№ РїР°РЅРµР»Рё
 		*/
 		function endTab() {
 				?></div>
@@ -4419,10 +4419,10 @@ class joosXTabs {
 				function joostToggle(activ){
 					<?php
 					foreach ($this->divArray as $k=>$paneid) {
-						echo '$("#'.$paneid.'").css({ display: "none" });'; // скрываем все слои созданные в панели
+						echo '$("#'.$paneid.'").css({ display: "none" });'; // СЃРєСЂС‹РІР°РµРј РІСЃРµ СЃР»РѕРё СЃРѕР·РґР°РЅРЅС‹Рµ РІ РїР°РЅРµР»Рё
 					}
 					?>
-					$("#"+activ).slideToggle("normal"); // отображаем панель по заголовку которой кликнули
+					$("#"+activ).slideToggle("normal"); // РѕС‚РѕР±СЂР°Р¶Р°РµРј РїР°РЅРµР»СЊ РїРѕ Р·Р°РіРѕР»РѕРІРєСѓ РєРѕС‚РѕСЂРѕР№ РєР»РёРєРЅСѓР»Рё
 				}
 				//-->
 		</script><?php
@@ -4556,9 +4556,9 @@ class mosAdminMenus {
 		* build the select list for target window
 		*/
 		function Target( &$row ) {
-				$click[] = mosHTML::makeOption( '0', 'текущем окне с панелью навигации' );
-				$click[] = mosHTML::makeOption( '1', 'новом окне с панелью навигации' );
-				$click[] = mosHTML::makeOption( '2', 'новом окне без панели навигации' );
+				$click[] = mosHTML::makeOption( '0', 'С‚РµРєСѓС‰РµРј РѕРєРЅРµ СЃ РїР°РЅРµР»СЊСЋ РЅР°РІРёРіР°С†РёРё' );
+				$click[] = mosHTML::makeOption( '1', 'РЅРѕРІРѕРј РѕРєРЅРµ СЃ РїР°РЅРµР»СЊСЋ РЅР°РІРёРіР°С†РёРё' );
+				$click[] = mosHTML::makeOption( '2', 'РЅРѕРІРѕРј РѕРєРЅРµ Р±РµР· РїР°РЅРµР»Рё РЅР°РІРёРіР°С†РёРё' );
 				$target = mosHTML::selectList( $click, 'browserNav', 'class="inputbox" size="4"', 'value', 'text', intval( $row->browserNav ) );
 				return $target;
 		}
@@ -4621,19 +4621,19 @@ class mosAdminMenus {
 				$mitems = array();
 				if ( $all ) {
 						// prepare an array with 'all' as the first item
-						$mitems[] = mosHTML::makeOption( 0, 'Все' );
+						$mitems[] = mosHTML::makeOption( 0, 'Р’СЃРµ' );
 						// adds space, in select box which is not saved
 						$mitems[] = mosHTML::makeOption( -999, '----' );
 				}
 				if ( $none ) {
 						// prepare an array with 'all' as the first item
-						$mitems[] = mosHTML::makeOption( -999, 'Отсутствует' );
+						$mitems[] = mosHTML::makeOption( -999, 'РћС‚СЃСѓС‚СЃС‚РІСѓРµС‚' );
 						// adds space, in select box which is not saved
 						$mitems[] = mosHTML::makeOption( -999, '----' );
 				}
 		if ( $unassigned ) {
 						// prepare an array with 'all' as the first item
-						$mitems[] = mosHTML::makeOption( 99999999, 'Со свободными' );
+						$mitems[] = mosHTML::makeOption( 99999999, 'РЎРѕ СЃРІРѕР±РѕРґРЅС‹РјРё' );
 						// adds space, in select box which is not saved
 						$mitems[] = mosHTML::makeOption( -999, '----' );
 				}
@@ -4690,7 +4690,7 @@ class mosAdminMenus {
 				;
 				$database->setQuery( $query );
 				if ( $all ) {
-						$rows[] = mosHTML::makeOption( 0, '- Все разделы -' );
+						$rows[] = mosHTML::makeOption( 0, '- Р’СЃРµ СЂР°Р·РґРµР»С‹ -' );
 						$rows = array_merge( $rows, $database->loadObjectList() );
 				} else {
 						$rows = $database->loadObjectList();
@@ -4778,7 +4778,7 @@ class mosAdminMenus {
 		}
 
 				$imageFiles = mosReadDirectory( $mosConfig_absolute_path . $directory );
-				$images = array(  mosHTML::makeOption( '', '- Выберите изображение -' ) );
+				$images = array(  mosHTML::makeOption( '', '- Р’С‹Р±РµСЂРёС‚Рµ РёР·РѕР±СЂР°Р¶РµРЅРёРµ -' ) );
 				foreach ( $imageFiles as $file ) {
 						if ( eregi( "bmp|gif|jpg|png", $file ) ) {
 								$images[] = mosHTML::makeOption( $file );
@@ -4830,7 +4830,7 @@ class mosAdminMenus {
 				;
 				$database->setQuery( $query );
 				if ( $nouser ) {
-						$users[] = mosHTML::makeOption( '0', '- Нет пользователя -' );
+						$users[] = mosHTML::makeOption( '0', '- РќРµС‚ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ -' );
 						$users = array_merge( $users, $database->loadObjectList() );
 				} else {
 						$users = $database->loadObjectList();
@@ -4884,7 +4884,7 @@ class mosAdminMenus {
 				}
 
 				if ( count( $categories ) < 1 ) {
-						mosRedirect( 'index2.php?option=com_categories&section='. $section, 'Сначала необходимо создать категории.' );
+						mosRedirect( 'index2.php?option=com_categories&section='. $section, 'РЎРЅР°С‡Р°Р»Р° РЅРµРѕР±С…РѕРґРёРјРѕ СЃРѕР·РґР°С‚СЊ РєР°С‚РµРіРѕСЂРёРё.' );
 				}
 
 				$category = mosHTML::selectList( $categories, $name, 'class="inputbox" size="'. $size .'" '. $javascript, 'value', 'text', $active );
@@ -5201,17 +5201,17 @@ class mosCommonHTML {
 		?>
 		<table cellspacing="0" cellpadding="4" border="0" align="center">
 			<tr align="center">
-				<td><img src="images/publish_y.png" width="12" height="12" border="0" alt="Ожидает публикации" /></td>
-				<td>Опубликовано, но <u>Не активно</u> |</td>
-				<td><img src="images/publish_g.png" width="12" height="12" border="0" alt="На сайте" /></td>
-				<td>Опубликовано и <u>Активно</u> |</td>
-				<td><img src="images/publish_r.png" width="12" height="12" border="0" alt="Истек срок публикации" /></td>
-				<td>Опубликовано, но <u>Истек срок публикации</u> |</td>
-				<td><img src="images/publish_x.png" width="12" height="12" border="0" alt="Истек срок публикации" /></td>
-				<td>Не опубликовано</td>
+				<td><img src="images/publish_y.png" width="12" height="12" border="0" alt="РћР¶РёРґР°РµС‚ РїСѓР±Р»РёРєР°С†РёРё" /></td>
+				<td>РћРїСѓР±Р»РёРєРѕРІР°РЅРѕ, РЅРѕ <u>РќРµ Р°РєС‚РёРІРЅРѕ</u> |</td>
+				<td><img src="images/publish_g.png" width="12" height="12" border="0" alt="РќР° СЃР°Р№С‚Рµ" /></td>
+				<td>РћРїСѓР±Р»РёРєРѕРІР°РЅРѕ Рё <u>РђРєС‚РёРІРЅРѕ</u> |</td>
+				<td><img src="images/publish_r.png" width="12" height="12" border="0" alt="РСЃС‚РµРє СЃСЂРѕРє РїСѓР±Р»РёРєР°С†РёРё" /></td>
+				<td>РћРїСѓР±Р»РёРєРѕРІР°РЅРѕ, РЅРѕ <u>РСЃС‚РµРє СЃСЂРѕРє РїСѓР±Р»РёРєР°С†РёРё</u> |</td>
+				<td><img src="images/publish_x.png" width="12" height="12" border="0" alt="РСЃС‚РµРє СЃСЂРѕРє РїСѓР±Р»РёРєР°С†РёРё" /></td>
+				<td>РќРµ РѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ</td>
 			</tr>
 			<tr>
-				<td colspan="8" align="center">Нажмите на значок для переключения состояния объекта.</td>
+				<td colspan="8" align="center">РќР°Р¶РјРёС‚Рµ РЅР° Р·РЅР°С‡РѕРє РґР»СЏ РїРµСЂРµРєР»СЋС‡РµРЅРёСЏ СЃРѕСЃС‚РѕСЏРЅРёСЏ РѕР±СЉРµРєС‚Р°.</td>
 			</tr>
 		</table>
 	<?php
@@ -5253,21 +5253,21 @@ class mosCommonHTML {
 						</tr>
 						<tr>
 								<td width="90px" valign="top">
-								Меню
+								РњРµРЅСЋ
 								</td>
 								<td>
-								<a href="javascript:go2( 'go2menu', '<?php echo $menu->menutype; ?>' );" title="Перейти к меню">
+								<a href="javascript:go2( 'go2menu', '<?php echo $menu->menutype; ?>' );" title="РџРµСЂРµР№С‚Рё Рє РјРµРЅСЋ">
 								<?php echo $menu->menutype; ?>
 								</a>
 								</td>
 						</tr>
 						<tr>
 								<td width="90px" valign="top">
-								Название ссылки
+								РќР°Р·РІР°РЅРёРµ СЃСЃС‹Р»РєРё
 								</td>
 								<td>
 								<strong>
-								<a href="javascript:go2( 'go2menuitem', '<?php echo $menu->menutype; ?>', '<?php echo $menu->id; ?>' );" title="Перейти к пункту меню">
+								<a href="javascript:go2( 'go2menuitem', '<?php echo $menu->menutype; ?>', '<?php echo $menu->id; ?>' );" title="РџРµСЂРµР№С‚Рё Рє РїСѓРЅРєС‚Сѓ РјРµРЅСЋ">
 								<?php echo $menu->name; ?>
 								</a>
 								</strong>
@@ -5275,20 +5275,20 @@ class mosCommonHTML {
 						</tr>
 						<tr>
 								<td width="90px" valign="top">
-								Состояние
+								РЎРѕСЃС‚РѕСЏРЅРёРµ
 								</td>
 								<td>
 								<?php
 								switch ( $menu->published ) {
 									case -2:
-										echo '<font color="red">Устарело</font>';
+										echo '<font color="red">РЈСЃС‚Р°СЂРµР»Рѕ</font>';
 										break;
 									case 0:
-										echo 'Не опубликовано';
+										echo 'РќРµ РѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ';
 										break;
 									case 1:
 									default:
-										echo '<font color="green">Опубликовано</font>';
+										echo '<font color="green">РћРїСѓР±Р»РёРєРѕРІР°РЅРѕ</font>';
 										break;
 								}
 								?>
@@ -5332,17 +5332,17 @@ class mosCommonHTML {
 						</tr>
 						<tr>
 							<td width="90px" valign="top">
-							Меню
+							РњРµРЅСЋ
 							</td>
 							<td>
-							<a href="javascript:go2( 'go2menu', '<?php echo $menu->menutype; ?>' );" title="Перейти к меню">
+							<a href="javascript:go2( 'go2menu', '<?php echo $menu->menutype; ?>' );" title="РџРµСЂРµР№С‚Рё Рє РјРµРЅСЋ">
 							<?php echo $menu->menutype; ?>
 							</a>
 							</td>
 						</tr>
 						<tr>
 								<td width="90px" valign="top">
-								Тип
+								РўРёРї
 								</td>
 								<td>
 								<?php echo $menu->type; ?>
@@ -5350,11 +5350,11 @@ class mosCommonHTML {
 						</tr>
 						<tr>
 								<td width="90px" valign="top">
-								Название пункта
+								РќР°Р·РІР°РЅРёРµ РїСѓРЅРєС‚Р°
 								</td>
 								<td>
 								<strong>
-								<a href="javascript:go2( 'go2menuitem', '<?php echo $menu->menutype; ?>', '<?php echo $menu->id; ?>' );" title="Перейти к пункту меню">
+								<a href="javascript:go2( 'go2menuitem', '<?php echo $menu->menutype; ?>', '<?php echo $menu->id; ?>' );" title="РџРµСЂРµР№С‚Рё Рє РїСѓРЅРєС‚Сѓ РјРµРЅСЋ">
 								<?php echo $menu->name; ?>
 								</a>
 								</strong>
@@ -5362,20 +5362,20 @@ class mosCommonHTML {
 						</tr>
 						<tr>
 								<td width="90px" valign="top">
-								Состояние
+								РЎРѕСЃС‚РѕСЏРЅРёРµ
 								</td>
 								<td>
 								<?php
 								switch ( $menu->published ) {
 										case -2:
-												echo '<font color="red">Устарело</font>';
+												echo '<font color="red">РЈСЃС‚Р°СЂРµР»Рѕ</font>';
 												break;
 										case 0:
-												echo 'Не опубликовано';
+												echo 'РќРµ РѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ';
 												break;
 										case 1:
 										default:
-												echo '<font color="green">Опубликовано</font>';
+												echo '<font color="green">РћРїСѓР±Р»РёРєРѕРІР°РЅРѕ</font>';
 												break;
 								}
 								?>
@@ -5400,7 +5400,7 @@ class mosCommonHTML {
 				$checked_out_text.= '<tr><td>'. $date .'</td></tr>';
 				$checked_out_text.= '<tr><td>'. $time .'</td></tr>';
 				$checked_out_text.= '</table>';
-				$hover = 'onMouseOver="return overlib(\''. $checked_out_text .'\', CAPTION, \'Заблокировано\', BELOW, RIGHT);" onMouseOut="return nd();"';
+				$hover = 'onMouseOver="return overlib(\''. $checked_out_text .'\', CAPTION, \'Р—Р°Р±Р»РѕРєРёСЂРѕРІР°РЅРѕ\', BELOW, RIGHT);" onMouseOut="return nd();"';
 			}
 			$checked = '<img src="images/checked_out.png" '. $hover .'/>';
 			return $checked;
@@ -5422,7 +5422,7 @@ class mosCommonHTML {
 		}
 
 		/*
-		* Подключение JS файлов Календаря
+		* РџРѕРґРєР»СЋС‡РµРЅРёРµ JS С„Р°Р№Р»РѕРІ РљР°Р»РµРЅРґР°СЂСЏ
 		*/
 		function loadCalendar() {
 				global  $mosConfig_live_site;
@@ -5433,7 +5433,7 @@ class mosCommonHTML {
 				<?php
 		}
 
-		/* boston, подключение PQuery*/
+		/* boston, РїРѕРґРєР»СЋС‡РµРЅРёРµ PQuery*/
 		function loadPquery($type=1){
 			global $mosConfig_absolute_path,$mosConfig_live_site;
 			if(!defined( '_PQ_LOADED' )){
@@ -5442,7 +5442,7 @@ class mosCommonHTML {
 				if($type) require_once ($mosConfig_absolute_path."/includes/pquery/pquery.php");
 			}
 		}
-		/* boston, подключение файла PQuery*/
+		/* boston, РїРѕРґРєР»СЋС‡РµРЅРёРµ С„Р°Р№Р»Р° PQuery*/
 		function inclPquery(){
 			global $mosConfig_absolute_path;
 			if(!defined( '_PQ_INCLUDE' )){
@@ -5450,7 +5450,7 @@ class mosCommonHTML {
 				require_once ($mosConfig_absolute_path."/includes/pquery/pquery.php");
 			}
 		}
-		/* boston, подключение joostina.js*/
+		/* boston, РїРѕРґРєР»СЋС‡РµРЅРёРµ joostina.js*/
 		function loadJOJ(){
 			global $mosConfig_live_site;
 			if(!defined( '_JOJ_LOADED' )){
@@ -5458,7 +5458,7 @@ class mosCommonHTML {
 				echo '<script language="JavaScript" src="'.$mosConfig_live_site.'/administrator/includes/js/joostina.js" type="text/javascript"></script>';
 			}
 		}
-		/* boston, подключение codepress*/
+		/* boston, РїРѕРґРєР»СЋС‡РµРЅРёРµ codepress*/
 		function loadCodepress($location=null){
 			global $mosConfig_live_site;
 			if(!defined( '_CODEPRESS_LOADED' )){
@@ -5505,7 +5505,7 @@ else window.addEventListener('DOMContentLoaded',CodePress.run,false);
 		}
 
 		/*
-		Проверка блокировки объекта
+		РџСЂРѕРІРµСЂРєР° Р±Р»РѕРєРёСЂРѕРІРєРё РѕР±СЉРµРєС‚Р°
 		*/
 		function CheckedOutProcessing( &$row, $i ) {
 			global $my;
@@ -5520,8 +5520,8 @@ else window.addEventListener('DOMContentLoaded',CodePress.run,false);
 		function PublishedProcessing( &$row, $i ) {
 				$img	 = $row->published ? 'publish_g.png' : 'publish_x.png';
 				$task	 = $row->published ? 'unpublish' : 'publish';
-				$alt	 = $row->published ? 'Опубликовано' : 'Не опубликовано';
-				$action	= $row->published ? 'Скрыть (Не показывать на сайте)' : 'Опубликовать на сайте';
+				$alt	 = $row->published ? 'РћРїСѓР±Р»РёРєРѕРІР°РЅРѕ' : 'РќРµ РѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ';
+				$action	= $row->published ? 'РЎРєСЂС‹С‚СЊ (РќРµ РїРѕРєР°Р·С‹РІР°С‚СЊ РЅР° СЃР°Р№С‚Рµ)' : 'РћРїСѓР±Р»РёРєРѕРІР°С‚СЊ РЅР° СЃР°Р№С‚Рµ';
 				$href = '
 				<a href="javascript: void(0);" onclick="return listItemTask(\'cb'. $i .'\',\''. $task .'\')" title="'. $action .'">
 				<img src="images/'. $img .'" border="0" alt="'. $alt .'" />
@@ -5892,8 +5892,8 @@ class patHTML {
 	*/
 	function yesNoRadio( &$tmpl, $template, $name, $value, $varname=null ) {
 		$a = array(
-			patHTML::makeOption( 0, 'Нет' ),
-			patHTML::makeOption( 1, 'Да' )
+			patHTML::makeOption( 0, 'РќРµС‚' ),
+			patHTML::makeOption( 1, 'Р”Р°' )
 		);
 		patHTML::radioSet( $tmpl, $template, $name, $value, $a, $varname );
 	}
@@ -6024,19 +6024,19 @@ function josHashPassword($password){
 }
 
 /**
-* Объединение расширений системы в одно пространство имён
+* РћР±СЉРµРґРёРЅРµРЅРёРµ СЂР°СЃС€РёСЂРµРЅРёР№ СЃРёСЃС‚РµРјС‹ РІ РѕРґРЅРѕ РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІРѕ РёРјС‘РЅ
 *
 */
 class joostina_api{
 	/**
-	* Конвертирование текста из юникода в кириллицу
-	* Чаще всего используется для Аякс функций.
-	* В качестве параметра принимает строковое значение в кодировке UTF-8, возвращает строковое значение в кодировке windows-1251
-	* $type - параметр конвертации, по умолчанию конвертируется из cp12551 в utf-8.
+	* РљРѕРЅРІРµСЂС‚РёСЂРѕРІР°РЅРёРµ С‚РµРєСЃС‚Р° РёР· СЋРЅРёРєРѕРґР° РІ РєРёСЂРёР»Р»РёС†Сѓ
+	* Р§Р°С‰Рµ РІСЃРµРіРѕ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РґР»СЏ РђСЏРєСЃ С„СѓРЅРєС†РёР№.
+	* Р’ РєР°С‡РµСЃС‚РІРµ РїР°СЂР°РјРµС‚СЂР° РїСЂРёРЅРёРјР°РµС‚ СЃС‚СЂРѕРєРѕРІРѕРµ Р·РЅР°С‡РµРЅРёРµ РІ РєРѕРґРёСЂРѕРІРєРµ UTF-8, РІРѕР·РІСЂР°С‰Р°РµС‚ СЃС‚СЂРѕРєРѕРІРѕРµ Р·РЅР°С‡РµРЅРёРµ РІ РєРѕРґРёСЂРѕРІРєРµ windows-1251
+	* $type - РїР°СЂР°РјРµС‚СЂ РєРѕРЅРІРµСЂС‚Р°С†РёРё, РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РєРѕРЅРІРµСЂС‚РёСЂСѓРµС‚СЃСЏ РёР· cp12551 РІ utf-8.
 	**/
 	function convert($text,$type = null){
 		global $mosConfig_absolute_path;
-		if($text=='') return ' ';// класс конвертора не принимает пустые значения, в обход его вернёт пробел
+		if($text=='') return ' ';// РєР»Р°СЃСЃ РєРѕРЅРІРµСЂС‚РѕСЂР° РЅРµ РїСЂРёРЅРёРјР°РµС‚ РїСѓСЃС‚С‹Рµ Р·РЅР°С‡РµРЅРёСЏ, РІ РѕР±С…РѕРґ РµРіРѕ РІРµСЂРЅС‘С‚ РїСЂРѕР±РµР»
 		require_once $mosConfig_absolute_path."/includes/convert/ConvertCharset.class.php";
 		$NewEncoding = new ConvertCharset;
 		if($type) return $NewEncoding->Convert($text, 'windows-1251', 'utf-8');
@@ -6044,8 +6044,8 @@ class joostina_api{
 	}
 
 	/**
-	* Оптимизация таблиц базы данных
-	* Основано на мамботе OptimizeTables - smart (C) 2006, Joomlaportal.ru. All rights reserved
+	* РћРїС‚РёРјРёР·Р°С†РёСЏ С‚Р°Р±Р»РёС† Р±Р°Р·С‹ РґР°РЅРЅС‹С…
+	* РћСЃРЅРѕРІР°РЅРѕ РЅР° РјР°РјР±РѕС‚Рµ OptimizeTables - smart (C) 2006, Joomlaportal.ru. All rights reserved
 	*/
 	function optimizetables() {
 		global $database, $mosConfig_db, $mosConfig_absolute_path;
@@ -6066,8 +6066,8 @@ class joostina_api{
 		}
 	}
 	/**
-	* Приведение текста в соответствие с правилами русской типографики
-	* Основано на мамботе RussianTypography - Denis Ryabov (C) 2006-2007, http://sanrsu.org.ru/
+	* РџСЂРёРІРµРґРµРЅРёРµ С‚РµРєСЃС‚Р° РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРµ СЃ РїСЂР°РІРёР»Р°РјРё СЂСѓСЃСЃРєРѕР№ С‚РёРїРѕРіСЂР°С„РёРєРё
+	* РћСЃРЅРѕРІР°РЅРѕ РЅР° РјР°РјР±РѕС‚Рµ RussianTypography - Denis Ryabov (C) 2006-2007, http://sanrsu.org.ru/
 	**/
 	function RusTypo($text){
 		global $mosConfig_absolute_path;

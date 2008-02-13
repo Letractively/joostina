@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Àâòîğñêèå ïğàâà (C) 2007 Joostina team. Âñå ïğàâà çàùèùåíû.
-* @license Ëèöåíçèÿ http://www.gnu.org/copyleft/gpl.html GNU/GPL, ñìîòğèòå LICENSE.php
-* Joostina! - ñâîáîäíîå ïğîãğàììíîå îáåñïå÷åíèå. İòà âåğñèÿ ìîæåò áûòü èçìåíåíà
-* â ñîîòâåòñòâèè ñ Ãåíåğàëüíîé Îáùåñòâåííîé Ëèöåíçèåé GNU, ïîıòîìó âîçìîæíî
-* å¸ äàëüíåéøåå ğàñïğîñòğàíåíèå â ñîñòàâå ğåçóëüòàòà ğàáîòû, ëèöåíçèğîâàííîãî
-* ñîãëàñíî Ãåíåğàëüíîé Îáùåñòâåííîé Ëèöåíçèåé GNU èëè äğóãèõ ëèöåíçèé ñâîáîäíûõ
-* ïğîãğàìì èëè ïğîãğàìì ñ îòêğûòûì èñõîäíûì êîäîì.
-* Äëÿ ïğîñìîòğà ïîäğîáíîñòåé è çàìå÷àíèé îá àâòîğñêîì ïğàâå, ñìîòğèòå ôàéë COPYRIGHT.php.
+* @copyright ĞĞ²Ñ‚Ğ¾Ñ€ÑĞºĞ¸Ğµ Ğ¿Ñ€Ğ°Ğ²Ğ° (C) 2007 Joostina team. Ğ’ÑĞµ Ğ¿Ñ€Ğ°Ğ²Ğ° Ğ·Ğ°Ñ‰Ğ¸Ñ‰ĞµĞ½Ñ‹.
+* @license Ğ›Ğ¸Ñ†ĞµĞ½Ğ·Ğ¸Ñ http://www.gnu.org/copyleft/gpl.html GNU/GPL, ÑĞ¼Ğ¾Ñ‚Ñ€Ğ¸Ñ‚Ğµ LICENSE.php
+* Joostina! - ÑĞ²Ğ¾Ğ±Ğ¾Ğ´Ğ½Ğ¾Ğµ Ğ¿Ñ€Ğ¾Ğ³Ñ€Ğ°Ğ¼Ğ¼Ğ½Ğ¾Ğµ Ğ¾Ğ±ĞµÑĞ¿ĞµÑ‡ĞµĞ½Ğ¸Ğµ. Ğ­Ñ‚Ğ° Ğ²ĞµÑ€ÑĞ¸Ñ Ğ¼Ğ¾Ğ¶ĞµÑ‚ Ğ±Ñ‹Ñ‚ÑŒ Ğ¸Ğ·Ğ¼ĞµĞ½ĞµĞ½Ğ°
+* Ğ² ÑĞ¾Ğ¾Ñ‚Ğ²ĞµÑ‚ÑÑ‚Ğ²Ğ¸Ğ¸ Ñ Ğ“ĞµĞ½ĞµÑ€Ğ°Ğ»ÑŒĞ½Ğ¾Ğ¹ ĞĞ±Ñ‰ĞµÑÑ‚Ğ²ĞµĞ½Ğ½Ğ¾Ğ¹ Ğ›Ğ¸Ñ†ĞµĞ½Ğ·Ğ¸ĞµĞ¹ GNU, Ğ¿Ğ¾ÑÑ‚Ğ¾Ğ¼Ñƒ Ğ²Ğ¾Ğ·Ğ¼Ğ¾Ğ¶Ğ½Ğ¾
+* ĞµÑ‘ Ğ´Ğ°Ğ»ÑŒĞ½ĞµĞ¹ÑˆĞµĞµ Ñ€Ğ°ÑĞ¿Ñ€Ğ¾ÑÑ‚Ñ€Ğ°Ğ½ĞµĞ½Ğ¸Ğµ Ğ² ÑĞ¾ÑÑ‚Ğ°Ğ²Ğµ Ñ€ĞµĞ·ÑƒĞ»ÑŒÑ‚Ğ°Ñ‚Ğ° Ñ€Ğ°Ğ±Ğ¾Ñ‚Ñ‹, Ğ»Ğ¸Ñ†ĞµĞ½Ğ·Ğ¸Ñ€Ğ¾Ğ²Ğ°Ğ½Ğ½Ğ¾Ğ³Ğ¾
+* ÑĞ¾Ğ³Ğ»Ğ°ÑĞ½Ğ¾ Ğ“ĞµĞ½ĞµÑ€Ğ°Ğ»ÑŒĞ½Ğ¾Ğ¹ ĞĞ±Ñ‰ĞµÑÑ‚Ğ²ĞµĞ½Ğ½Ğ¾Ğ¹ Ğ›Ğ¸Ñ†ĞµĞ½Ğ·Ğ¸ĞµĞ¹ GNU Ğ¸Ğ»Ğ¸ Ğ´Ñ€ÑƒĞ³Ğ¸Ñ… Ğ»Ğ¸Ñ†ĞµĞ½Ğ·Ğ¸Ğ¹ ÑĞ²Ğ¾Ğ±Ğ¾Ğ´Ğ½Ñ‹Ñ…
+* Ğ¿Ñ€Ğ¾Ğ³Ñ€Ğ°Ğ¼Ğ¼ Ğ¸Ğ»Ğ¸ Ğ¿Ñ€Ğ¾Ğ³Ñ€Ğ°Ğ¼Ğ¼ Ñ Ğ¾Ñ‚ĞºÑ€Ñ‹Ñ‚Ñ‹Ğ¼ Ğ¸ÑÑ…Ğ¾Ğ´Ğ½Ñ‹Ğ¼ ĞºĞ¾Ğ´Ğ¾Ğ¼.
+* Ğ”Ğ»Ñ Ğ¿Ñ€Ğ¾ÑĞ¼Ğ¾Ñ‚Ñ€Ğ° Ğ¿Ğ¾Ğ´Ñ€Ğ¾Ğ±Ğ½Ğ¾ÑÑ‚ĞµĞ¹ Ğ¸ Ğ·Ğ°Ğ¼ĞµÑ‡Ğ°Ğ½Ğ¸Ğ¹ Ğ¾Ğ± Ğ°Ğ²Ñ‚Ğ¾Ñ€ÑĞºĞ¾Ğ¼ Ğ¿Ñ€Ğ°Ğ²Ğµ, ÑĞ¼Ğ¾Ñ‚Ñ€Ğ¸Ñ‚Ğµ Ñ„Ğ°Ğ¹Ğ» COPYRIGHT.php.
 */
 
-// çàïğåò ïğÿìîãî äîñòóïà
-defined( '_VALID_MOS' ) or die( 'Äîñòóï îãğàíè÷åí' );
+// Ğ·Ğ°Ğ¿Ñ€ĞµÑ‚ Ğ¿Ñ€ÑĞ¼Ğ¾Ğ³Ğ¾ Ğ´Ğ¾ÑÑ‚ÑƒĞ¿Ğ°
+defined( '_VALID_MOS' ) or die( 'Ğ”Ğ¾ÑÑ‚ÑƒĞ¿ Ğ¾Ğ³Ñ€Ğ°Ğ½Ğ¸Ñ‡ĞµĞ½' );
 
 if (!defined( '_JOS_RSSFEED_MODULE' )) {
 	/** ensure that functions are declared only once */
@@ -90,7 +90,7 @@ if ( !$syndicateParams->get( 'yandex', 1 ) ) {
 ?>
 <div class="syndicate<?php echo $moduleclass_sfx;?>">
 	<?php
-	// òåêñò
+	// Ñ‚ĞµĞºÑÑ‚
 	if ( $text ) {
 		?>
 		<div align="center" class="syndicate_text<?php echo $moduleclass_sfx;?>">
@@ -98,36 +98,36 @@ if ( !$syndicateParams->get( 'yandex', 1 ) ) {
 		</div>
 		<?php
 	}
-	// ññûëêà ñòàíäàğòà rss091
+	// ÑÑÑ‹Ğ»ĞºĞ° ÑÑ‚Ğ°Ğ½Ğ´Ğ°Ñ€Ñ‚Ğ° rss091
 	if ( $yandex ) {
 		$link = 'index.php?option=com_rss&amp;feed=Yandex&amp;no_html=1';
 		output_rssfeed( $link, 'yandex_rss.png', $yandex_image, 'Yandex', 'Yandex' );
 	}
-	// ññûëêà ñòàíäàğòà rss091
+	// ÑÑÑ‹Ğ»ĞºĞ° ÑÑ‚Ğ°Ğ½Ğ´Ğ°Ñ€Ñ‚Ğ° rss091
 	if ( $rss091 ) {
 		$link = 'index.php?option=com_rss&amp;feed=RSS0.91&amp;no_html=1';
 		output_rssfeed( $link, 'rss091.gif', $rss091_image, 'RSS 0.91', 'RSS091' );
 	}
 
-	// ññûëêà ñòàíäàğòà rss10
+	// ÑÑÑ‹Ğ»ĞºĞ° ÑÑ‚Ğ°Ğ½Ğ´Ğ°Ñ€Ñ‚Ğ° rss10
 	if ( $rss10 ) {
 		$link = 'index.php?option=com_rss&amp;feed=RSS1.0&amp;no_html=1';
 		output_rssfeed( $link, 'rss10.gif', $rss10_image, 'RSS 1.0', 'RSS10' );
 	}
 
-	// ññûëêà ñòàíäàğòà rss20
+	// ÑÑÑ‹Ğ»ĞºĞ° ÑÑ‚Ğ°Ğ½Ğ´Ğ°Ñ€Ñ‚Ğ° rss20
 	if ( $rss20 ) {
 		$link = 'index.php?option=com_rss&amp;feed=RSS2.0&amp;no_html=1';
 		output_rssfeed( $link, 'rss20.gif', $rss20_image, 'RSS 2.0', 'RSS20' );
 	}
 
-	// ññûëêà ñòàíäàğòà atom
+	// ÑÑÑ‹Ğ»ĞºĞ° ÑÑ‚Ğ°Ğ½Ğ´Ğ°Ñ€Ñ‚Ğ° atom
 	if ( $atom03 ) {
 		$link = 'index.php?option=com_rss&amp;feed=ATOM0.3&amp;no_html=1';
 		output_rssfeed( $link, 'atom03.gif', $atom_image, 'ATOM 0.3', 'ATOM03' );
 	}
 
-	// ññûëêà opml
+	// ÑÑÑ‹Ğ»ĞºĞ° opml
 	if ( $opml ) {
 		$link = 'index.php?option=com_rss&amp;feed=OPML&amp;no_html=1';
 		output_rssfeed( $link, 'opml.png', $opml_image, 'OPML', 'OPML'  );

@@ -1,65 +1,65 @@
 <?php
 /***
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined('_VALID_MOS') or die('Прямой вызов файла запрещен');
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined('_VALID_MOS') or die('РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ');
 
 /**
-* Информация о версии
+* РРЅС„РѕСЂРјР°С†РёСЏ Рѕ РІРµСЂСЃРёРё
 * @package Joostina
 */
 class joomlaVersion {
 	/**
-	@var строка Продукт*/
+	@var СЃС‚СЂРѕРєР° РџСЂРѕРґСѓРєС‚*/
 	var $PRODUCT = 'Joomla!';
 	/**
-	@var строка CMS*/
+	@var СЃС‚СЂРѕРєР° CMS*/
 	var $CMS = 'Joostina';
 	/**
-	@var версия*/
+	@var РІРµСЂСЃРёСЏ*/
 	var $CMS_ver = '1.1.2.2';
 	/**
-	@var int Номер основной версии*/
+	@var int РќРѕРјРµСЂ РѕСЃРЅРѕРІРЅРѕР№ РІРµСЂСЃРёРё*/
 	var $RELEASE = '1.0';
 	/**
-	@var строка  статус разработки*/
-	var $DEV_STATUS = 'финальная версия';
+	@var СЃС‚СЂРѕРєР°  СЃС‚Р°С‚СѓСЃ СЂР°Р·СЂР°Р±РѕС‚РєРё*/
+	var $DEV_STATUS = 'С„РёРЅР°Р»СЊРЅР°СЏ РІРµСЂСЃРёСЏ';
 	/**
-	@var int Подверсия*/
+	@var int РџРѕРґРІРµСЂСЃРёСЏ*/
 	var $DEV_LEVEL = '13';
 	/**
-	@var int Номер сборки*/
+	@var int РќРѕРјРµСЂ СЃР±РѕСЂРєРё*/
 	var $BUILD = '$: 134';
 	/**
-	@var string Кодовое имя*/
+	@var string РљРѕРґРѕРІРѕРµ РёРјСЏ*/
 	var $CODENAME = 'stable';
 	/**
-	@var string Дата*/
+	@var string Р”Р°С‚Р°*/
 	var $RELDATE = '09/01/2008';
 	/**
-	@var string Время*/
+	@var string Р’СЂРµРјСЏ*/
 	var $RELTIME = '01:21';
 	/**
-	@var string Временная зона*/
+	@var string Р’СЂРµРјРµРЅРЅР°СЏ Р·РѕРЅР°*/
 	var $RELTZ = 'UTC';
 	/**
-	@var string Текст авторских прав*/
-	var $COPYRIGHT = 'Авторские права &copy; 2007 Joostina Team. Все права защищены.';
+	@var string РўРµРєСЃС‚ Р°РІС‚РѕСЂСЃРєРёС… РїСЂР°РІ*/
+	var $COPYRIGHT = 'РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° &copy; 2007 Joostina Team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.';
 	/**
 	@var string URL*/
-	var $URL = '<a href="http://www.joostina.ru" target="_blank">Joostina!</a> - свободное программное обеспечение, распространяемое по лицензии GNU/GPL.';
+	var $URL = '<a href="http://www.joostina.ru" target="_blank">Joostina!</a> - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ, СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ Р»РёС†РµРЅР·РёРё GNU/GPL.';
 	/**
-	@var string для реального использования сайта установите = 1 для демонстраций = 0: 1 используется по умолчанию*/
+	@var string РґР»СЏ СЂРµР°Р»СЊРЅРѕРіРѕ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ СЃР°Р№С‚Р° СѓСЃС‚Р°РЅРѕРІРёС‚Рµ = 1 РґР»СЏ РґРµРјРѕРЅСЃС‚СЂР°С†РёР№ = 0: 1 РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ*/
 	var $SITE = 1;
 	/**
 	@var string Whether site has restricted functionality mostly used for demo sites: 0 is default*/
@@ -68,17 +68,17 @@ class joomlaVersion {
 	@var string Whether site is still in development phase (disables checks for /installation folder) - should be set to 0 for package release: 0 is default*/
 	var $SVN = 0;
 	/**
-	@var string ссылки на сайты поддержки*/
-	var $SUPPORT = 'Поддержка: <a href="http://www.joostina.ru" target="_blank" title="Официальный сайт CMS Joostina">www.joostina.ru</a> | <a href="http://www.joomlaportal.ru" target="_blank" title="Joomla! CMS по-русски">www.joomlaportal.ru</a> | <a href="http://www.joom.ru" target="_blank" title="Русский дом Joomla">www.joom.ru</a> | <a href="http://www.joomla.ru" target="_blank" title="Бесплатная система управления сайтом Joomla!">www.joomla.ru</a>';
+	@var string СЃСЃС‹Р»РєРё РЅР° СЃР°Р№С‚С‹ РїРѕРґРґРµСЂР¶РєРё*/
+	var $SUPPORT = 'РџРѕРґРґРµСЂР¶РєР°: <a href="http://www.joostina.ru" target="_blank" title="РћС„РёС†РёР°Р»СЊРЅС‹Р№ СЃР°Р№С‚ CMS Joostina">www.joostina.ru</a> | <a href="http://www.joomlaportal.ru" target="_blank" title="Joomla! CMS РїРѕ-СЂСѓСЃСЃРєРё">www.joomlaportal.ru</a> | <a href="http://www.joom.ru" target="_blank" title="Р СѓСЃСЃРєРёР№ РґРѕРј Joomla">www.joom.ru</a> | <a href="http://www.joomla.ru" target="_blank" title="Р‘РµСЃРїР»Р°С‚РЅР°СЏ СЃРёСЃС‚РµРјР° СѓРїСЂР°РІР»РµРЅРёСЏ СЃР°Р№С‚РѕРј Joomla!">www.joomla.ru</a>';
 	/**
-	* @return string Длинный формат версии
+	* @return string Р”Р»РёРЅРЅС‹Р№ С„РѕСЂРјР°С‚ РІРµСЂСЃРёРё
 	*/
 	function getLongVersion() {
 		return $this->CMS.' '.$this->RELEASE.'. '.$this->CMS_ver.' [ '.$this->CODENAME.
 			' ] '.$this->RELDATE.' '.$this->RELTIME.' '.$this->RELTZ;
 	}
 	/**
-	* @return string Краткий формат версии
+	* @return string РљСЂР°С‚РєРёР№ С„РѕСЂРјР°С‚ РІРµСЂСЃРёРё
 	*/
 	function getShortVersion() {
 		return $this->RELEASE.'.'.$this->DEV_LEVEL;

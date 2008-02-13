@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 /***************************************************************************
 
 FeedCreator class v1.7.2
@@ -66,11 +66,11 @@ v1.7	07-18-04
 	added a switch to select an external stylesheet (thanks to Pascal Van Hecke)
 	changed default content-type to application/xml
 	added character encoding setting
-	fixed numerous smaller bugs (thanks to SпїЅren Fuhrmann of golem.de)
+	fixed numerous smaller bugs (thanks to SРїС—Р…ren Fuhrmann of golem.de)
 	improved changing ATOM versions handling (thanks to August Trometer)
-	improved the UniversalFeedCreator's useCached method (thanks to SпїЅren Fuhrmann of golem.de)
-	added charset output in HTTP headers (thanks to SпїЅren Fuhrmann of golem.de)
-	added Slashdot namespace to RSS 1.0 (thanks to SпїЅren Fuhrmann of golem.de)
+	improved the UniversalFeedCreator's useCached method (thanks to SРїС—Р…ren Fuhrmann of golem.de)
+	added charset output in HTTP headers (thanks to SРїС—Р…ren Fuhrmann of golem.de)
+	added Slashdot namespace to RSS 1.0 (thanks to SРїС—Р…ren Fuhrmann of golem.de)
 
 v1.6	05-10-04
 	added stylesheet to RSS 1.0 feeds
@@ -88,7 +88,7 @@ v1.6 beta	02-28-04
 	considered beta due to some internal changes
 
 v1.5.1	01-27-04
-	fixed some RSS 1.0 glitches (thanks to StпїЅphane Vanpoperynghe)
+	fixed some RSS 1.0 glitches (thanks to StРїС—Р…phane Vanpoperynghe)
 	fixed some inconsistencies between documentation and code (thanks to Timothy Martin)
 
 v1.5	01-06-04
@@ -415,7 +415,7 @@ class UniversalFeedCreator extends FeedCreator {
 				$this->_feed = new JSCreator();
 				break;
 
-			// Yandex лента новостей
+			// Yandex Р»РµРЅС‚Р° РЅРѕРІРѕСЃС‚РµР№
 			case "YANDEX":
 				$this->_feed = new Yandex();
 				break;
@@ -728,7 +728,7 @@ class FeedCreator extends HtmlDescribable {
 				$this->_redirect($filename);
 			}
 		} else {
-			echo "<br /><b>Ошибка создания файла ленты новостей. Пожалуйста, проверьте разрешения на запись.</b><br />";
+			echo "<br /><b>РћС€РёР±РєР° СЃРѕР·РґР°РЅРёСЏ С„Р°Р№Р»Р° Р»РµРЅС‚С‹ РЅРѕРІРѕСЃС‚РµР№. РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РїСЂРѕРІРµСЂСЊС‚Рµ СЂР°Р·СЂРµС€РµРЅРёСЏ РЅР° Р·Р°РїРёСЃСЊ.</b><br />";
 		}
 	}
 
@@ -1558,7 +1558,7 @@ class GoogleSiteMapIndex extends FeedCreator {
 
 
 /**
-* Создание XML файла для Yandexx RSS
+* РЎРѕР·РґР°РЅРёРµ XML С„Р°Р№Р»Р° РґР»СЏ Yandexx RSS
 */
 class Yandex extends FeedCreator {
 

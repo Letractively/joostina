@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Àâòîğñêèå ïğàâà (C) 2007 Joostina team. Âñå ïğàâà çàùèùåíû.
-* @license Ëèöåíçèÿ http://www.gnu.org/copyleft/gpl.html GNU/GPL, ñìîòğèòå LICENSE.php
-* Joostina! - ñâîáîäíîå ïğîãğàììíîå îáåñïå÷åíèå. İòà âåğñèÿ ìîæåò áûòü èçìåíåíà
-* â ñîîòâåòñòâèè ñ Ãåíåğàëüíîé Îáùåñòâåííîé Ëèöåíçèåé GNU, ïîıòîìó âîçìîæíî
-* å¸ äàëüíåéøåå ğàñïğîñòğàíåíèå â ñîñòàâå ğåçóëüòàòà ğàáîòû, ëèöåíçèğîâàííîãî
-* ñîãëàñíî Ãåíåğàëüíîé Îáùåñòâåííîé Ëèöåíçèåé GNU èëè äğóãèõ ëèöåíçèé ñâîáîäíûõ
-* ïğîãğàìì èëè ïğîãğàìì ñ îòêğûòûì èñõîäíûì êîäîì.
-* Äëÿ ïğîñìîòğà ïîäğîáíîñòåé è çàìå÷àíèé îá àâòîğñêîì ïğàâå, ñìîòğèòå ôàéë COPYRIGHT.php.
+* @copyright ĞĞ²Ñ‚Ğ¾Ñ€ÑĞºĞ¸Ğµ Ğ¿Ñ€Ğ°Ğ²Ğ° (C) 2007 Joostina team. Ğ’ÑĞµ Ğ¿Ñ€Ğ°Ğ²Ğ° Ğ·Ğ°Ñ‰Ğ¸Ñ‰ĞµĞ½Ñ‹.
+* @license Ğ›Ğ¸Ñ†ĞµĞ½Ğ·Ğ¸Ñ http://www.gnu.org/copyleft/gpl.html GNU/GPL, ÑĞ¼Ğ¾Ñ‚Ñ€Ğ¸Ñ‚Ğµ LICENSE.php
+* Joostina! - ÑĞ²Ğ¾Ğ±Ğ¾Ğ´Ğ½Ğ¾Ğµ Ğ¿Ñ€Ğ¾Ğ³Ñ€Ğ°Ğ¼Ğ¼Ğ½Ğ¾Ğµ Ğ¾Ğ±ĞµÑĞ¿ĞµÑ‡ĞµĞ½Ğ¸Ğµ. Ğ­Ñ‚Ğ° Ğ²ĞµÑ€ÑĞ¸Ñ Ğ¼Ğ¾Ğ¶ĞµÑ‚ Ğ±Ñ‹Ñ‚ÑŒ Ğ¸Ğ·Ğ¼ĞµĞ½ĞµĞ½Ğ°
+* Ğ² ÑĞ¾Ğ¾Ñ‚Ğ²ĞµÑ‚ÑÑ‚Ğ²Ğ¸Ğ¸ Ñ Ğ“ĞµĞ½ĞµÑ€Ğ°Ğ»ÑŒĞ½Ğ¾Ğ¹ ĞĞ±Ñ‰ĞµÑÑ‚Ğ²ĞµĞ½Ğ½Ğ¾Ğ¹ Ğ›Ğ¸Ñ†ĞµĞ½Ğ·Ğ¸ĞµĞ¹ GNU, Ğ¿Ğ¾ÑÑ‚Ğ¾Ğ¼Ñƒ Ğ²Ğ¾Ğ·Ğ¼Ğ¾Ğ¶Ğ½Ğ¾
+* ĞµÑ‘ Ğ´Ğ°Ğ»ÑŒĞ½ĞµĞ¹ÑˆĞµĞµ Ñ€Ğ°ÑĞ¿Ñ€Ğ¾ÑÑ‚Ñ€Ğ°Ğ½ĞµĞ½Ğ¸Ğµ Ğ² ÑĞ¾ÑÑ‚Ğ°Ğ²Ğµ Ñ€ĞµĞ·ÑƒĞ»ÑŒÑ‚Ğ°Ñ‚Ğ° Ñ€Ğ°Ğ±Ğ¾Ñ‚Ñ‹, Ğ»Ğ¸Ñ†ĞµĞ½Ğ·Ğ¸Ñ€Ğ¾Ğ²Ğ°Ğ½Ğ½Ğ¾Ğ³Ğ¾
+* ÑĞ¾Ğ³Ğ»Ğ°ÑĞ½Ğ¾ Ğ“ĞµĞ½ĞµÑ€Ğ°Ğ»ÑŒĞ½Ğ¾Ğ¹ ĞĞ±Ñ‰ĞµÑÑ‚Ğ²ĞµĞ½Ğ½Ğ¾Ğ¹ Ğ›Ğ¸Ñ†ĞµĞ½Ğ·Ğ¸ĞµĞ¹ GNU Ğ¸Ğ»Ğ¸ Ğ´Ñ€ÑƒĞ³Ğ¸Ñ… Ğ»Ğ¸Ñ†ĞµĞ½Ğ·Ğ¸Ğ¹ ÑĞ²Ğ¾Ğ±Ğ¾Ğ´Ğ½Ñ‹Ñ…
+* Ğ¿Ñ€Ğ¾Ğ³Ñ€Ğ°Ğ¼Ğ¼ Ğ¸Ğ»Ğ¸ Ğ¿Ñ€Ğ¾Ğ³Ñ€Ğ°Ğ¼Ğ¼ Ñ Ğ¾Ñ‚ĞºÑ€Ñ‹Ñ‚Ñ‹Ğ¼ Ğ¸ÑÑ…Ğ¾Ğ´Ğ½Ñ‹Ğ¼ ĞºĞ¾Ğ´Ğ¾Ğ¼.
+* Ğ”Ğ»Ñ Ğ¿Ñ€Ğ¾ÑĞ¼Ğ¾Ñ‚Ñ€Ğ° Ğ¿Ğ¾Ğ´Ñ€Ğ¾Ğ±Ğ½Ğ¾ÑÑ‚ĞµĞ¹ Ğ¸ Ğ·Ğ°Ğ¼ĞµÑ‡Ğ°Ğ½Ğ¸Ğ¹ Ğ¾Ğ± Ğ°Ğ²Ñ‚Ğ¾Ñ€ÑĞºĞ¾Ğ¼ Ğ¿Ñ€Ğ°Ğ²Ğµ, ÑĞ¼Ğ¾Ñ‚Ñ€Ğ¸Ñ‚Ğµ Ñ„Ğ°Ğ¹Ğ» COPYRIGHT.php.
 */
 
-// çàïğåò ïğÿìîãî äîñòóïà
-defined( '_VALID_MOS' ) or die( 'Ïğÿìîé âûçîâ ôàéëà çàïğåùåí' );
+// Ğ·Ğ°Ğ¿Ñ€ĞµÑ‚ Ğ¿Ñ€ÑĞ¼Ğ¾Ğ³Ğ¾ Ğ´Ğ¾ÑÑ‚ÑƒĞ¿Ğ°
+defined( '_VALID_MOS' ) or die( 'ĞŸÑ€ÑĞ¼Ğ¾Ğ¹ Ğ²Ñ‹Ğ·Ğ¾Ğ² Ñ„Ğ°Ğ¹Ğ»Ğ° Ğ·Ğ°Ğ¿Ñ€ĞµÑ‰ĞµĞ½' );
 
 /**
 * Utility class for the button bar
@@ -64,7 +64,7 @@ class mosToolBar {
 	*/
 	function custom( $task='', $icon=NULL, $iconOver='', $alt='', $listSelect=true ) {
 		if ($listSelect) {
-			$href = "javascript:if (document.adminForm.boxchecked.value == 0){ alert('Âûáåğèòå îáúåêò èç ñïèñêà äëÿ $alt');}else{submitbutton('$task')}";
+			$href = "javascript:if (document.adminForm.boxchecked.value == 0){ alert('Ğ’Ñ‹Ğ±ĞµÑ€Ğ¸Ñ‚Ğµ Ğ¾Ğ±ÑŠĞµĞºÑ‚ Ğ¸Ğ· ÑĞ¿Ğ¸ÑĞºĞ° Ğ´Ğ»Ñ $alt');}else{submitbutton('$task')}";
 		} else {
 			$href = "javascript:submitbutton('$task')";
 		}
@@ -115,7 +115,7 @@ class mosToolBar {
 		$image = mosAdminMenus::ImageCheck( 'publish_f2.png', '/images/', NULL, NULL, $alt, $task, 1, 'middle', $alt );
 		?>
 		<td>
-			<a class="toolbar" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Âûáåğèòå îáúåêò èç ñïèñêà äëÿ åãî ïóáëèêàöèè'); } else {submitbutton('<?php echo $task;?>', '');}" >
+			<a class="toolbar" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Ğ’Ñ‹Ğ±ĞµÑ€Ğ¸Ñ‚Ğµ Ğ¾Ğ±ÑŠĞµĞºÑ‚ Ğ¸Ğ· ÑĞ¿Ğ¸ÑĞºĞ° Ğ´Ğ»Ñ ĞµĞ³Ğ¾ Ğ¿ÑƒĞ±Ğ»Ğ¸ĞºĞ°Ñ†Ğ¸Ğ¸'); } else {submitbutton('<?php echo $task;?>', '');}" >
 				<?php echo $image; ?></a>
 		</td>
 		<?php
@@ -145,7 +145,7 @@ class mosToolBar {
 		$image = mosAdminMenus::ImageCheck( 'unpublish_f2.png', '/images/', NULL, NULL, $alt, $task, 1, 'middle', $alt );
 		?>
 		<td>
-			<a class="toolbar" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Âûáåğèòå îáúåêò èç ñïèñêà äëÿ îòìåíû åãî ïóáëèêàöèè'); } else {submitbutton('<?php echo $task;?>', '');}" >
+			<a class="toolbar" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Ğ’Ñ‹Ğ±ĞµÑ€Ğ¸Ñ‚Ğµ Ğ¾Ğ±ÑŠĞµĞºÑ‚ Ğ¸Ğ· ÑĞ¿Ğ¸ÑĞºĞ° Ğ´Ğ»Ñ Ğ¾Ñ‚Ğ¼ĞµĞ½Ñ‹ ĞµĞ³Ğ¾ Ğ¿ÑƒĞ±Ğ»Ğ¸ĞºĞ°Ñ†Ğ¸Ğ¸'); } else {submitbutton('<?php echo $task;?>', '');}" >
 				<?php echo $image; ?></a>
 		</td>
 		<?php
@@ -160,7 +160,7 @@ class mosToolBar {
 		$image = mosAdminMenus::ImageCheck( 'archive_f2.png', '/images/', NULL, NULL, $alt, $task, 1, 'middle', $alt );
 		?>
 		<td>
-			<a class="toolbar" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Âûáåğèòå îáúåêò èç ñïèñêà äëÿ ïåğåìåùåíèÿ â àğõèâ'); } else {submitbutton('<?php echo $task;?>', '');}" >
+			<a class="toolbar" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Ğ’Ñ‹Ğ±ĞµÑ€Ğ¸Ñ‚Ğµ Ğ¾Ğ±ÑŠĞµĞºÑ‚ Ğ¸Ğ· ÑĞ¿Ğ¸ÑĞºĞ° Ğ´Ğ»Ñ Ğ¿ĞµÑ€ĞµĞ¼ĞµÑ‰ĞµĞ½Ğ¸Ñ Ğ² Ğ°Ñ€Ñ…Ğ¸Ğ²'); } else {submitbutton('<?php echo $task;?>', '');}" >
 				<?php echo $image; ?></a>
 		</td>
 		<?php
@@ -175,7 +175,7 @@ class mosToolBar {
 		$image = mosAdminMenus::ImageCheck( 'unarchive_f2.png', '/images/', NULL, NULL, $alt, $task, 1, 'middle', $alt );
 		?>
 		<td>
-			<a class="toolbar" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Âûáåğèòå ìàòåğèàë äëÿ âîññòàíîâëåíèÿ åãî èç àğõèâà'); } else {submitbutton('<?php echo $task;?>', '');}" >
+			<a class="toolbar" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Ğ’Ñ‹Ğ±ĞµÑ€Ğ¸Ñ‚Ğµ Ğ¼Ğ°Ñ‚ĞµÑ€Ğ¸Ğ°Ğ» Ğ´Ğ»Ñ Ğ²Ğ¾ÑÑÑ‚Ğ°Ğ½Ğ¾Ğ²Ğ»ĞµĞ½Ğ¸Ñ ĞµĞ³Ğ¾ Ğ¸Ğ· Ğ°Ñ€Ñ…Ğ¸Ğ²Ğ°'); } else {submitbutton('<?php echo $task;?>', '');}" >
 				<?php echo $image; ?></a>
 		</td>
 		<?php
@@ -190,7 +190,7 @@ class mosToolBar {
 		$image = mosAdminMenus::ImageCheck( 'edit_f2.png', '/images/', NULL, NULL, $alt, $task, 1, 'middle', $alt );
 		?>
 		<td>
-			<a class="toolbar" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Âûáåğèòå îáúåêò èç ñïèñêà äëÿ åãî ğåäàêòèğîâàíèÿ'); } else {submitbutton('<?php echo $task;?>', '');}" >
+			<a class="toolbar" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Ğ’Ñ‹Ğ±ĞµÑ€Ğ¸Ñ‚Ğµ Ğ¾Ğ±ÑŠĞµĞºÑ‚ Ğ¸Ğ· ÑĞ¿Ğ¸ÑĞºĞ° Ğ´Ğ»Ñ ĞµĞ³Ğ¾ Ñ€ĞµĞ´Ğ°ĞºÑ‚Ğ¸Ñ€Ğ¾Ğ²Ğ°Ğ½Ğ¸Ñ'); } else {submitbutton('<?php echo $task;?>', '');}" >
 				<?php echo $image; ?></a>
 		</td>
 		<?php
@@ -205,7 +205,7 @@ class mosToolBar {
 		$image = mosAdminMenus::ImageCheck( 'edit_f2.png', '/images/', NULL, NULL, $alt, $task, 1, 'middle', $alt );
 		?>
 		<td>
-			<a class="toolbar" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Âûáåğèòå îáúåêò èç ñïèñêà äëÿ åãî ğåäàêòèğîâàíèÿ'); } else {submitbutton('<?php echo $task;?>', '');}" >
+			<a class="toolbar" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Ğ’Ñ‹Ğ±ĞµÑ€Ğ¸Ñ‚Ğµ Ğ¾Ğ±ÑŠĞµĞºÑ‚ Ğ¸Ğ· ÑĞ¿Ğ¸ÑĞºĞ° Ğ´Ğ»Ñ ĞµĞ³Ğ¾ Ñ€ĞµĞ´Ğ°ĞºÑ‚Ğ¸Ñ€Ğ¾Ğ²Ğ°Ğ½Ğ¸Ñ'); } else {submitbutton('<?php echo $task;?>', '');}" >
 				<?php echo $image; ?></a>
 		</td>
 		<?php
@@ -220,7 +220,7 @@ class mosToolBar {
 		$image = mosAdminMenus::ImageCheck( 'css_f2.png', '/images/', NULL, NULL, $alt, $task, 1, 'middle', $alt );
 		?>
 		<td>
-			<a class="toolbar" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Âûáåğèòå îáúåêò èç ñïèñêà äëÿ åãî ğåäàêòèğîâàíèÿ'); } else {submitbutton('<?php echo $task;?>', '');}" >
+			<a class="toolbar" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Ğ’Ñ‹Ğ±ĞµÑ€Ğ¸Ñ‚Ğµ Ğ¾Ğ±ÑŠĞµĞºÑ‚ Ğ¸Ğ· ÑĞ¿Ğ¸ÑĞºĞ° Ğ´Ğ»Ñ ĞµĞ³Ğ¾ Ñ€ĞµĞ´Ğ°ĞºÑ‚Ğ¸Ñ€Ğ¾Ğ²Ğ°Ğ½Ğ¸Ñ'); } else {submitbutton('<?php echo $task;?>', '');}" >
 				<?php echo $image; ?></a>
 		</td>
 		<?php
@@ -236,7 +236,7 @@ class mosToolBar {
 		$image = mosAdminMenus::ImageCheck( 'delete_f2.png', '/images/', NULL, NULL, $alt, $task, 1, 'middle', $alt );
 		?>
 		<td>
-			<a class="toolbar" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Âûáåğèòå îáúåêò èç ñïèñêà äëÿ åãî óäàëåíèÿ'); } else if (confirm('Âû äåéñòâèòåëüíî õîòèòå óäàëèòü âûáğàííûå îáúåêòû? <?php echo $msg;?>')){ submitbutton('<?php echo $task;?>');}">
+			<a class="toolbar" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Ğ’Ñ‹Ğ±ĞµÑ€Ğ¸Ñ‚Ğµ Ğ¾Ğ±ÑŠĞµĞºÑ‚ Ğ¸Ğ· ÑĞ¿Ğ¸ÑĞºĞ° Ğ´Ğ»Ñ ĞµĞ³Ğ¾ ÑƒĞ´Ğ°Ğ»ĞµĞ½Ğ¸Ñ'); } else if (confirm('Ğ’Ñ‹ Ğ´ĞµĞ¹ÑÑ‚Ğ²Ğ¸Ñ‚ĞµĞ»ÑŒĞ½Ğ¾ Ñ…Ğ¾Ñ‚Ğ¸Ñ‚Ğµ ÑƒĞ´Ğ°Ğ»Ğ¸Ñ‚ÑŒ Ğ²Ñ‹Ğ±Ñ€Ğ°Ğ½Ğ½Ñ‹Ğµ Ğ¾Ğ±ÑŠĞµĞºÑ‚Ñ‹? <?php echo $msg;?>')){ submitbutton('<?php echo $task;?>');}">
 				<?php echo $image; ?></a>
 		</td>
 		<?php
@@ -255,7 +255,7 @@ class mosToolBar {
 		$database->setQuery( $sql );
 		$cur_template = $database->loadResult();
 
-		$image = mosAdminMenus::ImageCheck( 'preview_f2.png', 'images/', NULL, NULL, 'Ïğîñìîòğ', 'preview', 1 );
+		$image = mosAdminMenus::ImageCheck( 'preview_f2.png', 'images/', NULL, NULL, 'ĞŸÑ€Ğ¾ÑĞ¼Ğ¾Ñ‚Ñ€', 'preview', 1 );
 		?>
 		<td>
 			<a class="toolbar" href="#" onclick="window.open('popups/<?php echo $popup;?>.php?t=<?php echo $cur_template; ?>', 'win1', 'status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=640,height=480,directories=no,location=no');" >
@@ -366,7 +366,7 @@ class mosToolBar {
 	* @param string The sub-drectory to upload the media to
 	*/
 	function media_manager( $directory = '' ) {
-		$image = mosAdminMenus::ImageCheck( 'upload_f2.png', '/images/', NULL, NULL, 'Çàãğóçèòü èçîáğàæåíèå', 'uploadPic', 1 );
+		$image = mosAdminMenus::ImageCheck( 'upload_f2.png', '/images/', NULL, NULL, 'Ğ—Ğ°Ğ³Ñ€ÑƒĞ·Ğ¸Ñ‚ÑŒ Ğ¸Ğ·Ğ¾Ğ±Ñ€Ğ°Ğ¶ĞµĞ½Ğ¸Ğµ', 'uploadPic', 1 );
 		?>
 		<td>
 			<a class="toolbar" href="#" onclick="popupWindow('popups/uploadimage.php?directory=<?php echo $directory; ?>','win1',250,100,'no');">

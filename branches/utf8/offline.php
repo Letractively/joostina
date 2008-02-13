@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен.' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ.' );
 
 global $database;
 global $mosConfig_live_site, $mosConfig_lang;
@@ -20,12 +20,12 @@ global $mosConfig_live_site, $mosConfig_lang;
 $adminOffline = false;
 
 if (!defined( '_INSTALL_CHECK' )) {
-	// этот метод отличается от подобного в 1.1, т.к. отличается обработка сессий
+	// СЌС‚РѕС‚ РјРµС‚РѕРґ РѕС‚Р»РёС‡Р°РµС‚СЃСЏ РѕС‚ РїРѕРґРѕР±РЅРѕРіРѕ РІ 1.1, С‚.Рє. РѕС‚Р»РёС‡Р°РµС‚СЃСЏ РѕР±СЂР°Р±РѕС‚РєР° СЃРµСЃСЃРёР№
 	session_name( md5( $mosConfig_live_site ) );
 	session_start();
 	
 	if (class_exists( 'mosUser' )) {
-		// восстановление некоторых переменных сессии
+		// РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёРµ РЅРµРєРѕС‚РѕСЂС‹С… РїРµСЂРµРјРµРЅРЅС‹С… СЃРµСЃСЃРёРё
 		$admin 				= new mosUser( $database );
 		$admin->id 			= intval( mosGetParam( $_SESSION, 'session_user_id', '' ) );
 		$admin->username 	= strval( mosGetParam( $_SESSION, 'session_username', '' ) );
@@ -33,7 +33,7 @@ if (!defined( '_INSTALL_CHECK' )) {
 		$session_id 		= mosGetParam( $_SESSION, 'session_id', '' );
 		$logintime 			= mosGetParam( $_SESSION, 'session_logintime', '' );
 	
-		// проверка наличия строки сессии в базе данных
+		// РїСЂРѕРІРµСЂРєР° РЅР°Р»РёС‡РёСЏ СЃС‚СЂРѕРєРё СЃРµСЃСЃРёРё РІ Р±Р°Р·Рµ РґР°РЅРЅС‹С…
 		if ($session_id == md5( $admin->id . $admin->username . $admin->usertype . $logintime )) {
 			$query = "SELECT *"
 			. "\n FROM #__session"
@@ -56,7 +56,7 @@ if (!defined( '_ADMIN_OFFLINE' ) || defined( '_INSTALL_CHECK' )) {
 	@include_once ('language/' . $mosConfig_lang . '.php' );
 		
 if( $database != NULL ) {
-	// получение названия шаблона сайта по умолчанию
+	// РїРѕР»СѓС‡РµРЅРёРµ РЅР°Р·РІР°РЅРёСЏ С€Р°Р±Р»РѕРЅР° СЃР°Р№С‚Р° РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
 	$query = "SELECT template"
 	. "\n FROM #__templates_menu"
 	. "\n WHERE client_id = 0"
@@ -72,7 +72,7 @@ if( $database != NULL ) {
 		$cur_template = 'rhuk_solarflare_ii';
 	}
 	
-	// требуется для разделения номера ISO из константы языкового файла _ISO
+	// С‚СЂРµР±СѓРµС‚СЃСЏ РґР»СЏ СЂР°Р·РґРµР»РµРЅРёСЏ РЅРѕРјРµСЂР° ISO РёР· РєРѕРЅСЃС‚Р°РЅС‚С‹ СЏР·С‹РєРѕРІРѕРіРѕ С„Р°Р№Р»Р° _ISO
 	$iso = split( '=', _ISO );
 	// xml prolog
 	echo '<?xml version="1.0" encoding="'. $iso[1] .'"?' .'>';
@@ -80,7 +80,7 @@ if( $database != NULL ) {
 	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 	<html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<title><?php echo $mosConfig_sitename; ?> - Сайт выключен</title>
+		<title><?php echo $mosConfig_sitename; ?> - РЎР°Р№С‚ РІС‹РєР»СЋС‡РµРЅ</title>
 		<link rel="stylesheet" href="<?php echo $mosConfig_live_site; ?>/templates/css/offline.css" type="text/css" />
 <?php
 	if ( file_exists("$mosConfig_absolute_path/templates/$cur_template/css/offline.css") ) {
@@ -88,7 +88,7 @@ if( $database != NULL ) {
 	<link rel="stylesheet" href="<?php echo $mosConfig_live_site; ?>/templates/<?php echo $cur_template; ?>/css/offline.css" type="text/css" />
 <?php
 	}
-	// значок избранного (favicon)
+	// Р·РЅР°С‡РѕРє РёР·Р±СЂР°РЅРЅРѕРіРѕ (favicon)
 	if ( !$mosConfig_favicon ) {
 		$mosConfig_favicon = 'favicon.ico';
 	}
@@ -108,7 +108,7 @@ if( $database != NULL ) {
 		<table width="550" align="center" class="outline">
 		<tr>
 			<td width="60%" height="50" align="center">
-			<img src="<?php echo $mosConfig_live_site; ?>/images/syte_off.png" alt="Сайт выключен!" align="middle" />
+			<img src="<?php echo $mosConfig_live_site; ?>/images/syte_off.png" alt="РЎР°Р№С‚ РІС‹РєР»СЋС‡РµРЅ!" align="middle" />
 			</td>
 		</tr>
 		<tr>

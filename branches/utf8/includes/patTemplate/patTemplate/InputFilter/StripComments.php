@@ -42,10 +42,10 @@ class patTemplate_InputFilter_StripComments extends patTemplate_InputFilter
 	*/
 	function apply( $data )
 	{
-		//$data = preg_replace( 'пїЅ<!--.*-->пїЅmsU', '', $data );
-		//$data = preg_replace( 'пїЅ/\*.*\*/пїЅmsU', '', $data );
-		$data = preg_replace( '°<!--.*-->°msU', '', $data );
-		$data = preg_replace( '°/\*.*\*/°msU', '', $data );
+		//$data = preg_replace( 'РїС—Р…<!--.*-->РїС—Р…msU', '', $data );
+		//$data = preg_replace( 'РїС—Р…/\*.*\*/РїС—Р…msU', '', $data );
+		$data = preg_replace( 'В°<!--.*-->В°msU', '', $data );
+		$data = preg_replace( 'В°/\*.*\*/В°msU', '', $data );
 
 		return $data;
 	}

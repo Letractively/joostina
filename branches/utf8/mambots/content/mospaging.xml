@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <mosinstall version="1.0.0" type="mambot" group="content">
-	<name>Разрыв страницы Mambo</name>
+	<name>Р Р°Р·СЂС‹РІ СЃС‚СЂР°РЅРёС†С‹ Mambo</name>
 	<author>Joostina! Project</author>
-	<creationDate>Август 2004</creationDate>
+	<creationDate>РђРІРіСѓСЃС‚ 2004</creationDate>
 	<copyright>(C) 2007 Joostina Team.</copyright>
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
 	<authorEmail>joostinacms@gmail.com</authorEmail>
 	<authorUrl>www.joostina.ru</authorUrl>
 	<version>1.0.0 RE</version>
-	<description>Добавляет функцию создания оглавления содержимого. Синтаксис: {mospagebreak} или {mospagebreak title=Название страницы} или {mospagebreak heading=Первая страница} или {mospagebreak title=Название страницы&heading=Первая страница} или {mospagebreak heading=Первая страница&title=Название страницы}</description>
+	<description>Р”РѕР±Р°РІР»СЏРµС‚ С„СѓРЅРєС†РёСЋ СЃРѕР·РґР°РЅРёСЏ РѕРіР»Р°РІР»РµРЅРёСЏ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ. РЎРёРЅС‚Р°РєСЃРёСЃ: {mospagebreak} РёР»Рё {mospagebreak title=РќР°Р·РІР°РЅРёРµ СЃС‚СЂР°РЅРёС†С‹} РёР»Рё {mospagebreak heading=РџРµСЂРІР°СЏ СЃС‚СЂР°РЅРёС†Р°} РёР»Рё {mospagebreak title=РќР°Р·РІР°РЅРёРµ СЃС‚СЂР°РЅРёС†С‹&heading=РџРµСЂРІР°СЏ СЃС‚СЂР°РЅРёС†Р°} РёР»Рё {mospagebreak heading=РџРµСЂРІР°СЏ СЃС‚СЂР°РЅРёС†Р°&title=РќР°Р·РІР°РЅРёРµ СЃС‚СЂР°РЅРёС†С‹}</description>
 	<files>
 		<filename mambot="mospaging">mospaging.php</filename>
 	</files>
 	<params>
-		<param name="title" type="radio" default="1" label="Название сайта" description="Атрибуты названия и заголовка, добавляемые в тэг Название сайта">
-			<option value="0">Нет</option>
-			<option value="1">Да</option>
+		<param name="title" type="radio" default="1" label="РќР°Р·РІР°РЅРёРµ СЃР°Р№С‚Р°" description="РђС‚СЂРёР±СѓС‚С‹ РЅР°Р·РІР°РЅРёСЏ Рё Р·Р°РіРѕР»РѕРІРєР°, РґРѕР±Р°РІР»СЏРµРјС‹Рµ РІ С‚СЌРі РќР°Р·РІР°РЅРёРµ СЃР°Р№С‚Р°">
+			<option value="0">РќРµС‚</option>
+			<option value="1">Р”Р°</option>
 		</param>
 	</params>
 </mosinstall>

@@ -1,14 +1,14 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
 define( "_VALID_MOS", 1 );
@@ -23,7 +23,7 @@ function writableCell( $folder ) {
         echo "<tr>";
         echo "<td class=\"item\">" . $folder . "/</td>";
         echo "<td align=\"left\">";
-        echo is_writable( "../$folder" ) ? '<b><font color="green">Доступен для записи </font></b>' : '<b><font color="red">Недоступен для записи</font></b>' . "</td>";
+        echo is_writable( "../$folder" ) ? '<b><font color="green">Р”РѕСЃС‚СѓРїРµРЅ РґР»СЏ Р·Р°РїРёСЃРё </font></b>' : '<b><font color="red">РќРµРґРѕСЃС‚СѓРїРµРЅ РґР»СЏ Р·Р°РїРёСЃРё</font></b>' . "</td>";
         echo "</tr>";
 }
 ?>
@@ -31,7 +31,7 @@ function writableCell( $folder ) {
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Joostina - Web-установка. Лицензия ...</title>
+<title>Joostina - Web-СѓСЃС‚Р°РЅРѕРІРєР°. Р›РёС†РµРЅР·РёСЏ ...</title>
  <meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
 <link rel="shortcut icon" href="../images/favicon.ico" />
  <link rel="stylesheet" href="install.css" type="text/css" />
@@ -39,29 +39,29 @@ function writableCell( $folder ) {
 <body>
  <div id="wrapper">
   <div id="header">
-   <div id="joomla"><img src="header_install.png" alt="Установка Joomla" /></div>
+   <div id="joomla"><img src="header_install.png" alt="РЈСЃС‚Р°РЅРѕРІРєР° Joomla" /></div>
   </div>
  </div>
  <div id="ctr" align="center">
   <form action="install1.php" method="post" name="adminForm" id="adminForm">
    <div class="install">
     <div id="stepbar">
-     <div class="step-off">Проверка системы</div>
-     <div class="step-on">Лицензия</div>
-     <div class="step-off">Шаг 1</div>
-     <div class="step-off">Шаг 2</div>
-     <div class="step-off">Шаг 3</div>
-     <div class="step-off">Шаг 4</div>
+     <div class="step-off">РџСЂРѕРІРµСЂРєР° СЃРёСЃС‚РµРјС‹</div>
+     <div class="step-on">Р›РёС†РµРЅР·РёСЏ</div>
+     <div class="step-off">РЁР°Рі 1</div>
+     <div class="step-off">РЁР°Рі 2</div>
+     <div class="step-off">РЁР°Рі 3</div>
+     <div class="step-off">РЁР°Рі 4</div>
     </div>
     <div id="right">
-     <div id="step">Лицензия</div>
+     <div id="step">Р›РёС†РµРЅР·РёСЏ</div>
      <div class="far-right">
-      <input class="button" type="submit" name="next" value="Далее &gt;&gt;"/>
+      <input class="button" type="submit" name="next" value="Р”Р°Р»РµРµ &gt;&gt;"/>
      </div>
      <div class="clr"></div>
-     <h1>Лицензия GNU/GPL:</h1>
+     <h1>Р›РёС†РµРЅР·РёСЏ GNU/GPL:</h1>
      <div class="licensetext">
-      Joostina- свободное программное обеспечение, распространяемое по лицензии GNU/GPL, для использования системы Вы должны полностью согласиться с предоставленной лицензией.
+      Joostina- СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ, СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ Р»РёС†РµРЅР·РёРё GNU/GPL, РґР»СЏ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ СЃРёСЃС‚РµРјС‹ Р’С‹ РґРѕР»Р¶РЅС‹ РїРѕР»РЅРѕСЃС‚СЊСЋ СЃРѕРіР»Р°СЃРёС‚СЊСЃСЏ СЃ РїСЂРµРґРѕСЃС‚Р°РІР»РµРЅРЅРѕР№ Р»РёС†РµРЅР·РёРµР№.
      </div>
      <div class="clr"></div>
      <div class="license-form">
@@ -78,6 +78,6 @@ function writableCell( $folder ) {
    </div>
   </form>
  </div>
- <div class="ctr"><a href="http://www.Joostina.ru" target="_blank">Joostina</a> - свободное программное обеспечение, распространяемое по лицензии GNU/GPL.</div>
+ <div class="ctr"><a href="http://www.Joostina.ru" target="_blank">Joostina</a> - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ, СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ Р»РёС†РµРЅР·РёРё GNU/GPL.</div>
 </body>
 </html>

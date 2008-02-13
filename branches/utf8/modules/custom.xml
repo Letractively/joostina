@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <mosinstall type="module" version="1.0.0">
-	<name>Персональный модуль</name>
+	<name>РџРµСЂСЃРѕРЅР°Р»СЊРЅС‹Р№ РјРѕРґСѓР»СЊ</name>
 	<author>Joostina! Project</author>
-	<creationDate>Октябрь 2007</creationDate>
+	<creationDate>РћРєС‚СЏР±СЂСЊ 2007</creationDate>
 	<copyright>(C) 2007 Joostina Team.</copyright>
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
 	<authorEmail>joostinacms@gmail.com</authorEmail>
 	<authorUrl>www.joostina.ru</authorUrl>
 	<version>1.0.0</version>
-	<description>Персональный модуль</description>
+	<description>РџРµСЂСЃРѕРЅР°Р»СЊРЅС‹Р№ РјРѕРґСѓР»СЊ</description>
 	<params>
-		<param name="moduleclass_sfx" type="text" default="" label="CSS-суффикс класса модуля" description="Суффикс, который будет использован в описании класса (table.moduletable) таблицы стилей (CSS) модуля. Это позволяет использовать индивидуальный стиль модуля." />
-		<param name="cache" type="radio" default="0" label="Разрешить кэширование" description="Выберите, кэшировать ли содержимое этого модуля">
-			<option value="0">Нет</option>
-			<option value="1">Да</option>
+		<param name="moduleclass_sfx" type="text" default="" label="CSS-СЃСѓС„С„РёРєСЃ РєР»Р°СЃСЃР° РјРѕРґСѓР»СЏ" description="РЎСѓС„С„РёРєСЃ, РєРѕС‚РѕСЂС‹Р№ Р±СѓРґРµС‚ РёСЃРїРѕР»СЊР·РѕРІР°РЅ РІ РѕРїРёСЃР°РЅРёРё РєР»Р°СЃСЃР° (table.moduletable) С‚Р°Р±Р»РёС†С‹ СЃС‚РёР»РµР№ (CSS) РјРѕРґСѓР»СЏ. Р­С‚Рѕ РїРѕР·РІРѕР»СЏРµС‚ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РёРЅРґРёРІРёРґСѓР°Р»СЊРЅС‹Р№ СЃС‚РёР»СЊ РјРѕРґСѓР»СЏ." />
+		<param name="cache" type="radio" default="0" label="Р Р°Р·СЂРµС€РёС‚СЊ РєСЌС€РёСЂРѕРІР°РЅРёРµ" description="Р’С‹Р±РµСЂРёС‚Рµ, РєСЌС€РёСЂРѕРІР°С‚СЊ Р»Рё СЃРѕРґРµСЂР¶РёРјРѕРµ СЌС‚РѕРіРѕ РјРѕРґСѓР»СЏ">
+			<option value="0">РќРµС‚</option>
+			<option value="1">Р”Р°</option>
 		</param>
 		<param name="@spacer" type="spacer" default="" label="" description="" /> 
-		<param name="firebots" type="radio" default="1" label="Мамботы" description="Выберите, разрешать ли мамботам обрабатывать этот модуль">
-			<option value="0">Нет</option>
-			<option value="1">Да</option>
+		<param name="firebots" type="radio" default="1" label="РњР°РјР±РѕС‚С‹" description="Р’С‹Р±РµСЂРёС‚Рµ, СЂР°Р·СЂРµС€Р°С‚СЊ Р»Рё РјР°РјР±РѕС‚Р°Рј РѕР±СЂР°Р±Р°С‚С‹РІР°С‚СЊ СЌС‚РѕС‚ РјРѕРґСѓР»СЊ">
+			<option value="0">РќРµС‚</option>
+			<option value="1">Р”Р°</option>
 		</param>
 		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="rssurl" type="text" size="50" default="" label="URL-адрес RSS" description="Введите URL-адрес ленты RSS/RDF" />
-		<param name="rsstitle" type="radio" default="1" label="Заголовок ленты" description="Отображение заголовка ленты новостей">
-			<option value="1">Да</option>
-			<option value="0">Нет</option>
+		<param name="rssurl" type="text" size="50" default="" label="URL-Р°РґСЂРµСЃ RSS" description="Р’РІРµРґРёС‚Рµ URL-Р°РґСЂРµСЃ Р»РµРЅС‚С‹ RSS/RDF" />
+		<param name="rsstitle" type="radio" default="1" label="Р—Р°РіРѕР»РѕРІРѕРє Р»РµРЅС‚С‹" description="РћС‚РѕР±СЂР°Р¶РµРЅРёРµ Р·Р°РіРѕР»РѕРІРєР° Р»РµРЅС‚С‹ РЅРѕРІРѕСЃС‚РµР№">
+			<option value="1">Р”Р°</option>
+			<option value="0">РќРµС‚</option>
 		</param>
-		<param name="rssdesc" type="radio" default="1" label="Описание ленты" description="Показывает текст описания для всей ленты">
-			<option value="1">Да</option>
-			<option value="0">Нет</option>
+		<param name="rssdesc" type="radio" default="1" label="РћРїРёСЃР°РЅРёРµ Р»РµРЅС‚С‹" description="РџРѕРєР°Р·С‹РІР°РµС‚ С‚РµРєСЃС‚ РѕРїРёСЃР°РЅРёСЏ РґР»СЏ РІСЃРµР№ Р»РµРЅС‚С‹">
+			<option value="1">Р”Р°</option>
+			<option value="0">РќРµС‚</option>
 		</param>
-		<param name="rssimage" type="radio" default="1" label="Изображение ленты" description="Показывает изображение, ассоциированное со всей лентой">
-			<option value="1">Да</option>
-			<option value="0">Нет</option>
+		<param name="rssimage" type="radio" default="1" label="РР·РѕР±СЂР°Р¶РµРЅРёРµ Р»РµРЅС‚С‹" description="РџРѕРєР°Р·С‹РІР°РµС‚ РёР·РѕР±СЂР°Р¶РµРЅРёРµ, Р°СЃСЃРѕС†РёРёСЂРѕРІР°РЅРЅРѕРµ СЃРѕ РІСЃРµР№ Р»РµРЅС‚РѕР№">
+			<option value="1">Р”Р°</option>
+			<option value="0">РќРµС‚</option>
 		</param>
-		<param name="rssitems" type="text" default="3" label="Объектов" description="Введите количество отображаемых объектов RSS" />
-		<param name="rssitemdesc" type="radio" default="1" label="Описание объекта" description="Показывает описание или вводный текст отдельных объектов новостей">
-			<option value="1">Да</option>
-			<option value="0">Нет</option>
+		<param name="rssitems" type="text" default="3" label="РћР±СЉРµРєС‚РѕРІ" description="Р’РІРµРґРёС‚Рµ РєРѕР»РёС‡РµСЃС‚РІРѕ РѕС‚РѕР±СЂР°Р¶Р°РµРјС‹С… РѕР±СЉРµРєС‚РѕРІ RSS" />
+		<param name="rssitemdesc" type="radio" default="1" label="РћРїРёСЃР°РЅРёРµ РѕР±СЉРµРєС‚Р°" description="РџРѕРєР°Р·С‹РІР°РµС‚ РѕРїРёСЃР°РЅРёРµ РёР»Рё РІРІРѕРґРЅС‹Р№ С‚РµРєСЃС‚ РѕС‚РґРµР»СЊРЅС‹С… РѕР±СЉРµРєС‚РѕРІ РЅРѕРІРѕСЃС‚РµР№">
+			<option value="1">Р”Р°</option>
+			<option value="0">РќРµС‚</option>
 		</param>
-		<param name="word_count" type="text" size="6" default="0" label="Подсчет слов" description="Позволяет Вам ограничить количество текста описания видимого объекта. При 0 показывается весь текст" />
-		<param name="rsscache" type="text" size="6" default="3600" label="Время жизни кэша RSS" description="Установите время кэширования для этой ленты RSS" />
+		<param name="word_count" type="text" size="6" default="0" label="РџРѕРґСЃС‡РµС‚ СЃР»РѕРІ" description="РџРѕР·РІРѕР»СЏРµС‚ Р’Р°Рј РѕРіСЂР°РЅРёС‡РёС‚СЊ РєРѕР»РёС‡РµСЃС‚РІРѕ С‚РµРєСЃС‚Р° РѕРїРёСЃР°РЅРёСЏ РІРёРґРёРјРѕРіРѕ РѕР±СЉРµРєС‚Р°. РџСЂРё 0 РїРѕРєР°Р·С‹РІР°РµС‚СЃСЏ РІРµСЃСЊ С‚РµРєСЃС‚" />
+		<param name="rsscache" type="text" size="6" default="3600" label="Р’СЂРµРјСЏ Р¶РёР·РЅРё РєСЌС€Р° RSS" description="РЈСЃС‚Р°РЅРѕРІРёС‚Рµ РІСЂРµРјСЏ РєСЌС€РёСЂРѕРІР°РЅРёСЏ РґР»СЏ СЌС‚РѕР№ Р»РµРЅС‚С‹ RSS" />
 	</params>
 </mosinstall>

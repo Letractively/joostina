@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <mosinstall version="1.0.0" type="mambot" group="search">
-	<name>Бот поиска в содержимом</name>
+	<name>Р‘РѕС‚ РїРѕРёСЃРєР° РІ СЃРѕРґРµСЂР¶РёРјРѕРј</name>
 	<author>Joostina! Project</author>
-	<creationDate>Август 2004</creationDate>
+	<creationDate>РђРІРіСѓСЃС‚ 2004</creationDate>
 	<copyright>(C) 2007 Joostina Team.</copyright>
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
 	<authorEmail>joostinacms@gmail.com</authorEmail>
 	<authorUrl>www.joostina.ru</authorUrl>
 	<version>1.0.0 RE</version>
-	<description>Позволяет искать во всех объектах содержимого</description>
+	<description>РџРѕР·РІРѕР»СЏРµС‚ РёСЃРєР°С‚СЊ РІРѕ РІСЃРµС… РѕР±СЉРµРєС‚Р°С… СЃРѕРґРµСЂР¶РёРјРѕРіРѕ</description>
 	<files>
 		<filename mambot="content.searchbot">content.searchbot.php</filename>
 	</files>
 	<params>
-		<param name="search_limit" type="text" size="5" default="50" label="Ограничить поиск" description="Ограничение количества найденных объектов"/>		
-		<param name="nonmenu" type="radio" default="1" label="Статичное содержимое без ссылки" description="Искать статичное содержимое, не связанное с пунктом меню?">
-			<option value="0">Нет</option>
-			<option value="1">Да</option>
+		<param name="search_limit" type="text" size="5" default="50" label="РћРіСЂР°РЅРёС‡РёС‚СЊ РїРѕРёСЃРє" description="РћРіСЂР°РЅРёС‡РµРЅРёРµ РєРѕР»РёС‡РµСЃС‚РІР° РЅР°Р№РґРµРЅРЅС‹С… РѕР±СЉРµРєС‚РѕРІ"/>		
+		<param name="nonmenu" type="radio" default="1" label="РЎС‚Р°С‚РёС‡РЅРѕРµ СЃРѕРґРµСЂР¶РёРјРѕРµ Р±РµР· СЃСЃС‹Р»РєРё" description="РСЃРєР°С‚СЊ СЃС‚Р°С‚РёС‡РЅРѕРµ СЃРѕРґРµСЂР¶РёРјРѕРµ, РЅРµ СЃРІСЏР·Р°РЅРЅРѕРµ СЃ РїСѓРЅРєС‚РѕРј РјРµРЅСЋ?">
+			<option value="0">РќРµС‚</option>
+			<option value="1">Р”Р°</option>
 		</param>
 	</params>
 </mosinstall>

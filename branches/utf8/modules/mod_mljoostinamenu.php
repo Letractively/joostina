@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен.' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ.' );
 
 if (!defined( '_MOS_MLJOOSTINAMENU_MODULE' )) {
 	/** ensure that functions are declared only once */
@@ -160,7 +160,7 @@ var onImgArray = new Array();
 			$ml_img_title = ' title="'.$pg_title.'"';
 		}
 
-		// поняли скрываем активные ссылки или выводим просто текстом и дальше тягаем эту переменную до беспамятства
+		// РїРѕРЅСЏР»Рё СЃРєСЂС‹РІР°РµРј Р°РєС‚РёРІРЅС‹Рµ СЃСЃС‹Р»РєРё РёР»Рё РІС‹РІРѕРґРёРј РїСЂРѕСЃС‚Рѕ С‚РµРєСЃС‚РѕРј Рё РґР°Р»СЊС€Рµ С‚СЏРіР°РµРј СЌС‚Сѓ РїРµСЂРµРјРµРЅРЅСѓСЋ РґРѕ Р±РµСЃРїР°РјСЏС‚СЃС‚РІР°
 		$ml_hide_active = $params->get('ml_hide_active');
 
 		switch ($mitem->browserNav) {
@@ -237,7 +237,7 @@ var onImgArray = new Array();
 		if ($params->get('ml_imaged') == 1 || $params->get('ml_imaged') == 2){
 			$ml_rollover_use = $params->get('ml_rollover_use');
 			$ml_module_number = $params->get('ml_module_number');
-			//а вот тут мы начали догонять есть ли у нас rollover картинка или мы дальше просто так поедем
+			//Р° РІРѕС‚ С‚СѓС‚ РјС‹ РЅР°С‡Р°Р»Рё РґРѕРіРѕРЅСЏС‚СЊ РµСЃС‚СЊ Р»Рё Сѓ РЅР°СЃ rollover РєР°СЂС‚РёРЅРєР° РёР»Рё РјС‹ РґР°Р»СЊС€Рµ РїСЂРѕСЃС‚Рѕ С‚Р°Рє РїРѕРµРґРµРј
 			if ($ml_rollover_use == 1 && $params->get('ml_image_roll_'.$count_link) != -1 && $params->get('ml_image'.$count_link) != -1 ){
 				$link = str_replace('zaglushka.gif',$params->get('ml_image'.$count_link).'" name="ml_img_'.$count_link.'_'.$ml_module_number,$link);
 				$link = str_replace('<a','<a onmouseover="MlImageOn(\'ml_img_'.$count_link.'_'.$ml_module_number.'\')" onmouseout="MlImageOff(\'ml_img_'.$count_link.'_'.$ml_module_number.'\')"',$link);
@@ -337,7 +337,7 @@ var onImgArray = new Array();
 
 	}
 
-	// подготовка ссылок ,замена стилей в ссылках
+	// РїРѕРґРіРѕС‚РѕРІРєР° СЃСЃС‹Р»РѕРє ,Р·Р°РјРµРЅР° СЃС‚РёР»РµР№ РІ СЃСЃС‹Р»РєР°С…
 	function mosJoostinaPrepareLink (&$params, $style=0) {
 		global $database, $my, $cur_template, $Itemid;
 		global $mosConfig_absolute_path, $mosConfig_shownoauth,$mosConfig_disable_access_control;
@@ -369,12 +369,12 @@ var onImgArray = new Array();
 			$count_link = 1;
 			$full_count = count($links);
 
-		// вывод переменных из $params
+		// РІС‹РІРѕРґ РїРµСЂРµРјРµРЅРЅС‹С… РёР· $params
 		$moduleclass_sfx	  = $params->get('moduleclass_sfx') ;
 		$ml_separated_element = $params->get('ml_separated_element') ;
 
 		foreach ($links as $link) {
-			// начинаем издевательство над линками для приведения их к божьему виду
+			// РЅР°С‡РёРЅР°РµРј РёР·РґРµРІР°С‚РµР»СЊСЃС‚РІРѕ РЅР°Рґ Р»РёРЅРєР°РјРё РґР»СЏ РїСЂРёРІРµРґРµРЅРёСЏ РёС… Рє Р±РѕР¶СЊРµРјСѓ РІРёРґСѓ
 			if ($params->get('ml_separated_link') == 1) {
 				if ($params->get('ml_linked_sep') != 1 ) {$link_replacer = 'class="mainlevel-'.$count_link;} else {$link_replacer = 'class="mainlevel';}
 				$link = str_replace( 'class="mainlevel',$link_replacer,$link);
@@ -415,39 +415,39 @@ var onImgArray = new Array();
 			}
 
 		switch ($style) {
-			// вывод горизонтальной таблицей
+			// РІС‹РІРѕРґ РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅРѕР№ С‚Р°Р±Р»РёС†РµР№
 			case 1:
 				mosJoostinaLinkReplacer ($count_link,$link,$style,$params,$full_count);
 				$count_link = $count_link + 1;
 			break;
-			// вывод списком
+			// РІС‹РІРѕРґ СЃРїРёСЃРєРѕРј
 			case 2:
 				mosJoostinaLinkReplacer ($count_link,$link,$style,$params,$full_count);
 				$count_link = $count_link + 1;
 			break;
-			// вывод чистых ссылок
+			// РІС‹РІРѕРґ С‡РёСЃС‚С‹С… СЃСЃС‹Р»РѕРє
 			case 3:
 				mosJoostinaLinkReplacer ($count_link,$link,$style,$params,$full_count);
 				$count_link = $count_link + 1;
 			break;
-			// вывод таблицей в 100% ширины
+			// РІС‹РІРѕРґ С‚Р°Р±Р»РёС†РµР№ РІ 100% С€РёСЂРёРЅС‹
 			case 4:
 				mosJoostinaLinkReplacer ($count_link,$link,$style,$params,$full_count);
 				$count_link = $count_link + 1;
 			break;
-			// вывод в DIV
+			// РІС‹РІРѕРґ РІ DIV
 			case 5:
 				mosJoostinaLinkReplacer ($count_link,$link,$style,$params,$full_count);
 				$count_link = $count_link + 1;
 			break;
-			// вывод вертикальной таблицей
+			// РІС‹РІРѕРґ РІРµСЂС‚РёРєР°Р»СЊРЅРѕР№ С‚Р°Р±Р»РёС†РµР№
 			case 6:
 				mosJoostinaLinkReplacer ($count_link,$link,$style,$params,$full_count);
 				$count_link = $count_link + 1;
 			break;
 		}
 	}
-	//конец генерации вывода
+	//РєРѕРЅРµС† РіРµРЅРµСЂР°С†РёРё РІС‹РІРѕРґР°
 	}
 
 	}
@@ -690,26 +690,26 @@ onImgArray["ml_img_11_<?php echo $ml_module_number; ?>"].src = "<?php echo $mosC
 
 	switch ($style) {
 
-		// вывод горизонтальной таблицей
+		// РІС‹РІРѕРґ РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅРѕР№ С‚Р°Р±Р»РёС†РµР№
 		case 1:
 			echo '<table class="menutable'.$params->get('moduleclass_sfx').'" cellspacing="0" cellpadding="0" border="0"><tr>';
 			mosJoostinaPrepareLink($params,1);
 			echo '</tr></table>';
 		break;
 
-		// вывод списком
+		// РІС‹РІРѕРґ СЃРїРёСЃРєРѕРј
 		case 2:
 			echo '<ul class="menulist'.$params->get('moduleclass_sfx').'">';
 			mosJoostinaPrepareLink($params,2);
 			echo '</ul>';
 		break;
 
-		// вывод чистых ссылок
+		// РІС‹РІРѕРґ С‡РёСЃС‚С‹С… СЃСЃС‹Р»РѕРє
 		case 3:
 			mosJoostinaPrepareLink($params,3);
 			break;
 
-		// вывод в 100% ширины
+		// РІС‹РІРѕРґ РІ 100% С€РёСЂРёРЅС‹
 		case 4:
 			echo '<table class="menutable'.$params->get('moduleclass_sfx').'" cellspacing="0" cellpadding="0" border="0" width="100%"><tr>';
 			mosJoostinaPrepareLink($params,4);

@@ -1,17 +1,17 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// Установка флага родительского файла
+// РЈСЃС‚Р°РЅРѕРІРєР° С„Р»Р°РіР° СЂРѕРґРёС‚РµР»СЊСЃРєРѕРіРѕ С„Р°Р№Р»Р°
 define( '_VALID_MOS', 1 );
 
 if (function_exists('memory_get_usage'))
@@ -19,56 +19,56 @@ if (function_exists('memory_get_usage'))
 else
 	define( '_MEM_USAGE_START', null );
 
-// проверка конфигурационного файла, если не обнаружен, то загружается страница установки
+// РїСЂРѕРІРµСЂРєР° РєРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРЅРѕРіРѕ С„Р°Р№Р»Р°, РµСЃР»Рё РЅРµ РѕР±РЅР°СЂСѓР¶РµРЅ, С‚Рѕ Р·Р°РіСЂСѓР¶Р°РµС‚СЃСЏ СЃС‚СЂР°РЅРёС†Р° СѓСЃС‚Р°РЅРѕРІРєРё
 if (!file_exists( 'configuration.php' ) || filesize( 'configuration.php' ) < 10) {
 	$self = rtrim( dirname( $_SERVER['PHP_SELF'] ), '/\\' ) . '/';
 	header("Location: http://" . $_SERVER['HTTP_HOST'] . $self . "installation/index.php" );
 	exit();
 }
-// подключение файла эмуляции отключения регистрации глобальных переменных
+// РїРѕРґРєР»СЋС‡РµРЅРёРµ С„Р°Р№Р»Р° СЌРјСѓР»СЏС†РёРё РѕС‚РєР»СЋС‡РµРЅРёСЏ СЂРµРіРёСЃС‚СЂР°С†РёРё РіР»РѕР±Р°Р»СЊРЅС‹С… РїРµСЂРµРјРµРЅРЅС‹С…
 require( 'globals.php' );
-// подключение файла конфигурации
+// РїРѕРґРєР»СЋС‡РµРЅРёРµ С„Р°Р№Р»Р° РєРѕРЅС„РёРіСѓСЂР°С†РёРё
 require_once( 'configuration.php' );
 
-// boston считаем время за которое сгенерирована страница
+// boston СЃС‡РёС‚Р°РµРј РІСЂРµРјСЏ Р·Р° РєРѕС‚РѕСЂРѕРµ СЃРіРµРЅРµСЂРёСЂРѕРІР°РЅР° СЃС‚СЂР°РЅРёС†Р°
 if($mosConfig_time_gen){
 	list($usec, $sec) = explode(" ",microtime());
 	$sysstart = ((float)$usec + (float)$sec);
 };
-// проверка и активация расширенного отладчика
+// РїСЂРѕРІРµСЂРєР° Рё Р°РєС‚РёРІР°С†РёСЏ СЂР°СЃС€РёСЂРµРЅРЅРѕРіРѕ РѕС‚Р»Р°РґС‡РёРєР°
 if($mosConfig_front_debug){
 	require_once "includes/debug/jdebug.php";
 	$debug = new jdebug();
 }
 
-// Проверка SSL - $http_host возвращает <url_сайта>:<номер_порта, если он 443>
+// РџСЂРѕРІРµСЂРєР° SSL - $http_host РІРѕР·РІСЂР°С‰Р°РµС‚ <url_СЃР°Р№С‚Р°>:<РЅРѕРјРµСЂ_РїРѕСЂС‚Р°, РµСЃР»Рё РѕРЅ 443>
 $http_host = explode(':', $_SERVER['HTTP_HOST'] );
 if( (!empty( $_SERVER['HTTPS'] ) && strtolower( $_SERVER['HTTPS'] ) != 'off' || isset( $http_host[1] ) && $http_host[1] == 443) && substr( $mosConfig_live_site, 0, 8 ) != 'https://' ) {
 	$mosConfig_live_site = 'https://'.substr( $mosConfig_live_site, 7 );
 }
-// подключение главного файла - ядра системы
+// РїРѕРґРєР»СЋС‡РµРЅРёРµ РіР»Р°РІРЅРѕРіРѕ С„Р°Р№Р»Р° - СЏРґСЂР° СЃРёСЃС‚РµРјС‹
 require_once( 'includes/joomla.php' );
 
-//Проверка подпапки установки, удалена при работе с SVN
+//РџСЂРѕРІРµСЂРєР° РїРѕРґРїР°РїРєРё СѓСЃС‚Р°РЅРѕРІРєРё, СѓРґР°Р»РµРЅР° РїСЂРё СЂР°Р±РѕС‚Рµ СЃ SVN
 if (file_exists( 'installation/index.php' ) && $_VERSION->SVN == 0) {
 	define( '_INSTALL_CHECK', 1 );
 	include ( $mosConfig_absolute_path .'/offline.php');
 	exit();
 }
 
-// отображение страницы выключенного сайта
+// РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ СЃС‚СЂР°РЅРёС†С‹ РІС‹РєР»СЋС‡РµРЅРЅРѕРіРѕ СЃР°Р№С‚Р°
 if ($mosConfig_offline == 1) {
 	require( $mosConfig_absolute_path .'/offline.php' );
 }
 
-// boston, проверяем, разрешено ли использование системных мамботов
+// boston, РїСЂРѕРІРµСЂСЏРµРј, СЂР°Р·СЂРµС€РµРЅРѕ Р»Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ СЃРёСЃС‚РµРјРЅС‹С… РјР°РјР±РѕС‚РѕРІ
 if($mosConfig_mmb_system_off==0) {
 	$_MAMBOTS->loadBotGroup( 'system' );
-	// триггер событий onStart
+	// С‚СЂРёРіРіРµСЂ СЃРѕР±С‹С‚РёР№ onStart
 	$_MAMBOTS->trigger( 'onStart' );
 }
 
-//boston, если в глобальной конфигурации не указано использовать sef - не будем даже файлы подключать
+//boston, РµСЃР»Рё РІ РіР»РѕР±Р°Р»СЊРЅРѕР№ РєРѕРЅС„РёРіСѓСЂР°С†РёРё РЅРµ СѓРєР°Р·Р°РЅРѕ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ sef - РЅРµ Р±СѓРґРµРј РґР°Р¶Рµ С„Р°Р№Р»С‹ РїРѕРґРєР»СЋС‡Р°С‚СЊ
 if($mosConfig_sef==1){
 	if (file_exists( $mosConfig_absolute_path .'/components/com_sef/sef.php' )) {
 		require_once( $mosConfig_absolute_path .'/components/com_sef/sef.php' );
@@ -76,10 +76,10 @@ if($mosConfig_sef==1){
 		require_once( $mosConfig_absolute_path .'/includes/sef.php' );
 	}
 }else{
-// boston, функция sefRelToAbs() - системная, создадим для неё заглушку
+// boston, С„СѓРЅРєС†РёСЏ sefRelToAbs() - СЃРёСЃС‚РµРјРЅР°СЏ, СЃРѕР·РґР°РґРёРј РґР»СЏ РЅРµС‘ Р·Р°РіР»СѓС€РєСѓ
 	function sefRelToAbs( $string ) {
 		global $mosConfig_com_frontpage_clear;
-		if (eregi("option=com_frontpage", $string) & $mosConfig_com_frontpage_clear & !eregi("limit", $string)) $string = '.'; // если ссылка идёт на компонент главной страницы - очистим её
+		if (eregi("option=com_frontpage", $string) & $mosConfig_com_frontpage_clear & !eregi("limit", $string)) $string = '.'; // РµСЃР»Рё СЃСЃС‹Р»РєР° РёРґС‘С‚ РЅР° РєРѕРјРїРѕРЅРµРЅС‚ РіР»Р°РІРЅРѕР№ СЃС‚СЂР°РЅРёС†С‹ - РѕС‡РёСЃС‚РёРј РµС‘
 		return $string ;
 	}
 }
@@ -87,7 +87,7 @@ if($mosConfig_sef==1){
 require_once( $mosConfig_absolute_path .'/includes/frontend.php' );
 
 
-// поиск некоторых аргументов url (или form)
+// РїРѕРёСЃРє РЅРµРєРѕС‚РѕСЂС‹С… Р°СЂРіСѓРјРµРЅС‚РѕРІ url (РёР»Рё form)
 $option = strval( strtolower( mosGetParam( $_REQUEST, 'option' ) ) );
 $Itemid = intval( mosGetParam( $_REQUEST, 'Itemid', null ) );
 
@@ -118,7 +118,7 @@ if ($option == '') {
 		$link = substr( $link, $pos+1 ). '&Itemid='.$Itemid;
 	}
 	parse_str( $link, $temp );
-	/** это путь, требуется переделать для лучшего управления глобальными переменными */
+	/** СЌС‚Рѕ РїСѓС‚СЊ, С‚СЂРµР±СѓРµС‚СЃСЏ РїРµСЂРµРґРµР»Р°С‚СЊ РґР»СЏ Р»СѓС‡С€РµРіРѕ СѓРїСЂР°РІР»РµРЅРёСЏ РіР»РѕР±Р°Р»СЊРЅС‹РјРё РїРµСЂРµРјРµРЅРЅС‹РјРё */
 	foreach ($temp as $k=>$v) {
 		$GLOBALS[$k] = $v;
 		$_REQUEST[$k] = $v;
@@ -128,28 +128,28 @@ if ($option == '') {
 	}
 }
 if ( !$Itemid ) {
-// когда не найден Itemid, то ему присваивается значение по умолчанию
+// РєРѕРіРґР° РЅРµ РЅР°Р№РґРµРЅ Itemid, С‚Рѕ РµРјСѓ РїСЂРёСЃРІР°РёРІР°РµС‚СЃСЏ Р·РЅР°С‡РµРЅРёРµ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
 	$Itemid = 99999999;
 }
 
-// mainframe - основная рабочая среда API, осуществляет взаимодействие с 'ядром'
+// mainframe - РѕСЃРЅРѕРІРЅР°СЏ СЂР°Р±РѕС‡Р°СЏ СЃСЂРµРґР° API, РѕСЃСѓС‰РµСЃС‚РІР»СЏРµС‚ РІР·Р°РёРјРѕРґРµР№СЃС‚РІРёРµ СЃ 'СЏРґСЂРѕРј'
 $mainframe = new mosMainFrame( $database, $option, '.' );
 
-// boston, отключение ведения сессий на фронте
+// boston, РѕС‚РєР»СЋС‡РµРЅРёРµ РІРµРґРµРЅРёСЏ СЃРµСЃСЃРёР№ РЅР° С„СЂРѕРЅС‚Рµ
 if($mosConfig_session_front==0) $mainframe->initSession();
 
-// триггер событий onAfterStart
+// С‚СЂРёРіРіРµСЂ СЃРѕР±С‹С‚РёР№ onAfterStart
 if($mosConfig_mmb_system_off==0)  $_MAMBOTS->trigger( 'onAfterStart' );
 
-// проверка, если мы можем найти Itemid в содержимом
+// РїСЂРѕРІРµСЂРєР°, РµСЃР»Рё РјС‹ РјРѕР¶РµРј РЅР°Р№С‚Рё Itemid РІ СЃРѕРґРµСЂР¶РёРјРѕРј
 if ( $option == 'com_content' && $Itemid === 0 ) {
 	$id = intval( mosGetParam( $_REQUEST, 'id', 0 ) );
 	$Itemid = $mainframe->getItemid( $id );
 }
 
-/** до сих пор не правильный Itemid?? */
+/** РґРѕ СЃРёС… РїРѕСЂ РЅРµ РїСЂР°РІРёР»СЊРЅС‹Р№ Itemid?? */
 if ( $Itemid === 0 ) {
-	/** Нет, используется именно главная страница. */
+	/** РќРµС‚, РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РёРјРµРЅРЅРѕ РіР»Р°РІРЅР°СЏ СЃС‚СЂР°РЅРёС†Р°. */
 	$query = "SELECT id"
 	. "\n FROM #__menu"
 	. "\n WHERE menutype = 'mainmenu'"
@@ -160,24 +160,24 @@ if ( $Itemid === 0 ) {
 	$Itemid = $database->loadResult();
 }
 
-// путь уменьшения воздействия на шаблоны
+// РїСѓС‚СЊ СѓРјРµРЅСЊС€РµРЅРёСЏ РІРѕР·РґРµР№СЃС‚РІРёСЏ РЅР° С€Р°Р±Р»РѕРЅС‹
 if ($option == 'search') {
 	$option = 'com_search';
 }
 
-// загрузка файла русского языка по умолчанию
+// Р·Р°РіСЂСѓР·РєР° С„Р°Р№Р»Р° СЂСѓСЃСЃРєРѕРіРѕ СЏР·С‹РєР° РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
 if ($mosConfig_lang=='') {
 	$mosConfig_lang = 'russian';
 }
 include_once( $mosConfig_absolute_path .'/language/' . $mosConfig_lang . '.php' );
 
-// контроль входа и выхода в фронт-энд
+// РєРѕРЅС‚СЂРѕР»СЊ РІС…РѕРґР° Рё РІС‹С…РѕРґР° РІ С„СЂРѕРЅС‚-СЌРЅРґ
 $return 	= strval( mosGetParam( $_REQUEST, 'return', NULL ) );
 $message 	= intval( mosGetParam( $_POST, 'message', 0 ) );
 if ($option == 'login') {
 	$mainframe->login();
 
-	// Всплывающее сообщение JS
+	// Р’СЃРїР»С‹РІР°СЋС‰РµРµ СЃРѕРѕР±С‰РµРЅРёРµ JS
 	if ( $message ) {
 		?>
 		<script language="javascript" type="text/javascript">
@@ -191,7 +191,7 @@ if ($option == 'login') {
 	if ( $return && !( strpos( $return, 'com_registration' ) || strpos( $return, 'com_login' ) ) ) {
 	// checks for the presence of a return url
 	// and ensures that this url is not the registration or login pages
-		// Если sessioncookie существует, редирект на заданную страницу. Otherwise, take an extra round for a cookiecheck
+		// Р•СЃР»Рё sessioncookie СЃСѓС‰РµСЃС‚РІСѓРµС‚, СЂРµРґРёСЂРµРєС‚ РЅР° Р·Р°РґР°РЅРЅСѓСЋ СЃС‚СЂР°РЅРёС†Сѓ. Otherwise, take an extra round for a cookiecheck
 		if (isset( $_COOKIE[mosMainFrame::sessionCookieName()] )) {
 		mosRedirect( $return );
 	} else {
@@ -209,7 +209,7 @@ if ($option == 'login') {
 } else if ($option == 'logout') {
 	$mainframe->logout();
 
-	// Всплывающее сообщение JS
+	// Р’СЃРїР»С‹РІР°СЋС‰РµРµ СЃРѕРѕР±С‰РµРЅРёРµ JS
 	if ( $message ) {
 		?>
 		<script language="javascript" type="text/javascript">
@@ -236,28 +236,28 @@ if ($option == 'login') {
 	}
 }
 
-/** получение информации о текущих пользователях из таблицы сессий */
-// boston, $my - важный параметр, используемый часто и не по делу, загрузим его, но с пустыми значениями
+/** РїРѕР»СѓС‡РµРЅРёРµ РёРЅС„РѕСЂРјР°С†РёРё Рѕ С‚РµРєСѓС‰РёС… РїРѕР»СЊР·РѕРІР°С‚РµР»СЏС… РёР· С‚Р°Р±Р»РёС†С‹ СЃРµСЃСЃРёР№ */
+// boston, $my - РІР°Р¶РЅС‹Р№ РїР°СЂР°РјРµС‚СЂ, РёСЃРїРѕР»СЊР·СѓРµРјС‹Р№ С‡Р°СЃС‚Рѕ Рё РЅРµ РїРѕ РґРµР»Сѓ, Р·Р°РіСЂСѓР·РёРј РµРіРѕ, РЅРѕ СЃ РїСѓСЃС‚С‹РјРё Р·РЅР°С‡РµРЅРёСЏРјРё
 $my = $mainframe->getUser();
-// обнаружение первого посещения
+// РѕР±РЅР°СЂСѓР¶РµРЅРёРµ РїРµСЂРІРѕРіРѕ РїРѕСЃРµС‰РµРЅРёСЏ
 $mainframe->detect();
 
-// установка проверки для overlib
+// СѓСЃС‚Р°РЅРѕРІРєР° РїСЂРѕРІРµСЂРєРё РґР»СЏ overlib
 $mainframe->set( 'loadOverlib', false );
 
 $gid = intval( $my->gid );
 
-// получение шаблона страницы
+// РїРѕР»СѓС‡РµРЅРёРµ С€Р°Р±Р»РѕРЅР° СЃС‚СЂР°РЅРёС†С‹
 $cur_template = $mainframe->getTemplate();
 
 
-/** @global - Места для хранения информации обработки компонента */
+/** @global - РњРµСЃС‚Р° РґР»СЏ С…СЂР°РЅРµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё РѕР±СЂР°Р±РѕС‚РєРё РєРѕРјРїРѕРЅРµРЅС‚Р° */
 $_MOS_OPTION = array();
 
-// boston, подключение функций редактора, т.к. сессии(авторизация ) на фронте отключены - это тоже запрещаем
+// boston, РїРѕРґРєР»СЋС‡РµРЅРёРµ С„СѓРЅРєС†РёР№ СЂРµРґР°РєС‚РѕСЂР°, С‚.Рє. СЃРµСЃСЃРёРё(Р°РІС‚РѕСЂРёР·Р°С†РёСЏ ) РЅР° С„СЂРѕРЅС‚Рµ РѕС‚РєР»СЋС‡РµРЅС‹ - СЌС‚Рѕ С‚РѕР¶Рµ Р·Р°РїСЂРµС‰Р°РµРј
 if($mosConfig_frontend_login ==1)  require_once( $mosConfig_absolute_path . '/editor/editor.php' );
 
-// начало буферизации основного содержимого
+// РЅР°С‡Р°Р»Рѕ Р±СѓС„РµСЂРёР·Р°С†РёРё РѕСЃРЅРѕРІРЅРѕРіРѕ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ
 ob_start();
 	if ($path = $mainframe->getPath( 'front' )) {
 		$task	= strval( mosGetParam( $_REQUEST, 'task', '' ) );
@@ -271,10 +271,10 @@ ob_start();
 		header( 'HTTP/1.0 404 Not Found' );
 		echo _NOT_EXIST;
 	}
-	$_MOS_OPTION['buffer'] = ob_get_contents();// главное содержимое - стек вывода компонента - mainbody
+	$_MOS_OPTION['buffer'] = ob_get_contents();// РіР»Р°РІРЅРѕРµ СЃРѕРґРµСЂР¶РёРјРѕРµ - СЃС‚РµРє РІС‹РІРѕРґР° РєРѕРјРїРѕРЅРµРЅС‚Р° - mainbody
 ob_end_clean();
 
-// активация мамботов группы mainbody
+// Р°РєС‚РёРІР°С†РёСЏ РјР°РјР±РѕС‚РѕРІ РіСЂСѓРїРїС‹ mainbody
 if($mosConfig_mmb_mainbody_off==0) {
 	$_MAMBOTS->loadBotGroup( 'mainbody' );
 	$_MAMBOTS->trigger( 'onMainbody' );
@@ -282,61 +282,61 @@ if($mosConfig_mmb_mainbody_off==0) {
 
 initGzip();
 
-// при активном кешировании отправиим браузеру более "правильные" заголовки
-if(!$mosConfig_caching){ // не кэшируется
+// РїСЂРё Р°РєС‚РёРІРЅРѕРј РєРµС€РёСЂРѕРІР°РЅРёРё РѕС‚РїСЂР°РІРёРёРј Р±СЂР°СѓР·РµСЂСѓ Р±РѕР»РµРµ "РїСЂР°РІРёР»СЊРЅС‹Рµ" Р·Р°РіРѕР»РѕРІРєРё
+if(!$mosConfig_caching){ // РЅРµ РєСЌС€РёСЂСѓРµС‚СЃСЏ
 	header( 'Expires: Mon, 26 Jul 1997 05:00:00 GMT' );
 	header( 'Last-Modified: ' . gmdate( 'D, d M Y H:i:s' ) . ' GMT' );
 	header( 'Cache-Control: no-store, no-cache, must-revalidate' );
 	header( 'Cache-Control: post-check=0, pre-check=0', false );
 	header( 'Pragma: no-cache' );
-}else{ // кэшируется
+}else{ // РєСЌС€РёСЂСѓРµС‚СЃСЏ
 	header( 'Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT' );
-	// 60*60=3600 - использования кэширования на 1 час
+	// 60*60=3600 - РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ РєСЌС€РёСЂРѕРІР°РЅРёСЏ РЅР° 1 С‡Р°СЃ
 	header( 'Expires: '.gmdate('D, d M Y H:i:s',time()+3600).' GMT' );
 	header( 'Cache-Control: max-age=3600' );
 }
 
 
-// отображение предупреждения о выключенном сайте, при входе админа
+// РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ РїСЂРµРґСѓРїСЂРµР¶РґРµРЅРёСЏ Рѕ РІС‹РєР»СЋС‡РµРЅРЅРѕРј СЃР°Р№С‚Рµ, РїСЂРё РІС…РѕРґРµ Р°РґРјРёРЅР°
 if (defined( '_ADMIN_OFFLINE' )) {
 	include( $mosConfig_absolute_path .'/offlinebar.php' );
 }
-// буферизация итогового содержимого, необходимо для шаблонов группы templates
+// Р±СѓС„РµСЂРёР·Р°С†РёСЏ РёС‚РѕРіРѕРІРѕРіРѕ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ, РЅРµРѕР±С…РѕРґРёРјРѕ РґР»СЏ С€Р°Р±Р»РѕРЅРѕРІ РіСЂСѓРїРїС‹ templates
 ob_start();
-	// загрузка файла шаблона
+	// Р·Р°РіСЂСѓР·РєР° С„Р°Р№Р»Р° С€Р°Р±Р»РѕРЅР°
 	if ( !file_exists( $mosConfig_absolute_path .'/templates/'. $cur_template .'/index.php' ) ) {
 		echo _TEMPLATE_WARN . $cur_template;
 	} else {
 		require_once( $mosConfig_absolute_path .'/templates/'. $cur_template .'/index.php' );
 	}
-	$_MOS_OPTION['mainbody'] = ob_get_contents();// главное содержимое - стек вывода компонента - mainbody
+	$_MOS_OPTION['mainbody'] = ob_get_contents();// РіР»Р°РІРЅРѕРµ СЃРѕРґРµСЂР¶РёРјРѕРµ - СЃС‚РµРє РІС‹РІРѕРґР° РєРѕРјРїРѕРЅРµРЅС‚Р° - mainbody
 ob_end_clean();
 
-// активация мамботов группы mainbody
+// Р°РєС‚РёРІР°С†РёСЏ РјР°РјР±РѕС‚РѕРІ РіСЂСѓРїРїС‹ mainbody
 if($mosConfig_mmb_mainbody_off==0) {
 	$_MAMBOTS->loadBotGroup( 'mainbody' );
 	$_MAMBOTS->trigger( 'onTemplate' );
 }
-// вывод стека всего тела страницы, уже после обработки мамботами группы onTemplate
+// РІС‹РІРѕРґ СЃС‚РµРєР° РІСЃРµРіРѕ С‚РµР»Р° СЃС‚СЂР°РЅРёС†С‹, СѓР¶Рµ РїРѕСЃР»Рµ РѕР±СЂР°Р±РѕС‚РєРё РјР°РјР±РѕС‚Р°РјРё РіСЂСѓРїРїС‹ onTemplate
 echo $_MOS_OPTION['mainbody'];
-// подсчет времени генерации страницы
+// РїРѕРґСЃС‡РµС‚ РІСЂРµРјРµРЅРё РіРµРЅРµСЂР°С†РёРё СЃС‚СЂР°РЅРёС†С‹
 if($mosConfig_time_gen){
 	list($usec, $sec) = explode(" ",microtime());
 	$sysstop = ((float)$usec + (float)$sec);
 	echo '<div id="time_gen">'.round($sysstop-$sysstart,4).'</div>';
 }
 
-// вывод лога отладки
+// РІС‹РІРѕРґ Р»РѕРіР° РѕС‚Р»Р°РґРєРё
 if($mosConfig_front_debug) {
 	if (function_exists('memory_get_usage')){
 		$mem_usage = (memory_get_usage() - _MEM_USAGE_START);
-		$debug->add('<b>Использовано памяти:</b> '.sprintf('%0.2f', $mem_usage / 1048576 ).' MB');
+		$debug->add('<b>РСЃРїРѕР»СЊР·РѕРІР°РЅРѕ РїР°РјСЏС‚Рё:</b> '.sprintf('%0.2f', $mem_usage / 1048576 ).' MB');
 	}
 	echo $debug->get();
 
 }
 doGzip();
-// запускаем встроенный оптимизатор таблиц
+// Р·Р°РїСѓСЃРєР°РµРј РІСЃС‚СЂРѕРµРЅРЅС‹Р№ РѕРїС‚РёРјРёР·Р°С‚РѕСЂ С‚Р°Р±Р»РёС†
 if($mosConfig_optimizetables==1) joostina_api::optimizetables();
 exit();
 ?>

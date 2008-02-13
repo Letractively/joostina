@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <mosinstall version="1.0.0" type="mambot" group="content">
-	<name>Изображение Mambo</name>
+	<name>РР·РѕР±СЂР°Р¶РµРЅРёРµ Mambo</name>
 	<author>Joostina! Project</author>
-	<creationDate>Август 2004</creationDate>
+	<creationDate>РђРІРіСѓСЃС‚ 2004</creationDate>
 	<copyright>(C) 2007 Joostina Team.</copyright>
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
 	<authorEmail>joostinacms@gmail.com</authorEmail>
 	<authorUrl>www.joostina.ru</authorUrl>
 	<version>1.0.0 RE</version>
-	<description>Замена в содержимом тэга {mosimage} специальным изображением</description>
+	<description>Р—Р°РјРµРЅР° РІ СЃРѕРґРµСЂР¶РёРјРѕРј С‚СЌРіР° {mosimage} СЃРїРµС†РёР°Р»СЊРЅС‹Рј РёР·РѕР±СЂР°Р¶РµРЅРёРµРј</description>
 	<files>
 		<filename mambot="mosimage">mosimage.php</filename>
 	</files>
 	<params>
-		<param name="margin" type="text" default="5" size="5" label="Отступ (Margin)" description="Отступ DIV в пикселях (px), окружающий изображение и заголовок (если он используется)" />
-		<param name="padding" type="text" default="0" size="5" label="Отбивка (Padding)" description="Отбивка DIV в пикселях (px), окружающее изображение и заголовок (если он используется)" />
+		<param name="margin" type="text" default="5" size="5" label="РћС‚СЃС‚СѓРї (Margin)" description="РћС‚СЃС‚СѓРї DIV РІ РїРёРєСЃРµР»СЏС… (px), РѕРєСЂСѓР¶Р°СЋС‰РёР№ РёР·РѕР±СЂР°Р¶РµРЅРёРµ Рё Р·Р°РіРѕР»РѕРІРѕРє (РµСЃР»Рё РѕРЅ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ)" />
+		<param name="padding" type="text" default="0" size="5" label="РћС‚Р±РёРІРєР° (Padding)" description="РћС‚Р±РёРІРєР° DIV РІ РїРёРєСЃРµР»СЏС… (px), РѕРєСЂСѓР¶Р°СЋС‰РµРµ РёР·РѕР±СЂР°Р¶РµРЅРёРµ Рё Р·Р°РіРѕР»РѕРІРѕРє (РµСЃР»Рё РѕРЅ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ)" />
 	</params>
 </mosinstall>

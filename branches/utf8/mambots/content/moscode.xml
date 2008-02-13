@@ -2,13 +2,13 @@
 <mosinstall version="1.0.0" type="mambot" group="content">
 	<name>moscode</name>
 	<author>Joostina! Project</author>
-	<creationDate>Август 2004</creationDate>
+	<creationDate>РђРІРіСѓСЃС‚ 2004</creationDate>
 	<copyright>(C) 2007 Joostina Team.</copyright>
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
 	<authorEmail>joostinacms@gmail.com</authorEmail>
 	<authorUrl>www.joostina.ru</authorUrl>
 	<version>1.0.0 RE</version>
-	<description>Отображает в объектах содержимого форматированный код</description>
+	<description>РћС‚РѕР±СЂР°Р¶Р°РµС‚ РІ РѕР±СЉРµРєС‚Р°С… СЃРѕРґРµСЂР¶РёРјРѕРіРѕ С„РѕСЂРјР°С‚РёСЂРѕРІР°РЅРЅС‹Р№ РєРѕРґ</description>
 	<files>
 		<filename mambot="moscode">moscode.php</filename>
 	</files>

@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 /**
 * Parameters handler
@@ -366,7 +366,7 @@ class mosParameters {
                 ;
                 $database->setQuery( $query );
                 $options = $database->loadObjectList();
-                array_unshift( $options, mosHTML::makeOption( '0', '- Выберите раздел -', 'id', 'title' ) );
+                array_unshift( $options, mosHTML::makeOption( '0', '- Р’С‹Р±РµСЂРёС‚Рµ СЂР°Р·РґРµР» -', 'id', 'title' ) );
 
                 return mosHTML::selectList( $options, ''. $control_name .'['. $name .']', 'class="inputbox"', 'id', 'title', $value );
         }
@@ -404,7 +404,7 @@ class mosParameters {
                 }
                 $database->setQuery( $query );
                 $options = $database->loadObjectList();
-                array_unshift( $options, mosHTML::makeOption( '0', '- Выберите категорию -', 'id', 'title' ) );
+                array_unshift( $options, mosHTML::makeOption( '0', '- Р’С‹Р±РµСЂРёС‚Рµ РєР°С‚РµРіРѕСЂРёСЋ -', 'id', 'title' ) );
 
                 return mosHTML::selectList( $options, ''. $control_name .'['. $name .']', 'class="inputbox"', 'id', 'title', $value );
         }
@@ -423,7 +423,7 @@ class mosParameters {
                 foreach($menuTypes as $menutype ) {
                         $options[] = mosHTML::makeOption( $menutype, $menutype );
                 }
-                array_unshift( $options, mosHTML::makeOption( '', '- Выберите меню -' ) );
+                array_unshift( $options, mosHTML::makeOption( '', '- Р’С‹Р±РµСЂРёС‚Рµ РјРµРЅСЋ -' ) );
 
                 return mosHTML::selectList( $options, ''. $control_name .'['. $name .']', 'class="inputbox"', 'value', 'text', $value );
         }
@@ -447,10 +447,10 @@ class mosParameters {
                         $options[] = mosHTML::makeOption( $file, $file );
                 }
                 if ( !$node->getAttribute( 'hide_none' ) ) {
-                        array_unshift( $options, mosHTML::makeOption( '-1', '- '. 'Не использовать изображение' .' -' ) );
+                        array_unshift( $options, mosHTML::makeOption( '-1', '- '. 'РќРµ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РёР·РѕР±СЂР°Р¶РµРЅРёРµ' .' -' ) );
                 }
                 if ( !$node->getAttribute( 'hide_default' ) ) {
-                        array_unshift( $options, mosHTML::makeOption( '', '- '. 'Изображение по умолчанию' .' -' ) );
+                        array_unshift( $options, mosHTML::makeOption( '', '- '. 'РР·РѕР±СЂР°Р¶РµРЅРёРµ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ' .' -' ) );
                 }
 
                 return mosHTML::selectList( $options, ''. $control_name .'['. $name .']', 'class="inputbox"', 'value', 'text', $value, "param$name" );

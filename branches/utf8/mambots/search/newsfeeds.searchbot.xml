@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <mosinstall version="1.0.0" type="mambot" group="search">
-	<name>Бот поиска в лентах новостей</name>
+	<name>Р‘РѕС‚ РїРѕРёСЃРєР° РІ Р»РµРЅС‚Р°С… РЅРѕРІРѕСЃС‚РµР№</name>
 	<author>Joostina! Project</author>
-	<creationDate>Август 2004</creationDate>
+	<creationDate>РђРІРіСѓСЃС‚ 2004</creationDate>
 	<copyright>(C) 2007 Joostina Team.</copyright>
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
 	<authorEmail>joostinacms@gmail.com</authorEmail>
 	<authorUrl>www.joostina.ru</authorUrl>
 	<version>1.0.0 RE</version>
-	<description>Позволяет искать в лентах новостей</description>
+	<description>РџРѕР·РІРѕР»СЏРµС‚ РёСЃРєР°С‚СЊ РІ Р»РµРЅС‚Р°С… РЅРѕРІРѕСЃС‚РµР№</description>
 	<files>
 		<filename mambot="newsfeeds.searchbot">newsfeeds.searchbot.php</filename>
 	</files>
 	<params>
-		<param name="search_limit" type="text" size="5" default="50" label="Ограничение поиска" description="Ограничение количества найденных объектов"/>		
+		<param name="search_limit" type="text" size="5" default="50" label="РћРіСЂР°РЅРёС‡РµРЅРёРµ РїРѕРёСЃРєР°" description="РћРіСЂР°РЅРёС‡РµРЅРёРµ РєРѕР»РёС‡РµСЃС‚РІР° РЅР°Р№РґРµРЅРЅС‹С… РѕР±СЉРµРєС‚РѕРІ"/>		
 	</params>
 </mosinstall>

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <mosinstall type="module" version="1.0.0">
 	<author>Joostina! Project</author>
-	<creationDate>Октябрь 2007</creationDate>
+	<creationDate>РћРєС‚СЏР±СЂСЊ 2007</creationDate>
 	<copyright>(C) 2007 Joostina Team.</copyright>
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
 	<authorEmail>joostinacms@gmail.com</authorEmail>
 	<authorUrl>www.joostina.ru</authorUrl>
 	<version>1.3.1</version>
-	<description>Модуль отображающий форму авторизации</description>
+	<description>РњРѕРґСѓР»СЊ РѕС‚РѕР±СЂР°Р¶Р°СЋС‰РёР№ С„РѕСЂРјСѓ Р°РІС‚РѕСЂРёР·Р°С†РёРё</description>
 	<files>
 		<filename module="mod_ml_login">mod_ml_login.php</filename>
 		<filename>mod_ml_login/1.gif</filename>
@@ -21,104 +21,104 @@
 		<filename>mod_ml_login/9.gif</filename>
 	</files>
 	<params>
-		<param name="moduleclass_sfx" type="text" default="" label="Суффикс класса модуля" description="Суффикс, который будет использован в описании класса (table.moduletable) таблицы стилей (CSS) модуля. Это позволяет использовать индивидуальный стиль модуля." />
-		<param name="ml_visibility" type="radio" default="0" label="Тип модуля" description="Отображать поля авторизации сразу или только после нажатия на кнопку авторизации">
-			<option value="0">Обычный</option>
-			<option value="1">Раскрывающийся</option>
+		<param name="moduleclass_sfx" type="text" default="" label="РЎСѓС„С„РёРєСЃ РєР»Р°СЃСЃР° РјРѕРґСѓР»СЏ" description="РЎСѓС„С„РёРєСЃ, РєРѕС‚РѕСЂС‹Р№ Р±СѓРґРµС‚ РёСЃРїРѕР»СЊР·РѕРІР°РЅ РІ РѕРїРёСЃР°РЅРёРё РєР»Р°СЃСЃР° (table.moduletable) С‚Р°Р±Р»РёС†С‹ СЃС‚РёР»РµР№ (CSS) РјРѕРґСѓР»СЏ. Р­С‚Рѕ РїРѕР·РІРѕР»СЏРµС‚ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РёРЅРґРёРІРёРґСѓР°Р»СЊРЅС‹Р№ СЃС‚РёР»СЊ РјРѕРґСѓР»СЏ." />
+		<param name="ml_visibility" type="radio" default="0" label="РўРёРї РјРѕРґСѓР»СЏ" description="РћС‚РѕР±СЂР°Р¶Р°С‚СЊ РїРѕР»СЏ Р°РІС‚РѕСЂРёР·Р°С†РёРё СЃСЂР°Р·Сѓ РёР»Рё С‚РѕР»СЊРєРѕ РїРѕСЃР»Рµ РЅР°Р¶Р°С‚РёСЏ РЅР° РєРЅРѕРїРєСѓ Р°РІС‚РѕСЂРёР·Р°С†РёРё">
+			<option value="0">РћР±С‹С‡РЅС‹Р№</option>
+			<option value="1">Р Р°СЃРєСЂС‹РІР°СЋС‰РёР№СЃСЏ</option>
 		</param>
-		<param name="dr_login_text" type="text" default="Авторизация" label="Текст кнопки раскрытия модуля" description="Текст кнопки авторизации (только для выпадающей формы меню)" />
-		<param name="dr_logout_text" type="text" default="Закрыть" label="Текст кнопки закрытия модуля" description="Текст кнопки закрытия модуля авторизации (только для выпадающей формы меню)" />
+		<param name="dr_login_text" type="text" default="РђРІС‚РѕСЂРёР·Р°С†РёСЏ" label="РўРµРєСЃС‚ РєРЅРѕРїРєРё СЂР°СЃРєСЂС‹С‚РёСЏ РјРѕРґСѓР»СЏ" description="РўРµРєСЃС‚ РєРЅРѕРїРєРё Р°РІС‚РѕСЂРёР·Р°С†РёРё (С‚РѕР»СЊРєРѕ РґР»СЏ РІС‹РїР°РґР°СЋС‰РµР№ С„РѕСЂРјС‹ РјРµРЅСЋ)" />
+		<param name="dr_logout_text" type="text" default="Р—Р°РєСЂС‹С‚СЊ" label="РўРµРєСЃС‚ РєРЅРѕРїРєРё Р·Р°РєСЂС‹С‚РёСЏ РјРѕРґСѓР»СЏ" description="РўРµРєСЃС‚ РєРЅРѕРїРєРё Р·Р°РєСЂС‹С‚РёСЏ РјРѕРґСѓР»СЏ Р°РІС‚РѕСЂРёР·Р°С†РёРё (С‚РѕР»СЊРєРѕ РґР»СЏ РІС‹РїР°РґР°СЋС‰РµР№ С„РѕСЂРјС‹ РјРµРЅСЋ)" />
 		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="orientation" type="radio" default="0" label="Ориентация модуля" description="">
-			<option value="0">Вертикально</option>
-			<option value="1">Горизонтально</option>
+		<param name="orientation" type="radio" default="0" label="РћСЂРёРµРЅС‚Р°С†РёСЏ РјРѕРґСѓР»СЏ" description="">
+			<option value="0">Р’РµСЂС‚РёРєР°Р»СЊРЅРѕ</option>
+			<option value="1">Р“РѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅРѕ</option>
 		</param>
-		<param name="module_width" type="text" default="100%" label="Ширина модуля" description="Ширина модуля в процентах или пикселях ( при установке ширины в пикселях НЕ пишите px !!!)" />
-		<param name="module_height" type="text" default="30" label="Высота модуля (только для горизонтального типа отображения)" description="Ширина модуля в процентах или пикселях ( при установке ширины в пикселях НЕ пишите px !!!)" />
-		<param name="pretext" type="textarea" cols="20" rows="5" default="" label="Текст в начале" description="Это просто текст или текст в формате HTML, который показывается перед формой входа" />
-		<param name="posttext" type="textarea" cols="20" rows="5" label="Текст в конце" description="Это просто текст или текст в формате HTML, который показывается после формы входа" />
-		<param name="login" type="text" default="" label="Адрес URL переадресации после входа" description="На какую страницу должен быть переадресован пользователь после входа. Если поле для ввода оставлено пустым - будет загружена главная страница" />
-		<param name="logout" type="text" default="" label="Адрес URL переадресации пользователя при выходе" description="На какую страницу должен быть переадресован пользователь после входа. Если поле для ввода оставлено пустым - будет загружена главная страница" />
-		<param name="login_message" type="radio" default="0" label="Сообщение при авторизации" description="Показать/Скрыть всплывающее окно (на javascript) при успешной авторизации пользователя">
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
+		<param name="module_width" type="text" default="100%" label="РЁРёСЂРёРЅР° РјРѕРґСѓР»СЏ" description="РЁРёСЂРёРЅР° РјРѕРґСѓР»СЏ РІ РїСЂРѕС†РµРЅС‚Р°С… РёР»Рё РїРёРєСЃРµР»СЏС… ( РїСЂРё СѓСЃС‚Р°РЅРѕРІРєРµ С€РёСЂРёРЅС‹ РІ РїРёРєСЃРµР»СЏС… РќР• РїРёС€РёС‚Рµ px !!!)" />
+		<param name="module_height" type="text" default="30" label="Р’С‹СЃРѕС‚Р° РјРѕРґСѓР»СЏ (С‚РѕР»СЊРєРѕ РґР»СЏ РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅРѕРіРѕ С‚РёРїР° РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ)" description="РЁРёСЂРёРЅР° РјРѕРґСѓР»СЏ РІ РїСЂРѕС†РµРЅС‚Р°С… РёР»Рё РїРёРєСЃРµР»СЏС… ( РїСЂРё СѓСЃС‚Р°РЅРѕРІРєРµ С€РёСЂРёРЅС‹ РІ РїРёРєСЃРµР»СЏС… РќР• РїРёС€РёС‚Рµ px !!!)" />
+		<param name="pretext" type="textarea" cols="20" rows="5" default="" label="РўРµРєСЃС‚ РІ РЅР°С‡Р°Р»Рµ" description="Р­С‚Рѕ РїСЂРѕСЃС‚Рѕ С‚РµРєСЃС‚ РёР»Рё С‚РµРєСЃС‚ РІ С„РѕСЂРјР°С‚Рµ HTML, РєРѕС‚РѕСЂС‹Р№ РїРѕРєР°Р·С‹РІР°РµС‚СЃСЏ РїРµСЂРµРґ С„РѕСЂРјРѕР№ РІС…РѕРґР°" />
+		<param name="posttext" type="textarea" cols="20" rows="5" label="РўРµРєСЃС‚ РІ РєРѕРЅС†Рµ" description="Р­С‚Рѕ РїСЂРѕСЃС‚Рѕ С‚РµРєСЃС‚ РёР»Рё С‚РµРєСЃС‚ РІ С„РѕСЂРјР°С‚Рµ HTML, РєРѕС‚РѕСЂС‹Р№ РїРѕРєР°Р·С‹РІР°РµС‚СЃСЏ РїРѕСЃР»Рµ С„РѕСЂРјС‹ РІС…РѕРґР°" />
+		<param name="login" type="text" default="" label="РђРґСЂРµСЃ URL РїРµСЂРµР°РґСЂРµСЃР°С†РёРё РїРѕСЃР»Рµ РІС…РѕРґР°" description="РќР° РєР°РєСѓСЋ СЃС‚СЂР°РЅРёС†Сѓ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ РїРµСЂРµР°РґСЂРµСЃРѕРІР°РЅ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїРѕСЃР»Рµ РІС…РѕРґР°. Р•СЃР»Рё РїРѕР»Рµ РґР»СЏ РІРІРѕРґР° РѕСЃС‚Р°РІР»РµРЅРѕ РїСѓСЃС‚С‹Рј - Р±СѓРґРµС‚ Р·Р°РіСЂСѓР¶РµРЅР° РіР»Р°РІРЅР°СЏ СЃС‚СЂР°РЅРёС†Р°" />
+		<param name="logout" type="text" default="" label="РђРґСЂРµСЃ URL РїРµСЂРµР°РґСЂРµСЃР°С†РёРё РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РїСЂРё РІС‹С…РѕРґРµ" description="РќР° РєР°РєСѓСЋ СЃС‚СЂР°РЅРёС†Сѓ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ РїРµСЂРµР°РґСЂРµСЃРѕРІР°РЅ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїРѕСЃР»Рµ РІС…РѕРґР°. Р•СЃР»Рё РїРѕР»Рµ РґР»СЏ РІРІРѕРґР° РѕСЃС‚Р°РІР»РµРЅРѕ РїСѓСЃС‚С‹Рј - Р±СѓРґРµС‚ Р·Р°РіСЂСѓР¶РµРЅР° РіР»Р°РІРЅР°СЏ СЃС‚СЂР°РЅРёС†Р°" />
+		<param name="login_message" type="radio" default="0" label="РЎРѕРѕР±С‰РµРЅРёРµ РїСЂРё Р°РІС‚РѕСЂРёР·Р°С†РёРё" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РІСЃРїР»С‹РІР°СЋС‰РµРµ РѕРєРЅРѕ (РЅР° javascript) РїСЂРё СѓСЃРїРµС€РЅРѕР№ Р°РІС‚РѕСЂРёР·Р°С†РёРё РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ">
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
 		</param>
-		<param name="logout_message" type="radio" default="0" label="Сообщение при выходе" description="Показать/Скрыть всплывающее окно (на javascript) при успешном выходе">
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
+		<param name="logout_message" type="radio" default="0" label="РЎРѕРѕР±С‰РµРЅРёРµ РїСЂРё РІС‹С…РѕРґРµ" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РІСЃРїР»С‹РІР°СЋС‰РµРµ РѕРєРЅРѕ (РЅР° javascript) РїСЂРё СѓСЃРїРµС€РЅРѕРј РІС‹С…РѕРґРµ">
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
 		</param>
-		<param name="greeting" type="radio" default="1" label="Приветствие" description="Показать/Скрыть простой текст приветствия">
-			<option value="0">Нет</option>
-			<option value="1">Да</option>
+		<param name="greeting" type="radio" default="1" label="РџСЂРёРІРµС‚СЃС‚РІРёРµ" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РїСЂРѕСЃС‚РѕР№ С‚РµРєСЃС‚ РїСЂРёРІРµС‚СЃС‚РІРёСЏ">
+			<option value="0">РќРµС‚</option>
+			<option value="1">Р”Р°</option>
 		</param>
-		<param name="name" type="list" default="0" label="Имя/Имя пользователя">
-			<option value="0">Имя пользователя</option>
-			<option value="1">Имя</option>
-		</param>
-		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="field_width" type="text" default="10" label="Ширина поля ввода" description="Ширина полей логин/пароль" />
-		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="show_login_text" type="radio" default="1" label="Показать текст Пользователь" description="Показывать подпись к полю ПОЛЬЗОВАТЕЛЬ">
-			<option value="0">Нет</option>
-			<option value="1">Над полем вода</option>
-			<option value="2">Внутри поля вода</option>
-		</param>
-			<param name="show_login_tooltip" type="radio" default="0" label="Показать всплывающую подсказку" description="Показывать всплывающую подсказку к полю ПОЛЬЗОВАТЕЛЬ">
-			<option value="0">Нет</option>
-			<option value="1">Да</option>
-		</param>
-		<param name="ml_login_text" type="text" default="" label="Текст Пользователь" description="Надпись ПОЛЬЗОВАТЕЛЬ" />
-		<param name="login_tooltip_text" type="text" default="" label="Подсказка к полю Логин" description="Текст всплывающей подсказки к полю ЛОГИН" />
-		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="show_pass_text" type="radio" default="1" label="Показать текст Пароль" description="Показывать подпись к полю ПАРОЛЬ">
-			<option value="0">Нет</option>
-			<option value="1">Над полем вода</option>
-			<option value="2">Внутри поля вода</option>
-		</param>
-		<param name="show_pass_tooltip" type="radio" default="0" label="Показать всплывающую подсказку" description="Показывать всплывающую подсказку к полю ПАРОЛЬ">
-			<option value="0">Нет</option>
-			<option value="1">Да</option>
-		</param>
-		<param name="ml_pass_text" type="text" default="" label="Текст Пароль" description="Надпись ПАРОЛЬ" />
-		<param name="pass_tooltip_text" type="text" default="" label="Подсказка к полю Пароль " description="Текст всплывающей подсказки к полю Пароль" />
-		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="show_remember" type="radio" default="1" label="Запомнить меня" description="Показывать ЗАПОМНИТЬ МЕНЯ">
-			<option value="0">Нет</option>
-			<option value="1">Да</option>
-		</param>
-		<param name="ml_rem_text" type="text" default="" label="Текст Запомнить меня" description="" />
-		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="show_lost_pass" type="radio" default="1" label="Забыли пароль" description="Показывать ЗАБЫЛИ ПАРОЛЬ ">
-			<option value="0">Нет</option>
-			<option value="1">Да</option>
-		</param>
-		<param name="ml_rem_pass_text" type="text" default="" label="Текст Забыли пароль" description="" />
-		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="show_not_registered" type="radio" default="1" label="Вы не зарегистрированы" description="Показывать ВЫ НЕ ЗАРЕГИСТРИРОВАНЫ ? ">
-			<option value="0">Нет</option>
-			<option value="1">Да</option>
-		</param>
-		<param name="ml_not_reg_text" type="text" default="" label="Текст Вы не зарегистрированы" description="" />
-		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="show_register" type="radio" default="1" label="Зарегистрироваться" description="Показывать ЗАРЕГИСТРИРОВАТЬСЯ ">
-			<option value="0">Нет</option>
-			<option value="1">Да</option>
-		</param>
-		<param name="ml_reg_text" type="text" default="" label="Текст Зарегистрироваться" description="" />
-		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="module_align" type="radio" default="left" label="Выравнивание (только для вертикального)" description="Выравнивание в модуле (только для вертикального) ">
-			<option value="left">Слева</option>
-			<option value="center">по центру</option>
-			<option value="right">Справа</option>
+		<param name="name" type="list" default="0" label="РРјСЏ/РРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ">
+			<option value="0">РРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ</option>
+			<option value="1">РРјСЏ</option>
 		</param>
 		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="ml_show_button" type="radio" default="" label="Показывать кнопку ВОЙТИ" description="Включает/выключает кнопку войти, вместо нее жмем ENTER">
-			<option value="-hidden">Спрятать</option>
-			<option value="">Показать</option>
+		<param name="field_width" type="text" default="10" label="РЁРёСЂРёРЅР° РїРѕР»СЏ РІРІРѕРґР°" description="РЁРёСЂРёРЅР° РїРѕР»РµР№ Р»РѕРіРёРЅ/РїР°СЂРѕР»СЊ" />
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="show_login_text" type="radio" default="1" label="РџРѕРєР°Р·Р°С‚СЊ С‚РµРєСЃС‚ РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ" description="РџРѕРєР°Р·С‹РІР°С‚СЊ РїРѕРґРїРёСЃСЊ Рє РїРѕР»СЋ РџРћР›Р¬Р—РћР’РђРўР•Р›Р¬">
+			<option value="0">РќРµС‚</option>
+			<option value="1">РќР°Рґ РїРѕР»РµРј РІРѕРґР°</option>
+			<option value="2">Р’РЅСѓС‚СЂРё РїРѕР»СЏ РІРѕРґР°</option>
+		</param>
+			<param name="show_login_tooltip" type="radio" default="0" label="РџРѕРєР°Р·Р°С‚СЊ РІСЃРїР»С‹РІР°СЋС‰СѓСЋ РїРѕРґСЃРєР°Р·РєСѓ" description="РџРѕРєР°Р·С‹РІР°С‚СЊ РІСЃРїР»С‹РІР°СЋС‰СѓСЋ РїРѕРґСЃРєР°Р·РєСѓ Рє РїРѕР»СЋ РџРћР›Р¬Р—РћР’РђРўР•Р›Р¬">
+			<option value="0">РќРµС‚</option>
+			<option value="1">Р”Р°</option>
+		</param>
+		<param name="ml_login_text" type="text" default="" label="РўРµРєСЃС‚ РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ" description="РќР°РґРїРёСЃСЊ РџРћР›Р¬Р—РћР’РђРўР•Р›Р¬" />
+		<param name="login_tooltip_text" type="text" default="" label="РџРѕРґСЃРєР°Р·РєР° Рє РїРѕР»СЋ Р›РѕРіРёРЅ" description="РўРµРєСЃС‚ РІСЃРїР»С‹РІР°СЋС‰РµР№ РїРѕРґСЃРєР°Р·РєРё Рє РїРѕР»СЋ Р›РћР“РРќ" />
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="show_pass_text" type="radio" default="1" label="РџРѕРєР°Р·Р°С‚СЊ С‚РµРєСЃС‚ РџР°СЂРѕР»СЊ" description="РџРѕРєР°Р·С‹РІР°С‚СЊ РїРѕРґРїРёСЃСЊ Рє РїРѕР»СЋ РџРђР РћР›Р¬">
+			<option value="0">РќРµС‚</option>
+			<option value="1">РќР°Рґ РїРѕР»РµРј РІРѕРґР°</option>
+			<option value="2">Р’РЅСѓС‚СЂРё РїРѕР»СЏ РІРѕРґР°</option>
+		</param>
+		<param name="show_pass_tooltip" type="radio" default="0" label="РџРѕРєР°Р·Р°С‚СЊ РІСЃРїР»С‹РІР°СЋС‰СѓСЋ РїРѕРґСЃРєР°Р·РєСѓ" description="РџРѕРєР°Р·С‹РІР°С‚СЊ РІСЃРїР»С‹РІР°СЋС‰СѓСЋ РїРѕРґСЃРєР°Р·РєСѓ Рє РїРѕР»СЋ РџРђР РћР›Р¬">
+			<option value="0">РќРµС‚</option>
+			<option value="1">Р”Р°</option>
+		</param>
+		<param name="ml_pass_text" type="text" default="" label="РўРµРєСЃС‚ РџР°СЂРѕР»СЊ" description="РќР°РґРїРёСЃСЊ РџРђР РћР›Р¬" />
+		<param name="pass_tooltip_text" type="text" default="" label="РџРѕРґСЃРєР°Р·РєР° Рє РїРѕР»СЋ РџР°СЂРѕР»СЊ " description="РўРµРєСЃС‚ РІСЃРїР»С‹РІР°СЋС‰РµР№ РїРѕРґСЃРєР°Р·РєРё Рє РїРѕР»СЋ РџР°СЂРѕР»СЊ" />
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="show_remember" type="radio" default="1" label="Р—Р°РїРѕРјРЅРёС‚СЊ РјРµРЅСЏ" description="РџРѕРєР°Р·С‹РІР°С‚СЊ Р—РђРџРћРњРќРРўР¬ РњР•РќРЇ">
+			<option value="0">РќРµС‚</option>
+			<option value="1">Р”Р°</option>
+		</param>
+		<param name="ml_rem_text" type="text" default="" label="РўРµРєСЃС‚ Р—Р°РїРѕРјРЅРёС‚СЊ РјРµРЅСЏ" description="" />
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="show_lost_pass" type="radio" default="1" label="Р—Р°Р±С‹Р»Рё РїР°СЂРѕР»СЊ" description="РџРѕРєР°Р·С‹РІР°С‚СЊ Р—РђР‘Р«Р›Р РџРђР РћР›Р¬ ">
+			<option value="0">РќРµС‚</option>
+			<option value="1">Р”Р°</option>
+		</param>
+		<param name="ml_rem_pass_text" type="text" default="" label="РўРµРєСЃС‚ Р—Р°Р±С‹Р»Рё РїР°СЂРѕР»СЊ" description="" />
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="show_not_registered" type="radio" default="1" label="Р’С‹ РЅРµ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅС‹" description="РџРѕРєР°Р·С‹РІР°С‚СЊ Р’Р« РќР• Р—РђР Р•Р“РРЎРўР РР РћР’РђРќР« ? ">
+			<option value="0">РќРµС‚</option>
+			<option value="1">Р”Р°</option>
+		</param>
+		<param name="ml_not_reg_text" type="text" default="" label="РўРµРєСЃС‚ Р’С‹ РЅРµ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅС‹" description="" />
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="show_register" type="radio" default="1" label="Р—Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°С‚СЊСЃСЏ" description="РџРѕРєР°Р·С‹РІР°С‚СЊ Р—РђР Р•Р“РРЎРўР РР РћР’РђРўР¬РЎРЇ ">
+			<option value="0">РќРµС‚</option>
+			<option value="1">Р”Р°</option>
+		</param>
+		<param name="ml_reg_text" type="text" default="" label="РўРµРєСЃС‚ Р—Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°С‚СЊСЃСЏ" description="" />
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="module_align" type="radio" default="left" label="Р’С‹СЂР°РІРЅРёРІР°РЅРёРµ (С‚РѕР»СЊРєРѕ РґР»СЏ РІРµСЂС‚РёРєР°Р»СЊРЅРѕРіРѕ)" description="Р’С‹СЂР°РІРЅРёРІР°РЅРёРµ РІ РјРѕРґСѓР»Рµ (С‚РѕР»СЊРєРѕ РґР»СЏ РІРµСЂС‚РёРєР°Р»СЊРЅРѕРіРѕ) ">
+			<option value="left">РЎР»РµРІР°</option>
+			<option value="center">РїРѕ С†РµРЅС‚СЂСѓ</option>
+			<option value="right">РЎРїСЂР°РІР°</option>
 		</param>
 		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="@spacer" type="spacer" default="Настройки всплывающих подсказок" label="" description="" />
-		<param name="ml_border" type="list" default="1" label="Ширина границы">
+		<param name="ml_show_button" type="radio" default="" label="РџРѕРєР°Р·С‹РІР°С‚СЊ РєРЅРѕРїРєСѓ Р’РћР™РўР" description="Р’РєР»СЋС‡Р°РµС‚/РІС‹РєР»СЋС‡Р°РµС‚ РєРЅРѕРїРєСѓ РІРѕР№С‚Рё, РІРјРµСЃС‚Рѕ РЅРµРµ Р¶РјРµРј ENTER">
+			<option value="-hidden">РЎРїСЂСЏС‚Р°С‚СЊ</option>
+			<option value="">РџРѕРєР°Р·Р°С‚СЊ</option>
+		</param>
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="@spacer" type="spacer" default="РќР°СЃС‚СЂРѕР№РєРё РІСЃРїР»С‹РІР°СЋС‰РёС… РїРѕРґСЃРєР°Р·РѕРє" label="" description="" />
+		<param name="ml_border" type="list" default="1" label="РЁРёСЂРёРЅР° РіСЂР°РЅРёС†С‹">
 			<option value="0">0px</option>
 			<option value="1">1px</option>
 			<option value="2">2px</option>
@@ -127,17 +127,17 @@
 			<option value="5">5px</option>
 			<option value="6">6px</option>
 		</param>
-		<param name="ml_over_height" type="text" default="80" label="Высота блока всплывающей подсказки" description="" />
-		<param name="ml_over_width" type="text" default="200" label="Ширина блока всплывающей подсказки" description="" />
-		<param name="ml_bgcolor" type="text" default="#00FF00" label="Цвет фона заголовка и рамки" description="Задает цвет фона заголовка и рамки в шестнадцатеричном виде (#00ff00)" />
-		<param name="ml_capcolor" type="text" default="#FF00FF" label="Цвет текста в заголовке" description="Задает цвет текста в заголовке в шестнадцатеричном виде (#00ff00)" />
-		<param name="ml_captionfont" type="list" default="Arial" label="Шрифт текста заголовка">
+		<param name="ml_over_height" type="text" default="80" label="Р’С‹СЃРѕС‚Р° Р±Р»РѕРєР° РІСЃРїР»С‹РІР°СЋС‰РµР№ РїРѕРґСЃРєР°Р·РєРё" description="" />
+		<param name="ml_over_width" type="text" default="200" label="РЁРёСЂРёРЅР° Р±Р»РѕРєР° РІСЃРїР»С‹РІР°СЋС‰РµР№ РїРѕРґСЃРєР°Р·РєРё" description="" />
+		<param name="ml_bgcolor" type="text" default="#00FF00" label="Р¦РІРµС‚ С„РѕРЅР° Р·Р°РіРѕР»РѕРІРєР° Рё СЂР°РјРєРё" description="Р—Р°РґР°РµС‚ С†РІРµС‚ С„РѕРЅР° Р·Р°РіРѕР»РѕРІРєР° Рё СЂР°РјРєРё РІ С€РµСЃС‚РЅР°РґС†Р°С‚РµСЂРёС‡РЅРѕРј РІРёРґРµ (#00ff00)" />
+		<param name="ml_capcolor" type="text" default="#FF00FF" label="Р¦РІРµС‚ С‚РµРєСЃС‚Р° РІ Р·Р°РіРѕР»РѕРІРєРµ" description="Р—Р°РґР°РµС‚ С†РІРµС‚ С‚РµРєСЃС‚Р° РІ Р·Р°РіРѕР»РѕРІРєРµ РІ С€РµСЃС‚РЅР°РґС†Р°С‚РµСЂРёС‡РЅРѕРј РІРёРґРµ (#00ff00)" />
+		<param name="ml_captionfont" type="list" default="Arial" label="РЁСЂРёС„С‚ С‚РµРєСЃС‚Р° Р·Р°РіРѕР»РѕРІРєР°">
 			<option value="Arial">Arial</option>
 			<option value="Arial Black">Arial Black</option>
 			<option value="Times New Roman">Times New Roman</option>
 			<option value="Courier New">Courier New</option>
 		</param>
-		<param name="ml_captionsize" type="list" default="12px" label="Размер шрифта текста заголовка">
+		<param name="ml_captionsize" type="list" default="12px" label="Р Р°Р·РјРµСЂ С€СЂРёС„С‚Р° С‚РµРєСЃС‚Р° Р·Р°РіРѕР»РѕРІРєР°">
 			<option value="6px">6px</option>
 			<option value="7px">7px</option>
 			<option value="8px">8px</option>
@@ -156,15 +156,15 @@
 			<option value="21px">21px</option>
 			<option value="22px">22px</option>
 		</param>
-		<param name="ml_fgcolor" type="text" default="#00FF20" label="Цвет фона текста" description="Задает цвет фона текста в шестнадцатеричном виде (#00ff00)" />
-		<param name="ml_textcolor" type="text" default="#FF0000" label="Цвет текста" description="Задает цвет текста в шестнадцатеричном виде (#00ff00)" />
-		<param name="ml_textfont" type="list" default="Arial" label="Шрифт текста заголовка">
+		<param name="ml_fgcolor" type="text" default="#00FF20" label="Р¦РІРµС‚ С„РѕРЅР° С‚РµРєСЃС‚Р°" description="Р—Р°РґР°РµС‚ С†РІРµС‚ С„РѕРЅР° С‚РµРєСЃС‚Р° РІ С€РµСЃС‚РЅР°РґС†Р°С‚РµСЂРёС‡РЅРѕРј РІРёРґРµ (#00ff00)" />
+		<param name="ml_textcolor" type="text" default="#FF0000" label="Р¦РІРµС‚ С‚РµРєСЃС‚Р°" description="Р—Р°РґР°РµС‚ С†РІРµС‚ С‚РµРєСЃС‚Р° РІ С€РµСЃС‚РЅР°РґС†Р°С‚РµСЂРёС‡РЅРѕРј РІРёРґРµ (#00ff00)" />
+		<param name="ml_textfont" type="list" default="Arial" label="РЁСЂРёС„С‚ С‚РµРєСЃС‚Р° Р·Р°РіРѕР»РѕРІРєР°">
 			<option value="Arial">Arial</option>
 			<option value="Arial Black">Arial Black</option>
 			<option value="Times New Roman">Times New Roman</option>
 			<option value="Courier New">Courier New</option>
 		</param>
-		<param name="ml_textsize" type="list" default="12px" label="Размер шрифта текста">
+		<param name="ml_textsize" type="list" default="12px" label="Р Р°Р·РјРµСЂ С€СЂРёС„С‚Р° С‚РµРєСЃС‚Р°">
 			<option value="6px">6px</option>
 			<option value="7px">7px</option>
 			<option value="8px">8px</option>

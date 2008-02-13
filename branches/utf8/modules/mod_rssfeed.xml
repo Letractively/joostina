@@ -1,49 +1,49 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <mosinstall type="module" version="1.0.0">
-	<name>Экспорт новостей</name>
+	<name>Р­РєСЃРїРѕСЂС‚ РЅРѕРІРѕСЃС‚РµР№</name>
 	<author>Joostina! Project</author>
-	<creationDate>Октябрь 2007</creationDate>
+	<creationDate>РћРєС‚СЏР±СЂСЊ 2007</creationDate>
 	<copyright>(C) 2007 Joostina Team.</copyright>
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
 	<authorEmail>joostinacms@gmail.com</authorEmail>
 	<authorUrl>www.joostina.ru</authorUrl>
 	<version>1.0.0</version>
-	<description>Модуль экспорта новостей, отображающий ссылку, с помощью которой люди могут получать последние новости вашего сайта на свой сайт. Если Вы нажмете на значок RSS, то Вы будете перенаправлены на новую страницу со списком всех последних новостей в формате XML. Для того чтобы использовать Ленту новостей на другом сайте Joomla! или в программе для чтения лент новостей, Вы должны скопировать и вставить в них URL ссылки ленты новостей.</description>
+	<description>РњРѕРґСѓР»СЊ СЌРєСЃРїРѕСЂС‚Р° РЅРѕРІРѕСЃС‚РµР№, РѕС‚РѕР±СЂР°Р¶Р°СЋС‰РёР№ СЃСЃС‹Р»РєСѓ, СЃ РїРѕРјРѕС‰СЊСЋ РєРѕС‚РѕСЂРѕР№ Р»СЋРґРё РјРѕРіСѓС‚ РїРѕР»СѓС‡Р°С‚СЊ РїРѕСЃР»РµРґРЅРёРµ РЅРѕРІРѕСЃС‚Рё РІР°С€РµРіРѕ СЃР°Р№С‚Р° РЅР° СЃРІРѕР№ СЃР°Р№С‚. Р•СЃР»Рё Р’С‹ РЅР°Р¶РјРµС‚Рµ РЅР° Р·РЅР°С‡РѕРє RSS, С‚Рѕ Р’С‹ Р±СѓРґРµС‚Рµ РїРµСЂРµРЅР°РїСЂР°РІР»РµРЅС‹ РЅР° РЅРѕРІСѓСЋ СЃС‚СЂР°РЅРёС†Сѓ СЃРѕ СЃРїРёСЃРєРѕРј РІСЃРµС… РїРѕСЃР»РµРґРЅРёС… РЅРѕРІРѕСЃС‚РµР№ РІ С„РѕСЂРјР°С‚Рµ XML. Р”Р»СЏ С‚РѕРіРѕ С‡С‚РѕР±С‹ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ Р›РµРЅС‚Сѓ РЅРѕРІРѕСЃС‚РµР№ РЅР° РґСЂСѓРіРѕРј СЃР°Р№С‚Рµ Joomla! РёР»Рё РІ РїСЂРѕРіСЂР°РјРјРµ РґР»СЏ С‡С‚РµРЅРёСЏ Р»РµРЅС‚ РЅРѕРІРѕСЃС‚РµР№, Р’С‹ РґРѕР»Р¶РЅС‹ СЃРєРѕРїРёСЂРѕРІР°С‚СЊ Рё РІСЃС‚Р°РІРёС‚СЊ РІ РЅРёС… URL СЃСЃС‹Р»РєРё Р»РµРЅС‚С‹ РЅРѕРІРѕСЃС‚РµР№.</description>
 	<files>
 		<filename module="mod_rssfeed">mod_rssfeed.php</filename>
 	</files>
 	<params>
-		<param name="text" type="text" default="" label="Текст" description="Введите текст, который будет показываться вместе со ссылками экспорта новостей (RSS)" />
-		<param name="cache" type="radio" default="0" label="Разрешить кэширование" description="Выберите, кэшировать ли содержимое этого модуля">
-			<option value="0">Нет</option>
-			<option value="1">Да</option>
+		<param name="text" type="text" default="" label="РўРµРєСЃС‚" description="Р’РІРµРґРёС‚Рµ С‚РµРєСЃС‚, РєРѕС‚РѕСЂС‹Р№ Р±СѓРґРµС‚ РїРѕРєР°Р·С‹РІР°С‚СЊСЃСЏ РІРјРµСЃС‚Рµ СЃРѕ СЃСЃС‹Р»РєР°РјРё СЌРєСЃРїРѕСЂС‚Р° РЅРѕРІРѕСЃС‚РµР№ (RSS)" />
+		<param name="cache" type="radio" default="0" label="Р Р°Р·СЂРµС€РёС‚СЊ РєСЌС€РёСЂРѕРІР°РЅРёРµ" description="Р’С‹Р±РµСЂРёС‚Рµ, РєСЌС€РёСЂРѕРІР°С‚СЊ Р»Рё СЃРѕРґРµСЂР¶РёРјРѕРµ СЌС‚РѕРіРѕ РјРѕРґСѓР»СЏ">
+			<option value="0">РќРµС‚</option>
+			<option value="1">Р”Р°</option>
 		</param>
-		<param name="moduleclass_sfx" type="text" default="" label="CSS-суффикс класса модуля" description="Суффикс, который будет использован в описании класса (table.moduletable) таблицы стилей (CSS) модуля. Это позволяет использовать индивидуальный стиль модуля." />
-		<param name="rss091" type="radio" default="1" label="RSS 0.91" description="Надо ли показывать ссылку стандарта RSS 0.91">
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
+		<param name="moduleclass_sfx" type="text" default="" label="CSS-СЃСѓС„С„РёРєСЃ РєР»Р°СЃСЃР° РјРѕРґСѓР»СЏ" description="РЎСѓС„С„РёРєСЃ, РєРѕС‚РѕСЂС‹Р№ Р±СѓРґРµС‚ РёСЃРїРѕР»СЊР·РѕРІР°РЅ РІ РѕРїРёСЃР°РЅРёРё РєР»Р°СЃСЃР° (table.moduletable) С‚Р°Р±Р»РёС†С‹ СЃС‚РёР»РµР№ (CSS) РјРѕРґСѓР»СЏ. Р­С‚Рѕ РїРѕР·РІРѕР»СЏРµС‚ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РёРЅРґРёРІРёРґСѓР°Р»СЊРЅС‹Р№ СЃС‚РёР»СЊ РјРѕРґСѓР»СЏ." />
+		<param name="rss091" type="radio" default="1" label="RSS 0.91" description="РќР°РґРѕ Р»Рё РїРѕРєР°Р·С‹РІР°С‚СЊ СЃСЃС‹Р»РєСѓ СЃС‚Р°РЅРґР°СЂС‚Р° RSS 0.91">
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
 		</param>
-		<param name="rss10" type="radio" default="1" label="RSS 1.0" description="Надо ли показывать ссылку стандарта RSS 1.0">
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
+		<param name="rss10" type="radio" default="1" label="RSS 1.0" description="РќР°РґРѕ Р»Рё РїРѕРєР°Р·С‹РІР°С‚СЊ СЃСЃС‹Р»РєСѓ СЃС‚Р°РЅРґР°СЂС‚Р° RSS 1.0">
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
 		</param>
-		<param name="rss20" type="radio" default="1" label="RSS 2.0" description="Надо ли показывать ссылку стандарта RSS 2.0">
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
+		<param name="rss20" type="radio" default="1" label="RSS 2.0" description="РќР°РґРѕ Р»Рё РїРѕРєР°Р·С‹РІР°С‚СЊ СЃСЃС‹Р»РєСѓ СЃС‚Р°РЅРґР°СЂС‚Р° RSS 2.0">
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
 		</param>
-		<param name="atom" type="radio" default="1" label="Atom" description="Надо ли показывать ссылку стандарта Atom 0.3">
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
+		<param name="atom" type="radio" default="1" label="Atom" description="РќР°РґРѕ Р»Рё РїРѕРєР°Р·С‹РІР°С‚СЊ СЃСЃС‹Р»РєСѓ СЃС‚Р°РЅРґР°СЂС‚Р° Atom 0.3">
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
 		</param>
-		<param name="opml" type="radio" default="1" label="OPML" description="Надо ли показывать ссылку стандарта OPML">
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
+		<param name="opml" type="radio" default="1" label="OPML" description="РќР°РґРѕ Р»Рё РїРѕРєР°Р·С‹РІР°С‚СЊ СЃСЃС‹Р»РєСѓ СЃС‚Р°РЅРґР°СЂС‚Р° OPML">
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
 		</param>
-		<param name="rss091_image" type="imagelist" directory="/images/M_images" hide_none="1" default="" label="Изображение RSS 0.91" description="Выберите используемое изображение" />
-		<param name="rss10_image" type="imagelist" directory="/images/M_images" hide_none="1" default="" label="Изображение RSS 1.0" description="Выберите используемое изображение" />
-		<param name="rss20_image" type="imagelist" directory="/images/M_images" hide_none="1" default="" label="Изображение RSS 2.0" description="Выберите используемое изображение" />
-		<param name="atom_image" type="imagelist" directory="/images/M_images" hide_none="1" default="" label="Изображение Atom" description="Выберите используемое изображение" />
-		<param name="opml_image" type="imagelist" directory="/images/M_images" hide_none="1" default="" label="Изображение OPML" description="Выберите используемое изображение" />
-		<param name="yandex_image" type="imagelist" directory="/images/M_images" hide_none="1" default="" label="Изображение Yandex" description="Выберите используемое изображение" />
+		<param name="rss091_image" type="imagelist" directory="/images/M_images" hide_none="1" default="" label="РР·РѕР±СЂР°Р¶РµРЅРёРµ RSS 0.91" description="Р’С‹Р±РµСЂРёС‚Рµ РёСЃРїРѕР»СЊР·СѓРµРјРѕРµ РёР·РѕР±СЂР°Р¶РµРЅРёРµ" />
+		<param name="rss10_image" type="imagelist" directory="/images/M_images" hide_none="1" default="" label="РР·РѕР±СЂР°Р¶РµРЅРёРµ RSS 1.0" description="Р’С‹Р±РµСЂРёС‚Рµ РёСЃРїРѕР»СЊР·СѓРµРјРѕРµ РёР·РѕР±СЂР°Р¶РµРЅРёРµ" />
+		<param name="rss20_image" type="imagelist" directory="/images/M_images" hide_none="1" default="" label="РР·РѕР±СЂР°Р¶РµРЅРёРµ RSS 2.0" description="Р’С‹Р±РµСЂРёС‚Рµ РёСЃРїРѕР»СЊР·СѓРµРјРѕРµ РёР·РѕР±СЂР°Р¶РµРЅРёРµ" />
+		<param name="atom_image" type="imagelist" directory="/images/M_images" hide_none="1" default="" label="РР·РѕР±СЂР°Р¶РµРЅРёРµ Atom" description="Р’С‹Р±РµСЂРёС‚Рµ РёСЃРїРѕР»СЊР·СѓРµРјРѕРµ РёР·РѕР±СЂР°Р¶РµРЅРёРµ" />
+		<param name="opml_image" type="imagelist" directory="/images/M_images" hide_none="1" default="" label="РР·РѕР±СЂР°Р¶РµРЅРёРµ OPML" description="Р’С‹Р±РµСЂРёС‚Рµ РёСЃРїРѕР»СЊР·СѓРµРјРѕРµ РёР·РѕР±СЂР°Р¶РµРЅРёРµ" />
+		<param name="yandex_image" type="imagelist" directory="/images/M_images" hide_none="1" default="" label="РР·РѕР±СЂР°Р¶РµРЅРёРµ Yandex" description="Р’С‹Р±РµСЂРёС‚Рµ РёСЃРїРѕР»СЊР·СѓРµРјРѕРµ РёР·РѕР±СЂР°Р¶РµРЅРёРµ" />
 	</params>
 </mosinstall>

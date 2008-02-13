@@ -1,19 +1,19 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
 define( "_VALID_MOS", 1 );
 
-/** Подключение common.php */
+/** РџРѕРґРєР»СЋС‡РµРЅРёРµ common.php */
 require_once( 'common.php' );
 
 $DBhostname = mosGetParam( $_POST, 'DBhostname', '' );
@@ -44,7 +44,7 @@ if ($sitename == '') {
                         <input type=\"hidden\" name=\"DBcreated\" value=1>
                 </form>";
 
-        echo "<script>alert('Не введено название сайта'); document.stepBack.submit();</script>";
+        echo "<script>alert('РќРµ РІРІРµРґРµРЅРѕ РЅР°Р·РІР°РЅРёРµ СЃР°Р№С‚Р°'); document.stepBack.submit();</script>";
         return;
 }
 $url = "";
@@ -79,7 +79,7 @@ echo "<?xml version=\"1.0\" encoding=\"windows-1251\"?".">";
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Joostina - Web-установка. Шаг 3 ...</title>
+<title>Joostina - Web-СѓСЃС‚Р°РЅРѕРІРєР°. РЁР°Рі 3 ...</title>
  <meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
 <link rel="shortcut icon" href="../images/favicon.ico" />
  <link rel="stylesheet" href="install.css" type="text/css" />
@@ -90,19 +90,19 @@ function check() {
         var formValid = true;
         var f = document.form;
         if ( f.siteUrl.value == '' ) {
-                alert('Введите URL сайта');
+                alert('Р’РІРµРґРёС‚Рµ URL СЃР°Р№С‚Р°');
                 f.siteUrl.focus();
                 formValid = false;
         } else if ( f.absolutePath.value == '' ) {
-                alert('Введите абсолютный путь до вашего сайта');
+                alert('Р’РІРµРґРёС‚Рµ Р°Р±СЃРѕР»СЋС‚РЅС‹Р№ РїСѓС‚СЊ РґРѕ РІР°С€РµРіРѕ СЃР°Р№С‚Р°');
                 f.absolutePath.focus();
                 formValid = false;
         } else if ( f.adminEmail.value == '' ) {
-                alert('Введите E-mail Администратора сайта для связи с ним');
+                alert('Р’РІРµРґРёС‚Рµ E-mail РђРґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР° СЃР°Р№С‚Р° РґР»СЏ СЃРІСЏР·Рё СЃ РЅРёРј');
                 f.adminEmail.focus();
                 formValid = false;
         } else if ( f.adminPassword.value == '' ) {
-                alert('Введите пароль вашего Администратора');
+                alert('Р’РІРµРґРёС‚Рµ РїР°СЂРѕР»СЊ РІР°С€РµРіРѕ РђРґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР°');
                 f.adminPassword.focus();
                 formValid = false;
         }
@@ -141,7 +141,7 @@ function changeDirPermsMode(mode)
 <body onload="document.form.siteUrl.focus();">
  <div id="wrapper">
   <div id="header">
-   <div id="joomla"><img src="header_install.png" alt="Установка Joostina" /></div>
+   <div id="joomla"><img src="header_install.png" alt="РЈСЃС‚Р°РЅРѕРІРєР° Joostina" /></div>
   </div>
  </div>
  <div id="ctr" align="center">
@@ -155,52 +155,52 @@ function changeDirPermsMode(mode)
    <input type="hidden" name="sitename" value="<?php echo "$sitename"; ?>" />
    <div class="install">
     <div id="stepbar">
-     <div class="step-off">Проверка системы</div>
-     <div class="step-off">Лицензия</div>
-     <div class="step-off">Шаг 1</div>
-     <div class="step-off">Шаг 2</div>
-     <div class="step-on">Шаг 3</div>
-     <div class="step-off">Шаг 4</div>
+     <div class="step-off">РџСЂРѕРІРµСЂРєР° СЃРёСЃС‚РµРјС‹</div>
+     <div class="step-off">Р›РёС†РµРЅР·РёСЏ</div>
+     <div class="step-off">РЁР°Рі 1</div>
+     <div class="step-off">РЁР°Рі 2</div>
+     <div class="step-on">РЁР°Рі 3</div>
+     <div class="step-off">РЁР°Рі 4</div>
     </div>
     <div id="right">
-     <div id="step">Шаг 3</div>
+     <div id="step">РЁР°Рі 3</div>
      <div class="far-right">
-      <input class="button" type="submit" name="next" value="Далее >>"/>
+      <input class="button" type="submit" name="next" value="Р”Р°Р»РµРµ >>"/>
      </div>
      <div class="clr"></div>
-     <h1>&nbsp;&nbsp;&nbsp;&nbsp;Подтверждение URL сайта, путей, e-mail администратора<br />
-     и прав доступа к файлам и каталогам</h1>
+     <h1>&nbsp;&nbsp;&nbsp;&nbsp;РџРѕРґС‚РІРµСЂР¶РґРµРЅРёРµ URL СЃР°Р№С‚Р°, РїСѓС‚РµР№, e-mail Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР°<br />
+     Рё РїСЂР°РІ РґРѕСЃС‚СѓРїР° Рє С„Р°Р№Р»Р°Рј Рё РєР°С‚Р°Р»РѕРіР°Рј</h1>
      <div class="install-text">
-      <p>&nbsp;&nbsp;&nbsp;&nbsp;Если вы не уверены в правильности настроек, оставьте значения по умолчанию.<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;Позже Вы сможете изменить эти настройки в глобальной конфигурации сайта.</p>
+      <p>&nbsp;&nbsp;&nbsp;&nbsp;Р•СЃР»Рё РІС‹ РЅРµ СѓРІРµСЂРµРЅС‹ РІ РїСЂР°РІРёР»СЊРЅРѕСЃС‚Рё РЅР°СЃС‚СЂРѕРµРє, РѕСЃС‚Р°РІСЊС‚Рµ Р·РЅР°С‡РµРЅРёСЏ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ.<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;РџРѕР·Р¶Рµ Р’С‹ СЃРјРѕР¶РµС‚Рµ РёР·РјРµРЅРёС‚СЊ СЌС‚Рё РЅР°СЃС‚СЂРѕР№РєРё РІ РіР»РѕР±Р°Р»СЊРЅРѕР№ РєРѕРЅС„РёРіСѓСЂР°С†РёРё СЃР°Р№С‚Р°.</p>
      </div>
      <div class="install-form">
       <div class="form-block">
 	<table class="content2" width="100%">
 		<tr class="trongate-1">
-			<td colspan="2">URL сайта<br />
+			<td colspan="2">URL СЃР°Р№С‚Р°<br />
 				<input class="inputbox" type="text" name="siteUrl" value="<?php echo $url; ?>" size="40"/>
 			</td>
 		</tr>
 		<tr class="trongate-2">
-			<td colspan="2" valign="top">Абсолютный путь<br />
+			<td colspan="2" valign="top">РђР±СЃРѕР»СЋС‚РЅС‹Р№ РїСѓС‚СЊ<br />
 				<input class="inputbox" type="text" name="absolutePath" value="<?php echo $abspath; ?>" size="40" />
 			</td>
 		</tr>
 		<tr class="trongate-1">
-			<td valign="top">Ваш E-mail<br />
+			<td valign="top">Р’Р°С€ E-mail<br />
 				<input class="inputbox" type="text" name="adminEmail" value="<?php echo "$adminEmail"; ?>" size="40" />
 			</td>
 			<td>
-				Используется как адрес главного Администратора сайта
+				РСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РєР°Рє Р°РґСЂРµСЃ РіР»Р°РІРЅРѕРіРѕ РђРґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР° СЃР°Р№С‚Р°
 			</td>
 		</tr>
 		<tr class="trongate-2">
-			<td valign="top" width="250px">Пароль Администратора<br />
+			<td valign="top" width="250px">РџР°СЂРѕР»СЊ РђРґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР°<br />
 				<input class="inputbox" type="text" name="adminPassword" value="<?php echo mosMakePassword(8); ?>" size="40"/>
 			</td>
 			<td>
-				Рекомендуется использовать пароль не короче <b>6</b> символов.
+				Р РµРєРѕРјРµРЅРґСѓРµС‚СЃСЏ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РїР°СЂРѕР»СЊ РЅРµ РєРѕСЂРѕС‡Рµ <b>6</b> СЃРёРјРІРѕР»РѕРІ.
 			</td>
 		</tr>
 		</table>
@@ -208,14 +208,14 @@ function changeDirPermsMode(mode)
 		<tr class="trongate-1">
          <td colspan="2">
           <fieldset >
-           <legend>Права доступа к файлам</legend>
+           <legend>РџСЂР°РІР° РґРѕСЃС‚СѓРїР° Рє С„Р°Р№Р»Р°Рј</legend>
            <table cellpadding="1" cellspacing="1" border="0">
             <tr>
              <td>
               <input type="radio" id="filePermsMode0" name="filePermsMode" value="0" onclick="changeFilePermsMode(0)"<?php if (!$mode) echo ' checked="checked"'; ?>/>
              </td>
              <td>
-              <label for="filePermsMode0">Не менять CHMOD (использовать умолчания сервера)</label>
+              <label for="filePermsMode0">РќРµ РјРµРЅСЏС‚СЊ CHMOD (РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ СѓРјРѕР»С‡Р°РЅРёСЏ СЃРµСЂРІРµСЂР°)</label>
              </td>
             </tr>
             <tr>
@@ -223,7 +223,7 @@ function changeDirPermsMode(mode)
               <input type="radio" id="filePermsMode1" name="filePermsMode" value="1" onclick="changeFilePermsMode(1)"<?php if ($mode) echo ' checked="checked"'; ?>/>
              </td>
              <td>
-              <label for="filePermsMode1"> CHMOD файлов:</label>
+              <label for="filePermsMode1"> CHMOD С„Р°Р№Р»РѕРІ:</label>
              </td>
             </tr>
             <tr id="filePermsFlags"<?php if (!$mode) echo ' style="display:none"'; ?>>
@@ -231,43 +231,43 @@ function changeDirPermsMode(mode)
              <td>
               <table cellpadding="1" cellspacing="0" border="0">
                <tr>
-                <td>Владелец:</td>
+                <td>Р’Р»Р°РґРµР»РµС†:</td>
                 <td>
                  <input type="checkbox" id="filePermsUserRead" name="filePermsUserRead" value="1"<?php if ($flags & 0400) echo ' checked="checked"'; ?>/>
                 </td>
                 <td>
-                 <label for="filePermsUserRead">чтение</label>
+                 <label for="filePermsUserRead">С‡С‚РµРЅРёРµ</label>
                 </td>
                 <td>
                  <input type="checkbox" id="filePermsUserWrite" name="filePermsUserWrite" value="1"<?php if ($flags & 0200) echo ' checked="checked"'; ?>/>
                 </td>
                 <td>
-                 <label for="filePermsUserWrite">запись</label>
+                 <label for="filePermsUserWrite">Р·Р°РїРёСЃСЊ</label>
                 </td>
                 <td>
                  <input type="checkbox" id="filePermsUserExecute" name="filePermsUserExecute" value="1"<?php if ($flags & 0100) echo ' checked="checked"'; ?>/>
                 </td>
                 <td width="100%">
-                 <label for="filePermsUserExecute">выполнение</label>
+                 <label for="filePermsUserExecute">РІС‹РїРѕР»РЅРµРЅРёРµ</label>
                 </td>
                </tr>
                <tr>
-                <td>Группа:</td>
+                <td>Р“СЂСѓРїРїР°:</td>
 					<td><input type="checkbox" id="filePermsGroupRead" name="filePermsGroupRead" value="1"<?php if ($flags & 040) echo ' checked="checked"'; ?>/></td>
-					<td><label for="filePermsGroupRead">чтение</label></td>
+					<td><label for="filePermsGroupRead">С‡С‚РµРЅРёРµ</label></td>
 					<td><input type="checkbox" id="filePermsGroupWrite" name="filePermsGroupWrite" value="1"<?php if ($flags & 020) echo ' checked="checked"'; ?>/></td>
-					<td><label for="filePermsGroupWrite">запись</label></td>
+					<td><label for="filePermsGroupWrite">Р·Р°РїРёСЃСЊ</label></td>
 					<td><input type="checkbox" id="filePermsGroupExecute" name="filePermsGroupExecute" value="1"<?php if ($flags & 010) echo ' checked="checked"'; ?>/></td>
-					<td width="100%"><label for="filePermsGroupExecute">выполнение</label></td>
+					<td width="100%"><label for="filePermsGroupExecute">РІС‹РїРѕР»РЅРµРЅРёРµ</label></td>
                </tr>
                <tr>
-                <td>Все:</td>
+                <td>Р’СЃРµ:</td>
 					<td><input type="checkbox" id="filePermsWorldRead" name="filePermsWorldRead" value="1"<?php if ($flags & 04) echo ' checked="checked"'; ?>/></td>
-					<td><label for="filePermsWorldRead">чтение</label></td>
+					<td><label for="filePermsWorldRead">С‡С‚РµРЅРёРµ</label></td>
 					<td><input type="checkbox" id="filePermsWorldWrite" name="filePermsWorldWrite" value="1"<?php if ($flags & 02) echo ' checked="checked"'; ?>/></td>
-					<td><label for="filePermsWorldWrite">запись</label></td>
+					<td><label for="filePermsWorldWrite">Р·Р°РїРёСЃСЊ</label></td>
 					<td><input type="checkbox" id="filePermsWorldExecute" name="filePermsWorldExecute" value="1"<?php if ($flags & 01) echo ' checked="checked"'; ?>/></td>
-					<td width="100%"><label for="filePermsWorldExecute">выполнение</label></td>
+					<td width="100%"><label for="filePermsWorldExecute">РІС‹РїРѕР»РЅРµРЅРёРµ</label></td>
                </tr>
               </table>
              </td>
@@ -288,18 +288,18 @@ function changeDirPermsMode(mode)
           } // if
          ?>
          <td colspan="2">
-          <fieldset><legend>Права доступа к каталогам</legend>
+          <fieldset><legend>РџСЂР°РІР° РґРѕСЃС‚СѓРїР° Рє РєР°С‚Р°Р»РѕРіР°Рј</legend>
            <table cellpadding="1" cellspacing="1" border="0">
             <tr>
 										<td><input type="radio" id="dirPermsMode0" name="dirPermsMode" value="0" onclick="changeDirPermsMode(0)"<?php if (!$mode) echo ' checked="checked"'; ?>/></td>
-              <td><label for="dirPermsMode0">Не менять CHMOD (использовать умолчания сервера)</label></td>
+              <td><label for="dirPermsMode0">РќРµ РјРµРЅСЏС‚СЊ CHMOD (РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ СѓРјРѕР»С‡Р°РЅРёСЏ СЃРµСЂРІРµСЂР°)</label></td>
             </tr>
             <tr>
              <td>
               <input type="radio" id="dirPermsMode1" name="dirPermsMode" value="1" onclick="changeDirPermsMode(1)"<?php if ($mode) echo ' checked="checked"'; ?>/>
              </td>
              <td>
-              <label for="dirPermsMode1"> CHMOD каталогов:</label>
+              <label for="dirPermsMode1"> CHMOD РєР°С‚Р°Р»РѕРіРѕРІ:</label>
              </td>
             </tr>
             <tr id="dirPermsFlags"<?php if (!$mode) echo ' style="display:none"'; ?>>
@@ -307,54 +307,54 @@ function changeDirPermsMode(mode)
              <td>
               <table cellpadding="1" cellspacing="0" border="0">
                <tr>
-                <td>Владелец:</td>
+                <td>Р’Р»Р°РґРµР»РµС†:</td>
 					<td><input type="checkbox" id="dirPermsUserRead" name="dirPermsUserRead" value="1"<?php if ($flags & 0400) echo ' checked="checked"'; ?>/></td>
-					<td><label for="dirPermsUserRead">чтение</label></td>
+					<td><label for="dirPermsUserRead">С‡С‚РµРЅРёРµ</label></td>
 					<td><input type="checkbox" id="dirPermsUserWrite" name="dirPermsUserWrite" value="1"<?php if ($flags & 0200) echo ' checked="checked"'; ?>/></td>
-					<td><label for="dirPermsUserWrite">запись</label></td>
+					<td><label for="dirPermsUserWrite">Р·Р°РїРёСЃСЊ</label></td>
 					<td><input type="checkbox" id="dirPermsUserSearch" name="dirPermsUserSearch" value="1"<?php if ($flags & 0100) echo ' checked="checked"'; ?>/></td>
-					<td width="100%"><label for="dirPermsUserSearch">поиск</label></td>
+					<td width="100%"><label for="dirPermsUserSearch">РїРѕРёСЃРє</label></td>
                </tr>
                <tr>
-                <td>Группа:</td>
+                <td>Р“СЂСѓРїРїР°:</td>
                 <td>
                  <input type="checkbox" id="dirPermsGroupRead" name="dirPermsGroupRead" value="1"<?php if ($flags & 040) echo ' checked="checked"'; ?>/>
                 </td>
                 <td>
-                 <label for="dirPermsGroupRead">чтение</label>
+                 <label for="dirPermsGroupRead">С‡С‚РµРЅРёРµ</label>
                 </td>
                 <td>
                  <input type="checkbox" id="dirPermsGroupWrite" name="dirPermsGroupWrite" value="1"<?php if ($flags & 020) echo ' checked="checked"'; ?>/>
                 </td>
                 <td>
-                 <label for="dirPermsGroupWrite">запись</label>
+                 <label for="dirPermsGroupWrite">Р·Р°РїРёСЃСЊ</label>
                 </td>
                 <td>
                  <input type="checkbox" id="dirPermsGroupSearch" name="dirPermsGroupSearch" value="1"<?php if ($flags & 010) echo ' checked="checked"'; ?>/>
                 </td>
                 <td width="100%">
-                 <label for="dirPermsGroupSearch">поиск</label>
+                 <label for="dirPermsGroupSearch">РїРѕРёСЃРє</label>
                 </td>
                </tr>
                <tr>
-                <td>Все:</td>
+                <td>Р’СЃРµ:</td>
                 <td>
                  <input type="checkbox" id="dirPermsWorldRead" name="dirPermsWorldRead" value="1"<?php if ($flags & 04) echo ' checked="checked"'; ?>/>
                 </td>
                 <td>
-                 <label for="dirPermsWorldRead">чтение</label>
+                 <label for="dirPermsWorldRead">С‡С‚РµРЅРёРµ</label>
                 </td>
                 <td>
                  <input type="checkbox" id="dirPermsWorldWrite" name="dirPermsWorldWrite" value="1"<?php if ($flags & 02) echo ' checked="checked"'; ?>/>
                 </td>
                 <td>
-                 <label for="dirPermsWorldWrite">запись</label>
+                 <label for="dirPermsWorldWrite">Р·Р°РїРёСЃСЊ</label>
                 </td>
                 <td>
                  <input type="checkbox" id="dirPermsWorldSearch" name="dirPermsWorldSearch" value="1"<?php if ($flags & 01) echo ' checked="checked"'; ?>/>
                 </td>
                 <td width="100%">
-                 <label for="dirPermsWorldSearch">поиск</label>
+                 <label for="dirPermsWorldSearch">РїРѕРёСЃРє</label>
                 </td>
                </tr>
               </table>
@@ -374,6 +374,6 @@ function changeDirPermsMode(mode)
   </form>
  </div>
  <div class="clr"></div>
- <div class="ctr" id="footer"><a href="http://www.Joostina.ru" target="_blank">Joostina</a> - свободное программное обеспечение, распространяемое по лицензии GNU/GPL.</div>
+ <div class="ctr" id="footer"><a href="http://www.Joostina.ru" target="_blank">Joostina</a> - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ, СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ Р»РёС†РµРЅР·РёРё GNU/GPL.</div>
 </body>
 </html>

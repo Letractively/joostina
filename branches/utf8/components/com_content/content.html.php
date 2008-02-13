@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 /**
 * Utility class for writing the HTML for content
@@ -432,15 +432,15 @@ class HTML_content {
 
 
 	/**
-	* Отображение содержимого
+	* РћС‚РѕР±СЂР°Р¶РµРЅРёРµ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ
 	* @param object An object with the record 
 	* @param boolean If <code>false</code>, the print button links to a popup window.  If <code>true</code> then the print button invokes the browser print method.
-	* boston + хак отключения мамботов группы content
+	* boston + С…Р°Рє РѕС‚РєР»СЋС‡РµРЅРёСЏ РјР°РјР±РѕС‚РѕРІ РіСЂСѓРїРїС‹ content
 	*/
 	function show( &$row, &$params, &$access, $page=0 ) {
 		global $mainframe, $hide_js,$_MAMBOTS,$mosConfig_mmb_content_off,$mosConfig_live_site,$mosConfig_uid_news;
 		global $news_uid,$task;
-		// уникальные идентификаторы новостей
+		// СѓРЅРёРєР°Р»СЊРЅС‹Рµ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂС‹ РЅРѕРІРѕСЃС‚РµР№
 		$news_uid_css_title = '';
 		$news_uid_css_body  = '';
 		if($mosConfig_uid_news){
@@ -448,7 +448,7 @@ class HTML_content {
 			$news_uid_css_title = 'id="title-news-uid-'.$news_uid.'" ';
 			$news_uid_css_body = 'id="body-news-uid-'.$news_uid.'" ';
 		}
-		// boston, это еще будет
+		// boston, СЌС‚Рѕ РµС‰Рµ Р±СѓРґРµС‚
 		//if($task == 'view') $news_uid_css = 'id="pageclass_uid_'.$params->get( 'pageclass_uids' ).'" ';
 		
 		$mainframe->appendMetaTag( 'description', $row->metadesc );
@@ -459,14 +459,14 @@ class HTML_content {
 			$mainframe->setPageTitle( $row->title .' '. $row->page_title );
 		}
 
-		// получение параметров текущего содержимого
+		// РїРѕР»СѓС‡РµРЅРёРµ РїР°СЂР°РјРµС‚СЂРѕРІ С‚РµРєСѓС‰РµРіРѕ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ
 		$cur_params = new mosParameters ($row->attribs);
 		$news_uid_css_page = $cur_params->get('pageclass_uids');
 		if($cur_params->get('pageclass_uids_full') && trim($news_uid_css_page)!=''){
 			$news_uid_css_title = 'id="title-news-'.$news_uid_css_page.'" ';
 			$news_uid_css_body  = 'id="body-news-'.$news_uid_css_page.'" ';
 		};
-		// расчет Itemid
+		// СЂР°СЃС‡РµС‚ Itemid
 		HTML_content::_Itemid( $row );
 
 		// determines the link and `link text` of the readmore button & linked title
@@ -475,7 +475,7 @@ class HTML_content {
 		// link used by print button
 		$print_link = $mosConfig_live_site. '/index2.php?option=com_content&amp;task=view&amp;id=' . $row->id .'&amp;pop=1&amp;page='. $page . $row->Itemid_link;
 
-		// обработка контента ботами, если в глобальной конфигурации они отключены - то мамботы не  используем
+		// РѕР±СЂР°Р±РѕС‚РєР° РєРѕРЅС‚РµРЅС‚Р° Р±РѕС‚Р°РјРё, РµСЃР»Рё РІ РіР»РѕР±Р°Р»СЊРЅРѕР№ РєРѕРЅС„РёРіСѓСЂР°С†РёРё РѕРЅРё РѕС‚РєР»СЋС‡РµРЅС‹ - С‚Рѕ РјР°РјР±РѕС‚С‹ РЅРµ  РёСЃРїРѕР»СЊР·СѓРµРј
 		if($mosConfig_mmb_content_off!=1){
 			$_MAMBOTS->loadBotGroup( 'content' );
 			$results = $_MAMBOTS->trigger( 'onPrepareContent', array( &$row, &$params, $page ), true );
@@ -626,7 +626,7 @@ class HTML_content {
 	}
 
 	/**
-	* Вывод заголовка
+	* Р’С‹РІРѕРґ Р·Р°РіРѕР»РѕРІРєР°
 	*/
 	function Title( &$row, &$params, &$access ) {
 		global $mosConfig_uid_news,$mosConfig_title_h1,$mosConfig_title_h1_only_view,$task;
@@ -1085,7 +1085,7 @@ class HTML_content {
 			<?php echo $section;?> / <?php echo $row->id ? _E_EDIT : _E_ADD;?>&nbsp;
 			<?php echo _E_CONTENT;?> &nbsp;&nbsp;&nbsp;
 			<a href="javascript: void(0);" onMouseOver="return overlib('<table><?php echo $docinfo; ?></table>', CAPTION, '<?php echo _E_ITEM_INFO;?>', BELOW, RIGHT);" onMouseOut="return nd();">
-			<strong>[Информация]</strong>
+			<strong>[РРЅС„РѕСЂРјР°С†РёСЏ]</strong>
 			</a>
 			</td>
 		</tr>

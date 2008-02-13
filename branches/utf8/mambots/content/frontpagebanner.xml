@@ -8,11 +8,11 @@
 	<authorEmail>smart@joomlaportal.ru</authorEmail>
 	<authorUrl>http://joomlaportal.ru</authorUrl>
 	<version>1.0.2 joostina ed</version>
-	<description>Добавляет вывод баннера после первой новости главной страницы.</description>
+	<description>Р”РѕР±Р°РІР»СЏРµС‚ РІС‹РІРѕРґ Р±Р°РЅРЅРµСЂР° РїРѕСЃР»Рµ РїРµСЂРІРѕР№ РЅРѕРІРѕСЃС‚Рё РіР»Р°РІРЅРѕР№ СЃС‚СЂР°РЅРёС†С‹.</description>
 	<files>
 		<filename mambot="frontpagebanner">frontpagebanner.php</filename>
 	</files>
 	<params>
-		<param name="banner_cids" type="text" default="" label="Идентификаторы клиентов" description="Идентификаторы клиентов баннеров, через запятую ','!" />
+		<param name="banner_cids" type="text" default="" label="РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂС‹ РєР»РёРµРЅС‚РѕРІ" description="РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂС‹ РєР»РёРµРЅС‚РѕРІ Р±Р°РЅРЅРµСЂРѕРІ, С‡РµСЂРµР· Р·Р°РїСЏС‚СѓСЋ ','!" />
 	</params>
 </mosinstall>

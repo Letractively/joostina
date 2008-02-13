@@ -1,6 +1,6 @@
 <?php
 
-defined( "_VALID_MOS" ) or die( "Ïðÿìîé âûçîâ ôàéëà çàïðåù¸í." );
+defined( "_VALID_MOS" ) or die( "ÐŸÑ€ÑÐ¼Ð¾Ð¹ Ð²Ñ‹Ð·Ð¾Ð² Ñ„Ð°Ð¹Ð»Ð° Ð·Ð°Ð¿Ñ€ÐµÑ‰Ñ‘Ð½." );
 
 $iso = explode( '=', _ISO );
 

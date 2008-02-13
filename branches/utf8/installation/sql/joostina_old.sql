@@ -1,7 +1,7 @@
 # $Id: joostina.sql Joostina 1.1.2 boston $
 
 #
-# Структура таблицы `#__banner`
+# РЎС‚СЂСѓРєС‚СѓСЂР° С‚Р°Р±Р»РёС†С‹ `#__banner`
 #
 
 CREATE TABLE `#__banner` (
@@ -25,7 +25,7 @@ CREATE TABLE `#__banner` (
 )   AUTO_INCREMENT=1 ;
 
 #
-# Структура таблицы `#__bannerclient`
+# РЎС‚СЂСѓРєС‚СѓСЂР° С‚Р°Р±Р»РёС†С‹ `#__bannerclient`
 #
 
 CREATE TABLE `#__bannerclient` (
@@ -41,7 +41,7 @@ CREATE TABLE `#__bannerclient` (
 )  ;
 
 #
-# Структура таблицы `#__bannerfinish`
+# РЎС‚СЂСѓРєС‚СѓСЂР° С‚Р°Р±Р»РёС†С‹ `#__bannerfinish`
 #
 
 CREATE TABLE `#__bannerfinish` (
@@ -58,7 +58,7 @@ CREATE TABLE `#__bannerfinish` (
 )  ;
 
 #
-# Структура таблицы `#__categories`
+# РЎС‚СЂСѓРєС‚СѓСЂР° С‚Р°Р±Р»РёС†С‹ `#__categories`
 #
 
 CREATE TABLE `#__categories` (
@@ -85,7 +85,7 @@ CREATE TABLE `#__categories` (
 )   ;
 
 #
-# Структура таблицы `#__components`
+# РЎС‚СЂСѓРєС‚СѓСЂР° С‚Р°Р±Р»РёС†С‹ `#__components`
 #
 
 CREATE TABLE `#__components` (
@@ -105,42 +105,42 @@ CREATE TABLE `#__components` (
 )  ;
 
 #
-# Данные таблицы `#__components`
+# Р”Р°РЅРЅС‹Рµ С‚Р°Р±Р»РёС†С‹ `#__components`
 #
 
-INSERT INTO `#__components` VALUES (1, 'Баннеры', '', 0, 0, '', 'Управление баннерами', 'com_banners', 0, 'js/ThemeOffice/component.png', 0, '');
-INSERT INTO `#__components` VALUES (2, 'Баннеры', '', 0, 1, 'option=com_banners', 'Активные баннеры', 'com_banners', 1, 'js/ThemeOffice/edit.png', 0, '');
-INSERT INTO `#__components` VALUES (3, 'Клиенты', '', 0, 1, 'option=com_banners&task=listclients', 'Управление клиентами', 'com_banners', 2, 'js/ThemeOffice/categories.png', 0, '');
-INSERT INTO `#__components` VALUES (4, 'Каталог ссылок', 'option=com_weblinks', 0, 0, '', 'Управление ссылками', 'com_weblinks', 0, 'js/ThemeOffice/globe2.png', 0, '');
-INSERT INTO `#__components` VALUES (5, 'Ссылки', '', 0, 4, 'option=com_weblinks', 'Просмотр существующих ссылок', 'com_weblinks', 1, 'js/ThemeOffice/edit.png', 0, '');
-INSERT INTO `#__components` VALUES (6, 'Категории', '', 0, 4, 'option=categories&section=com_weblinks', 'Управление категориями ссылок', '', 2, 'js/ThemeOffice/categories.png', 0, '');
-INSERT INTO `#__components` VALUES (7, 'Контакты', 'option=com_contact', 0, 0, '', 'Редактировать контактную информацию', 'com_contact', 0, 'js/ThemeOffice/user.png', 1, '');
-INSERT INTO `#__components` VALUES (8, 'Контакты', '', 0, 7, 'option=com_contact', 'Редактировать контактную информацию', 'com_contact', 0, 'js/ThemeOffice/edit.png', 1, '');
-INSERT INTO `#__components` VALUES (9, 'Категории', '', 0, 7, 'option=categories&section=com_contact_details', 'Управление категориями контактов', '', 2, 'js/ThemeOffice/categories.png', 1, '');
-INSERT INTO `#__components` VALUES (10, 'Главная страница', 'option=com_frontpage', 0, 0, '', 'Управление объектами главной страницы', 'com_frontpage', 0, 'js/ThemeOffice/component.png', 1, '');
-INSERT INTO `#__components` VALUES (11, 'Опросы', 'option=com_poll', 0, 0, 'option=com_poll', 'Управление опросами', 'com_poll', 0, 'js/ThemeOffice/component.png', 0, '');
-INSERT INTO `#__components` VALUES (12, 'Ленты новостей', 'option=com_newsfeeds', 0, 0, '', 'Управление настройками лент новостей', 'com_newsfeeds', 0, 'js/ThemeOffice/component.png', 0, '');
-INSERT INTO `#__components` VALUES (13, 'Ленты новостей', '', 0, 12, 'option=com_newsfeeds', 'Управление лентами новостей', 'com_newsfeeds', 1, 'js/ThemeOffice/edit.png', 0, '');
-INSERT INTO `#__components` VALUES (14, 'Категории', '', 0, 12, 'option=com_categories&section=com_newsfeeds', 'Управление категориями', '', 2, 'js/ThemeOffice/categories.png', 0, '');
-INSERT INTO `#__components` VALUES (15, 'Авторизация', 'option=com_login', 0, 0, '', '', 'com_login', 0, '', 1, '');
-INSERT INTO `#__components` VALUES (16, 'Поиск', 'option=com_search', 0, 0, '', '', 'com_search', 0, '', 1, '');
-INSERT INTO `#__components` VALUES (17, 'RSS экспорт','',0,0,'option=com_syndicate&hidemainmenu=1','Управление настройками экспорта новостей','com_syndicate',0,'js/ThemeOffice/component.png',0,'');
-INSERT INTO `#__components` VALUES (18, 'Рассылка почты', '', 0, 0, 'option=com_massmail&hidemainmenu=1', 'Массовая рассылка почты', 'com_massmail', 0, 'js/ThemeOffice/mass_email.png', 0, '');
-INSERT INTO `#__components` VALUES (19, 'Резервное копирование', '', 0, 0, 'option=com_joomlapack', 'Сохранение информации сайта', 'com_joomlapack', 0, 'js/ThemeOffice/jbackup.png', 0, '');
-INSERT INTO `#__components` VALUES (20, 'Редактор JCE', 'option=com_jce', '0', '0', 'option=com_jce', 'Визуальный редактор JCE', 'com_jce', '0', 'js/ThemeOffice/editor_on.png', '0', '');
-INSERT INTO `#__components` VALUES (21, 'Настройки', '', '0', '20', 'option=com_jce&task=config', 'Настройки редактора JCE', 'com_jce', '0', 'js/ThemeOffice/controlpanel.png', '0', '');
-INSERT INTO `#__components` VALUES (22, 'Языки интерфейса', '', '0', '20', 'option=com_jce&task=lang', 'Языки интерфейса JCE', 'com_jce', '1', 'js/ThemeOffice/language.png', '0', '');
-INSERT INTO `#__components` VALUES (23, 'Расширения (плагины)', '', '0', '20', 'option=com_jce&task=showplugins', 'Расширения JCE', 'com_jce', '2', 'js/ThemeOffice/add_section.png', '0', '');
-INSERT INTO `#__components` VALUES (24, 'Расположение кнопок', '0', '0', '20', 'option=com_jce&task=editlayout', 'Расположение кнопок JCE', 'com_jce', '3', 'js/ThemeOffice/content.png', '0', '');
-INSERT INTO `#__components` VALUES (25, 'Создать архив сайта', '', '0', '19', 'option=com_joomlapack&act=pack&hidemainmenu=1', 'Сохранение файлов и базы данных сайта', 'com_joomlapack', '0', 'js/ThemeOffice/jbackup.png', '0', '');
-INSERT INTO `#__components` VALUES (26, 'Управление базой данных', 'option=com_ebackup', '0', '19', 'option=com_ebackup', 'eBackup - сохранение базы данных', 'com_ebackup', '1', 'js/ThemeOffice/ebackup.png', '0', '');
-INSERT INTO `#__components` VALUES (27, 'Созданные архивы данных', '', '0', '19', 'option=com_joomlapack&act=backupadmin', 'Управление файлами бэкапов', 'com_joomlapack', '2', 'js/ThemeOffice/db.png', '0', '');
-INSERT INTO `#__components` VALUES (28, 'Настройки сохранения данных', '', '0', '19', 'option=com_joomlapack&act=config', 'Настройки сохранения данных', 'com_joomlapack', '3', 'js/ThemeOffice/config.png', '0', '');
-INSERT INTO `#__components` VALUES (29, 'Карта сайта', 'option=com_xmap', 0, 0, 'option=com_xmap', '', 'com_xmap', 0, 'js/ThemeOffice/component.png', 0, '');
-INSERT INTO `#__components` VALUES (30, 'Отправка новостей с фронта', 'option=com_ja_submit', 0, 0, 'option=com_ja_submit', '', 'com_ja_submit', 0, 'js/ThemeOffice/component.png', '0', '');
+INSERT INTO `#__components` VALUES (1, 'Р‘Р°РЅРЅРµСЂС‹', '', 0, 0, '', 'РЈРїСЂР°РІР»РµРЅРёРµ Р±Р°РЅРЅРµСЂР°РјРё', 'com_banners', 0, 'js/ThemeOffice/component.png', 0, '');
+INSERT INTO `#__components` VALUES (2, 'Р‘Р°РЅРЅРµСЂС‹', '', 0, 1, 'option=com_banners', 'РђРєС‚РёРІРЅС‹Рµ Р±Р°РЅРЅРµСЂС‹', 'com_banners', 1, 'js/ThemeOffice/edit.png', 0, '');
+INSERT INTO `#__components` VALUES (3, 'РљР»РёРµРЅС‚С‹', '', 0, 1, 'option=com_banners&task=listclients', 'РЈРїСЂР°РІР»РµРЅРёРµ РєР»РёРµРЅС‚Р°РјРё', 'com_banners', 2, 'js/ThemeOffice/categories.png', 0, '');
+INSERT INTO `#__components` VALUES (4, 'РљР°С‚Р°Р»РѕРі СЃСЃС‹Р»РѕРє', 'option=com_weblinks', 0, 0, '', 'РЈРїСЂР°РІР»РµРЅРёРµ СЃСЃС‹Р»РєР°РјРё', 'com_weblinks', 0, 'js/ThemeOffice/globe2.png', 0, '');
+INSERT INTO `#__components` VALUES (5, 'РЎСЃС‹Р»РєРё', '', 0, 4, 'option=com_weblinks', 'РџСЂРѕСЃРјРѕС‚СЂ СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёС… СЃСЃС‹Р»РѕРє', 'com_weblinks', 1, 'js/ThemeOffice/edit.png', 0, '');
+INSERT INTO `#__components` VALUES (6, 'РљР°С‚РµРіРѕСЂРёРё', '', 0, 4, 'option=categories&section=com_weblinks', 'РЈРїСЂР°РІР»РµРЅРёРµ РєР°С‚РµРіРѕСЂРёСЏРјРё СЃСЃС‹Р»РѕРє', '', 2, 'js/ThemeOffice/categories.png', 0, '');
+INSERT INTO `#__components` VALUES (7, 'РљРѕРЅС‚Р°РєС‚С‹', 'option=com_contact', 0, 0, '', 'Р РµРґР°РєС‚РёСЂРѕРІР°С‚СЊ РєРѕРЅС‚Р°РєС‚РЅСѓСЋ РёРЅС„РѕСЂРјР°С†РёСЋ', 'com_contact', 0, 'js/ThemeOffice/user.png', 1, '');
+INSERT INTO `#__components` VALUES (8, 'РљРѕРЅС‚Р°РєС‚С‹', '', 0, 7, 'option=com_contact', 'Р РµРґР°РєС‚РёСЂРѕРІР°С‚СЊ РєРѕРЅС‚Р°РєС‚РЅСѓСЋ РёРЅС„РѕСЂРјР°С†РёСЋ', 'com_contact', 0, 'js/ThemeOffice/edit.png', 1, '');
+INSERT INTO `#__components` VALUES (9, 'РљР°С‚РµРіРѕСЂРёРё', '', 0, 7, 'option=categories&section=com_contact_details', 'РЈРїСЂР°РІР»РµРЅРёРµ РєР°С‚РµРіРѕСЂРёСЏРјРё РєРѕРЅС‚Р°РєС‚РѕРІ', '', 2, 'js/ThemeOffice/categories.png', 1, '');
+INSERT INTO `#__components` VALUES (10, 'Р“Р»Р°РІРЅР°СЏ СЃС‚СЂР°РЅРёС†Р°', 'option=com_frontpage', 0, 0, '', 'РЈРїСЂР°РІР»РµРЅРёРµ РѕР±СЉРµРєС‚Р°РјРё РіР»Р°РІРЅРѕР№ СЃС‚СЂР°РЅРёС†С‹', 'com_frontpage', 0, 'js/ThemeOffice/component.png', 1, '');
+INSERT INTO `#__components` VALUES (11, 'РћРїСЂРѕСЃС‹', 'option=com_poll', 0, 0, 'option=com_poll', 'РЈРїСЂР°РІР»РµРЅРёРµ РѕРїСЂРѕСЃР°РјРё', 'com_poll', 0, 'js/ThemeOffice/component.png', 0, '');
+INSERT INTO `#__components` VALUES (12, 'Р›РµРЅС‚С‹ РЅРѕРІРѕСЃС‚РµР№', 'option=com_newsfeeds', 0, 0, '', 'РЈРїСЂР°РІР»РµРЅРёРµ РЅР°СЃС‚СЂРѕР№РєР°РјРё Р»РµРЅС‚ РЅРѕРІРѕСЃС‚РµР№', 'com_newsfeeds', 0, 'js/ThemeOffice/component.png', 0, '');
+INSERT INTO `#__components` VALUES (13, 'Р›РµРЅС‚С‹ РЅРѕРІРѕСЃС‚РµР№', '', 0, 12, 'option=com_newsfeeds', 'РЈРїСЂР°РІР»РµРЅРёРµ Р»РµРЅС‚Р°РјРё РЅРѕРІРѕСЃС‚РµР№', 'com_newsfeeds', 1, 'js/ThemeOffice/edit.png', 0, '');
+INSERT INTO `#__components` VALUES (14, 'РљР°С‚РµРіРѕСЂРёРё', '', 0, 12, 'option=com_categories&section=com_newsfeeds', 'РЈРїСЂР°РІР»РµРЅРёРµ РєР°С‚РµРіРѕСЂРёСЏРјРё', '', 2, 'js/ThemeOffice/categories.png', 0, '');
+INSERT INTO `#__components` VALUES (15, 'РђРІС‚РѕСЂРёР·Р°С†РёСЏ', 'option=com_login', 0, 0, '', '', 'com_login', 0, '', 1, '');
+INSERT INTO `#__components` VALUES (16, 'РџРѕРёСЃРє', 'option=com_search', 0, 0, '', '', 'com_search', 0, '', 1, '');
+INSERT INTO `#__components` VALUES (17, 'RSS СЌРєСЃРїРѕСЂС‚','',0,0,'option=com_syndicate&hidemainmenu=1','РЈРїСЂР°РІР»РµРЅРёРµ РЅР°СЃС‚СЂРѕР№РєР°РјРё СЌРєСЃРїРѕСЂС‚Р° РЅРѕРІРѕСЃС‚РµР№','com_syndicate',0,'js/ThemeOffice/component.png',0,'');
+INSERT INTO `#__components` VALUES (18, 'Р Р°СЃСЃС‹Р»РєР° РїРѕС‡С‚С‹', '', 0, 0, 'option=com_massmail&hidemainmenu=1', 'РњР°СЃСЃРѕРІР°СЏ СЂР°СЃСЃС‹Р»РєР° РїРѕС‡С‚С‹', 'com_massmail', 0, 'js/ThemeOffice/mass_email.png', 0, '');
+INSERT INTO `#__components` VALUES (19, 'Р РµР·РµСЂРІРЅРѕРµ РєРѕРїРёСЂРѕРІР°РЅРёРµ', '', 0, 0, 'option=com_joomlapack', 'РЎРѕС…СЂР°РЅРµРЅРёРµ РёРЅС„РѕСЂРјР°С†РёРё СЃР°Р№С‚Р°', 'com_joomlapack', 0, 'js/ThemeOffice/jbackup.png', 0, '');
+INSERT INTO `#__components` VALUES (20, 'Р РµРґР°РєС‚РѕСЂ JCE', 'option=com_jce', '0', '0', 'option=com_jce', 'Р’РёР·СѓР°Р»СЊРЅС‹Р№ СЂРµРґР°РєС‚РѕСЂ JCE', 'com_jce', '0', 'js/ThemeOffice/editor_on.png', '0', '');
+INSERT INTO `#__components` VALUES (21, 'РќР°СЃС‚СЂРѕР№РєРё', '', '0', '20', 'option=com_jce&task=config', 'РќР°СЃС‚СЂРѕР№РєРё СЂРµРґР°РєС‚РѕСЂР° JCE', 'com_jce', '0', 'js/ThemeOffice/controlpanel.png', '0', '');
+INSERT INTO `#__components` VALUES (22, 'РЇР·С‹РєРё РёРЅС‚РµСЂС„РµР№СЃР°', '', '0', '20', 'option=com_jce&task=lang', 'РЇР·С‹РєРё РёРЅС‚РµСЂС„РµР№СЃР° JCE', 'com_jce', '1', 'js/ThemeOffice/language.png', '0', '');
+INSERT INTO `#__components` VALUES (23, 'Р Р°СЃС€РёСЂРµРЅРёСЏ (РїР»Р°РіРёРЅС‹)', '', '0', '20', 'option=com_jce&task=showplugins', 'Р Р°СЃС€РёСЂРµРЅРёСЏ JCE', 'com_jce', '2', 'js/ThemeOffice/add_section.png', '0', '');
+INSERT INTO `#__components` VALUES (24, 'Р Р°СЃРїРѕР»РѕР¶РµРЅРёРµ РєРЅРѕРїРѕРє', '0', '0', '20', 'option=com_jce&task=editlayout', 'Р Р°СЃРїРѕР»РѕР¶РµРЅРёРµ РєРЅРѕРїРѕРє JCE', 'com_jce', '3', 'js/ThemeOffice/content.png', '0', '');
+INSERT INTO `#__components` VALUES (25, 'РЎРѕР·РґР°С‚СЊ Р°СЂС…РёРІ СЃР°Р№С‚Р°', '', '0', '19', 'option=com_joomlapack&act=pack&hidemainmenu=1', 'РЎРѕС…СЂР°РЅРµРЅРёРµ С„Р°Р№Р»РѕРІ Рё Р±Р°Р·С‹ РґР°РЅРЅС‹С… СЃР°Р№С‚Р°', 'com_joomlapack', '0', 'js/ThemeOffice/jbackup.png', '0', '');
+INSERT INTO `#__components` VALUES (26, 'РЈРїСЂР°РІР»РµРЅРёРµ Р±Р°Р·РѕР№ РґР°РЅРЅС‹С…', 'option=com_ebackup', '0', '19', 'option=com_ebackup', 'eBackup - СЃРѕС…СЂР°РЅРµРЅРёРµ Р±Р°Р·С‹ РґР°РЅРЅС‹С…', 'com_ebackup', '1', 'js/ThemeOffice/ebackup.png', '0', '');
+INSERT INTO `#__components` VALUES (27, 'РЎРѕР·РґР°РЅРЅС‹Рµ Р°СЂС…РёРІС‹ РґР°РЅРЅС‹С…', '', '0', '19', 'option=com_joomlapack&act=backupadmin', 'РЈРїСЂР°РІР»РµРЅРёРµ С„Р°Р№Р»Р°РјРё Р±СЌРєР°РїРѕРІ', 'com_joomlapack', '2', 'js/ThemeOffice/db.png', '0', '');
+INSERT INTO `#__components` VALUES (28, 'РќР°СЃС‚СЂРѕР№РєРё СЃРѕС…СЂР°РЅРµРЅРёСЏ РґР°РЅРЅС‹С…', '', '0', '19', 'option=com_joomlapack&act=config', 'РќР°СЃС‚СЂРѕР№РєРё СЃРѕС…СЂР°РЅРµРЅРёСЏ РґР°РЅРЅС‹С…', 'com_joomlapack', '3', 'js/ThemeOffice/config.png', '0', '');
+INSERT INTO `#__components` VALUES (29, 'РљР°СЂС‚Р° СЃР°Р№С‚Р°', 'option=com_xmap', 0, 0, 'option=com_xmap', '', 'com_xmap', 0, 'js/ThemeOffice/component.png', 0, '');
+INSERT INTO `#__components` VALUES (30, 'РћС‚РїСЂР°РІРєР° РЅРѕРІРѕСЃС‚РµР№ СЃ С„СЂРѕРЅС‚Р°', 'option=com_ja_submit', 0, 0, 'option=com_ja_submit', '', 'com_ja_submit', 0, 'js/ThemeOffice/component.png', '0', '');
 
 #
-# Структура таблицы `#__contact_details`
+# РЎС‚СЂСѓРєС‚СѓСЂР° С‚Р°Р±Р»РёС†С‹ `#__contact_details`
 #
 
 CREATE TABLE `#__contact_details` (
@@ -171,7 +171,7 @@ CREATE TABLE `#__contact_details` (
 )  ;
 
 #
-# Структура таблицы `#__content`
+# РЎС‚СЂСѓРєС‚СѓСЂР° С‚Р°Р±Р»РёС†С‹ `#__content`
 #
 
 CREATE TABLE `#__content` (
@@ -215,7 +215,7 @@ CREATE TABLE `#__content` (
 )   ;
 
 #
-# Структура таблицы `#__content_frontpage`
+# РЎС‚СЂСѓРєС‚СѓСЂР° С‚Р°Р±Р»РёС†С‹ `#__content_frontpage`
 #
 
 CREATE TABLE `#__content_frontpage` (
@@ -225,7 +225,7 @@ CREATE TABLE `#__content_frontpage` (
 )  ;
 
 #
-# Структура таблицы `#__content_rating`
+# РЎС‚СЂСѓРєС‚СѓСЂР° С‚Р°Р±Р»РёС†С‹ `#__content_rating`
 #
 
 CREATE TABLE `#__content_rating` (
@@ -237,7 +237,7 @@ CREATE TABLE `#__content_rating` (
 )  ;
 
 #
-# Структура таблицы `#__core_log_items`
+# РЎС‚СЂСѓРєС‚СѓСЂР° С‚Р°Р±Р»РёС†С‹ `#__core_log_items`
 #
 
 
@@ -249,7 +249,7 @@ CREATE TABLE `#__core_log_items` (
 )  ;
 
 #
-# Структура таблицы `#__core_log_searches`
+# РЎС‚СЂСѓРєС‚СѓСЂР° С‚Р°Р±Р»РёС†С‹ `#__core_log_searches`
 #
 
 
@@ -261,7 +261,7 @@ CREATE TABLE `#__core_log_searches` (
 )  ;
 
 #
-# Структура таблицы `#__groups`
+# РЎС‚СЂСѓРєС‚СѓСЂР° С‚Р°Р±Р»РёС†С‹ `#__groups`
 #
 
 CREATE TABLE `#__groups` (
@@ -271,16 +271,16 @@ CREATE TABLE `#__groups` (
 )  ;
 
 #
-# Данные таблицы `#__groups`
+# Р”Р°РЅРЅС‹Рµ С‚Р°Р±Р»РёС†С‹ `#__groups`
 #
 
-INSERT INTO `#__groups` VALUES (0, 'Общий');
-INSERT INTO `#__groups` VALUES (1, 'Участники');
-INSERT INTO `#__groups` VALUES (2, 'Специальный');
+INSERT INTO `#__groups` VALUES (0, 'РћР±С‰РёР№');
+INSERT INTO `#__groups` VALUES (1, 'РЈС‡Р°СЃС‚РЅРёРєРё');
+INSERT INTO `#__groups` VALUES (2, 'РЎРїРµС†РёР°Р»СЊРЅС‹Р№');
 # --------------------------------------------------------
 
 #
-# Структура таблицы `#__mambots`
+# РЎС‚СЂСѓРєС‚СѓСЂР° С‚Р°Р±Р»РёС†С‹ `#__mambots`
 #
 
 CREATE TABLE `#__mambots` (
@@ -300,31 +300,31 @@ CREATE TABLE `#__mambots` (
   KEY `idx_folder` (`published`,`client_id`,`access`,`folder`)
 )  ;
 
-INSERT INTO `#__mambots` VALUES (1,'Изображение MOS','mosimage','content',0,-10000,1,1,0,0,'0000-00-00 00:00:00','');
-INSERT INTO `#__mambots` VALUES (2,'Разбиение на страницы MOS','mospaging','content',0,10000,1,1,0,0,'0000-00-00 00:00:00','');
-INSERT INTO `#__mambots` VALUES (3,'Включение наследования мамботов','legacybots','content',0,1,0,1,0,0,'0000-00-00 00:00:00','');
+INSERT INTO `#__mambots` VALUES (1,'РР·РѕР±СЂР°Р¶РµРЅРёРµ MOS','mosimage','content',0,-10000,1,1,0,0,'0000-00-00 00:00:00','');
+INSERT INTO `#__mambots` VALUES (2,'Р Р°Р·Р±РёРµРЅРёРµ РЅР° СЃС‚СЂР°РЅРёС†С‹ MOS','mospaging','content',0,10000,1,1,0,0,'0000-00-00 00:00:00','');
+INSERT INTO `#__mambots` VALUES (3,'Р’РєР»СЋС‡РµРЅРёРµ РЅР°СЃР»РµРґРѕРІР°РЅРёСЏ РјР°РјР±РѕС‚РѕРІ','legacybots','content',0,1,0,1,0,0,'0000-00-00 00:00:00','');
 INSERT INTO `#__mambots` VALUES (4,'SEF','mossef','content',0,3,1,0,0,0,'0000-00-00 00:00:00','');
-INSERT INTO `#__mambots` VALUES (5,'Рейтинг статей','plugin_jw_ajaxvote','content',0,4,1,1,0,0,'0000-00-00 00:00:00','');
-INSERT INTO `#__mambots` VALUES (6,'Поиск содержимого','content.searchbot','search',0,1,1,1,0,0,'0000-00-00 00:00:00','');
-INSERT INTO `#__mambots` VALUES (7,'Поиск веб-ссылок','weblinks.searchbot','search',0,2,1,1,0,0,'0000-00-00 00:00:00','');
-INSERT INTO `#__mambots` VALUES (8,'Поддержка кода','moscode','content',0,2,0,0,0,0,'0000-00-00 00:00:00','');
-INSERT INTO `#__mambots` VALUES (9,'Простой редактор HTML','none','editors',0,0,1,1,0,0,'0000-00-00 00:00:00','');
-INSERT INTO `#__mambots` VALUES (10, 'WYSIWYG-редактор JCE', 'jce', 'editors', 0, 1, 1, 0, 0, 0, '0000-00-00 00:00:00', 'theme=advance\r\neditor_width=100%');
-INSERT INTO `#__mambots` VALUES (11,'Кнопка изображения MOS в редакторе','mosimage.btn','editors-xtd',0,0,1,0,0,0,'0000-00-00 00:00:00','');
-INSERT INTO `#__mambots` VALUES (12,'Кнопка разрыва страницы MOS в редакторе','mospage.btn','editors-xtd',0,0,1,0,0,0,'0000-00-00 00:00:00','');
-INSERT INTO `#__mambots` VALUES (13,'Поиск контактов','contacts.searchbot','search',0,3,1,1,0,0,'0000-00-00 00:00:00','');
-INSERT INTO `#__mambots` VALUES (14, 'Поиск категорий', 'categories.searchbot', 'search', 0, 4, 1, 0, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__mambots` VALUES (15, 'Поиск разделов', 'sections.searchbot', 'search', 0, 5, 1, 0, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__mambots` VALUES (16, 'Маскировка E-mail', 'mosemailcloak', 'content', 0, 5, 1, 0, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__mambots` VALUES (17, 'Поиск лент новостей', 'newsfeeds.searchbot', 'search', 0, 6, 1, 0, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__mambots` VALUES (18, 'Позиции загрузки модуля', 'mosloadposition', 'content', 0, 6, 1, 0, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__mambots` VALUES (19, 'Первый обработчик содержимого', 'first', 'mainbody', 0, 0, 0, 0, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__mambots` VALUES (20, 'Баннер на главной странице', 'frontpagebanner', 'content', 0, 0, 0, 0, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__mambots` VALUES (5,'Р РµР№С‚РёРЅРі СЃС‚Р°С‚РµР№','plugin_jw_ajaxvote','content',0,4,1,1,0,0,'0000-00-00 00:00:00','');
+INSERT INTO `#__mambots` VALUES (6,'РџРѕРёСЃРє СЃРѕРґРµСЂР¶РёРјРѕРіРѕ','content.searchbot','search',0,1,1,1,0,0,'0000-00-00 00:00:00','');
+INSERT INTO `#__mambots` VALUES (7,'РџРѕРёСЃРє РІРµР±-СЃСЃС‹Р»РѕРє','weblinks.searchbot','search',0,2,1,1,0,0,'0000-00-00 00:00:00','');
+INSERT INTO `#__mambots` VALUES (8,'РџРѕРґРґРµСЂР¶РєР° РєРѕРґР°','moscode','content',0,2,0,0,0,0,'0000-00-00 00:00:00','');
+INSERT INTO `#__mambots` VALUES (9,'РџСЂРѕСЃС‚РѕР№ СЂРµРґР°РєС‚РѕСЂ HTML','none','editors',0,0,1,1,0,0,'0000-00-00 00:00:00','');
+INSERT INTO `#__mambots` VALUES (10, 'WYSIWYG-СЂРµРґР°РєС‚РѕСЂ JCE', 'jce', 'editors', 0, 1, 1, 0, 0, 0, '0000-00-00 00:00:00', 'theme=advance\r\neditor_width=100%');
+INSERT INTO `#__mambots` VALUES (11,'РљРЅРѕРїРєР° РёР·РѕР±СЂР°Р¶РµРЅРёСЏ MOS РІ СЂРµРґР°РєС‚РѕСЂРµ','mosimage.btn','editors-xtd',0,0,1,0,0,0,'0000-00-00 00:00:00','');
+INSERT INTO `#__mambots` VALUES (12,'РљРЅРѕРїРєР° СЂР°Р·СЂС‹РІР° СЃС‚СЂР°РЅРёС†С‹ MOS РІ СЂРµРґР°РєС‚РѕСЂРµ','mospage.btn','editors-xtd',0,0,1,0,0,0,'0000-00-00 00:00:00','');
+INSERT INTO `#__mambots` VALUES (13,'РџРѕРёСЃРє РєРѕРЅС‚Р°РєС‚РѕРІ','contacts.searchbot','search',0,3,1,1,0,0,'0000-00-00 00:00:00','');
+INSERT INTO `#__mambots` VALUES (14, 'РџРѕРёСЃРє РєР°С‚РµРіРѕСЂРёР№', 'categories.searchbot', 'search', 0, 4, 1, 0, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__mambots` VALUES (15, 'РџРѕРёСЃРє СЂР°Р·РґРµР»РѕРІ', 'sections.searchbot', 'search', 0, 5, 1, 0, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__mambots` VALUES (16, 'РњР°СЃРєРёСЂРѕРІРєР° E-mail', 'mosemailcloak', 'content', 0, 5, 1, 0, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__mambots` VALUES (17, 'РџРѕРёСЃРє Р»РµРЅС‚ РЅРѕРІРѕСЃС‚РµР№', 'newsfeeds.searchbot', 'search', 0, 6, 1, 0, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__mambots` VALUES (18, 'РџРѕР·РёС†РёРё Р·Р°РіСЂСѓР·РєРё РјРѕРґСѓР»СЏ', 'mosloadposition', 'content', 0, 6, 1, 0, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__mambots` VALUES (19, 'РџРµСЂРІС‹Р№ РѕР±СЂР°Р±РѕС‚С‡РёРє СЃРѕРґРµСЂР¶РёРјРѕРіРѕ', 'first', 'mainbody', 0, 0, 0, 0, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__mambots` VALUES (20, 'Р‘Р°РЅРЅРµСЂ РЅР° РіР»Р°РІРЅРѕР№ СЃС‚СЂР°РЅРёС†Рµ', 'frontpagebanner', 'content', 0, 0, 0, 0, 0, 0, '0000-00-00 00:00:00', '');
 
 # --------------------------------------------------------
 
 #
-# Структура таблицы `#__menu`
+# РЎС‚СЂСѓРєС‚СѓСЂР° С‚Р°Р±Р»РёС†С‹ `#__menu`
 #
 
 CREATE TABLE `#__menu` (
@@ -350,11 +350,11 @@ CREATE TABLE `#__menu` (
   KEY `menutype` (`menutype`)
 )  ;
 
-INSERT INTO `#__menu` VALUES (1, 'mainmenu', 'Главная', 'index.php?option=com_frontpage', 'components', 1, 0, 10, 0, 1, 0, '0000-00-00 00:00:00', 0, 0, 0, 3, 'leading=2\r\nintro=4\r\nlink=1\r\nimage=1\r\npage_title=0\r\nheader=Добро пожаловать на главную страницу\r\norderby_sec=front\r\nprint=0\r\nemail=0\r\nback_button=0');
+INSERT INTO `#__menu` VALUES (1, 'mainmenu', 'Р“Р»Р°РІРЅР°СЏ', 'index.php?option=com_frontpage', 'components', 1, 0, 10, 0, 1, 0, '0000-00-00 00:00:00', 0, 0, 0, 3, 'leading=2\r\nintro=4\r\nlink=1\r\nimage=1\r\npage_title=0\r\nheader=Р”РѕР±СЂРѕ РїРѕР¶Р°Р»РѕРІР°С‚СЊ РЅР° РіР»Р°РІРЅСѓСЋ СЃС‚СЂР°РЅРёС†Сѓ\r\norderby_sec=front\r\nprint=0\r\nemail=0\r\nback_button=0');
 # --------------------------------------------------------
 
 #
-# Структура таблицы `#__messages`
+# РЎС‚СЂСѓРєС‚СѓСЂР° С‚Р°Р±Р»РёС†С‹ `#__messages`
 #
 
 CREATE TABLE `#__messages` (
@@ -371,7 +371,7 @@ CREATE TABLE `#__messages` (
 )  ;
 
 #
-# Структура таблицы `#__messages_cfg`
+# РЎС‚СЂСѓРєС‚СѓСЂР° С‚Р°Р±Р»РёС†С‹ `#__messages_cfg`
 #
 
 CREATE TABLE `#__messages_cfg` (
@@ -382,7 +382,7 @@ CREATE TABLE `#__messages_cfg` (
 )  ;
 
 #
-# Структура таблицы `#__modules`
+# РЎС‚СЂСѓРєС‚СѓСЂР° С‚Р°Р±Р»РёС†С‹ `#__modules`
 #
 
 CREATE TABLE `#__modules` (
@@ -407,46 +407,46 @@ CREATE TABLE `#__modules` (
 )  ;
 
 #
-# Данные таблицы `#__modules`
+# Р”Р°РЅРЅС‹Рµ С‚Р°Р±Р»РёС†С‹ `#__modules`
 #
 
-INSERT INTO `#__modules` VALUES (0, 'Опросы', '', 1, 'right', 0, '0000-00-00 00:00:00', 1, 'mod_poll', 0, 0, 1, '', 0, 0);
-INSERT INTO `#__modules` VALUES (0, 'Меню пользователя', '', 2, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_mljoostinamenu', 0, 1, 1, 'moduleclass_sfx=_menu\nclass_sfx=\nmenutype=usermenu\nmenu_style=ulli\nml_imaged=0\nml_module_number=1\nml_first_hidden=0\nfull_active_id=0\nmenu_images=0\nmenu_images_align=0\nexpand_menu=0\nactivate_parent=0\nindent_image=0\nindent_image1=\nindent_image2=\nindent_image3=\nindent_image4=\nindent_image5=\nindent_image6=\nml_separated_link=0\nml_linked_sep=0\nml_separated_link_first=0\nml_separated_link_last=0\nml_hide_active=0\nml_separated_active=0\nml_linked_sep_active=0\nml_separated_active_first=0\nml_separated_active_last=0\nml_separated_element=0\nml_separated_element_first=0\nml_separated_element_last=0\nml_td_width=0\nml_div=0\nml_aligner=left\nml_rollover_use=0\nml_image1=-1\nml_image2=-1\nml_image3=-1\nml_image4=-1\nml_image5=-1\nml_image6=apply.png\nml_image7=apply.png\nml_image8=apply.png\nml_image9=apply.png\nml_image10=apply.png\nml_image11=apply.png\nml_image_roll_1=-1\nml_image_roll_2=-1\nml_image_roll_3=-1\nml_image_roll_4=-1\nml_image_roll_5=-1\nml_image_roll_6=-1\nml_image_roll_7=-1\nml_image_roll_8=-1\nml_image_roll_9=-1\nml_image_roll_10=-1\nml_image_roll_11=-1\nml_hide_logged1=1\nml_hide_logged2=1\nml_hide_logged3=1\nml_hide_logged4=1\nml_hide_logged5=1\nml_hide_logged6=1\nml_hide_logged7=1\nml_hide_logged8=1\nml_hide_logged9=1\nml_hide_logged10=1\nml_hide_logged11=1', 1, 0);
-INSERT INTO `#__modules` VALUES (0, 'Главное меню', '', 1, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_mljoostinamenu', 0, 0, 1, 'moduleclass_sfx=_menu\nclass_sfx=\nmenutype=mainmenu\nmenu_style=ulli\nml_imaged=0\nml_module_number=1\nml_first_hidden=0\nfull_active_id=0\nmenu_images=0\nmenu_images_align=0\nexpand_menu=0\nactivate_parent=0\nindent_image=0\nindent_image1=\nindent_image2=\nindent_image3=\nindent_image4=\nindent_image5=\nindent_image6=\nml_separated_link=0\nml_linked_sep=0\nml_separated_link_first=0\nml_separated_link_last=0\nml_hide_active=0\nml_separated_active=0\nml_linked_sep_active=0\nml_separated_active_first=0\nml_separated_active_last=0\nml_separated_element=0\nml_separated_element_first=0\nml_separated_element_last=0\nml_td_width=0\nml_div=0\nml_aligner=left\nml_rollover_use=0\nml_image1=-1\nml_image2=-1\nml_image3=-1\nml_image4=-1\nml_image5=-1\nml_image6=apply.png\nml_image7=apply.png\nml_image8=apply.png\nml_image9=apply.png\nml_image10=apply.png\nml_image11=apply.png\nml_image_roll_1=-1\nml_image_roll_2=-1\nml_image_roll_3=-1\nml_image_roll_4=-1\nml_image_roll_5=-1\nml_image_roll_6=-1\nml_image_roll_7=-1\nml_image_roll_8=-1\nml_image_roll_9=-1\nml_image_roll_10=-1\nml_image_roll_11=-1\nml_hide_logged1=1\nml_hide_logged2=1\nml_hide_logged3=1\nml_hide_logged4=1\nml_hide_logged5=1\nml_hide_logged6=1\nml_hide_logged7=1\nml_hide_logged8=1\nml_hide_logged9=1\nml_hide_logged10=1\nml_hide_logged11=1', 1, 0);
-INSERT INTO `#__modules` VALUES (0, 'Авторизация', '', 4, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_ml_login', 0, 0, 1, '', 1, 0);
-INSERT INTO `#__modules` VALUES (0, 'Экспорт новостей', '', 1, 'bottom', 0, '0000-00-00 00:00:00', 1, 'mod_rssfeed', 0, 0, 0, 'text=\ncache=0\nmoduleclass_sfx=\nrss091=1\nrss10=1\nrss20=1\natom=1\nopml=1\nrss091_image=\nrss10_image=\nrss20_image=\natom_image=\nopml_image=', 1, 0);
-INSERT INTO `#__modules` VALUES (0, 'Последние новости', '', 1, 'user1', 0, '0000-00-00 00:00:00', 1, 'mod_latestnews', 0, 0, 1, 'moduleclass_sfx=\ncache=0\nnoncss=0\ntype=1\nshow_front=1\ncount=3\ncatid=\nsecid=', 1, 0);
-INSERT INTO `#__modules` VALUES (0, 'Статистика', '', 5, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_stats', 0, 0, 1, 'serverinfo=1\nsiteinfo=1\ncounter=1\nincrease=0\nmoduleclass_sfx=', 0, 0);
-INSERT INTO `#__modules` VALUES (0, 'Кто на сайте?', '', 1, 'right', 0, '0000-00-00 00:00:00', 1, 'mod_whosonline', 0, 0, 1, 'online=1\nusers=1\nmoduleclass_sfx=', 0, 0);
-INSERT INTO `#__modules` VALUES (0, 'Популярное', '', 1, 'user2', 0, '0000-00-00 00:00:00', 1, 'mod_mostread', 0, 0, 1, 'moduleclass_sfx=\ncache=0\nnoncss=0\ntype=1\nshow_front=1\ncount=3\ncatid=\nsecid=', 0, 0);
-INSERT INTO `#__modules` VALUES (0, 'Выбор шаблона', '', 6, 'left', 0, '0000-00-00 00:00:00', 0, 'mod_templatechooser', 0, 0, 1, 'show_preview=1', 0, 0);
-INSERT INTO `#__modules` VALUES (0, 'Архив', '', 7, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_archive', 0, 0, 1, '', 1, 0);
-INSERT INTO `#__modules` VALUES (0, 'Разделы', '', 8, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_sections', 0, 0, 1, '', 1, 0);
-INSERT INTO `#__modules` VALUES (0, 'Краткие новости', '', 1, 'top', 0, '0000-00-00 00:00:00', 1, 'mod_newsflash', 0, 0, 0, 'catid=3\nstyle=random\nimage=0\nlink_titles=\nreadmore=0\nitem_title=0\nitems=\ncache=0\nmoduleclass_sfx=', 0, 0);
-INSERT INTO `#__modules` VALUES (0, 'Взаимосвязанные элементы', '', 1, 'user6', 0, '0000-00-00 00:00:00', 0, 'mod_related_items', 0, 0, 1, 'cache=0\nmoduleclass_sfx=', 0, 0);
-INSERT INTO `#__modules` VALUES (0, 'Поиск', '', 1, 'user4', 0, '0000-00-00 00:00:00', 1, 'mod_search', 0, 0, 0, 'moduleclass_sfx=\ncache=0\nset_itemid=\nwidth=20\ntext=\nbutton=\nbutton_pos=right\nbutton_text=', 0, 0);
-INSERT INTO `#__modules` VALUES (0, 'Случайное изображение', '', 9, 'right', 0, '0000-00-00 00:00:00', 1, 'mod_random_image', 0, 0, 1, '', 0, 0);
-INSERT INTO `#__modules` VALUES (0, 'Верхнее меню', '', 1, 'user3', 0, '0000-00-00 00:00:00', 1, 'mod_mainmenu', 0, 0, 0, 'class_sfx=-nav\nmoduleclass_sfx=\nmenutype=topmenu\nmenu_style=list_flat\nfull_active_id=0\ncache=0\nmenu_images=0\nmenu_images_align=0\nexpand_menu=0\nactivate_parent=0\nindent_image=0\nindent_image1=\nindent_image2=\nindent_image3=\nindent_image4=\nindent_image5=\nindent_image6=\nspacer=\nend_spacer=', 1, 0);
-INSERT INTO `#__modules` VALUES (0, 'Баннеры', '', 1, 'banner', 0, '0000-00-00 00:00:00', 1, 'mod_banners', 0, 0, 0, 'banner_cids=\nmoduleclass_sfx=\n', 1, 0);
-INSERT INTO `#__modules` VALUES (0, 'Компоненты', '', 2, 'cpanel', 0, '0000-00-00 00:00:00', 0, 'mod_components', 0, 99, 1, '', 1, 1);
-INSERT INTO `#__modules` VALUES (0, 'Популярное', '', 3, 'advert2', 0, '0000-00-00 00:00:00', 1, 'mod_popular', 0, 99, 1, '', 1, 1);
-INSERT INTO `#__modules` VALUES (0, 'Новое', '', 4, 'advert1', 0, '0000-00-00 00:00:00', 1, 'mod_latest', 0, 99, 1, '', 1, 1);
-INSERT INTO `#__modules` VALUES (0, 'Меню', '', 5, 'cpanel', 0, '0000-00-00 00:00:00', 1, 'mod_stats', 0, 99, 1, '', 0, 1);
-INSERT INTO `#__modules` VALUES (0, 'Новые сообщения', '', 1, 'header', 0, '0000-00-00 00:00:00', 0, 'mod_unread', 0, 99, 1, '', 1, 1);
-INSERT INTO `#__modules` VALUES (0, 'Активные пользователи', '', 2, 'header', 0, '0000-00-00 00:00:00', 0, 'mod_online', 0, 99, 1, '', 1, 1);
-INSERT INTO `#__modules` VALUES (0, 'Полное меню', '', 1, 'top', 0, '0000-00-00 00:00:00', 1, 'mod_fullmenu', 0, 99, 1, '', 1, 1);
-INSERT INTO `#__modules` VALUES (0, 'Путь', '', 1, 'pathway', 0, '0000-00-00 00:00:00', 0, 'mod_pathway', 0, 99, 1, '', 1, 1);
-INSERT INTO `#__modules` VALUES (0, 'Панель инструментов', '', 1, 'toolbar', 0, '0000-00-00 00:00:00', 1, 'mod_toolbar', 0, 99, 1, '', 1, 1);
-INSERT INTO `#__modules` VALUES (0, 'Системные сообщения', '', 1, 'inset', 0, '0000-00-00 00:00:00', 1, 'mod_mosmsg', 0, 99, 1, '', 1, 1);
-INSERT INTO `#__modules` VALUES (0, 'Кнопки быстрого доступа', '', 2, 'icon', 0, '0000-00-00 00:00:00', 1, 'mod_customquickicons', 0, 99, 1, '', 1, 1);
-INSERT INTO `#__modules` VALUES (0, 'Сайты поддержки', '', 3, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_mljoostinamenu', 0, 0, 1, 'moduleclass_sfx=_menu\nclass_sfx=\nmenutype=othermenu\nmenu_style=ulli\nml_imaged=0\nml_module_number=1\nml_first_hidden=0\nfull_active_id=0\nmenu_images=0\nmenu_images_align=0\nexpand_menu=0\nactivate_parent=0\nindent_image=0\nindent_image1=\nindent_image2=\nindent_image3=\nindent_image4=\nindent_image5=\nindent_image6=\nml_separated_link=0\nml_linked_sep=0\nml_separated_link_first=0\nml_separated_link_last=0\nml_hide_active=0\nml_separated_active=0\nml_linked_sep_active=0\nml_separated_active_first=0\nml_separated_active_last=0\nml_separated_element=0\nml_separated_element_first=0\nml_separated_element_last=0\nml_td_width=0\nml_div=0\nml_aligner=left\nml_rollover_use=0\nml_image1=-1\nml_image2=-1\nml_image3=-1\nml_image4=-1\nml_image5=-1\nml_image6=apply.png\nml_image7=apply.png\nml_image8=apply.png\nml_image9=apply.png\nml_image10=apply.png\nml_image11=apply.png\nml_image_roll_1=-1\nml_image_roll_2=-1\nml_image_roll_3=-1\nml_image_roll_4=-1\nml_image_roll_5=-1\nml_image_roll_6=-1\nml_image_roll_7=-1\nml_image_roll_8=-1\nml_image_roll_9=-1\nml_image_roll_10=-1\nml_image_roll_11=-1\nml_hide_logged1=1\nml_hide_logged2=1\nml_hide_logged3=1\nml_hide_logged4=1\nml_hide_logged5=1\nml_hide_logged6=1\nml_hide_logged7=1\nml_hide_logged8=1\nml_hide_logged9=1\nml_hide_logged10=1\nml_hide_logged11=1', 0, 0);
+INSERT INTO `#__modules` VALUES (0, 'РћРїСЂРѕСЃС‹', '', 1, 'right', 0, '0000-00-00 00:00:00', 1, 'mod_poll', 0, 0, 1, '', 0, 0);
+INSERT INTO `#__modules` VALUES (0, 'РњРµРЅСЋ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ', '', 2, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_mljoostinamenu', 0, 1, 1, 'moduleclass_sfx=_menu\nclass_sfx=\nmenutype=usermenu\nmenu_style=ulli\nml_imaged=0\nml_module_number=1\nml_first_hidden=0\nfull_active_id=0\nmenu_images=0\nmenu_images_align=0\nexpand_menu=0\nactivate_parent=0\nindent_image=0\nindent_image1=\nindent_image2=\nindent_image3=\nindent_image4=\nindent_image5=\nindent_image6=\nml_separated_link=0\nml_linked_sep=0\nml_separated_link_first=0\nml_separated_link_last=0\nml_hide_active=0\nml_separated_active=0\nml_linked_sep_active=0\nml_separated_active_first=0\nml_separated_active_last=0\nml_separated_element=0\nml_separated_element_first=0\nml_separated_element_last=0\nml_td_width=0\nml_div=0\nml_aligner=left\nml_rollover_use=0\nml_image1=-1\nml_image2=-1\nml_image3=-1\nml_image4=-1\nml_image5=-1\nml_image6=apply.png\nml_image7=apply.png\nml_image8=apply.png\nml_image9=apply.png\nml_image10=apply.png\nml_image11=apply.png\nml_image_roll_1=-1\nml_image_roll_2=-1\nml_image_roll_3=-1\nml_image_roll_4=-1\nml_image_roll_5=-1\nml_image_roll_6=-1\nml_image_roll_7=-1\nml_image_roll_8=-1\nml_image_roll_9=-1\nml_image_roll_10=-1\nml_image_roll_11=-1\nml_hide_logged1=1\nml_hide_logged2=1\nml_hide_logged3=1\nml_hide_logged4=1\nml_hide_logged5=1\nml_hide_logged6=1\nml_hide_logged7=1\nml_hide_logged8=1\nml_hide_logged9=1\nml_hide_logged10=1\nml_hide_logged11=1', 1, 0);
+INSERT INTO `#__modules` VALUES (0, 'Р“Р»Р°РІРЅРѕРµ РјРµРЅСЋ', '', 1, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_mljoostinamenu', 0, 0, 1, 'moduleclass_sfx=_menu\nclass_sfx=\nmenutype=mainmenu\nmenu_style=ulli\nml_imaged=0\nml_module_number=1\nml_first_hidden=0\nfull_active_id=0\nmenu_images=0\nmenu_images_align=0\nexpand_menu=0\nactivate_parent=0\nindent_image=0\nindent_image1=\nindent_image2=\nindent_image3=\nindent_image4=\nindent_image5=\nindent_image6=\nml_separated_link=0\nml_linked_sep=0\nml_separated_link_first=0\nml_separated_link_last=0\nml_hide_active=0\nml_separated_active=0\nml_linked_sep_active=0\nml_separated_active_first=0\nml_separated_active_last=0\nml_separated_element=0\nml_separated_element_first=0\nml_separated_element_last=0\nml_td_width=0\nml_div=0\nml_aligner=left\nml_rollover_use=0\nml_image1=-1\nml_image2=-1\nml_image3=-1\nml_image4=-1\nml_image5=-1\nml_image6=apply.png\nml_image7=apply.png\nml_image8=apply.png\nml_image9=apply.png\nml_image10=apply.png\nml_image11=apply.png\nml_image_roll_1=-1\nml_image_roll_2=-1\nml_image_roll_3=-1\nml_image_roll_4=-1\nml_image_roll_5=-1\nml_image_roll_6=-1\nml_image_roll_7=-1\nml_image_roll_8=-1\nml_image_roll_9=-1\nml_image_roll_10=-1\nml_image_roll_11=-1\nml_hide_logged1=1\nml_hide_logged2=1\nml_hide_logged3=1\nml_hide_logged4=1\nml_hide_logged5=1\nml_hide_logged6=1\nml_hide_logged7=1\nml_hide_logged8=1\nml_hide_logged9=1\nml_hide_logged10=1\nml_hide_logged11=1', 1, 0);
+INSERT INTO `#__modules` VALUES (0, 'РђРІС‚РѕСЂРёР·Р°С†РёСЏ', '', 4, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_ml_login', 0, 0, 1, '', 1, 0);
+INSERT INTO `#__modules` VALUES (0, 'Р­РєСЃРїРѕСЂС‚ РЅРѕРІРѕСЃС‚РµР№', '', 1, 'bottom', 0, '0000-00-00 00:00:00', 1, 'mod_rssfeed', 0, 0, 0, 'text=\ncache=0\nmoduleclass_sfx=\nrss091=1\nrss10=1\nrss20=1\natom=1\nopml=1\nrss091_image=\nrss10_image=\nrss20_image=\natom_image=\nopml_image=', 1, 0);
+INSERT INTO `#__modules` VALUES (0, 'РџРѕСЃР»РµРґРЅРёРµ РЅРѕРІРѕСЃС‚Рё', '', 1, 'user1', 0, '0000-00-00 00:00:00', 1, 'mod_latestnews', 0, 0, 1, 'moduleclass_sfx=\ncache=0\nnoncss=0\ntype=1\nshow_front=1\ncount=3\ncatid=\nsecid=', 1, 0);
+INSERT INTO `#__modules` VALUES (0, 'РЎС‚Р°С‚РёСЃС‚РёРєР°', '', 5, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_stats', 0, 0, 1, 'serverinfo=1\nsiteinfo=1\ncounter=1\nincrease=0\nmoduleclass_sfx=', 0, 0);
+INSERT INTO `#__modules` VALUES (0, 'РљС‚Рѕ РЅР° СЃР°Р№С‚Рµ?', '', 1, 'right', 0, '0000-00-00 00:00:00', 1, 'mod_whosonline', 0, 0, 1, 'online=1\nusers=1\nmoduleclass_sfx=', 0, 0);
+INSERT INTO `#__modules` VALUES (0, 'РџРѕРїСѓР»СЏСЂРЅРѕРµ', '', 1, 'user2', 0, '0000-00-00 00:00:00', 1, 'mod_mostread', 0, 0, 1, 'moduleclass_sfx=\ncache=0\nnoncss=0\ntype=1\nshow_front=1\ncount=3\ncatid=\nsecid=', 0, 0);
+INSERT INTO `#__modules` VALUES (0, 'Р’С‹Р±РѕСЂ С€Р°Р±Р»РѕРЅР°', '', 6, 'left', 0, '0000-00-00 00:00:00', 0, 'mod_templatechooser', 0, 0, 1, 'show_preview=1', 0, 0);
+INSERT INTO `#__modules` VALUES (0, 'РђСЂС…РёРІ', '', 7, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_archive', 0, 0, 1, '', 1, 0);
+INSERT INTO `#__modules` VALUES (0, 'Р Р°Р·РґРµР»С‹', '', 8, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_sections', 0, 0, 1, '', 1, 0);
+INSERT INTO `#__modules` VALUES (0, 'РљСЂР°С‚РєРёРµ РЅРѕРІРѕСЃС‚Рё', '', 1, 'top', 0, '0000-00-00 00:00:00', 1, 'mod_newsflash', 0, 0, 0, 'catid=3\nstyle=random\nimage=0\nlink_titles=\nreadmore=0\nitem_title=0\nitems=\ncache=0\nmoduleclass_sfx=', 0, 0);
+INSERT INTO `#__modules` VALUES (0, 'Р’Р·Р°РёРјРѕСЃРІСЏР·Р°РЅРЅС‹Рµ СЌР»РµРјРµРЅС‚С‹', '', 1, 'user6', 0, '0000-00-00 00:00:00', 0, 'mod_related_items', 0, 0, 1, 'cache=0\nmoduleclass_sfx=', 0, 0);
+INSERT INTO `#__modules` VALUES (0, 'РџРѕРёСЃРє', '', 1, 'user4', 0, '0000-00-00 00:00:00', 1, 'mod_search', 0, 0, 0, 'moduleclass_sfx=\ncache=0\nset_itemid=\nwidth=20\ntext=\nbutton=\nbutton_pos=right\nbutton_text=', 0, 0);
+INSERT INTO `#__modules` VALUES (0, 'РЎР»СѓС‡Р°Р№РЅРѕРµ РёР·РѕР±СЂР°Р¶РµРЅРёРµ', '', 9, 'right', 0, '0000-00-00 00:00:00', 1, 'mod_random_image', 0, 0, 1, '', 0, 0);
+INSERT INTO `#__modules` VALUES (0, 'Р’РµСЂС…РЅРµРµ РјРµРЅСЋ', '', 1, 'user3', 0, '0000-00-00 00:00:00', 1, 'mod_mainmenu', 0, 0, 0, 'class_sfx=-nav\nmoduleclass_sfx=\nmenutype=topmenu\nmenu_style=list_flat\nfull_active_id=0\ncache=0\nmenu_images=0\nmenu_images_align=0\nexpand_menu=0\nactivate_parent=0\nindent_image=0\nindent_image1=\nindent_image2=\nindent_image3=\nindent_image4=\nindent_image5=\nindent_image6=\nspacer=\nend_spacer=', 1, 0);
+INSERT INTO `#__modules` VALUES (0, 'Р‘Р°РЅРЅРµСЂС‹', '', 1, 'banner', 0, '0000-00-00 00:00:00', 1, 'mod_banners', 0, 0, 0, 'banner_cids=\nmoduleclass_sfx=\n', 1, 0);
+INSERT INTO `#__modules` VALUES (0, 'РљРѕРјРїРѕРЅРµРЅС‚С‹', '', 2, 'cpanel', 0, '0000-00-00 00:00:00', 0, 'mod_components', 0, 99, 1, '', 1, 1);
+INSERT INTO `#__modules` VALUES (0, 'РџРѕРїСѓР»СЏСЂРЅРѕРµ', '', 3, 'advert2', 0, '0000-00-00 00:00:00', 1, 'mod_popular', 0, 99, 1, '', 1, 1);
+INSERT INTO `#__modules` VALUES (0, 'РќРѕРІРѕРµ', '', 4, 'advert1', 0, '0000-00-00 00:00:00', 1, 'mod_latest', 0, 99, 1, '', 1, 1);
+INSERT INTO `#__modules` VALUES (0, 'РњРµРЅСЋ', '', 5, 'cpanel', 0, '0000-00-00 00:00:00', 1, 'mod_stats', 0, 99, 1, '', 0, 1);
+INSERT INTO `#__modules` VALUES (0, 'РќРѕРІС‹Рµ СЃРѕРѕР±С‰РµРЅРёСЏ', '', 1, 'header', 0, '0000-00-00 00:00:00', 0, 'mod_unread', 0, 99, 1, '', 1, 1);
+INSERT INTO `#__modules` VALUES (0, 'РђРєС‚РёРІРЅС‹Рµ РїРѕР»СЊР·РѕРІР°С‚РµР»Рё', '', 2, 'header', 0, '0000-00-00 00:00:00', 0, 'mod_online', 0, 99, 1, '', 1, 1);
+INSERT INTO `#__modules` VALUES (0, 'РџРѕР»РЅРѕРµ РјРµРЅСЋ', '', 1, 'top', 0, '0000-00-00 00:00:00', 1, 'mod_fullmenu', 0, 99, 1, '', 1, 1);
+INSERT INTO `#__modules` VALUES (0, 'РџСѓС‚СЊ', '', 1, 'pathway', 0, '0000-00-00 00:00:00', 0, 'mod_pathway', 0, 99, 1, '', 1, 1);
+INSERT INTO `#__modules` VALUES (0, 'РџР°РЅРµР»СЊ РёРЅСЃС‚СЂСѓРјРµРЅС‚РѕРІ', '', 1, 'toolbar', 0, '0000-00-00 00:00:00', 1, 'mod_toolbar', 0, 99, 1, '', 1, 1);
+INSERT INTO `#__modules` VALUES (0, 'РЎРёСЃС‚РµРјРЅС‹Рµ СЃРѕРѕР±С‰РµРЅРёСЏ', '', 1, 'inset', 0, '0000-00-00 00:00:00', 1, 'mod_mosmsg', 0, 99, 1, '', 1, 1);
+INSERT INTO `#__modules` VALUES (0, 'РљРЅРѕРїРєРё Р±С‹СЃС‚СЂРѕРіРѕ РґРѕСЃС‚СѓРїР°', '', 2, 'icon', 0, '0000-00-00 00:00:00', 1, 'mod_customquickicons', 0, 99, 1, '', 1, 1);
+INSERT INTO `#__modules` VALUES (0, 'РЎР°Р№С‚С‹ РїРѕРґРґРµСЂР¶РєРё', '', 3, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_mljoostinamenu', 0, 0, 1, 'moduleclass_sfx=_menu\nclass_sfx=\nmenutype=othermenu\nmenu_style=ulli\nml_imaged=0\nml_module_number=1\nml_first_hidden=0\nfull_active_id=0\nmenu_images=0\nmenu_images_align=0\nexpand_menu=0\nactivate_parent=0\nindent_image=0\nindent_image1=\nindent_image2=\nindent_image3=\nindent_image4=\nindent_image5=\nindent_image6=\nml_separated_link=0\nml_linked_sep=0\nml_separated_link_first=0\nml_separated_link_last=0\nml_hide_active=0\nml_separated_active=0\nml_linked_sep_active=0\nml_separated_active_first=0\nml_separated_active_last=0\nml_separated_element=0\nml_separated_element_first=0\nml_separated_element_last=0\nml_td_width=0\nml_div=0\nml_aligner=left\nml_rollover_use=0\nml_image1=-1\nml_image2=-1\nml_image3=-1\nml_image4=-1\nml_image5=-1\nml_image6=apply.png\nml_image7=apply.png\nml_image8=apply.png\nml_image9=apply.png\nml_image10=apply.png\nml_image11=apply.png\nml_image_roll_1=-1\nml_image_roll_2=-1\nml_image_roll_3=-1\nml_image_roll_4=-1\nml_image_roll_5=-1\nml_image_roll_6=-1\nml_image_roll_7=-1\nml_image_roll_8=-1\nml_image_roll_9=-1\nml_image_roll_10=-1\nml_image_roll_11=-1\nml_hide_logged1=1\nml_hide_logged2=1\nml_hide_logged3=1\nml_hide_logged4=1\nml_hide_logged5=1\nml_hide_logged6=1\nml_hide_logged7=1\nml_hide_logged8=1\nml_hide_logged9=1\nml_hide_logged10=1\nml_hide_logged11=1', 0, 0);
 INSERT INTO `#__modules` VALUES (0, 'Wrapper', '', 9, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_wrapper', 0, 0, 1, '', 0, 0);
-INSERT INTO `#__modules` VALUES (0, 'На сайте', '', 0, 'cpanel', 0, '0000-00-00 00:00:00', 0, 'mod_logged', 0, 99, 1, '', 0, 1);
+INSERT INTO `#__modules` VALUES (0, 'РќР° СЃР°Р№С‚Рµ', '', 0, 'cpanel', 0, '0000-00-00 00:00:00', 0, 'mod_logged', 0, 99, 1, '', 0, 1);
 
 # --------------------------------------------------------
 
 #
-# Структура таблицы `#__modules_menu`
+# РЎС‚СЂСѓРєС‚СѓСЂР° С‚Р°Р±Р»РёС†С‹ `#__modules_menu`
 #
 
 CREATE TABLE `#__modules_menu` (
@@ -456,7 +456,7 @@ CREATE TABLE `#__modules_menu` (
 )  ;
 
 #
-# Данные таблицы `#__modules_menu`
+# Р”Р°РЅРЅС‹Рµ С‚Р°Р±Р»РёС†С‹ `#__modules_menu`
 #
 
 INSERT INTO `#__modules_menu` VALUES (1,1);
@@ -485,7 +485,7 @@ INSERT INTO `#__modules_menu` VALUES (30,0);
 # --------------------------------------------------------
 
 #
-# Структура таблицы `#__newsfeeds`
+# РЎС‚СЂСѓРєС‚СѓСЂР° С‚Р°Р±Р»РёС†С‹ `#__newsfeeds`
 #
 
 CREATE TABLE `#__newsfeeds` (
@@ -506,7 +506,7 @@ CREATE TABLE `#__newsfeeds` (
 )  ;
 
 #
-# Структура таблицы `#__poll_data`
+# РЎС‚СЂСѓРєС‚СѓСЂР° С‚Р°Р±Р»РёС†С‹ `#__poll_data`
 #
 
 CREATE TABLE `#__poll_data` (
@@ -519,7 +519,7 @@ CREATE TABLE `#__poll_data` (
 )  ;
 
 #
-# Структура таблицы `#__poll_date`
+# РЎС‚СЂСѓРєС‚СѓСЂР° С‚Р°Р±Р»РёС†С‹ `#__poll_date`
 #
 
 CREATE TABLE `#__poll_date` (
@@ -532,7 +532,7 @@ CREATE TABLE `#__poll_date` (
 )  ;
 
 #
-# Структура таблицы `#__polls`
+# РЎС‚СЂСѓРєС‚СѓСЂР° С‚Р°Р±Р»РёС†С‹ `#__polls`
 #
 
 CREATE TABLE `#__polls` (
@@ -548,7 +548,7 @@ CREATE TABLE `#__polls` (
 )  ;
 
 #
-# Структура таблицы `#__poll_menu`
+# РЎС‚СЂСѓРєС‚СѓСЂР° С‚Р°Р±Р»РёС†С‹ `#__poll_menu`
 #
 
 CREATE TABLE `#__poll_menu` (
@@ -558,7 +558,7 @@ CREATE TABLE `#__poll_menu` (
 )  ;
 
 #
-# Структура таблицы `#__sections`
+# РЎС‚СЂСѓРєС‚СѓСЂР° С‚Р°Р±Р»РёС†С‹ `#__sections`
 #
 
 CREATE TABLE `#__sections` (
@@ -581,7 +581,7 @@ CREATE TABLE `#__sections` (
 )  ;
 
 #
-# Структура таблицы `#__session`
+# РЎС‚СЂСѓРєС‚СѓСЂР° С‚Р°Р±Р»РёС†С‹ `#__session`
 #
 
 CREATE TABLE `#__session` (
@@ -598,7 +598,7 @@ CREATE TABLE `#__session` (
 )  ;
 
 #
-# Структура таблицы `#__stats_agents`
+# РЎС‚СЂСѓРєС‚СѓСЂР° С‚Р°Р±Р»РёС†С‹ `#__stats_agents`
 #
 
 CREATE TABLE `#__stats_agents` (
@@ -610,7 +610,7 @@ CREATE TABLE `#__stats_agents` (
 
 
 #
-# Структура таблицы `#__templates_menu`
+# РЎС‚СЂСѓРєС‚СѓСЂР° С‚Р°Р±Р»РёС†С‹ `#__templates_menu`
 #
 
 CREATE TABLE `#__templates_menu` (
@@ -620,7 +620,7 @@ CREATE TABLE `#__templates_menu` (
   PRIMARY KEY  (`template`,`menuid`)
 )  ;
 
-# Данные таблицы `#__templates_menu`
+# Р”Р°РЅРЅС‹Рµ С‚Р°Р±Р»РёС†С‹ `#__templates_menu`
 
 INSERT INTO `#__templates_menu` VALUES ('jooway', '0', '0');
 INSERT INTO `#__templates_menu` VALUES ('joostfree', '0', '1');
@@ -628,7 +628,7 @@ INSERT INTO `#__templates_menu` VALUES ('joostfree', '0', '1');
 # --------------------------------------------------------
 
 #
-# Структура таблицы `#__template_positions`
+# РЎС‚СЂСѓРєС‚СѓСЂР° С‚Р°Р±Р»РёС†С‹ `#__template_positions`
 #
 
 CREATE TABLE `#__template_positions` (
@@ -639,7 +639,7 @@ CREATE TABLE `#__template_positions` (
 )  ;
 
 #
-# Данные таблицы `#__template_positions`
+# Р”Р°РЅРЅС‹Рµ С‚Р°Р±Р»РёС†С‹ `#__template_positions`
 #
 
 INSERT INTO `#__template_positions` VALUES (0, 'left', '');
@@ -672,7 +672,7 @@ INSERT INTO `#__template_positions` VALUES (0, 'debug', '');
 # --------------------------------------------------------
 
 #
-# Структура таблицы `#__users`
+# РЎС‚СЂСѓРєС‚СѓСЂР° С‚Р°Р±Р»РёС†С‹ `#__users`
 #
 
 CREATE TABLE `#__users` (
@@ -698,7 +698,7 @@ CREATE TABLE `#__users` (
 )   ;
 
 #
-# Структура таблицы `#__usertypes`
+# РЎС‚СЂСѓРєС‚СѓСЂР° С‚Р°Р±Р»РёС†С‹ `#__usertypes`
 #
 
 CREATE TABLE `#__usertypes` (
@@ -709,7 +709,7 @@ CREATE TABLE `#__usertypes` (
 )  ;
 
 #
-# Данные таблицы `#__usertypes`
+# Р”Р°РЅРЅС‹Рµ С‚Р°Р±Р»РёС†С‹ `#__usertypes`
 #
 
 INSERT INTO `#__usertypes` VALUES (0, 'superadministrator', '');
@@ -722,7 +722,7 @@ INSERT INTO `#__usertypes` VALUES (6, 'manager', '');
 # --------------------------------------------------------
 
 #
-# Структура таблицы `#__weblinks`
+# РЎС‚СЂСѓРєС‚СѓСЂР° С‚Р°Р±Р»РёС†С‹ `#__weblinks`
 #
 
 CREATE TABLE `#__weblinks` (
@@ -746,7 +746,7 @@ CREATE TABLE `#__weblinks` (
 )  ;
 
 #
-# Структура таблицы `#__core_acl_aro`
+# РЎС‚СЂСѓРєС‚СѓСЂР° С‚Р°Р±Р»РёС†С‹ `#__core_acl_aro`
 #
 
 CREATE TABLE `#__core_acl_aro` (
@@ -763,7 +763,7 @@ CREATE TABLE `#__core_acl_aro` (
 )   ;
 
 #
-# Структура таблицы `#__core_acl_aro_groups`
+# РЎС‚СЂСѓРєС‚СѓСЂР° С‚Р°Р±Р»РёС†С‹ `#__core_acl_aro_groups`
 #
 CREATE TABLE `#__core_acl_aro_groups` (
   `group_id` int(11) NOT NULL auto_increment,
@@ -778,7 +778,7 @@ CREATE TABLE `#__core_acl_aro_groups` (
 )  ;
 
 #
-# Данные таблицы `#__core_acl_aro_groups`
+# Р”Р°РЅРЅС‹Рµ С‚Р°Р±Р»РёС†С‹ `#__core_acl_aro_groups`
 #
 INSERT INTO `#__core_acl_aro_groups` VALUES (17,0,'ROOT',1,22);
 INSERT INTO `#__core_acl_aro_groups` VALUES (28,17,'USERS',2,21);
@@ -793,7 +793,7 @@ INSERT INTO `#__core_acl_aro_groups` VALUES (24,23,'Administrator',15,18);
 INSERT INTO `#__core_acl_aro_groups` VALUES (25,24,'Super Administrator',16,17);
 
 #
-# Структура таблицы `#__core_acl_groups_aro_map`
+# РЎС‚СЂСѓРєС‚СѓСЂР° С‚Р°Р±Р»РёС†С‹ `#__core_acl_groups_aro_map`
 #
 CREATE TABLE `#__core_acl_groups_aro_map` (
   `group_id` int(11) NOT NULL default '0',
@@ -804,7 +804,7 @@ CREATE TABLE `#__core_acl_groups_aro_map` (
 )  ;
 
 #
-# Структура таблицы `#__core_acl_aro_sections`
+# РЎС‚СЂСѓРєС‚СѓСЂР° С‚Р°Р±Р»РёС†С‹ `#__core_acl_aro_sections`
 #
 CREATE TABLE `#__core_acl_aro_sections` (
   `section_id` int(11) NOT NULL auto_increment,
@@ -821,7 +821,7 @@ CREATE TABLE `#__core_acl_aro_sections` (
 INSERT INTO `#__core_acl_aro_sections` VALUES (10,'users',1,'Users',0);
 
 #
-# Таблицы JoomlaPack
+# РўР°Р±Р»РёС†С‹ JoomlaPack
 #
 CREATE TABLE `#__jp_packvars` (
 		`id` INT NOT NULL AUTO_INCREMENT,
@@ -846,7 +846,7 @@ CREATE TABLE `#__jce_langs` (
 PRIMARY KEY (`id`)
 ) ;
 
-insert into `#__jce_langs` values ('1', 'Русский (Russian cp1251)', 'ru', '1');
+insert into `#__jce_langs` values ('1', 'Р СѓСЃСЃРєРёР№ (Russian cp1251)', 'ru', '1');
 
 CREATE TABLE `#__jce_plugins` (
       `id` int(11) NOT NULL auto_increment,
@@ -870,54 +870,54 @@ PRIMARY KEY  (`id`),
  UNIQUE KEY `plugin` (`plugin`) )
  ;
 
-# плагины редактора JCE
-INSERT INTO `#__jce_plugins` VALUES (1, 'Меню содержимого', 'contextmenu', 'plugin', '', '', 18, 0, 1, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES (2, 'Полноэкранный режим', 'fullscreen', 'plugin', 'fullscreen', 'fullscreen', 18, 1, 22, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES (3, 'Вставка', 'paste', 'plugin', 'pasteword,pastetext', 'paste', 18, 1, 11, 1, 1, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES (4, 'Предпросмотр', 'preview', 'plugin', 'preview', 'preview', 18, 4, 2, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES (5, 'Таблицы', 'table', 'plugin', 'tablecontrols', 'buttons', 18, 2, 6, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES (6, 'Поиск и замена', 'searchreplace', 'plugin', 'search,replace', 'searchreplace', 18, 1, 15, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES (7, 'Стили', 'style', 'plugin', 'styleprops', 'styleprops', 18, 4, 4, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES (8, 'Неразрывный пробел', 'nonbreaking', 'plugin', 'nonbreaking', 'nonbreaking', 18, 4, 5, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES (9, 'Видимые символы', 'visualchars', 'plugin', 'visualchars', 'visualchars', 18, 4, 8, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
+# РїР»Р°РіРёРЅС‹ СЂРµРґР°РєС‚РѕСЂР° JCE
+INSERT INTO `#__jce_plugins` VALUES (1, 'РњРµРЅСЋ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ', 'contextmenu', 'plugin', '', '', 18, 0, 1, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__jce_plugins` VALUES (2, 'РџРѕР»РЅРѕСЌРєСЂР°РЅРЅС‹Р№ СЂРµР¶РёРј', 'fullscreen', 'plugin', 'fullscreen', 'fullscreen', 18, 1, 22, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__jce_plugins` VALUES (3, 'Р’СЃС‚Р°РІРєР°', 'paste', 'plugin', 'pasteword,pastetext', 'paste', 18, 1, 11, 1, 1, '', 1, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__jce_plugins` VALUES (4, 'РџСЂРµРґРїСЂРѕСЃРјРѕС‚СЂ', 'preview', 'plugin', 'preview', 'preview', 18, 4, 2, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__jce_plugins` VALUES (5, 'РўР°Р±Р»РёС†С‹', 'table', 'plugin', 'tablecontrols', 'buttons', 18, 2, 6, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__jce_plugins` VALUES (6, 'РџРѕРёСЃРє Рё Р·Р°РјРµРЅР°', 'searchreplace', 'plugin', 'search,replace', 'searchreplace', 18, 1, 15, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__jce_plugins` VALUES (7, 'РЎС‚РёР»Рё', 'style', 'plugin', 'styleprops', 'styleprops', 18, 4, 4, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__jce_plugins` VALUES (8, 'РќРµСЂР°Р·СЂС‹РІРЅС‹Р№ РїСЂРѕР±РµР»', 'nonbreaking', 'plugin', 'nonbreaking', 'nonbreaking', 18, 4, 5, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__jce_plugins` VALUES (9, 'Р’РёРґРёРјС‹Рµ СЃРёРјРІРѕР»С‹', 'visualchars', 'plugin', 'visualchars', 'visualchars', 18, 4, 8, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
 INSERT INTO `#__jce_plugins` VALUES (10, 'XHTML Xtras', 'xhtmlxtras', 'plugin', 'cite,abbr,acronym,del,ins', 'xhtmlxtras', 18, 4, 9, 0, 0, 'del[*],ins[*]', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES (11, 'Редактор изображений', 'imgmanager', 'plugin', '', 'imgmanager', 18, 4, 11, 1, 1, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES (12, 'Гиперссылки', 'advlink', 'plugin', '', 'advlink', 18, 4, 13, 1, 1, '', 1, 0, 0, '0000-00-00 00:00:00', 'article=18\nsection=18\ncategory=18\nstatic=18\ncontact=18\nmenu=18');
-INSERT INTO `#__jce_plugins` VALUES (13, 'Цвет текста', 'forecolor', 'command', 'forecolor', 'forecolor', 18, 1, 7, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES (14, 'Жирный', 'bold', 'command', 'bold', 'bold', 18, 1, 3, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES (15, 'Курсив', 'italic', 'command', 'italic', 'italic', 18, 1, 4, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES (16, 'Подчеркнутый', 'underline', 'command', 'underline', 'underline', 18, 1, 5, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES (17, 'Цвет фона', 'backcolor', 'command', 'backcolor', 'backcolor', 18, 1, 8, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES (18, 'Удалить ссылку', 'unlink', 'command', 'unlink', 'unlink', 18, 1, 17, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES (19, 'Выбор шрифта', 'fontselect', 'command', 'fontselect', 'fontselect', 18, 3, 2, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES (20, 'Размер шрифта', 'fontsizeselect', 'command', 'fontsizeselect', 'fontsizeselect', 18, 1, 19, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES (21, 'Стиль', 'styleselect', 'command', 'styleselect', 'styleselect', 18, 3, 1, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES (22, 'Новый документ', 'newdocument', 'command', 'newdocument', 'newdocument', 18, 1, 4, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES (23, 'Зачеркнутый', 'strikethrough', 'command', 'strikethrough', 'strikethrough', 18, 1, 6, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES (24, 'Вправо', 'indent', 'command', 'indent', 'indent', 18, 1, 11, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES (25, 'Влево', 'outdent', 'command', 'outdent', 'outdent', 18, 1, 10, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES (26, 'Отмена', 'undo', 'command', 'undo', 'undo', 18, 1, 1, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES (27, 'Повтор', 'redo', 'command', 'redo', 'redo', 18, 1, 2, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES (28, 'Горизонтальная линия', 'hr', 'command', 'hr', 'hr', 18, 2, 1, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__jce_plugins` VALUES (11, 'Р РµРґР°РєС‚РѕСЂ РёР·РѕР±СЂР°Р¶РµРЅРёР№', 'imgmanager', 'plugin', '', 'imgmanager', 18, 4, 11, 1, 1, '', 1, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__jce_plugins` VALUES (12, 'Р“РёРїРµСЂСЃСЃС‹Р»РєРё', 'advlink', 'plugin', '', 'advlink', 18, 4, 13, 1, 1, '', 1, 0, 0, '0000-00-00 00:00:00', 'article=18\nsection=18\ncategory=18\nstatic=18\ncontact=18\nmenu=18');
+INSERT INTO `#__jce_plugins` VALUES (13, 'Р¦РІРµС‚ С‚РµРєСЃС‚Р°', 'forecolor', 'command', 'forecolor', 'forecolor', 18, 1, 7, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__jce_plugins` VALUES (14, 'Р–РёСЂРЅС‹Р№', 'bold', 'command', 'bold', 'bold', 18, 1, 3, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__jce_plugins` VALUES (15, 'РљСѓСЂСЃРёРІ', 'italic', 'command', 'italic', 'italic', 18, 1, 4, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__jce_plugins` VALUES (16, 'РџРѕРґС‡РµСЂРєРЅСѓС‚С‹Р№', 'underline', 'command', 'underline', 'underline', 18, 1, 5, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__jce_plugins` VALUES (17, 'Р¦РІРµС‚ С„РѕРЅР°', 'backcolor', 'command', 'backcolor', 'backcolor', 18, 1, 8, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__jce_plugins` VALUES (18, 'РЈРґР°Р»РёС‚СЊ СЃСЃС‹Р»РєСѓ', 'unlink', 'command', 'unlink', 'unlink', 18, 1, 17, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__jce_plugins` VALUES (19, 'Р’С‹Р±РѕСЂ С€СЂРёС„С‚Р°', 'fontselect', 'command', 'fontselect', 'fontselect', 18, 3, 2, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__jce_plugins` VALUES (20, 'Р Р°Р·РјРµСЂ С€СЂРёС„С‚Р°', 'fontsizeselect', 'command', 'fontsizeselect', 'fontsizeselect', 18, 1, 19, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__jce_plugins` VALUES (21, 'РЎС‚РёР»СЊ', 'styleselect', 'command', 'styleselect', 'styleselect', 18, 3, 1, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__jce_plugins` VALUES (22, 'РќРѕРІС‹Р№ РґРѕРєСѓРјРµРЅС‚', 'newdocument', 'command', 'newdocument', 'newdocument', 18, 1, 4, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__jce_plugins` VALUES (23, 'Р—Р°С‡РµСЂРєРЅСѓС‚С‹Р№', 'strikethrough', 'command', 'strikethrough', 'strikethrough', 18, 1, 6, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__jce_plugins` VALUES (24, 'Р’РїСЂР°РІРѕ', 'indent', 'command', 'indent', 'indent', 18, 1, 11, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__jce_plugins` VALUES (25, 'Р’Р»РµРІРѕ', 'outdent', 'command', 'outdent', 'outdent', 18, 1, 10, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__jce_plugins` VALUES (26, 'РћС‚РјРµРЅР°', 'undo', 'command', 'undo', 'undo', 18, 1, 1, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__jce_plugins` VALUES (27, 'РџРѕРІС‚РѕСЂ', 'redo', 'command', 'redo', 'redo', 18, 1, 2, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__jce_plugins` VALUES (28, 'Р“РѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅР°СЏ Р»РёРЅРёСЏ', 'hr', 'command', 'hr', 'hr', 18, 2, 1, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
 INSERT INTO `#__jce_plugins` VALUES (29, 'HTML', 'html', 'command', 'code', 'code', 18, 1, 20, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES (30, 'Нумерованный список', 'numlist', 'command', 'numlist', 'numlist', 18, 1, 10, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES (31, 'Маркированный список', 'bullist', 'command', 'bullist', 'bullist', 18, 1, 9, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES (32, 'Буфер обмена', 'clipboard', 'command', 'cut,copy,paste', 'clipboard', 18, 1, 16, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES (33, 'Подстрочный', 'sub', 'command', 'sub', 'sub', 18, 2, 2, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES (34, 'Надстрочный', 'sup', 'command', 'sup', 'sup', 18, 2, 3, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES (35, 'Контуры', 'visualaid', 'command', 'visualaid', 'visualaid', 18, 3, 7, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES (36, 'Спецсимволы', 'charmap', 'command', 'charmap', 'charmap', 18, 3, 6, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES (37, 'По ширине', 'full', 'command', 'justifyfull', 'justifyfull', 18, 1, 15, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES (38, 'По центру', 'center', 'command', 'justifycenter', 'justifycenter', 18, 1, 13, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES (39, 'Слева', 'left', 'command', 'justifyleft', 'justifyleft', 18, 1, 14, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES (40, 'Справа', 'right', 'command', 'justifyright', 'justifyright', 18, 1, 12, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES (41, 'Удалить форматирование', 'removeformat', 'command', 'removeformat', 'removeformat', 18, 1, 21, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES (42, 'Якорь', 'anchor', 'command', 'anchor', 'anchor', 18, 2, 9, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES (43, 'Формат', 'formatselect', 'command', 'formatselect', 'formatselect', 18, 3, 9, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES (44, 'Изображение', 'image', 'command', 'image', 'image', 18, 1, 18, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES (45, 'Ссылка', 'link', 'command', 'link', 'link', 18, 1, 16, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__jce_plugins` VALUES (30, 'РќСѓРјРµСЂРѕРІР°РЅРЅС‹Р№ СЃРїРёСЃРѕРє', 'numlist', 'command', 'numlist', 'numlist', 18, 1, 10, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__jce_plugins` VALUES (31, 'РњР°СЂРєРёСЂРѕРІР°РЅРЅС‹Р№ СЃРїРёСЃРѕРє', 'bullist', 'command', 'bullist', 'bullist', 18, 1, 9, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__jce_plugins` VALUES (32, 'Р‘СѓС„РµСЂ РѕР±РјРµРЅР°', 'clipboard', 'command', 'cut,copy,paste', 'clipboard', 18, 1, 16, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__jce_plugins` VALUES (33, 'РџРѕРґСЃС‚СЂРѕС‡РЅС‹Р№', 'sub', 'command', 'sub', 'sub', 18, 2, 2, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__jce_plugins` VALUES (34, 'РќР°РґСЃС‚СЂРѕС‡РЅС‹Р№', 'sup', 'command', 'sup', 'sup', 18, 2, 3, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__jce_plugins` VALUES (35, 'РљРѕРЅС‚СѓСЂС‹', 'visualaid', 'command', 'visualaid', 'visualaid', 18, 3, 7, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__jce_plugins` VALUES (36, 'РЎРїРµС†СЃРёРјРІРѕР»С‹', 'charmap', 'command', 'charmap', 'charmap', 18, 3, 6, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__jce_plugins` VALUES (37, 'РџРѕ С€РёСЂРёРЅРµ', 'full', 'command', 'justifyfull', 'justifyfull', 18, 1, 15, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__jce_plugins` VALUES (38, 'РџРѕ С†РµРЅС‚СЂСѓ', 'center', 'command', 'justifycenter', 'justifycenter', 18, 1, 13, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__jce_plugins` VALUES (39, 'РЎР»РµРІР°', 'left', 'command', 'justifyleft', 'justifyleft', 18, 1, 14, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__jce_plugins` VALUES (40, 'РЎРїСЂР°РІР°', 'right', 'command', 'justifyright', 'justifyright', 18, 1, 12, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__jce_plugins` VALUES (41, 'РЈРґР°Р»РёС‚СЊ С„РѕСЂРјР°С‚РёСЂРѕРІР°РЅРёРµ', 'removeformat', 'command', 'removeformat', 'removeformat', 18, 1, 21, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__jce_plugins` VALUES (42, 'РЇРєРѕСЂСЊ', 'anchor', 'command', 'anchor', 'anchor', 18, 2, 9, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__jce_plugins` VALUES (43, 'Р¤РѕСЂРјР°С‚', 'formatselect', 'command', 'formatselect', 'formatselect', 18, 3, 9, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__jce_plugins` VALUES (44, 'РР·РѕР±СЂР°Р¶РµРЅРёРµ', 'image', 'command', 'image', 'image', 18, 1, 18, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__jce_plugins` VALUES (45, 'РЎСЃС‹Р»РєР°', 'link', 'command', 'link', 'link', 18, 1, 16, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
 
-# Компонент значков быстрого доступа
+# РљРѕРјРїРѕРЅРµРЅС‚ Р·РЅР°С‡РєРѕРІ Р±С‹СЃС‚СЂРѕРіРѕ РґРѕСЃС‚СѓРїР°
 CREATE TABLE `#__custom_quickicons` (
     `id` int(11) NOT NULL auto_increment,
     `text` varchar(64) NOT NULL default '',
@@ -939,30 +939,30 @@ CREATE TABLE `#__custom_quickicons` (
     PRIMARY KEY  (`id`)
 	)  ;
 
-# Настройки компонента значков быстрого доступа
-INSERT INTO `#__custom_quickicons` VALUES (1, 'Добавить содержимое', 'index2.php?option=com_content&sectionid=0&task=new', '/administrator/templates/joostfree/images/cpanel_ico/add_new.png', 1, 0, '', '', 1, 'Добавить новость / статью', 0, '', 'N', 0, 0, 0, 0);
-INSERT INTO `#__custom_quickicons` VALUES (2, 'Разделы', 'index2.php?option=com_sections&scope=content', '/administrator/templates/joostfree/images/cpanel_ico/sections.png', 4, 0, '', '', 1, 'Управление разделами', 0, '', 'B', 0, 0, 0, 0);
-INSERT INTO `#__custom_quickicons` VALUES (3, 'Главная страница', 'index2.php?option=com_frontpage', '/administrator/templates/joostfree/images/cpanel_ico/frontpage.png', 6, 0, '', '', 1, 'Управление объектами главной страницы', 0, '', 'F', 0, 0, 0, 0);
-INSERT INTO `#__custom_quickicons` VALUES (4, 'Все содержимое сайта', 'index2.php?option=com_content&sectionid=0', '/administrator/templates/joostfree/images/cpanel_ico/all_content.png', 2, 0, '', '', 1, 'Управление объектами содержимого', 0, '', 'A', 0, 0, 0, 0);
-INSERT INTO `#__custom_quickicons` VALUES (5, 'Статичное содержимое', 'index2.php?option=com_typedcontent', '/administrator/templates/joostfree/images/cpanel_ico/all_typed.png', 3, 0, '', '', 1, 'Управление объектами статичного содержимого', 0, '', 'S', 0, 0, 0, 0);
-INSERT INTO `#__custom_quickicons` VALUES (6, 'Медиа менеджер', 'index2.php?option=com_jwmmxtd', '/administrator/templates/joostfree/images/cpanel_ico/mediamanager.png', 7, 0, '', '', 1, 'Управление медиа файлами', 0, '', 'M', 0, 0, 0, 0);
-INSERT INTO `#__custom_quickicons` VALUES (7, 'Категории', 'index2.php?option=com_categories&section=content', '/administrator/templates/joostfree/images/cpanel_ico/categories.png', 5, 0, '', '', 1, 'Управление категориями', 0, '', 'K', 0, 0, 0, 0);
-INSERT INTO `#__custom_quickicons` VALUES (8, 'Корзина', 'index2.php?option=com_trash', '/administrator/templates/joostfree/images/cpanel_ico/trash.png', 12, 0, '', '', 1, 'Управление корзиной удаленных объектов', 0, '', 'T', 0, 0, 0, 0);
-INSERT INTO `#__custom_quickicons` VALUES (9, 'Редактор меню', 'index2.php?option=com_menumanager', '/administrator/templates/joostfree/images/cpanel_ico/menu.png', 9, 0, '', '', 1, 'Управление объектами меню', 0, '', 'R', 0, 0, 0, 0);
-INSERT INTO `#__custom_quickicons` VALUES (10, 'Файловый менеджер', 'index2.php?option=com_joomlaxplorer', '/administrator/templates/joostfree/images/cpanel_ico/filemanager.png', 8, 0, '', '', 1, 'Управление всеми файлами', 0, '', 'L', 0, 0, 25, 0);
-INSERT INTO `#__custom_quickicons` VALUES (11, 'Пользователи', 'index2.php?option=com_users', '/administrator/templates/joostfree/images/cpanel_ico/user.png', 10, 0, '', '', 1, 'Управление пользователями', 0, '', 'U', 0, 0, 24, 0);
-INSERT INTO `#__custom_quickicons` VALUES (12, 'Глобальная конфигурация', 'index2.php?option=com_config&hidemainmenu=1', '/administrator/templates/joostfree/images/cpanel_ico/config.png', 13, 0, '', '', 1, 'Глобальная конфигурация сайта', 0, '', 'C', 0, 0, 25, 0);
-INSERT INTO `#__custom_quickicons` VALUES (13, 'Резервное копирование', 'index2.php?option=com_joomlapack&act=pack&hidemainmenu=1', '/administrator/templates/joostfree/images/cpanel_ico/backup.png', 11, 0, '', '', 1, 'Резервное копирование информации сайта', 0, '', 'P', 0, 0, 24, 0);
-INSERT INTO `#__custom_quickicons` VALUES (14, 'Очистить весь кэш', 'index2.php?option=com_admin&task=clean_all_cache', '/administrator/templates/joostfree/images/cpanel_ico/clear.png', 14, 0, '', '', 1, 'Очистить весь кэш сайта', 0, '', 'h', 0, 0, 24, 0);
+# РќР°СЃС‚СЂРѕР№РєРё РєРѕРјРїРѕРЅРµРЅС‚Р° Р·РЅР°С‡РєРѕРІ Р±С‹СЃС‚СЂРѕРіРѕ РґРѕСЃС‚СѓРїР°
+INSERT INTO `#__custom_quickicons` VALUES (1, 'Р”РѕР±Р°РІРёС‚СЊ СЃРѕРґРµСЂР¶РёРјРѕРµ', 'index2.php?option=com_content&sectionid=0&task=new', '/administrator/templates/joostfree/images/cpanel_ico/add_new.png', 1, 0, '', '', 1, 'Р”РѕР±Р°РІРёС‚СЊ РЅРѕРІРѕСЃС‚СЊ / СЃС‚Р°С‚СЊСЋ', 0, '', 'N', 0, 0, 0, 0);
+INSERT INTO `#__custom_quickicons` VALUES (2, 'Р Р°Р·РґРµР»С‹', 'index2.php?option=com_sections&scope=content', '/administrator/templates/joostfree/images/cpanel_ico/sections.png', 4, 0, '', '', 1, 'РЈРїСЂР°РІР»РµРЅРёРµ СЂР°Р·РґРµР»Р°РјРё', 0, '', 'B', 0, 0, 0, 0);
+INSERT INTO `#__custom_quickicons` VALUES (3, 'Р“Р»Р°РІРЅР°СЏ СЃС‚СЂР°РЅРёС†Р°', 'index2.php?option=com_frontpage', '/administrator/templates/joostfree/images/cpanel_ico/frontpage.png', 6, 0, '', '', 1, 'РЈРїСЂР°РІР»РµРЅРёРµ РѕР±СЉРµРєС‚Р°РјРё РіР»Р°РІРЅРѕР№ СЃС‚СЂР°РЅРёС†С‹', 0, '', 'F', 0, 0, 0, 0);
+INSERT INTO `#__custom_quickicons` VALUES (4, 'Р’СЃРµ СЃРѕРґРµСЂР¶РёРјРѕРµ СЃР°Р№С‚Р°', 'index2.php?option=com_content&sectionid=0', '/administrator/templates/joostfree/images/cpanel_ico/all_content.png', 2, 0, '', '', 1, 'РЈРїСЂР°РІР»РµРЅРёРµ РѕР±СЉРµРєС‚Р°РјРё СЃРѕРґРµСЂР¶РёРјРѕРіРѕ', 0, '', 'A', 0, 0, 0, 0);
+INSERT INTO `#__custom_quickicons` VALUES (5, 'РЎС‚Р°С‚РёС‡РЅРѕРµ СЃРѕРґРµСЂР¶РёРјРѕРµ', 'index2.php?option=com_typedcontent', '/administrator/templates/joostfree/images/cpanel_ico/all_typed.png', 3, 0, '', '', 1, 'РЈРїСЂР°РІР»РµРЅРёРµ РѕР±СЉРµРєС‚Р°РјРё СЃС‚Р°С‚РёС‡РЅРѕРіРѕ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ', 0, '', 'S', 0, 0, 0, 0);
+INSERT INTO `#__custom_quickicons` VALUES (6, 'РњРµРґРёР° РјРµРЅРµРґР¶РµСЂ', 'index2.php?option=com_jwmmxtd', '/administrator/templates/joostfree/images/cpanel_ico/mediamanager.png', 7, 0, '', '', 1, 'РЈРїСЂР°РІР»РµРЅРёРµ РјРµРґРёР° С„Р°Р№Р»Р°РјРё', 0, '', 'M', 0, 0, 0, 0);
+INSERT INTO `#__custom_quickicons` VALUES (7, 'РљР°С‚РµРіРѕСЂРёРё', 'index2.php?option=com_categories&section=content', '/administrator/templates/joostfree/images/cpanel_ico/categories.png', 5, 0, '', '', 1, 'РЈРїСЂР°РІР»РµРЅРёРµ РєР°С‚РµРіРѕСЂРёСЏРјРё', 0, '', 'K', 0, 0, 0, 0);
+INSERT INTO `#__custom_quickicons` VALUES (8, 'РљРѕСЂР·РёРЅР°', 'index2.php?option=com_trash', '/administrator/templates/joostfree/images/cpanel_ico/trash.png', 12, 0, '', '', 1, 'РЈРїСЂР°РІР»РµРЅРёРµ РєРѕСЂР·РёРЅРѕР№ СѓРґР°Р»РµРЅРЅС‹С… РѕР±СЉРµРєС‚РѕРІ', 0, '', 'T', 0, 0, 0, 0);
+INSERT INTO `#__custom_quickicons` VALUES (9, 'Р РµРґР°РєС‚РѕСЂ РјРµРЅСЋ', 'index2.php?option=com_menumanager', '/administrator/templates/joostfree/images/cpanel_ico/menu.png', 9, 0, '', '', 1, 'РЈРїСЂР°РІР»РµРЅРёРµ РѕР±СЉРµРєС‚Р°РјРё РјРµРЅСЋ', 0, '', 'R', 0, 0, 0, 0);
+INSERT INTO `#__custom_quickicons` VALUES (10, 'Р¤Р°Р№Р»РѕРІС‹Р№ РјРµРЅРµРґР¶РµСЂ', 'index2.php?option=com_joomlaxplorer', '/administrator/templates/joostfree/images/cpanel_ico/filemanager.png', 8, 0, '', '', 1, 'РЈРїСЂР°РІР»РµРЅРёРµ РІСЃРµРјРё С„Р°Р№Р»Р°РјРё', 0, '', 'L', 0, 0, 25, 0);
+INSERT INTO `#__custom_quickicons` VALUES (11, 'РџРѕР»СЊР·РѕРІР°С‚РµР»Рё', 'index2.php?option=com_users', '/administrator/templates/joostfree/images/cpanel_ico/user.png', 10, 0, '', '', 1, 'РЈРїСЂР°РІР»РµРЅРёРµ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏРјРё', 0, '', 'U', 0, 0, 24, 0);
+INSERT INTO `#__custom_quickicons` VALUES (12, 'Р“Р»РѕР±Р°Р»СЊРЅР°СЏ РєРѕРЅС„РёРіСѓСЂР°С†РёСЏ', 'index2.php?option=com_config&hidemainmenu=1', '/administrator/templates/joostfree/images/cpanel_ico/config.png', 13, 0, '', '', 1, 'Р“Р»РѕР±Р°Р»СЊРЅР°СЏ РєРѕРЅС„РёРіСѓСЂР°С†РёСЏ СЃР°Р№С‚Р°', 0, '', 'C', 0, 0, 25, 0);
+INSERT INTO `#__custom_quickicons` VALUES (13, 'Р РµР·РµСЂРІРЅРѕРµ РєРѕРїРёСЂРѕРІР°РЅРёРµ', 'index2.php?option=com_joomlapack&act=pack&hidemainmenu=1', '/administrator/templates/joostfree/images/cpanel_ico/backup.png', 11, 0, '', '', 1, 'Р РµР·РµСЂРІРЅРѕРµ РєРѕРїРёСЂРѕРІР°РЅРёРµ РёРЅС„РѕСЂРјР°С†РёРё СЃР°Р№С‚Р°', 0, '', 'P', 0, 0, 24, 0);
+INSERT INTO `#__custom_quickicons` VALUES (14, 'РћС‡РёСЃС‚РёС‚СЊ РІРµСЃСЊ РєСЌС€', 'index2.php?option=com_admin&task=clean_all_cache', '/administrator/templates/joostfree/images/cpanel_ico/clear.png', 14, 0, '', '', 1, 'РћС‡РёСЃС‚РёС‚СЊ РІРµСЃСЊ РєСЌС€ СЃР°Р№С‚Р°', 0, '', 'h', 0, 0, 24, 0);
 
-# Таблицы компонента Xmap
+# РўР°Р±Р»РёС†С‹ РєРѕРјРїРѕРЅРµРЅС‚Р° Xmap
 CREATE TABLE `#__xmap` (
   `name` varchar(30) NOT NULL default '',
   `value` varchar(100) default NULL,
   PRIMARY KEY  (`name`)
 )  ;
 
-# базовые настройки
+# Р±Р°Р·РѕРІС‹Рµ РЅР°СЃС‚СЂРѕР№РєРё
 INSERT INTO `#__xmap` VALUES ('version', '1.0');
 INSERT INTO `#__xmap` VALUES ('classname', 'sitemap');
 INSERT INTO `#__xmap` VALUES ('expand_category', '1');

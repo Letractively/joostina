@@ -1,14 +1,14 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
 define( '_VALID_MOS', 1 );
@@ -20,7 +20,7 @@ if (file_exists( '../configuration.php' ) && filesize( '../configuration.php' ) 
 require( '../globals.php' );
 require_once( '../includes/version.php' );
 
-/** подключаем common.php */
+/** РїРѕРґРєР»СЋС‡Р°РµРј common.php */
 include_once( 'common.php' );
 view();
 
@@ -39,7 +39,7 @@ echo "<?xml version=\"1.0\" encoding=\"windows-1251\"?".">";
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Joostina - Web-установка. Проверка системы ...</title>
+<title>Joostina - Web-СѓСЃС‚Р°РЅРѕРІРєР°. РџСЂРѕРІРµСЂРєР° СЃРёСЃС‚РµРјС‹ ...</title>
  <meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
 <link rel="shortcut icon" href="../images/favicon.ico" />
  <link rel="stylesheet" href="install.css" type="text/css" />
@@ -48,100 +48,100 @@ echo "<?xml version=\"1.0\" encoding=\"windows-1251\"?".">";
  <div id="wrapper">
   <div id="header">
    <div id="joomla">
-      <img src="header_install.png" alt="Установка Joostina" />
+      <img src="header_install.png" alt="РЈСЃС‚Р°РЅРѕРІРєР° Joostina" />
    </div>
   </div>
  </div>
  <div id="ctr" align="center">
   <div class="install">
    <div id="stepbar">
-    <div class="step-on">Проверка системы</div>
-    <div class="step-off">Лицензия</div>
-    <div class="step-off">Шаг 1</div>
-    <div class="step-off">Шаг 2</div>
-    <div class="step-off">Шаг 3</div>
-    <div class="step-off">Шаг 4</div>
+    <div class="step-on">РџСЂРѕРІРµСЂРєР° СЃРёСЃС‚РµРјС‹</div>
+    <div class="step-off">Р›РёС†РµРЅР·РёСЏ</div>
+    <div class="step-off">РЁР°Рі 1</div>
+    <div class="step-off">РЁР°Рі 2</div>
+    <div class="step-off">РЁР°Рі 3</div>
+    <div class="step-off">РЁР°Рі 4</div>
    </div>
    <div id="right">
-    <div id="step">Проверка системы</div>
+    <div id="step">РџСЂРѕРІРµСЂРєР° СЃРёСЃС‚РµРјС‹</div>
     <div class="far-right">
-     <input name="Button2" type="submit" class="button" value="Далее >>" onclick="window.location='install.php';" />
+     <input name="Button2" type="submit" class="button" value="Р”Р°Р»РµРµ >>" onclick="window.location='install.php';" />
      <br />
      <br />
-     <input type="button" class="button" value="Проверить снова" onclick="window.location=window.location" />
+     <input type="button" class="button" value="РџСЂРѕРІРµСЂРёС‚СЊ СЃРЅРѕРІР°" onclick="window.location=window.location" />
     </div>
     <div class="clr"></div>
     <h1 style="text-align: center; border-bottom: 0px;">
            <?php echo $version; ?>
    </h1>
 	<h1>
-		Проверка настроек сервера:
+		РџСЂРѕРІРµСЂРєР° РЅР°СЃС‚СЂРѕРµРє СЃРµСЂРІРµСЂР°:
 	</h1>
-    <div class="install-text">Если на сервере имеются настройки, способные привести к ошибкам во время установки или работы Joostina, то на этой странице они будут отмечены <b><font color="red">красным цветом</font></b>. Для полноценной и без проблемной работы системы рекомендуем исправить все необходимые настройки.
+    <div class="install-text">Р•СЃР»Рё РЅР° СЃРµСЂРІРµСЂРµ РёРјРµСЋС‚СЃСЏ РЅР°СЃС‚СЂРѕР№РєРё, СЃРїРѕСЃРѕР±РЅС‹Рµ РїСЂРёРІРµСЃС‚Рё Рє РѕС€РёР±РєР°Рј РІРѕ РІСЂРµРјСЏ СѓСЃС‚Р°РЅРѕРІРєРё РёР»Рё СЂР°Р±РѕС‚С‹ Joostina, С‚Рѕ РЅР° СЌС‚РѕР№ СЃС‚СЂР°РЅРёС†Рµ РѕРЅРё Р±СѓРґСѓС‚ РѕС‚РјРµС‡РµРЅС‹ <b><font color="red">РєСЂР°СЃРЅС‹Рј С†РІРµС‚РѕРј</font></b>. Р”Р»СЏ РїРѕР»РЅРѕС†РµРЅРЅРѕР№ Рё Р±РµР· РїСЂРѕР±Р»РµРјРЅРѕР№ СЂР°Р±РѕС‚С‹ СЃРёСЃС‚РµРјС‹ СЂРµРєРѕРјРµРЅРґСѓРµРј РёСЃРїСЂР°РІРёС‚СЊ РІСЃРµ РЅРµРѕР±С…РѕРґРёРјС‹Рµ РЅР°СЃС‚СЂРѕР№РєРё.
 	<div class="ctr"><br /></div></div>
     <div class="install-form">
      <div class="form-block">
       <table class="content">
        <tr>
         <td class="item">
-         Версия PHP >= 4.1.0
+         Р’РµСЂСЃРёСЏ PHP >= 4.1.0
         </td>
         <td align="left">
-         <?php echo phpversion() < '4.1' ? '<b><font color="red">Нет</font></b>' : '<b><font color="green">Да</font></b>';?>
+         <?php echo phpversion() < '4.1' ? '<b><font color="red">РќРµС‚</font></b>' : '<b><font color="green">Р”Р°</font></b>';?>
         </td>
        </tr>
        <tr>
         <td>
-         &nbsp; - поддержка zlib-сжатия
+         &nbsp; - РїРѕРґРґРµСЂР¶РєР° zlib-СЃР¶Р°С‚РёСЏ
         </td>
         <td align="left">
-         <?php echo extension_loaded('zlib') ? '<b><font color="green">Доступна</font></b>' : '<b><font color="red">Недоступна</font></b>';?>
+         <?php echo extension_loaded('zlib') ? '<b><font color="green">Р”РѕСЃС‚СѓРїРЅР°</font></b>' : '<b><font color="red">РќРµРґРѕСЃС‚СѓРїРЅР°</font></b>';?>
         </td>
        </tr>
        <tr>
         <td>
-        &nbsp; - поддержка XML
+        &nbsp; - РїРѕРґРґРµСЂР¶РєР° XML
         </td>
         <td align="left">
-         <?php echo extension_loaded('xml') ? '<b><font color="green">Доступна</font></b>' : '<b><font color="red">Недоступна</font></b>';?>
+         <?php echo extension_loaded('xml') ? '<b><font color="green">Р”РѕСЃС‚СѓРїРЅР°</font></b>' : '<b><font color="red">РќРµРґРѕСЃС‚СѓРїРЅР°</font></b>';?>
         </td>
        </tr>
        <tr>
         <td>
-        &nbsp; - поддержка MySQL
+        &nbsp; - РїРѕРґРґРµСЂР¶РєР° MySQL
         </td>
         <td align="left">
-         <?php echo function_exists( 'mysql_connect' ) ? '<b><font color="green">Доступна</font></b>' : '<b><font color="red">Недоступна</font></b>';?>
+         <?php echo function_exists( 'mysql_connect' ) ? '<b><font color="green">Р”РѕСЃС‚СѓРїРЅР°</font></b>' : '<b><font color="red">РќРµРґРѕСЃС‚СѓРїРЅР°</font></b>';?>
         </td>
        </tr>
        <tr>
         <td valign="top" class="item">
-         Файл <strong>configuration.php</strong>
+         Р¤Р°Р№Р» <strong>configuration.php</strong>
         </td>
         <td align="left">
          <?php
           if (@file_exists('../configuration.php') &&  @is_writable( '../configuration.php' )){
-                echo '<b><font color="green">Доступен для записи</font></b>';
+                echo '<b><font color="green">Р”РѕСЃС‚СѓРїРµРЅ РґР»СЏ Р·Р°РїРёСЃРё</font></b>';
           } else if (is_writable( '..' )) {
-                echo '<b><font color="green">Доступен для записи</font></b>';
+                echo '<b><font color="green">Р”РѕСЃС‚СѓРїРµРЅ РґР»СЏ Р·Р°РїРёСЃРё</font></b>';
           } else {
-                echo '<b><font color="red">Недоступен для записи</font></b><br /><span class="small">Вы можете продолжать установку, значения файла конфигурации будут показаны в конце. ОБЯЗАТЕЛЬНО СОХРАНИТЕ ЕГО: скопируйте/вставьте содержимое в созданный вами файл configuration.php и загрузите на сервер!</span>';
+                echo '<b><font color="red">РќРµРґРѕСЃС‚СѓРїРµРЅ РґР»СЏ Р·Р°РїРёСЃРё</font></b><br /><span class="small">Р’С‹ РјРѕР¶РµС‚Рµ РїСЂРѕРґРѕР»Р¶Р°С‚СЊ СѓСЃС‚Р°РЅРѕРІРєСѓ, Р·РЅР°С‡РµРЅРёСЏ С„Р°Р№Р»Р° РєРѕРЅС„РёРіСѓСЂР°С†РёРё Р±СѓРґСѓС‚ РїРѕРєР°Р·Р°РЅС‹ РІ РєРѕРЅС†Рµ. РћР‘РЇР—РђРўР•Р›Р¬РќРћ РЎРћРҐР РђРќРРўР• Р•Р“Рћ: СЃРєРѕРїРёСЂСѓР№С‚Рµ/РІСЃС‚Р°РІСЊС‚Рµ СЃРѕРґРµСЂР¶РёРјРѕРµ РІ СЃРѕР·РґР°РЅРЅС‹Р№ РІР°РјРё С„Р°Р№Р» configuration.php Рё Р·Р°РіСЂСѓР·РёС‚Рµ РЅР° СЃРµСЂРІРµСЂ!</span>';
          } 
          ?>
         </td>
        </tr>
        <tr>
         <td class="item">
-        Каталог для записи сессий
+        РљР°С‚Р°Р»РѕРі РґР»СЏ Р·Р°РїРёСЃРё СЃРµСЃСЃРёР№
         </td>
 	<td align="left" valign="top">
-        <?php echo is_writable( $sp ) ? '<b><font color="green">Доступен для записи</font></b>' : '<b><font color="red">Недоступен для записи</font></b>';?>
+        <?php echo is_writable( $sp ) ? '<b><font color="green">Р”РѕСЃС‚СѓРїРµРЅ РґР»СЏ Р·Р°РїРёСЃРё</font></b>' : '<b><font color="red">РќРµРґРѕСЃС‚СѓРїРµРЅ РґР»СЏ Р·Р°РїРёСЃРё</font></b>';?>
 	</td>
 </tr>
 <tr>
 	<td class="item" colspan="2">
 	<b>
-      <?php echo $sp ? $sp : 'Не установлен'; ?>
+      <?php echo $sp ? $sp : 'РќРµ СѓСЃС‚Р°РЅРѕРІР»РµРЅ'; ?>
     </b>
 							</td>
 						</tr>
@@ -154,27 +154,27 @@ echo "<?xml version=\"1.0\" encoding=\"windows-1251\"?".">";
 				$wrongSettingsTexts = array();
 				
 				if ( ini_get('magic_quotes_gpc') != '1' ) {
-					$wrongSettingsTexts[] = 'Параметр PHP magic_quotes_gpc - `OFF` вместо `ON`';
+					$wrongSettingsTexts[] = 'РџР°СЂР°РјРµС‚СЂ PHP magic_quotes_gpc - `OFF` РІРјРµСЃС‚Рѕ `ON`';
 				}
 				if ( ini_get('register_globals') == '1' ) {
-					$wrongSettingsTexts[] = 'Параметр PHP register_globals - `ON` вместо `OFF`';
+					$wrongSettingsTexts[] = 'РџР°СЂР°РјРµС‚СЂ PHP register_globals - `ON` РІРјРµСЃС‚Рѕ `OFF`';
 				}
 				if ( RG_EMULATION != 0 ) {
-					$wrongSettingsTexts[] = 'Параметр RG_EMULATION в файле globals.php -<br />`ON` вместо `OFF`<br /><span style="font-weight: normal; font-style: italic; color: #666;">`ON` - по умолчанию - для совместимости</span>';
+					$wrongSettingsTexts[] = 'РџР°СЂР°РјРµС‚СЂ RG_EMULATION РІ С„Р°Р№Р»Рµ globals.php -<br />`ON` РІРјРµСЃС‚Рѕ `OFF`<br /><span style="font-weight: normal; font-style: italic; color: #666;">`ON` - РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ - РґР»СЏ СЃРѕРІРјРµСЃС‚РёРјРѕСЃС‚Рё</span>';
 				}	
 	
 				if ( count($wrongSettingsTexts) ) {
 					?>							
 					<h1>
-						Проверка безопасности:
+						РџСЂРѕРІРµСЂРєР° Р±РµР·РѕРїР°СЃРЅРѕСЃС‚Рё:
 					</h1>
 					
 					<div class="install-text">
 						<p>
-							Следующие параметры PHP являются неоптимальными для <strong>Безопасности</strong> и их рекомендуется изменить:
+							РЎР»РµРґСѓСЋС‰РёРµ РїР°СЂР°РјРµС‚СЂС‹ PHP СЏРІР»СЏСЋС‚СЃСЏ РЅРµРѕРїС‚РёРјР°Р»СЊРЅС‹РјРё РґР»СЏ <strong>Р‘РµР·РѕРїР°СЃРЅРѕСЃС‚Рё</strong> Рё РёС… СЂРµРєРѕРјРµРЅРґСѓРµС‚СЃСЏ РёР·РјРµРЅРёС‚СЊ:
 						</p>
 						<p>
-							Пожалуйста, за дополнительной информацией обращайтесь на <a href="http://forum.joomla.org/index.php/topic,81058.0.html" target="_blank">официальный форум Joomla! - темы о Безопасности</a>.
+							РџРѕР¶Р°Р»СѓР№СЃС‚Р°, Р·Р° РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅРѕР№ РёРЅС„РѕСЂРјР°С†РёРµР№ РѕР±СЂР°С‰Р°Р№С‚РµСЃСЊ РЅР° <a href="http://forum.joomla.org/index.php/topic,81058.0.html" target="_blank">РѕС„РёС†РёР°Р»СЊРЅС‹Р№ С„РѕСЂСѓРј Joomla! - С‚РµРјС‹ Рѕ Р‘РµР·РѕРїР°СЃРЅРѕСЃС‚Рё</a>.
 						</p>
 						<div class="ctr"></div>
 					</div>
@@ -208,15 +208,15 @@ echo "<?xml version=\"1.0\" encoding=\"windows-1251\"?".">";
 				?>
 												
     <h1>
-Рекомендуемые параметры PHP:
+Р РµРєРѕРјРµРЅРґСѓРµРјС‹Рµ РїР°СЂР°РјРµС‚СЂС‹ PHP:
 </h1>
 				
     <div class="install-text">
-     &nbsp;&nbsp;Эти параметры PHP рекомендуются для полной 
-     совместимости с Joostina.
+     &nbsp;&nbsp;Р­С‚Рё РїР°СЂР°РјРµС‚СЂС‹ PHP СЂРµРєРѕРјРµРЅРґСѓСЋС‚СЃСЏ РґР»СЏ РїРѕР»РЅРѕР№ 
+     СЃРѕРІРјРµСЃС‚РёРјРѕСЃС‚Рё СЃ Joostina.
      <br />
-     Однако, Joostina будет работать, если эти параметры не в
-     полной мере соответствуют рекомендуемым.
+     РћРґРЅР°РєРѕ, Joostina Р±СѓРґРµС‚ СЂР°Р±РѕС‚Р°С‚СЊ, РµСЃР»Рё СЌС‚Рё РїР°СЂР°РјРµС‚СЂС‹ РЅРµ РІ
+     РїРѕР»РЅРѕР№ РјРµСЂРµ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‚ СЂРµРєРѕРјРµРЅРґСѓРµРјС‹Рј.
     <div class="ctr"></div>
    </div>
 
@@ -226,13 +226,13 @@ echo "<?xml version=\"1.0\" encoding=\"windows-1251\"?".">";
      <table class="content">
       <tr>
        <td class="toggle">
-       Директива
+       Р”РёСЂРµРєС‚РёРІР°
        </td>
        <td class="toggle">
-       Рекомендовано
+       Р РµРєРѕРјРµРЅРґРѕРІР°РЅРѕ
        </td>
        <td class="toggle">
-       Установлено
+       РЈСЃС‚Р°РЅРѕРІР»РµРЅРѕ
        </td>
       </tr>
       <?php
@@ -278,7 +278,7 @@ foreach ($php_recommended_settings as $phprec) {
       ?>
 						<tr>
 							<td class="item">
-								Эмуляция Register Globals:
+								Р­РјСѓР»СЏС†РёСЏ Register Globals:
 							</td>
 							<td class="toggle">
 								OFF:
@@ -306,8 +306,8 @@ foreach ($php_recommended_settings as $phprec) {
    <div class="clr"></div>
 
 		<div class="clr"></div>
-		<h1>Расширенные характеристики сервера</h1>
-		<div class="install-text">Указанные параметры севера не являются критичными для работы, но соответствие указанным значениям придадут работе с Joostina максимальное удобство и безопасность.
+		<h1>Р Р°СЃС€РёСЂРµРЅРЅС‹Рµ С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРєРё СЃРµСЂРІРµСЂР°</h1>
+		<div class="install-text">РЈРєР°Р·Р°РЅРЅС‹Рµ РїР°СЂР°РјРµС‚СЂС‹ СЃРµРІРµСЂР° РЅРµ СЏРІР»СЏСЋС‚СЃСЏ РєСЂРёС‚РёС‡РЅС‹РјРё РґР»СЏ СЂР°Р±РѕС‚С‹, РЅРѕ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРµ СѓРєР°Р·Р°РЅРЅС‹Рј Р·РЅР°С‡РµРЅРёСЏРј РїСЂРёРґР°РґСѓС‚ СЂР°Р±РѕС‚Рµ СЃ Joostina РјР°РєСЃРёРјР°Р»СЊРЅРѕРµ СѓРґРѕР±СЃС‚РІРѕ Рё Р±РµР·РѕРїР°СЃРЅРѕСЃС‚СЊ.
 			<div class="clr">&nbsp;&nbsp;</div>
 			<div class="ctr"></div>
 		</div>
@@ -316,9 +316,9 @@ foreach ($php_recommended_settings as $phprec) {
 			<div class="form-block">
 				<table class="content">
 					<tr>
-						<td class="toggle">Директива</td>
-						<td class="toggle">Рекомендовано</td>
-						<td class="toggle">Установлено</td>
+						<td class="toggle">Р”РёСЂРµРєС‚РёРІР°</td>
+						<td class="toggle">Р РµРєРѕРјРµРЅРґРѕРІР°РЅРѕ</td>
+						<td class="toggle">РЈСЃС‚Р°РЅРѕРІР»РµРЅРѕ</td>
 					</tr>
 					<?php
 					$php_recommended_settings = array(
@@ -364,13 +364,13 @@ foreach ($php_recommended_settings as $phprec) {
 			<div class="clr"></div>
 		</div>
 
-   <h1>Права доступа к файлам и каталогам:</h1>
+   <h1>РџСЂР°РІР° РґРѕСЃС‚СѓРїР° Рє С„Р°Р№Р»Р°Рј Рё РєР°С‚Р°Р»РѕРіР°Рј:</h1>
    <div class="install-text">
-    &nbsp;&nbsp;Для нормальной работы Joostina необходимо, чтобы на
-    определенные файлы и каталоги были установлены права записи.
-    Если вы видите <b><font color="red">Недоступен для записи</font></b> для
-    некоторых файлов и каталогов, то необходимо установить на них права доступа,
-    позволяющие перезаписывать их.
+    &nbsp;&nbsp;Р”Р»СЏ РЅРѕСЂРјР°Р»СЊРЅРѕР№ СЂР°Р±РѕС‚С‹ Joostina РЅРµРѕР±С…РѕРґРёРјРѕ, С‡С‚РѕР±С‹ РЅР°
+    РѕРїСЂРµРґРµР»РµРЅРЅС‹Рµ С„Р°Р№Р»С‹ Рё РєР°С‚Р°Р»РѕРіРё Р±С‹Р»Рё СѓСЃС‚Р°РЅРѕРІР»РµРЅС‹ РїСЂР°РІР° Р·Р°РїРёСЃРё.
+    Р•СЃР»Рё РІС‹ РІРёРґРёС‚Рµ <b><font color="red">РќРµРґРѕСЃС‚СѓРїРµРЅ РґР»СЏ Р·Р°РїРёСЃРё</font></b> РґР»СЏ
+    РЅРµРєРѕС‚РѕСЂС‹С… С„Р°Р№Р»РѕРІ Рё РєР°С‚Р°Р»РѕРіРѕРІ, С‚Рѕ РЅРµРѕР±С…РѕРґРёРјРѕ СѓСЃС‚Р°РЅРѕРІРёС‚СЊ РЅР° РЅРёС… РїСЂР°РІР° РґРѕСЃС‚СѓРїР°,
+    РїРѕР·РІРѕР»СЏСЋС‰РёРµ РїРµСЂРµР·Р°РїРёСЃС‹РІР°С‚СЊ РёС….
     <div class="clr">&nbsp;&nbsp;</div>
     <div class="ctr"></div>
    </div>
@@ -411,7 +411,7 @@ writableCell( 'templates' );
   </div>
  </div>
 
- <div class="ctr" id="footer"><a href="http://www.Joostina.ru" target="_blank">Joostina</a> - свободное программное обеспечение, распространяемое по лицензии GNU/GPL.</div>
+ <div class="ctr" id="footer"><a href="http://www.Joostina.ru" target="_blank">Joostina</a> - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ, СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ Р»РёС†РµРЅР·РёРё GNU/GPL.</div>
 </body>
 </html>
 	<?php
@@ -423,8 +423,8 @@ function get_php_setting($val) {
 }
 
 function writableCell( $folder, $relative=1, $text='' ) {
-	$writeable 		= '<b><font color="green">Доступен для записи</font></b>';
-	$unwriteable 	= '<b><font color="red">Недоступен для записи</font></b>';
+	$writeable 		= '<b><font color="green">Р”РѕСЃС‚СѓРїРµРЅ РґР»СЏ Р·Р°РїРёСЃРё</font></b>';
+	$unwriteable 	= '<b><font color="red">РќРµРґРѕСЃС‚СѓРїРµРЅ РґР»СЏ Р·Р°РїРёСЃРё</font></b>';
 	
 	echo '<tr>';
 	echo '<td class="item">' . $folder . '/</td>';

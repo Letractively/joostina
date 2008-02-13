@@ -2,7 +2,7 @@ var jceFunctions = {
 	relative : true,
 	mambotMode : false,
 	state : 'mceEditor',
-	toggle : 'код',
+	toggle : 'РєРѕРґ',
 	getURL : function(){
 		var url = document.location.href;
 		return url.substring(0, url.lastIndexOf('/'));

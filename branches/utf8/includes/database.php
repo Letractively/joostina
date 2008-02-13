@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 /**
 * Database connector class
@@ -100,8 +100,8 @@ class database {
 		}
 		$this->_table_prefix = $table_prefix;
 		if(!$mosConfig_dbold) @mysql_query("SET NAMES 'cp1251'", $this->_resource);
-		/* раскомментируйте следующие строки при необходимости.
-		Часть идеи и текст запросов взяты из Joomla! 1.0.12 Lavra Edition 2007, хорошего дистрибутива выпускаемого AndyR: http://andyr.mrezha.ru, Поддержка на сайте: http://joomlaforum.ru/index.php?board=129.0
+		/* СЂР°СЃРєРѕРјРјРµРЅС‚РёСЂСѓР№С‚Рµ СЃР»РµРґСѓСЋС‰РёРµ СЃС‚СЂРѕРєРё РїСЂРё РЅРµРѕР±С…РѕРґРёРјРѕСЃС‚Рё.
+		Р§Р°СЃС‚СЊ РёРґРµРё Рё С‚РµРєСЃС‚ Р·Р°РїСЂРѕСЃРѕРІ РІР·СЏС‚С‹ РёР· Joomla! 1.0.12 Lavra Edition 2007, С…РѕСЂРѕС€РµРіРѕ РґРёСЃС‚СЂРёР±СѓС‚РёРІР° РІС‹РїСѓСЃРєР°РµРјРѕРіРѕ AndyR: http://andyr.mrezha.ru, РџРѕРґРґРµСЂР¶РєР° РЅР° СЃР°Р№С‚Рµ: http://joomlaforum.ru/index.php?board=129.0
 		$this->_cursor = mysql_query( "set session character_set_server=cp1251;", $this->_resource );
 		$this->_cursor = mysql_query( "set session character_set_database=cp1251;", $this->_resource );
 		$this->_cursor = mysql_query( "set session character_set_connection=cp1251;", $this->_resource );
@@ -296,7 +296,7 @@ class database {
 		$this->_errorNum = 0;
 		$this->_errorMsg = '';
 		$this->_cursor = mysql_query( $this->_sql, $this->_resource );
-		// для оптимизации расхода памяти можно раскомментировать следующие строки, но некоторые особенно кривые расширения сразу же отвалятся
+		// РґР»СЏ РѕРїС‚РёРјРёР·Р°С†РёРё СЂР°СЃС…РѕРґР° РїР°РјСЏС‚Рё РјРѕР¶РЅРѕ СЂР°СЃРєРѕРјРјРµРЅС‚РёСЂРѕРІР°С‚СЊ СЃР»РµРґСѓСЋС‰РёРµ СЃС‚СЂРѕРєРё, РЅРѕ РЅРµРєРѕС‚РѕСЂС‹Рµ РѕСЃРѕР±РµРЅРЅРѕ РєСЂРёРІС‹Рµ СЂР°СЃС€РёСЂРµРЅРёСЏ СЃСЂР°Р·Сѓ Р¶Рµ РѕС‚РІР°Р»СЏС‚СЃСЏ
 		//unset($this->_sql);
 		//return $this->_cursor;
 		// /*
@@ -316,7 +316,7 @@ class database {
 			}
 			return false;
 		}
-		// тут тоже раскомментировать, что бу верхнее условие оказалось в комментариях, или еще лучше его вообще удалить
+		// С‚СѓС‚ С‚РѕР¶Рµ СЂР°СЃРєРѕРјРјРµРЅС‚РёСЂРѕРІР°С‚СЊ, С‡С‚Рѕ Р±Сѓ РІРµСЂС…РЅРµРµ СѓСЃР»РѕРІРёРµ РѕРєР°Р·Р°Р»РѕСЃСЊ РІ РєРѕРјРјРµРЅС‚Р°СЂРёСЏС…, РёР»Рё РµС‰Рµ Р»СѓС‡С€Рµ РµРіРѕ РІРѕРѕР±С‰Рµ СѓРґР°Р»РёС‚СЊ
 		// */
 		return $this->_cursor;
 	}
@@ -795,7 +795,7 @@ class mosDBTable {
 	*/
 	function bind( $array, $ignore='' ) {
 		if (!is_array( $array )) {
-			$this->_error = strtolower(get_class( $this ))."::ошибка выполнения bind.";
+			$this->_error = strtolower(get_class( $this ))."::РѕС€РёР±РєР° РІС‹РїРѕР»РЅРµРЅРёСЏ bind.";
 			return false;
 		} else {
 			return mosBindArrayToObject( $array, $this, $ignore );
@@ -873,7 +873,7 @@ class mosDBTable {
 		}
 
 		if( !$ret ) {
-			$this->_error = strtolower(get_class( $this ))."::ошибка выполнения store<br />" . $this->_db->getErrorMsg();
+			$this->_error = strtolower(get_class( $this ))."::РѕС€РёР±РєР° РІС‹РїРѕР»РЅРµРЅРёСЏ store<br />" . $this->_db->getErrorMsg();
 			return false;
 		} else {
 			return true;
@@ -958,7 +958,7 @@ class mosDBTable {
 		$k = $this->_tbl_key;
 
 		if (!array_key_exists( 'ordering', get_class_vars( strtolower(get_class( $this )) ) )) {
-			$this->_error = "ВНИМАНИЕ: ".strtolower(get_class( $this ))." не поддерживает сортировку.";
+			$this->_error = "Р’РќРРњРђРќРР•: ".strtolower(get_class( $this ))." РЅРµ РїРѕРґРґРµСЂР¶РёРІР°РµС‚ СЃРѕСЂС‚РёСЂРѕРІРєСѓ.";
 			return false;
 		}
 
@@ -1120,10 +1120,10 @@ class mosDBTable {
 	 */
 	function checkout( $user_id, $oid=null ) {
 		global $mosConfig_disable_checked_out;
-		// отключение блокировок
+		// РѕС‚РєР»СЋС‡РµРЅРёРµ Р±Р»РѕРєРёСЂРѕРІРѕРє
 		if($mosConfig_disable_checked_out) return true;
 		if (!array_key_exists( 'checked_out', get_class_vars( strtolower(get_class( $this )) ) )) {
-			$this->_error = "ВНИМАНИЕ: ".strtolower(get_class( $this ))." не поддерживает проверку.";
+			$this->_error = "Р’РќРРњРђРќРР•: ".strtolower(get_class( $this ))." РЅРµ РїРѕРґРґРµСЂР¶РёРІР°РµС‚ РїСЂРѕРІРµСЂРєСѓ.";
 			return false;
 		}
 		$k = $this->_tbl_key;
@@ -1166,7 +1166,7 @@ class mosDBTable {
 	 */
 	function checkin( $oid=null ) {
 		global $mosConfig_disable_checked_out;
-		// отключение блокировок
+		// РѕС‚РєР»СЋС‡РµРЅРёРµ Р±Р»РѕРєРёСЂРѕРІРѕРє
 		if($mosConfig_disable_checked_out) return true;
 		if (!array_key_exists( 'checked_out', get_class_vars( strtolower(get_class( $this )) ) )) {
 			$this->_error = "WARNING: ".strtolower(get_class( $this ))." does not support checkin.";

@@ -2,13 +2,13 @@
 <mosinstall version="1.0.0" type="mambot" group="editors-xtd">
 	<name>mosimage.btn</name>
 	<author>Joostina! Project</author>
-	<creationDate>Август 2004</creationDate>
+	<creationDate>РђРІРіСѓСЃС‚ 2004</creationDate>
 	<copyright>(C) 2007 Joostina Team.</copyright>
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
 	<authorEmail>joostinacms@gmail.com</authorEmail>
 	<authorUrl>www.joostina.ru</authorUrl>
 	<version>1.0.0 RE</version>
-	<description>Предоставляет возможность с помощью кнопки вставить изображение {mosimage} в окно редактирования содержимого</description>
+	<description>РџСЂРµРґРѕСЃС‚Р°РІР»СЏРµС‚ РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ СЃ РїРѕРјРѕС‰СЊСЋ РєРЅРѕРїРєРё РІСЃС‚Р°РІРёС‚СЊ РёР·РѕР±СЂР°Р¶РµРЅРёРµ {mosimage} РІ РѕРєРЅРѕ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ</description>
 	<files>
 		<filename mambot="mosimage.btn">mosimage.btn.php</filename>
 	</files>

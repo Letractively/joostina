@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <mosinstall version="1.0.0" type="mambot" group="content">
-	<name>Рейтинг статей - JW AJAX Vote</name>
+	<name>Р РµР№С‚РёРЅРі СЃС‚Р°С‚РµР№ - JW AJAX Vote</name>
 	<author>JoomlaWorks & Joostina team </author>
 	<creationDate>25/10/2007</creationDate>
 	<copyright>This extension in released under the GNU/GPL License - http://www.gnu.org/copyleft/gpl.html</copyright>
 	<authorEmail>joomlaworks@gmail.com</authorEmail>
 	<authorUrl>http://www.joomlaworks.gr</authorUrl>
 	<version>1.0</version>	
-	<description><![CDATA[ Расширение позволяет выставлять статьям рейтинг. ]]></description>
+	<description><![CDATA[ Р Р°СЃС€РёСЂРµРЅРёРµ РїРѕР·РІРѕР»СЏРµС‚ РІС‹СЃС‚Р°РІР»СЏС‚СЊ СЃС‚Р°С‚СЊСЏРј СЂРµР№С‚РёРЅРі. ]]></description>
 	<params>
-		<param name="language" type="list" default="russian" size="5" label="Язык" description="Выберите язык используемый в результатах установки рейтинга.">
-		<option value="russian">Русский</option>
+		<param name="language" type="list" default="russian" size="5" label="РЇР·С‹Рє" description="Р’С‹Р±РµСЂРёС‚Рµ СЏР·С‹Рє РёСЃРїРѕР»СЊР·СѓРµРјС‹Р№ РІ СЂРµР·СѓР»СЊС‚Р°С‚Р°С… СѓСЃС‚Р°РЅРѕРІРєРё СЂРµР№С‚РёРЅРіР°.">
+		<option value="russian">Р СѓСЃСЃРєРёР№</option>
 		</param>
 	</params>
 </mosinstall>
