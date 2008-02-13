@@ -1,119 +1,119 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <mosinstall type="component" version="1.0.0">
-	<name>Объекты контакта</name>
+	<name>РћР±СЉРµРєС‚С‹ РєРѕРЅС‚Р°РєС‚Р°</name>
 	<author>Joostina! Project</author>
 	<copyright>(C) 2007 Joostina Team.</copyright>
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
 	<authorEmail>joostinacms@gmail.com</authorEmail>
 	<authorUrl>www.joostina.ru</authorUrl>
 	<version>1.0.0</version>
-	<description>Параметры контактной информации</description>
+	<description>РџР°СЂР°РјРµС‚СЂС‹ РєРѕРЅС‚Р°РєС‚РЅРѕР№ РёРЅС„РѕСЂРјР°С†РёРё</description>
 	<params>
-		<param name="menu_image" type="imagelist" directory="/images/stories" hide_default="1" default="" label="Изображение меню" description="Маленькое изображение, располагаемое слева или справа от пункта меню. Изображение должно находиться в папке images/stories/" />
-		<param name="pageclass_sfx" type="text" size="20" default="" label="Суффикс CSS-класса страницы" description="Суффикс CSS-класса, используемого на этой странице. Необходим для использования индивидуального стиля страницы" />
-		<param name="print" type="list" default="" label="Значок Печать" description="Показать/Скрыть кнопку печати объекта. Применяется только для этой страницы">
-			<option value="">Исп. ОБЩИЕ настройки</option>
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
+		<param name="menu_image" type="imagelist" directory="/images/stories" hide_default="1" default="" label="РР·РѕР±СЂР°Р¶РµРЅРёРµ РјРµРЅСЋ" description="РњР°Р»РµРЅСЊРєРѕРµ РёР·РѕР±СЂР°Р¶РµРЅРёРµ, СЂР°СЃРїРѕР»Р°РіР°РµРјРѕРµ СЃР»РµРІР° РёР»Рё СЃРїСЂР°РІР° РѕС‚ РїСѓРЅРєС‚Р° РјРµРЅСЋ. РР·РѕР±СЂР°Р¶РµРЅРёРµ РґРѕР»Р¶РЅРѕ РЅР°С…РѕРґРёС‚СЊСЃСЏ РІ РїР°РїРєРµ images/stories/" />
+		<param name="pageclass_sfx" type="text" size="20" default="" label="РЎСѓС„С„РёРєСЃ CSS-РєР»Р°СЃСЃР° СЃС‚СЂР°РЅРёС†С‹" description="РЎСѓС„С„РёРєСЃ CSS-РєР»Р°СЃСЃР°, РёСЃРїРѕР»СЊР·СѓРµРјРѕРіРѕ РЅР° СЌС‚РѕР№ СЃС‚СЂР°РЅРёС†Рµ. РќРµРѕР±С…РѕРґРёРј РґР»СЏ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ РёРЅРґРёРІРёРґСѓР°Р»СЊРЅРѕРіРѕ СЃС‚РёР»СЏ СЃС‚СЂР°РЅРёС†С‹" />
+		<param name="print" type="list" default="" label="Р—РЅР°С‡РѕРє РџРµС‡Р°С‚СЊ" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РєРЅРѕРїРєСѓ РїРµС‡Р°С‚Рё РѕР±СЉРµРєС‚Р°. РџСЂРёРјРµРЅСЏРµС‚СЃСЏ С‚РѕР»СЊРєРѕ РґР»СЏ СЌС‚РѕР№ СЃС‚СЂР°РЅРёС†С‹">
+			<option value="">РСЃРї. РћР‘Р©РР• РЅР°СЃС‚СЂРѕР№РєРё</option>
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
 		</param>
-		<param name="back_button" type="list" default="" label="Кнопка Назад (Вернуться)" description="Показать/Скрыть кнопку Назад (Вернуться), возвращающую на предыдущую просмотренную страницу">
-			<option value="">Исп. ОБЩИЕ настройки</option>
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
-		</param>
-		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="name" type="radio" default="1" label="Имя" description="Показать/Скрыть информацию об имени">
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
-		</param>
-		<param name="position" type="radio" default="1" label="Положение" description="Показать/Скрыть информацию о положении (должности)">
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
-		</param>
-		<param name="email" type="radio" default="0" label="E-mail" description="Показать/Скрыть e-mail контакта. Если вы выбрали Показывать адрес, то включите защиту email от спамботов">
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
-		</param>
-		<param name="street_address" type="radio" default="1" label="Адрес" description="Показать/Скрыть информацию об адресе">
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
-		</param>
-		<param name="suburb" type="radio" default="1" label="Город/Пригород" description="Показать/Скрыть информацию о пригороде">
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
-		</param>
-		<param name="state" type="radio" default="1" label="Край/Область/Республика" description="Показать/Скрыть информацию о Крае/Области/Республике">
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
-		</param>
-		<param name="country" type="radio" default="1" label="Страна" description="Показать/Скрыть информацию о стране">
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
-		</param>
-		<param name="postcode" type="radio" default="1" label="Почта/Почтовый индекс" description="Показать/Скрыть информацию о почтовом индексе">
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
-		</param>
-		<param name="telephone" type="radio" default="1" label="Телефон" description="Показать/Скрыть информацию о телефоне">
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
-		</param>
-		<param name="fax" type="radio" default="1" label="Факс" description="Показать/Скрыть информацию о факсе">
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
-		</param>
-		<param name="misc" type="radio" default="1" label="Прочая информация" description="Показать/Скрыть дополнительную информацию">
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
-		</param>
-		<param name="image" type="radio" default="1" label="Изображение" description="Показать/Скрыть изображение">
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
-		</param>
-		<param name="vcard" type="radio" default="0" label="VCard" description="Показать/Скрыть возможность скачивания VCard">
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
+		<param name="back_button" type="list" default="" label="РљРЅРѕРїРєР° РќР°Р·Р°Рґ (Р’РµСЂРЅСѓС‚СЊСЃСЏ)" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РєРЅРѕРїРєСѓ РќР°Р·Р°Рґ (Р’РµСЂРЅСѓС‚СЊСЃСЏ), РІРѕР·РІСЂР°С‰Р°СЋС‰СѓСЋ РЅР° РїСЂРµРґС‹РґСѓС‰СѓСЋ РїСЂРѕСЃРјРѕС‚СЂРµРЅРЅСѓСЋ СЃС‚СЂР°РЅРёС†Сѓ">
+			<option value="">РСЃРї. РћР‘Р©РР• РЅР°СЃС‚СЂРѕР№РєРё</option>
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
 		</param>
 		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="email_description" type="radio" default="1" label="Описание E-mail" description="Показать/Скрыть внизу текст описания">
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
+		<param name="name" type="radio" default="1" label="РРјСЏ" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РёРЅС„РѕСЂРјР°С†РёСЋ РѕР± РёРјРµРЅРё">
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
 		</param>
-		<param name="email_description_text" type="text" size="30" default="" label="Текст описания" description="Текст описания для формы отправки E-mail. Если оставлено пустым, то будет использоваться константа _EMAIL_DESCRIPTION из языкового файла" />
-		<param name="email_form" type="radio" default="1" label="Форма E-mail" description="Показать/Скрыть форму отправки e-mail">
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
+		<param name="position" type="radio" default="1" label="РџРѕР»РѕР¶РµРЅРёРµ" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ РїРѕР»РѕР¶РµРЅРёРё (РґРѕР»Р¶РЅРѕСЃС‚Рё)">
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
 		</param>
-		<param name="email_copy" type="radio" default="0" label="Копия E-mail" description="Показать/Скрыть переключатель отправки копии email на адрес отправителя">
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
+		<param name="email" type="radio" default="0" label="E-mail" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ e-mail РєРѕРЅС‚Р°РєС‚Р°. Р•СЃР»Рё РІС‹ РІС‹Р±СЂР°Р»Рё РџРѕРєР°Р·С‹РІР°С‚СЊ Р°РґСЂРµСЃ, С‚Рѕ РІРєР»СЋС‡РёС‚Рµ Р·Р°С‰РёС‚Сѓ email РѕС‚ СЃРїР°РјР±РѕС‚РѕРІ">
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
+		</param>
+		<param name="street_address" type="radio" default="1" label="РђРґСЂРµСЃ" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РёРЅС„РѕСЂРјР°С†РёСЋ РѕР± Р°РґСЂРµСЃРµ">
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
+		</param>
+		<param name="suburb" type="radio" default="1" label="Р“РѕСЂРѕРґ/РџСЂРёРіРѕСЂРѕРґ" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ РїСЂРёРіРѕСЂРѕРґРµ">
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
+		</param>
+		<param name="state" type="radio" default="1" label="РљСЂР°Р№/РћР±Р»Р°СЃС‚СЊ/Р РµСЃРїСѓР±Р»РёРєР°" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ РљСЂР°Рµ/РћР±Р»Р°СЃС‚Рё/Р РµСЃРїСѓР±Р»РёРєРµ">
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
+		</param>
+		<param name="country" type="radio" default="1" label="РЎС‚СЂР°РЅР°" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ СЃС‚СЂР°РЅРµ">
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
+		</param>
+		<param name="postcode" type="radio" default="1" label="РџРѕС‡С‚Р°/РџРѕС‡С‚РѕРІС‹Р№ РёРЅРґРµРєСЃ" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ РїРѕС‡С‚РѕРІРѕРј РёРЅРґРµРєСЃРµ">
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
+		</param>
+		<param name="telephone" type="radio" default="1" label="РўРµР»РµС„РѕРЅ" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ С‚РµР»РµС„РѕРЅРµ">
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
+		</param>
+		<param name="fax" type="radio" default="1" label="Р¤Р°РєСЃ" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ С„Р°РєСЃРµ">
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
+		</param>
+		<param name="misc" type="radio" default="1" label="РџСЂРѕС‡Р°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅСѓСЋ РёРЅС„РѕСЂРјР°С†РёСЋ">
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
+		</param>
+		<param name="image" type="radio" default="1" label="РР·РѕР±СЂР°Р¶РµРЅРёРµ" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РёР·РѕР±СЂР°Р¶РµРЅРёРµ">
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
+		</param>
+		<param name="vcard" type="radio" default="0" label="VCard" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ СЃРєР°С‡РёРІР°РЅРёСЏ VCard">
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
 		</param>
 		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="drop_down" type="radio" default="0" label="Раскрывающийся список" description="Показать/Скрыть раскрывающийся список для выбора просматриваемого контакта">
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
+		<param name="email_description" type="radio" default="1" label="РћРїРёСЃР°РЅРёРµ E-mail" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РІРЅРёР·Сѓ С‚РµРєСЃС‚ РѕРїРёСЃР°РЅРёСЏ">
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
+		</param>
+		<param name="email_description_text" type="text" size="30" default="" label="РўРµРєСЃС‚ РѕРїРёСЃР°РЅРёСЏ" description="РўРµРєСЃС‚ РѕРїРёСЃР°РЅРёСЏ РґР»СЏ С„РѕСЂРјС‹ РѕС‚РїСЂР°РІРєРё E-mail. Р•СЃР»Рё РѕСЃС‚Р°РІР»РµРЅРѕ РїСѓСЃС‚С‹Рј, С‚Рѕ Р±СѓРґРµС‚ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊСЃСЏ РєРѕРЅСЃС‚Р°РЅС‚Р° _EMAIL_DESCRIPTION РёР· СЏР·С‹РєРѕРІРѕРіРѕ С„Р°Р№Р»Р°" />
+		<param name="email_form" type="radio" default="1" label="Р¤РѕСЂРјР° E-mail" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ С„РѕСЂРјСѓ РѕС‚РїСЂР°РІРєРё e-mail">
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
+		</param>
+		<param name="email_copy" type="radio" default="0" label="РљРѕРїРёСЏ E-mail" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РїРµСЂРµРєР»СЋС‡Р°С‚РµР»СЊ РѕС‚РїСЂР°РІРєРё РєРѕРїРёРё email РЅР° Р°РґСЂРµСЃ РѕС‚РїСЂР°РІРёС‚РµР»СЏ">
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
 		</param>
 		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="contact_icons" type="list" default="0" label="Значки/текст" description="Использовать значки, текст или отображать только текст с контактной информацией">
-			<option value="0">Значки</option>
-			<option value="1">Текст</option>
-			<option value="2">Ничего</option>
+		<param name="drop_down" type="radio" default="0" label="Р Р°СЃРєСЂС‹РІР°СЋС‰РёР№СЃСЏ СЃРїРёСЃРѕРє" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ СЂР°СЃРєСЂС‹РІР°СЋС‰РёР№СЃСЏ СЃРїРёСЃРѕРє РґР»СЏ РІС‹Р±РѕСЂР° РїСЂРѕСЃРјР°С‚СЂРёРІР°РµРјРѕРіРѕ РєРѕРЅС‚Р°РєС‚Р°">
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
 		</param>
-		<param name="icon_address" type="imagelist" directory="/images/M_images" hide_none="1" default="" label="Значок адреса" description="Значок для адресной информации" />
-		<param name="icon_email" type="imagelist" directory="/images/M_images" hide_none="1" default="" label="Значок E-mail" description="Значок для информации о E-mail" />
-		<param name="icon_telephone" type="imagelist" directory="/images/M_images" hide_none="1" default="" label="Значок телефона" description="Значок для информации о телефоне" />
-		<param name="icon_fax" type="imagelist" directory="/images/M_images" hide_none="1" default="" label="Значок факса" description="Значок для информации о факсе" />
-		<param name="icon_misc" type="imagelist" directory="/images/M_images" hide_none="1" default="" label="Значок прочего" description="Значок для прочей информации" />
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="contact_icons" type="list" default="0" label="Р—РЅР°С‡РєРё/С‚РµРєСЃС‚" description="РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ Р·РЅР°С‡РєРё, С‚РµРєСЃС‚ РёР»Рё РѕС‚РѕР±СЂР°Р¶Р°С‚СЊ С‚РѕР»СЊРєРѕ С‚РµРєСЃС‚ СЃ РєРѕРЅС‚Р°РєС‚РЅРѕР№ РёРЅС„РѕСЂРјР°С†РёРµР№">
+			<option value="0">Р—РЅР°С‡РєРё</option>
+			<option value="1">РўРµРєСЃС‚</option>
+			<option value="2">РќРёС‡РµРіРѕ</option>
+		</param>
+		<param name="icon_address" type="imagelist" directory="/images/M_images" hide_none="1" default="" label="Р—РЅР°С‡РѕРє Р°РґСЂРµСЃР°" description="Р—РЅР°С‡РѕРє РґР»СЏ Р°РґСЂРµСЃРЅРѕР№ РёРЅС„РѕСЂРјР°С†РёРё" />
+		<param name="icon_email" type="imagelist" directory="/images/M_images" hide_none="1" default="" label="Р—РЅР°С‡РѕРє E-mail" description="Р—РЅР°С‡РѕРє РґР»СЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ E-mail" />
+		<param name="icon_telephone" type="imagelist" directory="/images/M_images" hide_none="1" default="" label="Р—РЅР°С‡РѕРє С‚РµР»РµС„РѕРЅР°" description="Р—РЅР°С‡РѕРє РґР»СЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ С‚РµР»РµС„РѕРЅРµ" />
+		<param name="icon_fax" type="imagelist" directory="/images/M_images" hide_none="1" default="" label="Р—РЅР°С‡РѕРє С„Р°РєСЃР°" description="Р—РЅР°С‡РѕРє РґР»СЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ С„Р°РєСЃРµ" />
+		<param name="icon_misc" type="imagelist" directory="/images/M_images" hide_none="1" default="" label="Р—РЅР°С‡РѕРє РїСЂРѕС‡РµРіРѕ" description="Р—РЅР°С‡РѕРє РґР»СЏ РїСЂРѕС‡РµР№ РёРЅС„РѕСЂРјР°С†РёРё" />
  		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="robots" type="list" default="-1" label="Мета-тег Robots" description="Выберите, какой мета-тег robots использовать для этой страницы">
-			<option value="-1">Не отображать мета-тег robot</option>
+		<param name="robots" type="list" default="-1" label="РњРµС‚Р°-С‚РµРі Robots" description="Р’С‹Р±РµСЂРёС‚Рµ, РєР°РєРѕР№ РјРµС‚Р°-С‚РµРі robots РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РґР»СЏ СЌС‚РѕР№ СЃС‚СЂР°РЅРёС†С‹">
+			<option value="-1">РќРµ РѕС‚РѕР±СЂР°Р¶Р°С‚СЊ РјРµС‚Р°-С‚РµРі robot</option>
 			<option value="0">Index, follow</option>
 			<option value="1">Index, NoFollow</option>
 			<option value="2">NoIndex, Follow</option>
 			<option value="3">NoIndex, NoFollow</option>
 		</param>
-		<param name="meta_description" type="textarea" default="" label="META-тег description" rows="5" cols="30" description="META-тег: Description"/>
-		<param name="meta_keywords"    type="textarea" default="" label="META-тег keywords" rows="5" cols="30" description="META-тег keywords. Разделяйте ключевые слова запятыми"/>
-		<param name="meta_author" 	   type="text" size="40" default="" label="META-тег author" description="Введите МЕТА-тег author. Оставьте это поле пустым, если не хотите отображать этот тег в заголовке страницы" />
+		<param name="meta_description" type="textarea" default="" label="META-С‚РµРі description" rows="5" cols="30" description="META-С‚РµРі: Description"/>
+		<param name="meta_keywords"    type="textarea" default="" label="META-С‚РµРі keywords" rows="5" cols="30" description="META-С‚РµРі keywords. Р Р°Р·РґРµР»СЏР№С‚Рµ РєР»СЋС‡РµРІС‹Рµ СЃР»РѕРІР° Р·Р°РїСЏС‚С‹РјРё"/>
+		<param name="meta_author" 	   type="text" size="40" default="" label="META-С‚РµРі author" description="Р’РІРµРґРёС‚Рµ РњР•РўРђ-С‚РµРі author. РћСЃС‚Р°РІСЊС‚Рµ СЌС‚Рѕ РїРѕР»Рµ РїСѓСЃС‚С‹Рј, РµСЃР»Рё РЅРµ С…РѕС‚РёС‚Рµ РѕС‚РѕР±СЂР°Р¶Р°С‚СЊ СЌС‚РѕС‚ С‚РµРі РІ Р·Р°РіРѕР»РѕРІРєРµ СЃС‚СЂР°РЅРёС†С‹" />
 	</params>
 </mosinstall>

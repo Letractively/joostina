@@ -1,18 +1,18 @@
 <?php
 /** joostfree
 * @version 1.0
-* @ëîêàëèçàöèÿ è êîððåêòèðîâêà (C) 2007 Joom.Ru
+* @Ð»Ð¾ÐºÐ°Ð»Ð¸Ð·Ð°Ñ†Ð¸Ñ Ð¸ ÐºÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð¸Ñ€Ð¾Ð²ÐºÐ° (C) 2007 Joom.Ru
 * @translator Nikoay P. Kirsh aka boston (boston56@mail.ru)
 */
 
-defined( '_VALID_MOS' ) or die( 'Ïðÿìîé âûçîâ ôàéëà çàïðåùåí.' );
+defined( '_VALID_MOS' ) or die( 'ÐŸÑ€ÑÐ¼Ð¾Ð¹ Ð²Ñ‹Ð·Ð¾Ð² Ñ„Ð°Ð¹Ð»Ð° Ð·Ð°Ð¿Ñ€ÐµÑ‰ÐµÐ½.' );
 
 $tabs = new mosTabs(0,1);
 	$tabs->startPane("ico");
-	$tabs->startTab("Êíîïêè","ico-page");
+	$tabs->startTab("ÐšÐ½Ð¾Ð¿ÐºÐ¸","ico-page");
 		mosLoadAdminModules( 'icon', 0 );
 	$tabs->endTab();
-	$tabs->startTab("Ìîäóëè","panel-page");
+	$tabs->startTab("ÐœÐ¾Ð´ÑƒÐ»Ð¸","panel-page");
 ?>
 	<div class="polovina">
 <?php

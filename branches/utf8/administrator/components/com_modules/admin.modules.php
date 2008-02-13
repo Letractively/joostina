@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 // ensure user has access to this function
 if (!($acl->acl_check( 'administration', 'edit', 'users', $my->usertype, 'modules', 'all' ) | $acl->acl_check( 'administration', 'install', 'users', $my->usertype, 'modules', 'all' ))) {
@@ -188,7 +188,7 @@ function copyModule( $option, $uid, $client ) {
 	$row = new mosModule( $database );
 	// load the row from the db table
 	$row->load( (int)$uid );
-	$row->title 		= 'Копия '.$row->title;
+	$row->title 		= 'РљРѕРїРёСЏ '.$row->title;
 	$row->id 			= 0;
 	$row->iscore 		= 0;
 	$row->published 	= 0;
@@ -226,7 +226,7 @@ function copyModule( $option, $uid, $client ) {
 
 	mosCache::cleanCache( 'com_content' );
 	
-	$msg = 'Модуль скопирован ['. $row->title .']';
+	$msg = 'РњРѕРґСѓР»СЊ СЃРєРѕРїРёСЂРѕРІР°РЅ ['. $row->title .']';
 	mosRedirect( 'index2.php?option='. $option .'&client='. $client, $msg );
 }
 
@@ -303,13 +303,13 @@ function saveModule( $option, $client, $task ) {
 	
 	switch ( $task ) {
 		case 'apply':
-			$msg = 'Все изменения модуля  - '. $row->title.' - успешно сохранены';
+			$msg = 'Р’СЃРµ РёР·РјРµРЅРµРЅРёСЏ РјРѕРґСѓР»СЏ  - '. $row->title.' - СѓСЃРїРµС€РЅРѕ СЃРѕС…СЂР°РЅРµРЅС‹';
 			mosRedirect( 'index2.php?option='. $option .'&client='. $client .'&task=editA&hidemainmenu=1&id='. $row->id, $msg );
 			break;
 
 		case 'save':
 		default:
-			$msg = 'Модуль - '. $row->title.' - успешно сохранен';
+			$msg = 'РњРѕРґСѓР»СЊ - '. $row->title.' - СѓСЃРїРµС€РЅРѕ СЃРѕС…СЂР°РЅРµРЅ';
 			mosRedirect( 'index2.php?option='. $option .'&client='. $client, $msg );
 			break;
 	}
@@ -330,7 +330,7 @@ function editModule( $option, $uid, $client ) {
 	$row->load( (int)$uid );
 	// fail if checked out not by 'me'
 	if ($row->isCheckedOut( $my->id )) {
-		mosErrorAlert( "Модуль ".$row->title." в настоящее время редактируется другим администратором" );
+		mosErrorAlert( "РњРѕРґСѓР»СЊ ".$row->title." РІ РЅР°СЃС‚РѕСЏС‰РµРµ РІСЂРµРјСЏ СЂРµРґР°РєС‚РёСЂСѓРµС‚СЃСЏ РґСЂСѓРіРёРј Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂРѕРј" );
 	}
 
 	$row->content = htmlspecialchars( $row->content );
@@ -490,7 +490,7 @@ function removeModule( &$cid, $option, $client ) {
 		// mod_mainmenu modules only deletable via Menu Manager
 		if ( $row->module == 'mod_mainmenu' ) {
 			if ( strstr( $row->params, 'mainmenu' ) ) {
-				echo "<script> alert('Вы не можете удалить модуль mod_mainmenu, отображаемый как \'mainmenu\', т.к. это ядро меню'); window.history.go(-1); </script>\n";
+				echo "<script> alert('Р’С‹ РЅРµ РјРѕР¶РµС‚Рµ СѓРґР°Р»РёС‚СЊ РјРѕРґСѓР»СЊ mod_mainmenu, РѕС‚РѕР±СЂР°Р¶Р°РµРјС‹Р№ РєР°Рє \'mainmenu\', С‚.Рє. СЌС‚Рѕ СЏРґСЂРѕ РјРµРЅСЋ'); window.history.go(-1); </script>\n";
 				exit;
 			}
 		}
@@ -525,7 +525,7 @@ function removeModule( &$cid, $option, $client ) {
 
 	if (count( $err )) {
 		$cids = addslashes( implode( "', '", $err ) );
-		echo "<script>alert('Модули: \'$cids\' не могут быть удалены, т.к. они могут быть только деинсталлированы, как все модули Joomla!');</script>\n";
+		echo "<script>alert('РњРѕРґСѓР»Рё: \'$cids\' РЅРµ РјРѕРіСѓС‚ Р±С‹С‚СЊ СѓРґР°Р»РµРЅС‹, С‚.Рє. РѕРЅРё РјРѕРіСѓС‚ Р±С‹С‚СЊ С‚РѕР»СЊРєРѕ РґРµРёРЅСЃС‚Р°Р»Р»РёСЂРѕРІР°РЅС‹, РєР°Рє РІСЃРµ РјРѕРґСѓР»Рё Joomla!');</script>\n";
 	}
 
 	mosCache::cleanCache( 'com_content' );
@@ -542,8 +542,8 @@ function publishModule( $cid=null, $publish=1, $option, $client ) {
 	global $database, $my;
 
 	if (count( $cid ) < 1) {
-		$action = $publish ? 'публикации' : 'сокрытия';
-		echo "<script> alert('Выберите модуль для $action'); window.history.go(-1);</script>\n";
+		$action = $publish ? 'РїСѓР±Р»РёРєР°С†РёРё' : 'СЃРѕРєСЂС‹С‚РёСЏ';
+		echo "<script> alert('Р’С‹Р±РµСЂРёС‚Рµ РјРѕРґСѓР»СЊ РґР»СЏ $action'); window.history.go(-1);</script>\n";
 		exit;
 	}
 
@@ -690,7 +690,7 @@ function saveOrder( &$cid, $client ) {
 
 	mosCache::cleanCache( 'com_content' );
 
-	$msg 	= 'Новый порядок сохранен';
+	$msg 	= 'РќРѕРІС‹Р№ РїРѕСЂСЏРґРѕРє СЃРѕС…СЂР°РЅРµРЅ';
 	mosRedirect( 'index2.php?option=com_modules&client='. $client, $msg );
 } // saveOrder
 ?>

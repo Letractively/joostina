@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 /**
 * Language installer
 * @package Joostina
@@ -68,7 +68,7 @@ class JCELanguageInstaller extends mosInstaller {
 		;
 		$database->setQuery( $query );
 		if (!$database->query()) {
-			$this->setError( 1, 'Ошибка SQL: ' . $database->stderr( true ) );
+			$this->setError( 1, 'РћС€РёР±РєР° SQL: ' . $database->stderr( true ) );
 			return false;
 		}
 
@@ -81,11 +81,11 @@ class JCELanguageInstaller extends mosInstaller {
 			$row->published = 0;
 
 			if (!$row->store()) {
-				$this->setError( 1, 'Ошибка SQL: ' . $row->getError() );
+				$this->setError( 1, 'РћС€РёР±РєР° SQL: ' . $row->getError() );
 				return false;
 			}
 		} else {
-			$this->setError( 1, 'Язык "' . $this->elementName() . '" уже существует!' );
+			$this->setError( 1, 'РЇР·С‹Рє "' . $this->elementName() . '" СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚!' );
 			return false;
 		}
 		if ($e = &$root->getElementsByPath( 'description', 1 )) {
@@ -127,7 +127,7 @@ class JCELanguageInstaller extends mosInstaller {
 						$filename = $file->getText();
 						echo $filename;
 						if (file_exists( $basepath . $filename )) {
-							echo '<br />Удаление: '. $basepath . $filename;
+							echo '<br />РЈРґР°Р»РµРЅРёРµ: '. $basepath . $filename;
 							$result = unlink( $basepath . $filename );
 						}
 						echo intval( $result );
@@ -148,7 +148,7 @@ class JCELanguageInstaller extends mosInstaller {
 				}
 			}
 		} else {
-			HTML_installer::showInstallMessage( 'Пустой id языка, невозможно удалить файлы', 'Ошибка удаления', $this->returnTo( $option, 'install&element=language', $client ) );
+			HTML_installer::showInstallMessage( 'РџСѓСЃС‚РѕР№ id СЏР·С‹РєР°, РЅРµРІРѕР·РјРѕР¶РЅРѕ СѓРґР°Р»РёС‚СЊ С„Р°Р№Р»С‹', 'РћС€РёР±РєР° СѓРґР°Р»РµРЅРёСЏ', $this->returnTo( $option, 'install&element=language', $client ) );
 			exit();
 		}
 

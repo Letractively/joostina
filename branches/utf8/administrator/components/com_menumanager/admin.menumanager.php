@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 // ensure user has access to this function
 if (!$acl->acl_check( 'administration', 'manage', 'users', $my->usertype, 'components', 'com_menumanager' )) {
@@ -41,27 +41,27 @@ switch ($task) {
 		break;
 
 	case 'savemenu':
-		js_menu_cache_clear(); //boston, чистим кэш меню панели управления
+		js_menu_cache_clear(); //boston, С‡РёСЃС‚РёРј РєСЌС€ РјРµРЅСЋ РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ
 		saveMenu();
 		break;
 
 	case 'deleteconfirm':
-		js_menu_cache_clear(); //boston, чистим кэш меню панели управления		
+		js_menu_cache_clear(); //boston, С‡РёСЃС‚РёРј РєСЌС€ РјРµРЅСЋ РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ		
 		deleteconfirm( $option, $cid[0] );
 		break;
 
 	case 'deletemenu':
-		js_menu_cache_clear(); //boston, чистим кэш меню панели управления
+		js_menu_cache_clear(); //boston, С‡РёСЃС‚РёРј РєСЌС€ РјРµРЅСЋ РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ
 		deleteMenu( $option, $cid, $type );
 		break;
 
 	case 'copyconfirm':
-		js_menu_cache_clear(); //boston, чистим кэш меню панели управления
+		js_menu_cache_clear(); //boston, С‡РёСЃС‚РёРј РєСЌС€ РјРµРЅСЋ РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ
 		copyConfirm( $option, $cid[0] );
 		break;
 
 	case 'copymenu':
-		js_menu_cache_clear(); //boston, чистим кэш меню панели управления
+		js_menu_cache_clear(); //boston, С‡РёСЃС‚РёРј РєСЌС€ РјРµРЅСЋ РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ
 		copyMenu( $option, $cid, $type );
 		break;
 
@@ -213,14 +213,14 @@ function saveMenu() {
 	// block to stop renaming of 'mainmenu' menutype
 	if ( $old_menutype == 'mainmenu' ) {
 		if ( $menutype != 'mainmenu' ) {
-			echo "<script> alert('Вы не можете переименовать меню \'mainmenu\', т.к.  это нарушит правильное функционирование Joomla'); window.history.go(-1); </script>\n";
+			echo "<script> alert('Р’С‹ РЅРµ РјРѕР¶РµС‚Рµ РїРµСЂРµРёРјРµРЅРѕРІР°С‚СЊ РјРµРЅСЋ \'mainmenu\', С‚.Рє.  СЌС‚Рѕ РЅР°СЂСѓС€РёС‚ РїСЂР°РІРёР»СЊРЅРѕРµ С„СѓРЅРєС†РёРѕРЅРёСЂРѕРІР°РЅРёРµ Joomla'); window.history.go(-1); </script>\n";
 			exit;
 		}
 	}
 
 	// check for ' in menu name
 	if (strstr($menutype, '\'')) {
-		echo "<script> alert('Название меню не должно содержать \''); window.history.go(-1); </script>\n";
+		echo "<script> alert('РќР°Р·РІР°РЅРёРµ РјРµРЅСЋ РЅРµ РґРѕР»Р¶РЅРѕ СЃРѕРґРµСЂР¶Р°С‚СЊ \''); window.history.go(-1); </script>\n";
 		exit;
 	}
 
@@ -234,7 +234,7 @@ function saveMenu() {
 	foreach ( $menus as $menu ) {
 		$params = mosParseParams( $menu );
 		if ( $params->menutype == $menutype ) {
-			echo "<script> alert('Меню с таким именем уже существует. Вы должны ввести уникальное имя меню'); window.history.go(-1); </script>\n";
+			echo "<script> alert('РњРµРЅСЋ СЃ С‚Р°РєРёРј РёРјРµРЅРµРј СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚. Р’С‹ РґРѕР»Р¶РЅС‹ РІРІРµСЃС‚Рё СѓРЅРёРєР°Р»СЊРЅРѕРµ РёРјСЏ РјРµРЅСЋ'); window.history.go(-1); </script>\n";
 			exit;
 		}
 	}
@@ -269,7 +269,7 @@ function saveMenu() {
 				exit();
 			}
 
-			$msg = 'Создано новое меню [ '. $menutype .' ]';
+			$msg = 'РЎРѕР·РґР°РЅРѕ РЅРѕРІРѕРµ РјРµРЅСЋ [ '. $menutype .' ]';
 			break;
 
 		default:
@@ -325,7 +325,7 @@ function saveMenu() {
 				$database->query();
 			}
 
-			$msg = 'Пункты меню и модули обновлены';
+			$msg = 'РџСѓРЅРєС‚С‹ РјРµРЅСЋ Рё РјРѕРґСѓР»Рё РѕР±РЅРѕРІР»РµРЅС‹';
 			break;
 	}
 
@@ -339,7 +339,7 @@ function deleteConfirm( $option, $type ) {
 	global $database;
 
 	if ( $type == 'mainmenu' ) {
-		echo "<script> alert('Вы не можете удалить меню \'mainmenu\', т.к. оно является меню ядра'); window.history.go(-1); </script>\n";
+		echo "<script> alert('Р’С‹ РЅРµ РјРѕР¶РµС‚Рµ СѓРґР°Р»РёС‚СЊ РјРµРЅСЋ \'mainmenu\', С‚.Рє. РѕРЅРѕ СЏРІР»СЏРµС‚СЃСЏ РјРµРЅСЋ СЏРґСЂР°'); window.history.go(-1); </script>\n";
 		exit();
 	}
 
@@ -394,7 +394,7 @@ function deleteMenu( $option, $cid, $type ) {
 	global $database;
 
 	if ( $type == 'mainmenu' ) {
-		echo "<script> alert('Вы не можете удалить меню \'mainmenu\', т.к. оно является меню ядра'); window.history.go(-1); </script>\n";
+		echo "<script> alert('Р’С‹ РЅРµ РјРѕР¶РµС‚Рµ СѓРґР°Р»РёС‚СЊ РјРµРЅСЋ \'mainmenu\', С‚.Рє. РѕРЅРѕ СЏРІР»СЏРµС‚СЃСЏ РјРµРЅСЋ СЏРґСЂР°'); window.history.go(-1); </script>\n";
 		exit();
 	}
 
@@ -447,7 +447,7 @@ function deleteMenu( $option, $cid, $type ) {
 	// clean any existing cache files
 	mosCache::cleanCache( 'com_content' );
 	
-	$msg = 'Меню удалено';
+	$msg = 'РњРµРЅСЋ СѓРґР°Р»РµРЅРѕ';
 	mosRedirect( 'index2.php?option=' . $option, $msg );
 }
 
@@ -477,8 +477,8 @@ function copyConfirm( $option, $type ) {
 function copyMenu( $option, $cid, $type ) {
 	global $database;
 
-	$menu_name 		= stripslashes( strval( mosGetParam( $_POST, 'menu_name', 'Новое меню' ) ) );
-	$module_name 	= stripslashes( strval( mosGetParam( $_POST, 'module_name', 'Новый модуль' ) ) );
+	$menu_name 		= stripslashes( strval( mosGetParam( $_POST, 'menu_name', 'РќРѕРІРѕРµ РјРµРЅСЋ' ) ) );
+	$module_name 	= stripslashes( strval( mosGetParam( $_POST, 'module_name', 'РќРѕРІС‹Р№ РјРѕРґСѓР»СЊ' ) ) );
 
 	// check for unique menutype for new menu copy
 	$query = "SELECT params"
@@ -490,7 +490,7 @@ function copyMenu( $option, $cid, $type ) {
 	foreach ( $menus as $menu ) {
 		$params = mosParseParams( $menu );
 		if ( $params->menutype == $menu_name ) {
-			echo "<script> alert('Меню с таким именем уже существует. Вы должны ввести уникальное имя меню'); window.history.go(-1); </script>\n";
+			echo "<script> alert('РњРµРЅСЋ СЃ С‚Р°РєРёРј РёРјРµРЅРµРј СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚. Р’С‹ РґРѕР»Р¶РЅС‹ РІРІРµСЃС‚Рё СѓРЅРёРєР°Р»СЊРЅРѕРµ РёРјСЏ РјРµРЅСЋ'); window.history.go(-1); </script>\n";
 			exit;
 		}
 	}
@@ -553,7 +553,7 @@ function copyMenu( $option, $cid, $type ) {
 	// clean any existing cache files
 	mosCache::cleanCache( 'com_content' );
 
-	$msg = 'Создана копия меню `'. $type .'`, состоящая из '. $total .' пунктов';
+	$msg = 'РЎРѕР·РґР°РЅР° РєРѕРїРёСЏ РјРµРЅСЋ `'. $type .'`, СЃРѕСЃС‚РѕСЏС‰Р°СЏ РёР· '. $total .' РїСѓРЅРєС‚РѕРІ';
 	mosRedirect( 'index2.php?option=' . $option, $msg );
 }
 

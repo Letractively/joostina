@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 /**
 * Module installer
 * @package Joostina
@@ -36,7 +36,7 @@ class mosInstallerModule extends mosInstaller {
 		if ($mosinstall->getAttribute( 'client' )) {
 			$validClients = array( 'administrator' );
 			if (!in_array( $mosinstall->getAttribute( 'client' ), $validClients )) {
-				$this->setError( 1, 'Неизвестный тип клиента ['.$mosinstall->getAttribute( 'client' ).']' );
+				$this->setError( 1, 'РќРµРёР·РІРµСЃС‚РЅС‹Р№ С‚РёРї РєР»РёРµРЅС‚Р° ['.$mosinstall->getAttribute( 'client' ).']' );
 				return false;
 			}
 			$client = 'admin';
@@ -64,7 +64,7 @@ class mosInstallerModule extends mosInstaller {
 			$published 	= 0;
 		}
 		
-		if ($this->parseFiles( 'files', 'module', 'Файлы, отмеченные как модули, отсутствуют' ) === false) {
+		if ($this->parseFiles( 'files', 'module', 'Р¤Р°Р№Р»С‹, РѕС‚РјРµС‡РµРЅРЅС‹Рµ РєР°Рє РјРѕРґСѓР»Рё, РѕС‚СЃСѓС‚СЃС‚РІСѓСЋС‚' ) === false) {
 			return false;
 		}
 		$this->parseFiles( 'images' );
@@ -77,7 +77,7 @@ class mosInstallerModule extends mosInstaller {
 		;
 		$database->setQuery( $query );
 		if (!$database->query()) {
-			$this->setError( 1, 'Ошибка SQL: ' . $database->stderr( true ) );
+			$this->setError( 1, 'РћС€РёР±РєР° SQL: ' . $database->stderr( true ) );
 			return false;
 		}
 
@@ -102,11 +102,11 @@ class mosInstallerModule extends mosInstaller {
 			;
 			$database->setQuery( $query );
 			if(!$database->query()) {
-				$this->setError( 1, 'Ошибка SQL: ' . $database->stderr( true ) );
+				$this->setError( 1, 'РћС€РёР±РєР° SQL: ' . $database->stderr( true ) );
 				return false;
 			}
 		} else {
-			$this->setError( 1, 'Модуль "' . $this->elementName() . '" уже существует!' );
+			$this->setError( 1, 'РњРѕРґСѓР»СЊ "' . $this->elementName() . '" СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚!' );
 			return false;
 		}
 		if ($e = &$mosinstall->getElementsByPath( 'description', 1 )) {
@@ -134,7 +134,7 @@ class mosInstallerModule extends mosInstaller {
 		$database->loadObject( $row );
 
 		if ($row->iscore) {
-			HTML_installer::showInstallMessage( $row->title .' - модуль ядра.<br />Вам необходимо отменить его публикацию, если не хотите его использовать', 'Ошибка деинсталляции', $this->returnTo( $option, 'module', $row->client_id ? '' : 'admin' ) );
+			HTML_installer::showInstallMessage( $row->title .' - РјРѕРґСѓР»СЊ СЏРґСЂР°.<br />Р’Р°Рј РЅРµРѕР±С…РѕРґРёРјРѕ РѕС‚РјРµРЅРёС‚СЊ РµРіРѕ РїСѓР±Р»РёРєР°С†РёСЋ, РµСЃР»Рё РЅРµ С…РѕС‚РёС‚Рµ РµРіРѕ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ', 'РћС€РёР±РєР° РґРµРёРЅСЃС‚Р°Р»Р»СЏС†РёРё', $this->returnTo( $option, 'module', $row->client_id ? '' : 'admin' ) );
 			exit();
 		}
 
@@ -193,10 +193,10 @@ class mosInstallerModule extends mosInstaller {
     							$parts = pathinfo( $filename );
     							$subpath = $parts['dirname'];
     							if ($subpath != '' && $subpath != '.' && $subpath != '..') {
-    								echo '<br />Удаление: '. $basepath . $subpath;
+    								echo '<br />РЈРґР°Р»РµРЅРёРµ: '. $basepath . $subpath;
     								$result = deldir(mosPathName( $basepath . $subpath . '/' ));
     							} else {
-    								echo '<br />Удаление: '. $basepath . $filename;
+    								echo '<br />РЈРґР°Р»РµРЅРёРµ: '. $basepath . $filename;
     								$result = unlink( mosPathName ($basepath . $filename, false));
     							}
     							echo intval( $result );

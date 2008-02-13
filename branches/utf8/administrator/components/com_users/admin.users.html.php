@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 /**
 * @package Joostina
@@ -27,10 +27,10 @@ class HTML_users {
 		<table class="adminheading">
 		<tr>
 			<th class="user">
-			Пользователи
+			РџРѕР»СЊР·РѕРІР°С‚РµР»Рё
 			</th>
 			<td>
-			Фильтр:
+			Р¤РёР»СЊС‚СЂ:
 			</td>
 			<td>
 			<input type="text" name="search" value="<?php echo htmlspecialchars( $search );?>" class="inputbox" onChange="document.adminForm.submit();" />
@@ -53,25 +53,25 @@ class HTML_users {
 				<input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo count($rows); ?>);" />
 			</th>
 			<th class="title">
-			Имя
+			РРјСЏ
 			</th>
 			<th width="15%" class="title">
-			Имя пользователя
+			РРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
 			</th>
 			<th width="5%" class="title">
-			На сайте
+			РќР° СЃР°Р№С‚Рµ
 			</th>
 			<th width="5%" class="title">
-			Разрешен
+			Р Р°Р·СЂРµС€РµРЅ
 			</th>
 			<th width="12%" class="title">
-			Группа
+			Р“СЂСѓРїРїР°
 			</th>
 			<th width="13%" class="title">
 			E-Mail
 			</th>
 			<th width="15%" class="title">
-			Последнее посещение
+			РџРѕСЃР»РµРґРЅРµРµ РїРѕСЃРµС‰РµРЅРёРµ
 			</th>
 			<th width="1%" class="title">
 			ID
@@ -84,7 +84,7 @@ class HTML_users {
 
 			$img 	= $row->block ? 'publish_x.png' : 'tick.png';
 			$task 	= $row->block ? 'unblock' : 'block';
-			$alt 	= $row->block ? 'Разрешить' : 'Блокировать';
+			$alt 	= $row->block ? 'Р Р°Р·СЂРµС€РёС‚СЊ' : 'Р‘Р»РѕРєРёСЂРѕРІР°С‚СЊ';
 			$link 	= 'index2.php?option=com_users&amp;task=editA&amp;id='. $row->id. '&amp;hidemainmenu=1';
 			?>
 			<tr class="<?php echo "row$k"; ?>">
@@ -163,21 +163,21 @@ class HTML_users {
 
 			// do field validation
 			if (trim(form.name.value) == "") {
-				alert( "Вы должны ввести имя." );
+				alert( "Р’С‹ РґРѕР»Р¶РЅС‹ РІРІРµСЃС‚Рё РёРјСЏ." );
 			} else if (form.username.value == "") {
-				alert( "Вы должны ввести имя пользователя для входа на сайт." );
+				alert( "Р’С‹ РґРѕР»Р¶РЅС‹ РІРІРµСЃС‚Рё РёРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РґР»СЏ РІС…РѕРґР° РЅР° СЃР°Р№С‚." );
 			} else if (r.exec(form.username.value) || form.username.value.length < 3) {
-				alert( "Ваше имя для входа содержит неправильные символы или слишком короткое." );
+				alert( "Р’Р°С€Рµ РёРјСЏ РґР»СЏ РІС…РѕРґР° СЃРѕРґРµСЂР¶РёС‚ РЅРµРїСЂР°РІРёР»СЊРЅС‹Рµ СЃРёРјРІРѕР»С‹ РёР»Рё СЃР»РёС€РєРѕРј РєРѕСЂРѕС‚РєРѕРµ." );
 			} else if (trim(form.email.value) == "") {
-				alert( "Вы должны ввести адрес email." );
+				alert( "Р’С‹ РґРѕР»Р¶РЅС‹ РІРІРµСЃС‚Рё Р°РґСЂРµСЃ email." );
 			} else if (form.gid.value == "") {
-				alert( "Вы должны назначить пользователю группу доступа." );
+				alert( "Р’С‹ РґРѕР»Р¶РЅС‹ РЅР°Р·РЅР°С‡РёС‚СЊ РїРѕР»СЊР·РѕРІР°С‚РµР»СЋ РіСЂСѓРїРїСѓ РґРѕСЃС‚СѓРїР°." );
 			} else if (trim(form.password.value) != "" && form.password.value != form.password2.value){
-				alert( "Пароль неправильный." );
+				alert( "РџР°СЂРѕР»СЊ РЅРµРїСЂР°РІРёР»СЊРЅС‹Р№." );
 			} else if (form.gid.value == "29") {
-				alert( "Пожалуйста, выберите другую группу. Группы типа `Public Front-end` выбирать нельзя" );
+				alert( "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІС‹Р±РµСЂРёС‚Рµ РґСЂСѓРіСѓСЋ РіСЂСѓРїРїСѓ. Р“СЂСѓРїРїС‹ С‚РёРїР° `Public Front-end` РІС‹Р±РёСЂР°С‚СЊ РЅРµР»СЊР·СЏ" );
 			} else if (form.gid.value == "30") {
-				alert( "Пожалуйста, выберите другую группу. Группы типа `Public Back-end` выбирать нельзя" );
+				alert( "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІС‹Р±РµСЂРёС‚Рµ РґСЂСѓРіСѓСЋ РіСЂСѓРїРїСѓ. Р“СЂСѓРїРїС‹ С‚РёРїР° `Public Back-end` РІС‹Р±РёСЂР°С‚СЊ РЅРµР»СЊР·СЏ" );
 			} else {
 				submitform( pressbutton );
 			}
@@ -194,7 +194,7 @@ class HTML_users {
 		<table class="adminheading">
 		<tr>
 			<th class="user">
-			Пользователь: <small><?php echo $row->id ? 'Изменение' : 'Добавление';?></small>
+			РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ: <small><?php echo $row->id ? 'РР·РјРµРЅРµРЅРёРµ' : 'Р”РѕР±Р°РІР»РµРЅРёРµ';?></small>
 			</th>
 		</tr>
 		</table>
@@ -205,12 +205,12 @@ class HTML_users {
 				<table class="adminform">
 				<tr>
 					<th colspan="2">
-					Информация о пользователе
+					РРЅС„РѕСЂРјР°С†РёСЏ Рѕ РїРѕР»СЊР·РѕРІР°С‚РµР»Рµ
 					</th>
 				</tr>
 				<tr>
 					<td width="130">
-					Полное имя:
+					РџРѕР»РЅРѕРµ РёРјСЏ:
 					</td>
 					<td>
 					<input type="text" name="name" class="inputbox" size="40" value="<?php echo $row->name; ?>" maxlength="50" />
@@ -218,7 +218,7 @@ class HTML_users {
 				</tr>
 				<tr>
 					<td>
-					Имя пользователя:
+					РРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ:
 					</td>
 					<td>
 					<input type="text" name="username" class="inputbox" size="40" value="<?php echo $row->username; ?>" maxlength="25" />
@@ -233,7 +233,7 @@ class HTML_users {
 				</tr>
 				<tr>
 					<td>
-					Новый пароль:
+					РќРѕРІС‹Р№ РїР°СЂРѕР»СЊ:
 					</td>
 					<td>
 					<input class="inputbox" type="password" name="password" size="40" value="" />
@@ -241,7 +241,7 @@ class HTML_users {
 				</tr>
 				<tr>
 					<td>
-					Проверка пароля:
+					РџСЂРѕРІРµСЂРєР° РїР°СЂРѕР»СЏ:
 					</td>
 					<td>
 					<input class="inputbox" type="password" name="password2" size="40" value="" />
@@ -249,7 +249,7 @@ class HTML_users {
 				</tr>
 				<tr>
 					<td valign="top">
-					Группа:
+					Р“СЂСѓРїРїР°:
 					</td>
 					<td>
 					<?php echo $lists['gid']; ?>
@@ -260,7 +260,7 @@ class HTML_users {
 					?>
 					<tr>
 						<td>
-						Блокировать пользователя
+						Р‘Р»РѕРєРёСЂРѕРІР°С‚СЊ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
 						</td>
 						<td>
 						<?php echo $lists['block']; ?>
@@ -272,7 +272,7 @@ class HTML_users {
 					?>
 					<tr>
 						<td>
-						Получать системные сообщения на e-mail
+						РџРѕР»СѓС‡Р°С‚СЊ СЃРёСЃС‚РµРјРЅС‹Рµ СЃРѕРѕР±С‰РµРЅРёСЏ РЅР° e-mail
 						</td>
 						<td>
 						<?php echo $lists['sendEmail']; ?>
@@ -284,7 +284,7 @@ class HTML_users {
 					?>
 					<tr>
 						<td>
-						Дата регистрации
+						Р”Р°С‚Р° СЂРµРіРёСЃС‚СЂР°С†РёРё
 						</td>
 						<td>
 						<?php echo $row->registerDate;?>
@@ -292,7 +292,7 @@ class HTML_users {
 					</tr>
 				<tr>
 					<td>
-					Дата последнего посещения
+					Р”Р°С‚Р° РїРѕСЃР»РµРґРЅРµРіРѕ РїРѕСЃРµС‰РµРЅРёСЏ
 					</td>
 					<td>
 					<?php echo $row->lastvisitDate;?>
@@ -312,7 +312,7 @@ class HTML_users {
 				<table class="adminform">
 				<tr>
 					<th colspan="1">
-					<?php echo 'Параметры'; ?>
+					<?php echo 'РџР°СЂР°РјРµС‚СЂС‹'; ?>
 					</th>
 				</tr>
 				<tr>
@@ -328,15 +328,15 @@ class HTML_users {
 					<table class="adminform">
 					<tr>
 						<th>
-						Контактная информация
+						РљРѕРЅС‚Р°РєС‚РЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ
 						</th>
 					</tr>
 					<tr>
 						<td>
 						<br />
-						У этого пользователя нет контактной информации:
+						РЈ СЌС‚РѕРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РЅРµС‚ РєРѕРЅС‚Р°РєС‚РЅРѕР№ РёРЅС„РѕСЂРјР°С†РёРё:
 						<br />
-						Для подробностей смотрите 'Компоненты -> Контакты -> Управление контактами'.
+						Р”Р»СЏ РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ СЃРјРѕС‚СЂРёС‚Рµ 'РљРѕРјРїРѕРЅРµРЅС‚С‹ -> РљРѕРЅС‚Р°РєС‚С‹ -> РЈРїСЂР°РІР»РµРЅРёРµ РєРѕРЅС‚Р°РєС‚Р°РјРё'.
 						<br /><br />
 						</td>
 					</tr>
@@ -347,12 +347,12 @@ class HTML_users {
 					<table class="adminform">
 					<tr>
 						<th colspan="2">
-						Контактная информация
+						РљРѕРЅС‚Р°РєС‚РЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ
 						</th>
 					</tr>
 					<tr>
 						<td width="15%">
-						Полное имя:
+						РџРѕР»РЅРѕРµ РёРјСЏ:
 						</td>
 						<td>
 						<strong>
@@ -362,7 +362,7 @@ class HTML_users {
 					</tr>
 					<tr>
 						<td>
-						Положение (должность):
+						РџРѕР»РѕР¶РµРЅРёРµ (РґРѕР»Р¶РЅРѕСЃС‚СЊ):
 						</td>
 						<td >
 						<strong>
@@ -372,7 +372,7 @@ class HTML_users {
 					</tr>
 					<tr>
 						<td>
-						Телефон:
+						РўРµР»РµС„РѕРЅ:
 						</td>
 						<td >
 						<strong>
@@ -382,7 +382,7 @@ class HTML_users {
 					</tr>
 					<tr>
 						<td>
-						Факс:
+						Р¤Р°РєСЃ:
 						</td>
 						<td >
 						<strong>
@@ -404,7 +404,7 @@ class HTML_users {
 						<tr>
 							<td></td>
 							<td valign="top">
-							<img src="<?php echo $mosConfig_live_site;?>/images/stories/<?php echo $contact[0]->image; ?>" align="middle" alt="Контакт" />
+							<img src="<?php echo $mosConfig_live_site;?>/images/stories/<?php echo $contact[0]->image; ?>" align="middle" alt="РљРѕРЅС‚Р°РєС‚" />
 							</td>
 						</tr>
 						<?php
@@ -413,10 +413,10 @@ class HTML_users {
 					<tr>
 						<td colspan="2">
 						<br /><br />
-						<input class="button" type="button" value="Изменить контактную информацию" onclick="javascript: gotocontact( '<?php echo $contact[0]->id; ?>' )">
+						<input class="button" type="button" value="РР·РјРµРЅРёС‚СЊ РєРѕРЅС‚Р°РєС‚РЅСѓСЋ РёРЅС„РѕСЂРјР°С†РёСЋ" onclick="javascript: gotocontact( '<?php echo $contact[0]->id; ?>' )">
 						<i>
 						<br />
-						'Компоненты -> Контакты -> Управление контактами'.
+						'РљРѕРјРїРѕРЅРµРЅС‚С‹ -> РљРѕРЅС‚Р°РєС‚С‹ -> РЈРїСЂР°РІР»РµРЅРёРµ РєРѕРЅС‚Р°РєС‚Р°РјРё'.
 						</i>
 						</td>
 					</tr>

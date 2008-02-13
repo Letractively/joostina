@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <mosinstall type="menu" version="1.0.0">
-	<name>Ссылка - Объект контакта</name>
+	<name>РЎСЃС‹Р»РєР° - РћР±СЉРµРєС‚ РєРѕРЅС‚Р°РєС‚Р°</name>
 	<group>Component|Link</group>
 	<author>Joostina! Project</author>
-	<creationDate>Январь 2007</creationDate>
+	<creationDate>РЇРЅРІР°СЂСЊ 2007</creationDate>
 	<copyright>(C) 2007 Joostina Team.</copyright>
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
 	<authorEmail>joostinacms@gmail.com</authorEmail>
 	<authorUrl>www.joostina.ru</authorUrl>
 	<version>1.0.0</version>
-	<description>Создает ссылку на опубликованный объект контакта</description>
+	<description>РЎРѕР·РґР°РµС‚ СЃСЃС‹Р»РєСѓ РЅР° РѕРїСѓР±Р»РёРєРѕРІР°РЅРЅС‹Р№ РѕР±СЉРµРєС‚ РєРѕРЅС‚Р°РєС‚Р°</description>
 	<params>
-		<param name="menu_image" type="imagelist" directory="/images/stories" hide_default="1" default="" label="Изображение меню" description="Маленькое изображение, располагаемое слева или справа от пункта меню. Изображение должно находиться в папке images/stories/" />
-		<param name="pageclass_sfx" type="text" default="" label="Суффикс CSS-класса страницы" description="Суффикс CSS-класса, используемого на этой странице. Необходим для использования индивидуального стиля страницы" />
-		<param name="page_title" type="radio" default="1" label="Заголовок страницы" description="Показать/Скрыть заголовок страницы">
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
+		<param name="menu_image" type="imagelist" directory="/images/stories" hide_default="1" default="" label="РР·РѕР±СЂР°Р¶РµРЅРёРµ РјРµРЅСЋ" description="РњР°Р»РµРЅСЊРєРѕРµ РёР·РѕР±СЂР°Р¶РµРЅРёРµ, СЂР°СЃРїРѕР»Р°РіР°РµРјРѕРµ СЃР»РµРІР° РёР»Рё СЃРїСЂР°РІР° РѕС‚ РїСѓРЅРєС‚Р° РјРµРЅСЋ. РР·РѕР±СЂР°Р¶РµРЅРёРµ РґРѕР»Р¶РЅРѕ РЅР°С…РѕРґРёС‚СЊСЃСЏ РІ РїР°РїРєРµ images/stories/" />
+		<param name="pageclass_sfx" type="text" default="" label="РЎСѓС„С„РёРєСЃ CSS-РєР»Р°СЃСЃР° СЃС‚СЂР°РЅРёС†С‹" description="РЎСѓС„С„РёРєСЃ CSS-РєР»Р°СЃСЃР°, РёСЃРїРѕР»СЊР·СѓРµРјРѕРіРѕ РЅР° СЌС‚РѕР№ СЃС‚СЂР°РЅРёС†Рµ. РќРµРѕР±С…РѕРґРёРј РґР»СЏ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ РёРЅРґРёРІРёРґСѓР°Р»СЊРЅРѕРіРѕ СЃС‚РёР»СЏ СЃС‚СЂР°РЅРёС†С‹" />
+		<param name="page_title" type="radio" default="1" label="Р—Р°РіРѕР»РѕРІРѕРє СЃС‚СЂР°РЅРёС†С‹" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ Р·Р°РіРѕР»РѕРІРѕРє СЃС‚СЂР°РЅРёС†С‹">
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
 		</param>
-		<param name="header" type="text" size="30" default="" label="Заголовок страницы" description="Текст, отображаемый вверху страницы. Если заполнено, то будет взамен будет использоваться название меню" />
+		<param name="header" type="text" size="30" default="" label="Р—Р°РіРѕР»РѕРІРѕРє СЃС‚СЂР°РЅРёС†С‹" description="РўРµРєСЃС‚, РѕС‚РѕР±СЂР°Р¶Р°РµРјС‹Р№ РІРІРµСЂС…Сѓ СЃС‚СЂР°РЅРёС†С‹. Р•СЃР»Рё Р·Р°РїРѕР»РЅРµРЅРѕ, С‚Рѕ Р±СѓРґРµС‚ РІР·Р°РјРµРЅ Р±СѓРґРµС‚ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊСЃСЏ РЅР°Р·РІР°РЅРёРµ РјРµРЅСЋ" />
         <param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="bannedEmail" type="text" default="" label="Заблокированные Email" size="40" description="Адреса E-mail, содержащие определенный текст. Необходимо ввести слова, разделяя их точкой с запятой. Например, ban;text;etc" />
-		<param name="bannedSubject" type="text" default="" label="Заблокированные темы" size="40" description="Темы писем, содержащие определенный текст. Необходимо ввести слова, разделяя их точкой с запятой. Например, ban;text;etc" />
-		<param name="bannedText" type="text" default="" label="Заблокированный текст" size="40" description="Текст писем, содержащих определенный текст. Необходимо ввести слова, разделяя их точкой с запятой. Например, ban;text;etc" />
+		<param name="bannedEmail" type="text" default="" label="Р—Р°Р±Р»РѕРєРёСЂРѕРІР°РЅРЅС‹Рµ Email" size="40" description="РђРґСЂРµСЃР° E-mail, СЃРѕРґРµСЂР¶Р°С‰РёРµ РѕРїСЂРµРґРµР»РµРЅРЅС‹Р№ С‚РµРєСЃС‚. РќРµРѕР±С…РѕРґРёРјРѕ РІРІРµСЃС‚Рё СЃР»РѕРІР°, СЂР°Р·РґРµР»СЏСЏ РёС… С‚РѕС‡РєРѕР№ СЃ Р·Р°РїСЏС‚РѕР№. РќР°РїСЂРёРјРµСЂ, ban;text;etc" />
+		<param name="bannedSubject" type="text" default="" label="Р—Р°Р±Р»РѕРєРёСЂРѕРІР°РЅРЅС‹Рµ С‚РµРјС‹" size="40" description="РўРµРјС‹ РїРёСЃРµРј, СЃРѕРґРµСЂР¶Р°С‰РёРµ РѕРїСЂРµРґРµР»РµРЅРЅС‹Р№ С‚РµРєСЃС‚. РќРµРѕР±С…РѕРґРёРјРѕ РІРІРµСЃС‚Рё СЃР»РѕРІР°, СЂР°Р·РґРµР»СЏСЏ РёС… С‚РѕС‡РєРѕР№ СЃ Р·Р°РїСЏС‚РѕР№. РќР°РїСЂРёРјРµСЂ, ban;text;etc" />
+		<param name="bannedText" type="text" default="" label="Р—Р°Р±Р»РѕРєРёСЂРѕРІР°РЅРЅС‹Р№ С‚РµРєСЃС‚" size="40" description="РўРµРєСЃС‚ РїРёСЃРµРј, СЃРѕРґРµСЂР¶Р°С‰РёС… РѕРїСЂРµРґРµР»РµРЅРЅС‹Р№ С‚РµРєСЃС‚. РќРµРѕР±С…РѕРґРёРјРѕ РІРІРµСЃС‚Рё СЃР»РѕРІР°, СЂР°Р·РґРµР»СЏСЏ РёС… С‚РѕС‡РєРѕР№ СЃ Р·Р°РїСЏС‚РѕР№. РќР°РїСЂРёРјРµСЂ, ban;text;etc" />
 		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="session" type="radio" default="1" label="Проверка сессий" description="Проверка сессий, не имеющих cookie. Эта функция запрещает пользователям без cookie отправлять сообщения на email">
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
+		<param name="session" type="radio" default="1" label="РџСЂРѕРІРµСЂРєР° СЃРµСЃСЃРёР№" description="РџСЂРѕРІРµСЂРєР° СЃРµСЃСЃРёР№, РЅРµ РёРјРµСЋС‰РёС… cookie. Р­С‚Р° С„СѓРЅРєС†РёСЏ Р·Р°РїСЂРµС‰Р°РµС‚ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏРј Р±РµР· cookie РѕС‚РїСЂР°РІР»СЏС‚СЊ СЃРѕРѕР±С‰РµРЅРёСЏ РЅР° email">
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
 		</param>
 	</params>
 </mosinstall>

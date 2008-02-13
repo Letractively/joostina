@@ -8,7 +8,7 @@
 	<authorUrl>http://joom.ru/</authorUrl>
 	<copyright>Joom.ru - Russian home of Joomla!</copyright>
 	<license>LGPL</license>
-	<description>Русский языковой файл JCE</description>
+	<description>Р СѓСЃСЃРєРёР№ СЏР·С‹РєРѕРІРѕР№ С„Р°Р№Р» JCE</description>
 		<files>
 		<filename language="ru">langs/ru.js</filename>
 		<filename>themes/advanced/langs/ru.js</filename>

@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 require_once( $mainframe->getPath( 'admin_html' ) );
 
@@ -157,20 +157,20 @@ function view( $option ) {
 		$rows[$i]->links = $database->loadResult();
 	}
 
-	$ordering[] = mosHTML::makeOption( 'c.ordering ASC', 'Порядок по возрастанию' );
-	$ordering[] = mosHTML::makeOption( 'c.ordering DESC', 'Порядок по убыванию' );
-	$ordering[] = mosHTML::makeOption( 'c.id ASC', 'По возрастанию ID' );
-	$ordering[] = mosHTML::makeOption( 'c.id DESC', 'По убыванию ID' );
-	$ordering[] = mosHTML::makeOption( 'c.title ASC', 'Заголовки по алфавиту' );
-	$ordering[] = mosHTML::makeOption( 'c.title DESC', 'Заголовки против алфавита' );
-	$ordering[] = mosHTML::makeOption( 'c.created ASC', 'Дата по возрастанию' );
-	$ordering[] = mosHTML::makeOption( 'c.created DESC', 'Дата по убыванию' );
-	$ordering[] = mosHTML::makeOption( 'z.name ASC', 'Авторы по алфавиту' );
-	$ordering[] = mosHTML::makeOption( 'z.name DESC', 'Авторы против алфавита' );
-	$ordering[] = mosHTML::makeOption( 'c.state ASC', 'Сначала неопубликованные' );
-	$ordering[] = mosHTML::makeOption( 'c.state DESC', 'Сначала опубликованные' );
-	$ordering[] = mosHTML::makeOption( 'c.access ASC', 'Доступ по возрастанию' );
-	$ordering[] = mosHTML::makeOption( 'c.access DESC', 'Доступ по убыванию' );
+	$ordering[] = mosHTML::makeOption( 'c.ordering ASC', 'РџРѕСЂСЏРґРѕРє РїРѕ РІРѕР·СЂР°СЃС‚Р°РЅРёСЋ' );
+	$ordering[] = mosHTML::makeOption( 'c.ordering DESC', 'РџРѕСЂСЏРґРѕРє РїРѕ СѓР±С‹РІР°РЅРёСЋ' );
+	$ordering[] = mosHTML::makeOption( 'c.id ASC', 'РџРѕ РІРѕР·СЂР°СЃС‚Р°РЅРёСЋ ID' );
+	$ordering[] = mosHTML::makeOption( 'c.id DESC', 'РџРѕ СѓР±С‹РІР°РЅРёСЋ ID' );
+	$ordering[] = mosHTML::makeOption( 'c.title ASC', 'Р—Р°РіРѕР»РѕРІРєРё РїРѕ Р°Р»С„Р°РІРёС‚Сѓ' );
+	$ordering[] = mosHTML::makeOption( 'c.title DESC', 'Р—Р°РіРѕР»РѕРІРєРё РїСЂРѕС‚РёРІ Р°Р»С„Р°РІРёС‚Р°' );
+	$ordering[] = mosHTML::makeOption( 'c.created ASC', 'Р”Р°С‚Р° РїРѕ РІРѕР·СЂР°СЃС‚Р°РЅРёСЋ' );
+	$ordering[] = mosHTML::makeOption( 'c.created DESC', 'Р”Р°С‚Р° РїРѕ СѓР±С‹РІР°РЅРёСЋ' );
+	$ordering[] = mosHTML::makeOption( 'z.name ASC', 'РђРІС‚РѕСЂС‹ РїРѕ Р°Р»С„Р°РІРёС‚Сѓ' );
+	$ordering[] = mosHTML::makeOption( 'z.name DESC', 'РђРІС‚РѕСЂС‹ РїСЂРѕС‚РёРІ Р°Р»С„Р°РІРёС‚Р°' );
+	$ordering[] = mosHTML::makeOption( 'c.state ASC', 'РЎРЅР°С‡Р°Р»Р° РЅРµРѕРїСѓР±Р»РёРєРѕРІР°РЅРЅС‹Рµ' );
+	$ordering[] = mosHTML::makeOption( 'c.state DESC', 'РЎРЅР°С‡Р°Р»Р° РѕРїСѓР±Р»РёРєРѕРІР°РЅРЅС‹Рµ' );
+	$ordering[] = mosHTML::makeOption( 'c.access ASC', 'Р”РѕСЃС‚СѓРї РїРѕ РІРѕР·СЂР°СЃС‚Р°РЅРёСЋ' );
+	$ordering[] = mosHTML::makeOption( 'c.access DESC', 'Р”РѕСЃС‚СѓРї РїРѕ СѓР±С‹РІР°РЅРёСЋ' );
 	$javascript = 'onchange="document.adminForm.submit();"';
 	$lists['order'] = mosHTML::selectList( $ordering, 'zorder', 'class="inputbox" size="1"'. $javascript, 'value', 'text', $order );
 
@@ -209,7 +209,7 @@ function edit( $uid, $option ) {
 	if ($uid) {
 		// fail if checked out not by 'me'
 		if ($row->isCheckedOut( $my->id )) {
-			mosErrorAlert( "Модуль ".$row->title." в настоящее время редактируется другим администратором" );
+			mosErrorAlert( "РњРѕРґСѓР»СЊ ".$row->title." РІ РЅР°СЃС‚РѕСЏС‰РµРµ РІСЂРµРјСЏ СЂРµРґР°РєС‚РёСЂСѓРµС‚СЃСЏ РґСЂСѓРіРёРј Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂРѕРј" );
 		}
 
 		$row->checkout( $my->id );
@@ -225,7 +225,7 @@ function edit( $uid, $option ) {
 		$row->publish_up 	= mosFormatDate( $row->publish_up, _CURRENT_SERVER_TIME_FORMAT );
 		
 		if (trim( $row->publish_down ) == $nullDate || trim( $row->publish_down ) == '' || trim( $row->publish_down ) == '-' ) {
-			$row->publish_down = 'Никогда';
+			$row->publish_down = 'РќРёРєРѕРіРґР°';
 		}
 		$row->publish_down 	= mosFormatDate( $row->publish_down, _CURRENT_SERVER_TIME_FORMAT );		
 
@@ -257,7 +257,7 @@ function edit( $uid, $option ) {
 		$row->state 		= 1;
 		$row->images 		= array();
 		$row->publish_up 	= date( 'Y-m-d H:i:s', time() + ( $mosConfig_offset * 60 * 60 ) );
-		$row->publish_down 	= 'Никогда';
+		$row->publish_down 	= 'РќРёРєРѕРіРґР°';
 		$row->sectionid 	= 0;
 		$row->catid 		= 0;
 		$row->creator 		= '';
@@ -336,7 +336,7 @@ function save( $option, $task ) {
 	}
 	$row->publish_up = mosFormatDate($row->publish_up, _CURRENT_SERVER_TIME_FORMAT, -$mosConfig_offset );
 	
-	if (trim( $row->publish_down ) == 'Никогда' || trim( $row->publish_down ) == '') {
+	if (trim( $row->publish_down ) == 'РќРёРєРѕРіРґР°' || trim( $row->publish_down ) == '') {
 		$row->publish_down = $nullDate;
 	} else {
 		if (strlen(trim( $row->publish_down )) <= 10) {
@@ -393,13 +393,13 @@ function save( $option, $task ) {
 			break;
 
 		case 'save':
-			$msg = 'Содержимое сохранено';
+			$msg = 'РЎРѕРґРµСЂР¶РёРјРѕРµ СЃРѕС…СЂР°РЅРµРЅРѕ';
 			mosRedirect( 'index2.php?option='. $option, $msg );
 			break;
 
 		case 'apply':
 		default:
-			$msg = 'Все изменения содержимого сохранены';
+			$msg = 'Р’СЃРµ РёР·РјРµРЅРµРЅРёСЏ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ СЃРѕС…СЂР°РЅРµРЅС‹';
 			mosRedirect( 'index2.php?option='. $option .'&task=edit&hidemainmenu=1&id='. $row->id, $msg );
 			break;
 	}
@@ -413,7 +413,7 @@ function trash( &$cid, $option ) {
 
 	$total = count( $cid );
 	if ( $total < 1) {
-		echo "<script> alert('Выберите объект для удаления'); window.history.go(-1);</script>\n";
+		echo "<script> alert('Р’С‹Р±РµСЂРёС‚Рµ РѕР±СЉРµРєС‚ РґР»СЏ СѓРґР°Р»РµРЅРёСЏ'); window.history.go(-1);</script>\n";
 		exit;
 	}
 
@@ -435,7 +435,7 @@ function trash( &$cid, $option ) {
  	// clean any existing cache files
 	mosCache::cleanCache( 'com_content' );
 
-	$msg = "Объектов отправлено в корзину - ". $total;
+	$msg = "РћР±СЉРµРєС‚РѕРІ РѕС‚РїСЂР°РІР»РµРЅРѕ РІ РєРѕСЂР·РёРЅСѓ - ". $total;
 	mosRedirect( 'index2.php?option='. $option, $msg );
 }
 
@@ -451,8 +451,8 @@ function changeState( $cid=null, $state=0, $option ) {
 	global $database, $my;
 
 	if (count( $cid ) < 1) {
-		$action = $state == 1 ? 'публикации' : ($state == -1 ? 'архивирования' : 'сокрытия');
-		echo "<script> alert('Выберите объект для $action'); window.history.go(-1);</script>\n";
+		$action = $state == 1 ? 'РїСѓР±Р»РёРєР°С†РёРё' : ($state == -1 ? 'Р°СЂС…РёРІРёСЂРѕРІР°РЅРёСЏ' : 'СЃРѕРєСЂС‹С‚РёСЏ');
+		echo "<script> alert('Р’С‹Р±РµСЂРёС‚Рµ РѕР±СЉРµРєС‚ РґР»СЏ $action'); window.history.go(-1);</script>\n";
 		exit;
 	}
 
@@ -480,9 +480,9 @@ function changeState( $cid=null, $state=0, $option ) {
 	mosCache::cleanCache( 'com_content' );
 										  
 	if ( $state == "1" ) {
-		$msg = " Объектов успешно опубликовано - ".$total;
+		$msg = " РћР±СЉРµРєС‚РѕРІ СѓСЃРїРµС€РЅРѕ РѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ - ".$total;
 	} else if ( $state == "0" ) {
-		$msg = " Объектов успешно скрыто - ".$total;
+		$msg = " РћР±СЉРµРєС‚РѕРІ СѓСЃРїРµС€РЅРѕ СЃРєСЂС‹С‚Рѕ - ".$total;
 	}
 	mosRedirect( 'index2.php?option='. $option .'&msg='. $msg );
 }
@@ -505,7 +505,7 @@ function changeAccess( $id, $access, $option  ) {
 		return $row->getError();
 	}
 
-	// очистка кэша связанного с компонентом контента
+	// РѕС‡РёСЃС‚РєР° РєСЌС€Р° СЃРІСЏР·Р°РЅРЅРѕРіРѕ СЃ РєРѕРјРїРѕРЅРµРЅС‚РѕРј РєРѕРЅС‚РµРЅС‚Р°
 	mosCache::cleanCache( 'com_content' );
 
 	mosRedirect( 'index2.php?option='. $option );
@@ -524,7 +524,7 @@ function resethits( $option, $id ) {
 	$row->store();
 	$row->checkin();
 
-	$msg = 'Счетчик просмотров успешно обнулен';
+	$msg = 'РЎС‡РµС‚С‡РёРє РїСЂРѕСЃРјРѕС‚СЂРѕРІ СѓСЃРїРµС€РЅРѕ РѕР±РЅСѓР»РµРЅ';
 	mosRedirect( 'index2.php?option='. $option .'&task=edit&hidemainmenu=1&id='. $row->id, $msg );
 }
 
@@ -572,7 +572,7 @@ function menuLink( $option, $id ) {
 	// clean any existing cache files
 	mosCache::cleanCache( 'com_content' );
 
-	$msg = $link .' - (Ссылка - Статичное содержимое) в меню: '. $menu .' успешно создано';
+	$msg = $link .' - (РЎСЃС‹Р»РєР° - РЎС‚Р°С‚РёС‡РЅРѕРµ СЃРѕРґРµСЂР¶РёРјРѕРµ) РІ РјРµРЅСЋ: '. $menu .' СѓСЃРїРµС€РЅРѕ СЃРѕР·РґР°РЅРѕ';
 	mosRedirect( 'index2.php?option='. $option .'&task=edit&hidemainmenu=1&id='. $id, $msg );
 }
 
@@ -642,7 +642,7 @@ function saveOrder( &$cid ) {
 	// clean any existing cache files
 	mosCache::cleanCache( 'com_content' );
 
-	$msg 	= 'Новый порядок сохранен';
+	$msg 	= 'РќРѕРІС‹Р№ РїРѕСЂСЏРґРѕРє СЃРѕС…СЂР°РЅРµРЅ';
 	mosRedirect( 'index2.php?option=com_typedcontent', $msg );
 } // saveOrder
 ?>

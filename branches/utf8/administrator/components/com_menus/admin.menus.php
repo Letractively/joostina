@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 require_once( $mainframe->getPath( 'admin_html' ) );
 
@@ -160,7 +160,7 @@ function viewMenuItems( $menutype, $option ) {
 	$database->setQuery( $query );
 	$rows = $database->loadObjectList();
 
-	// создание иерархии меню
+	// СЃРѕР·РґР°РЅРёРµ РёРµСЂР°СЂС…РёРё РјРµРЅСЋ
 	$children = array();
 	// first pass - collect children
 	foreach ($rows as $v ) {
@@ -214,24 +214,24 @@ function viewMenuItems( $menutype, $option ) {
 
 			case 'newsfeed_link':
 				$edit = 'index2.php?option=com_newsfeeds&task=edit&hidemainmenu=1A&id=' . $mitem->componentid;
-				$list[$i]->descrip 	= 'Изменить эту ленту новостей';
+				$list[$i]->descrip 	= 'РР·РјРµРЅРёС‚СЊ СЌС‚Сѓ Р»РµРЅС‚Сѓ РЅРѕРІРѕСЃС‚РµР№';
 				$mitem->link .= '&Itemid='. $mitem->id;
 				break;
 
 			case 'contact_item_link':
 				$edit = 'index2.php?option=com_contact&task=editA&hidemainmenu=1&id=' . $mitem->componentid;
-				$list[$i]->descrip 	= 'Изменить этот контакт';
+				$list[$i]->descrip 	= 'РР·РјРµРЅРёС‚СЊ СЌС‚РѕС‚ РєРѕРЅС‚Р°РєС‚';
 				$mitem->link .= '&Itemid='. $mitem->id;
 				break;
 
 			case 'content_item_link':
 				$edit = 'index2.php?option=com_content&task=edit&hidemainmenu=1&id=' . $mitem->componentid;
-				$list[$i]->descrip 	= 'Изменить это содержимое';
+				$list[$i]->descrip 	= 'РР·РјРµРЅРёС‚СЊ СЌС‚Рѕ СЃРѕРґРµСЂР¶РёРјРѕРµ';
 				break;
 
 			case 'content_typed':
 				$edit = 'index2.php?option=com_typedcontent&task=edit&hidemainmenu=1&id='. $mitem->componentid;
-				$list[$i]->descrip 	= 'Изменить это статичное содержимое';
+				$list[$i]->descrip 	= 'РР·РјРµРЅРёС‚СЊ СЌС‚Рѕ СЃС‚Р°С‚РёС‡РЅРѕРµ СЃРѕРґРµСЂР¶РёРјРѕРµ';
 				break;
 
 			default:
@@ -378,7 +378,7 @@ function saveMenu( $option, $task='save' ) {
 	$row->checkin();
 	$row->updateOrder( 'menutype = ' . $database->Quote( $row->menutype ) . ' AND parent = ' . (int) $row->parent );
 
-	$msg = 'Пункт меню сохранен';
+	$msg = 'РџСѓРЅРєС‚ РјРµРЅСЋ СЃРѕС…СЂР°РЅРµРЅ';
 	switch ( $task ) {
 		case 'apply':
 			mosRedirect( 'index2.php?option='. $option .'&menutype='. $row->menutype .'&task=edit&id='. $row->id . '&hidemainmenu=1' , $msg );
@@ -402,7 +402,7 @@ function publishMenuSection( $cid=null, $publish=1, $menutype ) {
 	global $database, $mosConfig_absolute_path;
 
 	if (!is_array( $cid ) || count( $cid ) < 1) {
-		return 'Выберите объект для ' . ($publish ? 'публикации' : 'сокрытия');
+		return 'Р’С‹Р±РµСЂРёС‚Рµ РѕР±СЉРµРєС‚ РґР»СЏ ' . ($publish ? 'РїСѓР±Р»РёРєР°С†РёРё' : 'СЃРѕРєСЂС‹С‚РёСЏ');
 	}
 
 	$menu = new mosMenu( $database );
@@ -480,7 +480,7 @@ function TrashMenuSection( $cid=NULL, $menutype='mainmenu' ) {
 	// clean any existing cache files
 	mosCache::cleanCache( 'com_content' );
 
-	$msg =  'Объектов отправлено в Корзину: '.$total;
+	$msg =  'РћР±СЉРµРєС‚РѕРІ РѕС‚РїСЂР°РІР»РµРЅРѕ РІ РљРѕСЂР·РёРЅСѓ: '.$total;
 	mosRedirect( 'index2.php?option=com_menus&menutype='. $menutype, $msg );
 }
 
@@ -550,7 +550,7 @@ function moveMenu( $option, $cid, $menutype ) {
 	global $database;
 
 	if (!is_array( $cid ) || count( $cid ) < 1) {
-		echo "<script> alert('Выберите объект для перемещения'); window.history.go(-1);</script>\n";
+		echo "<script> alert('Р’С‹Р±РµСЂРёС‚Рµ РѕР±СЉРµРєС‚ РґР»СЏ РїРµСЂРµРјРµС‰РµРЅРёСЏ'); window.history.go(-1);</script>\n";
 		exit;
 	}
 
@@ -658,7 +658,7 @@ function moveMenuSave( $option, $cid, $menu, $menutype ) {
 	// clean any existing cache files
 	mosCache::cleanCache( 'com_content' );
 	
-	$msg = count($cid) .' пунктов меню перемещено в '. $menu;
+	$msg = count($cid) .' РїСѓРЅРєС‚РѕРІ РјРµРЅСЋ РїРµСЂРµРјРµС‰РµРЅРѕ РІ '. $menu;
 	mosRedirect( 'index2.php?option='. $option .'&menutype='. $menutype .'&mosmsg='. $msg );
 } // moveMenuSave
 
@@ -669,7 +669,7 @@ function copyMenu( $option, $cid, $menutype ) {
 	global $database;
 
 	if (!is_array( $cid ) || count( $cid ) < 1) {
-		echo "<script> alert('Выберите объект для перемещения'); window.history.go(-1);</script>\n";
+		echo "<script> alert('Р’С‹Р±РµСЂРёС‚Рµ РѕР±СЉРµРєС‚ РґР»СЏ РїРµСЂРµРјРµС‰РµРЅРёСЏ'); window.history.go(-1);</script>\n";
 		exit;
 	}
 
@@ -736,7 +736,7 @@ function copyMenuSave( $option, $cid, $menu, $menutype ) {
 	// clean any existing cache files
 	mosCache::cleanCache( 'com_content' );
 
-	$msg = count( $cid ) .' пунктов меню скопировано в '. $menu;
+	$msg = count( $cid ) .' РїСѓРЅРєС‚РѕРІ РјРµРЅСЋ СЃРєРѕРїРёСЂРѕРІР°РЅРѕ РІ '. $menu;
 	mosRedirect( 'index2.php?option='. $option .'&menutype='. $menutype .'&mosmsg='. $msg );
 }
 
@@ -816,7 +816,7 @@ function saveOrder( &$cid, $menutype ) {
 	// clean any existing cache files
 	mosCache::cleanCache( 'com_content' );
 	
-	$msg 	= 'Новый порядок сохранен';
+	$msg 	= 'РќРѕРІС‹Р№ РїРѕСЂСЏРґРѕРє СЃРѕС…СЂР°РЅРµРЅ';
 	mosRedirect( 'index2.php?option=com_menus&menutype='. $menutype, $msg );
 } 
 

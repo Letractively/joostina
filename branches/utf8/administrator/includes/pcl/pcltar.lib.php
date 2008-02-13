@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 // --------------------------------------------------------------------------------
 // PhpConcept Library - Tar Module 1.3
@@ -28,7 +28,7 @@ defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещ
 //	gzip tools and WinZip application.
 //
 // Description :
-//	See readme.txt (English & Fran�ais) and http://www.phpconcept.net
+//	See readme.txt (English & FranпїЅais) and http://www.phpconcept.net
 //
 // Warning :
 //	This library and the associated files are non commercial, non professional
@@ -417,7 +417,7 @@ if (!defined("PCL_TAR"))
   //	$p_filelist, in the directory
   //	$p_path. The relative path of the archived files are keep and become
   //	relative to $p_path.
-  //	If a directory is sp�cified in the list, all the files from this directory
+  //	If a directory is spпїЅcified in the list, all the files from this directory
   //	will be extracted.
   //	If a file with the same name already exists it will be replaced.
   //	If the path to the file does not exist, it will be created.
@@ -2184,7 +2184,7 @@ if (!defined("PCL_TAR"))
 		else
 		  gzseek($v_tar, gztell($v_tar)+(ceil(($v_header[size]/512))*512));
 
-		TrFctMessage(__FILE__, __LINE__, 4, "Position apr�s jump [".($p_tar_mode=="tar"?ftell($v_tar):gztell($v_tar))."]");
+		TrFctMessage(__FILE__, __LINE__, 4, "Position aprпїЅs jump [".($p_tar_mode=="tar"?ftell($v_tar):gztell($v_tar))."]");
 	  }
 
 	  if ($p_tar_mode == "tar")
@@ -2415,7 +2415,7 @@ if (!defined("PCL_TAR"))
 		else
 		  gzseek($v_tar, gztell($v_tar)+(ceil(($v_header[size]/512))*512));
 
-		TrFctMessage(__FILE__, __LINE__, 4, "Position apr�s jump [".($p_tar_mode=="tar"?ftell($v_tar):gztell($v_tar))."]");
+		TrFctMessage(__FILE__, __LINE__, 4, "Position aprпїЅs jump [".($p_tar_mode=="tar"?ftell($v_tar):gztell($v_tar))."]");
 	  }
 
 	  if ($p_tar_mode == "tar")
@@ -2852,7 +2852,7 @@ if (!defined("PCL_TAR"))
 		else
 		  gzseek($v_tar, gztell($v_tar)+(ceil(($v_header[size]/512))*512));
 
-		TrFctMessage(__FILE__, __LINE__, 4, "Position apr�s jump [".($p_tar_mode=="tar"?ftell($v_tar):gztell($v_tar))."]");
+		TrFctMessage(__FILE__, __LINE__, 4, "Position aprпїЅs jump [".($p_tar_mode=="tar"?ftell($v_tar):gztell($v_tar))."]");
 	  }
 
 	  // ----- Look for end of file

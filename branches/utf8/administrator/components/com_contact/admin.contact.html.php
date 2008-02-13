@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 /**
 * @package Joostina
@@ -29,10 +29,10 @@ class HTML_contact {
 		<table class="adminheading">
 		<tr>
 			<th>
-			Управление контактами
+			РЈРїСЂР°РІР»РµРЅРёРµ РєРѕРЅС‚Р°РєС‚Р°РјРё
 			</th>
 			<td>
-			Фильтр:
+			Р¤РёР»СЊС‚СЂ:
 			</td>
 			<td>
 			<input type="text" name="search" value="<?php echo htmlspecialchars( $search );?>" class="inputbox" onChange="document.adminForm.submit();" />
@@ -52,19 +52,19 @@ class HTML_contact {
 			<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count($rows); ?>);" />
 			</th>
 			<th class="title">
-			Имя
+			РРјСЏ
 			</th>
 			<th width="5%" class="title">
-			На сайте
+			РќР° СЃР°Р№С‚Рµ
 			</th>
 			<th colspan="2" class="jtd_nowrap" width="5%">
-			Сортировка
+			РЎРѕСЂС‚РёСЂРѕРІРєР°
 			</th>
 			<th width="15%" align="left">
-			Категория
+			РљР°С‚РµРіРѕСЂРёСЏ
 			</th>
 			<th class="title" width="15%">
-			Связано с пользователем
+			РЎРІСЏР·Р°РЅРѕ СЃ РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј
 			</th>
 		</tr>
 		<?php
@@ -76,7 +76,7 @@ class HTML_contact {
 
 			$img 	= $row->published ? 'tick.png' : 'publish_x.png';
 			$task 	= $row->published ? 'unpublish' : 'publish';
-			$alt 	= $row->published ? 'Опубликовано' : 'Не опубликовано';
+			$alt 	= $row->published ? 'РћРїСѓР±Р»РёРєРѕРІР°РЅРѕ' : 'РќРµ РѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ';
 
 			$checked 	= mosCommonHTML::CheckedOutProcessing( $row, $i );
 			$row->cat_link 	= 'index2.php?option=com_categories&section=com_contact_details&task=editA&hidemainmenu=1&id='. $row->catid;
@@ -95,7 +95,7 @@ class HTML_contact {
 					echo $row->name;
 				} else {
 					?>
-					<a href="<?php echo $link; ?>" title="Изменить контакт">
+					<a href="<?php echo $link; ?>" title="РР·РјРµРЅРёС‚СЊ РєРѕРЅС‚Р°РєС‚">
 					<?php echo $row->name; ?>
 					</a>
 					<?php
@@ -114,12 +114,12 @@ class HTML_contact {
 				<?php echo $pageNav->orderDownIcon( $i, $n, ( $row->catid == @$rows[$i+1]->catid ) ); ?>
 				</td>
 				<td>
-				<a href="<?php echo $row->cat_link; ?>" title="Изменить категорию">
+				<a href="<?php echo $row->cat_link; ?>" title="РР·РјРµРЅРёС‚СЊ РєР°С‚РµРіРѕСЂРёСЋ">
 				<?php echo $row->category; ?>
 				</a>
 				</td>
 				<td>
-				<a href="<?php echo $row->user_link; ?>" title="Изменить пользователя">
+				<a href="<?php echo $row->user_link; ?>" title="РР·РјРµРЅРёС‚СЊ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ">
 				<?php echo $row->user; ?>
 				</a>
 				</td>
@@ -162,9 +162,9 @@ class HTML_contact {
 
 			// do field validation
 			if ( form.name.value == "" ) {
-				alert( "Вы должны ввести имя." );
+				alert( "Р’С‹ РґРѕР»Р¶РЅС‹ РІРІРµСЃС‚Рё РёРјСЏ." );
 			} else if ( form.catid.value == 0 ) {
-				alert( "Пожалуйста, выберите категорию." );
+				alert( "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІС‹Р±РµСЂРёС‚Рµ РєР°С‚РµРіРѕСЂРёСЋ." );
 			} else {
 				submitform( pressbutton );
 			}
@@ -176,9 +176,9 @@ class HTML_contact {
 		<table class="adminheading">
 		<tr>
 			<th>
-			Контакт:
+			РљРѕРЅС‚Р°РєС‚:
 			<small>
-			<?php echo $row->id ? 'Изменение' : 'Новый';?>
+			<?php echo $row->id ? 'РР·РјРµРЅРµРЅРёРµ' : 'РќРѕРІС‹Р№';?>
 			</small>
 			</th>
 		</tr>
@@ -190,12 +190,12 @@ class HTML_contact {
 				<table width="100%" class="adminform">
 				<tr>
 					<th colspan="2">
-					Детали контакта
+					Р”РµС‚Р°Р»Рё РєРѕРЅС‚Р°РєС‚Р°
 					</th>
 				<tr>
 				<tr>
 					<td width="30%" align="right">
-					Категория:
+					РљР°С‚РµРіРѕСЂРёСЏ:
 					</td>
 					<td width="40%">
 					<?php echo $lists['catid'];?>
@@ -203,7 +203,7 @@ class HTML_contact {
 				</tr>
 				<tr>
 					<td width="30%" align="right">
-					Связано с пользователем:
+					РЎРІСЏР·Р°РЅРѕ СЃ РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј:
 					</td>
 					<td >
 					<?php echo $lists['user_id'];?>
@@ -211,7 +211,7 @@ class HTML_contact {
 				</tr>
 				<tr>
 					<td width="30%" align="right">
-					Имя:
+					РРјСЏ:
 					</td>
 					<td >
 					<input class="inputbox" type="text" name="name" size="50" maxlength="100" value="<?php echo $row->name; ?>" />
@@ -219,7 +219,7 @@ class HTML_contact {
 				</tr>
 				<tr>
 					<td align="right">
-					Положение (должность):
+					РџРѕР»РѕР¶РµРЅРёРµ (РґРѕР»Р¶РЅРѕСЃС‚СЊ):
 					</td>
 					<td>
 					<input class="inputbox" type="text" name="con_position" size="50" maxlength="50" value="<?php echo $row->con_position; ?>" />
@@ -235,7 +235,7 @@ class HTML_contact {
 				</tr>
 				<tr>
 					<td align="right">
-					Адрес (улица, дом):
+					РђРґСЂРµСЃ (СѓР»РёС†Р°, РґРѕРј):
 					</td>
 					<td>
 					<input class="inputbox" type="text" name="address" size="100" value="<?php echo $row->address; ?>" />
@@ -243,7 +243,7 @@ class HTML_contact {
 				</tr>
 				<tr>
 					<td align="right">
-					Город (Населенный пункт):
+					Р“РѕСЂРѕРґ (РќР°СЃРµР»РµРЅРЅС‹Р№ РїСѓРЅРєС‚):
 					</td>
 					<td>
 					<input class="inputbox" type="text" name="suburb" size="50" maxlength="100" value="<?php echo $row->suburb;?>" />
@@ -251,7 +251,7 @@ class HTML_contact {
 				</tr>
 				<tr>
 					<td align="right">
-					Край/Область/Республика:
+					РљСЂР°Р№/РћР±Р»Р°СЃС‚СЊ/Р РµСЃРїСѓР±Р»РёРєР°:
 					</td>
 					<td>
 					<input class="inputbox" type="text" name="state" size="50" maxlength="100" value="<?php echo $row->state;?>" />
@@ -259,7 +259,7 @@ class HTML_contact {
 				</tr>
 				<tr>
 					<td align="right">
-					Страна:
+					РЎС‚СЂР°РЅР°:
 					</td>
 					<td>
 					<input class="inputbox" type="text" name="country" size="50" maxlength="100" value="<?php echo $row->country;?>" />
@@ -267,7 +267,7 @@ class HTML_contact {
 				</tr>
 				<tr>
 					<td align="right">
-					Почтовый индекс:
+					РџРѕС‡С‚РѕРІС‹Р№ РёРЅРґРµРєСЃ:
 					</td>
 					<td>
 					<input class="inputbox" type="text" name="postcode" size="25" maxlength="20" value="<?php echo $row->postcode; ?>" />
@@ -275,7 +275,7 @@ class HTML_contact {
 				</tr>
 				<tr>
 					<td align="right">
-					Телефон:
+					РўРµР»РµС„РѕРЅ:
 					</td>
 					<td>
 					<input class="inputbox" type="text" name="telephone" size="25" maxlength="25" value="<?php echo $row->telephone; ?>" />
@@ -283,7 +283,7 @@ class HTML_contact {
 				</tr>
 				<tr>
 					<td align="right">
-					Факс:
+					Р¤Р°РєСЃ:
 					</td>
 					<td>
 					<input class="inputbox" type="text" name="fax" size="25" maxlength="25" value="<?php echo $row->fax; ?>" />
@@ -291,7 +291,7 @@ class HTML_contact {
 				</tr>
 				<tr>
 					<td align="right" valign="top">
-					Дополнительная информация:
+					Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ:
 					</td>
 					<td>
 					<textarea name="misc" rows="5" cols="50" class="inputbox"><?php echo $row->misc; ?></textarea>
@@ -302,17 +302,17 @@ class HTML_contact {
 			<td width="40%" valign="top">
 				<?php
 				$tabs->startPane("content-pane");
-				$tabs->startTab("Публикация","publish-page");
+				$tabs->startTab("РџСѓР±Р»РёРєР°С†РёСЏ","publish-page");
 				?>
 				<table width="100%" class="adminform">
 				<tr>
 					<th colspan="2">
-					Информация о публикации
+					РРЅС„РѕСЂРјР°С†РёСЏ Рѕ РїСѓР±Р»РёРєР°С†РёРё
 					</th>
 				<tr>
 				<tr>
 					<td valign="top" align="right">
-					Опубликовано:
+					РћРїСѓР±Р»РёРєРѕРІР°РЅРѕ:
 					</td>
 					<td>
 					<?php echo $lists['published']; ?>
@@ -320,7 +320,7 @@ class HTML_contact {
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					Расположение:
+					Р Р°СЃРїРѕР»РѕР¶РµРЅРёРµ:
 					</td>
 					<td>
 					<?php echo $lists['ordering']; ?>
@@ -328,7 +328,7 @@ class HTML_contact {
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					Уровень доступа:
+					РЈСЂРѕРІРµРЅСЊ РґРѕСЃС‚СѓРїР°:
 					</td>
 					<td>
 					<?php echo $lists['access']; ?>
@@ -342,17 +342,17 @@ class HTML_contact {
 				</table>
 				<?php
 				$tabs->endTab();
-				$tabs->startTab("Изображения","images-page");
+				$tabs->startTab("РР·РѕР±СЂР°Р¶РµРЅРёСЏ","images-page");
 				?>
 				<table width="100%" class="adminform">
 				<tr>
 					<th colspan="2">
-					Информация об изображении
+					РРЅС„РѕСЂРјР°С†РёСЏ РѕР± РёР·РѕР±СЂР°Р¶РµРЅРёРё
 					</th>
 				<tr>
 				<tr>
 					<td align="left" width="20%">
-					Изображение:
+					РР·РѕР±СЂР°Р¶РµРЅРёРµ:
 					</td>
 					<td align="left">
 					<?php echo $lists['image']; ?>
@@ -368,24 +368,24 @@ class HTML_contact {
 					} else {
 						jsimg='../images/M_images/blank.png';
 					}
-					document.write('<img src=' + jsimg + ' name="imagelib" width="100" height="100" border="2" alt="Просмотр" />');
+					document.write('<img src=' + jsimg + ' name="imagelib" width="100" height="100" border="2" alt="РџСЂРѕСЃРјРѕС‚СЂ" />');
 					</script>
 					</td>
 				</tr>
 				</table>
 				<?php
 				$tabs->endTab();
-				$tabs->startTab("Параметры","params-page");
+				$tabs->startTab("РџР°СЂР°РјРµС‚СЂС‹","params-page");
 				?>
 				<table class="adminform">
 				<tr>
 					<th>
-					Параметры
+					РџР°СЂР°РјРµС‚СЂС‹
 					</th>
 				</tr>
 				<tr>
 					<td>
-					* Эти параметры управляют отображением только при просмотре информации о контакте *
+					* Р­С‚Рё РїР°СЂР°РјРµС‚СЂС‹ СѓРїСЂР°РІР»СЏСЋС‚ РѕС‚РѕР±СЂР°Р¶РµРЅРёРµРј С‚РѕР»СЊРєРѕ РїСЂРё РїСЂРѕСЃРјРѕС‚СЂРµ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РєРѕРЅС‚Р°РєС‚Рµ *
 					<br /><br />
 					</td>
 				</tr>

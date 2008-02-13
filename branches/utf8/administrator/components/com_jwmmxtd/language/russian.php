@@ -1,146 +1,146 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 // Language File for Russian
-DEFINE("_JWMEDIAMAN_TITLE","Медиа менеджер");
-DEFINE("_JWMEDIAMAN_CREATE_FOLDER_DONE","Каталог создан!");
-DEFINE("_JWMEDIAMAN_CREATE_FOLDER_ERROR","Каталог НЕ создан!");
-DEFINE("_JWMEDIAMAN_DEL_FILE_DONE","Файл удалён!");
-DEFINE("_JWMEDIAMAN_DEL_FILE_ERROR","Файл Не удалён!");
-DEFINE("_JWMEDIAMAN_DEL_FOLDER_DONE","Каталог удалён!");
-DEFINE("_JWMEDIAMAN_DEL_FOLDER_ERROR","Каталог НЕ удалён!");
-DEFINE("_JWMEDIAMAN_REN_FILE_DONE","Переименовано!");
-DEFINE("_JWMEDIAMAN_REN_FILE_ERROR","Не переименовано!");
-DEFINE("_JWMEDIAMAN_TMP_DONE","Временная папка очищена!");
-DEFINE("_JWMEDIAMAN_TMP_ERROR","Временная папка НЕ очищена!");
-DEFINE("_JWMEDIAMAN_UPL_SERVER_ERROR","Файл(ы) НЕ загружены на сервер!");
-DEFINE("_JWMEDIAMAN_UPL_SERVER_DONE","Файлы загружены!");
-DEFINE("_JWMEDIAMAN_FOLDERS","Каталоги");
-DEFINE("_JWMEDIAMAN_IMAGES","Изображения");
-DEFINE("_JWMEDIAMAN_FILES","Файлы");
-DEFINE("_JWMEDIAMAN_ALPHANUMERIC_FOLDER","Пожалуйста, не используйте в названиях пробелы и спецсимволы!");
-DEFINE("_JWMEDIAMAN_NOEMPTY_FOLDER","Каталог не пустой.\\nПожалуйста, удалите сначала содержимое внутри каталога!");
-DEFINE("_JWMEDIAMAN_ALERT_DEL_FOLDER","Удалить каталог ");
-DEFINE("_JWMEDIAMAN_ALERT_DEL_FILE","Удалить файл ");
-DEFINE("_JWMEDIAMAN_LEG_SEL_DIR","Местоположение:");
-DEFINE("_JWMEDIAMAN_TEXT_DIR_PATH","Расположение каталога");
-DEFINE("_JWMEDIAMAN_LEG_CRE_FOLDER","Создать каталог:");
-DEFINE("_JWMEDIAMAN_TEXT_NAME_CRE_FOLDER","Имя");
-DEFINE("_JWMEDIAMAN_CLICKTOCREATE","Создать");
-DEFINE("_JWMEDIAMAN_LEG_UPL_IMAGES","Загрузить файл:");
+DEFINE("_JWMEDIAMAN_TITLE","РњРµРґРёР° РјРµРЅРµРґР¶РµСЂ");
+DEFINE("_JWMEDIAMAN_CREATE_FOLDER_DONE","РљР°С‚Р°Р»РѕРі СЃРѕР·РґР°РЅ!");
+DEFINE("_JWMEDIAMAN_CREATE_FOLDER_ERROR","РљР°С‚Р°Р»РѕРі РќР• СЃРѕР·РґР°РЅ!");
+DEFINE("_JWMEDIAMAN_DEL_FILE_DONE","Р¤Р°Р№Р» СѓРґР°Р»С‘РЅ!");
+DEFINE("_JWMEDIAMAN_DEL_FILE_ERROR","Р¤Р°Р№Р» РќРµ СѓРґР°Р»С‘РЅ!");
+DEFINE("_JWMEDIAMAN_DEL_FOLDER_DONE","РљР°С‚Р°Р»РѕРі СѓРґР°Р»С‘РЅ!");
+DEFINE("_JWMEDIAMAN_DEL_FOLDER_ERROR","РљР°С‚Р°Р»РѕРі РќР• СѓРґР°Р»С‘РЅ!");
+DEFINE("_JWMEDIAMAN_REN_FILE_DONE","РџРµСЂРµРёРјРµРЅРѕРІР°РЅРѕ!");
+DEFINE("_JWMEDIAMAN_REN_FILE_ERROR","РќРµ РїРµСЂРµРёРјРµРЅРѕРІР°РЅРѕ!");
+DEFINE("_JWMEDIAMAN_TMP_DONE","Р’СЂРµРјРµРЅРЅР°СЏ РїР°РїРєР° РѕС‡РёС‰РµРЅР°!");
+DEFINE("_JWMEDIAMAN_TMP_ERROR","Р’СЂРµРјРµРЅРЅР°СЏ РїР°РїРєР° РќР• РѕС‡РёС‰РµРЅР°!");
+DEFINE("_JWMEDIAMAN_UPL_SERVER_ERROR","Р¤Р°Р№Р»(С‹) РќР• Р·Р°РіСЂСѓР¶РµРЅС‹ РЅР° СЃРµСЂРІРµСЂ!");
+DEFINE("_JWMEDIAMAN_UPL_SERVER_DONE","Р¤Р°Р№Р»С‹ Р·Р°РіСЂСѓР¶РµРЅС‹!");
+DEFINE("_JWMEDIAMAN_FOLDERS","РљР°С‚Р°Р»РѕРіРё");
+DEFINE("_JWMEDIAMAN_IMAGES","РР·РѕР±СЂР°Р¶РµРЅРёСЏ");
+DEFINE("_JWMEDIAMAN_FILES","Р¤Р°Р№Р»С‹");
+DEFINE("_JWMEDIAMAN_ALPHANUMERIC_FOLDER","РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РЅРµ РёСЃРїРѕР»СЊР·СѓР№С‚Рµ РІ РЅР°Р·РІР°РЅРёСЏС… РїСЂРѕР±РµР»С‹ Рё СЃРїРµС†СЃРёРјРІРѕР»С‹!");
+DEFINE("_JWMEDIAMAN_NOEMPTY_FOLDER","РљР°С‚Р°Р»РѕРі РЅРµ РїСѓСЃС‚РѕР№.\\nРџРѕР¶Р°Р»СѓР№СЃС‚Р°, СѓРґР°Р»РёС‚Рµ СЃРЅР°С‡Р°Р»Р° СЃРѕРґРµСЂР¶РёРјРѕРµ РІРЅСѓС‚СЂРё РєР°С‚Р°Р»РѕРіР°!");
+DEFINE("_JWMEDIAMAN_ALERT_DEL_FOLDER","РЈРґР°Р»РёС‚СЊ РєР°С‚Р°Р»РѕРі ");
+DEFINE("_JWMEDIAMAN_ALERT_DEL_FILE","РЈРґР°Р»РёС‚СЊ С„Р°Р№Р» ");
+DEFINE("_JWMEDIAMAN_LEG_SEL_DIR","РњРµСЃС‚РѕРїРѕР»РѕР¶РµРЅРёРµ:");
+DEFINE("_JWMEDIAMAN_TEXT_DIR_PATH","Р Р°СЃРїРѕР»РѕР¶РµРЅРёРµ РєР°С‚Р°Р»РѕРіР°");
+DEFINE("_JWMEDIAMAN_LEG_CRE_FOLDER","РЎРѕР·РґР°С‚СЊ РєР°С‚Р°Р»РѕРі:");
+DEFINE("_JWMEDIAMAN_TEXT_NAME_CRE_FOLDER","РРјСЏ");
+DEFINE("_JWMEDIAMAN_CLICKTOCREATE","РЎРѕР·РґР°С‚СЊ");
+DEFINE("_JWMEDIAMAN_LEG_UPL_IMAGES","Р—Р°РіСЂСѓР·РёС‚СЊ С„Р°Р№Р»:");
 DEFINE("_JWMEDIAMAN_LEG_UPL_MIMAGES","(+)");
-DEFINE("_JWMEDIAMAN_CLICKTOUPLOAD","Загрузить");
-DEFINE("_JWMEDIAMAN_LEG_REN_FILE","Переименование: ");
-DEFINE("_JWMEDIAMAN_TEXT_NAME_REN_FILE","Новое имя (включая расширение!)");
-DEFINE("_JWMEDIAMAN_CLICKTORENAME","Переименовать");
-DEFINE("_JWMEDIAMAN_LEG_TMP","Временный каталог");
-DEFINE("_JWMEDIAMAN_TEXT_TMP","Число изображений во временном каталоге");
-DEFINE("_JWMEDIAMAN_CLICKTOTMP","Очистить каталог");
-DEFINE("_JWMEDIAMAN_SELECT","-- выбор --");
+DEFINE("_JWMEDIAMAN_CLICKTOUPLOAD","Р—Р°РіСЂСѓР·РёС‚СЊ");
+DEFINE("_JWMEDIAMAN_LEG_REN_FILE","РџРµСЂРµРёРјРµРЅРѕРІР°РЅРёРµ: ");
+DEFINE("_JWMEDIAMAN_TEXT_NAME_REN_FILE","РќРѕРІРѕРµ РёРјСЏ (РІРєР»СЋС‡Р°СЏ СЂР°СЃС€РёСЂРµРЅРёРµ!)");
+DEFINE("_JWMEDIAMAN_CLICKTORENAME","РџРµСЂРµРёРјРµРЅРѕРІР°С‚СЊ");
+DEFINE("_JWMEDIAMAN_LEG_TMP","Р’СЂРµРјРµРЅРЅС‹Р№ РєР°С‚Р°Р»РѕРі");
+DEFINE("_JWMEDIAMAN_TEXT_TMP","Р§РёСЃР»Рѕ РёР·РѕР±СЂР°Р¶РµРЅРёР№ РІРѕ РІСЂРµРјРµРЅРЅРѕРј РєР°С‚Р°Р»РѕРіРµ");
+DEFINE("_JWMEDIAMAN_CLICKTOTMP","РћС‡РёСЃС‚РёС‚СЊ РєР°С‚Р°Р»РѕРі");
+DEFINE("_JWMEDIAMAN_SELECT","-- РІС‹Р±РѕСЂ --");
 /* EDIT page */
-DEFINE("_JWMEDIAMAN_CLICKCONVERT","Применить");
-DEFINE("_JWMEDIAMAN_CLICKORIGINAL","Отменить всё");
-DEFINE("_JWMEDIAMAN_CLICKSAVEIMAGE","Сохранить");
-DEFINE("_JWMEDIAMAN_CLICKJWMEDIAMAN","Выход");
-DEFINE("_JWMEDIAMAN_LEG_WIDTHHEIGHT","Высота x Ширина");
-DEFINE("_JWMEDIAMAN_TEXT_WIDTH","ширина");
-DEFINE("_JWMEDIAMAN_TEXT_HEIGHT","высота");
-DEFINE("_JWMEDIAMAN_LEG_EXT","Расширение изображения");
-DEFINE("_JWMEDIAMAN_TEXT_EXT","Расширение");
-DEFINE("_JWMEDIAMAN_LEG_GROP","Обрезать");
-DEFINE("_JWMEDIAMAN_TEXT_GROP_PER","Размеры");
-DEFINE("_JWMEDIAMAN_TEXT_GROP_DIMEN","X и Y координаты");
-DEFINE("_JWMEDIAMAN_TEXT_V","вертикали");
-DEFINE("_JWMEDIAMAN_TEXT_H","горизонтали");
-DEFINE("_JWMEDIAMAN_LEG_BORD","Бордюр");
-DEFINE("_JWMEDIAMAN_LEG_BORD_ALL","Все бордюры");
-DEFINE("_JWMEDIAMAN_LEG_BORD_SIDES","Обрезать");
-DEFINE("_JWMEDIAMAN_TEXT_BORD_TOP","Сверху");
-DEFINE("_JWMEDIAMAN_TEXT_BORD_LEFT","Слева");
-DEFINE("_JWMEDIAMAN_TEXT_BORD_RIGHT","Справа");
-DEFINE("_JWMEDIAMAN_TEXT_BORD_BOTTOM","Снизу");
-DEFINE("_JWMEDIAMAN_LEG_ROT","Поворот");
-DEFINE("_JWMEDIAMAN_TEXT_DEGREES","Повернуть на");
-DEFINE("_JWMEDIAMAN_LEG_FLIP","Отражение");
-DEFINE("_JWMEDIAMAN_TEXT_DIRECTION","Отразить по");
+DEFINE("_JWMEDIAMAN_CLICKCONVERT","РџСЂРёРјРµРЅРёС‚СЊ");
+DEFINE("_JWMEDIAMAN_CLICKORIGINAL","РћС‚РјРµРЅРёС‚СЊ РІСЃС‘");
+DEFINE("_JWMEDIAMAN_CLICKSAVEIMAGE","РЎРѕС…СЂР°РЅРёС‚СЊ");
+DEFINE("_JWMEDIAMAN_CLICKJWMEDIAMAN","Р’С‹С…РѕРґ");
+DEFINE("_JWMEDIAMAN_LEG_WIDTHHEIGHT","Р’С‹СЃРѕС‚Р° x РЁРёСЂРёРЅР°");
+DEFINE("_JWMEDIAMAN_TEXT_WIDTH","С€РёСЂРёРЅР°");
+DEFINE("_JWMEDIAMAN_TEXT_HEIGHT","РІС‹СЃРѕС‚Р°");
+DEFINE("_JWMEDIAMAN_LEG_EXT","Р Р°СЃС€РёСЂРµРЅРёРµ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ");
+DEFINE("_JWMEDIAMAN_TEXT_EXT","Р Р°СЃС€РёСЂРµРЅРёРµ");
+DEFINE("_JWMEDIAMAN_LEG_GROP","РћР±СЂРµР·Р°С‚СЊ");
+DEFINE("_JWMEDIAMAN_TEXT_GROP_PER","Р Р°Р·РјРµСЂС‹");
+DEFINE("_JWMEDIAMAN_TEXT_GROP_DIMEN","X Рё Y РєРѕРѕСЂРґРёРЅР°С‚С‹");
+DEFINE("_JWMEDIAMAN_TEXT_V","РІРµСЂС‚РёРєР°Р»Рё");
+DEFINE("_JWMEDIAMAN_TEXT_H","РіРѕСЂРёР·РѕРЅС‚Р°Р»Рё");
+DEFINE("_JWMEDIAMAN_LEG_BORD","Р‘РѕСЂРґСЋСЂ");
+DEFINE("_JWMEDIAMAN_LEG_BORD_ALL","Р’СЃРµ Р±РѕСЂРґСЋСЂС‹");
+DEFINE("_JWMEDIAMAN_LEG_BORD_SIDES","РћР±СЂРµР·Р°С‚СЊ");
+DEFINE("_JWMEDIAMAN_TEXT_BORD_TOP","РЎРІРµСЂС…Сѓ");
+DEFINE("_JWMEDIAMAN_TEXT_BORD_LEFT","РЎР»РµРІР°");
+DEFINE("_JWMEDIAMAN_TEXT_BORD_RIGHT","РЎРїСЂР°РІР°");
+DEFINE("_JWMEDIAMAN_TEXT_BORD_BOTTOM","РЎРЅРёР·Сѓ");
+DEFINE("_JWMEDIAMAN_LEG_ROT","РџРѕРІРѕСЂРѕС‚");
+DEFINE("_JWMEDIAMAN_TEXT_DEGREES","РџРѕРІРµСЂРЅСѓС‚СЊ РЅР°");
+DEFINE("_JWMEDIAMAN_LEG_FLIP","РћС‚СЂР°Р¶РµРЅРёРµ");
+DEFINE("_JWMEDIAMAN_TEXT_DIRECTION","РћС‚СЂР°Р·РёС‚СЊ РїРѕ");
 DEFINE("_JWMEDIAMAN_LEG_BEVEL","Bevel");
 DEFINE("_JWMEDIAMAN_TEXT_BEVEL_PX","Bevel px");
 DEFINE("_JWMEDIAMAN_TEXT_BEVEL_TL","Bevel Top-Left");
 DEFINE("_JWMEDIAMAN_TEXT_BEVEL_RB","Bevel Right-Bottom");
-DEFINE("_JWMEDIAMAN_TEXT_COLOR","Цвет");
+DEFINE("_JWMEDIAMAN_TEXT_COLOR","Р¦РІРµС‚");
 DEFINE("_JWMEDIAMAN_LEG_TINT","Tint Color");
 DEFINE("_JWMEDIAMAN_LEG_OVERLAY","Overlay");
 DEFINE("_JWMEDIAMAN_TEXT_OVERLAY","Percent");
-DEFINE("_JWMEDIAMAN_LEG_BRIGHTNESS","Яркость");
-DEFINE("_JWMEDIAMAN_LEG_CONTRAST","Контраст");
+DEFINE("_JWMEDIAMAN_LEG_BRIGHTNESS","РЇСЂРєРѕСЃС‚СЊ");
+DEFINE("_JWMEDIAMAN_LEG_CONTRAST","РљРѕРЅС‚СЂР°СЃС‚");
 DEFINE("_JWMEDIAMAN_LEG_THRESHOLD","Threshold filter");
-DEFINE("_JWMEDIAMAN_LEG_SPECIAL","Дополнительные действия");
-DEFINE("_JWMEDIAMAN_TEXT_GREYSCALE","Градиент серого");
-DEFINE("_JWMEDIAMAN_TEXT_NEGATIVE","Негатив");
-DEFINE("_JWMEDIAMAN_LEG_TEXT","Добавить текст");
-DEFINE("_JWMEDIAMAN_TEXT_TEXT","Текст");
-DEFINE("_JWMEDIAMAN_TEXT_TEXT_COLOR","Цвет текста");
-DEFINE("_JWMEDIAMAN_TEXT_TEXT_FONT","Шрифт текста");
-DEFINE("_JWMEDIAMAN_TEXT_TEXT_PER","Размер текста");
-DEFINE("_JWMEDIAMAN_TEXT_TEXT_DIRECTION","Ориентация");
-DEFINE("_JWMEDIAMAN_TEXT_TEXT_POS","Позиция");
+DEFINE("_JWMEDIAMAN_LEG_SPECIAL","Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рµ РґРµР№СЃС‚РІРёСЏ");
+DEFINE("_JWMEDIAMAN_TEXT_GREYSCALE","Р“СЂР°РґРёРµРЅС‚ СЃРµСЂРѕРіРѕ");
+DEFINE("_JWMEDIAMAN_TEXT_NEGATIVE","РќРµРіР°С‚РёРІ");
+DEFINE("_JWMEDIAMAN_LEG_TEXT","Р”РѕР±Р°РІРёС‚СЊ С‚РµРєСЃС‚");
+DEFINE("_JWMEDIAMAN_TEXT_TEXT","РўРµРєСЃС‚");
+DEFINE("_JWMEDIAMAN_TEXT_TEXT_COLOR","Р¦РІРµС‚ С‚РµРєСЃС‚Р°");
+DEFINE("_JWMEDIAMAN_TEXT_TEXT_FONT","РЁСЂРёС„С‚ С‚РµРєСЃС‚Р°");
+DEFINE("_JWMEDIAMAN_TEXT_TEXT_PER","Р Р°Р·РјРµСЂ С‚РµРєСЃС‚Р°");
+DEFINE("_JWMEDIAMAN_TEXT_TEXT_DIRECTION","РћСЂРёРµРЅС‚Р°С†РёСЏ");
+DEFINE("_JWMEDIAMAN_TEXT_TEXT_POS","РџРѕР·РёС†РёСЏ");
 DEFINE("_JWMEDIAMAN_TEXT_TEXT_BG_PER","Bg Percent");
-DEFINE("_JWMEDIAMAN_TEXT_TEXT_BG_COLOR","Цвет фона");
-DEFINE("_JWMEDIAMAN_TEXT_TEXT_PADDING","Расположение по X и Y");
-DEFINE("_JWMEDIAMAN_TEXT_TEXT_ABS_POS","Отступы по X и Y");
-DEFINE("_JWMEDIAMAN_NUM_DIR","Каталогов");
-DEFINE("_JWMEDIAMAN_NUM_FILES","Файлов");
-DEFINE("_JWMEDIAMAN_FILESIZE","Размер");
-DEFINE("_JWMEDIAMAN_LEG_COPY_FILE","Выберите каталог для копирования: ");
-DEFINE("_JWMEDIAMAN_TEXT_NAME_COPY_FILE","Копировать в");
-DEFINE("_JWMEDIAMAN_CLICKTOCOPY","Копировать");
-DEFINE("_JWMEDIAMAN_COPY_DONE","Скопировано!");
-DEFINE("_JWMEDIAMAN_COPY_ERROR","Не скопировано!");
-DEFINE("_JWMEDIAMAN_LEG_MOVE_FILE","Выберите каталог для перемещения: ");
-DEFINE("_JWMEDIAMAN_TEXT_NAME_MOVE_FILE","Переместить в");
-DEFINE("_JWMEDIAMAN_CLICKTOMOVE","Переместить");
-DEFINE("_JWMEDIAMAN_MOVE_DONE","Перемещено!");
-DEFINE("_JWMEDIAMAN_MOVE_ERROR","Не перемещено!");
-DEFINE("_JWMEDIAMAN_SAVED_AS","Изображение сохранено как ");
-DEFINE("_JWMEDIAMAN_IMAGE_PATH","Расположение: ");
-DEFINE("_JWMEDIAMAN_SAVEEDIT_DONE","Изображение сохранено как ");
-DEFINE("_JWMEDIAMAN_SAVEEDIT_ERROR","Изображение НЕ сохранено!");
+DEFINE("_JWMEDIAMAN_TEXT_TEXT_BG_COLOR","Р¦РІРµС‚ С„РѕРЅР°");
+DEFINE("_JWMEDIAMAN_TEXT_TEXT_PADDING","Р Р°СЃРїРѕР»РѕР¶РµРЅРёРµ РїРѕ X Рё Y");
+DEFINE("_JWMEDIAMAN_TEXT_TEXT_ABS_POS","РћС‚СЃС‚СѓРїС‹ РїРѕ X Рё Y");
+DEFINE("_JWMEDIAMAN_NUM_DIR","РљР°С‚Р°Р»РѕРіРѕРІ");
+DEFINE("_JWMEDIAMAN_NUM_FILES","Р¤Р°Р№Р»РѕРІ");
+DEFINE("_JWMEDIAMAN_FILESIZE","Р Р°Р·РјРµСЂ");
+DEFINE("_JWMEDIAMAN_LEG_COPY_FILE","Р’С‹Р±РµСЂРёС‚Рµ РєР°С‚Р°Р»РѕРі РґР»СЏ РєРѕРїРёСЂРѕРІР°РЅРёСЏ: ");
+DEFINE("_JWMEDIAMAN_TEXT_NAME_COPY_FILE","РљРѕРїРёСЂРѕРІР°С‚СЊ РІ");
+DEFINE("_JWMEDIAMAN_CLICKTOCOPY","РљРѕРїРёСЂРѕРІР°С‚СЊ");
+DEFINE("_JWMEDIAMAN_COPY_DONE","РЎРєРѕРїРёСЂРѕРІР°РЅРѕ!");
+DEFINE("_JWMEDIAMAN_COPY_ERROR","РќРµ СЃРєРѕРїРёСЂРѕРІР°РЅРѕ!");
+DEFINE("_JWMEDIAMAN_LEG_MOVE_FILE","Р’С‹Р±РµСЂРёС‚Рµ РєР°С‚Р°Р»РѕРі РґР»СЏ РїРµСЂРµРјРµС‰РµРЅРёСЏ: ");
+DEFINE("_JWMEDIAMAN_TEXT_NAME_MOVE_FILE","РџРµСЂРµРјРµСЃС‚РёС‚СЊ РІ");
+DEFINE("_JWMEDIAMAN_CLICKTOMOVE","РџРµСЂРµРјРµСЃС‚РёС‚СЊ");
+DEFINE("_JWMEDIAMAN_MOVE_DONE","РџРµСЂРµРјРµС‰РµРЅРѕ!");
+DEFINE("_JWMEDIAMAN_MOVE_ERROR","РќРµ РїРµСЂРµРјРµС‰РµРЅРѕ!");
+DEFINE("_JWMEDIAMAN_SAVED_AS","РР·РѕР±СЂР°Р¶РµРЅРёРµ СЃРѕС…СЂР°РЅРµРЅРѕ РєР°Рє ");
+DEFINE("_JWMEDIAMAN_IMAGE_PATH","Р Р°СЃРїРѕР»РѕР¶РµРЅРёРµ: ");
+DEFINE("_JWMEDIAMAN_SAVEEDIT_DONE","РР·РѕР±СЂР°Р¶РµРЅРёРµ СЃРѕС…СЂР°РЅРµРЅРѕ РєР°Рє ");
+DEFINE("_JWMEDIAMAN_SAVEEDIT_ERROR","РР·РѕР±СЂР°Р¶РµРЅРёРµ РќР• СЃРѕС…СЂР°РЅРµРЅРѕ!");
 /* actions */
-DEFINE("_JWMEDIAMAN_ACT_EDIT","Редактировать");
-DEFINE("_JWMEDIAMAN_ACT_RENAME","Переименовать");
-DEFINE("_JWMEDIAMAN_ACT_COPY","Копировать");
-DEFINE("_JWMEDIAMAN_ACT_MOVE","Переместить");
-DEFINE("_JWMEDIAMAN_ACT_DELETE","Удалить");
-DEFINE("_JWMEDIAMAN_ACT_PREV","Нажмите для просмотра!");
-DEFINE("_JWMEDIAMAN_ACT_SLIMBOX","Файл:");
+DEFINE("_JWMEDIAMAN_ACT_EDIT","Р РµРґР°РєС‚РёСЂРѕРІР°С‚СЊ");
+DEFINE("_JWMEDIAMAN_ACT_RENAME","РџРµСЂРµРёРјРµРЅРѕРІР°С‚СЊ");
+DEFINE("_JWMEDIAMAN_ACT_COPY","РљРѕРїРёСЂРѕРІР°С‚СЊ");
+DEFINE("_JWMEDIAMAN_ACT_MOVE","РџРµСЂРµРјРµСЃС‚РёС‚СЊ");
+DEFINE("_JWMEDIAMAN_ACT_DELETE","РЈРґР°Р»РёС‚СЊ");
+DEFINE("_JWMEDIAMAN_ACT_PREV","РќР°Р¶РјРёС‚Рµ РґР»СЏ РїСЂРѕСЃРјРѕС‚СЂР°!");
+DEFINE("_JWMEDIAMAN_ACT_SLIMBOX","Р¤Р°Р№Р»:");
 /* videobox */
-DEFINE("_JWMEDIAMAN_VB_FLV","Видео файл:");
-DEFINE("_JWMEDIAMAN_VB_SWF","Flash файл:");
-DEFINE("_JWMEDIAMAN_VB_PREV","Нажмите на значок для просмотра!");
+DEFINE("_JWMEDIAMAN_VB_FLV","Р’РёРґРµРѕ С„Р°Р№Р»:");
+DEFINE("_JWMEDIAMAN_VB_SWF","Flash С„Р°Р№Р»:");
+DEFINE("_JWMEDIAMAN_VB_PREV","РќР°Р¶РјРёС‚Рµ РЅР° Р·РЅР°С‡РѕРє РґР»СЏ РїСЂРѕСЃРјРѕС‚СЂР°!");
 /* .zip messages */
-DEFINE("_JWMEDIAMAN_LEG_ZIP_FILE","Выберите каталог для распаковки: ");
-DEFINE("_JWMEDIAMAN_TEXT_NAME_ZIP_FILE","Каталог распаковки");
-DEFINE("_JWMEDIAMAN_CLICKTOUNZIP","Распаковать");
-DEFINE("_JWMEDIAMAN_ZIP_FILES_EXTRACTED"," файл(ы) распакованы.");
-DEFINE("_JWMEDIAMAN_ZIP_FILES_UNEXPECTED_ERROR","Ошибка распаковки: ");
-DEFINE("_JWMEDIAMAN_ZIP_FILE_STRING","Файл: ");
-DEFINE("_JWMEDIAMAN_ZIP_NOT_A_ZIP_FILE"," не является архивным файлом!");
-DEFINE("_JWMEDIAMAN_ZIP_NOT_EXISTS"," не существует!");
+DEFINE("_JWMEDIAMAN_LEG_ZIP_FILE","Р’С‹Р±РµСЂРёС‚Рµ РєР°С‚Р°Р»РѕРі РґР»СЏ СЂР°СЃРїР°РєРѕРІРєРё: ");
+DEFINE("_JWMEDIAMAN_TEXT_NAME_ZIP_FILE","РљР°С‚Р°Р»РѕРі СЂР°СЃРїР°РєРѕРІРєРё");
+DEFINE("_JWMEDIAMAN_CLICKTOUNZIP","Р Р°СЃРїР°РєРѕРІР°С‚СЊ");
+DEFINE("_JWMEDIAMAN_ZIP_FILES_EXTRACTED"," С„Р°Р№Р»(С‹) СЂР°СЃРїР°РєРѕРІР°РЅС‹.");
+DEFINE("_JWMEDIAMAN_ZIP_FILES_UNEXPECTED_ERROR","РћС€РёР±РєР° СЂР°СЃРїР°РєРѕРІРєРё: ");
+DEFINE("_JWMEDIAMAN_ZIP_FILE_STRING","Р¤Р°Р№Р»: ");
+DEFINE("_JWMEDIAMAN_ZIP_NOT_A_ZIP_FILE"," РЅРµ СЏРІР»СЏРµС‚СЃСЏ Р°СЂС…РёРІРЅС‹Рј С„Р°Р№Р»РѕРј!");
+DEFINE("_JWMEDIAMAN_ZIP_NOT_EXISTS"," РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚!");
 /* JW */
 DEFINE('_JWMEDIAMAN_CREDITS','JW Media Manager XTD v1.0 by <a href="http://www.joomlaworks.gr" target="_blank">JoomlaWorks</a>');
-DEFINE('_JWMEDIAMAN_NOIE','Используемый Вами браузер (Internet Explorer) <u>не</u> поддерживает нормальную работу компонента.<br /><br />Пожалуйста, используйте более совершенные браузеры <a href="http://www.mozilla.com" target="_blank">Mozilla Firefox</a> или <a href="http://www.opera.com" target="_blank">Opera</a> если Вы всё еще используете Windows, <a href="http://www.mozilla.com" target="_blank">Mozilla Firefox</a>, <a href="http://www.caminobrowser.org/" target="_blank">Mozilla Camino</a> или <a href="http://www.apple.com/safari/" target="_blank">Safari</a> если Вы используете Mac.<br /><br />Спасибо!');
+DEFINE('_JWMEDIAMAN_NOIE','РСЃРїРѕР»СЊР·СѓРµРјС‹Р№ Р’Р°РјРё Р±СЂР°СѓР·РµСЂ (Internet Explorer) <u>РЅРµ</u> РїРѕРґРґРµСЂР¶РёРІР°РµС‚ РЅРѕСЂРјР°Р»СЊРЅСѓСЋ СЂР°Р±РѕС‚Сѓ РєРѕРјРїРѕРЅРµРЅС‚Р°.<br /><br />РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РёСЃРїРѕР»СЊР·СѓР№С‚Рµ Р±РѕР»РµРµ СЃРѕРІРµСЂС€РµРЅРЅС‹Рµ Р±СЂР°СѓР·РµСЂС‹ <a href="http://www.mozilla.com" target="_blank">Mozilla Firefox</a> РёР»Рё <a href="http://www.opera.com" target="_blank">Opera</a> РµСЃР»Рё Р’С‹ РІСЃС‘ РµС‰Рµ РёСЃРїРѕР»СЊР·СѓРµС‚Рµ Windows, <a href="http://www.mozilla.com" target="_blank">Mozilla Firefox</a>, <a href="http://www.caminobrowser.org/" target="_blank">Mozilla Camino</a> РёР»Рё <a href="http://www.apple.com/safari/" target="_blank">Safari</a> РµСЃР»Рё Р’С‹ РёСЃРїРѕР»СЊР·СѓРµС‚Рµ Mac.<br /><br />РЎРїР°СЃРёР±Рѕ!');
 
 ?>

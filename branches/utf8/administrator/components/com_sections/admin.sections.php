@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 require_once( $mainframe->getPath( 'admin_html' ) );
 
@@ -43,39 +43,39 @@ switch ($task) {
 	case 'menulink':
 	case 'save':
 	case 'apply':
-	/* boston, добавил параметр 'save_and_new' - признак возврата в редактирование разделов для добавления нового */
+	/* boston, РґРѕР±Р°РІРёР» РїР°СЂР°РјРµС‚СЂ 'save_and_new' - РїСЂРёР·РЅР°Рє РІРѕР·РІСЂР°С‚Р° РІ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ СЂР°Р·РґРµР»РѕРІ РґР»СЏ РґРѕР±Р°РІР»РµРЅРёСЏ РЅРѕРІРѕРіРѕ */
 	case 'save_and_new':
-		//boston, чистим кэш меню панели управления
+		//boston, С‡РёСЃС‚РёРј РєСЌС€ РјРµРЅСЋ РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ
 		js_menu_cache_clear();
 		saveSection( $option, $scope, $task );
 		break;
 
 	case 'remove':
-		//boston, чистим кэш меню панели управления
+		//boston, С‡РёСЃС‚РёРј РєСЌС€ РјРµРЅСЋ РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ
 		js_menu_cache_clear();
 		removeSections( $cid, $scope, $option );
 		break;
 
 	case 'copyselect':
-		//boston, чистим кэш меню панели управления
+		//boston, С‡РёСЃС‚РёРј РєСЌС€ РјРµРЅСЋ РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ
 		js_menu_cache_clear();
 		copySectionSelect( $option, $cid, $section );
 		break;
 
 	case 'copysave':
-		//boston, чистим кэш меню панели управления
+		//boston, С‡РёСЃС‚РёРј РєСЌС€ РјРµРЅСЋ РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ
 		js_menu_cache_clear();
 		copySectionSave( $cid );
 		break;
 
 	case 'publish':
-		//boston, чистим кэш меню панели управления
+		//boston, С‡РёСЃС‚РёРј РєСЌС€ РјРµРЅСЋ РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ
 		js_menu_cache_clear();
 		publishSections( $scope, $cid, 1, $option );
 		break;
 
 	case 'unpublish':
-		//boston, чистим кэш меню панели управления
+		//boston, С‡РёСЃС‚РёРј РєСЌС€ РјРµРЅСЋ РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ
 		js_menu_cache_clear();
 		publishSections( $scope, $cid, 0, $option );
 		break;
@@ -206,7 +206,7 @@ function editSection( $uid=0, $scope='', $option ) {
 
 	// fail if checked out not by 'me'
 	if ($row->isCheckedOut( $my->id )) {
-		$msg = 'Раздел -'. $row->title .'- в настоящее время редактируется другим администратором';
+		$msg = 'Р Р°Р·РґРµР» -'. $row->title .'- РІ РЅР°СЃС‚РѕСЏС‰РµРµ РІСЂРµРјСЏ СЂРµРґР°РєС‚РёСЂСѓРµС‚СЃСЏ РґСЂСѓРіРёРј Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂРѕРј';
 		mosRedirect( 'index2.php?option='. $option .'&scope='. $row->scope .'&mosmsg='. $msg );
 	}
 
@@ -225,15 +225,15 @@ function editSection( $uid=0, $scope='', $option ) {
 			for( $i = 0; $i < $count; $i++ ) {
 				switch ( $menus[$i]->type ) {
 					case 'content_section':
-						$menus[$i]->type = 'Таблица раздела';
+						$menus[$i]->type = 'РўР°Р±Р»РёС†Р° СЂР°Р·РґРµР»Р°';
 						break;
 
 					case 'content_blog_section':
-						$menus[$i]->type = 'Блог раздела';
+						$menus[$i]->type = 'Р‘Р»РѕРі СЂР°Р·РґРµР»Р°';
 						break;
 
 					case 'content_archive_section':
-						$menus[$i]->type = 'Блог архива раздела';
+						$menus[$i]->type = 'Р‘Р»РѕРі Р°СЂС…РёРІР° СЂР°Р·РґРµР»Р°';
 						break;
 				}
 			}
@@ -264,10 +264,10 @@ function editSection( $uid=0, $scope='', $option ) {
 	}
 
 	// build the html select list for section types
-	$types[] = mosHTML::makeOption( '', 'Тип раздела' );
-	$types[] = mosHTML::makeOption( 'content_section', 'Список раздела' );
-	$types[] = mosHTML::makeOption( 'content_blog_section', 'Блог раздела' );
-	$types[] = mosHTML::makeOption( 'content_archive_section', 'Блог архива раздела' );
+	$types[] = mosHTML::makeOption( '', 'РўРёРї СЂР°Р·РґРµР»Р°' );
+	$types[] = mosHTML::makeOption( 'content_section', 'РЎРїРёСЃРѕРє СЂР°Р·РґРµР»Р°' );
+	$types[] = mosHTML::makeOption( 'content_blog_section', 'Р‘Р»РѕРі СЂР°Р·РґРµР»Р°' );
+	$types[] = mosHTML::makeOption( 'content_archive_section', 'Р‘Р»РѕРі Р°СЂС…РёРІР° СЂР°Р·РґРµР»Р°' );
 	$lists['link_type'] 		= mosHTML::selectList( $types, 'link_type', 'class="inputbox" size="1"', 'value', 'text' );;
 
 	// build the html select list for ordering
@@ -294,8 +294,8 @@ function editSection( $uid=0, $scope='', $option ) {
 	$len 		= strlen( COM_IMAGE_BASE );
 	
 	// handling for MOSImage directories
-	$folders[] 	= mosHTML::makeOption( '*1*', 'Все'  );
-	$folders[] 	= mosHTML::makeOption( '*0*', 'Отсутствуют' );
+	$folders[] 	= mosHTML::makeOption( '*1*', 'Р’СЃРµ'  );
+	$folders[] 	= mosHTML::makeOption( '*0*', 'РћС‚СЃСѓС‚СЃС‚РІСѓСЋС‚' );
 	$folders[] 	= mosHTML::makeOption( '*#*', '---------------------' );
 	$folders[] 	= mosHTML::makeOption( '/' );
 	foreach ($imgFiles as $file) {
@@ -380,19 +380,19 @@ function saveSection( $option, $scope, $task ) {
 			break;
 
 		case 'apply':
-			$msg = 'Изменения раздела сохранены';
+			$msg = 'РР·РјРµРЅРµРЅРёСЏ СЂР°Р·РґРµР»Р° СЃРѕС…СЂР°РЅРµРЅС‹';
 			mosRedirect( 'index2.php?option='. $option .'&scope='. $scope .'&task=editA&hidemainmenu=1&id='. $row->id, $msg );
 			break;
 
-		/* boston, после сохранения возвращаемся в окно добавления нового раздела */
+		/* boston, РїРѕСЃР»Рµ СЃРѕС…СЂР°РЅРµРЅРёСЏ РІРѕР·РІСЂР°С‰Р°РµРјСЃСЏ РІ РѕРєРЅРѕ РґРѕР±Р°РІР»РµРЅРёСЏ РЅРѕРІРѕРіРѕ СЂР°Р·РґРµР»Р° */
 		case 'save_and_new':
-			$msg = $row->title.' - сохранено.';
+			$msg = $row->title.' - СЃРѕС…СЂР°РЅРµРЅРѕ.';
 			mosRedirect( 'index2.php?option='. $option .'&scope='. $scope.'&task=new', $msg );
 			break;
 
 		case 'save':
 		default:
-			$msg = 'Раздел сохранен';
+			$msg = 'Р Р°Р·РґРµР» СЃРѕС…СЂР°РЅРµРЅ';
 			mosRedirect( 'index2.php?option='. $option .'&scope='. $scope, $msg );
 			break;
 	}
@@ -407,7 +407,7 @@ function removeSections( $cid, $scope, $option ) {
 	global $database;
 
 	if (count( $cid ) < 1) {
-		echo "<script> alert('Выберите раздел для удаления'); window.history.go(-1);</script>\n";
+		echo "<script> alert('Р’С‹Р±РµСЂРёС‚Рµ СЂР°Р·РґРµР» РґР»СЏ СѓРґР°Р»РµРЅРёСЏ'); window.history.go(-1);</script>\n";
 		exit;
 	}
 
@@ -450,7 +450,7 @@ function removeSections( $cid, $scope, $option ) {
 
 	if (count( $err )) {
 		$cids = implode( ', ', $err );
-		$msg = 'Разделы: '. $cids .' не могут быть удалены, т.к. содержат категории';
+		$msg = 'Р Р°Р·РґРµР»С‹: '. $cids .' РЅРµ РјРѕРіСѓС‚ Р±С‹С‚СЊ СѓРґР°Р»РµРЅС‹, С‚.Рє. СЃРѕРґРµСЂР¶Р°С‚ РєР°С‚РµРіРѕСЂРёРё';
 		mosRedirect( 'index2.php?option='. $option .'&scope='. $scope, $msg );
 	}
 	
@@ -458,7 +458,7 @@ function removeSections( $cid, $scope, $option ) {
 	mosCache::cleanCache( 'com_content' );
 
 	$names = implode( ', ', $name );
-	$msg = 'Раздел(ы): '. $names .' успешно удален(ы)';
+	$msg = 'Р Р°Р·РґРµР»(С‹): '. $names .' СѓСЃРїРµС€РЅРѕ СѓРґР°Р»РµРЅ(С‹)';
 	mosRedirect( 'index2.php?option='. $option .'&scope='. $scope, $msg );
 }
 
@@ -475,15 +475,15 @@ function publishSections( $scope, $cid=null, $publish=1, $option ) {
 	global $database, $my;
 
 	if ( !is_array( $cid ) || count( $cid ) < 1 ) {
-		$action = $publish ? 'публикации' : 'отмены публикации';
-		echo "<script> alert('Выберите раздел для $action'); window.history.go(-1);</script>\n";
+		$action = $publish ? 'РїСѓР±Р»РёРєР°С†РёРё' : 'РѕС‚РјРµРЅС‹ РїСѓР±Р»РёРєР°С†РёРё';
+		echo "<script> alert('Р’С‹Р±РµСЂРёС‚Рµ СЂР°Р·РґРµР» РґР»СЏ $action'); window.history.go(-1);</script>\n";
 		exit;
 	}
 
 	$count = count( $cid );
 	if ( $publish ) {
 		if ( !$count ){
-			echo "<script> alert('Невозможно опубликовать пустой раздел $count'); window.history.go(-1);</script>\n";
+			echo "<script> alert('РќРµРІРѕР·РјРѕР¶РЅРѕ РѕРїСѓР±Р»РёРєРѕРІР°С‚СЊ РїСѓСЃС‚РѕР№ СЂР°Р·РґРµР» $count'); window.history.go(-1);</script>\n";
 			return;
 		}
 	}
@@ -577,7 +577,7 @@ function copySectionSelect( $option, $cid, $section ) {
 	global $database;
 
 	if (!is_array( $cid ) || count( $cid ) < 1) {
-		echo "<script> alert('Выберите объект для перемещения'); window.history.go(-1);</script>\n";
+		echo "<script> alert('Р’С‹Р±РµСЂРёС‚Рµ РѕР±СЉРµРєС‚ РґР»СЏ РїРµСЂРµРјРµС‰РµРЅРёСЏ'); window.history.go(-1);</script>\n";
 		exit;
 	}
 
@@ -679,7 +679,7 @@ function copySectionSave( $sectionid ) {
 		$item->checkin();
 	}
 
-	$msg = 'Выбранное содержимое раздела было скопировано в раздел '. $title;
+	$msg = 'Р’С‹Р±СЂР°РЅРЅРѕРµ СЃРѕРґРµСЂР¶РёРјРѕРµ СЂР°Р·РґРµР»Р° Р±С‹Р»Рѕ СЃРєРѕРїРёСЂРѕРІР°РЅРѕ РІ СЂР°Р·РґРµР» '. $title;
 	mosRedirect( 'index2.php?option=com_sections&scope=content&mosmsg='. $msg );
 }
 
@@ -723,17 +723,17 @@ function menuLink( $id ) {
 	switch ( $type ) {
 		case 'content_section':
 			$link 		= 'index.php?option=com_content&task=section&id='. $id;
-			$menutype	= 'Таблица раздела';
+			$menutype	= 'РўР°Р±Р»РёС†Р° СЂР°Р·РґРµР»Р°';
 			break;
 
 		case 'content_blog_section':
 			$link 		= 'index.php?option=com_content&task=blogsection&id='. $id;
-			$menutype	= 'Блог раздела';
+			$menutype	= 'Р‘Р»РѕРі СЂР°Р·РґРµР»Р°';
 			break;
 
 		case 'content_archive_section':
 			$link 		= 'index.php?option=com_content&task=archivesection&id='. $id;
-			$menutype	= 'Блог архива раздела';
+			$menutype	= 'Р‘Р»РѕРі Р°СЂС…РёРІР° СЂР°Р·РґРµР»Р°';
 			break;
 	}
 
@@ -764,7 +764,7 @@ function menuLink( $id ) {
 	// clean any existing cache files
 	mosCache::cleanCache( 'com_content' );
 
-	$msg = $name .' ( '. $menutype .' ) в меню: '. $menu .' успешно создано';
+	$msg = $name .' ( '. $menutype .' ) РІ РјРµРЅСЋ: '. $menu .' СѓСЃРїРµС€РЅРѕ СЃРѕР·РґР°РЅРѕ';
 	mosRedirect( 'index2.php?option=com_sections&scope=content&task=editA&hidemainmenu=1&id='. $id,  $msg );
 }
 
@@ -807,7 +807,7 @@ function saveOrder( &$cid ) {
  	// clean any existing cache files
 	mosCache::cleanCache( 'com_content' );
 
-	$msg 	= 'Новый порядок сохранен';
+	$msg 	= 'РќРѕРІС‹Р№ РїРѕСЂСЏРґРѕРє СЃРѕС…СЂР°РЅРµРЅ';
 	mosRedirect( 'index2.php?option=com_sections&scope=content', $msg );
 } // saveOrder
 

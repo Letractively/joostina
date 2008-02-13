@@ -1,20 +1,20 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
 
 define( "_VALID_MOS", 1 );
 
-/** проверка безопасности */
+/** РїСЂРѕРІРµСЂРєР° Р±РµР·РѕРїР°СЃРЅРѕСЃС‚Рё */
 require( '../includes/auth.php' );
 include_once ( $mosConfig_absolute_path . '/language/' . $mosConfig_lang . '.php' );
 
@@ -94,34 +94,34 @@ if (isset($_FILES['userfile'])) {
 	}  
 
 	if (empty($userfile_name)) {
-		mosErrorAlert("Пожалуйста, выберите изображение для загрузки", $action);
+		mosErrorAlert("РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІС‹Р±РµСЂРёС‚Рµ РёР·РѕР±СЂР°Р¶РµРЅРёРµ РґР»СЏ Р·Р°РіСЂСѓР·РєРё", $action);
 	}
 
 	$filename = split("\.", $userfile_name);
 
 	if (eregi("[^0-9a-zA-Z_]", $filename[0])) {
-		mosErrorAlert('Имена файлов должны состоять из символов алфавита и не должны содержать пробелов.', $action );
+		mosErrorAlert('РРјРµРЅР° С„Р°Р№Р»РѕРІ РґРѕР»Р¶РЅС‹ СЃРѕСЃС‚РѕСЏС‚СЊ РёР· СЃРёРјРІРѕР»РѕРІ Р°Р»С„Р°РІРёС‚Р° Рё РЅРµ РґРѕР»Р¶РЅС‹ СЃРѕРґРµСЂР¶Р°С‚СЊ РїСЂРѕР±РµР»РѕРІ.', $action );
 	}
 
 	if (file_exists($base_Dir.$userfile_name)) {
-		mosErrorAlert('Изображение '.$userfile_name.' уже существует.', $action );
+		mosErrorAlert('РР·РѕР±СЂР°Р¶РµРЅРёРµ '.$userfile_name.' СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚.', $action );
 	}
 
 	if ((strcasecmp(substr($userfile_name,-4),'.gif')) && (strcasecmp(substr($userfile_name,-4),'.jpg')) && (strcasecmp(substr($userfile_name,-4),'.png')) && (strcasecmp(substr($userfile_name,-4),'.bmp')) &&(strcasecmp(substr($userfile_name,-4),'.doc')) && (strcasecmp(substr($userfile_name,-4),'.xls')) && (strcasecmp(substr($userfile_name,-4),'.ppt')) && (strcasecmp(substr($userfile_name,-4),'.swf')) && (strcasecmp(substr($userfile_name,-4),'.pdf'))) {
-		mosErrorAlert('Файл должен иметь расширение gif, png, jpg, bmp, swf, doc, xls или ppt', $action);
+		mosErrorAlert('Р¤Р°Р№Р» РґРѕР»Р¶РµРЅ РёРјРµС‚СЊ СЂР°СЃС€РёСЂРµРЅРёРµ gif, png, jpg, bmp, swf, doc, xls РёР»Рё ppt', $action);
 	}
 
 
 	if (eregi('.pdf', $userfile_name) || eregi('.doc', $userfile_name) || eregi('.xls', $userfile_name) || eregi('.ppt', $userfile_name)) {
 		if (!move_uploaded_file ($_FILES['userfile']['tmp_name'],$media_path.$_FILES['userfile']['name']) || !mosChmod($media_path.$_FILES['userfile']['name'])) {
-			mosErrorAlert('Загрузка файла '.$userfile_name.' неудачна', $action);
+			mosErrorAlert('Р—Р°РіСЂСѓР·РєР° С„Р°Р№Р»Р° '.$userfile_name.' РЅРµСѓРґР°С‡РЅР°', $action);
 		} else {
-			mosErrorAlert('Загрузка файла '.$userfile_name.' в '.$base_Dir.' успешно завершена', "window.close()");
+			mosErrorAlert('Р—Р°РіСЂСѓР·РєР° С„Р°Р№Р»Р° '.$userfile_name.' РІ '.$base_Dir.' СѓСЃРїРµС€РЅРѕ Р·Р°РІРµСЂС€РµРЅР°', "window.close()");
 		}
 	} elseif (!move_uploaded_file ($_FILES['userfile']['tmp_name'],$base_Dir.$_FILES['userfile']['name']) || !mosChmod($base_Dir.$_FILES['userfile']['name'])) {
-		mosErrorAlert('Загрузка файла '.$userfile_name.' неудачна', $action);
+		mosErrorAlert('Р—Р°РіСЂСѓР·РєР° С„Р°Р№Р»Р° '.$userfile_name.' РЅРµСѓРґР°С‡РЅР°', $action);
 	} else {
-		mosErrorAlert('Загрузка файла '.$userfile_name.' в '.$base_Dir.' успешно завершена', "window.close()");
+		mosErrorAlert('Р—Р°РіСЂСѓР·РєР° С„Р°Р№Р»Р° '.$userfile_name.' РІ '.$base_Dir.' СѓСЃРїРµС€РЅРѕ Р·Р°РІРµСЂС€РµРЅР°', "window.close()");
 	}
 		echo $base_Dir.$_FILES['userfile']['name'];
 }
@@ -141,7 +141,7 @@ echo '<?xml version="1.0" encoding="'. $iso[1] .'"?' .'>';
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Загрузка файла</title>
+<title>Р—Р°РіСЂСѓР·РєР° С„Р°Р№Р»Р°</title>
 <meta http-equiv="Content-Type" content="text/html; <?php echo _ISO; ?>" />
 </head>
 <body>
@@ -152,7 +152,7 @@ echo '<?xml version="1.0" encoding="'. $iso[1] .'"?' .'>';
 <table class="adminform">
 	<tr>
 	<th class="title"> 
-		Загрузка файла: <?php echo $directory; ?>
+		Р—Р°РіСЂСѓР·РєР° С„Р°Р№Р»Р°: <?php echo $directory; ?>
 	</th>
 	</tr>
 	<tr>
@@ -162,8 +162,8 @@ echo '<?xml version="1.0" encoding="'. $iso[1] .'"?' .'>';
 	</tr>
 	<tr>
 	  <td>
-		<input class="button" type="submit" value="Загрузить" name="fileupload" />
-		Максимальный размер = <?php echo ini_get( 'post_max_size' );?>
+		<input class="button" type="submit" value="Р—Р°РіСЂСѓР·РёС‚СЊ" name="fileupload" />
+		РњР°РєСЃРёРјР°Р»СЊРЅС‹Р№ СЂР°Р·РјРµСЂ = <?php echo ini_get( 'post_max_size' );?>
 	  </td>
 </tr>
 </table>

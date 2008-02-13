@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 /**
 * @package Joostina
@@ -29,7 +29,7 @@ class HTML_admin_misc {
 		<table class="adminheading" border="0">
 		<tr>
 			<th class="cpanel">
-			Панель управления
+			РџР°РЅРµР»СЊ СѓРїСЂР°РІР»РµРЅРёСЏ
 			</th>
 		</tr>
 		</table>
@@ -90,45 +90,45 @@ class HTML_admin_misc {
 		<table class="adminheading">
 		<tr>
 			<th class="info">
-			Информация
+			РРЅС„РѕСЂРјР°С†РёСЏ
 			</th>
 		</tr>
 		</table>
 
 		<?php
 		$tabs->startPane("sysinfo");
-		$tabs->startTab("О Joostina","joostina-page");
+		$tabs->startTab("Рћ Joostina","joostina-page");
 		?>
 		<div>
 			<ul style="list-style:none;" id="about">
-<li><span class="joost_info">Joostina! включает в себя следующие программные продукты:</span></li>
+<li><span class="joost_info">Joostina! РІРєР»СЋС‡Р°РµС‚ РІ СЃРµР±СЏ СЃР»РµРґСѓСЋС‰РёРµ РїСЂРѕРіСЂР°РјРјРЅС‹Рµ РїСЂРѕРґСѓРєС‚С‹:</span></li>
 <li><span class="joost_info">Joomla!</span><br /><br />
-Авторские права: (C) 2005-2007 Open Source Matters.
-Лицензия:        GNU General Public License (GPL)</li>
+РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР°: (C) 2005-2007 Open Source Matters.
+Р›РёС†РµРЅР·РёСЏ:        GNU General Public License (GPL)</li>
 <li><span class="joost_info">Joomla RE</span><br /><br />
-Авторские права (C) 2005-2007 Joom.Ru - Русский дом Joomla
-Лицензия:        GNU General Public License (GPL)</li>
+РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2005-2007 Joom.Ru - Р СѓСЃСЃРєРёР№ РґРѕРј Joomla
+Р›РёС†РµРЅР·РёСЏ:        GNU General Public License (GPL)</li>
 <li><span class="joost_info">jQuery</span><br /><br />
-Авторские права: (c) 2007 John Resig (jquery.com)
-Лицензия:        GNU General Public License (GPL)</li>
+РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР°: (c) 2007 John Resig (jquery.com)
+Р›РёС†РµРЅР·РёСЏ:        GNU General Public License (GPL)</li>
 <li><span class="joost_info">PQuery</span><br /><br />
-Авторские права: (c) 2006, ngcoders
-Лицензия:        GNU General Public License (GPL)</li>
+РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР°: (c) 2006, ngcoders
+Р›РёС†РµРЅР·РёСЏ:        GNU General Public License (GPL)</li>
 <li><span class="joost_info">xAjax</span><br /><br />
-Авторские права: (c) 2005 by Jared White & J. Max Wilson
-Лицензия:        GNU Lesser General Public License (LGPL)</li>
+РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР°: (c) 2005 by Jared White & J. Max Wilson
+Р›РёС†РµРЅР·РёСЏ:        GNU Lesser General Public License (LGPL)</li>
 <li><span class="joost_info">PHP Client Sniffer (phpsniff)</span><br /><br />
-Авторские права: (с) 2002-2004 Roger Raymond
-Лицензия:        GNU Lesser General Public License (LGPL)</li>
+РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР°: (СЃ) 2002-2004 Roger Raymond
+Р›РёС†РµРЅР·РёСЏ:        GNU Lesser General Public License (LGPL)</li>
 <li><span class="joost_info">ConvertCharset</span><br /><br />
-Авторские права: (с) 2003-2004 Mikolaj Jedrzejak 2003-2004
-<li><span class="joost_info">Значки системы: nuoveXT-kde-1.6</span><br /><br />
-Лицензия:        GNU General Public License (GPL)</li>
+РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР°: (СЃ) 2003-2004 Mikolaj Jedrzejak 2003-2004
+<li><span class="joost_info">Р—РЅР°С‡РєРё СЃРёСЃС‚РµРјС‹: nuoveXT-kde-1.6</span><br /><br />
+Р›РёС†РµРЅР·РёСЏ:        GNU General Public License (GPL)</li>
 <li><span class="joost_info">CodePress</span><br /><br />-
-Авторское право: Copyright (C) 2006 Fernando M.A.d.S. fermads@gmail.com - http://codepress.org/
-Лицензия:        GNU Lesser General Public License</li>
-<li><span class="joost_info">Расширения системы</span></li>
-<li><span class="joost_info">Мамбот "Русская типографика"</span><br /><br />Рябов Денис ( http://sanrsu.org.ru/ )</li>
+РђРІС‚РѕСЂСЃРєРѕРµ РїСЂР°РІРѕ: Copyright (C) 2006 Fernando M.A.d.S. fermads@gmail.com - http://codepress.org/
+Р›РёС†РµРЅР·РёСЏ:        GNU Lesser General Public License</li>
+<li><span class="joost_info">Р Р°СЃС€РёСЂРµРЅРёСЏ СЃРёСЃС‚РµРјС‹</span></li>
+<li><span class="joost_info">РњР°РјР±РѕС‚ "Р СѓСЃСЃРєР°СЏ С‚РёРїРѕРіСЂР°С„РёРєР°"</span><br /><br />Р СЏР±РѕРІ Р”РµРЅРёСЃ ( http://sanrsu.org.ru/ )</li>
 <li><span class="joost_info">ebackup</span><br /><br />Harald Baer ( www.mambobaer.de )</li>
 <li><span class="joost_info">JCE</span><br /><br />Ryan Demmer ( www.cellardoor.za.net )</li>
 <li><span class="joost_info">mycheckin</span><br /><br />Bart Eversdijk ( www.eversdijk.com )</li>
@@ -139,65 +139,65 @@ class HTML_admin_misc {
 <li><span class="joost_info">Custom QuickIcon</span><br /><br />mic ( www.joomx.com )</li>
 <li><span class="joost_info">Xmap</span><br /><br />Guillermo Vargas ( joomla.vargas.co.cr )</li>
 <li><span class="joost_info">Cache</span><br /><br />
-Авторское право:        Fabien MARTY
-Лицензия:        GNU Lesser General Public License (LGPL)</li>
+РђРІС‚РѕСЂСЃРєРѕРµ РїСЂР°РІРѕ:        Fabien MARTY
+Р›РёС†РµРЅР·РёСЏ:        GNU Lesser General Public License (LGPL)</li>
 <li><span class="joost_info">DOMIT!</span><br /><br />-
-Авторское право:        2004 John Heinstein. All rights reserved
-Лицензия:        GNU Lesser General Public License (LGPL)</li>
+РђРІС‚РѕСЂСЃРєРѕРµ РїСЂР°РІРѕ:        2004 John Heinstein. All rights reserved
+Р›РёС†РµРЅР·РёСЏ:        GNU Lesser General Public License (LGPL)</li>
 <li><span class="joost_info">feedcreator</span><br /><br />
-Авторское право:        Kai Blankenhorn
-Лицензия:        GNU General Public License (GPL)</li>
+РђРІС‚РѕСЂСЃРєРѕРµ РїСЂР°РІРѕ:        Kai Blankenhorn
+Р›РёС†РµРЅР·РёСЏ:        GNU General Public License (GPL)</li>
 <li><span class="joost_info">js-calendar</span><br /><br />
-Авторское право:        Mihai Bazon, 2002
-Лицензия:        GNU Lesser General Public License (LGPL)</li>
+РђРІС‚РѕСЂСЃРєРѕРµ РїСЂР°РІРѕ:        Mihai Bazon, 2002
+Р›РёС†РµРЅР·РёСЏ:        GNU Lesser General Public License (LGPL)</li>
 <li><span class="joost_info">js-jscook-menu</span><br /><br />
-Авторское право:        2002-2005 by Heng Yuan
-Лицензия:        Custom open source license
+РђРІС‚РѕСЂСЃРєРѕРµ РїСЂР°РІРѕ:        2002-2005 by Heng Yuan
+Р›РёС†РµРЅР·РёСЏ:        Custom open source license
 <li><span class="joost_info">js-overlib</span><br /><br />
-Авторское право:        Erik Bosrup 1998-2004
-Лицензия:        Artistic (see http://www.bosrup.com/web/overlib/?License)
+РђРІС‚РѕСЂСЃРєРѕРµ РїСЂР°РІРѕ:        Erik Bosrup 1998-2004
+Р›РёС†РµРЅР·РёСЏ:        Artistic (see http://www.bosrup.com/web/overlib/?License)
 <li><span class="joost_info">js-tabs</span><br /><br />
-Авторское право:        1998 - 2003 Erik Arvidsson
-Лицензия:        GNU General Public License (GPL)</li>
+РђРІС‚РѕСЂСЃРєРѕРµ РїСЂР°РІРѕ:        1998 - 2003 Erik Arvidsson
+Р›РёС†РµРЅР·РёСЏ:        GNU General Public License (GPL)</li>
 <li><span class="joost_info">Mambo</span><br /><br />
-Авторское право:        2000 - 2004 Miro International Pty Ltd
-Лицензия:        GNU General Public License (GPL)</li>
+РђРІС‚РѕСЂСЃРєРѕРµ РїСЂР°РІРѕ:        2000 - 2004 Miro International Pty Ltd
+Р›РёС†РµРЅР·РёСЏ:        GNU General Public License (GPL)</li>
 <li><span class="joost_info">patTemplate, patError</span><br /><br />
-Авторское право:        Stephan Schmidt
-Лицензия:        GNU Lesser General Public License (LGPL)</li>
+РђРІС‚РѕСЂСЃРєРѕРµ РїСЂР°РІРѕ:        Stephan Schmidt
+Р›РёС†РµРЅР·РёСЏ:        GNU Lesser General Public License (LGPL)</li>
 <li><span class="joost_info">PEAR</span><br /><br />
-Авторское право:        1997-2004 The PHP Group
-Лицензия:        PHP license</li>
+РђРІС‚РѕСЂСЃРєРѕРµ РїСЂР°РІРѕ:        1997-2004 The PHP Group
+Р›РёС†РµРЅР·РёСЏ:        PHP license</li>
 <li><span class="joost_info">phpGACL</span><br /><br />
-Авторское право:        2002,2003 Mike Benoit
-Лицензия:        GNU Lesser General Public License (LGPL)</li>
+РђРІС‚РѕСЂСЃРєРѕРµ РїСЂР°РІРѕ:        2002,2003 Mike Benoit
+Р›РёС†РµРЅР·РёСЏ:        GNU Lesser General Public License (LGPL)</li>
 <li><span class="joost_info">phpInputfilter</span><br /><br />
-Авторское право: Daniel Morris
-Лицензия:        GNU General Public License (GPL)</li>
+РђРІС‚РѕСЂСЃРєРѕРµ РїСЂР°РІРѕ: Daniel Morris
+Р›РёС†РµРЅР·РёСЏ:        GNU General Public License (GPL)</li>
 <li><span class="joost_info">phpMailer</span><br /><br />
-Авторское право: 2001 - 2003  Brent R. Matzelle
-Лицензия:        GNU Lesser General Public License (LGPL)</li>
+РђРІС‚РѕСЂСЃРєРѕРµ РїСЂР°РІРѕ: 2001 - 2003  Brent R. Matzelle
+Р›РёС†РµРЅР·РёСЏ:        GNU Lesser General Public License (LGPL)</li>
 <li><span class="joost_info">tar-archive</span><br /><br />
-Авторское право: 1997-2003 The PHP Group
-Лицензия:        PHP License</li>
+РђРІС‚РѕСЂСЃРєРѕРµ РїСЂР°РІРѕ: 1997-2003 The PHP Group
+Р›РёС†РµРЅР·РёСЏ:        PHP License</li>
 <li><span class="joost_info">TinyMCE:</span><br /><br />
-Авторское право: 2004 Moxiecode Systems AB
-Лицензия:        GNU Lesser General Public License (LGPL)</li>
+РђРІС‚РѕСЂСЃРєРѕРµ РїСЂР°РІРѕ: 2004 Moxiecode Systems AB
+Р›РёС†РµРЅР·РёСЏ:        GNU Lesser General Public License (LGPL)</li>
 <li><span class="joost_info">vcard</span><br /><br />
-Авторское право: Kai Blankenhorn
-Лицензия:        GNU General Public License (GPL)</li>
+РђРІС‚РѕСЂСЃРєРѕРµ РїСЂР°РІРѕ: Kai Blankenhorn
+Р›РёС†РµРЅР·РёСЏ:        GNU General Public License (GPL)</li>
 <li><span class="joost_info">wz-tooltip</span><br /><br />
-Авторское право: 2002-2004 Walter Zorn
-Лицензия:        GNU Lesser General Public License (LGPL)</li>
-<li><span class="joost_info">Значки FOOOD (Панель управления администратора)</span><br /><br />-
-Авторское право: 2004 FOOOD's Icons
-Лицензия:        http://www.foood.net/joomla.htm
-Примечание:      Please note these icons are NOT OPEN SOURCE but used with permission</li>
+РђРІС‚РѕСЂСЃРєРѕРµ РїСЂР°РІРѕ: 2002-2004 Walter Zorn
+Р›РёС†РµРЅР·РёСЏ:        GNU Lesser General Public License (LGPL)</li>
+<li><span class="joost_info">Р—РЅР°С‡РєРё FOOOD (РџР°РЅРµР»СЊ СѓРїСЂР°РІР»РµРЅРёСЏ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР°)</span><br /><br />-
+РђРІС‚РѕСЂСЃРєРѕРµ РїСЂР°РІРѕ: 2004 FOOOD's Icons
+Р›РёС†РµРЅР·РёСЏ:        http://www.foood.net/joomla.htm
+РџСЂРёРјРµС‡Р°РЅРёРµ:      Please note these icons are NOT OPEN SOURCE but used with permission</li>
 			</ul>
 		</div>
 		<?php
 		$tabs->endTab();
-		$tabs->startTab("О системе","system-page");
+		$tabs->startTab("Рћ СЃРёСЃС‚РµРјРµ","system-page");
 		?>
 			<table class="adminform">
 			<tr>
@@ -210,7 +210,7 @@ class HTML_admin_misc {
 			</tr>
 			<tr>
 				<td valign="top" width="250">
-					<strong>Система:</strong>
+					<strong>РЎРёСЃС‚РµРјР°:</strong>
 				</td>
 				<td>
 					<?php echo php_uname(); ?>
@@ -218,7 +218,7 @@ class HTML_admin_misc {
 			</tr>
 			<tr>
 				<td>
-					<strong>Версия базы данных:</strong>
+					<strong>Р’РµСЂСЃРёСЏ Р±Р°Р·С‹ РґР°РЅРЅС‹С…:</strong>
 				</td>
 				<td>
 					<?php echo $database->getVersion(); ?>
@@ -226,7 +226,7 @@ class HTML_admin_misc {
 			</tr>
 			<tr>
 				<td>
-					<strong>Версия PHP:</strong>
+					<strong>Р’РµСЂСЃРёСЏ PHP:</strong>
 				</td>
 				<td>
 					<?php echo phpversion(); ?>
@@ -234,7 +234,7 @@ class HTML_admin_misc {
 			</tr>
 			<tr>
 				<td>
-					<strong>Веб-сервер:</strong>
+					<strong>Р’РµР±-СЃРµСЂРІРµСЂ:</strong>
 				</td>
 				<td>
 					<?php echo HTML_admin_misc::get_server_software(); ?>
@@ -242,7 +242,7 @@ class HTML_admin_misc {
 			</tr>
 			<tr>
 				<td>
-					<strong>Интерфейс между веб-сервером и PHP:</strong>
+					<strong>РРЅС‚РµСЂС„РµР№СЃ РјРµР¶РґСѓ РІРµР±-СЃРµСЂРІРµСЂРѕРј Рё PHP:</strong>
 				</td>
 				<td>
 					<?php echo php_sapi_name(); ?>
@@ -250,7 +250,7 @@ class HTML_admin_misc {
 			</tr>
 			<tr>
 				<td>
-					<strong>Версия Joostina!:</strong>
+					<strong>Р’РµСЂСЃРёСЏ Joostina!:</strong>
 				</td>
 				<td>
 					<?php echo $version; ?>
@@ -258,7 +258,7 @@ class HTML_admin_misc {
 			</tr>
 			<tr>
 				<td>
-					<strong>Браузер (User Agent):</strong>
+					<strong>Р‘СЂР°СѓР·РµСЂ (User Agent):</strong>
 				</td>
 				<td>
 					<?php echo phpversion() <= '4.2.1' ? getenv( 'HTTP_USER_AGENT' ) : $_SERVER['HTTP_USER_AGENT'];?>
@@ -270,13 +270,13 @@ class HTML_admin_misc {
 			</tr>
 			<tr>
 				<td valign="top">
-					<strong>Важные настройки PHP:</strong>
+					<strong>Р’Р°Р¶РЅС‹Рµ РЅР°СЃС‚СЂРѕР№РєРё PHP:</strong>
 				</td>
 				<td>
 					<table cellspacing="1" cellpadding="1" border="0">
 					<tr>
 						<td width="250">
-							Эмуляция Register Globals!:
+							Р­РјСѓР»СЏС†РёСЏ Register Globals!:
 						</td>
 						<td style="font-weight: bold;" width="50">
 							<?php echo ((RG_EMULATION) ? '<span style="color: red;">ON</span>' : '<span style="color: green;">OFF</span>'); ?>
@@ -288,7 +288,7 @@ class HTML_admin_misc {
 					</tr>
 					<tr>
 						<td>
-							Register Globals - регистрация глобальных переменных:
+							Register Globals - СЂРµРіРёСЃС‚СЂР°С†РёСЏ РіР»РѕР±Р°Р»СЊРЅС‹С… РїРµСЂРµРјРµРЅРЅС‹С…:
 						</td>
 						<td style="font-weight: bold;">
 							<?php echo HTML_admin_misc::get_php_setting('register_globals',1,0); ?>
@@ -300,7 +300,7 @@ class HTML_admin_misc {
 					</tr>
 					<tr>
 						<td>
-							Параметр Magic Quotes:
+							РџР°СЂР°РјРµС‚СЂ Magic Quotes:
 						</td>
 						<td style="font-weight: bold;">
 							<?php echo HTML_admin_misc::get_php_setting('magic_quotes_gpc',1,1); ?>
@@ -312,7 +312,7 @@ class HTML_admin_misc {
 					</tr>
 					<tr>
 						<td>
-							Безопасный режим - Safe Mode:
+							Р‘РµР·РѕРїР°СЃРЅС‹Р№ СЂРµР¶РёРј - Safe Mode:
 						</td>
 						<td style="font-weight: bold;">
 							<?php echo HTML_admin_misc::get_php_setting('safe_mode',1,0); ?>
@@ -324,7 +324,7 @@ class HTML_admin_misc {
 					</tr>
 					<tr>
 						<td>
-							Загрузка файлов:
+							Р—Р°РіСЂСѓР·РєР° С„Р°Р№Р»РѕРІ:
 						</td>
 						<td style="font-weight: bold;">
 							<?php echo HTML_admin_misc::get_php_setting('file_uploads',1,1); ?>
@@ -336,7 +336,7 @@ class HTML_admin_misc {
 					</tr>
 					<tr>
 						<td>
-							Обработка сессий:
+							РћР±СЂР°Р±РѕС‚РєР° СЃРµСЃСЃРёР№:
 						</td>
 						<td style="font-weight: bold;">
 							<?php echo HTML_admin_misc::get_php_setting('session.auto_start',1,0); ?>
@@ -348,7 +348,7 @@ class HTML_admin_misc {
 					</tr>
 					<tr>
 						<td>
-							Каталог хранения сессий - Session save path:
+							РљР°С‚Р°Р»РѕРі С…СЂР°РЅРµРЅРёСЏ СЃРµСЃСЃРёР№ - Session save path:
 						</td>
 						<td style="font-weight: bold;" colspan="2">
 							<?php echo (($sp=ini_get('session.save_path'))?$sp:'none'); ?>
@@ -356,7 +356,7 @@ class HTML_admin_misc {
 					</tr>
 					<tr>
 						<td>
-							Спецтеги php:
+							РЎРїРµС†С‚РµРіРё php:
 						</td>
 						<td style="font-weight: bold;">
 							<?php echo HTML_admin_misc::get_php_setting('short_open_tag'); ?>
@@ -366,7 +366,7 @@ class HTML_admin_misc {
 					</tr>
 					<tr>
 						<td>
-							Буферизация:
+							Р‘СѓС„РµСЂРёР·Р°С†РёСЏ:
 						</td>
 						<td style="font-weight: bold;">
 							<?php echo HTML_admin_misc::get_php_setting('output_buffering'); ?>
@@ -376,7 +376,7 @@ class HTML_admin_misc {
 					</tr>
 					<tr>
 						<td>
-							Разрешенные/открытые каталоги:
+							Р Р°Р·СЂРµС€РµРЅРЅС‹Рµ/РѕС‚РєСЂС‹С‚С‹Рµ РєР°С‚Р°Р»РѕРіРё:
 						</td>
 						<td style="font-weight: bold;" colspan="2">
 							<?php echo (($ob = ini_get('open_basedir')) ? $ob : 'none'); ?>
@@ -384,7 +384,7 @@ class HTML_admin_misc {
 					</tr>
 					<tr>
 						<td>
-							Отображение ошибок:
+							РћС‚РѕР±СЂР°Р¶РµРЅРёРµ РѕС€РёР±РѕРє:
 						</td>
 						<td style="font-weight: bold;" colspan="2">
 							<?php echo HTML_admin_misc::get_php_setting('display_errors'); ?>
@@ -392,7 +392,7 @@ class HTML_admin_misc {
 					</tr>
 					<tr>
 						<td>
-							Поддержка XML:
+							РџРѕРґРґРµСЂР¶РєР° XML:
 						</td>
 						<td style="font-weight: bold;" colspan="2">
 						<?php echo extension_loaded('xml')?'Yes':'No'; ?>
@@ -400,7 +400,7 @@ class HTML_admin_misc {
 					</tr>
 					<tr>
 						<td>
-							Поддержка Zlib:
+							РџРѕРґРґРµСЂР¶РєР° Zlib:
 						</td>
 						<td style="font-weight: bold;" colspan="2">
 							<?php echo extension_loaded('zlib')?'Yes':'No'; ?>
@@ -408,7 +408,7 @@ class HTML_admin_misc {
 					</tr>
 					<tr>
 						<td>
-							Запрещенные функции:
+							Р—Р°РїСЂРµС‰РµРЅРЅС‹Рµ С„СѓРЅРєС†РёРё:
 						</td>
 						<td style="font-weight: bold;" colspan="2">
 							<?php echo (($df=ini_get('disable_functions'))?$df:'none'); ?>
@@ -423,7 +423,7 @@ class HTML_admin_misc {
 			</tr>
 			<tr>
 				<td valign="top">
-					<strong>Файл конфигурации:</strong>
+					<strong>Р¤Р°Р№Р» РєРѕРЅС„РёРіСѓСЂР°С†РёРё:</strong>
 				</td>
 				<td>
 				<?php
@@ -473,12 +473,12 @@ class HTML_admin_misc {
 			</table>
 		<?php
 		$tabs->endTab();
-		$tabs->startTab('Права доступа','perms');
+		$tabs->startTab('РџСЂР°РІР° РґРѕСЃС‚СѓРїР°','perms');
 		?>
 			<table class="adminform">
 			<tr>
 				<td>
-					<strong>Для работы ВСЕХ функций и возможностей Joostina, ВСЕ указанные ниже каталоги должны быть доступны для записи:</strong><br />   <br />
+					<strong>Р”Р»СЏ СЂР°Р±РѕС‚С‹ Р’РЎР•РҐ С„СѓРЅРєС†РёР№ Рё РІРѕР·РјРѕР¶РЅРѕСЃС‚РµР№ Joostina, Р’РЎР• СѓРєР°Р·Р°РЅРЅС‹Рµ РЅРёР¶Рµ РєР°С‚Р°Р»РѕРіРё РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ РґРѕСЃС‚СѓРїРЅС‹ РґР»СЏ Р·Р°РїРёСЃРё:</strong><br />   <br />
 					<?php
 					$sp = ini_get('session.save_path');
 
@@ -500,22 +500,22 @@ class HTML_admin_misc {
 					mosHTML::writableCell( 'media' );
 					mosHTML::writableCell( 'modules' );
 					mosHTML::writableCell( 'templates' );
-					mosHTML::writableCell( $mosConfig_cachepath, 0, '<strong>Каталог кэша</strong> ' );
-					mosHTML::writableCell( $sp, 0, '<strong>Каталог сессий</strong> ' );
+					mosHTML::writableCell( $mosConfig_cachepath, 0, '<strong>РљР°С‚Р°Р»РѕРі РєСЌС€Р°</strong> ' );
+					mosHTML::writableCell( $sp, 0, '<strong>РљР°С‚Р°Р»РѕРі СЃРµСЃСЃРёР№</strong> ' );
 					?>
 				</td>
 			</tr>
 			</table>
 		<?php
 		$tabs->endTab();
-		$tabs->startTab('База данных','db');
+		$tabs->startTab('Р‘Р°Р·Р° РґР°РЅРЅС‹С…','db');
 		?>
 			<table class="adminform">
 			<tr>
-				<th>Название таблицы:</th>
-				<th>Кодировка:</th>
-				<th>Записей:</th>
-				<th>Размер:</th>
+				<th>РќР°Р·РІР°РЅРёРµ С‚Р°Р±Р»РёС†С‹:</th>
+				<th>РљРѕРґРёСЂРѕРІРєР°:</th>
+				<th>Р—Р°РїРёСЃРµР№:</th>
+				<th>Р Р°Р·РјРµСЂ:</th>
 			</tr>
 <?php
 	$db_info = HTML_admin_misc::db_info();
@@ -534,7 +534,7 @@ class HTML_admin_misc {
 		?>
 		<?php
 	}
-	// получение информации о базе данных
+	// РїРѕР»СѓС‡РµРЅРёРµ РёРЅС„РѕСЂРјР°С†РёРё Рѕ Р±Р°Р·Рµ РґР°РЅРЅС‹С…
 	function db_info(){
 		global $database,$mosConfig_db;
 		$sql = 'SHOW TABLE STATUS FROM '.$mosConfig_db;
@@ -602,7 +602,7 @@ class HTML_admin_misc {
 		<table class="adminform" border="1">
 			<tr>
 				<th colspan="2" class="title">
-					Помощь
+					РџРѕРјРѕС‰СЊ
 				</th>
 			</tr>
 			<tr>
@@ -610,41 +610,41 @@ class HTML_admin_misc {
 				<table width="100%">
 					<tr>
 						<td>
-							<strong>Поиск:</strong>
+							<strong>РџРѕРёСЃРє:</strong>
 							<input class="text_area" type="hidden" name="option" value="com_admin" />
 							<input type="text" name="helpsearch" value="<?php echo $helpsearch;?>" class="inputbox" />
-							<input type="submit" value="Найти" class="button" />
-							<input type="button" value="Очистить" class="button" onclick="f=document.adminForm;f.helpsearch.value='';f.submit()" />
+							<input type="submit" value="РќР°Р№С‚Рё" class="button" />
+							<input type="button" value="РћС‡РёСЃС‚РёС‚СЊ" class="button" onclick="f=document.adminForm;f.helpsearch.value='';f.submit()" />
 							</td>
 							<td style="text-align:right">
 							<?php
 							if ($helpurl) {
 							?>
 							<a href="<?php echo $fullhelpurl;?>joomla.glossary" target="helpFrame">
-								Глоссарий</a>
+								Р“Р»РѕСЃСЃР°СЂРёР№</a>
 							|
 							<a href="<?php echo $fullhelpurl;?>joomla.credits" target="helpFrame">
-								Разработчики</a>
+								Р Р°Р·СЂР°Р±РѕС‚С‡РёРєРё</a>
 							|
 							<a href="<?php echo $fullhelpurl;?>joomla.support" target="helpFrame">
-								Поддержка</a>
+								РџРѕРґРґРµСЂР¶РєР°</a>
 							<?php
 							} else {
 							?>
 							<a href="<?php echo $mosConfig_live_site;?>/help/joomla.glossary.html" target="helpFrame">
-								Глоссарий</a>
+								Р“Р»РѕСЃСЃР°СЂРёР№</a>
 							|
 							<a href="<?php echo $mosConfig_live_site;?>/help/joomla.credits.html" target="helpFrame">
-								Разработчики</a>
+								Р Р°Р·СЂР°Р±РѕС‚С‡РёРєРё</a>
 							|
 							<a href="<?php echo $mosConfig_live_site;?>/help/joomla.support.html" target="helpFrame">
-								Поддержка</a>
+								РџРѕРґРґРµСЂР¶РєР°</a>
 							<?php
 							}
 							?>
 							|
 							<a href="http://www.gnu.org/copyleft/gpl.html" target="helpFrame">
-								Лицензия</a>
+								Р›РёС†РµРЅР·РёСЏ</a>
 							|
 							<a href="http://help.joomla.org" target="_blank">
 								help.joomla.org</a>
@@ -653,13 +653,13 @@ class HTML_admin_misc {
 								Joom.Ru</a>
 							<br />
 							<a href="<?php echo $mosConfig_live_site;?>/administrator/index3.php?option=com_admin&task=changelog" target="helpFrame">
-								Журнал изменений</a>
+								Р–СѓСЂРЅР°Р» РёР·РјРµРЅРµРЅРёР№</a>
 							|
 							<a href="<?php echo $mosConfig_live_site;?>/administrator/index3.php?option=com_admin&task=sysinfo" target="helpFrame">
-								Системная информация</a>
+								РЎРёСЃС‚РµРјРЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ</a>
 							|
 							<a href="http://joom.ru/" target="_blank">
-								Проверить версию Joomla! RE</a>
+								РџСЂРѕРІРµСЂРёС‚СЊ РІРµСЂСЃРёСЋ Joomla! RE</a>
 						</td>
 					</tr>
 				</table>
@@ -667,7 +667,7 @@ class HTML_admin_misc {
 		</tr>
 		<tr valign="top">
 			<td width="20%" valign="top">
-				<strong>Оглавление</strong>
+				<strong>РћРіР»Р°РІР»РµРЅРёРµ</strong>
 				<div class="helpIndex">
 				<?php
 				foreach ($toc as $k=>$v) {
@@ -709,11 +709,11 @@ class HTML_admin_misc {
 		<table class="adminform">
 		<tr>
 			<th width="50%" class="title">
-			Предпросмотр сайта
+			РџСЂРµРґРїСЂРѕСЃРјРѕС‚СЂ СЃР°Р№С‚Р°
 			</th>
 			<th width="50%" style="text-align:right">
 			<a href="<?php echo $mosConfig_live_site . '/index.php?tp=' . $tp;?>" target="_blank">
-			Открыть в новом окне
+			РћС‚РєСЂС‹С‚СЊ РІ РЅРѕРІРѕРј РѕРєРЅРµ
 			</a>
 			</th>
 		</tr>

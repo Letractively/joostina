@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 class HTML_eBackup {
 
@@ -23,14 +23,14 @@ class HTML_eBackup {
                  ."  <tr>\n"
                  ."    <td width=\"100%\" align=\"left\">\n"
                  ."      <img src=\"".$mosConfig_live_site."/administrator/components/com_ebackup/images/logo.png\" alt=\"\" style=\"margin-right:10px;\" />\n"
-                 ."      <font style=\"font-size : 18px;font-weight: bold;text-align: left;\">Управление базой данных</font>\n"
+                 ."      <font style=\"font-size : 18px;font-weight: bold;text-align: left;\">РЈРїСЂР°РІР»РµРЅРёРµ Р±Р°Р·РѕР№ РґР°РЅРЅС‹С…</font>\n"
                  ."    </td>\n"
                  ."  </tr>\n"
                  ."</table>\n"
                  ."<table class=\"adminlist\" border=\"0\" cellpadding=\"4\" cellspacing=\"0\" width=\"100%\">\n"
                  ."  <tr>\n"
                  ."    <th width=\"1%\"><input type=\"checkbox\" name=\"toggle\" value=\"\" onclick=\"checkAll(".count($table_lists).");\" /></th>\n"
-                 ."    <th align=\"left\">Таблицы</th>\n"
+                 ."    <th align=\"left\">РўР°Р±Р»РёС†С‹</th>\n"
                  ."    <th width=\"5%\">"._BBKP_LINES."</th>\n"
                  ."    <th width=\"5%\">"._BBKP_SIZES."</th>\n"
                  ."    <th width=\"5%\">"._BBKP_OVERHEAD."</th>\n"
@@ -106,7 +106,7 @@ class HTML_eBackup {
                  ."  <tr>\n"
                  ."    <td width=\"100%\" align=\"left\">\n"
                  ."      <img src=\"".$mosConfig_live_site."/administrator/components/com_ebackup/images/logo.png\" alt=\"\" style=\"margin-right:10px;\" />\n"
-                 ."      <font style=\"font-size : 18px;font-weight: bold;text-align: left;\">База данных - результаты бэкапа</font>\n"
+                 ."      <font style=\"font-size : 18px;font-weight: bold;text-align: left;\">Р‘Р°Р·Р° РґР°РЅРЅС‹С… - СЂРµР·СѓР»СЊС‚Р°С‚С‹ Р±СЌРєР°РїР°</font>\n"
                  ."    </td>\n"
                  ."  </tr>\n"
                  ."  <tr>\n"
@@ -148,7 +148,7 @@ class HTML_eBackup {
                  ."  <tr>\n"
                  ."    <td width=\"100%\" align=\"left\">\n"
                  ."      <img src=\"".$mosConfig_live_site."/administrator/components/com_ebackup/images/logo.png\" alt=\"\" style=\"margin-right:10px;\" />\n"
-                 ."      <font style=\"font-size : 18px;font-weight: bold;text-align: left;\">База данных - управление сохранёнными файлами базы</font>\n"
+                 ."      <font style=\"font-size : 18px;font-weight: bold;text-align: left;\">Р‘Р°Р·Р° РґР°РЅРЅС‹С… - СѓРїСЂР°РІР»РµРЅРёРµ СЃРѕС…СЂР°РЅС‘РЅРЅС‹РјРё С„Р°Р№Р»Р°РјРё Р±Р°Р·С‹</font>\n"
                  ."    </td>\n"
                  ."  </tr>\n"
                  ."</table>\n"
@@ -182,7 +182,7 @@ class HTML_eBackup {
                  ."  <tr>\n"
                  ."    <td style=\"border-bottom: 1px solid #CCCCCC;\" width=\"100%\" align=\"left\">\n"
                  ."      <img src=\"".$mosConfig_live_site."/administrator/components/com_ebackup/images/logo.png\" alt=\"\" style=\"margin-right:10px;\" />\n"
-                 ."      <font style=\"font-size : 18px;font-weight: bold;text-align: left;\">База данных - Настройки</font>\n"
+                 ."      <font style=\"font-size : 18px;font-weight: bold;text-align: left;\">Р‘Р°Р·Р° РґР°РЅРЅС‹С… - РќР°СЃС‚СЂРѕР№РєРё</font>\n"
                  ."    </td>\n"
                  ."  </tr>\n"
                  ."</table>\n"
@@ -296,7 +296,7 @@ class HTML_eBackup {
                  ."  <tr>\n"
                  ."    <td width=\"100%\" align=\"left\">\n"
                  ."      <img src=\"".$mosConfig_live_site."/administrator/components/com_ebackup/images/logo.png\" alt=\"\" style=\"margin-right:10px;\" />\n"
-                 ."      <font style=\"font-size : 18px;font-weight: bold;text-align: left;\">База данных - ".$title."</font>\n"
+                 ."      <font style=\"font-size : 18px;font-weight: bold;text-align: left;\">Р‘Р°Р·Р° РґР°РЅРЅС‹С… - ".$title."</font>\n"
                  ."    </td>\n"
                  ."  </tr>\n"
                  ."</table>\n"

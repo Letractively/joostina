@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 if (!$acl->acl_check( 'administration', 'manage', 'users', $my->usertype, 'components', 'com_users' )) {
 	mosRedirect( 'index2.php', _NOT_AUTH );
@@ -40,7 +40,7 @@ switch ($task) {
 	case 'apply':
 		// check to see if functionality restricted for use as demo site
 		if ( $_VERSION->RESTRICT == 1 ) {
-			mosRedirect( 'index2.php?mosmsg=Функциональность ограничена' );
+			mosRedirect( 'index2.php?mosmsg=Р¤СѓРЅРєС†РёРѕРЅР°Р»СЊРЅРѕСЃС‚СЊ РѕРіСЂР°РЅРёС‡РµРЅР°' );
 		} else {
 			saveUser( $task );
 		}
@@ -53,7 +53,7 @@ switch ($task) {
 	case 'block':
 		// check to see if functionality restricted for use as demo site
 		if ( $_VERSION->RESTRICT == 1 ) {
-			mosRedirect( 'index2.php?mosmsg=Функциональность ограничена' );
+			mosRedirect( 'index2.php?mosmsg=Р¤СѓРЅРєС†РёРѕРЅР°Р»СЊРЅРѕСЃС‚СЊ РѕРіСЂР°РЅРёС‡РµРЅР°' );
 		} else {
 		changeUserBlock( $cid, 1, $option );
 		}
@@ -177,14 +177,14 @@ function showUsers( $option ) {
 	. "\n WHERE name != 'ROOT'"
 	. "\n AND name != 'USERS'"
 	;
-	$types[] = mosHTML::makeOption( '0', '- Выберите группу -' );
+	$types[] = mosHTML::makeOption( '0', '- Р’С‹Р±РµСЂРёС‚Рµ РіСЂСѓРїРїСѓ -' );
 	$database->setQuery( $query );
 	$types = array_merge( $types, $database->loadObjectList() );
 	$lists['type'] = mosHTML::selectList( $types, 'filter_type', 'class="inputbox" size="1" onchange="document.adminForm.submit( );"', 'value', 'text', "$filter_type" );
 
 	// get list of Log Status for dropdown filter
-	$logged[] = mosHTML::makeOption( 0, '- Выберите статус - ');
-	$logged[] = mosHTML::makeOption( 1, 'Авторизован(а) на сайте');
+	$logged[] = mosHTML::makeOption( 0, '- Р’С‹Р±РµСЂРёС‚Рµ СЃС‚Р°С‚СѓСЃ - ');
+	$logged[] = mosHTML::makeOption( 1, 'РђРІС‚РѕСЂРёР·РѕРІР°РЅ(Р°) РЅР° СЃР°Р№С‚Рµ');
 	$lists['logged'] = mosHTML::selectList( $logged, 'filter_logged', 'class="inputbox" size="1" onchange="document.adminForm.submit( );"', 'value', 'text', "$filter_logged" );
 
 	HTML_users::showUsers( $rows, $pageNav, $search, $option, $lists );
@@ -233,9 +233,9 @@ function editUser( $uid='0', $option='users' ) {
 
 	$my_group = strtolower( $acl->get_group_name( $row->gid, 'ARO' ) );
 	if ( $my_group == 'super administrator' && $my->gid != 25 ) {
-		$lists['gid'] = '<input type="hidden" name="gid" value="'. $my->gid .'" /><strong>Главный администратор</strong>';
+		$lists['gid'] = '<input type="hidden" name="gid" value="'. $my->gid .'" /><strong>Р“Р»Р°РІРЅС‹Р№ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂ</strong>';
 	} else if ( $my->gid == 24 && $row->gid == 24 ) {
-		$lists['gid'] = '<input type="hidden" name="gid" value="'. $my->gid .'" /><strong>Администратор</strong>';
+		$lists['gid'] = '<input type="hidden" name="gid" value="'. $my->gid .'" /><strong>РђРґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂ</strong>';
 	} else {
 		// ensure user can't add group higher than themselves
 		$my_groups = $acl->get_object_groups( 'users', $my->id, 'ARO' );
@@ -348,7 +348,7 @@ function saveUser( $task ) {
 				
 			if ( $count <= 1 ) {
 				// disallow change if only one Super Admin exists
-				echo "<script> alert('Вы не можете изменить эту группу пользователей. Это может сделать только Главный администратор сайта'); window.history.go(-1); </script>\n";
+				echo "<script> alert('Р’С‹ РЅРµ РјРѕР¶РµС‚Рµ РёР·РјРµРЅРёС‚СЊ СЌС‚Сѓ РіСЂСѓРїРїСѓ РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№. Р­С‚Рѕ РјРѕР¶РµС‚ СЃРґРµР»Р°С‚СЊ С‚РѕР»СЊРєРѕ Р“Р»Р°РІРЅС‹Р№ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂ СЃР°Р№С‚Р°'); window.history.go(-1); </script>\n";
 				exit();
 	}
 		}
@@ -369,14 +369,14 @@ function saveUser( $task ) {
 	// if user is made a Super Admin group and user is NOT a Super Admin		
 	if ( $row->gid == 25 && $my->gid != 25 ) {
 		// disallow creation of Super Admin by non Super Admin users
-		echo "<script> alert('Вы не можете создать пользователя с этим уровнем доступа. Это может сделать только Главный администратор сайта'); window.history.go(-1); </script>\n";
+		echo "<script> alert('Р’С‹ РЅРµ РјРѕР¶РµС‚Рµ СЃРѕР·РґР°С‚СЊ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ СЃ СЌС‚РёРј СѓСЂРѕРІРЅРµРј РґРѕСЃС‚СѓРїР°. Р­С‚Рѕ РјРѕР¶РµС‚ СЃРґРµР»Р°С‚СЊ С‚РѕР»СЊРєРѕ Р“Р»Р°РІРЅС‹Р№ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂ СЃР°Р№С‚Р°'); window.history.go(-1); </script>\n";
 		exit();
 	}
 	*/
 	// Security check to avoid creating/editing user to higher level than himself: response to artf4529.
 	if (!in_array($row->gid,getGIDSChildren($my->gid))) {
 		// disallow creation of Super Admin by non Super Admin users
-		echo "<script> alert('Вы не можете создать пользователя с этим уровнем доступа. Это может сделать только Главный администратор сайта'); window.history.go(-1); </script>\n";
+		echo "<script> alert('Р’С‹ РЅРµ РјРѕР¶РµС‚Рµ СЃРѕР·РґР°С‚СЊ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ СЃ СЌС‚РёРј СѓСЂРѕРІРЅРµРј РґРѕСЃС‚СѓРїР°. Р­С‚Рѕ РјРѕР¶РµС‚ СЃРґРµР»Р°С‚СЊ С‚РѕР»СЊРєРѕ Р“Р»Р°РІРЅС‹Р№ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂ СЃР°Р№С‚Р°'); window.history.go(-1); </script>\n";
 		exit();
 	}
 
@@ -474,13 +474,13 @@ function saveUser( $task ) {
 	
 	switch ( $task ) {
 		case 'apply':
-			$msg = 'Успешно сохранены изменения для пользователя: '. $row->name;
+			$msg = 'РЈСЃРїРµС€РЅРѕ СЃРѕС…СЂР°РЅРµРЅС‹ РёР·РјРµРЅРµРЅРёСЏ РґР»СЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ: '. $row->name;
 			mosRedirect( 'index2.php?option=com_users&task=editA&hidemainmenu=1&id='. $row->id, $msg );
 			break;
 
 		case 'save':
 		default:
-			$msg = 'Успешно сохранен пользователь: '. $row->name;
+			$msg = 'РЈСЃРїРµС€РЅРѕ СЃРѕС…СЂР°РЅРµРЅ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ: '. $row->name;
 			mosRedirect( 'index2.php?option=com_users', $msg );
 			break;
 	}
@@ -498,7 +498,7 @@ function removeUsers( $cid, $option ) {
 	global $database, $acl, $my;
 
 	if (!is_array( $cid ) || count( $cid ) < 1) {
-		echo "<script> alert('Выберите объект для удаления'); window.history.go(-1);</script>\n";
+		echo "<script> alert('Р’С‹Р±РµСЂРёС‚Рµ РѕР±СЉРµРєС‚ РґР»СЏ СѓРґР°Р»РµРЅРёСЏ'); window.history.go(-1);</script>\n";
 		exit;
 	}
 	
@@ -522,7 +522,7 @@ function removeUsers( $cid, $option ) {
 			
 			if ( $count <= 1 && $obj->gid == 25 ) {
 			// cannot delete Super Admin where it is the only one that exists
-				$msg = "Вы не можете удалить этого Главного администратора, т.к. он единственный Главный администратор сайта";
+				$msg = "Р’С‹ РЅРµ РјРѕР¶РµС‚Рµ СѓРґР°Р»РёС‚СЊ СЌС‚РѕРіРѕ Р“Р»Р°РІРЅРѕРіРѕ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР°, С‚.Рє. РѕРЅ РµРґРёРЅСЃС‚РІРµРЅРЅС‹Р№ Р“Р»Р°РІРЅС‹Р№ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂ СЃР°Р№С‚Р°";
 			} else {
 				// delete user
 				$obj->delete( $id );
@@ -541,7 +541,7 @@ function removeUsers( $cid, $option ) {
 	global $database, $acl, $my;
 
 	if (!is_array( $cid ) || count( $cid ) < 1) {
-		echo "<script> alert('Для удаления сделайте выбор'); window.history.go(-1);</script>\n";
+		echo "<script> alert('Р”Р»СЏ СѓРґР°Р»РµРЅРёСЏ СЃРґРµР»Р°Р№С‚Рµ РІС‹Р±РѕСЂ'); window.history.go(-1);</script>\n";
 		exit;
 	}
 
@@ -552,11 +552,11 @@ function removeUsers( $cid, $option ) {
 			$groups 	= $acl->get_object_groups( 'users', $id, 'ARO' );
 			$this_group = strtolower( $acl->get_group_name( $groups[0], 'ARO' ) );
 			if ( $this_group == 'super administrator' && $my->gid != 25 ) {
-				$msg = "Вы не можете удалить Главного администратора сайта";
+				$msg = "Р’С‹ РЅРµ РјРѕР¶РµС‚Рµ СѓРґР°Р»РёС‚СЊ Р“Р»Р°РІРЅРѕРіРѕ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР° СЃР°Р№С‚Р°";
  			} else if ( $id == $my->id ){
- 				$msg = "Вы не можете удалить сами себя!";
+ 				$msg = "Р’С‹ РЅРµ РјРѕР¶РµС‚Рµ СѓРґР°Р»РёС‚СЊ СЃР°РјРё СЃРµР±СЏ!";
  			} else if ( ( $this_group == 'administrator' ) && ( $my->gid == 24 ) ){
- 				$msg = "Вы не можете удалить другого `Администратора`, т.к. это может сделать только `Главный администратор` ";
+ 				$msg = "Р’С‹ РЅРµ РјРѕР¶РµС‚Рµ СѓРґР°Р»РёС‚СЊ РґСЂСѓРіРѕРіРѕ `РђРґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР°`, С‚.Рє. СЌС‚Рѕ РјРѕР¶РµС‚ СЃРґРµР»Р°С‚СЊ С‚РѕР»СЊРєРѕ `Р“Р»Р°РІРЅС‹Р№ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂ` ";
 			} else {
 				$obj->load( $id );
 				$count = 2;
@@ -573,7 +573,7 @@ function removeUsers( $cid, $option ) {
 				
 				if ( $count <= 1 && $obj->gid == 25 ) {
 				// cannot delete Super Admin where it is the only one that exists
-					$msg = "Вы не можете удалить этого Главного администратора, так как он единственный Главный администратор Вашего сайта";
+					$msg = "Р’С‹ РЅРµ РјРѕР¶РµС‚Рµ СѓРґР°Р»РёС‚СЊ СЌС‚РѕРіРѕ Р“Р»Р°РІРЅРѕРіРѕ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР°, С‚Р°Рє РєР°Рє РѕРЅ РµРґРёРЅСЃС‚РІРµРЅРЅС‹Р№ Р“Р»Р°РІРЅС‹Р№ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂ Р’Р°С€РµРіРѕ СЃР°Р№С‚Р°";
 				} else {
 					// delete user
 				$obj->delete( $id );
@@ -599,10 +599,10 @@ function removeUsers( $cid, $option ) {
 function changeUserBlock( $cid=null, $block=1, $option ) {
 	global $database;
 
-	$action = $block ? 'блокировки' : 'разблокировки';
+	$action = $block ? 'Р±Р»РѕРєРёСЂРѕРІРєРё' : 'СЂР°Р·Р±Р»РѕРєРёСЂРѕРІРєРё';
 
 	if (count( $cid ) < 1) {
-		echo "<script type=\"text/javascript\"> alert('Выберите пользователя для $action'); window.history.go(-1);</script>\n";
+		echo "<script type=\"text/javascript\"> alert('Р’С‹Р±РµСЂРёС‚Рµ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РґР»СЏ $action'); window.history.go(-1);</script>\n";
 		exit;
 	}
 
@@ -640,8 +640,8 @@ function changeUserBlock( $cid=null, $block=1, $option ) {
 	global $database;
 
 	if (count( $cid ) < 1) {
-		$action = $block ? 'блокировки' : 'разблокировки';
-		echo "<script> alert('Выберите пользователя для $action'); window.history.go(-1);</script>\n";
+		$action = $block ? 'Р±Р»РѕРєРёСЂРѕРІРєРё' : 'СЂР°Р·Р±Р»РѕРєРёСЂРѕРІРєРё';
+		echo "<script> alert('Р’С‹Р±РµСЂРёС‚Рµ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РґР»СЏ $action'); window.history.go(-1);</script>\n";
 		exit;
 	}
 
@@ -678,7 +678,7 @@ function logoutUser( $cid=null, $option, $task ) {
 
 	if ( is_array( $cid ) ) {
 		if (count( $cid ) < 1) {
-			mosRedirect( 'index2.php?option='. $option, 'Пожалуйста, выберите пользователя' );
+			mosRedirect( 'index2.php?option='. $option, 'РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІС‹Р±РµСЂРёС‚Рµ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ' );
 		}
 		
 		foreach( $cid as $cidA ) {
@@ -698,7 +698,7 @@ function logoutUser( $cid=null, $option, $task ) {
 		
 		// check to see whether a Administrator is attempting to log out a Super Admin
 		if ( $my->gid == 24 && $temp->gid == 25 ) {
-			echo "<script> alert('Вы не можете отключить Главного администратора'); window.history.go(-1); </script>\n";
+			echo "<script> alert('Р’С‹ РЅРµ РјРѕР¶РµС‚Рµ РѕС‚РєР»СЋС‡РёС‚СЊ Р“Р»Р°РІРЅРѕРіРѕ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР°'); window.history.go(-1); </script>\n";
 			exit();
 		}
 		$ids = 'userid=' . (int) $cid;
@@ -752,9 +752,9 @@ function checkUserPermissions( $cid, $actionName, $allowActionToMyself = false )
 			}
 			
 			if ( !$allowActionToMyself && $id == $my->id ){
- 				$msg .= 'Вы не можете '. $actionName .' себя!';
+ 				$msg .= 'Р’С‹ РЅРµ РјРѕР¶РµС‚Рµ '. $actionName .' СЃРµР±СЏ!';
  			} else if (($obj->gid == $my->gid && !in_array($my->gid, array(24, 25))) || ($obj->gid && !in_array($obj->gid,getGIDSChildren($my->gid)))) {
-				$msg .= 'Вы не можете '. $actionName .' `'. $this_group .'`. Это могут делать только пользователи с более высоким уровнем доступа. ';
+				$msg .= 'Р’С‹ РЅРµ РјРѕР¶РµС‚Рµ '. $actionName .' `'. $this_group .'`. Р­С‚Рѕ РјРѕРіСѓС‚ РґРµР»Р°С‚СЊ С‚РѕР»СЊРєРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»Рё СЃ Р±РѕР»РµРµ РІС‹СЃРѕРєРёРј СѓСЂРѕРІРЅРµРј РґРѕСЃС‚СѓРїР°. ';
 			}
 		}
 	}

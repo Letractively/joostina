@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 /**
 * @package Joostina
@@ -24,7 +24,7 @@ class HTML_menusections {
 		global $my;
 
 		mosCommonHTML::loadOverlib();
-		/* подключаем Pquery */
+		/* РїРѕРґРєР»СЋС‡Р°РµРј Pquery */
 		mosCommonHTML::loadPquery();
 		$pquery= new PQuery();
 		?>
@@ -32,16 +32,16 @@ class HTML_menusections {
 		<table class="adminheading">
 		<tr>
 			<th class="menus">
-			Управление меню <small><small>[ <?php echo $menutype;?> ]</small></small>
+			РЈРїСЂР°РІР»РµРЅРёРµ РјРµРЅСЋ <small><small>[ <?php echo $menutype;?> ]</small></small>
 			</th>
 			<td class="jtd_nowrap">
-			Максимально уровней
+			РњР°РєСЃРёРјР°Р»СЊРЅРѕ СѓСЂРѕРІРЅРµР№
 			</td>
 			<td>
 			<?php echo $levellist;?>
 			</td>
 			<td>
-			Фильтр:
+			Р¤РёР»СЊС‚СЂ:
 			</td>
 			<td>
 			<input type="text" name="search" value="<?php echo htmlspecialchars( $search );?>" class="inputbox" onChange="document.adminForm.submit();" />
@@ -73,28 +73,28 @@ class HTML_menusections {
 			<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count($rows); ?>);" />
 			</th>
 			<th class="title" width="40%">
-			Пункт меню
+			РџСѓРЅРєС‚ РјРµРЅСЋ
 			</th>
 			<th width="5%">
-			Опубликовано
+			РћРїСѓР±Р»РёРєРѕРІР°РЅРѕ
 			</th>
 			<th colspan="2" width="5%">
-			Сортировка
+			РЎРѕСЂС‚РёСЂРѕРІРєР°
 			</th>
 			<th width="2%">
-			Порядок
+			РџРѕСЂСЏРґРѕРє
 			</th>
 			<th width="1%">
-			<a href="javascript: saveorder( <?php echo count( $rows )-1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="Сохранить порядок" /></a>
+			<a href="javascript: saveorder( <?php echo count( $rows )-1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="РЎРѕС…СЂР°РЅРёС‚СЊ РїРѕСЂСЏРґРѕРє" /></a>
 			</th>
 			<th width="10%">
-			Доступ
+			Р”РѕСЃС‚СѓРї
 			</th>
 			<th>
 			Itemid
 			</th>
 			<th width="35%" align="left">
-			Тип
+			РўРёРї
 			</th>
 			<th>
 			CID
@@ -132,13 +132,13 @@ class HTML_menusections {
 				</td>
 				<td width="10%" align="center">
 <?php
-/* boston, обработка публикации модулей. */
+/* boston, РѕР±СЂР°Р±РѕС‚РєР° РїСѓР±Р»РёРєР°С†РёРё РјРѕРґСѓР»РµР№. */
 					global $mosConfig_live_site;
 					$url = $mosConfig_live_site.'/administrator/index4.php?option=com_menus&task=publish&id='.$row->id;
 					$div_id = 'div_'.$row->id;
 					$img	 = $row->published ? 'publish_g.png' : 'publish_x.png';
 					$div = '<div id="'.$div_id.'"><img src="images/'.$img.'" width="12" height="12" border="0" alt="" /></div>';
-					echo $pquery->link_to_remote($div,array('url'=>$url,'update'=>'#'.$div_id,'beforeSend'=>$pquery->visual_effect('show','#ajax_status'),'success'=>$pquery->visual_effect('hide','#ajax_status')),null,'Публиковать&nbsp;/&nbsp;Скрыть&nbspэлемент');
+					echo $pquery->link_to_remote($div,array('url'=>$url,'update'=>'#'.$div_id,'beforeSend'=>$pquery->visual_effect('show','#ajax_status'),'success'=>$pquery->visual_effect('hide','#ajax_status')),null,'РџСѓР±Р»РёРєРѕРІР°С‚СЊ&nbsp;/&nbsp;РЎРєСЂС‹С‚СЊ&nbspСЌР»РµРјРµРЅС‚');
 ?>
 				</td>
 				<td>
@@ -187,7 +187,7 @@ class HTML_menusections {
 
 
 	/**
-	* Отображение списка типов пунктов меню для создания
+	* РћС‚РѕР±СЂР°Р¶РµРЅРёРµ СЃРїРёСЃРєР° С‚РёРїРѕРІ РїСѓРЅРєС‚РѕРІ РјРµРЅСЋ РґР»СЏ СЃРѕР·РґР°РЅРёСЏ
 	*/
 	function addMenuItem( &$cid, $menutype, $option, $types_content, $types_component, $types_link, $types_other, $types_submit ) {
 
@@ -206,10 +206,10 @@ class HTML_menusections {
 		<table class="adminheading">
 		<tr>
 			<th width="100px" class="menus">
-			Новый пункт меню
+			РќРѕРІС‹Р№ РїСѓРЅРєС‚ РјРµРЅСЋ
 			</th>
 			<td class="jtd_nowrap" style="width:540px;color: red;">
-			* Обратите внимание, что некоторые пункты меню входят в несколько групп, но они относятся к одному типу меню.
+			* РћР±СЂР°С‚РёС‚Рµ РІРЅРёРјР°РЅРёРµ, С‡С‚Рѕ РЅРµРєРѕС‚РѕСЂС‹Рµ РїСѓРЅРєС‚С‹ РјРµРЅСЋ РІС…РѕРґСЏС‚ РІ РЅРµСЃРєРѕР»СЊРєРѕ РіСЂСѓРїРї, РЅРѕ РѕРЅРё РѕС‚РЅРѕСЃСЏС‚СЃСЏ Рє РѕРґРЅРѕРјСѓ С‚РёРїСѓ РјРµРЅСЋ.
 			</td>
 		</tr>
 		</table>
@@ -218,7 +218,7 @@ class HTML_menusections {
 		<tr>
 			<td width="50%" valign="top">
 				<fieldset>
-				<legend>Содержимое</legend>
+				<legend>РЎРѕРґРµСЂР¶РёРјРѕРµ</legend>
 					<table class="adminform">
 					<?php
 					$k 		= 0;
@@ -236,7 +236,7 @@ class HTML_menusections {
 					</table>
 				</fieldset>
 				<fieldset>
-				<legend>Разное</legend>
+				<legend>Р Р°Р·РЅРѕРµ</legend>
 					<table class="adminform">
 					<?php
 					$k 		= 0;
@@ -254,7 +254,7 @@ class HTML_menusections {
 					</table>
 				</fieldset>
 				<fieldset>
-					<legend>Отправка</legend>
+					<legend>РћС‚РїСЂР°РІРєР°</legend>
 					<table class="adminform">
 					<?php
 					$k 		= 0;
@@ -274,7 +274,7 @@ class HTML_menusections {
 			</td>
 			<td width="50%" valign="top">
 				<fieldset>
-				<legend>Компоненты</legend>
+				<legend>РљРѕРјРїРѕРЅРµРЅС‚С‹</legend>
 					<table class="adminform">
 					<?php
 					$k 		= 0;
@@ -292,7 +292,7 @@ class HTML_menusections {
 					</table>
 				</fieldset>
 				<fieldset>
-				<legend>Ссылки</legend>
+				<legend>РЎСЃС‹Р»РєРё</legend>
 					<table class="adminform">
 					<?php
 					$k 		= 0;
@@ -352,7 +352,7 @@ class HTML_menusections {
 		<br />
 		<table class="adminheading">
 		<tr>
-			<th>Перемещение пунктов меню</th>
+			<th>РџРµСЂРµРјРµС‰РµРЅРёРµ РїСѓРЅРєС‚РѕРІ РјРµРЅСЋ</th>
 		</tr>
 		</table>
 
@@ -361,14 +361,14 @@ class HTML_menusections {
 		<tr>
 			<td width="3%"></td>
 			<td align="left" valign="top" width="30%">
-			<strong>Переместить в меню:</strong>
+			<strong>РџРµСЂРµРјРµСЃС‚РёС‚СЊ РІ РјРµРЅСЋ:</strong>
 			<br />
 			<?php echo $MenuList ?>
 			<br /><br />
 			</td>
 			<td align="left" valign="top">
 			<strong>
-			Перемещаемые пункты меню:
+			РџРµСЂРµРјРµС‰Р°РµРјС‹Рµ РїСѓРЅРєС‚С‹ РјРµРЅСЋ:
 			</strong>
 			<br />
 			<ol>
@@ -411,7 +411,7 @@ class HTML_menusections {
 		<table class="adminheading">
 		<tr>
 			<th>
-			Копирование пунктов меню
+			РљРѕРїРёСЂРѕРІР°РЅРёРµ РїСѓРЅРєС‚РѕРІ РјРµРЅСЋ
 			</th>
 		</tr>
 		</table>
@@ -422,7 +422,7 @@ class HTML_menusections {
 			<td width="3%"></td>
 			<td align="left" valign="top" width="30%">
 			<strong>
-			Копировать в меню:
+			РљРѕРїРёСЂРѕРІР°С‚СЊ РІ РјРµРЅСЋ:
 			</strong>
 			<br />
 			<?php echo $MenuList ?>
@@ -430,7 +430,7 @@ class HTML_menusections {
 			</td>
 			<td align="left" valign="top">
 			<strong>
-			Копируемые пункты меню:
+			РљРѕРїРёСЂСѓРµРјС‹Рµ РїСѓРЅРєС‚С‹ РјРµРЅСЋ:
 			</strong>
 			<br />
 			<ol>

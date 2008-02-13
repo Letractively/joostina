@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 require_once( $mainframe->getCfg('absolute_path') . '/administrator/components/com_jce/plugins/plugins.html.php' );
 require_once( $mainframe->getCfg('absolute_path') . '/administrator/components/com_jce/plugins/plugins.class.php' );
@@ -26,14 +26,14 @@ if (!is_array( $cid )) {
 function access_list( $row )
 {
   $access_list = array(
-                mosHTML::makeOption( '0','Гость' ),
-				mosHTML::makeOption( '18','-Зарегистрированный' ),
-                mosHTML::makeOption( '19','--Автор' ),
-                mosHTML::makeOption( '20','---Редактор' ),
-                mosHTML::makeOption( '21','----Издатель' ),
-                mosHTML::makeOption( '23','-----Менеджер' ),
-                mosHTML::makeOption( '24','------Администратор' ),
-                mosHTML::makeOption( '25','-------Супер-Администратор' )
+                mosHTML::makeOption( '0','Р“РѕСЃС‚СЊ' ),
+				mosHTML::makeOption( '18','-Р—Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅРЅС‹Р№' ),
+                mosHTML::makeOption( '19','--РђРІС‚РѕСЂ' ),
+                mosHTML::makeOption( '20','---Р РµРґР°РєС‚РѕСЂ' ),
+                mosHTML::makeOption( '21','----РР·РґР°С‚РµР»СЊ' ),
+                mosHTML::makeOption( '23','-----РњРµРЅРµРґР¶РµСЂ' ),
+                mosHTML::makeOption( '24','------РђРґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂ' ),
+                mosHTML::makeOption( '25','-------РЎСѓРїРµСЂ-РђРґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂ' )
     );
 
     $lists['access'] = mosHTML::selectList( $access_list, 'access', 'class="inputbox" size="1"', 'value', 'text', $row->access );
@@ -153,12 +153,12 @@ function savePlugins( $option, $client, $task ) {
 
 	switch ( $task ) {
 		case 'apply':
-			$msg = 'Изменения для плагина '. $row->name .' успешно сохранены'. $row->name;
+			$msg = 'РР·РјРµРЅРµРЅРёСЏ РґР»СЏ РїР»Р°РіРёРЅР° '. $row->name .' СѓСЃРїРµС€РЅРѕ СЃРѕС…СЂР°РЅРµРЅС‹'. $row->name;
 			mosRedirect( 'index2.php?option='. $option .'&client='. $client .'&task=editplugin&hidemainmenu=1&id='. $row->id, $msg );
             break;
 		case 'save':
 		default:
-			$msg = 'Плагин '. $row->name .' успешно сохранен';
+			$msg = 'РџР»Р°РіРёРЅ '. $row->name .' СѓСЃРїРµС€РЅРѕ СЃРѕС…СЂР°РЅРµРЅ';
 			mosRedirect( 'index2.php?option='. $option .'&client='. $client .'&task=showplugins', $msg );
 			break;
 	}
@@ -180,7 +180,7 @@ function editPlugins( $option, $uid, $client ) {
 
 	// fail if checked out not by 'me'
 	if ($row->isCheckedOut( $my->id )) {
-		echo "<script>alert('Модуль $row->title в настоящее время редактируется другим администратором'); document.location.href='index2.php?option=$option'</script>\n";
+		echo "<script>alert('РњРѕРґСѓР»СЊ $row->title РІ РЅР°СЃС‚РѕСЏС‰РµРµ РІСЂРµРјСЏ СЂРµРґР°РєС‚РёСЂСѓРµС‚СЃСЏ РґСЂСѓРіРёРј Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂРѕРј'); document.location.href='index2.php?option=$option'</script>\n";
 		exit(0);
 	}
 
@@ -192,7 +192,7 @@ function editPlugins( $option, $uid, $client ) {
 
 	// get list of groups
 	if ($row->access == 99 || $row->client_id == 1) {
-		$lists['access'] = 'Администратор <input type="hidden" name="access" value="99" />';
+		$lists['access'] = 'РђРґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂ <input type="hidden" name="access" value="99" />';
 	} else {
 		// build the html select list for the group access
 		//$lists['access'] = mosAdminMenus::Access( $row );
@@ -262,7 +262,7 @@ function applyAccess( $cid=null, $option, $client ) {
     $access = mosGetParam( $_REQUEST, 'access', '' );
 
     if (count( $cid ) < 1) {
-		echo "<script> alert('Для назначения прав доступа необходимо выбрать плагин'); window.history.go(-1);</script>\n";
+		echo "<script> alert('Р”Р»СЏ РЅР°Р·РЅР°С‡РµРЅРёСЏ РїСЂР°РІ РґРѕСЃС‚СѓРїР° РЅРµРѕР±С…РѕРґРёРјРѕ РІС‹Р±СЂР°С‚СЊ РїР»Р°РіРёРЅ'); window.history.go(-1);</script>\n";
 		exit;
 	}
 
@@ -296,8 +296,8 @@ function publishPlugins( $cid=null, $publish=1, $option, $client ) {
 	global $database, $my;
 
 	if (count( $cid ) < 1) {
-		$action = $publish ? 'включения' : 'выключения';
-		echo "<script> alert('Выберите плагин для $action'); window.history.go(-1);</script>\n";
+		$action = $publish ? 'РІРєР»СЋС‡РµРЅРёСЏ' : 'РІС‹РєР»СЋС‡РµРЅРёСЏ';
+		echo "<script> alert('Р’С‹Р±РµСЂРёС‚Рµ РїР»Р°РіРёРЅ РґР»СЏ $action'); window.history.go(-1);</script>\n";
 		exit;
 	}
 

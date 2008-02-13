@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 // --------------------------------------------------------------------------------
 // PhpConcept Library (PCL) Error 1.0
@@ -20,11 +20,11 @@ defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещ
 // License GNU/GPL - Vincent Blavet - Mars 2001
 // http://www.phpconcept.net & http://phpconcept.free.fr
 // --------------------------------------------------------------------------------
-// Fran�ais :
+// FranпїЅais :
 //	La description de l'usage de la librairie PCL Error 1.0 n'est pas encore
-//	disponible. Celle-ci n'est pour le moment distribu�e qu'avec les
-//	d�veloppements applicatifs de PhpConcept.
-//	Une version ind�pendante sera bientot disponible sur http://www.phpconcept.net
+//	disponible. Celle-ci n'est pour le moment distribuпїЅe qu'avec les
+//	dпїЅveloppements applicatifs de PhpConcept.
+//	Une version indпїЅpendante sera bientot disponible sur http://www.phpconcept.net
 //
 // English :
 //	The PCL Error 1.0 library description is not available yet. This library is
@@ -35,17 +35,17 @@ defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещ
 //
 //	* Avertissement :
 //
-//	Cette librairie a �t� cr��e de fa�on non professionnelle.
-//	Son usage est au risque et p�ril de celui qui l'utilise, en aucun cas l'auteur
-//	de ce code ne pourra �tre tenu pour responsable des �ventuels d�gats qu'il pourrait
+//	Cette librairie a пїЅtпїЅ crпїЅпїЅe de faпїЅon non professionnelle.
+//	Son usage est au risque et pпїЅril de celui qui l'utilise, en aucun cas l'auteur
+//	de ce code ne pourra пїЅtre tenu pour responsable des пїЅventuels dпїЅgats qu'il pourrait
 //	engendrer.
-//	Il est entendu cependant que l'auteur a r�alis� ce code par plaisir et n'y a
-//	cach� aucun virus, ni malveillance.
-//	Cette libairie est distribu�e sous la license GNU/GPL (http://www.gnu.org)
+//	Il est entendu cependant que l'auteur a rпїЅalisпїЅ ce code par plaisir et n'y a
+//	cachпїЅ aucun virus, ni malveillance.
+//	Cette libairie est distribuпїЅe sous la license GNU/GPL (http://www.gnu.org)
 //
 //	* Auteur :
 //
-//	Ce code a �t� �crit par Vincent Blavet (vincent@blavet.net) sur son temps
+//	Ce code a пїЅtпїЅ пїЅcrit par Vincent Blavet (vincent@blavet.net) sur son temps
 //	de loisir.
 //
 // --------------------------------------------------------------------------------

@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 /**
 * @package Joostina
@@ -29,10 +29,10 @@ class HTML_weblinks {
 		<table class="adminheading">
 		<tr>
 			<th>
-			Управление web-ссылками
+			РЈРїСЂР°РІР»РµРЅРёРµ web-СЃСЃС‹Р»РєР°РјРё
 			</th>
 			<td>
-			Фильтр:
+			Р¤РёР»СЊС‚СЂ:
 			</td>
 			<td>
 			<input type="text" name="search" value="<?php echo htmlspecialchars( $search );?>" class="text_area" onChange="document.adminForm.submit();" />
@@ -52,19 +52,19 @@ class HTML_weblinks {
 			<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $rows ); ?>);" />
 			</th>
 			<th class="title">
-			Заголовок
+			Р—Р°РіРѕР»РѕРІРѕРє
 			</th>
 			<th width="5%">
-			На сайте
+			РќР° СЃР°Р№С‚Рµ
 			</th>
 			<th colspan="2" width="5%">
-			Сортировка
+			РЎРѕСЂС‚РёСЂРѕРІРєР°
 			</th>
 			<th width="25%" align="left">
-			Категория
+			РљР°С‚РµРіРѕСЂРёСЏ
 			</th>
 			<th width="5%">
-			Переходов
+			РџРµСЂРµС…РѕРґРѕРІ
 			</th>
 		</tr>
 		<?php
@@ -76,7 +76,7 @@ class HTML_weblinks {
 
 			$task 	= $row->published ? 'unpublish' : 'publish';
 			$img 	= $row->published ? 'publish_g.png' : 'publish_x.png';
-			$alt 	= $row->published ? 'Опубликовано' : 'Неопубликовано';
+			$alt 	= $row->published ? 'РћРїСѓР±Р»РёРєРѕРІР°РЅРѕ' : 'РќРµРѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ';
 
 			$checked 	= mosCommonHTML::CheckedOutProcessing( $row, $i );
 
@@ -95,7 +95,7 @@ class HTML_weblinks {
 					echo $row->title;
 				} else {
 					?>
-					<a href="<?php echo $link; ?>" title="Изменить web-ссылку">
+					<a href="<?php echo $link; ?>" title="РР·РјРµРЅРёС‚СЊ web-СЃСЃС‹Р»РєСѓ">
 					<?php echo $row->title; ?>
 					</a>
 					<?php
@@ -114,7 +114,7 @@ class HTML_weblinks {
 				<?php echo $pageNav->orderDownIcon( $i, $n, ($row->catid == @$rows[$i+1]->catid) ); ?>
 				</td>
 				<td>
-				<a href="<?php echo $row->cat_link; ?>" title="Изменить категорию">
+				<a href="<?php echo $row->cat_link; ?>" title="РР·РјРµРЅРёС‚СЊ РєР°С‚РµРіРѕСЂРёСЋ">
 				<?php echo $row->category; ?>
 				</a>
 				</td>
@@ -161,11 +161,11 @@ class HTML_weblinks {
 
 			// do field validation
 			if (form.title.value == ""){
-				alert( "Web-ссылка должна иметь заголовок" );
+				alert( "Web-СЃСЃС‹Р»РєР° РґРѕР»Р¶РЅР° РёРјРµС‚СЊ Р·Р°РіРѕР»РѕРІРѕРє" );
 			} else if (form.catid.value == "0"){
-				alert( "Вы должны выбрать категорию." );
+				alert( "Р’С‹ РґРѕР»Р¶РЅС‹ РІС‹Р±СЂР°С‚СЊ РєР°С‚РµРіРѕСЂРёСЋ." );
 			} else if (form.url.value == ""){
-				alert( "Вы должны ввести URL." );
+				alert( "Р’С‹ РґРѕР»Р¶РЅС‹ РІРІРµСЃС‚Рё URL." );
 			} else {
 				submitform( pressbutton );
 			}
@@ -175,9 +175,9 @@ class HTML_weblinks {
 		<table class="adminheading">
 		<tr>
 			<th>
-			Web-ссылка:
+			Web-СЃСЃС‹Р»РєР°:
 			<small>
-			<?php echo $row->id ? 'Изменение' : 'Новая';?>
+			<?php echo $row->id ? 'РР·РјРµРЅРµРЅРёРµ' : 'РќРѕРІР°СЏ';?>
 			</small>
 			</th>
 		</tr>
@@ -189,12 +189,12 @@ class HTML_weblinks {
 				<table class="adminform">
 				<tr>
 					<th colspan="2">
-					Детали
+					Р”РµС‚Р°Р»Рё
 					</th>
 				</tr>
 				<tr>
 					<td width="30%" align="right">
-					Название:
+					РќР°Р·РІР°РЅРёРµ:
 					</td>
 					<td width="70%">
 					<input class="text_area" type="text" name="title" size="50" maxlength="250" value="<?php echo $row->title;?>" />
@@ -202,7 +202,7 @@ class HTML_weblinks {
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					Категория:
+					РљР°С‚РµРіРѕСЂРёСЏ:
 					</td>
 					<td>
 					<?php echo $lists['catid']; ?>
@@ -218,7 +218,7 @@ class HTML_weblinks {
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					Описание:
+					РћРїРёСЃР°РЅРёРµ:
 					</td>
 					<td>
 					<textarea class="text_area" cols="50" rows="5" name="description" style="width:500px" width="500"><?php echo $row->description; ?></textarea>
@@ -227,7 +227,7 @@ class HTML_weblinks {
 
 				<tr>
 					<td valign="top" align="right">
-					Порядок расположения:
+					РџРѕСЂСЏРґРѕРє СЂР°СЃРїРѕР»РѕР¶РµРЅРёСЏ:
 					</td>
 					<td>
 					<?php echo $lists['ordering']; ?>
@@ -235,7 +235,7 @@ class HTML_weblinks {
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					Опубликовано:
+					РћРїСѓР±Р»РёРєРѕРІР°РЅРѕ:
 					</td>
 					<td>
 					<?php echo $lists['published']; ?>
@@ -247,7 +247,7 @@ class HTML_weblinks {
 				<table class="adminform">
 				<tr>
 					<th colspan="1">
-					Параметры
+					РџР°СЂР°РјРµС‚СЂС‹
 					</th>
 				</tr>
 				<tr>

@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 require_once( $mainframe->getPath( 'admin_html' ) );
 
@@ -39,7 +39,7 @@ switch ($task) {
 	case 'menulink':
 	case 'apply':
 	case 'save':
-	/* boston, добавил параметр 'save_and_new' - признак возврата в редактирование содержимого для добавления нового */
+	/* boston, РґРѕР±Р°РІРёР» РїР°СЂР°РјРµС‚СЂ 'save_and_new' - РїСЂРёР·РЅР°Рє РІРѕР·РІСЂР°С‚Р° РІ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ РґР»СЏ РґРѕР±Р°РІР»РµРЅРёСЏ РЅРѕРІРѕРіРѕ */
 	case 'save_and_new':
 		saveContent( $sectionid, $task );
 		break;
@@ -135,27 +135,27 @@ function viewContent( $sectionid, $option ) {
 	$limitstart 		= intval( $mainframe->getUserStateFromRequest( "view{$option}{$sectionid}limitstart", 'limitstart', 0 ) );
 	$search 			= $mainframe->getUserStateFromRequest( "search{$option}{$sectionid}", 'search', '' );
 	
-	$order_by	= intval( mosGetParam( $_REQUEST, 'order_by', 0 )); // boston, параметры сортировки выводимого содержимого
-	$order_sort	= intval( mosGetParam( $_REQUEST, 'order_sort', 0 )); // boston, параметры сортировки выводимого содержимого
+	$order_by	= intval( mosGetParam( $_REQUEST, 'order_by', 0 )); // boston, РїР°СЂР°РјРµС‚СЂС‹ СЃРѕСЂС‚РёСЂРѕРІРєРё РІС‹РІРѕРґРёРјРѕРіРѕ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ
+	$order_sort	= intval( mosGetParam( $_REQUEST, 'order_sort', 0 )); // boston, РїР°СЂР°РјРµС‚СЂС‹ СЃРѕСЂС‚РёСЂРѕРІРєРё РІС‹РІРѕРґРёРјРѕРіРѕ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ
 
 	if($order_sort=='1') $order_sort_sql=' DESC'; else $order_sort_sql=' ASC';
 
 	$sql_order = "\n ORDER BY ";
 	switch ($order_by ) {
-		case '0': // внутренний порядок
+		case '0': // РІРЅСѓС‚СЂРµРЅРЅРёР№ РїРѕСЂСЏРґРѕРє
 		default:
 			$sql_order .= "\n  cc.ordering, cc.title, c.ordering";
 			break;
-		case '1': // заголовки
+		case '1': // Р·Р°РіРѕР»РѕРІРєРё
 			$sql_order .= 'c.title';
 			break;
-		case '2': // дата создания
+		case '2': // РґР°С‚Р° СЃРѕР·РґР°РЅРёСЏ
 			$sql_order .= 'c.created';
 			break;
-		case '3': // дата последней модификации
+		case '3': // РґР°С‚Р° РїРѕСЃР»РµРґРЅРµР№ РјРѕРґРёС„РёРєР°С†РёРё
 			$sql_order .= 'c.modified';
 			break;
-		case '4': // идентификаторы
+		case '4': // РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂС‹
 			$sql_order .= 'c.id';
 			break;	
 	}
@@ -174,14 +174,14 @@ function viewContent( $sectionid, $option ) {
 		"s.scope	= 'content'",
 		);
 		//$order = "\n ORDER BY c.created ASC";
-		$order = $sql_order.$order_sort_sql;	 // подставляем свой параметр сортировки
+		$order = $sql_order.$order_sort_sql;	 // РїРѕРґСЃС‚Р°РІР»СЏРµРј СЃРІРѕР№ РїР°СЂР°РјРµС‚СЂ СЃРѕСЂС‚РёСЂРѕРІРєРё
 		$all = 1;
 		//$filter = "\n , #__sections AS s WHERE s.id = c.section";
 
 		if ($filter_sectionid > 0) {
 			$filter = "\n WHERE cc.section = '" . (int) $filter_sectionid . "'";
 		}
-		$section->title = 'Все элементы содержимого';
+		$section->title = 'Р’СЃРµ СЌР»РµРјРµРЅС‚С‹ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ';
 		$section->id = 0;
 	} else {
 		$where = array(
@@ -212,7 +212,7 @@ function viewContent( $sectionid, $option ) {
 	if ( $search ) {
 		$where[] = "LOWER( c.title ) LIKE '%" . $database->getEscaped( trim( strtolower( $search ) ) ) . "%'";
 	}
-	$order = $sql_order.$order_sort_sql;	 // подставляем свой параметр сортировки
+	$order = $sql_order.$order_sort_sql;	 // РїРѕРґСЃС‚Р°РІР»СЏРµРј СЃРІРѕР№ РїР°СЂР°РјРµС‚СЂ СЃРѕСЂС‚РёСЂРѕРІРєРё
 	// get the total number of records
 	$query = "SELECT COUNT(*)"
 	. "\n FROM #__content AS c"
@@ -273,18 +273,18 @@ function viewContent( $sectionid, $option ) {
 	$lists['authorid']	= mosHTML::selectList( $authors, 'filter_authorid', 'class="inputbox" size="1" onchange="document.adminForm.submit( );"', 'created_by', 'name', $filter_authorid );
 
 	
-	/* boston, параметры для сортировки элементов содержимого  */
+	/* boston, РїР°СЂР°РјРµС‚СЂС‹ РґР»СЏ СЃРѕСЂС‚РёСЂРѕРІРєРё СЌР»РµРјРµРЅС‚РѕРІ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ  */
 	$order_list = array();
-		$order_list[] = mosHTML::makeOption( '0','Внутреннему порядку','order_by','name' );
-		$order_list[] = mosHTML::makeOption( '1','Заголовкам','order_by','name' );
-		$order_list[] = mosHTML::makeOption( '2','Дате создания','order_by','name' );
-		$order_list[] = mosHTML::makeOption( '3','Дате модификации','order_by','name' );
-		$order_list[] = mosHTML::makeOption( '4','Идентификаторам ID','order_by','name' );
+		$order_list[] = mosHTML::makeOption( '0','Р’РЅСѓС‚СЂРµРЅРЅРµРјСѓ РїРѕСЂСЏРґРєСѓ','order_by','name' );
+		$order_list[] = mosHTML::makeOption( '1','Р—Р°РіРѕР»РѕРІРєР°Рј','order_by','name' );
+		$order_list[] = mosHTML::makeOption( '2','Р”Р°С‚Рµ СЃРѕР·РґР°РЅРёСЏ','order_by','name' );
+		$order_list[] = mosHTML::makeOption( '3','Р”Р°С‚Рµ РјРѕРґРёС„РёРєР°С†РёРё','order_by','name' );
+		$order_list[] = mosHTML::makeOption( '4','РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂР°Рј ID','order_by','name' );
 	$lists['order']	= mosHTML::selectList( $order_list, 'order_by', 'class="inputbox" size="1" style="width:99%" onchange="document.adminForm.submit( );"', 'order_by', 'name', $order_by );
 
 	$order_sort_list = array();
-		$order_sort_list[] = mosHTML::makeOption( '0','По возрастанию','order_sort','name' );
-		$order_sort_list[] = mosHTML::makeOption( '1','По убыванию','order_sort','name' );
+		$order_sort_list[] = mosHTML::makeOption( '0','РџРѕ РІРѕР·СЂР°СЃС‚Р°РЅРёСЋ','order_sort','name' );
+		$order_sort_list[] = mosHTML::makeOption( '1','РџРѕ СѓР±С‹РІР°РЅРёСЋ','order_sort','name' );
 	$lists['order_sort'] = mosHTML::selectList( $order_sort_list, 'order_sort', 'class="inputbox" size="1" style="width:99%" onchange="document.adminForm.submit( );"', 'order_sort', 'name', $order_sort );
 
 	HTML_content::showContent( $rows, $section, $lists, $search, $pageNav, $all, $redirect );
@@ -428,13 +428,13 @@ function editContent( $uid=0, $sectionid=0, $option ) {
 	if ($uid) {
 		$sectionid = $row->sectionid;
 		if ($row->state < 0) {
-			mosRedirect( 'index2.php?option=com_content&sectionid='. $row->sectionid, 'Вы не можете отредактировать архивный объект' );
+			mosRedirect( 'index2.php?option=com_content&sectionid='. $row->sectionid, 'Р’С‹ РЅРµ РјРѕР¶РµС‚Рµ РѕС‚СЂРµРґР°РєС‚РёСЂРѕРІР°С‚СЊ Р°СЂС…РёРІРЅС‹Р№ РѕР±СЉРµРєС‚' );
 		}
 	}
 
 	// fail if checked out not by 'me'
 	if ($row->checked_out && $row->checked_out != $my->id) {
-		mosRedirect( 'index2.php?option=com_content', 'Содержимое '. $row->title .' в настоящее время редактируется другим пользователем' );
+		mosRedirect( 'index2.php?option=com_content', 'РЎРѕРґРµСЂР¶РёРјРѕРµ '. $row->title .' РІ РЅР°СЃС‚РѕСЏС‰РµРµ РІСЂРµРјСЏ СЂРµРґР°РєС‚РёСЂСѓРµС‚СЃСЏ РґСЂСѓРіРёРј РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј' );
 	}
 
 	$selected_folders = NULL;
@@ -452,7 +452,7 @@ function editContent( $uid=0, $sectionid=0, $option ) {
 		$row->publish_up 	= mosFormatDate( $row->publish_up, _CURRENT_SERVER_TIME_FORMAT );
 
  		if (trim( $row->publish_down ) == $nullDate || trim( $row->publish_down ) == '' || trim( $row->publish_down ) == '-' ) {
-			$row->publish_down = 'Никогда';
+			$row->publish_down = 'РќРёРєРѕРіРґР°';
 		}
 		$row->publish_down 	= mosFormatDate( $row->publish_down, _CURRENT_SERVER_TIME_FORMAT );
 
@@ -504,7 +504,7 @@ function editContent( $uid=0, $sectionid=0, $option ) {
 		$row->ordering 		= 0;
 		$row->images 		= array();
 		$row->publish_up 	= date( 'Y-m-d H:i:s', time() + ( $mosConfig_offset * 60 * 60 ) );
-		$row->publish_down 	= 'Никогда';
+		$row->publish_down 	= 'РќРёРєРѕРіРґР°';
 		$row->creator 		= '';
 		$row->modified 		= $nullDate;
 		$row->modifier 		= '';
@@ -519,7 +519,7 @@ function editContent( $uid=0, $sectionid=0, $option ) {
 	. "\n ORDER BY s.ordering";
 	$database->setQuery( $query );
 	if ( $sectionid == 0 ) {
-		$sections[] = mosHTML::makeOption( '-1', 'Выберите раздел', 'id', 'title' );
+		$sections[] = mosHTML::makeOption( '-1', 'Р’С‹Р±РµСЂРёС‚Рµ СЂР°Р·РґРµР»', 'id', 'title' );
 		$sections = array_merge( $sections, $database->loadObjectList() );
 		$lists['sectionid'] = mosHTML::selectList( $sections, 'sectionid', 'class="inputbox" size="1" style="width:99%"'. $javascript, 'id', 'title' );
 	} else {
@@ -544,7 +544,7 @@ function editContent( $uid=0, $sectionid=0, $option ) {
 
 	$sectioncategories 			= array();
 	$sectioncategories[-1] 		= array();
-	$sectioncategories[-1][] 	= mosHTML::makeOption( '-1', 'Выберите категорию', 'id', 'name' );
+	$sectioncategories[-1][] 	= mosHTML::makeOption( '-1', 'Р’С‹Р±РµСЂРёС‚Рµ РєР°С‚РµРіРѕСЂРёСЋ', 'id', 'name' );
 	mosArrayToInts( $section_list );
 	$section_list 				= 'section=' . implode( ' OR section=', $section_list );
 	
@@ -570,7 +570,7 @@ function editContent( $uid=0, $sectionid=0, $option ) {
 
  	// get list of categories
   	if ( !$row->catid && !$row->sectionid ) {
- 		$categories[] 		= mosHTML::makeOption( '-1', 'Выберите категорию', 'id', 'name' );
+ 		$categories[] 		= mosHTML::makeOption( '-1', 'Р’С‹Р±РµСЂРёС‚Рµ РєР°С‚РµРіРѕСЂРёСЋ', 'id', 'name' );
  		$lists['catid'] 	= mosHTML::selectList( $categories, 'catid', 'class="inputbox" size="1" style="width:99%"', 'id', 'name' );
   	} else {
 		$categoriesA = array();
@@ -587,7 +587,7 @@ function editContent( $uid=0, $sectionid=0, $option ) {
 				}
 			}
 		}
- 		$categories[] 		= mosHTML::makeOption( '-1', 'Выберите категорию', 'id', 'name' );
+ 		$categories[] 		= mosHTML::makeOption( '-1', 'Р’С‹Р±РµСЂРёС‚Рµ РєР°С‚РµРіРѕСЂРёСЋ', 'id', 'name' );
 		$categories 		= array_merge( $categories, $categoriesA );
  		$lists['catid'] 	= mosHTML::selectList( $categories, 'catid', 'class="inputbox" size="1" style="width:99%"', 'id', 'name', intval( $row->catid ) );
   	}
@@ -682,7 +682,7 @@ function editContent( $uid=0, $sectionid=0, $option ) {
 	$params = new mosParameters( $row->attribs, $mainframe->getPath( 'com_xml', 'com_content' ), 'component' );
 
 	# Added the robots tag for the content!
-	$robots[] = mosHTML::makeOption( '-1', 'Скрыть мета-тег robots' );
+	$robots[] = mosHTML::makeOption( '-1', 'РЎРєСЂС‹С‚СЊ РјРµС‚Р°-С‚РµРі robots' );
 	$robots[] = mosHTML::makeOption( '0', 'Index, Follow' );
 	$robots[] = mosHTML::makeOption( '1', 'Index, NoFollow' );
 	$robots[] = mosHTML::makeOption( '2', 'NoIndex, Follow' );
@@ -695,7 +695,7 @@ function editContent( $uid=0, $sectionid=0, $option ) {
 /**
 * Saves the content item an edit form submit
 * @param database A database connector object
-* boston, добавил параметр -  возврат в редактирование содержимого после сохранения для добавления нового
+* boston, РґРѕР±Р°РІРёР» РїР°СЂР°РјРµС‚СЂ -  РІРѕР·РІСЂР°С‚ РІ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ РїРѕСЃР»Рµ СЃРѕС…СЂР°РЅРµРЅРёСЏ РґР»СЏ РґРѕР±Р°РІР»РµРЅРёСЏ РЅРѕРІРѕРіРѕ
 */
 function saveContent( $sectionid, $task ) {
 	global $database, $my, $mainframe, $mosConfig_offset;
@@ -730,7 +730,7 @@ function saveContent( $sectionid, $task ) {
 	}
 	$row->publish_up = mosFormatDate( $row->publish_up, _CURRENT_SERVER_TIME_FORMAT, -$mosConfig_offset );
 
-	if (trim( $row->publish_down ) == 'Никогда' || trim( $row->publish_down ) == '') {
+	if (trim( $row->publish_down ) == 'РќРёРєРѕРіРґР°' || trim( $row->publish_down ) == '') {
 		$row->publish_down = $nullDate;
 	} else {
 		if (strlen(trim( $row->publish_down )) <= 10) {
@@ -830,19 +830,19 @@ function saveContent( $sectionid, $task ) {
 			break;
 
 		case 'apply':
-			$msg = 'Изменения успешно сохранены в: '. $row->title;
+			$msg = 'РР·РјРµРЅРµРЅРёСЏ СѓСЃРїРµС€РЅРѕ СЃРѕС…СЂР°РЅРµРЅС‹ РІ: '. $row->title;
 			mosRedirect( 'index2.php?option=com_content&sectionid='. $redirect .'&task=edit&hidemainmenu=1&id='. $row->id, $msg );
 			break;
 
-		/* boston, после сохранения возвращаемся в окно добавления нового содержимого */
+		/* boston, РїРѕСЃР»Рµ СЃРѕС…СЂР°РЅРµРЅРёСЏ РІРѕР·РІСЂР°С‰Р°РµРјСЃСЏ РІ РѕРєРЅРѕ РґРѕР±Р°РІР»РµРЅРёСЏ РЅРѕРІРѕРіРѕ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ */
 		case 'save_and_new':
-			$msg = $row->title.' - сохранено.';
+			$msg = $row->title.' - СЃРѕС…СЂР°РЅРµРЅРѕ.';
 			mosRedirect( 'index2.php?option=com_content&sectionid=0&task=new', $msg );
 			break;
 
 		case 'save':
 		default:
-			$msg = 'Успешно сохранено: '. $row->title;
+			$msg = 'РЈСЃРїРµС€РЅРѕ СЃРѕС…СЂР°РЅРµРЅРѕ: '. $row->title;
 			mosRedirect( 'index2.php?option=com_content&sectionid='. $redirect, $msg );
 			break;
 	}
@@ -889,19 +889,19 @@ function changeContent( $cid=null, $state=0, $option ) {
 	
 	switch ( $state ) {
 		case -1:				
-		$msg = $total .' Объект(ы) успешно архивирован(ы)';
+		$msg = $total .' РћР±СЉРµРєС‚(С‹) СѓСЃРїРµС€РЅРѕ Р°СЂС…РёРІРёСЂРѕРІР°РЅ(С‹)';
 			break;
 		
 		case 1:				
-			$msg = $total .' Объект(ы) успешно опубликован(ы)';
+			$msg = $total .' РћР±СЉРµРєС‚(С‹) СѓСЃРїРµС€РЅРѕ РѕРїСѓР±Р»РёРєРѕРІР°РЅ(С‹)';
 			break;   
 
 		case 0:				
 		default:
 			if ( $task == 'unarchive' ) {
-				$msg = $total .' Объект(ы) успешно извлечен(ы) из архива';
+				$msg = $total .' РћР±СЉРµРєС‚(С‹) СѓСЃРїРµС€РЅРѕ РёР·РІР»РµС‡РµРЅ(С‹) РёР· Р°СЂС…РёРІР°';
 			} else {
-				$msg = $total .' Объект(ы) успешно снят(ы) с публикации';
+				$msg = $total .' РћР±СЉРµРєС‚(С‹) СѓСЃРїРµС€РЅРѕ СЃРЅСЏС‚(С‹) СЃ РїСѓР±Р»РёРєР°С†РёРё';
 			}
 			break;
 	}
@@ -929,7 +929,7 @@ function toggleFrontPage( $cid, $section, $option ) {
 	global $database, $mainframe;
 
 	if (count( $cid ) < 1) {
-		echo "<script> alert('Выберите объект для переключения'); window.history.go(-1);</script>\n";
+		echo "<script> alert('Р’С‹Р±РµСЂРёС‚Рµ РѕР±СЉРµРєС‚ РґР»СЏ РїРµСЂРµРєР»СЋС‡РµРЅРёСЏ'); window.history.go(-1);</script>\n";
 		exit;
 	}
 
@@ -970,7 +970,7 @@ function removeContent( &$cid, $sectionid, $option ) {
 
 	$total = count( $cid );
 	if ( $total < 1) {
-		echo "<script> alert('Выберите объект для удаления'); window.history.go(-1);</script>\n";
+		echo "<script> alert('Р’С‹Р±РµСЂРёС‚Рµ РѕР±СЉРµРєС‚ РґР»СЏ СѓРґР°Р»РµРЅРёСЏ'); window.history.go(-1);</script>\n";
 		exit;
 	}
 
@@ -992,7 +992,7 @@ function removeContent( &$cid, $sectionid, $option ) {
 	// clean any existing cache files
 	mosCache::cleanCache( 'com_content' );
 
-	$msg = "Отправлено в корзину: ".$total." объект (ов)";
+	$msg = "РћС‚РїСЂР°РІР»РµРЅРѕ РІ РєРѕСЂР·РёРЅСѓ: ".$total." РѕР±СЉРµРєС‚ (РѕРІ)";
 	$return = strval( mosGetParam( $_POST, 'returntask', '' ) );
 	mosRedirect( 'index2.php?option='. $option .'&task='. $return .'&sectionid='. $sectionid, $msg );
 }
@@ -1037,7 +1037,7 @@ function moveSection( $cid, $sectionid, $option ) {
 	global $database;
 
 	if (!is_array( $cid ) || count( $cid ) < 1) {
-		echo "<script> alert('Выберите объект для перемещения'); window.history.go(-1);</script>\n";
+		echo "<script> alert('Р’С‹Р±РµСЂРёС‚Рµ РѕР±СЉРµРєС‚ РґР»СЏ РїРµСЂРµРјРµС‰РµРЅРёСЏ'); window.history.go(-1);</script>\n";
 		exit;
 	}
 
@@ -1133,7 +1133,7 @@ function moveSectionSave( &$cid, $sectionid, $option ) {
 	// clean any existing cache files
 	mosCache::cleanCache( 'com_content' );
 
-	$msg = $total. ' объект(ы) успешно перемещен(ы) в раздел: '. $section .', категория: '. $category;
+	$msg = $total. ' РѕР±СЉРµРєС‚(С‹) СѓСЃРїРµС€РЅРѕ РїРµСЂРµРјРµС‰РµРЅ(С‹) РІ СЂР°Р·РґРµР»: '. $section .', РєР°С‚РµРіРѕСЂРёСЏ: '. $category;
 	mosRedirect( 'index2.php?option='. $option .'&sectionid='. $sectionid .'&mosmsg='. $msg );
 }
 
@@ -1145,7 +1145,7 @@ function copyItem( $cid, $sectionid, $option ) {
 	global $database;
 
 	if (!is_array( $cid ) || count( $cid ) < 1) {
-		echo "<script> alert('Выберите объект для перемещения'); window.history.go(-1);</script>\n";
+		echo "<script> alert('Р’С‹Р±РµСЂРёС‚Рµ РѕР±СЉРµРєС‚ РґР»СЏ РїРµСЂРµРјРµС‰РµРЅРёСЏ'); window.history.go(-1);</script>\n";
 		exit;
 	}
 
@@ -1263,7 +1263,7 @@ function copyItemSave( $cid, $sectionid, $option ) {
 	// clean any existing cache files
 	mosCache::cleanCache( 'com_content' );
 
-	$msg = $total. ' объект(ы) успешно скопированы в раздел: '. $section .', категории: '. $category;
+	$msg = $total. ' РѕР±СЉРµРєС‚(С‹) СѓСЃРїРµС€РЅРѕ СЃРєРѕРїРёСЂРѕРІР°РЅС‹ РІ СЂР°Р·РґРµР»: '. $section .', РєР°С‚РµРіРѕСЂРёРё: '. $category;
 	mosRedirect( 'index2.php?option='. $option .'&sectionid='. $sectionid .'&mosmsg='. $msg );
 }
 
@@ -1280,7 +1280,7 @@ function resethits( $redirect, $id ) {
 	$row->store();
 	$row->checkin();
 
-	$msg = 'Счетчик просмотров сброшен';
+	$msg = 'РЎС‡РµС‚С‡РёРє РїСЂРѕСЃРјРѕС‚СЂРѕРІ СЃР±СЂРѕС€РµРЅ';
 	mosRedirect( 'index2.php?option=com_content&sectionid='. $redirect .'&task=edit&hidemainmenu=1&id='. $id, $msg );
 }
 
@@ -1354,7 +1354,7 @@ function menuLink( $redirect, $id ) {
 	// clean any existing cache files
 	mosCache::cleanCache( 'com_content' );
 
-	$msg = $link .' (Ссылка - Объект содержимого) в меню: '. $menu .' successfully created';
+	$msg = $link .' (РЎСЃС‹Р»РєР° - РћР±СЉРµРєС‚ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ) РІ РјРµРЅСЋ: '. $menu .' successfully created';
 	mosRedirect( 'index2.php?option=com_content&sectionid='. $redirect .'&task=edit&hidemainmenu=1&id='. $id, $msg );
 }
 
@@ -1413,7 +1413,7 @@ function saveOrder( &$cid ) {
 	// clean any existing cache files
 	mosCache::cleanCache( 'com_content' );
 
-	$msg 	= 'Новый порядок сохранен';
+	$msg 	= 'РќРѕРІС‹Р№ РїРѕСЂСЏРґРѕРє СЃРѕС…СЂР°РЅРµРЅ';
 	switch ( $rettask ) {
 		case 'showarchive':
 			mosRedirect( 'index2.php?option=com_content&task=showarchive&sectionid='. $redirect, $msg );

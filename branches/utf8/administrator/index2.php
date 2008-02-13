@@ -1,17 +1,17 @@
 <?php
 /**
 * @package Joostina
-* @copyright Àâòîðñêèå ïðàâà (C) 2007 Joostina team. Âñå ïðàâà çàùèùåíû.
-* @license Ëèöåíçèÿ http://www.gnu.org/copyleft/gpl.html GNU/GPL, ñìîòðèòå LICENSE.php
-* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå. Ýòà âåðñèÿ ìîæåò áûòü èçìåíåíà
-* â ñîîòâåòñòâèè ñ Ãåíåðàëüíîé Îáùåñòâåííîé Ëèöåíçèåé GNU, ïîýòîìó âîçìîæíî
-* å¸ äàëüíåéøåå ðàñïðîñòðàíåíèå â ñîñòàâå ðåçóëüòàòà ðàáîòû, ëèöåíçèðîâàííîãî
-* ñîãëàñíî Ãåíåðàëüíîé Îáùåñòâåííîé Ëèöåíçèåé GNU èëè äðóãèõ ëèöåíçèé ñâîáîäíûõ
-* ïðîãðàìì èëè ïðîãðàìì ñ îòêðûòûì èñõîäíûì êîäîì.
-* Äëÿ ïðîñìîòðà ïîäðîáíîñòåé è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë COPYRIGHT.php.
+* @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2007 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
+* @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/copyleft/gpl.html GNU/GPL, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ LICENSE.php
+* Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ. Ð­Ñ‚Ð° Ð²ÐµÑ€ÑÐ¸Ñ Ð¼Ð¾Ð¶ÐµÑ‚ Ð±Ñ‹Ñ‚ÑŒ Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð°
+* Ð² ÑÐ¾Ð¾Ñ‚Ð²ÐµÑ‚ÑÑ‚Ð²Ð¸Ð¸ Ñ Ð“ÐµÐ½ÐµÑ€Ð°Ð»ÑŒÐ½Ð¾Ð¹ ÐžÐ±Ñ‰ÐµÑÑ‚Ð²ÐµÐ½Ð½Ð¾Ð¹ Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸ÐµÐ¹ GNU, Ð¿Ð¾ÑÑ‚Ð¾Ð¼Ñƒ Ð²Ð¾Ð·Ð¼Ð¾Ð¶Ð½Ð¾
+* ÐµÑ‘ Ð´Ð°Ð»ÑŒÐ½ÐµÐ¹ÑˆÐµÐµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÐµÐ½Ð¸Ðµ Ð² ÑÐ¾ÑÑ‚Ð°Ð²Ðµ Ñ€ÐµÐ·ÑƒÐ»ÑŒÑ‚Ð°Ñ‚Ð° Ñ€Ð°Ð±Ð¾Ñ‚Ñ‹, Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð½Ð¾Ð³Ð¾
+* ÑÐ¾Ð³Ð»Ð°ÑÐ½Ð¾ Ð“ÐµÐ½ÐµÑ€Ð°Ð»ÑŒÐ½Ð¾Ð¹ ÐžÐ±Ñ‰ÐµÑÑ‚Ð²ÐµÐ½Ð½Ð¾Ð¹ Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸ÐµÐ¹ GNU Ð¸Ð»Ð¸ Ð´Ñ€ÑƒÐ³Ð¸Ñ… Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¹ ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ñ‹Ñ…
+* Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼ Ð¸Ð»Ð¸ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼ Ñ Ð¾Ñ‚ÐºÑ€Ñ‹Ñ‚Ñ‹Ð¼ Ð¸ÑÑ…Ð¾Ð´Ð½Ñ‹Ð¼ ÐºÐ¾Ð´Ð¾Ð¼.
+* Ð”Ð»Ñ Ð¿Ñ€Ð¾ÑÐ¼Ð¾Ñ‚Ñ€Ð° Ð¿Ð¾Ð´Ñ€Ð¾Ð±Ð½Ð¾ÑÑ‚ÐµÐ¹ Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» COPYRIGHT.php.
 */
 
-// Óñòàíîâêà ôëàãà, ÷òî ýòîò ôàéë - ðîäèòåëüñêèé
+// Ð£ÑÑ‚Ð°Ð½Ð¾Ð²ÐºÐ° Ñ„Ð»Ð°Ð³Ð°, Ñ‡Ñ‚Ð¾ ÑÑ‚Ð¾Ñ‚ Ñ„Ð°Ð¹Ð» - Ñ€Ð¾Ð´Ð¸Ñ‚ÐµÐ»ÑŒÑÐºÐ¸Ð¹
 define( '_VALID_MOS', 1 );
 
 if (!file_exists( '../configuration.php' )) {
@@ -22,7 +22,7 @@ if (!file_exists( '../configuration.php' )) {
 require( '../globals.php' );
 require_once( '../configuration.php' );
 
-// SSL ïðîâåðêà  - $http_host returns <live site url>:<port number if it is 443>
+// SSL Ð¿Ñ€Ð¾Ð²ÐµÑ€ÐºÐ°  - $http_host returns <live site url>:<port number if it is 443>
 $http_host = explode(':', $_SERVER['HTTP_HOST'] );
 if( (!empty( $_SERVER['HTTPS'] ) && strtolower( $_SERVER['HTTPS'] ) != 'off' || isset( $http_host[1] ) && $http_host[1] == 443) && substr( $mosConfig_live_site, 0, 8 ) != 'https://' ) {
 	$mosConfig_live_site = 'https://'.substr( $mosConfig_live_site, 7 );
@@ -32,26 +32,26 @@ require_once( $mosConfig_absolute_path . '/includes/joomla.php' );
 include_once( $mosConfig_absolute_path . '/language/'. $mosConfig_lang .'.php' );
 require_once( $mosConfig_absolute_path . '/administrator/includes/admin.php' );
 
-// ðàáîòà ñ ñåññèÿìè íà÷èíàåòñÿ äî ñîçäàíèÿ ãëàâíîãî îáúåêòà âçàèìîäåéñòâèÿ ñ ÿäðîì
+// Ñ€Ð°Ð±Ð¾Ñ‚Ð° Ñ ÑÐµÑÑÐ¸ÑÐ¼Ð¸ Ð½Ð°Ñ‡Ð¸Ð½Ð°ÐµÑ‚ÑÑ Ð´Ð¾ ÑÐ¾Ð·Ð´Ð°Ð½Ð¸Ñ Ð³Ð»Ð°Ð²Ð½Ð¾Ð³Ð¾ Ð¾Ð±ÑŠÐµÐºÑ‚Ð° Ð²Ð·Ð°Ð¸Ð¼Ð¾Ð´ÐµÐ¹ÑÑ‚Ð²Ð¸Ñ Ñ ÑÐ´Ñ€Ð¾Ð¼
 session_name( md5( $mosConfig_live_site ) );
 session_start();
 
 $option	= strval( strtolower( mosGetParam( $_REQUEST, 'option', '' ) ) );
 $task	= strval( mosGetParam( $_REQUEST, 'task', '' ) );
 
-// ñîçäàíèå îáúåêòà âçàèìîäåéñòâèÿ ñ ÿäðîì ñèñòåìû
+// ÑÐ¾Ð·Ð´Ð°Ð½Ð¸Ðµ Ð¾Ð±ÑŠÐµÐºÑ‚Ð° Ð²Ð·Ð°Ð¸Ð¼Ð¾Ð´ÐµÐ¹ÑÑ‚Ð²Ð¸Ñ Ñ ÑÐ´Ñ€Ð¾Ð¼ ÑÐ¸ÑÑ‚ÐµÐ¼Ñ‹
 $mainframe	= new mosMainFrame( $database, $option, '..', true );
 
-// çàïóñê ñåññèé ïàíåëè óïðàâëåíèÿ
+// Ð·Ð°Ð¿ÑƒÑÐº ÑÐµÑÑÐ¸Ð¹ Ð¿Ð°Ð½ÐµÐ»Ð¸ ÑƒÐ¿Ñ€Ð°Ð²Ð»ÐµÐ½Ð¸Ñ
 $my			= $mainframe->initSessionAdmin( $option, $task );
 
-// ïðîâåðêà íà íàëè÷èå â POST äàííûõ ïàðàìåòðà îòêëþ÷åíèÿ ðåäàêòîðà - åñëè åñòü - òî çàâîäèòñÿ íîâûé ïàðàìåòð ñåññèè user_editor_off=1 - îçíà÷àþùèé ÷òî âèçóàëüíûé ðåäàêòîð îòêëþ÷åí
+// Ð¿Ñ€Ð¾Ð²ÐµÑ€ÐºÐ° Ð½Ð° Ð½Ð°Ð»Ð¸Ñ‡Ð¸Ðµ Ð² POST Ð´Ð°Ð½Ð½Ñ‹Ñ… Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ð° Ð¾Ñ‚ÐºÐ»ÑŽÑ‡ÐµÐ½Ð¸Ñ Ñ€ÐµÐ´Ð°ÐºÑ‚Ð¾Ñ€Ð° - ÐµÑÐ»Ð¸ ÐµÑÑ‚ÑŒ - Ñ‚Ð¾ Ð·Ð°Ð²Ð¾Ð´Ð¸Ñ‚ÑÑ Ð½Ð¾Ð²Ñ‹Ð¹ Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€ ÑÐµÑÑÐ¸Ð¸ user_editor_off=1 - Ð¾Ð·Ð½Ð°Ñ‡Ð°ÑŽÑ‰Ð¸Ð¹ Ñ‡Ñ‚Ð¾ Ð²Ð¸Ð·ÑƒÐ°Ð»ÑŒÐ½Ñ‹Ð¹ Ñ€ÐµÐ´Ð°ÐºÑ‚Ð¾Ñ€ Ð¾Ñ‚ÐºÐ»ÑŽÑ‡ÐµÐ½
 if(intval( mosGetParam( $_POST, 'user_editor_off', null ) )) $_SESSION['user_editor_off'] = 1;
-// ïðîâåðêà íà âêëþ÷åíèå âèçóàëüíîãî ðåäàêòîðà, ïðè íàëè÷èè ñîîòâåòñòâóþùåãî ïàðàìåòðà â POST çàïðîñå ïàðàìåòð îòêëþ÷åíèÿ ðåäàêòîðà â ñåññèè îáíóëÿåòñÿ è ðåäàêòîð ñíîâà àêòèâèðóåòñÿ
+// Ð¿Ñ€Ð¾Ð²ÐµÑ€ÐºÐ° Ð½Ð° Ð²ÐºÐ»ÑŽÑ‡ÐµÐ½Ð¸Ðµ Ð²Ð¸Ð·ÑƒÐ°Ð»ÑŒÐ½Ð¾Ð³Ð¾ Ñ€ÐµÐ´Ð°ÐºÑ‚Ð¾Ñ€Ð°, Ð¿Ñ€Ð¸ Ð½Ð°Ð»Ð¸Ñ‡Ð¸Ð¸ ÑÐ¾Ð¾Ñ‚Ð²ÐµÑ‚ÑÑ‚Ð²ÑƒÑŽÑ‰ÐµÐ³Ð¾ Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ð° Ð² POST Ð·Ð°Ð¿Ñ€Ð¾ÑÐµ Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€ Ð¾Ñ‚ÐºÐ»ÑŽÑ‡ÐµÐ½Ð¸Ñ Ñ€ÐµÐ´Ð°ÐºÑ‚Ð¾Ñ€Ð° Ð² ÑÐµÑÑÐ¸Ð¸ Ð¾Ð±Ð½ÑƒÐ»ÑÐµÑ‚ÑÑ Ð¸ Ñ€ÐµÐ´Ð°ÐºÑ‚Ð¾Ñ€ ÑÐ½Ð¾Ð²Ð° Ð°ÐºÑ‚Ð¸Ð²Ð¸Ñ€ÑƒÐµÑ‚ÑÑ
 if(intval( mosGetParam( $_POST, 'user_editor_on', null ) )) $_SESSION['user_editor_off'] = 0;
 
 
-// ïîëó÷åíèå îñíîâíûõ ïàðàìåòðîâ
+// Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ðµ Ð¾ÑÐ½Ð¾Ð²Ð½Ñ‹Ñ… Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ð¾Ð²
 $act 		= strtolower( mosGetParam( $_REQUEST, 'act', '' ) );
 $section	= mosGetParam( $_REQUEST, 'section', '' );
 $no_html	= intval( mosGetParam( $_REQUEST, 'no_html', 0 ) );
@@ -59,15 +59,15 @@ $id			= intval( mosGetParam( $_REQUEST, 'id', 0 ) );
 
 $cur_template = $mainframe->getTemplate();
 
-// ñòðàíèöà ïàíåëè óïðàâëåíèÿ ïî óìîë÷àíèþ
+// ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ð° Ð¿Ð°Ð½ÐµÐ»Ð¸ ÑƒÐ¿Ñ€Ð°Ð²Ð»ÐµÐ½Ð¸Ñ Ð¿Ð¾ ÑƒÐ¼Ð¾Ð»Ñ‡Ð°Ð½Ð¸ÑŽ
 if ($option == '') {
 	$option = 'com_admin';
 }
 
-// óñòàíîâêà ïàðàìåòðà overlib 
+// ÑƒÑÑ‚Ð°Ð½Ð¾Ð²ÐºÐ° Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ð° overlib 
 $mainframe->set( 'loadOverlib', false );
 
-// èíèöèàëèçàöèÿ ðåäàêòîðà
+// Ð¸Ð½Ð¸Ñ†Ð¸Ð°Ð»Ð¸Ð·Ð°Ñ†Ð¸Ñ Ñ€ÐµÐ´Ð°ÐºÑ‚Ð¾Ñ€Ð°
 require_once( $mosConfig_absolute_path . '/editor/editor.php' );
 
 ob_start();
@@ -85,11 +85,11 @@ ob_end_clean();
 
 initGzip();
 
-// íà÷àëî âûâîäà html
+// Ð½Ð°Ñ‡Ð°Ð»Ð¾ Ð²Ñ‹Ð²Ð¾Ð´Ð° html
 if ($no_html == 0) {
-	// çàãðóçêà ôàéëà øàáëîíà
+	// Ð·Ð°Ð³Ñ€ÑƒÐ·ÐºÐ° Ñ„Ð°Ð¹Ð»Ð° ÑˆÐ°Ð±Ð»Ð¾Ð½Ð°
 	if ( !file_exists( $mosConfig_absolute_path .'/administrator/templates/'. $cur_template .'/index.php' ) ) {
-		echo 'ØÀÁËÎÍ '. $cur_template .' ÍÅ ÎÁÍÀÐÓÆÅÍ' ;
+		echo 'Ð¨ÐÐ‘Ð›ÐžÐ '. $cur_template .' ÐÐ• ÐžÐ‘ÐÐÐ Ð£Ð–Ð•Ð' ;
 	} else {
 		require_once( $mosConfig_absolute_path .'/administrator/templates/'. $cur_template .'/index.php' );
 	}
@@ -97,9 +97,9 @@ if ($no_html == 0) {
 	mosMainBody_Admin();
 }
 
-// èíôîðìàöèÿ îòëàäêè, ÷èñëî çàïðîñîâ â ÁÄ
+// Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ñ Ð¾Ñ‚Ð»Ð°Ð´ÐºÐ¸, Ñ‡Ð¸ÑÐ»Ð¾ Ð·Ð°Ð¿Ñ€Ð¾ÑÐ¾Ð² Ð² Ð‘Ð”
 if ($mosConfig_debug) {
-	echo 'Çàïðîñîâ:&nbsp;' . $database->_ticker;
+	echo 'Ð—Ð°Ð¿Ñ€Ð¾ÑÐ¾Ð²:&nbsp;' . $database->_ticker;
 	echo '<pre>';
 	foreach ($database->_log as $k=>$sql) {
 		echo $k+1 . ":&nbsp;" . $sql . '<br /><br />';
@@ -107,7 +107,7 @@ if ($mosConfig_debug) {
 	echo '</pre>';
 }
 
-// âîññòàíîâëåíèå ñåññèé
+// Ð²Ð¾ÑÑÑ‚Ð°Ð½Ð¾Ð²Ð»ÐµÐ½Ð¸Ðµ ÑÐµÑÑÐ¸Ð¹
 if ( $task == 'save' || $task == 'apply' ) {
 	$mainframe->initSessionAdmin( $option, '' );
 }

@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 /**
 * Page navigation support class
@@ -75,9 +75,9 @@ class mosPageNav {
 			$to_result = $this->total;
 		}
 		if ($this->total > 0) {
-			$html .= "\nПоказано " . $from_result . " - " . $to_result . " из " . $this->total;
+			$html .= "\nРџРѕРєР°Р·Р°РЅРѕ " . $from_result . " - " . $to_result . " РёР· " . $this->total;
 		} else {
-			$html .= "\nЗаписи не найдены.";
+			$html .= "\nР—Р°РїРёСЃРё РЅРµ РЅР°Р№РґРµРЅС‹.";
 		}
 		return $html;
 	}
@@ -104,11 +104,11 @@ class mosPageNav {
 
 		if ($this_page > 1) {
 			$page = ($this_page - 2) * $this->limit;
-			$html .= "\n<a href=\"#beg\" class=\"pagenav\" title=\"Первая страница\" onclick=\"javascript: document.adminForm.limitstart.value=0; document.adminForm.submit();return false;\">&lt;&lt;&nbsp;Первая</a>";
-			$html .= "\n<a href=\"#prev\" class=\"pagenav\" title=\"Предыдущая страница\" onclick=\"javascript: document.adminForm.limitstart.value=$page; document.adminForm.submit();return false;\">&lt;&nbsp;Предыдущая</a>";
+			$html .= "\n<a href=\"#beg\" class=\"pagenav\" title=\"РџРµСЂРІР°СЏ СЃС‚СЂР°РЅРёС†Р°\" onclick=\"javascript: document.adminForm.limitstart.value=0; document.adminForm.submit();return false;\">&lt;&lt;&nbsp;РџРµСЂРІР°СЏ</a>";
+			$html .= "\n<a href=\"#prev\" class=\"pagenav\" title=\"РџСЂРµРґС‹РґСѓС‰Р°СЏ СЃС‚СЂР°РЅРёС†Р°\" onclick=\"javascript: document.adminForm.limitstart.value=$page; document.adminForm.submit();return false;\">&lt;&nbsp;РџСЂРµРґС‹РґСѓС‰Р°СЏ</a>";
 		} else {
-			$html .= "\n<span class=\"pagenav\">&lt;&lt;&nbsp;Первая</span>";
-			$html .= "\n<span class=\"pagenav\">&lt;&nbsp;Предыдущая</span>";
+			$html .= "\n<span class=\"pagenav\">&lt;&lt;&nbsp;РџРµСЂРІР°СЏ</span>";
+			$html .= "\n<span class=\"pagenav\">&lt;&nbsp;РџСЂРµРґС‹РґСѓС‰Р°СЏ</span>";
 		}
 
 		for ($i=$start_loop; $i <= $stop_loop; $i++) {
@@ -123,11 +123,11 @@ class mosPageNav {
 		if ($this_page < $total_pages) {
 			$page = $this_page * $this->limit;
 			$end_page = ($total_pages-1) * $this->limit;
-			$html .= "\n<a href=\"#next\" class=\"pagenav\" title=\"Следующая страница\" onclick=\"javascript: document.adminForm.limitstart.value=$page; document.adminForm.submit();return false;\"> Следующая&nbsp;&gt;</a>";
-			$html .= "\n<a href=\"#end\" class=\"pagenav\" title=\"Последняя страница\" onclick=\"javascript: document.adminForm.limitstart.value=$end_page; document.adminForm.submit();return false;\"> Последняя&nbsp;&gt;&gt;</a>";
+			$html .= "\n<a href=\"#next\" class=\"pagenav\" title=\"РЎР»РµРґСѓСЋС‰Р°СЏ СЃС‚СЂР°РЅРёС†Р°\" onclick=\"javascript: document.adminForm.limitstart.value=$page; document.adminForm.submit();return false;\"> РЎР»РµРґСѓСЋС‰Р°СЏ&nbsp;&gt;</a>";
+			$html .= "\n<a href=\"#end\" class=\"pagenav\" title=\"РџРѕСЃР»РµРґРЅСЏСЏ СЃС‚СЂР°РЅРёС†Р°\" onclick=\"javascript: document.adminForm.limitstart.value=$end_page; document.adminForm.submit();return false;\"> РџРѕСЃР»РµРґРЅСЏСЏ&nbsp;&gt;&gt;</a>";
 		} else {
-			$html .= "\n<span class=\"pagenav\">Следующая&nbsp;&gt;</span>";
-			$html .= "\n<span class=\"pagenav\">Последняя&nbsp;&gt;&gt;</span>";
+			$html .= "\n<span class=\"pagenav\">РЎР»РµРґСѓСЋС‰Р°СЏ&nbsp;&gt;</span>";
+			$html .= "\n<span class=\"pagenav\">РџРѕСЃР»РµРґРЅСЏСЏ&nbsp;&gt;&gt;</span>";
 		}
 		return $html;
 	}
@@ -136,7 +136,7 @@ class mosPageNav {
 		$html = '<table class="adminlist"><tr><th colspan="3">';
 		$html .= $this->getPagesLinks();
 		$html .= '</th></tr><tr>';
-		$html .= '<td class="jtd_nowrap" width="48%" align="right">Показывать по </td>';
+		$html .= '<td class="jtd_nowrap" width="48%" align="right">РџРѕРєР°Р·С‹РІР°С‚СЊ РїРѕ </td>';
 		$html .= '<td>' .$this->getLimitBox() . '</td>';
 		$html .= '<td class="jtd_nowrap" width="48%" align="left">' . $this->getPagesCounter() . '</td>';
 		$html .= '</tr></table>';
@@ -155,7 +155,7 @@ class mosPageNav {
 * @param string The alt text for the icon
 * @return string
 */
-	function orderUpIcon( $i, $condition=true, $task='orderup', $alt='Передвинуть выше' ) {
+	function orderUpIcon( $i, $condition=true, $task='orderup', $alt='РџРµСЂРµРґРІРёРЅСѓС‚СЊ РІС‹С€Рµ' ) {
 		if (($i > 0 || ($i+$this->limitstart > 0)) && $condition) {
 			return '<a href="#reorder" onClick="return listItemTask(\'cb'.$i.'\',\''.$task.'\')" title="'.$alt.'">
 				<img src="images/uparrow.png" width="12" height="12" border="0" alt="'.$alt.'" />
@@ -171,7 +171,7 @@ class mosPageNav {
 * @param string The alt text for the icon
 * @return string
 */
-	function orderDownIcon( $i, $n, $condition=true, $task='orderdown', $alt='Передвинуть ниже' ) {
+	function orderDownIcon( $i, $n, $condition=true, $task='orderdown', $alt='РџРµСЂРµРґРІРёРЅСѓС‚СЊ РЅРёР¶Рµ' ) {
 		if (($i < $n-1 || $i+$this->limitstart < $this->total-1) && $condition) {
 			return '<a href="#reorder" onClick="return listItemTask(\'cb'.$i.'\',\''.$task.'\')" title="'.$alt.'">
 				<img src="images/downarrow.png" width="12" height="12" border="0" alt="'.$alt.'" />
@@ -190,7 +190,7 @@ class mosPageNav {
 	function orderUpIcon2( $id, $order, $condition=true, $task='orderup', $alt='#' ) {
 		// handling of default value
 		if ($alt = '#') {
-			$alt = 'Переместить выше';
+			$alt = 'РџРµСЂРµРјРµСЃС‚РёС‚СЊ РІС‹С€Рµ';
 		}
 
 		if ($order == 0) {
@@ -223,7 +223,7 @@ class mosPageNav {
 	function orderDownIcon2( $id, $order, $condition=true, $task='orderdown', $alt='#' ) {
 		// handling of default value
 		if ($alt = '#') {
-			$alt = 'Переместить ниже';
+			$alt = 'РџРµСЂРµРјРµСЃС‚РёС‚СЊ РЅРёР¶Рµ';
 		}
 
 		if ($order == 0) {

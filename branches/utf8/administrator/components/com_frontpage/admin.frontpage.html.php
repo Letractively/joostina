@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 /**
 * @package Joostina
@@ -33,7 +33,7 @@ class HTML_content {
 		<table class="adminheading">
 		<tr>
 			<th class="frontpage" rowspan="2">
-			Главная страница
+			Р“Р»Р°РІРЅР°СЏ СЃС‚СЂР°РЅРёС†Р°
 			</th>
 			<td width="right">
 			<?php echo $lists['sectionid'];?>
@@ -47,7 +47,7 @@ class HTML_content {
 		</tr>
 		<tr>
 			<td align="right" colspan="2">
-			Фильтр:
+			Р¤РёР»СЊС‚СЂ:
 			</td>
 			<td>
 			<input type="text" name="search" value="<?php echo htmlspecialchars( $search );?>" class="text_area" onChange="document.adminForm.submit();" />
@@ -64,31 +64,31 @@ class HTML_content {
 			<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $rows ); ?>);" />
 			</th>
 			<th class="title">
-			Заголовок
+			Р—Р°РіРѕР»РѕРІРѕРє
 			</th>
 			<th width="10%" class="jtd_nowrap">
-			Опубликовано
+			РћРїСѓР±Р»РёРєРѕРІР°РЅРѕ
 			</th>
 			<th colspan="2" class="jtd_nowrap" width="5%">
-			Сортировка
+			РЎРѕСЂС‚РёСЂРѕРІРєР°
 			</th>
 			<th width="2%">
-			Порядок
+			РџРѕСЂСЏРґРѕРє
 			</th>
 			<th width="1%">
-			<a href="javascript: saveorder( <?php echo count( $rows )-1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="Сохранить порядок" /></a>
+			<a href="javascript: saveorder( <?php echo count( $rows )-1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="РЎРѕС…СЂР°РЅРёС‚СЊ РїРѕСЂСЏРґРѕРє" /></a>
 			</th>
 			<th width="8%" class="jtd_nowrap">
-			Доступ
+			Р”РѕСЃС‚СѓРї
 			</th>
 			<th width="10%" align="left">
-			Раздел
+			Р Р°Р·РґРµР»
 			</th>
 			<th width="10%" align="left">
-			Категория
+			РљР°С‚РµРіРѕСЂРёСЏ
 			</th>
 			<th width="10%" align="left">
-			Автор
+			РђРІС‚РѕСЂ
 			</th>
 		</tr>
 		<?php
@@ -103,31 +103,31 @@ class HTML_content {
 			$now = _CURRENT_SERVER_TIME;
 			if ( $now <= $row->publish_up && $row->state == '1' ) {
 				$img = 'publish_y.png';
-				$alt = 'Опубликовано';
+				$alt = 'РћРїСѓР±Р»РёРєРѕРІР°РЅРѕ';
 			} else if (($now <= $row->publish_down || $row->publish_down == $nullDate) && $row->state == '1') {
 				$img = 'publish_g.png';
-				$alt = 'Опубликовано';
+				$alt = 'РћРїСѓР±Р»РёРєРѕРІР°РЅРѕ';
 			} else if ( $now > $row->publish_down && $row->state == '1' ) {
 				$img = 'publish_r.png';
-				$alt = 'Время публикации истекло';
+				$alt = 'Р’СЂРµРјСЏ РїСѓР±Р»РёРєР°С†РёРё РёСЃС‚РµРєР»Рѕ';
 			} elseif ( $row->state == "0" ) {
 				$img = "publish_x.png";
-				$alt = 'Не опубликовано';
+				$alt = 'РќРµ РѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ';
 			}
 
 			$times = '';
 			if ( isset( $row->publish_up ) ) {
 				  if ( $row->publish_up == $nullDate) {
-						$times .= '<tr><td>Начало: Всегда</td></tr>';
+						$times .= '<tr><td>РќР°С‡Р°Р»Рѕ: Р’СЃРµРіРґР°</td></tr>';
 				  } else {
-						$times .= '<tr><td>Начало: '. $row->publish_up .'</td></tr>';
+						$times .= '<tr><td>РќР°С‡Р°Р»Рѕ: '. $row->publish_up .'</td></tr>';
 				  }
 			}
 			if ( isset( $row->publish_down ) ) {
 				  if ($row->publish_down == $nullDate) {
-						$times .= '<tr><td>Окончание: Без срока</td></tr>';
+						$times .= '<tr><td>РћРєРѕРЅС‡Р°РЅРёРµ: Р‘РµР· СЃСЂРѕРєР°</td></tr>';
 				  } else {
-				  $times .= '<tr><td>Окончание: '. $row->publish_down .'</td></tr>';
+				  $times .= '<tr><td>РћРєРѕРЅС‡Р°РЅРёРµ: '. $row->publish_down .'</td></tr>';
 				  }
 			}
 
@@ -139,7 +139,7 @@ class HTML_content {
 					$author = $row->created_by_alias;
 				} else {
 					$linkA 	= 'index2.php?option=com_users&task=editA&hidemainmenu=1&id='. $row->created_by;
-					$author = '<a href="'. $linkA .'" title="Изменить данные пользователя">'. $row->author .'</a>';
+					$author = '<a href="'. $linkA .'" title="РР·РјРµРЅРёС‚СЊ РґР°РЅРЅС‹Рµ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ">'. $row->author .'</a>';
 				}
 			} else {
 				if ( $row->created_by_alias ) {
@@ -162,7 +162,7 @@ class HTML_content {
 					echo $row->title;
 				} else {
 					?>
-					<a href="<?php echo $link; ?>" title="Изменить содержимое">
+					<a href="<?php echo $link; ?>" title="РР·РјРµРЅРёС‚СЊ СЃРѕРґРµСЂР¶РёРјРѕРµ">
 					<?php echo $row->title; ?>
 					</a>
 					<?php
@@ -173,7 +173,7 @@ class HTML_content {
 				if ( $times ) {
 					?>
 					<td align="center">
-					<a href="javascript: void(0);" onmouseover="return overlib('<table><?php echo $times; ?></table>', CAPTION, 'Информация о публикации', BELOW, RIGHT);" onMouseOut="return nd();" onclick="return listItemTask('cb<?php echo $i;?>','<?php echo $row->state ? "unpublish" : "publish";?>')">
+					<a href="javascript: void(0);" onmouseover="return overlib('<table><?php echo $times; ?></table>', CAPTION, 'РРЅС„РѕСЂРјР°С†РёСЏ Рѕ РїСѓР±Р»РёРєР°С†РёРё', BELOW, RIGHT);" onMouseOut="return nd();" onclick="return listItemTask('cb<?php echo $i;?>','<?php echo $row->state ? "unpublish" : "publish";?>')">
 					<img src="images/<?php echo $img;?>" width="12" height="12" border="0" alt="<?php echo $alt;?>" />
 					</a>
 					</td>
@@ -193,12 +193,12 @@ class HTML_content {
 				<?php echo $access;?>
 				</td>
 				<td>
-				<a href="<?php echo $row->sect_link; ?>" title="Изменить раздел">
+				<a href="<?php echo $row->sect_link; ?>" title="РР·РјРµРЅРёС‚СЊ СЂР°Р·РґРµР»">
 				<?php echo $row->sect_name; ?>
 				</a>
 				</td>
 				<td>
-				<a href="<?php echo $row->cat_link; ?>" title="Изменить категорию">
+				<a href="<?php echo $row->cat_link; ?>" title="РР·РјРµРЅРёС‚СЊ РєР°С‚РµРіРѕСЂРёСЋ">
 				<?php echo $row->name; ?>
 				</a>
 				</td>

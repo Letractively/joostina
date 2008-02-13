@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 /**
 * HTML class for all trash component output
@@ -54,7 +54,7 @@ class HTML_trash {
 		<form action="index2.php?option=com_trash" method="post" name="adminForm">
 		<table class="adminheading">
 		<tr>
-			<th class="trash">Корзина</th>
+			<th class="trash">РљРѕСЂР·РёРЅР°</th>
 			<td width="right">
 				<?php echo $list; ?>
 			</td>
@@ -69,13 +69,13 @@ class HTML_trash {
 			</th>
 			<th width="20px">&nbsp;</th>
 			<th class="title">
-			Заголовок
+			Р—Р°РіРѕР»РѕРІРѕРє
 			</th>
 			<th>
-			Раздел
+			Р Р°Р·РґРµР»
 			</th>
 			<th>
-			Категория
+			РљР°С‚РµРіРѕСЂРёСЏ
 			</th>
 			<th width="70px">
 			ID
@@ -146,7 +146,7 @@ class HTML_trash {
 		<form action="index2.php" method="post" name="adminForm">
 		<table class="adminheading">
 		<tr>
-			<th>Удаление объектов</th>
+			<th>РЈРґР°Р»РµРЅРёРµ РѕР±СЉРµРєС‚РѕРІ</th>
 		</tr>
 		</table>
 
@@ -155,13 +155,13 @@ class HTML_trash {
 		<tr>
 			<td width="3%"></td>
 			<td align="left" valign="top" width="20%">
-			<strong>Количество объектов:</strong>
+			<strong>РљРѕР»РёС‡РµСЃС‚РІРѕ РѕР±СЉРµРєС‚РѕРІ:</strong>
 			<br />
 			<font color="#000066"><strong><?php echo count( $cid ); ?></strong></font>
 			<br /><br />
 			</td>
 			<td align="left" valign="top" width="25%">
-			<strong>Удаляемые объекты:</strong>
+			<strong>РЈРґР°Р»СЏРµРјС‹Рµ РѕР±СЉРµРєС‚С‹:</strong>
 			<br />
 			<?php
 			echo "<ol>";
@@ -172,12 +172,12 @@ class HTML_trash {
 			?>
 			</td>
 			 <td valign="top">
-			* Это действие <strong><font color="#FF0000">насовсем удалит</font></strong> <br />перечисленные объекты из базы данных *
+			* Р­С‚Рѕ РґРµР№СЃС‚РІРёРµ <strong><font color="#FF0000">РЅР°СЃРѕРІСЃРµРј СѓРґР°Р»РёС‚</font></strong> <br />РїРµСЂРµС‡РёСЃР»РµРЅРЅС‹Рµ РѕР±СЉРµРєС‚С‹ РёР· Р±Р°Р·С‹ РґР°РЅРЅС‹С… *
 			<br /><br /><br />
 			<div style="border: 1px dotted gray; width: 70px; padding: 10px; margin-left: 50px;">
-			<a class="toolbar" href="javascript:if (confirm('Вы действительно хотите удалить перечисленные объекты? \nЭто действие насовсем удалит перечисленные объекты из базы данных.')){ submitbutton('delete');}" onmouseout="MM_swapImgRestore();"  onmouseover="MM_swapImage('remove','','images/delete_f2.png',1);">
-			<img name="remove" src="images/delete.png" alt="Удалить" border="0" align="middle" />
-			&nbsp;Удалить
+			<a class="toolbar" href="javascript:if (confirm('Р’С‹ РґРµР№СЃС‚РІРёС‚РµР»СЊРЅРѕ С…РѕС‚РёС‚Рµ СѓРґР°Р»РёС‚СЊ РїРµСЂРµС‡РёСЃР»РµРЅРЅС‹Рµ РѕР±СЉРµРєС‚С‹? \nР­С‚Рѕ РґРµР№СЃС‚РІРёРµ РЅР°СЃРѕРІСЃРµРј СѓРґР°Р»РёС‚ РїРµСЂРµС‡РёСЃР»РµРЅРЅС‹Рµ РѕР±СЉРµРєС‚С‹ РёР· Р±Р°Р·С‹ РґР°РЅРЅС‹С….')){ submitbutton('delete');}" onmouseout="MM_swapImgRestore();"  onmouseover="MM_swapImage('remove','','images/delete_f2.png',1);">
+			<img name="remove" src="images/delete.png" alt="РЈРґР°Р»РёС‚СЊ" border="0" align="middle" />
+			&nbsp;РЈРґР°Р»РёС‚СЊ
 			</a>
 			</div>
 			</td>
@@ -211,7 +211,7 @@ class HTML_trash {
 		<form action="index2.php" method="post" name="adminForm">
 		<table class="adminheading">
 		<tr>
-			<th>Восстановление объектов</th>
+			<th>Р’РѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёРµ РѕР±СЉРµРєС‚РѕРІ</th>
 		</tr>
 		</table>
 
@@ -220,13 +220,13 @@ class HTML_trash {
 		<tr>
 			<td width="3%"></td>
 			<td align="left" valign="top" width="20%">
-			<strong>Количество объектов:</strong>
+			<strong>РљРѕР»РёС‡РµСЃС‚РІРѕ РѕР±СЉРµРєС‚РѕРІ:</strong>
 			<br />
 			<font color="#000066"><strong><?php echo count( $cid ); ?></strong></font>
 			<br /><br />
 			</td>
 			<td align="left" valign="top" width="25%">
-			<strong>Восстанавливаемые объекты:</strong>
+			<strong>Р’РѕСЃСЃС‚Р°РЅР°РІР»РёРІР°РµРјС‹Рµ РѕР±СЉРµРєС‚С‹:</strong>
 			<br />
 			<?php
 			echo "<ol>";
@@ -237,12 +237,12 @@ class HTML_trash {
 			?>
 			</td>
 			 <td valign="top">
-			* Это действие <strong><font color="#FF0000">восстановит</font></strong> эти объекты,<br />затем они будут возвращены на прежние места, как неопубликованные объекты *
+			* Р­С‚Рѕ РґРµР№СЃС‚РІРёРµ <strong><font color="#FF0000">РІРѕСЃСЃС‚Р°РЅРѕРІРёС‚</font></strong> СЌС‚Рё РѕР±СЉРµРєС‚С‹,<br />Р·Р°С‚РµРј РѕРЅРё Р±СѓРґСѓС‚ РІРѕР·РІСЂР°С‰РµРЅС‹ РЅР° РїСЂРµР¶РЅРёРµ РјРµСЃС‚Р°, РєР°Рє РЅРµРѕРїСѓР±Р»РёРєРѕРІР°РЅРЅС‹Рµ РѕР±СЉРµРєС‚С‹ *
 			<br /><br /><br />
 			<div style="border: 1px dotted gray; width: 80px; padding: 10px; margin-left: 50px;">
-			<a class="toolbar" href="javascript:if (confirm('Вы действительно хотите восстановить перечисленные объекты?.')){ submitbutton('restore');}" onmouseout="MM_swapImgRestore();"  onmouseover="MM_swapImage('restore','','images/restore_f2.png',1);">
-			<img name="restore" src="images/restore.png" alt="Восстановить" border="0" align="middle" />
-			&nbsp;Восстановить
+			<a class="toolbar" href="javascript:if (confirm('Р’С‹ РґРµР№СЃС‚РІРёС‚РµР»СЊРЅРѕ С…РѕС‚РёС‚Рµ РІРѕСЃСЃС‚Р°РЅРѕРІРёС‚СЊ РїРµСЂРµС‡РёСЃР»РµРЅРЅС‹Рµ РѕР±СЉРµРєС‚С‹?.')){ submitbutton('restore');}" onmouseout="MM_swapImgRestore();"  onmouseover="MM_swapImage('restore','','images/restore_f2.png',1);">
+			<img name="restore" src="images/restore.png" alt="Р’РѕСЃСЃС‚Р°РЅРѕРІРёС‚СЊ" border="0" align="middle" />
+			&nbsp;Р’РѕСЃСЃС‚Р°РЅРѕРІРёС‚СЊ
 			</a>
 			</div>
 			</td>

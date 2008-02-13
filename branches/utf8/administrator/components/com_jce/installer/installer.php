@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 // XML library
 require_once( $mosConfig_absolute_path . '/includes/domit/xml_domit_lite_include.php' );
@@ -55,12 +55,12 @@ function jceInstaller( $option, $client, $opt )
     			if (file_exists( $path )) {
     				require $path;
     			} else {
-    				echo "Инсталлятор не обнаружил элемент [$element]";
+    				echo "РРЅСЃС‚Р°Р»Р»СЏС‚РѕСЂ РЅРµ РѕР±РЅР°СЂСѓР¶РёР» СЌР»РµРјРµРЅС‚ [$element]";
     			}
     			break;
     	}
     } else {
-    	echo "Инсталлятор недоступен для элемента [$element]";
+    	echo "РРЅСЃС‚Р°Р»Р»СЏС‚РѕСЂ РЅРµРґРѕСЃС‚СѓРїРµРЅ РґР»СЏ СЌР»РµРјРµРЅС‚Р° [$element]";
     }
 }
 
@@ -74,22 +74,22 @@ function uploadPackage( $installerClass, $option, $element, $client ) {
 
 	// Check if file uploads are enabled
 	if (!(bool)ini_get('file_uploads')) {
-		HTML_installer::showInstallMessage( "Установка невозможна, пока не будет разрешена загрузка файлов. Используйте, пожалуйста, метод установки из каталога.",
-			'Ошибка установки', $installer->returnTo( $option, '&task=install&element='.$element, $client ) );
+		HTML_installer::showInstallMessage( "РЈСЃС‚Р°РЅРѕРІРєР° РЅРµРІРѕР·РјРѕР¶РЅР°, РїРѕРєР° РЅРµ Р±СѓРґРµС‚ СЂР°Р·СЂРµС€РµРЅР° Р·Р°РіСЂСѓР·РєР° С„Р°Р№Р»РѕРІ. РСЃРїРѕР»СЊР·СѓР№С‚Рµ, РїРѕР¶Р°Р»СѓР№СЃС‚Р°, РјРµС‚РѕРґ СѓСЃС‚Р°РЅРѕРІРєРё РёР· РєР°С‚Р°Р»РѕРіР°.",
+			'РћС€РёР±РєР° СѓСЃС‚Р°РЅРѕРІРєРё', $installer->returnTo( $option, '&task=install&element='.$element, $client ) );
 		exit();
 	}
 
 	// Check that the zlib is available
 	if(!extension_loaded('zlib')) {
-		HTML_installer::showInstallMessage( "Установка невозможна, пока не будет поддержки zlib",
-			'Ошибка установки', $installer->returnTo( $option, '&task=install&element='.$element, $client ) );
+		HTML_installer::showInstallMessage( "РЈСЃС‚Р°РЅРѕРІРєР° РЅРµРІРѕР·РјРѕР¶РЅР°, РїРѕРєР° РЅРµ Р±СѓРґРµС‚ РїРѕРґРґРµСЂР¶РєРё zlib",
+			'РћС€РёР±РєР° СѓСЃС‚Р°РЅРѕРІРєРё', $installer->returnTo( $option, '&task=install&element='.$element, $client ) );
 		exit();
 	}
 
 	$userfile = mosGetParam( $_FILES, 'userfile', null );
 
 	if (!$userfile) {
-		HTML_installer::showInstallMessage( 'Файлы не выбраны', 'Ошибка загрузки нового модуля',
+		HTML_installer::showInstallMessage( 'Р¤Р°Р№Р»С‹ РЅРµ РІС‹Р±СЂР°РЅС‹', 'РћС€РёР±РєР° Р·Р°РіСЂСѓР·РєРё РЅРѕРІРѕРіРѕ РјРѕРґСѓР»СЏ',
 			$installer->returnTo( $option, '&task=install&element='.$element, $client ));
 		exit();
 	}
@@ -101,16 +101,16 @@ function uploadPackage( $installerClass, $option, $element, $client ) {
 
 	if ($resultdir !== false) {
 		if (!$installer->upload( $userfile['name'] )) {
-			HTML_installer::showInstallMessage( $installer->getError(), 'Ошибка загрузки '.$element,
+			HTML_installer::showInstallMessage( $installer->getError(), 'РћС€РёР±РєР° Р·Р°РіСЂСѓР·РєРё '.$element,
 				$installer->returnTo( $option, '&task=install&element='.$element, $client ) );
 		}
 		$ret = $installer->install();
 
-		HTML_installer::showInstallMessage( $installer->getError(), 'Загрузка '.$element.' - '.($ret ? 'успешна' : 'завершилась ошибкой'),
+		HTML_installer::showInstallMessage( $installer->getError(), 'Р—Р°РіСЂСѓР·РєР° '.$element.' - '.($ret ? 'СѓСЃРїРµС€РЅР°' : 'Р·Р°РІРµСЂС€РёР»Р°СЃСЊ РѕС€РёР±РєРѕР№'),
 			$installer->returnTo( $option, '&task=install&element='.$element, $client ) );
 		cleanupInstall( $userfile['name'], $installer->unpackDir() );
 	} else {
-		HTML_installer::showInstallMessage( $msg, 'Ошибка загрузки '.$element,
+		HTML_installer::showInstallMessage( $msg, 'РћС€РёР±РєР° Р·Р°РіСЂСѓР·РєРё '.$element,
 			$installer->returnTo( $option, '&task=install&element='.$element, $client ) );
 	}
 }
@@ -123,7 +123,7 @@ function installFromDirectory( $installerClass, $option, $element, $client ) {
 	$userfile = mosGetParam( $_REQUEST, 'userfile', '' );
 
 	if (!$userfile) {
-		mosRedirect( "index2.php?option=$option&element=module", "Выберите, пожалуйста, каталог" );
+		mosRedirect( "index2.php?option=$option&element=module", "Р’С‹Р±РµСЂРёС‚Рµ, РїРѕР¶Р°Р»СѓР№СЃС‚Р°, РєР°С‚Р°Р»РѕРі" );
 	}
 
 	$installer = new $installerClass();
@@ -134,7 +134,7 @@ function installFromDirectory( $installerClass, $option, $element, $client ) {
 	}
 
 	$ret = $installer->install( $path );
-	HTML_installer::showInstallMessage( $installer->getError(), 'Загрузка нового '.$element.' - '.($ret ? 'успешна' : 'ошибка'), $installer->returnTo( $option, '&task=install&element='.$element, $client ) );
+	HTML_installer::showInstallMessage( $installer->getError(), 'Р—Р°РіСЂСѓР·РєР° РЅРѕРІРѕРіРѕ '.$element.' - '.($ret ? 'СѓСЃРїРµС€РЅР°' : 'РѕС€РёР±РєР°'), $installer->returnTo( $option, '&task=install&element='.$element, $client ) );
 }
 /**
 *
@@ -154,7 +154,7 @@ function removeElement( $installerClass, $option, $element, $client ) {
 
 	$msg = $installer->getError();
 
-	mosRedirect( $installer->returnTo( $option, '&task=install&element='.$element, $client ), $result ? 'Успешно ' . $msg : 'Ошибка ' . $msg );
+	mosRedirect( $installer->returnTo( $option, '&task=install&element='.$element, $client ), $result ? 'РЈСЃРїРµС€РЅРѕ ' . $msg : 'РћС€РёР±РєР° ' . $msg );
 }
 /**
 * @param string The name of the php (temporary) uploaded file
@@ -171,16 +171,16 @@ function uploadFile( $filename, $userfile_name, &$msg ) {
 				if (mosChmod( $baseDir . $userfile_name )) {
 					return true;
 				} else {
-					$msg = 'Невозможно изменить права доступа к загруженному файлу.';
+					$msg = 'РќРµРІРѕР·РјРѕР¶РЅРѕ РёР·РјРµРЅРёС‚СЊ РїСЂР°РІР° РґРѕСЃС‚СѓРїР° Рє Р·Р°РіСЂСѓР¶РµРЅРЅРѕРјСѓ С„Р°Р№Р»Сѓ.';
 				}
 			} else {
-				$msg = 'Невозможно переместить загруженный файл в каталог <code>/media</code>.';
+				$msg = 'РќРµРІРѕР·РјРѕР¶РЅРѕ РїРµСЂРµРјРµСЃС‚РёС‚СЊ Р·Р°РіСЂСѓР¶РµРЅРЅС‹Р№ С„Р°Р№Р» РІ РєР°С‚Р°Р»РѕРі <code>/media</code>.';
 			}
 		} else {
-			$msg = 'Загрузка невозможна из-за отсутствия разрешения на запись в каталог <code>/media</code>.';
+			$msg = 'Р—Р°РіСЂСѓР·РєР° РЅРµРІРѕР·РјРѕР¶РЅР° РёР·-Р·Р° РѕС‚СЃСѓС‚СЃС‚РІРёСЏ СЂР°Р·СЂРµС€РµРЅРёСЏ РЅР° Р·Р°РїРёСЃСЊ РІ РєР°С‚Р°Р»РѕРі <code>/media</code>.';
 		}
 	} else {
-		$msg = 'Загрузка невозможна из-за отсутствия каталога <code>/media</code>.';
+		$msg = 'Р—Р°РіСЂСѓР·РєР° РЅРµРІРѕР·РјРѕР¶РЅР° РёР·-Р·Р° РѕС‚СЃСѓС‚СЃС‚РІРёСЏ РєР°С‚Р°Р»РѕРіР° <code>/media</code>.';
 	}
 	return false;
 }

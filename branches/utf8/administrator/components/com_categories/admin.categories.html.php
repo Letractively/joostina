@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 /**
 * @package Joostina
 * @subpackage Categories
@@ -28,7 +28,7 @@ class categories_html {
 		global $my;
 
 		mosCommonHTML::loadOverlib();
-		/* подключаем Pquery */
+		/* РїРѕРґРєР»СЋС‡Р°РµРј Pquery */
 		mosCommonHTML::loadPquery();
 		$pquery= new PQuery();
 		?>
@@ -39,7 +39,7 @@ class categories_html {
 			if ( $section == 'content') {
 				?>
 				<th class="categories">
-				Категории содержимого <small><small>[ Всё содержимое ]</small></small>
+				РљР°С‚РµРіРѕСЂРёРё СЃРѕРґРµСЂР¶РёРјРѕРіРѕ <small><small>[ Р’СЃС‘ СЃРѕРґРµСЂР¶РёРјРѕРµ ]</small></small>
 				</th>
 				<td width="right">
 				<?php echo $lists['sectionid'];?>
@@ -57,7 +57,7 @@ class categories_html {
 				}
 				?>
 				<th class="categories">
-				Категории содержимого <small><small>[ <?php echo $section_name;?> ]</small></small>
+				РљР°С‚РµРіРѕСЂРёРё СЃРѕРґРµСЂР¶РёРјРѕРіРѕ <small><small>[ <?php echo $section_name;?> ]</small></small>
 				</th>
 				<?php
 			}
@@ -74,49 +74,49 @@ class categories_html {
 			<input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo count( $rows );?>);" />
 			</th>
 			<th class="title">
-			Название
+			РќР°Р·РІР°РЅРёРµ
 			</th>
 			<th width="8%">
-			Опубликовано
+			РћРїСѓР±Р»РёРєРѕРІР°РЅРѕ
 			</th>
 			<?php
 			if ( $section != 'content') {
 				?>
 				<th colspan="2" width="5%">
-				Сортировка
+				РЎРѕСЂС‚РёСЂРѕРІРєР°
 				</th>
 				<?php
 			}
 			?>
 			<th width="2%">
-			Порядок
+			РџРѕСЂСЏРґРѕРє
 			</th>
 			<th width="1%">
-			<a href="javascript: saveorder( <?php echo count( $rows )-1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="Сохранить порядок" /></a>
+			<a href="javascript: saveorder( <?php echo count( $rows )-1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="РЎРѕС…СЂР°РЅРёС‚СЊ РїРѕСЂСЏРґРѕРє" /></a>
 			</th>
 			<th width="8%">
-			Доступ
+			Р”РѕСЃС‚СѓРї
 			</th>
 			<?php
 			if ( $section == 'content') {
 				?>
 				<th width="12%" align="left">
-				Раздел
+				Р Р°Р·РґРµР»
 				</th>
 				<?php
 			}
 			?>
 			<th width="5%" class="jtd_nowrap">
-			ID категории
+			ID РєР°С‚РµРіРѕСЂРёРё
 			</th>
 			<?php
 			if ( $type == 'content') {
 				?>
 				<th width="6%">
-				Активных
+				РђРєС‚РёРІРЅС‹С…
 				</th>
 				<th width="6%">
-				В корзине
+				Р’ РєРѕСЂР·РёРЅРµ
 				</th>
 				<?php
 			} else {
@@ -163,13 +163,13 @@ class categories_html {
 				</td>
 				<td align="center">
 <?php
-/* boston, обработка публикации категорий. */
+/* boston, РѕР±СЂР°Р±РѕС‚РєР° РїСѓР±Р»РёРєР°С†РёРё РєР°С‚РµРіРѕСЂРёР№. */
 					global $mosConfig_live_site;
 					$url = $mosConfig_live_site.'/administrator/index4.php?option=com_categories&task=publish&id='.$row->id;
 					$div_id = 'div_'.$row->id;
 					$img	 = $row->published ? 'publish_g.png' : 'publish_x.png';
 					$div = '<div id="'.$div_id.'"><img src="images/'.$img.'" width="12" height="12" border="0" alt="" /></div>';
-					echo $pquery->link_to_remote($div,array('url'=>$url,'update'=>'#'.$div_id,'beforeSend'=>$pquery->visual_effect('show','#ajax_status'),'success'=>$pquery->visual_effect('hide','#ajax_status')),null,'Публиковать&nbsp;/&nbsp;Скрыть&nbsp;элемент');
+					echo $pquery->link_to_remote($div,array('url'=>$url,'update'=>'#'.$div_id,'beforeSend'=>$pquery->visual_effect('show','#ajax_status'),'success'=>$pquery->visual_effect('hide','#ajax_status')),null,'РџСѓР±Р»РёРєРѕРІР°С‚СЊ&nbsp;/&nbsp;РЎРєСЂС‹С‚СЊ&nbsp;СЌР»РµРјРµРЅС‚');
 ?>
 				</td>
 				<?php
@@ -194,7 +194,7 @@ class categories_html {
 				if ( $section == 'content' ) {
 					?>
 					<td align="left">
-					<a href="<?php echo $row->sect_link; ?>" title="Изменить раздел">
+					<a href="<?php echo $row->sect_link; ?>" title="РР·РјРµРЅРёС‚СЊ СЂР°Р·РґРµР»">
 					<?php echo $row->section_name; ?>
 					</a>
 					</td>
@@ -254,11 +254,11 @@ class categories_html {
 		}
 
 		if ( $redirect == 'content' ) {
-			$component = 'Содержимое';
+			$component = 'РЎРѕРґРµСЂР¶РёРјРѕРµ';
 		} else {
 			$component = ucfirst( substr( $redirect, 4 ) );
 			if ( $redirect == 'com_contact_details' ) {
-				$component = 'Контакт';
+				$component = 'РљРѕРЅС‚Р°РєС‚';
 			}
 		}
 		mosMakeHtmlSafe( $row, ENT_QUOTES, 'description' );
@@ -273,21 +273,21 @@ class categories_html {
 
 			if ( pressbutton == 'menulink' ) {
 				if ( form.menuselect.value == "" ) {
-					alert( "Пожалуйста, выберите меню" );
+					alert( "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІС‹Р±РµСЂРёС‚Рµ РјРµРЅСЋ" );
 					return;
 				} else if ( form.link_type.value == "" ) {
-					alert( "Пожалуйста, выберите тип меню" );
+					alert( "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІС‹Р±РµСЂРёС‚Рµ С‚РёРї РјРµРЅСЋ" );
 					return;
 				} else if ( form.link_name.value == "" ) {
-					alert( "Пожалуйста, введите название для этого пункта меню" );
+					alert( "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІРІРµРґРёС‚Рµ РЅР°Р·РІР°РЅРёРµ РґР»СЏ СЌС‚РѕРіРѕ РїСѓРЅРєС‚Р° РјРµРЅСЋ" );
 					return;
 				}
 			}
 
 			if ( form.name.value == "" ) {
-				alert("Категория должна иметь название");
+				alert("РљР°С‚РµРіРѕСЂРёСЏ РґРѕР»Р¶РЅР° РёРјРµС‚СЊ РЅР°Р·РІР°РЅРёРµ");
 			} else if (form.title.value ==""){
-				alert("Введите заголовок категории");
+				alert("Р’РІРµРґРёС‚Рµ Р·Р°РіРѕР»РѕРІРѕРє РєР°С‚РµРіРѕСЂРёРё");
 			} else {
 				<?php getEditorContents( 'editor1', 'description' ) ; ?>
 				submitform(pressbutton);
@@ -299,9 +299,9 @@ class categories_html {
 		<table class="adminheading">
 		<tr>
 			<th class="categories">
-			Категория:
+			РљР°С‚РµРіРѕСЂРёСЏ:
 			<small>
-			<?php echo $row->id ? 'Редактирование' : 'Новая';?>
+			<?php echo $row->id ? 'Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ' : 'РќРѕРІР°СЏ';?>
 			</small>
 			<small><small>
 			[ <?php echo $component; ?>: <?php echo stripslashes($row->name); ?> ]
@@ -316,28 +316,28 @@ class categories_html {
 				<table class="adminform">
 				<tr>
 					<th colspan="3">
-					Свойства категории
+					РЎРІРѕР№СЃС‚РІР° РєР°С‚РµРіРѕСЂРёРё
 					</th>
 				<tr>
 				<tr>
 					<td>
-					Заголовок категории (Title):
+					Р—Р°РіРѕР»РѕРІРѕРє РєР°С‚РµРіРѕСЂРёРё (Title):
 					</td>
 					<td colspan="2">
-					<input class="text_area" type="text" name="title" value="<?php echo stripslashes( $row->title ); ?>" size="50" maxlength="50" title="Короткое имя для меню" />
+					<input class="text_area" type="text" name="title" value="<?php echo stripslashes( $row->title ); ?>" size="50" maxlength="50" title="РљРѕСЂРѕС‚РєРѕРµ РёРјСЏ РґР»СЏ РјРµРЅСЋ" />
 					</td>
 				</tr>
 				<tr>
 					<td>
-					Название категории (Name):
+					РќР°Р·РІР°РЅРёРµ РєР°С‚РµРіРѕСЂРёРё (Name):
 					</td>
 					<td colspan="2">
-					<input class="text_area" type="text" name="name" value="<?php echo stripslashes( $row->name ); ?>" size="50" maxlength="255" title="Длинное название, отображаемое в заголовках" />
+					<input class="text_area" type="text" name="name" value="<?php echo stripslashes( $row->name ); ?>" size="50" maxlength="255" title="Р”Р»РёРЅРЅРѕРµ РЅР°Р·РІР°РЅРёРµ, РѕС‚РѕР±СЂР°Р¶Р°РµРјРѕРµ РІ Р·Р°РіРѕР»РѕРІРєР°С…" />
 					</td>
 				</tr>
 				<tr>
 					<td>
-					Раздел:
+					Р Р°Р·РґРµР»:
 					</td>
 					<td colspan="2">
 					<?php echo $lists['section']; ?>
@@ -345,7 +345,7 @@ class categories_html {
 				</tr>
 				<tr>
 					<td>
-						Порядок расположения:
+						РџРѕСЂСЏРґРѕРє СЂР°СЃРїРѕР»РѕР¶РµРЅРёСЏ:
 					</td>
 					<td colspan="2">
 					<?php echo $lists['ordering']; ?>
@@ -353,7 +353,7 @@ class categories_html {
 				</tr>
 				<tr>
 					<td>
-					Изображение:
+					РР·РѕР±СЂР°Р¶РµРЅРёРµ:
 					</td>
 					<td>
 					<?php echo $lists['image']; ?>
@@ -365,13 +365,13 @@ class categories_html {
 					} else {
 					  jsimg='../images/M_images/blank.png';
 					}
-					document.write('<img src=' + jsimg + ' name="imagelib" width="80" height="80" border="2" alt="Предпросмотр" />');
+					document.write('<img src=' + jsimg + ' name="imagelib" width="80" height="80" border="2" alt="РџСЂРµРґРїСЂРѕСЃРјРѕС‚СЂ" />');
 					</script>
 					</td>
 				</tr>
 				<tr>
 					<td>
-					Расположение изображения:
+					Р Р°СЃРїРѕР»РѕР¶РµРЅРёРµ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ:
 					</td>
 					<td>
 					<?php echo $lists['image_position']; ?>
@@ -379,7 +379,7 @@ class categories_html {
 				</tr>
 				<tr>
 					<td>
-					Уровень доступа:
+					РЈСЂРѕРІРµРЅСЊ РґРѕСЃС‚СѓРїР°:
 					</td>
 					<td>
 					<?php echo $lists['access']; ?>
@@ -387,7 +387,7 @@ class categories_html {
 				</tr>
 				<tr>
 					<td>
-					Опубликовано:
+					РћРїСѓР±Р»РёРєРѕРІР°РЅРѕ:
 					</td>
 					<td>
 					<?php echo $lists['published']; ?>
@@ -395,7 +395,7 @@ class categories_html {
 				</tr>
 				<tr>
 					<td valign="top" colspan="2">
-					Описание:
+					РћРїРёСЃР°РЅРёРµ:
 					</td>
 				</tr>
 				<tr>
@@ -414,18 +414,18 @@ class categories_html {
 				<table class="adminform">
 				<tr>
 					<th colspan="2">
-					Пункт меню
+					РџСѓРЅРєС‚ РјРµРЅСЋ
 					</th>
 				<tr>
 				<tr>
 					<td colspan="2">
-					Создание нового пункта в выбранном вами меню.
+					РЎРѕР·РґР°РЅРёРµ РЅРѕРІРѕРіРѕ РїСѓРЅРєС‚Р° РІ РІС‹Р±СЂР°РЅРЅРѕРј РІР°РјРё РјРµРЅСЋ.
 					<br /><br />
 					</td>
 				<tr>
 				<tr>
 						<td valign="top" width="120">
-					Выберите меню:
+					Р’С‹Р±РµСЂРёС‚Рµ РјРµРЅСЋ:
 					</td>
 					<td>
 					<?php echo $lists['menuselect']; ?>
@@ -433,7 +433,7 @@ class categories_html {
 				<tr>
 				<tr>
 						<td valign="top" width="120">
-					Выберите тип меню:
+					Р’С‹Р±РµСЂРёС‚Рµ С‚РёРї РјРµРЅСЋ:
 					</td>
 					<td>
 					<?php echo $lists['link_type']; ?>
@@ -441,7 +441,7 @@ class categories_html {
 				<tr>
 				<tr>
 						<td valign="top" width="120">
-					Название пункта меню:
+					РќР°Р·РІР°РЅРёРµ РїСѓРЅРєС‚Р° РјРµРЅСЋ:
 					</td>
 					<td>
 					<input type="text" name="link_name" class="inputbox" value="" size="25" />
@@ -451,12 +451,12 @@ class categories_html {
 					<td>
 					</td>
 					<td>
-					<input name="menu_link" type="button" class="button" value="Создать пункт меню" onClick="submitbutton('menulink');" />
+					<input name="menu_link" type="button" class="button" value="РЎРѕР·РґР°С‚СЊ РїСѓРЅРєС‚ РјРµРЅСЋ" onClick="submitbutton('menulink');" />
 					</td>
 				<tr>
 				<tr>
 					<th colspan="2">
-					Существующие ссылки меню
+					РЎСѓС‰РµСЃС‚РІСѓСЋС‰РёРµ СЃСЃС‹Р»РєРё РјРµРЅСЋ
 					</th>
 				</tr>
 				<?php
@@ -464,7 +464,7 @@ class categories_html {
 					?>
 					<tr>
 						<td colspan="2">
-						Отсутствуют
+						РћС‚СЃСѓС‚СЃС‚РІСѓСЋС‚
 						</td>
 					</tr>
 					<?php
@@ -488,7 +488,7 @@ class categories_html {
 					</tr>
 					<tr>
 						<td>
-						Связь с меню будет доступна после сохранения
+						РЎРІСЏР·СЊ СЃ РјРµРЅСЋ Р±СѓРґРµС‚ РґРѕСЃС‚СѓРїРЅР° РїРѕСЃР»Рµ СЃРѕС…СЂР°РЅРµРЅРёСЏ
 						</td>
 					</tr>
 					</table>
@@ -501,7 +501,7 @@ class categories_html {
 					<table class="adminform">
 					<tr>
 						<th colspan="2">
-						Каталоги изображений (MOSImage)
+						РљР°С‚Р°Р»РѕРіРё РёР·РѕР±СЂР°Р¶РµРЅРёР№ (MOSImage)
 						</th>
 					<tr>
 					<tr>
@@ -539,7 +539,7 @@ class categories_html {
 		<table class="adminheading">
 		<tr>
 			<th class="categories">
-			Перемещение категорий
+			РџРµСЂРµРјРµС‰РµРЅРёРµ РєР°С‚РµРіРѕСЂРёР№
 			</th>
 		</tr>
 		</table>
@@ -555,7 +555,7 @@ class categories_html {
 
 			// do field validation
 			if (!getSelectedValue( 'adminForm', 'sectionmove' )) {
-				alert( "Пожалуйста, выберите раздел для перемещаемой категории" );
+				alert( "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІС‹Р±РµСЂРёС‚Рµ СЂР°Р·РґРµР» РґР»СЏ РїРµСЂРµРјРµС‰Р°РµРјРѕР№ РєР°С‚РµРіРѕСЂРёРё" );
 			} else {
 				submitform( pressbutton );
 			}
@@ -565,13 +565,13 @@ class categories_html {
 		<tr>
 			<td width="3%"></td>
 			<td align="left" valign="top" width="30%">
-			<strong>Переместить в раздел:</strong>
+			<strong>РџРµСЂРµРјРµСЃС‚РёС‚СЊ РІ СЂР°Р·РґРµР»:</strong>
 			<br />
 			<?php echo $SectionList ?>
 			<br /><br />
 			</td>
 			<td align="left" valign="top" width="20%">
-			<strong>Перемещаемые категории:</strong>
+			<strong>РџРµСЂРµРјРµС‰Р°РµРјС‹Рµ РєР°С‚РµРіРѕСЂРёРё:</strong>
 			<br />
 			<?php
 			echo "<ol>";
@@ -582,7 +582,7 @@ class categories_html {
 			?>
 			</td>
 			<td valign="top" width="20%">
-			<strong>Перемещаемые объекты содержимого:</strong>
+			<strong>РџРµСЂРµРјРµС‰Р°РµРјС‹Рµ РѕР±СЉРµРєС‚С‹ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ:</strong>
 			<br />
 			<?php
 			echo "<ol>";
@@ -593,11 +593,11 @@ class categories_html {
 			?>
 			</td>
 			<td valign="top">
-			В выбранный раздел будут перемещены все
+			Р’ РІС‹Р±СЂР°РЅРЅС‹Р№ СЂР°Р·РґРµР» Р±СѓРґСѓС‚ РїРµСЂРµРјРµС‰РµРЅС‹ РІСЃРµ
 			<br />
-			 перечисленные категории и всё 
+			 РїРµСЂРµС‡РёСЃР»РµРЅРЅС‹Рµ РєР°С‚РµРіРѕСЂРёРё Рё РІСЃС‘ 
 			<br />
-			перечисленное содержимое этих категорий.
+			РїРµСЂРµС‡РёСЃР»РµРЅРЅРѕРµ СЃРѕРґРµСЂР¶РёРјРѕРµ СЌС‚РёС… РєР°С‚РµРіРѕСЂРёР№.
 			</td>.
 		</tr>
 		</table>
@@ -628,7 +628,7 @@ class categories_html {
 		<table class="adminheading">
 		<tr>
 			<th class="categories">
-			Копирование категорий
+			РљРѕРїРёСЂРѕРІР°РЅРёРµ РєР°С‚РµРіРѕСЂРёР№
 			</th>
 		</tr>
 		</table>
@@ -644,7 +644,7 @@ class categories_html {
 
 			// do field validation
 			if (!getSelectedValue( 'adminForm', 'sectionmove' )) {
-				alert( "Пожалуйста, выберите раздел для копируемой категории"" );
+				alert( "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІС‹Р±РµСЂРёС‚Рµ СЂР°Р·РґРµР» РґР»СЏ РєРѕРїРёСЂСѓРµРјРѕР№ РєР°С‚РµРіРѕСЂРёРё"" );
 			} else {
 				submitform( pressbutton );
 			}
@@ -654,13 +654,13 @@ class categories_html {
 		<tr>
 			<td width="3%"></td>
 			<td align="left" valign="top" width="30%">
-			<strong>Копировать в раздел:</strong>
+			<strong>РљРѕРїРёСЂРѕРІР°С‚СЊ РІ СЂР°Р·РґРµР»:</strong>
 			<br />
 			<?php echo $SectionList ?>
 			<br /><br />
 			</td>
 			<td align="left" valign="top" width="20%">
-			<strong>Копируемые категории:</strong>
+			<strong>РљРѕРїРёСЂСѓРµРјС‹Рµ РєР°С‚РµРіРѕСЂРёРё:</strong>
 			<br />
 			<?php
 			echo "<ol>";
@@ -671,7 +671,7 @@ class categories_html {
 			?>
 			</td>
 			<td valign="top" width="20%">
-			<strong>Копируемое содержимое категории:</strong>
+			<strong>РљРѕРїРёСЂСѓРµРјРѕРµ СЃРѕРґРµСЂР¶РёРјРѕРµ РєР°С‚РµРіРѕСЂРёРё:</strong>
 			<br />
 			<?php
 			echo "<ol>";
@@ -683,11 +683,11 @@ class categories_html {
 			?>
 			</td>
 			<td valign="top">
-			В выбранный раздел будут скопированы все
+			Р’ РІС‹Р±СЂР°РЅРЅС‹Р№ СЂР°Р·РґРµР» Р±СѓРґСѓС‚ СЃРєРѕРїРёСЂРѕРІР°РЅС‹ РІСЃРµ
 			<br />
-			перечисленные категории и всё 
+			РїРµСЂРµС‡РёСЃР»РµРЅРЅС‹Рµ РєР°С‚РµРіРѕСЂРёРё Рё РІСЃС‘ 
 			<br />
-			перечисленное содержимое этих категорий.
+			РїРµСЂРµС‡РёСЃР»РµРЅРЅРѕРµ СЃРѕРґРµСЂР¶РёРјРѕРµ СЌС‚РёС… РєР°С‚РµРіРѕСЂРёР№.
 			</td>.
 		</tr>
 		</table>

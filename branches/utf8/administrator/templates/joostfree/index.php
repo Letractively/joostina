@@ -2,18 +2,18 @@
 /**
 * @JoostFREE
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 $tstart = mosProfiler::getmicrotime();
 $iso = explode( '=', _ISO );
@@ -22,7 +22,7 @@ echo '<?xml version="1.0" encoding="'. $iso[1] .'"?' .'>'."\n";
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<title><?php echo $mosConfig_sitename; ?>  - Панель управления [ Joostina ]</title>
+		<title><?php echo $mosConfig_sitename; ?>  - РџР°РЅРµР»СЊ СѓРїСЂР°РІР»РµРЅРёСЏ [ Joostina ]</title>
 		<meta http-equiv="Content-Type" content="text/html; <?php echo _ISO; ?>" />
 		<?php if($mosConfig_gz_js_css){?>
 		<link rel="stylesheet" href="<?php echo $mosConfig_live_site; ?>/administrator/templates/joostfree/css/joostfree_css.php" type="text/css" />
@@ -49,10 +49,10 @@ echo '<?xml version="1.0" encoding="'. $iso[1] .'"?' .'>'."\n";
 		<div id="topper">
 			<div id="wrapper">
 				<div id="joo">
-					<a href="index2.php" title="Перейти на главную страницу Панели управления"><img border="0" alt="Перейти на главную страницу Панели управления" src="templates/joostfree/images/logo.png" /></a>
+					<a href="index2.php" title="РџРµСЂРµР№С‚Рё РЅР° РіР»Р°РІРЅСѓСЋ СЃС‚СЂР°РЅРёС†Сѓ РџР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ"><img border="0" alt="РџРµСЂРµР№С‚Рё РЅР° РіР»Р°РІРЅСѓСЋ СЃС‚СЂР°РЅРёС†Сѓ РџР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ" src="templates/joostfree/images/logo.png" /></a>
 				</div>
 			</div>
-			<div id="ajax_status">Ждите...</div>
+			<div id="ajax_status">Р–РґРёС‚Рµ...</div>
 			<table width="100%" class="menubar" cellpadding="0" cellspacing="0" border="0">
 				<tr class="menubackgr">
 					<td>
@@ -62,10 +62,10 @@ echo '<?xml version="1.0" encoding="'. $iso[1] .'"?' .'>'."\n";
 						<form action="<?php echo  $mosConfig_live_site. '/administrator/index2.php?' .$_SERVER['QUERY_STRING']; ?>" method="post" name="form_editor_off" id="form_editor_off">
 						<?php if(!intval( mosGetParam( $_SESSION, 'user_editor_off', '' ) )){?>
 								<input type="hidden" name="user_editor_off" value="1" />
-								<input type="image" name="editor_off" title="Отключить визуальный редактор" src="../includes/js/ThemeOffice/editor_on.png" alt="Отключить редактор" />
+								<input type="image" name="editor_off" title="РћС‚РєР»СЋС‡РёС‚СЊ РІРёР·СѓР°Р»СЊРЅС‹Р№ СЂРµРґР°РєС‚РѕСЂ" src="../includes/js/ThemeOffice/editor_on.png" alt="РћС‚РєР»СЋС‡РёС‚СЊ СЂРµРґР°РєС‚РѕСЂ" />
 						<?php }else{?>
 								<input type="hidden" name="user_editor_on" value="1" />
-								<input type="image" name="editor_on" title="Включить визуальный редактор" src="../includes/js/ThemeOffice/editor_off.png" alt="Включить редактор" />
+								<input type="image" name="editor_on" title="Р’РєР»СЋС‡РёС‚СЊ РІРёР·СѓР°Р»СЊРЅС‹Р№ СЂРµРґР°РєС‚РѕСЂ" src="../includes/js/ThemeOffice/editor_off.png" alt="Р’РєР»СЋС‡РёС‚СЊ СЂРµРґР°РєС‚РѕСЂ" />
 							<?php };?>
 					</form>
 					</td>
@@ -73,10 +73,10 @@ echo '<?xml version="1.0" encoding="'. $iso[1] .'"?' .'>'."\n";
 							<?php mosLoadAdminModules( 'header', -2 );?>
 					</td>
 					<td align="right">
-						<a href="<?php echo $mosConfig_live_site; ?>/" target="_blank" title="Предпросмотр сайта в новом окне"><img src="../includes/js/ThemeOffice/preview.png" border="0" alt="Предпросмотр сайта"/></a>
+						<a href="<?php echo $mosConfig_live_site; ?>/" target="_blank" title="РџСЂРµРґРїСЂРѕСЃРјРѕС‚СЂ СЃР°Р№С‚Р° РІ РЅРѕРІРѕРј РѕРєРЅРµ"><img src="../includes/js/ThemeOffice/preview.png" border="0" alt="РџСЂРµРґРїСЂРѕСЃРјРѕС‚СЂ СЃР°Р№С‚Р°"/></a>
 					</td>
 					<td align="right">
-						<a href="index2.php?option=logout" style="color: #333333; font-weight: bold">Выход <?php echo $my->username;?></a>&nbsp;
+						<a href="index2.php?option=logout" style="color: #333333; font-weight: bold">Р’С‹С…РѕРґ <?php echo $my->username;?></a>&nbsp;
 					</td>
 				</tr>
 			</table>

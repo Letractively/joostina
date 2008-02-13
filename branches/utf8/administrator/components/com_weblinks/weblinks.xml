@@ -2,72 +2,72 @@
 <mosinstall type="component" version="1.0.0">
 	<name>Weblinks</name>
 	<author>Joostina! Project</author>
-	<creationDate>Январь 2007</creationDate>
+	<creationDate>РЇРЅРІР°СЂСЊ 2007</creationDate>
 	<copyright>(C) 2007 Joostina Team.</copyright>
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
 	<authorEmail>joostinacms@gmail.com</authorEmail>
 	<authorUrl>www.joostina.ru</authorUrl>
 	<version>1.0.0</version>
-	<description>Компонент для показа списка ссылок</description>
+	<description>РљРѕРјРїРѕРЅРµРЅС‚ РґР»СЏ РїРѕРєР°Р·Р° СЃРїРёСЃРєР° СЃСЃС‹Р»РѕРє</description>
 	<params>
-		<param name="menu_image" type="imagelist" directory="/images/stories" hide_default="1" default="" label="Изображение меню" description="Маленькое изображение, располагаемое слева или справа от пункта меню. Изображение должно находиться в папке images/stories/" />
-		<param name="pageclass_sfx" type="text" default="" label="Суффикс CSS-класса страницы" description="Суффикс CSS-класса, используемого на этой странице. Необходим для использования индивидуального стиля страницы" />
-		<param name="back_button" type="list" default="" label="Кнопка Назад (Вернуться)" description="Показать/Скрыть кнопку Назад (Вернуться), возвращающую на предыдущую просмотренную страницу">
-			<option value="">Исп. ОБЩИЕ настройки</option>
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
+		<param name="menu_image" type="imagelist" directory="/images/stories" hide_default="1" default="" label="РР·РѕР±СЂР°Р¶РµРЅРёРµ РјРµРЅСЋ" description="РњР°Р»РµРЅСЊРєРѕРµ РёР·РѕР±СЂР°Р¶РµРЅРёРµ, СЂР°СЃРїРѕР»Р°РіР°РµРјРѕРµ СЃР»РµРІР° РёР»Рё СЃРїСЂР°РІР° РѕС‚ РїСѓРЅРєС‚Р° РјРµРЅСЋ. РР·РѕР±СЂР°Р¶РµРЅРёРµ РґРѕР»Р¶РЅРѕ РЅР°С…РѕРґРёС‚СЊСЃСЏ РІ РїР°РїРєРµ images/stories/" />
+		<param name="pageclass_sfx" type="text" default="" label="РЎСѓС„С„РёРєСЃ CSS-РєР»Р°СЃСЃР° СЃС‚СЂР°РЅРёС†С‹" description="РЎСѓС„С„РёРєСЃ CSS-РєР»Р°СЃСЃР°, РёСЃРїРѕР»СЊР·СѓРµРјРѕРіРѕ РЅР° СЌС‚РѕР№ СЃС‚СЂР°РЅРёС†Рµ. РќРµРѕР±С…РѕРґРёРј РґР»СЏ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ РёРЅРґРёРІРёРґСѓР°Р»СЊРЅРѕРіРѕ СЃС‚РёР»СЏ СЃС‚СЂР°РЅРёС†С‹" />
+		<param name="back_button" type="list" default="" label="РљРЅРѕРїРєР° РќР°Р·Р°Рґ (Р’РµСЂРЅСѓС‚СЊСЃСЏ)" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РєРЅРѕРїРєСѓ РќР°Р·Р°Рґ (Р’РµСЂРЅСѓС‚СЊСЃСЏ), РІРѕР·РІСЂР°С‰Р°СЋС‰СѓСЋ РЅР° РїСЂРµРґС‹РґСѓС‰СѓСЋ РїСЂРѕСЃРјРѕС‚СЂРµРЅРЅСѓСЋ СЃС‚СЂР°РЅРёС†Сѓ">
+			<option value="">РСЃРї. РћР‘Р©РР• РЅР°СЃС‚СЂРѕР№РєРё</option>
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
 		</param>
             <param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="page_title" type="radio" default="1" label="Заголовок страницы" description="Показать/Скрыть заголовок страницы">
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
+		<param name="page_title" type="radio" default="1" label="Р—Р°РіРѕР»РѕРІРѕРє СЃС‚СЂР°РЅРёС†С‹" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ Р·Р°РіРѕР»РѕРІРѕРє СЃС‚СЂР°РЅРёС†С‹">
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
 		</param>
-		<param name="header" type="text" size="40" default="" label="Заголовок страницы (title)" description="Текст, отображаемый вверху страницы. Если не будет заполнено, то взамен будет использоваться название меню" />
-		<param name="robots" type="list" default="-1" label="Мета-тег Robots" description="Выберите, какой мета-тег robots использовать для этой страницы">
-			<option value="-1">Не отображать мета-тег robot</option>
+		<param name="header" type="text" size="40" default="" label="Р—Р°РіРѕР»РѕРІРѕРє СЃС‚СЂР°РЅРёС†С‹ (title)" description="РўРµРєСЃС‚, РѕС‚РѕР±СЂР°Р¶Р°РµРјС‹Р№ РІРІРµСЂС…Сѓ СЃС‚СЂР°РЅРёС†С‹. Р•СЃР»Рё РЅРµ Р±СѓРґРµС‚ Р·Р°РїРѕР»РЅРµРЅРѕ, С‚Рѕ РІР·Р°РјРµРЅ Р±СѓРґРµС‚ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊСЃСЏ РЅР°Р·РІР°РЅРёРµ РјРµРЅСЋ" />
+		<param name="robots" type="list" default="-1" label="РњРµС‚Р°-С‚РµРі Robots" description="Р’С‹Р±РµСЂРёС‚Рµ, РєР°РєРѕР№ РјРµС‚Р°-С‚РµРі robots РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РґР»СЏ СЌС‚РѕР№ СЃС‚СЂР°РЅРёС†С‹">
+			<option value="-1">РќРµ РѕС‚РѕР±СЂР°Р¶Р°С‚СЊ РјРµС‚Р°-С‚РµРі robot</option>
 			<option value="0">Index, follow</option>
 			<option value="1">Index, NoFollow</option>
 			<option value="2">NoIndex, Follow</option>
 			<option value="3">NoIndex, NoFollow</option>
 		</param>
-		<param name="meta_description" type="textarea" default="" label="META-тег description" rows="5" cols="30" description="META-тег: Description"/>
-		<param name="meta_keywords" type="textarea" default="" label="META-тег keywords" rows="5" cols="30" description="META-тег keywords. Разделяйте ключевые слова запятыми"/>
-		<param name="meta_author" type="text" size="40" default="" label="META-тег author" description="Введите МЕТА-тег author. Оставьте это поле пустым, если не хотите отображать этот тег в заголовке страницы" />
+		<param name="meta_description" type="textarea" default="" label="META-С‚РµРі description" rows="5" cols="30" description="META-С‚РµРі: Description"/>
+		<param name="meta_keywords" type="textarea" default="" label="META-С‚РµРі keywords" rows="5" cols="30" description="META-С‚РµРі keywords. Р Р°Р·РґРµР»СЏР№С‚Рµ РєР»СЋС‡РµРІС‹Рµ СЃР»РѕРІР° Р·Р°РїСЏС‚С‹РјРё"/>
+		<param name="meta_author" type="text" size="40" default="" label="META-С‚РµРі author" description="Р’РІРµРґРёС‚Рµ РњР•РўРђ-С‚РµРі author. РћСЃС‚Р°РІСЊС‚Рµ СЌС‚Рѕ РїРѕР»Рµ РїСѓСЃС‚С‹Рј, РµСЃР»Рё РЅРµ С…РѕС‚РёС‚Рµ РѕС‚РѕР±СЂР°Р¶Р°С‚СЊ СЌС‚РѕС‚ С‚РµРі РІ Р·Р°РіРѕР»РѕРІРєРµ СЃС‚СЂР°РЅРёС†С‹" />
 		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="headings" type="radio" default="1" label="Заголовки таблиц" description="Показать/Скрыть заголовки таблиц">
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
+		<param name="headings" type="radio" default="1" label="Р—Р°РіРѕР»РѕРІРєРё С‚Р°Р±Р»РёС†" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ Р·Р°РіРѕР»РѕРІРєРё С‚Р°Р±Р»РёС†">
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
 		</param>
-		<param name="hits" type="list" default="" label="Число просмотров" description="Показать/Скрыть столбец Просмотров">
-			<option value="">Исп. ОБЩИЕ настройки</option>
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
+		<param name="hits" type="list" default="" label="Р§РёСЃР»Рѕ РїСЂРѕСЃРјРѕС‚СЂРѕРІ" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ СЃС‚РѕР»Р±РµС† РџСЂРѕСЃРјРѕС‚СЂРѕРІ">
+			<option value="">РСЃРї. РћР‘Р©РР• РЅР°СЃС‚СЂРѕР№РєРё</option>
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
 		</param>
-		<param name="item_description" type="radio" default="1" label="Описание ссылки" description="Показать/Скрыть текст описания ссылок">
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
-		</param>
-		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="other_cat_section" type="radio" default="1" label="Список категорий - Раздел" description="Показать/Скрыть список категорий на странице просмотра списка">
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
+		<param name="item_description" type="radio" default="1" label="РћРїРёСЃР°РЅРёРµ СЃСЃС‹Р»РєРё" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ С‚РµРєСЃС‚ РѕРїРёСЃР°РЅРёСЏ СЃСЃС‹Р»РѕРє">
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
 		</param>
 		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="other_cat" type="radio" default="1" label="Список категорий - Категория" description="Показать/Скрыть список категорий в таблице при просмотре страницы">
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
+		<param name="other_cat_section" type="radio" default="1" label="РЎРїРёСЃРѕРє РєР°С‚РµРіРѕСЂРёР№ - Р Р°Р·РґРµР»" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ СЃРїРёСЃРѕРє РєР°С‚РµРіРѕСЂРёР№ РЅР° СЃС‚СЂР°РЅРёС†Рµ РїСЂРѕСЃРјРѕС‚СЂР° СЃРїРёСЃРєР°">
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
 		</param>
 		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="description" type="radio" default="1" label="Описание" description="Показать/Скрыть описание внизу">
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
+		<param name="other_cat" type="radio" default="1" label="РЎРїРёСЃРѕРє РєР°С‚РµРіРѕСЂРёР№ - РљР°С‚РµРіРѕСЂРёСЏ" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ СЃРїРёСЃРѕРє РєР°С‚РµРіРѕСЂРёР№ РІ С‚Р°Р±Р»РёС†Рµ РїСЂРё РїСЂРѕСЃРјРѕС‚СЂРµ СЃС‚СЂР°РЅРёС†С‹">
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
 		</param>
-		<param name="description_text" type="textarea" default="" label="Текст описания" rows="5" cols="30" description="Описание страницы. Если пусто, то из языкового файла будет загружена константа _WEBLINKS_DESC"/>
-		<param name="image" type="imagelist" directory="/images/stories" hide_default="1" default="" label="Изображение" description="Изображение для страницы. Должно находиться в папке /images/stories. По умолчанию загружается web_links.jpg. Если стоит НЕТ, то изображение грузиться не будет." />
-		<param name="image_align" type="radio" default="right" label="Расположение изображения" description="Выравнивание изображения">
-			<option value="left">Слева</option>
-			<option value="right">Справа</option>
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="description" type="radio" default="1" label="РћРїРёСЃР°РЅРёРµ" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РѕРїРёСЃР°РЅРёРµ РІРЅРёР·Сѓ">
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
 		</param>
-		<param name="weblink_icons" type="imagelist" directory="/images/M_images" default="" label="Значок" description="Значок, используемый слева от url ссылки при просмотре в режиме таблицы" />
+		<param name="description_text" type="textarea" default="" label="РўРµРєСЃС‚ РѕРїРёСЃР°РЅРёСЏ" rows="5" cols="30" description="РћРїРёСЃР°РЅРёРµ СЃС‚СЂР°РЅРёС†С‹. Р•СЃР»Рё РїСѓСЃС‚Рѕ, С‚Рѕ РёР· СЏР·С‹РєРѕРІРѕРіРѕ С„Р°Р№Р»Р° Р±СѓРґРµС‚ Р·Р°РіСЂСѓР¶РµРЅР° РєРѕРЅСЃС‚Р°РЅС‚Р° _WEBLINKS_DESC"/>
+		<param name="image" type="imagelist" directory="/images/stories" hide_default="1" default="" label="РР·РѕР±СЂР°Р¶РµРЅРёРµ" description="РР·РѕР±СЂР°Р¶РµРЅРёРµ РґР»СЏ СЃС‚СЂР°РЅРёС†С‹. Р”РѕР»Р¶РЅРѕ РЅР°С…РѕРґРёС‚СЊСЃСЏ РІ РїР°РїРєРµ /images/stories. РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ Р·Р°РіСЂСѓР¶Р°РµС‚СЃСЏ web_links.jpg. Р•СЃР»Рё СЃС‚РѕРёС‚ РќР•Рў, С‚Рѕ РёР·РѕР±СЂР°Р¶РµРЅРёРµ РіСЂСѓР·РёС‚СЊСЃСЏ РЅРµ Р±СѓРґРµС‚." />
+		<param name="image_align" type="radio" default="right" label="Р Р°СЃРїРѕР»РѕР¶РµРЅРёРµ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ" description="Р’С‹СЂР°РІРЅРёРІР°РЅРёРµ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ">
+			<option value="left">РЎР»РµРІР°</option>
+			<option value="right">РЎРїСЂР°РІР°</option>
+		</param>
+		<param name="weblink_icons" type="imagelist" directory="/images/M_images" default="" label="Р—РЅР°С‡РѕРє" description="Р—РЅР°С‡РѕРє, РёСЃРїРѕР»СЊР·СѓРµРјС‹Р№ СЃР»РµРІР° РѕС‚ url СЃСЃС‹Р»РєРё РїСЂРё РїСЂРѕСЃРјРѕС‚СЂРµ РІ СЂРµР¶РёРјРµ С‚Р°Р±Р»РёС†С‹" />
 	</params>
 </mosinstall>

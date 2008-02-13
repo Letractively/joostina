@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 /**
 * @package Joostina
@@ -28,7 +28,7 @@ class HTML_modules {
 		global $my;
 
 		mosCommonHTML::loadOverlib();
-		/* подключаем Pquery */
+		/* РїРѕРґРєР»СЋС‡Р°РµРј Pquery */
 		mosCommonHTML::loadPquery();
 		$pquery= new PQuery();
 		?>
@@ -37,10 +37,10 @@ class HTML_modules {
 		<table class="adminheading">
 		<tr>
 			<th class="modules">
-			Мамботы <small><small>[ <?php echo $client == 'admin' ? 'Панель управления' : 'Сайт';?> ]</small></small>
+			РњР°РјР±РѕС‚С‹ <small><small>[ <?php echo $client == 'admin' ? 'РџР°РЅРµР»СЊ СѓРїСЂР°РІР»РµРЅРёСЏ' : 'РЎР°Р№С‚';?> ]</small></small>
 			</th>
 			<td>
-			Фильтр:
+			Р¤РёР»СЊС‚СЂ:
 			</td>
 			<td>
 			<input type="text" name="search" value="<?php echo htmlspecialchars( $search );?>" class="text_area" onChange="document.adminForm.submit();" />
@@ -58,25 +58,25 @@ class HTML_modules {
 			<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $rows );?>);" />
 			</th>
 			<th class="title">
-			Название мамбота
+			РќР°Р·РІР°РЅРёРµ РјР°РјР±РѕС‚Р°
 			</th>
 			<th class="jtd_nowrap" width="10%">
-	  		Опубликовано
+	  		РћРїСѓР±Р»РёРєРѕРІР°РЅРѕ
 			</th>
 			<th colspan="2" class="jtd_nowrap" width="5%">
-			Сортировка
+			РЎРѕСЂС‚РёСЂРѕРІРєР°
 			</th>
 			<th width="2%">
-			Порядок
+			РџРѕСЂСЏРґРѕРє
 			</th>
 			<th width="1%">
-			<a href="javascript: saveorder( <?php echo count( $rows )-1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="Сохранить порядок" /></a>
+			<a href="javascript: saveorder( <?php echo count( $rows )-1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="РЎРѕС…СЂР°РЅРёС‚СЊ РїРѕСЂСЏРґРѕРє" /></a>
 			</th>
 			<th class="jtd_nowrap" width="10%">
-			Доступ
+			Р”РѕСЃС‚СѓРї
 			</th>
 			<th class="jtd_nowrap" align="left" width="10%">
-			Тип
+			РўРёРї
 			</th>
 			<th class="jtd_nowrap" align="left" width="10%">
 			File
@@ -111,13 +111,13 @@ class HTML_modules {
 				</td>
 				<td align="center">
 <?php
-/* boston, обработка публикации модулей. */
+/* boston, РѕР±СЂР°Р±РѕС‚РєР° РїСѓР±Р»РёРєР°С†РёРё РјРѕРґСѓР»РµР№. */
 					global $mosConfig_live_site;
 					$url = $mosConfig_live_site.'/administrator/index4.php?option=com_mambots&task=publish&id='.$row->id;
 					$div_id = 'div_'.$row->id;
 					$img	 = $row->published ? 'publish_g.png' : 'publish_x.png';
 					$div = '<div id="'.$div_id.'"><img src="images/'.$img.'" width="12" height="12" border="0" alt="" /></div>';
-					echo $pquery->link_to_remote($div,array('url'=>$url,'update'=>'#'.$div_id,'beforeSend'=>$pquery->visual_effect('show','#ajax_status'),'success'=>$pquery->visual_effect('hide','#ajax_status')),null,'Допустит&nbsp;/&nbsp;Скрыть&nbspэлемент');
+					echo $pquery->link_to_remote($div,array('url'=>$url,'update'=>'#'.$div_id,'beforeSend'=>$pquery->visual_effect('show','#ajax_status'),'success'=>$pquery->visual_effect('hide','#ajax_status')),null,'Р”РѕРїСѓСЃС‚РёС‚&nbsp;/&nbsp;РЎРєСЂС‹С‚СЊ&nbspСЌР»РµРјРµРЅС‚');
 ?>
 				</td>
 				<td>
@@ -188,9 +188,9 @@ class HTML_modules {
 			// validation
 			var form = document.adminForm;
 			if (form.name.value == "") {
-				alert( "Мамбот должен иметь название" );
+				alert( "РњР°РјР±РѕС‚ РґРѕР»Р¶РµРЅ РёРјРµС‚СЊ РЅР°Р·РІР°РЅРёРµ" );
 			} else if (form.element.value == "") {
-				alert( "Мамбот должен иметь имя файла" );
+				alert( "РњР°РјР±РѕС‚ РґРѕР»Р¶РµРЅ РёРјРµС‚СЊ РёРјСЏ С„Р°Р№Р»Р°" );
 			} else {
 				submitform(pressbutton);
 			}
@@ -199,9 +199,9 @@ class HTML_modules {
 		<table class="adminheading">
 		<tr>
 			<th class="mambots">
-			Мамбот сайта:
+			РњР°РјР±РѕС‚ СЃР°Р№С‚Р°:
 			<small>
-			<?php echo $row->id ? 'Изменение' : 'Новый';?>
+			<?php echo $row->id ? 'РР·РјРµРЅРµРЅРёРµ' : 'РќРѕРІС‹Р№';?>
 			</small>
 			<?php echo $row->nameA; ?>
 			</th>
@@ -215,12 +215,12 @@ class HTML_modules {
 				<table class="adminform">
 				<tr>
 					<th colspan="2">
-					Детали мамбота
+					Р”РµС‚Р°Р»Рё РјР°РјР±РѕС‚Р°
 					</th>
 				<tr>
 				<tr>
 					<td width="100" align="left">
-					Название:
+					РќР°Р·РІР°РЅРёРµ:
 					</td>
 					<td>
 					<input class="text_area" type="text" name="name" size="35" value="<?php echo $row->name; ?>" />
@@ -228,7 +228,7 @@ class HTML_modules {
 				</tr>
 				<tr>
 					<td valign="top" align="left">
-					Тип:
+					РўРёРї:
 					</td>
 					<td>
 					<?php echo $lists['folder']; ?>
@@ -236,7 +236,7 @@ class HTML_modules {
 				</tr>
 				<tr>
 					<td valign="top" align="left">
-					Используемый файл:
+					РСЃРїРѕР»СЊР·СѓРµРјС‹Р№ С„Р°Р№Р»:
 					</td>
 					<td>
 					<input class="text_area" type="text" name="element" size="35" value="<?php echo $row->element; ?>" />.php
@@ -244,7 +244,7 @@ class HTML_modules {
 				</tr>
 				<tr>
 					<td valign="top" align="left">
-					Порядок работы:
+					РџРѕСЂСЏРґРѕРє СЂР°Р±РѕС‚С‹:
 					</td>
 					<td>
 					<?php echo $lists['ordering']; ?>
@@ -252,7 +252,7 @@ class HTML_modules {
 				</tr>
 				<tr>
 					<td valign="top" align="left">
-					Уровень доступа:
+					РЈСЂРѕРІРµРЅСЊ РґРѕСЃС‚СѓРїР°:
 					</td>
 					<td>
 					<?php echo $lists['access']; ?>
@@ -260,7 +260,7 @@ class HTML_modules {
 				</tr>
 				<tr>
 					<td valign="top">
-					Включен:
+					Р’РєР»СЋС‡РµРЅ:
 					</td>
 					<td>
 					<?php echo $lists['published']; ?>
@@ -273,7 +273,7 @@ class HTML_modules {
 				</tr>
 				<tr>
 					<td valign="top">
-					Описание:
+					РћРїРёСЃР°РЅРёРµ:
 					</td>
 					<td>
 					<?php echo $row->description; ?>
@@ -285,7 +285,7 @@ class HTML_modules {
 				<table class="adminform">
 				<tr>
 					<th colspan="2">
-					Параметры
+					РџР°СЂР°РјРµС‚СЂС‹
 					</th>
 				<tr>
 				<tr>
@@ -294,7 +294,7 @@ class HTML_modules {
 					if ( $row->id ) {
 						echo $params->render();
 					} else {
-						echo '<i>Параметры отсутствуют</i>';
+						echo '<i>РџР°СЂР°РјРµС‚СЂС‹ РѕС‚СЃСѓС‚СЃС‚РІСѓСЋС‚</i>';
 					}
 					?>
 					</td>

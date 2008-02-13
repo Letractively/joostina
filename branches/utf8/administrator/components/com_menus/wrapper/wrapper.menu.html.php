@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 /**
 * Display wrapper
@@ -35,13 +35,13 @@ class wrapper_menu_html {
 			}
 			var form = document.adminForm;
 			if ( form.name.value == "" ) {
-				alert( 'Этот пункт меню должен иметь название' );
+				alert( 'Р­С‚РѕС‚ РїСѓРЅРєС‚ РјРµРЅСЋ РґРѕР»Р¶РµРЅ РёРјРµС‚СЊ РЅР°Р·РІР°РЅРёРµ' );
 			} else {
 				<?php
 				if ( !$menu->id ) {
 					?>
 					if ( form.url.value == "" ){
-						alert( "Вы должны ввести url." );
+						alert( "Р’С‹ РґРѕР»Р¶РЅС‹ РІРІРµСЃС‚Рё url." );
 					} else {
 						submitform( pressbutton );
 					}
@@ -59,7 +59,7 @@ class wrapper_menu_html {
 		<table class="adminheading">
 		<tr>
 			<th class="menus">
-			<?php echo $menu->id ? 'Изменение -' : 'Добавление -';?> Пункт меню :: Wrapper
+			<?php echo $menu->id ? 'РР·РјРµРЅРµРЅРёРµ -' : 'Р”РѕР±Р°РІР»РµРЅРёРµ -';?> РџСѓРЅРєС‚ РјРµРЅСЋ :: Wrapper
 			</th>
 		</tr>
 		</table>
@@ -70,12 +70,12 @@ class wrapper_menu_html {
 				<table class="adminform">
 				<tr>
 					<th colspan="2">
-					Детали
+					Р”РµС‚Р°Р»Рё
 					</th>
 				</tr>
 				<tr>
 					<td width="10%" align="right" valign="top">
-					Название:
+					РќР°Р·РІР°РЅРёРµ:
 					</td>
 					<td width="200px">
 					<input type="text" name="name" size="30" maxlength="100" class="inputbox" value="<?php echo htmlspecialchars( $menu->name, ENT_QUOTES ); ?>"/>
@@ -83,7 +83,7 @@ class wrapper_menu_html {
 				</tr>
 				<tr>
 					<td width="10%" align="right" valign="top">
-					title ссылки:
+					title СЃСЃС‹Р»РєРё:
 					</td>
 					<td width="80%">
 						<input class="inputbox" type="text" name="params[title]" size="50" maxlength="100" value="<?php echo htmlspecialchars( $params->get('title',''), ENT_QUOTES ); ?>" />
@@ -91,7 +91,7 @@ class wrapper_menu_html {
 				</tr>
 				<tr>
 					<td width="20%" align="right">
-					Ссылка Wrapper'a:
+					РЎСЃС‹Р»РєР° Wrapper'a:
 					</td>
 					<td width="80%">
 					<input class="inputbox" type="text" name="url" size="50" maxlength="250" value="<?php echo @$menu->url; ?>" />
@@ -107,7 +107,7 @@ class wrapper_menu_html {
 				</tr>
 				<tr>
 					<td align="right">
-					Родительский пункт меню:
+					Р РѕРґРёС‚РµР»СЊСЃРєРёР№ РїСѓРЅРєС‚ РјРµРЅСЋ:
 					</td>
 					<td colspan="2">
 					<?php echo $lists['parent'];?>
@@ -115,7 +115,7 @@ class wrapper_menu_html {
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					Порядок расположения:
+					РџРѕСЂСЏРґРѕРє СЂР°СЃРїРѕР»РѕР¶РµРЅРёСЏ:
 					</td>
 					<td colspan="2">
 					<?php echo $lists['ordering']; ?>
@@ -123,7 +123,7 @@ class wrapper_menu_html {
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					Уровень доступа:
+					РЈСЂРѕРІРµРЅСЊ РґРѕСЃС‚СѓРїР°:
 					</td>
 					<td colspan="2">
 					<?php echo $lists['access']; ?>
@@ -131,7 +131,7 @@ class wrapper_menu_html {
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					Опубликовано:
+					РћРїСѓР±Р»РёРєРѕРІР°РЅРѕ:
 					</td>
 					<td colspan="2">
 					<?php echo $lists['published']; ?>
@@ -146,7 +146,7 @@ class wrapper_menu_html {
 				<table class="adminform">
 				<tr>
 					<th>
-					Параметры
+					РџР°СЂР°РјРµС‚СЂС‹
 					</th>
 				</tr>
 				<tr>

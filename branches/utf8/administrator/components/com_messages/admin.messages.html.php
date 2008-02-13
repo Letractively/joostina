@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 /**
 * @package Joostina
@@ -26,10 +26,10 @@ class HTML_messages {
   <table class="adminheading">
         <tr>
           <th class="inbox">
-Личные сообщения
+Р›РёС‡РЅС‹Рµ СЃРѕРѕР±С‰РµРЅРёСЏ
 </th>
           <td>
-Поиск:
+РџРѕРёСЃРє:
 </td>
 			<td> 
 				<input type="text" name="search" value="<?php echo htmlspecialchars( $search );?>" class="inputbox" onChange="document.adminForm.submit();" />
@@ -46,16 +46,16 @@ class HTML_messages {
 				<input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo count($rows); ?>);" />
 			</th>
           <th width="50%" class="title">
-Тема
+РўРµРјР°
 </th>
           <th width="20%" class="title">
-От
+РћС‚
 </th>
           <th width="15%" class="title">
-Дата
+Р”Р°С‚Р°
 </th>
           <th width="10%" class="title">
-Статус
+РЎС‚Р°С‚СѓСЃ
 </th>
         </tr>
 <?php
@@ -83,9 +83,9 @@ for ($i=0, $n=count( $rows ); $i < $n; $i++) {
 				<td width="10%">
 					<?php
           if (intval( $row->state ) == "1") {
-                  echo 'Прочитано';
+                  echo 'РџСЂРѕС‡РёС‚Р°РЅРѕ';
           } else {
-                  echo 'Не прочитано';
+                  echo 'РќРµ РїСЂРѕС‡РёС‚Р°РЅРѕ';
           } 
           ?>
           </td>
@@ -112,7 +112,7 @@ function editConfig( &$vars, $option) {
 function submitbutton(pressbutton) {
         var form = document.adminForm;
         if (pressbutton == 'saveconfig') {
-                if (confirm ("Вы уверены?")) {
+                if (confirm ("Р’С‹ СѓРІРµСЂРµРЅС‹?")) {
                         submitform( pressbutton );
                 }
         } else {
@@ -124,7 +124,7 @@ function submitbutton(pressbutton) {
 		<table class="adminheading">
 		<tr>
 			<th class="msgconfig">
-				Настройки личных сообщений
+				РќР°СЃС‚СЂРѕР№РєРё Р»РёС‡РЅС‹С… СЃРѕРѕР±С‰РµРЅРёР№
 			</th>
 		</tr>
 		</table>
@@ -132,7 +132,7 @@ function submitbutton(pressbutton) {
         <table class="adminform">
           <tr>
 			<td width="25%">
-Заблокировать входящую почту:
+Р—Р°Р±Р»РѕРєРёСЂРѕРІР°С‚СЊ РІС…РѕРґСЏС‰СѓСЋ РїРѕС‡С‚Сѓ:
 </td>
                 <td> 
 <?php echo $vars['lock']; ?> 
@@ -140,7 +140,7 @@ function submitbutton(pressbutton) {
           </tr>
           <tr>
                 <td>
-Посылать мне новые сообщения:
+РџРѕСЃС‹Р»Р°С‚СЊ РјРЅРµ РЅРѕРІС‹Рµ СЃРѕРѕР±С‰РµРЅРёСЏ:
 </td>
                 <td> 
 <?php echo $vars['mail_on_new']; ?> 
@@ -148,10 +148,10 @@ function submitbutton(pressbutton) {
           </tr>
 		<tr>
 			<td>
-				Автоматическая очистка сообщений:
+				РђРІС‚РѕРјР°С‚РёС‡РµСЃРєР°СЏ РѕС‡РёСЃС‚РєР° СЃРѕРѕР±С‰РµРЅРёР№:
 			</td>
 			<td> 
-				старше <input type="text" name="vars[auto_purge]" size="5" value="<?php echo $vars['auto_purge']; ?>" class="inputbox" /> дней
+				СЃС‚Р°СЂС€Рµ <input type="text" name="vars[auto_purge]" size="5" value="<?php echo $vars['auto_purge']; ?>" class="inputbox" /> РґРЅРµР№
 			</td>
 		</tr>
         </table>
@@ -169,7 +169,7 @@ function viewMessage( &$row, $option ) {
         <table class="adminheading">
                 <tr>
                         <th class="inbox">
-Просмотр персональных сообщений
+РџСЂРѕСЃРјРѕС‚СЂ РїРµСЂСЃРѕРЅР°Р»СЊРЅС‹С… СЃРѕРѕР±С‰РµРЅРёР№
 </th>
                 </tr>
         </table>
@@ -177,7 +177,7 @@ function viewMessage( &$row, $option ) {
         <table class="adminform">
                 <tr>
                         <td width="100">
-От:
+РћС‚:
 </td>
                         <td width="85%" bgcolor="#ffffff">
 <?php echo $row->user_from;?>
@@ -185,7 +185,7 @@ function viewMessage( &$row, $option ) {
                 </tr>
                 <tr>
                         <td>
-Отправлено:
+РћС‚РїСЂР°РІР»РµРЅРѕ:
 </td>
                         <td bgcolor="#ffffff">
 <?php echo $row->date_time;?>
@@ -193,7 +193,7 @@ function viewMessage( &$row, $option ) {
                 </tr>
                 <tr>
                         <td>
-Тема:
+РўРµРјР°:
 </td>
                         <td bgcolor="#ffffff">
 				<?php echo htmlspecialchars( $row->subject, ENT_QUOTES );?>
@@ -201,7 +201,7 @@ function viewMessage( &$row, $option ) {
                 </tr>
                 <tr>
                         <td valign="top">
-Сообщение:
+РЎРѕРѕР±С‰РµРЅРёРµ:
 </td>
                         <td width="100%" bgcolor="#ffffff">
 				<pre><?php echo htmlspecialchars( $row->message, ENT_QUOTES );?></pre>
@@ -233,11 +233,11 @@ function newMessage($option, $recipientslist, $subject ) {
 
                 // do field validation
                 if (form.subject.value == "") {
-                        alert( "Вы должны ввести название темы." );
+                        alert( "Р’С‹ РґРѕР»Р¶РЅС‹ РІРІРµСЃС‚Рё РЅР°Р·РІР°РЅРёРµ С‚РµРјС‹." );
                 } else if (form.message.value == "") {
-                        alert( "Вы должны ввести текст сообщения." );
+                        alert( "Р’С‹ РґРѕР»Р¶РЅС‹ РІРІРµСЃС‚Рё С‚РµРєСЃС‚ СЃРѕРѕР±С‰РµРЅРёСЏ." );
                 } else if (getSelectedValue('adminForm','user_id_to') < 1) {
-                        alert( "Вы должны выбрать получателя." );
+                        alert( "Р’С‹ РґРѕР»Р¶РЅС‹ РІС‹Р±СЂР°С‚СЊ РїРѕР»СѓС‡Р°С‚РµР»СЏ." );
                 } else {
                         submitform( pressbutton );
                 }
@@ -247,7 +247,7 @@ function newMessage($option, $recipientslist, $subject ) {
         <table class="adminheading">
                 <tr>
                         <th class="inbox">
-Новое персональное сообщение
+РќРѕРІРѕРµ РїРµСЂСЃРѕРЅР°Р»СЊРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ
 </th>
                 </tr>
         </table>
@@ -256,7 +256,7 @@ function newMessage($option, $recipientslist, $subject ) {
         <table class="adminform">
                 <tr>
                         <td width="100">
-Кому:
+РљРѕРјСѓ:
 </td>
                         <td width="85%">
 <?php echo $recipientslist; ?>
@@ -264,7 +264,7 @@ function newMessage($option, $recipientslist, $subject ) {
                 </tr>
                 <tr>
                         <td>
-Тема:
+РўРµРјР°:
 </td>
                         <td>
 				<input type="text" name="subject" size="50" maxlength="100" class="inputbox" value="<?php echo htmlspecialchars( $subject, ENT_QUOTES ); ?>"/>
@@ -272,7 +272,7 @@ function newMessage($option, $recipientslist, $subject ) {
                 </tr>
                 <tr>
                         <td valign="top">
-Сообщение:
+РЎРѕРѕР±С‰РµРЅРёРµ:
 </td>
                         <td width="100%">
                                 <textarea name="message" style="width:100%" rows="30" class="inputbox"></textarea>

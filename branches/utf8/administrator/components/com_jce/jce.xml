@@ -2,15 +2,15 @@
 <mosinstall type="component">
 <name>JCE</name>
 <version>1.1.1</version>
-<creationDate>06 Июня 2007</creationDate>
+<creationDate>06 РСЋРЅСЏ 2007</creationDate>
 <author>Ryan Demmer</author>
 <authorEmail>ryandemmer@gmail.com</authorEmail>
 <authorUrl>http://www.joom.ru/</authorUrl>
-<licence>Этот компонент выпущен согласно Лицензии GPL</licence>
+<licence>Р­С‚РѕС‚ РєРѕРјРїРѕРЅРµРЅС‚ РІС‹РїСѓС‰РµРЅ СЃРѕРіР»Р°СЃРЅРѕ Р›РёС†РµРЅР·РёРё GPL</licence>
 <copyright>Ryan Demmer 2006/2007</copyright>
 <description><![CDATA[
-    Компонент администрирования JCE, версия 1.1.1<br />
-	Журнал изменений с 1.1.0<br />
+    РљРѕРјРїРѕРЅРµРЅС‚ Р°РґРјРёРЅРёСЃС‚СЂРёСЂРѕРІР°РЅРёСЏ JCE, РІРµСЂСЃРёСЏ 1.1.1<br />
+	Р–СѓСЂРЅР°Р» РёР·РјРµРЅРµРЅРёР№ СЃ 1.1.0<br />
 	<ul>
         <li>Fixed: Toolbar buttons.</li>
 		<li>Fixed: Language Installer writeable folder list.</li>

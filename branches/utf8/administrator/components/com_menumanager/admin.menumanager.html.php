@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 /**
 * HTML class for all menumanager component output
@@ -42,7 +42,7 @@ class HTML_menumanager {
 		<table class="adminheading">
 		<tr>
 			<th class="menus">
-			Управление меню
+			РЈРїСЂР°РІР»РµРЅРёРµ РјРµРЅСЋ
 			</th>
 		</tr>
 		</table>
@@ -53,22 +53,22 @@ class HTML_menumanager {
 			<th width="20px">
 			</th>
 			<th class="title">
-			Название меню
+			РќР°Р·РІР°РЅРёРµ РјРµРЅСЋ
 			</th>
 			<th width="5%" class="jtd_nowrap">
-			Пункты меню
+			РџСѓРЅРєС‚С‹ РјРµРЅСЋ
 			</th>
 			<th width="10%">
-			Опубликовано
+			РћРїСѓР±Р»РёРєРѕРІР°РЅРѕ
 			</th>
 			<th width="15%">
-			Скрыто
+			РЎРєСЂС‹С‚Рѕ
 			</th>
 			<th width="15%">
-			В корзине
+			Р’ РєРѕСЂР·РёРЅРµ
 			</th>
 			<th width="15%">
-			Модулей
+			РњРѕРґСѓР»РµР№
 			</th>
 		</tr>
 		<?php
@@ -95,12 +95,12 @@ class HTML_menumanager {
 				<input type="radio" id="cb<?php echo $i;?>" name="cid[]" value="<?php echo $menu->type; ?>" onclick="isChecked(this.checked);" />
 				</td>
 				<td>
-				<a href="<?php echo $link; ?>" title="Изменить название меню">
+				<a href="<?php echo $link; ?>" title="РР·РјРµРЅРёС‚СЊ РЅР°Р·РІР°РЅРёРµ РјРµРЅСЋ">
 				<?php echo $menu->type; ?>
 				</a>
 				</td>
 				<td align="center">
-				<a href="<?php echo $linkA; ?>" title="Изменить пункты меню">
+				<a href="<?php echo $linkA; ?>" title="РР·РјРµРЅРёС‚СЊ РїСѓРЅРєС‚С‹ РјРµРЅСЋ">
 				<img src="<?php echo $mosConfig_live_site; ?>/includes/js/ThemeOffice/mainmenu.png" border="0"/>
 				</a>
 				</td>
@@ -158,13 +158,13 @@ class HTML_menumanager {
 
 			if (pressbutton == 'savemenu') {
 				if ( form.menutype.value == '' ) {
-					alert( 'Пожалуйста, введите название меню' );
+					alert( 'РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІРІРµРґРёС‚Рµ РЅР°Р·РІР°РЅРёРµ РјРµРЅСЋ' );
 					form.menutype.focus();
 					return;
 				}
 				var r = new RegExp("[\']", "i");
 				if ( r.exec(form.menutype.value) ) {
-					alert( 'Название меню не должно содержать \'' );
+					alert( 'РќР°Р·РІР°РЅРёРµ РјРµРЅСЋ РЅРµ РґРѕР»Р¶РЅРѕ СЃРѕРґРµСЂР¶Р°С‚СЊ \'' );
 					form.menutype.focus();
 					return;
 				}
@@ -172,7 +172,7 @@ class HTML_menumanager {
 				if ( $new ) {
 					?>
 					if ( form.title.value == '' ) {
-						alert( 'Пожалуйста, введите название модуля меню' );
+						alert( 'РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІРІРµРґРёС‚Рµ РЅР°Р·РІР°РЅРёРµ РјРѕРґСѓР»СЏ РјРµРЅСЋ' );
 						form.title.focus();
 						return;
 					}
@@ -190,7 +190,7 @@ class HTML_menumanager {
 		<table class="adminheading">
 		<tr>
 			<th class="menus">
-			Информация о меню
+			РРЅС„РѕСЂРјР°С†РёСЏ Рѕ РјРµРЅСЋ
 			</th>
 		</tr>
 		</table>
@@ -198,12 +198,12 @@ class HTML_menumanager {
 		<table class="adminform">
 		<tr height="45px;">
 			<td width="100px" align="left">
-			<strong>Имя меню:</strong>
+			<strong>РРјСЏ РјРµРЅСЋ:</strong>
 			</td>
 			<td>
 			<input class="inputbox" type="text" name="menutype" size="30" maxlength="25" value="<?php echo isset( $row->menutype ) ? $row->menutype : ''; ?>" />
 			<?php
-			$tip = 'Это имя меню используется системой для его идентификации - оно должно быть уникально. Рекомендуется давать имя без пробелов';
+			$tip = 'Р­С‚Рѕ РёРјСЏ РјРµРЅСЋ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ СЃРёСЃС‚РµРјРѕР№ РґР»СЏ РµРіРѕ РёРґРµРЅС‚РёС„РёРєР°С†РёРё - РѕРЅРѕ РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ СѓРЅРёРєР°Р»СЊРЅРѕ. Р РµРєРѕРјРµРЅРґСѓРµС‚СЃСЏ РґР°РІР°С‚СЊ РёРјСЏ Р±РµР· РїСЂРѕР±РµР»РѕРІ';
 			echo mosToolTip( $tip );
 			?>
 			</td>
@@ -213,19 +213,19 @@ class HTML_menumanager {
 			?>
 			<tr>
 				<td width="100px" align="left" valign="top">
-				<strong>Заголовок модуля:</strong>
+				<strong>Р—Р°РіРѕР»РѕРІРѕРє РјРѕРґСѓР»СЏ:</strong>
 				</td>
 				<td>
 				<input class="inputbox" type="text" name="title" size="30" value="<?php echo $row->title ? $row->title : '';?>" />
 				<?php
-				$tip = 'Заголовок mod_mainmenu требуется для отображения этого меню';
+				$tip = 'Р—Р°РіРѕР»РѕРІРѕРє mod_mainmenu С‚СЂРµР±СѓРµС‚СЃСЏ РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ СЌС‚РѕРіРѕ РјРµРЅСЋ';
 				echo mosToolTip( $tip );
 				?>
 				<br/><br/><br/>
 				<strong>
-				* Новый модуль меню будет автоматически создан после того, как вы введете заголовок, а затем нажмете кнопку "Сохранить". *
+				* РќРѕРІС‹Р№ РјРѕРґСѓР»СЊ РјРµРЅСЋ Р±СѓРґРµС‚ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё СЃРѕР·РґР°РЅ РїРѕСЃР»Рµ С‚РѕРіРѕ, РєР°Рє РІС‹ РІРІРµРґРµС‚Рµ Р·Р°РіРѕР»РѕРІРѕРє, Р° Р·Р°С‚РµРј РЅР°Р¶РјРµС‚Рµ РєРЅРѕРїРєСѓ "РЎРѕС…СЂР°РЅРёС‚СЊ". *
 				<br/><br/>
-				Редактирование параметров созданного модуля будет доступно в разделе 'Управления модулями [сайт]': Модули -> Модули сайта
+				Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ РїР°СЂР°РјРµС‚СЂРѕРІ СЃРѕР·РґР°РЅРЅРѕРіРѕ РјРѕРґСѓР»СЏ Р±СѓРґРµС‚ РґРѕСЃС‚СѓРїРЅРѕ РІ СЂР°Р·РґРµР»Рµ 'РЈРїСЂР°РІР»РµРЅРёСЏ РјРѕРґСѓР»СЏРјРё [СЃР°Р№С‚]': РњРѕРґСѓР»Рё -> РњРѕРґСѓР»Рё СЃР°Р№С‚Р°
 				</strong>
 				</td>
 			</tr>
@@ -273,7 +273,7 @@ class HTML_menumanager {
 		<table class="adminheading">
 		<tr>
 			<th>
-			Удалить меню: <?php echo $type;?>
+			РЈРґР°Р»РёС‚СЊ РјРµРЅСЋ: <?php echo $type;?>
 			</th>
 		</tr>
 		</table>
@@ -286,7 +286,7 @@ class HTML_menumanager {
 			<?php
 			if ( $modules ) {
 				?>
-				<strong>Модуль(и) для удаления:</strong>
+				<strong>РњРѕРґСѓР»СЊ(Рё) РґР»СЏ СѓРґР°Р»РµРЅРёСЏ:</strong>
 				<ol>
 				<?php
 				foreach ( $modules as $module ) {
@@ -308,7 +308,7 @@ class HTML_menumanager {
 			?>
 			</td>
 			<td align="left" valign="top" width="25%">
-			<strong>Удаляемые пункты меню:</strong>
+			<strong>РЈРґР°Р»СЏРµРјС‹Рµ РїСѓРЅРєС‚С‹ РјРµРЅСЋ:</strong>
 			<br />
 			<ol>
 			<?php
@@ -326,12 +326,12 @@ class HTML_menumanager {
 			</ol>
 			</td>
 			<td>
-			* Эта операция <strong><font color="#FF0000">удаляет</font></strong> это меню, <br />ВСЕ его пункты и модуль(и), назначенный ему *
+			* Р­С‚Р° РѕРїРµСЂР°С†РёСЏ <strong><font color="#FF0000">СѓРґР°Р»СЏРµС‚</font></strong> СЌС‚Рѕ РјРµРЅСЋ, <br />Р’РЎР• РµРіРѕ РїСѓРЅРєС‚С‹ Рё РјРѕРґСѓР»СЊ(Рё), РЅР°Р·РЅР°С‡РµРЅРЅС‹Р№ РµРјСѓ *
 			<br /><br /><br />
 			<div style="border: 1px dotted gray; width: 70px; padding: 10px; margin-left: 100px;">
-			<a class="toolbar" href="javascript:if (confirm('Вы уверены, что хотите удалить это меню? \nПроизойдет удаление меню, его пунктов и модулей.')){ submitbutton('deletemenu');}" onmouseout="MM_swapImgRestore();"  onmouseover="MM_swapImage('remove','','images/delete_f2.png',1);">
-			<img name="remove" src="images/delete.png" alt="Удалить" border="0" align="middle" />
-			&nbsp;Удалить
+			<a class="toolbar" href="javascript:if (confirm('Р’С‹ СѓРІРµСЂРµРЅС‹, С‡С‚Рѕ С…РѕС‚РёС‚Рµ СѓРґР°Р»РёС‚СЊ СЌС‚Рѕ РјРµРЅСЋ? \nРџСЂРѕРёР·РѕР№РґРµС‚ СѓРґР°Р»РµРЅРёРµ РјРµРЅСЋ, РµРіРѕ РїСѓРЅРєС‚РѕРІ Рё РјРѕРґСѓР»РµР№.')){ submitbutton('deletemenu');}" onmouseout="MM_swapImgRestore();"  onmouseover="MM_swapImage('remove','','images/delete_f2.png',1);">
+			<img name="remove" src="images/delete.png" alt="РЈРґР°Р»РёС‚СЊ" border="0" align="middle" />
+			&nbsp;РЈРґР°Р»РёС‚СЊ
 			</a>
 			</div>
 			</td>
@@ -361,10 +361,10 @@ class HTML_menumanager {
 		function submitbutton(pressbutton) {
 			if (pressbutton == 'copymenu') {
 				if ( document.adminForm.menu_name.value == '' ) {
-					alert( 'Пожалуйста, введите имя для копии меню' );
+					alert( 'РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІРІРµРґРёС‚Рµ РёРјСЏ РґР»СЏ РєРѕРїРёРё РјРµРЅСЋ' );
 					return;
 				} else if ( document.adminForm.module_name.value == '' ) {
-					alert( 'Пожалуйста, введите имя для нового модуля' );
+					alert( 'РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІРІРµРґРёС‚Рµ РёРјСЏ РґР»СЏ РЅРѕРІРѕРіРѕ РјРѕРґСѓР»СЏ' );
 					return;
 				} else {
 					submitform( 'copymenu' );
@@ -378,7 +378,7 @@ class HTML_menumanager {
 		<table class="adminheading">
 		<tr>
 			<th>
-			Копирование меню
+			РљРѕРїРёСЂРѕРІР°РЅРёРµ РјРµРЅСЋ
 			</th>
 		</tr>
 		</table>
@@ -388,18 +388,18 @@ class HTML_menumanager {
 		<tr>
 			<td width="3%"></td>
 			<td align="left" valign="top" width="30%">
-			<strong>Имя нового меню:</strong>
+			<strong>РРјСЏ РЅРѕРІРѕРіРѕ РјРµРЅСЋ:</strong>
 			<br />
 			<input class="inputbox" type="text" name="menu_name" size="30" value="" />
 			<br /><br /><br />
-			<strong>Имя нового модуля:</strong>
+			<strong>РРјСЏ РЅРѕРІРѕРіРѕ РјРѕРґСѓР»СЏ:</strong>
 			<br />
 			<input class="inputbox" type="text" name="module_name" size="30" value="" />
 			<br /><br />
 			</td>
 			<td align="left" valign="top" width="25%">
 			<strong>
-			Копируемое меню:
+			РљРѕРїРёСЂСѓРµРјРѕРµ РјРµРЅСЋ:
 			</strong>
 			<br />
 			<font color="#000066">
@@ -409,7 +409,7 @@ class HTML_menumanager {
 			</font>
 			<br /><br />
 			<strong>
-			Копируемые пункты меню:
+			РљРѕРїРёСЂСѓРµРјС‹Рµ РїСѓРЅРєС‚С‹ РјРµРЅСЋ:
 			</strong>
 			<br />
 			<ol>

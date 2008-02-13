@@ -7,52 +7,52 @@
 	<authorEmail>joostinacms@gmail.com</authorEmail>
 	<authorUrl>www.joostina.ru</authorUrl>
 	<version>1.0.0</version>
-	<description>Параметры для компонента авторизации на сайте</description>
+	<description>РџР°СЂР°РјРµС‚СЂС‹ РґР»СЏ РєРѕРјРїРѕРЅРµРЅС‚Р° Р°РІС‚РѕСЂРёР·Р°С†РёРё РЅР° СЃР°Р№С‚Рµ</description>
 	<params>
-		<param name="menu_image" type="imagelist" directory="/images/stories" hide_default="1" default="" label="Изображение меню" description="Маленькое изображение, располагаемое слева или справа от пункта меню. Изображение должно находиться в папке images/stories/" />
-		<param name="pageclass_sfx" type="text" default="" label="Суффикс CSS-класса страницы" description="Суффикс CSS-класса, используемого на этой странице. Необходим для использования индивидуального стиля страницы" />
-		<param name="back_button" type="list" default="" label="Кнопка Назад (Вернуться)" description="Показать/Скрыть кнопку Назад (Вернуться), возвращающую на предыдущую просмотренную страницу">
-			<option value="">Исп. ОБЩИЕ настройки</option>
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
+		<param name="menu_image" type="imagelist" directory="/images/stories" hide_default="1" default="" label="РР·РѕР±СЂР°Р¶РµРЅРёРµ РјРµРЅСЋ" description="РњР°Р»РµРЅСЊРєРѕРµ РёР·РѕР±СЂР°Р¶РµРЅРёРµ, СЂР°СЃРїРѕР»Р°РіР°РµРјРѕРµ СЃР»РµРІР° РёР»Рё СЃРїСЂР°РІР° РѕС‚ РїСѓРЅРєС‚Р° РјРµРЅСЋ. РР·РѕР±СЂР°Р¶РµРЅРёРµ РґРѕР»Р¶РЅРѕ РЅР°С…РѕРґРёС‚СЊСЃСЏ РІ РїР°РїРєРµ images/stories/" />
+		<param name="pageclass_sfx" type="text" default="" label="РЎСѓС„С„РёРєСЃ CSS-РєР»Р°СЃСЃР° СЃС‚СЂР°РЅРёС†С‹" description="РЎСѓС„С„РёРєСЃ CSS-РєР»Р°СЃСЃР°, РёСЃРїРѕР»СЊР·СѓРµРјРѕРіРѕ РЅР° СЌС‚РѕР№ СЃС‚СЂР°РЅРёС†Рµ. РќРµРѕР±С…РѕРґРёРј РґР»СЏ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ РёРЅРґРёРІРёРґСѓР°Р»СЊРЅРѕРіРѕ СЃС‚РёР»СЏ СЃС‚СЂР°РЅРёС†С‹" />
+		<param name="back_button" type="list" default="" label="РљРЅРѕРїРєР° РќР°Р·Р°Рґ (Р’РµСЂРЅСѓС‚СЊСЃСЏ)" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РєРЅРѕРїРєСѓ РќР°Р·Р°Рґ (Р’РµСЂРЅСѓС‚СЊСЃСЏ), РІРѕР·РІСЂР°С‰Р°СЋС‰СѓСЋ РЅР° РїСЂРµРґС‹РґСѓС‰СѓСЋ РїСЂРѕСЃРјРѕС‚СЂРµРЅРЅСѓСЋ СЃС‚СЂР°РЅРёС†Сѓ">
+			<option value="">РСЃРї. РћР‘Р©РР• РЅР°СЃС‚СЂРѕР№РєРё</option>
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
 		</param>
-		<param name="page_title" type="radio" default="1" label="Заголовок страницы" description="Показать/Скрыть заголовок страницы">
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
-		</param>
-		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="header_login" type="text" size="30" default="" label="Заголовок страницы входа" description="Текст, отображаемый вверху страницы. Если заполнено, то будет взамен будет использоваться название меню" />
-		<param name="login" type="text" size="30"  default="" label="URL перехода при входе" description="Какая страница будет открываться после авторизации пользователя. Если будет оставлено пустым, то при входе будет открываться главная страница" />
-		<param name="login_message" type="radio" default="0" label="Окно приветствия" description="Показать/Скрыть всплывающее окно, отображающее успешную авторизацию">
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
-		</param>
-		<param name="description_login" type="radio" default="0" label="Описание входа" description="Показать/Скрыть описание входа, расположенное ниже">
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
-		</param>
-		<param name="description_login_text" type="textarea" cols="30" rows="5" default="" label="Текст описания" description="Текст, отображаемый на странице авторизации, если оставлено пустым, то будет использоваться _LOGIN_DESCRIPTION" />
-		<param name="image_login" type="imagelist" directory="/images/stories" default="" label="Изображение входа" description="Изображение для страницы авторизации" />
-		<param name="image_login_align" type="radio" default="right" label="Выравнивание изображения" description="Выравнивание изображения авторизации">
-			<option value="left">Слева</option>
-			<option value="right">Справа</option>
+		<param name="page_title" type="radio" default="1" label="Р—Р°РіРѕР»РѕРІРѕРє СЃС‚СЂР°РЅРёС†С‹" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ Р·Р°РіРѕР»РѕРІРѕРє СЃС‚СЂР°РЅРёС†С‹">
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
 		</param>
 		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="header_logout" type="text" size="30" default="" label="Заголовок страницы выхода" description="Текст, отображаемый вверху страницы. Если не будет заполнено, то будет взамен будет использоваться название меню" />
-		<param name="logout" type="text" size="30"  default="" label="URL перехода при выходе" description="На какую страницу будет перенаправляться после выхода. Если оставить пустым, при выходе будет перенаправляться на главную страницу" />
-		<param name="logout_message" type="radio" default="1" label="Сообщение при выходе" description="Показать/Скрыть всплывающее окно сообщения при успешном выходе пользователя">
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
+		<param name="header_login" type="text" size="30" default="" label="Р—Р°РіРѕР»РѕРІРѕРє СЃС‚СЂР°РЅРёС†С‹ РІС…РѕРґР°" description="РўРµРєСЃС‚, РѕС‚РѕР±СЂР°Р¶Р°РµРјС‹Р№ РІРІРµСЂС…Сѓ СЃС‚СЂР°РЅРёС†С‹. Р•СЃР»Рё Р·Р°РїРѕР»РЅРµРЅРѕ, С‚Рѕ Р±СѓРґРµС‚ РІР·Р°РјРµРЅ Р±СѓРґРµС‚ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊСЃСЏ РЅР°Р·РІР°РЅРёРµ РјРµРЅСЋ" />
+		<param name="login" type="text" size="30"  default="" label="URL РїРµСЂРµС…РѕРґР° РїСЂРё РІС…РѕРґРµ" description="РљР°РєР°СЏ СЃС‚СЂР°РЅРёС†Р° Р±СѓРґРµС‚ РѕС‚РєСЂС‹РІР°С‚СЊСЃСЏ РїРѕСЃР»Рµ Р°РІС‚РѕСЂРёР·Р°С†РёРё РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ. Р•СЃР»Рё Р±СѓРґРµС‚ РѕСЃС‚Р°РІР»РµРЅРѕ РїСѓСЃС‚С‹Рј, С‚Рѕ РїСЂРё РІС…РѕРґРµ Р±СѓРґРµС‚ РѕС‚РєСЂС‹РІР°С‚СЊСЃСЏ РіР»Р°РІРЅР°СЏ СЃС‚СЂР°РЅРёС†Р°" />
+		<param name="login_message" type="radio" default="0" label="РћРєРЅРѕ РїСЂРёРІРµС‚СЃС‚РІРёСЏ" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РІСЃРїР»С‹РІР°СЋС‰РµРµ РѕРєРЅРѕ, РѕС‚РѕР±СЂР°Р¶Р°СЋС‰РµРµ СѓСЃРїРµС€РЅСѓСЋ Р°РІС‚РѕСЂРёР·Р°С†РёСЋ">
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
 		</param>
-		<param name="description_logout" type="radio" default="1" label="Описание выхода" description="Показать/Скрыть описание выхода внизу">
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
+		<param name="description_login" type="radio" default="0" label="РћРїРёСЃР°РЅРёРµ РІС…РѕРґР°" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РѕРїРёСЃР°РЅРёРµ РІС…РѕРґР°, СЂР°СЃРїРѕР»РѕР¶РµРЅРЅРѕРµ РЅРёР¶Рµ">
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
 		</param>
-		<param name="description_logout_text" type="textarea" cols="30" rows="5" default="" label="Текст описания выхода" description="Текст, отображаемый на странице выхода. Если не будет заполнено, то будет использоваться значение _LOGOUT_DESCRIPTION" />
-		<param name="image_logout" type="imagelist" directory="/images/stories" default="" label="Изображение для страницы выхода" description="Изображение для страницы выхода" />
-		<param name="image_logout_align" type="radio" default="1" label="Выравнивание изображения" description="Выравнивание изображения выхода">
-			<option value="left">Слева</option>
-			<option value="right">Справа</option>
+		<param name="description_login_text" type="textarea" cols="30" rows="5" default="" label="РўРµРєСЃС‚ РѕРїРёСЃР°РЅРёСЏ" description="РўРµРєСЃС‚, РѕС‚РѕР±СЂР°Р¶Р°РµРјС‹Р№ РЅР° СЃС‚СЂР°РЅРёС†Рµ Р°РІС‚РѕСЂРёР·Р°С†РёРё, РµСЃР»Рё РѕСЃС‚Р°РІР»РµРЅРѕ РїСѓСЃС‚С‹Рј, С‚Рѕ Р±СѓРґРµС‚ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊСЃСЏ _LOGIN_DESCRIPTION" />
+		<param name="image_login" type="imagelist" directory="/images/stories" default="" label="РР·РѕР±СЂР°Р¶РµРЅРёРµ РІС…РѕРґР°" description="РР·РѕР±СЂР°Р¶РµРЅРёРµ РґР»СЏ СЃС‚СЂР°РЅРёС†С‹ Р°РІС‚РѕСЂРёР·Р°С†РёРё" />
+		<param name="image_login_align" type="radio" default="right" label="Р’С‹СЂР°РІРЅРёРІР°РЅРёРµ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ" description="Р’С‹СЂР°РІРЅРёРІР°РЅРёРµ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ Р°РІС‚РѕСЂРёР·Р°С†РёРё">
+			<option value="left">РЎР»РµРІР°</option>
+			<option value="right">РЎРїСЂР°РІР°</option>
+		</param>
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="header_logout" type="text" size="30" default="" label="Р—Р°РіРѕР»РѕРІРѕРє СЃС‚СЂР°РЅРёС†С‹ РІС‹С…РѕРґР°" description="РўРµРєСЃС‚, РѕС‚РѕР±СЂР°Р¶Р°РµРјС‹Р№ РІРІРµСЂС…Сѓ СЃС‚СЂР°РЅРёС†С‹. Р•СЃР»Рё РЅРµ Р±СѓРґРµС‚ Р·Р°РїРѕР»РЅРµРЅРѕ, С‚Рѕ Р±СѓРґРµС‚ РІР·Р°РјРµРЅ Р±СѓРґРµС‚ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊСЃСЏ РЅР°Р·РІР°РЅРёРµ РјРµРЅСЋ" />
+		<param name="logout" type="text" size="30"  default="" label="URL РїРµСЂРµС…РѕРґР° РїСЂРё РІС‹С…РѕРґРµ" description="РќР° РєР°РєСѓСЋ СЃС‚СЂР°РЅРёС†Сѓ Р±СѓРґРµС‚ РїРµСЂРµРЅР°РїСЂР°РІР»СЏС‚СЊСЃСЏ РїРѕСЃР»Рµ РІС‹С…РѕРґР°. Р•СЃР»Рё РѕСЃС‚Р°РІРёС‚СЊ РїСѓСЃС‚С‹Рј, РїСЂРё РІС‹С…РѕРґРµ Р±СѓРґРµС‚ РїРµСЂРµРЅР°РїСЂР°РІР»СЏС‚СЊСЃСЏ РЅР° РіР»Р°РІРЅСѓСЋ СЃС‚СЂР°РЅРёС†Сѓ" />
+		<param name="logout_message" type="radio" default="1" label="РЎРѕРѕР±С‰РµРЅРёРµ РїСЂРё РІС‹С…РѕРґРµ" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РІСЃРїР»С‹РІР°СЋС‰РµРµ РѕРєРЅРѕ СЃРѕРѕР±С‰РµРЅРёСЏ РїСЂРё СѓСЃРїРµС€РЅРѕРј РІС‹С…РѕРґРµ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ">
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
+		</param>
+		<param name="description_logout" type="radio" default="1" label="РћРїРёСЃР°РЅРёРµ РІС‹С…РѕРґР°" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РѕРїРёСЃР°РЅРёРµ РІС‹С…РѕРґР° РІРЅРёР·Сѓ">
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
+		</param>
+		<param name="description_logout_text" type="textarea" cols="30" rows="5" default="" label="РўРµРєСЃС‚ РѕРїРёСЃР°РЅРёСЏ РІС‹С…РѕРґР°" description="РўРµРєСЃС‚, РѕС‚РѕР±СЂР°Р¶Р°РµРјС‹Р№ РЅР° СЃС‚СЂР°РЅРёС†Рµ РІС‹С…РѕРґР°. Р•СЃР»Рё РЅРµ Р±СѓРґРµС‚ Р·Р°РїРѕР»РЅРµРЅРѕ, С‚Рѕ Р±СѓРґРµС‚ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊСЃСЏ Р·РЅР°С‡РµРЅРёРµ _LOGOUT_DESCRIPTION" />
+		<param name="image_logout" type="imagelist" directory="/images/stories" default="" label="РР·РѕР±СЂР°Р¶РµРЅРёРµ РґР»СЏ СЃС‚СЂР°РЅРёС†С‹ РІС‹С…РѕРґР°" description="РР·РѕР±СЂР°Р¶РµРЅРёРµ РґР»СЏ СЃС‚СЂР°РЅРёС†С‹ РІС‹С…РѕРґР°" />
+		<param name="image_logout_align" type="radio" default="1" label="Р’С‹СЂР°РІРЅРёРІР°РЅРёРµ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ" description="Р’С‹СЂР°РІРЅРёРІР°РЅРёРµ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ РІС‹С…РѕРґР°">
+			<option value="left">РЎР»РµРІР°</option>
+			<option value="right">РЎРїСЂР°РІР°</option>
 		</param>
 	</params>
 </mosinstall>

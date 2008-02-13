@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <mosinstall type="module">
-	<name>Популярные объекты</name>
+	<name>РџРѕРїСѓР»СЏСЂРЅС‹Рµ РѕР±СЉРµРєС‚С‹</name>
 	<author>Joostina! Project</author>
-	<creationDate>Октябрь 2007</creationDate>
+	<creationDate>РћРєС‚СЏР±СЂСЊ 2007</creationDate>
 	<copyright>(C) 2007 Joostina Team.</copyright>
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
 	<authorEmail>joostinacms@gmail.com</authorEmail>
 	<authorUrl>www.joostina.ru</authorUrl>
 	<version>1.0.0</version>
-	<description>Этот модуль показывает список самых популярных опубликованных объектов, которые активны и срок действия которых не истек. Объекты, отображаемые на главной странице, не включены в этот список.</description>
+	<description>Р­С‚РѕС‚ РјРѕРґСѓР»СЊ РїРѕРєР°Р·С‹РІР°РµС‚ СЃРїРёСЃРѕРє СЃР°РјС‹С… РїРѕРїСѓР»СЏСЂРЅС‹С… РѕРїСѓР±Р»РёРєРѕРІР°РЅРЅС‹С… РѕР±СЉРµРєС‚РѕРІ, РєРѕС‚РѕСЂС‹Рµ Р°РєС‚РёРІРЅС‹ Рё СЃСЂРѕРє РґРµР№СЃС‚РІРёСЏ РєРѕС‚РѕСЂС‹С… РЅРµ РёСЃС‚РµРє. РћР±СЉРµРєС‚С‹, РѕС‚РѕР±СЂР°Р¶Р°РµРјС‹Рµ РЅР° РіР»Р°РІРЅРѕР№ СЃС‚СЂР°РЅРёС†Рµ, РЅРµ РІРєР»СЋС‡РµРЅС‹ РІ СЌС‚РѕС‚ СЃРїРёСЃРѕРє.</description>
 	<files>
 		<filename module="mod_popular">mod_popular.php</filename>
 	</files>

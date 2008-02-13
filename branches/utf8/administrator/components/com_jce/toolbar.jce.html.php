@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Àâòîðñêèå ïðàâà (C) 2007 Joostina team. Âñå ïðàâà çàùèùåíû.
-* @license Ëèöåíçèÿ http://www.gnu.org/copyleft/gpl.html GNU/GPL, ñìîòðèòå LICENSE.php
-* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå. Ýòà âåðñèÿ ìîæåò áûòü èçìåíåíà
-* â ñîîòâåòñòâèè ñ Ãåíåðàëüíîé Îáùåñòâåííîé Ëèöåíçèåé GNU, ïîýòîìó âîçìîæíî
-* å¸ äàëüíåéøåå ðàñïðîñòðàíåíèå â ñîñòàâå ðåçóëüòàòà ðàáîòû, ëèöåíçèðîâàííîãî
-* ñîãëàñíî Ãåíåðàëüíîé Îáùåñòâåííîé Ëèöåíçèåé GNU èëè äðóãèõ ëèöåíçèé ñâîáîäíûõ
-* ïðîãðàìì èëè ïðîãðàìì ñ îòêðûòûì èñõîäíûì êîäîì.
-* Äëÿ ïðîñìîòðà ïîäðîáíîñòåé è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë COPYRIGHT.php.
+* @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2007 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
+* @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/copyleft/gpl.html GNU/GPL, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ LICENSE.php
+* Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ. Ð­Ñ‚Ð° Ð²ÐµÑ€ÑÐ¸Ñ Ð¼Ð¾Ð¶ÐµÑ‚ Ð±Ñ‹Ñ‚ÑŒ Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð°
+* Ð² ÑÐ¾Ð¾Ñ‚Ð²ÐµÑ‚ÑÑ‚Ð²Ð¸Ð¸ Ñ Ð“ÐµÐ½ÐµÑ€Ð°Ð»ÑŒÐ½Ð¾Ð¹ ÐžÐ±Ñ‰ÐµÑÑ‚Ð²ÐµÐ½Ð½Ð¾Ð¹ Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸ÐµÐ¹ GNU, Ð¿Ð¾ÑÑ‚Ð¾Ð¼Ñƒ Ð²Ð¾Ð·Ð¼Ð¾Ð¶Ð½Ð¾
+* ÐµÑ‘ Ð´Ð°Ð»ÑŒÐ½ÐµÐ¹ÑˆÐµÐµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÐµÐ½Ð¸Ðµ Ð² ÑÐ¾ÑÑ‚Ð°Ð²Ðµ Ñ€ÐµÐ·ÑƒÐ»ÑŒÑ‚Ð°Ñ‚Ð° Ñ€Ð°Ð±Ð¾Ñ‚Ñ‹, Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð½Ð¾Ð³Ð¾
+* ÑÐ¾Ð³Ð»Ð°ÑÐ½Ð¾ Ð“ÐµÐ½ÐµÑ€Ð°Ð»ÑŒÐ½Ð¾Ð¹ ÐžÐ±Ñ‰ÐµÑÑ‚Ð²ÐµÐ½Ð½Ð¾Ð¹ Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸ÐµÐ¹ GNU Ð¸Ð»Ð¸ Ð´Ñ€ÑƒÐ³Ð¸Ñ… Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¹ ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ñ‹Ñ…
+* Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼ Ð¸Ð»Ð¸ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼ Ñ Ð¾Ñ‚ÐºÑ€Ñ‹Ñ‚Ñ‹Ð¼ Ð¸ÑÑ…Ð¾Ð´Ð½Ñ‹Ð¼ ÐºÐ¾Ð´Ð¾Ð¼.
+* Ð”Ð»Ñ Ð¿Ñ€Ð¾ÑÐ¼Ð¾Ñ‚Ñ€Ð° Ð¿Ð¾Ð´Ñ€Ð¾Ð±Ð½Ð¾ÑÑ‚ÐµÐ¹ Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» COPYRIGHT.php.
 */
 
-// çàïðåò ïðÿìîãî äîñòóïà
-defined( '_VALID_MOS' ) or die( 'Ïðÿìîé âûçîâ ôàéëà çàïðåùåí' );
+// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+defined( '_VALID_MOS' ) or die( 'ÐŸÑ€ÑÐ¼Ð¾Ð¹ Ð²Ñ‹Ð·Ð¾Ð² Ñ„Ð°Ð¹Ð»Ð° Ð·Ð°Ð¿Ñ€ÐµÑ‰ÐµÐ½' );
 
 /**
 * @package Mambo_4.5.1
@@ -23,18 +23,18 @@ class TOOLBAR_JCE {
     	* @param string An override for the task
     	* @param string An override for the alt text
     	*/
-    	function accessButton( $task='applyaccess', $alt='Äîñòóï' ) {
+    	function accessButton( $task='applyaccess', $alt='Ð”Ð¾ÑÑ‚ÑƒÐ¿' ) {
     		?>
     		<li>
-    			<a class="tb-access" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Îòìåòüòå íåîáõîäèìîå äëÿ íàçíà÷åíèÿ óðîâíÿ äîñòóïà'); } else {submitbutton('<?php echo $task;?>', '');}">
+    			<a class="tb-access" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('ÐžÑ‚Ð¼ÐµÑ‚ÑŒÑ‚Ðµ Ð½ÐµÐ¾Ð±Ñ…Ð¾Ð´Ð¸Ð¼Ð¾Ðµ Ð´Ð»Ñ Ð½Ð°Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ ÑƒÑ€Ð¾Ð²Ð½Ñ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°'); } else {submitbutton('<?php echo $task;?>', '');}">
     				<?php echo $alt; ?></a>
     		</li>
     	 	<?php
 	   }
-	   function helpButton( $section, $alt='Ïîìîùü') {
+	   function helpButton( $section, $alt='ÐŸÐ¾Ð¼Ð¾Ñ‰ÑŒ') {
 			?>
     	 	<li>
-    			<a class="tb-help" href="javascript:void(0);" onclick="window.open('http://www.cellardoor.za.net/index2.php?option=com_content&amp;task=findkey&amp;pop=1&amp;keyref=<?php echo $section;?>', 'Ïîìîùü', 'width=750,height=500,top=20,left=20,scrollbars=yes,resizable=yes');">
+    			<a class="tb-help" href="javascript:void(0);" onclick="window.open('http://www.cellardoor.za.net/index2.php?option=com_content&amp;task=findkey&amp;pop=1&amp;keyref=<?php echo $section;?>', 'ÐŸÐ¾Ð¼Ð¾Ñ‰ÑŒ', 'width=750,height=500,top=20,left=20,scrollbars=yes,resizable=yes');">
     				<?php echo $alt; ?></a>
     		</li>
     	 	<?php
@@ -42,7 +42,7 @@ class TOOLBAR_JCE {
         function _CONFIG() {
                 mosMenuBar::startTable();
                 mosMenuBar::save();
-                mosMenuBar::custom('main', '-back', '', 'Ãëàâíàÿ', false);
+                mosMenuBar::custom('main', '-back', '', 'Ð“Ð»Ð°Ð²Ð½Ð°Ñ', false);
                 mosMenuBar::spacer();
                 mosMenuBar::cancel();
                 mosMenuBar::endTable();
@@ -53,30 +53,30 @@ class TOOLBAR_JCE {
     		mosMenuBar::spacer();
     		mosMenuBar::unpublishList();
     		mosMenuBar::spacer();
-    		mosMenuBar::custom('newplugin', '-new', '', 'Íîâûé', false);
+    		mosMenuBar::custom('newplugin', '-new', '', 'ÐÐ¾Ð²Ñ‹Ð¹', false);
     		mosMenuBar::spacer();
-    		mosMenuBar::custom('installplugin', '-new', '', 'Óñòàíîâêà',false);
+    		mosMenuBar::custom('installplugin', '-new', '', 'Ð£ÑÑ‚Ð°Ð½Ð¾Ð²ÐºÐ°',false);
     		mosMenuBar::spacer();
-    		mosMenuBar::custom('editlayout', '-preview', '', 'Ïðåäïðîñìîòð',false);
+    		mosMenuBar::custom('editlayout', '-preview', '', 'ÐŸÑ€ÐµÐ´Ð¿Ñ€Ð¾ÑÐ¼Ð¾Ñ‚Ñ€',false);
     		mosMenuBar::spacer();
     		TOOLBAR_JCE::accessButton();
     		mosMenuBar::spacer();
 			TOOLBAR_JCE::helpButton('admin.plugins.view');
 			mosMenuBar::spacer();
-    		mosMenuBar::custom('cancel', '-cancel', '', 'Îòìåíà', false);
+    		mosMenuBar::custom('cancel', '-cancel', '', 'ÐžÑ‚Ð¼ÐµÐ½Ð°', false);
     		mosMenuBar::endTable();
         }
         function _EDIT_PLUGINS() {
     		global $id;
 
     		mosMenuBar::startTable();
-    		mosMenuBar::custom('saveplugin', '-save', '', 'Ñîõðàíèòü', false);
+    		mosMenuBar::custom('saveplugin', '-save', '', 'Ð¡Ð¾Ñ…Ñ€Ð°Ð½Ð¸Ñ‚ÑŒ', false);
     		mosMenuBar::spacer();
     		if ( $id ) {
     			// for existing content items the button is renamed `close`
-    			mosMenuBar::custom('canceledit', '-cancel', '', 'Çàêðûòü', false);
+    			mosMenuBar::custom('canceledit', '-cancel', '', 'Ð—Ð°ÐºÑ€Ñ‹Ñ‚ÑŒ', false);
     		} else {
-                mosMenuBar::custom('canceledit', '-cancel', '', 'Îòìåíà', false);
+                mosMenuBar::custom('canceledit', '-cancel', '', 'ÐžÑ‚Ð¼ÐµÐ½Ð°', false);
     		}
     		mosMenuBar::spacer();
     		mosMenuBar::endTable();
@@ -84,36 +84,36 @@ class TOOLBAR_JCE {
     	function _INSTALL( $element ) {
             if( $element == 'plugins' ){
                 mosMenuBar::startTable();
-                mosMenuBar::custom('showplugins', '-new', '', 'Ïëàãèíû', false);
+                mosMenuBar::custom('showplugins', '-new', '', 'ÐŸÐ»Ð°Ð³Ð¸Ð½Ñ‹', false);
                 mosMenuBar::spacer();
-                mosMenuBar::custom('removeplugin', '-delete', '', 'Óäàëåíèå', false);
+                mosMenuBar::custom('removeplugin', '-delete', '', 'Ð£Ð´Ð°Ð»ÐµÐ½Ð¸Ðµ', false);
                 mosMenuBar::spacer();
 				TOOLBAR_JCE::helpButton('admin.plugins.install');
 				mosMenuBar::spacer();
-                mosMenuBar::custom('cancel', '-cancel', '', 'Îòìåíà', false);
+                mosMenuBar::custom('cancel', '-cancel', '', 'ÐžÑ‚Ð¼ÐµÐ½Ð°', false);
     		    mosMenuBar::endTable();
             }
         }
         function _LAYOUT() {
     		mosMenuBar::startTable();
-    		mosMenuBar::custom('savelayout', '-save', '', 'Ñîõðàíèòü', false);
+    		mosMenuBar::custom('savelayout', '-save', '', 'Ð¡Ð¾Ñ…Ñ€Ð°Ð½Ð¸Ñ‚ÑŒ', false);
     		mosMenuBar::spacer();
 			TOOLBAR_JCE::helpButton('admin.layout');
 			mosMenuBar::spacer();
-    		mosMenuBar::custom('cancel', '-cancel', '', 'Îòìåíà', false);
+    		mosMenuBar::custom('cancel', '-cancel', '', 'ÐžÑ‚Ð¼ÐµÐ½Ð°', false);
     		mosMenuBar::endTable();
         }
         function _LANGS() {
     		mosMenuBar::startTable();
     		mosMenuBar::publishList('publishlang');
     		mosMenuBar::spacer();
-    		mosMenuBar::custom('removelang', '-delete', '', 'Óäàëèòü', false);
+    		mosMenuBar::custom('removelang', '-delete', '', 'Ð£Ð´Ð°Ð»Ð¸Ñ‚ÑŒ', false);
     		mosMenuBar::spacer();
-    		mosMenuBar::custom('newlang', '-new', '', 'Óñòàíîâèòü',false);
+    		mosMenuBar::custom('newlang', '-new', '', 'Ð£ÑÑ‚Ð°Ð½Ð¾Ð²Ð¸Ñ‚ÑŒ',false);
 			mosMenuBar::spacer();
 			TOOLBAR_JCE::helpButton('admin.languages');
 			mosMenuBar::spacer();
-    		mosMenuBar::custom('cancel', '-cancel', '', 'Îòìåíà', false);
+    		mosMenuBar::custom('cancel', '-cancel', '', 'ÐžÑ‚Ð¼ÐµÐ½Ð°', false);
     		mosMenuBar::endTable();
         }
 }

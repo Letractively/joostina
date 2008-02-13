@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 /**
 * @package Joostina
@@ -27,7 +27,7 @@ class HTML_typedcontent {
         function showContent( &$rows, &$pageNav, $option, $search, &$lists ) {
                 global $my, $acl, $database;
                 mosCommonHTML::loadOverlib();
-               /* подключаем Pquery */
+               /* РїРѕРґРєР»СЋС‡Р°РµРј Pquery */
 					mosCommonHTML::loadPquery();
 					$pquery= new PQuery();
                 ?>
@@ -36,16 +36,16 @@ class HTML_typedcontent {
                 <table class="adminheading">
                 <tr>
                         <th class="edit">
-                        Статичное содержимое
+                        РЎС‚Р°С‚РёС‡РЅРѕРµ СЃРѕРґРµСЂР¶РёРјРѕРµ
                         </th>
                         <td>
-                        Фильтр:&nbsp;
+                        Р¤РёР»СЊС‚СЂ:&nbsp;
                         </td>
                         <td>
 							<input type="text" name="search" value="<?php echo htmlspecialchars( $search );?>" class="text_area" onChange="document.adminForm.submit();" />
                         </td>
                         <td>
-                        &nbsp;&nbsp;&nbsp;Сортировка:&nbsp;
+                        &nbsp;&nbsp;&nbsp;РЎРѕСЂС‚РёСЂРѕРІРєР°:&nbsp;
                         </td>
                         <td>
                         <?php echo $lists['order']; ?>
@@ -65,31 +65,31 @@ class HTML_typedcontent {
                         <input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo count( $rows ); ?>);" />
                         </th>
                         <th class="title">
-                        Заголовок
+                        Р—Р°РіРѕР»РѕРІРѕРє
                         </th>
                         <th width="5%">
-                        Опубликовано
+                        РћРїСѓР±Р»РёРєРѕРІР°РЅРѕ
                         </th>
                         <th width="2%">
-                        Сортировка
+                        РЎРѕСЂС‚РёСЂРѕРІРєР°
                         </th>
                         <th width="1%">
-                        <a href="javascript: saveorder( <?php echo count( $rows )-1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="Сохранить порядок" /></a>
+                        <a href="javascript: saveorder( <?php echo count( $rows )-1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="РЎРѕС…СЂР°РЅРёС‚СЊ РїРѕСЂСЏРґРѕРє" /></a>
                         </th>
                         <th width="10%">
-                        Доступ
+                        Р”РѕСЃС‚СѓРї
                         </th>
                         <th width="5%">
                         ID
                         </th>
                         <th width="1%" align="left">
-                        Ссылок
+                        РЎСЃС‹Р»РѕРє
                         </th>
                         <th width="20%" align="left">
-                        Автор
+                        РђРІС‚РѕСЂ
                         </th>
                         <th align="center" width="10">
-                        Дата
+                        Р”Р°С‚Р°
                         </th>
                 </tr>
                 <?php
@@ -102,38 +102,38 @@ class HTML_typedcontent {
 			if ( $now <= $row->publish_up && $row->state == 1 ) {
 			// Published
                                 $img = 'publish_y.png';
-                                $alt = 'Опубликовано';
+                                $alt = 'РћРїСѓР±Р»РёРєРѕРІР°РЅРѕ';
 			} else if ( ( $now <= $row->publish_down || $row->publish_down == $nullDate ) && $row->state == 1 ) {
 			// Pending
                                 $img = 'publish_g.png';
-                                $alt = 'Опубликовано';
+                                $alt = 'РћРїСѓР±Р»РёРєРѕРІР°РЅРѕ';
 			} else if ( $now > $row->publish_down && $row->state == 1 ) {
 			// Expired
                                 $img = 'publish_r.png';
-				$alt = 'Истек срок публикации';
+				$alt = 'РСЃС‚РµРє СЃСЂРѕРє РїСѓР±Р»РёРєР°С†РёРё';
 			} elseif ( $row->state == 0 ) {
 			// Unpublished
 				$img = 'publish_x.png';
-                                $alt = 'Неопубликовано';
+                                $alt = 'РќРµРѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ';
                         }
 														  
 			// correct times to include server offset info
 			$row->publish_up 	= mosFormatDate( $row->publish_up, _CURRENT_SERVER_TIME_FORMAT );			
 			if (trim( $row->publish_down ) == $nullDate || trim( $row->publish_down ) == '' || trim( $row->publish_down ) == '-' ) {
-				$row->publish_down = 'Никогда';
+				$row->publish_down = 'РќРёРєРѕРіРґР°';
 			}
 			$row->publish_down 	= mosFormatDate( $row->publish_down, _CURRENT_SERVER_TIME_FORMAT );		
 									   
                         $times = '';
 								if ($row->publish_up == $nullDate) {
-                                        $times .= "<tr><td>Начало: Всегда</td></tr>";
+                                        $times .= "<tr><td>РќР°С‡Р°Р»Рѕ: Р’СЃРµРіРґР°</td></tr>";
                                 } else {
-                                        $times .= "<tr><td>Начало: $row->publish_up</td></tr>";
+                                        $times .= "<tr><td>РќР°С‡Р°Р»Рѕ: $row->publish_up</td></tr>";
                                 }
-								if ($row->publish_down == $nullDate || $row->publish_down == 'Никогда') {
-                                        $times .= "<tr><td>Окончание: Без срока</td></tr>";
+								if ($row->publish_down == $nullDate || $row->publish_down == 'РќРёРєРѕРіРґР°') {
+                                        $times .= "<tr><td>РћРєРѕРЅС‡Р°РЅРёРµ: Р‘РµР· СЃСЂРѕРєР°</td></tr>";
                                 } else {
-                                        $times .= "<tr><td>Окончание: $row->publish_down</td></tr>";
+                                        $times .= "<tr><td>РћРєРѕРЅС‡Р°РЅРёРµ: $row->publish_down</td></tr>";
                         }
 
                         if ( !$row->access ) {
@@ -156,7 +156,7 @@ class HTML_typedcontent {
                                         $author = $row->created_by_alias;
                                 } else {
                                         $linkA         = 'index2.php?option=com_users&task=editA&hidemainmenu=1&id='. $row->created_by;
-					$author = '<a href="'. $linkA .'" title="Изменить данные пользователя">'. $row->creator .'</a>';
+					$author = '<a href="'. $linkA .'" title="РР·РјРµРЅРёС‚СЊ РґР°РЅРЅС‹Рµ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ">'. $row->creator .'</a>';
                                 }
                         } else {
                                 if ( $row->created_by_alias ) {
@@ -184,7 +184,7 @@ class HTML_typedcontent {
                                         }
                                 } else {
                                         ?>
-															<a href="<?php echo $link; ?>" title="Изменить статичное содержимое">
+															<a href="<?php echo $link; ?>" title="РР·РјРµРЅРёС‚СЊ СЃС‚Р°С‚РёС‡РЅРѕРµ СЃРѕРґРµСЂР¶РёРјРѕРµ">
                                         <?php
                                         echo $row->title;
                                         if ( $row->title_alias ) {
@@ -205,8 +205,8 @@ class HTML_typedcontent {
 						$url = $mosConfig_live_site.'/administrator/index4.php?option=com_typedcontent&task=publish&id='.$row->id;
 						$div_id = 'div_'.$row->id;
 						$div = '<div class="mini_ico" id="'.$div_id.'"><img src="images/'.$img.'" width="12" height="12" border="0" alt="" /></div>';
-							if ( !$row->checked_out ) { // объект используется - запретим изменение состояния публикации
-							echo $pquery->link_to_remote($div,array('url'=>$url,'update'=>'#'.$div_id,'beforeSend'=>$pquery->visual_effect('show','#ajax_status'),'success'=>$pquery->visual_effect('hide','#ajax_status')),null,'Публиковать&nbsp;/&nbsp;Скрыть&nbspэлемент');
+							if ( !$row->checked_out ) { // РѕР±СЉРµРєС‚ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ - Р·Р°РїСЂРµС‚РёРј РёР·РјРµРЅРµРЅРёРµ СЃРѕСЃС‚РѕСЏРЅРёСЏ РїСѓР±Р»РёРєР°С†РёРё
+							echo $pquery->link_to_remote($div,array('url'=>$url,'update'=>'#'.$div_id,'beforeSend'=>$pquery->visual_effect('show','#ajax_status'),'success'=>$pquery->visual_effect('hide','#ajax_status')),null,'РџСѓР±Р»РёРєРѕРІР°С‚СЊ&nbsp;/&nbsp;РЎРєСЂС‹С‚СЊ&nbspСЌР»РµРјРµРЅС‚');
 						}else{
 							echo $div;						
 						}						
@@ -256,7 +256,7 @@ class HTML_typedcontent {
         function edit( &$row, &$images, &$lists, &$params, $option, &$menus ) {
 		global $database,$mosConfig_live_site;
 
-		/* подключение Pquery */
+		/* РїРѕРґРєР»СЋС‡РµРЅРёРµ Pquery */
 		mosCommonHTML::loadPquery();
 		$pquery= new PQuery();
 
@@ -283,7 +283,7 @@ class HTML_typedcontent {
 
                 mosCommonHTML::loadOverlib();
                 mosCommonHTML::loadCalendar();
-		/* подключаем Pquery */
+		/* РїРѕРґРєР»СЋС‡Р°РµРј Pquery */
 		mosCommonHTML::loadPquery();
                 ?>
                 <script language="javascript" type="text/javascript">
@@ -304,7 +304,7 @@ class HTML_typedcontent {
                         }
 
                         if ( pressbutton ==' resethits' ) {
-				if (confirm('Вы действительно хотите обнулить счетчик просмотров? \nЛюбые несохраненные изменения этого содержимого будут утеряны.')){
+				if (confirm('Р’С‹ РґРµР№СЃС‚РІРёС‚РµР»СЊРЅРѕ С…РѕС‚РёС‚Рµ РѕР±РЅСѓР»РёС‚СЊ СЃС‡РµС‚С‡РёРє РїСЂРѕСЃРјРѕС‚СЂРѕРІ? \nР›СЋР±С‹Рµ РЅРµСЃРѕС…СЂР°РЅРµРЅРЅС‹Рµ РёР·РјРµРЅРµРЅРёСЏ СЌС‚РѕРіРѕ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ Р±СѓРґСѓС‚ СѓС‚РµСЂСЏРЅС‹.')){
                                         submitform( pressbutton );
                                         return;
                                 } else {
@@ -314,10 +314,10 @@ class HTML_typedcontent {
 
                         if ( pressbutton == 'menulink' ) {
                                 if ( form.menuselect.value == "" ) {
-                                        alert( "Пожалуйста, выберите меню" );
+                                        alert( "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІС‹Р±РµСЂРёС‚Рµ РјРµРЅСЋ" );
                                         return;
                                 } else if ( form.link_name.value == "" ) {
-                                        alert( "Пожалуйста, введите имя для этого пункта меню" );
+                                        alert( "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІРІРµРґРёС‚Рµ РёРјСЏ РґР»СЏ СЌС‚РѕРіРѕ РїСѓРЅРєС‚Р° РјРµРЅСЋ" );
                                         return;
                                 }
                         }
@@ -333,9 +333,9 @@ class HTML_typedcontent {
                         }
                         catch(e){}
                         if (trim(form.title.value) == ""){
-                                alert( "Объект содержимого должен иметь заголовок" );
+                                alert( "РћР±СЉРµРєС‚ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ РґРѕР»Р¶РµРЅ РёРјРµС‚СЊ Р·Р°РіРѕР»РѕРІРѕРє" );
                         } else if (trim(form.name.value) == ""){
-                                alert( "Объект содержимого должен иметь название" );
+                                alert( "РћР±СЉРµРєС‚ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ РґРѕР»Р¶РµРЅ РёРјРµС‚СЊ РЅР°Р·РІР°РЅРёРµ" );
                         } else {
                                 if ( form.reset_hits.checked ) {
                                         form.hits.value = 0;
@@ -350,16 +350,16 @@ class HTML_typedcontent {
                 <table class="adminheading">
                 <tr>
                         <th class="edit">
-			Статичное содержимое:
+			РЎС‚Р°С‚РёС‡РЅРѕРµ СЃРѕРґРµСЂР¶РёРјРѕРµ:
                         <small>
-			<?php echo $row->id ? 'Редактирование' : 'Новое';?>
+			<?php echo $row->id ? 'Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ' : 'РќРѕРІРѕРµ';?>
                         </small>
                         </th>
                 </tr>
                 </table>
 					<div align="right">
-						Настройки:&nbsp;<?php echo $pquery->link_to_function('Показать',$pquery->visual_effect('fadeIn','#params'));?>&nbsp;/&nbsp;
-						<?php echo $pquery->link_to_function('Скрыть',$pquery->visual_effect('fadeOut','#params'));?>&nbsp;
+						РќР°СЃС‚СЂРѕР№РєРё:&nbsp;<?php echo $pquery->link_to_function('РџРѕРєР°Р·Р°С‚СЊ',$pquery->visual_effect('fadeIn','#params'));?>&nbsp;/&nbsp;
+						<?php echo $pquery->link_to_function('РЎРєСЂС‹С‚СЊ',$pquery->visual_effect('fadeOut','#params'));?>&nbsp;
 					</div>
                 <form action="index2.php" method="post" name="adminForm">
                 <table cellspacing="0" cellpadding="0" border="0" width="100%">
@@ -368,12 +368,12 @@ class HTML_typedcontent {
                                 <table class="adminform">
                                 <tr>
                                         <th colspan="3">
-                                        Информация о содержимом
+                                        РРЅС„РѕСЂРјР°С†РёСЏ Рѕ СЃРѕРґРµСЂР¶РёРјРѕРј
                                         </th>
 								</tr>
                                 <tr>
                                         <td align="left">
-											Заголовок:
+											Р—Р°РіРѕР»РѕРІРѕРє:
                                         </td>
                                         <td width="90%">
                                         <input class="inputbox" type="text" name="title" size="30" maxlength="150" style="width:98%" value="<?php echo $row->title; ?>" />
@@ -381,7 +381,7 @@ class HTML_typedcontent {
                                 </tr>
                                 <tr>
                                         <td align="left">
-											Псевдоним:
+											РџСЃРµРІРґРѕРЅРёРј:
                                         </td>
                                         <td width="90%">
                                         <input class="inputbox" type="text" name="title_alias" size="30" maxlength="150" style="width:98%" value="<?php echo $row->title_alias; ?>" />
@@ -389,7 +389,7 @@ class HTML_typedcontent {
                                 </tr>
                                 <tr>
                                         <td valign="top" align="left" colspan="2">
-										Текст: (обязательно)<br />
+										РўРµРєСЃС‚: (РѕР±СЏР·Р°С‚РµР»СЊРЅРѕ)<br />
                                         <?php
                                         // parameters : areaname, content, hidden field, width, height, rows, cols
                                         editorArea( 'editor1',  $row->introtext, 'introtext', '100%;', '500', '75', '50' );
@@ -402,25 +402,25 @@ class HTML_typedcontent {
 						<div id="params" style="width:370px">
                                 <?php
                                 $tabs->startPane("content-pane");
-                                $tabs->startTab("Публикация","publish-page");
+                                $tabs->startTab("РџСѓР±Р»РёРєР°С†РёСЏ","publish-page");
                                 ?>
                                 <table class="adminform">
                                 <tr>
                                         <th colspan="2">
-                                        Информация о публикации
+                                        РРЅС„РѕСЂРјР°С†РёСЏ Рѕ РїСѓР±Р»РёРєР°С†РёРё
                                         </th>
 				</tr>
                                 <tr>
 					<td valign="top" align="right" width="120">
-                                        Состояние:
+                                        РЎРѕСЃС‚РѕСЏРЅРёРµ:
                                         </td>
                                         <td>
-					<?php echo $row->state > 0 ? 'Опубликовано' : 'Черновик - Не опубликовано'; ?>
+					<?php echo $row->state > 0 ? 'РћРїСѓР±Р»РёРєРѕРІР°РЅРѕ' : 'Р§РµСЂРЅРѕРІРёРє - РќРµ РѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ'; ?>
                                         </td>
                                 </tr>
                                 <tr>
                                         <td valign="top" align="right">
-                                        Опубликовано:
+                                        РћРїСѓР±Р»РёРєРѕРІР°РЅРѕ:
                                         </td>
                                         <td>
                                         <input type="checkbox" name="published" value="1" <?php echo $row->state ? 'checked="checked"' : ''; ?> />
@@ -428,7 +428,7 @@ class HTML_typedcontent {
                                 </tr>
                                 <tr>
                                         <td valign="top" align="right">
-                                        Уровень доступа:
+                                        РЈСЂРѕРІРµРЅСЊ РґРѕСЃС‚СѓРїР°:
                                         </td>
                                         <td>
                                         <?php echo $lists['access']; ?>
@@ -436,7 +436,7 @@ class HTML_typedcontent {
                                 </tr>
                                 <tr>
                                         <td valign="top" align="right">
-					Псевдоним автора:
+					РџСЃРµРІРґРѕРЅРёРј Р°РІС‚РѕСЂР°:
                                         </td>
                                         <td>
                                         <input type="text" name="created_by_alias" size="30" maxlength="100" value="<?php echo $row->created_by_alias; ?>" class="inputbox" />
@@ -444,7 +444,7 @@ class HTML_typedcontent {
                                 </tr>
                                 <tr>
                                         <td valign="top" align="right">
-                                        Изменить автора:
+                                        РР·РјРµРЅРёС‚СЊ Р°РІС‚РѕСЂР°:
                                         </td>
                                         <td>
                                         <?php echo $lists['created_by']; ?>
@@ -452,7 +452,7 @@ class HTML_typedcontent {
                                 </tr>
                                 <tr>
                                         <td valign="top" align="right">
-					Дата создания:
+					Р”Р°С‚Р° СЃРѕР·РґР°РЅРёСЏ:
                                         </td>
                                         <td>
                                         <input class="inputbox" type="text" name="created" id="created" size="25" maxlength="19" value="<?php echo $row->created; ?>" />
@@ -461,7 +461,7 @@ class HTML_typedcontent {
                                 </tr>
                                 <tr>
 					<td align="right">
-					Начало публикации:
+					РќР°С‡Р°Р»Рѕ РїСѓР±Р»РёРєР°С†РёРё:
                                         </td>
 					<td>
                                         <input class="inputbox" type="text" name="publish_up" id="publish_up" size="25" maxlength="19" value="<?php echo $row->publish_up; ?>" />
@@ -470,7 +470,7 @@ class HTML_typedcontent {
                                 </tr>
                                 <tr>
 					<td align="right">
-					Окончание публикации:
+					РћРєРѕРЅС‡Р°РЅРёРµ РїСѓР±Р»РёРєР°С†РёРё:
                                         </td>
 					<td>
                                         <input class="inputbox" type="text" name="publish_down" id="publish_down" size="25" maxlength="19" value="<?php echo $row->publish_down; ?>" />
@@ -485,7 +485,7 @@ class HTML_typedcontent {
                                         ?>
                                         <tr>
                                                 <td>
-						<strong>ID содержимого:</strong>
+						<strong>ID СЃРѕРґРµСЂР¶РёРјРѕРіРѕ:</strong>
                                                 </td>
                                                 <td>
                                                 <?php echo $row->id; ?>
@@ -496,26 +496,26 @@ class HTML_typedcontent {
                                 ?>
                                 <tr>
 					<td width="120" valign="top" align="right">
-					<strong>Состояние</strong>
+					<strong>РЎРѕСЃС‚РѕСЏРЅРёРµ</strong>
                                         </td>
                                         <td>
-					<?php echo $row->state > 0 ? 'Опубликовано' : ($row->state < 0 ? 'В архиве' : 'Черновик - Не опубликовано');?>
+					<?php echo $row->state > 0 ? 'РћРїСѓР±Р»РёРєРѕРІР°РЅРѕ' : ($row->state < 0 ? 'Р’ Р°СЂС…РёРІРµ' : 'Р§РµСЂРЅРѕРІРёРє - РќРµ РѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ');?>
                                         </td>
                                 </tr>
                                 <tr>
                                         <td valign="top" align="right">
-                                        <strong>Просмотров</strong>
+                                        <strong>РџСЂРѕСЃРјРѕС‚СЂРѕРІ</strong>
                                         </td>
                                         <td>
                                         <?php echo $row->hits;?>
                                         <div <?php echo $visibility; ?>>
-					<input name="reset_hits" type="button" class="button" value="Сбросить счетчик просмотров" onClick="submitbutton('resethits');">
+					<input name="reset_hits" type="button" class="button" value="РЎР±СЂРѕСЃРёС‚СЊ СЃС‡РµС‚С‡РёРє РїСЂРѕСЃРјРѕС‚СЂРѕРІ" onClick="submitbutton('resethits');">
                                         </div>
                                         </td>
                                 </tr>
                                 <tr>
                                         <td valign="top" align="right">
-					<strong>Версия</strong>
+					<strong>Р’РµСЂСЃРёСЏ</strong>
                                         </td>
                                         <td>
 					<?php echo $row->version;?>
@@ -523,13 +523,13 @@ class HTML_typedcontent {
                                 </tr>
                                 <tr>
                                         <td valign="top" align="right">
-					<strong>Создано</strong>
+					<strong>РЎРѕР·РґР°РЅРѕ</strong>
                                         </td>
                                         <td>
 						<?php
 						if ( !$create_date ) {
 							?>
-							Новый документ
+							РќРѕРІС‹Р№ РґРѕРєСѓРјРµРЅС‚
 							<?php
 						} else {
 							echo $create_date;
@@ -539,13 +539,13 @@ class HTML_typedcontent {
                                 </tr>
                                 <tr>
                                         <td valign="top" align="right">
-					<strong>Последнее изменение</strong>
+					<strong>РџРѕСЃР»РµРґРЅРµРµ РёР·РјРµРЅРµРЅРёРµ</strong>
                                         </td>
                                         <td>
 						<?php
 						if ( !$mod_date ) {
 							?>
-							Не изменялось
+							РќРµ РёР·РјРµРЅСЏР»РѕСЃСЊ
 							<?php
 						} else {
 							echo $mod_date;
@@ -559,7 +559,7 @@ class HTML_typedcontent {
                                 </tr>
                                 <tr>
                                         <td valign="top" align="right">
-					<strong>Истек срок публикации</strong>
+					<strong>РСЃС‚РµРє СЃСЂРѕРє РїСѓР±Р»РёРєР°С†РёРё</strong>
                                         </td>
                                         <td>
                                         <?php echo "$row->publish_down";?>
@@ -568,12 +568,12 @@ class HTML_typedcontent {
                                 </table>
                                 <?php
                                 $tabs->endTab();
-				$tabs->startTab("Изображения","images-page");
+				$tabs->startTab("РР·РѕР±СЂР°Р¶РµРЅРёСЏ","images-page");
                                 ?>
                                 <table class="adminform">
                                 <tr>
                                         <th colspan="2">
-						Управление изображениями MOS
+						РЈРїСЂР°РІР»РµРЅРёРµ РёР·РѕР±СЂР°Р¶РµРЅРёСЏРјРё MOS
                                         </th>
                                 </tr>
                                 <tr>
@@ -582,52 +582,52 @@ class HTML_typedcontent {
                                                 <tr>
 							<td width="48%" valign="top">
                                                                 <div align="center">
-									Изображения галереи:
+									РР·РѕР±СЂР°Р¶РµРЅРёСЏ РіР°Р»РµСЂРµРё:
                                                                         <br />
                                                                         <?php echo $lists['imagefiles'];?>
                                                                 </div>
                                                         </td>
                                                         <td width="2%">
-								<input class="button" type="button" value=">>" onclick="addSelectedToList('adminForm','imagefiles','imagelist')" title="Добавить"/>
+								<input class="button" type="button" value=">>" onclick="addSelectedToList('adminForm','imagefiles','imagelist')" title="Р”РѕР±Р°РІРёС‚СЊ"/>
                                                                 <br/>
-								<input class="button" type="button" value="<<" onclick="delSelectedFromList('adminForm','imagelist')" title="Удалить"/>
+								<input class="button" type="button" value="<<" onclick="delSelectedFromList('adminForm','imagelist')" title="РЈРґР°Р»РёС‚СЊ"/>
                                                         </td>
                                                         <td width="48%">
                                                                 <div align="center">
-									Изображения содержимого:
+									РР·РѕР±СЂР°Р¶РµРЅРёСЏ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ:
                                                                         <br />
                                                                         <?php echo $lists['imagelist'];?>
                                                                         <br />
-									<input class="button" type="button" value="Вверх" onclick="moveInList('adminForm','imagelist',adminForm.imagelist.selectedIndex,-1)" />
-									<input class="button" type="button" value="Вниз" onclick="moveInList('adminForm','imagelist',adminForm.imagelist.selectedIndex,+1)" />
+									<input class="button" type="button" value="Р’РІРµСЂС…" onclick="moveInList('adminForm','imagelist',adminForm.imagelist.selectedIndex,-1)" />
+									<input class="button" type="button" value="Р’РЅРёР·" onclick="moveInList('adminForm','imagelist',adminForm.imagelist.selectedIndex,+1)" />
                                                                 </div>
                                                         </td>
                                                 </tr>
                                                 </table>
-						Подпапка: <?php echo $lists['folders'];?>
+						РџРѕРґРїР°РїРєР°: <?php echo $lists['folders'];?>
                                         </td>
                                 </tr>
                                 <tr valign="top">
                                         <td>
                                                 <div align="center">
-							Образец изображения:<br/>
+							РћР±СЂР°Р·РµС† РёР·РѕР±СЂР°Р¶РµРЅРёСЏ:<br/>
                                                         <img name="view_imagefiles" src="../images/M_images/blank.png" width="100" />
                                                 </div>
                                         </td>
                                         <td valign="top">
                                                 <div align="center">
-							Активное изображение:<br/>
+							РђРєС‚РёРІРЅРѕРµ РёР·РѕР±СЂР°Р¶РµРЅРёРµ:<br/>
                                                         <img name="view_imagelist" src="../images/M_images/blank.png" width="100" />
                                                 </div>
                                         </td>
                                 </tr>
                                 <tr>
                                         <td>
-					Изменение выбранного изображения:
+					РР·РјРµРЅРµРЅРёРµ РІС‹Р±СЂР°РЅРЅРѕРіРѕ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ:
                                                 <table>
                                                 <tr>
                                                         <td align="right">
-							Источник
+							РСЃС‚РѕС‡РЅРёРє
                                                         </td>
                                                         <td>
                                                         <input class="text_area" type="text" name= "_source" value="" />
@@ -635,7 +635,7 @@ class HTML_typedcontent {
                                                 </tr>
                                                 <tr>
                                                         <td align="right">
-							Выравнивание
+							Р’С‹СЂР°РІРЅРёРІР°РЅРёРµ
                                                         </td>
                                                         <td>
                                                         <?php echo $lists['_align']; ?>
@@ -643,7 +643,7 @@ class HTML_typedcontent {
                                                 </tr>
                                                 <tr>
                                                         <td align="right">
-							Альтернативный текст
+							РђР»СЊС‚РµСЂРЅР°С‚РёРІРЅС‹Р№ С‚РµРєСЃС‚
                                                         </td>
                                                         <td>
                                                         <input class="text_area" type="text" name="_alt" value="" />
@@ -651,7 +651,7 @@ class HTML_typedcontent {
                                                 </tr>
                                                 <tr>
                                                         <td align="right">
-							Рамка
+							Р Р°РјРєР°
                                                         </td>
                                                         <td>
                                                         <input class="text_area" type="text" name="_border" value="" size="3" maxlength="1" />
@@ -659,7 +659,7 @@ class HTML_typedcontent {
                                                 </tr>
                                                 <tr>
                                                         <td align="right">
-							Подпись:
+							РџРѕРґРїРёСЃСЊ:
                                                         </td>
                                                         <td>
                                                         <input class="text_area" type="text" name="_caption" value="" size="30" />
@@ -667,7 +667,7 @@ class HTML_typedcontent {
                                                 </tr>
                                                 <tr>
                                                         <td align="right">
-							Положение подписи:
+							РџРѕР»РѕР¶РµРЅРёРµ РїРѕРґРїРёСЃРё:
                                                         </td>
                                                         <td>
                                                         <?php echo $lists['_caption_position']; ?>
@@ -675,7 +675,7 @@ class HTML_typedcontent {
                                                 </tr>
                                                 <tr>
                                                         <td align="right">
-							Выравнивание подписи:
+							Р’С‹СЂР°РІРЅРёРІР°РЅРёРµ РїРѕРґРїРёСЃРё:
                                                         </td>
                                                         <td>
                                                         <?php echo $lists['_caption_align']; ?>
@@ -683,7 +683,7 @@ class HTML_typedcontent {
                                                 </tr>
                                                 <tr>
                                                         <td align="right">
-							Ширина:
+							РЁРёСЂРёРЅР°:
                                                         </td>
                                                         <td>
                                                         <input class="text_area" type="text" name="_width" value="" size="5" maxlength="5" />
@@ -691,7 +691,7 @@ class HTML_typedcontent {
                                                 </tr>
                                                 <tr>
                                                         <td colspan="2">
-                                                        <input class="button" type="button" value="Применить" onClick="applyImageProps()" />
+                                                        <input class="button" type="button" value="РџСЂРёРјРµРЅРёС‚СЊ" onClick="applyImageProps()" />
                                                         </td>
                                                 </tr>
                                                 </table>
@@ -700,12 +700,12 @@ class HTML_typedcontent {
                                 </table>
                                 <?php
                                 $tabs->endTab();
-                                $tabs->startTab("Параметры","params-page");
+                                $tabs->startTab("РџР°СЂР°РјРµС‚СЂС‹","params-page");
                                 ?>
                                 <table class="adminform">
                                 <tr>
                                         <th colspan="2">
-                                        Управление параметрами
+                                        РЈРїСЂР°РІР»РµРЅРёРµ РїР°СЂР°РјРµС‚СЂР°РјРё
                                         </th>
 				</tr>
                                 <tr>
@@ -716,46 +716,46 @@ class HTML_typedcontent {
                                 </table>
                                 <?php
                                 $tabs->endTab();
-                                $tabs->startTab("Метаданные","metadata-page");
+                                $tabs->startTab("РњРµС‚Р°РґР°РЅРЅС‹Рµ","metadata-page");
                                 ?>
                                 <table class="adminform">
                                 <tr>
                                         <th colspan="2">
-                                        Данные мета-тегов
+                                        Р”Р°РЅРЅС‹Рµ РјРµС‚Р°-С‚РµРіРѕРІ
                                         </th>
 				</tr>
                                 <tr>
                                         <td align="left">
-                                        Описание (Description):<br />
+                                        РћРїРёСЃР°РЅРёРµ (Description):<br />
                                         <textarea class="inputbox" cols="40" rows="5" name="metadesc" style="width:300px"><?php echo str_replace('&','&amp;',$row->metadesc); ?></textarea>
                                         </td>
                                 </tr>
                                 <tr>
                                         <td align="left">
-                                        Ключевые слова (Keywords):<br />
+                                        РљР»СЋС‡РµРІС‹Рµ СЃР»РѕРІР° (Keywords):<br />
                                         <textarea class="inputbox" cols="40" rows="5" name="metakey" style="width:300px"><?php echo str_replace('&','&amp;',$row->metakey); ?></textarea>
                                         </td>
                                 </tr>
                                 </table>
                                 <?php
                                 $tabs->endTab();
-                                $tabs->startTab("Связь с меню","link-page");
+                                $tabs->startTab("РЎРІСЏР·СЊ СЃ РјРµРЅСЋ","link-page");
                                 ?>
                                 <table class="adminform">
                                 <tr>
                                         <th colspan="2">
-                                        Связь с меню
+                                        РЎРІСЏР·СЊ СЃ РјРµРЅСЋ
                                         </th>
 				</tr>
                                 <tr>
                                         <td colspan="2">
-                                        Здесь создается пункт меню типа 'Ссылка - Статичное содержимое', который вставляется в выбранное из списка меню 
+                                        Р—РґРµСЃСЊ СЃРѕР·РґР°РµС‚СЃСЏ РїСѓРЅРєС‚ РјРµРЅСЋ С‚РёРїР° 'РЎСЃС‹Р»РєР° - РЎС‚Р°С‚РёС‡РЅРѕРµ СЃРѕРґРµСЂР¶РёРјРѕРµ', РєРѕС‚РѕСЂС‹Р№ РІСЃС‚Р°РІР»СЏРµС‚СЃСЏ РІ РІС‹Р±СЂР°РЅРЅРѕРµ РёР· СЃРїРёСЃРєР° РјРµРЅСЋ 
                                         <br /><br />
                                         </td>
 				</tr>
                                 <tr>
                                         <td valign="top" width="90px">
-                                        Выберите меню
+                                        Р’С‹Р±РµСЂРёС‚Рµ РјРµРЅСЋ
                                         </td>
                                         <td>
                                         <?php echo $lists['menuselect']; ?>
@@ -763,7 +763,7 @@ class HTML_typedcontent {
 				</tr>
                                 <tr>
                                         <td valign="top" width="90px">
-                                        Название пункта меню
+                                        РќР°Р·РІР°РЅРёРµ РїСѓРЅРєС‚Р° РјРµРЅСЋ
                                         </td>
                                         <td>
                                         <input type="text" name="link_name" class="inputbox" value="" size="30" />
@@ -773,12 +773,12 @@ class HTML_typedcontent {
                                         <td>
                                         </td>
                                         <td>
-                                        <input name="menu_link" type="button" class="button" value="Создать пункт меню" onClick="submitbutton('menulink');" />
+                                        <input name="menu_link" type="button" class="button" value="РЎРѕР·РґР°С‚СЊ РїСѓРЅРєС‚ РјРµРЅСЋ" onClick="submitbutton('menulink');" />
                                         </td>
 				</tr>
                                 <tr>
                                         <th colspan="2">
-                                        Существующие связи с меню
+                                        РЎСѓС‰РµСЃС‚РІСѓСЋС‰РёРµ СЃРІСЏР·Рё СЃ РјРµРЅСЋ
                                         </th>
                                 </tr>
                                 <?php
@@ -786,7 +786,7 @@ class HTML_typedcontent {
                                         ?>
                                         <tr>
                                                 <td colspan="2">
-                                                Отсутствуют
+                                                РћС‚СЃСѓС‚СЃС‚РІСѓСЋС‚
                                                 </td>
                                         </tr>
                                         <?php

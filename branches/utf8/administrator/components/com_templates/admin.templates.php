@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 // ensure user has access to this function
 if (!$acl->acl_check( 'administration', 'manage', 'users', $GLOBALS['my']->usertype, 'components', 'com_templates' )) {
@@ -27,7 +27,7 @@ require_once( $mosConfig_absolute_path .'/includes/domit/xml_domit_lite_include.
 $client = strval( mosGetParam( $_REQUEST, 'client', '' ) );
 
 global $mosConfig_one_template;
-if($mosConfig_one_template!='...') echo joost_info('В глобальной конфигурации выбрано использование одного шаблона: <b>'.$mosConfig_one_template.'</b>');
+if($mosConfig_one_template!='...') echo joost_info('Р’ РіР»РѕР±Р°Р»СЊРЅРѕР№ РєРѕРЅС„РёРіСѓСЂР°С†РёРё РІС‹Р±СЂР°РЅРѕ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РѕРґРЅРѕРіРѕ С€Р°Р±Р»РѕРЅР°: <b>'.$mosConfig_one_template.'</b>');
 
 $cid 	= mosGetParam( $_REQUEST, 'cid', array(0) );
 if (!is_array( $cid )) {
@@ -275,7 +275,7 @@ function removeTemplate( $cid, $option, $client ) {
 	$cur_template = $database->loadResult();
 
 	if ($cur_template == $cid) {
-		mosErrorAlert( "Этот шаблон используется и не может быть удален" );
+		mosErrorAlert( "Р­С‚РѕС‚ С€Р°Р±Р»РѕРЅ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ Рё РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ СѓРґР°Р»РµРЅ" );
 	}
 
 	// Un-assign
@@ -304,7 +304,7 @@ function editTemplateSource( $p_tname, $option, $client ) {
 
 		HTML_templates::editTemplateSource( $p_tname, $content, $option, $client );
 	} else {
-		mosRedirect( 'index2.php?option='. $option .'&client='. $client, 'Операция неудачна: невозможно открыть '. $file );
+		mosRedirect( 'index2.php?option='. $option .'&client='. $client, 'РћРїРµСЂР°С†РёСЏ РЅРµСѓРґР°С‡РЅР°: РЅРµРІРѕР·РјРѕР¶РЅРѕ РѕС‚РєСЂС‹С‚СЊ '. $file );
 	}
 }
 
@@ -316,10 +316,10 @@ function saveTemplateSource( $option, $client ) {
 	$filecontent 	= mosGetParam( $_POST, 'filecontent', '', _MOS_ALLOWHTML );
 
 	if ( !$template ) {
-		mosRedirect( 'index2.php?option='. $option .'&client='. $client, 'Операция неудачна: Не определен шаблон.' );
+		mosRedirect( 'index2.php?option='. $option .'&client='. $client, 'РћРїРµСЂР°С†РёСЏ РЅРµСѓРґР°С‡РЅР°: РќРµ РѕРїСЂРµРґРµР»РµРЅ С€Р°Р±Р»РѕРЅ.' );
 	}
 	if ( !$filecontent ) {
-		mosRedirect( 'index2.php?option='. $option .'&client='. $client, 'Операция неудачна: Пустое содержимое.' );
+		mosRedirect( 'index2.php?option='. $option .'&client='. $client, 'РћРїРµСЂР°С†РёСЏ РЅРµСѓРґР°С‡РЅР°: РџСѓСЃС‚РѕРµ СЃРѕРґРµСЂР¶РёРјРѕРµ.' );
 	}
 
 	if ( $client == 'admin' ) {
@@ -335,7 +335,7 @@ function saveTemplateSource( $option, $client ) {
 
 	clearstatcache();
 	if ( is_writable( $file ) == false ) {
-		mosRedirect( 'index2.php?option='. $option , 'Операция неудачна: '. $file .' недоступен для записи.' );
+		mosRedirect( 'index2.php?option='. $option , 'РћРїРµСЂР°С†РёСЏ РЅРµСѓРґР°С‡РЅР°: '. $file .' РЅРµРґРѕСЃС‚СѓРїРµРЅ РґР»СЏ Р·Р°РїРёСЃРё.' );
 	}
 
 	if ( $fp = fopen ($file, 'w' ) ) {
@@ -350,7 +350,7 @@ function saveTemplateSource( $option, $client ) {
 		mosRedirect( 'index2.php?option='. $option .'&client='. $client );
 	} else {
 		if ($enable_write) @chmod($file, $oldperms);
-		mosRedirect( 'index2.php?option='. $option .'&client='. $client, 'Операция неудачна: Ошибка открытия файла для записи.' );
+		mosRedirect( 'index2.php?option='. $option .'&client='. $client, 'РћРїРµСЂР°С†РёСЏ РЅРµСѓРґР°С‡РЅР°: РћС€РёР±РєР° РѕС‚РєСЂС‹С‚РёСЏ С„Р°Р№Р»Р° РґР»СЏ Р·Р°РїРёСЃРё.' );
 	}
 
 }
@@ -370,7 +370,7 @@ function editTemplateCSS( $p_tname, $option, $client ) {
 
 		HTML_templates::editCSSSource( $p_tname, $content, $option, $client );
 	} else {
-		mosRedirect( 'index2.php?option='. $option .'&client='. $client, 'Операция неудачна: невозможно открыть '. $file );
+		mosRedirect( 'index2.php?option='. $option .'&client='. $client, 'РћРїРµСЂР°С†РёСЏ РЅРµСѓРґР°С‡РЅР°: РЅРµРІРѕР·РјРѕР¶РЅРѕ РѕС‚РєСЂС‹С‚СЊ '. $file );
 	}
 }
 
@@ -382,11 +382,11 @@ function saveTemplateCSS( $option, $client ) {
 	$filecontent = mosGetParam( $_POST, 'filecontent', '', _MOS_ALLOWHTML );
 
 	if ( !$template ) {
-		mosRedirect( 'index2.php?option='. $option .'&client='. $client, 'Операция неудачна: Не определен шаблон.' );
+		mosRedirect( 'index2.php?option='. $option .'&client='. $client, 'РћРїРµСЂР°С†РёСЏ РЅРµСѓРґР°С‡РЅР°: РќРµ РѕРїСЂРµРґРµР»РµРЅ С€Р°Р±Р»РѕРЅ.' );
 	}
 
 	if ( !$filecontent ) {
-		mosRedirect( 'index2.php?option='. $option .'&client='. $client, 'Операция неудачна: Пустое содержимое.' );
+		mosRedirect( 'index2.php?option='. $option .'&client='. $client, 'РћРїРµСЂР°С†РёСЏ РЅРµСѓРґР°С‡РЅР°: РџСѓСЃС‚РѕРµ СЃРѕРґРµСЂР¶РёРјРѕРµ.' );
 	}
 
 	if ( $client == 'admin' ) {
@@ -404,7 +404,7 @@ function saveTemplateCSS( $option, $client ) {
 
 	clearstatcache();
 	if ( is_writable( $file ) == false ) {
-		mosRedirect( 'index2.php?option='. $option .'&client='. $client, 'Операция неудачна: Файл недоступен для записи.' );
+		mosRedirect( 'index2.php?option='. $option .'&client='. $client, 'РћРїРµСЂР°С†РёСЏ РЅРµСѓРґР°С‡РЅР°: Р¤Р°Р№Р» РЅРµРґРѕСЃС‚СѓРїРµРЅ РґР»СЏ Р·Р°РїРёСЃРё.' );
 	}
 
 	if ($fp = fopen ($file, 'w')) {
@@ -419,7 +419,7 @@ function saveTemplateCSS( $option, $client ) {
 		mosRedirect( 'index2.php?option='. $option );
 	} else {
 		if ($enable_write) @chmod($file, $oldperms);
-		mosRedirect( 'index2.php?option='. $option .'&client='. $client, 'Операция неудачна: Ошибка открытия файла для записи.' );
+		mosRedirect( 'index2.php?option='. $option .'&client='. $client, 'РћРїРµСЂР°С†РёСЏ РЅРµСѓРґР°С‡РЅР°: РћС€РёР±РєР° РѕС‚РєСЂС‹С‚РёСЏ С„Р°Р№Р»Р° РґР»СЏ Р·Р°РїРёСЃРё.' );
 	}
 
 }
@@ -529,6 +529,6 @@ function savePositions( $option ) {
 			$database->query();
 		}
 	}
-	mosRedirect( 'index2.php?option='. $option .'&task=positions', 'Позиции сохранены' );
+	mosRedirect( 'index2.php?option='. $option .'&task=positions', 'РџРѕР·РёС†РёРё СЃРѕС…СЂР°РЅРµРЅС‹' );
 }
 ?>

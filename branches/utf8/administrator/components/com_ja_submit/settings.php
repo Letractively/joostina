@@ -23,6 +23,6 @@ $H_maxsize = "1000000";
 $H_securityimage = "";
 $H_language ="russian.php";
 $H_avaiCategories ="3,1,7";
-$H_auto_approve_groups ="Îáùèé";
+$H_auto_approve_groups ="ÐžÐ±Ñ‰Ð¸Ð¹";
 $H_auto_approve_categories ="3,1,7";
 ?>

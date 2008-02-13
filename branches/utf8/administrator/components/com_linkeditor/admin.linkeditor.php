@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 if (file_exists($mosConfig_absolute_path."/administrator/components/com_linkeditor/language/".$mosConfig_lang.".php")){
 	    include($mosConfig_absolute_path."/administrator/components/com_linkeditor/language/".$mosConfig_lang.".php");
@@ -77,7 +77,7 @@ function deleteLink( &$cid ) {
 		}
 	}
 
-	mosRedirect( 'index2.php?option=com_linkeditor&amp;task=all', 'Пункт меню удалён' );
+	mosRedirect( 'index2.php?option=com_linkeditor&amp;task=all', 'РџСѓРЅРєС‚ РјРµРЅСЋ СѓРґР°Р»С‘РЅ' );
 
 }
 function saveOrder( &$cid ) {
@@ -115,7 +115,7 @@ function saveOrder( &$cid ) {
 		$row->updateOrder( $cond[1] );
 	} // foreach
 
-	$msg 	= 'Порядок сохранён';
+	$msg 	= 'РџРѕСЂСЏРґРѕРє СЃРѕС…СЂР°РЅС‘РЅ';
 	mosRedirect( 'index2.php?option=com_linkeditor', $msg );
 } // saveOrder
 
@@ -130,7 +130,7 @@ function editLink( $id=0 ) {
 	$folders 	= array();
 	$folders[] 	= mosHTML::makeOption( '/' );
 
-	$images['/'][] = mosHTML::makeOption( 'spacer.png','Отсутствует' );
+	$images['/'][] = mosHTML::makeOption( 'spacer.png','РћС‚СЃСѓС‚СЃС‚РІСѓРµС‚' );
 	ReadImages( $pathA, '/', $folders, $images );
 
 	$lists['image']	= GetImages( $images, $pathL, $row );
@@ -283,13 +283,13 @@ function credits() {
 				<table width="100%" border="0" align="center" cellpadding="2" cellspacing="0">
 				<tr>
 					<td align="center">
-					<b>Версия <?php echo $version; ?></b>
+					<b>Р’РµСЂСЃРёСЏ <?php echo $version; ?></b>
 					</td>
 				</tr>
 				<tr>
 					<td align="center">
 					<b>
-					Авторы
+					РђРІС‚РѕСЂС‹
 					</b>
 					<br /><br />
 					</td>
@@ -298,7 +298,7 @@ function credits() {
 <script type="text/javascript">
 
 /***********************************************
-* Pausing updown message scroller- © Dynamic Drive DHTML code library (www.dynamicdrive.com)
+* Pausing updown message scroller- В© Dynamic Drive DHTML code library (www.dynamicdrive.com)
 * This notice MUST stay intact for legal use
 * Visit Dynamic Drive at http://www.dynamicdrive.com/ for full source code
 ***********************************************/
@@ -313,10 +313,10 @@ var scrollerbackground='scrollerback.gif'
 
 //configure the below variable to change the contents of the scroller
 var messages=new Array()
-messages[0]="<b>Главный кодер</b><br><br>Soner (pisdoktor) Ekici<br><a href='http://www.joomlaturkiye.org' target='_blank'>Joomla! Turkiye Support Site</a>"
-messages[1]="<b>Контакты</b><br><br><a href='mailto:pisdoktor@joomlaturkiye.org'>pisdoktor@joomlaturkiye.org</a>"
-messages[2]="<b>Домашний адрес</b><br><br><a href='http://www.sonerekici.com' target='_blank'>www.sonerekici.com</a>"
-messages[3]="<b>Локализация: boston</b><br><br><a href='http://www.joom.ru' target='_blank'>www.joom.ru - русский дом Joomla!</a>"
+messages[0]="<b>Р“Р»Р°РІРЅС‹Р№ РєРѕРґРµСЂ</b><br><br>Soner (pisdoktor) Ekici<br><a href='http://www.joomlaturkiye.org' target='_blank'>Joomla! Turkiye Support Site</a>"
+messages[1]="<b>РљРѕРЅС‚Р°РєС‚С‹</b><br><br><a href='mailto:pisdoktor@joomlaturkiye.org'>pisdoktor@joomlaturkiye.org</a>"
+messages[2]="<b>Р”РѕРјР°С€РЅРёР№ Р°РґСЂРµСЃ</b><br><br><a href='http://www.sonerekici.com' target='_blank'>www.sonerekici.com</a>"
+messages[3]="<b>Р›РѕРєР°Р»РёР·Р°С†РёСЏ: boston</b><br><br><a href='http://www.joom.ru' target='_blank'>www.joom.ru - СЂСѓСЃСЃРєРёР№ РґРѕРј Joomla!</a>"
 ///////Do not edit pass this line///////////////////////
 
 var ie=document.all

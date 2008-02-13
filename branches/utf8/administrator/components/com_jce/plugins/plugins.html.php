@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 /**
 * @package Joostina
@@ -21,15 +21,15 @@ defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
 class JCE_plugins {
     function AccessList(){
         $access_list = array(
-							mosHTML::makeOption( '','Выберите уровень доступа' ),
-							mosHTML::makeOption( '0','Гость' ),
-                    mosHTML::makeOption( '18','-Зарегистрированный' ),
-                    mosHTML::makeOption( '19','--Автор' ),
-                    mosHTML::makeOption( '20','---Редактор' ),
-                    mosHTML::makeOption( '21','----Издатель' ),
-                    mosHTML::makeOption( '23','-----Менеджер' ),
-                    mosHTML::makeOption( '24','------Администратор' ),
-                    mosHTML::makeOption( '25','-------Супер-Администратор' )
+							mosHTML::makeOption( '','Р’С‹Р±РµСЂРёС‚Рµ СѓСЂРѕРІРµРЅСЊ РґРѕСЃС‚СѓРїР°' ),
+							mosHTML::makeOption( '0','Р“РѕСЃС‚СЊ' ),
+                    mosHTML::makeOption( '18','-Р—Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅРЅС‹Р№' ),
+                    mosHTML::makeOption( '19','--РђРІС‚РѕСЂ' ),
+                    mosHTML::makeOption( '20','---Р РµРґР°РєС‚РѕСЂ' ),
+                    mosHTML::makeOption( '21','----РР·РґР°С‚РµР»СЊ' ),
+                    mosHTML::makeOption( '23','-----РњРµРЅРµРґР¶РµСЂ' ),
+                    mosHTML::makeOption( '24','------РђРґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂ' ),
+                    mosHTML::makeOption( '25','-------РЎСѓРїРµСЂ-РђРґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂ' )
         );
 
         $lists['access'] = mosHTML::selectList( $access_list, 'access', 'class="inputbox" size="1"', 'value', 'text' );
@@ -56,7 +56,7 @@ class JCE_plugins {
 		<table class="adminheading">
 		<tr>
 			<th class="modules">
-			<?php echo _JCE_PLUGIN_HEADING;?> <small><small>[ <?php echo $client == 'admin' ? 'Админцентр' : 'Сайт';?> ]</small></small>
+			<?php echo _JCE_PLUGIN_HEADING;?> <small><small>[ <?php echo $client == 'admin' ? 'РђРґРјРёРЅС†РµРЅС‚СЂ' : 'РЎР°Р№С‚';?> ]</small></small>
 			</th>
 			<td>
 			<?php echo _JCE_PLUGIN_FILTER;?>:
@@ -117,31 +117,31 @@ class JCE_plugins {
 			//$access 	= JCE_plugins::AccessProcessing( $row, $i );
 			$checked 	= mosCommonHTML::CheckedOutProcessing( $row, $i );
 			$published 	= mosCommonHTML::PublishedProcessing( $row, $i );
-			$core = ( $row->iscore == 1 ) ? 'Да' : 'Нет';
+			$core = ( $row->iscore == 1 ) ? 'Р”Р°' : 'РќРµС‚';
 			switch( $row->access ){
                 case '0':
-                    $access_value = 'Гость';
+                    $access_value = 'Р“РѕСЃС‚СЊ';
                 break;
 				case '18':
-                    $access_value = 'Зарегистрированный';
+                    $access_value = 'Р—Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅРЅС‹Р№';
                 break;
                 case '19':
-                    $access_value = 'Автор';
+                    $access_value = 'РђРІС‚РѕСЂ';
                 break;
                 case '20':
-                    $access_value = 'Редактор';
+                    $access_value = 'Р РµРґР°РєС‚РѕСЂ';
                 break;
                 case '21':
-                    $access_value = 'Издатель';
+                    $access_value = 'РР·РґР°С‚РµР»СЊ';
                 break;
                 case '23':
-                    $access_value = 'Менеджер';
+                    $access_value = 'РњРµРЅРµРґР¶РµСЂ';
                 break;
                 case '24':
-                    $access_value = 'Администратор';
+                    $access_value = 'РђРґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂ';
                 break;
                 case '25':
-                    $access_value = 'Супер-Администратор';
+                    $access_value = 'РЎСѓРїРµСЂ-РђРґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂ';
                 break;
             }
 			?>
@@ -377,7 +377,7 @@ class JCE_plugins {
 					if ( $row->id ) {
 						echo $params->render();
 					} else {
-						echo '<i>Нет параметров</i>';
+						echo '<i>РќРµС‚ РїР°СЂР°РјРµС‚СЂРѕРІ</i>';
 					}
 					?>
 					</td>

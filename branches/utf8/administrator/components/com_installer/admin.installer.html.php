@@ -1,24 +1,24 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 function writableCell( $folder ) {
 	echo '<tr>';
 	echo '<td class="item">' . $folder . '/</td>';
 	echo '<td align="left">';
-	echo is_writable( $GLOBALS['mosConfig_absolute_path'] . '/' . $folder ) ? '<b><font color="green">Доступен для записи</font></b>' : '<b><font color="red">Недоступен для записи</font></b>' . '</td>';
+	echo is_writable( $GLOBALS['mosConfig_absolute_path'] . '/' . $folder ) ? '<b><font color="green">Р”РѕСЃС‚СѓРїРµРЅ РґР»СЏ Р·Р°РїРёСЃРё</font></b>' : '<b><font color="red">РќРµРґРѕСЃС‚СѓРїРµРЅ РґР»СЏ Р·Р°РїРёСЃРё</font></b>' . '</td>';
 	echo '</tr>';
 }
 
@@ -35,7 +35,7 @@ class HTML_installer {
 
 			// do field validation
 			if (form.userfile.value == ""){
-				alert( "Пожалуйста, выберите каталог" );
+				alert( "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІС‹Р±РµСЂРёС‚Рµ РєР°С‚Р°Р»РѕРі" );
 			} else {
 				form.submit();
 			}
@@ -56,14 +56,14 @@ class HTML_installer {
 		<table class="adminform">
 		<tr>
 			<th>
-			Загрузка архива расширения с последующей установкой
+			Р—Р°РіСЂСѓР·РєР° Р°СЂС…РёРІР° СЂР°СЃС€РёСЂРµРЅРёСЏ СЃ РїРѕСЃР»РµРґСѓСЋС‰РµР№ СѓСЃС‚Р°РЅРѕРІРєРѕР№
 			</th>
 		</tr>
 		<tr>
 			<td align="left">
-			Файл пакета:
+			Р¤Р°Р№Р» РїР°РєРµС‚Р°:
 			<input class="text_area" name="userfile" type="file" size="100"/>
-			<input class="button" type="submit" value="Загрузить и установить" />
+			<input class="button" type="submit" value="Р—Р°РіСЂСѓР·РёС‚СЊ Рё СѓСЃС‚Р°РЅРѕРІРёС‚СЊ" />
 			</td>
 		</tr>
 		</table>
@@ -79,14 +79,14 @@ class HTML_installer {
 		<table class="adminform">
 		<tr>
 			<th>
-			Установка из каталога
+			РЈСЃС‚Р°РЅРѕРІРєР° РёР· РєР°С‚Р°Р»РѕРіР°
 			</th>
 		</tr>
 		<tr>
 			<td align="left">
-			Каталог установки:&nbsp;
+			РљР°С‚Р°Р»РѕРі СѓСЃС‚Р°РЅРѕРІРєРё:&nbsp;
 			<input type="text" name="userfile" class="text_area" size="93" value="<?php echo $p_startdir; ?>"/>&nbsp;
-			<input type="button" class="button" value="Установить" onclick="submitbutton3()" />
+			<input type="button" class="button" value="РЈСЃС‚Р°РЅРѕРІРёС‚СЊ" onclick="submitbutton3()" />
 			</td>
 		</tr>
 		</table>
@@ -124,7 +124,7 @@ class HTML_installer {
 		</tr>
 		<tr>
 			<td colspan="2" align="center">
-			[&nbsp;<a href="<?php echo $url;?>" style="font-size: 16px; font-weight: bold">Продолжить ...</a>&nbsp;]
+			[&nbsp;<a href="<?php echo $url;?>" style="font-size: 16px; font-weight: bold">РџСЂРѕРґРѕР»Р¶РёС‚СЊ ...</a>&nbsp;]
 			</td>
 		</tr>
 		</table>

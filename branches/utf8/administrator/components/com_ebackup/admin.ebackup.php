@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 // ensure user has access to this function
 if (!($acl->acl_check( 'administration', 'edit', 'users', $my->usertype, 'components', 'all' )| $acl->acl_check( 'administration', 'edit', 'users', $my->usertype, 'components', 'com_ebackup' ))){
@@ -34,7 +34,7 @@ if (file_exists($mosConfig_absolute_path.'/administrator/components/com_ebackup/
 if (file_exists($mosConfig_absolute_path.'/administrator/components/com_ebackup/config.ebackup.php')) {
   include($mosConfig_absolute_path.'/administrator/components/com_ebackup/config.ebackup.php');
 } else {
-  die ("Файл настроек не обнаружен (".$mosConfig_absolute_path."/administrator/components/com_ebackup/config.ebackup.php)");
+  die ("Р¤Р°Р№Р» РЅР°СЃС‚СЂРѕРµРє РЅРµ РѕР±РЅР°СЂСѓР¶РµРЅ (".$mosConfig_absolute_path."/administrator/components/com_ebackup/config.ebackup.php)");
 }
 
 if ($task<>'') {
@@ -314,7 +314,7 @@ switch ($func) {
        fputs($fp, $configtxt, strlen($configtxt));
        fclose ($fp);
     }
-    $mosmsg = "Настройки сохранены!";
+    $mosmsg = "РќР°СЃС‚СЂРѕР№РєРё СЃРѕС…СЂР°РЅРµРЅС‹!";
     mosRedirect("index2.php?option=$option&task=viewSetup",$mosmsg);
   }
 
@@ -326,19 +326,19 @@ switch ($func) {
        switch ($func) {
              case 'doCheck':
                   $sql   = "CHECK TABLE ";
-                  $title = "Результаты проверки";
+                  $title = "Р РµР·СѓР»СЊС‚Р°С‚С‹ РїСЂРѕРІРµСЂРєРё";
                   break;
              case 'doAnalyze':
                   $sql   = "ANALYZE TABLE ";
-                  $title = "Результаты анализа";
+                  $title = "Р РµР·СѓР»СЊС‚Р°С‚С‹ Р°РЅР°Р»РёР·Р°";
                   break;
              case 'doOptimize':
                   $sql   = "OPTIMIZE TABLE ";
-                  $title = "Результаты оптимизации";
+                  $title = "Р РµР·СѓР»СЊС‚Р°С‚С‹ РѕРїС‚РёРјРёР·Р°С†РёРё";
                   break;
              case 'doRepair':
                   $sql   = "REPAIR TABLE ";
-                  $title = "Результаты исправления";
+                  $title = "Р РµР·СѓР»СЊС‚Р°С‚С‹ РёСЃРїСЂР°РІР»РµРЅРёСЏ";
                   break;
        }
        foreach ($tables as $table){
@@ -452,7 +452,7 @@ switch ($func) {
        $backup_stat  = number_format(($tend - $tstart), 5, ',', '.')." "._BBKP_SECONDS;
        //function mosMail( $from, $fromname, $recipient, $subject, $body, $mode=0, $cc=NULL, $bcc=NULL, $attachment=NULL, $replyto=NULL, $replytoname=NULL ) {
        if (($email != "") && ($gzip)) {
-           if (!$can_send = mosMail( mosConfig_mailfrom, $mosConfig_fromname, $email, "Бэкап ".$mosConfig_sitename, $body, true, NULL, NULL, $attachement, "", "")) echo "Отправлено";
+           if (!$can_send = mosMail( mosConfig_mailfrom, $mosConfig_fromname, $email, "Р‘СЌРєР°Рї ".$mosConfig_sitename, $body, true, NULL, NULL, $attachement, "", "")) echo "РћС‚РїСЂР°РІР»РµРЅРѕ";
        }
        HTML_eBackup::showResults($bkp_filesize, $sql_file, $backup_stat, count($tables));
     }

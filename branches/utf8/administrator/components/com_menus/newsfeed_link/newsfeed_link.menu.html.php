@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 /**
 * Disaply newsfeed item link
@@ -35,9 +35,9 @@ class newsfeed_link_menu_html {
 
 			// do field validation
 			if (trim(form.name.value) == ""){
-				alert( "Ссылка должна иметь название" );
+				alert( "РЎСЃС‹Р»РєР° РґРѕР»Р¶РЅР° РёРјРµС‚СЊ РЅР°Р·РІР°РЅРёРµ" );
 			} else if (trim(form.newsfeed_link.value) == ""){
-				alert( "Вы должны выбрать ленту новостей для связи с пунктом меню" );
+				alert( "Р’С‹ РґРѕР»Р¶РЅС‹ РІС‹Р±СЂР°С‚СЊ Р»РµРЅС‚Сѓ РЅРѕРІРѕСЃС‚РµР№ РґР»СЏ СЃРІСЏР·Рё СЃ РїСѓРЅРєС‚РѕРј РјРµРЅСЋ" );
 			} else {
 				form.link.value = "index.php?option=com_newsfeeds&task=view&feedid=" + form.newsfeed_link.value;
 				form.componentid.value = form.newsfeed_link.value;
@@ -50,7 +50,7 @@ class newsfeed_link_menu_html {
 		<table class="adminheading">
 		<tr>
 			<th class="menus">
-			<?php echo $menu->id ? 'Изменение -' : 'Добавление -';?> Пункт меню :: Ссылка - Лента новостей
+			<?php echo $menu->id ? 'РР·РјРµРЅРµРЅРёРµ -' : 'Р”РѕР±Р°РІР»РµРЅРёРµ -';?> РџСѓРЅРєС‚ РјРµРЅСЋ :: РЎСЃС‹Р»РєР° - Р›РµРЅС‚Р° РЅРѕРІРѕСЃС‚РµР№
 			</th>
 		</tr>
 		</table>
@@ -61,12 +61,12 @@ class newsfeed_link_menu_html {
 				<table class="adminform">
 				<tr>
 					<th colspan="2">
-					Детали
+					Р”РµС‚Р°Р»Рё
 					</th>
 				</tr>
 				<tr>
 					<td width="10%" align="right">
-					Название:
+					РќР°Р·РІР°РЅРёРµ:
 					</td>
 					<td width="70%">
 					<input class="inputbox" type="text" name="name" size="50" maxlength="100" value="<?php echo htmlspecialchars( $menu->name, ENT_QUOTES ); ?>" />
@@ -74,7 +74,7 @@ class newsfeed_link_menu_html {
 				</tr>
 				<tr>
 					<td width="10%" align="right" valign="top">
-					title ссылки:
+					title СЃСЃС‹Р»РєРё:
 					</td>
 					<td width="80%">
 						<input class="inputbox" type="text" name="params[title]" size="50" maxlength="100" value="<?php echo htmlspecialchars( $params->get('title',''), ENT_QUOTES ); ?>" />
@@ -82,7 +82,7 @@ class newsfeed_link_menu_html {
 				</tr>
 				<tr>
 					<td width="20%" align="right" valign="top">
-					Связано с лентой:
+					РЎРІСЏР·Р°РЅРѕ СЃ Р»РµРЅС‚РѕР№:
 					</td>
 					<td width="70%">
 					<?php echo $lists['newsfeed']; ?>
@@ -96,7 +96,7 @@ class newsfeed_link_menu_html {
 				</tr>
 				<tr>
 					<td width="20%" align="right" valign="top">
-					При нажатии открыть в ...
+					РџСЂРё РЅР°Р¶Р°С‚РёРё РѕС‚РєСЂС‹С‚СЊ РІ ...
 					</td>
 					<td width="70%">
 					<?php echo $lists['target']; ?>
@@ -104,7 +104,7 @@ class newsfeed_link_menu_html {
 				</tr>
 				<tr>
 					<td align="right">
-					Родительский пункт меню:
+					Р РѕРґРёС‚РµР»СЊСЃРєРёР№ РїСѓРЅРєС‚ РјРµРЅСЋ:
 					</td>
 					<td>
 					<?php echo $lists['parent']; ?>
@@ -112,7 +112,7 @@ class newsfeed_link_menu_html {
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					Порядок расположения:
+					РџРѕСЂСЏРґРѕРє СЂР°СЃРїРѕР»РѕР¶РµРЅРёСЏ:
 					</td>
 					<td>
 					<?php echo $lists['ordering']; ?>
@@ -120,14 +120,14 @@ class newsfeed_link_menu_html {
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					Уровень доступа:
+					РЈСЂРѕРІРµРЅСЊ РґРѕСЃС‚СѓРїР°:
 					</td>
 					<td>
 					<?php echo $lists['access']; ?>
 					</td>
 				</tr>
 				<tr>
-					<td valign="top" align="right">Опубликовано:</td>
+					<td valign="top" align="right">РћРїСѓР±Р»РёРєРѕРІР°РЅРѕ:</td>
 					<td>
 					<?php echo $lists['published']; ?>
 					</td>
@@ -141,7 +141,7 @@ class newsfeed_link_menu_html {
 				<table class="adminform">
 				<tr>
 					<th>
-					Параметры
+					РџР°СЂР°РјРµС‚СЂС‹
 					</th>
 				</tr>
 				<tr>

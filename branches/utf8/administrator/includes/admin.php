@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 /**
 * @param string THe template position
@@ -144,7 +144,7 @@ function mosLoadCustomModule( &$module, &$params ) {
 	if ( $rssurl ) {
 		if (!is_writable( $cachePath )) {
 			echo '<tr>';
-			echo '<td>Пожалуйста, сделайте каталог кэша доступным для записи.</td>';
+			echo '<td>РџРѕР¶Р°Р»СѓР№СЃС‚Р°, СЃРґРµР»Р°Р№С‚Рµ РєР°С‚Р°Р»РѕРі РєСЌС€Р° РґРѕСЃС‚СѓРїРЅС‹Рј РґР»СЏ Р·Р°РїРёСЃРё.</td>';
 			echo '</tr>';
 		} else {
 			$LitePath = $mosConfig_absolute_path .'/includes/Cache/Lite.php';
@@ -216,7 +216,7 @@ function mosShowSource( $filename, $withLineNums=false ) {
 	ini_set('highlight.comment','#008000');
 
 	if (!($source = @highlight_file( $filename, true ))) {
-		return 'Операция невозможна';
+		return 'РћРїРµСЂР°С†РёСЏ РЅРµРІРѕР·РјРѕР¶РЅР°';
 	}
 	$source = explode("<br />", $source);
 
@@ -311,43 +311,43 @@ function mosMainBody_Admin() {
 	echo $GLOBALS['_MOS_OPTION']['buffer'];
 }
 
-// boston, кэширование меню администратора
+// boston, РєСЌС€РёСЂРѕРІР°РЅРёРµ РјРµРЅСЋ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР°
 function js_menu_cache($data,$usertype,$state=0){
 	global $mosConfig_absolute_path,$mosConfig_secret;
 	$menuname = md5($usertype.$mosConfig_secret);
 	$file = $mosConfig_absolute_path."/cache/adm_menu_".$menuname.".js";
-	if ( !file_exists($file)){ // файла нету
-		if($state==1) return false; // файла у нас не было и получен сигнал 0 - продолжаем вызывающую функцию, а отсюда выходим
+	if ( !file_exists($file)){ // С„Р°Р№Р»Р° РЅРµС‚Сѓ
+		if($state==1) return false; // С„Р°Р№Р»Р° Сѓ РЅР°СЃ РЅРµ Р±С‹Р»Рѕ Рё РїРѕР»СѓС‡РµРЅ СЃРёРіРЅР°Р» 0 - РїСЂРѕРґРѕР»Р¶Р°РµРј РІС‹Р·С‹РІР°СЋС‰СѓСЋ С„СѓРЅРєС†РёСЋ, Р° РѕС‚СЃСЋРґР° РІС‹С…РѕРґРёРј
 		touch ($file);
 		$handle = fopen ($file, 'w');
 		fwrite ($handle, $data);
 		fclose ($handle);
-		return true; // файла не было - но был создан заново
+		return true; // С„Р°Р№Р»Р° РЅРµ Р±С‹Р»Рѕ - РЅРѕ Р±С‹Р» СЃРѕР·РґР°РЅ Р·Р°РЅРѕРІРѕ
 	}else{
-		return true; // файл уже был, просто завершаем функцию
+		return true; // С„Р°Р№Р» СѓР¶Рµ Р±С‹Р», РїСЂРѕСЃС‚Рѕ Р·Р°РІРµСЂС€Р°РµРј С„СѓРЅРєС†РёСЋ
 	}
 }
 /*
- * Добавлено в версии 1.0.11
+ * Р”РѕР±Р°РІР»РµРЅРѕ РІ РІРµСЂСЃРёРё 1.0.11
  */
 function josSecurityCheck($width='95%') {		
 	$wrongSettingsTexts = array();
 	
 	if ( ini_get('magic_quotes_gpc') != '1' ) {
-		$wrongSettingsTexts[] = 'PHP magic_quotes_gpc установлено в `OFF` вместо `ON`';
+		$wrongSettingsTexts[] = 'PHP magic_quotes_gpc СѓСЃС‚Р°РЅРѕРІР»РµРЅРѕ РІ `OFF` РІРјРµСЃС‚Рѕ `ON`';
 	}
 	if ( ini_get('register_globals') == '1' ) {
-		$wrongSettingsTexts[] = 'PHP register_globals установлено в `ON` вместо `OFF`';
+		$wrongSettingsTexts[] = 'PHP register_globals СѓСЃС‚Р°РЅРѕРІР»РµРЅРѕ РІ `ON` РІРјРµСЃС‚Рѕ `OFF`';
 	}
 	if ( RG_EMULATION != 0 ) {
-		$wrongSettingsTexts[] = 'Параметр Joomla! RG_EMULATION в файле globals.php установлен в `ON` вместо `OFF`<br /><span style="font-weight: normal; font-style: italic; color: #666;">`ON` - параметр по умолчанию - для совместимости</span>';
+		$wrongSettingsTexts[] = 'РџР°СЂР°РјРµС‚СЂ Joomla! RG_EMULATION РІ С„Р°Р№Р»Рµ globals.php СѓСЃС‚Р°РЅРѕРІР»РµРЅ РІ `ON` РІРјРµСЃС‚Рѕ `OFF`<br /><span style="font-weight: normal; font-style: italic; color: #666;">`ON` - РїР°СЂР°РјРµС‚СЂ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ - РґР»СЏ СЃРѕРІРјРµСЃС‚РёРјРѕСЃС‚Рё</span>';
 	}	
 	
 	if ( count($wrongSettingsTexts) ) {
 		?>
 		<div style="clear: both; margin: 3px; margin-top: 10px; padding: 5px 15px; display: block; float: left; border: 1px solid #cc0000; background: #ffffcc; text-align: left; width: <?php echo $width;?>;">
 			<p style="color: #CC0000;">
-				Следующие настройки PHP не являются оптимальными для <strong>БЕЗОПАСНОСТИ</strong> и их рекомендуется изменить:
+				РЎР»РµРґСѓСЋС‰РёРµ РЅР°СЃС‚СЂРѕР№РєРё PHP РЅРµ СЏРІР»СЏСЋС‚СЃСЏ РѕРїС‚РёРјР°Р»СЊРЅС‹РјРё РґР»СЏ <strong>Р‘Р•Р—РћРџРђРЎРќРћРЎРўР</strong> Рё РёС… СЂРµРєРѕРјРµРЅРґСѓРµС‚СЃСЏ РёР·РјРµРЅРёС‚СЊ:
 			</p>
 			<ul style="margin: 0px; padding: 0px; padding-left: 15px; list-style: none;" >
 				<?php
@@ -363,14 +363,14 @@ function josSecurityCheck($width='95%') {
 				?>
 			</ul>
 			<p style="color: #666;">
-				Пожалуйста, проверьте <a href="http://www.joostina.ru/security10" target="_blank" style="color: blue; text-decoration: underline">сообщения о Безопасности на официальном сервере Joomla!</a> на наличие дополнительной информации.
+				РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РїСЂРѕРІРµСЂСЊС‚Рµ <a href="http://www.joostina.ru/security10" target="_blank" style="color: blue; text-decoration: underline">СЃРѕРѕР±С‰РµРЅРёСЏ Рѕ Р‘РµР·РѕРїР°СЃРЅРѕСЃС‚Рё РЅР° РѕС„РёС†РёР°Р»СЊРЅРѕРј СЃРµСЂРІРµСЂРµ Joomla!</a> РЅР° РЅР°Р»РёС‡РёРµ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅРѕР№ РёРЅС„РѕСЂРјР°С†РёРё.
 			</p>
 		</div>
 		<?php
 	}
 }
 
-//boston, удаление кэша меню панели управления
+//boston, СѓРґР°Р»РµРЅРёРµ РєСЌС€Р° РјРµРЅСЋ РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ
 function js_menu_cache_clear(){
 	global $mosConfig_absolute_path,$my,$mosConfig_secret,$mosConfig_adm_menu_cache;
 	if(!$mosConfig_adm_menu_cache) return;
@@ -379,16 +379,16 @@ function js_menu_cache_clear(){
 	$file = $mosConfig_absolute_path."/cache/adm_menu_".$menuname .".js";
 	if (file_exists($file)){
 		if(unlink($file))
-			echo joost_info('Кэш меню панели управления очищен.');
+			echo joost_info('РљСЌС€ РјРµРЅСЋ РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ РѕС‡РёС‰РµРЅ.');
 		else
-			echo joost_info('Ошибка очистки кэша меню панели управления.');
+			echo joost_info('РћС€РёР±РєР° РѕС‡РёСЃС‚РєРё РєСЌС€Р° РјРµРЅСЋ РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ.');
 	}else{
-		echo joost_info('Кэш меню панели управления не обнаружен. Проверьте права доступа на каталог кэша.');
+		echo joost_info('РљСЌС€ РјРµРЅСЋ РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ РЅРµ РѕР±РЅР°СЂСѓР¶РµРЅ. РџСЂРѕРІРµСЂСЊС‚Рµ РїСЂР°РІР° РґРѕСЃС‚СѓРїР° РЅР° РєР°С‚Р°Р»РѕРі РєСЌС€Р°.');
 	}
 }
 
 
-/* joostina+, вывод информационного поля */
+/* joostina+, РІС‹РІРѕРґ РёРЅС„РѕСЂРјР°С†РёРѕРЅРЅРѕРіРѕ РїРѕР»СЏ */
 function joost_info($msg){
 	return '<div class="joost_info">'.$msg.'</div>';
 }

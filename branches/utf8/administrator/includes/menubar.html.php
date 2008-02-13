@@ -1,17 +1,17 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 class mosMenuBar {
 
@@ -26,9 +26,9 @@ class mosMenuBar {
 	}
 
 	/**
-	* Создание произвольных кнопок тулбара с параметром в виде ссылки
+	* РЎРѕР·РґР°РЅРёРµ РїСЂРѕРёР·РІРѕР»СЊРЅС‹С… РєРЅРѕРїРѕРє С‚СѓР»Р±Р°СЂР° СЃ РїР°СЂР°РјРµС‚СЂРѕРј РІ РІРёРґРµ СЃСЃС‹Р»РєРё
 	*/
-	function ext( $alt='Кнопка', $href='',$class='' ) {
+	function ext( $alt='РљРЅРѕРїРєР°', $href='',$class='' ) {
 		?>
 		<li>
 			<a class="tb-ext<?php echo $class;?>" href="<?php echo $href; ?>"><span><?php echo $alt;?></span></a>
@@ -46,7 +46,7 @@ class mosMenuBar {
 	*/
 	function custom( $task='', $icon='', $iconOver='', $alt='', $listSelect=true ) {
 		if ($listSelect) {
-			$href = "javascript:if (document.adminForm.boxchecked.value == 0){ alert('Пожалуйста, сделайте выбор из списка для $alt');}else{submitbutton('$task')}";
+			$href = "javascript:if (document.adminForm.boxchecked.value == 0){ alert('РџРѕР¶Р°Р»СѓР№СЃС‚Р°, СЃРґРµР»Р°Р№С‚Рµ РІС‹Р±РѕСЂ РёР· СЃРїРёСЃРєР° РґР»СЏ $alt');}else{submitbutton('$task')}";
 		} else {
 			$href = "javascript:submitbutton('$task')";
 		}
@@ -68,7 +68,7 @@ class mosMenuBar {
 	*/
 	function customX( $task='', $class='', $iconOver='', $alt='', $listSelect=true ) {
 		if ($listSelect) {
-			$href = "javascript:if (document.adminForm.boxchecked.value == 0){ alert('Пожалуйста, сделайте выбор из списка $alt');}else{hideMainMenu();submitbutton('$task')}";
+			$href = "javascript:if (document.adminForm.boxchecked.value == 0){ alert('РџРѕР¶Р°Р»СѓР№СЃС‚Р°, СЃРґРµР»Р°Р№С‚Рµ РІС‹Р±РѕСЂ РёР· СЃРїРёСЃРєР° $alt');}else{hideMainMenu();submitbutton('$task')}";
 		} else {
 			$href = "javascript:hideMainMenu();submitbutton('$task')";
 		}
@@ -84,7 +84,7 @@ class mosMenuBar {
 	* @param string An override for the task
 	* @param string An override for the alt text
 	*/
-	function addNew( $task='new', $alt='Создать' ) {
+	function addNew( $task='new', $alt='РЎРѕР·РґР°С‚СЊ' ) {
 		?>
 		<li>
 			<a class="tb-add-new" href="javascript:submitbutton('<?php echo $task;?>');"><span><?php echo $alt; ?></span></a></li>
@@ -97,7 +97,7 @@ class mosMenuBar {
 	* @param string An override for the task
 	* @param string An override for the alt text
 	*/
-	function addNewX( $task='new', $alt='Создать' ) {
+	function addNewX( $task='new', $alt='РЎРѕР·РґР°С‚СЊ' ) {
 		?>
 		<li>
 			<a class="tb-add-new-x" href="javascript:hideMainMenu();submitbutton('<?php echo $task;?>');"><span><?php echo $alt; ?></span></a>
@@ -110,7 +110,7 @@ class mosMenuBar {
 	* @param string An override for the task
 	* @param string An override for the alt text
 	*/
-	function publish( $task='publish', $alt='Показать' ) {
+	function publish( $task='publish', $alt='РџРѕРєР°Р·Р°С‚СЊ' ) {
 		?>
 		<li>
 			<a class="tb-publish" href="javascript:submitbutton('<?php echo $task;?>');"><span><?php echo $alt; ?></span></a></li>
@@ -122,10 +122,10 @@ class mosMenuBar {
 	* @param string An override for the task
 	* @param string An override for the alt text
 	*/
-	function publishList( $task='publish', $alt='Показать' ) {
+	function publishList( $task='publish', $alt='РџРѕРєР°Р·Р°С‚СЊ' ) {
 		?>
 		<li>
-			<a class="tb-publish-list" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Пожалуйста, выберите из списка объекты для их публикации на сайте'); } else {submitbutton('<?php echo $task;?>', '');}"><span><?php echo $alt; ?></span></a>
+			<a class="tb-publish-list" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІС‹Р±РµСЂРёС‚Рµ РёР· СЃРїРёСЃРєР° РѕР±СЉРµРєС‚С‹ РґР»СЏ РёС… РїСѓР±Р»РёРєР°С†РёРё РЅР° СЃР°Р№С‚Рµ'); } else {submitbutton('<?php echo $task;?>', '');}"><span><?php echo $alt; ?></span></a>
 		</li>
 		<?php
 	}
@@ -135,10 +135,10 @@ class mosMenuBar {
 	* @param string An override for the task
 	* @param string An override for the alt text
 	*/
-	function makeDefault( $task='default', $alt='По умолчанию' ) {
+	function makeDefault( $task='default', $alt='РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ' ) {
 		?>
 		<li>
-			<a class="tb-makedefault" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Пожалуйста, выберите объект, чтобы назначить его по умолчанию'); } else {submitbutton('<?php echo $task;?>', '');}"><span><?php echo $alt; ?></span></a>
+			<a class="tb-makedefault" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІС‹Р±РµСЂРёС‚Рµ РѕР±СЉРµРєС‚, С‡С‚РѕР±С‹ РЅР°Р·РЅР°С‡РёС‚СЊ РµРіРѕ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ'); } else {submitbutton('<?php echo $task;?>', '');}"><span><?php echo $alt; ?></span></a>
 		</li>
 		<?php
 	}
@@ -148,10 +148,10 @@ class mosMenuBar {
 	* @param string An override for the task
 	* @param string An override for the alt text
 	*/
-	function assign( $task='assign', $alt='Назначить' ) {
+	function assign( $task='assign', $alt='РќР°Р·РЅР°С‡РёС‚СЊ' ) {
 		?>
 		<li>
-			<a class="tb-assign" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Пожалуйста, для назначения объекта выберите его'); } else {submitbutton('<?php echo $task;?>', '');}"><span><?php echo $alt; ?></span></a>
+			<a class="tb-assign" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РґР»СЏ РЅР°Р·РЅР°С‡РµРЅРёСЏ РѕР±СЉРµРєС‚Р° РІС‹Р±РµСЂРёС‚Рµ РµРіРѕ'); } else {submitbutton('<?php echo $task;?>', '');}"><span><?php echo $alt; ?></span></a>
 		</li>
 		<?php
 	}
@@ -161,7 +161,7 @@ class mosMenuBar {
 	* @param string An override for the task
 	* @param string An override for the alt text
 	*/
-	function unpublish( $task='unpublish', $alt='Скрыть' ) {
+	function unpublish( $task='unpublish', $alt='РЎРєСЂС‹С‚СЊ' ) {
 		?>
 		<li>
 			<a class="tb-unpublish" href="javascript:submitbutton('<?php echo $task;?>');"><span><?php echo $alt; ?></span></a>
@@ -174,10 +174,10 @@ class mosMenuBar {
 	* @param string An override for the task
 	* @param string An override for the alt text
 	*/
-	function unpublishList( $task='unpublish', $alt='Скрыть' ) {
+	function unpublishList( $task='unpublish', $alt='РЎРєСЂС‹С‚СЊ' ) {
 		?>
 		<li>
-			<a class="tb-unpublish-list" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Для отмены публикации объекта, сначала выберите его'); } else {submitbutton('<?php echo $task;?>', '');}"><span><?php echo $alt; ?></span></a>
+			<a class="tb-unpublish-list" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Р”Р»СЏ РѕС‚РјРµРЅС‹ РїСѓР±Р»РёРєР°С†РёРё РѕР±СЉРµРєС‚Р°, СЃРЅР°С‡Р°Р»Р° РІС‹Р±РµСЂРёС‚Рµ РµРіРѕ'); } else {submitbutton('<?php echo $task;?>', '');}"><span><?php echo $alt; ?></span></a>
 		</li>
 		<?php
 	}
@@ -187,10 +187,10 @@ class mosMenuBar {
 	* @param string An override for the task
 	* @param string An override for the alt text
 	*/
-	function archiveList( $task='archive', $alt='В&nbsp;архив' ) {
+	function archiveList( $task='archive', $alt='Р’&nbsp;Р°СЂС…РёРІ' ) {
 		?>
 		<li>
-			<a class="tb-archive-list" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Пожалуйста, выберите из списка объекты для их архивации'); } else {submitbutton('<?php echo $task;?>', '');}"><span><?php echo $alt; ?></span></a>
+			<a class="tb-archive-list" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІС‹Р±РµСЂРёС‚Рµ РёР· СЃРїРёСЃРєР° РѕР±СЉРµРєС‚С‹ РґР»СЏ РёС… Р°СЂС…РёРІР°С†РёРё'); } else {submitbutton('<?php echo $task;?>', '');}"><span><?php echo $alt; ?></span></a>
 		</li>
 		<?php
 	}
@@ -200,10 +200,10 @@ class mosMenuBar {
 	* @param string An override for the task
 	* @param string An override for the alt text
 	*/
-	function unarchiveList( $task='unarchive', $alt='Из&nbsp;архива' ) {
+	function unarchiveList( $task='unarchive', $alt='РР·&nbsp;Р°СЂС…РёРІР°' ) {
 		?>
 		<li>
-			<a class="unarchive-list" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Выберите объект для восстановления его из архива'); } else {submitbutton('<?php echo $task;?>', '');}"><span><?php echo $alt; ?></span></a>
+			<a class="unarchive-list" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Р’С‹Р±РµСЂРёС‚Рµ РѕР±СЉРµРєС‚ РґР»СЏ РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёСЏ РµРіРѕ РёР· Р°СЂС…РёРІР°'); } else {submitbutton('<?php echo $task;?>', '');}"><span><?php echo $alt; ?></span></a>
 		</li>
 		<?php
 	}
@@ -213,10 +213,10 @@ class mosMenuBar {
 	* @param string An override for the task
 	* @param string An override for the alt text
 	*/
-	function editList( $task='edit', $alt='Изменить' ) {
+	function editList( $task='edit', $alt='РР·РјРµРЅРёС‚СЊ' ) {
 		?>
 		<li>
-			<a class="edit-list" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Выберите объект из списка для его редактирования'); } else {submitbutton('<?php echo $task;?>', '');}"><span><?php echo $alt; ?></span></a>
+			<a class="edit-list" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Р’С‹Р±РµСЂРёС‚Рµ РѕР±СЉРµРєС‚ РёР· СЃРїРёСЃРєР° РґР»СЏ РµРіРѕ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ'); } else {submitbutton('<?php echo $task;?>', '');}"><span><?php echo $alt; ?></span></a>
 		</li>
 		<?php
 	}
@@ -227,10 +227,10 @@ class mosMenuBar {
 	* @param string An override for the task
 	* @param string An override for the alt text
 	*/
-	function editListX( $task='edit', $alt='Изменить' ) {
+	function editListX( $task='edit', $alt='РР·РјРµРЅРёС‚СЊ' ) {
 		?>
 		<li>
-			<a class="tb-edit-list-x" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Выберите объект из списка для его редактирования'); } else {hideMainMenu();submitbutton('<?php echo $task;?>', '');}"><span><?php echo $alt; ?></span></a>
+			<a class="tb-edit-list-x" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Р’С‹Р±РµСЂРёС‚Рµ РѕР±СЉРµРєС‚ РёР· СЃРїРёСЃРєР° РґР»СЏ РµРіРѕ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ'); } else {hideMainMenu();submitbutton('<?php echo $task;?>', '');}"><span><?php echo $alt; ?></span></a>
 		</li>
 		<?php
 	}
@@ -240,10 +240,10 @@ class mosMenuBar {
 	* @param string An override for the task
 	* @param string An override for the alt text
 	*/
-	function editHtml( $task='edit_source', $alt='Ред.&nbsp;HTML' ) {
+	function editHtml( $task='edit_source', $alt='Р РµРґ.&nbsp;HTML' ) {
 		?>
 		<li>
-			<a class="tb-edit-html" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Выберите объект из списка для его редактирования'); } else {submitbutton('<?php echo $task;?>', '');}"><span><?php echo $alt; ?></span></a>
+			<a class="tb-edit-html" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Р’С‹Р±РµСЂРёС‚Рµ РѕР±СЉРµРєС‚ РёР· СЃРїРёСЃРєР° РґР»СЏ РµРіРѕ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ'); } else {submitbutton('<?php echo $task;?>', '');}"><span><?php echo $alt; ?></span></a>
 		</li>
 		<?php
 	}
@@ -254,10 +254,10 @@ class mosMenuBar {
 	* @param string An override for the task
 	* @param string An override for the alt text
 	*/
-	function editHtmlX( $task='edit_source', $alt='Ред.&nbsp;HTML' ) {
+	function editHtmlX( $task='edit_source', $alt='Р РµРґ.&nbsp;HTML' ) {
 		?>
 		<li>
-			<a class="tb-edit-html-x" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Выберите объект из списка для его редактирования'); } else {hideMainMenu();submitbutton('<?php echo $task;?>', '');}""><span><?php echo $alt; ?></span></a>
+			<a class="tb-edit-html-x" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Р’С‹Р±РµСЂРёС‚Рµ РѕР±СЉРµРєС‚ РёР· СЃРїРёСЃРєР° РґР»СЏ РµРіРѕ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ'); } else {hideMainMenu();submitbutton('<?php echo $task;?>', '');}""><span><?php echo $alt; ?></span></a>
 		</li>
 		<?php
 	}
@@ -267,10 +267,10 @@ class mosMenuBar {
 	* @param string An override for the task
 	* @param string An override for the alt text
 	*/
-	function editCss( $task='edit_css', $alt='Ред.&nbsp;CSS' ) {
+	function editCss( $task='edit_css', $alt='Р РµРґ.&nbsp;CSS' ) {
 		?>
 		<li>
-			<a class="tb-edit-css" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Выберите объект из списка для его редактирования'); } else {submitbutton('<?php echo $task;?>', '');}""><span><?php echo $alt; ?></span></a>
+			<a class="tb-edit-css" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Р’С‹Р±РµСЂРёС‚Рµ РѕР±СЉРµРєС‚ РёР· СЃРїРёСЃРєР° РґР»СЏ РµРіРѕ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ'); } else {submitbutton('<?php echo $task;?>', '');}""><span><?php echo $alt; ?></span></a>
 		</li>
 		<?php
 	}
@@ -281,10 +281,10 @@ class mosMenuBar {
 	* @param string An override for the task
 	* @param string An override for the alt text
 	*/
-	function editCssX( $task='edit_css', $alt='Ред.&nbsp;CSS' ) {
+	function editCssX( $task='edit_css', $alt='Р РµРґ.&nbsp;CSS' ) {
 		?>
 		<li>
-			<a class="tb-edit-css-x" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Выберите объект из списка для его редактирования'); } else {hideMainMenu();submitbutton('<?php echo $task;?>', '');}"><span><?php echo $alt; ?></span></a>
+			<a class="tb-edit-css-x" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Р’С‹Р±РµСЂРёС‚Рµ РѕР±СЉРµРєС‚ РёР· СЃРїРёСЃРєР° РґР»СЏ РµРіРѕ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ'); } else {hideMainMenu();submitbutton('<?php echo $task;?>', '');}"><span><?php echo $alt; ?></span></a>
 		</li>
 		<?php
 	}
@@ -295,10 +295,10 @@ class mosMenuBar {
 	* @param string An override for the task
 	* @param string An override for the alt text
 	*/
-	function deleteList( $msg='', $task='remove', $alt='Удалить' ) {
+	function deleteList( $msg='', $task='remove', $alt='РЈРґР°Р»РёС‚СЊ' ) {
 		?>
 		<li>
-			<a class="tb-delete-list" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Выберите объект из списка для его удаления'); } else if (confirm('Вы действительно хотите удалить выбранные объекты? <?php echo $msg;?>')){ submitbutton('<?php echo $task;?>');}"><span><?php echo $alt; ?></span></a>
+			<a class="tb-delete-list" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Р’С‹Р±РµСЂРёС‚Рµ РѕР±СЉРµРєС‚ РёР· СЃРїРёСЃРєР° РґР»СЏ РµРіРѕ СѓРґР°Р»РµРЅРёСЏ'); } else if (confirm('Р’С‹ РґРµР№СЃС‚РІРёС‚РµР»СЊРЅРѕ С…РѕС‚РёС‚Рµ СѓРґР°Р»РёС‚СЊ РІС‹Р±СЂР°РЅРЅС‹Рµ РѕР±СЉРµРєС‚С‹? <?php echo $msg;?>')){ submitbutton('<?php echo $task;?>');}"><span><?php echo $alt; ?></span></a>
 		</li>
 		<?php
 	}
@@ -310,10 +310,10 @@ class mosMenuBar {
 	* @param string An override for the task
 	* @param string An override for the alt text
 	*/
-	function deleteListX( $msg='', $task='remove', $alt='Удалить' ) {
+	function deleteListX( $msg='', $task='remove', $alt='РЈРґР°Р»РёС‚СЊ' ) {
 		?>
 		<li>
-			<a class="tb-delete-list-x" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Выберите объект из списка для его удаления'); } else if (confirm('Вы действительно хотите удалить выбранные объекты? <?php echo $msg;?>')){ hideMainMenu();submitbutton('<?php echo $task;?>');}"><span><?php echo $alt; ?></span></a>
+			<a class="tb-delete-list-x" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Р’С‹Р±РµСЂРёС‚Рµ РѕР±СЉРµРєС‚ РёР· СЃРїРёСЃРєР° РґР»СЏ РµРіРѕ СѓРґР°Р»РµРЅРёСЏ'); } else if (confirm('Р’С‹ РґРµР№СЃС‚РІРёС‚РµР»СЊРЅРѕ С…РѕС‚РёС‚Рµ СѓРґР°Р»РёС‚СЊ РІС‹Р±СЂР°РЅРЅС‹Рµ РѕР±СЉРµРєС‚С‹? <?php echo $msg;?>')){ hideMainMenu();submitbutton('<?php echo $task;?>');}"><span><?php echo $alt; ?></span></a>
 		</li>
 		<?php
 	}
@@ -321,9 +321,9 @@ class mosMenuBar {
 	/**
 	* Write a trash button that will move items to Trash Manager
 	*/
-	function trash( $task='remove', $alt='В&nbsp;корзину', $check=true ) {
+	function trash( $task='remove', $alt='Р’&nbsp;РєРѕСЂР·РёРЅСѓ', $check=true ) {
 		if ( $check ) {
-			$js = "javascript:if (document.adminForm.boxchecked.value == 0){ alert('Выберите объект из списка для перемещения его в корзину'); } else { submitbutton('$task');}";
+			$js = "javascript:if (document.adminForm.boxchecked.value == 0){ alert('Р’С‹Р±РµСЂРёС‚Рµ РѕР±СЉРµРєС‚ РёР· СЃРїРёСЃРєР° РґР»СЏ РїРµСЂРµРјРµС‰РµРЅРёСЏ РµРіРѕ РІ РєРѕСЂР·РёРЅСѓ'); } else { submitbutton('$task');}";
 		} else {
 			$js = "javascript:submitbutton('$task');";
 		}
@@ -354,7 +354,7 @@ class mosMenuBar {
 			}
 			//-->
 			</script>
-			<a class="tb-preview" href="#" onclick="popup();"><span>Просмотр</span></a></li>
+			<a class="tb-preview" href="#" onclick="popup();"><span>РџСЂРѕСЃРјРѕС‚СЂ</span></a></li>
 		<?php
 	}
 
@@ -365,7 +365,7 @@ class mosMenuBar {
 	*/
 	function help( $ref, $com=false ) {
 		global $mosConfig_disable_button_help;
-		if($mosConfig_disable_button_help) return; // при активном отключении кнопки "Помощь" функция прерывается в самом начале
+		if($mosConfig_disable_button_help) return; // РїСЂРё Р°РєС‚РёРІРЅРѕРј РѕС‚РєР»СЋС‡РµРЅРёРё РєРЅРѕРїРєРё "РџРѕРјРѕС‰СЊ" С„СѓРЅРєС†РёСЏ РїСЂРµСЂС‹РІР°РµС‚СЃСЏ РІ СЃР°РјРѕРј РЅР°С‡Р°Р»Рµ
 		global $mosConfig_live_site;
 		$helpUrl = mosGetParam( $GLOBALS, 'mosConfig_helpurl', '' );
 		if ( $helpUrl == 'http://help.mamboserver.com' ) {
@@ -393,7 +393,7 @@ class mosMenuBar {
 		}
 		?>
 		<li>
-			<a class="tb-help" href="#" onclick="window.open('<?php echo $url;?>', 'mambo_help_win', 'status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=640,height=480,directories=no,location=no');"><span>Помощь</span></a>
+			<a class="tb-help" href="#" onclick="window.open('<?php echo $url;?>', 'mambo_help_win', 'status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=640,height=480,directories=no,location=no');"><span>РџРѕРјРѕС‰СЊ</span></a>
 		</li>
 		<?php
 	}
@@ -404,7 +404,7 @@ class mosMenuBar {
 	* @param string An override for the task
 	* @param string An override for the alt text
 	*/
-	function apply( $task='apply', $alt='Применить' ) {
+	function apply( $task='apply', $alt='РџСЂРёРјРµРЅРёС‚СЊ' ) {
 		?>
 		<li>
 			<a class="tb-apply" href="javascript:submitbutton('<?php echo $task;?>');"><span><?php echo $alt;?></span></a>
@@ -418,7 +418,7 @@ class mosMenuBar {
 	* @param string An override for the task
 	* @param string An override for the alt text
 	*/
-	function save( $task='save', $alt='Сохранить' ) {
+	function save( $task='save', $alt='РЎРѕС…СЂР°РЅРёС‚СЊ' ) {
 		?>
 		<li>
 			<a class="tb-save" href="javascript:submitbutton('<?php echo $task;?>');"><span><?php echo $alt;?></span></a>
@@ -432,7 +432,7 @@ class mosMenuBar {
 	function savenew() {
 		?>
 		<li>
-			<a class="tb-save-new" href="javascript:submitbutton('savenew');"><span>Сохранить</span></a>
+			<a class="tb-save-new" href="javascript:submitbutton('savenew');"><span>РЎРѕС…СЂР°РЅРёС‚СЊ</span></a>
 		</li>
 		<?php
 	}
@@ -443,7 +443,7 @@ class mosMenuBar {
 	function saveedit() {
 		?>
 		<li>
-			<a class="tb-save-edit" href="javascript:submitbutton('saveedit');"><span>Сохранить</span></a>
+			<a class="tb-save-edit" href="javascript:submitbutton('saveedit');"><span>РЎРѕС…СЂР°РЅРёС‚СЊ</span></a>
 		</li>
 		<?php
 	}
@@ -453,7 +453,7 @@ class mosMenuBar {
 	* @param string An override for the task
 	* @param string An override for the alt text
 	*/
-	function cancel( $task='cancel', $alt='Отмена' ) {
+	function cancel( $task='cancel', $alt='РћС‚РјРµРЅР°' ) {
 		?>
 		<li>
 			<a class="tb-cancel" href="javascript:submitbutton('<?php echo $task;?>');"><span><?php echo $alt;?></span></a>
@@ -465,7 +465,7 @@ class mosMenuBar {
 	* Writes a cancel button that will go back to the previous page without doing
 	* any other operation
 	*/
-	function back( $alt='Назад', $href='' ) {
+	function back( $alt='РќР°Р·Р°Рґ', $href='' ) {
 		if ( $href ) {
 			$link = $href;
 		} else {
@@ -493,7 +493,7 @@ class mosMenuBar {
 	* Writes a media_manager button
 	* @param string The sub-drectory to upload the media to
 	*/
-	function media_manager( $directory='', $alt='Загрузить' ) {
+	function media_manager( $directory='', $alt='Р—Р°РіСЂСѓР·РёС‚СЊ' ) {
 		global $database, $mainframe;
 		$cur_template = $mainframe->getTemplate();
 		?>

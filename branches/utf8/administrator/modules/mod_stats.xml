@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <mosinstall type="module">
-	<name>Статистика меню</name>
+	<name>РЎС‚Р°С‚РёСЃС‚РёРєР° РјРµРЅСЋ</name>
 	<author>Joostina! Project</author>
-	<creationDate>Октябрь 2007</creationDate>
+	<creationDate>РћРєС‚СЏР±СЂСЊ 2007</creationDate>
 	<copyright>(C) 2007 Joostina Team.</copyright>
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
 	<authorEmail>joostinacms@gmail.com</authorEmail>
 	<authorUrl>www.joostina.ru</authorUrl>
 	<version>1.0.0</version>
-	<description>Этот модуль показывает список меню и количество пунктов меню.</description>
+	<description>Р­С‚РѕС‚ РјРѕРґСѓР»СЊ РїРѕРєР°Р·С‹РІР°РµС‚ СЃРїРёСЃРѕРє РјРµРЅСЋ Рё РєРѕР»РёС‡РµСЃС‚РІРѕ РїСѓРЅРєС‚РѕРІ РјРµРЅСЋ.</description>
 	<files>
 		<filename module="mod_stats">mod_stats.php</filename>
 	</files>

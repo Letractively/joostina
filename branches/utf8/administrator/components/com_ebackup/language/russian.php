@@ -1,66 +1,66 @@
 <?php
 /**
 * @package Joostina
-* @copyright Àâòîðñêèå ïðàâà (C) 2007 Joostina team. Âñå ïðàâà çàùèùåíû.
-* @license Ëèöåíçèÿ http://www.gnu.org/copyleft/gpl.html GNU/GPL, ñìîòðèòå LICENSE.php
-* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå. Ýòà âåðñèÿ ìîæåò áûòü èçìåíåíà
-* â ñîîòâåòñòâèè ñ Ãåíåðàëüíîé Îáùåñòâåííîé Ëèöåíçèåé GNU, ïîýòîìó âîçìîæíî
-* å¸ äàëüíåéøåå ðàñïðîñòðàíåíèå â ñîñòàâå ðåçóëüòàòà ðàáîòû, ëèöåíçèðîâàííîãî
-* ñîãëàñíî Ãåíåðàëüíîé Îáùåñòâåííîé Ëèöåíçèåé GNU èëè äðóãèõ ëèöåíçèé ñâîáîäíûõ
-* ïðîãðàìì èëè ïðîãðàìì ñ îòêðûòûì èñõîäíûì êîäîì.
-* Äëÿ ïðîñìîòðà ïîäðîáíîñòåé è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë COPYRIGHT.php.
+* @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2007 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
+* @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/copyleft/gpl.html GNU/GPL, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ LICENSE.php
+* Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ. Ð­Ñ‚Ð° Ð²ÐµÑ€ÑÐ¸Ñ Ð¼Ð¾Ð¶ÐµÑ‚ Ð±Ñ‹Ñ‚ÑŒ Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð°
+* Ð² ÑÐ¾Ð¾Ñ‚Ð²ÐµÑ‚ÑÑ‚Ð²Ð¸Ð¸ Ñ Ð“ÐµÐ½ÐµÑ€Ð°Ð»ÑŒÐ½Ð¾Ð¹ ÐžÐ±Ñ‰ÐµÑÑ‚Ð²ÐµÐ½Ð½Ð¾Ð¹ Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸ÐµÐ¹ GNU, Ð¿Ð¾ÑÑ‚Ð¾Ð¼Ñƒ Ð²Ð¾Ð·Ð¼Ð¾Ð¶Ð½Ð¾
+* ÐµÑ‘ Ð´Ð°Ð»ÑŒÐ½ÐµÐ¹ÑˆÐµÐµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÐµÐ½Ð¸Ðµ Ð² ÑÐ¾ÑÑ‚Ð°Ð²Ðµ Ñ€ÐµÐ·ÑƒÐ»ÑŒÑ‚Ð°Ñ‚Ð° Ñ€Ð°Ð±Ð¾Ñ‚Ñ‹, Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð½Ð¾Ð³Ð¾
+* ÑÐ¾Ð³Ð»Ð°ÑÐ½Ð¾ Ð“ÐµÐ½ÐµÑ€Ð°Ð»ÑŒÐ½Ð¾Ð¹ ÐžÐ±Ñ‰ÐµÑÑ‚Ð²ÐµÐ½Ð½Ð¾Ð¹ Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸ÐµÐ¹ GNU Ð¸Ð»Ð¸ Ð´Ñ€ÑƒÐ³Ð¸Ñ… Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¹ ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ñ‹Ñ…
+* Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼ Ð¸Ð»Ð¸ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼ Ñ Ð¾Ñ‚ÐºÑ€Ñ‹Ñ‚Ñ‹Ð¼ Ð¸ÑÑ…Ð¾Ð´Ð½Ñ‹Ð¼ ÐºÐ¾Ð´Ð¾Ð¼.
+* Ð”Ð»Ñ Ð¿Ñ€Ð¾ÑÐ¼Ð¾Ñ‚Ñ€Ð° Ð¿Ð¾Ð´Ñ€Ð¾Ð±Ð½Ð¾ÑÑ‚ÐµÐ¹ Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» COPYRIGHT.php.
 */
 
-// çàïðåò ïðÿìîãî äîñòóïà
-defined( '_VALID_MOS' ) or die( 'Ïðÿìîé âûçîâ ôàéëà çàïðåùåí' );
+// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+defined( '_VALID_MOS' ) or die( 'ÐŸÑ€ÑÐ¼Ð¾Ð¹ Ð²Ñ‹Ð·Ð¾Ð² Ñ„Ð°Ð¹Ð»Ð° Ð·Ð°Ð¿Ñ€ÐµÑ‰ÐµÐ½' );
 
 DEFINE('_BBKP_DATE_FORMAT_LC2',"%d.%m.%Y %H:%M");
 DEFINE('_DATE_FORMAT_LC3',"%d. %B %Y um %H:%M:%S");
 
-DEFINE('_BBKP_HEAD_1', "Áýêàï ñîçäàí Ðóññêîé âåðñèåé eBackup äëÿ Joomla.\n# Ëîêàëèçàöèÿ êîìàíäû Ðóññêîãî Äîìà Joomla. www.joom.ru");
-DEFINE('_BBKP_HEAD_2', "Íàçâàíèå áàçû äàííûõ   ");
-DEFINE('_BBKP_HEAD_3', "Áýêàï ñîçäàí                 ");
+DEFINE('_BBKP_HEAD_1', "Ð‘ÑÐºÐ°Ð¿ ÑÐ¾Ð·Ð´Ð°Ð½ Ð ÑƒÑÑÐºÐ¾Ð¹ Ð²ÐµÑ€ÑÐ¸ÐµÐ¹ eBackup Ð´Ð»Ñ Joomla.\n# Ð›Ð¾ÐºÐ°Ð»Ð¸Ð·Ð°Ñ†Ð¸Ñ ÐºÐ¾Ð¼Ð°Ð½Ð´Ñ‹ Ð ÑƒÑÑÐºÐ¾Ð³Ð¾ Ð”Ð¾Ð¼Ð° Joomla. www.joom.ru");
+DEFINE('_BBKP_HEAD_2', "ÐÐ°Ð·Ð²Ð°Ð½Ð¸Ðµ Ð±Ð°Ð·Ñ‹ Ð´Ð°Ð½Ð½Ñ‹Ñ…   ");
+DEFINE('_BBKP_HEAD_3', "Ð‘ÑÐºÐ°Ð¿ ÑÐ¾Ð·Ð´Ð°Ð½                 ");
 DEFINE('_BBKP_HEAD_4', "eBackup - Copyright 2005 by Harald Baer");
-DEFINE('_BBKP_HEAD_5', "Ñòðóêòóðà");
-DEFINE('_BBKP_HEAD_6', "Äàííûå");
-DEFINE('_BBKP_HEAD_7', "Òàáëèö                       ");
+DEFINE('_BBKP_HEAD_5', "Ð¡Ñ‚Ñ€ÑƒÐºÑ‚ÑƒÑ€Ð°");
+DEFINE('_BBKP_HEAD_6', "Ð”Ð°Ð½Ð½Ñ‹Ðµ");
+DEFINE('_BBKP_HEAD_7', "Ð¢Ð°Ð±Ð»Ð¸Ñ†                       ");
 DEFINE('_BBKP_ENVIRONMENT', "Environment");
-DEFINE('_BBKP_SQL_SERVER', "MySQL ñåðâåð");
-DEFINE('_BBKP_SQL_CLIENT', "MySQL êëèåíò");
-DEFINE('_BBKP_PHP_VERSION', "Âåðñèÿ PHP ");
-DEFINE('_BBKP_OVERHEAD', "Çàãîëîâîê");
-DEFINE('_BBKP_LINES', "Çàïèñåé");
-DEFINE('_BBKP_TABLES', "Òàáëèö:");
-DEFINE('_BBKP_SIZES', "Ðàçìåð");
-DEFINE('_BBKP_AUTO_INC', "Èíñêðèìåíò");
-DEFINE('_BBKP_CREATE_TIME', "Ñîçäàíà");
-DEFINE('_BBKP_CHECK_TIME', "Ïðîâåðêà");
-DEFINE('_BBKP_FILESIZE', "Ðàçìåð ïîëó÷èâøåãîñÿ ôàéëà:");
-DEFINE('_BBKP_FILENAME', "Èìÿ ôàéëà:");
-DEFINE('_BBKP_TIME', "Ñîçäàíî çà:");
-DEFINE('_BBKP_SECONDS', "Ñåêóíä");
-DEFINE('_BBKP_DATE', "Äàòà");
-DEFINE('_BBKP_SQL_INFO', "Èíôîðìàöèÿ î SQL");
-DEFINE('_BBKP_DEL', "Óäàëèòü");
-DEFINE('_BBKP_DOWNLOAD', "Ñêà÷àòü");
-DEFINE('_BBKP_SETUP_TITLE', "Íàñòðîéêè");
-DEFINE('_BBKP_FULL_INSERTS', "Äîïèñûâàòü 'INSERT' (äàííûå)");
-DEFINE('_BBKP_AUTOINCREMENT', "Âñòàâëÿòü çíà÷åíèÿ AUTO_INCREMENT");
-DEFINE('_BBKP_TABLE_FILTER', "Òîëüêî äîñòóïíûå òàáëèöû");
-DEFINE('_BBKP_RUN_TIME', "Ìàêñ. âðåìÿ âûïîëíåíèÿ (ñåê)");
-DEFINE('_BBKP_DROP',"Äîïèñûâàòü 'DROP TABLE'         ");
-DEFINE('_BBKP_EXISTS',"Äîïèñûâàòü 'IF NOT EXISTS'        ");
-DEFINE('_BBKP_DB_COMP', "Ñîâìåñòèìîñòü MySQL ýêñïîðòà");
+DEFINE('_BBKP_SQL_SERVER', "MySQL ÑÐµÑ€Ð²ÐµÑ€");
+DEFINE('_BBKP_SQL_CLIENT', "MySQL ÐºÐ»Ð¸ÐµÐ½Ñ‚");
+DEFINE('_BBKP_PHP_VERSION', "Ð’ÐµÑ€ÑÐ¸Ñ PHP ");
+DEFINE('_BBKP_OVERHEAD', "Ð—Ð°Ð³Ð¾Ð»Ð¾Ð²Ð¾Ðº");
+DEFINE('_BBKP_LINES', "Ð—Ð°Ð¿Ð¸ÑÐµÐ¹");
+DEFINE('_BBKP_TABLES', "Ð¢Ð°Ð±Ð»Ð¸Ñ†:");
+DEFINE('_BBKP_SIZES', "Ð Ð°Ð·Ð¼ÐµÑ€");
+DEFINE('_BBKP_AUTO_INC', "Ð˜Ð½ÑÐºÑ€Ð¸Ð¼ÐµÐ½Ñ‚");
+DEFINE('_BBKP_CREATE_TIME', "Ð¡Ð¾Ð·Ð´Ð°Ð½Ð°");
+DEFINE('_BBKP_CHECK_TIME', "ÐŸÑ€Ð¾Ð²ÐµÑ€ÐºÐ°");
+DEFINE('_BBKP_FILESIZE', "Ð Ð°Ð·Ð¼ÐµÑ€ Ð¿Ð¾Ð»ÑƒÑ‡Ð¸Ð²ÑˆÐµÐ³Ð¾ÑÑ Ñ„Ð°Ð¹Ð»Ð°:");
+DEFINE('_BBKP_FILENAME', "Ð˜Ð¼Ñ Ñ„Ð°Ð¹Ð»Ð°:");
+DEFINE('_BBKP_TIME', "Ð¡Ð¾Ð·Ð´Ð°Ð½Ð¾ Ð·Ð°:");
+DEFINE('_BBKP_SECONDS', "Ð¡ÐµÐºÑƒÐ½Ð´");
+DEFINE('_BBKP_DATE', "Ð”Ð°Ñ‚Ð°");
+DEFINE('_BBKP_SQL_INFO', "Ð˜Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ñ Ð¾ SQL");
+DEFINE('_BBKP_DEL', "Ð£Ð´Ð°Ð»Ð¸Ñ‚ÑŒ");
+DEFINE('_BBKP_DOWNLOAD', "Ð¡ÐºÐ°Ñ‡Ð°Ñ‚ÑŒ");
+DEFINE('_BBKP_SETUP_TITLE', "ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸");
+DEFINE('_BBKP_FULL_INSERTS', "Ð”Ð¾Ð¿Ð¸ÑÑ‹Ð²Ð°Ñ‚ÑŒ 'INSERT' (Ð´Ð°Ð½Ð½Ñ‹Ðµ)");
+DEFINE('_BBKP_AUTOINCREMENT', "Ð’ÑÑ‚Ð°Ð²Ð»ÑÑ‚ÑŒ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ AUTO_INCREMENT");
+DEFINE('_BBKP_TABLE_FILTER', "Ð¢Ð¾Ð»ÑŒÐºÐ¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð½Ñ‹Ðµ Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñ‹");
+DEFINE('_BBKP_RUN_TIME', "ÐœÐ°ÐºÑ. Ð²Ñ€ÐµÐ¼Ñ Ð²Ñ‹Ð¿Ð¾Ð»Ð½ÐµÐ½Ð¸Ñ (ÑÐµÐº)");
+DEFINE('_BBKP_DROP',"Ð”Ð¾Ð¿Ð¸ÑÑ‹Ð²Ð°Ñ‚ÑŒ 'DROP TABLE'         ");
+DEFINE('_BBKP_EXISTS',"Ð”Ð¾Ð¿Ð¸ÑÑ‹Ð²Ð°Ñ‚ÑŒ 'IF NOT EXISTS'        ");
+DEFINE('_BBKP_DB_COMP', "Ð¡Ð¾Ð²Ð¼ÐµÑÑ‚Ð¸Ð¼Ð¾ÑÑ‚ÑŒ MySQL ÑÐºÑÐ¿Ð¾Ñ€Ñ‚Ð°");
 DEFINE('_BBKP_DB_AUTO_INC', "Auto Inc.                   ");
-DEFINE('_BBKP_SETTINGS', "Îïöèè");
-DEFINE('_BBKP_GZIP', "Ñæèìàòü â gzip");
+DEFINE('_BBKP_SETTINGS', "ÐžÐ¿Ñ†Ð¸Ð¸");
+DEFINE('_BBKP_GZIP', "Ð¡Ð¶Ð¸Ð¼Ð°Ñ‚ÑŒ Ð² gzip");
 DEFINE('_BBKP_CHECK_OP', "OP");
-DEFINE('_BBKP_CHECK_TYPE', "Òèï");
-DEFINE('_BBKP_CHECK_MESSAGE', "Ñòàòóñ");
-DEFINE('_BBKP_BACKUP_WORKING', "Ñîçäà¸òñÿ áýêàï...");
-DEFINE('_BBKP_BACKUP_TABLE', "Òåêóùàÿ òàáëèöà");
-DEFINE('_BBKP_BACKUP_RECORD', "Çàïèñü");
-DEFINE('_BBKP_DELAY_TIME', "Ïàóçà äî ñëåäóþùåé ñåññèè");
-DEFINE('_BBKP_EMAIL', "Îòïðàâëÿòü íà eMail");
+DEFINE('_BBKP_CHECK_TYPE', "Ð¢Ð¸Ð¿");
+DEFINE('_BBKP_CHECK_MESSAGE', "Ð¡Ñ‚Ð°Ñ‚ÑƒÑ");
+DEFINE('_BBKP_BACKUP_WORKING', "Ð¡Ð¾Ð·Ð´Ð°Ñ‘Ñ‚ÑÑ Ð±ÑÐºÐ°Ð¿...");
+DEFINE('_BBKP_BACKUP_TABLE', "Ð¢ÐµÐºÑƒÑ‰Ð°Ñ Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ð°");
+DEFINE('_BBKP_BACKUP_RECORD', "Ð—Ð°Ð¿Ð¸ÑÑŒ");
+DEFINE('_BBKP_DELAY_TIME', "ÐŸÐ°ÑƒÐ·Ð° Ð´Ð¾ ÑÐ»ÐµÐ´ÑƒÑŽÑ‰ÐµÐ¹ ÑÐµÑÑÐ¸Ð¸");
+DEFINE('_BBKP_EMAIL', "ÐžÑ‚Ð¿Ñ€Ð°Ð²Ð»ÑÑ‚ÑŒ Ð½Ð° eMail");
 
 ?>

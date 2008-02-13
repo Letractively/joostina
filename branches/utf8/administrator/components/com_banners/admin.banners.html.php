@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 /**
 * @package Joostina
@@ -29,7 +29,7 @@ class HTML_banners {
 		<table class="adminheading">
 		<tr>
 			<th>
-			Баннеры
+			Р‘Р°РЅРЅРµСЂС‹
 			</th>
 		</tr>
 		</table>
@@ -43,22 +43,22 @@ class HTML_banners {
 			<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $rows ); ?>);" />
 			</th>
 			<th align="left" class="jtd_nowrap">
-			Название
+			РќР°Р·РІР°РЅРёРµ
 			</th>
 			<th width="10%" class="jtd_nowrap">
-			Опубликован
+			РћРїСѓР±Р»РёРєРѕРІР°РЅ
 			</th>
 			<th width="11%" class="jtd_nowrap">
-			Показов сделано
+			РџРѕРєР°Р·РѕРІ СЃРґРµР»Р°РЅРѕ
 			</th>
 			<th width="11%" class="jtd_nowrap">
-			Показов осталось
+			РџРѕРєР°Р·РѕРІ РѕСЃС‚Р°Р»РѕСЃСЊ
 			</th>
 			<th width="8%">
-			Кликов
+			РљР»РёРєРѕРІ
 			</th>
 			<th width="8%" class="jtd_nowrap">
-			% кликов
+			% РєР»РёРєРѕРІ
 			</th>
 		</tr>
 		<?php
@@ -82,7 +82,7 @@ class HTML_banners {
 
 			$task 	= $row->showBanner ? 'unpublish' : 'publish';
 			$img 	= $row->showBanner ? 'publish_g.png' : 'publish_x.png';
-			$alt 	= $row->showBanner ? 'Опубликовано' : 'Не опубликовано';
+			$alt 	= $row->showBanner ? 'РћРїСѓР±Р»РёРєРѕРІР°РЅРѕ' : 'РќРµ РѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ';
 
 			$checked 	= mosCommonHTML::CheckedOutProcessing( $row, $i );
 			?>
@@ -99,7 +99,7 @@ class HTML_banners {
 					echo $row->name;
 				} else {
 					?>
-					<a href="<?php echo $link; ?>" title="Изменить баннер">
+					<a href="<?php echo $link; ?>" title="РР·РјРµРЅРёС‚СЊ Р±Р°РЅРЅРµСЂ">
 					<?php echo $row->name; ?>
 					</a>
 					<?php
@@ -159,13 +159,13 @@ class HTML_banners {
 			}
 			// do field validation
 			if (form.name.value == "") {
-				alert( "Введите название баннера." );
+				alert( "Р’РІРµРґРёС‚Рµ РЅР°Р·РІР°РЅРёРµ Р±Р°РЅРЅРµСЂР°." );
 			} else if (getSelectedValue('adminForm','cid') < 1) {
-				alert( "Выберите клиента." );
+				alert( "Р’С‹Р±РµСЂРёС‚Рµ РєР»РёРµРЅС‚Р°." );
 			} else if (!getSelectedValue('adminForm','imageurl')) {
-				alert( "Выберите изображение баннера." );
+				alert( "Р’С‹Р±РµСЂРёС‚Рµ РёР·РѕР±СЂР°Р¶РµРЅРёРµ Р±Р°РЅРЅРµСЂР°." );
 			} else if (form.clickurl.value == "") {
-				alert( "Заполните URL для баннера." );
+				alert( "Р—Р°РїРѕР»РЅРёС‚Рµ URL РґР»СЏ Р±Р°РЅРЅРµСЂР°." );
 			} else {
 				submitform( pressbutton );
 			}
@@ -176,9 +176,9 @@ class HTML_banners {
 		<table class="adminheading">
 		<tr>
 			<th>
-			Баннер:
+			Р‘Р°РЅРЅРµСЂ:
 			<small>
-			<?php echo $_row->cid ? 'Изменение' : 'Новый';?>
+			<?php echo $_row->cid ? 'РР·РјРµРЅРµРЅРёРµ' : 'РќРѕРІС‹Р№';?>
 			</small>
 			</th>
 		</tr>
@@ -187,12 +187,12 @@ class HTML_banners {
 		<table class="adminform">
 		<tr>
 			<th colspan="2">
-			Детали отображения баннера
+			Р”РµС‚Р°Р»Рё РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ Р±Р°РЅРЅРµСЂР°
 			</th>
 		</tr>
 		<tr>
 			<td width="20%">
-			Название баннера:
+			РќР°Р·РІР°РЅРёРµ Р±Р°РЅРЅРµСЂР°:
 			</td>
 			<td width="80%">
 			<input class="inputbox" type="text" name="name" value="<?php echo $_row->name;?>" />
@@ -200,7 +200,7 @@ class HTML_banners {
 		</tr>
 		<tr>
 			<td>
-			Имя клиента:
+			РРјСЏ РєР»РёРµРЅС‚Р°:
 			</td>
 			<td align="left">
 			<?php echo $lists['cid']; ?>
@@ -208,7 +208,7 @@ class HTML_banners {
 		</tr>
 		<tr>
 			<td>
-			Показывать раз:
+			РџРѕРєР°Р·С‹РІР°С‚СЊ СЂР°Р·:
 			</td>
 			<?php
 			$unlimited = '';
@@ -220,12 +220,12 @@ class HTML_banners {
 			<td>
 			<input class="inputbox" type="text" name="imptotal" size="12" maxlength="11" value="<?php echo $_row->imptotal;?>" />
 			&nbsp;&nbsp;&nbsp;&nbsp;
-			Неограниченно <input type="checkbox" name="unlimited" <?php echo $unlimited;?> />
+			РќРµРѕРіСЂР°РЅРёС‡РµРЅРЅРѕ <input type="checkbox" name="unlimited" <?php echo $unlimited;?> />
 			</td>
 		</tr>
 		<tr>
 			<td>
-			Опубликован:
+			РћРїСѓР±Р»РёРєРѕРІР°РЅ:
 			</td>
 			<td>
 			<?php echo $lists['showBanner']; ?>
@@ -233,7 +233,7 @@ class HTML_banners {
 		</tr>
 		<tr>
 			<td>
-			URL клика:
+			URL РєР»РёРєР°:
 			</td>
 			<td>
 			<input class="inputbox" type="text" name="clickurl" size="100" maxlength="200" value="<?php echo $_row->clickurl;?>" />
@@ -241,17 +241,17 @@ class HTML_banners {
 		</tr>
 		<tr >
 			<td valign="top" align="right">
-			Кликов:
+			РљР»РёРєРѕРІ:
 			</td>
 			<td colspan="2">
 			<?php echo $_row->clicks;?>
 			&nbsp;&nbsp;&nbsp;&nbsp;
-			<input name="reset_hits" type="button" class="button" value="Сбросить число кликов" onclick="submitbutton('resethits');" />
+			<input name="reset_hits" type="button" class="button" value="РЎР±СЂРѕСЃРёС‚СЊ С‡РёСЃР»Рѕ РєР»РёРєРѕРІ" onclick="submitbutton('resethits');" />
 			</td>
 		</tr>
 		<tr>
 			<td valign="top">
-			Пользовательский код баннера:
+			РџРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРёР№ РєРѕРґ Р±Р°РЅРЅРµСЂР°:
 			</td>
 			<td>
 			<textarea class="inputbox" cols="70" rows="5" name="custombannercode"><?php echo $_row->custombannercode;?></textarea>
@@ -259,7 +259,7 @@ class HTML_banners {
 		</tr>
 		<tr >
 			<td valign="top">
-			Изображение баннера:
+			РР·РѕР±СЂР°Р¶РµРЅРёРµ Р±Р°РЅРЅРµСЂР°:
 			</td>
 			<td align="left">
 			<?php echo $lists['imageurl']; ?>
@@ -267,7 +267,7 @@ class HTML_banners {
 		</tr>
 		<tr>
 			<td valign="top">
-			Просмотр:
+			РџСЂРѕСЃРјРѕС‚СЂ:
 			</td>
 			<td valign="top">
 			<?php
@@ -318,7 +318,7 @@ class HTML_bannerClient {
 		<table class="adminheading">
 		<tr>
 			<th>
-			Клиенты баннеров
+			РљР»РёРµРЅС‚С‹ Р±Р°РЅРЅРµСЂРѕРІ
 			</th>
 		</tr>
 		</table>
@@ -332,16 +332,16 @@ class HTML_bannerClient {
 			<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $rows ); ?>);" />
 			</th>
 			<th align="left" class="jtd_nowrap">
-			Имя клиента
+			РРјСЏ РєР»РёРµРЅС‚Р°
 			</th>
 			<th align="left" class="jtd_nowrap">
-			Контакт
+			РљРѕРЅС‚Р°РєС‚
 			</th>
 			<th align="center" class="jtd_nowrap">
-			Число активных баннеров
+			Р§РёСЃР»Рѕ Р°РєС‚РёРІРЅС‹С… Р±Р°РЅРЅРµСЂРѕРІ
 			</th>
 			<th align="center" class="jtd_nowrap">
-			ID клиента
+			ID РєР»РёРµРЅС‚Р°
 			</th>
 		</tr>
 		<?php
@@ -366,7 +366,7 @@ class HTML_bannerClient {
 					echo $row->name;
 				} else {
 					?>
-					<a href="<?php echo $link; ?>" title="Изменить клиента баннера">
+					<a href="<?php echo $link; ?>" title="РР·РјРµРЅРёС‚СЊ РєР»РёРµРЅС‚Р° Р±Р°РЅРЅРµСЂР°">
 					<?php echo $row->name; ?>
 					</a>
 					<?php
@@ -411,11 +411,11 @@ class HTML_bannerClient {
 			}
 			// do field validation
 			if (form.name.value == "") {
-				alert( "Заполните имя клиента." );
+				alert( "Р—Р°РїРѕР»РЅРёС‚Рµ РёРјСЏ РєР»РёРµРЅС‚Р°." );
 			} else if (form.contact.value == "") {
-				alert( "Заполните контактное имя." );
+				alert( "Р—Р°РїРѕР»РЅРёС‚Рµ РєРѕРЅС‚Р°РєС‚РЅРѕРµ РёРјСЏ." );
 			} else if (form.email.value == "") {
-				alert( "Заполните контактный E-mail." );
+				alert( "Р—Р°РїРѕР»РЅРёС‚Рµ РєРѕРЅС‚Р°РєС‚РЅС‹Р№ E-mail." );
 			} else {
 				submitform( pressbutton );
 			}
@@ -425,9 +425,9 @@ class HTML_bannerClient {
 		<table class="adminheading">
 		<tr>
 			<th>
-			Клиент баннера:
+			РљР»РёРµРЅС‚ Р±Р°РЅРЅРµСЂР°:
 			<small>
-			<?php echo $row->cid ? 'Изменение' : 'Новый';?>
+			<?php echo $row->cid ? 'РР·РјРµРЅРµРЅРёРµ' : 'РќРѕРІС‹Р№';?>
 			</small>
 			</th>
 		</tr>
@@ -437,12 +437,12 @@ class HTML_bannerClient {
 		<table class="adminform">
 		<tr>
 			<th colspan="2">
-			Подробности о клиенте баннера
+			РџРѕРґСЂРѕР±РЅРѕСЃС‚Рё Рѕ РєР»РёРµРЅС‚Рµ Р±Р°РЅРЅРµСЂР°
 			</th>
 		</tr>
 		<tr>
 			<td width="10%">
-			Имя:
+			РРјСЏ:
 			</td>
 			<td>
 			<input class="inputbox" type="text" name="name" size="30" maxlength="60" valign="top" value="<?php echo $row->name; ?>" />
@@ -450,7 +450,7 @@ class HTML_bannerClient {
 		</tr>
 		<tr>
 			<td width="10%">
-			Контактное имя:
+			РљРѕРЅС‚Р°РєС‚РЅРѕРµ РёРјСЏ:
 			</td>
 			<td>
 			<input class="inputbox" type="text" name="contact" size="30" maxlength="60" value="<?php echo $row->contact; ?>" />
@@ -458,7 +458,7 @@ class HTML_bannerClient {
 		</tr>
 		<tr>
 			<td width="10%">
-			Контактный E-mail:
+			РљРѕРЅС‚Р°РєС‚РЅС‹Р№ E-mail:
 			</td>
 			<td>
 			<input class="inputbox" type="text" name="email" size="30" maxlength="60" value="<?php echo $row->email; ?>" />
@@ -466,7 +466,7 @@ class HTML_bannerClient {
 		</tr>
 		<tr>
 			<td valign="top">
-			Дополнительная информация:
+			Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ:
 			</td>
 			<td>
 			<textarea class="inputbox" name="extrainfo" cols="60" rows="10"><?php echo str_replace('&','&amp;',$row->extrainfo);?></textarea>

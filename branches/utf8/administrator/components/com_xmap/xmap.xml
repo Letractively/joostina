@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <mosinstall type="component">
-  <name>Карта сайта</name>
+  <name>РљР°СЂС‚Р° СЃР°Р№С‚Р°</name>
   <creationDate>2007-08-25</creationDate>
   <author>Guillermo Vargas</author>
   <copyright>This component is released under the GNU/GPL License</copyright>
@@ -10,6 +10,6 @@
   <license>GNU/GPL</license>
   <description>Xmap - Sitemap Generator for Joomla!</description>
   <params>
-	<param name="sitemap" type="text" default="" label="Идентификатор карты" description="Введите идентификатор отображаемой карты" />
+	<param name="sitemap" type="text" default="" label="РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ РєР°СЂС‚С‹" description="Р’РІРµРґРёС‚Рµ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ РѕС‚РѕР±СЂР°Р¶Р°РµРјРѕР№ РєР°СЂС‚С‹" />
   </params>
 </mosinstall>

@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 class HTML_linkeditor {
 
@@ -65,7 +65,7 @@ foreach ($rows as $row) {
 <?php echo $row->admin_menu_alt;?>
 </td>
 <td>
-<img src="images/<?php echo ( $row->iscore ) ? 'tick.png' : 'publish_x.png';?>" width="12" height="12" border="0" alt="<?php echo ( $row->iscore ) ? 'Evet' : 'Hayэr';?>" />
+<img src="images/<?php echo ( $row->iscore ) ? 'tick.png' : 'publish_x.png';?>" width="12" height="12" border="0" alt="<?php echo ( $row->iscore ) ? 'Evet' : 'HayСЌr';?>" />
 </td>
 <td>
 <img src="<?php echo $mosConfig_live_site;?>/includes/<?php echo ($row->admin_menu_img!='js/ThemeOffice/') ? $row->admin_menu_img : 'js/ThemeOffice/spacer.png';?>" />
@@ -101,7 +101,7 @@ function edit($row, $lists) {
 			<th class="install"><?php echo $row->id ? _LE_EDITLINK : _LE_NEWLINK;?></th>
 		</tr>
 	</table>
-<?php if($row->iscore==1) echo '<div style="background-color: red;color:white"><b>Внимание:</b> этот компонент является частью ядра, при некорректном управлении им возможны проблемы в работе системы.</div>';?>
+<?php if($row->iscore==1) echo '<div style="background-color: red;color:white"><b>Р’РЅРёРјР°РЅРёРµ:</b> СЌС‚РѕС‚ РєРѕРјРїРѕРЅРµРЅС‚ СЏРІР»СЏРµС‚СЃСЏ С‡Р°СЃС‚СЊСЋ СЏРґСЂР°, РїСЂРё РЅРµРєРѕСЂСЂРµРєС‚РЅРѕРј СѓРїСЂР°РІР»РµРЅРёРё РёРј РІРѕР·РјРѕР¶РЅС‹ РїСЂРѕР±Р»РµРјС‹ РІ СЂР°Р±РѕС‚Рµ СЃРёСЃС‚РµРјС‹.</div>';?>
 		<form action="index2.php" method="post" name="adminForm" id="adminForm">
 		<table class="adminform">
 		<tr>
@@ -111,7 +111,7 @@ function edit($row, $lists) {
 			<td width="25%">
 			<input class="inputbox" type="text" name="name" size="45" value="<?php echo $row->name;?>" />
 			<?php
-  				$tip = 'Название пункта меню. Обязательно для заполнения.';
+  				$tip = 'РќР°Р·РІР°РЅРёРµ РїСѓРЅРєС‚Р° РјРµРЅСЋ. РћР±СЏР·Р°С‚РµР»СЊРЅРѕ РґР»СЏ Р·Р°РїРѕР»РЅРµРЅРёСЏ.';
                echo mosToolTip( $tip );
          ?>
 			</td>
@@ -121,7 +121,7 @@ function edit($row, $lists) {
 			echo _LE_LINKICON.':<br />';
 			echo $lists['image'];?>
 			<?php
-  				$tip = 'Значок пункта меню.';
+  				$tip = 'Р—РЅР°С‡РѕРє РїСѓРЅРєС‚Р° РјРµРЅСЋ.';
                echo mosToolTip( $tip );
          ?>
 			</td>
@@ -133,7 +133,7 @@ function edit($row, $lists) {
 			<td>
 				<input class="inputbox" type="text" name="admin_menu_alt" size="45" value="<?php echo $row->admin_menu_alt;?>" />
 			<?php
-  				$tip = 'Описание пункта меню.';
+  				$tip = 'РћРїРёСЃР°РЅРёРµ РїСѓРЅРєС‚Р° РјРµРЅСЋ.';
 				echo mosToolTip( $tip );
 			?>
 			</td>
@@ -145,7 +145,7 @@ function edit($row, $lists) {
 			<td>
 			<input class="inputbox" type="text" name="admin_menu_link" size="45" value="<?php echo $row->admin_menu_link;?>" />
 			<?php
-  				$tip = 'Ссылка на компонент. Если пункт меню не содержит подменю то поле обязательно для заполнения.';
+  				$tip = 'РЎСЃС‹Р»РєР° РЅР° РєРѕРјРїРѕРЅРµРЅС‚. Р•СЃР»Рё РїСѓРЅРєС‚ РјРµРЅСЋ РЅРµ СЃРѕРґРµСЂР¶РёС‚ РїРѕРґРјРµРЅСЋ С‚Рѕ РїРѕР»Рµ РѕР±СЏР·Р°С‚РµР»СЊРЅРѕ РґР»СЏ Р·Р°РїРѕР»РЅРµРЅРёСЏ.';
                echo mosToolTip( $tip );
          ?>
 			</td>
@@ -157,14 +157,14 @@ function edit($row, $lists) {
 			<td>
 			<?php echo $lists['parent'];?>
 			<?php
-  				$tip = 'Родительский пункт меню. Допускается всего 1 уровень вложенности.';
+  				$tip = 'Р РѕРґРёС‚РµР»СЊСЃРєРёР№ РїСѓРЅРєС‚ РјРµРЅСЋ. Р”РѕРїСѓСЃРєР°РµС‚СЃСЏ РІСЃРµРіРѕ 1 СѓСЂРѕРІРµРЅСЊ РІР»РѕР¶РµРЅРЅРѕСЃС‚Рё.';
                echo mosToolTip( $tip );
          ?>
 			</td>
 		</tr>
 	<tr>
 			<td>
-<font color="red">*</font> пункты обязательны для заполнения.
+<font color="red">*</font> РїСѓРЅРєС‚С‹ РѕР±СЏР·Р°С‚РµР»СЊРЅС‹ РґР»СЏ Р·Р°РїРѕР»РЅРµРЅРёСЏ.
 			</td>
 			<td>&nbsp;</td>
 		</tr>

@@ -1,127 +1,127 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <mosinstall type="menu" version="1.0.0">
-	<name>Блог - Содержимое раздела в архиве</name>
+	<name>Р‘Р»РѕРі - РЎРѕРґРµСЂР¶РёРјРѕРµ СЂР°Р·РґРµР»Р° РІ Р°СЂС…РёРІРµ</name>
 	<group>Content</group>
 	<author>Joostina! Project</author>
-	<creationDate>Январь 2007</creationDate>
+	<creationDate>РЇРЅРІР°СЂСЊ 2007</creationDate>
 	<copyright>(C) 2007 Joostina Team.</copyright>
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
 	<authorEmail>joostinacms@gmail.com</authorEmail>
 	<authorUrl>www.joostina.ru</authorUrl>
 	<version>1.0.0</version>
-	<description>Показывается список архивных объектов содержимого из определенного раздела</description>
+	<description>РџРѕРєР°Р·С‹РІР°РµС‚СЃСЏ СЃРїРёСЃРѕРє Р°СЂС…РёРІРЅС‹С… РѕР±СЉРµРєС‚РѕРІ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ РёР· РѕРїСЂРµРґРµР»РµРЅРЅРѕРіРѕ СЂР°Р·РґРµР»Р°</description>
 	<params>
-		<param name="menu_image" type="imagelist" directory="/images/stories" hide_default="1" default="" label="Изображение меню" description="Маленькое изображение, располагаемое слева или справа от пункта меню. Изображение должно находиться в папке images/stories/" />
-		<param name="pageclass_sfx" type="text" size="20" default="" label="Суффикс CSS-класса страницы" description="Суффикс CSS-класса, используемого на этой странице. Необходим для использования индивидуального стиля страницы" />
-		<param name="back_button" type="list" default="" label="Кнопка Назад (Вернуться)" description="Показать/Скрыть кнопку Назад (Вернуться), возвращающую на предыдущую просмотренную страницу">
-			<option value="">Исп. ОБЩИЕ настройки</option>
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
+		<param name="menu_image" type="imagelist" directory="/images/stories" hide_default="1" default="" label="РР·РѕР±СЂР°Р¶РµРЅРёРµ РјРµРЅСЋ" description="РњР°Р»РµРЅСЊРєРѕРµ РёР·РѕР±СЂР°Р¶РµРЅРёРµ, СЂР°СЃРїРѕР»Р°РіР°РµРјРѕРµ СЃР»РµРІР° РёР»Рё СЃРїСЂР°РІР° РѕС‚ РїСѓРЅРєС‚Р° РјРµРЅСЋ. РР·РѕР±СЂР°Р¶РµРЅРёРµ РґРѕР»Р¶РЅРѕ РЅР°С…РѕРґРёС‚СЊСЃСЏ РІ РїР°РїРєРµ images/stories/" />
+		<param name="pageclass_sfx" type="text" size="20" default="" label="РЎСѓС„С„РёРєСЃ CSS-РєР»Р°СЃСЃР° СЃС‚СЂР°РЅРёС†С‹" description="РЎСѓС„С„РёРєСЃ CSS-РєР»Р°СЃСЃР°, РёСЃРїРѕР»СЊР·СѓРµРјРѕРіРѕ РЅР° СЌС‚РѕР№ СЃС‚СЂР°РЅРёС†Рµ. РќРµРѕР±С…РѕРґРёРј РґР»СЏ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ РёРЅРґРёРІРёРґСѓР°Р»СЊРЅРѕРіРѕ СЃС‚РёР»СЏ СЃС‚СЂР°РЅРёС†С‹" />
+		<param name="back_button" type="list" default="" label="РљРЅРѕРїРєР° РќР°Р·Р°Рґ (Р’РµСЂРЅСѓС‚СЊСЃСЏ)" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РєРЅРѕРїРєСѓ РќР°Р·Р°Рґ (Р’РµСЂРЅСѓС‚СЊСЃСЏ), РІРѕР·РІСЂР°С‰Р°СЋС‰СѓСЋ РЅР° РїСЂРµРґС‹РґСѓС‰СѓСЋ РїСЂРѕСЃРјРѕС‚СЂРµРЅРЅСѓСЋ СЃС‚СЂР°РЅРёС†Сѓ">
+			<option value="">РСЃРї. РћР‘Р©РР• РЅР°СЃС‚СЂРѕР№РєРё</option>
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
 		</param>
 		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="header" type="text" size="30" default="" label="Заголовок страницы" description="Текст, отображаемый вверху страницы" />
-		<param name="page_title" type="radio" default="1" label="Заголовок страницы" description="Показать/Скрыть заголовок страницы">
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
+		<param name="header" type="text" size="30" default="" label="Р—Р°РіРѕР»РѕРІРѕРє СЃС‚СЂР°РЅРёС†С‹" description="РўРµРєСЃС‚, РѕС‚РѕР±СЂР°Р¶Р°РµРјС‹Р№ РІРІРµСЂС…Сѓ СЃС‚СЂР°РЅРёС†С‹" />
+		<param name="page_title" type="radio" default="1" label="Р—Р°РіРѕР»РѕРІРѕРє СЃС‚СЂР°РЅРёС†С‹" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ Р·Р°РіРѕР»РѕРІРѕРє СЃС‚СЂР°РЅРёС†С‹">
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
 		</param>
-		<param name="leading" type="text" size="3" default="1" label="Количество главных" description="Количество главных объектов (на всю ширину). При 0 главные объекты отображаться не будут." />
-		<param name="intro" type="text" size="3" default="4" label="Количество вводных" description="Количество объектов, у которых показывается вступительный (intro) текст." />
-		<param name="columns" type="text" size="3" default="2" label="Колонок" description="Сколько колонок в строке использовать при отображении вводного текста" />
-		<param name="link" type="text" size="3" default="4" label="Количество ссылок" description="Количество объектов, отображаемых в виде ссылок" />
-		<param name="orderby_pri" type="list" default="" label="Сортировка категории" description="Сортировка объектов в категории">
-			<option value="">Нет, в первоначальном порядке</option>
-			<option value="alpha">Заголовки по алфавиту</option>
-			<option value="ralpha">Заголовки в обратном порядке алфавита</option>
-			<option value="order">Упорядоченно</option>
+		<param name="leading" type="text" size="3" default="1" label="РљРѕР»РёС‡РµСЃС‚РІРѕ РіР»Р°РІРЅС‹С…" description="РљРѕР»РёС‡РµСЃС‚РІРѕ РіР»Р°РІРЅС‹С… РѕР±СЉРµРєС‚РѕРІ (РЅР° РІСЃСЋ С€РёСЂРёРЅСѓ). РџСЂРё 0 РіР»Р°РІРЅС‹Рµ РѕР±СЉРµРєС‚С‹ РѕС‚РѕР±СЂР°Р¶Р°С‚СЊСЃСЏ РЅРµ Р±СѓРґСѓС‚." />
+		<param name="intro" type="text" size="3" default="4" label="РљРѕР»РёС‡РµСЃС‚РІРѕ РІРІРѕРґРЅС‹С…" description="РљРѕР»РёС‡РµСЃС‚РІРѕ РѕР±СЉРµРєС‚РѕРІ, Сѓ РєРѕС‚РѕСЂС‹С… РїРѕРєР°Р·С‹РІР°РµС‚СЃСЏ РІСЃС‚СѓРїРёС‚РµР»СЊРЅС‹Р№ (intro) С‚РµРєСЃС‚." />
+		<param name="columns" type="text" size="3" default="2" label="РљРѕР»РѕРЅРѕРє" description="РЎРєРѕР»СЊРєРѕ РєРѕР»РѕРЅРѕРє РІ СЃС‚СЂРѕРєРµ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РїСЂРё РѕС‚РѕР±СЂР°Р¶РµРЅРёРё РІРІРѕРґРЅРѕРіРѕ С‚РµРєСЃС‚Р°" />
+		<param name="link" type="text" size="3" default="4" label="РљРѕР»РёС‡РµСЃС‚РІРѕ СЃСЃС‹Р»РѕРє" description="РљРѕР»РёС‡РµСЃС‚РІРѕ РѕР±СЉРµРєС‚РѕРІ, РѕС‚РѕР±СЂР°Р¶Р°РµРјС‹С… РІ РІРёРґРµ СЃСЃС‹Р»РѕРє" />
+		<param name="orderby_pri" type="list" default="" label="РЎРѕСЂС‚РёСЂРѕРІРєР° РєР°С‚РµРіРѕСЂРёРё" description="РЎРѕСЂС‚РёСЂРѕРІРєР° РѕР±СЉРµРєС‚РѕРІ РІ РєР°С‚РµРіРѕСЂРёРё">
+			<option value="">РќРµС‚, РІ РїРµСЂРІРѕРЅР°С‡Р°Р»СЊРЅРѕРј РїРѕСЂСЏРґРєРµ</option>
+			<option value="alpha">Р—Р°РіРѕР»РѕРІРєРё РїРѕ Р°Р»С„Р°РІРёС‚Сѓ</option>
+			<option value="ralpha">Р—Р°РіРѕР»РѕРІРєРё РІ РѕР±СЂР°С‚РЅРѕРј РїРѕСЂСЏРґРєРµ Р°Р»С„Р°РІРёС‚Р°</option>
+			<option value="order">РЈРїРѕСЂСЏРґРѕС‡РµРЅРЅРѕ</option>
 		</param>
-		<param name="orderby_sec" type="list" default="" label="Первоначальный порядок" description="Порядок, в котором будут отображаться объекты.">
-			<option value="">По умолчанию</option>
-			<option value="date">Сначала самые старые</option>
-			<option value="rdate">Сначала самые новые</option>
-			<option value="alpha">Заголовки по алфавиту</option>
-			<option value="ralpha">Заголовки в обратном порядке алфавита</option>
-			<option value="author">Авторы по алфавиту</option>
-			<option value="rauthor">Авторы в обратном порядке алфавита</option>
-			<option value="hits">Сначала самые читаемые</option>
-			<option value="rhits">Сначала редко читаемые</option>
-			<option value="order">Упорядоченно</option>
+		<param name="orderby_sec" type="list" default="" label="РџРµСЂРІРѕРЅР°С‡Р°Р»СЊРЅС‹Р№ РїРѕСЂСЏРґРѕРє" description="РџРѕСЂСЏРґРѕРє, РІ РєРѕС‚РѕСЂРѕРј Р±СѓРґСѓС‚ РѕС‚РѕР±СЂР°Р¶Р°С‚СЊСЃСЏ РѕР±СЉРµРєС‚С‹.">
+			<option value="">РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ</option>
+			<option value="date">РЎРЅР°С‡Р°Р»Р° СЃР°РјС‹Рµ СЃС‚Р°СЂС‹Рµ</option>
+			<option value="rdate">РЎРЅР°С‡Р°Р»Р° СЃР°РјС‹Рµ РЅРѕРІС‹Рµ</option>
+			<option value="alpha">Р—Р°РіРѕР»РѕРІРєРё РїРѕ Р°Р»С„Р°РІРёС‚Сѓ</option>
+			<option value="ralpha">Р—Р°РіРѕР»РѕРІРєРё РІ РѕР±СЂР°С‚РЅРѕРј РїРѕСЂСЏРґРєРµ Р°Р»С„Р°РІРёС‚Р°</option>
+			<option value="author">РђРІС‚РѕСЂС‹ РїРѕ Р°Р»С„Р°РІРёС‚Сѓ</option>
+			<option value="rauthor">РђРІС‚РѕСЂС‹ РІ РѕР±СЂР°С‚РЅРѕРј РїРѕСЂСЏРґРєРµ Р°Р»С„Р°РІРёС‚Р°</option>
+			<option value="hits">РЎРЅР°С‡Р°Р»Р° СЃР°РјС‹Рµ С‡РёС‚Р°РµРјС‹Рµ</option>
+			<option value="rhits">РЎРЅР°С‡Р°Р»Р° СЂРµРґРєРѕ С‡РёС‚Р°РµРјС‹Рµ</option>
+			<option value="order">РЈРїРѕСЂСЏРґРѕС‡РµРЅРЅРѕ</option>
 		</param>
-		<param name="pagination" type="list" default="2" label="Разбиение на страницы" description="Показать/Скрыть поддержку разбиения на страницы">
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
-			<option value="2">Авто</option>
+		<param name="pagination" type="list" default="2" label="Р Р°Р·Р±РёРµРЅРёРµ РЅР° СЃС‚СЂР°РЅРёС†С‹" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РїРѕРґРґРµСЂР¶РєСѓ СЂР°Р·Р±РёРµРЅРёСЏ РЅР° СЃС‚СЂР°РЅРёС†С‹">
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
+			<option value="2">РђРІС‚Рѕ</option>
 		</param>
-		<param name="pagination_results" type="radio" default="1" label="Результаты разбиения на страницы" description="Показать/Скрыть информацию о результатах разбиения на страницы (например, 1-4 из 4 )">
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
+		<param name="pagination_results" type="radio" default="1" label="Р РµР·СѓР»СЊС‚Р°С‚С‹ СЂР°Р·Р±РёРµРЅРёСЏ РЅР° СЃС‚СЂР°РЅРёС†С‹" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ СЂРµР·СѓР»СЊС‚Р°С‚Р°С… СЂР°Р·Р±РёРµРЅРёСЏ РЅР° СЃС‚СЂР°РЅРёС†С‹ (РЅР°РїСЂРёРјРµСЂ, 1-4 РёР· 4 )">
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
 		</param>
-		<param name="image" type="radio" default="1" label="Изображения MOS" description="Отображать {mosimages}.">
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
+		<param name="image" type="radio" default="1" label="РР·РѕР±СЂР°Р¶РµРЅРёСЏ MOS" description="РћС‚РѕР±СЂР°Р¶Р°С‚СЊ {mosimages}.">
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
 		</param>
 		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="category" type="radio" default="0" label="Название категории" description="Показать/Скрыть названия категорий, которым принадлежат объекты">
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
+		<param name="category" type="radio" default="0" label="РќР°Р·РІР°РЅРёРµ РєР°С‚РµРіРѕСЂРёРё" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РЅР°Р·РІР°РЅРёСЏ РєР°С‚РµРіРѕСЂРёР№, РєРѕС‚РѕСЂС‹Рј РїСЂРёРЅР°РґР»РµР¶Р°С‚ РѕР±СЉРµРєС‚С‹">
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
 		</param>
-		<param name="category_link" type="radio" default="0" label="Названия категорий в виде ссылок" description="Сделать названия категорий ссылками на страницу текущей категории">
-			<option value="0">Нет</option>
-			<option value="1">Да</option>
+		<param name="category_link" type="radio" default="0" label="РќР°Р·РІР°РЅРёСЏ РєР°С‚РµРіРѕСЂРёР№ РІ РІРёРґРµ СЃСЃС‹Р»РѕРє" description="РЎРґРµР»Р°С‚СЊ РЅР°Р·РІР°РЅРёСЏ РєР°С‚РµРіРѕСЂРёР№ СЃСЃС‹Р»РєР°РјРё РЅР° СЃС‚СЂР°РЅРёС†Сѓ С‚РµРєСѓС‰РµР№ РєР°С‚РµРіРѕСЂРёРё">
+			<option value="0">РќРµС‚</option>
+			<option value="1">Р”Р°</option>
 		</param>
-		<param name="item_title" type="radio" default="1" label="Названия объектов" description="Показать/Скрыть заголовки объектов">
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
+		<param name="item_title" type="radio" default="1" label="РќР°Р·РІР°РЅРёСЏ РѕР±СЉРµРєС‚РѕРІ" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ Р·Р°РіРѕР»РѕРІРєРё РѕР±СЉРµРєС‚РѕРІ">
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
 		</param>
-		<param name="link_titles" type="list" default="" label="Заголовки в виде ссылок" description="Сделать заголовки объектов в виде ссылок на объекты">
-			<option value="">Исп. ОБЩИЕ настройки</option>
-			<option value="0">Нет</option>
-			<option value="1">Да</option>
+		<param name="link_titles" type="list" default="" label="Р—Р°РіРѕР»РѕРІРєРё РІ РІРёРґРµ СЃСЃС‹Р»РѕРє" description="РЎРґРµР»Р°С‚СЊ Р·Р°РіРѕР»РѕРІРєРё РѕР±СЉРµРєС‚РѕРІ РІ РІРёРґРµ СЃСЃС‹Р»РѕРє РЅР° РѕР±СЉРµРєС‚С‹">
+			<option value="">РСЃРї. РћР‘Р©РР• РЅР°СЃС‚СЂРѕР№РєРё</option>
+			<option value="0">РќРµС‚</option>
+			<option value="1">Р”Р°</option>
 		</param>
-		<param name="readmore" type="list" default="" label="Подробнее..." description="Показать/Скрыть ссылку [Подробнее...]">
-			<option value="">Исп. ОБЩИЕ настройки</option>
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
+		<param name="readmore" type="list" default="" label="РџРѕРґСЂРѕР±РЅРµРµ..." description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ СЃСЃС‹Р»РєСѓ [РџРѕРґСЂРѕР±РЅРµРµ...]">
+			<option value="">РСЃРї. РћР‘Р©РР• РЅР°СЃС‚СЂРѕР№РєРё</option>
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
 		</param>
-		<param name="rating" type="list" default="" label="Рейтинг объектов" description="Показать/Скрыть возможность оценки объектов. Применяется только для этой страницы">
-			<option value="">Исп. ОБЩИЕ настройки</option>
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
+		<param name="rating" type="list" default="" label="Р РµР№С‚РёРЅРі РѕР±СЉРµРєС‚РѕРІ" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ РѕС†РµРЅРєРё РѕР±СЉРµРєС‚РѕРІ. РџСЂРёРјРµРЅСЏРµС‚СЃСЏ С‚РѕР»СЊРєРѕ РґР»СЏ СЌС‚РѕР№ СЃС‚СЂР°РЅРёС†С‹">
+			<option value="">РСЃРї. РћР‘Р©РР• РЅР°СЃС‚СЂРѕР№РєРё</option>
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
 		</param>
-		<param name="author" type="list" default="" label="Имена авторов" description="Показать/Скрыть имена авторов объектов. Применяется только для этой страницы">
-			<option value="">Исп. ОБЩИЕ настройки</option>
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
+		<param name="author" type="list" default="" label="РРјРµРЅР° Р°РІС‚РѕСЂРѕРІ" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РёРјРµРЅР° Р°РІС‚РѕСЂРѕРІ РѕР±СЉРµРєС‚РѕРІ. РџСЂРёРјРµРЅСЏРµС‚СЃСЏ С‚РѕР»СЊРєРѕ РґР»СЏ СЌС‚РѕР№ СЃС‚СЂР°РЅРёС†С‹">
+			<option value="">РСЃРї. РћР‘Р©РР• РЅР°СЃС‚СЂРѕР№РєРё</option>
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
 		</param>
-		<param name="createdate" type="list" default="" label="Дата и время создания" description="Показать/Скрыть дату создания объекта. Применяется только для этой страницы">
-			<option value="">Исп. ОБЩИЕ настройки</option>
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
+		<param name="createdate" type="list" default="" label="Р”Р°С‚Р° Рё РІСЂРµРјСЏ СЃРѕР·РґР°РЅРёСЏ" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РґР°С‚Сѓ СЃРѕР·РґР°РЅРёСЏ РѕР±СЉРµРєС‚Р°. РџСЂРёРјРµРЅСЏРµС‚СЃСЏ С‚РѕР»СЊРєРѕ РґР»СЏ СЌС‚РѕР№ СЃС‚СЂР°РЅРёС†С‹">
+			<option value="">РСЃРї. РћР‘Р©РР• РЅР°СЃС‚СЂРѕР№РєРё</option>
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
 		</param>
-		<param name="modifydate" type="list" default="" label="Дата и время изменения" description="Показать/Скрыть дату изменения объекта. Применяется только для этой страницы">
-			<option value="">Исп. ОБЩИЕ настройки</option>
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
+		<param name="modifydate" type="list" default="" label="Р”Р°С‚Р° Рё РІСЂРµРјСЏ РёР·РјРµРЅРµРЅРёСЏ" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РґР°С‚Сѓ РёР·РјРµРЅРµРЅРёСЏ РѕР±СЉРµРєС‚Р°. РџСЂРёРјРµРЅСЏРµС‚СЃСЏ С‚РѕР»СЊРєРѕ РґР»СЏ СЌС‚РѕР№ СЃС‚СЂР°РЅРёС†С‹">
+			<option value="">РСЃРї. РћР‘Р©РР• РЅР°СЃС‚СЂРѕР№РєРё</option>
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
 		</param>
-		<param name="print" type="list" default="" label="Значок Печать" description="Показать/Скрыть кнопку печати объекта. Применяется только для этой страницы">
-			<option value="">Исп. ОБЩИЕ настройки</option>
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
+		<param name="print" type="list" default="" label="Р—РЅР°С‡РѕРє РџРµС‡Р°С‚СЊ" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РєРЅРѕРїРєСѓ РїРµС‡Р°С‚Рё РѕР±СЉРµРєС‚Р°. РџСЂРёРјРµРЅСЏРµС‚СЃСЏ С‚РѕР»СЊРєРѕ РґР»СЏ СЌС‚РѕР№ СЃС‚СЂР°РЅРёС†С‹">
+			<option value="">РСЃРї. РћР‘Р©РР• РЅР°СЃС‚СЂРѕР№РєРё</option>
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
 		</param>
-		<param name="email" type="list" default="" label="Значок E-mail" description="Показать/Скрыть кнопку отправки объекта на e-mail. Применяется только для этой страницы">
-			<option value="">Исп. ОБЩИЕ настройки</option>
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
+		<param name="email" type="list" default="" label="Р—РЅР°С‡РѕРє E-mail" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РєРЅРѕРїРєСѓ РѕС‚РїСЂР°РІРєРё РѕР±СЉРµРєС‚Р° РЅР° e-mail. РџСЂРёРјРµРЅСЏРµС‚СЃСЏ С‚РѕР»СЊРєРѕ РґР»СЏ СЌС‚РѕР№ СЃС‚СЂР°РЅРёС†С‹">
+			<option value="">РСЃРї. РћР‘Р©РР• РЅР°СЃС‚СЂРѕР№РєРё</option>
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
 		</param>
  		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="robots" type="list" default="-1" label="Мета-тег Robots" description="Выберите, какой мета-тег robots использовать для этой страницы">
-			<option value="-1">Не отображать мета-тег robot</option>
+		<param name="robots" type="list" default="-1" label="РњРµС‚Р°-С‚РµРі Robots" description="Р’С‹Р±РµСЂРёС‚Рµ, РєР°РєРѕР№ РјРµС‚Р°-С‚РµРі robots РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РґР»СЏ СЌС‚РѕР№ СЃС‚СЂР°РЅРёС†С‹">
+			<option value="-1">РќРµ РѕС‚РѕР±СЂР°Р¶Р°С‚СЊ РјРµС‚Р°-С‚РµРі robot</option>
 			<option value="0">Index, follow</option>
 			<option value="1">Index, NoFollow</option>
 			<option value="2">NoIndex, Follow</option>
 			<option value="3">NoIndex, NoFollow</option>
 		</param>
-		<param name="meta_description" type="textarea" default="" label="META-тег description" rows="5" cols="30" description="META-тег: Description"/>
-		<param name="meta_keywords"    type="textarea" default="" label="META-тег keywords" rows="5" cols="30" description="META-тег keywords. Разделяйте ключевые слова запятыми"/>
-		<param name="meta_author" 	   type="text" size="40" default="" label="META-тег author" description="Введите МЕТА-тег author. Оставьте это поле пустым, если не хотите отображать этот тег в заголовке страницы" />
+		<param name="meta_description" type="textarea" default="" label="META-С‚РµРі description" rows="5" cols="30" description="META-С‚РµРі: Description"/>
+		<param name="meta_keywords"    type="textarea" default="" label="META-С‚РµРі keywords" rows="5" cols="30" description="META-С‚РµРі keywords. Р Р°Р·РґРµР»СЏР№С‚Рµ РєР»СЋС‡РµРІС‹Рµ СЃР»РѕРІР° Р·Р°РїСЏС‚С‹РјРё"/>
+		<param name="meta_author" 	   type="text" size="40" default="" label="META-С‚РµРі author" description="Р’РІРµРґРёС‚Рµ РњР•РўРђ-С‚РµРі author. РћСЃС‚Р°РІСЊС‚Рµ СЌС‚Рѕ РїРѕР»Рµ РїСѓСЃС‚С‹Рј, РµСЃР»Рё РЅРµ С…РѕС‚РёС‚Рµ РѕС‚РѕР±СЂР°Р¶Р°С‚СЊ СЌС‚РѕС‚ С‚РµРі РІ Р·Р°РіРѕР»РѕРІРєРµ СЃС‚СЂР°РЅРёС†С‹" />
 	</params>
 </mosinstall>

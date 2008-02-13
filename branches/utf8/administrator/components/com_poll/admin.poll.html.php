@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 /**
 * @package Joostina
@@ -28,7 +28,7 @@ class HTML_poll {
 		<form action="index2.php" method="post" name="adminForm">
 		<table class="adminheading">
 		<tr>
-			<th>Опросы</th>
+			<th>РћРїСЂРѕСЃС‹</th>
 		</tr>
 		</table>
 
@@ -41,16 +41,16 @@ class HTML_poll {
 			<input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo count( $rows ); ?>);" />
 			</th>
 			<th align="left">
-			Заголовок опроса
+			Р—Р°РіРѕР»РѕРІРѕРє РѕРїСЂРѕСЃР°
 			</th>
 			<th width="10%" align="center">
-			Опубликован
+			РћРїСѓР±Р»РёРєРѕРІР°РЅ
 			</th>
 			<th width="10%" align="center">
-			Параметры
+			РџР°СЂР°РјРµС‚СЂС‹
 			</th>
 			<th width="10%" align="center">
-			Задержка
+			Р—Р°РґРµСЂР¶РєР°
 			</th>
 		</tr>
 		<?php
@@ -62,7 +62,7 @@ class HTML_poll {
 
 			$task 	= $row->published ? 'unpublish' : 'publish';
 			$img 	= $row->published ? 'publish_g.png' : 'publish_x.png';
-			$alt 	= $row->published ? 'Опубликован' : 'Неопубликован';
+			$alt 	= $row->published ? 'РћРїСѓР±Р»РёРєРѕРІР°РЅ' : 'РќРµРѕРїСѓР±Р»РёРєРѕРІР°РЅ';
 
 			$checked 	= mosCommonHTML::CheckedOutProcessing( $row, $i );
 			?>
@@ -74,7 +74,7 @@ class HTML_poll {
 				<?php echo $checked; ?>
 				</td>
 				<td>
-				<a href="<?php echo $link; ?>" title="Изменить опрос">
+				<a href="<?php echo $link; ?>" title="РР·РјРµРЅРёС‚СЊ РѕРїСЂРѕСЃ">
 				<?php echo $row->title; ?>
 				</a>
 				</td>
@@ -118,13 +118,13 @@ class HTML_poll {
 			}
 			// do field validation
 			if (form.title.value == "") {
-				alert( "Опрос должен иметь название" );
+				alert( "РћРїСЂРѕСЃ РґРѕР»Р¶РµРЅ РёРјРµС‚СЊ РЅР°Р·РІР°РЅРёРµ" );
 			} else if( isNaN( parseInt( form.lag.value ) ) ) {
-				alert( "Задержка между ответами не должна быть нулевой" );
+				alert( "Р—Р°РґРµСЂР¶РєР° РјРµР¶РґСѓ РѕС‚РІРµС‚Р°РјРё РЅРµ РґРѕР»Р¶РЅР° Р±С‹С‚СЊ РЅСѓР»РµРІРѕР№" );
 			//} else if (form.menu.options.value == ""){
-			//	alert( "Опрос должен иметь страницы." );
+			//	alert( "РћРїСЂРѕСЃ РґРѕР»Р¶РµРЅ РёРјРµС‚СЊ СЃС‚СЂР°РЅРёС†С‹." );
 			//} else if (form.adminForm.textfieldcheck.value == 0){
-			//	alert( "Опрос должен иметь ответы." );
+			//	alert( "РћРїСЂРѕСЃ РґРѕР»Р¶РµРЅ РёРјРµС‚СЊ РѕС‚РІРµС‚С‹." );
 			} else {
 				submitform( pressbutton );
 			}
@@ -134,9 +134,9 @@ class HTML_poll {
 		<table class="adminheading">
 		<tr>
 			<th>
-			Опрос:
+			РћРїСЂРѕСЃ:
 			<small>
-			<?php echo $row->id ? 'Изменение' : 'Новый';?>
+			<?php echo $row->id ? 'РР·РјРµРЅРµРЅРёРµ' : 'РќРѕРІС‹Р№';?>
 			</small>
 			</th>
 		</tr>
@@ -145,12 +145,12 @@ class HTML_poll {
 		<table class="adminform">
 		<tr>
 			<th colspan="4">
-			Детали опроса
+			Р”РµС‚Р°Р»Рё РѕРїСЂРѕСЃР°
 			</th>
 		</tr>
 		<tr>
 			<td width="10%">
-			Заголовок:
+			Р—Р°РіРѕР»РѕРІРѕРє:
 			</td>
 			<td>
 			<input class="inputbox" type="text" name="title" size="60" value="<?php echo $row->title; ?>" />
@@ -159,22 +159,22 @@ class HTML_poll {
 
 			</td>
 			<td width="100%" rowspan="20" valign="top">
-			Связан с пунктами меню:
+			РЎРІСЏР·Р°РЅ СЃ РїСѓРЅРєС‚Р°РјРё РјРµРЅСЋ:
 			<br />
 			<?php echo $lists['select']; ?>
 			</td>
 		</tr>
 		<tr>
 			<td>
-			Задержка между ответами:
+			Р—Р°РґРµСЂР¶РєР° РјРµР¶РґСѓ РѕС‚РІРµС‚Р°РјРё:
 			</td>
 			<td>
-			<input class="inputbox" type="text" name="lag" size="10" value="<?php echo $row->lag; ?>" /> (секунд между принятием голосов)
+			<input class="inputbox" type="text" name="lag" size="10" value="<?php echo $row->lag; ?>" /> (СЃРµРєСѓРЅРґ РјРµР¶РґСѓ РїСЂРёРЅСЏС‚РёРµРј РіРѕР»РѕСЃРѕРІ)
 			</td>
 		</tr>
 		<tr>
 			<td valign="top">
-			Опубликован:
+			РћРїСѓР±Р»РёРєРѕРІР°РЅ:
 			</td>
 			<td>
 			<?php echo $lists['published']; ?>
@@ -183,7 +183,7 @@ class HTML_poll {
 		<tr>
 			<td colspan="3">
 			<br /><br />
-			Варианты ответов:
+			Р’Р°СЂРёР°РЅС‚С‹ РѕС‚РІРµС‚РѕРІ:
 			</td>
 		</tr>
 		<?php

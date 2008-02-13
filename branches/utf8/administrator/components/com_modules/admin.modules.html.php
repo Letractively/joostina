@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 /**
 * @package Joostina
@@ -28,7 +28,7 @@ class HTML_modules {
 		global $my;
 
 		mosCommonHTML::loadOverlib();
-		/* подключаем Pquery */
+		/* РїРѕРґРєР»СЋС‡Р°РµРј Pquery */
 		mosCommonHTML::loadPquery();
 		$pquery= new PQuery();
 		?>
@@ -36,7 +36,7 @@ class HTML_modules {
 		<table class="adminheading">
 		<tr>
 			<th class="modules" rowspan="2">
-			Модули <small><small>[ <?php echo $client == 'admin' ? 'Панель управления' : 'Сайт';?> ]</small></small>
+			РњРѕРґСѓР»Рё <small><small>[ <?php echo $client == 'admin' ? 'РџР°РЅРµР»СЊ СѓРїСЂР°РІР»РµРЅРёСЏ' : 'РЎР°Р№С‚';?> ]</small></small>
 			</th>
 			<td width="right">
 			<?php echo $lists['position'];?>
@@ -47,7 +47,7 @@ class HTML_modules {
 		</tr>
 		<tr>
 			<td align="right">
-			Фильтр:
+			Р¤РёР»СЊС‚СЂ:
 			</td>
 			<td>
 			<input type="text" name="search" value="<?php echo htmlspecialchars( $search );?>" class="text_area" onChange="document.adminForm.submit();" />
@@ -62,40 +62,40 @@ class HTML_modules {
 			<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $rows );?>);" />
 			</th>
 			<th class="title">
-			Название модуля
+			РќР°Р·РІР°РЅРёРµ РјРѕРґСѓР»СЏ
 			</th>
 			<th class="jtd_nowrap" width="10%">
-			Опубликован
+			РћРїСѓР±Р»РёРєРѕРІР°РЅ
 			</th>
 			<th colspan="2" align="center" width="5%">
-			Сортировка
+			РЎРѕСЂС‚РёСЂРѕРІРєР°
 			</th>
 			<th width="2%">
-			Порядок
+			РџРѕСЂСЏРґРѕРє
 			</th>
 			<th width="1%">
-			<a href="javascript: saveorder( <?php echo count( $rows )-1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="Сохранить порядок" /></a>
+			<a href="javascript: saveorder( <?php echo count( $rows )-1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="РЎРѕС…СЂР°РЅРёС‚СЊ РїРѕСЂСЏРґРѕРє" /></a>
 			</th>
 			<?php
 			if ( !$client ) {
 				?>
 				<th class="jtd_nowrap" width="7%">
-				Доступ
+				Р”РѕСЃС‚СѓРї
 				</th>
 				<?php
 			}
 			?>
 			<th class="jtd_nowrap" width="7%">
-			Позиция
+			РџРѕР·РёС†РёСЏ
 			</th>
 			<th class="jtd_nowrap" width="5%">
-			Страницы
+			РЎС‚СЂР°РЅРёС†С‹
 			</th>
 			<th class="jtd_nowrap" width="5%">
 			ID
 			</th>
 			<th class="jtd_nowrap" width="10%" align="left">
-			Тип
+			РўРёРї
 			</th>
 		</tr>
 		<?php
@@ -131,13 +131,13 @@ class HTML_modules {
 				</td>
 				<td align="center">
 <?php
-/* boston, обработка публикации модулей. */
+/* boston, РѕР±СЂР°Р±РѕС‚РєР° РїСѓР±Р»РёРєР°С†РёРё РјРѕРґСѓР»РµР№. */
 					global $mosConfig_live_site;
 					$url = $mosConfig_live_site.'/administrator/index4.php?option=com_modules&task=publish&id='.$row->id;
 					$div_id = 'div_'.$row->id;
 					$img	 = $row->published ? 'publish_g.png' : 'publish_x.png';
 					$div = '<div id="'.$div_id.'"><img src="images/'.$img.'" width="12" height="12" border="0" alt="" /></div>';
-					echo $pquery->link_to_remote($div,array('url'=>$url,'update'=>'#'.$div_id,'beforeSend'=>$pquery->visual_effect('show','#ajax_status'),'success'=>$pquery->visual_effect('hide','#ajax_status')),null,'Допустит&nbsp;/&nbsp;Скрыть&nbspэлемент');
+					echo $pquery->link_to_remote($div,array('url'=>$url,'update'=>'#'.$div_id,'beforeSend'=>$pquery->visual_effect('show','#ajax_status'),'success'=>$pquery->visual_effect('hide','#ajax_status')),null,'Р”РѕРїСѓСЃС‚РёС‚&nbsp;/&nbsp;РЎРєСЂС‹С‚СЊ&nbspСЌР»РµРјРµРЅС‚');
 ?>
 				</td>
 				<td>
@@ -164,11 +164,11 @@ class HTML_modules {
 				<td align="center">
 				<?php
 				if (is_null( $row->pages )) {
-					echo 'Нет';
+					echo 'РќРµС‚';
 				} else if ($row->pages > 0) {
-					echo 'Некоторые';
+					echo 'РќРµРєРѕС‚РѕСЂС‹Рµ';
 				} else {
-					echo 'Все';
+					echo 'Р’СЃРµ';
 				}
 				?>
 				</td>
@@ -225,7 +225,7 @@ class HTML_modules {
 		<script language="javascript" type="text/javascript">
 		function submitbutton(pressbutton) {
 			if ( ( pressbutton == 'save' ) && ( document.adminForm.title.value == "" ) ) {
-				alert("Модуль должен иметь заголовок");
+				alert("РњРѕРґСѓР»СЊ РґРѕР»Р¶РµРЅ РёРјРµС‚СЊ Р·Р°РіРѕР»РѕРІРѕРє");
 			} else {
 				<?php if ($row->module == "") {
 					getEditorContents( 'editor1', 'content' );
@@ -249,10 +249,10 @@ class HTML_modules {
 		<table class="adminheading">
 		<tr>
 			<th class="modules">
-			Модуль -&nbsp;
-			<?php echo $lists['client_id'] ? 'Админцентр' : 'Сайт';?> :
+			РњРѕРґСѓР»СЊ -&nbsp;
+			<?php echo $lists['client_id'] ? 'РђРґРјРёРЅС†РµРЅС‚СЂ' : 'РЎР°Р№С‚';?> :
 			<small>
-			<?php echo $row->id ? 'Изменение' : 'Новый';?>
+			<?php echo $row->id ? 'РР·РјРµРЅРµРЅРёРµ' : 'РќРѕРІС‹Р№';?>
 			</small>
 			<?php echo $row->titleA; ?>
 			</th>
@@ -267,12 +267,12 @@ class HTML_modules {
 				<table class="adminform">
 				<tr>
 					<th colspan="2">
-					Детали
+					Р”РµС‚Р°Р»Рё
 					</th>
 				</tr>
 				<tr>
 					<td width="100" align="left">
-					Заголовок:
+					Р—Р°РіРѕР»РѕРІРѕРє:
 					</td>
 					<td>
 					<input class="text_area" type="text" name="title" size="35" value="<?php echo $row->title; ?>" />
@@ -281,7 +281,7 @@ class HTML_modules {
 				<!-- START selectable pages -->
 				<tr>
 					<td width="100" align="left">
-					Показывать заголовок:
+					РџРѕРєР°Р·С‹РІР°С‚СЊ Р·Р°РіРѕР»РѕРІРѕРє:
 					</td>
 					<td>
 					<?php echo $lists['showtitle']; ?>
@@ -289,7 +289,7 @@ class HTML_modules {
 				</tr>
 				<tr>
 					<td valign="top" align="left">
-					Позиция:
+					РџРѕР·РёС†РёСЏ:
 					</td>
 					<td>
 					<?php echo $lists['position']; ?>
@@ -297,7 +297,7 @@ class HTML_modules {
 				</tr>
 				<tr>
 					<td valign="top" align="left">
-					Порядок модуля:
+					РџРѕСЂСЏРґРѕРє РјРѕРґСѓР»СЏ:
 					</td>
 					<td>
 					<script language="javascript" type="text/javascript">
@@ -309,7 +309,7 @@ class HTML_modules {
 				</tr>
 				<tr>
 					<td valign="top" align="left">
-					Уровень доступа:
+					РЈСЂРѕРІРµРЅСЊ РґРѕСЃС‚СѓРїР°:
 					</td>
 					<td>
 					<?php echo $lists['access']; ?>
@@ -317,7 +317,7 @@ class HTML_modules {
 				</tr>
 				<tr>
 					<td valign="top">
-					Опубликован:
+					РћРїСѓР±Р»РёРєРѕРІР°РЅ:
 					</td>
 					<td>
 					<?php echo $lists['published']; ?>
@@ -337,7 +337,7 @@ class HTML_modules {
 				</tr>
 				<tr>
 					<td valign="top">
-					Описание:
+					РћРїРёСЃР°РЅРёРµ:
 					</td>
 					<td>
 					<?php echo $row->description; ?>
@@ -348,7 +348,7 @@ class HTML_modules {
 				<table class="adminform">
 				<tr>
 					<th >
-					Параметры
+					РџР°СЂР°РјРµС‚СЂС‹
 					</th>
 				</tr>
 				<tr>
@@ -371,7 +371,7 @@ class HTML_modules {
 							if ( $my->gid == 25 ) {
 								$visible = 1;
 							}
-							mosHTML::writableCell( $mosConfig_cachepath, 0, '<strong>Каталог кэша</strong> ', $visible );
+							mosHTML::writableCell( $mosConfig_cachepath, 0, '<strong>РљР°С‚Р°Р»РѕРі РєСЌС€Р°</strong> ', $visible );
 							?>
 							</table>
 			</td>
@@ -385,12 +385,12 @@ class HTML_modules {
 				<table width="100%" class="adminform">
 				<tr>
 					<th>
-					Страницы / Пункты меню
+					РЎС‚СЂР°РЅРёС†С‹ / РџСѓРЅРєС‚С‹ РјРµРЅСЋ
 					</th>
 				</tr>
 				<tr>
 					<td>
-					Связь с пунктом(пунктами) меню:
+					РЎРІСЏР·СЊ СЃ РїСѓРЅРєС‚РѕРј(РїСѓРЅРєС‚Р°РјРё) РјРµРЅСЋ:
 					<br />
 					<?php echo $lists['selections']; ?>
 					</td>
@@ -406,12 +406,12 @@ class HTML_modules {
 						<table width="100%" class="adminform">
 						<tr>
 							<th colspan="2">
-							Пользовательский код / Содержимое модуля
+							РџРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРёР№ РєРѕРґ / РЎРѕРґРµСЂР¶РёРјРѕРµ РјРѕРґСѓР»СЏ
 							</th>
 						</tr>
 						<tr>
 							<td valign="top" align="left">
-							Содержимое:
+							РЎРѕРґРµСЂР¶РёРјРѕРµ:
 							</td>
 							<td>
 							<?php

@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 /**
 * @package Joostina
@@ -27,7 +27,7 @@ class HTML_languages {
 		<table class="adminheading">
 		<tr>
 			<th class="langmanager">
-			Языковые пакеты <small><small>[ Сайт ]</small></small>
+			РЇР·С‹РєРѕРІС‹Рµ РїР°РєРµС‚С‹ <small><small>[ РЎР°Р№С‚ ]</small></small>
 			</th>
 		</tr>
 		</table>
@@ -41,22 +41,22 @@ class HTML_languages {
 			&nbsp;
 			</th>
 			<th width="25%" class="title">
-			Язык
+			РЇР·С‹Рє
 			</th>
 			<th width="5%">
-			Используется
+			РСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ
 			</th>
 			<th width="10%">
-			Версия
+			Р’РµСЂСЃРёСЏ
 			</th>
 			<th width="10%">
-			Дата
+			Р”Р°С‚Р°
 			</th>
 			<th width="20%">
-			Автор
+			РђРІС‚РѕСЂ
 			</th>
 			<th width="25%">
-			E-mail автора
+			E-mail Р°РІС‚РѕСЂР°
 			</th>
 		</tr>
 		<?php
@@ -74,7 +74,7 @@ class HTML_languages {
 				<td width="5%" align="center">
 				<?php
 				if ($row->published == 1) {	 ?>
-					<img src="images/tick.png" alt="Опубликовано"/>
+					<img src="images/tick.png" alt="РћРїСѓР±Р»РёРєРѕРІР°РЅРѕ"/>
 					<?php
 				} else {
 					?>
@@ -117,10 +117,10 @@ class HTML_languages {
 		<form action="index2.php" method="post" name="adminForm">
 		<table cellpadding="1" cellspacing="1" border="0" width="100%">
 		<tr>
-			<td width="270"><table class="adminheading"><tr><th class="langmanager">Редактор языка</th></tr></table></td>
+			<td width="270"><table class="adminheading"><tr><th class="langmanager">Р РµРґР°РєС‚РѕСЂ СЏР·С‹РєР°</th></tr></table></td>
 			<td width="240">
 				<span class="componentheading"><?php echo $language; ?>.php is :
-				<b><?php echo is_writable($language_path) ? '<font color="green"> Доступен для записи</font>' : '<font color="red"> Недоступен для записи</font>' ?></b>
+				<b><?php echo is_writable($language_path) ? '<font color="green"> Р”РѕСЃС‚СѓРїРµРЅ РґР»СЏ Р·Р°РїРёСЃРё</font>' : '<font color="red"> РќРµРґРѕСЃС‚СѓРїРµРЅ РґР»СЏ Р·Р°РїРёСЃРё</font>' ?></b>
 				</span>
 			</td>
 <?php
@@ -129,14 +129,14 @@ class HTML_languages {
 ?>
 			<td>
 				<input type="checkbox" id="disable_write" name="disable_write" value="1"/>
-				<label for="disable_write">Сделать недоступным для записи после сохранения</label>
+				<label for="disable_write">РЎРґРµР»Р°С‚СЊ РЅРµРґРѕСЃС‚СѓРїРЅС‹Рј РґР»СЏ Р·Р°РїРёСЃРё РїРѕСЃР»Рµ СЃРѕС…СЂР°РЅРµРЅРёСЏ</label>
 			</td>
 <?php
 				} else {
 ?>
 			<td>
 				<input type="checkbox" id="enable_write" name="enable_write" value="1"/>
-				<label for="enable_write">При сохранении игнорировать защиту от записи</label>
+				<label for="enable_write">РџСЂРё СЃРѕС…СЂР°РЅРµРЅРёРё РёРіРЅРѕСЂРёСЂРѕРІР°С‚СЊ Р·Р°С‰РёС‚Сѓ РѕС‚ Р·Р°РїРёСЃРё</label>
 			</td>
 <?php
 				} // if

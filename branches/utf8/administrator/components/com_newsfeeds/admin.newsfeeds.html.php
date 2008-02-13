@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 /**
 * @package Joostina
@@ -29,7 +29,7 @@ class HTML_newsfeeds {
 		<table class="adminheading">
 		<tr>
 			<th>
-			Управление лентами новостей
+			РЈРїСЂР°РІР»РµРЅРёРµ Р»РµРЅС‚Р°РјРё РЅРѕРІРѕСЃС‚РµР№
 			</th>
 			<td width="right">
 			<?php echo $lists['category'];?>
@@ -46,22 +46,22 @@ class HTML_newsfeeds {
 			<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $rows ); ?>);" />
 			</th>
 			<th class="title">
-			Лента новостей
+			Р›РµРЅС‚Р° РЅРѕРІРѕСЃС‚РµР№
 			</th>
 			<th width="5%">
-			На сайте
+			РќР° СЃР°Р№С‚Рµ
 			</th>
 			<th colspan="2" width="5%">
-			Сортировка
+			РЎРѕСЂС‚РёСЂРѕРІРєР°
 			</th>
 			<th class="title" width="20%">
-			Категория
+			РљР°С‚РµРіРѕСЂРёСЏ
 			</th>
 			<th width="5%" class="jtd_nowrap">
-			Кол-во статей
+			РљРѕР»-РІРѕ СЃС‚Р°С‚РµР№
 			</th>
 			<th width="10%">
-			Время кэша
+			Р’СЂРµРјСЏ РєСЌС€Р°
 			</th>
 		</tr>
 		<?php
@@ -73,7 +73,7 @@ class HTML_newsfeeds {
 
 			$img 	= $row->published ? 'tick.png' : 'publish_x.png';
 			$task 	= $row->published ? 'unpublish' : 'publish';
-			$alt 	= $row->published ? 'Опубликовано' : 'Скрыто';
+			$alt 	= $row->published ? 'РћРїСѓР±Р»РёРєРѕРІР°РЅРѕ' : 'РЎРєСЂС‹С‚Рѕ';
 			$checked 	= mosCommonHTML::CheckedOutProcessing( $row, $i );
 
 			$row->cat_link 	= 'index2.php?option=com_categories&section=com_newsfeeds&task=editA&hidemainmenu=1&id='. $row->catid;
@@ -90,11 +90,11 @@ class HTML_newsfeeds {
 				if ( $row->checked_out && ( $row->checked_out != $my->id ) ) {
 					?>
 					<?php echo $row->name; ?>
-					&nbsp;[ <i>Заблокировано</i> ]
+					&nbsp;[ <i>Р—Р°Р±Р»РѕРєРёСЂРѕРІР°РЅРѕ</i> ]
 					<?php
 				} else {
 					?>
-					<a href="<?php echo $link; ?>" title="Изменить ленту новостей">
+					<a href="<?php echo $link; ?>" title="РР·РјРµРЅРёС‚СЊ Р»РµРЅС‚Сѓ РЅРѕРІРѕСЃС‚РµР№">
 					<?php echo $row->name; ?>
 					</a>
 					<?php
@@ -113,7 +113,7 @@ class HTML_newsfeeds {
 				<?php echo $pageNav->orderDownIcon( $i, $n ); ?>
 				</td>
 				<td>
-				<a href="<?php echo $row->cat_link; ?>" title="Изменить категорию">
+				<a href="<?php echo $row->cat_link; ?>" title="РР·РјРµРЅРёС‚СЊ РєР°С‚РµРіРѕСЂРёСЋ">
 				<?php echo $row->catname;?>
 				</a>
 				</td>
@@ -141,7 +141,7 @@ class HTML_newsfeeds {
 				if ( $my->gid == 25 ) {
 					$visible = 1;
 				}
-				mosHTML::writableCell( $mosConfig_cachepath, 0, '<strong>Каталог кэша</strong> ', $visible );
+				mosHTML::writableCell( $mosConfig_cachepath, 0, '<strong>РљР°С‚Р°Р»РѕРі РєСЌС€Р°</strong> ', $visible );
 				?>
 				</table>
 			</td>
@@ -170,17 +170,17 @@ class HTML_newsfeeds {
 
 			// do field validation
 			if (form.name.value == '') {
-				alert( "Пожалуйста, введите название ленты." );
+				alert( "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІРІРµРґРёС‚Рµ РЅР°Р·РІР°РЅРёРµ Р»РµРЅС‚С‹." );
 			} else if (form.catid.value == 0) {
-				alert( "Пожалуйста, выберите категорию." );
+				alert( "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІС‹Р±РµСЂРёС‚Рµ РєР°С‚РµРіРѕСЂРёСЋ." );
 			} else if (form.link.value == '') {
-				alert( "Пожалуйста, введите ссылку ленты новостей." );
+				alert( "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІРІРµРґРёС‚Рµ СЃСЃС‹Р»РєСѓ Р»РµРЅС‚С‹ РЅРѕРІРѕСЃС‚РµР№." );
 			} else if (getSelectedValue('adminForm','catid') < 0) {
-				alert( "Пожалуйста, выберите категорию." );
+				alert( "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІС‹Р±РµСЂРёС‚Рµ РєР°С‚РµРіРѕСЂРёСЋ." );
 			} else if (form.numarticles.value == "" || form.numarticles.value == 0) {
-				alert( "Пожалуйста, введите количество статей для отображения." );
+				alert( "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІРІРµРґРёС‚Рµ РєРѕР»РёС‡РµСЃС‚РІРѕ СЃС‚Р°С‚РµР№ РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ." );
 			} else if (form.cache_time.value == "" || form.cache_time.value == 0) {
-				alert( "Пожалуйста, введите время обновления кэша." );
+				alert( "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІРІРµРґРёС‚Рµ РІСЂРµРјСЏ РѕР±РЅРѕРІР»РµРЅРёСЏ РєСЌС€Р°." );
 			} else {
 				submitform( pressbutton );
 			}
@@ -191,7 +191,7 @@ class HTML_newsfeeds {
 		<table class="adminheading">
 		<tr>
 			<th class="edit">
-			Лента новостей: <small><?php echo $row->id ? 'Изменение' : 'Новая';?></small> <small><small>[ <?php echo $row->name;?> ]</small></small>
+			Р›РµРЅС‚Р° РЅРѕРІРѕСЃС‚РµР№: <small><?php echo $row->id ? 'РР·РјРµРЅРµРЅРёРµ' : 'РќРѕРІР°СЏ';?></small> <small><small>[ <?php echo $row->name;?> ]</small></small>
 			</th>
 		</tr>
 		</table>
@@ -199,12 +199,12 @@ class HTML_newsfeeds {
 		<table class="adminform">
 		<tr>
 			<th colspan="2">
-			Подробности
+			РџРѕРґСЂРѕР±РЅРѕСЃС‚Рё
 			</th>
 		</tr>
 		<tr>
 			<td>
-			Имя
+			РРјСЏ
 			</td>
 			<td>
 			<input class="inputbox" type="text" size="40" name="name" value="<?php echo $row->name; ?>">
@@ -212,7 +212,7 @@ class HTML_newsfeeds {
 		</tr>
 		<tr>
 			<td>
-			Категория
+			РљР°С‚РµРіРѕСЂРёСЏ
 			</td>
 			<td>
 			<?php echo $lists['category']; ?>
@@ -220,7 +220,7 @@ class HTML_newsfeeds {
 		</tr>
 		<tr>
 			<td>
-			Ссылка
+			РЎСЃС‹Р»РєР°
 			</td>
 			<td>
 			<input class="inputbox" type="text" size="60" name="link" value="<?php echo $row->link; ?>">
@@ -228,7 +228,7 @@ class HTML_newsfeeds {
 		</tr>
 		<tr>
 			<td>
-			Количество статей
+			РљРѕР»РёС‡РµСЃС‚РІРѕ СЃС‚Р°С‚РµР№
 			</td>
 			<td>
 			<input class="inputbox" type="text" size="2" name="numarticles" value="<?php echo $row->numarticles; ?>">
@@ -236,7 +236,7 @@ class HTML_newsfeeds {
 		</tr>
 		<tr>
 			<td>
-			Время кэширования (в секундах)
+			Р’СЂРµРјСЏ РєСЌС€РёСЂРѕРІР°РЅРёСЏ (РІ СЃРµРєСѓРЅРґР°С…)
 			</td>
 			<td>
 			<input class="inputbox" type="text" size="4" name="cache_time" value="<?php echo $row->cache_time; ?>">
@@ -244,7 +244,7 @@ class HTML_newsfeeds {
 		</tr>
 		<tr>
 			<td>
-			Порядок отображения
+			РџРѕСЂСЏРґРѕРє РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ
 			</td>
 			<td>
 			<?php echo $lists['ordering']; ?>
@@ -252,7 +252,7 @@ class HTML_newsfeeds {
 		</tr>
 		<tr>
 			<td valign="top" align="right">
-			Перекодировать из UTF-8:
+			РџРµСЂРµРєРѕРґРёСЂРѕРІР°С‚СЊ РёР· UTF-8:
 			</td>
 			<td>
 			<?php echo $lists['code']; ?>
@@ -260,7 +260,7 @@ class HTML_newsfeeds {
 		</tr>
 		<tr>
 			<td valign="top" align="right">
-			Опубликовано:
+			РћРїСѓР±Р»РёРєРѕРІР°РЅРѕ:
 			</td>
 			<td>
 			<?php echo $lists['published']; ?>

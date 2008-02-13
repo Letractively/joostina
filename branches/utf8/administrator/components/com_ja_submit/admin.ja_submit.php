@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 switch ($task) {
 	case "settings":
@@ -42,107 +42,107 @@ function showConfig( $option ) {
 		submitform( pressbutton );
 	}
 	</script>
-	<table class="adminheading"><tr><th class="config jtd_nowrap" class="config">Отправка новостей с фронта сайта</th></tr></table>
+	<table class="adminheading"><tr><th class="config jtd_nowrap" class="config">РћС‚РїСЂР°РІРєР° РЅРѕРІРѕСЃС‚РµР№ СЃ С„СЂРѕРЅС‚Р° СЃР°Р№С‚Р°</th></tr></table>
 	<form action="index2.php" method="POST" name="adminForm">
 <?php $tabs = new mosTabs(1);
 $tabs->startPane("configPane");
-$tabs->startTab("Основные настройки","sett-page");
+$tabs->startTab("РћСЃРЅРѕРІРЅС‹Рµ РЅР°СЃС‚СЂРѕР№РєРё","sett-page");
  ?>
 <table cellpadding="1" cellspacing="1" border="0" width="100%">
 	<tr>
-		<td width="19%" align="right">Разрешено:</td>
+		<td width="19%" align="right">Р Р°Р·СЂРµС€РµРЅРѕ:</td>
 		<td align="left">
-			<input type="radio" name="enabled" value="1" <?php if ($H_enabled) echo "checked"; ?>/>Включить
-			<input type="radio" name="enabled" value="0" <?php if (!$H_enabled) echo "checked"; ?>/>Отключить
+			<input type="radio" name="enabled" value="1" <?php if ($H_enabled) echo "checked"; ?>/>Р’РєР»СЋС‡РёС‚СЊ
+			<input type="radio" name="enabled" value="0" <?php if (!$H_enabled) echo "checked"; ?>/>РћС‚РєР»СЋС‡РёС‚СЊ
 		</td>
-		<td width="53%" align="left">Включение/Отключение системы отправки публикаций с фронта сайта</td>
+		<td width="53%" align="left">Р’РєР»СЋС‡РµРЅРёРµ/РћС‚РєР»СЋС‡РµРЅРёРµ СЃРёСЃС‚РµРјС‹ РѕС‚РїСЂР°РІРєРё РїСѓР±Р»РёРєР°С†РёР№ СЃ С„СЂРѕРЅС‚Р° СЃР°Р№С‚Р°</td>
 	</tr>
 	<tr>
-		<td width="19%" align="right">Разрешено гостям:</td>
+		<td width="19%" align="right">Р Р°Р·СЂРµС€РµРЅРѕ РіРѕСЃС‚СЏРј:</td>
 		<td align="left">
-			<input type="radio" name="guest" value="1" <?php if ($H_guest) echo "checked"; ?>/>Включить
-			<input type="radio" name="guest" value="0" <?php if (!$H_guest) echo "checked"; ?>/>Отключить
+			<input type="radio" name="guest" value="1" <?php if ($H_guest) echo "checked"; ?>/>Р’РєР»СЋС‡РёС‚СЊ
+			<input type="radio" name="guest" value="0" <?php if (!$H_guest) echo "checked"; ?>/>РћС‚РєР»СЋС‡РёС‚СЊ
 		</td>
-		<td width="53%" align="left">Разрешить неавторизованным пользователям присылать новости с фронта сайта</td>
+		<td width="53%" align="left">Р Р°Р·СЂРµС€РёС‚СЊ РЅРµР°РІС‚РѕСЂРёР·РѕРІР°РЅРЅС‹Рј РїРѕР»СЊР·РѕРІР°С‚РµР»СЏРј РїСЂРёСЃС‹Р»Р°С‚СЊ РЅРѕРІРѕСЃС‚Рё СЃ С„СЂРѕРЅС‚Р° СЃР°Р№С‚Р°</td>
 	</tr>
 	<tr>
-		<td width="19%" align="right">Визуальная проверка - антиспам:</td>
+		<td width="19%" align="right">Р’РёР·СѓР°Р»СЊРЅР°СЏ РїСЂРѕРІРµСЂРєР° - Р°РЅС‚РёСЃРїР°Рј:</td>
 		<td align="left">
-			<input type="radio" name="captcha" value="1" <?php if ($H_captcha) echo "checked"; ?>/>Включить
-			<input type="radio" name="captcha" value="0" <?php if (!$H_captcha) echo "checked"; ?>/>Отключить
+			<input type="radio" name="captcha" value="1" <?php if ($H_captcha) echo "checked"; ?>/>Р’РєР»СЋС‡РёС‚СЊ
+			<input type="radio" name="captcha" value="0" <?php if (!$H_captcha) echo "checked"; ?>/>РћС‚РєР»СЋС‡РёС‚СЊ
 		</td>
-		<td width="53%" align="left">Включение/Отключение использование captcha при отправке новостей.</td>
+		<td width="53%" align="left">Р’РєР»СЋС‡РµРЅРёРµ/РћС‚РєР»СЋС‡РµРЅРёРµ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ captcha РїСЂРё РѕС‚РїСЂР°РІРєРµ РЅРѕРІРѕСЃС‚РµР№.</td>
 	</tr>
 	<tr>
-		<td width="19%" align="right">Заголовок:</td>
+		<td width="19%" align="right">Р—Р°РіРѕР»РѕРІРѕРє:</td>
 		<td align="left">
-			<input type="radio" name="title" value="1" <?php if ($H_title) echo "checked"; ?>/>Включить
-			<input type="radio" name="title" value="0" <?php if (!$H_title) echo "checked"; ?>/>Отключить</td>
-			<td width="53%" align="left">Включение/отключение заголовка компонента</td>
+			<input type="radio" name="title" value="1" <?php if ($H_title) echo "checked"; ?>/>Р’РєР»СЋС‡РёС‚СЊ
+			<input type="radio" name="title" value="0" <?php if (!$H_title) echo "checked"; ?>/>РћС‚РєР»СЋС‡РёС‚СЊ</td>
+			<td width="53%" align="left">Р’РєР»СЋС‡РµРЅРёРµ/РѕС‚РєР»СЋС‡РµРЅРёРµ Р·Р°РіРѕР»РѕРІРєР° РєРѕРјРїРѕРЅРµРЅС‚Р°</td>
 	</tr>
 	<tr>
-		<td width="19%" align="right">Визуальный редактор:</td>
+		<td width="19%" align="right">Р’РёР·СѓР°Р»СЊРЅС‹Р№ СЂРµРґР°РєС‚РѕСЂ:</td>
 		<td align="left">
-			<input type="radio" name="editor" value="1" <?php if ($H_editor) echo "checked"; ?>/>Включить
-			<input type="radio" name="editor" value="0" <?php if (!$H_editor) echo "checked"; ?>/>Отключить</td>
-			<td width="53%" align="left">Включение/отключение загрузки визуального редактора</td>
+			<input type="radio" name="editor" value="1" <?php if ($H_editor) echo "checked"; ?>/>Р’РєР»СЋС‡РёС‚СЊ
+			<input type="radio" name="editor" value="0" <?php if (!$H_editor) echo "checked"; ?>/>РћС‚РєР»СЋС‡РёС‚СЊ</td>
+			<td width="53%" align="left">Р’РєР»СЋС‡РµРЅРёРµ/РѕС‚РєР»СЋС‡РµРЅРёРµ Р·Р°РіСЂСѓР·РєРё РІРёР·СѓР°Р»СЊРЅРѕРіРѕ СЂРµРґР°РєС‚РѕСЂР°</td>
 	</tr>
-	<tr><td width="19%" align="right">Поле fulltext:</td>
+	<tr><td width="19%" align="right">РџРѕР»Рµ fulltext:</td>
 		<td align="left">
-			<input type="radio" name="fulltext" value="1" <?php if ($H_fulltext) echo "checked"; ?>/>Включить
-			<input type="radio" name="fulltext" value="0" <?php if (!$H_fulltext) echo "checked"; ?>/>Отключить</td>
-			<td align="left" width="53%">Включение/отключение поля fulltext (также отключается загрузка второго изображения)</td>
+			<input type="radio" name="fulltext" value="1" <?php if ($H_fulltext) echo "checked"; ?>/>Р’РєР»СЋС‡РёС‚СЊ
+			<input type="radio" name="fulltext" value="0" <?php if (!$H_fulltext) echo "checked"; ?>/>РћС‚РєР»СЋС‡РёС‚СЊ</td>
+			<td align="left" width="53%">Р’РєР»СЋС‡РµРЅРёРµ/РѕС‚РєР»СЋС‡РµРЅРёРµ РїРѕР»СЏ fulltext (С‚Р°РєР¶Рµ РѕС‚РєР»СЋС‡Р°РµС‚СЃСЏ Р·Р°РіСЂСѓР·РєР° РІС‚РѕСЂРѕРіРѕ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ)</td>
 	</tr>
 	<tr>
-		<td width="19%" align="right">Тэг для перехода на следующую строчку:</td>
+		<td width="19%" align="right">РўСЌРі РґР»СЏ РїРµСЂРµС…РѕРґР° РЅР° СЃР»РµРґСѓСЋС‰СѓСЋ СЃС‚СЂРѕС‡РєСѓ:</td>
 		<td align="left">
 			<input type="radio" name="tag" value="1" <?php if ($H_tag) echo "checked"; ?>/>br
 			<input type="radio" name="tag" value="0" <?php if (!$H_tag) echo "checked"; ?>/>p</td>
 
-			<td align="left" width="53%">Выберите тэг, который будет автоматически подставляться в текст при переходе на следующую строчку.</td>
+			<td align="left" width="53%">Р’С‹Р±РµСЂРёС‚Рµ С‚СЌРі, РєРѕС‚РѕСЂС‹Р№ Р±СѓРґРµС‚ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё РїРѕРґСЃС‚Р°РІР»СЏС‚СЊСЃСЏ РІ С‚РµРєСЃС‚ РїСЂРё РїРµСЂРµС…РѕРґРµ РЅР° СЃР»РµРґСѓСЋС‰СѓСЋ СЃС‚СЂРѕС‡РєСѓ.</td>
 	</tr>
 	<tr>
-		<td width="19%" align="right">Скрыть поля "имя" и "e-mail" от зарегистрированных:</td>
+		<td width="19%" align="right">РЎРєСЂС‹С‚СЊ РїРѕР»СЏ "РёРјСЏ" Рё "e-mail" РѕС‚ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅРЅС‹С…:</td>
 		<td align="left">
-			<input type="radio" name="hiddenfield" value="1" <?php if ($H_hiddenfield) echo "checked"; ?>/>Включить
-			<input type="radio" name="hiddenfield" value="0" <?php if (!$H_hiddenfield) echo "checked"; ?>/>Отключить			</td>
-			<td align="left" width="53%">Включение/отключение полей "имя" и "e-mail" от зарегистрированных пользователей. Если выключено, то пользователь не сможет изменять данные.</td>
+			<input type="radio" name="hiddenfield" value="1" <?php if ($H_hiddenfield) echo "checked"; ?>/>Р’РєР»СЋС‡РёС‚СЊ
+			<input type="radio" name="hiddenfield" value="0" <?php if (!$H_hiddenfield) echo "checked"; ?>/>РћС‚РєР»СЋС‡РёС‚СЊ			</td>
+			<td align="left" width="53%">Р’РєР»СЋС‡РµРЅРёРµ/РѕС‚РєР»СЋС‡РµРЅРёРµ РїРѕР»РµР№ "РёРјСЏ" Рё "e-mail" РѕС‚ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅРЅС‹С… РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№. Р•СЃР»Рё РІС‹РєР»СЋС‡РµРЅРѕ, С‚Рѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ РЅРµ СЃРјРѕР¶РµС‚ РёР·РјРµРЅСЏС‚СЊ РґР°РЅРЅС‹Рµ.</td>
 	</tr>
 	<tr>
-		<td width="19%" align="right">Показывать &quot;Правила для авторов&quot;:</td>
+		<td width="19%" align="right">РџРѕРєР°Р·С‹РІР°С‚СЊ &quot;РџСЂР°РІРёР»Р° РґР»СЏ Р°РІС‚РѕСЂРѕРІ&quot;:</td>
 		<td align="left">
-			<input type="radio" name="rules" value="1" <?php if ($H_rules) echo "checked"; ?>/>Включить
-			<input type="radio" name="rules" value="0" <?php if (!$H_rules) echo "checked"; ?>/>Отключить			</td>
-			<td align="left" width="53%">Включение &quot;Правил для авторов&quot; в форму отправки публикации. Свои собственные правила Вы сможете создать, редактируя языковой файл по ссылке &quot;Языки&quot; из меню компонента.</td>
+			<input type="radio" name="rules" value="1" <?php if ($H_rules) echo "checked"; ?>/>Р’РєР»СЋС‡РёС‚СЊ
+			<input type="radio" name="rules" value="0" <?php if (!$H_rules) echo "checked"; ?>/>РћС‚РєР»СЋС‡РёС‚СЊ			</td>
+			<td align="left" width="53%">Р’РєР»СЋС‡РµРЅРёРµ &quot;РџСЂР°РІРёР» РґР»СЏ Р°РІС‚РѕСЂРѕРІ&quot; РІ С„РѕСЂРјСѓ РѕС‚РїСЂР°РІРєРё РїСѓР±Р»РёРєР°С†РёРё. РЎРІРѕРё СЃРѕР±СЃС‚РІРµРЅРЅС‹Рµ РїСЂР°РІРёР»Р° Р’С‹ СЃРјРѕР¶РµС‚Рµ СЃРѕР·РґР°С‚СЊ, СЂРµРґР°РєС‚РёСЂСѓСЏ СЏР·С‹РєРѕРІРѕР№ С„Р°Р№Р» РїРѕ СЃСЃС‹Р»РєРµ &quot;РЇР·С‹РєРё&quot; РёР· РјРµРЅСЋ РєРѕРјРїРѕРЅРµРЅС‚Р°.</td>
 	</tr>
 	<tr>
-		<td align="right">Сообщать на e-mail:</td>
+		<td align="right">РЎРѕРѕР±С‰Р°С‚СЊ РЅР° e-mail:</td>
 		<td align="left">
 			<input class="inputbox" type="text" style="width: 200px;" name="notify_email" value="<?php echo $H_notify_email; ?>"/>	  </td>
-		<td align="left">Оставьте поле пустым, чтобы не получать сообщений о новых публикациях. Используйте точку-с-запятой &quot;;&quot; между несколькими адресами e-mail, если хотите получать сообщения на несколько разных адресов.</td>
+		<td align="left">РћСЃС‚Р°РІСЊС‚Рµ РїРѕР»Рµ РїСѓСЃС‚С‹Рј, С‡С‚РѕР±С‹ РЅРµ РїРѕР»СѓС‡Р°С‚СЊ СЃРѕРѕР±С‰РµРЅРёР№ Рѕ РЅРѕРІС‹С… РїСѓР±Р»РёРєР°С†РёСЏС…. РСЃРїРѕР»СЊР·СѓР№С‚Рµ С‚РѕС‡РєСѓ-СЃ-Р·Р°РїСЏС‚РѕР№ &quot;;&quot; РјРµР¶РґСѓ РЅРµСЃРєРѕР»СЊРєРёРјРё Р°РґСЂРµСЃР°РјРё e-mail, РµСЃР»Рё С…РѕС‚РёС‚Рµ РїРѕР»СѓС‡Р°С‚СЊ СЃРѕРѕР±С‰РµРЅРёСЏ РЅР° РЅРµСЃРєРѕР»СЊРєРѕ СЂР°Р·РЅС‹С… Р°РґСЂРµСЃРѕРІ.</td>
 	</tr>
 </table>
 <?php
 $tabs->endTab();
-$tabs->startTab("Настройка изображений","image-page");
+$tabs->startTab("РќР°СЃС‚СЂРѕР№РєР° РёР·РѕР±СЂР°Р¶РµРЅРёР№","image-page");
 ?>
 <table cellpadding="1" cellspacing="1" border="0" width="100%">
 	<tr>
-		<td align="right">Разрешённые форматы изображений </td>
+		<td align="right">Р Р°Р·СЂРµС€С‘РЅРЅС‹Рµ С„РѕСЂРјР°С‚С‹ РёР·РѕР±СЂР°Р¶РµРЅРёР№ </td>
 		<td align="left">
 			<input class="inputbox" type="text" style="width: 200px;" name="allowable_images" value="<?php echo $H_allowable_images; ?>"/>		</td>
-		<td align="left">Вводить разрешения файлов через запятую (,) </td>
+		<td align="left">Р’РІРѕРґРёС‚СЊ СЂР°Р·СЂРµС€РµРЅРёСЏ С„Р°Р№Р»РѕРІ С‡РµСЂРµР· Р·Р°РїСЏС‚СѓСЋ (,) </td>
 	</tr>
 	<tr>
-		<td align="right">Изменять размеры изображений </td>
+		<td align="right">РР·РјРµРЅСЏС‚СЊ СЂР°Р·РјРµСЂС‹ РёР·РѕР±СЂР°Р¶РµРЅРёР№ </td>
 		<td align="left"><input type="radio" name="enableResize" value="1" <?php if ($H_enable_resize) echo "checked"; ?>/>
-		Включить
+		Р’РєР»СЋС‡РёС‚СЊ
 		<input class="inputbox" type="radio" name="enableResize" value="0" <?php if (!$H_enable_resize) echo "checked"; ?>/>
-		Отключить </td>
-		<td align="left">Включение/отключение автоматического изменения размеров изображения в присылаемых публикациях</td>
+		РћС‚РєР»СЋС‡РёС‚СЊ </td>
+		<td align="left">Р’РєР»СЋС‡РµРЅРёРµ/РѕС‚РєР»СЋС‡РµРЅРёРµ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРѕРіРѕ РёР·РјРµРЅРµРЅРёСЏ СЂР°Р·РјРµСЂРѕРІ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ РІ РїСЂРёСЃС‹Р»Р°РµРјС‹С… РїСѓР±Р»РёРєР°С†РёСЏС…</td>
 	</tr>
 	<tr>
-		<td align="right" width="19%">Позиция картинки:</td>
+		<td align="right" width="19%">РџРѕР·РёС†РёСЏ РєР°СЂС‚РёРЅРєРё:</td>
 		<td align="left">
 		<select class="inputbox" type="list" name="image_position">
 			<option><?php echo $H_image_position ?></option>
@@ -151,40 +151,40 @@ $tabs->startTab("Настройка изображений","image-page");
 			<option value="right">right</option>
 		</select>
 		</td>
-		<td align="left" width="53%">Выбор позиции отображения картинки после загрузки</td>
+		<td align="left" width="53%">Р’С‹Р±РѕСЂ РїРѕР·РёС†РёРё РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РєР°СЂС‚РёРЅРєРё РїРѕСЃР»Рµ Р·Р°РіСЂСѓР·РєРё</td>
 	</tr>
 	<tr>
-		<td align="right" valign="top">Каталог загрузки изображений относительно <b>"images/stories/"</b>:</td>
+		<td align="right" valign="top">РљР°С‚Р°Р»РѕРі Р·Р°РіСЂСѓР·РєРё РёР·РѕР±СЂР°Р¶РµРЅРёР№ РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ <b>"images/stories/"</b>:</td>
 		<td align="left">
 			<input class="inputbox" type="text" style="width: 200px;" name="image_upload" value="<?php echo $H_image_upload ?>"/> 	</td>
-			<td align="left">Укажите каталог для загрузки изображений <b>без открывающего и закрывающего слеша (/). Внимание! Картинки будут правильно отображаться только, если ваши папки расположены в директории /stories/</b>.</td>
+			<td align="left">РЈРєР°Р¶РёС‚Рµ РєР°С‚Р°Р»РѕРі РґР»СЏ Р·Р°РіСЂСѓР·РєРё РёР·РѕР±СЂР°Р¶РµРЅРёР№ <b>Р±РµР· РѕС‚РєСЂС‹РІР°СЋС‰РµРіРѕ Рё Р·Р°РєСЂС‹РІР°СЋС‰РµРіРѕ СЃР»РµС€Р° (/). Р’РЅРёРјР°РЅРёРµ! РљР°СЂС‚РёРЅРєРё Р±СѓРґСѓС‚ РїСЂР°РІРёР»СЊРЅРѕ РѕС‚РѕР±СЂР°Р¶Р°С‚СЊСЃСЏ С‚РѕР»СЊРєРѕ, РµСЃР»Рё РІР°С€Рё РїР°РїРєРё СЂР°СЃРїРѕР»РѕР¶РµРЅС‹ РІ РґРёСЂРµРєС‚РѕСЂРёРё /stories/</b>.</td>
 	</tr>
 	<tr>
-		<td align="right">Изменить ширину до*:</td>
+		<td align="right">РР·РјРµРЅРёС‚СЊ С€РёСЂРёРЅСѓ РґРѕ*:</td>
 		<td align="left">
-			<input class="inputbox" type="text" style="width: 60px;" name="iwidth" value="<?php echo $H_width; ?>"/> пикселей			</td>
-			<td align="left">установка ширины загруженного изображения.</td>
+			<input class="inputbox" type="text" style="width: 60px;" name="iwidth" value="<?php echo $H_width; ?>"/> РїРёРєСЃРµР»РµР№			</td>
+			<td align="left">СѓСЃС‚Р°РЅРѕРІРєР° С€РёСЂРёРЅС‹ Р·Р°РіСЂСѓР¶РµРЅРЅРѕРіРѕ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ.</td>
 	</tr>
 	<tr>
-		<td align="right" valign="top">Изменить высоту до*:</td>
+		<td align="right" valign="top">РР·РјРµРЅРёС‚СЊ РІС‹СЃРѕС‚Сѓ РґРѕ*:</td>
 		<td align="left">
-			<input class="inputbox" type="text" style="width: 60px;" name="iheight" value="<?php echo $H_height; ?>"/> пикселей			</td>
-			<td align="left">установка высоты загруженного изображения.</td>
+			<input class="inputbox" type="text" style="width: 60px;" name="iheight" value="<?php echo $H_height; ?>"/> РїРёРєСЃРµР»РµР№			</td>
+			<td align="left">СѓСЃС‚Р°РЅРѕРІРєР° РІС‹СЃРѕС‚С‹ Р·Р°РіСЂСѓР¶РµРЅРЅРѕРіРѕ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ.</td>
 	</tr>
 	<tr>
-		<td align="right" valign="top">Максимальный размер файла изображения*:</td>
+		<td align="right" valign="top">РњР°РєСЃРёРјР°Р»СЊРЅС‹Р№ СЂР°Р·РјРµСЂ С„Р°Р№Р»Р° РёР·РѕР±СЂР°Р¶РµРЅРёСЏ*:</td>
 		<td align="left">
-			<input class="inputbox" type="text" style="width: 60px;" name="isize" value="<?php echo $H_maxsize; ?>"/> байт			</td>
-			<td align="left">Максимальный размер файла изображения, разрешённый для загрузки на сайт.</td>
+			<input class="inputbox" type="text" style="width: 60px;" name="isize" value="<?php echo $H_maxsize; ?>"/> Р±Р°Р№С‚			</td>
+			<td align="left">РњР°РєСЃРёРјР°Р»СЊРЅС‹Р№ СЂР°Р·РјРµСЂ С„Р°Р№Р»Р° РёР·РѕР±СЂР°Р¶РµРЅРёСЏ, СЂР°Р·СЂРµС€С‘РЅРЅС‹Р№ РґР»СЏ Р·Р°РіСЂСѓР·РєРё РЅР° СЃР°Р№С‚.</td>
 	</tr>
 </table>
 <?php
 $tabs->endTab();
-$tabs->startTab("Настройка публикации","publ-page");
+$tabs->startTab("РќР°СЃС‚СЂРѕР№РєР° РїСѓР±Р»РёРєР°С†РёРё","publ-page");
  ?>
 <table cellpadding="1" cellspacing="1" border="0" width="100%">
 	<tr>
-		<td valign="top" align="right">Сохранять новости от имени:</td>
+		<td valign="top" align="right">РЎРѕС…СЂР°РЅСЏС‚СЊ РЅРѕРІРѕСЃС‚Рё РѕС‚ РёРјРµРЅРё:</td>
 		<td align="left" style="width:40%;">
 		<?php
 			$database->setQuery( "SELECT id AS value, name AS text FROM #__users ORDER BY username" );
@@ -193,10 +193,10 @@ $tabs->startTab("Настройка публикации","publ-page");
 
 		?>
 			</td>
-			<td align="left">Выберите, от чьего имени сохранять новости присланные неавторизованными пользователями.</td>
+			<td align="left">Р’С‹Р±РµСЂРёС‚Рµ, РѕС‚ С‡СЊРµРіРѕ РёРјРµРЅРё СЃРѕС…СЂР°РЅСЏС‚СЊ РЅРѕРІРѕСЃС‚Рё РїСЂРёСЃР»Р°РЅРЅС‹Рµ РЅРµР°РІС‚РѕСЂРёР·РѕРІР°РЅРЅС‹РјРё РїРѕР»СЊР·РѕРІР°С‚РµР»СЏРјРё.</td>
 	</tr>
 	<tr>
-		<td valign="top" align="right">Доступные категории:</td>
+		<td valign="top" align="right">Р”РѕСЃС‚СѓРїРЅС‹Рµ РєР°С‚РµРіРѕСЂРёРё:</td>
 		<td align="left"><?php
 			$query = "SELECT c.id AS `id`, c.section AS `section`, CONCAT_WS( ' / ', s.title, c.title) AS `name`"
 			. "\n FROM #__sections AS s"
@@ -216,10 +216,10 @@ $tabs->startTab("Настройка публикации","publ-page");
 			}
 			$lists['catid'] = mosHTML::selectList( $categories, 'listcatid[]', 'class="inputbox" size="10" multiple="multiple"  style="width: 100%;"', 'id', 'name',$listKeys );
 			echo $lists['catid'];?></td>
-		<td valign="top" align="left">Выберите категории, в которые пользователь сможет отправлять публикации</td>
+		<td valign="top" align="left">Р’С‹Р±РµСЂРёС‚Рµ РєР°С‚РµРіРѕСЂРёРё, РІ РєРѕС‚РѕСЂС‹Рµ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ СЃРјРѕР¶РµС‚ РѕС‚РїСЂР°РІР»СЏС‚СЊ РїСѓР±Р»РёРєР°С†РёРё</td>
 	</tr>
 	<tr>
-		<td valign="top" align="right">Группы для автопубликации: </td>
+		<td valign="top" align="right">Р“СЂСѓРїРїС‹ РґР»СЏ Р°РІС‚РѕРїСѓР±Р»РёРєР°С†РёРё: </td>
 		<td align="left">
 		<?php
 			$query="SELECT name FROM #__usertypes";
@@ -234,9 +234,9 @@ $tabs->startTab("Настройка публикации","publ-page");
 			$selectedTypes=explode(",",$H_auto_approve_groups);
 			$userlist='<select name="listusertypes[]" id="listusertypes" class="inputbox" size="10" multiple="multiple" style="width: 100%;">';
 			if ($H_auto_approve_groups==""){
-				$userlist.="<option value='none' selected='selected'>Отсутствуют</option>";
+				$userlist.="<option value='none' selected='selected'>РћС‚СЃСѓС‚СЃС‚РІСѓСЋС‚</option>";
 			}else{
-				$userlist.="<option value='none'>Отсутствуют</option>";
+				$userlist.="<option value='none'>РћС‚СЃСѓС‚СЃС‚РІСѓСЋС‚</option>";
 			}
 			foreach ($usertypes AS $usertype){
 			if (in_array($usertype,$selectedTypes)){
@@ -249,11 +249,11 @@ $tabs->startTab("Настройка публикации","publ-page");
 		echo $userlist;
 		?>
 		</td>
-		<td valign="top" align="left"><p>Выберите группы пользователей, для которых будет разрешена АВТОМАТИЧЕСКАЯ публикация отправляемых сообщений</p>
-			<p>Выберите &quot;Отсутствуют&quot; если Вы НЕ хотите разрешать АВТОМАТИЧЕСКУЮ публикацию сообщений</p></td>
+		<td valign="top" align="left"><p>Р’С‹Р±РµСЂРёС‚Рµ РіСЂСѓРїРїС‹ РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№, РґР»СЏ РєРѕС‚РѕСЂС‹С… Р±СѓРґРµС‚ СЂР°Р·СЂРµС€РµРЅР° РђР’РўРћРњРђРўРР§Р•РЎРљРђРЇ РїСѓР±Р»РёРєР°С†РёСЏ РѕС‚РїСЂР°РІР»СЏРµРјС‹С… СЃРѕРѕР±С‰РµРЅРёР№</p>
+			<p>Р’С‹Р±РµСЂРёС‚Рµ &quot;РћС‚СЃСѓС‚СЃС‚РІСѓСЋС‚&quot; РµСЃР»Рё Р’С‹ РќР• С…РѕС‚РёС‚Рµ СЂР°Р·СЂРµС€Р°С‚СЊ РђР’РўРћРњРђРўРР§Р•РЎРљРЈР® РїСѓР±Р»РёРєР°С†РёСЋ СЃРѕРѕР±С‰РµРЅРёР№</p></td>
 	</tr>
 	<tr>
-		<td valign="top" align="right">Категории для автопубликации:</td>
+		<td valign="top" align="right">РљР°С‚РµРіРѕСЂРёРё РґР»СЏ Р°РІС‚РѕРїСѓР±Р»РёРєР°С†РёРё:</td>
 		<td align="left">
 		<?php
 			$categories=array();
@@ -271,9 +271,9 @@ $tabs->startTab("Настройка публикации","publ-page");
 			
 			$catlist='<select name="listautocat[]" id="listautocat" class="inputbox" size="8" multiple="multiple" style="width: 100%;">';
 			if ($H_auto_approve_categories==""){
-				$catlist.="<option value='none' selected='selected'>Не разрешать</option>";
+				$catlist.="<option value='none' selected='selected'>РќРµ СЂР°Р·СЂРµС€Р°С‚СЊ</option>";
 			}else{
-				$catlist.="<option value='none'>Отсутствуют</option>";
+				$catlist.="<option value='none'>РћС‚СЃСѓС‚СЃС‚РІСѓСЋС‚</option>";
 			}
 			foreach ($categories As $category){
 				if (in_array($category->id,$listId)){
@@ -286,17 +286,17 @@ $tabs->startTab("Настройка публикации","publ-page");
 			
 		?>
 		</td>
-		<td align="left" valign="top"><p>Выберите категории, в которых будет разрешена АВТОМАТИЧЕСКАЯ публикация сообщений</p>
-		<p>Выберите &quot;Не разрешать&quot; если Вы НЕ хотите разрешать АВТОМАТИЧЕСКУЮ публикацию сообщений</p></td>
+		<td align="left" valign="top"><p>Р’С‹Р±РµСЂРёС‚Рµ РєР°С‚РµРіРѕСЂРёРё, РІ РєРѕС‚РѕСЂС‹С… Р±СѓРґРµС‚ СЂР°Р·СЂРµС€РµРЅР° РђР’РўРћРњРђРўРР§Р•РЎРљРђРЇ РїСѓР±Р»РёРєР°С†РёСЏ СЃРѕРѕР±С‰РµРЅРёР№</p>
+		<p>Р’С‹Р±РµСЂРёС‚Рµ &quot;РќРµ СЂР°Р·СЂРµС€Р°С‚СЊ&quot; РµСЃР»Рё Р’С‹ РќР• С…РѕС‚РёС‚Рµ СЂР°Р·СЂРµС€Р°С‚СЊ РђР’РўРћРњРђРўРР§Р•РЎРљРЈР® РїСѓР±Р»РёРєР°С†РёСЋ СЃРѕРѕР±С‰РµРЅРёР№</p></td>
 	</tr>
 </table>
 <?php
 $tabs->endTab();
-$tabs->startTab("Другие настройки","our-page");
+$tabs->startTab("Р”СЂСѓРіРёРµ РЅР°СЃС‚СЂРѕР№РєРё","our-page");
  ?>
 <table cellpadding="1" cellspacing="1" border="0" width="100%">
 	<tr>
-		<td valign="top" align="right">Язык:</td>
+		<td valign="top" align="right">РЇР·С‹Рє:</td>
 		<td align="left" style="width:40%;">
 			<select class="inputbox" name="filelanguage"  style="width: 100%;">
 		<?php
@@ -314,10 +314,10 @@ $tabs->startTab("Другие настройки","our-page");
 		?>
 			</select>
 			</td>
-		<td valign="top" align="left">Выберите язык компонента</td>
+		<td valign="top" align="left">Р’С‹Р±РµСЂРёС‚Рµ СЏР·С‹Рє РєРѕРјРїРѕРЅРµРЅС‚Р°</td>
 	</tr>
 	<tr>
-		<td valign="top" align="right">Визуальный редактор &quot;по умолчанию&quot;: </td>
+		<td valign="top" align="right">Р’РёР·СѓР°Р»СЊРЅС‹Р№ СЂРµРґР°РєС‚РѕСЂ &quot;РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ&quot;: </td>
 		<td align="left">
 	<?php
 		global $mosConfig_editor;
@@ -332,7 +332,7 @@ $tabs->startTab("Другие настройки","our-page");
 		$listseditor = mosHTML::selectList( $edits, 'config_editor', 'class="inputbox" size="1" style="width: 100%;"', 'value', 'text', $mosConfig_editor);
 		echo $listseditor;
 	?></td>
-		<td valign="top" align="left">Изменение WYSIWYG-редактора &quot;по умолчанию&quot; в этой опции приведёт к изменению &quot;редактора по умолчанию&quot; в &quot;Общих настройках&quot; для всего сайта</td>
+		<td valign="top" align="left">РР·РјРµРЅРµРЅРёРµ WYSIWYG-СЂРµРґР°РєС‚РѕСЂР° &quot;РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ&quot; РІ СЌС‚РѕР№ РѕРїС†РёРё РїСЂРёРІРµРґС‘С‚ Рє РёР·РјРµРЅРµРЅРёСЋ &quot;СЂРµРґР°РєС‚РѕСЂР° РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ&quot; РІ &quot;РћР±С‰РёС… РЅР°СЃС‚СЂРѕР№РєР°С…&quot; РґР»СЏ РІСЃРµРіРѕ СЃР°Р№С‚Р°</td>
 	</tr>
 	<input type="hidden" name="option" value="<?php echo $option; ?>">
 	<input type="hidden" name="task" value="savesettings">
@@ -341,7 +341,7 @@ $tabs->startTab("Другие настройки","our-page");
 <?php
 $tabs->endTab();
 $tabs->endPane();
-echo '<br /><p><b>ВНИМАНИЕ:</b> все отмеченные звёздочкой <b>*</b> пункты необходимы для работы компонента.</p>';
+echo '<br /><p><b>Р’РќРРњРђРќРР•:</b> РІСЃРµ РѕС‚РјРµС‡РµРЅРЅС‹Рµ Р·РІС‘Р·РґРѕС‡РєРѕР№ <b>*</b> РїСѓРЅРєС‚С‹ РЅРµРѕР±С…РѕРґРёРјС‹ РґР»СЏ СЂР°Р±РѕС‚С‹ РєРѕРјРїРѕРЅРµРЅС‚Р°.</p>';
 }
 
 
@@ -414,7 +414,7 @@ function saveConfig ($option) {
 		fputs($fp, $configcontent, strlen($configcontent));
 		fclose($fp);
 	}
-	mosRedirect("index2.php?option=$option&task=settings", "Настройки сохранены");
+	mosRedirect("index2.php?option=$option&task=settings", "РќР°СЃС‚СЂРѕР№РєРё СЃРѕС…СЂР°РЅРµРЅС‹");
 }
 
 ?>

@@ -2,7 +2,7 @@
 <mosinstall type="component" version="1.0.0">
 	<name>Weblinks</name>
 	<author>Joostina! Project</author>
-	<creationDate>Январь 2007</creationDate>
+	<creationDate>РЇРЅРІР°СЂСЊ 2007</creationDate>
 	<copyright>(C) 2007 Joostina Team.</copyright>
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
 	<authorEmail>joostinacms@gmail.com</authorEmail>
@@ -10,10 +10,10 @@
 	<version>1.0.0</version>
 	<description>This component shows a listing of Weblinks</description>
 	<params>
-		<param name="target" type="list" default="0" label="Открыть в..." description="Окно, которое откроется после нажатия на ссылку">
-			<option value="0">текущем окне с панелью навигации </option>
-			<option value="1">новом окне с панелью навигации</option>
-			<option value="2">новом окне без панели навигации</option>
+		<param name="target" type="list" default="0" label="РћС‚РєСЂС‹С‚СЊ РІ..." description="РћРєРЅРѕ, РєРѕС‚РѕСЂРѕРµ РѕС‚РєСЂРѕРµС‚СЃСЏ РїРѕСЃР»Рµ РЅР°Р¶Р°С‚РёСЏ РЅР° СЃСЃС‹Р»РєСѓ">
+			<option value="0">С‚РµРєСѓС‰РµРј РѕРєРЅРµ СЃ РїР°РЅРµР»СЊСЋ РЅР°РІРёРіР°С†РёРё </option>
+			<option value="1">РЅРѕРІРѕРј РѕРєРЅРµ СЃ РїР°РЅРµР»СЊСЋ РЅР°РІРёРіР°С†РёРё</option>
+			<option value="2">РЅРѕРІРѕРј РѕРєРЅРµ Р±РµР· РїР°РЅРµР»Рё РЅР°РІРёРіР°С†РёРё</option>
 		</param>
 	</params>
 </mosinstall>

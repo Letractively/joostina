@@ -1,25 +1,25 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title>
-		<?php echo $mosConfig_sitename; ?> - Панель управления [ Joostina ]</title>
+		<?php echo $mosConfig_sitename; ?> - РџР°РЅРµР»СЊ СѓРїСЂР°РІР»РµРЅРёСЏ [ Joostina ]</title>
 	<meta http-equiv="Content-Type" content="text/html; <?php echo _ISO; ?>" />
 	<style type="text/css">
 		@import url(templates/joostfree/css/admin_login.css);
@@ -48,13 +48,13 @@ defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
 				<form action="index.php" method="post" name="loginForm" id="loginForm">
 					<div class="form-block">
 						<div class="inputlabel">
-							Логин
+							Р›РѕРіРёРЅ
 						</div>
 						<div>
 							<input name="usrname" id="usrname" type="text" class="inputbox" size="15" />
 						</div>
 						<div>
-							Пароль
+							РџР°СЂРѕР»СЊ
 						</div>
 						<div align="center">
 							<input name="pass" type="password" class="inputbox" size="15" />
@@ -64,18 +64,18 @@ defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
 	session_start();
 ?>
 						<div>
-							<img id="loginCaptcha" alt="Нажмите что бы обновить изображение" onclick="document.loginForm.loginCaptcha.src='<?php echo $mosConfig_live_site; ?>/includes/kcaptcha/index.php?' + new String(Math.random())" src="<?php echo $mosConfig_live_site; ?>/includes/kcaptcha/index.php?<?php echo session_id()?>" />
+							<img id="loginCaptcha" alt="РќР°Р¶РјРёС‚Рµ С‡С‚Рѕ Р±С‹ РѕР±РЅРѕРІРёС‚СЊ РёР·РѕР±СЂР°Р¶РµРЅРёРµ" onclick="document.loginForm.loginCaptcha.src='<?php echo $mosConfig_live_site; ?>/includes/kcaptcha/index.php?' + new String(Math.random())" src="<?php echo $mosConfig_live_site; ?>/includes/kcaptcha/index.php?<?php echo session_id()?>" />
 						</div>
-						<span class="captcha" onclick="document.loginForm.loginCaptcha.src='<?php echo $mosConfig_live_site; ?>/includes/kcaptcha/index.php?' + new String(Math.random())">Обновить изображение</span>
-						<div>Введите код проверки с картинки выше:</div>
+						<span class="captcha" onclick="document.loginForm.loginCaptcha.src='<?php echo $mosConfig_live_site; ?>/includes/kcaptcha/index.php?' + new String(Math.random())">РћР±РЅРѕРІРёС‚СЊ РёР·РѕР±СЂР°Р¶РµРЅРёРµ</span>
+						<div>Р’РІРµРґРёС‚Рµ РєРѕРґ РїСЂРѕРІРµСЂРєРё СЃ РєР°СЂС‚РёРЅРєРё РІС‹С€Рµ:</div>
 						<div>
 							<input name="captcha" type="text" class="inputbox" size="15" />
 						</div>
 <?php }; ?>
 						<div align="center">
-							<input type="submit" name="submit" class="button" value="Войти" />
+							<input type="submit" name="submit" class="button" value="Р’РѕР№С‚Рё" />
 							<br />
-							<input type="button" name="submit" onClick="document.location.href='<?php echo $mosConfig_live_site;?>'" class="button" value="Перейти на сайт" />
+							<input type="button" name="submit" onClick="document.location.href='<?php echo $mosConfig_live_site;?>'" class="button" value="РџРµСЂРµР№С‚Рё РЅР° СЃР°Р№С‚" />
 						</div>
 					</div>
 				</form>
@@ -90,7 +90,7 @@ defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
 	</div>
 	<div id="break"></div>
 	<noscript>
-		!Предупреждение! Javascript должен быть разрешены для правильной работы панели управления администратора
+		!РџСЂРµРґСѓРїСЂРµР¶РґРµРЅРёРµ! Javascript РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ СЂР°Р·СЂРµС€РµРЅС‹ РґР»СЏ РїСЂР°РІРёР»СЊРЅРѕР№ СЂР°Р±РѕС‚С‹ РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР°
 	</noscript>
 		<div id="footer" align="center">
 			<div align="center">

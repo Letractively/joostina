@@ -1,142 +1,142 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 /* @package xmap
  * @author: Daniel Grothe, http://www.ko-ca.com/
- * @локализация: boston http://www.joom.ru. В рамках проекта Joostina.
+ * @Р»РѕРєР°Р»РёР·Р°С†РёСЏ: boston http://www.joom.ru. Р’ СЂР°РјРєР°С… РїСЂРѕРµРєС‚Р° Joostina.
  */
 
 if( !defined( 'JOOMAP_LANG' )) {
 	define('JOOMAP_LANG', 1 );
 	// -- General ------------------------------------------------------------------
-	define('_XMAP_CFG_COM_TITLE',		'Настройки');
-	define('_XMAP_CFG_OPTIONS',			'Отображение');
-	define('_XMAP_CFG_CSS_CLASSNAME',	'Стили CSS');
-	define('_XMAP_CFG_EXPAND_CATEGORIES','Расширять категории содержимого');
-	define('_XMAP_CFG_EXPAND_SECTIONS',	'Расширять разделы содержимого');
-	define('_XMAP_CFG_SHOW_MENU_TITLES','Показывать названия меню');
-	define('_XMAP_CFG_NUMBER_COLUMNS',	'Число столбцов');
-	define('_XMAP_EX_LINK',				'Отмечать внешние ссылки');
-	define('_XMAP_CFG_CLICK_HERE', 		'Нажмите сюда');
+	define('_XMAP_CFG_COM_TITLE',		'РќР°СЃС‚СЂРѕР№РєРё');
+	define('_XMAP_CFG_OPTIONS',			'РћС‚РѕР±СЂР°Р¶РµРЅРёРµ');
+	define('_XMAP_CFG_CSS_CLASSNAME',	'РЎС‚РёР»Рё CSS');
+	define('_XMAP_CFG_EXPAND_CATEGORIES','Р Р°СЃС€РёСЂСЏС‚СЊ РєР°С‚РµРіРѕСЂРёРё СЃРѕРґРµСЂР¶РёРјРѕРіРѕ');
+	define('_XMAP_CFG_EXPAND_SECTIONS',	'Р Р°СЃС€РёСЂСЏС‚СЊ СЂР°Р·РґРµР»С‹ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ');
+	define('_XMAP_CFG_SHOW_MENU_TITLES','РџРѕРєР°Р·С‹РІР°С‚СЊ РЅР°Р·РІР°РЅРёСЏ РјРµРЅСЋ');
+	define('_XMAP_CFG_NUMBER_COLUMNS',	'Р§РёСЃР»Рѕ СЃС‚РѕР»Р±С†РѕРІ');
+	define('_XMAP_EX_LINK',				'РћС‚РјРµС‡Р°С‚СЊ РІРЅРµС€РЅРёРµ СЃСЃС‹Р»РєРё');
+	define('_XMAP_CFG_CLICK_HERE', 		'РќР°Р¶РјРёС‚Рµ СЃСЋРґР°');
 	define('_XMAP_CFG_GOOGLE_MAP',		'Google Sitemap');
-	define('_XMAP_EXCLUDE_MENU',		'Исключать ID меню');
-	define('_XMAP_TAB_DISPLAY',			'Отображение');
-	define('_XMAP_TAB_MENUS',			'Меню');
-	define('_XMAP_CFG_WRITEABLE',		'доступен');
-	define('_XMAP_CFG_UNWRITEABLE',		'не доступен');
-	define('_XMAP_MSG_MAKE_UNWRITEABLE','Запретить редактирование после сохранения');
+	define('_XMAP_EXCLUDE_MENU',		'РСЃРєР»СЋС‡Р°С‚СЊ ID РјРµРЅСЋ');
+	define('_XMAP_TAB_DISPLAY',			'РћС‚РѕР±СЂР°Р¶РµРЅРёРµ');
+	define('_XMAP_TAB_MENUS',			'РњРµРЅСЋ');
+	define('_XMAP_CFG_WRITEABLE',		'РґРѕСЃС‚СѓРїРµРЅ');
+	define('_XMAP_CFG_UNWRITEABLE',		'РЅРµ РґРѕСЃС‚СѓРїРµРЅ');
+	define('_XMAP_MSG_MAKE_UNWRITEABLE','Р—Р°РїСЂРµС‚РёС‚СЊ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ РїРѕСЃР»Рµ СЃРѕС…СЂР°РЅРµРЅРёСЏ');
 	define('_XMAP_MSG_OVERRIDE_WRITE_PROTECTION', 'Override write protection while saving');
 	define('_XMAP_GOOGLE_LINK',			'Googlelink');
-	define('_XMAP_CFG_INCLUDE_LINK',	'Скрывать ссылку на автора');
+	define('_XMAP_CFG_INCLUDE_LINK',	'РЎРєСЂС‹РІР°С‚СЊ СЃСЃС‹Р»РєСѓ РЅР° Р°РІС‚РѕСЂР°');
 
 	// -- Tips ---------------------------------------------------------------------
-	define('_XMAP_EXCLUDE_MENU_TIP',	'Идентификаторы меню исключаемые из карты.<br /><strong>ВНИМАНИЕ</strong><br />Идентификаторы разделять запятыми!');
+	define('_XMAP_EXCLUDE_MENU_TIP',	'РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂС‹ РјРµРЅСЋ РёСЃРєР»СЋС‡Р°РµРјС‹Рµ РёР· РєР°СЂС‚С‹.<br /><strong>Р’РќРРњРђРќРР•</strong><br />РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂС‹ СЂР°Р·РґРµР»СЏС‚СЊ Р·Р°РїСЏС‚С‹РјРё!');
 
 	// -- Menus --------------------------------------------------------------------
-	define('_XMAP_CFG_SET_ORDER',		'Сортировка меню');
-	define('_XMAP_CFG_MENU_SHOW',		'Показать');
-	define('_XMAP_CFG_MENU_REORDER',	'Пересортировать');
-	define('_XMAP_CFG_MENU_ORDER',		'Положение');
-	define('_XMAP_CFG_MENU_NAME',		'Название меню');
-	define('_XMAP_CFG_DISABLE',			'Отключить');
-	define('_XMAP_CFG_ENABLE',			'Включить');
-	define('_XMAP_SHOW',				'Показать');
-	define('_XMAP_NO_SHOW',				'Не показывать');
+	define('_XMAP_CFG_SET_ORDER',		'РЎРѕСЂС‚РёСЂРѕРІРєР° РјРµРЅСЋ');
+	define('_XMAP_CFG_MENU_SHOW',		'РџРѕРєР°Р·Р°С‚СЊ');
+	define('_XMAP_CFG_MENU_REORDER',	'РџРµСЂРµСЃРѕСЂС‚РёСЂРѕРІР°С‚СЊ');
+	define('_XMAP_CFG_MENU_ORDER',		'РџРѕР»РѕР¶РµРЅРёРµ');
+	define('_XMAP_CFG_MENU_NAME',		'РќР°Р·РІР°РЅРёРµ РјРµРЅСЋ');
+	define('_XMAP_CFG_DISABLE',			'РћС‚РєР»СЋС‡РёС‚СЊ');
+	define('_XMAP_CFG_ENABLE',			'Р’РєР»СЋС‡РёС‚СЊ');
+	define('_XMAP_SHOW',				'РџРѕРєР°Р·Р°С‚СЊ');
+	define('_XMAP_NO_SHOW',				'РќРµ РїРѕРєР°Р·С‹РІР°С‚СЊ');
 
 	// -- Toolbar ------------------------------------------------------------------
-	define('_XMAP_TOOLBAR_SAVE', 		'Сохранить');
-	define('_XMAP_TOOLBAR_CANCEL', 		'Выход');
+	define('_XMAP_TOOLBAR_SAVE', 		'РЎРѕС…СЂР°РЅРёС‚СЊ');
+	define('_XMAP_TOOLBAR_CANCEL', 		'Р’С‹С…РѕРґ');
 
 	// -- Errors -------------------------------------------------------------------
-	define('_XMAP_ERR_NO_LANG',			'Языковой файл [ %s ] не найден, используется язык по умолчанию<br />');
-	define('_XMAP_ERR_CONF_SAVE',		 'ОШИБКА: Невозможно сохранить конфигурацию.');
-	define('_XMAP_ERR_NO_CREATE',		 'ОШИБКА: Отсутствует таблица настроек');
-	define('_XMAP_ERR_NO_DEFAULT_SET',	'ОШИБКА: Отсутствует таблица базовых данных');
-	define('_XMAP_ERR_NO_PREV_BU',		'ПРЕДУПРЕЖДЕНИЕ: Невозможно удалить копию');
-	define('_XMAP_ERR_NO_BACKUP',		 'ОШИБКА: Невозможно создать копию');
-	define('_XMAP_ERR_NO_DROP_DB',		'ОШИБКА: Невозможно удалить настройки');
-	define('_XMAP_ERR_NO_SETTINGS',		'ОШИБКА: Невозможно загрузить настройки: <a href="%s">Создать таблицу настроек</a>');
+	define('_XMAP_ERR_NO_LANG',			'РЇР·С‹РєРѕРІРѕР№ С„Р°Р№Р» [ %s ] РЅРµ РЅР°Р№РґРµРЅ, РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ СЏР·С‹Рє РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ<br />');
+	define('_XMAP_ERR_CONF_SAVE',		 'РћРЁРР‘РљРђ: РќРµРІРѕР·РјРѕР¶РЅРѕ СЃРѕС…СЂР°РЅРёС‚СЊ РєРѕРЅС„РёРіСѓСЂР°С†РёСЋ.');
+	define('_XMAP_ERR_NO_CREATE',		 'РћРЁРР‘РљРђ: РћС‚СЃСѓС‚СЃС‚РІСѓРµС‚ С‚Р°Р±Р»РёС†Р° РЅР°СЃС‚СЂРѕРµРє');
+	define('_XMAP_ERR_NO_DEFAULT_SET',	'РћРЁРР‘РљРђ: РћС‚СЃСѓС‚СЃС‚РІСѓРµС‚ С‚Р°Р±Р»РёС†Р° Р±Р°Р·РѕРІС‹С… РґР°РЅРЅС‹С…');
+	define('_XMAP_ERR_NO_PREV_BU',		'РџР Р•Р”РЈРџР Р•Р–Р”Р•РќРР•: РќРµРІРѕР·РјРѕР¶РЅРѕ СѓРґР°Р»РёС‚СЊ РєРѕРїРёСЋ');
+	define('_XMAP_ERR_NO_BACKUP',		 'РћРЁРР‘РљРђ: РќРµРІРѕР·РјРѕР¶РЅРѕ СЃРѕР·РґР°С‚СЊ РєРѕРїРёСЋ');
+	define('_XMAP_ERR_NO_DROP_DB',		'РћРЁРР‘РљРђ: РќРµРІРѕР·РјРѕР¶РЅРѕ СѓРґР°Р»РёС‚СЊ РЅР°СЃС‚СЂРѕР№РєРё');
+	define('_XMAP_ERR_NO_SETTINGS',		'РћРЁРР‘РљРђ: РќРµРІРѕР·РјРѕР¶РЅРѕ Р·Р°РіСЂСѓР·РёС‚СЊ РЅР°СЃС‚СЂРѕР№РєРё: <a href="%s">РЎРѕР·РґР°С‚СЊ С‚Р°Р±Р»РёС†Сѓ РЅР°СЃС‚СЂРѕРµРє</a>');
 
 	// -- Config -------------------------------------------------------------------
-	define('_XMAP_MSG_SET_RESTORED',	'Настройки восстановлены');
-	define('_XMAP_MSG_SET_BACKEDUP',	'Настройки сохранены');
-	define('_XMAP_MSG_SET_DB_CREATED',	'Таблица настроек создана');
-	define('_XMAP_MSG_SET_DEF_INSERT',	'Базовые данные внесены');
-	define('_XMAP_MSG_SET_DB_DROPPED',	'Таблицы Xmap\'s сохранены!');
+	define('_XMAP_MSG_SET_RESTORED',	'РќР°СЃС‚СЂРѕР№РєРё РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅС‹');
+	define('_XMAP_MSG_SET_BACKEDUP',	'РќР°СЃС‚СЂРѕР№РєРё СЃРѕС…СЂР°РЅРµРЅС‹');
+	define('_XMAP_MSG_SET_DB_CREATED',	'РўР°Р±Р»РёС†Р° РЅР°СЃС‚СЂРѕРµРє СЃРѕР·РґР°РЅР°');
+	define('_XMAP_MSG_SET_DEF_INSERT',	'Р‘Р°Р·РѕРІС‹Рµ РґР°РЅРЅС‹Рµ РІРЅРµСЃРµРЅС‹');
+	define('_XMAP_MSG_SET_DB_DROPPED',	'РўР°Р±Р»РёС†С‹ Xmap\'s СЃРѕС…СЂР°РЅРµРЅС‹!');
 	
 	// -- CSS ----------------------------------------------------------------------
 	define('_XMAP_CSS',		'Xmap CSS');
-	define('_XMAP_CSS_EDIT','Редактирование'); // Edit template
+	define('_XMAP_CSS_EDIT','Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ'); // Edit template
 	
 	// -- Sitemap (Frontend) -------------------------------------------------------
-	define('_XMAP_SHOW_AS_EXTERN_ALT',	'Ссылка откроется в новом окне');
+	define('_XMAP_SHOW_AS_EXTERN_ALT',	'РЎСЃС‹Р»РєР° РѕС‚РєСЂРѕРµС‚СЃСЏ РІ РЅРѕРІРѕРј РѕРєРЅРµ');
 	
 	// -- Added for Xmap 
-	define('_XMAP_CFG_MENU_SHOW_HTML',		'Показывать на сайте');
-	define('_XMAP_CFG_MENU_SHOW_XML',		'Показывать в XML карте');
-	define('_XMAP_CFG_MENU_PRIORITY',		'Приоритет');
-	define('_XMAP_CFG_MENU_CHANGEFREQ',		'Создавать');
-	define('_XMAP_CFG_CHANGEFREQ_ALWAYS',	'Постоянно');
-	define('_XMAP_CFG_CHANGEFREQ_HOURLY',	'Ежечасно');
-	define('_XMAP_CFG_CHANGEFREQ_DAILY',	'Ежедневно');
-	define('_XMAP_CFG_CHANGEFREQ_WEEKLY',	'Еженедельно');
-	define('_XMAP_CFG_CHANGEFREQ_MONTHLY',	'Ежемесячно');
-	define('_XMAP_CFG_CHANGEFREQ_YEARLY',	'Ежегодно');
-	define('_XMAP_CFG_CHANGEFREQ_NEVER',	'Всегда');
+	define('_XMAP_CFG_MENU_SHOW_HTML',		'РџРѕРєР°Р·С‹РІР°С‚СЊ РЅР° СЃР°Р№С‚Рµ');
+	define('_XMAP_CFG_MENU_SHOW_XML',		'РџРѕРєР°Р·С‹РІР°С‚СЊ РІ XML РєР°СЂС‚Рµ');
+	define('_XMAP_CFG_MENU_PRIORITY',		'РџСЂРёРѕСЂРёС‚РµС‚');
+	define('_XMAP_CFG_MENU_CHANGEFREQ',		'РЎРѕР·РґР°РІР°С‚СЊ');
+	define('_XMAP_CFG_CHANGEFREQ_ALWAYS',	'РџРѕСЃС‚РѕСЏРЅРЅРѕ');
+	define('_XMAP_CFG_CHANGEFREQ_HOURLY',	'Р•Р¶РµС‡Р°СЃРЅРѕ');
+	define('_XMAP_CFG_CHANGEFREQ_DAILY',	'Р•Р¶РµРґРЅРµРІРЅРѕ');
+	define('_XMAP_CFG_CHANGEFREQ_WEEKLY',	'Р•Р¶РµРЅРµРґРµР»СЊРЅРѕ');
+	define('_XMAP_CFG_CHANGEFREQ_MONTHLY',	'Р•Р¶РµРјРµСЃСЏС‡РЅРѕ');
+	define('_XMAP_CFG_CHANGEFREQ_YEARLY',	'Р•Р¶РµРіРѕРґРЅРѕ');
+	define('_XMAP_CFG_CHANGEFREQ_NEVER',	'Р’СЃРµРіРґР°');
 
-	define('_XMAP_TIT_SETTINGS_OF',			'Настройки %s');
-	define('_XMAP_TAB_SITEMAPS',			'Карта');
-	define('_XMAP_MSG_NO_SITEMAPS',			'Нет созданных карт');
-	define('_XMAP_MSG_NO_SITEMAP',			'Данная карта недоступна');
-	define('_XMAP_MSG_LOADING_SETTINGS',	'Загрузка настроек...');
-	define('_XMAP_MSG_ERROR_LOADING_SITEMAP','Ошибка. Невозможно загрузить карту');
-	define('_XMAP_MSG_ERROR_SAVE_PROPERTY',	'Ошибка. Невозможно сохранить приоритет.');
-	define('_XMAP_MSG_ERROR_CLEAN_CACHE',	'Ошибка. Невозможно очистить кэш карты.');
-	define('_XMAP_ERROR_DELETE_DEFAULT',	'Невозможно удалить карту, используемую по умолчанию!');
-	define('_XMAP_MSG_CACHE_CLEANED',		'кэш очищен!');
+	define('_XMAP_TIT_SETTINGS_OF',			'РќР°СЃС‚СЂРѕР№РєРё %s');
+	define('_XMAP_TAB_SITEMAPS',			'РљР°СЂС‚Р°');
+	define('_XMAP_MSG_NO_SITEMAPS',			'РќРµС‚ СЃРѕР·РґР°РЅРЅС‹С… РєР°СЂС‚');
+	define('_XMAP_MSG_NO_SITEMAP',			'Р”Р°РЅРЅР°СЏ РєР°СЂС‚Р° РЅРµРґРѕСЃС‚СѓРїРЅР°');
+	define('_XMAP_MSG_LOADING_SETTINGS',	'Р—Р°РіСЂСѓР·РєР° РЅР°СЃС‚СЂРѕРµРє...');
+	define('_XMAP_MSG_ERROR_LOADING_SITEMAP','РћС€РёР±РєР°. РќРµРІРѕР·РјРѕР¶РЅРѕ Р·Р°РіСЂСѓР·РёС‚СЊ РєР°СЂС‚Сѓ');
+	define('_XMAP_MSG_ERROR_SAVE_PROPERTY',	'РћС€РёР±РєР°. РќРµРІРѕР·РјРѕР¶РЅРѕ СЃРѕС…СЂР°РЅРёС‚СЊ РїСЂРёРѕСЂРёС‚РµС‚.');
+	define('_XMAP_MSG_ERROR_CLEAN_CACHE',	'РћС€РёР±РєР°. РќРµРІРѕР·РјРѕР¶РЅРѕ РѕС‡РёСЃС‚РёС‚СЊ РєСЌС€ РєР°СЂС‚С‹.');
+	define('_XMAP_ERROR_DELETE_DEFAULT',	'РќРµРІРѕР·РјРѕР¶РЅРѕ СѓРґР°Р»РёС‚СЊ РєР°СЂС‚Сѓ, РёСЃРїРѕР»СЊР·СѓРµРјСѓСЋ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ!');
+	define('_XMAP_MSG_CACHE_CLEANED',		'РєСЌС€ РѕС‡РёС‰РµРЅ!');
 	define('_XMAP_CHARSET',					'windows-1251');
-	define('_XMAP_SITEMAP_ID',				'Идентификатор карты');
-	define('_XMAP_ADD_SITEMAP',				'Создать новую карту сайта');
-	define('_XMAP_NAME_NEW_SITEMAP',		'Новая карта');
-	define('_XMAP_DELETE_SITEMAP',			'Удалить');
-	define('_XMAP_SETTINGS_SITEMAP',		'Настройки');
-	define('_XMAP_COPY_SITEMAP',			'Копировать');
-	define('_XMAP_SITEMAP_SET_DEFAULT',		'По умолчанию');
-	define('_XMAP_EDIT_MENU',				'Настройки');
-	define('_XMAP_DELETE_MENU',				'Удалить');
-	define('_XMAP_CLEAR_CACHE',				'Очистить кэш');
-	define('_XMAP_MOVEUP_MENU',		'Выше');
-	define('_XMAP_MOVEDOWN_MENU',	'Ниже');
-	define('_XMAP_ADD_MENU',		'Добавить меню');
-	define('_XMAP_COPY_OF',			'Копия %s');
-	define('_XMAP_INFO_LAST_VISIT',	'Последнее посещение');
-	define('_XMAP_INFO_COUNT_VIEWS','Число посещений');
-	define('_XMAP_INFO_TOTAL_LINKS','Число ссылок');
-	define('_XMAP_CFG_URLS',		'URL карты');
-	define('_XMAP_XML_LINK_TIP',	'Скопируйте эту ссылку для использования в Google и Yahoo');
-	define('_XMAP_HTML_LINK_TIP',	'Это полный адрес карты..');
-	define('_XMAP_CFG_XML_MAP',		'XML  карта');
-	define('_XMAP_CFG_HTML_MAP',	'HTML карта');
+	define('_XMAP_SITEMAP_ID',				'РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ РєР°СЂС‚С‹');
+	define('_XMAP_ADD_SITEMAP',				'РЎРѕР·РґР°С‚СЊ РЅРѕРІСѓСЋ РєР°СЂС‚Сѓ СЃР°Р№С‚Р°');
+	define('_XMAP_NAME_NEW_SITEMAP',		'РќРѕРІР°СЏ РєР°СЂС‚Р°');
+	define('_XMAP_DELETE_SITEMAP',			'РЈРґР°Р»РёС‚СЊ');
+	define('_XMAP_SETTINGS_SITEMAP',		'РќР°СЃС‚СЂРѕР№РєРё');
+	define('_XMAP_COPY_SITEMAP',			'РљРѕРїРёСЂРѕРІР°С‚СЊ');
+	define('_XMAP_SITEMAP_SET_DEFAULT',		'РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ');
+	define('_XMAP_EDIT_MENU',				'РќР°СЃС‚СЂРѕР№РєРё');
+	define('_XMAP_DELETE_MENU',				'РЈРґР°Р»РёС‚СЊ');
+	define('_XMAP_CLEAR_CACHE',				'РћС‡РёСЃС‚РёС‚СЊ РєСЌС€');
+	define('_XMAP_MOVEUP_MENU',		'Р’С‹С€Рµ');
+	define('_XMAP_MOVEDOWN_MENU',	'РќРёР¶Рµ');
+	define('_XMAP_ADD_MENU',		'Р”РѕР±Р°РІРёС‚СЊ РјРµРЅСЋ');
+	define('_XMAP_COPY_OF',			'РљРѕРїРёСЏ %s');
+	define('_XMAP_INFO_LAST_VISIT',	'РџРѕСЃР»РµРґРЅРµРµ РїРѕСЃРµС‰РµРЅРёРµ');
+	define('_XMAP_INFO_COUNT_VIEWS','Р§РёСЃР»Рѕ РїРѕСЃРµС‰РµРЅРёР№');
+	define('_XMAP_INFO_TOTAL_LINKS','Р§РёСЃР»Рѕ СЃСЃС‹Р»РѕРє');
+	define('_XMAP_CFG_URLS',		'URL РєР°СЂС‚С‹');
+	define('_XMAP_XML_LINK_TIP',	'РЎРєРѕРїРёСЂСѓР№С‚Рµ СЌС‚Сѓ СЃСЃС‹Р»РєСѓ РґР»СЏ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ РІ Google Рё Yahoo');
+	define('_XMAP_HTML_LINK_TIP',	'Р­С‚Рѕ РїРѕР»РЅС‹Р№ Р°РґСЂРµСЃ РєР°СЂС‚С‹..');
+	define('_XMAP_CFG_XML_MAP',		'XML  РєР°СЂС‚Р°');
+	define('_XMAP_CFG_HTML_MAP',	'HTML РєР°СЂС‚Р°');
 	define('_XMAP_XML_LINK',		'Googlelink');
-	define('_XMAP_CFG_XML_MAP_TIP',	'XML файл создаётся для поисковых систем');
-	define('_XMAP_ADD', 'Сохранить');
-	define('_XMAP_CANCEL', 'Закрыть');
-	define('_XMAP_LOADING', 'Загрузка...');
-	define('_XMAP_CACHE', 'Кэширование');
-	define('_XMAP_USE_CACHE', 'Использовать');
-	define('_XMAP_CACHE_LIFE_TIME', 'Время жизни кэша');
-	define('_XMAP_NEVER_VISITED', 'Нет');
+	define('_XMAP_CFG_XML_MAP_TIP',	'XML С„Р°Р№Р» СЃРѕР·РґР°С‘С‚СЃСЏ РґР»СЏ РїРѕРёСЃРєРѕРІС‹С… СЃРёСЃС‚РµРј');
+	define('_XMAP_ADD', 'РЎРѕС…СЂР°РЅРёС‚СЊ');
+	define('_XMAP_CANCEL', 'Р—Р°РєСЂС‹С‚СЊ');
+	define('_XMAP_LOADING', 'Р—Р°РіСЂСѓР·РєР°...');
+	define('_XMAP_CACHE', 'РљСЌС€РёСЂРѕРІР°РЅРёРµ');
+	define('_XMAP_USE_CACHE', 'РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ');
+	define('_XMAP_CACHE_LIFE_TIME', 'Р’СЂРµРјСЏ Р¶РёР·РЅРё РєСЌС€Р°');
+	define('_XMAP_NEVER_VISITED', 'РќРµС‚');
 }
 ?>

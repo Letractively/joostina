@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Àâòîðñêèå ïðàâà (C) 2007 Joostina team. Âñå ïðàâà çàùèùåíû.
-* @license Ëèöåíçèÿ http://www.gnu.org/copyleft/gpl.html GNU/GPL, ñìîòðèòå LICENSE.php
-* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå. Ýòà âåðñèÿ ìîæåò áûòü èçìåíåíà
-* â ñîîòâåòñòâèè ñ Ãåíåðàëüíîé Îáùåñòâåííîé Ëèöåíçèåé GNU, ïîýòîìó âîçìîæíî
-* å¸ äàëüíåéøåå ðàñïðîñòðàíåíèå â ñîñòàâå ðåçóëüòàòà ðàáîòû, ëèöåíçèðîâàííîãî
-* ñîãëàñíî Ãåíåðàëüíîé Îáùåñòâåííîé Ëèöåíçèåé GNU èëè äðóãèõ ëèöåíçèé ñâîáîäíûõ
-* ïðîãðàìì èëè ïðîãðàìì ñ îòêðûòûì èñõîäíûì êîäîì.
-* Äëÿ ïðîñìîòðà ïîäðîáíîñòåé è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë COPYRIGHT.php.
+* @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2007 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
+* @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/copyleft/gpl.html GNU/GPL, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ LICENSE.php
+* Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ. Ð­Ñ‚Ð° Ð²ÐµÑ€ÑÐ¸Ñ Ð¼Ð¾Ð¶ÐµÑ‚ Ð±Ñ‹Ñ‚ÑŒ Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð°
+* Ð² ÑÐ¾Ð¾Ñ‚Ð²ÐµÑ‚ÑÑ‚Ð²Ð¸Ð¸ Ñ Ð“ÐµÐ½ÐµÑ€Ð°Ð»ÑŒÐ½Ð¾Ð¹ ÐžÐ±Ñ‰ÐµÑÑ‚Ð²ÐµÐ½Ð½Ð¾Ð¹ Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸ÐµÐ¹ GNU, Ð¿Ð¾ÑÑ‚Ð¾Ð¼Ñƒ Ð²Ð¾Ð·Ð¼Ð¾Ð¶Ð½Ð¾
+* ÐµÑ‘ Ð´Ð°Ð»ÑŒÐ½ÐµÐ¹ÑˆÐµÐµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÐµÐ½Ð¸Ðµ Ð² ÑÐ¾ÑÑ‚Ð°Ð²Ðµ Ñ€ÐµÐ·ÑƒÐ»ÑŒÑ‚Ð°Ñ‚Ð° Ñ€Ð°Ð±Ð¾Ñ‚Ñ‹, Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð½Ð¾Ð³Ð¾
+* ÑÐ¾Ð³Ð»Ð°ÑÐ½Ð¾ Ð“ÐµÐ½ÐµÑ€Ð°Ð»ÑŒÐ½Ð¾Ð¹ ÐžÐ±Ñ‰ÐµÑÑ‚Ð²ÐµÐ½Ð½Ð¾Ð¹ Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸ÐµÐ¹ GNU Ð¸Ð»Ð¸ Ð´Ñ€ÑƒÐ³Ð¸Ñ… Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¹ ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ñ‹Ñ…
+* Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼ Ð¸Ð»Ð¸ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼ Ñ Ð¾Ñ‚ÐºÑ€Ñ‹Ñ‚Ñ‹Ð¼ Ð¸ÑÑ…Ð¾Ð´Ð½Ñ‹Ð¼ ÐºÐ¾Ð´Ð¾Ð¼.
+* Ð”Ð»Ñ Ð¿Ñ€Ð¾ÑÐ¼Ð¾Ñ‚Ñ€Ð° Ð¿Ð¾Ð´Ñ€Ð¾Ð±Ð½Ð¾ÑÑ‚ÐµÐ¹ Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» COPYRIGHT.php.
 */
 
-// çàïðåò ïðÿìîãî äîñòóïà
-defined( '_VALID_MOS' ) or die( 'Ïðÿìîé âûçîâ ôàéëà çàïðåùåí' );
+// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+defined( '_VALID_MOS' ) or die( 'ÐŸÑ€ÑÐ¼Ð¾Ð¹ Ð²Ñ‹Ð·Ð¾Ð² Ñ„Ð°Ð¹Ð»Ð° Ð·Ð°Ð¿Ñ€ÐµÑ‰ÐµÐ½' );
 
 if (!$acl->acl_check( 'administration', 'config', 'users', $my->usertype )) {
 	mosRedirect( 'index2.php?', _NOT_AUTH );
@@ -54,7 +54,7 @@ function showconfig( $option) {
 
 // PRE-PROCESS SOME LISTS
 
-	// -- ßçûêè --
+	// -- Ð¯Ð·Ñ‹ÐºÐ¸ --
 
 	if ($handle = opendir( $mosConfig_absolute_path . '/language/' )) {
 		$i=0;
@@ -65,11 +65,11 @@ function showconfig( $option) {
 		}
 	}
 
-	// ñîðòèðîâêà ñïèñêà ÿçûêîâ
+	// ÑÐ¾Ñ€Ñ‚Ð¸Ñ€Ð¾Ð²ÐºÐ° ÑÐ¿Ð¸ÑÐºÐ° ÑÐ·Ñ‹ÐºÐ¾Ð²
 	sort( $langs );
 	reset( $langs );
 
-	// -- Ðåäàêòîðû --
+	// -- Ð ÐµÐ´Ð°ÐºÑ‚Ð¾Ñ€Ñ‹ --
 
 	// compile list of the editors
 	$query = "SELECT element AS value, name AS text"
@@ -81,19 +81,19 @@ function showconfig( $option) {
 	$database->setQuery( $query );
 	$edits = $database->loadObjectList();
 
-	// -- Ïîêàçàòü/Ñêðûòü --
+	// -- ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ/Ð¡ÐºÑ€Ñ‹Ñ‚ÑŒ --
 
 	$show_hide = array(
-		mosHTML::makeOption( 1, 'Ñêðûòü' ),
-		mosHTML::makeOption( 0, 'Ïîêàçàòü' ),
+		mosHTML::makeOption( 1, 'Ð¡ÐºÑ€Ñ‹Ñ‚ÑŒ' ),
+		mosHTML::makeOption( 0, 'ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ' ),
 	);
 
 	$show_hide_r = array(
-		mosHTML::makeOption( 0, 'Ñêðûòü' ),
-		mosHTML::makeOption( 1, 'Ïîêàçàòü' ),
+		mosHTML::makeOption( 0, 'Ð¡ÐºÑ€Ñ‹Ñ‚ÑŒ' ),
+		mosHTML::makeOption( 1, 'ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ' ),
 	);
 
-	// -- ïóíêòû ìåíþ --
+	// -- Ð¿ÑƒÐ½ÐºÑ‚Ñ‹ Ð¼ÐµÐ½ÑŽ --
 
 	$query = "SELECT id AS value, name AS text FROM #__menu"
 	. "\n WHERE ( type='content_section' OR type='components' OR type='content_typed' )"
@@ -105,7 +105,7 @@ function showconfig( $option) {
 	$menuitems = array_merge( $menuitems, $database->loadObjectList() );
 
 
-// ÍÀÑÒÐÎÉÊÈ ÑÀÉÒÀ
+// ÐÐÐ¡Ð¢Ð ÐžÐ™ÐšÐ˜ Ð¡ÐÐ™Ð¢Ð
 
 	$lists['offline'] = mosHTML::yesnoRadioList( 'config_offline', 'class="inputbox"', $row->config_offline );
 
@@ -132,20 +132,20 @@ function showconfig( $option) {
 
 	$lists['frontend_login'] = mosHTML::yesnoRadioList( 'config_frontend_login', 'class="inputbox"', $row->config_frontend_login );
 
-// boston, îòêëþ÷åíèå âåäåíèÿ ñåññèé ïîäñ÷åòà ÷èñëà ïîëüçîâàòåëåé íà ñàéòå
+// boston, Ð¾Ñ‚ÐºÐ»ÑŽÑ‡ÐµÐ½Ð¸Ðµ Ð²ÐµÐ´ÐµÐ½Ð¸Ñ ÑÐµÑÑÐ¸Ð¹ Ð¿Ð¾Ð´ÑÑ‡ÐµÑ‚Ð° Ñ‡Ð¸ÑÐ»Ð° Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»ÐµÐ¹ Ð½Ð° ÑÐ°Ð¹Ñ‚Ðµ
 	$lists['session_front'] = mosHTML::yesnoRadioList( 'config_session_front', 'class="inputbox"', $row->config_session_front );
-// boston, îòêëþ÷åíèå syndicate
+// boston, Ð¾Ñ‚ÐºÐ»ÑŽÑ‡ÐµÐ½Ð¸Ðµ syndicate
 	$lists['syndicate_off'] = mosHTML::yesnoRadioList( 'config_syndicate_off', 'class="inputbox"', $row->config_syndicate_off );
-// boston, îòêëþ÷åíèå òåãà Generator
+// boston, Ð¾Ñ‚ÐºÐ»ÑŽÑ‡ÐµÐ½Ð¸Ðµ Ñ‚ÐµÐ³Ð° Generator
 	$lists['generator_off'] = mosHTML::yesnoRadioList( 'config_generator_off', 'class="inputbox"', $row->config_generator_off );
-// boston, îòêëþ÷åíèå ìàìáîòîâ ãðóïïû system
+// boston, Ð¾Ñ‚ÐºÐ»ÑŽÑ‡ÐµÐ½Ð¸Ðµ Ð¼Ð°Ð¼Ð±Ð¾Ñ‚Ð¾Ð² Ð³Ñ€ÑƒÐ¿Ð¿Ñ‹ system
 	$lists['mmb_system_off'] = mosHTML::yesnoRadioList( 'config_mmb_system_off', 'class="inputbox"', $row->config_mmb_system_off );
-// boston, ïîëó÷àåì ñïèñîê øàáëîíîâ. Êîä ïîëó÷åí èç ìîäóëÿ âûáîðà øàáëîíà
+// boston, Ð¿Ð¾Ð»ÑƒÑ‡Ð°ÐµÐ¼ ÑÐ¿Ð¸ÑÐ¾Ðº ÑˆÐ°Ð±Ð»Ð¾Ð½Ð¾Ð². ÐšÐ¾Ð´ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½ Ð¸Ð· Ð¼Ð¾Ð´ÑƒÐ»Ñ Ð²Ñ‹Ð±Ð¾Ñ€Ð° ÑˆÐ°Ð±Ð»Ð¾Ð½Ð°
 $titlelength = 20;
 $template_path 	= "$mosConfig_absolute_path/templates";
 $templatefolder = @dir( $template_path );
 $darray = array();
-$darray[] = mosHTML::makeOption( '...', 'Ðàçíûå' );// ïàðàìåòð ïî óìîë÷àíèþ - ïîçâîëÿåò èñïîëüçîâàòü ñòàíäàðòíûé ñïîñîá îïðåäåëåíèÿ øàáëîíà
+$darray[] = mosHTML::makeOption( '...', 'Ð Ð°Ð·Ð½Ñ‹Ðµ' );// Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€ Ð¿Ð¾ ÑƒÐ¼Ð¾Ð»Ñ‡Ð°Ð½Ð¸ÑŽ - Ð¿Ð¾Ð·Ð²Ð¾Ð»ÑÐµÑ‚ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÑŒ ÑÑ‚Ð°Ð½Ð´Ð°Ñ€Ñ‚Ð½Ñ‹Ð¹ ÑÐ¿Ð¾ÑÐ¾Ð± Ð¾Ð¿Ñ€ÐµÐ´ÐµÐ»ÐµÐ½Ð¸Ñ ÑˆÐ°Ð±Ð»Ð¾Ð½Ð°
 if ($templatefolder) {
 	while ($templatefile = $templatefolder->read()) {
 		if ($templatefile != "." && $templatefile != ".." && $templatefile != ".svn" && $templatefile != "css" && is_dir( "$template_path/$templatefile" )  ) {
@@ -162,221 +162,221 @@ if ($templatefolder) {
 }
 	sort( $darray);
 	$lists['one_template'] = mosHTML::selectList( $darray, 'config_one_template', "class=\"inputbox\" ",'value', 'text', $row->config_one_template );
-// boston, âðåìÿ ãåíåðàöèè ñòðàíèöû
+// boston, Ð²Ñ€ÐµÐ¼Ñ Ð³ÐµÐ½ÐµÑ€Ð°Ñ†Ð¸Ð¸ ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñ‹
 	$lists['time_gen'] = mosHTML::yesnoRadioList( 'config_time_gen', 'class="inputbox"', $row->config_time_gen );
-//boston, èíäåêñàöèÿ ñòðàíèöû ïå÷àòè
+//boston, Ð¸Ð½Ð´ÐµÐºÑÐ°Ñ†Ð¸Ñ ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñ‹ Ð¿ÐµÑ‡Ð°Ñ‚Ð¸
 	$lists['index_print'] = mosHTML::yesnoRadioList( 'config_index_print', 'class="inputbox"', $row->config_index_print );
-// boston, ðàñøèðåííûå òåãè èíäåêñàöèè
+// boston, Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð½Ñ‹Ðµ Ñ‚ÐµÐ³Ð¸ Ð¸Ð½Ð´ÐµÐºÑÐ°Ñ†Ð¸Ð¸
 	$lists['index_tag'] = mosHTML::yesnoRadioList( 'config_index_tag', 'class="inputbox"', $row->config_index_tag );
-// boston, îòêëþ÷àòü ìîäóëè íà ñòðàíèöå ðåäàêòèðîâàíèÿ íà ôðîíòå
+// boston, Ð¾Ñ‚ÐºÐ»ÑŽÑ‡Ð°Ñ‚ÑŒ Ð¼Ð¾Ð´ÑƒÐ»Ð¸ Ð½Ð° ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ðµ Ñ€ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ñ Ð½Ð° Ñ„Ñ€Ð¾Ð½Ñ‚Ðµ
 	$lists['module_on_edit_off'] = mosHTML::yesnoRadioList( 'config_module_on_edit_off', 'class="inputbox"', $row->config_module_on_edit_off );
-// boston, åæåñóòî÷íàÿ îïòèìèçàöèÿ òàáëèö áä
+// boston, ÐµÐ¶ÐµÑÑƒÑ‚Ð¾Ñ‡Ð½Ð°Ñ Ð¾Ð¿Ñ‚Ð¸Ð¼Ð¸Ð·Ð°Ñ†Ð¸Ñ Ñ‚Ð°Ð±Ð»Ð¸Ñ† Ð±Ð´
 	$lists['optimizetables'] = mosHTML::yesnoRadioList( 'config_optimizetables', 'class="inputbox"', $row->config_optimizetables );
-// boston, îòêëþ÷åíèå ìàìáîòîâ ãðóïïû content
+// boston, Ð¾Ñ‚ÐºÐ»ÑŽÑ‡ÐµÐ½Ð¸Ðµ Ð¼Ð°Ð¼Ð±Ð¾Ñ‚Ð¾Ð² Ð³Ñ€ÑƒÐ¿Ð¿Ñ‹ content
 	$lists['mmb_content_off'] = mosHTML::yesnoRadioList( 'config_mmb_content_off', 'class="inputbox"', $row->config_mmb_content_off );
-// boston, êýøèðîâàíèå ìåíþ ïàíåëè óïðàâëåíèÿ
+// boston, ÐºÑÑˆÐ¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ Ð¼ÐµÐ½ÑŽ Ð¿Ð°Ð½ÐµÐ»Ð¸ ÑƒÐ¿Ñ€Ð°Ð²Ð»ÐµÐ½Ð¸Ñ
 	$lists['adm_menu_cache'] = mosHTML::yesnoRadioList( 'config_adm_menu_cache', 'class="inputbox"', $row->config_adm_menu_cache );
-// óïðàâëåíèå captcha
+// ÑƒÐ¿Ñ€Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ captcha
 	$lists['captcha'] = mosHTML::yesnoRadioList( 'config_captcha', 'class="inputbox"', $row->config_captcha );
-// óïðàâëåíèå captcha
+// ÑƒÐ¿Ñ€Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ captcha
 	$lists['com_frontpage_clear'] = mosHTML::yesnoRadioList( 'config_com_frontpage_clear', 'class="inputbox"', $row->config_com_frontpage_clear);
-// êîðåíü ôàéëîâîãî ìåíåäæåðà
+// ÐºÐ¾Ñ€ÐµÐ½ÑŒ Ñ„Ð°Ð¹Ð»Ð¾Ð²Ð¾Ð³Ð¾ Ð¼ÐµÐ½ÐµÐ´Ð¶ÐµÑ€Ð°
 	$row->config_joomlaxplorer_dir = $row->config_joomlaxplorer_dir ? $row->config_joomlaxplorer_dir : $mosConfig_absolute_path;
-// àâòîìàòè÷åñêàÿ óñòàíîâêà ÷åêáîêñà "Ïóáëèêîâàòü íà ãëàâíîé"
+// Ð°Ð²Ñ‚Ð¾Ð¼Ð°Ñ‚Ð¸Ñ‡ÐµÑÐºÐ°Ñ ÑƒÑÑ‚Ð°Ð½Ð¾Ð²ÐºÐ° Ñ‡ÐµÐºÐ±Ð¾ÐºÑÐ° "ÐŸÑƒÐ±Ð»Ð¸ÐºÐ¾Ð²Ð°Ñ‚ÑŒ Ð½Ð° Ð³Ð»Ð°Ð²Ð½Ð¾Ð¹"
 	$lists['auto_frontpage'] = mosHTML::yesnoRadioList( 'config_auto_frontpage', 'class="inputbox"', $row->config_auto_frontpage);
-// óíèêàëüíûå èäåíòèôèêàòîðû íîâîñòåé
+// ÑƒÐ½Ð¸ÐºÐ°Ð»ÑŒÐ½Ñ‹Ðµ Ð¸Ð´ÐµÐ½Ñ‚Ð¸Ñ„Ð¸ÐºÐ°Ñ‚Ð¾Ñ€Ñ‹ Ð½Ð¾Ð²Ð¾ÑÑ‚ÐµÐ¹
 	$lists['config_uid_news'] = mosHTML::yesnoRadioList( 'config_uid_news', 'class="inputbox"', $row->config_uid_news);
-// ïîäñ÷åò ïðî÷òåíèé ñîäåðæèìîãî
+// Ð¿Ð¾Ð´ÑÑ‡ÐµÑ‚ Ð¿Ñ€Ð¾Ñ‡Ñ‚ÐµÐ½Ð¸Ð¹ ÑÐ¾Ð´ÐµÑ€Ð¶Ð¸Ð¼Ð¾Ð³Ð¾
 	$lists['config_content_hits'] = mosHTML::yesnoRadioList( 'config_content_hits', 'class="inputbox"', $row->config_content_hits);
-// ôîðìàò âðåìåíè
+// Ñ„Ð¾Ñ€Ð¼Ð°Ñ‚ Ð²Ñ€ÐµÐ¼ÐµÐ½Ð¸
 	$form_date = array(
-		mosHTML::makeOption( '%d.%m.%Y ã.', 'äåíü.ìåñÿö.ãîä ã.' ),
-		mosHTML::makeOption( '%d/%m/%Y ã.', 'äåíü/ìåñÿö/ãîä ã.' ),
-		mosHTML::makeOption( '%d:%m:%Y ã.', 'äåíü:ìåñÿö:ãîä ã.' ),
+		mosHTML::makeOption( '%d.%m.%Y Ð³.', 'Ð´ÐµÐ½ÑŒ.Ð¼ÐµÑÑÑ†.Ð³Ð¾Ð´ Ð³.' ),
+		mosHTML::makeOption( '%d/%m/%Y Ð³.', 'Ð´ÐµÐ½ÑŒ/Ð¼ÐµÑÑÑ†/Ð³Ð¾Ð´ Ð³.' ),
+		mosHTML::makeOption( '%d:%m:%Y Ð³.', 'Ð´ÐµÐ½ÑŒ:Ð¼ÐµÑÑÑ†:Ð³Ð¾Ð´ Ð³.' ),
 	);
 	$lists['form_date'] = mosHTML::selectList( $form_date, 'config_form_date', 'class="inputbox" size="1"', 'value', 'text', $row->config_form_date );
-// ïîëíûé ôîðìàò äàòû è âðåìåíè
+// Ð¿Ð¾Ð»Ð½Ñ‹Ð¹ Ñ„Ð¾Ñ€Ð¼Ð°Ñ‚ Ð´Ð°Ñ‚Ñ‹ Ð¸ Ð²Ñ€ÐµÐ¼ÐµÐ½Ð¸
 	$form_date_full = array(
-		mosHTML::makeOption( '%d.%m.%Y ã. %H:%M', 'äåíü.ìåñÿö.ãîä ã. ÷àñû:ìèíóòû' ),
-		mosHTML::makeOption( '%d-%m-%Y ã. %H-%M', 'äåíü-ìåñÿö-ãîä ã. ÷àñû-ìèíóòû' ),
-		mosHTML::makeOption( '%d/%m/%Y ã. %H/%M', 'äåíü/ìåñÿö/ãîä ã. ÷àñû/ìèíóòû' ),
+		mosHTML::makeOption( '%d.%m.%Y Ð³. %H:%M', 'Ð´ÐµÐ½ÑŒ.Ð¼ÐµÑÑÑ†.Ð³Ð¾Ð´ Ð³. Ñ‡Ð°ÑÑ‹:Ð¼Ð¸Ð½ÑƒÑ‚Ñ‹' ),
+		mosHTML::makeOption( '%d-%m-%Y Ð³. %H-%M', 'Ð´ÐµÐ½ÑŒ-Ð¼ÐµÑÑÑ†-Ð³Ð¾Ð´ Ð³. Ñ‡Ð°ÑÑ‹-Ð¼Ð¸Ð½ÑƒÑ‚Ñ‹' ),
+		mosHTML::makeOption( '%d/%m/%Y Ð³. %H/%M', 'Ð´ÐµÐ½ÑŒ/Ð¼ÐµÑÑÑ†/Ð³Ð¾Ð´ Ð³. Ñ‡Ð°ÑÑ‹/Ð¼Ð¸Ð½ÑƒÑ‚Ñ‹' ),
 	);
 	$lists['form_date_full'] = mosHTML::selectList( $form_date_full, 'config_form_date_full', 'class="inputbox" size="1"', 'value', 'text', $row->config_form_date_full );
-// ïîääåðæêà ðàáîòû íà ìëàäøèõ âåðñèÿõ MySQL
+// Ð¿Ð¾Ð´Ð´ÐµÑ€Ð¶ÐºÐ° Ñ€Ð°Ð±Ð¾Ñ‚Ñ‹ Ð½Ð° Ð¼Ð»Ð°Ð´ÑˆÐ¸Ñ… Ð²ÐµÑ€ÑÐ¸ÑÑ… MySQL
 	$lists['config_dbold'] = mosHTML::yesnoRadioList( 'config_dbold', 'class="inputbox"', $row->config_dbold);
-// ïîääåðæêà ðàáîòû íà ìëàäøèõ âåðñèÿõ MySQL
+// Ð¿Ð¾Ð´Ð´ÐµÑ€Ð¶ÐºÐ° Ñ€Ð°Ð±Ð¾Ñ‚Ñ‹ Ð½Ð° Ð¼Ð»Ð°Ð´ÑˆÐ¸Ñ… Ð²ÐµÑ€ÑÐ¸ÑÑ… MySQL
 	$lists['config_pathway_clean'] = mosHTML::yesnoRadioList( 'config_pathway_clean', 'class="inputbox"', $row->config_pathway_clean);
-// îòêëþ÷åíèå óäàëåíèÿ ñåññèé â ïàíåëè óïðàâëåíèÿ
+// Ð¾Ñ‚ÐºÐ»ÑŽÑ‡ÐµÐ½Ð¸Ðµ ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ñ ÑÐµÑÑÐ¸Ð¹ Ð² Ð¿Ð°Ð½ÐµÐ»Ð¸ ÑƒÐ¿Ñ€Ð°Ð²Ð»ÐµÐ½Ð¸Ñ
 	$lists['config_adm_session_del'] = mosHTML::yesnoRadioList( 'config_adm_session_del', 'class="inputbox"', $row->config_adm_session_del);
-// îòêëþ÷åíèå êíîïêè "Ïîìîùü"
+// Ð¾Ñ‚ÐºÐ»ÑŽÑ‡ÐµÐ½Ð¸Ðµ ÐºÐ½Ð¾Ð¿ÐºÐ¸ "ÐŸÐ¾Ð¼Ð¾Ñ‰ÑŒ"
 	$lists['config_disable_button_help'] = mosHTML::yesnoRadioList( 'config_disable_button_help', 'class="inputbox"', $row->config_disable_button_help);
-// îòêëþ÷åíèå áëîêèðîâîê îáúåêòîâ
+// Ð¾Ñ‚ÐºÐ»ÑŽÑ‡ÐµÐ½Ð¸Ðµ Ð±Ð»Ð¾ÐºÐ¸Ñ€Ð¾Ð²Ð¾Ðº Ð¾Ð±ÑŠÐµÐºÑ‚Ð¾Ð²
 	$lists['config_disable_checked_out'] = mosHTML::yesnoRadioList( 'config_disable_checked_out', 'class="inputbox"', $row->config_disable_checked_out);
-// îòêëþ÷åíèå favicon
+// Ð¾Ñ‚ÐºÐ»ÑŽÑ‡ÐµÐ½Ð¸Ðµ favicon
 	$lists['config_disable_favicon'] = mosHTML::yesnoRadioList( 'config_disable_favicon', 'class="inputbox"', $row->config_disable_favicon);
-// èñïîëüçîâàíèå ðàñøèðåííîãî îòëàä÷èêà íà ôðîíòå
+// Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ð½Ð¸Ðµ Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð½Ð¾Ð³Ð¾ Ð¾Ñ‚Ð»Ð°Ð´Ñ‡Ð¸ÐºÐ° Ð½Ð° Ñ„Ñ€Ð¾Ð½Ñ‚Ðµ
 	$lists['config_front_debug'] = mosHTML::yesnoRadioList( 'config_front_debug', 'class="inputbox"', $row->config_front_debug);
-// èñïîëüçîâàíèå ìàìáîòîâ ãðóïïû mainbody
+// Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ð½Ð¸Ðµ Ð¼Ð°Ð¼Ð±Ð¾Ñ‚Ð¾Ð² Ð³Ñ€ÑƒÐ¿Ð¿Ñ‹ mainbody
 	$lists['config_mmb_mainbody_off'] = mosHTML::yesnoRadioList( 'config_mmb_mainbody_off', 'class="inputbox"', $row->config_mmb_mainbody_off);
-// àâòîìàòè÷åñêàÿ àâòîðèçàöèÿ ïîñëå ïîäòâåðæäåíèÿ ðåãèñòðàöèè
+// Ð°Ð²Ñ‚Ð¾Ð¼Ð°Ñ‚Ð¸Ñ‡ÐµÑÐºÐ°Ñ Ð°Ð²Ñ‚Ð¾Ñ€Ð¸Ð·Ð°Ñ†Ð¸Ñ Ð¿Ð¾ÑÐ»Ðµ Ð¿Ð¾Ð´Ñ‚Ð²ÐµÑ€Ð¶Ð´ÐµÐ½Ð¸Ñ Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€Ð°Ñ†Ð¸Ð¸
 	$lists['config_auto_activ_login'] = mosHTML::yesnoRadioList( 'config_auto_activ_login', 'class="inputbox"', $row->config_auto_activ_login);
-// àâòîìàòè÷åñêàÿ àâòîðèçàöèÿ ïîñëå ïîäòâåðæäåíèÿ ðåãèñòðàöèè
+// Ð°Ð²Ñ‚Ð¾Ð¼Ð°Ñ‚Ð¸Ñ‡ÐµÑÐºÐ°Ñ Ð°Ð²Ñ‚Ð¾Ñ€Ð¸Ð·Ð°Ñ†Ð¸Ñ Ð¿Ð¾ÑÐ»Ðµ Ð¿Ð¾Ð´Ñ‚Ð²ÐµÑ€Ð¶Ð´ÐµÐ½Ð¸Ñ Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€Ð°Ñ†Ð¸Ð¸
 	$lists['config_sql_mode_off'] = mosHTML::yesnoRadioList( 'config_sql_mode_off', 'class="inputbox"', $row->config_sql_mode_off);
-// îòêëþ÷åíèå âêëàäêè 'Èçîáðàæåíèÿ'
+// Ð¾Ñ‚ÐºÐ»ÑŽÑ‡ÐµÐ½Ð¸Ðµ Ð²ÐºÐ»Ð°Ð´ÐºÐ¸ 'Ð˜Ð·Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ð¸Ñ'
 	$lists['config_disable_image_tab'] = mosHTML::yesnoRadioList( 'config_disable_image_tab', 'class="inputbox"', $row->config_disable_image_tab);
-// îáðàìëÿòü çàãîëîâêè òåãîì h1
+// Ð¾Ð±Ñ€Ð°Ð¼Ð»ÑÑ‚ÑŒ Ð·Ð°Ð³Ð¾Ð»Ð¾Ð²ÐºÐ¸ Ñ‚ÐµÐ³Ð¾Ð¼ h1
 	$lists['config_title_h1'] = mosHTML::yesnoRadioList( 'config_title_h1', 'class="inputbox"', $row->config_title_h1);
-// îáðàìëÿòü çàãîëîâêè òåãîì h1 òîëüêî â ðåæèìå ïîëíîãî ïðîñìîòðà ñîäåðæèìîãî
+// Ð¾Ð±Ñ€Ð°Ð¼Ð»ÑÑ‚ÑŒ Ð·Ð°Ð³Ð¾Ð»Ð¾Ð²ÐºÐ¸ Ñ‚ÐµÐ³Ð¾Ð¼ h1 Ñ‚Ð¾Ð»ÑŒÐºÐ¾ Ð² Ñ€ÐµÐ¶Ð¸Ð¼Ðµ Ð¿Ð¾Ð»Ð½Ð¾Ð³Ð¾ Ð¿Ñ€Ð¾ÑÐ¼Ð¾Ñ‚Ñ€Ð° ÑÐ¾Ð´ÐµÑ€Ð¶Ð¸Ð¼Ð¾Ð³Ð¾
 	$lists['config_title_h1_only_view'] = mosHTML::yesnoRadioList( 'config_title_h1_only_view', 'class="inputbox"', $row->config_title_h1_only_view);
-// îòêëþ÷èòü ïðîâåðêè ïóáëèêàöèé ïî äàòàì
+// Ð¾Ñ‚ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ Ð¿Ñ€Ð¾Ð²ÐµÑ€ÐºÐ¸ Ð¿ÑƒÐ±Ð»Ð¸ÐºÐ°Ñ†Ð¸Ð¹ Ð¿Ð¾ Ð´Ð°Ñ‚Ð°Ð¼
 	$lists['config_disable_date_state'] = mosHTML::yesnoRadioList( 'config_disable_date_state', 'class="inputbox"', $row->config_disable_date_state);
-// îòêëþ÷èòü ïðîâåðêó äîñòóïà ê ñîäåðæèìîìó
+// Ð¾Ñ‚ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ Ð¿Ñ€Ð¾Ð²ÐµÑ€ÐºÑƒ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð° Ðº ÑÐ¾Ð´ÐµÑ€Ð¶Ð¸Ð¼Ð¾Ð¼Ñƒ
 	$lists['config_disable_access_control'] = mosHTML::yesnoRadioList( 'config_disable_access_control', 'class="inputbox"', $row->config_disable_access_control);
-// îïòèìèçàöèÿ ôóíêöèè êýøèðîâàíèÿ
+// Ð¾Ð¿Ñ‚Ð¸Ð¼Ð¸Ð·Ð°Ñ†Ð¸Ñ Ñ„ÑƒÐ½ÐºÑ†Ð¸Ð¸ ÐºÑÑˆÐ¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ñ
 	$lists['config_cache_opt'] = mosHTML::yesnoRadioList( 'config_cache_opt', 'class="inputbox"', $row->config_cache_opt);
-//  âêëþ÷åíèå ñæàòèÿ css è js ôàéëîâ
+//  Ð²ÐºÐ»ÑŽÑ‡ÐµÐ½Ð¸Ðµ ÑÐ¶Ð°Ñ‚Ð¸Ñ css Ð¸ js Ñ„Ð°Ð¹Ð»Ð¾Ð²
 	$lists['config_gz_js_css'] = mosHTML::yesnoRadioList( 'config_gz_js_css', 'class="inputbox"', $row->config_gz_js_css);
-//  captcha äëÿ ðåãèñòðàöèè
+//  captcha Ð´Ð»Ñ Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€Ð°Ñ†Ð¸Ð¸
 	$lists['config_captcha_reg'] = mosHTML::yesnoRadioList( 'config_captcha_reg', 'class="inputbox"', $row->config_captcha_reg);
-//  captcha äëÿ ôîðìû êîíòàêòîâ
+//  captcha Ð´Ð»Ñ Ñ„Ð¾Ñ€Ð¼Ñ‹ ÐºÐ¾Ð½Ñ‚Ð°ÐºÑ‚Ð¾Ð²
 	$lists['config_captcha_cont'] = mosHTML::yesnoRadioList( 'config_captcha_cont', 'class="inputbox"', $row->config_captcha_cont);
 
 
 
 
 
-// DEBUG - ÎÒËÀÄÊÀ
+// DEBUG - ÐžÐ¢Ð›ÐÐ”ÐšÐ
 	$lists['debug'] = mosHTML::yesnoRadioList( 'config_debug', 'class="inputbox"', $row->config_debug );
 
 
-// ÍÀÑÒÐÎÉÊÈ ÑÅÐÂÅÐÀ
+// ÐÐÐ¡Ð¢Ð ÐžÐ™ÐšÐ˜ Ð¡Ð•Ð Ð’Ð•Ð Ð
 	$lists['gzip'] = mosHTML::yesnoRadioList( 'config_gzip', 'class="inputbox"', $row->config_gzip );
 
 	$session = array(
-		mosHTML::makeOption( 0, '3 óðîâåíü çàùèòû - Ïî óìîë÷àíèþ - íàèëó÷øèé' ),
-		mosHTML::makeOption( 1, '2 óðîâåíü çàùèòû - Ðàçðåøåíî äëÿ IP-àäðåñîâ ïðîêñè' ),
-		mosHTML::makeOption( 2, '1 óðîâåíü çàùèòû - Îáðàòíàÿ ñîâìåñòèìîñòü' )
+		mosHTML::makeOption( 0, '3 ÑƒÑ€Ð¾Ð²ÐµÐ½ÑŒ Ð·Ð°Ñ‰Ð¸Ñ‚Ñ‹ - ÐŸÐ¾ ÑƒÐ¼Ð¾Ð»Ñ‡Ð°Ð½Ð¸ÑŽ - Ð½Ð°Ð¸Ð»ÑƒÑ‡ÑˆÐ¸Ð¹' ),
+		mosHTML::makeOption( 1, '2 ÑƒÑ€Ð¾Ð²ÐµÐ½ÑŒ Ð·Ð°Ñ‰Ð¸Ñ‚Ñ‹ - Ð Ð°Ð·Ñ€ÐµÑˆÐµÐ½Ð¾ Ð´Ð»Ñ IP-Ð°Ð´Ñ€ÐµÑÐ¾Ð² Ð¿Ñ€Ð¾ÐºÑÐ¸' ),
+		mosHTML::makeOption( 2, '1 ÑƒÑ€Ð¾Ð²ÐµÐ½ÑŒ Ð·Ð°Ñ‰Ð¸Ñ‚Ñ‹ - ÐžÐ±Ñ€Ð°Ñ‚Ð½Ð°Ñ ÑÐ¾Ð²Ð¼ÐµÑÑ‚Ð¸Ð¼Ð¾ÑÑ‚ÑŒ' )
 	);	 
 
 	$lists['session_type'] = mosHTML::selectList( $session, 'config_session_type', 'class="inputbox" size="1"', 'value', 'text', $row->config_session_type );	
 
 	$errors = array(
-		mosHTML::makeOption( -1, 'Íàñòðîéêè ñèñòåìû' ),
-		mosHTML::makeOption( 0, 'Îòñóòñòâóþò' ),
-		mosHTML::makeOption( E_ERROR|E_WARNING|E_PARSE, 'Ïðîñòûå' ),
-		mosHTML::makeOption( E_ALL , 'Ìàêñèìóì (âñå)' )
+		mosHTML::makeOption( -1, 'ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸ ÑÐ¸ÑÑ‚ÐµÐ¼Ñ‹' ),
+		mosHTML::makeOption( 0, 'ÐžÑ‚ÑÑƒÑ‚ÑÑ‚Ð²ÑƒÑŽÑ‚' ),
+		mosHTML::makeOption( E_ERROR|E_WARNING|E_PARSE, 'ÐŸÑ€Ð¾ÑÑ‚Ñ‹Ðµ' ),
+		mosHTML::makeOption( E_ALL , 'ÐœÐ°ÐºÑÐ¸Ð¼ÑƒÐ¼ (Ð²ÑÐµ)' )
 	);
 
 	$lists['error_reporting'] = mosHTML::selectList( $errors, 'config_error_reporting', 'class="inputbox" size="1"', 'value', 'text', $row->config_error_reporting );
 
 	$lists['admin_expired'] = mosHTML::yesnoRadioList( 'config_admin_expired', 'class="inputbox"', $row->config_admin_expired );
 
-// ÍÀÑÒÐÎÉÊÈ ËÎÊÀËÈ ÑÒÐÀÍÛ
+// ÐÐÐ¡Ð¢Ð ÐžÐ™ÐšÐ˜ Ð›ÐžÐšÐÐ›Ð˜ Ð¡Ð¢Ð ÐÐÐ«
 	$lists['lang'] = mosHTML::selectList( $langs, 'config_lang', 'class="inputbox" size="1"', 'value', 'text', $row->config_lang );
 
 	$timeoffset = array(	
-		mosHTML::makeOption( -12, '(UTC -12:00) Ìåæäóíàðîäíàÿ ëèíèÿ ñóòî÷íîãî âðåìåíè'),
-		mosHTML::makeOption( -11, '(UTC -11:00) îñòðîâ Ìèäóýé, Ñàìîà'),
-		mosHTML::makeOption( -10, '(UTC -10:00) Ãàâàéè'),
-		mosHTML::makeOption( -9.5, '(UTC -09:30) Òàéîõàå, Ìàðêèçñêèå îñòðîâà'),
-		mosHTML::makeOption( -9, '(UTC -09:00) Àëÿñêà'),
-		mosHTML::makeOption( -8, '(UTC -08:00) Òèõîîêåàíñêîå âðåìÿ (ÑØÀ &amp; Êàíàäà)'),
-		mosHTML::makeOption( -7, '(UTC -07:00) Âðåìÿ Ìîíòàíû (ÑØÀ &amp; Êàíàäà)'),
-		mosHTML::makeOption( -6, '(UTC -06:00) Öåíòðàëüíîå âðåìÿ  (ÑØÀ &amp; Êàíàäà), Ìåõèêî'),
-		mosHTML::makeOption( -5, '(UTC -05:00) Âîñòî÷íîå âðåìÿ (ÑØÀ &amp; Êàíàäà), Áîãîòà, Ëàéìà'),
-		mosHTML::makeOption( -4, '(UTC -04:00) Àòëàíòè÷åñêîå âðåìÿ (Êàíàäà), Êàðàêàñ, Ëà-Ïàñ'),
-		mosHTML::makeOption( -3.5, '(UTC -03:30) Íüþôàóíäëåíä è Ëàáðàäîð'),
-		mosHTML::makeOption( -3, '(UTC -03:00) Áðàçèëèÿ, Áóýíîñ Àéðåñ, Äæîðäæòàóí'),
-		mosHTML::makeOption( -2, '(UTC -02:00) Ñðåäíå-Àòëàíòè÷åñêîå âðåìÿ'),
-		mosHTML::makeOption( -1, '(UTC -01:00 ÷àñ) Àçîðñêèå îñòðîâà, Îñòðîâà Çåëåíîãî Ìûñà'),
-		mosHTML::makeOption( 0, '(UTC 00:00) Çàïàäíî-Åâðîïåéñêîå âðåìÿ, Ëîíäîí, Ëèññàáîí, Êàñàáëàíêà'),
-		mosHTML::makeOption( 1 , '(UTC +01:00 ÷àñ) Áðþññåëü, Êîïåíãàãåí, Ìàäðèä, Ïàðèæ'),
-		mosHTML::makeOption( 2, '(UTC +02:00) Êàëèíèíãðàä, Þæíàÿ Àôðèêà'),
-		mosHTML::makeOption( 3, '(UTC +03:00) Ìîñêâà, Ñàíêò-Ïåòåðáóðã, Áàãäàä, Ýð-Ðèÿä'),
-		mosHTML::makeOption( 3.5, '(UTC +03:30) Òåãåðàí'),
-		mosHTML::makeOption( 4, '(UTC +04:00) Ñàìàðà, Áàêó, Òáèëèñè, Àáó-Äàáè, Ìóñêàò'),
-		mosHTML::makeOption( 4.5, '(UTC +04:30) Êàáóë'),
-		mosHTML::makeOption( 5, '(UTC +05:00) Åêàòåðèíáóðã, Ïåðìü, Òàøêåíò, Èñëàìàáàä, Êàðà÷è'),
-		mosHTML::makeOption( 5.5, '(UTC +05:30) Áîìáåé, Êàëüêóòòà, Ìàäðàñ, Íüþ-Äåëè'),
-		mosHTML::makeOption( 5.75, '(UTC +05:45) Êàòìàíäó'),
-		mosHTML::makeOption( 6, '(UTC +06:00) Îìñê, Íîâîñèáèðñê, Àëìàòû, Äàêà, Êîëîìáî'),
-		mosHTML::makeOption( 6.30, '(UTC +06:30) ßãóí'),
-		mosHTML::makeOption( 7, '(UTC +07:00) Êðàñíîÿðñê, Áàíãêîê, Õàíîé, Äæàêàðòà'),
-		mosHTML::makeOption( 8, '(UTC +08:00) Èðêóòñê, Óëàí-Áàòîð, Ïåêèí, Ñèíãàïóð, Ãîíêîíã'),
-		mosHTML::makeOption( 8.75, '(UTC +08:00) Çàïàäíàÿ Àâñòðàëèÿ'),
-		mosHTML::makeOption( 9, '(UTC +09:00) ßêóòñê, Òîêèî, Ñåóë, Îñàêà, Ñàïïîðî'),
-		mosHTML::makeOption( 9.5, '(UTC +09:30) Àäåëàèäà, Äàðâèí'),
-		mosHTML::makeOption( 10, '(UTC +10:00) Âëàäèâîñòîê, Ãóàì, Âîñòî÷íàÿ Àâñòðàëèÿ'),
-		mosHTML::makeOption( 10.5, '(UTC +10:30) îñòðîâ Lord Howe (Àâñòðàëèÿ)'),
-		mosHTML::makeOption( 11, '(UTC +11:00) Ìàãàäàí, Ñîëîìîíîâû îñòðîâà, Íîâàÿ Êàëåäîíèÿ'),
-		mosHTML::makeOption( 11.30, '(UTC +11:30) îñòðîâ Íîðôîëê'),
-		mosHTML::makeOption( 12, '(UTC +12:00) Êàì÷àòêà, Îêëåíä, Óýëëèíãòîí, Ôèäæè'),
-		mosHTML::makeOption( 12.75, '(UTC +12:45) Îñòðîâ ×àòåì'),
-		mosHTML::makeOption( 13, '(UTC +13:00) Òîíãà'),
-		mosHTML::makeOption( 14, '(UTC +14:00) Êèðèáàòè'),
+		mosHTML::makeOption( -12, '(UTC -12:00) ÐœÐµÐ¶Ð´ÑƒÐ½Ð°Ñ€Ð¾Ð´Ð½Ð°Ñ Ð»Ð¸Ð½Ð¸Ñ ÑÑƒÑ‚Ð¾Ñ‡Ð½Ð¾Ð³Ð¾ Ð²Ñ€ÐµÐ¼ÐµÐ½Ð¸'),
+		mosHTML::makeOption( -11, '(UTC -11:00) Ð¾ÑÑ‚Ñ€Ð¾Ð² ÐœÐ¸Ð´ÑƒÑÐ¹, Ð¡Ð°Ð¼Ð¾Ð°'),
+		mosHTML::makeOption( -10, '(UTC -10:00) Ð“Ð°Ð²Ð°Ð¹Ð¸'),
+		mosHTML::makeOption( -9.5, '(UTC -09:30) Ð¢Ð°Ð¹Ð¾Ñ…Ð°Ðµ, ÐœÐ°Ñ€ÐºÐ¸Ð·ÑÐºÐ¸Ðµ Ð¾ÑÑ‚Ñ€Ð¾Ð²Ð°'),
+		mosHTML::makeOption( -9, '(UTC -09:00) ÐÐ»ÑÑÐºÐ°'),
+		mosHTML::makeOption( -8, '(UTC -08:00) Ð¢Ð¸Ñ…Ð¾Ð¾ÐºÐµÐ°Ð½ÑÐºÐ¾Ðµ Ð²Ñ€ÐµÐ¼Ñ (Ð¡Ð¨Ð &amp; ÐšÐ°Ð½Ð°Ð´Ð°)'),
+		mosHTML::makeOption( -7, '(UTC -07:00) Ð’Ñ€ÐµÐ¼Ñ ÐœÐ¾Ð½Ñ‚Ð°Ð½Ñ‹ (Ð¡Ð¨Ð &amp; ÐšÐ°Ð½Ð°Ð´Ð°)'),
+		mosHTML::makeOption( -6, '(UTC -06:00) Ð¦ÐµÐ½Ñ‚Ñ€Ð°Ð»ÑŒÐ½Ð¾Ðµ Ð²Ñ€ÐµÐ¼Ñ  (Ð¡Ð¨Ð &amp; ÐšÐ°Ð½Ð°Ð´Ð°), ÐœÐµÑ…Ð¸ÐºÐ¾'),
+		mosHTML::makeOption( -5, '(UTC -05:00) Ð’Ð¾ÑÑ‚Ð¾Ñ‡Ð½Ð¾Ðµ Ð²Ñ€ÐµÐ¼Ñ (Ð¡Ð¨Ð &amp; ÐšÐ°Ð½Ð°Ð´Ð°), Ð‘Ð¾Ð³Ð¾Ñ‚Ð°, Ð›Ð°Ð¹Ð¼Ð°'),
+		mosHTML::makeOption( -4, '(UTC -04:00) ÐÑ‚Ð»Ð°Ð½Ñ‚Ð¸Ñ‡ÐµÑÐºÐ¾Ðµ Ð²Ñ€ÐµÐ¼Ñ (ÐšÐ°Ð½Ð°Ð´Ð°), ÐšÐ°Ñ€Ð°ÐºÐ°Ñ, Ð›Ð°-ÐŸÐ°Ñ'),
+		mosHTML::makeOption( -3.5, '(UTC -03:30) ÐÑŒÑŽÑ„Ð°ÑƒÐ½Ð´Ð»ÐµÐ½Ð´ Ð¸ Ð›Ð°Ð±Ñ€Ð°Ð´Ð¾Ñ€'),
+		mosHTML::makeOption( -3, '(UTC -03:00) Ð‘Ñ€Ð°Ð·Ð¸Ð»Ð¸Ñ, Ð‘ÑƒÑÐ½Ð¾Ñ ÐÐ¹Ñ€ÐµÑ, Ð”Ð¶Ð¾Ñ€Ð´Ð¶Ñ‚Ð°ÑƒÐ½'),
+		mosHTML::makeOption( -2, '(UTC -02:00) Ð¡Ñ€ÐµÐ´Ð½Ðµ-ÐÑ‚Ð»Ð°Ð½Ñ‚Ð¸Ñ‡ÐµÑÐºÐ¾Ðµ Ð²Ñ€ÐµÐ¼Ñ'),
+		mosHTML::makeOption( -1, '(UTC -01:00 Ñ‡Ð°Ñ) ÐÐ·Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¾ÑÑ‚Ñ€Ð¾Ð²Ð°, ÐžÑÑ‚Ñ€Ð¾Ð²Ð° Ð—ÐµÐ»ÐµÐ½Ð¾Ð³Ð¾ ÐœÑ‹ÑÐ°'),
+		mosHTML::makeOption( 0, '(UTC 00:00) Ð—Ð°Ð¿Ð°Ð´Ð½Ð¾-Ð•Ð²Ñ€Ð¾Ð¿ÐµÐ¹ÑÐºÐ¾Ðµ Ð²Ñ€ÐµÐ¼Ñ, Ð›Ð¾Ð½Ð´Ð¾Ð½, Ð›Ð¸ÑÑÐ°Ð±Ð¾Ð½, ÐšÐ°ÑÐ°Ð±Ð»Ð°Ð½ÐºÐ°'),
+		mosHTML::makeOption( 1 , '(UTC +01:00 Ñ‡Ð°Ñ) Ð‘Ñ€ÑŽÑÑÐµÐ»ÑŒ, ÐšÐ¾Ð¿ÐµÐ½Ð³Ð°Ð³ÐµÐ½, ÐœÐ°Ð´Ñ€Ð¸Ð´, ÐŸÐ°Ñ€Ð¸Ð¶'),
+		mosHTML::makeOption( 2, '(UTC +02:00) ÐšÐ°Ð»Ð¸Ð½Ð¸Ð½Ð³Ñ€Ð°Ð´, Ð®Ð¶Ð½Ð°Ñ ÐÑ„Ñ€Ð¸ÐºÐ°'),
+		mosHTML::makeOption( 3, '(UTC +03:00) ÐœÐ¾ÑÐºÐ²Ð°, Ð¡Ð°Ð½ÐºÑ‚-ÐŸÐµÑ‚ÐµÑ€Ð±ÑƒÑ€Ð³, Ð‘Ð°Ð³Ð´Ð°Ð´, Ð­Ñ€-Ð Ð¸ÑÐ´'),
+		mosHTML::makeOption( 3.5, '(UTC +03:30) Ð¢ÐµÐ³ÐµÑ€Ð°Ð½'),
+		mosHTML::makeOption( 4, '(UTC +04:00) Ð¡Ð°Ð¼Ð°Ñ€Ð°, Ð‘Ð°ÐºÑƒ, Ð¢Ð±Ð¸Ð»Ð¸ÑÐ¸, ÐÐ±Ñƒ-Ð”Ð°Ð±Ð¸, ÐœÑƒÑÐºÐ°Ñ‚'),
+		mosHTML::makeOption( 4.5, '(UTC +04:30) ÐšÐ°Ð±ÑƒÐ»'),
+		mosHTML::makeOption( 5, '(UTC +05:00) Ð•ÐºÐ°Ñ‚ÐµÑ€Ð¸Ð½Ð±ÑƒÑ€Ð³, ÐŸÐµÑ€Ð¼ÑŒ, Ð¢Ð°ÑˆÐºÐµÐ½Ñ‚, Ð˜ÑÐ»Ð°Ð¼Ð°Ð±Ð°Ð´, ÐšÐ°Ñ€Ð°Ñ‡Ð¸'),
+		mosHTML::makeOption( 5.5, '(UTC +05:30) Ð‘Ð¾Ð¼Ð±ÐµÐ¹, ÐšÐ°Ð»ÑŒÐºÑƒÑ‚Ñ‚Ð°, ÐœÐ°Ð´Ñ€Ð°Ñ, ÐÑŒÑŽ-Ð”ÐµÐ»Ð¸'),
+		mosHTML::makeOption( 5.75, '(UTC +05:45) ÐšÐ°Ñ‚Ð¼Ð°Ð½Ð´Ñƒ'),
+		mosHTML::makeOption( 6, '(UTC +06:00) ÐžÐ¼ÑÐº, ÐÐ¾Ð²Ð¾ÑÐ¸Ð±Ð¸Ñ€ÑÐº, ÐÐ»Ð¼Ð°Ñ‚Ñ‹, Ð”Ð°ÐºÐ°, ÐšÐ¾Ð»Ð¾Ð¼Ð±Ð¾'),
+		mosHTML::makeOption( 6.30, '(UTC +06:30) Ð¯Ð³ÑƒÐ½'),
+		mosHTML::makeOption( 7, '(UTC +07:00) ÐšÑ€Ð°ÑÐ½Ð¾ÑÑ€ÑÐº, Ð‘Ð°Ð½Ð³ÐºÐ¾Ðº, Ð¥Ð°Ð½Ð¾Ð¹, Ð”Ð¶Ð°ÐºÐ°Ñ€Ñ‚Ð°'),
+		mosHTML::makeOption( 8, '(UTC +08:00) Ð˜Ñ€ÐºÑƒÑ‚ÑÐº, Ð£Ð»Ð°Ð½-Ð‘Ð°Ñ‚Ð¾Ñ€, ÐŸÐµÐºÐ¸Ð½, Ð¡Ð¸Ð½Ð³Ð°Ð¿ÑƒÑ€, Ð“Ð¾Ð½ÐºÐ¾Ð½Ð³'),
+		mosHTML::makeOption( 8.75, '(UTC +08:00) Ð—Ð°Ð¿Ð°Ð´Ð½Ð°Ñ ÐÐ²ÑÑ‚Ñ€Ð°Ð»Ð¸Ñ'),
+		mosHTML::makeOption( 9, '(UTC +09:00) Ð¯ÐºÑƒÑ‚ÑÐº, Ð¢Ð¾ÐºÐ¸Ð¾, Ð¡ÐµÑƒÐ», ÐžÑÐ°ÐºÐ°, Ð¡Ð°Ð¿Ð¿Ð¾Ñ€Ð¾'),
+		mosHTML::makeOption( 9.5, '(UTC +09:30) ÐÐ´ÐµÐ»Ð°Ð¸Ð´Ð°, Ð”Ð°Ñ€Ð²Ð¸Ð½'),
+		mosHTML::makeOption( 10, '(UTC +10:00) Ð’Ð»Ð°Ð´Ð¸Ð²Ð¾ÑÑ‚Ð¾Ðº, Ð“ÑƒÐ°Ð¼, Ð’Ð¾ÑÑ‚Ð¾Ñ‡Ð½Ð°Ñ ÐÐ²ÑÑ‚Ñ€Ð°Ð»Ð¸Ñ'),
+		mosHTML::makeOption( 10.5, '(UTC +10:30) Ð¾ÑÑ‚Ñ€Ð¾Ð² Lord Howe (ÐÐ²ÑÑ‚Ñ€Ð°Ð»Ð¸Ñ)'),
+		mosHTML::makeOption( 11, '(UTC +11:00) ÐœÐ°Ð³Ð°Ð´Ð°Ð½, Ð¡Ð¾Ð»Ð¾Ð¼Ð¾Ð½Ð¾Ð²Ñ‹ Ð¾ÑÑ‚Ñ€Ð¾Ð²Ð°, ÐÐ¾Ð²Ð°Ñ ÐšÐ°Ð»ÐµÐ´Ð¾Ð½Ð¸Ñ'),
+		mosHTML::makeOption( 11.30, '(UTC +11:30) Ð¾ÑÑ‚Ñ€Ð¾Ð² ÐÐ¾Ñ€Ñ„Ð¾Ð»Ðº'),
+		mosHTML::makeOption( 12, '(UTC +12:00) ÐšÐ°Ð¼Ñ‡Ð°Ñ‚ÐºÐ°, ÐžÐºÐ»ÐµÐ½Ð´, Ð£ÑÐ»Ð»Ð¸Ð½Ð³Ñ‚Ð¾Ð½, Ð¤Ð¸Ð´Ð¶Ð¸'),
+		mosHTML::makeOption( 12.75, '(UTC +12:45) ÐžÑÑ‚Ñ€Ð¾Ð² Ð§Ð°Ñ‚ÐµÐ¼'),
+		mosHTML::makeOption( 13, '(UTC +13:00) Ð¢Ð¾Ð½Ð³Ð°'),
+		mosHTML::makeOption( 14, '(UTC +14:00) ÐšÐ¸Ñ€Ð¸Ð±Ð°Ñ‚Ð¸'),
 	);
 
 	$lists['offset'] = mosHTML::selectList( $timeoffset, 'config_offset_user', 'class="inputbox" size="1"', 'value', 'text', $row->config_offset_user );
 
 	$feed_timeoffset = array(
-		mosHTML::makeOption( '-12:00', '(UTC -12:00) Ìåæäóíàðîäíàÿ ëèíèÿ ñóòî÷íîãî âðåìåíè'),
-		mosHTML::makeOption( '-11:00', '(UTC -11:00) îñòðîâ Ìèäóýé, Ñàìîà'),
-		mosHTML::makeOption( '-10:00', '(UTC -10:00) Ãàâàéè'),
-		mosHTML::makeOption( '-09:30', '(UTC -09:30) Òàéîõàå, Ìàðêèçñêèå îñòðîâà'),
-		mosHTML::makeOption( '-09:00', '(UTC -09:00) Àëÿñêà'),
-		mosHTML::makeOption( '-08:00', '(UTC -08:00) Òèõîîêåàíñêîå âðåìÿ (ÑØÀ &amp; Êàíàäà)'),
-		mosHTML::makeOption( '-07:00', '(UTC -07:00) Âðåìÿ Ìîíòàíû (ÑØÀ &amp; Êàíàäà)'),
-		mosHTML::makeOption( '-06:00', '(UTC -06:00) Öåíòðàëüíîå âðåìÿ  (ÑØÀ &amp; Êàíàäà), Ìåõèêî'),
-		mosHTML::makeOption( '-05:00', '(UTC -05:00) Âîñòî÷íîå âðåìÿ (ÑØÀ &amp; Êàíàäà), Áîãîòà, Ëàéìà'),
-		mosHTML::makeOption( '-04:00', '(UTC -04:00) Àòëàíòè÷åñêîå âðåìÿ (Êàíàäà), Êàðàêàñ, Ëà-Ïàñ'),
-		mosHTML::makeOption( '-03:30', '(UTC -03:30) Íüþôàóíäëåíä è Ëàáðàäîð'),
-		mosHTML::makeOption( '-03:00', '(UTC -03:00) Áðàçèëèÿ, Áóýíîñ Àéðåñ, Äæîðäæòàóí'),
-		mosHTML::makeOption( '-02:00', '(UTC -02:00) Ñðåäíå-Àòëàíòè÷åñêîå âðåìÿ'),
-		mosHTML::makeOption( '-01:00', '(UTC -01:00 ÷àñ) Àçîðñêèå îñòðîâà, Îñòðîâà Çåëåíîãî Ìûñà'),
-		mosHTML::makeOption( '00:00', '(UTC 00:00) Çàïàäíî-Åâðîïåéñêîå âðåìÿ, Ëîíäîí, Ëèññàáîí, Êàñàáëàíêà'),
-		mosHTML::makeOption( '01:00' , '(UTC +01:00 ÷àñ) Áðþññåëü, Êîïåíãàãåí, Ìàäðèä, Ïàðèæ'),
-		mosHTML::makeOption( '02:00', '(UTC +02:00) Êàëèíèíãðàä, Þæíàÿ Àôðèêà'),
-		mosHTML::makeOption( '03:00', '(UTC +03:00) Ìîñêâà, Ñàíêò-Ïåòåðáóðã, Áàãäàä, Ýð-Ðèÿä'),
-		mosHTML::makeOption( '03:30', '(UTC +03:30) Òåãåðàí'),
-		mosHTML::makeOption( '04:00', '(UTC +04:00) Ñàìàðà, Áàêó, Òáèëèñè, Àáó-Äàáè, Ìóñêàò'),
-		mosHTML::makeOption( '04:30', '(UTC +04:30) Êàáóë'),
-		mosHTML::makeOption( '05:00', '(UTC +05:00) Åêàòåðèíáóðã, Ïåðìü, Òàøêåíò, Èñëàìàáàä, Êàðà÷è'),
-		mosHTML::makeOption( '05:30', '(UTC +05:30) Áîìáåé, Êàëüêóòòà, Ìàäðàñ, Íüþ-Äåëè'),
-		mosHTML::makeOption( '05:45', '(UTC +05:45) Êàòìàíäó'),
-		mosHTML::makeOption( '06:00', '(UTC +06:00) Îìñê, Íîâîñèáèðñê, Àëìàòû, Äàêà, Êîëîìáî'),
-		mosHTML::makeOption( '06:30', '(UTC +06:30) ßãóí'),
-		mosHTML::makeOption( '07:00', '(UTC +07:00) Êðàñíîÿðñê, Áàíãêîê, Õàíîé, Äæàêàðòà'),
-		mosHTML::makeOption( '08:00', '(UTC +08:00) Èðêóòñê, Óëàí-Áàòîð, Ïåêèí, Ñèíãàïóð, Ãîíêîíã'),
-		mosHTML::makeOption( '08:45', '(UTC +08:00) Çàïàäíàÿ Àâñòðàëèÿ'),
-		mosHTML::makeOption( '09:00', '(UTC +09:00) ßêóòñê, Òîêèî, Ñåóë, Îñàêà, Ñàïïîðî'),
-		mosHTML::makeOption( '09:30', '(UTC +09:30) Àäåëàèäà, Äàðâèí'),
-		mosHTML::makeOption( '10:00', '(UTC +10:00) Âëàäèâîñòîê, Ãóàì, Âîñòî÷íàÿ Àâñòðàëèÿ'),
-		mosHTML::makeOption( '10:30', '(UTC +10:30) îñòðîâ Lord Howe (Àâñòðàëèÿ)'),
-		mosHTML::makeOption( '11:00', '(UTC +11:00) Ìàãàäàí, Ñîëîìîíîâû îñòðîâà, Íîâàÿ Êàëåäîíèÿ'),
-		mosHTML::makeOption( '11:30', '(UTC +11:30) îñòðîâ Íîðôîëê'),
-		mosHTML::makeOption( '12:00', '(UTC +12:00) Êàì÷àòêà, Îêëåíä, Óýëëèíãòîí, Ôèäæè'),
-		mosHTML::makeOption( '12:45', '(UTC +12:45) Îñòðîâ ×àòåì'),
-		mosHTML::makeOption( '13:00', '(UTC +13:00) Òîíãà'),
-		mosHTML::makeOption( '14:00', '(UTC +14:00) Êèðèáàòè'),
+		mosHTML::makeOption( '-12:00', '(UTC -12:00) ÐœÐµÐ¶Ð´ÑƒÐ½Ð°Ñ€Ð¾Ð´Ð½Ð°Ñ Ð»Ð¸Ð½Ð¸Ñ ÑÑƒÑ‚Ð¾Ñ‡Ð½Ð¾Ð³Ð¾ Ð²Ñ€ÐµÐ¼ÐµÐ½Ð¸'),
+		mosHTML::makeOption( '-11:00', '(UTC -11:00) Ð¾ÑÑ‚Ñ€Ð¾Ð² ÐœÐ¸Ð´ÑƒÑÐ¹, Ð¡Ð°Ð¼Ð¾Ð°'),
+		mosHTML::makeOption( '-10:00', '(UTC -10:00) Ð“Ð°Ð²Ð°Ð¹Ð¸'),
+		mosHTML::makeOption( '-09:30', '(UTC -09:30) Ð¢Ð°Ð¹Ð¾Ñ…Ð°Ðµ, ÐœÐ°Ñ€ÐºÐ¸Ð·ÑÐºÐ¸Ðµ Ð¾ÑÑ‚Ñ€Ð¾Ð²Ð°'),
+		mosHTML::makeOption( '-09:00', '(UTC -09:00) ÐÐ»ÑÑÐºÐ°'),
+		mosHTML::makeOption( '-08:00', '(UTC -08:00) Ð¢Ð¸Ñ…Ð¾Ð¾ÐºÐµÐ°Ð½ÑÐºÐ¾Ðµ Ð²Ñ€ÐµÐ¼Ñ (Ð¡Ð¨Ð &amp; ÐšÐ°Ð½Ð°Ð´Ð°)'),
+		mosHTML::makeOption( '-07:00', '(UTC -07:00) Ð’Ñ€ÐµÐ¼Ñ ÐœÐ¾Ð½Ñ‚Ð°Ð½Ñ‹ (Ð¡Ð¨Ð &amp; ÐšÐ°Ð½Ð°Ð´Ð°)'),
+		mosHTML::makeOption( '-06:00', '(UTC -06:00) Ð¦ÐµÐ½Ñ‚Ñ€Ð°Ð»ÑŒÐ½Ð¾Ðµ Ð²Ñ€ÐµÐ¼Ñ  (Ð¡Ð¨Ð &amp; ÐšÐ°Ð½Ð°Ð´Ð°), ÐœÐµÑ…Ð¸ÐºÐ¾'),
+		mosHTML::makeOption( '-05:00', '(UTC -05:00) Ð’Ð¾ÑÑ‚Ð¾Ñ‡Ð½Ð¾Ðµ Ð²Ñ€ÐµÐ¼Ñ (Ð¡Ð¨Ð &amp; ÐšÐ°Ð½Ð°Ð´Ð°), Ð‘Ð¾Ð³Ð¾Ñ‚Ð°, Ð›Ð°Ð¹Ð¼Ð°'),
+		mosHTML::makeOption( '-04:00', '(UTC -04:00) ÐÑ‚Ð»Ð°Ð½Ñ‚Ð¸Ñ‡ÐµÑÐºÐ¾Ðµ Ð²Ñ€ÐµÐ¼Ñ (ÐšÐ°Ð½Ð°Ð´Ð°), ÐšÐ°Ñ€Ð°ÐºÐ°Ñ, Ð›Ð°-ÐŸÐ°Ñ'),
+		mosHTML::makeOption( '-03:30', '(UTC -03:30) ÐÑŒÑŽÑ„Ð°ÑƒÐ½Ð´Ð»ÐµÐ½Ð´ Ð¸ Ð›Ð°Ð±Ñ€Ð°Ð´Ð¾Ñ€'),
+		mosHTML::makeOption( '-03:00', '(UTC -03:00) Ð‘Ñ€Ð°Ð·Ð¸Ð»Ð¸Ñ, Ð‘ÑƒÑÐ½Ð¾Ñ ÐÐ¹Ñ€ÐµÑ, Ð”Ð¶Ð¾Ñ€Ð´Ð¶Ñ‚Ð°ÑƒÐ½'),
+		mosHTML::makeOption( '-02:00', '(UTC -02:00) Ð¡Ñ€ÐµÐ´Ð½Ðµ-ÐÑ‚Ð»Ð°Ð½Ñ‚Ð¸Ñ‡ÐµÑÐºÐ¾Ðµ Ð²Ñ€ÐµÐ¼Ñ'),
+		mosHTML::makeOption( '-01:00', '(UTC -01:00 Ñ‡Ð°Ñ) ÐÐ·Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¾ÑÑ‚Ñ€Ð¾Ð²Ð°, ÐžÑÑ‚Ñ€Ð¾Ð²Ð° Ð—ÐµÐ»ÐµÐ½Ð¾Ð³Ð¾ ÐœÑ‹ÑÐ°'),
+		mosHTML::makeOption( '00:00', '(UTC 00:00) Ð—Ð°Ð¿Ð°Ð´Ð½Ð¾-Ð•Ð²Ñ€Ð¾Ð¿ÐµÐ¹ÑÐºÐ¾Ðµ Ð²Ñ€ÐµÐ¼Ñ, Ð›Ð¾Ð½Ð´Ð¾Ð½, Ð›Ð¸ÑÑÐ°Ð±Ð¾Ð½, ÐšÐ°ÑÐ°Ð±Ð»Ð°Ð½ÐºÐ°'),
+		mosHTML::makeOption( '01:00' , '(UTC +01:00 Ñ‡Ð°Ñ) Ð‘Ñ€ÑŽÑÑÐµÐ»ÑŒ, ÐšÐ¾Ð¿ÐµÐ½Ð³Ð°Ð³ÐµÐ½, ÐœÐ°Ð´Ñ€Ð¸Ð´, ÐŸÐ°Ñ€Ð¸Ð¶'),
+		mosHTML::makeOption( '02:00', '(UTC +02:00) ÐšÐ°Ð»Ð¸Ð½Ð¸Ð½Ð³Ñ€Ð°Ð´, Ð®Ð¶Ð½Ð°Ñ ÐÑ„Ñ€Ð¸ÐºÐ°'),
+		mosHTML::makeOption( '03:00', '(UTC +03:00) ÐœÐ¾ÑÐºÐ²Ð°, Ð¡Ð°Ð½ÐºÑ‚-ÐŸÐµÑ‚ÐµÑ€Ð±ÑƒÑ€Ð³, Ð‘Ð°Ð³Ð´Ð°Ð´, Ð­Ñ€-Ð Ð¸ÑÐ´'),
+		mosHTML::makeOption( '03:30', '(UTC +03:30) Ð¢ÐµÐ³ÐµÑ€Ð°Ð½'),
+		mosHTML::makeOption( '04:00', '(UTC +04:00) Ð¡Ð°Ð¼Ð°Ñ€Ð°, Ð‘Ð°ÐºÑƒ, Ð¢Ð±Ð¸Ð»Ð¸ÑÐ¸, ÐÐ±Ñƒ-Ð”Ð°Ð±Ð¸, ÐœÑƒÑÐºÐ°Ñ‚'),
+		mosHTML::makeOption( '04:30', '(UTC +04:30) ÐšÐ°Ð±ÑƒÐ»'),
+		mosHTML::makeOption( '05:00', '(UTC +05:00) Ð•ÐºÐ°Ñ‚ÐµÑ€Ð¸Ð½Ð±ÑƒÑ€Ð³, ÐŸÐµÑ€Ð¼ÑŒ, Ð¢Ð°ÑˆÐºÐµÐ½Ñ‚, Ð˜ÑÐ»Ð°Ð¼Ð°Ð±Ð°Ð´, ÐšÐ°Ñ€Ð°Ñ‡Ð¸'),
+		mosHTML::makeOption( '05:30', '(UTC +05:30) Ð‘Ð¾Ð¼Ð±ÐµÐ¹, ÐšÐ°Ð»ÑŒÐºÑƒÑ‚Ñ‚Ð°, ÐœÐ°Ð´Ñ€Ð°Ñ, ÐÑŒÑŽ-Ð”ÐµÐ»Ð¸'),
+		mosHTML::makeOption( '05:45', '(UTC +05:45) ÐšÐ°Ñ‚Ð¼Ð°Ð½Ð´Ñƒ'),
+		mosHTML::makeOption( '06:00', '(UTC +06:00) ÐžÐ¼ÑÐº, ÐÐ¾Ð²Ð¾ÑÐ¸Ð±Ð¸Ñ€ÑÐº, ÐÐ»Ð¼Ð°Ñ‚Ñ‹, Ð”Ð°ÐºÐ°, ÐšÐ¾Ð»Ð¾Ð¼Ð±Ð¾'),
+		mosHTML::makeOption( '06:30', '(UTC +06:30) Ð¯Ð³ÑƒÐ½'),
+		mosHTML::makeOption( '07:00', '(UTC +07:00) ÐšÑ€Ð°ÑÐ½Ð¾ÑÑ€ÑÐº, Ð‘Ð°Ð½Ð³ÐºÐ¾Ðº, Ð¥Ð°Ð½Ð¾Ð¹, Ð”Ð¶Ð°ÐºÐ°Ñ€Ñ‚Ð°'),
+		mosHTML::makeOption( '08:00', '(UTC +08:00) Ð˜Ñ€ÐºÑƒÑ‚ÑÐº, Ð£Ð»Ð°Ð½-Ð‘Ð°Ñ‚Ð¾Ñ€, ÐŸÐµÐºÐ¸Ð½, Ð¡Ð¸Ð½Ð³Ð°Ð¿ÑƒÑ€, Ð“Ð¾Ð½ÐºÐ¾Ð½Ð³'),
+		mosHTML::makeOption( '08:45', '(UTC +08:00) Ð—Ð°Ð¿Ð°Ð´Ð½Ð°Ñ ÐÐ²ÑÑ‚Ñ€Ð°Ð»Ð¸Ñ'),
+		mosHTML::makeOption( '09:00', '(UTC +09:00) Ð¯ÐºÑƒÑ‚ÑÐº, Ð¢Ð¾ÐºÐ¸Ð¾, Ð¡ÐµÑƒÐ», ÐžÑÐ°ÐºÐ°, Ð¡Ð°Ð¿Ð¿Ð¾Ñ€Ð¾'),
+		mosHTML::makeOption( '09:30', '(UTC +09:30) ÐÐ´ÐµÐ»Ð°Ð¸Ð´Ð°, Ð”Ð°Ñ€Ð²Ð¸Ð½'),
+		mosHTML::makeOption( '10:00', '(UTC +10:00) Ð’Ð»Ð°Ð´Ð¸Ð²Ð¾ÑÑ‚Ð¾Ðº, Ð“ÑƒÐ°Ð¼, Ð’Ð¾ÑÑ‚Ð¾Ñ‡Ð½Ð°Ñ ÐÐ²ÑÑ‚Ñ€Ð°Ð»Ð¸Ñ'),
+		mosHTML::makeOption( '10:30', '(UTC +10:30) Ð¾ÑÑ‚Ñ€Ð¾Ð² Lord Howe (ÐÐ²ÑÑ‚Ñ€Ð°Ð»Ð¸Ñ)'),
+		mosHTML::makeOption( '11:00', '(UTC +11:00) ÐœÐ°Ð³Ð°Ð´Ð°Ð½, Ð¡Ð¾Ð»Ð¾Ð¼Ð¾Ð½Ð¾Ð²Ñ‹ Ð¾ÑÑ‚Ñ€Ð¾Ð²Ð°, ÐÐ¾Ð²Ð°Ñ ÐšÐ°Ð»ÐµÐ´Ð¾Ð½Ð¸Ñ'),
+		mosHTML::makeOption( '11:30', '(UTC +11:30) Ð¾ÑÑ‚Ñ€Ð¾Ð² ÐÐ¾Ñ€Ñ„Ð¾Ð»Ðº'),
+		mosHTML::makeOption( '12:00', '(UTC +12:00) ÐšÐ°Ð¼Ñ‡Ð°Ñ‚ÐºÐ°, ÐžÐºÐ»ÐµÐ½Ð´, Ð£ÑÐ»Ð»Ð¸Ð½Ð³Ñ‚Ð¾Ð½, Ð¤Ð¸Ð´Ð¶Ð¸'),
+		mosHTML::makeOption( '12:45', '(UTC +12:45) ÐžÑÑ‚Ñ€Ð¾Ð² Ð§Ð°Ñ‚ÐµÐ¼'),
+		mosHTML::makeOption( '13:00', '(UTC +13:00) Ð¢Ð¾Ð½Ð³Ð°'),
+		mosHTML::makeOption( '14:00', '(UTC +14:00) ÐšÐ¸Ñ€Ð¸Ð±Ð°Ñ‚Ð¸'),
 	);
 
 	$lists['feed_timeoffset'] = mosHTML::selectList( $feed_timeoffset, 'config_feed_timeoffset', 'class="inputbox" size="1"', 'value', 'text', $row->config_feed_timeoffset );
 
 
-// ÍÀÑÒÐÎÉÊÈ ÏÎ×ÒÛ
+// ÐÐÐ¡Ð¢Ð ÐžÐ™ÐšÐ˜ ÐŸÐžÐ§Ð¢Ð«
 	$mailer = array(
-		mosHTML::makeOption( 'mail', 'Ôóíêöèþ PHP mail' ),
+		mosHTML::makeOption( 'mail', 'Ð¤ÑƒÐ½ÐºÑ†Ð¸ÑŽ PHP mail' ),
 		mosHTML::makeOption( 'sendmail', 'Sendmail' ),
-		mosHTML::makeOption( 'smtp', 'Ñåðâåð SMTP' )
+		mosHTML::makeOption( 'smtp', 'Ð¡ÐµÑ€Ð²ÐµÑ€ SMTP' )
 	);
 	$lists['mailer'] 	= mosHTML::selectList( $mailer, 'config_mailer', 'class="inputbox" size="1"', 'value', 'text', $row->config_mailer );
 	$lists['smtpauth'] 	= mosHTML::yesnoRadioList( 'config_smtpauth', 'class="inputbox"', $row->config_smtpauth );
 
-// ÍÀÑÒÐÎÉÊÈ ÊÝØÀ
+// ÐÐÐ¡Ð¢Ð ÐžÐ™ÐšÐ˜ ÐšÐ­Ð¨Ð
 	$lists['caching'] 	= mosHTML::yesnoRadioList( 'config_caching', 'class="inputbox"', $row->config_caching );
 
 
-// ÍÀÑÒÐÎÉÊÈ ÏÎËÜÇÎÂÀÒÅËÅÉ
+// ÐÐÐ¡Ð¢Ð ÐžÐ™ÐšÐ˜ ÐŸÐžÐ›Ð¬Ð—ÐžÐ’ÐÐ¢Ð•Ð›Ð•Ð™
 
 	$lists['allowUserRegistration'] = mosHTML::yesnoRadioList( 'config_allowUserRegistration', 'class="inputbox"',	$row->config_allowUserRegistration );
 	$lists['useractivation'] 		= mosHTML::yesnoRadioList( 'config_useractivation', 'class="inputbox"',	$row->config_useractivation );
@@ -384,30 +384,30 @@ if ($templatefolder) {
 	$lists['shownoauth'] 			= mosHTML::yesnoRadioList( 'config_shownoauth', 'class="inputbox"', $row->config_shownoauth );
 	$lists['frontend_userparams']	= mosHTML::yesnoRadioList( 'config_frontend_userparams', 'class="inputbox"', $row->config_frontend_userparams );
 
-// ÍÀÑÒÐÎÉÊÈ META-ÄÀÍÍÛÕ
+// ÐÐÐ¡Ð¢Ð ÐžÐ™ÐšÐ˜ META-Ð”ÐÐÐÐ«Ð¥
 	$lists['MetaAuthor']			= mosHTML::yesnoRadioList( 'config_MetaAuthor', 'class="inputbox"', $row->config_MetaAuthor );
 	$lists['MetaTitle'] 			= mosHTML::yesnoRadioList( 'config_MetaTitle', 'class="inputbox"', $row->config_MetaTitle );
 
-// ÍÀÑÒÐÎÉÊÈ ÑÒÀÒÈÑÒÈÊÈ
+// ÐÐÐ¡Ð¢Ð ÐžÐ™ÐšÐ˜ Ð¡Ð¢ÐÐ¢Ð˜Ð¡Ð¢Ð˜ÐšÐ˜
 	$lists['log_searches'] 			= mosHTML::yesnoRadioList( 'config_enable_log_searches', 'class="inputbox"', $row->config_enable_log_searches );
 	$lists['enable_stats'] 			= mosHTML::yesnoRadioList( 'config_enable_stats', 'class="inputbox"', $row->config_enable_stats );
 	$lists['log_items']	 			= mosHTML::yesnoRadioList( 'config_enable_log_items', 'class="inputbox"', $row->config_enable_log_items );
 
-// ÍÀÑÒÐÎÉÊÈ SEO
-	$lists['sef'] 					= mosHTML::yesnoRadioList( 'config_sef', 'class="inputbox" onclick="javascript: if (document.adminForm.config_sef[1].checked) { alert(\'Íåîáõîäèìî ïåðåèìåíîâàòü htaccess.txt â .htaccess\') }"', $row->config_sef );
+// ÐÐÐ¡Ð¢Ð ÐžÐ™ÐšÐ˜ SEO
+	$lists['sef'] 					= mosHTML::yesnoRadioList( 'config_sef', 'class="inputbox" onclick="javascript: if (document.adminForm.config_sef[1].checked) { alert(\'ÐÐµÐ¾Ð±Ñ…Ð¾Ð´Ð¸Ð¼Ð¾ Ð¿ÐµÑ€ÐµÐ¸Ð¼ÐµÐ½Ð¾Ð²Ð°Ñ‚ÑŒ htaccess.txt Ð² .htaccess\') }"', $row->config_sef );
 	$lists['pagetitles'] 			= mosHTML::yesnoRadioList( 'config_pagetitles', 'class="inputbox"', $row->config_pagetitles );
 
 	$pagetitles_first = array(
-		mosHTML::makeOption( '0', 'Íàçâàíèå ñàéòà - Çàãîëîâîê ñòðàíèöû' ),
-		mosHTML::makeOption( '1', 'Çàãîëîâîê ñòðàíèöû - Íàçâàíèå ñàéòà (ïî óìîë÷àíèþ)' ),
-		mosHTML::makeOption( '2', 'Íàçâàíèå ñàéòà ( òîëüêî )' ),
-		mosHTML::makeOption( '3', 'Çàãîëîâîê ñòðàíèöû ( òîëüêî )' ),
+		mosHTML::makeOption( '0', 'ÐÐ°Ð·Ð²Ð°Ð½Ð¸Ðµ ÑÐ°Ð¹Ñ‚Ð° - Ð—Ð°Ð³Ð¾Ð»Ð¾Ð²Ð¾Ðº ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñ‹' ),
+		mosHTML::makeOption( '1', 'Ð—Ð°Ð³Ð¾Ð»Ð¾Ð²Ð¾Ðº ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñ‹ - ÐÐ°Ð·Ð²Ð°Ð½Ð¸Ðµ ÑÐ°Ð¹Ñ‚Ð° (Ð¿Ð¾ ÑƒÐ¼Ð¾Ð»Ñ‡Ð°Ð½Ð¸ÑŽ)' ),
+		mosHTML::makeOption( '2', 'ÐÐ°Ð·Ð²Ð°Ð½Ð¸Ðµ ÑÐ°Ð¹Ñ‚Ð° ( Ñ‚Ð¾Ð»ÑŒÐºÐ¾ )' ),
+		mosHTML::makeOption( '3', 'Ð—Ð°Ð³Ð¾Ð»Ð¾Ð²Ð¾Ðº ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñ‹ ( Ñ‚Ð¾Ð»ÑŒÐºÐ¾ )' ),
 	);
 	$lists['pagetitles_first'] = mosHTML::selectList( $pagetitles_first, 'config_pagetitles_first', 'class="inputbox" size="1"', 'value', 'text', $row->config_pagetitles_first );
 
 
 
-// ÍÀÑÒÐÎÉÊÈ ÑÎÄÅÐÆÈÌÎÃÎ
+// ÐÐÐ¡Ð¢Ð ÐžÐ™ÐšÐ˜ Ð¡ÐžÐ”Ð•Ð Ð–Ð˜ÐœÐžÐ“Ðž
 	$lists['link_titles'] 			= mosHTML::yesnoRadioList( 'config_link_titles', 'class="inputbox"', $row->config_link_titles );
 	$lists['readmore'] 				= mosHTML::RadioList( $show_hide_r, 'config_readmore', 'class="inputbox"', $row->config_readmore, 'value', 'text' );
 	$lists['vote'] 					= mosHTML::RadioList( $show_hide_r, 'config_vote', 'class="inputbox"', $row->config_vote, 'value', 'text' );
@@ -423,8 +423,8 @@ if ($templatefolder) {
 	$lists['multipage_toc'] 		= mosHTML::RadioList( $show_hide_r, 'config_multipage_toc', 'class="inputbox"', $row->config_multipage_toc, 'value', 'text' );
 
 	$itemid_compat = array(
-		mosHTML::makeOption( '11', 'Joomla! 1.0.11 è íèæå' ),
-		mosHTML::makeOption( '0', 'Joomla! 1.0.12 è âûøå' ),
+		mosHTML::makeOption( '11', 'Joomla! 1.0.11 Ð¸ Ð½Ð¸Ð¶Ðµ' ),
+		mosHTML::makeOption( '0', 'Joomla! 1.0.12 Ð¸ Ð²Ñ‹ÑˆÐµ' ),
 	);
 	$lists['itemid_compat'] 		= mosHTML::selectList( $itemid_compat, 'config_itemid_compat', 'class="inputbox" size="1"', 'value', 'text', $row->config_itemid_compat );
 
@@ -434,7 +434,7 @@ if ($templatefolder) {
 }
 
 /**
- * Ñîõðàíåíèå êîíôèãóðàöèè
+ * Ð¡Ð¾Ñ…Ñ€Ð°Ð½ÐµÐ½Ð¸Ðµ ÐºÐ¾Ð½Ñ„Ð¸Ð³ÑƒÑ€Ð°Ñ†Ð¸Ð¸
  */
 function saveconfig( $task ) {
 	global $database, $mosConfig_absolute_path, $mosConfig_password, $mosConfig_session_type;
@@ -507,7 +507,7 @@ function saveconfig( $task ) {
 				@chmod($fname, $oldperms & 0777555);
 		} // if
 
-		$msg = 'Êîíôèãóðàöèÿ óñïåøíî îáíîâëåíà';
+		$msg = 'ÐšÐ¾Ð½Ñ„Ð¸Ð³ÑƒÑ€Ð°Ñ†Ð¸Ñ ÑƒÑÐ¿ÐµÑˆÐ½Ð¾ Ð¾Ð±Ð½Ð¾Ð²Ð»ÐµÐ½Ð°';
 
 		// apply file and directory permissions if requested by user
 		$applyFilePerms = mosGetParam($_POST,'applyFilePerms',0) && $row->config_fileperms!='';
@@ -556,7 +556,7 @@ function saveconfig( $task ) {
 		if ($enable_write) {
 			@chmod( $fname, $oldperms );
 		}
-		mosRedirect( 'index2.php', 'Îøèáêà! Íåâîçìîæíî îòêðûòü äëÿ çàïèñè ôàéë êîíôèãóðàöèè!' );
+		mosRedirect( 'index2.php', 'ÐžÑˆÐ¸Ð±ÐºÐ°! ÐÐµÐ²Ð¾Ð·Ð¼Ð¾Ð¶Ð½Ð¾ Ð¾Ñ‚ÐºÑ€Ñ‹Ñ‚ÑŒ Ð´Ð»Ñ Ð·Ð°Ð¿Ð¸ÑÐ¸ Ñ„Ð°Ð¹Ð» ÐºÐ¾Ð½Ñ„Ð¸Ð³ÑƒÑ€Ð°Ñ†Ð¸Ð¸!' );
 	}
 }
 ?>

@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 /**
 * @package Joostina
@@ -28,7 +28,7 @@ class sections_html {
 		global $my;
 
 		mosCommonHTML::loadOverlib();
-		/* подключаем Pquery */
+		/* РїРѕРґРєР»СЋС‡Р°РµРј Pquery */
 		mosCommonHTML::loadPquery();
 		$pquery= new PQuery();
 		?>
@@ -36,7 +36,7 @@ class sections_html {
 		<table class="adminheading">
 		<tr>
 			 <th class="sections">
-			Разделы содержимого
+			Р Р°Р·РґРµР»С‹ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ
 			</th>
 		</tr>
 		</table>
@@ -50,34 +50,34 @@ class sections_html {
 			<input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo count( $rows );?>);" />
 			</th>
 			<th class="title">
-			Название раздела
+			РќР°Р·РІР°РЅРёРµ СЂР°Р·РґРµР»Р°
 			</th>
 			<th width="10%">
-			Опубликовано
+			РћРїСѓР±Р»РёРєРѕРІР°РЅРѕ
 			</th>
 			<th colspan="2" width="5%">
-			Сортировка
+			РЎРѕСЂС‚РёСЂРѕРІРєР°
 			</th>
 			<th width="2%">
-			Порядок
+			РџРѕСЂСЏРґРѕРє
 			</th>
 			<th width="1%">
-			<a href="javascript: saveorder( <?php echo count( $rows )-1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="Сохранить порядок" /></a>
+			<a href="javascript: saveorder( <?php echo count( $rows )-1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="РЎРѕС…СЂР°РЅРёС‚СЊ РїРѕСЂСЏРґРѕРє" /></a>
 			</th>
 			<th width="8%">
-			Доступ
+			Р”РѕСЃС‚СѓРї
 			</th>
 			<th width="12%" class="jtd_nowrap">
-			ID раздела
+			ID СЂР°Р·РґРµР»Р°
 			</th>
 			<th width="12%" class="jtd_nowrap">
-			Категорий
+			РљР°С‚РµРіРѕСЂРёР№
 			</th>
 			<th width="12%" class="jtd_nowrap">
-			Активных
+			РђРєС‚РёРІРЅС‹С…
 			</th>
 			<th width="12%" class="jtd_nowrap">
-			В корзине
+			Р’ РєРѕСЂР·РёРЅРµ
 			</th>
 
 		</tr>
@@ -112,13 +112,13 @@ class sections_html {
 				</td>
 				<td align="center">
 <?php
-/* boston, обработка публикации разделов. */
+/* boston, РѕР±СЂР°Р±РѕС‚РєР° РїСѓР±Р»РёРєР°С†РёРё СЂР°Р·РґРµР»РѕРІ. */
 					global $mosConfig_live_site;
 					$url = $mosConfig_live_site.'/administrator/index4.php?option=com_sections&task=publish&id='.$row->id;
 					$div_id = 'div_'.$row->id;
 					$img	 = $row->published ? 'publish_g.png' : 'publish_x.png';
 					$div = '<div id="'.$div_id.'"><img src="images/'.$img.'" width="12" height="12" border="0" alt="" /></div>';
-					echo $pquery->link_to_remote($div,array('url'=>$url,'update'=>'#'.$div_id,'beforeSend'=>$pquery->visual_effect('show','#ajax_status'),'success'=>$pquery->visual_effect('hide','#ajax_status')),null,'Допустит&nbsp;/&nbsp;Скрыть&nbspэлемент');
+					echo $pquery->link_to_remote($div,array('url'=>$url,'update'=>'#'.$div_id,'beforeSend'=>$pquery->visual_effect('show','#ajax_status'),'success'=>$pquery->visual_effect('hide','#ajax_status')),null,'Р”РѕРїСѓСЃС‚РёС‚&nbsp;/&nbsp;РЎРєСЂС‹С‚СЊ&nbspСЌР»РµРјРµРЅС‚');
 ?>
 				</td>
 				<td>
@@ -185,7 +185,7 @@ class sections_html {
 		if ( $row->name != '' ) {
 			$name = $row->name;
 		} else {
-			$name = "Новый раздел";
+			$name = "РќРѕРІС‹Р№ СЂР°Р·РґРµР»";
 		}
 		if ($row->image == "") {
 			$row->image = 'blank.png';
@@ -203,21 +203,21 @@ class sections_html {
 
 			if ( pressbutton == 'menulink' ) {
 				if ( form.menuselect.value == "" ) {
-					alert( "Пожалуйста, выберите меню" );
+					alert( "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІС‹Р±РµСЂРёС‚Рµ РјРµРЅСЋ" );
 					return;
 				} else if ( form.link_type.value == "" ) {
-					alert( "Пожалуйста, выберите тип меню" );
+					alert( "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІС‹Р±РµСЂРёС‚Рµ С‚РёРї РјРµРЅСЋ" );
 					return;
 				} else if ( form.link_name.value == "" ) {
-					alert( "Пожалуйста, введите имя для этого пункта меню" );
+					alert( "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІРІРµРґРёС‚Рµ РёРјСЏ РґР»СЏ СЌС‚РѕРіРѕ РїСѓРЅРєС‚Р° РјРµРЅСЋ" );
 					return;
 				}
 			}
 
 			if (form.name.value == ""){
-				alert("Раздел должен иметь название");
+				alert("Р Р°Р·РґРµР» РґРѕР»Р¶РµРЅ РёРјРµС‚СЊ РЅР°Р·РІР°РЅРёРµ");
 			} else if (form.title.value ==""){
-				alert("Раздел должен иметь заголовок");
+				alert("Р Р°Р·РґРµР» РґРѕР»Р¶РµРЅ РёРјРµС‚СЊ Р·Р°РіРѕР»РѕРІРѕРє");
 			} else {
 				<?php getEditorContents( 'editor1', 'description' ) ; ?>
 				submitform(pressbutton);
@@ -229,9 +229,9 @@ class sections_html {
 		<table class="adminheading">
 		<tr>
 			<th class="sections">
-			Раздел:
+			Р Р°Р·РґРµР»:
 			<small>
-			<?php echo $row->id ? 'Изменение' : 'Новый';?>
+			<?php echo $row->id ? 'РР·РјРµРЅРµРЅРёРµ' : 'РќРѕРІС‹Р№';?>
 			</small>
 			<small><small>
 			[ <?php echo stripslashes($name); ?> ]
@@ -246,12 +246,12 @@ class sections_html {
 				<table class="adminform">
 				<tr>
 					<th colspan="3">
-					Детали раздела
+					Р”РµС‚Р°Р»Рё СЂР°Р·РґРµР»Р°
 					</th>
 				<tr>
 				<tr>
 					<td width="150">
-					Используется в:
+					РСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РІ:
 					</td>
 					<td width="85%" colspan="2">
 					<strong>
@@ -261,23 +261,23 @@ class sections_html {
 				</tr>
 				<tr>
 					<td>
-					Заголовок:
+					Р—Р°РіРѕР»РѕРІРѕРє:
 					</td>
 					<td colspan="2">
-					<input class="text_area" type="text" name="title" value="<?php echo $row->title; ?>" size="50" maxlength="50" title="Короткое имя для меню" />
+					<input class="text_area" type="text" name="title" value="<?php echo $row->title; ?>" size="50" maxlength="50" title="РљРѕСЂРѕС‚РєРѕРµ РёРјСЏ РґР»СЏ РјРµРЅСЋ" />
 					</td>
 				</tr>
 				<tr>
 					<td>
-					Название <?php echo (isset($row->section) ? "категории" : "раздела");?>:
+					РќР°Р·РІР°РЅРёРµ <?php echo (isset($row->section) ? "РєР°С‚РµРіРѕСЂРёРё" : "СЂР°Р·РґРµР»Р°");?>:
 					</td>
 					<td colspan="2">
-					<input class="text_area" type="text" name="name" value="<?php echo $row->name; ?>" size="50" maxlength="255" title="Длинное название, отображаемое в заголовках" />
+					<input class="text_area" type="text" name="name" value="<?php echo $row->name; ?>" size="50" maxlength="255" title="Р”Р»РёРЅРЅРѕРµ РЅР°Р·РІР°РЅРёРµ, РѕС‚РѕР±СЂР°Р¶Р°РµРјРѕРµ РІ Р·Р°РіРѕР»РѕРІРєР°С…" />
 					</td>
 				</tr>
 				<tr>
 					<td> 
-					Порядок отображения:
+					РџРѕСЂСЏРґРѕРє РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ:
 					</td>
 					<td colspan="2">
 					<?php echo $lists['ordering']; ?>
@@ -285,7 +285,7 @@ class sections_html {
 				</tr>
 				<tr>
 					<td>
-					Изображение:
+					РР·РѕР±СЂР°Р¶РµРЅРёРµ:
 					</td>
 					<td>
 					<?php echo $lists['image']; ?>
@@ -297,12 +297,12 @@ class sections_html {
 							$path.= "stories/";
 						}
 					?>
-					<img src="<?php echo $path . $row->image;?>" name="imagelib" width="80" height="80" border="2" alt="Предпросмотр" />
+					<img src="<?php echo $path . $row->image;?>" name="imagelib" width="80" height="80" border="2" alt="РџСЂРµРґРїСЂРѕСЃРјРѕС‚СЂ" />
 					</td>
 				</tr>
 				<tr>
 					<td>
-					Расположение изображения:
+					Р Р°СЃРїРѕР»РѕР¶РµРЅРёРµ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ:
 					</td>
 					<td>
 					<?php echo $lists['image_position']; ?>
@@ -310,7 +310,7 @@ class sections_html {
 				</tr>
 				<tr>
 					<td>
-					Уровень доступа:
+					РЈСЂРѕРІРµРЅСЊ РґРѕСЃС‚СѓРїР°:
 					</td>
 					<td>
 					<?php echo $lists['access']; ?>
@@ -318,7 +318,7 @@ class sections_html {
 				</tr>
 				<tr>
 					<td>
-					Опубликовано:
+					РћРїСѓР±Р»РёРєРѕРІР°РЅРѕ:
 					</td>
 					<td>
 					<?php echo $lists['published']; ?>
@@ -326,7 +326,7 @@ class sections_html {
 				</tr>
 				<tr>
 					<td valign="top" colspan="2">
-					Описание:
+					РћРїРёСЃР°РЅРёРµ:
 					</td>
 				</tr>
 				<tr>
@@ -345,18 +345,18 @@ class sections_html {
 				<table class="adminform">
 				<tr>
 					<th colspan="2">
-					Связь с меню
+					РЎРІСЏР·СЊ СЃ РјРµРЅСЋ
 					</th>
 				<tr>
 				<tr>
 					<td colspan="2">
-					Эта функция создаст новый пункт в выбранном вами меню
+					Р­С‚Р° С„СѓРЅРєС†РёСЏ СЃРѕР·РґР°СЃС‚ РЅРѕРІС‹Р№ РїСѓРЅРєС‚ РІ РІС‹Р±СЂР°РЅРЅРѕРј РІР°РјРё РјРµРЅСЋ
 					<br /><br />
 					</td>
 				<tr>
 				<tr>
 					<td valign="top" width="100px">
-					Выберите меню
+					Р’С‹Р±РµСЂРёС‚Рµ РјРµРЅСЋ
 					</td>
 					<td>
 					<?php echo $lists['menuselect']; ?>
@@ -364,7 +364,7 @@ class sections_html {
 				<tr>
 				<tr>
 					<td valign="top" width="100px">
-					Выберите тип меню
+					Р’С‹Р±РµСЂРёС‚Рµ С‚РёРї РјРµРЅСЋ
 					</td>
 					<td>
 					<?php echo $lists['link_type']; ?>
@@ -372,7 +372,7 @@ class sections_html {
 				<tr>
 				<tr>
 					<td valign="top" width="100px">
-					Название пункта меню
+					РќР°Р·РІР°РЅРёРµ РїСѓРЅРєС‚Р° РјРµРЅСЋ
 					</td>
 					<td>
 					<input type="text" name="link_name" class="inputbox" value="" size="25" />
@@ -382,12 +382,12 @@ class sections_html {
 					<td>
 					</td>
 					<td>
-					<input name="menu_link" type="button" class="button" value="Создать пункт меню" onClick="submitbutton('menulink');" />
+					<input name="menu_link" type="button" class="button" value="РЎРѕР·РґР°С‚СЊ РїСѓРЅРєС‚ РјРµРЅСЋ" onClick="submitbutton('menulink');" />
 					</td>
 				<tr>
 				<tr>
 					<th colspan="2">
-					Существующие связи с меню
+					РЎСѓС‰РµСЃС‚РІСѓСЋС‰РёРµ СЃРІСЏР·Рё СЃ РјРµРЅСЋ
 					</th>
 				</tr>
 				<?php
@@ -395,7 +395,7 @@ class sections_html {
 					?>
 					<tr>
 						<td colspan="2">
-						Отсутствуют
+						РћС‚СЃСѓС‚СЃС‚РІСѓСЋС‚
 						</td>
 					</tr>
 					<?php
@@ -419,7 +419,7 @@ class sections_html {
 					</tr>
 					<tr>
 						<td>
-Связи с меню будут доступны после сохранения
+РЎРІСЏР·Рё СЃ РјРµРЅСЋ Р±СѓРґСѓС‚ РґРѕСЃС‚СѓРїРЅС‹ РїРѕСЃР»Рµ СЃРѕС…СЂР°РЅРµРЅРёСЏ
 </td>
 </tr>
 			</table>
@@ -430,7 +430,7 @@ class sections_html {
 				<table class="adminform">
 				<tr>
 					<th colspan="2">
-					Каталоги изображений (MOSImage)
+					РљР°С‚Р°Р»РѕРіРё РёР·РѕР±СЂР°Р¶РµРЅРёР№ (MOSImage)
 					</th>
 					<tr>
 					<tr>
@@ -464,7 +464,7 @@ class sections_html {
 		<table class="adminheading">
 		<tr>
 			<th class="sections">
-			Копирование раздела
+			РљРѕРїРёСЂРѕРІР°РЅРёРµ СЂР°Р·РґРµР»Р°
 			</th>
 		</tr>
 		</table>
@@ -474,13 +474,13 @@ class sections_html {
 		<tr>
 			<td width="3%"></td>
 			<td align="left" valign="top" width="30%">
-			<strong>Название копии раздела:</strong>
+			<strong>РќР°Р·РІР°РЅРёРµ РєРѕРїРёРё СЂР°Р·РґРµР»Р°:</strong>
 			<br />
-			<input class="text_area" type="text" name="title" value="" size="35" maxlength="50" title="Название нового раздела" />
+			<input class="text_area" type="text" name="title" value="" size="35" maxlength="50" title="РќР°Р·РІР°РЅРёРµ РЅРѕРІРѕРіРѕ СЂР°Р·РґРµР»Р°" />
 			<br /><br />
 			</td>
 			<td align="left" valign="top" width="20%">
-			<strong>Копируемые категории:</strong>
+			<strong>РљРѕРїРёСЂСѓРµРјС‹Рµ РєР°С‚РµРіРѕСЂРёРё:</strong>
 			<br />
 			<?php
 			echo "<ol>";
@@ -492,7 +492,7 @@ class sections_html {
 			?>
 			</td>
 			<td valign="top" width="20%">
-			<strong>Копируемые объекты содержимого:</strong>
+			<strong>РљРѕРїРёСЂСѓРµРјС‹Рµ РѕР±СЉРµРєС‚С‹ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ:</strong>
 			<br />
 			<?php
 			echo "<ol>";
@@ -504,13 +504,13 @@ class sections_html {
 			?>
 			</td>
 			<td valign="top">
-			Во вновь созданный раздел будут 
+			Р’Рѕ РІРЅРѕРІСЊ СЃРѕР·РґР°РЅРЅС‹Р№ СЂР°Р·РґРµР» Р±СѓРґСѓС‚ 
 			<br />
-			скопированы перечисленные категории 
+			СЃРєРѕРїРёСЂРѕРІР°РЅС‹ РїРµСЂРµС‡РёСЃР»РµРЅРЅС‹Рµ РєР°С‚РµРіРѕСЂРёРё 
 			<br />
-			и все перечисленные объекты
+			Рё РІСЃРµ РїРµСЂРµС‡РёСЃР»РµРЅРЅС‹Рµ РѕР±СЉРµРєС‚С‹
 			<br /> 
-			содержимого категорий.
+			СЃРѕРґРµСЂР¶РёРјРѕРіРѕ РєР°С‚РµРіРѕСЂРёР№.
 			</td>.
 		</tr>
 		</table>

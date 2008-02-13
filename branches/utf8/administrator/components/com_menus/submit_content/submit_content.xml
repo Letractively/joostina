@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <mosinstall type="menu" version="1.0.0">
-	<name>Отправить - Содержимое</name>
+	<name>РћС‚РїСЂР°РІРёС‚СЊ - РЎРѕРґРµСЂР¶РёРјРѕРµ</name>
 	<group>Content|Submit</group>
 	<author>Jason407</author>
 	<creationDate>August 2005</creationDate>
@@ -9,8 +9,8 @@
 	<authorEmail>joostinacms@gmail.com</authorEmail>
 	<authorUrl>www.joostina.ru</authorUrl>
 	<version>1.0.0</version>
-	<description>Создает ссылку на добавление содержимого пользователями</description>
+	<description>РЎРѕР·РґР°РµС‚ СЃСЃС‹Р»РєСѓ РЅР° РґРѕР±Р°РІР»РµРЅРёРµ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏРјРё</description>
 	<params>
-		<param name="menu_image" type="imagelist" directory="/images/stories" hide_default="1" default="" label="Изображение меню" description="Маленькое изображение, располагаемое слева или справа от пункта меню. Изображение должно находиться в папке images/stories/" />
+		<param name="menu_image" type="imagelist" directory="/images/stories" hide_default="1" default="" label="РР·РѕР±СЂР°Р¶РµРЅРёРµ РјРµРЅСЋ" description="РњР°Р»РµРЅСЊРєРѕРµ РёР·РѕР±СЂР°Р¶РµРЅРёРµ, СЂР°СЃРїРѕР»Р°РіР°РµРјРѕРµ СЃР»РµРІР° РёР»Рё СЃРїСЂР°РІР° РѕС‚ РїСѓРЅРєС‚Р° РјРµРЅСЋ. РР·РѕР±СЂР°Р¶РµРЅРёРµ РґРѕР»Р¶РЅРѕ РЅР°С…РѕРґРёС‚СЊСЃСЏ РІ РїР°РїРєРµ images/stories/" />
 	</params>
 </mosinstall>

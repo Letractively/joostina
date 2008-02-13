@@ -7,19 +7,19 @@
 	<authorEmail>joostinacms@gmail.com</authorEmail>
 	<authorUrl>www.joostina.ru</authorUrl>
 	<version>1.0.0</version>
-	<description>Этот компонент управляет функциями поиска.</description>
+	<description>Р­С‚РѕС‚ РєРѕРјРїРѕРЅРµРЅС‚ СѓРїСЂР°РІР»СЏРµС‚ С„СѓРЅРєС†РёСЏРјРё РїРѕРёСЃРєР°.</description>
 	<params>
-		<param name="menu_image" type="imagelist" directory="/images/stories" default="" label="Изображение меню" description="Маленькое изображение, располагаемое слева или справа от пункта меню. Изображение должно находиться в папке images/stories/"/>
-		<param name="pageclass_sfx" type="text" size="20" default="" label="Суффикс CSS-класса страницы" description="Суффикс CSS-класса, используемого на этой странице. Необходим для использования индивидуального стиля страницы"/>
-		<param name="back_button" type="list" default="" label="Кнопка Назад (Вернуться)" description="Показать/Скрыть кнопку Назад (Вернуться), возвращающую на предыдущую просмотренную страницу">
-			<option value="">Исп. ОБЩИЕ настройки</option>
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
+		<param name="menu_image" type="imagelist" directory="/images/stories" default="" label="РР·РѕР±СЂР°Р¶РµРЅРёРµ РјРµРЅСЋ" description="РњР°Р»РµРЅСЊРєРѕРµ РёР·РѕР±СЂР°Р¶РµРЅРёРµ, СЂР°СЃРїРѕР»Р°РіР°РµРјРѕРµ СЃР»РµРІР° РёР»Рё СЃРїСЂР°РІР° РѕС‚ РїСѓРЅРєС‚Р° РјРµРЅСЋ. РР·РѕР±СЂР°Р¶РµРЅРёРµ РґРѕР»Р¶РЅРѕ РЅР°С…РѕРґРёС‚СЊСЃСЏ РІ РїР°РїРєРµ images/stories/"/>
+		<param name="pageclass_sfx" type="text" size="20" default="" label="РЎСѓС„С„РёРєСЃ CSS-РєР»Р°СЃСЃР° СЃС‚СЂР°РЅРёС†С‹" description="РЎСѓС„С„РёРєСЃ CSS-РєР»Р°СЃСЃР°, РёСЃРїРѕР»СЊР·СѓРµРјРѕРіРѕ РЅР° СЌС‚РѕР№ СЃС‚СЂР°РЅРёС†Рµ. РќРµРѕР±С…РѕРґРёРј РґР»СЏ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ РёРЅРґРёРІРёРґСѓР°Р»СЊРЅРѕРіРѕ СЃС‚РёР»СЏ СЃС‚СЂР°РЅРёС†С‹"/>
+		<param name="back_button" type="list" default="" label="РљРЅРѕРїРєР° РќР°Р·Р°Рґ (Р’РµСЂРЅСѓС‚СЊСЃСЏ)" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РєРЅРѕРїРєСѓ РќР°Р·Р°Рґ (Р’РµСЂРЅСѓС‚СЊСЃСЏ), РІРѕР·РІСЂР°С‰Р°СЋС‰СѓСЋ РЅР° РїСЂРµРґС‹РґСѓС‰СѓСЋ РїСЂРѕСЃРјРѕС‚СЂРµРЅРЅСѓСЋ СЃС‚СЂР°РЅРёС†Сѓ">
+			<option value="">РСЃРї. РћР‘Р©РР• РЅР°СЃС‚СЂРѕР№РєРё</option>
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
 		</param>
-		<param name="page_title" type="radio" default="1" label="Заголовок страницы" description="Показать/Скрыть заголовок страницы">
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
+		<param name="page_title" type="radio" default="1" label="Р—Р°РіРѕР»РѕРІРѕРє СЃС‚СЂР°РЅРёС†С‹" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ Р·Р°РіРѕР»РѕРІРѕРє СЃС‚СЂР°РЅРёС†С‹">
+			<option value="0">РЎРєСЂС‹С‚СЊ</option>
+			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
 		</param>
-		<param name="header" type="text" size="30" default="" label="Заголовок страницы" description="Текст, отображаемый вверху страницы. Если не будет заполнено, то взамен будет использоваться название меню"/>
+		<param name="header" type="text" size="30" default="" label="Р—Р°РіРѕР»РѕРІРѕРє СЃС‚СЂР°РЅРёС†С‹" description="РўРµРєСЃС‚, РѕС‚РѕР±СЂР°Р¶Р°РµРјС‹Р№ РІРІРµСЂС…Сѓ СЃС‚СЂР°РЅРёС†С‹. Р•СЃР»Рё РЅРµ Р±СѓРґРµС‚ Р·Р°РїРѕР»РЅРµРЅРѕ, С‚Рѕ РІР·Р°РјРµРЅ Р±СѓРґРµС‚ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊСЃСЏ РЅР°Р·РІР°РЅРёРµ РјРµРЅСЋ"/>
 	</params>
 </mosinstall>

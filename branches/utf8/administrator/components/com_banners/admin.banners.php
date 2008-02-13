@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 // ensure user has access to this function
 if (!($acl->acl_check( 'administration', 'edit', 'users', $my->usertype, 'components', 'all' )| $acl->acl_check( 'administration', 'edit', 'users', $my->usertype, 'components', 'com_banners' ))) {
@@ -140,7 +140,7 @@ function editBanner( $bannerid, $option ) {
 		return;
 	}
 
-	$clientlist[] 	= mosHTML::makeOption( '0', '-Выберите клиента-', 'cid', 'name' );
+	$clientlist[] 	= mosHTML::makeOption( '0', '-Р’С‹Р±РµСЂРёС‚Рµ РєР»РёРµРЅС‚Р°-', 'cid', 'name' );
 	$clientlist 	= array_merge( $clientlist, $database->loadObjectList() );
 	$lists['cid'] 	= mosHTML::selectList( $clientlist, 'cid', 'class="inputbox" size="1"','cid', 'name', $row->cid);
 
@@ -151,8 +151,8 @@ function editBanner( $bannerid, $option ) {
 
 
 	// make the select list for the image positions
-	$yesno[] = mosHTML::makeOption( '0', 'Нет' );
-  	$yesno[] = mosHTML::makeOption( '1', 'Да' );
+	$yesno[] = mosHTML::makeOption( '0', 'РќРµС‚' );
+  	$yesno[] = mosHTML::makeOption( '1', 'Р”Р°' );
 
   	$lists['showBanner'] = mosHTML::selectList( $yesno, 'showBanner', 'class="inputbox" size="1"' , 'value', 'text', $row->showBanner );
 
@@ -164,7 +164,7 @@ function saveBanner( $task ) {
 
 	$row = new mosBanner($database);
 
-	$msg = 'Информация о баннере сохранена';
+	$msg = 'РРЅС„РѕСЂРјР°С†РёСЏ Рѕ Р±Р°РЅРЅРµСЂРµ СЃРѕС…СЂР°РЅРµРЅР°';
 	if (!$row->bind( $_POST )) {
 		echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
 		exit();
@@ -173,7 +173,7 @@ function saveBanner( $task ) {
 	// Resets clicks when `Reset Clicks` button is used instead of `Save` button
 	if ( $task == 'resethits' ) {
 		$row->clicks = 0;
-		$msg = 'Число нажатий на баннер обнулено';
+		$msg = 'Р§РёСЃР»Рѕ РЅР°Р¶Р°С‚РёР№ РЅР° Р±Р°РЅРЅРµСЂ РѕР±РЅСѓР»РµРЅРѕ';
 	}
 
 	// Sets impressions to unlimited when `unlimited` checkbox ticked
@@ -210,7 +210,7 @@ function publishBanner( $cid, $publish=1 ) {
 
 	if (!is_array( $cid ) || count( $cid ) < 1) {
 		$action = $publish ? 'publish' : 'unpublish';
-		echo "<script> alert('Выберите объект для $action'); window.history.go(-1);</script>\n";
+		echo "<script> alert('Р’С‹Р±РµСЂРёС‚Рµ РѕР±СЉРµРєС‚ РґР»СЏ $action'); window.history.go(-1);</script>\n";
 		exit();
 	}
 
@@ -287,9 +287,9 @@ function editBannerClient( $clientid, $option ) {
 	$row = new mosBannerClient($database);
 	$row->load( (int)$clientid);
 
-	// проверка блокировок
+	// РїСЂРѕРІРµСЂРєР° Р±Р»РѕРєРёСЂРѕРІРѕРє
 	if ($row->checked_out && $row->checked_out != $my->id) {
-		$msg = 'Клиент [ '. $row->name. ' ] в настоящее время редактируется другим пользователем.';
+		$msg = 'РљР»РёРµРЅС‚ [ '. $row->name. ' ] РІ РЅР°СЃС‚РѕСЏС‰РµРµ РІСЂРµРјСЏ СЂРµРґР°РєС‚РёСЂСѓРµС‚СЃСЏ РґСЂСѓРіРёРј РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј.';
 		mosRedirect( 'index2.php?option='. $option .'&task=listclients', $msg );
 	}
 
@@ -350,7 +350,7 @@ function removeBannerClients( $cid, $option ) {
 
 		if ($count != 0) {
 			mosRedirect( "index2.php?option=$option&task=listclients",
-			"Невозможно сейчас удалить клиента, так как его баннеры используются на сайте" );
+			"РќРµРІРѕР·РјРѕР¶РЅРѕ СЃРµР№С‡Р°СЃ СѓРґР°Р»РёС‚СЊ РєР»РёРµРЅС‚Р°, С‚Р°Рє РєР°Рє РµРіРѕ Р±Р°РЅРЅРµСЂС‹ РёСЃРїРѕР»СЊР·СѓСЋС‚СЃСЏ РЅР° СЃР°Р№С‚Рµ" );
 		} else {
 			$query="DELETE FROM #__bannerfinish"
 			. "\n WHERE cid = " . (int) $cid[$i]

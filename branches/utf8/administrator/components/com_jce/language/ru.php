@@ -2,69 +2,69 @@
 /*
 * @package Russian Variables for Joomla Content Editor
 * @version JCE 1.1.1
-* @localized Àâòîðñêèå ïðàâà (C) 2005-2007 Joom.Ru - Ðóññêèé äîì Joomla!
-* @translator Ïåðåâîä Kozyrev Andrey aka AndTaran (admin@taran-dg.ru)
-* @proofreading Êîððåêòîðû: Artem A. Lebsak aka Ladm (ladm@mail.ru) and Oleg M. aka sourpuss (sourpuss@mail.ru)
+* @localized ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2005-2007 Joom.Ru - Ð ÑƒÑÑÐºÐ¸Ð¹ Ð´Ð¾Ð¼ Joomla!
+* @translator ÐŸÐµÑ€ÐµÐ²Ð¾Ð´ Kozyrev Andrey aka AndTaran (admin@taran-dg.ru)
+* @proofreading ÐšÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð¾Ñ€Ñ‹: Artem A. Lebsak aka Ladm (ladm@mail.ru) and Oleg M. aka sourpuss (sourpuss@mail.ru)
 * @website www.joom.ru
 */
 
-// çàïðåò ïðÿìîãî äîñòóïà
-defined( '_VALID_MOS' ) or die( 'Äîñòóï îãðàíè÷åí' );
+// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+defined( '_VALID_MOS' ) or die( 'Ð”Ð¾ÑÑ‚ÑƒÐ¿ Ð¾Ð³Ñ€Ð°Ð½Ð¸Ñ‡ÐµÐ½' );
 
-//Îáùåå
-DEFINE('_JCE_VERSION', 'Âåðñèÿ');
-DEFINE('_JCE_DATE', 'Äàòà');
-DEFINE('_JCE_AUTHOR', 'Àâòîð');
-DEFINE('_JCE_AUTHOR_EMAIL', 'Ýëåêòðîííàÿ ïî÷òà àâòîðà');
-DEFINE('_JCE_AUTHOR_URL', 'URL àâòîðà');
-DEFINE('_JCE_PUBLISHED', 'Îïóáëèêîâàíî');
+//ÐžÐ±Ñ‰ÐµÐµ
+DEFINE('_JCE_VERSION', 'Ð’ÐµÑ€ÑÐ¸Ñ');
+DEFINE('_JCE_DATE', 'Ð”Ð°Ñ‚Ð°');
+DEFINE('_JCE_AUTHOR', 'ÐÐ²Ñ‚Ð¾Ñ€');
+DEFINE('_JCE_AUTHOR_EMAIL', 'Ð­Ð»ÐµÐºÑ‚Ñ€Ð¾Ð½Ð½Ð°Ñ Ð¿Ð¾Ñ‡Ñ‚Ð° Ð°Ð²Ñ‚Ð¾Ñ€Ð°');
+DEFINE('_JCE_AUTHOR_URL', 'URL Ð°Ð²Ñ‚Ð¾Ñ€Ð°');
+DEFINE('_JCE_PUBLISHED', 'ÐžÐ¿ÑƒÐ±Ð»Ð¸ÐºÐ¾Ð²Ð°Ð½Ð¾');
 
-//Ðåäàêòîð çíà÷êîâ
-DEFINE('_JCE_LAYOUT_MSG','Çäåñü ïðåäñòàâëåíû êíîïêè òîëüêî îïóáëèêîâàííûõ Êîìàíä è Ïëàãèíîâ. Äëÿ óñòàíîâêè íóæíîãî ðàñïîëîæåíèÿ êíîïîê, ìîæåòå ïåðåòàùèòü êíîïêè èç îäíîãî ðÿäà â äðóãîé, èëè ïðîñòî ïîìåíÿòü èõ ìåñòàìè â ïðåäåëàõ îäíîãî ðÿäà. Ñåðàÿ îáëàñòü ïðåäñòàâëÿåò Èíòåðôåéñ ïîëüçîâàòåëÿ Ðåäàêòîðà. Êíîïêè äîëæíû íàõîäèòüñÿ â ïðåäåëàõ ýòîé îáëàñòè. Ñèíèå ïðÿìîóãîëüíèêè óêàçûâàþò ãðàíèöó êàæäîãî ðÿäà.');
-DEFINE('_JCE_LAYOUT_PLUGINS', 'Ïëàãèíû Ìåíåäæåðà èçîáðàæåíèé (Image manager) è Ìåíåäæåðà èçîáðàæåíèé SE (Image manager SE) ïðåäñòàâëåíû îäíèì çíà÷êîì ñ èçîáðàæåíèåì êàðòèíû, ïëàãèíû AdvLink è AdvLink SE - â âèäå îäíîãî çíà÷êà ñ èçîáðàæåíèåì ññûëêè (çâåíüÿ öåïè), íî îäíîâðåìåííî ìîæåò èñïîëüçîâàòüñÿ òîëüêî îäèí òèï ïëàãèíà.');
-DEFINE('_JCE_LAYOUT_HEADING', 'Ìåíåäæåð ðàñïîëîæåíèÿ êíîïîê JCE');
+//Ð ÐµÐ´Ð°ÐºÑ‚Ð¾Ñ€ Ð·Ð½Ð°Ñ‡ÐºÐ¾Ð²
+DEFINE('_JCE_LAYOUT_MSG','Ð—Ð´ÐµÑÑŒ Ð¿Ñ€ÐµÐ´ÑÑ‚Ð°Ð²Ð»ÐµÐ½Ñ‹ ÐºÐ½Ð¾Ð¿ÐºÐ¸ Ñ‚Ð¾Ð»ÑŒÐºÐ¾ Ð¾Ð¿ÑƒÐ±Ð»Ð¸ÐºÐ¾Ð²Ð°Ð½Ð½Ñ‹Ñ… ÐšÐ¾Ð¼Ð°Ð½Ð´ Ð¸ ÐŸÐ»Ð°Ð³Ð¸Ð½Ð¾Ð². Ð”Ð»Ñ ÑƒÑÑ‚Ð°Ð½Ð¾Ð²ÐºÐ¸ Ð½ÑƒÐ¶Ð½Ð¾Ð³Ð¾ Ñ€Ð°ÑÐ¿Ð¾Ð»Ð¾Ð¶ÐµÐ½Ð¸Ñ ÐºÐ½Ð¾Ð¿Ð¾Ðº, Ð¼Ð¾Ð¶ÐµÑ‚Ðµ Ð¿ÐµÑ€ÐµÑ‚Ð°Ñ‰Ð¸Ñ‚ÑŒ ÐºÐ½Ð¾Ð¿ÐºÐ¸ Ð¸Ð· Ð¾Ð´Ð½Ð¾Ð³Ð¾ Ñ€ÑÐ´Ð° Ð² Ð´Ñ€ÑƒÐ³Ð¾Ð¹, Ð¸Ð»Ð¸ Ð¿Ñ€Ð¾ÑÑ‚Ð¾ Ð¿Ð¾Ð¼ÐµÐ½ÑÑ‚ÑŒ Ð¸Ñ… Ð¼ÐµÑÑ‚Ð°Ð¼Ð¸ Ð² Ð¿Ñ€ÐµÐ´ÐµÐ»Ð°Ñ… Ð¾Ð´Ð½Ð¾Ð³Ð¾ Ñ€ÑÐ´Ð°. Ð¡ÐµÑ€Ð°Ñ Ð¾Ð±Ð»Ð°ÑÑ‚ÑŒ Ð¿Ñ€ÐµÐ´ÑÑ‚Ð°Ð²Ð»ÑÐµÑ‚ Ð˜Ð½Ñ‚ÐµÑ€Ñ„ÐµÐ¹Ñ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»Ñ Ð ÐµÐ´Ð°ÐºÑ‚Ð¾Ñ€Ð°. ÐšÐ½Ð¾Ð¿ÐºÐ¸ Ð´Ð¾Ð»Ð¶Ð½Ñ‹ Ð½Ð°Ñ…Ð¾Ð´Ð¸Ñ‚ÑŒÑÑ Ð² Ð¿Ñ€ÐµÐ´ÐµÐ»Ð°Ñ… ÑÑ‚Ð¾Ð¹ Ð¾Ð±Ð»Ð°ÑÑ‚Ð¸. Ð¡Ð¸Ð½Ð¸Ðµ Ð¿Ñ€ÑÐ¼Ð¾ÑƒÐ³Ð¾Ð»ÑŒÐ½Ð¸ÐºÐ¸ ÑƒÐºÐ°Ð·Ñ‹Ð²Ð°ÑŽÑ‚ Ð³Ñ€Ð°Ð½Ð¸Ñ†Ñƒ ÐºÐ°Ð¶Ð´Ð¾Ð³Ð¾ Ñ€ÑÐ´Ð°.');
+DEFINE('_JCE_LAYOUT_PLUGINS', 'ÐŸÐ»Ð°Ð³Ð¸Ð½Ñ‹ ÐœÐµÐ½ÐµÐ´Ð¶ÐµÑ€Ð° Ð¸Ð·Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ð¸Ð¹ (Image manager) Ð¸ ÐœÐµÐ½ÐµÐ´Ð¶ÐµÑ€Ð° Ð¸Ð·Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ð¸Ð¹ SE (Image manager SE) Ð¿Ñ€ÐµÐ´ÑÑ‚Ð°Ð²Ð»ÐµÐ½Ñ‹ Ð¾Ð´Ð½Ð¸Ð¼ Ð·Ð½Ð°Ñ‡ÐºÐ¾Ð¼ Ñ Ð¸Ð·Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ð¸ÐµÐ¼ ÐºÐ°Ñ€Ñ‚Ð¸Ð½Ñ‹, Ð¿Ð»Ð°Ð³Ð¸Ð½Ñ‹ AdvLink Ð¸ AdvLink SE - Ð² Ð²Ð¸Ð´Ðµ Ð¾Ð´Ð½Ð¾Ð³Ð¾ Ð·Ð½Ð°Ñ‡ÐºÐ° Ñ Ð¸Ð·Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ð¸ÐµÐ¼ ÑÑÑ‹Ð»ÐºÐ¸ (Ð·Ð²ÐµÐ½ÑŒÑ Ñ†ÐµÐ¿Ð¸), Ð½Ð¾ Ð¾Ð´Ð½Ð¾Ð²Ñ€ÐµÐ¼ÐµÐ½Ð½Ð¾ Ð¼Ð¾Ð¶ÐµÑ‚ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÑŒÑÑ Ñ‚Ð¾Ð»ÑŒÐºÐ¾ Ð¾Ð´Ð¸Ð½ Ñ‚Ð¸Ð¿ Ð¿Ð»Ð°Ð³Ð¸Ð½Ð°.');
+DEFINE('_JCE_LAYOUT_HEADING', 'ÐœÐµÐ½ÐµÐ´Ð¶ÐµÑ€ Ñ€Ð°ÑÐ¿Ð¾Ð»Ð¾Ð¶ÐµÐ½Ð¸Ñ ÐºÐ½Ð¾Ð¿Ð¾Ðº JCE');
 //
 
-//Ìåíåäæåð ëîêàëèçàöèé
-DEFINE('_JCE_LANG_HEADING', 'Ìåíåäæåð ëîêàëèçàöèé JCE');
-DEFINE('_JCE_LANG_LANG', 'ßçûê');
+//ÐœÐµÐ½ÐµÐ´Ð¶ÐµÑ€ Ð»Ð¾ÐºÐ°Ð»Ð¸Ð·Ð°Ñ†Ð¸Ð¹
+DEFINE('_JCE_LANG_HEADING', 'ÐœÐµÐ½ÐµÐ´Ð¶ÐµÑ€ Ð»Ð¾ÐºÐ°Ð»Ð¸Ð·Ð°Ñ†Ð¸Ð¹ JCE');
+DEFINE('_JCE_LANG_LANG', 'Ð¯Ð·Ñ‹Ðº');
 
-//Èíñòàëëÿòîð ëîêàëèçàöèé
-DEFINE('_JCE_LANG_HEADING_INSTALL', 'Óñòàíîâèòü ëîêàëèçàöèþ JCE');
-DEFINE('_JCE_LANG_BACK', 'Âåðíóòüñÿ â Ìåíåäæåð ëîêàëèçàöèé');
+//Ð˜Ð½ÑÑ‚Ð°Ð»Ð»ÑÑ‚Ð¾Ñ€ Ð»Ð¾ÐºÐ°Ð»Ð¸Ð·Ð°Ñ†Ð¸Ð¹
+DEFINE('_JCE_LANG_HEADING_INSTALL', 'Ð£ÑÑ‚Ð°Ð½Ð¾Ð²Ð¸Ñ‚ÑŒ Ð»Ð¾ÐºÐ°Ð»Ð¸Ð·Ð°Ñ†Ð¸ÑŽ JCE');
+DEFINE('_JCE_LANG_BACK', 'Ð’ÐµÑ€Ð½ÑƒÑ‚ÑŒÑÑ Ð² ÐœÐµÐ½ÐµÐ´Ð¶ÐµÑ€ Ð»Ð¾ÐºÐ°Ð»Ð¸Ð·Ð°Ñ†Ð¸Ð¹');
 //
 
-//Îáùèé èíñòàëëÿòîð
-DEFINE('_JCE_INS_PACKAGE_UPLOAD', 'Çàãðóçêà ôàéëà ïàêåòà');
-DEFINE('_JCE_INS_PACKAGE_FILE', 'Ôàéë ïàêåòà');
-DEFINE('_JCE_INS_INSTALL', 'Óñòàíîâêà èç ïàïêè');
-DEFINE('_JCE_INS_INSTALL_DIR', 'Ïàïêà óñòàíîâêè');
-DEFINE('_JCE_INS_UPLOAD_BUTTON', 'Çàãðóçèòü ôàéë è óñòàíîâèòü');
-DEFINE('_JCE_INS_INSTALL_BUTTON', 'Óñòàíîâèòü');
+//ÐžÐ±Ñ‰Ð¸Ð¹ Ð¸Ð½ÑÑ‚Ð°Ð»Ð»ÑÑ‚Ð¾Ñ€
+DEFINE('_JCE_INS_PACKAGE_UPLOAD', 'Ð—Ð°Ð³Ñ€ÑƒÐ·ÐºÐ° Ñ„Ð°Ð¹Ð»Ð° Ð¿Ð°ÐºÐµÑ‚Ð°');
+DEFINE('_JCE_INS_PACKAGE_FILE', 'Ð¤Ð°Ð¹Ð» Ð¿Ð°ÐºÐµÑ‚Ð°');
+DEFINE('_JCE_INS_INSTALL', 'Ð£ÑÑ‚Ð°Ð½Ð¾Ð²ÐºÐ° Ð¸Ð· Ð¿Ð°Ð¿ÐºÐ¸');
+DEFINE('_JCE_INS_INSTALL_DIR', 'ÐŸÐ°Ð¿ÐºÐ° ÑƒÑÑ‚Ð°Ð½Ð¾Ð²ÐºÐ¸');
+DEFINE('_JCE_INS_UPLOAD_BUTTON', 'Ð—Ð°Ð³Ñ€ÑƒÐ·Ð¸Ñ‚ÑŒ Ñ„Ð°Ð¹Ð» Ð¸ ÑƒÑÑ‚Ð°Ð½Ð¾Ð²Ð¸Ñ‚ÑŒ');
+DEFINE('_JCE_INS_INSTALL_BUTTON', 'Ð£ÑÑ‚Ð°Ð½Ð¾Ð²Ð¸Ñ‚ÑŒ');
 //
 
-//Ïëàãèíû
-DEFINE('_JCE_PLUGIN_PLUGIN', 'Ïëàãèí');
-DEFINE('_JCE_PLUGIN_PLUGCOM', 'Ïëàãèí/êîìàíäà');
-DEFINE('_JCE_PLUGIN_NAME', 'Íàçâàíèå');
-DEFINE('_JCE_PLUGIN_HEADING', 'Ìåíåäæåð ïëàãèíîâ JCE');
-DEFINE('_JCE_PLUGIN_FILTER', 'Ôèëüòð');
-DEFINE('_JCE_PLUGIN_ACCESS_LIST', 'Ñïèñîê äîñòóïà');
-DEFINE('_JCE_PLUGIN_ACCESS_LVL', 'Óðîâåíü äîñòóïà');
-DEFINE('_JCE_PLUGIN_CORE', 'ßäðî');
-DEFINE('_JCE_PLUGIN_ORDER', 'Ïîðÿäîê');
-DEFINE('_JCE_PLUGIN_ROW', 'Ðÿä');
-DEFINE('_JCE_PLUGIN_TYPE', 'Òèï');
-DEFINE('_JCE_PLUGIN_ICON', 'Çíà÷îê');
-DEFINE('_JCE_PLUGIN_LAYOUT_ICON', 'Çíà÷îê ïàíåëè');
-DEFINE('_JCE_PLUGIN_DESC', 'Îïèñàíèå');
-DEFINE('_JCE_PLUGIN_EDIT', 'Èçìåíèòü');
-DEFINE('_JCE_PLUGIN_NEW', 'Íîâûé');
-DEFINE('_JCE_PLUGIN_DETAILS', 'Äåòàëè ïëàãèíà');
-DEFINE('_JCE_PLUGIN_PARAMS', 'Ïàðàìåòðû');
-DEFINE('_JCE_PLUGIN_ELMS', 'Ýëåìåíòû');
-//Èíñòàëëÿòîð ïëàãèíîâ
-DEFINE('_JCE_PLUGINS_INSTALL_HEADING','Óñòàíîâêà íîâûõ ïëàãèíîâ JCE');
-DEFINE('_JCE_PLUGINS_INSTALL_MSG', 'Çäåñü ïîêàçàíû òîëüêî òå ïëàãèíû, êîòîðûå ìîãóò áûòü óäàëåíû. Ïëàãèíû ÿäðà íå ìîãóò áûòü óäàëåíû.');
-DEFINE('_JCE_PLUGIN_NONE', 'Óñòàíîâëåííûå ïëàãèíû îòñóòñòâóþò');
+//ÐŸÐ»Ð°Ð³Ð¸Ð½Ñ‹
+DEFINE('_JCE_PLUGIN_PLUGIN', 'ÐŸÐ»Ð°Ð³Ð¸Ð½');
+DEFINE('_JCE_PLUGIN_PLUGCOM', 'ÐŸÐ»Ð°Ð³Ð¸Ð½/ÐºÐ¾Ð¼Ð°Ð½Ð´Ð°');
+DEFINE('_JCE_PLUGIN_NAME', 'ÐÐ°Ð·Ð²Ð°Ð½Ð¸Ðµ');
+DEFINE('_JCE_PLUGIN_HEADING', 'ÐœÐµÐ½ÐµÐ´Ð¶ÐµÑ€ Ð¿Ð»Ð°Ð³Ð¸Ð½Ð¾Ð² JCE');
+DEFINE('_JCE_PLUGIN_FILTER', 'Ð¤Ð¸Ð»ÑŒÑ‚Ñ€');
+DEFINE('_JCE_PLUGIN_ACCESS_LIST', 'Ð¡Ð¿Ð¸ÑÐ¾Ðº Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°');
+DEFINE('_JCE_PLUGIN_ACCESS_LVL', 'Ð£Ñ€Ð¾Ð²ÐµÐ½ÑŒ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°');
+DEFINE('_JCE_PLUGIN_CORE', 'Ð¯Ð´Ñ€Ð¾');
+DEFINE('_JCE_PLUGIN_ORDER', 'ÐŸÐ¾Ñ€ÑÐ´Ð¾Ðº');
+DEFINE('_JCE_PLUGIN_ROW', 'Ð ÑÐ´');
+DEFINE('_JCE_PLUGIN_TYPE', 'Ð¢Ð¸Ð¿');
+DEFINE('_JCE_PLUGIN_ICON', 'Ð—Ð½Ð°Ñ‡Ð¾Ðº');
+DEFINE('_JCE_PLUGIN_LAYOUT_ICON', 'Ð—Ð½Ð°Ñ‡Ð¾Ðº Ð¿Ð°Ð½ÐµÐ»Ð¸');
+DEFINE('_JCE_PLUGIN_DESC', 'ÐžÐ¿Ð¸ÑÐ°Ð½Ð¸Ðµ');
+DEFINE('_JCE_PLUGIN_EDIT', 'Ð˜Ð·Ð¼ÐµÐ½Ð¸Ñ‚ÑŒ');
+DEFINE('_JCE_PLUGIN_NEW', 'ÐÐ¾Ð²Ñ‹Ð¹');
+DEFINE('_JCE_PLUGIN_DETAILS', 'Ð”ÐµÑ‚Ð°Ð»Ð¸ Ð¿Ð»Ð°Ð³Ð¸Ð½Ð°');
+DEFINE('_JCE_PLUGIN_PARAMS', 'ÐŸÐ°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ñ‹');
+DEFINE('_JCE_PLUGIN_ELMS', 'Ð­Ð»ÐµÐ¼ÐµÐ½Ñ‚Ñ‹');
+//Ð˜Ð½ÑÑ‚Ð°Ð»Ð»ÑÑ‚Ð¾Ñ€ Ð¿Ð»Ð°Ð³Ð¸Ð½Ð¾Ð²
+DEFINE('_JCE_PLUGINS_INSTALL_HEADING','Ð£ÑÑ‚Ð°Ð½Ð¾Ð²ÐºÐ° Ð½Ð¾Ð²Ñ‹Ñ… Ð¿Ð»Ð°Ð³Ð¸Ð½Ð¾Ð² JCE');
+DEFINE('_JCE_PLUGINS_INSTALL_MSG', 'Ð—Ð´ÐµÑÑŒ Ð¿Ð¾ÐºÐ°Ð·Ð°Ð½Ñ‹ Ñ‚Ð¾Ð»ÑŒÐºÐ¾ Ñ‚Ðµ Ð¿Ð»Ð°Ð³Ð¸Ð½Ñ‹, ÐºÐ¾Ñ‚Ð¾Ñ€Ñ‹Ðµ Ð¼Ð¾Ð³ÑƒÑ‚ Ð±Ñ‹Ñ‚ÑŒ ÑƒÐ´Ð°Ð»ÐµÐ½Ñ‹. ÐŸÐ»Ð°Ð³Ð¸Ð½Ñ‹ ÑÐ´Ñ€Ð° Ð½Ðµ Ð¼Ð¾Ð³ÑƒÑ‚ Ð±Ñ‹Ñ‚ÑŒ ÑƒÐ´Ð°Ð»ÐµÐ½Ñ‹.');
+DEFINE('_JCE_PLUGIN_NONE', 'Ð£ÑÑ‚Ð°Ð½Ð¾Ð²Ð»ÐµÐ½Ð½Ñ‹Ðµ Ð¿Ð»Ð°Ð³Ð¸Ð½Ñ‹ Ð¾Ñ‚ÑÑƒÑ‚ÑÑ‚Ð²ÑƒÑŽÑ‚');
 ?>

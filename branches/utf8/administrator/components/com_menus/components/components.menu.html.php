@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 /**
 * Writes the edit form for new and existing content item
@@ -59,9 +59,9 @@ class components_menu_html {
 			}
 
 			if ( trim( form.name.value ) == "" ){
-				alert( "Объект должен иметь имя" );
+				alert( "РћР±СЉРµРєС‚ РґРѕР»Р¶РµРЅ РёРјРµС‚СЊ РёРјСЏ" );
 			} else if (form.componentid.value == ""){
-				alert( "Выберите компонент" );
+				alert( "Р’С‹Р±РµСЂРёС‚Рµ РєРѕРјРїРѕРЅРµРЅС‚" );
 			} else {
 				submitform( pressbutton );
 			}
@@ -73,7 +73,7 @@ class components_menu_html {
 		<table class="adminheading">
 		<tr>
 			<th class="menus">
-			<?php echo $menu->id ? 'Изменение -' : 'Добавление -';?> Пункт меню :: Компонент <small><small><?php echo $title; ?></small></small>
+			<?php echo $menu->id ? 'РР·РјРµРЅРµРЅРёРµ -' : 'Р”РѕР±Р°РІР»РµРЅРёРµ -';?> РџСѓРЅРєС‚ РјРµРЅСЋ :: РљРѕРјРїРѕРЅРµРЅС‚ <small><small><?php echo $title; ?></small></small>
 			</th>
 		</tr>
 		</table>
@@ -84,25 +84,25 @@ class components_menu_html {
 				<table class="adminform">
 				<tr>
 					<th colspan="2">
-					Детали
+					Р”РµС‚Р°Р»Рё
 					</th>
 				</tr>
 				<tr>
-					<td width="10%" align="right">Название:</td>
+					<td width="10%" align="right">РќР°Р·РІР°РЅРёРµ:</td>
 					<td width="80%">
 						<input class="inputbox" type="text" name="name" size="50" maxlength="100" value="<?php echo htmlspecialchars( $menu->name, ENT_QUOTES ); ?>" />
 					</td>
 				</tr>
 				<tr>
 					<td width="10%" align="right" valign="top">
-					title ссылки:
+					title СЃСЃС‹Р»РєРё:
 					</td>
 					<td width="80%">
 						<input class="inputbox" type="text" name="params[title]" size="50" maxlength="100" value="<?php echo htmlspecialchars( $params->get('title',''), ENT_QUOTES ); ?>" />
 					</td>
 				</tr>
 				<tr>
-					<td valign="top" align="right">Компонент:</td>
+					<td valign="top" align="right">РљРѕРјРїРѕРЅРµРЅС‚:</td>
 					<td>
 					<?php echo $lists['componentid']; ?>
 					</td>
@@ -114,26 +114,26 @@ class components_menu_html {
 					</td>
 				</tr>
 				<tr>
-					<td align="right">Родительский пункт меню:</td>
+					<td align="right">Р РѕРґРёС‚РµР»СЊСЃРєРёР№ РїСѓРЅРєС‚ РјРµРЅСЋ:</td>
 					<td>
 					<?php echo $lists['parent'];?>
 					</td>
 				</tr>
 
 				<tr>
-					<td valign="top" align="right">Порядок расположения:</td>
+					<td valign="top" align="right">РџРѕСЂСЏРґРѕРє СЂР°СЃРїРѕР»РѕР¶РµРЅРёСЏ:</td>
 					<td>
 					<?php echo $lists['ordering']; ?>
 					</td>
 				</tr>
 				<tr>
-					<td valign="top" align="right">Уровень доступа:</td>
+					<td valign="top" align="right">РЈСЂРѕРІРµРЅСЊ РґРѕСЃС‚СѓРїР°:</td>
 					<td>
 					<?php echo $lists['access']; ?>
 					</td>
 				</tr>
 				<tr>
-					<td valign="top" align="right">Опубликовано:</td>
+					<td valign="top" align="right">РћРїСѓР±Р»РёРєРѕРІР°РЅРѕ:</td>
 					<td>
 					<?php echo $lists['published']; ?>
 					</td>
@@ -147,7 +147,7 @@ class components_menu_html {
 				<table class="adminform">
 				<tr>
 					<th>
-					Параметры
+					РџР°СЂР°РјРµС‚СЂС‹
 					</th>
 				</tr>
 				<tr>
@@ -157,7 +157,7 @@ class components_menu_html {
 						echo $params->render();
 					} else {
 						?>
-						<strong>Список параметров будет доступен только после сохранения пункта меню</strong>
+						<strong>РЎРїРёСЃРѕРє РїР°СЂР°РјРµС‚СЂРѕРІ Р±СѓРґРµС‚ РґРѕСЃС‚СѓРїРµРЅ С‚РѕР»СЊРєРѕ РїРѕСЃР»Рµ СЃРѕС…СЂР°РЅРµРЅРёСЏ РїСѓРЅРєС‚Р° РјРµРЅСЋ</strong>
 						<?php
 					}
 					?>

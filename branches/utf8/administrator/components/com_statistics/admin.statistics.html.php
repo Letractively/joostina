@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 /**
 * @package Joostina
@@ -35,17 +35,17 @@ class HTML_statistics {
 		</style>
 		<table class="adminheading">
 		<tr>
-			<th class="browser">Статистика по браузерам, ОС и доменам</th>
+			<th class="browser">РЎС‚Р°С‚РёСЃС‚РёРєР° РїРѕ Р±СЂР°СѓР·РµСЂР°Рј, РћРЎ Рё РґРѕРјРµРЅР°Рј</th>
 		</tr>
 		</table>
 		<form action="index2.php" method="post" name="adminForm">
 		<?php
 		$tabs->startPane("statsPane");
-		$tabs->startTab("Браузеры","browsers-page");
+		$tabs->startTab("Р‘СЂР°СѓР·РµСЂС‹","browsers-page");
 		?>
 		<table class="adminlist">
 		<tr>
-			<th align="left">&nbsp;Браузер <?php echo $sorts['b_agent'];?></th>
+			<th align="left">&nbsp;Р‘СЂР°СѓР·РµСЂ <?php echo $sorts['b_agent'];?></th>
 			<th>&nbsp;</th>
 			<th width="100" align="left">% <?php echo $sorts['b_hits'];?></th>
 			<th width="100" align="left">#</th>
@@ -84,11 +84,11 @@ class HTML_statistics {
 		</table>
 		<?php
 		$tabs->endTab();
-		$tabs->startTab("ОС","os-page");
+		$tabs->startTab("РћРЎ","os-page");
 		?>
 		<table class="adminlist">
 		<tr>
-			<th align="left">&nbsp;Операционная система <?php echo $sorts['o_agent'];?></th>
+			<th align="left">&nbsp;РћРїРµСЂР°С†РёРѕРЅРЅР°СЏ СЃРёСЃС‚РµРјР° <?php echo $sorts['o_agent'];?></th>
 			<th>&nbsp;</th>
 			<th width="100" align="left">% <?php echo $sorts['o_hits'];?></th>
 			<th width="100" align="left">#</th>
@@ -127,11 +127,11 @@ class HTML_statistics {
 		</table>
 		<?php
 		$tabs->endTab();
-		$tabs->startTab("Домены","domain-page");
+		$tabs->startTab("Р”РѕРјРµРЅС‹","domain-page");
 		?>
 		<table class="adminlist">
 		<tr>
-			<th align="left">&nbsp;Домен <?php echo $sorts['d_agent'];?></th>
+			<th align="left">&nbsp;Р”РѕРјРµРЅ <?php echo $sorts['d_agent'];?></th>
 			<th>&nbsp;</th>
 			<th width="100" align="left">% <?php echo $sorts['d_hits'];?></th>
 			<th width="100" align="left">#</th>
@@ -182,7 +182,7 @@ class HTML_statistics {
 		?>
 		<table cellpadding="4" cellspacing="0" border="0" width="100%" class="adminheading">
 		<tr>
-			<th width="100%" class="impressions">Статистика посещения страниц</th>
+			<th width="100%" class="impressions">РЎС‚Р°С‚РёСЃС‚РёРєР° РїРѕСЃРµС‰РµРЅРёСЏ СЃС‚СЂР°РЅРёС†</th>
 		</tr>
 		</table>
 
@@ -190,8 +190,8 @@ class HTML_statistics {
 		<table class="adminlist">
 		<tr>
 			<th style="text-align:right">#</th>
-			<th class="title">Заголовок содержимого</th>
-			<th align="center" class="jtd_nowrap">Посещений</th>
+			<th class="title">Р—Р°РіРѕР»РѕРІРѕРє СЃРѕРґРµСЂР¶РёРјРѕРіРѕ</th>
+			<th align="center" class="jtd_nowrap">РџРѕСЃРµС‰РµРЅРёР№</th>
 		</tr>
 		<?php
 		$i = $pageNav->limitstart;
@@ -229,15 +229,15 @@ class HTML_statistics {
 		<table cellpadding="4" cellspacing="0" border="0" width="100%" class="adminheading">
 			<tr>
 			<th class="searchtext">
-				Поисковые запросы :
-				<span class="componentheading">сбор данных:
-				<?php echo $mainframe->getCfg( 'enable_log_searches' ) ? '<b><font color="green">Разрешено</font></b>' : '<b><font color="red">Запрещено</font></b>' ?>
+				РџРѕРёСЃРєРѕРІС‹Рµ Р·Р°РїСЂРѕСЃС‹ :
+				<span class="componentheading">СЃР±РѕСЂ РґР°РЅРЅС‹С…:
+				<?php echo $mainframe->getCfg( 'enable_log_searches' ) ? '<b><font color="green">Р Р°Р·СЂРµС€РµРЅРѕ</font></b>' : '<b><font color="red">Р—Р°РїСЂРµС‰РµРЅРѕ</font></b>' ?>
 				</span>
 				</th>
 			<td align="right">
 				<?php
 				if ( !$showResults ) {
-					echo mosWarning('Активация этого параметра может очень сильно снизить производительность сайта при большой посещаемости');
+					echo mosWarning('РђРєС‚РёРІР°С†РёСЏ СЌС‚РѕРіРѕ РїР°СЂР°РјРµС‚СЂР° РјРѕР¶РµС‚ РѕС‡РµРЅСЊ СЃРёР»СЊРЅРѕ СЃРЅРёР·РёС‚СЊ РїСЂРѕРёР·РІРѕРґРёС‚РµР»СЊРЅРѕСЃС‚СЊ СЃР°Р№С‚Р° РїСЂРё Р±РѕР»СЊС€РѕР№ РїРѕСЃРµС‰Р°РµРјРѕСЃС‚Рё');
 				}
 				?>
 			</td>
@@ -245,11 +245,11 @@ class HTML_statistics {
 				<?php
 				if ( $showResults ) {
 					?>
-					<input name="search_results" type="button" class="button" value="Скрыть результаты поиска" onclick="submitbutton('searches');">
+					<input name="search_results" type="button" class="button" value="РЎРєСЂС‹С‚СЊ СЂРµР·СѓР»СЊС‚Р°С‚С‹ РїРѕРёСЃРєР°" onclick="submitbutton('searches');">
 					<?php
 				} else {
 					?>
-					<input name="search_results" type="button" class="button" value="Показать результаты поиска" onclick="submitbutton('searchesresults');">
+					<input name="search_results" type="button" class="button" value="РџРѕРєР°Р·Р°С‚СЊ СЂРµР·СѓР»СЊС‚Р°С‚С‹ РїРѕРёСЃРєР°" onclick="submitbutton('searchesresults');">
 					<?php
 				}
 				?>
@@ -263,16 +263,16 @@ class HTML_statistics {
 				#
 			</th>
 			<th class="title">
-            Текст поиска
+            РўРµРєСЃС‚ РїРѕРёСЃРєР°
             </th>
 			<th class="jtd_nowrap">
-              Запросов
+              Р—Р°РїСЂРѕСЃРѕРІ
             </th>
 			<?php
 			if ( $showResults ) {
 				?>
 			<th class="jtd_nowrap">
-              Выдано результатов
+              Р’С‹РґР°РЅРѕ СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ
             </th>
 				<?php
 			}

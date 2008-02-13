@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 /**
 * Installer class
@@ -99,7 +99,7 @@ class mosInstaller {
 
 			$ret = $zipfile->extract( PCLZIP_OPT_PATH, $extractdir );
 			if($ret == 0) {
-				$this->setError( 1, 'Неисправимая ошибка "'.$zipfile->errorName(true).'"' );
+				$this->setError( 1, 'РќРµРёСЃРїСЂР°РІРёРјР°СЏ РѕС€РёР±РєР° "'.$zipfile->errorName(true).'"' );
 				return false;
 			}
 		} else {
@@ -108,7 +108,7 @@ class mosInstaller {
 			$archive->setErrorHandling( PEAR_ERROR_PRINT );
 
 			if (!$archive->extractModify( $extractdir, '' )) {
-				$this->setError( 1, 'Ошибка распаковки' );
+				$this->setError( 1, 'РћС€РёР±РєР° СЂР°СЃРїР°РєРѕРІРєРё' );
 				return false;
 			}
 		}
@@ -143,10 +143,10 @@ class mosInstaller {
 					return true;
 				}
 			}
-			$this->setError( 1, 'ОШИБКА: Невозможно найти в пакете XML-файл установки JCE 1.1.x.' );
+			$this->setError( 1, 'РћРЁРР‘РљРђ: РќРµРІРѕР·РјРѕР¶РЅРѕ РЅР°Р№С‚Рё РІ РїР°РєРµС‚Рµ XML-С„Р°Р№Р» СѓСЃС‚Р°РЅРѕРІРєРё JCE 1.1.x.' );
 			return false;
 		} else {
-			$this->setError( 1, 'ОШИБКА: Невозможно найти в пакете XML-файл установки.' );
+			$this->setError( 1, 'РћРЁРР‘РљРђ: РќРµРІРѕР·РјРѕР¶РЅРѕ РЅР°Р№С‚Рё РІ РїР°РєРµС‚Рµ XML-С„Р°Р№Р» СѓСЃС‚Р°РЅРѕРІРєРё.' );
 			return false;
 		}
 	}
@@ -178,7 +178,7 @@ class mosInstaller {
 	function readInstallFile() {
 
 		if ($this->installFilename() == "") {
-			$this->setError( 1, 'Имя файла не определено' );
+			$this->setError( 1, 'РРјСЏ С„Р°Р№Р»Р° РЅРµ РѕРїСЂРµРґРµР»РµРЅРѕ' );
 			return false;
 		}
 
@@ -191,11 +191,11 @@ class mosInstaller {
 
 		// Check that it's am installation file
 		if ($root->getTagName() != 'mosinstall') {
-			$this->setError( 1, 'Файл :"' . $this->installFilename() . '" - неправильный файл установки JCE или его версия неправильная.' );
+			$this->setError( 1, 'Р¤Р°Р№Р» :"' . $this->installFilename() . '" - РЅРµРїСЂР°РІРёР»СЊРЅС‹Р№ С„Р°Р№Р» СѓСЃС‚Р°РЅРѕРІРєРё JCE РёР»Рё РµРіРѕ РІРµСЂСЃРёСЏ РЅРµРїСЂР°РІРёР»СЊРЅР°СЏ.' );
 			return false;
 		}
 		if ($root->getAttribute('version') != '1.1.0') {
-			$this->setError( 1, 'Неправильная версия плагина.' );
+			$this->setError( 1, 'РќРµРїСЂР°РІРёР»СЊРЅР°СЏ РІРµСЂСЃРёСЏ РїР»Р°РіРёРЅР°.' );
 			return false;
 		}
 
@@ -206,13 +206,13 @@ class mosInstaller {
 	* Abstract install method
 	*/
 	function install() {
-		die( 'Метод "install" не может быть вызван классом ' . strtolower(get_class( $this )) );
+		die( 'РњРµС‚РѕРґ "install" РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РІС‹Р·РІР°РЅ РєР»Р°СЃСЃРѕРј ' . strtolower(get_class( $this )) );
 	}
 	/**
 	* Abstract uninstall method
 	*/
 	function uninstall() {
-		die( 'Метод "uninstall" не может быть вызван классом ' . strtolower(get_class( $this )) );
+		die( 'РњРµС‚РѕРґ "uninstall" РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РІС‹Р·РІР°РЅ РєР»Р°СЃСЃРѕРј ' . strtolower(get_class( $this )) );
 	}
 	/**
 	* return to method
@@ -236,12 +236,12 @@ class mosInstaller {
 		}
 
 		if (!$this->readInstallFile()) {
-			$this->setError( 1, 'Установочный файл не найден:<br />' . $this->installDir() );
+			$this->setError( 1, 'РЈСЃС‚Р°РЅРѕРІРѕС‡РЅС‹Р№ С„Р°Р№Р» РЅРµ РЅР°Р№РґРµРЅ:<br />' . $this->installDir() );
 			return false;
 		}
 
 		if ($this->installType() != $type) {
-			$this->setError( 1, 'XML-файл установки для "'.$type.'" не найден.' );
+			$this->setError( 1, 'XML-С„Р°Р№Р» СѓСЃС‚Р°РЅРѕРІРєРё РґР»СЏ "'.$type.'" РЅРµ РЅР°Р№РґРµРЅ.' );
 			return false;
 		}
 
@@ -299,12 +299,12 @@ class mosInstaller {
 
                     if ($adminFiles){
     					if (!mosMakePath( $this->componentAdminDir(), $newdir )) {
-    						$this->setError( 1, 'Ошибка создания каталога "' . ($this->componentAdminDir()) . $newdir . '"' );
+    						$this->setError( 1, 'РћС€РёР±РєР° СЃРѕР·РґР°РЅРёСЏ РєР°С‚Р°Р»РѕРіР° "' . ($this->componentAdminDir()) . $newdir . '"' );
     						return false;
     					}
     				} else {
     					if (!mosMakePath( $this->elementDir(), $newdir )) {
-    						$this->setError( 1, 'Ошибка создания каталога "' . ($this->elementDir()) . $newdir . '"' );
+    						$this->setError( 1, 'РћС€РёР±РєР° СЃРѕР·РґР°РЅРёСЏ РєР°С‚Р°Р»РѕРіР° "' . ($this->elementDir()) . $newdir . '"' );
     						return false;
     					}
     				}
@@ -347,7 +347,7 @@ class mosInstaller {
 				$filedest	= mosPathName( mosPathName( $p_destdir ) . $_file, false );
 
                     if (!file_exists( $filesource )) {
-    					$this->setError( 1, "Файл $filesource не существует!" );
+    					$this->setError( 1, "Р¤Р°Р№Р» $filesource РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚!" );
     					return false;
     				} else if (file_exists( $filedest ) && !$overwrite) {
     					$this->setError( 1, "There is already a file called $filedest - Are you trying to install the same CMT twice?" );

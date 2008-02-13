@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 /**
 * @package Joostina
@@ -42,7 +42,7 @@ class HTML_templates {
 			if (document.adminForm.doPreview.checked) {
 				var src = '<?php echo $mosConfig_live_site . ($client == 'admin' ? '/administrator' : '');?>/templates/'+dir+'/template_thumbnail.png';
 				var html=name;
-				html = '<br /><img border="1" src="'+src+'" name="imagelib" alt="Предпросмотр недоступен" width="206" height="145" />';
+				html = '<br /><img border="1" src="'+src+'" name="imagelib" alt="РџСЂРµРґРїСЂРѕСЃРјРѕС‚СЂ РЅРµРґРѕСЃС‚СѓРїРµРЅ" width="206" height="145" />';
 				return overlib(html, CAPTION, name)
 			} else {
 				return false;
@@ -55,10 +55,10 @@ class HTML_templates {
 		<table class="adminheading">
 		<tr>
 			<th class="templates">
-			Шаблоны <small><small>[ <?php echo $client == 'admin' ? 'Админцентр' : 'Сайт';?> ]</small></small>
+			РЁР°Р±Р»РѕРЅС‹ <small><small>[ <?php echo $client == 'admin' ? 'РђРґРјРёРЅС†РµРЅС‚СЂ' : 'РЎР°Р№С‚';?> ]</small></small>
 			</th>
 			<td align="right" class="jtd_nowrap">
-			Предпросмотр шаблона
+			РџСЂРµРґРїСЂРѕСЃРјРѕС‚СЂ С€Р°Р±Р»РѕРЅР°
 			</td>
 			<td align="right">
 			<input type="checkbox" name="doPreview" checked="checked"/>
@@ -70,37 +70,37 @@ class HTML_templates {
 			<th width="5%">#</th>
 			<th width="5%">&nbsp;</th>
 			<th width="25%" class="title">
-			Название
+			РќР°Р·РІР°РЅРёРµ
 			</th>
 			<?php
 			if ( $client == 'admin' ) {
 				?>
 				<th width="10%">
-				По умолчанию
+				РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
 				</th>
 				<?php
 			} else {
 				?>
 				<th width="10%">
-				По умолчанию
+				РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
 				</th>
 				<th width="5%">
-				Назначен
+				РќР°Р·РЅР°С‡РµРЅ
 				</th>
 				<?php
 			}
 			?>
 			<th width="20%" align="left">
-			Автор
+			РђРІС‚РѕСЂ
 			</th>
 			<th width="5%" align="center">
-			Версия
+			Р’РµСЂСЃРёСЏ
 			</th>
 			<th width="10%" align="center">
-			Дата
+			Р”Р°С‚Р°
 			</th>
 			<th width="20%" align="left">
-			URL автора
+			URL Р°РІС‚РѕСЂР°
 			</th>
 		</tr>
 		<?php
@@ -137,7 +137,7 @@ class HTML_templates {
 					<?php
 					if ( $row->published == 1 ) {
 						?>
-					<img src="images/tick.png" alt="Опубликован">
+					<img src="images/tick.png" alt="РћРїСѓР±Р»РёРєРѕРІР°РЅ">
 						<?php
 					} else {
 						?>
@@ -153,7 +153,7 @@ class HTML_templates {
 					<?php
 					if ( $row->published == 1 ) {
 						?>
-						<img src="images/tick.png" alt="По умолчанию">
+						<img src="images/tick.png" alt="РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ">
 						<?php
 					} else {
 						?>
@@ -166,7 +166,7 @@ class HTML_templates {
 					<?php
 					if ( $row->assigned == 1 ) {
 						?>
-						<img src="images/tick.png" alt="Назначен" />
+						<img src="images/tick.png" alt="РќР°Р·РЅР°С‡РµРЅ" />
 						<?php
 					} else {
 						?>
@@ -217,15 +217,15 @@ class HTML_templates {
 	function editTemplateSource( $template, &$content, $option, $client ) {
 		global $mosConfig_absolute_path;
 		$template_path = $mosConfig_absolute_path . ($client == 'admin' ? '/administrator':'') . '/templates/' . $template . '/index.php';
-		/* подключение js файла codepress */
+		/* РїРѕРґРєР»СЋС‡РµРЅРёРµ js С„Р°Р№Р»Р° codepress */
 		mosCommonHTML::loadCodepress();
 		?>
 		<form action="index2.php" method="post" name="adminForm" onsubmit="document.adminForm.filecontent.value=codearea.getCode();document.adminForm.submit();">
 		<table cellpadding="1" cellspacing="1" border="0" width="100%">
 		<tr>
-			<td width="290"><table class="adminheading"><tr><th class="templates">HTML-редактор шаблона</th></tr></table></td>
+			<td width="290"><table class="adminheading"><tr><th class="templates">HTML-СЂРµРґР°РєС‚РѕСЂ С€Р°Р±Р»РѕРЅР°</th></tr></table></td>
 			<td width="220" class="jtd_nowrap">
-				<span class="componentheading">index.php:<b><?php echo is_writable($template_path) ? '<font color="green"> Доступен для записи</font>' : '<font color="red"> Недоступен для записи</font>' ?></b></span>
+				<span class="componentheading">index.php:<b><?php echo is_writable($template_path) ? '<font color="green"> Р”РѕСЃС‚СѓРїРµРЅ РґР»СЏ Р·Р°РїРёСЃРё</font>' : '<font color="red"> РќРµРґРѕСЃС‚СѓРїРµРЅ РґР»СЏ Р·Р°РїРёСЃРё</font>' ?></b></span>
 			</td>
 <?php
 			if (mosIsChmodable($template_path)) {
@@ -233,14 +233,14 @@ class HTML_templates {
 ?>
 			<td>
 				<input type="checkbox" id="disable_write" name="disable_write" value="1"/>
-				<label for="disable_write">Сделать недоступным для записи после сохранения</label>
+				<label for="disable_write">РЎРґРµР»Р°С‚СЊ РЅРµРґРѕСЃС‚СѓРїРЅС‹Рј РґР»СЏ Р·Р°РїРёСЃРё РїРѕСЃР»Рµ СЃРѕС…СЂР°РЅРµРЅРёСЏ</label>
 			</td>
 <?php
 				} else {
 ?>
 			<td>
 				<input type="checkbox" id="enable_write" name="enable_write" value="1"/>
-				<label for="enable_write">При сохранении игнорировать защиту от записи</label>
+				<label for="enable_write">РџСЂРё СЃРѕС…СЂР°РЅРµРЅРёРё РёРіРЅРѕСЂРёСЂРѕРІР°С‚СЊ Р·Р°С‰РёС‚Сѓ РѕС‚ Р·Р°РїРёСЃРё</label>
 			</td>
 <?php
 				} // if
@@ -249,7 +249,7 @@ class HTML_templates {
 		</tr>
 		</table>
 		<table class="adminform">
-			<tr><th><a href="#" onclick="codearea.toggleEditor();return false;">Изменить редактор</a>: <?php echo $template_path; ?></th></tr>
+			<tr><th><a href="#" onclick="codearea.toggleEditor();return false;">РР·РјРµРЅРёС‚СЊ СЂРµРґР°РєС‚РѕСЂ</a>: <?php echo $template_path; ?></th></tr>
 			<tr><td><textarea style="width:100%;height:600px" cols="130" rows="35" name="codearea" id="codearea" class="codepress html inputbox"><?php echo $content; ?></textarea></td></tr>
 		</table>
 		<input type="hidden" name="filecontent" value="" />
@@ -270,16 +270,16 @@ class HTML_templates {
 	function editCSSSource( $template, &$content, $option, $client ) {
 		global $mosConfig_absolute_path;
 		$css_path = $mosConfig_absolute_path . ($client == 'admin' ? '/administrator' : ''). '/templates/' . $template . '/css/template_css.css';
-		/* подключение js файла codepress */
+		/* РїРѕРґРєР»СЋС‡РµРЅРёРµ js С„Р°Р№Р»Р° codepress */
 		mosCommonHTML::loadCodepress();
 		?>
 		<form action="index2.php" method="post" name="adminForm" onsubmit="document.adminForm.filecontent.value=codearea.getCode();document.adminForm.submit();">
 		<table cellpadding="1" cellspacing="1" border="0" width="100%">
 		<tr>
-			<td width="280"><table class="adminheading"><tr><th class="templates">Редактор CSS шаблона</th></tr></table></td>
+			<td width="280"><table class="adminheading"><tr><th class="templates">Р РµРґР°РєС‚РѕСЂ CSS С€Р°Р±Р»РѕРЅР°</th></tr></table></td>
 			<td width="260" class="jtd_nowrap">
-				<span class="componentheading">файл template_css.css:
-				<b><?php echo is_writable($css_path) ? '<font color="green"> Доступен для записи</font>' : '<font color="red"> Недоступен для записи</font>' ?></b>
+				<span class="componentheading">С„Р°Р№Р» template_css.css:
+				<b><?php echo is_writable($css_path) ? '<font color="green"> Р”РѕСЃС‚СѓРїРµРЅ РґР»СЏ Р·Р°РїРёСЃРё</font>' : '<font color="red"> РќРµРґРѕСЃС‚СѓРїРµРЅ РґР»СЏ Р·Р°РїРёСЃРё</font>' ?></b>
 				</span>
 			</td>
 <?php
@@ -288,14 +288,14 @@ class HTML_templates {
 ?>
 			<td>
 				<input type="checkbox" id="disable_write" name="disable_write" value="1"/>
-				<label for="disable_write">Сделать недоступным для записи после сохранения</label>
+				<label for="disable_write">РЎРґРµР»Р°С‚СЊ РЅРµРґРѕСЃС‚СѓРїРЅС‹Рј РґР»СЏ Р·Р°РїРёСЃРё РїРѕСЃР»Рµ СЃРѕС…СЂР°РЅРµРЅРёСЏ</label>
 			</td>
 <?php
 				} else {
 ?>
 			<td>
 				<input type="checkbox" id="enable_write" name="enable_write" value="1"/>
-				<label for="enable_write">При сохранении игнорировать защиту от записи</label>
+				<label for="enable_write">РџСЂРё СЃРѕС…СЂР°РЅРµРЅРёРё РёРіРЅРѕСЂРёСЂРѕРІР°С‚СЊ Р·Р°С‰РёС‚Сѓ РѕС‚ Р·Р°РїРёСЃРё</label>
 			</td>
 <?php
 				} // if
@@ -304,7 +304,7 @@ class HTML_templates {
 		</tr>
 		</table>
 		<table class="adminform">
-			<tr><th><a href="#" onclick="codearea.toggleEditor();return false;">Изменить редактор</a>: <?php echo $css_path; ?></th></tr>
+			<tr><th><a href="#" onclick="codearea.toggleEditor();return false;">РР·РјРµРЅРёС‚СЊ СЂРµРґР°РєС‚РѕСЂ</a>: <?php echo $css_path; ?></th></tr>
 			<tr><td><textarea style="width:100%;height:600px" cols="130" rows="35" name="codearea" id="codearea" class="codepress css inputbox"><?php echo $content; ?></textarea></td></tr>
 		</table>
 		<input type="hidden" name="filecontent" value="" />
@@ -328,12 +328,12 @@ class HTML_templates {
 		<table class="adminform">
 		<tr>
 			<th class="left" colspan="2">
-			Назначение шаблона <?php echo $template; ?> для пунктов меню
+			РќР°Р·РЅР°С‡РµРЅРёРµ С€Р°Р±Р»РѕРЅР° <?php echo $template; ?> РґР»СЏ РїСѓРЅРєС‚РѕРІ РјРµРЅСЋ
 			</th>
 		</tr>
 		<tr>
 			<td valign="top" align="left">
-			Страница(ы):
+			РЎС‚СЂР°РЅРёС†Р°(С‹):
 			</td>
 			<td width="90%">
 			<?php echo $menulist; ?>
@@ -361,7 +361,7 @@ class HTML_templates {
 		<table class="adminheading">
 		<tr>
 			<th class="templates">
-			Позиции модулей
+			РџРѕР·РёС†РёРё РјРѕРґСѓР»РµР№
 			</th>
 		</tr>
 		</table>
@@ -375,10 +375,10 @@ class HTML_templates {
 			#
 			</th>
 			<th align="left">
-			Позиция
+			РџРѕР·РёС†РёСЏ
 			</th>
 			<th align="left">
-			Описание
+			РћРїРёСЃР°РЅРёРµ
 			</th>
 			<?php
 		}

@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
-* Joostina! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, СЃРјРѕС‚СЂРёС‚Рµ LICENSE.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ. Р­С‚Р° РІРµСЂСЃРёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅР°
+* РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU, РїРѕСЌС‚РѕРјСѓ РІРѕР·РјРѕР¶РЅРѕ
+* РµС‘ РґР°Р»СЊРЅРµР№С€РµРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ РІ СЃРѕСЃС‚Р°РІРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°Р±РѕС‚С‹, Р»РёС†РµРЅР·РёСЂРѕРІР°РЅРЅРѕРіРѕ
+* СЃРѕРіР»Р°СЃРЅРѕ Р“РµРЅРµСЂР°Р»СЊРЅРѕР№ РћР±С‰РµСЃС‚РІРµРЅРЅРѕР№ Р›РёС†РµРЅР·РёРµР№ GNU РёР»Рё РґСЂСѓРіРёС… Р»РёС†РµРЅР·РёР№ СЃРІРѕР±РѕРґРЅС‹С…
+* РїСЂРѕРіСЂР°РјРј РёР»Рё РїСЂРѕРіСЂР°РјРј СЃ РѕС‚РєСЂС‹С‚С‹Рј РёСЃС…РѕРґРЅС‹Рј РєРѕРґРѕРј.
+* Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№ Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» COPYRIGHT.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 
 /**
 * Component installer
@@ -57,17 +57,17 @@ class mosInstallerComponent extends mosInstaller {
 		);
 
 		if (file_exists($this->elementDir())) {
-			$this->setError( 1, 'Другой компонент уже использует каталог: "' . $this->elementDir() . '"' );
+			$this->setError( 1, 'Р”СЂСѓРіРѕР№ РєРѕРјРїРѕРЅРµРЅС‚ СѓР¶Рµ РёСЃРїРѕР»СЊР·СѓРµС‚ РєР°С‚Р°Р»РѕРі: "' . $this->elementDir() . '"' );
 			return false;
 		}
 
 		if(!file_exists($this->elementDir()) && !mosMakePath($this->elementDir())) {
-			$this->setError( 1, 'Невозможно создать каталог "' . $this->elementDir() . '"' );
+			$this->setError( 1, 'РќРµРІРѕР·РјРѕР¶РЅРѕ СЃРѕР·РґР°С‚СЊ РєР°С‚Р°Р»РѕРі "' . $this->elementDir() . '"' );
 			return false;
 		}
 
 		if(!file_exists($this->componentAdminDir()) && !mosMakePath($this->componentAdminDir())) {
-			$this->setError( 1, 'Невозможно создать каталог "' . $this->componentAdminDir() . '"' );
+			$this->setError( 1, 'РќРµРІРѕР·РјРѕР¶РЅРѕ СЃРѕР·РґР°С‚СЊ РєР°С‚Р°Р»РѕРі "' . $this->componentAdminDir() . '"' );
 			return false;
 		}
 
@@ -87,7 +87,7 @@ class mosInstallerComponent extends mosInstaller {
 				$database->setQuery( $query->getText());
 				if (!$database->query())
 				{
-					$this->setError( 1, "Ошибка SQL " . $database->stderr( true ) );
+					$this->setError( 1, "РћС€РёР±РєР° SQL " . $database->stderr( true ) );
 					return false;
 				}
 			}
@@ -100,7 +100,7 @@ class mosInstallerComponent extends mosInstaller {
 			// check if parse files has already copied the install.component.php file (error in 3rd party xml's!)
 			if (!file_exists($this->componentAdminDir().$installfile_elemet->getText())) {
 				if(!$this->copyFiles($this->installDir(), $this->componentAdminDir(), array($installfile_elemet->getText())))  			{
-					$this->setError( 1, 'Не могу скопировать PHP-файл установки.' );
+					$this->setError( 1, 'РќРµ РјРѕРіСѓ СЃРєРѕРїРёСЂРѕРІР°С‚СЊ PHP-С„Р°Р№Р» СѓСЃС‚Р°РЅРѕРІРєРё.' );
 					return false;
 				}
 			}
@@ -112,7 +112,7 @@ class mosInstallerComponent extends mosInstaller {
 		if(!is_null($uninstallfile_elemet)) {
 			if (!file_exists($this->componentAdminDir().$uninstallfile_elemet->getText())) {
 				if(!$this->copyFiles($this->installDir(), $this->componentAdminDir(), array($uninstallfile_elemet->getText()))) {
-					$this->setError( 1, 'Не могу скопировать PHP-файл удаления' );
+					$this->setError( 1, 'РќРµ РјРѕРіСѓ СЃРєРѕРїРёСЂРѕРІР°С‚СЊ PHP-С„Р°Р№Р» СѓРґР°Р»РµРЅРёСЏ' );
 					return false;
 				}
 			}
@@ -241,13 +241,13 @@ class mosInstallerComponent extends mosInstaller {
 
 		$row = null;
 		if (!$database->loadObject( $row )) {
-			HTML_installer::showInstallMessage($database->stderr(true),'Ошибка деинсталляции',
+			HTML_installer::showInstallMessage($database->stderr(true),'РћС€РёР±РєР° РґРµРёРЅСЃС‚Р°Р»Р»СЏС†РёРё',
 				$this->returnTo( $option, 'component', $client ) );
 			exit();
 		}
 
 		if ($row->iscore) {
-			HTML_installer::showInstallMessage("Компонент $row->name является компонентом ядра Joomla и не может быть удален.<br />Вы должны снять его с публикации, если не хотите его использовать", 'Удаление  -  ошибка',
+			HTML_installer::showInstallMessage("РљРѕРјРїРѕРЅРµРЅС‚ $row->name СЏРІР»СЏРµС‚СЃСЏ РєРѕРјРїРѕРЅРµРЅС‚РѕРј СЏРґСЂР° Joomla Рё РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ СѓРґР°Р»РµРЅ.<br />Р’С‹ РґРѕР»Р¶РЅС‹ СЃРЅСЏС‚СЊ РµРіРѕ СЃ РїСѓР±Р»РёРєР°С†РёРё, РµСЃР»Рё РЅРµ С…РѕС‚РёС‚Рµ РµРіРѕ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ", 'РЈРґР°Р»РµРЅРёРµ  -  РѕС€РёР±РєР°',
 				$this->returnTo( $option, 'component', $client ) );
 			exit();
 		}
@@ -258,7 +258,7 @@ class mosInstallerComponent extends mosInstaller {
 		;
 		$database->setQuery($sql);
 		if (!$database->query()) {
-			HTML_installer::showInstallMessage($database->stderr(true),'Удаление  -  ошибка',
+			HTML_installer::showInstallMessage($database->stderr(true),'РЈРґР°Р»РµРЅРёРµ  -  РѕС€РёР±РєР°',
 				$this->returnTo( $option, 'component', $client ) );
 			exit();
 		}
@@ -268,7 +268,7 @@ class mosInstallerComponent extends mosInstaller {
 		;
 		$database->setQuery($sql);
 		if (!$database->query()) {
-			HTML_installer::showInstallMessage($database->stderr(true),'Удаление  -  ошибка',
+			HTML_installer::showInstallMessage($database->stderr(true),'РЈРґР°Р»РµРЅРёРµ  -  РѕС€РёР±РєР°',
 				$this->returnTo( $option, 'component', $client ) );
 			exit();
 		}
@@ -311,7 +311,7 @@ class mosInstallerComponent extends mosInstaller {
 						$database->setQuery( $query->getText());
 						if (!$database->query())
 						{
-							HTML_installer::showInstallMessage($database->stderr(true),'Ошибка деинсталляции',
+							HTML_installer::showInstallMessage($database->stderr(true),'РћС€РёР±РєР° РґРµРёРЅСЃС‚Р°Р»Р»СЏС†РёРё',
 								$this->returnTo( $option, 'component', $client ) );
 							exit();
 						}
@@ -319,14 +319,14 @@ class mosInstallerComponent extends mosInstaller {
 				}
 			}
 			if(!$found) {
-				HTML_installer::showInstallMessage('Неправильный XML-файл','Ошибка деинсталляции',
+				HTML_installer::showInstallMessage('РќРµРїСЂР°РІРёР»СЊРЅС‹Р№ XML-С„Р°Р№Р»','РћС€РёР±РєР° РґРµРёРЅСЃС‚Р°Р»Р»СЏС†РёРё',
 					$this->returnTo( $option, 'component', $client ) );
 				exit();
 			}
 		} else {
 			/*
-			HTML_installer::showInstallMessage( 'XML-файл установки не найден '.$mosConfig_absolute_path.'/administrator/components/'.$row->option,
-				'Ошибка деинсталляции', $option, 'component' );
+			HTML_installer::showInstallMessage( 'XML-С„Р°Р№Р» СѓСЃС‚Р°РЅРѕРІРєРё РЅРµ РЅР°Р№РґРµРЅ '.$mosConfig_absolute_path.'/administrator/components/'.$row->option,
+				'РћС€РёР±РєР° РґРµРёРЅСЃС‚Р°Р»Р»СЏС†РёРё', $option, 'component' );
 			exit();
 			*/
 		}
@@ -345,7 +345,7 @@ class mosInstallerComponent extends mosInstaller {
 			}
 			return $result;
 		} else {
-			HTML_installer::showInstallMessage( 'Поле параметра пустое и невозможно удалить файлы', 'Удаление  -  ошибка', $option,'component');
+			HTML_installer::showInstallMessage( 'РџРѕР»Рµ РїР°СЂР°РјРµС‚СЂР° РїСѓСЃС‚РѕРµ Рё РЅРµРІРѕР·РјРѕР¶РЅРѕ СѓРґР°Р»РёС‚СЊ С„Р°Р№Р»С‹', 'РЈРґР°Р»РµРЅРёРµ  -  РѕС€РёР±РєР°', $option,'component');
 			exit();
 		}
 

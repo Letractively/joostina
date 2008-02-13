@@ -7,7 +7,7 @@
   <authorEmail>harry@mambobaer.de</authorEmail>
   <authorUrl>www.mambobaer.de</authorUrl>
   <version>0.9.5 Beta</version>
-  <description>eBackup компонент для создания бэкапа и управления базой данных Joomla и Mambo OS 4.5.x. Локализация: boston (c) www.joom.ru</description>
+  <description>eBackup РєРѕРјРїРѕРЅРµРЅС‚ РґР»СЏ СЃРѕР·РґР°РЅРёСЏ Р±СЌРєР°РїР° Рё СѓРїСЂР°РІР»РµРЅРёСЏ Р±Р°Р·РѕР№ РґР°РЅРЅС‹С… Joomla Рё Mambo OS 4.5.x. Р›РѕРєР°Р»РёР·Р°С†РёСЏ: boston (c) www.joom.ru</description>
   <installfile>install.ebackup.php</installfile>
   <administration>
     <menu>eBackup</menu>
