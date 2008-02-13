@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
 * @package Joostina
 * @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
@@ -552,7 +552,7 @@ switch ($func) {
     //$stats  = $database->loadObjectList();
     //$stat   = $stats[0];
     //$auto_inc = $stat->Auto_increment;
-	$create .= '  DEFAULT CHARSET=cp1251 ';
+	$create .= '  DEFAULT CHARSET=utf8 ';
     //if (($stat->Auto_increment != "") && ($autoinc)){
      //  $create.= " AUTO_INCREMENT=".$stat->Auto_increment.";".$crlf.$crlf;
     //}else{

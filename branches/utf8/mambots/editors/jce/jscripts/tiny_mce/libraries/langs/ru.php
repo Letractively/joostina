@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
 * @package Joostina
 * @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
@@ -131,7 +131,7 @@ $cl['no_files'] = 'Файлы не найдены';
 $cl['invalid_dir'] = 'Неправильно указана директория';
 
 //CharSet
-$cl['iso'] = 'windows-1251';
+$cl['iso'] = 'utf-8';
 
 //Help
 $ch['interface'] = 'Интерфейс';

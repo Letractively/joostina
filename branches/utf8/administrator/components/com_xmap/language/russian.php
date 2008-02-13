@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
 * @package Joostina
 * @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
@@ -106,7 +106,7 @@ if( !defined( 'JOOMAP_LANG' )) {
 	define('_XMAP_MSG_ERROR_CLEAN_CACHE',	'Ошибка. Невозможно очистить кэш карты.');
 	define('_XMAP_ERROR_DELETE_DEFAULT',	'Невозможно удалить карту, используемую по умолчанию!');
 	define('_XMAP_MSG_CACHE_CLEANED',		'кэш очищен!');
-	define('_XMAP_CHARSET',					'windows-1251');
+	define('_XMAP_CHARSET',					'utf-8');
 	define('_XMAP_SITEMAP_ID',				'Идентификатор карты');
 	define('_XMAP_ADD_SITEMAP',				'Создать новую карту сайта');
 	define('_XMAP_NAME_NEW_SITEMAP',		'Новая карта');

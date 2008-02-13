@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
 * @package Joostina
 * @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
@@ -17,7 +17,7 @@ defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещ
 ** The Russian language file for joomlaXplorer until further notice
 ** Created by AllXXX from Russian Joomla! Team
 ** (c) 2006 Joom.Ru - Russian home of Joomla!
-** Encoding: Win-1251
+** Encoding: UTF-8
 *******************************************************************************/
 
 $GLOBALS["mimes"]=array(

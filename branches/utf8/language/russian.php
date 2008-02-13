@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
 * @package Joostina
 * @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
@@ -417,7 +417,7 @@ DEFINE('_SEARCH_SECBLOG','Блог раздела');
 
 
 /** templates/*.php */
-DEFINE('_ISO','charset=windows-1251');
+DEFINE('_ISO','charset=utf-8');
 DEFINE('_DATE_FORMAT','Сегодня: d.m.Y г.');  //Используйте формат PHP-функции DATE
 /**
 * измените строчку ниже, для изменения вывода даты на сайте

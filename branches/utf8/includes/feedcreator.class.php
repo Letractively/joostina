@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
 * @package Joostina
 * @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
@@ -532,7 +532,7 @@ class FeedCreator extends HtmlDescribable {
 	 * This feed's character encoding.
 	 * @since 1.6.1
 	 **/
-	var $encoding = "windows-1251";
+	var $encoding = "utf-8";
 
 
 	/**
@@ -1074,7 +1074,7 @@ class RSSCreator20 extends RSSCreator091 {
 class PIECreator01 extends FeedCreator {
 
 	function PIECreator01() {
-		$this->encoding = "windows-1251";
+		$this->encoding = "utf-8";
 	}
 
 	function createFeed() {
@@ -1133,7 +1133,7 @@ class AtomCreator03 extends FeedCreator {
 
 	function AtomCreator03() {
 		$this->contentType = "application/atom+xml";
-		$this->encoding = "windows-1251";
+		$this->encoding = "utf-8";
 	}
 
 	function createFeed() {
@@ -1201,7 +1201,7 @@ class MBOXCreator extends FeedCreator {
 
 	function MBOXCreator() {
 		$this->contentType = "text/plain";
-		$this->encoding = "windows-1251";
+		$this->encoding = "utf-8";
 	}
 
 	function qp_enc($input = "", $line_max = 76) {
@@ -1287,7 +1287,7 @@ class MBOXCreator extends FeedCreator {
 class OPMLCreator extends FeedCreator {
 
 	function OPMLCreator() {
-		$this->encoding = "windows-1251";
+		$this->encoding = "utf-8";
 	}
 
 	function createFeed() {
@@ -1534,7 +1534,7 @@ class GoogleSiteMapIndex extends FeedCreator {
 	* @return string the feed's complete text
 	*/
 	function createFeed() {
-		$feed 	= "<?xml version=\"1.0\" encoding=\"WINDOWS-1251\"?>\n";
+		$feed 	= "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
 		$feed	.= "<sitemapindex xmlns=\"http://www.google.com/schemas/sitemap/0.84\"\n";
 		$feed	.= "			  xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n";
 		$feed	.= "			  xsi:schemaLocation=\"http://www.google.com/schemas/sitemap/0.84\n";

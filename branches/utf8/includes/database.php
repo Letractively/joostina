@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
 * @package Joostina
 * @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
@@ -99,14 +99,14 @@ class database {
 			}
 		}
 		$this->_table_prefix = $table_prefix;
-		if(!$mosConfig_dbold) @mysql_query("SET NAMES 'cp1251'", $this->_resource);
+		if(!$mosConfig_dbold) @mysql_query("SET NAMES 'utf8'", $this->_resource);
 		/* раскомментируйте следующие строки при необходимости.
 		Часть идеи и текст запросов взяты из Joomla! 1.0.12 Lavra Edition 2007, хорошего дистрибутива выпускаемого AndyR: http://andyr.mrezha.ru, Поддержка на сайте: http://joomlaforum.ru/index.php?board=129.0
-		$this->_cursor = mysql_query( "set session character_set_server=cp1251;", $this->_resource );
-		$this->_cursor = mysql_query( "set session character_set_database=cp1251;", $this->_resource );
-		$this->_cursor = mysql_query( "set session character_set_connection=cp1251;", $this->_resource );
-		$this->_cursor = mysql_query( "set session character_set_results=cp1251;", $this->_resource );
-		$this->_cursor = mysql_query( "set session character_set_client=cp1251;", $this->_resource );
+		$this->_cursor = mysql_query( "set session character_set_server=utf8;", $this->_resource );
+		$this->_cursor = mysql_query( "set session character_set_database=utf8;", $this->_resource );
+		$this->_cursor = mysql_query( "set session character_set_connection=utf8;", $this->_resource );
+		$this->_cursor = mysql_query( "set session character_set_results=utf8;", $this->_resource );
+		$this->_cursor = mysql_query( "set session character_set_client=utf8;", $this->_resource );
 		*/
 		
 		$this->_ticker = 0;

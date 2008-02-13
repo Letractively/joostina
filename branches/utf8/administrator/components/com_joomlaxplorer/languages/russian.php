@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
 * @package Joostina
 * @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
@@ -17,12 +17,12 @@ defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещ
 ** The Russian language file for joomlaXplorer until further notice
 ** Created by AllXXX & boston from Russian Joomla! Team
 ** (c) 2006 Joom.Ru - Russian home of Joomla!
-** Encoding: Win-1251
+** Encoding: UTF-8
 *******************************************************************************/
 
 global $_VERSION;
 
-$GLOBALS['charset']		=	'windows-1251';
+$GLOBALS['charset']		=	'utf-8';
 $GLOBALS['text_dir']	=	'ltr'; // ('ltr' для слева направо, 'rtl' для справа налево)
 $GLOBALS['date_fmt']	=	'Y/m/d H:i';
 $GLOBALS['error_msg']	=	array(
