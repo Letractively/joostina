@@ -11,8 +11,7 @@
 * Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
 */
 
-
-define( "_VALID_MOS", 1 );
+define( '_VALID_MOS', 1 );
 
 /** проверка безопасности */
 require( '../includes/auth.php' );

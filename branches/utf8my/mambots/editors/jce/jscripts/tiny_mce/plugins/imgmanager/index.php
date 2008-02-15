@@ -1,3 +1,3 @@
 <?php
-defined( '_VALID_MOS' ) or die( 'Direct access to this location is not allowed!' );
+require(dirname(__FILE__).'/../../../../../../../die.php');
 ?>

@@ -7,9 +7,7 @@
 * @proofreading Корректоры: Artem A. Lebsak aka Ladm (ladm@mail.ru) and Oleg M. aka sourpuss (sourpuss@mail.ru)
 * @website www.joom.ru
 */
-
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Доступ ограничен' );
+require(dirname(__FILE__).'/../../../die.php');
 
 //Общее
 DEFINE('_JCE_VERSION', 'Версия');

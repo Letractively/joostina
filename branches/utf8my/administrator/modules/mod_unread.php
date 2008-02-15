@@ -10,12 +10,10 @@
 * программ или программ с открытым исходным кодом.
 * Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
 */
-
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+require(dirname(__FILE__).'/../die.php');
 
 $query = "SELECT COUNT(*)"
-. "\n FROM #__messages"
+	. "\n FROM #__messages"
 . "\n WHERE state = 0"
 . "\n AND user_id_to = " . (int) $my->id
 ;

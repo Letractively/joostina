@@ -10,9 +10,7 @@
 * программ или программ с открытым исходным кодом.
 * Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
 */
-
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+require(dirname(__FILE__).'/../../../die.php');
 /**
 * This class extends Cache_Lite and uses output buffering to get the data to cache.
 *

@@ -8,8 +8,7 @@
  * @see xmap.php
  * @package Xmap
  */
-
-defined('_VALID_MOS') or die('Direct Access to this location is not allowed.'); 
+require(dirname(__FILE__).'/../../die.php'); 
 
 /** Wraps XML Sitemaps output */
 class XmapXML {

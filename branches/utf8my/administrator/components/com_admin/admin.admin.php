@@ -10,9 +10,8 @@
 * программ или программ с открытым исходным кодом.
 * Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
 */
+require(dirname(__FILE__).'/../../die.php');
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
 require_once( $mainframe->getPath( 'admin_html' ) );
 
 switch ($task) {

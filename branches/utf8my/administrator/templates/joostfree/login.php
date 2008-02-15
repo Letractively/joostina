@@ -10,9 +10,7 @@
 * программ или программ с открытым исходным кодом.
 * Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
 */
-
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+require(dirname(__FILE__).'/../../die.php');
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

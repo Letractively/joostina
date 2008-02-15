@@ -4,8 +4,7 @@
 * @локализация и корректировка (C) 2007 Joom.Ru
 * @translator Nikoay P. Kirsh aka boston (boston56@mail.ru)
 */
-
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен.' );
+require(dirname(__FILE__).'/../../die.php');
 
 $tabs = new mosTabs(0,1);
 	$tabs->startPane("ico");

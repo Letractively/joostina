@@ -1,6 +1,5 @@
 <?php
-
-defined( "_VALID_MOS" ) or die( "Прямой вызов файла запрещён." );
+require(dirname(__FILE__).'/../../die.php');
 
 $iso = explode( '=', _ISO );
 

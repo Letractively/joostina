@@ -14,9 +14,7 @@
 * 
 * @translator Oleg A. Myasnikov aka Sourpuss (sourpuss@mamboteam.ru)
 */
-
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Доступ ограничен' );
+require(dirname(__FILE__).'/../die.php');
 
 $button			= $params->get( 'button', '' );
 $button_pos		= $params->get( 'button_pos', 'left' );

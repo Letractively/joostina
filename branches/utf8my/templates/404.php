@@ -10,10 +10,8 @@
 * программ или программ с открытым исходным кодом.
 * Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
 */
-
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
-// loads english language file by default
+require(dirname(__FILE__).'/../die.php');
+// loads russian language file by default
 if ($mosConfig_lang=='') {
 	$mosConfig_lang = 'russian';
 }
@@ -44,17 +42,9 @@ if (!defined( '_404_RTS' )) {
 		</style>
 	</head>
 	<body>
-
-<h2>
-	<?php echo $mosConfig_sitename; ?>
-</h2>
-<h2>
-	<?php echo _404;?>
-</h2>
-<h3>
-	<a href="<?php echo $mosConfig_live_site; ?>">
-		<?php echo _404_RTS;?></a>
-</h3>
+		<h2><?php echo $mosConfig_sitename; ?></h2>
+		<h2><?php echo _404;?></h2>
+		<h3><a href="<?php echo $mosConfig_live_site; ?>"><?php echo _404_RTS;?></a></h3>
 		<br />
 		Ошибка 404
 	</body>

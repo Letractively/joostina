@@ -11,7 +11,7 @@
 * Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
 */
 
-define( "_VALID_MOS", 1 );
+define( '_VALID_MOS', 1 );
 
 require_once( '../includes/auth.php' );
 include_once ( $mosConfig_absolute_path . '/language/' . $mosConfig_lang . '.php' );

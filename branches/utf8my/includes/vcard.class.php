@@ -10,9 +10,7 @@
 * программ или программ с открытым исходным кодом.
 * Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
 */
-
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+require(dirname(__FILE__).'/../die.php');
 /**
 * @version $Id: vcard.class.php 732 2005-10-31 02:53:15Z stingrey $
 * Modified PHP vCard class v2.0

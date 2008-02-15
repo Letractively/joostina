@@ -10,9 +10,7 @@
 * программ или программ с открытым исходным кодом.
 * Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
 */
-
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+require(dirname(__FILE__).'/../../../die.php');
 /*------------------------------------------------------------------------------
      The contents of this file are subject to the Mozilla Public License
      Version 1.1 (the "License"); you may not use this file except in
@@ -63,8 +61,8 @@ function save_users() {
 	// Make PHP-File
 	$content='<?php 
 	/** ensure this file is being included by a parent file */
-	defined( "_VALID_MOS" ) or die( "Direct Access to this location is not allowed." );
-	$GLOBALS["users"]=array(';
+	defined( \'_VALID_MOS\' ) or die( \'Direct Access to this location is not allowed.\' );
+	$GLOBALS[\'users\']=array(';
 	for($i=0;$i<$cnt;++$i) {
 		// if($GLOBALS["users"][6]&4==4) $GLOBALS["users"][6]=7;	// If admin, all permissions
 		$content.="\r\n\tarray(\"".$GLOBALS["users"][$i][0].'","'.

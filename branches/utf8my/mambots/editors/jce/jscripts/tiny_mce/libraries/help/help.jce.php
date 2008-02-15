@@ -9,7 +9,7 @@
 * is derivative of works licensed under the GNU General Public License or
 * other free or open source software licenses.
 */
-defined( '_VALID_MOS' ) or die( 'Restricted Access.' );
+require(dirname(__FILE__).'/../../../../../../../die.php');
 
 $version = "1.1.0";
 

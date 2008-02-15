@@ -10,12 +10,10 @@
 * программ или программ с открытым исходным кодом.
 * Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
 */
-
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+require(dirname(__FILE__).'/../die.php');
 
 $query = "SELECT a.id, a.sectionid, a.title, a.created, u.name, a.created_by_alias, a.created_by"
-. "\n FROM #__content AS a"
+	. "\n FROM #__content AS a"
 . "\n LEFT JOIN #__users AS u ON u.id = a.created_by"
 . "\n WHERE a.state != -2"
 . "\n ORDER BY created DESC"

@@ -10,9 +10,7 @@
 * программ или программ с открытым исходным кодом.
 * Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
 */
-
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+require(dirname(__FILE__).'/../../../die.php');
 
 global $option, $mosConfig_absolute_path;
 
@@ -178,7 +176,7 @@ class CConfiguration {
 	function SaveConfiguration() {
 		if( !$this->isConfigurationWriteable() ) { return false; }
 		$config = "<?php\n";
-		$config .= "defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещён.' );\n";
+		$config .= "require(dirname(__FILE__).'die.php');\n";
 		$config .= '$jpConfig_OutputDirectory = \'' . addslashes($this->OutputDirectory) . "';\n";
 		$config .= '$jpConfig_TempDirectory = \'' . addslashes($this->TempDirectory) . "';\n";
 		$config .= '$jpConfig_MySQLCompat = \'' . addslashes($this->MySQLCompat) . "';\n";

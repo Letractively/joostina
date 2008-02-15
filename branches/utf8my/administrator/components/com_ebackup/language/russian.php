@@ -10,9 +10,7 @@
 * программ или программ с открытым исходным кодом.
 * Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
 */
-
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+require(dirname(__FILE__).'/../../../die.php');
 
 DEFINE('_BBKP_DATE_FORMAT_LC2',"%d.%m.%Y %H:%M");
 DEFINE('_DATE_FORMAT_LC3',"%d. %B %Y um %H:%M:%S");

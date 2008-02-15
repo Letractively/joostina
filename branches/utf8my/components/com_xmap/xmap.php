@@ -8,8 +8,7 @@
  * @see xmap.xml.php
  * @package Xmap
 */
-
-defined('_VALID_MOS') or die('Direct Access to this location is not allowed.');
+require(dirname(__FILE__).'/../../die.php');
 
 // load Xmap language file
 global $mosConfig_absolute_path,$mosConfig_locale,$mosConfig_sef;

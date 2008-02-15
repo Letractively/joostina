@@ -14,9 +14,7 @@
 * 
 * @translator Oleg A. Myasnikov aka Sourpuss (sourpuss@mail.ru)
 */
-
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен.' );
+require(dirname(__FILE__).'/../die.php');
 
 /**
 * @package Joostina

@@ -16,9 +16,7 @@
  * please make a reference to JComments someplace in your code 
  * and provide a link to http://www.joomlatune.ru
  **/
-
-// ensure this file is being included by a parent file
-(defined('_VALID_MOS') OR defined('_JEXEC')) or die('Direct Access to this location is not allowed.');
+require(dirname(__FILE__).'/../../die.php');
 
 global $mainframe;
 

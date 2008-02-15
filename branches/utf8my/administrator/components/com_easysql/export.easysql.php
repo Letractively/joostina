@@ -16,18 +16,18 @@ $parts = explode( "/", str_replace( '\\', "/", _FILEPATH ) );
 array_pop( $parts ); array_pop( $parts ); array_pop( $parts );
 define( '_SITEPATH', implode( "/", $parts )  );
 
-define( "_VALID_MOS", 1 );
+define( '_VALID_MOS', 1 );
 include_once( _SITEPATH.'/globals.php' );
 require_once( _SITEPATH.'/configuration.php' );
 require_once( _SITEPATH.'/includes/joomla.php' );
 
 // include language file
-$lang_path = dirname(__FILE__)."/lang";
+$lang_path = dirname(__FILE__).'/lang';
 if (!isset($mosConfig_alang)) {
-	include_once("$lang_path/russian.php");
+	include_once($lang_path.'/russian.php');
 } else {
-	if (file_exists ("$lang_path/$mosConfig_alang.php")) {		
-		include_once ("$lang_path/$mosConfig_alang.php");
+	if (file_exists ($lang_path."/$mosConfig_alang.php")) {		
+		include_once ($lang_path."/$mosConfig_alang.php");
 	}
 }
 $table = base64_decode($_GET['prm3']);

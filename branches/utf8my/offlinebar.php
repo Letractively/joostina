@@ -10,9 +10,7 @@
 * программ или программ с открытым исходным кодом.
 * Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
 */
-
-/** проверка включения этого файла файлом-источником */
-defined( '_VALID_MOS' ) or die( 'Прямой доступ к файлам по этому адресу запрещен!' );
+require(dirname(__FILE__).'/die.php');
 
 require_once( 'includes/joomla.php' );
 @include_once ('language/'.$mosConfig_lang.'.php');

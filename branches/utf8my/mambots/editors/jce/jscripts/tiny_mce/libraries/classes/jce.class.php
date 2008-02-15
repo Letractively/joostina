@@ -1,5 +1,5 @@
 <?php
-defined( '_VALID_MOS' ) or die( 'Restricted Access.' );
+require(dirname(__FILE__).'/../../../../../../../die.php');
 class JCE{
 	var $id;
 	var $usertype;

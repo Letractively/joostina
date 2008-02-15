@@ -10,9 +10,7 @@
 * программ или программ с открытым исходным кодом.
 * Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
 */
-
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+require(dirname(__FILE__).'/../../die.php');
 /**
 * dom_xmlrpc_domxml_document wraps a DOM-XML DOM document in the DOM XML-RPC API
 * @package dom-xmlrpc

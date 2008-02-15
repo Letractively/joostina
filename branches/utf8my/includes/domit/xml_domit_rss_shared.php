@@ -10,9 +10,7 @@
 * программ или программ с открытым исходным кодом.
 * Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
 */
-
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+require(dirname(__FILE__).'/../../die.php');
 /**
 * @package domit-rss
 * @version 0.51
@@ -22,7 +20,6 @@ defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещ
 * @link http://www.engageinteractive.com/domitrss/ DOMIT! RSS Home Page
 * DOMIT! RSS is Free Software
 **/
-defined( '_VALID_MOS' ) or die( 'Доступ запрещен' );
 /** channel constant */
 define('DOMIT_RSS_ELEMENT_CHANNEL', 'channel');
 /** item constant */

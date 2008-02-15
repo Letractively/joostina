@@ -10,9 +10,7 @@
 * программ или программ с открытым исходным кодом.
 * Для просмотра подробностей и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
 */
-
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+require(dirname(__FILE__).'/../../../die.php');
 
 global $mosConfig_live_site, $mosConfig_absolute_path, $option, $JPLang;
 require_once("$mosConfig_absolute_path/administrator/components/$option/includes/sajax.php");

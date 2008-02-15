@@ -12,9 +12,7 @@
 *
 * Данный файл изменен Mitrich http://mitrichlab.ru
 */
-
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен.' );
+require(dirname(__FILE__).'/../die.php');
 
 global $mosConfig_frontend_login;
 

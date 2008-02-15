@@ -5,7 +5,7 @@
  * @version $Id: files.php 27 2007-04-27 Ryan Demmer $
  * @package ImageManager
  */
-defined( '_VALID_MOS' ) or die( 'Restricted Access.' );
+require(dirname(__FILE__).'/../../../../../../../die.php');
 
 $version = "1.1.3";
 

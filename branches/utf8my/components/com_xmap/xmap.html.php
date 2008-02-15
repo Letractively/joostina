@@ -1,7 +1,5 @@
 <?php 
-
-defined('_VALID_MOS') or die('Direct Access to this location is not allowed.');
-
+require(dirname(__FILE__).'/../../die.php');
 /**
  * Wraps HTML representation of the Xmap tree as an unordered list (ul)
  * @author Daniel Grothe
