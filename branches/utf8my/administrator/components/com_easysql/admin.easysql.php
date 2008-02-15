@@ -36,30 +36,28 @@ $table	= base64_decode(mosGetParam( $_GET, 'prm1', null ));
 $sql	= mosGetParam( $_POST, 'easysql_query', null );
 if (empty($table)) $table = mosGetParam( $_POST, 'easysql_table', null );
 
-
-
 switch ($task) {
-	case "tocsv" :
-		//ExportToCSV($table);
-		$url = $mosConfig_live_site.'/administrator/components/com_easysql/export.easysql.php?prm1=csv&prm2='.$cms.'&prm3='.base64_encode($table).'&prm4='.base64_encode($sql);
-		echo "<script>document.location.href='$url';</script>\n";
+	case 'tocsv' :
+		ExportCSV($table, $sql);
+		//$url = $mosConfig_live_site.'/administrator/components/com_easysql/export.easysql.php?prm1=csv&prm2='.$cms.'&prm3='.base64_encode($table).'&prm4='.base64_encode($sql);
+		//echo "<script>document.location.href='$url';</script>\n";
 		break;
 
-	case "new" :
-	case "edit" :
+	case 'new' :
+	case 'edit' :
 		EditRecord($task, $table, $id);
 		break;
 
-	case "delete" :
+	case 'delete' :
 		if (!is_null($id)&&!is_null($table))
 			if (DeleteRecord($table, $id)) ExecSQL($task);
 		break;
 
-	case "save" :
+	case 'save' :
 		if (SaveRecord()) ExecSQL($task);
 		break;
 
-	case "create" :
+	case 'create' :
 		if (InsertRecord()) ExecSQL($task);
 		break;
 
@@ -70,5 +68,63 @@ switch ($task) {
 
 
 echo _ES_COPYRIGHT;
+
+
+
+function ExportCSV($table, $sql)
+{
+	ob_end_clean();
+	
+	$file_name = 'export_'.$table.'.csv';
+	
+	header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+	header('Accept-Ranges: bytes');
+	header('Content-Disposition: attachment; filename='.basename($file_name).';');
+	header('Content-Type: text/plain; '._ISO);
+	header('Expires: ' . gmdate('D, d M Y H:i:s') . ' GMT');
+	header('Pragma: no-cache');
+	
+	echo ExportToCSV($sql);
+	die();	// no need to send anything else
+}
+
+////////////////////////////////////////////////////////////////
+// Export table to CSV format
+////////////////////////////////////////////////////////////////
+function ExportToCSV($sql)
+{
+	global $database;
+	$csv_save = '';
+	$database->setQuery( $sql );
+	$rows = @$database->loadAssocList();
+	if (!empty($rows)) {
+		$comma = _ES_CSV_DELEMITER;
+		$CR = "\r";
+		// Make csv rows for field name
+		$i=0;
+		$fields = $rows[0];
+		$cnt_fields = count($fields);
+		$csv_fields = '';
+		foreach($fields as $name=>$val) {
+			$i++;
+			if ($cnt_fields<=$i) $comma = '';
+			$csv_fields .= $name.$comma;
+		}
+		// Make csv rows for data
+		$csv_values = '';
+		foreach($rows as $row) {
+			$i=0;
+			$comma = _ES_CSV_DELEMITER;
+			foreach($row as $name=>$val) {
+				$i++;
+				if ($cnt_fields<=$i) $comma = '';
+				$csv_values .= $val.$comma;
+			}
+			$csv_values .= $CR;
+		}
+		$csv_save = $csv_fields.$CR.$csv_values;
+	}
+	return $csv_save;
+}
 
 ?>
