@@ -171,7 +171,7 @@ function Record_HTML($query,$num) {
 	// If return rows then display table
 	if (!empty($rows)) {
 		// Begin form and table
-		$body.= '<br/><div style="overflow: auto;"><table class="adminlist">';
+		$body .= '<br/><div style="overflow: auto;"><table class="adminlist">';
 		$body .= "<thead><tr>\n";
 		// Display table header
 		if ($_sel)  $body.='<th>Controls</th>';

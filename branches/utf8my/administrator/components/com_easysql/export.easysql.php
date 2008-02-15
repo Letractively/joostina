@@ -12,9 +12,9 @@
 */
 
 define('_FILEPATH', dirname(__FILE__));
-$parts = explode( "/", str_replace( '\\', "/", _FILEPATH ) );
+$parts = explode( '/', str_replace( '\\', '/', _FILEPATH ) );
 array_pop( $parts ); array_pop( $parts ); array_pop( $parts );
-define( '_SITEPATH', implode( "/", $parts )  );
+define( '_SITEPATH', implode( '/', $parts )  );
 
 define( '_VALID_MOS', 1 );
 include_once( _SITEPATH.'/globals.php' );
@@ -24,30 +24,35 @@ require_once( _SITEPATH.'/includes/joomla.php' );
 // include language file
 $lang_path = dirname(__FILE__).'/lang';
 if (!isset($mosConfig_alang)) {
-	include_once($lang_path.'/russian.php');
-} else {
-	if (file_exists ($lang_path."/$mosConfig_alang.php")) {		
-		include_once ($lang_path."/$mosConfig_alang.php");
-	}
+	$mosConfig_alang = 'russian';
 }
-$table = base64_decode($_GET['prm3']);
+$lang_path .= '/' . $mosConfig_alang . '.php';
+if (file_exists ($lang_path)) {
+	include_once ($lang_path);
+}
+
+$table = isset($_GET['prm3']) ? base64_decode($_GET['prm3']) : '';
+if ($table == '') die();
+$sql = isset($_GET['prm4']) ? base64_decode($_GET['prm4']) : '';
+if ($sql == '') die();
+
 $file_name = 'export_'.$table.'.csv';
 $xtype = "text/plain charset='us-ascii'";
 
 
-header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-header("Accept-Ranges: bytes");				
-header("Content-Disposition: attachment; filename=".basename($file_name).";");
+header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+header('Accept-Ranges: bytes');
+header('Content-Disposition: attachment; filename='.basename($file_name).';');
 header('Content-Type: ' . $xtype);
 header('Expires: ' . gmdate('D, d M Y H:i:s') . ' GMT');
 header('Pragma: no-cache');
 
-echo ExportToCSV($_GET['prm3']);
+echo ExportToCSV($table);
 
 ////////////////////////////////////////////////////////////////
 // Export table to CSV format
 ////////////////////////////////////////////////////////////////
-function ExportToCSV($table) {
+function ExportToCSV($table) {	// !!!$table is not used in func
 global $database;
 	$csv_save = '';
 	$sql	= base64_decode($_GET['prm4']);
@@ -64,7 +69,7 @@ global $database;
 		foreach($fields as $name=>$val) {
 			$i++;
 			if ($cnt_fields<=$i) $comma = '';
-			$csv_fields .= "$name".$comma;
+			$csv_fields .= $name.$comma;
 		}
 		// Make csv rows for data
 		$csv_values = '';

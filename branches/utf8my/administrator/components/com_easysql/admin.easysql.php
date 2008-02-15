@@ -21,9 +21,9 @@ $cms = 'm';
 $mosConfig_alang = $mosConfig_lang;
 
 // include language file
-$lang_path = dirname(__FILE__)."/lang";
+$lang_path = dirname(__FILE__).'/lang';
 
-include_once("$lang_path/russian.php");
+include_once($lang_path.'/russian.php');
 
 // include html body
 require_once( $mainframe->getPath( 'admin_html' ) );
