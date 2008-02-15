@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /***
 * @package Joostina
 * @copyright Авторские права (C) 2007 Joostina team. Все права защищены.

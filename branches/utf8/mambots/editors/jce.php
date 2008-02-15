@@ -12,7 +12,8 @@
 */
 
 // запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+//defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+require(dirname(__FILE__).'/../../die.php');
 
 $_MAMBOTS->registerFunction( 'onInitEditor', 'jceEditorInit' );
 $_MAMBOTS->registerFunction( 'onGetEditorContents', 'jceEditorGetContents' );
