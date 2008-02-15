@@ -23,9 +23,9 @@ if (!defined( '_JOS_EDITOR_INCLUDED' )) {
 	}
 
 	// проверка сессии на параметр отключения редактора, если такой имеется - то вместо выбранного или прописанного по умолчанию редактора используется параметр 'none' - отсутствующий визуальный редактор
-	if(intval( mosGetParam( $_SESSION, 'user_editor_off', '' ) )){
+	if (intval( mosGetParam( $_SESSION, 'user_editor_off', '' ) )) {
 		$editor = 'none';
-	}else{	// получение параметров редактора из настоек пользователя
+	} else {	// получение параметров редактора из настоек пользователя
 		$params = new mosParameters( $my->params );
 		$editor = $params->get( 'editor', '' );
 		if (!$editor) {

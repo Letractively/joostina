@@ -193,14 +193,14 @@ if ($option == 'login') {
 	// and ensures that this url is not the registration or login pages
 		// Если sessioncookie существует, редирект на заданную страницу. Otherwise, take an extra round for a cookiecheck
 		if (isset( $_COOKIE[mosMainFrame::sessionCookieName()] )) {
-		mosRedirect( $return );
-	} else {
+			mosRedirect( $return );
+		} else {
 			mosRedirect( $mosConfig_live_site .'/index.php?option=cookiecheck&return=' . urlencode( $return ) );
 		}
 	} else {
 		// If a sessioncookie exists, redirect to the start page. Otherwise, take an extra round for a cookiecheck
 		if (isset( $_COOKIE[mosMainFrame::sessionCookieName()] )) {
-		mosRedirect( $mosConfig_live_site .'/index.php' );
+			mosRedirect( $mosConfig_live_site .'/index.php' );
 		} else {
 			mosRedirect( $mosConfig_live_site .'/index.php?option=cookiecheck&return=' . urlencode( $mosConfig_live_site .'/index.php' ) );
 		}
@@ -254,8 +254,8 @@ $cur_template = $mainframe->getTemplate();
 /** @global - Места для хранения информации обработки компонента */
 $_MOS_OPTION = array();
 
-// boston, подключение функций редактора, т.к. сессии(авторизация ) на фронте отключены - это тоже запрещаем
-if($mosConfig_frontend_login ==1)  require_once( $mosConfig_absolute_path . '/editor/editor.php' );
+// boston, подключение функций редактора, т.к. сессии (авторизация) на фронте отключены - это тоже запрещаем
+if($mosConfig_frontend_login == 1)  require_once( $mosConfig_absolute_path . '/editor/editor.php' );
 
 // начало буферизации основного содержимого
 ob_start();
