@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<mosinstall version="1.0.0" type="mambot" group="editors-xtd">
+	<name>jcommentsoff</name>
+	<creationDate>29/07/2007</creationDate>
+	<author>smart</author>
+	<copyright>(c) 2006-2008 JoomlaTune.ru</copyright> 
+	<authorEmail>smart@joomlatune.ru</authorEmail>
+	<authorUrl>http://www.joomlatune.ru</authorUrl>
+	<version>0.1</version>
+	<description>Provides button to insert {jcomments off} into content edit box</description>
+	<files>
+		<filename mambot="jcommentsoff">jcommentsoff.php</filename>
+	</files>
+</mosinstall>

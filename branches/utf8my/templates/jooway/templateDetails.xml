@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mosinstall type="template" version="1.0.x">
+	<name>jooway</name>
+	<creationDate>07/01/08</creationDate>
+	<author>rockettheme.com & Lexx</author>
+	<authorEmail>info@joomla.ru</authorEmail>
+	<authorUrl>http://www.joomla.ru</authorUrl>
+	<copyright>GPL</copyright>
+	<version>1.1</version>
+	<license>GNU/GPL</license>
+	<description>Шаблон от Joomla 1.5, оригинал сделан студией Andy Miller - rockettheme.com, адаптирован Lexx под Joomla 1.0 и Joostina.</description>
+</install>
