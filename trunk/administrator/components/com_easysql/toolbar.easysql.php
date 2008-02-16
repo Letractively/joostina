@@ -16,7 +16,7 @@ defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
 
 
 switch ($task) {
-	case "new" :
+	case 'new' :
 		mosMenuBar::startTable();
 		mosMenuBar::save('create');
 		mosMenuBar::spacer();
@@ -24,7 +24,7 @@ switch ($task) {
 		mosMenuBar::spacer();
 		mosMenuBar::endTable();
 		break;
-	case "edit" :
+	case 'edit' :
 		mosMenuBar::startTable();
 		mosMenuBar::save();
 		mosMenuBar::spacer();
@@ -32,7 +32,7 @@ switch ($task) {
 		mosMenuBar::spacer();
 		mosMenuBar::endTable();
 		break;
-	case "execsql" :
+	case 'execsql' :
 	default:
 		mosMenuBar::startTable();
 		mosMenuBar::spacer();
