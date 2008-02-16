@@ -1,0 +1,21 @@
+<?xml version = '1.0' encoding="windows-1251"?>
+<mosinstall type="component" >
+	<name>JoomlaPack</name>
+	<creationDate>2007-08-26</creationDate>
+	<author>Nicholas K. Dionysopoulos</author>
+	<copyright>This component in released under the GNU/GPL v2 or later license</copyright>
+	<authorEmail>nikosdion@gmail.com</authorEmail>
+	<authorUrl>http://www.joomlapack.net</authorUrl>
+	<version>1.1.0</version>
+	<description><![CDATA[
+		<h2>JoomlaPack - 1.1 серии</h2>
+		<h3>Один ответ всем вопросам резервного копирования Ваших данных</h3>
+		<p>JoomlaPack является компонентом с открытым исходным кодом, он в первую очередь предназначен для резервного копирования данных, хранящихся на сайтах, созданных на Joomla</p>
+		<p>JoomlaPack способен запаковать все файлы Вашего сайта в стандартный .zip архив, который для большего удобства снабжен установщиком.</p>
+		<p>Версии серии 1.1 созданы для исправления всех прежних ошибок и совместимости с новыми версиями Joomla.</p>
+		<p>При работе с компонентом Вы можете сделать пожертвование его автору использую PayPal, ссылка будет расположена в нижней части страницы компонента .</p>
+		<p><strong>Компонент доступен только пользователям с правами Super Administrator</strong>, помните, что файл резервной копии содержит дамп базы данных, следите, что бы он не попал посторонним людям.</p>
+		<h3>Список изменений в компоненте доступен</h3>
+		<p>на официальном сайте <a href="http://www.joomlapack.net">JoomlaPack</a>.</p>
+		]]></description>
+</mosinstall>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<mosinstall type="component" version="4.5.2">
+	<name>Users</name>
+	<author>Joostina! Project</author>
+	<creationDate>Январь 2007</creationDate>
+	<copyright>(C) 2007 Joostina Team.</copyright>
+	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+	<authorEmail>joostinacms@gmail.com</authorEmail>
+	<authorUrl>www.joostina.ru</authorUrl>
+	<version>1.0.0</version>
+	<description>Управление пользователями</description>
+	<params>
+		<param name="editor" type="editor_list" default="" label="Редактор пользователя" description="WYSYWYG-редактор этого пользователя" />
+	</params>
+</mosinstall>

@@ -1,0 +1,32 @@
+/**
+ * Документ CSS для показа страницы сайта, находящегося в оффлайн-режиме
+ * @version $Id: offline.css 5824 2006-11-20 21:50:34Z eddiea $
+ * @package Joomla RE
+ * @copyright Авторские права (C) 2005 Open Source Matters. Все права защищены.
+ * @translate Авторские права (C) 2005 Joom.ru - Русский дом Joomla! Все права защищены.
+ * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, смотрите LICENSE.php
+ * Joomla! свободно распространяемое программное обеспечение.
+ * Эта версия может быть модифицирована в соответствие с Общей Публичной Лицензией GNU
+ * (GNU General Public License),  и  распространяться в составе работ или как производное
+ * по Общей Публичной Лицензии GNU либо другой лицензии со свободным распространением,
+ * либо лицензии программного обеспечения с открытым кодом.
+ * Смотрите COPYRIGHT.php для извещения об авторских правах и деталях.
+**/
+
+.outline {
+  padding: 10px;
+}
+
+body {
+	margin: 15px;
+	height: 100%;
+	padding: 0px;
+	font-family: Arial, Helvetica, Sans Serif;
+	font-size: 11px;
+	color: #cccccc;
+	background: #000000;
+}
+
+.err {
+	color: #bbb;
+}
