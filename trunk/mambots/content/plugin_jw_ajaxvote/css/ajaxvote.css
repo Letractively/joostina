@@ -1,5 +1,12 @@
-/*/
-/ "AJAX Vote" Plugin for Joomla! 1.0.x - Version 1.0// License:http://www.gnu.org/copyleft/gpl.html// Authors:George Chouliaras - Fotis Evangelou - Luca Scarpa// Copyright (c) 2006 - 2007 JoomlaWorks.gr - http://www.joomlaworks.gr// Project page at http://www.joomlaworks.gr - Demos at http://demo.joomlaworks.gr// ***Last update:May 14th, 2007****/
+.jwajaxvote-inline-rating {
+	display: block;
+	vertical-align: middle;
+	line-height: 25px;
+}
+.jwajaxvote-star-rating {
+	width: 175px;
+	float: left;
+}
 .jwajaxvote-star-rating, .jwajaxvote-star-rating a:hover, .jwajaxvote-star-rating .current-rating {
 	background: url(../images/star.gif) left -1000px repeat-x;
 }
@@ -22,7 +29,7 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	text-indent: -1000em;
+	text-indent: -1000px;
 	height: 25px;
 	line-height: 25px;
 	outline: none;
@@ -57,12 +64,12 @@
 	z-index: 1;
 	background-position: left center;
 }
-/* for an inline rater */
-.jwajaxvote-inline-rating {
-	vertical-align: middle;
-	line-height: 25px;
-}
 .jwajaxvote-box {
-	margin-left: 5px;
+	margin: 0 0 0 5px;
+	padding: 0;
+	float: left;
+}
+.jwajaxvote-clr {
+	clear: both;
 }
 /* --- End of stylesheet --- */

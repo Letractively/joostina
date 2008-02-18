@@ -18,7 +18,7 @@ function jwAjaxVote(id,i,total,total_count){
 		} catch (e) {
 			try { lsXmlHttp=new ActiveXObject("Microsoft.XMLHTTP");
 			} catch (e) {
-				alert("Your browser does not support AJAX!");
+				alert("Ваш браузер не поддерживает AJAX!");
 				return false;
 			}
 		}

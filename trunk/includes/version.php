@@ -27,7 +27,7 @@ class joomlaVersion {
 	var $CMS = 'Joostina';
 	/**
 	@var версия*/
-	var $CMS_ver = '1.1.2.2';
+	var $CMS_ver = '1.1.3';
 	/**
 	@var int Номер основной версии*/
 	var $RELEASE = '1.0';
@@ -39,16 +39,16 @@ class joomlaVersion {
 	var $DEV_LEVEL = '13';
 	/**
 	@var int Номер сборки*/
-	var $BUILD = '$: 134';
+	var $BUILD = '$: 135';
 	/**
 	@var string Кодовое имя*/
 	var $CODENAME = 'stable';
 	/**
 	@var string Дата*/
-	var $RELDATE = '09/01/2008';
+	var $RELDATE = '17/01/2008';
 	/**
 	@var string Время*/
-	var $RELTIME = '01:21';
+	var $RELTIME = '20:20';
 	/**
 	@var string Временная зона*/
 	var $RELTZ = 'UTC';
@@ -66,7 +66,7 @@ class joomlaVersion {
 	var $RESTRICT = 0;
 	/**
 	@var string Whether site is still in development phase (disables checks for /installation folder) - should be set to 0 for package release: 0 is default*/
-	var $SVN = 1;
+	var $SVN = 0;
 	/**
 	@var string ссылки на сайты поддержки*/
 	var $SUPPORT = 'Поддержка: <a href="http://www.joostina.ru" target="_blank" title="Официальный сайт CMS Joostina">www.joostina.ru</a> | <a href="http://www.joomlaportal.ru" target="_blank" title="Joomla! CMS по-русски">www.joomlaportal.ru</a> | <a href="http://www.joom.ru" target="_blank" title="Русский дом Joomla">www.joom.ru</a> | <a href="http://www.joomla.ru" target="_blank" title="Бесплатная система управления сайтом Joomla!">www.joomla.ru</a>';
