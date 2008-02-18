@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<mosinstall type="component">
+<name>JCE</name>
+<version>1.1.1</version>
+<creationDate>06 Июня 2007</creationDate>
+<author>Ryan Demmer</author>
+<authorEmail>ryandemmer@gmail.com</authorEmail>
+<authorUrl>http://www.joom.ru/</authorUrl>
+<licence>Этот компонент выпущен согласно Лицензии GPL</licence>
+<copyright>Ryan Demmer 2006/2007</copyright>
+<description><![CDATA[
+    Компонент администрирования JCE, версия 1.1.1<br />
+	Журнал изменений с 1.1.0<br />
+	<ul>
+        <li>Fixed: Toolbar buttons.</li>
+		<li>Fixed: Language Installer writeable folder list.</li>
+		<li>Added: Layer plugin install.</li>
+		<li>Removed: XHTMLxtras plugin elements list.</li>
+    </ul>
+	Changelog (from 1.1.0 beta 2)<br />
+	<ul>
+        <li>Image Manager and AdvLink are now core plugins.</li>
+		<li>Removed Layout and XHTML Attributes install.</li>
+    </ul>
+	Changelog (from 1.1.0 beta)<br />
+	<ul>
+        <li>Fixed CSS error with 5th row of layout.</li>
+		<li>Added Image and Link commands to install.</li>
+		<li>Added check for install version (only 1.1.0 plugins can now be installed).</li>
+    </ul>
+	Changelog (from 1.0.4)<br />
+    <ul>
+        <li>Removed use of getimagesize to retrieve plugin icon dimensions which was causing loading problems on some systems.</li>
+		<li>Replaced $mosConfig_aboslute_path and $mosConfig_live_site with $mainframe->getCfg equivalents.</li>
+		<li>Added 5th row for button layout.</li>
+    </ul>
+    Changelog (from 1.0.3)<br />
+    <ul>
+        <li>Added check for Editor Mambot when accessing Plugin Manager, Layout Manager, Language Manager.</li>
+    </ul>
+    Changelog (from 1.0.2)<br />
+    <ul>
+        <li>Fixed advlink_favourites table uninstall error.</li>
+        <li>Added underscore to space conversion in jce.php for popup support.</li>
+    </ul>
+    Changelog (from 1.0.1)<br />
+    <ul>
+        <li>Removed favourites db install</li>
+        <li>Added Format Select Command</li>
+        <li>Added new popup image code to support changes to Image Manager popups.</li>
+        <li>Reorganised Language Manager buttons.</li>
+        <li>Removed unused Apply button in Plugin Manager.</li>
+    </ul>
+    ]]></description>
+</mosinstall>
