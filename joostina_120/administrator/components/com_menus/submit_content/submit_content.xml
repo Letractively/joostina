@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<mosinstall type="menu" version="1.0.0">
+	<name>Добавить содержимое</name>
+	<group>Content|Submit</group>
+	<author>Jason407</author>
+	<creationDate>August 2005</creationDate>
+	<copyright>(C) 2008 Joostina team.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL</license>
+	<authorEmail>joostinacms@gmail.com</authorEmail>
+	<authorUrl>www.joostina.ru</authorUrl>
+	<version>1.0.1 JE</version>
+	<description>Создает ссылку на добавление содержимого пользователями</description>
+	<params>
+		<param name="menu_image" type="imagelist" directory="/images/stories" hide_default="1" default="" label="Изображение меню" description="Маленькое изображение, располагаемое слева или справа от пункта меню. Изображение должно находиться в папке images/stories/" />
+		<param name="content_type" type="radio" default="0" label="Тип содержимого" description="Выберите тип содержимого">
+			<option value="0">Статья</option>
+			<option value="1">Статичное содержимое</option>
+		</param>
+		<param name="wwig" type="radio" default="1" label="Визуальный редактор" description="Использовать ли визуальный редактор для редактирования текста">
+			<option value="1">Да</option>
+			<option value="0">Нет</option>
+		</param>
+		<param name="fulltext" type="radio" default="1" label="Полный текст" description="Отображать поле [Полный текст]?">
+			<option value="1">Да</option>
+			<option value="0">Нет</option>
+		</param>
+		<param name="allow_alias" type="radio" default="1" label="Псевдоним заголовка" description="Показывать поле 'Псевдоним заголовка' при добавлении содержимого?">
+			<option value="1">Да</option>
+			<option value="0">Нет</option>
+		</param>
+		<param name="allow_img" type="radio" default="1" label="Вкладка [Изображения]" description="Показывать вкладку 'Изображения' при добавлении содержимого?">
+			<option value="1">Да</option>
+			<option value="0">Нет</option>
+		</param>
+		<param name="allow_params" type="radio" default="1" label="Параметры публикаци" description="Показывать вкладку 'Параметры публикации' при добавлении содержимого?">
+			<option value="1">Да</option>
+			<option value="0">Нет</option>
+		</param>
+		<param name="allow_desc" type="radio" default="1" label="Описание материала" description="Отображать поле ввода описания для содержимого?">
+			<option value="1">Да</option>
+			<option value="0">Нет</option>
+		</param>
+		<param name="allow_tags" type="radio" default="1" label="Ключевые слова" description="Отображать поле ввода ключевых слов?">
+			<option value="1">Да</option>
+			<option value="0">Нет</option>
+		</param>
+	</params>
+</mosinstall>
