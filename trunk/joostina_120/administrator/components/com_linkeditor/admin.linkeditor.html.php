@@ -1,0 +1,157 @@
+<?php
+/**
+* @package Joostina
+* @copyright Авторские права (C) 2008 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+*/
+
+// запрет прямого доступа
+defined('_VALID_MOS') or die();
+
+class HTML_linkeditor {
+
+	function viewall(&$rows,$pageNav) {
+		global $mosConfig_live_site;
+		mosCommonHTML::loadOverlib();
+?>
+<form action="index2.php" method="post" name="adminForm">
+<table class="adminheading">
+	<tr>
+		<th class="linkeditor">Редактирование меню компонентов</th>
+	</tr>
+</table>
+<table class="adminlist">
+	<tr>
+		<th width="1%" align="left">#</th>
+		<th class="title" width="1%">
+			<input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo count($rows); ?>);" />
+		</th>
+		<th width="30">Значок</th>
+		<th width="20%">Заголовок</th>
+		<th width="60%">Описание</th>
+		<th width="30">Ядро</th>
+		<th width="30" class="jtd_nowrap">Порядок</th>
+		<th width="1%"><a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="Save Order" /></a></th>
+	</tr>
+<?php
+		$k = 0;
+		$i = 0;
+		foreach($rows as $row) {
+			$checked = mosHTML::idBox($i,$row->id,null);
+			$link = 'index2.php?option=com_linkeditor&amp;task=edit&amp;hidemainmenu=1&amp;id='.$row->id;
+			$img = $row->admin_menu_img ? $row->admin_menu_img:'js/ThemeOffice/spacer.png';
+?>
+	<tr class="row<?php echo $k; ?>">
+		<td><?php echo $pageNav->rowNumber($i); ?></td>
+		<td><?php echo $checked; ?></td>
+		<td align="center">
+			<img src="<?php echo $mosConfig_live_site; ?>/includes/<?php echo $img; ?>" />
+		</td>
+		<td align="left"><a href="<?php echo $link; ?>"><?php echo stripslashes($row->treename); ?></a></td>
+		<td align="left"><?php echo $row->admin_menu_alt; ?></td>
+		<td align="center">
+			<img src="images/<?php echo ($row->iscore)?'tick.png':'publish_x.png'; ?>" border="0" alt="<?php echo ($row->iscore) ? 'Да':'Нет'; ?>" />
+		</td>
+		<td align="center" colspan="2"><input type="text" name="order[]" size="5" value="<?php echo $row->ordering; ?>" class="text_area" style="text-align: center" /></td>
+	</tr>
+<?php
+			$k = 1 - $k;
+			$i++;
+		}
+?>
+</table>
+	<?php echo $pageNav->getListFooter(); ?>
+	<input type="hidden" name="task" value="all" />
+	<input type="hidden" name="hidemainmenu" value="0" />
+	<input type="hidden" name="boxchecked" value="0" />
+	<input type="hidden" name="option" value="com_linkeditor" />
+</form>
+<?php
+	}
+
+	function edit($row,$lists) {
+		global $mosConfig_live_site;
+		mosCommonHTML::loadOverlib();
+?>
+
+	<table class="adminheading">
+		<tr>
+			<th class="edit"><?php echo $row->id ? 'Редактирование пункта меню компонентов' : 'Создание нового пункта меню компонентов'; ?></th>
+		</tr>
+	</table>
+		<?php if($row->iscore == 1) echo '<div style="background-color: red;color:white"><b>Внимание:</b> этот компонент является частью ядра, при некорректном управлении им возможны проблемы в работе системы.</div>'; ?>
+		<form action="index2.php" method="post" name="adminForm" id="adminForm">
+		<table class="adminform">
+		<tr>
+			<td width="20%" align="right" >
+				Заголовок<font color="red">*</font>:
+			</td>
+			<td width="25%">
+			<input class="inputbox" type="text" name="name" size="45" value="<?php echo $row->name; ?>" />
+			<?php
+				$tip = 'Название пункта меню. Обязательно для заполнения.';
+				echo mosToolTip($tip);
+			?>
+			</td>
+			<td colspan="1" rowspan="4">
+			<img name="view_imagefiles" src="<?php echo $mosConfig_live_site; ?>/includes/<?php echo ($row->admin_menu_img !='js/ThemeOffice/')?$row->admin_menu_img:'js/ThemeOffice/spacer.png'; ?>" width="16" />
+				Значок пункта меню
+				<?php echo $lists['image']; ?>
+			</td>
+		</tr>
+		<tr>
+			<td align="right">
+				Описание:
+			</td>
+			<td>
+				<input class="inputbox" type="text" name="admin_menu_alt" size="45" value="<?php echo $row->admin_menu_alt; ?>" />
+			<?php
+				$tip = 'Описание пункта меню.';
+				echo mosToolTip($tip);
+			?>
+			</td>
+		</tr>
+		<tr>
+			<td align="right">
+			Ссылка:<font color="red">*</font>:
+			</td>
+			<td>
+			<input class="inputbox" type="text" name="admin_menu_link" size="45" value="<?php echo $row->admin_menu_link; ?>" />
+			<?php
+				$tip = 'Ссылка на компонент. Если пункт меню не содержит подменю то поле обязательно для заполнения.';
+				echo mosToolTip($tip);
+			?>
+			</td>
+		</tr>
+			<tr>
+			<td align="right">
+			Родительский пункт:
+			</td>
+			<td>
+			<?php
+				echo $lists['parent'];
+				$tip = 'Родительский пункт меню. Допускается всего 1 уровень вложенности.';
+				echo mosToolTip($tip);
+			?>
+			</td>
+		</tr>
+	<tr>
+			<td>
+<font color="red">*</font> пункты обязательны для заполнения.
+			</td>
+			<td>&nbsp;</td>
+		</tr>
+		</table>
+		<input type="hidden" name="id" value="<?php echo $row->id; ?>" />
+		<input type="hidden" name="task" value="savelink" />
+		<input type="hidden" name="hidemainmenu" value="1" />
+		<input type="hidden" name="option" value="com_linkeditor" />
+		<input type="hidden" name="cur_option" value="<?php echo $row->option; ?>" />
+		</form>
+<?php
+
+	}
+}
+?>
