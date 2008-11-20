@@ -600,7 +600,6 @@ DEFINE('_RG_EMULATION','Эмуляция Register Globals');
 DEFINE('_REGISTER_GLOBALS','Register Globals - регистрация глобальных переменных');
 DEFINE('_MAGIC_QUOTES','Параметр Magic Quotes');
 DEFINE('_SAFE_MODE','Безопасный режим - Safe Mode');
-DEFINE('_FILE_UPLOAD','Загрузка файлов');
 DEFINE('_SESSION_HANDLING','Обработка сессий');
 DEFINE('_SESS_SAVE_PATH','Каталог хранения сессий - Session save path');
 DEFINE('_PHP_TAGS','Спецтеги php');
