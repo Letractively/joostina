@@ -157,7 +157,7 @@ class HTML_admin_misc {
 			</tr>
 			<tr>
 				<td valign="top">
-					<strong><?=Важные настройки PHP?>:</strong>
+					<strong><?=_PHP_SETTINGS?>:</strong>
 				</td>
 				<td>
 					<table cellspacing="1" cellpadding="1" border="0">
