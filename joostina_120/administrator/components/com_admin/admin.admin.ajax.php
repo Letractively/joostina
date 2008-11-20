@@ -45,7 +45,7 @@ function x_upload(){
 	<table class="adminform" style="width:100%;">
 		<tr>
 		<th class="title">
-			Загрузка файла:
+			<?=_FILE_UPLOAD?>:
 		</th>
 		</tr>
 		<tr>
@@ -54,7 +54,7 @@ function x_upload(){
 			</td>
 		</tr>
 		<tr>
-			<td>Максимальный размер = <?php echo ini_get('post_max_size'); ?></td>
+			<td><?=_MAX_SIZE?> = <?php echo ini_get('post_max_size'); ?></td>
 	</tr>
 	</table>
 	<input type="hidden" name="directory" value="" />

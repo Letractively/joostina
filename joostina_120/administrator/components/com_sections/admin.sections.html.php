@@ -453,7 +453,7 @@ class sections_html {
 				<table width="100%" class="adminform">
 					<tbody>
 						<tr>
-							<th>Добавить</th>
+							<th><?=_E_ADD?></th>
 						</tr>
 						<tr>
 							<td>
