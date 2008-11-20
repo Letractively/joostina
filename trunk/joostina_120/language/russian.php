@@ -582,4 +582,55 @@ DEFINE('_PRINT_PAGE_LINK','Адрес страницы на сайте');
 
 $bad_text = array( ' авле ' , ' без ' , ' больше ' , ' был ' , ' была ' , ' были ' , ' было ' , ' быть ' , ' вам ' , ' вас ' , ' вверх ' , ' видно ' , ' вот ' , ' все ' , ' всегда ' , ' всех ' , ' где ' , ' говорила ' , ' говорим ' , ' говорит ' , ' даже ' , ' два ' , ' для ' , ' его ' , ' ему ' , ' если ' , ' есть ' , ' еще ' , ' затем ' , ' здесь ' , ' знала ' , ' знаю ' , ' иду ' , ' или ' , ' каждый ' , ' кажется ' , ' казалось ' , ' как ' , ' какие ' , ' когда ' , ' которое ' , ' которые ' , ' кто ' , ' меня ' , ' мне ' , ' мог ' , ' могла ' , ' могу ' , ' мое ' , ' моей ' , ' может ' , ' можно ' , ' мои ' , ' мой ' , ' мол ' , ' моя ' , ' надо ' , ' нас ' , ' начал ' , ' начала ' , ' него ' , ' нее ' , ' ней ' , ' немного ' , ' немножко ' , ' нему ' , ' несколько ' , ' нет ' , ' никогда ' , ' них ' , ' ничего ' , ' однако ' , ' она ' , ' они ' , ' оно ' , ' опять ' , ' очень ' , ' под ' , ' пока ' , ' после ' , ' потом ' , ' почти ' , ' при ' , ' про ' , ' раз ' , ' своей ' , ' свой ' ,  ' свою ' ,  ' себе ' ,  ' себя ' ,  ' сейчас ' ,  ' сказал ' ,  ' сказала ' ,  ' слегка ' , ' слишком ' ,  ' словно ' ,  ' снова ' ,  ' стал ' ,  ' стала ' ,  ' стали ' ,  ' так ' ,  ' там ' ,  ' твои ' , ' твоя ' ,  ' тебе ' ,  ' тебя ' ,  ' теперь ' ,  ' тогда ' ,  ' того ' ,  ' тоже ' ,  ' только ' ,  ' три ' ,  ' тут ' , ' уже ' ,  ' хотя ' ,  ' чем ' ,  ' через ' ,  ' что ' ,  ' чтобы ' ,  ' чуть ' ,  ' эта ' ,  ' эти ' ,  ' этих ' ,  ' это ' , ' этого ' ,  ' этой ' ,  ' этом ' ,  ' эту ' );
 
+
+/* administrator components com_admin */
+DEFINE('_FILE_UPLOAD','Загрузка файла');
+DEFINE('_MAX_SIZE','Максимальный размер');
+DEFINE('_ABOUT_JOOSTINA','О Joostina');
+DEFINE('_ABOUT_SYSTEM','О системе');
+DEFINE('_SYSTEM_OS','Система');
+DEFINE('_DB_VERSION','Версия базы данных');
+DEFINE('_PHP_VERSION','Версия PHP');
+DEFINE('_APACHE_VERSION','Веб-сервер');
+DEFINE('_PHP_APACHE_INTERFACE','Интерфейс между веб-сервером и PHP');
+DEFINE('_JOOSTINA_VERSION','Версия Joostina!');
+DEFINE('_BROWSER','Браузер (User Agent)');
+DEFINE('_PHP_SETTINGS','Важные настройки PHP');
+DEFINE('_RG_EMULATION','Эмуляция Register Globals');
+DEFINE('_REGISTER_GLOBALS','Register Globals - регистрация глобальных переменных');
+DEFINE('_MAGIC_QUOTES','Параметр Magic Quotes');
+DEFINE('_SAFE_MODE','Безопасный режим - Safe Mode');
+DEFINE('_FILE_UPLOAD','Загрузка файлов');
+DEFINE('_SESSION_HANDLING','Обработка сессий');
+DEFINE('_SESS_SAVE_PATH','Каталог хранения сессий - Session save path');
+DEFINE('_PHP_TAGS','Спецтеги php');
+DEFINE('_BUFFERING','Буферизация');
+DEFINE('_OPEN_BASEDIR','Разрешенные/открытые каталоги');
+DEFINE('_ERROR_REPORTING','Отображение ошибок');
+DEFINE('_XML_SUPPORT','Поддержка XML');
+DEFINE('_ZLIB_SUPPORT','Поддержка Zlib');
+DEFINE('_DISABLED_FUNCTIONS','Запрещенные функции');
+DEFINE('_CONFIGURATION_FILE','Файл конфигурации');
+DEFINE('_ACCESS_RIGHTS','Права доступа');
+DEFINE('_DIRS_WITH_RIGHTS','Для работы ВСЕХ функций и возможностей Joostina, ВСЕ указанные ниже каталоги должны быть доступны для записи');
+DEFINE('_CACHE_DIRECTORY','Каталог кэша');
+DEFINE('_SESSION_DIRECTORY','Каталог сессий');
+DEFINE('_DATABASE','База данных');
+DEFINE('_TABLE_NAME','Название таблицы');
+DEFINE('_DB_CHARSET','Кодировка');
+DEFINE('_DB_NUM_RECORDS','Записей');
+DEFINE('_DB_SIZE','Размер');
+DEFINE('_FIND','Найти');
+DEFINE('_CLEAR','Очистить');
+DEFINE('_GLOSSARY','Глоссарий');
+DEFINE('_DEVELOPERS','Разработчики');
+DEFINE('_SUPPORT','Поддержка');
+DEFINE('_LICENSE','Лицензия');
+DEFINE('_CHANGELOG','Журнал изменений');
+DEFINE('_CHECK_VERSION','Проверить версию Joomla! RE');
+DEFINE('_PREVIEW_SITE','Предпросмотр сайта');
+DEFINE('_IN_NEW_WINDOW','Открыть в новом окне');
+DEFINE('_','');
+
+
 ?>

@@ -28,6 +28,12 @@ if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset
 }
 
 require_once ('../includes/joomla.php');
+
+// загрузка файла русского языка по умолчанию
+if($mosConfig_lang == '') {
+	$mosConfig_lang = 'russian';
+}
+
 include_once ($mosConfig_absolute_path . '/language/' . $mosConfig_lang . '.php');
 
 // отключаем кэширование запросов базы данных для панели управления

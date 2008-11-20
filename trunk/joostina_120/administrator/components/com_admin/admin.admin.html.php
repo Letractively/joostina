@@ -65,13 +65,13 @@ class HTML_admin_misc {
 ?>
 		<table class="adminheading">
 		<tr>
-			<th class="info">Информация</th>
+			<th class="info"><?=_E_ITEM_INFO?></th>
 		</tr>
 		</table>
 
 <?php
 		$tabs->startPane("sysinfo");
-		$tabs->startTab("О Joostina","joostina-page");
+		$tabs->startTab(_ABOUT_JOOSTINA,"joostina-page");
 ?>
 		<table class="adminform">
 			<tr>
@@ -84,7 +84,7 @@ class HTML_admin_misc {
 		</table>
 <?php
 		$tabs->endTab();
-		$tabs->startTab("О системе","system-page");
+		$tabs->startTab(_ABOUT_SYSTEM,"system-page");
 ?>
 			<table class="adminform">
 			<tr>
@@ -97,7 +97,7 @@ class HTML_admin_misc {
 			</tr>
 			<tr>
 				<td valign="top" width="250">
-					<strong>Система:</strong>
+					<strong><?=_SYSTEM_OS?>:</strong>
 				</td>
 				<td>
 					<?php echo php_uname(); ?>
@@ -105,7 +105,7 @@ class HTML_admin_misc {
 			</tr>
 			<tr>
 				<td>
-					<strong>Версия базы данных:</strong>
+					<strong><?=_DB_VERSION?>:</strong>
 				</td>
 				<td>
 					<?php echo $database->getVersion(); ?>
@@ -113,7 +113,7 @@ class HTML_admin_misc {
 			</tr>
 			<tr>
 				<td>
-					<strong>Версия PHP:</strong>
+					<strong><?=_PHP_VERSION?>:</strong>
 				</td>
 				<td>
 					<?php echo phpversion(); ?>
@@ -121,7 +121,7 @@ class HTML_admin_misc {
 			</tr>
 			<tr>
 				<td>
-					<strong>Веб-сервер:</strong>
+					<strong><?=_APACHE_VERSION?>:</strong>
 				</td>
 				<td>
 					<?php echo HTML_admin_misc::get_server_software(); ?>
@@ -129,7 +129,7 @@ class HTML_admin_misc {
 			</tr>
 			<tr>
 				<td>
-					<strong>Интерфейс между веб-сервером и PHP:</strong>
+					<strong><?=_PHP_APACHE_INTERFACE?>:</strong>
 				</td>
 				<td>
 					<?php echo php_sapi_name(); ?>
@@ -137,7 +137,7 @@ class HTML_admin_misc {
 			</tr>
 			<tr>
 				<td>
-					<strong>Версия Joostina!:</strong>
+					<strong><?=_JOOSTINA_VERSION?>:</strong>
 				</td>
 				<td>
 					<?php echo $version; ?>
@@ -145,7 +145,7 @@ class HTML_admin_misc {
 			</tr>
 			<tr>
 				<td>
-					<strong>Браузер (User Agent):</strong>
+					<strong><?=_BROWSER?>:</strong>
 				</td>
 				<td>
 					<?php echo phpversion() <= '4.2.1'?getenv('HTTP_USER_AGENT'):$_SERVER['HTTP_USER_AGENT']; ?>
@@ -157,13 +157,13 @@ class HTML_admin_misc {
 			</tr>
 			<tr>
 				<td valign="top">
-					<strong>Важные настройки PHP:</strong>
+					<strong><?=Важные настройки PHP?>:</strong>
 				</td>
 				<td>
 					<table cellspacing="1" cellpadding="1" border="0">
 					<tr>
 						<td width="250">
-							Эмуляция Register Globals!:
+							<?=_RG_EMULATION?>!:
 						</td>
 						<td style="font-weight: bold;" width="50">
 							<?php echo ((RG_EMULATION)?'<span style="color: red;">ON</span>':'<span style="color: green;">OFF</span>'); ?>
@@ -175,7 +175,7 @@ class HTML_admin_misc {
 					</tr>
 					<tr>
 						<td>
-							Register Globals - регистрация глобальных переменных:
+							<?=_REGISTER_GLOBALS?>:
 						</td>
 						<td style="font-weight: bold;">
 							<?php echo HTML_admin_misc::get_php_setting('register_globals',1,0); ?>
@@ -187,7 +187,7 @@ class HTML_admin_misc {
 					</tr>
 					<tr>
 						<td>
-							Параметр Magic Quotes:
+							<?=_MAGIC_QUOTES?>:
 						</td>
 						<td style="font-weight: bold;">
 							<?php echo HTML_admin_misc::get_php_setting('magic_quotes_gpc',1,1); ?>
@@ -199,7 +199,7 @@ class HTML_admin_misc {
 					</tr>
 					<tr>
 						<td>
-							Безопасный режим - Safe Mode:
+							<?=_SAFE_MODE?>:
 						</td>
 						<td style="font-weight: bold;">
 							<?php echo HTML_admin_misc::get_php_setting('safe_mode',1,0); ?>
@@ -211,7 +211,7 @@ class HTML_admin_misc {
 					</tr>
 					<tr>
 						<td>
-							Загрузка файлов:
+							<?=_FILE_UPLOAD?>:
 						</td>
 						<td style="font-weight: bold;">
 							<?php echo HTML_admin_misc::get_php_setting('file_uploads',1,1); ?>
@@ -223,7 +223,7 @@ class HTML_admin_misc {
 					</tr>
 					<tr>
 						<td>
-							Обработка сессий:
+							<?=_SESSION_HANDLING?>:
 						</td>
 						<td style="font-weight: bold;">
 							<?php echo HTML_admin_misc::get_php_setting('session.auto_start',1,0); ?>
@@ -235,7 +235,7 @@ class HTML_admin_misc {
 					</tr>
 					<tr>
 						<td>
-							Каталог хранения сессий - Session save path:
+							<?=_SESS_SAVE_PATH?>:
 						</td>
 						<td style="font-weight: bold;" colspan="2">
 							<?php echo (($sp = ini_get('session.save_path'))?$sp:'none'); ?>
@@ -243,7 +243,7 @@ class HTML_admin_misc {
 					</tr>
 					<tr>
 						<td>
-							Спецтеги php:
+							<?=_PHP_TAGS?>:
 						</td>
 						<td style="font-weight: bold;">
 							<?php echo HTML_admin_misc::get_php_setting('short_open_tag'); ?>
@@ -253,7 +253,7 @@ class HTML_admin_misc {
 					</tr>
 					<tr>
 						<td>
-							Буферизация:
+							<?=_BUFFERING?>:
 						</td>
 						<td style="font-weight: bold;">
 							<?php echo HTML_admin_misc::get_php_setting('output_buffering'); ?>
@@ -263,7 +263,7 @@ class HTML_admin_misc {
 					</tr>
 					<tr>
 						<td>
-							Разрешенные/открытые каталоги:
+							<?=_OPEN_BASEDIR?>:
 						</td>
 						<td style="font-weight: bold;" colspan="2">
 							<?php echo (($ob = ini_get('open_basedir'))?$ob:'none'); ?>
@@ -271,7 +271,7 @@ class HTML_admin_misc {
 					</tr>
 					<tr>
 						<td>
-							Отображение ошибок:
+							<?=_ERROR_REPORTING?>:
 						</td>
 						<td style="font-weight: bold;" colspan="2">
 							<?php echo HTML_admin_misc::get_php_setting('display_errors'); ?>
@@ -279,7 +279,7 @@ class HTML_admin_misc {
 					</tr>
 					<tr>
 						<td>
-							Поддержка XML:
+							<?=_XML_SUPPORT?>:
 						</td>
 						<td style="font-weight: bold;" colspan="2">
 						<?php echo extension_loaded('xml')?'Yes':'No'; ?>
@@ -287,7 +287,7 @@ class HTML_admin_misc {
 					</tr>
 					<tr>
 						<td>
-							Поддержка Zlib:
+							<?=_ZLIB_SUPPORT?>:
 						</td>
 						<td style="font-weight: bold;" colspan="2">
 							<?php echo extension_loaded('zlib')?'Yes':'No'; ?>
@@ -295,7 +295,7 @@ class HTML_admin_misc {
 					</tr>
 					<tr>
 						<td>
-							Запрещенные функции:
+							<?=_DISABLED_FUNCTIONS?>:
 						</td>
 						<td style="font-weight: bold;" colspan="2">
 							<?php echo (($df = ini_get('disable_functions'))?$df:'none'); ?>
@@ -310,7 +310,7 @@ class HTML_admin_misc {
 			</tr>
 			<tr>
 				<td valign="top">
-					<strong>Файл конфигурации:</strong>
+					<strong><?=_CONFIGURATION_FILE?>:</strong>
 				</td>
 				<td>
 				<?php
@@ -363,12 +363,12 @@ class HTML_admin_misc {
 			</table>
 		<?php
 		$tabs->endTab();
-		$tabs->startTab('Права доступа','perms');
+		$tabs->startTab(_ACCESS_RIGHTS,'perms');
 ?>
 			<table class="adminform">
 			<tr>
 				<td>
-					<strong>Для работы ВСЕХ функций и возможностей Joostina, ВСЕ указанные ниже каталоги должны быть доступны для записи:</strong><br />   <br />
+					<strong><?=_DIRS_WITH_RIGHTS?>:</strong><br />   <br />
 					<?php
 		$sp = ini_get('session.save_path');
 
@@ -390,22 +390,22 @@ class HTML_admin_misc {
 		mosHTML::writableCell('media');
 		mosHTML::writableCell('modules');
 		mosHTML::writableCell('templates');
-		mosHTML::writableCell($mosConfig_cachepath,0,'<strong>Каталог кэша</strong> ');
-		mosHTML::writableCell($sp,0,'<strong>Каталог сессий</strong> ');
+		mosHTML::writableCell($mosConfig_cachepath,0,'<strong>'._CACHE_DIRECTORY.'</strong> ');
+		mosHTML::writableCell($sp,0,'<strong>'._SESSION_DIRECTORY.'</strong> ');
 ?>
 				</td>
 			</tr>
 			</table>
 		<?php
 		$tabs->endTab();
-		$tabs->startTab('База данных','db');
+		$tabs->startTab(_DATABASE,'db');
 ?>
 			<table class="adminform">
 			<tr>
-				<th>Название таблицы:</th>
-				<th>Кодировка:</th>
-				<th>Записей:</th>
-				<th>Размер:</th>
+				<th><?=_TABLE_NAME?>:</th>
+				<th><?=_DB_CHARSET?>:</th>
+				<th><?=_DB_NUM_RECORDS?>:</th>
+				<th><?=_DB_SIZE?>:</th>
 			</tr>
 <?php
 		$db_info = HTML_admin_misc::db_info();
@@ -498,41 +498,41 @@ class HTML_admin_misc {
 				<table width="100%">
 					<tr>
 						<td>
-							<strong>Поиск:</strong>
+							<strong><?=_SEARCH_TITLE?>:</strong>
 							<input class="text_area" type="hidden" name="option" value="com_admin" />
 							<input type="text" name="helpsearch" value="<?php echo $helpsearch; ?>" class="inputbox" />
-							<input type="submit" value="Найти" class="button" />
-							<input type="button" value="Очистить" class="button" onclick="f=document.adminForm;f.helpsearch.value='';f.submit()" />
+							<input type="submit" value="<?=_FIND?>" class="button" />
+							<input type="button" value="<?=_CLEAR?>" class="button" onclick="f=document.adminForm;f.helpsearch.value='';f.submit()" />
 							</td>
 							<td style="text-align:right">
 <?php
 		if($helpurl) {
 ?>
 							<a href="<?php echo $fullhelpurl; ?>joomla.glossary" target="helpFrame">
-								Глоссарий</a>
+								<?=_GLOSSARY?></a>
 							|
 							<a href="<?php echo $fullhelpurl; ?>joomla.credits" target="helpFrame">
-								Разработчики</a>
+								<?=_DEVELOPERS?></a>
 							|
 							<a href="<?php echo $fullhelpurl; ?>joomla.support" target="helpFrame">
-								Поддержка</a>
+								<?=_SUPPORT?></a>
 <?php
 		} else {
 ?>
 							<a href="<?php echo $mosConfig_live_site; ?>/help/joomla.glossary.html" target="helpFrame">
-								Глоссарий</a>
+								<?=_GLOSSARY?></a>
 							|
 							<a href="<?php echo $mosConfig_live_site; ?>/help/joomla.credits.html" target="helpFrame">
-								Разработчики</a>
+								<?=_DEVELOPERS?></a>
 							|
 							<a href="<?php echo $mosConfig_live_site; ?>/help/joomla.support.html" target="helpFrame">
-								Поддержка</a>
+								<?=_SUPPORT?></a>
 <?php
 		}
 ?>
 							|
 							<a href="http://www.gnu.org/licenses/gpl-2.0.htm" target="helpFrame">
-								Лицензия</a>
+								<?=_LICENSE?></a>
 							|
 							<a href="http://help.joomla.org" target="_blank">
 								help.joomla.org</a>
@@ -541,13 +541,13 @@ class HTML_admin_misc {
 								Joom.Ru</a>
 							<br />
 							<a href="<?php echo $mosConfig_live_site; ?>/administrator/index3.php?option=com_admin&task=changelog" target="helpFrame">
-								Журнал изменений</a>
+								<?=_CHANGELOG?></a>
 							|
 							<a href="<?php echo $mosConfig_live_site; ?>/administrator/index3.php?option=com_admin&task=sysinfo" target="helpFrame">
-								Системная информация</a>
+								<?=_ABOUT_SYSTEM?></a>
 							|
 							<a href="http://joom.ru/" target="_blank">
-								Проверить версию Joomla! RE</a>
+								_CHECK_VERSION</a>
 						</td>
 					</tr>
 				</table>
@@ -555,7 +555,7 @@ class HTML_admin_misc {
 		</tr>
 		<tr valign="top">
 			<td width="20%" valign="top">
-				<strong>Оглавление</strong>
+				<strong><?=_TOC_JUMPTO?></strong>
 				<div class="helpIndex">
 				<?php
 		foreach($toc as $k => $v) {
@@ -599,11 +599,11 @@ class HTML_admin_misc {
 		<table class="adminform">
 		<tr>
 			<th width="50%" class="title">
-			Предпросмотр сайта
+			<?=_PREVIEW_SITE?>
 			</th>
 			<th width="50%" style="text-align:right">
 			<a href="<?php echo $mosConfig_live_site.'/index.php?tp='.$tp; ?>" target="_blank">
-			Открыть в новом окне
+			<?=_IN_NEW_WINDOW?>
 			</a>
 			</th>
 		</tr>
