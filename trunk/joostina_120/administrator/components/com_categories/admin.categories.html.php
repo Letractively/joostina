@@ -62,13 +62,13 @@ class categories_html {
 		if($section == 'content') {
 ?>
 			<th class="categories">
-				Категории содержимого <small><small>[ Всё содержимое ]</small></small>
+				<?=_CONTENT_CATEGORIES?> <small><small>[ <?=_ALL_CONTENT?> ]</small></small>
 			</th>
 			<td width="right"><?php echo $lists['sectionid']; ?></td>
 <?php
 		} else {
 ?>
-			<th class="categories">Категории содержимого <small><small>[ <?php echo $section_name; ?> ]</small></small></th>
+			<th class="categories"><?=_CONTENT_CATEGORIES?> <small><small>[ <?php echo $section_name; ?> ]</small></small></th>
 <?php
 		}
 ?>
@@ -78,12 +78,12 @@ class categories_html {
 		<tr>
 			<th width="10" align="left">#</th>
 			<th width="20"><input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo count($rows); ?>);" /></th>
-			<th class="title">Название</th>
-			<th width="8%">Опубликовано</th>
+			<th class="title"><?=_NAME?></th>
+			<th width="8%"><?=_CMN_PUBLISHED?></th>
 <?php
 		if($section != 'content') {
 ?>
-			<th colspan="2" width="5%">Сортировка</th>
+			<th colspan="2" width="5%"><?=_CMN_ORDERING?></th>
 <?php
 		}
 ?>
@@ -91,19 +91,19 @@ class categories_html {
 			<th width="1%">
 				<a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="Сохранить порядок" /></a>
 			</th>
-			<th width="8%">Доступ</th>
+			<th width="8%"><?=_CMN_ACCESS?></th>
 <?php
 		if($section == 'content') {
 ?>
-			<th width="12%" align="left">Раздел</th>
+			<th width="12%" align="left"><?=_SECTION?></th>
 <?php
 		}
 ?>
 <?php
 		if($type == 'content') {
 ?>
-			<th width="6%">Активных</th>
-			<th width="6%">В корзине</th>
+			<th width="6%"><?=_ACTIVE?></th>
+			<th width="6%"><?=_IN_TRASH?></th>
 <?php
 		} else {
 ?>
@@ -144,7 +144,7 @@ class categories_html {
 ?>
 				</td>
 				<td align="center" <?php echo ($row->checked_out && ($row->checked_out != $my->id)) ? null : 'onclick="ch_publ('.$row->id.',\'com_categories\');" class="td-state"';?>>
-					<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="Публикация" />
+					<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?=_E_PUBLISHING?>" />
 				</td>
 <?php
 			if($section != 'content') {
@@ -168,7 +168,7 @@ class categories_html {
 			}
 			if($type == 'content') {
 ?>
-				<td align="center"><a href="<?php echo $link_aktiv;?>" title="Просмотр содержимого категории"><?php echo $row->active; ?></a></td>
+				<td align="center"><a href="<?php echo $link_aktiv;?>" title="<?=_VIEW_CATEGORY_CONTENT?>"><?php echo $row->active; ?></a></td>
 				<td align="center"><?php echo $row->trash; ?></td>
 <?php
 			} else {
@@ -244,21 +244,21 @@ class categories_html {
 
 			if ( pressbutton == 'menulink' ) {
 				if ( form.menuselect.value == "" ) {
-					alert( "Пожалуйста, выберите меню" );
+					alert( "<?=_CHOOSE_MENU_PLEASE?>" );
 					return;
 				} else if ( form.link_type.value == "" ) {
-					alert( "Пожалуйста, выберите тип меню" );
+					alert( "<?=_CHOOSE_MENUTYPE_PLEASE?>" );
 					return;
 				} else if ( form.link_name.value == "" ) {
-					alert( "Пожалуйста, введите название для этого пункта меню" );
+					alert( "<?=_ENTER_MENUITEM_NAME?>" );
 					return;
 				}
 			}
 
 			if ( form.name.value == "" ) {
-				alert("Категория должна иметь название");
+				alert("<?=_CATEGORY_NAME_IS_BLANK?>");
 			} else if (form.title.value ==""){
-				alert("Введите заголовок категории");
+				alert("<?=_ENTER_CATEGORY_NAME?>");
 			} else {
 				<?php getEditorContents('editor1','description'); ?>
 				submitform(pressbutton);
@@ -270,7 +270,7 @@ class categories_html {
 		<tr>
 			<th class="categories">
 			Категория:
-			<small><?php echo $row->id?'Редактирование':'Новая'; ?></small>
+			<small><?php echo $row->id ? _EDIT_CATEGORY : _NEW_CATEGORY; ?></small>
 			<small><small>
 			[ <?php echo $component; ?>: <?php echo stripslashes($row->name); ?> ]
 			</small></small>
@@ -282,30 +282,30 @@ class categories_html {
 			<td valign="top" width="60%">
 				<table class="adminform">
 				<tr>
-					<th colspan="3">Свойства категории</th>
+					<th colspan="3"><?=_CATEGORY_PROPERTIES?></th>
 				<tr>
 				<tr>
-					<td>Заголовок категории (Title):</td>
+					<td><?=_CATEGORY_TITLE?>:</td>
 					<td colspan="2">
-						<input class="text_area" type="text" name="title" value="<?php echo stripslashes($row->title); ?>" size="50" maxlength="50" title="Короткое имя для меню" />
+						<input class="text_area" type="text" name="title" value="<?php echo stripslashes($row->title); ?>" size="50" maxlength="50" title="" />
 					</td>
 				</tr>
 				<tr>
-					<td>Название категории (Name):</td>
+					<td><?=_CATEGORY_NAME?>:</td>
 					<td colspan="2">
-						<input class="text_area" type="text" name="name" value="<?php echo stripslashes($row->name); ?>" size="50" maxlength="255" title="Длинное название, отображаемое в заголовках" />
+						<input class="text_area" type="text" name="name" value="<?php echo stripslashes($row->name); ?>" size="50" maxlength="255" title="" />
 					</td>
 				</tr>
 				<tr>
-					<td>Раздел:</td>
+					<td><?=_SECTION?></td>
 					<td colspan="2"><?php echo $lists['section']; ?></td>
 				</tr>
 				<tr>
-					<td>Порядок расположения:</td>
+					<td><?=_SORT_ORDER?>:</td>
 					<td colspan="2"><?php echo $lists['ordering']; ?></td>
 				</tr>
 				<tr>
-					<td>Изображение:</td>
+					<td><?=_IMAGE?>:</td>
 					<td><?php echo $lists['image']; ?></td>
 					<td rowspan="5" width="50%">
 					<script language="javascript" type="text/javascript">
@@ -319,19 +319,19 @@ class categories_html {
 					</td>
 				</tr>
 				<tr>
-					<td>Расположение изображения:</td>
+					<td><?=_IMAGE_POSTITION?>:</td>
 					<td><?php echo $lists['image_position']; ?></td>
 				</tr>
 				<tr>
-					<td>Уровень доступа:</td>
+					<td><?=_CMN_ACCESS?>:</td>
 					<td><?php echo $lists['access']; ?></td>
 				</tr>
 				<tr>
-					<td>Опубликовано:</td>
+					<td><?=_CMN_PUBLISHED?>:</td>
 					<td><?php echo $lists['published']; ?></td>
 				</tr>
 				<tr>
-					<td valign="top" colspan="2">Описание:</td>
+					<td valign="top" colspan="2"><?=_CMN_DESCRIPTION?>:</td>
 				</tr>
 				<tr>
 					<td colspan="3">
@@ -349,23 +349,23 @@ class categories_html {
 ?>
 				<table class="adminform">
 				<tr>
-					<th colspan="2">Пункт меню</th>
+					<th colspan="2"><?=_MENUITEM?></th>
 				<tr>
 				<tr>
-					<td colspan="2">Создание нового пункта в выбранном вами меню.
+					<td colspan="2"><?=_NEW_MENUITEM_IN_YOUR_MENU?>
 					<br /><br />
 					</td>
 				<tr>
 				<tr>
-					<td valign="top" width="120">Выберите меню:</td>
+					<td valign="top" width="120"><?=_CHOOSE_MENU_PLEASE?>:</td>
 					<td><?php echo $lists['menuselect']; ?></td>
 				<tr>
 				<tr>
-					<td valign="top" width="120">Выберите тип меню:</td>
+					<td valign="top" width="120"><?=_CHOOSE_MENUTYPE_PLEASE?>:</td>
 					<td><?php echo $lists['link_type']; ?></td>
 				<tr>
 				<tr>
-					<td valign="top" width="120">Название пункта меню:</td>
+					<td valign="top" width="120"><?=_MENU_NAME?>:</td>
 					<td>
 						<input type="text" name="link_name" class="inputbox" value="" size="25" />
 					</td>
@@ -373,17 +373,17 @@ class categories_html {
 				<tr>
 					<td>&nbsp;</td>
 					<td>
-						<input name="menu_link" type="button" class="button" value="Создать пункт меню" onClick="submitbutton('menulink');" />
+						<input name="menu_link" type="button" class="button" value="<?=_CREATE_MENU_ITEM?>" onClick="submitbutton('menulink');" />
 					</td>
 				<tr>
 				<tr>
-					<th colspan="2">Существующие ссылки меню</th>
+					<th colspan="2"><?=_EXISTED_MENU_ITEMS?></th>
 				</tr>
 <?php
 			if($menus == null) {
 ?>
 				<tr>
-					<td colspan="2">Отсутствуют</td>
+					<td colspan="2"><?=_NOT_EXISTS?></td>
 				</tr>
 <?php
 			} else {
@@ -402,7 +402,7 @@ class categories_html {
 					<th>&nbsp;</th>
 				</tr>
 				<tr>
-					<td>Связь с меню будет доступна после сохранения</td>
+					<td><?=_MENU_LINK_AVAILABLE_AFTER_SAVE?></td>
 				</tr>
 			</table>
 <?php
@@ -413,7 +413,7 @@ class categories_html {
 			<br />
 			<table class="adminform">
 				<tr>
-					<th colspan="2">Каталоги изображений (MOSImage)</th>
+					<th colspan="2"><?=_IMAGES_DIRS?></th>
 				</tr>
 				<tr>
 					<td colspan="2"><?php echo $lists['folders']; ?></td>
@@ -449,7 +449,7 @@ class categories_html {
 		<table class="adminheading">
 		<tr>
 			<th class="categories">
-			Перемещение категорий
+			<?=_MOVE_CATEGORIES?>
 			</th>
 		</tr>
 		</table>
@@ -465,7 +465,7 @@ class categories_html {
 
 			// do field validation
 			if (!getSelectedValue( 'adminForm', 'sectionmove' )) {
-				alert( "Пожалуйста, выберите раздел для перемещаемой категории" );
+				alert( "<?=_CHOOSE_CATEGORY_SECTION?>" );
 			} else {
 				submitform( pressbutton );
 			}
@@ -475,13 +475,13 @@ class categories_html {
 		<tr>
 			<td width="3%"></td>
 			<td align="left" valign="top" width="30%">
-			<strong>Переместить в раздел:</strong>
+			<strong><?=_MOVE_INTO_SECTION?>:</strong>
 			<br />
 			<?php echo $SectionList ?>
 			<br /><br />
 			</td>
 			<td align="left" valign="top" width="20%">
-			<strong>Перемещаемые категории:</strong>
+			<strong><?=_CATEGORIES_TO_MOVE?>:</strong>
 			<br />
 			<?php
 		echo "<ol>";
@@ -492,7 +492,7 @@ class categories_html {
 ?>
 			</td>
 			<td valign="top" width="20%">
-			<strong>Перемещаемые объекты содержимого:</strong>
+			<strong><?=_CONTENT_ITEMS_TO_MOVE?>:</strong>
 			<br />
 			<?php
 		echo "<ol>";
@@ -503,11 +503,7 @@ class categories_html {
 ?>
 			</td>
 			<td valign="top">
-			В выбранный раздел будут перемещены все
-			<br />
-			 перечисленные категории и всё 
-			<br />
-			перечисленное содержимое этих категорий.
+			<?=_IN_SELECTED_SECTION_WILL_BE_MOVED_ALL?>
 			</td>.
 		</tr>
 		</table>
@@ -540,7 +536,7 @@ class categories_html {
 		<table class="adminheading">
 		<tr>
 			<th class="categories">
-			Копирование категорий
+			<?=_CATEGORY_COPYING?>
 			</th>
 		</tr>
 		</table>
@@ -556,7 +552,7 @@ class categories_html {
 
 			// do field validation
 			if (!getSelectedValue( 'adminForm', 'sectionmove' )) {
-				alert( "Пожалуйста, выберите раздел для копируемой категории"" );
+				alert( "<?=_CHOOSE_CAT_SECTION_TO_COPY?>" );
 			} else {
 				submitform( pressbutton );
 			}
@@ -566,13 +562,13 @@ class categories_html {
 		<tr>
 			<td width="3%"></td>
 			<td align="left" valign="top" width="30%">
-			<strong>Копировать в раздел:</strong>
+			<strong><?=_COPY_TO_SECTION?>:</strong>
 			<br />
 			<?php echo $SectionList ?>
 			<br /><br />
 			</td>
 			<td align="left" valign="top" width="20%">
-			<strong>Копируемые категории:</strong>
+			<strong><?=_CATS_TO_COPY?>:</strong>
 			<br />
 			<?php
 		echo "<ol>";
@@ -583,7 +579,7 @@ class categories_html {
 ?>
 			</td>
 			<td valign="top" width="20%">
-			<strong>Копируемое содержимое категории:</strong>
+			<strong><?=_CONTENT_ITEMS_TO_COPY?>:</strong>
 			<br />
 			<?php
 		echo "<ol>";
@@ -595,11 +591,7 @@ class categories_html {
 ?>
 			</td>
 			<td valign="top">
-			В выбранный раздел будут скопированы все
-			<br />
-			перечисленные категории и всё 
-			<br />
-			перечисленное содержимое этих категорий.
+			<?=_IN_SELECTED_SECTION_WILL_BE_COPIED_ALL?>
 			</td>.
 		</tr>
 		</table>

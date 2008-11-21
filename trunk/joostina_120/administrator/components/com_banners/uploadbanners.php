@@ -31,24 +31,24 @@ $userfile_name = (isset($_FILES['userfile']['name']) ? $_FILES['userfile']['name
 
 // check to see if directory exists
 if($directory != '' && !is_dir($mosConfig_absolute_path . '/images/' . $directory)) {
-	mosErrorAlert('Папка banners не существует', "window.close()");
+	mosErrorAlert(_BANNERS_DIRECTORY_DOESNOT_EXISTS, "window.close()");
 }
 
 if(isset($_FILES['userfile'])) {
 	$base_Dir = "../../../images/banners/";
 
 	if(empty($userfile_name)) {
-		echo "<script>alert('Выберете изображение для загрузки'); document.location.href='uploadbanners.php';</script>";
+		echo "<script>alert("._CHOOSE_BANNER_IMAGE."); document.location.href='uploadbanners.php';</script>";
 	}
 
 	$filename = split("\.", $userfile_name);
 
 	if(eregi("[^0-9a-zA-Z_]", $filename[0])) {
-		mosErrorAlert('Файл должен содержать алфавитно-числовые символы без пробелов.');
+		mosErrorAlert(_BAD_FILENAME);
 	}
 
 	if(file_exists($base_Dir . $userfile_name)) {
-		mosErrorAlert('Immagine ' . $userfile_name . ' он существует в базе данных.');
+		mosErrorAlert(str_replace("#FILENAME#",$userfile_name,_FILE_ALREADY_EXISTS));
 	}
 
 	if((strcasecmp(substr($userfile_name, -4), '.gif')) && (strcasecmp(substr($userfile_name, -4), '.jpg')) && (strcasecmp(substr($userfile_name, -4), '.png')) && (strcasecmp(substr($userfile_name, -4),'.bmp')) && (strcasecmp(substr($userfile_name, -4), '.swf'))) {
@@ -57,9 +57,11 @@ if(isset($_FILES['userfile'])) {
 
 
 	if(!move_uploaded_file($_FILES['userfile']['tmp_name'], $base_Dir . $_FILES['userfile']['name']) || !mosChmod($base_Dir . $_FILES['userfile']['name'])) {
-		mosErrorAlert('Загрузка ' . $userfile_name . ' неудачна');
+		mosErrorAlert(str_replace("#FILENAME#",$userfile_name,_BANNER_UPLOAD_ERROR));
+		
 	} else {
-		mosErrorAlert('Загрузка ' . $userfile_name . ' в ' . $base_Dir . ' успешно завешена', "window.close()");
+		mosErrorAlert(str_replace(array("#FILENAME#","#DIRNAME#"),array($userfile_name,$base_Dir),_BANNER_UPLOAD_SUCCESS), "window.close()");
+		
 	}
 
 	echo $base_Dir . $_FILES['userfile']['name'];
@@ -79,18 +81,18 @@ echo '<?xml version="1.0" encoding="' . $iso[1] . '"?' . '>';
 <form method="post" action="uploadbanners.php" enctype="multipart/form-data" name="filename">
 	<table class="adminform">
 	<tr>
-		<th class="title" colspan="2">Загрузить файл баннера</th>
+		<th class="title" colspan="2"><?=_UPLOAD_BANNER_FILE?></th>
 	</tr>
 	<tr>
 		<td align="center">
 			<input class="inputbox" name="userfile" type="file" />
 		</td>
 		<td>
-			<input class="button" type="submit" value="Загрузить" name="fileupload" />
+			<input class="button" type="submit" value="<?=_TASK_UPLOAD?>" name="fileupload" />
 		</td>
 	</tr>
 	<tr>
-		<td colspan="2">Макс. размер = <?php echo ini_get('post_max_size'); ?></td>
+		<td colspan="2"><?=_MAX_SIZE?> = <?php echo ini_get('post_max_size'); ?></td>
 	</tr>
 	</table>
 <input type="hidden" name="directory" value="banners" />

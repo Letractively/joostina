@@ -25,19 +25,19 @@ class menubanners {
 
 	function DEFAULT_MENU() {
 		mosMenuBar::startTable();
-		mosMenuBar::ext('Загрузить','#','-media-manager','id="tb-media-manager" onclick="popupWindow(\'components/com_banners/uploadbanners.php\',\'win1\',250,100,\'no\');"');
+		mosMenuBar::ext(_TASK_UPLOAD,'#','-media-manager','id="tb-media-manager" onclick="popupWindow(\'components/com_banners/uploadbanners.php\',\'win1\',250,100,\'no\');"');
 		mosMenuBar::publishList('publishbanner');
 		mosMenuBar::unpublishList('unpublishbanner');
 		mosMenuBar::addNew('newbanner');
 		mosMenuBar::editList('editbanner');
 		mosMenuBar::deleteList('', 'removebanners');
-		mosMenuBar::back('Панель баннеров','index2.php?option=com_banners');
+		mosMenuBar::back(_BANNERS_PANEL,'index2.php?option=com_banners');
 		mosMenuBar::endTable();
 	}
 	
 	function MAIN_MENU() {
 		mosMenuBar::startTable();
-		mosMenuBar::back('Панель баннеров','index2.php?option=com_banners');
+		mosMenuBar::back(_BANNERS_PANEL,'index2.php?option=com_banners');
 		mosMenuBar::endTable();
 	}
 }
@@ -73,7 +73,7 @@ class menubannerClient {
 		mosMenuBar::addNew('newclient');
 		mosMenuBar::editList('editclient');
 		mosMenuBar::deleteList('', 'removeclients');
-		mosMenuBar::back('Панель баннеров','index2.php?option=com_banners');
+		mosMenuBar::back(_BANNERS_PANEL,'index2.php?option=com_banners');
 		mosMenuBar::endTable();
 	}
 }
@@ -109,7 +109,7 @@ class menubannerCategory {
 		mosMenuBar::addNew('newcategory');
 		mosMenuBar::editList('editcategory');
 		mosMenuBar::deleteList('', 'removecategory');
-		mosMenuBar::back('Панель баннеров','index2.php?option=com_banners');
+		mosMenuBar::back(_BANNERS_PANEL,'index2.php?option=com_banners');
 		mosMenuBar::endTable();
 	}
 }

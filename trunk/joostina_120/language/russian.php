@@ -629,7 +629,103 @@ DEFINE('_CHANGELOG','Журнал изменений');
 DEFINE('_CHECK_VERSION','Проверить версию Joomla! RE');
 DEFINE('_PREVIEW_SITE','Предпросмотр сайта');
 DEFINE('_IN_NEW_WINDOW','Открыть в новом окне');
-DEFINE('_','');
 
+
+/* administrator components com_banners */
+
+DEFINE('_BANNERS_MANAGEMENT','Управление баннерами');
+DEFINE('_EDIT_BANNER','Редактирование баннера');
+DEFINE('_NEW_BANNER','Создание баннера');
+DEFINE('_IN_CURRENT_WINDOW','Том же окне');
+DEFINE('_IN_PARENT_WINDOW','Текущем окне');
+DEFINE('_IN_MAIN_FRAME','Главном фрейме');
+DEFINE('_BANNER_CLIENTS','Клиенты баннеров');
+DEFINE('_BANNER_CATEGORIES','Категории баннеров');
+DEFINE('_NO_BANNERS','Банеры не обнаружены');
+DEFINE('_BANNER_COUNTER_RESETTED','Счётчик показа баннеров обнулён');
+DEFINE('_CHECK_PUBLISH_DATE','Проверьте правильность ввода даты публикации');
+DEFINE('_CHECK_START_PUBLICATION_DATE','Проверьта дату начала публикации');
+DEFINE('_CHECK_END_PUBLICATION_DATE','Проверьта дату окончания публикации');
+DEFINE('_TASK_UPLOAD','Загрузить');
+DEFINE('_BANNERS_PANEL','Панель баннеров');
+DEFINE('_BANNERS_DIRECTORY_DOESNOT_EXISTS','Папка banners не существует');
+DEFINE('_CHOOSE_BANNER_IMAGE','Выберите изображение для загрузки');
+DEFINE('_BAD_FILENAME','Файл должен содержать алфавитно-числовые символы без пробелов.');
+DEFINE('_FILE_ALREADY_EXISTS','Файл #FILENAME# уже существует в базе данных.');
+DEFINE('_BANNER_UPLOAD_ERROR','Загрузка #FILENAME# неудачна');
+DEFINE('_BANNER_UPLOAD_SUCCESS','Загрузка #FILENAME# в #DIRNAME# успешно завешена');
+DEFINE('_UPLOAD_BANNER_FILE','Загрузить файл баннера');
+
+
+/* administrator components com_categories */
+
+
+DEFINE('_CATEGORY_CHANGES_SAVED','Изменения в категории сохранены');
+DEFINE('_USER_GROUP_ALL','Общий');
+DEFINE('_USER_GROUP_REGISTERED','Участники');
+DEFINE('_USER_GROUP_SPECIAL','Специальный');
+DEFINE('_CONTENT_CATEGORIES','Категории содержимого');
+DEFINE('_ALL_CONTENT','Всё содержимое');
+DEFINE('_ACTIVE','Активных');
+DEFINE('_IN_TRASH','В корзине');
+DEFINE('_VIEW_CATEGORY_CONTENT','_E_PUBLISHING');
+DEFINE('_CHOOSE_MENU_PLEASE','Пожалуйста, выберите меню');
+DEFINE('_CHOOSE_MENUTYPE_PLEASE','Пожалуйста, выберите тип меню');
+DEFINE('_ENTER_MENUITEM_NAME','Пожалуйста, введите название для этого пункта меню');
+DEFINE('_CATEGORY_NAME_IS_BLANK','Категория должна иметь название');
+DEFINE('_ENTER_CATEGORY_NAME','Введите заголовок категории');
+DEFINE('_EDIT_CATEGORY','Редактирование');
+DEFINE('_NEW_CATEGORY','Новая');
+DEFINE('_CATEGORY_PROPERTIES','Свойства категории');
+DEFINE('_CATEGORY_TITLE','Заголовок категории (Title)');
+DEFINE('_CATEGORY_NAME','Название категории (Name)');
+DEFINE('_SORT_ORDER','Порядок расположения');
+DEFINE('_IMAGE','Изображение');
+DEFINE('_IMAGE_POSTITION','Расположение изображения');
+DEFINE('_MENUITEM','Пункт меню');
+DEFINE('_NEW_MENUITEM_IN_YOUR_MENU','Создание нового пункта в выбранном вами меню.');
+DEFINE('_MENU_NAME','Название пункта меню');
+DEFINE('_CREATE_MENU_ITEM','Создать пункт меню');
+DEFINE('_EXISTED_MENU_ITEMS','Существующие ссылки меню');
+DEFINE('_NOT_EXISTS','Отсутствуют');
+DEFINE('_MENU_LINK_AVAILABLE_AFTER_SAVE','Связь с меню будет доступна после сохранения');
+DEFINE('_IMAGES_DIRS','Каталоги изображений (MOSImage)');
+DEFINE('_MOVE_CATEGORIES','Перемещение категорий');
+DEFINE('_CHOOSE_CATEGORY_SECTION','Пожалуйста, выберите раздел для перемещаемой категории');
+DEFINE('_MOVE_INTO_SECTION','Переместить в раздел');
+DEFINE('_CATEGORIES_TO_MOVE','Перемещаемые категории');
+DEFINE('_CONTENT_ITEMS_TO_MOVE','Перемещаемые объекты содержимого');
+DEFINE('_IN_SELECTED_SECTION_WILL_BE_MOVED_ALL','В выбранный раздел будут перемещены все <br /> перечисленные категории и всё <br /> перечисленное содержимое этих категорий.');
+DEFINE('_CATEGORY_COPYING','Копирование категорий');
+DEFINE('_CHOOSE_CAT_SECTION_TO_COPY','Пожалуйста, выберите раздел для копируемой категории');
+DEFINE('_COPY_TO_SECTION','Копировать в раздел');
+DEFINE('_CATS_TO_COPY','Копируемые категории');
+DEFINE('_CONTENT_ITEMS_TO_COPY','Копируемое содержимое категории');
+DEFINE('_IN_SELECTED_SECTION_WILL_BE_COPIED_ALL','В выбранный раздел будут скопированы все <br /> перечисленные категории и всё <br /> перечисленное содержимое этих категорий.');
+DEFINE('_COMPONENT','Компонент');
+DEFINE('_BEFORE_CREATION_CAT_CREATE_SECTION','Перед созданием категории Вы должны создать хотя бы один раздел');
+DEFINE('_CATEGORY_IS_EDITING_NOW','Категория #CATNAME# в настоящее время редактируется другим администратором');
+DEFINE('_TABLE_WEBLINKS_CATEGORY','Таблица - Веб-ссылки категории');
+DEFINE('_TABLE_NEWSFEEDS_CATEGORY','Таблица - Ленты новостей категории');
+DEFINE('_TABLE_CATEGORY_CONTACTS','Таблица - Контакты категории');
+DEFINE('_TABLE_CATEGORY_CONTENT','Таблица - Содержимое категории');
+DEFINE('_BLOG_CATEGORY_CONTENT','Блог - Содержимое категории');
+DEFINE('_BLOG_CATEGORY_ARCHIVE','Блог - Архивное содержимое категории');
+DEFINE('_USE_SECTION_SETTINGS','Использовать настройки раздела');
+DEFINE('_CMN_ALL','Все');
+DEFINE('_CHOOSE_CATEGORY_TO_REMOVE','Выберите категорию для удаления');
+DEFINE('_CANNOT_REMOVE_CATEGORY','Категория: #CIDS# не может быть удалена, т.к. она содержит записи');
+DEFINE('_CHOOSE_CATEGORY_FOR_','Выберите категорию для');
+DEFINE('_CHOOSE_OBJECT_TO_MOVE','Выберите объект для перемещения');
+DEFINE('_CATEGORIES_MOVED_TO','Категории перемещены в ');
+DEFINE('_CATEGORY_MOVED_TO','Категории перемещены в ');
+DEFINE('_CATEGORIES_COPIED_TO','Категории скопированы в ');
+DEFINE('_CATEGORY_COPIED_TO','Категория скопирована в ');
+DEFINE('_NEW_ORDER_SAVED','Новый порядок сохранен');
+DEFINE('_SAVE_AND_ADD','Сохранить и добавить');
+DEFINE('_CLOSE','Закрыть');
+DEFINE('_CREATE_CONTENT','Создать содержимое');
+DEFINE('_MOVE','Перенести');
+DEFINE('_COPY','Копировать');
 
 ?>

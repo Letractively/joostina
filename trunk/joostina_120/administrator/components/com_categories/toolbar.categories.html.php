@@ -27,21 +27,21 @@ class TOOLBAR_categories {
 		mosMenuBar::media_manager();
 		if($option == 'com_categories') { // boston, этот файлик используется еще в компоненте каталога ссылок, так что проверяем какой сейчас активен
 			mosMenuBar::spacer();
-			mosMenuBar::custom('save_and_new','-save','','Сохранить и добавить',false);
+			mosMenuBar::custom('save_and_new','-save','',_SAVE_AND_ADD,false);
 		}
 		mosMenuBar::spacer();
 		mosMenuBar::save();
 		mosMenuBar::spacer();
 		if($id) // используем Ajax кнопку "Применить" только для уже существующей категории
 			// кнопка "Применить" с Ajax
-			mosMenuBar::ext('Применить','#','-apply','id="tb-apply" onclick="ch_apply();return;"');
+			mosMenuBar::ext(_CMN_APPLY,'#','-apply','id="tb-apply" onclick="ch_apply();return;"');
 		else
 			mosMenuBar::apply();
 
 		mosMenuBar::spacer();
 		if($id) {
 			// for existing content items the button is renamed `close`
-			mosMenuBar::cancel('cancel','Закрыть');
+			mosMenuBar::cancel('cancel',_CLOSE);
 		} else {
 			mosMenuBar::cancel();
 		}
@@ -80,16 +80,16 @@ class TOOLBAR_categories {
 
 		mosMenuBar::startTable();
 		if($section == 'content' || ($section > 0)) {
-			mosMenuBar::ext('Создать содержимое','index2.php?option=com_content&sectionid=0&task=new','-new');
+			mosMenuBar::ext(_CREATE_CONTENT,'index2.php?option=com_content&sectionid=0&task=new','-new');
 		}
 		mosMenuBar::publishList();
 		mosMenuBar::spacer();
 		mosMenuBar::unpublishList();
 		mosMenuBar::spacer();
 		if($section == 'content' || ($section > 0)) {
-			mosMenuBar::customX('moveselect','-move','','Перенести',true);
+			mosMenuBar::customX('moveselect','-move','',_MOVE,true);
 			mosMenuBar::spacer();
-			mosMenuBar::customX('copyselect','-copy','','Копировать',true);
+			mosMenuBar::customX('copyselect','-copy','',_COPY,true);
 			mosMenuBar::spacer();
 		}
 		mosMenuBar::deleteList();
