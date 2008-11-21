@@ -154,9 +154,9 @@ function showCategories($section,$option) {
 			$type = 'other';
 			// special handling for contact component
 			if($section == 'com_contact_details') {
-				$section_name = 'Контакт';
+				$section_name = _ENQUIRY;
 			}
-			$section_name = 'Компонент: '.$section_name;
+			$section_name = _COMPONENT.': '.$section_name;
 		} else {
 			$table = $section;
 			$where = "\n WHERE c.section = ".$database->Quote($section);
@@ -178,7 +178,7 @@ function showCategories($section,$option) {
 		//$where = "\n WHERE s1.catid = c.id";
 		$where = "\n WHERE c.section NOT LIKE '%com_%'";
 		$order = "\n ORDER BY c.section, c.ordering, c.name";
-		$section_name = 'Все содержимое';
+		$section_name = _ALL_CONTENT;
 		// get the total number of records
 		$query = "SELECT COUNT(*)"."\n FROM #__categories"."\n INNER JOIN #__sections AS s ON s.id = section";
 		if($sectionid > 0) {
@@ -257,7 +257,7 @@ function editCategory($uid = 0,$section = '') {
 	$database->setQuery($query);
 	$sections = $database->loadResult();
 	if(!$sections && $type != 'other') {
-		echo "<script> alert('Перед созданием категории Вы должны создать хотя бы один раздел'); window.history.go(-1); </script>\n";
+		echo "<script> alert('"._BEFORE_CREATION_CAT_CREATE_SECTION."'); window.history.go(-1); </script>\n";
 		exit();
 	}
 
@@ -267,7 +267,7 @@ function editCategory($uid = 0,$section = '') {
 
 	// fail if checked out not by 'me'
 	if($row->checked_out && $row->checked_out != $my->id) {
-		mosRedirect('index2.php?option=categories&section='.$row->section,'Категория '.$row->title.' в настоящее время редактируется другим администратором');
+		mosRedirect('index2.php?option=categories&section='.$row->section,str_replace("#CATNAME#",$row->title,_CATEGORY_IS_EDITING_NOW));
 	}
 
 	$lists['links'] = 0;
@@ -281,17 +281,17 @@ function editCategory($uid = 0,$section = '') {
 		switch($row->section) {
 			case 'com_weblinks':
 				$and = "\n AND type = 'weblink_category_table'";
-				$link = 'Таблица - Веб-ссылки категории';
+				$link = _TABLE_WEBLINKS_CATEGORY;
 				break;
 
 			case 'com_newsfeeds':
 				$and = "\n AND type = 'newsfeed_category_table'";
-				$link = 'Таблица - Ленты новостей категории';
+				$link = _TABLE_NEWSFEEDS_CATEGORY;
 				break;
 
 			case 'com_contact_details':
 				$and = "\n AND type = 'contact_category_table'";
-				$link = 'Таблица - Контакты категории';
+				$link = _TABLE_CATEGORY_CONTACTS;
 				break;
 
 			default:
@@ -310,15 +310,15 @@ function editCategory($uid = 0,$section = '') {
 			for($i = 0; $i < $count; $i++) {
 				switch($menus[$i]->type) {
 					case 'content_category':
-						$menus[$i]->type = 'Таблица - Содержимое категории';
+						$menus[$i]->type = _TABLE_CATEGORY_CONTENT;
 						break;
 
 					case 'content_blog_category':
-						$menus[$i]->type = 'Блог - Содержимое категории';
+						$menus[$i]->type = _BLOG_CATEGORY_CONTENT;
 						break;
 
 					case 'content_archive_category':
-						$menus[$i]->type = 'Блог - Архивное содержимое категории';
+						$menus[$i]->type = _BLOG_CATEGORY_ARCHIVE;
 						break;
 				}
 			}
@@ -388,19 +388,19 @@ function editCategory($uid = 0,$section = '') {
 	}
 
 	// build the html select list for category types
-	$types[] = mosHTML::makeOption('','Выберите тип');
+	$types[] = mosHTML::makeOption('',_SEL_TYPE);
 	if($row->section == 'com_contact_details') {
-		$types[] = mosHTML::makeOption('contact_category_table','Таблица контактов категории');
+		$types[] = mosHTML::makeOption('contact_category_table',_TABLE_CATEGORY_CONTACTS);
 	} else
 		if($row->section == 'com_newsfeeds') {
-			$types[] = mosHTML::makeOption('newsfeed_category_table','Таблица лент новостей категории');
+			$types[] = mosHTML::makeOption('newsfeed_category_table',_TABLE_NEWSFEEDS_CATEGORY);
 		} else
 			if($row->section == 'com_weblinks') {
-				$types[] = mosHTML::makeOption('weblink_category_table','Таблица веб-ссылок категории');
+				$types[] = mosHTML::makeOption('weblink_category_table',_TABLE_WEBLINKS_CATEGORY);
 			} else {
-				$types[] = mosHTML::makeOption('content_category','Таблица содержимого категории');
-				$types[] = mosHTML::makeOption('content_blog_category','Блог содержимого категории');
-				$types[] = mosHTML::makeOption('content_archive_category','Блог архивного содержимого категории');
+				$types[] = mosHTML::makeOption('content_category',_TABLE_CATEGORY_CONTENT);
+				$types[] = mosHTML::makeOption('content_blog_category',_BLOG_CATEGORY_CONTENT);
+				$types[] = mosHTML::makeOption('content_archive_category',_BLOG_CATEGORY_ARCHIVE);
 			} // if
 			$lists['link_type'] = mosHTML::selectList($types,'link_type','class="inputbox" size="1"','value','text');
 
@@ -429,10 +429,10 @@ function editCategory($uid = 0,$section = '') {
 		$imgFiles = recursive_listdir(COM_IMAGE_BASE);
 		$len = strlen(COM_IMAGE_BASE);
 
-		$folders[] = mosHTML::makeOption('*2*','Использовать настройки раздела');
+		$folders[] = mosHTML::makeOption('*2*',_USE_SECTION_SETTINGS);
 		$folders[] = mosHTML::makeOption('*#*','---------------------');
-		$folders[] = mosHTML::makeOption('*1*','Все');
-		$folders[] = mosHTML::makeOption('*0*','Отсутствуют');
+		$folders[] = mosHTML::makeOption('*1*',_CMN_ALL);
+		$folders[] = mosHTML::makeOption('*0*',_NOT_EXISTS);
 		$folders[] = mosHTML::makeOption('*#*','---------------------');
 		$folders[] = mosHTML::makeOption('/');
 		foreach($imgFiles as $file) {
@@ -573,7 +573,7 @@ function removeCategories($section,$cid) {
 	global $database,$mosConfig_dbprefix;
 	josSpoofCheck();
 	if(count($cid) < 1) {
-		echo "<script> alert('Выберите категорию для удаления'); window.history.go(-1);</script>\n";
+		echo "<script> alert('"._CHOOSE_CATEGORY_TO_REMOVE."'); window.history.go(-1);</script>\n";
 		exit;
 	}
 
@@ -627,7 +627,8 @@ function removeCategories($section,$cid) {
 
 	if(count($err)) {
 		$cids = implode("\', \'",$err);
-		$msg = 'Категория: '.$cids.' не может быть удалена, т.к. она содержит записи';
+		$msg = str_replace("#CIDS#",$cids,_CANNOT_REMOVE_CATEGORY);
+		
 		mosRedirect('index2.php?option=com_categories&section='.$section.'&mosmsg='.$msg);
 	}
 
@@ -654,8 +655,8 @@ function publishCategories($section,$categoryid = null,$cid = null,$publish = 1)
 	}
 
 	if(count($cid) < 1) {
-		$action = $publish?'публикации':'сокрытия';
-		echo "<script> alert('Выберите категорию для $action'); window.history.go(-1);</script>\n";
+		$action = $publish? _CMN_PUBLISHED : _CMN_UNPUBLISHED;
+		echo "<script> alert('"._CHOOSE_CATEGORY_FOR_." $action'); window.history.go(-1);</script>\n";
 		exit;
 	}
 
@@ -728,7 +729,7 @@ function moveCategorySelect($option,$cid,$sectionOld) {
 	;
 
 	if(!is_array($cid) || count($cid) < 1) {
-		echo "<script> alert('Выберите объект для перемещения'); window.history.go(-1);</script>\n";
+		echo "<script> alert('"._CHOOSE_OBJECT_TO_MOVE."'); window.history.go(-1);</script>\n";
 		exit;
 	}
 
@@ -766,7 +767,7 @@ function moveCategorySave($cid,$sectionOld) {
 	josSpoofCheck();
 
 	if(!is_array($cid) || count($cid) < 1) {
-		echo "<script> alert('Выберите объект для перемещения'); window.history.go(-1);</script>\n";
+		echo "<script> alert('"._CHOOSE_OBJECT_TO_MOVE."'); window.history.go(-1);</script>\n";
 		exit;
 	}
 
@@ -799,7 +800,7 @@ function moveCategorySave($cid,$sectionOld) {
 		mosCache::cleanCache('com_content');
 	}
 
-	$msg = ((count($cid) - 1)?'Категории перемещены в ':'Категория перемещена в ').''.$sectionNew->name;
+	$msg = ((count($cid) - 1)? _CATEGORIES_MOVED_TO : _CATEGORY_MOVED_TO ).''.$sectionNew->name;
 	mosRedirect('index2.php?option=com_categories&section='.$sectionOld.'&mosmsg='.$msg);
 }
 
@@ -813,7 +814,7 @@ function copyCategorySelect($option,$cid,$sectionOld) {
 	;
 
 	if(!is_array($cid) || count($cid) < 1) {
-		echo "<script> alert('Выберите объект для перемещения'); window.history.go(-1);</script>\n";
+		echo "<script> alert('"._CHOOSE_OBJECT_TO_MOVE."'); window.history.go(-1);</script>\n";
 		exit;
 	}
 
@@ -861,8 +862,8 @@ function copyCategorySave($cid,$sectionOld) {
 	foreach($cid as $id) {
 		$category->load((int)$id);
 		$category->id = null;
-		$category->title = 'Копирование '.$category->title;
-		$category->name = 'Копирование '.$category->name;
+		$category->title = _CATEGORY_COPYING.' '.$category->title;
+		$category->name = _CATEGORY_COPYING.' '.$category->name;
 		$category->section = $sectionMove;
 		if(!$category->check()) {
 			echo "<script> alert('".$category->getError().
@@ -913,7 +914,7 @@ function copyCategorySave($cid,$sectionOld) {
 		mosCache::cleanCache('com_content');
 	}
 
-	$msg = ((count($cid) - 1)?'Категории скопированы в ':'Категория скопирована в ').''.$sectionNew->name;
+	$msg = ((count($cid) - 1)? _CATEGORIES_COPIED_TO : _CATEGORY_COPIED_TO).''.$sectionNew->name;
 	mosRedirect('index2.php?option=com_categories&section='.$sectionOld.'&mosmsg='.$msg);
 }
 
@@ -963,32 +964,32 @@ function menuLink($id) {
 		case 'content_category':
 			$link = 'index.php?option=com_content&task=category&sectionid='.$sectionid.
 				'&id='.$id;
-			$menutype = 'Таблица содержимого категории';
+			$menutype = _TABLE_CATEGORY_CONTENT;
 			break;
 
 		case 'content_blog_category':
 			$link = 'index.php?option=com_content&task=blogcategory&id='.$id;
-			$menutype = 'Блог содержимого категории';
+			$menutype = _BLOG_CATEGORY_CONTENT;
 			break;
 
 		case 'content_archive_category':
 			$link = 'index.php?option=com_content&task=archivecategory&id='.$id;
-			$menutype = 'Блог архивного содержимого категории';
+			$menutype = _BLOG_CATEGORY_ARCHIVE;
 			break;
 
 		case 'contact_category_table':
 			$link = 'index.php?option=com_contact&catid='.$id;
-			$menutype = 'Таблица контактов категории';
+			$menutype = _TABLE_CATEGORY_CONTACTS;
 			break;
 
 		case 'newsfeed_category_table':
 			$link = 'index.php?option=com_newsfeeds&catid='.$id;
-			$menutype = 'Таблица лент новостей категории';
+			$menutype = _TABLE_NEWSFEEDS_CATEGORY;
 			break;
 
 		case 'weblink_category_table':
 			$link = 'index.php?option=com_weblinks&catid='.$id;
-			$menutype = 'Таблица веб-ссылок категории';
+			$menutype = _TABLE_WEBLINKS_CATEGORY;
 			break;
 	}
 
@@ -1070,7 +1071,7 @@ function saveOrder(&$cid,$section) {
 		mosCache::cleanCache('com_content');
 	}
 
-	$msg = 'Новый порядок сохранен';
+	$msg = _NEW_ORDER_SAVED;
 	mosRedirect('index2.php?option=com_categories&section='.$section,$msg);
 } // saveOrder
 

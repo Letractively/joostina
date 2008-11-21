@@ -397,10 +397,10 @@ function importArtBanners($option) {
 	$database->setQuery($query);
 	$artbanners_number = @$database->loadResult();
 	if($database->getErrorNum()) {
-		mosRedirect("index2.php?option=$option", 'Банеры не обнаружены');
+		mosRedirect("index2.php?option=$option", _NO_BANNERS);
 	} else
 		if(!$artbanners_number) {
-			mosRedirect("index2.php?option=$option", 'Банеры не обнаружены');
+			mosRedirect("index2.php?option=$option", _NO_BANNERS);
 		}
 
 	// leggo le info dei banner da importare
@@ -696,7 +696,7 @@ function saveBanner($option, $task) {
 	// Resets clicks when `Reset Clicks` button is used instead of `Save` button
 	if($task == 'resethits') {
 		$banner->clicks = 0;
-		$msg = 'Счётчик показа баннеров обнулён';
+		$msg = _BANNER_COUNTER_RESETTED;
 		$banner->dta_mod_clicks = mosCurrentDate("%Y-%m-%d");
 	} else
 		if($banner->dta_mod_clicks == '0000-00-00') {
@@ -710,11 +710,11 @@ function saveBanner($option, $task) {
 		// verifica formalita' della data inizio
 		if(ereg("([0-9]{4})-([0-9]{1,2})-([0-9]{1,2})", $banner->publish_up_date, $regs)) {
 			if(!checkdate($regs[2], $regs[3], $regs[1])) {
-				echo "<script> alert('Проверьте правильность ввода даты публикации'); window.history.go(-1); </script>\n";
+				echo "<script> alert('"._CHECK_PUBLISH_DATE."'); window.history.go(-1); </script>\n";
 				exit();
 			}
 		} else {
-			echo "<script> alert('Проверьте правильность ввода даты публикации'); window.history.go(-1); </script>\n";
+			echo "<script> alert('"._CHECK_PUBLISH_DATE."'); window.history.go(-1); </script>\n";
 			exit();
 		}
 	} else {
@@ -725,11 +725,11 @@ function saveBanner($option, $task) {
 
 	if(ereg("([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2})", $banner->publish_up_time, $regs)) {
 		if($regs[1] > 24 || $regs[2] > 60 || $regs[3] > 60) {
-			echo "<script> alert('Проверьта дату начала публикации'); window.history.go(-1); </script>\n";
+			echo "<script> alert('"._CHECK_START_PUBLICATION_DATE."'); window.history.go(-1); </script>\n";
 			exit();
 		}
 	} else {
-		echo "<script> alert('Проверьта дату начала публикации'); window.history.go(-1); </script>\n";
+		echo "<script> alert('"._CHECK_START_PUBLICATION_DATE."'); window.history.go(-1); </script>\n";
 		exit();
 	}
 
@@ -740,11 +740,11 @@ function saveBanner($option, $task) {
 		// verifica formalita' della data fine
 		if(ereg("([0-9]{4})-([0-9]{1,2})-([0-9]{1,2})", $banner->publish_down_date, $regs)) {
 			if(!checkdate($regs[2], $regs[3], $regs[1])) {
-				echo "<script> alert('Проверьта дату окончания публикации'); window.history.go(-1); </script>\n";
+				echo "<script> alert('"._CHECK_END_PUBLICATION_DATE."'); window.history.go(-1); </script>\n";
 				exit();
 			}
 		} else {
-			echo "<script> alert('Проверьта дату окончания публикации'); window.history.go(-1); </script>\n";
+			echo "<script> alert('"._CHECK_END_PUBLICATION_DATE."'); window.history.go(-1); </script>\n";
 			exit();
 		}
 
@@ -756,11 +756,11 @@ function saveBanner($option, $task) {
 
 	if(ereg("([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2})", $banner->publish_down_time, $regs)) {
 		if($regs[1] > 24 || $regs[2] > 60 || $regs[3] > 60) {
-			echo "<script> alert('Проверьте время окончания публикации'); window.history.go(-1); </script>\n";
+			echo "<script> alert('"._CHECK_END_PUBLICATION_DATE."'); window.history.go(-1); </script>\n";
 			exit();
 		}
 	} else {
-		echo "<script> alert('Проверьте время окончания публикации'); window.history.go(-1); </script>\n";
+		echo "<script> alert('"._CHECK_END_PUBLICATION_DATE."'); window.history.go(-1); </script>\n";
 		exit();
 	}
 

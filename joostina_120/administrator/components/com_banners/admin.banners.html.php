@@ -15,7 +15,7 @@ class HTML_banners {
 		mosCommonHTML::loadOverlib();?>
 	<table border="0" class="adminheading">
 		<tbody><tr>
-			<th class="cpanel">Управление баннерами</th>
+			<th class="cpanel"><?=_BANNERS_MANAGEMENT?></th>
 		</tr>
 	</tbody>
 	</table>
@@ -470,7 +470,7 @@ $onclick; ?>><img src="images/<?php echo $img; ?>" border=0 alt="" /></a>
 </script>
 <table border="0" class="adminheading">
 		<tbody><tr>
-			<th class="cpanel"><?php echo $row->id ? 'Редактирование баннера' : 'Создание баннера';?></th>
+			<th class="cpanel"><?php echo $row->id ? _EDIT_BANNER : _NEW_BANNER;?></th>
 		</tr>
 	</tbody>
 </table>
@@ -600,10 +600,10 @@ $onclick; ?>><img src="images/<?php echo $img; ?>" border=0 alt="" /></a>
 			<td><label for="target"><?php echo _ABP_TARGET; ?></label></td>
 			<td colspan="2">
 				<select name="target" id="target">
-					<option value="blank" <?php echo ($row->target == 'blank') ? 'selected' : ''; ?>>Новом окне</option>
-					<option value="self" <?php echo ($row->target == 'self') ? 'selected' : ''; ?>>Том же окне</option>
-					<option value="parent" <?php echo ($row->target == 'parent') ? 'selected' : ''; ?>>Текущем окне</option>
-					<option value="top" <?php echo ($row->target == 'top') ? 'selected' : ''; ?>>Главном фрейме</option>
+					<option value="blank" <?php echo ($row->target == 'blank') ? 'selected' : ''; ?>><?=_IN_NEW_WINDOW?></option>
+					<option value="self" <?php echo ($row->target == 'self') ? 'selected' : ''; ?>><?=_IN_CURRENT_WINDOW?></option>
+					<option value="parent" <?php echo ($row->target == 'parent') ? 'selected' : ''; ?>><?=_IN_PARENT_WINDOW?></option>
+					<option value="top" <?php echo ($row->target == 'top') ? 'selected' : ''; ?>><?=_IN_MAIN_FRAME?></option>
 				</select>
 			</td>
 		</tr>
@@ -905,7 +905,7 @@ class HTML_bannerClient {
 <table class="adminheading">
 	<tbody>
 	<tr>
-		<th class="user">Клиенты баннеров</th>
+		<th class="user"><?=_BANNER_CLIENTS?></th>
 	</tr>
 	</tbody>
 </table>
@@ -952,7 +952,7 @@ class HTML_bannerClient {
 		<td width="100" align="center"><?php echo $info_banner[$i]['non_publ']; ?></td>
 		<td width="100" align="center"><?php echo $info_banner[$i]['in_attiv']; ?></td>
 		<td align="center" onclick="ch_publ(<?php echo $row->cid; ?>,'com_banners','&act=client_publish');" class="td-state" >
-			<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->cid;?>" alt="Публикация" />
+			<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->cid;?>" alt="<?=_E_PUBLISHING?>" />
 		</td>
 	</tr>
 <?php
@@ -1041,7 +1041,7 @@ class HTML_bannerCategory {
 	<form action="index2.php" method="POST" name="adminForm">
 	<table border="0" class="adminheading">
 			<tbody><tr>
-				<th class="categories">Категории баннеров</th>
+				<th class="categories"><?=_BANNER_CATEGORIES?></th>
 			</tr>
 		</tbody>
 	</table>
@@ -1077,7 +1077,7 @@ class HTML_bannerCategory {
 			</td>
 			<td width="15%" align="center"><?php echo $row->banners; ?></td>
 			<td align="center" <?php echo ($row->checked_out && ($row->checked_out != $my->id)) ? null : 'onclick="ch_publ('.$row->id.',\'com_banners\',\'&act=cat_publish\');" class="td-state"';?>>
-				<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="Публикация" />
+				<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?=_E_PUBLISHING?>" />
 			</td>
 		</tr>
 <?php
