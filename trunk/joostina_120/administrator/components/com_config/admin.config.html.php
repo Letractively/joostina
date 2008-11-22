@@ -94,7 +94,7 @@ class HTML_config {
 		function submitbutton(pressbutton) {
 			var form = document.adminForm;
 			if (form.config_session_type.value != <?php echo $row->config_session_type; ?> ){
-				if ( confirm('Вы действительно хотите изменить `Метод аутентификации сессии`? \n\n Это действие удалит все существующие сессии фронтенда \n\n') ) {
+				if ( confirm('<?=_DO_YOU_REALLY_WANT_DEL_AUTENT_METHOD?>') ) {
 					submitform( pressbutton );
 				} else {
 					return;
@@ -128,21 +128,21 @@ class HTML_config {
 		<div id="overDiv" style="position:absolute; visibility:hidden; z-index:10000;"></div>
 		<table cellpadding="1" cellspacing="1" border="0" width="100%">
 			<tr>
-				<td width="70%"><table class="adminheading"><tr><th class="config">Глобальная конфигурация</th></tr></table></td>
+				<td width="70%"><table class="adminheading"><tr><th class="config"><?=_GLOBAL_CONFIG?></th></tr></table></td>
 <?php
 		if(mosIsChmodable('../configuration.php')) {
 			if(is_writable('../configuration.php')) {
 ?>
 				<td class="jtd_nowrap">
 					<input type="checkbox" id="disable_write" name="disable_write" value="1"/>
-					<label for="disable_write">Защитить от записи после сохранения</label>
+					<label for="disable_write"><?=_PROTECT_AFTER_SAVE?></label>
 				</td>
 <?php
 			} else {
 ?>
 				<td class="jtd_nowrap">
 					<input type="checkbox" id="enable_write" name="enable_write" value="1"/>
-					<label for="enable_write">Игнорировать защиту от записи при сохранении</label>
+					<label for="enable_write"><?=_IGNORE_PROTECTION_WHEN_SAVE?></label>
 				</td>
 <?php
 			} // if
@@ -151,90 +151,90 @@ class HTML_config {
 ?>
 			</tr>
 		</table>
-		<div class="message">Сохранение конфигурации:
-			<?php echo is_writable('../configuration.php')?'<b><font color="green">доступно</font></b>':'<b><font color="red">недоступно, проверьте права доступа на файл конфигурации</font></b>' ?>
+		<div class="message"><?=_CONFIG_SAVING?>:
+			<?php echo is_writable('../configuration.php')?'<b><font color="green">доступно</font></b>':'<b><font color="red">'._NOT_AVAILABLE_CHECK_RIGHTS.'/font></b>' ?>
 		</div
 		<br />
 <?php
 	$tabs->startPane("configPane");
-	$tabs->startTab("Сайт","site-page");
+	$tabs->startTab(_SITE,"site-page");
 ?>
 				<table class="adminform">
 					<tr>
-						<td>Название сайта:</td>
+						<td><?=_SITE_NAME?>:</td>
 						<td><input class="text_area" style="width:500px;" type="text" name="config_sitename" size="50" value="<?php echo $row->config_sitename; ?>"/></td>
 					</tr>
 					<tr>
-						<td width="185">Сайт выключен:</td>
+						<td width="185"><?=_SITE_OFFLINE?>:</td>
 						<td><?php echo $lists['offline']; ?></td>
 					</tr>
 					<tr>
-						<td valign="top">Сообщение при выключенном сайте:</td>
+						<td valign="top"><?=_SITE_OFFLINE_MESSAGE?>:</td>
 						<td>
 							<textarea class="text_area" cols="60" rows="2" style="width:500px; height:40px" name="config_offline_message"><?php echo $row->config_offline_message; ?></textarea>
 <?php
-	$tip = 'Сообщение, которое выводится пользователям вместо сайта, когда он находится в выключенном состоянии.';
+	$tip = _SITE_OFFLINE_MESSAGE2;
 	echo mosToolTip($tip);
 ?>
 						</td>
 					</tr>
 					<tr>
-						<td valign="top">Сообщение при системной ошибке:</td>
+						<td valign="top"><?=_SYSTEM_ERROR_MESSAGE?>:</td>
 						<td><textarea class="text_area" cols="60" rows="2" style="width:500px; height:40px" name="config_error_message"><?php echo $row->config_error_message; ?></textarea>
 <?php
-	$tip = 'Сообщение, которое выводится пользователям вместо сайта, когда Joostina! не может подключиться к базе данных MySQL.';
+	$tip = _SYSTEM_ERROR_MESSAGE2;
 	echo mosToolTip($tip);
 ?>
 						</td>
 					</tr>
 					<tr>
-						<td>Показывать "Подробнее..." неавторизованным:</td>
-						<td><?php echo $lists['shownoauth']; ?><?php $tip = 'Если ДА, то неавторизованным пользователям будут показываться ссылки на содержимое с уровнем доступа -Для зарегистрированных-. Для возможности полного просмотра пользователь должен будет авторизоваться.';
+						<td><?=_SHOW_READMORE_TO_AUTH?>:</td>
+						<td><?php echo $lists['shownoauth']; ?><?php $tip = _SHOW_READMORE_TO_AUTH2;
 		echo mosToolTip($tip);
 ?></td>
 						</tr>
 						<tr>
-						<td>Разрешить регистрацию пользователей:</td>
+						<td><?=_ENABLE_USER_REGISTRATION?>:</td>
 								<td><?php echo $lists['allowUserRegistration']; ?><?php
-		$tip = 'Если ДА, то пользователям будет разрешено регистрироваться на сайте.';
+		$tip = _ENABLE_USER_REGISTRATION2;
 		echo mosToolTip($tip);
 ?></td>
 						</tr>
 						<tr>
-						<td>Использовать активацию нового аккаунта:</td>
+						<td><?=_ACCOUNT_ACTIVATION?>:</td>
 								<td><?php echo $lists['useractivation']; ?>
 								<?php
-		$tip = 'Если ДА, то пользователю необходимо будет активировать новый аккаунт, после получения им письма со ссылкой для активации.';
+		$tip = _ACCOUNT_ACTIVATION2;
 		echo mosToolTip($tip);
 ?></td>
 						</tr>
 						<tr>
-						<td>Требовать уникальный E-mail:</td>
+						<td><?=_UNIQUE_EMAIL?>:</td>
 								<td><?php echo $lists['uniquemail']; ?><?php
-		$tip = 'Если ДА, то пользователи не смогут создавать несколько аккаунтов с одинаковым адресом e-mail.';
+		$tip = _UNIQUE_EMAIL2;
 		echo mosToolTip($tip);
 ?></td>
 						</tr>
 			<tr>
-				<td>Параметры пользователя сайта:</td>
+				<td><?=_USER_PARAMS?>:</td>
 				<td>
 					<?php echo $lists['frontend_userparams']; ?>
 					<?php
-		$tip = 'Если `Нет`, то будет отключена возможность установки пользователем параметров сайта (выбор редактора)';
+		$tip = _USER_PARAMS2;
 		echo mosToolTip($tip);
 ?>
 				</td>
 			</tr>
 						<tr>
-						<td>WYSIWYG-редактор по умолчанию:</td>
+						<td><?=_DEFAULT_EDITOR?>:</td>
 								<td><?php echo $lists['editor']; ?></td>
 						</tr>
 						<tr>
-						<td>Длина списков (кол-во строк):</td>
+						<td><?=_LIST_LIMIT?>:</td>
 								<td>
 <?php
 		echo $lists['list_limit'];
-		$tip = 'Устанавливает длину списков по умолчанию в панели управления для всех пользователей';
+		$tip = _LIST_LIMIT2;
 		echo mosToolTip($tip);
 ?>
 				</td>
@@ -242,403 +242,403 @@ class HTML_config {
 						</table>
 						<?php
 		$tabs->endTab();
-		$tabs->startTab("Фронт","front-page"); ?>
+		$tabs->startTab(_FRONTPAGE,"front-page"); ?>
 		<table class="adminform">
 			<tr>
 				<td width="300">Язык сайта:</td>
 				<td><?php echo $lists['lang']; ?></td>
 			</tr>
-				<td>Страница печати из каталога шаблона:</td>
+				<td><?=_CUSTOM_PRINT?>:</td>
 				<td>
 <?php
 		echo $lists['config_custom_print'];
-		$tip = 'Использование произвольной страницы для печатного вида из каталога текущего шаблона';
+		$tip = _CUSTOM_PRINT2;
 		echo mosToolTip($tip);
 ?>
 				</td>
 			</tr>
 			</tr>
-				<td>Разрешить многоязычность модулей:</td>
+				<td><?=_MODULES_MULTI_LANG?>:</td>
 				<td>
 <?php
 		echo $lists['config_module_multilang'];
-		$tip = 'Позволить системе проверять языковые файлы модулей, если у вас таких не имеется - рекомендуется установить НЕТ';
+		$tip = _MODULES_MULTI_LANG2;
 		echo mosToolTip($tip);
 ?>
 				</td>
 			</tr>
 			<tr>
-				<td>Формат даты:</td>
+				<td><?=_DATE_FORMAT_TXT?>:</td>
 				<td><input class="text_area" type="text" name="config_form_date" size="35" value="<?php echo $row->config_form_date; ?>"/>
 <?php
 	echo $lists['form_date_help'];
-	$tip = 'Выберите формат для отображения даты. Необходимо использовать формат в соответствии с правилами strftime.';
+	$tip = _DATE_FORMAT2;
 	echo mosToolTip($tip);
 ?>
 				</td>
 			</tr>
 			<tr>
-				<td>Полный формат даты и времени:</td>
+				<td><?=_DATE_FORMAT_FULL?>:</td>
 				<td><input class="text_area" type="text" name="config_form_date_full" size="35" value="<?php echo $row->config_form_date_full; ?>"/>
 <?php echo $lists['form_date_full_help'];
-	$tip = 'Выберите полный формат для отображения даты и времени. Необходимо использовать формат в соответствии с правилами strftime.';
+	$tip = _DATE_FORMAT_FULL2;
 	echo mosToolTip($tip);
 ?>
 				</td>
 			</tr>
 			<tr>
-				<td>Обрамлять заголовки содержимого тегом H1 при полном просмотре:</td>
+				<td><?=_USE_H1_FOR_HEADERS?>:</td>
 				<td><?php echo $lists['config_title_h1_only_view'];
-		$tip = 'Обрамлять заголовки тегом h1 только в режиме полного просмотра содержимого ( при нажатии на Подробнее... ).';
+		$tip = _USE_H1_FOR_HEADERS2;
 		echo mosToolTip($tip);
 ?>
 				</td>
 			</tr>
 			<tr>
-				<td>Обрамлять все заголовки содержимого тегом H1:</td>
+				<td><?=_USE_H1_HEADERS_ALWAYS?>:</td>
 				<td><?php echo $lists['config_title_h1'];
-		$tip = 'Помещать заголовки материала в теги h1.';
+		$tip = _USE_H1_HEADERS_ALWAYS2;
 		echo mosToolTip($tip);
 ?>
 				</td>
 			</tr>
 			<tr>
-				<td>Отключить генерацию RSS (syndicate):</td>
+				<td><?=_DISABLE_RSS?>:</td>
 				<td><?php echo $lists['syndicate_off'];
-		$tip = 'Если `Да`, то будет отключена возможность генерации RSS лент и работа с ними';
+		$tip = _DISABLE_RSS2;
 		echo mosToolTip($tip);
 ?>
 				</td>
 			</tr>
 			<tr>
-				<td>Использовать шаблон:</td>
+				<td><?=_USE_TEMPLATE?>:</td>
 				<td><?php echo $lists['one_template'];
-		$tip = 'При выборе шаблона он будет использован на всем сайте независимо от привязок к пунктам меню других шаблонов. Для использования нескольких шаблонов выберите \\\'Разные\\\'';
+		$tip = _USE_TEMPLATE2;
 		echo mosToolTip($tip);
 ?>
 				</td>
 			</tr>
 			<tr>
-				<td>Значок сайта в Закладках браузера:</td>
+				<td><?=_FAVICON_IMAGE?>:</td>
 				<td><input class="text_area" type="text" name="config_favicon" size="20" value="<?php echo $row->config_favicon; ?>"/>
-					<?php $tip = 'Значок сайта в Закладках (Избранном) браузера. Если не указано или файл значка не найден, по умолчанию будет использоваться файл favicon.ico.';
-		echo mosToolTip($tip,'Значок сайта в Закладках');
+					<?php $tip = _FAVICON_IMAGE2;
+		echo mosToolTip($tip,_FAVICON_IMAGE3);
 ?>
 				</td>
 			</tr>
 			<tr>
-				<td>Отключить favicon:</td>
+				<td><?=_DISABLE_FAVICON?>:</td>
 				<td><?php echo $lists['config_disable_favicon'];
-		$tip = 'Использовать в качестве значка сайта favicon';
+		$tip = _DISABLE_FAVICON2;
 		echo mosToolTip($tip);
 ?>
 				</td>
 			</tr>
 			<tr>
-				<td>Отключить мамботы группы system:</td>
+				<td><?=_DISABLE_SYSTEM_MAMBOTS?>:</td>
 				<td><?php echo $lists['mmb_system_off'];
-		$tip = 'Если `Да`, то использование системных мамботов будет прекращено. ВНИМАНИЕ, если на сайте используются мамботы этой группы, то активация параметра не рекомендуется';
+		$tip = _DISABLE_SYSTEM_MAMBOTS2;
 		echo mosToolTip($tip);
 ?>
 				</td>
 			</tr>
 			<tr>
-				<td>Отключить мамботы группы content:</td>
+				<td><?=_DISABLE_CONTENT_MAMBOTS?>:</td>
 				<td><?php echo $lists['mmb_content_off'];
-		$tip = 'Если `Да`, то использование мамботов обработки контента будет прекращено. ВНИМАНИЕ, если на сайте используются мамботы этой группы, то активация параметра не рекомендуется';
+		$tip = _DISABLE_CONTENT_MAMBOTS2;
 		echo mosToolTip($tip);
 ?>
 				</td>
 			</tr>
 			<tr>
-				<td>Отключить мамботы группы mainbody:</td>
+				<td><?=_DISABLE_MAINBODY_MAMBOTS?>:</td>
 				<td><?php echo $lists['config_mmb_mainbody_off'];
-		$tip = 'Если `Да`, то использование мамботов обработки стека компонентов (mainbody) будет прекращено.';
+		$tip = _DISABLE_MAINBODY_MAMBOTS2;
 		echo mosToolTip($tip);
 ?>
 				</td>
 			</tr>
 			<tr>
-				<td>Авторизация на сайте:</td>
+				<td><?=_SITE_AUTH?>:</td>
 				<td><?php echo $lists['frontend_login'];
-		$tip = 'Если `Нет`, то страница авторизации на сайте будет отключена, если с ней не связан пункт меню. Также будет отключена возможность регистрации на сайте';
+		$tip = _SITE_AUTH2;
 		echo mosToolTip($tip); ?>
 				</td>
 			</tr>
 			<tr>
-				<td>Время существования сессии на фронте:</td>
+				<td><?=_FRONT_SESSION_TIME?>:</td>
 				<td>
 					<input class="text_area" type="text" name="config_lifetime" size="10" value="<?php echo $row->config_lifetime; ?>"/>&nbsp;секунд&nbsp;
-						<?php echo mosWarning('Время автоотключения пользователя сайта при неактивности. Большое значение этого параметра снижает безопасность.'); ?>
+						<?php echo mosWarning(_FRONT_SESSION_TIME2); ?>
 					</td>
 			</tr>
 			<tr>
-				<td>Отключить сессии на фронте</td>
+				<td><?=_DISABLE_FRONT_SESSIONS?></td>
 				<td><?php echo $lists['session_front'];
-		$tip = 'Если `Да`, то будет отключено ведение сессий для каждого пользователя на сайте. Если подсчет числа пользователей не нужен и регистрация отключена - можно выключить.';
+		$tip = _DISABLE_FRONT_SESSIONS2;
 		echo mosToolTip($tip);
 ?>
 				</td>
 			</tr>
 			<tr>
-				<td>Отключить контроль доступа к содержимому</td>
+				<td><?=_DISABLE_ACCESS_CHECK_TO_CONTENT?></td>
 				<td><?php echo $lists['config_disable_access_control'];
-		$tip = 'Если `Да`, то контроль доступа к содержимому осуществляться не будет, и всем пользователям будет отображено всё содержимое. Рекомендуется совместно с пунктами отключения авторизации и сессий на фронте.';
+		$tip = _DISABLE_ACCESS_CHECK_TO_CONTENT2;
 		echo mosToolTip($tip);
 ?>
 				</td>
 			</tr>
 			<tr>
-				<td>Считать число прочтений содержимого:</td>
+				<td><?=_COUNT_CONTENT_HITS?>:</td>
 				<td><?php echo $lists['config_content_hits'];
-		echo mosToolTip('При выключении параметра статистика прочтений содержимого будет не активна.'); ?></td>
+		echo mosToolTip(_COUNT_CONTENT_HITS2); ?></td>
 			</tr>
 			<tr>
-				<td>Отключить проверки публикации по датам:</td>
+				<td><?=_DISABLE_CHECK_CONTENT_DATE?>:</td>
 				<td><?php echo $lists['config_disable_date_state'];
-		echo mosToolTip('Если на сайте не критичны временные промежутки публикации содержимого - то данный параметр лучше активизировать.'); ?></td>
+		echo mosToolTip(_DISABLE_CHECK_CONTENT_DATE2); ?></td>
 			</tr>
 			<tr>
-				<td>Отключать модули в редактировании:</td>
+				<td><?=_DISABLE_MODULES_WHEN_EDIT?>:</td>
 				<td><?php echo $lists['module_on_edit_off'];
-		$tip = 'Если `Да`, то на странице редактирования содержимого с фронта будут отключены все модули';
+		$tip = _DISABLE_MODULES_WHEN_EDIT2;
 		echo mosToolTip($tip);
 ?>
 				</td>
 			</tr>
 			<tr>
-				<td>Рассчитывать время генерации страницы:</td>
+				<td><?=_COUNT_GENERATION_TIME?>:</td>
 				<td><?php echo $lists['time_gen'];
-		$tip = 'Если `Да`, то на каждой странице будет отображено время на её генерацию';
+		$tip = _COUNT_GENERATION_TIME2;
 		echo mosToolTip($tip); ?>
 			</td>
 			</tr>
 			<tr>
-				<td>GZIP-сжатие страниц:</td>
+				<td><?=_ENABLE_GZIP?>:</td>
 				<td><?php echo $lists['gzip'];
-		echo mosToolTip('Поддержка сжатия страниц перед отправкой (если поддерживается). Включение этой функции уменьшает размер загружаемых страниц и приводит к уменьшению трафика. В то же время, это увеличивает нагрузку на сервер.'); ?>
+		echo mosToolTip(_ENABLE_GZIP2); ?>
 				</td>
 			</tr>
 			<tr>
-				<td>Режим отладки сайта:</td>
+				<td><?=_IS_SITE_DEBUG?>:</td>
 				<td><?php echo $lists['debug'];
-		$tip = 'Если ДА, то будет показываться диагностическая информация, запросы и ошибки MySQL...';
+		$tip = _IS_SITE_DEBUG2;
 		echo mosToolTip($tip);
 ?></td>
 				</tr>
 			<tr>
-				<td>Расширенный отладчик:</td>
+				<td><?=_EXTENDED_DEBUG?>:</td>
 				<td><?php echo $lists['config_front_debug'];
-		echo mosToolTip('Использовать на фронте сайта расширенный отладчик выводящий множество информации о сайте.'); ?>
+		echo mosToolTip(_EXTENDED_DEBUG2); ?>
 				</td>
 			</tr>
 		</table>
 <?php
 	$tabs->endTab();
-	$tabs->startTab("Панель управления","back-page");
+	$tabs->startTab(_CONTROL_PANEL,"back-page");
 ?>
 		<table class="adminform">
 			<tr>
-				<td width="300">Отключить удаление сессий в панели управления:</td>
+				<td width="300"><?=_DISABLE_ADMIN_SESS_DEL?>:</td>
 				<td><?php echo $lists['config_adm_session_del'];
-		echo mosToolTip('Не удалять сессии даже после истечения времени существования.'); ?>
+		echo mosToolTip(_DISABLE_ADMIN_SESS_DEL2); ?>
 				</td>
 			</tr>
 			<tr>
-				<td>Отключить кнопку "Помощь":</td>
+				<td><?=_DISABLE_HELP_BUTTON?>:</td>
 				<td><?php echo $lists['config_disable_button_help'];
-		echo mosToolTip('Позволяет запретить к показу кнопку помощи тулбара панели управления.'); ?>
+		echo mosToolTip(_DISABLE_HELP_BUTTON2); ?>
 				</td>
 			</tr>
 			<tr>
-				<td width="300">Использовать старое отображение туллбара:</td>
+				<td width="300"><?=_USE_OLD_TOOLBAR?>:</td>
 				<td><?php echo $lists['config_old_toolbar'];
-		echo mosToolTip('При активировании параметра вывод кнопок туллбара будет произведён в режиме таблиц, как было в Joomla.'); ?>
+		echo mosToolTip(_USE_OLD_TOOLBAR2); ?>
 				</td>
 			</tr>
 			<tr>
-				<td>Отключить вкладку "Изображения":</td>
+				<td><?=_DISABLE_IMAGES_TAB?>:</td>
 				<td><?php echo $lists['config_disable_image_tab'];
-		echo mosToolTip('Позволяет запретить к показу при редактировании содержимого вкладку Изображения.'); ?>
+		echo mosToolTip(_DISABLE_IMAGES_TAB2); ?>
 				</td>
 			</tr>
 			<tr>
-				<td>Время существования сессии в панели управления:</td>
+				<td><?=_ADMIN_SESS_TIME?>:</td>
 				<td>
-				<input class="text_area" type="text" name="config_session_life_admin" size="10" value="<?php echo $row->config_session_life_admin; ?>"/>&nbsp;секунд&nbsp;
-				<?php echo mosWarning('Время, по истечении которого будут отключены пользователи <strong>админцентра</strong> при неактивности. Слишком большое значение уменьшает защищенность сайта!'); ?>
+				<input class="text_area" type="text" name="config_session_life_admin" size="10" value="<?php echo $row->config_session_life_admin; ?>"/>&nbsp;<?=_SECONDS?>&nbsp;
+				<?php echo mosWarning(_ADMIN_SESS_TIME2); ?>
 				</td>
 			</tr>
 			<tr>
-				<td>Запоминать страницу Админцентра при окончании сессии:</td>
+				<td><?=_SAVE_LAST_PAGE?>:</td>
 				<td><?php echo $lists['admin_expired'];
-						echo mosToolTip('Если сессия работы в панели управления закончилась, и Вы заходите на сайт в течение 10 минут, то при входе вы будете перенаправлены на страницу, с которой произошло отключение'); ?>
+						echo mosToolTip(_SAVE_LAST_PAGE2); ?>
 				</td>
 			</tr>
 			<tr>
-				<td>Визуальный редактор для html и css:</td>
+				<td><?=_HTML_CSS_EDITOR?>:</td>
 				<td><?php echo $lists['config_codepress'];
-						echo mosToolTip('Использовать редактор с подсветкой синтаксиса для редактирования html и css файлов шаблона'); ?>
+						echo mosToolTip(_HTML_CSS_EDITOR2); ?>
 				</td>
 			</tr>
 		</table>
 <?php
 		$tabs->endTab();
-		$tabs->startTab("Содержимое","content-page");
+		$tabs->startTab(_E_CONTENT,"content-page");
 ?>
 						<table class="adminform">
 						<tr>
-						<td colspan="3">* Эти параметры контролируют вывод элементов содержимого*<br /><br /></td>
+						<td colspan="3"><?=_THIS_PARAMS_CONTROL_CONTENT?><br /><br /></td>
 						</tr>
 						<tr>
-						<td width="250">Заголовки в виде ссылок:</td>
+						<td width="250"><?=_LINK_TITLES?>:</td>
 						<td width="150"><?php echo $lists['link_titles']; ?></td>
 								<td><?php
-		$tip = 'Если ДА, заголовки объектов содержимого начинают работать как гиперссылки на эти объекты';
+		$tip = _LINK_TITLES2;
 		echo mosToolTip($tip);
 ?></td>
 						</tr>
 						<tr>
-						<td width="250">Ссылка "Подробнее...":</td>
+						<td width="250"><?=_READMORE_LINK?>:</td>
 						<td width="150"><?php echo $lists['readmore']; ?></td>
 								<td><?php
-		$tip = 'Если выбран параметр Показать, то будет показываться ссылка -Подробнее...- для просмотра полного содержимого';
+		$tip = _READMORE_LINK2;
 		echo mosToolTip($tip);
 ?></td>
 						</tr>
 						<tr>
-						<td>Рейтинг/Голосование:</td>
+						<td><?=_VOTING_ENABLE?>:</td>
 								<td><?php echo $lists['vote']; ?></td>
 								<td><?php
-		$tip = 'Если выбран параметр Показать, система --Рейтинг/Голосование-- будет включена';
+		$tip = _VOTING_ENABLE2;
 		echo mosToolTip($tip);
 ?></td>
 						</tr>
 						<tr>
-						<td>Имена авторов:</td>
+						<td><?=_AUTHOR_NAMES?>:</td>
 								<td><?php echo $lists['hideAuthor']; ?></td>
 								<td><?php
-		$tip = 'Выберите, показывать ли имена авторов. Это глобальная установка, но она может быть изменена в других местах на уровне меню или объекта.';
+		$tip = _AUTHOR_NAMES2;
 		echo mosToolTip($tip);
 ?></td>
 						</tr>
 						<tr>
-						<td>Дата и время создания:</td>
+						<td><?=_DATE_TIME_CREATION?>:</td>
 								<td><?php echo $lists['hideCreateDate']; ?></td>
 								<td><?php
-		$tip = 'Если Показать, то показывается дата и время создания статьи. Это глобальная установка, но может быть изменена в других местах на уровне меню или объекта.';
+		$tip = _DATE_TIME_CREATION2;
 		echo mosToolTip($tip);
 ?></td>
 						</tr>
 						<tr>
-						<td>Дата и время изменения:</td>
+						<td><?=_DATE_TIME_MODIFICATION?>:</td>
 								<td><?php echo $lists['hideModifyDate']; ?></td>
 								<td><?php
-		$tip = 'Если установлено Показать, то будет показываться дата изменения статьи. Это глобальная установка, но она может быть изменена в других местах.';
+		$tip = _DATE_TIME_MODIFICATION2;
 		echo mosToolTip($tip);
 ?></td>
 						</tr>
 						<tr>
-						<td>Кол-во просмотров:</td>
+						<td><?=_VIEW_COUNT?>:</td>
 								<td><?php echo $lists['hits']; ?></td>
 								<td><?php
-		$tip = 'Если установлено -Показать-, то показывается количество просмотров объекта посетителями сайта. Эта глобальная установка может быть изменена в других местах панели управления.';
+		$tip = _VIEW_COUNT2;
 		echo mosToolTip($tip);
 ?></td>
 						</tr>
 						<tr>
-						<td>Ссылка Печать:</td>
+						<td><?=_LINK_PRINT?>:</td>
 								<td><?php echo $lists['hidePrint']; ?></td>
 								<td>&nbsp;</td>
 						</tr>
 						<tr>
-						<td>Ссылка E-mail:</td>
+						<td><?=_LINK_EMAIL?>:</td>
 								<td><?php echo $lists['hideEmail']; ?></td>
 								<td>&nbsp;</td>
 						</tr>
 						<tr>
-						<td>Значки Печать и E-mail:</td>
+						<td><?=_PRINT_EMAIL_ICONS?>:</td>
 								<td><?php echo $lists['icons']; ?></td>
-						<td><?php echo mosToolTip('Если выбрано Показать, то ссылки Печать и E-mail будут отображаться в виде значков, иначе - простым текстом-ссылкой.'); ?></td>
+						<td><?php echo mosToolTip(_PRINT_EMAIL_ICONS2); ?></td>
 						</tr>
 						<tr>
-						<td>Оглавление для многостраничных объектов:</td>
+						<td><?=_ENABLE_TOC?>:</td>
 								<td><?php echo $lists['multipage_toc']; ?></td>
 								<td>&nbsp;</td>
 						</tr>
 						<tr>
-						<td>Кнопка Назад (Вернуться):</td>
+						<td><?=_BACK_BUTTON?>:</td>
 								<td><?php echo $lists['back_button']; ?></td>
 								<td>&nbsp;</td>
 						</tr>
 						<tr>
-						<td>Навигация по содержимому:</td>
+						<td><?=_CONTENT_NAV?>:</td>
 								<td><?php echo $lists['item_navigation']; ?></td>
 						</tr>
 						<tr>
-							<td>Уникальные идентификаторы новостей:</td>
+							<td><?=_UNIQ_ITEMS_IDS?>:</td>
 							<td><?php echo $lists['config_uid_news']; ?></td>
-							<td><?php echo mosToolTip('При включении параметра для каждой новости в списке будет задаваться уникальный идентификатор стиля.'); ?></td>
+							<td><?php echo mosToolTip(_UNIQ_ITEMS_IDS2); ?></td>
 						</tr>
 						<tr>
-							<td>Автоматическая публикация на главной:</td>
+							<td><?=_AUTO_PUBLICATION_FRONT?>:</td>
 							<td><?php echo $lists['auto_frontpage']; ?></td>
-							<td><?php echo mosToolTip('При включении параметра всё создаваемое содержимое будет автоматически помечено для публикации на главной странице.'); ?></td>
+							<td><?php echo mosToolTip(_AUTO_PUBLICATION_FRONT2); ?></td>
 						</tr>
 						<tr>
-							<td>Отключить блокировки содержимого:</td>
+							<td><?=_DISABLE_BLOCK?>:</td>
 							<td><?php echo $lists['config_disable_checked_out']; ?></td>
-							<td><?php echo mosToolTip('При включении параметра блокировки объектов содержимого не будут проверяться. Не рекомендуется использовать на сайтах с большим числом редакторов.'); ?></td>
+							<td><?php echo mosToolTip(_DISABLE_BLOCK2); ?></td>
 						</tr>
 						<tr>
-							<td>Режим работы Itemid:</td>
+							<td><?=_ITEMID_COMPAT?>:</td>
 							<td><?php echo $lists['itemid_compat']; ?></td>
 						</tr>
 						<tr>
-							<td>Использовать единое поле редактора:</td>
+							<td><?=_ONE_EDITOR?>:</td>
 							<td><?php echo $lists['one_editor']; ?></td>
-							<td><?php echo mosToolTip('Использовать одно поле для Вводного и Основного текста.'); ?></td>
+							<td><?php echo mosToolTip(_ONE_EDITOR2); ?></td>
 						</tr>
 				</table>
 				<input type="hidden" name="config_multilingual_support" value="<?php echo $row->config_multilingual_support ?>" />
 <?php
 		$tabs->endTab();
-		$tabs->startTab("Локаль","Locale-page");
+		$tabs->startTab(_LOCALE,"Locale-page");
 ?>
 				<table class="adminform">
 					<tr>
-							<td width="185">Часовой пояс (смещение времени относительно UTC, ч):</td>
+							<td width="185"><?=_TIME_OFFSET?>:</td>
 							<td><?php echo $lists['offset'];
-		$tip = "Текущие дата и время, которые будут показываться на сайте: ".mosCurrentDate(_DATE_FORMAT_LC2);
+		$tip = _TIME_OFFSET2." ".mosCurrentDate(_DATE_FORMAT_LC2);
 		echo mosToolTip($tip);
 ?>
 					</td>
 					<td>&nbsp;</td>
 						</tr>
 						<tr>
-							   <td width="185">Разница со временем сервера, ч:</td>
+							   <td width="185"><?=_TIME_DIFF?>:</td>
 							   <td>
 								<input class="text_area" type="text" name="config_offset" size="15" value="<?php echo $row->config_offset; ?>" disabled="disabled"/>
 							   </td>
 					 <td>&nbsp;</td>
 						</tr>
 						<tr>
-							<td width="185">RSS (смещение времени относительно UTC, ч):</td>
+							<td width="185"><?=_TIME_DIFF2?>:</td>
 							  <td>
 								<?php echo $lists['feed_timeoffset']; ?>
 <?php
-		$tip = "Текущие дата и время, которые будут показываться в RSS: ".mosCurrentDate(_DATE_FORMAT_LC2);
+		$tip = _CURR_DATE_TIME_RSS.": ".mosCurrentDate(_DATE_FORMAT_LC2);
 		echo mosToolTip($tip);
 ?>
 					</td>
 					<td>&nbsp;</td>
 						</tr>
 						<tr valign="top">
-							<td width="185">Локаль страны:</td>
+							<td width="185"><?=_COUNTRY_LOCALE?>:</td>
 							  <td>
 								<input class="text_area" type="text" name="config_locale" size="15" value="<?php echo $row->config_locale; ?>"/>
 <?php
-		$tip = "Определяет региональные настройки страны: отображение даты, времени, чисел и т.д.";
+		$tip = _COUNTRY_LOCALE2;
 		echo mosToolTip($tip);
 ?>
 					</td>
@@ -646,60 +646,58 @@ class HTML_config {
 				</tr>
 				<tr valign="top">
 							<td width="185">&nbsp;</td>
-							  <td>При использовании в Windows необходимо ввести <span style="color: red"><strong>RU</strong></span>.
-	  <br />В Unix-системах, если не работает значение по умолчанию, можно попробовать изменить регистр символов локали на <strong>RU_RU.CP1251, ru_RU.cp1251, ru_ru.CP1251</strong>, или узнать значение русской локали у провайдера.<br />
-Также можно попробовать ввести одну из следующих локалей: <strong>rus, russian</strong>.
+							  <td><?=_LOCALE_WINDOWS?>
 	 			</td>
 				<td>&nbsp;</td>
 			</tr>
 		</table>
 <?php
 		$tabs->endTab();
-		$tabs->startTab("База данных","db-page");
+		$tabs->startTab(_DATABASE,"db-page");
 ?>
 		<table class="adminform">
 			<tr>
-				<td width="185">Адрес хоста MySQL:</td>
+				<td width="185"><?=_DB_HOST?>:</td>
 				<td><input class="text_area" type="text" name="config_host" size="25" value="<?php echo $row->config_host; ?>"/></td>
 			</tr>
 			<tr>
-				<td>Имя пользователя БД (MySQL):</td>
+				<td><?=_DB_USER?>:</td>
 				<td><input class="text_area" type="text" name="config_user" size="25" value="<?php echo $row->config_user; ?>"/></td>
 			</tr>
 			<tr>
-				<td>База данных MySQL:</td>
+				<td><?=_DB_NAME?>:</td>
 				<td><input class="text_area" type="text" name="config_db" size="25" value="<?php echo $row->config_db; ?>"/></td>
 			</tr>
 			<tr>
-				<td>Префикс базы данных MySQL:</td>
+				<td><?=_DB_PREFIX?>:</td>
 				<td>
 					<input class="text_area" type="text" name="config_dbprefix" size="10" value="<?php echo $row->config_dbprefix; ?>"/>
-					&nbsp;<?php echo mosWarning('!! НЕ ИЗМЕНЯЙТЕ, ЕСЛИ У ВАС УЖЕ ЕСТЬ РАБОЧАЯ БАЗА ДАННЫХ. В ПРОТИВНОМ СЛУЧАЕ, ВЫ МОЖЕТЕ ПОТЕРЯТЬ К НЕЙ ДОСТУП !!'); ?>
+					&nbsp;<?php echo mosWarning(_DB_PREFIX2); ?>
 				</td>
 			</tr>
 			<tr>
-				<td>Ежедневная оптимизация таблиц базы данных:</td>
+				<td><?=_EVERYDAY_OPTIMIZATION?>:</td>
 				<td>
 <?php echo $lists['optimizetables'];
-		$tip = 'Если `Да`, то каждые сутки база данных будет автоматически оптимизирована для лучшего быстродействия';
+		$tip = _EVERYDAY_OPTIMIZATION2;
 		echo mosToolTip($tip);
 ?>
 				</td>
 			</tr>
 			<tr>
-				<td>Поддержка младших версий MySQL:</td>
+				<td><?=_OLD_MYSQL_SUPPORT?>:</td>
 				<td>
 <?php echo $lists['config_dbold'];
-		$tip = 'Параметр позволяет отключить автоматический перевод работы БД в режим совместимости с кириллицей';
+		$tip = _OLD_MYSQL_SUPPORT2;
 		echo mosToolTip($tip);
 ?>
 				</td>
 			</tr>
 			<tr>
-				<td>Отключить SET sql_mode:</td>
+				<td><?=_DISABLE_SET_SQL?>:</td>
 				<td>
 <?php echo $lists['config_sql_mode_off'];
-		$tip = 'Отключить перевод режима работы базы данных SET sql_mode';
+		$tip = _DISABLE_SET_SQL2;
 		echo mosToolTip($tip);
 ?>
 				</td>
@@ -707,7 +705,7 @@ class HTML_config {
 		</table>
 <?php
 		$tabs->endTab();
-		$tabs->startTab("Сервер","server-page");
+		$tabs->startTab(_SERVER,"server-page");
 ?>
 		<table class="adminform">
 			<tr>
@@ -716,53 +714,53 @@ class HTML_config {
 				<td>&nbsp;</td>
 			</tr>
 				<tr>
-				<td width="185">Абсолютный путь( корень сайта ):</td>
+				<td width="185"><?=_ABS_PATH?>:</td>
 				<td width="450"><strong><?php echo $row->config_absolute_path; ?></strong></td>
 				<td>&nbsp;</td>
 			</tr>
 			<tr>
-				<td>Корень медиа менеджера:</td>
+				<td><?=_MEDIA_ROOT?>:</td>
 				<td>
 					<input class="text_area" type="text" name="config_media_dir" size="50" value="<?php echo $row->config_media_dir; ?>"/>
-					<?php echo mosToolTip('Корневой каталог для работы компонента управления медиа данными. Путь от корня сайта без / по краям.'); ?>
+					<?php echo mosToolTip(_MEDIA_ROOT2); ?>
 				</td>
 			</tr>
 			<tr>
-				<td>Корень файлового менеджера:</td>
+				<td><?=_FILE_ROOT?>:</td>
 				<td>
 					<input class="text_area" type="text" name="config_joomlaxplorer_dir" size="50" value="<?php echo $row->config_joomlaxplorer_dir; ?>"/>
-					<?php echo mosToolTip('Корневой каталог для работы компонента управления файлами. Без / в конце. При использовании в Windows (c) путь может начинаться с названия буквы диска.'); ?>
+					<?php echo mosToolTip(_FILE_ROOT2); ?>
 				</td>
 				<td>&nbsp;</td>
 			</tr>
 			<tr>
-				<td>Секретное слово:</td>
+				<td><?=_SECRET_WORD?>:</td>
 				<td><strong><?php echo $row->config_secret; ?></strong></td>
 				<td>&nbsp;</td>
 			</tr>
 			<tr>
-				<td>Сжатие CSS и JS файлов:</td>
+				<td><?=_GZ_CSS_JS?>:</td>
 				<td><?php echo $lists['config_gz_js_css']; ?></td>
 				<td>&nbsp;</td>
 			</tr>
 			<tr>
-				<td>Метод идентификации сессии:</td>
+				<td><?=_SESSION_TYPE?>:</td>
 				<td>
 				<?php echo $lists['session_type']; ?>
 				&nbsp;
-				<?php echo mosWarning('Не изменяйте, если не знаете, зачем это надо!<br /><br /> Если сайт будет использоваться пользователями службы AOL или пользователями, использующими для доступа на сайт прокси-серверы, то можете использовать настройки 2 уровня'); ?>
+				<?php echo mosWarning(_SESSION_TYPE2); ?>
 				</td>
 				<td>&nbsp;</td>
 			</tr>
 			<tr>
-				<td>Сообщения об ошибках:</td>
+				<td><?=_ERROR_REPORTING?>:</td>
 				<td><?php echo $lists['error_reporting']; ?></td>
 				<td>&nbsp;</td>
 			</tr>
 			<tr>
-				<td>Сервер помощи:</td>
+				<td><?=_HELP_SERVER?>:</td>
 				<td><input class="text_area" type="text" name="config_helpurl" size="50" value="<?php echo $row->config_helpurl; ?>"/>
-				<?php echo mosToolTip('Сервер помощи - Если поле пустое, то файлы помощи будут браться из локальной папки http://адрес_вашего_сайта/help/, Для включения сервера On-Line помощи введите http://help.joom.ru или http://help.joomla.org'); ?></td>
+				<?php echo mosToolTip(_HELP_SERVER2); ?></td>
 				<td>&nbsp;</td>
 			</tr>
 			<tr>
@@ -775,24 +773,24 @@ class HTML_config {
 		} // if
 
 ?>
-				<td valign="top">Создание файлов:</td>
+				<td valign="top"><?=_FILE_MODE?>:</td>
 				<td>
-					<fieldset><legend>Разрешения доступа к файлам</legend>
+					<fieldset><legend><?=_FILE_MODE2?></legend>
 						<table cellpadding="1" cellspacing="1" border="0">
 							<tr>
 								<td><input type="radio" id="filePermsMode0" name="filePermsMode" value="0" onclick="changeFilePermsMode(0)"<?php if(!$mode) echo ' checked="checked"'; ?>/></td>
-								<td><label for="filePermsMode0">Не менять CHMOD для новых файлов (использовать умолчание сервера)</label></td>
+								<td><label for="filePermsMode0"><?=_FILE_MODE3?></label></td>
 									</tr>
 									<tr>
 									<td><input type="radio" id="filePermsMode1" name="filePermsMode" value="1" onclick="changeFilePermsMode(1)"
 									<?php if($mode) echo ' checked="checked"'; ?>/></td>
 									<td>
-									<label for="filePermsMode1">Установить CHMOD для новых файлов</label>
+									<label for="filePermsMode1"><?=_FILE_MODE4?></label>
 										<span id="filePermsValue"<?php if(!$mode) echo ' style="display:none"'; ?>>как:
 											<input class="text_area" type="text" readonly="readonly" name="config_fileperms" size="4" value="<?php echo $row->config_fileperms; ?>"/>
 										</span>
 										<span id="filePermsTooltip"<?php if($mode) echo ' style="display:none"'; ?>>
-											&nbsp;<?php echo mosToolTip('Выберите этот пункт для установки разрешений доступа к вновь создаваемым файлам'); ?>
+											&nbsp;<?php echo mosToolTip(_FILE_MODE5); ?>
 										</span>
 									</td>
 								</tr>
@@ -801,40 +799,40 @@ class HTML_config {
 										<td>
 											<table cellpadding="0" cellspacing="1" border="0">
 											<tr>
-											<td style="padding:0px">Владелец:</td>
+											<td style="padding:0px"><?=_OWNER?>:</td>
 											<td style="padding:0px"><input type="checkbox" id="filePermsUserRead" name="filePermsUserRead" value="1" onclick="saveFilePerms()"<?php if($flags &0400) echo ' checked="checked"'; ?>/></td>
-											<td style="padding:0px"><label for="filePermsUserRead">чтение</label></td>
+											<td style="padding:0px"><label for="filePermsUserRead"><?=_O_READ?></label></td>
 																						<td style="padding:0px"><input type="checkbox" id="filePermsUserWrite" name="filePermsUserWrite" value="1" onclick="saveFilePerms()"<?php if($flags &0200) echo ' checked="checked"'; ?>/></td>
-											<td style="padding:0px"><label for="filePermsUserWrite">запись</label></td>
+											<td style="padding:0px"><label for="filePermsUserWrite"><?=_O_WRITE?></label></td>
 																						<td style="padding:0px"><input type="checkbox" id="filePermsUserExecute" name="filePermsUserExecute" value="1" onclick="saveFilePerms()"<?php if($flags &0100) echo ' checked="checked"'; ?>/></td>
-											<td style="padding:0px" colspan="3"><label for="filePermsUserExecute">выполнение</label></td>
+											<td style="padding:0px" colspan="3"><label for="filePermsUserExecute"><?=_O_EXEC?></label></td>
 																				</tr>
 																				<tr>
-											<td style="padding:0px">Группа:</td>
+											<td style="padding:0px"><?=_O_GROUP?>:</td>
 																						<td style="padding:0px"><input type="checkbox" id="filePermsGroupRead" name="filePermsGroupRead" value="1" onclick="saveFilePerms()"<?php if($flags &040) echo ' checked="checked"'; ?>/></td>
-											<td style="padding:0px"><label for="filePermsGroupRead">чтение</label></td>
+											<td style="padding:0px"><label for="filePermsGroupRead"><?=_O_READ?></label></td>
 																						<td style="padding:0px"><input type="checkbox" id="filePermsGroupWrite" name="filePermsGroupWrite" value="1" onclick="saveFilePerms()"<?php if($flags &020) echo ' checked="checked"'; ?>/></td>
-											<td style="padding:0px"><label for="filePermsGroupWrite">запись</label></td>
+											<td style="padding:0px"><label for="filePermsGroupWrite"><?=_O_WRITE?></label></td>
 																						<td style="padding:0px"><input type="checkbox" id="filePermsGroupExecute" name="filePermsGroupExecute" value="1" onclick="saveFilePerms()"<?php if($flags &010) echo ' checked="checked"'; ?>/></td>
-											<td style="padding:0px" width="70"><label for="filePermsGroupExecute">выполнение</label></td>
+											<td style="padding:0px" width="70"><label for="filePermsGroupExecute"><?=_O_EXEC?></label></td>
 											<td><input type="checkbox" id="applyFilePerms" name="applyFilePerms" value="1"/></td>
 											<td class="jtd_nowrap">
 												<label for="applyFilePerms">
-												Применить к существующим файлам
+												<?=_APPLY_TO_FILES?>
 							&nbsp;
 <?php
-		echo mosWarning('Изменения коснутся <em>всех существующих файлов</em> на сайте.<br/><b>НЕПРАВИЛЬНОЕ ИСПОЛЬЗОВАНИЕ ЭТОЙ ОПЦИИ МОЖЕТ ПРИВЕСТИ К НЕРАБОТОСПОСОБНОСТИ САЙТА!</b>'); ?>
+		echo mosWarning(_APPLY_TO_FILES2); ?>
 								</label>
 																						</td>
 																				</tr>
 																				<tr>
-											<td style="padding:0px">Все:</td>
+											<td style="padding:0px"><?=_CMN_ALL?>:</td>
 																						<td style="padding:0px"><input type="checkbox" id="filePermsWorldRead" name="filePermsWorldRead" value="1" onclick="saveFilePerms()"<?php if($flags &04) echo ' checked="checked"'; ?>/></td>
-											<td style="padding:0px"><label for="filePermsWorldRead">чтение</label></td>
+											<td style="padding:0px"><label for="filePermsWorldRead"><?=_O_READ?></label></td>
 																						<td style="padding:0px"><input type="checkbox" id="filePermsWorldWrite" name="filePermsWorldWrite" value="1" onclick="saveFilePerms()"<?php if($flags &02) echo ' checked="checked"'; ?>/></td>
-											<td style="padding:0px"><label for="filePermsWorldWrite">запись</label></td>
+											<td style="padding:0px"><label for="filePermsWorldWrite"><?=_O_WRITE?></label></td>
 																						<td style="padding:0px"><input type="checkbox" id="filePermsWorldExecute" name="filePermsWorldExecute" value="1" onclick="saveFilePerms()"<?php if($flags &01) echo ' checked="checked"'; ?>/></td>
-											<td style="padding:0px" colspan="4"><label for="filePermsWorldExecute">выполнение</label></td>
+											<td style="padding:0px" colspan="4"><label for="filePermsWorldExecute"><?=_O_EXEC?></label></td>
 																				</tr>
 																		</table>
 																</td>
@@ -854,23 +852,23 @@ class HTML_config {
 		} // if
 
 ?>
-						<td valign="top">Создание каталогов:</td>
+						<td valign="top"><?=_DIR_CREATION?>:</td>
 								<td>
-					<fieldset><legend>Разрешения доступа к каталогам</legend>
+					<fieldset><legend><?=_DIR_CREATION2?></legend>
 												<table cellpadding="1" cellspacing="1" border="0">
 														<tr>
 																<td><input type="radio" id="dirPermsMode0" name="dirPermsMode" value="0" onclick="changeDirPermsMode(0)"<?php if(!$mode) echo ' checked="checked"'; ?>/></td>
-								<td><label for="dirPermsMode0">Не менять CHMOD для новых каталогов (использовать умолчание сервера)</label></td>
+								<td><label for="dirPermsMode0"><?=_DIR_CREATION3?></label></td>
 														</tr>
 														<tr>
 																<td><input type="radio" id="dirPermsMode1" name="dirPermsMode" value="1" onclick="changeDirPermsMode(1)"<?php if($mode) echo ' checked="checked"'; ?>/></td>
 																<td>
-																<label for="dirPermsMode1">Установить CHMOD для новых каталогов</label>
+																<label for="dirPermsMode1"><?=_DIR_CREATION4?></label>
 																		<span id="dirPermsValue"<?php if(!$mode) echo ' style="display:none"'; ?>>
-															   как: <input class="text_area" type="text" readonly="readonly" name="config_dirperms" size="4" value="<?php echo $row->config_dirperms; ?>"/>
+															   <?=_O_AS?>: <input class="text_area" type="text" readonly="readonly" name="config_dirperms" size="4" value="<?php echo $row->config_dirperms; ?>"/>
 																		</span>
 																		<span id="dirPermsTooltip"<?php if($mode) echo ' style="display:none"'; ?>>
-																&nbsp;<?php echo mosToolTip('Выберите этот пункт для установки разрешений доступа к вновь создаваемым каталогам'); ?>
+																&nbsp;<?php echo mosToolTip(_DIR_CREATION5); ?>
 																		</span>
 																</td>
 														</tr>
@@ -879,39 +877,39 @@ class HTML_config {
 																<td>
 																		<table cellpadding="1" cellspacing="0" border="0">
 																				<tr>
-											<td style="padding:0px">Владелец:</td>
+											<td style="padding:0px"><?=_OWNER?>:</td>
 																						<td style="padding:0px"><input type="checkbox" id="dirPermsUserRead" name="dirPermsUserRead" value="1" onclick="saveDirPerms()"<?php if($flags &0400) echo ' checked="checked"'; ?>/></td>
-											<td style="padding:0px"><label for="dirPermsUserRead">чтение</label></td>
+											<td style="padding:0px"><label for="dirPermsUserRead"><?=_O_READ?></label></td>
 																						<td style="padding:0px"><input type="checkbox" id="dirPermsUserWrite" name="dirPermsUserWrite" value="1" onclick="saveDirPerms()"<?php if($flags &0200) echo ' checked="checked"'; ?>/></td>
-											<td style="padding:0px"><label for="dirPermsUserWrite">запись</label></td>
+											<td style="padding:0px"><label for="dirPermsUserWrite"><?=_O_WRITE?></label></td>
 																						<td style="padding:0px"><input type="checkbox" id="dirPermsUserSearch" name="dirPermsUserSearch" value="1" onclick="saveDirPerms()"<?php if($flags &0100) echo ' checked="checked"'; ?>/></td>
-											<td style="padding:0px" colspan="3"><label for="dirPermsUserSearch">поиск</label></td>
+											<td style="padding:0px" colspan="3"><label for="dirPermsUserSearch"><?=_O_SEARCH?></label></td>
 																				</tr>
 																				<tr>
-											<td style="padding:0px">Группа:</td>
+											<td style="padding:0px"><?=_O_GROUP?>:</td>
 																						<td style="padding:0px"><input type="checkbox" id="dirPermsGroupRead" name="dirPermsGroupRead" value="1" onclick="saveDirPerms()"<?php if($flags &040) echo ' checked="checked"'; ?>/></td>
-											<td style="padding:0px"><label for="dirPermsGroupRead">чтение</label></td>
+											<td style="padding:0px"><label for="dirPermsGroupRead"><?=_O_READ?></label></td>
 																						<td style="padding:0px"><input type="checkbox" id="dirPermsGroupWrite" name="dirPermsGroupWrite" value="1" onclick="saveDirPerms()"<?php if($flags &020) echo ' checked="checked"'; ?>/></td>
-											<td style="padding:0px"><label for="dirPermsGroupWrite">запись</label></td>
+											<td style="padding:0px"><label for="dirPermsGroupWrite"><?=_O_WRITE?></label></td>
 																						<td style="padding:0px"><input type="checkbox" id="dirPermsGroupSearch" name="dirPermsGroupSearch" value="1" onclick="saveDirPerms()"<?php if($flags &010) echo ' checked="checked"'; ?>/></td>
-											<td style="padding:0px" width="70"><label for="dirPermsGroupSearch">поиск</label></td>
+											<td style="padding:0px" width="70"><label for="dirPermsGroupSearch"><?=_O_SEARCH?></label></td>
 																						<td><input type="checkbox" id="applyDirPerms" name="applyDirPerms" value="1"/></td>
 																						<td class="jtd_nowrap">
 																								<label for="applyDirPerms">
-																								Применить к существующим каталогам&nbsp;
+																								<?=_APPLY_TO_DIRS?>&nbsp;
 <?php
-		echo mosWarning('Включение этих флагов будет применено ко<em> всем существующим каталогам</em> на сайте.<br/>'.'<b>НЕПРАВИЛЬНОЕ ИСПОЛЬЗОВАНИЕ ЭТОЙ ОПЦИИ МОЖЕТ ПРИВЕСТИ К НЕРАБОТОСПОСОБНОСТИ САЙТА!</b>'); ?>
+		echo mosWarning(_APPLY_TO_DIRS2); ?>
 																								</label>
 																						</td>
 																				</tr>
 																				<tr>
-											<td style="padding:0px">Все:</td>
+											<td style="padding:0px"><?=_CMN_ALL?>:</td>
 																						<td style="padding:0px"><input type="checkbox" id="dirPermsWorldRead" name="dirPermsWorldRead" value="1" onclick="saveDirPerms()"<?php if($flags &04) echo ' checked="checked"'; ?>/></td>
-											<td style="padding:0px"><label for="dirPermsWorldRead">чтение</label></td>
+											<td style="padding:0px"><label for="dirPermsWorldRead"><?=_O_READ?></label></td>
 																						<td style="padding:0px"><input type="checkbox" id="dirPermsWorldWrite" name="dirPermsWorldWrite" value="1" onclick="saveDirPerms()"<?php if($flags &02) echo ' checked="checked"'; ?>/></td>
-											<td style="padding:0px"><label for="dirPermsWorldWrite">запись</label></td>
+											<td style="padding:0px"><label for="dirPermsWorldWrite"><?=_O_WRITE?></label></td>
 																						<td style="padding:0px"><input type="checkbox" id="dirPermsWorldSearch" name="dirPermsWorldSearch" value="1" onclick="saveDirPerms()"<?php if($flags &01) echo ' checked="checked"'; ?>/></td>
-											<td style="padding:0px" colspan="3"><label for="dirPermsWorldSearch">поиск</label></td>
+											<td style="padding:0px" colspan="3"><label for="dirPermsWorldSearch"><?=_O_SEARCH?></label></td>
 																				</tr>
 																		</table>
 																</td>
@@ -930,15 +928,15 @@ class HTML_config {
 ?>
 				<td valign="top">Register Globals Emulation:</td>
 				<td>
-					<fieldset><legend>Эмуляция Регистрации глобальных переменных</legend>
+					<fieldset><legend><?=_RG_EMULATION_TXT?></legend>
 						<table cellpadding="1" cellspacing="1" border="0">
 							<tr>
 								<td><input type="radio" id="rgemulation" name="rgemulation" value="0"<?php if(!$rgmode) echo ' checked="checked"'; ?>/></td>
-								<td><label for="rgemulation">Выкл. (РЕКОМЕНДУЕТСЯ) - дополнительная защита</label></td>
+								<td><label for="rgemulation"><?=_RG_DISABLE?></label></td>
 							</tr>
 							<tr>
 								<td><input type="radio" id="rgemulation" name="rgemulation" value="1"<?php if($rgmode) echo ' checked="checked"'; ?>/></td>
-								<td><label for="rgemulation">Вкл. (НЕ РЕКОМЕНДУЕТСЯ) - совместимость со старыми расширениями, при использовании параметра повышается угроза безопасности.</label></td>
+								<td><label for="rgemulation"><?=_RG_ENABLE?></label></td>
 							</tr>
 						</table>
 					</fieldset>
@@ -948,61 +946,61 @@ class HTML_config {
 	</table>
 <?php
 		$tabs->endTab();
-		$tabs->startTab("Метаданные","metadata-page");
+		$tabs->startTab(_METADATA,"metadata-page");
 ?>
 	<table class="adminform">
 		<tr>
-			<td width="200" valign="top">Описание сайта, которое индексируется поисковиками:</td>
+			<td width="200" valign="top"><?=_SITE_DESC?>:</td>
 			<td>
-				<textarea class="text_area" cols="50" rows="3" style="width:500px; height:50px" name="config_MetaDesc"><?php echo $row->config_MetaDesc; ?></textarea><?php echo mosToolTip(' Вы можете не ограничивать Ваше описание двадцатью словами, в зависимости от Поискового сервера, который Вы планируете использовать. Делайте описание кратким и подходящим для содержания вашего сайта. Вы можете включить некоторые из ваших ключевых слов и ключевых фраз. Так как некоторые поисковые серверы читают больше 20 слов, то Вы можете добавить одно или два предложения. Пожалуйста удостоверьтесь, что самая важная часть вашего описания находится в первых 20 словах.'); ?>
+				<textarea class="text_area" cols="50" rows="3" style="width:500px; height:50px" name="config_MetaDesc"><?php echo $row->config_MetaDesc; ?></textarea><?php echo mosToolTip(_SITE_DESC2); ?>
 			</td>
 		</tr>
 		<tr>
-			<td valign="top">Ключевые слова сайта:</td>
+			<td valign="top"><?=_SITE_KEYWORDS?>:</td>
 			<td><textarea class="text_area" cols="50" rows="3" style="width:500px; height:50px" name="config_MetaKeys"><?php echo $row->config_MetaKeys; ?></textarea></td>
 		</tr>
 		<tr>
-			<td valign="top">Показывать мета-тег <b>title</b>:</td>
+			<td valign="top"><?=_SHOW_TITLE_TAG?>:</td>
 			<td>
 <?php echo $lists['MetaTitle'];
-		echo mosToolTip('Показывает мета-тег <b>title</b> при просмотре объектов содержимого'); ?>
+		echo mosToolTip(_SHOW_TITLE_TAG2); ?>
 			</td>
 		</tr>
 		<tr>
-			<td valign="top">Показывать мета-тег <b>author</b>:</td>
+			<td valign="top"><?=_SHOW_AUTHOR_TAG?>:</td>
 			<td>
 <?php echo $lists['MetaAuthor'];
-		echo mosToolTip('Показывает мета-тег <b>author</b> при просмотре объектов содержимого'); ?>
+		echo mosToolTip(_SHOW_AUTHOR_TAG2); ?>
 			</td>
 		</tr>
 		<tr>
-			<td valign="top">Показывать мета-тег <b>base</b>:</td>
+			<td valign="top"><?=_SHOW_BASE_TAG?>:</td>
 			<td>
 <?php echo $lists['mtage_base'];
-		echo mosToolTip('Показывает мета-тег <b>base</b> в теле каждой страницы'); ?>
+		echo mosToolTip(_SHOW_BASE_TAG2); ?>
 			</td>
 		</tr>
 		<tr>
-			<td valign="top">Значение тега <b>revisit</b>:</td>
+			<td valign="top"><?=_REVISIT_TAG?>:</td>
 			<td>
 				<input class="text_area" type="text" name="config_mtage_revisit" size="10" value="<?php echo $row->config_mtage_revisit; ?>"/>
-				<?php echo mosToolTip('Укажите значение тега <b>revisit</b> в днях'); ?>
+				<?php echo mosToolTip(_REVISIT_TAG2); ?>
 			</td>
 		</tr>
 		<tr>
-			<td>Отключить тег Generator:</td>
+			<td><?=_DISABLE_GENERATOR_TAG?>:</td>
 			<td>
 <?php echo $lists['generator_off'];
-		$tip = 'Если `Да`, то из кода каждой HTML страницы будет исключен тег name=\\\'Generator\\\'';
+		$tip = _DISABLE_GENERATOR_TAG2;
 		echo mosToolTip($tip);
 ?>
 			</td>
 		</tr>
 		<tr>
-			<td>Расширенные теги индексации:</td>
+			<td><?=_EXT_IND_TAGS?>:</td>
 			<td>
 <?php echo $lists['index_tag'];
-		$tip = 'Если `Да`, то в код каждой страницы будут добавлены специальные теги для лучшей индексации';
+		$tip = _EXT_IND_TAGS2;
 		echo mosToolTip($tip);
 ?>
 			</td>
@@ -1010,75 +1008,75 @@ class HTML_config {
 	</table>
 <?php
 		$tabs->endTab();
-		$tabs->startTab("Почта","mail-page");
+		$tabs->startTab(_MAIL,"mail-page");
 ?>
 						<table class="adminform">
 						<tr>
-						<td width="185">Для отправки почты использовать:</td>
+						<td width="185"><?=_MAIL_METHOD?>:</td>
 								<td><?php echo $lists['mailer']; ?></td>
 						</tr>
 						<tr>
-						<td>Письма от (Mail From):</td>
+						<td><?=_MAIL_FROM_ADR?>:</td>
 								<td><input class="text_area" type="text" name="config_mailfrom" size="50" value="<?php echo $row->config_mailfrom; ?>"/></td>
 						</tr>
 						<tr>
-						<td>Отправитель (From Name):</td>
+						<td><?=_MAIL_FROM_NAME?>:</td>
 								<td><input class="text_area" type="text" name="config_fromname" size="50" value="<?php echo $row->config_fromname; ?>"/></td>
 						</tr>
 						<tr>
-						<td>Путь к Sendmail:</td>
+						<td><?=_SENDMAIL_PATH?>:</td>
 								<td><input class="text_area" type="text" name="config_sendmail" size="50" value="<?php echo $row->config_sendmail; ?>"/></td>
 						</tr>
 						<tr>
-						<td>Использовать SMTP-авторизацию:</td>
-								<td><?php echo $lists['smtpauth']; ?>&nbsp;<?php echo mosToolTip('Выберите ДА, если для отправки почты используется smtp-сервер с необходимостью авторизации'); ?></td>
+						<td><?=_USE_SMTP?>:</td>
+								<td><?php echo $lists['smtpauth']; ?>&nbsp;<?php echo mosToolTip(_USE_SMTP2); ?></td>
 						</tr>
 						<tr>
-						<td>Имя пользователя SMTP:</td>
-								<td><input class="text_area" type="text" name="config_smtpuser" size="50" value="<?php echo $row->config_smtpuser; ?>"/>&nbsp;<?php echo mosToolTip('Заполняется, если для отправки почты используется smtp-сервер с необходимостью авторизации'); ?></td>
+						<td><?=_SMTP_USER?>:</td>
+								<td><input class="text_area" type="text" name="config_smtpuser" size="50" value="<?php echo $row->config_smtpuser; ?>"/>&nbsp;<?php echo mosToolTip(_SMTP_USER2); ?></td>
 						</tr>
 						<tr>
-						<td>Пароль для доступа к SMTP:</td>
-								<td><input class="text_area" type="text" name="config_smtppass" size="50" value="<?php echo $row->config_smtppass; ?>"/>&nbsp;<?php echo mosToolTip('Заполняется, если для отправки почты используется smtp-сервер с необходимостью авторизации'); ?></td>
+						<td><?=_SMTP_PASS?>:</td>
+								<td><input class="text_area" type="text" name="config_smtppass" size="50" value="<?php echo $row->config_smtppass; ?>"/>&nbsp;<?php echo mosToolTip(_SMTP_PASS2); ?></td>
 						</tr>
 						<tr>
-						<td>Адрес SMTP-сервера:</td>
+						<td><?=_SMTP_SERVER?>:</td>
 								<td><input class="text_area" type="text" name="config_smtphost" size="50" value="<?php echo $row->config_smtphost; ?>"/></td>
 						</tr>
 						</table>
 						<?php
 		$tabs->endTab();
-		$tabs->startTab("Кэш","cache-page");
+		$tabs->startTab(_CACHE,"cache-page");
 ?>
 			<table class="adminform" >
 <?php
 		if(is_writeable($row->config_cachepath)) {
 ?>
 				<tr>
-					<td width="350">Включить кэширование:</td>
-					<td><?php echo $lists['caching']; ?><?php echo mosToolTip('Включение кэширования уменьшает запросы к MySQL и уменьшению нагрузки на сервер'); ?></td>
+					<td width="350"><?=_ENABLE_CACHE?>:</td>
+					<td><?php echo $lists['caching']; ?><?php echo mosToolTip(_ENABLE_CACHE2); ?></td>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td>Оптимизация кэширования:</td>
-					<td><?php echo $lists['config_cache_opt']; ?><?php echo mosToolTip('Автоматически удаляет из файлов кэша лишние символы тем самым уменьшая размер файлов.'); ?></td>
+					<td><?=_CACHE_OPTIMIZATION?>:</td>
+					<td><?php echo $lists['config_cache_opt']; ?><?php echo mosToolTip(_CACHE_OPTIMIZATION2); ?></td>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td>Автоматическая очистка каталога кэша:</td>
-					<td><?php echo $lists['config_clearCache']; ?><?php echo mosToolTip('Автоматически очищать каталог кэша удаляя просроченные файлы.'); ?></td>
+					<td><?=_AUTOCLEAN_CACHE_DIR?>:</td>
+					<td><?php echo $lists['config_clearCache']; ?><?php echo mosToolTip(_AUTOCLEAN_CACHE_DIR2); ?></td>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td>Кэширование меню панели управления:</td>
-					<td><?php echo $lists['adm_menu_cache']; ?><?php echo mosToolTip('Включение кэширования меню панели управления. Работает независимо от стандартного кэша.'); ?></td>
+					<td><?=_CACHE_MENU?>:</td>
+					<td><?php echo $lists['adm_menu_cache']; ?><?php echo mosToolTip(_CACHE_MENU2); ?></td>
 					<td>&nbsp;</td>
 				</tr>
 <?php
 		} else {
 ?><tr>
-					<td width="350">Кэширование не возможно:</td>
-					<td><font color="red"><b>Каталог кэша не доступен для записи.</b></font></td>
+					<td width="350"><?=_CANNOT_CACHE?>:</td>
+					<td><?=_CANNOT_CACHE2?></td>
 					<td>&nbsp;</td>
 				</tr>
 <?php
@@ -1086,51 +1084,51 @@ class HTML_config {
 ?>
 
 				<tr>
-					<td>Каталог кэша:</td>
+					<td><?=_CACHE_DIR?>:</td>
 					<td><input class="text_area" type="text" name="config_cachepath" size="50" value="<?php echo $row->config_cachepath; ?>"/>
 <?php
 		if(is_writeable($row->config_cachepath)) {
-			echo mosToolTip('Текущий каталог кэша <b>Доступен для записи</b>');
+			echo mosToolTip(_CACHE_DIR2);
 		} else {
-			echo mosWarning('Текущий каталог кэша <b>НЕ ДОСТУПЕН ДЛЯ ЗАПИСИ</b> - смените CHMOD каталога на 755 перед включением кэша');
+			echo mosWarning(_CACHE_DIR3);
 		}
 ?>
 					</td>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td>Время жизни кэша:</td>
-					<td><input class="text_area" type="text" name="config_cachetime" size="5" value="<?php echo $row->config_cachetime; ?>"/> секунд</td>
+					<td><?=_CACHE_TIME?>:</td>
+					<td><input class="text_area" type="text" name="config_cachetime" size="5" value="<?php echo $row->config_cachetime; ?>"/> <?=_SECONDS?></td>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td>Кэш запросов базы данных:</td>
+					<td><?=_DB_CACHE?>:</td>
 					<td><?php echo $lists['db_cache_handler'];?></td>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td>Время жизни кэша запросов базы данных:</td>
-					<td><input class="text_area" type="text" name="config_db_cache_time" size="5" value="<?php echo $row->config_db_cache_time; ?>"/> секунд</td>
+					<td><?=_DB_CACHE_TIME?>:</td>
+					<td><input class="text_area" type="text" name="config_db_cache_time" size="5" value="<?php echo $row->config_db_cache_time; ?>"/> <?=_SECONDS?></td>
 					<td>&nbsp;</td>
 				</tr>
 			</table>
 <?php
 		$tabs->endTab();
-		$tabs->startTab("Статистика","stats-page");
+		$tabs->startTab(_STATICTICS,"stats-page");
 ?>
 			<table class="adminform">
 				<tr>
-					<td width="185">Включить сбор статистики:</td>
+					<td width="185"><?=_ENABLE_STATS?>:</td>
 					<td width="100"><?php echo $lists['enable_stats']; ?></td>
-					<td><?php echo mostooltip('Разрешить/запретить сбор статистики сайта'); ?></td>
+					<td><?php echo mostooltip(_ENABLE_STATS2); ?></td>
 				</tr>
 				<tr>
-					<td>Вести статистику просмотра содержимого по дате:</td>
+					<td><?=_STATS_HITS_DATE?>:</td>
 					<td><?php echo $lists['log_items']; ?></td>
-					<td><span class="error"><?php echo mosWarning('ПРЕДУПРЕЖДЕНИЕ: В этом режиме записываются большие объемы данных!'); ?></span></td>
+					<td><span class="error"><?php echo mosWarning(_STATS_HITS_DATE2); ?></span></td>
 				</tr>
 				<tr>
-					<td>Статистика поисковых запросов:</td>
+					<td><?=_STATS_SEARCH_QUERIES?>:</td>
 					<td><?php echo $lists['log_searches']; ?></td>
 					<td>&nbsp;</td>
 				</tr>
@@ -1141,60 +1139,60 @@ class HTML_config {
 ?>
 						<table class="adminform">
 						<tr>
-						<td>Дружественные для поисковых систем URL-ы (SEF):</td>
+						<td><?=_SEF_URLS?>:</td>
 							<td><?php
 		echo $lists['sef'];
-		echo mosWarning('Только для Apache! Перед использованием переименуйте htaccess.txt в .htaccess. Это необходимо для включения модуля apache - mod_rewrite'); ?>
+		echo mosWarning(_SEF_URLS2); ?>
 							</td>
 						</tr>
 						<tr>
-						<td>Динамические заголовки страниц (теги title):</td>
+						<td><?=_DYNAMIC_PAGETITLES?>:</td>
 								<td><?php
 		echo $lists['pagetitles'];
-		echo mosToolTip('Динамическое изменение заголовков страниц в зависимости от текущего просматриваемого содержимого'); ?>
+		echo mosToolTip(_DYNAMIC_PAGETITLES2); ?>
 								</td>
 						</tr>
 						<tr>
-						<td>Очистка ссылки на com_frontpage:</td>
+						<td><?=_CLEAR_FRONTPAGE_LINK?>:</td>
 								<td><?php
 		echo $lists['com_frontpage_clear'];
-		echo mosToolTip('Придавать ссылке на компонент главной страницы более короткий вид.'); ?>
+		echo mosToolTip(_CLEAR_FRONTPAGE_LINK2); ?>
 								</td>
 						</tr>
 						<tr>
-						<td>Скрывать пачвей (pathway) на главной:</td>
+						<td><?=_DISABLE_PATHWAY_ON_FRONT?>:</td>
 								<td><?php
 		echo $lists['config_pathway_clean'];
-		echo mosToolTip('При включенном режиме строка \\\'Главная\\\' на первой странице сайта будет заменена на символ неразрывного пробела.'); ?>
+		echo mosToolTip(_DISABLE_PATHWAY_ON_FRONT2); ?>
 								</td>
 						</tr>
 						<tr>
-						<td>Порядок расположения элементов title:</td>
+						<td><?=_TITLE_ORDER?>:</td>
 								<td><?php
 		echo $lists['pagetitles_first'];
-		echo mosToolTip('Порядок расположения элементов заголовка страниц (тег title)'); ?>
+		echo mosToolTip(_TITLE_ORDER2); ?>
 								</td>
 						</tr>
 						<tr>
-						<td>Разделитель элементов title:</td>
+						<td><?=_TITLE_SEPARATOR?>:</td>
 								<td><input class="text_area" type="text" name="config_tseparator" size="5" value="<?php echo $row->config_tseparator; ?>"/>
-									<?php echo mosToolTip('Разделитель элементов заголовка страниц (тег title). По умолчанию - дефис.'); ?>
+									<?php echo mosToolTip(_TITLE_SEPARATOR2); ?>
 								</td>
 						</tr>
 						<tr>
-				<td>Индексация печатной версии:</td>
+				<td><?=_INDEX_PRINT_PAGE?>:</td>
 				<td>
 					<?php echo $lists['index_print'];
-		$tip = 'Если `Да`, то печатная версия содержимого будет доступна для индексации';
+		$tip = _INDEX_PRINT_PAGE2;
 		echo mosToolTip($tip);
 ?>
 				</td>
 			</tr>
 						<tr>
-				<td>Переадресация с не WWW адресов:</td>
+				<td><?=_REDIR_FROM_NOT_WWW?>:</td>
 				<td>
 					<?php echo $lists['www_redir'];
-		$tip = 'При заходе на сайт по ссылке syte.ru, автоматически будет произведена переадресация на www.syte.ru';
+		$tip = _REDIR_FROM_NOT_WWW2;
 		echo mosToolTip($tip);
 ?>
 				</td>
@@ -1206,21 +1204,21 @@ class HTML_config {
 ?>
 	<table class="adminform">
 		<tr>
-			<td width="300">Для авторизации в панели управления:</td>
+			<td width="300"><?=_ADMIN_CAPTCHA?>:</td>
 			<td><?php echo $lists['captcha'];
-		echo mosToolTip('Использовать captcha для более безопасной авторизации в панели управления.'); ?>
+		echo mosToolTip(_ADMIN_CAPTCHA2); ?>
 			</td>
 		</tr>
 		<tr>
-			<td width="300">Для регистрации:</td>
+			<td width="300"><?=_REGISTRATION_CAPTCHA?>:</td>
 			<td><?php echo $lists['config_captcha_reg'];
-		echo mosToolTip('Использовать captcha для более безопасной регистрации.'); ?>
+		echo mosToolTip(_REGISTRATION_CAPTCHA2); ?>
 			</td>
 		</tr>
 		<tr>
-			<td width="300">Для формы контактов:</td>
+			<td width="300"><?=_CONTACTS_CAPTCHA?>:</td>
 			<td><?php echo $lists['config_captcha_cont'];
-		echo mosToolTip('Использовать captcha для более безопасной формы контактов.'); ?>
+		echo mosToolTip(_CONTACTS_CAPTCHA2); ?>
 			</td>
 		</tr>
 	</table>

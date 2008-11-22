@@ -19,7 +19,7 @@ class TOOLBAR_config {
 		mosMenuBar::startTable();
 		mosMenuBar::save();
 		mosMenuBar::spacer();
-		mosMenuBar::ext('Применить','#','-apply','id="tb-apply" onclick="ch_apply();return;"');
+		mosMenuBar::ext(_CMN_APPLY,'#','-apply','id="tb-apply" onclick="ch_apply();return;"');
 		mosMenuBar::spacer();
 		mosMenuBar::cancel();
 		mosMenuBar::spacer();

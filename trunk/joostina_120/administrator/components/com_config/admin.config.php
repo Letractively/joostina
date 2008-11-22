@@ -125,7 +125,7 @@ function showconfig($option) {
 	$template_path = "$mosConfig_absolute_path/templates";
 	$templatefolder = @dir($template_path);
 	$darray = array();
-	$darray[]= mosHTML::makeOption('...','Разные'); // параметр по умолчанию - позволяет использовать стандартный способ определения шаблона
+	$darray[]= mosHTML::makeOption('...',_O_OTHER); // параметр по умолчанию - позволяет использовать стандартный способ определения шаблона
 	if($templatefolder) {
 		while($templatefile = $templatefolder->read()) {
 			if($templatefile != "." && $templatefile != ".." && $templatefile != ".svn" && $templatefile !=
@@ -243,9 +243,9 @@ function showconfig($option) {
 	$lists['gzip']= mosHTML::yesnoRadioList('config_gzip','class="inputbox"',$row->config_gzip);
 
 	$session = array(
-		mosHTML::makeOption(0,'3 уровень защиты - По умолчанию - наилучший'),
-		mosHTML::makeOption(1,'2 уровень защиты - Разрешено для IP-адресов прокси'),
-		mosHTML::makeOption(2,'1 уровень защиты - Обратная совместимость')
+		mosHTML::makeOption(0,_SECURITY_LEVEL3),
+		mosHTML::makeOption(1,_SECURITY_LEVEL2),
+		mosHTML::makeOption(2,_SECURITY_LEVEL1)
 	);
 	$lists['session_type']= mosHTML::selectList($session,'config_session_type','class="inputbox" size="1"','value','text',$row->config_session_type);
 
@@ -350,9 +350,9 @@ function showconfig($option) {
 
 // НАСТРОЙКИ ПОЧТЫ
 	$mailer = array(
-		mosHTML::makeOption( 'mail', 'Функцию PHP mail' ),
+		mosHTML::makeOption( 'mail', _PHP_MAIL_FUNCTION ),
 		mosHTML::makeOption( 'sendmail', 'Sendmail' ),
-		mosHTML::makeOption( 'smtp', 'Сервер SMTP' ),
+		mosHTML::makeOption( 'smtp', _SMTP_SERVER ),
 	);
 	$lists['mailer']	= mosHTML::selectList( $mailer, 'config_mailer', 'class="inputbox" size="1"', 'value', 'text', $row->config_mailer );
 	$lists['smtpauth']	= mosHTML::yesnoRadioList( 'config_smtpauth', 'class="inputbox"', $row->config_smtpauth );
@@ -550,7 +550,7 @@ function saveconfig($task) {
 		if($enable_write) {
 			@chmod($fname,$oldperms);
 		}
-		mosRedirect('index2.php','Ошибка! Невозможно открыть для записи файл конфигурации!');
+		mosRedirect('index2.php',_CANNOT_OPEN_CONF_FILE);
 	}
 }
 ?>

@@ -446,7 +446,7 @@ class mosConfig {
 	*/
 	function bind($array,$ignore = '') {
 		if(!is_array($array)) {
-			$this->_error = strtolower(get_class($this)).'::ошибка сборки.';
+			$this->_error = strtolower(get_class($this)).'::'._CONSTRUCT_ERROR;
 			return false;
 		} else {
 			return mosBindArrayToObject($array,$this,$ignore);
