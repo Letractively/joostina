@@ -96,7 +96,7 @@ function x_saveconfig($task) {
 			if(mosGetParam($_POST,'disable_write',0)) @chmod($fname,$oldperms & 0777555);
 		} // if
 
-		$msg = 'Конфигурация успешно обновлена';
+		$msg = _CONFIGURATION_IS_UPDATED;
 
 		// apply file and directory permissions if requested by user
 		$applyFilePerms	= mosGetParam($_POST,'applyFilePerms',0) && $row->config_fileperms !='';
@@ -121,7 +121,7 @@ function x_saveconfig($task) {
 		if($enable_write) {
 			@chmod($fname,$oldperms);
 		}
-		echo 'Ошибка! Невозможно открыть для записи файл конфигурации!';
+		echo _CANNOT_OPEN_CONF_FILE;
 	}
 }
 ?>
