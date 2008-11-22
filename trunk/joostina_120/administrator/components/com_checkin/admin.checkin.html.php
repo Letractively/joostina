@@ -20,16 +20,16 @@ class HTML_checkin {
 ?>
 	<table class="adminheading">
 		<tr> 
-			<th class="checkin">Заблокированные объекты</th>
+			<th class="checkin"><?=_BLOCKED_OBJECTS?></th>
 		</tr>
 	</table>
 	<table class="adminlist">
 		<tr>
-			<th class="title">Объект</th>
-			<th class="title">Заголовок</th>
-			<th>Заблокировал</th>
-			<th>Время блокировки</th>
-			<th>Действие</th>
+			<th class="title"><?=_OBJECT?></th>
+			<th class="title"><?=_HEADER_TITLE?></th>
+			<th><?=_WHO_BLOCK?></th>
+			<th><?=_BLOCK_TIME?></th>
+			<th><?=_ACTION?></th>
 		</tr>
 <?php
 		$k = 0;

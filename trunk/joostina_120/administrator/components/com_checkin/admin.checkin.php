@@ -48,14 +48,14 @@ function checkall(){
 	?>
 	<table class="adminheading">
 		<tr>
-			<th class="checkin">Глобальная разблокировка</th>
+			<th class="checkin"><?=_GLOBAL_CHECKIN?></th>
 		</tr>
 	</table>
 	<table class="adminform">
 		<tr>
-			<th class="title">Таблица базы данных</th>
-			<th class="title">Кол-во объектов</th>
-			<th class="title">Разблокировано</th>
+			<th class="title"><?=_TABLE_IN_DB?></th>
+			<th class="title"><?=_OBJECT_COUNT?></th>
+			<th class="title"><?=_UNBLOCKED?></th>
 			<th class="title">&nbsp;</th>
 		</tr>
 	<?php
@@ -97,15 +97,15 @@ function checkall(){
 			if($res == 1) {
 				if($num > 0) {
 					echo "<tr class=\"row$k\">";
-					echo "\n<td width=\"350\">Проверена таблица - $tn</td>";
-					echo "\n<td width=\"150\">Разблокировано - <b>$num</b></td>";
+					echo "\n<td width=\"350\">"._CHECHKED_TABLE." - $tn</td>";
+					echo "\n<td width=\"150\">"._UNBLOCKED." - <b>$num</b></td>";
 					echo "\n<td width=\"100\" align=\"center\"><img src=\"images/tick.png\" border=\"0\" alt=\"tick\" /></td>";
 					echo "\n<td>&nbsp;</td>";
 					echo "\n</tr>";
 				} else {
 					echo "<tr class=\"row$k\">";
-					echo "\n<td width=\"350\">Проверена таблица - $tn</td>";
-					echo "\n<td width=\"150\">Разблокировано - <b>$num</b></td>";
+					echo "\n<td width=\"350\">"._CHECHKED_TABLE." - $tn</td>";
+					echo "\n<td width=\"150\">"._UNBLOCKED." - <b>$num</b></td>";
 					echo "\n<td width=\"100\">&nbsp;</td>";
 					echo "\n<td>&nbsp;</td>";
 					echo "\n</tr>";
@@ -117,7 +117,7 @@ function checkall(){
 	?>
 		<tr>
 			<td colspan="4">
-				<strong>Все заблокированные объекты разблокированы</strong>
+				<strong><?=_ALL_BLOCKED_IS_UNBLOCKED?></strong>
 			</td>
 		</tr>
 	</table>
@@ -215,14 +215,14 @@ function showMyCheckin($option) {
 
 					$duration = round((time() - $checkouttime) / 60);
 					if($duration <= 120) {
-						$duration .= " минут";
+						$duration .= " "._MINUTES;
 					} else
 						if($duration <= (48* 60)) {
 							$duration = round($duration / 60);
-							$duration .= " часов";
+							$duration .= " "._HOURS;
 						} else {
 							$duration = round($duration / (60* 24));
-							$duration .= " дней";
+							$duration .= " "._DAYS;
 						}
 
 						$list[$listcnt] = array("component" => $tn,"title" => $str,"name" => $mosusers->name,
@@ -248,11 +248,11 @@ function checkin($pkey,$checkid,$component,$editor) {
 	$res = $database->query();
 
 	echo "<tr class=\"row1\">";
-	echo "<td align=\"center\" width=\"70%\"><b>$component</b> разблокирован";
+	echo "<td align=\"center\" width=\"70%\"><b>$component</b> "._UNBLOCKED2;
 	if($res == 1) {
 		echo "<img src=\"images/tick.png\" border=\"0\" alt=\"успешно\" />";
 	} else {
-		echo "При разблокировании произошла ошибка";
+		echo _ERROR_WHEN_UNBLOCKING;
 	}
 	echo "</td></tr>";
 }
