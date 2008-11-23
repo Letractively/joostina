@@ -99,7 +99,7 @@ function ExecSQL($task = 'execsql') {
 	<table width="100%"">
 	<tr>
 		<td>
-			Команда:
+			<?=_SQL_COMMAND?>:
 			<select id="easysql_sel" class="text_area" name="easysql_sel" onchange="changeQuery();">
 				<option value="SELECT* FROM ">SELECT*</option>
 				<option value="SHOW DATABASES ">SHOW DATABASES~</option>
@@ -169,7 +169,7 @@ function record_html($query) {
 		$body = '<div style="overflow: auto;"><table class="adminlist">';
 		$body .= "<thead><tr>\n";
 		// Display table header
-		if($_sel) $body .= '<th width="25">Управление</th>';
+		if($_sel) $body .= '<th width="25">'._MANAGEMENT.'</th>';
 		$k_arr = $rows[0];
 		$f = 1;
 		$key = '';
@@ -194,12 +194,12 @@ function record_html($query) {
 				.base64_encode($table)
 				.'&key='.$key.'&id='.$row[$key].'&prm2='
 				.base64_encode($query)
-				.'"><img border=0 src="../images/M_images/edit.png" alt="Редактировать" /></a>&nbsp;
+				.'"><img border=0 src="../images/M_images/edit.png" alt="'._E_EDIT.'" /></a>&nbsp;
 				<a href="index2.php?option=com_easysql&task=delete&prm1='
 				.base64_encode($table)
 				.'&key='.$key.'&id='.$row[$key].'&prm2='
 				.base64_encode($query)
-				.'"><img border=0 src="images/publish_x.png" alt="Удалить" /></a></td>';
+				.'"><img border=0 src="images/publish_x.png" alt="'._CMN_DELETE.'" /></a></td>';
 			foreach($row as $var => $val) {
 				if(ereg("[a-zA-Z]+",$var,$array)) $body .= '<td>&nbsp;'.prepare(substr($val,0,50))."</td>\n";
 			}
@@ -286,13 +286,13 @@ function EditRecord($task,$table,$id) {
 	<table class="adminheading" >
 		<tr>
 			<th class="db">
-				<?php echo "$table [ $key = $id ]"; ?>:<small>Редактирование</small>
+				<?php echo "$table [ $key = $id ]"; ?>:<small><?=_O_EDITING?></small>
 			</th>
 		</tr>
 		</table>
 		<table class="adminlist">
 		<tr>
-			<th colspan="2">Поля</th>
+			<th colspan="2"><?=_FIELDS?></th>
 		</tr>
 <?php $k = 0;
 		foreach($fields[$table] as $field => $type) { ?>

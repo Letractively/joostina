@@ -24,23 +24,23 @@ class HTML_module {
 		<form action="index2.php" method="post" name="adminForm">
 			<table class="adminheading">
 			<tr>
-				<th class="install">Установленные модули</th>
+				<th class="install"><?=_INSTALL_MODULE?></th>
 				<td>Фильтр:</td>
 				<td width="right"><?php echo $lists['filter']; ?></td>
 			</tr>
 			<tr>
-				<td colspan="3"><div class="jwarning">Здесь показаны только те расширения, которые Вы можете удалить. Части ядра Joostina удалить нельзя.</div></td>
+				<td colspan="3"><div class="jwarning"><?=_INSTALLED_COMPONENTS2?></div></td>
 			</tr>
 			</table>
 			<table class="adminlist" id="adminlist">
 			<tr>
-				<th width="20%" class="title">Модуль</th>
-				<th width="5%" align="center">Версия</th>
-				<th width="10%" align="left">Используется</th>
-				<th width="10%" align="left">Автор</th>
-				<th width="10%" align="center">Дата</th>
-				<th width="15%" align="left">E-mail автора</th>
-				<th width="15%" align="left">URL автора</th>
+				<th width="20%" class="title"><?=_MODULE?></th>
+				<th width="5%" align="center"><?=_E_VERSION?></th>
+				<th width="10%" align="left"><?=_USED_ON?></th>
+				<th width="10%" align="left"><?=_AUTHOR_BY?></th>
+				<th width="10%" align="center"><?=_DATE?></th>
+				<th width="15%" align="left">E-mail</th>
+				<th width="15%" align="left"><?=_COMPONENT_AUTHOR_URL?></th>
 			</tr>
 			<?php
 			$rc = 0;
@@ -51,7 +51,7 @@ class HTML_module {
 					<td align="left">
 					<input type="radio" id="cb<?php echo $i; ?>" name="cid[]" value="<?php echo $row->id; ?>" onclick="isChecked(this.checked);"><span class="bold"><?php echo $row->module; ?></span></td>
 					<td align="center"><?php echo @$row->version != ""?$row->version:"&nbsp;"; ?></td>
-					<td align="left"><?php echo $row->client_id == "0"?'Сайт':'Панель управления'; ?></td>
+					<td align="left"><?php echo $row->client_id == "0"? _SITE : _CONTROL_PANEL; ?></td>
 					<td><?php echo @$row->author != ""?$row->author:"&nbsp;"; ?></td>
 					<td align="center"><?php echo @$row->creationdate != ""?$row->creationdate:"&nbsp;"; ?></td>
 					<td align="center"><?php echo @$row->authorEmail != ""?$row->authorEmail:"&nbsp;"; ?></td>
@@ -62,7 +62,7 @@ class HTML_module {
 			}
 		} else {
 ?>
-			<td class="small">Сторонние модули не установлены</td>
+			<td class="small"><?=_NO_OTHER_MODULES?></td>
 			<?php
 		}
 ?>

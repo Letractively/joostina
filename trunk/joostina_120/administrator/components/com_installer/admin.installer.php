@@ -58,12 +58,12 @@ if(array_key_exists($element,$classMap)) {
 			if(file_exists($path)) {
 				require $path;
 			} else {
-				echo "Для [$element] не найден инсталлятор";
+				echo "[$element] - "._NO_INSTALLER;
 			}
 			break;
 	}
 } else {
-	echo "Установка [$element] невозможна";
+	echo _CANNOT_INSTALL."[$element]";
 }
 
 /**
@@ -76,20 +76,20 @@ function uploadPackage($installerClass,$option,$element,$client) {
 	josSpoofCheck();
 	// Check if file uploads are enabled
 	if(!(bool)ini_get('file_uploads')) {
-		HTML_installer::showInstallMessage("Установка невозможна, пока запрещена загрузка файлов. Пожалуйста, используйте установку из каталога.",'Ошибка установки',$installer->returnTo($option,$element,$client));
+		HTML_installer::showInstallMessage(_CANNOT_INSTALL_DISABLED_UPLOAD,_INSTALL_ERROR,$installer->returnTo($option,$element,$client));
 		exit();
 	}
 
 	// Check that the zlib is available
 	if(!extension_loaded('zlib')) {
-		HTML_installer::showInstallMessage("Установка невозможна, пока не установлена поддержка zlib",'Ошибка установки',$installer->returnTo($option,$element,$client));
+		HTML_installer::showInstallMessage(_CANNOT_INSTALL_NO_ZLIB,_INSTALL_ERROR,$installer->returnTo($option,$element,$client));
 		exit();
 	}
 
 	$userfile = mosGetParam($_FILES,'userfile',null);
 
 	if(!$userfile) {
-		HTML_installer::showInstallMessage('Файл не выбран','Ошибка загрузки нового модуля',$installer->returnTo($option,$element,$client));
+		HTML_installer::showInstallMessage(_NO_FILE_CHOOSED,_ERORR_UPLOADING_EXT,$installer->returnTo($option,$element,$client));
 		exit();
 	}
 
@@ -100,14 +100,14 @@ function uploadPackage($installerClass,$option,$element,$client) {
 
 	if($resultdir !== false) {
 		if(!$installer->upload($userfile['name'])) {
-			HTML_installer::showInstallMessage($installer->getError(),'Загрузка '.$element.' - загрузка неудачна',$installer->returnTo($option,$element,$client));
+			HTML_installer::showInstallMessage($installer->getError(),_UPLOADING_ERROR.' '.$element,$installer->returnTo($option,$element,$client));
 		}
 		$ret = $installer->install();
 
-		HTML_installer::showInstallMessage($installer->getError(),'Загрузка '.$element.' - '.($ret?'успешна':'неудачна'),$installer->returnTo($option,$element,$client));
+		HTML_installer::showInstallMessage($installer->getError(),$element.' - '.($ret? _SUCCESS :_UNSUCCESS),$installer->returnTo($option,$element,$client));
 		cleanupInstall($userfile['name'],$installer->unpackDir());
 	} else {
-		HTML_installer::showInstallMessage($msg,'Загрузка '.$element.' -  Ошибка загрузки',$installer->returnTo($option,$element,$client));
+		HTML_installer::showInstallMessage($msg,$element.' - '._UPLOADING_ERROR,$installer->returnTo($option,$element,$client));
 	}
 }
 
@@ -119,7 +119,7 @@ function installFromDirectory($installerClass,$option,$element,$client) {
 	$userfile = mosGetParam($_REQUEST,'userfile','');
 	josSpoofCheck();
 	if(!$userfile) {
-		mosRedirect("index2.php?option=$option&element=module","Пожалуйста, выберите каталог");
+		mosRedirect("index2.php?option=$option&element=module",_CHOOSE_DIRECTORY_PLEASE);
 	}
 
 	$installer = new $installerClass();
@@ -130,7 +130,7 @@ function installFromDirectory($installerClass,$option,$element,$client) {
 	}
 
 	$ret = $installer->install($path);
-	HTML_installer::showInstallMessage($installer->getError(),'Загрузка нового элемента: '.$element.' - '.($ret?'успешна':'завершилась ошибкой'),$installer->returnTo($option,$element,$client));
+	HTML_installer::showInstallMessage($installer->getError(),_UPLOAD_OF_EXT.': '.$element.' - '.($ret?_SUCCESS:_UNSUCCESS),$installer->returnTo($option,$element,$client));
 }
 /**
 *
@@ -151,7 +151,7 @@ function removeElement($installerClass,$option,$element,$client) {
 
 	$msg = $installer->getError();
 
-	mosRedirect($installer->returnTo($option,$element,$client),$result?'Удаление успешно '.$msg : 'Неуспешная '.$msg);
+	mosRedirect($installer->returnTo($option,$element,$client),$result?_DELETE_SUCCESS.' '.$msg : _UNSUCCESS.' '.$msg);
 }
 /**
 * @param string The name of the php (temporary) uploaded file
@@ -169,16 +169,16 @@ function uploadFile($filename,$userfile_name,&$msg) {
 				if(mosChmod($baseDir.$userfile_name)) {
 					return true;
 				} else {
-					$msg = 'Не могу изменить права доступа к закачанному файлу.';
+					$msg = _CANNOT_CHMOD;
 				}
 			} else {
-				$msg = 'Не могу переместить скачанный файл в каталог <code>/media</code>.';
+				$msg = _CANNOT_MOVE_TO_MEDIA;
 			}
 		} else {
-			$msg = 'Загрузка сорвана, так как каталог <code>/media</code> недоступен для записи.';
+			$msg = _CANNOT_WRITE_TO_MEDIA;
 		}
 	} else {
-		$msg = 'Загрузка сорвана, так как каталог <code>/media</code> не существует.';
+		$msg = _CANNOT_INSTALL_NO_MEDIA;
 	}
 	return false;
 }

@@ -143,10 +143,10 @@ class mosInstaller {
 					return true;
 				}
 			}
-			$this->setError(1,'ОШИБКА: В установочном пакете невозможно найти XML-файл установки Joomla.');
+			$this->setError(1,_ERROR_NO_XML_JOOMLA);
 			return false;
 		} else {
-			$this->setError(1,'ОШИБКА: В установочном пакете невозможно найти XML-файл установки.');
+			$this->setError(1,_ERROR_NO_XML_INSTALL);
 			return false;
 		}
 	}
@@ -178,7 +178,7 @@ class mosInstaller {
 	function readInstallFile() {
 
 		if($this->installFilename() == "") {
-			$this->setError(1,'Не определено имя файла');
+			$this->setError(1,_NO_NAME_DEFINED);
 			return false;
 		}
 
@@ -191,8 +191,7 @@ class mosInstaller {
 
 		// Check that it's am installation file
 		if($root->getTagName() != 'mosinstall') {
-			$this->setError(1,'Файл:"'.$this->installFilename().
-				'" - не является корректным файлом установки Joomla!');
+			$this->setError(1,_FILE.':"'.$this->installFilename().'" - '._NOT_CORRECT_INSTALL_FILE_FOR_JOOMLA);
 			return false;
 		}
 
@@ -203,13 +202,13 @@ class mosInstaller {
 	* Abstract install method
 	*/
 	function install() {
-		die('Метод "install" не может быть вызван классом '.strtolower(get_class($this)));
+		die(_CANNOT_RUN_INSTALL_METHOD.' '.strtolower(get_class($this)));
 	}
 	/**
 	* Abstract uninstall method
 	*/
 	function uninstall() {
-		die('Метод "uninstall" не может быть вызван классом '.strtolower(get_class($this)));
+		die(_CANNOT_RUN_UNINSTALL_METHOD.' '.strtolower(get_class($this)));
 	}
 	/**
 	* return to method
@@ -233,12 +232,12 @@ class mosInstaller {
 		}
 
 		if(!$this->readInstallFile()) {
-			$this->setError(1,'Установочный файл не найден:<br />'.$this->installDir());
+			$this->setError(1,_CANNOT_FIND_INSTALL_FILE.':<br />'.$this->installDir());
 			return false;
 		}
 
 		if($this->installType() != $type) {
-			$this->setError(1,'Установочный XML-файл - не для "'.$type.'".');
+			$this->setError(1,_XML_NOT_FOR.' "'.$type.'".');
 			return false;
 		}
 
@@ -297,13 +296,13 @@ class mosInstaller {
 
 				if($adminFiles) {
 					if(!mosMakePath($this->componentAdminDir(),$newdir)) {
-						$this->setError(1,'Невозможно создать каталог "'.($this->componentAdminDir()).$newdir.
+						$this->setError(1,_CANNOT_CREATE_DIR.' "'.($this->componentAdminDir()).$newdir.
 							'"');
 						return false;
 					}
 				} else {
 					if(!mosMakePath($this->elementDir(),$newdir)) {
-						$this->setError(1,'Невозможно создать каталог "'.($this->elementDir()).$newdir.
+						$this->setError(1,_CANNOT_CREATE_DIR.' "'.($this->elementDir()).$newdir.
 							'"');
 						return false;
 					}
@@ -351,11 +350,11 @@ class mosInstaller {
 				$filedest = mosPathName(mosPathName($p_destdir).$_file,false);
 
 				if(!file_exists($filesource)) {
-					$this->setError(1,"Файл $filesource не существует!");
+					$this->setError(1,_FILE_NOT_EXISTS." $filesource");
 					return false;
 				} else
 					if(file_exists($filedest) && !$overwrite) {
-						$this->setError(1,"Файл $filedest уже существует - Вы пытаетесь дважды установить одно и то же расширение?");
+						$this->setError(1,_FILE_NOT_EXISTS." $filedest - "._INSTALL_TWICE);
 						return false;
 					} else {
 						$path_info = pathinfo($_file);
@@ -363,7 +362,7 @@ class mosInstaller {
 							mosMakePath($p_destdir,$path_info['dirname']);
 						}
 						if(!(copy($filesource,$filedest) && mosChmod($filedest))) {
-							$this->setError(1,"Ошибка копирования файла: $filesource в $filedest");
+							$this->setError(1,_ERROR_COPYING_FILE.": $filesource в $filedest");
 							return false;
 						}
 					}

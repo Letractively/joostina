@@ -74,7 +74,7 @@ class mosInstallerLanguage extends mosInstaller {
 						$filename = $file->getText();
 						echo $filename;
 						if(file_exists($basepath.$filename)) {
-							echo '<br />”даление: '.$basepath.$filename;
+							echo '<br />'._DELETING.': '.$basepath.$filename;
 							$result = unlink($basepath.$filename);
 						}
 						echo intval($result);
@@ -82,8 +82,7 @@ class mosInstallerLanguage extends mosInstaller {
 				}
 			}
 		} else {
-			HTML_installer::showInstallMessage('id €зыка пусто, поэтому невозможно удалить файлы',
-				'ќшибка деинсталл€ции',$this->returnTo($option,'language',$client));
+			HTML_installer::showInstallMessage(_CANNOT_DEL_LANG_ID,_UNINSTALL_ERROR,$this->returnTo($option,'language',$client));
 			exit();
 		}
 

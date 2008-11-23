@@ -66,17 +66,17 @@ class HTML_content {
 			<th width="20">
 				<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count($rows); ?>);" />
 			</th>
-			<th class="title">Заголовок</th>
-			<th align="center">Убрать с главной</th>
-			<th width="10%" class="jtd_nowrap">Опубликовано</th>
-			<th colspan="2" class="jtd_nowrap" width="5%">Сортировка</th>
+			<th class="title"><?=_HEADER_TITLE?></th>
+			<th align="center"><?=_REMOVE_FROM_FRONT?></th>
+			<th width="10%" class="jtd_nowrap"><?=_CMN_PUBLISHED?></th>
+			<th colspan="2" class="jtd_nowrap" width="5%"><?=_CMN_ORDERING?></th>
 			<th width="2%">Порядок</th>
 			<th width="1%">
-				<a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="Сохранить порядок" /></a>
+				<a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="<?=_SAVE_ORDER?>" /></a>
 			</th>
-			<th width="8%" class="jtd_nowrap">Доступ</th>
-			<th width="10%" align="left">Раздел</th>
-			<th width="10%" align="left">Категория</th>
+			<th width="8%" class="jtd_nowrap"><?=_CMN_ACCESS?></th>
+			<th width="10%" align="left"><?=_SECTION?></th>
+			<th width="10%" align="left"><?=_E_CATEGORY?></th>
 		</tr>
 		<?php
 		$k = 0;
@@ -90,33 +90,33 @@ class HTML_content {
 			$now = _CURRENT_SERVER_TIME;
 			if($now <= $row->publish_up && $row->state == '1') {
 				$img = 'publish_y.png';
-				$alt = 'Опубликовано';
+				$alt = _CMN_PUBLISHED;
 			} else
 				if(($now <= $row->publish_down || $row->publish_down == $nullDate) && $row->state =='1') {
 					$img = 'publish_g.png';
-					$alt = 'Опубликовано';
+					$alt = _CMN_PUBLISHED;
 				} else
 					if($now > $row->publish_down && $row->state == '1') {
 						$img = 'publish_r.png';
-						$alt = 'Время публикации истекло';
+						$alt = _PUBLISH_TIME_END;
 					} elseif($row->state == "0") {
 						$img = "publish_x.png";
-						$alt = 'Не опубликовано';
+						$alt = _CMN_UNPUBLISHED;
 					}
 
 			$times = '';
 			if(isset($row->publish_up)) {
 				if($row->publish_up == $nullDate) {
-					$times .= '<tr><td>Начало: Всегда</td></tr>';
+					$times .= '<tr><td>'._START.': '._ALWAYS.'</td></tr>';
 				} else {
-					$times .= '<tr><td>Начало: '.$row->publish_up.'</td></tr>';
+					$times .= '<tr><td>'._START.': '.$row->publish_up.'</td></tr>';
 				}
 			}
 			if(isset($row->publish_down)) {
 				if($row->publish_down == $nullDate) {
-					$times .= '<tr><td>Окончание: Без срока</td></tr>';
+					$times .= '<tr><td>'._END.': '._WITHOUT_END.'</td></tr>';
 				} else {
-					$times .= '<tr><td>Окончание: '.$row->publish_down.'</td></tr>';
+					$times .= '<tr><td>'._END.': '.$row->publish_down.'</td></tr>';
 				}
 			}
 
@@ -128,7 +128,7 @@ class HTML_content {
 					$author = $row->created_by_alias;
 				} else {
 					$linkA = 'index2.php?option=com_users&task=editA&hidemainmenu=1&id='.$row->created_by;
-					$author = '<a href="'.$linkA.'" title="Изменить данные пользователя">'.$row->author.'</a>';
+					$author = '<a href="'.$linkA.'" title="'._CHANGE_USER_DATA.'">'.$row->author.'</a>';
 				}
 			} else {
 				if($row->created_by_alias) {
@@ -147,7 +147,7 @@ class HTML_content {
 					echo $row->title;
 				} else {
 ?>
-					<a href="<?php echo $link; ?>" class="abig" title="Изменить содержимое"><?php echo $row->title; ?></a>
+					<a href="<?php echo $link; ?>" class="abig" title="<?=_CHANGE_CONTENT?>"><?php echo $row->title; ?></a>
 <?php
 				}
 				echo '<br />'.$row->created.' : '.$author;
@@ -163,11 +163,11 @@ class HTML_content {
 <?php
 				if ( !$row->checked_out ){
 				?>
-					<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="Публикация" />
+					<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?=_E_PUBLISHING?>" />
 <?php
 				}else{
 ?>
-					<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="Смена статуса публикации недоступна"/>
+					<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?=_CANNOT_CHANGE_PUBLISH_STATE?>"/>
 <?php
 				}
 ?>
@@ -181,8 +181,8 @@ class HTML_content {
 					<input type="text" name="order[]" size="5" value="<?php echo $row->fpordering; ?>" class="text_area" style="text-align: center" />
 				</td>
 				<td align="center" id="acc-id-<?php echo $row->id;?>"><?php echo $access; ?></td>
-				<td><a href="<?php echo $row->sect_link; ?>" title="Изменить раздел"><?php echo $row->sect_name; ?></a></td>
-				<td><a href="<?php echo $row->cat_link; ?>" title="Изменить категорию"><?php echo $row->name; ?></a></td>
+				<td><a href="<?php echo $row->sect_link; ?>" title="<?=_CHANGE_SECTION?>"><?php echo $row->sect_name; ?></a></td>
+				<td><a href="<?php echo $row->cat_link; ?>" title="<?=_CHANGE_CATEGORY?>"><?php echo $row->name; ?></a></td>
 			</tr>
 			<?php
 			$k = 1 - $k;

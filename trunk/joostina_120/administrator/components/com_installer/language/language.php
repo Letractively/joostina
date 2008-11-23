@@ -15,8 +15,8 @@ if(!$acl->acl_check('administration','install','users',$my->usertype,$element.'s
 	mosRedirect('index2.php',_NOT_AUTH);
 }
 
-$backlink = '<a href="index2.php?option=com_languages">Перейти в Управление языками</a>';
-HTML_installer::showInstallForm('Установка языкового пакета сайта',$option,'language','',dirname(__file__),$backlink);
+$backlink = '<a href="index2.php?option=com_languages">'._GOTO_LANG_MANAGEMENT.'</a>';
+HTML_installer::showInstallForm(_INTALL_LANG,$option,'language','',dirname(__file__),$backlink);
 ?>
 <table class="adminlist">
 <?php

@@ -61,15 +61,15 @@ function x_access($id){
 	if(!$row->access) {
 		$color_access	= 'style="color: green;"';
 		$task_access	= 'accessregistered';
-		$text_href		= 'Общий';
+		$text_href		= _USER_GROUP_ALL;
 	} elseif($row->access == 1) {
 		$color_access	= 'style="color: red;"';
 		$task_access	= 'accessspecial';
-		$text_href		= 'Участники';
+		$text_href		= _USER_GROUP_REGISTERED;
 	} else {
 		$color_access	= 'style="color: black;"';
 		$task_access	= 'accesspublic';
-		$text_href		= 'Специальный';
+		$text_href		= _USER_GROUP_SPECIAL;
 	}
 	// чистим кэш
 	mosCache::cleanCache('com_content');
@@ -82,7 +82,7 @@ function x_access($id){
 function x_publish($id = null) {
 	global $database,$my;
 	// id содержимого для обработки не получен - выдаём ошибку
-	if(!$id) return 'Идентификатор не опознан.';
+	if(!$id) return _UNKNOWN_ID;
 
 	$state = new stdClass();
 	$query = "SELECT state, publish_up, publish_down"

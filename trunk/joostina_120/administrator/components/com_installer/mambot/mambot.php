@@ -17,7 +17,7 @@ if(!$acl->acl_check('administration','install','users',$my->usertype,$element.'s
 
 require_once ($mainframe->getPath('installer_html','mambot'));
 
-HTML_installer::showInstallForm('Установка мамбота',$option,'mambot','',dirname(__file__));
+HTML_installer::showInstallForm(_INSTALL_MAMBOT,$option,'mambot','',dirname(__file__));
 ?>
 <table class="adminlist">
 <?php

@@ -12,7 +12,7 @@ defined('_VALID_MOS') or die();
 
 function writableCell($folder) {
 	echo '<tr><td class="item">'.$folder.'/</td><td align="left">';
-	echo is_writable($GLOBALS['mosConfig_absolute_path'].'/'.$folder)?'<b><font color="green">Доступен для записи</font></b>':'<b><font color="red">Недоступен для записи</font></b></td>';
+	echo is_writable($GLOBALS['mosConfig_absolute_path'].'/'.$folder)?'<b><font color="green">'._WRITEABLE.'</font></b>':'<b><font color="red">'._UNWRITEABLE.'</font></b></td>';
 	echo '</tr>';
 }
 
@@ -28,7 +28,7 @@ class HTML_installer {
 		function submitbutton3(pressbutton) {
 			var form = document.adminForm_dir;
 			if (form.userfile.value == ""){
-				alert( "Пожалуйста, выберите каталог" );
+				alert( "<?=_CHOOSE_DIRECTORY_PLEASE?>" );
 			} else {
 				form.submit();
 			}
@@ -46,13 +46,13 @@ class HTML_installer {
 					<form enctype="multipart/form-data" action="index2.php" method="post" name="filename">
 					<table class="adminform">
 					<tr>
-						<th>Загрузка архива расширения с последующей установкой</th>
+						<th><?=_ZIP_UPLOAD_AND_INSTALL?></th>
 					</tr>
 					<tr>
 						<td align="left">
-							Файл пакета:
+							<?=_PACKAGE_FILE?>:
 							<input class="text_area" name="userfile" type="file" size="50"/>
-							<input class="button" type="submit" value="Загрузить и установить" />
+							<input class="button" type="submit" value="<?=_UPLOAD_AND_INSTALL?>" />
 						</td>
 					</tr>
 					</table>
@@ -67,11 +67,11 @@ class HTML_installer {
 					<form enctype="multipart/form-data" action="index2.php" method="post" name="adminForm_dir">
 					<table class="adminform">
 					<tr>
-						<th>Установка из каталога</th>
+						<th><?=_INSTALL_FROM_DIR?></th>
 					</tr>
 					<tr>
 						<td align="left">
-							Каталог установки:
+							<?=_INSTALLATION_DIRECTORY?>:
 							<input type="text" name="userfile" class="text_area" size="50" value="<?php echo $p_startdir; ?>"/>
 							<input type="button" class="button" value="Установить" onclick="submitbutton3()" />
 						</td>
@@ -109,7 +109,7 @@ class HTML_installer {
 			<td align="left"><strong><?php echo $message; ?></strong></td>
 		</tr>
 		<tr>
-			<td colspan="2" align="center">[&nbsp;<a href="<?php echo $url; ?>" style="font-size: 16px; font-weight: bold">Продолжить ...</a>&nbsp;]</td>
+			<td colspan="2" align="center">[&nbsp;<a href="<?php echo $url; ?>" style="font-size: 16px; font-weight: bold"><?=_CONTINUE?> ...</a>&nbsp;]</td>
 		</tr>
 	</table>
 		<?php

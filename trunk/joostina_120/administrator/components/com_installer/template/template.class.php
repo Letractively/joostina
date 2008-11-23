@@ -39,7 +39,7 @@ class mosInstallerTemplate extends mosInstaller {
 		if($mosinstall->getAttribute('client')) {
 			$validClients = array('administrator');
 			if(!in_array($mosinstall->getAttribute('client'),$validClients)) {
-				$this->setError(1,'Неизвестный тип клиента ['.$mosinstall->getAttribute('client').']');
+				$this->setError(1,_UNKNOWN_CLIENT.' ['.$mosinstall->getAttribute('client').']');
 				return false;
 			}
 			$client = 'admin';
@@ -51,7 +51,7 @@ class mosInstallerTemplate extends mosInstaller {
 		$this->elementDir(mosPathName($mosConfig_absolute_path.($client == 'admin'?'/administrator':'').'/templates/'.strtolower(str_replace(" ","_",$this->elementName()))));
 
 		if(!file_exists($this->elementDir()) && !mosMakePath($this->elementDir())) {
-			$this->setError(1,'Невозможно создать каталог "'.$this->elementDir().'"');
+			$this->setError(1,_CANNOT_CREATE_DIR.' "'.$this->elementDir().'"');
 			return false;
 		}
 
@@ -90,10 +90,10 @@ class mosInstallerTemplate extends mosInstaller {
 			if(is_dir($path)) {
 				return deldir(mosPathName($path));
 			} else {
-				HTML_installer::showInstallMessage('Невозможно удалить файл, т.к. каталог не существует','Ошибка деинсталляции',$this->returnTo($option,'template',$client));
+				HTML_installer::showInstallMessage(_CANNOT_DEL_FILE_NO_DIR,_UNINSTALL_ERROR,$this->returnTo($option,'template',$client));
 			}
 		} else {
-			HTML_installer::showInstallMessage('Невозможно удалить файлы, т.к. Id шаблона пустой','Ошибка деинсталляции',$this->returnTo($option,'template',$client));
+			HTML_installer::showInstallMessage(_WRONG_ID,_UNINSTALL_ERROR,$this->returnTo($option,'template',$client));
 			exit();
 		}
 	}

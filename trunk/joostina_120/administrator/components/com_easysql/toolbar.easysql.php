@@ -23,7 +23,7 @@ switch($task) {
 	default:
 		mosMenuBar::startTable();
 		mosMenuBar::spacer();
-		mosMenuBar::apply('execsql','Выполнить SQL');
+		mosMenuBar::apply('execsql',_EXEC_SQL);
 		mosMenuBar::endTable();
 		break;
 }
