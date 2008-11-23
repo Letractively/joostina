@@ -17,7 +17,7 @@ if(!$acl->acl_check('administration','install','users',$my->usertype,$element.'s
 
 require_once ($mainframe->getPath('installer_html','component'));
 
-HTML_installer::showInstallForm('Установка компонента',$option,'component','',dirname(__file__));
+HTML_installer::showInstallForm(_COMPONENT_INSTALL,$option,'component','',dirname(__file__));
 ?>
 <table class="adminlist">
 <?php

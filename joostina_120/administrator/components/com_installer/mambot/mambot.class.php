@@ -38,11 +38,11 @@ class mosInstallerMambot extends mosInstaller {
 		$this->elementDir(mosPathName($mosConfig_absolute_path.'/mambots/'.$folder));
 
 		if(!file_exists($this->elementDir()) && !mosMakePath($this->elementDir())) {
-			$this->setError(1,'Невозможно создать каталог "'.$this->elementDir().'"');
+			$this->setError(1,_CANNOT_CREATE_DIR.' "'.$this->elementDir().'"');
 			return false;
 		}
 
-		if($this->parseFiles('files','mambot','Нет файлов, отмеченных как мамботы') === false) {
+		if($this->parseFiles('files','mambot',_NO_FILES_OF_MAMBOTS) === false) {
 			return false;
 		}
 
@@ -51,7 +51,7 @@ class mosInstallerMambot extends mosInstaller {
 			());
 		$database->setQuery($query);
 		if(!$database->query()) {
-			$this->setError(1,'Ошибка SQL: '.$database->stderr(true));
+			$this->setError(1,_SQL_ERROR.': '.$database->stderr(true));
 			return false;
 		}
 
@@ -72,7 +72,7 @@ class mosInstallerMambot extends mosInstaller {
 			}
 
 			if(!$row->store()) {
-				$this->setError(1,'Ошибка SQL: '.$row->getError());
+				$this->setError(1,_SQL_ERROR.': '.$row->getError());
 				return false;
 			}
 		} else {
@@ -102,19 +102,17 @@ class mosInstallerMambot extends mosInstaller {
 		$row = null;
 		$database->loadObject($row);
 		if($database->getErrorNum()) {
-			HTML_installer::showInstallMessage($database->stderr(),'Ошибка деинсталляции',$this->returnTo
+			HTML_installer::showInstallMessage($database->stderr(),_UNINSTALL_ERROR,$this->returnTo
 				($option,'mambot',$client));
 			exit();
 		}
 		if($row == null) {
-			HTML_installer::showInstallMessage('Неправильный id объекта',
-				'Ошибка деинсталляции',$this->returnTo($option,'mambot',$client));
+			HTML_installer::showInstallMessage(_WRONG_ID,_UNINSTALL_ERROR,$this->returnTo($option,'mambot',$client));
 			exit();
 		}
 
 		if(trim($row->folder) == '') {
-			HTML_installer::showInstallMessage('Поле папки пустое, невозможно удалить файлы',
-				'Ошибка деинсталляции',$this->returnTo($option,'mambot',$client));
+			HTML_installer::showInstallMessage(_BAD_DIR_NAME_EMPTY,_UNINSTALL_ERROR,$this->returnTo($option,'mambot',$client));
 			exit();
 		}
 
@@ -139,10 +137,10 @@ class mosInstallerMambot extends mosInstaller {
 							$parts = pathinfo($filename);
 							$subpath = $parts['dirname'];
 							if($subpath != '' && $subpath != '.' && $subpath != '..') {
-								echo '<br />Удаление: '.$basepath.$subpath;
+								echo '<br />'._DELETING.': '.$basepath.$subpath;
 								$result = deldir(mosPathName($basepath.$subpath.'/'));
 							} else {
-								echo '<br />Удаление: '.$basepath.$filename;
+								echo '<br />'._DELETING.': '.$basepath.$filename;
 								$result = unlink(mosPathName($basepath.$filename,false));
 							}
 							echo intval($result);
@@ -166,9 +164,7 @@ class mosInstallerMambot extends mosInstaller {
 		}
 
 		if($row->iscore) {
-			HTML_installer::showInstallMessage($row->name.
-				' - элемент ядра и не может быть удален.<br />Если Вы не хотите его использовать, то отмените его публикацию',
-				'Ошибка деинсталляции',$this->returnTo($option,'mambot',$client));
+			HTML_installer::showInstallMessage($row->name.' - '._IS_PART_OF_CMS,_UNINSTALL_ERROR,$this->returnTo($option,'mambot',$client));
 			exit();
 		}
 

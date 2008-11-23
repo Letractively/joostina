@@ -49,17 +49,17 @@ class mosInstallerComponent extends mosInstaller {
 		$this->componentAdminDir(mosPathName($mosConfig_absolute_path."/administrator/components/".strtolower("com_".str_replace(" ","",$this->elementName()))));
 
 		if(file_exists($this->elementDir())) {
-			$this->setError(1,'Другой компонент уже использует каталог: "'.$this->elementDir().'"');
+			$this->setError(1,_OTHER_COMPONENT_USE_DIR.': "'.$this->elementDir().'"');
 			return false;
 		}
 
 		if(!file_exists($this->elementDir()) && !mosMakePath($this->elementDir())) {
-			$this->setError(1,'Невозможно создать каталог "'.$this->elementDir().'"');
+			$this->setError(1,_CANNOT_CREATE_DIR.' "'.$this->elementDir().'"');
 			return false;
 		}
 
 		if(!file_exists($this->componentAdminDir()) && !mosMakePath($this->componentAdminDir())) {
-			$this->setError(1,'Невозможно создать каталог "'.$this->componentAdminDir().'"');
+			$this->setError(1,_CANNOT_CREATE_DIR.' "'.$this->componentAdminDir().'"');
 			return false;
 		}
 
@@ -92,7 +92,7 @@ class mosInstallerComponent extends mosInstaller {
 
 				$database->setQuery( $sql );
 				if(!$database->query()) {
-					$this->setError(1,"Ошибка выполнения SQL: ".$database->getEscaped($sql).".<br /> Текст ошибки:".$database->stderr(true));
+					$this->setError(1,_SQL_ERROR.": ".$database->getEscaped($sql).".<br /> "._ERROR_MESSAGE.":".$database->stderr(true));
 					return false;
 				}
 				unset($sql);
@@ -106,7 +106,7 @@ class mosInstallerComponent extends mosInstaller {
 			// check if parse files has already copied the install.component.php file (error in 3rd party xml's!)
 			if(!file_exists($this->componentAdminDir().$installfile_elemet->getText())) {
 				if(!$this->copyFiles($this->installDir(),$this->componentAdminDir(),array($installfile_elemet->getText()))) {
-					$this->setError(1,'Не могу скопировать PHP-файл установки.');
+					$this->setError(1,_CANNOT_COPY_PHP_INSTALL);
 					return false;
 				}
 			}
@@ -118,7 +118,7 @@ class mosInstallerComponent extends mosInstaller {
 		if(!is_null($uninstallfile_elemet)) {
 			if(!file_exists($this->componentAdminDir().$uninstallfile_elemet->getText())) {
 				if(!$this->copyFiles($this->installDir(),$this->componentAdminDir(),array($uninstallfile_elemet->getText()))) {
-					$this->setError(1,'Не могу скопировать PHP-файл удаления');
+					$this->setError(1,_CANNOT_COPY_PHP_REMOVE);
 					return false;
 				}
 			}
@@ -235,12 +235,12 @@ class mosInstallerComponent extends mosInstaller {
 
 		$row = null;
 		if(!$database->loadObject($row)) {
-			HTML_installer::showInstallMessage($database->stderr(true),	'Ошибка удаления',$this->returnTo($option,'component',$client));
+			HTML_installer::showInstallMessage($database->stderr(true),	_ERROR_DELETING,$this->returnTo($option,'component',$client));
 			exit();
 		}
 
 		if($row->iscore) {
-			HTML_installer::showInstallMessage("Компонент $row->name является компонентом ядра Joomla и не может быть удален.<br />Вы должны снять его с публикации, если не хотите его использовать",'Удаление  -  ошибка',$this->returnTo($option,'component',$client));
+			HTML_installer::showInstallMessage(_COMPONENT." $row->name "._IS_PART_OF_CMS,_DELETE_ERROR,$this->returnTo($option,'component',$client));
 			exit();
 		}
 
@@ -249,7 +249,7 @@ class mosInstallerComponent extends mosInstaller {
 				."\n WHERE parent = ".(int)$row->id;
 		$database->setQuery($sql);
 		if(!$database->query()) {
-			HTML_installer::showInstallMessage($database->stderr(true),'Удаление  -  ошибка',$this->returnTo($option,'component',$client));
+			HTML_installer::showInstallMessage($database->stderr(true),_DELETE_ERROR,$this->returnTo($option,'component',$client));
 			exit();
 		}
 
@@ -257,7 +257,7 @@ class mosInstallerComponent extends mosInstaller {
 				."\n WHERE id = ".(int)$row->id;
 		$database->setQuery($sql);
 		if(!$database->query()) {
-			HTML_installer::showInstallMessage($database->stderr(true),'Удаление  -  ошибка',$this->returnTo($option,'component',$client));
+			HTML_installer::showInstallMessage($database->stderr(true),_DELETE_ERROR,$this->returnTo($option,'component',$client));
 			exit();
 		}
 
@@ -295,14 +295,14 @@ class mosInstallerComponent extends mosInstaller {
 					foreach($queries as $query) {
 						$database->setQuery($query->getText());
 						if(!$database->query()) {
-							HTML_installer::showInstallMessage($database->stderr(true),'Ошибка деинсталляции',$this->returnTo($option,'component',$client));
+							HTML_installer::showInstallMessage($database->stderr(true),_UNINSTALL_ERROR,$this->returnTo($option,'component',$client));
 							exit();
 						}
 					}
 				}
 			}
 			if(!$found) {
-				HTML_installer::showInstallMessage('Неправильный XML-файл','Ошибка деинсталляции',$this->returnTo($option,'component',$client));
+				HTML_installer::showInstallMessage(_BAD_XML_FILE,_UNINSTALL_ERROR,$this->returnTo($option,'component',$client));
 				exit();
 			}
 		} else {
@@ -321,7 +321,7 @@ class mosInstallerComponent extends mosInstaller {
 			}
 			return $result;
 		} else {
-			HTML_installer::showInstallMessage('Поле параметра пустое и невозможно удалить файлы','Удаление  -  ошибка',$option,'component');
+			HTML_installer::showInstallMessage(_PARAM_FILED_EMPTY,_DELETE_ERROR,$option,'component');
 			exit();
 		}
 

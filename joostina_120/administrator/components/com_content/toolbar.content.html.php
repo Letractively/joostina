@@ -22,18 +22,18 @@ class TOOLBAR_content {
 		mosMenuBar::spacer();
 		mosMenuBar::media_manager();
 		mosMenuBar::spacer();
-		mosMenuBar::custom('save_and_new','-save-and-new','','Сохранить и добавить',false);
+		mosMenuBar::custom('save_and_new','-save-and-new','',_SAVE_AND_ADD,false);
 		mosMenuBar::spacer();
 		mosMenuBar::save();
 		mosMenuBar::spacer();
 		if($id)
-			mosMenuBar::ext('Применить','#','-apply','id="tb-apply" onclick="return ch_apply();"');
+			mosMenuBar::ext(_CMN_APPLY,'#','-apply','id="tb-apply" onclick="return ch_apply();"');
 		else
 			mosMenuBar::apply();
 		mosMenuBar::spacer();
 		if($id)
 			// for existing content items the button is renamed `close`
-			mosMenuBar::cancel('cancel','Закрыть');
+			mosMenuBar::cancel('cancel',_CLOSE);
 		else
 			mosMenuBar::cancel();
 		mosMenuBar::spacer();
@@ -45,7 +45,7 @@ class TOOLBAR_content {
 		mosMenuBar::startTable();
 		mosMenuBar::unarchiveList();
 		mosMenuBar::spacer();
-		mosMenuBar::custom('remove','-delete','','В корзину',false);
+		mosMenuBar::custom('remove','-delete','',_TO_TRASH,false);
 		mosMenuBar::spacer();
 		mosMenuBar::help('screen.content.archive');
 		mosMenuBar::endTable();
@@ -53,7 +53,7 @@ class TOOLBAR_content {
 
 	function _MOVE() {
 		mosMenuBar::startTable();
-		mosMenuBar::custom('movesectsave','-save','','Сохранить',false);
+		mosMenuBar::custom('movesectsave','-save','',_CMN_SAVE,false);
 		mosMenuBar::spacer();
 		mosMenuBar::cancel();
 		mosMenuBar::endTable();
@@ -61,7 +61,7 @@ class TOOLBAR_content {
 
 	function _COPY() {
 		mosMenuBar::startTable();
-		mosMenuBar::custom('copysave','-save','','Сохранить',false);
+		mosMenuBar::custom('copysave','-save','',_CMN_SAVE,false);
 		mosMenuBar::spacer();
 		mosMenuBar::cancel();
 		mosMenuBar::endTable();
@@ -75,9 +75,9 @@ class TOOLBAR_content {
 		mosMenuBar::spacer();
 		mosMenuBar::unpublishList();
 		mosMenuBar::spacer();
-		mosMenuBar::customX('movesect','-move',null,'Перенести');
+		mosMenuBar::customX('movesect','-move',null,_MOVE);
 		mosMenuBar::spacer();
-		mosMenuBar::customX('copy','-copy',null,'Копировать');
+		mosMenuBar::customX('copy','-copy',null,_COPY);
 		mosMenuBar::spacer();
 		mosMenuBar::trash();
 		mosMenuBar::spacer();

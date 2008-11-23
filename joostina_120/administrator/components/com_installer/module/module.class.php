@@ -32,7 +32,7 @@ class mosInstallerModule extends mosInstaller {
 		if($mosinstall->getAttribute('client')) {
 			$validClients = array('administrator');
 			if(!in_array($mosinstall->getAttribute('client'),$validClients)) {
-				$this->setError(1,'Неизвестный тип клиента ['.$mosinstall->getAttribute('client').']');
+				$this->setError(1,_UNKNOWN_CLIENT.' ['.$mosinstall->getAttribute('client').']');
 				return false;
 			}
 			$client = 'admin';
@@ -57,7 +57,7 @@ class mosInstallerModule extends mosInstaller {
 			$published = 0;
 		}
 
-		if($this->parseFiles('files','module','Файлы, отмеченные как модули, отсутствуют') === false) {
+		if($this->parseFiles('files','module',_NO_FILES_MODULES) === false) {
 			return false;
 		}
 		$this->parseFiles('images');
@@ -67,7 +67,7 @@ class mosInstallerModule extends mosInstaller {
 		$query = "SELECT id FROM #__modules WHERE module = ".$database->Quote($this->elementSpecial())."\n AND client_id = ".(int)$client_id;
 		$database->setQuery($query);
 		if(!$database->query()) {
-			$this->setError(1,'Ошибка SQL: '.$database->stderr(true));
+			$this->setError(1,_SQL_ERROR.': '.$database->stderr(true));
 			return false;
 		}
 
@@ -90,11 +90,11 @@ class mosInstallerModule extends mosInstaller {
 			$query = "INSERT INTO #__modules_menu VALUES ( ".(int)$row->id.", 0 )";
 			$database->setQuery($query);
 			if(!$database->query()) {
-				$this->setError(1,'Ошибка SQL: '.$database->stderr(true));
+				$this->setError(1,_SQL_ERROR.': '.$database->stderr(true));
 				return false;
 			}
 		} else {
-			$this->setError(1,'Модуль "'.$this->elementName().'" уже существует!');
+			$this->setError(1,_MAMBOT.' "'.$this->elementName().'" '._ALREADY_EXISTS);
 			return false;
 		}
 		if($e = &$mosinstall->getElementsByPath('description',1)) {
@@ -121,10 +121,7 @@ class mosInstallerModule extends mosInstaller {
 		$database->loadObject($row);
 
 		if($row->iscore) {
-			HTML_installer::showInstallMessage($row->title.
-				' - модуль ядра.<br />Вам необходимо отменить его публикацию, если не хотите его использовать',
-				'Ошибка деинсталляции',$this->returnTo($option,'module',$row->client_id?'':
-				'admin'));
+			HTML_installer::showInstallMessage($row->title.' - '._IS_PART_OF_CMS,_UNINSTALL_ERROR,$this->returnTo($option,'module',$row->client_id?'':'admin'));
 			exit();
 		}
 
@@ -176,10 +173,10 @@ class mosInstallerModule extends mosInstaller {
 								$parts = pathinfo($filename);
 								$subpath = $parts['dirname'];
 								if($subpath != '' && $subpath != '.' && $subpath != '..') {
-									echo '<br />Удаление: '.$basepath.$subpath;
+									echo '<br />'._DELETING.': '.$basepath.$subpath;
 									$result = deldir(mosPathName($basepath.$subpath.'/'));
 								} else {
-									echo '<br />Удаление: '.$basepath.$filename;
+									echo '<br />'._DELETING.': '.$basepath.$filename;
 									$result = unlink(mosPathName($basepath.$filename,false));
 								}
 								echo intval($result);
@@ -187,7 +184,7 @@ class mosInstallerModule extends mosInstaller {
 						}
 
 						// remove XML file from front
-						echo "Удаление XML файла: $xmlfile";
+						echo _DELETING_XML_FILE.": $xmlfile";
 						@unlink(mosPathName($xmlfile,false));
 						return true;
 					}

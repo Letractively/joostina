@@ -26,10 +26,10 @@ class HTML_mambot {
 ?>
 	<table class="adminheading">
 		<tr>
-			<th class="install">Установленные мамботы</th>
+			<th class="install"><?=_INSTALLED_MAMBOTS?></th>
 		</tr>
 		<tr>
-			<td><div class="jwarning">Здесь показаны только те расширения, которые Вы можете удалить. Части ядра Joostina удалить нельзя.</div></td>
+			<td><div class="jwarning"><?=_INSTALLED_COMPONENTS2?></div></td>
 		</tr>
 	</table>
 		<?php
@@ -37,13 +37,13 @@ class HTML_mambot {
 			<form action="index2.php" method="post" name="adminForm">
 			<table class="adminlist" id="adminlist">
 			<tr>
-				<th width="20%" class="title">Мамбот</th>
-				<th width="10%" class="title">Тип</th>
-				<th width="10%" align="left">Автор</th>
-				<th width="5%" align="center">Версия</th>
-				<th width="10%" align="center">Дата</th>
-				<th width="15%" align="left">E-mail автора</th>
-				<th width="15%" align="left">URL автора</th>
+				<th width="20%" class="title"><?=_MAMBOT?></th>
+				<th width="10%" class="title"><?=_TYPE?></th>
+				<th width="10%" align="left"><?=_AUTHOR_BY?></th>
+				<th width="5%" align="center"><?=_E_VERSION?></th>
+				<th width="10%" align="center"><?=_DATE?></th>
+				<th width="15%" align="left">E-mail</th>
+				<th width="15%" align="left"><?=_COMPONENT_AUTHOR_URL?></th>
 			</tr>
 			<?php
 			$rc = 0;
@@ -76,7 +76,7 @@ class HTML_mambot {
 			<?php
 		} else {
 ?>
-			Это не мамботы ядра, а сторонние мамботы.
+			<?=_OTHER_MAMBOTS?>
 			<?php
 		}
 	}

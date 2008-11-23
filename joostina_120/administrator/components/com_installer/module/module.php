@@ -17,7 +17,7 @@ if(!$acl->acl_check('administration','install','users',$my->usertype,$element.'s
 
 require_once ($mainframe->getPath('installer_html','module'));
 
-HTML_installer::showInstallForm('Установка модуля',$option,'module','',dirname(__file__));
+HTML_installer::showInstallForm(_MODULE_INSTALL,$option,'module','',dirname(__file__));
 ?>
 <table class="adminlist">
 <?php
@@ -36,9 +36,9 @@ function showInstalledModules($_option) {
 	global $database,$mosConfig_absolute_path;
 
 	$filter = mosGetParam($_POST,'filter','');
-	$select[] = mosHTML::makeOption('','Все');
-	$select[] = mosHTML::makeOption('0','Модули сайта');
-	$select[] = mosHTML::makeOption('1','Модули панели управления');
+	$select[] = mosHTML::makeOption('',_CMN_ALL);
+	$select[] = mosHTML::makeOption('0',_SITE_MODULES);
+	$select[] = mosHTML::makeOption('1',_ADMIN_MODULES);
 	$lists['filter'] = mosHTML::selectList($select,'filter','class="inputbox" size="1" onchange="document.adminForm.submit();"','value','text',$filter);
 	if($filter == null) {
 		$and = '';

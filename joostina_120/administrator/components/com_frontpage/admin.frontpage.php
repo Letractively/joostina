@@ -296,7 +296,7 @@ function saveOrder(&$cid) {
 	// clean any existing cache files
 	mosCache::cleanCache('com_content');
 
-	$msg = 'Новый порядок сохранен';
+	$msg = _NEW_ORDER_SAVED;
 	//mosRedirect( 'index2.php?option=com_frontpage', $msg );
 }
 ?>
