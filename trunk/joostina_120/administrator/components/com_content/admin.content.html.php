@@ -81,25 +81,25 @@ class HTML_content {
 		<tr>
 			<th class="edit" colspan="3" class="jtd_nowrap">
 <?php if($all) { ?>
-				Содержимое всех разделов и категорий.
+				<?=_ALL_CONTENT?>
 <?php } else { ?>
-				Содержимое сайта, <?php echo $section->params['name'];?>: <a href="<?php echo $section->params['link'];?>" title="Перейти в редактирование"><?php echo $section->title; ?></a>
+				<?=_SITE_CONTENT?>, <?php echo $section->params['name'];?>: <a href="<?php echo $section->params['link'];?>" title="<?=_GOTO_EDIT?>"><?php echo $section->title; ?></a>
 <?php } ?>
 			</th>
 		</tr>
 		<tr>
 			<td>
-				Фильтр:<br /><input type="text" style="width: 99%;" name="search" value="<?php echo htmlspecialchars($search); ?>" class="inputbox" onChange="document.adminForm.submit();" />
+				<?=_FILTER?>:<br /><input type="text" style="width: 99%;" name="search" value="<?php echo htmlspecialchars($search); ?>" class="inputbox" onChange="document.adminForm.submit();" />
 			</td>
-			<td>Сортировка по:<br /><?php echo $lists['order']; ?></td>
-			<td>Порядок:<br /><?php echo $lists['order_sort']; ?></td>
+			<td><?=_SORT_BY?>:<br /><?php echo $lists['order']; ?></td>
+			<td><?=_ORDER_DROPDOWN?>:<br /><?php echo $lists['order_sort']; ?></td>
 		</tr>
 	</table>
 
 <table class="adminlisttop adminlist">
 	<tr class="row0">
 	<td valign="top" align="left" id="ntdree"><img src="images/con_pix.gif"><?php echo $lists['sectree'];?></td>
-	<td onclick="ntreetoggle();" width="1" id="tdtoogle" <?php echo $lists['sectreetoggle'];?>><img border="0" alt="Скрыть дерево навигации" src="images/tgl.gif" /></td>
+	<td onclick="ntreetoggle();" width="1" id="tdtoogle" <?php echo $lists['sectreetoggle'];?>><img border="0" alt="<?=_HIDE_NAV_TREE?>" src="images/tgl.gif" /></td>
 	<td valign="top" width="100%">
 	<table class="adminlist" width="100%">
 		<thead>
@@ -107,15 +107,15 @@ class HTML_content {
 			<th width="5">
 				<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count($rows); ?>);" />
 			</th>
-			<th class="title">Заголовок</th>
-			<th>Опубликовано</th>
-			<th class="jtd_nowrap">На главной</th>
-			<th width="2%">Порядок</th>
+			<th class="title"><?=_HEADER_TITLE?></th>
+			<th><?=_CMN_PUBLISHED?></th>
+			<th class="jtd_nowrap"><?=_ON_FRONTPAGE?></th>
+			<th width="2%"><?=_ORDER_DROPDOWN?></th>
 			<th width="1%">
-				<a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="Сохранить порядок" /></a>
+				<a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="<?=_SAVE_ORDER?>" /></a>
 			</th>
-			<th width="10%">Доступ</th>
-			<th align="center">В корзину</th>
+			<th width="10%"><?=_ACCESS_RIGHTS?></th>
+			<th align="center"><?=_TO_TRASH?></th>
 			<th width="5">ID</th>
 		</tr>
 		</thead>
@@ -150,26 +150,26 @@ class HTML_content {
 			// корректировка и проверка времени
 			$row->publish_up = mosFormatDate($row->publish_up,_CURRENT_SERVER_TIME_FORMAT);
 			if(trim($row->publish_down) == $nullDate || trim($row->publish_down) == '' || trim($row->publish_down) == '-') {
-				$row->publish_down = 'Никогда';
+				$row->publish_down = _NEVER;
 			}
 			$row->publish_down = mosFormatDate($row->publish_down,_CURRENT_SERVER_TIME_FORMAT);
 			$times = '';
 			if($row->publish_up == $nullDate) {
-				$times .= "<tr><td>Начало: Всегда</td></tr>";
+				$times .= "<tr><td>"._START.": "._ALWAYS."</td></tr>";
 			} else {
-				$times .= "<tr><td>Начало: $row->publish_up</td></tr>";
+				$times .= "<tr><td>"._START.": $row->publish_up</td></tr>";
 			}
 			if($row->publish_down == $nullDate || $row->publish_down == 'Никогда') {
-				$times .= "<tr><td>Окончание: Без окончания</td></tr>";
+				$times .= "<tr><td>"._END.": "._WITHOUT_END."</td></tr>";
 			} else {
-				$times .= "<tr><td>Окончание: $row->publish_down</td></tr>";
+				$times .= "<tr><td>"._END.": $row->publish_down</td></tr>";
 			}
 			if($acl->acl_check('administration','manage','users',$my->usertype,'components','com_users')) {
 				if($row->created_by_alias) {
 					$author = $row->created_by_alias;
 				} else {
 					$linkA = 'index2.php?option=com_users&task=editA&hidemainmenu=1&id='.$row->created_by;
-					$author = '<a href="'.$linkA.'" title="Изменить данные пользователя">'.$row->author.'</a>';
+					$author = '<a href="'.$linkA.'" title="'._CHANGE_USER_DATA.'">'.$row->author.'</a>';
 				}
 			} else {
 				if($row->created_by_alias) {
@@ -192,24 +192,24 @@ class HTML_content {
 					echo $row->title;
 				} else {
 ?>
-				<a class="abig" href="<?php echo $link; ?>" title="Изменить содержимое"><?php echo $row->title; ?></a>
+				<a class="abig" href="<?php echo $link; ?>" title="<?=_CHANGE_CONTENT?>"><?php echo $row->title; ?></a>
 <?php
 				}
 ?>
 				<br />
-				<?php echo $row->created;?>,  <?php echo $row->hits;?> просмотров : <?php echo $author; ?>
+				<?php echo $row->created;?>,  <?php echo $row->hits;?> <?=_HEADER_HITS?> : <?php echo $author; ?>
 				</td>
 <?php
 			if($times) {
 ?>
 				<td align="center" <?php echo ($row->checked_out && ($row->checked_out != $my->id)) ? null : 'onclick="ch_publ('.$row->id.',\'com_content\');" class="td-state"';?>>
-					<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="Публикация" />
+					<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?=_E_PUBLISHING?>" />
 				</td>
 <?php
 			}
 ?>
 				<td align="center" <?php echo ($row->checked_out && ($row->checked_out != $my->id)) ? null : 'onclick="ch_fpage('.$row->id.');" class="td-state"';?>>
-					<img class="img-mini-state" src="images/<?php echo $front_img;?>" id="img-fpage-<?php echo $row->id;?>" alt="Отображение на главной странице" />
+					<img class="img-mini-state" src="images/<?php echo $front_img;?>" id="img-fpage-<?php echo $row->id;?>" alt="<?=_ON_FRONTPAGE?>" />
 				</td>
 				<td align="center" colspan="2">
 					<?php echo $pageNav->orderUpIcon($i,($row->catid == @$rows[$i - 1]->catid)); ?>
@@ -257,8 +257,8 @@ class HTML_content {
 		function submitbutton(pressbutton) {
 			if (pressbutton == 'remove') {
 				if (document.adminForm.boxchecked.value == 0) {
-					alert('Пожалуйста, выберите из списка объекты, которые Вы хотите отправить в корзину');
-				} else if ( confirm('Вы уверены, что хотите отправить объект(ы) в корзину? \n Это не приведет к полному удалению объектов')) {
+					alert('<?=_CHOOSE_OBJECTS_TO_TRASH?>');
+				} else if ( confirm('<?=_WANT_TO_TRASH?>')) {
 					submitform('remove');
 				}
 			} else {
@@ -274,11 +274,11 @@ class HTML_content {
 <?php
 		if($all) {
 ?>
-				Архив <small><small>[ Все разделы ]</small></small>
+				<?=_ARCHIVE?> <small><small>[ <?=_ALL_SECTIONS?> ]</small></small>
 <?php
 		} else {
 ?>
-				Архив <small><small>[ Раздел: <?php echo $section->title; ?> ]</small></small>
+				<?=_ARCHIVE?> <small><small>[ <?=_SECTION?>: <?php echo $section->title; ?> ]</small></small>
 <?php
 		}
 ?>
@@ -294,7 +294,7 @@ class HTML_content {
 			<td valign="top"><?php echo $lists['authorid']; ?></td>
 		</tr>
 		<tr>
-			<td align="right">Фильтр:</td>
+			<td align="right"><?=_FILTER?>:</td>
 			<td>
 				<input type="text" name="search" value="<?php echo htmlspecialchars($search); ?>" class="text_area" onChange="document.adminForm.submit();" />
 			</td>
@@ -306,14 +306,14 @@ class HTML_content {
 			<th width="20">
 				<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count($rows); ?>);" />
 			</th>
-			<th class="title">Заголовок</th>
-			<th width="2%">Порядок</th>
+			<th class="title"><?=_HEADER_TITLE?></th>
+			<th width="2%"><?=_ORDER_DROPDOWN?></th>
 			<th width="1%">
-				<a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="Сохранить порядок" /></a>
+				<a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="<?=_SAVE_ORDER?>" /></a>
 			</th>
-			<th width="15%" align="left">Категория</th>
-			<th width="15%" align="left">Автор</th>
-			<th align="center" width="10">Дата</th>
+			<th width="15%" align="left"><?=_E_CATEGORY?></th>
+			<th width="15%" align="left"><?=_AUTHOR_BY?></th>
+			<th align="center" width="10"><?=_DATE?></th>
 		</tr>
 		<?php
 		$k = 0;
@@ -347,7 +347,7 @@ class HTML_content {
 					<input type="text" name="order[]" size="5" value="<?php echo $row->ordering; ?>" class="text_area" style="text-align: center" />
 				</td>
 				<td>
-					<a href="<?php echo $row->cat_link; ?>" title="Изменить категорию">
+					<a href="<?php echo $row->cat_link; ?>" title="<?=_CHANGE_CATEGORY?>">
 						<?php echo $row->name; ?>
 					</a>
 				</td>
@@ -431,10 +431,10 @@ class HTML_content {
 			var form = document.adminForm;
 			if ( pressbutton == 'menulink' ) {
 				if ( form.menuselect.value == "" ) {
-					alert( "Пожалуйста, выберите меню" );
+					alert( "<?=_CHOOSE_MENU_PLEASE?>" );
 					return;
 				} else if ( form.link_name.value == "" ) {
-					alert( "Пожалуйста, введите название для этого пункта меню" );
+					alert( "<?=_ENTER_MENUITEM_NAME?>" );
 					return;
 				}
 			}
@@ -455,13 +455,13 @@ class HTML_content {
 <?php } ?>
 			// do field validation
 			if (form.title.value == ""){
-				alert( "Этот объект должен иметь заголовок" );
+				alert( "<?=_OBJECT_MUST_HAVE_TITLE?>" );
 			} else if (form.sectionid.value == "-1"){
-				alert( "Вы должны выбрать раздел." );
+				alert( "<?=_PLEASE_CHOOSE_SECTION?>" );
 			} else if (form.catid.value == "-1"){
-				alert( "Вы должны выбрать категорию." );
+				alert( "<?=_PLEASE_CHOOSE_CATEGORY?>" );
 			} else if (form.catid.value == ""){
-				alert( "Вы должны выбрать категорию." );
+				alert( "<?=_PLEASE_CHOOSE_CATEGORY?>" );
 			} else {
 				<?php getEditorContents('editor1','introtext'); ?>
 				<?php if(!$mosConfig_one_editor) getEditorContents('editor2','fulltext'); ?>

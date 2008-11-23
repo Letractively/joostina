@@ -25,10 +25,10 @@ class HTML_contact {
 		<table class="adminheading">
 		<tr>
 			<th>
-			Управление контактами
+			<?=_CONTACT_MANAGEMENT?>
 			</th>
 			<td>
-			Фильтр:
+			<?=_FILTER?>:
 			</td>
 			<td>
 			<input type="text" name="search" value="<?php echo htmlspecialchars($search); ?>" class="inputbox" onChange="document.adminForm.submit();" />
@@ -49,19 +49,19 @@ class HTML_contact {
 count($rows); ?>);" />
 			</th>
 			<th class="title">
-			Имя
+			<?=_CMN_NAME?>
 			</th>
 			<th width="5%" class="title">
-			На сайте
+			<?=_ON_SITE?>
 			</th>
 			<th colspan="2" class="jtd_nowrap" width="5%">
-			Сортировка
+			<?=_CMN_ORDERING?>
 			</th>
 			<th width="15%" align="left">
-			Категория
+			<?=_E_CATEGORY?>
 			</th>
 			<th class="title" width="15%">
-			Связано с пользователем
+			<?=_RELATED_WITH_USER?>
 			</th>
 		</tr>
 		<?php
@@ -73,7 +73,7 @@ count($rows); ?>);" />
 
 			$img = $row->published?'tick.png':'publish_x.png';
 			$task = $row->published?'unpublish':'publish';
-			$alt = $row->published?'Опубликовано':'Не опубликовано';
+			$alt = $row->published? _CMN_PUBLISHED : _CMN_UNPUBLISHED;
 
 			$checked = mosCommonHTML::CheckedOutProcessing($row,$i);
 			$row->cat_link = 'index2.php?option=com_categories&section=com_contact_details&task=editA&hidemainmenu=1&id='.
@@ -93,7 +93,7 @@ count($rows); ?>);" />
 				echo $row->name;
 			} else {
 ?>
-					<a href="<?php echo $link; ?>" title="Изменить контакт">
+					<a href="<?php echo $link; ?>" title="<?=_CHANGE_CONTACT?>">
 					<?php echo $row->name; ?>
 					</a>
 					<?php
@@ -112,12 +112,12 @@ count($rows); ?>);" />
 				<?php echo $pageNav->orderDownIcon($i,$n,($row->catid == @$rows[$i + 1]->catid)); ?>
 				</td>
 				<td>
-				<a href="<?php echo $row->cat_link; ?>" title="Изменить категорию">
+				<a href="<?php echo $row->cat_link; ?>" title="<?=_CHANGE_CATEGORY?>">
 				<?php echo $row->category; ?>
 				</a>
 				</td>
 				<td>
-				<a href="<?php echo $row->user_link; ?>" title="Изменить пользователя">
+				<a href="<?php echo $row->user_link; ?>" title="<?=_CHANGE_USER?>">
 				<?php echo $row->user; ?>
 				</a>
 				</td>
@@ -161,9 +161,9 @@ count($rows); ?>);" />
 
 			// do field validation
 			if ( form.name.value == "" ) {
-				alert( "Вы должны ввести имя." );
+				alert( "<?=_ENTER_NAME_PLEASE?>" );
 			} else if ( form.catid.value == 0 ) {
-				alert( "Пожалуйста, выберите категорию." );
+				alert( "<?=_E_WARNCAT?>" );
 			} else {
 				submitform( pressbutton );
 			}
@@ -177,7 +177,7 @@ count($rows); ?>);" />
 			<th>
 			Контакт:
 			<small>
-			<?php echo $row->id?'Редактирование':'Новый'; ?>
+			<?php echo $row->id? _EDIT_CATEGORY : _NEW_CONTACT; ?>
 			</small>
 			</th>
 		</tr>
@@ -189,12 +189,12 @@ count($rows); ?>);" />
 				<table width="100%" class="adminform">
 				<tr>
 					<th colspan="2">
-					Детали контакта
+					<?=_CONTACT_DETAILS?>
 					</th>
 				<tr>
 				<tr>
 					<td width="30%" align="right">
-					Категория:
+					<?=_E_CATEGORY?>:
 					</td>
 					<td width="40%">
 					<?php echo $lists['catid']; ?>
@@ -202,7 +202,7 @@ count($rows); ?>);" />
 				</tr>
 				<tr>
 					<td width="30%" align="right">
-					Связано с пользователем:
+					<?=_RELATED_WITH_USER?>:
 					</td>
 					<td >
 					<?php echo $lists['user_id']; ?>
@@ -210,7 +210,7 @@ count($rows); ?>);" />
 				</tr>
 				<tr>
 					<td width="30%" align="right">
-					Имя:
+					<?=_CMN_NAME?>:
 					</td>
 					<td >
 					<input class="inputbox" type="text" name="name" size="50" maxlength="100" value="<?php echo $row->name; ?>" />
@@ -218,7 +218,7 @@ count($rows); ?>);" />
 				</tr>
 				<tr>
 					<td align="right">
-					Положение (должность):
+					<?=_USER_POSITION?>:
 					</td>
 					<td>
 					<input class="inputbox" type="text" name="con_position" size="50" maxlength="50" value="<?php echo $row->con_position; ?>" />
@@ -226,7 +226,7 @@ count($rows); ?>);" />
 				</tr>
 				<tr>
 					<td align="right">
-					E-mail:
+					<?=_CMN_EMAIL?>:
 					</td>
 					<td>
 					<input class="inputbox" type="text" name="email_to" size="50" maxlength="100" value="<?php echo $row->email_to; ?>" />
@@ -234,7 +234,7 @@ count($rows); ?>);" />
 				</tr>
 				<tr>
 					<td align="right">
-					Адрес (улица, дом):
+					<?=_ADRESS_STREET_HOUSE?>:
 					</td>
 					<td>
 					<input class="inputbox" type="text" name="address" size="100" value="<?php echo $row->address; ?>" />
@@ -242,7 +242,7 @@ count($rows); ?>);" />
 				</tr>
 				<tr>
 					<td align="right">
-					Город (Населенный пункт):
+					<?=_CITY?>:
 					</td>
 					<td>
 					<input class="inputbox" type="text" name="suburb" size="50" maxlength="100" value="<?php echo $row->suburb; ?>" />
@@ -250,7 +250,7 @@ count($rows); ?>);" />
 				</tr>
 				<tr>
 					<td align="right">
-					Край/Область/Республика:
+					<?=_STATE?>:
 					</td>
 					<td>
 					<input class="inputbox" type="text" name="state" size="50" maxlength="100" value="<?php echo $row->state; ?>" />
@@ -258,7 +258,7 @@ count($rows); ?>);" />
 				</tr>
 				<tr>
 					<td align="right">
-					Страна:
+					<?=_COUNTRY?>:
 					</td>
 					<td>
 					<input class="inputbox" type="text" name="country" size="50" maxlength="100" value="<?php echo $row->country; ?>" />
@@ -266,7 +266,7 @@ count($rows); ?>);" />
 				</tr>
 				<tr>
 					<td align="right">
-					Почтовый индекс:
+					<?=_POSTCODE?>:
 					</td>
 					<td>
 					<input class="inputbox" type="text" name="postcode" size="25" maxlength="20" value="<?php echo $row->postcode; ?>" />
@@ -274,7 +274,7 @@ count($rows); ?>);" />
 				</tr>
 				<tr>
 					<td align="right">
-					Телефон:
+					<?=_CONTACT_HEADER_PHONE?>:
 					</td>
 					<td>
 					<input class="inputbox" type="text" name="telephone" size="25" maxlength="25" value="<?php echo $row->telephone; ?>" />
@@ -282,7 +282,7 @@ count($rows); ?>);" />
 				</tr>
 				<tr>
 					<td align="right">
-					Факс:
+					<?=_CONTACT_HEADER_FAX?>:
 					</td>
 					<td>
 					<input class="inputbox" type="text" name="fax" size="25" maxlength="25" value="<?php echo $row->fax; ?>" />
@@ -290,7 +290,7 @@ count($rows); ?>);" />
 				</tr>
 				<tr>
 					<td align="right" valign="top">
-					Дополнительная информация:
+					<?=_ADDITIONAL_INFO?>:
 					</td>
 					<td>
 					<textarea name="misc" rows="5" cols="50" class="inputbox"><?php echo $row->misc; ?></textarea>
@@ -301,17 +301,17 @@ count($rows); ?>);" />
 			<td width="40%" valign="top">
 				<?php
 		$tabs->startPane("content-pane");
-		$tabs->startTab("Публикация","publish-page");
+		$tabs->startTab(_E_PUBLISHING,"publish-page");
 ?>
 				<table width="100%" class="adminform">
 				<tr>
 					<th colspan="2">
-					Информация о публикации
+					<?=_PUBLISH_INFO?>
 					</th>
 				<tr>
 				<tr>
 					<td valign="top" align="right">
-					Опубликовано:
+					<?=_CMN_PUBLISHED?>:
 					</td>
 					<td>
 					<?php echo $lists['published']; ?>
@@ -319,7 +319,7 @@ count($rows); ?>);" />
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					Расположение:
+					<?=_POSITION?>:
 					</td>
 					<td>
 					<?php echo $lists['ordering']; ?>
@@ -327,7 +327,7 @@ count($rows); ?>);" />
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					Уровень доступа:
+					<?=_CMN_ACCESS?>:
 					</td>
 					<td>
 					<?php echo $lists['access']; ?>
@@ -341,17 +341,17 @@ count($rows); ?>);" />
 				</table>
 				<?php
 		$tabs->endTab();
-		$tabs->startTab("Изображения","images-page");
+		$tabs->startTab(_E_IMAGES,"images-page");
 ?>
 				<table width="100%" class="adminform">
 				<tr>
 					<th colspan="2">
-					Информация об изображении
+					<?=_IMAGES_INFO?>
 					</th>
 				<tr>
 				<tr>
 					<td align="left" width="20%">
-					Изображение:
+					<?=_IMAGE?>:
 					</td>
 					<td align="left">
 					<?php echo $lists['image']; ?>
@@ -367,24 +367,24 @@ count($rows); ?>);" />
 					} else {
 						jsimg='../images/M_images/blank.png';
 					}
-					document.write('<img src=' + jsimg + ' name="imagelib" width="100" height="100" border="2" alt="Просмотр" />');
+					document.write('<img src=' + jsimg + ' name="imagelib" width="100" height="100" border="2" alt="<?=_PREVIEW?>" />');
 					</script>
 					</td>
 				</tr>
 				</table>
 				<?php
 		$tabs->endTab();
-		$tabs->startTab("Параметры","params-page");
+		$tabs->startTab(_PARAMETERS,"params-page");
 ?>
 				<table class="adminform">
 				<tr>
 					<th>
-					Параметры
+					<?=_PARAMETERS?>
 					</th>
 				</tr>
 				<tr>
 					<td>
-					* Эти параметры управляют отображением только при просмотре информации о контакте*
+					<?=_CONTACT_PARAMS?>
 					<br /><br />
 					</td>
 				</tr>
