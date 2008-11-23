@@ -538,7 +538,7 @@ class HTML_content {
 		//-->
 		</script>
 		<table class="adminheading">
-		<tr><th class="edit">Содержимое: <small><?php echo $row->id ? 'Редактирование':'Создание'; ?></small></th></tr>
+		<tr><th class="edit"><?=_E_CONTENT?>: <small><?php echo $row->id ? _O_EDITING: _O_CREATION; ?></small></th></tr>
 		</table>
 		<form action="index2.php" method="post" name="adminForm" id="adminForm">
 		<table class="adminform" cellspacing="0" cellpadding="0" width="100%">
@@ -549,28 +549,28 @@ class HTML_content {
 					<td width="100%">
 						<table cellspacing="0" cellpadding="0" border="0" width="100%">
 						<tr>
-							<th colspan="4">Детали объекта</th>
+							<th colspan="4"><?=_OBJECT_DETAILS?></th>
 						</tr>
 						<tr>
-							<td width="15">Заголовок:</td>
+							<td width="15"><?=_HEADER_TITLE?>:</td>
 							<td width="50%">
 								<input class="text_area" type="text" name="title" size="30" maxlength="255" style="width:99%" value="<?php echo $row->title; ?>" />
 							</td>
-							<td width="15">Опубликовано:</td>
+							<td width="15"><?=_CMN_PUBLISHED?>:</td>
 							<td width="50%"><?php echo mosHTML::yesnoRadioList('published','',$row->state);?></td>
 						</tr>
 						<tr>
-							<td width="15">Псевдоним:</td>
+							<td width="15"><?=_ALIAS?>:</td>
 							<td width="50%">
 								<input name="title_alias" type="text" class="text_area" id="title_alias" value="<?php echo $row->title_alias; ?>" size="30" style="width:99%" maxlength="255" />
 							</td>
-							<td width="15">На главной:</td>
+							<td width="15"><?=_ON_FRONTPAGE?>:</td>
 							<td width="50%"><?php echo mosHTML::yesnoRadioList('frontpage','',$row->frontpage ? 1:0);?></td>
 						</tr>
 						<tr>
-							<td width="15">Раздел:</td>
+							<td width="15"><?=_SECTION?>:</td>
 							<td width="50%"><?php echo $lists['sectionid']; ?></td>
-							<td width="15">Категория:</td>
+							<td width="15"><?=_E_CATEGORY?>:</td>
 							<td width="50%"><?php echo $lists['catid']; ?></td>
 						</tr>
 						</table>
@@ -578,28 +578,28 @@ class HTML_content {
 				</tr>
 				<tr>
 					<td width="100%">
-						<?php echo $mosConfig_one_editor ? '':'Вводный Текст: (обязательно)'; ?>
+						<?php echo $mosConfig_one_editor ? '': _INTROTEXT_M ; ?>
 						<div id="intro_text"><?php editorArea('editor1',$row->introtext,'introtext','99%;','350','75','30'); ?></div>
 					</td>
 				</tr>
 				<?php if(!$mosConfig_one_editor){?>
 				<tr>
 					<td width="100%">
-						Основной текст: (необязательно)
+						<?=_MAINTEXT_M?>
 						<div id="full_text"><?php editorArea('editor2',$row->fulltext,'fulltext','99%;','400','75','30'); ?></div>
 					</td>
 				</tr>
 				<?php };?>
 				<tr>
 					<td width="100%">
-						Заметки: (необязательно)
+						<?=_NOTETEXT_M?>
 						<div id="note_text"><?php editorArea('editor3',$row->notetext,'notetext','99%;','150','75','10'); ?></div>
 					</td>
 				</tr>
 				</table>
 			</td>
 			<td onclick="ntreetoggle();" width="1" id="tdtoogle" class="tdtoogleon">
-				<img border="0" alt="Скрыть панель параметров" src="images/tgl.gif" />
+				<img border="0" alt="<?=_HIDE_PARAMS_PANEL?>" src="images/tgl.gif" />
 			</td>
 			<td valign="top" id="ncontent">
 				<img src="images/con_pix.gif" width="410px;">
@@ -608,7 +608,7 @@ class HTML_content {
 					<th>
 					<table class="adminform">
 						<tr>
-							<th>Настройки</th>
+							<th><?=_SETTINGS?></th>
 						</tr>
 					</table>
 					</th>
@@ -617,67 +617,67 @@ class HTML_content {
 				<td>
 				<table width="100%">
 				<tr>
-					<td><strong>Состояние:</strong></td>
-					<td><?php echo $row->state > 0?'Опубликовано':($row->state < 0?'В архиве':'Черновик - Не опубликован'); ?></td>
+					<td><strong><?=_E_STATE?>:</strong></td>
+					<td><?php echo $row->state > 0? _CMN_PUBLISHED :($row->state < 0? _IN_ARCHIVE : _DRAFT_NOT_PUBLISHED); ?></td>
 				</tr>
 				<tr <?php echo $visibility; ?>>
-					<td><strong>Просмотров:</strong></td>
+					<td><strong><?=_HEADER_HITS?>:</strong></td>
 					<td id="count_hits">
-						<?php echo $row->hits; ?>&nbsp;&nbsp;&nbsp;<input name="reset_hits" type="button" class="button" value="Обнулить" onclick="return x_resethits();" />
+						<?php echo $row->hits; ?>&nbsp;&nbsp;&nbsp;<input name="reset_hits" type="button" class="button" value="<?=_RESET?>" onclick="return x_resethits();" />
 					</td>
 				</tr>
 				<tr>
-					<td><strong>Изменялось:</strong></td>
+					<td><strong><?=_CHANGED?>:</strong></td>
 					<td><?php echo $row->version; ?> раз</td>
 				</tr>
 				<tr>
-					<td><strong>Создано:</strong></td>
-					<td><?php echo $create_date ? $create_date : 'Новый документ';?></td>
+					<td><strong><?=_CREATED?>:</strong></td>
+					<td><?php echo $create_date ? $create_date : _NEW_DOCUMENT;?></td>
 				</tr>
 				<tr>
-					<td><strong>Последнее изменение:</strong></td>
-					<td><?php echo $mod_date ? $mod_date.$row->modifier : 'Не изменялось';?></td>
+					<td><strong><?=_LAST_CHANGE?>:</strong></td>
+					<td><?php echo $mod_date ? $mod_date.$row->modifier : _NOT_CHANGED;?></td>
 				</tr>
 			</table>
 <?php
 		$tabs->startPane("content-pane");
-		$tabs->startTab("Публикация","publish-page");
+		$tabs->startTab(_E_PUBLISHING,"publish-page");
 ?>
 			<table width="100%" class="adminform">
 					<tr>
-						<td valign="top" align="right">Уровень доступа:</td>
+						<td valign="top" align="right"><?=_CMN_ACCESS?>:</td>
 						<td><?php echo $lists['access']; ?></td>
 					</tr>
 					<tr>
-						<td valign="top" align="right">Псевдоним автора:</td>
+						<td valign="top" align="right"><?=_E_AUTHOR_ALIAS?></td>
 						<td>
 							<input type="text" name="created_by_alias" style="width:90%" size="30" maxlength="100" value="<?php echo $row->created_by_alias; ?>" class="text_area" />
 						</td>
 					</tr>
 					<tr>
-						<td valign="top" align="right">Автор:</td>
+						<td valign="top" align="right"><?=_AUTHOR_BY?>:</td>
 						<td><?php echo $lists['created_by']; ?></td>
 					</tr>
 					<tr>
-						<td valign="top" align="right">Порядок:</td>
+						<td valign="top" align="right"><?=_ORDER_DROPDOWN?>:</td>
 						<td><?php echo $lists['ordering']; ?></td>
 					</tr>
 					<tr>
-						<td valign="top" align="right">Дата создания:</td>
+						<td valign="top" align="right"><?=_E_CREATED?></td>
 						<td>
 							<input class="text_area" type="text" name="created" id="created" size="25" maxlength="19" value="<?php echo $row->created; ?>" />
 							<input name="reset" type="reset" class="button" onclick="return showCalendar('created', 'y-mm-dd');" value="..." />
 						</td>
 					</tr>
 					<tr>
-						<td valign="top" align="right">Начало публикации:</td>
+						<td valign="top" align="right"><?=_START_PUBLICATION?>:</td>
 						<td>
 							<input class="text_area" type="text" name="publish_up" id="publish_up" size="25" maxlength="19" value="<?php echo $row->publish_up; ?>" />
 							<input type="reset" class="button" value="..." onclick="return showCalendar('publish_up', 'y-mm-dd');" />
 						</td>
 					</tr>
 					<tr>
-						<td valign="top" align="right">Окончание публикации:</td>
+						<td valign="top" align="right"><?=_END_PUBLICATION?>:</td>
 						<td>
 							<input class="text_area" type="text" name="publish_down" id="publish_down" size="25" maxlength="19" value="<?php echo $row->publish_down; ?>" />
 							<input type="reset" class="button" value="..." onclick="return showCalendar('publish_down', 'y-mm-dd');" />
@@ -690,7 +690,7 @@ class HTML_content {
 	if($row->id) {
 ?>
 					<tr>
-						<td><strong>ID объекта:</strong></td>
+						<td><strong><?=_OBJECT_ID?>:</strong></td>
 						<td><?php echo $row->id; ?></td>
 					</tr>
 <?php
@@ -701,7 +701,7 @@ class HTML_content {
 		$tabs->endTab();
 		// отключение вкладки "Изображения"
 		if(!$mosConfig_disable_image_tab) {
-			$tabs->startTab("Изображения","images-page");
+			$tabs->startTab(_E_IMAGES,"images-page");
 ?>
 					<table class="adminform" width="100%">
 					<tr>
@@ -710,7 +710,7 @@ class HTML_content {
 							<tr>
 								<td width="48%" valign="top">
 									<div align="center">
-										Галерея:
+										<?=_E_GALLERY_IMAGES?>:
 										<br />
 										<?php echo $lists['imagefiles']; ?>
 									</div>
@@ -722,7 +722,7 @@ class HTML_content {
 								</td>
 								<td width="48%">
 									<div align="center">
-										Используемые изображения:
+										<?=_USED_IMAGES?>:
 										<br />
 										<?php echo $lists['imagelist']; ?>
 										<br />
@@ -732,61 +732,61 @@ class HTML_content {
 								</td>
 							</tr>
 							</table>
-							Подпапка: <?php echo $lists['folders']; ?>
+							<?=_SUBDIRECTORY?>: <?php echo $lists['folders']; ?>
 						</td>
 					</tr>
 					<tr valign="top">
 						<td>
 							<div align="center">
-								Пример изображения:<br />
-								<img name="view_imagefiles" src="../images/M_images/blank.png" alt="Пример изображения" width="100" />
+								<?=_IMAGE_EXAMPLE?>:<br />
+								<img name="view_imagefiles" src="../images/M_images/blank.png" alt="<?=_IMAGE_EXAMPLE?>" width="100" />
 							</div>
 						</td>
 						<td valign="top">
 							<div align="center">
-								Активное изображение:<br />
+								<?=_ACTIVE_IMAGE?>:<br />
 								<img name="view_imagelist" src="../images/M_images/blank.png" alt="Активное изображение" width="100" />
 							</div>
 						</td>
 					</tr>
 					<tr>
 						<td colspan="2">
-						Параметры изображения:
+						<?=_E_EDIT_IMAGE?>:
 							<table>
 							<tr>
-								<td align="right">Источник:</td>
+								<td align="right"><?=_SOURCE?>:</td>
 								<td><input style="width:99%" class="text_area" type="text" name= "_source" value="" /></td>
 							</tr>
 							<tr>
-								<td align="right">Выравнивание:</td>
+								<td align="right"><?=_ALIGN?>:</td>
 								<td><?php echo $lists['_align']; ?></td>
 							</tr>
 							<tr>
-								<td align="right">Альтернативный текст:</td>
+								<td align="right"><?=_E_ALT?>:</td>
 								<td><input style="width:99%" class="text_area" type="text" name="_alt" value="" /></td>
 							</tr>
 							<tr>
-								<td align="right">Рамка:</td>
+								<td align="right"><?=_E_BORDER?></td>
 								<td><input class="text_area" type="text" name="_border" value="" size="3" maxlength="1" /></td>
 							</tr>
 							<tr>
-								<td align="right">Подпись:</td>
+								<td align="right"><?=_E_CAPTION?>:</td>
 								<td><input class="text_area" type="text" name="_caption" value="" size="30" /></td>
 							</tr>
 							<tr>
-								<td align="right">Позиция подписи:</td>
+								<td align="right"><?=_E_CAPTION_POSITION?>:</td>
 								<td><?php echo $lists['_caption_position']; ?></td>
 							</tr>
 							<tr>
-								<td align="right">Выравнивание подписи:</td>
+								<td align="right"><?=_E_CAPTION_ALIGN?>:</td>
 								<td><?php echo $lists['_caption_align']; ?></td>
 							</tr>
 							<tr>
-								<td align="right">Ширина подписи:</td>
+								<td align="right"><?=_E_CAPTION_WIDTH?>:</td>
 								<td><input class="text_area" type="text" name="_width" value="" size="5" maxlength="5" /></td>
 							</tr>
 							<tr>
-								<td colspan="2"><input class="button" type="button" value="Применить" onclick="applyImageProps()" /></td>
+								<td colspan="2"><input class="button" type="button" value="<?=_CMN_APPLY?>" onclick="applyImageProps()" /></td>
 							</tr>
 							</table>
 						</td>
@@ -796,12 +796,12 @@ class HTML_content {
 		$tabs->endTab();
 		} else
 		echo '<input type="hidden" name="images" id="images" value="" />';
-		$tabs->startTab("Параметры","params-page");
+		$tabs->startTab(_PARAMETERS,"params-page");
 ?>
 					<table class="adminform">
 					<tr>
 						<td>
-						* Эти параметры управляют внешним видом только в режиме полного просмотра*
+						<?=_PARAMS_IN_VIEW?>
 						<br />
 						</td>
 					</tr>
@@ -811,18 +811,18 @@ class HTML_content {
 					</table>
 <?php
 		$tabs->endTab();
-		$tabs->startTab("Метаданные","metadata-page");
+		$tabs->startTab(_METADATA,"metadata-page");
 ?>
 					<table class="adminform">
 					<tr>
-						<td>Описание (Description):
+						<td><?=_CMN_DESCRIPTION?>:
 						<br />
 						<textarea class="text_area" cols="60" rows="8" style="width:98%" name="metadesc"><?php echo str_replace('&','&amp;',$row->metadesc); ?></textarea>
 						</td>
 					</tr>
 					<tr>
 						<td>
-						Ключевые слова (Keywords)
+						<?=_E_M_KEY?>
 						<br />
 						<textarea class="text_area" cols="60" rows="8" style="width:98%" name="metakey" id="metakey"><?php echo str_replace('&','&amp;',$row->metakey); ?></textarea>
 						</td>
@@ -834,23 +834,23 @@ class HTML_content {
 						</td>
 					</tr>
 					<tr>
-						<td>Настройки управления роботами: <br /><?php echo $lists['robots'] ?></td>
+						<td><?=_ROBOTS_PARAMS?>: <br /><?php echo $lists['robots'] ?></td>
 					</tr>
 				</table>
 <?php
 		$tabs->endTab();
-		$tabs->startTab("Связь с меню","link-page");
+		$tabs->startTab(_MENU_LINK,"link-page");
 ?>
 			<table class="adminform">
 				<tr>
-					<td colspan="2">Здесь создается пункт меню (Ссылка - объект содержимого), который вставляется в выбранное из списка меню</td>
+					<td colspan="2"><?=_MENU_LINK2?></td>
 				</tr>
 				<tr>
-					<td valign="top" width="90">Выберите меню</td>
+					<td valign="top" width="90"><?=_CHOOSE_MENU_PLEASE?></td>
 					<td><?php echo $lists['menuselect']; ?></td>
 				</tr>
 				<tr>
-					<td valign="top" width="90">Название пункта меню</td>
+					<td valign="top" width="90"><?=_MENU_NAME?></td>
 					<td><input style="width:90%" type="text" name="link_name" class="text_area" value="" size="30" /></td>
 				</tr>
 				<tr>
@@ -858,13 +858,13 @@ class HTML_content {
 					<td><input name="menu_link" type="button" class="button" value="Связать с меню" onclick="submitbutton('menulink');" /></td>
 				</tr>
 				<tr>
-					<th colspan="2">Существующие пункты меню</th>
+					<th colspan="2"><?=_EXISTED_MENUITEMS?></th>
 				</tr>
 <?php
 		if($menus == null) {
 ?>
 				<tr>
-					<td colspan="2">Отсутствуют</td>
+					<td colspan="2"><?=_NOT_EXISTS?></td>
 				</tr>
 <?php
 		} else {
@@ -918,7 +918,7 @@ class HTML_content {
 
 			// do field validation
 			if (!getSelectedValue( 'adminForm', 'sectcat' )) {
-				alert( "Пожалуйста, выберите что-нибудь" );
+				alert( "<?=_PLEASE_SELECT_SMTH?>" );
 			} else {
 				submitform( pressbutton );
 			}
@@ -930,7 +930,7 @@ class HTML_content {
 		<table class="adminheading">
 		<tr>
 			<th class="edit">
-			Перемещение объектов
+			<?=_OBJECT_MOVING?>
 			</th>
 		</tr>
 		</table>
@@ -939,13 +939,13 @@ class HTML_content {
 		<table class="adminform">
 		<tr>
 			<td align="left" valign="top" width="40%">
-			<strong>Переместить в раздел/категорию:</strong>
+			<strong><?=_MOVE_INTO_CAT_SECT?>:</strong>
 			<br />
 			<?php echo $sectCatList; ?>
 			<br /><br />
 			</td>
 			<td align="left" valign="top">
-			<strong>Будут перемещены объекты:</strong>
+			<strong><?=_OBJECTS_TO_MOVE?>:</strong>
 			<br />
 			<?php
 		echo "<ol>";
@@ -986,7 +986,7 @@ class HTML_content {
 				return;
 			}
 			if (!getSelectedValue( 'adminForm', 'sectcat' )) {
-				alert( "Пожалуйста, выберите раздел или категорию для копирования объектов в " );
+				alert( "<?=_SELECT_CAT_TO_MOVE_OBJECTS?>" );
 			} else {
 				submitform( pressbutton );
 			}
@@ -997,7 +997,7 @@ class HTML_content {
 		<table class="adminheading">
 		<tr>
 			<th class="edit">
-			Копирование объектов содержимого
+			<?=_COPYING_CONTENT_ITEMS?>
 			</th>
 		</tr>
 		</table>
@@ -1006,13 +1006,13 @@ class HTML_content {
 		<table class="adminform">
 		<tr>
 			<td align="left" valign="top" width="40%">
-			<strong>Копировать в раздел/категорию:</strong>
+			<strong><?=_COPY_INTO_CAT_SECT?>:</strong>
 			<br />
 			<?php echo $sectCatList; ?>
 			<br /><br />
 			</td>
 			<td align="left" valign="top">
-			<strong>Будут скопированы объекты:</strong>
+			<strong><?=_OBJECTS_TO_COPY?>:</strong>
 			<br />
 <?php
 		echo "<ol>";
