@@ -1,5 +1,8 @@
 Joostina v 1.2.0
 
+24.11.08
+	1. Подготовил к переводу administrator/components/com_jce. До этого тоже самое для com_installer, com_frontpage, com_easysql, com_content, com_contact, com_config, com_checkin, com_categories, com_banners, com_admin. Все константы добавляются в файл /language/russian.php (Dead Krolik)
+
 19.11.08 
 	1. Исправлен закрывающий тэг install в XML-файле шаблонов. (Dead Krolik)
 

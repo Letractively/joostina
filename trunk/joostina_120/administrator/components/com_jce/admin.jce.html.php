@@ -17,26 +17,26 @@ class HTML_JCEAdmin {
 	<form action="index2.php" method="post" name="adminForm">
 	<table class="adminheading">
 		<tr>
-			<th class="cpanel">Конфигурация JCE</th>
+			<th class="cpanel"><?php echo _JCE_CONFIG?></th>
 		</tr>
 		<tr>
 			<td width="55%" valign="top">
 			<div class="cpicons">
 <?php
 	$link = "index2.php?option=com_jce&task=config&hidemainmenu=1";
-	quickiconButton($link,'config.png', 'Конфигурация редактора');
+	quickiconButton($link,'config.png', _EDITOR_CONFIG);
 
 	$link = "index2.php?option=com_jce&task=showplugins";
-	quickiconButton($link,'ext.png', 'Расширения');
+	quickiconButton($link,'ext.png', _EXTENSIONS);
 
 	$link = "index2.php?option=com_jce&task=install&element=plugins";
-	quickiconButton($link,'install.png', 'Управление расширениями');
+	quickiconButton($link,'install.png', _EXTENSION_MANAGEMENT);
 
 	$link = "index2.php?option=com_jce&task=editlayout&hidemainmenu=1";
-	quickiconButton($link,'ext.png', 'Расположение значков');
+	quickiconButton($link,'ext.png', _ICONS_POSITIONS);
 
 	$link = "index2.php?option=com_jce&task=lang&hidemainmenu=1";
-	quickiconButton($link,'user.png', 'Менеджер локализаций');
+	quickiconButton($link,'user.png', _LANG_MANAGER);
 
 ?>			</div>
 		</td>

@@ -39,11 +39,11 @@ class JCEPluginInstaller extends mosInstaller {
 			'/mambots/editors/jce/jscripts/tiny_mce/plugins/'.$folder));
 
 		if(!file_exists($this->elementDir()) && !mosMakePath($this->elementDir())) {
-			$this->setError(1,'Невозможно создать каталог "'.$this->elementDir().'"');
+			$this->setError(1,_CANNOT_CREATE_DIR.' "'.$this->elementDir().'"');
 			return false;
 		}
 
-		if($this->parseFiles('files','plugin','Файлы плагинов отсутствуют') === false) {
+		if($this->parseFiles('files','plugin',_NO_PLUGIN_FILES) === false) {
 			return false;
 		}
 
@@ -87,7 +87,7 @@ class JCEPluginInstaller extends mosInstaller {
 				return false;
 			}
 		} else {
-			$this->setError(1,'Плагин "'.$this->elementName().'" уже существует!');
+			$this->setError(1,_SQL_ERROR.' "'.$this->elementName());
 			return false;
 		}
 		if($e = &$mosinstall->getElementsByPath('description',1)) {
@@ -112,19 +112,18 @@ class JCEPluginInstaller extends mosInstaller {
 		$row = null;
 		$database->loadObject($row);
 		if($database->getErrorNum()) {
-			HTML_installer::showInstallMessage($database->stderr(),'Ошибка удаления',$this->returnTo
+			HTML_installer::showInstallMessage($database->stderr(),_DELETE_ERROR,$this->returnTo
 				($option,'install&element=plugins',$client));
 			exit();
 		}
 		if($row == null) {
-			HTML_installer::showInstallMessage('Неверный id объекта','Ошибка удаления',$this->returnTo
+			HTML_installer::showInstallMessage(_BAD_OBJECT_ID,_DELETE_ERROR,$this->returnTo
 				($option,'install&element=plugins',$client));
 			exit();
 		}
 
 		if(trim($row->plugin) == '') {
-			HTML_installer::showInstallMessage('Поле папки пустое, невозможно удалить файл',
-				'Ошибка удаления',$this->returnTo($option,'install&element=plugins',$client));
+			HTML_installer::showInstallMessage(_EMPRY_DIR_NAME_CANNOT_DEL_FILE,_DELETE_ERROR,$this->returnTo($option,'install&element=plugins',$client));
 			exit();
 		}
 
@@ -177,9 +176,7 @@ class JCEPluginInstaller extends mosInstaller {
 		}
 
 		if($row->iscore) {
-			HTML_installer::showInstallMessage($row->name.
-				' - элемент ядра и не может быть удален.<br />Если не хотите его использовать, то просто выключите',
-				'Ошибка удаления',$this->returnTo($option,'install&element=plugins',$client));
+			HTML_installer::showInstallMessage($row->name.' - '._IS_PART_OF_CMS,_DELETE_ERROR,$this->returnTo($option,'install&element=plugins',$client));
 			exit();
 		}
 

@@ -101,7 +101,7 @@ class mosInstaller {
 
 			$ret = $zipfile->extract(PCLZIP_OPT_PATH,$extractdir);
 			if($ret == 0) {
-				$this->setError(1,'Неисправимая ошибка "'.$zipfile->errorName(true).'"');
+				$this->setError(1,_PCLZIP_UNKNOWN_ERROR.' "'.$zipfile->errorName(true).'"');
 				return false;
 			}
 		} else {
@@ -110,7 +110,7 @@ class mosInstaller {
 			$archive->setErrorHandling(PEAR_ERROR_PRINT);
 
 			if(!$archive->extractModify($extractdir,'')) {
-				$this->setError(1,'Ошибка распаковки');
+				$this->setError(1,_UNZIP_ERROR);
 				return false;
 			}
 		}
@@ -145,10 +145,10 @@ class mosInstaller {
 					return true;
 				}
 			}
-			$this->setError(1,'ОШИБКА: Невозможно найти в пакете XML-файл установки JCE 1.1.x.');
+			$this->setError(1,_JCE_INSTALL_ERROR_NO_XML);
 			return false;
 		} else {
-			$this->setError(1,'ОШИБКА: Невозможно найти в пакете XML-файл установки.');
+			$this->setError(1,_JCE_INSTALL_ERROR_NO_XML2);
 			return false;
 		}
 	}
@@ -180,7 +180,7 @@ class mosInstaller {
 	function readInstallFile() {
 
 		if($this->installFilename() == "") {
-			$this->setError(1,'Имя файла не определено');
+			$this->setError(1,_JCE_UNKNOWN_FILENAME);
 			return false;
 		}
 
@@ -193,12 +193,11 @@ class mosInstaller {
 
 		// Check that it's am installation file
 		if($root->getTagName() != 'mosinstall') {
-			$this->setError(1,'Файл :"'.$this->installFilename().
-				'" - неправильный файл установки JCE или его версия неправильная.');
+			$this->setError(1,_FILE.' :"'.$this->installFilename().'" - '._BAD_JCE_INSTALL_FILE);
 			return false;
 		}
 		if($root->getAttribute('version') != '1.1.0') {
-			$this->setError(1,'Неправильная версия плагина.');
+			$this->setError(1,_WRONG_PLUGIN_VERSION);
 			return false;
 		}
 
@@ -209,13 +208,13 @@ class mosInstaller {
 	* Abstract install method
 	*/
 	function install() {
-		die('Метод "install" не может быть вызван классом '.strtolower(get_class($this)));
+		die(_CANNOT_RUN_INSTALL_METHOD.' '.strtolower(get_class($this)));
 	}
 	/**
 	* Abstract uninstall method
 	*/
 	function uninstall() {
-		die('Метод "uninstall" не может быть вызван классом '.strtolower(get_class($this)));
+		die(_CANNOT_RUN_UNINSTALL_METHOD.' '.strtolower(get_class($this)));
 	}
 	/**
 	* return to method
@@ -239,12 +238,12 @@ class mosInstaller {
 		}
 
 		if(!$this->readInstallFile()) {
-			$this->setError(1,'Установочный файл не найден:<br />'.$this->installDir());
+			$this->setError(1,_CANNOT_FIND_INSTALL_FILE.' :<br />'.$this->installDir());
 			return false;
 		}
 
 		if($this->installType() != $type) {
-			$this->setError(1,'XML-файл установки для "'.$type.'" не найден.');
+			$this->setError(1,_XML_NOT_FOR.' "'.$type);
 			return false;
 		}
 
@@ -303,13 +302,13 @@ class mosInstaller {
 
 				if($adminFiles) {
 					if(!mosMakePath($this->componentAdminDir(),$newdir)) {
-						$this->setError(1,'Ошибка создания каталога "'.($this->componentAdminDir()).$newdir.
+						$this->setError(1,_ERROR_CREATING_DIRECTORY.' "'.($this->componentAdminDir()).$newdir.
 							'"');
 						return false;
 					}
 				} else {
 					if(!mosMakePath($this->elementDir(),$newdir)) {
-						$this->setError(1,'Ошибка создания каталога "'.($this->elementDir()).$newdir.
+						$this->setError(1,_ERROR_CREATING_DIRECTORY.' "'.($this->elementDir()).$newdir.
 							'"');
 						return false;
 					}
@@ -353,7 +352,7 @@ class mosInstaller {
 				$filedest = mosPathName(mosPathName($p_destdir).$_file,false);
 
 				if(!file_exists($filesource)) {
-					$this->setError(1,"Файл $filesource не существует!");
+					$this->setError(1,_FILE_NOT_EXISTS." $filesource");
 					return false;
 				} else
 					if(file_exists($filedest) && !$overwrite) {

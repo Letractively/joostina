@@ -48,10 +48,10 @@ switch($task) {
 				include_once $path.'/'.$file;
 			} else {
 			echo $path.'/'.$file;
-				die('Файл не найден!');
+				die(_FILE_NOT_FOUND);
 			}
 		} else {
-			die('Плагин не найден!');
+			die(_PLUGIN_NOT_FOUND);
 		}
 		break;
 	case 'help':
@@ -60,7 +60,7 @@ switch($task) {
 		if(file_exists($path)) {
 			include_once $path;
 		} else {
-			die('Файл не найден!');
+			die(_FILE_NOT_FOUND);
 		}
 		break;
 	case 'main':
@@ -74,7 +74,7 @@ switch($task) {
 		if($eid) {
 			mosRedirect('index2.php?option=com_mambots&client='.$client.'&task=editA&hidemainmenu=1&id='.$eid.'');
 		} else {
-			mosRedirect('index2.php?option='.$option.'&client='.$client.'','Мамбот редактора JCE не установлен.');
+			mosRedirect('index2.php?option='.$option.'&client='.$client.'',_JCE_CONTENT_MAMBOT_NOT_INSTALLED);
 		}
 		break;
 	case 'editlayout':
@@ -82,7 +82,7 @@ switch($task) {
 		if($eid) {
 			editLayout($option,$client);
 		} else {
-			mosRedirect('index2.php?option='.$option.'&client='.$client.'','Мамбот редактора JCE не установлен.');
+			mosRedirect('index2.php?option='.$option.'&client='.$client.'',_JCE_CONTENT_MAMBOT_NOT_INSTALLED);
 		}
 		break;
 	case 'savelayout':
@@ -97,7 +97,7 @@ switch($task) {
 		if($eid) {
 			viewPlugins($option,$client);
 		} else {
-			mosRedirect('index2.php?option='.$option.'&client='.$client.'',	'Мамбот редактора JCE не установлен.');
+			mosRedirect('index2.php?option='.$option.'&client='.$client.'',_JCE_CONTENT_MAMBOT_NOT_INSTALLED);
 		}
 		break;
 	case 'publish':
@@ -128,8 +128,7 @@ switch($task) {
 		if($eid) {
 			jceInstaller($option,$client,'show');
 		} else {
-			mosRedirect('index2.php?option='.$option.'&client='.$client.'',
-				'Мамбот редактора JCE не установлен.');
+			mosRedirect('index2.php?option='.$option.'&client='.$client.'',_JCE_CONTENT_MAMBOT_NOT_INSTALLED);
 		}
 		break;
 	case 'uploadfile':
@@ -146,13 +145,11 @@ switch($task) {
 		if($eid) {
 			viewLanguages($option);
 		} else {
-			mosRedirect('index2.php?option='.$option.'&client='.$client.'',
-				'Мамбот редактора JCE не установлен.');
+			mosRedirect('index2.php?option='.$option.'&client='.$client.'',_JCE_CONTENT_MAMBOT_NOT_INSTALLED);
 		}
 		break;
 	case 'newlang':
-		mosRedirect('index2.php?option=com_jce&client='.$client.
-			'&task=install&element=language');
+		mosRedirect('index2.php?option=com_jce&client='.$client.'&task=install&element=language');
 		break;
 	case 'removelang':
 		removeLanguage($cid[0],$option,$client);

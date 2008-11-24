@@ -77,11 +77,11 @@ class JCELanguageInstaller extends mosInstaller {
 			$row->published = 0;
 
 			if(!$row->store()) {
-				$this->setError(1,'ќшибка SQL: '.$row->getError());
+				$this->setError(1,_SQL_ERROR.': '.$row->getError());
 				return false;
 			}
 		} else {
-			$this->setError(1,'язык "'.$this->elementName().'" уже существует!');
+			$this->setError(1,_LANG_ALREADY_EXISTS.' "'.$this->elementName());
 			return false;
 		}
 		if($e = &$root->getElementsByPath('description',1)) {
@@ -146,8 +146,7 @@ class JCELanguageInstaller extends mosInstaller {
 				}
 			}
 		} else {
-			HTML_installer::showInstallMessage('ѕустой id €зыка, невозможно удалить файлы',
-				'ќшибка удалени€',$this->returnTo($option,'install&element=language',$client));
+			HTML_installer::showInstallMessage(_EMPTY_LANG_ID,_DELETE_ERROR,$this->returnTo($option,'install&element=language',$client));
 			exit();
 		}
 

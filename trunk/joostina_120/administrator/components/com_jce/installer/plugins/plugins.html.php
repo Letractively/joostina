@@ -30,7 +30,7 @@ class HTML_plugins {
 		<table class="adminheading">
 		<tr>
 			<th class="install">
-			Установленные плагины JCE
+			<?php echo _INSTALLED_JCE_PLUGINS?>
 			</th>
 		</tr>
 		<tr>
