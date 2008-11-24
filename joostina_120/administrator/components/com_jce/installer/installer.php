@@ -52,12 +52,12 @@ function jceInstaller($option,$client,$opt) {
 				if(file_exists($path)) {
 					require $path;
 				} else {
-					echo "Инсталлятор не обнаружил элемент [$element]";
+					echo _INSTALLER_NOT_FIND_ELEMENT." [$element]";
 				}
 				break;
 		}
 	} else {
-		echo "Инсталлятор недоступен для элемента [$element]";
+		echo _NO_INSTALLER_FOR_COMPONENT." [$element]";
 	}
 }
 
@@ -71,16 +71,14 @@ function uploadPackage($installerClass,$option,$element,$client) {
 
 	// Check if file uploads are enabled
 	if(!(bool)ini_get('file_uploads')) {
-		HTML_installer::showInstallMessage("Установка невозможна, пока не будет разрешена загрузка файлов. Используйте, пожалуйста, метод установки из каталога.",
-			'Ошибка установки',$installer->returnTo($option,'&task=install&element='.$element,
+		HTML_installer::showInstallMessage(_CANNOT_INSTALL_DISABLED_UPLOAD,_INSTALL_ERROR,$installer->returnTo($option,'&task=install&element='.$element,
 			$client));
 		exit();
 	}
 
 	// Check that the zlib is available
 	if(!extension_loaded('zlib')) {
-		HTML_installer::showInstallMessage("Установка невозможна, пока не будет поддержки zlib",
-			'Ошибка установки',$installer->returnTo($option,'&task=install&element='.$element,
+		HTML_installer::showInstallMessage(_CANNOT_INSTALL_NO_ZLIB,_INSTALL_ERROR,$installer->returnTo($option,'&task=install&element='.$element,
 			$client));
 		exit();
 	}
@@ -88,8 +86,7 @@ function uploadPackage($installerClass,$option,$element,$client) {
 	$userfile = mosGetParam($_FILES,'userfile',null);
 
 	if(!$userfile) {
-		HTML_installer::showInstallMessage('Файлы не выбраны',
-			'Ошибка загрузки нового модуля',$installer->returnTo($option,
+		HTML_installer::showInstallMessage(_NO_CHOOSED_FILES,_ERORR_UPLOADING_EXT,$installer->returnTo($option,
 			'&task=install&element='.$element,$client));
 		exit();
 	}
@@ -101,17 +98,17 @@ function uploadPackage($installerClass,$option,$element,$client) {
 
 	if($resultdir !== false) {
 		if(!$installer->upload($userfile['name'])) {
-			HTML_installer::showInstallMessage($installer->getError(),'Ошибка загрузки '.$element,
+			HTML_installer::showInstallMessage($installer->getError(),_ERROR_OF_UPLOAD.' '.$element,
 				$installer->returnTo($option,'&task=install&element='.$element,$client));
 		}
 		$ret = $installer->install();
 
-		HTML_installer::showInstallMessage($installer->getError(),'Загрузка '.$element.
-			' - '.($ret?'успешна':'завершилась ошибкой'),$installer->returnTo($option,
+		HTML_installer::showInstallMessage($installer->getError(),_UPLOADING.' '.$element.
+			' - '.($ret?_IS_SUCCESS:_HAS_ERROR),$installer->returnTo($option,
 			'&task=install&element='.$element,$client));
 		cleanupInstall($userfile['name'],$installer->unpackDir());
 	} else {
-		HTML_installer::showInstallMessage($msg,'Ошибка загрузки '.$element,$installer->returnTo
+		HTML_installer::showInstallMessage($msg,_ERROR_OF_UPLOAD.' '.$element,$installer->returnTo
 			($option,'&task=install&element='.$element,$client));
 	}
 }
@@ -124,8 +121,7 @@ function installFromDirectory($installerClass,$option,$element,$client) {
 	$userfile = mosGetParam($_REQUEST,'userfile','');
 
 	if(!$userfile) {
-		mosRedirect("index2.php?option=$option&element=module",
-			"Выберите, пожалуйста, каталог");
+		mosRedirect("index2.php?option=$option&element=module",_CHOOSE_DIRECTORY_PLEASE);
 	}
 
 	$installer = new $installerClass();
@@ -136,8 +132,8 @@ function installFromDirectory($installerClass,$option,$element,$client) {
 	}
 
 	$ret = $installer->install($path);
-	HTML_installer::showInstallMessage($installer->getError(),'Загрузка нового '.$element.
-		' - '.($ret?'успешна':'ошибка'),$installer->returnTo($option,
+	HTML_installer::showInstallMessage($installer->getError(),_UPLOAD_OF_EXT.' '.$element.
+		' - '.($ret?_IS_SUCCESS:_HAS_ERROR),$installer->returnTo($option,
 		'&task=install&element='.$element,$client));
 }
 /**
@@ -159,7 +155,7 @@ function removeElement($installerClass,$option,$element,$client) {
 	$msg = $installer->getError();
 
 	mosRedirect($installer->returnTo($option,'&task=install&element='.$element,$client),
-		$result?'Успешно '.$msg:'Ошибка '.$msg);
+		$result?_IS_SUCCESS.' '.$msg:_HAS_ERROR.' '.$msg);
 }
 /**
 * @param string The name of the php (temporary) uploaded file
@@ -176,16 +172,16 @@ function uploadFile($filename,$userfile_name,&$msg) {
 				if(mosChmod($baseDir.$userfile_name)) {
 					return true;
 				} else {
-					$msg = 'Невозможно изменить права доступа к загруженному файлу.';
+					$msg = _CANNOT_CHMOD;
 				}
 			} else {
-				$msg = 'Невозможно переместить загруженный файл в каталог <code>/media</code>.';
+				$msg = _CANNOT_MOVE_TO_MEDIA;
 			}
 		} else {
-			$msg = 'Загрузка невозможна из-за отсутствия разрешения на запись в каталог <code>/media</code>.';
+			$msg = _CANNOT_WRITE_TO_MEDIA;
 		}
 	} else {
-		$msg = 'Загрузка невозможна из-за отсутствия каталога <code>/media</code>.';
+		$msg = _CANNOT_INSTALL_NO_MEDIA;
 	}
 	return false;
 }

@@ -30,10 +30,10 @@ switch($task) {
 			if(is_dir($path) && file_exists($path.'/'.$file)) {
 				include_once $path.'/'.$file;
 			} else {
-				die('Файл не найден!');
+				die(_FILE_NOT_FOUND);
 			}
 		} else {
-			die('Плагин не найден!');
+			die(_PLUGIN_NOT_FOUND);
 		}
 		break;
 	case 'help':
@@ -42,7 +42,7 @@ switch($task) {
 		if(file_exists($path)) {
 			include_once $path;
 		} else {
-			die('Файл не найден!');
+			die(_FILE_NOT_FOUND);
 		}
 		break;
 }

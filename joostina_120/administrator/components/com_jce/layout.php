@@ -179,7 +179,6 @@ function saveLayout($option,$client) {
 			}
 		}
 	}
-	mosRedirect('index2.php?option='.$option.'&client='.$client.'&task=editlayout',
-		'Расположение значков сохранено');
+	mosRedirect('index2.php?option='.$option.'&client='.$client.'&task=editlayout',_ICONS_POSITIONS_SAVED);
 }
 ?>

@@ -1074,7 +1074,6 @@ DEFINE('_ADDITIONAL_INFO','Дополнительная информация');
 DEFINE('_PUBLISH_INFO','Информация о публикации');
 DEFINE('_POSITION','Расположение');
 DEFINE('_IMAGES_INFO','Информация об изображении');
-DEFINE('_PREVIEW','Просмотр');
 DEFINE('_PARAMETERS','Параметры');
 DEFINE('_CONTACT_PARAMS','* Эти параметры управляют отображением только при просмотре информации о контакте*');
 
@@ -1262,6 +1261,78 @@ DEFINE('_FILE_NOT_EXISTS','Файл не существует');
 DEFINE('_INSTALL_TWICE','Вы пытаетесь дважды установить одно и то же расширение');
 DEFINE('_ERROR_COPYING_FILE','Ошибка копирования файла');
 
+/* administrator components com_jce */
 
-
+DEFINE('_LANG_ALREADY_EXISTS','Язык уже существует');
+DEFINE('_EMPTY_LANG_ID','Пустой id языка, невозможно удалить файлы');
+DEFINE('_NO_PLUGIN_FILES','Файлы плагинов отсутствуют');
+DEFINE('_BAD_OBJECT_ID','Неверный id объекта');
+DEFINE('_EMPRY_DIR_NAME_CANNOT_DEL_FILE','Поле папки пустое, невозможно удалить файл');
+DEFINE('_INSTALLED_JCE_PLUGINS','Установленные плагины JCE');
+DEFINE('_PCLZIP_UNKNOWN_ERROR','Неисправимая ошибка');
+DEFINE('_UNZIP_ERROR','Ошибка распаковки');
+DEFINE('_JCE_INSTALL_ERROR_NO_XML','ОШИБКА: Невозможно найти в пакете XML-файл установки JCE 1.1.x.');
+DEFINE('_JCE_INSTALL_ERROR_NO_XML2','ОШИБКА: Невозможно найти в пакете XML-файл установки.');
+DEFINE('_JCE_UNKNOWN_FILENAME','Имя файла не определено');
+DEFINE('_BAD_JCE_INSTALL_FILE',' неправильный файл установки JCE или его версия неправильная.');
+DEFINE('_WRONG_PLUGIN_VERSION','Неправильная версия плагина');
+DEFINE('_ERROR_CREATING_DIRECTORY','Ошибка создания каталога');
+DEFINE('_INSTALLER_NOT_FIND_ELEMENT','Инсталлятор не обнаружил элемент');
+DEFINE('_NO_INSTALLER_FOR_COMPONENT','Инсталлятор недоступен для элемента');
+DEFINE('_NO_CHOOSED_FILES','Файлы не выбраны');
+DEFINE('_ERROR_OF_UPLOAD','Ошибка загрузки');
+DEFINE('_UPLOADING','Загрузка');
+DEFINE('_IS_SUCCESS','успешна');
+DEFINE('_HAS_ERROR','завершилась ошибкой');
+DEFINE('_CANNOT_DELETE_LANG_FILE','Нельзя удалять используемый языковой пакет');
+DEFINE('_GUEST','Гость');
+DEFINE('_EDITOR','Редактор');
+DEFINE('_PUBLISHER','Издатель');
+DEFINE('_MANAGER','Менеджер');
+DEFINE('_ADMINISTRATOR','Администратор');
+DEFINE('_SUPER_ADMINISTRATOR','Супер-Администратор');
+DEFINE('_CHANGES_FOR_PLUGIN','Изменения для плагина');
+DEFINE('_SUCCESS_SAVE','успешное сохранение');
+DEFINE('_PLUGIN','Плагин');
+DEFINE('_MODULE_IS_EDITING_BY_ADMIN','Модуль $row->title в настоящее время редактируется другим администратором');
+DEFINE('_CHOOSE_PLUGIN_FOR_ACCESS_MANAGEMENT','Для назначения прав доступа необходимо выбрать плагин');
+DEFINE('_CHOOSE_PLUGIN_FOR','Выберите плагин для');
+DEFINE('_JCE_CONFIG','Конфигурация JCE');
+DEFINE('_EDITOR_CONFIG','Конфигурация редактора');
+DEFINE('_EXTENSIONS','Расширения');
+DEFINE('_EXTENSION_MANAGEMENT','Управление расширениями');
+DEFINE('_ICONS_POSITIONS','Расположение значков');
+DEFINE('_LANG_MANAGER','Менеджер локализаций');
+DEFINE('_FILE_NOT_FOUND','Файл не найде');
+DEFINE('_PLUGIN_NOT_FOUND','Плагин не найден');
+DEFINE('_JCE_CONTENT_MAMBOT_NOT_INSTALLED','Мамбот редактора JCE не установлен');
+DEFINE('_ICONS_POSITIONS_SAVED','Расположение значков сохранено');
+DEFINE('_MAIN_PAGE','Главная');
+DEFINE('_NEW','Новый');
+DEFINE('_INSTALLATION','Установка');
+DEFINE('_PREVIEW','Предпросмотр');
+DEFINE('_PLUGINS','Плагины');
+/*
+DEFINE('_','');
+DEFINE('_','');
+DEFINE('_','');
+DEFINE('_','');
+DEFINE('_','');
+DEFINE('_','');
+DEFINE('_','');
+DEFINE('_','');
+DEFINE('_','');
+DEFINE('_','');
+DEFINE('_','');
+DEFINE('_','');
+DEFINE('_','');
+DEFINE('_','');
+DEFINE('_','');
+DEFINE('_','');
+DEFINE('_','');
+DEFINE('_','');
+DEFINE('_','');
+DEFINE('_','');
+DEFINE('_','');
+*/
 ?>

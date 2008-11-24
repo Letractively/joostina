@@ -17,14 +17,14 @@ defined('_VALID_MOS') or die();
 class JCE_plugins {
 	function AccessList() {
 		$access_list = array(
-			mosHTML::makeOption('0','Гость'),
-			mosHTML::makeOption('18','-Участники'),
-			mosHTML::makeOption('19','--Автор'),
-			mosHTML::makeOption('20','---Редактор'),
-			mosHTML::makeOption('21','----Издатель'),
-			mosHTML::makeOption('23','-----Менеджер'),
-			mosHTML::makeOption('24','------Администратор'),
-			mosHTML::makeOption('25','-------Супер-Администратор'));
+			mosHTML::makeOption('0',_GUEST),
+			mosHTML::makeOption('18','-'._USER_GROUP_REGISTERED),
+			mosHTML::makeOption('19','--'._AUTHOR_BY),
+			mosHTML::makeOption('20','---'._EDITOR),
+			mosHTML::makeOption('21','----'._PUBLISHER),
+			mosHTML::makeOption('23','-----'._MANAGER),
+			mosHTML::makeOption('24','------'._ADMINISTRATOR),
+			mosHTML::makeOption('25','-------'._SUPER_ADMINISTRATOR));
 		$lists['access'] = mosHTML::selectList($access_list,'access','class="inputbox" size="1"','value','text');
 		return $lists['access'];
 	}
@@ -80,28 +80,28 @@ class JCE_plugins {
 			$core = ($row->iscore == 1)?'Да':'Нет';
 			switch($row->access) {
 				case '0':
-					$access_value = 'Гость';
+					$access_value = _GUEST;
 					break;
 				case '18':
-					$access_value = 'Участники';
+					$access_value = _USER_GROUP_REGISTERED;
 					break;
 				case '19':
-					$access_value = 'Автор';
+					$access_value = _AUTHOR_BY;
 					break;
 				case '20':
-					$access_value = 'Редактор';
+					$access_value = _EDITOR;
 					break;
 				case '21':
-					$access_value = 'Издатель';
+					$access_value = _PUBLISHER;
 					break;
 				case '23':
-					$access_value = 'Менеджер';
+					$access_value = _MANAGER;
 					break;
 				case '24':
-					$access_value = 'Администратор';
+					$access_value = _ADMINISTRATOR;
 					break;
 				case '25':
-					$access_value = 'Супер-Администратор';
+					$access_value = _SUPER_ADMINISTRATOR;
 					break;
 			}
 ?>

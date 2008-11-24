@@ -23,14 +23,14 @@ if(!is_array($cid)) {
 }
 function access_list($row) {
 	$access_list = array(
-		mosHTML::makeOption('0','Гость'),
-		mosHTML::makeOption('18','-Участники'),
-		mosHTML::makeOption('19','--Автор'),
-		mosHTML::makeOption('20','---Редактор'),
-		mosHTML::makeOption('21','----Издатель'),
-		mosHTML::makeOption('23','-----Менеджер'),
-		mosHTML::makeOption('24','------Администратор'),
-		mosHTML::makeOption('25','-------Супер-Администратор'));
+		mosHTML::makeOption('0',_GUEST),
+		mosHTML::makeOption('18','-'._USER_GROUP_REGISTERED),
+		mosHTML::makeOption('19','--'._AUTHOR_BY),
+		mosHTML::makeOption('20','---'._EDITOR),
+		mosHTML::makeOption('21','----'._PUBLISHER),
+		mosHTML::makeOption('23','-----'._MANAGER),
+		mosHTML::makeOption('24','------'._ADMINISTRATOR),
+		mosHTML::makeOption('25','-------'._SUPER_ADMINISTRATOR));
 	$lists['access'] = mosHTML::selectList($access_list,'access','class="inputbox" size="1"','value','text',$row->access);
 	return $lists['access'];
 
@@ -141,12 +141,12 @@ function savePlugins($option,$client,$task) {
 
 	switch($task) {
 		case 'apply':
-			$msg = 'Изменения для плагина '.$row->name.' успешно сохранены'.$row->name;
+			$msg = _CHANGES_FOR_PLUGIN.' '.$row->name.' '._SUCCESS_SAVE.' '.$row->name;
 			mosRedirect('index2.php?option='.$option.'&client='.$client.'&task=editplugin&hidemainmenu=1&id='.$row->id,$msg);
 			break;
 		case 'save':
 		default:
-			$msg = 'Плагин '.$row->name.' успешно сохранен';
+			$msg = _PLUGIN.' '.$row->name.' '._SUCCESS_SAVE;
 			mosRedirect('index2.php?option='.$option.'&client='.$client.'&task=showplugins',$msg);
 			break;
 	}
@@ -168,7 +168,7 @@ function editPlugins($option,$uid,$client) {
 
 	// fail if checked out not by 'me'
 	if($row->isCheckedOut($my->id)) {
-		echo "<script>alert('Модуль $row->title в настоящее время редактируется другим администратором'); document.location.href='index2.php?option=$option'</script>\n";
+		echo "<script>alert('$row->title - "._MODULE_IS_EDITING_BY_ADMIN."'); document.location.href='index2.php?option=$option'</script>\n";
 		exit(0);
 	}
 
@@ -180,7 +180,7 @@ function editPlugins($option,$uid,$client) {
 
 	// get list of groups
 	if($row->access == 99 || $row->client_id == 1) {
-		$lists['access'] = 'Администратор <input type="hidden" name="access" value="99" />';
+		$lists['access'] = _ADMINISTRATOR.' <input type="hidden" name="access" value="99" />';
 	} else {
 		// build the html select list for the group access
 		//$lists['access'] = mosAdminMenus::Access( $row );
@@ -248,7 +248,7 @@ function applyAccess($cid = null,$option,$client) {
 	$access = mosGetParam($_REQUEST,'access','');
 
 	if(count($cid) < 1) {
-		echo "<script> alert('Для назначения прав доступа необходимо выбрать плагин'); window.history.go(-1);</script>\n";
+		echo "<script> alert('"._CHOOSE_PLUGIN_FOR_ACCESS_MANAGEMENT."'); window.history.go(-1);</script>\n";
 		exit;
 	}
 
@@ -281,8 +281,8 @@ function publishPlugins($cid = null,$publish = 1,$option,$client) {
 	global $database,$my;
 
 	if(count($cid) < 1) {
-		$action = $publish?'включения':'выключения';
-		echo "<script> alert('Выберите плагин для $action'); window.history.go(-1);</script>\n";
+		$action = $publish?'enabling':'disabling';
+		echo "<script> alert('"._CHOOSE_PLUGIN_FOR." $action'); window.history.go(-1);</script>\n";
 		exit;
 	}
 

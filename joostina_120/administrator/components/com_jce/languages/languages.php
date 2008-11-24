@@ -151,7 +151,7 @@ function removeLanguage($cid,$option,$client) {
 	$cur_language = $database->loadResult();
 
 	if($cur_language == $cid) {
-		echo "<script>alert(\"Ќельз€ удал€ть используемый €зыковой пакет.\"); window.history.go(-1); </script>\n";
+		echo "<script>alert(\""._CANNOT_DELETE_LANG_FILE."\"); window.history.go(-1); </script>\n";
 		exit();
 	}
 	mosRedirect('index2.php?option=com_jce&task=remove&element=language&client='.$client.

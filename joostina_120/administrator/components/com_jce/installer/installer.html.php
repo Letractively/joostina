@@ -130,7 +130,7 @@ $p_startdir; ?>"/>&nbsp;
 		</tr>
 		<tr>
 			<td colspan="2" align="center">
-			[&nbsp;<a href="<?php echo $url; ?>" style="font-size: 16px; font-weight: bold">Продолжить ...</a>&nbsp;]
+			[&nbsp;<a href="<?php echo $url; ?>" style="font-size: 16px; font-weight: bold"><?php echo _CMN_CONTINUE?> ...</a>&nbsp;]
 			</td>
 		</tr>
 		</table>
