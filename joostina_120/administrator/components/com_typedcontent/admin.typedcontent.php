@@ -186,8 +186,7 @@ function edit($uid,$option) {
 	if($uid) {
 		// fail if checked out not by 'me'
 		if($row->isCheckedOut($my->id)) {
-			mosErrorAlert("Модуль ".$row->title.
-				" в настоящее время редактируется другим администратором");
+			mosErrorAlert($row->title." - "._MODULE_IS_EDITING_BY_ADMIN);
 		}
 
 		$row->checkout($my->id);
@@ -205,7 +204,7 @@ function edit($uid,$option) {
 
 		if(trim($row->publish_down) == $nullDate || trim($row->publish_down) == '' ||
 			trim($row->publish_down) == '-') {
-			$row->publish_down = 'Никогда';
+			$row->publish_down = _NEVER;
 		}
 		$row->publish_down = mosFormatDate($row->publish_down,
 			_CURRENT_SERVER_TIME_FORMAT);
@@ -274,8 +273,7 @@ function edit($uid,$option) {
 		'class="inputbox" size="1"','value','text');
 
 	// get params definitions
-	$params = new mosParameters($row->attribs,$mainframe->getPath('com_xml',
-		'com_typedcontent'),'component');
+	$params = new mosParameters($row->attribs,$mainframe->getPath('com_xml','com_typedcontent'),'component');
 
 	HTML_typedcontent::edit($row,$images,$lists,$params,$option,$menus);
 }
@@ -313,7 +311,7 @@ function save($option,$task) {
 	}
 	$row->publish_up = mosFormatDate($row->publish_up,_CURRENT_SERVER_TIME_FORMAT,-$mosConfig_offset);
 
-	if(trim($row->publish_down) == 'Никогда' || trim($row->publish_down) == '') {
+	if(trim($row->publish_down) == _NEVER || trim($row->publish_down) == '') {
 		$row->publish_down = $nullDate;
 	} else {
 		if(strlen(trim($row->publish_down)) <= 10) {
@@ -371,13 +369,13 @@ function save($option,$task) {
 			break;
 
 		case 'save':
-			$msg = 'Содержимое сохранено';
+			$msg = _CONTENT_SAVED;
 			mosRedirect('index2.php?option='.$option,$msg);
 			break;
 
 		case 'apply':
 		default:
-			$msg = 'Все изменения содержимого сохранены';
+			$msg = _CONTENT_SAVED;
 			mosRedirect('index2.php?option='.$option.'&task=edit&hidemainmenu=1&id='.$row->id,
 				$msg);
 			break;
@@ -392,7 +390,7 @@ function trash(&$cid,$option) {
 	josSpoofCheck();
 	$total = count($cid);
 	if($total < 1) {
-		echo "<script> alert('Выберите объект для удаления'); window.history.go(-1);</script>\n";
+		echo "<script> alert('"._CHOOSE_OBJ_DELETE."'); window.history.go(-1);</script>\n";
 		exit;
 	}
 
@@ -413,7 +411,7 @@ function trash(&$cid,$option) {
 	// clean any existing cache files
 	mosCache::cleanCache('com_content');
 
-	$msg = "Объектов отправлено в корзину - ".$total;
+	$msg = _MOVED_TO_TRASH." - ".$total;
 	mosRedirect('index2.php?option='.$option,$msg);
 }
 
@@ -429,8 +427,8 @@ function changeState($cid = null,$state = 0,$option) {
 	global $database,$my;
 	josSpoofCheck();
 	if(count($cid) < 1) {
-		$action = $state == 1?'публикации':($state == -1?'архивирования':'сокрытия');
-		echo "<script> alert('Выберите объект для $action'); window.history.go(-1);</script>\n";
+		$action = $state == 1?'publish':($state == -1?'archiving':'unpublish');
+		echo "<script> alert('"._CHOOSE_OBJECT_FOR." $action'); window.history.go(-1);</script>\n";
 		exit;
 	}
 
@@ -456,10 +454,10 @@ function changeState($cid = null,$state = 0,$option) {
 	mosCache::cleanCache('com_content');
 
 	if($state == "1") {
-		$msg = " Объектов успешно опубликовано - ".$total;
+		$msg = _O_SECCESS_PUBLISHED." - ".$total;
 	} else
 		if($state == "0") {
-			$msg = " Объектов успешно скрыто - ".$total;
+			$msg = _O_SUCCESS_UNPUBLISHED." - ".$total;
 		}
 	mosRedirect('index2.php?option='.$option.'&msg='.$msg);
 }
@@ -501,7 +499,7 @@ function resethits($option,$id) {
 	$row->store();
 	$row->checkin();
 
-	$msg = 'Счетчик просмотров успешно обнулен';
+	$msg = _HIT_COUNT_RESETTED;
 	mosRedirect('index2.php?option='.$option.'&task=edit&hidemainmenu=1&id='.$row->id,
 		$msg);
 }
@@ -550,7 +548,7 @@ function menuLink($option,$id) {
 	// clean any existing cache files
 	mosCache::cleanCache('com_content');
 
-	$msg = $link.' - (Ссылка - Статичное содержимое) в меню: '.$menu.' успешно создано';
+	$msg = $link.' - '._SUCCESS_MENU_CR_1.': '.$menu;
 	mosRedirect('index2.php?option='.$option.'&task=edit&hidemainmenu=1&id='.$id,$msg);
 }
 
@@ -620,7 +618,7 @@ function saveOrder(&$cid) {
 	// clean any existing cache files
 	mosCache::cleanCache('com_content');
 
-	$msg = 'Новый порядок сохранен';
+	$msg = _NEW_ORDER_SAVED;
 	mosRedirect('index2.php?option=com_typedcontent',$msg);
 } // saveOrder
 

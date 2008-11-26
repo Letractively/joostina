@@ -28,7 +28,7 @@ class TOOLBAR_users {
 		mosMenuBar::spacer();
 		if($id) {
 			// for existing content items the button is renamed `close`
-			mosMenuBar::cancel('cancel','Закрыть');
+			mosMenuBar::cancel('cancel',_CLOSE);
 		} else {
 			mosMenuBar::cancel();
 		}
@@ -39,7 +39,7 @@ class TOOLBAR_users {
 
 	function _DEFAULT() {
 		mosMenuBar::startTable();
-		mosMenuBar::custom('logout','-cancel','','Отключить');
+		mosMenuBar::custom('logout','-cancel','',_DISABLE);
 		mosMenuBar::spacer();
 		mosMenuBar::deleteList();
 		mosMenuBar::spacer();
