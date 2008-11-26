@@ -36,7 +36,7 @@ switch($task) {
 	case 'apply':
 		// check to see if functionality restricted for use as demo site
 		if($_VERSION->RESTRICT == 1) {
-			mosRedirect('index2.php?mosmsg=Функциональность ограничена');
+			mosRedirect('index2.php?mosmsg='._RESTRICT_FUNCTION);
 		} else {
 			saveUser($task);
 		}
@@ -49,7 +49,7 @@ switch($task) {
 	case 'block':
 		// check to see if functionality restricted for use as demo site
 		if($_VERSION->RESTRICT == 1) {
-			mosRedirect('index2.php?mosmsg=Функциональность ограничена');
+			mosRedirect('index2.php?mosmsg='._RESTRICT_FUNCTION);
 		} else {
 			changeUserBlock($cid,1,$option);
 		}
@@ -219,10 +219,10 @@ function editUser($uid = '0',$option = 'users') {
 
 	$my_group = strtolower($acl->get_group_name($row->gid,'ARO'));
 	if($my_group == 'super administrator' && $my->gid != 25) {
-		$lists['gid'] = '<input type="hidden" name="gid" value="'.$my->gid.'" /><strong>Главный администратор</strong>';
+		$lists['gid'] = '<input type="hidden" name="gid" value="'.$my->gid.'" /><strong>'._SUPER_ADMINISTRATOR.'</strong>';
 	} else
 		if($my->gid == 24 && $row->gid == 24) {
-			$lists['gid'] = '<input type="hidden" name="gid" value="'.$my->gid.'" /><strong>Администратор</strong>';
+			$lists['gid'] = '<input type="hidden" name="gid" value="'.$my->gid.'" /><strong>'._ADMINISTRATOR.'</strong>';
 		} else {
 			// ensure user can't add group higher than themselves
 			$my_groups = $acl->get_object_groups('users',$my->id,'ARO');
@@ -334,7 +334,7 @@ function saveUser($task) {
 
 				if($count <= 1) {
 					// disallow change if only one Super Admin exists
-					echo "<script> alert('Вы не можете изменить эту группу пользователей. Это может сделать только Главный администратор сайта'); window.history.go(-1); </script>\n";
+					echo "<script> alert('"._NO_RIGHT_TO_CHANGE_GROUP."'); window.history.go(-1); </script>\n";
 					exit();
 				}
 			}
@@ -342,12 +342,12 @@ function saveUser($task) {
 			$user_group = strtolower($acl->get_group_name($original->gid,'ARO'));
 			if(($user_group == 'super administrator' && $my->gid != 25)) {
 				// disallow change of super-Admin by non-super admin
-				echo "<script> alert('Вы не можете изменить эту группу пользователей, так как Вы не являетесь Супер Администратором'); window.history.go(-1); </script>\n";
+				echo "<script> alert('"._NO_RIGHT_TO_CHANGE_GROUP."'); window.history.go(-1); </script>\n";
 				exit();
 			} else
 				if($my->gid == 24 && $original->gid == 24) {
 					// disallow change of super-Admin by non-super admin
-					echo "<script> alert('Вы не можете изменить эту группу пользователей, так как Вы не являетесь Супер Администратором'); window.history.go(-1); </script>\n";
+					echo "<script> alert('"._NO_RIGHT_TO_CHANGE_GROUP."'); window.history.go(-1); </script>\n";
 					exit();
 				} // ensure user can't add group higher than themselves done below
 		}
@@ -363,7 +363,7 @@ function saveUser($task) {
 	// Security check to avoid creating/editing user to higher level than himself: response to artf4529.
 	if(!in_array($row->gid,getGIDSChildren($my->gid))) {
 		// disallow creation of Super Admin by non Super Admin users
-		echo "<script> alert('Вы не можете создать пользователя с этим уровнем доступа. Это может сделать только Главный администратор сайта'); window.history.go(-1); </script>\n";
+		echo "<script> alert('"._NO_RIGHT_TO_USER_CREATION."'); window.history.go(-1); </script>\n";
 		exit();
 	}
 
@@ -456,14 +456,14 @@ function saveUser($task) {
 
 	switch($task) {
 		case 'apply':
-			$msg = 'Успешно сохранены изменения профиля пользователя: '.$row->name;
+			$msg = _PROFILE_SAVE_SUCCESS.': '.$row->name;
 			mosRedirect('index2.php?option=com_users&task=editA&hidemainmenu=1&id='.$row->id,
 				$msg);
 			break;
 
 		case 'save':
 		default:
-			$msg = 'Успешно сохранен профиль пользователя: '.$row->name;
+			$msg = _PROFILE_SAVE_SUCCESS.': '.$row->name;
 			mosRedirect('index2.php?option=com_users',$msg);
 			break;
 	}
@@ -482,7 +482,7 @@ function removeUsers($cid,$option) {
 	josSpoofCheck();
 
 	if(!is_array($cid) || count($cid) < 1) {
-		echo "<script> alert('Выберите объект для удаления'); window.history.go(-1);</script>\n";
+		echo "<script> alert('"._CHOOSE_OBJ_DELETE."'); window.history.go(-1);</script>\n";
 		exit;
 	}
 
@@ -502,7 +502,7 @@ function removeUsers($cid,$option) {
 
 			if($count <= 1 && $obj->gid == 25) {
 				// cannot delete Super Admin where it is the only one that exists
-				$msg = "Вы не можете удалить этого Главного администратора, т.к. он единственный Главный администратор сайта";
+				$msg = _CANNOT_DEL_ONE_SUPER_ADMIN;
 			} else {
 				// delete user
 				$obj->delete($id);
@@ -528,10 +528,10 @@ function changeUserBlock($cid = null,$block = 1,$option) {
 	global $database;
 	josSpoofCheck();
 
-	$action = $block?'блокировки':'разблокировки';
+	$action = $block?'block':'unblock';
 
 	if(count($cid) < 1) {
-		echo "<script type=\"text/javascript\"> alert('Выберите пользователя для $action'); window.history.go(-1);</script>\n";
+		echo "<script type=\"text/javascript\"> alert('"._CHOOSE_USER_TO." $action'); window.history.go(-1);</script>\n";
 		exit;
 	}
 
@@ -573,7 +573,7 @@ function logoutUser($cid = null,$option,$task) {
 	josSpoofCheck(null, null, 'request');
 	if(is_array($cid)) {
 		if(count($cid) < 1) {
-			mosRedirect('index2.php?option='.$option,'Пожалуйста, выберите пользователя');
+			mosRedirect('index2.php?option='.$option,_PLEASE_CHOOSE_USER);
 		}
 
 		foreach($cid as $cidA) {
@@ -593,7 +593,7 @@ function logoutUser($cid = null,$option,$task) {
 
 		// check to see whether a Administrator is attempting to log out a Super Admin
 		if($my->gid == 24 && $temp->gid == 25) {
-			echo "<script> alert('Вы не можете отключить Главного администратора'); window.history.go(-1); </script>\n";
+			echo "<script> alert('"._CANNOT_DISABLE_SUPER_ADMIN."'); window.history.go(-1); </script>\n";
 			exit();
 		}
 		$ids = 'userid='.(int)$cid;
@@ -646,12 +646,11 @@ function checkUserPermissions($cid,$actionName,$allowActionToMyself = false) {
 			}
 
 			if(!$allowActionToMyself && $id == $my->id) {
-				$msg .= 'Вы не можете '.$actionName.' себя!';
+				$msg .= 'You cannot '.$actionName.' yourself!';
 			} else
 				if(($obj->gid == $my->gid && !in_array($my->gid,array(24,25))) || ($obj->gid &&
 					!in_array($obj->gid,getGIDSChildren($my->gid)))) {
-					$msg .= 'Вы не можете '.$actionName.' `'.$this_group.
-						'`. Это могут делать только пользователи с более высоким уровнем доступа. ';
+					$msg .= 'You cannot '.$actionName.' `'.$this_group.'`. '._THIS_CAN_DO_HIGHLEVEL_USERS;
 				}
 		}
 	}

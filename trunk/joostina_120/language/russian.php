@@ -668,7 +668,7 @@ DEFINE('_CONTENT_CATEGORIES','Категории содержимого');
 DEFINE('_ALL_CONTENT','Всё содержимое');
 DEFINE('_ACTIVE','Активных');
 DEFINE('_IN_TRASH','В корзине');
-DEFINE('_VIEW_CATEGORY_CONTENT','_E_PUBLISHING');
+DEFINE('_VIEW_CATEGORY_CONTENT','Просмотр содержимого категории');
 DEFINE('_CHOOSE_MENU_PLEASE','Пожалуйста, выберите меню');
 DEFINE('_CHOOSE_MENUTYPE_PLEASE','Пожалуйста, выберите тип меню');
 DEFINE('_ENTER_MENUITEM_NAME','Пожалуйста, введите название для этого пункта меню');
@@ -1294,7 +1294,7 @@ DEFINE('_SUPER_ADMINISTRATOR','Супер-Администратор');
 DEFINE('_CHANGES_FOR_PLUGIN','Изменения для плагина');
 DEFINE('_SUCCESS_SAVE','успешное сохранение');
 DEFINE('_PLUGIN','Плагин');
-DEFINE('_MODULE_IS_EDITING_BY_ADMIN','Модуль $row->title в настоящее время редактируется другим администратором');
+DEFINE('_MODULE_IS_EDITING_BY_ADMIN','Модуль в настоящее время редактируется другим администратором');
 DEFINE('_CHOOSE_PLUGIN_FOR_ACCESS_MANAGEMENT','Для назначения прав доступа необходимо выбрать плагин');
 DEFINE('_CHOOSE_PLUGIN_FOR','Выберите плагин для');
 DEFINE('_JCE_CONFIG','Конфигурация JCE');
@@ -1312,27 +1312,69 @@ DEFINE('_NEW','Новый');
 DEFINE('_INSTALLATION','Установка');
 DEFINE('_PREVIEW','Предпросмотр');
 DEFINE('_PLUGINS','Плагины');
-/*
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-*/
+
+/* administrator components com_jce */
+
+DEFINE('_USERS','Пользователи');
+DEFINE('_USER_LOGIN_TXT','Имя пользователя (логин )');
+DEFINE('_LOGGED_IN','На сайте');
+DEFINE('_ALLOWED','Разрешен');
+DEFINE('_LAST_LOGIN','Последнее посещение');
+DEFINE('_USER_BLOCK','Блокировка');
+DEFINE('_ALLOW','Разрешить');
+DEFINE('_DISALLOW','Запретить');
+DEFINE('_ENTER_LOGIN_PLEASE','Вы должны ввести имя пользователя для входа на сайт');
+DEFINE('_BAD_USER_LOGIN','Ваше имя для входа содержит неправильные символы или слишком короткое.');
+DEFINE('_ENTER_EMAIL_PLEASE','Вы должны ввести адрес email');
+DEFINE('_ENTER_GROUP_PLEASE','Вы должны назначить пользователю группу доступа');
+DEFINE('_BAD_PASSWORD','Пароль неправильный');
+DEFINE('_BAD_GROUP_1','Пожалуйста, выберите другую группу. Группы типа `Public Front-end` выбирать нельзя');
+DEFINE('_BAD_GROUP_2','Пожалуйста, выберите другую группу. Группы типа `Public Back-end` выбирать нельзя');
+DEFINE('_USER_INFO','Информация о пользователе');
+DEFINE('_NEW_PASSWORD','Новый пароль');
+DEFINE('_REPEAT_PASSWORD','Проверка пароля');
+DEFINE('_BLOCK_USER','Блокировать пользователя');
+DEFINE('_RECEIVE_EMAILS','Получать системные сообщения на e-mail');
+DEFINE('_REGISTRATION_DATE','Дата регистрации');
+DEFINE('_CONTACT_INFO','Контактная информация');
+DEFINE('_NO_USER_CONTACTS','У этого пользователя нет контактной информации:<br />Для подробностей смотрите \'Компоненты -> Контакты -> Управление контактами\'');
+DEFINE('_FULL_NAME','Полное имя');
+DEFINE('_CHANGE_CONTACT_INFO','Изменить контактную информацию');
+DEFINE('_CONTACT_INFO_PATH_URL','Компоненты -> Контакты -> Управление контактами');
+DEFINE('_RESTRICT_FUNCTION','Функциональность ограничена');
+DEFINE('_NO_RIGHT_TO_CHANGE_GROUP','Вы не можете изменить эту группу пользователей. Это может сделать только Главный администратор сайта');
+DEFINE('_NO_RIGHT_TO_USER_CREATION','Вы не можете создать пользователя с этим уровнем доступа. Это может сделать только Главный администратор сайта');
+DEFINE('_PROFILE_SAVE_SUCCESS','Успешно сохранены изменения профиля пользователя');
+DEFINE('_CANNOT_DEL_ONE_SUPER_ADMIN','Вы не можете удалить этого Главного администратора, т.к. он единственный Главный администратор сайта');
+DEFINE('_CHOOSE_USER_TO','Выберите пользователя для');
+DEFINE('_PLEASE_CHOOSE_USER','Пожалуйста, выберите пользователя');
+DEFINE('_CANNOT_DISABLE_SUPER_ADMIN','Вы не можете отключить Главного администратора');
+DEFINE('_THIS_CAN_DO_HIGHLEVEL_USERS','Это могут делать только пользователи с более высоким уровнем доступа');
+DEFINE('_DISABLE','Отключить');
+
+/* administrator components com_typedcontent */
+
+DEFINE('_ACCESS','Доступ');
+DEFINE('_LINKS_COUNT','Ссылок');
+DEFINE('_DATE_PUBL_END','Истек срок публикации');
+DEFINE('_CHANGE_STATIC_CONTENT','Изменить статичное содержимое');
+DEFINE('_WANT_TO_RESET_HITCOUNT','Вы действительно хотите обнулить счетчик просмотров? \nЛюбые несохраненные изменения этого содержимого будут утеряны.');
+DEFINE('_OBJECT_MUST_HAVE_NAME','Объект содержимого должен иметь название');
+DEFINE('_CONTENT_INFO','Информация о содержимом');
+DEFINE('_O_STATE','Состояние');
+DEFINE('_CHANGE_AUTHOR','Изменить автора');
+DEFINE('_GALLERY_IMAGES','Изображения галереи');
+DEFINE('_CONTENT_IMAGES','Изображения содержимого');
+DEFINE('_EDITING_SELECTED_IMAGE','Редактирование выбранного изображения');
+DEFINE('_ALTERNATIVE_TEXT','Альтернативный текст');
+DEFINE('_MENU_LINK_3','Здесь создается пункт меню типа \'Ссылка - Статичное содержимое\', который вставляется в выбранное из списка меню');
+DEFINE('_EXISTED_MENU_LINKS','Существующие связи с меню');
+DEFINE('_CONTENT_SAVED','Содержимое сохранено');
+DEFINE('_CHOOSE_OBJECT_FOR','Выберите объект для');
+DEFINE('_O_SECCESS_PUBLISHED','Объектов успешно опубликовано');
+DEFINE('_O_SUCCESS_UNPUBLISHED','Объектов успешно скрыто');
+DEFINE('_HIT_COUNT_RESETTED','Счетчик просмотров успешно обнулен');
+DEFINE('_SUCCESS_MENU_CR_1','(Ссылка - Статичное содержимое) в меню');
+
+
 ?>

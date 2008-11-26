@@ -22,7 +22,7 @@ class HTML_users {
 		<form action="index2.php" method="post" name="adminForm" id="adminForm">
 		<table class="adminheading">
 		<tr>
-			<th class="user">Пользователи</th>
+			<th class="user"><?php echo _USERS?></th>
 			<td>Фильтр:</td>
 			<td>
 				<input type="text" name="search" value="<?php echo htmlspecialchars($search); ?>" class="inputbox" onChange="document.adminForm.submit();" />
@@ -37,13 +37,13 @@ class HTML_users {
 			<th width="1%" class="title">
 				<input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo count($rows); ?>);" />
 			</th>
-			<th class="title" colspan="2">Имя</th>
-			<th width="22%">Имя пользователя (логин )</th>
-			<th width="5%">На сайте</th>
-			<th width="5%">Разрешен</th>
-			<th width="10%">Группа</th>
+			<th class="title" colspan="2"><?php echo _CMN_NAME?></th>
+			<th width="22%"><?php echo _USER_LOGIN_TXT?></th>
+			<th width="5%"><?php echo _LOGGED_IN?></th>
+			<th width="5%"><?php echo _ALLOWED?></th>
+			<th width="10%"><?php echo _O_GROUP?></th>
 			<th width="10%">E-Mail</th>
-			<th width="13%">Последнее посещение</th>
+			<th width="13%"><?php echo _LAST_LOGIN?></th>
 			<th width="1%">ID</th>
 		</tr>
 		<?php
@@ -52,7 +52,7 @@ class HTML_users {
 			$row = &$rows[$i];
 			$img	= $row->block ? 'publish_x.png':'tick.png';
 			$task	= $row->block ? 'unblock':'block';
-			$alt	= $row->block ? 'Разрешить':'Запретить';
+			$alt	= $row->block ? _ALLOW:_DISALLOW;
 			$link	= 'index2.php?option=com_users&amp;task=editA&amp;id='.$row->id.'&amp;hidemainmenu=1';
 ?>
 		<tr class="<?php echo "row$k"; ?>">
@@ -64,7 +64,7 @@ class HTML_users {
 			<td align="left"><?php echo $row->username; ?></td>
 			<td align="center"><?php echo $row->loggedin ? '<img src="images/tick.png" border="0" alt="" />':''; ?></td>
 			<td width="5%" align="center" <?php if($row->id!=$my->id){ ?> class="td-state" onclick="ch_publ(<?php echo $row->id;?>,'com_users');" <?php };?>>
-				<img id="img-pub-<?php echo $row->id;?>" class="img-mini-state" alt="Блокировка" src="images/<?php echo $img;?>"/>
+				<img id="img-pub-<?php echo $row->id;?>" class="img-mini-state" alt="<?php echo _USER_BLOCK?>" src="images/<?php echo $img;?>"/>
 			</td>
 			<td><?php echo $row->groupname; ?></td>
 			<td><a href="mailto:<?php echo $row->email; ?>"><?php echo $row->email; ?></a></td>
@@ -108,21 +108,21 @@ class HTML_users {
 
 			// do field validation
 			if (trim(form.name.value) == "") {
-				alert( "Вы должны ввести имя." );
+				alert( "<?php echo _ENTER_NAME_PLEASE?>" );
 			} else if (form.username.value == "") {
-				alert( "Вы должны ввести имя пользователя для входа на сайт." );
+				alert( "<?php echo _ENTER_LOGIN_PLEASE?>" );
 			} else if (r.exec(form.username.value) || form.username.value.length < 3) {
-				alert( "Ваше имя для входа содержит неправильные символы или слишком короткое." );
+				alert( "<?php echo _BAD_USER_LOGIN?>" );
 			} else if (trim(form.email.value) == "") {
-				alert( "Вы должны ввести адрес email." );
+				alert( "<?php echo _ENTER_EMAIL_PLEASE?>" );
 			} else if (form.gid.value == "") {
-				alert( "Вы должны назначить пользователю группу доступа." );
+				alert( "<?php echo _ENTER_GROUP_PLEASE?>" );
 			} else if (trim(form.password.value) != "" && form.password.value != form.password2.value){
-				alert( "Пароль неправильный." );
+				alert( "<?php echo _BAD_PASSWORD?>" );
 			} else if (form.gid.value == "29") {
-				alert( "Пожалуйста, выберите другую группу. Группы типа `Public Front-end` выбирать нельзя" );
+				alert( "<?php echo _BAD_GROUP_1?>" );
 			} else if (form.gid.value == "30") {
-				alert( "Пожалуйста, выберите другую группу. Группы типа `Public Back-end` выбирать нельзя" );
+				alert( "<?php echo _BAD_GROUP_2?>" );
 			} else {
 				submitform( pressbutton );
 			}
@@ -176,7 +176,7 @@ class HTML_users {
 			<td width="60%" valign="top">
 				<table class="adminform">
 				<tr>
-					<th colspan="3">Информация о пользователе</th>
+					<th colspan="3"><?php echo _USER_INFO?></th>
 				</tr>
 				<tr>
 					<td width="50%" rowspan="6" id="user_avatar" align="center">
@@ -185,36 +185,36 @@ class HTML_users {
 						<?php if($row->id){?>
 						<input class="inputbox" type="file" size="1" id="fileavatar" name="avatar" class="inputbox"/>
 						<button class="inputbox" onclick="addavatar();">Загрузить</button>
-						<button class="inputbox" onclick="delavatar(<?php echo $row->id;?>); return false;">Удалить</button>
+						<button class="inputbox" onclick="delavatar(<?php echo $row->id;?>); return false;"><?php echo _CMN_DELETE?></button>
 						<?php };?>
 					</td>
-					<td width="200" class="key">Полное имя:</td>
+					<td width="200" class="key"><?php echo _YOUR_NAME?>:</td>
 					<td><input type="text" name="name" class="inputbox" size="40" value="<?php echo $row->name; ?>" maxlength="50" /></td>
 				</tr>
 				<tr>
-					<td class="key">Имя пользователя (логин):</td>
+					<td class="key"><?php echo _USER_LOGIN_TXT?>:</td>
 					<td><input type="text" name="username" class="inputbox" size="40" value="<?php echo $row->username; ?>" maxlength="25" /></td>
 				<tr>
 					<td class="key">E-mail:</td>
 					<td><input class="inputbox" type="text" name="email" size="40" value="<?php echo $row->email; ?>" /></td>
 				</tr>
 				<tr>
-					<td class="key">Новый пароль:</td>
+					<td class="key"><?php echo _NEW_PASSWORD?>:</td>
 					<td><input class="inputbox" type="password" name="password" size="40" value="" /></td>
 				</tr>
 				<tr>
-					<td class="key">Проверка пароля:</td>
+					<td class="key"><?php echo _REPEAT_PASSWORD?>:</td>
 					<td><input class="inputbox" type="password" name="password2" size="40" value="" /></td>
 				</tr>
 				<tr>
-					<td valign="top" class="key">Группа:</td>
+					<td valign="top" class="key"><?php echo _O_GROUP?>:</td>
 					<td><?php echo $lists['gid']; ?></td>
 				</tr>
 <?php
 		if($canBlockUser) {
 ?>
 				<tr>
-					<td class="key">Блокировать пользователя:</td>
+					<td class="key"><?php echo _BLOCK_USER?>:</td>
 					<td ><?php echo $lists['block']; ?></td>
 				</tr>
 <?php
@@ -222,7 +222,7 @@ class HTML_users {
 		if($canEmailEvents) {
 ?>
 				<tr>
-					<td class="key">Получать системные сообщения на e-mail:</td>
+					<td class="key"><?php echo _RECEIVE_EMAILS?>:</td>
 					<td colspan="2">
 					<?php echo $lists['sendEmail']; ?>
 					</td>
@@ -232,11 +232,11 @@ class HTML_users {
 		if($uid) {
 ?>
 				<tr>
-					<td class="key">Дата регистрации:</td>
+					<td class="key"><?php echo _REGISTRATION_DATE?>:</td>
 					<td colspan="2"><?php echo $row->registerDate; ?></td>
 				</tr>
 				<tr>
-					<td class="key">Дата последнего посещения:</td>
+					<td class="key"><?php echo _LAST_LOGIN?>:</td>
 					<td colspan="2"><?php echo $row->lastvisitDate; ?></td>
 				</tr>
 <?php
@@ -250,7 +250,7 @@ class HTML_users {
 			<td width="40%" valign="top">
 				<table class="adminform">
 				<tr>
-					<th colspan="1">Параметры:</th>
+					<th colspan="1"><?php echo _PARAMETERS?>:</th>
 				</tr>
 				<tr>
 					<td><?php echo $params->render('params'); ?></td>
@@ -261,14 +261,12 @@ class HTML_users {
 ?>
 					<table class="adminform">
 					<tr>
-						<th>Контактная информация:</th>
+						<th><?php echo _CONTACT_INFO?>:</th>
 					</tr>
 					<tr>
 						<td>
 						<br />
-						У этого пользователя нет контактной информации:
-						<br />
-						Для подробностей смотрите 'Компоненты -> Контакты -> Управление контактами'.
+						<php echo _NO_USER_CONTACTS?>
 						<br />
 						</td>
 					</tr>
@@ -278,23 +276,23 @@ class HTML_users {
 ?>
 					<table class="adminform">
 					<tr>
-						<th colspan="2">Контактная информация:</th>
+						<th colspan="2"><?php echo _CONTACT_INFO?>:</th>
 					</tr>
 					<tr>
-						<td width="15%">Полное имя:</td>
+						<td width="15%"><?php echo _FULL_NAME?>:</td>
 						<td>
 						<strong><?php echo $contact[0]->name; ?></strong></td>
 					</tr>
 					<tr>
-						<td>Положение (должность):</td>
+						<td><?php echo _USER_POSITION?>:</td>
 						<td><strong><?php echo $contact[0]->con_position; ?></strong></td>
 					</tr>
 					<tr>
-						<td>Телефон:</td>
+						<td><?php echo _CONTACT_HEADER_PHONE?>:</td>
 						<td><strong><?php echo $contact[0]->telephone; ?></strong></td>
 					</tr>
 					<tr>
-						<td>Факс:</td>
+						<td><?php echo _CONTACT_HEADER_FAX?>:</td>
 						<td><strong><?php echo $contact[0]->fax; ?></strong></td>
 					</tr>
 					<tr>
@@ -307,7 +305,7 @@ class HTML_users {
 					<tr>
 						<td></td>
 						<td valign="top">
-							<img src="<?php echo $mosConfig_live_site; ?>/images/stories/<?php echo $contact[0]->image; ?>" align="middle" alt="Контакт" />
+							<img src="<?php echo $mosConfig_live_site; ?>/images/stories/<?php echo $contact[0]->image; ?>" align="middle" alt="" />
 						</td>
 					</tr>
 <?php
@@ -316,9 +314,9 @@ class HTML_users {
 					<tr>
 						<td colspan="2">
 						<br /><br />
-						<input class="button" type="button" value="Изменить контактную информацию" onclick="javascript: gotocontact( '<?php echo $contact[0]->id; ?>' )">
+						<input class="button" type="button" value="<?php echo _CHANGE_CONTACT_INFO?>" onclick="javascript: gotocontact( '<?php echo $contact[0]->id; ?>' )">
 						<i>
-						<br />'Компоненты -> Контакты -> Управление контактами'.
+						<br />'<?php echo _CONTACT_INFO_PATH_URL?>'.
 						</i>
 						</td>
 					</tr>
