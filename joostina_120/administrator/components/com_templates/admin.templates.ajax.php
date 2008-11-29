@@ -40,11 +40,11 @@ function saveTemplateSource(){
 	$filecontent	= joostina_api::convert(mosGetParam($_POST,'filecontent','',_MOS_ALLOWHTML));
 
 	if(!$template){
-		echo 'Операция неудачна: Не определен шаблон.';
+		echo _UNSUCCESS_OPERATION_NO_TEMPLATE;
 		return;
 	}
 	if(!$filecontent){
-		echo 'Операция неудачна: Пустое содержимое.';
+		echo _UNSUCCESS_OPERATION_EMPTY_FILE;
 		return;
 	}
 
@@ -65,7 +65,7 @@ function saveTemplateSource(){
 	clearstatcache();
 
 	if(is_writable($file) == false){
-		echo 'Операция неудачна: '.$file.' недоступен для записи.';
+		echo _UNSUCCES_OPERAION.' '.$file.' '._UNWRITEABLE;
 		return;
 	}
 	if($fp = fopen($file,'w')){
@@ -78,7 +78,7 @@ function saveTemplateSource(){
 		}
 	}else{
 		if($enable_write) @chmod($file,$oldperms);
-		echo 'Операция неудачна: Ошибка открытия файла для записи.';
+		echo _UNSUCCES_OPERAION.': '._CANNOT_OPEN_FILE_DOR_WRITE;
 		return;
 	}
 	echo 'Изменения сохранены.';
@@ -92,12 +92,12 @@ function saveTemplateCSS(){
 	$client = strval(mosGetParam($_REQUEST,'client',''));
 	$filecontent = joostina_api::convert(mosGetParam($_POST,'filecontent','',_MOS_ALLOWHTML));
 	if(!$template){
-		echo 'Операция неудачна: Не определен шаблон.';
+		echo _UNSUCCESS_OPERATION_NO_TEMPLATE;
 		return;
 	}
 
 	if(!$filecontent){
-		echo 'Операция неудачна: Пустое содержимое.';
+		echo _UNSUCCESS_OPERATION_EMPTY_FILE;
 		return;
 	}
 
@@ -116,7 +116,7 @@ function saveTemplateCSS(){
 
 	clearstatcache();
 	if(is_writable($file) == false){
-		echo 'Операция неудачна: Файл недоступен для записи.';
+		echo _CANNOT_OPEN_FILE_DOR_WRITE;
 		return;
 	}
 
@@ -130,10 +130,10 @@ function saveTemplateCSS(){
 		}
 	} else{
 		if($enable_write) @chmod($file,$oldperms);
-		echo 'Операция неудачна: Ошибка открытия файла для записи.';
+		echo _CANNOT_OPEN_FILE_DOR_WRITE;
 		return;
 	}
-	echo 'Изменения сохранены.';
+	echo _E_ITEM_SAVED;
 	return;
 }
 

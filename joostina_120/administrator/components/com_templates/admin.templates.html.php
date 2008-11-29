@@ -36,7 +36,7 @@ class HTML_templates {
 			if (document.adminForm.doPreview.checked) {
 				var src = '<?php echo $mosConfig_live_site.($client == 'admin'?'/administrator':''); ?>/templates/'+dir+'/template_thumbnail.png';
 				var html=name;
-				html = '<br /><img border="1" src="'+src+'" name="imagelib" alt="Предпросмотр недоступен" width="206" height="145" />';
+				html = '<br /><img border="1" src="'+src+'" name="imagelib" alt="<?php echo _NO_PREVIEW?>" width="206" height="145" />';
 				return overlib(html, CAPTION, name)
 			} else {
 				return false;
@@ -48,9 +48,9 @@ class HTML_templates {
 		<table class="adminheading">
 		<tr>
 			<th class="templates">
-				Шаблоны <small><small>[ <?php echo $client == 'admin'?'Панель управления':'Сайт'; ?> ]</small></small>
+				<?php echo _TEMPLATES?> <small><small>[ <?php echo $client == 'admin'?_CONTROL_PANEL:_SITE; ?> ]</small></small>
 			</th>
-			<td align="right" class="jtd_nowrap">Предпросмотр шаблона</td>
+			<td align="right" class="jtd_nowrap"><?php echo _TEMPLATE_PREVIEW?></td>
 			<td align="right"><input type="checkbox" name="doPreview" checked="checked"/></td>
 		</tr>
 		</table>
@@ -58,24 +58,24 @@ class HTML_templates {
 		<tr>
 			<th width="2%">#</th>
 			<th width="2%">&nbsp;</th>
-			<th class="title">Название</th>
+			<th class="title"><?php echo _HEADER_TITLE?></th>
 <?php
 		if($client == 'admin') {
 ?>
-				<th width="10%">По умолчанию</th>
+				<th width="10%"><?php echo _DEFAULT?></th>
 <?php
 		} else {
 ?>
-				<th width="10%">По умолчанию
+				<th width="10%"><?php echo _DEFAULT?>
 				</th>
-				<th width="5%">Назначен</th>
+				<th width="5%"><?php echo _ASSIGNED_TO?></th>
 <?php
 		}
 ?>
-			<th width="20%" align="left">Автор</th>
-			<th width="5%" align="center">Версия</th>
-			<th width="10%" align="center">Создан</th>
-			<th width="20%" align="left">URL автора</th>
+			<th width="20%" align="left"><?php echo _AUTHOR_BY?></th>
+			<th width="5%" align="center"><?php echo _E_VERSION?></th>
+			<th width="10%" align="center"><?php echo _E_CREATED?></th>
+			<th width="20%" align="left">URL</th>
 		</tr>
 <?php
 		$k = 0;
@@ -105,12 +105,12 @@ class HTML_templates {
 <?php
 			if($client == 'admin') {
 ?>
-				<td align="center"><?php echo $row->published ? '<img src="images/tick.png" alt="Назначен" />' : '&nbsp;'; ?></td>
+				<td align="center"><?php echo $row->published ? '<img src="images/tick.png" alt="'._ASSIGNED_TO.'" />' : '&nbsp;'; ?></td>
 <?php
 			} else {
 ?>
-				<td align="center"><?php echo $row->published ? '<img src="images/tick.png" alt="Назначен" />' : '&nbsp;'; ?></td>
-				<td align="center"><?php echo $row->assigned ? '<img src="images/tick.png" alt="Назначен" />' : '&nbsp;'; ?></td>
+				<td align="center"><?php echo $row->published ? '<img src="images/tick.png" alt="'._ASSIGNED_TO.'" />' : '&nbsp;'; ?></td>
+				<td align="center"><?php echo $row->assigned ? '<img src="images/tick.png" alt="'._ASSIGNED_TO.'" />' : '&nbsp;'; ?></td>
 <?php
 			}
 ?>
@@ -171,7 +171,7 @@ class HTML_templates {
 		<tr>
 			<td width="290"><table class="adminheading"><tr><th class="templates">HTML-редактор шаблона</th></tr></table></td>
 			<td width="220" class="jtd_nowrap">
-				<span class="componentheading">index.php:<b><?php echo is_writable($template_path)?'<font color="green"> Доступен для записи</font>':'<font color="red"> Недоступен для записи</font>' ?></b></span>
+				<span class="componentheading">index.php:<b><?php echo is_writable($template_path)?'<font color="green">'._WRITEABLE.'</font>':'<font color="red">'._UNWRITEABLE.'</font>' ?></b></span>
 			</td>
 <?php
 		if(mosIsChmodable($template_path)) {
@@ -179,14 +179,14 @@ class HTML_templates {
 ?>
 			<td>
 				<input type="checkbox" id="disable_write" name="disable_write" value="1"/>
-				<label for="disable_write">Сделать недоступным для записи после сохранения</label>
+				<label for="disable_write"><?php echo _MAKE_UNWRITEABLE_AFTER_SAVING?></label>
 			</td>
 <?php
 			} else {
 ?>
 			<td>
 				<input type="checkbox" id="enable_write" name="enable_write" value="1"/>
-				<label for="enable_write">При сохранении игнорировать защиту от записи</label>
+				<label for="enable_write"><?php echo _IGNORE_WRITE_PROTECTION_WHEN_SAVE?></label>
 			</td>
 <?php
 			} // if
@@ -197,7 +197,7 @@ class HTML_templates {
 		</table>
 		<table class="adminform">
 			<?php if($mosConfig_codepress) {?>
-			<tr><th><a href="#" onclick="codearea.toggleEditor();return false;">Изменить редактор</a>: <?php echo $template_path; ?></th></tr>
+			<tr><th><a href="#" onclick="codearea.toggleEditor();return false;"><?php echo _CHANGE_EDITOR?></a>: <?php echo $template_path; ?></th></tr>
 			<tr>
 				<td>
 					<textarea style="width:100%;height:600px" cols="130" rows="35" name="codearea" id="codearea" class="codepress html inputbox"><?php echo $content; ?></textarea>
@@ -253,10 +253,10 @@ class HTML_templates {
 		<table cellpadding="1" cellspacing="1" border="0" width="100%">
 		<tr>
 			<td width="280">
-			<table class="adminheading"><tr><th class="templates">Редактор CSS шаблона</th></tr></table></td>
+			<table class="adminheading"><tr><th class="templates"><?php echo _CSS_TEMPLATE_EDITOR?></th></tr></table></td>
 			<td width="260" class="jtd_nowrap">
-				<span class="componentheading">файл template_css.css:
-				<b><?php echo is_writable($css_path)?'<font color="green"> Доступен для записи</font>':'<font color="red"> Недоступен для записи</font>' ?></b>
+				<span class="componentheading">template_css.css:
+				<b><?php echo is_writable($css_path)?'<font color="green">'._WRITEABLE.'</font>':'<font color="red">'._UNWRITEABLE.'</font>' ?></b>
 				</span>
 			</td>
 <?php
@@ -265,14 +265,14 @@ class HTML_templates {
 ?>
 			<td>
 				<input type="checkbox" id="disable_write" name="disable_write" value="1"/>
-				<label for="disable_write">Сделать недоступным для записи после сохранения</label>
+				<label for="disable_write"><?php echo _MAKE_UNWRITEABLE_AFTER_SAVING?></label>
 			</td>
 <?php
 			} else {
 ?>
 			<td>
 				<input type="checkbox" id="enable_write" name="enable_write" value="1"/>
-				<label for="enable_write">При сохранении игнорировать защиту от записи</label>
+				<label for="enable_write"><?php echo _IGNORE_WRITE_PROTECTION_WHEN_SAVE?></label>
 			</td>
 <?php
 			} // if
@@ -283,7 +283,7 @@ class HTML_templates {
 		</table>
 		<table class="adminform">
 			<?php if($mosConfig_codepress) {?>
-			<tr><th><a href="#" onclick="codearea.toggleEditor();return false;">Изменить редактор</a>: <?php echo $css_path; ?></th></tr>
+			<tr><th><a href="#" onclick="codearea.toggleEditor();return false;"><?php echo _CHANGE_EDITOR?></a>: <?php echo $css_path; ?></th></tr>
 			<tr>
 				<td>
 					<textarea style="width:100%;height:600px" cols="130" rows="35" name="codearea" id="codearea" class="codepress css inputbox"><?php echo $content; ?></textarea>
@@ -314,10 +314,10 @@ class HTML_templates {
 		<form action="index2.php" method="post" name="adminForm">
 		<table class="adminform">
 		<tr>
-			<th class="left" colspan="2">Назначение шаблона <?php echo $template; ?> для пунктов меню</th>
+			<th class="left" colspan="2"><?php echo $template; ?> - <?php echo _ASSGIN_TEMPLATE_TO_MENU?></th>
 		</tr>
 		<tr>
-			<td valign="top" align="left">Страница(ы):</td>
+			<td valign="top" align="left"><?php echo _PN_PAGE?>:</td>
 			<td width="90%"><?php echo $menulist; ?></td>
 		</tr>
 		</table>
@@ -342,7 +342,7 @@ class HTML_templates {
 	<form action="index2.php" method="post" name="adminForm">
 	<table class="adminheading">
 		<tr>
-			<th class="templates">Позиции модулей</th>
+			<th class="templates"><?php echo _MODULES_POSITION?></th>
 		</tr>
 	</table>
 	<table class="adminlist">
@@ -351,8 +351,8 @@ class HTML_templates {
 		for($c = 0; $c < $cols; $c++) {
 ?>
 			<th width="25">#</th>
-			<th align="left">Позиция</th>
-			<th align="left">Описание</th>
+			<th align="left"><?php echo _POSITION?></th>
+			<th align="left"><?php echo _CMN_DESCRIPTION?></th>
 <?php
 		}
 ?>

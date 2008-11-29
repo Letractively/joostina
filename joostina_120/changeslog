@@ -1,5 +1,8 @@
 Joostina v 1.2.0
 
+29.11.08
+	1. Подготовил к переводу administrator/components/com_trash + com_templates и файлы administrator/includes/menubar.html.old.php + menubar.html.php
+
 26.11.08
 	1. Подготовил к переводу administrator/components/com_users + com_typedcontent (Dead Krolik)
 24.11.08
