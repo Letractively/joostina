@@ -111,8 +111,8 @@ function viewTrash($option) {
 
 	// Build the select list
 	$listselect = array();
-	$listselect[] = mosHTML::makeOption('content','Объекты содержимого');
-	$listselect[] = mosHTML::makeOption('menu','Пункты меню');
+	$listselect[] = mosHTML::makeOption('content',_CONTENT_ITEMS);
+	$listselect[] = mosHTML::makeOption('menu',_MENU_ITEMS);
 	$selected = "all";
 
 	$list = mosHTML::selectList($listselect,'catid','class="inputbox" size="1" onchange="document.adminForm.submit();"','value','text',$catid);
@@ -180,7 +180,7 @@ function deleteTrash($cid,$option) {
 			}
 		}
 
-	$msg = $total." Объект(ы) успешно удален(ы)";
+	$msg = $total." "._OBJECTS_DELETED;
 	mosRedirect("index2.php?option=$option&mosmsg=".$msg."");
 }
 
@@ -223,7 +223,7 @@ function clearTrash() {
 		$obj->delete($id);
 	}
 	//собираем итоговое сообщение
-	$msg = 'Успешно удалено: '.$total_content.' элемента(ов) содержимого и '.$total_menu.' элемента(ов) меню.';
+	$msg = _SUCCESS_DELETION.': '.$total_content.', '.$total_menu;
 	mosRedirect("index2.php?option=$option&mosmsg=".$msg."");
 }
 /**
@@ -324,7 +324,7 @@ function restoreTrash($cid,$option) {
 			}
 		}
 
-	$msg = $total." Объект(ов) успешно восстановлен(о)";
+	$msg = $total." "._OBJECTS_RESTORED;
 	mosRedirect("index2.php?option=$option&mosmsg=".$msg."");
 }
 ?>

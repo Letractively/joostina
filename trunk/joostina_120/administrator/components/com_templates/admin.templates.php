@@ -23,7 +23,7 @@ require_once ($mosConfig_absolute_path.'/includes/domit/xml_domit_lite_include.p
 $client = strval(mosGetParam($_REQUEST,'client',''));
 
 global $mosConfig_one_template;
-if($mosConfig_one_template != '...') echo joost_info('В глобальной конфигурации выбрано использование одного шаблона: <b>'.$mosConfig_one_template.'</b>');
+if($mosConfig_one_template != '...') echo joost_info(_INOGLOBAL_CONFIG_ONE_TEMPLATE_USING.' <b>'.$mosConfig_one_template.'</b>');
 
 $cid = mosGetParam($_REQUEST,'cid',array(0));
 if(!is_array($cid)) {
@@ -251,7 +251,7 @@ function removeTemplate($cid,$option,$client) {
 	$cur_template = $database->loadResult();
 
 	if($cur_template == $cid) {
-		mosErrorAlert("Этот шаблон используется и не может быть удален");
+		mosErrorAlert(_CANNOT_DELETE_THIS_TEMPLATE_WHEN_USING);
 	}
 
 	// Un-assign
@@ -276,7 +276,7 @@ function editTemplateSource($p_tname,$option,$client) {
 		$content = htmlspecialchars($content);
 		HTML_templates::editTemplateSource($p_tname,$content,$option,$client);
 	} else {
-		mosRedirect('index2.php?option='.$option.'&client='.$client,'Операция неудачна: невозможно открыть '.$file);
+		mosRedirect('index2.php?option='.$option.'&client='.$client,_UNSUCCES_OPERATION_CANNOT_OPEN.' '.$file);
 	}
 }
 
@@ -288,10 +288,10 @@ function saveTemplateSource($option,$client,$task) {
 	$filecontent = mosGetParam($_POST,'filecontent','',_MOS_ALLOWHTML);
 
 	if(!$template) {
-		mosRedirect('index2.php?option='.$option.'&client='.$client,'Операция неудачна: Не определен шаблон.');
+		mosRedirect('index2.php?option='.$option.'&client='.$client,_UNSUCCESS_OPERATION_NO_TEMPLATE);
 	}
 	if(!$filecontent) {
-		mosRedirect('index2.php?option='.$option.'&client='.$client,'Операция неудачна: Пустое содержимое.');
+		mosRedirect('index2.php?option='.$option.'&client='.$client,_UNSUCCESS_OPERATION_EMPTY_FILE);
 	}
 
 	if($client == 'admin') {
@@ -307,7 +307,7 @@ function saveTemplateSource($option,$client,$task) {
 
 	clearstatcache();
 	if(is_writable($file) == false) {
-		mosRedirect('index2.php?option='.$option,'Операция неудачна: '.$file.' недоступен для записи.');
+		mosRedirect('index2.php?option='.$option,_UNSUCCES_OPERAION.' '.$file.' - '._UNWRITEABLE);
 	}
 	if($fp = fopen($file,'w')) {
 		fputs($fp,stripslashes($filecontent),strlen($filecontent));
@@ -320,7 +320,7 @@ function saveTemplateSource($option,$client,$task) {
 		mosRedirect('index2.php?option='.$option.'&client='.$client);
 	} else {
 		if($enable_write) @chmod($file,$oldperms);
-		mosRedirect('index2.php?option='.$option.'&client='.$client,'Операция неудачна: Ошибка открытия файла для записи.');
+		mosRedirect('index2.php?option='.$option.'&client='.$client,_UNSUCCES_OPERAION.' '._CANNOT_OPEN_FILE_DOR_WRITE);
 	}
 
 }
@@ -339,7 +339,7 @@ function editTemplateCSS($p_tname,$option,$client) {
 		$content = htmlspecialchars($content);
 		HTML_templates::editCSSSource($p_tname,$content,$option,$client);
 	} else {
-		mosRedirect('index2.php?option='.$option.'&client='.$client,'Операция неудачна: невозможно открыть '.$file);
+		mosRedirect('index2.php?option='.$option.'&client='.$client,_UNSUCCES_OPERATION_CANNOT_OPEN.' '.$file);
 	}
 }
 
@@ -351,11 +351,11 @@ function saveTemplateCSS($option,$client) {
 	$filecontent = mosGetParam($_POST,'filecontent','',_MOS_ALLOWHTML);
 
 	if(!$template) {
-		mosRedirect('index2.php?option='.$option.'&client='.$client,'Операция неудачна: Не определен шаблон.');
+		mosRedirect('index2.php?option='.$option.'&client='.$client,_UNSUCCESS_OPERATION_NO_TEMPLATE);
 	}
 
 	if(!$filecontent) {
-		mosRedirect('index2.php?option='.$option.'&client='.$client,'Операция неудачна: Пустое содержимое.');
+		mosRedirect('index2.php?option='.$option.'&client='.$client,_UNSUCCESS_OPERATION_EMPTY_FILE);
 	}
 
 	if($client == 'admin') {
@@ -373,7 +373,7 @@ function saveTemplateCSS($option,$client) {
 
 	clearstatcache();
 	if(is_writable($file) == false) {
-		mosRedirect('index2.php?option='.$option.'&client='.$client,'Операция неудачна: Файл недоступен для записи.');
+		mosRedirect('index2.php?option='.$option.'&client='.$client,_UNSUCCES_OPERAION.' '._CANNOT_OPEN_FILE_DOR_WRITE);
 	}
 
 	if($fp = fopen($file,'w')) {
@@ -387,7 +387,7 @@ function saveTemplateCSS($option,$client) {
 		mosRedirect('index2.php?option='.$option.'&client='.$client);
 	} else {
 		if($enable_write) @chmod($file,$oldperms);
-		mosRedirect('index2.php?option='.$option.'&client='.$client,'Операция неудачна: Ошибка открытия файла для записи.');
+		mosRedirect('index2.php?option='.$option.'&client='.$client,_UNSUCCES_OPERAION.' '._CANNOT_OPEN_FILE_DOR_WRITE);
 	}
 
 }
@@ -480,6 +480,6 @@ function savePositions($option) {
 			$database->query();
 		}
 	}
-	mosRedirect('index2.php?option='.$option.'&task=positions','Позиции сохранены');
+	mosRedirect('index2.php?option='.$option.'&task=positions',_POSITIONS_SAVED);
 }
 ?>

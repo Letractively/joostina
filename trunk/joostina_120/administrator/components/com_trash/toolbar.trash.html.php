@@ -17,11 +17,11 @@ defined('_VALID_MOS') or die();
 class TOOLBAR_Trash {
 	function _DEFAULT() {
 		mosMenuBar::startTable();
-		mosMenuBar::custom('restoreconfirm','-check','','Восстановить',true);
+		mosMenuBar::custom('restoreconfirm','-check','',_RESTORE,true);
 		mosMenuBar::spacer();
-		mosMenuBar::custom('deleteconfirm','-delete','','Удалить',true);
+		mosMenuBar::custom('deleteconfirm','-delete','',_CMN_DELETE,true);
 		mosMenuBar::spacer();
-		mosMenuBar::custom('deleteall','-delete','','Очистить корзину',false);
+		mosMenuBar::custom('deleteall','-delete','',_CLEAR_TRASH,false);
 		mosMenuBar::spacer();
 		mosMenuBar::help('screen.trashmanager');
 		mosMenuBar::endTable();

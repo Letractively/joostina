@@ -50,7 +50,7 @@ class HTML_trash {
 		<form action="index2.php?option=com_trash" method="post" name="adminForm">
 		<table class="adminheading">
 		<tr>
-			<th class="trash">Корзина</th>
+			<th class="trash"><?php echo _TRASH?></th>
 			<td width="right">
 				<?php echo $list; ?>
 			</td>
@@ -65,13 +65,13 @@ class HTML_trash {
 			</th>
 			<th width="20px">&nbsp;</th>
 			<th class="title">
-			Заголовок
+			<?php echo _HEADER_TITLE?>
 			</th>
 			<th>
-			Раздел
+			<?php echo _SECTION?>
 			</th>
 			<th>
-			Категория
+			<?php echo _E_CATEGORY?>
 			</th>
 			<th width="70px">
 			ID
@@ -141,20 +141,20 @@ class HTML_trash {
 		<form action="index2.php" method="post" name="adminForm">
 		<table class="adminheading">
 		<tr>
-			<th>Удаление объектов</th>
+			<th><?php echo _OBJECT_DELETION?></th>
 		</tr>
 		</table>
 		<table class="adminform">
 		<tr>
 			<td width="3%"></td>
 			<td align="left" valign="top" width="20%">
-			<strong>Количество объектов:</strong>
+			<strong><?php echo _OBJECT_COUNT?>:</strong>
 			<br />
 			<font color="#000066"><strong><?php echo count($cid); ?></strong></font>
 			<br /><br />
 			</td>
 			<td align="left" valign="top" width="25%">
-			<strong>Удаляемые объекты:</strong>
+			<strong><?php echo _OBJECTS_TO_DELETE?>:</strong>
 			<br />
 <?php
 		echo "<ol>";
@@ -165,12 +165,12 @@ class HTML_trash {
 ?>
 			</td>
 			 <td valign="top">
-			* Это действие <strong><font color="#FF0000">насовсем удалит</font></strong> <br />перечисленные объекты из базы данных*
+			<?php echo _THIS_ACTION_WILL_DELETE_O_FOREVER?>
 			<br /><br /><br />
 			<div style="border: 1px dotted gray; width: 70px; padding: 10px; margin-left: 50px;">
-			<a class="toolbar" href="javascript:if (confirm('Вы действительно хотите удалить перечисленные объекты? \nЭто действие насовсем удалит перечисленные объекты из базы данных.')){ submitbutton('delete');}">
-			<img name="remove" src="images/delete.png" alt="Удалить" border="0" align="middle" />
-			&nbsp;Удалить
+			<a class="toolbar" href="javascript:if (confirm('<?php echo _REALLY_DELETE_OBJECTS?>')){ submitbutton('delete');}">
+			<img name="remove" src="images/delete.png" alt="<?php echo _CMN_DELETE?>" border="0" align="middle" />
+			&nbsp;<?php echo _CMN_DELETE?>
 			</a>
 			</div>
 			</td>
@@ -200,20 +200,20 @@ class HTML_trash {
 		<form action="index2.php" method="post" name="adminForm">
 		<table class="adminheading">
 		<tr>
-			<th>Восстановление объектов</th>
+			<th><?php echo _OBJECT_RESTORE?></th>
 		</tr>
 		</table>
 		<table class="adminform">
 		<tr>
 			<td width="3%"></td>
 			<td align="left" valign="top" width="20%">
-			<strong>Количество объектов:</strong>
+			<strong><?php echo _OBJECT_COUNT?>:</strong>
 			<br />
 			<font color="#000066"><strong><?php echo count($cid); ?></strong></font>
 			<br /><br />
 			</td>
 			<td align="left" valign="top" width="25%">
-			<strong>Восстанавливаемые объекты:</strong>
+			<strong><?php echo _OBECTS_TO_RESTORE?>:</strong>
 			<br />
 <?php
 		echo "<ol>";
@@ -224,12 +224,12 @@ class HTML_trash {
 ?>
 			</td>
 			 <td valign="top">
-			* Это действие <strong><font color="#FF0000">восстановит</font></strong> эти объекты,<br />затем они будут возвращены на прежние места, как неопубликованные объекты*
+			<?php echo _THIS_ACTION_WILL_RESTORE_O_FOREVER?>
 			<br /><br /><br />
 			<div style="border: 1px dotted gray; width: 120px; height:25px; padding: 10px; margin-left: 50px;">
-			<a class="toolbar" href="javascript:if (confirm('Вы действительно хотите восстановить перечисленные объекты?.')){ submitbutton('restore');}">
-			<img name="restore" src="images/restore.png" alt="Восстановить" border="0" align="left" />
-			&nbsp;Восстановить
+			<a class="toolbar" href="javascript:if (confirm('<?php echo _REALLY_RESTORE_OBJECTS?>')){ submitbutton('restore');}">
+			<img name="restore" src="images/restore.png" alt="<?php echo _RESTORE?>" border="0" align="left" />
+			&nbsp;<?php echo _RESTORE?>
 			</a>
 			</div>
 			</td>

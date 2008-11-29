@@ -260,7 +260,7 @@ DEFINE('_E_SUBJECT','Тема:');
 DEFINE('_E_EXPIRES','Дата истечения:');
 DEFINE('_E_VERSION','Версия');
 DEFINE('_E_ABOUT','Об объекте');
-DEFINE('_E_CREATED','Дата создания:');
+DEFINE('_E_CREATED','Дата создания');
 DEFINE('_E_LAST_MOD','Последнее изменение:');
 DEFINE('_E_HITS','Количество просмотров:');
 DEFINE('_E_SAVE','Сохранить');
@@ -505,7 +505,7 @@ DEFINE('_LOGOUT_DESCRIPTION','Вы действительно хотите покинуть профиль?');
 DEFINE('_WEBLINKS_TITLE','Ссылки');
 DEFINE('_WEBLINKS_DESC','В данном разделе собраны наиболее интересные и полезные ссылки в сети. <br />Выберите из списка один из разделов, а затем выберите нужную ссылку.');
 DEFINE('_HEADER_TITLE_WEBLINKS','Ссылка');
-DEFINE('_SECTION','Раздел:');
+DEFINE('_SECTION','Раздел');
 DEFINE('_SUBMIT_LINK','Добавить ссылку');
 DEFINE('_URL','URL:');
 DEFINE('_URL_DESC','Описание:');
@@ -1375,6 +1375,69 @@ DEFINE('_O_SECCESS_PUBLISHED','Объектов успешно опубликовано');
 DEFINE('_O_SUCCESS_UNPUBLISHED','Объектов успешно скрыто');
 DEFINE('_HIT_COUNT_RESETTED','Счетчик просмотров успешно обнулен');
 DEFINE('_SUCCESS_MENU_CR_1','(Ссылка - Статичное содержимое) в меню');
+
+/* administrator components com_trash */
+
+DEFINE('_TRASH','Корзина');
+DEFINE('_OBJECT_DELETION','Удаление объектов');
+DEFINE('_OBJECTS_TO_DELETE','Удаляемые объекты');
+DEFINE('_THIS_ACTION_WILL_DELETE_O_FOREVER','* Это действие <strong><font color="#FF0000">насовсем удалит</font></strong> <br />перечисленные объекты из базы данных*');
+DEFINE('_REALLY_DELETE_OBJECTS','Вы действительно хотите удалить перечисленные объекты? \nЭто действие насовсем удалит перечисленные объекты из базы данных.');
+DEFINE('_OBJECT_RESTORE','Восстановление объектов');
+DEFINE('_OBECTS_TO_RESTORE','Восстанавливаемые объекты');
+DEFINE('_THIS_ACTION_WILL_RESTORE_O_FOREVER','* Это действие <strong><font color="#FF0000">восстановит</font></strong> эти объекты,<br />затем они будут возвращены на прежние места, как неопубликованные объекты*');
+DEFINE('_REALLY_RESTORE_OBJECTS','Вы действительно хотите восстановить перечисленные объекты?');
+DEFINE('_RESTORE','Восстановить');
+DEFINE('_CONTENT_ITEMS','Объекты содержимого');
+DEFINE('_MENU_ITEMS','Пункты меню');
+DEFINE('_OBJECTS_DELETED','Объект(ы) успешно удален(ы)');
+DEFINE('_SUCCESS_DELETION','Успешно удалено');
+DEFINE('_OBJECTS_RESTORED','Объект(ов) успешно восстановлен(о)');
+DEFINE('_CLEAR_TRASH','Очистить корзину');
+
+/* administrator components com_templates */
+
+DEFINE('_UNSUCCESS_OPERATION_NO_TEMPLATE','Операция неудачна: Не определен шаблон.');
+DEFINE('_UNSUCCESS_OPERATION_EMPTY_FILE','Операция неудачна: Пустое содержимое.');
+DEFINE('_UNSUCCES_OPERAION','Операция неудачна');
+DEFINE('_CANNOT_OPEN_FILE_DOR_WRITE','Ошибка открытия файла для записи.');
+DEFINE('_NO_PREVIEW','Предпросмотр недоступен');
+DEFINE('_TEMPLATES','Шаблоны');
+DEFINE('_TEMPLATE_PREVIEW','Предпросмотр шаблона');
+DEFINE('_DEFAULT','По умолчанию');
+DEFINE('_ASSIGNED_TO','Назначен');
+DEFINE('_MAKE_UNWRITEABLE_AFTER_SAVING','Сделать недоступным для записи после сохранения');
+DEFINE('_IGNORE_WRITE_PROTECTION_WHEN_SAVE','При сохранении игнорировать защиту от записи');
+DEFINE('_CHANGE_EDITOR','Изменить редактор');
+DEFINE('_CSS_TEMPLATE_EDITOR','Редактор CSS шаблона');
+DEFINE('_ASSGIN_TEMPLATE_TO_MENU','назначение шаблона для пунктов меню');
+DEFINE('_MODULES_POSITION','Позиции модулей');
+DEFINE('_INOGLOBAL_CONFIG_ONE_TEMPLATE_USING','В глобальной конфигурации выбрано использование одного шаблона:');
+DEFINE('_CANNOT_DELETE_THIS_TEMPLATE_WHEN_USING','Этот шаблон используется и не может быть удален');
+DEFINE('_UNSUCCES_OPERATION_CANNOT_OPEN','Операция неудачна: невозможно открыть');
+DEFINE('_POSITIONS_SAVED','Позиции сохранены');
+
+
+DEFINE('_BUTTON','Кнопка');
+DEFINE('_PLEASE_CHOOSE_ELEMENT','Пожалуйста, выберите элемент.');
+DEFINE('_PLEASE_CHOOSE_ELEMENT_FOR_PUBLICATION','Пожалуйста, выберите из списка объекты для их публикации на сайте');
+DEFINE('_PLEASE_CHOOSE_ELEMENT_TO_MAKE_DEFAULT','Пожалуйста, выберите объект, чтобы назначить его по умолчанию');
+DEFINE('_ASSIGN','Назначить');
+DEFINE('_PLEASE_CHOOSE_ELEMENT_TO_UNPUBLISH','Для отмены публикации объекта, сначала выберите его');
+DEFINE('_TO_ARCHIVE','В&nbsp;архив');
+DEFINE('_FROM_ARCHIVE','Из&nbsp;архива');
+DEFINE('_PLEASE_CHOOSE_ELEMENT_TO_ARCHIVE','Пожалуйста, выберите из списка объекты для их архивации');
+DEFINE('_PLEASE_CHOOSE_ELEMENT_TO_UNARCHIVE','Выберите объект для восстановления его из архива');
+DEFINE('_CHANGE','Изменить');
+DEFINE('_PLEASE_CHOOSE_ELEMENT_TO_EDIT','Выберите объект из списка для его редактирования');
+DEFINE('_EDIT_HTML','Ред.&nbsp;HTML');
+DEFINE('_EDIT_CSS','Ред.&nbsp;CSS');
+DEFINE('_PLEASE_CHOOSE_ELEMENT_TO_DELETE','Выберите объект из списка для его удаления');
+DEFINE('_REALLY_WANT_TO_DELETE_OBJECTS','Вы действительно хотите удалить выбранные объекты?');
+DEFINE('_REMOVE_TO_TRASH','В&nbsp;корзину');
+DEFINE('_PLEASE_CHOOSE_ELEMENT_TO_TRASH','Выберите объект из списка для перемещения его в корзину');
+DEFINE('_PLEASE_CHOOSE_ELEMENT_TO_ASSIGN','Пожалуйста, для назначения объекта выберите его');
+DEFINE('_HELP','Помощь');
 
 
 ?>
