@@ -61,7 +61,7 @@ function deleteLink(&$cid) {
 		}
 	}
 
-	mosRedirect('index2.php?option=com_linkeditor&amp;task=all','Пункт меню удалён');
+	mosRedirect('index2.php?option=com_linkeditor&amp;task=all',_MENU_ITEM_DELETED);
 
 }
 function saveOrder(&$cid) {
@@ -100,7 +100,7 @@ function saveOrder(&$cid) {
 		$row->updateOrder($cond[1]);
 	} // foreach
 
-	$msg = 'Порядок сохранён';
+	$msg = _NEW_ORDER_SAVED;
 	mosRedirect('index2.php?option=com_linkeditor',$msg);
 } // saveOrder
 
@@ -115,13 +115,13 @@ function editLink($id = 0) {
 	$folders = array();
 	$folders[] = mosHTML::makeOption('/');
 
-	$images['/'][] = mosHTML::makeOption('spacer.png','Отсутствует');
+	$images['/'][] = mosHTML::makeOption('spacer.png',' --- ');
 	ReadImages($pathA,'/',$folders,$images);
 
 	$lists['image'] = GetImages($images,$pathL,$row);
 
 	$options = array();
-	$options[] = mosHTML::makeOption('0','Первый уровень');
+	$options[] = mosHTML::makeOption('0',_FIRST_LEVEL);
 	$lists['parent'] = categoryParentList($row->id,"",$options);
 
 	HTML_linkeditor::edit($row,$lists);

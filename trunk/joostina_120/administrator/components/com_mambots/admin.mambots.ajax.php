@@ -102,15 +102,15 @@ function x_access($id){
 	if(!$row->access) {
 		$color_access = 'style="color: green;"';
 		$task_access = 'accessregistered';
-		$text_href = 'Общий';
+		$text_href = _USER_GROUP_ALL;
 	} elseif($row->access == 1) {
 		$color_access = 'style="color: red;"';
 		$task_access = 'accessspecial';
-		$text_href = 'Участники';
+		$text_href = _USER_GROUP_REGISTERED;
 	} else {
 		$color_access = 'style="color: black;"';
 		$task_access = 'accesspublic';
-		$text_href = 'Специальный';
+		$text_href = _USER_GROUP_SPECIAL;
 	}
 	return '<a href="#" onclick="ch_access('.$row->id.',\''.$task_access.'\',\''.$option.'\')" '.$color_access.'>'.$text_href.'</a>';
 }
