@@ -1417,7 +1417,7 @@ DEFINE('_CANNOT_DELETE_THIS_TEMPLATE_WHEN_USING','Этот шаблон используется и не 
 DEFINE('_UNSUCCES_OPERATION_CANNOT_OPEN','Операция неудачна: невозможно открыть');
 DEFINE('_POSITIONS_SAVED','Позиции сохранены');
 
-
+/* menubar.html.old.php + menubar.html.php */
 DEFINE('_BUTTON','Кнопка');
 DEFINE('_PLEASE_CHOOSE_ELEMENT','Пожалуйста, выберите элемент.');
 DEFINE('_PLEASE_CHOOSE_ELEMENT_FOR_PUBLICATION','Пожалуйста, выберите из списка объекты для их публикации на сайте');
@@ -1439,5 +1439,57 @@ DEFINE('_PLEASE_CHOOSE_ELEMENT_TO_TRASH','Выберите объект из списка для перемеще
 DEFINE('_PLEASE_CHOOSE_ELEMENT_TO_ASSIGN','Пожалуйста, для назначения объекта выберите его');
 DEFINE('_HELP','Помощь');
 
+/* administrator components com_languages */
 
+DEFINE('_LANGUAGE_PACKS','Языковые пакеты');
+DEFINE('_E_LANGUAGE','Язык');
+DEFINE('_LANGUAGE_EDITOR','Редактор языка');
+DEFINE('_LANGUAGE_SAVED','Язык успешно изменен');
+DEFINE('_YOU_CANNOT_DELETE_LANG_FILE','Вы не можете удалить использующийся языковой файл');
+DEFINE('_UNSUCCESS_OPERATION_NO_LANGUAGE','Операция неудачна: Не определен язык.');
+
+/* administrator components com_linkeditor */
+
+DEFINE('_COMPONENTS_MENU_EDITOR','Редактирование меню компонентов');
+DEFINE('_ICON','Значок');
+DEFINE('_KERNEL','Ядро');
+DEFINE('_COMPONENTS_MENU_EDIT','Редактирование пункта меню компонентов');
+DEFINE('_COMPONENTS_MENU_NEW','Создание нового пункта меню компонентов');
+DEFINE('_COMPONENT_IS_A_PART_OF_CMS','<b>Внимание:</b> этот компонент является частью ядра, при некорректном управлении им возможны проблемы в работе системы.');
+DEFINE('_MENU_NAME_REQUIRED','Название пункта меню. Обязательно для заполнения.');
+DEFINE('_MENU_ITEM_ICON','Значок пункта меню');
+DEFINE('_MENU_ITEM_DESCRIPTION','Описание пункта меню.');
+DEFINE('_MENU_ITEM_LINK','Ссылка на компонент. Если пункт меню не содержит подменю то поле обязательно для заполнения.');
+DEFINE('_PARENT_MENU_ITEM','Родительский пункт');
+DEFINE('_PARENT_MENU_ITEM2','Родительский пункт меню. Допускается всего 1 уровень вложенности.');
+DEFINE('_THIS_FILEDS_REQUIRED','<font color="red">*</font> пункты обязательны для заполнения');
+DEFINE('_MENU_ITEM_DELETED','Пункт меню удалён');
+DEFINE('_FIRST_LEVEL','Первый уровень');
+
+/* administrator components com_mambots */
+
+DEFINE('_MAMBOTS','Мамботы');
+DEFINE('_MAMBOT_NAME','Название мамбота');
+DEFINE('_NO_MAMBOT_NAME','Мамбот должен иметь название');
+DEFINE('_NO_MAMBOT_FILENAME','Мамбот должен иметь имя файла');
+DEFINE('_SITE_MAMBOT','Мамбот сайта');
+DEFINE('_MAMBOT_DETAILS','Детали мамбота');
+DEFINE('_USE_THIS_MAMBOT_FILE','Используемый файл');
+DEFINE('_MAMBOT_ORDER','Номер по порядку');
+DEFINE('_NO_MAMBOT_PARAMS','<i>Параметры отсутствуют</i>');
+DEFINE('_NEW_MAMBOTS_IN_THE_END','Новые объекты по умолчанию располагаются в конце. Порядок расположения может быть изменен только после сохранения этого объекта.');
+DEFINE('_CHOOSE_MAMBOT_FOR','Выберите мамбот для');
+/*
+DEFINE('_','');
+DEFINE('_','');
+DEFINE('_','');
+DEFINE('_','');
+DEFINE('_','');
+DEFINE('_','');
+DEFINE('_','');
+DEFINE('_','');
+DEFINE('_','');
+DEFINE('_','');
+DEFINE('_','');
+*/
 ?>

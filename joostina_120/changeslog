@@ -1,5 +1,8 @@
 Joostina v 1.2.0
 
+30.11.08
+	1. Подготовил к переводу administrator/components/com_languages + com_linkeditor + com_mambots
+
 29.11.08
 	1. Подготовил к переводу administrator/components/com_trash + com_templates и файлы administrator/includes/menubar.html.old.php + menubar.html.php
 

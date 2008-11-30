@@ -23,7 +23,7 @@ class HTML_languages {
 		<table class="adminheading">
 		<tr>
 			<th class="langmanager">
-			Языковые пакеты <small><small>[ Сайт ]</small></small>
+			<?php echo _LANGUAGE_PACKS?> <small><small>[ <?php echo _SITE?> ]</small></small>
 			</th>
 		</tr>
 		</table>
@@ -37,22 +37,22 @@ class HTML_languages {
 			&nbsp;
 			</th>
 			<th width="25%" class="title">
-			Язык
+			<?php echo _E_LANGUAGE?>
 			</th>
 			<th width="5%">
-			Используется
+			<?php echo _USED_ON?>
 			</th>
 			<th width="10%">
-			Версия
+			<?php echo _E_VERSION?>
 			</th>
 			<th width="10%">
-			Дата
+			<?php echo _DATE?>
 			</th>
 			<th width="20%">
-			Автор
+			<?php echo _AUTHOR_BY?>
 			</th>
 			<th width="25%">
-			E-mail автора
+			E-mail
 			</th>
 		</tr>
 <?php
@@ -70,7 +70,7 @@ class HTML_languages {
 				<td width="5%" align="center">
 				<?php
 			if($row->published == 1) { ?>
-					<img src="images/tick.png" alt="Опубликовано"/>
+					<img src="images/tick.png" alt="<?php echo _CMN_PUBLISHED?>"/>
 					<?php
 			} else {
 ?>
@@ -117,12 +117,12 @@ class HTML_languages {
 			<td width="270">
 				<table class="adminheading">
 					<tr>
-						<th class="langmanager">Редактор языка</th>
+						<th class="langmanager"><?php echo _LANGUAGE_EDITOR?></th>
 					</tr>
 				</table>
 			</td>
 			<td width="240">
-				<span class="componentheading"><?php echo $language; ?>.php :<b><?php echo is_writable($language_path)?'<font color="green"> Доступен для записи</font>':'<font color="red"> Недоступен для записи</font>' ?></b>
+				<span class="componentheading"><?php echo $language; ?>.php :<b><?php echo is_writable($language_path)?'<font color="green"> '._WRITEABLE.'</font>':'<font color="red"> '._UNWRITEABLE.'</font>' ?></b>
 				</span>
 			</td>
 <?php
@@ -131,14 +131,14 @@ class HTML_languages {
 ?>
 			<td>
 				<input type="checkbox" id="disable_write" name="disable_write" value="1"/>
-				<label for="disable_write">Сделать недоступным для записи после сохранения</label>
+				<label for="disable_write"><?php echo _MAKE_UNWRITEABLE_AFTER_SAVING?></label>
 			</td>
 <?php
 			} else {
 ?>
 			<td>
 				<input type="checkbox" id="enable_write" name="enable_write" value="1"/>
-				<label for="enable_write">При сохранении игнорировать защиту от записи</label>
+				<label for="enable_write"><?php echo _IGNORE_WRITE_PROTECTION_WHEN_SAVE?></label>
 			</td>
 <?php
 			} // if

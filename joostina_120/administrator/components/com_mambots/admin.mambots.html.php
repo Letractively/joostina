@@ -27,8 +27,8 @@ class HTML_modules {
 	<form action="index2.php" method="post" name="adminForm">
 	<table class="adminheading">
 		<tr>
-			<th class="mambots">Мамботы</th>
-			<td>Фильтр:</td>
+			<th class="mambots"><?php echo _MAMBOTS?></th>
+			<td><?php echo _FILTER?>:</td>
 			<td>
 				<input type="text" name="search" value="<?php echo htmlspecialchars($search); ?>" class="text_area" onChange="document.adminForm.submit();" />
 			</td>
@@ -41,16 +41,16 @@ class HTML_modules {
 			<th width="2%">
 				<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count($rows); ?>);" />
 			</th>
-			<th class="title">Название мамбота</th>
-			<th class="jtd_nowrap" width="10%">Опубликовано</th>
-			<th colspan="2" class="jtd_nowrap" width="5%">Сортировка</th>
+			<th class="title"><?php echo _MAMBOT_NAME?></th>
+			<th class="jtd_nowrap" width="10%"><?php echo _CMN_PUBLISHED?></th>
+			<th colspan="2" class="jtd_nowrap" width="5%"><?php echo _CMN_ORDERING?></th>
 			<th width="2%">Порядок</th>
 			<th width="1%">
-				<a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="Сохранить порядок" /></a>
+				<a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="<?php echo _SAVE_ORDER?>" /></a>
 			</th>
-			<th class="jtd_nowrap" width="10%">Доступ</th>
-			<th class="jtd_nowrap" align="left" width="10%">Тип</th>
-			<th class="jtd_nowrap" align="left" width="10%">Файл</th>
+			<th class="jtd_nowrap" width="10%"><?php echo _ACCESS?></th>
+			<th class="jtd_nowrap" align="left" width="10%"><?php echo _TYPE?></th>
+			<th class="jtd_nowrap" align="left" width="10%"><?php echo _FILE?></th>
 		</tr>
 		<?php
 		$k = 0;
@@ -77,7 +77,7 @@ class HTML_modules {
 ?>
 				</td>
 				<td align="center" <?php echo ($row->checked_out && ($row->checked_out != $my->id)) ? null : 'onclick="ch_publ('.$row->id.',\'com_mambots\');" class="td-state"';?>>
-					<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="Публикация" />
+					<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?php echo _E_PUBLISHING?>" />
 				</td>
 				<td><?php echo $pageNav->orderUpIcon($i,($row->folder == @$rows[$i - 1]->folder && $row->ordering > -10000 && $row->ordering < 10000)); ?></td>
 				<td><?php echo $pageNav->orderDownIcon($i,$n,($row->folder == @$rows[$i + 1]->folder && $row->ordering > -10000 && $row->ordering < 10000)); ?></td>
@@ -148,9 +148,9 @@ class HTML_modules {
 			// validation
 			var form = document.adminForm;
 			if (form.name.value == "") {
-				alert( "Мамбот должен иметь название" );
+				alert( "<?php echo _NO_MAMBOT_NAME?>" );
 			} else if (form.element.value == "") {
-				alert( "Мамбот должен иметь имя файла" );
+				alert( "<?php echo _NO_MAMBOT_FILENAME?>" );
 			} else {
 				submitform(pressbutton);
 			}
@@ -158,7 +158,7 @@ class HTML_modules {
 	</script>
 	<table class="adminheading">
 		<tr>
-			<th class="mambots">Мамбот сайта:<small><?php echo $row->id?'Редактирование':'Создание'; ?></small><?php echo $row->nameA; ?></th>
+			<th class="mambots"><?php echo _SITE_MAMBOT?>:<small><?php echo $row->id?_O_EDITING:_O_CREATION; ?></small><?php echo $row->nameA; ?></th>
 		</tr>
 		</table>
 		<form action="index2.php" method="post" name="adminForm" id="adminForm">
@@ -167,34 +167,34 @@ class HTML_modules {
 			<td width="60%" valign="top">
 				<table class="adminform">
 				<tr>
-					<th colspan="2">Детали мамбота</th>
+					<th colspan="2"><?php echo _MAMBOT_DETAILS?></th>
 				<tr>
 				<tr>
-					<td width="100" class="key">Название:</td>
+					<td width="100" class="key"><?php echo _HEADER_TITLE?>:</td>
 					<td><input class="text_area" type="text" name="name" size="35" value="<?php echo $row->name; ?>" /></td>
 				</tr>
 				<tr>
-					<td valign="top" class="key">Тип:</td>
+					<td valign="top" class="key"><?php echo _TYPE?>:</td>
 					<td><?php echo $lists['folder']; ?></td>
 				</tr>
 				<tr>
-					<td valign="top" class="key">Используемый файл:</td>
+					<td valign="top" class="key"><?php echo _USE_THIS_MAMBOT_FILE?>:</td>
 					<td><input class="text_area" type="text" name="element" size="35" value="<?php echo $row->element; ?>" />.php</td>
 				</tr>
 				<tr>
-					<td valign="top" class="key">Порядок работы:</td>
+					<td valign="top" class="key"><?php echo _MAMBOT_ORDER?>:</td>
 					<td><?php echo $lists['ordering']; ?></td>
 				</tr>
 				<tr>
-					<td valign="top" class="key">Уровень доступа:</td>
+					<td valign="top" class="key"><?php echo _CMN_ACCESS?>:</td>
 					<td><?php echo $lists['access']; ?></td>
 				</tr>
 				<tr>
-					<td valign="top" class="key">Включен:</td>
+					<td valign="top" class="key"><?php echo _CMN_PUBLISHED?>:</td>
 					<td><?php echo $lists['published']; ?></td>
 				</tr>
 				<tr>
-					<td valign="top" class="key">Описание:</td>
+					<td valign="top" class="key"><?php echo _CMN_DESCRIPTION?>:</td>
 					<td><?php echo $row->description; ?></td>
 				</tr>
 				</table>
@@ -202,7 +202,7 @@ class HTML_modules {
 			<td width="40%">
 				<table class="adminform">
 				<tr>
-					<th colspan="2">Параметры</th>
+					<th colspan="2"><?php echo _PARAMETERS?></th>
 				<tr>
 				<tr>
 					<td>
@@ -210,7 +210,7 @@ class HTML_modules {
 		if($row->id) {
 			echo $params->render();
 		} else {
-			echo '<i>Параметры отсутствуют</i>';
+			echo _NO_MAMBOT_PARAMS;
 		}
 ?>
 					</td>

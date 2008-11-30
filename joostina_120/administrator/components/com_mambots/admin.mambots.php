@@ -172,12 +172,12 @@ function saveMambot($option,$client,$task) {
 
 	switch($task) {
 		case 'apply':
-			$msg = 'Все изменения мамбота --'.$row->name.'-- успешно сохранены';
+			$msg = $row->name.'-- '._E_ITEM_SAVED;
 			mosRedirect('index2.php?option='.$option.'&client='.$client.'&task=editA&hidemainmenu=1&id='.$row->id,$msg);
 
 		case 'save':
 		default:
-			$msg = 'Мамбот --'.$row->name.'-- успешно сохранен';
+			$msg = $row->name.'-- '._E_ITEM_SAVED;
 			mosRedirect('index2.php?option='.$option.'&client='.$client,$msg);
 			break;
 	}
@@ -200,8 +200,7 @@ function editMambot($option,$uid,$client) {
 
 	// fail if checked out not by 'me'
 	if($row->isCheckedOut($my->id)) {
-		mosErrorAlert("The module ".$row->title.
-			" is currently being edited by another administrator");
+		mosErrorAlert("The module ".$row->title." is currently being edited by another administrator");
 	}
 
 	if($client == 'admin') {
@@ -265,8 +264,7 @@ function editMambot($option,$uid,$client) {
 		}
 		$lists['folder'] = mosHTML::selectList($folders2,'folder',
 			'class="inputbox" size="1"','value','text',null);
-		$lists['ordering'] = '<input type="hidden" name="ordering" value="'.$row->ordering.
-			'" />Новые объекты по умолчанию располагаются в конце. Порядок расположения может быть изменен только после сохранения этого объекта.';
+		$lists['ordering'] = '<input type="hidden" name="ordering" value="'.$row->ordering.'" />'._NEW_MAMBOTS_IN_THE_END;
 	}
 
 	$lists['published'] = mosHTML::yesnoRadioList('published','class="inputbox"',$row->published);
@@ -309,7 +307,7 @@ function publishMambot($cid = null,$publish = 1,$option,$client) {
 	josSpoofCheck();
 	if(count($cid) < 1) {
 		$action = $publish?'publish':'unpublish';
-		echo "<script> alert('Выберите мамбот для $action'); window.history.go(-1);</script>\n";
+		echo "<script> alert('"._CHOOSE_MAMBOT_FOR." $action'); window.history.go(-1);</script>\n";
 		exit;
 	}
 
@@ -440,7 +438,7 @@ function saveOrder(&$cid) {
 		$row->updateOrder($cond[1]);
 	} // foreach
 
-	$msg = 'Новый порядок сохранен';
+	$msg = _NEW_ORDER_SAVED;
 	mosRedirect('index2.php?option=com_mambots',$msg);
 } // saveOrder
 

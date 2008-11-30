@@ -166,7 +166,7 @@ function publishLanguage($p_lname,$option) {
 	if($fp = fopen('../configuration.php','w')) {
 		fputs($fp,$config,strlen($config));
 		fclose($fp);
-		mosRedirect('index2.php?option=com_languages',"Язык успешно изменен! $p_lname");
+		mosRedirect('index2.php?option=com_languages',_LANGUAGE_SAVED." $p_lname");
 	} else {
 		mosRedirect('index2.php?option=com_languages','Ошибка!');
 	}
@@ -184,7 +184,7 @@ function removeLanguage($cid,$option,$client = 'admin') {
 	$cur_language = $mosConfig_lang;
 
 	if($cur_language == $cid) {
-		mosErrorAlert("Вы не можете удалить использующийся языковой файл..");
+		mosErrorAlert(_YOU_CANNOT_DELETE_LANG_FILE);
 	}
 
 	mosRedirect( 'index2.php?option=com_installer&element=language&client='. $client .'&task=remove&cid[]='. $cid . '&' . josSpoofValue() . '=1' );
@@ -200,7 +200,7 @@ function editLanguageSource($p_lname,$option) {
 
 		HTML_languages::editLanguageSource($p_lname,$content,$option);
 	} else {
-		mosRedirect("index2.php?option=$option&mosmsg=Операция неудачна: Невозможно открыть файл $file");
+		mosRedirect("index2.php?option=$option&mosmsg="._UNSUCCES_OPERATION_CANNOT_OPEN." $file");
 	}
 }
 
@@ -210,10 +210,10 @@ function saveLanguageSource($option) {
 	$filecontent = mosGetParam($_POST,'filecontent','',_MOS_ALLOWHTML);
 
 	if(!$language) {
-		mosRedirect("index2.php?option=$option&mosmsg=Операция неудачна: Не определен язык.");
+		mosRedirect("index2.php?option=$option&mosmsg="._UNSUCCESS_OPERATION_NO_LANGUAGE);
 	}
 	if(!$filecontent) {
-		mosRedirect("index2.php?option=$option&mosmsg=Операция неудачна: Пустое содержимое.");
+		mosRedirect("index2.php?option=$option&mosmsg="._UNSUCCESS_OPERATION_NO_TEMPLATE);
 	}
 
 	$file = "../language/$language.php";
@@ -223,7 +223,7 @@ function saveLanguageSource($option) {
 
 	clearstatcache();
 	if(is_writable($file) == false) {
-		mosRedirect("index2.php?option=$option&mosmsg=Операция неудачна: Файл недоступен для записи.");
+		mosRedirect("index2.php?option=$option&mosmsg="._UNSUCCES_OPERATION_CANNOT_OPEN);
 	}
 
 	if($fp = fopen($file,"w")) {
@@ -237,7 +237,7 @@ function saveLanguageSource($option) {
 		mosRedirect("index2.php?option=$option");
 	} else {
 		if($enable_write) @chmod($file,$oldperms);
-		mosRedirect("index2.php?option=$option&mosmsg=Операция неудачна: Ошибка открытия файла для записи.");
+		mosRedirect("index2.php?option=$option&mosmsg="._UNSUCCES_OPERATION_CANNOT_OPEN);
 	}
 }
 ?>

@@ -25,12 +25,12 @@ class TOOLBAR_modules {
 		mosMenuBar::save();
 		mosMenuBar::spacer();
 		// кнопка "Применить" с Ajax
-		mosMenuBar::ext('Применить','#','-apply','id="tb-apply" onclick="ch_apply();return;"');
+		mosMenuBar::ext(_CMN_APPLY,'#','-apply','id="tb-apply" onclick="ch_apply();return;"');
 
 		mosMenuBar::spacer();
 		if($id) {
 			// for existing content items the button is renamed `close`
-			mosMenuBar::cancel('cancel','Закрыть');
+			mosMenuBar::cancel('cancel',_CLOSE);
 		} else {
 			mosMenuBar::cancel();
 		}
