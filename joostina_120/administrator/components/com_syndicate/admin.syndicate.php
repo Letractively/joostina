@@ -92,7 +92,7 @@ function saveSyndicate($option) {
 		exit();
 	}
 
-	$msg = 'Настройки успешно сохранены';
+	$msg = _E_ITEM_SAVED;
 	mosRedirect('index2.php?option='.$option,$msg);
 }
 

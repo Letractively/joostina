@@ -17,7 +17,7 @@ defined('_VALID_MOS') or die();
 class TOOLBAR_messages {
 	function _VIEW() {
 		mosMenuBar::startTable();
-		mosMenuBar::customX('reply','-move','','Ответить',false);
+		mosMenuBar::customX('reply','-move','',_MAIL_ANSWER,false);
 		mosMenuBar::spacer();
 		mosMenuBar::deleteList();
 		mosMenuBar::spacer();
@@ -27,7 +27,7 @@ class TOOLBAR_messages {
 
 	function _EDIT() {
 		mosMenuBar::startTable();
-		mosMenuBar::save('save','Отправить');
+		mosMenuBar::save('save',_SEND_BUTTON);
 		mosMenuBar::spacer();
 		mosMenuBar::cancel();
 		mosMenuBar::spacer();

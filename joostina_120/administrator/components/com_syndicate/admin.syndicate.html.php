@@ -25,7 +25,7 @@ class HTML_syndicate {
 		<table class="adminheading">
 		<tr>
 			<th class="rss">
-			Настройки экспорта новостей
+			<?php echo _NEWS_EXPORT_SETUP?>
 			</th>
 		</tr>
 		</table>
@@ -33,7 +33,7 @@ class HTML_syndicate {
 		<table class="adminform">
 		<tr>
 			<th>
-			Параметры
+			<?php echo _PARAMETERS?>
 			</th>
 		</tr>
 		<tr>
@@ -55,16 +55,16 @@ class HTML_syndicate {
 		if($my->gid == 25) {
 			$visible = 1;
 		}
-		mosHTML::writableCell($mosConfig_cachepath,0,'<strong>Каталог кэша</strong> ',$visible);
+		mosHTML::writableCell($mosConfig_cachepath,0,'<strong>'._CACHE_DIRECTORY.'</strong> ',$visible);
 ?>
 				</table>
 			</td>
 		</tr>
 		</table>
 		<input type="hidden" name="id" value="<?php echo $id; ?>" />
-		<input type="hidden" name="name" value="RSS экспорт" />
+		<input type="hidden" name="name" value="<?php echo _RSS_EXPORT?>" />
 		<input type="hidden" name="admin_menu_link" value="option=com_syndicate&amp;hidemainmenu=1" />
-		<input type="hidden" name="admin_menu_alt" value="Управление настройками экспорта новостей" />
+		<input type="hidden" name="admin_menu_alt" value="<?php echo _RSS_EXPORT_SETUP?>" />
 		<input type="hidden" name="option" value="com_syndicate" />
 		<input type="hidden" name="admin_menu_img" value="js/ThemeOffice/component.png" />
 		<input type="hidden" name="option" value="<?php echo $option; ?>" />
