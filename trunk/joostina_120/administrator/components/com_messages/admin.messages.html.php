@@ -22,10 +22,10 @@ class HTML_messages {
   <table class="adminheading">
         <tr>
           <th class="inbox">
-Личные сообщения
+<?php echo _PRIVATE_MESSAGES?>
 </th>
           <td>
-Поиск:
+<?php echo _SEARCH_TITLE?>:
 </td>
 			<td> 
 				<input type="text" name="search" value="<?php echo htmlspecialchars($search); ?>" class="inputbox" onChange="document.adminForm.submit();" />
@@ -43,13 +43,13 @@ class HTML_messages {
 count($rows); ?>);" />
 			</th>
           <th width="50%" class="title">
-Тема
+<?php echo _MAIL_SUBJECT?>
 </th>
           <th width="20%" class="title">
-От
+<?php echo _MAIL_FROM?>
 </th>
           <th width="15%" class="title">
-Дата
+<?php echo _DATE?>
 </th>
           <th width="10%" class="title">
 Статус
@@ -80,9 +80,9 @@ count($rows); ?>);" />
 				<td width="10%">
 					<?php
 			if(intval($row->state) == "1") {
-				echo 'Прочитано';
+				echo _MAIL_READED;
 			} else {
-				echo 'Не прочитано';
+				echo _MAIL_NOT_READED;
 			}
 ?>
           </td>
@@ -123,7 +123,7 @@ function submitbutton(pressbutton) {
 		<table class="adminheading">
 		<tr>
 			<th class="inbox">
-				Настройки личных сообщений
+				<?php echo _PRIVATE_MESSAGES_SETTINGS?>
 			</th>
 		</tr>
 		</table>
@@ -131,7 +131,7 @@ function submitbutton(pressbutton) {
         <table class="adminform">
           <tr>
 			<td width="25%">
-Заблокировать входящую почту:
+<?php echo _BLOCK_INCOMING_MAIL?>:
 </td>
                 <td> 
 <?php echo $vars['lock']; ?> 
@@ -139,7 +139,7 @@ function submitbutton(pressbutton) {
           </tr>
           <tr>
                 <td>
-Посылать мне новые сообщения:
+<?php echo _SEND_NEW_MESSAGES?>:
 </td>
                 <td> 
 <?php echo $vars['mail_on_new']; ?> 
@@ -147,10 +147,10 @@ function submitbutton(pressbutton) {
           </tr>
 		<tr>
 			<td>
-				Автоматическая очистка сообщений:
+				<?php echo _AUTO_PURGE_MESSAGES?>:
 			</td>
 			<td> 
-				старше <input type="text" name="vars[auto_purge]" size="5" value="<?php echo $vars['auto_purge']; ?>" class="inputbox" /> дней
+				<?php echo _AUTO_PURGE_MESSAGES2?> <input type="text" name="vars[auto_purge]" size="5" value="<?php echo $vars['auto_purge']; ?>" class="inputbox" /> <?php echo _AUTO_PURGE_MESSAGES3?>
 			</td>
 		</tr>
 		</table>
@@ -169,7 +169,7 @@ function submitbutton(pressbutton) {
         <table class="adminheading">
                 <tr>
                         <th class="inbox">
-Просмотр персональных сообщений
+<?php echo _VIEW_PRIVATE_MESSAGES?>
 </th>
                 </tr>
         </table>
@@ -177,7 +177,7 @@ function submitbutton(pressbutton) {
         <table class="adminform">
                 <tr>
                         <td width="100">
-От:
+<?php echo _MAIL_FROM?>:
 </td>
                         <td width="85%" bgcolor="#ffffff">
 <?php echo $row->user_from; ?>
@@ -185,7 +185,7 @@ function submitbutton(pressbutton) {
                 </tr>
                 <tr>
                         <td>
-Отправлено:
+<?php echo _MESSAGE_SEND_DATE?>:
 </td>
                         <td bgcolor="#ffffff">
 <?php echo $row->date_time; ?>
@@ -193,7 +193,7 @@ function submitbutton(pressbutton) {
                 </tr>
                 <tr>
                         <td>
-Тема:
+<?php echo _MAIL_SUBJECT?>:
 </td>
                         <td bgcolor="#ffffff">
 				<?php echo htmlspecialchars($row->subject,ENT_QUOTES); ?>
@@ -201,7 +201,7 @@ function submitbutton(pressbutton) {
                 </tr>
                 <tr>
                         <td valign="top">
-Сообщение:
+<?php echo _MESSAGE?>:
 </td>
                         <td width="100%" bgcolor="#ffffff">
 				<pre><?php echo htmlspecialchars($row->message,ENT_QUOTES); ?></pre>
@@ -236,11 +236,11 @@ function submitbutton(pressbutton) {
 
                 // do field validation
                 if (form.subject.value == "") {
-                        alert( "Вы должны ввести название темы." );
+                        alert( "<?php echo _PLEASE_ENTER_MAIL_SUBJECT?>" );
                 } else if (form.message.value == "") {
-                        alert( "Вы должны ввести текст сообщения." );
+                        alert( "<?php echo _PLEASE_ENTER_MESSAGE_BODY?>" );
                 } else if (getSelectedValue('adminForm','user_id_to') < 1) {
-                        alert( "Вы должны выбрать получателя." );
+                        alert( "<?php echo _PLEASE_ENTER_USER?>" );
                 } else {
                         submitform( pressbutton );
                 }
@@ -250,7 +250,7 @@ function submitbutton(pressbutton) {
         <table class="adminheading">
                 <tr>
                         <th class="inbox">
-Новое персональное сообщение
+<?php echo _NEW_PERSONAL_MESSAGE?>
 </th>
                 </tr>
         </table>
@@ -259,7 +259,7 @@ function submitbutton(pressbutton) {
         <table class="adminform">
                 <tr>
                         <td width="100">
-Кому:
+<?php echo _MAIL_TO?>:
 </td>
                         <td width="85%">
 <?php echo $recipientslist; ?>
@@ -267,7 +267,7 @@ function submitbutton(pressbutton) {
                 </tr>
                 <tr>
                         <td>
-Тема:
+<?php echo _MAIL_SUBJECT?>:
 </td>
                         <td>
 				<input type="text" name="subject" size="50" maxlength="100" class="inputbox" value="<?php echo

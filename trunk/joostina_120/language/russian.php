@@ -1589,31 +1589,31 @@ DEFINE('_CHANGE_THIS_CONTENT','Изменить это содержимое');
 DEFINE('_CHANGE_THIS_STATIC_CONTENT','Изменить это статичное содержимое');
 DEFINE('_MENU_NEXT','Далее');
 DEFINE('_MENU_BACK','Назад');
-/*
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-*/
+
+/* administrator components com_messages */
+
+DEFINE('_PRIVATE_MESSAGES','Личные сообщения');
+DEFINE('_MAIL_FROM','От');
+DEFINE('_MAIL_READED','Прочитано');
+DEFINE('_MAIL_NOT_READED','Не прочитано');
+DEFINE('_PRIVATE_MESSAGES_SETTINGS','Настройки личных сообщений');
+DEFINE('_BLOCK_INCOMING_MAIL','Заблокировать входящую почту');
+DEFINE('_SEND_NEW_MESSAGES','Посылать мне новые сообщения');
+DEFINE('_AUTO_PURGE_MESSAGES','Автоматическая очистка сообщений');
+DEFINE('_AUTO_PURGE_MESSAGES2','старше');
+DEFINE('_AUTO_PURGE_MESSAGES3','дней');
+DEFINE('_VIEW_PRIVATE_MESSAGES','Просмотр персональных сообщений');
+DEFINE('_MESSAGE_SEND_DATE','Отправлено');
+DEFINE('_PLEASE_ENTER_MAIL_SUBJECT','Вы должны ввести название темы');
+DEFINE('_PLEASE_ENTER_MESSAGE_BODY','Вы должны ввести текст сообщения');
+DEFINE('_PLEASE_ENTER_USER','Вы должны выбрать получателя');
+DEFINE('_NEW_PERSONAL_MESSAGE','Новое персональное сообщение');
+DEFINE('_MAIL_TO','Кому');
+DEFINE('_MAIL_ANSWER','Ответить');
+
+/* administrator components com_sybdicate */
+DEFINE('_NEWS_EXPORT_SETUP','Настройки экспорта новостей');
+DEFINE('_RSS_EXPORT','RSS экспорт');
+DEFINE('_RSS_EXPORT_SETUP','Управление настройками экспорта новостей');
+
 ?>

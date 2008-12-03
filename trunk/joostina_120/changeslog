@@ -1,5 +1,8 @@
 Joostina v 1.2.0
 
+03.12.08
+	1. Подготовил к переводу administrator/components/com_massmail + com_menumanager + com_menus + небольшой косяк с открывающим тэгом в одном из типов меню + com_messages + com_syndicate (Dead Krolik)
+	
 30.11.08
 	1. Подготовил к переводу administrator/components/com_languages + com_linkeditor + com_mambots
 
@@ -17,7 +20,6 @@ Joostina v 1.2.0
 06.11.08
 	1. Исправлена ошибка подтверждения регистрации. Реализация: PbICb.
 	2. Исправлена ошибка работы CAPTCHA при регистрации. Реализация: PbICb.
-
 
 05.11.08
 	1. Переработана процедура отправки новостей с фронта сайта. Реализация: PbICb.
