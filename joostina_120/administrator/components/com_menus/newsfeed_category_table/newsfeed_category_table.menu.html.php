@@ -37,7 +37,7 @@ class newsfeed_category_table_menu_html {
 		if(!$menu->id) {
 ?>
 				if ( getSelectedValue( 'adminForm', 'componentid' ) < 1 ) {
-					alert( 'Вы должны выбрать категорию' );
+					alert( '<?php echo _PLEASE_CHOOSE_CATEGORY?>' );
 					return;
 				}
 				cat = getSelectedText( 'adminForm', 'componentid' );
@@ -51,7 +51,7 @@ class newsfeed_category_table_menu_html {
 		} else {
 ?>
 				if ( form.name.value == '' ) {
-					alert( 'Этот пункт меню должен иметь название' );
+					alert( '<?php echo _OBJECT_MUST_HAVE_NAME?>' );
 				} else {
 					submitform( pressbutton );
 				}
@@ -64,7 +64,7 @@ class newsfeed_category_table_menu_html {
 		<table class="adminheading">
 		<tr>
 			<th class="menus">
-			<?php echo $menu->id?'Редактирование -':'Создание -'; ?> Пункт меню :: Таблица - Ленты новостей из категории
+			<?php echo $menu->id?_O_EDITING.' -':_O_CREATION.' -'; ?> <?php echo _MENU_ITEM_CATEGORY_NEWSFEEDS?>
 			</th>
 		</tr>
 		</table>
@@ -75,12 +75,12 @@ class newsfeed_category_table_menu_html {
 				<table class="adminform">
 				<tr>
 					<th colspan="3">
-					Детали
+					<?php echo _DETAILS?>
 					</th>
 				</tr>
 				<tr>
 					<td width="20%" align="right" valign="top">
-					Название:
+					<?php echo _CMN_NAME?>:
 					</td>
 					<td width="200px">
 					<input type="text" name="name" size="30" maxlength="100" class="inputbox" value="<?php echo htmlspecialchars($menu->name,ENT_QUOTES); ?>"/>
@@ -88,14 +88,14 @@ class newsfeed_category_table_menu_html {
 					<td>
 <?php
 		if(!$menu->id) {
-			echo mosToolTip('Если поле будет оставлено пустым, то автоматически будет использовано название категории');
+			echo mosToolTip(_CATEGORY_TITLE_IF_FILED_IS_EMPTY);
 		}
 ?>
 					</td>
 				</tr>
 				<tr>
 					<td width="10%" align="right" valign="top">
-					title ссылки:
+					<?php echo _LINK_TITLE?>:
 					</td>
 					<td width="80%">
 						<input class="inputbox" type="text" name="params[title]" size="50" maxlength="100" value="<?php echo htmlspecialchars($params->get('title',''),ENT_QUOTES); ?>" />
@@ -103,7 +103,7 @@ class newsfeed_category_table_menu_html {
 				</tr>
 				<tr>
 					<td width="20%" align="right" valign="top">
-					Категория:
+					<?php echo _E_CATEGORY?>:
 					</td>
 					<td colspan="2">
 					<?php echo $lists['componentid']; ?>
@@ -119,7 +119,7 @@ class newsfeed_category_table_menu_html {
 				</tr>
 				<tr>
 					<td align="right">
-					Родительский пункт меню:
+					<?php echo _PARENT_MENU_ITEM?>:
 					</td>
 					<td colspan="2">
 					<?php echo $lists['parent']; ?>
@@ -127,7 +127,7 @@ class newsfeed_category_table_menu_html {
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					Порядок расположения:
+					<?php echo _ORDER_DROPDOWN?>:
 					</td>
 					<td colspan="2">
 					<?php echo $lists['ordering']; ?>
@@ -135,7 +135,7 @@ class newsfeed_category_table_menu_html {
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					Уровень доступа:
+					<?php echo _CMN_ACCESS?>:
 					</td>
 					<td colspan="2">
 					<?php echo $lists['access']; ?>
@@ -143,7 +143,7 @@ class newsfeed_category_table_menu_html {
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					Опубликовано:
+					<?php echo _CMN_PUBLISHED?>:
 					</td>
 					<td colspan="2">
 					<?php echo $lists['published']; ?>
@@ -158,7 +158,7 @@ class newsfeed_category_table_menu_html {
 				<table class="adminform">
 				<tr>
 					<th>
-					Параметры
+					<?php echo _PARAMETERS?>
 					</th>
 				</tr>
 				<tr>

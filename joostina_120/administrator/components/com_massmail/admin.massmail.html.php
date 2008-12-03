@@ -26,11 +26,11 @@ class HTML_massmail {
 				}
 				// do field validation
 				if (form.mm_subject.value == ""){
-					alert( "Пожалуйста, впишите тему" );
+					alert( "<?php echo _PLEASE_ENTER_SUBJECT?>" );
 				} else if (getSelectedValue('adminForm','mm_group') < 0){
-					alert( "Пожалуйста, выберите группу" );
+					alert( "<?php echo _PLEASE_CHOOSE_GROUP?>" );
 				} else if (form.mm_message.value == ""){
-					alert( "Пожалуйста, заполните сообщение" );
+					alert( "<?php echo _PLEASE_ENTER_MESSAGE?>" );
 				} else {
 					submitform( pressbutton );
 				}
@@ -41,7 +41,7 @@ class HTML_massmail {
 		<table class="adminheading">
 		<tr>
 			<th class="massemail">
-			Рассылка почты
+			<?php echo _MASSMAIL_TTILE?>
 			</th>
 		</tr>
 		</table>
@@ -49,12 +49,12 @@ class HTML_massmail {
 		<table class="adminform">
 		<tr>
 			<th colspan="2">
-			Детали
+			<?php echo _DETAILS?>
 			</th>
 		</tr>
 		<tr>
 			<td width="150" valign="top">
-			Группа:
+			<?php echo _O_GROUP?>:
 			</td>
 			<td width="85%">
 			<?php echo $lists['gid']; ?>
@@ -62,7 +62,7 @@ class HTML_massmail {
 		</tr>
 		<tr>
 			<td>
-			Отправить подчиненным группам:
+			<?php echo _SEND_TO_SUBGROUPS?>:
 			</td>
 			<td>
 			<input type="checkbox" name="mm_recurse" value="RECURSE" />
@@ -70,7 +70,7 @@ class HTML_massmail {
 		</tr>
 		<tr>
 			<td>
-			Отправить в HTML-формате:
+			<?php echo _SEND_IN_HTML?>:
 			</td>
 			<td>
 			<input type="checkbox" name="mm_mode" value="1" />
@@ -78,7 +78,7 @@ class HTML_massmail {
 		</tr>
 		<tr>
 			<td>
-			Тема:
+			<?php echo _MAIL_SUBJECT?>:
 			</td>
 			<td>
 			<input class="inputbox" type="text" name="mm_subject" value="" size="50"/>
@@ -86,7 +86,7 @@ class HTML_massmail {
 		</tr>
 		<tr>
 			<td valign="top">
-			Сообщение:
+			<?php echo _MESSAGE?>:
 			</td>
 			<td>
 			<textarea cols="80" rows="25" name="mm_message" class="inputbox"></textarea>

@@ -36,7 +36,7 @@ class contact_category_table_menu_html {
 		if(!$menu->id) {
 ?>
 				if ( getSelectedValue( 'adminForm', 'componentid' ) < 1 ) {
-					alert( 'Вы должны выбрать категорию' );
+					alert( '<?php echo _PLEASE_CHOOSE_CATEGORY?>' );
 					return;
 				}
 				cat = getSelectedText( 'adminForm', 'componentid' );
@@ -50,7 +50,7 @@ class contact_category_table_menu_html {
 		} else {
 ?>
 				if ( form.name.value == '' ) {
-					alert( "Объект должен иметь имя" );
+					alert( "<?php echo _OBJECT_MUST_HAVE_NAME?>" );
 				} else {
 					submitform( pressbutton );
 				}
@@ -62,7 +62,7 @@ class contact_category_table_menu_html {
 		<form action="index2.php" method="post" name="adminForm">
 		<table class="adminheading">
 		<tr>
-			<th class="menus"><?php echo $menu->id?'Редактирование -':'Создание -'; ?> Пункт меню :: Таблица - Контакты категории</th>
+			<th class="menus"><?php echo $menu->id?_O_EDITING.' -':_O_CREATION.' -'; ?> <?php echo _MENU_ITEM_TABLE_CONTACT_CATEGORY?></th>
 		</tr>
 		</table>
 
@@ -83,19 +83,19 @@ class contact_category_table_menu_html {
 					<td>
 <?php
 		if(!$menu->id) {
-			echo mosToolTip('Если поле будет оставлено пустым, то автоматически будет использовано название категории');
+			echo mosToolTip(_CATEGORY_TITLE_IF_FILED_IS_EMPTY);
 		}
 ?>
 					</td>
 				</tr>
 				<tr>
-					<td width="10%" align="right" valign="top">title ссылки:</td>
+					<td width="10%" align="right" valign="top"><?php echo _LINK_TITLE?>:</td>
 					<td width="80%">
 						<input class="inputbox" type="text" name="params[title]" size="50" maxlength="100" value="<?php echo htmlspecialchars($params->get('title',''),ENT_QUOTES); ?>" />
 					</td>
 				</tr>
 				<tr>
-					<td width="10%" align="right" valign="top">Категория:</td>
+					<td width="10%" align="right" valign="top"><?php echo _E_CATEGORY?>:</td>
 					<td colspan="2"><?php echo $lists['componentid']; ?></td>
 				</tr>
 				<tr>
@@ -103,19 +103,19 @@ class contact_category_table_menu_html {
 					<td colspan="2"><?php echo ampReplace($lists['link']); ?></td>
 				</tr>
 				<tr>
-					<td align="right">Родительский пункт меню:</td>
+					<td align="right"><?php echo _PARENT_MENU_ITEM?>:</td>
 					<td colspan="2"><?php echo $lists['parent']; ?></td>
 				</tr>
 				<tr>
-					<td valign="top" align="right">Порядок расположения:</td>
+					<td valign="top" align="right"><?php echo _ORDER_DROPDOWN?>:</td>
 					<td colspan="2"><?php echo $lists['ordering']; ?></td>
 				</tr>
 				<tr>
-					<td valign="top" align="right">Уровень доступа:</td>
+					<td valign="top" align="right"><?php echo _CMN_ACCESS?>:</td>
 					<td colspan="2"><?php echo $lists['access']; ?></td>
 				</tr>
 				<tr>
-					<td valign="top" align="right">Опубликовано:</td>
+					<td valign="top" align="right"><?php echo _CMN_PUBLISHED?>:</td>
 					<td colspan="2"><?php echo $lists['published']; ?></td>
 				</tr>
 				<tr>
@@ -126,7 +126,7 @@ class contact_category_table_menu_html {
 			<td width="40%">
 				<table class="adminform">
 				<tr>
-					<th>Параметры</th>
+					<th><?php echo _PARAMETERS?></th>
 				</tr>
 				<tr>
 					<td><?php echo $params->render(); ?></td>

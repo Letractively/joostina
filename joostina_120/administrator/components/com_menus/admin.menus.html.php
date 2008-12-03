@@ -23,10 +23,10 @@ class HTML_menusections {
 		<form action="index2.php" method="post" name="adminForm">
 		<table class="adminheading">
 		<tr>
-			<th class="menus">Управление меню <small>[ <?php echo $menutype; ?> ]</small></th>
-			<td class="jtd_nowrap">Максимально уровней</td>
+			<th class="menus"><?php echo _MENU_MANAGER?> <small>[ <?php echo $menutype; ?> ]</small></th>
+			<td class="jtd_nowrap"><?php echo _MAXIMUM_LEVELS?></td>
 			<td><?php echo $levellist; ?></td>
-			<td>Фильтр:</td>
+			<td><?php echo _FILTER?>:</td>
 			<td>
 				<input type="text" name="search" value="<?php echo htmlspecialchars($search); ?>" class="inputbox" onChange="document.adminForm.submit();" />
 			</td>
@@ -51,16 +51,16 @@ class HTML_menusections {
 			<th width="20">
 				<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count($rows); ?>);" />
 			</th>
-			<th class="title" width="40%">Пункт меню</th>
-			<th width="5%">Опубликован</th>
-			<th colspan="2" width="5%">Сортировка</th>
-			<th width="2%">Порядок</th>
+			<th class="title" width="40%"><?php echo _MENUITEM?></th>
+			<th width="5%"><?php echo _CMN_PUBLISHED?></th>
+			<th colspan="2" width="5%"><?php echo _CMN_ORDERING?></th>
+			<th width="2%"><?php echo _ORDER_DROPDOWN?></th>
 			<th width="1%">
-				<a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="Сохранить порядок" /></a>
+				<a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="<?php echo _SAVE_ORDER?>" /></a>
 			</th>
-			<th width="10%">Доступ</th>
+			<th width="10%"><?php echo _ACCESS?></th>
 			<th>Itemid</th>
-			<th width="35%" align="left">Тип</th>
+			<th width="35%" align="left"><?php echo _TYPE?></th>
 			<th>CID</th>
 		</tr>
 <?php
@@ -146,7 +146,7 @@ class HTML_menusections {
 			<tr>
 				<th width="100px" class="menus">Новый пункт меню</th>
 				<td class="jtd_nowrap" style="color: red;">
-					* Обратите внимание, что некоторые пункты меню входят в несколько групп, но они относятся к одному типу меню.
+					<?php echo _NOTE_MENU_ITEMS1?>
 				</td>
 			</tr>
 		</table>
@@ -154,7 +154,7 @@ class HTML_menusections {
 		<tr>
 			<td width="50%" valign="top">
 				<fieldset>
-				<legend>Содержимое</legend>
+				<legend><?php echo _E_CONTENT?></legend>
 					<table class="adminform">
 <?php
 		$k = 0;
@@ -169,7 +169,7 @@ class HTML_menusections {
 					</table>
 				</fieldset>
 				<fieldset>
-				<legend>Разное</legend>
+				<legend><?php echo _MENU_ITEMS_OTHER?></legend>
 					<table class="adminform">
 <?php
 		$k = 0;
@@ -184,7 +184,7 @@ class HTML_menusections {
 					</table>
 				</fieldset>
 				<fieldset>
-					<legend>Отправка</legend>
+					<legend><?php echo _MENU_ITEMS_SEND?></legend>
 					<table class="adminform">
 <?php
 		$k = 0;
@@ -203,7 +203,7 @@ class HTML_menusections {
 			</td>
 			<td width="50%" valign="top">
 				<fieldset>
-				<legend>Компоненты</legend>
+				<legend><?php echo _COMPONENTS?></legend>
 					<table class="adminform">
 <?php
 		$k = 0;
@@ -220,7 +220,7 @@ class HTML_menusections {
 					</table>
 				</fieldset>
 				<fieldset>
-				<legend>Ссылки</legend>
+				<legend><?php echo _LINKS?></legend>
 					<table class="adminform">
 <?php
 		$k = 0;
@@ -279,7 +279,7 @@ class HTML_menusections {
 		<br />
 		<table class="adminheading">
 		<tr>
-			<th>Перемещение пунктов меню</th>
+			<th><?php echo _MOVE_MENU_ITEMS?></th>
 		</tr>
 		</table>
 
@@ -288,13 +288,13 @@ class HTML_menusections {
 		<tr>
 			<td width="3%"></td>
 			<td align="left" valign="top" width="30%">
-			<strong>Переместить в меню:</strong>
+			<strong><?php echo _MOVE_MENU_ITEMS?>:</strong>
 			<br />
 			<?php echo $MenuList ?>
 			<br /><br />
 			</td>
 			<td align="left" valign="top">
-			<strong>Перемещаемые пункты меню:</strong>
+			<strong><?php echo _MENU_ITEMS_TO_MOVE?>:</strong>
 			<br />
 			<ol>
 <?php
@@ -333,7 +333,7 @@ class HTML_menusections {
 		<br />
 		<table class="adminheading">
 		<tr>
-			<th>Копирование пунктов меню</th>
+			<th><?php echo _COPY_MENU_ITEMS?></th>
 		</tr>
 		</table>
 		<br />
@@ -341,13 +341,13 @@ class HTML_menusections {
 		<tr>
 			<td width="3%"></td>
 			<td align="left" valign="top" width="30%">
-				<strong>Копировать в меню:</strong>
+				<strong><?php echo _COPY_MENU_ITEMS_TO?>:</strong>
 				<br />
 				<?php echo $MenuList ?>
 				<br /><br />
 			</td>
 			<td align="left" valign="top">
-				<strong>Копируемые пункты меню:</strong>
+				<strong><?php echo _MENU_ITEMS_TO_COPY?>:</strong>
 				<br />
 				<ol>
 <?php

@@ -246,7 +246,7 @@ class HTML_typedcontent {
 		if (trim(form.title.value) == ""){
 		alert( "<?php echo _OBJECT_MUST_HAVE_TITLE?>" );
 		} else if (trim(form.name.value) == ""){
-		alert( "<?php echo _OBJECT_MUST_HAVE_NAME?>" );
+		alert( "<?php echo _CONTENT_OBJECT_MUST_HAVE_NAME?>" );
 		} else {
 		if ( form.reset_hits.checked ) {
 			form.hits.value = 0;

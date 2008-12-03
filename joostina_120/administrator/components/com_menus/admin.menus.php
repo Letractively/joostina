@@ -207,24 +207,24 @@ function viewMenuItems($menutype,$option) {
 
 			case 'newsfeed_link':
 				$edit = 'index2.php?option=com_newsfeeds&task=edit&hidemainmenu=1A&id='.$mitem->componentid;
-				$list[$i]->descrip = 'Изменить эту ленту новостей';
+				$list[$i]->descrip = _CHANGE_THIS_NEWSFEED;
 				$mitem->link .= '&Itemid='.$mitem->id;
 				break;
 
 			case 'contact_item_link':
 				$edit = 'index2.php?option=com_contact&task=editA&hidemainmenu=1&id='.$mitem->componentid;
-				$list[$i]->descrip = 'Изменить этот контакт';
+				$list[$i]->descrip = _CHANGE_THIS_CONTACT;
 				$mitem->link .= '&Itemid='.$mitem->id;
 				break;
 
 			case 'content_item_link':
 				$edit = 'index2.php?option=com_content&task=edit&hidemainmenu=1&id='.$mitem->componentid;
-				$list[$i]->descrip = 'Изменить это содержимое';
+				$list[$i]->descrip = _CHANGE_THIS_CONTENT;
 				break;
 
 			case 'content_typed':
 				$edit = 'index2.php?option=com_typedcontent&task=edit&hidemainmenu=1&id='.$mitem->componentid;
-				$list[$i]->descrip = 'Изменить это статичное содержимое';
+				$list[$i]->descrip = _CHANGE_THIS_STATIC_CONTENT;
 				break;
 
 			default:
@@ -371,7 +371,7 @@ function saveMenu($option,$task = 'save') {
 	$row->checkin();
 	$row->updateOrder('menutype = '.$database->Quote($row->menutype).' AND parent = '.(int)$row->parent);
 
-	$msg = 'Пункт меню сохранен';
+	$msg = _MENU_ITEM_SAVED;
 	switch($task) {
 		case 'apply':
 			mosRedirect('index2.php?option='.$option.'&menutype='.$row->menutype.'&task=edit&id='.$row->id.'&hidemainmenu=1',$msg);
@@ -395,7 +395,7 @@ function publishMenuSection($cid = null,$publish = 1,$menutype) {
 	global $database,$mosConfig_absolute_path;
 
 	if(!is_array($cid) || count($cid) < 1) {
-		return 'Выберите объект для '.($publish?'публикации':'скрытия');
+		return _CHOOSE_OBJECT_FOR.' '.($publish?'publish':'unpublish');
 	}
 
 	$menu = new mosMenu($database);
@@ -465,7 +465,7 @@ function TrashMenuSection($cid = null,$menutype = 'mainmenu') {
 	// clean any existing cache files
 	mosCache::cleanCache('com_content');
 
-	$msg = 'Объектов отправлено в Корзину: '.$total;
+	$msg = _MOVED_TO_TRASH.': '.$total;
 	mosRedirect('index2.php?option=com_menus&menutype='.$menutype,$msg);
 }
 
@@ -535,7 +535,7 @@ function moveMenu($option,$cid,$menutype) {
 	global $database;
 
 	if(!is_array($cid) || count($cid) < 1) {
-		echo "<script> alert('Выберите объект для перемещения'); window.history.go(-1);</script>\n";
+		echo "<script> alert('"._CHOOSE_OBJECT_TO_MOVE."'); window.history.go(-1);</script>\n";
 		exit;
 	}
 
@@ -632,7 +632,7 @@ function moveMenuSave($option,$cid,$menu,$menutype) {
 	// clean any existing cache files
 	mosCache::cleanCache('com_content');
 
-	$msg = count($cid).' пунктов меню перемещено в '.$menu;
+	$msg = count($cid).' moved to '.$menu;
 	mosRedirect('index2.php?option='.$option.'&menutype='.$menutype.'&mosmsg='.$msg);
 } // moveMenuSave
 
@@ -643,7 +643,7 @@ function copyMenu($option,$cid,$menutype) {
 	global $database;
 
 	if(!is_array($cid) || count($cid) < 1) {
-		echo "<script> alert('Выберите объект для перемещения'); window.history.go(-1);</script>\n";
+		echo "<script> alert('"._CHOOSE_OBJECT_TO_MOVE."'); window.history.go(-1);</script>\n";
 		exit;
 	}
 
@@ -706,7 +706,7 @@ function copyMenuSave($option,$cid,$menu,$menutype) {
 	// clean any existing cache files
 	mosCache::cleanCache('com_content');
 
-	$msg = count($cid).' пунктов меню скопировано в '.$menu;
+	$msg = count($cid).' moved to '.$menu;
 	mosRedirect('index2.php?option='.$option.'&menutype='.$menutype.'&mosmsg='.$msg);
 }
 
@@ -786,7 +786,7 @@ function saveOrder(&$cid,$menutype) {
 	// clean any existing cache files
 	mosCache::cleanCache('com_content');
 
-	$msg = 'Новый порядок сохранен';
+	$msg = _NEW_ORDER_SAVED;
 	mosRedirect('index2.php?option=com_menus&menutype='.$menutype,$msg);
 }
 

@@ -20,7 +20,7 @@ class TOOLBAR_menus {
 	*/
 	function _NEW() {
 		mosMenuBar::startTable();
-		mosMenuBar::customX('edit','-next','','Далее',true);
+		mosMenuBar::customX('edit','-next','',_MENU_NEXT,true);
 		mosMenuBar::spacer();
 		mosMenuBar::cancel();
 		mosMenuBar::spacer();
@@ -33,7 +33,7 @@ class TOOLBAR_menus {
 	*/
 	function _MOVEMENU() {
 		mosMenuBar::startTable();
-		mosMenuBar::custom('movemenusave','-x-move','','Перенести',false);
+		mosMenuBar::custom('movemenusave','-x-move','',_MOVE,false);
 		mosMenuBar::spacer();
 		mosMenuBar::cancel('cancelmovemenu');
 		mosMenuBar::spacer();
@@ -46,7 +46,7 @@ class TOOLBAR_menus {
 	*/
 	function _COPYMENU() {
 		mosMenuBar::startTable();
-		mosMenuBar::custom('copymenusave','-copy','','Копировать',false);
+		mosMenuBar::custom('copymenusave','-copy','',_COPY,false);
 		mosMenuBar::spacer();
 		mosMenuBar::cancel('cancelcopymenu');
 		mosMenuBar::spacer();
@@ -70,7 +70,7 @@ class TOOLBAR_menus {
 		if(!$id) {
 			$link = 'index2.php?option=com_menus&menutype='.$menutype.
 				'&task=new&hidemainmenu=1';
-			mosMenuBar::back('Назад',$link);
+			mosMenuBar::back(_MENU_BACK,$link);
 			mosMenuBar::spacer();
 		}
 		mosMenuBar::save();
@@ -79,7 +79,7 @@ class TOOLBAR_menus {
 		mosMenuBar::spacer();
 		if($id) {
 			// for existing content items the button is renamed `close`
-			mosMenuBar::cancel('cancel','Закрыть');
+			mosMenuBar::cancel('cancel',_CLOSE);
 		} else {
 			mosMenuBar::cancel();
 		}
@@ -94,9 +94,9 @@ class TOOLBAR_menus {
 		mosMenuBar::spacer();
 		mosMenuBar::unpublishList();
 		mosMenuBar::spacer();
-		mosMenuBar::customX('movemenu','-move','','Перенести',true);
+		mosMenuBar::customX('movemenu','-move','',_MOVE,true);
 		mosMenuBar::spacer();
-		mosMenuBar::customX('copymenu','-copy','','Копировать',true);
+		mosMenuBar::customX('copymenu','-copy','',_COPY,true);
 		mosMenuBar::spacer();
 		mosMenuBar::trash();
 		mosMenuBar::spacer();

@@ -20,7 +20,7 @@ class TOOLBAR_massmail {
 	*/
 	function _DEFAULT() {
 		mosMenuBar::startTable();
-		mosMenuBar::custom('send','-publish','','Отправить',false);
+		mosMenuBar::custom('send','-publish','',_SEND_BUTTON,false);
 		mosMenuBar::spacer();
 		mosMenuBar::cancel();
 		mosMenuBar::spacer();

@@ -26,8 +26,7 @@ class content_item_link_menu {
 
 		// fail if checked out not by 'me'
 		if($menu->checked_out && $menu->checked_out != $my->id) {
-			mosErrorAlert("Модуль ".$menu->title.
-				" в настоящее время редактируется другим администратором");
+			mosErrorAlert($menu->title." "._MODULE_IS_EDITING_MY_ADMIN);
 		}
 
 		if($uid) {
@@ -59,14 +58,14 @@ class content_item_link_menu {
 				Item:
 				</td>
 				<td>
-				<a href="'.$link.'" title="Изменить объект содержимого">
+				<a href="'.$link.'" title="'._CHANGE_CONTENT_ITEM.'">
 				'.$content[0]->title.'
 				</a>
 				</td>
 			</tr>
 			<tr>
 				<td width="10%">
-				Категория:
+				'._E_CATEGORY.':
 				</td>
 				<td>
 				'.$content[0]->category.'
@@ -74,7 +73,7 @@ class content_item_link_menu {
 			</tr>
 			<tr>
 				<td width="10%">
-				Раздел:
+				'._SECTION.':
 				</td>
 				<td>
 				'.$content[0]->section.'

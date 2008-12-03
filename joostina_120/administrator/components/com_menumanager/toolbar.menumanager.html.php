@@ -20,9 +20,9 @@ class TOOLBAR_menumanager {
 	*/
 	function _DEFAULT() {
 		mosMenuBar::startTable();
-		mosMenuBar::customX('copyconfirm','-copy','','Копировать',true);
+		mosMenuBar::customX('copyconfirm','-copy','',_COPY,true);
 		mosMenuBar::spacer();
-		mosMenuBar::customX('deleteconfirm','-delete','','Удалить',true);
+		mosMenuBar::customX('deleteconfirm','-delete','',_CMN_DELETE,true);
 		mosMenuBar::spacer();
 		mosMenuBar::editListX();
 		mosMenuBar::spacer();
@@ -46,7 +46,7 @@ class TOOLBAR_menumanager {
 	*/
 	function _NEWMENU() {
 		mosMenuBar::startTable();
-		mosMenuBar::custom('savemenu','-save','','Сохранить',false);
+		mosMenuBar::custom('savemenu','-save','',_CMN_SAVE,false);
 		mosMenuBar::spacer();
 		mosMenuBar::cancel();
 		mosMenuBar::spacer();
@@ -59,7 +59,7 @@ class TOOLBAR_menumanager {
 	*/
 	function _COPYMENU() {
 		mosMenuBar::startTable();
-		mosMenuBar::custom('copymenu','-copy','','Копировать',false);
+		mosMenuBar::custom('copymenu','-copy','',_COPY,false);
 		mosMenuBar::spacer();
 		mosMenuBar::cancel();
 		mosMenuBar::spacer();
