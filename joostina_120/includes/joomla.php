@@ -3751,6 +3751,9 @@ function mosMenuCheck($Itemid,$menu_option,$task,$gid) {
 * @returns formated date
 */
 function mosFormatDate($date,$format = "",$offset = null) {
+	
+	if ($date == '0000-00-00 00:00:00') return " Ч ";//database::$_nullDate - иногда кос€чит парсер
+	
 	global $mosConfig_offset;
 	if($format == '') {
 		// %Y-%m-%d %H:%M:%S
