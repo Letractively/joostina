@@ -33,7 +33,7 @@ class wrapper_menu_html {
 			}
 			var form = document.adminForm;
 			if ( form.name.value == "" ) {
-				alert( 'Этот пункт меню должен иметь название' );
+				alert( '<?php echo _OBJECT_MUST_HAVE_NAME?>' );
 			} else {
 				<?php
 		if(!$menu->id) {
@@ -57,7 +57,7 @@ class wrapper_menu_html {
 		<table class="adminheading">
 		<tr>
 			<th class="menus">
-			<?php echo $menu->id?'Редактирование -':'Создание -'; ?> Пункт меню :: Wrapper
+			<?php echo $menu->id?_O_EDITING.' -':_O_CREATION.' -'; ?> <?php echo _MENU_ITEM_WRAPPER?>
 			</th>
 		</tr>
 		</table>
@@ -68,12 +68,12 @@ class wrapper_menu_html {
 				<table class="adminform">
 				<tr>
 					<th colspan="2">
-					Детали
+					<?php echo _DETAILS?>
 					</th>
 				</tr>
 				<tr>
 					<td width="10%" align="right" valign="top">
-					Название:
+					<?php echo _CMN_NAME?>:
 					</td>
 					<td width="200px">
 					<input type="text" name="name" size="30" maxlength="100" class="inputbox" value="<?php echo htmlspecialchars($menu->name,ENT_QUOTES); ?>"/>
@@ -81,7 +81,7 @@ class wrapper_menu_html {
 				</tr>
 				<tr>
 					<td width="10%" align="right" valign="top">
-					title ссылки:
+					<?php echo _LINK_TITLE?>:
 					</td>
 					<td width="80%">
 						<input class="inputbox" type="text" name="params[title]" size="50" maxlength="100" value="<?php echo htmlspecialchars($params->get('title',''),ENT_QUOTES); ?>" />
@@ -89,7 +89,7 @@ class wrapper_menu_html {
 				</tr>
 				<tr>
 					<td width="20%" align="right">
-					Ссылка Wrapper'a:
+					<?php echo _WRAPPER_LINK?>:
 					</td>
 					<td width="80%">
 					<input class="inputbox" type="text" name="url" size="50" maxlength="250" value="<?php echo @$menu->url; ?>" />
@@ -105,7 +105,7 @@ class wrapper_menu_html {
 				</tr>
 				<tr>
 					<td align="right">
-					Родительский пункт меню:
+					<?php echo _PARENT_MENU_ITEM?>:
 					</td>
 					<td colspan="2">
 					<?php echo $lists['parent']; ?>
@@ -113,7 +113,7 @@ class wrapper_menu_html {
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					Порядок расположения:
+					<?php echo _ORDER_DROPDOWN?>:
 					</td>
 					<td colspan="2">
 					<?php echo $lists['ordering']; ?>
@@ -121,7 +121,7 @@ class wrapper_menu_html {
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					Уровень доступа:
+					<?php echo _CMN_ACCESS?>:
 					</td>
 					<td colspan="2">
 					<?php echo $lists['access']; ?>
@@ -129,7 +129,7 @@ class wrapper_menu_html {
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					Опубликовано:
+					<?php echo _CMN_PUBLISHED?>:
 					</td>
 					<td colspan="2">
 					<?php echo $lists['published']; ?>
@@ -144,7 +144,7 @@ class wrapper_menu_html {
 				<table class="adminform">
 				<tr>
 					<th>
-					Параметры
+					<?php echo _PARAMETERS?>
 					</th>
 				</tr>
 				<tr>

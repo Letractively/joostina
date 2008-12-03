@@ -29,8 +29,7 @@ class url_menu {
 
 		// fail if checked out not by 'me'
 		if($menu->checked_out && $menu->checked_out != $my->id) {
-			mosErrorAlert("Модуль ".$menu->title.
-				" в настоящее время редактируется другим администратором");
+			mosErrorAlert($menu->title." "._MODULE_IS_EDITING_MY_ADMIN);
 		}
 
 		if($uid) {

@@ -25,8 +25,7 @@ class contact_item_link_menu {
 
 		// fail if checked out not by 'me'
 		if($menu->checked_out && $menu->checked_out != $my->id) {
-			mosErrorAlert("Модуль ".$menu->title.
-				" в настоящее время редактируется другим администратором");
+			mosErrorAlert($menu->title." "._MODULE_IS_EDITING_MY_ADMIN);
 		}
 
 		if($uid) {
@@ -51,7 +50,7 @@ class contact_item_link_menu {
 			<table width="100%">
 			<tr>
 				<td width="10%">
-				Имя:
+				'._CMN_NAME.':
 				</td>
 				<td>
 				'.$contact[0]->name.'
@@ -59,7 +58,7 @@ class contact_item_link_menu {
 			</tr>
 			<tr>
 				<td width="10%">
-				Положение:
+				'._POSITION.':
 				</td>
 				<td>
 				'.$contact[0]->con_position.'

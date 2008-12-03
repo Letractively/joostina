@@ -36,7 +36,7 @@ class content_archive_category_menu_html {
 		if(!$menu->id) {
 ?>
 				if ( getSelectedValue( 'adminForm', 'componentid' ) < 1 ) {
-					alert( 'Вы должны выбрать категорию' );
+					alert( '<?php echo _PLEASE_CHOOSE_CATEGORY?>' );
 					return;
 				}
 				sectcat = getSelectedText( 'adminForm', 'componentid' );
@@ -52,7 +52,7 @@ class content_archive_category_menu_html {
 		} else {
 ?>
 				if ( form.name.value == '' ) {
-					alert( 'Этот пункт меню должен иметь название' );
+					alert( '<?php echo _OBJECT_MUST_HAVE_NAME?>' );
 				} else {
 					submitform( pressbutton );
 				}
@@ -65,7 +65,7 @@ class content_archive_category_menu_html {
 		<table class="adminheading">
 		<tr>
 			<th class="menus">
-			<?php echo $menu->id?'Редактирование -':'Создание -'; ?> Пункт меню :: Блог - Содержимое категории в архиве
+			<?php echo $menu->id?_O_EDITING.' -':_O_CREATION.' -'; ?> <?php echo _MENU_ITEM_BLOG_CATEGORY_ARCHIVE?>
 			</th>
 		</tr>
 		</table>
@@ -76,32 +76,32 @@ class content_archive_category_menu_html {
 				<table class="adminform">
 				<tr>
 					<th colspan="3">
-					Детали
+					<?php echo _DETAILS?>
 					</th>
 				</tr>
 				<tr>
-					<td width="10%" align="right" valign="top">Название:</td>
+					<td width="10%" align="right" valign="top"><?php echo _CMN_NAME?>:</td>
 					<td width="200px">
 					<input type="text" name="name" size="30" maxlength="100" class="inputbox" value="<?php echo htmlspecialchars($menu->name,ENT_QUOTES); ?>"/>
 					</td>
 					<td>
 					<?php
 		if(!$menu->id) {
-			echo mosToolTip('Если поле будет оставлено пустым, то автоматически будет использовано название категории');
+			echo mosToolTip(_CATEGORY_TITLE_IF_FILED_IS_EMPTY);
 		}
 ?>
 					</td>
 				</tr>
 				<tr>
 					<td width="10%" align="right" valign="top">
-					title ссылки:
+					<?php echo _LINK_TITLE?>:
 					</td>
 					<td width="80%">
 						<input class="inputbox" type="text" name="params[title]" size="50" maxlength="100" value="<?php echo htmlspecialchars($params->get('title',''),ENT_QUOTES); ?>" />
 					</td>
 				</tr>
 				<tr>
-					<td valign="top" align="right">Категория:</td>
+					<td valign="top" align="right"><?php echo _E_CATEGORY?>:</td>
 					<td>
 					<?php echo $lists['componentid']; ?>
 					</td>
@@ -113,25 +113,25 @@ class content_archive_category_menu_html {
 					</td>
 				</tr>
 				<tr>
-					<td align="right">Родительский пункт меню:</td>
+					<td align="right"><?php echo _PARENT_MENU_ITEM?>:</td>
 					<td>
 					<?php echo $lists['parent']; ?>
 					</td>
 				</tr>
 				<tr>
-					<td valign="top" align="right">Порядок расположения:</td>
+					<td valign="top" align="right"><?php echo _ORDER_DROPDOWN?>:</td>
 					<td>
 					<?php echo $lists['ordering']; ?>
 					</td>
 				</tr>
 				<tr>
-					<td valign="top" align="right">Уровень доступа:</td>
+					<td valign="top" align="right"><?php echo _CMN_ACCESS?>:</td>
 					<td>
 					<?php echo $lists['access']; ?>
 					</td>
 				</tr>
 				<tr>
-					<td valign="top" align="right">Опубликовано:</td>
+					<td valign="top" align="right"><?php echo _CMN_PUBLISHED?>:</td>
 					<td>
 					<?php echo $lists['published']; ?>
 					</td>
@@ -145,7 +145,7 @@ class content_archive_category_menu_html {
 				<table class="adminform">
 				<tr>
 					<th>
-					Параметры
+					<?php echo _PARAMETERS?>
 					</th>
 				</tr>
 				<tr>

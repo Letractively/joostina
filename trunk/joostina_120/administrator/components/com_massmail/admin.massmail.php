@@ -35,7 +35,7 @@ switch($task) {
 function messageForm($option) {
 	global $acl;
 
-	$gtree = array(mosHTML::makeOption(0,'- Все группы пользователей -'));
+	$gtree = array(mosHTML::makeOption(0,_ALL_USER_GROUPS));
 
 	// get list of groups
 	$lists = array();
@@ -65,7 +65,7 @@ function sendMail() {
 	$message_body = stripslashes($message_body);
 
 	if(!$message_body || !$subject || $gou === null) {
-		mosRedirect('index2.php?option=com_massmail&mosmsg=Пожалуйста, заполните корректно форму');
+		mosRedirect('index2.php?option=com_massmail&mosmsg='._PLEASE_FILL_FORM);
 	}
 
 	// get users in the group out of the acl
@@ -100,7 +100,7 @@ function sendMail() {
 		}
 	}
 
-	$msg = 'E-mail отправлено '.count($rows).' пользователю(ям)';
+	$msg = _MESSAGE_SENDED_TO_USERS.count($rows);
 	mosRedirect('index2.php?option=com_massmail',$msg);
 }
 ?>

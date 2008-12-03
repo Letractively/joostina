@@ -194,14 +194,14 @@ function saveMenu() {
 	// block to stop renaming of 'mainmenu' menutype
 	if($old_menutype == 'mainmenu') {
 		if($menutype != 'mainmenu') {
-			echo "<script> alert('Вы не можете переименовать меню \'mainmenu\', т.к.  это нарушит правильное функционирование Joomla'); window.history.go(-1); </script>\n";
+			echo "<script> alert('"._CANNOT_RENAME_MAINMENU."'); window.history.go(-1); </script>\n";
 			exit;
 		}
 	}
 
 	// check for ' in menu name
 	if(strstr($menutype,'\'')) {
-		echo "<script> alert('Название меню не должно содержать \''); window.history.go(-1); </script>\n";
+		echo "<script> alert('"._NO_QUOTES_IN_NAME."'); window.history.go(-1); </script>\n";
 		exit;
 	}
 
@@ -212,7 +212,7 @@ function saveMenu() {
 	foreach($menus as $menu) {
 		$params = mosParseParams($menu);
 		if($params->menutype == $menutype) {
-			echo "<script> alert('Меню с таким именем уже существует. Вы должны ввести уникальное имя меню'); window.history.go(-1); </script>\n";
+			echo "<script> alert('"._MENU_ALREADY_EXISTS."'); window.history.go(-1); </script>\n";
 			exit;
 		}
 	}
@@ -248,7 +248,7 @@ function saveMenu() {
 				exit();
 			}
 
-			$msg = 'Создано новое меню [ '.$menutype.' ]';
+			$msg = _NEW_MENU_CREATED.' [ '.$menutype.' ]';
 			break;
 
 		default:
@@ -299,7 +299,7 @@ function saveMenu() {
 				$database->query();
 			}
 
-			$msg = 'Пункты меню и модули обновлены';
+			$msg = _MENU_ITEMS_AND_MODULES_UPDATED;
 			break;
 	}
 
@@ -313,7 +313,7 @@ function deleteConfirm($option,$type) {
 	global $database;
 
 	if($type == 'mainmenu') {
-		echo "<script> alert('Вы не можете удалить меню \'mainmenu\', т.к. оно является меню ядра'); window.history.go(-1); </script>\n";
+		echo "<script> alert('"._CANNOT_RENAME_MAINMENU."'); window.history.go(-1); </script>\n";
 		exit();
 	}
 
@@ -359,7 +359,7 @@ function deleteMenu($option,$cid,$type) {
 	global $database;
 
 	if($type == 'mainmenu') {
-		echo "<script> alert('Вы не можете удалить меню \'mainmenu\', т.к. оно является меню ядра'); window.history.go(-1); </script>\n";
+		echo "<script> alert('"._CANNOT_RENAME_MAINMENU."'); window.history.go(-1); </script>\n";
 		exit();
 	}
 
@@ -407,7 +407,7 @@ function deleteMenu($option,$cid,$type) {
 	// clean any existing cache files
 	mosCache::cleanCache('com_content');
 
-	$msg = 'Меню удалено';
+	$msg = _MENU_DELETED;
 	mosRedirect('index2.php?option='.$option,$msg);
 }
 
@@ -434,8 +434,8 @@ function copyConfirm($option,$type) {
 function copyMenu($option,$cid,$type) {
 	global $database;
 
-	$menu_name = stripslashes(strval(mosGetParam($_POST,'menu_name','Новое меню')));
-	$module_name = stripslashes(strval(mosGetParam($_POST,'module_name','Новый модуль меню')));
+	$menu_name = stripslashes(strval(mosGetParam($_POST,'menu_name',_NEW_MENU)));
+	$module_name = stripslashes(strval(mosGetParam($_POST,'module_name',_NEW_MENU_MODULE)));
 
 	// check for unique menutype for new menu copy
 	$query = "SELECT params FROM #__modules WHERE module = 'mod_mainmenu' OR module = 'mod_mljoostinamenu'";
@@ -444,7 +444,7 @@ function copyMenu($option,$cid,$type) {
 	foreach($menus as $menu) {
 		$params = mosParseParams($menu);
 		if($params->menutype == $menu_name) {
-			echo "<script> alert('Меню с таким именем уже существует. Вы должны ввести уникальное имя меню'); window.history.go(-1); </script>\n";
+			echo "<script> alert('"._MENU_ALREADY_EXISTS."'); window.history.go(-1); </script>\n";
 			exit;
 		}
 	}

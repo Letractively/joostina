@@ -28,7 +28,7 @@ class content_blog_category {
 
 		// fail if checked out not by 'me'
 		if($menu->checked_out && $menu->checked_out != $my->id) {
-			mosErrorAlert("Модуль ".$menu->title." в настоящее время редактируется другим администратором");
+			mosErrorAlert($menu->title." "._MODULE_IS_EDITING_MY_ADMIN);
 		}
 
 		if($uid) {
@@ -125,7 +125,7 @@ class content_blog_category {
 		$row->checkin();
 		$row->updateOrder("menutype = ".$database->Quote($row->menutype)." AND parent = ".(int)$row->parent);
 
-		$msg = 'Пункт меню сохранен';
+		$msg = _MENU_ITEM_SAVED;
 		switch($task) {
 			case 'apply':
 				mosRedirect('index2.php?option='.$option.'&menutype='.$row->menutype.'&task=edit&id='.$row->id,$msg);

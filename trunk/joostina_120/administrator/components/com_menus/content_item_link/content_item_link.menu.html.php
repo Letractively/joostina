@@ -34,9 +34,9 @@ class content_item_link_menu_html {
 				return;
 			}
 			if (trim(form.name.value) == ""){
-				alert( "Ссылка должна иметь имя" );
+				alert( "<?php echo _OBJECT_MUST_HAVE_NAME?>" );
 			} else if (trim(form.content_item_link.value) == ""){
-				alert( "You must select a Content to link to" );
+				alert( "<?php echo _CONTENT_ITEM_TO_LINK_TO?>" );
 			} else {
 				form.link.value = "index.php?option=com_content&task=view&id=" + form.content_item_link.value;
 				form.componentid.value = form.content_item_link.value;
@@ -48,7 +48,7 @@ class content_item_link_menu_html {
 		<table class="adminheading">
 		<tr>
 			<th class="menus">
-			<?php echo $menu->id?'Редактирование -':'Создание -'; ?> Пункт меню :: Ссылка - Объект содержимого
+			<?php echo $menu->id?_O_EDITING.' -':_O_CREATION.' -'; ?> <?php echo _MENU_ITEM_CONTENT_ITEM?>
 			</th>
 		</tr>
 		</table>
@@ -59,12 +59,12 @@ class content_item_link_menu_html {
 				<table class="adminform">
 				<tr>
 					<th colspan="2">
-					Детали
+					<?php echo _DETAILS?>
 					</th>
 				</tr>
 				<tr>
 					<td width="10%" align="right">
-					Название:
+					<?php echo _CMN_NAME?>:
 					</td>
 					<td width="80%">
 					<input class="inputbox" type="text" name="name" id="name" size="50" maxlength="100" value="<?php echo htmlspecialchars($menu->name,ENT_QUOTES); ?>" />
@@ -72,7 +72,7 @@ class content_item_link_menu_html {
 				</tr>
 				<tr>
 					<td width="10%" align="right" valign="top">
-					title ссылки:
+					<?php echo _LINK_TITLE?>:
 					</td>
 					<td width="80%">
 						<input class="inputbox" type="text" name="params[title]" size="50" maxlength="100" value="<?php echo htmlspecialchars($params->get('title',''),ENT_QUOTES); ?>" />
@@ -80,7 +80,7 @@ class content_item_link_menu_html {
 				</tr>
 				<tr>
 					<td width="10%" align="right" valign="top">
-					Содержимое для связи:
+					<?php echo _CONTENT_TO_LINK_TO?>:
 					</td>
 					<td width="80%">
 					<?php echo $lists['content']; ?>
@@ -94,7 +94,7 @@ class content_item_link_menu_html {
 				</tr>
 				<tr>
 					<td width="10%" align="right" valign="top">
-					При нажатии открыть в ...
+					<?php echo _LINK_TARGET?>
 					</td>
 					<td width="80%">
 					<?php echo $lists['target']; ?>
@@ -102,7 +102,7 @@ class content_item_link_menu_html {
 				</tr>
 				<tr>
 					<td align="right">
-					Родительский пункт меню:
+					<?php echo _PARENT_MENU_ITEM?>:
 					</td>
 					<td>
 					<?php echo $lists['parent']; ?>
@@ -110,7 +110,7 @@ class content_item_link_menu_html {
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					Порядок расположения:
+					<?php echo _ORDER_DROPDOWN?>:
 					</td>
 					<td>
 					<?php echo $lists['ordering']; ?>
@@ -118,14 +118,14 @@ class content_item_link_menu_html {
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					Уровень доступа:
+					У<?php echo _CMN_ACCESS?>:
 					</td>
 					<td>
 					<?php echo $lists['access']; ?>
 					</td>
 				</tr>
 				<tr>
-					<td valign="top" align="right">Опубликовано:</td>
+					<td valign="top" align="right"><?php echo _CMN_PUBLISHED?>:</td>
 					<td>
 					<?php echo $lists['published']; ?>
 					</td>
@@ -139,7 +139,7 @@ class content_item_link_menu_html {
 				<table class="adminform">
 				<tr>
 					<th>
-					Параметры
+					<?php echo _PARAMETERS?>
 					</th>
 				</tr>
 				<tr>

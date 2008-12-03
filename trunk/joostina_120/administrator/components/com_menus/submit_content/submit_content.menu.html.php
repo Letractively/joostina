@@ -42,7 +42,7 @@ class submit_content_menu_html {
 		} else {
 ?>
 				if ( form.name.value == '' ) {
-					alert( 'Этот пункт меню должен иметь название' );
+					alert( '<?php echo _OBJECT_MUST_HAVE_NAME?>' );
 				} else {
 					submitform( pressbutton );
 				}
@@ -56,7 +56,7 @@ class submit_content_menu_html {
 		<table class="adminheading">
 		<tr>
 			<th class="menus">
-			<?php echo $menu->id?'Редактирование -':'Создание -'; ?> Пункт меню :: Добавить содержимое
+			<?php echo $menu->id?_O_EDITING.' -':_O_CREATION.' -'; ?> Пункт меню :: Добавить содержимое
 			</th>
 		</tr>
 		</table>
@@ -66,22 +66,22 @@ class submit_content_menu_html {
 			<td width="60%">
 				<table class="adminform">
 				<tr>
-					<th colspan="3">Детали</th>
+					<th colspan="3"><?php echo _DETAILS?></th>
 				</tr>
 				<tr>
-					<td width="20%" align="right" valign="top">Название:</td>
+					<td width="20%" align="right" valign="top"><?php echo _CMN_NAME?>:</td>
 					<td width="200px">
 						<input type="text" name="name" size="50" maxlength="100" class="inputbox" value="<?php echo htmlspecialchars($menu->name,ENT_QUOTES); ?>"/>
 					</td>
 					<td><?php
 		if(!$menu->id) {
-			echo mosToolTip('Если поле будет оставлено пустым, то автоматически будет использовано название раздела');
+			echo mosToolTip(_SECTION_TITLE_IF_FILED_IS_EMPTY);
 		}
 ?>
 					</td>
 				</tr>
 				<tr>
-					<td width="10%" align="right" valign="top">title ссылки:</td>
+					<td width="10%" align="right" valign="top"><?php echo _LINK_TITLE?>:</td>
 					<td width="80%">
 						<input class="inputbox" type="text" name="params[title]" size="50" maxlength="100" value="<?php echo htmlspecialchars($params->get('title',''),ENT_QUOTES); ?>" />
 					</td>
@@ -91,19 +91,19 @@ class submit_content_menu_html {
 					<td colspan="2"><?php echo ampReplace($lists['link']); ?></td>
 				</tr>
 				<tr>
-					<td align="right">Родительский пункт меню:</td>
+					<td align="right"><?php echo _PARENT_MENU_ITEM?>:</td>
 					<td colspan="2"><?php echo $lists['parent']; ?></td>
 				</tr>
 				<tr>
-					<td valign="top" align="right">Порядок расположения:</td>
+					<td valign="top" align="right"><?php echo _ORDER_DROPDOWN?>:</td>
 					<td colspan="2"><?php echo $lists['ordering']; ?></td>
 				</tr>
 				<tr>
-					<td valign="top" align="right">Уровень доступа:</td>
+					<td valign="top" align="right"><?php echo _CMN_ACCESS?>:</td>
 					<td colspan="2"><?php echo $lists['access']; ?></td>
 				</tr>
 				<tr>
-					<td valign="top" align="right">Опубликовано:</td>
+					<td valign="top" align="right"><?php echo _CMN_PUBLISHED?>:</td>
 					<td colspan="2"><?php echo $lists['published']; ?></td>
 				</tr>
 				<tr>
@@ -114,7 +114,7 @@ class submit_content_menu_html {
 			<td width="40%">
 				<table class="adminform">
 				<tr>
-					<th>Параметры</th>
+					<th><?php echo _PARAMETERS?></th>
 				</tr>
 				<tr>
 					<td>

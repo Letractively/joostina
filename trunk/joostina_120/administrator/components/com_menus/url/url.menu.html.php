@@ -36,9 +36,9 @@ class url_menu_html {
 
 			// do field validation
 			if (trim(form.name.value) == ""){
-				alert( "Ссылка должна иметь имя" );
+				alert( "<?php echo _LINK_MUST_HAVE_NAME?>" );
 			} else if (trim(form.link.value) == ""){
-				alert( "Вы должны ввести url." );
+				alert( "<?php echo _ENTER_URL_PLEASE?>" );
 			} else {
 				submitform( pressbutton );
 			}
@@ -49,7 +49,7 @@ class url_menu_html {
 		<table class="adminheading">
 		<tr>
 			<th class="menus">
-			<?php echo $menu->id?'Редактирование -':'Создание -'; ?> Пункт меню :: Ссылка - URL
+			<?php echo $menu->id?_O_EDITING.' -':_O_CREATION.' -'; ?> <?php echo _MENU_ITEM_URL?>
 			</th>
 		</tr>
 		</table>
@@ -60,12 +60,12 @@ class url_menu_html {
 				<table class="adminform">
 				<tr>
 					<th colspan="2">
-					Детали
+					<?php echo _DETAILS?>
 					</th>
 				</tr>
 				<tr>
 					<td width="30%" align="right">
-					Название:
+					<?php echo _CMN_NAME?>:
 					</td>
 					<td width="70%">
 					<input class="inputbox" type="text" name="name" size="50" maxlength="150" value="<?php echo htmlspecialchars($menu->name,ENT_QUOTES); ?>" />
@@ -73,7 +73,7 @@ class url_menu_html {
 				</tr>
 				<tr>
 					<td width="10%" align="right" valign="top">
-					title ссылки:
+					<?php echo _LINK_TITLE?>:
 					</td>
 					<td width="80%">
 						<input class="inputbox" type="text" name="params[title]" size="50" maxlength="100" value="<?php echo htmlspecialchars($params->get('title',''),ENT_QUOTES); ?>" />
@@ -81,7 +81,7 @@ class url_menu_html {
 				</tr>
 				<tr>
 					<td width="30%" align="right">
-					Ссылка:
+					<?php echo _HEADER_TITLE_WEBLINKS?>:
 					</td>
 					<td width="70%">
 					<input class="inputbox" type="text" name="link" size="50" maxlength="250" value="<?php echo $menu->link; ?>" />
@@ -89,7 +89,7 @@ class url_menu_html {
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					При нажатии открыть в ...
+					<?php echo _LINK_TARGET?>
 					</td>
 					<td>
 					<?php echo $lists['target']; ?>
@@ -97,7 +97,7 @@ class url_menu_html {
 				</tr>
 				<tr>
 					<td align="right">
-					Родительский пункт меню:
+					<?php echo _PARENT_MENU_ITEM?>:
 					</td>
 					<td>
 					<?php echo $lists['parent']; ?>
@@ -105,7 +105,7 @@ class url_menu_html {
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					Порядок расположения:
+					<?php echo _ORDER_DROPDOWN?>:
 					</td>
 					<td>
 					<?php echo $lists['ordering']; ?>
@@ -113,7 +113,7 @@ class url_menu_html {
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					Уровень доступа:
+					<?php echo _CMN_ACCESS?>:
 					</td>
 					<td>
 					<?php echo $lists['access']; ?>
@@ -121,7 +121,7 @@ class url_menu_html {
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					Опубликовано:
+					<?php echo _CMN_PUBLISHED?>:
 					</td>
 					<td>
 					<?php echo $lists['published']; ?>
@@ -133,7 +133,7 @@ class url_menu_html {
 				<table class="adminform">
 				<tr>
 					<th>
-					Параметры
+					<?php echo _PARAMETERS?>
 					</th>
 				</tr>
 				<tr>

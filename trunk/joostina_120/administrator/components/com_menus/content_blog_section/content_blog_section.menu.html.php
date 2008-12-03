@@ -37,7 +37,7 @@ class content_blog_section_html {
 		if(!$menu->id) {
 ?>
 				if ( form.name.value == '' ) {
-					alert( 'Этот пункт меню должен иметь название' );
+					alert( '<?php echo _OBJECT_MUST_HAVE_NAME?>' );
 					return;
 				} else {
 					submitform( pressbutton );
@@ -46,7 +46,7 @@ class content_blog_section_html {
 		} else {
 ?>
 				if ( form.name.value == '' ) {
-					alert( 'Этот пункт меню должен иметь название' );
+					alert( '<?php echo _OBJECT_MUST_HAVE_NAME?>' );
 				} else {
 					submitform( pressbutton );
 				}
@@ -61,7 +61,7 @@ class content_blog_section_html {
 		<table class="adminheading">
 		<tr>
 			<th class="menus">
-			<?php echo $menu->id?'Редактирование -':'Создание -'; ?> Пункт меню :: Блог - Содержимое раздела
+			<?php echo $menu->id?_O_EDITING.' -':_O_CREATION.' -'; ?> <?php echo _MENU_ITEM_BLOG_CONTENT_CATEGORY?>
 			</th>
 		</tr>
 		</table>
@@ -72,11 +72,11 @@ class content_blog_section_html {
 				<table class="adminform">
 				<tr>
 					<th colspan="3">
-					Детали
+					<?php echo _DETAILS?>
 					</th>
 				</tr>
 				<tr>
-					<td width="10%" align="right">Название:</td>
+					<td width="10%" align="right"><?php echo _CMN_NAME?>:</td>
 					<td width="200px">
 					<input class="inputbox" type="text" name="name" id="name" size="30" maxlength="100" value="<?php echo htmlspecialchars($menu->name,ENT_QUOTES); ?>" />
 					</td>
@@ -85,7 +85,7 @@ class content_blog_section_html {
 				</tr>
 				<tr>
 					<td width="10%" align="right" valign="top">
-					title ссылки:
+					<?php echo _LINK_TITLE?>:
 					</td>
 					<td width="80%">
 						<input class="inputbox" type="text" name="params[title]" size="50" maxlength="100" value="<?php echo htmlspecialchars($params->get('title',''),ENT_QUOTES); ?>" />
@@ -93,14 +93,14 @@ class content_blog_section_html {
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					Раздел:
+					<?php echo _SECTION?>:
 					</td>
 					<td>
 					<?php echo $lists['sectionid']; ?>
 					</td>
 					<td valign="top">
 <?php
-		echo mosToolTip('Вы можете выбрать несколько разделов')
+		echo mosToolTip(_YOU_CAN_CHOOSE_SEVERAL_SECTIONS)
 ?>
 					</td>
 				</tr>
@@ -111,25 +111,25 @@ class content_blog_section_html {
 					</td>
 				</tr>
 				<tr>
-					<td align="right">Родительский пункт меню:</td>
+					<td align="right"><?php echo _PARENT_MENU_ITEM?>:</td>
 					<td colspan="2">
 					<?php echo $lists['parent']; ?>
 					</td>
 				</tr>
 				<tr>
-					<td valign="top" align="right">Порядок расположения:</td>
+					<td valign="top" align="right"><?php echo _ORDER_DROPDOWN?>:</td>
 					<td colspan="2">
 					<?php echo $lists['ordering']; ?>
 					</td>
 				</tr>
 				<tr>
-					<td valign="top" align="right">Уровень доступа:</td>
+					<td valign="top" align="right"><?php echo _CMN_ACCESS?>:</td>
 					<td colspan="2">
 					<?php echo $lists['access']; ?>
 					</td>
 				</tr>
 				<tr>
-					<td valign="top" align="right">Опубликовано:</td>
+					<td valign="top" align="right"><?php echo _CMN_PUBLISHED?>:</td>
 					<td colspan="2">
 					<?php echo $lists['published']; ?>
 					</td>
@@ -143,7 +143,7 @@ class content_blog_section_html {
 				<table class="adminform">
 				<tr>
 					<th>
-					Параметры
+					<?php echo _PARAMETERS?>
 					</th>
 				</tr>
 				<tr>

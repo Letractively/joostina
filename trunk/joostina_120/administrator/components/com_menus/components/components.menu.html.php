@@ -55,9 +55,9 @@ class components_menu_html {
 			}
 
 			if ( trim( form.name.value ) == "" ){
-				alert( "Объект должен иметь имя" );
+				alert( "<?php echo _OBJECT_MUST_HAVE_NAME?>" );
 			} else if (form.componentid.value == ""){
-				alert( "Выберите компонент" );
+				alert( "<?php echo _CHOOSE_COMPONENT?>" );
 			} else {
 				submitform( pressbutton );
 			}
@@ -68,7 +68,7 @@ class components_menu_html {
 		<table class="adminheading">
 		<tr>
 			<th class="menus">
-			<?php echo $menu->id?'Редактирование -':'Создание -'; ?> Пункт меню :: Компонент <small><small><?php echo $title; ?></small></small>
+			<?php echo $menu->id?_O_EDITING.' -':_O_CREATION.' -'; ?> <?php echo _MENU_ITEM_COMPONENT?> <small><small><?php echo $title; ?></small></small>
 			</th>
 		</tr>
 		</table>
@@ -77,10 +77,10 @@ class components_menu_html {
 			<td width="60%">
 				<table class="adminform">
 				<tr>
-					<th colspan="2">Детали</th>
+					<th colspan="2"><?php echo _DETAILS?></th>
 				</tr>
 				<tr>
-					<td width="10%" align="right">Название:</td>
+					<td width="10%" align="right"><?php echo _CMN_NAME?>:</td>
 					<td width="80%">
 						<input class="inputbox" type="text" name="name" size="50" maxlength="100" value="<?php echo htmlspecialchars($menu->name,ENT_QUOTES); ?>" />
 					</td>
@@ -92,7 +92,7 @@ class components_menu_html {
 					</td>
 				</tr>
 				<tr>
-					<td valign="top" align="right">Компонент:</td>
+					<td valign="top" align="right"><?php echo _COMPONENT?>:</td>
 					<td><?php echo $lists['componentid']; ?></td>
 				</tr>
 				<tr>
@@ -100,21 +100,21 @@ class components_menu_html {
 					<td width="80%"><?php echo ampReplace($lists['link']); ?></td>
 				</tr>
 				<tr>
-					<td align="right">Родительский пункт меню:</td>
+					<td align="right"><?php echo _PARENT_MENU_ITEM?>:</td>
 					<td><?php echo $lists['parent']; ?>
 					</td>
 				</tr>
 
 				<tr>
-					<td valign="top" align="right">Порядок расположения:</td>
+					<td valign="top" align="right"><?php echo _ORDER_DROPDOWN?>:</td>
 					<td><?php echo $lists['ordering']; ?></td>
 				</tr>
 				<tr>
-					<td valign="top" align="right">Уровень доступа:</td>
+					<td valign="top" align="right"><?php echo _CMN_ACCESS?>:</td>
 					<td><?php echo $lists['access']; ?></td>
 				</tr>
 				<tr>
-					<td valign="top" align="right">Опубликовано:</td>
+					<td valign="top" align="right"><?php echo _CMN_PUBLISHED?>:</td>
 					<td><?php echo $lists['published']; ?></td>
 				</tr>
 				<tr>
@@ -124,7 +124,7 @@ class components_menu_html {
 			</td>
 			<td width="40%">
 				<table class="adminform">
-				<tr><th>Параметры</th></tr>
+				<tr><th><?php echo _PARAMETERS?></th></tr>
 				<tr>
 					<td>
 					<?php
@@ -132,7 +132,7 @@ class components_menu_html {
 			echo $params->render();
 		} else {
 ?>
-						<strong>Список параметров будет доступен только после сохранения пункта меню</strong>
+						<strong><?php echo _MENU_PARAMS_AFTER_SAVE?></strong>
 						<?php
 		}
 ?>

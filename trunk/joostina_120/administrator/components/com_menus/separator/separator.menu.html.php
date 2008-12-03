@@ -42,7 +42,7 @@ class separator_menu_html {
 		<table class="adminheading">
 		<tr>
 			<th class="menus">
-			<?php echo $menu->id?'Редактирование -':'Создание -'; ?> Пункт меню :: Разделитель / Заполнитель
+			<?php echo $menu->id?_O_EDITING.' -':_O_CREATION.' -'; ?> <?php echo _MENU_ITEM_SEPARATOR?>
 			</th>
 		</tr>
 		</table>
@@ -53,12 +53,12 @@ class separator_menu_html {
 				<table class="adminform">
 				<tr>
 					<th colspan="2">
-					Детали
+					<?php echo _DETAILS?>
 					</th>
 				</tr>
 				<tr>
 					<td align="right">
-					Шаблон / Название:
+					<?php echo _CMN_NAME?>:
 					</td>
 					<td>
 					<input class="inputbox" type="text" name="name" size="50" maxlength="100" value="<?php echo htmlspecialchars($menu->name,ENT_QUOTES); ?>" />
@@ -66,7 +66,7 @@ class separator_menu_html {
 				</tr>
 				<tr>
 					<td align="right">
-					Родительский пункт меню:
+					<?php echo _PARENT_MENU_ITEM?>:
 					</td>
 					<td>
 					<?php echo $lists['parent']; ?>
@@ -74,7 +74,7 @@ class separator_menu_html {
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					Порядок расположения:
+					<?php echo _ORDER_DROPDOWN?>:
 					</td>
 					<td>
 					<?php echo $lists['ordering']; ?>
@@ -82,14 +82,14 @@ class separator_menu_html {
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					Уровень доступа:
+					<?php echo _CMN_ACCESS?>:
 					</td>
 					<td>
 					<?php echo $lists['access']; ?>
 					</td>
 				</tr>
 				<tr>
-					<td valign="top" align="right">Опубликовано:</td>
+					<td valign="top" align="right"><?php echo _CMN_PUBLISHED?>:</td>
 					<td>
 					<?php echo $lists['published']; ?>
 					</td>
@@ -103,7 +103,7 @@ class separator_menu_html {
 				<table class="adminform">
 				<tr>
 					<th>
-					Параметры
+					<?php echo _PARAMETERS?>
 					</th>
 				</tr>
 				<tr>

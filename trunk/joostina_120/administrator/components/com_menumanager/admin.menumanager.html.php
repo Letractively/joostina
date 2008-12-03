@@ -36,19 +36,19 @@ class HTML_menumanager {
 		<form action="index2.php" method="post" name="adminForm">
 		<table class="adminheading">
 			<tr>
-				<th class="menus">Управление меню</th>
+				<th class="menus"><?php echo _MENU_MANAGER?></th>
 			</tr>
 		</table>
 		<table class="adminlist">
 		<tr>
 			<th width="20">#</th>
 			<th width="2%">&nbsp;</th>
-			<th class="title">Название меню</th>
-			<th width="5%" class="jtd_nowrap">Пункты меню</th>
-			<th width="10%">Опубликовано</th>
-			<th width="15%">Скрыто</th>
-			<th width="15%">В корзине</th>
-			<th width="15%">Модулей</th>
+			<th class="title"><?php echo _MENU_NAME?></th>
+			<th width="5%" class="jtd_nowrap"><?php echo _MENU_ITEMS?></th>
+			<th width="10%"><?php echo _CMN_PUBLISHED?></th>
+			<th width="15%"><?php echo _MENU_ITEMS_UNPUBLISHED?></th>
+			<th width="15%"><?php echo _IN_TRASH?></th>
+			<th width="15%"><?php echo _MENU_MUDULES?></th>
 		</tr>
 		<?php
 		$k = 0;
@@ -70,10 +70,10 @@ class HTML_menumanager {
 					<input type="radio" id="cb<?php echo $i; ?>" name="cid[]" value="<?php echo $menu->type; ?>" onclick="isChecked(this.checked);" />
 				</td>
 				<td align="left">
-					<a href="<?php echo $link; ?>" title="Изменить название меню"><?php echo $menu->type; ?></a>
+					<a href="<?php echo $link; ?>" title="<?php echo _CHANGE_MENU_NAME?>"><?php echo $menu->type; ?></a>
 				</td>
 				<td align="center">
-					<a href="<?php echo $linkA; ?>" title="Изменить пункты меню">
+					<a href="<?php echo $linkA; ?>" title="<?php echo _CHANGE_MENU_ITEMS?>">
 						<img src="<?php echo $mosConfig_live_site; ?>/includes/js/ThemeOffice/mainmenu.png" border="0"/>
 					</a>
 				</td>
@@ -130,13 +130,13 @@ class HTML_menumanager {
 
 			if (pressbutton == 'savemenu') {
 				if ( form.menutype.value == '' ) {
-					alert( 'Пожалуйста, введите название меню' );
+					alert( '<?php echo _PLEASE_ENTER_MENU_NAME?>' );
 					form.menutype.focus();
 					return;
 				}
 				var r = new RegExp("[\']", "i");
 				if ( r.exec(form.menutype.value) ) {
-					alert( 'Название меню не должно содержать \'' );
+					alert( '<?php echo _NO_QUOTES_IN_NAME?>' );
 					form.menutype.focus();
 					return;
 				}
@@ -144,7 +144,7 @@ class HTML_menumanager {
 		if($new) {
 ?>
 					if ( form.title.value == '' ) {
-						alert( 'Пожалуйста, введите название модуля меню' );
+						alert( '<?php echo _PLEASE_ENTER_MENU_MODULE_NAME?>' );
 						form.title.focus();
 						return;
 					}
@@ -161,19 +161,19 @@ class HTML_menumanager {
 		<form action="index2.php" method="post" name="adminForm">
 		<table class="adminheading">
 		<tr>
-			<th class="menus">Информация о меню</th>
+			<th class="menus"><?php echo _MENU_INFO?></th>
 		</tr>
 		</table>
 
 		<table class="adminform">
 		<tr height="45px;">
 			<td width="100px" align="left">
-			<strong>Имя меню:</strong>
+			<strong><?php echo _MENU_NAME?>:</strong>
 			</td>
 			<td>
 			<input class="inputbox" type="text" name="menutype" size="30" maxlength="25" value="<?php echo isset($row->menutype)?$row->menutype:''; ?>" />
 <?php
-		$tip = 'Это имя меню используется системой для его идентификации - оно должно быть уникально. Рекомендуется давать имя без пробелов';
+		$tip = _MENU_NAME_TIP;
 		echo mosToolTip($tip);
 ?>
 			</td>
@@ -183,19 +183,17 @@ class HTML_menumanager {
 ?>
 			<tr>
 				<td width="100px" align="left" valign="top">
-				<strong>Заголовок модуля:</strong>
+				<strong><?php echo _MODULE_TITLE?>:</strong>
 				</td>
 				<td>
 				<input class="inputbox" type="text" name="title" size="30" value="<?php echo $row->title?$row->title:''; ?>" />
 <?php
-			$tip = 'Заголовок mod_mainmenu требуется для отображения этого меню';
+			$tip = _MODULE_TITLE_TIP;
 			echo mosToolTip($tip);
 ?>
 				<br /><br /><br />
 				<strong>
-				* Новый модуль меню будет автоматически создан после того, как вы введете заголовок, а затем нажмете кнопку "Сохранить".*
-				<br /><br />
-				Редактирование параметров созданного модуля будет доступно в разделе 'Управления модулями [сайт]': Модули -> Модули сайта
+				<?php echo _NEW_MENU_ITEM_TIP?>
 				</strong>
 				</td>
 			</tr>
@@ -239,7 +237,7 @@ class HTML_menumanager {
 		<form action="index2.php" method="post" name="adminForm">
 		<table class="adminheading">
 		<tr>
-			<th>Удалить меню: <?php echo $type; ?></th>
+			<th><?php echo _REMOVE_MENU?>: <?php echo $type; ?></th>
 		</tr>
 		</table>
 
@@ -251,7 +249,7 @@ class HTML_menumanager {
 			<?php
 		if($modules) {
 ?>
-				<strong>Модуль(и) для удаления:</strong>
+				<strong><?php echo _MODULES_TO_REMOVE?>:</strong>
 				<ol>
 				<?php
 			foreach($modules as $module) {
@@ -271,7 +269,7 @@ class HTML_menumanager {
 ?>
 			</td>
 			<td align="left" valign="top" width="25%">
-			<strong>Удаляемые пункты меню:</strong>
+			<strong><?php echo _MENU_ITEMS_TO_REMOVE?>:</strong>
 			<br />
 			<ol>
 			<?php
@@ -289,11 +287,11 @@ class HTML_menumanager {
 			</ol>
 			</td>
 			<td>
-			* Эта операция <strong><font color="#FF0000">удаляет</font></strong> это меню, <br />ВСЕ его пункты и модуль(и), назначенный ему*
+			<?php echo _THIS_OP_REMOVES_MENU?>
 			<br /><br /><br />
 			<div style="border: 1px dotted gray; width: 70px; padding: 10px; margin-left: 100px;">
-			<a class="toolbar" href="javascript:if (confirm('Вы уверены, что хотите удалить это меню? \nПроизойдет удаление меню, его пунктов и модулей.')){ submitbutton('deletemenu');}" onmouseout="MM_swapImgRestore();"  onmouseover="MM_swapImage('remove','','images/delete_f2.png',1);">
-			<img name="remove" src="images/delete.png" alt="Удалить" border="0" align="middle" />
+			<a class="toolbar" href="javascript:if (confirm('<?php echo _REALLY_DELETE_MENU?>')){ submitbutton('deletemenu');}" onmouseout="MM_swapImgRestore();"  onmouseover="MM_swapImage('remove','','images/delete_f2.png',1);">
+			<img name="remove" src="images/delete.png" alt="<?php echo _CMN_DELETE?>" border="0" align="middle" />
 			&nbsp;Удалить
 			</a>
 			</div>
@@ -325,10 +323,10 @@ class HTML_menumanager {
 		function submitbutton(pressbutton) {
 			if (pressbutton == 'copymenu') {
 				if ( document.adminForm.menu_name.value == '' ) {
-					alert( 'Пожалуйста, введите имя для копии меню' );
+					alert( '<?php echo _PLEASE_ENTER_MENY_COPY_NAME?>' );
 					return;
 				} else if ( document.adminForm.module_name.value == '' ) {
-					alert( 'Пожалуйста, введите имя для нового модуля' );
+					alert( '<?php echo _PLEASE_ENTER_MODULE_NAME?>' );
 					return;
 				} else {
 					submitform( 'copymenu' );
@@ -341,7 +339,7 @@ class HTML_menumanager {
 		<form action="index2.php" method="post" name="adminForm">
 		<table class="adminheading">
 		<tr>
-			<th>Копирование меню</th>
+			<th><?php echo _MENU_COPYING?></th>
 		</tr>
 		</table>
 		<br />
@@ -349,18 +347,18 @@ class HTML_menumanager {
 		<tr>
 			<td width="3%"></td>
 			<td align="left" valign="top" width="30%">
-			<strong>Имя нового меню:</strong>
+			<strong><?php echo _NEW_MENU_NAME?>:</strong>
 			<br />
 			<input class="inputbox" type="text" name="menu_name" size="30" value="" />
 			<br /><br /><br />
-			<strong>Имя нового модуля:</strong>
+			<strong><?php echo _NEW_MODULE_NAME?>:</strong>
 			<br />
 			<input class="inputbox" type="text" name="module_name" size="30" value="" />
 			<br /><br />
 			</td>
 			<td align="left" valign="top" width="25%">
 			<strong>
-			Копируемое меню:
+			<?php echo _MENU_TO_COPY?>:
 			</strong>
 			<br />
 			<font color="#000066">
@@ -370,7 +368,7 @@ class HTML_menumanager {
 			</font>
 			<br /><br />
 			<strong>
-			Копируемые пункты меню:
+			<?php echo _MENU_ITEMS_TO_COPY?>:
 			</strong>
 			<br />
 			<ol>
