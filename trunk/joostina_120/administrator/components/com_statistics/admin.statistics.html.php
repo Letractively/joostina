@@ -32,17 +32,17 @@ class HTML_statistics {
 		</style>
 		<table class="adminheading">
 		<tr>
-			<th class="browser">Статистика по браузерам, ОС и доменам</th>
+			<th class="browser"><?php echo _STAT_BROWSERS_AND_OSES?></th>
 		</tr>
 		</table>
 		<form action="index2.php" method="post" name="adminForm">
 		<?php
 		$tabs->startPane("statsPane");
-		$tabs->startTab("Браузеры","browsers-page");
+		$tabs->startTab(_BROWSERS,"browsers-page");
 ?>
 		<table class="adminlist">
 		<tr>
-			<th align="left">&nbsp;Браузер <?php echo $sorts['b_agent']; ?></th>
+			<th align="left">&nbsp;<?php echo _BROWSER?> <?php echo $sorts['b_agent']; ?></th>
 			<th>&nbsp;</th>
 			<th width="100" align="left">% <?php echo $sorts['b_hits']; ?></th>
 			<th width="100" align="left">#</th>
@@ -124,11 +124,11 @@ class HTML_statistics {
 		</table>
 		<?php
 		$tabs->endTab();
-		$tabs->startTab("Домены","domain-page");
+		$tabs->startTab(_DOMAINS,"domain-page");
 ?>
 		<table class="adminlist">
 		<tr>
-			<th align="left">&nbsp;Домен <?php echo $sorts['d_agent']; ?></th>
+			<th align="left">&nbsp;<?php echo _DOMAIN?> <?php echo $sorts['d_agent']; ?></th>
 			<th>&nbsp;</th>
 			<th width="100" align="left">% <?php echo $sorts['d_hits']; ?></th>
 			<th width="100" align="left">#</th>
@@ -180,7 +180,7 @@ class HTML_statistics {
 ?>
 		<table cellpadding="4" cellspacing="0" border="0" width="100%" class="adminheading">
 		<tr>
-			<th width="100%" class="impressions">Статистика посещения страниц</th>
+			<th width="100%" class="impressions"><?php echo _PAGES_HITS?></th>
 		</tr>
 		</table>
 
@@ -188,8 +188,8 @@ class HTML_statistics {
 		<table class="adminlist">
 		<tr>
 			<th style="text-align:right">#</th>
-			<th class="title">Заголовок содержимого</th>
-			<th align="center" class="jtd_nowrap">Посещений</th>
+			<th class="title"><?php echo _CONTENT_TITLE?></th>
+			<th align="center" class="jtd_nowrap"><?php echo _E_HITS?></th>
 		</tr>
 		<?php
 		$i = $pageNav->limitstart;
@@ -228,15 +228,15 @@ class HTML_statistics {
 		<table cellpadding="4" cellspacing="0" border="0" width="100%" class="adminheading">
 			<tr>
 			<th class="searchtext">
-				Поисковые запросы :
-				<span class="componentheading">сбор данных:
-				<?php echo $mainframe->getCfg('enable_log_searches')?'<b><font color="green">Разрешено</font></b>':'<b><font color="red">Запрещено</font></b>' ?>
+				<?php echo _SEARCH_QUERIES?>:
+				<span class="componentheading"><?php echo _LOG_SEARCH_QUERIES?>:
+				<?php echo $mainframe->getCfg('enable_log_searches')?'<b><font color="green">'._ALLOWED.'</font></b>':'<b><font color="red">'._DISALLOWED.'</font></b>' ?>
 				</span>
 				</th>
 			<td align="right">
 				<?php
 		if(!$showResults) {
-			echo mosWarning('Активация этого параметра может очень сильно снизить производительность сайта при большой посещаемости');
+			echo mosWarning(_LOG_LOW_PERFOMANCE);
 		}
 ?>
 			</td>
@@ -244,11 +244,11 @@ class HTML_statistics {
 				<?php
 		if($showResults) {
 ?>
-					<input name="search_results" type="button" class="button" value="Скрыть результаты поиска" onclick="submitbutton('searches');">
+					<input name="search_results" type="button" class="button" value="<?php echo _HIDE_SEARCH_RESULTS?>" onclick="submitbutton('searches');">
 					<?php
 		} else {
 ?>
-					<input name="search_results" type="button" class="button" value="Показать результаты поиска" onclick="submitbutton('searchesresults');">
+					<input name="search_results" type="button" class="button" value="<?php echo _SHOW_SEARCH_RESULTS?>" onclick="submitbutton('searchesresults');">
 					<?php
 		}
 ?>
@@ -262,16 +262,16 @@ class HTML_statistics {
 				#
 			</th>
 			<th class="title">
-				Текст поиска
+				<?php echo _SEARCH_QUERY_TEXT?>
 			</th>
 			<th class="jtd_nowrap">
-				Запросов
+				<?php echo _SEARCH_QUERY_COUNT?>
 			</th>
 			<?php
 		if($showResults) {
 ?>
 			<th class="jtd_nowrap">
-				Выдано результатов
+				<?php echo _SHOW_RESULTS?>
 			</th>
 				<?php
 		}

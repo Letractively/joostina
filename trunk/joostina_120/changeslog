@@ -1,17 +1,18 @@
 Joostina v 1.2.0
 
 04.12.08
-	1. Фикс ошибки найденной Wild Tiger (http://joomlaforum.ru/index.php/topic,41126.msg283583.html#msg283583) - отсутствие картинок nomail.png и картинок в joomlaXplorer.
+	1. Фикс ошибки найденной Wild Tiger (http://joomlaforum.ru/index.php/topic,41126.msg283583.html#msg283583) - отсутствие картинок nomail.png и картинок в joomlaXplorer. (Dead Krolik)
+	2. Подготовил к переводу administrator/components/com_statistics = com_quickicons (Dead Krolik)
 
 03.12.08
 	1. Подготовил к переводу administrator/components/com_massmail + com_menumanager + com_menus + небольшой косяк с открывающим тэгом в одном из типов меню + com_messages + com_syndicate (Dead Krolik)
-	2. http://joomlaforum.ru/index.php/topic,41126.msg283549.html#msg283549 косяк с тем, что у юзеров в админке если у них в дате последнего посещения null date - рисуется что-то неадекватное, вроде 1998 года
+	2. http://joomlaforum.ru/index.php/topic,41126.msg283549.html#msg283549 косяк с тем, что у юзеров в админке если у них в дате последнего посещения null date - рисуется что-то неадекватное, вроде 1998 года, теперь если в функцию mosFormatDate подается nullDate, она возвращает "—" (Dead Krolik)
 	
 30.11.08
-	1. Подготовил к переводу administrator/components/com_languages + com_linkeditor + com_mambots
+	1. Подготовил к переводу administrator/components/com_languages + com_linkeditor + com_mambots (Dead Krolik)
 
 29.11.08
-	1. Подготовил к переводу administrator/components/com_trash + com_templates и файлы administrator/includes/menubar.html.old.php + menubar.html.php
+	1. Подготовил к переводу administrator/components/com_trash + com_templates и файлы administrator/includes/menubar.html.old.php + menubar.html.php (Dead Krolik)
 
 26.11.08
 	1. Подготовил к переводу administrator/components/com_users + com_typedcontent (Dead Krolik)

@@ -54,7 +54,7 @@ if(!empty($securitycheck)) {
 <?php if($my->usertype == 'Super Administrator') { ?>
 		<a href="index2.php?option=com_quickicons">
 		<img border="0" src="<?php echo $mosConfig_live_site; ?>/administrator/templates/joostfree/images/shortcut.png" />
-		Изменить кнопки быстрого доступа
+		<?php echo _CHANGE_QUICK_BUTTONS?>
 		</a>
 <?php } ?>
 	</div>

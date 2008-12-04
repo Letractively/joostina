@@ -24,7 +24,7 @@ switch($task) {
 		echo x_publish($id);
 		return;
 	default:
-		echo '$task not found';
+		echo "task not found";
 		return;
 }
 
@@ -35,7 +35,7 @@ switch($task) {
 function x_publish($id = null) {
 	global $database;
 	// id содержимого для обработки не получен - выдаём ошибку
-	if(!$id) return 'Идентификатор не опознан.';
+	if(!$id) return _UNKNOWN_ID;
 
 	$state = new stdClass();
 	$query = "SELECT published FROM #__quickicons WHERE id = ".(int)$id;
