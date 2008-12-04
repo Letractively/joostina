@@ -1162,6 +1162,7 @@ DEFINE('_ERROR_OCCURED','Произошла ошибка');
 DEFINE('_OBJECTS_MOVED_TO_SECTION','объект(ы) успешно перемещен(ы) в раздел');
 DEFINE('_OBJECTS_COPIED_TO_SECTION','объект(ы) успешно скопированы в раздел');
 DEFINE('_HITCOUNT_RESETTED','Счетчик просмотров сброшен');
+DEFINE('_TIMES','раз');
 
 /* administrator components com_easysql */
 
