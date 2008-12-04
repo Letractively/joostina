@@ -1611,9 +1611,54 @@ DEFINE('_NEW_PERSONAL_MESSAGE','Новое персональное сообщение');
 DEFINE('_MAIL_TO','Кому');
 DEFINE('_MAIL_ANSWER','Ответить');
 
-/* administrator components com_sybdicate */
+/* administrator components com_syndicate */
 DEFINE('_NEWS_EXPORT_SETUP','Настройки экспорта новостей');
 DEFINE('_RSS_EXPORT','RSS экспорт');
 DEFINE('_RSS_EXPORT_SETUP','Управление настройками экспорта новостей');
+
+/* administrator components com_statistics */
+DEFINE('_STAT_BROWSERS_AND_OSES','Статистика по браузерам, ОС и доменам');
+DEFINE('_BROWSERS','Браузеры');
+DEFINE('_DOMAINS','Домены');
+DEFINE('_DOMAIN','Домен');
+DEFINE('_PAGES_HITS','Статистика посещения страниц');
+DEFINE('_CONTENT_TITLE','Заголовок содержимого');
+DEFINE('_SEARCH_QUERIES','Поисковые запросы');
+DEFINE('_LOG_SEARCH_QUERIES','сбор данных');
+DEFINE('_DISALLOWED','Запрещено');
+DEFINE('_LOG_LOW_PERFOMANCE','Активация этого параметра может очень сильно снизить производительность сайта при большой посещаемости');
+DEFINE('_HIDE_SEARCH_RESULTS','Скрыть результаты поиска');
+DEFINE('_SHOW_SEARCH_RESULTS','Показать результаты поиска');
+DEFINE('_SEARCH_QUERY_TEXT','Текст поиска');
+DEFINE('_SEARCH_QUERY_COUNT','Запросов');
+DEFINE('_SHOW_RESULTS','Выдано результатов');
+
+/* administrator components com_quickicons */
+DEFINE('_QUICK_BUTTONS','Кнопки быстрого доступа');
+DEFINE('_DISPLAY_METHOD','Отображение');
+DEFINE('_DISPLAY_ONLY_TEXT','Только текст');
+DEFINE('_DISPLAY_ONLY_ICON','Только значок');
+DEFINE('_DISPLAY_TEXT_AND_ICON','Значок и текст');
+DEFINE('_PRESS_TO_EDIT_ELEMENT','Нажмите для редактирования элемента');
+DEFINE('_EDIT_BUTTON','Редактирование кнопки');
+DEFINE('_BUTTON_TEXT','Текст кнопки');
+DEFINE('_BUTTON_TITLE','Подсказка');
+DEFINE('_BUTTON_TITLE_TIP','<strong>Опционально</strong><br />Здесь вы можете определить текст для всплывающей подсказки.<br />Это свойство очень важно заполнить если вы выбрали отображение только картинки!');
+DEFINE('_BUTTON_LINK_TIP','Ссылка для вызова сайта или компонента.<br />Для компонентов внутри системы ссылка должна быть подобной: <br />index2.php?option=com_joomlastats&task=stats  [ joomlastats - компонент, &task=stats вызов определённой функции компонента ].<br />Внешние ссылки должны быть <strong>абсолютными ссылками</strong> (например: http://www....)!');
+DEFINE('_BUTTON_LINK_IN_NEW_WINDOW','В новом окне');
+DEFINE('_BUTTON_LINK_IN_NEW_WINDOW_TIP','Ссылка будет открыта в новом окне');
+DEFINE('_BUTTON_ORDER','Расположить после');
+DEFINE('_BUTTONS_TAB_GENERAL','Общее');
+DEFINE('_BUTTONS_TAB_DISPLAY','Отображение');
+DEFINE('_DISPLAY_BUTTON','Отображать');
+DEFINE('_PRESS_TO_CHOOSE_ICON','Нажмите для выбора картинки (откроется в новом окне)');
+DEFINE('_CHOOSE_ICON','Выбрать картинку');
+DEFINE('_CHOOSE_ICON_TIP','Пожалуйста, выберите картинку для этой кнопки. Если хотите загрузить собственную картинку для кнопки, то она должна быть загружена в ../administrator/images - ../images ../images/icons');
+DEFINE('_PLEASE_ENTER_NUTTON_LINK','Требуется картинка');
+DEFINE('_PLEASE_ENTER_BUTTON_TEXT','Пожалуйста, заполните поле Текст');
+DEFINE('_BUTTON_ERROR_PUBLISHING','Ошибка публикации');
+DEFINE('_BUTTON_ERROR_UNPUBLISHING','Ошибка скрытия');
+DEFINE('_BUTTONS_DELETED','Кнопки успешно удалены');
+DEFINE('_CHANGE_QUICK_BUTTONS','Изменить кнопки быстрого доступа');
 
 ?>

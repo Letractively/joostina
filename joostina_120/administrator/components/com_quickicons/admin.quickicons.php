@@ -68,15 +68,15 @@ class CustomQuickIcons extends mosDBTable {
 		$returnVar = true;
 
 		if(empty($this->icon) && $this->display != '1') {
-			$this->_error = 'Требуется картинка';
+			$this->_error = _PLEASE_ENTER_NUTTON_LINK;
 			$returnVar = false;
 		}
 		if(empty($this->target)) {
-			$this->_error = 'Требуется ссылка';
+			$this->_error = _PLEASE_ENTER_NUTTON_LINK;
 			$returnVar = false;
 		}
 		if(empty($this->text)) {
-			$this->_error = 'Пожалуйста, заполните поле Текст';
+			$this->_error = _PLEASE_ENTER_BUTTON_TEXT;
 			$returnVar = false;
 		}
 
@@ -241,9 +241,9 @@ function editIcon($id,$option) {
 	}
 
 	// display
-	$display[] = mosHTML::makeOption('','Значок и текст');
-	$display[] = mosHTML::makeOption('1','Только текст');
-	$display[] = mosHTML::makeOption('2','Только значок');
+	$display[] = mosHTML::makeOption('',_DISPLAY_TEXT_AND_ICON);
+	$display[] = mosHTML::makeOption('1',_DISPLAY_ONLY_TEXT);
+	$display[] = mosHTML::makeOption('2',_DISPLAY_ONLY_ICON);
 
 	$lists['display'] = mosHTML::selectList($display,'display','class="inputbox" size="1"','value','text',$row->display);
 
@@ -255,7 +255,7 @@ function changeIcon($cid,$action,$option) {
 	global $database;
 
 	if(!is_array($cid) || count($cid) < 1) {
-		$errMsg = $action ? 'Ошибка публикации':'Ошибка скрытия';
+		$errMsg = $action ? _BUTTON_ERROR_PUBLISHING:_BUTTON_ERROR_UNPUBLISHING;
 		echo "<script> alert('".$errMsg."'); window.history.go(-1);</script>\n";
 		exit();
 	}
@@ -393,7 +393,7 @@ function saveOrder(&$cid,$option) {
 		$row->updateOrder();
 	}
 
-	$msg = 'Новый порядок сохранен';
+	$msg = _NEW_ORDER_SAVED;
 	mosRedirect('index2.php?option='.$option,$msg);
 } // saveOrder
 
@@ -411,7 +411,7 @@ function deleteIcon(&$cid,$option) {
 		}
 	}
 
-	$msg = 'Кнопки успешно удалены';
+	$msg = _BUTTONS_DELETED;
 	mosRedirect('index2.php?option='.$option,$msg);
 }
 
