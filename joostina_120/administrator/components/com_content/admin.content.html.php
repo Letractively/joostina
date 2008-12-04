@@ -627,15 +627,15 @@ class HTML_content {
 					</td>
 				</tr>
 				<tr>
-					<td><strong><?=_CHANGED?>:</strong></td>
-					<td><?php echo $row->version; ?> раз</td>
+					<td><strong><?=_CHANGED?>:</strong> </td>
+					<td><?php echo $row->version; ?> <?php echo _TIMES?></td>
 				</tr>
 				<tr>
-					<td><strong><?=_CREATED?>:</strong></td>
+					<td><strong><?=_CREATED?>:</strong> </td>
 					<td><?php echo $create_date ? $create_date : _NEW_DOCUMENT;?></td>
 				</tr>
 				<tr>
-					<td><strong><?=_LAST_CHANGE?>:</strong></td>
+					<td><strong><?=_LAST_CHANGE?>:</strong> </td>
 					<td><?php echo $mod_date ? $mod_date.$row->modifier : _NOT_CHANGED;?></td>
 				</tr>
 			</table>
