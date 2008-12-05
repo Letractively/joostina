@@ -24,7 +24,7 @@ class HTML_poll {
 		<form action="index2.php" method="post" name="adminForm">
 		<table class="adminheading">
 		<tr>
-			<th class="menus">Опросы</th>
+			<th class="menus"><?php echo _POLLS?></th>
 		</tr>
 		</table>
 
@@ -37,16 +37,16 @@ class HTML_poll {
 			<input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo count($rows); ?>);" />
 			</th>
 			<th align="left">
-			Заголовок опроса
+			<?php echo _POLL_HEADER?>
 			</th>
 			<th width="10%" align="center">
-			Опубликован
+			<?php echo _CMN_PUBLISHED?>
 			</th>
 			<th width="10%" align="center">
-			Параметры
+			<?php echo _PARAMETERS?>
 			</th>
 			<th width="10%" align="center">
-			Задержка
+			<?php echo _POLL_LAG?>
 			</th>
 		</tr>
 		<?php
@@ -58,7 +58,7 @@ class HTML_poll {
 
 			$task = $row->published?'unpublish':'publish';
 			$img = $row->published?'publish_g.png':'publish_x.png';
-			$alt = $row->published?'Опубликован':'Неопубликован';
+			$alt = $row->published?_CMN_PUBLISHED:_CMN_UNPUBLISHED;
 
 			$checked = mosCommonHTML::CheckedOutProcessing($row,$i);
 ?>
@@ -70,7 +70,7 @@ class HTML_poll {
 				<?php echo $checked; ?>
 				</td>
 				<td>
-				<a href="<?php echo $link; ?>" title="Изменить опрос">
+				<a href="<?php echo $link; ?>" title="<?php echo _CHANGE_POLL?>">
 				<?php echo $row->title; ?>
 				</a>
 				</td>
@@ -114,13 +114,9 @@ class HTML_poll {
 			}
 			// do field validation
 			if (form.title.value == "") {
-				alert( "Опрос должен иметь название" );
+				alert( "<?php echo _ENTER_POLL_NAME?>" );
 			} else if( isNaN( parseInt( form.lag.value ) ) ) {
-				alert( "Задержка между ответами не должна быть нулевой" );
-			//} else if (form.menu.options.value == ""){
-			//	alert( "Опрос должен иметь страницы." );
-			//} else if (form.adminForm.textfieldcheck.value == 0){
-			//	alert( "Опрос должен иметь ответы." );
+				alert( "<?php echo _ENTER_POLL_LAG?>" );
 			} else {
 				submitform( pressbutton );
 			}
@@ -132,7 +128,7 @@ class HTML_poll {
 			<th class="menus">
 			Опрос:
 			<small>
-			<?php echo $row->id?'Редактирование':'Новый'; ?>
+			<?php echo $row->id?_O_EDITING:_O_CREATION; ?>
 			</small>
 			</th>
 		</tr>
@@ -141,12 +137,12 @@ class HTML_poll {
 		<table class="adminform">
 		<tr>
 			<th colspan="4">
-			Детали опроса
+			<?php echo _POLL_DETAILS?>
 			</th>
 		</tr>
 		<tr>
 			<td width="10%">
-			Заголовок:
+			<?php echo _E_CAPTION?>:
 			</td>
 			<td>
 			<input class="inputbox" type="text" name="title" size="60" value="<?php echo $row->title; ?>" />
@@ -155,22 +151,22 @@ class HTML_poll {
 
 			</td>
 			<td width="100%" rowspan="20" valign="top">
-			Связан с пунктами меню:
+			<?php echo _MENU_LINK?>:
 			<br />
 			<?php echo $lists['select']; ?>
 			</td>
 		</tr>
 		<tr>
 			<td>
-			Задержка между ответами:
+			<?php echo _POLL_LAG_QUESIONS?>:
 			</td>
 			<td>
-			<input class="inputbox" type="text" name="lag" size="10" value="<?php echo $row->lag; ?>" /> (секунд между принятием голосов)
+			<input class="inputbox" type="text" name="lag" size="10" value="<?php echo $row->lag; ?>" /> (<?php echo _POLL_LAG_QUESIONS2?>)
 			</td>
 		</tr>
 		<tr>
 			<td valign="top">
-			Опубликован:
+			<?php echo _CMN_PUBLISHED?>:
 			</td>
 			<td>
 			<?php echo $lists['published']; ?>
@@ -179,7 +175,7 @@ class HTML_poll {
 		<tr>
 			<td colspan="3">
 			<br /><br />
-			Варианты ответов:
+			<?php echo _POLL_OPTIONS?>:
 			</td>
 		</tr>
 		<?php

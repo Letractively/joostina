@@ -39,13 +39,13 @@ class TOOLBAR_poll {
 		$cur_template = $database->loadResult();
 		mosMenuBar::startTable();
 		$popup = 'pollwindow';
-		mosMenuBar::ext('Просмотр','#','-preview'," onclick=\"window.open('popups/$popup.php?pollid=$pollid&t=$cur_template', 'win1', 'status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=640,height=480,directories=no,location=no');\"");
+		mosMenuBar::ext(_PREVIEW,'#','-preview'," onclick=\"window.open('popups/$popup.php?pollid=$pollid&t=$cur_template', 'win1', 'status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=640,height=480,directories=no,location=no');\"");
 		mosMenuBar::spacer();
 		mosMenuBar::save();
 		mosMenuBar::spacer();
 		if($id) {
 			// for existing content items the button is renamed `close`
-			mosMenuBar::cancel('cancel','Закрыть');
+			mosMenuBar::cancel('cancel',_CLOSE);
 		} else {
 			mosMenuBar::cancel();
 		}

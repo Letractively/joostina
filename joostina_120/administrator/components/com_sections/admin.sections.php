@@ -163,33 +163,33 @@ function mass_save(){
 			$row = new mosSection($database);
 			// ссылка на редактирование раздела
 			$link = '<a href="index2.php?option=com_sections&scope=content&task=editA&hidemainmenu=1&id=';
-			$text = 'Результат добавления разделов';
+			$text = _ADD_SECTIONS_RESULT;
 		}elseif($type==1){
 			// добавляем категории
 			$row = new mosCategory($database);
 			// ссылка на редактирование категории
 			$link = '<a href="index2.php?option=com_categories&section=content&task=editA&hidemainmenu=1&id=';
-			$text = 'Результат добавления категорий';
+			$text = _ADD_CATEGORIES_RESULT;
 		}else{
 			// добавляем содержимое
 			$row = new mosContent($database);
 			$link = '<a href="index2.php?option=com_content&sectionid=0&task=edit&hidemainmenu=1&id=';
-			$text = 'Результат добавления содержимого';
+			$text = _ADD_CONTENT_RESULT;
 			$_POST['sectionid']	= _gedsid($_POST['catid']);
 		}
 		$_POST['title'] = $_POST['introtext'] = $_POST['name'] = $parse = trim($parse);
 
 		if($parse!=''){
 			if(!$row->bind($_POST)) {
-				$results[]= '<b>'.$parse.'</b> - произошла ошибка при добавлении: <font color="red">'.$row->getError().'</font>';
+				$results[]= '<b>'.$parse.'</b> - '._ERROR_WHEN_ADDING.': <font color="red">'.$row->getError().'</font>';
 			}else{
 				if(!$row->check()) {
-					$results[]= '<b>'.$parse.'</b> - произошла ошибка при добавлении: <font color="red">'.$row->getError().'</font>';
+					$results[]= '<b>'.$parse.'</b> - '._ERROR_WHEN_ADDING.': <font color="red">'.$row->getError().'</font>';
 				}else{
 					if(!$row->store()) {
-						$results[]= '<b>'.$parse.'</b> - произошла ошибка при добавлении: <font color="red">'.$row->getError().'</font>';
+						$results[]= '<b>'.$parse.'</b> - '._ERROR_WHEN_ADDING.': <font color="red">'.$row->getError().'</font>';
 					}else{
-						$results[]= 'Успешно добавлено: <font color="green">'.$parse.' ('.$link.$row->id.'"> редактировать )</a></font>';
+						$results[]= _E_ITEM_SAVED.' <font color="green">'.$parse.' ('.$link.$row->id.'"> '._E_EDIT.' )</a></font>';
 					}
 					$row->checkin();
 				}
@@ -294,7 +294,7 @@ function editSection($uid = 0,$scope = '',$option) {
 
 	// fail if checked out not by 'me'
 	if($row->isCheckedOut($my->id)) {
-		$msg = 'Раздел -'.$row->title.'- в настоящее время редактируется другим администратором';
+		$msg = $row->title.'- '._SECTION_IS_BEING_EDITED_BY_ADMIN;
 		mosRedirect('index2.php?option='.$option.'&scope='.$row->scope.'&mosmsg='.$msg);
 	}
 
@@ -309,15 +309,15 @@ function editSection($uid = 0,$scope = '',$option) {
 			for($i = 0; $i < $count; $i++) {
 				switch($menus[$i]->type) {
 					case 'content_section':
-						$menus[$i]->type = 'Таблица раздела';
+						$menus[$i]->type = _SECTION_TABLE;
 						break;
 
 					case 'content_blog_section':
-						$menus[$i]->type = 'Блог раздела';
+						$menus[$i]->type = _SECTION_BLOG;
 						break;
 
 					case 'content_archive_section':
-						$menus[$i]->type = 'Блог архива раздела';
+						$menus[$i]->type = _SECTION_BLOG_ARCHIVE;
 						break;
 				}
 			}
@@ -378,8 +378,8 @@ function editSection($uid = 0,$scope = '',$option) {
 	$len = strlen(COM_IMAGE_BASE);
 
 	// handling for MOSImage directories
-	$folders[] = mosHTML::makeOption('*1*','Все');
-	$folders[] = mosHTML::makeOption('*0*','Отсутствуют');
+	$folders[] = mosHTML::makeOption('*1*',_CMN_ALL);
+	$folders[] = mosHTML::makeOption('*0*',_NOT_EXISTS);
 	$folders[] = mosHTML::makeOption('*#*','---------------------');
 	$folders[] = mosHTML::makeOption('/');
 	foreach($imgFiles as $file) {
@@ -468,20 +468,20 @@ function saveSection($option,$scope,$task) {
 			break;
 
 		case 'apply':
-			$msg = 'Изменения раздела сохранены';
+			$msg = _SECTION_CHANGES_SAVED;
 			mosRedirect('index2.php?option='.$option.'&scope='.$scope.
 				'&task=editA&hidemainmenu=1&id='.$row->id,$msg);
 			break;
 
 			/* boston, после сохранения возвращаемся в окно добавления нового раздела*/
 		case 'save_and_new':
-			$msg = $row->title.' - сохранено.';
+			$msg = $row->title.' - saved.';
 			mosRedirect('index2.php?option='.$option.'&scope='.$scope.'&task=new',$msg);
 			break;
 
 		case 'save':
 		default:
-			$msg = 'Раздел сохранен';
+			$msg = _SECTION_SAVED;
 			mosRedirect('index2.php?option='.$option.'&scope='.$scope,$msg);
 			break;
 	}
@@ -496,7 +496,7 @@ function removeSections($cid,$scope,$option) {
 	global $database;
 	josSpoofCheck();
 	if(count($cid) < 1) {
-		echo "<script> alert('Выберите раздел для удаления'); window.history.go(-1);</script>\n";
+		echo "<script> alert('"._CHOOSE_SECTION_TO_DELETE."'); window.history.go(-1);</script>\n";
 		exit;
 	}
 
@@ -535,7 +535,7 @@ function removeSections($cid,$scope,$option) {
 
 	if(count($err)) {
 		$cids = implode(', ',$err);
-		$msg = 'Разделы: '.$cids.' не могут быть удалены, т.к. содержат категории';
+		$msg = $cids.' - '._CANNOT_DELETE_NOT_EMPTY_SECTIONS;
 		mosRedirect('index2.php?option='.$option.'&scope='.$scope,$msg);
 	}
 
@@ -543,7 +543,7 @@ function removeSections($cid,$scope,$option) {
 	mosCache::cleanCache('com_content');
 
 	$names = implode(', ',$name);
-	$msg = 'Раздел(ы): '.$names.' успешно удален(ы)';
+	$msg = 'Раздел(ы): '.$names.' - '._OBJECTS_DELETED;
 	mosRedirect('index2.php?option='.$option.'&scope='.$scope,$msg);
 }
 
@@ -561,15 +561,15 @@ function publishSections($scope,$cid = null,$publish = 1,$option) {
 	josSpoofCheck();
 
 	if(!is_array($cid) || count($cid) < 1) {
-		$action = $publish?'публикации':'отмены публикации';
-		echo "<script> alert('Выберите раздел для $action'); window.history.go(-1);</script>\n";
+		$action = $publish?'publish':'unpublish';
+		echo "<script> alert('"._CHOOSE_SECTION_FOR." $action'); window.history.go(-1);</script>\n";
 		exit;
 	}
 
 	$count = count($cid);
 	if($publish) {
 		if(!$count) {
-			echo "<script> alert('Невозможно опубликовать пустой раздел $count'); window.history.go(-1);</script>\n";
+			echo "<script> alert('"._CANNOT_PUBLISH_EMPTY_SECTION." $count'); window.history.go(-1);</script>\n";
 			return;
 		}
 	}
@@ -658,7 +658,7 @@ function copySectionSelect($option,$cid,$section) {
 	josSpoofCheck();
 
 	if(!is_array($cid) || count($cid) < 1) {
-		echo "<script> alert('Выберите объект для перемещения'); window.history.go(-1);</script>\n";
+		echo "<script> alert('"._CHOOSE_OBJECT_TO_MOVE."'); window.history.go(-1);</script>\n";
 		exit;
 	}
 
@@ -759,7 +759,7 @@ function copySectionSave() {
 		$item->checkin();
 	}
 
-	$msg = 'Выбранное содержимое раздела было скопировано в раздел '.$title;
+	$msg = _SECTION_CONTENT_COPYED.' '.$title;
 	mosRedirect('index2.php?option=com_sections&scope=content&mosmsg='.$msg);
 }
 
@@ -805,17 +805,17 @@ function menuLink($id) {
 	switch($type) {
 		case 'content_section':
 			$link = 'index.php?option=com_content&task=section&id='.$id;
-			$menutype = 'Таблица раздела';
+			$menutype = _SECTION_TABLE;
 			break;
 
 		case 'content_blog_section':
 			$link = 'index.php?option=com_content&task=blogsection&id='.$id;
-			$menutype = 'Блог раздела';
+			$menutype = _SECTION_BLOG;
 			break;
 
 		case 'content_archive_section':
 			$link = 'index.php?option=com_content&task=archivesection&id='.$id;
-			$menutype = 'Блог архива раздела';
+			$menutype = _SECTION_BLOG_ARCHIVE;
 			break;
 	}
 
@@ -846,7 +846,7 @@ function menuLink($id) {
 	// clean any existing cache files
 	mosCache::cleanCache('com_content');
 
-	$msg = $name.' ( '.$menutype.' ) в меню: '.$menu.' успешно создано';
+	$msg = $name.' ( '.$menutype.' ) '.$menu.' success';
 	mosRedirect('index2.php?option=com_sections&scope=content&task=editA&hidemainmenu=1&id='.
 		$id,$msg);
 }
@@ -892,7 +892,7 @@ function saveOrder(&$cid) {
 	// clean any existing cache files
 	mosCache::cleanCache('com_content');
 
-	$msg = 'Новый порядок сохранен';
+	$msg = _NEW_ORDER_SAVED;
 	mosRedirect('index2.php?option=com_sections&scope=content',$msg);
 } // saveOrder
 

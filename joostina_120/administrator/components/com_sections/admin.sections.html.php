@@ -27,7 +27,7 @@ class sections_html {
 	<form action="index2.php" method="post" name="adminForm">
 		<table class="adminheading">
 			<tr>
-				<th class="sections">Разделы содержимого</th>
+				<th class="sections"><?php echo _CONTENT_SECTIONS?></th>
 			</tr>
 		</table>
 		<table class="adminlist">
@@ -36,17 +36,17 @@ class sections_html {
 			<th width="20">
 				<input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo count($rows); ?>);" />
 			</th>
-			<th class="title">Название раздела</th>
-			<th width="10%">Опубликовано</th>
-			<th colspan="2" width="5%">Сортировка</th>
-			<th width="2%">Порядок</th>
+			<th class="title"><?php echo _SECTION_NAME?></th>
+			<th width="10%"><?php echo _CMN_PUBLISHED?></th>
+			<th colspan="2" width="5%"><?php echo _CMN_ORDERING?></th>
+			<th width="2%"><?php echo _ORDER_DROPDOWN?></th>
 			<th width="1%">
-				<a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="Сохранить порядок" /></a>
+				<a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="<?php echo _SAVE_ORDER?>" /></a>
 			</th>
-			<th width="10%">Доступ</th>
-			<th width="10%" class="jtd_nowrap">Категорий</th>
-			<th width="10%" class="jtd_nowrap">Активных</th>
-			<th width="10%" class="jtd_nowrap">В корзине</th>
+			<th width="10%"><?php echo _ACCESS?></th>
+			<th width="10%" class="jtd_nowrap"><?php echo _SECTION_CATEGORIES?></th>
+			<th width="10%" class="jtd_nowrap"><?php echo _SECTION_CONTENT_ITEMS?></th>
+			<th width="10%" class="jtd_nowrap"><?php echo _SECTION_CONTENT_ITEMS_IN_TRASH?></th>
 			<th width="5%" class="jtd_nowrap">ID</th>
 		</tr>
 		<?php
@@ -79,11 +79,11 @@ class sections_html {
 <?php
 				if ( !$row->checked_out ){
 				?>
-					<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="Публикация" />
+					<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?php echo _E_PUBLISHING?>" />
 <?php
 				}else{
 ?>
-					<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="Смена статуса публикации недоступна"/>
+					<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?php echo _CANNOT_CHANGE_PUBLISH_STATE?>"/>
 <?php
 				}
 ?>
@@ -94,8 +94,8 @@ class sections_html {
 					<input type="text" name="order[]" size="5" value="<?php echo $row->ordering; ?>" class="text_area" style="text-align: center" />
 				</td>
 				<td align="center" id="acc-id-<?php echo $row->id;?>"><?php echo $access; ?></td>
-				<td align="center"><a href="<?php echo $link_aktiv_cat;?>" title="Просмотр категорий раздела"><?php echo $row->categories; ?></a></td>
-				<td align="center"><a href="<?php echo $link_aktiv;?>" title="Просмотр содержимого раздела"><?php echo $row->active; ?></a></td>
+				<td align="center"><a href="<?php echo $link_aktiv_cat;?>" title="<?php echo _VIEW_SECTION_CATEGORIES?>"><?php echo $row->categories; ?></a></td>
+				<td align="center"><a href="<?php echo $link_aktiv;?>" title="<?php echo _VIEW_SECTION_CONTENT?>"><?php echo $row->active; ?></a></td>
 				<td align="center"><?php echo $row->trash; ?></td>
 				<td align="center"><?php echo $row->id; ?></td>
 <?php
@@ -137,7 +137,7 @@ class sections_html {
 		if($row->name != '') {
 			$name = $row->name;
 		} else {
-			$name = "Новый раздел";
+			$name = _NEW_SECTION_MASK;
 		}
 		if($row->image == "") {
 			$row->image = 'blank.png';
@@ -156,7 +156,7 @@ class sections_html {
 				form: 'adminForm',
 				callback:
 					function(resp){
-						log('Получен ответ: ' + resp.responseText);
+						log('answer: ' + resp.responseText);
 						mess_cool(resp.responseText);
 						SRAX.get('tb-apply').className='tb-apply';
 			}});
@@ -169,20 +169,20 @@ class sections_html {
 			}
 			if ( pressbutton == 'menulink' ) {
 				if ( form.menuselect.value == "" ) {
-					alert( "Пожалуйста, выберите меню" );
+					alert( "<?php echo _CHOOSE_MENU_PLEASE?>" );
 					return;
 				} else if ( form.link_type.value == "" ) {
-					alert( "Пожалуйста, выберите тип меню" );
+					alert( "<?php echo _CHOOSE_MENUTYPE_PLEASE?>" );
 					return;
 				} else if ( form.link_name.value == "" ) {
-					alert( "Пожалуйста, введите имя для этого пункта меню" );
+					alert( "<?php echo _CHOOSE_MENU_ITEM_NAME?>" );
 					return;
 				}
 			}
 			if (form.name.value == ""){
-				alert("Раздел должен иметь название");
+				alert("<?php echo _ENTER_SECTION_NAME?>");
 			} else if (form.title.value ==""){
-				alert("Раздел должен иметь заголовок");
+				alert("<?php echo _ENTER_SECTION_TITLE?>");
 			} else {
 				<?php getEditorContents('editor1','description'); ?>
 				submitform(pressbutton);
@@ -194,7 +194,7 @@ class sections_html {
 		<tr>
 			<th class="sections">
 			Раздел:
-			<small><?php echo $row->id?'Редактирование':'Новый'; ?></small>
+			<small><?php echo $row->id?_O_EDITING:_O_CREATION; ?></small>
 			<small><small>
 			[ <?php echo stripslashes($name); ?> ]
 			</small></small>
@@ -206,30 +206,30 @@ class sections_html {
 			<td valign="top" width="60%">
 				<table class="adminform">
 				<tr>
-					<th colspan="3">Детали раздела</th>
+					<th colspan="3"><?php echo _SECTION_DETAILS?></th>
 				<tr>
 				<tr>
-					<td width="150">Используется в:</td>
+					<td width="150"><?php echo _SECTION_USED_IN?>:</td>
 					<td width="85%" colspan="2"><strong><?php echo $row->scope; ?></strong></td>
 				</tr>
 				<tr>
-					<td>Заголовок:</td>
+					<td><?php echo _HEADER_TITLE?>:</td>
 					<td colspan="2">
-					<input class="text_area" type="text" name="title" value="<?php echo $row->title; ?>" size="50" maxlength="50" title="Короткое имя для меню" />
+					<input class="text_area" type="text" name="title" value="<?php echo $row->title; ?>" size="50" maxlength="50" title="<?php echo _MENU_SHORT_NAME?>" />
 					</td>
 				</tr>
 				<tr>
-					<td>Название <?php echo (isset($row->section)?"категории":"раздела"); ?>:</td>
+					<td><?php echo _CMN_NAME?> <?php echo (isset($row->section)?_SECTION_NAME_OF_CATEGORY:_SECTION_NAME_OF_SECTION); ?>:</td>
 					<td colspan="2">
-						<input class="text_area" type="text" name="name" value="<?php echo $row->name; ?>" size="50" maxlength="255" title="Длинное название, отображаемое в заголовках" />
+						<input class="text_area" type="text" name="name" value="<?php echo $row->name; ?>" size="50" maxlength="255" title="<?php echo _SECTION_NAME_TIP?>" />
 					</td>
 				</tr>
 				<tr>
-					<td>Порядок отображения:</td>
+					<td><?php echo _ORDER_DROPDOWN?>:</td>
 					<td colspan="2"><?php echo $lists['ordering']; ?></td>
 				</tr>
 				<tr>
-					<td>Изображение:</td>
+					<td><?php echo _IMAGE?>:</td>
 					<td><?php echo $lists['image']; ?></td>
 					<td rowspan="5" width="50%">
 <?php
@@ -238,23 +238,23 @@ class sections_html {
 			$path .= "stories/";
 		}
 ?>
-						<img src="<?php echo $path.$row->image; ?>" name="imagelib" width="80" height="80" border="2" alt="Предпросмотр" />
+						<img src="<?php echo $path.$row->image; ?>" name="imagelib" width="80" height="80" border="2" alt="<?php echo _PREVIEW?>" />
 					</td>
 				</tr>
 				<tr>
-					<td>Расположение изображения:</td>
+					<td><?php echo _IMAGE_POSTITION?>:</td>
 					<td><?php echo $lists['image_position']; ?></td>
 				</tr>
 				<tr>
-					<td>Уровень доступа:</td>
+					<td><?php echo _CMN_ACCESS?>:</td>
 					<td><?php echo $lists['access']; ?></td>
 				</tr>
 				<tr>
-					<td>Опубликовано:</td>
+					<td><?php echo _CMN_PUBLISHED?>:</td>
 					<td><?php echo $lists['published']; ?></td>
 				</tr>
 				<tr>
-					<td valign="top" colspan="2">Описание:</td>
+					<td valign="top" colspan="2"><?php echo _CMN_DESCRIPTION?>:</td>
 				</tr>
 				<tr>
 					<td colspan="3">
@@ -272,37 +272,37 @@ class sections_html {
 ?>
 				<table class="adminform">
 				<tr>
-					<th colspan="2">Связь с меню</th>
+					<th colspan="2"><?php echo _MENU_LINK?></th>
 				<tr>
 				<tr>
-					<td colspan="2">Эта функция создаст новый пункт в выбранном вами меню<br /><br /></td>
+					<td colspan="2"><?php echo _SECTION_NEW_MENU_LINK?><br /><br /></td>
 				<tr>
 				<tr>
-					<td valign="top" width="100px">Выберите меню</td>
+					<td valign="top" width="100px"><?php echo _CHOOSE_MENU?></td>
 					<td><?php echo $lists['menuselect']; ?></td>
 				<tr>
 				<tr>
-					<td valign="top" width="100px">Выберите тип меню</td>
+					<td valign="top" width="100px"><?php echo _CHOOSE_MENU_TYPE?></td>
 					<td><?php echo $lists['link_type']; ?></td>
 				<tr>
 				<tr>
-					<td valign="top" width="100px">Название пункта меню</td>
+					<td valign="top" width="100px"><?php echo _MENU_NAME?></td>
 					<td><input type="text" name="link_name" class="inputbox" value="" size="25" /></td>
 				<tr>
 				<tr>
 					<td></td>
 					<td>
-						<input name="menu_link" type="button" class="button" value="Создать пункт меню" onClick="submitbutton('menulink');" />
+						<input name="menu_link" type="button" class="button" value="<?php echo _CREATE_MENU_ITEM?>" onClick="submitbutton('menulink');" />
 					</td>
 				<tr>
 				<tr>
-					<th colspan="2">Существующие связи с меню</th>
+					<th colspan="2"><?php echo _EXISTED_MENU_ITEMS?></th>
 				</tr>
 <?php
 			if($menus == null) {
 ?>
 				<tr>
-					<td colspan="2">Отсутствуют</td>
+					<td colspan="2"><?php echo _NOT_EXISTS?></td>
 				</tr>
 <?php
 			} else {
@@ -322,7 +322,7 @@ class sections_html {
 					<th>&nbsp;</th>
 				</tr>
 				<tr>
-					<td>Связи с меню будут доступны после сохранения</td>
+					<td><?php echo _MENU_LINK_AVAILABLE_AFTER_SAVE?></td>
 				</tr>
 			</table>
 <?php
@@ -331,7 +331,7 @@ class sections_html {
 				<br />
 				<table class="adminform">
 				<tr>
-					<th colspan="2">Каталоги изображений (MOSImage)</th>
+					<th colspan="2"><?php echo _IMAGES_DIRS?></th>
 				</tr>
 				<tr>
 					<td colspan="2"><?php echo $lists['folders']; ?></td>
@@ -360,7 +360,7 @@ class sections_html {
 		<form action="index2.php" method="post" name="adminForm">
 		<table class="adminheading">
 		<tr>
-			<th class="sections">Копирование раздела</th>
+			<th class="sections"><?php echo _SECTION_COPYING?></th>
 		</tr>
 		</table>
 		<br />
@@ -368,13 +368,13 @@ class sections_html {
 		<tr>
 			<td width="3%"></td>
 			<td align="left" valign="top" width="30%">
-			<strong>Название копии раздела:</strong>
+			<strong><?php echo _SECTION_COPY_NAME?>:</strong>
 			<br />
-			<input class="text_area" type="text" name="title" value="" size="35" maxlength="50" title="Название нового раздела" />
+			<input class="text_area" type="text" name="title" value="" size="35" maxlength="50" title="<?php echo _SECTION_NAME?>" />
 			<br /><br />
 			</td>
 			<td align="left" valign="top" width="20%">
-			<strong>Копируемые категории:</strong>
+			<strong><?php echo _CATS_TO_COPY?>:</strong>
 			<br />
 <?php
 		echo "<ol>";
@@ -386,7 +386,7 @@ class sections_html {
 ?>
 			</td>
 			<td valign="top" width="20%">
-			<strong>Копируемые объекты содержимого:</strong>
+			<strong><?php echo _CONTENT_ITEMS_TO_COPY?>:</strong>
 			<br />
 <?php
 		echo "<ol>";
@@ -398,13 +398,7 @@ class sections_html {
 ?>
 			</td>
 			<td valign="top">
-			Во вновь созданный раздел будут 
-			<br />
-			скопированы перечисленные категории 
-			<br />
-			и все перечисленные объекты
-			<br /> 
-			содержимого категорий.
+			<?php echo _SECTION_COPY_DESCRIPTION?>
 			</td>.
 		</tr>
 		</table>
@@ -443,7 +437,7 @@ class sections_html {
 	<form action="index2.php" method="post" name="adminForm" id="adminForm">
 	<table class="adminheading">
 		<tr>
-			<th class="massadd">Массовое добавление</th>
+			<th class="massadd"><?php echo _MASS_CONTENT_ADD?></th>
 		</tr>
 	</table>
 	<table width="100%" cellspacing="0" cellpadding="0">
@@ -467,48 +461,48 @@ class sections_html {
 				<table width="100%" class="adminform">
 				<tbody>
 					<tr>
-						<th colspan="2">Детали</th>
+						<th colspan="2"><?php echo _DETAILS?></th>
 					</tr>
 					<tr>
-						<td colspan="2" align="left">Каждая новая категория / раздел должны начинаться с новой строки</td>
+						<td colspan="2" align="left"><?php echo _NEW_CAT_SECTION_ON_NEW_LINE?></td>
 					</tr>
 					<tr>
-						<td width="150" align="left" valign="top">Добавить как:</td>
+						<td width="150" align="left" valign="top"><?php echo _MASS_ADD_AS?>:</td>
 						<td>
 							<input onclick="return sectionclick();" type="radio" class="inputbox" checked="checked" value="0" id="secid" name="type"/>
-							<label onclick="return sectionclick();" for="secid">Разделы</label>
+							<label onclick="return sectionclick();" for="secid"><?php echo _SECTIONS?></label>
 							<br />
 							<input onclick="return catclick();" type="radio" class="inputbox" value="1" id="catid" name="type"/>
-							<label onclick="return catclick();" for="catid">Категории</label>
+							<label onclick="return catclick();" for="catid"><?php echo _CATEGORIES?></label>
 							<br />
 							<input onclick="return conclick();" type="radio" class="inputbox" value="2" id="conid" name="type"/>
-							<label onclick="return conclick();" for="conid">Содержимое</label>
+							<label onclick="return conclick();" for="conid"><?php echo _E_CONTENT?></label>
 						</td>
 					</tr>
 					<tr>
-						<td>Опубликовано:</td>
+						<td><?php echo _CMN_PUBLISHED?>:</td>
 						<td>
 							<input type="radio" class="inputbox" value="0" id="published0" name="published"/>
-							<label for="published0">Нет</label>
+							<label for="published0"><?php echo _CMN_NO?></label>
 							<input type="radio" class="inputbox" checked="checked" value="1" id="published1" name="published"/>
-							<label for="published1">Да</label>
+							<label for="published1"><?php echo _CMN_YES?></label>
 						</td>
 					</tr>
 					<tr>
-						<td valign="top" align="left">Уровень доступа:</td>
+						<td valign="top" align="left"><?php echo _CMN_ACCESS?>:</td>
 						<td>
 							<select size="4" class="inputbox" name="access" style="width: 98%;">
-								<option selected="selected" value="0">Общий</option>
-								<option value="1">Участники</option>
-								<option value="2">Специальный</option>
+								<option selected="selected" value="0"><?php echo _USER_GROUP_ALL?></option>
+								<option value="1"><?php echo _USER_GROUP_REGISTERED?></option>
+								<option value="2"><?php echo _USER_GROUP_SPECIAL?></option>
 							</select>
 							<br />
 						</td>
 					</tr>
 					<tr>
 						<td colspan="2">
-							<div id="seclist" style="display: none;">Категории буду принадлежать разделу:<br /><?php echo $sec;?></div>
-							<div id="catlist" style="display: none;">Содержимое будет принадлежать категории:<br /><?php echo $cat;?></div>
+							<div id="seclist" style="display: none;"><?php echo _CATEGORIES_WILL_BE_IN_SECTION?>:<br /><?php echo $sec;?></div>
+							<div id="catlist" style="display: none;"><?php echo _CONTENT_WILL_BE_IN_CATEGORY?>:<br /><?php echo $cat;?></div>
 						</td>
 					</tr>
 				</tbody>

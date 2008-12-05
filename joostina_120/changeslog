@@ -1,8 +1,11 @@
 Joostina v 1.2.0
 
+05.12.08
+	1. Подготовил к переводу administrator/components/com_sections + com_poll  (Dead Krolik)
+
 04.12.08
 	1. Фикс ошибки найденной Wild Tiger (http://joomlaforum.ru/index.php/topic,41126.msg283583.html#msg283583) - отсутствие картинок nomail.png и картинок в joomlaXplorer. (Dead Krolik)
-	2. Подготовил к переводу administrator/components/com_statistics = com_quickicons (Dead Krolik)
+	2. Подготовил к переводу administrator/components/com_statistics + com_quickicons (Dead Krolik)
 
 03.12.08
 	1. Подготовил к переводу administrator/components/com_massmail + com_menumanager + com_menus + небольшой косяк с открывающим тэгом в одном из типов меню + com_messages + com_syndicate (Dead Krolik)
