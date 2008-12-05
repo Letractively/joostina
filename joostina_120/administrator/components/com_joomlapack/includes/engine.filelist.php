@@ -164,7 +164,7 @@ class CFilelistEngine {
 						// Just a file... process it.
 						$processedFiles++;
 						$filesize = $fileDescriptor['size'];
-						if(($this->_currentNodeSize + $filesize <= 1048576) && (count($this->_currentList) < 100)) {
+						if(($this->_currentNodeSize + $filesize <= 1048576) && (count($this->_currentList) < 5)) {
 							// It fits in the current fragment (max 1Mb or up to 100 files)
 							$this->_currentNodeSize += $filesize;
 						} else {
