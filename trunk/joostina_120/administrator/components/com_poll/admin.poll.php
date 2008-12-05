@@ -98,7 +98,7 @@ function editPoll($uid = 0,$option = 'com_poll') {
 
 	// fail if checked out not by 'me'
 	if($row->isCheckedOut($my->id)) {
-		mosRedirect('index2.php?option='.$option,'Опрос '.$row->title.' в настоящее время редактируется другим администратором.');
+		mosRedirect('index2.php?option='.$option,$row->title.' - '._POLL_IS_BEING_EDITED_BY_ADMIN);
 	}
 
 	$options = array();
@@ -217,7 +217,7 @@ function publishPolls($cid = null,$publish = 1,$option) {
 	josSpoofCheck();
 	if(!is_array($cid) || count($cid) < 1) {
 		$action = $publish?'publish':'unpublish';
-		echo "<script> alert('Выберите объект для $action'); window.history.go(-1);</script>\n";
+		echo "<script> alert('"._CHOOSE_OBJECT_FOR." $action'); window.history.go(-1);</script>\n";
 		exit;
 	}
 

@@ -24,7 +24,7 @@ class TOOLBAR_sections {
 
 	function _MASNEW() {
 		mosMenuBar::startTable();
-		mosMenuBar::custom('masadd','-new','','Добавить еще');
+		mosMenuBar::custom('masadd','-new','',_MENU_MASS_ADD);
 		mosMenuBar::endTable();
 	}
 
@@ -37,20 +37,20 @@ class TOOLBAR_sections {
 		mosMenuBar::startTable();
 		mosMenuBar::media_manager();
 		mosMenuBar::spacer();
-		mosMenuBar::custom('save_and_new','-save','','Сохранить и добавить',false);
+		mosMenuBar::custom('save_and_new','-save','',_SAVE_AND_ADD,false);
 		mosMenuBar::spacer();
 		mosMenuBar::save();
 		mosMenuBar::spacer();
 		if($id) // используем Ajax кнопку "Применить" только для уже существующего рездела
 			// кнопка "Применить" с Ajax
-			mosMenuBar::ext('Применить','#','-apply','id="tb-apply" onclick="ch_apply();return;"');
+			mosMenuBar::ext(_CMN_APPLY,'#','-apply','id="tb-apply" onclick="ch_apply();return;"');
 		else
 			mosMenuBar::apply();
 
 		mosMenuBar::spacer();
 		if($id) {
 			// for existing content items the button is renamed `close`
-			mosMenuBar::cancel('cancel','Закрыть');
+			mosMenuBar::cancel('cancel',_CLOSE);
 		} else {
 			mosMenuBar::cancel();
 		}
@@ -79,7 +79,7 @@ class TOOLBAR_sections {
 		mosMenuBar::spacer();
 		mosMenuBar::unpublishList();
 		mosMenuBar::spacer();
-		mosMenuBar::customX('copyselect','-copy','','Копировать',true);
+		mosMenuBar::customX('copyselect','-copy','',_COPY,true);
 		mosMenuBar::spacer();
 		mosMenuBar::deleteList();
 		mosMenuBar::spacer();
