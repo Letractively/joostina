@@ -38,16 +38,16 @@ class TOOLBAR_modules {
 	function _EDIT($cur_template,$publish) {
 		global $id;
 		mosMenuBar::startTable();
-		mosMenuBar::ext('Просмотр','#','-preview'," onclick=\"if (typeof document.adminForm.content == 'undefined') { alert('Вы можете просмотреть только `созданные` модули.');} else { var content = document.adminForm.content.value; content = content.replace('#', ''); var title = document.adminForm.title.value; title = title.replace('#', ''); window.open('popups/modulewindow.php?title=' + title + '&amp;content=' + content + '&amp;t=$cur_template', 'win1', 'status=no,toolbar=no,scrollbars=auto,titlebar=no,menubar=no,resizable=yes,width=200,height=400,directories=no,location=no');}\"");
+		mosMenuBar::ext(_PREVIEW,'#','-preview'," onclick=\"if (typeof document.adminForm.content == 'undefined') { alert('"._PREVIEW_ONLY_CREATED_MODULES."');} else { var content = document.adminForm.content.value; content = content.replace('#', ''); var title = document.adminForm.title.value; title = title.replace('#', ''); window.open('popups/modulewindow.php?title=' + title + '&amp;content=' + content + '&amp;t=$cur_template', 'win1', 'status=no,toolbar=no,scrollbars=auto,titlebar=no,menubar=no,resizable=yes,width=200,height=400,directories=no,location=no');}\"");
 		mosMenuBar::save();
 		mosMenuBar::spacer();
 		// кнопка "Применить" с Ajax
-		mosMenuBar::ext('Применить','#','-apply','id="tb-apply" onclick="ch_apply();return;"');
+		mosMenuBar::ext(_CMN_APPLY,'#','-apply','id="tb-apply" onclick="ch_apply();return;"');
 
 		mosMenuBar::spacer();
 		if($id) {
 			// for existing content items the button is renamed `close`
-			mosMenuBar::cancel('cancel','Закрыть');
+			mosMenuBar::cancel('cancel',_CLOSE);
 		} else {
 			mosMenuBar::cancel();
 		}
@@ -61,7 +61,7 @@ class TOOLBAR_modules {
 		mosMenuBar::spacer();
 		mosMenuBar::unpublishList();
 		mosMenuBar::spacer();
-		mosMenuBar::custom('copy','-copy','','Копировать',true);
+		mosMenuBar::custom('copy','-copy','',_COPY,true);
 		mosMenuBar::spacer();
 		mosMenuBar::deleteList();
 		mosMenuBar::spacer();

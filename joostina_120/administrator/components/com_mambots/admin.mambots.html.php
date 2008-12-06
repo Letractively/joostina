@@ -44,7 +44,7 @@ class HTML_modules {
 			<th class="title"><?php echo _MAMBOT_NAME?></th>
 			<th class="jtd_nowrap" width="10%"><?php echo _CMN_PUBLISHED?></th>
 			<th colspan="2" class="jtd_nowrap" width="5%"><?php echo _CMN_ORDERING?></th>
-			<th width="2%">Порядок</th>
+			<th width="2%"><?php echo _ORDER_DROPDOWN?></th>
 			<th width="1%">
 				<a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="<?php echo _SAVE_ORDER?>" /></a>
 			</th>

@@ -215,7 +215,7 @@ function copyModule($option,$uid,$client) {
 
 	mosCache::cleanCache('com_content');
 
-	$msg = 'Модуль скопирован ['.$row->title.']';
+	$msg = _MODULE_COPIED.' ['.$row->title.']';
 	mosRedirect('index2.php?option='.$option.'&client='.$client,$msg);
 }
 
@@ -288,14 +288,14 @@ function saveModule($option,$client,$task) {
 
 	switch($task) {
 		case 'apply':
-			$msg = 'Все изменения модуля  - '.$row->title.' - успешно сохранены';
+			$msg = $row->title.' - '._E_ITEM_SAVED;
 			mosRedirect('index2.php?option='.$option.'&client='.$client.
 				'&task=editA&hidemainmenu=1&id='.$row->id,$msg);
 			break;
 
 		case 'save':
 		default:
-			$msg = 'Модуль - '.$row->title.' - успешно сохранен';
+			$msg = $row->title.' - '._E_ITEM_SAVED;
 			mosRedirect('index2.php?option='.$option.'&client='.$client,$msg);
 			break;
 	}
@@ -316,7 +316,7 @@ function editModule($option,$uid,$client) {
 	$row->load((int)$uid);
 	// fail if checked out not by 'me'
 	if($row->isCheckedOut($my->id)) {
-		mosErrorAlert("Модуль ".$row->title." в настоящее время редактируется другим администратором");
+		mosErrorAlert(_MODULE." ".$row->title." "._NOW_EDITING_BY_OTHER);
 	}
 
 	$row->content = htmlspecialchars($row->content);
@@ -473,7 +473,7 @@ function removeModule(&$cid,$option,$client) {
 		// mod_mainmenu modules only deletable via Menu Manager
 		if($row->module == 'mod_mainmenu') {
 			if(strstr($row->params,'mainmenu')) {
-				echo "<script> alert('Вы не можете удалить модуль mod_mainmenu, отображаемый как \'mainmenu\', т.к. это ядро меню'); window.history.go(-1); </script>\n";
+				echo "<script> alert('"._CANNOT_DELETE_MOD_MAINMENU."'); window.history.go(-1); </script>\n";
 				exit;
 			}
 		}
@@ -505,7 +505,7 @@ function removeModule(&$cid,$option,$client) {
 
 	if(count($err)) {
 		$cids = addslashes(implode("', '",$err));
-		echo "<script>alert('Модули: \'$cids\' не могут быть удалены, т.к. они могут быть только деинсталлированы, как все модули Joomla!');</script>\n";
+		echo "<script>alert('$cids "._CANNOT_DELETE_MODULES."');</script>\n";
 	}
 
 	mosCache::cleanCache('com_content');
@@ -522,8 +522,8 @@ function publishModule($cid = null,$publish = 1,$option,$client) {
 	global $database,$my;
 	josSpoofCheck();
 	if(count($cid) < 1) {
-		$action = $publish?'публикации':'сокрытия';
-		echo "<script> alert('Выберите модуль для $action'); window.history.go(-1);</script>\n";
+		$action = $publish?'publish':'unpublish';
+		echo "<script> alert('"._CHOOSE_OBJECT_FOR." $action'); window.history.go(-1);</script>\n";
 		exit;
 	}
 
@@ -670,7 +670,7 @@ function saveOrder(&$cid,$client) {
 
 	mosCache::cleanCache('com_content');
 
-	$msg = 'Новый порядок сохранен';
+	$msg = _NEW_ORDER_SAVED;
 	mosRedirect('index2.php?option=com_modules&client='.$client,$msg);
 } // saveOrder
 

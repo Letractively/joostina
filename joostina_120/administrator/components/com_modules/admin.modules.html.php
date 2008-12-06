@@ -58,13 +58,13 @@ class HTML_modules {
 	<table class="adminheading">
 		<tr>
 			<th class="modules" rowspan="2">
-				Модули <small><small>[ <?php echo $client == 'admin'?'Панель управления':'Сайт'; ?> ]</small></small>
+				<?php echo _MODULES?> <small><small>[ <?php echo $client == 'admin'?_CONTROL_PANEL:_SITE; ?> ]</small></small>
 			</th>
 			<td width="right"><?php echo $lists['position']; ?></td>
 			<td width="right"><?php echo $lists['type']; ?></td>
 		</tr>
 		<tr>
-			<td align="right">Фильтр:</td>
+			<td align="right"><?php echo _FILTER?>:</td>
 			<td>
 				<input type="text" name="search" value="<?php echo htmlspecialchars($search); ?>" class="text_area" onChange="document.adminForm.submit();" />
 			</td>
@@ -76,22 +76,22 @@ class HTML_modules {
 			<th width="2%">
 				<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count($rows); ?>);" />
 			</th>
-			<th class="title">Название модуля</th>
-			<th class="jtd_nowrap" width="10%">Опубликован</th>
-			<th colspan="2" align="center" width="5%">Сортировка</th>
-			<th width="2%">Порядок</th>
+			<th class="title"><?php echo _MODULE_NAME?></th>
+			<th class="jtd_nowrap" width="10%"><?php echo _CMN_PUBLISHED?></th>
+			<th colspan="2" align="center" width="5%"><?php echo _CMN_ORDERING?></th>
+			<th width="2%"><?php echo _ORDER_DROPDOWN?></th>
 			<th width="1%">
-				<a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="Сохранить порядок" /></a>
+				<a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="<?php echo _SAVE_ORDER?>" /></a>
 			</th>
 <?php
 		if(!$client) {
 ?>
-			<th class="jtd_nowrap" width="7%">Доступ</th>
+			<th class="jtd_nowrap" width="7%"><?php echo _ACCESS?></th>
 <?php
 		}
 ?>
-			<th class="jtd_nowrap" width="7%">Позиция</th>
-			<th class="jtd_nowrap" width="5%">Страницы</th>
+			<th class="jtd_nowrap" width="7%"><?php echo _MODULE_POSITION?></th>
+			<th class="jtd_nowrap" width="5%"><?php echo _MODULE_PAGES?></th>
 			<th class="jtd_nowrap" width="5%">ID</th>
 			<th class="jtd_nowrap" width="10%" align="left">Тип</th>
 		</tr>
@@ -120,7 +120,7 @@ class HTML_modules {
 ?>
 			</td>
 			<td align="center" <?php echo ($row->checked_out && ($row->checked_out != $my->id)) ? null : 'onclick="ch_publ('.$row->id.',\'com_modules\');" class="td-state"';?>>
-				<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="Публикация" />
+				<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?php echo _E_PUBLISHING?>" />
 			</td>
 			<td><?php echo $pageNav->orderUpIcon($i,($row->position == @$rows[$i - 1]->position)); ?></td>
 			<td><?php echo $pageNav->orderDownIcon($i,$n,($row->position == @$rows[$i + 1]->position)); ?></td>
@@ -145,12 +145,12 @@ class HTML_modules {
 			<td align="center">
 <?php
 			if(is_null($row->pages)) {
-				echo 'Нет';
+				echo _CMN_NO;
 			} else
 				if($row->pages > 0) {
-					echo 'Некоторые';
+					echo _MODULE_PAGES_SOME;
 				} else {
-					echo 'Все';
+					echo _CMN_ALL;
 				}
 ?>
 			</td>
@@ -213,7 +213,7 @@ class HTML_modules {
 		}
 		function submitbutton(pressbutton) {
 			if ( ( pressbutton == 'save' ) && ( document.adminForm.title.value == "" ) ) {
-				alert("Модуль должен иметь заголовок");
+				alert("<?php echo _PLEASE_ENTER_MODULE_NAME?>");
 			} else {
 				<?php if($row->module == "") {
 				getEditorContents('editor1','content');
@@ -236,7 +236,7 @@ class HTML_modules {
 		</script>
 		<table class="adminheading">
 		<tr>
-			<th class="modules">Модуль -&nbsp;<?php echo $lists['client_id']?'Админцентр':'Сайт'; ?> :
+			<th class="modules"><?php echo _MODULE?> -&nbsp;<?php echo $lists['client_id']?_CONTROL_PANEL:_SITE; ?> :
 			<small><?php echo $row->id?'Редактирование':'Новый'; ?></small><?php echo $row->titleA; ?></th>
 		</tr>
 		</table>
@@ -246,24 +246,24 @@ class HTML_modules {
 			<td width="60%">
 				<table class="adminform">
 				<tr>
-					<th colspan="2">Детали</th>
+					<th colspan="2"><?php echo _DETAILS?></th>
 				</tr>
 				<tr>
-					<td width="100" class="key">Заголовок:</td>
+					<td width="100" class="key"><?php echo _HEADER_TITLE?>:</td>
 					<td>
 						<input class="text_area" type="text" name="title" size="35" value="<?php echo $row->title; ?>" />
 					</td>
 				</tr>
 				<tr>
-					<td width="100" class="key">Показывать заголовок:</td>
+					<td width="100" class="key"><?php echo _SHOW_TITLE?>:</td>
 					<td><?php echo $lists['showtitle']; ?></td>
 				</tr>
 				<tr>
-					<td valign="top" class="key">Позиция:</td>
+					<td valign="top" class="key"><?php echo _MODULE_POSITION?>:</td>
 					<td><?php echo $lists['position']; ?></td>
 				</tr>
 				<tr>
-					<td valign="top" class="key">Порядок модуля:</td>
+					<td valign="top" class="key"><?php echo _MODULE_ORDER?>:</td>
 					<td>
 					<script language="javascript" type="text/javascript">
 					<!--
@@ -273,11 +273,11 @@ class HTML_modules {
 					</td>
 				</tr>
 				<tr>
-					<td valign="top" class="key">Уровень доступа:</td>
+					<td valign="top" class="key"><?php echo _CMN_ACCESS?>:</td>
 					<td><?php echo $lists['access']; ?></td>
 				</tr>
 				<tr>
-					<td valign="top" class="key">Опубликован:</td>
+					<td valign="top" class="key"><?php echo _CMN_PUBLISHED?>:</td>
 					<td><?php echo $lists['published']; ?></td>
 				</tr>
 				<tr>
@@ -285,13 +285,13 @@ class HTML_modules {
 					<td><?php echo $row->id; ?></td>
 				</tr>
 				<tr>
-					<td valign="top" class="key">Описание:</td>
+					<td valign="top" class="key"><?php echo _CMN_DESCRIPTION?>:</td>
 					<td><?php echo $row->description; ?></td>
 				</tr>
 				</table>
 				<table class="adminform">
 				<tr>
-					<th>Параметры</th>
+					<th><?php echo _PARAMETERS?></th>
 				</tr>
 				<tr>
 					<td><?php echo $params->render(); ?></td>
@@ -310,7 +310,7 @@ class HTML_modules {
 			if($my->gid == 25) {
 				$visible = 1;
 			}
-			mosHTML::writableCell($mosConfig_cachepath,0,'<strong>Каталог кэша</strong> ',$visible);
+			mosHTML::writableCell($mosConfig_cachepath,0,'<strong>'._CACHE_DIRECTORY.'</strong> ',$visible);
 ?>
 							</table>
 			</td>
@@ -323,10 +323,10 @@ class HTML_modules {
 			<td width="40%" >
 				<table width="100%" class="adminform">
 				<tr>
-					<th>Страницы / Пункты меню</th>
+					<th><?php echo _MODULE_PAGE_MENU_ITEMS?></th>
 				</tr>
 				<tr>
-					<td>Связь с пунктом(пунктами) меню:<br /><?php echo $lists['selections']; ?>
+					<td><?php echo _MENU_LINK?>:<br /><?php echo $lists['selections']; ?>
 					</td>
 				</tr>
 				</table>
@@ -339,10 +339,10 @@ class HTML_modules {
 				<td colspan="2">
 						<table width="100%" class="adminform">
 						<tr>
-							<th colspan="2">Пользовательский код / Содержимое модуля</th>
+							<th colspan="2"><?php echo _MODULE_USER_CONTENT?></th>
 						</tr>
 						<tr>
-							<td valign="top" align="left">Содержимое:</td>
+							<td valign="top" align="left"><?php echo _E_CONTENT?>:</td>
 							<td>
 <?php
 								// parameters : areaname, content, hidden field, width, height, rows, cols

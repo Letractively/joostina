@@ -1723,16 +1723,36 @@ DEFINE('_POLL_LAG_QUESIONS2','секунд между принятием голосов');
 DEFINE('_POLL_OPTIONS','Варианты ответов');
 DEFINE('_POLL_IS_BEING_EDITED_BY_ADMIN','Опрос в настоящее время редактируется другим администратором');
 
+/* administrator components com_newsfeeds */
+DEFINE('_NEWSFEEDS_MANAGEMENT','Управление лентами новостей');
+DEFINE('_NEWSFEED_TITLE','Лента новостей');
+DEFINE('_NEWSFEED_ON_SITE','На сайте');
+DEFINE('_NEWSFEEDS_NUM_OF_CONTENT_ITEMS','Кол-во статей');
+DEFINE('_NEWSFEED_CACHE_TIME','Время кэша (секунд)');
+DEFINE('_CHANGE_NEWSFEED','Изменить ленту новостей');
+DEFINE('_PLEASE_ENTER_NEWSFEED_NAME','Пожалуйста, введите название ленты');
+DEFINE('_PLEASE_ENTER_NEWSFEED_LINK','Пожалуйста, введите ссылку ленты новостей');
+DEFINE('_PLEASE_ENTER_NEWSFEED_NUM_OF_CONTENT_ITEMS','Пожалуйста, введите количество статей для отображения');
+DEFINE('_PLEASE_ENTER_NEWSFEED_CACHE_TIME','Пожалуйста, введите время обновления кэша');
+DEFINE('_NEWSFEED_LINK','Ссылка');
+DEFINE('_NEWSFEED_DECODE_FROM_UTF','Перекодировать из UTF-8');
 
+/* administrator components com_modules */
+DEFINE('_ALL_MODULE_CHANGES_SAVED','Все изменения модуля успешно сохранены');
+DEFINE('_MODULES','Модули');
+DEFINE('_MODULE_NAME','Название модуля');
+DEFINE('_MODULE_POSITION','Позиция');
+DEFINE('_MODULE_PAGES','Страницы');
+DEFINE('_MODULE_PAGES_SOME','Некоторые');
+DEFINE('_SHOW_TITLE','Показывать заголовок');
+DEFINE('_MODULE_ORDER','Порядок модуля');
+DEFINE('_MODULE_PAGE_MENU_ITEMS','Страницы / Пункты меню');
+DEFINE('_MODULE_USER_CONTENT','Пользовательский код / Содержимое модуля');
+DEFINE('_MODULE_COPIED','Модуль скопирован');
+DEFINE('_CANNOT_DELETE_MOD_MAINMENU','Вы не можете удалить модуль mod_mainmenu, отображаемый как \\\'mainmenu\\\', т.к. это ядро меню');
+DEFINE('_CANNOT_DELETE_MODULES','Модули не могут быть удалены, т.к. они могут быть только деинсталлированы, как все модули Joomla!');
+DEFINE('_PREVIEW_ONLY_CREATED_MODULES','Вы можете просмотреть только `созданные` модули');
 /*
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
 DEFINE('_','');
 DEFINE('_','');
 DEFINE('_','');
