@@ -37,7 +37,7 @@ $dirtocopy		= makeSafe(mosGetParam($_REQUEST,'dirtocopy','/'));
 $dirtomove		= makeSafe(mosGetParam($_REQUEST,'dirtomove','/'));
 
 if(is_int(strpos($curdirectory,".."))) {
-	mosRedirect('index2.php','Попытка взлома...');
+	mosRedirect('index2.php',_JWMM_HACK_ATTEMPT);
 }
 
 // очистка каталога кэша
@@ -91,10 +91,10 @@ if($task == 'edit') {
 		}
 		function deleteFolder(folder, numFiles) {
 			if(numFiles > 0) {
-				alert("Каталог не пустой.\nПожалуйста, удалите сначала содержимое внутри каталога!");
+				alert("'._JWMM_DIRECTORY_NOT_EMPTY.'");
 				return false;
 			}
-			if(confirm("Удалить каталог \""+folder+"\"?")) return true; return false;
+			if(confirm("'._JWMM_DELETE_CATALOG.' \""+folder+"\"?")) return true; return false;
 		}
 	-->
 	</script>
@@ -115,29 +115,29 @@ switch($task) {
 
 	case 'createfolder':
 		if(ini_get('safe_mode') == 'On') {
-			mosRedirect("index2.php?option=com_jwmmxtd&curdirectory=".$curdirectory,"При активированном параметре SAFE MODE возможны проблемы с созданием каталогов.");
+			mosRedirect("index2.php?option=com_jwmmxtd&curdirectory=".$curdirectory,_JWMM_SAFE_MODE_WARNING);
 		} else {
 			if(create_folder($curdirectory,$folder_name))
-				$mosmsg = 'Создан каталог '.$folder_name;
+				$mosmsg = _JWMM_CATALOG_CREATED.' '.$folder_name;
 			else
-				$mosmsg = 'Каталог '.$folder_name.' не создан';
+				$mosmsg = _JWMM_CATALOG_NOT_CREATED.' '.$folder_name;
 		}
 		viewMediaManager($curdirectory,$mosmsg);
 		break;
 
 	case 'delete':
 		if(delete_file($curdirectory,$delFile))
-			$mosmsg = 'Файл '.$delFile.' успешно удалён';
+			$mosmsg = _JWMM_FILE_DELETED.' '.$delFile;
 		else
-			$mosmsg = 'Файл '.$delFile.' не удалён';
+			$mosmsg = _JWMM_FILE_NOT_DELETED.' '.$delFile;
 		viewMediaManager($curdirectory,$mosmsg);
 		break;
 
 	case 'deletefolder':
 		if(delete_folder($curdirectory,$delFolder))
-			$mosmsg = 'Каталог '.$delFolder.' удалён!';
+			$mosmsg = _JWMM_DIRECTORY_DELETED.' '.$delFolder;
 		else
-			$mosmsg = 'Каталог '.$delFolder.' не удалён!';
+			$mosmsg = _JWMM_DIRECTORY_NOT_DELETED.' '.$delFolder;
 		viewMediaManager($curdirectory,$mosmsg);
 		break;
 
@@ -148,33 +148,33 @@ switch($task) {
 
 	case 'alterfilename':
 		if(newFileName($curdirectory,$curfile,$newfile))
-			$mosmsg = 'Переименовано!';
+			$mosmsg = _JWMM_RENAMED;
 		else
-			$mosmsg = 'Не переименовано!';
+			$mosmsg = _JWMM_NOT_RENAMED;
 		viewMediaManager($curdirectory,$mosmsg);
 		break;
 
 	case 'copyfile':
 		if(copyFile($curdirectory,$curfile,$dirtocopy))
-			$mosmsg = 'Скопировано!';
+			$mosmsg = _JWMM_COPIED;
 		else
-			$mosmsg = 'Не скопировано!';
+			$mosmsg = _JWMM_NOT_COPIED;
 		viewMediaManager($dirtocopy,$mosmsg);
 		break;
 
 	case 'movefile':
 		if(moveFile($curdirectory,$curfile,$dirtomove))
-			$mosmsg = 'Файл '.$curfile.' успешно перемещён в каталог '.$dirtomove;
+			$mosmsg = _JWMM_FILE_MOVED.' '.$curfile.' - '.$dirtomove;
 		else
-			$mosmsg = 'Файл '.$curfile.' не перемещен';
+			$mosmsg = _JWMM_FILE_NOT_MOVED.' '.$curfile;
 		viewMediaManager($dirtomove,$mosmsg);
 		break;
 
 	case 'emptytmp':
 		if(emptyTmp())
-			$mosmsg = 'Временный каталог полностью очищен';
+			$mosmsg = _TMP_DIR_CLEADNED;
 		else
-			$mosmsg = 'Временный каталог не очищен';
+			$mosmsg = _TMP_DIR_NOT_CLEANED;
 		viewMediaManager($curdirectory,$mosmsg);
 		break;
 
@@ -206,14 +206,14 @@ function unzipzipfile($curdirpath,$curfile,$destindir) {
 			$zip = new PclZip($path);
 			$list = $zip->extract($path2);
 			if($list > 0) {
-				$msg = count($list).' файл(ов) распакованы.';
+				$msg = count($list).' '._FILES_UNPACKED;
 				return $msg;
-			} else $msg = 'Ошибка распаковки: '.$curfile;
+			} else $msg = _ERROR_WHEN_UNPACKING.': '.$curfile;
 		} else {
-			$msg = 'Файл: '.$curfile.' не является корректным zip архивом!';
+			$msg = $curfile.' '._FILE_IS_NOT_A_ZIP;
 			return $msg;
 		}
-	} else $msg = 'Файл: '.$curfile.' не существует!';
+	} else $msg = $curfile.' '._FILE_NOT_EXIST;
 	return $msg;
 }
 
@@ -241,9 +241,9 @@ function saveImage($cur) {
 		} else $ok = false;
 	} else $ok = false;
 	if($ok)
-		$msg = 'Отредактированное изображение сохранено как '.$pic->file_dst_name;
+		$msg = _IMAGE_SAVED_AS.' '.$pic->file_dst_name;
 	else
-		$msg = 'Изображение НЕ сохранено!';
+		$msg = _IMAGE_NOT_SAVED;
 	return $msg;
 }
 
@@ -328,16 +328,16 @@ function uploadImages($curdirectory) {
 			$files[$i][$k] = $v;
 		}
 	}
-	$mosmsg = 'Файл(ы) НЕ загружены на сервер!';
+	$mosmsg = _FILES_NOT_UPLOADED;
 	foreach($files as $file) {
 		$handle = new Upload($file);
 		if($handle->uploaded) {
 			$updirectory = JWMMXTD_STARTABSPATH.$curdirectory.DIRECTORY_SEPARATOR;
 			$handle->Process($updirectory);
 			if($handle->processed) {
-				$mosmsg = 'Файлы загружены!';
+				$mosmsg = _FILES_UPLOADED;
 			} else {
-				$mosmsg = 'Файлы НЕ загружены!';
+				$mosmsg = _FILES_NOT_UPLOADED;
 			}
 		} else {
 			//$mosmsg = 'Файлы не загружены на сервер!';
@@ -414,7 +414,7 @@ function listofImages($listdir) {
 
 			// подкаталоги
 			if(count($folders) > 0) {
-				echo '<fieldset><legend>Каталоги</legend>';
+				echo '<fieldset><legend>'._DIRECTORIES.'</legend>';
 				for($i = 0; $i < count($folders); $i++) {
 					$folder_name = key($folders);
 					HTML_mmxtd::show_dir($folders[$folder_name],$folder_name,str_replace(JWMMXTD_STARTABSPATH,"",$listdir));
@@ -425,7 +425,7 @@ function listofImages($listdir) {
 
 			// изображения
 			if(count($images) > 0) {
-				echo '<fieldset><legend>Изображения</legend>';
+				echo '<fieldset><legend>'._E_IMAGES.'</legend>';
 				for($i = 0; $i < count($images); $i++) {
 					$image_name = key($images);
 					HTML_mmxtd::show_image($images[$image_name]['file'],$image_name,$images[$image_name]['img_info'],$images[$image_name]['size'],str_replace(JWMMXTD_STARTABSPATH,"",$listdir));
@@ -435,7 +435,7 @@ function listofImages($listdir) {
 			}
 			// разные файлы
 			if(count($docs) > 0) {
-				echo '<fieldset><legend>Файлы</legend>';
+				echo '<fieldset><legend>'._JWMM_FILES.'</legend>';
 				for($i = 0; $i < count($docs); $i++) {
 					$doc_name = key($docs);
 					$iconfile = $GLOBALS['mosConfig_absolute_path'].'/images/icons/'.substr($doc_name,-3).'.png';
@@ -464,7 +464,7 @@ function create_folder($curdirectory,$folder_name) {
 	$folder_name = str_replace(" ","_",$folder_name);
 	if(strlen($folder_name) > 0) {
 		if(eregi("[^0-9a-zA-Z_]",$folder_name)) {
-			mosRedirect("index2.php?option=com_jwmmxtdcurdirectory=".$curdirectory,'Пожалуйста, не используйте в названиях пробелы и спецсимволы!');
+			mosRedirect("index2.php?option=com_jwmmxtdcurdirectory=".$curdirectory,_JWMM_FILE_NAME_WARNING);
 		}
 		$folder = JWMMXTD_STARTABSPATH.$curdirectory.DIRECTORY_SEPARATOR.$folder_name;
 		if(!is_dir($folder) && !is_file($folder)) {
@@ -526,17 +526,17 @@ function viewMediaManager($curdirectory = "",$mosmsg = "",$selectedfile = "") {
 	<form action="index2.php" name="adminForm" method="POST" enctype="multipart/form-data">
 	<table cellpadding="0" cellspacing="0" style="width:100%;" id="upper" class="adminheading">
 		<tr>
-		<th class="media">Медиа менеджер</th>
+		<th class="media"><?php echo _JWMM_MEDIA_MANAGER?></th>
 		<td id="browse"><table cellpadding="0" cellspacing="4" align="right">
 			<tr>
-				<td>Создать каталог</td>
+				<td><?php echo _JWMM_CREATE_DIRECTORY?></td>
 				<td style="width:220px;"><input class="inputbox" type="text" name="createfolder" id="createfolder" /></td>
 				<td>
-					<input type="button" class="button" onclick="javascript:document.adminForm.task.value='createfolder';document.adminForm.submit( );" value="Создать" />
+					<input type="button" class="button" onclick="javascript:document.adminForm.task.value='createfolder';document.adminForm.submit( );" value="<?php echo _CMN_NEW?>" />
 				</td>
 			</tr>
 			<tr>
-				<td>Загрузить файл:<a id="toggle" name="toggle" href="#">(+)</a></td>
+				<td><?php echo _UPLOAD_FILE?>:<a id="toggle" name="toggle" href="#">(+)</a></td>
 				<td><input type="file" class="inputbox" name="upimage[]" />
 				<div class="wrap">
 				<div id="upload_more">
@@ -548,14 +548,14 @@ function viewMediaManager($curdirectory = "",$mosmsg = "",$selectedfile = "") {
 				</div>
 				</td>
 				<td>
-					<input type="button" class="button" onclick="javascript:document.adminForm.task.value='uploadimages';document.adminForm.submit( );" value="Загрузить" />
+					<input type="button" class="button" onclick="javascript:document.adminForm.task.value='uploadimages';document.adminForm.submit( );" value="<?php echo _TASK_UPLOAD?>" />
 				</td>
 			</tr>
 			<tr>
-				<td>Местоположение:</td>
+				<td><?php echo _JWMM_FILE_PATH?>:</td>
 				<td><?php echo $dirPath; ?></td>
 				<td>
-					<a href="index2.php?option=com_jwmmxtd&amp;curdirectory=<?php echo $upcategory; ?>"><img src="images/uparrow.png" alt="Перейти на каталог выше" /></a>
+					<a href="index2.php?option=com_jwmmxtd&amp;curdirectory=<?php echo $upcategory; ?>"><img src="images/uparrow.png" alt="<?php echo _JWMM_UP_TO_DIRECTORY?>" /></a>
 				</td>
 			</tr>
 			</table></td>
@@ -564,33 +564,33 @@ function viewMediaManager($curdirectory = "",$mosmsg = "",$selectedfile = "") {
 	<div id="actions">
 <?php if($selectedfile != "" && $subtask == "renamefile") { ?>
 		<fieldset class="block">
-		<legend>Переименование: <span><?php echo $selectedfile; ?></span></legend>
-		<input type="hidden" name="curfile" value="<?php echo $selectedfile; ?>">Новое имя (включая расширение!):
+		<legend><?php echo _JWMM_RENAMING?>: <span><?php echo $selectedfile; ?></span></legend>
+		<input type="hidden" name="curfile" value="<?php echo $selectedfile; ?>"><?php echo _JWMM_NEW_NAME?>:
 		<input type="text" name="newfilename" id="newfilename">
-		<input type="button" onclick="javascript:document.adminForm.task.value='alterfilename';document.adminForm.submit( );" class="button" value="Переименовать" />
+		<input type="button" onclick="javascript:document.adminForm.task.value='alterfilename';document.adminForm.submit( );" class="button" value="<?php echo _RENAME?>" />
 		</fieldset>
 <?php } ?>
 
 <?php if($selectedfile != "" && $subtask == "copyfile") { ?>
 		<fieldset class="block">
-		<legend>Выберите каталог для копирования:<span><?php $selectedfile; ?></span></legend>
+		<legend><?php echo _CHOOSE_DIR_TO_COPY?>:<span><?php $selectedfile; ?></span></legend>
 		<input type="hidden" name="curfile" value="<?php echo $selectedfile; ?>">
-			Копировать в: <?php echo mosHTML::selectList($folders,'dirtocopy',"class=\"inputbox\" size=\"1\" ",'value','text',$curdirectory); ?>
-		<input type="button" onclick="javascript:document.adminForm.task.value='copyfile';document.adminForm.submit( );" class="button" value="Копировать" />
+			<?php echo _JWMM_COPY_TO?>: <?php echo mosHTML::selectList($folders,'dirtocopy',"class=\"inputbox\" size=\"1\" ",'value','text',$curdirectory); ?>
+		<input type="button" onclick="javascript:document.adminForm.task.value='copyfile';document.adminForm.submit( );" class="button" value="<?php echo _COPY?>" />
 		</fieldset>
 <?php }if($selectedfile != "" && $subtask == "movefile") { ?>
 		<fieldset class="block">
-		<legend>Выберите каталог для перемещения:<span><?php echo $selectedfile; ?></span></legend>
+		<legend><?php echo _CHOOSE_DIR_TO_MOVE?>:<span><?php echo $selectedfile; ?></span></legend>
 		<input type="hidden" name="curfile" value="<?php echo $selectedfile; ?>">
-		Переместить в: <?php echo mosHTML::selectList($folders,'dirtomove','class="inputbox" size="1" ','value','text',$curdirectory); ?>
-		<input type="button" onclick="javascript:document.adminForm.task.value='movefile';document.adminForm.submit( );" class="button" value="Переместить" />
+		<?php echo _JWMM_MOVE_TO?>: <?php echo mosHTML::selectList($folders,'dirtomove','class="inputbox" size="1" ','value','text',$curdirectory); ?>
+		<input type="button" onclick="javascript:document.adminForm.task.value='movefile';document.adminForm.submit( );" class="button" value="<?php echo _JWMM_MOVE?>" />
 		</fieldset>
 <?php }if($selectedfile != "" && $subtask == "unzipfile") {?>
 	<fieldset class="block">
-	<legend>Выберите каталог для распаковки:<span><?php echo $selectedfile; ?></span></legend>
+	<legend><?php echo _CHOOSE_DIR_TO_UNPACK?>:<span><?php echo $selectedfile; ?></span></legend>
 		<input type="hidden" name="curfile" value="<?php echo $selectedfile; ?>" />
-		Каталог распаковки:<?php echo mosHTML::selectList($folders,'dirtocopy',"class=\"inputbox\" size=\"1\" ",'value','text',$curdirectory); ?>
-		<input type="button" onclick="javascript:document.adminForm.task.value='unzipfile';document.adminForm.submit( );" class="button" value="Распаковать" />
+		<?php echo _DERICTORY_TO_UNPACK?>:<?php echo mosHTML::selectList($folders,'dirtocopy',"class=\"inputbox\" size=\"1\" ",'value','text',$curdirectory); ?>
+		<input type="button" onclick="javascript:document.adminForm.task.value='unzipfile';document.adminForm.submit( );" class="button" value="<?php echo _UNPACK?>" />
 	</fieldset>
 <?php } ?>
 
@@ -605,7 +605,7 @@ function viewMediaManager($curdirectory = "",$mosmsg = "",$selectedfile = "") {
 	<div class="jwmmxtd_clr"></div>
 	<div id="jwmmxtd_tmp">
 	<?php if($my->gid == 25 || $my->gid == 24) {
-		echo 'Число изображений во временном каталоге: ';
+		echo _NUMBER_OF_IMAGES_IN_TMP_DIR.': ';
 		$dir = $mosConfig_absolute_path.'/media/';
 		$total_file = 0;
 		if(is_dir($dir)) {
@@ -619,7 +619,7 @@ function viewMediaManager($curdirectory = "",$mosmsg = "",$selectedfile = "") {
 		}
 		echo $total_file;
 ?>
-	<input type="button" class="button" onclick="javascript:document.adminForm.task.value='emptytmp';document.adminForm.submit( );" value="Очистить каталог" />
+	<input type="button" class="button" onclick="javascript:document.adminForm.task.value='emptytmp';document.adminForm.submit( );" value="<?php echo _CLEAR_DIRECTORY?>" />
 	<?php } ?>
 	</div>
 </div>
@@ -812,7 +812,7 @@ function UpdateImage($aFormValues) {
 			@unlink($mosConfig_absolute_path.'/media/'.$primage);
 			$primage = $pic->file_dst_name;
 		}
-	} else $img2out = "Ошибка при обработке файла ".$imagepath;
+	} else $img2out = _JWMM_ERROR_EDIT_FILE." ".$imagepath;
 
 	$objResponse = new xajaxResponse();
 	//$objResponse->addAssign("mymsg","innerHTML",$imagepath."--".$primage);
@@ -881,151 +881,151 @@ function editImage($img,$cur) {
 <div id="loading_placeholder"></div>
 <div id="jimgedit">
 	<table class="adminheading">
-		<tr><th class="media">Редактирование изображения</th></tr>
+		<tr><th class="media"><?php echo _JWMM_EDIT_IMAGE?></th></tr>
 	</table>
 	<div id="mymsg"></div>
-	<div id="show_image_path">Файл:<b><?php echo $path; ?></b></div>
+	<div id="show_image_path"><?php echo _FILE?>:<b><?php echo $path; ?></b></div>
 	<div id="jwmmxtd_editpage">
 	<div id="jwmmxtd_image">
 		<div id="mmxtd"><img name="mainimage" id="mainimage" src="<?php echo $path; ?>" /></div>
 	</div>
 	<div id="jwmmxtd_panel">
 		<form method="POST" id="adminForm" name="adminForm" enctype="multipart/form-data" onSubmit="return false;">
-		<fieldset><legend>Высота x Ширина</legend>
-			ширина<input id="width" name="width" type="text" size="4" />
+		<fieldset><legend><?php echo _HEIGHT?> x <?php echo _WIDTH?></legend>
+			<?php echo _WIDTH?><input id="width" name="width" type="text" size="4" />
 			x<input id="height" name="height" type="text" size="4" />
-			высота
+			<?php echo _HEIGHT?>
 		</fieldset>
 		<fieldset>
-			<legend>Расширение изображения</legend>
-			Расширение
+			<legend><?php echo _JWMM_IMAGE_RESIZE?></legend>
+			<?php echo _JWMM_IMAGE_RESIZE?>
 			<select id="convert" name="convert">
-				<option value="none">-- выбор --</option>
+				<option value="none"><?php echo _SEL_TYPE?></option>
 				<option value="jpg">jpg</option>
 				<option value="gif">gif</option>
 				<option value="png">png</option>
 			</select>
 		</fieldset>
 		<fieldset>
-		<legend>Обрезать</legend>
+		<legend><?php echo _JWMM_IMAGE_CROP?></legend>
 		<fieldset>
-		<legend>Размеры</legend>
-		Размеры
+		<legend><?php echo _JWMM_IMAGE_SIZE?></legend>
+		<?php echo _JWMM_IMAGE_SIZE?>
 		<input id="crop" name="crop" type="text" size="4" />
 		</fieldset>
 		<fieldset>
-		<legend>X и Y координаты</legend>
-			вертикали:<input id="cropv" name="cropv" type="text" size="4" />
-			горизонтали:<input id="cropo" name="cropo" type="text" size="4" />
+		<legend><?php echo _JWMM_X_Y_POSITION?></legend>
+			<?php echo _JWMM_BY_HEIGHT?>:<input id="cropv" name="cropv" type="text" size="4" />
+			<?php echo _JWMM_BY_WIDTH?>:<input id="cropo" name="cropo" type="text" size="4" />
 		</fieldset>
 		<fieldset>
-		<legend>Обрезать</legend>
+		<legend><?php echo _JWMM_IMAGE_CROP?></legend>
 		<table cellpadding="0" cellspacing="0" style="text-align:center;">
 			<tr>
-				<td>Сверху<br />
+				<td><?php echo _JWMM_CROP_TOP?><br />
 					<input id="cropt" name="cropt" type="text" size="4" />
 				</td>
 			</tr>
 			<tr>
 				<td>
-					Слева<input id="cropl" name="cropl" type="text" size="4" />
+					<?php echo _JWMM_CROP_LEFT?><input id="cropl" name="cropl" type="text" size="4" />
 					&nbsp;
 					<input id="cropr" name="cropr" type="text" size="4" />
-					Справа
+					<?php echo _JWMM_CROP_RIGHT?>
 				</td>
 			</tr>
 			<tr>
 				<td><input id="cropb" name="cropb" type="text" size="4" />
-					<br />Снизу
+					<br /><?php echo _JWMM_CROP_BOTTOM?>
 				</td>
 			</tr>
 		</table>
 		</fieldset>
 		</fieldset>
 		<fieldset>
-		<legend>Поворот</legend>
-		Повернуть на
+		<legend><?php echo _JWMM_ROTATION?></legend>
+		<?php echo _JWMM_ROTATION?>
 		<select id="rotation" name="rotation">
-			<option value="0">-- выбор --</option>
+			<option value="0"><?php echo _JWMM_CHOOSE?></option>
 			<option value="90">90</option>
 			<option value="180">180</option>
 			<option value="270">270</option>
 		</select>
 		</fieldset>
 		<fieldset>
-		<legend>Отражение</legend>
-		Отразить по
+		<legend><?php echo _JWMM_MIRROR?></legend>
+		<?php echo _JWMM_MIRROR?>
 		<select id="flip" name="flip">
-			<option value="none">-- выбор --</option>
-			<option value="H">вертикали</option>
-			<option value="V">горизонтали</option>
+			<option value="none"><?php echo _JWMM_CHOOSE?></option>
+			<option value="H"><?php echo _JWMM_VERICAL?></option>
+			<option value="V"><?php echo _JWMM_HORIZONTAL?></option>
 		</select>
 		</fieldset>
 		<fieldset>
-		<legend>Градиентная рамка</legend>
+		<legend><?php echo _JWMM_GRADIENT_BORDER?></legend>
 		<table cellpadding="0" cellspacing="0">
 			<tr>
-				<td>Размер px</td>
+				<td><?php echo _JWMM_SIZE_PX?></td>
 				<td><input id="bevelpx" name="bevelpx" type="text" /></td>
 			</tr>
 			<tr>
-				<td>Сверху-Слева</td>
+				<td><?php echo _JWMM_TOP_LEFT?></td>
 				<td><input id="beveltl" name="beveltl" type="text" />
 				<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.beveltl)">
-					<img width="16" height="16" border="0" alt="Нажмите для выбора цвета" src="<?php echo $mosConfig_live_site.'/administrator/components/com_jwmmxtd/images/color_wheel.png'; ?>">
+					<img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo $mosConfig_live_site.'/administrator/components/com_jwmmxtd/images/color_wheel.png'; ?>">
 				</a>
 				</td>
 			</tr>
 			<tr>
-				<td>Справа-Снизу</td>
+				<td><?php echo _JWMM_BOTTOM_RIGHT?></td>
 				<td><input id="bevelrb" name="bevelrb" type="text" />
-				<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.bevelrb)"><img width="16" height="16" border="0" alt="Нажмите для выбора цвета" src="<?php echo $mosConfig_live_site.'/administrator/components/com_jwmmxtd/images/color_wheel.png'; ?>"></a></td>
+				<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.bevelrb)"><img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo $mosConfig_live_site.'/administrator/components/com_jwmmxtd/images/color_wheel.png'; ?>"></a></td>
 			</tr>
 		</table>
 		</fieldset>
 		<fieldset>
-		<legend>Бордюр</legend>
+		<legend><?php echo _JWMM_BORDER?></legend>
 		<fieldset>
-		<legend>Бордюр</legend>
+		<legend><?php echo _JWMM_BORDER?></legend>
 		<table cellpadding="0" cellspacing="0">
 			<tr>
-				<td>ширина</td>
+				<td><php echo _WIDTH></td>
 				<td><input id="borderw" name="borderw" type="text" /></td>
 			</tr>
 			<tr>
-				<td>Цвет</td>
+				<td><?php echo _COLOR?></td>
 				<td><input id="borderc" name="borderc" type="text" />
-				<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.borderc)"><img width="16" height="16" border="0" alt="Нажмите для выбора цвета" src="<?php echo $mosConfig_live_site.'/administrator/components/com_jwmmxtd/images/color_wheel.png'; ?>"> </a></td>
+				<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.borderc)"><img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo $mosConfig_live_site.'/administrator/components/com_jwmmxtd/images/color_wheel.png'; ?>"> </a></td>
 			</tr>
 		</table>
 		</fieldset>
 		<fieldset>
-		<legend>Все бордюры</legend>
+		<legend><?php echo _JWMM_ALL_BORDERS?></legend>
 		<table cellpadding="0" cellspacing="0" style="text-align:center;">
 			<tr>
-				<td>Сверху<br /><input id="bordert" name="bordert" type="text" size="4" /></td>
+				<td><?php echo _JWMM_TOP?><br /><input id="bordert" name="bordert" type="text" size="4" /></td>
 			</tr>
 			<tr>
-			<td>Слева<input id="borderl" name="borderl" type="text" size="4" />&nbsp;
+			<td><?php echo _JWMM_LEFT?><input id="borderl" name="borderl" type="text" size="4" />&nbsp;
 				<input id="borderr" name="borderr" type="text" size="4" />
-				Справа</td>
+				<?php echo _JWMM_RIGHT?></td>
 			</tr>
 			<tr>
 			<td><input id="borderb" name="borderb" type="text" size="4" />
 				<br />
-				Снизу<br />
-				Цвет
+				<?php echo _JWMM_BOTTOM?><br />
+				<?php echo _COLOR?>
 				<input id="borderc2" name="borderc2" type="text" />
-				<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.borderc2)"><img width="16" height="16" alt="Нажмите для выбора цвета" src="<?php echo $mosConfig_live_site.'/administrator/components/com_jwmmxtd/images/color_wheel.png'; ?>"></a> </td>
+				<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.borderc2)"><img width="16" height="16" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo $mosConfig_live_site.'/administrator/components/com_jwmmxtd/images/color_wheel.png'; ?>"></a> </td>
 			</tr>
 		</table>
 		</fieldset>
 		</fieldset>
 		<fieldset>
 		<legend>Tint Color</legend>
-		Цвет
+		<?php echo _COLOR?>
 		<input id="tint" name="tint" type="text" />
-		<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.tint)"> <img width="16" height="16" border="0" alt="Нажмите для выбора цвета" src="<?php echo $mosConfig_live_site.'/administrator/components/com_jwmmxtd/images/color_wheel.png'; ?>"> </a>
+		<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.tint)"> <img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo $mosConfig_live_site.'/administrator/components/com_jwmmxtd/images/color_wheel.png'; ?>"> </a>
 		</fieldset>
 		<fieldset>
 		<legend>Overlay</legend>
@@ -1035,18 +1035,18 @@ function editImage($img,$cur) {
 				<td><input id="overlayp" name="overlayp" type="text" size="4" /></td>
 			</tr>
 			<tr>
-			<td>Цвет</td>
+			<td><?php echo _COLOR?></td>
 			<td><input id="overlayc" name="overlayc" type="text" />
-				<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.overlayc)"> <img width="16" height="16" border="0" alt="Нажмите для выбора цвета" src="<?php echo $mosConfig_live_site.'/administrator/components/com_jwmmxtd/images/color_wheel.png'; ?>"> </a></td>
+				<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.overlayc)"> <img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo $mosConfig_live_site.'/administrator/components/com_jwmmxtd/images/color_wheel.png'; ?>"> </a></td>
 			</tr>
 		</table>
 		</fieldset>
 		<fieldset>
-		<legend>Яркость</legend>
+		<legend><?php echo _JWMM_BRIGHTNESS?></legend>
 			<input id="brightness" name="brightness" type="text" />
 		</fieldset>
 		<fieldset>
-		<legend>Контраст</legend>
+		<legend><?php echo _JWMM_CONTRAST?></legend>
 			<input id="contrast" name="contrast" type="text" />
 		</fieldset>
 		<fieldset>
@@ -1054,45 +1054,45 @@ function editImage($img,$cur) {
 			<input id="threshold" name="threshold" type="text" />
 		</fieldset>
 		<fieldset>
-		<legend>Дополнительные действия</legend>
-			Градиент серого<input type="checkbox" name="greyscale" id="greyscale">
-			Негатив<input type="checkbox" name="negative" id="negative">
+		<legend><?php echo _JWMM_ADDITIONAL_ACTIONS?></legend>
+			<?php echo _JWMM_GRAY_SCALE?><input type="checkbox" name="greyscale" id="greyscale">
+			<?php echo _JWMM_NEGATIVE?><input type="checkbox" name="negative" id="negative">
 		</fieldset>
 		<fieldset>
-		<legend>Добавить текст</legend>
+		<legend><?php echo _JWMM_ADD_TEXT?></legend>
 		<table cellpadding="0" cellspacing="2">
 			<tr>
-			<td>Текст</td>
+			<td><?php echo _JWMM_TEXT?></td>
 			<td><input type="text" name="text" id="text">
 			</td>
 			</tr>
 			<tr>
-			<td>Цвет текста</td>
+			<td><?php echo _JWMM_TEXT_COLOR?></td>
 			<td><input type="text" name="textcolor" id="textcolor">
-				<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.textcolor)"> <img width="16" height="16" border="0" alt="Нажмите для выбора цвета" src="<?php echo $mosConfig_live_site.'/administrator/components/com_jwmmxtd/images/color_wheel.png'; ?>"> </a> </td>
+				<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.textcolor)"> <img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo $mosConfig_live_site.'/administrator/components/com_jwmmxtd/images/color_wheel.png'; ?>"> </a> </td>
 			</tr>
 			<tr>
-			<td>Шрифт текста</td>
+			<td><?php echo _JWMM_TEXT_FONT?></td>
 			<td><input type="text" name="textfont" id="textfont">
 			</td>
 			</tr>
 			<tr>
-			<td>Размер текста</td>
+			<td><?php echo _JWMM_TEXT_SIZE?></td>
 			<td><input type="text" name="textpercent" id="textpercent"></td>
 			</tr>
 			<tr>
-			<td>Ориентация</td>
+			<td><?php echo _JWMM_ORIENTATION?></td>
 			<td><select name="textdirection" id="textdirection">
-				<option value="none">-- выбор --</option>
-				<option value="h">горизонтали</option>
-				<option value="v">вертикали</option>
+				<option value="none"><?php echo _JWMM_CHOOSE?></option>
+				<option value="h"><?php echo _JWMM_BY_WIDTH?></option>
+				<option value="v"><?php echo _JWMM_BY_HEIGHT?></option>
 				</select>
 			</td>
 			</tr>
 			<tr>
-			<td>Позиция</td>
+			<td><?php echo _MODULE_POSITION?></td>
 			<td><select name="textposition" id="textposition">
-				<option value="none">-- выбор --</option>
+				<option value="none"><?php echo _JWMM_CHOOSE?></option>
 				<option value="TL">Top - Left</option>
 				<option value="T">Top</option>
 				<option value="TR">Top - Right</option>
@@ -1110,20 +1110,20 @@ function editImage($img,$cur) {
 			</td>
 			</tr>
 			<tr>
-			<td>Цвет фона</td>
+			<td><?php echo _JWMM_BG_COLOR?></td>
 			<td><input type="text" name="bgcolor" id="bgcolor">
 				<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.bgcolor)">
-			<img width="16" height="16" border="0" alt="Нажмите для выбора цвета" src="<?php echo $mosConfig_live_site.'/administrator/components/com_jwmmxtd/images/color_wheel.png'; ?>"> </a> </td>
+			<img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo $mosConfig_live_site.'/administrator/components/com_jwmmxtd/images/color_wheel.png'; ?>"> </a> </td>
 			</tr>
 			<tr>
-				<td>Расположение по X и Y</td>
+				<td><?php echo _JWMM_XY_POSITION?></td>
 				<td>
 					X:<input type="text" name="textpaddingx" id="textpaddingx" size="4">
 					Y:<input type="text" name="textpaddingy" id="textpaddingy" size="4">
 				</td>
 			</tr>
 			<tr>
-				<td>Отступы по X и Y</td>
+				<td><?php echo _JWMM_XY_PADDING?></td>
 				<td>
 					X:<input type="text" name="textabsolutex" id="textabsolutex" size="4">
 					Y:<input type="text" name="textabsolutey" id="textabsolutey" size="4">
@@ -1141,7 +1141,7 @@ function editImage($img,$cur) {
 	</div>
 	<div class="jwmmxtd_clr"></div>
 <script type="text/javascript">
-	initFloatingWindowWithTabs('editor_panel',Array('Первая','Вторая','Третья...'),100,450,80,60,true,false,false,true);
+	initFloatingWindowWithTabs('editor_panel',Array(_JWMM_FIRST,_JWMM_SECOND,_JWMM_THIRDTH),100,450,80,60,true,false,false,true);
 </script>
 	</div>
 </div>

@@ -367,16 +367,16 @@ function xmapUploadFile( $filename, $userfile_name, &$msg ) {
 				if (mosChmod( $baseDir . $userfile_name )) {
 					return true;
 				} else {
-					$msg = 'Failed to change the permissions of the uploaded file.';
+					$msg = _CANNOT_CHMOD;
 				}
 			} else {
-				$msg = 'Failed to move uploaded file to <code>/media</code> directory.';
+				$msg = _CANNOT_MOVE_TO_MEDIA;
 			}
 		} else {
-			$msg = 'Upload failed as <code>/media</code> directory is not writable.';
+			$msg = _CANNOT_WRITE_TO_MEDIA;
 		}
 	} else {
-		$msg = 'Upload failed as <code>/media</code> directory does not exist.';
+		$msg = _CANNOT_INSTALL_NO_MEDIA;
 	}
 	return false;
 }

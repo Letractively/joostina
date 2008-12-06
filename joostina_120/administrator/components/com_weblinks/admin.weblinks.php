@@ -141,8 +141,7 @@ function editWeblink($option,$id) {
 
 	// fail if checked out not by 'me'
 	if($row->isCheckedOut($my->id)) {
-		mosRedirect('index2.php?option='.$option,
-			'Модуль $row->title в настоящее время редактируется другим администратором.');
+		mosRedirect('index2.php?option='.$option,$row->title.' - '._MODULE_IS_EDITING_BY_ADMIN);
 	}
 
 	if($id) {
@@ -218,7 +217,7 @@ function removeWeblinks($cid,$option) {
 	global $database;
 	josSpoofCheck();
 	if(!is_array($cid) || count($cid) < 1) {
-		echo "<script> alert('Выберите объект для удаления'); window.history.go(-1);</script>\n";
+		echo "<script> alert('"._CHOOSE_OBJ_DELETE."'); window.history.go(-1);</script>\n";
 		exit;
 	}
 	if(count($cid)) {
@@ -245,8 +244,8 @@ function publishWeblinks($cid = null,$publish = 1,$option) {
 	global $database,$my;
 	josSpoofCheck();
 	if(!is_array($cid) || count($cid) < 1) {
-		$action = $publish?'публикации':'сокрытия';
-		echo "<script> alert('Выберите объект для $action'); window.history.go(-1);</script>\n";
+		$action = $publish?'publish':'unpublish';
+		echo "<script> alert('"._CHOOSE_OBJECT_FOR." $action'); window.history.go(-1);</script>\n";
 		exit;
 	}
 
