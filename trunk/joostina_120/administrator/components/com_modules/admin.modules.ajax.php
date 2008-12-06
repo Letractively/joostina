@@ -105,7 +105,7 @@ function x_apply() {
 
 	mosCache::cleanCache('com_content');
 
-	$msg = '¬се изменени€ модул€  - '.$row->title.' - успешно сохранены';
+	$msg = $row->title.' - '._ALL_MODULE_CHANGES_SAVED;
 	return $msg;
 }
 

@@ -1,5 +1,8 @@
 Joostina v 1.2.0
 
+06.12.08
+	1. Подготовил к переводу administrator/components/com_modules + com_newsfeeds (Dead Krolik)
+
 05.12.08
 	1. Подготовил к переводу administrator/components/com_sections + com_poll (Dead Krolik)
 	2. Фикс com_joompack, что бы она не тупила, когда удаляешь все директории из архивации, а файлы не создаются. Для этого в файле \administrator\components\com_joomlapack\includes\engine.filelist.php в функции _recurseDirectory поменял count($this->_currentList) < 100 на count($this->_currentList) < 5, видимо защита от дураков стояла. (Dead Krolik)

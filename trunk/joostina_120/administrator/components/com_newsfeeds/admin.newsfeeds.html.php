@@ -25,7 +25,7 @@ class HTML_newsfeeds {
 		<table class="adminheading">
 		<tr>
 			<th>
-			Управление лентами новостей
+			<?php echo _NEWSFEEDS_MANAGEMENT?>
 			</th>
 			<td width="right">
 			<?php echo $lists['category']; ?>
@@ -42,22 +42,22 @@ class HTML_newsfeeds {
 			<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count($rows); ?>);" />
 			</th>
 			<th class="title">
-			Лента новостей
+			<?php echo _NEWSFEED_TITLE?>
 			</th>
 			<th width="5%">
-			На сайте
+			<?php echo _NEWSFEED_ON_SITE?>
 			</th>
 			<th colspan="2" width="5%">
-			Сортировка
+			<?php echo _CMN_ORDERING?>
 			</th>
 			<th class="title" width="20%">
-			Категория
+			<?php echo _E_CATEGORY?>
 			</th>
 			<th width="5%" class="jtd_nowrap">
-			Кол-во статей
+			<?php echo _NEWSFEEDS_NUM_OF_CONTENT_ITEMS?>
 			</th>
 			<th width="10%">
-			Время кэша
+			<?php echo _NEWSFEED_CACHE_TIME?>
 			</th>
 		</tr>
 		<?php
@@ -69,7 +69,7 @@ class HTML_newsfeeds {
 
 			$img = $row->published?'tick.png':'publish_x.png';
 			$task = $row->published?'unpublish':'publish';
-			$alt = $row->published?'Опубликовано':'Скрыто';
+			$alt = $row->published?_CMN_PUBLISHED:_CMN_UNPUBLISHED;
 			$checked = mosCommonHTML::CheckedOutProcessing($row,$i);
 
 			$row->cat_link = 'index2.php?option=com_categories&section=com_newsfeeds&task=editA&hidemainmenu=1&id='.
@@ -91,7 +91,7 @@ class HTML_newsfeeds {
 					<?php
 			} else {
 ?>
-					<a href="<?php echo $link; ?>" title="Изменить ленту новостей">
+					<a href="<?php echo $link; ?>" title="<?php echo _CHANGE_NEWSFEED?>">
 					<?php echo $row->name; ?>
 					</a>
 					<?php
@@ -110,7 +110,7 @@ class HTML_newsfeeds {
 				<?php echo $pageNav->orderDownIcon($i,$n); ?>
 				</td>
 				<td>
-				<a href="<?php echo $row->cat_link; ?>" title="Изменить категорию">
+				<a href="<?php echo $row->cat_link; ?>" title="<?php echo _CHANGE_CATEGORY?>">
 				<?php echo $row->catname; ?>
 				</a>
 				</td>
@@ -138,7 +138,7 @@ class HTML_newsfeeds {
 		if($my->gid == 25) {
 			$visible = 1;
 		}
-		mosHTML::writableCell($mosConfig_cachepath,0,'<strong>Каталог кэша</strong> ',$visible);
+		mosHTML::writableCell($mosConfig_cachepath,0,'<strong>'._CACHE_DIRECTORY.'</strong> ',$visible);
 ?>
 				</table>
 			</td>
@@ -168,17 +168,17 @@ class HTML_newsfeeds {
 
 			// do field validation
 			if (form.name.value == '') {
-				alert( "Пожалуйста, введите название ленты." );
+				alert( "<?php echo _PLEASE_ENTER_NEWSFEED_NAME?>" );
 			} else if (form.catid.value == 0) {
-				alert( "Пожалуйста, выберите категорию." );
+				alert( "<?php echo _E_WARNCAT?>" );
 			} else if (form.link.value == '') {
-				alert( "Пожалуйста, введите ссылку ленты новостей." );
+				alert( "<?php echo _PLEASE_ENTER_NEWSFEED_LINK?>" );
 			} else if (getSelectedValue('adminForm','catid') < 0) {
-				alert( "Пожалуйста, выберите категорию." );
+				alert( "<?php echo _E_WARNCAT?>" );
 			} else if (form.numarticles.value == "" || form.numarticles.value == 0) {
-				alert( "Пожалуйста, введите количество статей для отображения." );
+				alert( "<?php echo _PLEASE_ENTER_NEWSFEED_NUM_OF_CONTENT_ITEMS?>" );
 			} else if (form.cache_time.value == "" || form.cache_time.value == 0) {
-				alert( "Пожалуйста, введите время обновления кэша." );
+				alert( "<?php echo _PLEASE_ENTER_NEWSFEED_CACHE_TIME?>" );
 			} else {
 				submitform( pressbutton );
 			}
@@ -189,7 +189,7 @@ class HTML_newsfeeds {
 		<table class="adminheading">
 		<tr>
 			<th class="edit">
-			Лента новостей: <small><?php echo $row->id?'Редактирование':'Новая'; ?></small> <small><small>[ <?php echo $row->name; ?> ]</small></small>
+			<?php echo _NEWSFEED_TITLE?>: <small><?php echo $row->id?_O_EDITING:_O_CREATION; ?></small> <small><small>[ <?php echo $row->name; ?> ]</small></small>
 			</th>
 		</tr>
 		</table>
@@ -197,12 +197,12 @@ class HTML_newsfeeds {
 		<table class="adminform">
 		<tr>
 			<th colspan="2">
-			Подробности
+			<?php echo _DETAILS?>
 			</th>
 		</tr>
 		<tr>
 			<td>
-			Имя
+			<?php echo _CMN_NAME?>
 			</td>
 			<td>
 			<input class="inputbox" type="text" size="40" name="name" value="<?php echo $row->name; ?>">
@@ -210,7 +210,7 @@ class HTML_newsfeeds {
 		</tr>
 		<tr>
 			<td>
-			Категория
+			<?php echo _E_CATEGORY?>
 			</td>
 			<td>
 			<?php echo $lists['category']; ?>
@@ -218,7 +218,7 @@ class HTML_newsfeeds {
 		</tr>
 		<tr>
 			<td>
-			Ссылка
+			<?php echo _NEWSFEED_LINK?>
 			</td>
 			<td>
 			<input class="inputbox" type="text" size="60" name="link" value="<?php echo $row->link; ?>">
@@ -226,7 +226,7 @@ class HTML_newsfeeds {
 		</tr>
 		<tr>
 			<td>
-			Количество статей
+			<?php echo _NEWSFEEDS_NUM_OF_CONTENT_ITEMS?>
 			</td>
 			<td>
 			<input class="inputbox" type="text" size="2" name="numarticles" value="<?php echo $row->numarticles; ?>">
@@ -234,7 +234,7 @@ class HTML_newsfeeds {
 		</tr>
 		<tr>
 			<td>
-			Время кэширования (в секундах)
+			<?php echo _NEWSFEED_CACHE_TIME?>
 			</td>
 			<td>
 			<input class="inputbox" type="text" size="4" name="cache_time" value="<?php echo $row->cache_time; ?>">
@@ -242,7 +242,7 @@ class HTML_newsfeeds {
 		</tr>
 		<tr>
 			<td>
-			Порядок отображения
+			<?php echo _ORDER_DROPDOWN?>
 			</td>
 			<td>
 			<?php echo $lists['ordering']; ?>
@@ -250,7 +250,7 @@ class HTML_newsfeeds {
 		</tr>
 		<tr>
 			<td valign="top" align="right">
-			Перекодировать из UTF-8:
+			<?php echo _NEWSFEED_DECODE_FROM_UTF?>:
 			</td>
 			<td>
 			<?php echo $lists['code']; ?>
@@ -258,7 +258,7 @@ class HTML_newsfeeds {
 		</tr>
 		<tr>
 			<td valign="top" align="right">
-			Опубликовано:
+			<?php echo _CMN_PUBLISHED?>:
 			</td>
 			<td>
 			<?php echo $lists['published']; ?>
