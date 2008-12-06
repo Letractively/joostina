@@ -32,18 +32,18 @@ class HTML_mmxtd {
 	</tr>
 	<tr>
 		<td class="fileinfo">
-			Каталогов: <?php echo $num_dir; ?><br />
-			Файлов: <?php echo $num_files; ?>
+			<?php echo _JWMM_DIRECTORIES?>: <?php echo $num_dir; ?><br />
+			<?php echo _JWMM_FILES?>: <?php echo $num_files; ?>
 		</td>
 		<td class="fileactions">
-			<a href="javascript:void(null)" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $path ?>';document.adminForm.subtask.value='renamefile';document.adminForm.submit( );" title="Переименовать">
-			<img src="images/ico/rename.png" alt="Переименовать" title="Переименовать" /></a>
-			<a href="javascript:void(null)" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $path ?>';document.adminForm.subtask.value='copyfile';document.adminForm.submit( );" title="Копировать">
-			<img src="images/ico/copy.png" alt="Копировать" title="Копировать" /></a>
-			<a href="javascript:void(null)" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $path ?>';document.adminForm.subtask.value='movefile';document.adminForm.submit( );" title="Переместить">
-			<img src="images/ico/cut.png" alt="Переместить" title="Переместить" /></a>
-			<a href="index2.php?option=com_jwmmxtd&amp;task=deletefolder&amp;delFolder=<?php echo $path; ?>&amp;curdirectory=<?php echo $listdir; ?>" onclick="return deleteFolder('<?php echo $dir; ?>', <?php echo $num_files; ?>);" title="Удалить">
-			<img src="images/ico/delete.png" alt="Удалить" title="Удалить" /></a>
+			<a href="javascript:void(null)" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $path ?>';document.adminForm.subtask.value='renamefile';document.adminForm.submit( );" title="<?php echo _RENAME?>">
+			<img src="images/ico/rename.png" alt="<?php echo _RENAME?>" title="<?php echo _RENAME?>" /></a>
+			<a href="javascript:void(null)" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $path ?>';document.adminForm.subtask.value='copyfile';document.adminForm.submit( );" title="<?php echo _COPY?>">
+			<img src="images/ico/copy.png" alt="<?php echo _COPY?>" title="<?php echo _COPY?>" /></a>
+			<a href="javascript:void(null)" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $path ?>';document.adminForm.subtask.value='movefile';document.adminForm.submit( );" title="<?php echo _JWMM_MOVE?>">
+			<img src="images/ico/cut.png" alt="<?php echo _JWMM_MOVE?>" title="<?php echo _JWMM_MOVE?>" /></a>
+			<a href="index2.php?option=com_jwmmxtd&amp;task=deletefolder&amp;delFolder=<?php echo $path; ?>&amp;curdirectory=<?php echo $listdir; ?>" onclick="return deleteFolder('<?php echo $dir; ?>', <?php echo $num_files; ?>);" title="<?php echo _CMN_DELETE?>">
+			<img src="images/ico/delete.png" alt="<?php echo _CMN_DELETE?>" title="<?php echo _CMN_DELETE?>" /></a>
 		</td>
 	</tr>
 </table>
@@ -54,12 +54,12 @@ class HTML_mmxtd {
 // подсчет размера
 	function parse_size($size) {
 		if($size < 1024) {
-			return $size.' байт';
+			return $size.' '._JWMM_BYTES;
 		} else
 			if($size >= 1024 && $size < 1024* 1024) {
-				return sprintf('%01.2f',$size / 1024.0).' кб';
+				return sprintf('%01.2f',$size / 1024.0).' '._JWMM_KBYTES;
 			} else {
-				return sprintf('%01.2f',$size / (1024.0* 1024)).' мб';
+				return sprintf('%01.2f',$size / (1024.0* 1024)).' '._JWMM_MBYTES;
 			}
 	}
 // вывод изображения
@@ -84,24 +84,24 @@ class HTML_mmxtd {
 		</tr>
 		<tr>
 			<td class="fileactions">
-				<a href="index2.php?option=com_jwmmxtd&task=edit&curdirectory=<?php echo $cur; ?>&img=<?php echo $img_file; ?>" title="Редактировать">
-				<img src="images/ico/picture_edit.png" alt="Редактировать" title="Редактировать" /></a>
-				<a href="#" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $file ?>';document.adminForm.subtask.value='renamefile';document.adminForm.submit( );" title="Переименовать">
-				<img src="images/ico/rename.png" alt="Переименовать" title="Переименовать" /></a>
-				<a href="#" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $file ?>';document.adminForm.subtask.value='copyfile';document.adminForm.submit( );" title="Копировать">
-				<img src="images/ico/copy.png" alt="Копировать" title="Копировать" /></a>
-				<a href="#" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $file ?>';document.adminForm.subtask.value='movefile';document.adminForm.submit( );" title="Переместить">
-				<img src="images/ico/cut.png" alt="Переместить" title="Переместить" /></a>
-				<a href="index2.php?option=com_jwmmxtd&amp;task=delete&amp;delFile=<?php echo $file; ?>&amp;curdirectory=<?php echo $cur; ?>" onclick="javascript:if(confirm('Удалить файл:<?php echo $file; ?>')) return true; return false;" title="Удалить">
-				<img src="images/ico/delete.png" alt="Удалить" title="Удалить" /></a>
+				<a href="index2.php?option=com_jwmmxtd&task=edit&curdirectory=<?php echo $cur; ?>&img=<?php echo $img_file; ?>" title="<?php echo _E_EDIT?>">
+				<img src="images/ico/picture_edit.png" alt="<?php echo _E_EDIT?>" title="<?php echo _E_EDIT?>" /></a>
+				<a href="#" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $file ?>';document.adminForm.subtask.value='renamefile';document.adminForm.submit( );" title="<?php echo _RENAME?>">
+				<img src="images/ico/rename.png" alt="<?php echo _RENAME?>" title="<?php echo _RENAME?>" /></a>
+				<a href="#" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $file ?>';document.adminForm.subtask.value='copyfile';document.adminForm.submit( );" title="<?php echo _COPY?>">
+				<img src="images/ico/copy.png" alt="<?php echo _COPY?>" title="<?php echo _COPY?>" /></a>
+				<a href="#" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $file ?>';document.adminForm.subtask.value='movefile';document.adminForm.submit( );" title="<?php echo _JWMM_MOVE?>">
+				<img src="images/ico/cut.png" alt="<?php echo _JWMM_MOVE?>" title="<?php echo _JWMM_MOVE?>" /></a>
+				<a href="index2.php?option=com_jwmmxtd&amp;task=delete&amp;delFile=<?php echo $file; ?>&amp;curdirectory=<?php echo $cur; ?>" onclick="javascript:if(confirm('<?php echo _JWMM_DELETE_FILE_CONFIRM?>:<?php echo $file; ?>')) return true; return false;" title="<?php echo _CMN_DELETE?>">
+				<img src="images/ico/delete.png" alt="<?php echo _CMN_DELETE?>" title="<?php echo _CMN_DELETE?>" /></a>
 			</td>
 		</tr>
 </table>
-<div class="fileimage"> <a href="<?php echo $img_url_link; ?>" rel="lightbox[jwmmxtd]" title="Файл:<br /><?php echo $file; ?>" alt="Нажмите для просмотра">
-	<img src="<?php echo $img_url_link; ?>?ok=ok" <?php echo $img_dimensions; ?> alt="Нажмите для просмотра" title="Нажмите для просмотра" /></a>
+<div class="fileimage"> <a href="<?php echo $img_url_link; ?>" rel="lightbox[jwmmxtd]" title="<?php echo _FILE?>:<br /><?php echo $file; ?>" alt="<?php echo _CLICK_TO_PREVIEW?>">
+	<img src="<?php echo $img_url_link; ?>?ok=ok" <?php echo $img_dimensions; ?> alt="<?php echo _CLICK_TO_PREVIEW?>" title="<?php echo _CLICK_TO_PREVIEW?>" /></a>
 </div>
-Размер: <?php echo $filesize; ?><br />
-Ширина: <?php echo $info[0]; ?>px, Высота: <?php echo $info[1]; ?>px
+<?php echo _JWMM_FILESIZE?>: <?php echo $filesize; ?><br />
+<?php echo _WIDTH?>: <?php echo $info[0]; ?>px, <?php echo _HEIGHT?>: <?php echo $info[1]; ?>px
 </div>
 <?php
 	}
@@ -146,17 +146,17 @@ class HTML_mmxtd {
 <?php
 // архив
 if($icon == "../images/icons/zip.png") { ?>
-		<a href="#" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $doc ?>';document.adminForm.subtask.value='unzipfile';document.adminForm.submit( );" title="Распаковать">
-		<img src="components/com_jwmmxtd/images/compress.png" alt="Распаковать" title="Распаковать" /></a>
+		<a href="#" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $doc ?>';document.adminForm.subtask.value='unzipfile';document.adminForm.submit( );" title="<?php echo _UNPACK?>">
+		<img src="components/com_jwmmxtd/images/compress.png" alt="<?php echo _UNPACK?>" title="<?php echo _UNPACK?>" /></a>
 <?php } ?>
-			<a href="#" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $doc ?>';document.adminForm.subtask.value='renamefile';document.adminForm.submit( );" title="Переименовать">
-			<img src="images/ico/rename.png" alt="Переименовать" title="Переименовать" /></a>
-			<a href="#" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $doc ?>';document.adminForm.subtask.value='copyfile';document.adminForm.submit( );" title="Копировать">
-			<img src="images/ico/copy.png" alt="Копировать" title="Копировать" /></a>
-			<a href="#" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $doc ?>';document.adminForm.subtask.value='movefile';document.adminForm.submit( );" title="Переместить">
-			<img src="images/ico/cut.png" alt="Переместить" title="Переместить" /></a>
-			<a href="index2.php?option=com_jwmmxtd&amp;task=delete&amp;delFile=<?php echo $doc; ?>&amp;curdirectory=<?php echo $cur; ?>" onclick="javascript:if(confirm('Удалить файл: <?php echo $doc; ?>')) return true; return false;" title="Удалить">
-			<img src="images/ico/delete.png" alt="Удалить" title="Удалить" /></a>
+			<a href="#" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $doc ?>';document.adminForm.subtask.value='renamefile';document.adminForm.submit( );" title="<?php echo _RENAME?>">
+			<img src="images/ico/rename.png" alt="<?php echo _RENAME?>" title="<?php echo _RENAME?>" /></a>
+			<a href="#" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $doc ?>';document.adminForm.subtask.value='copyfile';document.adminForm.submit( );" title="<?php echo _COPY?>">
+			<img src="images/ico/copy.png" alt="<?php echo _COPY?>" title="<?php echo _COPY?>" /></a>
+			<a href="#" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $doc ?>';document.adminForm.subtask.value='movefile';document.adminForm.submit( );" title="<?php echo _JWMM_MOVE?>">
+			<img src="images/ico/cut.png" alt="<?php echo _JWMM_MOVE?>" title="<?php echo _JWMM_MOVE?>" /></a>
+			<a href="index2.php?option=com_jwmmxtd&amp;task=delete&amp;delFile=<?php echo $doc; ?>&amp;curdirectory=<?php echo $cur; ?>" onclick="javascript:if(confirm('<?php echo _JWMM_DELETE_FILE_CONFIRM?>: <?php echo $doc; ?>')) return true; return false;" title="<?php echo _CMN_DELETE?>">
+			<img src="images/ico/delete.png" alt="<?php echo _CMN_DELETE?>" title="<?php echo _CMN_DELETE?>" /></a>
 		</td>
 	</tr>
 </table>
@@ -165,15 +165,15 @@ if($icon == "../images/icons/zip.png") { ?>
 	// флеш - файл flv
 	if($icon == "../images/icons/flv.png") {
 ?>
-	<a href="components/com_jwmmxtd/js/flvplayer.swf?file=<?php echo $doc_url_link; ?>&amp;autostart=true&amp;allowfullscreen=true" rel="vidbox 800 600" title="Видео файл:<br /><?php echo $doc; ?>" alt="Нажмите на значок для просмотра">
-	<img src="<?php echo $icon ?>" alt="<?php echo $doc; ?>" title="Нажмите на значок для просмотра" /></a>
+	<a href="components/com_jwmmxtd/js/flvplayer.swf?file=<?php echo $doc_url_link; ?>&amp;autostart=true&amp;allowfullscreen=true" rel="vidbox 800 600" title="<?php echo _JWMM_VIDEO_FILE?>:<br /><?php echo $doc; ?>" alt="<?php echo _CLICK_TO_PREVIEW?>">
+	<img src="<?php echo $icon ?>" alt="<?php echo $doc; ?>" title="<?php echo _CLICK_TO_PREVIEW?>" /></a>
 <?php
 	// флеш - файл swf
 	} elseif($icon == "../images/icons/swf.png") {
 		$swfinfo = @getimagesize($doc_url_link);
 ?>
-	<a href="<?php echo $doc_url_link; ?>" rel="vidbox <?php echo $swfinfo[0]; ?> <?php echo $swfinfo[1]; ?>" title="Файл:</b><br /><?php echo $doc; ?>" alt="Нажмите на значок для просмотра">
-	<img src="<?php echo $icon ?>" alt="<?php echo $doc; ?>" title="Нажмите на значок для просмотра" /></a>
+	<a href="<?php echo $doc_url_link; ?>" rel="vidbox <?php echo $swfinfo[0]; ?> <?php echo $swfinfo[1]; ?>" title="<?php echo _FILE?>:</b><br /><?php echo $doc; ?>" alt="<?php echo _CLICK_TO_PREVIEW?>">
+	<img src="<?php echo $icon ?>" alt="<?php echo $doc; ?>" title="<?php echo _CLICK_TO_PREVIEW?>" /></a>
 <?php
 	} else {
 ?>

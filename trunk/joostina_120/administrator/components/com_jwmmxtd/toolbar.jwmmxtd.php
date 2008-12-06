@@ -13,10 +13,10 @@ defined('_VALID_MOS') or die();
 switch($task) {
 	case 'edit';
 		mosMenuBar::startTable();
-		mosMenuBar::ext('Применить','#','-apply','id="tb-apply" onclick="UpdateImg(xajax.getFormValues(\'adminForm\'))"');
-		mosMenuBar::ext('Отменить всё','#','-unpublis','onclick="xajax_OriginalImage(xajax.getFormValues(\'adminForm\'));"');
-		mosMenuBar::ext('Сохранить','#','-save','onclick="submitform(\'saveimage\');"');
-		mosMenuBar::ext('Закрыть','#','-cancel','onclick="submitform(\'returnfromedit\');"');
+		mosMenuBar::ext(_CMN_APPLY,'#','-apply','id="tb-apply" onclick="UpdateImg(xajax.getFormValues(\'adminForm\'))"');
+		mosMenuBar::ext(_JWMM_CANCEL_ALL,'#','-unpublis','onclick="xajax_OriginalImage(xajax.getFormValues(\'adminForm\'));"');
+		mosMenuBar::ext(_CMN_SAVE,'#','-save','onclick="submitform(\'saveimage\');"');
+		mosMenuBar::ext(_CLOSE,'#','-cancel','onclick="submitform(\'returnfromedit\');"');
 		mosMenuBar::endTable();
 		break;
 	default;

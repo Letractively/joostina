@@ -25,10 +25,10 @@ class HTML_weblinks {
 		<table class="adminheading">
 		<tr>
 			<th>
-			Управление web-ссылками
+			<?php echo _WEBLINKS_MANAGEMENT?>
 			</th>
 			<td>
-			Фильтр:
+			<?php echo _FILTER?>:
 			</td>
 			<td>
 			<input type="text" name="search" value="<?php echo htmlspecialchars($search); ?>" class="text_area" onChange="document.adminForm.submit();" />
@@ -48,19 +48,19 @@ class HTML_weblinks {
 			<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count($rows); ?>);" />
 			</th>
 			<th class="title">
-			Заголовок
+			<?php echo _E_CAPTION?>
 			</th>
 			<th width="5%">
-			На сайте
+			<?php echo _ON_SITE?>
 			</th>
 			<th colspan="2" width="5%">
-			Сортировка
+			<?php echo _CMN_ORDERING?>
 			</th>
 			<th width="25%" align="left">
-			Категория
+			<?php echo _E_CATEGORY?>
 			</th>
 			<th width="5%">
-			Переходов
+			<?php echo _WEBLINKS_HITS?>
 			</th>
 		</tr>
 		<?php
@@ -72,7 +72,7 @@ class HTML_weblinks {
 
 			$task = $row->published?'unpublish':'publish';
 			$img = $row->published?'publish_g.png':'publish_x.png';
-			$alt = $row->published?'Опубликовано':'Неопубликовано';
+			$alt = $row->published?_CMN_PUBLISHED:_CMN_UNPUBLISHED;
 
 			$checked = mosCommonHTML::CheckedOutProcessing($row,$i);
 
@@ -91,7 +91,7 @@ class HTML_weblinks {
 				echo $row->title;
 			} else {
 ?>
-					<a href="<?php echo $link; ?>" title="Изменить web-ссылку">
+					<a href="<?php echo $link; ?>" title="<?php echo _CHANGE_WEBLINK?>">
 					<?php echo $row->title; ?>
 					</a>
 					<?php
@@ -110,7 +110,7 @@ class HTML_weblinks {
 				<?php echo $pageNav->orderDownIcon($i,$n,($row->catid == @$rows[$i + 1]->catid)); ?>
 				</td>
 				<td>
-				<a href="<?php echo $row->cat_link; ?>" title="Изменить категорию">
+				<a href="<?php echo $row->cat_link; ?>" title="<?php echo _CHANGE_CATEGORY?>">
 				<?php echo $row->category; ?>
 				</a>
 				</td>
@@ -158,11 +158,11 @@ class HTML_weblinks {
 
 			// do field validation
 			if (form.title.value == ""){
-				alert( "Web-ссылка должна иметь заголовок" );
+				alert( "<?php echo _ENTER_WEBLINK_TITLE?>" );
 			} else if (form.catid.value == "0"){
-				alert( "Вы должны выбрать категорию." );
+				alert( "<?php echo _PLEASE_CHOOSE_CATEGORY?>" );
 			} else if (form.url.value == ""){
-				alert( "Вы должны ввести URL." );
+				alert( "<?php echo _PLEASE_ENTER_URL?>" );
 			} else {
 				submitform( pressbutton );
 			}
@@ -172,9 +172,9 @@ class HTML_weblinks {
 		<table class="adminheading">
 		<tr>
 			<th>
-			Web-ссылка:
+			<?php echo _WEBLINK_URL?>:
 			<small>
-			<?php echo $row->id?'Редактирование':'Новая'; ?>
+			<?php echo $row->id?_O_EDITING:_O_CREATION; ?>
 			</small>
 			</th>
 		</tr>
@@ -186,12 +186,12 @@ class HTML_weblinks {
 				<table class="adminform">
 				<tr>
 					<th colspan="2">
-					Детали
+					<?php echo _DETAILS?>
 					</th>
 				</tr>
 				<tr>
 					<td width="30%" align="right">
-					Название:
+					<?php echo _WEBLINK_NAME?>:
 					</td>
 					<td width="70%">
 					<input class="text_area" type="text" name="title" size="50" maxlength="250" value="<?php echo $row->title; ?>" />
@@ -199,7 +199,7 @@ class HTML_weblinks {
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					Категория:
+					<?php echo _E_CATEGORY?>:
 					</td>
 					<td>
 					<?php echo $lists['catid']; ?>
@@ -215,7 +215,7 @@ class HTML_weblinks {
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					Описание:
+					<?php echo _CMN_DESCRIPTION?>:
 					</td>
 					<td>
 					<textarea class="text_area" cols="50" rows="5" name="description" style="width:500px" width="500"><?php echo $row->description; ?></textarea>
@@ -224,7 +224,7 @@ class HTML_weblinks {
 
 				<tr>
 					<td valign="top" align="right">
-					Порядок расположения:
+					<?php echo _SORT_ORDER?>:
 					</td>
 					<td>
 					<?php echo $lists['ordering']; ?>
@@ -232,7 +232,7 @@ class HTML_weblinks {
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					Опубликовано:
+					<?php echo _CMN_PUBLISHED?>:
 					</td>
 					<td>
 					<?php echo $lists['published']; ?>
@@ -244,7 +244,7 @@ class HTML_weblinks {
 				<table class="adminform">
 				<tr>
 					<th colspan="1">
-					Параметры
+					<?php echo _PARAMETERS?>
 					</th>
 				</tr>
 				<tr>
