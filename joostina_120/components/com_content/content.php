@@ -719,8 +719,7 @@ function showCategory($id,$gid,&$access,$sectionid,$limit,$selected,$limitstart,
 		$limitstart = 0;
 	}
 
-	require_once ($GLOBALS['mosConfig_absolute_path'].
-		'/includes/pageNavigation.php');
+	require_once ($GLOBALS['mosConfig_absolute_path'].'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
 	// get the list of items for this category
@@ -1960,6 +1959,7 @@ function editItem($uid,$gid,&$access,$sectionid = 0,$task,$Itemid) {
 	global $mosConfig_absolute_path,$mosConfig_live_site,$mosConfig_offset;
 	// boston, при редактировании материала с фронта отключаем показ всех модулей - пользователю будет не повадно переходить по ссылкам без сохранения, и место освободим
 	global $mosConfig_module_on_edit_off;
+    mosCommonHTML::loadDtree();
 	if($mosConfig_module_on_edit_off == 1) $GLOBALS['_MOS_MODULES'] = '';
 
 		$mainframe->set( 'loadEditor', false );
@@ -1985,12 +1985,11 @@ function editItem($uid,$gid,&$access,$sectionid = 0,$task,$Itemid) {
 		if(!($access->canEdit || $access->canEditOwn)) {
 			mosNotAuth();
 			return;
-		}
+	}
 
-		if($Itemid == 0 || $Itemid == 99999999) {
+     if($Itemid == 0 || $Itemid == 99999999) {
 			// security check to see if link exists in a menu
-
-			$link = 'index.php?option=com_content&task=new&sectionid='.(int)$sectionid;
+ 			$link = 'index.php?option=com_content&task=new&sectionid='.(int)$sectionid;
 			$query = "SELECT id FROM #__menu WHERE (link LIKE '%$link' OR link LIKE '%$link&%') AND published = 1";
 			$database->setQuery($query);
 			$exists = $database->loadResult();
@@ -2000,6 +1999,44 @@ function editItem($uid,$gid,&$access,$sectionid = 0,$task,$Itemid) {
 			}
 		}
 	}
+
+      if($uid){
+     	$link = 'index.php?option=com_content&task=new';
+			$q = "SELECT params FROM #__menu WHERE (link LIKE '%$link' OR link LIKE '%$link&%') AND published = 1";
+			$database->setQuery($q);
+			$params0 = $database->loadResult();
+            $params = new mosParameters($params0);
+    } else{
+      	$menu = $mainframe->get('menu');
+	    $params = new mosParameters($menu->params);
+    }
+
+    // параметры полученные из настроек ссылки в меню
+	$ids_user = $params->get('ids_user',0);// введенные значения ID
+    $ids_action = $params->get('ids_action',0);// тип обработки введенных ID
+
+    $where_c = "";
+    $where_s = "";
+    if($ids_action){
+        switch($ids_action){
+            case '1':
+            default:
+                $where_s = " AND ( s.id IN (". $ids_user .") )";
+            break;
+
+            case '2':
+                $where_c = " AND ( c.id IN (". $ids_user .") )";
+            break;
+
+            case '3':
+                $where_s = " AND ( s.id NOT IN (". $ids_user .") )";
+            break;
+
+            case '4':
+                $where_c = " AND ( c.id NOT IN (". $ids_user .") )";
+            break;
+        }
+    }
 
 	if($uid) {
 		$sectionid = $row->sectionid;
@@ -2052,10 +2089,11 @@ function editItem($uid,$gid,&$access,$sectionid = 0,$task,$Itemid) {
 			$row->id;
 		$database->setQuery($query);
 		$row->frontpage = $database->loadResult();
+
+
 	} else {
 		$row->sectionid = $sectionid;
 		$row->version = 0;
-		$row->state = 0;
 		$row->ordering = 0;
 		$row->images = array();
 		$row->publish_up = date('Y-m-d H:i:s',time() + ($mosConfig_offset* 60* 60));
@@ -2063,7 +2101,25 @@ function editItem($uid,$gid,&$access,$sectionid = 0,$task,$Itemid) {
 		$row->creator = 0;
 		$row->modifier = 0;
 		$row->frontpage = 0;
+
+        //публикация контента
+        // Publishing state hardening for Authors
+        $auto_publish = $params->get('auto_publish',0);
+
+        if(!$auto_publish){ //Если выбран первый параметр - права по группам
+        	if(!$access->canPublish) {
+        	    $row->state = 0;
+            }
+            else{
+                 $row->state = 1;
+            }
+       }
+        else{
+            $row->state = 1;
+        }
 	}
+
+
 
 	// pull param column from category info
 	$query = "SELECT params FROM #__categories WHERE id = ".(int)$row->catid;
@@ -2128,9 +2184,45 @@ function editItem($uid,$gid,&$access,$sectionid = 0,$task,$Itemid) {
 	$query = "SELECT ordering AS value, title AS text FROM #__content WHERE catid = ".(int)$row->catid."\n ORDER BY ordering";
 	$lists['ordering'] = mosAdminMenus::SpecificOrdering($row,$uid,$query,1);
 
-	$database->setQuery("SELECT c.id as value, CONCAT(s.name,' / ',c.name) as text FROM #__categories c,#__sections s where c.section = s.id");
-	$rows = $database->loadObjectList();
-	$lists['catid'] = mosHTML::selectList($rows,'catid','class="inputbox" size="1"','value','text',intval($row->catid));
+	//$database->setQuery("SELECT CONCAT(s.id,'/',c.id) as value, CONCAT(s.name,'/',c.name) as text  FROM #__categories AS c ,#__sections AS s where s.id=c.section  ");
+	//$z_cats_main = $database->loadObjectList();
+	//$lists['catid'] = mosHTML::selectList($rows,'catid','class="inputbox" size="1"','value','text',intval($row->catid));
+
+	$database->setQuery(" SELECT  c.id AS cid , c.name AS c_name, c.section  FROM   #__categories AS c WHERE c.published=1 $where_c  ");
+	$cids = $database->loadObjectList();
+
+    $database->setQuery(" SELECT   s.id, s.name   FROM  #__sections AS s WHERE s.published=1 $where_s ");
+	$sids = $database->loadObjectList();
+
+    $return="<select name=\"catid\" class=\"inputbox\" size=\"1\">";
+    $cids_arr=array();
+    $i2=0;  $i3=0;
+	foreach($cids as $row2) {
+        $cids_arr[$i2]['cat_name']=$row2->c_name;
+        $cids_arr[$i2]['parent']=$row2->section;
+        $cids_arr[$i2]['cid']=$row2->cid;
+        $i2++;
+	}
+
+    foreach($sids as $row3) {
+        $return .= "<option value=\"\" disabled=\"disabled\" style=\"color:#EF3527;\">" . $row3->name . "</option>";
+        foreach($cids_arr as $v){
+            if($v['parent']==$row3->id){
+                if($v['cid']==$row->catid){
+                    $extra = " selected=\"selected\"";
+                } else {
+                    $extra ="";
+                }
+              $return .= "<option value=\"".$row3->id."*".$v['cid']."\"$extra>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- " . $v['cat_name'] . "</option>";
+            }
+        }
+        $i3++;
+	}
+
+    $return .="</select>";
+    $lists['catid']=$return;
+
+
 
 	// build the select list for the image positions
 	$lists['_align'] = mosAdminMenus::Positions('_align');
@@ -2145,21 +2237,8 @@ function editItem($uid,$gid,&$access,$sectionid = 0,$task,$Itemid) {
 	$pos[] = mosHTML::makeOption('top',_CMN_TOP);
 	$lists['_caption_position'] = mosHTML::selectList($pos,'_caption_position','class="inputbox" size="1"','value','text');
 
-	$component = new mosComponent($database);
-	$component->load('25');
-   //	$params = new mosParameters( $component->params );
-   	// Parameters
 
-    if($uid){
-     	$link = 'index.php?option=com_content&task=new';
-			$query = "SELECT params FROM #__menu WHERE (link LIKE '%$link' OR link LIKE '%$link&%') AND published = 1";
-			$database->setQuery($query);
-			$params0 = $database->loadResult();
-            $params = new mosParameters($params0);
-    } else{
-      	$menu = $mainframe->get('menu');
-	    $params = new mosParameters($menu->params);
-    }
+
 
 
 	HTML_content::editContent($row,$section,$lists,$images,$access,$my->id,$sectionid,$task,$Itemid,$params);
@@ -2177,8 +2256,7 @@ function saveContent(&$access,$task) {
 	josSpoofCheck();
 
 	$nullDate = $database->getNullDate();
-
-	$row = new mosContent($database);
+    $row = new mosContent($database);
 
 	if(!$row->bind($_POST)) {
 		echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
@@ -2208,6 +2286,8 @@ function saveContent(&$access,$task) {
 		$row->modified = date('Y-m-d H:i:s');
 		$row->modified_by = $my->id;
 	}
+
+
 
 	if(strlen(trim($row->publish_up)) <= 10) {
 		$row->publish_up .= ' 00:00:00';
@@ -2239,24 +2319,14 @@ function saveContent(&$access,$task) {
 	$row->title = ampReplace($row->title);
 
 	// Publishing state hardening for Authors
-	if(!$access->canPublish) {
-		if($isNew) {
-			// For new items - author is not allowed to publish - prevent them from doing so
-			$row->state = 0;
-		} else {
-			// For existing items keep existing state - author is not allowed to change status
-			$query = "SELECT state FROM #__content WHERE id = ".(int)$row->id;
-			$database->setQuery($query);
-			$state = $database->loadResult();
+    //Участок перенесен в функцию редактирования
 
-			if($state) {
-				$row->state = 1;
-			} else {
-				$row->state = 0;
-			}
-		}
+    if(isset($_POST['catid'])){
+      $catid0=explode('*', $_POST['catid']);
+      $row->catid=$catid0[1];
+      $row->sectionid=$catid0[0];
+    }
 
-	}
 
 
 	if(!$row->check()) {
@@ -2297,6 +2367,8 @@ function saveContent(&$access,$task) {
 	$row->checkin();
 	$row->updateOrder("catid = ".(int)$row->catid);
 
+
+
 	// gets section name of item
 	$query = "SELECT s.title"
 			."\n FROM #__sections AS s"
@@ -2329,7 +2401,11 @@ function saveContent(&$access,$task) {
 	}
 
 	$msg = $isNew?_THANK_SUB:_E_ITEM_SAVED;
-	$msg = $my->usertype == 'Publisher'?_THANK_SUB_PUB:$msg;
+
+    if($my->usertype == 'Publisher' || $row->state==1){
+        $msg = _THANK_SUB_PUB;
+    }
+
 	switch($task) {
 		case 'apply':
 			$link = $_SERVER['HTTP_REFERER'];
@@ -2355,7 +2431,8 @@ function saveContent(&$access,$task) {
 			}
 			break;
 	}
-	mosRedirect($link,$msg);
+
+  mosRedirect($link,$msg);
 }
 
 
