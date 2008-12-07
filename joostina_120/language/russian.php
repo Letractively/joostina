@@ -2005,4 +2005,14 @@ DEFINE('_JP_FULL_BACKUP','Полный резерв');
 DEFINE('_JP_BACKUP_BASE','Резервировать базу');
 DEFINE('_JP_BACKUP_PANEL','Панель резервирования');
 
+/* administrator modules mod_components */
+DEFINE('_FULL_COMPONENTS_LIST','Полный список компонентов');
+/*
+DEFINE('_','');
+DEFINE('_','');
+DEFINE('_','');
+DEFINE('_','');
+DEFINE('_','');
+*/
+
 ?>
