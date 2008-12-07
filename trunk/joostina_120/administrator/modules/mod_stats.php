@@ -16,8 +16,8 @@ $rows = $database->loadObjectList();
 ?>
 <table class="adminlist">
 	<tr>
-		<th class="title" width="80%">Меню</th>
-		<th class="title">Пунктов</th>
+		<th class="title" width="80%"><?php echo _MENU?></th>
+		<th class="title"><?php echo _MENU_ITEMS_COUNT?></th>
 	</tr>
 <?php
 foreach($rows as $row) {

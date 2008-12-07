@@ -17,5 +17,5 @@ $query = "SELECT COUNT( session_id ) FROM #__session WHERE session_id != ".$data
 $database->setQuery($query);
 $online_num = intval($database->loadResult());
 
-echo $online_num." <img src=\"images/users.png\" align=\"middle\" alt=\"Пользователей онлайн\" />";
+echo $online_num." <img src=\"images/users.png\" align=\"middle\" alt=\""._ONLINE_USERS."\" />";
 ?>

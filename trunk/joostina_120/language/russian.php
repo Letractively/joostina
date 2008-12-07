@@ -2007,12 +2007,97 @@ DEFINE('_JP_BACKUP_PANEL','Панель резервирования');
 
 /* administrator modules mod_components */
 DEFINE('_FULL_COMPONENTS_LIST','Полный список компонентов');
+
+/* administrator modules mod_fullmenu */
+DEFINE('_MENU_CMS_FEATURES','Управление основными возможностями системы');
+DEFINE('_MENU_GLOBAL_CONFIG','Глобальная конфигурация');
+DEFINE('_MENU_GLOBAL_CONFIG_TIP','Настройка основных параметров конфигурации системы');
+DEFINE('_MENU_LANGUAGES','Языковые пакеты');
+DEFINE('_MENU_LANGUAGES_TIP','Управление языковыми файлами');
+DEFINE('_MENU_SITE_PREVIEW','Предпросмотр сайта');
+DEFINE('_MENU_SITE_PREVIEW_IN_NEW_WINDOW','В новом окне');
+DEFINE('_MENU_SITE_PREVIEW_IN_THIS_WINDOW','Внутри');
+DEFINE('_MENU_SITE_PREVIEW_WITH_MODULE_POSITIONS','Внутри с позициями');
+DEFINE('_MENU_SITE_STATS','Статистика сайта');
+DEFINE('_MENU_SITE_STATS_TIP','Просмотр статистики по сайту');
+DEFINE('_MENU_STATS_BROWSERS','Браузеры, ОС, домены');
+DEFINE('_MENU_STATS_BROWSERS_TIP','Статистика посещений сайта по браузерам, ОС и доменам');
+DEFINE('_MENU_SEARCHES','Поисковые запросы');
+DEFINE('_MENU_SEARCHES_TIP','Статистика поисковых запросов по сайту');
+DEFINE('_MENU_PAGE_STATS','Статистика посещения страниц');
+DEFINE('_MENU_TEMPLATES_TIP','Управление шаблонами');
+DEFINE('_MENU_SITE_TEMPLATES','Шаблоны сайта');
+DEFINE('_MENU_NEW_SITE_TEMPLATE','Установка нового шаблона');
+DEFINE('_MENU_ADMIN_TEMPLATES','Шаблоны админцентра');
+DEFINE('_MENU_NEW_ADMIN_TEMPLATE','Установка нового шаблона');
+DEFINE('_MENU','Меню');
+DEFINE('_MENU_TRASH','Корзина меню');
+DEFINE('_CONTENT_IN_SECTIONS','Содержимое по разделам');
+DEFINE('_CONTENT_IN_SECTION','Содержимое в разделе');
+DEFINE('_SECTION_ARCHIVE','Архив раздела');
+DEFINE('_SECTION_CATEGORIES2','Категории раздела');
+DEFINE('_ADD_CONTENT_ITEM','Добавить новость / статью');
+DEFINE('_ADD_STATIC_CONTENT','Добавить статичное содержимое');
+DEFINE('_CONTENT_ON_FRONTPAGE','Содержимое на главной');
+DEFINE('_CONTENT_TRASH','Корзина содержимого');
+DEFINE('_ALL_COMPONENTS','Все компоненты...');
+DEFINE('_EDIT_COMPONENTS_MENU','Редактировать меню компонентов');
+DEFINE('_COMPONENTS_INSTALL_UNINSTALL','Установка / удаление компонентов');
+DEFINE('_MODULES_SETUP','Управление модулями');
+DEFINE('_MODULES_INSTALL_DEINSTALL','Установка / удаление модулей');
+DEFINE('_SITE_MAMBOTS','Мамботы сайта');
+DEFINE('_MAMBOTS_INSTALL_UNINSTALL','Установка / удаление мамботов');
+DEFINE('_SITE_LANGUAGES','Языки сайта');
+DEFINE('_JOOMLA_TOOLS','Инструменты');
+DEFINE('_PRIVATE_MESSAGES_CONFIG','Настройки сообщений');
+DEFINE('_FILE_MANAGER','Менеджер файлов');
+DEFINE('_SQL_CONSOLE','SQL консоль');
+DEFINE('_BACKUP_CONFIG','Настройки сохранения данных');
+DEFINE('_CLEAR_CONTENT_CACHE','Очистить кэш содержимого');
+DEFINE('_CLEAR_ALL_CACHE','Очистить ВЕСЬ кэш');
+DEFINE('_SYSTEM_INFO','Информация о системе');
+DEFINE('_NO_ACTIVE_MENU_ON_THIS_PAGE','На этой странице меню не активно');
+
+/* administrator modules mod_latest */
+DEFINE('_LAST_ADDED_CONTENT','Последнее добавленное содержимое');
+DEFINE('_USER_WHO_ADD_CONTENT','Добавил');
+
+/* administrator modules mod_latest_users */
+DEFINE('_NOW_ON_SITE','Сейчас на сайте');
+DEFINE('_REGISTERED_USERS_COUNT','Зарегистрировано');
+DEFINE('_ALL_REGISTERED_USERS_COUNT','Всего');
+DEFINE('_TODAY_REGISTERED_USERS_COUNT','За сегодня');
+DEFINE('_WEEK_REGISTERED_USERS_COUNT','За неделю');
+DEFINE('_MONTH_REGISTERED_USERS_COUNT','За месяц');
+
+/* administrator modules mod_logged */
+DEFINE('_NOW_ON_SITE_REGISTERED','Сейчас на сайте авторизованы');
+
+/* administrator modules mod_online */
+DEFINE('_ONLINE_USERS','Пользователей онлайн');
+
+/* administrator modules mod_popular */
+DEFINE('_POPULAR_CONTENT','Часто просматриваемое');
+DEFINE('_CREATED_CONTENT','Создано');
+DEFINE('_CONTENT_HITS','Просмотров');
+
+/* administrator modules mod_stats */
+DEFINE('_MENU_ITEMS_COUNT','Пунктов');
+
 /*
 DEFINE('_','');
 DEFINE('_','');
 DEFINE('_','');
 DEFINE('_','');
 DEFINE('_','');
+DEFINE('_','');
+DEFINE('_','');
+DEFINE('_','');
+DEFINE('_','');
+DEFINE('_','');
+DEFINE('_','');
+DEFINE('_','');
+DEFINE('_','');
+DEFINE('_','');
 */
-
 ?>
