@@ -19,13 +19,13 @@ $rows = $database->loadObjectList();
 <table class="adminlist">
 <tr>
 	<th class="title">
-		Часто просматриваемое
+		<?php echo _POPULAR_CONTENT?>
 	</th>
 	<th class="title">
-		Создано
+		<?php echo _CREATED_CONTENT?>
 	</th>
 	<th class="title">
-		Просмотров
+		<?php echo _CONTENT_HITS?>
 	</th>
 </tr>
 <?php

@@ -75,7 +75,7 @@ foreach ( $rows as $row ) {
 	$check = '';
 	if ( $acl->acl_check( 'administration', 'manage', 'users', $my->usertype, 'components', 'com_users' ) ) {
 		$link		= 'index2.php?option=com_users&task=editA&hidemainmenu=1&id='. $row->id;
-		$username	= '<a href="'. $link .'" title="Редактировать параметры пользователя">'.$row->name.' ( '.$row->username.' )</a>';
+		$username	= '<a href="'. $link .'" title="'._CHANGE_USER_DATA.'">'.$row->name.' ( '.$row->username.' )</a>';
 		if($row->id!=$my->id) $check = 'class="td-state" onclick="ch_publ('.$row->id.',\'com_users\');"';
 	} else {
 		$username	= $row->name.' ('.$row->username.')';
@@ -85,7 +85,7 @@ foreach ( $rows as $row ) {
 	<tr class="row<?php echo $k; ?>">
 		<td align="left"><?php echo $username; ?></td>
 		<td width="5%" align="center" <?php echo $check;?>>
-			<img id="img-pub-<?php echo $row->id;?>" class="img-mini-state" alt="Блокировка" src="images/<?php echo $img;?>"/>
+			<img id="img-pub-<?php echo $row->id;?>" class="img-mini-state" alt="<?php echo _USER_BLOCK?>" src="images/<?php echo $img;?>"/>
 		</td>
 		<td align="center"><?php echo $row->usertype;?></td>
 		<td align="center"><?php echo mosFormatDate( $row->registerDate ); ?></td>
@@ -96,14 +96,14 @@ $k = 1 - $k;
 unset($rows,$row);
 
 $text = '';
-$text .= $show_logged	? 'Сейчас на сайте: <b>'.$show_logged. '</b><br />':null;
+$text .= $show_logged	? _NOW_ON_SITE.': <b>'.$show_logged. '</b><br />':null;
 if($show_total or $show_today or $show_week or $show_month ){
-	$text .= 'Зарегистрированно: ';
+	$text .= _REGISTERED_USERS_COUNT.': ';
 };
-$text .= $show_total	? 'Всего: <b>'.$show_total. '</b>, ':null;
-$text .= $show_today	? 'За сегодня: <b>'.$show_today. '</b>, ':null;
-$text .= $show_week		? 'За неделю: <b>'.$show_week. '</b>, ':null;
-$text .= $show_month	? 'За месяц: <b>'.$show_month. '</b> ':null;
+$text .= $show_total	? _ALL_REGISTERED_USERS_COUNT.': <b>'.$show_total. '</b>, ':null;
+$text .= $show_today	? _TODAY_REGISTERED_USERS_COUNT.': <b>'.$show_today. '</b>, ':null;
+$text .= $show_week		? _WEEK_REGISTERED_USERS_COUNT.': <b>'.$show_week. '</b>, ':null;
+$text .= $show_month	? _MONTH_REGISTERED_USERS_COUNT.': <b>'.$show_month. '</b> ':null;
 
 
 ?>

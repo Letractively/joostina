@@ -44,8 +44,8 @@ $rows = $database->loadObjectList();
 
 <table class="adminlist">
 	<tr>
-		<th colspan="3" class="title">Последнее добавленное содержимое <small>( <a href="index2.php?option=com_content&sectionid=0">всё</a> )</small></th>
-		<th align="center">Добавил</th>
+		<th colspan="3" class="title"><?php echo _LAST_ADDED_CONTENT?> <small>( <a href="index2.php?option=com_content&sectionid=0">всё</a> )</small></th>
+		<th align="center"><?php echo _USER_WHO_ADD_CONTENT?></th>
 	</tr>
 <?php
 $nullDate = $database->getNullDate();
@@ -78,7 +78,7 @@ foreach($rows as $row) {
 			$author = $row->created_by_alias;
 		} else {
 			$linkA = 'index2.php?option=com_users&task=editA&amp;hidemainmenu=1&id='.$row->created_by;
-			$author = '<a href="'.$linkA.'" title="Изменить данные пользователя">'.htmlspecialchars($row->name,ENT_QUOTES).'</a>';
+			$author = '<a href="'.$linkA.'" title="'._CHANGE_USER_DATA.'">'.htmlspecialchars($row->name,ENT_QUOTES).'</a>';
 		}
 	} else {
 		if($row->created_by_alias) {
@@ -97,12 +97,12 @@ if($ext){
 	if($row->sectionid!=0)
 		echo $row->secname.' / '.$row->catname; // раздел / категория
 	else
-		echo 'Статичное содержимое'; // тип добавленного содержимого - статичное содержимое
+		echo _STATIC_CONTENT; // тип добавленного содержимого - статичное содержимое
 }
 ?>
 		</td>
 		<td width="5%" class="td-state" align="center" onclick="ch_publ(<?php echo $row->id;?>,'com_content');">
-			<img id="img-pub-<?php echo $row->id;?>" class="img-mini-state" alt="Публикация" src="images/<?php echo $img;?>"/>
+			<img id="img-pub-<?php echo $row->id;?>" class="img-mini-state" alt="<?php echo _E_PUBLISHING?>" src="images/<?php echo $img;?>"/>
 		</td>
 		<td align="left" width="20%"><?php echo $author; ?></td>
 	</tr>

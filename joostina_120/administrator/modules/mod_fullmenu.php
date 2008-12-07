@@ -63,55 +63,55 @@ if(!defined('_JOS_FULLMENU_MODULE')) {
 
 ?>
 var myMenu =[
-[null,'Сайт',null,null,'Управление основными возможностями системы',
+[null,'Сайт',null,null,'<?php echo _MENU_CMS_FEATURES?>',
 <?php
 	if($canConfig) {
-?>['<img src="../includes/js/ThemeOffice/config.png" />','Глобальная конфигурация','index2.php?option=com_config&hidemainmenu=1',null,'Настройка основных параметров конфигурации системы'],
+?>['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo _MENU_GLOBAL_CONFIG?>','index2.php?option=com_config&hidemainmenu=1',null,'<?php echo _MENU_GLOBAL_CONFIG_TIP?>'],
 <?php
 	}
 	if($manageLanguages) {
-?>['<img src="../includes/js/ThemeOffice/language.png" />','Языковые пакеты','index2.php?option=com_languages',null,'Управление языковыми файлами',
+?>['<img src="../includes/js/ThemeOffice/language.png" />','<?php echo _MENU_LANGUAGES?>','index2.php?option=com_languages',null,'<?php echo _MENU_LANGUAGES_TIP?>',
 
 ],
 <?php
 	}
-?>['<img src="../includes/js/ThemeOffice/preview.png" />', 'Предпросмотр сайта', null, null, 'Предпросмотр сайта',
-['<img src="../includes/js/ThemeOffice/preview.png" />','В новом окне','<?php echo $mosConfig_live_site; ?>/index.php','_blank','<?php echo $mosConfig_live_site; ?>'],
-['<img src="../includes/js/ThemeOffice/preview.png" />','Внутри','index2.php?option=com_admin&task=preview',null,'<?php echo $mosConfig_live_site; ?>'],
-['<img src="../includes/js/ThemeOffice/preview.png" />','Внутри с позициями','index2.php?option=com_admin&task=preview2',null,'<?php echo $mosConfig_live_site; ?>'],
+?>['<img src="../includes/js/ThemeOffice/preview.png" />', '<?php echo _MENU_SITE_PREVIEW?>', null, null, '<?php echo _MENU_SITE_PREVIEW?>',
+['<img src="../includes/js/ThemeOffice/preview.png" />','<?php echo _MENU_SITE_PREVIEW_IN_NEW_WINDOW?>','<?php echo $mosConfig_live_site; ?>/index.php','_blank','<?php echo $mosConfig_live_site; ?>'],
+['<img src="../includes/js/ThemeOffice/preview.png" />','<?php echo _MENU_SITE_PREVIEW_IN_THIS_WINDOW?>','index2.php?option=com_admin&task=preview',null,'<?php echo $mosConfig_live_site; ?>'],
+['<img src="../includes/js/ThemeOffice/preview.png" />','<?php echo _MENU_SITE_PREVIEW_WITH_MODULE_POSITIONS?>','index2.php?option=com_admin&task=preview2',null,'<?php echo $mosConfig_live_site; ?>'],
 ],
- ['<img src="../includes/js/ThemeOffice/globe1.png" />', 'Статистика сайта', null, null, 'Просмотр статистики по сайту',
+ ['<img src="../includes/js/ThemeOffice/globe1.png" />', '<?php echo _MENU_SITE_STATS?>', null, null, '<?php echo _MENU_SITE_STATS_TIP?>',
 <?php
 	if($mosConfig_enable_stats == 1) {
-?> ['<img src="../includes/js/ThemeOffice/globe4.png" />', 'Браузеры, ОС, домены', 'index2.php?option=com_statistics', null, 'Статистика посещений сайта по браузерам, ОС и доменам'],
+?> ['<img src="../includes/js/ThemeOffice/globe4.png" />', '<?php echo _MENU_STATS_BROWSERS?>', 'index2.php?option=com_statistics', null, '<?php echo _MENU_STATS_BROWSERS_TIP?>'],
 <?php
 	}
-?>['<img src="../includes/js/ThemeOffice/search_text.png" />', 'Поисковые запросы', 'index2.php?option=com_statistics&task=searches', null, 'Статистика поисковых запросов по сайту'],
-['<img src="../includes/js/ThemeOffice/globe3.png" />', 'Статистика посещения страниц', 'index2.php?option=com_statistics&task=pageimp', null, 'Статистика посещения страниц']
+?>['<img src="../includes/js/ThemeOffice/search_text.png" />', '<?php echo _MENU_SEARCHES?>', 'index2.php?option=com_statistics&task=searches', null, '<?php echo _MENU_SEARCHES_TIP?>'],
+['<img src="../includes/js/ThemeOffice/globe3.png" />', '<?php echo _MENU_PAGE_STATS?>', 'index2.php?option=com_statistics&task=pageimp', null, '<?php echo _MENU_PAGE_STATS?>']
 ],
 <?php
 	if($manageTemplates) {
-?>['<img src="../includes/js/ThemeOffice/template.png" />','Шаблоны',null,null,'Управление шаблонами',
-	['<img src="../includes/js/ThemeOffice/template.png" />','Шаблоны сайта','index2.php?option=com_templates',null,'Шаблоны сайта'],
-	['<img src="../includes/js/ThemeOffice/install.png" />','Установка нового шаблона','index2.php?option=com_installer&element=template&client=',null,'Установка шаблонов сайта'],
+?>['<img src="../includes/js/ThemeOffice/template.png" />','<?php echo _TEMPLATES?>',null,null,'<?php echo _MENU_TEMPLATES_TIP?>',
+	['<img src="../includes/js/ThemeOffice/template.png" />','<?php echo _MENU_SITE_TEMPLATES?>','index2.php?option=com_templates',null,'<?php echo _MENU_SITE_TEMPLATES?>'],
+	['<img src="../includes/js/ThemeOffice/install.png" />','<?php echo _MENU_NEW_SITE_TEMPLATE?>','index2.php?option=com_installer&element=template&client=',null,'<?php echo _MENU_NEW_SITE_TEMPLATE?>'],
 	_cmSplit,
-	['<img src="../includes/js/ThemeOffice/template.png" />','Шаблоны админцентра','index2.php?option=com_templates&client=admin',null,'Шаблоны панели управления'],
-	['<img src="../includes/js/ThemeOffice/install.png" />','Установка нового шаблона','index2.php?option=com_installer&element=template&client=admin',null,'Установка шаблонов панели управления'],
+	['<img src="../includes/js/ThemeOffice/template.png" />','<?php echo _MENU_ADMIN_TEMPLATES?>','index2.php?option=com_templates&client=admin',null,'<?php echo _MENU_ADMIN_TEMPLATES?>'],
+	['<img src="../includes/js/ThemeOffice/install.png" />','<?php echo _MENU_NEW_ADMIN_TEMPLATE?>','index2.php?option=com_installer&element=template&client=admin',null,'<?php echo _MENU_NEW_ADMIN_TEMPLATE?>'],
 	_cmSplit,
-	['<img src="../includes/js/ThemeOffice/template.png" />','Позиции модулей','index2.php?option=com_templates&task=positions',null,'Позиции модулей']
+	['<img src="../includes/js/ThemeOffice/template.png" />','<?php echo _MODULES_POSITION?>','index2.php?option=com_templates&task=positions',null,'<?php echo _MODULES_POSITION?>']
 	],
 <?php }
 	if($canManageUsers || $canMassMail) {
-?>['<img src="../includes/js/ThemeOffice/users.png" />','Пользователи','index2.php?option=com_users&task=view',null,'Управление пользователями'],
+?>['<img src="../includes/js/ThemeOffice/users.png" />','<?php echo _USERS?>','index2.php?option=com_users&task=view',null,'<?php echo _USERS?>'],
 
 <?php
 	}
 		// Menu Sub-Menu
 ?>],_cmSplit,
-[null,'Меню',null,null,'Управление меню',
+[null,'<?php echo _MENU?>',null,null,'<?php echo _MENU?>',
 <?php
 	if($manageMenuMan) {
-?>['<img src="../includes/js/ThemeOffice/menus.png" />','Управление меню','index2.php?option=com_menumanager',null,'Управление меню сайта'],
+?>['<img src="../includes/js/ThemeOffice/menus.png" />','<?php echo _MENU?>','index2.php?option=com_menumanager',null,'<?php echo _MENU?>'],
 _cmSplit,
 <?php
 	}
@@ -121,21 +121,21 @@ _cmSplit,
 	}
 	if($manageTrash) {
 ?>
-_cmSplit,['<img src="../includes/js/ThemeOffice/trash.png" />','Корзина меню','index2.php?option=com_trash&catid=menu',null,'Управление объектами, находящимися в корзине'],
+_cmSplit,['<img src="../includes/js/ThemeOffice/trash.png" />','<?php echo _MENU_TRASH?>','index2.php?option=com_trash&catid=menu',null,'<?php echo _MENU_TRASH?>'],
 <?php
 	}
 ?>
-],_cmSplit,[null,'Содержимое',null,null,'Управление структурой содержимого',
+],_cmSplit,[null,'<?php echo _E_CONTENT?>',null,null,'<?php echo _E_CONTENT?>',
 <?php
 		if(count($sections) > 0) {
-?>  ['<img src="../includes/js/ThemeOffice/edit.png" />','Содержимое по разделам',null,null,'Содержимое по разделам',
+?>  ['<img src="../includes/js/ThemeOffice/edit.png" />','<?php echo _CONTENT_IN_SECTIONS?>',null,null,'<?php echo _CONTENT_IN_SECTIONS?>',
 <?php
 	foreach($sections as $section) {
 		$txt = addslashes($section->title?$section->title:$section->name);
-?>['<img src="../includes/js/ThemeOffice/document.png" />','<?php echo $txt; ?>', null, null,'Раздел: <?php echo $txt; ?>',
-	['<img src="../includes/js/ThemeOffice/edit.png" />', 'Содержимое в разделе: <?php echo $txt; ?>', 'index2.php?option=com_content&sectionid=<?php echo $section->id; ?>',null,null],
-	['<img src="../includes/js/ThemeOffice/backup.png" />', 'Архив раздела: <?php echo $txt; ?>', 'index2.php?option=com_content&task=showarchive&sectionid=<?php echo $section->id; ?>',null,null],
-	['<img src="../includes/js/ThemeOffice/sections.png" />', 'Категории раздела: <?php echo $txt; ?>', 'index2.php?option=com_categories&section=<?php echo $section->id; ?>',null, null],
+?>['<img src="../includes/js/ThemeOffice/document.png" />','<?php echo $txt; ?>', null, null,'<?php echo _SECTION?>: <?php echo $txt; ?>',
+	['<img src="../includes/js/ThemeOffice/edit.png" />', '<?php echo _CONTENT_IN_SECTION?>: <?php echo $txt; ?>', 'index2.php?option=com_content&sectionid=<?php echo $section->id; ?>',null,null],
+	['<img src="../includes/js/ThemeOffice/backup.png" />', '<?php echo _SECTION_ARCHIVE?>: <?php echo $txt; ?>', 'index2.php?option=com_content&task=showarchive&sectionid=<?php echo $section->id; ?>',null,null],
+	['<img src="../includes/js/ThemeOffice/sections.png" />', '<?php echo _SECTION_CATEGORIES2?>: <?php echo $txt; ?>', 'index2.php?option=com_categories&section=<?php echo $section->id; ?>',null, null],
 ],
 <?php
 	} // foreach
@@ -144,26 +144,26 @@ _cmSplit,['<img src="../includes/js/ThemeOffice/trash.png" />','Корзина меню','i
 <?php
 	}
 ?>
-['<img src="../includes/js/ThemeOffice/edit.png" />','Всё содержимое','index2.php?option=com_content&sectionid=0',null,'Управление списком всех объектов содержимого сайта'],
-['<img src="../includes/js/ThemeOffice/edit.png" />','Добавить новость / статью','index2.php?option=com_content&sectionid=0&task=new',null,'Добавить новое содержимое на сайт'],
+['<img src="../includes/js/ThemeOffice/edit.png" />','<?php echo _ALL_CONTENT?>','index2.php?option=com_content&sectionid=0',null,'<?php echo _ALL_CONTENT?>'],
+['<img src="../includes/js/ThemeOffice/edit.png" />','<?php echo _ADD_CONTENT_ITEM?>','index2.php?option=com_content&sectionid=0&task=new',null,'<?php echo _ADD_CONTENT_ITEM?>'],
 _cmSplit,
-['<img src="../includes/js/ThemeOffice/edit.png" />','Статичное содержимое','index2.php?option=com_typedcontent',null,'Управление всеми статичными объектами содержимого сайта'],
-['<img src="../includes/js/ThemeOffice/edit.png" />','Добавить статичное содержимое','index2.php?option=com_typedcontent&task=new',null,'Добавить новое статичное содержимое на сайт'],
+['<img src="../includes/js/ThemeOffice/edit.png" />','<?php echo _STATIC_CONTENT?>','index2.php?option=com_typedcontent',null,'<?php echo _STATIC_CONTENT?>'],
+['<img src="../includes/js/ThemeOffice/edit.png" />','<?php echo _ADD_STATIC_CONTENT?>','index2.php?option=com_typedcontent&task=new',null,'<?php echo _ADD_STATIC_CONTENT?>'],
 _cmSplit,
-['<img src="../includes/js/ThemeOffice/add_section.png" />','Разделы','index2.php?option=com_sections&scope=content',null,'Управление разделами'],
-['<img src="../includes/js/ThemeOffice/sections.png" />','Категории','index2.php?option=com_categories&section=content',null,'Управление категориями'],
-['<img src="../includes/js/ThemeOffice/masadd.png" />','Массовое добавление','index2.php?option=com_sections&task=masadd',null,'Быстрое добавление большого числа разделов / категорий'],
+['<img src="../includes/js/ThemeOffice/add_section.png" />','<?php echo _SECTIONS?>','index2.php?option=com_sections&scope=content',null,'<?php echo _SECTIONS?>'],
+['<img src="../includes/js/ThemeOffice/sections.png" />','<?php echo _CATEGORIES?>','index2.php?option=com_categories&section=content',null,'<?php echo _CATEGORIES?>'],
+['<img src="../includes/js/ThemeOffice/masadd.png" />','<?php echo _MASS_CONTENT_ADD?>','index2.php?option=com_sections&task=masadd',null,'<?php echo _MASS_CONTENT_ADD?>'],
 _cmSplit,
-['<img src="../includes/js/ThemeOffice/home.png" />','Содержимое на главной','index2.php?option=com_frontpage',null,'Управление объектами содержимого, опубликованными на главной странице сайта'],
-['<img src="../includes/js/ThemeOffice/edit.png" />','Архив','index2.php?option=com_content&task=showarchive&sectionid=0',null,'Управление объектами содержимого, находящимися в Архиве'],
-['<img src="../includes/js/ThemeOffice/globe3.png" />', 'Статистика посещения страниц', 'index2.php?option=com_statistics&task=pageimp', null, 'Статистика страниц'],
-['<img src="../includes/js/ThemeOffice/trash.png" />','Корзина содержимого','index2.php?option=com_trash&catid=content',null,'Управление объектами, находящимися в корзине'],
+['<img src="../includes/js/ThemeOffice/home.png" />','<?php echo _CONTENT_ON_FRONTPAGE?>','index2.php?option=com_frontpage',null,'<?php echo _CONTENT_ON_FRONTPAGE?>'],
+['<img src="../includes/js/ThemeOffice/edit.png" />','<?php echo _ARCHIVE?>','index2.php?option=com_content&task=showarchive&sectionid=0',null,'<?php echo _ARCHIVE?>'],
+['<img src="../includes/js/ThemeOffice/globe3.png" />', '<?php echo _PAGES_HITS?>', 'index2.php?option=com_statistics&task=pageimp', null, '<?php echo _PAGES_HITS?>'],
+['<img src="../includes/js/ThemeOffice/trash.png" />','<?php echo _CONTENT_TRASH?>','index2.php?option=com_trash&catid=content',null,'<?php echo _CONTENT_TRASH?>'],
 ],
 <?php
 			// Components Sub-Menu
 			if($installComponents | $editAllComponents) {
 ?>_cmSplit,
-[null,'Компоненты',null,null,'Управление компонентами',
+[null,'<?php echo _COMPONENTS?>',null,null,'<?php echo _COMPONENTS?>',
 <?php
 				$query = "SELECT* FROM #__components ORDER BY ordering, name";
 				$database->setQuery($query);
@@ -206,26 +206,26 @@ _cmSplit,
 					}
 				}
 				if($topLevelLimit < $topLevelCount) {
-					echo "['<img src=\"../includes/js/ThemeOffice/sections.png\" />','Все компоненты...','index2.php?option=com_admin&task=listcomponents',null,'Все компоненты'],\n";
+					echo "['<img src=\"../includes/js/ThemeOffice/sections.png\" />','"._ALL_COMPONENTS."','index2.php?option=com_admin&task=listcomponents',null,'"._ALL_COMPONENTS."'],\n";
 				}
 				if($installModules){
 					?> _cmSplit,
-					['<img src="../includes/js/ThemeOffice/install.png" />', 'Редактировать меню компонентов','index2.php?option=com_linkeditor ',null,'Редактировать меню компонентов'],
-					['<img src="../includes/js/ThemeOffice/install.png" />', 'Установка / удаление компонентов','index2.php?option=com_installer&element=component',null,'Установить или удалить компоненты'],
+					['<img src="../includes/js/ThemeOffice/install.png" />', '<?php echo _EDIT_COMPONENTS_MENU?>','index2.php?option=com_linkeditor ',null,'<?php echo _EDIT_COMPONENTS_MENU?>'],
+					['<img src="../includes/js/ThemeOffice/install.png" />', '<?php echo _COMPONENTS_INSTALL_UNINSTALL?>','index2.php?option=com_installer&element=component',null,'<?php echo _COMPONENTS_INSTALL_UNINSTALL?>'],
 					],
 <?php
 	}
 	// Modules Sub-Menu
 	if($installModules | $editAllModules) {
 ?>_cmSplit,
-[null,'Модули',null,null,'Управление модулями',
+[null,'Модули',null,null,'<?php echo _MODULES_SETUP?>',
 <?php
 	if($editAllModules) {
 ?>
-	['<img src="../includes/js/ThemeOffice/module.png" />', 'Модули сайта', "index2.php?option=com_modules", null, 'Модули сайта'],
-	['<img src="../includes/js/ThemeOffice/module.png" />', 'Модули панели управления', "index2.php?option=com_modules&client=admin", null, 'Модули панели управления'],
+	['<img src="../includes/js/ThemeOffice/module.png" />', '<?php echo _SITE_MODULES?>', "index2.php?option=com_modules", null, '<?php echo _SITE_MODULES?>'],
+	['<img src="../includes/js/ThemeOffice/module.png" />', '<?php echo _ADMIN_MODULES?>', "index2.php?option=com_modules&client=admin", null, '<?php echo _ADMIN_MODULES?>'],
 	_cmSplit,
-	['<img src="../includes/js/ThemeOffice/install.png" />', 'Установка / удаление модулей', 'index2.php?option=com_installer&element=module', null, 'Установить или удалить модули'],
+	['<img src="../includes/js/ThemeOffice/install.png" />', '<?php echo _MODULES_INSTALL_DEINSTALL?>', 'index2.php?option=com_installer&element=module', null, '<?php echo _MODULES_INSTALL_DEINSTALL?>'],
 	<?php
 	}
 ?>],
@@ -233,54 +233,54 @@ _cmSplit,
 	}
 } if($installMambots | $editAllMambots) { ?>
 _cmSplit,
-[null,'Мамботы',null,null,'Управление мамботами',
+[null,'<?php echo _MAMBOTS?>',null,null,'<?php echo _MAMBOTS?>',
 <?php if($editAllMambots) { ?>
-['<img src="../includes/js/ThemeOffice/module.png" />', 'Мамботы сайта', "index2.php?option=com_mambots", null, 'Мамботы сайта'],
+['<img src="../includes/js/ThemeOffice/module.png" />', '<?php echo _SITE_MAMBOTS?>', "index2.php?option=com_mambots", null, '<?php echo _SITE_MAMBOTS?>'],
 _cmSplit,
-['<img src="../includes/js/ThemeOffice/install.png" />', 'Установка / удаление мамботов', 'index2.php?option=com_installer&element=mambot', null, 'Установить или удалить мамботы'],
+['<img src="../includes/js/ThemeOffice/install.png" />', '<?php echo _MAMBOTS_INSTALL_UNINSTALL?>', 'index2.php?option=com_installer&element=mambot', null, '<?php echo _MAMBOTS_INSTALL_UNINSTALL?>'],
 <?php } ?>
 ],
 <?php } if($installModules) { ?>
 _cmSplit,
-[null,'Расширения',null,null,'Управление расширениями',
-['<img src="../includes/js/ThemeOffice/install.png" />', 'Компоненты','index2.php?option=com_installer&element=component',null,'Установить или удалить компоненты'],
-['<img src="../includes/js/ThemeOffice/install.png" />', 'Модули', 'index2.php?option=com_installer&element=module', null, 'Установить или удалить модули'],
-['<img src="../includes/js/ThemeOffice/install.png" />', 'Мамботы', 'index2.php?option=com_installer&element=mambot', null, 'Установить или удалить мамботы'],
+[null,'<?php echo _EXTENSIONS?>',null,null,'<?php echo _EXTENSION_MANAGEMENT?>',
+['<img src="../includes/js/ThemeOffice/install.png" />', '<?php echo _COMPONENTS?>','index2.php?option=com_installer&element=component',null,'<?php echo _COMPONENTS?>'],
+['<img src="../includes/js/ThemeOffice/install.png" />', '<?php echo _MODULES?>', 'index2.php?option=com_installer&element=module', null, '<?php echo _MODULES?>'],
+['<img src="../includes/js/ThemeOffice/install.png" />', '<?php echo _MAMBOTS?>', 'index2.php?option=com_installer&element=mambot', null, '<?php echo _MAMBOTS?>'],
 
 <?php if($manageLanguages) { ?>
-_cmSplit,['<img src="../includes/js/ThemeOffice/install.png" />','Языки сайта','index2.php?option=com_installer&element=language',null,'Установка или удаление языковых пакетов'],
+_cmSplit,['<img src="../includes/js/ThemeOffice/install.png" />','<?php echo _SITE_LANGUAGES?>','index2.php?option=com_installer&element=language',null,'<?php echo _SITE_LANGUAGES?>'],
 <?php } if($manageTemplates) {?>
 _cmSplit,
-['<img src="../includes/js/ThemeOffice/install.png" />','Шаблоны сайта','index2.php?option=com_installer&element=template&client=',null,'Установка шаблонов сайта'],
-['<img src="../includes/js/ThemeOffice/install.png" />','Шаблоны админцентра','index2.php?option=com_installer&element=template&client=admin',null,'Установка шаблонов панели управления'],
+['<img src="../includes/js/ThemeOffice/install.png" />','<?php echo _MENU_SITE_TEMPLATES?>','index2.php?option=com_installer&element=template&client=',null,'<?php echo _MENU_SITE_TEMPLATES?>'],
+['<img src="../includes/js/ThemeOffice/install.png" />','<?php echo _MENU_ADMIN_TEMPLATES?>','index2.php?option=com_installer&element=template&client=admin',null,'<?php echo _MENU_ADMIN_TEMPLATES?>'],
 <?php } ?>
 ],
 <?php }?>
 _cmSplit,
-[null,'Инструменты',null,null,'Инструменты управления системой',
-['<img src="../includes/js/ThemeOffice/messaging_inbox.png" />','Личные сообщения','index2.php?option=com_messages',null,'Личные сообщения'],
-['<img src="../includes/js/ThemeOffice/messaging_config.png" />','Настройки сообщений','index2.php?option=com_messages&task=config&hidemainmenu=1',null,'Конфигурация'],
+[null,'<?php echo _JOOMLA_TOOLS?>',null,null,'<?php echo _JOOMLA_TOOLS?>',
+['<img src="../includes/js/ThemeOffice/messaging_inbox.png" />','<?php echo _PRIVATE_MESSAGES?>','index2.php?option=com_messages',null,'<?php echo _PRIVATE_MESSAGES?>'],
+['<img src="../includes/js/ThemeOffice/messaging_config.png" />','<?php echo _PRIVATE_MESSAGES_CONFIG?>','index2.php?option=com_messages&task=config&hidemainmenu=1',null,'<?php echo _PRIVATE_MESSAGES_CONFIG?>'],
 _cmSplit,
-['<img src="../includes/js/ThemeOffice/media.png" />','Медиа менеджер','index2.php?option=com_jwmmxtd',null,'Управление медиа файлами'],
+['<img src="../includes/js/ThemeOffice/media.png" />','<?php echo _JWMM_MEDIA_MANAGER?>','index2.php?option=com_jwmmxtd',null,'<?php echo _JWMM_MEDIA_MANAGER?>'],
 <?php if($canConfig) { ?>
-['<img src="../includes/js/ThemeOffice/jfmanager.png" />','Менеджер файлов','index2.php?option=com_joomlaxplorer',null,'Управление файлами'],
-['<img src="../includes/js/ThemeOffice/license.png" />','SQL консоль','index2.php?option=com_easysql',null,'Выполнение sql запросов'],
+['<img src="../includes/js/ThemeOffice/jfmanager.png" />','<?php echo _FILE_MANAGER?>','index2.php?option=com_joomlaxplorer',null,'<?php echo _FILE_MANAGER?>'],
+['<img src="../includes/js/ThemeOffice/license.png" />','<?php echo _SQL_CONSOLE?>','index2.php?option=com_easysql',null,'<?php echo _SQL_CONSOLE?>'],
 _cmSplit,
-['<img src="../includes/js/ThemeOffice/checkin.png" />', 'Глобальная разблокировка', 'index2.php?option=com_checkin', null,'Разблокировать все заблокированные объекты'],
-['<img src="../includes/js/ThemeOffice/checkin.png" />', 'Заблокированные объекты', 'index2.php?option=com_checkin&task=mycheckin', null,'Информация о заблокированных объектах'],
+['<img src="../includes/js/ThemeOffice/checkin.png" />', '<?php echo _GLOBAL_CHECKIN?>', 'index2.php?option=com_checkin', null,'<?php echo _GLOBAL_CHECKIN?>'],
+['<img src="../includes/js/ThemeOffice/checkin.png" />', '<?php echo _BLOCKED_OBJECTS?>', 'index2.php?option=com_checkin&task=mycheckin', null,'<?php echo _BLOCKED_OBJECTS?>'],
  _cmSplit,
-['<img src="../includes/js/ThemeOffice/jbackup.png" />','Резервное копирование','index2.php?option=com_joomlapack',null,'Сохранение информации сайта',
-['<img src="../includes/js/ThemeOffice/jbackup.png" />','Создать архив сайта','index2.php?option=com_joomlapack&act=pack&hidemainmenu=1',null,'Сохранение файлов и базы данных сайта'],
-['<img src="../includes/js/ThemeOffice/db.png" />','Управление базой данных','index2.php?option=com_joomlapack&act=db',null,'Управление базой данных'],
-['<img src="../includes/js/ThemeOffice/config.png" />','Настройки сохранения данных','index2.php?option=com_joomlapack&act=config',null,'Настройки сохранения данных']],
+['<img src="../includes/js/ThemeOffice/jbackup.png" />','<?php echo _JP_BACKUP_MANAGEMENT?>','index2.php?option=com_joomlapack',null,'<?php echo _JP_BACKUP_MANAGEMENT?>',
+['<img src="../includes/js/ThemeOffice/jbackup.png" />','<?php echo _JP_CREATE_BACKUP?>','index2.php?option=com_joomlapack&act=pack&hidemainmenu=1',null,'<?php echo _JP_CREATE_BACKUP?>'],
+['<img src="../includes/js/ThemeOffice/db.png" />','<?php echo _JP_DB_MANAGEMENT?>','index2.php?option=com_joomlapack&act=db',null,'<?php echo _JP_DB_MANAGEMENT?>'],
+['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo _BACKUP_CONFIG?>','index2.php?option=com_joomlapack&act=config',null,'<?php echo _BACKUP_CONFIG?>']],
 <?php } ?>
 <?php if($mosConfig_caching) { ?>
-_cmSplit,['<img src="../includes/js/ThemeOffice/config.png" />','Очистить кэш содержимого','index2.php?option=com_admin&task=clean_cache',null,'Очистка кэша объектов содержимого'],
-['<img src="../includes/js/ThemeOffice/config.png" />','Очистить ВЕСЬ кэш','index2.php?option=com_admin&task=clean_all_cache',null,'Очистка всего кэша'],
+_cmSplit,['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo _CLEAR_CONTENT_CACHE?>','index2.php?option=com_admin&task=clean_cache',null,'<?php echo _CLEAR_CONTENT_CACHE?>'],
+['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo _CLEAR_ALL_CACHE?>','index2.php?option=com_admin&task=clean_all_cache',null,'<?php echo _CLEAR_ALL_CACHE?>'],
 <?php }?>
 <?php
 if($canConfig) {?>
-['<img src="../includes/js/ThemeOffice/sysinfo.png" />', 'Информация о системе', 'index2.php?option=com_admin&task=sysinfo', null,'Системная информация'],
+['<img src="../includes/js/ThemeOffice/sysinfo.png" />', '<?php echo _SYSTEM_INFO?>', 'index2.php?option=com_admin&task=sysinfo', null,'<?php echo _SYSTEM_INFO?>'],
 <?php
 }
 ?>
@@ -317,32 +317,32 @@ cmDraw ('myMenuID', myMenu, 'hbr', cmThemeOffice, 'ThemeOffice');
 //			$canMassMail = $acl->acl_check('administration','manage','users',$usertype,'components','com_massmail');
 //			$canManageUsers = $acl->acl_check('administration','manage','users',$usertype,'components','com_users');
 
-			$text = 'На этой странице меню не активно';
+			$text = _NO_ACTIVE_MENU_ON_THIS_PAGE;
 ?>
   <div id="myMenuID" class="inactive"></div>
   <script language="JavaScript" type="text/javascript">
   var myMenu =
   [
-   [null,'<?php echo 'Сайт'; ?>',null,null,'<?php echo $text; ?>'
+   [null,'<?php echo _SITE; ?>',null,null,'<?php echo $text; ?>'
    ],
   <?php
 			/* Menu Sub-Menu*/
 ?>
    _cmSplit,
-   [null,'<?php echo 'Меню'; ?>',null,null,'<?php echo $text; ?>'
+   [null,'<?php echo _MENU; ?>',null,null,'<?php echo $text; ?>'
    ],
    _cmSplit,
   <?php
 			/* Content Sub-Menu*/
 ?>
-    [null,'<?php echo 'Содержимое'; ?>',null,null,'<?php echo $text; ?>'
+    [null,'<?php echo _E_CONTENT; ?>',null,null,'<?php echo $text; ?>'
    ],
   <?php
 			/* Components Sub-Menu*/
 				if ( $installComponents | $editAllComponents) {
 ?>
     _cmSplit,
-    [null,'<?php echo 'Компоненты'; ?>',null,null,'<?php echo $text; ?>'
+    [null,'<?php echo _COMPONENTS; ?>',null,null,'<?php echo $text; ?>'
     ],
     <?php
 			} // if $installComponents
@@ -353,7 +353,7 @@ cmDraw ('myMenuID', myMenu, 'hbr', cmThemeOffice, 'ThemeOffice');
 			if($installModules | $editAllModules) {
 ?>
     _cmSplit,
-    [null,'<?php echo 'Модули'; ?>',null,null,'<?php echo $text; ?>'
+    [null,'<?php echo _MODULES; ?>',null,null,'<?php echo $text; ?>'
     ],
     <?php
 	} // if ( $installModules | $editAllModules)
@@ -361,7 +361,7 @@ cmDraw ('myMenuID', myMenu, 'hbr', cmThemeOffice, 'ThemeOffice');
 	if($installMambots | $editAllMambots) {
 ?>
 _cmSplit,
-[null,'<?php echo 'Мамботы'; ?>',null,null,'<?php echo $text; ?>'],
+[null,'<?php echo _MAMBOTS; ?>',null,null,'<?php echo $text; ?>'],
 <?php
 			} // if ( $installMambots | $editAllMambots)
 
@@ -373,7 +373,7 @@ _cmSplit,
 			if($installModules) {
 ?>
     _cmSplit,
-    [null,'<?php echo 'Расширения'; ?>',null,null,'<?php echo $text; ?>'
+    [null,'<?php echo _EXTENSIONS; ?>',null,null,'<?php echo $text; ?>'
      <?php
 ?>
     ],
@@ -382,7 +382,7 @@ _cmSplit,
 	/* System Sub-Menu*/
 if($canConfig) {
 ?>
-_cmSplit,[null,'<?php echo 'Инструменты'; ?>',null,null,'<?php echo $text; ?>'],
+_cmSplit,[null,'<?php echo _JOOMLA_TOOLS; ?>',null,null,'<?php echo $text; ?>'],
 <?php
 	}
 ?>
