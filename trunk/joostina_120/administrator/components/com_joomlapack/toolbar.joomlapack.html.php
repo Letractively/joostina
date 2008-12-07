@@ -22,22 +22,22 @@ class TOOLBAR_jpack {
 	}
 	function _PACK() {
 		mosMenuBar::startTable();
-		mosMenuBar::ext('Полный резерв','#','-apply','id="tb-apply" onclick="do_Start(0);return;"');
-		mosMenuBar::ext('Резервировать базу','#','-apply','id="tb-apply" onclick="do_Start(1);return;"');
+		mosMenuBar::ext(_JP_FULL_BACKUP,'#','-apply','id="tb-apply" onclick="do_Start(0);return;"');
+		mosMenuBar::ext(_JP_BACKUP_BASE,'#','-apply','id="tb-apply" onclick="do_Start(1);return;"');
 		mosMenuBar::spacer();
-		mosMenuBar::back('Панель резервирования','index2.php?option=com_joomlapack');
+		mosMenuBar::back(_JP_BACKUP_PANEL,'index2.php?option=com_joomlapack');
 		mosMenuBar::endTable();
 	}
 	function _DEF() {
 		mosMenuBar::startTable();
-		mosMenuBar::back('Панель резервирования','index2.php?option=com_joomlapack');
+		mosMenuBar::back(_JP_BACKUP_PANEL,'index2.php?option=com_joomlapack');
 		mosMenuBar::endTable();
 	}
 	function _DB_MENU(){
 		mosMenuBar::startTable();
-		mosMenuBar::back('Управление базой','index2.php?option=com_joomlapack&act=db');
+		mosMenuBar::back(_JP_DB_MANAGEMENT,'index2.php?option=com_joomlapack&act=db');
 		mosMenuBar::spacer();
-		mosMenuBar::back('Панель резервирования','index2.php?option=com_joomlapack');
+		mosMenuBar::back(_JP_BACKUP_PANEL,'index2.php?option=com_joomlapack');
 		mosMenuBar::endTable();
 	}
 	function _DB_DEFAULT() {
@@ -52,10 +52,10 @@ class TOOLBAR_jpack {
 		mosMenuBar::custom('doRepair','-help','','Исправить');
 		if($act!='db'){
 			mosMenuBar::spacer();
-			mosMenuBar::back('Управление базой','index2.php?option=com_joomlapack&ack=db');
+			mosMenuBar::back(_JP_DB_MANAGEMENT,'index2.php?option=com_joomlapack&ack=db');
 		}
 		mosMenuBar::spacer();
-		mosMenuBar::back('Панель резервирования','index2.php?option=com_joomlapack');
+		mosMenuBar::back(_JP_BACKUP_PANEL,'index2.php?option=com_joomlapack');
 		mosMenuBar::endTable();
 	}
 }

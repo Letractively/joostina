@@ -229,7 +229,7 @@ class CFilelistEngine {
 
 		$def = new CDirExclusionFilter();
 		$this->_ExcludeDirs = $def->getFilters();
-		CJPLogger::WriteLog(_JP_LOG_DEBUG,'Получение списка каталогов для исключения из резервной копи');
+		CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_GETTING_DIRS_LIST);
 		unset($def);
 	}
 

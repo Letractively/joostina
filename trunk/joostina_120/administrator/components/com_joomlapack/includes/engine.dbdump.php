@@ -128,7 +128,7 @@ class CDBBackupEngine {
 
 		// SECTION 2.
 		// Fetch information about tables
-		CJPLogger::WriteLog(_JP_LOG_DEBUG,'CDBBackupEngine :: Получение списка таблиц');
+		CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_FETCHING_TABLE_LIST);
 		// Populate _all_tables array
 		$sql = 'SHOW TABLES';
 		$database->setQuery($sql);
@@ -141,11 +141,11 @@ class CDBBackupEngine {
 		// Define where to store the files
 		$folderPath = $JPConfiguration->TempDirectory;
 		if($this->_onlyDBDumpMode) {
-			CJPLogger::WriteLog(_JP_LOG_DEBUG,'CDBBackupEngine :: Резервирование только базы данных');
+			CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_BACKUP_ONLY_DB);
 			$this->_filenameCore = $this->_getSQLOnlyFile();
 			$this->_filenameSample = $this->_filenameCore;
 		} else {
-			CJPLogger::WriteLog(_JP_LOG_DEBUG,'CDBBackupEngine :: Задано объединение файлом');
+			CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_ONE_FILE_STORE);
 			$this->_filenameCore = $folderPath.'/joostina.sql';
 			$this->_filenameSample = $folderPath.'/sample_data.sql';
 		}
@@ -153,16 +153,16 @@ class CDBBackupEngine {
 		$this->_filenameCore	= $JPConfiguration->TranslateWinPath($this->_filenameCore);
 		$this->_filenameSample	= $JPConfiguration->TranslateWinPath($this->_filenameSample);
 
-		CJPLogger::WriteLog(_JP_LOG_DEBUG,'CDBBackupEngine :: Файл структуры '.$this->_filenameCore);
-		CJPLogger::WriteLog(_JP_LOG_DEBUG,'CDBBackupEngine :: Файл данных '.$this->_filenameSample);
+		CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_FILE_STRUCTURE.' '.$this->_filenameCore);
+		CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_DATAFILE.' '.$this->_filenameSample);
 
 		// Delete leftover files
-		CJPLogger::WriteLog(_JP_LOG_DEBUG,'CDBBackupEngine :: Удаление файлов');
+		CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_FILE_DELETION);
 		@unlink($this->_filenameCore);
 		@unlink($this->_filenameSample);
 
 		// Initialize with the first table, offset
-		CJPLogger::WriteLog(_JP_LOG_DEBUG,'CDBBackupEngine :: Первый проход');
+		CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_FIRST_STEP);
 		$this->_nextTable = $this->_all_tables[0];
 		$this->_nextRange = 0;
 	}
@@ -172,18 +172,18 @@ class CDBBackupEngine {
 		$out = ''; // joostina pach
 		if($this->_isFinished) {
 			// Indicate we're done
-			CJPLogger::WriteLog(_JP_LOG_DEBUG,'CDBBackupEngine :: Всё завершено');
+			CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_ALL_COMPLETED);
 			return $this->_returnTable(true);
 		} else {
 			// Enforce SQL compatibility
-			CJPLogger::WriteLog(_JP_LOG_DEBUG,'CDBBackupEngine :: Начало обработки');
+			CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_START_TICK);
 			$this->_connectDatabase();
 			$RowsPerStep = 100;
 			// Do we have more data on the current table? Try to find only if
 			// it's not the first pass to the table...
 			if(($this->_nextRange > 0)) {
 				if($this->_nextRange >= $this->_maxRange) {
-					CJPLogger::WriteLog(_JP_LOG_DEBUG,'Выполнено для таблицы '.$this->_nextTable);
+					CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_READY_FOR_TABLE.' '.$this->_nextTable);
 					// We are done with this table, get next table
 					$boolFound = false;
 					$nextTable = ''; // this is a check variable to trigger end-of-dumping condition when left empty
@@ -200,7 +200,7 @@ class CDBBackupEngine {
 						}
 					}
 					if($nextTable == '') {
-						CJPLogger::WriteLog(_JP_LOG_DEBUG,'Резервирование базы данных завершено');
+						CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_DB_BACKUP_COMPLETED);
 						// If $nextTable is an empty string, we are done packing.
 						$this->_isFinished = true;
 
@@ -240,7 +240,7 @@ class CDBBackupEngine {
 							$database->setQuery($sql);
 							$database->query();
 
-							CJPLogger::WriteLog(_JP_LOG_DEBUG,'Добавлен новый фрагмент');
+							CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_NEW_FRAGMENT_ADDED);
 						}
 						// файл в который складывается дамп базы
 						$filename = $this->_filenameCore;
@@ -294,7 +294,7 @@ class CDBBackupEngine {
 			}
 			if($this->_isCoreTable($abstracttablename)) {
 				$fileName = $this->_filenameCore;
-				CJPLogger::WriteLog(_JP_LOG_INFO,'Таблицы ядра : '.$this->_nextTable);
+				CJPLogger::WriteLog(_JP_LOG_INFO,_JP_KERNEL_TABLES.' : '.$this->_nextTable);
 			} else {
 				$fileName = $this->_filenameSample;
 			}
@@ -311,7 +311,7 @@ class CDBBackupEngine {
 			// First pass on a table
 			// This is not an "else" on the if many lines above because we might have run on a new table from that code!
 			if($this->_nextRange == 0) {
-				CJPLogger::WriteLog(_JP_LOG_DEBUG,'Первый проход '.$this->_nextTable);
+				CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_FIRST_STEP_2.' '.$this->_nextTable);
 				// Get table's maximum range on first run
 
 				$sql = 'SELECT COUNT(*) FROM '.$abstracttablename;
@@ -336,12 +336,12 @@ class CDBBackupEngine {
 				$out .= $tablesql;
 				$out .= ";\n";
 
-				CJPLogger::WriteLog(_JP_LOG_DEBUG,'Выходное значение '.$this->_nextTable);
+				CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_NEXT_VALUE.' '.$this->_nextTable);
 			}
 
 			if($abstracttablename == '#__jp_packvars') {
 				// Skip JoomlaPack's temporary tables
-				CJPLogger::WriteLog(_JP_LOG_INFO,'Пропуск таблицы '.$this->_nextTable);
+				CJPLogger::WriteLog(_JP_LOG_INFO,_JP_SKIP_TABLE.' '.$this->_nextTable);
 				$this->_nextRange = $this->_maxRange + 1;
 				$numRows = 0; // joostina pach
 			} else {
@@ -353,7 +353,7 @@ class CDBBackupEngine {
 
 				$numRows = $database->getNumRows();
 
-				CJPLogger::WriteLog(_JP_LOG_DEBUG,'Получение '.$numRows.' столбца из '.$this->_nextTable);
+				CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_GETTING.' '.$numRows.' '._JP_COLUMN_FROM.' '.$this->_nextTable);
 
 				for($j = 0; $j < $numRows; $j++) {
 					$out .= 'INSERT INTO `'.$abstracttablename.'` values (';
@@ -381,8 +381,8 @@ class CDBBackupEngine {
 						if($this->_save_to_file($fileName,$out,'a')) {
 							$out = '';
 						} else {
-							CJPLogger::WriteLog(_JP_LOG_ERROR,'Ошибка записи в файл '.$fileName);
-							return $this->_returnTable(false,$this->_nextTable,$this->_nextRange,$this->_maxRange,'Невозможно сохранить в дамп '.$fileName);
+							CJPLogger::WriteLog(_JP_LOG_ERROR,_JP_ERROR_WRITING_FILE.' '.$fileName);
+							return $this->_returnTable(false,$this->_nextTable,$this->_nextRange,$this->_maxRange,_JP_CANNOT_SAVE_DUMP.' '.$fileName);
 						}
 					}
 				}

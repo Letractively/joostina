@@ -51,10 +51,10 @@ class CCUBE {
 		$this->_isFinished = false;
 		$this->_Error = false;
 		CJPLogger::ResetLog();
-		CJPLogger::WriteLog(_JP_LOG_INFO,"Резервирование");
+		CJPLogger::WriteLog(_JP_LOG_INFO,_JP_BACKUPPING);
 
 		if($JPConfiguration->logLevel >= 3) {
-			CJPLogger::WriteLog(_JP_LOG_INFO,'--- Информация о PHP ---');
+			CJPLogger::WriteLog(_JP_LOG_INFO,_JP_PHPINFO);
 			CJPLogger::WriteLog(_JP_LOG_INFO,'PHP                :'.phpversion());
 			CJPLogger::WriteLog(_JP_LOG_INFO,'OS Version         :'.php_uname('s'));
 			CJPLogger::WriteLog(_JP_LOG_INFO,'Safe mode          :'.ini_get('safe_mode'));
@@ -63,19 +63,19 @@ class CCUBE {
 			CJPLogger::WriteLog(_JP_LOG_INFO,'Max. exec. time    :'.ini_get('max_execution_time'));
 			CJPLogger::WriteLog(_JP_LOG_INFO,'Memory limit       :'.ini_get('memory_limit'));
 
-			if(function_exists('memory_get_usage')) CJPLogger::WriteLog(_JP_LOG_INFO,'Свободно памяти :'.memory_get_usage());
+			if(function_exists('memory_get_usage')) CJPLogger::WriteLog(_JP_LOG_INFO,_JP_FREEMEMORY.' :'.memory_get_usage());
 
 			if(function_exists('gzcompress')) {
-				CJPLogger::WriteLog(_JP_LOG_INFO,'GZIP сжатие   : доступно (это хорошо)');
+				CJPLogger::WriteLog(_JP_LOG_INFO,_JP_GZIP_ENABLED);
 			} else {
-				CJPLogger::WriteLog(_JP_LOG_INFO,'GZIP сжатие   : не доступно (это плохо)');
+				CJPLogger::WriteLog(_JP_LOG_INFO,_JP_GZIP_NOT_ENABLED);
 			}
 			CJPLogger::WriteLog(_JP_LOG_INFO,'--------------------------------------------------------------------------------');
 		}
 		if($this->_OnlyDBMode) {
-			CJPLogger::WriteLog(_JP_LOG_INFO,'Начало резервирования базы данных');
+			CJPLogger::WriteLog(_JP_LOG_INFO,_JP_START_BACKUP_DB);
 		} else {
-			CJPLogger::WriteLog(_JP_LOG_INFO,'Начало резервирования всех данных сайта');
+			CJPLogger::WriteLog(_JP_LOG_INFO,_JP_START_BACKUP_FILES);
 		}
 	}
 
@@ -87,22 +87,22 @@ class CCUBE {
 			switch($this->_runAlgorithm()) {
 				case 0:
 					// more work to do, return OK
-					CJPLogger::WriteLog(_JP_LOG_DEBUG,'CUBE :: Работа на шаге '.$this->_currentDomain);
+					CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_CUBE_ON_STEP.' '.$this->_currentDomain);
 					return $this->_storeCUBEArray();
 					break;
 				case 1:
 					// Engine part finished
-					CJPLogger::WriteLog(_JP_LOG_DEBUG,'CUBE :: Шаг '.$this->_currentDomain.' завершён');
+					CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_CUBE_STEP_FINISHED.$this->_currentDomain);
 					$this->_getNextObject();
 					if($this->_currentDomain == 'finale') {
 						// We have finished the whole process.
 						$this->_cleanup();
-						CJPLogger::WriteLog(_JP_LOG_DEBUG,'CUBE :: Завершено!');
+						CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_CUBE_FINISHED);
 					}
 					return $this->_storeCUBEArray();
 					break;
 				case 2:
-					CJPLogger::WriteLog(_JP_LOG_DEBUG,'CUBE :: Ошибка на шаге '.$this->_currentDomain);
+					CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_ERROR_ON_STEP.$this->_currentDomain);
 					// An error occured...
 					$ret = $this->_storeCUBEArray();
 					$this->_cleanup();
@@ -118,7 +118,7 @@ class CCUBE {
 	function _cleanup() {
 		global $database,$JPConfiguration;
 
-		CJPLogger::WriteLog(_JP_LOG_INFO,'Очистка');
+		CJPLogger::WriteLog(_JP_LOG_INFO,_JP_CLEANUP);
 		// Define which entries to keep in #__jp_packvars
 		$keepInDB = array('CUBEArray');
 
@@ -153,17 +153,17 @@ class CCUBE {
 		require_once 'engine.abstraction.php';
 		$FS = new CFSAbstraction();
 
-		CJPLogger::WriteLog(_JP_LOG_DEBUG,'Рекурсивное удаление '.$dirName);
+		CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_RECURSING_DELETION.$dirName);
 
 		if(is_file($dirName)) {
-			CJPLogger::WriteLog(_JP_LOG_DEBUG,'Удаление '.$dirName.' - <b>ЭТО ФАЙЛ, НЕ КАТАЛОГ!</b>');
+			CJPLogger::WriteLog(_JP_LOG_DEBUG,$dirName.' - '._JP_NOT_FILE);
 			unlink($dirName);
 		} elseif(is_dir($dirName)) {
 			// получение содержимого каталога
 			$fileList = $FS->getDirContents($dirName);
 			if($fileList === false) {
 				// ошибка получения содержимого каталога
-				CJPLogger::WriteLog(_JP_LOG_WARNING,'Ошибка удаления каталога '.$dirName.'. Проверьте права доступа.');
+				CJPLogger::WriteLog(_JP_LOG_WARNING,$dirName.' - '._JP_ERROR_DEL_DIRECTORY);
 			} else {
 				foreach($fileList as $fileDescriptor) {
 					switch($fileDescriptor['type']) {
@@ -188,7 +188,7 @@ class CCUBE {
 	*/
 	// быстрый режим
 	function _algoSingleStep() {
-		CJPLogger::WriteLog(_JP_LOG_DEBUG,'Режим однопроходности');
+		CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_QUICK_MODE);
 		$finished = false;
 		$error = false;
 
@@ -205,9 +205,9 @@ class CCUBE {
 		} // while
 
 		if(!$error) {
-			CJPLogger::WriteLog(_JP_LOG_DEBUG,'Используется быстрый алгоритм на шаге '.$this->_currentDomain);
+			CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_QUICK_MODE_ON_STEP.' '.$this->_currentDomain);
 		} else {
-			CJPLogger::WriteLog(_JP_LOG_ERROR,'Невозможно использовать быстрый алгоритм на шаге '.$this->_currentDomain);
+			CJPLogger::WriteLog(_JP_LOG_ERROR,_JP_CANNOT_USE_QUICK_MODE.' '.$this->_currentDomain);
 			CJPLogger::WriteLog(_JP_LOG_ERROR,$result['Error']);
 		}
 		$this->_Error = $error ? $result['Error'] : '';
@@ -222,7 +222,7 @@ class CCUBE {
 	*/
 	// медленный режим
 	function _algoMultiStep() {
-		CJPLogger::WriteLog(_JP_LOG_DEBUG,'Режим многопроходности');
+		CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_MULTISTEP_MODE);
 		$error = false;
 
 		$result = $this->_currentObject->tick();
@@ -237,9 +237,9 @@ class CCUBE {
 		$this->_storeCUBEArray();
 
 		if(!$error) {
-			CJPLogger::WriteLog(_JP_LOG_DEBUG,'Используется медленный алгоритм на шаге '.$this->_currentDomain);
+			CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_MULTISTEP_MODE_ON_STEP.' '.$this->_currentDomain);
 		} else {
-			CJPLogger::WriteLog(_JP_LOG_ERROR,'Ошибка выполнения медленного алгоритма на шаге '.$this->_currentDomain);
+			CJPLogger::WriteLog(_JP_LOG_ERROR,_JP_MULTISTEP_MODE_ERROR.' '.$this->_currentDomain);
 			CJPLogger::WriteLog(_JP_LOG_ERROR,$result['Error']);
 		}
 		$this->_Error = $error?$result['Error'] : '';
@@ -254,7 +254,7 @@ class CCUBE {
 	* 2 if error eccured.
 	*/
 	function _algoSmartStep() {
-		CJPLogger::WriteLog(_JP_LOG_DEBUG,'Ускоренный режим');
+		CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_SMART_MODE);
 
 		// получение максимального времени выполнения скрипта
 		$maxExecTime = ini_get('maximum_execution_time');
@@ -299,9 +299,9 @@ class CCUBE {
 
 			// Return the result
 			if(!$error) {
-				CJPLogger::WriteLog(_JP_LOG_DEBUG,'Выполнение ускоренного режима на шаге '.$this->_currentDomain);
+				CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_SMART_MODE_ON_STEP.' '.$this->_currentDomain);
 			} else {
-				CJPLogger::WriteLog(_JP_LOG_ERROR,'Ошибка выполнения ускоренного режима на шаге '.$this->_currentDomain);
+				CJPLogger::WriteLog(_JP_LOG_ERROR,_JP_SMART_MODE_ERROR.' '.$this->_currentDomain);
 				CJPLogger::WriteLog(_JP_LOG_ERROR,$result['Error']);
 			}
 			$this->_Error = $error?$result['Error'] : '';
@@ -314,7 +314,7 @@ class CCUBE {
 	*/
 	function _runAlgorithm() {
 		$algo = $this->_selectAlgorithm();
-		CJPLogger::WriteLog(_JP_LOG_DEBUG,'Выбран '.$algo.' алгоритм для '.$this->_currentDomain);
+		CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_CHOOSED_ALGO.' '.$algo.' '._JP_ALGORITHM_FOR.' '.$this->_currentDomain);
 
 		switch($algo) {
 			case 'single':
@@ -379,13 +379,13 @@ class CCUBE {
 			case 'init':
 				// ШАГ - создание списка файлов
 				if($this->_OnlyDBMode) {
-					CJPLogger::WriteLog(_JP_LOG_DEBUG,'Следующий шаг --> Резервирование базы');
+					CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_NEXT_STEP_BACKUP_DB);
 					// режим архивирования только базы данных
 					require_once ('engine.dbdump.php');
 					$this->_currentObject = new CDBBackupEngine($this->_OnlyDBMode);
 					$this->_currentDomain = 'PackDB';
 				} else {
-					CJPLogger::WriteLog(_JP_LOG_DEBUG,'Следующий шаг --> Создание списка файлов');
+					CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_NEXT_STEP_FILE_LIST);
 					require_once ('engine.filelist.php');
 					$this->_currentObject = new CFilelistEngine();
 					$this->_currentDomain = 'FileList';
@@ -393,7 +393,7 @@ class CCUBE {
 				return 0;
 				break;
 			case 'FileList':
-				CJPLogger::WriteLog(_JP_LOG_DEBUG,'Следующий шаг --> Резервирования базы');
+				CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_NEXT_STEP_BACKUP_DB);
 				// ШАГ архивирование базы
 				require_once ('engine.dbdump.php');
 				$this->_currentObject = new CDBBackupEngine();
@@ -402,12 +402,12 @@ class CCUBE {
 				break;
 			case 'PackDB':
 				if($this->_OnlyDBMode) {
-					CJPLogger::WriteLog(_JP_LOG_DEBUG,'Следующий шаг --> Завершение');
+					CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_NEXT_STEP_FINISHING);
 					// ШАГ - все выполнено
 					$this->_currentDomain = 'finale';
 					return 1;
 				} else {
-					CJPLogger::WriteLog(_JP_LOG_DEBUG,'Следующий шаг --> Упаковка');
+					CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_NEXT_STEP_GZIP);
 					// Next domain : File packing
 					require_once ('engine.packer.php');
 					$this->_currentObject = new CPackerEngine();
@@ -416,14 +416,14 @@ class CCUBE {
 				}
 				break;
 			case 'Packing':
-				CJPLogger::WriteLog(_JP_LOG_DEBUG,'Следующий шаг --> Завершено');
+				CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_NEXT_STEP_FINISHED);
 				// ШАГ - всё выполнено
 				$this->_currentDomain = 'finale';
 				return 1;
 				break;
 			case 'finale':
 			default:
-				CJPLogger::WriteLog(_JP_LOG_DEBUG,'Следующий шаг не требуется; всё уже завершено');
+				CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_NO_NEXT_STEP);
 				return 1;
 				break;
 		}
@@ -475,12 +475,12 @@ function loadJPCUBE($forceNew = false) {
 		$numRecords = $database->loadResult();
 
 		if($numRecords < 1) {
-			CJPLogger::WriteLog(_JP_LOG_DEBUG,'Нет существующего CUBE; создание нового');
+			CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_NO_CUBE);
 			$CUBE = new CCUBE();
 		} else {
 			// First, we need to see if we have to include an Engine class
 			$cubeArray = loadJPCUBEArray();
-			CJPLogger::WriteLog(_JP_LOG_DEBUG,'Текущий шаг '.$cubeArray['Domain']);
+			CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_CURRENT_STEP.' '.$cubeArray['Domain']);
 			switch($cubeArray['Domain']) {
 				case 'FileList':
 					require_once ('engine.filelist.php');
@@ -496,7 +496,7 @@ function loadJPCUBE($forceNew = false) {
 			$serializedCUBE = $JPConfiguration->ReadDebugVar('CUBEObject',true);
 			$CUBE = unserialize($serializedCUBE);
 			unset($serializedCUBE);
-			CJPLogger::WriteLog(_JP_LOG_DEBUG,'Распаковка существующего CUBE');
+			CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_UNPACKING_CUBE);
 		}
 	}
 }
@@ -545,7 +545,7 @@ function loadJPCUBEArray() {
 // Code to detect and log timeouts
 function deadOnTimeOut() {
 	if(connection_status() >= 2) {
-		CJPLogger::WriteLog(_JP_LOG_ERROR,'Время на выполнение операции вышло, но операция не завершена');
+		CJPLogger::WriteLog(_JP_LOG_ERROR,_JP_TIMEOUT);
 	}
 }
 register_shutdown_function('deadOnTimeOut');

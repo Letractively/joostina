@@ -19,9 +19,9 @@ switch($subtask) {
 	// удаление файле
 	case 'deletefile':
 		if(unlink($filename))
-			echo '<div class="message">Файл '.$filename.' успешно удалён</div>';
+			echo '<div class="message">'.$filename.' '._JWMM_FILE_DELETED.'</div>';
 		else
-			echo '<div class="jwarning">Файл '.$filename.' не удалён</div>';
+			echo '<div class="jwarning"> '.$filename.' '._JWMM_FILE_NOT_DELETED.'</div>';
 		JP_BUFA_Main();
 		break;
 	case 'downloadfile':
@@ -62,9 +62,9 @@ function JP_BUFA_Main() {
 	</form>
 	<table class="adminlist">
 		<tr>
-			<th class="title">Имя файла</th>
-			<th width="80" align="right">Скачать</th>
-			<th width="80" align="right">Удалить</th>
+			<th class="title"><?php echo _FILE_NAME?></th>
+			<th width="80" align="right"><?php echo _JP_DOWNLOAD_FILE?></th>
+			<th width="80" align="right"><?php echo _CMN_DELETE?></th>
 		</tr>
 <?php
 	JP_GetFileList();
@@ -99,14 +99,14 @@ function JP_GetFileList() {
 					$fileSizeKb		= round($fileDef['size'] / 1024,2);
 					$onlyName		= str_replace($JPConfiguration->OutputDirectory.'/',"",$fileName);
 					$linkDownload	= "javascript:postTaskForm('downloadfile', '".addslashes($fileName)."');";
-					$linkDelete		= "javascript:if (confirm('Действительно удалить файл?')){ SRAX.get('no_html').value = 0; postTaskForm('deletefile', '".addslashes($fileName)."'); }";
+					$linkDelete		= "javascript:if (confirm('"._JP_REALLY_DELETE_FILE."')){ SRAX.get('no_html').value = 0; postTaskForm('deletefile', '".addslashes($fileName)."'); }";
 ?>
 				<tr class="row<?php echo $k;?>">
-					<td align="left"><img src="images/ico/<?php echo $ico; ?>" border="0"><?php echo $onlyName.'<br />Создан: <b>'.$createdTime.'</b>, размер: <b>'.$fileSizeKb; ?> кб</b></td>
+					<td align="left"><img src="images/ico/<?php echo $ico; ?>" border="0"><?php echo $onlyName.'<br />'._JP_FILE_CREATION_DATE.': <b>'.$createdTime.'</b>, '._JWMM_FILESIZE.': <b>'.$fileSizeKb; ?> <?php echo _JWMM_KBYTES?></b></td>
 					<td align="center">
-						<img src="images/ico/down.png" border="0">&nbsp;&nbsp;<a href="<?php echo $linkDownload; ?>">Скачать</a></td>
+						<img src="images/ico/down.png" border="0">&nbsp;&nbsp;<a href="<?php echo $linkDownload; ?>"><?php echo _JP_DOWNLOAD_FILE?></a></td>
 					<td align="center">
-						<img src="images/publish_x.png" border="0">&nbsp;&nbsp;<a href="<?php echo $linkDelete; ?>">Удалить</a>
+						<img src="images/publish_x.png" border="0">&nbsp;&nbsp;<a href="<?php echo $linkDelete; ?>"><?php echo _CMN_DELETE?></a>
 					</td>
 				</tr>
 <?php
@@ -119,7 +119,7 @@ function JP_GetFileList() {
 	}else{
 ?>
 			<tr>
-				<td colspan="3">Файлы резервных копий отсутствуют</td>
+				<td colspan="3"><?php echo _JP_NO_BACKUPS?></td>
 			</tr>
 <?php
 	}
