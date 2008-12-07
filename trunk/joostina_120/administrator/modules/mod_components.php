@@ -46,7 +46,7 @@ foreach($comps as $row) {
 <table class="adminlist">
 <tr>
 	<th class="title">
-	   Компоненты
+	   <?php echo _COMPONENTS?>
 	</th>
 </tr>
 <tr>
@@ -73,7 +73,7 @@ foreach($comps as $row) {
 							<table width="100%" class="adminlist">
 							<tr>
 								<td align="center" style="text-align: center; font-weight: bold;">
-									<a href="index2.php?option=com_admin&task=listcomponents">Полный список компонентов</a>
+									<a href="index2.php?option=com_admin&task=listcomponents"><?php echo _FULL_COMPONENTS_LIST?></a>
 								</td>
 							</tr>		
 							</table>					

@@ -13,6 +13,7 @@ Joostina v 1.2.0
 		2.6 Добавлена возможность отключать переключатель "Опубликовано".
 		2.7 Добавлена возможность отключать переключатель "На главной", а также теперь можно задать свою подпись для этого переключателя (например 'актуально' или 'спецпредложение'). Пользователю с правами SuperAdministrator-а переключатели показываются в любом случае
 	3. Подготовил к переводу administrator/components/com_joomlaexplorer + com_joomlapack. Компоненты в админке для подготовки закончились. Теперь модули и мамботы.(Dead Krolik)
+	4. Подготовил к переводу administrator/modules/mod_components.php
 	
 06.12.08
 	1. Подготовил к переводу administrator/components/com_modules + com_newsfeeds + com_weblinks + com_xmap + com_jwmmxtd (Dead Krolik)
