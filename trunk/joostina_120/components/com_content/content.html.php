@@ -1113,8 +1113,8 @@ _CMN_NEW; ?>" />
 	* @param mosContent The category object
 	* @param string The html for the groups select list
 	*/
-   	function editContent(&$row,$section,&$lists,&$images,&$access,$myid,$sectionid,$task,$Itemid,$params) {
-		global $mosConfig_live_site,$mainframe;
+    function editContent(&$row,$section,&$lists,&$images,&$access,$myid,$sectionid,$task,$Itemid,$params) {
+		global $mosConfig_live_site,$mainframe, $my;
 
 		mosMakeHtmlSafe($row);
 
@@ -1131,27 +1131,37 @@ _CMN_NEW; ?>" />
 
 		// параметры полученные из настроек ссылки в меню
 		$p_wwig = $params->get('wwig',1);// использование визуального редактора
-		$content_type = $params->get('content_type',1); // отображать поле полного основного текста
+		$content_type = $params->get('content_type',1); // тип контента
 		$p_fulltext = $params->get('fulltext',1); // отображать поле полного основного текста
-		$allow_alias = $params->get('allow_alias',1); // отображать поле "Псевдоним заголовка"
+		$allow_alias = $params->get('allow_alias',0); // отображать поле "Псевдоним заголовка"
 		$allow_img = $params->get('allow_img',1); // отображать вкладку "Изображения"
 		$allow_params = $params->get('allow_params',1); // отображать вкладку "параметры"
 		$allow_desc = $params->get('allow_desc',1); // отображать поле "Описание"
 		$allow_tags = $params->get('allow_tags',1); // отображать поле "Ключевые слова"
+        $auto_publish = $params->get('auto_publish',0); // настройки автопубликации
+        $allow_frontpage = $params->get('allow_frontpage',0); // переключатель "На главной"
+        $front_label = $params->get('front_label','На главной'); // подпись переключателя "На главной"
 
 ?>
 		<div id="overDiv" style="position:absolute; visibility:hidden; z-index:10000;"></div>
-		<script language="javascript" type="text/javascript">
+        <script language="javascript" type="text/javascript">
 		onunload = WarnUser;
-		var folderimages = new Array;
-<?php
-		$i = 0;
-		foreach($images as $k => $items) {
-			foreach($items as $v) {
-				echo "\n folderimages[".$i++."] = new Array( '$k','".addslashes($v->value)."','".addslashes($v->text)."' );";
-			}
-		}
-?>
+
+        <?php
+        //Отключаем вкладку "Изображения"
+        if($allow_img){ ?>
+		    var folderimages = new Array;
+
+            <?php
+		    $i = 0;
+		    foreach($images as $k => $items) {
+			    foreach($items as $v) {
+				    echo "\n folderimages[".$i++."] = new Array( '$k','".addslashes($v->value)."','".addslashes($v->text)."' );";
+			    }
+		    }
+        }
+        ?>
+
 		function submitbutton(pressbutton) {
 			var form = document.adminForm;
 			if (pressbutton == 'cancel') {
@@ -1162,11 +1172,17 @@ _CMN_NEW; ?>" />
 			// var goodexit=false;
 			// assemble the images back into one field
 			form.goodexit.value=1;
-			var temp = new Array;
-			for (var i=0, n=form.imagelist.options.length; i < n; i++) {
-				temp[i] = form.imagelist.options[i].value;
-			}
+            <?php
+            //Отключаем вкладку "Изображения"
+            if($allow_img){ ?>
+                var temp = new Array;
+			    for (var i=0, n=form.imagelist.options.length; i < n; i++) {
+				    temp[i] = form.imagelist.options[i].value;
+		    	}
 			form.images.value = temp.join( '\n' );
+            <?php }?>
+
+
 			try {
 				form.onsubmit();
 			}
@@ -1203,6 +1219,20 @@ _CMN_NEW; ?>" />
 				window.location="<?php echo sefRelToAbs("index.php?option=com_content&task=".$task."&sectionid=".$sectionid."&id=".$row->id."&Itemid=".$Itemid); ?>";
 			}
 		}
+
+        	/* скрытие дерева навигации по структуре содержимого */
+		function ntreetoggle(){
+			if(SRAX.get('ntdree').style.display =='none'){
+				SRAX.get('ntdree').style.display ='block';
+				SRAX.get('tdtoogle').className='tdtoogleoff';
+				setCookie('j-ntree-hide','0');
+			}else{
+				SRAX.get('ntdree').style.display ='none';
+				SRAX.get('tdtoogle').className='tdtoogleon';
+				setCookie('j-ntree-hide','1');
+			}
+		}
+	</script>
 		</script>
 
 <?php
@@ -1217,7 +1247,7 @@ _CMN_NEW; ?>" />
 		$docinfo .= "<strong>"._E_HITS."</strong> ";
 		$docinfo .= $row->hits."<br />";
 ?>
-		<form action="index.php" method="post" name="adminForm" onSubmit="javascript:setgood();">
+		<form action="index.php" method="post" name="adminForm" onSubmit="javascript:setgood();" enctype="multipart/form-data">
         <div class="componentheading"><?php echo $row->id ? _E_EDIT : _E_ADD; ?></div>
 
         <?php if ($row->id){  ?>
@@ -1231,14 +1261,14 @@ _CMN_NEW; ?>" />
             <tr>
                <?php mosToolBar::save(); 	mosToolBar::apply(); mosToolBar::cancel();  ;?>
 
-                <?php if($access->canPublish){?>
+                <?php if($access->canPublish || $auto_publish==1 || $my->usertype=="Super Administrator"){?>
                 <td><b>&nbsp;&nbsp;Опубликовано:</b>&nbsp;&nbsp;</td><td><?php echo  mosHTML::yesnoRadioList('state','',$row->state);?></td>
-                <?php };?>
+                <?php }?>
 
-                <?php if( $row->sectionid || !$content_type){?>
-				<td align="right">&nbsp;&nbsp;&nbsp;<b>На главной:</b>&nbsp;</td>
+                <?php if( ($row->sectionid || !$content_type) && ($allow_frontpage==1 || $my->usertype=="Super Administrator") ){?>
+				<td align="right">&nbsp;&nbsp;&nbsp;<b><?php echo $front_label;?>:</b>&nbsp;</td>
 				<td  align="left"> <?php echo mosHTML::yesnoRadioList('frontpage','',$row->frontpage ? 1:0);?></td>
-                <?php };?>
+                <?php }?>
 
             </tr>
        </table>
@@ -1257,13 +1287,17 @@ _CMN_NEW; ?>" />
 					<input name="title_alias" type="text" class="text_area" id="title_alias" value="<?php echo $row->title_alias; ?>" size="30" style="width:99%" maxlength="255" />
 				</td>
             </tr>
-             <?php };?>
+             <?php }?>
+             <?php if( !$content_type){?>
             <tr>
                 <td><strong>Категория:</strong></td>
 				<td>
-				    <?php echo $lists['catid']; ?>
+				    <?php
+                    echo $lists['catid'];
+                    ?>
 				</td>
             </tr>
+            <?php }?>
             <?php  if($allow_tags){ ?>
             <tr>
 				<td align="left" valign="top"><strong><?php echo _E_M_KEY; ?></strong></td>
@@ -1292,7 +1326,6 @@ _CMN_NEW; ?>" />
             <?php }?>
          </div>
 
-
          <?php if((!$content_type && $p_fulltext) || ($row->sectionid &&  $p_fulltext) ){?>
 		 <br /><br />
          <div class="cedit_fulltext">
@@ -1305,10 +1338,6 @@ _CMN_NEW; ?>" />
             <?php } ?>
         </div>
          <?php } ?>
-
-
-
-
 
 
 
@@ -1488,7 +1517,7 @@ _CMN_NEW; ?>" />
 }
 ?>
 
-		<div style="clear:both;"></div>
+		<div style="clear:both;"></div> <br /><br />
         <table class="cedit_misc" cellspacing="0" cellpadding="0" border="0">
             <tr>
                <?php mosToolBar::save(); 	mosToolBar::apply(); mosToolBar::cancel();  ;?>
