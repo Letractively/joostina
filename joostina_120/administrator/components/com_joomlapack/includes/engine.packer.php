@@ -88,7 +88,7 @@ class CPackerEngine {
 		// Remove any stored compression object
 		$JPConfiguration->DeleteDebugVar('zipobject');
 
-		CJPLogger::WriteLog(_JP_LOG_DEBUG,'Упаковка: первый шаг');
+		CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_GZIP_FIRST_STEP);
 	}
 
 	/**
@@ -99,7 +99,7 @@ class CPackerEngine {
 
 		if($this->_isFinished) {
 			// We have already finished
-			CJPLogger::WriteLog(_JP_LOG_DEBUG,'Упаковка :: Завершено');
+			CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_GZIP_FINISHED);
 			$returnArray = array();
 			$returnArray['HasRun'] = false;
 			$returnArray['Domain'] = 'Packing';
@@ -113,7 +113,7 @@ class CPackerEngine {
 			// Try to pack next fragment
 			$this->_currentFragment++;
 			if($this->_currentFragment > $this->_maxFragment) {
-				CJPLogger::WriteLog(_JP_LOG_INFO,'Завершение архивирования');
+				CJPLogger::WriteLog(_JP_LOG_INFO,_JP_PACK_FINISHED);
 				// We have just finished, as we ended up on one fragment past the end. Glue archive and return.
 				$this->_fileListDescriptor['files'] = null;
 //				$ret = $this->_archiveFileList();
@@ -126,7 +126,7 @@ class CPackerEngine {
 				$returnArray['Substep'] = '';
 				return $returnArray; // Indicate we have finished
 			} else {
-				CJPLogger::WriteLog(_JP_LOG_INFO,'Архивирование фрагмента #'.$this->_currentFragment);
+				CJPLogger::WriteLog(_JP_LOG_INFO,_JP_GZIP_OF_FRAGMENT.$this->_currentFragment);
 				$this->_importFragment($this->_currentFragment);
 				$this->_archiveFileList();
 				$returnArray = array();
@@ -180,9 +180,9 @@ class CPackerEngine {
 				// TODO - Handle forcibly included directories (later versions will do that...)
 		} // switch
 
-		CJPLogger::WriteLog(_JP_LOG_DEBUG,'Текущий фрагмент '.$fragmentType);
-		CJPLogger::WriteLog(_JP_LOG_DEBUG,' путь для удаления : '.$retArray['remove']);
-		CJPLogger::WriteLog(_JP_LOG_DEBUG,' путь для добавления    : '.$retArray['add']);
+		CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_CURRENT_FRAGMENT.' '.$fragmentType);
+		CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_DELETE_PATH.' '.$retArray['remove']);
+		CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_PATH_TO_DELETE.': '.$retArray['add']);
 		return $retArray;
 	}
 
@@ -200,12 +200,12 @@ class CPackerEngine {
 		$numRows = $database->loadResult();
 
 		if($numRows == 0) {
-			CJPLogger::WriteLog(_JP_LOG_DEBUG,"Сохранение информации о архивных объектах");
+			CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_SAVING_ARCHIVE_INFO);
 			// создание файла архива
 			$zip = new PclZip($this->_archiveFile);
 		} else {
 			// Load from db
-			CJPLogger::WriteLog(_JP_LOG_DEBUG,"Загрузка информации о архивных объектах");
+			CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_LOADING_ARCHIVE_INFO);
 			$sql = "SELECT value2 FROM #__jp_packvars WHERE `key`='zipobject'";
 			$database->setQuery($sql);
 			$serialized = $database->loadResult();
@@ -218,13 +218,13 @@ class CPackerEngine {
 		$pathsAddRemove['remove'] = PclZipUtilTranslateWinPath($pathsAddRemove['remove']);
 		// добавление файлов в архив, или завершение архивирования
 		if(is_array($this->_fileListDescriptor['files'])) {
-			CJPLogger::WriteLog(_JP_LOG_DEBUG,'Добавлений файлов в архив');
+			CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_ADDING_FILE_TO_ARCHIVE);
 
 			// добавление файлов в архив
 			$zip = new PclZip($this->_archiveFile);
 			$zip->add($this->_fileListDescriptor['files'],'',$pathsAddRemove['remove']);
 
-			CJPLogger::WriteLog(_JP_LOG_DEBUG,"Архивирование");
+			CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_ARCHIVING);
 			// Store object
 			$serialized = serialize($zip);
 			$JPConfiguration->WriteDebugVar('zipobject',$serialized,true);
@@ -234,7 +234,7 @@ class CPackerEngine {
 			$zip = new PclZip($this->_archiveFile);
 			$to_file = PclZipUtilTranslateWinPath($mosConfig_absolute_path.'/administrator/backups/installation/');
 			$zip->add( $to_file,'',$pathsAddRemove['remove']);
-			CJPLogger::WriteLog(_JP_LOG_DEBUG,'Архивирование завершено');
+			CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_ARCHIVE_COMPLETED);
 		}
 		unset($zip);
 	}

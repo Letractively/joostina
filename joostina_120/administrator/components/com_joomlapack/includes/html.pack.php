@@ -21,7 +21,7 @@ $siteRoot = $mosConfig_absolute_path;
 ?>
 <table class="adminheading">
 	<tr>
-		<th class="cpanel">Создание резервной копии данных</th>
+		<th class="cpanel"><?php echo _JP_BACKUP_CREATION?></th>
 	</tr>
 </table>
 <script type="text/JavaScript">
@@ -200,19 +200,19 @@ sajax_show_javascript();
 	}
 </script>
 </body>
-<div class="jwarning" id="startInfo">Пожалуйста, не закрывайте окно браузера и не переходите с этой страницы до окончания резервирования и отображения соответствующего сообщения.</div>
-<div class="jwarning" id="Timeout" style="display:none">В ходе работы обнаружены ошибки, пожалуйста, <a href="index2.php?option=com_joomlapack&act=log">посмотрите лог</a> работы и выясните причину.</div>
-<div class="message" id="done" style="display:none">Резервирование данных сайта выполнено успешно. Скачать: <a href="" id="back_file_top">&nbsp;</a></div>
+<div class="jwarning" id="startInfo"><?php echo _JP_DONT_CLOSE_BROWSER_WINDOW?></div>
+<div class="jwarning" id="Timeout" style="display:none"><?php echo _JP_ERRORS_VIEW_LOG?></div>
+<div class="message" id="done" style="display:none"><?php echo _JP_BACKUP_SUCCESS?>: <a href="" id="back_file_top">&nbsp;</a></div>
 <div id="pack_step">
-	<div id="pack_step_1" class="pack_step">1. Создание списка файлов для архивирования.</div><span id="state_1"></span>
-	<div id="pack_step_2" class="pack_step">2. Архивирование базы данных.</div><span id="state_2"></span>
-	<div id="pack_step_3" class="pack_step">3. Создание итогового архива.</div><span id="state_3"></span>
-	<div id="pack_step_4" class="pack_step">4. Всё выполнено.<br /><span id="down_link" style="display:none">Скачать: <a href="" id="back_file">&nbsp;</a></span>
+	<div id="pack_step_1" class="pack_step"><?php echo _JP_CREATION_FILELIST?></div><span id="state_1"></span>
+	<div id="pack_step_2" class="pack_step"><?php echo _JP_BACKUPPING_DB?></div><span id="state_2"></span>
+	<div id="pack_step_3" class="pack_step"><?php echo _JP_CREATION_OF_ARCHIVE?></div><span id="state_3"></span>
+	<div id="pack_step_4" class="pack_step"><?php echo _JP_ALL_COMPLETED_2?>.<br /><span id="down_link" style="display:none"><?php echo _JP_DOWNLOAD_FILE?>: <a href="" id="back_file">&nbsp;</a></span>
 	</div>
 </div>
 <span id="Init" style="display:none">
-	<div>Обработка: <b><span id="JPStep"></span></b></div>
-	<div>Состояние: <b><span id="JPSubstep">0</span></b></div>
+	<div><?php echo _JP_PROGRESS?>: <b><span id="JPStep"></span></b></div>
+	<div><?php echo _O_STATE?>: <b><span id="JPSubstep">0</span></b></div>
 </div>
 <?php
 ?>

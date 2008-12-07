@@ -25,7 +25,7 @@ echo colorizeAppStatus($appStatusGood);
 
 <table class="adminheading">
 	<tr>
-		<th class="cpanel">Резервное копирование</th>
+		<th class="cpanel"><?php echo _JP_BACKUP_MANAGEMENT?></th>
 	</tr>
 </table>
 <table>
@@ -34,19 +34,19 @@ echo colorizeAppStatus($appStatusGood);
 			<div class="cpicons">
 <?php
 	$link = "index2.php?option=com_joomlapack&act=pack";
-	quickiconButton($link,'pack.png', 'Создать архив данных');
+	quickiconButton($link,'pack.png', _JP_CREATE_BACKUP);
 
 	$link = 'index2.php?option=com_joomlapack&act=db';
-	quickiconButton($link,'db.png','Управление базой данных');
+	quickiconButton($link,'db.png',_JP_DB_MANAGEMENT);
 
 	$link = "index2.php?option=com_joomlapack&act=def";
-	quickiconButton($link,'stopfolder.png', 'Не сохранять каталоги');
+	quickiconButton($link,'stopfolder.png', _JP_DONT_SAVE_DIRECTORIES);
 
 	$link = "index2.php?option=com_joomlapack&act=config";
-	quickiconButton($link,'config.png', 'Настройки сохранения');
+	quickiconButton($link,'config.png', _JP_CONFIG);
 
 	$link = "index2.php?option=com_joomlapack&act=log";
-	quickiconButton($link,'log.png', 'Лог выполнения действий');
+	quickiconButton($link,'log.png', _JP_ACTIONS_LOG);
 ?>
 				</div>
 			<div style="clear:both;">&nbsp;</div>
@@ -66,7 +66,7 @@ echo colorizeAppStatus($appStatusGood);
 */
 function colorizeAppStatus($status) {
 	global $JPConfiguration;
-	$statusVerbal = 'Обнаружены ошибки, проверьте возможность записи в каталог хранения резервных копий ( <b>'.$JPConfiguration->OutputDirectory.'</b> )';
+	$statusVerbal = _JP_ERRORS_TMP_DIR.' ( <b>'.$JPConfiguration->OutputDirectory.'</b> )';
 	if(!$status) {
 		return '<div class="jwarning">'.$statusVerbal.'</div>';
 	}

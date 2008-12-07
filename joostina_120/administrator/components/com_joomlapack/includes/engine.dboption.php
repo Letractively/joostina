@@ -89,19 +89,19 @@ function checkDatabase($option,$func) {
 		switch($func) {
 			case 'doCheck':
 				$sql = 'CHECK TABLE ';
-				$title = 'Результаты проверки';
+				$title = _JP_CHECK_RESULTS;
 				break;
 			case 'doAnalyze':
 				$sql = 'ANALYZE TABLE ';
-				$title = 'Результаты анализа';
+				$title = _JP_ANALYZE_RESULTS;
 				break;
 			case 'doOptimize':
 				$sql = 'OPTIMIZE TABLE ';
-				$title = 'Результаты оптимизации';
+				$title = _JP_OPTIMIZE_RESULTS;
 				break;
 			case 'doRepair':
 				$sql = 'REPAIR TABLE ';
-				$title = 'Результаты исправления';
+				$title = _JP_REPAIR_RESULTS;
 				break;
 		}
 		foreach($tables as $table) {
