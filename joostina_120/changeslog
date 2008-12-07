@@ -1,5 +1,8 @@
 Joostina v 1.2.0
 
+07.12.08
+	1. MosMsg в админке не всегда показывается, например если выключен http_referer в браузере. Сделал так, что бы показывался. (Dead Krolik)
+
 06.12.08
 	1. Подготовил к переводу administrator/components/com_modules + com_newsfeeds + com_weblinks + com_xmap + com_jwmmxtd (Dead Krolik)
 

@@ -19,6 +19,11 @@ $browserCheck = 0;
 if(isset($_SERVER['HTTP_USER_AGENT']) && isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'],$mosConfig_live_site) !== false) {
 	$browserCheck = 1;
 }
+//when http_referer is disabled
+if (isset($_SERVER['HTTP_USER_AGENT']) && !isset($_SERVER['HTTP_REFERER'])) {
+
+	$browserCheck = 1;
+}
 
 if($mosmsg && $browserCheck) {
 	// limit mosmsg to 200 characters
