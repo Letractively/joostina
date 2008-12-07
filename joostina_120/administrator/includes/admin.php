@@ -135,7 +135,7 @@ function mosLoadCustomModule(&$module,&$params) {
 	// feed output
 	if($rssurl) {
 		if(!is_writable($cachePath)) {
-			echo '<tr><td>Пожалуйста, сделайте каталог кэша доступным для записи.</td></tr>';
+			echo '<tr><td>'._CACHE_DIR_IS_NOT_WRITEABLE.'</td></tr>';
 		} else {
 			$LitePath = $mosConfig_absolute_path.'/includes/Cache/Lite.php';
 			require_once ($mosConfig_absolute_path.'/includes/domit/xml_domit_rss_lite.php');
@@ -308,7 +308,7 @@ function mosMainBody_Admin() {
 function js_menu_cache($data,$usertype,$state = 0) {
 	global $mosConfig_secret,$mosConfig_cachepath,$mosConfig_adm_menu_cache;
 	if(!is_writeable($mosConfig_cachepath) && $mosConfig_adm_menu_cache) {
-		echo '<script>alert(\'Каталог кэша недоступен для записи, в работе системы возможно проблемы.\');</script>';
+		echo '<script>alert(\''._CACHE_DIR_IS_NOT_WRITEABLE.'\');</script>';
 		return false;
 	}
 	$menuname = md5($usertype.$mosConfig_secret);
@@ -331,19 +331,19 @@ function josSecurityCheck($width = '95%') {
 	global $mosConfig_cachepath,$mosConfig_caching;
 	$wrongSettingsTexts = array();
 	// проверка на запись  в каталог кэша
-	if(!is_writeable($mosConfig_cachepath) && $mosConfig_caching) $wrongSettingsTexts[] = 'Каталог кэша не доступен для записи';
+	if(!is_writeable($mosConfig_cachepath) && $mosConfig_caching) $wrongSettingsTexts[] = _CACHE_DIR_IS_NOT_WRITEABLE2;
 	// проверка magic_quotes_gpc
-	if(ini_get('magic_quotes_gpc') != '1') $wrongSettingsTexts[] = 'PHP magic_quotes_gpc установлено в `OFF` вместо `ON`';
+	if(ini_get('magic_quotes_gpc') != '1') $wrongSettingsTexts[] = _PHP_MAGIC_QUOTES_ON_OFF;
 	// проверка регистрации глобальных переменных
-	if(ini_get('register_globals') == '1')$wrongSettingsTexts[] = 'PHP register_globals установлено в `ON` вместо `OFF`';
+	if(ini_get('register_globals') == '1')$wrongSettingsTexts[] = _PHP_REGISTER_GLOBALS_ON_OFF;
 	// проверка активированности внутренней системы защиты
-	if(RG_EMULATION != 0) $wrongSettingsTexts[] =	'Параметр Joomla! RG_EMULATION в файле globals.php установлен в `ON` вместо `OFF`<br /><span style="font-weight: normal; font-style: italic; color: #666;">`ON` - параметр по умолчанию - для совместимости</span>';
+	if(RG_EMULATION != 0) $wrongSettingsTexts[] =	_RG_EMULATION_ON_OFF;
 
 	if(count($wrongSettingsTexts)) {
 ?>
 		<div style="clear: both; margin: 3px; margin-top: 10px; padding: 5px 15px; display: block; float: left; border: 1px solid #cc0000; background: #ffffcc; text-align: left; width: <?php echo $width; ?>;">
 			<p style="color: #CC0000;">
-				Следующие настройки PHP не являются оптимальными для <strong>БЕЗОПАСНОСТИ</strong> и их рекомендуется изменить:
+				<?php echo _PHP_SETTINGS_WARNING?>:
 			</p>
 			<ul style="margin: 0px; padding: 0px; padding-left: 15px; list-style: none;" >
 <?php
@@ -370,11 +370,11 @@ function js_menu_cache_clear() {
 	$file = $mosConfig_absolute_path."/cache/adm_menu_".$menuname.".js";
 	if(file_exists($file)) {
 		if(unlink($file))
-			echo joost_info('Кэш меню панели управления очищен.');
+			echo joost_info(_MENU_CACHE_CLEANED);
 		else
-			echo joost_info('Ошибка очистки кэша меню панели управления.');
+			echo joost_info(_CLEANING_ADMIN_MENU_CACHE);
 	} else {
-		echo joost_info('Кэш меню панели управления не обнаружен. Проверьте права доступа на каталог кэша.');
+		echo joost_info(_NO_MENU_ADMIN_CACHE);
 	}
 }
 

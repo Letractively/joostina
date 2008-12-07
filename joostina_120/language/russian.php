@@ -2084,8 +2084,35 @@ DEFINE('_CONTENT_HITS','Просмотров');
 /* administrator modules mod_stats */
 DEFINE('_MENU_ITEMS_COUNT','Пунктов');
 
+/* administrator modules includes admin.php */
+DEFINE('_CACHE_DIR_IS_NOT_WRITEABLE','Пожалуйста, сделайте каталог кэша доступным для записи');
+DEFINE('_CACHE_DIR_IS_NOT_WRITEABLE2','Каталог кэша не доступен для записи');
+DEFINE('_PHP_MAGIC_QUOTES_ON_OFF','PHP magic_quotes_gpc установлено в `OFF` вместо `ON`');
+DEFINE('_PHP_REGISTER_GLOBALS_ON_OFF','PHP register_globals установлено в `ON` вместо `OFF`');
+DEFINE('_RG_EMULATION_ON_OFF','Параметр Joomla! RG_EMULATION в файле globals.php установлен в `ON` вместо `OFF`<br /><span style="font-weight: normal; font-style: italic; color: #666;">`ON` - параметр по умолчанию - для совместимости</span>');
+DEFINE('_PHP_SETTINGS_WARNING','Следующие настройки PHP не являются оптимальными для <strong>БЕЗОПАСНОСТИ</strong> и их рекомендуется изменить');
+DEFINE('_MENU_CACHE_CLEANED','Кэш меню панели управления очищен');
+DEFINE('_CLEANING_ADMIN_MENU_CACHE','Ошибка очистки кэша меню панели управления');
+DEFINE('_NO_MENU_ADMIN_CACHE','Кэш меню панели управления не обнаружен. Проверьте права доступа на каталог кэша.');
+
+/* administrator modules includes pageNavigation.php */
+DEFINE('_NAV_SHOW','Показано');
+DEFINE('_NAV_SHOW_FROM','из');
+DEFINE('_NAV_NO_RECORDS','Записи не найдены');
+DEFINE('_NAV_ORDER_UP','Переместить выше');
+DEFINE('_NAV_ORDER_DOWN','Переместить ниже');
+
+/* administrator modules popups pollwindow.php */
+DEFINE('_POLL_PREVIEW','Предпросмотр опроса');
+
+/* administrator modules popups uploadimage.php */
+DEFINE('_CHOOSE_IMAGE_FOR_UPLOAD','Пожалуйста, выберите изображение для загрузки');
+DEFINE('_BAD_UPLOAD_FILE_NAME','Имена файлов должны состоять из символов алфавита и не должны содержать пробелов');
+DEFINE('_IMAGE_ALREADY_EXISST','Изображение уже существует');
+DEFINE('_FILE_MUST_HAVE_THIS_EXTENSION','Файл должен иметь расширение');
+DEFINE('_FILE_UPLOAD_UNSUCCESS','Загрузка файла неудачна');
+DEFINE('_FILE_UPLOAD_SUCCESS','Загрузка файла успешно завершена');
 /*
-DEFINE('_','');
 DEFINE('_','');
 DEFINE('_','');
 DEFINE('_','');

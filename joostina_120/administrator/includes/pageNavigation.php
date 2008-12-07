@@ -74,9 +74,9 @@ class mosPageNav {
 			$to_result = $this->total;
 		}
 		if($this->total > 0) {
-			$html .= "\nПоказано ".$from_result." - ".$to_result." из ".$this->total;
+			$html .= "\n"._NAV_SHOW." ".$from_result." - ".$to_result." "._NAV_SHOW_FROM." ".$this->total;
 		} else {
-			$html .= "\nЗаписи не найдены.";
+			$html .= "\n"._NAV_NO_RECORDS;
 		}
 		return $html;
 	}
@@ -105,11 +105,11 @@ class mosPageNav {
 
 		if($this_page > 1) {
 			$page = ($this_page - 2)* $this->limit;
-			$html .= "\n<a href=\"#beg\" class=\"pagenav\" title=\"Первая страница\" onclick=\"javascript: document.adminForm.limitstart.value=0; document.adminForm.submit();return false;\">&lt;&lt;&nbsp;Первая</a>";
-			$html .= "\n<a href=\"#prev\" class=\"pagenav\" title=\"Предыдущая страница\" onclick=\"javascript: document.adminForm.limitstart.value=$page; document.adminForm.submit();return false;\">&lt;&nbsp;Предыдущая</a>";
+			$html .= "\n<a href=\"#beg\" class=\"pagenav\" onclick=\"javascript: document.adminForm.limitstart.value=0; document.adminForm.submit();return false;\">&lt;&lt;&nbsp;"._PN_START."</a>";
+			$html .= "\n<a href=\"#prev\" class=\"pagenav\" onclick=\"javascript: document.adminForm.limitstart.value=$page; document.adminForm.submit();return false;\">&lt;&nbsp;"._PN_PREVIOUS."</a>";
 		} else {
-			$html .= "\n<span class=\"pagenav\">&lt;&lt;&nbsp;Первая</span>";
-			$html .= "\n<span class=\"pagenav\">&lt;&nbsp;Предыдущая</span>";
+			$html .= "\n<span class=\"pagenav\">&lt;&lt;&nbsp;"._PN_START."</span>";
+			$html .= "\n<span class=\"pagenav\">&lt;&nbsp;"._PN_PREVIOUS."</span>";
 		}
 
 		for($i = $start_loop; $i <= $stop_loop; $i++) {
@@ -124,18 +124,18 @@ class mosPageNav {
 		if($this_page < $total_pages) {
 			$page = $this_page* $this->limit;
 			$end_page = ($total_pages - 1)* $this->limit;
-			$html .= "\n<a href=\"#next\" class=\"pagenav\" title=\"Следующая страница\" onclick=\"javascript: document.adminForm.limitstart.value=$page; document.adminForm.submit();return false;\"> Следующая&nbsp;&gt;</a>";
-			$html .= "\n<a href=\"#end\" class=\"pagenav\" title=\"Последняя страница\" onclick=\"javascript: document.adminForm.limitstart.value=$end_page; document.adminForm.submit();return false;\"> Последняя&nbsp;&gt;&gt;</a>";
+			$html .= "\n<a href=\"#next\" class=\"pagenav\" onclick=\"javascript: document.adminForm.limitstart.value=$page; document.adminForm.submit();return false;\"> "._PN_NEXT."&nbsp;&gt;</a>";
+			$html .= "\n<a href=\"#end\" class=\"pagenav\" onclick=\"javascript: document.adminForm.limitstart.value=$end_page; document.adminForm.submit();return false;\"> "._PN_END."&nbsp;&gt;&gt;</a>";
 		} else {
-			$html .= "\n<span class=\"pagenav\">Следующая&nbsp;&gt;</span>";
-			$html .= "\n<span class=\"pagenav\">Последняя&nbsp;&gt;&gt;</span>";
+			$html .= "\n<span class=\"pagenav\">"._PN_NEXT."&nbsp;&gt;</span>";
+			$html .= "\n<span class=\"pagenav\">"._PN_END."&nbsp;&gt;&gt;</span>";
 		}
 		return $html;
 	}
 
 	function getListFooter() {
 		$html = '<table class="adminlist"><tr><td align="center">';
-		$html .= $this->getPagesCounter().$this->getPagesLinks().' Отображать # '.$this->getLimitBox().'</td>';
+		$html .= $this->getPagesCounter().$this->getPagesLinks().' '._PN_DISPLAY_NR.' # '.$this->getLimitBox().'</td>';
 		$html .= '</tr></table>';
 		return $html;
 	}
@@ -204,8 +204,8 @@ class mosPageNav {
 			}
 			;
 		if($show) {
-			$output = '<a href="#ordering" onClick="listItemTask(\'cb'.$id.'\',\'orderup\')" title="Переместить выше">';
-			$output .= '<img src="images/'.$img.'" width="12" height="12" border="0" alt="Переместить выше" title="Переместить выше" /></a>';
+			$output = '<a href="#ordering" onClick="listItemTask(\'cb'.$id.'\',\'orderup\')" title="'._NAV_ORDER_UP.'">';
+			$output .= '<img src="images/'.$img.'" width="12" height="12" border="0" alt="'._NAV_ORDER_UP.'" title="'._NAV_ORDER_UP.'" /></a>';
 
 			return $output;
 		} else {
@@ -235,8 +235,8 @@ class mosPageNav {
 			}
 			;
 		if($show) {
-			$output = '<a href="#ordering" onClick="listItemTask(\'cb'.$id.'\',\'orderdown\')" title="Переместить ниже">';
-			$output .= '<img src="images/'.$img.'" width="12" height="12" border="0" alt="Переместить ниже" title="Переместить ниже" /></a>';
+			$output = '<a href="#ordering" onClick="listItemTask(\'cb'.$id.'\',\'orderdown\')" title="'._NAV_ORDER_DOWN.'">';
+			$output .= '<img src="images/'.$img.'" width="12" height="12" border="0" alt="'._NAV_ORDER_DOWN.'" title="'._NAV_ORDER_DOWN.'" /></a>';
 
 			return $output;
 		} else {

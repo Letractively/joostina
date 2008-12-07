@@ -35,7 +35,7 @@ echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>';
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>Предпросмотр опроса</title>
+	<title><?php echo _POLL_PREVIEW?></title>
 	<link rel="stylesheet" href="../../templates/<?php echo $css; ?>/css/template_css.css" type="text/css">
 	<meta http-equiv="Content-Type" content="text/html; <?php echo _ISO; ?>" />
 </head>
@@ -56,10 +56,10 @@ $text; ?>"></td>
 		<?php }
 } ?>
 	<tr>
-		<td valign="middle" height="50" colspan="2" align="center"><input type="button" name="submit" value="Голосовать"></br><input type="button" name="result" value="Результаты"></td>
+		<td valign="middle" height="50" colspan="2" align="center"><input type="button" name="submit" value="<?php echo _BUTTON_VOTE?>"></br><input type="button" name="result" value="<?php echo _BUTTON_RESULTS?>"></td>
 	</tr>
 	<tr>
-		<td align="center" colspan="2"><a href="#" onClick="window.close()">Закрыть</a></td>
+		<td align="center" colspan="2"><a href="#" onClick="window.close()"><?php echo _CLOSE?></a></td>
 	</tr>
 </table>
 </form>
