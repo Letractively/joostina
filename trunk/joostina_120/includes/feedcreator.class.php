@@ -214,7 +214,7 @@ class FeedCreator extends HtmlDescribable {
 				$this->_redirect($filename);
 			}
 		} else {
-			echo "<br /><b>Ошибка создания файла ленты новостей. Пожалуйста, проверьте разрешения на запись.</b><br />";
+			echo "<br /><b>"._ERROR_CREATING_NEWSFEED."</b><br />";
 		}
 	}
 }

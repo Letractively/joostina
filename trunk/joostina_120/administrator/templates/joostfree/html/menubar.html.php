@@ -26,7 +26,7 @@ if(!class_exists('mosMenuBar')) {
 		/**
 		* Создание произвольных кнопок тулбара с параметром в виде ссылки и расширенным параметром extra
 		*/
-		function ext($alt = 'Кнопка',$href = '',$class = '',$extra = '') {
+		function ext($alt = _BUTTON,$href = '',$class = '',$extra = '') {
 		?>
 			<li>
 				<a class="tb-ext<?php echo $class; ?>" href="<?php echo $href; ?>" <?php echo $extra; ?>><span><?php echo $alt; ?></span></a>
@@ -44,7 +44,7 @@ if(!class_exists('mosMenuBar')) {
 		*/
 		function custom($task = '',$icon = '',$iconOver = '',$alt = '',$listSelect = true) {
 			if($listSelect) {
-				$href = "javascript:if (document.adminForm.boxchecked.value == 0){ alert('Пожалуйста, выберите элемент.');}else{submitbutton('$task')}";
+				$href = "javascript:if (document.adminForm.boxchecked.value == 0){ alert('"._PLEASE_CHOOSE_ELEMENT."');}else{submitbutton('$task')}";
 			} else {
 				$href = "javascript:submitbutton('$task')";
 			}
@@ -67,7 +67,7 @@ if(!class_exists('mosMenuBar')) {
 		*/
 		function customX($task = '',$class = '',$iconOver = '',$alt = '',$listSelect = true) {
 			if($listSelect) {
-				$href = "javascript:if (document.adminForm.boxchecked.value == 0){ alert('Пожалуйста, выберите элемент.');}else{hideMainMenu();submitbutton('$task')}";
+				$href = "javascript:if (document.adminForm.boxchecked.value == 0){ alert('"._PLEASE_CHOOSE_ELEMENT."');}else{hideMainMenu();submitbutton('$task')}";
 			} else {
 				$href = "javascript:hideMainMenu();submitbutton('$task')";
 			}
@@ -84,7 +84,7 @@ if(!class_exists('mosMenuBar')) {
 		* @param string An override for the task
 		* @param string An override for the alt text
 		*/
-		function addNew($task = 'new',$alt = 'Создать') {
+		function addNew($task = 'new',$alt = _CMN_NEW) {
 ?>
 			<li>
 				<a class="tb-add-new" href="javascript:submitbutton('<?php echo $task; ?>');"><span><?php echo
@@ -98,7 +98,7 @@ if(!class_exists('mosMenuBar')) {
 		* @param string An override for the task
 		* @param string An override for the alt text
 		*/
-		function addNewX($task = 'new',$alt = 'Создать') {
+		function addNewX($task = 'new',$alt = _CMN_NEW) {
 ?>
 			<li>
 				<a class="tb-add-new-x" href="javascript:hideMainMenu();submitbutton('<?php echo
@@ -112,7 +112,7 @@ if(!class_exists('mosMenuBar')) {
 		* @param string An override for the task
 		* @param string An override for the alt text
 		*/
-		function publish($task = 'publish',$alt = 'Показать') {
+		function publish($task = 'publish',$alt = _CMN_SHOW) {
 ?>
 			<li>
 				<a class="tb-publish" href="javascript:submitbutton('<?php echo $task; ?>');"><span><?php echo
@@ -125,10 +125,10 @@ if(!class_exists('mosMenuBar')) {
 		* @param string An override for the task
 		* @param string An override for the alt text
 		*/
-		function publishList($task = 'publish',$alt = 'Показать') {
+		function publishList($task = 'publish',$alt = _CMN_SHOW) {
 ?>
 			<li>
-				<a class="tb-publish-list" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Пожалуйста, выберите из списка объекты для их публикации на сайте'); } else {submitbutton('<?php echo
+				<a class="tb-publish-list" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('<?php echo _PLEASE_CHOOSE_ELEMENT_FOR_PUBLICATION?>'); } else {submitbutton('<?php echo
 			$task; ?>', '');}"><span><?php echo $alt; ?></span></a>
 			</li>
 <?php
@@ -139,10 +139,10 @@ if(!class_exists('mosMenuBar')) {
 		* @param string An override for the task
 		* @param string An override for the alt text
 		*/
-		function makeDefault($task = 'default',$alt = 'По умолчанию') {
+		function makeDefault($task = 'default',$alt = _DEFAULT) {
 ?>
 			<li>
-				<a class="tb-makedefault" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Пожалуйста, выберите объект, чтобы назначить его по умолчанию'); } else {submitbutton('<?php echo
+				<a class="tb-makedefault" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('<?php echo _PLEASE_CHOOSE_ELEMENT_TO_MAKE_DEFAULT?>'); } else {submitbutton('<?php echo
 			$task; ?>', '');}"><span><?php echo $alt; ?></span></a>
 			</li>
 <?php
@@ -153,10 +153,10 @@ if(!class_exists('mosMenuBar')) {
 		* @param string An override for the task
 		* @param string An override for the alt text
 		*/
-		function assign($task = 'assign',$alt = 'Назначить') {
+		function assign($task = 'assign',$alt = _ASSIGN) {
 ?>
 			<li>
-				<a class="tb-assign" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Пожалуйста, для назначения объекта выберите его'); } else {submitbutton('<?php echo
+				<a class="tb-assign" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('<?php echo _PLEASE_CHOOSE_ELEMENT_TO_ASSIGN?>'); } else {submitbutton('<?php echo
 			$task; ?>', '');}"><span><?php echo $alt; ?></span></a>
 			</li>
 <?php
@@ -167,7 +167,7 @@ if(!class_exists('mosMenuBar')) {
 		* @param string An override for the task
 		* @param string An override for the alt text
 		*/
-		function unpublish($task = 'unpublish',$alt = 'Скрыть') {
+		function unpublish($task = 'unpublish',$alt = _CMN_HIDE) {
 ?>
 			<li>
 				<a class="tb-unpublish" href="javascript:submitbutton('<?php echo $task; ?>');"><span><?php echo
@@ -181,10 +181,10 @@ if(!class_exists('mosMenuBar')) {
 		* @param string An override for the task
 		* @param string An override for the alt text
 		*/
-		function unpublishList($task = 'unpublish',$alt = 'Скрыть') {
+		function unpublishList($task = 'unpublish',$alt = _CMN_HIDE) {
 ?>
 			<li>
-				<a class="tb-unpublish-list" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Для отмены публикации объекта, сначала выберите его'); } else {submitbutton('<?php echo
+				<a class="tb-unpublish-list" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('<?php echo _PLEASE_CHOOSE_ELEMENT_TO_UNPUBLISH?>'); } else {submitbutton('<?php echo
 			$task; ?>', '');}"><span><?php echo $alt; ?></span></a>
 			</li>
 <?php
@@ -195,10 +195,10 @@ if(!class_exists('mosMenuBar')) {
 		* @param string An override for the task
 		* @param string An override for the alt text
 		*/
-		function archiveList($task = 'archive',$alt = 'В&nbsp;архив') {
+		function archiveList($task = 'archive',$alt = _TO_ARCHIVE) {
 ?>
 			<li>
-				<a class="tb-archive-list" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Пожалуйста, выберите из списка объекты для их архивации'); } else {submitbutton('<?php echo $task; ?>', '');}"><span><?php echo $alt; ?></span></a>
+				<a class="tb-archive-list" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('<?php echo _PLEASE_CHOOSE_ELEMENT_TO_ARCHIVE?>'); } else {submitbutton('<?php echo $task; ?>', '');}"><span><?php echo $alt; ?></span></a>
 			</li>
 <?php
 		}
@@ -208,10 +208,10 @@ if(!class_exists('mosMenuBar')) {
 		* @param string An override for the task
 		* @param string An override for the alt text
 		*/
-		function unarchiveList($task = 'unarchive',$alt = 'Из&nbsp;архива') {
+		function unarchiveList($task = 'unarchive',$alt = _FROM_ARCHIVE) {
 ?>
 			<li>
-				<a class="tb-unarchive-list" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Выберите объект для восстановления его из архива'); } else {submitbutton('<?php echo $task; ?>', '');}"><span><?php echo $alt; ?></span></a>
+				<a class="tb-unarchive-list" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('<?php echo _PLEASE_CHOOSE_ELEMENT_TO_UNARCHIVE?>'); } else {submitbutton('<?php echo $task; ?>', '');}"><span><?php echo $alt; ?></span></a>
 			</li>
 <?php
 		}
@@ -221,10 +221,10 @@ if(!class_exists('mosMenuBar')) {
 		* @param string An override for the task
 		* @param string An override for the alt text
 		*/
-		function editList($task = 'edit',$alt = 'Изменить') {
+		function editList($task = 'edit',$alt = _E_EDIT) {
 ?>
 			<li>
-				<a class="tb-edit-list" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Выберите объект из списка для его редактирования'); } else {submitbutton('<?php echo $task; ?>', '');}"><span><?php echo $alt; ?></span></a>
+				<a class="tb-edit-list" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('<?php echo _PLEASE_CHOOSE_ELEMENT_TO_EDIT?>'); } else {submitbutton('<?php echo $task; ?>', '');}"><span><?php echo $alt; ?></span></a>
 			</li>
 <?php
 		}
@@ -235,10 +235,10 @@ if(!class_exists('mosMenuBar')) {
 		* @param string An override for the task
 		* @param string An override for the alt text
 		*/
-		function editListX($task = 'edit',$alt = 'Изменить') {
+		function editListX($task = 'edit',$alt = _E_EDIT) {
 ?>
 			<li>
-				<a class="tb-edit-list-x" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Выберите объект из списка для его редактирования'); } else {hideMainMenu();submitbutton('<?php echo $task; ?>', '');}"><span><?php echo $alt; ?></span></a>
+				<a class="tb-edit-list-x" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('<?php echo _PLEASE_CHOOSE_ELEMENT_TO_EDIT?>'); } else {hideMainMenu();submitbutton('<?php echo $task; ?>', '');}"><span><?php echo $alt; ?></span></a>
 			</li>
 <?php
 		}
@@ -248,10 +248,10 @@ if(!class_exists('mosMenuBar')) {
 		* @param string An override for the task
 		* @param string An override for the alt text
 		*/
-		function editHtml($task = 'edit_source',$alt = 'Ред.&nbsp;HTML') {
+		function editHtml($task = 'edit_source',$alt = _EDIT_HTML) {
 ?>
 			<li>
-				<a class="tb-edit-html" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Выберите объект из списка для его редактирования'); } else {submitbutton('<?php echo $task; ?>', '');}"><span><?php echo $alt; ?></span></a>
+				<a class="tb-edit-html" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('<?php echo _PLEASE_CHOOSE_ELEMENT_TO_EDIT?>'); } else {submitbutton('<?php echo $task; ?>', '');}"><span><?php echo $alt; ?></span></a>
 			</li>
 <?php
 		}
@@ -262,10 +262,10 @@ if(!class_exists('mosMenuBar')) {
 		* @param string An override for the task
 		* @param string An override for the alt text
 		*/
-		function editHtmlX($task = 'edit_source',$alt = 'Ред.&nbsp;HTML') {
+		function editHtmlX($task = 'edit_source',$alt = _EDIT_HTML) {
 ?>
 			<li>
-				<a class="tb-edit-html-x" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Выберите объект из списка для его редактирования'); } else {hideMainMenu();submitbutton('<?php echo $task; ?>', '');}""><span><?php echo $alt; ?></span></a>
+				<a class="tb-edit-html-x" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('<?php echo _PLEASE_CHOOSE_ELEMENT_TO_EDIT?>'); } else {hideMainMenu();submitbutton('<?php echo $task; ?>', '');}""><span><?php echo $alt; ?></span></a>
 			</li>
 <?php
 		}
@@ -275,10 +275,10 @@ if(!class_exists('mosMenuBar')) {
 		* @param string An override for the task
 		* @param string An override for the alt text
 		*/
-		function editCss($task = 'edit_css',$alt = 'Ред.&nbsp;CSS') {
+		function editCss($task = 'edit_css',$alt = _EDIT_CSS) {
 ?>
 			<li>
-				<a class="tb-edit-css" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Выберите объект из списка для его редактирования'); } else {submitbutton('<?php echo $task; ?>', '');}""><span><?php echo $alt; ?></span></a>
+				<a class="tb-edit-css" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('<?php echo _PLEASE_CHOOSE_ELEMENT_TO_EDIT?>'); } else {submitbutton('<?php echo $task; ?>', '');}""><span><?php echo $alt; ?></span></a>
 			</li>
 <?php
 		}
@@ -289,10 +289,10 @@ if(!class_exists('mosMenuBar')) {
 		* @param string An override for the task
 		* @param string An override for the alt text
 		*/
-		function editCssX($task = 'edit_css',$alt = 'Ред.&nbsp;CSS') {
+		function editCssX($task = 'edit_css',$alt = _EDIT_CSS) {
 ?>
 			<li>
-				<a class="tb-edit-css-x" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Выберите объект из списка для его редактирования'); } else {hideMainMenu();submitbutton('<?php echo $task; ?>', '');}"><span><?php echo $alt; ?></span></a>
+				<a class="tb-edit-css-x" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('<?php echo _PLEASE_CHOOSE_ELEMENT_TO_EDIT?>'); } else {hideMainMenu();submitbutton('<?php echo $task; ?>', '');}"><span><?php echo $alt; ?></span></a>
 			</li>
 <?php
 		}
@@ -303,10 +303,10 @@ if(!class_exists('mosMenuBar')) {
 		* @param string An override for the task
 		* @param string An override for the alt text
 		*/
-		function deleteList($msg = '',$task = 'remove',$alt = 'Удалить') {
+		function deleteList($msg = '',$task = 'remove',$alt = _CMN_DELETE) {
 ?>
 			<li>
-				<a class="tb-delete-list" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Выберите объект из списка для его удаления'); } else if (confirm('Вы действительно хотите удалить выбранные объекты? <?php echo $msg; ?>')){ submitbutton('<?php echo $task; ?>');}"><span><?php echo $alt; ?></span></a>
+				<a class="tb-delete-list" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('<?php echo _PLEASE_CHOOSE_ELEMENT_TO_DELETE?>'); } else if (confirm('<?php echo _REALLY_WANT_TO_DELETE_OBJECTS?> <?php echo $msg; ?>')){ submitbutton('<?php echo $task; ?>');}"><span><?php echo $alt; ?></span></a>
 			</li>
 <?php
 		}
@@ -318,10 +318,10 @@ if(!class_exists('mosMenuBar')) {
 		* @param string An override for the task
 		* @param string An override for the alt text
 		*/
-		function deleteListX($msg = '',$task = 'remove',$alt = 'Удалить') {
+		function deleteListX($msg = '',$task = 'remove',$alt = _CMN_DELETE) {
 ?>
 			<li>
-				<a class="tb-delete-list-x" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Выберите объект из списка для его удаления'); } else if (confirm('Вы действительно хотите удалить выбранные объекты? <?php echo $msg; ?>')){ hideMainMenu();submitbutton('<?php echo $task; ?>');}"><span><?php echo $alt; ?></span></a>
+				<a class="tb-delete-list-x" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('<?php echo _PLEASE_CHOOSE_ELEMENT_TO_DELETE?>'); } else if (confirm('<?php echo _REALLY_WANT_TO_DELETE_OBJECTS?> <?php echo $msg; ?>')){ hideMainMenu();submitbutton('<?php echo $task; ?>');}"><span><?php echo $alt; ?></span></a>
 			</li>
 <?php
 		}
@@ -329,9 +329,9 @@ if(!class_exists('mosMenuBar')) {
 		/**
 		* Write a trash button that will move items to Trash Manager
 		*/
-		function trash($task = 'remove',$alt = 'В&nbsp;корзину',$check = true) {
+		function trash($task = 'remove',$alt = _REMOVE_TO_TRASH,$check = true) {
 			if($check) {
-				$js = "javascript:if (document.adminForm.boxchecked.value == 0){ alert('Выберите объект из списка для перемещения его в корзину'); } else { submitbutton('$task');}";
+				$js = "javascript:if (document.adminForm.boxchecked.value == 0){ alert('"._PLEASE_CHOOSE_ELEMENT_TO_TRASH."'); } else { submitbutton('$task');}";
 			} else {
 				$js = "javascript:submitbutton('$task');";
 			}
@@ -362,7 +362,7 @@ if(!class_exists('mosMenuBar')) {
 				}
 				//-->
 				</script>
-				<a class="tb-preview" href="#" onclick="popup();"><span>Просмотр</span></a></li>
+				<a class="tb-preview" href="#" onclick="popup();"><span><?php echo _PREVIEW?></span></a></li>
 <?php
 		}
 
@@ -403,7 +403,7 @@ if(!class_exists('mosMenuBar')) {
 				}
 ?>
 			<li>
-				<a class="tb-help" href="#" onclick="window.open('<?php echo $url; ?>', 'mambo_help_win', 'status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=640,height=480,directories=no,location=no');"><span>Помощь</span></a>
+				<a class="tb-help" href="#" onclick="window.open('<?php echo $url; ?>', 'mambo_help_win', 'status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=640,height=480,directories=no,location=no');"><span><?php echo _HELP?></span></a>
 			</li>
 <?php
 		}
@@ -414,7 +414,7 @@ if(!class_exists('mosMenuBar')) {
 		* @param string An override for the task
 		* @param string An override for the alt text
 		*/
-		function apply($task = 'apply',$alt = 'Применить') {
+		function apply($task = 'apply',$alt = _CMN_APPLY) {
 ?>
 			<li>
 				<a class="tb-apply" href="javascript:submitbutton('<?php echo $task; ?>');"><span><?php echo $alt; ?></span></a>
@@ -428,7 +428,7 @@ if(!class_exists('mosMenuBar')) {
 		* @param string An override for the task
 		* @param string An override for the alt text
 		*/
-		function save($task = 'save',$alt = 'Сохранить') {
+		function save($task = 'save',$alt = _CMN_SAVE) {
 ?>
 			<li>
 				<a class="tb-save" href="javascript:submitbutton('<?php echo $task; ?>');"><span><?php echo $alt; ?></span></a>
@@ -442,7 +442,7 @@ if(!class_exists('mosMenuBar')) {
 		function savenew() {
 ?>
 			<li>
-				<a class="tb-save-new" href="javascript:submitbutton('savenew');"><span>Сохранить</span></a>
+				<a class="tb-save-new" href="javascript:submitbutton('savenew');"><span><?php echo _CMN_SAVE?></span></a>
 			</li>
 <?php
 		}
@@ -453,7 +453,7 @@ if(!class_exists('mosMenuBar')) {
 		function saveedit() {
 ?>
 			<li>
-				<a class="tb-save-edit" href="javascript:submitbutton('saveedit');"><span>Сохранить</span></a>
+				<a class="tb-save-edit" href="javascript:submitbutton('saveedit');"><span><?php echo _CMN_SAVE?></span></a>
 			</li>
 <?php
 		}
@@ -463,7 +463,7 @@ if(!class_exists('mosMenuBar')) {
 		* @param string An override for the task
 		* @param string An override for the alt text
 		*/
-		function cancel($task = 'cancel',$alt = 'Отмена') {
+		function cancel($task = 'cancel',$alt = _CMN_CANCEL) {
 ?>
 			<li>
 				<a class="tb-cancel" href="javascript:submitbutton('<?php echo $task; ?>');"><span><?php echo $alt; ?></span></a>
@@ -475,7 +475,7 @@ if(!class_exists('mosMenuBar')) {
 		* Writes a cancel button that will go back to the previous page without doing
 		* any other operation
 		*/
-		function back($alt = 'Назад',$href = '') {
+		function back($alt = _MENU_BACK,$href = '') {
 			if($href) {
 				$link = $href;
 			} else {
@@ -503,7 +503,7 @@ if(!class_exists('mosMenuBar')) {
 		* Writes a media_manager button
 		* @param string The sub-drectory to upload the media to
 		*/
-		function media_manager($directory = '',$alt = 'Загрузить') {
+		function media_manager($directory = '',$alt = _TASK_UPLOAD) {
 			global $mainframe;
 			$cur_template = $mainframe->getTemplate();
 ?>

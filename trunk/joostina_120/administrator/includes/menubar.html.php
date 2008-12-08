@@ -463,7 +463,7 @@ if(!class_exists('mosMenuBar')) {
 		* @param string An override for the task
 		* @param string An override for the alt text
 		*/
-		function cancel($task = 'cancel',$alt = 'Отмена') {
+		function cancel($task = 'cancel',$alt = _CMN_CANCEL) {
 ?>
 			<li>
 				<a class="tb-cancel" href="javascript:submitbutton('<?php echo $task; ?>');"><span><?php echo $alt; ?></span></a>
@@ -475,7 +475,7 @@ if(!class_exists('mosMenuBar')) {
 		* Writes a cancel button that will go back to the previous page without doing
 		* any other operation
 		*/
-		function back($alt = 'Назад',$href = '') {
+		function back($alt = _MENU_BACK,$href = '') {
 			if($href) {
 				$link = $href;
 			} else {
@@ -503,7 +503,7 @@ if(!class_exists('mosMenuBar')) {
 		* Writes a media_manager button
 		* @param string The sub-drectory to upload the media to
 		*/
-		function media_manager($directory = '',$alt = 'Загрузить') {
+		function media_manager($directory = '',$alt = _TASK_UPLOAD) {
 			global $mainframe;
 			$cur_template = $mainframe->getTemplate();
 ?>

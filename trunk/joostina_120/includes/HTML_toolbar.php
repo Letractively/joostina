@@ -345,7 +345,7 @@ class mosToolBar {
 	* @param string The sub-drectory to upload the media to
 	*/
 	function media_manager($directory = '') {
-		$image = mosAdminMenus::ImageCheck('upload_f2.png','/images/',null,null,'Загрузить изображение','uploadPic',1);
+		$image = mosAdminMenus::ImageCheck('upload_f2.png','/images/',null,null,_UPLOAD_FILE,'uploadPic',1);
 ?>
 		<td>
 			<a class="toolbar" href="#" onclick="popupWindow('popups/uploadimage.php?directory=<?php echo $directory; ?>','win1',250,100,'no');"><?php echo $image; ?></a>
