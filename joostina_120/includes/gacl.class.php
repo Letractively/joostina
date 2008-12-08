@@ -82,7 +82,7 @@ class gacl {
 	}
 	function debug_text($text) {
 		if($this->_debug) {
-			echo "$text<br>\n";
+			echo htmlspecialchars($text)."<br>\n";
 		}
 		return true;
 	}

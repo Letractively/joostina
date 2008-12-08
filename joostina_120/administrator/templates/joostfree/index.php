@@ -17,7 +17,7 @@ echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'."\n";
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<title><?php echo $mosConfig_sitename; ?>  - Панель управления [ Joostina ]</title>
+		<title><?php echo $mosConfig_sitename; ?>  - <?php echo _JOOSTINA_CONTRIL_PANEL?></title>
 		<meta http-equiv="Content-Type" content="text/html; <?php echo _ISO; ?>" />
 <?php
 /* подключаем fullajax */
@@ -58,16 +58,16 @@ flush();
 		<div id="topper">
 			<div id="wrapper">
 				<div id="joo">
-					<a href="index2.php" title="Перейти на главную страницу Панели управления">
-						<img border="0" alt="Перейти на главную страницу Панели управления" src="templates/joostfree/images/logo.png" />
+					<a href="index2.php" title="<?php echo _GO_TO_MAIN_ADMIN_PAGE?>">
+						<img border="0" alt="<?php echo _GO_TO_MAIN_ADMIN_PAGE?>" src="templates/joostfree/images/logo.png" />
 					</a>
 				</div>
 			</div>
-			<div id="ajax_status">Ждите...</div>
+			<div id="ajax_status"><?php echo _PLEASE_WAIT?></div>
 			<table width="100%" class="menubar" cellpadding="0" cellspacing="0" border="0">
 				<tr class="menubackgr">
 					<td style="padding-left: 7px;width: 25px;">
-						<a href="<?php echo $mosConfig_live_site; ?>/administrator/index2.php" title="На главную"><img border="0" alt="J!" src="templates/joostfree/images/m-logo.png" /></a>
+						<a href="<?php echo $mosConfig_live_site; ?>/administrator/index2.php" title="<?php echo _GO_TO_MAIN_ADMIN_PAGE?>"><img border="0" alt="J!" src="templates/joostfree/images/m-logo.png" /></a>
 					</td>
 					<td width="85%">
 						<?php mosLoadAdminModule('fullmenu'); ?>
@@ -76,11 +76,11 @@ flush();
 						<?php mosLoadAdminModules('header',-2); ?>
 					</td>
 					<td align="right">
-						<input type="image" name="jtoggle_editor" id="jtoggle_editor" title="Использование визуального редактора" onclick="jtoggle_editor();" src="images/<?php echo (intval(mosGetParam($_SESSION,'user_editor_off',''))) ? 'editor_off.png':'editor_on.png'?>" alt="Отключить редактор" />
+						<input type="image" name="jtoggle_editor" id="jtoggle_editor" title="<?php echo _TOGGLE_WYSIWYG_EDITOR?>" onclick="jtoggle_editor();" src="images/<?php echo (intval(mosGetParam($_SESSION,'user_editor_off',''))) ? 'editor_off.png':'editor_on.png'?>" alt="<?php echo _DISABLE_WYSIWYG_EDITOR?>" />
 					</td>
 					<td align="right">
-						<a href="<?php echo $mosConfig_live_site; ?>/" target="_blank" title="Предпросмотр сайта в новом окне">
-							<img src="../includes/js/ThemeOffice/preview.png" border="0" alt="Предпросмотр сайта"/>
+						<a href="<?php echo $mosConfig_live_site; ?>/" target="_blank" title="<?php echo _PREVIEW_SITE?>">
+							<img src="../includes/js/ThemeOffice/preview.png" border="0" alt="<?php echo _PREVIEW_SITE?>"/>
 						</a>
 					</td>
 					<td align="right" class="jtd_nowrap">

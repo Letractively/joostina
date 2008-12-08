@@ -56,7 +56,7 @@ if(isset($_POST['submit'])) {
 	$pass = stripslashes(mosGetParam($_POST,'pass',null));
 
 	if($pass == null) {
-		echo "<script>alert('Пожалуйста, введите пароль'); document.location.href='index.php?mosmsg=Пожалуйста, введите пароль'</script>\n";
+		echo "<script>alert('Пожалуйста, введите пароль'); document.location.href='index.php?mosmsg="._PLEASE_ENTER_PASSWORD."'</script>\n";
 		exit();
 	}
 	if($mosConfig_captcha) {
@@ -64,7 +64,7 @@ if(isset($_POST['submit'])) {
 		$captcha = $_POST['captcha'];
 		if(!isset($_SESSION['captcha_keystring']) || $_SESSION['captcha_keystring'] !==
 			$captcha) {
-			$mosmsg = 'Введен неверный код проверки.';
+			$mosmsg = _BAD_CAPTCHA_STRING;
 			echo "<script>alert('$mosmsg'); document.location.href='index.php?mosmsg=$mosmsg'</script>\n";
 			unset($_SESSION['captcha_keystring']);
 			exit;
@@ -118,7 +118,7 @@ if(isset($_POST['submit'])) {
 		$cryptpass = md5($pass . $salt);
 
 		if(strcmp($hash,$cryptpass) || !$acl->acl_check('administration','login','users',$my->usertype)) {
-			mosErrorAlert("Неверные имя пользователя, пароль, или уровень доступа.  Пожалуйста, повторите снова","document.location.href='index.php'");
+			mosErrorAlert(_BAD_USERNAME_OR_PASSWORD,"document.location.href='index.php'");
 		}
 
 		// construct Session ID
@@ -228,7 +228,7 @@ if(isset($_POST['submit'])) {
 		echo "<script>document.location.href='$expired';</script>\n";
 		exit();
 	} else {
-		mosErrorAlert("Неверные имя пользователя и пароль. Пожалуйста, повторите снова","document.location.href='index.php?mosmsg=Неверные имя пользователя и пароль. Пожалуйста, повторите снова'");
+		mosErrorAlert(_BAD_USERNAME_OR_PASSWORD2,"document.location.href='index.php?mosmsg="._BAD_USERNAME_OR_PASSWORD2."'");
 	}
 } else {
 	initGzip();

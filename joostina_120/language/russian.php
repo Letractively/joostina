@@ -673,7 +673,9 @@ DEFINE('_CHOOSE_MENU_PLEASE','Пожалуйста, выберите меню');
 DEFINE('_CHOOSE_MENUTYPE_PLEASE','Пожалуйста, выберите тип меню');
 DEFINE('_ENTER_MENUITEM_NAME','Пожалуйста, введите название для этого пункта меню');
 DEFINE('_CATEGORY_NAME_IS_BLANK','Категория должна иметь название');
-DEFINE('_ENTER_CATEGORY_NAME','Введите заголовок категории');
+DEFINE('_ENTER_CATEGORY_NAME','Введите имя категории');
+DEFINE('_ENTER_CATEGORY_TITLE','Введите заголовок категории');
+DEFINE('_CATEGORY_ALREADY_EXISTS','Категория с таким названием уже существует. Повторите снова');
 DEFINE('_EDIT_CATEGORY','Редактирование');
 DEFINE('_NEW_CATEGORY','Новая');
 DEFINE('_CATEGORY_PROPERTIES','Свойства категории');
@@ -1675,6 +1677,7 @@ DEFINE('_NEW_SECTION_MASK','Новый раздел');
 DEFINE('_CHOOSE_MENU_ITEM_NAME','Пожалуйста, введите имя для этого пункта меню');
 DEFINE('_ENTER_SECTION_NAME','Раздел должен иметь название');
 DEFINE('_ENTER_SECTION_TITLE','Раздел должен иметь заголовок');
+DEFINE('_SECTION_ALREADY_EXISTS','Уже имеется раздел с таким названием. Пожалуйста, измените название раздела.');
 DEFINE('_SECTION_DETAILS','Детали раздела');
 DEFINE('_SECTION_USED_IN','Используется в');
 DEFINE('_MENU_SHORT_NAME','Короткое имя для меню');
@@ -2112,7 +2115,48 @@ DEFINE('_IMAGE_ALREADY_EXISST','Изображение уже существует');
 DEFINE('_FILE_MUST_HAVE_THIS_EXTENSION','Файл должен иметь расширение');
 DEFINE('_FILE_UPLOAD_UNSUCCESS','Загрузка файла неудачна');
 DEFINE('_FILE_UPLOAD_SUCCESS','Загрузка файла успешно завершена');
+
+/* administrator index.php index2.php index3.php */
+DEFINE('_PLEASE_ENTER_PASSWORD','Пожалуйста, введите пароль');
+DEFINE('_BAD_CAPTCHA_STRING','Введен неверный код проверки');
+DEFINE('_BAD_USERNAME_OR_PASSWORD','Неверные имя пользователя, пароль, или уровень доступа.  Пожалуйста, повторите снова');
+DEFINE('_BAD_USERNAME_OR_PASSWORD2','Имя или пароль не верны. Повторите ввод.');//not equal to _BAD_USERNAME_OR_PASSWORD!!!
+
+/* administrator templates jostfree index.php */
+DEFINE('_JOOSTINA_CONTRIL_PANEL','Панель управления [ Joostina ]');
+DEFINE('_GO_TO_MAIN_ADMIN_PAGE','Перейти на главную страницу Панели управления');
+DEFINE('_PLEASE_WAIT','Ждите...');
+DEFINE('_TOGGLE_WYSIWYG_EDITOR','Использование визуального редактора');
+DEFINE('_DISABLE_WYSIWYG_EDITOR','Отключить редактор');
+DEFINE('_PRESS_HERE_TO_RELOAD_CAPTCHA','Нажмите чтобы обновить изображение');
+DEFINE('_SHOW_CAPTCHA','Обновить изображение');
+DEFINE('_PLEASE_ENTER_CAPTCHA','Введите код проверки с картинки выше');
+DEFINE('_PLEASE_ENABLE_JAVASCRIPT','!Предупреждение! Javascript должен быть разрешены для правильной работы панели управления администратора!');
+
+/* includes feedcreator.class.php */
+DEFINE('_ERROR_CREATING_NEWSFEED','Ошибка создания файла ленты новостей. Пожалуйста, проверьте разрешения на запись');
+
+/* includes joomla.php */
+DEFINE('_YOU_NEED_TO_AUTH','Необходимо авторизоваться');
+DEFINE('_ADMIN_SESSION_ENDED','Сессия администратора закончилась');
+DEFINE('_YOU_NEED_TO_AUTH_AND_FIX_PHP_INI','Вам необходимо авторизоваться. Если включен параметр PHP session.auto_start или выключен параметр session.use_cookies setting, то сначала вы должны их исправить перед тем, как сможете войти');
+DEFINE('_WRONG_USER_SESSION','Неправильная сессия');
+DEFINE('_FIRST','Первый');
+DEFINE('_LAST','Последний');
+DEFINE('_MOS_WARNING','Внимание!');
+DEFINE('_ADM_MENUS_TARGET_CUR_WINDOW','текущем окне с панелью навигации');
+DEFINE('_ADM_MENUS_TARGET_NEW_WINDOW_WITH_PANEL','новом окне с панелью навигации');
+DEFINE('_ADM_MENUS_TARGET_NEW_WINDOW_WITHOUT_PANEL','новом окне без панели навигации');
+DEFINE('_WITH_UNASSIGNED','Со свободными');
+DEFINE('_CHOOSE_IMAGE','Выберите изображение');
+DEFINE('_NO_USER','Нет пользователя');
+DEFINE('_CREATE_CATEGORIES_FIRST','Сначала необходимо создать категории');
+DEFINE('_NOT_CHOOSED','Не выбрано');
 /*
+line 5159 -->
+DEFINE('_','');
+DEFINE('_','');
+DEFINE('_','');
 DEFINE('_','');
 DEFINE('_','');
 DEFINE('_','');

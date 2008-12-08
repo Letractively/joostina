@@ -135,7 +135,7 @@ class modules_html {
 		// check if cache directory is writeable
 		$cacheDir = $mosConfig_cachepath.'/';
 		if(!is_writable($cacheDir)) {
-			$module->content = 'Каталог кэша недоступен для записи';
+			$module->content = _CACHE_DIR_IS_NOT_WRITEABLE2;
 			return;
 		}
 

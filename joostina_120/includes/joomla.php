@@ -797,7 +797,7 @@ class mosMainFrame {
 
 		if($session_id != session_id()) {
 			// session id does not correspond to required session format
-			echo "<script>document.location.href='index.php?mosmsg=Необходимо авторизоваться.'</script>\n";
+			echo "<script>document.location.href='index.php?mosmsg="._YOU_NEED_TO_AUTH."'</script>\n";
 			exit();
 		}
 
@@ -871,7 +871,7 @@ class mosMainFrame {
 						$this->_db->setQuery($query);
 						$this->_db->query();
 					}
-					echo "<script>document.location.href='index.php?mosmsg=Сессия администратора закончилась'</script>\n";
+					echo "<script>document.location.href='index.php?mosmsg="._ADMIN_SESSION_ENDED."'</script>\n";
 					exit();
 				} else {
 					// load variables into session, used to help secure /popups/ functionality
@@ -883,14 +883,14 @@ class mosMainFrame {
 			if($session_id == '') {
 				// no session_id as user has not attempted to login, or session.auto_start is switched on
 				if(ini_get('session.auto_start') || !ini_get('session.use_cookies')) {
-					echo "<script>document.location.href='index.php?mosmsg=Вам необходимо авторизоваться. Если включен параметр PHP session.auto_start или выключен параметр session.use_cookies setting, то сначала вы должны их исправить перед тем, как сможете войти.'</script>\n";
+					echo "<script>document.location.href='index.php?mosmsg="._YOU_NEED_TO_AUTH_AND_FIX_PHP_INI."'</script>\n";
 				} else {
-					echo "<script>document.location.href='index.php?mosmsg=Вам необходимо авторизоваться'</script>\n";
+					echo "<script>document.location.href='index.php?mosmsg="._YOU_NEED_TO_AUTH."'</script>\n";
 				}
 				exit();
 			} else {
 				// session id does not correspond to required session format
-				echo "<script>document.location.href='index.php?mosmsg=Неправильная сессия'</script>\n";
+				echo "<script>document.location.href='index.php?mosmsg="._WRONG_USER_SESSION."'</script>\n";
 				exit();
 			}
 
@@ -1950,8 +1950,8 @@ class mosHTML {
 
 	function writableCell($folder,$relative = 1,$text = '',$visible = 1) {
 
-		$writeable = '<b><font color="green">Доступен для записи</font></b>';
-		$unwriteable = '<b><font color="red">Недоступен для записи</font></b>';
+		$writeable = '<b><font color="green">'._WRITEABLE.'</font></b>';
+		$unwriteable = '<b><font color="red">'._UNWRITEABLE.'</font></b>';
 
 		echo '<tr>';
 		echo '<td class="item">';
@@ -2201,7 +2201,7 @@ class mosHTML {
 				$next_state = 'none';
 			}
 
-		$html = "<a href=\"$base_href&field=$field&order=$next_state\">"."<img src=\"$mosConfig_live_site/images/M_images/sort_$state.png\" width=\"12\" height=\"12\" border=\"0\" alt=\"{$alts[$next_state]}\" /></a>";
+		$html = "<a href=\"$base_href&field=$field&order=$next_state\">"."<img src=\"$mosConfig_live_site/administrator/images/sort_$state.png\" width=\"12\" height=\"12\" border=\"0\" alt=\"{$alts[$next_state]}\" /></a>";
 		return $html;
 	}
 
@@ -2433,11 +2433,11 @@ class mosCategory extends mosDBTable {
 	function check() {
 		// check for valid name
 		if(trim($this->title) == '') {
-			$this->_error = "Ваша категория должна содержать Заголовок.";
+			$this->_error = _ENTER_CATEGORY_TITLE;
 			return false;
 		}
 		if(trim($this->name) == '') {
-			$this->_error = "Ваша категория должна содержать Название.";
+			$this->_error = _ENTER_CATEGORY_NAME;
 			return false;
 		}
 		$ignoreList = array('description');
@@ -2451,7 +2451,7 @@ class mosCategory extends mosDBTable {
 
 		$xid = intval($this->_db->loadResult());
 		if($xid && $xid != intval($this->id)) {
-			$this->_error = "Категория с таким названием уже существует. Повторите снова.";
+			$this->_error = _CATEGORY_ALREADY_EXISTS;
 			return false;
 		}
 		return true;
@@ -2513,11 +2513,11 @@ class mosSection extends mosDBTable {
 	function check() {
 		// check for valid name
 		if(trim($this->title) == '') {
-			$this->_error = "Ваш раздел должен содержать заголовок.";
+			$this->_error = _ENTER_SECTION_TITLE;
 			return false;
 		}
 		if(trim($this->name) == '') {
-			$this->_error = "Ваш раздел должен иметь название.";
+			$this->_error = _ENTER_SECTION_NAME;
 			return false;
 		}
 		$ignoreList = array('description');
@@ -2530,7 +2530,7 @@ class mosSection extends mosDBTable {
 		$this->_db->setQuery($query);
 		$xid = intval($this->_db->loadResult());
 		if($xid && $xid != intval($this->id)) {
-			$this->_error = "Уже имеется раздел с таким названием. Пожалуйста, измените название раздела.";
+			$this->_error = _SECTION_ALREADY_EXISTS;
 			return false;
 		}
 		return true;
@@ -3433,7 +3433,7 @@ class mosModule extends mosDBTable {
 	function check() {
 		// check for valid name
 		if(trim($this->title) == '') {
-			$this->_error = "Ваш модуль должен содержать заголовок.";
+			$this->_error = _PLEASE_ENTER_MODULE_NAME;
 			return false;
 		}
 
@@ -3536,7 +3536,7 @@ class mosSession extends mosDBTable {
 	function update($updateNulls = false) {
 		$ret = $this->_db->updateObject($this->_tbl,$this,'session_id',$updateNulls);
 		if(!$ret) {
-			$this->_error = strtolower(get_class($this))."::ошибка обновления <br />".$this->_db->stderr();
+			$this->_error = strtolower(get_class($this))."::update error <br />".$this->_db->stderr();
 			return false;
 		} else {
 			return true;
@@ -3621,8 +3621,8 @@ function mosObjectToArray($p_obj) {
 /* 05.08.07, boston, хак улучшенного определения браузеров*/
 function mosGetBrowser($agent) {
 	global $mosConfig_absolute_path;
-	require ($mosConfig_absolute_path.'/includes/agent_browser.php');
-	require_once ($mosConfig_absolute_path.'/includes/phpSniff.class.php');
+	require($mosConfig_absolute_path.'/includes/agent_browser_and_os.php');
+	require_once($mosConfig_absolute_path.'/includes/phpSniff.class.php');
 	$client = new phpSniff($agent);
 	$client_long_name = $client->property('long_name');
 	if(array_key_exists($client_long_name,$browsersAlias)) {
@@ -3639,7 +3639,7 @@ function mosGetBrowser($agent) {
 */
 function mosGetOS($agent) {
 	global $mosConfig_absolute_path;
-	require ($mosConfig_absolute_path.'/includes/agent_os.php');
+	require($mosConfig_absolute_path.'/includes/agent_browser_and_os.php');
 	foreach($osSearchOrder as $key) {
 		if(preg_match("/$key/i",$agent)) {
 			return $osAlias[$key];
@@ -3662,11 +3662,11 @@ function mosGetOrderingList($sql,$chop = '30') {
 			echo $database->stderr();
 			return false;
 		} else {
-			$order[] = mosHTML::makeOption(1,'Первый');
+			$order[] = mosHTML::makeOption(1,_FIRST);
 			return $order;
 		}
 	}
-	$order[] = mosHTML::makeOption(0,'0 Первый');
+	$order[] = mosHTML::makeOption(0,'0 '._FIRST);
 	for($i = 0,$n = count($orders); $i < $n; $i++) {
 		if(strlen($orders[$i]->text) > $chop) {
 			$text = substr($orders[$i]->text,0,$chop)."...";
@@ -3675,7 +3675,7 @@ function mosGetOrderingList($sql,$chop = '30') {
 		}
 		$order[] = mosHTML::makeOption($orders[$i]->value,$orders[$i]->value.' ('.$text.')');
 	}
-	$order[] = mosHTML::makeOption($orders[$i - 1]->value + 1,($orders[$i - 1]->value +1).' Последний');
+	$order[] = mosHTML::makeOption($orders[$i - 1]->value + 1,($orders[$i - 1]->value +1).' '._LAST);
 	return $order;
 }
 
@@ -3828,7 +3828,7 @@ function mosToolTip($tooltip,$title = '',$width = '',$image = 'tooltip.png',$tex
 * @param string Box title
 * @returns HTML code for Warning
 */
-function mosWarning($warning,$title = 'Внимание!') {
+function mosWarning($warning,$title = _MOS_WARNING) {
 	global $mosConfig_live_site;
 	$mouseover = 'return overlib(\''.$warning.'\', CAPTION, \''.$title.'\', BELOW, RIGHT);';
 	$tip = '<a href="javascript: void(0)" onmouseover="'.$mouseover.'" onmouseout="return nd();">';
@@ -4541,9 +4541,9 @@ class mosAdminMenus {
 	* build the select list for target window
 	*/
 	function Target(&$row) {
-		$click[] = mosHTML::makeOption('0','текущем окне с панелью навигации');
-		$click[] = mosHTML::makeOption('1','новом окне с панелью навигации');
-		$click[] = mosHTML::makeOption('2','новом окне без панели навигации');
+		$click[] = mosHTML::makeOption('0',_ADM_MENUS_TARGET_CUR_WINDOW);
+		$click[] = mosHTML::makeOption('1',_ADM_MENUS_TARGET_NEW_WINDOW_WITH_PANEL);
+		$click[] = mosHTML::makeOption('2',_ADM_MENUS_TARGET_NEW_WINDOW_WITHOUT_PANEL);
 		$target = mosHTML::selectList($click,'browserNav','class="inputbox" size="4"','value','text',intval($row->browserNav));
 		return $target;
 	}
@@ -4602,19 +4602,19 @@ class mosAdminMenus {
 		$mitems = array();
 		if($all) {
 			// prepare an array with 'all' as the first item
-			$mitems[] = mosHTML::makeOption(0,'Все');
+			$mitems[] = mosHTML::makeOption(0,_CMN_ALL);
 			// adds space, in select box which is not saved
 			$mitems[] = mosHTML::makeOption(-999,'----');
 		}
 		if($none) {
 			// prepare an array with 'all' as the first item
-			$mitems[] = mosHTML::makeOption(-999,'Отсутствует');
+			$mitems[] = mosHTML::makeOption(-999,_NOT_EXISTS);
 			// adds space, in select box which is not saved
 			$mitems[] = mosHTML::makeOption(-999,'----');
 		}
 		if($unassigned) {
 			// prepare an array with 'all' as the first item
-			$mitems[] = mosHTML::makeOption(99999999,'Со свободными');
+			$mitems[] = mosHTML::makeOption(99999999,_WITH_UNASSIGNED);
 			// adds space, in select box which is not saved
 			$mitems[] = mosHTML::makeOption(-999,'----');
 		}
@@ -4750,7 +4750,7 @@ class mosAdminMenus {
 		}
 
 		$imageFiles = mosReadDirectory($mosConfig_absolute_path.$directory);
-		$images = array(mosHTML::makeOption('','- Выберите изображение -'));
+		$images = array(mosHTML::makeOption('','- '._CHOOSE_IMAGE.' -'));
 		foreach($imageFiles as $file) {
 			if(eregi("bmp|gif|jpg|png",$file)) {
 				$images[] = mosHTML::makeOption($file);
@@ -4799,7 +4799,7 @@ class mosAdminMenus {
 				."\n ORDER BY $order";
 		$database->setQuery($query);
 		if($nouser) {
-			$users[] = mosHTML::makeOption('0','- Нет пользователя -');
+			$users[] = mosHTML::makeOption('0','- '._NO_USER.' -');
 			$users = array_merge($users,$database->loadObjectList());
 		} else {
 			$users = $database->loadObjectList();
@@ -4853,7 +4853,7 @@ class mosAdminMenus {
 		}
 
 		if(count($categories) < 1) {
-			mosRedirect('index2.php?option=com_categories&section='.$section,'Сначала необходимо создать категории.');
+			mosRedirect('index2.php?option=com_categories&section='.$section,_CREATE_CATEGORIES_FIRST);
 		}
 
 		$category = mosHTML::selectList($categories,$name,'class="inputbox" size="'.$size.'" '.$javascript,'value','text',$active);
@@ -4991,7 +4991,7 @@ class mosAdminMenus {
 				}
 			}
 		} else {
-			$folders[] = mosHTML::makeOption('Не выбрано');
+			$folders[] = mosHTML::makeOption(_NOT_CHOOSED);
 		}
 
 		$javascript = "onchange=\"changeDynaList( 'imagefiles', folderimages, document.adminForm.folders.options[document.adminForm.folders.selectedIndex].value, 0, 0);\"";

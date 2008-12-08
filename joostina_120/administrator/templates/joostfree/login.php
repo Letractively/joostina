@@ -16,7 +16,7 @@ defined('_VALID_MOS') or die();
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title>
-		<?php echo $mosConfig_sitename; ?> - Панель управления [ Joostina ]</title>
+		<?php echo $mosConfig_sitename; ?> - <?php echo _JOOSTINA_CONTRIL_PANEL?></title>
 	<meta http-equiv="Content-Type" content="text/html; <?php echo _ISO; ?>" />
 	<style type="text/css">
 		@import url(templates/joostfree/css/admin_login.css);
@@ -49,13 +49,13 @@ if($mosConfig_captcha) {
 	session_start();
 ?>
 						<div>
-							<img id="loginCaptcha" alt="Нажмите чтобы обновить изображение" onclick="document.loginForm.loginCaptcha.src='<?php
+							<img id="loginCaptcha" alt="<?php echo _PRESS_HERE_TO_RELOAD_CAPTCHA?>" onclick="document.loginForm.loginCaptcha.src='<?php
 								echo $mosConfig_live_site; ?>/includes/kcaptcha/index.php?' + new String(Math.random())" src="<?php
 								echo $mosConfig_live_site; ?>/includes/kcaptcha/index.php?<?php echo session_id() ?>" />
 						</div>
 						<span class="captcha" onclick="document.loginForm.loginCaptcha.src='<?php
-								echo $mosConfig_live_site; ?>/includes/kcaptcha/index.php?' + new String(Math.random())">Обновить изображение</span>
-						<div>Введите код проверки с картинки выше:</div>
+								echo $mosConfig_live_site; ?>/includes/kcaptcha/index.php?' + new String(Math.random())"><?php echo _SHOW_CAPTCHA?></span>
+						<div><?php echo _PLEASE_ENTER_CAPTCHA?>:</div>
 						<div>
 							<input name="captcha" type="text" class="inputbox" size="15" />
 						</div>
@@ -76,7 +76,7 @@ if($mosConfig_captcha) {
 	<div id="break"></div>
 	<div align="center">
 	<noscript>
-		<div class="message">!Предупреждение! Javascript должен быть разрешены для правильной работы панели управления администратора!</div>
+		<div class="message"><?php echo _PLEASE_ENABLE_JAVASCRIPT?></div>
 	</noscript>
 	</div>
 		<div id="footer" align="center">
