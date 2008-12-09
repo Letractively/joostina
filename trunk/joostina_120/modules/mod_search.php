@@ -10,16 +10,36 @@
 // запрет прямого доступа
 defined( '_VALID_MOS' ) or die();
 
-global $moduleclass_sfx;
-
+$moduleclass_sfx        = $params->get( 'moduleclass_sfx' );
 $button_vis			= $params->get( 'button', 1 );
 $button_pos		= $params->get( 'button_pos', 'left' );
 $button_text	= $params->get( 'button_text', _SEARCH_TITLE );
 $width			= intval( $params->get( 'width', 20 ) );
 $text			= $params->get( 'text', _SEARCH_BOX );
+$text_pos		= $params->get( 'text_pos', 'inside' );
 $set_Itemid		= intval( $params->get( 'set_itemid', 0 ) );
 
-$output = '<input name="searchword" id="mod_search_searchword" maxlength="100" alt="search" class="inputbox'. $moduleclass_sfx .'" type="text" size="'. $width .'" value="'. $text .'"  onblur="if(this.value==\'\') this.value=\''. $text .'\';" onfocus="if(this.value==\''. $text .'\') this.value=\'\';" />';
+switch ($text_pos){
+    case 'iside':
+    default:
+        $output = '<input name="searchword" id="mod_search_searchword" maxlength="100" alt="search" class="inputbox'. $moduleclass_sfx .'" type="text" size="'. $width .'" value="'. $text .'"  onblur="if(this.value==\'\') this.value=\''. $text .'\';" onfocus="if(this.value==\''. $text .'\') this.value=\'\';" />';
+        break;
+
+    case 'left':
+        $output = '<strong>'.$text.'</strong>&nbsp;<input name="searchword" id="mod_search_searchword" maxlength="100" alt="search" class="inputbox'. $moduleclass_sfx .'" type="text" size="'. $width .'" value=""  />';
+    break;
+
+    case 'top':
+        $output = '<strong>'.$text.'</strong><br /><input name="searchword" id="mod_search_searchword" maxlength="100" alt="search" class="inputbox'. $moduleclass_sfx .'" type="text" size="'. $width .'" value=""  />';
+    break;
+
+    case 'hidden':
+        $output = '<input name="searchword" id="mod_search_searchword" maxlength="100" alt="search" class="inputbox'. $moduleclass_sfx .'" type="text" size="'. $width .'" value=""  />';
+    break;
+
+}
+
+
 
 if ( $button_vis ) {
 	$button = '<input type="submit" value="'. $button_text .'" class="button'. $moduleclass_sfx .'"/>';

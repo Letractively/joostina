@@ -23,7 +23,14 @@
 		<param name="set_itemid" type="text" default="" label="Установить Itemid" description="Itemid для ссылок в результате поиска" />
 		<param name="@spacer" type="spacer" default="" label="" description="" />
 		<param name="width" type="text" default="20" label="Ширина поля" description="Размер текстового поля поиска" />
-		<param name="text" type="text" default="Поиск" label="Текст" description="Текст, видимый в поле поиска. Если поле оставить пустым, то будет загружен параметр _SEARCH_BOX  из Вашего языкового файла" />
+		<param name="text" type="text" default="Поиск" label="Подпись поля" description="Подпись у поля поиска. Если поле оставить пустым, то будет загружен параметр _SEARCH_BOX  из Вашего языкового файла" />
+        <param name="text_pos" type="list" default="inside" label="Позиция подписи" description="Выберите, где должна располагаться надпись для поля поиска">
+			<option value="left">Слева</option>
+			<option value="top">Выше</option>
+			<option value="inside">Внутри поля</option>
+            <option value="hidden">Не отображать</option>
+		</param>
+
 		<param name="@spacer" type="spacer" default="" label="" description="" />
 		<param name="button" type="radio" default="1" label="Кнопка Поиск" description="Надо ли показывать кнопку Поиск">
 			<option value="1">Да</option>
