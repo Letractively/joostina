@@ -25,7 +25,7 @@ class jdebug {
 		if($db){
 			$this->_db();
 		}else{
-			$this->add('Число SQL запросов: '.count($database->_log));
+			$this->add(_SQL_QUERIES_COUNT.': '.count($database->_log));
 		}
 		foreach($this->_log as $key => $value) {
 			$this->text .= $value.'<br />';

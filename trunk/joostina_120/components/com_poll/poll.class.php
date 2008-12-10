@@ -48,13 +48,13 @@ class mosPoll extends mosDBTable {
 	function check() {
 		// check for valid name
 		if(trim($this->title) == '') {
-			$this->_error = 'Ваш опрос должен содержать заголовок.';
+			$this->_error = _ENTER_POLL_NAME;
 			return false;
 		}
 		// check for valid lag
 		$this->lag = intval($this->lag);
 		if($this->lag == 0) {
-			$this->_error = 'Время задержки Вашего опроса не должно быть нулевым.';
+			$this->_error = _ENTER_POLL_LAG;
 			return false;
 		}
 		// check for existing title
@@ -63,7 +63,7 @@ class mosPoll extends mosDBTable {
 
 		$xid = intval($this->_db->loadResult());
 		if($xid && $xid != intval($this->id)) {
-			$this->_error = 'Уже существует модуль с таким названием. Введите другое  название.';
+			$this->_error = _MODULE_WITH_THIS_NAME_ALREADY_EDISTS;
 			return false;
 		}
 

@@ -1971,7 +1971,7 @@ function editItem($uid,$gid,&$access,$sectionid = 0,$task,$Itemid) {
 
 	// fail if checked out not by 'me'
 	if($row->isCheckedOut($my->id)) {
-		mosErrorAlert("Содержимое [ ".$row->title." ] сейчас редактируется другим человеком.");
+		mosErrorAlert("[ ".$row->title." ] "._CONTENT_IS_BEING_EDITED_BY_OTHER_PEOPLE);
 	}
 
 	if($uid) {

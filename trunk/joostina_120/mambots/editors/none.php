@@ -22,12 +22,12 @@ function botNoEditorInit() {
 <script type="text/javascript">
 	function insertAtCursor(myField, myValue) {
 		if (document.selection) {
-			// поддержка IE
+			// IE
 			myField.focus();
 			sel = document.selection.createRange();
 			sel.text = myValue;
 		} else if (myField.selectionStart || myField.selectionStart == '0') {
-			// поддержка MOZILLA/NETSCAPE
+			// MOZILLA/NETSCAPE
 			var startPos = myField.selectionStart;
 			var endPos = myField.selectionEnd;
 			myField.value = myField.value.substring(0, startPos)+ myValue+ myField.value.substring(endPos, myField.value.length);

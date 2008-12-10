@@ -42,7 +42,7 @@ class HTML_content {
 				if ( $items ) {
 					HTML_content::showMyTable( $params, $items, $pageNav, $access, $lists, $order );
 				} else {
-					echo 'Нет добавленного Вами содержимого';
+					echo _YOU_HAVE_NO_CONTENT;
 				}?>
 				</td>
 			</tr>

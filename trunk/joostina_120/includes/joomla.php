@@ -5161,14 +5161,14 @@ class mosCommonHTML {
 ?>
 		<table cellspacing="0" cellpadding="4" border="0" align="center">
 			<tr align="center">
-				<td><img src="images/publish_y.png" border="0" alt="Ожидает публикации" /></td>
-				<td>Опубликовано, но <u>Не активно</u> |</td>
-				<td><img src="images/publish_g.png" border="0" alt="На сайте" /></td>
-				<td>Опубликовано и <u>Активно</u> |</td>
-				<td><img src="images/publish_r.png" border="0" alt="Истек срок публикации" /></td>
-				<td>Опубликовано, но <u>Истек срок публикации</u> |</td>
-				<td><img src="images/publish_x.png" border="0" alt="Истек срок публикации" /></td>
-				<td>Не опубликовано</td>
+				<td><img src="images/publish_y.png" border="0" /></td>
+				<td><?php echo _PUBLISHED_VUT_NOT_ACTIVE?> |</td>
+				<td><img src="images/publish_g.png" border="0" /></td>
+				<td><?php echo _PUBLISHED_AND_ACTIVE?> |</td>
+				<td><img src="images/publish_r.png" border="0" /></td>
+				<td><?php echo _PUBLISHED_BUT_DATE_EXPIRED?> |</td>
+				<td><img src="images/publish_x.png" border="0" /></td>
+				<td><?php echo _NOT_PUBLISHED?></td>
 			</tr>
 		</table>
 <?php
@@ -5210,19 +5210,19 @@ class mosCommonHTML {
 						</tr>
 						<tr>
 								<td width="90px" valign="top">
-								Меню
+								<?php echo _MENU?>
 								</td>
 								<td>
-								<a href="javascript:go2( 'go2menu', '<?php echo $menu->menutype; ?>' );" title="Перейти к меню"><?php echo $menu->menutype; ?></a>
+								<a href="javascript:go2( 'go2menu', '<?php echo $menu->menutype; ?>' );"><?php echo $menu->menutype; ?></a>
 								</td>
 						</tr>
 						<tr>
 								<td width="90px" valign="top">
-								Название ссылки
+								<?php echo _LINK_NAME?>
 								</td>
 								<td>
 								<strong>
-								<a href="javascript:go2( 'go2menuitem', '<?php echo $menu->menutype; ?>', '<?php echo $menu->id; ?>' );" title="Перейти к пункту меню">
+								<a href="javascript:go2( 'go2menuitem', '<?php echo $menu->menutype; ?>', '<?php echo $menu->id; ?>' );" >
 								<?php echo $menu->name; ?>
 								</a>
 								</strong>
@@ -5230,20 +5230,20 @@ class mosCommonHTML {
 						</tr>
 						<tr>
 							<td width="90px" valign="top">
-								Состояние
+								<?php echo _O_STATE?>
 							</td>
 							<td>
 <?php
 			switch($menu->published) {
 				case - 2:
-					echo '<font color="red">Устарело</font>';
+					echo '<font color="red">'._MENU_EXPIRED.'</font>';
 					break;
 				case 0:
-					echo 'Не опубликовано';
+					echo _CMN_UNPUBLISHED;
 					break;
 				case 1:
 				default:
-					echo '<font color="green">Опубликовано</font>';
+					echo '<font color="green">'._CMN_PUBLISHED.'</font>';
 					break;
 			}
 ?>
@@ -5284,9 +5284,9 @@ class mosCommonHTML {
 							<td colspan="2"><hr /></td>
 						</tr>
 						<tr>
-							<td width="90px" valign="top">Меню</td>
+							<td width="90px" valign="top"><?php echo _MENU?></td>
 							<td>
-							<a href="javascript:go2( 'go2menu', '<?php echo $menu->menutype; ?>' );" title="Перейти к меню"><?php echo $menu->menutype; ?></a>
+							<a href="javascript:go2( 'go2menu', '<?php echo $menu->menutype; ?>' );" ><?php echo $menu->menutype; ?></a>
 							</td>
 						</tr>
 						<tr>
@@ -5294,27 +5294,27 @@ class mosCommonHTML {
 								<td><?php echo $menu->type; ?></td>
 						</tr>
 						<tr>
-							<td width="90px" valign="top">Название пункта</td>
+							<td width="90px" valign="top"><?php echo _MENU_ITEM_NAME?></td>
 							<td>
 								<strong>
-								<a href="javascript:go2( 'go2menuitem', '<?php echo $menu->menutype; ?>', '<?php echo $menu->id; ?>' );" title="Перейти к пункту меню"><?php echo $menu->name; ?></a>
+								<a href="javascript:go2( 'go2menuitem', '<?php echo $menu->menutype; ?>', '<?php echo $menu->id; ?>' );"><?php echo $menu->name; ?></a>
 								</strong>
 							</td>
 						</tr>
 						<tr>
-							<td width="90px" valign="top">Состояние</td>
+							<td width="90px" valign="top"><?php echo _O_STATE?></td>
 							<td>
 <?php
 			switch($menu->published) {
 				case - 2:
-					echo '<font color="red">Устарело</font>';
+					echo '<font color="red">'._MENU_EXPIRED.'</font>';
 					break;
 				case 0:
-					echo 'Не опубликовано';
+					echo _CMN_UNPUBLISHED;
 					break;
 				case 1:
 				default:
-					echo '<font color="green">Опубликовано</font>';
+					echo '<font color="green">'._CMN_PUBLISHED.'</font>';
 					break;
 			}
 ?>
@@ -5339,7 +5339,7 @@ class mosCommonHTML {
 			$checked_out_text .= '<tr><td>'.$date.'</td></tr>';
 			$checked_out_text .= '<tr><td>'.$time.'</td></tr>';
 			$checked_out_text .= '</table>';
-			$hover = 'onMouseOver="return overlib(\''.$checked_out_text.'\', CAPTION, \'Заблокировано\', BELOW, RIGHT);" onMouseOut="return nd();"';
+			$hover = 'onMouseOver="return overlib(\''.$checked_out_text.'\', CAPTION, \''._CHECKED_OUT.'\', BELOW, RIGHT);" onMouseOut="return nd();"';
 		}
 		$checked = '<img src="images/checked_out.png" '.$hover.'/>';
 		return $checked;
@@ -5507,8 +5507,8 @@ else window.addEventListener('DOMContentLoaded',CodePress.run,false);
 	function PublishedProcessing(&$row,$i) {
 		$img = $row->published?'publish_g.png':'publish_x.png';
 		$task = $row->published?'unpublish':'publish';
-		$alt = $row->published?'Опубликовано':'Не опубликовано';
-		$action = $row->published?'Скрыть (Не показывать на сайте)':'Опубликовать на сайте';
+		$alt = $row->published?_CMN_PUBLISHED:_CMN_UNPUBLISHED;
+		$action = $row->published?_UNPUBLISH_ON_FRONTPAGE:_PUBLISH_ON_FRONTPAGE;
 		$href = '<a href="javascript: void(0);" onclick="return listItemTask(\'cb'.$i.'\',\''.$task.'\')" title="'.$action.'"><img src="images/'.$img.'" border="0" alt="'.$alt.'" /></a>';
 		return $href;
 	}

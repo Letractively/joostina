@@ -27,7 +27,7 @@ switch($task) {
 	case 'saveUserEdit':
 		// check to see if functionality restricted for use as demo site
 		if($_VERSION->RESTRICT == 1) {
-			mosRedirect('index.php?mosmsg=Используется режим ограниченной работоспособности');
+			mosRedirect('index.php?mosmsg='._RESTRICT_FUNCTION);
 		} else {
 			userSave($option,$my->id);
 		}

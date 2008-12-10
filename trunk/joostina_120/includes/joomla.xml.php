@@ -459,10 +459,10 @@ class mosParameters {
 			$options[] = mosHTML::makeOption($file,$file);
 		}
 		if(!$node->getAttribute('hide_none')) {
-			array_unshift($options,mosHTML::makeOption('-1','- Не использовать изображение -'));
+			array_unshift($options,mosHTML::makeOption('-1',_DONT_USE_IMAGE));
 		}
 		if(!$node->getAttribute('hide_default')) {
-			array_unshift($options,mosHTML::makeOption('','- Изображение по умолчанию -'));
+			array_unshift($options,mosHTML::makeOption('',_DEFAULT_IMAGE));
 		}
 
 		return mosHTML::selectList($options,''.$control_name.'['.$name.']','class="inputbox"','value','text',$value,"param$name");
