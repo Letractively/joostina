@@ -260,7 +260,7 @@ class mosPHPMailer {
 			if(file_exists($lang_path.'phpmailer.lang-ru.php'))
 				include ($lang_path.'phpmailer.lang-ru.php');
 			else {
-				$this->SetError("Ошибка загрузки языкового файла.");
+				$this->SetError("Error loading lang file.");
 				return false;
 			}
 			global $PHPMAILER_LANG;

@@ -78,7 +78,7 @@ class mosWeblink extends mosDBTable {
 		$iFilter = new InputFilter();
 
 		if($iFilter->badAttributeValue(array('href',$this->url))) {
-			$this->_error = '¬ведите правильный URL';
+			$this->_error = _ENTER_CORRECT_URL;
 			return false;
 		}
 

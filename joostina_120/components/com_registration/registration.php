@@ -265,7 +265,7 @@ function activate() {
 		$database->setQuery($query);
 		if(!$database->query()) {
 			if(!defined(_REG_ACTIVATE_FAILURE)) {
-				DEFINE('_REG_ACTIVATE_FAILURE','<div class="componentheading">Ошибка активации!</div><br />Активация вашей учетной записи невозможна. Пожалуйста, обратитесь к администрации сайта.');
+				DEFINE('_REG_ACTIVATE_FAILURE',_USER_ACTIVATION_FAILED);
 			}
 			echo _REG_ACTIVATE_FAILURE;
 		} else {

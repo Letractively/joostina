@@ -56,7 +56,7 @@ function x_jsave($id){
 		return 'error!';
 	} else {
 		mosCache::cleanCache('com_content');
-		return 'Успешно сохранено: '.date('Y-m-d H:i:s').', id='.$id;
+		return 'Saved: '.date('Y-m-d H:i:s').', id='.$id;
 	}
 
 	return;

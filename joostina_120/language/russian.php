@@ -430,6 +430,7 @@ DEFINE('_SEARCH_SECBLOG','Блог раздела');
 DEFINE('_ISO2','cp1251');
 DEFINE('_ISO','charset=windows-1251');
 DEFINE('_DATE_FORMAT','Сегодня: d.m.Y г.'); //Используйте формат PHP-функции DATE
+
 /**
 * измените строчку ниже, для изменения вывода даты на сайте
 *
@@ -2152,19 +2153,46 @@ DEFINE('_CHOOSE_IMAGE','Выберите изображение');
 DEFINE('_NO_USER','Нет пользователя');
 DEFINE('_CREATE_CATEGORIES_FIRST','Сначала необходимо создать категории');
 DEFINE('_NOT_CHOOSED','Не выбрано');
+DEFINE('_PUBLISHED_VUT_NOT_ACTIVE','Опубликовано, но <u>Не активно</u>');
+DEFINE('_PUBLISHED_AND_ACTIVE','Опубликовано и <u>Активно</u>');
+DEFINE('_PUBLISHED_BUT_DATE_EXPIRED','Опубликовано, но <u>Истек срок публикации</u>');
+DEFINE('_NOT_PUBLISHED','Не опубликовано');
+DEFINE('_LINK_NAME','Название ссылки');
+DEFINE('_MENU_EXPIRED','Устарело');
+DEFINE('_MENU_ITEM_NAME','Название пункта');
+DEFINE('_CHECKED_OUT','Заблокировано');
+DEFINE('_PUBLISH_ON_FRONTPAGE','Опубликовать на сайте');
+DEFINE('_UNPUBLISH_ON_FRONTPAGE','Скрыть (Не показывать на сайте)');
+
+/* includes joomla.xml.php */
+DEFINE('_DONT_USE_IMAGE','- Не использовать изображение -');
+DEFINE('_DEFAULT_IMAGE','- Изображение по умолчанию -');
+
+/* includes debug jdebug.php */
+DEFINE('_SQL_QUERIES_COUNT','Число SQL запросов');
+
+/* includes Cache Lite Lite.php */
+DEFINE('_ERROR_DELETING_CACHE','Ошибка удаления кэша');
+DEFINE('_ERROR_READING_CACHE_DIR','Ошибка чтения директории кэша');
+DEFINE('_ERROR_READING_CACHE_FILE','Ошибка чтения файла кэша');
+DEFINE('_ERROR_WRITING_CACHE_FILE','Ошибка записи файла кэша');
+DEFINE('_SCRIPT_MEMORY_USING','Использовано памяти');
+
+/* components com_content */
+DEFINE('_YOU_HAVE_NO_CONTENT','Нет добавленного Вами содержимого');
+DEFINE('_CONTENT_IS_BEING_EDITED_BY_OTHER_PEOPLE','Содержимое сейчас редактируется другим человеком');
+
+/* components com_poll */
+DEFINE('_MODULE_WITH_THIS_NAME_ALREADY_EDISTS','Уже существует модуль с таким названием. Введите другое  название.');
+
+/* components com_registration */
+DEFINE('_USER_ACTIVATION_FAILED','<div class="componentheading">Ошибка активации!</div><br />Активация вашей учетной записи невозможна. Пожалуйста, обратитесь к администрации сайта');
+
+/* components com_weblinks */
+DEFINE('_ENTER_CORRECT_URL','Введите правильный URL');
 /*
-line 5159 -->
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
+DEFINE('_DATABASE_CHARSET','cp1251_general_ci');
+DEFINE('_ICONV_CHARSET','CP1251');
 DEFINE('_','');
 DEFINE('_','');
 DEFINE('_','');

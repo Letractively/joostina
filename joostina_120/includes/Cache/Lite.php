@@ -111,7 +111,7 @@ class Cache_Lite {
 	function remove($id,$group = 'default') {
 		$this->_setFileName($id,$group);
 		if(!@unlink($this->_file)) {
-			$this->raiseError('Cache_Lite : Ошибка удаления кэша !',-3);
+			$this->raiseError('Cache_Lite : '._ERROR_DELETING_CACHE.' !',-3);
 			return false;
 		}
 		return true;
@@ -134,7 +134,7 @@ class Cache_Lite {
 			}
 		}
 		if(!($dh = opendir($this->_cacheDir))) {
-			$this->raiseError('Cache_Lite : Ошибка чтения директории кэша !',-4);
+			$this->raiseError('Cache_Lite : '._ERROR_READING_CACHE_DIR.' !',-4);
 			return false;
 		}
 		while($file = readdir($dh)) {
@@ -143,7 +143,7 @@ class Cache_Lite {
 				if(is_file($file)) {
 					if(strpos($file,$motif,0)) {
 						if(!@unlink($file)) {
-							$this->raiseError('Cache_Lite : Ошибка удаления кэша !',-3);
+							$this->raiseError('Cache_Lite : '._ERROR_DELETING_CACHE.' !',-3);
 							return false;
 						}
 					}
@@ -228,7 +228,7 @@ class Cache_Lite {
 			}
 			return $data;
 		}
-		$this->raiseError('Cache_Lite : Ошибка чтения файла кэша !',-2);
+		$this->raiseError('Cache_Lite : '._ERROR_READING_CACHE_FILE.' !',-2);
 		return false;
 	}
 	function _write($data) {
@@ -246,7 +246,7 @@ class Cache_Lite {
 			@fclose($fp);
 			return true;
 		}
-		$this->raiseError('Cache_Lite : Ошибка записи файла кэша !',-1);
+		$this->raiseError('Cache_Lite : '._ERROR_WRITING_CACHE_FILE.' !',-1);
 		return false;
 	}
 	function _writeAndControl($data) {
