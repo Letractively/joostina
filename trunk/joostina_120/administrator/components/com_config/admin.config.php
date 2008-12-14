@@ -18,6 +18,16 @@ require_once ($mainframe->getPath('class'));
 require_once ($mainframe->getPath('admin_html'));
 
 switch($task) {
+	
+	//показ формы конфигурации для компонента
+	case 'component_config':
+		showComponentConfig(mosGetParam($_REQUEST,'component',''));
+		break;
+
+	case 'save_component_config':
+		saveComponentConfig();
+		break;
+		
 	case 'apply':
 	case 'save':
 		js_menu_cache_clear();
@@ -31,6 +41,93 @@ switch($task) {
 	default:
 		showconfig($option);
 		break;
+}
+
+/**
+* Сохраняем то, что пришло от юзера. По сути мы там ничего умного не делали, а только вызвали функцию рисования
+* параметров компонента. Здесь же пихаем это все в столбец таблички #__components.
+*/
+function saveComponentConfig() {
+
+	global $database;
+	
+	//для какого компонента все делаем
+	$component = mosGetParam($_REQUEST,'component','');
+	$component = preg_replace("|[^a-z_]|Umsi","",$component);
+	
+	//ничего не мудрил - тупо передрал из сохранялки параметров модулей
+	$params = mosGetParam($_POST,'params','');
+	if(is_array($params)) {
+		$txt = array();
+		foreach($params as $k => $v) {
+			$txt[] = "$k=$v";
+		}
+		$save_params = mosParameters::textareaHandling($txt);
+	}
+	else $save_params = "";
+	
+	//к сожалению поле params занято под всякую ерунду - заводим новое поле в базе данных
+	//$database->setQuery("UPDATE #__components SET params = '$save_params' WHERE ");
+	//$database->query();
+	
+	//редиректим на тот же компонент и его форму
+	//mosRedirect('index2.php?option=com_config&task=component_config&component='.$component,_E_ITEM_SAVED);
+	
+	var_dump($save_params);
+}
+
+/**
+* По идее должна вычитывать xml с конфигурацией и отображать юзеру форму дополнительных параметров компонента
+*/
+function showComponentConfig($component) {
+
+	global $mosConfig_absolute_path;
+	
+	//конфиг может лежать либо в админ-папке (что предпочтительно), либо во фронт папке. 
+	//называться должен com_XXX.config.xml, параметры как для компонента
+	$component = preg_replace("|[^a-z_]|Umsi","",$component);
+	$path_to_xml1 = $mosConfig_absolute_path.'/administrator/components/'.$component.'/'.$component.'.config.xml';
+	$path_to_xml2 = $mosConfig_absolute_path.'/components/'.$component.'/'.$component.'.config.xml';
+	$path = file_exists($path_to_xml1) ? $path_to_xml1 : (file_exists($path_to_xml2) ? $path_to_xml2 : false);
+	
+	if ($path===false) {
+	
+		mosErrorAlert("XML config file not found");;
+	}
+
+	$load_params = "aaaa=123";
+	$params = new mosParameters($load_params,$path,'component');
+
+	mosCommonHTML::loadOverlib();
+	//заголовок
+	echo '  <table class="adminheading">
+			<tr>
+			<th class="modules">Редактирование гадости</th>
+			</tr>
+			</table>';
+	//вывод формы
+	echo '<form action="index2.php" method="post" name="adminForm" id="adminForm">
+		<table cellspacing="0" cellpadding="0" width="100%">
+		<tr valign="top">
+			<td width="60%">
+				<table class="adminform">
+				<tr>
+					<td>';
+	//типа самые умные и рисуем
+	echo $params->render();
+	
+	//низ формы
+	echo "			</td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+		</table>
+		
+		<input type='hidden' name='option' value='com_config' />
+		<input type='hidden' name='task' value='save_component_config' />
+		<input type='hidden' name='component' value='".$component."' />
+		</form>";
 }
 
 /**

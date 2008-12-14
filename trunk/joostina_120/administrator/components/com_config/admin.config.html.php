@@ -123,6 +123,9 @@ class HTML_config {
 	</script>
 <?php
 ?>
+<p>
+<a href='index2.php?option=com_config&task=component_config&component=com_registration'>com_registration</a>
+</p>
 <div style="text-align:left;">
 	<form action="index2.php" method="post" name="adminForm" id="adminForm">
 		<div id="overDiv" style="position:absolute; visibility:hidden; z-index:10000;"></div>
