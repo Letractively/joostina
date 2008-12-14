@@ -1746,6 +1746,8 @@ DEFINE('_ALL_MODULE_CHANGES_SAVED','Все изменения модуля успешно сохранены');
 DEFINE('_MODULES','Модули');
 DEFINE('_MODULE_NAME','Название модуля');
 DEFINE('_MODULE_POSITION','Позиция');
+DEFINE('_ASSIGN_TO_URL','Привязка к URL');
+DEFINE('_ASSIGN_TO_URL_TIP','Пример: <br><br> !option=com_content&task=view&id=4<br>option=com_content&task=view<br>option=com_content&task=blogcategory&id>4<br><br>! - на этих страницах модуль не отображается<br>= < > != равно, меньше, больше, не равно - знаки сравнения для числовых параметров');
 DEFINE('_MODULE_PAGES','Страницы');
 DEFINE('_MODULE_PAGES_SOME','Некоторые');
 DEFINE('_SHOW_TITLE','Показывать заголовок');

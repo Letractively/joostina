@@ -3422,6 +3422,9 @@ class mosModule extends mosDBTable {
 	/**
 	@var string*/
 	var $client_id = null;
+	/**
+	@var string*/
+	var $assign_to_url = null;
 
 	/**
 	* @param database A database connector object

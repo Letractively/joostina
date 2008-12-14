@@ -77,7 +77,7 @@ function &initModules() {
 		}
 		if(!$mosConfig_disable_access_control) $where_ac = "\n AND access <= ".(int)$my->gid;
 		else $where_ac = '';
-		$query = "SELECT id, title, module, position, content, showtitle, params FROM #__modules AS m"
+		$query = "SELECT id, title, module, position, content, showtitle, params, assign_to_url FROM #__modules AS m"
 				."\n INNER JOIN #__modules_menu AS mm ON mm.moduleid = m.id"
 				."\n WHERE m.published = 1"
 				.$where_ac
@@ -151,6 +151,75 @@ function mosLoadModules($position = 'left',$style = 0,$noindex = 0) {
 	$count = 1;
 	foreach($modules as $module) {
 
+		//привязка модулей к URL - проверяем включенность этой гадости [Dead Krolik]
+		if ($module->assign_to_url) {
+		
+			//смотрим урлы для данного модуля
+			$param_urls = explode("\n",$module->assign_to_url);$out_bools = array();
+			foreach($param_urls as $param_url) {
+			
+				$param_url = trim($param_url);
+				
+				//проверяем флаг - надо ли показывать на данном урле или нет
+				$show_on_this_url = substr($param_url,0,1)=='!' ? false : true;
+				$param_url = $show_on_this_url ? $param_url : substr($param_url,1);
+				
+				//парсим урл
+				//option=com_content&task=view&id>6
+				$url_parts = explode("&",$param_url);
+				foreach($url_parts as $index => $url_part) {
+
+					$pos = strpos($url_part,"!=");
+					if ($pos!==false) $c_operation = '!=';
+					$pos = strpos($url_part,"=");
+					if ($pos!==false) $c_operation = '=';
+					$pos = strpos($url_part,">");
+					if ($pos!==false) $c_operation = '>';
+					$pos = strpos($url_part,"<");
+					if ($pos!==false) $c_operation = '<';
+					
+					list($u_var,$u_val) = explode($c_operation,$url_part);
+					$u_var = trim($u_var);$u_val=trim($u_val);
+					
+					$u_real_var = mosGetParam($_REQUEST,$u_var,'');
+					switch($c_operation) {
+					
+						case '!=':
+							//$index>0 - не первый элемент, делаем так - потому что для первого сравнения предыдущее значение не определено
+							$out_bool = $index>0 ? ($out_bool && $u_real_var!=$u_val) : $u_real_var!=$u_val;
+							break;
+						case '=':
+							$out_bool = $index>0 ? ($out_bool && $u_real_var==$u_val) : $u_real_var==$u_val;
+							break;
+						case '>':
+							$out_bool = $index>0 ? ($out_bool && $u_real_var>$u_val) : $u_real_var>$u_val;
+							break;							
+						case '<':
+							$out_bool = $index>0 ? ($out_bool && $u_real_var<$u_val) : $u_real_var<$u_val;
+							break;
+					}
+					
+				}
+
+				//показывать или нет на текущем адресе
+				$out_bool = $show_on_this_url ? $out_bool : !$out_bool ;
+				
+				//складываем все результаты условий в массив
+				$out_bools[] = $out_bool;
+			}
+			
+			//комбинируем все условия при помощи ИЛИ, если хотя бы одно условие выстрелит, модуль показывать надо
+			$show_module_on_url = false;
+			foreach($out_bools as $tmp_bool) {
+			
+				$show_module_on_url = $show_module_on_url || $tmp_bool;
+			}
+
+			//исключаем модуль из показа на позиции
+			if (!$show_module_on_url) continue;
+		}
+		//---- привязка модулей к URL [Dead Krolik]
+		
 		$params = new mosParameters($module->params);
 
 		// кэширование модулей по умолчанию
