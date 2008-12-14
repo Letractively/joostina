@@ -13,6 +13,10 @@ defined('_VALID_MOS') or die();
 require_once ($mainframe->getPath('toolbar_html'));
 
 switch($task) {
+	
+	case 'component_config':
+		TOOLBAR_config::_SAVE_EXT_CONFIG();
+		break;
 	default:
 		TOOLBAR_config::_DEFAULT();
 		break;

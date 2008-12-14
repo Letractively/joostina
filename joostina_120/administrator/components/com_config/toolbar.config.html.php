@@ -15,6 +15,18 @@ defined('_VALID_MOS') or die();
 * @subpackage Config
 */
 class TOOLBAR_config {
+
+	/**
+	* Меню для сохранялки параметров отдельных компонентов
+	*/
+	function _SAVE_EXT_CONFIG() {
+		mosMenuBar::startTable();
+		mosMenuBar::save('save_component_config');
+		mosMenuBar::spacer();
+		mosMenuBar::cancel();
+		mosMenuBar::endTable();
+	}
+	
 	function _DEFAULT() {
 		mosMenuBar::startTable();
 		mosMenuBar::save();
