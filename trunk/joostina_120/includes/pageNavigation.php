@@ -91,6 +91,8 @@ class mosPageNav {
 	* @param string The basic link to include in the href
 	*/
 	function writePagesLinks($link) {
+		
+		global $mainframe;
 		$txt = '';
 
 		$displayed_pages = 10;
@@ -115,9 +117,14 @@ class mosPageNav {
 
 		$pnSpace = '';
 		if(_PN_LT || _PN_RT) $pnSpace = "&nbsp;";
-
+			
 		if($this_page > 1) {
+			
 			$page = ($this_page - 2)* $this->limit;
+			
+			//ссылка на предыдущую страницу
+			$mainframe->addCustomHeadTag("<link rel='prev' href='".sefRelToAbs("$link&amp;limitstart=$page")."' />");
+
 			$txt .= '<a href="'.sefRelToAbs("$link&amp;limitstart=0").'" class="pagenav" title="'._PN_START.'">'._PN_LT._PN_LT.$pnSpace._PN_START.'</a> ';
 			$txt .= '<a href="'.sefRelToAbs("$link&amp;limitstart=$page").'" class="pagenav" title="'._PN_PREVIOUS.'">'._PN_LT.$pnSpace._PN_PREVIOUS.'</a> ';
 		} else {
@@ -135,8 +142,13 @@ class mosPageNav {
 		}
 
 		if($this_page < $total_pages) {
+			
 			$page = $this_page* $this->limit;
 			$end_page = ($total_pages - 1)* $this->limit;
+
+			//ссылка на следующую страницу
+			$mainframe->addCustomHeadTag("<link rel='next' href='".sefRelToAbs($link.'&amp;limitstart='.$page)."' />");
+
 			$txt .= '<a href="'.sefRelToAbs($link.'&amp;limitstart='.$page).' " class="pagenav" title="'._PN_NEXT.'">'._PN_NEXT.$pnSpace._PN_RT.'</a> ';
 			$txt .= '<a href="'.sefRelToAbs($link.'&amp;limitstart='.$end_page).' " class="pagenav" title="'._PN_END.'">'._PN_END.$pnSpace._PN_RT._PN_RT.'</a>';
 		} else {
