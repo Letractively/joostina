@@ -254,6 +254,7 @@ function saveModule($option,$client,$task) {
 	} else {
 		$where = "client_id=0";
 	}
+
 	$row->updateOrder('position='.$database->Quote($row->position)." AND ($where)");
 
 	$menus = josGetArrayInts('selections');
