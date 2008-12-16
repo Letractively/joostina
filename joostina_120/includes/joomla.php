@@ -64,6 +64,14 @@ if(@$mosConfig_error_reporting === 0 || @$mosConfig_error_reporting === '0') {
 		error_reporting($mosConfig_error_reporting);
 	}
 
+if (!function_exists("getAdminDirectoryName")) {
+	
+	function getAdminDirectoryName() {
+	
+		return basename(dirname(dirname(__FILE__)));
+	}
+}
+
 require_once ($mosConfig_absolute_path.'/includes/version.php');
 require_once ($mosConfig_absolute_path.'/includes/database.php');
 require_once ($mosConfig_absolute_path.'/includes/gacl.class.php');
