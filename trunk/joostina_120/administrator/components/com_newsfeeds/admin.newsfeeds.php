@@ -85,8 +85,7 @@ function showNewsFeeds($option) {
 	$database->setQuery($query);
 	$total = $database->loadResult();
 
-	require_once ($GLOBALS['mosConfig_absolute_path'].
-		'/administrator/includes/pageNavigation.php');
+	require_once ($GLOBALS['mosConfig_absolute_path'].'/'.getAdminDirectoryName().'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
 	// get the subset (based on limits) of required records

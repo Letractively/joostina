@@ -29,7 +29,7 @@ if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset
 
 require_once ($mosConfig_absolute_path . '/includes/joomla.php');
 include_once ($mosConfig_absolute_path . '/language/' . $mosConfig_lang . '.php');
-require_once ($mosConfig_absolute_path . '/administrator/includes/admin.php');
+require_once ('includes/admin.php');
 
 // must start the session before we create the mainframe object
 session_name(md5($mosConfig_live_site));

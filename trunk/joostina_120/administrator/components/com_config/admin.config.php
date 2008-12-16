@@ -66,23 +66,32 @@ function saveComponentConfig() {
 	}
 	else $save_params = "";
 	
-	//к сожалению поле params занято под всякую ерунду - заводим новое поле в базе данных
-	//$database->setQuery("UPDATE #__components SET params = '$save_params' WHERE ");
-	//$database->query();
+	//проверяем наличие ключа для этого компонента
+	$database->setQuery("SELECT id FROM #__components_params WHERE component = '{$component}'");
+	$id = $database->loadResult();
 	
+	if ($id) {
+		
+		$database->setQuery("UPDATE #__components_params SET params = '$save_params' WHERE id='{$id}'");
+		$database->query();
+	}
+	else {
+	
+		$database->setQuery("INSERT INTO #__components_params (component,params) VALUES ('{$component}','$save_params')");
+		$database->query();
+	}
+
 	//редиректим на тот же компонент и его форму
-	//mosRedirect('index2.php?option=com_config&task=component_config&component='.$component,_E_ITEM_SAVED);
-	
-	var_dump($save_params);
+	mosRedirect('index2.php?option=com_config&task=component_config&component='.$component,_E_ITEM_SAVED);
 }
 
 /**
-* По идее должна вычитывать xml с конфигурацией и отображать юзеру форму дополнительных параметров компонента
+* Маленькая функция, определяющая доступность файла конфига для компонента
 */
-function showComponentConfig($component) {
+function getComponentConfigXMLPath($component) {
 
 	global $mosConfig_absolute_path;
-	
+
 	//конфиг может лежать либо в админ-папке (что предпочтительно), либо во фронт папке. 
 	//называться должен com_XXX.config.xml, параметры как для компонента
 	$component = preg_replace("|[^a-z_]|Umsi","",$component);
@@ -90,19 +99,33 @@ function showComponentConfig($component) {
 	$path_to_xml2 = $mosConfig_absolute_path.'/components/'.$component.'/'.$component.'.config.xml';
 	$path = file_exists($path_to_xml1) ? $path_to_xml1 : (file_exists($path_to_xml2) ? $path_to_xml2 : false);
 	
+	return $path;
+}
+/**
+* По идее должна вычитывать xml с конфигурацией и отображать юзеру форму дополнительных параметров компонента
+*/
+function showComponentConfig($component) {
+
+	global $mosConfig_absolute_path,$database;
+	
+	$component = preg_replace("|[^a-z_]|Umsi","",$component);
+	$path      = getComponentConfigXMLPath($component);
 	if ($path===false) {
 	
 		mosErrorAlert("XML config file not found");;
 	}
 
-	$load_params = "aaaa=123";
+	//грузим
+	$database->setQuery("SELECT params FROM #__components_params WHERE component = '{$component}'");
+	$load_params = $database->loadResult();
+	
 	$params = new mosParameters($load_params,$path,'component');
 
 	mosCommonHTML::loadOverlib();
 	//заголовок
 	echo '  <table class="adminheading">
 			<tr>
-			<th class="modules">Редактирование гадости</th>
+			<th class="modules"><a href="index2.php?option=com_config&hidemainmenu=1">'._GLOBAL_CONFIG.'</a> :: '.$component.'</th>
 			</tr>
 			</table>';
 	//вывод формы

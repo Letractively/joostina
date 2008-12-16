@@ -1,5 +1,16 @@
 Joostina v 1.2.0
 
+16.12.08
+	1. Всем, кто обновляется из cvn создать таблицу хранения параметров компонентов
+	CREATE TABLE `#__components_params` (
+  		`id` bigint(20) unsigned NOT NULL auto_increment,
+  		`component` varchar(50) NOT NULL default '',
+  		`params` blob NOT NULL,
+  		PRIMARY KEY  (`id`)
+	) ENGINE=MyISAM DEFAULT CHARSET=cp1251 ;
+	В SQL-дамп инсталлятора я ее включил. + конфигурялка для компонентов готова. Для этого надо в папку компонента положить файл com_xxx.config.xml и в нем, так же как и в параметра модуля (только тип указать component) вписывать доступные к конфигурированию параметры. Доставалки параметров пока что нет, т.к. реального применения это еще не получило.
+	2. Готовлю админку к тому, что бы папку administrator можно было переименовывать. Пока не очень :( Заведена спец функция getAdminDirectoryName() определенная в administrator/includes/admin.php
+
 14.12.08
 	1. Сделал привязку модулей к URL. Всем кто обновляется из svn сделать запрос: 
 		alter table #__modules add column assign_to_url blob not null;   <<---- надо включить этот запрос в скрипт апгрейда

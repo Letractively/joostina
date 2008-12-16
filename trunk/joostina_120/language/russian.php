@@ -2161,10 +2161,12 @@ DEFINE('_USER_ACTIVATION_FAILED','<div class="componentheading">Ошибка активации
 
 /* components com_weblinks */
 DEFINE('_ENTER_CORRECT_URL','Введите правильный URL');
+
+
+
+/* administrator index2.php */
+DEFINE('_TEMPLATE_NOT_FOUND','Шаблон не обнаружен');
 /*
-DEFINE('_DATABASE_CHARSET','cp1251_general_ci');
-DEFINE('_ICONV_CHARSET','CP1251');
-DEFINE('_','');
 DEFINE('_','');
 DEFINE('_','');
 DEFINE('_','');

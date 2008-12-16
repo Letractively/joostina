@@ -28,7 +28,7 @@ if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset
 // подключаем ядро и язык
 require_once ($mosConfig_absolute_path.'/includes/joomla.php');
 include_once ($mosConfig_absolute_path.'/language/'.$mosConfig_lang.'.php');
-require_once ($mosConfig_absolute_path.'/administrator/includes/admin.php');
+require_once ('includes/admin.php');
 
 // создаём сессии
 session_name(md5($mosConfig_live_site));
@@ -56,8 +56,8 @@ if($utf_conv){
 	header ("Cache-Control: no-cache, must-revalidate ");
 }
 // проверяем, какой файл необходимо подключить, данные берутся из пришедшего GET запроса
-if(file_exists($mosConfig_absolute_path . "/administrator/components/$option/admin.$commponent.ajax.php")) {
-	include_once ($mosConfig_absolute_path . "/administrator/components/$option/admin.$commponent.ajax.php");
+if(file_exists($mosConfig_absolute_path . "/".getAdminDirectoryName()."/components/$option/admin.$commponent.ajax.php")) {
+	include_once ($mosConfig_absolute_path . "/".getAdminDirectoryName()."/components/$option/admin.$commponent.ajax.php");
 } else {
 	die('error-inc-component');
 }

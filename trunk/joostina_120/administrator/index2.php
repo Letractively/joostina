@@ -31,7 +31,7 @@ if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset
 
 require_once ($mosConfig_absolute_path . '/includes/joomla.php');
 include_once ($mosConfig_absolute_path . '/language/' . $mosConfig_lang . '.php');
-require_once ($mosConfig_absolute_path . '/administrator/includes/admin.php');
+require_once ('includes/admin.php');
 
 global $database;
 
@@ -86,10 +86,10 @@ initGzip();
 // начало вывода html
 if($no_html == 0) {
 	// загрузка файла шаблона
-	if(!file_exists($mosConfig_absolute_path . '/administrator/templates/' . $cur_template .'/index.php')) {
-		echo 'Шаблон не обнаружен: ',$cur_template;
+	if(!file_exists($mosConfig_absolute_path . '/'.getAdminDirectoryName().'/templates/' . $cur_template .'/index.php')) {
+		echo _TEMPLATE_NOT_FOUND.': ',$cur_template;
 	} else {
-		require_once ($mosConfig_absolute_path . '/administrator/templates/' . $cur_template .'/index.php');
+		require_once ($mosConfig_absolute_path . '/'.getAdminDirectoryName().'/templates/' . $cur_template .'/index.php');
 	}
 } else {
 	mosMainBody_Admin();
@@ -97,7 +97,7 @@ if($no_html == 0) {
 
 // информация отладки, число запросов в БД
 if($mosConfig_debug) {
-	echo 'SQL запросов: '. $database->_ticker;
+	echo _SQL_QUERIES_COUNT.': '. $database->_ticker;
 	echo '<pre>';
 	foreach($database->_log as $k => $sql) {
 		echo $k + 1 . ":&nbsp;" . $sql . '<br /><br />';
