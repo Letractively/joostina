@@ -122,9 +122,37 @@ class HTML_config {
 	//-->
 	</script>
 <?php
+
+//выпадающий список компонентов, которые можно конфигурировать
+$adm_components = glob($mosConfig_absolute_path.'/administrator/components/*',GLOB_ONLYDIR);
+$usr_components = glob($mosConfig_absolute_path.'/components/*',GLOB_ONLYDIR);
+$components_arr = array();
+foreach($adm_components as $compo) {
+
+	$cname = basename($compo);
+	if (!in_array($compo,$components_arr)) $components_arr[] = basename($compo);
+}
+foreach($usr_components as $compo) {
+
+	$cname = basename($compo);
+	if (!in_array($compo,$components_arr)) $components_arr[] = basename($compo);
+}
+$out_components_arr = array();
+foreach($components_arr as $compo) {
+
+	if (getComponentConfigXMLPath($compo)) {
+		
+		$e = new stdClass();
+		$e->name = $compo;
+		$out_components_arr[] = $e;
+	}
+}
+$comp_list = mosHTML::selectList($out_components_arr,'component','','name','name','');
 ?>
 <p>
-<a href='index2.php?option=com_config&task=component_config&component=com_registration'>com_registration</a>
+<form action='index2.php?option=com_config&task=component_config' method='POST'>
+<?php echo _COMPONENT?>: <?php echo $comp_list?> <input type='submit' value='<?php echo _SUBMIT_BUTTON?>'>
+</form>
 </p>
 <div style="text-align:left;">
 	<form action="index2.php" method="post" name="adminForm" id="adminForm">

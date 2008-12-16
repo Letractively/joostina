@@ -1325,37 +1325,37 @@ class mosMainFrame {
 				$this->_path->front_html = "$basePath/components/$option/$name.html.php";
 			}
 
-		if(file_exists("$basePath/administrator/components/$option/admin.$name.php")) {
-			$this->_path->admin = "$basePath/administrator/components/$option/admin.$name.php";
-			$this->_path->admin_html = "$basePath/administrator/components/$option/admin.$name.html.php";
+		if(file_exists("$basePath/".getAdminDirectoryName()."/components/$option/admin.$name.php")) {
+			$this->_path->admin = "$basePath/".getAdminDirectoryName()."/components/$option/admin.$name.php";
+			$this->_path->admin_html = "$basePath/".getAdminDirectoryName()."/components/$option/admin.$name.html.php";
 		}
 
 		if(file_exists("$basePath/administrator/components/$option/toolbar.$name.php")) {
-			$this->_path->toolbar = "$basePath/administrator/components/$option/toolbar.$name.php";
-			$this->_path->toolbar_html = "$basePath/administrator/components/$option/toolbar.$name.html.php";
-			$this->_path->toolbar_default = "$basePath/administrator/includes/toolbar.html.php";
+			$this->_path->toolbar = "$basePath/".getAdminDirectoryName()."/components/$option/toolbar.$name.php";
+			$this->_path->toolbar_html = "$basePath/".getAdminDirectoryName()."/components/$option/toolbar.$name.html.php";
+			$this->_path->toolbar_default = "$basePath/".getAdminDirectoryName()."/includes/toolbar.html.php";
 		}
 
 		if(file_exists("$basePath/components/$option/$name.class.php")) {
 			$this->_path->class = "$basePath/components/$option/$name.class.php";
 		} else
-			if(file_exists("$basePath/administrator/components/$option/$name.class.php")) {
-				$this->_path->class = "$basePath/administrator/components/$option/$name.class.php";
+			if(file_exists("$basePath/".getAdminDirectoryName()."/components/$option/$name.class.php")) {
+				$this->_path->class = "$basePath/".getAdminDirectoryName()."/components/$option/$name.class.php";
 			} else
 				if(file_exists("$basePath/includes/$name.php")) {
 					$this->_path->class = "$basePath/includes/$name.php";
 				}
 
-		if($prefix == 'mod_' && file_exists("$basePath/administrator/modules/$option.php")) {
-			$this->_path->admin = "$basePath/administrator/modules/$option.php";
-			$this->_path->admin_html = "$basePath/administrator/modules/mod_$name.html.php";
+		if($prefix == 'mod_' && file_exists("$basePath/".getAdminDirectoryName()."/modules/$option.php")) {
+			$this->_path->admin = "$basePath/".getAdminDirectoryName()."/modules/$option.php";
+			$this->_path->admin_html = "$basePath/".getAdminDirectoryName()."/modules/mod_$name.html.php";
 		} else
-			if(file_exists("$basePath/administrator/components/$option/admin.$name.php")) {
-				$this->_path->admin = "$basePath/administrator/components/$option/admin.$name.php";
-				$this->_path->admin_html = "$basePath/administrator/components/$option/admin.$name.html.php";
+			if(file_exists("$basePath/".getAdminDirectoryName()."/components/$option/admin.$name.php")) {
+				$this->_path->admin = "$basePath/".getAdminDirectoryName()."/components/$option/admin.$name.php";
+				$this->_path->admin_html = "$basePath/".getAdminDirectoryName()."/components/$option/admin.$name.html.php";
 			} else {
-				$this->_path->admin = "$basePath/administrator/components/com_admin/admin.admin.php";
-				$this->_path->admin_html = "$basePath/administrator/components/com_admin/admin.admin.html.php";
+				$this->_path->admin = "$basePath/".getAdminDirectoryName()."/components/com_admin/admin.admin.php";
+				$this->_path->admin_html = "$basePath/".getAdminDirectoryName()."/components/com_admin/admin.admin.html.php";
 			}
 	}
 	/**
@@ -1375,7 +1375,7 @@ class mosMainFrame {
 			switch($varname) {
 				case 'com_xml':
 					$name = substr($option,4);
-					$path = "$mosConfig_absolute_path/administrator/components/$option/$name.xml";
+					$path = "$mosConfig_absolute_path/".getAdminDirectoryName()."/components/$option/$name.xml";
 					if(file_exists($path)) {
 						$result = $path;
 					} else {
@@ -1401,9 +1401,9 @@ class mosMainFrame {
 				case 'mod1_xml':
 					// admin modules
 					if($option == '') {
-						$path = $mosConfig_absolute_path.'/administrator/modules/custom.xml';
+						$path = $mosConfig_absolute_path.'/'.getAdminDirectoryName().'/modules/custom.xml';
 					} else {
-						$path = $mosConfig_absolute_path."/administrator/modules/$option.xml";
+						$path = $mosConfig_absolute_path."/".getAdminDirectoryName()."/modules/$option.xml";
 					}
 					if(file_exists($path)) {
 						$result = $path;
@@ -1419,21 +1419,21 @@ class mosMainFrame {
 					break;
 
 				case 'menu_xml':
-					$path = $mosConfig_absolute_path."/administrator/components/com_menus/$option/$option.xml";
+					$path = $mosConfig_absolute_path."/".getAdminDirectoryName()."/components/com_menus/$option/$option.xml";
 					if(file_exists($path)) {
 						$result = $path;
 					}
 					break;
 
 				case 'installer_html':
-					$path = $mosConfig_absolute_path."/administrator/components/com_installer/$option/$option.html.php";
+					$path = $mosConfig_absolute_path."/".getAdminDirectoryName()."/components/com_installer/$option/$option.html.php";
 					if(file_exists($path)) {
 						$result = $path;
 					}
 					break;
 
 				case 'installer_class':
-					$path = $mosConfig_absolute_path."/administrator/components/com_installer/$option/$option.class.php";
+					$path = $mosConfig_absolute_path."/".getAdminDirectoryName()."/components/com_installer/$option/$option.class.php";
 					if(file_exists($path)) {
 						$result = $path;
 					}

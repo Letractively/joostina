@@ -354,7 +354,7 @@ if(!class_exists('mosMenuBar')) {
 				function popup() {
 					document.adminForm.target='_blank';
 					var action=document.adminForm.action;
-					document.adminForm.action='<?php echo $mosConfig_live_site; ?>/administrator/popups/contentwindow.php';
+					document.adminForm.action='<?php echo $mosConfig_live_site; ?>/<?php echo getAdminDirectoryName()?>/popups/contentwindow.php';
 					submitbutton('<?php echo $task; ?>');
 					document.adminForm.target='_self';
 					document.adminForm.action=action;
@@ -382,7 +382,7 @@ if(!class_exists('mosMenuBar')) {
 
 			if($com) {
 				// help file for 3PD Components
-				$url = $mosConfig_live_site.'/administrator/components/'.$GLOBALS['option'].'/help/';
+				$url = $mosConfig_live_site.'/'.getAdminDirectoryName().'/components/'.$GLOBALS['option'].'/help/';
 				if(!eregi('\.html$',$ref) && !eregi('\.xml$',$ref)) {
 					$ref = $ref.'.html';
 				}

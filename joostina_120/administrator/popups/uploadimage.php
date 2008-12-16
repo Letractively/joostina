@@ -126,7 +126,7 @@ if(isset($_FILES['userfile'])) {
 
 // css file handling
 // check to see if template exists
-if($css != '' && !is_dir($mosConfig_absolute_path.'/administrator/templates/'.$css.'/css/template_css.css')) {
+if($css != '' && !is_dir($mosConfig_absolute_path.'/'.getAdminDirectoryName().'/templates/'.$css.'/css/template_css.css')) {
 	$css = 'joostfree';
 } else
 	if($css == '') {

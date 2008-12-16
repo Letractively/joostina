@@ -122,6 +122,17 @@ CREATE TABLE `#__components` (
 ) ENGINE=MyISAM DEFAULT CHARSET=cp1251;
 
 #
+# Данные таблицы `#__components_params`
+#
+
+CREATE TABLE `#__components_params` (
+  `id` bigint(20) unsigned NOT NULL auto_increment,
+  `component` varchar(50) NOT NULL default '',
+  `params` blob NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=cp1251 ;
+
+#
 # Данные таблицы `#__components`
 #
 
