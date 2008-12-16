@@ -1310,7 +1310,7 @@ class mosMainFrame {
 
 		// security check to disable use of `/`, `\\` and `:` in $options variable
 		if(strpos($option,'/') !== false || strpos($option,'\\') !== false || strpos($option,':') !== false) {
-			mosErrorAlert('В доступе отказано');
+			mosErrorAlert(_ACCESS_DENIED);
 			return;
 		}
 
