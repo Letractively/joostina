@@ -31,7 +31,7 @@ class JCELanguageInstaller extends mosInstaller {
 		global $mainframe,$database;
 
 		require_once ($mainframe->getCfg('absolute_path').
-			'/administrator/components/com_jce/languages/languages.class.php');
+			'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jce/languages/languages.class.php');
 
 		if(!$this->preInstallCheck($p_fromdir,'jcelang')) {
 			return false;
@@ -46,7 +46,7 @@ class JCELanguageInstaller extends mosInstaller {
 		$this->elementDir(mosPathName($mainframe->getCfg('absolute_path').
 			"/mambots/editors/jce/jscripts/tiny_mce/"));
 		$this->componentAdminDir(mosPathName($mainframe->getCfg('absolute_path').
-			"/administrator/components/com_jce/language/"));
+			"/".ADMINISTRATOR_DIRECTORY."/components/com_jce/language/"));
 
 		// Find files to copy
 		if($this->parseFiles('files') === false) {
@@ -102,7 +102,7 @@ class JCELanguageInstaller extends mosInstaller {
 		$id = str_replace(array('\\','/'),'',$id);
 
 		$adminpath = $mainframe->getCfg('absolute_path').
-			'/administrator/components/com_jce/language/';
+			'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jce/language/';
 		$basepath = $mainframe->getCfg('absolute_path').
 			'/mambots/editors/jce/jscripts/tiny_mce/';
 		$xmlfile = $adminpath.$id.'.xml';

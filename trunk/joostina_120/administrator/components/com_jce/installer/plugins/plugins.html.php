@@ -25,7 +25,7 @@ class HTML_plugins {
 		$database->setQuery("SELECT lang FROM #__jce_langs WHERE published= '1'");
 		$lang = $database->loadResult();
 		require_once ($mosConfig_absolute_path.
-			"/administrator/components/com_jce/language/".$lang.".php");
+			"/".ADMINISTRATOR_DIRECTORY."/components/com_jce/language/".$lang.".php");
 ?>
 		<table class="adminheading">
 		<tr>

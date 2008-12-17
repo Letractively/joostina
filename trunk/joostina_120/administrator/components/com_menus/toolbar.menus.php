@@ -28,7 +28,7 @@ switch($task) {
 
 	case 'edit':
 		$cid = josGetArrayInts('cid');
-		$path = $mosConfig_absolute_path.'/administrator/components/com_menus/';
+		$path = $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_menus/';
 
 		if($cid[0]) {
 			$query = "SELECT type"."\n FROM #__menu"."\n WHERE id = ".(int)$cid[0];

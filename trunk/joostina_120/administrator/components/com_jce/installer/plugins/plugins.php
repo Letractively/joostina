@@ -11,13 +11,13 @@
 defined('_VALID_MOS') or die();
 
 require_once ($mosConfig_absolute_path.
-	'/administrator/components/com_jce/installer/plugins/plugins.html.php');
+	'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jce/installer/plugins/plugins.html.php');
 
 global $mosConfig_absolute_path,$database;
 $database->setQuery("SELECT lang FROM #__jce_langs WHERE published= '1'");
 $lang = $database->loadResult();
 require_once ($mosConfig_absolute_path.
-	"/administrator/components/com_jce/language/".$lang.".php");
+	"/".ADMINISTRATOR_DIRECTORY."/components/com_jce/language/".$lang.".php");
 
 HTML_installer::showInstallForm(_JCE_PLUGINS_INSTALL_HEADING,$option,'plugins',
 	'',dirname(__file__));

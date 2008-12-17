@@ -66,14 +66,14 @@ class HTML_content {
 		// смена статуса публикации, elID - идентификатор объекта у которого меняется статус публикации
 		function ch_publ(elID){
 			log('Смена статуса публикации содержимого: '+elID);
-			id('img-pub-'+elID).src = 'administrator/images/aload.gif';
+			id('img-pub-'+elID).src = ADMINISTRATOR_DIRECTORY.'/images/aload.gif';
 			dax({
 				url: 'ajax.index.php?option=com_content&utf=0&task=publish&id='+elID,
 				id:'publ-'+elID,
 				callback:
 					function(resp, idTread, status, ops){
 						log('Получен ответ: ' + resp.responseText);
-						id('img-pub-'+elID).src = 'administrator/images/'+resp.responseText;
+						id('img-pub-'+elID).src = ADMINISTRATOR_DIRECTORY.'/images/'+resp.responseText;
 					}
 			});
 		}
@@ -127,7 +127,7 @@ class HTML_content {
 			$row->created = mosFormatDate ($row->created,$mosConfig_form_date_full,'0');
 			$link	= sefRelToAbs( 'index.php?option=com_content&amp;task=view&amp;id='. $row->id .'&amp;Itemid='. $Itemid );
 			$img	= $row->published ? 'publish_g.png' : 'publish_x.png';
-			$img	= $mosConfig_live_site.'/administrator/images/'.$img;
+			$img	= $mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/images/'.$img;
 			?>
 			<tr class="sectiontableentry<?php echo ($k+1) . $params->get( 'pageclass_sfx' ); ?>" >
 					<td><?php HTML_content::EditIcon( $row, $params, $access );?></td>

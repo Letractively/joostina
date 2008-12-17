@@ -135,7 +135,7 @@ function jceEditorInit() {
 		$tiny_file = 'tiny_mce.js';
 		$gzip_init = '';
 	}
-	$site_url = ( $mainframe->isAdmin() ) ? $base_url . '/administrator' : $base_url;
+	$site_url = ( $mainframe->isAdmin() ) ? $base_url . '/'.ADMINISTRATOR_DIRECTORY : $base_url;
 	
 	$return = "jceFunctions.relative = $relative;
 	jceFunctions.mambotMode = " . $mambot_mode . ";

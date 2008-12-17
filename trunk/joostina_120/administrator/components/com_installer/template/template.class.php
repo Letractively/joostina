@@ -48,7 +48,7 @@ class mosInstallerTemplate extends mosInstaller {
 		// Set some vars
 		$e = &$mosinstall->getElementsByPath('name',1);
 		$this->elementName($e->getText());
-		$this->elementDir(mosPathName($mosConfig_absolute_path.($client == 'admin'?'/administrator':'').'/templates/'.strtolower(str_replace(" ","_",$this->elementName()))));
+		$this->elementDir(mosPathName($mosConfig_absolute_path.($client == 'admin'?'/'.ADMINISTRATOR_DIRECTORY:'').'/templates/'.strtolower(str_replace(" ","_",$this->elementName()))));
 
 		if(!file_exists($this->elementDir()) && !mosMakePath($this->elementDir())) {
 			$this->setError(1,_CANNOT_CREATE_DIR.' "'.$this->elementDir().'"');
@@ -83,7 +83,7 @@ class mosInstallerTemplate extends mosInstaller {
 		global $database,$mosConfig_absolute_path;
 		josSpoofCheck(null, null, 'request');
 		// Delete directories
-		$path = $mosConfig_absolute_path.($client == 'admin' ? '/administrator':'').'/templates/'.$id;
+		$path = $mosConfig_absolute_path.($client == 'admin' ? '/'.ADMINISTRATOR_DIRECTORY:'').'/templates/'.$id;
 
 		$id = str_replace('..','',$id);
 		if(trim($id)) {

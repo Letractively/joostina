@@ -22,7 +22,7 @@ HTML_installer::showInstallForm(_COMPONENT_INSTALL,$option,'component','',dirnam
 <table class="adminlist">
 <?php
 writableCell('media');
-writableCell('administrator/components');
+writableCell(ADMINISTRATOR_DIRECTORY.'/components');
 writableCell('components');
 writableCell('images/stories');
 ?>
@@ -45,7 +45,7 @@ function showInstalledComponents($option) {
 	$rows = $database->loadObjectList();
 
 	// Read the component dir to find components
-	$componentBaseDir = mosPathName($mosConfig_absolute_path.'/administrator/components');
+	$componentBaseDir = mosPathName($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components');
 	$componentDirs = mosReadDirectory($componentBaseDir);
 
 	$n = count($rows);

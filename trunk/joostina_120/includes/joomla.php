@@ -64,14 +64,6 @@ if(@$mosConfig_error_reporting === 0 || @$mosConfig_error_reporting === '0') {
 		error_reporting($mosConfig_error_reporting);
 	}
 
-if (!function_exists("getAdminDirectoryName")) {
-	
-	function getAdminDirectoryName() {
-	
-		return basename(dirname(dirname(__FILE__)));
-	}
-}
-
 require_once ($mosConfig_absolute_path.'/includes/version.php');
 require_once ($mosConfig_absolute_path.'/includes/database.php');
 require_once ($mosConfig_absolute_path.'/includes/gacl.class.php');
@@ -493,7 +485,7 @@ class mosMainFrame {
 			case '1':
 			case 'admin':
 			case 'administrator':
-				return mosPathName($mosConfig_absolute_path.'/administrator',$addTrailingSlash);
+				return mosPathName($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY,$addTrailingSlash);
 				break;
 		}
 	}
@@ -780,7 +772,7 @@ class mosMainFrame {
 
 		// logout check
 		if($option == 'logout') {
-			require $GLOBALS['mosConfig_absolute_path'].'/administrator/logout.php';
+			require $GLOBALS['mosConfig_absolute_path'].'/'.ADMINISTRATOR_DIRECTORY.'/logout.php';
 			exit();
 		}
 
@@ -1254,7 +1246,7 @@ class mosMainFrame {
 					."\n AND menuid = 0";
 			$this->_db->setQuery($query);
 			$cur_template = $this->_db->loadResult();
-			$path = "$mosConfig_absolute_path/administrator/templates/$cur_template/index.php";
+			$path = "$mosConfig_absolute_path/".ADMINISTRATOR_DIRECTORY."/templates/$cur_template/index.php";
 			if(!file_exists($path)) {
 				$cur_template = 'joostfree';
 			}
@@ -1333,37 +1325,37 @@ class mosMainFrame {
 				$this->_path->front_html = "$basePath/components/$option/$name.html.php";
 			}
 
-		if(file_exists("$basePath/".getAdminDirectoryName()."/components/$option/admin.$name.php")) {
-			$this->_path->admin = "$basePath/".getAdminDirectoryName()."/components/$option/admin.$name.php";
-			$this->_path->admin_html = "$basePath/".getAdminDirectoryName()."/components/$option/admin.$name.html.php";
+		if(file_exists("$basePath/".ADMINISTRATOR_DIRECTORY."/components/$option/admin.$name.php")) {
+			$this->_path->admin = "$basePath/".ADMINISTRATOR_DIRECTORY."/components/$option/admin.$name.php";
+			$this->_path->admin_html = "$basePath/".ADMINISTRATOR_DIRECTORY."/components/$option/admin.$name.html.php";
 		}
 
 		if(file_exists("$basePath/administrator/components/$option/toolbar.$name.php")) {
-			$this->_path->toolbar = "$basePath/".getAdminDirectoryName()."/components/$option/toolbar.$name.php";
-			$this->_path->toolbar_html = "$basePath/".getAdminDirectoryName()."/components/$option/toolbar.$name.html.php";
-			$this->_path->toolbar_default = "$basePath/".getAdminDirectoryName()."/includes/toolbar.html.php";
+			$this->_path->toolbar = "$basePath/".ADMINISTRATOR_DIRECTORY."/components/$option/toolbar.$name.php";
+			$this->_path->toolbar_html = "$basePath/".ADMINISTRATOR_DIRECTORY."/components/$option/toolbar.$name.html.php";
+			$this->_path->toolbar_default = "$basePath/".ADMINISTRATOR_DIRECTORY."/includes/toolbar.html.php";
 		}
 
 		if(file_exists("$basePath/components/$option/$name.class.php")) {
 			$this->_path->class = "$basePath/components/$option/$name.class.php";
 		} else
-			if(file_exists("$basePath/".getAdminDirectoryName()."/components/$option/$name.class.php")) {
-				$this->_path->class = "$basePath/".getAdminDirectoryName()."/components/$option/$name.class.php";
+			if(file_exists("$basePath/".ADMINISTRATOR_DIRECTORY."/components/$option/$name.class.php")) {
+				$this->_path->class = "$basePath/".ADMINISTRATOR_DIRECTORY."/components/$option/$name.class.php";
 			} else
 				if(file_exists("$basePath/includes/$name.php")) {
 					$this->_path->class = "$basePath/includes/$name.php";
 				}
 
-		if($prefix == 'mod_' && file_exists("$basePath/".getAdminDirectoryName()."/modules/$option.php")) {
-			$this->_path->admin = "$basePath/".getAdminDirectoryName()."/modules/$option.php";
-			$this->_path->admin_html = "$basePath/".getAdminDirectoryName()."/modules/mod_$name.html.php";
+		if($prefix == 'mod_' && file_exists("$basePath/".ADMINISTRATOR_DIRECTORY."/modules/$option.php")) {
+			$this->_path->admin = "$basePath/".ADMINISTRATOR_DIRECTORY."/modules/$option.php";
+			$this->_path->admin_html = "$basePath/".ADMINISTRATOR_DIRECTORY."/modules/mod_$name.html.php";
 		} else
-			if(file_exists("$basePath/".getAdminDirectoryName()."/components/$option/admin.$name.php")) {
-				$this->_path->admin = "$basePath/".getAdminDirectoryName()."/components/$option/admin.$name.php";
-				$this->_path->admin_html = "$basePath/".getAdminDirectoryName()."/components/$option/admin.$name.html.php";
+			if(file_exists("$basePath/".ADMINISTRATOR_DIRECTORY."/components/$option/admin.$name.php")) {
+				$this->_path->admin = "$basePath/".ADMINISTRATOR_DIRECTORY."/components/$option/admin.$name.php";
+				$this->_path->admin_html = "$basePath/".ADMINISTRATOR_DIRECTORY."/components/$option/admin.$name.html.php";
 			} else {
-				$this->_path->admin = "$basePath/".getAdminDirectoryName()."/components/com_admin/admin.admin.php";
-				$this->_path->admin_html = "$basePath/".getAdminDirectoryName()."/components/com_admin/admin.admin.html.php";
+				$this->_path->admin = "$basePath/".ADMINISTRATOR_DIRECTORY."/components/com_admin/admin.admin.php";
+				$this->_path->admin_html = "$basePath/".ADMINISTRATOR_DIRECTORY."/components/com_admin/admin.admin.html.php";
 			}
 	}
 	/**
@@ -1383,7 +1375,7 @@ class mosMainFrame {
 			switch($varname) {
 				case 'com_xml':
 					$name = substr($option,4);
-					$path = "$mosConfig_absolute_path/".getAdminDirectoryName()."/components/$option/$name.xml";
+					$path = "$mosConfig_absolute_path/".ADMINISTRATOR_DIRECTORY."/components/$option/$name.xml";
 					if(file_exists($path)) {
 						$result = $path;
 					} else {
@@ -1409,9 +1401,9 @@ class mosMainFrame {
 				case 'mod1_xml':
 					// admin modules
 					if($option == '') {
-						$path = $mosConfig_absolute_path.'/'.getAdminDirectoryName().'/modules/custom.xml';
+						$path = $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/modules/custom.xml';
 					} else {
-						$path = $mosConfig_absolute_path."/".getAdminDirectoryName()."/modules/$option.xml";
+						$path = $mosConfig_absolute_path."/".ADMINISTRATOR_DIRECTORY."/modules/$option.xml";
 					}
 					if(file_exists($path)) {
 						$result = $path;
@@ -1427,21 +1419,21 @@ class mosMainFrame {
 					break;
 
 				case 'menu_xml':
-					$path = $mosConfig_absolute_path."/".getAdminDirectoryName()."/components/com_menus/$option/$option.xml";
+					$path = $mosConfig_absolute_path."/".ADMINISTRATOR_DIRECTORY."/components/com_menus/$option/$option.xml";
 					if(file_exists($path)) {
 						$result = $path;
 					}
 					break;
 
 				case 'installer_html':
-					$path = $mosConfig_absolute_path."/".getAdminDirectoryName()."/components/com_installer/$option/$option.html.php";
+					$path = $mosConfig_absolute_path."/".ADMINISTRATOR_DIRECTORY."/components/com_installer/$option/$option.html.php";
 					if(file_exists($path)) {
 						$result = $path;
 					}
 					break;
 
 				case 'installer_class':
-					$path = $mosConfig_absolute_path."/".getAdminDirectoryName()."/components/com_installer/$option/$option.class.php";
+					$path = $mosConfig_absolute_path."/".ADMINISTRATOR_DIRECTORY."/components/com_installer/$option/$option.class.php";
 					if(file_exists($path)) {
 						$result = $path;
 					}
@@ -2209,7 +2201,7 @@ class mosHTML {
 				$next_state = 'none';
 			}
 
-		$html = "<a href=\"$base_href&field=$field&order=$next_state\">"."<img src=\"$mosConfig_live_site/administrator/images/sort_$state.png\" width=\"12\" height=\"12\" border=\"0\" alt=\"{$alts[$next_state]}\" /></a>";
+		$html = "<a href=\"$base_href&field=$field&order=$next_state\">"."<img src=\"$mosConfig_live_site/".ADMINISTRATOR_DIRECTORY."/images/sort_$state.png\" width=\"12\" height=\"12\" border=\"0\" alt=\"{$alts[$next_state]}\" /></a>";
 		return $html;
 	}
 
@@ -3433,7 +3425,7 @@ class mosModule extends mosDBTable {
 	/**
 	@var string*/
 	var $assign_to_url = null;
-
+	
 	/**
 	* @param database A database connector object
 	*/
@@ -5065,7 +5057,7 @@ class mosAdminMenus {
 		$align = ($align?' align="'.$align.'"':'');
 		// change directory path from frontend or backend
 		if($admin) {
-			$path = '/administrator/templates/'.$cur_template.'/images/';
+			$path = '/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$cur_template.'/images/';
 		} else {
 			$path = '/templates/'.$cur_template.'/images/';
 		}
@@ -5160,7 +5152,7 @@ class mosAdminMenus {
 	*/
 	function menuItem($item) {
 		global $mosConfig_absolute_path;
-		$path = $mosConfig_absolute_path.'/administrator/components/com_menus/'.$item.'/';
+		$path = $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_menus/'.$item.'/';
 		include_once ($path.$item.'.class.php');
 		include_once ($path.$item.'.menu.html.php');
 	}

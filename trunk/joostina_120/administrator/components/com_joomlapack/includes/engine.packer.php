@@ -192,7 +192,7 @@ class CPackerEngine {
 	function _archiveFileList() {
 		global $mosConfig_absolute_path,$JPConfiguration,$database;
 
-		include_once ($mosConfig_absolute_path.'/'.getAdminDirectoryName().'/includes/pcl/pclzip.lib.php');
+		include_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/includes/pcl/pclzip.lib.php');
 
 		// Check for existing instance of the object stored in db
 		$sql = "SELECT COUNT(*) FROM #__jp_packvars WHERE `key`='zipobject'";
@@ -232,7 +232,7 @@ class CPackerEngine {
 		} else {
 			// завершение архивирования
 			$zip = new PclZip($this->_archiveFile);
-			$to_file = PclZipUtilTranslateWinPath($mosConfig_absolute_path.'/'.getAdminDirectoryName().'/backups/installation/');
+			$to_file = PclZipUtilTranslateWinPath($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/backups/installation/');
 			$zip->add( $to_file,'',$pathsAddRemove['remove']);
 			CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_ARCHIVE_COMPLETED);
 		}

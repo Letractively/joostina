@@ -196,7 +196,7 @@ function showCategories($section,$option) {
 		$filter = '';
 	}
 
-	require_once ($mosConfig_absolute_path.'/administrator/includes/pageNavigation.php');
+	require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
 	$tablesAllowed = $database->getTableList();

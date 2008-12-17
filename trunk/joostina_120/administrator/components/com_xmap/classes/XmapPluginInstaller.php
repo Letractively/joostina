@@ -44,7 +44,7 @@ class XmapPluginInstaller extends mosInstaller {
 			$published = 0;
 		}
 
-		$this->elementDir( mosPathName( $mosConfig_absolute_path . '/administrator/components/com_xmap/extensions/') );
+		$this->elementDir( mosPathName( $mosConfig_absolute_path . '/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/extensions/') );
 
 		if ($this->parseFiles( 'files', 'xmap_ext', 'No file is marked as extension file' ) === false) {
 			return false;
@@ -75,7 +75,7 @@ class XmapPluginInstaller extends mosInstaller {
 			}
 			$id = $database->loadResult();
 
-			require_once( $mosConfig_absolute_path . '/administrator/components/com_xmap/classes/XmapPlugin.php' );
+			require_once( $mosConfig_absolute_path . '/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/classes/XmapPlugin.php' );
 
 			$row = new XmapPlugin( $database,$id );
 			$row->published		= $published;
@@ -107,7 +107,7 @@ class XmapPluginInstaller extends mosInstaller {
 
 		$row = new XmapPlugin( $database,$id );
 
-		$basepath = $mosConfig_absolute_path . '/administrator/components/com_xmap/extensions/';
+		$basepath = $mosConfig_absolute_path . '/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/extensions/';
 
 		$xmlfile = $basepath . $row->extension . '.xml';
 

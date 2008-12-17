@@ -21,17 +21,17 @@ if ($view == 'xslfile') {
 	exit;
 }
 
-$LangPath = $mosConfig_absolute_path . '/administrator/components/com_xmap/language/';
+$LangPath = $mosConfig_absolute_path . '/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/language/';
 if( file_exists( $LangPath . $mosConfig_lang . '.php') ) {
 	require_once( $LangPath . $mosConfig_lang. '.php' );
 } else {
 	require_once( $LangPath . 'russian.php' );
 }
 
-require_once( $mosConfig_absolute_path.'/administrator/components/com_xmap/classes/XmapConfig.php' );
-require_once( $mosConfig_absolute_path.'/administrator/components/com_xmap/classes/XmapSitemap.php' );
-require_once( $mosConfig_absolute_path.'/administrator/components/com_xmap/classes/XmapPlugins.php' );
-require_once( $mosConfig_absolute_path.'/administrator/components/com_xmap/classes/XmapCache.php' );
+require_once( $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/classes/XmapConfig.php' );
+require_once( $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/classes/XmapSitemap.php' );
+require_once( $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/classes/XmapPlugins.php' );
+require_once( $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/classes/XmapCache.php' );
 
 $menu = $mainframe->get('menu');
 $params = new mosParameters($menu->params);

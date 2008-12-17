@@ -41,7 +41,7 @@ class mosInstallerModule extends mosInstaller {
 		// Set some vars
 		$e = &$mosinstall->getElementsByPath('name',1);
 		$this->elementName($e->getText());
-		$this->elementDir(mosPathName($mosConfig_absolute_path.($client == 'admin'?'/administrator':'').'/modules/'));
+		$this->elementDir(mosPathName($mosConfig_absolute_path.($client == 'admin'?'/'.ADMINISTRATOR_DIRECTORY:'').'/modules/'));
 
 		$e = &$mosinstall->getElementsByPath('position',1);
 		if(!is_null($e)) {
@@ -150,7 +150,7 @@ class mosInstallerModule extends mosInstaller {
 			if(!$row->client_id) {
 				$basepath = $mosConfig_absolute_path.'/modules/';
 			} else {
-				$basepath = $mosConfig_absolute_path.'/administrator/modules/';
+				$basepath = $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/modules/';
 			}
 
 			$xmlfile = $basepath.$row->module.'.xml';

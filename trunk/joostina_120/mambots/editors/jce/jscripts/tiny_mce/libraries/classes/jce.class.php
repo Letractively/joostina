@@ -295,7 +295,7 @@ class JCE{
 	}
 	function getParamsPath(){
 		global $mainframe;
-		return $mainframe->getCfg('absolute_path') . '/administrator/components/com_jce/plugins';
+		return $mainframe->getCfg('absolute_path') . '/'.ADMINISTRATOR_DIRECTORY.'/components/com_jce/plugins';
 	}
 	function printTinyJs( $file ){
 		$url = $this->getTinyUrl() . "/" . $file . ".js";

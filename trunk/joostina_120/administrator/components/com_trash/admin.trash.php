@@ -58,7 +58,7 @@ function viewTrash($option) {
 	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mosConfig_list_limit));
 	$limitstart = intval($mainframe->getUserStateFromRequest("view{$option}limitstart",'limitstart',0));
 
-	require_once ($GLOBALS['mosConfig_absolute_path'].'/administrator/includes/pageNavigation.php');
+	require_once ($GLOBALS['mosConfig_absolute_path'].'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 
 	if($catid == "content") {
 		// get the total number of content

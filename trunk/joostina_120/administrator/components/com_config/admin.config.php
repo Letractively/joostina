@@ -95,7 +95,7 @@ function getComponentConfigXMLPath($component) {
 	//конфиг может лежать либо в админ-папке (что предпочтительно), либо во фронт папке. 
 	//называться должен com_XXX.config.xml, параметры как для компонента
 	$component = preg_replace("|[^a-z_]|Umsi","",$component);
-	$path_to_xml1 = $mosConfig_absolute_path.'/administrator/components/'.$component.'/'.$component.'.config.xml';
+	$path_to_xml1 = $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/'.$component.'/'.$component.'.config.xml';
 	$path_to_xml2 = $mosConfig_absolute_path.'/components/'.$component.'/'.$component.'.config.xml';
 	$path = file_exists($path_to_xml1) ? $path_to_xml1 : (file_exists($path_to_xml2) ? $path_to_xml2 : false);
 	
@@ -637,13 +637,13 @@ function saveconfig($task) {
 			if(mosGetParam($_POST,'disable_write',0)) @chmod($fname,$oldperms & 0777555);
 		} // if
 
-		$msg = 'Конфигурация успешно обновлена';
+		$msg = _CONFIGURATION_IS_UPDATED;
 
 		// apply file and directory permissions if requested by user
 		$applyFilePerms	= mosGetParam($_POST,'applyFilePerms',0) && $row->config_fileperms !='';
 		$applyDirPerms	= mosGetParam($_POST,'applyDirPerms',0) && $row->config_dirperms !='';
 		if($applyFilePerms || $applyDirPerms) {
-			$mosrootfiles = array('administrator','cache','components','images','language','mambots','media','modules','templates','configuration.php');
+			$mosrootfiles = array(ADMINISTRATOR_DIRECTORY,'cache','components','images','language','mambots','media','modules','templates','configuration.php');
 			$filemode = null;
 			if($applyFilePerms) {
 				$filemode = octdec($row->config_fileperms);

@@ -11,7 +11,7 @@
 defined('_VALID_MOS') or die();
 
 global $mosConfig_absolute_path;
-require_once ($mosConfig_absolute_path . '/administrator/components/com_xmap/classes/XmapSitemap.php');
+require_once ($mosConfig_absolute_path . '/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/classes/XmapSitemap.php');
 
 class XmapConfig {
 	var $version 			= '1.1';
@@ -95,7 +95,7 @@ class XmapConfig {
 			return false;
 		}
 
-		require_once($mosConfig_absolute_path . '/administrator/components/com_xmap/classes/XmapPlugin.php');
+		require_once($mosConfig_absolute_path . '/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/classes/XmapPlugin.php');
 		$extensions = array (
 			//	name			published
 			array(	'com_content',		1)

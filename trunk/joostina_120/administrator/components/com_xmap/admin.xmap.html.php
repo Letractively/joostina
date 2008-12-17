@@ -535,7 +535,7 @@ class XmapAdminHtml {
 				</td>
 			</tr>
 		</table>
-		<table class="adminlist"><?php mosHTML::writableCell( '/administrator/components/com_xmap/extensions' );?></table>
+		<table class="adminlist"><?php mosHTML::writableCell( '/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/extensions' );?></table>
 		<input type="hidden" name="task" value="installfromdir" />
 		<input type="hidden" name="installtype" value="folder" />
 		<input type="hidden" name="option" value="com_xmap"/>

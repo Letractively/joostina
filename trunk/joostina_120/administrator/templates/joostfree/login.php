@@ -33,7 +33,7 @@ defined('_VALID_MOS') or die();
 		<img src="templates/joostfree/images/logo.png" alt="Joostina!" />
 	</div>
 <?php
-	include_once ($mosConfig_absolute_path.'/'.getAdminDirectoryName().'/modules/mod_mosmsg.php');
+	include_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/modules/mod_mosmsg.php');
 ?>
 	<div id="ctr1" align="center">
 		<div class="login">

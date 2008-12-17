@@ -12,6 +12,7 @@ define('_VALID_MOS',1);
 
 require ('globals.php');
 require_once ('configuration.php');
+require_once ('includes/definitions.php');
 
 // SSL check - $http_host returns <live site url>:<port number if it is 443>
 $http_host = explode(':',$_SERVER['HTTP_HOST']);

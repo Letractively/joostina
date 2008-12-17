@@ -57,7 +57,7 @@ if(!empty($securitycheck)) {
 	<div style="display: block; clear: both; text-align:left; padding-top:10px;">
 	<?php if($my->usertype == 'Super Administrator') { ?>
 		<a href="index2.php?option=com_quickicons">
-		<img border="0" src="<?php echo $mosConfig_live_site; ?>/<?php echo getAdminDirectoryName()?>/templates/joostfree/images/shortcut.png" />
+		<img border="0" src="<?php echo $mosConfig_live_site; ?>/<?php echo ADMINISTRATOR_DIRECTORY?>/templates/joostfree/images/shortcut.png" />
 		<?php echo _CHANGE_QUICK_BUTTONS?>
 		</a>
 	<?php

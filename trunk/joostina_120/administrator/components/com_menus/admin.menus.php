@@ -12,7 +12,7 @@ defined('_VALID_MOS') or die();
 
 require_once ($mainframe->getPath('admin_html'));
 
-$path = $mosConfig_absolute_path.'/administrator/components/com_menus/';
+$path = $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_menus/';
 
 $menutype = stripslashes(strval(mosGetParam($_REQUEST,'menutype','mainmenu')));
 $type = stripslashes(strval(mosGetParam($_REQUEST,'type',false)));
@@ -181,7 +181,7 @@ function viewMenuItems($menutype,$option) {
 
 	$total = count($list);
 
-	require_once ($GLOBALS['mosConfig_absolute_path'].'/administrator/includes/pageNavigation.php');
+	require_once ($GLOBALS['mosConfig_absolute_path'].'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
 	$levellist = mosHTML::integerSelectList(1,20,1,'levellimit','class="inputbox" size="1" onchange="document.adminForm.submit();"',$levellimit);
@@ -256,13 +256,13 @@ function addMenuItem(&$cid,$menutype,$option,$task) {
 	$types = array();
 
 	// list of directories
-	$dirs = mosReadDirectory($mosConfig_absolute_path.'/administrator/components/com_menus');
+	$dirs = mosReadDirectory($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_menus');
 
 	// load files for menu types
 	foreach($dirs as $dir) {
 		// needed within menu type .php files
 		$type = $dir;
-		$dir = $mosConfig_absolute_path.'/administrator/components/com_menus/'.$dir;
+		$dir = $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_menus/'.$dir;
 		if(is_dir($dir)) {
 			$files = mosReadDirectory($dir,".\.menu\.php$");
 			foreach($files as $file) {
@@ -415,7 +415,7 @@ function publishMenuSection($cid = null,$publish = 1,$menutype) {
 			$task = $publish?'publish':'unpublish';
 			// $type value is used in*.menu.php
 			$type = $menu->type;
-			require_once ($mosConfig_absolute_path.'/administrator/components/com_menus/'.$type.'/'.$type.'.menu.php');
+			require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_menus/'.$type.'/'.$type.'.menu.php');
 		}
 	}
 
@@ -716,7 +716,7 @@ function ReadMenuXML($type,$component = -1) {
 	// XML library
 	require_once ($mosConfig_absolute_path.'/includes/domit/xml_domit_lite_include.php');
 	// xml file for module
-	$xmlfile = $mosConfig_absolute_path.'/administrator/components/com_menus/'.$type.'/'.$type.'.xml';
+	$xmlfile = $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_menus/'.$type.'/'.$type.'.xml';
 	$xmlDoc = new DOMIT_Lite_Document();
 	$xmlDoc->resolveErrors(true);
 

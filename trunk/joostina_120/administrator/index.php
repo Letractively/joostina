@@ -17,6 +17,7 @@ if(!file_exists('../configuration.php')) {
 
 require ('../globals.php');
 require_once ('../configuration.php');
+require_once ('../includes/definitions.php');
 // отключаем кэширование запросов базы данных для панели управления
 $mosConfig_db_cache_handler = 'none';
 
@@ -28,7 +29,6 @@ if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset
 }
 
 require_once ('../includes/joomla.php');
-require_once ('includes/admin.php');
 
 // загрузка файла русского языка по умолчанию
 if($mosConfig_lang == '') {
@@ -233,7 +233,7 @@ if(isset($_POST['submit'])) {
 	}
 } else {
 	initGzip();
-	$path = $mosConfig_absolute_path . '/'.getAdminDirectoryName().'/templates/' . $mainframe->getTemplate() . '/login.php';
+	$path = $mosConfig_absolute_path . '/'.ADMINISTRATOR_DIRECTORY.'/templates/' . $mainframe->getTemplate() . '/login.php';
 	require_once ($path);
 	doGzip();
 }

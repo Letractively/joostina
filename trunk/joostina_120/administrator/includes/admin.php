@@ -10,15 +10,6 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-
-/**
-* Возвращает имя директории админки
-*/
-function getAdminDirectoryName() {
-
-	return basename(dirname(dirname(__FILE__)));
-}
-
 /**
 * @param string THe template position
 */
@@ -118,7 +109,7 @@ function mosLoadAdminModule($name,$params = null) {
 
 	$name = str_replace('/','',$name);
 	$name = str_replace('\\','',$name);
-	$path = "$mosConfig_absolute_path/".getAdminDirectoryName()."/modules/mod_$name.php";
+	$path = "$mosConfig_absolute_path/".ADMINISTRATOR_DIRECTORY."/modules/mod_$name.php";
 	if(file_exists($path)) {
 		require $path;
 	}

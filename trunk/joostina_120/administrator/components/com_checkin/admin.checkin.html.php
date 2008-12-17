@@ -43,11 +43,11 @@ class HTML_checkin {
 			echo "</td>\n<td>\n";
 			echo $itemlist[$i]["cotime"];
 			echo "</td>\n<td>\n";
-			echo "<a href=\"$mosConfig_live_site/administrator/index2.php?option=$option&task=checkin&component="
+			echo "<a href=\"$mosConfig_live_site/".ADMINISTRATOR_DIRECTORY."/index2.php?option=$option&task=checkin&component="
 					.$itemlist[$i]["component"]."&pkey="
 					.$itemlist[$i]["PKEY"]."&checkid="
 					.$itemlist[$i]["id"]."&editor="
-					.$itemlist[$i]["editor"]."\">Разблокировать</a>\n";
+					.$itemlist[$i]["editor"]."\">"._CHECKIN_OJECT."</a>\n";
 			echo "</td></tr>";
 			$k = 1 - $k;
 		}

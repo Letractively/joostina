@@ -12,7 +12,7 @@ defined('_VALID_MOS') or die();
 
 global $mosConfig_absolute_path;
 
-require_once ($mosConfig_absolute_path .'/administrator/components/com_installer/installer.class.php');
+require_once ($mosConfig_absolute_path .'/'.ADMINISTRATOR_DIRECTORY.'/components/com_installer/installer.class.php');
 
 class XmapAdmin {
 	
@@ -193,7 +193,7 @@ function loadInstalledPlugins( &$rows,&$xmlfile ) {
 		$row =& $rows[$i];
 
 		// path to module directory
-		$extensionBaseDir	= mosPathName( mosPathName( $mosConfig_absolute_path ) . '/administrator/components/com_xmap/extensions/' );
+		$extensionBaseDir	= mosPathName( mosPathName( $mosConfig_absolute_path ) . '/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/extensions/' );
 
 		// xml file for module
 		$xmlfile = $extensionBaseDir. "/" .$row->extension. ".xml";
@@ -257,7 +257,7 @@ function xmapUploadPlugin( ) {
 	$option ='com_xmap'; 
 	$element = 'plugin';
 	$client = '';
-	require_once($mosConfig_absolute_path. '/administrator/components/com_xmap/classes/XmapPluginInstaller.php');
+	require_once($mosConfig_absolute_path. '/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/classes/XmapPluginInstaller.php');
 	$installer = new XmapPluginInstaller();
 
 	// Check if file uploads are enabled
@@ -313,7 +313,7 @@ function xmapInstallPluginFromDirectory() {
 	$option ='com_xmap'; 
 	$element = 'plugin';
 	$client = '';
-	require_once($mosConfig_absolute_path. '/administrator/components/com_xmap/classes/XmapPluginInstaller.php');
+	require_once($mosConfig_absolute_path. '/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/classes/XmapPluginInstaller.php');
 	$installer = new XmapPluginInstaller();
 
 	if (!$userfile) {
@@ -339,7 +339,7 @@ function xmapInstallPluginFromDirectory() {
 */
 function xmapUninstallPlugin( $extensionid ) {
 	global $mosConfig_absolute_path;
-	require_once($mosConfig_absolute_path. '/administrator/components/com_xmap/classes/XmapPluginInstaller.php');
+	require_once($mosConfig_absolute_path. '/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/classes/XmapPluginInstaller.php');
 	$installer = new XmapPluginInstaller();
 	$result = false;
 	if ($extensionid) {
