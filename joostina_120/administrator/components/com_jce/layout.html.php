@@ -69,14 +69,14 @@ class JCE_layout {
 
 		$database->setQuery("SELECT lang FROM #__jce_langs WHERE published= '1'");
 		$lang = $database->loadResult();
-		require_once ($mainframe->getCfg('absolute_path')."/administrator/components/com_jce/language/".$lang.".php");
+		require_once ($mainframe->getCfg('absolute_path')."/".ADMINISTRATOR_DIRECTORY."/components/com_jce/language/".$lang.".php");
 
 		mosCommonHTML::loadOverlib();
 
 ?>
-		<script src="<?php echo $mainframe->getCfg('live_site'); ?>/administrator/components/com_jce/jscripts/prototype.js" type="text/javascript"></script>
-		<script src="<?php echo $mainframe->getCfg('live_site'); ?>/administrator/components/com_jce/jscripts/scriptaculous.js" type="text/javascript"></script>
-        <link href="<?php echo $mainframe->getCfg('live_site'); ?>/administrator/components/com_jce/css/layout.css" rel="stylesheet" type="text/css" />
+		<script src="<?php echo $mainframe->getCfg('live_site'); ?>/<?php echo ADMINISTRATOR_DIRECTORY?>/components/com_jce/jscripts/prototype.js" type="text/javascript"></script>
+		<script src="<?php echo $mainframe->getCfg('live_site'); ?>/<?php echo ADMINISTRATOR_DIRECTORY?>/components/com_jce/jscripts/scriptaculous.js" type="text/javascript"></script>
+        <link href="<?php echo $mainframe->getCfg('live_site'); ?>/<?php echo ADMINISTRATOR_DIRECTORY?>/components/com_jce/css/layout.css" rel="stylesheet" type="text/css" />
 		<style type="text/css">
           .editor {
             width: <?php echo $width; ?>px;

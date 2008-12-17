@@ -110,7 +110,7 @@ class CConfiguration {
 		global $mosConfig_absolute_path,$option;
 
 		// Private initializers
-		$this->_InstallationRoot	= $mosConfig_absolute_path."/administrator/";
+		$this->_InstallationRoot	= $mosConfig_absolute_path."/".ADMINISTRATOR_DIRECTORY."/";
 		$this->_configurationFile	= $this->_InstallationRoot."/components/com_joomlapack/jpack.config.php";
 
 		// Default configuration
@@ -431,7 +431,7 @@ class CAltInstaller {
 		// Instanciate new parser object
 		$xmlDoc = new DOMIT_Lite_Document();
 		$xmlDoc->resolveErrors(true);
-		if(!$xmlDoc->loadXML($mosConfig_absolute_path.'/administrator/components/com_joomlapack/installers/'.$file,false,true)) {
+		if(!$xmlDoc->loadXML($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_joomlapack/installers/'.$file,false,true)) {
 			return false;
 		}
 		$root = &$xmlDoc->documentElement;
@@ -491,7 +491,7 @@ class CAltInstaller {
 		require_once 'engine.abstraction.php';
 		$FS = new CFSAbstraction;
 		$defs = array();
-		$fileList = $FS->getDirContents($mosConfig_absolute_path.'/administrator/components/com_joomlapack/installers/','*.xml');
+		$fileList = $FS->getDirContents($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_joomlapack/installers/','*.xml');
 		foreach($fileList as $fileDef) {
 			$file = $fileDef['name'];
 			$baseName = basename($file);

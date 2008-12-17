@@ -24,7 +24,7 @@ HTML_installer::showInstallForm('Установка шаблона <small><small>[ '.($client ==
 <table class="adminlist">
 <?php
 writableCell('media');
-writableCell('administrator/templates');
+writableCell(ADMINISTRATOR_DIRECTORY.'/templates');
 writableCell('templates');
 writableCell('images/stories');
 ?>

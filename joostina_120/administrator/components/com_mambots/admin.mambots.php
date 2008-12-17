@@ -107,7 +107,7 @@ function viewMambots($option,$client) {
 	$total = $database->loadResult();
 
 	require_once ($GLOBALS['mosConfig_absolute_path'].
-		'/administrator/includes/pageNavigation.php');
+		'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
 	$query = "SELECT m.*, u.name AS editor, g.name AS groupname"."\n FROM #__mambots AS m".

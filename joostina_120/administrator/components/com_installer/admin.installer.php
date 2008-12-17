@@ -17,7 +17,7 @@ require_once ($mainframe->getPath('class'));
 
 $element	= mosGetParam($_REQUEST,'element','');
 $client		= mosGetParam($_REQUEST,'client','');
-$path		= $mosConfig_absolute_path."/administrator/components/com_installer/$element/$element.php";
+$path		= $mosConfig_absolute_path."/".ADMINISTRATOR_DIRECTORY."/components/com_installer/$element/$element.php";
 
 // ensure user has access to this function
 if(!$acl->acl_check('administration','install','users',$my->usertype,$element.'s','all')) {
@@ -53,7 +53,7 @@ if(array_key_exists($element,$classMap)) {
 			break;
 
 		default:
-			$path = $mosConfig_absolute_path."/administrator/components/com_installer/$element/$element.php";
+			$path = $mosConfig_absolute_path."/".ADMINISTRATOR_DIRECTORY."/components/com_installer/$element/$element.php";
 
 			if(file_exists($path)) {
 				require $path;

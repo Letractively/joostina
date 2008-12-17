@@ -129,7 +129,7 @@ function submitContent(){
 	$database->setQuery($query);
 	$rowp = $database->loadResult();
 
-	$file = $mosConfig_absolute_path.'/administrator/components/com_content/submit_content.xml';
+	$file = $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_content/submit_content.xml';
 	$params = new mosParameters($rowp,$file,'component');
 	HTML_content::submit($params);
 }
@@ -240,7 +240,7 @@ function viewContent($sectionid,$option) {
 			.implode(' AND ',$where):"");
 	$database->setQuery($query);
 	$total = $database->loadResult();
-	require_once ($GLOBALS['mosConfig_absolute_path'].'/administrator/includes/pageNavigation.php');
+	require_once ($GLOBALS['mosConfig_absolute_path'].'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
 	$query = "SELECT c.*, g.name AS groupname, cc.name, u.name AS editor, f.content_id AS frontpage, s.title AS section_name, v.name AS author"
@@ -335,7 +335,7 @@ function viewArchive($sectionid,$option) {
 	$database->setQuery($query);
 	$total = $database->loadResult();
 
-	require_once ($GLOBALS['mosConfig_absolute_path'].'/administrator/includes/pageNavigation.php');
+	require_once ($GLOBALS['mosConfig_absolute_path'].'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
 	$query = "SELECT c.*, g.name AS groupname, cc.name, v.name AS author"
@@ -1373,7 +1373,7 @@ function seccatli($act = 0,$filter_authorid=0){
 	global $database,$mosConfig_live_site;
 
 	$sectli = '<div id="ntree" class="dtree"><script type="text/javascript"><!--';
-	$sectli .= "\n c = new dTree('c','$mosConfig_live_site/administrator/images/dtree/');";
+	$sectli .= "\n c = new dTree('c','$mosConfig_live_site/".ADMINISTRATOR_DIRECTORY."/images/dtree/');";
 	$sectli .= "\n c.add(0,-1,'Структура (<a href=\"index2.php?option=com_content&sectionid=0&catid=0\">все</a>)');";
 
 	$query = "SELECT s.id, s.title, c.section"
@@ -1389,7 +1389,7 @@ function seccatli($act = 0,$filter_authorid=0){
 	}
 	$sectli .= _cat_d($act);
 
-	$sectli .= "\n u = new dTree('u','$mosConfig_live_site/administrator/images/dtree/');";
+	$sectli .= "\n u = new dTree('u','$mosConfig_live_site/".ADMINISTRATOR_DIRECTORY."/images/dtree/');";
 	$sectli .= "\n u.add(0,-1,'Авторы');";
 	$sectli .=_user_d($act);
 	$query = "SELECT u.id,u.gid,u.name,COUNT(c.id) AS num FROM #__users AS u INNER JOIN #__content AS c ON c.created_by = u.id WHERE c.sectionid>0 AND c.state!='-2' GROUP BY c.created_by";
@@ -1437,7 +1437,7 @@ function _user_d(){
 	$rows = $database->loadObjectList();
 	$ret = '';
 	foreach($rows as $row) {
-		$ret .= "\n u.add($row->group_id,0,'$row->name','','','','','$mosConfig_live_site/administrator/images/dtree/folder_user.gif');";
+		$ret .= "\n u.add($row->group_id,0,'$row->name','','','','','$mosConfig_live_site/".ADMINISTRATOR_DIRECTORY."/images/dtree/folder_user.gif');";
 	}
 	unset($rows);
 	return $ret;

@@ -49,7 +49,7 @@ function saveTemplateSource(){
 	}
 
 	if($client == 'admin'){
-		$file = $mosConfig_absolute_path.'/administrator/templates/'.$template.'/index.php';
+		$file = $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$template.'/index.php';
 	}
 	else{
 		$file = $mosConfig_absolute_path.'/templates/'.$template.'/index.php';
@@ -102,7 +102,7 @@ function saveTemplateCSS(){
 	}
 
 	if($client == 'admin'){
-		$file = $mosConfig_absolute_path.'/administrator/templates/'.$template.'/css/template_css.css';
+		$file = $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$template.'/css/template_css.css';
 	}else{
 		$file = $mosConfig_absolute_path.'/templates/'.$template.'/css/template_css.css';
 	}

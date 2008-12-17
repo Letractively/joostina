@@ -17,7 +17,7 @@ if(!file_exists('../configuration.php')) {
 
 require ('../globals.php');
 require_once ('../configuration.php');
-
+require_once ('../includes/definitions.php');
 
 // отключаем кэширование запросов базы данных для панели управления
 $mosConfig_db_cache_handler_orig = $mosConfig_db_cache_handler;
@@ -31,7 +31,7 @@ if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset
 
 require_once ($mosConfig_absolute_path . '/includes/joomla.php');
 include_once ($mosConfig_absolute_path . '/language/' . $mosConfig_lang . '.php');
-require_once ('includes/admin.php');
+require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/includes/admin.php');
 
 global $database;
 
@@ -86,10 +86,10 @@ initGzip();
 // начало вывода html
 if($no_html == 0) {
 	// загрузка файла шаблона
-	if(!file_exists($mosConfig_absolute_path . '/'.getAdminDirectoryName().'/templates/' . $cur_template .'/index.php')) {
+	if(!file_exists($mosConfig_absolute_path . '/'.ADMINISTRATOR_DIRECTORY.'/templates/' . $cur_template .'/index.php')) {
 		echo _TEMPLATE_NOT_FOUND.': ',$cur_template;
 	} else {
-		require_once ($mosConfig_absolute_path . '/'.getAdminDirectoryName().'/templates/' . $cur_template .'/index.php');
+		require_once ($mosConfig_absolute_path . '/'.ADMINISTRATOR_DIRECTORY.'/templates/' . $cur_template .'/index.php');
 	}
 } else {
 	mosMainBody_Admin();

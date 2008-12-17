@@ -107,7 +107,7 @@ class XmapPlugin extends mosDBTable {
 
 	function getXmlPath () {
 		global $mosConfig_absolute_path;
-		return $mosConfig_absolute_path.'/administrator/components/com_xmap/extensions/'.$this->extension.'.xml';
+		return $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/extensions/'.$this->extension.'.xml';
 	}
 
 	function store() {

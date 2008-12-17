@@ -169,7 +169,7 @@ function showMessages($option) {
 	$total = $database->loadResult();
 
 	require_once ($GLOBALS['mosConfig_absolute_path'].
-		'/administrator/includes/pageNavigation.php');
+		'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
 	$query = "SELECT a.*, u.name AS user_from"."\n FROM #__messages AS a"."\n INNER JOIN #__users AS u ON u.id = a.user_id_from".($wheres?

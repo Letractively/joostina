@@ -11,9 +11,9 @@
 defined('_VALID_MOS') or die();
 
 require_once ($mainframe->getCfg('absolute_path').
-	'/administrator/components/com_jce/layout.html.php');
+	'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jce/layout.html.php');
 require_once ($mainframe->getCfg('absolute_path').
-	'/administrator/components/com_jce/plugins/plugins.class.php');
+	'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jce/plugins/plugins.class.php');
 
 $client = mosGetParam($_REQUEST,'client','');
 

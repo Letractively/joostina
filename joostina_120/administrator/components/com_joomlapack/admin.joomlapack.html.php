@@ -14,32 +14,32 @@ class jpackScreens {
 	// страница конфигурации
 	function fConfig() {
 		global $option,$mosConfig_absolute_path;
-		require_once ($mosConfig_absolute_path.'/administrator/components/com_joomlapack/includes/html.config.php');
+		require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_joomlapack/includes/html.config.php');
 	}
 	// страница выполнения процесса бэкапа
 	function fPack() {
 		global $option,$mosConfig_absolute_path;
-		require_once ($mosConfig_absolute_path.'/administrator/components/com_joomlapack/includes/html.pack.php');
+		require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_joomlapack/includes/html.pack.php');
 	}
 	// самая первая страница
 	function fMain() {
 		global $option,$mosConfig_absolute_path;
-		require_once ($mosConfig_absolute_path.'/administrator/components/com_joomlapack/includes/html.main.php');
+		require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_joomlapack/includes/html.main.php');
 	}
 	// список сохранённых бэкапов
 	function fBUAdmin() {
 		global $option,$mosConfig_absolute_path;
-		require_once ($mosConfig_absolute_path.'/administrator/components/com_joomlapack/includes/html.files.php');
+		require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_joomlapack/includes/html.files.php');
 	}
 	// страница со списком каталогов исключаемых из бэкапа
 	function fDirExclusion() {
 		global $option,$mosConfig_absolute_path;
-		require_once ($mosConfig_absolute_path.'/administrator/components/com_joomlapack/includes/html.dirs.php');
+		require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_joomlapack/includes/html.dirs.php');
 	}
 	// страница с логом выполнения работы
 	function fLog() {
 		global $option,$mosConfig_absolute_path;
-		require_once ($mosConfig_absolute_path.'/administrator/components/com_joomlapack/includes/html.log.php');
+		require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_joomlapack/includes/html.log.php');
 	}
 }
 

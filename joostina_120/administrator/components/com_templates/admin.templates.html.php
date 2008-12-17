@@ -34,7 +34,7 @@ class HTML_templates {
 			name = name.replace(pattern,'_');
 			name = name.toLowerCase();
 			if (document.adminForm.doPreview.checked) {
-				var src = '<?php echo $mosConfig_live_site.($client == 'admin'?'/administrator':''); ?>/templates/'+dir+'/template_thumbnail.png';
+				var src = '<?php echo $mosConfig_live_site.($client == 'admin'?'/'.ADMINISTRATOR_DIRECTORY:''); ?>/templates/'+dir+'/template_thumbnail.png';
 				var html=name;
 				html = '<br /><img border="1" src="'+src+'" name="imagelib" alt="<?php echo _NO_PREVIEW?>" width="206" height="145" />';
 				return overlib(html, CAPTION, name)
@@ -142,7 +142,7 @@ class HTML_templates {
 	*/
 	function editTemplateSource($template,&$content,$option,$client) {
 		global $mosConfig_absolute_path,$mosConfig_codepress;
-		$template_path = $mosConfig_absolute_path.($client == 'admin'?'/administrator':'').'/templates/'.$template.'/index.php';
+		$template_path = $mosConfig_absolute_path.($client == 'admin'?'/'.ADMINISTRATOR_DIRECTORY:'').'/templates/'.$template.'/index.php';
 		/* подключение js файла codepress*/
 		if($mosConfig_codepress) mosCommonHTML::loadCodepress();
 ?>
@@ -225,7 +225,7 @@ class HTML_templates {
 	*/
 	function editCSSSource($template,&$content,$option,$client) {
 		global $mosConfig_absolute_path,$mosConfig_codepress;
-		$css_path = $mosConfig_absolute_path.($client == 'admin'?'/administrator':'').'/templates/'.$template.'/css/template_css.css';
+		$css_path = $mosConfig_absolute_path.($client == 'admin'?'/'.ADMINISTRATOR_DIRECTORY:'').'/templates/'.$template.'/css/template_css.css';
 		/* подключение js файла codepress*/
 		if($mosConfig_codepress) mosCommonHTML::loadCodepress();
 ?>

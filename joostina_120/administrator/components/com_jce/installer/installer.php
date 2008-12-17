@@ -14,15 +14,15 @@ defined('_VALID_MOS') or die();
 require_once ($mosConfig_absolute_path.
 	'/includes/domit/xml_domit_lite_include.php');
 require_once ($mosConfig_absolute_path.
-	"/administrator/components/com_jce/installer/installer.html.php");
+	"/".ADMINISTRATOR_DIRECTORY."/components/com_jce/installer/installer.html.php");
 require_once ($mosConfig_absolute_path.
-	"/administrator/components/com_jce/installer/installer.class.php");
+	"/".ADMINISTRATOR_DIRECTORY."/components/com_jce/installer/installer.class.php");
 
 function jceInstaller($option,$client,$opt) {
 	global $mosConfig_absolute_path;
 	$element = mosGetParam($_REQUEST,'element','');
 
-	$path = $mosConfig_absolute_path."/administrator/components/com_jce/installer/$element/$element.php";
+	$path = $mosConfig_absolute_path."/".ADMINISTRATOR_DIRECTORY."/components/com_jce/installer/$element/$element.php";
 
 	// map the element to the required derived class
 	$classMap = array('plugins' => 'JCEPluginInstaller','language' =>
@@ -30,7 +30,7 @@ function jceInstaller($option,$client,$opt) {
 
 	if(array_key_exists($element,$classMap)) {
 		require_once ($mosConfig_absolute_path.
-			"/administrator/components/com_jce/installer/$element/$element.class.php");
+			"/".ADMINISTRATOR_DIRECTORY."/components/com_jce/installer/$element/$element.class.php");
 
 		switch($opt) {
 
@@ -47,7 +47,7 @@ function jceInstaller($option,$client,$opt) {
 				break;
 
 			case 'show':
-				$path = $mosConfig_absolute_path."/administrator/components/com_jce/installer/$element/$element.php";
+				$path = $mosConfig_absolute_path."/".ADMINISTRATOR_DIRECTORY."/components/com_jce/installer/$element/$element.php";
 
 				if(file_exists($path)) {
 					require $path;

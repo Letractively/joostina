@@ -16,9 +16,9 @@ if(!$acl->acl_check('administration','config','users',$my->usertype)) {
 // отключаем кэширование базы данных
 $mosConfig_db_cache_handler = 'none';
 // подключение класса конфигурации
-require_once ($mosConfig_absolute_path."/administrator/components/com_joomlapack/includes/configuration.php");
+require_once ($mosConfig_absolute_path."/".ADMINISTRATOR_DIRECTORY."/components/com_joomlapack/includes/configuration.php");
 
-require_once ($mosConfig_absolute_path."/administrator/components/com_joomlapack/includes/sajax.php");
+require_once ($mosConfig_absolute_path."/".ADMINISTRATOR_DIRECTORY."/components/com_joomlapack/includes/sajax.php");
 
-require_once ($mosConfig_absolute_path."/administrator/components/com_joomlapack/includes/ajaxtool.php");
+require_once ($mosConfig_absolute_path."/".ADMINISTRATOR_DIRECTORY."/components/com_joomlapack/includes/ajaxtool.php");
 ?>

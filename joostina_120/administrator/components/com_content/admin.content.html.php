@@ -42,7 +42,7 @@ class HTML_content {
 		// перемещение содержимого в корзину
 		function ch_trash(elID){
 			log('Удаление в корзину: '+elID);
-			if(SRAX.get('img-trash-'+elID).src == '<?php echo $mosConfig_live_site;?>/administrator/images/trash_mini.png'){
+			if(SRAX.get('img-trash-'+elID).src == '<?php echo $mosConfig_live_site;?>/<?php echo ADMINISTRATOR_DIRECTORY?>/images/trash_mini.png'){
 				SRAX.get('img-trash-'+elID).src = 'images/help.png';
 				return null;
 			}

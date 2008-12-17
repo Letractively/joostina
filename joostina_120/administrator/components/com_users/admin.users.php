@@ -134,7 +134,7 @@ function showUsers($option) {
 	$database->setQuery($query);
 	$total = $database->loadResult();
 
-	require_once ($GLOBALS['mosConfig_absolute_path'].'/administrator/includes/pageNavigation.php');
+	require_once ($GLOBALS['mosConfig_absolute_path'].'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
 	$query = "SELECT a.*, g.name AS groupname"."\n FROM #__users AS a"."\n INNER JOIN #__core_acl_aro AS aro ON aro.value = a.id"

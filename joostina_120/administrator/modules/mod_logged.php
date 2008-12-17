@@ -12,7 +12,7 @@ defined('_VALID_MOS') or die();
 
 global $mosConfig_list_limit,$my,$mosConfig_absolute_path,$option;
 
-require_once ($mosConfig_absolute_path.'/'.getAdminDirectoryName().'/includes/pageNavigation.php');
+require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 
 $limit = $mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mosConfig_list_limit);
 $limitstart = $mainframe->getUserStateFromRequest("view{$option}",'limitstart',0);

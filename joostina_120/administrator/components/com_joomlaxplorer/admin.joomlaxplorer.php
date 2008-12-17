@@ -53,9 +53,9 @@ if(!$acl->acl_check('administration','config','users',$my->usertype)) {
 $GLOBALS['jx_version'] = '1.6.1';
 $GLOBALS['jx_home'] = 'http://joomlacode.org/gf/project/joomlaxplorer/';
 
-define('_QUIXPLORER_PATH',$mosConfig_absolute_path.'/administrator/components/com_joomlaxplorer');
-define('_QUIXPLORER_FTPTMP_PATH',$mosConfig_absolute_path.'/administrator/components/com_joomlaxplorer/ftp_tmp');
-define('_QUIXPLORER_URL',$mosConfig_live_site.'/administrator/components/com_joomlaxplorer');
+define('_QUIXPLORER_PATH',$mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_joomlaxplorer');
+define('_QUIXPLORER_FTPTMP_PATH',$mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_joomlaxplorer/ftp_tmp');
+define('_QUIXPLORER_URL',$mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_joomlaxplorer');
 
 //------------------------------------------------------------------------------
 if(defined('E_STRICT')) { // Suppress Strict Standards Warnings

@@ -63,7 +63,7 @@ function userEdit($option,$uid,$submitvalue) {
 		return;
 	}
 
-	require_once ($mosConfig_absolute_path.'/administrator/components/com_users/users.class.php');
+	require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_users/users.class.php');
 
 	if($uid == 0) {
 		mosNotAuth();

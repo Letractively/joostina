@@ -11,10 +11,10 @@
 defined('_VALID_MOS') or die();
 
 // load language file
-if( file_exists($GLOBALS['mosConfig_absolute_path'].'/administrator/components/com_xmap/language/'.$GLOBALS['mosConfig_lang'].'.php') ) {
-	require_once( $GLOBALS['mosConfig_absolute_path'].'/administrator/components/com_xmap/language/'.$GLOBALS['mosConfig_lang'].'.php' );
+if( file_exists($GLOBALS['mosConfig_absolute_path'].'/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/language/'.$GLOBALS['mosConfig_lang'].'.php') ) {
+	require_once( $GLOBALS['mosConfig_absolute_path'].'/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/language/'.$GLOBALS['mosConfig_lang'].'.php' );
 } else {
-	require_once( $GLOBALS['mosConfig_absolute_path'].'/administrator/components/com_xmap/language/english.php' );
+	require_once( $GLOBALS['mosConfig_absolute_path'].'/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/language/english.php' );
 }
 // load html output class
 require_once( $mainframe->getPath( 'toolbar_html' ) );

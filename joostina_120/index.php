@@ -25,6 +25,7 @@ if(!file_exists('configuration.php') || filesize('configuration.php') < 10) {
 require ('globals.php');
 // подключение файла конфигурации
 require_once ('configuration.php');
+require_once ('includes/definitions.php');
 
 // закомментировать при возникновении ошибок
 $mosConfig_absolute_path = dirname( __FILE__ );

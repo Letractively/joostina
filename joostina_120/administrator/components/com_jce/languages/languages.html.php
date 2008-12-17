@@ -22,7 +22,7 @@ class JCE_languages {
 		$lang = $database->loadResult();
 
 		require_once ($mainframe->getCfg('absolute_path').
-			"/administrator/components/com_jce/language/".$lang.".php");
+			"/".ADMINISTRATOR_DIRECTORY."/components/com_jce/language/".$lang.".php");
 ?>
 		<form action="index2.php" method="post" name="adminForm">
 		<table class="adminheading">

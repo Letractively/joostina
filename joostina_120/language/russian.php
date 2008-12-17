@@ -2167,9 +2167,10 @@ DEFINE('_ENTER_CORRECT_URL','Введите правильный URL');
 /* administrator index2.php */
 DEFINE('_TEMPLATE_NOT_FOUND','Шаблон не обнаружен');
 DEFINE('_ACCESS_DENIED','В доступе отказано');
+DEFINE('_CHECKIN_OJECT','Разблокировать');
 /*
 
-DEFINE('_','');
+
 DEFINE('_','');
 DEFINE('_','');
 DEFINE('_','');

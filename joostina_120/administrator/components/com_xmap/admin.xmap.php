@@ -25,10 +25,10 @@ define ('_XMAP_JOOMLA15',0);
 define('_XMAP_MAMBO',0);
 
 $xmapLang = strtolower($mosConfig_lang);
-$xmapComponentPath = $mosConfig_absolute_path.'/administrator/components/com_xmap';
-$xmapAdministratorPath = $mosConfig_absolute_path.'/administrator';
-$xmapComponentURL = $mosConfig_live_site.'/administrator/components/com_xmap';
-$xmapAdministratorURL = $mosConfig_live_site.'/administrator';
+$xmapComponentPath = $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap';
+$xmapAdministratorPath = $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY;
+$xmapComponentURL = $mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap';
+$xmapAdministratorURL = $mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY;
 $xmapSiteURL = $mosConfig_live_site;
 
 // load language file

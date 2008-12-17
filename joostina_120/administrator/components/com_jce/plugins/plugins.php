@@ -10,10 +10,8 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-require_once ($mainframe->getCfg('absolute_path').
-	'/administrator/components/com_jce/plugins/plugins.html.php');
-require_once ($mainframe->getCfg('absolute_path').
-	'/administrator/components/com_jce/plugins/plugins.class.php');
+require_once ($mainframe->getCfg('absolute_path').'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jce/plugins/plugins.html.php');
+require_once ($mainframe->getCfg('absolute_path').'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jce/plugins/plugins.class.php');
 
 $client = mosGetParam($_REQUEST,'client','');
 $cid = mosGetParam($_POST,'cid',array(0));
@@ -68,7 +66,7 @@ function viewPlugins($option,$client) {
 	$database->setQuery($query);
 	$total = $database->loadResult();
 
-	require_once ($mainframe->getCfg('absolute_path').	'/administrator/includes/pageNavigation.php');
+	require_once ($mainframe->getCfg('absolute_path').	'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
 	$query = "SELECT m.*, u.name AS editor"

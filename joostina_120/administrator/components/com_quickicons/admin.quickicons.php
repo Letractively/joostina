@@ -159,7 +159,7 @@ function show($option) {
 	$database->setQuery($query);
 	$total = $database->loadResult();
 
-	require_once ($GLOBALS['mosConfig_absolute_path'].'/administrator/includes/pageNavigation.php');
+	require_once ($GLOBALS['mosConfig_absolute_path'].'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
 	// Load Items
@@ -429,8 +429,8 @@ function chooseIcon($option) {
 
 	$icons = 0;
 	$imgs = array();
-	$folder[] = $mosConfig_absolute_path.'/administrator/images/';
-	$folder[] = $mosConfig_absolute_path.'/administrator/templates/'.$cur_template.'/images/cpanel_ico/';
+	$folder[] = $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/images/';
+	$folder[] = $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$cur_template.'/images/cpanel_ico/';
 
 	foreach($folder as $fold) {
 		if(file_exists($fold)) {

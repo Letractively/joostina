@@ -21,7 +21,7 @@ class HTML_admin_misc {
 	*/
 	function controlPanel() {
 		global $mosConfig_absolute_path,$mainframe;
-		$path = $mosConfig_absolute_path.'/'.getAdminDirectoryName().'/templates/'.$mainframe->getTemplate().'/html/cpanel.php';
+		$path = $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/html/cpanel.php';
 		if(file_exists($path)) {
 			require $path;
 		} else {
@@ -372,10 +372,10 @@ class HTML_admin_misc {
 					<?php
 		$sp = ini_get('session.save_path');
 
-		mosHTML::writableCell(getAdminDirectoryName().'/backups');
-		mosHTML::writableCell(getAdminDirectoryName().'/components');
-		mosHTML::writableCell(getAdminDirectoryName().'/modules');
-		mosHTML::writableCell(getAdminDirectoryName().'/templates');
+		mosHTML::writableCell(ADMINISTRATOR_DIRECTORY.'/backups');
+		mosHTML::writableCell(ADMINISTRATOR_DIRECTORY.'/components');
+		mosHTML::writableCell(ADMINISTRATOR_DIRECTORY.'/modules');
+		mosHTML::writableCell(ADMINISTRATOR_DIRECTORY.'/templates');
 		mosHTML::writableCell('components');
 		mosHTML::writableCell('images');
 		mosHTML::writableCell('images/banners');
@@ -540,10 +540,10 @@ class HTML_admin_misc {
 							<a href="http://Joom.Ru" target="_blank">
 								Joom.Ru</a>
 							<br />
-							<a href="<?php echo $mosConfig_live_site; ?>/<?php echo getAdminDirectoryName()?>/index3.php?option=com_admin&task=changelog" target="helpFrame">
+							<a href="<?php echo $mosConfig_live_site; ?>/<?php echo ADMINISTRATOR_DIRECTORY?>/index3.php?option=com_admin&task=changelog" target="helpFrame">
 								<?=_CHANGELOG?></a>
 							|
-							<a href="<?php echo $mosConfig_live_site; ?>/<?php echo getAdminDirectoryName()?>/index3.php?option=com_admin&task=sysinfo" target="helpFrame">
+							<a href="<?php echo $mosConfig_live_site; ?>/<?php echo ADMINISTRATOR_DIRECTORY?>/index3.php?option=com_admin&task=sysinfo" target="helpFrame">
 								<?=_ABOUT_SYSTEM?></a>
 							|
 							<a href="http://joom.ru/" target="_blank">

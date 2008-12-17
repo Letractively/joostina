@@ -51,7 +51,7 @@ function quickiconButton($link,$image,$text) {
 	<span>
 		<a href="<?php echo $link; ?>" title="<?php echo $text; ?>">
 <?php
-			echo mosAdminMenus::imageCheckAdmin($image,'/administrator/images/',null,null,$text);
+			echo mosAdminMenus::imageCheckAdmin($image,'/'.ADMINISTRATOR_DIRECTORY.'/images/',null,null,$text);
 			echo $text;
 ?>
 		</a>

@@ -22,7 +22,7 @@ HTML_installer::showInstallForm(_MODULE_INSTALL,$option,'module','',dirname(__fi
 <table class="adminlist">
 <?php
 writableCell('media');
-writableCell('administrator/modules');
+writableCell(ADMINISTRATOR_DIRECTORY.'/modules');
 writableCell('modules');
 ?>
 </table>
@@ -60,7 +60,7 @@ function showInstalledModules($_option) {
 
 		// path to module directory
 		if($row->client_id == "1") {
-			$moduleBaseDir = mosPathName(mosPathName($mosConfig_absolute_path)."administrator/modules");
+			$moduleBaseDir = mosPathName(mosPathName($mosConfig_absolute_path).ADMINISTRATOR_DIRECTORY."/modules");
 		} else {
 			$moduleBaseDir = mosPathName(mosPathName($mosConfig_absolute_path)."modules");
 		}

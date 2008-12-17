@@ -46,7 +46,7 @@ class mosInstallerComponent extends mosInstaller {
 		$e = &$mosinstall->getElementsByPath('name',1);
 		$this->elementName($e->getText());
 		$this->elementDir(mosPathName($mosConfig_absolute_path."/components/".strtolower("com_".str_replace(" ","",$this->elementName()))."/"));
-		$this->componentAdminDir(mosPathName($mosConfig_absolute_path."/administrator/components/".strtolower("com_".str_replace(" ","",$this->elementName()))));
+		$this->componentAdminDir(mosPathName($mosConfig_absolute_path."/".ADMINISTRATOR_DIRECTORY."/components/".strtolower("com_".str_replace(" ","",$this->elementName()))));
 
 		if(file_exists($this->elementDir())) {
 			$this->setError(1,_OTHER_COMPONENT_USE_DIR.': "'.$this->elementDir().'"');
@@ -262,24 +262,24 @@ class mosInstallerComponent extends mosInstaller {
 		}
 
 		// Try to find the uninstall file
-		$filesindir = mosReadDirectory($mosConfig_absolute_path.'/administrator/components/'.$row->option,'uninstall');
+		$filesindir = mosReadDirectory($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/'.$row->option,'uninstall');
 		if(count($filesindir) > 0) {
 			$uninstall_file = $filesindir[0];
-			if(file_exists($mosConfig_absolute_path.'/administrator/components/'.$row->option.'/'.$uninstall_file)) {
-				require_once ($mosConfig_absolute_path.'/administrator/components/'.$row->option.'/'.$uninstall_file);
+			if(file_exists($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/'.$row->option.'/'.$uninstall_file)) {
+				require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/'.$row->option.'/'.$uninstall_file);
 				$uninstallret = com_uninstall();
 			}
 		}
 
 		// Try to find the XML file
-		$filesindir = mosReadDirectory(mosPathName($mosConfig_absolute_path.'/administrator/components/'.$row->option),'.xml$');
+		$filesindir = mosReadDirectory(mosPathName($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/'.$row->option),'.xml$');
 		if(count($filesindir) > 0) {
 			$ismosinstall = false;
 			$found = 0;
 			foreach($filesindir as $file) {
 				$xmlDoc = new DOMIT_Lite_Document();
 				$xmlDoc->resolveErrors(true);
-				if(!$xmlDoc->loadXML($mosConfig_absolute_path."/administrator/components/".$row->option."/".$file,false,true)) {
+				if(!$xmlDoc->loadXML($mosConfig_absolute_path."/".ADMINISTRATOR_DIRECTORY."/components/".$row->option."/".$file,false,true)) {
 					return false;
 				}
 				$root = &$xmlDoc->documentElement;
@@ -311,7 +311,7 @@ class mosInstallerComponent extends mosInstaller {
 		// Delete directories
 		if(trim($row->option)) {
 			$result = 0;
-			$path = mosPathName($mosConfig_absolute_path.'/administrator/components/'.$row->option);
+			$path = mosPathName($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/'.$row->option);
 			if(is_dir($path)) {
 				$result |= deldir($path);
 			}

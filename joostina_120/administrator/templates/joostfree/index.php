@@ -30,10 +30,10 @@ mosCommonHTML::loadFullajax();
 * $mainframe->addJS(полный_путь_к_файлу) - добавление java-script файла
 **/
 if($mosConfig_gz_js_css) { // работа со сжатыми css и js файлами
-	$mainframe->addCSS($mosConfig_live_site.'/'.getAdminDirectoryName().'/templates/joostfree/css/joostfree_css.php');
+	$mainframe->addCSS($mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/templates/joostfree/css/joostfree_css.php');
 	$mainframe->addJS($mosConfig_live_site.'/includes/js/joostina.admin.php');
 } else { // использовать стандартные - не сжатые файлы
-	$mainframe->addCSS($mosConfig_live_site.'/'.getAdminDirectoryName().'/templates/joostfree/css/template_css.css');
+	$mainframe->addCSS($mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/templates/joostfree/css/template_css.css');
 	$mainframe->addJS($mosConfig_live_site.'/includes/js/joomla.javascript.full.js');
 };
 include_once ($mosConfig_absolute_path.'/editor/editor.php');
@@ -67,7 +67,7 @@ flush();
 			<table width="100%" class="menubar" cellpadding="0" cellspacing="0" border="0">
 				<tr class="menubackgr">
 					<td style="padding-left: 7px;width: 25px;">
-						<a href="<?php echo $mosConfig_live_site; ?>/<?php echo getAdminDirectoryName()?>/index2.php" title="<?php echo _GO_TO_MAIN_ADMIN_PAGE?>"><img border="0" alt="J!" src="templates/joostfree/images/m-logo.png" /></a>
+						<a href="<?php echo $mosConfig_live_site; ?>/<?php echo ADMINISTRATOR_DIRECTORY?>/index2.php" title="<?php echo _GO_TO_MAIN_ADMIN_PAGE?>"><img border="0" alt="J!" src="templates/joostfree/images/m-logo.png" /></a>
 					</td>
 					<td width="85%">
 						<?php mosLoadAdminModule('fullmenu'); ?>

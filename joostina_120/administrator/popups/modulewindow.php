@@ -51,7 +51,7 @@ $title = eregi_replace($pat2,$replace2,$row->title);
 
 // css file handling
 // check to see if template exists
-if($css != '' && !is_dir($mosConfig_absolute_path.'/'.getAdminDirectoryName().'/templates/'.$css.'/css/template_css.css')) {
+if($css != '' && !is_dir($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$css.'/css/template_css.css')) {
 	$css = 'jooway';
 } else
 	if($css == '') {

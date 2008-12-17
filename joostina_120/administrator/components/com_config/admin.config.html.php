@@ -124,7 +124,7 @@ class HTML_config {
 <?php
 
 //выпадающий список компонентов, которые можно конфигурировать
-$adm_components = glob($mosConfig_absolute_path.'/administrator/components/*',GLOB_ONLYDIR);
+$adm_components = glob($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/*',GLOB_ONLYDIR);
 $usr_components = glob($mosConfig_absolute_path.'/components/*',GLOB_ONLYDIR);
 $components_arr = array();
 foreach($adm_components as $compo) {

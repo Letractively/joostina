@@ -11,8 +11,8 @@
 defined('_VALID_MOS') or die();
 
 global $mosConfig_live_site,$mosConfig_absolute_path,$option;
-require_once ($mosConfig_absolute_path.'/administrator/components/com_joomlapack/includes/sajax.php');
-require_once ($mosConfig_absolute_path.'/administrator/components/com_joomlapack/includes/ajaxtool.php');
+require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_joomlapack/includes/sajax.php');
+require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_joomlapack/includes/ajaxtool.php');
 ?>
 <script language="JavaScript" type="text/javascript">
 <?php

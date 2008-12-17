@@ -11,7 +11,7 @@
 defined('_VALID_MOS') or die();
 
 global $mosConfig_absolute_path;
-require_once($mosConfig_absolute_path. '/administrator/components/com_xmap/classes/XmapPlugin.php');
+require_once($mosConfig_absolute_path. '/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/classes/XmapPlugin.php');
 
 /** Wraps all extension functions for Xmap */
 class XmapPlugins {
@@ -27,7 +27,7 @@ class XmapPlugins {
 		foreach ($rows as $row) {
 			$extension = new XmapPlugin($database);
 			$extension->bind($row);
-			require_once($mosConfig_absolute_path . '/administrator/components/com_xmap/extensions/'. $extension->extension.'.php');
+			require_once($mosConfig_absolute_path . '/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/extensions/'. $extension->extension.'.php');
 			$list[$extension->extension] = $extension;
 		}
 		return $list;

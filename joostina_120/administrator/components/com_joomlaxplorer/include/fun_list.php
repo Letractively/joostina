@@ -301,7 +301,7 @@ function print_table($dir, $list, $allow) {
 function list_dir($dir) {
 	global $dir_up, $mosConfig_live_site, $_VERSION,$mainframe;
 	mosCommonHTML::loadOverlib();
-	$mainframe->addJS($mosConfig_live_site.'/administrator/components/com_joomlaxplorer/scripts/joomlaxplorer.js');
+	$mainframe->addJS($mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_joomlaxplorer/scripts/joomlaxplorer.js');
 ?>
 	<div id="overDiv" style="position:absolute; visibility:hidden; z-index:10000;"></div>
 <?php

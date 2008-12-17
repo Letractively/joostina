@@ -16,7 +16,7 @@ if(!$acl->acl_check('administration','manage','users',$GLOBALS['my']->usertype,'
 }
 
 require_once ($mainframe->getPath('admin_html'));
-require_once ($mosConfig_absolute_path.'/administrator/components/com_templates/admin.templates.class.php');
+require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_templates/admin.templates.class.php');
 // XML library
 require_once ($mosConfig_absolute_path.'/includes/domit/xml_domit_lite_include.php');
 
@@ -107,7 +107,7 @@ function viewTemplates($option,$client) {
 	$limitstart = $mainframe->getUserStateFromRequest("view{$option}limitstart",'limitstart',0);
 
 	if($client == 'admin') {
-		$templateBaseDir = mosPathName($mosConfig_absolute_path.'/administrator/templates');
+		$templateBaseDir = mosPathName($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/templates');
 	} else {
 		$templateBaseDir = mosPathName($mosConfig_absolute_path.'/templates');
 	}
@@ -200,7 +200,7 @@ function viewTemplates($option,$client) {
 		}
 	}
 
-	require_once ($GLOBALS['mosConfig_absolute_path'].'/administrator/includes/pageNavigation.php');
+	require_once ($GLOBALS['mosConfig_absolute_path'].'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav(count($rows),$limitstart,$limit);
 
 	$rows = array_slice($rows,$pageNav->limitstart,$pageNav->limit);
@@ -266,7 +266,7 @@ function editTemplateSource($p_tname,$option,$client) {
 	global $mosConfig_absolute_path;
 
 	if($client == 'admin') {
-		$file = $mosConfig_absolute_path.'/administrator/templates/'.$p_tname.'/index.php';
+		$file = $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$p_tname.'/index.php';
 	} else {
 		$file = $mosConfig_absolute_path.'/templates/'.$p_tname.'/index.php';
 	}
@@ -295,7 +295,7 @@ function saveTemplateSource($option,$client,$task) {
 	}
 
 	if($client == 'admin') {
-		$file = $mosConfig_absolute_path.'/administrator/templates/'.$template.	'/index.php';
+		$file = $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$template.	'/index.php';
 	} else {
 		$file = $mosConfig_absolute_path.'/templates/'.$template.'/index.php';
 	}
@@ -329,7 +329,7 @@ function editTemplateCSS($p_tname,$option,$client) {
 	global $mosConfig_absolute_path;
 	josSpoofCheck();
 	if($client == 'admin') {
-		$file = $mosConfig_absolute_path.'/administrator/templates/'.$p_tname.'/css/template_css.css';
+		$file = $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$p_tname.'/css/template_css.css';
 	} else {
 		$file = $mosConfig_absolute_path.'/templates/'.$p_tname.'/css/template_css.css';
 	}
@@ -359,7 +359,7 @@ function saveTemplateCSS($option,$client) {
 	}
 
 	if($client == 'admin') {
-		$file = $mosConfig_absolute_path.'/administrator/templates/'.$template.'/css/template_css.css';
+		$file = $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$template.'/css/template_css.css';
 	} else {
 		$file = $mosConfig_absolute_path.'/templates/'.$template.'/css/template_css.css';
 	}
