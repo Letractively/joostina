@@ -429,7 +429,8 @@ function sendmail($con_id,$option) {
 		}
 
 		// check for session cookie
-		if($sessionCheck) {
+		global $mosConfig_session_front;//if front sessions disabled
+		if(!$mosConfig_session_front && $sessionCheck) {
 			// Session Cookie `name`
 			$sessionCookieName = mosMainFrame::sessionCookieName();
 			// Get Session Cookie `value`

@@ -7,12 +7,12 @@
 * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
 */
 
-
 define("_VALID_MOS",1);
 
 /** проверка безопасности*/
 require ('../includes/auth.php');
 include_once ($mosConfig_absolute_path.'/language/'.$mosConfig_lang.'.php');
+include_once ($mosConfig_absolute_path.'/includes/definitions.php');
 
 /*
 * Stops file upload below /images/stories directory
@@ -114,12 +114,12 @@ if(isset($_FILES['userfile'])) {
 		if(!move_uploaded_file($_FILES['userfile']['tmp_name'],$media_path.$_FILES['userfile']['name']) || !mosChmod($media_path.$_FILES['userfile']['name'])) {
 			mosErrorAlert(_FILE_UPLOAD_UNSUCCESS.' '.$userfile_name,$action);
 		} else {
-			mosErrorAlert(_FILE_UPLOAD_SUCCESS.' '.$userfile_name.' - '.$base_Dir,"window.close()");
+			mosErrorAlert(_FILE_UPLOAD_SUCCESS.' '.$userfile_name.' - '.$base_Dir,"window.close()");//
 		}
 	} elseif(!move_uploaded_file($_FILES['userfile']['tmp_name'],$base_Dir.$_FILES['userfile']['name']) || !mosChmod($base_Dir.$_FILES['userfile']['name'])) {
 		mosErrorAlert(_FILE_UPLOAD_UNSUCCESS.' '.$userfile_name,$action);
 	} else {
-		mosErrorAlert(_FILE_UPLOAD_SUCCESS' '.$userfile_name.' - '.$base_Dir,"window.close()");
+		mosErrorAlert(_FILE_UPLOAD_SUCCESS.' '.$userfile_name.' - '.$base_Dir,"window.close()");
 	}
 	echo $base_Dir.$_FILES['userfile']['name'];
 }
