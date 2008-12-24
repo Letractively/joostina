@@ -73,13 +73,12 @@ function img_resize($src,$dest,$width=250,$height=250,$quality = 100) {
 
 	$isrc = $icfunc($src);
 	$idest = imagecreatetruecolor($width,$height);
+	@imagealphablending($idest, false);
+	@imagesavealpha($idest, true);
 	imagecopyresampled($idest,$isrc,0,0,0,0,$width,$height,$size[0],$size[1]);
 	imagejpeg($idest,$dest,$quality);
 	imagedestroy($isrc);
 	imagedestroy($idest);
 	return true;
-
 }
-
-
 ?>
