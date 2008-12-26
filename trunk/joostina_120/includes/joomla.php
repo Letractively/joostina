@@ -4906,12 +4906,18 @@ class mosAdminMenus {
 		$query = "SELECT params FROM #__modules WHERE module = 'mod_mainmenu' OR module = 'mod_mljoostinamenu'";
 		$database->setQuery($query);
 		$menus = $database->loadObjectList();
-		$total = count($menus);
+        $i=0;
 		$menuselect = array();
-		for($i = 0; $i < $total; $i++) {
-			$params = mosParseParams($menus[$i]->params);
-			$menuselect[$i]->value = $params->menutype;
-			$menuselect[$i]->text = $params->menutype;
+        $menus_arr=array();
+		foreach($menus as $menu) {
+			$params = mosParseParams($menu->params);
+            if(!in_array($params->menutype, $menus_arr)){
+                $menuselect[$i]->value = $params->menutype;
+			    $menuselect[$i]->text = $params->menutype;
+                $menus_arr[$i]= $params->menutype;
+                $i++;
+            }
+
 		}
 		// sort array of objects
 		SortArrayObjects($menuselect,'text',1);
