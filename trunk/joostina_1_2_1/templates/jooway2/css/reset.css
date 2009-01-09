@@ -1,0 +1,117 @@
+/*
+Copyright (c) 2008, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://developer.yahoo.net/yui/license.txt
+version: 2.5.2
+*/
+html{color:#000; background:#FFF;}
+html,body,address,blockquote,div,p,pre,h1,h2,h3,h4,h5,h6,hr,	/* block level 	*/
+dd,dl,dt,ul,ol,li,												/* lists 		*/
+a,abbr,acronym,b,big,br,cite,code,del,dfn,em,i,					/* inline text 	*/
+ins,kbd,q,samp,small,span,strong,sub,sup,tt,var,				/* inline text 	*/
+img,object,														/* misc 		*/
+caption,table,tbody,td,tfoot,th,thead,tr,						/* table 		*/
+textarea,select,form,fieldset,legend,label, 		/* form 		*/
+font,u,s,center,dir,menu,strike,xmp								/* depricated 	*/
+{
+	margin: 0;
+	padding: 0;
+	vertical-align: baseline;
+   	text-indent: 0;
+    color: #8F8F8F;
+ 	list-style-type: none;
+    font-family: "Trebuchet MS";
+
+}
+
+/*Тут танцы с бубном во имя форматирования текста визуальным редактором   */
+html,body
+{
+text-align: left;
+font: normal 13px/20px "Trebuchet MS";
+text-decoration: none;
+}
+
+table, td{
+ text-align: left;
+font: normal 13px/20px "Trebuchet MS";
+}
+
+
+input,
+input.button{
+	margin: 0;
+	padding: 0;
+    vertical-align: baseline;
+}
+table{border-collapse:collapse;border-spacing:0;}
+hr,img,object, fieldset {
+	border: 0;
+}
+address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}
+caption,td,th,tr {
+	vertical-align: top;
+    text-align:left;
+}
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}
+abbr,acronym {border:0;font-variant:normal;}
+optgroup {
+	color: black;								/* optgroup in Opera has black background and white text... */
+	background: white;							/* ...so let's fix it */
+	font-style: normal;							/* works only in FF */
+}
+optgroup option {
+	padding-left: 22px;							/* make padding in FF almost the same as in other browsers */
+}
+hr {
+	color: black;
+	background-color: black;
+	height: 1px;
+	margin: 7px 0;								/* crossbrowser hr */
+
+}
+
+
+q { quotes: '\00AB' '\00BB' '\201E' '\201C'; }	/* russian quotes */
+q:before	{ content: '\00AB'; }
+q:after		{ content: '\00BB'; }
+q q:before	{ content: '\201E'; }
+q q:after	{ content: '\201C'; }
+
+sub, sup{
+	position: relative;							/* this method is better, there will not be extra padding in textline */
+	font-size: 11px;
+}
+sub{
+	top: 5px;
+}
+sup{
+	top: -5px;
+}
+
+input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit;}
+
+/*because legend doesn't inherit in IE */
+legend{color:#000;}
+input,select,button {
+	vertical-align: middle;						/* make all controls align middle to textline in all browsers */
+}
+textarea {
+	vertical-align: top;						/* ...and all textareas, but... */
+}
+input{
+	overflow: visible;							/* remove padding in buttons in IE */
+}
+select[size]{
+	vertical-align: top;						/* make align top to textline for all selectboxes which has attribute "size",.. */
+}
+select[size="1"] {
+	vertical-align: middle;						/* ...if attribute "size" of a selectbox is set to "1", make it align middle to textline */
+}
+input[type=checkbox],
+input[type=radio]
+{
+	vertical-align: top;
+    margin: 3px 2px 0 0;
+}
+

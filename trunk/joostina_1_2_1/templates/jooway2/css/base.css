@@ -1,0 +1,521 @@
+/*
+Copyright (c) 2008, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://developer.yahoo.net/yui/license.txt
+version: 2.5.2
+*/
+/* base.css, part of YUI's CSS Foundation */
+body.mceContentBody{
+  background: #FFF;
+}
+
+h1, .componentheading {
+	/*18px via YUI Fonts CSS foundation*/
+	font-size:24px;
+    color: #4B8EC2;
+    font-family: "Lucida Sans Unicode", "Lucida Grande","Myriad Pro",sans-serif;
+    margin:0.3em 0;      	/* top & bottom margin based on font size */
+}
+h2, h3 {
+	font-size:22px;
+    font-weight: normal;
+    font-family: "Lucida Sans Unicode", "Lucida Grande","Myriad Pro",sans-serif;
+    margin:0.3em 0;
+}
+
+h4, h5, h6{
+	font-size:13px;
+    font-weight: bold;
+     font-family: "Lucida Sans Unicode", "Lucida Grande","Myriad Pro",sans-serif;
+    margin:0.2em 0;
+}
+h2{
+	font-size:18px;
+}
+
+
+
+strong {
+  font-weight: bold;
+}
+.small, .createdate{
+  font-size: 11px;
+}
+
+div.date{
+  background: url(../images/date.png) no-repeat top left;
+  padding: 0 0 0 30px;
+}
+.user_online,
+bullet_green{
+ background: url(../images/bullet_green.png) no-repeat left;
+ padding: 2px 0 2px 11px;
+}
+
+.user_offline,
+bullet_red{
+ background: url(../images/bullet_red.png) no-repeat  left;
+ padding: 2px 0 2px 11px;
+}
+a{
+  text-decoration: underline;
+}
+
+a:hover{
+  text-decoration: none;
+}
+abbr,acronym {
+	/*indicating to users that more info is available */
+	border-bottom:1px dotted #000;
+	cursor:help;
+}
+em {
+	/*bringing italics back to the em element*/
+	font-style:italic;
+}
+blockquote,ul,ol,dl {
+	/*giving blockquotes and lists room to breath*/
+	margin:1em;
+}
+ol,ul,dl {
+	/*bringing lists on to the page with breathing room */
+	margin-left:2em;
+}
+ol li {
+	/*giving OL's LIs generated numbers*/
+	list-style: decimal outside;
+}
+ul li {
+	/*giving UL's LIs generated disc markers*/
+	list-style: disc outside;
+}
+
+dl dd {
+	/*giving UL's LIs generated numbers*/
+	margin-left:1em;
+}
+
+th {
+	/*distinguishing table headers from data cells*/
+	font-weight:bold;
+	text-align:center;
+}
+caption {
+	/*coordinated margin to match cell's padding*/
+	margin-bottom:.5em;
+	/*centered so it doesn't blend in to other content*/
+	text-align:center;
+}
+p,fieldset,pre {
+	/*so things don't run into each other*/
+	margin-bottom:1em;
+}
+
+
+/* setting a consistent width, 160px;
+   control of type=file still not possible */
+input[type=text],input[type=password],textarea.inputbox, select.inputbox, textarea.inputbox, textarea.text_area{
+  border: 2px solid #EAE6DF;
+  padding: 2px 6px;
+  margin: 0 5px 5px 1px;
+  color: #828282;
+}
+select.inputbox{
+  padding: 2px;
+}
+
+
+
+*:first-child+html input[type=radio] {margin: 0; }
+
+/* Подчищаем меню от всяких ненужностей  */
+ul#mainlevel,
+ul#mainlevel li,
+ul#mainlevel-nav,
+ul#mainlevel-nav li
+{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+td.sectiontableentry1,
+td.sectiontableentry2{
+
+}
+
+/* Задаем базовые параметры для оформления модулей  */
+.moduletable{
+  margin: 2px 0 25px 0;
+  padding: 0 0 10px 0;
+
+}
+
+/* В левой колонке заголовки модулей должны быть красного цвета  */
+div.col div.moduletable h3{
+  color: #D43015;
+}
+
+/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>---com_content:BEGIN---<<<<<<<<*/
+/*------Заголовки------*/
+a.contentpagetitle{
+  color:#5B5B5B;
+}
+.contentheading{
+    	font-size:18px;
+    font-weight: normal;
+     font-family: "Lucida Sans Unicode", "Lucida Grande","Myriad Pro",sans-serif;
+    margin:0.2em 0;
+    color:#5B5B5B;
+}
+/*------Описания------*/
+.contentdescription{
+  clear: both;
+  background: #F0F2E4;
+  padding: 10px;
+  overflow: hidden;
+  margin: 10px 0 15px 0;
+  border: 1px solid #EAECDE;
+}
+.contentdescription img{
+ border: 3px solid #DCDED4;
+ margin: 0 10px 0 0;
+}
+/*------Режим БЛОГА------*/
+.blog td{
+  padding: 0 10px 0 0;
+}
+
+
+.leading_block{
+  border:1px dashed #CCC;
+  padding: 15px;
+  margin: 5px 0 15px 0;
+  background: #FBFEEC;
+}
+
+table.intro_block td{
+  padding: 4px 10px 5px 2px;
+}
+
+div.section_cat{
+  background: url(../images/cat.png) no-repeat center left;
+  padding: 6px 0 10px 30px;
+}
+div.section_cat a{
+  font-weight: bold;
+}
+
+/*Таблица с дополнительной информацией о публикации */
+table.misc{
+  width: 100%;
+  border: 1px solid #E6E9D4;
+  background: #F2F3EB;
+  margin: 8px 0 0 0;
+}
+
+table.misc td{
+  height: 18px;
+  vertical-align: middle;
+  padding: 2px 5px;
+}
+
+
+
+/*Ячейка с датой публикации */
+table.misc td.date_ico{
+  width: 90px;
+  background: url(../images/date.png) no-repeat top left;
+  padding: 0 0 0 30px;
+}
+/*Ячейка с именем автора публикации */
+table.misc td.author_ico{
+  background: url(../images/user_blue.png) no-repeat top left;
+  padding: 0 0 0 30px;
+}
+
+/*Ссылка "Подробнее" */
+a.readon{
+  color:#5ABDFF;
+  font-weight: bold;
+}
+
+.article_seperator{
+  height: 1px;
+}
+
+/*-----Редактирование содержимого-----*/
+table.cedit_misc{
+  margin: 5px 0 20px 0;
+}
+
+table.cedit_main{
+  margin: 5px 0 20px 0;
+}
+
+/*Профиль пользователя */
+#user_avatar{
+  width: 250px;
+}
+#user_info{
+  padding: 10px 6px 0 5px;
+}
+
+
+/* Модуль авторизации  */
+
+#log_in{
+ background: url(../images/log_in.png) no-repeat top left;
+ width: 120px;
+ height: 51px;
+
+ clear: both;
+ font-size: 22px;
+ cursor: pointer;
+ text-align: center;
+ padding: 0 0 0 10px;
+ line-height: 50px;
+ margin: 0 0 0 10px;
+
+}
+#box1{
+  position:absolute;
+}
+
+
+.loginform_area {
+top: 20px;
+right: 20%;
+margin-left: 37px;
+margin-top: 2.5em;
+position: absolute;
+border: 9px solid #5d5d5d;
+z-index:3;
+background-color: white;
+width: 500px;
+padding: 8px;
+display:none;
+position:absolute;
+}
+ .closewin{
+	top: 0;
+	right: 15px;
+	margin: 0;
+	padding: 0;
+	display: block;
+	position: absolute;
+	z-index: 4;
+	cursor: pointer;
+	width: 20px;
+	height: 20px;
+	background: url(../images/cross.png) no-repeat center #FFF;
+}
+.tutorialfull {
+	background-color: white;
+	border: 6px solid #cacaca;
+	text-align:left;
+	clear:both;
+	padding: 15px;
+
+ }
+
+
+/* Модуль "Случайное изображение"   */
+.mod_random_image{
+}
+
+.mod_random_image img{
+  border: 3px solid #D4D7C4;
+}
+
+
+/* Модуль "Пользователи on-line" */
+ .mod_who_online_info {
+background: url(../images/user_small.png) no-repeat top left;
+padding:4px 0 0 32px;
+}
+.mod_who_online span{
+  color:#D43014;
+  font-size: 16px;
+  font-weight:bold;
+
+}
+
+
+ul.users_online{
+   list-style: none;
+   margin: 0;
+   padding: 0;
+ }
+
+/* Модуль "Пользователи on-line" - горизонтальный вывод*/
+ ul.users_online li{
+   list-style: none;
+   margin: 0 10px 0 2px;
+   padding: 2px 1px 3px 2px;
+   line-height: 40px;
+   height: 43px;
+   display: inline;
+   background: #F3F4EE;
+   overflow: hidden;
+   border: 1px solid #E6E9D4;
+ }
+  ul.users_online li a img{
+    vertical-align: middle;
+    padding: 0 5px 0 0;
+ }
+
+
+/* -----------------------------------------------------Компонент "Опросы"   */
+.poll_quest{       /* Текст вопроса   */
+background: url(../images/blue_arrow.png) no-repeat top left;
+padding:2px 0 2px 30px;
+vertical-align:middle;
+}
+
+table.com_poll{
+  width: 100%;
+}
+table.com_poll th.poll_question{
+  width: 35%;
+}
+table.com_poll th.poll_hits{
+  width: 7%;
+}
+table.com_poll th.poll_percent{
+  width: 7%;
+}
+table.com_poll th.poll_graph{
+
+}
+table.com_poll td{
+  padding: 4px;
+  font-size: 11px;
+}
+
+
+table.com_poll td.poll_hits{
+  text-align: center;
+}
+table.com_poll td.poll_percent{
+ text-align: center;
+}
+table.com_poll th.poll_graph{
+text-align: center;
+}
+
+/* Стили всплывающих подсказок   */
+ .tooltip_wrap{
+   line-height: 1.3em;
+   border: 1px dotted #A6A6A6;
+   background: #F2F3EB;
+   padding: 5px;
+
+ }
+
+  .tooltip_title{
+    background: #000; color: #000;
+    display: none;
+ }
+
+  .tooltip_body{
+    background: #F2F3EB; color: #000;
+ }
+
+   .tooltip_text{
+    background: #F2F3EB; color: #000;
+    padding: 5px;
+    font-size: 11px;
+ }
+
+ /* Syndicate  */
+ .syndicate{
+  float:left;
+
+   overflow:hidden;
+ }
+   .syndicate a.RSS20{
+   background: url(../images/rss_small.png) no-repeat top left;
+   display:block;
+   width:36px;
+   height:30px;
+ }
+  .syndicate img{
+    display:none;
+ }
+
+ /* Табы  */
+ table.adminform {
+	width: 90%;
+	margin:5px 10px 0 5px;
+	padding: 0 2px 0px 0;
+	 border:none;
+}
+
+ .dynamic-tab-pane-control .tab-row .tab {
+	width: auto;
+	height: 16px;
+	background-image: none;
+	background-color: #E2E2E2;
+	position: relative;
+	top: 0;
+	display: inline;
+	float: left;
+	overflow: hidden;
+	cursor: pointer;
+	margin: 4px -1px 0 4px;
+	padding: 2px 6px 4px 6px;
+	border: 1px solid white;
+	z-index: 1;
+	white-space: nowrap;
+	font-family: Tahoma, Arial, Verdana, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+}
+.dynamic-tab-pane-control .tab-page {
+	float: left;    border-top: 2px solid #e7e7e7;
+	text-align: left;
+	position: relative;
+	top: 0;
+	padding:10px;
+	background: #fcfcfe;
+	z-index: 0;
+	margin-left: 1px;
+	width: 99%;
+}
+
+table#toolbar a.toolbar,
+table#toolbar a.toolbar img {
+  border: none;
+}
+
+ /* ---------> Joo Contact  */
+ .joo_contact_form input.required.error,
+  .joo_contact_form select.required.error,
+   .joo_contact_form textarea.required.error{
+   border: 2px solid #D43014;
+ }
+
+
+ /* ---------> профиль пользователя  */
+ .user_info{
+  clear: both;
+  background: #F0F2E4;
+  padding: 10px;
+  overflow: hidden;
+  margin: 10px 0 15px 0;
+  border: 1px solid #EAECDE;
+ }
+.user_name{
+  	font-size:20px;
+    font-weight: normal;
+    font-family: "Lucida Sans Unicode", "Lucida Grande","Myriad Pro",sans-serif;
+    margin:0.3em 0;
+}
+#mosUserForm td.pkey{
+    width:200px;
+    font-weight:bold;
+}
+#mosUserForm  textarea, #mosUserForm input{
+  width:90%;
+}
