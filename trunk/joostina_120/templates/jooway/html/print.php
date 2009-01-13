@@ -30,4 +30,3 @@ $pg_link = str_replace('index2.php','index.php',$pg_link);
 	<br />
 	&copy;<?php echo $mosConfig_sitename; ?>,&nbsp;'<?php echo date('Y'); ?>
 </div>
-ы вав

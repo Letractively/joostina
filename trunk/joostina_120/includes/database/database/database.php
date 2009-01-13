@@ -111,7 +111,9 @@ class database {
 			}
 		}
 		$this->_table_prefix = $table_prefix;
-		if(!$mosConfig_dbold) @mysql_query('SET NAMES \'cp1251\'',$this->_resource);
+		if(!$mosConfig_dbold) {
+			@mysql_query('SET NAMES \'cp1251\'',$this->_resource);
+		};
 		/* раскомментируйте следующие строки при необходимости.
 		* Часть идеи и текст запросов взяты из Joomla! 1.0.12 Lavra Edition 2007, хорошего дистрибутива выпускаемого AndyR: http://andyr.mrezha.ru, Поддержка на сайте: http://joomlaforum.ru/index.php?board=129.0
 		* $this->_cursor = mysql_query( "set session character_set_server=cp1251;", $this->_resource );

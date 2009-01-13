@@ -186,7 +186,7 @@ $comp_list = mosHTML::selectList($out_components_arr,'component','','name','name
 			</tr>
 		</table>
 		<div class="message"><?php echo _CONFIG_SAVING?>:
-			<?php echo is_writable('../configuration.php')?'<b><font color="green">доступно</font></b>':'<b><font color="red">'._NOT_AVAILABLE_CHECK_RIGHTS.'/font></b>' ?>
+			<?php echo is_writable('../configuration.php')?'<b><font color="green">доступно</font></b>':'<b><font color="red">'._NOT_AVAILABLE_CHECK_RIGHTS.'</font></b>' ?>
 		</div
 		<br />
 <?php

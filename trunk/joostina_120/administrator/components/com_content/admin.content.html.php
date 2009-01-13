@@ -829,7 +829,7 @@ class HTML_content {
 					</tr>
 					<tr>
 						<td>
-						<input type="button" class="button" value="Добавить (Раздел, Категорию, Заголовок)" onclick="f=document.adminForm;f.metakey.value=document.adminForm.sectionid.options[document.adminForm.sectionid.selectedIndex].text+', '+getSelectedText('adminForm','catid')+', '+f.title.value+f.metakey.value;" />
+						<input type="button" class="button" value="Добавить (Раздел, Категорию, Заголовок)" onclick="f=document.adminForm;f.metakey.value=document.adminForm.sectionid.options[document.adminForm.sectionid.selectedIndex].text+', '+getSelectedText('adminForm','catid')+', '+f.title.value+', '+f.metakey.value;" />
 						<input type="button" class="button" value="Автоматически"onclick="return ch_metakey();" />
 						</td>
 					</tr>

@@ -59,9 +59,6 @@ class Cache_Lite_Function extends Cache_Lite {
 				$data = str_replace('  ',' ',$data);
 				$data = str_replace('> <','><',$data);
 				$data = str_replace(' >','>',$data);
-				$data = str_replace('> ','>',$data);
-				//FIXME тут кажется и возникает "склеивание" слов.
-				//$data = str_replace(' <','<',$data);
 				$data = str_replace('< ','<',$data);
 				$data = str_replace(': ',':',$data);
 				$data = str_replace(">\r<",'><',$data);

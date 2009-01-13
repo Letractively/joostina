@@ -71,7 +71,6 @@ if($mosConfig_lang == '') {
 }
 include_once ($mosConfig_absolute_path.'/language/'.$mosConfig_lang.'.php');
 
-
 if($option == 'login') {
 	$mainframe->login();
 	mosRedirect('index.php');
@@ -80,7 +79,6 @@ if($option == 'login') {
 		$mainframe->logout();
 		mosRedirect('index.php');
 	}
-
 
 // обнаружение первого посещения
 $mainframe->detect();
@@ -189,7 +187,7 @@ if($no_html == 0) {
 	<?php mosMainBody(); ?>
 	</body>
 </html>
-	<?php
+<?php
 	}
 } else {
 	mosMainBody();

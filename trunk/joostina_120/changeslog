@@ -1,5 +1,21 @@
 Joostina v 1.2.0
 
+13.01.09
+	1. Удалена ссылка на нескществующий файл в JCE. Сообщил: Dead Krolik
+	2. Исправлена ошибка в модуле Опросов. Реализация: Dead Krolik & boston. ( http://joomlaforum.ru/index.php/topic,41126.msg298000.html#msg298000 )
+	3. Удалено использование неопределённой константы. ( http://joomlaforum.ru/index.php/topic,41126.msg301051.html#msg301051 )
+12.01.09
+	1. Исправлена ошибка с незакрытым тегом в глобальной конфигурации. Сообщил: Alexashka ( http://joomlaforum.ru/index.php/topic,51762.msg300258.html#msg300258 )
+11.01.09
+	1. Исправлена ошибка с выводом UL тега для всех типов меню. Реализация: boston. Сообщил: inigraf ( http://joomlaforum.ru/index.php/topic,41126.msg299041.html#msg299041 )
+	2. Исправлена ошибка в редактировании модулйе. Реализация: boston. Сообщил: Andros ( http://joomlaforum.ru/index.php/topic,41126.msg298964.html#msg298964 )
+	3. Добавлен хак MuraDweb для ключевых слов: http://joomlaforum.ru/index.php/topic,49629.msg295764.html#msg295764
+	4. Добавлены слова для удаления при генерации мета-тэгов. Реализация: boston. Совет: XCOS ( http://joomlaforum.ru/index.php/topic,49629.msg287883.html#msg287883 )
+	5. подкорректирован файл print.php. Сообщил: autolife ( http://joomlaforum.ru/index.php/topic,50963.msg295301.html#msg295301 )
+10.01.09
+	1. Добавлена проверка на установку системы в существующую базу данных. Реализация: boston.
+	2. Исправлено удаление xHTML тегов при применении параметров пользователского модуля. Реализация: boston. Сообщил: AlexDr ( http://joomlaforum.ru/index.php/topic,41126.msg298001.html#msg298001 )
+	3. Исправлено склеивание слов при включении оптимизации кэширования. Реализация: boston. Сообщил: XCOS ( http://joomlaforum.ru/index.php/topic,41126.msg298736.html#msg298736 )
 28.12.08
 	1. Приведение списка изменеий к единому стилю. Реалиация: boston
 	2. Отключение создания таблицы конфигурации компонентов. Реалиация: boston
@@ -7,16 +23,12 @@ Joostina v 1.2.0
 	4. Закомментированы все места использования привязки модулей к URL. Реалиация: boston
 	5. Закомментированы все места использования таблицы конфигурации компонентов. Реалиация: boston
 	6. Произведена массовая замена php тэгов на полные конструкции. Реалиация: boston
-
 26.12.08
 	1. Исправлено некорректное формирование списка доступных меню. Реализация: PblCb
-
 21.12.08
 	1. Проверка отключения сессий. Реализция: Dead Krolik
-
 17.12.08
 	1. Опционально! Вынос названия каталога панели управления в ADMINISTRATOR_DIRECTORY, файл /includes/definitions.php. Реализция: Dead Krolik
-
 16.12.08
 	1. Всем, кто обновляется из cvn создать таблицу хранения параметров компонентов
 	CREATE TABLE `#__components_params` (
@@ -27,7 +39,6 @@ Joostina v 1.2.0
 	) ENGINE=MyISAM DEFAULT CHARSET=cp1251 ;  Реализция: Dead Krolik
 	В SQL-дамп инсталлятора я ее включил. + конфигурялка для компонентов готова. Для этого надо в папку компонента положить файл com_xxx.config.xml и в нем, так же как и в параметра модуля (только тип указать component) вписывать доступные к конфигурированию параметры. Доставалки параметров пока что нет, т.к. реального применения это еще не получило.
 	2. Готовлю админку к тому, что бы папку administrator можно было переименовывать. Пока не очень :( Заведена спец функция getAdminDirectoryName() определенная в administrator/includes/admin.php
-
 14.12.08
 	1. Сделал привязку модулей к URL. Всем кто обновляется из svn сделать запрос: 
 		alter table #__modules add column assign_to_url blob not null;   <<---- надо включить этот запрос в скрипт апгрейда
@@ -35,10 +46,8 @@ Joostina v 1.2.0
 	2. Сделал, что бы в pageNavigation добавлялись нормальные тэги <link rel="next" ... >. Реализация: Dead Krolik
 	3. Языковой файл english, выверенный canislc добавил в папку языков + к нему xml и файл ignore.  Реализация: Dead Krolik
 	4. Начал делать штуку, которая позволит конфигурировать отдельные компоненты, не прибегая к глобальной конфигурации.   Реализация: Dead Krolik
-
 10.12.08
 	1. Довыносил константы в языковой файл. Реализация: Dead Krolik
-
 09.12.08
 	1. Исправлена ошибка с непередававшимся суффиксом класса модуля "Поиск". Реализация: PblCb
 	2. В настройки модуля "Поиск" добавлен новый параметр: "позиция подписи". Данный параметр отвечает за расположение подписи у поля поиска. Возможные варианты: над полем, слева от поля, внутри поля (как было раньше), не отображать. Реализация: PblCb
@@ -46,7 +55,6 @@ Joostina v 1.2.0
 	1. Подготовил к переводу все что осталось в папке administrator (indexX.php) + шаблон jostfree.  Реализция: Dead Krolik
 	2. Пофиксил отсутствие картинок sort_* и обращение к ним в функции mosHTML::sortIcon, раньше были во фронте, но логичнее их в админку переложить. Реализция: Dead Krolik
 	3. В папке includes файлы agent_os.php и agent_browser.php объединил в один agent_browser_and_os.php, что бы побыстрее чуток было. Очистка от комментариев. Реализция: Dead Krolik
-
 07.12.08
 	1. Изменён показ mosmsg в админке. Какие-то невнятные браузер проверки и проч убрал и сделал htmlspecialchars от XSS вместо striptags.  Реализация: Dead Krolik
 	2. Рысь сделала вот что:
@@ -61,28 +69,22 @@ Joostina v 1.2.0
 		2.7 Добавлена возможность отключать переключатель "На главной", а также теперь можно задать свою подпись для этого переключателя (например 'актуально' или 'спецпредложение'). Пользователю с правами SuperAdministrator-а переключатели показываются в любом случае
 	3. Подготовил к переводу administrator/components/com_joomlaexplorer + com_joomlapack. Компоненты в админке для подготовки закончились. Теперь модули и мамботы. Реализация: Dead Krolik
 	4. Подготовил к переводу administrator/modules/mod_components.php + вообщем подготовил все модули в этой папке. Реализация: Dead Krolik
-	
 06.12.08
 	1. Подготовил к переводу administrator/components/com_modules + com_newsfeeds + com_weblinks + com_xmap + com_jwmmxtd. Реализация: Dead Krolik
-
 05.12.08
 	1. Подготовил к переводу administrator/components/com_sections + com_poll (Dead Krolik)
 	2. Корректировка компонента резервного копирования, когда удаляешь все директории из архивации, а файлы не создаются. Для этого в файле \administrator\components\com_joomlapack\includes\engine.filelist.php в функции _recurseDirectory поменял count($this->_currentList) < 100 на count($this->_currentList) < 5, видимо защита от дураков стояла. Реализация: Dead Krolik
-
 04.12.08
 	1. Фикс ошибки найденной Wild Tiger (http://joomlaforum.ru/index.php/topic,41126.msg283583.html#msg283583) - отсутствие картинок nomail.png и картинок в joomlaXplorer. Реализация: Dead Krolik
 	2. Подготовил к переводу administrator/components/com_statistics + com_quickicons.  Реализация: Dead Krolik
-
 03.12.08
 	1. Подготовил к переводу administrator/components/com_massmail + com_menumanager + com_menus + ошибка с открывающим тэгом в одном из типов меню + com_messages + com_syndicate.  Реализация: Dead Krolik
 	2. http://joomlaforum.ru/index.php/topic,41126.msg283549.html#msg283549 ошибка в том, что у юзеров в админке если у них в дате последнего посещения null date - рисуется что-то неадекватное, вроде 1998 года, теперь если в функцию mosFormatDate подается nullDate, она возвращает "—" .  Реализация: Dead Krolik
 	
 30.11.08
 	1. Подготовил к переводу administrator/components/com_languages + com_linkeditor + com_mambots.  Реализация: Dead Krolik
-
 29.11.08
 	1. Подготовил к переводу administrator/components/com_trash + com_templates и файлы administrator/includes/menubar.html.old.php + menubar.html.php.  Реализация: Dead Krolik
-
 26.11.08
 	1. Подготовил к переводу administrator/components/com_users + com_typedcontent.  Реализация: Dead Krolik
 24.11.08

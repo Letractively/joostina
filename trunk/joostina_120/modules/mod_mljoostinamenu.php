@@ -117,7 +117,6 @@ var onImgArray = new Array();
 		// run through SEF convertor
 		$mitem->link = sefRelToAbs( $mitem->link );
 
-
 		$menuclass = 'mainlevel'. $params->get( 'class_sfx' );
 		if ($params->get('ml_separated_link') == 1) {
 			if ($params->get('ml_linked_sep') == 1 ) {$link_replacer = 'mainlevel-'.$mitem->id;} else {$link_replacer = 'mainlevel';}
@@ -414,12 +413,14 @@ var onImgArray = new Array();
 				}
 			$link = str_replace('active_menu',$last_replacer_id,$link);
 			}
-		// для меню в несколько столбцов
-			$ii++;
-			if($nrow>0){
-				if($ii==$nrow) {
-					$ii=0;
-					echo '</ul><ul class="menulist'.$params->get('moduleclass_sfx').'">';
+			if($params->get('menu_style')=='ulli'){
+				// для меню в несколько столбцов
+				$ii++;
+				if($nrow>0){
+					if($ii==$nrow) {
+						$ii=0;
+						echo '</ul><ul class="menulist'.$params->get('moduleclass_sfx').'">';
+					}
 				}
 			}
 			mosJoostinaLinkReplacer ($count_link,$link,$style,$params,$full_count);

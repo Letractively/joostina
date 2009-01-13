@@ -43,8 +43,6 @@ class JCE_plugins {
 		mosCommonHTML::loadOverlib();
 		$access = JCE_plugins::AccessList();
 ?>
-<link rel="stylesheet" href="http://localhost/joostina/mambots/editors/jce/jscripts/tiny_mce/themes/advanced/skins/o2k7/ui.css"/>
-
 		<form action="index2.php" method="post" name="adminForm">
 		<table class="adminheading">
 		<tr>
@@ -55,7 +53,6 @@ class JCE_plugins {
 		</tr>
 		<tr><td colspan="4" align="right"><?php echo _JCE_PLUGIN_ACCESS_LIST; ?>: <?php echo $access; ?></td></tr>
 		</table>
-
 		<table class="adminlist">
 		<tr>
 			<th width="20">#</th>
@@ -114,7 +111,7 @@ class JCE_plugins {
 				echo $row->name;
 			} else {
 ?>
-					<a href="<?php echo $link; ?>"><?php echo $row->name; ?></a>
+				<a href="<?php echo $link; ?>"><?php echo $row->name; ?></a>
 <?php
 			}
 ?>
@@ -133,7 +130,7 @@ class JCE_plugins {
 
 ?>
 				<img src="<?php echo $icon_path; ?>" />
-		<?php }} ?>
+<?php }} ?>
 				</td>
 				<td align="center"><?php echo $row->plugin; ?></td>
 			</tr>
@@ -195,9 +192,7 @@ class JCE_plugins {
 		<tr>
 			<th class="mambots">
 			JCE Plugin:
-			<small>
-			<?php echo $row->id?_JCE_PLUGIN_EDIT:_JCE_PLUGIN_NEW; ?>
-			</small>
+			<small><?php echo $row->id?_JCE_PLUGIN_EDIT:_JCE_PLUGIN_NEW; ?></small>
 			<?php echo $row->nameA; ?>
 			</th>
 		</tr>
@@ -209,17 +204,12 @@ class JCE_plugins {
 			<td width="60%" valign="top">
 				<table class="adminform">
 				<tr>
-					<th colspan="2">
-					<?php echo _JCE_PLUGIN_DETAILS; ?>
-					</th>
+					<th colspan="2"><?php echo _JCE_PLUGIN_DETAILS; ?></th>
 				<tr>
 				<tr>
-					<td width="100" align="left">
-					<?php echo _JCE_PLUGIN_NAME; ?>:
-					</td>
+					<td width="100" align="left"><?php echo _JCE_PLUGIN_NAME; ?>:</td>
 					<td>
-					<input class="text_area" type="text" name="name" size="35" value="<?php echo
-$row->name; ?>" />
+					<input class="text_area" type="text" name="name" size="35" value="<?php echo $row->name; ?>" />
 					</td>
 				</tr>
 				<tr>
@@ -227,8 +217,7 @@ $row->name; ?>" />
 					<?php echo _JCE_PLUGIN_PLUGIN; ?>:
 					</td>
 					<td>
-					<input class="text_area" type="text" name="plugin" size="35" value="<?php echo
-$row->plugin; ?>" />
+					<input class="text_area" type="text" name="plugin" size="35" value="<?php echo $row->plugin; ?>" />
 					</td>
 				</tr>
 				<tr>
@@ -245,8 +234,7 @@ $row->plugin; ?>" />
 					<?php echo _JCE_PLUGIN_ICON; ?>:
 					</td>
 					<td>
-					<input class="text_area" type="text" name="icon" size="35" value="<?php echo
-$row->icon; ?>" />
+					<input class="text_area" type="text" name="icon" size="35" value="<?php echo $row->icon; ?>" />
 					</td>
 				</tr>
 				<tr>
@@ -254,8 +242,7 @@ $row->icon; ?>" />
 					<?php echo _JCE_PLUGIN_LAYOUT_ICON; ?>:
 					</td>
 					<td>
-					<input class="text_area" type="text" name="layout_icon" size="35" value="<?php echo
-$row->layout_icon; ?>" />
+					<input class="text_area" type="text" name="layout_icon" size="35" value="<?php echo $row->layout_icon; ?>" />
 					</td>
 				</tr>
 				<tr>
@@ -271,8 +258,7 @@ $row->layout_icon; ?>" />
 					<?php echo _JCE_PLUGIN_ROW; ?>:
 					</td>
 					<td>
-                    <?php echo $row_row; ?><input type="hidden" name="row" value="<?php echo
-$row_row; ?>" />
+                    <?php echo $row_row; ?><input type="hidden" name="row" value="<?php echo $row_row; ?>" />
 					</td>
 				</tr>
 				<tr>
@@ -280,8 +266,7 @@ $row_row; ?>" />
 					<?php echo _JCE_PLUGIN_ORDER; ?>:
 					</td>
 					<td>
-                    <?php echo $row_ordering; ?><input type="hidden" name="ordering" value="<?php echo
-$row_ordering; ?>" />
+                    <?php echo $row_ordering; ?><input type="hidden" name="ordering" value="<?php echo $row_ordering; ?>" />
 					</td>
 				</tr>
 				<tr>
@@ -296,8 +281,7 @@ $row_ordering; ?>" />
 					<td valign="top">
 					<?php echo _JCE_PLUGIN_ELMS; ?>:
 					</td>
-					<td><input class="text_area" type="text" name="elements" size="35" value="<?php echo
-$row->elements; ?>" />
+					<td><input class="text_area" type="text" name="elements" size="35" value="<?php echo $row->elements; ?>" />
 					</td>
 				</tr>
 				<tr>
@@ -319,7 +303,7 @@ $row->elements; ?>" />
 				<tr>
 				<tr>
 					<td>
-					<?php
+<?php
 		if($row->id) {
 			echo $params->render();
 		} else {

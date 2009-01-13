@@ -290,8 +290,7 @@ function saveModule($option,$client,$task) {
 	switch($task) {
 		case 'apply':
 			$msg = $row->title.' - '._E_ITEM_SAVED;
-			mosRedirect('index2.php?option='.$option.'&client='.$client.
-				'&task=editA&hidemainmenu=1&id='.$row->id,$msg);
+			mosRedirect('index2.php?option='.$option.'&client='.$client.'&task=editA&hidemainmenu=1&id='.$row->id,$msg);
 			break;
 
 		case 'save':

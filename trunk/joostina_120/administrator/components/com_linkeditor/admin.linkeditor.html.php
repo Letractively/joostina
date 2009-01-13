@@ -137,12 +137,6 @@ class HTML_linkeditor {
 			?>
 			</td>
 		</tr>
-	<tr>
-			<td>
- <?php echo _ALL_FILEDS_REQUIRED?>
-			</td>
-			<td>&nbsp;</td>
-		</tr>
 		</table>
 		<input type="hidden" name="id" value="<?php echo $row->id; ?>" />
 		<input type="hidden" name="task" value="savelink" />
