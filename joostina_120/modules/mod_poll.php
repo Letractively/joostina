@@ -10,7 +10,7 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die('Прямой вызов файла запрещен.');
 
-global $Itemid, $params;
+global $Itemid;
 
 if(!defined('_JOS_POLL_MODULE')) {
 	/** обеспечивает запуск функции только один раз*/

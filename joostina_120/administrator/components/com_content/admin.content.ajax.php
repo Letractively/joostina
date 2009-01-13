@@ -62,7 +62,7 @@ function x_metakey($count = 25,$minlench = 4){
 	$notetext	= joostina_api::convert(mosGetParam($_POST,'notetext','',_MOS_ALLOWRAW));
 	$text	= $introtext .' '. $fulltext .' '. $notetext;
 	$text	= trim(strip_tags ($text)); // чистим от тегов
-	$remove	= array("ndash","mdash","«","»", "\t",'\n','\r', "\n","\r", '\\', "'",",",".","/","¬","#",";",":","@","~","[","]","{","}","=","-","+",")","(","*","&","^","%","$","<",">","?","!", '"' );
+	$remove	= array("rdquo","laquo","raquo","quota","quot","ndash","mdash","«","»", "\t",'\n','\r', "\n","\r", '\\', "'",",",".","/","¬","#",";",":","@","~","[","]","{","}","=","-","+",")","(","*","&","^","%","$","<",">","?","!", '"' );
 	$text	= str_replace($remove, '', $text ); // чистим от спецсимволов
 	$arr	= explode(' ', $text); // делим текст на массив из слов
 	$arr	= str_replace($bad_text, '', $arr ); // чистим от стоп-слов

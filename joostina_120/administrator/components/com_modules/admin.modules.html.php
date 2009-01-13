@@ -289,10 +289,10 @@ class HTML_modules {
 					<td><?php echo $row->description; ?></td>
 				</tr>
 				<!--<tr>
-					<td valign="top" class="key"><?php echo _ASSIGN_TO_URL?>:</td>
+					<td valign="top" class="key"><?php //echo _ASSIGN_TO_URL?>:</td>
 					<td>
-					<?php echo _ASSIGN_TO_URL_TIP?>
-					<textarea name='assign_to_url' style='width:100%' rows='7'><?php echo $row->assign_to_url?></textarea></td>
+					<?php //echo _ASSIGN_TO_URL_TIP?>
+					<textarea name='assign_to_url' style='width:100%' rows='7'><?php //echo $row->assign_to_url?></textarea></td>
 				</tr>-->
 				</table>
 				<table class="adminform">

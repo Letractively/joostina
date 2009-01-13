@@ -58,14 +58,18 @@ if(!$DBcreated) {
 	$configArray['DBname'] = $DBname;
 	$configArray['DBPrefix'] = $DBPrefix;
 
-	// обработка разных версий MySQL
-	if(!$DBold) // для старших версий MySQL
+	// если база данных не создана - создадим её
+	if($DBname != '' && !mysql_select_db($DBname,$database->_resource)) {
+		// обработка разных версий MySQL
+		if(!$DBold) {// для старших версий MySQL
 			$sql = "CREATE DATABASE IF NOT EXISTS `$DBname` DEFAULT CHARACTER SET cp1251 COLLATE cp1251_general_ci";
-	else // для младших версий MySQL
+		}else{// для младших версий MySQL
 			$sql = "CREATE DATABASE IF NOT EXISTS `$DBname`";
+		}
+		$database->setQuery($sql);
+		$database->query();
+	}
 
-	$database->setQuery($sql);
-	$database->query();
 	$test = $database->getErrorNum();
 
 	if($test != 0 && $test != 1007) {
