@@ -72,7 +72,7 @@ flush();
 					<td width="85%">
 						<?php mosLoadAdminModule('fullmenu'); ?>
 					</td>
-					<td align="right">
+					<td align="right" class="header_info">
 						<?php mosLoadAdminModules('header',-2); ?>
 					</td>
 					<td align="right">

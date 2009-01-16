@@ -110,7 +110,7 @@ function processImages(&$row,&$params,&$introCount) {
 
 			// $attrib[2] альтернативный текст и заголовок
 			if(!isset($attrib[2]) || !$attrib[2]) {
-				$attrib[2] = 'Image';
+				$attrib[2] = $mainframe->getPageTitle().' #'.$i;
 			} else {
 				$attrib[2] = htmlspecialchars($attrib[2]);
 			}

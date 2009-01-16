@@ -239,18 +239,16 @@ function print_table($dir, $list, $allow) {
 				echo $GLOBALS["messages"]["editlink"]."\" /></a>\n";
 			} else {
 				echo "<img border=\"0\" ";
-				echo "src=\""._QUIXPLORER_URL."/images/_edit_.png\" alt=\"".$GLOBALS["messages"]["editlink"]."\" title=\"";
+				echo "src=\"/images/ico/edit.png\" alt=\"".$GLOBALS["messages"]["editlink"]."\" title=\"";
 				echo $GLOBALS["messages"]["editlink"]."\" />\n";
 			}
 		} else {
 			if(jx_isArchive($item) && !jx_isFTPMode()) {
 				echo "<a ";
-				echo "onclick=\"javascript: ClearAll(); getElementById('item_$i').checked = true; if( confirm('".($GLOBALS["messages"]["extract_warning"]).
-					"') ) { document.selform.do_action.value='extract'; document.selform.submit(); } else { getElementById('item_$i').checked = false; return false;}\" ";
-				echo "href=\"".make_link("extract", $dir, $item)."\" title=\"".$GLOBALS["messages"]["extractlink"].
-					"\">";
+				echo "onclick=\"javascript: ClearAll(); getElementById('item_$i').checked = true; if( confirm('".($GLOBALS["messages"]["extract_warning"])."') ) { document.selform.do_action.value='extract'; document.selform.submit(); } else { getElementById('item_$i').checked = false; return false;}\" ";
+				echo "href=\"".make_link("extract", $dir, $item)."\" title=\"".$GLOBALS["messages"]["extractlink"]."\">";
 				echo "<img border=\"0\" width=\"22\" height=\"20\" ";
-				echo "src=\""._QUIXPLORER_URL."/images/_extract.png\" alt=\"".$GLOBALS["messages"]["extractlink"];
+				echo "src=\"/images/ico/compress.png\" alt=\"".$GLOBALS["messages"]["extractlink"];
 				echo "\" title=\"".$GLOBALS["messages"]["extractlink"]."\" /></a>\n";
 			} else {
 				echo "<img border=\"0\" src=\"images/ico/none.gif\" alt=\"\" />\n";
@@ -275,7 +273,7 @@ function print_table($dir, $list, $allow) {
 			} else
 				if(!$allow) {
 					echo "<td><img border=\"0\" ";
-					echo "src=\""._QUIXPLORER_URL."/images/_download_.png\" alt=\"".$GLOBALS["messages"]["downlink"];
+					echo "src=\"/images/ico/down.png\" alt=\"".$GLOBALS["messages"]["downlink"];
 					echo "\" title=\"".$GLOBALS["messages"]["downlink"]."\" />\n";
 				}
 		} else {
@@ -288,7 +286,7 @@ function print_table($dir, $list, $allow) {
 					$confirm_msg."') ) { document.selform.do_action.value='delete'; document.selform.submit(); } else { getElementById('item_$i').checked = false; return false;}\">";
 				echo "<img border=\"0\" src=\"images/ico/delete.png\" alt=\"".$GLOBALS["messages"]["dellink"]."\" title=\"".$GLOBALS["messages"]["dellink"]."\" /></a>\n";
 			} else {
-				echo "<img border=\"0\" src=\""._QUIXPLORER_URL."/images/_delete_.png\" alt=\"".$GLOBALS["messages"]["dellink"];
+				echo "<img border=\"0\" src=\"/images/ico/delete.png\" alt=\"".$GLOBALS["messages"]["dellink"];
 				echo "\" title=\"".$GLOBALS["messages"]["dellink"]."\" />\n";
 			}
 		} else {
@@ -324,17 +322,15 @@ function list_dir($dir) {
 			$dir_links .= "<a href=\"".make_link("list", $implode, null)."\">$directory</a>/";
 		}
 	}
-	$images = "&nbsp;<img width=\"10\" height=\"10\" border=\"0\" align=\"absmiddle\" src=\""._QUIXPLORER_URL."/images/";
+	$images = "&nbsp;<img width=\"10\" height=\"10\" border=\"0\" align=\"absmiddle\" src=\"/images/";
 	if($GLOBALS["srt"] == "yes") {
 		$_srt = "no";
-		$images .= "_arrowup.png\" alt=\"^\">";
+		$images .= "uparrow.png\" alt=\"^\">";
 	} else {
 		$_srt = "yes";
-		$images .= "_arrowdown.png\" alt=\"v\">";
+		$images .= "downarrow.png\" alt=\"v\">";
 	}
-	echo '<table class="adminheading"><tbody><tr><th class="filemanager">'
-		.$GLOBALS["messages"]["actdir"].": ".$dir_links
-		.'</th></tr></tbody></table>';
+	echo '<table class="adminheading"><tbody><tr><th class="filemanager">'.$GLOBALS["messages"]["actdir"].": ".$dir_links.'</th></tr></tbody></table>';
 
 	echo "<form name=\"selform\" method=\"post\" action=\"".make_link("post", $dir, null)."\">
 	<input type=\"hidden\" name=\"do_action\" /><input type=\"hidden\" name=\"first\" value=\"y\" />
