@@ -1075,3 +1075,18 @@ tr.ThemeOfficeMainItem td.ThemeOfficeMainItemRight, tr.ThemeOfficeMainItem td.Th
 #adminlist tr.selected {
 	color: #000000;
 }
+/* стили хедер позиции*/
+td.header_info, td.header_info a {
+	margin:0;
+	padding:0 5px;
+	display: inline;
+	width:80px;
+	height: 24px;
+	line-height: 24px;
+	white-space:nowrap;
+	}
+td.header_info img{
+	width:22px;
+	height:22px;
+	vertical-align: middle;
+}

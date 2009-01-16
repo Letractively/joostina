@@ -183,7 +183,7 @@ class HTML_users {
 						<div ><img id="userav" src="<?php echo $mosConfig_live_site.mosUser::avatar($row->id,'big');?>" /></div>
 						<br />
 						<?php if($row->id){?>
-						<input class="inputbox" type="file" size="1" id="fileavatar" name="avatar" class="inputbox"/>
+						<input class="inputbox" type="file" size="1" id="fileavatar" name="avatar"/>
 						<button class="inputbox" onclick="addavatar();">Загрузить</button>
 						<button class="inputbox" onclick="delavatar(<?php echo $row->id;?>); return false;"><?php echo _CMN_DELETE?></button>
 						<?php };?>
@@ -266,7 +266,7 @@ class HTML_users {
 					<tr>
 						<td>
 						<br />
-						<php echo _NO_USER_CONTACTS?>
+						<?php echo _NO_USER_CONTACTS?>
 						<br />
 						</td>
 					</tr>

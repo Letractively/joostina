@@ -43,6 +43,8 @@ class JCE_plugins {
 		mosCommonHTML::loadOverlib();
 		$access = JCE_plugins::AccessList();
 ?>
+<link rel="stylesheet" href="http://localhost/joostina/mambots/editors/jce/jscripts/tiny_mce/themes/advanced/skins/o2k7/ui.css"/>
+
 		<form action="index2.php" method="post" name="adminForm">
 		<table class="adminheading">
 		<tr>
@@ -122,15 +124,16 @@ class JCE_plugins {
 				<td align="center"><?php echo $access_value; ?></td>
 				<td align="center"><?php echo $core; ?></td>
 				<td align="center"><?php echo $row->type; ?></td>
-				<td align="center" class="o2k7Skin"><span class="mceIcon mce_<?php echo $row->plugin;?>" />
-<?php
-			if(!empty($row->layout_icon)) {
-				if($row->type == 'plugin') {
-					$icon_path = $mosConfig_live_site."/mambots/editors/jce/jscripts/tiny_mce/plugins/".$row->plugin."/images/".$row->layout_icon.".gif";
-
+				<td align="center">
+<?php if( !empty( $row->layout_icon )  ){
+					if( $row->type == 'plugin' ){
+						$icon_path = $mosConfig_live_site."/mambots/editors/jce/jscripts/tiny_mce/plugins/".$row->plugin."/images/".$row->layout_icon.".gif";
+					}else{
+						$icon_path = $mosConfig_live_site."/mambots/editors/jce/jscripts/tiny_mce/themes/advanced/images/".$row->layout_icon.".gif";
+					}
 ?>
-				<img src="<?php echo $icon_path; ?>" />
-<?php }} ?>
+					<img src="<?php echo $icon_path;?>" alt="<?php echo $row->name;?>" title="<?php echo $row->name;?>" height="20" />
+<?php }?>
 				</td>
 				<td align="center"><?php echo $row->plugin; ?></td>
 			</tr>

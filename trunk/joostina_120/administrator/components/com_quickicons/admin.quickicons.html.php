@@ -94,12 +94,12 @@ class HTML_QuickIcons {
 					</td>
 					<td align="center">
 						<?php if($i!=0){?>
-							<a href="<?php echo $link.'orderUp&amp;id='.$row->id; ?>" title="<?php echo _E_UP?>"><img src="images/uparrow.png" border="0" alt="<?php echo _QI_ORDER_UP; ?>" /></a>
+							<a href="<?php echo $link.'orderUp&amp;id='.$row->id; ?>" title="<?php echo _E_UP?>"><img src="images/uparrow.png" border="0" alt="<?php echo _E_UP; ?>" /></a>
 						<?php };?>
 					</td>
 					<td align="center">
 						<?php if($i!=(count($rows)-1)){?>
-							<a href="<?php echo $link.'orderDown&amp;id='.$row->id; ?>" title="<?php echo _E_DOWN?>"><img src="images/downarrow.png" border="0" alt="<?php echo _QI_ORDER_DOWN; ?>" /></a>
+							<a href="<?php echo $link.'orderDown&amp;id='.$row->id; ?>" title="<?php echo _E_DOWN?>"><img src="images/downarrow.png" border="0" alt="<?php echo _E_DOWN; ?>" /></a>
 						<?php };?>
 					</td>
 					<td align="center" colspan="2">

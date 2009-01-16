@@ -141,22 +141,23 @@ function submitContent(){
 function viewContent($sectionid,$option) {
 	global $database,$mainframe,$mosConfig_list_limit;
 
-	$filter_sectionid = intval($mainframe->getUserStateFromRequest("filter_sectionid{$option}{$sectionid}",'filter_sectionid',0));
 	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mosConfig_list_limit));
 	$limitstart = intval($mainframe->getUserStateFromRequest("view{$option}{$sectionid}limitstart",'limitstart',0));
+
 	$search = $mainframe->getUserStateFromRequest("search{$option}{$sectionid}",'search','');
 
 	$order_by = $mainframe->getUserStateFromRequest("order_by{$option}{$sectionid}",'order_by','');
 	$order_sort = $mainframe->getUserStateFromRequest("order_sort{$option}{$sectionid}",'order_sort','');
 
-	$catid	= intval(mosGetParam($_REQUEST,'catid',0)); // категория фильтрации выводимого содержимого
+	$catid = intval( $mainframe->getUserStateFromRequest( "catid{$option}{$sectionid}", 'catid', mosGetParam($_REQUEST,'catid',0)));// категория фильтрации выводимого содержимого
+	$filter_authorid = intval( $mainframe->getUserStateFromRequest( "filter_authorid{$option}{$sectionid}", 'filter_authorid', mosGetParam($_REQUEST,'filter_authorid',0) ) ); // раздел содержимого
+	$filter_sectionid = intval($mainframe->getUserStateFromRequest("filter_sectionid{$option}{$sectionid}",'filter_sectionid',0));
 
-	$sectionid = $sectionid ? $sectionid : intval(mosGetParam($_REQUEST,'filter_sectionid',0)); // раздел содержимого
-	$filter_authorid = intval(mosGetParam($_REQUEST,'filter_authorid',0)); // раздел содержимого
-
-
-	if($order_sort == '1') $order_sort_sql = ' DESC';
-	else $order_sort_sql = ' ASC';
+	if($order_sort == '1'){
+		$order_sort_sql = ' DESC';
+	}else{
+		$order_sort_sql = ' ASC';
+	}
 
 	$sql_order = "\n ORDER BY ";
 	switch($order_by) {

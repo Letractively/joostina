@@ -43,17 +43,28 @@ function jceEditorInit() {
 	$template_colors	= $jce->cleanParam( $params->get( 'template_colors', '' ) );
 	$entity_encoding	= $params->get( 'entity_encoding', 'named' );
 
+	// получение шаблона страницы, только для режима работы с фронта сайта
+	if($mainframe->_isAdmin!=1){
+		$query = "SELECT template"
+				."\n FROM #__templates_menu"
+				."\n WHERE client_id = 1"
+				."\n AND menuid = 0";
+		$database->setQuery($query);
+	} else {
+		$query = "SELECT template"
+				."\n FROM #__templates_menu"
+				."\n WHERE client_id = 0"
+				."\n AND menuid = 0";
+		$database->setQuery($query);
+	}
+	$template = $database->loadResult();
 
-
-	// получение шаблона страницы
-	$template = $mainframe->getTemplate();
 	$template_path = $mainframe->getCfg('live_site') . '/templates/' . $template . '/css';
 	$css_template = $template_path . '/template_css.css';
 
 	if( $params->get( 'content_css', 1 ) == 0 ){
 		$css_template = $template_path . '/' . $params->get( 'content_css_custom', '' );
 	}
-
 	$invalid_elements[] = $invalid_elms;
 	$elements = $jce->getElements();
 
