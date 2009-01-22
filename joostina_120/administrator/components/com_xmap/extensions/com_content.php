@@ -410,7 +410,7 @@ function to_page($text,$id,$Itemid){
 	$n = count($text)-1;
 	$ret = '';
 	for ($i = 1; $i <= $n; $i++) {
-		$ret .= ', <a href="'.sefRelToAbs('index.php?option=com_content&task=view&id='.$id.'&limit=1&limitstart='.$i.'&Itemid='.$Itemid).'" >'.($i + 1).' страница</a>';
+		$ret .= ', <a href="'.sefRelToAbs('index.php?option=com_content&task=view&id='.$id.'&limit=1&limitstart='.$i.'&Itemid='.$Itemid).'" >'.($i + 1)._XMAP_PAGE.'</a>';
 	}
 	return $ret;
 }

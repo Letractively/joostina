@@ -38,18 +38,18 @@ if(array_key_exists($element,$classMap)) {
 	switch($task) {
 
 		case 'uploadfile':
-			js_menu_cache_clear();
 			uploadPackage($classMap[$element],$option,$element,$client);
+			js_menu_cache_clear();
 			break;
 
 		case 'installfromdir':
-			js_menu_cache_clear();
 			installFromDirectory($classMap[$element],$option,$element,$client);
+			js_menu_cache_clear();
 			break;
 
 		case 'remove':
-			js_menu_cache_clear();
 			removeElement($classMap[$element],$option,$element,$client);
+			js_menu_cache_clear();
 			break;
 
 		default:

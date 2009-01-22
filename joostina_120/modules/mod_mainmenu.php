@@ -19,9 +19,7 @@ if (!defined( '_MOS_MAINMENU_MODULE' )) {
 	*/
 	function mosGetMenuLink( $mitem, $level=0, &$params, $open=null ) {
 		global $Itemid, $mosConfig_live_site, $mainframe;
-		$menuparams = new mosParameters( $mitem->params );
-		$pg_title = $menuparams->get('title',$mitem->name);
-		$pg_title = htmlspecialchars( $pg_title, ENT_QUOTES);
+		
 		$txt = '';
 
 		switch ($mitem->type) {
@@ -113,12 +111,12 @@ if (!defined( '_MOS_MAINMENU_MODULE' )) {
 			// различные события
 			case 1:
 			// открыть в новом окне
-			$txt = '<a href="'. $mitem->link .'" title="'.$pg_title.'" target="_blank" class="'. $menuclass .'" '. $id .'>'. $mitem->name .'</a>';
+			$txt = '<a href="'. $mitem->link .'" title="'.$mitem->name.'" target="_blank" class="'. $menuclass .'" '. $id .'>'. $mitem->name .'</a>';
 			break;
 
 			case 2:
 			// открытие во всплывающем окне
-			$txt = "<a href=\"#\" title=\"$pg_title\"  onclick=\"javascript: window.open('". $mitem->link ."', '', 'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=780,height=550'); return false\" class=\"$menuclass\" ". $id .">". $mitem->name ."</a>\n";
+			$txt = "<a href=\"#\" onclick=\"javascript: window.open('". $mitem->link ."', '', 'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=780,height=550'); return false\" class=\"$menuclass\" ". $id .">". $mitem->name ."</a>\n";
 			break;
 
 			case 3:
@@ -128,7 +126,7 @@ if (!defined( '_MOS_MAINMENU_MODULE' )) {
 
 			default:	
 			// открытие в текущем окне
-			$txt = '<a href="'. $mitem->link .'" class="'. $menuclass .'" '. $id .' title="'.$pg_title.'">'. $mitem->name .'</a>';
+			$txt = '<a href="'. $mitem->link .'" class="'. $menuclass .'" '. $id .' title="'.$mitem->name.'">'. $mitem->name .'</a>';
 			break;
 		}
 

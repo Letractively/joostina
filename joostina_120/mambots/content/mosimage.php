@@ -86,7 +86,7 @@ function botMosImage($published,&$row,&$params) {
 }
 
 function processImages(&$row,&$params,&$introCount) {
-	global $mosConfig_absolute_path,$mosConfig_live_site;
+	global $mosConfig_absolute_path,$mosConfig_live_site,$mainframe;
 
 	$images = array();
 

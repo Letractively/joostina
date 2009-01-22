@@ -136,24 +136,25 @@ function showPathway($Itemid) {
 						$row = null;
 						$database->loadObject($row);
 
-						// load and add the category
-						$query = "SELECT c.title AS title, s.id AS sectionid, c.id AS id, c.access AS cat_access"
-								."\n FROM #__categories AS c"
-								."\n LEFT JOIN #__sections AS s"
-								."\n ON c.section = s.id"
-								."\n WHERE c.id = ".(int)$row->catid
-								."\n AND c.access <= ".(int)$my->id;
-						$database->setQuery($query);
-						$result = $database->loadObjectList();
+						if($row->catid>0){
+							// load and add the category
+							$query = "SELECT c.title AS title, s.id AS sectionid, c.id AS id, c.access AS cat_access"
+									."\n FROM #__categories AS c"
+									."\n LEFT JOIN #__sections AS s"
+									."\n ON c.section = s.id"
+									."\n WHERE c.id = ".(int)$row->catid
+									."\n AND c.access <= ".(int)$my->id;
+							$database->setQuery($query);
+							$result = $database->loadObjectList();
 
-						$title = $result[0]->title;
-						$sectionid = $result[0]->sectionid;
+							$title = $result[0]->title;
+							$sectionid = $result[0]->sectionid;
 
-						$id = max(array_keys($mitems)) + 1;
-						$mitem1 = pathwayMakeLink($Itemid,$title,'index.php?option='.$option.'&task=category&sectionid='.$sectionid.'&id='.$row->catid,$Itemid);
+							$id = max(array_keys($mitems)) + 1;
+							$mitem1 = pathwayMakeLink($Itemid,$title,'index.php?option='.$option.'&task=category&sectionid='.$sectionid.'&id='.$row->catid,$Itemid);
 
-						$mitems[$id] = $mitem1;
-
+							$mitems[$id] = $mitem1;
+						}
 						if($row->access <= $my->gid) {
 							// add the final content item
 							$id++;
@@ -162,7 +163,6 @@ function showPathway($Itemid) {
 							$mitems[$id] = $mitem2;
 						}
 						$Itemid = $id;
-
 					}
 					break;
 			}
