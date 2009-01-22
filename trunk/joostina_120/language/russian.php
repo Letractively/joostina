@@ -2162,6 +2162,8 @@ DEFINE('_USER_ACTIVATION_FAILED','<div class="componentheading">Ошибка активации
 /* components com_weblinks */
 DEFINE('_ENTER_CORRECT_URL','Введите правильный URL');
 
+/* components com_xmap */
+DEFINE('_XMAP_PAGE',' страница');
 
 
 /* administrator index2.php */

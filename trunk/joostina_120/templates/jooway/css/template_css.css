@@ -231,6 +231,7 @@ div#footerspacer {
 	text-align: left;
 }
 #search {
+	position: relative;
 	float: right;
 	width: 160px;
 	margin-top: -20px;
