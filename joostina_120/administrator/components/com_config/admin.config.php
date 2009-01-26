@@ -110,8 +110,7 @@ function showComponentConfig($component) {
 	$component = preg_replace("|[^a-z_]|Umsi","",$component);
 	$path      = getComponentConfigXMLPath($component);
 	if ($path===false) {
-	
-		mosErrorAlert("XML config file not found");;
+		mosErrorAlert("XML config file not found");
 	}
 
 	//грузим
@@ -135,9 +134,7 @@ function showComponentConfig($component) {
 				<table class="adminform">
 				<tr>
 					<td>';
-	//типа самые умные и рисуем
 	echo $params->render();
-	
 	//низ формы
 	echo "			</td>
 				</tr>

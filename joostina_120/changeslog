@@ -1,5 +1,12 @@
 Joostina v 1.2.0
 
+25.01.09
+	1. Исправлены дублирование символов в файлах menubar*, admin.config.php. Реализация: MuraDweb
+
+23.01.09
+	1. Исправлена опечатка в файловом менеджере. Реализация: boston. Сообщил: inigraf ( http://joomlaforum.ru/index.php/topic,41126.msg307092.html#msg307092 )
+	2. Исправлена опечатка в компоненте содержимого. Реализация: boston. Сообщил: XCOS ( http://joomlaforum.ru/index.php/topic,19709.msg307270.html#msg307270 )
+	3. Оптимизировано сохранение параматров сортировкм содержимого в панели управления. Реализация: TK
 21.01.09
 	1. Исправлена ошибка с неопределённой переменной $mainframe в файле mosimage.php. Реализация: boston.
 	2. Исправлена ошибка с неопределённой переменной $_POST['content'] в файле admin.modules.ajax.php. Реализация: boston. Сообщил inigraf: http://joomlaforum.ru/index.php/topic,41126.msg304516.html#msg304516
@@ -8,7 +15,6 @@ Joostina v 1.2.0
 	5. Очистка кэша панели управления перенесена на после установки / удаление расширения. Реализация: boston. Сообщил: rascal ( http://joomlaforum.ru/index.php/topic,41126.msg303407.html#msg303407 )
 	6. Обновлён css файл шаблона. Реализация и рекомендация: inigraf ( http://joomlaforum.ru/index.php/topic,41126.msg304516.html#msg304516 )
 	7. Исправлена ошибка определения pathway статичного содержимого. Реализация: boston. Сообщил inigraf: http://joomlaforum.ru/index.php/topic,41126.msg304516.html#msg304516
-
 16.01.09 RC7
 	1. Удалено дублирование стилей компонента управления пользователей. Реализация: MuraDweb
 	2. Ошибка php - тега компонента управления пользователями. Реализация: MuraDweb

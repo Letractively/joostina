@@ -149,9 +149,17 @@ function viewContent($sectionid,$option) {
 	$order_by = $mainframe->getUserStateFromRequest("order_by{$option}{$sectionid}",'order_by','');
 	$order_sort = $mainframe->getUserStateFromRequest("order_sort{$option}{$sectionid}",'order_sort','');
 
-	$catid = intval( $mainframe->getUserStateFromRequest( "catid{$option}{$sectionid}", 'catid', mosGetParam($_REQUEST,'catid',0)));// категория фильтрации выводимого содержимого
-	$filter_authorid = intval( $mainframe->getUserStateFromRequest( "filter_authorid{$option}{$sectionid}", 'filter_authorid', mosGetParam($_REQUEST,'filter_authorid',0) ) ); // раздел содержимого
 	$filter_sectionid = intval($mainframe->getUserStateFromRequest("filter_sectionid{$option}{$sectionid}",'filter_sectionid',0));
+
+	$catid = intval( mosGetParam($_REQUEST,'catid',0));
+	$filter_authorid = intval( mosGetParam($_REQUEST,'filter_authorid',0) );
+	if ($filter_authorid <> 0)  {
+		$link = '&filter_authorid='.$filter_authorid;
+	}
+	else {
+		$link = '&catid='.$catid;
+	}
+	$redirect = $sectionid.$link;
 
 	if($order_sort == '1'){
 		$order_sort_sql = ' DESC';
@@ -184,24 +192,18 @@ function viewContent($sectionid,$option) {
 	if(get_magic_quotes_gpc()) {
 		$search = stripslashes($search);
 	}
-	$redirect = $sectionid;
-//	$filter = ''; //getting a undefined variable error
+
 
 	if($sectionid == 0 && $catid==0) {
 		// used to show All content items
 		$where = array("c.state >= 0","c.catid = cc.id","cc.section = s.id","s.scope = 'content'",);
 		$order = $sql_order.$order_sort_sql; // подставляем свой параметр сортировки
-/*		if($filter_sectionid > 0) {
-			$filter = "\n WHERE cc.section = '".(int)$filter_sectionid."'";
-		}
-*/
 		$all = 1;
 		$section->title = _ALL_CONTENT;
 		$section->id = 0;
 	} elseif(!$catid) {
 		$where = array("c.state >= 0","c.catid = cc.id","cc.section = s.id","s.scope = 'content'","c.sectionid = ".(int)$sectionid);
 		$all = null;
-//		$filter = "\n WHERE cc.section = '".(int)$sectionid."'";
 		$section = new mosSection($database);
 		$section->load((int)$sectionid);
 		$section->params = array();
@@ -389,13 +391,21 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 	global $database,$my,$mainframe,$mosConfig_auto_frontpage,$mosConfig_one_editor;
 	global $mosConfig_absolute_path,$mosConfig_live_site,$mosConfig_offset;
 
-	$redirect = strval(mosGetParam($_POST,'redirect',''));
 	$nullDate = $database->getNullDate();
-
-	if(!$redirect) {
-		$redirect = $sectionid;
+	if ($uid) {
+		$catid = intval( mosGetParam($_REQUEST,'catid',0));
+		$filter_authorid = intval( mosGetParam($_REQUEST,'filter_authorid',0) );
+		if ($filter_authorid <> 0)  {
+			$link = '&filter_authorid='.$filter_authorid;
+		}
+		else {
+			$link = '&catid='.$catid;
+		}
+		$redirect = $sectionid.$link;
 	}
-
+	else {
+		$redirect = 0;
+	}
 	// load the row from the db table
 	$row = new mosContent($database);
 	$row->load((int)$uid);
@@ -403,7 +413,7 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 	if($uid) {
 		$sectionid = $row->sectionid;
 		if($row->state < 0) {
-			mosRedirect('index2.php?option=com_content&sectionid='.$row->sectionid,_CANNOT_EDIT_ARCHIVED_ITEM);
+			mosRedirect('index2.php?option=com_content&sectionid='.$redirect,_CANNOT_EDIT_ARCHIVED_ITEM);
 		}
 	}
 
@@ -783,7 +793,10 @@ function saveContent($sectionid,$task) {
 	// clean any existing cache files
 	mosCache::cleanCache('com_content');
 
-	$redirect = mosGetParam($_POST,'redirect',$sectionid);
+	$redirect = mosGetParam($_POST,'redirect');
+	if (!$redirect) {
+		$redirect = $sectionid;
+	}
 	switch($task) {
 		case 'go2menu':
 			mosRedirect('index2.php?option=com_menus&menutype='.$menu);
@@ -878,7 +891,10 @@ function changeContent($cid = null,$state = 0,$option) {
 			break;
 	}
 
-	$redirect = mosGetParam($_POST,'redirect',$row->sectionid);
+	$redirect = mosGetParam($_POST,'redirect');
+	if (!$redirect) {
+		$redirect = $row->sectionid;
+	}
 	$rtask = strval(mosGetParam($_POST,'returntask',''));
 	if($rtask) {
 		$rtask = '&task='.$rtask;
@@ -931,8 +947,12 @@ function toggleFrontPage($cid,$section,$option) {
 
 	// clean any existing cache files
 	mosCache::cleanCache('com_content');
+	$redirect = mosGetParam($_POST, 'redirect');
+	if (!$redirect) {
+		$redirect = $sectionid;
+	}
 
-	mosRedirect('index2.php?option='.$option.'&sectionid='.$section,$msg);
+	mosRedirect('index2.php?option='.$option.'&sectionid='.$redirect,$msg);
 }
 
 function removeContent(&$cid,$sectionid,$option) {
@@ -963,7 +983,11 @@ function removeContent(&$cid,$sectionid,$option) {
 
 	$msg = _MOVED_TO_TRASH.": ".$total;
 	$return = strval(mosGetParam($_POST,'returntask',''));
-	mosRedirect('index2.php?option='.$option.'&task='.$return.'&sectionid='.$sectionid,$msg);
+	$redirect = mosGetParam($_POST, 'redirect');
+	if (!$redirect) {
+		$redirect = $sectionid;
+	}
+	mosRedirect('index2.php?option='.$option.'&task='.$return.'&sectionid='.$redirect,$msg);
 }
 
 /**
@@ -976,7 +1000,7 @@ function cancelContent() {
 	$row->bind($_POST);
 	$row->checkin();
 
-	$redirect = mosGetParam($_POST,'redirect',0);
+	$redirect = mosGetParam($_POST,'redirect');
 	mosRedirect('index2.php?option=com_content&sectionid='.$redirect);
 }
 
@@ -991,7 +1015,10 @@ function orderContent($uid,$inc,$option) {
 	$row->load((int)$uid);
 	$row->move($inc,"catid = ".(int)$row->catid." AND state >= 0");
 
-	$redirect = mosGetParam($_POST,'redirect',$row->sectionid);
+	$redirect = mosGetParam($_POST,'redirect');
+	if (!$redirect) {
+		$redirect = $row->sectionid;
+	}
 
 	// clean any existing cache files
 	mosCache::cleanCache('com_content');
@@ -1246,7 +1273,7 @@ function accessMenu($uid,$access,$option) {
 		return $row->getError();
 	}
 
-	$redirect = mosGetParam($_POST,'redirect',$row->sectionid);
+	$redirect = mosGetParam($_POST, 'redirect', $row->sectionid);
 
 	// clean any existing cache files
 	mosCache::cleanCache('com_content');
@@ -1320,7 +1347,7 @@ function saveOrder(&$cid) {
 	global $database;
 	josSpoofCheck();
 	$total = count($cid);
-	$redirect = mosGetParam($_POST,'redirect',0);
+	$redirect = mosGetParam($_POST,'redirect');
 	$rettask = strval(mosGetParam($_POST,'returntask',''));
 
 	$order = josGetArrayInts('order');

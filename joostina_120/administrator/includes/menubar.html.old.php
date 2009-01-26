@@ -265,7 +265,7 @@ if(!class_exists('mosMenuBar')) {
 		function editHtmlX($task = 'edit_source',$alt = _EDIT_HTML) {
 ?>
 			<td>
-				<a class="tb-edit-html-x" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('<?php echo _PLEASE_CHOOSE_ELEMENT_TO_EDIT?>'); } else {hideMainMenu();submitbutton('<?php echo $task; ?>', '');}""><span><?php echo $alt; ?></span></a>
+				<a class="tb-edit-html-x" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('<?php echo _PLEASE_CHOOSE_ELEMENT_TO_EDIT?>'); } else {hideMainMenu();submitbutton('<?php echo $task; ?>', '');}"><span><?php echo $alt; ?></span></a>
 			</td>
 <?php
 		}
@@ -278,7 +278,7 @@ if(!class_exists('mosMenuBar')) {
 		function editCss($task = 'edit_css',$alt = _EDIT_CSS) {
 ?>
 			<td>
-				<a class="tb-edit-css" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('<?php echo _PLEASE_CHOOSE_ELEMENT_TO_EDIT?>'); } else {submitbutton('<?php echo $task; ?>', '');}""><span><?php echo $alt; ?></span></a>
+				<a class="tb-edit-css" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('<?php echo _PLEASE_CHOOSE_ELEMENT_TO_EDIT?>'); } else {submitbutton('<?php echo $task; ?>', '');}"><span><?php echo $alt; ?></span></a>
 			</td>
 <?php
 		}
