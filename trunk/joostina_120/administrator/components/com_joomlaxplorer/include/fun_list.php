@@ -248,7 +248,7 @@ function print_table($dir, $list, $allow) {
 				echo "onclick=\"javascript: ClearAll(); getElementById('item_$i').checked = true; if( confirm('".($GLOBALS["messages"]["extract_warning"])."') ) { document.selform.do_action.value='extract'; document.selform.submit(); } else { getElementById('item_$i').checked = false; return false;}\" ";
 				echo "href=\"".make_link("extract", $dir, $item)."\" title=\"".$GLOBALS["messages"]["extractlink"]."\">";
 				echo "<img border=\"0\" width=\"22\" height=\"20\" ";
-				echo "src=\"/images/ico/compress.png\" alt=\"".$GLOBALS["messages"]["extractlink"];
+				echo "src=\"images/ico/compress.png\" alt=\"".$GLOBALS["messages"]["extractlink"];
 				echo "\" title=\"".$GLOBALS["messages"]["extractlink"]."\" /></a>\n";
 			} else {
 				echo "<img border=\"0\" src=\"images/ico/none.gif\" alt=\"\" />\n";

@@ -617,7 +617,7 @@ class HTML_content {
 				<td>
 				<table width="100%">
 				<tr>
-					<td><strong><?php echo _E_STATE?>:</strong></td>
+					<td><strong><?php echo _E_STATE?></strong></td>
 					<td><?php echo $row->state > 0? _CMN_PUBLISHED :($row->state < 0? _IN_ARCHIVE : _DRAFT_NOT_PUBLISHED); ?></td>
 				</tr>
 				<tr <?php echo $visibility; ?>>
