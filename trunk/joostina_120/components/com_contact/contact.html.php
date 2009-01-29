@@ -403,11 +403,11 @@ class HTML_contact {
 					<td class="contentheading<?php echo $menu_params->get('pageclass_sfx'); ?>" width="100%">
 						<table width="100%">
 						<tr>
-							<td width="100%">
+							<td width="100%"> <h4>
 					<?php
 				echo $contact->name;
 ?>
-					</td>
+					</h4></td>
 					<?php
 				// displays Print Icon
 				$print_link = $mosConfig_live_site.
@@ -416,7 +416,7 @@ class HTML_contact {
 				mosHTML::PrintIcon($contact,$params,$hide_js,$print_link);
 ?>
 				</tr>
-						</table>
+						</table><br />
 					</td>
 				</tr>
 				<?php

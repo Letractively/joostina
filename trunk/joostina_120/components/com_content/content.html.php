@@ -959,8 +959,9 @@ _CMN_NEW; ?>" />
 ?>
 		<tr>
 			<td width="70%" align="left" valign="top" colspan="2">
-			<span class="small">
-<?php echo _WRITTEN_BY.' '.($row->created_by_alias?$row->created_by_alias:$row->author); ?>
+			<span class="author">
+                <strong><?php echo _WRITTEN_BY;?></strong> 
+                <?php echo($row->created_by_alias?$row->created_by_alias:$row->author); ?>
 			</span>
 			&nbsp;&nbsp;
 			</td>
@@ -983,7 +984,7 @@ _CMN_NEW; ?>" />
 		if($params->get('createdate')) {
 ?>
 			<tr>
-				<td valign="top" colspan="2" class="createdate"><?php echo $create_date; ?></td>
+				<td valign="top" colspan="2" class="createdate"><span class="date"><?php echo $create_date; ?></span></td>
 			</tr>
 <?php
 		}

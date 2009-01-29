@@ -238,50 +238,41 @@ class mosParameters {
 		if(is_object($this->_xmlElem)) {
 			$html = array();
 			$element = &$this->_xmlElem;
-			if ($element->getAttribute('type')=='tabs') {
-				$tabs = new mosTabs(1,1);
-				$tabs->startPane('params');
-					$html[] = '</div>';
-					$html[] = '<div class="tab-page" id="jxmltb1">';
-					$html[] = '<h2 class="tab">sdf</h2>';
-					$html[] = '<script type="text/javascript">tabPane1.addTabPage( document.getElementById( "jxmltb1" ) );</script>';
-			}
-			// boston, недалёкое будующее
-			
-			$html[] = '<table width="100%" class="paramlist">';
+ 			$html[] = '<table width="100%" class="paramlist">';
+
 			if($description = $element->getAttribute('description')) {
 				// add the params description to the display
 				$html[] = '<tr><td colspan="2">'.$description.'</td></tr>';
 			}
 			$this->_methods = get_class_methods(get_class($this));
+
 			foreach($element->childNodes as $param) {
 				$result = $this->renderParam($param,$name);
-				//echo $result[2];
-				if($result[1]=='newtable'){
-					$html[] = '</table>';
-					$html[] = '<table width="100%" class="paramlist">';
-				}elseif($result[1]=='tabs'){
-					$html[] = '</table>';
-					$html[] = '</div>';
-					$html[] = '<div class="tab-page" id="'.$result[4].'">';
-					$html[] = '<h2 class="tab">'.$result[3].'</h2>';
-					$html[] = '<script type="text/javascript">tabPane1.addTabPage( document.getElementById( "'.$result[4].'" ) );</script>';
-					$html[] = '<table width="100%" class="paramlist">';
-				}else{
-					$html[] = '<tr>';
-					$html[] = '<td width="40%" align="right" valign="top" class="pkey"><span class="editlinktip">'.$result[0].'</span></td>';
-					$html[] = '<td>'.$result[1].'</td>';
-					$html[] = '</tr>';
-				}
+
+                switch ($result[5]){
+                    case 'newtable':
+					    $html[] = '</table>';
+					    $html[] = '<table width="100%" class="paramlist">';
+                    break;
+
+                    case 'tabs':
+                        $html[] = $result[1];
+                    break;
+
+                    default:
+ 					    $html[] = '<tr>';
+					    $html[] = '<td width="40%" align="right" valign="top" class="pkey"><span class="editlinktip">'.$result[0].'</span></td>';
+					    $html[] = '<td>'.$result[1].'</td>';
+					    $html[] = '</tr>';
+                    break;
+                }
+
 			}
 			if(count($element->childNodes) < 1) {
 				$html[] = "<tr><td colspan=\"2\"><i>"._NO_PARAMS."</i></td></tr>";
 			}
 			$html[] = '</table>';
-			if ($element->getAttribute('type')=='tabs') {
-				$html[] = '</div>';
-				$html[] = '</div>';
-			}
+
 			return implode("\n",$html);
 		} else {
 			return "<textarea name=\"$name\" cols=\"40\" rows=\"10\" class=\"text_area\">$this->_raw</textarea>";
@@ -311,7 +302,7 @@ class mosParameters {
 		$type = $param->getAttribute('type');
 
 		if(in_array('_form_'.$type,$this->_methods)) {
-			$result[1] = call_user_func(array(&$this,'_form_'.$type),$name,$value,$param,$control_name);
+			$result[1] = call_user_func(array(&$this,'_form_'.$type),$name,$value,$param,$control_name, $label);
 		} else {
 			$result[1] = _HANDLER.' = '.$type;
 		}
@@ -324,6 +315,7 @@ class mosParameters {
 		}
 		$result[3]=$description;
 		$result[4]=$label;
+        $result[5]=$type;
 		return $result;
 	}
 	/**
@@ -507,6 +499,49 @@ class mosParameters {
 		} else {
 			return '<hr />';
 		}
+	}
+
+    function _form_tabs($name,$value,$param,$control_name, $label) {
+        global $mosConfig_live_site,$mainframe;
+        $css_f = 'tabpane.css';
+		$js_f = 'tabpane_mini.js';
+        $css = '<link rel="stylesheet" type="text/css" media="all" href="'.$mosConfig_live_site.'/includes/js/tabs/'.$css_f.'" id="luna-tab-style-sheet" />';
+		$js = '<script type="text/javascript" src="'.$mosConfig_live_site.'/includes/js/tabs/'.$js_f.'"></script>';
+
+        $return = '';
+
+        switch ($value){
+            case 'startPane':
+
+               // $return .= '</div>';
+                $return .= '<tr><td></td></tr></table>';
+                $return .= $css;
+                $return .= $js;
+			  //$return .= '</div>';
+                $return .= '<div class="tab-page" id="'.$name.'">';
+		        $return .= '<script type="text/javascript">var tabPane1 = new WebFXTabPane( document.getElementById( "'.$name.'" ),0)</script>';
+            break;
+
+            case 'endPane':
+                $return .= '</div><table>';
+            break;
+
+            case 'startTab':
+          	    $return .= '<div class="tab-page" id="'.$name.'">';
+				$return .= '<h2 class="tab">'.$label.'</h2>';
+				$return .= '<script type="text/javascript">tabPane1.addTabPage( document.getElementById( "'.$name.'" ) );</script>';
+				$return .= '<table width="100%" class="paramlist">';
+            break;
+
+            case 'endTab':
+                 $return .= '</table></div>';
+            break;
+
+            default:
+            break;
+        }
+
+    return $return;
 	}
 
 	/**
