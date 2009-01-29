@@ -29,7 +29,7 @@ class xmap_com_weblinks{
 			$node->browserNav = $parent->browserNav;
 			$node->name = $row->title;
 			$node->modified = $modified;
-			$node->link = "index.php?option=com_weblinks&catid=".$row->id; //."&Itemid".$row->id;
+			$node->link = "index.php?option=com_weblinks&amp;catid=".$row->id; //."&Itemid".$row->id;
 			$node->pid = $parent->id;// parent id
 
 			$xmap->printNode($node);
@@ -47,7 +47,7 @@ class xmap_com_weblinks{
 				$child->browserNav = $node->browserNav;
 				$child->modified = $modified;
 				$child->name = $curlink->title;
-				$child->link = "index.php?option=com_weblinks&task=view&catid=".$row->id."&id=".$curlink->id."&Itemid=".$Itemid;
+				$child->link = "index.php?option=com_weblinks&amp;task=view&amp;catid=".$row->id."&amp;id=".$curlink->id."&amp;Itemid=".$Itemid;
 				$child->pid = $node->pid;
 
 				$xmap->printNode($child);

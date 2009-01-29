@@ -89,7 +89,7 @@ function processImages(&$row,&$params,&$introCount) {
 	global $mosConfig_absolute_path,$mosConfig_live_site,$mainframe;
 
 	$images = array();
-
+    $div_style ='';
 	// выдача  \n образов полей как массив
 	$row->images = explode("\n",$row->images);
 	$total = count($row->images);
@@ -161,6 +161,7 @@ function processImages(&$row,&$params,&$introCount) {
 			if(!$attrib[4]) {
 				if($attrib[1] == 'left' or $attrib[1] == 'right') {
 					$image .= ' style="float: '.$attrib[1].';"';
+                    $div_style = ' style="float: '.$attrib[1].';"';
 				} else {
 					$image .= $attrib[1]?' align="middle"':'';
 				}
@@ -220,7 +221,7 @@ function processImages(&$row,&$params,&$introCount) {
 				}
 				$img .= '</div>';
 			} else {
-				$img = $image;
+				$img = '<div class="mosimage"'. $div_style .' >' . $image . '</div>';
 			}
 
 			$images[] = $img;

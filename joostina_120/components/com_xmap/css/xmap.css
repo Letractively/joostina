@@ -1,10 +1,7 @@
-/* list-style: pos1 pos2 po3;
- *    parameter:
- *               pos1: none | disc | circle | square
- *               pos2: inside | outside
- *               pos3: none | url('arrow.gif')
- * more info under: http://www.w3schools.com/css/css_list.asp
- */
+.sitemap .contentpaneopen{
+    padding: 10px 0 10px 10px;
+}
+
 
 .sitemap ul {
 	display		: block;
@@ -17,13 +14,22 @@
 	padding		: 0;
 	white-space	: nowrap;
 	background	: transparent;
+
 }
 .sitemap a img {
 	border		: none;
 }
-.sitemap ul.level_0 ul {
-	list-style	: inside square;
+.sitemap ul.level_0 ,
+.sitemap ul.level_0  li {
+   list-style	: none;
 	padding		: 0;
+}
+
+.sitemap ul.level_0  li a {
+    font-weight: bold;
+}
+.sitemap ul.level_0   li ul a {
+    font-weight: normal;
 }
 .sitemap ul.level_1 li {
 	padding		: 0 0 0 2em;
