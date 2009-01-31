@@ -70,7 +70,8 @@ function x_saveconfig($task) {
 	$row->config_error_message = str_replace('"','&quot;',$row->config_error_message);
 	$row->config_error_message = str_replace("'",'&#039;',$row->config_error_message);
 
-	if(($row->config_joomlaxplorer_dir == $row->config_absolute_path) OR $row->config_joomlaxplorer_dir='' ) $row->config_joomlaxplorer_dir = '';
+//	if(($row->config_joomlaxplorer_dir == $row->config_absolute_path) OR $row->config_joomlaxplorer_dir='' ) $row->config_joomlaxplorer_dir = '';
+if($row->config_joomlaxplorer_dir == $row->config_absolute_path) $row->config_joomlaxplorer_dir = 0;
 
 	$RGEmulation = intval(mosGetParam($_POST,'rgemulation',0));
 

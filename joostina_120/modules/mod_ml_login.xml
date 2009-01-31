@@ -7,7 +7,9 @@
 	<authorEmail>joostinacms@gmail.com</authorEmail>
 	<authorUrl>www.joostina.ru</authorUrl>
 	<version>1.3.1</version>
-	<description>Модуль отображающий форму авторизации</description>
+	<description>Модуль отображающий форму авторизации<![CDATA[
+		<script type="text/javascript" src="../includes/js/tabs/tabpane_mini.js"></script>
+	<link id="luna-tab-style-sheet" type="text/css" rel="stylesheet" href="../includes/js/tabs/tabpane.css" />]]></description>
 	<files>
 		<filename module="mod_ml_login">mod_ml_login.php</filename>
 		<filename>mod_ml_login/1.gif</filename>
@@ -21,81 +23,85 @@
 		<filename>mod_ml_login/9.gif</filename>
 	</files>
 	<params>
+        <param name="@spacer" type="spacer" default="&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt; &lt;div class=&quot;tab-page&quot; id=&quot;moduledgm&quot;&gt;&lt;script type=&quot;text/javascript&quot;&gt;var tabPane1 = new WebFXTabPane( document.getElementById( &quot;moduledgm&quot; ), 1 )&lt;/script&gt; &lt;div class=&quot;tab-page&quot;id=&quot;module32&quot;&gt;&lt;h2 class=&quot;tab&quot;&gt;Основные настройки&lt;/h2&gt;&lt;script type=&quot;text/javascript&quot;&gt;tabPane1.addTabPage(document.getElementById(&quot;module32&quot;));&lt;/script&gt;&lt;table width=&quot;100%&quot; class=&quot;paramlist-m&quot;&gt;&lt;tr&gt;&lt;td&gt;" label="" description="" />
 		<param name="moduleclass_sfx" type="text" default="" label="Суффикс класса модуля" description="Суффикс, который будет использован в описании класса (table.moduletable) таблицы стилей (CSS) модуля. Это позволяет использовать индивидуальный стиль модуля." />
-		<param name="ml_avatar" type="radio" default="1" label="Отображать аватар" description="Выводить в модуле аватар пользователя">
-			<option value="1">Да</option>
-			<option value="0">Нет</option>
-		</param>
-		<param name="ml_link_profile" type="radio" default="1" label="Ссылка на профиль" description="Выводить ссылку на редактирование профиля">
-			<option value="1">Да</option>
-			<option value="0">Нет</option>
-		</param>
-
-		<param name="ml_visibility" type="radio" default="0" label="Тип модуля" description="Отображать поля авторизации сразу или только после нажатия на кнопку авторизации">
+		<param name="ml_visibility" type="radio" default="0" label="Тип модуля" description="Отображать форму авторизации сразу или только после нажатия на кнопку авторизации">
 			<option value="0">Обычный</option>
-			<option value="1">Раскрывающийся</option>
+			<option value="1">Всплывающее окно</option>
 		</param>
-		<param name="dr_login_text" type="text" default="Авторизация" label="Текст кнопки раскрытия модуля" description="Текст кнопки авторизации (только для выпадающей формы меню)" />
-		<param name="dr_logout_text" type="text" default="Закрыть" label="Текст кнопки закрытия модуля" description="Текст кнопки закрытия модуля авторизации (только для выпадающей формы меню)" />
-		<param name="@spacer" type="spacer" default="" label="" description="" />
+        <param name="dr_login_text" type="text" default="Авторизация" label="Текст кнопки раскрытия модуля" description="Текст кнопки авторизации (только для выпадающей формы меню)" />
 		<param name="orientation" type="radio" default="0" label="Ориентация модуля" description="">
 			<option value="0">Вертикально</option>
 			<option value="1">Горизонтально</option>
 		</param>
-		<param name="module_width" type="text" default="100%" label="Ширина модуля" description="Ширина модуля в процентах или пикселях ( при установке ширины в пикселях НЕ пишите px !!!)" />
-		<param name="module_height" type="text" default="30" label="Высота модуля (только для горизонтального типа отображения)" description="Ширина модуля в процентах или пикселях ( при установке ширины в пикселях НЕ пишите px !!!)" />
-		<param name="pretext" type="textarea" cols="20" rows="5" default="" label="Текст в начале" description="Это просто текст или текст в формате HTML, который показывается перед формой входа" />
+		<param name="ml_avatar" type="radio" default="1" label="Отображать аватар" description="Выводить в модуле аватар пользователя">
+			<option value="1">Да</option>
+			<option value="0">Нет</option>
+		</param>
+        <param name="pretext" type="textarea" cols="20" rows="5" default="" label="Текст в начале" description="Это просто текст или текст в формате HTML, который показывается перед формой входа" />
 		<param name="posttext" type="textarea" cols="20" rows="5" label="Текст в конце" description="Это просто текст или текст в формате HTML, который показывается после формы входа" />
-		<param name="login" type="text" default="" label="Адрес URL переадресации после входа" description="На какую страницу должен быть переадресован пользователь после входа. Если поле для ввода оставлено пустым - будет загружена главная страница" />
-		<param name="logout" type="text" default="" label="Адрес URL переадресации пользователя при выходе" description="На какую страницу должен быть переадресован пользователь после входа. Если поле для ввода оставлено пустым - будет загружена главная страница" />
-		<param name="login_message" type="radio" default="0" label="Сообщение при авторизации" description="Показать/Скрыть всплывающее окно (на javascript) при успешной авторизации пользователя">
+        <param name="@spacer" type="spacer" default="&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt; &lt;div class=&quot;tab-page&quot; id=&quot;module19&quot;&gt;&lt;h2 class=&quot;tab&quot;&gt;Авторизация (Вход)&lt;/h2&gt;&lt;script type=&quot;text/javascript&quot;&gt;tabPane1.addTabPage(document.getElementById( &quot;module20&quot; ) );&lt;/script&gt;&lt;table width=&quot;100%&quot; class=&quot;paramlist-m&quot;&gt;&lt;tr&gt;&lt;td&gt;" label="" description="" />
+         <param name="login" type="text" default="" label="Адрес URL переадресации после входа" description="На какую страницу должен быть переадресован пользователь после входа. Если поле для ввода оставлено пустым - будет загружена главная страница" />
+
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+        <param name="login_message" type="radio" default="0" label="Сообщение при авторизации" description="Показать/Скрыть всплывающее окно (на javascript) при успешной авторизации пользователя">
 			<option value="0">Скрыть</option>
 			<option value="1">Показать</option>
 		</param>
+        <param name="greeting" type="radio" default="1" label="Приветствие" description="Показать/Скрыть простой текст приветствия">
+			<option value="0">Нет</option>
+			<option value="1">Да</option>
+		</param>
+		<param name="user_name" type="list" default="0" label="Псевдоним/Имя пользователя">
+			<option value="0">Псевдоним пользователя</option>
+			<option value="1">Имя</option>
+		</param>
+        <param name="profile_link" type="list" default="0" label="Ссылка на профиль пользователя">
+			<option value="0">Использовать псевдоним/имя пользователя</option>
+			<option value="1">Отдельная ссылка (текст ниже)</option>
+            <option value="2">Не выводить</option>
+		</param>
+        <param name="profile_link_text" type="text" default="Личный кабинет" label="Текст ссылки на профиль" description="" />
+        <param name="@spacer" type="spacer" default="&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt; &lt;div class=&quot;tab-page&quot; id=&quot;module19&quot;&gt;&lt;h2 class=&quot;tab&quot;&gt;Выход из системы&lt;/h2&gt;&lt;script type=&quot;text/javascript&quot;&gt;tabPane1.addTabPage(document.getElementById( &quot;module20&quot; ) );&lt;/script&gt;&lt;table width=&quot;100%&quot; class=&quot;paramlist-m&quot;&gt;&lt;tr&gt;&lt;td&gt;" label="" description="" />
+		<param name="logout" type="text" default="" label="Адрес URL переадресации пользователя при выходе" description="На какую страницу должен быть переадресован пользователь после входа. Если поле для ввода оставлено пустым - будет загружена главная страница" />
+
 		<param name="logout_message" type="radio" default="0" label="Сообщение при выходе" description="Показать/Скрыть всплывающее окно (на javascript) при успешном выходе">
 			<option value="0">Скрыть</option>
 			<option value="1">Показать</option>
 		</param>
-		<param name="greeting" type="radio" default="1" label="Приветствие" description="Показать/Скрыть простой текст приветствия">
-			<option value="0">Нет</option>
-			<option value="1">Да</option>
-		</param>
-		<param name="name" type="list" default="0" label="Имя/Имя пользователя">
-			<option value="0">Имя пользователя</option>
-			<option value="1">Имя</option>
-		</param>
-		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="field_width" type="text" default="10" label="Ширина поля ввода" description="Ширина полей логин/пароль" />
+
+        <param name="@spacer" type="spacer" default="&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt; &lt;div class=&quot;tab-page&quot; id=&quot;module19&quot;&gt;&lt;h2 class=&quot;tab&quot;&gt;Поля Логин/Пароль&lt;/h2&gt;&lt;script type=&quot;text/javascript&quot;&gt;tabPane1.addTabPage(document.getElementById( &quot;module20&quot; ) );&lt;/script&gt;&lt;table width=&quot;100%&quot; class=&quot;paramlist-m&quot;&gt;&lt;tr&gt;&lt;td&gt;" label="" description="" />
+
+
 		<param name="@spacer" type="spacer" default="" label="" description="" />
 		<param name="show_login_text" type="radio" default="1" label="Показать текст Пользователь" description="Показывать подпись к полю ПОЛЬЗОВАТЕЛЬ">
 			<option value="0">Нет</option>
 			<option value="1">Над полем вода</option>
-			<option value="2">Внутри поля вода</option>
+			<option value="2">Внутри поля ввода</option>
+            <option value="3">Слева от поля ввода</option>
 		</param>
-			<param name="show_login_tooltip" type="radio" default="0" label="Показать всплывающую подсказку" description="Показывать всплывающую подсказку к полю ПОЛЬЗОВАТЕЛЬ">
-			<option value="0">Нет</option>
-			<option value="1">Да</option>
-		</param>
+
 		<param name="ml_login_text" type="text" default="" label="Текст Пользователь" description="Надпись ПОЛЬЗОВАТЕЛЬ" />
-		<param name="login_tooltip_text" type="text" default="" label="Подсказка к полю Логин" description="Текст всплывающей подсказки к полю ЛОГИН" />
 		<param name="@spacer" type="spacer" default="" label="" description="" />
+
 		<param name="show_pass_text" type="radio" default="1" label="Показать текст Пароль" description="Показывать подпись к полю ПАРОЛЬ">
 			<option value="0">Нет</option>
-			<option value="1">Над полем вода</option>
-			<option value="2">Внутри поля вода</option>
+			<option value="1">Над полем ввода</option>
+			<option value="2">Внутри поля ввода</option>
+            <option value="3">Слева от поля ввода</option>
 		</param>
-		<param name="show_pass_tooltip" type="radio" default="0" label="Показать всплывающую подсказку" description="Показывать всплывающую подсказку к полю ПАРОЛЬ">
-			<option value="0">Нет</option>
-			<option value="1">Да</option>
-		</param>
+
 		<param name="ml_pass_text" type="text" default="" label="Текст Пароль" description="Надпись ПАРОЛЬ" />
-		<param name="pass_tooltip_text" type="text" default="" label="Подсказка к полю Пароль " description="Текст всплывающей подсказки к полю Пароль" />
+
+
+         <param name="@spacer" type="spacer" default="&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt; &lt;div class=&quot;tab-page&quot; id=&quot;module19&quot;&gt;&lt;h2 class=&quot;tab&quot;&gt;Другие элементы формы&lt;/h2&gt;&lt;script type=&quot;text/javascript&quot;&gt;tabPane1.addTabPage(document.getElementById( &quot;module20&quot; ) );&lt;/script&gt;&lt;table width=&quot;100%&quot; class=&quot;paramlist-m&quot;&gt;&lt;tr&gt;&lt;td&gt;" label="" description="" />
 		<param name="@spacer" type="spacer" default="" label="" description="" />
 		<param name="show_remember" type="radio" default="1" label="Запомнить меня" description="Показывать ЗАПОМНИТЬ МЕНЯ">
 			<option value="0">Нет</option>
 			<option value="1">Да</option>
 		</param>
 		<param name="ml_rem_text" type="text" default="" label="Текст Запомнить меня" description="" />
+
 		<param name="@spacer" type="spacer" default="" label="" description="" />
 		<param name="show_lost_pass" type="radio" default="1" label="Забыли пароль" description="Показывать ЗАБЫЛИ ПАРОЛЬ ">
 			<option value="0">Нет</option>
@@ -103,95 +109,15 @@
 		</param>
 		<param name="ml_rem_pass_text" type="text" default="" label="Текст Забыли пароль" description="" />
 		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="show_not_registered" type="radio" default="1" label="Вы не зарегистрированы" description="Показывать ВЫ НЕ ЗАРЕГИСТРИРОВАНЫ ? ">
-			<option value="0">Нет</option>
-			<option value="1">Да</option>
-		</param>
-		<param name="ml_not_reg_text" type="text" default="" label="Текст Вы не зарегистрированы" description="" />
-		<param name="@spacer" type="spacer" default="" label="" description="" />
+
 		<param name="show_register" type="radio" default="1" label="Зарегистрироваться" description="Показывать ЗАРЕГИСТРИРОВАТЬСЯ ">
 			<option value="0">Нет</option>
 			<option value="1">Да</option>
 		</param>
 		<param name="ml_reg_text" type="text" default="" label="Текст Зарегистрироваться" description="" />
 		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="module_align" type="radio" default="left" label="Выравнивание (только для вертикального)" description="Выравнивание в модуле (только для вертикального) ">
-			<option value="left">Слева</option>
-			<option value="center">по центру</option>
-			<option value="right">Справа</option>
-		</param>
-		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="ml_show_button" type="radio" default="" label="Показывать кнопку ВОЙТИ" description="Включает/выключает кнопку войти, вместо нее жмем ENTER">
-			<option value="-hidden">Спрятать</option>
-			<option value="">Показать</option>
-		</param>
-		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="@spacer" type="spacer" default="Настройки всплывающих подсказок" label="" description="" />
-		<param name="ml_border" type="list" default="1" label="Ширина границы">
-			<option value="0">0px</option>
-			<option value="1">1px</option>
-			<option value="2">2px</option>
-			<option value="3">3px</option>
-			<option value="4">4px</option>
-			<option value="5">5px</option>
-			<option value="6">6px</option>
-		</param>
-		<param name="ml_over_height" type="text" default="80" label="Высота блока всплывающей подсказки" description="" />
-		<param name="ml_over_width" type="text" default="200" label="Ширина блока всплывающей подсказки" description="" />
-		<param name="ml_bgcolor" type="text" default="#00FF00" label="Цвет фона заголовка и рамки" description="Задает цвет фона заголовка и рамки в шестнадцатеричном виде (#00ff00)" />
-		<param name="ml_capcolor" type="text" default="#FF00FF" label="Цвет текста в заголовке" description="Задает цвет текста в заголовке в шестнадцатеричном виде (#00ff00)" />
-		<param name="ml_captionfont" type="list" default="Arial" label="Шрифт текста заголовка">
-			<option value="Arial">Arial</option>
-			<option value="Arial Black">Arial Black</option>
-			<option value="Times New Roman">Times New Roman</option>
-			<option value="Courier New">Courier New</option>
-		</param>
-		<param name="ml_captionsize" type="list" default="12px" label="Размер шрифта текста заголовка">
-			<option value="6px">6px</option>
-			<option value="7px">7px</option>
-			<option value="8px">8px</option>
-			<option value="9px">9px</option>
-			<option value="10px">10px</option>
-			<option value="11px">11px</option>
-			<option value="12px">12px</option>
-			<option value="13px">13px</option>
-			<option value="14px">14px</option>
-			<option value="15px">15px</option>
-			<option value="16px">16px</option>
-			<option value="17px">17px</option>
-			<option value="18px">18px</option>
-			<option value="19px">19px</option>
-			<option value="20px">20px</option>
-			<option value="21px">21px</option>
-			<option value="22px">22px</option>
-		</param>
-		<param name="ml_fgcolor" type="text" default="#00FF20" label="Цвет фона текста" description="Задает цвет фона текста в шестнадцатеричном виде (#00ff00)" />
-		<param name="ml_textcolor" type="text" default="#FF0000" label="Цвет текста" description="Задает цвет текста в шестнадцатеричном виде (#00ff00)" />
-		<param name="ml_textfont" type="list" default="Arial" label="Шрифт текста заголовка">
-			<option value="Arial">Arial</option>
-			<option value="Arial Black">Arial Black</option>
-			<option value="Times New Roman">Times New Roman</option>
-			<option value="Courier New">Courier New</option>
-		</param>
-		<param name="ml_textsize" type="list" default="12px" label="Размер шрифта текста">
-			<option value="6px">6px</option>
-			<option value="7px">7px</option>
-			<option value="8px">8px</option>
-			<option value="9px">9px</option>
-			<option value="10px">10px</option>
-			<option value="11px">11px</option>
-			<option value="12px">12px</option>
-			<option value="13px">13px</option>
-			<option value="14px">14px</option>
-			<option value="15px">15px</option>
-			<option value="16px">16px</option>
-			<option value="17px">17px</option>
-			<option value="18px">18px</option>
-			<option value="19px">19px</option>
-			<option value="20px">20px</option>
-			<option value="21px">21px</option>
-			<option value="22px">22px</option>
-		</param>
-		
+        <param name="submit_button_text" type="text" default="" label="Текст на кнопке сабмитта" description="" />
+
+			<param name="@spacer" type="spacer" default="&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt; &lt;table&gt;&lt;tr&gt;&lt;td&gt;" label="" description="" />
 	</params>
 </mosinstall>

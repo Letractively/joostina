@@ -27,7 +27,9 @@ class HTML_newsfeed {
 		<form action="index.php" method="post" name="adminForm">
 
 		<table width="100%" cellpadding="4" cellspacing="0" border="0" align="center" class="contentpane<?php echo $params->get('pageclass_sfx'); ?>">
-		<tr>
+
+<?php if($currentcat->descrip) {?>
+        <tr>
 			<td width="60%" valign="top" class="contentdescription<?php echo $params->get('pageclass_sfx'); ?>" colspan="2">
 <?php
 		// show image
@@ -40,6 +42,8 @@ class HTML_newsfeed {
 ?>
 			</td>
 		</tr>
+<?php }?>
+
 		<tr>
 			<td>
 			<?php

@@ -54,7 +54,7 @@ class content_menu_html {
 		<table class="adminheading">
 		<tr>
 			<th class="menus">
-			<?php echo $menu->id?_O_EDITING.' -':_O_CREATION.' -'; ?> <?php echo _MENU_ITEM_STATIC_CONTENT?>
+			<?php echo $menu->id ? _O_EDITING.' -':_O_CREATION.' -'; ?> <?php echo _MENU_ITEM_STATIC_CONTENT?>
 			</th>
 		</tr>
 		</table>
@@ -64,77 +64,47 @@ class content_menu_html {
 			<td width="60%">
 				<table class="adminform">
 				<tr>
-					<th colspan="2">
-					<?php echo _DETAILS?>
-					</th>
+					<th colspan="2"><?php echo _DETAILS?></th>
 				</tr>
 				<tr>
-					<td width="10%" align="right">
-					<?php echo _CMN_NAME?>:
-					</td>
+					<td width="10%" align="right"><?php echo _CMN_NAME?>:</td>
 					<td width="70%">
 					<input class="inputbox" type="text" name="name" id="name" size="50" maxlength="100" value="<?php echo htmlspecialchars($menu->name,ENT_QUOTES); ?>" />
 					</td>
 				</tr>
 				<tr>
-					<td width="10%" align="right" valign="top">
-					<?php echo _LINK_TITLE?>:
-					</td>
+					<td width="10%" align="right" valign="top"><?php echo _LINK_TITLE?>:</td>
 					<td width="80%">
 						<input class="inputbox" type="text" name="params[title]" size="50" maxlength="100" value="<?php echo htmlspecialchars($params->get('title',''),ENT_QUOTES); ?>" />
 					</td>
 				</tr>
 				<tr>
-					<td width="20%" align="right" valign="top">
-					<?php echo _STATIC_CONTENT?>:
-					</td>
-					<td width="70%">
-					<?php echo $lists['content']; ?>
-					</td>
+					<td width="20%" align="right" valign="top"><?php echo _STATIC_CONTENT?>:</td>
+					<td width="70%"><?php echo $lists['content']; ?></td>
 				</tr>
 				<tr>
 					<td width="10%" align="right">URL:</td>
-					<td width="70%">
-					<?php echo ampReplace($lists['link']); ?>
-					</td>
+					<td width="70%"><?php echo ampReplace($lists['link']); ?></td>
 				</tr>
 				<tr>
-					<td width="20%" align="right" valign="top">
-					<?php echo _LINK_TARGET?>:
-					</td>
-					<td width="70%">
-					<?php echo $lists['target']; ?>
-					</td>
+					<td width="20%" align="right" valign="top"><?php echo _LINK_TARGET?>:</td>
+					<td width="70%"><?php echo $lists['target']; ?></td>
 				</tr>
 				<tr>
-					<td align="right">
-					<?php echo _PARENT_MENU_ITEM?>:
-					</td>
-					<td>
-					<?php echo $lists['parent']; ?>
-					</td>
+					<td align="right"><?php echo _PARENT_MENU_ITEM?>:</td>
+					<td><?php echo $lists['parent']; ?></td>
 				</tr>
 				<tr>
-					<td valign="top" align="right">
-					<?php echo _ORDER_DROPDOWN?>:
-					</td>
-					<td>
-					<?php echo $lists['ordering']; ?>
-					</td>
+					<td valign="top" align="right"><?php echo _ORDER_DROPDOWN?>:</td>
+					<td><?php echo $lists['ordering']; ?></td>
 				</tr>
 				<tr>
-					<td valign="top" align="right">
-					<?php echo _CMN_ACCESS?>:
-					</td>
-					<td>
-					<?php echo $lists['access']; ?>
-					</td>
+					<td valign="top" align="right"><?php echo _CMN_ACCESS?>:</td>
+					<td><?php echo $lists['access']; ?></td>
 				</tr>
 				<tr>
 					<td valign="top" align="right"><?php echo _CMN_PUBLISHED?>:</td>
-					<td>
-					<?php echo $lists['published']; ?>
-					</td>
+					<td><?php echo $lists['published']; ?></td>
 				</tr>
 				<tr>
 					<td colspan="2">&nbsp;</td>
@@ -144,14 +114,10 @@ class content_menu_html {
 			<td width="40%">
 				<table class="adminform">
 				<tr>
-					<th>
-					<?php echo _PARAMETERS?>
-					</th>
+					<th><?php echo _PARAMETERS?></th>
 				</tr>
 				<tr>
-					<td>
-					<?php echo $params->render(); ?>
-					</td>
+					<td><?php echo $params->render(); ?></td>
 				</tr>
 				</table>
 			</td>

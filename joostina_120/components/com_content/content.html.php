@@ -199,7 +199,7 @@ class HTML_content {
 ?>
 		<table width="100%" cellpadding="0" cellspacing="0" border="0" align="center" class="contentpane<?php echo $params->get('pageclass_sfx'); ?>">
 <?php
-		if($params->get('description') || $params->get('description_image')) {
+		if(($params->get('description') && $title->description) || ($params->get('description_image') && $title->image)) {
 ?>
 		<tr>
 			<td width="60%" valign="top" class="contentdescription<?php echo $params->get('pageclass_sfx'); ?>" colspan="2">
@@ -923,7 +923,7 @@ _CMN_NEW; ?>" />
 	function Section(&$row,&$params) {
 		if($params->get('section')) {
 ?>
-				<span>
+				<span class="section_name">
 	<?php
 			echo $row->section;
 			// writes dash between section & Category Name when both are active
@@ -942,7 +942,7 @@ _CMN_NEW; ?>" />
 	function Category(&$row,&$params) {
 		if($params->get('category')) {
 ?>
-			<span>
+			<span class="category_name">
 <?php
 			echo $row->category;
 ?>
@@ -1289,7 +1289,7 @@ _CMN_NEW; ?>" />
 				</td>
             </tr>
              <?php }?>
-             <?php if( !$content_type){?>
+             <?php if( $content_type==0 || $row->sectionid>0){?>
             <tr>
                 <td><strong>Категория:</strong></td>
 				<td>
@@ -1327,7 +1327,7 @@ _CMN_NEW; ?>" />
             <?php }?>
          </div>
 
-         <?php if((!$content_type && $p_fulltext) || ($row->sectionid &&  $p_fulltext) ){?>
+         <?php if(($content_type==0 && $p_fulltext) || ($row->sectionid &&  $p_fulltext) ){?>
 		 <br /><br />
          <div class="cedit_fulltext">
             <strong><?php echo _E_MAIN.' ('._CMN_OPTIONAL.')'; ?>:</strong>
