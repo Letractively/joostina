@@ -236,3 +236,7 @@ wz-tooltip
 Значки системы: Sweetie WebCommunication
 Авторские права: (с) Joseph North ( sublick@gmail.com, sweetie.sublink.ca )
 Лицензия: Creative Commons Attribution-ShareAlike 3.0 Unported
+
+Значки шаблона "NewLine" (в базовой поставке Joostina CMS): Diagona Icons
+Авторские права: (с) Yusuke Kamiyamane ( http://www.pinvoke.com/ )
+Лицензия: Creative Commons Attribution 3.0 license

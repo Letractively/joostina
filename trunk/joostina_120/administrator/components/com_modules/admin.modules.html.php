@@ -301,7 +301,7 @@ class HTML_modules {
 				</tr>
 				<tr>
 					<td><?php echo $params->render(); ?></td>
-				</tr>
+            	</tr>
 				</table>
 <?php
 		if($row->module == "") {

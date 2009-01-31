@@ -1415,7 +1415,7 @@ function BlogOutput(&$rows,&$params,$gid,&$access,$pop,&$menu,$limitstart,$limit
 		if($menu && $menu->componentid && ($descrip || $descrip_image)) {
 			$link = $mosConfig_live_site.'/images/stories/'.$description->image;
 			echo '<tr>';
-			echo '<td valign="top">';
+			echo '<td valign="top" class="contentdescription">';
 			if($descrip_image && $description->image) {
 				echo '<img src="'.$link.'" align="'.$description->image_position.'" hspace="6" alt="" />';
 			}

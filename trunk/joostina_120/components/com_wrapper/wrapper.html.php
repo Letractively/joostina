@@ -37,7 +37,7 @@ class HTML_wrapper {
 <?php
 		}
 ?>
-		<iframe
+	   <div class="com_wrapper">	<iframe
 		<?php echo $row->load; ?>
 		id="blockrandom"
 		name="iframe"
@@ -50,7 +50,7 @@ class HTML_wrapper {
 		class="wrapper<?php echo $params->get('pageclass_sfx'); ?>">
 		<?php echo _CMN_IFRAMES; ?>
 		</iframe>
-
+        </div>
 		</div>
 <?php
 		// displays back button
