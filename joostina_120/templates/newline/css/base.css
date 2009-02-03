@@ -123,7 +123,6 @@ select.inputbox{
 
 .mosimage{
   margin: 2px 10px 0 0;
-  overflow: hidden;
   padding: 0;
 }
 
@@ -131,6 +130,10 @@ select.inputbox{
   font: bold 11px "Century Gothic";
 }
 
+.mosimage img{
+  padding: 2px;
+  border: 1px solid #CCCCCC;
+}
 /* Подчищаем меню от всяких ненужностей  */
 ul#mainlevel, ul#mainlevel li, ul#mainlevel-nav, ul#mainlevel-nav li {
   list-style: none;

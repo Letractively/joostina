@@ -24,19 +24,19 @@ class joomlaVersion {
 	/** @var int Номер основной версии*/
 	var $RELEASE = '1.0';
 	/** @var строка  статус разработки*/
-	var $DEV_STATUS = 'RC';
+	var $DEV_STATUS = '';
 	/** @var int Подверсия*/
 	var $DEV_LEVEL = '15';
 	/** @var int Номер сборки*/
-	var $BUILD = '$: 188';
+	var $BUILD = '$: 190';
 	/** @var string Кодовое имя*/
-	var $CODENAME = 'RC 7.1';
+	var $CODENAME = 'stable';
 	/** @var string Дата*/
-	var $RELDATE = '**:01:2009';
+	var $RELDATE = '01:02:2009';
 	/** @var string Время*/
-	var $RELTIME = '**:**';
+	var $RELTIME = '12:26';
 	/** @var string Временная зона*/
-	var $RELTZ = 'UTC';
+	var $RELTZ = '+5 GMT';
 	/** @var string Текст авторских прав*/
 	var $COPYRIGHT = 'Авторские права &copy; 2008 Joostina Team. Все права защищены.';
 	/** @var string URL*/
