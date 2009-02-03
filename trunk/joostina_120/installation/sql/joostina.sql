@@ -153,13 +153,13 @@ INSERT INTO `#__components` VALUES (13, 'Ленты новостей', '', 0, 12, 'option=com
 INSERT INTO `#__components` VALUES (14, 'Категории', '', 0, 12, 'option=com_categories&section=com_newsfeeds', 'Управление категориями', '', 2, 'js/ThemeOffice/categories.png', 0, '');
 INSERT INTO `#__components` VALUES (15, 'Авторизация', 'option=com_login', 0, 0, '', '', 'com_login', 0, '', 1, '');
 INSERT INTO `#__components` VALUES (16, 'Поиск', 'option=com_search', 0, 0, '', '', 'com_search', 0, '', 1, '');
-INSERT INTO `#__components` VALUES (17, 'RSS экспорт','',0,0,'option=com_syndicate&hidemainmenu=1','Управление настройками экспорта новостей','com_syndicate',0,'js/ThemeOffice/rss.png',0,'');
+INSERT INTO `#__components` VALUES (17, 'RSS экспорт', '', 0, 0, 'option=com_syndicate&hidemainmenu=1', 'Управление настройками экспорта новостей', 'com_syndicate', 0, 'js/ThemeOffice/rss.png', 0, '');
 INSERT INTO `#__components` VALUES (18, 'Рассылка почты', '', 0, 0, 'option=com_massmail&hidemainmenu=1', 'Массовая рассылка почты', 'com_massmail', 0, 'js/ThemeOffice/mass_email.png', 0, '');
-INSERT INTO `#__components` VALUES (19, 'Визуальный редактор', 'option=com_jce', '0', '0', 'option=com_jce', 'Визуальный редактор JCE', 'com_jce', '0', 'js/ThemeOffice/editor_on.png', '0', '');
-INSERT INTO `#__components` VALUES (20, 'Настройки', '', '0', '19', 'option=com_jce&task=config', 'Настройки редактора JCE', 'com_jce', '0', 'js/ThemeOffice/controlpanel.png', '0', '');
-INSERT INTO `#__components` VALUES (21, 'Языки интерфейса', '', '0', '19', 'option=com_jce&task=lang', 'Языки интерфейса JCE', 'com_jce', '1', 'js/ThemeOffice/language.png', '0', '');
-INSERT INTO `#__components` VALUES (22, 'Расширения', '', '0', '19', 'option=com_jce&task=showplugins', 'Расширения JCE', 'com_jce', '2', 'js/ThemeOffice/add_section.png', '0', '');
-INSERT INTO `#__components` VALUES (23, 'Расположение кнопок', '0', '0', '19', 'option=com_jce&task=editlayout', 'Расположение кнопок JCE', 'com_jce', '3', 'js/ThemeOffice/content.png', '0', '');
+INSERT INTO `#__components` VALUES (19, 'Визуальный редактор', 'option=com_jce', 0, 0, 'option=com_jce', 'Визуальный редактор JCE', 'com_jce', 0, 'js/ThemeOffice/editor_on.png', 0, '');
+INSERT INTO `#__components` VALUES (20, 'Настройки', '', 0, 19, 'option=com_jce&task=config', 'Настройки редактора JCE', 'com_jce', 0, 'js/ThemeOffice/controlpanel.png', 0, '');
+INSERT INTO `#__components` VALUES (21, 'Языки интерфейса', '', 0, 19, 'option=com_jce&task=lang', 'Языки интерфейса JCE', 'com_jce', 1, 'js/ThemeOffice/language.png', 0, '');
+INSERT INTO `#__components` VALUES (22, 'Расширения', '', 0, 19, 'option=com_jce&task=showplugins', 'Расширения JCE', 'com_jce', 2, 'js/ThemeOffice/add_section.png', 0, '');
+INSERT INTO `#__components` VALUES (23, 'Расположение кнопок', '0', 0, 19, 'option=com_jce&task=editlayout', 'Расположение кнопок JCE', 'com_jce', 3, 'js/ThemeOffice/content.png', 0, '');
 INSERT INTO `#__components` VALUES (24, 'Карта сайта', 'option=com_xmap', 0, 0, 'option=com_xmap', '', 'com_xmap', 0, 'js/ThemeOffice/map.png', 0, '');
 
 
@@ -375,7 +375,7 @@ CREATE TABLE `#__menu` (
   KEY `menutype` (`menutype`)
 ) ENGINE=MyISAM DEFAULT CHARSET=cp1251;
 
-INSERT INTO `#__menu` VALUES (1, 'mainmenu', 'Главная', 'index.php?option=com_frontpage', 'components', 1, 0, 10, 0, 1, 0, '0000-00-00 00:00:00', 0, 0, 0, 3, 'leading=2\r\nintro=4\r\nlink=1\r\nimage=1\r\npage_title=0\r\nheader=Добро пожаловать на главную страницу\r\norderby_sec=front\r\nprint=0\r\nemail=0\r\nback_button=0');
+INSERT INTO `#__menu` VALUES (1, 'mainmenu', 'Главная', 'index.php?option=com_frontpage', 'components', 1, 0, 10, 0, 2, 62, '2009-01-31 16:34:39', 0, 0, 0, 3, 'title=\npage_name=\nno_site_name=0\nrobots=-1\nmeta_description=\nmeta_keywords=\nmeta_author=\nmenu_image=-1\npageclass_sfx=\nheader=Добро пожаловать на главную страницу\npage_title=0\nback_button=0\nleading=3\nintro=2\ncolumns=2\nlink=1\norderby_pri=\norderby_sec=front\npagination=2\npagination_results=1\nimage=1\nsection=0\nsection_link=0\ncategory=1\ncategory_link=0\nitem_title=1\nlink_titles=1\nreadmore=0\nrating=0\nauthor=0\ncreatedate=0\nmodifydate=0\nprint=0\nemail=0\nunpublished=0');
 # --------------------------------------------------------
 
 #
@@ -436,39 +436,43 @@ CREATE TABLE `#__modules` (
 # Данные таблицы `#__modules`
 #
 
-INSERT INTO `#__modules` VALUES (0, 'Опросы', '', 1, 'right', 0, '0000-00-00 00:00:00', 1, 'mod_poll', 0, 0, 1, '', 0, 0);
-INSERT INTO `#__modules` VALUES (0, 'Меню пользователя', '', 2, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_mljoostinamenu', 0, 1, 1, 'moduleclass_sfx=_menu\nclass_sfx=\nmenutype=usermenu\nmenu_style=ulli\nml_imaged=0\nml_module_number=1\nml_first_hidden=0\nfull_active_id=0\nmenu_images=0\nmenu_images_align=0\nexpand_menu=0\nactivate_parent=0\nindent_image=0\nindent_image1=\nindent_image2=\nindent_image3=\nindent_image4=\nindent_image5=\nindent_image6=\nml_separated_link=0\nml_linked_sep=0\nml_separated_link_first=0\nml_separated_link_last=0\nml_hide_active=0\nml_separated_active=0\nml_linked_sep_active=0\nml_separated_active_first=0\nml_separated_active_last=0\nml_separated_element=0\nml_separated_element_first=0\nml_separated_element_last=0\nml_td_width=0\nml_div=0\nml_aligner=left\nml_rollover_use=0\nml_image1=-1\nml_image2=-1\nml_image3=-1\nml_image4=-1\nml_image5=-1\nml_image6=-1\nml_image7=-1\nml_image8=-1\nml_image9=-1\nml_image10=-1\nml_image11=-1\nml_image_roll_1=-1\nml_image_roll_2=-1\nml_image_roll_3=-1\nml_image_roll_4=-1\nml_image_roll_5=-1\nml_image_roll_6=-1\nml_image_roll_7=-1\nml_image_roll_8=-1\nml_image_roll_9=-1\nml_image_roll_10=-1\nml_image_roll_11=-1\nml_hide_logged1=1\nml_hide_logged2=1\nml_hide_logged3=1\nml_hide_logged4=1\nml_hide_logged5=1\nml_hide_logged6=1\nml_hide_logged7=1\nml_hide_logged8=1\nml_hide_logged9=1\nml_hide_logged10=1\nml_hide_logged11=1', 1, 0);
-INSERT INTO `#__modules` VALUES (0, 'Главное меню', '', 1, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_mljoostinamenu', 0, 0, 1, 'numrow=5\nmoduleclass_sfx=_menu\nclass_sfx=\nmenutype=mainmenu\nmenu_style=ulli\nml_imaged=0\nml_module_number=1\nml_first_hidden=0\nfull_active_id=0\nmenu_images=0\nmenu_images_align=0\nexpand_menu=0\nactivate_parent=0\nindent_image=0\nindent_image1=\nindent_image2=\nindent_image3=\nindent_image4=\nindent_image5=\nindent_image6=\nml_separated_link=0\nml_linked_sep=0\nml_separated_link_first=0\nml_separated_link_last=0\nml_hide_active=0\nml_separated_active=0\nml_linked_sep_active=0\nml_separated_active_first=0\nml_separated_active_last=0\nml_separated_element=0\nml_separated_element_first=0\nml_separated_element_last=0\nml_td_width=0\nml_div=0\nml_aligner=left\nml_rollover_use=0\nml_image1=-1\nml_image2=-1\nml_image3=-1\nml_image4=-1\nml_image5=-1\nml_image6=-1\nml_image7=-1\nml_image8=-1\nml_image9=-1\nml_image10=-1\nml_image11=-1\nml_image_roll_1=-1\nml_image_roll_2=-1\nml_image_roll_3=-1\nml_image_roll_4=-1\nml_image_roll_5=-1\nml_image_roll_6=-1\nml_image_roll_7=-1\nml_image_roll_8=-1\nml_image_roll_9=-1\nml_image_roll_10=-1\nml_image_roll_11=-1\nml_hide_logged1=1\nml_hide_logged2=1\nml_hide_logged3=1\nml_hide_logged4=1\nml_hide_logged5=1\nml_hide_logged6=1\nml_hide_logged7=1\nml_hide_logged8=1\nml_hide_logged9=1\nml_hide_logged10=1\nml_hide_logged11=1', 1, 0);
-INSERT INTO `#__modules` VALUES (0, 'Авторизация', '', 4, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_ml_login', 0, 0, 1, '', 1, 0);
-INSERT INTO `#__modules` VALUES (0, 'Экспорт новостей', '', 1, 'bottom', 0, '0000-00-00 00:00:00', 1, 'mod_rssfeed', 0, 0, 0, 'text=\ncache=0\nmoduleclass_sfx=\nrss091=1\nrss10=1\nrss20=1\natom=1\nopml=1\nrss091_image=\nrss10_image=\nrss20_image=\natom_image=\nopml_image=', 1, 0);
-INSERT INTO `#__modules` VALUES (0, 'Последние новости', '', 1, 'user1', 0, '0000-00-00 00:00:00', 1, 'mod_latestnews', 0, 0, 1, 'moduleclass_sfx=\ncache=0\nnoncss=0\ntype=1\nshow_front=1\ncount=3\ncatid=\nsecid=', 1, 0);
-INSERT INTO `#__modules` VALUES (0, 'Статистика', '', 5, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_stats', 0, 0, 1, 'serverinfo=1\nsiteinfo=1\ncounter=1\nincrease=0\nmoduleclass_sfx=', 0, 0);
-INSERT INTO `#__modules` VALUES (0, 'Кто на сайте?', '', 1, 'right', 0, '0000-00-00 00:00:00', 1, 'mod_whosonline', 0, 0, 1, 'online=1\nusers=1\nmoduleclass_sfx=', 0, 0);
-INSERT INTO `#__modules` VALUES (0, 'Популярное', '', 1, 'user2', 0, '0000-00-00 00:00:00', 1, 'mod_mostread', 0, 0, 1, 'moduleclass_sfx=\ncache=0\nnoncss=0\ntype=1\nshow_front=1\ncount=3\ncatid=\nsecid=', 0, 0);
-INSERT INTO `#__modules` VALUES (0, 'Выбор шаблона', '', 6, 'left', 0, '0000-00-00 00:00:00', 0, 'mod_templatechooser', 0, 0, 1, 'show_preview=1', 0, 0);
-INSERT INTO `#__modules` VALUES (0, 'Архив', '', 7, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_archive', 0, 0, 1, '', 1, 0);
-INSERT INTO `#__modules` VALUES (0, 'Разделы', '', 8, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_sections', 0, 0, 1, '', 1, 0);
-INSERT INTO `#__modules` VALUES (0, 'Краткие новости', '', 1, 'top', 0, '0000-00-00 00:00:00', 1, 'mod_newsflash', 0, 0, 0, 'catid=3\nstyle=random\nimage=0\nlink_titles=\nreadmore=0\nitem_title=0\nitems=\ncache=0\nmoduleclass_sfx=', 0, 0);
-INSERT INTO `#__modules` VALUES (0, 'Взаимосвязанные элементы', '', 1, 'user6', 0, '0000-00-00 00:00:00', 0, 'mod_related_items', 0, 0, 1, 'cache=0\nmoduleclass_sfx=', 0, 0);
-INSERT INTO `#__modules` VALUES (0, 'Поиск', '', 1, 'user4', 0, '0000-00-00 00:00:00', 1, 'mod_search', 0, 0, 0, 'moduleclass_sfx=\ncache=0\nset_itemid=\nwidth=20\ntext=\nbutton=\nbutton_pos=right\nbutton_text=', 0, 0);
-INSERT INTO `#__modules` VALUES (0, 'Случайное изображение', '', 9, 'right', 0, '0000-00-00 00:00:00', 1, 'mod_random_image', 0, 0, 1, '', 0, 0);
-INSERT INTO `#__modules` VALUES (0, 'Верхнее меню', '', 1, 'user3', 0, '0000-00-00 00:00:00', 0, 'mod_mainmenu', 0, 0, 0, 'class_sfx=-nav\nmoduleclass_sfx=\nmenutype=topmenu\nmenu_style=list_flat\nfull_active_id=0\ncache=0\nmenu_images=0\nmenu_images_align=0\nexpand_menu=0\nactivate_parent=0\nindent_image=0\nindent_image1=\nindent_image2=\nindent_image3=\nindent_image4=\nindent_image5=\nindent_image6=\nspacer=\nend_spacer=', 1, 0);
-INSERT INTO `#__modules` VALUES (0, 'Баннеры', '', 1, 'banner', 0, '0000-00-00 00:00:00', 1, 'mod_banners', 0, 0, 0, 'banner_cids=\nmoduleclass_sfx=\n', 1, 0);
-INSERT INTO `#__modules` VALUES (0, 'Компоненты', '', 2, 'cpanel', 0, '0000-00-00 00:00:00', 0, 'mod_components', 0, 99, 1, '', 1, 1);
-INSERT INTO `#__modules` VALUES (0, 'Популярное содержимое', '', 3, 'advert2', 0, '0000-00-00 00:00:00', 0, 'mod_popular', 0, 99, 1, '', 1, 1);
-INSERT INTO `#__modules` VALUES (0, 'Последнее добавленное содержимое', '', 4, 'advert1', 0, '0000-00-00 00:00:00', 1, 'mod_latest', 0, 99, 1, '', 1, 1);
-INSERT INTO `#__modules` VALUES (0, 'Меню', '', 5, 'cpanel', 0, '0000-00-00 00:00:00', 1, 'mod_stats', 0, 99, 1, '', 0, 1);
-INSERT INTO `#__modules` VALUES (0, 'Последние зарегистрированные пользователи', '', 4, 'advert2', 0, '0000-00-00 00:00:00', 1, 'mod_latest_users', 0, 99, 1, '', 1, 1);
-INSERT INTO `#__modules` VALUES (0, 'Новые сообщения', '', 1, 'header', 0, '0000-00-00 00:00:00', 0, 'mod_unread', 0, 99, 1, '', 1, 1);
-INSERT INTO `#__modules` VALUES (0, 'Активные пользователи', '', 2, 'header', 0, '0000-00-00 00:00:00', 0, 'mod_online', 0, 99, 1, '', 1, 1);
-INSERT INTO `#__modules` VALUES (0, 'Полное меню', '', 1, 'top', 0, '0000-00-00 00:00:00', 1, 'mod_fullmenu', 0, 99, 1, '', 1, 1);
-INSERT INTO `#__modules` VALUES (0, 'Путь', '', 1, 'pathway', 0, '0000-00-00 00:00:00', 0, 'mod_pathway', 0, 99, 1, '', 1, 1);
-INSERT INTO `#__modules` VALUES (0, 'Панель инструментов', '', 1, 'toolbar', 0, '0000-00-00 00:00:00', 1, 'mod_toolbar', 0, 99, 1, '', 1, 1);
-INSERT INTO `#__modules` VALUES (0, 'Системные сообщения', '', 1, 'inset', 0, '0000-00-00 00:00:00', 1, 'mod_mosmsg', 0, 99, 1, '', 1, 1);
-INSERT INTO `#__modules` VALUES (0, 'Кнопки быстрого доступа', '', 2, 'icon', 0, '0000-00-00 00:00:00', 1, 'mod_quickicons', 0, 99, 1, '', 1, 1);
-INSERT INTO `#__modules` VALUES (0, 'Сайты поддержки', '', 3, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_mljoostinamenu', 0, 0, 1, 'moduleclass_sfx=_menu\nclass_sfx=\nmenutype=othermenu\nmenu_style=ulli\nml_imaged=0\nml_module_number=1\nml_first_hidden=0\nfull_active_id=0\nmenu_images=0\nmenu_images_align=0\nexpand_menu=0\nactivate_parent=0\nindent_image=0\nindent_image1=\nindent_image2=\nindent_image3=\nindent_image4=\nindent_image5=\nindent_image6=\nml_separated_link=0\nml_linked_sep=0\nml_separated_link_first=0\nml_separated_link_last=0\nml_hide_active=0\nml_separated_active=0\nml_linked_sep_active=0\nml_separated_active_first=0\nml_separated_active_last=0\nml_separated_element=0\nml_separated_element_first=0\nml_separated_element_last=0\nml_td_width=0\nml_div=0\nml_aligner=left\nml_rollover_use=0\nml_image1=-1\nml_image2=-1\nml_image3=-1\nml_image4=-1\nml_image5=-1\nml_image6=-1\nml_image7=-1\nml_image8=-1\nml_image9=-1\nml_image10=-1\nml_image11=-1\nml_image_roll_1=-1\nml_image_roll_2=-1\nml_image_roll_3=-1\nml_image_roll_4=-1\nml_image_roll_5=-1\nml_image_roll_6=-1\nml_image_roll_7=-1\nml_image_roll_8=-1\nml_image_roll_9=-1\nml_image_roll_10=-1\nml_image_roll_11=-1\nml_hide_logged1=1\nml_hide_logged2=1\nml_hide_logged3=1\nml_hide_logged4=1\nml_hide_logged5=1\nml_hide_logged6=1\nml_hide_logged7=1\nml_hide_logged8=1\nml_hide_logged9=1\nml_hide_logged10=1\nml_hide_logged11=1', 0, 0);
-INSERT INTO `#__modules` VALUES (0, 'Wrapper', '', 9, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_wrapper', 0, 0, 1, '', 0, 0);
-INSERT INTO `#__modules` VALUES (0, 'На сайте', '', 0, 'cpanel', 0, '0000-00-00 00:00:00', 0, 'mod_logged', 0, 99, 1, '', 0, 1);
+INSERT INTO `#__modules` VALUES (1, 'Ваше мнение', '', 4, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_poll', 0, 0, 1, 'cache=0\nmoduleclass_sfx=', 0, 0);
+INSERT INTO `#__modules` VALUES (2, 'Меню пользователя', '', 1, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_mljoostinamenu', 0, 1, 1, 'moduleclass_sfx=_menu\nclass_sfx=\nmenutype=usermenu\nmenu_style=ulli\nml_imaged=0\nml_module_number=1\nml_first_hidden=0\nfull_active_id=0\nmenu_images=0\nmenu_images_align=0\nexpand_menu=0\nactivate_parent=0\nindent_image=0\nindent_image1=\nindent_image2=\nindent_image3=\nindent_image4=\nindent_image5=\nindent_image6=\nml_separated_link=0\nml_linked_sep=0\nml_separated_link_first=0\nml_separated_link_last=0\nml_hide_active=0\nml_separated_active=0\nml_linked_sep_active=0\nml_separated_active_first=0\nml_separated_active_last=0\nml_separated_element=0\nml_separated_element_first=0\nml_separated_element_last=0\nml_td_width=0\nml_div=0\nml_aligner=left\nml_rollover_use=0\nml_image1=-1\nml_image2=-1\nml_image3=-1\nml_image4=-1\nml_image5=-1\nml_image6=-1\nml_image7=-1\nml_image8=-1\nml_image9=-1\nml_image10=-1\nml_image11=-1\nml_image_roll_1=-1\nml_image_roll_2=-1\nml_image_roll_3=-1\nml_image_roll_4=-1\nml_image_roll_5=-1\nml_image_roll_6=-1\nml_image_roll_7=-1\nml_image_roll_8=-1\nml_image_roll_9=-1\nml_image_roll_10=-1\nml_image_roll_11=-1\nml_hide_logged1=1\nml_hide_logged2=1\nml_hide_logged3=1\nml_hide_logged4=1\nml_hide_logged5=1\nml_hide_logged6=1\nml_hide_logged7=1\nml_hide_logged8=1\nml_hide_logged9=1\nml_hide_logged10=1\nml_hide_logged11=1', 1, 0);
+INSERT INTO `#__modules` VALUES (3, 'Главное меню', '', 2, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_mljoostinamenu', 0, 0, 0, 'moduleclass_sfx=-round\nclass_sfx=\nmenutype=mainmenu\nmenu_style=ulli\nml_imaged=0\nml_module_number=1\nnumrow=5\nml_first_hidden=1\nfull_active_id=0\nmenu_images=0\nmenu_images_align=0\nexpand_menu=0\nactivate_parent=0\nindent_image=0\nindent_image1=\nindent_image2=\nindent_image3=\nindent_image4=\nindent_image5=\nindent_image6=\nml_separated_link=0\nml_linked_sep=0\nml_separated_link_first=0\nml_separated_link_last=0\nml_hide_active=0\nml_separated_active=0\nml_linked_sep_active=0\nml_separated_active_first=0\nml_separated_active_last=0\nml_separated_element=0\nml_separated_element_first=0\nml_separated_element_last=0\nml_td_width=0\nml_div=0\nml_aligner=left\nml_rollover_use=0\nml_image1=-1\nml_image2=-1\nml_image3=-1\nml_image4=-1\nml_image5=-1\nml_image6=apply.png\nml_image7=apply.png\nml_image8=apply.png\nml_image9=apply.png\nml_image10=apply.png\nml_image11=apply.png\nml_image_roll_1=-1\nml_image_roll_2=-1\nml_image_roll_3=-1\nml_image_roll_4=-1\nml_image_roll_5=-1\nml_image_roll_6=-1\nml_image_roll_7=-1\nml_image_roll_8=-1\nml_image_roll_9=-1\nml_image_roll_10=-1\nml_image_roll_11=-1\nml_hide_logged1=1\nml_hide_logged2=1\nml_hide_logged3=1\nml_hide_logged4=1\nml_hide_logged5=1\nml_hide_logged6=1\nml_hide_logged7=1\nml_hide_logged8=1\nml_hide_logged9=1\nml_hide_logged10=1\nml_hide_logged11=1', 1, 0);
+INSERT INTO `#__modules` VALUES (4, 'Авторизация', '', 1, 'toolbar', 0, '0000-00-00 00:00:00', 1, 'mod_ml_login', 0, 0, 0, 'moduleclass_sfx=\nml_visibility=1\ndr_login_text=Вход\norientation=0\nml_avatar=0\npretext=\nposttext=\nlogin=\nlogin_message=0\ngreeting=1\nuser_name=0\nprofile_link=0\nprofile_link_text=Личный кабинет\nlogout=\nlogout_message=0\nshow_login_text=1\nshow_login_tooltip=1\nml_login_text=Логин\nlogin_tooltip_text=\nshow_pass_text=1\nshow_pass_tooltip=0\nml_pass_text=\npass_tooltip_text=\nshow_remember=0\nml_rem_text=\nshow_lost_pass=1\nml_rem_pass_text=\nshow_register=1\nml_reg_text=\nsubmit_button_text=', 1, 0);
+INSERT INTO `#__modules` VALUES (5, 'Экспорт новостей', '', 2, 'bottom', 0, '0000-00-00 00:00:00', 1, 'mod_rssfeed', 0, 0, 1, 'cache=0\nmoduleclass_sfx=\ntext=\nyandex=0\nrss091=0\nrss10=0\nrss20=1\natom=0\nopml=0\nrss091_image=\nrss10_image=\nrss20_image=\natom_image=\nopml_image=\nyandex_image=', 1, 0);
+INSERT INTO `#__modules` VALUES (6, 'Последние новости', '', 1, 'user5', 0, '0000-00-00 00:00:00', 1, 'mod_latestnews', 0, 0, 1, 'moduleclass_sfx=\ncache=0\nnoncss=0\ntype=1\nshow_front=1\ncount=3\ncatid=\nsecid=1\ndef_itemid=29', 1, 0);
+INSERT INTO `#__modules` VALUES (7, 'Статистика', '', 2, 'user9', 0, '0000-00-00 00:00:00', 1, 'mod_stats', 0, 0, 0, 'serverinfo=1\nsiteinfo=0\ncounter=0\nincrease=0\nmoduleclass_sfx=-stat', 0, 0);
+INSERT INTO `#__modules` VALUES (8, 'Пользователи', '', 1, 'user9', 0, '0000-00-00 00:00:00', 1, 'mod_whosonline', 0, 0, 1, 'moduleclass_sfx=\nmodule_orientation=0\nall_user=1\nonline_user_count=0\nonline_users=0\nuser_avatar=0', 0, 0);
+INSERT INTO `#__modules` VALUES (9, 'Популярное', '', 1, 'user6', 0, '0000-00-00 00:00:00', 1, 'mod_mostread', 0, 0, 1, 'moduleclass_sfx=\ncache=0\nnoncss=0\ntype=1\nshow_front=1\nshow_hits=0\ncount=3\ncatid=\nsecid=\ndef_itemid=0', 0, 0);
+INSERT INTO `#__modules` VALUES (10, 'Выбор шаблона', '', 7, 'left', 0, '0000-00-00 00:00:00', 0, 'mod_templatechooser', 0, 0, 1, 'show_preview=1', 0, 0);
+INSERT INTO `#__modules` VALUES (11, 'Архив', '', 8, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_archive', 0, 0, 1, '', 1, 0);
+INSERT INTO `#__modules` VALUES (12, 'Разделы', '', 9, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_sections', 0, 0, 1, '', 1, 0);
+INSERT INTO `#__modules` VALUES (13, 'Краткие новости', '', 1, 'top', 0, '0000-00-00 00:00:00', 0, 'mod_newsflash', 0, 0, 0, 'catid=3\nstyle=random\nimage=0\nlink_titles=\nreadmore=0\nitem_title=0\nitems=\ncache=0\nmoduleclass_sfx=', 0, 0);
+INSERT INTO `#__modules` VALUES (14, 'Взаимосвязанные элементы', '', 2, 'user6', 0, '0000-00-00 00:00:00', 0, 'mod_related_items', 0, 0, 1, 'cache=0\nmoduleclass_sfx=', 0, 0);
+INSERT INTO `#__modules` VALUES (15, 'Поиск', '', 1, 'header', 0, '0000-00-00 00:00:00', 1, 'mod_search', 0, 0, 0, 'moduleclass_sfx=\ncache=0\nset_itemid=\nwidth=20\ntext=Поиск\nbutton=1\nbutton_text=\ntext_pos=inside\nbutton_pos=right', 0, 0);
+INSERT INTO `#__modules` VALUES (16, 'Слайдшоу', '', 1, 'user1', 0, '0000-00-00 00:00:00', 1, 'mod_random_image', 0, 0, 0, 'rotate_type=1\ntype=jpg\nfolder=images/rotate\nlink=http://www.joostina.ru\nwidth=400\nheight=280\nmoduleclass_sfx=\nslideshow_name=jstSlideShow_1\nimg_pref=slide\ns_autoplay=1\ns_pause=2500\ns_fadeduration=500\npanel_height=55px\npanel_opacity=0.4\npanel_padding=5px\npanel_font=bold 11px Verdana', 0, 0);
+INSERT INTO `#__modules` VALUES (17, 'Верхнее меню', '', 1, 'top', 0, '0000-00-00 00:00:00', 1, 'mod_mainmenu', 0, 0, 0, 'class_sfx=-nav\nmoduleclass_sfx=\nmenutype=topmenu\nmenu_style=list_flat\nfull_active_id=0\ncache=0\nmenu_images=0\nmenu_images_align=0\nexpand_menu=0\nactivate_parent=0\nindent_image=0\nindent_image1=\nindent_image2=\nindent_image3=\nindent_image4=\nindent_image5=\nindent_image6=\nspacer=\nend_spacer=', 1, 0);
+INSERT INTO `#__modules` VALUES (18, 'Баннеры', '', 1, 'banner', 0, '0000-00-00 00:00:00', 1, 'mod_banners', 0, 0, 0, 'categories=\nbanners=\nclients=\ncount=1\nrandom=0\norientation=0', 1, 0);
+INSERT INTO `#__modules` VALUES (19, 'Компоненты', '', 2, 'cpanel', 0, '0000-00-00 00:00:00', 0, 'mod_components', 0, 99, 1, '', 1, 1);
+INSERT INTO `#__modules` VALUES (20, 'Популярное содержимое', '', 3, 'advert2', 0, '0000-00-00 00:00:00', 0, 'mod_popular', 0, 99, 1, '', 1, 1);
+INSERT INTO `#__modules` VALUES (21, 'Последнее добавленное содержимое', '', 4, 'advert1', 0, '0000-00-00 00:00:00', 1, 'mod_latest', 0, 99, 1, '', 1, 1);
+INSERT INTO `#__modules` VALUES (22, 'Меню', '', 5, 'cpanel', 0, '0000-00-00 00:00:00', 1, 'mod_stats', 0, 99, 1, '', 0, 1);
+INSERT INTO `#__modules` VALUES (23, 'Последние зарегистрированные пользователи', '', 4, 'advert2', 0, '0000-00-00 00:00:00', 1, 'mod_latest_users', 0, 99, 1, '', 1, 1);
+INSERT INTO `#__modules` VALUES (24, 'Новые сообщения', '', 1, 'header', 0, '0000-00-00 00:00:00', 0, 'mod_unread', 0, 99, 1, '', 1, 1);
+INSERT INTO `#__modules` VALUES (25, 'Активные пользователи', '', 2, 'header', 0, '0000-00-00 00:00:00', 0, 'mod_online', 0, 99, 1, '', 1, 1);
+INSERT INTO `#__modules` VALUES (26, 'Полное меню', '', 1, 'top', 0, '0000-00-00 00:00:00', 1, 'mod_fullmenu', 0, 99, 1, '', 1, 1);
+INSERT INTO `#__modules` VALUES (27, 'Путь', '', 1, 'pathway', 0, '0000-00-00 00:00:00', 0, 'mod_pathway', 0, 99, 1, '', 1, 1);
+INSERT INTO `#__modules` VALUES (28, 'Панель инструментов', '', 1, 'toolbar', 0, '0000-00-00 00:00:00', 1, 'mod_toolbar', 0, 99, 1, '', 1, 1);
+INSERT INTO `#__modules` VALUES (29, 'Системные сообщения', '', 1, 'inset', 0, '0000-00-00 00:00:00', 1, 'mod_mosmsg', 0, 99, 1, '', 1, 1);
+INSERT INTO `#__modules` VALUES (30, 'Кнопки быстрого доступа', '', 2, 'icon', 0, '0000-00-00 00:00:00', 1, 'mod_quickicons', 0, 99, 1, '', 1, 1);
+INSERT INTO `#__modules` VALUES (31, 'Помощь on-line', '', 3, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_mljoostinamenu', 0, 0, 1, 'moduleclass_sfx=-help\nclass_sfx=\nmenutype=othermenu\nmenu_style=ulli\nml_imaged=0\nml_module_number=1\nnumrow=3\nml_first_hidden=0\nfull_active_id=0\nmenu_images=0\nmenu_images_align=0\nexpand_menu=0\nactivate_parent=0\nindent_image=0\nindent_image1=\nindent_image2=\nindent_image3=\nindent_image4=\nindent_image5=\nindent_image6=\nml_separated_link=0\nml_linked_sep=0\nml_separated_link_first=0\nml_separated_link_last=0\nml_hide_active=0\nml_separated_active=0\nml_linked_sep_active=0\nml_separated_active_first=0\nml_separated_active_last=0\nml_separated_element=0\nml_separated_element_first=0\nml_separated_element_last=0\nml_td_width=0\nml_div=0\nml_aligner=left\nml_rollover_use=0\nml_image1=-1\nml_image2=-1\nml_image3=-1\nml_image4=-1\nml_image5=-1\nml_image6=apply.png\nml_image7=apply.png\nml_image8=apply.png\nml_image9=apply.png\nml_image10=apply.png\nml_image11=apply.png\nml_image_roll_1=-1\nml_image_roll_2=-1\nml_image_roll_3=-1\nml_image_roll_4=-1\nml_image_roll_5=-1\nml_image_roll_6=-1\nml_image_roll_7=-1\nml_image_roll_8=-1\nml_image_roll_9=-1\nml_image_roll_10=-1\nml_image_roll_11=-1\nml_hide_logged1=1\nml_hide_logged2=1\nml_hide_logged3=1\nml_hide_logged4=1\nml_hide_logged5=1\nml_hide_logged6=1\nml_hide_logged7=1\nml_hide_logged8=1\nml_hide_logged9=1\nml_hide_logged10=1\nml_hide_logged11=1', 0, 0);
+INSERT INTO `#__modules` VALUES (32, 'Wrapper', '', 10, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_wrapper', 0, 0, 1, '', 0, 0);
+INSERT INTO `#__modules` VALUES (33, 'На сайте', '', 0, 'cpanel', 0, '0000-00-00 00:00:00', 0, 'mod_logged', 0, 99, 1, '', 0, 1);
+INSERT INTO `#__modules` VALUES (34, 'Спасибо за выбор Joostina!', 'Теперь мы вместе, и это очень радует ). Если вас интересует вопрос &quot;А почему именно Joostina?&quot;, мы хотели бы обратить ваше внимание на некоторые примечательные особенности этой CMS:\r\n<div class="marker_round">\r\n<b>1</b> Удачное сочетание мощности, скорости работы и нетребовательности к ресурсам сервера. Да, бывает и такое.<br />\r\n<b>2</b> Расширяемость за счет использования сторонних компонентов и модулей. А также простота разработки расширений для Joostina CMS. <br />\r\n<b>3</b> Данный продукт разрабатывается с большой любовью к коду и огромным  вниманием к пользователям. И наоборот. <br />\r\n</div>\r\n', 1, 'user2', 0, '0000-00-00 00:00:00', 1, '', 0, 0, 1, 'moduleclass_sfx=\ncache=0\nfirebots=1\nrssurl=\nrsstitle=1\nrssdesc=1\nrssimage=1\nrssitems=3\nrssitemdesc=1\nword_count=0\nrsscache=3600', 0, 0);
+INSERT INTO `#__modules` VALUES (37, 'Случайное фото', '', 1, 'user7', 0, '0000-00-00 00:00:00', 1, 'mod_random_image', 0, 0, 1, 'rotate_type=0\ntype=jpg\nfolder=images/rotate\nlink=http://www.joostina.ru\nwidth=180\nheight=150\nmoduleclass_sfx=\nslideshow_name=jstSlideShow_1\nimg_pref=pic\ns_autoplay=1\ns_pause=2500\ns_fadeduration=500\npanel_height=55px\npanel_opacity=0.4\npanel_padding=5px\npanel_font=bold 11px Verdana', 0, 0);
+INSERT INTO `#__modules` VALUES (38, 'Полезная информация', '<ul class="bigred">\r\n	<li>Файлы шаблонов Joostina CMS находятся в templates/[название_вашего_шаблона] </li>\r\n	<li>Отключите в глобальной конфигурации ненужные функции и мамботы для ускорение работы сайта </li>\r\n	<li>Правильно настроенное кэширование - залог здоровья высокопосещаемого сайта </li>\r\n</ul>\r\n', 1, 'user8', 0, '0000-00-00 00:00:00', 1, '', 0, 0, 1, 'moduleclass_sfx=\ncache=0\nfirebots=1\nrssurl=\nrsstitle=1\nrssdesc=1\nrssimage=1\nrssitems=3\nrssitemdesc=1\nword_count=0\nrsscache=3600', 0, 0);
+INSERT INTO `#__modules` VALUES (39, 'Нижнее меню', '', 1, 'bottom', 0, '0000-00-00 00:00:00', 1, 'mod_mljoostinamenu', 0, 0, 0, 'moduleclass_sfx=-bottom\nclass_sfx=\nmenutype=topmenu\nmenu_style=ulli\nml_imaged=0\nml_module_number=2\nnumrow=6\nml_first_hidden=0\nfull_active_id=0\nmenu_images=0\nmenu_images_align=0\nexpand_menu=0\nactivate_parent=0\nindent_image=0\nindent_image1=\nindent_image2=\nindent_image3=\nindent_image4=\nindent_image5=\nindent_image6=\nml_separated_link=0\nml_linked_sep=0\nml_separated_link_first=0\nml_separated_link_last=0\nml_hide_active=0\nml_separated_active=0\nml_linked_sep_active=0\nml_separated_active_first=0\nml_separated_active_last=0\nml_separated_element=0\nml_separated_element_first=0\nml_separated_element_last=0\nml_td_width=0\nml_div=0\nml_aligner=left\nml_rollover_use=0\nml_image1=-1\nml_image2=-1\nml_image3=-1\nml_image4=-1\nml_image5=-1\nml_image6=apply.png\nml_image7=apply.png\nml_image8=apply.png\nml_image9=apply.png\nml_image10=apply.png\nml_image11=apply.png\nml_image_roll_1=-1\nml_image_roll_2=-1\nml_image_roll_3=-1\nml_image_roll_4=-1\nml_image_roll_5=-1\nml_image_roll_6=-1\nml_image_roll_7=-1\nml_image_roll_8=-1\nml_image_roll_9=-1\nml_image_roll_10=-1\nml_image_roll_11=-1\nml_hide_logged1=1\nml_hide_logged2=1\nml_hide_logged3=1\nml_hide_logged4=1\nml_hide_logged5=1\nml_hide_logged6=1\nml_hide_logged7=1\nml_hide_logged8=1\nml_hide_logged9=1\nml_hide_logged10=1\nml_hide_logged11=1', 0, 0);
 
 # --------------------------------------------------------
 
@@ -486,28 +490,28 @@ CREATE TABLE `#__modules_menu` (
 # Данные таблицы `#__modules_menu`
 #
 
-INSERT INTO `#__modules_menu` VALUES (1,1);
-INSERT INTO `#__modules_menu` VALUES (2,0);
-INSERT INTO `#__modules_menu` VALUES (3,0);
-INSERT INTO `#__modules_menu` VALUES (4,1);
-INSERT INTO `#__modules_menu` VALUES (5,1);
-INSERT INTO `#__modules_menu` VALUES (6,1);
-INSERT INTO `#__modules_menu` VALUES (6,2);
-INSERT INTO `#__modules_menu` VALUES (6,4);
-INSERT INTO `#__modules_menu` VALUES (6,27);
-INSERT INTO `#__modules_menu` VALUES (6,36);
-INSERT INTO `#__modules_menu` VALUES (8,1);
-INSERT INTO `#__modules_menu` VALUES (9,1);
-INSERT INTO `#__modules_menu` VALUES (9,2);
-INSERT INTO `#__modules_menu` VALUES (9,4);
-INSERT INTO `#__modules_menu` VALUES (9,27);
-INSERT INTO `#__modules_menu` VALUES (9,36);
-INSERT INTO `#__modules_menu` VALUES (10,1);
-INSERT INTO `#__modules_menu` VALUES (13,0);
-INSERT INTO `#__modules_menu` VALUES (15,0);
-INSERT INTO `#__modules_menu` VALUES (17,0);
-INSERT INTO `#__modules_menu` VALUES (18,0);
-INSERT INTO `#__modules_menu` VALUES (30,0);
+INSERT INTO `#__modules_menu` VALUES (1, 0);
+INSERT INTO `#__modules_menu` VALUES (2, 0);
+INSERT INTO `#__modules_menu` VALUES (3, 0);
+INSERT INTO `#__modules_menu` VALUES (4, 0);
+INSERT INTO `#__modules_menu` VALUES (5, 0);
+INSERT INTO `#__modules_menu` VALUES (6, 1);
+INSERT INTO `#__modules_menu` VALUES (7, 1);
+INSERT INTO `#__modules_menu` VALUES (8, 1);
+INSERT INTO `#__modules_menu` VALUES (9, 1);
+INSERT INTO `#__modules_menu` VALUES (10, 1);
+INSERT INTO `#__modules_menu` VALUES (13, 0);
+INSERT INTO `#__modules_menu` VALUES (15, 0);
+INSERT INTO `#__modules_menu` VALUES (16, 1);
+INSERT INTO `#__modules_menu` VALUES (17, 0);
+INSERT INTO `#__modules_menu` VALUES (18, 0);
+INSERT INTO `#__modules_menu` VALUES (30, 0);
+INSERT INTO `#__modules_menu` VALUES (31, 0);
+INSERT INTO `#__modules_menu` VALUES (34, 1);
+INSERT INTO `#__modules_menu` VALUES (37, 1);
+INSERT INTO `#__modules_menu` VALUES (38, 1);
+INSERT INTO `#__modules_menu` VALUES (39, 0);
+
 
 # --------------------------------------------------------
 
@@ -649,7 +653,7 @@ CREATE TABLE `#__templates_menu` (
 
 # Данные таблицы `#__templates_menu`
 
-INSERT INTO `#__templates_menu` VALUES ('jooway', '0', '0');
+INSERT INTO `#__templates_menu` VALUES ('newline', '0', '0');
 INSERT INTO `#__templates_menu` VALUES ('joostfree', '0', '1');
 
 # --------------------------------------------------------

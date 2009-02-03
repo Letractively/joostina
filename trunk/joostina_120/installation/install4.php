@@ -166,7 +166,7 @@ if($siteUrl) {
 	$config .= "\$mosConfig_uniquemail = '1';\n";
 	$config .= "\$mosConfig_offline_message = 'Сайт временно закрыт.<br />Приносим свои извинения! Пожалуйста, зайдите позже.';\n";
 	$config .= "\$mosConfig_error_message = 'Сайт недоступен.<br />Пожалуйста, сообщите об этом Администратору';\n";
-	$config .= "\$mosConfig_debug = '1';\n";
+	$config .= "\$mosConfig_debug = '0';\n";
 	$config .= "\$mosConfig_lifetime = '900';\n";
 	$config .= "\$mosConfig_session_life_admin = '1800';\n";
 	$config .= "\$mosConfig_session_type = '0';\n";
@@ -181,7 +181,7 @@ if($siteUrl) {
 	$config .= "\$mosConfig_hideCreateDate = '0';\n";
 	$config .= "\$mosConfig_hideModifyDate = '1';\n";
 	$config .= "\$mosConfig_hidePrint = '0';\n";
-	$config .= "\$mosConfig_hideEmail = '0';\n";
+	$config .= "\$mosConfig_hideEmail = '1';\n";
 	$config .= "\$mosConfig_enable_log_items = '0';\n";
 	$config .= "\$mosConfig_enable_log_searches = '0';\n";
 	$config .= "\$mosConfig_enable_stats = '0';\n";
@@ -191,7 +191,7 @@ if($siteUrl) {
 	$config .= "\$mosConfig_multipage_toc = '1';\n";
 	$config .= "\$mosConfig_allowUserRegistration = '1';\n";
 	$config .= "\$mosConfig_link_titles = '0';\n";
-	$config .= "\$mosConfig_error_reporting = '6143';\n";
+	$config .= "\$mosConfig_error_reporting = '-1';\n";
 	$config .= "\$mosConfig_list_limit = '30';\n";
 	$config .= "\$mosConfig_caching = '0';\n";
 	$config .= "\$mosConfig_cachepath = '{$configArray['absolutePath']}/cache';\n";
@@ -205,9 +205,9 @@ if($siteUrl) {
 	// boston, отключение ведения сессий на фронте
 	$config .= "\$mosConfig_session_front = '0';\n";
 	// boston, отключение RSS
-	$config .= "\$mosConfig_syndicate_off = '1';\n";
+	$config .= "\$mosConfig_syndicate_off = '0';\n";
 	// boston, отключение тега Generetor
-	$config .= "\$mosConfig_generator_off = '1';\n";
+	$config .= "\$mosConfig_generator_off = '0';\n";
 	// boston, отключение мамботов группы system
 	$config .= "\$mosConfig_mmb_system_off = '0';\n";
 	// boston, использование одного шаблона на весь сайт
@@ -221,7 +221,7 @@ if($siteUrl) {
 	//boston, отключение модулей при редактировании содержимого на фронте
 	$config .= "\$mosConfig_module_on_edit_off = '0';\n";
 	// boston, оптимизация таблиц бд
-	$config .= "\$mosConfig_optimizetables = '1';\n";
+	$config .= "\$mosConfig_optimizetables = '0';\n";
 	// boston, отключение мамботов группы content
 	$config .= "\$mosConfig_mmb_content_off = '0';\n";
 	// boston, использование captcha для авторизации в панели управления
@@ -251,7 +251,7 @@ if($siteUrl) {
 	// не удалять сессии после окончания срока существования
 	$config .= "\$mosConfig_adm_session_del = '0';\n";
 	// отключить favicon для значка сайта в браузере
-	$config .= "\$mosConfig_disable_favicon = '1';\n";
+	$config .= "\$mosConfig_disable_favicon = '0';\n";
 	// часовой пояс для rss
 	$config .= "\$mosConfig_feed_timeoffset = '00:00';\n";
 	// использование расширенного отладчика на фронте сайта

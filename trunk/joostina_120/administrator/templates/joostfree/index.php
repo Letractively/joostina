@@ -52,6 +52,7 @@ if(isset($mainframe->_head['custom'])) {
 // отправим пользователю шапку - пусть браузер работает пока будет формироваться дальнейший код страницы
 flush();
 ?>
+<link rel="shortcut icon" href="<?php echo $mosConfig_live_site; ?>/images/favicon.ico" />
 	</head>
 	<body>
 	<div class="page">
