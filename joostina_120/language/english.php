@@ -544,4 +544,1622 @@ Message:
 
 // Joostina!
 
+DEFINE('_REG_CAPTCHA','Type the text shown in the image:*');
+DEFINE('_REG_CAPTCHA_VAL','You have to enter the code shown in the image.');
+DEFINE('_REG_CAPTCHA_REF','Click to refresh the image.');
+
+DEFINE('_PRINT_PAGE_LINK','Link to the site page');
+
+$bad_text = array();
+
+
+/* administrator components com_admin */
+DEFINE('_FILE_UPLOAD','File upload');
+DEFINE('_MAX_SIZE','Maximum size');
+DEFINE('_ABOUT_JOOSTINA','About Joostina');
+DEFINE('_ABOUT_SYSTEM','System info');
+DEFINE('_SYSTEM_OS','Operating System');
+DEFINE('_DB_VERSION','Database version');
+DEFINE('_PHP_VERSION','PHP version');
+DEFINE('_APACHE_VERSION','Web server');
+DEFINE('_PHP_APACHE_INTERFACE','Web server/PHP interface');
+DEFINE('_JOOSTINA_VERSION','Joostina version!');
+DEFINE('_BROWSER','Browser(User Agent)');
+DEFINE('_PHP_SETTINGS','PHP Settings');
+DEFINE('_RG_EMULATION','Emulation of Register Globals');
+DEFINE('_REGISTER_GLOBALS','Register Globals - registration of global variables');
+DEFINE('_MAGIC_QUOTES','Magic Quotes option');
+DEFINE('_SAFE_MODE','Safe Mode');
+DEFINE('_SESSION_HANDLING','Session handling');
+DEFINE('_SESS_SAVE_PATH','Session save path');
+DEFINE('_PHP_TAGS','PHP tags');
+DEFINE('_BUFFERING','Buffering');
+DEFINE('_OPEN_BASEDIR','Allowed/open directories');
+DEFINE('_ERROR_REPORTING','Display errors');
+DEFINE('_XML_SUPPORT','XML Support');
+DEFINE('_ZLIB_SUPPORT','Zlib Support');
+DEFINE('_DISABLED_FUNCTIONS','Disabled functions');
+DEFINE('_CONFIGURATION_FILE','Configuration file');
+DEFINE('_ACCESS_RIGHTS','Acces rights');
+DEFINE('_DIRS_WITH_RIGHTS','ALL directories mentioned below must be writable, for ALL functions and features of Joostina to work properly');
+DEFINE('_CACHE_DIRECTORY','Cache directory');
+DEFINE('_SESSION_DIRECTORY','Session directory');
+DEFINE('_DATABASE','Database');
+DEFINE('_TABLE_NAME','Table name');
+DEFINE('_DB_CHARSET','Charset');
+DEFINE('_DB_NUM_RECORDS','Records');
+DEFINE('_DB_SIZE','Size');
+DEFINE('_FIND','Find');
+DEFINE('_CLEAR','Clear');
+DEFINE('_GLOSSARY','Glossary');
+DEFINE('_DEVELOPERS','Developers');
+DEFINE('_SUPPORT','Support');
+DEFINE('_LICENSE','License');
+DEFINE('_CHANGELOG','Chagelog');
+DEFINE('_CHECK_VERSION','Check Joomla! RE version');
+DEFINE('_PREVIEW_SITE','Preview site');
+DEFINE('_IN_NEW_WINDOW','Open in new window');
+
+
+/* administrator components com_banners */
+
+DEFINE('_BANNERS_MANAGEMENT','Banners management');
+DEFINE('_EDIT_BANNER','Edit banner');
+DEFINE('_NEW_BANNER','New banner');
+DEFINE('_IN_CURRENT_WINDOW','In current window');
+DEFINE('_IN_PARENT_WINDOW','In parent window');
+DEFINE('_IN_MAIN_FRAME','In main frame');
+DEFINE('_BANNER_CLIENTS','Banner Clients');
+DEFINE('_BANNER_CATEGORIES','Banner Categories');
+DEFINE('_NO_BANNERS','No Banners');
+DEFINE('_BANNER_COUNTER_RESETTED','Banner counter was reset');
+DEFINE('_CHECK_PUBLISH_DATE','Check if publication date is right');
+DEFINE('_CHECK_START_PUBLICATION_DATE','Check the start of publication date');
+DEFINE('_CHECK_END_PUBLICATION_DATE','Check the end of publication date');
+DEFINE('_TASK_UPLOAD','Upload');
+DEFINE('_BANNERS_PANEL','Banners panel');
+DEFINE('_BANNERS_DIRECTORY_DOESNOT_EXISTS','Banners directory does not exist');
+DEFINE('_CHOOSE_BANNER_IMAGE','Choose image for upload');
+DEFINE('_BAD_FILENAME','Filename must contain alpha-numeric symbols without whitespaces.');
+DEFINE('_FILE_ALREADY_EXISTS','#FILENAME# file already exists.');
+DEFINE('_BANNER_UPLOAD_ERROR','Error uploading #FILENAME#');
+DEFINE('_BANNER_UPLOAD_SUCCESS','Uploading of #FILENAME# into #DIRNAME# successfully completed');
+DEFINE('_UPLOAD_BANNER_FILE','Upload banner file');
+
+
+/* administrator components com_categories */
+
+
+DEFINE('_CATEGORY_CHANGES_SAVED','Category changes saved');
+DEFINE('_USER_GROUP_ALL','Public');
+DEFINE('_USER_GROUP_REGISTERED','Registered');
+DEFINE('_USER_GROUP_SPECIAL','Special');
+DEFINE('_CONTENT_CATEGORIES','Content categories');
+DEFINE('_ALL_CONTENT','All content');
+DEFINE('_ACTIVE','Active');
+DEFINE('_IN_TRASH','In Trash');
+DEFINE('_VIEW_CATEGORY_CONTENT','View Category content');
+DEFINE('_CHOOSE_MENU_PLEASE','Please, choose a menu');
+DEFINE('_CHOOSE_MENUTYPE_PLEASE','Please, choose a menu type');
+DEFINE('_ENTER_MENUITEM_NAME','Please, enter a name for this menu item');
+DEFINE('_CATEGORY_NAME_IS_BLANK','Category must have a name');
+DEFINE('_ENTER_CATEGORY_NAME','Enter Category name');
+DEFINE('_ENTER_CATEGORY_TITLE','Enter Category title');
+DEFINE('_CATEGORY_ALREADY_EXISTS','Category with the same name already exists. Try again.');
+DEFINE('_EDIT_CATEGORY','Edit');
+DEFINE('_NEW_CATEGORY','New');
+DEFINE('_CATEGORY_PROPERTIES','Category Properties');
+DEFINE('_CATEGORY_TITLE','Category title');
+DEFINE('_CATEGORY_NAME','Category name');
+DEFINE('_SORT_ORDER','Sort order');
+DEFINE('_IMAGE','Image');
+DEFINE('_IMAGE_POSTITION','Image position');
+DEFINE('_MENUITEM','Menu item');
+DEFINE('_NEW_MENUITEM_IN_YOUR_MENU','Creation of the new menu item in your menu.');
+DEFINE('_MENU_NAME','Menu name');
+DEFINE('_CREATE_MENU_ITEM','Create menu item');
+DEFINE('_EXISTED_MENU_ITEMS','Existing menu items');
+DEFINE('_NOT_EXISTS','Do not exist');
+DEFINE('_MENU_LINK_AVAILABLE_AFTER_SAVE','Menu link will be available after saving');
+DEFINE('_IMAGES_DIRS','Image directories (MOSImage)');
+DEFINE('_MOVE_CATEGORIES','Move Categiries');
+DEFINE('_CHOOSE_CATEGORY_SECTION','Please, choose a section for category you want to move');
+DEFINE('_MOVE_INTO_SECTION','Move into section');
+DEFINE('_CATEGORIES_TO_MOVE','Categories to move');
+DEFINE('_CONTENT_ITEMS_TO_MOVE','Content items to move');
+DEFINE('_IN_SELECTED_SECTION_WILL_BE_MOVED_ALL','All <br /> listed Categories and all <br /> listed Content contained in this categories will be moved to selected Section.');
+DEFINE('_CATEGORY_COPYING','Category copying');
+DEFINE('_CHOOSE_CAT_SECTION_TO_COPY','Please, choose a Section for Category you want to copy');
+DEFINE('_COPY_TO_SECTION','Copy to section');
+DEFINE('_CATS_TO_COPY','Categories to copy');
+DEFINE('_CONTENT_ITEMS_TO_COPY','Content items to copy');
+DEFINE('_IN_SELECTED_SECTION_WILL_BE_COPIED_ALL','All <br /> listed Categories and all <br /> listed Content contained in this categories will be copied to selected Section.');
+DEFINE('_COMPONENT','Component');
+DEFINE('_BEFORE_CREATION_CAT_CREATE_SECTION','You must create at least one Section before creating Categories');
+DEFINE('_CATEGORY_IS_EDITING_NOW','#CATNAME# Category is edited by other Administrator at the moment');
+DEFINE('_TABLE_WEBLINKS_CATEGORY','Table - Weblinks category');
+DEFINE('_TABLE_NEWSFEEDS_CATEGORY','Table - Newsfeeds category');
+DEFINE('_TABLE_CATEGORY_CONTACTS','Table - Category contacts');
+DEFINE('_TABLE_CATEGORY_CONTENT','Table - Category content');
+DEFINE('_BLOG_CATEGORY_CONTENT','Blog - Category content');
+DEFINE('_BLOG_CATEGORY_ARCHIVE','Blog - Category archive');
+DEFINE('_USE_SECTION_SETTINGS','Use Section settings');
+DEFINE('_CMN_ALL','All');
+DEFINE('_CHOOSE_CATEGORY_TO_REMOVE','Choose Category to remove');
+DEFINE('_CANNOT_REMOVE_CATEGORY','Category: #CIDS# cannot be removed, because it contains records');
+DEFINE('_CHOOSE_CATEGORY_FOR_','Choose category for');
+DEFINE('_CHOOSE_OBJECT_TO_MOVE','Choose object to move');
+DEFINE('_CATEGORIES_MOVED_TO','Categories moved to ');
+DEFINE('_CATEGORY_MOVED_TO','Category moved to ');
+DEFINE('_CATEGORIES_COPIED_TO','Categories copied to ');
+DEFINE('_CATEGORY_COPIED_TO','Category copied to ');
+DEFINE('_NEW_ORDER_SAVED','New order saved');
+DEFINE('_SAVE_AND_ADD','Save and Add');
+DEFINE('_CLOSE','Close');
+DEFINE('_CREATE_CONTENT','Create Content');
+DEFINE('_MOVE','Move');
+DEFINE('_COPY','Copy');
+
+/* administrator components com_checkin */
+
+DEFINE('_BLOCKED_OBJECTS','Blocked objects');
+DEFINE('_OBJECT','Object');
+DEFINE('_WHO_BLOCK','Blocked by');
+DEFINE('_BLOCK_TIME','Block time');
+DEFINE('_ACTION','Action');
+DEFINE('_GLOBAL_CHECKIN','Global check-in');
+DEFINE('_TABLE_IN_DB','Table in Database');
+DEFINE('_OBJECT_COUNT','Amount of objects');
+DEFINE('_UNBLOCKED','Unblocked');
+DEFINE('_CHECHKED_TABLE','Checked table');
+DEFINE('_ALL_BLOCKED_IS_UNBLOCKED','All blocked objects are unblocked');
+DEFINE('_MINUTES','minutes');
+DEFINE('_HOURS','hours');
+DEFINE('_DAYS','days');
+DEFINE('_ERROR_WHEN_UNBLOCKING','An error occured while unblocking');
+DEFINE('_UNBLOCKED2','unblocked');
+
+/* administrator components com_config */
+
+DEFINE('_CONFIGURATION_IS_UPDATED','Configuration successfully updated');
+DEFINE('_CANNOT_OPEN_CONF_FILE','Error! Cannot open Configuration file!');
+DEFINE('_DO_YOU_REALLY_WANT_DEL_AUTENT_METHOD','Do you really want to change `Session authentication method`? \n\n This action will delete all existing frontend sessions \n\n');
+DEFINE('_GLOBAL_CONFIG','Global Configuration');
+DEFINE('_PROTECT_AFTER_SAVE','Write-protect after saving');
+DEFINE('_IGNORE_PROTECTION_WHEN_SAVE','Ignore record protection while saving');
+DEFINE('_CONFIG_SAVING','Configuration saving');
+DEFINE('_NOT_AVAILABLE_CHECK_RIGHTS','Rights check is not available');
+DEFINE('_SITE_NAME','Site name');
+DEFINE('_SITE_OFFLINE','Site offline');
+DEFINE('_SITE_OFFLINE_MESSAGE','Site offline Message');
+DEFINE('_SITE_OFFLINE_MESSAGE2','Message, which will be displayed to users, when site is offline.');
+DEFINE('_SYSTEM_ERROR_MESSAGE','System error message');
+DEFINE('_SYSTEM_ERROR_MESSAGE2','Message, which will be displayed to users, when Joostina! cannot connect to MySQL database.');
+DEFINE('_SHOW_READMORE_TO_AUTH','Show \"Read more...\" to guests');
+DEFINE('_SHOW_READMORE_TO_AUTH2','If set to YES, guests will be able to see links to Content with -Registered- access level. But user will have to login to see full text.');
+DEFINE('_ENABLE_USER_REGISTRATION','Enable user registration');
+DEFINE('_ENABLE_USER_REGISTRATION2','If set to YES, users will have permission to register on site.');
+DEFINE('_ACCOUNT_ACTIVATION','Enable New accounts avivation');
+DEFINE('_ACCOUNT_ACTIVATION2','If set to YES, user will need to activate new account, after receiving an e-mail message with a link for account activation.');
+DEFINE('_UNIQUE_EMAIL','Demand unique E-mail');
+DEFINE('_UNIQUE_EMAIL2','If set to YES, users will not be able to create multiple accounts using the same e-mail address.');
+DEFINE('_USER_PARAMS','User site parameters');
+DEFINE('_USER_PARAMS2','If set to NO, users will not be able to use their own site parameters(like Editor selection)');
+DEFINE('_DEFAULT_EDITOR','Default WYSIWYG-editor');
+DEFINE('_LIST_LIMIT','List limit(rows amount)');
+DEFINE('_LIST_LIMIT2','Set length of the lists by default in Control panel for all users');
+DEFINE('_FRONTPAGE','Frontpage');
+DEFINE('_SITE','Site');
+DEFINE('_CUSTOM_PRINT','Page print from template catalogue');
+DEFINE('_CUSTOM_PRINT2','Usage of custom page for print view from the catalogue of current template');
+DEFINE('_MODULES_MULTI_LANG','Allow multilingual modules');
+DEFINE('_MODULES_MULTI_LANG2','Allow system to verify module lang-files/ If there are no such modules, then better set to NO');
+DEFINE('_DATE_FORMAT_TXT','Date format');
+DEFINE('_DATE_FORMAT2','Choose format for date display. You need to use format in accordance with strftime maxims.');
+DEFINE('_DATE_FORMAT_FULL','Full date and time format');
+DEFINE('_DATE_FORMAT_FULL2','Choose full format for date and time display. You need to use format in accordance with strftime maxims.');
+DEFINE('_USE_H1_FOR_HEADERS','Use H1 tags for Content headers in Full view');
+DEFINE('_USE_H1_FOR_HEADERS2','Frame Content headers in H1 tags only when viewing full content text(by clicking on Read more... link).');
+DEFINE('_USE_H1_HEADERS_ALWAYS','Use H1 tags for all Content headers');
+DEFINE('_USE_H1_HEADERS_ALWAYS2','Always frame Content headers in H1 tags.');
+DEFINE('_DISABLE_RSS','Disable RSS(syndicate) generation');
+DEFINE('_DISABLE_RSS2','If set to YES, possibility for RSS-feeds generation(and also its operation) will be not available');
+DEFINE('_USE_TEMPLATE','Use template');
+DEFINE('_USE_TEMPLATE2','After choosing a template, it will be used everywhere on the site regardless of manu items snapped to other templates. If you need to use several templates, the choose \\\'Different\\\'');
+DEFINE('_FAVICON_IMAGE','Favicon image in browser Bookmarks');
+DEFINE('_FAVICON_IMAGE2','Favicon image in browser Favourites. If this is not set or favicon file is not found, then favicon.ico will be used by default.');
+DEFINE('_FAVICON_IMAGE3','Favicon image in Bookmarks');
+DEFINE('_DISABLE_FAVICON','Disable favicon');
+DEFINE('_DISABLE_FAVICON2','Use favicon as default site icon');
+DEFINE('_DISABLE_SYSTEM_MAMBOTS','Disable System mambots');
+DEFINE('_DISABLE_SYSTEM_MAMBOTS2','If set to YES, usage of System mambots will be disabled. NOTICE, if site uses any mambots of this group, then activation of this parameter is not recommended');
+DEFINE('_DISABLE_CONTENT_MAMBOTS','Disable Content mambots');
+DEFINE('_DISABLE_CONTENT_MAMBOTS2','If set to YES, usage of mambots for Content manipulation will be disabled. NOTICE, if site uses any mambots of this group, then activation of this parameter is not recommended');
+DEFINE('_DISABLE_MAINBODY_MAMBOTS','Disable Mainbody mambots');
+DEFINE('_DISABLE_MAINBODY_MAMBOTS2','If set to YES, usage of mambots for components stack manipulation(mainbody) will be disabled.');
+DEFINE('_SITE_AUTH','Site authorization');
+DEFINE('_SITE_AUTH2','If set to NO, page for logging-in to the site will be disabled, if there is no munu item connected to it. Regisstration possibility will be disabled too');
+DEFINE('_FRONT_SESSION_TIME','Front session lifetime');
+DEFINE('_FRONT_SESSION_TIME2','Auto log out Users after they have been inactive for the entered number of minutes. Very high values can affect site security.');
+DEFINE('_DISABLE_FRONT_SESSIONS','Disable front Sessions');
+DEFINE('_DISABLE_FRONT_SESSIONS2','If set to YES, Sessions will be disabled for all site Users. If you do not need user counting and registration is disabled, the you can turn this off.');
+DEFINE('_DISABLE_ACCESS_CHECK_TO_CONTENT','Disable Control of Content access');
+DEFINE('_DISABLE_ACCESS_CHECK_TO_CONTENT2','If set to YES, Control of Content access will be disabled, and all Users will be able to view all Content. Recommended to use with authorization and sessions desactivation parameters.');
+DEFINE('_COUNT_CONTENT_HITS','Count Content hits');
+DEFINE('_COUNT_CONTENT_HITS2','If disabled, statistics of content hits will be not available.');
+DEFINE('_DISABLE_CHECK_CONTENT_DATE','Disable Content date ckecking');
+DEFINE('_DISABLE_CHECK_CONTENT_DATE2','If time spans for Content publication are not important on the site, then it is better to activate this parameter.');
+DEFINE('_DISABLE_MODULES_WHEN_EDIT','Disable Modules during editing');
+DEFINE('_DISABLE_MODULES_WHEN_EDIT2','If set to YES, all Modules will be disabled during editing Content on the frontend');
+DEFINE('_COUNT_GENERATION_TIME','Count page generation time');
+DEFINE('_COUNT_GENERATION_TIME2','If set to YES, time of page generation will be displayed on all site pages');
+DEFINE('_ENABLE_GZIP','GZIP Page Compression');
+DEFINE('_ENABLE_GZIP2','Compress buffered output if supported. Activation of this function will reduce page size and traffic usage, but in the same time server load will go up.');
+DEFINE('_IS_SITE_DEBUG','Debug System');
+DEFINE('_IS_SITE_DEBUG2','If set to YES, diagnostic information, SQL queries and errors(if present) will be displayed.');
+DEFINE('_EXTENDED_DEBUG','Extended Debug');
+DEFINE('_EXTENDED_DEBUG2','Use Extended debug for site front, which will display much information about site.');
+DEFINE('_CONTROL_PANEL','Control Panel');
+DEFINE('_DISABLE_ADMIN_SESS_DEL','Disable Sessions deletion in Control Panel');
+DEFINE('_DISABLE_ADMIN_SESS_DEL2','Disallow to detele sessions even after their time-out.');
+DEFINE('_DISABLE_HELP_BUTTON','Disable "Help" button');
+DEFINE('_DISABLE_HELP_BUTTON2','Allows you to hide the help button in Control Panel toolbar.');
+DEFINE('_USE_OLD_TOOLBAR','Use Old Toolbar display');
+DEFINE('_USE_OLD_TOOLBAR2','If enabled, toolbar buttons interface will be displayed in table mode, as it was in Joomla.');
+DEFINE('_DISABLE_IMAGES_TAB','Disable "Images" tab');
+DEFINE('_DISABLE_IMAGES_TAB2','Allows you to disable Images tab display during Content editing.');
+DEFINE('_ADMIN_SESS_TIME','Session time in Control Panel');
+DEFINE('_SECONDS','seconds');
+DEFINE('_ADMIN_SESS_TIME2','Auto logout Users of <strong>Admin CP</strong> after they have been inactive for preset time. Very high values can affect site security!');
+DEFINE('_SAVE_LAST_PAGE','Save page of Admin CP after Session ending');
+DEFINE('_SAVE_LAST_PAGE2','If you enter Admin CP within 10 minutes after ending of current Session, then after logging in you will be redirected to the page you were browsing before that');
+DEFINE('_HTML_CSS_EDITOR','Visual Editor for Html and CSS');
+DEFINE('_HTML_CSS_EDITOR2','Use Editor with syntax highlighting for editing of HTML and CSS template files');
+DEFINE('_THIS_PARAMS_CONTROL_CONTENT','* This Parameters control the Output of Content Elements *');
+DEFINE('_LINK_TITLES','Title Linkable');
+DEFINE('_LINK_TITLES2','If set to YES, the Title of Articles will be hyperlinked to the Article itself');
+DEFINE('_READMORE_LINK','"Read more..." link');
+DEFINE('_READMORE_LINK2','If set to Show, then a -Read more...- link will be showed to view full content');
+DEFINE('_VOTING_ENABLE','Rating/Voting');
+DEFINE('_VOTING_ENABLE2','If set to Show, then -Rating/Voting- system will be enabled');
+DEFINE('_AUTHOR_NAMES','Author Names');
+DEFINE('_AUTHOR_NAMES2','Choose if Name of the Author will be displayed. This a global setting but can be changed at Menu and Article levels.');
+DEFINE('_DATE_TIME_CREATION','Created Date and Time');
+DEFINE('_DATE_TIME_CREATION2','If set to Show, the date and time an Article was created will be displayed. This a global setting but can be changed at Menu and Article levels.');
+DEFINE('_DATE_TIME_MODIFICATION','Modified Date and Time');
+DEFINE('_DATE_TIME_MODIFICATION2','If set to Show, the date and time an Article was last modified will be displayed. This a global setting but can be changed at Menu and Article levels.');
+DEFINE('_VIEW_COUNT','Hits');
+DEFINE('_VIEW_COUNT2','If set to Show, the number for Hits on a particular Article will be displayed. This a global setting but can be changed at Menu and Article levels.');
+DEFINE('_LINK_PRINT','Print link');
+DEFINE('_LINK_EMAIL','E-mail link');
+DEFINE('_PRINT_EMAIL_ICONS','Print and E-mail icons');
+DEFINE('_PRINT_EMAIL_ICONS2','If set to Show, then Print and E-mail links will be displaye as icons, otherwise - they will be just a text-link.');
+DEFINE('_ENABLE_TOC','Enable Table of Contents');
+DEFINE('_BACK_BUTTON','Enable Back button');
+DEFINE('_CONTENT_NAV','Content Navigation');
+DEFINE('_UNIQ_ITEMS_IDS','Unique Article IDs');
+DEFINE('_UNIQ_ITEMS_IDS2','If enabled, unique style ID will be defined for every Article in the list.');
+DEFINE('_AUTO_PUBLICATION_FRONT','Auto publication on front-end');
+DEFINE('_AUTO_PUBLICATION_FRONT2','If enabled, all created Content will be automatically selected for publication on the Frontpage.');
+DEFINE('_DISABLE_BLOCK','Disable Content blocking');
+DEFINE('_DISABLE_BLOCK2','If enabled, parameters of Content elements blocking will be not included. Not recommended to use for sites with many Editors.');
+DEFINE('_ITEMID_COMPAT','Itemid compatible');
+DEFINE('_ONE_EDITOR','Use single(united) Editor field');
+DEFINE('_ONE_EDITOR2','Use the same field for Intro and Main text input.');
+DEFINE('_LOCALE','Locale');
+DEFINE('_TIME_OFFSET','Time zone (time offset concerning UTC, hours)');
+DEFINE('_TIME_OFFSET2','Current date and time, which will be displayed on the site:');
+DEFINE('_TIME_DIFF','Difference between preset/server time, hours');
+DEFINE('_TIME_DIFF2','RSS (time offset concerning UTC, hours)');
+DEFINE('_CURR_DATE_TIME_RSS','Current date and time to display in RSS');
+DEFINE('_COUNTRY_LOCALE','Country locale');
+DEFINE('_COUNTRY_LOCALE2','Defines regional country settings: displaying of date, time, numbers etc.');
+DEFINE('_LOCALE_WINDOWS','Windows users must type <span style="color: red"><strong>RU</strong></span>.
+	  <br />If default value is not working for Unix-systems, then you can try to change case of locale symbols to <strong>RU_RU.CP1251, ru_RU.cp1251, ru_ru.CP1251</strong>, or to inquire about the value of russian locale from your provider.<br />
+Also you can try to type one of the following locales: <strong>rus, russian</strong>');
+DEFINE('_DB_HOST','MySQL host address');
+DEFINE('_DB_USER','DB Username (MySQL)');
+DEFINE('_DB_NAME','Database name');
+DEFINE('_DB_PREFIX','Database Prefix');
+DEFINE('_DB_PREFIX2','<strong>WARNING!</strong> Do not change if you already have an operable Database. Otherwise, you can lose access to this database!!!');
+DEFINE('_EVERYDAY_OPTIMIZATION','Daily DB tables Optimization');
+DEFINE('_EVERYDAY_OPTIMIZATION2','If set to YES, then Database will be automatically optimized every twenty-four hours to get better performance');
+DEFINE('_OLD_MYSQL_SUPPORT','Old MySQL versions Support');
+DEFINE('_OLD_MYSQL_SUPPORT2','This parameter allows you to disable automatic transition of Database operation into Cyrillic compatibility mode');
+DEFINE('_DISABLE_SET_SQL','Disable SET sql_mode');
+DEFINE('_DISABLE_SET_SQL2','Disable transition of Database operation into SET sql_mode');
+DEFINE('_SERVER','Server');
+DEFINE('_ABS_PATH','Absolute path (site root)');
+DEFINE('_MEDIA_ROOT','Root of Media manager');
+DEFINE('_MEDIA_ROOT2','Root directory for operation of Media-files management Component. Path from site root without / on the edges.');
+DEFINE('_FILE_ROOT','Filemanager root');
+DEFINE('_FILE_ROOT2','Root directory for operation of Media-files management Component. Without / at the end. If using Windows (c) path can start with the character of disk label.');
+DEFINE('_SECRET_WORD','Secret word');
+DEFINE('_GZ_CSS_JS','Compression of CSS and JS files');
+DEFINE('_SESSION_TYPE','Method for Session identification');
+DEFINE('_SESSION_TYPE2','Do not cahnge if you do not know what this is for!<br /><br /> If site will be oriented on users of AOL service who use proxy-servers to access the site, then you can use 2nd level Settings');
+DEFINE('_HELP_SERVER','Help Server');
+DEFINE('_HELP_SERVER2','Help Server - if blank, then Help files are choosen from local folder http://your_site/help/, To enable Server of On-Line Help type http://help.joom.ru or http://help.joomla.org');
+DEFINE('_FILE_MODE','Files creation');
+DEFINE('_FILE_MODE2','Permissions to access files');
+DEFINE('_FILE_MODE3','Disable CHMOD change for new files (use server defaults)');
+DEFINE('_FILE_MODE4','Set CHMOD for new files');
+DEFINE('_FILE_MODE5','Choose this item to set access rights for newly created files');
+DEFINE('_OWNER','Owner');
+DEFINE('_O_READ','reading');
+DEFINE('_O_WRITE','writing');
+DEFINE('_O_EXEC','execution');
+DEFINE('_APPLY_TO_FILES','Apply to existing files');
+DEFINE('_APPLY_TO_FILES2','This changes will be applied to <em>all existing files</em> on the site.<br/><b>INCORRECT USAGE OF THIS OPTION CAN LEAD TO DISABILITY OF THE SITE!</b>');
+DEFINE('_DIR_CREATION','Directories creation');
+DEFINE('_DIR_CREATION2','Permission for access to directories');
+DEFINE('_DIR_CREATION3','Disable CHMOD change for new directories (use server defaults)');
+DEFINE('_DIR_CREATION4','Set CHMOD for new directories');
+DEFINE('_DIR_CREATION5','Choose this item to set access rights for newly created directories');
+DEFINE('_O_SEARCH','search');
+DEFINE('_APPLY_TO_DIRS','Apply to existing directories');
+DEFINE('_APPLY_TO_DIRS2','Activation of this option will be applied to <em>all existing directories</em> on the site.<br/>'.'<b>INCORRECT USAGE OF THIS OPTION CAN LEAD TO DISABILITY OF THE SITE!</b>');
+DEFINE('_O_GROUP','Group');
+DEFINE('_O_AS','as');
+DEFINE('_RG_EMULATION_TXT','Emulation of Global variables registration');
+DEFINE('_RG_DISABLE','Disable (Recommended) - extra security');
+DEFINE('_RG_ENABLE','Enable (Not recommended) - compatibility with old exstensions, can impair site security.');
+DEFINE('_METADATA','Metadata');
+DEFINE('_SITE_DESC','Site description, which is indexed by Search Engines');
+DEFINE('_SITE_DESC2',' You do not need to limit your description to twenty symbols, according to Search Server you planned to use. Description have to be short and suitable for the content of your site. You can include some of your keywords and key-phrases. As some Servers read more then 20 words, so you can add one or two sentences. Please, make sure that most important part of your description remains in first 20 words.');
+DEFINE('_SITE_KEYWORDS','Site keywords');
+DEFINE('_SHOW_TITLE_TAG','Show <b>title</b> meta-tag');
+DEFINE('_SHOW_TITLE_TAG2','Shows <b>title</b> meta-tag while viewing Content elements');
+DEFINE('_SHOW_AUTHOR_TAG','Show <b>author</b> meta-tag');
+DEFINE('_SHOW_AUTHOR_TAG2','Shows <b>author</b> meta-tag while viewing Content elements');
+DEFINE('_SHOW_BASE_TAG','Show <b>base</b> meta-tag');
+DEFINE('_SHOW_BASE_TAG2','Shows <b>base</b> meta-tag inside the body of every page');
+DEFINE('_REVISIT_TAG','Value of <b>revisit</b> tag');
+DEFINE('_REVISIT_TAG2','Set value of <b>revisit</b> tag, in days');
+DEFINE('_DISABLE_GENERATOR_TAG','Disable Generator tag');
+DEFINE('_DISABLE_GENERATOR_TAG2','If set to YES, then name=\\\'Generator\\\' tag will be excepted from the code of every HTML page');
+DEFINE('_EXT_IND_TAGS','Extended indexing tags');
+DEFINE('_EXT_IND_TAGS2','If set to YES, special tags will be added to the code of every page to provide better indexation');
+DEFINE('_MAIL','Mail');
+DEFINE('_MAIL_METHOD','Mailer');
+DEFINE('_MAIL_FROM_ADR','Mail from');
+DEFINE('_MAIL_FROM_NAME','From Name');
+DEFINE('_SENDMAIL_PATH','Sendmail Path');
+DEFINE('_USE_SMTP','Use SMTP Authentication');
+DEFINE('_USE_SMTP2','Select YES if your SMTP Host requires SMTP Authentication.');
+DEFINE('_SMTP_USER','SMTP Username');
+DEFINE('_SMTP_USER2','Fill in if you use SMTP Host that requires SMTP Authentication for mailing');
+DEFINE('_SMTP_PASS','SMTP Password');
+DEFINE('_SMTP_PASS2','Fill in if you use SMTP Host that requires SMTP Authentication for mailing');
+DEFINE('_SMTP_SERVER','SMTP Host');
+DEFINE('_CACHE','Cache');
+DEFINE('_ENABLE_CACHE','Enable Cache');
+DEFINE('_ENABLE_CACHE2','Activation of Cache reduces queries to MySQL and decreases Server load');
+DEFINE('_CACHE_OPTIMIZATION','Cache optimization');
+DEFINE('_CACHE_OPTIMIZATION2','Automatically removes unnecessary symbols from Cache files, thereby reducing size of the files.');
+DEFINE('_AUTOCLEAN_CACHE_DIR','Automatic cleanup of the Cache directory');
+DEFINE('_AUTOCLEAN_CACHE_DIR2','Automatically cleanup Cache directory, thereby deleting expired files.');
+DEFINE('_CACHE_MENU','Cache menu in Admin CP');
+DEFINE('_CACHE_MENU2','Activation of the Menu caching in Admin CP. Works independently of standart Cache.');
+DEFINE('_CANNOT_CACHE','Cannot cache');
+DEFINE('_CANNOT_CACHE2','<font color="red"><b>Cache directory is not writable.</b></font>');
+DEFINE('_CACHE_DIR','Cache directory');
+DEFINE('_CACHE_DIR2','Current cache directory is <b>writable</b>');
+DEFINE('_CACHE_DIR3','Current cache directory is <b>NOT WRITABLE</b> - set directory CHMOD to 755 before Cache activation');
+DEFINE('_CACHE_TIME','Cache lifetime');
+DEFINE('_DB_CACHE','Cache Database queries');
+DEFINE('_DB_CACHE_TIME','Cache lifetime for Database queries');
+DEFINE('_STATICTICS','Statistics');
+DEFINE('_ENABLE_STATS','Enable Statistics gathering');
+DEFINE('_ENABLE_STATS2','Enable/Disable Site statistics gathering');
+DEFINE('_STATS_HITS_DATE','Gather Date statistics about Content viewing');
+DEFINE('_STATS_HITS_DATE2','WARNING: This mode records large data capacity!');
+DEFINE('_STATS_SEARCH_QUERIES','Statistics of Search queries');
+DEFINE('_SEF_URLS','Search Engine Friendly URLs');
+DEFINE('_SEF_URLS2','Apache users only! Rename htaccess.txt to .htaccess before activating. This is necessary for mod_rewrite activation');
+DEFINE('_DYNAMIC_PAGETITLES','Dynamic Page titles (title tags)');
+DEFINE('_DYNAMIC_PAGETITLES2','Dynamic Page titles alteration concerning to viewing of the current Content');
+DEFINE('_CLEAR_FRONTPAGE_LINK','Clean com_frontpage link');
+DEFINE('_CLEAR_FRONTPAGE_LINK2','Form a shorter state for the links of Frontpage component.');
+DEFINE('_DISABLE_PATHWAY_ON_FRONT','Hide pathway on the frontpage');
+DEFINE('_DISABLE_PATHWAY_ON_FRONT2','If enabled, \\\'Home\\\' string will be replaced by the symbol of nonbraking space on the frontpage.');
+DEFINE('_TITLE_ORDER','Order of Title elements');
+DEFINE('_TITLE_ORDER2','Order of Page title elements (title tag)');
+DEFINE('_TITLE_SEPARATOR','Separator of Title elements');
+DEFINE('_TITLE_SEPARATOR2','Separator of Page title elements (title tag). Hyphen by default.');
+DEFINE('_INDEX_PRINT_PAGE','Index print pages');
+DEFINE('_INDEX_PRINT_PAGE2','If set to YES, print content version will be available for indexation');
+DEFINE('_REDIR_FROM_NOT_WWW','Redirect from other then WWW addresses');
+DEFINE('_REDIR_FROM_NOT_WWW2','When entering the site from site.com link, everybody will be automatically redirected to www.site.com');
+DEFINE('_ADMIN_CAPTCHA','For Admin CP authorization');
+DEFINE('_ADMIN_CAPTCHA2','Use captcha for more secure authorization in Admin CP.');
+DEFINE('_REGISTRATION_CAPTCHA','For registration');
+DEFINE('_REGISTRATION_CAPTCHA2','Use captcha for more secure registration.');
+DEFINE('_CONTACTS_CAPTCHA','For Contacts form');
+DEFINE('_CONTACTS_CAPTCHA2','Use captcha for more secure Contacts form.');
+
+DEFINE('_O_OTHER','Other');
+DEFINE('_SECURITY_LEVEL3','3rd Security Level - Default - Recommended');
+DEFINE('_SECURITY_LEVEL2','2nd Security Level - Allowed for proxy IP-addresses');
+DEFINE('_SECURITY_LEVEL1','1st Security Level - Inverse compatibility');
+DEFINE('_PHP_MAIL_FUNCTION','PHP-mail Function');
+DEFINE('_CONSTRUCT_ERROR','Construct error');
+
+DEFINE('_TIME_OFFSET_M_12','(UTC -12:00) International Date Line West');
+DEFINE('_TIME_OFFSET_M_11','(UTC -11:00) Midway Island, Samoa');
+DEFINE('_TIME_OFFSET_M_10','(UTC -10:00) Hawaii');
+DEFINE('_TIME_OFFSET_M_9_5','(UTC -09:30) Taiohae, Marquesas Islands');
+DEFINE('_TIME_OFFSET_M_9','(UTC -09:00) Alaska');
+DEFINE('_TIME_OFFSET_M_8','(UTC -08:00) Pacific Time (US &amp; Canada)');
+DEFINE('_TIME_OFFSET_M_7','(UTC -07:00) Mountain Time (US &amp; Canada)');
+DEFINE('_TIME_OFFSET_M_6','(UTC -06:00) Central Time (US &amp; Canada), Mexico City');
+DEFINE('_TIME_OFFSET_M_5','(UTC -05:00) Eastern Time (US &amp; Canada), Bogota, Lima');
+DEFINE('_TIME_OFFSET_M_4','(UTC -04:00) Atlantic Time (Canada), Caracas, La Paz');
+DEFINE('_TIME_OFFSET_M_3_5','(UTC -03:30) St. John`s, Newfoundland and Labrador');
+DEFINE('_TIME_OFFSET_M_3','(UTC -03:00) Brazil, Buenos Aires, Georgetown');
+DEFINE('_TIME_OFFSET_M_2','(UTC -02:00) Mid-Atlantic');
+DEFINE('_TIME_OFFSET_M_1','(UTC -01:00 hour) Azores, Cape Verde Islands');
+DEFINE('_TIME_OFFSET_M_0','(UTC 00:00) Western Europe Time, London, Lisbon, Casablanca');
+DEFINE('_TIME_OFFSET_P_1','(UTC +01:00 hour) Berlin, Brussels, Copenhagen, Madrid, Paris');
+DEFINE('_TIME_OFFSET_P_2','(UTC +02:00) Kaliningrad, South Africa');
+DEFINE('_TIME_OFFSET_P_3','(UTC +03:00) Baghdad, Riyadh, Moscow, St. Petersburg');
+DEFINE('_TIME_OFFSET_P_3_5','(UTC +03:30) Tehran');
+DEFINE('_TIME_OFFSET_P_4','(UTC +04:00) Abu Dhabi, Muscat, Baku, Tbilisi');
+DEFINE('_TIME_OFFSET_P_4_5','(UTC +04:30) Kabul');
+DEFINE('_TIME_OFFSET_P_5','(UTC +05:00) Ekaterinburg, Islamabad, Karachi, Tashkent');
+DEFINE('_TIME_OFFSET_P_5_5','(UTC +05:30) Bombay, Calcutta, Madras, New Delhi');
+DEFINE('_TIME_OFFSET_P_5_75','(UTC +05:45) Kathmandu');
+DEFINE('_TIME_OFFSET_P_6','(UTC +06:00) Almaty, Dhaka, Colombo');
+DEFINE('_TIME_OFFSET_P_6_5','(UTC +06:30) Yagoon');
+DEFINE('_TIME_OFFSET_P_7','(UTC +07:00) Bangkok, Hanoi, Jakarta');
+DEFINE('_TIME_OFFSET_P_8','(UTC +08:00) Beijing, Perth, Singapore, Hong Kong');
+DEFINE('_TIME_OFFSET_P_8_75','(UTC +08:45) Western Australia');
+DEFINE('_TIME_OFFSET_P_9','(UTC +09:00) Tokyo, Seoul, Osaka, Sapporo, Yakutsk');
+DEFINE('_TIME_OFFSET_P_9_5','(UTC +09:30) Adelaide, Darwin');
+DEFINE('_TIME_OFFSET_P_10','(UTC +10:00) Eastern Australia, Guam, Vladivostok');
+DEFINE('_TIME_OFFSET_P_10_5','(UTC +10:30) Lord Howe Island (Australia)');
+DEFINE('_TIME_OFFSET_P_11','(UTC +11:00) Magadan, Solomon Islands, New Caledonia');
+DEFINE('_TIME_OFFSET_P_11_5','(UTC +11:30) Norfolk Island');
+DEFINE('_TIME_OFFSET_P_12','(UTC +12:00) Auckland, Wellington, Fiji, Kamchatka');
+DEFINE('_TIME_OFFSET_P_12_75','(UTC +12:45) Chatham Island');
+DEFINE('_TIME_OFFSET_P_13','(UTC +13:00) Tonga');
+DEFINE('_TIME_OFFSET_P_14','(UTC +14:00) Kiribati');
+
+/* administrator components com_contact */
+
+DEFINE('_CONTACT_MANAGEMENT','Contact management');
+DEFINE('_ON_SITE','On Site');
+DEFINE('_RELATED_WITH_USER','Related with User');
+DEFINE('_CHANGE_CONTACT','Change Contact');
+DEFINE('_CHANGE_CATEGORY','Change Category');
+DEFINE('_CHANGE_USER','Change user');
+DEFINE('_ENTER_NAME_PLEASE','You must provide a name for this Contact');
+DEFINE('_NEW_CONTACT','New');
+DEFINE('_CONTACT_DETAILS','Contact details');
+DEFINE('_USER_POSITION','Position');
+DEFINE('_ADRESS_STREET_HOUSE','Street Address');
+DEFINE('_CITY','Town/Suburb');
+DEFINE('_STATE','State');
+DEFINE('_COUNTRY','Country');
+DEFINE('_POSTCODE','Postal Code/ZIP');
+DEFINE('_ADDITIONAL_INFO','Additional information');
+DEFINE('_PUBLISH_INFO','Publish info');
+DEFINE('_POSITION','Position');
+DEFINE('_IMAGES_INFO','Images info');
+DEFINE('_PARAMETERS','Parameters');
+DEFINE('_CONTACT_PARAMS','*This parameters control Contact display only when viewing contact info*');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* administrator components com_quickicons */
+DEFINE ('_QUICK_BUTTONS','Quick access buttons');
+DEFINE ('_DISPLAY_METHOD', 'Display method');
+DEFINE ('_DISPLAY_ONLY_TEXT ', 'Only text');
+DEFINE ('_DISPLAY_ONLY_ICON', 'Only icon');
+DEFINE ('_DISPLAY_TEXT_AND_ICON', 'Text and icon');
+DEFINE ('_PRESS_TO_EDIT_ELEMENT ', 'Press to edit element');
+DEFINE ('_EDIT_BUTTON', 'Button editing');
+DEFINE ('_BUTTON_TEXT', 'Button text');
+DEFINE (' _BUTTON_TITLE ', 'Help');
+DEFINE ('_BUTTON_TITLE_TIP','<strong>Optional</strong><br/>Here you can define the text for the pop-up help.<br/>It is very important to fill this property if you have chosen display only pictures!');
+DEFINE ('_BUTTON_LINK_TIP', 'Reference for a site or component call.<br/>For components in system the reference should be as following:<br/>index2.php? option=com_joomlastats&task=stats [joomlastats - is a component, &task=stats is a call of certain function of a component].<br/>External references should be<strong>absolute references</strong>(for example: http://www....)!');
+DEFINE ('_BUTTON_LINK_IN_NEW_WINDOW','In a new window');
+DEFINE ('_BUTTON_LINK_IN_NEW_WINDOW_TIP', 'The Reference will be opened in a new window');
+DEFINE ('_BUTTON_ORDER','To place after');
+DEFINE ('_BUTTONS_TAB_GENERAL','General');
+DEFINE ('_BUTTONS_TAB_DISPLAY','Display');
+DEFINE (' _DISPLAY_BUTTON ', 'To display');
+DEFINE ('_PRESS_TO_CHOOSE_ICON', 'Press to choose picture (will be opened in a new window)');
+DEFINE ('_CHOOSE_ICON','To choose a picture');
+DEFINE ('_CHOOSE_ICON_TIP','Please, choose a picture for this button. If wish to load your own picture for the button it should be loaded in ../administrator/images- ../images ../images/icons');
+DEFINE ('_PLEASE_ENTER_NUTTON_LINK','It is required the picture');
+DEFINE ('_PLEASE_ENTER_BUTTON_TEXT ','Please, fill the field Text');
+DEFINE ('_BUTTON_ERROR_PUBLISHING','Publication error');
+DEFINE ('_BUTTON_ERROR_UNPUBLISHING','Unpublishing error');
+DEFINE ('_BUTTONS_DELETED','Buttons are successfully removed');
+DEFINE ('_CHANGE_QUICK_BUTTONS','Change quick access buttons');
+
+/* administrator components com_sections */
+DEFINE ('_SECTION_CHANGES_SAVED','Section changes are saved');
+DEFINE ('_CONTENT_SECTIONS','Contents sections');
+DEFINE ('_SECTION_NAME','Section name');
+DEFINE ('_SECTION_CATEGORIES','Categories');
+DEFINE ('_SECTION_CONTENT_ITEMS','Active');
+DEFINE ('_SECTION_CONTENT_ITEMS_IN_TRASH','In a trash');
+DEFINE ('_VIEW_SECTION_CATEGORIES','Section categories view');
+DEFINE ('_VIEW_SECTION_CONTENT ','Section content view');
+DEFINE ('_NEW_SECTION_MASK','New section');
+DEFINE ('_CHOOSE_MENU_ITEM_NAME','Please, enter a name for this menu item');
+DEFINE ('_ENTER_SECTION_NAME','Section should have the name');
+DEFINE ('_ENTER_SECTION_TITLE','Section should have title');
+DEFINE ('_SECTION_ALREADY_EXISTS','Section with such name already exists. Please, change section name.');
+DEFINE ('_SECTION_DETAILS','Section details');
+DEFINE ('_SECTION_USED_IN','Used in');
+DEFINE ('_MENU_SHORT_NAME','Menu short name');
+DEFINE ('_SECTION_NAME_OF_CATEGORY','categories');
+DEFINE ('_SECTION_NAME_OF_SECTION','section');
+DEFINE ('_SECTION_NAME_TIP','The long name displayed in titles');
+DEFINE ('_SECTION_NEW_MENU_LINK','This function will create new item in chosen menu');
+DEFINE ('_CHOOSE_MENU','Choose the menu');
+DEFINE ('_CHOOSE_MENU_TYPE','Choose menu type');
+DEFINE ('_SECTION_COPYING','Section copying');
+DEFINE ('_SECTION_COPY_NAME','The name of section copy');
+DEFINE ('_SECTION_COPY_DESCRIPTION','The listed categories<br/> and all listed categories<br/>content will be copied <br/>in created section.');
+DEFINE ('_MASS_CONTENT_ADD','Mass addition');
+DEFINE ('_NEW_CAT_SECTION_ON_NEW_LINE','Each new category / section should begin with a new line');
+DEFINE ('_MASS_ADD_AS','Add as');
+DEFINE ('_SECTIONS','Sections');
+DEFINE ('_CATEGORIES','Categories');
+DEFINE ('_CATEGORIES_WILL_BE_IN_SECTION','Categories will belong to a section');
+DEFINE ('_CONTENT_WILL_BE_IN_CATEGORY','Content will belong to a category');
+DEFINE ('_ADD_SECTIONS_RESULT ','Results of section adding');
+DEFINE ('_ADD_CATEGORIES_RESULT ','Results of categories adding');
+DEFINE ('_ADD_CONTENT_RESULT ','Results of content adding');
+DEFINE ('_ERROR_WHEN_ADDING','There was an error when adding');
+DEFINE ('_SECTION_IS_BEING_EDITED_BY_ADMIN','Section is editing now by other administrator');
+DEFINE ('_SECTION_TABLE','Section list');
+DEFINE ('_SECTION_BLOG','Section blog');
+DEFINE ('_SECTION_BLOG_ARCHIVE','Archive of section blog');
+DEFINE ('_SECTION_SAVED','Section saved');
+DEFINE ('_CHOOSE_SECTION_TO_DELETE','Choose section to delete');
+DEFINE ('_CANNOT_DELETE_NOT_EMPTY_SECTIONS','Sections cannot be deleted since contain categories');
+DEFINE ('_CHOOSE_SECTION_FOR','Choose section for');
+DEFINE ('_CANNOT_PUBLISH_EMPTY_SECTION','It it is impossible to publish empty section');
+DEFINE ('_SECTION_CONTENT_COPYED' 'Chosen section contents have been copied in section');
+DEFINE ('_MENU_MASS_ADD','Add more');
+
+/* administrator components com_poll */
+DEFINE ('_POLLS','Polls');
+DEFINE ('_POLL_HEADER','Poll header');
+DEFINE ('_POLL_LAG','Delay');
+DEFINE ('_CHANGE_POLL','Change poll');
+DEFINE ('_ENTER_POLL_NAME','Poll should have the name');
+DEFINE ('_ENTER_POLL_LAG','Delay between the answers should not be eqaul to zero');
+DEFINE ('_POLL_DETAILS','Poll details');
+DEFINE ('_POLL_LAG_QUESIONS','Delay between answers');
+DEFINE ('_POLL_LAG_QUESIONS2','seconds between voices acceptance');
+DEFINE ('_POLL_OPTIONS','Variants of ansewrs');
+DEFINE ('_POLL_IS_BEING_EDITED_BY_ADMIN','Poll is editing now by other administrator');
+
+/* administrator components com_newsfeeds */
+DEFINE ('_NEWSFEEDS_MANAGEMENT ','Newsfeeds managements');
+DEFINE ('_NEWSFEED_TITLE','Newsfeed');
+DEFINE ('_NEWSFEED_ON_SITE','On a site');
+DEFINE ('_NEWSFEEDS_NUM_OF_CONTENT_ITEMS','Number of articles');
+DEFINE ('_NEWSFEED_CACHE_TIME','Cache time (seconds)');
+DEFINE ('_CHANGE_NEWSFEED','Change newsfeed');
+DEFINE ('_PLEASE_ENTER_NEWSFEED_NAME','Please, enter newsfeed name');
+DEFINE ('_PLEASE_ENTER_NEWSFEED_LINK','Please, enter newsfeed reference');
+DEFINE ('_PLEASE_ENTER_NEWSFEED_NUM_OF_CONTENT_ITEMS','Please, enter number of articles to display');
+DEFINE ('_PLEASE_ENTER_NEWSFEED_CACHE_TIME','Please, enter time of cache updating');
+DEFINE ('_NEWSFEED_LINK','Reference');
+DEFINE ('_NEWSFEED_DECODE_FROM_UTF','Recode from UTF-8');
+
+/* administrator components com_modules */
+DEFINE ('_ALL_MODULE_CHANGES_SAVED','All module changes are successfully saved');
+DEFINE ('_MODULES','Modules');
+DEFINE ('_MODULE_NAME','Module name');
+DEFINE ('_MODULE_POSITION','Position');
+DEFINE ('_ASSIGN_TO_URL','Assign URL');
+DEFINE ('_ASSIGN_TO_URL_TIP','Example: <br><br>! option=com_content&task=view&id=4<br>option=com_content&task=view<br>option=com_content&task=blogcategory&id>4<br><br>! - on these pages module is not displayed<br>=<>!=it is equal, less then, greater then,not equal - comparison operators for numerical parametres');
+DEFINE ('_MODULE_PAGES','Pages');
+DEFINE ('_MODULE_PAGES_SOME','Some');
+DEFINE ('_SHOW_TITLE','Show title');
+DEFINE ('_MODULE_ORDER','Module order');
+DEFINE ('_MODULE_PAGE_MENU_ITEMS','Pages / Menu items');
+DEFINE ('_MODULE_USER_CONTENT ','User code / Module content');
+DEFINE ('_MODULE_COPIED','Module is copied');
+DEFINE ('_CANNOT_DELETE_MOD_MAINMENU','You cannot remove module mod_mainmenu, displayed as \\\' mainmenu \\\' since this is a kernel of the menu');
+DEFINE ('_CANNOT_DELETE_MODULES','Modules cannot be removed, they can be uninstalled only as any Joomla! modules');
+DEFINE ('_PREVIEW_ONLY_CREATED_MODULES','You can see only `created` modules');
+
+/* administrator components com_modules */
+DEFINE ('_WEBLINKS_MANAGEMENT ','Weblinks management');
+DEFINE ('_WEBLINKS_HITS','Hits');
+DEFINE ('_CHANGE_WEBLINK','Change weblink');
+DEFINE ('_ENTER_WEBLINK_TITLE','Weblink should have a title');
+DEFINE ('_PLEASE_ENTER_URL','You should enter URL');
+DEFINE ('_WEBLINK_URL','Weblink');
+DEFINE ('_WEBLINK_NAME','Name');
+
+/* administrator components com_jwmmxtd */
+DEFINE ('_RENAME','Rename');
+DEFINE ('_JWMM_DIRECTORIES','Directories');
+DEFINE ('_JWMM_FILES','Files');
+DEFINE ('_JWMM_MOVE','Move');
+DEFINE ('_JWMM_BYTES','byte');
+DEFINE ('_JWMM_KBYTES','Kb');
+DEFINE ('_JWMM_MBYTES','Mb');
+DEFINE ('_JWMM_DELETE_FILE_CONFIRM','Remove file');
+DEFINE ('_CLICK_TO_PREVIEW','Press to view');
+DEFINE ('_JWMM_FILESIZE','Size');
+DEFINE ('_WIDTH','Width');
+DEFINE ('_HEIGHT ','Height');
+DEFINE ('_UNPACK','Unpack');
+DEFINE ('_JWMM_VIDEO_FILE','Video file');
+DEFINE ('_JWMM_HACK_ATTEMPT ','Hack attempt...');
+DEFINE ('_JWMM_DIRECTORY_NOT_EMPTY','Folder is not empty. Please, remove contents in the folder at first!');
+DEFINE ('_JWMM_DELETE_CATALOG','Remove folder');
+DEFINE ('_JWMM_SAFE_MODE_WARNING','At the activated parametre SAFE MODE problems with creation of directories are possible');
+DEFINE ('_JWMM_CATALOG_CREATED','Folder is created');
+DEFINE ('_JWMM_CATALOG_NOT_CREATED','Folder is not created');
+DEFINE ('_JWMM_FILE_DELETED','File is successfully removed');
+DEFINE ('_JWMM_FILE_NOT_DELETED','File is not removed');
+DEFINE ('_JWMM_DIRECTORY_DELETED','Folder is removed');
+DEFINE ('_JWMM_DIRECTORY_NOT_DELETED','Folder is not removed');
+DEFINE ('_JWMM_RENAMED',' It is renamed');
+DEFINE ('_JWMM_NOT_RENAMED','It is not renamed');
+DEFINE ('_JWMM_COPIED','It is copied');
+DEFINE ('_JWMM_NOT_COPIED','It is not copied');
+DEFINE ('_JWMM_FILE_MOVED','File is moved');
+DEFINE ('_JWMM_FILE_NOT_MOVED','File is not moved');
+DEFINE ('_TMP_DIR_CLEANED','Temporary folder is completely cleared');
+DEFINE ('_TMP_DIR_NOT_CLEANED','Temporary folder is not cleared');
+DEFINE ('_FILES_UNPACKED','file(s) is(are) unpacked');
+DEFINE ('_ERROR_WHEN_UNPACKING','unpacking error');
+DEFINE ('_FILE_IS_NOT_A_ZIP','File is not a valid zip archive');
+DEFINE ('_FILE_NOT_EXIST ','File does not exist');
+DEFINE ('_IMAGE_SAVED_AS','Edited image is saved as');
+DEFINE ('_IMAGE_NOT_SAVED','Image is not saved');
+DEFINE ('_FILES_NOT_UPLOADED','File(s) is(are) not loaded on a server');
+DEFINE ('_FILES_UPLOADED','Files are loaded');
+DEFINE ('_DIRECTORIES','Directories');
+DEFINE ('_JWMM_FILE_NAME_WARNING','Please, do not use in names spaces and wildcard character');
+DEFINE ('_JWMM_MEDIA_MANAGER','Media manager');
+DEFINE ('_JWMM_CREATE_DIRECTORY','Create folder');
+DEFINE ('_UPLOAD_FILE','Load a file');
+DEFINE ('_JWMM_FILE_PATH','Location');
+DEFINE ('_JWMM_UP_TO_DIRECTORY','Move to the parent folder');
+DEFINE ('_JWMM_RENAMING','Renaming');
+DEFINE ('_JWMM_NEW_NAME','New name (including extension!)');
+DEFINE ('_CHOOSE_DIR_TO_COPY','Choose folder to copy');
+DEFINE ('_JWMM_COPY_TO','Copy to');
+DEFINE ('_CHOOSE_DIR_TO_MOVE','Choose folder to move');
+DEFINE ('_JWMM_MOVE_TO','Move to');
+DEFINE ('_CHOOSE_DIR_TO_UNPACK','Choose folder to unpack');
+DEFINE ('_DERICTORY_TO_UNPACK','Unpacking folder');
+DEFINE ('_NUMBER_OF_IMAGES_IN_TMP_DIR','Number of images in the temporary folder');
+DEFINE ('_CLEAR_DIRECTORY','Clear folder');
+DEFINE ('_JWMM_ERROR_EDIT_FILE','Error at file processing');
+DEFINE ('_JWMM_EDIT_IMAGE','Images editing');
+DEFINE ('_JWMM_IMAGE_RESIZE','Image extension');
+DEFINE ('_JWMM_IMAGE_CROP','Crop');
+DEFINE ('_JWMM_IMAGE_SIZE','Sizes');
+DEFINE ('_JWMM_X_Y_POSITION','X and Y coordinates');
+DEFINE ('_JWMM_BY_HEIGHT ','verticals');
+DEFINE ('_JWMM_BY_WIDTH','horizontals');
+DEFINE ('_JWMM_CROP_TOP','At the top');
+DEFINE ('_JWMM_CROP_LEFT ','At the left');
+DEFINE ('_JWMM_CROP_RIGHT ','At the right');
+DEFINE ('_JWMM_CROP_BOTTOM','At the bottom');
+DEFINE ('_JWMM_ROTATION','Rotation');
+DEFINE ('_JWMM_CHOOSE','-- choice --');
+DEFINE ('_JWMM_MIRROR','Mirror');
+DEFINE ('_JWMM_VERICAL','verticals');
+DEFINE ('_JWMM_HORIZONTAL','horizontals');
+DEFINE ('_JWMM_GRADIENT_BORDER','Gradient border');
+DEFINE ('_JWMM_SIZE_PX','px size');
+DEFINE ('_JWMM_TOP_LEFT ','At the top-left');
+DEFINE ('_JWMM_PRESS_TO_CHOOSE_COLOR','Press to choosó a color');
+DEFINE ('_JWMM_BOTTOM_RIGHT ','At the right-bottom');
+DEFINE ('_JWMM_BORDER','Border');
+DEFINE ('_COLOR','Color');
+DEFINE ('_JWMM_ALL_BORDERS','All borders');
+DEFINE ('_JWMM_TOP','At the top');
+DEFINE ('_JWMM_LEFT ','At the left');
+DEFINE ('_JWMM_RIGHT ','At the right');
+DEFINE ('_JWMM_BOTTOM','At the bottom');
+DEFINE ('_JWMM_BRIGHTNESS','Brightness');
+DEFINE ('_JWMM_CONTRAST ','Contrast');
+DEFINE ('_JWMM_ADDITIONAL_ACTIONS','Additional actions');
+DEFINE ('_JWMM_GRAY_SCALE','Grey gradient');
+DEFINE ('_JWMM_NEGATIVE','Negative');
+DEFINE ('_JWMM_ADD_TEXT ','Add text');
+DEFINE ('_JWMM_TEXT ','Text');
+DEFINE ('_JWMM_TEXT_COLOR','Text color');
+DEFINE ('_JWMM_TEXT_FONT ','Text font');
+DEFINE ('_JWMM_TEXT_SIZE','Text size');
+DEFINE ('_JWMM_ORIENTATION','Orientation');
+DEFINE ('_JWMM_BG_COLOR','Background color');
+DEFINE ('_JWMM_XY_POSITION','X and Y position');
+DEFINE ('_JWMM_XY_PADDING','X and Y padding');
+DEFINE ('_JWMM_FIRST ','The first');
+DEFINE ('_JWMM_SECOND','The second');
+DEFINE ('_JWMM_THIRDTH','The third...');
+DEFINE ('_JWMM_CANCEL_ALL','Cancel all');
+
+/* administrator components com_joomlaxplorer */
+DEFINE ('_MENU_GZIP','Pack');
+DEFINE ('_MENU_MOVE','Move');
+DEFINE ('_MENU_CHMOD','Permissions change');
+
+/* administrator components com_joomlapack */
+DEFINE ('_JP_BACKUPPING','Backup');
+DEFINE ('_JP_PHPINFO','---Information about PHP---');
+DEFINE ('_JP_FREEMEMORY','Free memory');
+DEFINE ('_JP_GZIP_ENABLED','GZIP compression: enabled (it is good)');
+DEFINE ('_JP_GZIP_NOT_ENABLED','GZIP compression: disabled (it is bad)');
+DEFINE ('_JP_START_BACKUP_DB','The beginning of database backupping');
+DEFINE ('_JP_START_BACKUP_FILES','The beginning of all site data backupping');
+DEFINE ('_JP_CUBE_ON_STEP ','CUBE:: Work on a step');
+DEFINE ('_JP_CUBE_STEP_FINISHED','CUBE:: Step is finished');
+DEFINE ('_JP_CUBE_FINISHED','CUBE:: It is finished!');
+DEFINE ('_JP_ERROR_ON_STEP','CUBE:: Error on a step ');
+DEFINE ('_JP_CLEANUP','Cleanup');
+DEFINE ('_JP_RECURSING_DELETION','Recursive deletion');
+DEFINE ('_JP_NOT_FILE','Deletion<b>It is FILE, NOT a FOLDER!</b>');
+DEFINE ('_JP_ERROR_DEL_DIRECTORY','Error during folder deleting. Check permissions please');
+DEFINE ('_JP_QUICK_MODE','Quick mode');
+DEFINE ('_JP_QUICK_MODE_ON_STEP','It is used quick mode on a step');
+DEFINE ('_JP_CANNOT_USE_QUICK_MODE','It it is impossible to use quick mode on a step');
+DEFINE ('_JP_MULTISTEP_MODE','Multistep mode');
+DEFINE ('_JP_MULTISTEP_MODE_ON_STEP','It is used multistep mode on a step');
+DEFINE ('_JP_MULTISTEP_MODE_ERROR','Error during multistep mode execution on a step');
+DEFINE ('_JP_SMART_MODE','Smart mode');
+DEFINE ('_JP_SMART_MODE_ON_STEP','Smart mode execution on a step');
+DEFINE ('_JP_SMART_MODE_ERROR','Error during smart mode execution on a step');
+DEFINE ('_JP_CHOOSED_ALGO','It is chosen');
+DEFINE ('_JP_ALGORITHM_FOR','algorithm for');
+DEFINE ('_JP_NEXT_STEP_BACKUP_DB','Next step -> Database backup');
+DEFINE ('_JP_NEXT_STEP_FILE_LIST ','Next step -> List of files creation');
+DEFINE ('_JP_NEXT_STEP_FINISHING','Next step -> End');
+DEFINE ('_JP_NEXT_STEP_GZIP','Next step -> Packing');
+DEFINE ('_JP_NEXT_STEP_FINISHED','Next step -> It is finished');
+DEFINE ('_JP_NO_NEXT_STEP','Next step is not required; everything is already done');
+DEFINE ('_JP_NO_CUBE','Existing CUBE was not found; creating new');
+DEFINE ('_JP_CURRENT_STEP','Current step');
+DEFINE ('_JP_UNPACKING_CUBE','Unpacking existing CUBE');
+DEFINE ('_JP_TIMEOUT ','Time for operation performance left, operation is not finished ');
+DEFINE ('_JP_FETCHING_TABLE_LIST ','CDBBackupEngine:: List of tables creating');
+DEFINE ('_JP_BACKUP_ONLY_DB','CDBBackupEngine:: Only databases backup');
+DEFINE ('_JP_ONE_FILE_STORE','CDBBackupEngine:: It is set association by file ');
+DEFINE ('_JP_FILE_STRUCTURE','CDBBackupEngine:: Structure file');
+DEFINE ('_JP_DATAFILE','CDBBackupEngine:: Data file');
+DEFINE ('_JP_FILE_DELETION','CDBBackupEngine:: Files deleting');
+DEFINE ('_JP_FIRST_STEP','CDBBackupEngine:: The first pass');
+DEFINE ('_JP_ALL_COMPLETED','CDBBackupEngine:: Finished');
+DEFINE ('_JP_START_TICK','CDBBackupEngine:: Processing starts');
+DEFINE ('_JP_READY_FOR_TABLE','Ready for the table');
+DEFINE ('_JP_DB_BACKUP_COMPLETED','Database backup is finished');
+DEFINE ('_JP_NEW_FRAGMENT_ADDED','New fragment is added');
+DEFINE ('_JP_KERNEL_TABLES','Kernels tables');
+DEFINE ('_JP_FIRST_STEP_2','The first pass');
+DEFINE ('_JP_NEXT_VALUE','Output value');
+DEFINE ('_JP_SKIP_TABLE','Skip table');
+DEFINE ('_JP_GETTING','Getting');
+DEFINE ('_JP_COLUMN_FROM','column from');
+DEFINE ('_JP_ERROR_WRITING_FILE','File writing error');
+DEFINE ('_JP_CANNOT_SAVE_DUMP','It it is impossible to save dump');
+DEFINE ('_JP_CHECK_RESULTS','Cheking results');
+DEFINE ('_JP_ANALYZE_RESULTS','Analysis results');
+DEFINE ('_JP_OPTIMIZE_RESULTS','Optimisation results');
+DEFINE ('_JP_REPAIR_RESULTS','Correcting results');
+DEFINE ('_JP_GETTING_DIRS_LIST ','Folders list recieving to remove them from a backup copy');
+DEFINE ('_JP_GZIP_FIRST_STEP','Packing: the first step');
+DEFINE ('_JP_GZIP_FINISHED','Packing: finished');
+DEFINE ('_JP_PACK_FINISHED','Archiving completion');
+DEFINE ('_JP_GZIP_OF_FRAGMENT ','Fragment # archiving');
+DEFINE ('_JP_CURRENT_FRAGMENT ','Current fragment');
+DEFINE ('_JP_DELETE_PATH',' path for deletion: ');
+DEFINE ('_JP_PATH_TO_DELETE',' path for addition: ');
+DEFINE ('_JP_SAVING_ARCHIVE_INFO','Saving information about archival objects');
+DEFINE ('_JP_LOADING_ARCHIVE_INFO','Loading information about archival objects');
+DEFINE ('_JP_ADDING_FILE_TO_ARCHIVE','Addition files to archive');
+DEFINE ('_JP_ARCHIVING','Archiving');
+DEFINE ('_JP_ARCHIVE_COMPLETED','Archiving completed');
+DEFINE ('_JP_BACKUP_CONFIG','Backup configuration');
+DEFINE ('_JP_CONFIG_SAVING','Saving settings');
+DEFINE ('_JP_MAIN_CONFIG','Main settings');
+DEFINE ('_JP_CONFIG_DIRECTORY ','Folder to save archive');
+DEFINE ('_JP_ARCHIVE_NAME','Archive name ');
+DEFINE ('_JP_LOG_LEVEL','Level of log file details');
+DEFINE ('_JP_ADDITIONAL_CONFIG','Additional settings');
+DEFINE ('_JP_DELETE_PREFIX','Delete tables prefix');
+DEFINE ('_JP_EXPORT_TYPE','Type of database export');
+DEFINE ('_JP_FILELIST_ALGORITHM','Files processing');
+DEFINE ('_JP_CONFIG_DB_BACKUP','Database processing');
+DEFINE ('_JP_CONFIG_GZIP ','Files compression');
+DEFINE ('_JP_CONFIG_DUMP_GZIP','Database dump compression');
+DEFINE ('_JP_AVAILABLE','<font colour = "green"><b>available</b></font>');
+DEFINE ('_JP_NOT_AVAILABLE','<font colour = "red"><b>not available</b></font>');
+DEFINE ('_JP_MYSQL4_COMPAT ','In a MySQL 4 compatibility mode');
+DEFINE ('_JP_NO_GZIP','Don\'t compress (.sql) ');
+DEFINE ('_JP_GZIP_TAR_GZ','Compress in TAR.GZ (.tar.gz) ');
+DEFINE ('_JP_GZIP_ZIP','Compress in ZIP (.zip) ');
+DEFINE ('_JP_QUICK_METHOD','Quickly - one pass');
+DEFINE ('_JP_STANDARD_METHOD','Recommended - standard');
+DEFINE ('_JP_SLOW_METHOD','Slowly - multipass');
+DEFINE ('_JP_LOG_ERRORS_OLY','Errors only');
+DEFINE ('_JP_LOG_ERROR_WARNINGS','Errors and warnings');
+DEFINE ('_JP_LOG_ALL','All information');
+DEFINE ('_JP_LOG_ALL_DEBUG','All information and debugging');
+DEFINE ('_JP_DONT_SAVE_DIRECTORIES_IN_BACKUP','Don\'t save folders in a backup');
+DEFINE ('_FILE_NAME','File name');
+DEFINE ('_JP_DOWNLOAD_FILE','Download');
+DEFINE ('_JP_REALLY_DELETE_FILE','Are you sure you want to delete this file?');
+DEFINE ('_JP_FILE_CREATION_DATE','Created');
+DEFINE ('_JP_NO_BACKUPS','Backup files are absent');
+DEFINE ('_JP_ACTIONS_LOG','Actions log');
+DEFINE ('_JP_BACKUP_MANAGEMENT ','Backuping');
+DEFINE ('_JP_CREATE_BACKUP','Create data backup');
+DEFINE ('_JP_DB_MANAGEMENT ','Database management');
+DEFINE ('_JP_DONT_SAVE_DIRECTORIES','Don\'t save folders');
+DEFINE ('_JP_CONFIG ','Saving setting');
+DEFINE ('_JP_ERRORS_TMP_DIR','Errors are found, please verify that you can write in the backup storage folder');
+DEFINE ('_JP_BACKUP_CREATION','Data backup creation');
+DEFINE ('_JP_DONT_CLOSE_BROWSER_WINDOW','Please, do not close browser window and do not pass from this page before backup is not completed and corresponding message is not displayed.');
+DEFINE ('_JP_ERRORS_VIEW_LOG','Errors are found during work, please, <a href = "index2.php? option=com_joomlapack&act=log">investigate log</a> and find out the reason.');
+DEFINE ('_JP_BACKUP_SUCCESS','Site data backup is executed successfully. Download');
+DEFINE ('_JP_CREATION_FILELIST ','1. List of files to backup creation.');
+DEFINE ('_JP_BACKUPPING_DB','2. Database backup.');
+DEFINE ('_JP_CREATION_OF_ARCHIVE','3. Final archive creation.');
+DEFINE ('_JP_ALL_COMPLETED_2','4. Everything completed');
+DEFINE ('_JP_PROGRESS','Progress');
+DEFINE ('_JP_TABLES','Tables');
+DEFINE ('_JP_TABLE_ROWS','Entries');
+DEFINE ('_JP_SIZE','Size');
+DEFINE ('_JP_INCREMENT ','Increment');
+DEFINE ('_JP_CREATION_DATE','Created');
+DEFINE ('_JP_CHECKING','Checking');
+DEFINE ('_JP_FULL_BACKUP','Full backup');
+DEFINE ('_JP_BACKUP_BASE','Database backup');
+DEFINE ('_JP_BACKUP_PANEL','Backup panel');
+
+/* administrator modules mod_components */
+DEFINE ('_FULL_COMPONENTS_LIST ','Full list of the components');
+
+/* administrator modules mod_fullmenu */
+DEFINE ('_MENU_CMS_FEATURES','System basic possibilities management');
+DEFINE ('_MENU_GLOBAL_CONFIG','Global configuration');
+DEFINE ('_MENU_GLOBAL_CONFIG_TIP','Global system parametres setup');
+DEFINE ('_MENU_LANGUAGES','Language packages');
+DEFINE ('_MENU_LANGUAGES_TIP','Language files management');
+DEFINE ('_MENU_SITE_PREVIEW','Site preview');
+DEFINE ('_MENU_SITE_PREVIEW_IN_NEW_WINDOW','In a new window');
+DEFINE ('_MENU_SITE_PREVIEW_IN_THIS_WINDOW','In current window');
+DEFINE ('_MENU_SITE_PREVIEW_WITH_MODULE_POSITIONS','In current window with positions');
+DEFINE ('_MENU_SITE_STATS','Site statistics');
+DEFINE ('_MENU_SITE_STATS_TIP','Site statistics viewing');
+DEFINE ('_MENU_STATS_BROWSERS','Browsers, OS, domains');
+DEFINE ('_MENU_STATS_BROWSERS_TIP','Visiting site statistics on browsers, OS and domains');
+DEFINE ('_MENU_SEARCHES','Search requests');
+DEFINE ('_MENU_SEARCHES_TIP','Search requests statistic for the site');
+DEFINE ('_MENU_PAGE_STATS','Pages visiting statistic');
+DEFINE ('_MENU_TEMPLATES_TIP','Templates management');
+DEFINE ('_MENU_SITE_TEMPLATES','Site templates');
+DEFINE ('_MENU_NEW_SITE_TEMPLATE','New site template install');
+DEFINE ('_MENU_ADMIN_TEMPLATES','Admin templates');
+DEFINE ('_MENU_NEW_ADMIN_TEMPLATE','New admin template install');
+DEFINE ('_MENU','Menu');
+DEFINE ('_MENU_TRASH','Menu trash');
+DEFINE ('_CONTENT_IN_SECTIONS','Sections content');
+DEFINE ('_CONTENT_IN_SECTION','Containt in section');
+DEFINE ('_SECTION_ARCHIVE','Section archive');
+DEFINE ('_SECTION_CATEGORIES2','Section categories');
+DEFINE ('_ADD_CONTENT_ITEM','Add news / article');
+DEFINE ('_ADD_STATIC_CONTENT ','Add static content');
+DEFINE ('_CONTENT_ON_FRONTPAGE','Content on main page');
+DEFINE ('_CONTENT_TRASH','Content trash');
+DEFINE ('_ALL_COMPONENTS','All components...');
+DEFINE ('_EDIT_COMPONENTS_MENU','Edit menu of components');
+DEFINE ('_COMPONENTS_INSTALL_UNINSTALL','Install/uninstall components');
+DEFINE ('_MODULES_SETUP ','Modules management');
+DEFINE ('_MODULES_INSTALL_DEINSTALL','Install/uninstall modules');
+DEFINE ('_SITE_MAMBOTS','Site mambots');
+DEFINE ('_MAMBOTS_INSTALL_UNINSTALL','Install/Uninstall mambots');
+DEFINE ('_SITE_LANGUAGES','Site languages');
+DEFINE ('_JOOMLA_TOOLS','Tools');
+DEFINE ('_PRIVATE_MESSAGES_CONFIG','Message settings');
+DEFINE ('_FILE_MANAGER','File manager');
+DEFINE ('_SQL_CONSOLE','SQL console');
+DEFINE ('_BACKUP_CONFIG','Backup settings');
+DEFINE ('_CLEAR_CONTENT_CACHE','Clear content cache');
+DEFINE ('_CLEAR_ALL_CACHE','Clear ALL cache');
+DEFINE ('_SYSTEM_INFO','System information');
+DEFINE ('_NO_ACTIVE_MENU_ON_THIS_PAGE','Menu on this page is not active');
+
+/* administrator modules mod_latest */
+DEFINE ('_LAST_ADDED_CONTENT ','Last added content');
+DEFINE ('_USER_WHO_ADD_CONTENT ','Added');
+
+/* administrator modules mod_latest_users */
+DEFINE ('_NOW_ON_SITE','Now on a site');
+DEFINE ('_REGISTERED_USERS_COUNT ','Registered');
+DEFINE ('_ALL_REGISTERED_USERS_COUNT ','Total');
+DEFINE ('_TODAY_REGISTERED_USERS_COUNT ','Today');
+DEFINE ('_WEEK_REGISTERED_USERS_COUNT ','Week');
+DEFINE ('_MONTH_REGISTERED_USERS_COUNT ','Month');
+
+/* administrator modules mod_logged */
+DEFINE ('_NOW_ON_SITE_REGISTERED','Authorized on the site now');
+
+/* administrator modules mod_online */
+DEFINE ('_ONLINE_USERS','Users online');
+
+/* administrator modules mod_popular */
+DEFINE ('_POPULAR_CONTENT ','Popular');
+DEFINE ('_CREATED_CONTENT ','Created');
+DEFINE ('_CONTENT_HITS','Content hits');
+
+/* administrator modules mod_stats */
+DEFINE ('_MENU_ITEMS_COUNT ','Items count');
+
+/* administrator modules includes admin.php */
+DEFINE ('_CACHE_DIR_IS_NOT_WRITEABLE','Please, make the cache folder accessible to write');
+DEFINE ('_CACHE_DIR_IS_NOT_WRITEABLE2','Cache folder is not accessible to write');
+DEFINE ('_PHP_MAGIC_QUOTES_ON_OFF','PHP magic_quotes_gpc it is set to `OFF` instead of  `ON`');
+DEFINE ('_PHP_REGISTER_GLOBALS_ON_OFF','PHP register_globals it is set to `ON` instead of `OFF`');
+DEFINE ('_RG_EMULATION_ON_OFF','Parameter Joomla! RG_EMULATION in file globals.php it is set to `ON` instead of `OFF` <br/> <span style = "font-weight: normal; font-style: italic; color: #666;"> `ON` - value by default - for compatibility </span>');
+DEFINE ('_PHP_SETTINGS_WARNING','The following PHP options are not optimum for <strong>SAFETY</strong> and they are recommended to be changed');
+DEFINE ('_MENU_CACHE_CLEANED','Cache of the control panel menu is cleared');
+DEFINE ('_CLEANING_ADMIN_MENU_CACHE','Error during clearing cache of the control panel menu');
+DEFINE ('_NO_MENU_ADMIN_CACHE','Cache of the control panel menu is not found out. Check up access rights on the cache folder.');
+
+/* administrator modules includes pageNavigation.php */
+DEFINE (' _NAV_SHOW','Shown');
+DEFINE ('_NAV_SHOW_FROM','from');
+DEFINE ('_NAV_NO_RECORDS','Records are not found');
+DEFINE ('_NAV_ORDER_UP','Move above');
+DEFINE ('_NAV_ORDER_DOWN','Move below');
+
+/* administrator modules popups pollwindow.php */
+DEFINE ('_POLL_PREVIEW','Poll preview');
+
+/* administrator modules popups uploadimage.php */
+DEFINE ('_CHOOSE_IMAGE_FOR_UPLOAD','Please, choose the image to upload');
+DEFINE ('_BAD_UPLOAD_FILE_NAME','File names should consist of alphabetic symbols and should not contain blanks');
+DEFINE ('_IMAGE_ALREADY_EXISST ','Image already exists');
+DEFINE ('_FILE_MUST_HAVE_THIS_EXTENSION','File should have extension');
+DEFINE ('_FILE_UPLOAD_UNSUCCESS','File uploading failed');
+DEFINE ('_FILE_UPLOAD_SUCCESS','File uploading successfully finished');
+
+/* administrator index.php index2.php index3.php */
+DEFINE ('_PLEASE_ENTER_PASSWORD','Please, enter the password');
+DEFINE ('_BAD_CAPTCHA_STRING','Incorrect code of check is entered');
+DEFINE ('_BAD_USERNAME_OR_PASSWORD','Incorrect user name, password, or access level. Please, repeat again');
+DEFINE ('_BAD_USERNAME_OR_PASSWORD2','User name or password are incorrect. Repeat input.');//not equal to _BAD_USERNAME_OR_PASSWORD!!!
+
+/* administrator templates jostfree index.php */
+DEFINE ('_JOOSTINA_CONTRIL_PANEL','Control panel [Joostina]');
+DEFINE ('_GO_TO_MAIN_ADMIN_PAGE','Pass to the main page of the control panel');
+DEFINE ('_PLEASE_WAIT ','Wait...');
+DEFINE ('_TOGGLE_WYSIWYG_EDITOR','Use of the WYSISYG editor');
+DEFINE ('_DISABLE_WYSIWYG_EDITOR','Disable WYSIWYG editor');
+DEFINE ('_PRESS_HERE_TO_RELOAD_CAPTCHA','Press to reload the image');
+DEFINE ('_SHOW_CAPTCHA','Reload the image');
+DEFINE ('_PLEASE_ENTER_CAPTCHA','Enter check code from the picture above');
+DEFINE ('_PLEASE_ENABLE_JAVASCRIPT ', '!The prevention! Javascript should be enable for correct work of the administrator control panel!');
+
+/* includes feedcreator.class.php */
+DEFINE ('_ERROR_CREATING_NEWSFEED','Error during newsfeed creation. Please, check up permissions to write');
+
+/* includes joomla.php */
+DEFINE ('_YOU_NEED_TO_AUTH','It is required to be authorised');
+DEFINE ('_ADMIN_SESSION_ENDED','Administrator session run out');
+DEFINE ('_YOU_NEED_TO_AUTH_AND_FIX_PHP_INI','You need to authorize. If PHP parameter session.auto_start is enabled or parameter session.use_cookies setting is disabled then at first you should correct them before can enter');
+DEFINE ('_WRONG_USER_SESSION','Wrong session');
+DEFINE ('_FIRST ','First');
+DEFINE ('_LAST ','Last');
+DEFINE ('_MOS_WARNING','Attention!');
+DEFINE ('_ADM_MENUS_TARGET_CUR_WINDOW','current window with the navigation panel');
+DEFINE ('_ADM_MENUS_TARGET_NEW_WINDOW_WITH_PANEL','new window with the navigation panel');
+DEFINE ('_ADM_MENUS_TARGET_NEW_WINDOW_WITHOUT_PANEL','new window without the navigation panel');
+DEFINE ('_WITH_UNASSIGNED','With unassigned');
+DEFINE ('_CHOOSE_IMAGE','Choose image');
+DEFINE ('_NO_USER','There is no user');
+DEFINE ('_CREATE_CATEGORIES_FIRST ','It it is necessary to create categories at first');
+DEFINE ('_NOT_CHOOSED','Not chosen');
+DEFINE ('_PUBLISHED_VUT_NOT_ACTIVE','Published and <u>not active</u>');
+DEFINE ('_PUBLISHED_AND_ACTIVE ', 'Published and <u>active</u>');
+DEFINE ('_PUBLISHED_BUT_DATE_EXPIRED','Published, but <u>publication time has expired</u>');
+DEFINE ('_NOT_PUBLISHED','Not published');
+DEFINE ('_LINK_NAME','Link name');
+DEFINE ('_MENU_EXPIRED','Expired');
+DEFINE ('_MENU_ITEM_NAME','Menu item name');
+DEFINE ('_CHECKED_OUT ','Checked out');
+DEFINE ('_PUBLISH_ON_FRONTPAGE','Publish on a site');
+DEFINE ('_UNPUBLISH_ON_FRONTPAGE','Hide (don\'t show on a site)');
+
+/* includes joomla.xml.php */
+DEFINE ('_DONT_USE_IMAGE',' - Don\'t to use image - ');
+DEFINE ('_DEFAULT_IMAGE ', ' - Image by default - ');
+
+/* includes debug jdebug.php */
+DEFINE ('_SQL_QUERIES_COUNT ','Number SQL queries');
+
+/* includes Cache Lite Lite.php */
+DEFINE ('_ERROR_DELETING_CACHE','Cache clearing error');
+DEFINE ('_ERROR_READING_CACHE_DIR','Cashe folder reading error');
+DEFINE ('_ERROR_READING_CACHE_FILE','Cashe file reading error');
+DEFINE ('_ERROR_WRITING_CACHE_FILE','Cashe file writing error');
+DEFINE ('_SCRIPT_MEMORY_USING','Memory used');
+
+/* components com_content */
+DEFINE ('_YOU_HAVE_NO_CONTENT ','There are no content added by you');
+DEFINE ('_CONTENT_IS_BEING_EDITED_BY_OTHER_PEOPLE','Content are edited now by other user');
+
+/* components com_poll */
+DEFINE ('_MODULE_WITH_THIS_NAME_ALREADY_EDISTS','Module with such name is already exist. Enter other name.');
+
+/* components com_registration */
+DEFINE ('_USER_ACTIVATION_FAILED','<div class = "componentheading">Activation error!</div> <br/> Activation of your account is impossible. Please, contact with site administration');
+
+/* components com_weblinks */
+DEFINE ('_ENTER_CORRECT_URL','Enter correct URL');
+
 ?>
