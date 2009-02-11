@@ -28,23 +28,19 @@ function body_clear() {
 
 /* очистка всего тела страницы от спецтегов*/
 function template_clear() {
-	global $_MOS_OPTION;
-	$text = &$_MOS_OPTION['mainbody'];
-	$oldcode = array("/\r\n|\r|\n|\t/","/\r\r\r/","/\r\r/","/\s\s+/");
-	$newcode = array("\r","\r","\r","\r");
-	$text = preg_replace($oldcode, $newcode, $text);
-	$text = str_replace('>  <','><',$text);
-	$text = str_replace('> <','><',$text);
-	$text = str_replace(' >','>',$text);
-	$text = str_replace('> ','>',$text);
-	$text = str_replace(' <','<',$text);
-	$text = str_replace('< ','<',$text);
-	$text = str_replace('  ',' ',$text);
-	$text = str_replace(">\r<",'><',$text);
-	$text = str_replace(">\r",'>',$text);
-	$text = str_replace("\r</",'</',$text);
-	$_MOS_OPTION['mainbody'] = $text;
-	return;
+    global $_MOS_OPTION;
+    $text = &$_MOS_OPTION['mainbody'];
+    $oldcode = array("/\r\n|\r|\n|\t/","/\r\r\r/","/\r\r/","/\s\s+/");
+    $newcode = array("\r","\r","\r","\r");
+    $text = preg_replace($oldcode, $newcode, $text);
+    $text = str_replace('  ',' ',$text);
+    $text = str_replace(' >','>',$text);
+    $text = str_replace('< ','<',$text);
+    $text = str_replace(">\r<",'><',$text);
+    $text = str_replace(">\r",'>',$text);
+    $text = str_replace("\r</",'</',$text)
+    $_MOS_OPTION['mainbody'] = $text;
+    return;
 }
 
 ?>

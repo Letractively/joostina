@@ -1,5 +1,13 @@
 Joostina v 1.2.0
 
+11.02.09
+    1. Исправлена ошибка с мета-тегами шаблона. Сообщил: temniy ( http://joomlaforum.ru/index.php/topic,54900.msg317419.html#msg317419 )
+    2. Исправлены инструкции файла .htaccess. Сообщил: temniy ( http://joomlaforum.ru/index.php/topic,54907.msg317439.html#msg317439 )
+    3. Очередные правки от склейки слов.
+    4. Добавлено сообщение о невозможности сохранить файл конфигурации + вынос в текстовую константу. Сообщил: Wild Tiger ( http://joomlaforum.ru/index.php/topic,41126.msg313308.html#msg313308 )
+    5. Исправлена ошибка с вызовом календаря. Сообщил: fatalerror ( http://joomlaforum.ru/index.php/topic,41126.msg313394.html#msg313394 )
+    6. Применён патч PblCb для прав меню ( http://joomlaforum.ru/index.php/topic,41126.msg312169.html#msg312169 )
+
 09.02.09
 	1. Файл english.php дополнен переведенными константами.
 01.02.09

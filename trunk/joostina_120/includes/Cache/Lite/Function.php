@@ -57,10 +57,8 @@ class Cache_Lite_Function extends Cache_Lite {
 				$newcode = array("\r","\r","\r","\r");
 				$data = preg_replace($oldcode, $newcode, $data);
 				$data = str_replace('  ',' ',$data);
-				$data = str_replace('> <','><',$data);
 				$data = str_replace(' >','>',$data);
 				$data = str_replace('< ','<',$data);
-				$data = str_replace(': ',':',$data);
 				$data = str_replace(">\r<",'><',$data);
 				$data = str_replace(">\r",'>',$data);
 				$data = str_replace("\r</",'</',$data);
