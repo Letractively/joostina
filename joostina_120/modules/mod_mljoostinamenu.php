@@ -331,7 +331,7 @@ var onImgArray = new Array();
 		global $my;
 		// активирование кэширования
 		$cache = &mosCache::getCache('mod_mljoostinamenu');
-		return $cache->call('_mosJoostinaGetmenu',$params,$my->id);
+		return $cache->call('_mosJoostinaGetmenu',$params,$my->gid);
 	}
 
 	function _mosJoostinaGetmenu(&$params,$gid){

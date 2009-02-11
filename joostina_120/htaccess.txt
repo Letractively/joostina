@@ -102,11 +102,11 @@ RewriteEngine On
 ## на вашем сервере имеются каталоги с названиями 'content' или 'component'
 ## Если каталоги с такими названиями отсутствуют, то закомментируйте эти строки.
 #
-#RewriteCond %{REQUEST_FILENAME} !-f
-#RewriteCond %{REQUEST_FILENAME} !-d
-#RewriteCond %{REQUEST_URI} ^(/component/option,com) [NC,OR] 	##опционально - смотрите примечания##
-#RewriteCond %{REQUEST_URI} (/|\.htm|\.php|\.html|/[^.]*)$  [NC]
-#RewriteRule ^(view/|content/|component/) index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} ^(/component/option,com) [NC,OR] 	##опционально - смотрите примечания##
+RewriteCond %{REQUEST_URI} (/|\.htm|\.php|\.html|/[^.]*)$  [NC]
+RewriteRule ^(view/|content/|component/) index.php
 #
 ########## Конец раздела стандартного SEF
 
@@ -116,10 +116,10 @@ RewriteEngine On
 ########## Используйте этот раздел, если вы используете SEF-расширения типа OpenSEF, 404_SEF, 404SEFx, JoomSEF, SEF Advance и т.д.
 #
 #RewriteCond %{REQUEST_URI} ^(/component/option,com) [NC,OR] 	##опционально - смотрите примечания##
-RewriteCond %{REQUEST_URI} (/|\.htm|\.php|\.html|/[^.]*)$  [NC]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule (.*) index.php
+#RewriteCond %{REQUEST_URI} (/|\.htm|\.php|\.html|/[^.]*)$  [NC]
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteRule (.*) index.php
 #
 ########## Конец раздела SEF сторонних разработчиков или Core SEF
 

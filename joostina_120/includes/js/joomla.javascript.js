@@ -478,7 +478,7 @@ function checkCalendar(ev) {
 // It takes care of catching "mousedown" signals on document and hiding the
 // calendar if the click was outside.
 function showCalendar(id) {
-	var el = SRAX.get(id);
+	var el = document.getElementById(id);
 	if (calendar != null) {
 		// we already have one created, so just update it.
 		calendar.hide();		// hide the existing calendar
@@ -557,16 +557,16 @@ function mosDHTML(){
 	this.onTabStyle = 'ontab';
 	this.offTabStyle = 'offtab';
 	this.setElemStyle = function(elem,style) {
-		SRAX.get(elem).className = style;
+		document.getElementById(elem).className = style;
 	}
 	this.showElem = function(id) {
-		if (elem = SRAX.get(id)) {
+		if (elem = document.getElementById(id)) {
 			elem.style.visibility = 'visible';
 			elem.style.display = 'block';
 		}
 	}
 	this.hideElem = function(id) {
-		if (elem = SRAX.get(id)) {
+		if (elem = document.getElementById(id)) {
 			elem.style.visibility = 'hidden';
 			elem.style.display = 'none';
 		}
