@@ -1,0 +1,140 @@
+/* ---------> Каталог сайтов  */
+
+/* ---------> Главная страница  */
+.jstCatalogSaytov{}
+
+.jstCS_catlist{}
+
+.jstCS_catlist .catlist{
+	width: 100%;
+}
+
+.jstCS_catlist .catlist ul{}
+
+.jstCS_catlist .catlist ul li{
+	line-height: 24px;
+	margin: 3px 0 3px 0;
+}
+
+.jstCS_catlist .catlist ul li a{
+    font-size: 13px;
+    font-weight: bold;
+}
+
+
+/* ---------> Модуль рейтинга */
+.jstWebCat_rating_module{
+
+}
+
+.jstWebCat_rating_module table{
+
+}
+.jstWebCat_rating_module table th{
+    background: none;
+    text-align: center;
+    border-bottom: 1px dashed #CCC;
+
+}
+.jstWebCat_rating_module table td{
+    text-align: center;
+    padding: 2px 5px 3px 5px;
+    border-bottom: 1px dashed #CCC;
+}
+.jstWebCat_rating_module table td.site_num{
+    width: 50px;
+    font-size: 11px;
+}
+.jstWebCat_rating_module table td.site_author{
+    width: 150px;
+    text-align: left;
+}
+.jstWebCat_rating_module table td.site_title{
+    text-align: left;
+
+}
+.jstWebCat_rating_module table td.site_rating{
+    width: 70px;
+}
+
+.jstWebCat_rating_module table td.site_title img{
+    vertical-align: middle;
+    margin: 0 6px 0 0;
+
+}
+
+
+/* ---------> Страница категории */
+.jstCS_sitelist{
+    padding: 15px 0 ;
+
+}
+
+.site_img{
+    float: left;
+    width: 125px;
+    height: 75px;
+    margin: 0 15px 0 0;
+}
+
+.site_desc {
+    margin:  0 0 0 140px;
+}
+.jstCS_sitelist .site_intro{
+    padding: 5px 0 5px 0;
+    border-bottom: 1px dashed #CCC;
+    margin: 10px 0 0 0;
+
+}
+.jstCS_sitelist h3{
+    background: none;
+    font-size:16px;
+    padding: 0;
+    margin:0;
+
+}
+.jstCS_sitelist .date{
+    float:none;
+    display: inline;
+
+}
+.site_fav{
+    vertical-align: middle;
+    margin: 0 6px 0 0;
+}
+
+/* ---------> Модуль категорий и тэгов */
+.jstWebCat_nav_module{
+
+}
+.jstWebCat_nav_module ul.switcher{
+    margin: 0 0 10px 20px;
+}
+.jstWebCat_nav_module_categorylist ul{
+    list-style: none;
+    padding:0 5px 0 0;
+    margin: 0 0 0 6px;
+
+}
+.jstWebCat_nav_module_categorylist ul li{
+    list-style: none;
+    padding:5px 0  0 15px;
+    font-size:11px;
+     border-bottom: 1px dashed #CCC;
+}
+.jstWebCat_nav_module_categorylist ul li a{
+    text-decoration: none;
+    font-weight:bold;
+
+}
+.jstWebCat_nav_module_categorylist ul li a:hover,
+.jstWebCat_nav_module_categorylist ul li a.active
+{
+ color:#E13160;
+
+}
+
+
+
+
+

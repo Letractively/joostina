@@ -1,0 +1,178 @@
+ /* ---------> профиль пользователя  */
+
+
+.jstProfile{
+
+}
+
+.jstProfile_info{
+    overflow: hidden;
+    position: relative;
+}
+
+.jstProfile_info h3 {
+    background: none;
+    line-height:22px;
+    margin: 0;
+    padding: 5px 0 0 0;
+    font-size:20px;
+}
+
+.avatar {
+    border: 3px solid #BABAAE;
+    margin: 0 25px 0 0;
+    float: left;
+}
+
+
+.online {
+    color:#6F9A2F;
+    font-size:11px;
+}
+
+.offline{
+
+}
+
+.icq,
+.skype{
+    font-size:11px;
+}
+
+.icq img,
+.skype img{
+    vertical-align: text-bottom;
+    margin: 0 5px 0 0;
+}
+
+.email{
+    display: block;
+    font-size: 11px;
+    color:#1D9CC2;
+}
+.u_rating{
+
+     background: #EFFBD3;
+    width: 80px;
+    height:50px;
+
+    position:absolute;
+    top: 10px;
+    right:20px;
+    color: #4D9CD5;
+    font: normal 24px/50px "Tahoma";
+    text-align: center;
+}
+
+a.add_to_friends{
+background: url(../images/buttons/add_friend.png) no-repeat top left ;
+text-decoration:none;
+width:145px;
+height:74px;
+cursor:pointer;
+position:absolute;
+bottom:1px;
+right:4px;
+display:block;
+}
+
+a.add_to_friends:hover{
+background: url(../images/buttons/add_friend_h.png) no-repeat top left ;
+
+}
+.jstProfile_menu{
+    clear: both;
+    background: #E6E8DD;
+    padding:10px;
+    overflow:hidden;
+}
+
+.jstProfile_menu ul{
+    margin: 0 15px 0 0;
+    padding:0;
+    float: left;
+
+
+}
+
+.jstProfile_menu ul li{
+    margin: 0 3px 0 0;
+    display: block;
+    float: left;
+}
+
+.jstProfile_menu ul li a{
+    padding:1px 4px 2px  4px;
+    display: block;
+    float: left;
+    background: #A0A59E;
+    color: #FFF;
+    font-size:11px;
+    text-decoration: none;
+}
+.jstProfile_menu ul li a:hover,
+.jstProfile_menu ul li a.active
+{
+background: url(../images/profile/button_bg.jpg) repeat-x top left;
+}
+
+#userInfo_area{
+    padding: 10px 5px 0 10px;
+}
+#userInfo_area p{
+    text-align: justify;
+}
+#userInfo_area ul,
+#userInfo_area li {
+    list-style: none;
+}
+
+#userAlbum_area{
+    padding: 20px 0 0 0;
+
+}
+#userAlbum_area ul,
+#userAlbum_area ul li
+{
+    list-style:none;
+    margin: 0;
+    padding:0;
+}
+#userAlbum_area ul li
+{
+float:left;
+    width:125px;
+    height: 95px;
+    margin: 10px 15px 5px 0;
+}
+
+#userAlbum_area ul li a
+{
+    border: 2px solid #BABBAD;
+    display: block;
+    text-decoration: none;
+    outline: none;
+    width:125px;
+    height: 95px;
+    overflow: hidden;
+}
+#userAlbum_area ul li a:hover
+{
+    border: 2px dotted #95BD2E;
+
+}
+
+#userAlbum_area ul li a img
+{
+    margin: 0;
+    padding:0;
+        width:125px;
+    height: 95px;
+}
+
+#userAlbum_area ul li small
+{
+    clear: both;
+    display: block;
+    text-align: center;
+}

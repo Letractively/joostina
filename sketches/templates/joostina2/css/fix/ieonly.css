@@ -1,0 +1,36 @@
+/* IE6 ONLY CSS */
+.main_wrap{
+ background: url(../images/footer_bg.jpg) repeat-x bottom left;
+ position: relative;
+ padding: 0 0 40px 0;
+ overflow:hidden;
+
+ height:auto;
+ }
+
+.wrapper{
+  width: expression(((document.body.clientWidth)) < 1000? "1000px": ((document.body.clientWidth)) > 1050? "1050px": "auto" );
+  max-width:1050px;
+  margin:  0 auto 0 auto;
+  position: relative;
+  text-align: left;
+  overflow: visible;
+  background: url(../images/content_bg.png) repeat 0px 230px;
+  height:600px;
+
+}
+.header{
+  position: relative;
+  width: 100%;  left:0; top:0;
+  max-width:1043px;
+  width: expression(((document.body.clientWidth)) < 1000? "1000px": ((document.body.clientWidth)) > 1043? "1043px": "auto" );
+  margin:  0 0 0 0;
+  height: 271px;
+  text-align: center;
+   background: url(../images/header.jpg) no-repeat right;
+ }
+
+ .footer_pic{
+   display: none;
+
+ }
