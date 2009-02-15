@@ -718,3 +718,33 @@ table#toolbar a.toolbar img {
     line-height: 18px;
 }
 
+.pagenavigation{
+    padding: 10px 0 10px 0;
+}
+
+.pagenavigation ul{
+     list-style: none;
+    padding:0;
+    margin: 0;
+}
+.pagenavigation ul li{
+    list-style: none;
+    padding:3px;
+    font-size:11px;
+    display: inline;
+}
+.pagenavigation ul li a{
+    padding: 5px;
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: bold;
+    background: #DFDFCF;
+}
+.pagenavigation ul li a:hover{
+    background: #5CB2D5;
+    color: #FFF;
+}
+.pagenavigation ul li.first_page a,
+.pagenavigation ul li.last_page a{
+
+}
