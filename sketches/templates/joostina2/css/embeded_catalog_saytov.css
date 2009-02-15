@@ -134,7 +134,110 @@
 
 }
 
+/* ---------> Страница информации о сайте*/
+.jstCS_siteview{
+
+}
+
+.jstCS_siteview .site_thumb{
+    float: left;
+    width: 205px;
+    margin: 0 15px 0 0;
+}
+.jstCS_siteview  .thumb_title{
+    padding: 6px;
+    background: #E5E5D6;
+    text-align: center;
+    font: bold 11px/14px "Tahoma";
+
+}
+
+.jstCS_siteview .site_thumb ul{
+    list-style: none;
+    padding:0;
+    margin: 0;
+    text-align: center;
+
+}
+.jstCS_siteview .site_thumb ul li{
+    list-style: none;
+    padding:3px;
+    font-size:11px;
+    display: inline;
+}
+.jstCS_siteview .site_thumb ul li a{
+    text-decoration: none;
+    font-weight:bold;
+
+}
+.jstCS_siteview .site_thumb ul li a:hover,
+.jstCS_siteview .site_thumb ul li a.active{
+color:#E13160   ;
+
+}
+
+.jstCS_siteview .site_desc {
+    margin:  0 0 0 230px;
+}
+.jstCS_siteview .date{
+    float:none;
+    display: inline;
+
+}
+
+ .jstCS_siteview .site_desc p{
+     margin: 15px 0 0 0;
+     line-height: 17px;
+
+}
+
+ .jstCS_siteview .vote_area{
+     margin: 15px 0 0 0;
+     overflow: hidden;
+
+}
+
+ .jstCS_siteview .vote_area .vote_tbl{
+     width: 350px;
+     float:left;
+
+}
+ .jstCS_siteview .vote_area .vote_tbl th{
+     border-bottom: 2px solid #F9F9EA;
+     text-align: left;
+     padding: 5px 0 5px 10px;
+
+}
+
+ .jstCS_siteview .vote_area .vote_result{
+     width: 80px;
+     float:right;
+     background: #E5E5D6;
+     color: #0D6DAA;
+     font: normal 28px/30px "Lucida Sans Unicode", "Lucida Grande","Myriad Pro",sans-serif;
+     text-align: center;
+     margin: 0 15px 0 0;
+}
+
+ .jstCS_siteview .vote_area .button{
+     float: right;
+     display: block;
+}
+
+ .jstCS_siteview .site_tags,
+  .jstCS_siteview .site_cats{
+      margin: 6px 0 3px 0 ;
+     font-weight: bold;
+     display: block;
+ }
+  .jstCS_siteview .site_tags a,
+   .jstCS_siteview .site_cats a{
+     font-weight: normal;
+ }
 
 
-
+/* ---------> Комментарии*/
+.comments {
+    clear: both;
+}
 

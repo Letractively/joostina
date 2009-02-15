@@ -326,6 +326,27 @@ a#tag4{
   top: 93px;
   left:0;
 }
+a.lemon_button,
+ .jstCS_siteview .vote_area .button{
+    background: url(../images/buttons/lemon_button.png) no-repeat top left ;
+    text-decoration:none;
+    width:135px;
+    height:73px;
+    line-height:74px;
+    text-align:center;
+    font-size:13px;
+    font-family: "Tahoma";
+    font-weight: bold;
+    cursor:pointer;
+    display:block;
+    color:#617322;
+}
+
+a.lemon_button:hover,
+ .jstCS_siteview .vote_area a.button:hover{
+
+    color:#000;
+}
 
 .joo_news{
   padding: 0 0 15px 0;
