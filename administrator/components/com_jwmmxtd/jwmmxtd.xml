@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="windows-1251"?>
+	<mosinstall type="component">
+		<name>Медиа менеджер - JW MMXTD</name>
+		<author>JoomlaWorks & Joostina team </author>
+		<creationDate>24/10/2007</creationDate>
+		<copyright>Copyright (c) 2006 - 2007 JoomlaWorks.gr - This code cannot be redistributed without permission from http://www.joomlaworks.gr/</copyright>
+		<authorEmail>joomlaworks@gmail.com</authorEmail>
+		<authorUrl>http://www.joomlaworks.gr</authorUrl>
+		<version>1.2</version>
+		<description>
+		<![CDATA[
+		<style type="text/css" media="all">
+		<!--
+		.extension_container {padding:0px 0px 4px 0px;}
+		.extension_container ul,
+		.extension_container ol {margin:4px 16px;padding:0px;}
+		.extension_container ul li,
+		.extension_container ol li {margin:2px 8px 2px 0px;padding:0px;}
+		h1 {clear:both;margin:0px 0px 12px 0px;padding:0px 0px 1px 0px;color:#C64934;font-size:17px;border-bottom:1px dotted #505050;}
+		.title {margin:4px 0px;font-size:12px;font-weight:bold;}
+		.red {color:#C64934;}
+		-->
+		</style>
+		<div class="extension_container">
+		<h1>JW Media Manager XTD v1.1</h1>
+		The Joomla! media manager redefined! Read more about this component at <a target="_blank" href="http://www.joomlaworks.gr/">JoomlaWorks</a>.<br /><br />
+		This extension is released under the GPL/GNU license.<br /><br />
+		</div>
+		]]>
+		</description>	
+	</administration>
+</mosinstall>
