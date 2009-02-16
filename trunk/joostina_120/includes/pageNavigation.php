@@ -25,6 +25,9 @@ class mosPageNav {
 	@var int Total number of rows*/
 	var $total = null;
 
+    var $prev_exist = 0;
+    var $next_exist = 0;
+
 	function mosPageNav($total,$limitstart,$limit) {
 		$this->total = (int)$total;
 		$this->limitstart = (int)max($limitstart,0);
@@ -122,8 +125,11 @@ class mosPageNav {
 			
 			$page = ($this_page - 2)* $this->limit;
 			
-			//ссылка на предыдущую страницу
-			$mainframe->addCustomHeadTag("<link rel='prev' href='".sefRelToAbs("$link&amp;limitstart=$page")."' />");
+            if (!$this->prev_exist){
+                $mainframe->addCustomHeadTag("<link rel='prev' href='".sefRelToAbs("$link&amp;limitstart=$page")."' />");
+                $mainframe->addCustomHeadTag("<link rel='prev' href='".sefRelToAbs($link)."' />");
+                $this->prev_exist = 1;
+            }
 
 			$txt .= '<a href="'.sefRelToAbs("$link&amp;limitstart=0").'" class="pagenav" title="'._PN_START.'">'._PN_LT._PN_LT.$pnSpace._PN_START.'</a> ';
 			$txt .= '<a href="'.sefRelToAbs("$link&amp;limitstart=$page").'" class="pagenav" title="'._PN_PREVIOUS.'">'._PN_LT.$pnSpace._PN_PREVIOUS.'</a> ';
@@ -146,8 +152,10 @@ class mosPageNav {
 			$page = $this_page* $this->limit;
 			$end_page = ($total_pages - 1)* $this->limit;
 
-			//ссылка на следующую страницу
-			$mainframe->addCustomHeadTag("<link rel='next' href='".sefRelToAbs($link.'&amp;limitstart='.$page)."' />");
+            if (!$this->next_exist){
+                $mainframe->addCustomHeadTag("<link rel='next' href='".sefRelToAbs($link.'&amp;limitstart='.$page)."' />");
+                $this->next_exist = 1;
+            }
 
 			$txt .= '<a href="'.sefRelToAbs($link.'&amp;limitstart='.$page).' " class="pagenav" title="'._PN_NEXT.'">'._PN_NEXT.$pnSpace._PN_RT.'</a> ';
 			$txt .= '<a href="'.sefRelToAbs($link.'&amp;limitstart='.$end_page).' " class="pagenav" title="'._PN_END.'">'._PN_END.$pnSpace._PN_RT._PN_RT.'</a>';

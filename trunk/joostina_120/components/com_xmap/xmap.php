@@ -293,11 +293,11 @@ class Xmap {
 	/** Look up the title for the module that links to $menutype */
 	function getMenuTitle($menutype) {
 		global $database;
-		$query = "SELECT * FROM #__modules WHERE published='1' AND module='mod_mainmenu' OR module='mod_mljoostinamenu' AND params LIKE '%menutype=". $menutype ."%'";
+		$query = "SELECT title FROM #__modules WHERE published='1' AND (module='mod_mainmenu' OR module='mod_mljoostinamenu') AND params LIKE '%menutype=". $menutype ."%' LIMIT 1";
 		$database->setQuery( $query );
 		if( !$database->loadObject($row) )
 			return '';
-		return $row->title;
+        return $row->title;
 	}
 
 	function getItemLink (&$node) {

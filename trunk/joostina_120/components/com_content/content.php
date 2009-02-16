@@ -1959,7 +1959,7 @@ function editItem($uid,$gid,&$access,$sectionid = 0,$task,$Itemid) {
 	global $mosConfig_absolute_path,$mosConfig_live_site,$mosConfig_offset;
 	// boston, при редактировании материала с фронта отключаем показ всех модулей - пользователю будет не повадно переходить по ссылкам без сохранения, и место освободим
 	global $mosConfig_module_on_edit_off;
-    mosCommonHTML::loadDtree();
+
 	if($mosConfig_module_on_edit_off == 1) $GLOBALS['_MOS_MODULES'] = '';
 
 		$mainframe->set( 'loadEditor', false );
@@ -2188,10 +2188,10 @@ function editItem($uid,$gid,&$access,$sectionid = 0,$task,$Itemid) {
 	//$z_cats_main = $database->loadObjectList();
 	//$lists['catid'] = mosHTML::selectList($rows,'catid','class="inputbox" size="1"','value','text',intval($row->catid));
 
-	$database->setQuery(" SELECT  c.id AS cid , c.name AS c_name, c.section  FROM   #__categories AS c WHERE c.published=1 $where_c  ");
+	$database->setQuery(" SELECT  c.id AS cid , c.name AS c_name, c.section  FROM   #__categories AS c WHERE c.published=1 $where_c ORDER BY title ASC ");
 	$cids = $database->loadObjectList();
 
-    $database->setQuery(" SELECT   s.id, s.name   FROM  #__sections AS s WHERE s.published=1 $where_s ");
+    $database->setQuery(" SELECT   s.id, s.name  FROM  #__sections AS s WHERE s.published=1 $where_s ORDER BY title ASC");
 	$sids = $database->loadObjectList();
 
     $return="<select name=\"catid\" class=\"inputbox\" size=\"1\">";

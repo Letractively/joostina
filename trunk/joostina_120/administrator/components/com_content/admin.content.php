@@ -529,7 +529,7 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 	$query = "SELECT id, title as name, section"
 			."\n FROM #__categories"
 			."\n WHERE ( $section_list )"
-			."\n ORDER BY ordering";
+			."\n ORDER BY title ASC";
 	$database->setQuery($query);
 	$cat_list = $database->loadObjectList();
 	foreach($sections as $section) {

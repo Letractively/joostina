@@ -49,7 +49,7 @@ class search_html {
 	function searchintro($searchword, $params) {
 ?>
 <div class="searchintro<?php echo $params->get('pageclass_sfx'); ?>">
-<?php echo _PROMPT_KEYWORD , ' <span>' , stripslashes($searchword) , '</span>'; ?></h4>
+<h4><?php echo _PROMPT_KEYWORD , ' <span>' , stripslashes($searchword) , '</span>'; ?></h4>
 <?php
 	}
 
