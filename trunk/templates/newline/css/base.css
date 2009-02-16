@@ -1,0 +1,558 @@
+/**
+ * base.css. Используется для установки базовых CSS-значений,
+ * для описания стилей, используемых в стандартных расширениях
+ *
+ * @package     Joostina
+ * @subpackage  templates/NewLine
+ * @version     $Id: base.css 2009-01-31 11:05 ZaiSL $;
+ */
+
+
+body.mceContentBody{
+  background: #FFF;
+}
+
+h1, .componentheading {
+  color: #4B8EC2;
+  font: 24px "Lucida Sans Unicode", "Lucida Grande", "Myriad Pro", sans-serif;
+  margin: 0.3em 0;
+}
+
+h2, h3 {
+  font: normal 22px "Lucida Sans Unicode", "Lucida Grande", "Myriad Pro", sans-serif;
+  margin: 0.3em 0;
+}
+
+h4, h5, h6{
+  font: bold 13px "Lucida Sans Unicode", "Lucida Grande", "Myriad Pro", sans-serif;
+  margin: 0.2em 0;
+}
+
+h2{
+  font-size: 18px;
+}
+
+strong {
+  font-weight: bold;
+}
+
+.small, .createdate{
+  font-size: 11px;
+}
+
+.date{
+  background: url(../images/date.png) no-repeat top left;
+  padding: 0 0 0 20px;
+}
+
+.user_online, bullet_green{
+  background: url(../images/bullet_green.png) no-repeat left;
+  padding: 2px 0 2px 11px;
+}
+
+.user_offline, bullet_red{
+  background: url(../images/bullet_red.png) no-repeat left;
+  padding: 2px 0 2px 11px;
+}
+
+a{
+  text-decoration: underline;
+}
+
+a:hover{
+  text-decoration: none;
+}
+
+abbr, acronym {
+  border-bottom: 1px dotted #000;
+  cursor: help;
+}
+
+em {
+  font-style: italic;
+}
+
+blockquote, ul, ol, dl {
+  margin: 1em;
+}
+
+ol, ul, dl {
+  margin-left: 2em;
+}
+
+ol li {
+  list-style: decimal outside;
+}
+
+ul li {
+  list-style: disc outside;
+}
+
+dl dd {
+  margin-left: 1em;
+}
+
+th {
+  font-weight: bold;
+  text-align: center;
+}
+
+caption {
+  margin-bottom: .5em;
+  text-align: center;
+}
+
+p, fieldset, pre {
+  margin-bottom: 1em;
+}
+
+input [ type = text ], input [ type = password ], input.inputbox, input.text_area,  textarea.inputbox, select.inputbox, textarea.inputbox, textarea.text_area{
+  border: 2px solid #EAE6DF;
+  color: #828282;
+  margin: 0 5px 5px 1px;
+  padding: 2px 6px;
+}
+
+select.inputbox{
+  padding: 2px;
+}
+
+*:first-child + html input [ type = radio ] {
+  margin: 0;
+}
+
+.mosimage{
+  margin: 2px 10px 0 0;
+  padding: 0;
+}
+
+.mosimage_caption{
+  font: bold 11px "Century Gothic";
+}
+
+.mosimage img{
+  padding: 2px;
+  border: 1px solid #CCCCCC;
+}
+/* Подчищаем меню от всяких ненужностей  */
+ul#mainlevel, ul#mainlevel li, ul#mainlevel-nav, ul#mainlevel-nav li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Элементы таблиц  */
+table th{
+  background: #EAECDE;
+  padding: 4px;
+  font-weight: bold;
+}
+
+table tr.sectiontableentry2{
+  background: #F2F3EB;
+
+}
+tr.sectiontableentry1 td, tr.sectiontableentry2 td{
+  padding: 2px;
+}
+
+td.sectiontableheader{
+  background: #EAECDE;
+  font-weight: bold;
+  padding: 5px 2px;
+}
+/* Задаем базовые параметры для оформления модулей  */
+
+.moduletable{
+  margin: 2px 0 25px 0;
+  padding: 0 0 10px 0;
+}
+
+
+/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>---com_content---<<<<<<<<*/
+/*------Заголовки------*/
+a.contentpagetitle{
+  color: #5B5B5B;
+  line-height: 35px;
+}
+
+.contentheading{
+  color: #5B5B5B;
+  font: normal 18px/26px "Lucida Sans Unicode", "Lucida Grande", "Myriad Pro", sans-serif;
+  margin: 5px 0 15px 0;
+}
+
+/*------Описания------*/
+.contentdescription{
+  background: #F0F2E4;
+  border: 1px solid #EAECDE;
+  clear: both;
+  overflow: hidden;
+  padding: 10px;
+}
+
+.contentdescription img{
+  border: 3px solid #DCDED4;
+  margin: 0 10px 0 0;
+}
+.category_name,
+section_name{
+    font-weight: bold;
+     background: url(../images/arrow1.png) no-repeat center left;
+     display: block;
+     padding: 0 0 0 15px;
+     font-size:11px;
+}
+
+
+/*------Режим БЛОГА------*/
+.blog .contentpaneopen td{
+  padding-right: 10px;
+}
+
+.leading_block{
+  background: #FBFEEC;
+  border: 1px dashed #CCC;
+  margin: 5px 0 15px 0;
+  padding: 15px;
+}
+
+table.intro_block td{
+  padding: 4px 10px 5px 2px;
+}
+
+div.section_cat{
+  background: url(../images/cat.png) no-repeat center left;
+  padding: 6px 0 10px 30px;
+}
+
+div.section_cat a{
+  font-weight: bold;
+}
+
+/*Ссылка "Подробнее" */
+
+a.readon{
+  color: #5ABDFF;
+  font-weight: bold;
+}
+
+.article_seperator{
+  height: 1px;
+}
+/*-----Редактирование содержимого-----*/
+
+table.cedit_misc{
+  margin: 5px 0 20px 0;
+}
+
+table.cedit_main{
+  margin: 5px 0 20px 0;
+}
+
+
+/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>---Модули---<<<<<<<<*/
+/* Модуль авторизации  */
+
+#log_in{
+  background: url(../images/log_in.png) no-repeat top left;
+  clear: both;
+  cursor: pointer;
+  font-size: 22px;
+  height: 51px;
+  line-height: 50px;
+  margin: 0 0 0 10px;
+  padding: 0 0 0 10px;
+  text-align: center;
+  width: 120px;
+}
+
+#box1{
+  position: absolute;
+}
+
+.loginform_area {
+  background-color: white;
+  border: 9px solid #5d5d5d;
+  display: none;
+  margin: 15px 0 0 0;
+  margin-right: -90px;
+  padding: 8px;
+  position: absolute;
+  right: 10px;
+  top: 0;
+  width: 400px;
+  z-index: 3000;
+}
+
+.closewin{
+  background: url(../images/cross.png) no-repeat center #FFF;
+  cursor: pointer;
+  display: block;
+  height: 20px;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  right: 15px;
+  top: 0;
+  width: 20px;
+  z-index: 4000;
+}
+
+.loginform_area_inside {
+  background-color: white;
+  border: 6px solid #cacaca;
+  clear: both;
+  padding: 15px;
+  text-align: left;
+}
+
+
+/* Модуль "Случайное изображение"   */
+#jstSlideShow_1 {
+  border: 8px solid #EBECE6;
+  position: relative;
+  visibility: hidden;
+}
+
+.error#jstSlideShow_1 {
+  border: 8px solid #EBECE6;
+  color: #FF0066;
+  font: 11px/16px Tahoma, Arial, sans-serif;
+  padding: 10px;
+  position: relative;
+  visibility: visible;
+}
+
+.gallerystatus {
+  color: #EBECE6;
+}
+
+.random_image img {
+  border: 5px solid #EBECE6;
+}
+
+
+/* Модуль "Пользователи on-line" */
+.mod_who_online_info {
+  background: url(../images/user_small.png) no-repeat top left;
+  padding: 4px 0 0 32px;
+}
+
+.mod_who_online span{
+  color: #D43014;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+ul.users_online{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+
+/* Модуль "Пользователи on-line" - горизонтальный вывод*/
+ul.users_online li{
+  background: #F3F4EE;
+  border: 1px solid #E6E9D4;
+  display: inline;
+  height: 43px;
+  line-height: 40px;
+  list-style: none;
+  margin: 0 10px 0 2px;
+  overflow: hidden;
+  padding: 2px 1px 3px 2px;
+}
+
+ul.users_online li a img{
+  padding: 0 5px 0 0;
+  vertical-align: middle;
+}
+
+/* Модуль статистики */
+.moduletable-stat{
+    background: #EEF0E6;
+    padding: 12px;
+    border: 1px solid #D8D9D0;
+    margin: 0 0 10px 0;
+}
+
+/* Модуль поиска */
+.header_center div.search{
+  padding:0 0 0 30px;
+  background: url(../images/search_icon.gif) no-repeat center left;
+  margin: 0 auto;
+  width: 410px;
+
+}
+.search input.inputbox{
+  width: 330px;
+}
+.search input.button{
+  border: 0;
+  background: none;
+  cursor: pointer;
+  border-bottom: 1px solid #8F8F8F;
+  color: #8F8F8F;
+  font-size: 11px;
+}
+
+/* Модуль "Опрос" */
+.poll{}
+
+.poll input[type=radio] {
+  margin: 3px 5px 0 0;
+}
+
+.pollstableborder{}
+
+.poll_buttons {
+  margin: 10px 0 0 0;
+}
+
+.poll_buttons input.button {
+  background: none;
+  border: none;
+  border-bottom: 1px solid #000;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: bold;
+  margin: 0 10px 0 0;
+  padding: 0;
+}
+
+
+/* -----------------------------------------------------Компонент "Опросы"   */
+
+.poll_quest{/* Текст вопроса   */
+  background: url(../images/blue_arrow.png) no-repeat top left;
+  padding: 2px 0 2px 30px;
+  vertical-align: middle;
+}
+
+table.com_poll{
+  width: 100%;
+}
+
+table.com_poll th.poll_question{
+  width: 35%;
+}
+
+table.com_poll th.poll_hits{
+  width: 7%;
+}
+
+table.com_poll th.poll_percent{
+  width: 7%;
+}
+
+table.com_poll th.poll_graph{}
+
+table.com_poll td{
+  font-size: 11px;
+  padding: 4px;
+}
+
+table.com_poll td.poll_hits{
+  text-align: center;
+}
+
+table.com_poll td.poll_percent{
+  text-align: center;
+}
+
+table.com_poll th.poll_graph{
+  text-align: center;
+}
+
+/* Syndicate  */
+
+.syndicate{
+  float: left;
+  overflow: hidden;
+}
+
+.syndicate a.RSS20,
+.syndicate a.Yandex,
+.syndicate a.RSS091,
+.syndicate a.RSS10,
+.syndicate a.ATOM03,
+.syndicate a.OPML
+
+{
+  background: url(../images/rss_small.png) no-repeat top left;
+  display: block;
+  float: left;
+  height: 30px;
+  width: 36px;
+}
+
+.syndicate img{
+  display: none;
+}
+/* Табы  */
+
+table.adminform {
+  border: none;
+  margin: 5px 10px 0 5px;
+  padding: 0 2px 0px 0;
+  width: 90%;
+}
+
+.dynamic-tab-pane-control .tab-row .tab {
+  background-color: #E2E2E2;
+  background-image: none;
+  border: 1px solid white;
+  cursor: pointer;
+  display: inline;
+  float: left;
+  font: normal 11px Tahoma, Arial, Verdana, sans-serif;
+  height: 16px;
+  margin: 4px -1px 0 4px;
+  overflow: hidden;
+  padding: 2px 6px 4px 6px;
+  position: relative;
+  top: 0;
+  white-space: nowrap;
+  width: auto;
+  z-index: 1;
+}
+
+#userInfo.dynamic-tab-pane-control .tab-page {
+  background: #fcfcfe;
+  border-top: 2px solid #e7e7e7;
+  float: left;
+  margin-left: 1px;
+  padding: 20px;
+  position: relative;
+  text-align: left;
+  top: 0;
+  z-index: 0;
+}
+
+table#toolbar a.toolbar, table#toolbar a.toolbar img {
+  border: none;
+}
+
+#mosUserForm td.pkey{
+  font-weight: bold;
+  width: 200px;
+}
+
+#mosUserForm textarea, #mosUserForm input{
+  width: 90%;
+}
+
+#mosUserForm table#table_userprofile{
+    padding: 10px 0 0 0;
+}
+
+iframe #blockrandom {
+
+}
+.com_wrapper{
+ overflow: auto;   
+
+}
+
