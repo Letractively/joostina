@@ -44,7 +44,7 @@ $rows = $database->loadObjectList();
 
 <table class="adminlist">
 	<tr>
-		<th colspan="3" class="title"><?php echo _LAST_ADDED_CONTENT?> <small>( <a href="index2.php?option=com_content&sectionid=0">âñ¸</a> )</small></th>
+		<th colspan="3" class="title"><?php echo _LAST_ADDED_CONTENT?> <small>( <a href="index2.php?option=com_content&sectionid=0"><?php echo _ALL_CONTENT?></a> )</small></th>
 		<th align="center"><?php echo _USER_WHO_ADD_CONTENT?></th>
 	</tr>
 <?php

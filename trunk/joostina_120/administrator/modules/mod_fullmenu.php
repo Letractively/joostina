@@ -63,7 +63,7 @@ if(!defined('_JOS_FULLMENU_MODULE')) {
 
 ?>
 var myMenu =[
-[null,'Сайт',null,null,'<?php echo _MENU_CMS_FEATURES?>',
+[null,'<?php echo _SITE?>',null,null,'<?php echo _MENU_CMS_FEATURES?>',
 <?php
 	if($canConfig) {
 ?>['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo _MENU_GLOBAL_CONFIG?>','index2.php?option=com_config&hidemainmenu=1',null,'<?php echo _MENU_GLOBAL_CONFIG_TIP?>'],
@@ -218,7 +218,7 @@ _cmSplit,
 	// Modules Sub-Menu
 	if($installModules | $editAllModules) {
 ?>_cmSplit,
-[null,'Модули',null,null,'<?php echo _MODULES_SETUP?>',
+[null,'<?php echo _MODULES?>',null,null,'<?php echo _MODULES_SETUP?>',
 <?php
 	if($editAllModules) {
 ?>

@@ -85,7 +85,7 @@ flush();
 						</a>
 					</td>
 					<td align="right" class="jtd_nowrap">
-						<a href="index2.php?option=logout" class="logoff">Выход <?php echo $my->username; ?></a>&nbsp;
+						<a href="index2.php?option=logout" class="logoff"><?PHP echo _BUTTON_LOGOUT?> <?php echo $my->username; ?></a>&nbsp;
 					</td>
 				</tr>
 			</table>

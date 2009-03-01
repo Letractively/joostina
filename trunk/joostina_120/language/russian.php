@@ -2166,31 +2166,12 @@ DEFINE('_ENTER_CORRECT_URL','Введите правильный URL');
 /* components com_xmap */
 DEFINE('_XMAP_PAGE',' страница');
 
-
 /* administrator index2.php */
 DEFINE('_TEMPLATE_NOT_FOUND','Шаблон не обнаружен');
 DEFINE('_ACCESS_DENIED','В доступе отказано');
 DEFINE('_CHECKIN_OJECT','Разблокировать');
-/*
 
-
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-DEFINE('_','');
-*/
+/* administrator modules mod_latest_users */
+DEFINE('_NEW_USERS','Новые пользователи');
+DEFINE('_USER_REG_DATE','Зарегистрирован');
 ?>

@@ -62,10 +62,10 @@ if($show_logged==1){
 ?>
 <table class="adminlist">
 <tr>
-	<th>Новые пользователи</th>
-	<th>Разрешен</th>
-	<th>Группа</th>
-	<th>Зарегистрирован</th>
+	<th><?PHP echo _NEW_USERS?></th>
+	<th><?PHP echo _ALLOWED?></th>
+	<th><?PHP echo _O_GROUP?></th>
+	<th><?PHP echo _USER_REG_DATE?></th>
 </tr>
 <?php
 $i = 0;
