@@ -4,7 +4,7 @@
  *
  * @package     Joostina
  * @subpackage  templates/NewLine
- * @version     $Id: base.css 2009-01-31 11:05 ZaiSL $;
+ * @version     $Id: template_css.css 2009-01-31 11:05 ZaiSL $;
  */
 
 @import "reset.css";
@@ -25,7 +25,6 @@ body.joo_flex{
 
 .main_wrap{
   background: url(../images/header_left.png) no-repeat top left;
-  overflow: hidden;
   padding: 0 0 40px 0;
   position: relative;
 }
