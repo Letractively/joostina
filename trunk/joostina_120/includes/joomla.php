@@ -351,7 +351,12 @@ class mosCache {
 	function &getCache($group = '') {
 		global $mosConfig_absolute_path,$mosConfig_caching,$mosConfig_cachepath,$mosConfig_cachetime;
 		require_once ($mosConfig_absolute_path.'/includes/joomla.cache.php');
-		$options = array('cacheDir' => $mosConfig_cachepath.'/','caching' => $mosConfig_caching,'defaultGroup' => $group,'lifeTime' => $mosConfig_cachetime);
+		$options = array(
+			'cacheDir' => $mosConfig_cachepath.'/',
+			'caching' => $mosConfig_caching,
+			'defaultGroup' => $group,
+			'lifeTime' => $mosConfig_cachetime
+		);
 		$cache = new JCache_Lite_Function($options);
 		return $cache;
 	}
@@ -2375,319 +2380,9 @@ class mosHTML {
 	}
 }
 
-/**
-* Category database table class
-* @package Joostina
-*/
-class mosCategory extends mosDBTable {
-	/**
-	@var int Primary key*/
-	var $id = null;
-	/**
-	@var int*/
-	var $parent_id = null;
-	/**
-	@var string The menu title for the Category (a short name)*/
-	var $title = null;
-	/**
-	@var string The full name for the Category*/
-	var $name = null;
-	/**
-	@var string*/
-	var $image = null;
-	/**
-	@var string*/
-	var $section = null;
-	/**
-	@var int*/
-	var $image_position = null;
-	/**
-	@var string*/
-	var $description = null;
-	/**
-	@var boolean*/
-	var $published = null;
-	/**
-	@var boolean*/
-	var $checked_out = null;
-	/**
-	@var time*/
-	var $checked_out_time = null;
-	/**
-	@var int*/
-	var $ordering = null;
-	/**
-	@var int*/
-	var $access = null;
-	/**
-	@var string*/
-	var $params = null;
+// класс работы с контентом
+require_once($mosConfig_absolute_path.'/components/com_content/content.class.php');
 
-	/**
-	* @param database A database connector object
-	*/
-	function mosCategory(&$db) {
-		$this->mosDBTable('#__categories','id',$db);
-	}
-	// overloaded check function
-	function check() {
-		// check for valid name
-		if(trim($this->title) == '') {
-			$this->_error = _ENTER_CATEGORY_TITLE;
-			return false;
-		}
-		if(trim($this->name) == '') {
-			$this->_error = _ENTER_CATEGORY_NAME;
-			return false;
-		}
-		$ignoreList = array('description');
-		$this->filter($ignoreList);
-		// check for existing name
-		$query = "SELECT id"
-				."\n FROM #__categories "
-				."\n WHERE name = ".$this->_db->Quote($this->name)
-				."\n AND section = ".$this->_db->Quote($this->section);
-		$this->_db->setQuery($query);
-
-		$xid = intval($this->_db->loadResult());
-		if($xid && $xid != intval($this->id)) {
-			$this->_error = _CATEGORY_ALREADY_EXISTS;
-			return false;
-		}
-		return true;
-	}
-}
-
-/**
-* Section database table class
-* @package Joostina
-*/
-class mosSection extends mosDBTable {
-	/**
-	@var int Primary key*/
-	var $id = null;
-	/**
-	@var string The menu title for the Section (a short name)*/
-	var $title = null;
-	/**
-	@var string The full name for the Section*/
-	var $name = null;
-	/**
-	@var string*/
-	var $image = null;
-	/**
-	@var string*/
-	var $scope = null;
-	/**
-	@var int*/
-	var $image_position = null;
-	/**
-	@var string*/
-	var $description = null;
-	/**
-	@var boolean*/
-	var $published = null;
-	/**
-	@var boolean*/
-	var $checked_out = null;
-	/**
-	@var time*/
-	var $checked_out_time = null;
-	/**
-	@var int*/
-	var $ordering = null;
-	/**
-	@var int*/
-	var $access = null;
-	/**
-	@var string*/
-	var $params = null;
-
-	/**
-	* @param database A database connector object
-	*/
-	function mosSection(&$db) {
-		$this->mosDBTable('#__sections','id',$db);
-	}
-	// overloaded check function
-	function check() {
-		// check for valid name
-		if(trim($this->title) == '') {
-			$this->_error = _ENTER_SECTION_TITLE;
-			return false;
-		}
-		if(trim($this->name) == '') {
-			$this->_error = _ENTER_SECTION_NAME;
-			return false;
-		}
-		$ignoreList = array('description');
-		$this->filter($ignoreList);
-		// check for existing name
-		$query = "SELECT id"
-				."\n FROM #__sections "
-				."\n WHERE name = ".$this->_db->Quote($this->name)
-				."\n AND scope = ".$this->_db->Quote($this->scope);
-		$this->_db->setQuery($query);
-		$xid = intval($this->_db->loadResult());
-		if($xid && $xid != intval($this->id)) {
-			$this->_error = _SECTION_ALREADY_EXISTS;
-			return false;
-		}
-		return true;
-	}
-}
-
-/**
-* Module database table class
-* @package Joostina
-*/
-class mosContent extends mosDBTable {
-	/**
-	@var int Primary key*/
-	var $id = null;
-	/**
-	@var string*/
-	var $title = null;
-	/**
-	@var string*/
-	var $title_alias = null;
-	/**
-	@var string*/
-	var $introtext = null;
-	/**
-	@var string*/
-	var $fulltext = null;
-	/**
-	@var int*/
-	var $state = null;
-	/**
-	@var int The id of the category section*/
-	var $sectionid = null;
-	/**
-	@var int DEPRECATED*/
-	var $mask = null;
-	/**
-	@var int*/
-	var $catid = null;
-	/**
-	@var datetime*/
-	var $created = null;
-	/**
-	@var int User id*/
-	var $created_by = null;
-	/**
-	@var string An alias for the author*/
-	var $created_by_alias = null;
-	/**
-	@var datetime*/
-	var $modified = null;
-	/**
-	@var int User id*/
-	var $modified_by = null;
-	/**
-	@var boolean*/
-	var $checked_out = null;
-	/**
-	@var time*/
-	var $checked_out_time = null;
-	/**
-	@var datetime*/
-	var $frontpage_up = null;
-	/**
-	@var datetime*/
-	var $frontpage_down = null;
-	/**
-	@var datetime*/
-	var $publish_up = null;
-	/**
-	@var datetime*/
-	var $publish_down = null;
-	/**
-	@var string*/
-	var $images = null;
-	/**
-	@var string*/
-	var $urls = null;
-	/**
-	@var string*/
-	var $attribs = null;
-	/**
-	@var int*/
-	var $version = null;
-	/**
-	@var int*/
-	var $parentid = null;
-	/**
-	@var int*/
-	var $ordering = null;
-	/**
-	@var string*/
-	var $metakey = null;
-	/**
-	@var string*/
-	var $metadesc = null;
-	/**
-	@var int*/
-	var $access = null;
-	/**
-	@var int*/
-	var $hits = null;
-	/**
-	@var string*/
-	var $notetext = null;
-	/**
-	* @param database A database connector object
-	*/
-	function mosContent(&$db) {
-		$this->mosDBTable('#__content','id',$db);
-	}
-
-	/**
-	* Validation and filtering
-	*/
-	function check() {
-		// filter malicious code
-		$ignoreList = array('introtext','fulltext');
-		$this->filter($ignoreList);
-
-		/*
-		* TODO: This filter is too rigorous,
-		* need to implement more configurable solution
-		* // specific filters
-		* $iFilter = new InputFilter( null, null, 1, 1 );
-		* $this->introtext = trim( $iFilter->process( $this->introtext ) );
-		* $this->fulltext =  trim( $iFilter->process( $this->fulltext ) );
-		*/
-		if(trim(str_replace('&nbsp;','',$this->fulltext)) == '') {
-			$this->fulltext = '';
-		}
-		return true;
-	}
-
-	/**
-	* Converts record to XML
-	* @param boolean Map foreign keys to text values
-	*/
-	function toXML($mapKeysToText = false) {
-		global $database;
-
-		if($mapKeysToText) {
-			$query = "SELECT name FROM #__sections WHERE id = ".(int)$this->sectionid;
-			$database->setQuery($query);
-			$this->sectionid = $database->loadResult();
-
-			$query = "SELECT name FROM #__categories WHERE id = ".(int)$this->catid;
-			$database->setQuery($query);
-			$this->catid = $database->loadResult();
-
-			$query = "SELECT name FROM #__users WHERE id = ".(int)$this->created_by;
-			$database->setQuery($query);
-			$this->created_by = $database->loadResult();
-		}
-
-		return parent::toXML($mapKeysToText);
-	}
-}
 
 /**
 * Module database table class
@@ -2762,258 +2457,8 @@ class mosMenu extends mosDBTable {
 	}
 }
 
-/**
-* Users Table Class
-*
-* Provides access to the jos_user table
-* @package Joostina
-*/
-class mosUser extends mosDBTable {
-	/**
-	@var int Unique id*/
-	var $id = null;
-	/**
-	@var string The users real name (or nickname)*/
-	var $name = null;
-	/**
-	@var string The login name*/
-	var $username = null;
-	/**
-	@var string email*/
-	var $email = null;
-	/**
-	@var string MD5 encrypted password*/
-	var $password = null;
-	/**
-	@var string*/
-	var $usertype = null;
-	/**
-	@var int*/
-	var $block = null;
-	/**
-	@var int*/
-	var $sendEmail = null;
-	/**
-	@var int The group id number*/
-	var $gid = null;
-	/**
-	@var datetime*/
-	var $registerDate = null;
-	/**
-	@var datetime*/
-	var $lastvisitDate = null;
-	/**
-	@var string activation hash*/
-	var $activation = null;
-	/**
-	@var string*/
-	var $params = null;
-
-	/**
-	* @param database A database connector object
-	*/
-	function mosUser(&$database) {
-		$this->mosDBTable('#__users','id',$database);
-	}
-
-	/**
-	* Validation and filtering
-	* @return boolean True is satisfactory
-	*/
-	function check() {
-		global $mosConfig_uniquemail;
-
-		// Validate user information
-		if(trim($this->name) == '') {
-			$this->_error = addslashes(_REGWARN_NAME);
-			return false;
-		}
-
-		if(trim($this->username) == '') {
-			$this->_error = addslashes(_REGWARN_UNAME);
-			return false;
-		}
-
-		// check that username is not greater than 25 characters
-		$username = $this->username;
-		if(strlen($username) > 25) {
-			$this->username = substr($username,0,25);
-		}
-
-		// check that password is not greater than 50 characters
-		$password = $this->password;
-		if(strlen($password) > 50) {
-			$this->password = substr($password,0,50);
-		}
-
-		if(eregi("[\<|\>|\"|\'|\%|\;|\(|\)|\&|\+|\-]",$this->username) || strlen($this->username) <3) {
-			$this->_error = sprintf(addslashes(_VALID_AZ09),addslashes(_PROMPT_UNAME),2);
-			return false;
-		}
-
-		if((trim($this->email == "")) || (preg_match("/[\w\.\-]+@\w+[\w\.\-]*?\.\w{1,4}/",$this->email) == false)) {
-			$this->_error = addslashes(_REGWARN_MAIL);
-			return false;
-		}
-
-		// check for existing username
-		$query = "SELECT id FROM #__users WHERE username = ".$this->_db->Quote($this->username)." AND id != ".(int)$this->id;
-		$this->_db->setQuery($query);
-		$xid = intval($this->_db->loadResult());
-		if($xid && $xid != intval($this->id)) {
-			$this->_error = addslashes(_REGWARN_INUSE);
-			return false;
-		}
-
-		if($mosConfig_uniquemail) {
-			// check for existing email
-			$query = "SELECT id FROM #__users WHERE email = ".$this->_db->Quote($this->email)." AND id != ".(int)$this->id;
-			$this->_db->setQuery($query);
-			$xid = intval($this->_db->loadResult());
-			if($xid && $xid != intval($this->id)) {
-				$this->_error = addslashes(_REGWARN_EMAIL_INUSE);
-				return false;
-			}
-		}
-
-		return true;
-	}
-
-	function store($updateNulls = false) {
-		global $acl,$migrate;
-		$section_value = 'users';
-
-		$k = $this->_tbl_key;
-		$key = $this->$k;
-		if($key && !$migrate) {
-			// existing record
-			$ret = $this->_db->updateObject($this->_tbl,$this,$this->_tbl_key,$updateNulls);
-			// syncronise ACL
-			// single group handled at the moment
-			// trivial to expand to multiple groups
-			$groups = $acl->get_object_groups($section_value,$this->$k,'ARO');
-			if(isset($groups[0])) $acl->del_group_object($groups[0],$section_value,$this->$k,'ARO');
-			$acl->add_group_object($this->gid,$section_value,$this->$k,'ARO');
-
-			$object_id = $acl->get_object_id($section_value,$this->$k,'ARO');
-			$acl->edit_object($object_id,$section_value,$this->_db->getEscaped($this->name),$this->$k,0,0,'ARO');
-		} else {
-			// new record
-			$ret = $this->_db->insertObject($this->_tbl,$this,$this->_tbl_key);
-			// syncronise ACL
-			$acl->add_object($section_value,$this->_db->getEscaped($this->name),$this->$k,null,null,'ARO');
-			$acl->add_group_object($this->gid,$section_value,$this->$k,'ARO');
-		}
-		if(!$ret) {
-			$this->_error = strtolower(get_class($this))."::store failed <br />".$this->_db->getErrorMsg();
-			return false;
-		} else {
-			return true;
-		}
-	}
-
-	function delete($oid = null) {
-		global $acl;
-
-		$k = $this->_tbl_key;
-		if($oid) {
-			$this->$k = intval($oid);
-		}
-		$aro_id = $acl->get_object_id('users',$this->$k,'ARO');
-		$acl->del_object($aro_id,'ARO',true);
-
-		$query = "DELETE FROM $this->_tbl WHERE $this->_tbl_key = ".(int)$this->$k;
-		$this->_db->setQuery($query);
-
-		if($this->_db->query()) {
-			// cleanup related data
-
-			// :: private messaging
-			$query = "DELETE FROM #__messages_cfg WHERE user_id = ".(int)$this->$k;
-			$this->_db->setQuery($query);
-			if(!$this->_db->query()) {
-				$this->_error = $this->_db->getErrorMsg();
-				return false;
-			}
-			$query = "DELETE FROM #__messages WHERE user_id_to = ".(int)$this->$k;
-			$this->_db->setQuery($query);
-			if(!$this->_db->query()) {
-				$this->_error = $this->_db->getErrorMsg();
-				return false;
-			}
-
-			return true;
-		} else {
-			$this->_error = $this->_db->getErrorMsg();
-			return false;
-		}
-	}
-
-	/**
-	* Gets the users from a group
-	* @param string The value for the group (not used 1.0)
-	* @param string The name for the group
-	* @param string If RECURSE, will drill into child groups
-	* @param string Ordering for the list
-	* @return array
-	*/
-	function getUserListFromGroup($value,$name,$recurse = 'NO_RECURSE',$order ='name') {
-		global $acl;
-		$group_id = $acl->get_group_id($name, 'ARO');
-		$objects = $acl->get_group_objects($group_id,'ARO','RECURSE');
-
-		if(isset($objects['users'])) {
-			mosArrayToInts($objects['users']);
-			$gWhere = '(id ='.implode(' OR id =',$objects['users']).')';
-
-			$query = "SELECT id AS value, name AS text FROM #__users WHERE block = '0' AND ".$gWhere."\n ORDER BY ".$order;
-			$this->_db->setQuery($query);
-			$options = $this->_db->loadObjectList();
-			return $options;
-		} else {
-			return array();
-		}
-	}
-	/**
-	* функция получения аватара пользователя, возвращает путь к изображения аватара от корня сайта
-	*/
-	function avatar($id,$size='normal'){
-		global $mosConfig_absolute_path;
-
-		switch($size) {
-			case 'big':
-				$pach = '';
-				break;
-
-			case 'mini':
-				$pach = 'mini/';
-				break;
-
-			default:
-			case 'normal':
-				$pach = 'normal/';
-				break;
-		}
-
-		if(file_exists($mosConfig_absolute_path.'/images/avatars/'.$pach.$id.'.jpg')){
-			$img = '/images/avatars/'.$pach.$id.'.jpg';
-		}else{
-			$img = '/images/avatars/'.$pach.'none.jpg';
-		}
-		return $img;
-	}
-	/**
-	* функция получения мини - аватара пользователя, возвращает путь к изображения аватара от корня сайта
-	*/
-	function miniavatar($id){
-		global $mosConfig_absolute_path;
-			if(file_exists($mosConfig_absolute_path.'/images/avatars/mini/'.$id.'.jpg'))
-				$img = '/images/avatars/mini/'.$id.'.jpg';
-			else
-				$img = '/images/avatars/mini/none.jpg';
-		return $img;
-	}
-}
+// класс работы с пользователями
+require_once($mosConfig_absolute_path.'/components/com_user/user.class.php');
 
 /**
 * Template Table Class
@@ -3444,169 +2889,6 @@ class mosModule extends mosDBTable {
 	}
 }
 
-/**
-* Session database table class
-* @package Joostina
-*/
-class mosSession extends mosDBTable {
-	/**
-	@var int Primary key*/
-	var $session_id = null;
-	/**
-	@var string*/
-	var $time = null;
-	/**
-	@var string*/
-	var $userid = null;
-	/**
-	@var string*/
-	var $usertype = null;
-	/**
-	@var string*/
-	var $username = null;
-	/**
-	@var time*/
-	var $gid = null;
-	/**
-	@var int*/
-	var $guest = null;
-	/**
-	@var string*/
-	var $_session_cookie = null;
-
-	/**
-	* @param database A database connector object
-	*/
-	function mosSession(&$db) {
-		$this->mosDBTable('#__session','session_id',$db);
-	}
-
-	/**
-	* @param string Key search for
-	* @param mixed Default value if not set
-	* @return mixed
-	*/
-	function get($key,$default = null) {
-		return mosGetParam($_SESSION,$key,$default);
-	}
-
-	/**
-	* @param string Key to set
-	* @param mixed Value to set
-	* @return mixed The new value
-	*/
-	function set($key,$value) {
-		$_SESSION[$key] = $value;
-		return $value;
-	}
-
-	/**
-	* Sets a key from a REQUEST variable, otherwise uses the default
-	* @param string The variable key
-	* @param string The REQUEST variable name
-	* @param mixed The default value
-	* @return mixed
-	*/
-	function setFromRequest($key,$varName,$default = null) {
-		if(isset($_REQUEST[$varName])) {
-			return mosSession::set($key,$_REQUEST[$varName]);
-		} else
-			if(isset($_SESSION[$key])) {
-				return $_SESSION[$key];
-			} else {
-				return mosSession::set($key,$default);
-			}
-	}
-
-	/**
-	* Insert a new row
-	* @return boolean
-	*/
-	function insert() {
-		$ret = $this->_db->insertObject($this->_tbl,$this);
-		if(!$ret) {
-			$this->_error = strtolower(get_class($this))."::store failed <br />".$this->_db->stderr();
-			return false;
-		} else {
-			return true;
-		}
-	}
-
-	/**
-	* Update an existing row
-	* @return boolean
-	*/
-	function update($updateNulls = false) {
-		$ret = $this->_db->updateObject($this->_tbl,$this,'session_id',$updateNulls);
-		if(!$ret) {
-			$this->_error = strtolower(get_class($this))."::update error <br />".$this->_db->stderr();
-			return false;
-		} else {
-			return true;
-		}
-	}
-	/**
-	* Generate a unique session id
-	* @return string
-	*/
-	function generateId() {
-		$failsafe = 20;
-		$randnum = 0;
-		while($failsafe--) {
-			$randnum = md5(uniqid(microtime(),1));
-			$new_session_id = mosMainFrame::sessionCookieValue($randnum);
-			if($randnum != '') {
-				$query = "SELECT $this->_tbl_key FROM $this->_tbl WHERE $this->_tbl_key = ".
-					$this->_db->Quote($new_session_id);
-				$this->_db->setQuery($query);
-				if(!$result = $this->_db->query()) {
-					die($this->_db->stderr(true));
-				}
-				if($this->_db->getNumRows($result) == 0) {
-					break;
-				}
-			}
-		}
-		$this->_session_cookie = $randnum;
-		$this->session_id = $new_session_id;
-	}
-
-	/**
-	* @return string The name of the session cookie
-	*/
-	function getCookie() {
-		return $this->_session_cookie;
-	}
-
-	/**
-	* Purge lapsed sessions
-	* @return boolean
-	*/
-	function purge($inc = 1800,$and = '') {
-		global $mainframe;
-
-		if($inc == 'core') {
-			$past_logged = time() - $mainframe->getCfg('lifetime');
-			$past_guest = time() - 900;
-
-			$query = "DELETE FROM $this->_tbl"."\n WHERE ("
-				// purging expired logged sessions
-				."\n ( time < '".(int)$past_logged."' ) AND guest = 0 AND gid > 0 ) OR ("
-				// purging expired guest sessions
-				."\n ( time < '".(int)$past_guest."' ) AND guest = 1 AND userid = 0".
-				"\n )";
-		} else {
-			// kept for backward compatability
-			$past = time() - $inc;
-			$query = "DELETE FROM $this->_tbl WHERE ( time < '".(int)$past."' )".$and;
-		}
-		$this->_db->setQuery($query);
-
-		return $this->_db->query();
-	}
-}
-
-
 function mosObjectToArray($p_obj) {
 	$retarray = null;
 	if(is_object($p_obj)) {
@@ -3816,8 +3098,7 @@ function mosToolTip($tooltip,$title = '',$width = '',$image = 'tooltip.png',$tex
 
 	$tip = "";
 	if($link) {
-		$tip .= '<a href="'.$href.'" onmouseover="'.$mousover.
-			'" onmouseout="return nd();" '.$style.'>'.$text.'</a>';
+		$tip .= '<a href="'.$href.'" onmouseover="'.$mousover.'" onmouseout="return nd();" '.$style.'>'.$text.'</a>';
 	} else {
 		$tip .= '<span onmouseover="'.$mousover.'" onmouseout="return nd();" '.$style.'>'.$text.'</span>';
 	}
@@ -5825,18 +5106,15 @@ class patHTML {
 	* @param string The name for the value field
 	* @param string The name for selected attribute (use 'checked' for radio of box lists)
 	*/
-	function selectArray(&$source,$selected = null,$valueName = 'value',$selectedAttr =
-		'selected') {
+	function selectArray(&$source,$selected = null,$valueName = 'value',$selectedAttr ='selected') {
 		if(!is_array($selected)) {
 			$selected = array($selected);
 		}
 		foreach($source as $i => $row) {
 			if(is_object($row)) {
-				$source[$i]->selected = in_array($row->$valueName,$selected)?$selectedAttr.
-					'="true"':'';
+				$source[$i]->selected = in_array($row->$valueName,$selected)?$selectedAttr.'="true"':'';
 			} else {
-				$source[$i]['selected'] = in_array($row[$valueName],$selected)?$selectedAttr.
-					'="true"':'';
+				$source[$i]['selected'] = in_array($row[$valueName],$selected)?$selectedAttr.'="true"':'';
 			}
 		}
 	}
@@ -5882,7 +5160,10 @@ class patHTML {
 	* @param string Optional template variable name
 	*/
 	function yesNoRadio(&$tmpl,$template,$name,$value,$varname = null) {
-		$a = array(patHTML::makeOption(0,'Нет'),patHTML::makeOption(1,'Да'));
+		$a = array(
+			patHTML::makeOption(0,'Нет'),
+			patHTML::makeOption(1,'Да')
+		);
 		patHTML::radioSet($tmpl,$template,$name,$value,$a,$varname);
 	}
 }
@@ -5905,24 +5186,22 @@ function mosBackTrace() {
 		echo '<div align="left">';
 		foreach(debug_backtrace() as $back) {
 			if(@$back['file']) {
-				echo '<br />'.str_replace($GLOBALS['mosConfig_absolute_path'],'',$back['file']).
-					':'.$back['line'];
+				echo '<br />'.str_replace($GLOBALS['mosConfig_absolute_path'],'',$back['file']).':'.$back['line'];
 			}
 		}
 		echo '</div>';
 	}
 }
 
-function josSpoofCheck( $header=NULL, $alt=NULL , $method = 'post')
-{
+function josSpoofCheck( $header=NULL, $alt=NULL , $method = 'post'){
 	switch(strtolower($method)) {
-		case "get":
+		case 'get':
 			$validate 	= mosGetParam( $_GET, josSpoofValue($alt), 0 );
 			break;
-		case "request":
+		case 'request':
 			$validate 	= mosGetParam( $_REQUEST, josSpoofValue($alt), 0 );
 			break;
-		case "post":
+		case 'post':
 		default:
 			$validate 	= mosGetParam( $_POST, josSpoofValue($alt), 0 );
 			break;

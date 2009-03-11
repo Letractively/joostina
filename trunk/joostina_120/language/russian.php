@@ -596,7 +596,7 @@ DEFINE('_DEVELOPERS','Разработчики');
 DEFINE('_SUPPORT','Поддержка');
 DEFINE('_LICENSE','Лицензия');
 DEFINE('_CHANGELOG','Журнал изменений');
-DEFINE('_CHECK_VERSION','Проверить версию Joomla! RE');
+DEFINE('_CHECK_VERSION','Проверить последнюю версию Joostina');
 DEFINE('_PREVIEW_SITE','Предпросмотр сайта');
 DEFINE('_IN_NEW_WINDOW','Открыть в новом окне');
 
@@ -1025,6 +1025,10 @@ DEFINE('_TIME_OFFSET_P_12','(UTC +12:00) Камчатка, Окленд, Уэллингтон, Фиджи');
 DEFINE('_TIME_OFFSET_P_12_75','(UTC +12:45) Остров Чатем');
 DEFINE('_TIME_OFFSET_P_13','(UTC +13:00) Тонга');
 DEFINE('_TIME_OFFSET_P_14','(UTC +14:00) Кирибати');
+DEFINE('_DISABLE_TPREVIEW','Запретить просмотр позиций модулей шаблона');
+DEFINE('_DISABLE_TPREVIEW_INFO','Позволяет отключить просмотр позиций модулей шаблона через параметр tp=1');
+
+
 
 /* administrator components com_contact */
 

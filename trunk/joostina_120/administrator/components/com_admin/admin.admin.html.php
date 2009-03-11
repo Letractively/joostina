@@ -89,71 +89,42 @@ class HTML_admin_misc {
 			<table class="adminform">
 			<tr>
 				<td colspan="2">
-					<?php
+<?php
 		// show security setting check
 		josSecurityCheck();
 ?>
 				</td>
 			</tr>
 			<tr>
-				<td valign="top" width="250">
-					<strong><?php echo _SYSTEM_OS?>:</strong>
-				</td>
-				<td>
-					<?php echo php_uname(); ?>
-				</td>
+				<td valign="top" width="250"><strong><?php echo _SYSTEM_OS?>:</strong></td>
+				<td><?php echo php_uname(); ?></td>
 			</tr>
 			<tr>
-				<td>
-					<strong><?php echo _DB_VERSION?>:</strong>
-				</td>
-				<td>
-					<?php echo $database->getVersion(); ?>
-				</td>
+				<td><strong><?php echo _DB_VERSION?>:</strong></td>
+				<td><?php echo $database->getVersion(); ?></td>
 			</tr>
 			<tr>
-				<td>
-					<strong><?php echo _PHP_VERSION?>:</strong>
-				</td>
-				<td>
-					<?php echo phpversion(); ?>
-				</td>
+				<td><strong><?php echo _PHP_VERSION?>:</strong></td>
+				<td><?php echo phpversion(); ?></td>
 			</tr>
 			<tr>
-				<td>
-					<strong><?php echo _APACHE_VERSION?>:</strong>
-				</td>
-				<td>
-					<?php echo HTML_admin_misc::get_server_software(); ?>
-				</td>
+				<td><strong><?php echo _APACHE_VERSION?>:</strong></td>
+				<td><?php echo HTML_admin_misc::get_server_software(); ?></td>
 			</tr>
 			<tr>
-				<td>
-					<strong><?php echo _PHP_APACHE_INTERFACE?>:</strong>
-				</td>
-				<td>
-					<?php echo php_sapi_name(); ?>
-				</td>
+				<td><strong><?php echo _PHP_APACHE_INTERFACE?>:</strong></td>
+				<td><?php echo php_sapi_name(); ?></td>
 			</tr>
 			<tr>
-				<td>
-					<strong><?php echo _JOOSTINA_VERSION?>:</strong>
-				</td>
-				<td>
-					<?php echo $version; ?>
-				</td>
+				<td><strong><?php echo _JOOSTINA_VERSION?>:</strong></td>
+				<td><?php echo $version; ?></td>
 			</tr>
 			<tr>
-				<td>
-					<strong><?php echo _BROWSER?>:</strong>
-				</td>
-				<td>
-					<?php echo phpversion() <= '4.2.1'?getenv('HTTP_USER_AGENT'):$_SERVER['HTTP_USER_AGENT']; ?>
-				</td>
+				<td><strong><?php echo _BROWSER?>:</strong></td>
+				<td><?php echo phpversion() <= '4.2.1'?getenv('HTTP_USER_AGENT'):$_SERVER['HTTP_USER_AGENT']; ?></td>
 			</tr>
 			<tr>
-				<td colspan="2" style="height: 10px;">
-				</td>
+				<td colspan="2" style="height: 10px;">&nbsp;</td>
 			</tr>
 			<tr>
 				<td valign="top">
@@ -162,9 +133,7 @@ class HTML_admin_misc {
 				<td>
 					<table cellspacing="1" cellpadding="1" border="0">
 					<tr>
-						<td width="250">
-							<?php echo _RG_EMULATION?>!:
-						</td>
+						<td width="250"><?php echo _RG_EMULATION?>!:</td>
 						<td style="font-weight: bold;" width="50">
 							<?php echo ((RG_EMULATION)?'<span style="color: red;">ON</span>':'<span style="color: green;">OFF</span>'); ?>
 						</td>
@@ -174,21 +143,15 @@ class HTML_admin_misc {
 						</td>
 					</tr>
 					<tr>
-						<td>
-							<?php echo _REGISTER_GLOBALS?>:
-						</td>
-						<td style="font-weight: bold;">
-							<?php echo HTML_admin_misc::get_php_setting('register_globals',1,0); ?>
-						</td>
+						<td><?php echo _REGISTER_GLOBALS?>:</td>
+						<td style="font-weight: bold;"><?php echo HTML_admin_misc::get_php_setting('register_globals',1,0); ?></td>
 						<td>
 							<?php $img = ((ini_get('register_globals'))?'publish_x.png':'tick.png'); ?>
 							<img src="../images/<?php echo $img; ?>" />
 						</td>
 					</tr>
 					<tr>
-						<td>
-							<?php echo _MAGIC_QUOTES?>:
-						</td>
+						<td><?php echo _MAGIC_QUOTES?>:</td>
 						<td style="font-weight: bold;">
 							<?php echo HTML_admin_misc::get_php_setting('magic_quotes_gpc',1,1); ?>
 						</td>
@@ -198,9 +161,7 @@ class HTML_admin_misc {
 						</td>
 					</tr>
 					<tr>
-						<td>
-							<?php echo _SAFE_MODE?>:
-						</td>
+						<td><?php echo _SAFE_MODE?>:</td>
 						<td style="font-weight: bold;">
 							<?php echo HTML_admin_misc::get_php_setting('safe_mode',1,0); ?>
 						</td>
@@ -210,9 +171,7 @@ class HTML_admin_misc {
 						</td>
 					</tr>
 					<tr>
-						<td>
-							<?php echo _FILE_UPLOAD?>:
-						</td>
+						<td><?php echo _FILE_UPLOAD?>:</td>
 						<td style="font-weight: bold;">
 							<?php echo HTML_admin_misc::get_php_setting('file_uploads',1,1); ?>
 						</td>
@@ -222,9 +181,7 @@ class HTML_admin_misc {
 						</td>
 					</tr>
 					<tr>
-						<td>
-							<?php echo _SESSION_HANDLING?>:
-						</td>
+						<td><?php echo _SESSION_HANDLING?>:</td>
 						<td style="font-weight: bold;">
 							<?php echo HTML_admin_misc::get_php_setting('session.auto_start',1,0); ?>
 						</td>
@@ -234,17 +191,13 @@ class HTML_admin_misc {
 						</td>
 					</tr>
 					<tr>
-						<td>
-							<?php echo _SESS_SAVE_PATH?>:
-						</td>
+						<td><?php echo _SESS_SAVE_PATH?>:</td>
 						<td style="font-weight: bold;" colspan="2">
 							<?php echo (($sp = ini_get('session.save_path'))?$sp:'none'); ?>
 						</td>
 					</tr>
 					<tr>
-						<td>
-							<?php echo _PHP_TAGS?>:
-						</td>
+						<td><?php echo _PHP_TAGS?>:</td>
 						<td style="font-weight: bold;">
 							<?php echo HTML_admin_misc::get_php_setting('short_open_tag'); ?>
 						</td>
@@ -252,9 +205,7 @@ class HTML_admin_misc {
 						</td>
 					</tr>
 					<tr>
-						<td>
-							<?php echo _BUFFERING?>:
-						</td>
+						<td><?php echo _BUFFERING?>:</td>
 						<td style="font-weight: bold;">
 							<?php echo HTML_admin_misc::get_php_setting('output_buffering'); ?>
 						</td>
@@ -262,41 +213,31 @@ class HTML_admin_misc {
 						</td>
 					</tr>
 					<tr>
-						<td>
-							<?php echo _OPEN_BASEDIR?>:
-						</td>
+						<td><?php echo _OPEN_BASEDIR?>:</td>
 						<td style="font-weight: bold;" colspan="2">
 							<?php echo (($ob = ini_get('open_basedir'))?$ob:'none'); ?>
 						</td>
 					</tr>
 					<tr>
-						<td>
-							<?php echo _ERROR_REPORTING?>:
-						</td>
+						<td><?php echo _ERROR_REPORTING?>:</td>
 						<td style="font-weight: bold;" colspan="2">
 							<?php echo HTML_admin_misc::get_php_setting('display_errors'); ?>
 						</td>
 					</tr>
 					<tr>
-						<td>
-							<?php echo _XML_SUPPORT?>:
-						</td>
+						<td><?php echo _XML_SUPPORT?>:</td>
 						<td style="font-weight: bold;" colspan="2">
 						<?php echo extension_loaded('xml')?'Yes':'No'; ?>
 						</td>
 					</tr>
 					<tr>
-						<td>
-							<?php echo _ZLIB_SUPPORT?>:
-						</td>
+						<td><?php echo _ZLIB_SUPPORT?>:</td>
 						<td style="font-weight: bold;" colspan="2">
 							<?php echo extension_loaded('zlib')?'Yes':'No'; ?>
 						</td>
 					</tr>
 					<tr>
-						<td>
-							<?php echo _DISABLED_FUNCTIONS?>:
-						</td>
+						<td><?php echo _DISABLED_FUNCTIONS?>:</td>
 						<td style="font-weight: bold;" colspan="2">
 							<?php echo (($df = ini_get('disable_functions'))?$df:'none'); ?>
 						</td>
@@ -305,15 +246,12 @@ class HTML_admin_misc {
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2" style="height: 10px;">
-				</td>
+				<td colspan="2" style="height: 10px;">&nbsp;</td>
 			</tr>
 			<tr>
-				<td valign="top">
-					<strong><?php echo _CONFIGURATION_FILE?>:</strong>
-				</td>
+				<td valign="top"><strong><?php echo _CONFIGURATION_FILE?>:</strong></td>
 				<td>
-				<?php
+<?php
 		$cf = file($mosConfig_absolute_path.'/configuration.php');
 		foreach($cf as $k => $v) {
 			if(eregi('mosConfig_host',$v)) {
@@ -339,14 +277,14 @@ class HTML_admin_misc {
 				</td>
 			</tr>
 			</table>
-		<?php
+<?php
 		$tabs->endTab();
 		$tabs->startTab("PHP Info","php-page");
 ?>
 			<table class="adminform">
 			<tr>
 				<td>
-				<?php
+<?php
 		ob_start();
 		phpinfo(INFO_GENERAL | INFO_CONFIGURATION | INFO_MODULES);
 		$phpinfo = ob_get_contents();
@@ -361,7 +299,7 @@ class HTML_admin_misc {
 				</td>
 			</tr>
 			</table>
-		<?php
+<?php
 		$tabs->endTab();
 		$tabs->startTab(_ACCESS_RIGHTS,'perms');
 ?>
@@ -369,7 +307,7 @@ class HTML_admin_misc {
 			<tr>
 				<td>
 					<strong><?php echo _DIRS_WITH_RIGHTS?>:</strong><br />   <br />
-					<?php
+<?php
 		$sp = ini_get('session.save_path');
 
 		mosHTML::writableCell(ADMINISTRATOR_DIRECTORY.'/backups');
@@ -396,7 +334,7 @@ class HTML_admin_misc {
 				</td>
 			</tr>
 			</table>
-		<?php
+<?php
 		$tabs->endTab();
 		$tabs->startTab(_DATABASE,'db');
 ?>
@@ -419,7 +357,7 @@ class HTML_admin_misc {
 ?>
 
 			</table>
-		<?php
+<?php
 		$tabs->endTab();
 		$tabs->endPane();
 ?>
@@ -436,7 +374,7 @@ class HTML_admin_misc {
 	function ListComponents() {
 		global $database;
 
-		$query = "SELECT params"."\n FROM #__modules "."\n WHERE module = 'mod_components'";
+		$query = "SELECT params FROM #__modules WHERE module = 'mod_components'";
 		$database->setQuery($query);
 		$row = $database->loadResult();
 		$params = new mosParameters($row);
@@ -489,9 +427,7 @@ class HTML_admin_misc {
 		<form name="adminForm">
 		<table class="adminform" border="1">
 			<tr>
-				<th colspan="2" class="title">
-					Помощь
-				</th>
+				<th colspan="2" class="title"><?php echo _HELP; ?></th>
 			</tr>
 			<tr>
 			<td colspan="2">
@@ -508,46 +444,34 @@ class HTML_admin_misc {
 <?php
 		if($helpurl) {
 ?>
-							<a href="<?php echo $fullhelpurl; ?>joomla.glossary" target="helpFrame">
-								<?php echo _GLOSSARY?></a>
+							<a href="<?php echo $fullhelpurl; ?>joomla.glossary" target="helpFrame"><?php echo _GLOSSARY?></a>
 							|
-							<a href="<?php echo $fullhelpurl; ?>joomla.credits" target="helpFrame">
-								<?php echo _DEVELOPERS?></a>
+							<a href="<?php echo $fullhelpurl; ?>joomla.credits" target="helpFrame"><?php echo _DEVELOPERS?></a>
 							|
-							<a href="<?php echo $fullhelpurl; ?>joomla.support" target="helpFrame">
-								<?php echo _SUPPORT?></a>
+							<a href="<?php echo $fullhelpurl; ?>joomla.support" target="helpFrame"><?php echo _SUPPORT?></a>
 <?php
 		} else {
 ?>
-							<a href="<?php echo $mosConfig_live_site; ?>/help/joomla.glossary.html" target="helpFrame">
-								<?php echo _GLOSSARY?></a>
+							<a href="<?php echo $mosConfig_live_site; ?>/help/joomla.glossary.html" target="helpFrame"><?php echo _GLOSSARY?></a>
 							|
-							<a href="<?php echo $mosConfig_live_site; ?>/help/joomla.credits.html" target="helpFrame">
-								<?php echo _DEVELOPERS?></a>
+							<a href="<?php echo $mosConfig_live_site; ?>/help/joomla.credits.html" target="helpFrame"><?php echo _DEVELOPERS?></a>
 							|
-							<a href="<?php echo $mosConfig_live_site; ?>/help/joomla.support.html" target="helpFrame">
-								<?php echo _SUPPORT?></a>
+							<a href="<?php echo $mosConfig_live_site; ?>/help/joomla.support.html" target="helpFrame"><?php echo _SUPPORT?></a>
 <?php
 		}
 ?>
 							|
-							<a href="http://www.gnu.org/licenses/gpl-2.0.htm" target="helpFrame">
-								<?php echo _LICENSE?></a>
+							<a href="http://www.gnu.org/licenses/gpl-2.0.htm" target="helpFrame"><?php echo _LICENSE?></a>
 							|
-							<a href="http://help.joomla.org" target="_blank">
-								help.joomla.org</a>
+							<a href="http://help.joomla.org" target="_blank">help.joomla.org</a>
 							|
-							<a href="http://Joom.Ru" target="_blank">
-								Joom.Ru</a>
+							<a href="http://Joom.Ru" target="_blank">Joom.Ru</a>
 							<br />
-							<a href="<?php echo $mosConfig_live_site; ?>/<?php echo ADMINISTRATOR_DIRECTORY?>/index3.php?option=com_admin&task=changelog" target="helpFrame">
-								<?php echo _CHANGELOG?></a>
+							<a href="<?php echo $mosConfig_live_site; ?>/<?php echo ADMINISTRATOR_DIRECTORY?>/index3.php?option=com_admin&task=changelog" target="helpFrame"><?php echo _CHANGELOG?></a>
 							|
-							<a href="<?php echo $mosConfig_live_site; ?>/<?php echo ADMINISTRATOR_DIRECTORY?>/index3.php?option=com_admin&task=sysinfo" target="helpFrame">
-								<?php echo _ABOUT_SYSTEM?></a>
+							<a href="<?php echo $mosConfig_live_site; ?>/<?php echo ADMINISTRATOR_DIRECTORY?>/index3.php?option=com_admin&task=sysinfo" target="helpFrame"><?php echo _ABOUT_SYSTEM?></a>
 							|
-							<a href="http://joom.ru/" target="_blank">
-								_CHECK_VERSION</a>
+							<a href="http://www.joostina.ru/" target="_blank"><?php echo _CHECK_VERSION ?></a>
 						</td>
 					</tr>
 				</table>
@@ -557,7 +481,7 @@ class HTML_admin_misc {
 			<td width="20%" valign="top">
 				<strong><?php echo _TOC_JUMPTO?></strong>
 				<div class="helpIndex">
-				<?php
+<?php
 		foreach($toc as $k => $v) {
 			if($helpurl) {
 				echo '<br /><a href="'.$fullhelpurl.urlencode($k).'" target="helpFrame">'.$v.
@@ -598,23 +522,18 @@ class HTML_admin_misc {
 		</style>
 		<table class="adminform">
 		<tr>
-			<th width="50%" class="title">
-			<?php echo _PREVIEW_SITE?>
-			</th>
+			<th width="50%" class="title"><?php echo _PREVIEW_SITE?></th>
 			<th width="50%" style="text-align:right">
-			<a href="<?php echo $mosConfig_live_site.'/index.php?tp='.$tp; ?>" target="_blank">
-			<?php echo _IN_NEW_WINDOW?>
-			</a>
+			<a href="<?php echo $mosConfig_live_site.'/index.php?tp='.$tp; ?>" target="_blank"><?php echo _IN_NEW_WINDOW?></a>
 			</th>
 		</tr>
 		<tr>
 			<td width="100%" valign="top" colspan="2">
-			<iframe name="previewFrame" src="<?php echo $mosConfig_live_site.
-		'/index.php?tp='.$tp; ?>" class="previewFrame" /></iframe>
+				<iframe name="previewFrame" src="<?php echo $mosConfig_live_site.'/index.php?tp='.$tp; ?>" class="previewFrame" /></iframe>
 			</td>
 		</tr>
 		</table>
-		<?php
+<?php
 	}
 
 	/*
@@ -624,7 +543,7 @@ class HTML_admin_misc {
 ?>
 		<pre>
 <?php
-		readfile($GLOBALS['mosConfig_absolute_path'].'/CHANGELOG.php');
+		readfile($GLOBALS['mosConfig_absolute_path'].'/changeslog');
 ?>
 		</pre>
 		<?php

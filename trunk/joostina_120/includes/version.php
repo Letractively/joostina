@@ -20,7 +20,7 @@ class joomlaVersion {
 	/** @var строка CMS*/
 	var $CMS = 'Joostina';
 	/** @var версия*/
-	var $CMS_ver = '1.2.0';
+	var $CMS_ver = '1.3.0';
 	/** @var int Номер основной версии*/
 	var $RELEASE = '1.0';
 	/** @var строка  статус разработки*/
@@ -28,13 +28,13 @@ class joomlaVersion {
 	/** @var int Подверсия*/
 	var $DEV_LEVEL = '15';
 	/** @var int Номер сборки*/
-	var $BUILD = '$: 190';
+	var $BUILD = '$: 191';
 	/** @var string Кодовое имя*/
-	var $CODENAME = 'stable';
+	var $CODENAME = 'a';
 	/** @var string Дата*/
-	var $RELDATE = '01:02:2009';
+	var $RELDATE = '**:**:2009';
 	/** @var string Время*/
-	var $RELTIME = '12:26';
+	var $RELTIME = '**:**';
 	/** @var string Временная зона*/
 	var $RELTZ = '+5 GMT';
 	/** @var string Текст авторских прав*/

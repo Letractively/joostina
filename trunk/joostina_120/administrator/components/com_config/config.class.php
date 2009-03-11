@@ -422,6 +422,10 @@ class mosConfig {
 	var $config_old_toolbar = 0;
 
 
+	/**
+	* @var int отключение предпросмотра шаблонов через &tp=1
+	*/
+	var $config_disable_tpreview = 0;
 
 
 

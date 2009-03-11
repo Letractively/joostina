@@ -466,6 +466,13 @@ $comp_list = mosHTML::selectList($out_components_arr,'component','','name','name
 		echo mosToolTip(_EXTENDED_DEBUG2); ?>
 				</td>
 			</tr>
+			<tr>
+				<td><?php echo _DISABLE_TPREVIEW?>:</td>
+				<td><?php echo $lists['tpreview'];
+		echo mosToolTip(_DISABLE_TPREVIEW_INFO); ?>
+				</td>
+			</tr>
+			
 		</table>
 <?php
 	$tabs->endTab();
