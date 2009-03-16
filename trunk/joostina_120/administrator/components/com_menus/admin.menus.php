@@ -42,6 +42,8 @@ switch($task) {
 
 	case 'save':
 	case 'apply':
+	case 'save_and_new':
+
 		// очитска кэша контента
 		mosCache::cleanCache('com_content');
 		// очистка кэша модуля меню
@@ -136,16 +138,15 @@ function viewMenuItems($menutype,$option) {
 	// select the records
 	// note, since this is a tree we have to do the limits code-side
 	if($search) {
-		$query = "SELECT m.id"."\n FROM #__menu AS m"
-			//. "\n LEFT JOIN #__content AS c ON c.id = m.componentid AND type='content_typed'"
-			."\n WHERE menutype = ".$database->Quote($menutype)."\n AND LOWER( m.name ) LIKE '%".
+		$query = "SELECT m.id FROM #__menu AS m WHERE menutype = ".$database->Quote($menutype)."\n AND LOWER( m.name ) LIKE '%".
 			$database->getEscaped(trim(strtolower($search)))."%'";
 		$database->setQuery($query);
 		$search_rows = $database->loadResultArray();
 	}
 
 	$query = "SELECT m.*, u.name AS editor, g.name AS groupname, c.publish_up, c.publish_down, com.name AS com_name".
-		"\n FROM #__menu AS m"."\n LEFT JOIN #__users AS u ON u.id = m.checked_out"."\n LEFT JOIN #__groups AS g ON g.id = m.access".
+		"\n FROM #__menu AS m".
+		"\n LEFT JOIN #__users AS u ON u.id = m.checked_out"."\n LEFT JOIN #__groups AS g ON g.id = m.access".
 		"\n LEFT JOIN #__content AS c ON c.id = m.componentid AND m.type = 'content_typed'".
 		"\n LEFT JOIN #__components AS com ON com.id = m.componentid AND m.type = 'components'".
 		"\n WHERE m.menutype = ".$database->Quote($menutype)."\n AND m.published != -2".
@@ -162,6 +163,7 @@ function viewMenuItems($menutype,$option) {
 		array_push($list,$v);
 		$children[$pt] = $list;
 	}
+	unset($rows);
 	// second pass - get an indent list of the items
 	$list = mosTreeRecurse(0,'',array(),$children,max(0,$levellimit - 1));
 	// eventually only pick out the searched items.
@@ -233,17 +235,28 @@ function viewMenuItems($menutype,$option) {
 		}
 		$list[$i]->link = $mitem->link;
 		$list[$i]->edit = $edit;
+		
+		$row = ReadMenuXML($mitem->type,$mitem->com_name);
+		$list[$i]->type = $row[0];
+		if(!isset($list[$i]->descrip)){
+			$list[$i]->descrip = $row[1];
+		}
+		unset($row,$mitem);
 		$i++;
 	}
-
+/*
 	$i = 0;
 	foreach($list as $row) {
 		// pulls name and description from menu type xml
 		$row = ReadMenuXML($row->type,$row->com_name);
 		$list[$i]->type = $row[0];
-		if(!isset($list[$i]->descrip)) $list[$i]->descrip = $row[1];
+		if(!isset($list[$i]->descrip)){
+			$list[$i]->descrip = $row[1];
+		}
+		unset($row);
 		$i++;
 	}
+*/
 	HTML_menusections::showMenusections($list,$pageNav,$search,$levellist,$menutype,$option);
 }
 
@@ -331,8 +344,7 @@ function addMenuItem(&$cid,$menutype,$option,$task) {
 		$i++;
 	}
 
-	HTML_menusections::addMenuItem($cid,$menutype,$option,$types_content,$types_component,
-		$types_link,$types_other,$types_submit);
+	HTML_menusections::addMenuItem($cid,$menutype,$option,$types_content,$types_component,$types_link,$types_other,$types_submit);
 }
 
 
@@ -381,6 +393,12 @@ function saveMenu($option,$task = 'save') {
 		default:
 			mosRedirect('index2.php?option='.$option.'&menutype='.$row->menutype,$msg);
 			break;
+
+		case 'save_and_new':
+		default:
+			mosRedirect('index2.php?option='.$option.'&task=new&menutype='.$row->menutype.'&'.josSpoofValue().'=1');
+			break;
+
 	}
 }
 
@@ -718,6 +736,7 @@ function ReadMenuXML($type,$component = -1) {
 	// xml file for module
 	$xmlfile = $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_menus/'.$type.'/'.$type.'.xml';
 	$xmlDoc = new DOMIT_Lite_Document();
+
 	$xmlDoc->resolveErrors(true);
 
 	if($xmlDoc->loadXML($xmlfile,false,true)) {
@@ -744,6 +763,7 @@ function ReadMenuXML($type,$component = -1) {
 	$row[1] = $descrip;
 	$row[2] = $group;
 
+	unset($xmlDoc,$root,$name,$descrip,$group);
 	return $row;
 }
 

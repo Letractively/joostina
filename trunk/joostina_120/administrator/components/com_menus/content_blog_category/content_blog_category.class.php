@@ -60,8 +60,10 @@ class content_blog_category {
 		// build the html select list for category
 		$rows[] = mosHTML::makeOption('','Все категории');
 		$query = "SELECT c.id AS `value`, c.section AS `id`, CONCAT_WS( ' / ', s.title, c.title) AS `text`".
-			"\n FROM #__sections AS s"."\n INNER JOIN #__categories AS c ON c.section = s.id".
-			"\n WHERE s.scope = 'content'"."\n ORDER BY s.name,c.name";
+			"\n FROM #__sections AS s".
+			"\n INNER JOIN #__categories AS c ON c.section = s.id".
+			"\n WHERE s.scope = 'content'".
+			"\n ORDER BY s.name,c.name";
 		$database->setQuery($query);
 		$rows = array_merge($rows,$database->loadObjectList());
 		$category = mosHTML::selectList($rows,'catid[]','ondblclick="jadd(\'name\',this.options[this.selectedIndex].text);" class="inputbox" size="10" multiple="multiple"','value','text',$lookup);
@@ -135,7 +137,12 @@ class content_blog_category {
 			default:
 				mosRedirect('index2.php?option='.$option.'&menutype='.$row->menutype,$msg);
 				break;
-		}
+
+			case 'save_and_new':
+			default:
+				mosRedirect('index2.php?option='.$option.'&task=new&menutype='.$row->menutype.'&'.josSpoofValue().'=1');
+				break;
+			}
 	}
 }
 ?>

@@ -127,13 +127,17 @@ class content_blog_section {
 		$msg = _MENU_ITEM_SAVED;
 		switch($task) {
 			case 'apply':
-				mosRedirect('index2.php?option='.$option.'&menutype='.$row->menutype.
-					'&task=edit&id='.$row->id,$msg);
+				mosRedirect('index2.php?option='.$option.'&menutype='.$row->menutype.'&task=edit&id='.$row->id,$msg);
 				break;
 
 			case 'save':
 			default:
 				mosRedirect('index2.php?option='.$option.'&menutype='.$row->menutype,$msg);
+				break;
+
+			case 'save_and_new':
+			default:
+				mosRedirect('index2.php?option='.$option.'&task=new&menutype='.$row->menutype.'&'.josSpoofValue().'=1');
 				break;
 		}
 	}

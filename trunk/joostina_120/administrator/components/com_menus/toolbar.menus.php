@@ -31,7 +31,7 @@ switch($task) {
 		$path = $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_menus/';
 
 		if($cid[0]) {
-			$query = "SELECT type"."\n FROM #__menu"."\n WHERE id = ".(int)$cid[0];
+			$query = "SELECT type FROM #__menu WHERE id = ".(int)$cid[0];
 			$database->setQuery($query);
 			$type = $database->loadResult();
 			$item_path = $path.$type.'/'.$type.'.menubar.php';

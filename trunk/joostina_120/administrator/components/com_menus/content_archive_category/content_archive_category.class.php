@@ -55,8 +55,7 @@ class content_archive_category_menu {
 		$lists['link'] = mosAdminMenus::Link($menu,$uid);
 
 		// get params definitions
-		$params = new mosParameters($menu->params,$mainframe->getPath('menu_xml',$menu->type),
-			'menu');
+		$params = new mosParameters($menu->params,$mainframe->getPath('menu_xml',$menu->type),'menu');
 
 		content_archive_category_menu_html::editCategory($menu,$lists,$params,$option);
 	}

@@ -524,11 +524,11 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 	$sectioncategories[-1] = array();
 	$sectioncategories[-1][] = mosHTML::makeOption('-1',_SEL_CATEGORY,'id','name');
 	mosArrayToInts($section_list);
-	$section_list = 'section='.implode(' OR section=',$section_list);
+	$section_list = 'section IN('.implode(',',$section_list).')';
 
 	$query = "SELECT id, title as name, section"
 			."\n FROM #__categories"
-			."\n WHERE ( $section_list )"
+			."\n WHERE $section_list "
 			."\n ORDER BY title ASC";
 	$database->setQuery($query);
 	$cat_list = $database->loadObjectList();

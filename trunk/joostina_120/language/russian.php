@@ -30,7 +30,7 @@ DEFINE('_CMN_YES','Да');
 DEFINE('_CMN_NO','Нет');
 DEFINE('_CMN_SHOW','Показать');
 DEFINE('_CMN_HIDE','Скрыть');
-DEFINE('_CMN_NAME','Имя');
+DEFINE('_CMN_NAME','Название');
 DEFINE('_CMN_DESCRIPTION','Описание');
 DEFINE('_CMN_SAVE','Сохранить');
 DEFINE('_CMN_APPLY','Применить');
@@ -360,8 +360,7 @@ DEFINE('_REG_ACTIVATE_FAILURE','<div class="componentheading">Ошибка активации!<
 
 /** classes/html/registration.php*/
 DEFINE('_PROMPT_PASSWORD','Забыли пароль?');
-DEFINE('_NEW_PASS_DESC','Пожалуйста, введите свои имя пользователя и адрес e-mail, затем нажмите кнопку "Отправить пароль".<br />'.
-	'Вскоре, на указанный адрес e-mail Вы получите письмо с новым паролем. Используйте этот пароль для входа на сайт.');
+DEFINE('_NEW_PASS_DESC','Пожалуйста, введите свои имя пользователя и адрес e-mail, затем нажмите кнопку "Отправить пароль".<br />Вскоре, на указанный адрес e-mail Вы получите письмо с новым паролем. Используйте этот пароль для входа на сайт.');
 DEFINE('_PROMPT_UNAME','Имя пользователя:');
 DEFINE('_PROMPT_EMAIL','Адрес e-mail:');
 DEFINE('_BUTTON_SEND_PASS','Отправить пароль');
@@ -1394,6 +1393,8 @@ DEFINE('_INOGLOBAL_CONFIG_ONE_TEMPLATE_USING','В глобальной конфигурации выбрано
 DEFINE('_CANNOT_DELETE_THIS_TEMPLATE_WHEN_USING','Этот шаблон используется и не может быть удален');
 DEFINE('_UNSUCCES_OPERATION_CANNOT_OPEN','Операция неудачна: невозможно открыть');
 DEFINE('_POSITIONS_SAVED','Позиции сохранены');
+DEFINE('_TEMPLATE_USE_IN_CONFIG','( выбрано в глобальной конфигурации )');
+
 
 /* menubar.html.old.php + menubar.html.php */
 DEFINE('_BUTTON','Кнопка');

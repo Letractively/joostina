@@ -81,8 +81,7 @@ class content_item_link_menu {
 			</tr>
 			</table>';
 			$contents = '';
-			$lists['content'] .= '<input type="hidden" name="content_item_link" value="'.$temp[1].
-				'" />';
+			$lists['content'] .= '<input type="hidden" name="content_item_link" value="'.$temp[1].'" />';
 		} else {
 			$query = "SELECT a.id AS value,"."\n CONCAT(s.title, ' - ',c.title,' / ',a.title, '&nbsp;&nbsp;&nbsp;&nbsp;') AS text".
 				"\n FROM #__content AS a"."\n INNER JOIN #__categories AS c ON a.catid = c.id".
@@ -110,8 +109,7 @@ class content_item_link_menu {
 		$lists['link'] = mosAdminMenus::Link($menu,$uid);
 
 		// get params definitions
-		$params = new mosParameters($menu->params,$mainframe->getPath('menu_xml',$menu->type),
-			'menu');
+		$params = new mosParameters($menu->params,$mainframe->getPath('menu_xml',$menu->type),'menu');
 
 		content_item_link_menu_html::edit($menu,$lists,$params,$option,$contents);
 	}

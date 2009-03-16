@@ -68,11 +68,11 @@ class TOOLBAR_menus {
 
 		mosMenuBar::startTable();
 		if(!$id) {
-			$link = 'index2.php?option=com_menus&menutype='.$menutype.
-				'&task=new&hidemainmenu=1';
+			$link = 'index2.php?option=com_menus&menutype='.$menutype.'&task=new&hidemainmenu=1';
 			mosMenuBar::back(_MENU_BACK,$link);
 			mosMenuBar::spacer();
 		}
+		mosMenuBar::custom('save_and_new','-save-and-new','',_SAVE_AND_ADD,false);
 		mosMenuBar::save();
 		mosMenuBar::spacer();
 		mosMenuBar::apply();

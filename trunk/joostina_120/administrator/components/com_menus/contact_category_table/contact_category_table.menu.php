@@ -24,6 +24,7 @@ switch($task) {
 
 	case 'save':
 	case 'apply':
+	case 'save_and_new':
 		saveMenu($option,$task);
 		break;
 }

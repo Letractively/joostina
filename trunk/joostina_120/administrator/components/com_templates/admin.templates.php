@@ -15,17 +15,20 @@ if(!$acl->acl_check('administration','manage','users',$GLOBALS['my']->usertype,'
 	mosRedirect('index2.php',_NOT_AUTH);
 }
 
+global $mosConfig_one_template;
+
 require_once ($mainframe->getPath('admin_html'));
 require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_templates/admin.templates.class.php');
 // XML library
 require_once ($mosConfig_absolute_path.'/includes/domit/xml_domit_lite_include.php');
 
 $client = strval(mosGetParam($_REQUEST,'client',''));
-
-global $mosConfig_one_template;
-if($mosConfig_one_template != '...') echo joost_info(_INOGLOBAL_CONFIG_ONE_TEMPLATE_USING.' <b>'.$mosConfig_one_template.'</b>');
-
 $cid = mosGetParam($_REQUEST,'cid',array(0));
+
+if($mosConfig_one_template != '...') {
+	echo joost_info(_INOGLOBAL_CONFIG_ONE_TEMPLATE_USING.' <b>'.$mosConfig_one_template.'</b>');
+}
+
 if(!is_array($cid)) {
 	$cid = array(0);
 }
@@ -197,6 +200,8 @@ function viewTemplates($option,$client) {
 
 			$rows[] = $row;
 			$rowid++;
+			
+			unset($xmlDoc);
 		}
 	}
 

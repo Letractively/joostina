@@ -21,7 +21,7 @@ class HTML_templates {
 	* @param string The option
 	*/
 	function showTemplates(&$rows,&$pageNav,$option,$client) {
-		global $my,$mosConfig_live_site;
+		global $my,$mosConfig_live_site,$mosConfig_one_template;
 		if(isset($row->authorUrl) && $row->authorUrl != '') {
 			$row->authorUrl = str_replace('http://','',$row->authorUrl);
 		}
@@ -66,8 +66,7 @@ class HTML_templates {
 <?php
 		} else {
 ?>
-				<th width="10%"><?php echo _DEFAULT?>
-				</th>
+				<th width="10%"><?php echo _DEFAULT?></th>
 				<th width="5%"><?php echo _ASSIGNED_TO?></th>
 <?php
 		}
@@ -79,13 +78,18 @@ class HTML_templates {
 		</tr>
 <?php
 		$k = 0;
-		for($i = 0,$n = count($rows); $i < $n; $i++) {
+		$a = count($rows);
+		for($i = 0,$n = $a; $i < $n; $i++) {
 			$row = &$rows[$i];
+			if($mosConfig_one_template==$row->directory){
+				$one_template = _TEMPLATE_USE_IN_CONFIG;
+			}else{
+				$one_template = '';
+			}
+			
 ?>
 			<tr class="<?php echo 'row'.$k; ?>">
-				<td>
-					<?php echo $pageNav->rowNumber($i); ?>
-				</td>
+				<td><?php echo $pageNav->rowNumber($i); ?></td>
 				<td>
 <?php
 					if($row->checked_out && $row->checked_out != $my->id) {
@@ -101,6 +105,7 @@ class HTML_templates {
 				</td>
 				<td align="left">
 					<a href="#info" onmouseover="showInfo('<?php echo $row->name; ?>','<?php echo $row->directory; ?>')" onmouseout="return nd();"><?php echo $row->name; ?></a>
+					<?php echo $one_template; ?>
 				</td>
 <?php
 			if($client == 'admin') {

@@ -106,7 +106,7 @@ if($mosConfig_debug) {
 }
 
 // восстановление сессий
-if($task == 'save' || $task == 'apply') {
+if($task == 'save' || $task == 'apply' || $task == 'save_and_new' ) {
 	$mainframe->initSessionAdmin($option,'');
 }
 
