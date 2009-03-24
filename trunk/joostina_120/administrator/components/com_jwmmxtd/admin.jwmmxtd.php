@@ -862,15 +862,15 @@ function UpdateImage($aFormValues) {
 
 function editImage($img,$cur) {
 	global $mosConfig_live_site,$option,$mosConfig_absolute_path;
-	require_once ($mosConfig_absolute_path.'/includes/xajax/xajax.inc.php');
+	require_once ($mosConfig_absolute_path.'/includes/libraries/xajax/xajax.inc.php');
 	$path = JWMMXTD_STARTURLPATH.$cur.'/'.$img;
 	$xajax = new xajax();
 	//$xajax->debugOn();
-	$xajax->registerFunction("UpdateImage");
-	$xajax->registerFunction("OriginalImage");
-	$xajax->registerFunction("MoveImage");
+	$xajax->registerFunction('UpdateImage');
+	$xajax->registerFunction('OriginalImage');
+	$xajax->registerFunction('MoveImage');
 	$xajax->processRequests();
-	$xajax->printJavascript($mosConfig_live_site.'/includes/xajax');
+	$xajax->printJavascript($mosConfig_live_site.'/includes/libraries/xajax');
 ?>
 <script type="text/javascript">
 	function UpdateImg(value){

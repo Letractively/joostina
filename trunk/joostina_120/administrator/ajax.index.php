@@ -17,7 +17,6 @@ if(!file_exists('../configuration.php')) {
 // подключаем файл регистрации глобальных переменных и конфигурацию
 require ('../globals.php');
 require_once ('../configuration.php');
-require_once ('../includes/definitions.php');
 
 // отключаем кэширование запросов базы данных для панели управления
 $mosConfig_db_cache_handler = 'none';

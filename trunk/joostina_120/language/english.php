@@ -360,7 +360,8 @@ DEFINE('_REG_ACTIVATE_FAILURE', '<div class="componentheading">Activation Failed
 
 /** classes/html/registration.php*/
 DEFINE('_PROMPT_PASSWORD','Lost your Password?');
-DEFINE('_NEW_PASS_DESC','Please enter your Username and e-mail address then click on the Send Password button.<br />You will receive a new password shortly.  Use this new password to access the site.');
+DEFINE('_NEW_PASS_DESC','Please enter your Username and e-mail address then click on the Send Password button.<br />'
+.'You will receive a new password shortly.  Use this new password to access the site.');
 DEFINE('_PROMPT_UNAME','Username:');
 DEFINE('_PROMPT_EMAIL','E-mail Address:');
 DEFINE('_BUTTON_SEND_PASS','Send Password');
@@ -1024,10 +1025,6 @@ DEFINE('_TIME_OFFSET_P_12','(UTC +12:00) Auckland, Wellington, Fiji, Kamchatka')
 DEFINE('_TIME_OFFSET_P_12_75','(UTC +12:45) Chatham Island');
 DEFINE('_TIME_OFFSET_P_13','(UTC +13:00) Tonga');
 DEFINE('_TIME_OFFSET_P_14','(UTC +14:00) Kiribati');
-DEFINE('_DISABLE_TPREVIEW','«апретить просмотр позиций модулей шаблона');
-DEFINE('_DISABLE_TPREVIEW_INFO','ѕозвол€ет отключить просмотр позиций модулей шаблона через параметр tp=1');
-
-
 
 /* administrator components com_contact */
 
@@ -1393,8 +1390,6 @@ DEFINE('_INOGLOBAL_CONFIG_ONE_TEMPLATE_USING','Only One Template usage is turned
 DEFINE('_CANNOT_DELETE_THIS_TEMPLATE_WHEN_USING','Can not delete because this Template is used');
 DEFINE('_UNSUCCES_OPERATION_CANNOT_OPEN','Operation unsuccessful: Can Not Open');
 DEFINE('_POSITIONS_SAVED','Positions Saved');
-DEFINE('_TEMPLATE_USE_IN_CONFIG','( выбрано в глобальной конфигурации )');
-
 
 /* menubar.html.old.php + menubar.html.php */
 DEFINE('_BUTTON','Button');

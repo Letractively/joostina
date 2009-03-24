@@ -658,37 +658,27 @@ class HTML_contact {
 				<br /><br />
 				<form action="<?php echo sefRelToAbs('index.php?option=com_contact&amp;Itemid='.$Itemid); ?>" method="post" name="emailForm" target="_top" id="emailForm">
 				<div class="contact_email<?php echo $menu_params->get('pageclass_sfx'); ?>">
-					<label for="contact_name">
-						<?php echo (_NAME_PROMPT); ?>
-					</label>
+					<label for="contact_name"><?php echo (_NAME_PROMPT); ?></label>
 					<br />
 					<input type="text" name="name" id="contact_name" size="30" class="inputbox" value="" />
 					<br />
-					<label for="contact_email">
-						<?php echo (_EMAIL_PROMPT); ?>
-					</label>
+					<label for="contact_email"><?php echo (_EMAIL_PROMPT); ?></label>
 					<br />
 					<input type="text" name="email" id="contact_email" size="30" class="inputbox" value="" />
 					<br />
-					<label for="contact_subject">
-						<?php echo (_SUBJECT_PROMPT); ?>
-					</label>
+					<label for="contact_subject"><?php echo (_SUBJECT_PROMPT); ?></label>
 					<br />
 					<input type="text" name="subject" id="contact_subject" size="30" class="inputbox" value="" />
 					<br /><br />
-					<label for="contact_text">
-						<?php echo (_MESSAGE_PROMPT); ?>
-					</label>
+					<label for="contact_text"><?php echo (_MESSAGE_PROMPT); ?></label>
 					<br />
 					<textarea cols="50" rows="10" name="text" id="contact_text" class="inputbox"></textarea>
-					<?php
+<?php
 			if($params->get('email_copy')) {
 ?>
 						<br />
 							<input type="checkbox" name="email_copy" id="contact_email_copy" value="1"  />
-							<label for="contact_email_copy">
-								<?php echo (_EMAIL_A_COPY); ?>
-							</label>
+							<label for="contact_email_copy"><?php echo (_EMAIL_A_COPY); ?></label>
 						<?php
 			}
 ?>
@@ -697,14 +687,13 @@ class HTML_contact {
 				session_start();
 ?>
 						<div>
-							<img id="captchaimg" alt="Нажмите чтобы обновить изображение" onclick="document.emailForm.captchaimg.src='<?php echo $mosConfig_live_site; ?>/includes/kcaptcha/index.php?' + new String(Math.random())" src="<?php echo $mosConfig_live_site; ?>/includes/kcaptcha/index.php?<?php echo session_id() ?>" />
+							<img id="captchaimg" alt="Нажмите чтобы обновить изображение" onclick="document.emailForm.captchaimg.src='<?php echo $mosConfig_live_site; ?>/includes/libraries/kcaptcha/index.php?' + new String(Math.random())" src="<?php echo $mosConfig_live_site; ?>/includes/libraries/kcaptcha/index.php?<?php echo session_id() ?>" />
 						</div>
-						<div>Введите код проверки с картинки выше:</div>
+						<div><?php echo _PLEASE_ENTER_CAPTCHA; ?></div>
 						<div>
 							<input name="captcha" type="text" class="inputbox" size="30" />
 						</div>
-<?php }
-			; ?>
+<?php } ?>
 					<br />
 					<input type="button" name="send" value="<?php echo (_SEND_BUTTON); ?>" class="button" onclick="validate()" />
 				</div>
@@ -717,7 +706,7 @@ class HTML_contact {
 				<br />
 				</td>
 			</tr>
-			<?php
+<?php
 		}
 	}
 

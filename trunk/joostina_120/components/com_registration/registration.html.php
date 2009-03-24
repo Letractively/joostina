@@ -50,22 +50,16 @@ class HTML_registration {
 		<tr>
 			<td>&nbsp;</td>
 			<td>
-				<img id="captchaimg" alt="<?php echo _REG_CAPTCHA_REF; ?>" onclick="document.mosForm.captchaimg.src='<?php echo
-$mosConfig_live_site; ?>/includes/kcaptcha/index.php?' + new String(Math.random())" src="<?php echo
-$mosConfig_live_site; ?>/includes/kcaptcha/index.php?<?php echo
-session_id() ?>" />
+				<img id="captchaimg" alt="<?php echo _REG_CAPTCHA_REF; ?>" onclick="document.mosForm.captchaimg.src='<?php echo $mosConfig_live_site; ?>/includes/libraries/kcaptcha/index.php?' + new String(Math.random())" src="<?php echo $mosConfig_live_site; ?>/includes/libraries/kcaptcha/index.php?<?php echo session_id() ?>" />
 			</td>
 		</tr>
 		<tr>
-			<td>
-				<?php echo _REG_CAPTCHA; ?>
-			</td>
+			<td><?php echo _REG_CAPTCHA; ?></td>
 			<td>
 				<input type="text" name="captcha" class="inputbox" size="40" value=""/>
 			</td>
 		</tr>
-<?php }
-		; ?>
+<?php } ?>
 		<tr>
 			<td colspan="2">
 				<input type="submit" class="button" value="<?php echo _BUTTON_SEND_PASS; ?>" />
@@ -77,7 +71,7 @@ session_id() ?>" />
 		<input type="hidden" name="task" value="sendNewPass" /> 
 		<input type="hidden" name="<?php echo $validate; ?>" value="1" />
 		</form>
-		<?php
+<?php
 	}
 
 	function registerForm($option,$useractivation) {
@@ -119,41 +113,31 @@ session_id() ?>" />
 		}
 		</script>
 		<form action="index.php" method="post" name="mosForm" id="mosForm">
-		<div class="componentheading">
-			<?php echo _REGISTER_TITLE; ?>
-		</div>
+		<div class="componentheading"><?php echo _REGISTER_TITLE; ?></div>
 		<table cellpadding="0" cellspacing="0" border="0" width="100%" class="contentpane">
 		<tr>
 			<td colspan="2"><?php echo _REGISTER_REQUIRED; ?></td>
 		</tr>
 		<tr>
-			<td width="30%">
-				<?php echo _REGISTER_NAME; ?>*
-			</td>
+			<td width="30%"><?php echo _REGISTER_NAME; ?>*</td>
 			<td>
 				<input type="text" name="name" size="40" value="" class="inputbox" maxlength="50" />
 			</td>
 		</tr>
 		<tr>
-			<td>
-				<?php echo _REGISTER_UNAME; ?>*
-			</td>
+			<td><?php echo _REGISTER_UNAME; ?>*</td>
 			<td>
 				<input type="text" name="username" size="40" value="" class="inputbox" maxlength="25" />
 			</td>
 		</tr>
 		<tr>
-			<td>
-				<?php echo _REGISTER_EMAIL; ?>*
-			</td>
+			<td><?php echo _REGISTER_EMAIL; ?>*</td>
 			<td>
 				<input type="text" name="email" size="40" value="" class="inputbox" maxlength="100" />
 			</td>
 		</tr>
 		<tr>
-			<td>
-				<?php echo _REGISTER_PASS; ?>*
-			</td>
+			<td><?php echo _REGISTER_PASS; ?>*</td>
 			<td>
 				<input class="inputbox" type="password" name="password" size="40" value="" />
 			</td>
@@ -170,22 +154,16 @@ session_id() ?>" />
 		<tr>
 			<td>&nbsp;</td>
 			<td>
-				<img id="captchaimg" alt="<?php echo _REG_CAPTCHA_REF; ?>" onclick="document.mosForm.captchaimg.src='<?php echo
-$mosConfig_live_site; ?>/includes/kcaptcha/index.php?' + new String(Math.random())" src="<?php echo
-$mosConfig_live_site; ?>/includes/kcaptcha/index.php?<?php echo
-session_id() ?>" />
+				<img id="captchaimg" alt="<?php echo _REG_CAPTCHA_REF; ?>" onclick="document.mosForm.captchaimg.src='<?php echo $mosConfig_live_site; ?>/includes/libraries/kcaptcha/index.php?' + new String(Math.random())" src="<?php echo $mosConfig_live_site; ?>/includes/libraries/kcaptcha/index.php?<?php echo session_id() ?>" />
 			</td>
 		</tr>
 		<tr>
-			<td>
-				<?php echo _REG_CAPTCHA; ?>
-			</td>
+			<td><?php echo _REG_CAPTCHA; ?></td>
 			<td>
 				<input type="text" name="captcha" class="inputbox" size="40" value=""/>
 			</td>
 		</tr>
-<?php }
-		; ?>
+<?php } ?>
 		</table>
 
 		<input type="hidden" name="id" value="0" />

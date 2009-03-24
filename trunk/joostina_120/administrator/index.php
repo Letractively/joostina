@@ -17,7 +17,7 @@ if(!file_exists('../configuration.php')) {
 
 require ('../globals.php');
 require_once ('../configuration.php');
-require_once ('../includes/definitions.php');
+
 // отключаем кэширование запросов базы данных для панели управления
 $mosConfig_db_cache_handler = 'none';
 
@@ -43,7 +43,7 @@ $database->dbcache->test = 0;
 //Installation sub folder check, removed for work with SVN
 if(file_exists('../installation/index.php') && $_VERSION->SVN == 0) {
 	define('_INSTALL_CHECK',1);
-	include ($mosConfig_absolute_path . '/offline.php');
+	include ($mosConfig_absolute_path . '/templates/system/offline.php');
 	exit();
 }
 
@@ -57,7 +57,7 @@ if(isset($_POST['submit'])) {
 	$pass = stripslashes(mosGetParam($_POST,'pass',null));
 
 	if($pass == null) {
-		echo "<script>alert('Пожалуйста, введите пароль'); document.location.href='index.php?mosmsg="._PLEASE_ENTER_PASSWORD."'</script>\n";
+		echo "<script>alert('"._PLEASE_ENTER_PASSWORD."'); document.location.href='index.php?mosmsg="._PLEASE_ENTER_PASSWORD."'</script>\n";
 		exit();
 	}
 	if($mosConfig_captcha) {

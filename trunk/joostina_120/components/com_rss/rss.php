@@ -14,7 +14,7 @@ defined('_VALID_MOS') or die();
 global $task,$mosConfig_absolute_path;
 
 // load feed creator class
-require_once ($mosConfig_absolute_path.'/includes/feedcreator.class.php');
+require_once ($mosConfig_absolute_path.'/includes/libraries/feedcreator/feedcreator.class.php');
 
 $info = null;
 $rss = null;
@@ -81,7 +81,7 @@ function feedFrontpage($showFeed) {
 	} else {
 		$info['image'] = $mosConfig_live_site.'/images/M_images/'.$info['image_file'];
 	}
-	$info['image_alt'] = $params->def('image_alt','Powered by Joomla!');
+	$info['image_alt'] = $params->def('image_alt','Работает на Joostina!');
 	$info['limit_text'] = $params->def('limit_text',0);
 	$info['text_length'] = $params->def('text_length',20);
 	// get feed type from url
