@@ -12,7 +12,6 @@ define('_VALID_MOS',1);
 
 require ('globals.php');
 require_once ('configuration.php');
-require_once ('includes/definitions.php');
 
 // SSL check - $http_host returns <live site url>:<port number if it is 443>
 $http_host = explode(':',$_SERVER['HTTP_HOST']);
@@ -20,11 +19,11 @@ if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset
 	$mosConfig_live_site = 'https://'.substr($mosConfig_live_site,7);
 }
 
-require_once ('includes/joomla.php');
+require_once ($mosConfig_absolute_path.'/includes/joomla.php');
 
 // отображение состояния выключенного сайта
 if($mosConfig_offline == 1) {
-	require ($mosConfig_absolute_path.'/offline.php');
+	require ($mosConfig_absolute_path.'/templates/system/offline.php');
 }
 
 // загрузка группы системного бота
@@ -60,6 +59,7 @@ $_MAMBOTS->trigger('onAfterStart');
 
 // get the information about the current user from the sessions table
 $my = $mainframe->getUser();
+$gid = intval($my->gid);
 // patch to lessen the impact on templates
 if($option == 'search') {
 	$option = 'com_search';
@@ -74,16 +74,10 @@ include_once ($mosConfig_absolute_path.'/language/'.$mosConfig_lang.'.php');
 if($option == 'login') {
 	$mainframe->login();
 	mosRedirect('index.php');
-} else
-	if($option == 'logout') {
-		$mainframe->logout();
-		mosRedirect('index.php');
-	}
-
-// обнаружение первого посещения
-$mainframe->detect();
-
-$gid = intval($my->gid);
+} elseif($option == 'logout') {
+	$mainframe->logout();
+	mosRedirect('index.php');
+}
 
 $cur_template = $mainframe->getTemplate();
 
@@ -130,11 +124,7 @@ if($print){
 		$pg_link	= str_replace(array('&pop=1','&page=0'),'',$_SERVER['REQUEST_URI']);
 		$pg_link	= str_replace('index2.php','index.php',$pg_link);
 
-		$_MOS_OPTION['buffer'] = '<div class="logo">'. $mosConfig_sitename .'</div><div id="main">'
-		.$_MOS_OPTION['buffer']
-		."\n</div>\n<div id=\"ju_foo\">"
-		._PRINT_PAGE_LINK." :<br /><i>".sefRelToAbs($pg_link)."</i><br /><br />&copy; "
-		.$mosConfig_sitename.",&nbsp;".date('Y').'</div>';
+		$_MOS_OPTION['buffer'] = '<div class="logo">'. $mosConfig_sitename .'</div><div id="main">'.$_MOS_OPTION['buffer']."\n</div>\n<div id=\"ju_foo\">"._PRINT_PAGE_LINK." :<br /><i>".sefRelToAbs($pg_link)."</i><br /><br />&copy; ".$mosConfig_sitename.",&nbsp;".date('Y').'</div>';
 	}
 }else{
 	$mainframe->addCSS($mosConfig_live_site.'/templates/'.$cur_template.'/css/template_css.css');
@@ -162,7 +152,7 @@ if(!$mosConfig_caching) { // не кэшируется
 
 // отображение состояния выключенного сайта при входе админа
 if(defined('_ADMIN_OFFLINE')) {
-	include ($mosConfig_absolute_path.'/offlinebar.php');
+	include ($mosConfig_absolute_path.'/templates/system/offlinebar.php');
 }
 
 // старт основного HTML

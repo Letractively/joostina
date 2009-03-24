@@ -322,7 +322,7 @@ if($mosConfig_sef) {
 					if($temp[0] == 'option') {
 						if(!is_dir($mosConfig_absolute_path.'/components/'.$temp[1])){
 							header('HTTP/1.0 404 Not Found');
-							require_once ($mosConfig_absolute_path.'/templates/404.php');
+							require_once ($mosConfig_absolute_path.'/templates/system/404.php');
 							exit(404);
 						}
 					}

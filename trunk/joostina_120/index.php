@@ -15,29 +15,29 @@ if(function_exists('memory_get_usage')){
 }else{
 	define('_MEM_USAGE_START',null);
 }
-// проверка конфигурационного файла, если не обнаружен, то загружается страница установки
-if(!file_exists('configuration.php') || filesize('configuration.php') < 10) {
-	$self = rtrim(dirname($_SERVER['PHP_SELF']),'/\\').'/';
-	header("Location: http://".$_SERVER['HTTP_HOST'].$self."installation/index.php");
-	exit();
-}
-// подключение файла эмуляции отключения регистрации глобальных переменных
-require ('globals.php');
-// подключение файла конфигурации
-require_once ('configuration.php');
-require_once ('includes/definitions.php');
-
 // закомментировать при возникновении ошибок
 $mosConfig_absolute_path = dirname( __FILE__ );
 
-// (c) boston считаем время за которое сгенерирована страница
+
+// проверка конфигурационного файла, если не обнаружен, то загружается страница установки
+if(!file_exists('configuration.php') || filesize('configuration.php') < 10) {
+	$self = rtrim(dirname($_SERVER['PHP_SELF']),'/\\').'/';
+	header('Location: http://'.$_SERVER['HTTP_HOST'].$self.'installation/index.php');
+	exit();
+}
+// подключение файла эмуляции отключения регистрации глобальных переменных
+require ($mosConfig_absolute_path.'/globals.php');
+// подключение файла конфигурации
+require_once ($mosConfig_absolute_path.'/configuration.php');
+
+// считаем время за которое сгенерирована страница
 if($mosConfig_time_gen) {
 	list($usec,$sec) = explode(" ",microtime());
 	$sysstart = ((float)$usec + (float)$sec);
 }
 // проверка и активация расширенного отладчика
 if($mosConfig_debug) {
-	require_once "includes/debug/jdebug.php";
+	require_once $mosConfig_absolute_path.'/includes/libraries/debug/jdebug.php';
 	$debug = new jdebug();
 }
 
@@ -49,20 +49,23 @@ if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset
 // подключение главного файла - ядра системы
 require_once ($mosConfig_absolute_path.'/includes/joomla.php');
 
+// проверка и переадресация с не WWW адреса
+joostina_api::check_host();
 
 //Проверка подпапки установки, удалена при работе с SVN
 if(file_exists('installation/index.php') && $_VERSION->SVN == 0) {
 	define('_INSTALL_CHECK',1);
-	include ($mosConfig_absolute_path.'/offline.php');
+	include ($mosConfig_absolute_path.'/templates/system/offline.php');
 	exit();
 }
 
 // отображение страницы выключенного сайта
 if($mosConfig_offline == 1) {
-	require ($mosConfig_absolute_path.'/offline.php');
+	require ($mosConfig_absolute_path.'/templates/system/offline.php');
+	exit();
 }
 
-// (c) boston, проверяем, разрешено ли использование системных мамботов
+// проверяем, разрешено ли использование системных мамботов
 if($mosConfig_mmb_system_off == 0) {
 	$_MAMBOTS->loadBotGroup('system');
 	// триггер событий onStart
@@ -109,9 +112,6 @@ if($mosConfig_sef == 1) {
 	}
 }
 
-// проверка и переадресация с не WWW адреса
-joostina_api::check_host();
-
 require_once ($mosConfig_absolute_path.'/includes/frontend.php');
 
 
@@ -140,6 +140,7 @@ if($option == '') {
 		$Itemid = $menu->id;
 	}
 	$link = $menu->link;
+	unset($menu);
 	if(($pos = strpos($link,'?')) !== false) {
 		$link = substr($link,$pos + 1).'&Itemid='.$Itemid;
 	}
@@ -162,11 +163,13 @@ if(!$Itemid) {
 $mainframe = new mosMainFrame($database,$option,'.');
 
 // отключение ведения сессий на фронте
-if($mosConfig_session_front == 0) $mainframe->initSession();
-
+if($mosConfig_session_front == 0) {
+	$mainframe->initSession();
+}
 // триггер событий onAfterStart
-if($mosConfig_mmb_system_off == 0) $_MAMBOTS->trigger('onAfterStart');
-
+if($mosConfig_mmb_system_off == 0) {
+	$_MAMBOTS->trigger('onAfterStart');
+}
 // проверка, если мы можем найти Itemid в содержимом
 if($option == 'com_content' && $Itemid === 0) {
 	$id = intval(mosGetParam($_REQUEST,'id',0));
@@ -201,20 +204,20 @@ $return		= strval(mosGetParam($_REQUEST,'return',null));
 $message	= intval(mosGetParam($_POST,'message',0));
 
 /** получение информации о текущих пользователях из таблицы сессий*/
-// (c) boston, $my - важный параметр, используемый часто и не по делу, загрузим его, но с пустыми значениями
+// $my - важный параметр, в нём содержатся вс еданные по текущему пользователю
 $my = $mainframe->getUser();
+$gid = intval($my->gid);
+
 if($option == 'login') {
 	$mainframe->login();
-
 	// Всплывающее сообщение JS
-	if($message) {
-?>
+	if($message) {?>
 		<script language="javascript" type="text/javascript">
 		<!--//
 		alert( "<?php echo addslashes(_LOGIN_SUCCESS); ?>" );
 		//-->
 		</script>
-		<?php
+<?php
 	}
 
 	if($return && !(strpos($return,'com_registration') || strpos($return,'com_login'))) {
@@ -235,19 +238,17 @@ if($option == 'login') {
 		}
 	}
 
-} else
-if($option == 'logout') {
+} elseif($option == 'logout') {
 	$mainframe->logout();
 
 	// Всплывающее сообщение JS
-	if($message) {
-?>
+	if($message) {?>
 		<script language="javascript" type="text/javascript">
 		<!--//
 		alert( "<?php echo addslashes(_LOGOUT_SUCCESS); ?>" );
 		//-->
 		</script>
-		<?php
+<?php
 	}
 
 	if($return && !(strpos($return,'com_registration') || strpos($return,'com_login'))) {
@@ -257,8 +258,7 @@ if($option == 'logout') {
 	} else {
 		mosRedirect($mosConfig_live_site.'/index.php');
 	}
-} else
-if($option == 'cookiecheck') {
+} elseif($option == 'cookiecheck') {
 	// No cookie was set upon login. If it is set now, redirect to the given page. Otherwise, show error message.
 	if(isset($_COOKIE[mosMainFrame::sessionCookieName()])) {
 		mosRedirect($return);
@@ -267,26 +267,23 @@ if($option == 'cookiecheck') {
 	}
 }
 
-// обнаружение первого посещения
-$mainframe->detect();
-
-// установка проверки для overlib
-$mainframe->set('loadOverlib',false);
-
-$gid = intval($my->gid);
 
 // получение шаблона страницы
 $cur_template = $mainframe->getTemplate();
-
 
 /**
 ** * @global - Места для хранения информации обработки компонента*/
 $_MOS_OPTION = array();
 
-// (c) boston, подключение функций редактора, т.к. сессии(авторизация ) на фронте отключены - это тоже запрещаем
-if($mosConfig_frontend_login == 1) require_once ($mosConfig_absolute_path.'/editor/editor.php');
-
+// подключение функций редактора, т.к. сессии(авторизация ) на фронте отключены - это тоже запрещаем
+if($mosConfig_frontend_login == 1) {
+	require_once ($mosConfig_absolute_path.'/editor/editor.php');
+}
 // начало буферизации основного содержимого
+
+include($mosConfig_absolute_path.'/includes/libraries/html_optimize/html_optimize.php');
+
+
 ob_start();
 if($path = $mainframe->getPath('front')) {
 	$task = strval(mosGetParam($_REQUEST,'task',''));
@@ -328,7 +325,7 @@ if(!$mosConfig_caching) { // не кэшируется
 
 // отображение предупреждения о выключенном сайте, при входе админа
 if(defined('_ADMIN_OFFLINE')) {
-	include ($mosConfig_absolute_path.'/offlinebar.php');
+	include ($mosConfig_absolute_path.'/templates/system/offlinebar.php');
 }
 // буферизация итогового содержимого, необходимо для шаблонов группы templates
 ob_start();
@@ -347,14 +344,14 @@ if($mosConfig_mmb_mainbody_off == 0) {
 	$_MAMBOTS->trigger('onTemplate');
 }
 // boston, уменьшает расход памяти, но момент всё-таки спорный
-unset($_MAMBOTS,$mainframe);
+unset($_MAMBOTS,$mainframe,$my);
 // вывод стека всего тела страницы, уже после обработки мамботами группы onTemplate
 echo $_MOS_OPTION['mainbody'];
-
+flush();
 
 // подсчет времени генерации страницы
 if($mosConfig_time_gen) {
-	list($usec,$sec) = explode(" ",microtime());
+	list($usec,$sec) = explode(' ',microtime());
 	$sysstop = ((float)$usec + (float)$sec);
 	echo '<div id="time_gen">'.round($sysstop - $sysstart,4).'</div>';
 }
@@ -370,9 +367,12 @@ if($mosConfig_debug) {
 
 doGzip();
 // запускаем встроенный оптимизатор таблиц
-if($mosConfig_optimizetables == 1) joostina_api::optimizetables();
+if($mosConfig_optimizetables == 1) {
+	joostina_api::optimizetables();
+}
 // очистка каталога кэша
-if($mosConfig_clearCache == 1 && $mosConfig_caching == 1) joostina_api::clearCache();
-
+//if($mosConfig_clearCache == 1 && $mosConfig_caching == 1) {
+	joostina_api::clear_cache();
+//}
 exit();
 ?>

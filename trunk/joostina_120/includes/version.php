@@ -28,7 +28,7 @@ class joomlaVersion {
 	/** @var int Подверсия*/
 	var $DEV_LEVEL = '15';
 	/** @var int Номер сборки*/
-	var $BUILD = '$: 191';
+	var $BUILD = '$: 192';
 	/** @var string Кодовое имя*/
 	var $CODENAME = 'a';
 	/** @var string Дата*/

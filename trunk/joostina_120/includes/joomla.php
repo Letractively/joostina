@@ -11,6 +11,9 @@
 defined('_VALID_MOS') or die();
 
 define('_MOS_MAMBO_INCLUDED',1);
+DEFINE('ADMINISTRATOR_DIRECTORY','administrator');
+
+
 
 if (!defined( 'DS' )){
 	define( 'DS', DIRECTORY_SEPARATOR );
@@ -65,19 +68,17 @@ if(@$mosConfig_error_reporting === 0 || @$mosConfig_error_reporting === '0') {
 	}
 
 require_once ($mosConfig_absolute_path.'/includes/version.php');
-require_once ($mosConfig_absolute_path.'/includes/database.php');
-require_once ($mosConfig_absolute_path.'/includes/gacl.class.php');
-/* подключение файла перенесено непосредственно в функцию отправки писем*/
-//require_once( $mosConfig_absolute_path . '/includes/phpmailer/class.phpmailer.php' );
+require_once ($mosConfig_absolute_path.'/includes/libraries/database/database.php');
+require_once ($mosConfig_absolute_path.'/includes/libraries/gacl/gacl.class.php');
 require_once ($mosConfig_absolute_path.'/includes/joomla.xml.php');
-require_once ($mosConfig_absolute_path.'/includes/phpInputFilter/class.inputfilter.php');
+require_once ($mosConfig_absolute_path.'/includes/libraries/phpInputFilter/class.inputfilter.php');
 
 $database = new database($mosConfig_host,$mosConfig_user,$mosConfig_password,$mosConfig_db,$mosConfig_dbprefix);
 if($database->getErrorNum()) {
 	$mosSystemError = $database->getErrorNum();
 	$basePath = dirname(__file__);
 	include $basePath.'/../configuration.php';
-	include $basePath.'/../offline.php';
+	include $basePath.'/../templates/system/offline.php';
 	exit();
 }
 $database->debug($mosConfig_debug);
@@ -424,14 +425,19 @@ class mosMainFrame {
 		} else {
 			$this->_userstate = null;
 		}
-		$this->_head = array();
-		$this->_head['title'] = $GLOBALS['mosConfig_sitename'];
-		$this->_head['meta'] = array();
-		$this->_head['custom'] = array();
 		//set the admin check
 		$this->_isAdmin = (boolean)$isAdmin;
-		$now = date('Y-m-d H:i:s',time());
-		$this->set('now',$now);
+		$this->set('now',date('Y-m-d H:i:s',time()));
+		if(!$isAdmin){
+			$this->_head = array();
+			$this->_head['title'] = $GLOBALS['mosConfig_sitename'];
+			$this->_head['meta'] = array();
+			$this->_head['custom'] = array();
+			// обнаружение первого посещения
+			$this->detect();
+			// установка проверки для overlib
+			$this->set('loadOverlib',false);
+		}
 	}
 	/**
 	* Gets the id number for a client
@@ -1434,14 +1440,14 @@ class mosMainFrame {
 					break;
 
 				case 'installer_html':
-					$path = $mosConfig_absolute_path."/".ADMINISTRATOR_DIRECTORY."/components/com_installer/$option/$option.html.php";
+					$path = $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY."/components/com_installer/$option/$option.html.php";
 					if(file_exists($path)) {
 						$result = $path;
 					}
 					break;
 
 				case 'installer_class':
-					$path = $mosConfig_absolute_path."/".ADMINISTRATOR_DIRECTORY."/components/com_installer/$option/$option.class.php";
+					$path = $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY."/components/com_installer/$option/$option.class.php";
 					if(file_exists($path)) {
 						$result = $path;
 					}
@@ -2909,9 +2915,10 @@ function mosObjectToArray($p_obj) {
 /* 05.08.07, boston, хак улучшенного определения браузеров*/
 function mosGetBrowser($agent) {
 	global $mosConfig_absolute_path;
-	require($mosConfig_absolute_path.'/includes/agent_browser_and_os.php');
-	require_once($mosConfig_absolute_path.'/includes/phpSniff.class.php');
+
+	require_once($mosConfig_absolute_path.'/includes/libraries/phpSniff/phpSniff.class.php');
 	$client = new phpSniff($agent);
+
 	$client_long_name = $client->property('long_name');
 	if(array_key_exists($client_long_name,$browsersAlias)) {
 		$name = $browsersAlias[$client_long_name];
@@ -2927,7 +2934,7 @@ function mosGetBrowser($agent) {
 */
 function mosGetOS($agent) {
 	global $mosConfig_absolute_path;
-	require($mosConfig_absolute_path.'/includes/agent_browser_and_os.php');
+	require_once($mosConfig_absolute_path.'/includes/libraries/phpSniff/phpSniff.class.php');
 	foreach($osSearchOrder as $key) {
 		if(preg_match("/$key/i",$agent)) {
 			return $osAlias[$key];
@@ -3153,11 +3160,11 @@ function mosCreateMail($from = '',$fromname = '',$subject,$body) {
 	global $mosConfig_smtppass,$mosConfig_smtphost;
 	global $mosConfig_mailfrom,$mosConfig_fromname,$mosConfig_mailer;
 
-	require_once ($mosConfig_absolute_path.'/includes/phpmailer/class.phpmailer.php');
+	require_once ($mosConfig_absolute_path.'/includes/libraries/phpmailer/class.phpmailer.php');
 	$mail = new mosPHPMailer();
 
-	$mail->PluginDir = $mosConfig_absolute_path.'/includes/phpmailer/';
-	$mail->SetLanguage('ru',$mosConfig_absolute_path.'/includes/phpmailer/language/');
+	$mail->PluginDir = $mosConfig_absolute_path.'/includes/libraries/phpmailer/';
+	$mail->SetLanguage('ru',$mosConfig_absolute_path.'/includes/libraries/phpmailer/language/');
 	$mail->CharSet = substr_replace(_ISO,'',0,8);
 	$mail->IsMail();
 	$mail->From = $from?$from:$mosConfig_mailfrom;
@@ -5331,13 +5338,14 @@ class joostina_api {
 				return $text;
 			}
 		}
-		if($text == '') return ''; // класс конвертора не принимает пустые значения, в обход его вернёт пробел
-		require_once $mosConfig_absolute_path."/includes/convert/ConvertCharset.class.php";
+		if($text == '') {
+			return ''; // класс конвертора не принимает пустые значения, в обход его вернёт пробел
+		}
+		require_once $mosConfig_absolute_path.'/includes/libraries/convert/ConvertCharset.class.php';
 		$iso = explode( '=', _ISO );
 		$charset = strtolower($iso[1]);
 		$encoding = new convertUtf8($charset);
-		if($type) return $encoding->strToUtf8($text);
-		return $encoding->utf8ToStr($text);
+		return $type ? $encoding->strToUtf8($text) : $encoding->utf8ToStr($text);
 	}
 
 	/**
@@ -5345,22 +5353,8 @@ class joostina_api {
 	* Основано на мамботе OptimizeTables - smart (C) 2006, Joomlaportal.ru. All rights reserved
 	*/
 	function optimizetables() {
-		global $database,$mosConfig_db,$mosConfig_cachepath;
-		$flag = $mosConfig_cachepath.'/optimizetables.flag';
-		$filetime = @filemtime($flag);
-		$currenttime = time();
-		if($filetime + 86400 > $currenttime) {
-			return;
-		}
-		$f = fopen($flag,'w+');
-		@fwrite($f,time());
-		fclose($f);
-		@chmod($flag,0777);
-		$database->setQuery("SHOW TABLES FROM `$mosConfig_db`");
-		$tables = $database->loadResultArray();
-		foreach($tables as $table) {
-			$database->setQuery("OPTIMIZE TABLE `$table`;");
-			$database->query();
+		if(mt_rand(1,50)==1) {
+			register_shutdown_function('_optimizetables');
 		}
 	}
 	/**
@@ -5368,47 +5362,90 @@ class joostina_api {
 	* Основано на мамботе seo_bot_redir - Alecfyz (C) Gorsk.net Studio Dec 2006
 	*/
 	function check_host() {
-		global $mosConfig_live_site,$mosConfig_www_redir;
-		if(!$mosConfig_www_redir) return;
-		$uri = mosgetparam($_SERVER,'REQUEST_URI','');
-		if (strpos($uri,'/') === 0) $uri = substr($uri,1);
-			$realhost = mosgetparam($_SERVER,'SERVER_NAME',$mosConfig_live_site);
-			preg_match("/^(http:\/\/)?([^\/]+)/i", $mosConfig_live_site, $matches);
-			$confhost = $matches[2];
-			if (preg_match ("'^www.'si",$confhost) && !preg_match ("'^www.'si",$realhost))
-				mosredirect(sefRelToAbs($uri));
-			if (!preg_match ("'^www.'si",$confhost) && preg_match ("'^www.'si",$realhost))
-				mosredirect(sefRelToAbs($uri));
+		register_shutdown_function('_check_host');
 	}
 	/**
 	* Очистка кэша
 	* Основано на мамботе botClearCache - (C) 2008 Denis Ryabov ( http://physicist.phpnet.us/ )
 	*/
-	function clearCache(){
-		if(mt_rand(1,100)==1) register_shutdown_function('jOldCacheOnShutdown');
+	function clear_cache(){
+		if(mt_rand(1,100)==1) {
+			register_shutdown_function('_clear_cache');
+		}
+	}
+
+
+}
+
+function _check_host() {
+	global $mosConfig_live_site,$mosConfig_www_redir;
+	if(!$mosConfig_www_redir) {
+		return;
+	}
+	$uri = mosgetparam($_SERVER,'REQUEST_URI','');
+	if (strpos($uri,'/') === 0) {
+		$uri = substr($uri,1);
+	}
+	$realhost = mosgetparam($_SERVER,'SERVER_NAME',$mosConfig_live_site);
+
+	preg_match("/^(http:\/\/)?([^\/]+)/i", $mosConfig_live_site, $matches);
+	$confhost = $matches[2];
+	if (preg_match ("'^www.'si",$confhost) && !preg_match ("'^www.'si",$realhost)){
+		mosredirect(sefRelToAbs($uri));
+	}
+	if (!preg_match ("'^www.'si",$confhost) && preg_match ("'^www.'si",$realhost)){
+		mosredirect(sefRelToAbs($uri));
 	}
 }
+
+// очистка каталога кэша
+function _clear_cache(){
+	global $mosConfig_cachepath,$mosConfig_cachetime;
+
+	flush();
+	$cacheDir = $mosConfig_cachepath.'/';
+	$refreshTime=time()-$mosConfig_cachetime;
+	if(!($dh=opendir($cacheDir))){
+		return false;
+	}
+	while($file=readdir($dh)){
+		if(strpos($file,'cache_',0)===0){
+			$file=$cacheDir.$file;
+			if(is_file($file)&&(@filemtime($file)<$refreshTime)){
+				@unlink($file);
+			}
+		}
+	}
+}
+
+function _optimizetables() {
+	global $database,$mosConfig_db,$mosConfig_cachepath;
+	$flag = $mosConfig_cachepath.'/optimizetables.flag';
+	$filetime = @filemtime($flag);
+	$currenttime = time();
+	if($filetime + 86400 > $currenttime) {
+		return;
+	}
+	$f = fopen($flag,'w+');
+	@fwrite($f,time());
+	fclose($f);
+	@chmod($flag,0777);
+	$database->setQuery('SHOW TABLES FROM `'.$mosConfig_db.'`');
+	$tables = $database->loadResultArray();
+	foreach($tables as $table) {
+		$database->setQuery('OPTIMIZE TABLE `$table`;');
+		$database->query();
+	}
+	return;
+}
+
 //
 function _xdump( $var, $text='<pre>' ){
 	echo $text;
 	print_r( $var );
 	echo "\n";
 }
-// очистка каталога кэша
-function jOldCacheOnShutdown(){
-	flush();
-	global $mosConfig_cachepath,$mosConfig_cachetime;
-	$cacheDir = $mosConfig_cachepath.'/';
-	$refreshTime=time()-$mosConfig_cachetime;
-	if(!($dh=opendir($cacheDir)))
-		return false;
-	while($file=readdir($dh))
-		if(strpos($file,'cache_',0)===0){
-			$file=$cacheDir.$file;
-			if(is_file($file)&&(@filemtime($file)<$refreshTime))
-				@unlink($file);
-		}
-}
+
 
 /**
  @global mosPlugin $_MAMBOTS*/
