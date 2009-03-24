@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<mosinstall version="1.0.0" type="language">
+	<name>English</name>
+	<version>1.0.0</version>
+	<creationDate>2008-12-14</creationDate>
+	<author>www.joostina.ru</author>
+	<authorEmail>joostinacms@gmail.com</authorEmail>
+	<files>
+		<filename>english.php</filename>
+		<filename>english.ignore.php</filename>
+		<filename>english.xml</filename>
+	</files>
+</mosinstall>
