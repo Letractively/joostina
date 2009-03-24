@@ -26,7 +26,7 @@ $canManageUsers = $acl->acl_check('administration','manage','users',$my->usertyp
 
 $count = intval($params->def('count',10));
 
-$query = "SELECT*"."\n FROM #__components"."\n ORDER BY ordering, name";
+$query = "SELECT * FROM #__components ORDER BY ordering, name";
 $database->setQuery($query);
 $comps = $database->loadObjectList(); // component list
 

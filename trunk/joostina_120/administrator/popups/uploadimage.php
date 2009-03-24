@@ -12,7 +12,6 @@ define("_VALID_MOS",1);
 /** проверка безопасности*/
 require ('../includes/auth.php');
 include_once ($mosConfig_absolute_path.'/language/'.$mosConfig_lang.'.php');
-include_once ($mosConfig_absolute_path.'/includes/definitions.php');
 
 /*
 * Stops file upload below /images/stories directory

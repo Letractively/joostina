@@ -92,8 +92,8 @@ flush();
 		</div>
 		<div id="top-toolbar"><?php mosLoadAdminModule('toolbar'); ?></div>
 		<?php mosLoadAdminModule('mosmsg'); ?>
+		<?php mosLoadAdminModule('component_menu'); ?>
 		<div id="status-info" style="display: none;">&nbsp;</div>
-		
 		<table width="100%" class="menubar" cellpadding="0" cellspacing="0" border="0">
 			<tr>
 				<td align="center">
@@ -109,6 +109,6 @@ flush();
 <?php if ( mosLoadAdminModule('debug',2) > 0 ) {?>
 		<div id="debug"><?php mosLoadAdminModule('debug',2); ?></div>
 <?php }?>
-		<script type="text/javascript" language="JavaScript">function jf_hideLoading() {document.getElementById('ajax_status').style.display='none';};if (window.addEventListener) {window.addEventListener('load', jf_hideLoading, false);} else if (window.attachEvent) {var r=window.attachEvent("onload", jf_hideLoading);}else{jf_hideLoading();}</script>
+		<script type="text/javascript" language="JavaScript">function jf_hideLoading() {SRAX.get('ajax_status').style.display='none';};if (window.addEventListener) {window.addEventListener('load', jf_hideLoading, false);} else if (window.attachEvent) {var r=window.attachEvent("onload", jf_hideLoading);}else{jf_hideLoading();}</script>
 	</body>
 </html>

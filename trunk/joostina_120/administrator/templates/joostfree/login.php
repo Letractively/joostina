@@ -50,11 +50,11 @@ if($mosConfig_captcha) {
 ?>
 						<div>
 							<img id="loginCaptcha" alt="<?php echo _PRESS_HERE_TO_RELOAD_CAPTCHA?>" onclick="document.loginForm.loginCaptcha.src='<?php
-								echo $mosConfig_live_site; ?>/includes/kcaptcha/index.php?' + new String(Math.random())" src="<?php
-								echo $mosConfig_live_site; ?>/includes/kcaptcha/index.php?<?php echo session_id() ?>" />
+								echo $mosConfig_live_site; ?>/includes/libraries/kcaptcha/index.php?' + new String(Math.random())" src="<?php
+								echo $mosConfig_live_site; ?>/includes/libraries/kcaptcha/index.php?<?php echo session_id() ?>" />
 						</div>
 						<span class="captcha" onclick="document.loginForm.loginCaptcha.src='<?php
-								echo $mosConfig_live_site; ?>/includes/kcaptcha/index.php?' + new String(Math.random())"><?php echo _SHOW_CAPTCHA?></span>
+								echo $mosConfig_live_site; ?>/includes/libraries/kcaptcha/index.php?' + new String(Math.random())"><?php echo _SHOW_CAPTCHA?></span>
 						<div><?php echo _PLEASE_ENTER_CAPTCHA?>:</div>
 						<div>
 							<input name="captcha" type="text" class="inputbox" size="15" />

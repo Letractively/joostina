@@ -11,8 +11,8 @@
 define('_VALID_MOS',1);
 
 require ('globals.php');
-require_once ('configuration.php');
-require_once ('includes/definitions.php');
+require_once ($mosConfig_absolute_path.'/configuration.php');
+
 
 // обработка безопасного режима
 $http_host = explode(':',$_SERVER['HTTP_HOST']);
@@ -24,7 +24,8 @@ require_once ('includes/joomla.php');
 
 // отображение состояния выключенного сайта
 if($mosConfig_offline == 1) {
-	require ($mosConfig_absolute_path.'/offline.php');
+	echo 'syte-offline';
+	exit();
 }
 
 // автоматическая перекодировка в юникод, по умолчанию актвино
@@ -44,13 +45,8 @@ if($mosConfig_lang == '') {
 }
 include_once ($mosConfig_absolute_path.'/language/'.$mosConfig_lang.'.php');
 
-
 // get the information about the current user from the sessions table
 $my = $mainframe->getUser();
-
-// СКОРЕЕ ВСЕГО НЕ НУЖНО обнаружение первого посещения
-//$mainframe->detect();
-
 $gid = intval($my->gid);
 
 // в зависимости от использования автоперекодировки в UTF-8
