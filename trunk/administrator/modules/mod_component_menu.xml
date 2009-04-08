@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mosinstall type="module" client="administrator">
+	<name>Меню компонента</name>
+	<author>Joostina! Project</author>
+	<creationDate>18:03:2009</creationDate>
+	<copyright>(C) 2007-2009 Joostina team.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL</license>
+	<authorEmail>joostinacms@gmail.com</authorEmail>
+	<authorUrl>www.joostina.ru</authorUrl>
+	<version>0.1</version>
+	<description>Этот модуль показывает меню пунктов компонента.</description>
+	<files>
+		<filename module="mod_component_menu">mod_component_menu.php</filename>
+	</files>
+</mosinstall>
