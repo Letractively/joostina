@@ -1,7 +1,7 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008 Joostina team. Все права защищены.
+* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
 * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
 * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
 * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
@@ -369,11 +369,10 @@ class mosParameters {
 	function _form_mos_section($name,$value,&$node,$control_name) {
 		global $database;
 
-		$query = "SELECT id, title"."\n FROM #__sections"."\n WHERE published = 1"."\n AND scope = 'content'".
-			"\n ORDER BY title";
+		$query = "SELECT id, title FROM #__sections WHERE published = 1 AND scope = 'content' ORDER BY title";
 		$database->setQuery($query);
 		$options = $database->loadObjectList();
-		array_unshift($options,mosHTML::makeOption('0','- Выберите раздел -','id','title'));
+		array_unshift($options,mosHTML::makeOption('0',_ET_SECTION,'id','title'));
 
 		return mosHTML::selectList($options,''.$control_name.'['.$name.']','class="inputbox"','id','title',$value);
 	}
@@ -394,16 +393,13 @@ class mosParameters {
 
 		if($scope == 'content') {
 			// This might get a conflict with the dynamic translation - TODO: search for better solution
-			$query = "SELECT c.id, CONCAT_WS( '/',s.title, c.title ) AS title"."\n FROM #__categories AS c".
-				"\n LEFT JOIN #__sections AS s ON s.id=c.section"."\n WHERE c.published = 1"."\n AND s.scope = ".
-				$database->Quote($scope)."\n ORDER BY c.title";
+			$query = "SELECT c.id, CONCAT_WS( '/',s.title, c.title ) AS title FROM #__categories AS c LEFT JOIN #__sections AS s ON s.id=c.section WHERE c.published = 1 AND s.scope = ".$database->Quote($scope)."\n ORDER BY c.title";
 		} else {
-			$query = "SELECT c.id, c.title"."\n FROM #__categories AS c"."\n WHERE c.published = 1".
-				"\n AND c.section = ".$database->Quote($scope)."\n ORDER BY c.title";
+			$query = "SELECT c.id, c.title FROM #__categories AS c WHERE c.published = 1 AND c.section = ".$database->Quote($scope)." ORDER BY c.title";
 		}
 		$database->setQuery($query);
 		$options = $database->loadObjectList();
-		array_unshift($options,mosHTML::makeOption('0','- Выберите категорию -','id','title'));
+		array_unshift($options,mosHTML::makeOption('0',_ET_CATEGORY,'id','title'));
 
 		return mosHTML::selectList($options,''.$control_name.'['.$name.']','class="inputbox"','id','title',$value);
 	}
@@ -420,7 +416,7 @@ class mosParameters {
 		foreach($menuTypes as $menutype) {
 			$options[] = mosHTML::makeOption($menutype,$menutype);
 		}
-		array_unshift($options,mosHTML::makeOption('','- Выберите меню -'));
+		array_unshift($options,mosHTML::makeOption('',_ET_MENU));
 
 		return mosHTML::selectList($options,''.$control_name.'['.$name.']','class="inputbox"','value','text',$value);
 	}

@@ -3,7 +3,7 @@
 	<name>Связанные объекты</name>
 	<author>Joostina! Project</author>
 	<creationDate>Июнь 2008</creationDate>
-	<copyright>(C) 2008 Joostina team.</copyright>
+	<copyright>(C) 2008-2009 Joostina team.</copyright>
 	<license>http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL</license>
 	<authorEmail>joostinacms@gmail.com</authorEmail>
 	<authorUrl>www.joostina.ru</authorUrl>
@@ -18,5 +18,7 @@
 			<option value="1">Да</option>
 		</param>
 		<param name="moduleclass_sfx" type="text" default="" label="CSS-суффикс класса модуля" description="Суффикс, который будет использован в описании класса (table.moduletable) таблицы стилей (CSS) модуля. Это позволяет использовать индивидуальный стиль модуля." />
+		<param name="limit" type="text" default="5" label="Выводить ссылок" description="Укажите сколкьо ссылок на тематически похожие материалы отображать." />
+
 	</params>
 </mosinstall>

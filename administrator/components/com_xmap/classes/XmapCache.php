@@ -10,45 +10,33 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
+
 class XmapCache {
 	/**
 	* @return object A function cache object
 	*/
 	function &getCache( &$sitemap ) {
-		global $mosConfig_absolute_path, $mosConfig_cachepath, $mosConfig_cachetime;
+		global $mosConfig_absolute_path, $mosConfig_caching, $mosConfig_cachepath, $mosConfig_cachetime, $mosConfig_cache_handler, $mosConfig_db_cache_handler, $mosConfig_lang;
 
-		if (class_exists('JFactory')) {
-			$cache = &JFactory::getCache('com_xmap_'.$sitemap->id);
-			$cache->setCaching($sitemap->usecache);
-			$cache->setLifeTime($sitemap->cachelifetime);
-		} else {
-			$options = array (
-				'cacheDir'		=> $mosConfig_cachepath . '/',
-				'caching'		=> $sitemap->usecache,
-				'defaultGroup'		=> 'com_xmap_'.$sitemap->id,
-				'lifeTime'		=> $sitemap->cachelifetime
-			);
-			if (file_exists($mosConfig_absolute_path . '/includes/joomla.cache.php')) {
-				require_once( $mosConfig_absolute_path . '/includes/joomla.cache.php' );
-				$cache = new JCache_Lite_Function( $options );
-			} else {
-				require_once( $mosConfig_absolute_path . '/includes/Cache/Lite.php' );
-				require_once( $mosConfig_absolute_path . '/includes/Cache/Lite/Function.php' );
-				$cache = new Cache_Lite_Function( $options );
-			}
-			$cache->_group = $options['defaultGroup'];
-		}
+		$options = array(
+			'defaultgroup' 	=> 'com_xmap_'.$sitemap->id,
+			'cachebase' 	=> $mosConfig_cachepath.'/',
+			'lifetime' 		=> $mosConfig_cachetime,	// minutes to seconds
+			'language' 		=> $mosConfig_lang,
+			'storage'		=> $storage
+		);
+
+		require_once ($mosConfig_absolute_path.'/includes/libraries/cache/cache.php');
+		$cache =&JCache::getInstance( $handler, $options );
+		$cache->setCaching($mosConfig_caching);
 		return $cache;
+
 	}
 	/**
 	* Cleans the cache
 	*/
 	function cleanCache( &$sitemap ) {
 		$cache =&XmapCache::getCache( $sitemap );
-		if (class_exists('JFactory')) {
-			return $cache->clean();
-		} else {
-			return $cache->clean( $cache->_group );
-		}
+		return $cache->clean( $cache->_group );
 	}
 }

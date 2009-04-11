@@ -1,7 +1,7 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторлық құқықтың (C) 2008 Joostina team. Барлық құқықтар қорғалған.
+* @copyright Авторлық құқықтың (C) 2008-2009 Joostina team. Барлық құқықтар қорғалған.
 * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, немесе help/license.php
 * Joostina! - Таратылатын азат бағдарламалық қамтамасыз ету GNU/GPL лицензия шарттарымен.
 * Хабар алуына арналған туралы қолданылатындарды кеңейтулерде және ескерпелердің авторлық құқық туралы, файлды қарайсыздар help/copyright.php.
