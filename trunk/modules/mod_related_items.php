@@ -1,7 +1,7 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008 Joostina team. Все права защищены.
+* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
 * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
 * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
 * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
@@ -13,16 +13,15 @@ defined( '_VALID_MOS' ) or die();
 global $mosConfig_offset, $option, $task,$my;
 
 $id		= intval( mosGetParam( $_REQUEST, 'id', null ) );
+$limit = $params->get( 'limit',5);
+
 
 $now		= _CURRENT_SERVER_TIME;
-$nullDate = $database->getNullDate();	   
+$nullDate = $database->getNullDate();
 
 if ($option == 'com_content' && $task == 'view' && $id) {
 	// выборка ключевых слов из объекта
-	$query = "SELECT metakey"
-	. "\n FROM #__content"
-	. "\n WHERE id = " . (int) $id
-	;
+	$query = 'SELECT metakey FROM #__content WHERE id = '.(int) $id;
 	$database->setQuery( $query );
 	if ($metakey = trim( $database->loadResult() )) {
 		// разделить ключевые слова запятыми
@@ -37,7 +36,7 @@ if ($option == 'com_content' && $task == 'view' && $id) {
 			}
 		}
 
-		if (count( $likes )) {
+		if (count($likes)) {
 			// select other items based on the metakey field 'like' the keys found
 			$query = "SELECT a.id, a.title, a.sectionid, a.catid, cc.access AS cat_access, s.access AS sec_access, cc.published AS cat_state, s.published AS sec_state"
 			. "\n FROM #__content AS a"
@@ -51,7 +50,7 @@ if ($option == 'com_content' && $task == 'view' && $id) {
 			. "\n AND ( a.publish_up = " . $database->Quote( $nullDate ) . " OR a.publish_up <= " . $database->Quote( $now ) . " )"
 			. "\n AND ( a.publish_down = " . $database->Quote( $nullDate ) . " OR a.publish_down >= " . $database->Quote( $now ) . " )"
 			;
-			$database->setQuery( $query );
+			$database->setQuery( $query, 0, $limit );
 			$temp = $database->loadObjectList(); 
 
 			$related = array();
@@ -85,4 +84,5 @@ if ($option == 'com_content' && $task == 'view' && $id) {
 		}
 	}
 }
+unset($related,$item,$likes);
 ?>

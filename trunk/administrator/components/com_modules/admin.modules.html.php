@@ -1,7 +1,7 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008 Joostina team. Все права защищены.
+* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
 * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
 * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
 * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
@@ -97,7 +97,8 @@ class HTML_modules {
 		</tr>
 <?php
 		$k = 0;
-		for($i = 0,$n = count($rows); $i < $n; $i++) {
+		$_n = count($rows);
+		for($i = 0,$n = $_n; $i < $n; $i++) {
 			$row = &$rows[$i];
 			mosMakeHtmlSafe($row);
 			$link		= 'index2.php?option=com_modules&client='.$client.'&task=editA&hidemainmenu=1&id='.$row->id;
@@ -237,7 +238,7 @@ class HTML_modules {
 		<table class="adminheading">
 		<tr>
 			<th class="modules"><?php echo _MODULE?> -&nbsp;<?php echo $lists['client_id']?_CONTROL_PANEL:_SITE; ?> :
-			<small><?php echo $row->id?'Редактирование':'Новый'; ?></small><?php echo $row->titleA; ?></th>
+			<small><?php echo $row->id ? _MOD_EDIT : _MOD_NEW ; ?></small><?php echo $row->titleA; ?></th>
 		</tr>
 		</table>
 		<form action="index2.php" method="post" name="adminForm" id="adminForm">
@@ -288,12 +289,6 @@ class HTML_modules {
 					<td valign="top" class="key"><?php echo _CMN_DESCRIPTION?>:</td>
 					<td><?php echo $row->description; ?></td>
 				</tr>
-				<!--<tr>
-					<td valign="top" class="key"><?php //echo _ASSIGN_TO_URL?>:</td>
-					<td>
-					<?php //echo _ASSIGN_TO_URL_TIP?>
-					<textarea name='assign_to_url' style='width:100%' rows='7'><?php //echo $row->assign_to_url?></textarea></td>
-				</tr>-->
 				</table>
 				<table class="adminform">
 				<tr>
@@ -301,7 +296,7 @@ class HTML_modules {
 				</tr>
 				<tr>
 					<td><?php echo $params->render(); ?></td>
-            	</tr>
+				</tr>
 				</table>
 <?php
 		if($row->module == "") {
@@ -376,8 +371,8 @@ class HTML_modules {
 ?>
 		<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
 		</form>
-		<?php
-	}
+<?php
+}
 
 }
 ?>

@@ -1,7 +1,7 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008 Joostina team. Все права защищены.
+* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
 * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
 * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
 * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
@@ -12,7 +12,15 @@ defined('_VALID_MOS') or die();
 
 global $mosConfig_sef,$mosConfig_absolute_path,$mosConfig_live_site;
 
+
 if($mosConfig_sef) {
+	// перебрасываем на корректный адрес
+	if (strpos($_SERVER['REQUEST_URI'], 'index.php')) {
+		$url  = sefRelToAbs('index.php?'.$_SERVER['QUERY_STRING']);
+		header("Location: ".$url,TRUE,301);
+		exit(301);
+	}
+
 	$url_array = explode('/',$_SERVER['REQUEST_URI']);
 
 	if(in_array('content',$url_array)) {
@@ -43,8 +51,7 @@ if($mosConfig_sef) {
 		}
 
 		if(isset($url_array[$pos + 8]) && $url_array[$pos + 8] != '' && in_array('category',
-			$url_array) && (strpos($url_array[$pos + 5],'order,') !== false) && (strpos($url_array[$pos +
-			6],'filter,') !== false)) {
+			$url_array) && (strpos($url_array[$pos + 5],'order,') !== false) && (strpos($url_array[$pos + 6],'filter,') !== false)) {
 			// $option/$task/$sectionid/$id/$Itemid/$order/$filter/$limit/$limitstart
 			$task = $url_array[$pos + 1];
 			$sectionid = $url_array[$pos + 2];
