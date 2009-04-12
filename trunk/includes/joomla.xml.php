@@ -246,19 +246,19 @@ class mosParameters {
 					case 'newtable':
 						$html[] = '</table>';
 						$html[] = '<table width="100%" class="paramlist">';
-                    break;
+					break;
 
-                    case 'tabs':
-                        $html[] = $result[1];
-                    break;
+					case 'tabs':
+						$html[] = $result[1];
+					break;
 
-                    default:
- 					    $html[] = '<tr>';
-					    $html[] = '<td width="40%" align="right" valign="top" class="pkey"><span class="editlinktip">'.$result[0].'</span></td>';
-					    $html[] = '<td>'.$result[1].'</td>';
-					    $html[] = '</tr>';
-                    break;
-                }
+					default:
+						$html[] = '<tr>';
+						$html[] = '<td width="40%" align="right" valign="top" class="pkey"><span class="editlinktip">'.$result[0].'</span></td>';
+						$html[] = '<td>'.$result[1].'</td>';
+						$html[] = '</tr>';
+					break;
+				}
 
 			}
 			if(count($element->childNodes) < 1) {
@@ -292,7 +292,7 @@ class mosParameters {
 		} else {
 			$result[0] = mosToolTip(addslashes($description),addslashes($result[0]),'','',$result[0],'#',0);
 		}
-		$type = $param->getAttribute('type');
+		echo $type = $param->getAttribute('type');
 
 		if(in_array('_form_'.$type,$this->_methods)) {
 			$result[1] = call_user_func(array(&$this,'_form_'.$type),$name,$value,$param,$control_name, $label);
@@ -308,7 +308,7 @@ class mosParameters {
 		}
 		$result[3]=$description;
 		$result[4]=$label;
-        $result[5]=$type;
+		$result[5]=$type;
 		return $result;
 	}
 	/**
@@ -490,47 +490,47 @@ class mosParameters {
 		}
 	}
 
-    function _form_tabs($name,$value,$param,$control_name, $label) {
-        global $mosConfig_live_site,$mainframe;
-        $css_f = 'tabpane.css';
+	function _form_tabs($name,$value,$param,$control_name, $label) {
+		//global $mosConfig_live_site,$mainframe;
+
+		$config = JConfig::getInstance();
+		$css_f = 'tabpane.css';
 		$js_f = 'tabpane_mini.js';
-        $css = '<link rel="stylesheet" type="text/css" media="all" href="'.$mosConfig_live_site.'/includes/js/tabs/'.$css_f.'" id="luna-tab-style-sheet" />';
-		$js = '<script type="text/javascript" src="'.$mosConfig_live_site.'/includes/js/tabs/'.$js_f.'"></script>';
+		$css = '<link rel="stylesheet" type="text/css" media="all" href="'.$config->config_live_site.'/includes/js/tabs/'.$css_f.'" id="luna-tab-style-sheet" />';
+		$js = '<script type="text/javascript" src="'.$config->config_live_site.'/includes/js/tabs/'.$js_f.'"></script>';
 
-        $return = '';
 
-        switch ($value){
-            case 'startPane':
+		$return = '';
 
-               // $return .= '</div>';
-                $return .= '<tr><td></td></tr></table>';
-                $return .= $css;
-                $return .= $js;
-			  //$return .= '</div>';
-                $return .= '<div class="tab-page" id="'.$name.'">';
-		        $return .= '<script type="text/javascript">var tabPane1 = new WebFXTabPane( document.getElementById( "'.$name.'" ),0)</script>';
-            break;
+		switch ($value){
+			case 'startPane':
+				$return .= '<tr><td></td></tr></table>';
+				$return .= $css;
+				$return .= $js;
+				$return .= '<div class="tab-page" id="'.$name.'">';
+				$return .= '<script type="text/javascript">var tabPane1 = new WebFXTabPane( document.getElementById( "'.$name.'" ),0)</script>';
+			break;
 
-            case 'endPane':
-                $return .= '</div><table>';
-            break;
+			case 'endPane':
+				$return .= '</div><table>';
+			break;
 
-            case 'startTab':
-          	    $return .= '<div class="tab-page" id="'.$name.'">';
+			case 'startTab':
+				$return .= '<div class="tab-page" id="'.$name.'">';
 				$return .= '<h2 class="tab">'.$label.'</h2>';
 				$return .= '<script type="text/javascript">tabPane1.addTabPage( document.getElementById( "'.$name.'" ) );</script>';
 				$return .= '<table width="100%" class="paramlist">';
-            break;
+			break;
 
-            case 'endTab':
-                 $return .= '</table></div>';
-            break;
+			case 'endTab':
+				$return .= '</table></div>';
+			break;
 
-            default:
-            break;
-        }
+			default:
+			break;
+		}
 
-    return $return;
+	return $return;
 	}
 
 	/**
