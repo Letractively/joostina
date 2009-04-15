@@ -15,8 +15,10 @@ defined('_VALID_MOS') or die();
 
 error_reporting(E_ALL);
 
+header('Content-type: text/html; charset=UTF-8');
 header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
 header("Pragma: no-cache"); // HTTP/1.0
+
 
 /**
 * Сервисные функции для установок значений по умолчанию

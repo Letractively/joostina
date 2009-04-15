@@ -292,7 +292,6 @@ class mosParameters {
 		} else {
 			$result[0] = mosToolTip(addslashes($description),addslashes($result[0]),'','',$result[0],'#',0);
 		}
-		echo $type = $param->getAttribute('type');
 
 		if(in_array('_form_'.$type,$this->_methods)) {
 			$result[1] = call_user_func(array(&$this,'_form_'.$type),$name,$value,$param,$control_name, $label);
