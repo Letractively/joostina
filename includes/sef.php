@@ -15,7 +15,7 @@ global $mosConfig_sef,$mosConfig_absolute_path,$mosConfig_live_site;
 
 if($mosConfig_sef) {
 	// перебрасываем на корректный адрес
-	if (strpos($_SERVER['REQUEST_URI'], 'index.php')) {
+	if (strpos($_SERVER['REQUEST_URI'], 'index.php') && $_SERVER['REQUEST_METHOD']=='GET') {
 		$url  = sefRelToAbs('index.php?'.$_SERVER['QUERY_STRING']);
 		header("Location: ".$url,TRUE,301);
 		exit(301);

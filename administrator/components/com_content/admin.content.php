@@ -935,7 +935,7 @@ function toggleFrontPage($cid,$section,$option) {
 			$fp->ordering = 0;
 		} else {
 			// new entry
-			$query = "INSERT INTO #__content_frontpage"."\n VALUES ( ".(int)$id.", 0 )";
+			$query = 'INSERT INTO #__content_frontpage VALUES ( '.(int)$id.', 0 )';
 			$database->setQuery($query);
 			if(!$database->query()) {
 				echo "<script> alert('".$database->stderr()."');</script>\n";
@@ -970,12 +970,10 @@ function removeContent(&$cid,$sectionid,$option) {
 	//seperate contentids
 	mosArrayToInts($cid);
 	$cids = 'id='.implode(' OR id=',$cid);
-	$query = "UPDATE #__content"."\n SET state = ".(int)$state.", ordering = ".(int)
-		$ordering."\n WHERE ( $cids )";
+	$query = "UPDATE #__content SET state = ".(int)$state.", ordering = ".(int)$ordering." WHERE ( $cids )";
 	$database->setQuery($query);
 	if(!$database->query()) {
-		echo "<script> alert('".$database->getErrorMsg().
-			"'); window.history.go(-1); </script>\n";
+		echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
 		exit();
 	}
 
@@ -1445,6 +1443,8 @@ function _cat_d($act){
 			."\n ORDER BY cat.section ASC";
 	$database->setQuery($query);
 	$rows = $database->loadObjectList();
+
+_xdump($rows);
 	$ret = '';
 	$n=0;
 	foreach($rows as $row) {
