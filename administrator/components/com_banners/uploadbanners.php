@@ -11,7 +11,13 @@ define("_VALID_MOS", 1);
 
 /** security check */
 require ('../../includes/auth.php');
-include_once ($mosConfig_absolute_path . '/language/' . $mosConfig_lang . '.php');
+if(file_exists($mosConfig_absolute_path . '/language/'.$mosConfig_lang.'/com_banners.php')) {
+	$artbannerslanguage = $mosConfig_lang;
+}else{
+	$artbannerslanguage = 'russian';
+}
+
+include_once ($mosConfig_absolute_path . '/language/'.$artbannerslanguage.'/com_banners.php');
 
 // limit access to functionality
 $option = strval(mosGetParam($_SESSION, 'option', ''));
