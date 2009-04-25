@@ -1119,6 +1119,10 @@ DEFINE('_SQL_COMMAND','Команда');
 DEFINE('_MANAGEMENT','Управление');
 DEFINE('_FIELDS','Поля');
 DEFINE('_EXEC_SQL','Выполнить SQL');
+DEFINE('_SQL_CONSOLE','SQL консоль');
+DEFINE('_SQL_ASSEMBLE_SQL','Собрать SQL');
+DEFINE('_SQL_OUT_LINES','Вывести строк');
+DEFINE('_SQL_TABLE','Таблица');
 
 /* administrator components com_frontpage */
 
@@ -1958,6 +1962,10 @@ DEFINE('_JP_CHECKING','Проверка');
 DEFINE('_JP_FULL_BACKUP','Полный резерв');
 DEFINE('_JP_BACKUP_BASE','Резервировать базу');
 DEFINE('_JP_BACKUP_PANEL','Панель резервирования');
+DEFINE('_JP_REPAIR','Исправить');
+DEFINE('_JP_OPTIMIZE','Оптимизировать');
+DEFINE('_JP_ANALYSE','Анализировать');
+DEFINE('_JP_CHECK','Проверить');
 
 /* administrator modules mod_components */
 DEFINE('_FULL_COMPONENTS_LIST','Полный список компонентов');
