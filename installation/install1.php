@@ -129,12 +129,22 @@ return formValid;
 									<tr class="trongate-2">
 										<td colspan="2" valign="top"> Имя БД MySQL<br />
 											<input class="inputbox" type="text" name="DBname" value="<?php echo $DBname; ?>" />
+
 										</td>
 										<td>
 											Имя существующей или новой БД, которая будет использоваться для сайта
 										</td>
 									</tr>
 									<tr class="trongate-1">
+										<td colspan="2" valign="top"> Использовать или создать БД:<br />
+										  <input type="radio" name="use_case" value="use" checked="checked"  /> использовать&nbsp;
+                                           &nbsp; <input type="radio" name="use_case" value="create" /> создать
+										</td>
+										<td>
+										Внимание! Не на всех хостингах создание БД таким способом будет возможно. В случае возникновения ошибок - создайте пустую БД стандартным для вашего хостинга способом и выберите "использовать" при установке.
+										</td>
+									</tr>
+									<tr class="trongate-2">
 										<td colspan="2" valign="top"> Префикс таблиц БД MySQL<br />
 											<input class="inputbox" type="text" name="DBPrefix" value="<?php echo $DBPrefix; ?>" />
 										</td>
@@ -143,7 +153,7 @@ return formValid;
 											Не используйте <font color="red">'old_'</font> - это зарезервированное значение.
 										</td>
 									</tr>
-									<tr class="trongate-2">
+									<tr class="trongate-1">
 										<td valign="top">
 											<input type="checkbox" name="DBDel" id="DBDel" value="1" <?php if($DBDel) echo 'checked="checked"'; ?> />
 										</td>
@@ -154,7 +164,7 @@ return formValid;
 											Все существующие таблицы от предыдущих установок Joostina будут удалены.
 										</td>
 									</tr>
-									<tr class="trongate-1">
+									<tr class="trongate-2">
 										<td valign="top">
 											<input type="checkbox" name="DBBackup" id="DBBackup" value="1" <?php if($DBBackup) echo 'checked="checked"'; ?> />
 										</td>
@@ -165,7 +175,7 @@ return formValid;
 											Все существующие резервные копии таблиц от предыдущих установок Joostina будут заменены.
 										</td>
 									</tr>
-									<tr class="trongate-2">
+									<tr class="trongate-1">
 										<td valign="top">
 											<input type="checkbox" name="DBSample" id="DBSample" value="1" <?php if($DBSample) echo 'checked="checked"'; ?> />
 										</td>

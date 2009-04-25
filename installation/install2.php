@@ -26,6 +26,7 @@ $DBBackup	= intval(mosGetParam($_POST,'DBBackup',0));
 $DBSample	= intval(mosGetParam($_POST,'DBSample',0));
 $DBcreated	= intval(mosGetParam($_POST,'DBcreated',0));
 $DBexp		= intval(mosGetParam($_POST,'DBexp',0));
+$use_case		= intval(mosGetParam($_POST,'use_case','use'));
 $BUPrefix	= 'old_';
 $configArray['sitename'] = trim(mosGetParam($_POST,'sitename',''));
 $database	= null;
@@ -56,13 +57,22 @@ if(!$DBcreated) {
 	$configArray['DBname'] = $DBname;
 	$configArray['DBPrefix'] = $DBPrefix;
 
-	// если база данных не создана - создадим её
-	if($DBname != '' && !mysql_select_db($DBname,$database->_resource)) {
-		// обработка разных версий MySQL
-		$sql = "CREATE DATABASE IF NOT EXISTS `$DBname` CHARACTER SET utf8 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT COLLATE utf8_general_ci";
+    //Если выбран вариант "ИСпользовать"
+    if($use_case=='use'){
+        $sql = "USE `$DBname` ";
 		$database->setQuery($sql);
 		$database->query();
-	}
+    }
+    else {
+        // если база данных не создана - создадим её
+	    if($DBname != '' && !mysql_select_db($DBname,$database->_resource)) {
+		    // обработка разных версий MySQL
+		    $sql = "CREATE DATABASE IF NOT EXISTS `$DBname` CHARACTER SET utf8 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT COLLATE utf8_general_ci";
+		    $database->setQuery($sql);
+		    $database->query();
+	    }
+    }
+
 
 	$test = $database->getErrorNum();
 
