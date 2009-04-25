@@ -10,7 +10,7 @@
 define( "_VALID_MOS", 1 );
 
 $basePath = dirname( __FILE__ );
-require( $basePath . '/../../../globals.php' );
+require( $basePath . '/../../includes/globals.php' );
 
 // $basepath reintialization required as globals.php will kill initial when RGs Emulation `Off`
 $basePath = dirname( __FILE__ );
