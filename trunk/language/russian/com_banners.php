@@ -227,4 +227,36 @@ DEFINE('_ABP_FOLDER_CATEGORIES', 'Категории');
 DEFINE('_ABP_TOTAL', 'Всего');
 DEFINE('_ABP_TITLE', 'Заголовок');
 DEFINE('_ABP_ALT', 'Альтер. текст');
+
+/*Перенесено из общего языкового файла*/
+DEFINE('_BANNERS_MANAGEMENT','Управление баннерами');
+DEFINE('_EDIT_BANNER','Редактирование баннера');
+DEFINE('_NEW_BANNER','Создание баннера');
+DEFINE('_IN_CURRENT_WINDOW','Том же окне');
+DEFINE('_IN_PARENT_WINDOW','Текущем окне');
+DEFINE('_IN_MAIN_FRAME','Главном фрейме');
+DEFINE('_BANNER_CLIENTS','Клиенты баннеров');
+DEFINE('_BANNER_CATEGORIES','Категории баннеров');
+DEFINE('_NO_BANNERS','Банеры не обнаружены');
+DEFINE('_BANNER_COUNTER_RESETTED','Счётчик показа баннеров обнулён');
+DEFINE('_CHECK_PUBLISH_DATE','Проверьте правильность ввода даты публикации');
+DEFINE('_CHECK_START_PUBLICATION_DATE','Проверьта дату начала публикации');
+DEFINE('_CHECK_END_PUBLICATION_DATE','Проверьта дату окончания публикации');
+DEFINE('_TASK_UPLOAD','Загрузить');
+DEFINE('_BANNERS_PANEL','Панель баннеров');
+DEFINE('_BANNERS_DIRECTORY_DOESNOT_EXISTS','Папка banners не существует');
+DEFINE('_CHOOSE_BANNER_IMAGE','Выберите изображение для загрузки');
+DEFINE('_BAD_FILENAME','Файл должен содержать алфавитно-числовые символы без пробелов.');
+DEFINE('_FILE_ALREADY_EXISTS','Файл #FILENAME# уже существует в базе данных.');
+DEFINE('_BANNER_UPLOAD_ERROR','Загрузка #FILENAME# неудачна');
+DEFINE('_BANNER_UPLOAD_SUCCESS','Загрузка #FILENAME# в #DIRNAME# успешно завешена');
+DEFINE('_UPLOAD_BANNER_FILE','Загрузить файл баннера');
+
+DEFINE('_BNR_CLIENT_NAME','Вы должны ввести имя клиента.');
+DEFINE('_BNR_CONTACT','Вы должны выбрать контакт для клиента.');
+DEFINE('_BNR_VALID_EMAIL','Адрес электронной почты клиента должен быть правильным.');
+DEFINE('_BNR_CLIENT','Вы должны выбрать клиента,');
+DEFINE('_BNR_NAME','Введите имя баннера.');
+DEFINE('_BNR_IMAGE','Выберите изображения баннера.');
+DEFINE('_BNR_URL','Вы должны ввести URL/Код баннера.');
 ?>
