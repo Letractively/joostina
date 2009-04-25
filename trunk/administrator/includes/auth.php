@@ -11,7 +11,7 @@
 defined('_VALID_MOS') or die();
 
 $basePath = dirname(__file__);
-require ($basePath.'/../../globals.php');
+require ($basePath.'/../../includes/globals.php');
 
 // $basepath reintialization required as globals.php will kill initial when RGs Emulation `Off`
 $basePath = dirname(__file__);
