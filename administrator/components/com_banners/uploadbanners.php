@@ -25,7 +25,7 @@ switch($option) {
 		break;
 }
 
-$directory = 'show';
+$directory = 'banners';
 
 $userfile_name = (isset($_FILES['userfile']['name']) ? $_FILES['userfile']['name'] : "");
 
