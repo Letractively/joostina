@@ -345,7 +345,7 @@ $dirs = array(
 	'cache',
 	'components',
 	'images',
-	'images/show',
+	'images/banners',
 	'images/stories',
 	'language',
 	'mambots',
