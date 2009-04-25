@@ -1,229 +1,230 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined('_VALID_MOS') or die();
 
 // Language File for Russian
-DEFINE('_ABP_CL_MSNF', 'Вы должны ввести имя клиента.');
-DEFINE('_ABP_CL_MSCF', 'Вы должны ввести контактное имя клиента.');
-DEFINE('_ABP_CL_MSEF', 'Вы должны ввести правильный адрес эл. почты клиента.');
-DEFINE('_ABP_BN_MSC', 'Вы должны выбрать клиента.');
-DEFINE('_ABP_BN_MSCA', 'Вы должны выбрать категорию.');
-DEFINE('_ABP_BN_MSNB', 'Вы должны ввести название баннера.');
-DEFINE('_ABP_BN_MSIB', 'Вы должны выбрать изображение для баннера');
-DEFINE('_ABP_BN_MSUB', 'Вы должны заполнить поля URL баннера или вставить свой код.');
-DEFINE('_ABP_BN_DATE', 'Дата начала публикации должна быть меньшей или равной дате окончания!');
-DEFINE('_ABP_BN_REC', 'Вы должны установить дни по которым баннер должен быть видимым');
-DEFINE('_ABP_SELECT_CLIENT', 'Выберите клиента');
-DEFINE('_ABP_NO', 'Нет');
-DEFINE('_ABP_YES', 'Да');
-DEFINE('_ABP_FAILED_TO_COPY', 'Ошибка при копировании %s');
-DEFINE('_ABP_SELECT_ITEM_TO', 'Выберите объект для %s');
-DEFINE('_ABP_CICBEBAA', 'Клиент %s в текущее время редактируется другим администратором');
-DEFINE('_ABP_CDCATTATHABSR', 'Не могу удалить клиента %s, т.к. в настоящие время у него запущены баннеры.');
-DEFINE('_ABP_L_PUBLISH', 'Допустить');
-DEFINE('_ABP_L_UNPUBLISH', 'Скрыть');
-DEFINE('_ABP_BANNER_MANAGER', 'Управление баннерами');
-DEFINE('_ABP_BANNER_NAME', 'Название баннера');
-DEFINE('_ABP_CATEGORY', 'Категория');
-DEFINE('_ABP_ALLCAT', '- Все категории -');
-DEFINE('_ABP_IMPMADE', 'Показано');
-DEFINE('_ABP_IMPLEFT', 'Осталось показов');
-DEFINE('_ABP_CLICKS', 'Всего нажатий');
-DEFINE('_ABP_PRCLICKS', '% Всего нажатий');
-DEFINE('_ABP_PUBLISHED', 'Опубликовано');
-DEFINE('_ABP_CHECKED_OUT', 'Изменяется');
-DEFINE('_ABP_EDIT_BANNER', 'Изменить баннер');
-DEFINE('_ABP_ADD_BANNER', 'Добавить баннер');
-DEFINE('_ABP_E_BANNER_NAME', 'Название баннера:');
-DEFINE('_ABP_E_IMP_PURCHASED', 'Куплено показов:');
-DEFINE('_ABP_E_BANNER_URL', 'Изображение:');
-DEFINE('_ABP_E_CLICK_URL', 'URL для перехода:');
-DEFINE('_ABP_E_CUSTOM_BANNER_CODE', 'Свой код:');
-DEFINE('_ABP_E_BANNER_IMAGE', 'Изображение баннера:');
-DEFINE('_ABP_YCMHAN', 'Категория должна иметь название');
-DEFINE('_ABP_TIACAWTHPTA', 'Категория с таким названием уже существует, попробуйте ещё раз.');
-DEFINE('_ABP_SELECT_CATEGORY', 'Выберите категорию');
-DEFINE('_ABP_NEVER', ' - никогда');
-DEFINE('_ABP_TCICBEBAA', 'Категория %s в настоящее время редактируется другим администратором');
-DEFINE('_ABP_SACTD', 'Выберите категорию для удаления');
-DEFINE('_ABP_CCBRATCR', 'Категория: %s не может быть удалена т.к. содержит данные');
-DEFINE('_ABP_SACT', 'Выберите категорию для %s');
-DEFINE('_ABP_SACT_PUB', 'опубликования');
-DEFINE('_ABP_SACT_UNPUB', 'скрытия');
-DEFINE('_ABP_REPEAT_TYPE', 'Тип показа');
-DEFINE('_ABP_ALWAYS', 'Всегда');
-DEFINE('_ABP_PUBLISH_INFORMATION', 'Информация о публикации');
-DEFINE('_ABP_PUB_BIC', 'Опубликован, но <u>не видим</u>');
-DEFINE('_ABP_PUB_AIC', 'Опубликован и <u>видим</u>');
-DEFINE('_ABP_PUB_BHF', 'Опубликован, но <u>просрочен</u>');
-DEFINE('_ABP_OUB_NOT', 'Не опубликован');
-DEFINE('_ABP_COITTS', 'Нажмите на иконку для изменения состояния');
-DEFINE('_ABP_YMPABN', 'Вы должны ввести имя баннера');
-DEFINE('_ABP_PSACLI', 'Выберите клиента.');
-DEFINE('_ABP_PSACAT', 'Выберите категорию.');
-DEFINE('_ABP_PSANIMG', 'Выберите рисунок.');
-DEFINE('_ABP_PFITUOCCFTB', 'Заполните поля URL баннера или Свой код.');
-DEFINE('_ABP_UNPUBLISHED', 'Неопубликована');
-DEFINE('_ABP_ALL_DAY', 'Весь день');
-DEFINE('_ABP_BANNER_CLIENT_MANAGER', 'Управление клиентами');
-DEFINE('_ABP_DISPLAY_TURMA', 'На странице #');
-DEFINE('_ABP_CLIENT_NAME', 'Имя клиента');
-DEFINE('_ABP_CONTACT', 'Контактная имя');
-DEFINE('_ABP_NO_OF_ACTIVE_BANNERS', 'Кол-во активных баннеров');
-DEFINE('_ABP_BANNERS_ATT', 'Активные');
-DEFINE('_ABP_BANNERS_TER', 'Срок истек');
-DEFINE('_ABP_BANNERS_NO_PUB', 'Скрытые');
-DEFINE('_ABP_BANNERS_IN_ATT', 'Не активные');
-DEFINE('_ABP_NO_OF_BANNERS', 'активных');
-DEFINE('_ABP_PFITCN1', 'Пожалуйста заполните  имя клиента');
-DEFINE('_ABP_PFITCN2', 'Пожалуйста заполните  имя контакта');
-DEFINE('_ABP_PFITCE', 'Пожалуйста заполните  контактный адрес эл. почты');
-DEFINE('_ABP_EDIT_BANNER_CLIENT', '  Изменить клиента');
-DEFINE('_ABP_ADD_BANNER_CLIENT', '  Добавить клиента');
-DEFINE('_ABP_E_CLIENT_NAME', 'Имя клиента:');
-DEFINE('_ABP_E_CONTACT_NAME', 'Контактное имя:');
-DEFINE('_ABP_E_CONTACT_EMAIL', 'Контактный адрес эл. почты:');
-DEFINE('_ABP_E_EXTRA_INFO', 'Дополнительная информация:');
-DEFINE('_ABP_BANNER_CATEGORY_MANAGER', 'Управление категориями');
-DEFINE('_ABP_C_CATEGORY_NAME', 'Название категории');
-DEFINE('_ABP_C_NUM_OF_RECORDS', '# кол-во&nbsp;баннеров');
-DEFINE('_ABP_E_CATEGORY_MUST_HAVE_A_NAME', 'Введите название категории');
-DEFINE('_ABP_EDIT_CATEGORY', '  Изменить категорию');
-DEFINE('_ABP_ADD_CATEGORY', '  Добавить категорию');
-DEFINE('_ABP_E_CATEGORY_NAME', 'Название категории:');
-DEFINE('_ABP_E_DESCRITION', 'Описание:');
-DEFINE('_ABP_UNLIMITED', 'Неограниченно');
-DEFINE('_ABP_TARGET', 'Открывать в');
-DEFINE('_ABP_BORDER_VALUE', 'Значение границы');
-DEFINE('_ABP_BORDER_VALUE_DESCRIPTION', 'Значение по умолчанию - Без границ');
-DEFINE('_ABP_BORDER_STYLE', 'Стиль границы');
-DEFINE('_ABP_BORDER_COLOR', 'Цвет границы');
-DEFINE('_ABP_BORDER_COLOR_DESCRIPTION', 'Вы можете использовать название цвета или шестнадцатеричное значение (напр. black (черный) или #000000)');
-DEFINE('_ABP_TOTAL_PRICE', 'Единиц / Всего');
-DEFINE('_ABP_VALUE_CLICK', 'Стоимость за нажатие');
-DEFINE('_ABP_CURRENCY', 'Руб.');
-DEFINE('_ABP_IMP_VALUE', 'Стоимость за показ');
-DEFINE('_ABP_PASS', 'Пароль');
+DEFINE('_ABP_CL_MSNF', 'Р’С‹ РґРѕР»Р¶РЅС‹ РІРІРµСЃС‚Рё РёРјСЏ РєР»РёРµРЅС‚Р°.');
+DEFINE('_ABP_CL_MSCF', 'Р’С‹ РґРѕР»Р¶РЅС‹ РІРІРµСЃС‚Рё РєРѕРЅС‚Р°РєС‚РЅРѕРµ РёРјСЏ РєР»РёРµРЅС‚Р°.');
+DEFINE('_ABP_CL_MSEF', 'Р’С‹ РґРѕР»Р¶РЅС‹ РІРІРµСЃС‚Рё РїСЂР°РІРёР»СЊРЅС‹Р№ Р°РґСЂРµСЃ СЌР». РїРѕС‡С‚С‹ РєР»РёРµРЅС‚Р°.');
+DEFINE('_ABP_BN_MSC', 'Р’С‹ РґРѕР»Р¶РЅС‹ РІС‹Р±СЂР°С‚СЊ РєР»РёРµРЅС‚Р°.');
+DEFINE('_ABP_BN_MSCA', 'Р’С‹ РґРѕР»Р¶РЅС‹ РІС‹Р±СЂР°С‚СЊ РєР°С‚РµРіРѕСЂРёСЋ.');
+DEFINE('_ABP_BN_MSNB', 'Р’С‹ РґРѕР»Р¶РЅС‹ РІРІРµСЃС‚Рё РЅР°Р·РІР°РЅРёРµ Р±Р°РЅРЅРµСЂР°.');
+DEFINE('_ABP_BN_MSIB', 'Р’С‹ РґРѕР»Р¶РЅС‹ РІС‹Р±СЂР°С‚СЊ РёР·РѕР±СЂР°Р¶РµРЅРёРµ РґР»СЏ Р±Р°РЅРЅРµСЂР°');
+DEFINE('_ABP_BN_MSUB', 'Р’С‹ РґРѕР»Р¶РЅС‹ Р·Р°РїРѕР»РЅРёС‚СЊ РїРѕР»СЏ URL Р±Р°РЅРЅРµСЂР° РёР»Рё РІСЃС‚Р°РІРёС‚СЊ СЃРІРѕР№ РєРѕРґ.');
+DEFINE('_ABP_BN_DATE', 'Р”Р°С‚Р° РЅР°С‡Р°Р»Р° РїСѓР±Р»РёРєР°С†РёРё РґРѕР»Р¶РЅР° Р±С‹С‚СЊ РјРµРЅСЊС€РµР№ РёР»Рё СЂР°РІРЅРѕР№ РґР°С‚Рµ РѕРєРѕРЅС‡Р°РЅРёСЏ!');
+DEFINE('_ABP_BN_REC', 'Р’С‹ РґРѕР»Р¶РЅС‹ СѓСЃС‚Р°РЅРѕРІРёС‚СЊ РґРЅРё РїРѕ РєРѕС‚РѕСЂС‹Рј Р±Р°РЅРЅРµСЂ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ РІРёРґРёРјС‹Рј');
+DEFINE('_ABP_SELECT_CLIENT', 'Р’С‹Р±РµСЂРёС‚Рµ РєР»РёРµРЅС‚Р°');
+DEFINE('_ABP_NO', 'РќРµС‚');
+DEFINE('_ABP_YES', 'Р”Р°');
+DEFINE('_ABP_FAILED_TO_COPY', 'РћС€РёР±РєР° РїСЂРё РєРѕРїРёСЂРѕРІР°РЅРёРё %s');
+DEFINE('_ABP_FAILED_ACCESS', 'РћС€РёР±РєР° РґРѕСЃС‚СѓРїР°'); 
+DEFINE('_ABP_SELECT_ITEM_TO', 'Р’С‹Р±РµСЂРёС‚Рµ РѕР±СЉРµРєС‚ РґР»СЏ %s');
+DEFINE('_ABP_CICBEBAA', 'РљР»РёРµРЅС‚ %s РІ С‚РµРєСѓС‰РµРµ РІСЂРµРјСЏ СЂРµРґР°РєС‚РёСЂСѓРµС‚СЃСЏ РґСЂСѓРіРёРј Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂРѕРј');
+DEFINE('_ABP_CDCATTATHABSR', 'РќРµ РјРѕРіСѓ СѓРґР°Р»РёС‚СЊ РєР»РёРµРЅС‚Р° %s, С‚.Рє. РІ РЅР°СЃС‚РѕСЏС‰РёРµ РІСЂРµРјСЏ Сѓ РЅРµРіРѕ Р·Р°РїСѓС‰РµРЅС‹ Р±Р°РЅРЅРµСЂС‹.');
+DEFINE('_ABP_L_PUBLISH', 'Р”РѕРїСѓСЃС‚РёС‚СЊ');
+DEFINE('_ABP_L_UNPUBLISH', 'РЎРєСЂС‹С‚СЊ');
+DEFINE('_ABP_BANNER_MANAGER', 'РЈРїСЂР°РІР»РµРЅРёРµ Р±Р°РЅРЅРµСЂР°РјРё');
+DEFINE('_ABP_BANNER_NAME', 'РќР°Р·РІР°РЅРёРµ Р±Р°РЅРЅРµСЂР°');
+DEFINE('_ABP_CATEGORY', 'РљР°С‚РµРіРѕСЂРёСЏ');
+DEFINE('_ABP_ALLCAT', '- Р’СЃРµ РєР°С‚РµРіРѕСЂРёРё -');
+DEFINE('_ABP_IMPMADE', 'РџРѕРєР°Р·Р°РЅРѕ');
+DEFINE('_ABP_IMPLEFT', 'РћСЃС‚Р°Р»РѕСЃСЊ РїРѕРєР°Р·РѕРІ');
+DEFINE('_ABP_CLICKS', 'Р’СЃРµРіРѕ РЅР°Р¶Р°С‚РёР№');
+DEFINE('_ABP_PRCLICKS', '% Р’СЃРµРіРѕ РЅР°Р¶Р°С‚РёР№');
+DEFINE('_ABP_PUBLISHED', 'РћРїСѓР±Р»РёРєРѕРІР°РЅРѕ');
+DEFINE('_ABP_CHECKED_OUT', 'РР·РјРµРЅСЏРµС‚СЃСЏ');
+DEFINE('_ABP_EDIT_BANNER', 'РР·РјРµРЅРёС‚СЊ Р±Р°РЅРЅРµСЂ');
+DEFINE('_ABP_ADD_BANNER', 'Р”РѕР±Р°РІРёС‚СЊ Р±Р°РЅРЅРµСЂ');
+DEFINE('_ABP_E_BANNER_NAME', 'РќР°Р·РІР°РЅРёРµ Р±Р°РЅРЅРµСЂР°:');
+DEFINE('_ABP_E_IMP_PURCHASED', 'РљСѓРїР»РµРЅРѕ РїРѕРєР°Р·РѕРІ:');
+DEFINE('_ABP_E_BANNER_URL', 'РР·РѕР±СЂР°Р¶РµРЅРёРµ:');
+DEFINE('_ABP_E_CLICK_URL', 'URL РґР»СЏ РїРµСЂРµС…РѕРґР°:');
+DEFINE('_ABP_E_CUSTOM_BANNER_CODE', 'РЎРІРѕР№ РєРѕРґ:');
+DEFINE('_ABP_E_BANNER_IMAGE', 'РР·РѕР±СЂР°Р¶РµРЅРёРµ Р±Р°РЅРЅРµСЂР°:');
+DEFINE('_ABP_YCMHAN', 'РљР°С‚РµРіРѕСЂРёСЏ РґРѕР»Р¶РЅР° РёРјРµС‚СЊ РЅР°Р·РІР°РЅРёРµ');
+DEFINE('_ABP_TIACAWTHPTA', 'РљР°С‚РµРіРѕСЂРёСЏ СЃ С‚Р°РєРёРј РЅР°Р·РІР°РЅРёРµРј СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚, РїРѕРїСЂРѕР±СѓР№С‚Рµ РµС‰С‘ СЂР°Р·.');
+DEFINE('_ABP_SELECT_CATEGORY', 'Р’С‹Р±РµСЂРёС‚Рµ РєР°С‚РµРіРѕСЂРёСЋ');
+DEFINE('_ABP_NEVER', ' - РЅРёРєРѕРіРґР°');
+DEFINE('_ABP_TCICBEBAA', 'РљР°С‚РµРіРѕСЂРёСЏ %s РІ РЅР°СЃС‚РѕСЏС‰РµРµ РІСЂРµРјСЏ СЂРµРґР°РєС‚РёСЂСѓРµС‚СЃСЏ РґСЂСѓРіРёРј Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂРѕРј');
+DEFINE('_ABP_SACTD', 'Р’С‹Р±РµСЂРёС‚Рµ РєР°С‚РµРіРѕСЂРёСЋ РґР»СЏ СѓРґР°Р»РµРЅРёСЏ');
+DEFINE('_ABP_CCBRATCR', 'РљР°С‚РµРіРѕСЂРёСЏ: %s РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ СѓРґР°Р»РµРЅР° С‚.Рє. СЃРѕРґРµСЂР¶РёС‚ РґР°РЅРЅС‹Рµ');
+DEFINE('_ABP_SACT', 'Р’С‹Р±РµСЂРёС‚Рµ РєР°С‚РµРіРѕСЂРёСЋ РґР»СЏ %s');
+DEFINE('_ABP_SACT_PUB', 'РѕРїСѓР±Р»РёРєРѕРІР°РЅРёСЏ');
+DEFINE('_ABP_SACT_UNPUB', 'СЃРєСЂС‹С‚РёСЏ');
+DEFINE('_ABP_REPEAT_TYPE', 'РўРёРї РїРѕРєР°Р·Р°');
+DEFINE('_ABP_ALWAYS', 'Р’СЃРµРіРґР°');
+DEFINE('_ABP_PUBLISH_INFORMATION', 'РРЅС„РѕСЂРјР°С†РёСЏ Рѕ РїСѓР±Р»РёРєР°С†РёРё');
+DEFINE('_ABP_PUB_BIC', 'РћРїСѓР±Р»РёРєРѕРІР°РЅ, РЅРѕ <u>РЅРµ РІРёРґРёРј</u>');
+DEFINE('_ABP_PUB_AIC', 'РћРїСѓР±Р»РёРєРѕРІР°РЅ Рё <u>РІРёРґРёРј</u>');
+DEFINE('_ABP_PUB_BHF', 'РћРїСѓР±Р»РёРєРѕРІР°РЅ, РЅРѕ <u>РїСЂРѕСЃСЂРѕС‡РµРЅ</u>');
+DEFINE('_ABP_OUB_NOT', 'РќРµ РѕРїСѓР±Р»РёРєРѕРІР°РЅ');
+DEFINE('_ABP_COITTS', 'РќР°Р¶РјРёС‚Рµ РЅР° РёРєРѕРЅРєСѓ РґР»СЏ РёР·РјРµРЅРµРЅРёСЏ СЃРѕСЃС‚РѕСЏРЅРёСЏ');
+DEFINE('_ABP_YMPABN', 'Р’С‹ РґРѕР»Р¶РЅС‹ РІРІРµСЃС‚Рё РёРјСЏ Р±Р°РЅРЅРµСЂР°');
+DEFINE('_ABP_PSACLI', 'Р’С‹Р±РµСЂРёС‚Рµ РєР»РёРµРЅС‚Р°.');
+DEFINE('_ABP_PSACAT', 'Р’С‹Р±РµСЂРёС‚Рµ РєР°С‚РµРіРѕСЂРёСЋ.');
+DEFINE('_ABP_PSANIMG', 'Р’С‹Р±РµСЂРёС‚Рµ СЂРёСЃСѓРЅРѕРє.');
+DEFINE('_ABP_PFITUOCCFTB', 'Р—Р°РїРѕР»РЅРёС‚Рµ РїРѕР»СЏ URL Р±Р°РЅРЅРµСЂР° РёР»Рё РЎРІРѕР№ РєРѕРґ.');
+DEFINE('_ABP_UNPUBLISHED', 'РќРµРѕРїСѓР±Р»РёРєРѕРІР°РЅР°');
+DEFINE('_ABP_ALL_DAY', 'Р’РµСЃСЊ РґРµРЅСЊ');
+DEFINE('_ABP_BANNER_CLIENT_MANAGER', 'РЈРїСЂР°РІР»РµРЅРёРµ РєР»РёРµРЅС‚Р°РјРё');
+DEFINE('_ABP_DISPLAY_TURMA', 'РќР° СЃС‚СЂР°РЅРёС†Рµ #');
+DEFINE('_ABP_CLIENT_NAME', 'РРјСЏ РєР»РёРµРЅС‚Р°');
+DEFINE('_ABP_CONTACT', 'РљРѕРЅС‚Р°РєС‚РЅР°СЏ РёРјСЏ');
+DEFINE('_ABP_NO_OF_ACTIVE_BANNERS', 'РљРѕР»-РІРѕ Р°РєС‚РёРІРЅС‹С… Р±Р°РЅРЅРµСЂРѕРІ');
+DEFINE('_ABP_BANNERS_ATT', 'РђРєС‚РёРІРЅС‹Рµ');
+DEFINE('_ABP_BANNERS_TER', 'РЎСЂРѕРє РёСЃС‚РµРє');
+DEFINE('_ABP_BANNERS_NO_PUB', 'РЎРєСЂС‹С‚С‹Рµ');
+DEFINE('_ABP_BANNERS_IN_ATT', 'РќРµ Р°РєС‚РёРІРЅС‹Рµ');
+DEFINE('_ABP_NO_OF_BANNERS', 'Р°РєС‚РёРІРЅС‹С…');
+DEFINE('_ABP_PFITCN1', 'РџРѕР¶Р°Р»СѓР№СЃС‚Р° Р·Р°РїРѕР»РЅРёС‚Рµ  РёРјСЏ РєР»РёРµРЅС‚Р°');
+DEFINE('_ABP_PFITCN2', 'РџРѕР¶Р°Р»СѓР№СЃС‚Р° Р·Р°РїРѕР»РЅРёС‚Рµ  РёРјСЏ РєРѕРЅС‚Р°РєС‚Р°');
+DEFINE('_ABP_PFITCE', 'РџРѕР¶Р°Р»СѓР№СЃС‚Р° Р·Р°РїРѕР»РЅРёС‚Рµ  РєРѕРЅС‚Р°РєС‚РЅС‹Р№ Р°РґСЂРµСЃ СЌР». РїРѕС‡С‚С‹');
+DEFINE('_ABP_EDIT_BANNER_CLIENT', '  РР·РјРµРЅРёС‚СЊ РєР»РёРµРЅС‚Р°');
+DEFINE('_ABP_ADD_BANNER_CLIENT', '  Р”РѕР±Р°РІРёС‚СЊ РєР»РёРµРЅС‚Р°');
+DEFINE('_ABP_E_CLIENT_NAME', 'РРјСЏ РєР»РёРµРЅС‚Р°:');
+DEFINE('_ABP_E_CONTACT_NAME', 'РљРѕРЅС‚Р°РєС‚РЅРѕРµ РёРјСЏ:');
+DEFINE('_ABP_E_CONTACT_EMAIL', 'РљРѕРЅС‚Р°РєС‚РЅС‹Р№ Р°РґСЂРµСЃ СЌР». РїРѕС‡С‚С‹:');
+DEFINE('_ABP_E_EXTRA_INFO', 'Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ:');
+DEFINE('_ABP_BANNER_CATEGORY_MANAGER', 'РЈРїСЂР°РІР»РµРЅРёРµ РєР°С‚РµРіРѕСЂРёСЏРјРё');
+DEFINE('_ABP_C_CATEGORY_NAME', 'РќР°Р·РІР°РЅРёРµ РєР°С‚РµРіРѕСЂРёРё');
+DEFINE('_ABP_C_NUM_OF_RECORDS', '# РєРѕР»-РІРѕ&nbsp;Р±Р°РЅРЅРµСЂРѕРІ');
+DEFINE('_ABP_E_CATEGORY_MUST_HAVE_A_NAME', 'Р’РІРµРґРёС‚Рµ РЅР°Р·РІР°РЅРёРµ РєР°С‚РµРіРѕСЂРёРё');
+DEFINE('_ABP_EDIT_CATEGORY', '  РР·РјРµРЅРёС‚СЊ РєР°С‚РµРіРѕСЂРёСЋ');
+DEFINE('_ABP_ADD_CATEGORY', '  Р”РѕР±Р°РІРёС‚СЊ РєР°С‚РµРіРѕСЂРёСЋ');
+DEFINE('_ABP_E_CATEGORY_NAME', 'РќР°Р·РІР°РЅРёРµ РєР°С‚РµРіРѕСЂРёРё:');
+DEFINE('_ABP_E_DESCRITION', 'РћРїРёСЃР°РЅРёРµ:');
+DEFINE('_ABP_UNLIMITED', 'РќРµРѕРіСЂР°РЅРёС‡РµРЅРЅРѕ');
+DEFINE('_ABP_TARGET', 'РћС‚РєСЂС‹РІР°С‚СЊ РІ');
+DEFINE('_ABP_BORDER_VALUE', 'Р—РЅР°С‡РµРЅРёРµ РіСЂР°РЅРёС†С‹');
+DEFINE('_ABP_BORDER_VALUE_DESCRIPTION', 'Р—РЅР°С‡РµРЅРёРµ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ - Р‘РµР· РіСЂР°РЅРёС†');
+DEFINE('_ABP_BORDER_STYLE', 'РЎС‚РёР»СЊ РіСЂР°РЅРёС†С‹');
+DEFINE('_ABP_BORDER_COLOR', 'Р¦РІРµС‚ РіСЂР°РЅРёС†С‹');
+DEFINE('_ABP_BORDER_COLOR_DESCRIPTION', 'Р’С‹ РјРѕР¶РµС‚Рµ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РЅР°Р·РІР°РЅРёРµ С†РІРµС‚Р° РёР»Рё С€РµСЃС‚РЅР°РґС†Р°С‚РµСЂРёС‡РЅРѕРµ Р·РЅР°С‡РµРЅРёРµ (РЅР°РїСЂ. black (С‡РµСЂРЅС‹Р№) РёР»Рё #000000)');
+DEFINE('_ABP_TOTAL_PRICE', 'Р•РґРёРЅРёС† / Р’СЃРµРіРѕ');
+DEFINE('_ABP_VALUE_CLICK', 'РЎС‚РѕРёРјРѕСЃС‚СЊ Р·Р° РЅР°Р¶Р°С‚РёРµ');
+DEFINE('_ABP_CURRENCY', 'Р СѓР±.');
+DEFINE('_ABP_IMP_VALUE', 'РЎС‚РѕРёРјРѕСЃС‚СЊ Р·Р° РїРѕРєР°Р·');
+DEFINE('_ABP_PASS', 'РџР°СЂРѕР»СЊ');
 
 // Short day names
-DEFINE('_ABP_SUN', 'Вс');
-DEFINE('_ABP_MON', 'Пн');
-DEFINE('_ABP_TUE', 'Вт');
-DEFINE('_ABP_WED', 'Ср');
-DEFINE('_ABP_THU', 'Чт');
-DEFINE('_ABP_FRI', 'Пт');
-DEFINE('_ABP_SAT', 'Сб');
+DEFINE('_ABP_SUN', 'Р’СЃ');
+DEFINE('_ABP_MON', 'РџРЅ');
+DEFINE('_ABP_TUE', 'Р’С‚');
+DEFINE('_ABP_WED', 'РЎСЂ');
+DEFINE('_ABP_THU', 'Р§С‚');
+DEFINE('_ABP_FRI', 'РџС‚');
+DEFINE('_ABP_SAT', 'РЎР±');
 
 // Days
-DEFINE('_ABP_SUNDAY', 'Воскресенье');
-DEFINE('_ABP_MONDAY', 'Понедельник');
-DEFINE('_ABP_TUESDAY', 'Вторник');
-DEFINE('_ABP_WEDNESDAY', 'Среда');
-DEFINE('_ABP_THURSDAY', 'Четверг');
-DEFINE('_ABP_FRIDAY', 'Пятница');
-DEFINE('_ABP_SATURDAY', 'Суббота');
+DEFINE('_ABP_SUNDAY', 'Р’РѕСЃРєСЂРµСЃРµРЅСЊРµ');
+DEFINE('_ABP_MONDAY', 'РџРѕРЅРµРґРµР»СЊРЅРёРє');
+DEFINE('_ABP_TUESDAY', 'Р’С‚РѕСЂРЅРёРє');
+DEFINE('_ABP_WEDNESDAY', 'РЎСЂРµРґР°');
+DEFINE('_ABP_THURSDAY', 'Р§РµС‚РІРµСЂРі');
+DEFINE('_ABP_FRIDAY', 'РџСЏС‚РЅРёС†Р°');
+DEFINE('_ABP_SATURDAY', 'РЎСѓР±Р±РѕС‚Р°');
 
 // Repeat type
-DEFINE('_ABP_ALLDAYS', 'Каждый день');
-DEFINE('_ABP_EACHWEEK', 'Каждую неделю');
-DEFINE('_ABP_ONLYDAYS', 'Только выбранные дни');
+DEFINE('_ABP_ALLDAYS', 'РљР°Р¶РґС‹Р№ РґРµРЅСЊ');
+DEFINE('_ABP_EACHWEEK', 'РљР°Р¶РґСѓСЋ РЅРµРґРµР»СЋ');
+DEFINE('_ABP_ONLYDAYS', 'РўРѕР»СЊРєРѕ РІС‹Р±СЂР°РЅРЅС‹Рµ РґРЅРё');
 
 // Repeat days
-DEFINE('_ABP_FROM', 'От');
-DEFINE('_ABP_TO', 'До');
+DEFINE('_ABP_FROM', 'РћС‚');
+DEFINE('_ABP_TO', 'Р”Рѕ');
 
-DEFINE('_ABP_EVENT_STARTDATE', 'Начальная дата');
-DEFINE('_ABP_EVENT_ENDDATE', 'Конечная дата');
-DEFINE('_ABP_EVENT_STARTHOURS', 'Начальное время');
-DEFINE('_ABP_EVENT_ENDHOURS', 'Конечное время');
-DEFINE('_ABP_EVENT_REPEATTYPE', 'Тип показа');
-DEFINE('_ABP_EVENT_CHOOSE_WEEKDAYS', 'Дни недели');
-DEFINE('_ABP_EVENT_STATE', 'Состояние');
-DEFINE('_ABP_EVENT_ACCESSLEVEL', 'Уровень доступа');
+DEFINE('_ABP_EVENT_STARTDATE', 'РќР°С‡Р°Р»СЊРЅР°СЏ РґР°С‚Р°');
+DEFINE('_ABP_EVENT_ENDDATE', 'РљРѕРЅРµС‡РЅР°СЏ РґР°С‚Р°');
+DEFINE('_ABP_EVENT_STARTHOURS', 'РќР°С‡Р°Р»СЊРЅРѕРµ РІСЂРµРјСЏ');
+DEFINE('_ABP_EVENT_ENDHOURS', 'РљРѕРЅРµС‡РЅРѕРµ РІСЂРµРјСЏ');
+DEFINE('_ABP_EVENT_REPEATTYPE', 'РўРёРї РїРѕРєР°Р·Р°');
+DEFINE('_ABP_EVENT_CHOOSE_WEEKDAYS', 'Р”РЅРё РЅРµРґРµР»Рё');
+DEFINE('_ABP_EVENT_STATE', 'РЎРѕСЃС‚РѕСЏРЅРёРµ');
+DEFINE('_ABP_EVENT_ACCESSLEVEL', 'РЈСЂРѕРІРµРЅСЊ РґРѕСЃС‚СѓРїР°');
 
-DEFINE('_ABP_INFORMATION', 'Информация');
+DEFINE('_ABP_INFORMATION', 'РРЅС„РѕСЂРјР°С†РёСЏ');
 
 // Errori
-DEFINE('_ABP_ERROR_IMP', 'Оценена, чтобы это было число визуализации, какая бесконечная визуализация.');
-DEFINE('_ABP_ERROR_DAYS_REC', 'Установите дни, в которые баннер будет повторяться');
-DEFINE('_ABP_ERROR_TIME', 'Установить расписание визуализации');
-DEFINE('_ABP_ERROR_PWD', 'Установить пароль');
+DEFINE('_ABP_ERROR_IMP', 'РћС†РµРЅРµРЅР°, С‡С‚РѕР±С‹ СЌС‚Рѕ Р±С‹Р»Рѕ С‡РёСЃР»Рѕ РІРёР·СѓР°Р»РёР·Р°С†РёРё, РєР°РєР°СЏ Р±РµСЃРєРѕРЅРµС‡РЅР°СЏ РІРёР·СѓР°Р»РёР·Р°С†РёСЏ.');
+DEFINE('_ABP_ERROR_DAYS_REC', 'РЈСЃС‚Р°РЅРѕРІРёС‚Рµ РґРЅРё, РІ РєРѕС‚РѕСЂС‹Рµ Р±Р°РЅРЅРµСЂ Р±СѓРґРµС‚ РїРѕРІС‚РѕСЂСЏС‚СЊСЃСЏ');
+DEFINE('_ABP_ERROR_TIME', 'РЈСЃС‚Р°РЅРѕРІРёС‚СЊ СЂР°СЃРїРёСЃР°РЅРёРµ РІРёР·СѓР°Р»РёР·Р°С†РёРё');
+DEFINE('_ABP_ERROR_PWD', 'РЈСЃС‚Р°РЅРѕРІРёС‚СЊ РїР°СЂРѕР»СЊ');
 
-DEFINE('_ABP_FORM_SEND_CLIENT', 'Сообщить пароль клиенту:');
+DEFINE('_ABP_FORM_SEND_CLIENT', 'РЎРѕРѕР±С‰РёС‚СЊ РїР°СЂРѕР»СЊ РєР»РёРµРЅС‚Сѓ:');
 
-DEFINE('_ABP_OPZ_IMP', 'Опции показа');
+DEFINE('_ABP_OPZ_IMP', 'РћРїС†РёРё РїРѕРєР°Р·Р°');
 
-DEFINE('_ABP_DATE_PUB', 'Даты публикации');
+DEFINE('_ABP_DATE_PUB', 'Р”Р°С‚С‹ РїСѓР±Р»РёРєР°С†РёРё');
 
-DEFINE('_ABP_COSTS', 'Цены');
+DEFINE('_ABP_COSTS', 'Р¦РµРЅС‹');
 
-DEFINE('_ABP_PREVIEW', 'Предпросмотр баннера');
-DEFINE('_ABP_PREVIEW_NOT_DISP', 'Предпросмотр баннера, не доступен.');
+DEFINE('_ABP_PREVIEW', 'РџСЂРµРґРїСЂРѕСЃРјРѕС‚СЂ Р±Р°РЅРЅРµСЂР°');
+DEFINE('_ABP_PREVIEW_NOT_DISP', 'РџСЂРµРґРїСЂРѕСЃРјРѕС‚СЂ Р±Р°РЅРЅРµСЂР°, РЅРµ РґРѕСЃС‚СѓРїРµРЅ.');
 
-DEFINE('_ABP_OTHER', 'Другое ');
+DEFINE('_ABP_OTHER', 'Р”СЂСѓРіРѕРµ ');
 
-DEFINE('_ABP_CATEGORY_UNPUBLISH', 'категория скрыта');
-DEFINE('_ABP_CLIENT_UNPUBLISH', 'клиент скрыт');
+DEFINE('_ABP_CATEGORY_UNPUBLISH', 'РєР°С‚РµРіРѕСЂРёСЏ СЃРєСЂС‹С‚Р°');
+DEFINE('_ABP_CLIENT_UNPUBLISH', 'РєР»РёРµРЅС‚ СЃРєСЂС‹С‚');
 
-DEFINE('_ABP_PRICE_IMPRESSION', 'Цена показа (Ед./Всего)');
+DEFINE('_ABP_PRICE_IMPRESSION', 'Р¦РµРЅР° РїРѕРєР°Р·Р° (Р•Рґ./Р’СЃРµРіРѕ)');
 
-DEFINE('_ABP_ALERT_BANNER_FLASH', 'Вы выбрали флеш-баннер.\\n' . 'Для того чтобы работал счетчик нажатий, Вы должны ' . 'установить ссылку к файлу .swf, соответсвующую с \\n' . '$mosConfig_live_site/index.php?option=com_artbannersplus&task=clk&id=');
+DEFINE('_ABP_ALERT_BANNER_FLASH', 'Р’С‹ РІС‹Р±СЂР°Р»Рё С„Р»РµС€-Р±Р°РЅРЅРµСЂ.\\n' . 'Р”Р»СЏ С‚РѕРіРѕ С‡С‚РѕР±С‹ СЂР°Р±РѕС‚Р°Р» СЃС‡РµС‚С‡РёРє РЅР°Р¶Р°С‚РёР№, Р’С‹ РґРѕР»Р¶РЅС‹ ' . 'СѓСЃС‚Р°РЅРѕРІРёС‚СЊ СЃСЃС‹Р»РєСѓ Рє С„Р°Р№Р»Сѓ .swf, СЃРѕРѕС‚РІРµС‚СЃРІСѓСЋС‰СѓСЋ СЃ \\n' . '$mosConfig_live_site/index.php?option=com_artbannersplus&task=clk&id=');
 
-DEFINE('_ABP_BANNER_IN_USE', 'Баннер %s в настоящее время изменяется другим администратором');
+DEFINE('_ABP_BANNER_IN_USE', 'Р‘Р°РЅРЅРµСЂ %s РІ РЅР°СЃС‚РѕСЏС‰РµРµ РІСЂРµРјСЏ РёР·РјРµРЅСЏРµС‚СЃСЏ РґСЂСѓРіРёРј Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂРѕРј');
 
-DEFINE('_ABP_BANNER_STATE', 'Активный');
-DEFINE('_ABP_BANNER_STATE_TOOL_TIP', 'Да: <u>активный</u> баннер<br>Нет: <u>не активный</u> баннер.');
+DEFINE('_ABP_BANNER_STATE', 'РђРєС‚РёРІРЅС‹Р№');
+DEFINE('_ABP_BANNER_STATE_TOOL_TIP', 'Р”Р°: <u>Р°РєС‚РёРІРЅС‹Р№</u> Р±Р°РЅРЅРµСЂ<br>РќРµС‚: <u>РЅРµ Р°РєС‚РёРІРЅС‹Р№</u> Р±Р°РЅРЅРµСЂ.');
 
-DEFINE('_ABP_TOT', 'Всего&nbsp;Руб.');
-DEFINE('_ABP_TOT_IMP_CLIC', 'Всего ( показов + нажатий )');
-DEFINE('_ABP_PARZ_DAL', '( Кол-во ');
-DEFINE('_ABP_RESET_CLIC_PARZ', 'Сбросить количество нажатий');
+DEFINE('_ABP_TOT', 'Р’СЃРµРіРѕ&nbsp;Р СѓР±.');
+DEFINE('_ABP_TOT_IMP_CLIC', 'Р’СЃРµРіРѕ ( РїРѕРєР°Р·РѕРІ + РЅР°Р¶Р°С‚РёР№ )');
+DEFINE('_ABP_PARZ_DAL', '( РљРѕР»-РІРѕ ');
+DEFINE('_ABP_RESET_CLIC_PARZ', 'РЎР±СЂРѕСЃРёС‚СЊ РєРѕР»РёС‡РµСЃС‚РІРѕ РЅР°Р¶Р°С‚РёР№');
 
-DEFINE('_ABP_STATE', 'Состояние');
+DEFINE('_ABP_STATE', 'РЎРѕСЃС‚РѕСЏРЅРёРµ');
 
-DEFINE('_ABP_SUBJECT_MAIL', 'Поместить / изменить баннер');
-DEFINE('_ABP_BODY_MAIL', 'Для информации нажмите здесь: ');
+DEFINE('_ABP_SUBJECT_MAIL', 'РџРѕРјРµСЃС‚РёС‚СЊ / РёР·РјРµРЅРёС‚СЊ Р±Р°РЅРЅРµСЂ');
+DEFINE('_ABP_BODY_MAIL', 'Р”Р»СЏ РёРЅС„РѕСЂРјР°С†РёРё РЅР°Р¶РјРёС‚Рµ Р·РґРµСЃСЊ: ');
 
-DEFINE('_ABP_OPZ', 'Опции');
-DEFINE('_ABP_DATE', 'Дата');
+DEFINE('_ABP_OPZ', 'РћРїС†РёРё');
+DEFINE('_ABP_DATE', 'Р”Р°С‚Р°');
 
-DEFINE('_ABP_ALLCLI', '- Все клиенты -');
+DEFINE('_ABP_ALLCLI', '- Р’СЃРµ РєР»РёРµРЅС‚С‹ -');
 
-DEFINE('_ABP_CONTROL_PANEL', 'Панель управления');
-DEFINE('_ABP_IMPORT_ARTBANNER', 'Импорт ArtBanner');
-DEFINE('_ABP_IMPORT_JOOMLA_BANNER', 'Импорт баннеров Joostina');
+DEFINE('_ABP_CONTROL_PANEL', 'РџР°РЅРµР»СЊ СѓРїСЂР°РІР»РµРЅРёСЏ');
+DEFINE('_ABP_IMPORT_ARTBANNER', 'РРјРїРѕСЂС‚ ArtBanner');
+DEFINE('_ABP_IMPORT_JOOMLA_BANNER', 'РРјРїРѕСЂС‚ Р±Р°РЅРЅРµСЂРѕРІ Joostina');
 
-DEFINE('_ABP_LOAD_FILE', 'Загрузить файл');
-DEFINE('_ABP_LOAD', 'Загрузить');
+DEFINE('_ABP_LOAD_FILE', 'Р—Р°РіСЂСѓР·РёС‚СЊ С„Р°Р№Р»');
+DEFINE('_ABP_LOAD', 'Р—Р°РіСЂСѓР·РёС‚СЊ');
 
-DEFINE('_ABP_SELECT_FILE', 'Выберите файл для загрузки');
-DEFINE('_ABP_ERROR_FILENAME', 'Файл с таким именем уже существует.');
-DEFINE('_ABP_ERROR_NOT_XML_FILE', 'Файл не - xml');
-DEFINE('_ABP_ERROR_LOAD_FILE', 'Не удается загрузить файл: ');
-DEFINE('_ABP_NOT_EXIST_BANNER_RESTORE', 'Файл не является баннером');
-DEFINE('_ABP_ERROR_NOT_EXIST_CLIENTS', 'Ошибка: в файле нет клиентов');
-DEFINE('_ABP_ERROR_NOT_EXIST_CATEGORIES', 'Ошибка: в файле нет категорий');
-DEFINE('_ABP_RESTORE_OK', 'Восстановите успешно завершено');
-DEFINE('_ABP_IMPORT_OK', 'Импорт успешно завершен');
+DEFINE('_ABP_SELECT_FILE', 'Р’С‹Р±РµСЂРёС‚Рµ С„Р°Р№Р» РґР»СЏ Р·Р°РіСЂСѓР·РєРё');
+DEFINE('_ABP_ERROR_FILENAME', 'Р¤Р°Р№Р» СЃ С‚Р°РєРёРј РёРјРµРЅРµРј СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚.');
+DEFINE('_ABP_ERROR_NOT_XML_FILE', 'Р¤Р°Р№Р» РЅРµ - xml');
+DEFINE('_ABP_ERROR_LOAD_FILE', 'РќРµ СѓРґР°РµС‚СЃСЏ Р·Р°РіСЂСѓР·РёС‚СЊ С„Р°Р№Р»: ');
+DEFINE('_ABP_NOT_EXIST_BANNER_RESTORE', 'Р¤Р°Р№Р» РЅРµ СЏРІР»СЏРµС‚СЃСЏ Р±Р°РЅРЅРµСЂРѕРј');
+DEFINE('_ABP_ERROR_NOT_EXIST_CLIENTS', 'РћС€РёР±РєР°: РІ С„Р°Р№Р»Рµ РЅРµС‚ РєР»РёРµРЅС‚РѕРІ');
+DEFINE('_ABP_ERROR_NOT_EXIST_CATEGORIES', 'РћС€РёР±РєР°: РІ С„Р°Р№Р»Рµ РЅРµС‚ РєР°С‚РµРіРѕСЂРёР№');
+DEFINE('_ABP_RESTORE_OK', 'Р’РѕСЃСЃС‚Р°РЅРѕРІРёС‚Рµ СѓСЃРїРµС€РЅРѕ Р·Р°РІРµСЂС€РµРЅРѕ');
+DEFINE('_ABP_IMPORT_OK', 'РРјРїРѕСЂС‚ СѓСЃРїРµС€РЅРѕ Р·Р°РІРµСЂС€РµРЅ');
 
-DEFINE('_ABP_ERROR_SEND_MAIL', 'Ошибка отправки сообщения с паролем по почте');
+DEFINE('_ABP_ERROR_SEND_MAIL', 'РћС€РёР±РєР° РѕС‚РїСЂР°РІРєРё СЃРѕРѕР±С‰РµРЅРёСЏ СЃ РїР°СЂРѕР»РµРј РїРѕ РїРѕС‡С‚Рµ');
 
-DEFINE('_ABP_LANGUAGE_MANAGER', 'Управление языком');
+DEFINE('_ABP_LANGUAGE_MANAGER', 'РЈРїСЂР°РІР»РµРЅРёРµ СЏР·С‹РєРѕРј');
 
-DEFINE('_ABP_FOLDER_BANNER', 'Баннеры');
-DEFINE('_ABP_FOLDER_CLIENTS', 'Клиенты');
-DEFINE('_ABP_FOLDER_CATEGORIES', 'Категории');
+DEFINE('_ABP_FOLDER_BANNER', 'Р‘Р°РЅРЅРµСЂС‹');
+DEFINE('_ABP_FOLDER_CLIENTS', 'РљР»РёРµРЅС‚С‹');
+DEFINE('_ABP_FOLDER_CATEGORIES', 'РљР°С‚РµРіРѕСЂРёРё');
 
 
-DEFINE('_ABP_TOTAL', 'Всего');
-DEFINE('_ABP_TITLE', 'Заголовок');
-DEFINE('_ABP_ALT', 'Альтер. текст');
+DEFINE('_ABP_TOTAL', 'Р’СЃРµРіРѕ');
+DEFINE('_ABP_TITLE', 'Р—Р°РіРѕР»РѕРІРѕРє');
+DEFINE('_ABP_ALT', 'РђР»СЊС‚РµСЂ. С‚РµРєСЃС‚');
 ?>

@@ -622,14 +622,14 @@ function editBanner($bannerid, $option) {
 	// Imagelist
 	// get list of images
 	$dimension = array();
-	$imgFiles = mosReadDirectory($mainframe->getCfg('absolute_path') . "/images/show");
+	$imgFiles = mosReadDirectory($mainframe->getCfg('absolute_path') . "/images/banners");
 	$images = array();
 	$images[] = mosHTML::makeOption('', _ABP_PSANIMG);
 	foreach($imgFiles as $file) {
 		if(eregi("(\.bmp|\.gif|\.jpg|\.jpeg|\.png|\.swf)$", $file)) {
 			$images[] = mosHTML::makeOption($file);
 			// get image info
-			$image_info = @getimagesize($mainframe->getCfg('absolute_path') . "/images/show/" . $file);
+			$image_info = @getimagesize($mainframe->getCfg('absolute_path') . "/images/banners/" . $file);
 			$dimension[$file]['w'] = $image_info[0];
 			$dimension[$file]['h'] = $image_info[1];
 		}

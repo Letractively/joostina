@@ -57,7 +57,7 @@ function showStatistics($id) {
 	$password = strval(mosGetParam($_REQUEST, 'password', ''));
 
 	if($id == 0 || $password == "") {
-		echo 'Ошибка доступа';
+		echo _ABP_FAILED_ACCESS;
 	} else {
 		$banner = new mosArtBanner($database);
 		$banner->load($id);

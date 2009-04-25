@@ -66,7 +66,7 @@ class HTML_banners {
 			$info .= '<br>' . _ABP_PRICE_IMPRESSION . ': ' . _ABP_CURRENCY . ' ' . $row->imp_value . ' / ' . _ABP_CURRENCY . ' ' . $pay_imp;
 
 			if(eregi("(\.bmp|\.gif|\.jpg|\.jpeg|\.png)$", $row->image_url)) {
-				$over = 'onmouseover="return overlib(\'<img border=0 src=../images/show/' . str_replace(' ', '%20', $row->image_url) . '\><br>' . $info . '\',CAPTION,\'' . _ABP_PREVIEW . '\',WIDTH,468);" onmouseout="return nd();"';
+				$over = 'onmouseover="return overlib(\'<img border=0 src=../images/banners/' . str_replace(' ', '%20', $row->image_url) . '\><br>' . $info . '\',CAPTION,\'' . _ABP_PREVIEW . '\',WIDTH,468);" onmouseout="return nd();"';
 			} else {
 				$over = 'onmouseover="return overlib(\'' . _ABP_PREVIEW_NOT_DISP . '<br>' . $info . '\',CAPTION,\'' . _ABP_PREVIEW . '\',WIDTH,468);" onmouseout="return nd();"';
 			}
@@ -260,7 +260,7 @@ $onclick; ?>><img src="images/<?php echo $img; ?>" border=0 alt="" /></a>
 
 		 if (document.adminForm.image_url.value.indexOf('.swf') != -1) {
 			toggleBox('flashDiv', 1);
-			document.getElementById("flashDiv").innerHTML='<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=4,0,2,0" border="0" vspace="0" width="'+w+'" height="'+h+'"><param name="SRC" value="../images/show/' + document.adminForm.image_url.value+'"><embed src="../images/show/' + document.adminForm.image_url.value+'" loop="false" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="'+w+'" height="'+h+'"></object>';
+			document.getElementById("flashDiv").innerHTML='<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=4,0,2,0" border="0" vspace="0" width="'+w+'" height="'+h+'"><param name="SRC" value="../images/banners/' + document.adminForm.image_url.value+'"><embed src="../images/banners/' + document.adminForm.image_url.value+'" loop="false" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="'+w+'" height="'+h+'"></object>';
 			document.adminForm.imagelib.src='images/blank.png';
 
 			toggleBox('flashDivText', 1);
@@ -279,7 +279,7 @@ $onclick; ?>><img src="images/<?php echo $img; ?>" border=0 alt="" /></a>
 			toggleBox('flashDivText', 0);
 			document.getElementById("flashDivText").innerHTML='';
 
-			document.adminForm.imagelib.src='../images/show/' + document.adminForm.image_url.value;
+			document.adminForm.imagelib.src='../images/banners/' + document.adminForm.image_url.value;
 		 }
 	  } else {
 
@@ -543,7 +543,7 @@ $onclick; ?>><img src="images/<?php echo $img; ?>" border=0 alt="" /></a>
 			} else
 				if(eregi("(\.bmp|\.gif|\.jpg|\.jpeg|\.png)$", $row->image_url)) {
 ?>
-			<img src="../images/show/<?php echo $row->image_url; ?>" name="imagelib" />
+			<img src="../images/banners/<?php echo $row->image_url; ?>" name="imagelib" />
 <?php
 				} else {
 					echo $image_blank;
