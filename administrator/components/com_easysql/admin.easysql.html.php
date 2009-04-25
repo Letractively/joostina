@@ -91,7 +91,7 @@ function ExecSQL($task = 'execsql') {
 	<table class="adminheading">
 		<tbody>
 			<tr>
-				<th class="db" colspan="3">SQL консоль</th>
+				<th class="db" colspan="3"><?php echo _SQL_CONSOLE;?></th>
 			</tr>
 		</tbody>
 	</table>
@@ -121,12 +121,12 @@ function ExecSQL($task = 'execsql') {
 				<option value="OPTIMIZE TABLE ">OPTIMIZE TABLE</option>
 				<option value="CHECK TABLE ">CHECK TABLE</option>
 				<option value="ANALYZE TABLE ">ANALYZE TABLE</option>
-			</select> &nbsp; &nbsp; Таблица:
+			</select> &nbsp; &nbsp; <?php echo _SQL_TABLE;?>:
 			<select class="text_area" id="easysql_table" name="easysql_table" onchange="changeQuery();">
 			<?php echo $htmTablesList; ?>
-			</select> &nbsp; &nbsp; Вывести строк:
+			</select> &nbsp; &nbsp; <?php echo _SQL_OUT_LINES;?>:
 			<input class="text_area" type="text" id="easysql_records" name="easysql_records" value="<?php echo $nDisplayRecords; ?>" size="5" onchange="changeQuery()">&nbsp;&nbsp;&nbsp;
-			<input class="button" type="button" value="Собрать SQL" onclick="changeQuery()" name="crsql"/>
+			<input class="button" type="button" value="<?php echo _SQL_ASSEMBLE_SQL;?>" onclick="changeQuery()" name="crsql"/>
 		</td>
 	</tr>
 	<tr>

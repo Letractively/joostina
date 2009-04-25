@@ -43,13 +43,13 @@ class TOOLBAR_jpack {
 	function _DB_DEFAULT() {
 		global $act;
 		mosMenuBar::startTable();
-		mosMenuBar::custom('doCheck','-check','','Проверить');
+		mosMenuBar::custom('doCheck','-check','',_JP_CHECK);
 		mosMenuBar::spacer();
-		mosMenuBar::custom('doAnalyze','-info','','Анализировать');
+		mosMenuBar::custom('doAnalyze','-info','',_JP_ANALYSE);
 		mosMenuBar::spacer();
-		mosMenuBar::custom('doOptimize','-optimize','','Оптимизировать');
+		mosMenuBar::custom('doOptimize','-optimize','',_JP_OPTIMIZE);
 		mosMenuBar::spacer();
-		mosMenuBar::custom('doRepair','-help','','Исправить');
+		mosMenuBar::custom('doRepair','-help','',_JP_REPAIR);
 		if($act!='db'){
 			mosMenuBar::spacer();
 			mosMenuBar::back(_JP_DB_MANAGEMENT,'index2.php?option=com_joomlapack&ack=db');

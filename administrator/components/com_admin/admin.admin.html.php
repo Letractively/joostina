@@ -139,7 +139,7 @@ class HTML_admin_misc {
 						</td>
 						<td>
 							<?php $img = ((RG_EMULATION)?'publish_x.png':'tick.png'); ?>
-							<img src="../images/<?php echo $img; ?>" />
+							<img src="../images/system/<?php echo $img; ?>" />
 						</td>
 					</tr>
 					<tr>
@@ -147,7 +147,7 @@ class HTML_admin_misc {
 						<td style="font-weight: bold;"><?php echo HTML_admin_misc::get_php_setting('register_globals',1,0); ?></td>
 						<td>
 							<?php $img = ((ini_get('register_globals'))?'publish_x.png':'tick.png'); ?>
-							<img src="../images/<?php echo $img; ?>" />
+							<img src="../images/system/<?php echo $img; ?>" />
 						</td>
 					</tr>
 					<tr>
@@ -157,7 +157,7 @@ class HTML_admin_misc {
 						</td>
 						<td>
 							<?php $img = (!(ini_get('magic_quotes_gpc'))?'publish_x.png':'tick.png'); ?>
-							<img src="../images/<?php echo $img; ?>" />
+							<img src="../images/system/<?php echo $img; ?>" />
 						</td>
 					</tr>
 					<tr>
@@ -167,7 +167,7 @@ class HTML_admin_misc {
 						</td>
 						<td>
 							<?php $img = ((ini_get('safe_mode'))?'publish_x.png':'tick.png'); ?>
-							<img src="../images/<?php echo $img; ?>" />
+							<img src="../images/system/<?php echo $img; ?>" />
 						</td>
 					</tr>
 					<tr>
@@ -177,7 +177,7 @@ class HTML_admin_misc {
 						</td>
 						<td>
 							<?php $img = ((!ini_get('file_uploads'))?'publish_x.png':'tick.png'); ?>
-							<img src="../images/<?php echo $img; ?>" />
+							<img src="../images/system/<?php echo $img; ?>" />
 						</td>
 					</tr>
 					<tr>
@@ -187,7 +187,7 @@ class HTML_admin_misc {
 						</td>
 						<td>
 							<?php $img = ((ini_get('session.auto_start'))?'publish_x.png':'tick.png'); ?>
-							<img src="../images/<?php echo $img; ?>" />
+							<img src="../images/system/<?php echo $img; ?>" />
 						</td>
 					</tr>
 					<tr>
