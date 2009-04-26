@@ -322,6 +322,105 @@ class mosContent extends mosDBTable {
 
 		return parent::toXML($mapKeysToText);
 	}
+
+	function ReadMore(&$row,&$params, $template='') {
+	    $return='';
+         if($params->get('readmore')) {
+			if($params->get('intro_only') && $row->link_text) {
+			    $return='<a href="'.$row->link_on.'" title="'.$row->readmore.'" class="readon">'.$row->link_text.'</a>';
+			}
+		}
+        return $return;
+   }
+
+    function Author(&$row,&$params='') {
+        global $mosConfig_absolute_path, $database, $mainframe;
+        $author_name='';
+        if(!$params){
+            return $row->username;
+        }
+
+        if($row->author != '') {
+            if(!$row->created_by_alias){
+
+                if ($params->get('author_name',0)){
+                    $switcher=$params->get('author_name');
+                }
+
+                else{
+                    $switcher=$mosConfig_AuthorName;
+                    //$switcher='4';
+                }
+
+                switch($switcher){
+                    case '1':
+                    case '3':
+                        $author_name=$row->author;
+                    break;
+
+                    case '2':
+                    case '4':
+                    default;
+                        $author_name=$row->username;
+                    break;
+                }
+
+                if($switcher=='3' || $switcher=='4'){
+                    $uid=$row->created_by;
+                    $author_link = 'index.php?option=com_user&amp;task=Profile&amp;user='.$uid;
+                    $author_seflink = sefRelToAbs($author_link);
+                    $author_name='<a href="'.$author_seflink.'">'.$author_name.'</a>';
+                }
+
+            }
+
+
+            else{
+                $author_name=$row->created_by_alias;
+            }
+
+        }
+        return $author_name;
+    }
+
+    	function EditIcon2(&$row,&$params,&$access) {
+       	global $my;
+
+		if($params->get('popup')) {
+			return;
+		}
+		if($row->state < 0) {
+			return;
+		}
+		if(!$access->canEdit && !($access->canEditOwn && $row->created_by == $my->id)) {
+			return;
+		}
+
+		mosCommonHTML::loadOverlib();
+
+		$link = 'index.php?option=com_content&amp;task=edit&amp;id='.$row->id.$row->Itemid_link.'&amp;Returnid='.$row->_Itemid;
+		$image = mosAdminMenus::ImageCheck('edit.png','/images/M_images/',null,null,_E_EDIT,_E_EDIT);
+
+		if($row->state == 0) {
+			$overlib = _CMN_UNPUBLISHED;
+		} else {
+			$overlib = _CMN_PUBLISHED;
+		}
+		$date = mosFormatDate($row->created);
+		$author = $row->created_by_alias?$row->created_by_alias:$row->author;
+
+		$overlib .= '<br />';
+		$overlib .= $row->groups;
+		$overlib .= '<br />';
+		$overlib .= $date;
+		$overlib .= '<br />';
+		$overlib .= $author;
+
+
+		$return="<a class=\"joo_ico edit_button\"  href=\"".sefRelToAbs($link)."\" onmouseover=\"return overlib('".$overlib."', CAPTION, '". _E_EDIT.", BELOW, RIGHT);\" onmouseout=\"return nd();\">".$image."</a>";
+
+        return $return;
+	}
 }
 
 ?>

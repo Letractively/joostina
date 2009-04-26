@@ -114,6 +114,13 @@
 			<option value="0">Скрыть</option>
 			<option value="1">Показать</option>
 		</param>
+        <param name="author_name" type="list" default="0" label="Механизм отображения имен авторов" description="">
+            <option value="0">глобальные настройки</option>
+            <option value="1">имя-текст</option>
+            <option value="2">ник-текст</option>
+            <option value="3">имя-ссылка</option>
+            <option value="4">ник-ссылка</option>
+		</param>
 		<param name="createdate" type="radio" default="" label="Дата и время создания" description="Показать/Скрыть дату создания объекта. Применяется только для этой страницы">
 			<option value="">Использовать глобальные</option>
 			<option value="0">Скрыть</option>

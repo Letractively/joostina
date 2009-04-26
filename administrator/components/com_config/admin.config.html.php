@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined('_VALID_MOS') or die();
 
 /**
@@ -114,7 +114,7 @@ class HTML_config {
 				form: 'adminForm',
 				callback:
 					function(resp){
-						log('Получен ответ: ' + resp.responseText);
+						log('РџРѕР»СѓС‡РµРЅ РѕС‚РІРµС‚: ' + resp.responseText);
 						mess_cool(resp.responseText);
 						SRAX.get('tb-apply').className='tb-apply';
 			}});
@@ -123,7 +123,7 @@ class HTML_config {
 	</script>
 <?php
 /*
-//выпадающий список компонентов, которые можно конфигурировать
+//РІС‹РїР°РґР°СЋС‰РёР№ СЃРїРёСЃРѕРє РєРѕРјРїРѕРЅРµРЅС‚РѕРІ, РєРѕС‚РѕСЂС‹Рµ РјРѕР¶РЅРѕ РєРѕРЅС„РёРіСѓСЂРёСЂРѕРІР°С‚СЊ
 $adm_components = glob($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/*',GLOB_ONLYDIR);
 $usr_components = glob($mosConfig_absolute_path.'/components/*',GLOB_ONLYDIR);
 $components_arr = array();
@@ -279,7 +279,7 @@ $comp_list = mosHTML::selectList($out_components_arr,'component','','name','name
 		$tabs->startTab(_FRONTPAGE,"front-page"); ?>
 		<table class="adminform">
 			<tr>
-				<td width="300">Язык сайта:</td>
+				<td width="300">РЇР·С‹Рє СЃР°Р№С‚Р°:</td>
 				<td><?php echo $lists['lang']; ?></td>
 			</tr>
 				<td><?php echo _CUSTOM_PRINT?>:</td>
@@ -402,7 +402,7 @@ $comp_list = mosHTML::selectList($out_components_arr,'component','','name','name
 			<tr>
 				<td><?php echo _FRONT_SESSION_TIME?>:</td>
 				<td>
-					<input class="text_area" type="text" name="config_lifetime" size="10" value="<?php echo $row->config_lifetime; ?>"/>&nbsp;секунд&nbsp;
+					<input class="text_area" type="text" name="config_lifetime" size="10" value="<?php echo $row->config_lifetime; ?>"/>&nbsp;СЃРµРєСѓРЅРґ&nbsp;
 						<?php echo mosWarning(_FRONT_SESSION_TIME2); ?>
 					</td>
 			</tr>
@@ -588,6 +588,14 @@ $comp_list = mosHTML::selectList($out_components_arr,'component','','name','name
 								<td><?php echo $lists['hideAuthor']; ?></td>
 								<td><?php
 		$tip = _AUTHOR_NAMES2;
+		echo mosToolTip($tip);
+?></td>
+						</tr>
+<tr>
+						<td><?php echo 'РўРёРї РІС‹РІРѕРґР° РёРјРµРЅРё РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ'?>:</td>
+								<td><?php echo $lists['authorName']; ?></td>
+								<td><?php
+		$tip = 'Р’С‹Р±РµСЂРёС‚Рµ С‚РёРї РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РёРјРµРЅРё Р°РІС‚РѕСЂР° РїСѓР±Р»РёРєР°С†РёРё';
 		echo mosToolTip($tip);
 ?></td>
 						</tr>
@@ -777,7 +785,7 @@ $comp_list = mosHTML::selectList($out_components_arr,'component','','name','name
 ?>
 		<table class="adminform">
 			<tr>
-				<td>URL сайта:</td>
+				<td>URL СЃР°Р№С‚Р°:</td>
 				<td><strong><?php echo $row->config_live_site; ?></strong></td>
 				<td>&nbsp;</td>
 			</tr>
@@ -854,7 +862,7 @@ $comp_list = mosHTML::selectList($out_components_arr,'component','','name','name
 									<?php if($mode) echo ' checked="checked"'; ?>/></td>
 									<td>
 									<label for="filePermsMode1"><?php echo _FILE_MODE4?></label>
-										<span id="filePermsValue"<?php if(!$mode) echo ' style="display:none"'; ?>>как:
+										<span id="filePermsValue"<?php if(!$mode) echo ' style="display:none"'; ?>>РєР°Рє:
 											<input class="text_area" type="text" readonly="readonly" name="config_fileperms" size="4" value="<?php echo $row->config_fileperms; ?>"/>
 										</span>
 										<span id="filePermsTooltip"<?php if($mode) echo ' style="display:none"'; ?>>

@@ -172,6 +172,8 @@ class JConfig {
 	/** @var int*/
 	var $config_hideAuthor = 0;
 	/** @var int*/
+	var $config_authorName = 4;
+	/** @var int*/
 	var $config_hideCreateDate = 0;
 	/** @var int*/
 	var $config_hideModifyDate = 0;

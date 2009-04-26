@@ -522,8 +522,7 @@ function showSection($id,$gid,&$access,$now) {
 	}
 
 	$null = null;
-	HTML_content::showContentList($section,$null,$access,$id,$null,$gid,$params,$null,
-		$categories,$null,$null,$categories_exist);
+	HTML_content::showContentList($section,$null,$access,$id,$null,$gid,$params,$null,$categories,$null,$null,$categories_exist);
 }
 
 
@@ -782,8 +781,7 @@ function showCategory($id,$gid,&$access,$sectionid,$limit,$selected,$limitstart,
 		$mainframe->addMetaTag('author',$params->get('meta_author'));
 	}
 
-	HTML_content::showContentList($category,$items,$access,$id,$sectionid,$gid,$params,
-		$pageNav,$other_categories,$lists,$selected,true);
+	HTML_content::showContentList($category,$items,$access,$id,$sectionid,$gid,$params, $pageNav,$other_categories,$lists,$selected,true);
 } // showCategory
 
 
@@ -1338,13 +1336,24 @@ function showArchiveCategory($id = 0,$gid,&$access,$pop,$option,$year,$month,$mo
 
 
 function BlogOutput(&$rows,&$params,$gid,&$access,$pop,&$menu,$limitstart,$limit,$total,$archive = null,$archive_page = null) {
-	global $mainframe,$Itemid,$task,$id,$option,$database,$mosConfig_live_site;
-	// parameters
+	global $mainframe,$Itemid,$task,$id,$option,$database,$mosConfig_live_site, $mosConfig_absolute_path;
+
+    $header = '';
+    $display_desc = 0;
+    $display_desc_img = 0;
+    $display_desc_text = 0;
+    $display_pagination = 0;
+    $display_pagination_results = 0;
+    $display_blog_more = 0;
+    $tpl = '';
+    $group_cat=$params->get('group_cat',0);
+
+
 	if($params->get('page_title',1) && $menu) {
 		$header = $params->def('header',$menu->name);
-	} else {
-		$header = '';
 	}
+
+
 	$columns = $params->def('columns',2);
 	if($columns == 0) {
 		$columns = 1;
@@ -1355,51 +1364,55 @@ function BlogOutput(&$rows,&$params,$gid,&$access,$pop,&$menu,$limitstart,$limit
 	$pagination = $params->def('pagination',2);
 	$pagination_results = $params->def('pagination_results',1);
 	$pagination_results = $params->def('pagination_results',1);
-	$descrip = $params->def('description',1);
-	$descrip_image = $params->def('description_image',1);
+	$descrip = $params->def('description',0);
+	$descrip_image = $params->def('description_image',0);
 	// needed for back button for page
 	$back = $params->get('back_button',$mainframe->getCfg('back_button'));
 	// needed to disable back button for item
 	$params->set('back_button',0);
 	$params->def('pageclass_sfx','');
 	$params->set('intro_only',1);
+	
+	 //группировка по категориям
+	 $group_cat=$params->get('group_cat',0);
+	 $groupcat_limit=$params->get('groupcat_limit',0);  
+	 $cats_arr=array(); $k=0;
+	 
+	 $sfx = $params->get('pageclass_sfx');
 
 	$i = 0;
 
 	// used to display section/catagory description text and images
 	// currently not supported in Archives
 	if($menu && $menu->componentid && ($descrip || $descrip_image)) {
+	    $display_desc = 1;
+
 		switch($menu->type) {
 			case 'content_blog_section':
 				$description = new mosSection($database);
 				$description->load((int)$menu->componentid);
+                $tpl = 'section';
 				break;
 
 			case 'content_blog_category':
 				$description = new mosCategory($database);
 				$description->load((int)$menu->componentid);
+                $tpl = 'category';
 				break;
 
 			default:
 				$menu->componentid = 0;
 				break;
 		}
+	    if($descrip_image && $description->image) {
+	    	$display_desc_img = 1;
+	    }
+	            	if($descrip && $description->description) {
+            		$display_desc_text = 1;
+		}
 	}
 
-	// Page Output
-	// page header
-	if($header) {
-		echo '<div class="componentheading'.$params->get('pageclass_sfx').'">'.$header.'</div>';
-	}
-
-	if($archive) {
-		echo '<br />';
-		echo mosHTML::monthSelectList('month','size="1" class="inputbox"',$params->get('month'));
-		echo mosHTML::integerSelectList(2000,2010,1,'year','size="1" class="inputbox"',$params->get('year'),"%04d");
-		echo '<input type="submit" class="button" value="'._SUBMIT_BUTTON.'" />';
-	}
-
-	// checks to see if there are there any items to display
+    // checks to see if there are there any items to display
 	if($total) {
 		$col_with = 100 / $columns; // width of each column
 		$width = 'width="'.intval($col_with).'%"';
@@ -1407,106 +1420,12 @@ function BlogOutput(&$rows,&$params,$gid,&$access,$pop,&$menu,$limitstart,$limit
 		if($archive) {
 			// Search Success message
 			$msg = sprintf(_ARCHIVE_SEARCH_SUCCESS,$params->get('month'),$params->get('year'));
-			echo "<br /><br /><div align='center'>".$msg."</div><br /><br />";
-		}
-		echo '<table class="blog'.$params->get('pageclass_sfx').'" cellpadding="0" cellspacing="0">';
-
-		// Secrion/Category Description & Image
-		if($menu && $menu->componentid && ($descrip || $descrip_image)) {
-			$link = $mosConfig_live_site.'/images/stories/'.$description->image;
-			echo '<tr>';
-			echo '<td valign="top" class="contentdescription">';
-			if($descrip_image && $description->image) {
-				echo '<img src="'.$link.'" align="'.$description->image_position.'" hspace="6" alt="" />';
-			}
-			if($descrip && $description->description) {
-				echo $description->description;
-			}
-			echo '<br/><br/>';
-			echo '</td>';
-			echo '</tr>';
 		}
 
-		// Leading story output
-		if($leading) {
-			echo '<tr>';
-			echo '<td valign="top">';
-			for($z = 0; $z < $leading; $z++) {
-				if($i >= ($total - $limitstart)) {
-					// stops loop if total number of items is less than the number set to display as leading
-					break;
-				}
-				echo '<div>';
-				show($rows[$i],$params,$gid,$access,$pop);
-				echo '</div>';
-				$i++;
-			}
-			echo '</td>';
-			echo '</tr>';
-		}
-
-		if($intro && ($i < $total)) {
-			echo '<tr>';
-			echo '<td valign="top">';
-			echo '<table width="100%"  cellpadding="0" cellspacing="0">';
-			// intro story output
-			for($z = 0; $z < $intro; $z++) {
-				if($i >= ($total - $limitstart)) {
-					// stops loop if total number of items is less than the number set to display as intro + leading
-					break;
-				}
-
-				if(!($z % $columns) || $columns == 1) {
-					echo '<tr>';
-				}
-
-				echo '<td valign="top" '.$width.'>';
-
-				// outputs either intro or only a link
-				if($z < $intro) {
-					show($rows[$i],$params,$gid,$access,$pop);
-				} else {
-					echo '</td>';
-					echo '</tr>';
-					break;
-				}
-
-				echo '</td>';
-
-				$i++;
-
-				// this is required to output a closing </tr> tag if one of the 3 conditions are met
-				// 1. No of intro story output = number of columns
-				// 2. Total number of items is reached before the number set to display
-				// 3. Reached the last item but it does not fully fill the last row of output - a blank column is left
-				if(!(($z + 1) % $columns) || $columns == 1) {
-					echo '</tr>';
-				} else
-					if($i >= $total) {
-						echo '</tr>';
-					} else
-						if((($z + 1) == $intro) && ($intro % $columns)) {
-							echo '</tr>';
-						}
-
-			}
-
-			echo '</table>';
-			echo '</td>';
-			echo '</tr>';
-		}
-
-		// Links output
+        // Links output
 		if($links && ($i < $total - $limitstart)) {
+		    $display_blog_more = 1;
 			$showmore = $leading + $intro;
-
-			echo '<tr>';
-			echo '<td valign="top">';
-			echo '<div class="blog_more'.$params->get('pageclass_sfx').'">';
-			HTML_content::showLinks($rows,$links,$total,$i,$showmore);
-			echo '</div>';
-			echo '</td>';
-			echo '</tr>';
 		}
 
 		// Pagination output
@@ -1514,8 +1433,8 @@ function BlogOutput(&$rows,&$params,$gid,&$access,$pop,&$menu,$limitstart,$limit
 			if(($pagination == 2) && ($total <= $limit)) {
 				// not visible when they is no 'other' pages to display
 			} else {
+			    $display_pagination = 1;
 				require_once ($GLOBALS['mosConfig_absolute_path'].'/includes/pageNavigation.php');
-				// get the total number of records
 				$limitstart = $limitstart?$limitstart:0;
 				$pageNav = new mosPageNav($total,$limitstart,$limit);
 
@@ -1544,44 +1463,66 @@ function BlogOutput(&$rows,&$params,$gid,&$access,$pop,&$menu,$limitstart,$limit
 							$module = '';
 						}
 
-						$link = 'index.php?option=com_content&amp;task='.$task.$pid.$Itemid_link.
-							'&amp;year='.$year.'&amp;month='.$month.$module;
+						$link = 'index.php?option=com_content&amp;task='.$task.$pid.$Itemid_link.'&amp;year='.$year.'&amp;month='.$month.$module;
 					} else {
 						$link = 'index.php?option=com_content&amp;task='.$task.'&amp;id='.$id.$Itemid_link;
 					}
 
-					echo '<tr>';
-				echo '<td valign="top" align="center">';
-				echo $pageNav->writePagesLinks($link);
-				echo '</td>';
-				echo '</tr>';
+
 
 				if($pagination_results) {
-					echo '<tr>';
-					echo '<td valign="top" align="center">';
-					echo $pageNav->writePagesCounter();
-					echo '</td>';
-					echo '</tr>';
+				    $display_pagination_results = 1;
 				}
 			}
 		}
 
-		echo '</table>';
 
-	} else
-		if($archive && !$total) {
-			// Search Failure message for Archives
+
+	} else 	if($archive && !$total) {
 			$msg = sprintf(_ARCHIVE_SEARCH_FAILURE,$params->get('month'),$params->get('year'));
-			echo '<br /><br /><div align="center">'.$msg.'</div><br />';
-		} else {
-			// Generic blog empty display
-			echo _EMPTY_BLOG;
-		}
+        }
 
-		// Back Button
-		$params->set('back_button',$back);
+	// Back Button
+	$params->set('back_button',$back);
 
-	mosHTML::BackButton($params);
+    //Если это главная страница - компонент 'com_frontpage'
+    if($_REQUEST['option']=='com_frontpage'){
+        include_once($mosConfig_absolute_path.'/components/com_content/view/frontpage/default.php');
+        return;
+    }
+
+    //Если это архив
+    if($archive) {
+        include_once($mosConfig_absolute_path.'/components/com_content/view/archive/default.php');
+        return;
+    }
+
+    //Не главная страница и не архив - обычный блог раздела или категории
+    if($tpl){
+        include_once($mosConfig_absolute_path.'/components/com_content/view/'.$tpl.'/blog/default.php');
+    }
+    else{
+            switch ($task){
+                case 'blogcategory':
+                default:
+                    include_once($mosConfig_absolute_path.'/components/com_content/view/category/blog/default.php');
+                break;
+
+                case 'blogsection':
+
+                    //Если группировка по категориям отключена - оставляем вывод как и был прежде
+                    if(!$group_cat){
+                        include_once($mosConfig_absolute_path.'/components/com_content/view/section/blog/default.php');
+                    }
+                    //Если включена группировка по категориям
+                    else{
+                        include_once($mosConfig_absolute_path.'/components/com_content/view/section/groupcats/default.php');
+                    }
+                    break;
+            }
+        }
+
+
 }
 
 
@@ -1719,7 +1660,15 @@ function showItem($uid,$gid,&$access,$pop) {
 			unset($list);
 		}
 
-		show($row,$params,$gid,$access,$pop);
+        if(!$row->section){
+            $template='static_content/default.php';
+        }
+        else{
+            $template='full_view/default.php';
+            }
+
+        $row->rating=$row->total_rate;
+		show($row,$params,$gid,$access,$pop, $template);
 
 		// page title
 		$mainframe->setPageTitle($row->title,$params);
@@ -1755,7 +1704,7 @@ function showItem($uid,$gid,&$access,$pop) {
 }
 
 
-function show($row,$params,$gid,&$access,$pop) {
+function show($row,$params,$gid,&$access,$pop, $template) {
 	global $database,$mainframe,$mosConfig_content_hits;
 	global $cache;
 
@@ -1801,10 +1750,13 @@ function show($row,$params,$gid,&$access,$pop) {
 	$params->def('category',0);
 	$params->def('category_link',0);
 	$params->def('introtext',$params->get('introtext',1));
+    $params->def('view_introtext',1);
 	//$params->def('introtext',1);
 	$params->def('pageclass_sfx','');
 	$params->def('item_title',1);
 	$params->def('url',1);
+
+    $limit_introtext=$params->get('introtext_limit', 0);
 
 
 
@@ -1936,6 +1888,11 @@ function show($row,$params,$gid,&$access,$pop) {
 		$row->text = $row->fulltext;
 	}
 
+    if($limit_introtext){
+         $row->text=mosHTML::cleanText($row->text);
+         $row->text = implode(" ", array_slice(preg_split("/\s+/", $row->text), 0, $limit_introtext)).'...';
+    }
+
 	// deal with the {mospagebreak} mambots
 	// only permitted in the full text area
 	$page = intval(mosGetParam($_REQUEST,'limitstart',0));
@@ -1950,7 +1907,7 @@ function show($row,$params,$gid,&$access,$pop) {
 	// does not affect anything else as hits data not outputted
 	$row->hits = 0;
 
-	$cache->call('HTML_content::show',$row,$params,$access,$page);
+	$cache->call('HTML_content::show',$row,$params,$access,$page, $template);
 }
 
 
