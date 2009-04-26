@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined('_VALID_MOS') or die();
 
 
@@ -170,23 +170,23 @@ function viewContent($sectionid,$option) {
 
 	$sql_order = "\n ORDER BY ";
 	switch($order_by) {
-		case '0': // внутренний порядок
+		case '0': // РІРЅСѓС‚СЂРµРЅРЅРёР№ РїРѕСЂСЏРґРѕРє
 		default:
 			$sql_order .= "\n cc.ordering, cc.title, c.ordering";
 			break;
-		case '1': // заголовки
+		case '1': // Р·Р°РіРѕР»РѕРІРєРё
 			$sql_order .= 'c.title';
 			break;
-		case '2': // дата создания
+		case '2': // РґР°С‚Р° СЃРѕР·РґР°РЅРёСЏ
 			$sql_order .= 'c.created';
 			break;
-		case '3': // дата последней модификации
+		case '3': // РґР°С‚Р° РїРѕСЃР»РµРґРЅРµР№ РјРѕРґРёС„РёРєР°С†РёРё
 			$sql_order .= 'c.modified';
 			break;
-		case '4': // идентификаторы
+		case '4': // РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂС‹
 			$sql_order .= 'c.id';
 			break;
-		case '5': // просмотры
+		case '5': // РїСЂРѕСЃРјРѕС‚СЂС‹
 			$sql_order .= 'c.hits';
 			break;
 	}
@@ -198,7 +198,7 @@ function viewContent($sectionid,$option) {
 	if($sectionid == 0 && $catid==0) {
 		// used to show All content items
 		$where = array("c.state >= 0","c.catid = cc.id","cc.section = s.id","s.scope = 'content'",);
-		$order = $sql_order.$order_sort_sql; // подставляем свой параметр сортировки
+		$order = $sql_order.$order_sort_sql; // РїРѕРґСЃС‚Р°РІР»СЏРµРј СЃРІРѕР№ РїР°СЂР°РјРµС‚СЂ СЃРѕСЂС‚РёСЂРѕРІРєРё
 		$all = 1;
 		$section->title = _ALL_CONTENT;
 		$section->id = 0;
@@ -234,7 +234,7 @@ function viewContent($sectionid,$option) {
 		$where[] = "LOWER( c.title ) LIKE '%".$database->getEscaped(trim(strtolower($search)))."%'";
 	}
 	$where[]='state<>-2';
-	$order = $sql_order.$order_sort_sql; // подставляем свой параметр сортировки
+	$order = $sql_order.$order_sort_sql; // РїРѕРґСЃС‚Р°РІР»СЏРµРј СЃРІРѕР№ РїР°СЂР°РјРµС‚СЂ СЃРѕСЂС‚РёСЂРѕРІРєРё
 	// get the total number of records
 	$query = "SELECT COUNT(*)"
 			."\n FROM #__content AS c"
@@ -264,14 +264,14 @@ function viewContent($sectionid,$option) {
 		return false;
 	}
 
-	// получение списка разделов / категорий и формирование дерева
+	// РїРѕР»СѓС‡РµРЅРёРµ СЃРїРёСЃРєР° СЂР°Р·РґРµР»РѕРІ / РєР°С‚РµРіРѕСЂРёР№ Рё С„РѕСЂРјРёСЂРѕРІР°РЅРёРµ РґРµСЂРµРІР°
 	$lists['sectree'] = seccatli($catid,$filter_authorid);
 
 	$treeexp = intval(mosGetParam($_COOKIE,'j-ntree-hide',null));
 	$lists['sectreeact'] =  $treeexp ? 'style="display: none;"':'';
 	$lists['sectreetoggle'] =  $treeexp ? 'class="tdtoogleon"':'class="tdtoogleoff"';
 
-	/* параметры для сортировки элементов содержимого*/
+	/* РїР°СЂР°РјРµС‚СЂС‹ РґР»СЏ СЃРѕСЂС‚РёСЂРѕРІРєРё СЌР»РµРјРµРЅС‚РѕРІ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ*/
 	$order_list = array();
 	$order_list[] = mosHTML::makeOption('0',_ORDER_BY_NAME,'order_by','name');
 	$order_list[] = mosHTML::makeOption('1',_ORDER_BY_HEADERS,'order_by','name');
@@ -438,7 +438,7 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 		$row->publish_up = mosFormatDate($row->publish_up,_CURRENT_SERVER_TIME_FORMAT);
 
 		if(trim($row->publish_down) == $nullDate || trim($row->publish_down) == '' || trim($row->publish_down) == '-') {
-			$row->publish_down = 'Никогда';
+			$row->publish_down = 'РќРёРєРѕРіРґР°';
 		}
 		$row->publish_down = mosFormatDate($row->publish_down,_CURRENT_SERVER_TIME_FORMAT);
 
@@ -483,7 +483,7 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 		$row->ordering = 0;
 		$row->images = array();
 		$row->publish_up = date('Y-m-d H:i:s',time() + ($mosConfig_offset* 60* 60));
-		$row->publish_down = 'Никогда';
+		$row->publish_down = 'РќРёРєРѕРіРґР°';
 		$row->creator = '';
 		$row->modified = $nullDate;
 		$row->modifier = '';
@@ -498,7 +498,7 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 			."\n ORDER BY s.ordering";
 	$database->setQuery($query);
 	if($sectionid == 0) {
-		$sections[] = mosHTML::makeOption('-1','Выберите раздел','id','title');
+		$sections[] = mosHTML::makeOption('-1','Р’С‹Р±РµСЂРёС‚Рµ СЂР°Р·РґРµР»','id','title');
 		$sections = array_merge($sections,$database->loadObjectList());
 		$lists['sectionid'] = mosHTML::selectList($sections,'sectionid','class="inputbox" size="1" style="width:99%"'.$javascript,'id','title');
 	} else {
@@ -655,7 +655,7 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 
 	// get params definitions
 	$params = new mosParameters($row->attribs,$mainframe->getPath('com_xml','com_content'),'component');
-	// при активировании параметра одного редактора - сделаем новый объект содержащий соединённый текст
+	// РїСЂРё Р°РєС‚РёРІРёСЂРѕРІР°РЅРёРё РїР°СЂР°РјРµС‚СЂР° РѕРґРЅРѕРіРѕ СЂРµРґР°РєС‚РѕСЂР° - СЃРґРµР»Р°РµРј РЅРѕРІС‹Р№ РѕР±СЉРµРєС‚ СЃРѕРґРµСЂР¶Р°С‰РёР№ СЃРѕРµРґРёРЅС‘РЅРЅС‹Р№ С‚РµРєСЃС‚
 	if($mosConfig_one_editor & strlen($row->fulltext) > 1) $row->introtext = $row->introtext.'<!-- pagebreak -->'.$row->fulltext;
 	# Added the robots tag for the content!
 	$robots[] = mosHTML::makeOption('-1',_ROBOTS_HIDE);
@@ -671,7 +671,7 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 /**
 * Saves the content item an edit form submit
 * @param database A database connector object
-* boston, добавил параметр -  возврат в редактирование содержимого после сохранения для добавления нового
+* boston, РґРѕР±Р°РІРёР» РїР°СЂР°РјРµС‚СЂ -  РІРѕР·РІСЂР°С‚ РІ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ РїРѕСЃР»Рµ СЃРѕС…СЂР°РЅРµРЅРёСЏ РґР»СЏ РґРѕР±Р°РІР»РµРЅРёСЏ РЅРѕРІРѕРіРѕ
 */
 function saveContent($sectionid,$task) {
 	global $database,$my,$mainframe,$mosConfig_offset,$mosConfig_one_editor;
@@ -679,7 +679,7 @@ function saveContent($sectionid,$task) {
 	$menu		= strval(mosGetParam($_POST,'menu','mainmenu'));
 	$menuid		= intval(mosGetParam($_POST,'menuid',0));
 	$nullDate	= $database->getNullDate();
-	// инициализация использования одного редактора
+	// РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ РѕРґРЅРѕРіРѕ СЂРµРґР°РєС‚РѕСЂР°
 	if($mosConfig_one_editor){
 		$alltext	= mosGetParam($_POST,'introtext','',_MOS_ALLOWHTML);
 		$tagPos		= strpos( $alltext, '<!-- pagebreak -->' );
@@ -716,7 +716,7 @@ function saveContent($sectionid,$task) {
 	}
 	$row->publish_up = mosFormatDate($row->publish_up,_CURRENT_SERVER_TIME_FORMAT,- $mosConfig_offset);
 
-	if(trim($row->publish_down) == 'Никогда' || trim($row->publish_down) == '') {
+	if(trim($row->publish_down) == 'РќРёРєРѕРіРґР°' || trim($row->publish_down) == '') {
 		$row->publish_down = $nullDate;
 	} else {
 		if(strlen(trim($row->publish_down)) <= 10) {
@@ -820,7 +820,7 @@ function saveContent($sectionid,$task) {
 			mosRedirect('index2.php?option=com_content&sectionid='.$redirect.'&task=edit&hidemainmenu=1&id='.$row->id,$msg);
 			break;
 
-			/* boston, после сохранения возвращаемся в окно добавления нового содержимого*/
+			/* boston, РїРѕСЃР»Рµ СЃРѕС…СЂР°РЅРµРЅРёСЏ РІРѕР·РІСЂР°С‰Р°РµРјСЃСЏ РІ РѕРєРЅРѕ РґРѕР±Р°РІР»РµРЅРёСЏ РЅРѕРІРѕРіРѕ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ*/
 		case 'save_and_new':
 			$msg = $row->title.' - '._E_ITEM_SAVED;
 			mosRedirect('index2.php?option=com_content&sectionid=0&task=new',$msg);
@@ -1325,7 +1325,7 @@ function menuLink($redirect,$id) {
 	// clean any existing cache files
 	mosCache::cleanCache('com_content');
 
-	$msg = $link.' (Ссылка - Объект содержимого) в меню: '.$menu.' successfully created';
+	$msg = $link.' (РЎСЃС‹Р»РєР° - РћР±СЉРµРєС‚ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ) РІ РјРµРЅСЋ: '.$menu.' successfully created';
 	mosRedirect('index2.php?option=com_content&sectionid='.$redirect.'&task=edit&hidemainmenu=1&id='.$id,$msg);
 }
 
@@ -1401,7 +1401,7 @@ function seccatli($act = 0,$filter_authorid=0){
 
 	$sectli = '<div id="ntree" class="dtree"><script type="text/javascript"><!--';
 	$sectli .= "\n c = new dTree('c','$mosConfig_live_site/".ADMINISTRATOR_DIRECTORY."/images/dtree/');";
-	$sectli .= "\n c.add(0,-1,'"._E_CONTENT." (<a href=\"index2.php?option=com_content&sectionid=0&catid=0\">"._ALL."</a>)');";
+	$sectli .= "\n c.add(0,-1,'"._E_CONTENT." (<a href=\"index2.php?option=com_content&sectionid=0&catid=0\">"._ALL."<\/a>)');";
 
 	$query = "SELECT s.id, s.title, c.section"
 			."\n FROM #__sections AS s"
@@ -1423,7 +1423,7 @@ function seccatli($act = 0,$filter_authorid=0){
 	$database->setQuery($query);
 	$rows = $database->loadObjectList();
 	foreach($rows as $row) {
-		if($filter_authorid!=$row->id) $row->name = "<a href=\"index2.php?option=com_content&sectionid=0&filter_authorid=$row->id\"> $row->name</a>";
+		if($filter_authorid!=$row->id) $row->name = "<a href=\"index2.php?option=com_content&sectionid=0&filter_authorid=$row->id\"> $row->name<\/a>";
 		$sectli .= "\n u.add($row->id,$row->gid,'$row->name ($row->num)');";
 	}
 
@@ -1438,13 +1438,13 @@ function _cat_d($act){
 	$query = "SELECT cat.id, cat.title, cat.section, COUNT(con.catid) AS countcon"
 			."\n FROM #__categories AS cat"
 			."\n LEFT JOIN #__content AS con ON con.catid = cat.id"
-			."\n WHERE state!=-2" // все кроме архивных
+			."\n WHERE state!=-2" // РІСЃРµ РєСЂРѕРјРµ Р°СЂС…РёРІРЅС‹С…
 			."\n GROUP BY cat.id"
 			."\n ORDER BY cat.section ASC";
 	$database->setQuery($query);
 	$rows = $database->loadObjectList();
 
-_xdump($rows);
+//_xdump($rows);
 	$ret = '';
 	$n=0;
 	foreach($rows as $row) {
@@ -1453,7 +1453,7 @@ _xdump($rows);
 			$row->title = Jstring::substr($row->title,0,30).'...';
 		}
 		if($act!=$row->id){
-			$row->title= '<a href="index2.php?option=com_content&sectionid=0&catid='.$row->id.'">'.$row->title.'</a>';
+			$row->title= '<a href="index2.php?option=com_content&sectionid=0&catid='.$row->id.'">'.$row->title.'<\/a>';
 		}
 		$ret .= "\n c.add(0$n$row->id,$row->section,'$row->title ($row->countcon)');";
 	}

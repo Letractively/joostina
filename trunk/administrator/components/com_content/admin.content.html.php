@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined('_VALID_MOS') or die();
 
 /**
@@ -25,23 +25,23 @@ class HTML_content {
 		mosCommonHTML::loadOverlib();
 		mosCommonHTML::loadDtree();
 	?>
-	<script type="text/javascript">
-		// смена статуса отображения на главной странице
+    <script type="text/javascript">
+		// СЃРјРµРЅР° СЃС‚Р°С‚СѓСЃР° РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РЅР° РіР»Р°РІРЅРѕР№ СЃС‚СЂР°РЅРёС†Рµ
 		function ch_fpage(elID){
-			log('Смена отображения на главной: '+elID);
+			log('РЎРјРµРЅР° РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РЅР° РіР»Р°РІРЅРѕР№: '+elID);
 			SRAX.get('img-fpage-'+elID).src = 'images/aload.gif';
 			dax({
 				url: 'ajax.index.php?option=com_content&utf=0&task=frontpage&id='+elID,
 				id:'fpage-'+elID,
 				callback:
 					function(resp, idTread, status, ops){
-						log('Получен ответ: ' + resp.responseText);
+						log('РџРѕР»СѓС‡РµРЅ РѕС‚РІРµС‚: ' + resp.responseText);
 						SRAX.get('img-fpage-' + elID).src = 'images/'+resp.responseText;
 			}});
 		}
-		// перемещение содержимого в корзину
+		// РїРµСЂРµРјРµС‰РµРЅРёРµ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ РІ РєРѕСЂР·РёРЅСѓ
 		function ch_trash(elID){
-			log('Удаление в корзину: '+elID);
+			log('РЈРґР°Р»РµРЅРёРµ РІ РєРѕСЂР·РёРЅСѓ: '+elID);
 			if(SRAX.get('img-trash-'+elID).src == '<?php echo $mosConfig_live_site;?>/<?php echo ADMINISTRATOR_DIRECTORY?>/images/trash_mini.png'){
 				SRAX.get('img-trash-'+elID).src = 'images/help.png';
 				return null;
@@ -53,17 +53,17 @@ class HTML_content {
 				id:'trash-'+elID,
 				callback:
 					function(resp, idTread, status, ops){
-						log('Получен ответ: ' + resp.responseText);
+						log('РџРѕР»СѓС‡РµРЅ РѕС‚РІРµС‚: ' + resp.responseText);
 						if(resp.responseText=='1') {
-							log('Перемещение в корзину успешно: ' + elID);
+							log('РџРµСЂРµРјРµС‰РµРЅРёРµ РІ РєРѕСЂР·РёРЅСѓ СѓСЃРїРµС€РЅРѕ: ' + elID);
 							SRAX.remove('tr-el-'+elID);
 						}else{
-							log('Ошибка перемещения в корзину: ' + elID);
+							log('РћС€РёР±РєР° РїРµСЂРµРјРµС‰РµРЅРёСЏ РІ РєРѕСЂР·РёРЅСѓ: ' + elID);
 							SRAX.get('tr-el-'+elID).style.background='red';
 						}
 			}});
 		}
-		/* скрытие дерева навигации по структуре содержимого */
+		/* СЃРєСЂС‹С‚РёРµ РґРµСЂРµРІР° РЅР°РІРёРіР°С†РёРё РїРѕ СЃС‚СЂСѓРєС‚СѓСЂРµ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ */
 		function ntreetoggle(){
 			if(SRAX.get('ntdree').style.display =='none'){
 				SRAX.get('ntdree').style.display ='block';
@@ -98,7 +98,7 @@ class HTML_content {
 
 <table class="adminlisttop adminlist">
 	<tr class="row0">
-	<td valign="top" align="left" id="ntdree"><img src="images/con_pix.gif"><?php echo $lists['sectree'];?></td>
+	<td valign="top" align="left" id="ntdree"><img src="images/con_pix.gif" /><?php echo $lists['sectree'];?></td>
 	<td onclick="ntreetoggle();" width="1" id="tdtoogle" <?php echo $lists['sectreetoggle'];?>><img border="0" alt="<?php echo _HIDE_NAV_TREE?>" src="images/tgl.gif" /></td>
 	<td valign="top" width="100%">
 	<table class="adminlist" width="100%">
@@ -131,23 +131,23 @@ class HTML_content {
 			$row->sect_link = 'index2.php?option=com_sections&task=editA&hidemainmenu=1&id='.$row->sectionid;
 			$row->cat_link = 'index2.php?option=com_categories&task=editA&hidemainmenu=1&id='.$row->catid;
 			if($now <= $row->publish_up && $row->state == 1) {
-				// опубликовано
+				// РѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ
 				$img = 'publish_y.png';
-				//$alt = 'Опубликовано';
+				//$alt = 'РћРїСѓР±Р»РёРєРѕРІР°РЅРѕ';
 			} else if(($now <= $row->publish_down || $row->publish_down == $nullDate) && $row->state ==1) {
-				// Доступно
+				// Р”РѕСЃС‚СѓРїРЅРѕ
 				$img = 'publish_g.png';
-				//$alt = 'Опубликовано';
+				//$alt = 'РћРїСѓР±Р»РёРєРѕРІР°РЅРѕ';
 			} else if($now > $row->publish_down && $row->state == 1) {
-				// Истекло
+				// РСЃС‚РµРєР»Рѕ
 				$img = 'publish_r.png';
-				//$alt = 'Просрочено';
+				//$alt = 'РџСЂРѕСЃСЂРѕС‡РµРЅРѕ';
 			} elseif($row->state == 0) {
-				// Не опубликовано
+				// РќРµ РѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ
 				$img = 'publish_x.png';
-				//$alt = 'Не опубликовано';
+				//$alt = 'РќРµ РѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ';
 			}
-			// корректировка и проверка времени
+			// РєРѕСЂСЂРµРєС‚РёСЂРѕРІРєР° Рё РїСЂРѕРІРµСЂРєР° РІСЂРµРјРµРЅРё
 			$row->publish_up = mosFormatDate($row->publish_up,_CURRENT_SERVER_TIME_FORMAT);
 			if(trim($row->publish_down) == $nullDate || trim($row->publish_down) == '' || trim($row->publish_down) == '-') {
 				$row->publish_down = _NEVER;
@@ -159,7 +159,7 @@ class HTML_content {
 			} else {
 				$times .= "<tr><td>"._START.": $row->publish_up</td></tr>";
 			}
-			if($row->publish_down == $nullDate || $row->publish_down == 'Никогда') {
+			if($row->publish_down == $nullDate || $row->publish_down == 'РќРёРєРѕРіРґР°') {
 				$times .= "<tr><td>"._END.": "._WITHOUT_END."</td></tr>";
 			} else {
 				$times .= "<tr><td>"._END.": $row->publish_down</td></tr>";
@@ -181,7 +181,7 @@ class HTML_content {
 			//$date		= mosFormatDate($row->created,'%x');
 			$access		= mosCommonHTML::AccessProcessing($row,$i,1);
 			$checked	= mosCommonHTML::CheckedOutProcessing($row,$i);
-			// значок отображения на главной странице
+			// Р·РЅР°С‡РѕРє РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РЅР° РіР»Р°РІРЅРѕР№ СЃС‚СЂР°РЅРёС†Рµ
 			$front_img = $row->frontpage ? 'tick.png' : 'publish_x.png';
 ?>
 			<tr class="row<?php echo $k; ?>" id="tr-el-<?php echo $row->id;?>">
@@ -327,7 +327,7 @@ class HTML_content {
 					$author = $row->created_by_alias;
 				} else {
 					$linkA = 'index2.php?option=com_users&task=editA&hidemainmenu=1&id='.$row->created_by;
-					$author = '<a href="'.$linkA.'" title="Изменить данные пользователя">'.$row->author.'</a>';
+					$author = '<a href="'.$linkA.'" title="РР·РјРµРЅРёС‚СЊ РґР°РЅРЅС‹Рµ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ">'.$row->author.'</a>';
 				}
 			} else {
 				if($row->created_by_alias) {
@@ -374,10 +374,10 @@ class HTML_content {
 
 
 	/**
-	* Отображение формы создания / редактирования содержимого
+	* РћС‚РѕР±СЂР°Р¶РµРЅРёРµ С„РѕСЂРјС‹ СЃРѕР·РґР°РЅРёСЏ / СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ
 	*
-	* Новая запись характеризуется значениями <var>$row</var> и  <var>id</var>
-	* равными 0.
+	* РќРѕРІР°СЏ Р·Р°РїРёСЃСЊ С…Р°СЂР°РєС‚РµСЂРёР·СѓРµС‚СЃСЏ Р·РЅР°С‡РµРЅРёСЏРјРё <var>$row</var> Рё  <var>id</var>
+	* СЂР°РІРЅС‹РјРё 0.
 	* @param mosContent The category object
 	* @param string The html for the groups select list
 	*/
@@ -415,7 +415,7 @@ class HTML_content {
 		}
 ?>
 <?php
-		// отключение вкладки "Изображения"
+		// РѕС‚РєР»СЋС‡РµРЅРёРµ РІРєР»Р°РґРєРё "РР·РѕР±СЂР°Р¶РµРЅРёСЏ"
 		if(!$mosConfig_disable_image_tab) { ?>
 			var folderimages = new Array;
 <?php
@@ -444,7 +444,7 @@ class HTML_content {
 				return;
 			}
 <?php
-	// отключение вкладки "Изображения"
+	// РѕС‚РєР»СЋС‡РµРЅРёРµ РІРєР»Р°РґРєРё "РР·РѕР±СЂР°Р¶РµРЅРёСЏ"
 	if(!$mosConfig_disable_image_tab) {
 ?>
 			var temp = new Array;
@@ -476,7 +476,7 @@ class HTML_content {
 			<?php if(!$mosConfig_one_editor) getEditorContents('editor2','fulltext'); ?>
 			<?php getEditorContents('editor3','notetext'); ?>
 <?php
-	// отключение вкладки "Изображения"
+	// РѕС‚РєР»СЋС‡РµРЅРёРµ РІРєР»Р°РґРєРё "РР·РѕР±СЂР°Р¶РµРЅРёСЏ"
 	if(!$mosConfig_disable_image_tab) {
 ?>
 			var temp = new Array;
@@ -492,7 +492,7 @@ class HTML_content {
 				form: 'adminForm',
 				callback:
 					function(resp){
-						log('Получен ответ: ' + resp.responseText);
+						log('РџРѕР»СѓС‡РµРЅ РѕС‚РІРµС‚: ' + resp.responseText);
 						mess_cool(resp.responseText);
 						SRAX.get('tb-apply').className='tb-apply';
 			}});
@@ -508,7 +508,7 @@ class HTML_content {
 				form: 'adminForm',
 				callback:
 					function(resp){
-						log('Получен ответ: ' + resp.responseText);
+						log('РџРѕР»СѓС‡РµРЅ РѕС‚РІРµС‚: ' + resp.responseText);
 						SRAX.get('metakey').value = (resp.responseText);
 			}});
 		}
@@ -530,7 +530,7 @@ class HTML_content {
 				method:'post',
 				callback:
 					function(resp){
-						log('Получен ответ: ' + resp.responseText);
+						log('РџРѕР»СѓС‡РµРЅ РѕС‚РІРµС‚: ' + resp.responseText);
 						mess_cool(resp.responseText);
 						SRAX.get('count_hits').innerHTML='0';
 			}});
@@ -699,7 +699,7 @@ class HTML_content {
 			</table>
 <?php
 		$tabs->endTab();
-		// отключение вкладки "Изображения"
+		// РѕС‚РєР»СЋС‡РµРЅРёРµ РІРєР»Р°РґРєРё "РР·РѕР±СЂР°Р¶РµРЅРёСЏ"
 		if(!$mosConfig_disable_image_tab) {
 			$tabs->startTab(_E_IMAGES,"images-page");
 ?>
@@ -716,9 +716,9 @@ class HTML_content {
 									</div>
 								</td>
 								<td width="2%">
-									<input class="button" type="button" value=">>" onclick="addSelectedToList('adminForm','imagefiles','imagelist')" title="Добавить" />
+									<input class="button" type="button" value=">>" onclick="addSelectedToList('adminForm','imagefiles','imagelist')" title="Р”РѕР±Р°РІРёС‚СЊ" />
 									<br />
-									<input class="button" type="button" value="<<" onclick="delSelectedFromList('adminForm','imagelist')" title="Удалить" />
+									<input class="button" type="button" value="<<" onclick="delSelectedFromList('adminForm','imagelist')" title="РЈРґР°Р»РёС‚СЊ" />
 								</td>
 								<td width="48%">
 									<div align="center">
@@ -726,8 +726,8 @@ class HTML_content {
 										<br />
 										<?php echo $lists['imagelist']; ?>
 										<br />
-										<input class="button" type="button" value="Вверх" onclick="moveInList('adminForm','imagelist',adminForm.imagelist.selectedIndex,-1)" />
-										<input class="button" type="button" value="Вниз" onclick="moveInList('adminForm','imagelist',adminForm.imagelist.selectedIndex,+1)" />
+										<input class="button" type="button" value="Р’РІРµСЂС…" onclick="moveInList('adminForm','imagelist',adminForm.imagelist.selectedIndex,-1)" />
+										<input class="button" type="button" value="Р’РЅРёР·" onclick="moveInList('adminForm','imagelist',adminForm.imagelist.selectedIndex,+1)" />
 									</div>
 								</td>
 							</tr>
@@ -745,7 +745,7 @@ class HTML_content {
 						<td valign="top">
 							<div align="center">
 								<?php echo _ACTIVE_IMAGE?>:<br />
-								<img name="view_imagelist" src="../images/M_images/blank.png" alt="Активное изображение" width="100" />
+								<img name="view_imagelist" src="../images/M_images/blank.png" alt="РђРєС‚РёРІРЅРѕРµ РёР·РѕР±СЂР°Р¶РµРЅРёРµ" width="100" />
 							</div>
 						</td>
 					</tr>
@@ -829,8 +829,8 @@ class HTML_content {
 					</tr>
 					<tr>
 						<td>
-						<input type="button" class="button" value="Добавить (Раздел, Категорию, Заголовок)" onclick="f=document.adminForm;f.metakey.value=document.adminForm.sectionid.options[document.adminForm.sectionid.selectedIndex].text+', '+getSelectedText('adminForm','catid')+', '+f.title.value+', '+f.metakey.value;" />
-						<input type="button" class="button" value="Автоматически"onclick="return ch_metakey();" />
+						<input type="button" class="button" value="Р”РѕР±Р°РІРёС‚СЊ (Р Р°Р·РґРµР», РљР°С‚РµРіРѕСЂРёСЋ, Р—Р°РіРѕР»РѕРІРѕРє)" onclick="f=document.adminForm;f.metakey.value=document.adminForm.sectionid.options[document.adminForm.sectionid.selectedIndex].text+', '+getSelectedText('adminForm','catid')+', '+f.title.value+', '+f.metakey.value;" />
+						<input type="button" class="button" value="РђРІС‚РѕРјР°С‚РёС‡РµСЃРєРё"onclick="return ch_metakey();" />
 						</td>
 					</tr>
 					<tr>
@@ -855,7 +855,7 @@ class HTML_content {
 				</tr>
 				<tr>
 					<td>&nbsp;</td>
-					<td><input name="menu_link" type="button" class="button" value="Связать с меню" onclick="submitbutton('menulink');" /></td>
+					<td><input name="menu_link" type="button" class="button" value="РЎРІСЏР·Р°С‚СЊ СЃ РјРµРЅСЋ" onclick="submitbutton('menulink');" /></td>
 				</tr>
 				<tr>
 					<th colspan="2"><?php echo _EXISTED_MENUITEMS?></th>
