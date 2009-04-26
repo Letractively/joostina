@@ -50,6 +50,11 @@
 			<option value="ralpha">Заголовки в обратном порядке алфавита</option>
 			<option value="order">Упорядоченно</option>
 		</param>
+        <param name="group_cat" type="radio" default="0" label="Группировка по категориям" description="Перед каждым блоком с материалами из категории будет выведен заголовок категории">
+			<option value="0">Нет</option>
+			<option value="1">Да</option>
+		</param>
+        <param name="groupcat_limit" type="text" size="30" default="" label="Количество записей в группе" description="Сколько материалов выводить под каждой категорией" />
 		<param name="orderby_sec" type="list" default="" label="Первоначальный порядок" description="Порядок, в котором будут отображаться объекты.">
 			<option value="">По умолчанию</option>
 			<option value="date">Сначала самые старые</option>
@@ -102,6 +107,11 @@
 			<option value="0">Нет</option>
 			<option value="1">Да</option>
 		</param>
+		<param name="view_introtext" type="radio" default="1" label="Интротекст" description="Показать/Скрыть вводный текст">
+			<option value="0">Скрыть</option>
+			<option value="1">Показать</option>
+		</param>
+        <param name="introtext_limit" size="4" default="" type="text" label="Лимит интротекста" description="Лимит слов для интротекста. Если текст не нуждается в обрезке - оставьте поле пустым" />
 		<param name="readmore" type="radio" default="" label="Подробнее..." description="Показать/Скрыть ссылку [Подробнее...]">
 			<option value="">Использовать глобальные</option>
 			<option value="0">Скрыть</option>
@@ -116,6 +126,13 @@
 			<option value="">Использовать глобальные</option>
 			<option value="0">Скрыть</option>
 			<option value="1">Показать</option>
+		</param>
+        <param name="author_name" type="list" default="0" label="Механизм отображения имен авторов" description="">
+            <option value="0">глобальные настройки</option>
+			<option value="1">имя-текст</option>
+            <option value="2">ник-текст</option>
+            <option value="3">имя-ссылка</option>
+            <option value="4">ник-ссылка</option>
 		</param>
 		<param name="createdate" type="radio" default="" label="Дата и время создания" description="Показать/Скрыть дату создания объекта. Применяется только для этой страницы">
 			<option value="">Использовать глобальные</option>
