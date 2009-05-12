@@ -72,12 +72,9 @@ $params_aray=array(
 'ml_reg_text'=> $params->get( 'ml_reg_text', _CREATE_ACCOUNT ),
 'submit_button_text'=> $params->get( 'submit_button_text', _BUTTON_LOGIN )
 );
-
-
     if( $params_aray['show_login_tooltip']==1 OR $params_aray['show_pass_tooltip']){
         mosCommonHTML::loadOverlib(1);
     }
-
     if ( $my->id ) {
         logoutForm($params_aray);
     } else {
@@ -108,14 +105,14 @@ function logoutForm($params_aray){
 
     ?>
 	<form action="<?php echo sefRelToAbs( 'index.php?option=logout' ); ?>" method="post" name="logout">
-    <?php echo $avatar; ?>
-    <div class="ml_login_info">
-	<?php
+<?php echo $avatar; ?>
+	<div class="ml_login_info">
+<?php
 	if ( $params_aray['greeting'] ) {
 		echo _HI;
 		echo $name;
-    }
-        echo $profile_link;
+	}
+	echo $profile_link;
 	?>
 	</div>
 
@@ -137,9 +134,9 @@ function loginForm($params_aray){
     if ($params_aray['ml_visibility']==0){
         BuildLoginForm($params_aray, $params_aray['orientation'] );
     } else {
+		mosCommonHTML::loadJquery(1);
       ?>
        <script type="text/javascript">
-         
           jQuery(document).ready(function(){
           	jQuery('.login_button').click (function() {
           	jQuery('.loginform_area').toggle(200);
@@ -159,7 +156,7 @@ function loginForm($params_aray){
                 <?php  BuildLoginForm($params_aray, $params_aray['orientation']);?>
             </div>
             <div class="closewin">&nbsp;</div>
-        </div>   </div>
+        </div></div>
     <?php }
 }
 

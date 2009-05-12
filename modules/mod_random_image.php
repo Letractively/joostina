@@ -77,12 +77,11 @@ if (is_dir($abspath_folder)) {
 
 	if (!$the_image) {
 		echo _NO_IMAGES;
-	}
-    else {
+	}else {
 
-         $count = count($the_image);
-         $i=0;
-         $k=1;
+	$count = count($the_image);
+	$i=0;
+	$k=1;
 
          $pics = array();
 
@@ -122,60 +121,36 @@ if (is_dir($abspath_folder)) {
                     $i++;
                 }
             }
-
-
          }
-
         switch ($rotate_type){
-
             case '0':
             default:
-
                     ?>
                      <div class="random_image">
-
                      <?php if ($link) { ?>
                 		<a href="<?php echo $link; ?>" target="_self">
                      <?php } ?>
-
                      <img src="<?php echo $image; ?>" border="0" width="<?php echo $width; ?>" height="<?php echo $height; ?>" alt="<?php echo $image_name; ?>" />
-
                     <?php if ($link) { ?>
                 		</a>
                     <?php } ?>
-
                     </div>
-
                     <?php
          break;
-
             case '1':
-
                 if(!count($pics)){
-                    ?>
-                    <div id="<?php echo $slideshow_name;?>" class="error">Проверьте настройки модуля mod_random_image и наличие изображений в указанной в настройках папке</div>
-                    <?php
-                }
-                else{
-
-                    $pics_str = implode(',', $pics);
-
-                    ?>
-                     <script type="text/javascript" src="includes/js/jquery/plugins/simplegallery.js"> </script>
-
-                    <?php  include ($mosConfig_absolute_path.'/modules/mod_random_image/jstSlideShow.php');?>
-
-                    <div id="<?php echo $slideshow_name;?>"></div>
-
-                    <?php
-
-                }
-
-
-            break;
-
-
-
+?>
+				<div id="<?php echo $slideshow_name;?>" class="error">Проверьте настройки модуля mod_random_image и наличие изображений в указанной в настройках папке</div>
+<?php
+				}else{
+					$pics_str = implode(',', $pics);
+					mosCommonHTML::loadJqueryPlugins('simplegallery',1);
+					include (Jconfig::getInstance()->config_absolute_path.'/modules/mod_random_image/jstSlideShow.php');
+?>
+					<div id="<?php echo $slideshow_name;?>"></div>
+<?php
+				}
+		break;
         }
     }
 }

@@ -93,7 +93,7 @@ class HTML_modules {
 			<th class="jtd_nowrap" width="7%"><?php echo _MODULE_POSITION?></th>
 			<th class="jtd_nowrap" width="5%"><?php echo _MODULE_PAGES?></th>
 			<th class="jtd_nowrap" width="5%">ID</th>
-			<th class="jtd_nowrap" width="10%" align="left">“ип</th>
+			<th class="jtd_nowrap" width="10%" align="left"><?php echo _TYPE?></th>
 		</tr>
 <?php
 		$k = 0;

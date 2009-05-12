@@ -15,20 +15,16 @@ require_once ($mainframe->getPath('installer_html','module'));
 require_once ($mainframe->getPath('installer_class','module'));
 
 switch($task) {
-case 'remove':
-	{
-		//echo "<script>alert('sdssd');</script>";
+	case 'remove':{
 		removeElement($client);
 		js_menu_cache_clear();
 		break;
-	}
-default:
-	{
-		//echo "<script>alert('sdssd');</script>";
+		}
+	default:{
 		showInstalledModules($option);
 		js_menu_cache_clear();
 		break;
-	}
+		}
 }
 //showInstalledModules($option);
 
@@ -124,6 +120,7 @@ function showInstalledModules($_option) {
 
 			$element = &$root->getElementsByPath('version',1);
 			$row->version = $element?$element->getText():'';
+			unset($xmlDoc,$row);
 		}
 	}
 

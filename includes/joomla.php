@@ -18,16 +18,16 @@ DEFINE('_CURRENT_SERVER_TIME_FORMAT','%Y-%m-%d %H:%M:%S');
 DEFINE('_CURRENT_SERVER_TIME',date('Y-m-d H:i',time()));
 // схемы не http/https протоколов
 DEFINE('_URL_SCHEMES','data:, file:, ftp:, gopher:, imap:, ldap:, mailto:, news:, nntp:, telnet:, javascript:, irc:, mms:');
-
+// пробуем устанавить более удобный режим работы зрз
 @set_magic_quotes_runtime(0);
-
+// установка режима отображения ошибок
 if($mosConfig_error_reporting == 0) {
 	error_reporting(0);
-} elseif(@$mosConfig_error_reporting > 0) {
+}elseif($mosConfig_error_reporting > 0) {
 	error_reporting($mosConfig_error_reporting);
 }
-/* работа с юникодом */
-include_once $mosConfig_absolute_path.'/includes/libraries/utf8/core.php';
+/* ядро для работы с юникодом */
+include_once $mosConfig_absolute_path.'/includes/libraries/utf8/utf8.php';
 /* файл данных версии */
 require_once ($mosConfig_absolute_path.'/includes/version.php');
 /* ядро работы с XML */
@@ -41,6 +41,7 @@ $database = database::getInstance();
 require_once ($mosConfig_absolute_path.'/includes/libraries/gacl/gacl.class.php');
 $acl = new gacl_api();
 
+// корректировка работы с данными полученными от сервера
 if(isset($_SERVER['REQUEST_URI'])) {
 	$request_uri = $_SERVER['REQUEST_URI'];
 } else {
@@ -94,7 +95,7 @@ class JConfig {
 	/** @var int*/
 	var $config_session_life_admin = 1800;
 	/** @var int*/
-	var $config_admin_expired = '1';
+	var $config_admin_expired = 1;
 	/** @var int*/
 	var $config_session_type = 0;
 	/** @var int*/
@@ -172,8 +173,6 @@ class JConfig {
 	/** @var int*/
 	var $config_hideAuthor = 0;
 	/** @var int*/
-	var $config_authorName = 4;
-	/** @var int*/
 	var $config_hideCreateDate = 0;
 	/** @var int*/
 	var $config_hideModifyDate = 0;
@@ -243,8 +242,8 @@ class JConfig {
 	var $config_form_date_full = '%d.%m.%Y г. %H:%M';
 	/** @int не показывать "Главная" на первой странице*/
 	var $config_pathway_clean = 1;
-	/** @int отключение удаления сессий в панели управления*/
-	var $config_adm_session_del = 0;
+	/** @int автоматические разлогинивание в панели управления после окончания жизни сессии */
+	var $config_admin_autologout = 1;
 	/** @int отключение кнопки "Помощь"*/
 	var $config_disable_button_help = 0;
 	/** @int отключение блокировок объектов*/
@@ -315,7 +314,12 @@ class JConfig {
 	var $config_admin_bad_auth = 5;
 	/** @var int обработчик кэширования */
 	var $config_cache_handler = 'none';
+	/** @var int тип вывода ника автора материала */
+	var $config_author_name = 4;
+	/** @var int использование неопубликованных мамботов */
+	var $config_use_unpublished_mambots = 1;
 
+	// инициализация класса конфигурации - собираем переменные конфигурации
 	function JConfig(){
 		$this->bindGlobals();
 	}
@@ -402,24 +406,29 @@ class mosCache {
 	* @return object A function cache object
 	*/
 	function &getCache($group = 'default', $handler = 'callback', $storage = null){
-		global $mosConfig_absolute_path, $mosConfig_caching, $mosConfig_cachepath, $mosConfig_cachetime, $mosConfig_cache_handler, $mosConfig_db_cache_handler, $mosConfig_lang;
+		//global $mosConfig_absolute_path, $mosConfig_caching, $mosConfig_cachepath, $mosConfig_cachetime, $mosConfig_cache_handler, $mosConfig_db_cache_handler, $mosConfig_lang;
+
 		$handler = ($handler == 'function') ? 'callback' : $handler;
 
+		$config = &Jconfig::getInstance();
+
 		if(!isset($storage)) {
-			$storage =($mosConfig_cache_handler != '')? $mosConfig_cache_handler : 'file';
+			$storage =($config->config_cache_handler != '')? $config->config_cache_handler : 'file';
 		}
 
 		$options = array(
 			'defaultgroup' 	=> $group,
-			'cachebase' 	=> $mosConfig_cachepath.'/',
-			'lifetime' 		=> $mosConfig_cachetime,	// minutes to seconds
-			'language' 		=> $mosConfig_lang,
+			'cachebase' 	=> $config->config_cachepath.'/',
+			'lifetime' 		=> $config->config_cachetime,	// minutes to seconds
+			'language' 		=> $config->config_lang,
 			'storage'		=> $storage
 		);
 
-		require_once ($mosConfig_absolute_path.'/includes/libraries/cache/cache.php');
+		require_once ($config->config_absolute_path.'/includes/libraries/cache/cache.php');
 		$cache =&JCache::getInstance( $handler, $options );
-		$cache->setCaching($mosConfig_caching);
+		if($cache != NULL){
+			$cache->setCaching($config->config_caching);
+		}
 		return $cache;
 	}
 	/**
@@ -427,11 +436,11 @@ class mosCache {
 	*/
 	function cleanCache($group = false) {
 		$cache = &mosCache::getCache($group);
-		$cache->clean($group);
+		if($cache != NULL){
+			$cache->clean($group);
+		}
 	}
 }
-
-
 
 /**
 * Joostina! Mainframe class
@@ -552,25 +561,25 @@ class mosMainFrame {
 	* @param boolean True (default) to add traling slash
 	*/
 	function getBasePath($client = 0,$addTrailingSlash = true) {
-		global $mosConfig_absolute_path;
+		//global $mosConfig_absolute_path;
 
 		switch($client) {
 			case '0':
 			case 'site':
 			case 'front':
 			default:
-				return mosPathName($mosConfig_absolute_path,$addTrailingSlash);
+				return mosPathName(Jconfig::getInstance()->config_absolute_path,$addTrailingSlash);
 				break;
 
 			case '2':
 			case 'installation':
-				return mosPathName($mosConfig_absolute_path.'/installation',$addTrailingSlash);
+				return mosPathName(Jconfig::getInstance()->config_absolute_path.'/installation',$addTrailingSlash);
 				break;
 
 			case '1':
 			case 'admin':
 			case 'administrator':
-				return mosPathName($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY,$addTrailingSlash);
+				return mosPathName(Jconfig::getInstance()->config_absolute_path.'/'.ADMINISTRATOR_DIRECTORY,$addTrailingSlash);
 				break;
 		}
 	}
@@ -639,7 +648,7 @@ class mosMainFrame {
 		for($i = 0; $i < $n; $i++) {
 			if($this->_head['meta'][$i][0] == $name) {
 				$content = trim(htmlspecialchars($content));
-				if($content != "" & $this->_head['meta'][$i][1] == "") {
+				if($content != '' & $this->_head['meta'][$i][1] == "") {
 					$this->_head['meta'][$i][1] .= ' '.$content;
 				}
 				;
@@ -776,8 +785,8 @@ class mosMainFrame {
 	* the jos_sessions table.
 	*/
 	function initSession() {
-		global $mosConfig_session_front;
-		if($mosConfig_session_front) return;
+		//global $mosConfig_session_front;
+		if(Jconfig::getInstance()->config_session_front) return;
 		// initailize session variables
 		$session = &$this->_session;
 		$session = new mosSession($this->_db);
@@ -791,8 +800,7 @@ class mosMainFrame {
 		$sessionValueCheck = mosMainFrame::sessionCookieValue($sessioncookie);
 		// Check if existing session exists in db corresponding to Session cookie `value`
 		// extra check added in 1.0.8 to test sessioncookie value is of correct length
-		if($sessioncookie && strlen($sessioncookie) == 32 && $sessioncookie != '-' && $session->load
-			($sessionValueCheck)) {
+		if($sessioncookie && strlen($sessioncookie) == 32 && $sessioncookie != '-' && $session->load($sessionValueCheck)) {
 			// update time in session table
 			$session->time = time();
 			$session->update();
@@ -802,8 +810,7 @@ class mosMainFrame {
 
 			// test if cookie found
 			$cookie_found = false;
-			if(isset($_COOKIE[$sessionCookieName]) || isset($_COOKIE[$remCookieName]) ||
-				isset($_POST['force_session'])) {
+			if(isset($_COOKIE[$sessionCookieName]) || isset($_COOKIE[$remCookieName]) || isset($_POST['force_session'])) {
 				$cookie_found = true;
 			}
 
@@ -853,15 +860,17 @@ class mosMainFrame {
 	* Deperciated 1.1
 	*/
 	function initSessionAdmin($option,$task) {
-		global $_VERSION,$mosConfig_admin_expired,$mosConfig_adm_session_del;
+		global $_VERSION;
+
+		$_config = &Jconfig::getInstance();
 
 		// logout check
 		if($option == 'logout') {
-			require $GLOBALS['mosConfig_absolute_path'].'/'.ADMINISTRATOR_DIRECTORY.'/logout.php';
+			require $_config->config_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/logout.php';
 			exit();
 		}
 
-		$site = $GLOBALS['mosConfig_live_site'];
+		$site = $_config->config_live_site;
 
 		// check if session name corresponds to correct format
 		if(session_name() != md5($site)) {
@@ -901,9 +910,12 @@ class mosMainFrame {
 
 				// purge expired admin sessions only
 				$past = time() - $session_life_admin;
-				$query = "DELETE FROM #__session WHERE time < '".(int)$past."'"."\n AND guest = 1 AND gid = 0 AND userid <> 0";
+				$query = "DELETE FROM #__session WHERE time < '".(int)$past."' AND guest = 1 AND gid = 0 AND userid <> 0";
 				// если в настройка не указано что сессии админки не уничтожаются - выполняем запрос по очистке сессий
-				if(!$mosConfig_adm_session_del) {
+				if($_config->config_admin_autologout==1) {
+					// purge expired admin sessions only
+					$past = time() - $session_life_admin;
+					$query = "DELETE FROM #__session WHERE time < '".(int)$past."' AND guest = 1 AND gid = 0 AND userid <> 0";
 					$this->_db->setQuery($query);
 					$this->_db->query();
 				}
@@ -911,7 +923,7 @@ class mosMainFrame {
 				$current_time = time();
 
 				// update session timestamp
-				$query = "UPDATE #__session SET time = ".$this->_db->Quote($current_time)."\n WHERE session_id = ".$this->_db->Quote($session_id);
+				$query = "UPDATE #__session SET time = ".$this->_db->Quote($current_time)." WHERE session_id = ".$this->_db->Quote($session_id);
 				$this->_db->setQuery($query);
 				$this->_db->query();
 
@@ -933,8 +945,7 @@ class mosMainFrame {
 					// check if site designated as a production site
 					// for a demo site disallow expired page functionality
 					// link must also be a Joomla link to stop malicious redirection
-					if($link && strpos($link,'index2.php?option=com_') === 0 && $_VERSION->SITE == 1 &&
-						@$mosConfig_admin_expired === '1') {
+					if($link && strpos($link,'index2.php?option=com_') === 0 && $_VERSION->SITE == 1 && $_config->config_admin_expired == 1) {
 						$now = time();
 
 						$file = $this->getPath('com_xml','com_users');
@@ -1006,12 +1017,13 @@ class mosMainFrame {
 	* Deperciated 1.1
 	*/
 	function sessionCookieName() {
-		global $mainframe,$mosConfig_live_site;
+		global $mainframe;
+		$_config = &Jconfig::getInstance();
 
-		if(substr($mosConfig_live_site,0,7) == 'http://') {
-			$hash = md5('site'.substr($mosConfig_live_site,7));
-		} elseif(substr($mosConfig_live_site,0,8) == 'https://') {
-			$hash = md5('site'.substr($mosConfig_live_site,8));
+		if(substr($_config->config_live_site,0,7) == 'http://') {
+			$hash = md5('site'.substr($_config->config_live_site,7));
+		} elseif(substr($_config->config_live_site,0,8) == 'https://') {
+			$hash = md5('site'.substr($_config->config_live_site,8));
 		} else {
 			$hash = md5('site'.$mainframe->getCfg('live_site'));
 		}
@@ -1106,15 +1118,17 @@ class mosMainFrame {
 	* the users details.
 	*/
 	function login($username = null,$passwd = null,$remember = 0,$userid = null) {
-		global $acl,$_VERSION,$mosConfig_session_front;
-		if($mosConfig_session_front) return;
+		global $acl,$_VERSION;
+		// если сесии на фронте отключены - прекращаем выполнение процедуры
+		if(Jconfig::getInstance()->config_session_front) return;
+		
 		$bypost = 0;
 		$valid_remember = false;
 
 		// if no username and password passed from function, then function is being called from login module/component
 		if(!$username || !$passwd) {
-			$username = stripslashes(strval(mosGetParam($_POST,'username','')));
-			$passwd = stripslashes(strval(mosGetParam($_POST,'passwd','')));
+			$username	= stripslashes(strval(mosGetParam($_POST,'username','')));
+			$passwd		= stripslashes(strval(mosGetParam($_POST,'passwd','')));
 
 			$bypost = 1;
 
@@ -1278,11 +1292,11 @@ class mosMainFrame {
 	* boston, + хак для отключения ведения сессий на фронте
 	*/
 	function getUser() {
-		global $mosConfig_session_front;
+
 		$database = database::getInstance();
 
 		$user = new mosUser($this->_db);
-		if($mosConfig_session_front == 1) {
+		if(Jconfig::getInstance()->config_session_front == 1) {
 			// boston, параметры id и gid при инициализации объявляются как null - это вредит некоторым компонентам, проинициализируем их в нули
 			$user->id = 0;
 			$user->gid = 0;
@@ -1321,12 +1335,12 @@ class mosMainFrame {
 	}
 	/** boston, функция определения шаблона, если в панели управления указано что использовать один шаблон - сразу возвращаем его название, функцию не проводим до конца*/
 	function _setTemplate($isAdmin = false) {
-		global $Itemid,$mosConfig_one_template;
-		if(!$isAdmin and $mosConfig_one_template != '...') { // boston, если у нас в настройках указан шаблон и определение идёт не для панели управления - возвращаем название шаблона из глобальной конфигурации
-			$this->_template = $mosConfig_one_template;
+		global $Itemid;
+		if(!$isAdmin and Jconfig::getInstance()->config_one_template != '...') { // boston, если у нас в настройках указан шаблон и определение идёт не для панели управления - возвращаем название шаблона из глобальной конфигурации
+			$this->_template = Jconfig::getInstance()->config_one_template;
 			return;
 		}
-		$mosConfig_absolute_path = $this->getCfg('absolute_path');
+		Jconfig::getInstance()->config_absolute_path = $this->getCfg('absolute_path');
 
 		if($isAdmin) {
 			$query = "SELECT template"
@@ -1335,7 +1349,7 @@ class mosMainFrame {
 					."\n AND menuid = 0";
 			$this->_db->setQuery($query);
 			$cur_template = $this->_db->loadResult();
-			$path = "$mosConfig_absolute_path/".ADMINISTRATOR_DIRECTORY."/templates/$cur_template/index.php";
+			$path = Jconfig::getInstance()->config_absolute_path.'/'.ADMINISTRATOR_DIRECTORY."/templates/$cur_template/index.php";
 			if(!file_exists($path)) {
 				$cur_template = 'joostfree';
 			}
@@ -1361,7 +1375,7 @@ class mosMainFrame {
 				}
 
 				// check that template exists in case it was deleted
-				if(file_exists($mosConfig_absolute_path.'/templates/'.$jos_change_template.'/index.php')) {
+				if(file_exists(Jconfig::getInstance()->config_absolute_path.'/templates/'.$jos_change_template.'/index.php')) {
 					$lifetime = 60* 10;
 					$cur_template = $jos_change_template;
 					setcookie('jos_user_template',"$jos_change_template",time() + $lifetime);
@@ -1452,7 +1466,7 @@ class mosMainFrame {
 	*
 	*/
 	function getPath($varname,$option = '') {
-		global $mosConfig_absolute_path;
+		//global $mosConfig_absolute_path;
 		if($option) {
 			$temp = $this->_path;
 			$this->_setAdminPaths($option,$this->getCfg('absolute_path'));
@@ -1464,11 +1478,11 @@ class mosMainFrame {
 			switch($varname) {
 				case 'com_xml':
 					$name = substr($option,4);
-					$path = "$mosConfig_absolute_path/".ADMINISTRATOR_DIRECTORY."/components/$option/$name.xml";
+					$path = Jconfig::getInstance()->config_absolute_path.'/'.ADMINISTRATOR_DIRECTORY."/components/$option/$name.xml";
 					if(file_exists($path)) {
 						$result = $path;
 					} else {
-						$path = "$mosConfig_absolute_path/components/$option/$name.xml";
+						$path = Jconfig::getInstance()->config_absolute_path."/components/$option/$name.xml";
 						if(file_exists($path)) {
 							$result = $path;
 						}
@@ -1478,9 +1492,9 @@ class mosMainFrame {
 				case 'mod0_xml':
 					// Site modules
 					if($option == '') {
-						$path = $mosConfig_absolute_path."/modules/custom.xml";
+						$path = Jconfig::getInstance()->config_absolute_path.'/modules/custom.xml';
 					} else {
-						$path = $mosConfig_absolute_path."/modules/$option.xml";
+						$path = Jconfig::getInstance()->config_absolute_path."/modules/$option.xml";
 					}
 					if(file_exists($path)) {
 						$result = $path;
@@ -1490,9 +1504,9 @@ class mosMainFrame {
 				case 'mod1_xml':
 					// admin modules
 					if($option == '') {
-						$path = $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/modules/custom.xml';
+						$path = Jconfig::getInstance()->config_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/modules/custom.xml';
 					} else {
-						$path = $mosConfig_absolute_path."/".ADMINISTRATOR_DIRECTORY."/modules/$option.xml";
+						$path = Jconfig::getInstance()->config_absolute_path.'/'.ADMINISTRATOR_DIRECTORY."/modules/$option.xml";
 					}
 					if(file_exists($path)) {
 						$result = $path;
@@ -1501,28 +1515,28 @@ class mosMainFrame {
 
 				case 'bot_xml':
 					// Site mambots
-					$path = $mosConfig_absolute_path."/mambots/$option.xml";
+					$path = Jconfig::getInstance()->config_absolute_path."/mambots/$option.xml";
 					if(file_exists($path)) {
 						$result = $path;
 					}
 					break;
 
 				case 'menu_xml':
-					$path = $mosConfig_absolute_path."/".ADMINISTRATOR_DIRECTORY."/components/com_menus/$option/$option.xml";
+					$path = Jconfig::getInstance()->config_absolute_path.'/'.ADMINISTRATOR_DIRECTORY."/components/com_menus/$option/$option.xml";
 					if(file_exists($path)) {
 						$result = $path;
 					}
 					break;
 
 				case 'installer_html':
-					$path = $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY."/components/com_installer/$option/$option.html.php";
+					$path = Jconfig::getInstance()->config_absolute_path.'/'.ADMINISTRATOR_DIRECTORY."/components/com_installer/$option/$option.html.php";
 					if(file_exists($path)) {
 						$result = $path;
 					}
 					break;
 
 				case 'installer_class':
-					$path = $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY."/components/com_installer/$option/$option.class.php";
+					$path = Jconfig::getInstance()->config_absolute_path.'/'.ADMINISTRATOR_DIRECTORY."/components/com_installer/$option/$option.class.php";
 					if(file_exists($path)) {
 						$result = $path;
 					}
@@ -1542,8 +1556,8 @@ class mosMainFrame {
 	* A cookie is set to mark the first visit.
 	*/
 	function detect() {
-		global $mosConfig_enable_stats;
-		if($mosConfig_enable_stats == 1) {
+		//global $mosConfig_enable_stats;
+		if(Jconfig::getInstance()->config_enable_stats == 1) {
 			if(mosGetParam($_COOKIE,'mosvisitor',0)) {
 				return;
 			}
@@ -2274,7 +2288,7 @@ class mosHTML {
 	}
 
 	function sortIcon($base_href,$field,$state = 'none') {
-		global $mosConfig_live_site;
+		//global $mosConfig_live_site;
 
 		$alts = array('none' => _CMN_SORT_NONE,'asc' => _CMN_SORT_ASC,'desc' =>_CMN_SORT_DESC,);
 		$next_state = 'asc';
@@ -2285,7 +2299,7 @@ class mosHTML {
 				$next_state = 'none';
 			}
 
-		$html = "<a href=\"$base_href&field=$field&order=$next_state\">"."<img src=\"$mosConfig_live_site/".ADMINISTRATOR_DIRECTORY."/images/sort_$state.png\" width=\"12\" height=\"12\" border=\"0\" alt=\"{$alts[$next_state]}\" /></a>";
+		$html = '<a href='.$base_href.'&field='.$field.'&order='.$next_state.'"><img src="'.Jconfig::getInstance()->config_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/images/sort_'.$state.'.png" width="12" height="12" border="0" alt="'.$alts[$next_state].'" /></a>';
 		return $html;
 	}
 
@@ -2342,8 +2356,10 @@ class mosHTML {
 	* Вывод значка печати, встроен хак индексации печатной версии
 	*/
 	function PrintIcon($row,&$params,$hide_js,$link,$status = null) {
-		global $mosConfig_index_print,$cpr_i;
+		global $cpr_i;
+		
 		if(!isset($cpr_i)) $cpr_i = '';
+		
 		if($params->get('print') && !$hide_js) {
 			// use default settings if none declared
 			if(!$status) {
@@ -2371,7 +2387,7 @@ class mosHTML {
 			} else {
 ?>
 			<td align="right" width="100%" class="buttonheading">
-<?php if(!$mosConfig_index_print) { ?>
+<?php if(!Jconfig::getInstance()->config_index_print) { ?>
 				<noindex><a href="#" target="_blank" onclick="window.open('<?php echo $link; ?>','win2','<?php echo $status; ?>'); return false;" title="<?php echo _CMN_PRINT; ?>"><?php echo $image; ?></a></noindex>
 <?php } else { ?>
 				<a href="<?php echo $link; ?>" target="_blank" title="<?php echo _CMN_PRINT; ?>"><?php echo $image; ?></a>
@@ -2460,7 +2476,7 @@ class mosHTML {
 }
 
 // класс работы с контентом
-require_once($mosConfig_absolute_path.'/components/com_content/content.class.php');
+require_once(Jconfig::getInstance()->config_absolute_path.'/components/com_content/content.class.php');
 
 
 /**
@@ -2537,7 +2553,7 @@ class mosMenu extends mosDBTable {
 }
 
 // класс работы с пользователями
-require_once($mosConfig_absolute_path.'/components/com_user/user.class.php');
+require_once(Jconfig::getInstance()->config_absolute_path.'/components/com_user/user.class.php');
 
 /**
 * Template Table Class
@@ -2984,9 +3000,9 @@ function mosObjectToArray($p_obj) {
 */
 /* 05.08.07, boston, хак улучшенного определения браузеров*/
 function mosGetBrowser($agent) {
-	global $mosConfig_absolute_path;
+	//global $mosConfig_absolute_path;
 
-	require_once($mosConfig_absolute_path.'/includes/libraries/phpSniff/phpSniff.class.php');
+	require_once(Jconfig::getInstance()->config_absolute_path.'/includes/libraries/phpSniff/phpSniff.class.php');
 	$client = new phpSniff($agent);
 
 	$client_long_name = $client->property('long_name');
@@ -3003,8 +3019,8 @@ function mosGetBrowser($agent) {
 * Checks the user agent string against known operating systems
 */
 function mosGetOS($agent) {
-	global $mosConfig_absolute_path;
-	require_once($mosConfig_absolute_path.'/includes/libraries/phpSniff/phpSniff.class.php');
+	//global $mosConfig_absolute_path;
+	require_once(Jconfig::getInstance()->config_absolute_path.'/includes/libraries/phpSniff/phpSniff.class.php');
 	foreach($osSearchOrder as $key) {
 		if(preg_match("/$key/i",$agent)) {
 			return $osAlias[$key];
@@ -3120,15 +3136,14 @@ function mosMenuCheck($Itemid,$menu_option,$task,$gid) {
 */
 function mosFormatDate($date,$format = "",$offset = null) {
 	
-	if ($date == '0000-00-00 00:00:00') return " — ";//database::$_nullDate - при ошибках парсера
-	
-	global $mosConfig_offset;
+	if ($date == '0000-00-00 00:00:00') return ' — ';//database::$_nullDate - при ошибках парсера
+
 	if($format == '') {
 		// %Y-%m-%d %H:%M:%S
 		$format = _DATE_FORMAT_LC;
 	}
 	if(is_null($offset)) {
-		$offset = $mosConfig_offset;
+		$offset = Jconfig::getInstance()->config_offset;
 	}
 	if($date && ereg("([0-9]{4})-([0-9]{2})-([0-9]{2})[ ]([0-9]{2}):([0-9]{2}):([0-9]{2})",$date,$regs)) {
 		$date = mktime($regs[4],$regs[5],$regs[6],$regs[2],$regs[3],$regs[1]);
@@ -3143,11 +3158,11 @@ function mosFormatDate($date,$format = "",$offset = null) {
 * @returns current date
 */
 function mosCurrentDate($format = "") {
-	global $mosConfig_offset;
-	if($format == "") {
+	//global $mosConfig_offset;
+	if($format == '') {
 		$format = _DATE_FORMAT_LC;
 	}
-	$date = strftime($format,time() + ($mosConfig_offset* 60* 60));
+	$date = strftime($format,time() + (Jconfig::getInstance()->config_offset* 60* 60));
 	return $date;
 }
 
@@ -3158,7 +3173,7 @@ function mosCurrentDate($format = "") {
 * @returns HTML code for ToolTip
 */
 function mosToolTip($tooltip,$title = '',$width = '',$image = 'tooltip.png',$text ='',$href = '#',$link = 1) {
-	global $mosConfig_live_site;
+	//global $mosConfig_live_site;
 
 	if($width) {
 		$width = ', WIDTH, \''.$width.'\'';
@@ -3167,7 +3182,7 @@ function mosToolTip($tooltip,$title = '',$width = '',$image = 'tooltip.png',$tex
 		$title = ', CAPTION, \''.$title.'\'';
 	}
 	if(!$text) {
-		$image = $mosConfig_live_site.'/includes/js/ThemeOffice/'.$image;
+		$image = Jconfig::getInstance()->config_live_site.'/includes/js/ThemeOffice/'.$image;
 		$text = '<img src="'.$image.'" border="0" alt="tooltip"/>';
 	}
 	$style = 'style="text-decoration: none; color: #333;"';
@@ -3196,10 +3211,9 @@ function mosToolTip($tooltip,$title = '',$width = '',$image = 'tooltip.png',$tex
 * @returns HTML code for Warning
 */
 function mosWarning($warning,$title = _MOS_WARNING) {
-	global $mosConfig_live_site;
 	$mouseover = 'return overlib(\''.$warning.'\', CAPTION, \''.$title.'\', BELOW, RIGHT);';
 	$tip = '<a href="javascript: void(0)" onmouseover="'.$mouseover.'" onmouseout="return nd();">';
-	$tip .= '<img src="'.$mosConfig_live_site.'/includes/js/ThemeOffice/warning.png" border="0"  alt="предупреждение"/></a>';
+	$tip .= '<img src="'.Jconfig::getInstance()->config_live_site.'/includes/js/ThemeOffice/warning.png" border="0" alt="предупреждение"/></a>';
 	return $tip;
 }
 
@@ -3228,32 +3242,32 @@ function mosExpandID($ID) {
 * @return object Mail object
 */
 function mosCreateMail($from = '',$fromname = '',$subject,$body) {
-	global $mosConfig_absolute_path,$mosConfig_sendmail;
-	global $mosConfig_smtpauth,$mosConfig_smtpuser;
-	global $mosConfig_smtppass,$mosConfig_smtphost;
-	global $mosConfig_mailfrom,$mosConfig_fromname,$mosConfig_mailer;
+	//global $mosConfig_absolute_path,$mosConfig_sendmail;
+	//global $mosConfig_smtpauth,$mosConfig_smtpuser;
+	//global $mosConfig_smtppass,$mosConfig_smtphost;
+	//global $mosConfig_mailfrom,$mosConfig_fromname,$mosConfig_mailer;
 
-	require_once ($mosConfig_absolute_path.'/includes/libraries/phpmailer/class.phpmailer.php');
+	require_once (Jconfig::getInstance()->config_absolute_path.'/includes/libraries/phpmailer/class.phpmailer.php');
 	$mail = new mosPHPMailer();
 
-	$mail->PluginDir = $mosConfig_absolute_path.'/includes/libraries/phpmailer/';
-	$mail->SetLanguage('ru',$mosConfig_absolute_path.'/includes/libraries/phpmailer/language/');
+	$mail->PluginDir = Jconfig::getInstance()->config_absolute_path.'/includes/libraries/phpmailer/';
+	$mail->SetLanguage('ru',Jconfig::getInstance()->config_absolute_path.'/includes/libraries/phpmailer/language/');
 	$mail->CharSet = substr_replace(_ISO,'',0,8);
 	$mail->IsMail();
-	$mail->From = $from?$from:$mosConfig_mailfrom;
-	$mail->FromName = $fromname?$fromname:$mosConfig_fromname;
-	$mail->Mailer = $mosConfig_mailer;
+	$mail->From = $from?$from:Jconfig::getInstance()->config_mailfrom;
+	$mail->FromName = $fromname?$fromname:Jconfig::getInstance()->config_fromname;
+	$mail->Mailer = Jconfig::getInstance()->config_mailer;
 
 	// Add smtp values if needed
-	if($mosConfig_mailer == 'smtp') {
-		$mail->SMTPAuth = $mosConfig_smtpauth;
-		$mail->Username = $mosConfig_smtpuser;
-		$mail->Password = $mosConfig_smtppass;
-		$mail->Host = $mosConfig_smtphost;
+	if(Jconfig::getInstance()->config_mailer == 'smtp') {
+		$mail->SMTPAuth = Jconfig::getInstance()->config_smtpauth;
+		$mail->Username = Jconfig::getInstance()->config_smtpuser;
+		$mail->Password = Jconfig::getInstance()->config_smtppass;
+		$mail->Host = Jconfig::getInstance()->config_smtphost;
 	} else // Set sendmail path
 
-		if($mosConfig_mailer == 'sendmail') {
-			if(isset($mosConfig_sendmail)) $mail->Sendmail = $mosConfig_sendmail;
+		if(Jconfig::getInstance()->config_mailer == 'sendmail') {
+			if(isset(Jconfig::getInstance()->config_sendmail)) $mail->Sendmail = Jconfig::getInstance()->config_sendmail;
 		} // if
 
 	$mail->Subject = $subject;
@@ -3277,16 +3291,15 @@ function mosCreateMail($from = '',$fromname = '',$subject,$body) {
 * @param string/array ReplyTo name(s)
 * @return boolean
 */
-function mosMail($from,$fromname,$recipient,$subject,$body,$mode = 0,$cc = null,
-	$bcc = null,$attachment = null,$replyto = null,$replytoname = null) {
-	global $mosConfig_mailfrom,$mosConfig_fromname,$mosConfig_debug;
+function mosMail($from,$fromname,$recipient,$subject,$body,$mode = 0,$cc = null,$bcc = null,$attachment = null,$replyto = null,$replytoname = null) {
+	//global $mosConfig_mailfrom,$mosConfig_fromname,$mosConfig_debug;
 
 	// Allow empty $from and $fromname settings (backwards compatibility)
 	if($from == '') {
-		$from = $mosConfig_mailfrom;
+		$from = Jconfig::getInstance()->config_mailfrom;
 	}
 	if($fromname == '') {
-		$fromname = $mosConfig_fromname;
+		$fromname = Jconfig::getInstance()->config_fromname;
 	}
 
 	// Filter from, fromname and subject
@@ -3372,7 +3385,7 @@ function mosMail($from,$fromname,$recipient,$subject,$body,$mode = 0,$cc = null,
 		}
 	}
 	$mailssend = $mail->Send();
-	if($mosConfig_debug) {
+	if(Jconfig::getInstance()->config_debug) {
 		//$mosDebug->message( "Письма отправлены: $mailssend");
 	}
 	if($mail->error_count > 0) {
@@ -3423,9 +3436,11 @@ function JosIsValidName($string) {
 * Initialise GZIP
 */
 function initGzip() {
-	global $mosConfig_gzip,$do_gzip_compress;
+	global $do_gzip_compress;
+	
 	$do_gzip_compress = false;
-	if($mosConfig_gzip == 1) {
+	
+	if(Jconfig::getInstance()->config_gzip == 1) {
 		$phpver = phpversion();
 		$useragent = mosGetParam($_SERVER,'HTTP_USER_AGENT','');
 		$canZip = mosGetParam($_SERVER,'HTTP_ACCEPT_ENCODING','');
@@ -3449,18 +3464,12 @@ function initGzip() {
 		if(ini_get('session.use_trans_sid')) {
 			$sid_check = 1;
 		}
-		if($phpver >= '4.0.4pl1' && (strpos($useragent,'compatible') !== false || strpos
-			($useragent,'Gecko') !== false)) {
-			// Check for gzip header or northon internet securities or session.use_trans_sid
-			if(($gzip_check || isset($_SERVER['---------------'])) && $zlib_check && $gz_check &&
-				!$zlibO_check && !$sid_check) {
-				// You cannot specify additional output handlers if
-				// zlib.output_compression is activated here
+		if($phpver >= '4.0.4pl1' && (strpos($useragent,'compatible') !== false || strpos($useragent,'Gecko') !== false)) {
+			if(($gzip_check || isset($_SERVER['---------------'])) && $zlib_check && $gz_check && !$zlibO_check && !$sid_check) {
 				ob_start('ob_gzhandler');
 				return;
 			}
-		} else
-			if($phpver > '4.0') {
+		} elseif($phpver > '4.0') {
 				if($gzip_check) {
 					if($zlib_check) {
 						$do_gzip_compress = true;
@@ -3480,10 +3489,8 @@ function initGzip() {
 */
 function doGzip() {
 	global $do_gzip_compress;
+
 	if($do_gzip_compress) {
-		/**
-		*Borrowed from php.net!
-		*/
 		$gzip_contents = ob_get_contents();
 		ob_end_clean();
 		$gzip_size = strlen($gzip_contents);
@@ -3570,7 +3577,8 @@ class mosMambotHandler {
 	* @param string The group name, relates to the sub-directory in the mambots directory
 	*/
 	function loadBotGroup($group) {
-		global $my,$mosConfig_disable_access_control;
+		global $my;
+
 		$database = database::getInstance();
 
 		if(is_object($my)) {
@@ -3579,18 +3587,19 @@ class mosMambotHandler {
 			$gid = 0;
 		}
 		$group = trim($group);
-		if(!$mosConfig_disable_access_control) $where_ac = "\n AND access <= ".(int)$gid;
-		else $where_ac = '';
+		
+		$where_ac = (Jconfig::getInstance()->config_disable_access_control==0) ? ' AND access <= '.(int)$gid : '';
+
 		switch($group) {
 			case 'content':
 				if(!defined('_JOS_CONTENT_MAMBOTS')) {
 					/** ensure that query is only called once*/
 					define('_JOS_CONTENT_MAMBOTS',1);
+					$where_ac .= (Jconfig::getInstance()->config_use_unpublished_mambots==1) ? '' : ' AND published=1';
 					$query = 'SELECT folder, element, published, params FROM #__mambots WHERE folder = \'content\''.$where_ac.' ORDER BY ordering';
 					$database->setQuery($query);
 					// load query into class variable _content_mambots
 					if(!($this->_content_mambots = $database->loadObjectList())) {
-						//echo 'Ошибка загрузки Мамбота: ' . $database->getErrorMsg();
 						return false;
 					}
 					foreach($this->_content_mambots as $bot) {
@@ -3601,10 +3610,9 @@ class mosMambotHandler {
 				$bots = $this->_content_mambots;
 				break;
 			default:
-				$query = 'SELECT folder, element, published, params FROM #__mambots WHERE published >= 1'.$where_ac.' AND folder = '.$database->Quote($group).' ORDER BY ordering';
+				$query = 'SELECT folder, element, published, params FROM #__mambots WHERE published = 1'.$where_ac.' AND folder = '.$database->Quote($group).' ORDER BY ordering';
 				$database->setQuery($query);
 				if(!($bots = $database->loadObjectList())) {
-					//echo 'Ошибка загрузки Мамбота: ' . $database->getErrorMsg();
 					return false;
 				}
 				break;
@@ -3625,8 +3633,9 @@ class mosMambotHandler {
 	* @param string The params for the bot
 	*/
 	function loadBot($folder,$element,$published,$params = '') {
-		global $mosConfig_absolute_path, $_MAMBOTS;
-		$path = $mosConfig_absolute_path.'/mambots/'.$folder.'/'.$element.'.php';
+		global $_MAMBOTS;
+
+		$path = Jconfig::getInstance()->config_absolute_path.'/mambots/'.$folder.'/'.$element.'.php';
 		if(file_exists($path)) {
 			$this->_loading = count($this->_bots);
 			$bot = new stdClass;
@@ -3734,24 +3743,24 @@ class mosTabs {
 	* @param int useCookies, if set to 1 cookie will hold last used tab between page refreshes
 	*/
 	function mosTabs($useCookies,$xhtml = 0) {
-		global $mosConfig_live_site,$mainframe,$mosConfig_gz_js_css;
+		//global $mosConfig_live_site,$mainframe,$mosConfig_gz_js_css;
 		// активация gzip сжатия css и js файлов
-		if($mosConfig_gz_js_css) {
+		if(Jconfig::getInstance()->config_gz_js_css) {
 			$css_f = 'joostina.tabs.css.php';
 			$js_f = 'joostina.tabs.js.php';
 		} else {
 			$css_f = 'tabpane.css';
 			$js_f = 'tabpane_mini.js';
 		}
-		$css = '<link rel="stylesheet" type="text/css" media="all" href="'.$mosConfig_live_site.'/includes/js/tabs/'.$css_f.'" id="luna-tab-style-sheet" />';
-		$js = '<script type="text/javascript" src="'.$mosConfig_live_site.'/includes/js/tabs/'.$js_f.'"></script>';
+		$css = '<link rel="stylesheet" type="text/css" media="all" href="'.Jconfig::getInstance()->config_live_site.'/includes/js/tabs/'.$css_f.'" id="luna-tab-style-sheet" />';
+		$js = '<script type="text/javascript" src="'.Jconfig::getInstance()->config_live_site.'/includes/js/tabs/'.$js_f.'"></script>';
 		/* boston, хак, запрет повторного включения css и js файлов в документ*/
 		if(!defined('_MTABS_LOADED')) {
 			define('_MTABS_LOADED',1);
 
 			if($xhtml) {
-				$mainframe->addCustomHeadTag($css);
-				$mainframe->addCustomHeadTag($js);
+				MosMainFrame::getInstance()->addCustomHeadTag($css);
+				MosMainFrame::getInstance()->addCustomHeadTag($js);
 			} else {
 				echo $css."\n\t";
 				echo $js."\n\t";
@@ -4111,7 +4120,7 @@ class mosAdminMenus {
 	* build the select list to choose an image
 	*/
 	function Images($name,&$active,$javascript = null,$directory = null) {
-		global $mosConfig_absolute_path;
+		//global $mosConfig_absolute_path;
 
 		if(!$directory) {
 			$directory = '/images/stories';
@@ -4121,7 +4130,7 @@ class mosAdminMenus {
 			$javascript = "onchange=\"javascript:if (document.forms[0].image.options[selectedIndex].value!='') {document.imagelib.src='..$directory/' + document.forms[0].image.options[selectedIndex].value} else {document.imagelib.src='../images/blank.png'}\"";
 		}
 
-		$imageFiles = mosReadDirectory($mosConfig_absolute_path.$directory);
+		$imageFiles = mosReadDirectory(Jconfig::getInstance()->config_absolute_path.$directory);
 		$images = array(mosHTML::makeOption('','- '._CHOOSE_IMAGE.' -'));
 		foreach($imageFiles as $file) {
 			if(eregi("bmp|gif|jpg|png",$file)) {
@@ -4328,11 +4337,11 @@ class mosAdminMenus {
 	* @param array  Value array of all existing images
 	*/
 	function ReadImagesX(&$folders,&$images) {
-		global $mosConfig_absolute_path;
+		//global $mosConfig_absolute_path;
 
 		if($folders[0]->value != '*0*') {
 			foreach($folders as $folder) {
-				$imagePath = $mosConfig_absolute_path.'/images/stories'.$folder->value;
+				$imagePath = Jconfig::getInstance()->config_absolute_path.'/images/stories'.$folder->value;
 				$imgFiles = mosReadDirectory($imagePath);
 				$folderPath = $folder->value.'/';
 
@@ -4418,15 +4427,17 @@ class mosAdminMenus {
 	* Also can be used in conjunction with the menulist param to create the chosen image
 	* load the default or use no image
 	*/
-	function ImageCheck($file,$directory = '/images/M_images/',$param = null,$param_directory ='/images/M_images/',$alt = null,$name = null,$type = 1,$align = 'middle',$title = null,
-		$admin = null) {
-		global $mosConfig_absolute_path,$mosConfig_live_site,$mainframe;
+	function ImageCheck($file,$directory = '/images/M_images/',$param = null,$param_directory ='/images/M_images/',$alt = null,$name = null,$type = 1,$align = 'middle',$title = null,$admin = null) {
+		//global $mosConfig_absolute_path,$mosConfig_live_site,$mainframe;
+
+		$mainframe = MosMainFrame::getInstance();
+		
 		$cur_template = $mainframe->getTemplate();
-		$id = ($name?' id="'.$name.'"':'');
-		$name = ($name?' name="'.$name.'"':'');
-		$title = ($title?' title="'.$title.'"':'');
-		$alt = ($alt?' alt="'.$alt.'"':' alt=""');
-		$align = ($align?' align="'.$align.'"':'');
+		$id		= $name ? ' id="'.$name.'"':'';
+		$name	= $name ? ' name="'.$name.'"':'';
+		$title	= $title ? ' title="'.$title.'"':'';
+		$alt	= $alt ? ' alt="'.$alt.'"':' alt=""';
+		$align	= $align ? ' align="'.$align.'"':'';
 		// change directory path from frontend or backend
 		if($admin) {
 			$path = '/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$cur_template.'/images/';
@@ -4434,7 +4445,7 @@ class mosAdminMenus {
 			$path = '/templates/'.$cur_template.'/images/';
 		}
 		if($param) {
-			$image = $mosConfig_live_site.$param_directory.$param;
+			$image = Jconfig::getInstance()->config_live_site.$param_directory.$param;
 			if($type) {
 				$image = '<img src="'.$image.'" '.$alt.$id.$name.$align.' border="0" />';
 			}
@@ -4442,10 +4453,10 @@ class mosAdminMenus {
 			if($param == -1) {
 				$image = '';
 			} else {
-				if(file_exists($mosConfig_absolute_path.$path.$file)) {
-					$image = $mosConfig_live_site.$path.$file;
+				if(file_exists(Jconfig::getInstance()->config_absolute_path.$path.$file)) {
+					$image = Jconfig::getInstance()->config_live_site.$path.$file;
 				} else {
-					$image = $mosConfig_live_site.$directory.$file;
+					$image = Jconfig::getInstance()->config_live_site.$directory.$file;
 				}
 				if($type) {
 					$image = '<img src="'.$image.'" '.$alt.$id.$name.$title.$align.' border="0" />';
@@ -4524,8 +4535,8 @@ class mosAdminMenus {
 	* loads files required for menu items
 	*/
 	function menuItem($item) {
-		global $mosConfig_absolute_path;
-		$path = $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_menus/'.$item.'/';
+		//global $mosConfig_absolute_path;
+		$path = Jconfig::getInstance()->config_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_menus/'.$item.'/';
 		include_once ($path.$item.'.class.php');
 		include_once ($path.$item.'.menu.html.php');
 	}
@@ -4721,18 +4732,16 @@ class mosCommonHTML {
 		return $checked;
 	}
 
-	/*
-	* подключение библиотеки всплывающих подсказок
-	*/
-	function loadOverlib($bad = false) {
-		global $mosConfig_live_site,$mainframe;
-		if(!$mainframe->get('loadOverlib') &&!$bad ) {
-			$mainframe->addJS($mosConfig_live_site.'/includes/js/overlib_full.js');
+	/* подключение библиотеки всплывающих подсказок */
+	function loadOverlib($ret = false) {
+		$mainframe = MosMainFrame::getInstance();
+		if(!$mainframe->get('loadOverlib') &&!$ret ) {
+			$mainframe->addJS(Jconfig::getInstance()->config_live_site.'/includes/js/overlib_full.js');
 			// установка флага о загруженной библиотеке всплывающих подсказок
 			$mainframe->set('loadOverlib',true);
 		}
-		if($bad){?>
-			<script language="javascript" type="text/javascript" src="<?php echo $mosConfig_live_site;?>/includes/js/overlib_full.js"></script>
+		if(!$mainframe->get('loadOverlib') && $ret==true){?>
+			<script language="javascript" type="text/javascript" src="<?php echo Jconfig::getInstance()->config_live_site;?>/includes/js/overlib_full.js"></script>
 <?php
 		}
 	}
@@ -4741,75 +4750,98 @@ class mosCommonHTML {
 	* Подключение JS файлов Календаря
 	*/
 	function loadCalendar() {
-		global $mosConfig_live_site,$mainframe;
 		if(!defined('_CALLENDAR_LOADED')) {
 			define('_CALLENDAR_LOADED',1);
-			$mainframe->addCSS($mosConfig_live_site.'/includes/js/calendar/calendar-mos.css');
-			$mainframe->addJS($mosConfig_live_site.'/includes/js/calendar/calendar_mini.js');
-			$mainframe->addJS($mosConfig_live_site.'/includes/js/calendar/lang/calendar-ru.js');
+			$mainframe = MosMainFrame::getInstance();
+			$mainframe->addCSS(Jconfig::getInstance()->config_live_site.'/includes/js/calendar/calendar-mos.css');
+			$mainframe->addJS(Jconfig::getInstance()->config_live_site.'/includes/js/calendar/calendar_mini.js');
+			$mainframe->addJS(Jconfig::getInstance()->config_live_site.'/includes/js/calendar/lang/calendar-ru.js');
 		}
 	}
 	/* подключение mootools*/
 	function loadMootools($ret = false) {
-		global $mosConfig_live_site,$mainframe;
 		if(!defined('_MOO_LOADED')) {
 			define('_MOO_LOADED',1);
-			$mainframe->addJS($mosConfig_live_site.'/includes/js/mootools/mootools.js');
+			$mainframe = MosMainFrame::getInstance();
+			$mainframe->addJS(Jconfig::getInstance()->config_live_site.'/includes/js/mootools/mootools.js');
 		}
-		if($ret)
-?>
-	<script language="javascript" type="text/javascript" src="<?php echo $mosConfig_live_site;?>/includes/js/mootools/mootools.js"></script>
+		if($ret==true)?>
+			<script language="javascript" type="text/javascript" src="<?php echo Jconfig::getInstance()->config_live_site;?>/includes/js/mootools/mootools.js"></script>
 <?php
 	}
 	/* подключение prettyTable*/
 	function loadPrettyTable() {
-		global $mosConfig_live_site,$mainframe;
 		if(!defined('_PRT_LOADED')) {
 			define('_PRT_LOADED',1);
-			$mainframe->addJS($mosConfig_live_site.'/includes/js/jsfunction/jrow.js');
+			MosMainFrame::getInstance()->addJS(Jconfig::getInstance()->config_live_site.'/includes/js/jsfunction/jrow.js');
 		}
 	}
 	/* подключение Fullajax*/
 	function loadFullajax($ret = false) {
-		global $mosConfig_live_site,$mainframe;
 		if(!defined('_FAX_LOADED')) {
 			define('_FAX_LOADED',1);
 			if($ret){?>
-				<script language="javascript" type="text/javascript" src="<?php echo $mosConfig_live_site;?>/includes/js/fullajax/fullajax.js"></script>
+				<script language="javascript" type="text/javascript" src="<?php echo Jconfig::getInstance()->config_live_site;?>/includes/js/fullajax/fullajax.js"></script>
 <?php
 			}else{
-				$mainframe->addJS($mosConfig_live_site.'/includes/js/fullajax/fullajax.js');
+				MosMainFrame::getInstance()->addJS(Jconfig::getInstance()->config_live_site.'/includes/js/fullajax/fullajax.js');
 			}
 		}
 	}
 
-	/* подключение PQuery*/
-	function loadPquery($type = 1) {
-		global $mosConfig_absolute_path,$mosConfig_live_site,$mainframe;
-		if(!defined('_PQ_LOADED')) {
-			define('_PQ_LOADED',1);
-			$mainframe->addJS($mosConfig_live_site.'/includes/js/jquery/jquery.js');
-			if($type) require_once ($mosConfig_absolute_path."/includes/pquery/pquery.php");
+
+	/* подключение Jquery*/
+	function loadJquery($ret = false) {
+		if(!defined('_JQUERY_LOADED')) {
+			define('_JQUERY_LOADED',1);
+			if($ret){?>
+				<script language="javascript" type="text/javascript" src="<?php echo Jconfig::getInstance()->config_live_site;?>/includes/js/jquery/jquery.js"></script>
+			<?php }else{
+				MosMainFrame::getInstance()->addJS(Jconfig::getInstance()->config_live_site.'/includes/js/jquery/jquery.js');
+			}
 		}
+		return true;
 	}
-	/* подключение файла PQuery*/
-	function inclPquery() {
-		global $mosConfig_absolute_path;
-		if(!defined('_PQ_INCLUDE')) {
-			define('_PQ_INCLUDE',1);
-			require_once ($mosConfig_absolute_path."/includes/pquery/pquery.php");
+	/* подключение расширений Jquery*/
+	function loadJqueryPlugins($name,$ret = false) {
+		$name = trim($name);
+		// если само ядро Jquery не загружено - сначала грузим его
+		if(!defined('_JQUERY_LOADED')) {
+			mosCommonHTML::loadJquery();
 		}
+		// формируем константу-флаг для исключения повтороной загрузки
+		$const = '_JQUERY_PL_'.strtoupper($name).'_LOADED';
+		if(!defined($const)) {
+			define($const,1);
+			if($ret){?>
+				<script language="javascript" type="text/javascript" src="<?php echo Jconfig::getInstance()->config_live_site;?>/includes/js/jquery/plugins/<?php echo $name; ?>.js"></script>
+			<?php }else{
+				MosMainFrame::getInstance()->addJS(Jconfig::getInstance()->config_live_site.'/includes/js/jquery/plugins/'.$name.'.js');
+			}
+		}
+		return true;
+	}
+	/* подключение файла Jquery UI*/
+	function loadJqueryUI($ret = false) {
+		if(!defined('_JQUERY_UI_LOADED')) {
+			define('_JQUERY_UI_LOADED',1);
+			if($ret){?>
+				<script language="javascript" type="text/javascript" src="<?php echo Jconfig::getInstance()->config_live_site;?>/includes/js/jquery/ui.js"></script>
+			<?php }else{
+				MosMainFrame::getInstance()->addJS(Jconfig::getInstance()->config_live_site.'/includes/js/jquery/ui.js');
+			}
+		}
+		return true;
 	}
 
 	/* подключение codepress*/
 	function loadCodepress() {
-		global $mosConfig_live_site,$mainframe;
 		if(!defined('_CODEPRESS_LOADED')) {
 			define('_CODEPRESS_LOADED',1);
-			$mainframe->addJS($mosConfig_live_site.'/includes/js/codepress/codepress.js');
+			MosMainFrame::getInstance()->addJS(Jconfig::getInstance()->config_live_site.'/includes/js/codepress/codepress.js');
 ?><script language="JavaScript">
 CodePress.run = function() {
-	CodePress.path = '<?php echo $mosConfig_live_site; ?>/includes/js/codepress/';
+	CodePress.path = '<?php echo Jconfig::getInstance()->config_live_site; ?>/includes/js/codepress/';
 	t = document.getElementsByTagName('textarea');
 	for(var i=0,n=t.length;i<n;i++) {
 		if(t[i].className.match('codepress')) {
@@ -4829,21 +4861,19 @@ else window.addEventListener('DOMContentLoaded',CodePress.run,false);
 
 	/* подключение dTree*/
 	function loadDtree() {
-		global $mosConfig_live_site,$mainframe;
 		if(!defined('_DTR_LOADED')) {
 			define('_DTR_LOADED',1);
-			$mainframe->addCSS($mosConfig_live_site.'/includes/js/dtree/dtree.css');
-			$mainframe->addJS($mosConfig_live_site.'/includes/js/dtree/dtree.js');
+			MosMainFrame::getInstance()->addCSS(Jconfig::getInstance()->config_live_site.'/includes/js/dtree/dtree.css');
+			MosMainFrame::getInstance()->addJS(Jconfig::getInstance()->config_live_site.'/includes/js/dtree/dtree.js');
 		}
 	}
 
 	/* подключение jwondow*/
 	function loadJWin() {
-		global $mosConfig_live_site,$mainframe;
 		if(!defined('_JWIN_LOADED')) {
 			define('_JWIN_LOADED',1);
-			$mainframe->addCSS($mosConfig_live_site.'/includes/js/jwindow/jwindow.css');
-			$mainframe->addJS($mosConfig_live_site.'/includes/js/jwindow/jwindow.js');
+			MosMainFrame::getInstance()->addCSS(Jconfig::getInstance()->config_live_site.'/includes/js/jwindow/jwindow.css');
+			MosMainFrame::getInstance()->addJS(Jconfig::getInstance()->config_live_site.'/includes/js/jwindow/jwindow.js');
 		}
 	}
 
@@ -5010,19 +5040,18 @@ function SortArrayObjects(&$a,$k,$sort_direction = 1) {
 * Sends mail to admin
 */
 function mosSendAdminMail($adminName,$adminEmail,$email,$type) {
-	global $mosConfig_mailfrom,$mosConfig_fromname;
+	//global $mosConfig_mailfrom,$mosConfig_fromname;
 	$subject = _MAIL_SUB." '$type'";
 	$message = _MAIL_MSG;
 	eval("\$message = \"$message\";");
-	mosMail($mosConfig_mailfrom,$mosConfig_fromname,$adminEmail,$subject,$message);
+	mosMail(Jconfig::getInstance()->config_mailfrom,Jconfig::getInstance()->config_fromname,$adminEmail,$subject,$message);
 }
 
 /*
 * Includes pathway file
 */
 function mosPathWay() {
-	global $mosConfig_absolute_path;
-	require_once ($mosConfig_absolute_path.'/includes/pathway.php');
+	require_once (Jconfig::getInstance()->config_absolute_path.'/includes/pathway.php');
 }
 
 /**
@@ -5126,15 +5155,20 @@ function mosChmodRecursive($path,$filemode = null,$dirmode = null) {
 * @return TRUE=all succeeded FALSE=one or more chmods failed
 */
 function mosChmod($path) {
-	global $mosConfig_fileperms,$mosConfig_dirperms;
-	$mosConfig_fileperms = trim($mosConfig_fileperms);
-	$mosConfig_dirperms = trim($mosConfig_fileperms);
+	//global $mosConfig_fileperms,$mosConfig_dirperms;
+	Jconfig::getInstance()->config_fileperms = trim(Jconfig::getInstance()->config_fileperms);
+	Jconfig::getInstance()->config_dirperms = trim(Jconfig::getInstance()->config_fileperms);
 	$filemode = null;
-	if($mosConfig_fileperms != '') $filemode = octdec($mosConfig_fileperms);
+	if(Jconfig::getInstance()->config_fileperms != ''){
+		$filemode = octdec(Jconfig::getInstance()->config_fileperms);
+	}
 	$dirmode = null;
-	if($mosConfig_dirperms != '') $dirmode = octdec($mosConfig_dirperms);
-	if(isset($filemode) || isset($dirmode)) return mosChmodRecursive($path,$filemode,
-			$dirmode);
+	if(Jconfig::getInstance()->config_dirperms != ''){
+		$dirmode = octdec(Jconfig::getInstance()->config_dirperms);
+	}
+	if(isset($filemode) || isset($dirmode)){
+		return mosChmodRecursive($path,$filemode,$dirmode);
+	}
 	return true;
 } // mosChmod
 
@@ -5712,17 +5746,17 @@ class joostina_api {
 }
 
 function _check_host() {
-	global $mosConfig_live_site,$mosConfig_www_redir;
-	if(!$mosConfig_www_redir) {
+	//global $mosConfig_live_site,$mosConfig_www_redir;
+	if(!Jconfig::getInstance()->config_www_redir) {
 		return;
 	}
 	$uri = mosgetparam($_SERVER,'REQUEST_URI','');
 	if (strpos($uri,'/') === 0) {
 		$uri = substr($uri,1);
 	}
-	$realhost = mosgetparam($_SERVER,'SERVER_NAME',$mosConfig_live_site);
+	$realhost = mosgetparam($_SERVER,'SERVER_NAME',Jconfig::getInstance()->config_live_site);
 
-	preg_match("/^(http:\/\/)?([^\/]+)/i", $mosConfig_live_site, $matches);
+	preg_match("/^(http:\/\/)?([^\/]+)/i", Jconfig::getInstance()->config_live_site, $matches);
 	$confhost = $matches[2];
 	if (preg_match ("'^www.'si",$confhost) && !preg_match ("'^www.'si",$realhost)){
 		mosredirect(sefRelToAbs($uri));
@@ -5734,11 +5768,11 @@ function _check_host() {
 
 // очистка каталога кэша
 function _clear_cache(){
-	global $mosConfig_cachepath,$mosConfig_cachetime;
+	//global $mosConfig_cachepath,$mosConfig_cachetime;
 
 	flush();
-	$cacheDir = $mosConfig_cachepath.'/';
-	$refreshTime=time()-$mosConfig_cachetime;
+	$cacheDir = Jconfig::getInstance()->config_cachepath.'/';
+	$refreshTime=time() - Jconfig::getInstance()->config_cachetime;
 	if(!($dh=opendir($cacheDir))){
 		return false;
 	}
@@ -5753,11 +5787,11 @@ function _clear_cache(){
 }
 
 function _optimizetables() {
-	global $mosConfig_db,$mosConfig_cachepath;
+	//global $mosConfig_db,$mosConfig_cachepath;
 
 	$database = database::getInstance();
 
-	$flag = $mosConfig_cachepath.'/optimizetables.flag';
+	$flag = Jconfig::getInstance()->config_cachepath.'/optimizetables.flag';
 	$filetime = @filemtime($flag);
 	$currenttime = time();
 	if($filetime + 86400 > $currenttime) {
@@ -5767,7 +5801,7 @@ function _optimizetables() {
 	@fwrite($f,time());
 	fclose($f);
 	@chmod($flag,0777);
-	$database->setQuery('SHOW TABLES FROM `'.$mosConfig_db.'`');
+	$database->setQuery('SHOW TABLES FROM `'.Jconfig::getInstance()->config_db.'`');
 	$tables = $database->loadResultArray();
 	foreach($tables as $table) {
 		$database->setQuery('OPTIMIZE TABLE `$table`;');

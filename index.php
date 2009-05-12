@@ -80,13 +80,18 @@ if(file_exists($mosConfig_absolute_path.'/components/com_sef/sef.php')) {
 	require_once ($mosConfig_absolute_path.'/includes/sef.php');
 }
 
-
 require_once ($mosConfig_absolute_path.'/includes/frontend.php');
-
 
 // поиск некоторых аргументов url (или form)
 $option = strval(strtolower(mosGetParam($_REQUEST,'option')));
 $Itemid = intval(mosGetParam($_REQUEST,'Itemid',null));
+
+
+/* для отключения доступа к компонентам
+if(in_array($option, array( 'com_content', 'com_bookmark')) ){
+	mosRedirect('index.php');
+}
+*/
 
 if($option == '') {
 	if($Itemid) {
@@ -251,9 +256,6 @@ if($mosConfig_frontend_login == 1) {
 }
 // начало буферизации основного содержимого
 
-include($mosConfig_absolute_path.'/includes/libraries/html_optimize/html_optimize.php');
-
-
 ob_start();
 if($path = $mainframe->getPath('front')) {
 	$task = strval(mosGetParam($_REQUEST,'task',''));
@@ -280,6 +282,7 @@ initGzip();
 
 header('Content-type: text/html; charset=UTF-8');
 // при активном кэшировании отправим браузеру более "правильные" заголовки
+/*
 if(!$mosConfig_caching) { // не кэшируется
 	header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
 	header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
@@ -291,7 +294,7 @@ if(!$mosConfig_caching) { // не кэшируется
 	header('Expires: '.gmdate('D, d M Y H:i:s',time() + 3600).' GMT');
 	header('Cache-Control: max-age=3600');
 }
-
+*/
 
 // отображение предупреждения о выключенном сайте, при входе админа
 if(defined('_ADMIN_OFFLINE')) {
@@ -340,9 +343,8 @@ doGzip();
 if($mosConfig_optimizetables == 1) {
 	joostina_api::optimizetables();
 }
-// очистка каталога кэша
-//if($mosConfig_clearCache == 1 && $mosConfig_caching == 1) {
-	joostina_api::clear_cache();
-//}
+
+joostina_api::clear_cache();
+
 exit();
 ?>

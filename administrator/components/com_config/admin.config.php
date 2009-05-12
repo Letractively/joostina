@@ -17,7 +17,7 @@ if(!$acl->acl_check('administration','config','users',$my->usertype)) {
 require_once ($mainframe->getPath('admin_html'));
 
 switch($task) {
-	
+
 	//показ формы конфигурации для компонента
 	case 'component_config':
 		showComponentConfig(mosGetParam($_REQUEST,'component',''));
@@ -26,7 +26,7 @@ switch($task) {
 	case 'save_component_config':
 		saveComponentConfig();
 		break;
-		
+
 	case 'apply':
 	case 'save':
 		js_menu_cache_clear();
@@ -47,7 +47,7 @@ switch($task) {
 * @param string The URL option
 */
 function showconfig($option) {
-	global $database,$mosConfig_absolute_path,$mosConfig_editor;
+	global $database,$mosConfig_absolute_path,$mosConfig_editor,$mosConfig_cache_handler;
 
 	$row = new JConfig();
 	$row->bindGlobals();
@@ -63,8 +63,7 @@ function showconfig($option) {
 	if($handle = opendir($mosConfig_absolute_path.'/language/')) {
 		$i = 0;
 		while(false !== ($file = readdir($handle))) {
-			if(!strcasecmp(substr($file,-4),".php") && $file != "." && $file != ".." &&
-				strcasecmp(substr($file,-11),".ignore.php")) {
+			if(!strcasecmp(substr($file,-4),".php") && $file != "." && $file != ".." && strcasecmp(substr($file,-11),".ignore.php")) {
 				$langs[]= mosHTML::makeOption(substr($file,0,-4));
 			}
 		}
@@ -195,13 +194,10 @@ function showconfig($option) {
 	$lists['form_date_help']= mosHTML::selectList($date_help,'config_form_date_h','class="inputbox" size="1" onchange="adminForm.config_form_date.value=this.value;"','value','text',$row->config_form_date);
 	// полный формат даты и времени
 	$lists['form_date_full_help']= mosHTML::selectList($date_help,'config_form_date_full_h','class="inputbox" size="1" onchange="adminForm.config_form_date_full.value=this.value;"','value','text',$row->config_form_date_full);
-
-	// поддержка работы на младших версиях MySQL
-	$lists['config_dbold']= mosHTML::yesnoRadioList('config_dbold','class="inputbox"',$row->config_dbold);
 	// поддержка работы на младших версиях MySQL
 	$lists['config_pathway_clean']= mosHTML::yesnoRadioList('config_pathway_clean','class="inputbox"',$row->config_pathway_clean);
 	// отключение удаления сессий в панели управления
-	$lists['config_adm_session_del']= mosHTML::yesnoRadioList('config_adm_session_del','class="inputbox"',$row->config_adm_session_del);
+	$lists['config_admin_autologout']= mosHTML::yesnoRadioList('config_admin_autologout','class="inputbox"',$row->config_admin_autologout);
 	// отключение кнопки "Помощь"
 	$lists['config_disable_button_help']= mosHTML::yesnoRadioList('config_disable_button_help','class="inputbox"',$row->config_disable_button_help);
 	// отключение блокировок объектов
@@ -399,13 +395,13 @@ function showconfig($option) {
 		mosHTML::makeOption( '1', 'Имя-текст' ),
 		mosHTML::makeOption( '2', 'Ник-текст' ),
 		mosHTML::makeOption( '3', 'Имя-ссылка' ),
-        mosHTML::makeOption( '4', 'Ник-ссылка' ),
+		mosHTML::makeOption( '4', 'Ник-ссылка' ),
 	);
 	$lists['link_titles']		= mosHTML::yesnoRadioList( 'config_link_titles', 'class="inputbox"', $row->config_link_titles );
 	$lists['readmore']			= mosHTML::yesnoRadioList('config_readmore', 'class="inputbox"', $row->config_readmore);
 	$lists['vote']				= mosHTML::yesnoRadioList('config_vote', 'class="inputbox"', $row->config_vote );
 	$lists['hideAuthor']		= mosHTML::yesnoRadioList('config_hideAuthor', 'class="inputbox"', $row->config_hideAuthor );
-    $lists['authorName']        = mosHTML::selectList( $author_name_type, 'config_authorName', 'class="inputbox" size="1"', 'value', 'text', $row->config_authorName );
+	$lists['authorName']		= mosHTML::selectList( $author_name_type, 'config_authorName', 'class="inputbox" size="1"', 'value', 'text', $row->config_authorName );
 	$lists['hideCreateDate']	= mosHTML::yesnoRadioList('config_hideCreateDate', 'class="inputbox"', $row->config_hideCreateDate);
 	$lists['hideModifyDate']	= mosHTML::yesnoRadioList('config_hideModifyDate', 'class="inputbox"', $row->config_hideModifyDate);
 	$lists['hits']				= mosHTML::yesnoRadioList('config_hits', 'class="inputbox"', $row->config_hits);
@@ -432,7 +428,6 @@ function showconfig($option) {
 
 
 	$locales = array(
-		mosHTML::makeOption( '', '- '.$adminLanguage->A_COMP_CONF_AUTOSEL.' -' ),
 		mosHTML::makeOption( 'ru_RU.utf8', 'ru_RU.utf8'),
 		mosHTML::makeOption( 'russian', 'russian (windows)'),
 		mosHTML::makeOption( 'english', 'english (for windows)'),
@@ -506,12 +501,17 @@ function showconfig($option) {
 	$cache_handler = array();
 	$cache_handler[]= mosHTML::makeOption( 'file', 'file' );
 	if(function_exists('eaccelerator_get'))	$cache_handler[] = mosHTML::makeOption( 'eaccelerator', 'eAccelerator' );
-	if(function_exists('apc_fetch'))		$cache_handler[] = mosHTML::makeOption( 'apc', 'APC' );
+	if(extension_loaded('apc'))		$cache_handler[] = mosHTML::makeOption( 'apc', 'APC' );
 	if(class_exists('Memcache'))			$cache_handler[] = mosHTML::makeOption( 'memcache', 'Memcache' );
 	if(function_exists('xcache_set'))		$cache_handler[] = mosHTML::makeOption( 'xcache', 'Xcache' );
-
+	// оработчик кэширования
 	$lists['cache_handler']= mosHTML::selectList($cache_handler, 'config_cache_handler','class="inputbox" ','value','text',$mosConfig_cache_handler);
 
+	// использование неопубликованных мамботов
+	$lists['config_use_unpublished_mambots']= mosHTML::yesnoRadioList('config_use_unpublished_mambots','class="inputbox"',$row->config_use_unpublished_mambots);
+
+	// boston, отключение syndicate
+	$lists['syndicate_off']= mosHTML::yesnoRadioList('config_syndicate_off','class="inputbox"',$row->config_syndicate_off);
 
 	HTML_config::showconfig($row,$lists,$option);
 }

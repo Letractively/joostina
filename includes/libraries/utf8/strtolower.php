@@ -1,14 +1,4 @@
-<?php
-/**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
-
-// запрет прямого доступа
-defined('_VALID_MOS') or die();
+<?php defined('SYSPATH') OR die('No direct access allowed.');
 /**
  * utf8::strtolower
  *
@@ -18,11 +8,18 @@ defined('_VALID_MOS') or die();
  * @copyright  (c) 2005 Harry Fuecks
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt
  */
-function _strtolower($str){
+function _strtolower($str)
+{
+	if (SERVER_UTF8)
+		return mb_strtolower($str);
+
+	if (utf8::is_ascii($str))
+		return strtolower($str);
 
 	static $UTF8_UPPER_TO_LOWER = NULL;
 
-	if ($UTF8_UPPER_TO_LOWER === NULL){
+	if ($UTF8_UPPER_TO_LOWER === NULL)
+	{
 		$UTF8_UPPER_TO_LOWER = array(
 			0x0041=>0x0061, 0x03A6=>0x03C6, 0x0162=>0x0163, 0x00C5=>0x00E5, 0x0042=>0x0062,
 			0x0139=>0x013A, 0x00C1=>0x00E1, 0x0141=>0x0142, 0x038E=>0x03CD, 0x0100=>0x0101,
@@ -70,17 +67,18 @@ function _strtolower($str){
 		);
 	}
 
-	$uni = Jstring::to_unicode($str);
+	$uni = utf8::to_unicode($str);
 
-	if ($uni === FALSE){
+	if ($uni === FALSE)
 		return FALSE;
-	}
-	$_n = count($uni);
-	for ($i = 0, $c = $_n; $i < $c; $i++){
-		if (isset($UTF8_UPPER_TO_LOWER[$uni[$i]])){
+
+	for ($i = 0, $c = count($uni); $i < $c; $i++)
+	{
+		if (isset($UTF8_UPPER_TO_LOWER[$uni[$i]]))
+		{
 			$uni[$i] = $UTF8_UPPER_TO_LOWER[$uni[$i]];
 		}
 	}
 
-	return Jstring::from_unicode($uni);
+	return utf8::from_unicode($uni);
 }

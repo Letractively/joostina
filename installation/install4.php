@@ -185,7 +185,7 @@ if($siteUrl) {
 	$config .= "\$mosConfig_multipage_toc = '1';\n";
 	$config .= "\$mosConfig_allowUserRegistration = '1';\n";
 	$config .= "\$mosConfig_link_titles = '0';\n";
-	$config .= "\$mosConfig_error_reporting = '-1';\n";
+	$config .= "\$mosConfig_error_reporting = '6143';\n";
 	$config .= "\$mosConfig_list_limit = '30';\n";
 	$config .= "\$mosConfig_caching = '0';\n";
 	$config .= "\$mosConfig_cachepath = '{$configArray['absolutePath']}/cache';\n";
@@ -307,7 +307,7 @@ if($siteUrl) {
 	$config .= "\$mosConfig_admin_bad_auth = '1';\n";
 	$config .= "\$mosConfig_cache_handler = 'file';\n";
 	$config .= "\$mosConfig_enable_admin_secure_code = '0';\n";
-    $config .= "\$mosConfig_AuthorName = '4';\n";
+    $config .= "\$mosConfig_author_name = '4';\n";
 
 	$config .= "setlocale (LC_TIME, \$mosConfig_locale);\n";
 	$config .= "?>";
@@ -452,13 +452,11 @@ echo $delbutton;
        </tr>
        <tr>
         <td align="center">
-         <textarea rows="5" cols="60" name="configcode" onclick="javascript:this.form.configcode.focus();this.form.configcode.select();" ><?php echo
-htmlspecialchars($config); ?></textarea>
+         <textarea rows="5" cols="60" name="configcode" onclick="javascript:this.form.configcode.focus();this.form.configcode.select();" ><?php echo htmlspecialchars($config); ?></textarea>
         </td>
        </tr>
        <?php } ?>
-						<tr><td class="small"><?php /*echo $chmod_report*/
-; ?></td></tr>
+						<tr><td class="small"><?php /*echo $chmod_report*/; ?></td></tr>
       </table>
      </div>
     </div>

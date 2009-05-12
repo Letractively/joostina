@@ -128,7 +128,7 @@ function mosLoadModules($position = 'left',$style = 0,$noindex = 0) {
 		return;
 	}
 	$style = intval($style);
-	$cache = &mosCache::getCache('com_content');
+	$cache = &mosCache::getCache('modules');
 
 	require_once ($mosConfig_absolute_path.'/includes/frontend.html.php');
 
@@ -190,8 +190,7 @@ function mosLoadModules($position = 'left',$style = 0,$noindex = 0) {
 */
 function mosShowHead() {
 	global $database,$option,$my,$mainframe,$_VERSION,$task,$id,$mosConfig_disable_favicon;
-	global $mosConfig_MetaDesc,$mosConfig_MetaKeys,$mosConfig_live_site,$mosConfig_sef,
-		$mosConfig_absolute_path,$mosConfig_sitename,$mosConfig_favicon;
+	global $mosConfig_MetaDesc,$mosConfig_MetaKeys,$mosConfig_live_site,$mosConfig_sef,$mosConfig_absolute_path,$mosConfig_sitename,$mosConfig_favicon;
 
 	$description = '';
 	$keywords = '';
@@ -229,8 +228,10 @@ function mosShowHead() {
 	}
 	// boston, отключение тега Generator
 	global $mosConfig_generator_off,$mosConfig_lang;
-	if($mosConfig_generator_off == 0) $mainframe->addMetaTag('Generator',$_VERSION->CMS.' - '.$_VERSION->COPYRIGHT);
-	//boston, дополнительные теги индексации
+	if($mosConfig_generator_off == 0){
+		$mainframe->addMetaTag('Generator',$_VERSION->CMS.' - '.$_VERSION->COPYRIGHT);
+	}
+
 	global $mosConfig_index_tag,$mosConfig_mtage_base,$mosConfig_mtage_revisit;
 	if($mosConfig_index_tag == 1) {
 		$mainframe->addMetaTag('distribution','global');
@@ -246,14 +247,14 @@ function mosShowHead() {
 
 	// активируем кэширование
 	if(isset($_SERVER['QUERY_STRING']) && !empty($_SERVER['QUERY_STRING'])) {
-		$cache = &mosCache::getCache('com_content');
+		$cache = &mosCache::getCache('header');
 		echo $cache->call('mainframe->getHead',@$_SERVER['QUERY_STRING'],$id);
 	} else {
 		echo $mainframe->getHead();
 	}
 	// очистка ссылки на главную страницу даже при отключенном sef
 	if ( $mosConfig_mtage_base == 1) {
-	echo "<base href=\"$mosConfig_live_site/\" />\r\n";
+		echo "<base href=\"$mosConfig_live_site/\" />\r\n";
 	}
 
 	if($my->id || $mainframe->get('joomlaJavascript')) {
@@ -266,9 +267,7 @@ function mosShowHead() {
 	global $mosConfig_syndicate_off;
 	if($mosConfig_syndicate_off==0) {
 		$row = new mosComponent($database);
-		$query = "SELECT a.* FROM #__components AS a"
-			." WHERE ( a.admin_menu_link = 'option=com_syndicate' OR a.admin_menu_link = 'option=com_syndicate&hidemainmenu=1' )"
-			."\n AND a.option = 'com_syndicate'";
+		$query = "SELECT a.* FROM #__components AS a WHERE ( a.admin_menu_link = 'option=com_syndicate' OR a.admin_menu_link = 'option=com_syndicate&hidemainmenu=1' ) AND a.option = 'com_syndicate'";
 		$database->setQuery($query);
 		$database->loadObject($row);
 

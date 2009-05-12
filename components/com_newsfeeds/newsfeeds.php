@@ -134,8 +134,7 @@ function listFeeds($catid) {
 
 
 function showFeed($feedid) {
-	global $database,$mainframe,$mosConfig_absolute_path,$mosConfig_cachepath,$Itemid,
-		$my;
+	global $database,$mainframe,$mosConfig_absolute_path,$mosConfig_cachepath,$Itemid,$my;
 
 	// check if cache directory is writeable
 	$cacheDir = $mosConfig_cachepath.'/';
@@ -177,7 +176,7 @@ function showFeed($feedid) {
 
 	// full RSS parser used to access image information
 	require_once ($mosConfig_absolute_path.'/includes/domit/xml_domit_rss.php');
-	$LitePath = $mosConfig_absolute_path.'/includes/Cache/Lite.php';
+	$LitePath = $mosConfig_absolute_path.'/includes/includes/libraries/cache/cache.php';
 
 	// Adds parameter handling
 	$menu = $mainframe->get('menu');

@@ -1,4 +1,21 @@
-<?php defined('SYSPATH') OR die('No direct access allowed.');
+<?php
+/**
+* @package Joostina
+* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+*/
+
+// запрет прямого доступа
+defined('_VALID_MOS') or die();
+
+define('EXT','.php');
+
+$_c = JConfig::getInstance()->config_absolute_path.'/includes/libraries/utf8/';
+define('SYSPATH',$_c);
+
+
 /**
  * A port of phputf8 to a unified file/class. Checks PHP status to ensure that
  * UTF-8 support is available and normalize global variables to UTF-8. It also
@@ -18,7 +35,7 @@
  * string functions.
  * @see http://php.net/mbstring
  *
- * $Id: utf8.php 3917 2009-01-21 03:06:22Z zombor $
+ * $Id: utf8.php 4134 2009-03-28 04:37:54Z zombor $
  *
  * @package    Core
  * @author     Kohana Team
@@ -29,34 +46,30 @@
 
 if ( ! preg_match('/^.$/u', 'ñ'))
 {
-	trigger_error
+	die
 	(
 		'<a href="http://php.net/pcre">PCRE</a> has not been compiled with UTF-8 support. '.
 		'See <a href="http://php.net/manual/reference.pcre.pattern.modifiers.php">PCRE Pattern Modifiers</a> '.
-		'for more information. This application cannot be run without UTF-8 support.',
-		E_USER_ERROR
+		'for more information. This application cannot be run without UTF-8 support.'
 	);
 }
 
 if ( ! extension_loaded('iconv'))
 {
-	trigger_error
+	die
 	(
 		'The <a href="http://php.net/iconv">iconv</a> extension is not loaded. '.
 		'Without iconv, strings cannot be properly translated to UTF-8 from user input. '.
-		'This application cannot be run without UTF-8 support.',
-		E_USER_ERROR
+		'This application cannot be run without UTF-8 support.'
 	);
 }
 
 if (extension_loaded('mbstring') AND (ini_get('mbstring.func_overload') & MB_OVERLOAD_STRING))
 {
-	trigger_error
+	die
 	(
 		'The <a href="http://php.net/mbstring">mbstring</a> extension is overloading PHP\'s native string functions. '.
-		'Disable this by setting mbstring.func_overload to 0, 1, 4 or 5 in php.ini or a .htaccess file.'.
-		'This application cannot be run without UTF-8 support.',
-		E_USER_ERROR
+		'Disable this by setting mbstring.func_overload to 0, 1, 4 or 5 in php.ini or a .htaccess file.'
 	);
 }
 
@@ -88,7 +101,7 @@ if (PHP_SAPI == 'cli')
 	$_SERVER['argv'] = utf8::clean($_SERVER['argv']);
 }
 
-final class utf8 {
+class utf8 {
 
 	// Called methods
 	static $called = array();
@@ -118,6 +131,7 @@ final class utf8 {
 
 			if ( ! self::is_ascii($str))
 			{
+
 				// Disable notices
 				$ER = error_reporting(~E_NOTICE);
 
@@ -179,7 +193,7 @@ final class utf8 {
 	{
 		if ( ! isset(self::$called[__FUNCTION__]))
 		{
-			require SYSPATH.'core/utf8/'.__FUNCTION__.EXT;
+			require SYSPATH.__FUNCTION__.EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -199,7 +213,7 @@ final class utf8 {
 	{
 		if ( ! isset(self::$called[__FUNCTION__]))
 		{
-			require SYSPATH.'core/utf8/'.__FUNCTION__.EXT;
+			require SYSPATH.__FUNCTION__.EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -224,7 +238,7 @@ final class utf8 {
 	{
 		if ( ! isset(self::$called[__FUNCTION__]))
 		{
-			require SYSPATH.'core/utf8/'.__FUNCTION__.EXT;
+			require SYSPATH.__FUNCTION__.EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -249,7 +263,7 @@ final class utf8 {
 	{
 		if ( ! isset(self::$called[__FUNCTION__]))
 		{
-			require SYSPATH.'core/utf8/'.__FUNCTION__.EXT;
+			require SYSPATH.__FUNCTION__.EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -273,7 +287,7 @@ final class utf8 {
 	{
 		if ( ! isset(self::$called[__FUNCTION__]))
 		{
-			require SYSPATH.'core/utf8/'.__FUNCTION__.EXT;
+			require SYSPATH.__FUNCTION__.EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -297,7 +311,7 @@ final class utf8 {
 	{
 		if ( ! isset(self::$called[__FUNCTION__]))
 		{
-			require SYSPATH.'core/utf8/'.__FUNCTION__.EXT;
+			require SYSPATH.__FUNCTION__.EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -319,7 +333,7 @@ final class utf8 {
 	{
 		if ( ! isset(self::$called[__FUNCTION__]))
 		{
-			require SYSPATH.'core/utf8/'.__FUNCTION__.EXT;
+			require SYSPATH.__FUNCTION__.EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -341,7 +355,7 @@ final class utf8 {
 	{
 		if ( ! isset(self::$called[__FUNCTION__]))
 		{
-			require SYSPATH.'core/utf8/'.__FUNCTION__.EXT;
+			require SYSPATH.__FUNCTION__.EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -363,7 +377,7 @@ final class utf8 {
 	{
 		if ( ! isset(self::$called[__FUNCTION__]))
 		{
-			require SYSPATH.'core/utf8/'.__FUNCTION__.EXT;
+			require SYSPATH.__FUNCTION__.EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -385,7 +399,7 @@ final class utf8 {
 	{
 		if ( ! isset(self::$called[__FUNCTION__]))
 		{
-			require SYSPATH.'core/utf8/'.__FUNCTION__.EXT;
+			require SYSPATH.__FUNCTION__.EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -410,7 +424,7 @@ final class utf8 {
 	{
 		if ( ! isset(self::$called[__FUNCTION__]))
 		{
-			require SYSPATH.'core/utf8/'.__FUNCTION__.EXT;
+			require SYSPATH.__FUNCTION__.EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -438,7 +452,7 @@ final class utf8 {
 	{
 		if ( ! isset(self::$called[__FUNCTION__]))
 		{
-			require SYSPATH.'core/utf8/'.__FUNCTION__.EXT;
+			require SYSPATH.__FUNCTION__.EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -463,7 +477,7 @@ final class utf8 {
 	{
 		if ( ! isset(self::$called[__FUNCTION__]))
 		{
-			require SYSPATH.'core/utf8/'.__FUNCTION__.EXT;
+			require SYSPATH.__FUNCTION__.EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -488,7 +502,7 @@ final class utf8 {
 	{
 		if ( ! isset(self::$called[__FUNCTION__]))
 		{
-			require SYSPATH.'core/utf8/'.__FUNCTION__.EXT;
+			require SYSPATH.__FUNCTION__.EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -513,7 +527,7 @@ final class utf8 {
 	{
 		if ( ! isset(self::$called[__FUNCTION__]))
 		{
-			require SYSPATH.'core/utf8/'.__FUNCTION__.EXT;
+			require SYSPATH.__FUNCTION__.EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -538,7 +552,7 @@ final class utf8 {
 	{
 		if ( ! isset(self::$called[__FUNCTION__]))
 		{
-			require SYSPATH.'core/utf8/'.__FUNCTION__.EXT;
+			require SYSPATH.__FUNCTION__.EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -561,7 +575,7 @@ final class utf8 {
 	{
 		if ( ! isset(self::$called[__FUNCTION__]))
 		{
-			require SYSPATH.'core/utf8/'.__FUNCTION__.EXT;
+			require SYSPATH.__FUNCTION__.EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -583,7 +597,7 @@ final class utf8 {
 	{
 		if ( ! isset(self::$called[__FUNCTION__]))
 		{
-			require SYSPATH.'core/utf8/'.__FUNCTION__.EXT;
+			require SYSPATH.__FUNCTION__.EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -607,7 +621,7 @@ final class utf8 {
 	{
 		if ( ! isset(self::$called[__FUNCTION__]))
 		{
-			require SYSPATH.'core/utf8/'.__FUNCTION__.EXT;
+			require SYSPATH.__FUNCTION__.EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -630,7 +644,7 @@ final class utf8 {
 	{
 		if ( ! isset(self::$called[__FUNCTION__]))
 		{
-			require SYSPATH.'core/utf8/'.__FUNCTION__.EXT;
+			require SYSPATH.__FUNCTION__.EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -653,7 +667,7 @@ final class utf8 {
 	{
 		if ( ! isset(self::$called[__FUNCTION__]))
 		{
-			require SYSPATH.'core/utf8/'.__FUNCTION__.EXT;
+			require SYSPATH.__FUNCTION__.EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -675,7 +689,7 @@ final class utf8 {
 	{
 		if ( ! isset(self::$called[__FUNCTION__]))
 		{
-			require SYSPATH.'core/utf8/'.__FUNCTION__.EXT;
+			require SYSPATH.__FUNCTION__.EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -703,7 +717,7 @@ final class utf8 {
 	{
 		if ( ! isset(self::$called[__FUNCTION__]))
 		{
-			require SYSPATH.'core/utf8/'.__FUNCTION__.EXT;
+			require SYSPATH.__FUNCTION__.EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -731,7 +745,7 @@ final class utf8 {
 	{
 		if ( ! isset(self::$called[__FUNCTION__]))
 		{
-			require SYSPATH.'core/utf8/'.__FUNCTION__.EXT;
+			require SYSPATH.__FUNCTION__.EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -741,3 +755,81 @@ final class utf8 {
 	}
 
 } // End utf8
+
+class Jstring extends utf8{
+
+	function to_utf8(&$text){
+		if (is_array($text) OR is_object($text)){
+			$d = array();
+			foreach ($text as $k => &$v){
+				$d[Jstring::to_utf8($k)] = Jstring::to_utf8($v);
+			}
+			return $d;
+		}
+		if (is_string($text)){
+			if(self::is_utf8($text)){ // если это юникод - сразу его возвращаем
+				return $text;
+			}
+			if (function_exists('iconv')){ // пробуем конвертировать через iconv
+				return iconv('cp1251', 'utf-8//IGNORE//TRANSLIT', $text);
+			}
+
+			if (! function_exists('cp1259_to_utf8')){ // конвертируем собственнвми средствами
+				$config = JConfig::getInstance();
+				include_once $config->config_absolute_path.'/includes/libraries/utf8/to_utf8.php';
+			}
+			return cp1259_to_utf8(&$text);
+		}
+		return $text;
+	}
+
+	/* проверка на юникод */
+	function is_utf8(&$data, $is_strict = true){
+		if (is_array($data)){ // массив
+			foreach ($data as $k => &$v){
+				if (!self::is_utf8($v, $is_strict)){
+					return false;
+				}
+			}
+			return true;
+		}elseif(is_string($data)){ // строка
+			if (function_exists('iconv')){
+				$distance = strlen($data) - strlen(iconv('UTF-8', 'UTF-8//IGNORE', $data));
+				if ($distance > 0){
+					return false;
+				}
+				if($is_strict && preg_match('/[^\x09\x0A\x0D\x20-\xFF]/sS', $data)){
+					return false;
+				}
+				return true;
+			}
+
+			return self::utf8_check($data, $is_strict);
+
+		}elseif(is_scalar($data) || is_null($data)){ //числа, булево и ничего
+			return true;
+		}
+		return false;
+	}
+	/* проверка на юникод */
+	function utf8_check($str, $is_strict = true) {
+		for($i = 0, $len = strlen($str); $i < $len; $i++) {
+			$c = ord($str[$i]);
+			if($c < 0x80){
+				if($is_strict === false || ($c > 0x1F && $c < 0x7F) || $c == 0x09 || $c == 0x0A || $c == 0x0D) continue;
+			}
+			if(($c & 0xE0) == 0xC0) $n = 1;
+			elseif(($c & 0xF0) == 0xE0) $n = 2;
+			elseif(($c & 0xF8) == 0xF0) $n = 3;
+			elseif(($c & 0xFC) == 0xF8) $n = 4;
+			elseif(($c & 0xFE) == 0xFC) $n = 5;
+			else  return false;
+			for($j = 0; $j < $n; $j++) {
+				$i++;
+				if($i == $len || ((ord($str[$i]) & 0xC0) != 0x80)) return false;
+			}
+		}
+		return true;
+	}
+
+}

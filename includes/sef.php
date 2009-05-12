@@ -374,7 +374,7 @@ if($mosConfig_sef) {
 
 			if($juri != '' && $juri != '/' && !eregi("index\.php",$_SERVER['REQUEST_URI']) && !eregi("index2\.php",$_SERVER['REQUEST_URI']) && !eregi("/\?",$_SERVER['REQUEST_URI']) && $_SERVER['QUERY_STRING'] == '') {
 				header('HTTP/1.0 404 Not Found');
-				require_once ($mosConfig_absolute_path.'/templates/404.php');
+				require_once ($mosConfig_absolute_path.'/templates/system/404.php');
 				exit(404);
 			}
 		}

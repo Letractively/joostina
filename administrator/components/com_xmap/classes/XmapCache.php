@@ -15,28 +15,40 @@ class XmapCache {
 	/**
 	* @return object A function cache object
 	*/
-	function &getCache( &$sitemap ) {
-		global $mosConfig_absolute_path, $mosConfig_caching, $mosConfig_cachepath, $mosConfig_cachetime, $mosConfig_cache_handler, $mosConfig_db_cache_handler, $mosConfig_lang;
+	function &getCache(&$sitemap, $handler = 'callback', $storage = 'file'){
+		$handler = ($handler == 'function') ? 'callback' : $handler;
+
+		$config = &Jconfig::getInstance();
+
+		if(!isset($storage)) {
+			$storage =($config->config_cache_handler != '')? $config->config_cache_handler : 'file';
+		}
 
 		$options = array(
-			'defaultgroup' 	=> 'com_xmap_'.$sitemap->id,
-			'cachebase' 	=> $mosConfig_cachepath.'/',
-			'lifetime' 		=> $mosConfig_cachetime,	// minutes to seconds
-			'language' 		=> $mosConfig_lang,
+			'defaultgroup' 	=> 'com_xmap',
+			'cachebase' 	=> $config->config_cachepath.'/',
+			'lifetime' 		=> $sitemap->cachelifetime,
+			'language' 		=> $config->config_lang,
 			'storage'		=> $storage
 		);
 
-		require_once ($mosConfig_absolute_path.'/includes/libraries/cache/cache.php');
-		$cache =&JCache::getInstance( $handler, $options );
-		$cache->setCaching($mosConfig_caching);
-		return $cache;
 
+
+		require_once ($config->config_absolute_path.'/includes/libraries/cache/cache.php');
+		$cache =&JCache::getInstance( $handler, $options );
+		if($cache != NULL){
+			$cache->setCaching($sitemap->usecache);
+		}
+		return $cache;
 	}
 	/**
 	* Cleans the cache
 	*/
-	function cleanCache( &$sitemap ) {
-		$cache =&XmapCache::getCache( $sitemap );
-		return $cache->clean( $cache->_group );
+	function cleanCache(&$group = false) {
+		$cache = &XmapCache::getCache($group);
+		//_xdump($cache);
+		if($cache != NULL){
+			$cache->clean($cache->_options['defaultgroup']);
+		}
 	}
 }

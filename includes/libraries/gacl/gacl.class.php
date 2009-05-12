@@ -26,6 +26,7 @@ class gacl {
 		$this->_mos_add_acl('administration', 'login', 'users', 'super administrator', null, null);
 		$this->_mos_add_acl('administration', 'login', 'users', 'manager', null, null);
 		$this->_mos_add_acl('administration', 'config', 'users', 'super administrator', null, null);
+		$this->_mos_add_acl('administration', 'edit', 'users', 'super administrator','components', 'com_cache');
 		$this->_mos_add_acl('administration', 'manage', 'users', 'super administrator','components', 'com_templates');
 		$this->_mos_add_acl('administration', 'install', 'users', 'super administrator','installers', 'all');
 		$this->_mos_add_acl('administration', 'install', 'users', 'super administrator','templates', 'all');

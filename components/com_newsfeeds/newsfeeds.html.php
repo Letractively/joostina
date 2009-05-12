@@ -29,7 +29,7 @@ class HTML_newsfeed {
 		<table width="100%" cellpadding="4" cellspacing="0" border="0" align="center" class="contentpane<?php echo $params->get('pageclass_sfx'); ?>">
 
 <?php if($currentcat->descrip) {?>
-        <tr>
+		<tr>
 			<td width="60%" valign="top" class="contentdescription<?php echo $params->get('pageclass_sfx'); ?>" colspan="2">
 <?php
 		// show image
@@ -82,8 +82,7 @@ class HTML_newsfeed {
 	function showTable(&$params,&$rows,$catid,$tabclass) {
 		global $mosConfig_live_site,$Itemid;
 		// icon in table display
-		$img = mosAdminMenus::ImageCheck('con_info.png','/images/M_images/',$params->get
-			('icon'));
+		$img = mosAdminMenus::ImageCheck('con_info.png','/images/M_images/',$params->get('icon'));
 ?>
 		<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
 		<?php
@@ -93,27 +92,21 @@ class HTML_newsfeed {
 				<?php
 			if($params->get('name')) {
 ?>
-					<td height="20" class="sectiontableheader<?php echo $params->get('pageclass_sfx'); ?>">
-					<?php echo _FEED_NAME; ?>
-					</td>
+					<td height="20" class="sectiontableheader<?php echo $params->get('pageclass_sfx'); ?>"><?php echo _FEED_NAME; ?></td>
 					<?php
 			}
 ?>
 				<?php
 			if($params->get('articles')) {
 ?>
-					<td height="20" class="sectiontableheader<?php echo $params->get('pageclass_sfx'); ?>" align="center">
-					<?php echo _FEED_ARTICLES; ?>
-					</td>
+					<td height="20" class="sectiontableheader<?php echo $params->get('pageclass_sfx'); ?>" align="center"><?php echo _FEED_ARTICLES; ?></td>
 					<?php
 			}
 ?>
 				<?php
 			if($params->get('link')) {
 ?>
-					<td height="20" class="sectiontableheader<?php echo $params->get('pageclass_sfx'); ?>">
-					<?php echo _FEED_LINK; ?>
-					</td>
+					<td height="20" class="sectiontableheader<?php echo $params->get('pageclass_sfx'); ?>"><?php echo _FEED_LINK; ?></td>
 					<?php
 			}
 ?>
@@ -130,9 +123,7 @@ class HTML_newsfeed {
 			if($params->get('name')) {
 ?>
 					<td height="20" class="<?php echo $tabclass[$k]; ?>">
-					<a href="<?php echo sefRelToAbs($link); ?>" class="category<?php echo $params->get('pageclass_sfx'); ?>">
-					<?php echo $row->name; ?>
-					</a>
+					<a href="<?php echo sefRelToAbs($link); ?>" class="category<?php echo $params->get('pageclass_sfx'); ?>"><?php echo $row->name; ?></a>
 					</td>
 					<?php
 			}
@@ -221,23 +212,21 @@ class HTML_newsfeed {
 
 
 	function showNewsfeeds(&$newsfeed,$LitePath,$cacheDir,&$params) {
+
 ?>
 		<table width="100%" class="contentpane<?php echo $params->get('pageclass_sfx'); ?>">
-		<?php
-		if($params->get('header')) {
-?>
+<?php if($params->get('header')) { ?>
 			<tr>
-				<td class="componentheading<?php echo $params->get('pageclass_sfx'); ?>" colspan="2">
-				<?php echo $params->get('header'); ?>
-				</td>
+				<td class="componentheading<?php echo $params->get('pageclass_sfx'); ?>" colspan="2"><?php echo $params->get('header'); ?></td>
 			</tr>
-			<?php
+<?php
 		}
 
 		// full RSS parser used to access image information
 		$rssDoc = new xml_domit_rss_document();
 		$rssDoc->setRSSTimeout(5);
-		$rssDoc->useCacheLite(true,$LitePath,$cacheDir,$newsfeed->cache_time);
+
+		$rssDoc->useCacheLite(false,$LitePath,$cacheDir,$newsfeed->cache_time);
 		$success = $rssDoc->loadRSS($newsfeed->link);
 		$utf8enc = $newsfeed->code;
 		if($success) {
@@ -279,13 +268,9 @@ class HTML_newsfeed {
 					$feed_descrip = mosCommonHTML::newsfeedEncoding($rssDoc,$feed_descrip,$utf8enc);
 ?>
 					<tr>
-						<td>
-						<?php echo $feed_descrip; ?>
-						<br />
-						<br />
-						</td>
+						<td><?php echo $feed_descrip; ?><br /><br /></td>
 					</tr>
-					<?php
+<?php
 				}
 				// feed image
 				if($iUrl && $params->get('feed_image')) {
@@ -331,12 +316,10 @@ class HTML_newsfeed {
 								$enclosure = $currItem->getEnclosure();
 								$eUrl = $enclosure->getUrl();
 ?>
-									<a href="<?php echo ampReplace($currItem->getLink()); ?>" target="_blank">
-										<?php echo $item_title; ?></a>
+									<a href="<?php echo ampReplace($currItem->getLink()); ?>" target="_blank"><?php echo $item_title; ?></a>
 									<br />
 									—сылка: 
-									<a href="<?php echo $eUrl; ?>" target="_blank">
-										<?php echo ampReplace($eUrl); ?></a>
+									<a href="<?php echo $eUrl; ?>" target="_blank"><?php echo ampReplace($eUrl); ?></a>
 <?php
 							}
 					// END fix for RSS enclosure tag url not showing

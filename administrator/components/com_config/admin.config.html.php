@@ -393,6 +393,14 @@ $comp_list = mosHTML::selectList($out_components_arr,'component','','name','name
 				</td>
 			</tr>
 			<tr>
+				<td><?php echo _ENABLE_UNPUBLISHED_MAMBOTS?>:</td>
+				<td><?php
+		echo $lists['config_use_unpublished_mambots'];
+		echo mosToolTip(_ENABLE_UNPUBLISHED_MAMBOTS_HELP);
+?>
+				</td>
+			</tr>
+			<tr>
 				<td><?php echo _SITE_AUTH?>:</td>
 				<td><?php echo $lists['frontend_login'];
 		$tip = _SITE_AUTH2;
@@ -481,7 +489,7 @@ $comp_list = mosHTML::selectList($out_components_arr,'component','','name','name
 		<table class="adminform">
 			<tr>
 				<td width="300"><?php echo _DISABLE_ADMIN_SESS_DEL?>:</td>
-				<td><?php echo $lists['config_adm_session_del'];
+				<td><?php echo $lists['config_admin_autologout'];
 						echo mosToolTip(_DISABLE_ADMIN_SESS_DEL2); ?>
 				</td>
 			</tr>
@@ -756,15 +764,6 @@ $comp_list = mosHTML::selectList($out_components_arr,'component','','name','name
 				<td>
 <?php echo $lists['optimizetables'];
 		$tip = _EVERYDAY_OPTIMIZATION2;
-		echo mosToolTip($tip);
-?>
-				</td>
-			</tr>
-			<tr>
-				<td><?php echo _OLD_MYSQL_SUPPORT?>:</td>
-				<td>
-<?php echo $lists['config_dbold'];
-		$tip = _OLD_MYSQL_SUPPORT2;
 		echo mosToolTip($tip);
 ?>
 				</td>

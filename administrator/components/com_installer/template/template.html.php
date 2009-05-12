@@ -15,57 +15,6 @@ defined('_VALID_MOS') or die();
 * @subpackage Templates
 */
 class HTML_templates {
-	
-	// прорисовка кнопок управления
-	function quickiconButton($link,$image,$text) {
-		?>
-		<span>
-		<a href="<?php echo $link; ?>" title="<?php echo $text; ?>">
-		<?php
-		echo mosAdminMenus::imageCheckAdmin($image,'/'.ADMINISTRATOR_DIRECTORY.'/images/',null,null,$text);
-		echo $text;
-		?>
-		</a>
-		</span>
-		<?php
-	}
-	function cPanel() {?>
-
-		<table>
-		<tr>
-		<td width="100%" valign="top">
-		<div class="cpicons">
-		<?php
-
-		$link = 'index2.php?option=com_installer&amp;element=installer';
-		HTML_templates::quickiconButton($link,'down.png', _INSTALLATION);
-
-		$link = 'index2.php?option=com_installer&amp;element=component';
-		HTML_templates::quickiconButton($link,'db.png', _COMPONENTS);
-
-		$link = 'index2.php?option=com_installer&amp;element=module';
-		HTML_templates::quickiconButton($link,'db.png', _MODULES);
-
-		$link = 'index2.php?option=com_installer&amp;element=mambot';
-		HTML_templates::quickiconButton($link,'ext.png', _MAMBOTS);
-
-		$link = 'index2.php?option=com_installer&amp;element=template';
-		HTML_templates::quickiconButton($link,'joostina.png', _MENU_SITE_TEMPLATES);
-		
-		$link = 'index2.php?option=com_installer&amp;element=template&client=admin';
-		HTML_templates::quickiconButton($link,'joostina.png', _MENU_ADMIN_TEMPLATES);
-
-		$link = 'index2.php?option=com_installer&amp;element=language';
-		HTML_templates::quickiconButton($link,'log.png', _SITE_LANGUAGES);
-
-		?>
-		</div>
-		</td>
-		</tr>
-		</table>
-		<?php
-	}
-	
 	/**
 	* @param array An array of data objects
 	* @param object A page navigation object
@@ -105,7 +54,7 @@ class HTML_templates {
 			<td align="right"><input type="checkbox" name="doPreview" checked="checked"/></td>
 		</tr>
 		<tr> 
-			<?php HTML_templates::cPanel(); ?>
+			<?php HTML_installer::cPanel(); ?>
 		</tr>
 		</table>
 		<table class="adminlist">
@@ -133,13 +82,12 @@ class HTML_templates {
 		</tr>
 <?php
 		$k = 0;
-		for($i = 0,$n = count($rows); $i < $n; $i++) {
+		$_n = count($rows);
+		for($i = 0,$n = $_n; $i < $n; $i++) {
 			$row = &$rows[$i];
 ?>
-			<tr class="<?php echo 'row'.$k; ?>">
-				<td>
-					<?php echo $pageNav->rowNumber($i); ?>
-				</td>
+			<tr class="row<?php echo $k; ?>">
+				<td><?php echo $pageNav->rowNumber($i); ?></td>
 				<td>
 <?php
 					if($row->checked_out && $row->checked_out != $my->id) {

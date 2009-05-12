@@ -10,11 +10,12 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-// load language file
-if( file_exists($GLOBALS['mosConfig_absolute_path'].'/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/language/'.$GLOBALS['mosConfig_lang'].'.php') ) {
-	require_once( $GLOBALS['mosConfig_absolute_path'].'/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/language/'.$GLOBALS['mosConfig_lang'].'.php' );
+global $mosConfig_lang;
+
+if(file_exists($mosConfig_absolute_path . '/language/'.$mosConfig_lang.'/com_xmap.php')) {
+	require_once( $mosConfig_absolute_path .'/language/' . $mosConfig_lang . '/com_xmap.php' );
 } else {
-	require_once( $GLOBALS['mosConfig_absolute_path'].'/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/language/english.php' );
+	require_once( $mosConfig_absolute_path .'/language/russian/com_xmap.php' );
 }
 // load html output class
 require_once( $mainframe->getPath( 'toolbar_html' ) );

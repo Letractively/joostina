@@ -18,8 +18,7 @@ require_once ($mainframe->getPath('installer_class','installer'));
 */
 class mosInstallerMambot extends mosInstaller {
 	
-	function __construct($pre_installer)
-	{
+	function __construct($pre_installer){
 	  // Copy data 
 	  $this->i_installfilename = $pre_installer->i_installfilename;
 	  $this->i_installarchive = $pre_installer->i_installarchive;
@@ -191,7 +190,7 @@ class mosInstallerMambot extends mosInstaller {
 			exit();
 		}
 
-		$query = "DELETE FROM #__mambots"."\n WHERE id = ".(int)$id;
+		$query = "DELETE FROM #__mambots WHERE id = ".(int)$id;
 		$database->setQuery($query);
 		if(!$database->query()) {
 			$msg = $database->stderr;

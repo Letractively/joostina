@@ -78,10 +78,8 @@ class mosInstaller {
 	 * @return mixed Path to downloaded package or boolean false on failure
 	 * @since 1.3
 	 */
-	function downloadPackage($url, $target = false)
-	{
-		global $mosConfig_absolute_path;
-		$base_Dir = mosPathName($mosConfig_absolute_path.'/media');
+	function downloadPackage($url, $target = false){
+		$base_Dir = mosPathName(Jconfig::getInstance()->config_absolute_path.'/media');
 
 		// Capture PHP errors
 		$php_errormsg = 'Error Unknown';
@@ -95,7 +93,7 @@ class mosInstaller {
 		$error = strstr($php_errormsg,'failed to open stream:');
 		
 		if (!$inputHandle) {
-			$this->setError(1,'Не удалось установить связь с удаленным сервером');
+			$this->setError(1,_CANNOT_CONNECT_SERVER);
 			return false;
 		}
 		
@@ -165,9 +163,8 @@ class mosInstaller {
 	 * @return boolean True on success, False on error
 	 */
 	function extractArchive() {
-		global $mosConfig_absolute_path;
 
-		$base_Dir = mosPathName($mosConfig_absolute_path.'/media');
+		$base_Dir = mosPathName(Jconfig::getInstance()->config_absolute_path.'/media');
 
 		$archivename = $base_Dir.$this->installArchive();
 		$tmpdir = uniqid('install_');
@@ -179,8 +176,8 @@ class mosInstaller {
 
 		if(eregi('.zip$',$archivename)) {
 			// Extract functions
-			require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/includes/pcl/pclzip.lib.php');
-			require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/includes/pcl/pclerror.lib.php');
+			require_once (Jconfig::getInstance()->config_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/includes/pcl/pclzip.lib.php');
+			require_once (Jconfig::getInstance()->config_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/includes/pcl/pclerror.lib.php');
 			$zipfile = new PclZip($archivename);
 			if($this->isWindows()) {
 				define('OS_WINDOWS',1);
@@ -194,7 +191,7 @@ class mosInstaller {
 				return false;
 			}
 		} else {
-			require_once ($mosConfig_absolute_path.'/includes/Archive/Tar.php');
+			require_once (Jconfig::getInstance()->config_absolute_path.'/includes/Archive/Tar.php');
 			$archive = new Archive_Tar($archivename);
 			$archive->setErrorHandling(PEAR_ERROR_PRINT);
 
@@ -417,8 +414,7 @@ class mosInstaller {
 	 * @param boolean True for Administrator components
 	 * @return mixed Number of file or False on error
 	 */
-	function parseFiles($tagName = 'files',$special = '',$specialError = '',$adminFiles =
-		0) {
+	function parseFiles($tagName = 'files',$special = '',$specialError = '',$adminFiles =0) {
 		global $mosConfig_absolute_path;
 		// Find files to copy
 		$xmlDoc = &$this->xmlDoc();
@@ -458,14 +454,12 @@ class mosInstaller {
 
 				if($adminFiles) {
 					if(!mosMakePath($this->componentAdminDir(),$newdir)) {
-						$this->setError(1,_CANNOT_CREATE_DIR.' "'.($this->componentAdminDir()).$newdir.
-							'"');
+						$this->setError(1,_CANNOT_CREATE_DIR.' "'.($this->componentAdminDir()).$newdir.'"');
 						return false;
 					}
 				} else {
 					if(!mosMakePath($this->elementDir(),$newdir)) {
-						$this->setError(1,_CANNOT_CREATE_DIR.' "'.($this->elementDir()).$newdir.
-							'"');
+						$this->setError(1,_CANNOT_CREATE_DIR.' "'.($this->elementDir()).$newdir.'"');
 						return false;
 					}
 				}
@@ -548,8 +542,7 @@ class mosInstaller {
 				($this->installFilename())),true);
 		} else
 			if($where == 'front') {
-				return $this->copyFiles($this->installDir(),$this->elementDir(),array(basename($this->installFilename
-					())),true);
+				return $this->copyFiles($this->installDir(),$this->elementDir(),array(basename($this->installFilename())),true);
 			}
 	}
 

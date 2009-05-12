@@ -161,7 +161,7 @@ function viewModules($option,$client) {
 			."\n WHERE module!='' AND client_id = ".(int)$client_id."\n GROUP BY module"
 			."\n ORDER BY module";
 	$types[] = mosHTML::makeOption('0',_SEL_TYPE);
-	$types[] = mosHTML::makeOption('user_create','Пользовательские');
+	$types[] = mosHTML::makeOption('user_create',_USER_MODULES);
 	$database->setQuery($query);
 	$types = array_merge($types,$database->loadObjectList());
 	$lists['type'] = mosHTML::selectList($types,'filter_type','class="inputbox" size="1" onchange="document.adminForm.submit( );"','value','text',"$filter_type");
@@ -180,7 +180,7 @@ function copyModule($option,$uid,$client) {
 	$row = new mosModule($database);
 	// load the row from the db table
 	$row->load((int)$uid);
-	$row->title = 'Копия '.$row->title;
+	$row->title = _MODULES_COPY.$row->title;
 	$row->id = 0;
 	$row->iscore = 0;
 	$row->published = 0;
@@ -201,14 +201,13 @@ function copyModule($option,$uid,$client) {
 	}
 	$row->updateOrder('position='.$database->Quote($row->position)." AND ($where)");
 
-	$query = "SELECT menuid"."\n FROM #__modules_menu"."\n WHERE moduleid = ".(int)
+	$query = "SELECT menuid FROM #__modules_menu WHERE moduleid = ".(int)
 		$uid;
 	$database->setQuery($query);
 	$rows = $database->loadResultArray();
 
 	foreach($rows as $menuid) {
-		$query = "INSERT INTO #__modules_menu"."\n SET moduleid = ".(int)$row->id.
-			", menuid = ".(int)$menuid;
+		$query = "INSERT INTO #__modules_menu SET moduleid = ".(int)$row->id.", menuid = ".(int)$menuid;
 		$database->setQuery($query);
 		$database->query();
 	}
@@ -260,7 +259,7 @@ function saveModule($option,$client,$task) {
 	$menus = josGetArrayInts('selections');
 
 	// delete old module to menu item associations
-	$query = "DELETE FROM #__modules_menu"."\n WHERE moduleid = ".(int)$row->id;
+	$query = "DELETE FROM #__modules_menu WHERE moduleid = ".(int)$row->id;
 	$database->setQuery($query);
 	$database->query();
 
@@ -268,8 +267,7 @@ function saveModule($option,$client,$task) {
 	// and other menu items resulting in a module being displayed twice
 	if(in_array('0',$menus)) {
 		// assign new module to `all` menu item associations
-		$query = "INSERT INTO #__modules_menu"."\n SET moduleid = ".(int)$row->id.
-			", menuid = 0";
+		$query = "INSERT INTO #__modules_menu SET moduleid = ".(int)$row->id.", menuid = 0";
 		$database->setQuery($query);
 		$database->query();
 	} else {
@@ -277,8 +275,7 @@ function saveModule($option,$client,$task) {
 			// this check for the blank spaces in the select box that have been added for cosmetic reasons
 			if($menuid != "-999") {
 				// assign new module to menu item associations
-				$query = "INSERT INTO #__modules_menu"."\n SET moduleid = ".(int)$row->id.
-					", menuid = ".(int)$menuid;
+				$query = "INSERT INTO #__modules_menu SET moduleid = ".(int)$row->id.", menuid = ".(int)$menuid;
 				$database->setQuery($query);
 				$database->query();
 			}
@@ -454,11 +451,10 @@ function removeModule(&$cid,$option,$client) {
 	mosArrayToInts($cid);
 	$cids = 'id='.implode(' OR id=',$cid);
 
-	$query = "SELECT id, module, title, iscore, params"."\n FROM #__modules WHERE ( $cids )";
+	$query = "SELECT id, module, title, iscore, params FROM #__modules WHERE ( $cids )";
 	$database->setQuery($query);
 	if(!($rows = $database->loadObjectList())) {
-		echo "<script> alert('".$database->getErrorMsg().
-			"'); window.history.go(-1); </script>\n";
+		echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
 		exit;
 	}
 
@@ -482,16 +478,15 @@ function removeModule(&$cid,$option,$client) {
 	if(count($cid)) {
 		mosArrayToInts($cid);
 		$cids = 'id='.implode(' OR id=',$cid);
-		$query = "DELETE FROM #__modules"."\n WHERE ( $cids )";
+		$query = "DELETE FROM #__modules WHERE ( $cids )";
 		$database->setQuery($query);
 		if(!$database->query()) {
-			echo "<script> alert('".$database->getErrorMsg().
-				"'); window.history.go(-1); </script>\n";
+			echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
 			exit;
 		}
 		// mosArrayToInts( $cid ); // just done a few lines earlier
 		$cids = 'moduleid='.implode(' OR moduleid=',$cid);
-		$query = "DELETE FROM #__modules_menu"."\n WHERE ( $cids )";
+		$query = "DELETE FROM #__modules_menu WHERE ( $cids )";
 		$database->setQuery($query);
 		if(!$database->query()) {
 			echo "<script> alert('".$database->getErrorMsg()."');</script>\n";
@@ -530,12 +525,10 @@ function publishModule($cid = null,$publish = 1,$option,$client) {
 	mosArrayToInts($cid);
 	$cids = 'id='.implode(' OR id=',$cid);
 
-	$query = "UPDATE #__modules"."\n SET published = ".(int)$publish."\n WHERE ( $cids )".
-		"\n AND ( checked_out = 0 OR ( checked_out = ".(int)$my->id." ) )";
+	$query = "UPDATE #__modules"."\n SET published = ".(int)$publish."\n WHERE ( $cids ) AND ( checked_out = 0 OR ( checked_out = ".(int)$my->id." ) )";
 	$database->setQuery($query);
 	if(!$database->query()) {
-		echo "<script> alert('".$database->getErrorMsg().
-			"'); window.history.go(-1); </script>\n";
+		echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
 		exit();
 	}
 
@@ -645,8 +638,7 @@ function saveOrder(&$cid,$client) {
 		if($row->ordering != $order[$i]) {
 			$row->ordering = $order[$i];
 			if(!$row->store()) {
-				echo "<script> alert('".$database->getErrorMsg().
-					"'); window.history.go(-1); </script>\n";
+				echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
 				exit();
 			} // if
 			// remember to updateOrder this group

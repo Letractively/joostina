@@ -27,9 +27,7 @@ $show_logged	= $params->get('show_logged', 1);
 
 
 // запрос из базы параметров пользователей
-$query = "SELECT id, name, username, registerDate, usertype, block"
-		. "\n FROM #__users"
-		. "\n ORDER BY registerDate DESC";
+$query = "SELECT id, name, username, registerDate, usertype, block FROM #__users ORDER BY registerDate DESC";
 $database->setQuery($query,0,$limit);
 $rows = $database->loadObjectList();
 
@@ -95,7 +93,7 @@ $k = 1 - $k;
 }
 unset($rows,$row);
 
-$text .= '';
+$text = '';
 $text .= $show_logged	? _NOW_ON_SITE.': <b>'.$show_logged. '</b><br />':null;
 if($show_total or $show_today or $show_week or $show_month ){
 	$text .= _REGISTERED_USERS_COUNT.': ';

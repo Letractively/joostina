@@ -21,8 +21,7 @@ function writableCell($folder) {
 */
 class HTML_installer {
 
-	function showInstallForm($title,$option,$element,$client = "",$p_startdir = "",
-		$backLink = "") {
+	function showInstallForm($title,$option,$element,$client = "",$p_startdir = "",$backLink = "") {
 ?>
 	<script language="javascript" type="text/javascript">
 		function submitbutton3(pressbutton) {
@@ -97,7 +96,6 @@ class HTML_installer {
 	* @param string
 	*/
 	function showInstallMessage($message,$title,$url) {
-		global $PHP_SELF;
 ?>
 	<table class="adminheading">
 		<tr>
@@ -109,10 +107,57 @@ class HTML_installer {
 			<td align="left"><strong><?php echo $message; ?></strong></td>
 		</tr>
 		<tr>
-			<td colspan="2" align="center">[&nbsp;<a href="<?php echo $url; ?>" style="font-size: 16px; font-weight: bold"><?php echo _CONTINUE?> ...</a>&nbsp;]</td>
+			<td colspan="2" align="center">[&nbsp;<a href="<?php echo $url; ?>" style="font-size: 16px; font-weight: bold"><?php echo _CONTINUE ?> ...</a>&nbsp;]</td>
 		</tr>
 	</table>
 		<?php
 	}
+	// прорисовка кнопок управления
+	function quickiconButton($link,$image,$text) {
+		?>
+		<span><a href="<?php echo $link; ?>" title="<?php echo $text; ?>">
+<?php
+		echo mosAdminMenus::imageCheckAdmin($image,'/'.ADMINISTRATOR_DIRECTORY.'/images/',null,null,$text);
+		echo $text;
+?>
+		</a></span>
+		<?php
+	}
+	function cPanel() {?>
+	<table>
+		<tr>
+		<td width="100%" valign="top">
+		<div class="cpicons">
+<?php
+
+		$link = 'index2.php?option=com_installer&amp;element=installer';
+		HTML_installer::quickiconButton($link,'down.png', _INSTALLATION);
+
+		$link = 'index2.php?option=com_installer&amp;element=component';
+		HTML_installer::quickiconButton($link,'db.png', _COMPONENTS);
+
+		$link = 'index2.php?option=com_installer&amp;element=module';
+		HTML_installer::quickiconButton($link,'db.png', _MODULES);
+
+		$link = 'index2.php?option=com_installer&amp;element=mambot';
+		HTML_installer::quickiconButton($link,'ext.png', _MAMBOTS);
+
+		$link = 'index2.php?option=com_installer&amp;element=template';
+		HTML_installer::quickiconButton($link,'joostina.png', _MENU_SITE_TEMPLATES);
+
+		$link = 'index2.php?option=com_installer&amp;element=template&client=admin';
+		HTML_installer::quickiconButton($link,'joostina.png', _MENU_ADMIN_TEMPLATES);
+
+		$link = 'index2.php?option=com_installer&amp;element=language';
+		HTML_installer::quickiconButton($link,'log.png', _SITE_LANGUAGES);
+
+?>
+		</div>
+		</td>
+		</tr>
+	</table>
+		<?php
+	}
+
 }
 ?>

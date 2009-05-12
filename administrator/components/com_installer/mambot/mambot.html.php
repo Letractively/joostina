@@ -16,56 +16,6 @@ defined('_VALID_MOS') or die();
 */
 class HTML_mambot {
 
-	// прорисовка кнопок управления
-	function quickiconButton($link,$image,$text) {
-		?>
-		<span>
-		<a href="<?php echo $link; ?>" title="<?php echo $text; ?>">
-		<?php
-		echo mosAdminMenus::imageCheckAdmin($image,'/'.ADMINISTRATOR_DIRECTORY.'/images/',null,null,$text);
-		echo $text;
-		?>
-		</a>
-		</span>
-		<?php
-	}
-	function cPanel() {?>
-
-		<table>
-		<tr>
-		<td width="100%" valign="top">
-		<div class="cpicons">
-		<?php
-
-		$link = 'index2.php?option=com_installer&amp;element=installer';
-		HTML_mambot::quickiconButton($link,'down.png', _INSTALLATION);
-
-		$link = 'index2.php?option=com_installer&amp;element=component';
-		HTML_mambot::quickiconButton($link,'db.png', _COMPONENTS);
-
-		$link = 'index2.php?option=com_installer&amp;element=module';
-		HTML_mambot::quickiconButton($link,'db.png', _MODULES);
-
-		$link = 'index2.php?option=com_installer&amp;element=mambot';
-		HTML_mambot::quickiconButton($link,'ext.png', _MAMBOTS);
-
-		$link = 'index2.php?option=com_installer&amp;element=template';
-		HTML_mambot::quickiconButton($link,'joostina.png', _MENU_SITE_TEMPLATES);
-		
-		$link = 'index2.php?option=com_installer&amp;element=template&client=admin';
-		HTML_mambot::quickiconButton($link,'joostina.png', _MENU_ADMIN_TEMPLATES);
-
-		$link = 'index2.php?option=com_installer&amp;element=language';
-		HTML_mambot::quickiconButton($link,'log.png', _SITE_LANGUAGES);
-
-		?>
-		</div>
-		</td>
-		</tr>
-		</table>
-		<?php
-	}
-	
 	/**
 	* Displays the installed non-core Joostina
 	* @param array An array of mambot object
@@ -81,13 +31,13 @@ class HTML_mambot {
 				<th class="install"><?php echo _INSTALLED_MAMBOTS?></th>
 			</tr>
 			<tr> 
-				<?php HTML_mambot::cPanel(); ?>
+				<?php HTML_installer::cPanel(); ?>
 			</tr>
 			<tr>
 				<td><div class="jwarning"><?php echo _INSTALLED_COMPONENTS2?></div></td>
 			</tr>
 		</table>
-		<?php
+<?php
 		if(count($rows)) { ?>
 			
 			<table class="adminlist" id="adminlist">
@@ -100,13 +50,13 @@ class HTML_mambot {
 				<th width="15%" align="left">E-mail</th>
 				<th width="15%" align="left"><?php echo _COMPONENT_AUTHOR_URL?></th>
 			</tr>
-			<?php
+<?php
 			$rc = 0;
 			$n = count($rows);
 			for($i = 0; $i < $n; $i++) {
 				$row = &$rows[$i];
 ?>
-				<tr class="<?php echo "row$rc"; ?>">
+				<tr class="row<?php echo $rc ?>">
 					<td align="left">
 					<input type="radio" id="cb<?php echo $i; ?>" name="cid[]" value="<?php echo $row->id; ?>" onclick="alert('sdsdsd'); isChecked(this.checked);">
 					<span class="bold"><?php echo $row->name; ?></span>
@@ -117,7 +67,7 @@ class HTML_mambot {
 					<td><?php echo @$row->authorEmail != ''?$row->authorEmail:"&nbsp;"; ?></td>
 					<td><?php echo @$row->authorUrl != ""?"<a href=\"".(substr($row->authorUrl,0,7) =='http://'?$row->authorUrl:'http://'.$row->authorUrl)."\" target=\"_blank\">$row->authorUrl</a>":"&nbsp;"; ?></td>
 				</tr>
-				<?php
+<?php
 				$rc = 1 - $rc;
 			}
 ?>
@@ -127,11 +77,9 @@ class HTML_mambot {
 			<input type="hidden" name="option" value="com_installer" />
 			<input type="hidden" name="element" value="mambot" />
 			<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
-			<?php
+<?php
 		} else {
-?>
-			<?php echo _OTHER_MAMBOTS?>
-			<?php
+			echo _OTHER_MAMBOTS
 		}
 		?>
 	</form>

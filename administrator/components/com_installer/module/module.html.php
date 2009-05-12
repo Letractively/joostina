@@ -15,58 +15,7 @@ defined('_VALID_MOS') or die();
 * @subpackage Installer
 */
 class HTML_module {
-
-	// прорисовка кнопок управления
-	function quickiconButton($link,$image,$text) {
-		?>
-		<span>
-		<a href="<?php echo $link; ?>" title="<?php echo $text; ?>">
-		<?php
-		echo mosAdminMenus::imageCheckAdmin($image,'/'.ADMINISTRATOR_DIRECTORY.'/images/',null,null,$text);
-		echo $text;
-		?>
-		</a>
-		</span>
-		<?php
-	}
-	function cPanel() {?>
-
-		<table>
-		<tr>
-		<td width="100%" valign="top">
-		<div class="cpicons">
-		<?php
-
-		$link = 'index2.php?option=com_installer&amp;element=installer';
-		HTML_module::quickiconButton($link,'down.png', _INSTALLATION);
-
-		$link = 'index2.php?option=com_installer&amp;element=component';
-		HTML_module::quickiconButton($link,'db.png', _COMPONENTS);
-
-		$link = 'index2.php?option=com_installer&amp;element=module';
-		HTML_module::quickiconButton($link,'db.png', _MODULES);
-
-		$link = 'index2.php?option=com_installer&amp;element=mambot';
-		HTML_module::quickiconButton($link,'ext.png', _MAMBOTS);
-
-		$link = 'index2.php?option=com_installer&amp;element=template';
-		HTML_module::quickiconButton($link,'joostina.png', _MENU_SITE_TEMPLATES);
-		
-		$link = 'index2.php?option=com_installer&amp;element=template&client=admin';
-		HTML_module::quickiconButton($link,'joostina.png', _MENU_ADMIN_TEMPLATES);
-
-		$link = 'index2.php?option=com_installer&amp;element=language';
-		HTML_module::quickiconButton($link,'log.png', _SITE_LANGUAGES);
-
-		?>
-		</div>
-		</td>
-		</tr>
-		</table>
-		<?php
-	}
 	function showInstalledModules(&$rows,$option,&$xmlfile,&$lists) {
-		
 		if(count($rows)) {
 			// подключение скрипта чудесных таблиц
 			mosCommonHTML::loadPrettyTable();
@@ -75,12 +24,10 @@ class HTML_module {
 			<table class="adminheading">
 			<tr>
 				<th class="install"><?php echo _INSTALL_MODULE?></th>
-				<td>Фильтр:</td>
+				<td><?php echo _FILTER ?></td>
 				<td width="right"><?php echo $lists['filter']; ?></td>
 			</tr>
-			<tr> 
-			<?php HTML_module::cPanel(); ?>
-			</tr>
+			<tr><?php HTML_installer::cPanel(); ?></tr>
 			<tr>
 				<td colspan="3"><div class="jwarning"><?php echo _INSTALLED_COMPONENTS2?></div></td>
 			</tr>
@@ -97,10 +44,11 @@ class HTML_module {
 			</tr>
 			<?php
 			$rc = 0;
-			for($i = 0,$n = count($rows); $i < $n; $i++) {
+			$_n = count($rows);
+			for($i = 0,$n = $_n; $i < $n; $i++) {
 				$row = &$rows[$i];
 ?>
-				<tr class="<?php echo "row$rc"; ?>">
+				<tr class="row<?php echo $rc ?>">
 					<td align="left">
 					<input type="radio" id="cb<?php echo $i; ?>" name="cid[]" value="<?php echo $row->id; ?>" onclick="isChecked(this.checked);"><span class="bold"><?php echo $row->module; ?></span></td>
 					<td align="center"><?php echo @$row->version != ""?$row->version:"&nbsp;"; ?></td>
@@ -110,8 +58,8 @@ class HTML_module {
 					<td align="center"><?php echo @$row->authorEmail != ""?$row->authorEmail:"&nbsp;"; ?></td>
 					<td align="center"><?php echo @$row->authorUrl != ""?"<a href=\"".(substr($row->authorUrl,0,7) =='http://'?$row->authorUrl:'http://'.$row->authorUrl)."\" target=\"_blank\">$row->authorUrl</a>":"&nbsp;"; ?></td>
 				</tr>
-				<?php
-				$rc = $rc == 0?1:0;
+<?php
+				$rc = $rc == 0 ? 1:0;
 			}
 		} else {
 ?>

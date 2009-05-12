@@ -170,8 +170,7 @@ class database {
 	 * @return	string
 	 * @access public
 	 */
-	function Quote( $text, $escaped = true )
-	{
+	function Quote( $text, $escaped = true ){
 		return '\''.($escaped ? $this->getEscaped( $text ) : $text).'\'';
 	}
 	/**
@@ -225,6 +224,10 @@ class database {
 	* @author thede, David McKinnis
 	*/
 	function replacePrefix($sql,$prefix = '#__') {
+
+		// ÝÊÑÏÅÐÈÌÅÍÒÀËÜÍÎ
+		return str_replace('#__',$this->_table_prefix,$sql);
+
 		$sql = trim($sql);
 
 		$escaped = false;
@@ -253,8 +256,7 @@ class database {
 				$j = $n;
 			}
 
-			$literal .= str_replace($prefix,$this->_table_prefix,substr($sql,$startPos,$j -
-				$startPos));
+			$literal .= str_replace($prefix,$this->_table_prefix,substr($sql,$startPos,$j - $startPos));
 			$startPos = $j;
 
 			$j = $startPos + 1;
@@ -291,6 +293,7 @@ class database {
 		if($startPos < $n) {
 			$literal .= substr($sql,$startPos,$n - $startPos);
 		}
+
 		return $literal;
 	}
 	/**

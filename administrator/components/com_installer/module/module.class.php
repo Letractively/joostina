@@ -17,8 +17,7 @@ require_once ($mainframe->getPath('installer_class','installer'));
 */
 class mosInstallerModule extends mosInstaller {
 	
-	function __construct($pre_installer)
-	{
+	function __construct($pre_installer){
 	  // Copy data 
 	  $this->i_installfilename = $pre_installer->i_installfilename;
 	  $this->i_installarchive = $pre_installer->i_installarchive;
@@ -89,7 +88,7 @@ class mosInstallerModule extends mosInstaller {
 
 		$client_id = intval($client == 'admin');
 		// Insert in module in DB
-		$query = "SELECT id FROM #__modules WHERE module = ".$database->Quote($this->elementSpecial())."\n AND client_id = ".(int)$client_id;
+		$query = "SELECT id FROM #__modules WHERE module = ".$database->Quote($this->elementSpecial())." AND client_id = ".(int)$client_id;
 		$database->setQuery($query);
 		if(!$database->query()) {
 			$this->setError(1,_SQL_ERROR.': '.$database->stderr(true));
@@ -123,7 +122,7 @@ class mosInstallerModule extends mosInstaller {
 			return false;
 		}
 		if($e = &$mosinstall->getElementsByPath('description',1)) {
-			$this->setError(0,$this->elementName().'<p>'.$e->getText().'</p>');
+			$this->setError(0,'<h2>'.$this->elementName().'</h2><p>'.$e->getText().'</p>');
 		}
 
 		return $this->copySetupFile('front');
@@ -139,8 +138,7 @@ class mosInstallerModule extends mosInstaller {
 		josSpoofCheck();
 		$id = intval($id);
 
-		$query = "SELECT module, iscore, client_id FROM #__modules WHERE id = ".(int)
-			$id;
+		$query = "SELECT module, iscore, client_id FROM #__modules WHERE id = ".(int)$id;
 		$database->setQuery($query);
 		$row = null;
 		$database->loadObject($row);
@@ -207,7 +205,6 @@ class mosInstallerModule extends mosInstaller {
 								echo intval($result);
 							}
 						}
-
 						// remove XML file from front
 						echo _DELETING_XML_FILE.": $xmlfile";
 						@unlink(mosPathName($xmlfile,false));
@@ -248,12 +245,9 @@ class mosInstallerModule extends mosInstaller {
 				}
 			}
 		}
-		if($this->isWindows())
-		{
+		if($this->isWindows()){
 			$elementName = substr(substr(strrchr($xmlfilename, '\\'), 1), 0,  -4);
-		}
-		else
-		{
+		}else{
 			$elementName = substr(substr(strrchr($xmlfilename, '/'), 1), 0, -4);
 		}
 		
@@ -276,7 +270,6 @@ class mosInstallerModule extends mosInstaller {
 			}
 		}
 		// remove XML file from front
-		
 		@unlink(mosPathName($basepath.'/'.$elementName. '.xml',false));
 		if(file_exists($basepath. $elementName))
 		{
