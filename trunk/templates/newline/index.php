@@ -1,4 +1,5 @@
 <?php
+
 defined('_VALID_MOS') or die();
 $iso = explode('=',_ISO); 
 echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>';
@@ -16,14 +17,10 @@ echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>';
 	$block3_count = (mosCountModules('user7')>0) + (mosCountModules('user8')>0) + (mosCountModules('user9')>0);
 ?>
 <link href="<?php echo $mosConfig_live_site;?>/templates/<?php echo $mainframe->getTemplate(); ?>/css/template_css.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="<?php echo $mosConfig_live_site;?>/includes/js/jquery/jquery.js"></script>
-<script type="text/javascript" src="<?php echo $mosConfig_live_site;?>/includes/js/jquery/plugins/corner.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-	$('div.moduletable-round').corner();
-	$('div.block2 h3').corner();
-});
-</script>
+<?php
+/* подключаем Jquery */
+mosCommonHTML::loadJquery(1);
+?>
 <!--[if lte IE 6]>
 <link href="<?php echo $mosConfig_live_site; ?>/templates/<?php echo $mainframe->getTemplate(); ?>/css/ieonly.css" rel="stylesheet" type="text/css" />
 <![endif]-->
@@ -46,9 +43,9 @@ $(document).ready(function(){
                     </div>
                 </div>
                 <div class="header_right">
-                    <a title="РќР° РіР»Р°РІРЅСѓСЋ" href="<?php echo $mosConfig_live_site;?>" id="home" class="navbar">&nbsp;</a>
-                    <a title="РќР°РїРёСЃР°С‚СЊ РїРёСЃСЊРјРѕ" href="mailto:<?php echo $mosConfig_mailfrom;?>" id="mail" class="navbar">&nbsp;</a>
-                    <a title="РљР°СЂС‚Р° СЃР°Р№С‚Р°" href="<?php echo sefRelToAbs('index.php?option=com_xmap&amp;Itemid=27'); ?>" id="map" class="navbar">&nbsp;</a>
+                    <a title="На главную" href="<?php echo $mosConfig_live_site;?>" id="home" class="navbar">&nbsp;</a>
+                    <a title="Написать письмо" href="mailto:<?php echo $mosConfig_mailfrom;?>" id="mail" class="navbar">&nbsp;</a>
+                    <a title="Карта сайта" href="<?php echo sefRelToAbs('index.php?option=com_xmap&amp;Itemid=27'); ?>" id="map" class="navbar">&nbsp;</a>
                     <?php mosLoadModules('toolbar',-2); ?>
                </div>
             <!--header:end-->
@@ -143,7 +140,7 @@ $(document).ready(function(){
     <!--footer:begin-->
     <div class="footer">
         <div class="bottom">
-            <a title="Рћ РїСЂРѕРµРєС‚Рµ Joostina CMS" href="http://www.joostina.ru" id="about" class="bottom_bar">&nbsp;</a>
+            <a title="О проекте Joostina CMS" href="http://www.joostina.ru" id="about" class="bottom_bar">&nbsp;</a>
             <?php mosLoadModules('bottom',-1); ?>
             <div class="valid">
                 <a href="http://jigsaw.w3.org/css-validator/validator?uri=<?php echo $mosConfig_live_site;?>" target="_blank" title="CSS Validity" style="text-decoration: none;">
@@ -156,7 +153,16 @@ $(document).ready(function(){
         </div>
     <!--footer:end-->
     </div>
-
+<?php
+/* подлючаем расширений Jquery - corner */
+mosCommonHTML::loadJqueryPlugins('corner',1);
+?>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('div.moduletable-round').corner();
+	$('div.block2 h3').corner();
+});
+</script>
 <!--body:end-->
 </body>
 </html>

@@ -255,8 +255,7 @@ class mosInstaller {
 	* @param boolean True for Administrator components
 	* @return mixed Number of file or False on error
 	*/
-	function parseFiles($tagName = 'files',$special = '',$specialError = '',$adminFiles =
-		0) {
+	function parseFiles($tagName = 'files',$special = '',$specialError = '',$adminFiles =0) {
 		global $mosConfig_absolute_path;
 		// Find files to copy
 		$xmlDoc = &$this->xmlDoc();
@@ -296,14 +295,12 @@ class mosInstaller {
 
 				if($adminFiles) {
 					if(!mosMakePath($this->componentAdminDir(),$newdir)) {
-						$this->setError(1,_CANNOT_CREATE_DIR.' "'.($this->componentAdminDir()).$newdir.
-							'"');
+						$this->setError(1,_CANNOT_CREATE_DIR.' "'.($this->componentAdminDir()).$newdir.'"');
 						return false;
 					}
 				} else {
 					if(!mosMakePath($this->elementDir(),$newdir)) {
-						$this->setError(1,_CANNOT_CREATE_DIR.' "'.($this->elementDir()).$newdir.
-							'"');
+						$this->setError(1,_CANNOT_CREATE_DIR.' "'.($this->elementDir()).$newdir.'"');
 						return false;
 					}
 				}
@@ -481,6 +478,7 @@ class mosInstaller {
 	function elementSpecial($p_name = null) {
 		return $this->setVar('i_elementspecial',$p_name);
 	}
+
 }
 
 function cleanupInstall($userfile_name,$resultdir) {

@@ -22,6 +22,7 @@ class jdebug {
 	/* вывод сообщений из лога*/
 	function get($db = 1) {
 		global $database;
+		$this->add('<b>'._INCLUDED_FILES.':</b> '.count(get_included_files()));
 		if($db){
 			$this->_db();
 		}else{
@@ -36,7 +37,7 @@ class jdebug {
 	function _db() {
 		global $database;
 		 count($database->_log);
-		$this->add('<b>SQL запросов:</b> '.count($database->_log).'<pre>');
+		$this->add('<b>SQL:</b> '.count($database->_log).'<pre>');
 		foreach($database->_log as $k => $sql) {
 			$this->add($k + 1 . ': '.$sql.'<hr />');
 		}

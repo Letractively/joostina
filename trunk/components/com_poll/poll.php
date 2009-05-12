@@ -73,18 +73,18 @@ function pollAddVote($uid) {
 
 	setcookie($cookiename,'1',time() + $poll->lag);
 
-	$query = "UPDATE #__poll_data"."\n SET hits = hits + 1"."\n WHERE pollid = ".(int)$poll->id."\n AND id = ".(int)$voteid;
+	$query = "UPDATE #__poll_data SET hits = hits + 1 WHERE pollid = ".(int)$poll->id."\n AND id = ".(int)$voteid;
 	$database->setQuery($query);
 	$database->query();
 
-	$query = "UPDATE #__polls"."\n SET voters = voters + 1"."\n WHERE id = ".(int)$poll->id;
+	$query = "UPDATE #__polls SET voters = voters + 1 WHERE id = ".(int)$poll->id;
 	$database->setQuery($query);
 
 	$database->query();
 
 	$now = _CURRENT_SERVER_TIME;
 
-	$query = "INSERT INTO #__poll_date"."\n SET date = ".$database->Quote($now).", vote_id = ".(int)$voteid.", poll_id = ".(int)$poll->id;
+	$query = "INSERT INTO #__poll_date SET date = ".$database->Quote($now).", vote_id = ".(int)$voteid.", poll_id = ".(int)$poll->id;
 	$database->setQuery($query);
 	$database->query();
 

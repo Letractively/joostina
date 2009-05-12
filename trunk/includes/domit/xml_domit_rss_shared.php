@@ -266,8 +266,7 @@ class xml_domit_rss_base_document extends xml_domit_rss_elementindexer {
 	var $parser;
 	var $httpConnection = null;
 	var $rssTimeout = 0;
-	function xml_domit_rss_base_document($url = '',$cacheDir = './',$cacheTime =
-		3600) {
+	function xml_domit_rss_base_document($url = '',$cacheDir = './',$cacheTime =3600) {
 		$success = null;
 		$this->createDocument();
 		if($url != '') {
@@ -292,8 +291,7 @@ class xml_domit_rss_base_document extends xml_domit_rss_elementindexer {
 
 	function setConnection($host,$path = '/',$port = 80,$timeout = 0,$user = null,$password = null) {
 		require_once (DOMIT_RSS_INCLUDE_PATH.'php_http_client_generic.php');
-		$this->httpConnection = new php_http_client_generic($host,$path,$port,$timeout,
-			$user,$password);
+		$this->httpConnection = new php_http_client_generic($host,$path,$port,$timeout,$user,$password);
 	}
 
 	function setAuthorization($user,$password) {
@@ -324,15 +322,18 @@ class xml_domit_rss_base_document extends xml_domit_rss_elementindexer {
 		$this->node->resolveErrors(true);
 	}
 
-	function useCacheLite($doUseCacheLite,$pathToLibrary = './Lite.php',$cacheDir =
-		'./',$cacheTime = 3600) {
+	function useCacheLite($doUseCacheLite,$pathToLibrary = './Lite.php',$cacheDir ='./',$cacheTime = 3600) {
 		$this->useCacheLite = $doUseCacheLite;
 		if($doUseCacheLite) {
 			if(!file_exists($pathToLibrary)) {
 				$this->useCacheLite(false);
 			} else {
 				require_once ($pathToLibrary);
-				$cacheOptions = array('cacheDir' => $cacheDir,'lifeTime' => $cacheTime);
+				$cacheOptions = array(
+					'cacheDir' => $cacheDir,
+					'lifeTime' => $cacheTime
+
+				);
 				$this->cache = new Cache_Lite($cacheOptions);
 			}
 		} else {

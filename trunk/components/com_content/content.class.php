@@ -334,7 +334,7 @@ class mosContent extends mosDBTable {
    }
 
     function Author(&$row,&$params='') {
-        global $mosConfig_absolute_path, $database, $mainframe;
+        global $mosConfig_absolute_path, $database, $mainframe, $mosConfig_author_name;
         $author_name='';
         if(!$params){
             return $row->username;
@@ -348,7 +348,7 @@ class mosContent extends mosDBTable {
                 }
 
                 else{
-                    $switcher=$mosConfig_AuthorName;
+                    $switcher=$mosConfig_author_name;
                     //$switcher='4';
                 }
 
@@ -361,7 +361,7 @@ class mosContent extends mosDBTable {
                     case '2':
                     case '4':
                     default;
-                        $author_name=$row->username;
+                        $author_name = $row->username;
                     break;
                 }
 
@@ -417,7 +417,7 @@ class mosContent extends mosDBTable {
 		$overlib .= $author;
 
 
-		$return="<a class=\"joo_ico edit_button\"  href=\"".sefRelToAbs($link)."\" onmouseover=\"return overlib('".$overlib."', CAPTION, '". _E_EDIT.", BELOW, RIGHT);\" onmouseout=\"return nd();\">".$image."</a>";
+		$return="<a class=\"joo_ico edit_button\" href=\"".sefRelToAbs($link)."\" onmouseover=\"return overlib('".$overlib."', CAPTION, '". _E_EDIT.", BELOW, RIGHT);\" onmouseout=\"return nd();\">".$image."</a>";
 
         return $return;
 	}

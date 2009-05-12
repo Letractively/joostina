@@ -129,19 +129,17 @@ return formValid;
 									<tr class="trongate-2">
 										<td colspan="2" valign="top"> Имя БД MySQL<br />
 											<input class="inputbox" type="text" name="DBname" value="<?php echo $DBname; ?>" />
-
 										</td>
 										<td>
 											Имя существующей или новой БД, которая будет использоваться для сайта
 										</td>
 									</tr>
 									<tr class="trongate-1">
-										<td colspan="2" valign="top"> Использовать или создать БД:<br />
-										  <input type="radio" name="use_case" value="use" checked="checked"  /> использовать&nbsp;
-                                           &nbsp; <input type="radio" name="use_case" value="create" /> создать
+										<td colspan="2" valign="top">
+											<input type="checkbox" name="create_db" id="create_db" value="1" /><label for="create_db">создать базу если её нет</label>
 										</td>
 										<td>
-										Внимание! Не на всех хостингах создание БД таким способом будет возможно. В случае возникновения ошибок - создайте пустую БД стандартным для вашего хостинга способом и выберите "использовать" при установке.
+										Внимание! Не на всех хостингах создание БД таким способом будет возможно. В случае возникновения ошибок - создайте пустую БД стандартным для вашего хостинга способом и выберите её.
 										</td>
 									</tr>
 									<tr class="trongate-2">

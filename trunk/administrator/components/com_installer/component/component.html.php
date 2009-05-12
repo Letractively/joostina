@@ -15,57 +15,7 @@ defined('_VALID_MOS') or die();
 * @subpackage Installer
 */
 class HTML_component {
-	
-	// прорисовка кнопок управления
-	function quickiconButton($link,$image,$text) {
-		?>
-		<span>
-		<a href="<?php echo $link; ?>" title="<?php echo $text; ?>">
-		<?php
-		echo mosAdminMenus::imageCheckAdmin($image,'/'.ADMINISTRATOR_DIRECTORY.'/images/',null,null,$text);
-		echo $text;
-		?>
-		</a>
-		</span>
-		<?php
-	}
-	function cPanel() {?>
 
-		<table>
-		<tr>
-		<td width="100%" valign="top">
-		<div class="cpicons">
-		<?php
-
-		$link = 'index2.php?option=com_installer&amp;element=installer';
-		HTML_component::quickiconButton($link,'down.png', _INSTALLATION);
-
-		$link = 'index2.php?option=com_installer&amp;element=component';
-		HTML_component::quickiconButton($link,'db.png', _COMPONENTS);
-
-		$link = 'index2.php?option=com_installer&amp;element=module';
-		HTML_component::quickiconButton($link,'db.png', _MODULES);
-
-		$link = 'index2.php?option=com_installer&amp;element=mambot';
-		HTML_component::quickiconButton($link,'ext.png', _MAMBOTS);
-
-		$link = 'index2.php?option=com_installer&amp;element=template';
-		HTML_component::quickiconButton($link,'joostina.png', _MENU_SITE_TEMPLATES);
-		
-		$link = 'index2.php?option=com_installer&amp;element=template&client=admin';
-		HTML_component::quickiconButton($link,'joostina.png', _MENU_ADMIN_TEMPLATES);
-
-		$link = 'index2.php?option=com_installer&amp;element=language';
-		HTML_component::quickiconButton($link,'log.png', _SITE_LANGUAGES);
-
-		?>
-		</div>
-		</td>
-		</tr>
-		</table>
-		<?php
-	}
-	
 	/**
 	* @param array An array of records
 	* @param string The URL option
@@ -81,7 +31,7 @@ class HTML_component {
 			<tr>
 				<th class="install"><?php echo _INSTALLED_COMPONENTS?></th>
 			</tr>
-			<tr><?php HTML_component::cPanel(); ?></tr>
+			<tr><?php HTML_installer::cPanel(); ?></tr>
 			<tr>
 				<td><div class="jwarning"><?php echo _INSTALLED_COMPONENTS2?></div></td>
 			</tr>
@@ -96,7 +46,7 @@ class HTML_component {
 				<th width="15%" align="left"><?php echo _CONTACT_EMAIL?></th>
 				<th width="15%" align="left"><?php echo _COMPONENT_AUTHOR_URL?></th>
 			</tr>
-			<?php
+<?php
 			$rc = 0;
 			$_n = count($rows);
 			for($i = 0,$n =$_n ; $i < $n; $i++) {

@@ -375,7 +375,7 @@ CREATE TABLE `#__menu` (
   KEY `menutype` (`menutype`)
 ) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
 
-INSERT INTO `#__menu` VALUES (1, 'mainmenu', 'Главная', 'index.php?option=com_frontpage', 'components', 1, 0, 10, 0, 2, '', '0000-00-00 00:00:00', 0, 0, 0, 3, 'title=\npage_name=\nno_site_name=0\nrobots=-1\nmeta_description=\nmeta_keywords=\nmeta_author=\nmenu_image=-1\npageclass_sfx=\nheader=Добро пожаловать на главную страницу\npage_title=0\nback_button=0\nleading=3\nintro=2\ncolumns=2\nlink=1\norderby_pri=\norderby_sec=front\npagination=2\npagination_results=1\nimage=1\nsection=0\nsection_link=0\ncategory=1\ncategory_link=0\nitem_title=1\nlink_titles=1\nreadmore=0\nrating=0\nauthor=0\ncreatedate=0\nmodifydate=0\nprint=0\nemail=0\nunpublished=0');
+INSERT INTO `#__menu` VALUES (1, 'mainmenu', 'Главная', 'index.php?option=com_frontpage', 'components', 1, 0, 10, 0, 2, 0, '0000-00-00 00:00:00', 0, 0, 0, 3, 'title=\npage_name=\nno_site_name=0\nrobots=-1\nmeta_description=\nmeta_keywords=\nmeta_author=\nmenu_image=-1\npageclass_sfx=\nheader=Добро пожаловать на главную страницу\npage_title=0\nback_button=0\nleading=3\nintro=2\ncolumns=2\nlink=1\norderby_pri=\norderby_sec=front\npagination=2\npagination_results=1\nimage=1\nsection=0\nsection_link=0\ncategory=1\ncategory_link=0\nitem_title=1\nlink_titles=1\nreadmore=0\nrating=0\nauthor=0\ncreatedate=0\nmodifydate=0\nprint=0\nemail=0\nunpublished=0');
 # --------------------------------------------------------
 
 #
@@ -1037,3 +1037,13 @@ CREATE TABLE IF NOT EXISTS `#__xmap_ext` (
 # запись о расширении для создания карты контента
 INSERT INTO `#__xmap_ext` ( `extension`, `published`, `params`) VALUES ( 'com_content', 1, '-1{expand_categories=1\nexpand_sections=1\nshow_unauth=0\ncat_priority=-1\ncat_changefreq=-1\nart_priority=-1\nart_changefreq=-1}');
 INSERT INTO `#__xmap_ext` ( `extension`, `published`, `params`) VALUES ( 'com_weblinks', 1, '');
+
+# таблица хранения конфигураций сайта
+CREATE TABLE IF NOT EXISTS `#__config` (
+  `name` VARCHAR( 50 ) NOT NULL ,
+  `title` VARCHAR( 100 ) NOT NULL ,
+  `value` TINYTEXT NOT NULL ,
+  `info` TINYTEXT NOT NULL ,
+  `syte_id` INT NOT NULL ,
+  INDEX ( `name` , `syte_id` )
+) ENGINE=MYISAM  CHARACTER SET utf8 COLLATE utf8_general_ci;

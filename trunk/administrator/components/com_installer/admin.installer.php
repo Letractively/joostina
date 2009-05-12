@@ -10,6 +10,8 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
+require_once ($mainframe->getPath('admin_html'));
+
 // XML library
 require_once ($mosConfig_absolute_path.'/includes/domit/xml_domit_lite_include.php');
 

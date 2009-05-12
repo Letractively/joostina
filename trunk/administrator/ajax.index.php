@@ -1,43 +1,42 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// устанавливаем родительский флаг
+// СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј СЂРѕРґРёС‚РµР»СЊСЃРєРёР№ С„Р»Р°Рі
 define('_VALID_MOS',1);
-// проверка файла конфигурации
+// РїСЂРѕРІРµСЂРєР° С„Р°Р№Р»Р° РєРѕРЅС„РёРіСѓСЂР°С†РёРё
 if(!file_exists('../configuration.php')) {
 	die('error-config-file');
 }
 
-// подключаем файл регистрации глобальных переменных и конфигурацию
+// РїРѕРґРєР»СЋС‡Р°РµРј С„Р°Р№Р» СЂРµРіРёСЃС‚СЂР°С†РёРё РіР»РѕР±Р°Р»СЊРЅС‹С… РїРµСЂРµРјРµРЅРЅС‹С… Рё РєРѕРЅС„РёРіСѓСЂР°С†РёСЋ
 require ('../includes/globals.php');
 require_once ('../configuration.php');
 
-// обработка безопасного режима
+// РѕР±СЂР°Р±РѕС‚РєР° Р±РµР·РѕРїР°СЃРЅРѕРіРѕ СЂРµР¶РёРјР°
 $http_host = explode(':',$_SERVER['HTTP_HOST']);
 if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset($http_host[1]) && $http_host[1] == 443) && substr($mosConfig_live_site,0,8) !='https://') {
 	$mosConfig_live_site = 'https://' . substr($mosConfig_live_site,7);
 }
 
-// подключаем ядро и язык
+// РїРѕРґРєР»СЋС‡Р°РµРј СЏРґСЂРѕ Рё СЏР·С‹Рє
 require_once ($mosConfig_absolute_path.'/includes/joomla.php');
 include_once ($mosConfig_absolute_path.'/language/'.$mosConfig_lang.'.php');
 require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/includes/admin.php');
 
-// создаём сессии
+// СЃРѕР·РґР°С‘Рј СЃРµСЃСЃРёРё
 session_name(md5($mosConfig_live_site));
 session_start();
-
 
 $option		= strval(strtolower(mosGetParam($_REQUEST,'option','')));
 $task		= strval(mosGetParam($_REQUEST,'task',''));
 
-// mainframe - основная рабочая среда API, осуществляет взаимодействие с 'ядром'
+// mainframe - РѕСЃРЅРѕРІРЅР°СЏ СЂР°Р±РѕС‡Р°СЏ СЃСЂРµРґР° API, РѕСЃСѓС‰РµСЃС‚РІР»СЏРµС‚ РІР·Р°РёРјРѕРґРµР№СЃС‚РІРёРµ СЃ 'СЏРґСЂРѕРј'
 $mainframe = mosMainFrame::getInstance(true);
 
 $my = $mainframe->initSessionAdmin($option,$task);
@@ -50,19 +49,20 @@ $commponent = str_replace('com_','',$option);
 
 header("Content-type: text/html; charset=utf-8");
 header ("Cache-Control: no-cache, must-revalidate ");
-ob_start();
-
-// проверяем, какой файл необходимо подключить, данные берутся из пришедшего GET запроса
+//ob_start();
+initGzip();
+// РїСЂРѕРІРµСЂСЏРµРј, РєР°РєРѕР№ С„Р°Р№Р» РЅРµРѕР±С…РѕРґРёРјРѕ РїРѕРґРєР»СЋС‡РёС‚СЊ, РґР°РЅРЅС‹Рµ Р±РµСЂСѓС‚СЃСЏ РёР· РїСЂРёС€РµРґС€РµРіРѕ GET Р·Р°РїСЂРѕСЃР°
 if(file_exists($mosConfig_absolute_path . "/".ADMINISTRATOR_DIRECTORY."/components/$option/admin.$commponent.ajax.php")) {
 	include_once ($mosConfig_absolute_path . "/".ADMINISTRATOR_DIRECTORY."/components/$option/admin.$commponent.ajax.php");
 } else {
 	die('error-inc-component');
 }
 
-$_ajax_body = ob_get_contents();
-ob_end_clean();
+//$_ajax_body = ob_get_contents();
+//ob_end_clean();
 
-echo $_ajax_body;
+//echo $_ajax_body;
+doGzip();
 
 flush();
 exit();

@@ -51,9 +51,9 @@ class JCacheStorageFile extends JCacheStorage
 	function get($id, $group, $checkTime)
 	{
 		$data = false;
-
 		$path = $this->_getFilePath($id, $group);
 		$this->_setExpire($id, $group);
+		
 		if (file_exists($path)) {
 			$data = file_get_contents($path);
 			if($data) {
@@ -61,7 +61,6 @@ class JCacheStorageFile extends JCacheStorage
 				$data	= preg_replace('/^.*\n/', '', $data);
 			}
 		}
-
 		return $data;
 	}
 
@@ -139,7 +138,7 @@ class JCacheStorageFile extends JCacheStorage
 	 */
 	function clean($group, $mode)
 	{
-		require_once(dirname(__FILE__).DS.'../folder.php');
+		require_once(dirname(__FILE__).DS.'../../filesystem/folder.php');
 		
 		$return = true;
 		$folder	= $group;
@@ -239,7 +238,7 @@ class JCacheStorageFile extends JCacheStorage
 	{
 		$folder	= $group;
 		$name	= md5($this->_application.'-'.$id.'-'.$this->_hash.'-'.$this->_language).'.php';
-		$dir	= $this->_root.DS.$folder;
+		$dir	= $this->_root . $folder;
 		// If the folder doesn't exist try to create it
 		if (!is_dir($dir)) {
 

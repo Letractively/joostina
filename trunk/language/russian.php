@@ -2013,7 +2013,6 @@ DEFINE('_SITE_LANGUAGES','Языки сайта');
 DEFINE('_JOOMLA_TOOLS','Инструменты');
 DEFINE('_PRIVATE_MESSAGES_CONFIG','Настройки сообщений');
 DEFINE('_FILE_MANAGER','Менеджер файлов');
-DEFINE('_SQL_CONSOLE','SQL консоль');
 DEFINE('_BACKUP_CONFIG','Настройки сохранения данных');
 DEFINE('_CLEAR_CONTENT_CACHE','Очистить кэш содержимого');
 DEFINE('_CLEAR_ALL_CACHE','Очистить ВЕСЬ кэш');
@@ -2200,7 +2199,6 @@ DEFINE('_UNKNOWN_EXTENSION_TYPE','Неизвестный тип расширен
 //Joostina ver. 1.3
 DEFINE('_ENABLE_ADMIN_SECURE_CODE','Включить код безопасности для доступа к панели управления');
 DEFINE('_ADMIN_SECURE_CODE_REDIRECT_OPTIONS','Режим редиректа');
-DEFINE('_ADMIN_SECURE_CODE_REDIRECT_PATH','Адрес страницы редиректа');
 DEFINE('_ADMIN_SECURE_CODE','Код безопасности для доступа в панель управления');
 DEFINE('_ADMIN_LOGIN_COUNTER','Количество неудачных попыток авторизации');
 DEFINE('_ADMIN_LOGIN_COUNTER2','Количество неудачных попыток, после которых будет показана captcha. -1 - не показывать. 0 - всегда показывать.');
@@ -2221,5 +2219,30 @@ DEFINE('_ET_MENU','- Выберите меню -');
 DEFINE('_ET_CATEGORY','- Выберите категорию -');
 DEFINE('_ET_SECTION','- Выберите раздел -');
 
+/* com_cache */
+DEFINE('_CACHE_MANAGEMENT', 'Управление кешем');
+DEFINE('_CACHE_NUM', '#');
+DEFINE('_CACHE_GROUP', 'Группа');
+DEFINE('_CACHE_FILE_NUMBER', 'Число файлов');
+DEFINE('_CACHE_SIZE', 'Размер');
+DEFINE('_CACHE_KB', 'Кб');
 
+/* com_config */
+DEFINE('_ENABLE_UNPUBLISHED_MAMBOTS', 'Использовать неопубликованные мамботы');
+DEFINE('_ENABLE_UNPUBLISHED_MAMBOTS_HELP', 'Некоторые мамботы работают даже в неопубликованном состоянии, и вычищать текст от спецтегов типа {**}/. Если у вас их нет - рекомендуется выбрать НЕТ.');
+
+/* com_installer */
+DEFINE('_DISABLE_ALLOW_URL_FOPEN', 'Установка через URL невозможна, настройка allow_url_fopen сервера запрещена');
+DEFINE('_CANNOT_CONNECT_SERVER', 'Не удалось установить связь с удаленным сервером');
+
+/* jdebug */
+DEFINE('_INCLUDED_FILES', 'Загружено файлов');
+
+/* administrator components com_modules */
+DEFINE('_USER_MODULES', 'Пользовательские');
+DEFINE('_MODULES_COPY', 'Копия ');
+
+/* administrator components com_content */
+DEFINE('_TASK_UPLOAD', 'Загрузить');
+DEFINE('_COUNTER_RESET', 'Счетчик просмотров сброшен');
 ?>

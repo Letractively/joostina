@@ -11,22 +11,21 @@
 // Установка флага родительского файла
 define("_VALID_MOS",1);
 
-
 // Подключение common.php
 require_once ('common.php');
 require_once ('../includes/libraries/database/database.php');
 
-$DBhostname	= mosGetParam($_POST,'DBhostname','');
-$DBuserName	= mosGetParam($_POST,'DBuserName','');
-$DBpassword	= mosGetParam($_POST,'DBpassword','');
-$DBname		= mosGetParam($_POST,'DBname','');
-$DBPrefix	= mosGetParam($_POST,'DBPrefix','');
+$DBhostname	= trim(mosGetParam($_POST,'DBhostname',''));
+$DBuserName	= trim(mosGetParam($_POST,'DBuserName',''));
+$DBpassword	= trim(mosGetParam($_POST,'DBpassword',''));
+$DBname		= trim(mosGetParam($_POST,'DBname',''));
+$DBPrefix	= trim(mosGetParam($_POST,'DBPrefix',''));
 $DBDel		= intval(mosGetParam($_POST,'DBDel',0));
 $DBBackup	= intval(mosGetParam($_POST,'DBBackup',0));
 $DBSample	= intval(mosGetParam($_POST,'DBSample',0));
 $DBcreated	= intval(mosGetParam($_POST,'DBcreated',0));
 $DBexp		= intval(mosGetParam($_POST,'DBexp',0));
-$use_case		= intval(mosGetParam($_POST,'use_case','use'));
+$create_db	= intval(mosGetParam($_POST,'create_db',0));
 $BUPrefix	= 'old_';
 $configArray['sitename'] = trim(mosGetParam($_POST,'sitename',''));
 $database	= null;
@@ -40,7 +39,7 @@ if(!$DBcreated) {
 	}
 
 	if($DBPrefix == '') {
-		db_err('stepBack','Вы можете не вводить префикс базы данных.');
+		db_err('stepBack','Необходимо ввести префикс базы данных.');
 	}
 
 	$database = new database($DBhostname,$DBuserName,$DBpassword,'','',false);
@@ -57,28 +56,28 @@ if(!$DBcreated) {
 	$configArray['DBname'] = $DBname;
 	$configArray['DBPrefix'] = $DBPrefix;
 
-    //Если выбран вариант "ИСпользовать"
-    if($use_case=='use'){
-        $sql = "USE `$DBname` ";
+	//Если не выбрано создание базы, пробуем соединиться с указанной
+	if(mysql_select_db($DBname,$database->_resource)){
+		$sql = "USE `$DBname` ";
 		$database->setQuery($sql);
 		$database->query();
-    }
-    else {
-        // если база данных не создана - создадим её
-	    if($DBname != '' && !mysql_select_db($DBname,$database->_resource)) {
-		    // обработка разных версий MySQL
-		    $sql = "CREATE DATABASE IF NOT EXISTS `$DBname` CHARACTER SET utf8 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT COLLATE utf8_general_ci";
-		    $database->setQuery($sql);
-		    $database->query();
-	    }
-    }
-
+	}elseif($create_db==1) {
+		// обработка разных версий MySQL
+		$sql = "CREATE DATABASE IF NOT EXISTS `$DBname` CHARACTER SET utf8 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT COLLATE utf8_general_ci";
+		$database->setQuery($sql);
+		$database->query();
+	}else{
+		db_err('stepBack3','Подключение к указанной базе невозможно.');
+	}
 
 	$test = $database->getErrorNum();
 
+
 	if($test != 0 && $test != 1007) {
-		db_err('stepBack','Ошибка создания данных: '.$database->getErrorMsg());
+		db_err('stepBack','Ошибка создания базы данных: '.$database->getErrorMsg());
 	}
+
+	unset($database);
 
 	// создание новых параметров БД и замена существующих
 	$database = new database($DBhostname,$DBuserName,$DBpassword,$DBname,$DBPrefix);
@@ -234,12 +233,12 @@ function check() {
  </div>
  <div id="ctr" align="center">
   <form action="install3.php" method="post" name="form" id="form" onsubmit="return check();">
-   <input type="hidden" name="DBhostname" value="<?php echo "$DBhostname"; ?>" />
-   <input type="hidden" name="DBuserName" value="<?php echo "$DBuserName"; ?>" />
-   <input type="hidden" name="DBpassword" value="<?php echo "$DBpassword"; ?>" />
-   <input type="hidden" name="DBname" value="<?php echo "$DBname"; ?>" />
-   <input type="hidden" name="DBPrefix" value="<?php echo "$DBPrefix"; ?>" />
-   <input type="hidden" name="DBcreated" value="<?php echo "$DBcreated"; ?>" />
+   <input type="hidden" name="DBhostname" value="<?php echo $DBhostname; ?>" />
+   <input type="hidden" name="DBuserName" value="<?php echo $DBuserName; ?>" />
+   <input type="hidden" name="DBpassword" value="<?php echo $DBpassword; ?>" />
+   <input type="hidden" name="DBname" value="<?php echo $DBname; ?>" />
+   <input type="hidden" name="DBPrefix" value="<?php echo $DBPrefix; ?>" />
+   <input type="hidden" name="DBcreated" value="<?php echo $DBcreated; ?>" />
    <div class="install">
 					<div id="step"><span>Название сайта</span>
 						<div class="step-right">
@@ -285,8 +284,7 @@ if($isErr) {
        <table class="content2">
 	<tr>
 	 <td width="100">Название сайта</td>
-	 <td align="center"><input class="inputbox" type="text" name="sitename" size="40" value="<?php echo
-"{$configArray['sitename']}"; ?>" /></td>
+	 <td align="center"><input class="inputbox" type="text" name="sitename" size="40" value="<?php echo $configArray['sitename']; ?>" /></td>
 	</tr>
 	<tr>
 	 <td width="100">&nbsp;</td>
@@ -306,6 +304,6 @@ if($isErr) {
   </form>
 </div>
   <div class="clr"></div>
- <div class="ctr" id="footer"><a href="http://www.Joostina.ru" target="_blank">Joostina</a> - свободное программное обеспечение, распространяемое по лицензии GNU/GPL.</div>
+ <div class="ctr" id="footer"><a href="http://www.joostina.ru" target="_blank">Joostina</a> - свободное программное обеспечение, распространяемое по лицензии GNU/GPL.</div>
 </body>
 </html>

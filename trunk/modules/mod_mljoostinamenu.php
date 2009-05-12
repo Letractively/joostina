@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined( '_VALID_MOS' ) or die();
 
 if (!defined( '_MOS_MLJOOSTINAMENU_MODULE' )) {
@@ -150,7 +150,7 @@ var onImgArray = new Array();
 			$ml_img_title = ' title="'.$pg_title.'"';
 		}
 
-		// поняли скрываем активные ссылки или выводим просто текстом и дальше тягаем эту переменную
+		// РїРѕРЅСЏР»Рё СЃРєСЂС‹РІР°РµРј Р°РєС‚РёРІРЅС‹Рµ СЃСЃС‹Р»РєРё РёР»Рё РІС‹РІРѕРґРёРј РїСЂРѕСЃС‚Рѕ С‚РµРєСЃС‚РѕРј Рё РґР°Р»СЊС€Рµ С‚СЏРіР°РµРј СЌС‚Сѓ РїРµСЂРµРјРµРЅРЅСѓСЋ
 		$ml_hide_active = $params->get('ml_hide_active');
 
 		//$mitem->name = '';
@@ -181,9 +181,9 @@ var onImgArray = new Array();
 				break;
 
 			default:
-				// открываем в текущем окне
+				// РѕС‚РєСЂС‹РІР°РµРј РІ С‚РµРєСѓС‰РµРј РѕРєРЅРµ
 				if ($ml_hide_active == 1 && $current_itemid == $mitem->id )  {
-					// если в параметрах указано что активный пункт меню не должен быть ссылкой
+					// РµСЃР»Рё РІ РїР°СЂР°РјРµС‚СЂР°С… СѓРєР°Р·Р°РЅРѕ С‡С‚Рѕ Р°РєС‚РёРІРЅС‹Р№ РїСѓРЅРєС‚ РјРµРЅСЋ РЅРµ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ СЃСЃС‹Р»РєРѕР№
 					$txt = $mitem->name;
 				}else {
 					$txt = '<a href="'. $mitem->link .'"'.$ml_img_title.' class="'. $menuclass .'" '. $id .'>'.$mitem->name.'</a>';
@@ -229,7 +229,7 @@ var onImgArray = new Array();
 		if ($params->get('ml_imaged') == 1 || $params->get('ml_imaged') == 2){
 			$ml_rollover_use = $params->get('ml_rollover_use');
 			$ml_module_number = $params->get('ml_module_number');
-			//а вот тут мы начали догонять есть ли у нас rollover картинка или мы дальше просто так поедем
+			//Р° РІРѕС‚ С‚СѓС‚ РјС‹ РЅР°С‡Р°Р»Рё РґРѕРіРѕРЅСЏС‚СЊ РµСЃС‚СЊ Р»Рё Сѓ РЅР°СЃ rollover РєР°СЂС‚РёРЅРєР° РёР»Рё РјС‹ РґР°Р»СЊС€Рµ РїСЂРѕСЃС‚Рѕ С‚Р°Рє РїРѕРµРґРµРј
 			if ($ml_rollover_use == 1 && $params->get('ml_image_roll_'.$count_link) != -1 && $params->get('ml_image'.$count_link) != -1 ){
 				$link = str_replace('zaglushka.gif',$params->get('ml_image'.$count_link).'" name="ml_img_'.$count_link.'_'.$ml_module_number,$link);
 				$link = str_replace('<a','<a onmouseover="MlImageOn(\'ml_img_'.$count_link.'_'.$ml_module_number.'\')" onmouseout="MlImageOff(\'ml_img_'.$count_link.'_'.$ml_module_number.'\')"',$link);
@@ -329,7 +329,7 @@ var onImgArray = new Array();
 
 	function mosJoostinaGetmenu(&$params){
 		global $my;
-		// активирование кэширования
+		// Р°РєС‚РёРІРёСЂРѕРІР°РЅРёРµ РєСЌС€РёСЂРѕРІР°РЅРёСЏ
 		$cache = &mosCache::getCache('mod_mljoostinamenu');
 		return $cache->call('_mosJoostinaGetmenu',$params,$my->gid);
 	}
@@ -352,7 +352,7 @@ var onImgArray = new Array();
 		return $database->loadObjectList( 'id' );
 	}
 
-	// подготовка ссылок ,замена стилей в ссылках
+	// РїРѕРґРіРѕС‚РѕРІРєР° СЃСЃС‹Р»РѕРє ,Р·Р°РјРµРЅР° СЃС‚РёР»РµР№ РІ СЃСЃС‹Р»РєР°С…
 	function mosJoostinaPrepareLink (&$params, $style=0) {
 		global $database, $my;
 		global $mosConfig_shownoauth,$mosConfig_disable_access_control;
@@ -370,11 +370,11 @@ var onImgArray = new Array();
 			$count_link = 1;
 			$full_count = count($links);
 
-		// для меню в несколько столбцов
+		// РґР»СЏ РјРµРЅСЋ РІ РЅРµСЃРєРѕР»СЊРєРѕ СЃС‚РѕР»Р±С†РѕРІ
 		$nrow = intval($params->get('numrow',0));
 		$ii=-1;
 		foreach ($links as $link) {
-			// начинаем издевательство над линками для приведения их к божьему виду
+			// РЅР°С‡РёРЅР°РµРј РёР·РґРµРІР°С‚РµР»СЊСЃС‚РІРѕ РЅР°Рґ Р»РёРЅРєР°РјРё РґР»СЏ РїСЂРёРІРµРґРµРЅРёСЏ РёС… Рє Р±РѕР¶СЊРµРјСѓ РІРёРґСѓ
 			if ($params->get('ml_separated_link') == 1) {
 				if ($params->get('ml_linked_sep') != 1 ) {$link_replacer = 'class="mainlevel-'.$count_link;} else {$link_replacer = 'class="mainlevel';}
 				$link = str_replace( 'class="mainlevel',$link_replacer,$link);
@@ -414,7 +414,7 @@ var onImgArray = new Array();
 			$link = str_replace('active_menu',$last_replacer_id,$link);
 			}
 			if($params->get('menu_style')=='ulli'){
-				// для меню в несколько столбцов
+				// РґР»СЏ РјРµРЅСЋ РІ РЅРµСЃРєРѕР»СЊРєРѕ СЃС‚РѕР»Р±С†РѕРІ
 				$ii++;
 				if($nrow>0){
 					if($ii==$nrow) {
@@ -426,7 +426,7 @@ var onImgArray = new Array();
 			mosJoostinaLinkReplacer ($count_link,$link,$style,$params,$full_count);
 			$count_link = $count_link + 1;
 	}
-	//конец генерации вывода
+	//РєРѕРЅРµС† РіРµРЅРµСЂР°С†РёРё РІС‹РІРѕРґР°
 	}
 
 	}
@@ -632,26 +632,26 @@ onImgArray["ml_img_11_<?php echo $ml_module_number; ?>"].src = "<?php echo $mosC
 
 	switch ($style) {
 
-		// вывод горизонтальной таблицей
+		// РІС‹РІРѕРґ РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅРѕР№ С‚Р°Р±Р»РёС†РµР№
 		case 1:
 			echo '<table class="menutable'.$params->get('moduleclass_sfx').'" cellspacing="0" cellpadding="0" border="0"><tr>';
 			mosJoostinaPrepareLink($params,1);
 			echo '</tr></table>';
 		break;
 
-		// вывод списком
+		// РІС‹РІРѕРґ СЃРїРёСЃРєРѕРј
 		case 2:
 			echo '<ul class="menulist'.$params->get('moduleclass_sfx').'">';
 			mosJoostinaPrepareLink($params,2);
 			echo '</ul>';
 		break;
 
-		// вывод чистых ссылок
+		// РІС‹РІРѕРґ С‡РёСЃС‚С‹С… СЃСЃС‹Р»РѕРє
 		case 3:
 			mosJoostinaPrepareLink($params,3);
 			break;
 
-		// вывод в 100% ширины
+		// РІС‹РІРѕРґ РІ 100% С€РёСЂРёРЅС‹
 		case 4:
 			echo '<table class="menutable'.$params->get('moduleclass_sfx').'" cellspacing="0" cellpadding="0" border="0" width="100%"><tr>';
 			mosJoostinaPrepareLink($params,4);

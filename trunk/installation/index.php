@@ -105,7 +105,7 @@ echo '<?xml version="1.0" encoding="utf-8"?'.'>';?>
 										?>    </td>
 								</tr>
 								<tr>
-									<td class="item">    Каталог для записи сессий     </td>
+									<td class="item">    Каталог для записи сессий</td>
 									<td align="left" valign="top">
 										<?php echo is_writable($sp)?'<b><font color="green">Доступен для записи</font></b>':'<b><font color="red">Недоступен для записи</font></b>'; ?>	</td>
 								</tr>
@@ -266,6 +266,17 @@ foreach($wrongSettingsTexts as $txt) {
 		</font>
 		<td>
 	</tr>
+<tr>
+<td>PCRE UTF-8</td>
+<?php if ( ! @preg_match('/^.$/u', 'ñ')): $failed = TRUE ?>
+<td colspan="2"><b><font color="red"><a href="http://php.net/pcre">PCRE</a> не поддерживает работу с UTF-8.</font></b></td>
+<?php elseif ( ! @preg_match('/^\pL$/u', 'ñ')): $failed = TRUE ?>
+<td colspan="2"><b><font color="red"><a href="http://php.net/pcre">PCRE</a> не поддерживает работу с Юникодом.</font></b></td>
+<?php else: ?>
+<td>&nbsp;</td><td><b><font color="green">ON</font></b></td>
+<?php endif ?>
+</tr>
+
 </table>
 </div>
 </div>

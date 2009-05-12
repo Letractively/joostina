@@ -31,12 +31,10 @@ $xmapComponentURL = $mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/component
 $xmapAdministratorURL = $mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY;
 $xmapSiteURL = $mosConfig_live_site;
 
-// load language file
-if( file_exists( $xmapComponentPath .'/language/' . $xmapLang . '.php') ) {
-	require_once( $xmapComponentPath .'/language/' . $xmapLang . '.php' );
+if(file_exists($mosConfig_absolute_path . '/language/'.$mosConfig_lang.'/com_xmap.php')) {
+	require_once( $mosConfig_absolute_path .'/language/' . $mosConfig_lang . '/com_xmap.php' );
 } else {
-	$xmapLang = 'english';
-	require_once( $xmapComponentPath .'/language/english.php' );
+	require_once( $mosConfig_absolute_path .'/language/russian/com_xmap.php' );
 }
 
 require_once( $xmapComponentPath.'/classes/XmapAdmin.php' );

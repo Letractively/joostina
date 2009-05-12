@@ -1,21 +1,21 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined('_VALID_MOS') or die();
 
 global $mosConfig_absolute_path,$mosConfig_live_site,$my;
 
 $task	= mosGetParam($_GET,'task','publish');
-$id		= intval(mosGetParam($_REQUEST,'id','0'));
+$id		= intval(mosGetParam($_REQUEST,'id',0));
 
-// обрабатываем полученный параметр task
+// РѕР±СЂР°Р±Р°С‚С‹РІР°РµРј РїРѕР»СѓС‡РµРЅРЅС‹Р№ РїР°СЂР°РјРµС‚СЂ task
 switch($task) {
 	case 'publish':
 		echo x_publish($id);
@@ -47,34 +47,34 @@ switch($task) {
 function x_resethits($id) {
 	global $database;
 	$row = new mosContent($database);
-	$row->Load((int)$id);
+	$row->load((int)$id);
 	$row->hits = 0;
 	$row->store();
 	$row->checkin();
 
-	echo 'Счетчик просмотров сброшен';
+	echo _COUNTER_RESET;
 }
 
 function x_metakey($count = 25,$minlench = 4){
 	global $bad_text;
-	$introtext	= joostina_api::convert(mosGetParam($_POST,'introtext','',_MOS_ALLOWRAW));
-	$fulltext	= joostina_api::convert(mosGetParam($_POST,'fulltext','',_MOS_ALLOWRAW));
-	$notetext	= joostina_api::convert(mosGetParam($_POST,'notetext','',_MOS_ALLOWRAW));
+	$introtext	= mosGetParam($_POST,'introtext','',_MOS_ALLOWRAW);
+	$fulltext	= mosGetParam($_POST,'fulltext','',_MOS_ALLOWRAW);
+	$notetext	= mosGetParam($_POST,'notetext','',_MOS_ALLOWRAW);
 	$text	= $introtext .' '. $fulltext .' '. $notetext;
-	$text	= trim(strip_tags ($text)); // чистим от тегов
-	$remove	= array("rdquo","laquo","raquo","quota","quot","ndash","mdash","«","»", "\t",'\n','\r', "\n","\r", '\\', "'",",",".","/","¬","#",";",":","@","~","[","]","{","}","=","-","+",")","(","*","&","^","%","$","<",">","?","!", '"' );
-	$text	= str_replace($remove, '', $text ); // чистим от спецсимволов
-	$arr	= explode(' ', $text); // делим текст на массив из слов
-	$arr	= str_replace($bad_text, '', $arr ); // чистим от стоп-слов
+	$text	= Jstring::trim(strip_tags ($text)); // С‡РёСЃС‚РёРј РѕС‚ С‚РµРіРѕРІ
+	$remove	= array("rdquo","laquo","raquo","quota","quot","ndash","mdash","В«","В»", "\t",'\n','\r', "\n","\r", '\\', "'",",",".","/","В¬","#",";",":","@","~","[","]","{","}","=","-","+",")","(","*","&","^","%","$","<",">","?","!", '"' );
+	$text	= str_replace($remove, '', $text ); // С‡РёСЃС‚РёРј РѕС‚ СЃРїРµС†СЃРёРјРІРѕР»РѕРІ
+	$arr	= explode(' ', $text); // РґРµР»РёРј С‚РµРєСЃС‚ РЅР° РјР°СЃСЃРёРІ РёР· СЃР»РѕРІ
+	$arr	= str_replace($bad_text, '', $arr ); // С‡РёСЃС‚РёРј РѕС‚ СЃС‚РѕРї-СЃР»РѕРІ
 	$ret	= array();
 	foreach ($arr as $sl) {
-		if (strlen($sl) > $minlench) $ret[]= strtolower($sl); // собираем в массив тока слова не меньше указанной длины
+		if (Jstring::strlen($sl) > $minlench) $ret[]= Jstring::strtolower($sl); // СЃРѕР±РёСЂР°РµРј РІ РјР°СЃСЃРёРІ С‚РѕРєР° СЃР»РѕРІР° РЅРµ РјРµРЅСЊС€Рµ СѓРєР°Р·Р°РЅРЅРѕР№ РґР»РёРЅС‹
 	}
-	$ret = array_count_values ($ret); // собираем слова с количеством
-	arsort ($ret); // сортируем массив, чем чаще встречается слово - тем выше его ставим
+	$ret = array_count_values ($ret); // СЃРѕР±РёСЂР°РµРј СЃР»РѕРІР° СЃ РєРѕР»РёС‡РµСЃС‚РІРѕРј
+	arsort ($ret); // СЃРѕСЂС‚РёСЂСѓРµРј РјР°СЃСЃРёРІ, С‡РµРј С‡Р°С‰Рµ РІСЃС‚СЂРµС‡Р°РµС‚СЃСЏ СЃР»РѕРІРѕ - С‚РµРј РІС‹С€Рµ РµРіРѕ СЃС‚Р°РІРёРј
 	$ret = array_keys($ret);
-	$ret = array_slice ($ret, 0, $count); // берём первые значения массива
-	$headers = implode (', ', $ret); // собираем итог
+	$ret = array_slice ($ret, 0, $count); // Р±РµСЂС‘Рј РїРµСЂРІС‹Рµ Р·РЅР°С‡РµРЅРёСЏ РјР°СЃСЃРёРІР°
+	$headers = implode (', ', $ret); // СЃРѕР±РёСЂР°РµРј РёС‚РѕРі
 	return $headers;
 }
 
@@ -116,7 +116,7 @@ function x_access($id){
 		$task_access	= 'accesspublic';
 		$text_href		= _USER_GROUP_SPECIAL;
 	}
-	// чистим кэш
+	// С‡РёСЃС‚РёРј РєСЌС€
 	mosCache::cleanCache('com_content');
 	return '<a href="#" onclick="return ch_access('.$row->id.',\''.$task_access.'\',\''.$option.'\')" '.$color_access.'>'.$text_href.'</a>';
 }
@@ -131,18 +131,18 @@ function x_to_trash($id){
 	$query = "UPDATE #__content SET state = ".(int)$state.", ordering = ".(int)$ordering." WHERE id=".$id;
 	$database->setQuery($query);
 	if(!$database->query()) {
-		return 2; // ошибка перемещения в корзину
+		return 2; // РѕС€РёР±РєР° РїРµСЂРµРјРµС‰РµРЅРёСЏ РІ РєРѕСЂР·РёРЅСѓ
 	}else{
 		mosCache::cleanCache('com_content');
-		return 1; // перемещение в корзину успешно
+		return 1; // РїРµСЂРµРјРµС‰РµРЅРёРµ РІ РєРѕСЂР·РёРЅСѓ СѓСЃРїРµС€РЅРѕ
 	}
-	// чистим кэш
+	// С‡РёСЃС‚РёРј РєСЌС€
 }
 
 
-/* быстрое сохранение содержимого редакторов
-* $id - идентификатор содержимого
-* сохраняется ТОЛЬКО текст редакторов
+/* Р±С‹СЃС‚СЂРѕРµ СЃРѕС…СЂР°РЅРµРЅРёРµ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ СЂРµРґР°РєС‚РѕСЂРѕРІ
+* $id - РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ
+* СЃРѕС…СЂР°РЅСЏРµС‚СЃСЏ РўРћР›Р¬РљРћ С‚РµРєСЃС‚ СЂРµРґР°РєС‚РѕСЂРѕРІ
 */
 function x_save_old($id) {
 	global $database,$my,$mosConfig_one_editor;
@@ -151,7 +151,7 @@ function x_save_old($id) {
 	$fulltext	= mosGetParam($_POST,'fulltext','',_MOS_ALLOWRAW);
 	$notetext	= mosGetParam($_POST,'notetext','',_MOS_ALLOWRAW);
 
-	// инициализация использования одного редактора
+	// РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ РѕРґРЅРѕРіРѕ СЂРµРґР°РєС‚РѕСЂР°
 	if($mosConfig_one_editor){
 		$alltext	= mosGetParam($_POST,'introtext','',_MOS_ALLOWHTML);
 		$tagPos		= strpos( $alltext, '<!-- pagebreak -->' );
@@ -163,7 +163,7 @@ function x_save_old($id) {
 		}
 	}
 
-	// конвертируем из юникода в cp1251
+	// РєРѕРЅРІРµСЂС‚РёСЂСѓРµРј РёР· СЋРЅРёРєРѕРґР° РІ cp1251
 	$introtext	= joostina_api::convert($introtext);
 	$fulltext	= joostina_api::convert($fulltext);
 	$notetext	= joostina_api::convert($notetext);
@@ -174,7 +174,7 @@ function x_save_old($id) {
 			." WHERE id = ".(int)$id." AND ( checked_out = 0 OR (checked_out = ".(int)$my->id.") )";
 	$database->setQuery($query);
 
-	$text = 'Быстрое сохранение: '.gmdate('H:i:s ( d.m.y )');
+	$text = 'Р‘С‹СЃС‚СЂРѕРµ СЃРѕС…СЂР°РЅРµРЅРёРµ: '.gmdate('H:i:s ( d.m.y )');
 	if(!$database->query()) {
 		$text = 'error-'.$database->getErrorMsg();
 		mosCache::cleanCache('com_content');
@@ -186,7 +186,7 @@ function x_save_old($id) {
 /**
 * Saves the content item an edit form submit
 * @param database A database connector object
-* boston, добавил параметр -  возврат в редактирование содержимого после сохранения для добавления нового
+* boston, РґРѕР±Р°РІРёР» РїР°СЂР°РјРµС‚СЂ -  РІРѕР·РІСЂР°С‚ РІ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ РїРѕСЃР»Рµ СЃРѕС…СЂР°РЅРµРЅРёСЏ РґР»СЏ РґРѕР±Р°РІР»РµРЅРёСЏ РЅРѕРІРѕРіРѕ
 */
 function x_save() {
 	global $database,$my,$mainframe,$mosConfig_offset,$mosConfig_one_editor;
@@ -200,7 +200,7 @@ function x_save() {
 		$_POST[$key] = joostina_api::convert($val);
 	}
 	
-	// инициализация использования одного редактора
+	// РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ РѕРґРЅРѕРіРѕ СЂРµРґР°РєС‚РѕСЂР°
 	if($mosConfig_one_editor){
 		$alltext	= mosGetParam($_POST,'introtext','',_MOS_ALLOWHTML);
 		$tagPos		= strpos( $alltext, '<!-- pagebreak -->' );
@@ -237,7 +237,7 @@ function x_save() {
 	}
 	$row->publish_up = mosFormatDate($row->publish_up,_CURRENT_SERVER_TIME_FORMAT,- $mosConfig_offset);
 
-	if(trim($row->publish_down) == 'Никогда' || trim($row->publish_down) == '') {
+	if(trim($row->publish_down) == 'РќРёРєРѕРіРґР°' || trim($row->publish_down) == '') {
 		$row->publish_down = $nullDate;
 	} else {
 		if(strlen(trim($row->publish_down)) <= 10) {
@@ -314,62 +314,62 @@ function x_save() {
 
 	mosCache::cleanCache('com_content');
 
-	echo 'Быстрое сохранение: '.gmdate('H:i:s ( d.m.y )');
+	echo 'Р‘С‹СЃС‚СЂРѕРµ СЃРѕС…СЂР°РЅРµРЅРёРµ: '.gmdate('H:i:s ( d.m.y )');
 
 }
 
 
-/* публикация объекта
-* $id - идентификатор объекта
+/* РїСѓР±Р»РёРєР°С†РёСЏ РѕР±СЉРµРєС‚Р°
+* $id - РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ РѕР±СЉРµРєС‚Р°
 */
 function x_publish($id = null) {
 	global $database,$my;
-	// id содержимого для обработки не получен - выдаём ошибку
+	// id СЃРѕРґРµСЂР¶РёРјРѕРіРѕ РґР»СЏ РѕР±СЂР°Р±РѕС‚РєРё РЅРµ РїРѕР»СѓС‡РµРЅ - РІС‹РґР°С‘Рј РѕС€РёР±РєСѓ
 	if(!$id) return 'error-id';
 
 	$state = new stdClass();
 	$query = "SELECT state, publish_up, publish_down FROM #__content WHERE id = ".(int)$id;
 	$database->setQuery($query);
 	$row = $database->loadobjectList();
-	$row = $row['0']; // результат запроса с элементами выбранных значений
+	$row = $row['0']; // СЂРµР·СѓР»СЊС‚Р°С‚ Р·Р°РїСЂРѕСЃР° СЃ СЌР»РµРјРµРЅС‚Р°РјРё РІС‹Р±СЂР°РЅРЅС‹С… Р·РЅР°С‡РµРЅРёР№
 
 	$now = _CURRENT_SERVER_TIME;
 	$nullDate = $database->getNullDate();
-	$ret_img = ''; // сюда надо изображения ошибки выполнения аякс скрипта поместить
+	$ret_img = ''; // СЃСЋРґР° РЅР°РґРѕ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ РѕС€РёР±РєРё РІС‹РїРѕР»РЅРµРЅРёСЏ Р°СЏРєСЃ СЃРєСЂРёРїС‚Р° РїРѕРјРµСЃС‚РёС‚СЊ
 	if($now <= $row->publish_up && $row->state == 1) {
-		// снимаем с публикации, опубликовано, но еще не доступно  - возвращаем значок "Неопубликовано"
+		// СЃРЅРёРјР°РµРј СЃ РїСѓР±Р»РёРєР°С†РёРё, РѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ, РЅРѕ РµС‰Рµ РЅРµ РґРѕСЃС‚СѓРїРЅРѕ  - РІРѕР·РІСЂР°С‰Р°РµРј Р·РЅР°С‡РѕРє "РќРµРѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ"
 		$ret_img = 'publish_x.png';
-		$state = '0'; // было опубликовано - снимаем с публикации
+		$state = '0'; // Р±С‹Р»Рѕ РѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ - СЃРЅРёРјР°РµРј СЃ РїСѓР±Р»РёРєР°С†РёРё
 	} elseif($now <= $row->publish_up && $row->state == 0) {
-		// снимаем с публикации, не опубликовано, и еще не доступно  - возвращаем значок "Не активно"
+		// СЃРЅРёРјР°РµРј СЃ РїСѓР±Р»РёРєР°С†РёРё, РЅРµ РѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ, Рё РµС‰Рµ РЅРµ РґРѕСЃС‚СѓРїРЅРѕ  - РІРѕР·РІСЂР°С‰Р°РµРј Р·РЅР°С‡РѕРє "РќРµ Р°РєС‚РёРІРЅРѕ"
 		$ret_img = 'publish_y.png';
 		$state = '1';
-		/* не было опубликовано - публикуем*/
+		/* РЅРµ Р±С‹Р»Рѕ РѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ - РїСѓР±Р»РёРєСѓРµРј*/
 	} else
 		if(($now <= $row->publish_down || $row->publish_down == $nullDate) && $row->state ==
 			1) {
-			// доступно и опубликовано, снимаем с публикации и возвращаем значок "Не опубликовано"
+			// РґРѕСЃС‚СѓРїРЅРѕ Рё РѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ, СЃРЅРёРјР°РµРј СЃ РїСѓР±Р»РёРєР°С†РёРё Рё РІРѕР·РІСЂР°С‰Р°РµРј Р·РЅР°С‡РѕРє "РќРµ РѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ"
 			$ret_img = 'publish_x.png';
-			$state = '0'; // было опубликовано - снимаем с публикации
+			$state = '0'; // Р±С‹Р»Рѕ РѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ - СЃРЅРёРјР°РµРј СЃ РїСѓР±Р»РёРєР°С†РёРё
 		} else
 			if(($now <= $row->publish_down || $row->publish_down == $nullDate) && $row->state ==
 				0) {
-				// доступно и опубликовано, снимаем с публикации и возвращаем значок "Не опубликовано"
+				// РґРѕСЃС‚СѓРїРЅРѕ Рё РѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ, СЃРЅРёРјР°РµРј СЃ РїСѓР±Р»РёРєР°С†РёРё Рё РІРѕР·РІСЂР°С‰Р°РµРј Р·РЅР°С‡РѕРє "РќРµ РѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ"
 				$ret_img = 'publish_g.png';
 				$state = '1';
-				/* не было опубликовано - публикуем*/
+				/* РЅРµ Р±С‹Р»Рѕ РѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ - РїСѓР±Р»РёРєСѓРµРј*/
 			} else
 				if($now > $row->publish_down && $row->state == 1) {
-					// опубликовано, но срок публикации истёк, снимаем с публикации и возвращаем значок "Не опубликовано"
+					// РѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ, РЅРѕ СЃСЂРѕРє РїСѓР±Р»РёРєР°С†РёРё РёСЃС‚С‘Рє, СЃРЅРёРјР°РµРј СЃ РїСѓР±Р»РёРєР°С†РёРё Рё РІРѕР·РІСЂР°С‰Р°РµРј Р·РЅР°С‡РѕРє "РќРµ РѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ"
 					$ret_img = 'publish_x.png';
 					$state = '0';
-					/* не было опубликовано - публикуем*/
+					/* РЅРµ Р±С‹Р»Рѕ РѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ - РїСѓР±Р»РёРєСѓРµРј*/
 				} else
 					if($now > $row->publish_down && $row->state == 0) {
-						// опубликовано, но срок публикации истёк, снимаем с публикации и возвращаем значок "Не опубликовано"
+						// РѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ, РЅРѕ СЃСЂРѕРє РїСѓР±Р»РёРєР°С†РёРё РёСЃС‚С‘Рє, СЃРЅРёРјР°РµРј СЃ РїСѓР±Р»РёРєР°С†РёРё Рё РІРѕР·РІСЂР°С‰Р°РµРј Р·РЅР°С‡РѕРє "РќРµ РѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ"
 						$ret_img = 'publish_r.png';
 						$state = '1';
-						/* не было опубликовано - публикуем*/
+						/* РЅРµ Р±С‹Р»Рѕ РѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ - РїСѓР±Р»РёРєСѓРµРј*/
 					}
 
 	$query = "UPDATE #__content"
@@ -383,8 +383,8 @@ function x_publish($id = null) {
 		return $ret_img;
 	}
 }
-/* публикация объекта на главной(первой) странице
-* $id - идентификатор содержимого
+/* РїСѓР±Р»РёРєР°С†РёСЏ РѕР±СЉРµРєС‚Р° РЅР° РіР»Р°РІРЅРѕР№(РїРµСЂРІРѕР№) СЃС‚СЂР°РЅРёС†Рµ
+* $id - РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ
 */
 function x_frontpage($id) {
 	global $mainframe,$database;
@@ -407,7 +407,7 @@ function x_frontpage($id) {
 		$ret_img = 'tick.png';
 	}
 	$fp->updateOrder();
-	mosCache::cleanCache('com_content'); // почистим кэш контент
+	mosCache::cleanCache('com_content'); // РїРѕС‡РёСЃС‚РёРј РєСЌС€ РєРѕРЅС‚РµРЅС‚
 	return $ret_img;
 }
 
