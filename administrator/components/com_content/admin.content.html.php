@@ -892,7 +892,7 @@ class HTML_content {
 
                    	<tr>
                    <td> Страница просмотра записи: </td>
-                   <td> <?php echo $templates->templates_select_list('item_full', $curr_templates['item_full']); ?> </td>
+                   <td> <?php echo $templates->templates_select_list('item_full', $curr_templates); ?> </td>
                     </tr>
 
 
