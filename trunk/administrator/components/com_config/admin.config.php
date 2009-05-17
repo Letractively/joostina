@@ -401,7 +401,7 @@ function showconfig($option) {
 	$lists['readmore']			= mosHTML::yesnoRadioList('config_readmore', 'class="inputbox"', $row->config_readmore);
 	$lists['vote']				= mosHTML::yesnoRadioList('config_vote', 'class="inputbox"', $row->config_vote );
 	$lists['hideAuthor']		= mosHTML::yesnoRadioList('config_hideAuthor', 'class="inputbox"', $row->config_hideAuthor );
-	$lists['authorName']		= mosHTML::selectList( $author_name_type, 'config_authorName', 'class="inputbox" size="1"', 'value', 'text', $row->config_authorName );
+	$lists['authorName']		= mosHTML::selectList( $author_name_type, 'config_author_name', 'class="inputbox" size="1"', 'value', 'text', $row->config_author_name );
 	$lists['hideCreateDate']	= mosHTML::yesnoRadioList('config_hideCreateDate', 'class="inputbox"', $row->config_hideCreateDate);
 	$lists['hideModifyDate']	= mosHTML::yesnoRadioList('config_hideModifyDate', 'class="inputbox"', $row->config_hideModifyDate);
 	$lists['hits']				= mosHTML::yesnoRadioList('config_hits', 'class="inputbox"', $row->config_hits);

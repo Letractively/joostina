@@ -329,9 +329,9 @@ class mosContent extends mosDBTable {
                         author.username AS author_nickname, author.name AS author_name,
                         modifier.username AS modifier_nickname, modifier.name AS modifier_name
                 FROM #__content AS item
-                INNER JOIN #__sections AS s ON s.id = item.sectionid
-                INNER JOIN #__categories AS c ON c.id = item.catid
-                INNER JOIN #__users AS author ON author.id = item.created_by
+                LEFT JOIN #__sections AS s ON s.id = item.sectionid
+                LEFT JOIN #__categories AS c ON c.id = item.catid
+                LEFT JOIN #__users AS author ON author.id = item.created_by
                 LEFT JOIN #__users AS modifier ON modifier.id = item.modified_by
                 WHERE item.id='.$id;
         $r=null;

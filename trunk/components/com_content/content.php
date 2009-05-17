@@ -346,7 +346,7 @@ function frontpage($gid,&$access,$pop,$now,$limit,$limitstart) {
 	// query records
 	$query = "SELECT a.attribs, a.notetext, a.id, a.title, a.title_alias, a.introtext, a.sectionid, a.state, a.catid, a.created, a.created_by, a.created_by_alias, a.modified, a.modified_by,".
 		"\n a.checked_out, a.checked_out_time, a.publish_up, a.publish_down, a.images, a.urls, a.ordering, a.metakey, a.metadesc, a.access, a.hits,".
-		"\n CHAR_LENGTH( a.fulltext ) AS readmore, u.name AS author, u.usertype, s.name AS section, cc.name AS category, g.name AS groups".
+		"\n CHAR_LENGTH( a.fulltext ) AS readmore, u.name AS author, u.usertype, u.username, s.name AS section, cc.name AS category, g.name AS groups".
 		"\n, s.id AS sec_id, cc.id as cat_id".$voting['select']."\n FROM #__content AS a".
 		"\n INNER JOIN #__content_frontpage AS f ON f.content_id = a.id"."\n INNER JOIN #__categories AS cc ON cc.id = a.catid".
 		"\n INNER JOIN #__sections AS s ON s.id = a.sectionid"."\n LEFT JOIN #__users AS u ON u.id = a.created_by".
@@ -726,10 +726,14 @@ function showCategory($id,$gid,&$access,$sectionid,$limit,$selected,$limitstart,
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
 	// get the list of items for this category
-	$query = "SELECT a.id, a.title, a.hits, a.created_by, a.created_by_alias, a.created AS created, a.access, u.name AS author, a.state, g.name AS groups".
-		"\n FROM #__content AS a"."\n LEFT JOIN #__users AS u ON u.id = a.created_by"."\n LEFT JOIN #__groups AS g ON a.access = g.id".
-		"\n WHERE a.catid = ".(int)$category->id.$xwhere.($noauth?"\n AND a.access <= ".
-		(int)$gid:'')."\n AND ".(int)$category->access." <= ".(int)$gid.$and."\n ORDER BY $orderby";
+	$query = "  SELECT  a.id, a.title, a.hits, a.created_by, a.created_by_alias,
+                        a.created AS created, a.access, a.state,
+                        u.name AS author, u.username,
+                        g.name AS groups
+                FROM #__content AS a
+                LEFT JOIN #__users AS u ON u.id = a.created_by
+                LEFT JOIN #__groups AS g ON a.access = g.id
+                WHERE a.catid = ".(int)$category->id.$xwhere.($noauth?"\n AND a.access <= ".(int)$gid:'')."\n AND ".(int)$category->access." <= ".(int)$gid.$and."\n ORDER BY $orderby";
 	$database->setQuery($query,$limitstart,$limit);
 	$items = $database->loadObjectList();
 
@@ -835,9 +839,13 @@ function showBlogSection($id = 0,$gid,&$access,$pop,$now = null,$limit,$limitsta
 	$limit = $limit?$limit:($intro + $leading + $links);
 
 	// query to determine total number of records
-	$query = "SELECT COUNT(a.id)"."\n FROM #__content AS a INNER JOIN #__categories AS cc ON cc.id = a.catid"
-			."\n LEFT JOIN #__users AS u ON u.id = a.created_by LEFT JOIN #__sections AS s ON a.sectionid = s.id"
-			."\n LEFT JOIN #__groups AS g ON a.access = g.id".$where;
+	$query = "  SELECT COUNT(a.id)
+                FROM #__content AS a
+                INNER JOIN #__categories AS cc ON cc.id = a.catid
+                LEFT JOIN #__users AS u ON u.id = a.created_by
+                LEFT JOIN #__sections AS s ON a.sectionid = s.id
+                LEFT JOIN #__groups AS g ON a.access = g.id
+                ".$where;
 	$database->setQuery($query);
 	$total = $database->loadResult();
 
@@ -845,15 +853,24 @@ function showBlogSection($id = 0,$gid,&$access,$pop,$now = null,$limit,$limitsta
 		$limitstart = 0;
 	}
 
-
-
 	// Main data query
-	$query = "SELECT a.id, a.attribs , a.title, a.title_alias, a.introtext, a.sectionid, a.state, a.catid, a.created, a.created_by, a.created_by_alias, a.modified, a.modified_by,".
-		"\n a.checked_out, a.checked_out_time, a.publish_up, a.publish_down, a.images, a.urls, a.ordering, a.metakey, a.metadesc, a.access,"
-		."\n CHAR_LENGTH( a.fulltext ) AS readmore, u.name AS author, u.usertype, s.name AS section,  cc.name AS category, g.name AS groups"
-		.$voting['select']."\n FROM #__content AS a"."\n INNER JOIN #__categories AS cc ON cc.id = a.catid"
-		."\n LEFT JOIN #__users AS u ON u.id = a.created_by"."\n LEFT JOIN #__sections AS s ON a.sectionid = s.id"
-		."\n LEFT JOIN #__groups AS g ON a.access = g.id".$voting['join'].$where."\n ORDER BY $order_pri $order_sec";
+	$query = "  SELECT  a.id, a.attribs , a.title, a.title_alias, a.introtext, a.sectionid,
+                        a.state, a.catid, a.created, a.created_by, a.created_by_alias, a.modified, a.modified_by,
+                        a.checked_out, a.checked_out_time, a.publish_up, a.publish_down, a.images, a.urls, a.ordering,
+                        a.metakey, a.metadesc, a.access, CHAR_LENGTH( a.fulltext ) AS readmore,
+                        u.name AS author, u.usertype, u.username,
+                        s.name AS section,
+                        cc.name AS category,
+                        g.name AS groups
+                        ".$voting['select']."
+                FROM #__content AS a
+                INNER JOIN #__categories AS cc ON cc.id = a.catid
+                LEFT JOIN #__users AS u ON u.id = a.created_by
+                LEFT JOIN #__sections AS s ON a.sectionid = s.id
+                LEFT JOIN #__groups AS g ON a.access = g.id
+                ".$voting['join']
+                .$where."
+                ORDER BY $order_pri $order_sec";
 	$database->setQuery($query,$limitstart,$limit);
 	$rows = $database->loadObjectList();
 
@@ -984,7 +1001,7 @@ function showBlogCategory($id = 0,$gid,&$access,$pop,$now,$limit,$limitstart) {
                     CHAR_LENGTH( a.fulltext ) AS readmore,
                     s.published AS sec_pub, s.name AS section, s.templates AS s_templates,
                     cc.published AS sec_pub, cc.name AS category, cc.templates AS c_templates,
-                    u.name AS author, u.usertype,
+                    u.name AS author, u.usertype, u.username,
                     g.name AS groups
                     ".$voting['select']."
                 FROM #__content AS a
@@ -1002,9 +1019,11 @@ function showBlogCategory($id = 0,$gid,&$access,$pop,$now,$limit,$limitstart) {
     if($rows){
         $category = new mosCategory($database);
         $category->templates = $rows[0]->c_templates;
+        $params->category_data = $category;
 
         $section = new mosSection($database);
         $section->templates = $rows[0]->s_templates;
+        $params->section_data = $section;
     }
 
 
@@ -1253,9 +1272,13 @@ function showArchiveCategory($id = 0,$gid,&$access,$pop,$option,$year,$month,$mo
 	$limit = $limit?$limit:($intro + $leading + $links);
 
 	// query to determine total number of records
-	$query = "SELECT COUNT(a.id)"."\n FROM #__content AS a"."\n INNER JOIN #__categories AS cc ON cc.id = a.catid".
-		"\n LEFT JOIN #__users AS u ON u.id = a.created_by"."\n LEFT JOIN #__sections AS s ON a.sectionid = s.id".
-		"\n LEFT JOIN #__groups AS g ON a.access = g.id".$where;
+	$query = "  SELECT COUNT(a.id)
+                FROM #__content AS a
+                INNER JOIN #__categories AS cc ON cc.id = a.catid
+                LEFT JOIN #__users AS u ON u.id = a.created_by
+                LEFT JOIN #__sections AS s ON a.sectionid = s.id
+                LEFT JOIN #__groups AS g ON a.access = g.id
+                ".$where;
 	$database->setQuery($query);
 	$total = $database->loadResult();
 
@@ -1264,12 +1287,24 @@ function showArchiveCategory($id = 0,$gid,&$access,$pop,$option,$year,$month,$mo
 	}
 
 	// main query
-	$query = "SELECT a.id, a.title, a.title_alias, a.introtext, a.sectionid, a.state, a.catid, a.created, a.created_by, a.created_by_alias, a.modified, a.modified_by,".
-		"\n a.checked_out, a.checked_out_time, a.publish_up, a.publish_down, a.images, a.urls, a.ordering, a.metakey, a.metadesc, a.access,".
-		"\n CHAR_LENGTH( a.fulltext ) AS readmore, u.name AS author, u.usertype, s.name AS section, cc.name AS category, g.name AS groups".
-		$voting['select']."\n FROM #__content AS a"."\n INNER JOIN #__categories AS cc ON cc.id = a.catid".
-		"\n LEFT JOIN #__users AS u ON u.id = a.created_by"."\n LEFT JOIN #__sections AS s ON a.sectionid = s.id".
-		"\n LEFT JOIN #__groups AS g ON a.access = g.id".$voting['join'].$where."\n ORDER BY $order_sec";
+	$query = " SELECT   a.id, a.title, a.title_alias, a.introtext, a.sectionid, a.state, a.catid,
+                        a.created, a.created_by, a.created_by_alias, a.modified, a.modified_by,
+                        a.checked_out, a.checked_out_time, a.publish_up, a.publish_down, a.images,
+                        a.urls, a.ordering, a.metakey, a.metadesc, a.access,
+                        CHAR_LENGTH( a.fulltext ) AS readmore,
+                        u.name AS author, u.usertype, u.username,
+                        s.name AS section,
+                        cc.name AS category,
+                        g.name AS groups
+                        ".$voting['select']."
+                FROM #__content AS a
+                INNER JOIN #__categories AS cc ON cc.id = a.catid
+                LEFT JOIN #__users AS u ON u.id = a.created_by
+                LEFT JOIN #__sections AS s ON a.sectionid = s.id
+                LEFT JOIN #__groups AS g ON a.access = g.id
+                ".$voting['join']
+                .$where."
+                ORDER BY $order_sec";
 	$database->setQuery($query,$limitstart,$limit);
 	$rows = $database->loadObjectList();
 
@@ -1364,17 +1399,14 @@ function BlogOutput(&$rows,&$params,$gid,&$access,$pop,&$menu,$limitstart,$limit
     $tpl = '';
     $group_cat=$params->get('group_cat',0);
 
-
 	if($params->get('page_title',1) && $menu) {
 		$header = $params->def('header',$menu->name);
 	}
-
 
 	$columns = $params->def('columns',2);
 	if($columns == 0) {
 		$columns = 1;
 	}
-
 	$intro = $params->def('intro',4);
 	$leading = $params->def('leading',1);
 	$links = $params->def('link',4);
@@ -1394,69 +1426,6 @@ function BlogOutput(&$rows,&$params,$gid,&$access,$pop,&$menu,$limitstart,$limit
 	 $cats_arr=array(); $k=0;
 	 
 	 $sfx = $params->get('pageclass_sfx');
-
-
-
-     $template = new jstContentTemplate();
-     $templates = null;
-    //Определяем шаблон вывода страницы
-
-     //Если это архив
-    if($archive) {
-        switch ($task){
-            //Архив раздела
-            case 'archivesection':
-            default:
-                $page_type = 'section_archive';
-                $templates = $params->section_data->templates;
-            break;
-
-            //Архив категории
-            case 'archivecategory':
-                $page_type = 'category_archive';
-
-                if($template->isset_settings($page_type, $params->category_data->templates)){
-                    $templates = $params->category_data->templates;
-                }
-                elseif($template->isset_settings($page_type, $params->section_data->templates)){
-                    $templates = $params->section_data->templates;
-                }
-            break;
-        }
-    }
-
-    else{
-
-    //Не главная страница и не архив - обычный блог раздела или категории
-    switch ($task){
-        case 'blogcategory':
-        default:
-            $page_type = 'category_blog';
-            //проверяем настройки категории на предмет  заданного шаблона
-            if($template->isset_settings($page_type, $params->category_data->templates)){
-                $templates = $params->category_data->templates;
-            }
-            //иначе - проверяем настройки раздела
-            elseif($template->isset_settings($page_type, $params->section_data->templates)){
-                $templates = $params->section_data->templates;
-            }
-
-        break;
-
-        case 'blogsection':
-            //Если группировка по категориям отключена - оставляем вывод как и был прежде
-            if(!$group_cat){
-                $page_type = 'section_blog';
-            }
-            //Если включена группировка по категориям
-            else{
-                $page_type = 'groupcats';
-            }
-            $templates = $params->section_data->templates;
-            break;
-    }
-
-    }
 
 	// used to display section/catagory description text and images
 	// currently not supported in Archives
@@ -1544,16 +1513,11 @@ function BlogOutput(&$rows,&$params,$gid,&$access,$pop,&$menu,$limitstart,$limit
 						$link = 'index.php?option=com_content&amp;task='.$task.'&amp;id='.$id.$Itemid_link;
 					}
 
-
-
 				if($pagination_results) {
 				    $display_pagination_results = 1;
 				}
 			}
 		}
-
-
-
 	}
 
     else if($archive && !$total) {
@@ -1563,10 +1527,69 @@ function BlogOutput(&$rows,&$params,$gid,&$access,$pop,&$menu,$limitstart,$limit
 	// Back Button
 	$params->set('back_button',$back);
 
+    $template = new jstContentTemplate();
+     $templates = null;
+    //Определяем шаблон вывода страницы
+
+     //Если это архив
+    if($archive) {
+        switch ($task){
+            //Архив раздела
+            case 'archivesection':
+            default:
+                $page_type = 'section_archive';
+                $templates = $params->section_data->templates;
+            break;
+
+            //Архив категории
+            case 'archivecategory':
+                $page_type = 'category_archive';
+
+                if($template->isset_settings($page_type, $params->category_data->templates)){
+                    $templates = $params->category_data->templates;
+                }
+                elseif($template->isset_settings($page_type, $params->section_data->templates)){
+                    $templates = $params->section_data->templates;
+                }
+            break;
+        }
+    }
+
     //Если это главная страница - компонент 'com_frontpage'
-    if($_REQUEST['option']=='com_frontpage'){
+   else if($_REQUEST['option']=='com_frontpage'){
         include_once($mosConfig_absolute_path.'/components/com_content/view/frontpage/default.php');
         return;
+    }
+
+    //Не главная страница и не архив - обычный блог раздела или категории
+    else{
+        switch ($task){
+            case 'blogcategory':
+            default:
+                $page_type = 'category_blog';
+                //проверяем настройки категории на предмет  заданного шаблона
+                if($template->isset_settings($page_type, $params->category_data->templates)){
+                    $templates = $params->category_data->templates;
+                }
+                //иначе - проверяем настройки раздела
+                elseif($template->isset_settings($page_type, $params->section_data->templates)){
+                    $templates = $params->section_data->templates;
+                }
+
+            break;
+
+            case 'blogsection':
+                //Если группировка по категориям отключена - оставляем вывод как и был прежде
+                if(!$group_cat){
+                    $page_type = 'section_blog';
+                }
+                //Если включена группировка по категориям
+                else{
+                    $page_type = 'groupcats';
+                }
+                $templates = $params->section_data->templates;
+                break;
+        }
     }
 
     $template->set_template($page_type, $templates);
@@ -1585,22 +1608,27 @@ function showItem($uid,$gid,&$access,$pop) {
 	if($access->canEdit || $task =='preview') {
 		$xwhere = '';
 	} else {
-		$xwhere = "\n AND ( a.state = 1 OR a.state = -1 )";
+		$xwhere = " AND ( a.state = 1 OR a.state = -1 )";
 		if(!$mosConfig_disable_date_state) {
-			$xwhere .= "\n AND ( a.publish_up = ".$database->Quote($nullDate)	. " OR a.publish_up <= ".$database->Quote($now)." )";
-			$xwhere .= "\n AND ( a.publish_down = ".$database->Quote($nullDate)	. " OR a.publish_down >= ".$database->Quote($now)." )";
+			$xwhere .= " AND ( a.publish_up = ".$database->Quote($nullDate)	. " OR a.publish_up <= ".$database->Quote($now)." )";
+			$xwhere .= " AND ( a.publish_down = ".$database->Quote($nullDate)	. " OR a.publish_down >= ".$database->Quote($now)." )";
 		}
 		;
 	}
 	if(!$mosConfig_disable_access_control) $where_ac = "\n AND a.access <= ".(int)$gid;
 	else $where_ac = '';
 	// main query
-	$query = "SELECT a.*, u.name AS author, u.usertype, cc.name AS category, cc.templates as c_templates, s.name AS section, g.name AS groups,".
-		"\n s.published AS sec_pub, cc.published AS cat_pub, s.templates as s_templates, s.access AS sec_access, cc.access AS cat_access,".
-		"\n s.id AS sec_id, cc.id as cat_id"."\n FROM #__content AS a LEFT JOIN #__categories AS cc ON cc.id = a.catid".
-		"\n LEFT JOIN #__sections AS s ON s.id = cc.section AND s.scope = 'content' LEFT JOIN #__users AS u ON u.id = a.created_by".
-		"\n LEFT JOIN #__groups AS g ON a.access = g.id"."\n WHERE a.id = ".(int)$uid.$xwhere.
-		$where_ac;
+	$query = "SELECT a.*,
+                    cc.name AS category, cc.templates as c_templates, cc.access AS cat_access, cc.id as cat_id, cc.published AS cat_pub,
+                    s.name AS section, s.published AS sec_pub, s.id AS sec_id, s.templates as s_templates, s.access AS sec_access,
+                    u.name AS author, u.usertype, u.username,
+                    g.name AS groups
+            FROM #__content AS a
+            LEFT JOIN #__categories AS cc ON cc.id = a.catid
+            LEFT JOIN #__sections AS s ON s.id = cc.section AND s.scope = 'content'
+            LEFT JOIN #__users AS u ON u.id = a.created_by
+            LEFT JOIN #__groups AS g ON a.access = g.id
+            WHERE a.id = ".(int)$uid.$xwhere.$where_ac;
 	$database->setQuery($query);
 	$row = null;
 
@@ -1736,7 +1764,7 @@ function showItem($uid,$gid,&$access,$pop) {
         }
 
 
-        $row->rating=$row->total_rate;
+        //$row->rating=$row->total_rate;
 		show($row,$params,$gid,$access,$pop);
 
 		// page title
@@ -2039,17 +2067,9 @@ function editItem($task) {
 
     //Если это редактирование записи
     else if($task=='edit'){
+       $row = $content->get_item((int)$id);
 
-        if($row->sectionid){
-            $row = $content->get_item((int)$id);
-        }
-        else{
-            $content->load((int)$id);
-            $row = $content;
-        }
-
-
-        $section = $row->sectionid;
+       $section = $row->sectionid;
 		// запрещаем доступ
 		if(!($access->canEdit || ($access->canEditOwn && $row->created_by == $my->id))) {
 			mosNotAuth();

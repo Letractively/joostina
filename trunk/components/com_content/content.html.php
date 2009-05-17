@@ -406,7 +406,7 @@ class HTML_content {
             $templates=null;
 
             //если это статичное содержимое или у записи задан шаблон
-            if(!$row->id || $row->templates){
+            if(!$row->sectionid || $row->templates){
                 if($row->templates) {
                     $templates = $row->templates;
                 }
