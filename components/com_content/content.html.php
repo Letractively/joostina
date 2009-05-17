@@ -864,7 +864,7 @@ class HTML_content {
             $template = new jstContentTemplate();
             $templates=null;
 
-            if($template->isset_settings($params->page_type, $params->section_data->templates)){
+            if(isset($params->section_data->templates) && $template->isset_settings($params->page_type, $params->section_data->templates)){
                 $templates = $params->section_data->templates;
             }
 
