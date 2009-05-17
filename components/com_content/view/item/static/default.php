@@ -1,7 +1,6 @@
 <?php
 defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.' );
 ?>
-        item_static
 		<?php if($params->get('item_title')) { ?>
 
             <div <?php echo $news_uid_css_title; ?>class="item_title">
