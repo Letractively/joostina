@@ -1,5 +1,10 @@
-
+<?php
+defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.' );
+?>
     <div class="page_archive">
+
+        <?php $link = ampReplace('index.php?option=com_content&task=archivecategory&id='.$id.'&Itemid='.$Itemid); ?>
+        <form action="<?php echo sefRelToAbs($link); ?>" method="post">
 
         <div class="form">
             <?php echo  mosHTML::monthSelectList('month','size="1" class="inputbox"',$params->get('month'));?>
@@ -20,7 +25,7 @@
     			<?php for($z = 0; $z < $leading; $z++) { if($i >= ($total - $limitstart)) { break; } ?>
 
     			    <div class="intro leading" id="leading_<?php echo $z;?>">
-    				    <?php  show($rows[$i],$params,$gid,$access,$pop);?>
+    				   <?php  show($rows[$i],$params,$gid,$access,$pop, 'intro/leading/default.php');?>
     			    </div>
 
                 <?php $i++; } ?>
@@ -43,7 +48,7 @@
                         <?php if($z < $intro) { ?>
 
                         <div class="intro" id="intro_<?php echo $z;?>">
-					        <?php show($rows[$i],$params,$gid,$access,$pop); ?>
+					        <?php show($rows[$i],$params,$gid,$access,$pop, 'intro/simple/default.php'); ?>
                         </div>
 
 			            <?php } else { echo '</td></tr>'; break; } ?>
@@ -75,13 +80,18 @@
 
        </div>
 
-    <?php } ?>
+    <?php } else { ?>
 
-    <?php else{ ?>
         <div class="contentdescription">
             <?php echo $msg;?>
         </div>
     <?php } ?>
+
+    <input type="hidden" name="id" value="<?php echo $id;?>" />
+	<input type="hidden" name="Itemid" value="<?php echo $Itemid;?>" />
+	<input type="hidden" name="task" value="archivecategory" />
+    <input type="hidden" name="option" value="com_content" />
+	</form>
 
     <?php  mosHTML::BackButton($params); ?>
 
