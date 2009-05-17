@@ -32,23 +32,20 @@ class submit_content_menu_html {
 				submitform( pressbutton );
 				return;
 			}
+
 			var form = document.adminForm;
-<?php
-		if(!$menu->id) {
-?>
-				form.link.value = "index.php?option=com_content&task=new";
-				submitform( pressbutton );
-				<?php
-		} else {
-?>
-				if ( form.name.value == '' ) {
-					alert( '<?php echo _OBJECT_MUST_HAVE_NAME?>' );
-				} else {
-					submitform( pressbutton );
-				}
-				<?php
-		}
-?>
+
+             if(document.getElementById('mossection').value==0) {
+                form.link.value = "index.php?option=com_content&task=new";
+			 }else{
+                form.link.value = "index.php?option=com_content&task=new&section="+document.getElementById('mossection').value+"";
+			 }
+
+            if (form.name.value == '') {
+                alert( '<?php echo _OBJECT_MUST_HAVE_NAME?>' );
+			} else {
+			    submitform( pressbutton );
+			}
 		}
 		</script>
 		<form action="index2.php" method="post" name="adminForm">

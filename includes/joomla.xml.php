@@ -373,7 +373,7 @@ class mosParameters {
 		$options = $database->loadObjectList();
 		array_unshift($options,mosHTML::makeOption('0',_ET_SECTION,'id','title'));
 
-		return mosHTML::selectList($options,''.$control_name.'['.$name.']','class="inputbox"','id','title',$value);
+		return mosHTML::selectList($options,''.$control_name.'['.$name.']','class="inputbox" id="mossection"','id','title',$value);
 	}
 	/**
 	* @param string The name of the form element

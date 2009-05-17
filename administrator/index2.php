@@ -63,6 +63,7 @@ if($option == '') {
 
 
 // инициализация редактора
+$mainframe->set( 'allow_wysiwyg', 1 );  
 require_once ($mosConfig_absolute_path . '/includes/editor.php');
 
 ob_start();

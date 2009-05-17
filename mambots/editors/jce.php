@@ -19,6 +19,10 @@ $_MAMBOTS->registerFunction( 'onEditorArea', 'jceEditorArea' );
 */
 function jceEditorInit() {
 	global $my, $database, $mainframe;
+
+    if(!$mainframe->allow_wysiwyg){
+        return false;
+    }
 	require_once( $mainframe->getCfg('absolute_path').'/mambots/editors/jce/jscripts/tiny_mce/libraries/classes/jce.class.php' );
 	$jce = new JCE();
 	$params = $jce->getParams();
@@ -236,17 +240,23 @@ function jceEditorGetContents( ){?>
 * @param int The number of columns for the editor area
 * @param int The number of rows for the editor area
 */
-function jceEditorArea( $name, $content, $hiddenField, $width, $height, $col, $row ) {
+function jceEditorArea( $name, $content, $hiddenField, $width, $height, $col, $row, $params=null ) {
 	global $_MAMBOTS, $mainframe;
+    $buttons='';
+    if(!$params || $params['m_buttons']){
+        $results = $_MAMBOTS->trigger( 'onCustomEditorButton' );
+        $buttons = array();
 
-	$results = $_MAMBOTS->trigger( 'onCustomEditorButton' );
-	$buttons = array();
-	foreach( $results as $result ){
-		if($result[0]) {
+        foreach( $results as $result ){
+		    if($result[0]) {
 			$buttons[] = '<img src="'.$mainframe->getCfg('live_site').'/mambots/editors-xtd/'.$result[0].'" onclick="tinyMCE.execCommand(\'mceInsertContent\',false,\''.$result[1].'\')" />';
 		}
-	}
-	$buttons = implode( '', $buttons );
+	    }
+	    $buttons = implode( '', $buttons );
+    }
+
+
+
 ?>
 	<textarea id="<?php echo $hiddenField;?>" name="<?php echo $hiddenField;?>" cols="<?php echo $col;?>" rows="<?php echo $row;?>" style="width:<?php echo $width;?>px; height:<?php echo $height;?>px;" mce_editable="true" class="mceEditor"><?php echo $content;?></textarea>
 	<script type="text/javascript">

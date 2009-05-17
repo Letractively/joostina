@@ -877,8 +877,31 @@ class HTML_content {
 			</table>
 <?php
 		$tabs->endTab();
+		$tabs->startTab(_TEMPLATES,"template-page");
+?>
+
+
+ <table class="adminform">
+				<tr>
+					<th colspan="2">Шаблоны</th>
+				</tr>
+
+                 <?php
+                 $templates = new jstContentTemplate;
+                 $curr_templates = $templates->parse_curr_templates($row->templates); ?>
+
+                   	<tr>
+                   <td> Страница просмотра записи: </td>
+                   <td> <?php echo $templates->templates_select_list('item_full', $curr_templates['item_full']); ?> </td>
+                    </tr>
+
+
+				</table>
+<?php
+		$tabs->endTab();
 		$tabs->endPane();
 ?>
+
 				</td>
 			</tr>
 		</table>

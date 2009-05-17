@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined('_VALID_MOS') or die();
 /**
 * @package Joostina
@@ -25,29 +25,29 @@ class categories_html {
 		mosCommonHTML::loadOverlib();
 ?>
 	<script type="text/javascript">
-	// получение списка разделов
+	// РїРѕР»СѓС‡РµРЅРёРµ СЃРїРёСЃРєР° СЂР°Р·РґРµР»РѕРІ
 	function ch_get_sec(elID,curSEC){
-		log('Получение списка разделов для категории: '+elID+' текущий раздел: '+curSEC);
+		log('РџРѕР»СѓС‡РµРЅРёРµ СЃРїРёСЃРєР° СЂР°Р·РґРµР»РѕРІ РґР»СЏ РєР°С‚РµРіРѕСЂРёРё: '+elID+' С‚РµРєСѓС‰РёР№ СЂР°Р·РґРµР»: '+curSEC);
 		SRAX.replaceHtml('cat-id-'+elID,'<div style="text-align:center;"><img src="images/aload.gif" /></div>');
 		dax({
 			url: 'ajax.index.php?option=com_categories&utf=1&task=get_sec&id='+elID+'&cur_sec='+curSEC,
 			id:'publ-'+elID,
 			callback:
 				function(resp, idTread, status, ops){
-					log('Получен ответ: ' + resp.responseText);
+					log('РџРѕР»СѓС‡РµРЅ РѕС‚РІРµС‚: ' + resp.responseText);
 					SRAX.replaceHtml('cat-id-'+elID,resp.responseText);
 		}});
 	};
-	// смена раздела категории
+	// СЃРјРµРЅР° СЂР°Р·РґРµР»Р° РєР°С‚РµРіРѕСЂРёРё
 	function ch_save_sec(elID,newSEC){
-		log('Смена раздела категории: '+elID+' на '+newSEC);
+		log('РЎРјРµРЅР° СЂР°Р·РґРµР»Р° РєР°С‚РµРіРѕСЂРёРё: '+elID+' РЅР° '+newSEC);
 		SRAX.replaceHtml('cat-id-'+elID,'<div style="text-align:center;"><img src="images/aload.gif" /></div>');
 		dax({
 			url: 'ajax.index.php?option=com_categories&utf=1&task=save_sec&id='+elID+'&new_sec='+newSEC,
 			id:'publ-'+elID,
 			callback:
 				function(resp, idTread, status, ops){
-					log('Получен ответ: ' + resp.responseText);
+					log('РџРѕР»СѓС‡РµРЅ РѕС‚РІРµС‚: ' + resp.responseText);
 					if(resp.responseText==2)
 						SRAX.replaceHtml('cat-id-'+elID,'<div style="text-align:center;"><img src="images/error.png" /></div>');
 					else
@@ -87,9 +87,9 @@ class categories_html {
 <?php
 		}
 ?>
-			<th width="2%">Порядок</th>
+			<th width="2%">РџРѕСЂСЏРґРѕРє</th>
 			<th width="1%">
-				<a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="Сохранить порядок" /></a>
+				<a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="РЎРѕС…СЂР°РЅРёС‚СЊ РїРѕСЂСЏРґРѕРє" /></a>
 			</th>
 			<th width="8%"><?php echo _CMN_ACCESS?></th>
 <?php
@@ -210,11 +210,11 @@ class categories_html {
 		}
 
 		if($redirect == 'content') {
-			$component = 'Содержимое';
+			$component = 'РЎРѕРґРµСЂР¶РёРјРѕРµ';
 		} else {
 			$component = ucfirst(substr($redirect,4));
 			if($redirect == 'com_contact_details') {
-				$component = 'Контакт';
+				$component = 'РљРѕРЅС‚Р°РєС‚';
 			}
 		}
 		mosMakeHtmlSafe($row,ENT_QUOTES,'description');
@@ -230,7 +230,7 @@ class categories_html {
 				form: 'adminForm',
 				callback:
 					function(resp){
-						log('Получен ответ: ' + resp.responseText);
+						log('РџРѕР»СѓС‡РµРЅ РѕС‚РІРµС‚: ' + resp.responseText);
 						mess_cool(resp.responseText);
 						SRAX.get('tb-apply').className='tb-apply';
 			}});
@@ -269,7 +269,7 @@ class categories_html {
 		<table class="adminheading">
 		<tr>
 			<th class="categories">
-			Категория:
+			РљР°С‚РµРіРѕСЂРёСЏ:
 			<small><?php echo $row->id ? _EDIT_CATEGORY : _NEW_CATEGORY; ?></small>
 			<small><small>
 			[ <?php echo $component; ?>: <?php echo stripslashes($row->name); ?> ]
@@ -283,7 +283,7 @@ class categories_html {
 				<table class="adminform">
 				<tr>
 					<th colspan="3"><?php echo _CATEGORY_PROPERTIES?></th>
-				<tr>
+				</tr>
 				<tr>
 					<td><?php echo _CATEGORY_TITLE?>:</td>
 					<td colspan="2">
@@ -314,7 +314,7 @@ class categories_html {
 					} else {
 						jsimg='../images/M_images/blank.png';
 					}
-					document.write('<img src=' + jsimg + ' name="imagelib" width="100" height="100" border="2" alt="Предпросмотр" />');
+					document.write('<img src=' + jsimg + ' name="imagelib" width="100" height="100" border="2" alt="РџСЂРµРґРїСЂРѕСЃРјРѕС‚СЂ" />');
 					</script>
 					</td>
 				</tr>
@@ -350,32 +350,32 @@ class categories_html {
 				<table class="adminform">
 				<tr>
 					<th colspan="2"><?php echo _MENUITEM?></th>
-				<tr>
+				</tr>
 				<tr>
 					<td colspan="2"><?php echo _NEW_MENUITEM_IN_YOUR_MENU?>
 					<br /><br />
 					</td>
-				<tr>
+				</tr>
 				<tr>
 					<td valign="top" width="120"><?php echo _CHOOSE_MENU_PLEASE?>:</td>
 					<td><?php echo $lists['menuselect']; ?></td>
-				<tr>
+				</tr>
 				<tr>
 					<td valign="top" width="120"><?php echo _CHOOSE_MENUTYPE_PLEASE?>:</td>
 					<td><?php echo $lists['link_type']; ?></td>
-				<tr>
+				</tr>
 				<tr>
 					<td valign="top" width="120"><?php echo _MENU_NAME?>:</td>
 					<td>
 						<input type="text" name="link_name" class="inputbox" value="" size="25" />
 					</td>
-				<tr>
+				</tr>
 				<tr>
 					<td>&nbsp;</td>
 					<td>
 						<input name="menu_link" type="button" class="button" value="<?php echo _CREATE_MENU_ITEM?>" onClick="submitbutton('menulink');" />
 					</td>
-				<tr>
+				</tr>
 				<tr>
 					<th colspan="2"><?php echo _EXISTED_MENU_ITEMS?></th>
 				</tr>
@@ -404,12 +404,38 @@ class categories_html {
 				<tr>
 					<td><?php echo _MENU_LINK_AVAILABLE_AFTER_SAVE?></td>
 				</tr>
-			</table>
+			</table> <br />
 <?php
 		}
 		// content
 		if($row->section > 0 || $row->section == 'content') {
+		    $c_templates = new jstContentTemplate;
 ?>
+            <table class="adminform">
+				<tr>
+					<th colspan="2">РЁР°Р±Р»РѕРЅС‹</th>
+				</tr>
+
+                 <?php $curr_templates = $c_templates->parse_curr_templates($row->templates); ?>
+				  	<tr>
+                    <td width="200"> Р‘Р»РѕРі РєР°С‚РµРіРѕСЂРёРё: </td>
+                    <td><?php echo $c_templates->templates_select_list('category_blog', $curr_templates['category_blog']); ?>   </td>
+                     </tr>
+                      <tr>
+					<td width="200">РђСЂС…РёРІ РєР°С‚РµРіРѕСЂРёРё:</td>
+                     <td><?php echo $c_templates->templates_select_list('category_archive', $curr_templates['category_archive']); ?> </td>
+                     </tr>
+                    	<tr>
+                   <td> РўР°Р±Р»РёС†Р° СЃРѕРґРµСЂР¶РёРјРѕРіРѕ РєР°С‚РµРіРѕСЂРёРё:  </td>
+                   <td> <?php echo $c_templates->templates_select_list('category_table', $curr_templates['category_table']); ?>  </td>
+                   </tr>
+                   	<tr>
+                   <td> РЎС‚СЂР°РЅРёС†Р° РїСЂРѕСЃРјРѕС‚СЂР° Р·Р°РїРёСЃРё: </td>
+                   <td> <?php echo $c_templates->templates_select_list('item_full', $curr_templates['item_full']); ?> </td>
+                    </tr>
+
+				</table>
+
 			<br />
 			<table class="adminform">
 				<tr>
@@ -417,7 +443,7 @@ class categories_html {
 				</tr>
 				<tr>
 					<td colspan="2"><?php echo $lists['folders']; ?></td>
-				<tr>
+				</tr>
 			</table>
 			<?php
 		}

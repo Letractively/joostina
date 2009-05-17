@@ -1,16 +1,14 @@
 <?php
 /**
 * @package Joostina
-* @copyright ��������� ����� (C) 2008-2009 Joostina team. ��� ����� ��������.
-* @license �������� http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, ��� help/license.php
-* Joostina! - ��������� ����������� ����������� ���������������� �� �������� �������� GNU/GPL
-* ��� ��������� ���������� � ������������ ����������� � ��������� �� ��������� �����, �������� ���� help/copyright.php.
+* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
 */
 
-// ������ ������� �������
-defined('_VALID_MOS') or die();
-
-
+// запрет прямого доступа
+defined('_VALID_MOS') or die(); 
 require_once ($mainframe->getPath('front_html','com_content'));
 
 global $gid,$task,$Itemid,$option,$my;
@@ -52,6 +50,7 @@ switch($task) {
 		break;
 
 	case 'view':
+    case 'preview':
 		if($mosConfig_enable_stats) {
 			showItem($id,$gid,$access,$pop,$option,0);
 		} else {
@@ -93,11 +92,11 @@ switch($task) {
 		break;
 
 	case 'edit':
-		editItem($id,$gid,$access,0,$task,$Itemid);
+		editItem($task);
 		break;
 
 	case 'new':
-		editItem(0,$gid,$access,$sectionid,$task,$Itemid);
+		editItem($task);
 		break;
 
 	case 'save':
@@ -255,8 +254,8 @@ function showMyItems( &$access, $limit, $selected, $limitstart  ) {
 		$check .= 1;
 	}
 	if ( $params->get( 'section' ) ) {
-		$order[] = mosHTML::makeOption( 'section', '������ / ��������� �� �����������' );
-		$order[] = mosHTML::makeOption( 'rsection',  '������ / ��������� �� ��������' );
+		$order[] = mosHTML::makeOption( 'section', 'Раздел / Категория по возрастанию' );
+		$order[] = mosHTML::makeOption( 'rsection',  'Раздел / Категория по убыванию' );
 		$check .= 1;
 	}
 	$order[] = mosHTML::makeOption( 'order', _ORDER_DROPDOWN_O );
@@ -523,6 +522,10 @@ function showSection($id,$gid,&$access,$now) {
 	}
 
 	$null = null;
+
+
+    $params->section_data = $section;
+
 	HTML_content::showContentList($section,$null,$access,$id,$null,$gid,$params,$null,$categories,$null,$null,$categories_exist);
 }
 
@@ -782,6 +785,7 @@ function showCategory($id,$gid,&$access,$sectionid,$limit,$selected,$limitstart,
 		$mainframe->addMetaTag('author',$params->get('meta_author'));
 	}
 
+    $params->category_data = $category;
 	HTML_content::showContentList($category,$items,$access,$id,$sectionid,$gid,$params, $pageNav,$other_categories,$lists,$selected,true);
 } // showCategory
 
@@ -841,15 +845,22 @@ function showBlogSection($id = 0,$gid,&$access,$pop,$now = null,$limit,$limitsta
 		$limitstart = 0;
 	}
 
+
+
 	// Main data query
 	$query = "SELECT a.id, a.attribs , a.title, a.title_alias, a.introtext, a.sectionid, a.state, a.catid, a.created, a.created_by, a.created_by_alias, a.modified, a.modified_by,".
 		"\n a.checked_out, a.checked_out_time, a.publish_up, a.publish_down, a.images, a.urls, a.ordering, a.metakey, a.metadesc, a.access,"
-		."\n CHAR_LENGTH( a.fulltext ) AS readmore, u.name AS author, u.usertype, s.name AS section, cc.name AS category, g.name AS groups"
+		."\n CHAR_LENGTH( a.fulltext ) AS readmore, u.name AS author, u.usertype, s.name AS section,  cc.name AS category, g.name AS groups"
 		.$voting['select']."\n FROM #__content AS a"."\n INNER JOIN #__categories AS cc ON cc.id = a.catid"
 		."\n LEFT JOIN #__users AS u ON u.id = a.created_by"."\n LEFT JOIN #__sections AS s ON a.sectionid = s.id"
 		."\n LEFT JOIN #__groups AS g ON a.access = g.id".$voting['join'].$where."\n ORDER BY $order_pri $order_sec";
 	$database->setQuery($query,$limitstart,$limit);
 	$rows = $database->loadObjectList();
+
+	// Section data query
+    $section = new mosSection($database);
+    $params->section_data = $section->get_section($id);
+
 
 	// Dynamic Page Title
 	if($menu) {
@@ -899,6 +910,7 @@ function showBlogSection($id = 0,$gid,&$access,$pop,$now = null,$limit,$limitsta
 		}
 	}
 
+
 	BlogOutput($rows,$params,$gid,$access,$pop,$menu,$limitstart,$limit,$total);
 }
 
@@ -926,8 +938,11 @@ function showBlogCategory($id = 0,$gid,&$access,$pop,$now,$limit,$limitstart) {
 		$id = $params->def('categoryid',0);
 	}
 
+    $where = '';
 	$where = _where(2,$access,$noauth,$gid,$id,$now,null,null,$params);
-	$where = (count($where)?"\n WHERE ".implode("\n AND ",$where):'');
+    if(count($where)){
+        $where = "\n WHERE ".implode("\n AND ",$where);
+    }
 
 	// Ordering control
 	$orderby_sec = $params->def('orderby_sec','rdate');
@@ -947,9 +962,13 @@ function showBlogCategory($id = 0,$gid,&$access,$pop,$now,$limit,$limitstart) {
 	$limit = $limit?$limit:($intro + $leading + $links);
 
 	// query to determine total number of records
-	$query = "SELECT COUNT(a.id)"."\n FROM #__content AS a"."\n LEFT JOIN #__categories AS cc ON cc.id = a.catid".
-		"\n LEFT JOIN #__users AS u ON u.id = a.created_by"."\n LEFT JOIN #__sections AS s ON a.sectionid = s.id".
-		"\n LEFT JOIN #__groups AS g ON a.access = g.id".$where;
+	$query = "  SELECT COUNT(a.id)
+                FROM #__content AS a
+                LEFT JOIN #__categories AS cc ON cc.id = a.catid
+                LEFT JOIN #__users AS u ON u.id = a.created_by
+                LEFT JOIN #__sections AS s ON a.sectionid = s.id
+                LEFT JOIN #__groups AS g ON a.access = g.id
+                ".$where;
 	$database->setQuery($query);
 	$total = $database->loadResult();
 
@@ -958,19 +977,42 @@ function showBlogCategory($id = 0,$gid,&$access,$pop,$now,$limit,$limitstart) {
 	}
 
 	// Main data query
-	$query = "SELECT a.id, a.notetext,a.attribs, a.title, a.title_alias, a.introtext, a.sectionid, a.state, a.catid, a.created, a.created_by, a.created_by_alias, a.modified, a.modified_by,".
-		"\n a.checked_out, a.checked_out_time, a.publish_up, a.publish_down, a.images, a.urls, a.ordering, a.metakey, a.metadesc, a.access,".
-		"\n CHAR_LENGTH( a.fulltext ) AS readmore, s.published AS sec_pub,  cc.published AS sec_pub, u.name AS author, u.usertype, s.name AS section, cc.name AS category, g.name AS groups".
-		$voting['select']."\n FROM #__content AS a"."\n LEFT JOIN #__categories AS cc ON cc.id = a.catid".
-		"\n LEFT JOIN #__users AS u ON u.id = a.created_by"."\n LEFT JOIN #__sections AS s ON a.sectionid = s.id".
-		"\n LEFT JOIN #__groups AS g ON a.access = g.id".$voting['join'].$where."\n ORDER BY $order_pri $order_sec";
+	$query = "  SELECT a.id, a.notetext,a.attribs, a.title, a.title_alias, a.introtext,
+                    a.sectionid, a.state, a.catid, a.created, a.created_by, a.created_by_alias,
+                    a.modified, a.modified_by, a.checked_out, a.checked_out_time,
+                    a.publish_up, a.publish_down, a.images, a.urls, a.ordering, a.metakey, a.metadesc, a.access,
+                    CHAR_LENGTH( a.fulltext ) AS readmore,
+                    s.published AS sec_pub, s.name AS section, s.templates AS s_templates,
+                    cc.published AS sec_pub, cc.name AS category, cc.templates AS c_templates,
+                    u.name AS author, u.usertype,
+                    g.name AS groups
+                    ".$voting['select']."
+                FROM #__content AS a
+                LEFT JOIN #__categories AS cc ON cc.id = a.catid
+                LEFT JOIN #__users AS u ON u.id = a.created_by
+                LEFT JOIN #__sections AS s ON a.sectionid = s.id
+                LEFT JOIN #__groups AS g ON a.access = g.id
+                ".$voting['join']
+                .$where."
+                ORDER BY $order_pri $order_sec";
 	$database->setQuery($query,$limitstart,$limit);
 	$rows = $database->loadObjectList();
+
+
+    if($rows){
+        $category = new mosCategory($database);
+        $category->templates = $rows[0]->c_templates;
+
+        $section = new mosSection($database);
+        $section->templates = $rows[0]->s_templates;
+    }
+
 
 	// check whether section & category is published
 	if(!count($rows) && $check) {
 		$catCheck = new mosCategory($database);
 		$catCheck->load((int)$check);
+        $params->category_data = $catCheck;
 
 		/*
 		* check whether category is published
@@ -989,7 +1031,7 @@ function showBlogCategory($id = 0,$gid,&$access,$pop,$now,$limit,$limitstart) {
 
 		$secCheck = new mosSection($database);
 		$secCheck->load($catCheck->section);
-
+        $params->section_data = $secCheck;
 		/*
 		* check whether section is published
 		*/
@@ -1128,10 +1170,6 @@ function showArchiveSection($id = null,$gid,&$access,$pop,$option,$year,$month,$
 		}
 	}
 
-	// initiate form
-	$link = 'index.php?option=com_content&task=archivesection&id='.$id.'&Itemid='.$Itemid;
-	echo '<form action="'.sefRelToAbs($link).'" method="post">';
-
 	// Dynamic Page Title
 	if($params->get('header') == "") {
 		$mainframe->SetPageTitle($menu->name,$params);
@@ -1157,23 +1195,13 @@ function showArchiveSection($id = null,$gid,&$access,$pop,$option,$year,$month,$
 		$mainframe->addMetaTag('author',$params->get('meta_author'));
 	}
 
-	if(!$archives) {
-		// if no archives for category, hides search and outputs empty message
-		echo '<br /><div align="center">'._CATEGORY_ARCHIVE_EMPTY.'</div>';
-	} else {
-		BlogOutput($rows,$params,$gid,$access,$pop,$menu,$limitstart,$limit,$total,1,1);
-	}
 
-	echo '<input type="hidden" name="id" value="'.$id.'" />';
-	echo '<input type="hidden" name="Itemid" value="'.$Itemid.'" />';
-	echo '<input type="hidden" name="task" value="archivesection" />';
-	echo '<input type="hidden" name="option" value="com_content" />';
-	echo '</form>';
+	BlogOutput($rows,$params,$gid,$access,$pop,$menu,$limitstart,$limit,$total,1,1);
+
 }
 
 
-function showArchiveCategory($id = 0,$gid,&$access,$pop,$option,$year,$month,$module,
-	$limit,$limitstart) {
+function showArchiveCategory($id = 0,$gid,&$access,$pop,$option,$year,$month,$module,$limit,$limitstart) {
 	global $database,$mainframe,$mosConfig_MetaDesc,$mosConfig_MetaKeys;
 	global $Itemid;
 
@@ -1208,9 +1236,8 @@ function showArchiveCategory($id = 0,$gid,&$access,$pop,$option,$year,$month,$mo
 	$where = _where(-2,$access,$noauth,$gid,$id,null,$year,$month);
 	$where = (count($where)?"\n WHERE ".implode("\n AND ",$where):'');
 
-	// ��������� ����� �������� ��������. �������������� �� ������: smart ( http://joomlaforum.ru/index.php/topic,20369.msg119792.html#msg119792 )
-	$query = "SELECT COUNT(a.id)"."\n FROM #__content as a"."\n WHERE a.state = -1".
-		$check;
+	// получение числа архивных объектов. оптимизировано по совету: smart ( http://joomlaforum.ru/index.php/topic,20369.msg119792.html#msg119792 )
+	$query = "SELECT COUNT(a.id)"."\n FROM #__content as a"."\n WHERE a.state = -1".$check;
 	$database->setQuery($query);
 	$archives = $database->loadResult();
 
@@ -1285,10 +1312,7 @@ function showArchiveCategory($id = 0,$gid,&$access,$pop,$option,$year,$month,$mo
 		}
 	}
 
-	// initiate form
-	$link = ampReplace('index.php?option=com_content&task=archivecategory&id='.$id.
-		'&Itemid='.$Itemid);
-	echo '<form action="'.sefRelToAbs($link).'" method="post">';
+
 
 	// Dynamic Page Title
 
@@ -1315,30 +1339,21 @@ function showArchiveCategory($id = 0,$gid,&$access,$pop,$option,$year,$month,$mo
 	if($params->get('meta_author') != "") {
 		$mainframe->addMetaTag('author',$params->get('meta_author'));
 	}
-	if(!$archives) {
-		// if no archives for category, hides search and outputs empty message
-		echo '<br />';
-		echo '<div align="center">'._CATEGORY_ARCHIVE_EMPTY.'</div>';
-	} else {
+
 		// if coming from the Archive Module, the Archive Dropdown selector is not shown
 		if($id) {
 			BlogOutput($rows,$params,$gid,$access,$pop,$menu,$limitstart,$limit,$total,1,1);
 		} else {
 			BlogOutput($rows,$params,$gid,$access,$pop,$menu,$limitstart,$limit,$total,0,1);
 		}
-	}
 
-	echo '<input type="hidden" name="id" value="'.$id.'" />';
-	echo '<input type="hidden" name="Itemid" value="'.$Itemid.'" />';
-	echo '<input type="hidden" name="task" value="archivecategory" />';
-	echo '<input type="hidden" name="option" value="com_content" />';
-	echo '</form>';
 }
 
 
 function BlogOutput(&$rows,&$params,$gid,&$access,$pop,&$menu,$limitstart,$limit,$total,$archive = null,$archive_page = null) {
 	global $mainframe,$Itemid,$task,$id,$option,$database,$mosConfig_live_site, $mosConfig_absolute_path;
 
+    $i = 0;
     $header = '';
     $display_desc = 0;
     $display_desc_img = 0;
@@ -1359,6 +1374,7 @@ function BlogOutput(&$rows,&$params,$gid,&$access,$pop,&$menu,$limitstart,$limit
 	if($columns == 0) {
 		$columns = 1;
 	}
+
 	$intro = $params->def('intro',4);
 	$leading = $params->def('leading',1);
 	$links = $params->def('link',4);
@@ -1367,21 +1383,80 @@ function BlogOutput(&$rows,&$params,$gid,&$access,$pop,&$menu,$limitstart,$limit
 	$pagination_results = $params->def('pagination_results',1);
 	$descrip = $params->def('description',0);
 	$descrip_image = $params->def('description_image',0);
-	// needed for back button for page
 	$back = $params->get('back_button',$mainframe->getCfg('back_button'));
-	// needed to disable back button for item
 	$params->set('back_button',0);
 	$params->def('pageclass_sfx','');
 	$params->set('intro_only',1);
 	
-	 //����������� �� ����������
+	 //группировка по категориям
 	 $group_cat=$params->get('group_cat',0);
-	 $groupcat_limit=$params->get('groupcat_limit',0);  
+	 $groupcat_limit=$params->get('groupcat_limit',0);
 	 $cats_arr=array(); $k=0;
 	 
 	 $sfx = $params->get('pageclass_sfx');
 
-	$i = 0;
+
+
+     $template = new jstContentTemplate();
+     $templates = null;
+    //Определяем шаблон вывода страницы
+
+     //Если это архив
+    if($archive) {
+        switch ($task){
+            //Архив раздела
+            case 'archivesection':
+            default:
+                $page_type = 'section_archive';
+                $templates = $params->section_data->templates;
+            break;
+
+            //Архив категории
+            case 'archivecategory':
+                $page_type = 'category_archive';
+
+                if($template->isset_settings($page_type, $params->category_data->templates)){
+                    $templates = $params->category_data->templates;
+                }
+                elseif($template->isset_settings($page_type, $params->section_data->templates)){
+                    $templates = $params->section_data->templates;
+                }
+            break;
+        }
+    }
+
+    else{
+
+    //Не главная страница и не архив - обычный блог раздела или категории
+    switch ($task){
+        case 'blogcategory':
+        default:
+            $page_type = 'category_blog';
+            //проверяем настройки категории на предмет  заданного шаблона
+            if($template->isset_settings($page_type, $params->category_data->templates)){
+                $templates = $params->category_data->templates;
+            }
+            //иначе - проверяем настройки раздела
+            elseif($template->isset_settings($page_type, $params->section_data->templates)){
+                $templates = $params->section_data->templates;
+            }
+
+        break;
+
+        case 'blogsection':
+            //Если группировка по категориям отключена - оставляем вывод как и был прежде
+            if(!$group_cat){
+                $page_type = 'section_blog';
+            }
+            //Если включена группировка по категориям
+            else{
+                $page_type = 'groupcats';
+            }
+            $templates = $params->section_data->templates;
+            break;
+    }
+
+    }
 
 	// used to display section/catagory description text and images
 	// currently not supported in Archives
@@ -1392,13 +1467,13 @@ function BlogOutput(&$rows,&$params,$gid,&$access,$pop,&$menu,$limitstart,$limit
 			case 'content_blog_section':
 				$description = new mosSection($database);
 				$description->load((int)$menu->componentid);
-                $tpl = 'section';
+
 				break;
 
 			case 'content_blog_category':
 				$description = new mosCategory($database);
 				$description->load((int)$menu->componentid);
-                $tpl = 'category';
+
 				break;
 
 			default:
@@ -1479,62 +1554,35 @@ function BlogOutput(&$rows,&$params,$gid,&$access,$pop,&$menu,$limitstart,$limit
 
 
 
-	} else 	if($archive && !$total) {
-			$msg = sprintf(_ARCHIVE_SEARCH_FAILURE,$params->get('month'),$params->get('year'));
-        }
+	}
+
+    else if($archive && !$total) {
+	    $msg = sprintf(_ARCHIVE_SEARCH_FAILURE,$params->get('month'),$params->get('year'));
+    }
 
 	// Back Button
 	$params->set('back_button',$back);
 
-    //���� ��� ������� �������� - ��������� 'com_frontpage'
+    //Если это главная страница - компонент 'com_frontpage'
     if($_REQUEST['option']=='com_frontpage'){
         include_once($mosConfig_absolute_path.'/components/com_content/view/frontpage/default.php');
         return;
     }
 
-    //���� ��� �����
-    if($archive) {
-        include_once($mosConfig_absolute_path.'/components/com_content/view/archive/default.php');
-        return;
-    }
-
-    //�� ������� �������� � �� ����� - ������� ���� ������� ��� ���������
-    if($tpl){
-        include_once($mosConfig_absolute_path.'/components/com_content/view/'.$tpl.'/blog/default.php');
-    }
-    else{
-            switch ($task){
-                case 'blogcategory':
-                default:
-                    include_once($mosConfig_absolute_path.'/components/com_content/view/category/blog/default.php');
-                break;
-
-                case 'blogsection':
-
-                    //���� ����������� �� ���������� ��������� - ��������� ����� ��� � ��� ������
-                    if(!$group_cat){
-                        include_once($mosConfig_absolute_path.'/components/com_content/view/section/blog/default.php');
-                    }
-                    //���� �������� ����������� �� ����������
-                    else{
-                        include_once($mosConfig_absolute_path.'/components/com_content/view/section/groupcats/default.php');
-                    }
-                    break;
-            }
-        }
-
-
+    $template->set_template($page_type, $templates);
+    include_once($template->template_file);
 }
 
 
 function showItem($uid,$gid,&$access,$pop) {
 	global $database,$mainframe,$mosConfig_disable_date_state,$mosConfig_disable_access_control;
 	global $mosConfig_MetaTitle,$mosConfig_MetaAuthor;
+    global $task, $my;
 
 	$now = _CURRENT_SERVER_TIME;
 	$nullDate = $database->getNullDate();
 
-	if($access->canEdit) {
+	if($access->canEdit || $task =='preview') {
 		$xwhere = '';
 	} else {
 		$xwhere = "\n AND ( a.state = 1 OR a.state = -1 )";
@@ -1547,8 +1595,8 @@ function showItem($uid,$gid,&$access,$pop) {
 	if(!$mosConfig_disable_access_control) $where_ac = "\n AND a.access <= ".(int)$gid;
 	else $where_ac = '';
 	// main query
-	$query = "SELECT a.*, u.name AS author, u.usertype, cc.name AS category, s.name AS section, g.name AS groups,".
-		"\n s.published AS sec_pub, cc.published AS cat_pub, s.access AS sec_access, cc.access AS cat_access,".
+	$query = "SELECT a.*, u.name AS author, u.usertype, cc.name AS category, cc.templates as c_templates, s.name AS section, g.name AS groups,".
+		"\n s.published AS sec_pub, cc.published AS cat_pub, s.templates as s_templates, s.access AS sec_access, cc.access AS cat_access,".
 		"\n s.id AS sec_id, cc.id as cat_id"."\n FROM #__content AS a LEFT JOIN #__categories AS cc ON cc.id = a.catid".
 		"\n LEFT JOIN #__sections AS s ON s.id = cc.section AND s.scope = 'content' LEFT JOIN #__users AS u ON u.id = a.created_by".
 		"\n LEFT JOIN #__groups AS g ON a.access = g.id"."\n WHERE a.id = ".(int)$uid.$xwhere.
@@ -1557,6 +1605,12 @@ function showItem($uid,$gid,&$access,$pop) {
 	$row = null;
 
 	if($database->loadObject($row)) {
+
+        if($task=='preview' && $my->id!=$row->created_by){
+            mosNotAuth();
+			return;
+        }
+
 		/*
 		* check whether category is published
 		*/
@@ -1635,7 +1689,7 @@ function showItem($uid,$gid,&$access,$pop) {
 			$list = $database->loadObjectList();
 
 			// this check needed if incorrect Itemid is given resulting in an incorrect result
-			//  ��� ������� �� ����, ���� ���� ���� ��������� ������ - loadObjectList
+			//  это кажется не надо, ведь чуть выше загружали объект - loadObjectList
 			//if(!is_array($list)) {
 			//	$list = array();
 			//}
@@ -1661,15 +1715,29 @@ function showItem($uid,$gid,&$access,$pop) {
 			unset($list);
 		}
 
+
+
+
+        $params->section_data = null;
+        $params->category_data = null;
+
         if(!$row->section){
-            $template='static_content/default.php';
+            //$template='static_content/default.php';
+             $params->page_type ='item_static';
         }
         else{
-            $template='full_view/default.php';
-            }
+            //$template='full_view/default.php';
+            $section = new mosSection($database);
+            $category = new mosCategory($database);
+
+            $params->page_type ='item_full';
+            $params->section_data = $section;
+            $params->category_data = $category;
+        }
+
 
         $row->rating=$row->total_rate;
-		show($row,$params,$gid,$access,$pop, $template);
+		show($row,$params,$gid,$access,$pop);
 
 		// page title
 		$mainframe->setPageTitle($row->title,$params);
@@ -1705,7 +1773,7 @@ function showItem($uid,$gid,&$access,$pop) {
 }
 
 
-function show($row,$params,$gid,&$access,$pop, $template) {
+function show($row,$params,$gid,&$access,$pop, $template='') {
 	global $database,$mainframe,$mosConfig_content_hits;
 	global $cache;
 
@@ -1898,7 +1966,7 @@ function show($row,$params,$gid,&$access,$pop, $template) {
 	// only permitted in the full text area
 	$page = intval(mosGetParam($_REQUEST,'limitstart',0));
 
-	// ������ �������� ���������
+	// запись счетчика прочтения
 	if(!$params->get('intro_only') && ($page == 0) && ($mosConfig_content_hits)) {
 		$obj = new mosContent($database);
 		$obj->hit($row->id);
@@ -1912,113 +1980,168 @@ function show($row,$params,$gid,&$access,$pop, $template) {
 }
 
 
-function editItem($uid,$gid,&$access,$sectionid = 0,$task,$Itemid) {
-	global $database,$my,$mainframe;
+function editItem($task) {
+	global $database,$my, $gid, $mainframe, $acl;
 	global $mosConfig_absolute_path,$mosConfig_live_site,$mosConfig_offset;
-	// boston, ��� �������������� ��������� � ������ ��������� ����� ���� ������� - ������������ ����� �� ������� ���������� �� ������� ��� ����������, � ����� ���������
+	// boston, при редактировании материала с фронта отключаем показ всех модулей - пользователю будет не повадно переходить по ссылкам без сохранения, и место освободим
 	global $mosConfig_module_on_edit_off;
 
-	if($mosConfig_module_on_edit_off == 1) $GLOBALS['_MOS_MODULES'] = '';
+    if($mosConfig_module_on_edit_off == 1) {
+        $GLOBALS['_MOS_MODULES'] = '';
+    }
 
-		$mainframe->set( 'loadEditor', false );
+    $nullDate = $database->getNullDate();
+    $lists = array();
 
-	$nullDate = $database->getNullDate();
-	$row = new mosContent($database);
-	// load the row from the db table
-	$row->load((int)$uid);
+    //$id обнаруживается в адресной строке только в том случае, если пользователь редактирует материал
+    $id	= intval(mosGetParam($_REQUEST,'id',0));
+    //$section может присутствовать в ссылке, если форма настроена для какого-то конкретного раздела  и это добавление записи
+    $section = intval(mosGetParam($_REQUEST,'section',0));
 
-	// fail if checked out not by 'me'
-	if($row->isCheckedOut($my->id)) {
-		mosErrorAlert("[ ".$row->title." ] "._CONTENT_IS_BEING_EDITED_BY_OTHER_PEOPLE);
+    //По-умолчанию в '__menus' содержится запись о пункте меню,
+    //с помощью которого настраивается добавление/редактирование всех записей (независимо от раздела)
+    $link = 'index.php?option=com_content&task=new';
+    $special_params=0;
+
+    // Editor usertype check
+    $access = new stdClass();
+    $access->canEdit	= $acl->acl_check('action','edit','users',$my->usertype,'content','all');
+    $access->canEditOwn	= $acl->acl_check('action','edit','users',$my->usertype,'content','own');
+    $access->canPublish	= $acl->acl_check('action','publish','users',$my->usertype,'content','all');
+
+    //Создаем объект
+    $content = new mosContent($database);
+
+
+    //Если это добавление новой записи
+    if($task=='new'){
+
+        //запрещаем доступ тем, кому низя - у кого нет прав ни на редактирование вообще, ни на редактирование своего контента
+		if(!($access->canEdit || $access->canEditOwn)) {
+			HTML_content::_no_access();
+			return;
+        }
+
+        //если в ссылке, по которой пользователь пришел добавлять контент, обнаруживается 'section' -
+        //ищем в базе пункт меню, с помощью которого настраивается форма именно для текущего раздела
+        if($section){
+            $link = 'index.php?option=com_content&task=new&section='.(int)$section;
+            $special_params=1;
+        }
+
+        //запрос на данные о пункте меню
+        $query = "SELECT id, params FROM #__menu WHERE (link LIKE '%$link') AND published = 1";
+        $r=null;
+	    $database->setQuery($query);
+	    $database->loadObject($r);
+        $exists = $r;
 	}
 
-	if($uid) {
-		// existing record
+    //Если это редактирование записи
+    else if($task=='edit'){
+
+        if($row->sectionid){
+            $row = $content->get_item((int)$id);
+        }
+        else{
+            $content->load((int)$id);
+            $row = $content;
+        }
+
+
+        $section = $row->sectionid;
+		// запрещаем доступ
 		if(!($access->canEdit || ($access->canEditOwn && $row->created_by == $my->id))) {
 			mosNotAuth();
 			return;
 		}
-	} else {
-		// new record
-		if(!($access->canEdit || $access->canEditOwn)) {
-			mosNotAuth();
-			return;
-	}
 
-     if($Itemid == 0 || $Itemid == 99999999) {
-			// security check to see if link exists in a menu
- 			$link = 'index.php?option=com_content&task=new&sectionid='.(int)$sectionid;
-			$query = "SELECT id FROM #__menu WHERE (link LIKE '%$link' OR link LIKE '%$link&%') AND published = 1";
-			$database->setQuery($query);
-			$exists = $database->loadResult();
-			if(!$exists) {
-				mosNotAuth();
-				return;
-			}
-		}
-	}
+	    // выводим сообщение, если данная запись сейчас редактируется кем-то другим
+	    if($content->isCheckedOut($my->id)) {
+		    mosErrorAlert("[ ".$row->title." ] "._CONTENT_IS_BEING_EDITED_BY_OTHER_PEOPLE);
+	    }
 
-      if($uid){
-     	$link = 'index.php?option=com_content&task=new';
-			$q = "SELECT params FROM #__menu WHERE (link LIKE '%$link' OR link LIKE '%$link&%') AND published = 1";
-			$database->setQuery($q);
-			$params0 = $database->loadResult();
-            $params = new mosParameters($params0);
-    } else{
-      	$menu = $mainframe->get('menu');
-	    $params = new mosParameters($menu->params);
+        //два варианта, в которых могут существовать ссылки на добавление/редактирование
+        $link1 = 'index.php?option=com_content&task=new&section='.(int)$section;
+        $link2 = 'index.php?option=com_content&task=new';
+
+        //запрос на данные о пункте меню
+        $query = "  SELECT a.id AS menu_id2, a.params AS menu_params2 , b.id AS menu_id1, b.params AS menu_params1
+                    FROM #__menu AS a
+                    LEFT JOIN  #__menu AS b  ON  b.link LIKE '%$link1' AND b.published = 1
+                    WHERE  a.link LIKE '%$link2' AND a.published = 1
+                  ";
+	    $database->setQuery($query);
+	    $exists = $database->loadObjectList();
     }
 
-    // ��������� ���������� �� �������� ������ � ����
-	$ids_user = $params->get('ids_user',0);// ��������� �������� ID
-    $ids_action = $params->get('ids_action',0);// ��� ��������� ��������� ID
+    if(!$exists) {
+	    mosNotAuth();
+		return;
+	}
+
+    //если это добавление новой записи - все просто, передаем параметры для парсинга
+    if($task=='new'){
+        $params = new mosParameters($exists->params);
+    }
+    //если же это редактирование - то нужно определить, какие именно параметры будем передавать
+    //- из настроек ссылки по-умолчанию, или же есть настройки для текущего раздела
+    else{
+        //проверим, есть ли специальные настройки
+        if(isset($exists[0]->menu_id1)){
+            $params = new mosParameters($exists[0]->menu_params1);
+            $special_params=1;
+        }
+        //иначе проверим, существуют ли настройки по-умолчанию
+        else if(isset($exists[0]->menu_id2)){
+            $params = new mosParameters($exists[0]->menu_params2);
+        }
+        //ну и так, на всякий случай. А вдруг!
+        else{
+            $menu = $mainframe->get('menu');
+	        $params = new mosParameters($menu->params);
+        }
+    }
+
+
+    // параметры полученные из настроек ссылки в меню
+	$ids_user = $params->get('ids_user',0);// введенные значения ID
+    $ids_action = $params->get('ids_action',0);// тип обработки введенных ID
 
     $where_c = "";
     $where_s = "";
-    if($ids_action){
+    if($ids_action && $ids_user){
         switch($ids_action){
-            case '1':
+            case '1':  //разрешить публикацию только в указанных РАЗДЕЛАХ
             default:
                 $where_s = " AND ( s.id IN (". $ids_user .") )";
+                //если есть специальные настройки для раздела - сбрасываем перечень ID разделов, которе задал пользователь
+                //поскольку если есть специальные настройки -  запись может быть добавлена только в определенный раздел
+                if($special_params){
+                    $where_s = " ";
+                }
             break;
 
-            case '2':
+            case '2': //разрешить публикацию только в указанных КАТЕГОРИЯХ
                 $where_c = " AND ( c.id IN (". $ids_user .") )";
             break;
 
-            case '3':
+            case '3':  //запретить публикацию в указанных РАЗДЕЛАХ
                 $where_s = " AND ( s.id NOT IN (". $ids_user .") )";
+                if($special_params){
+                    $where_s = " ";
+                }
             break;
 
-            case '4':
+            case '4':  //запретить публикацию в указанных КАТЕГОРИЯХ
                 $where_c = " AND ( c.id NOT IN (". $ids_user .") )";
             break;
         }
     }
 
-	if($uid) {
-		$sectionid = $row->sectionid;
-	}
 
-	$lists = array();
-
-	// get the type name - which is a special category
-	$query = "SELECT name FROM #__sections WHERE id = ".(int)$sectionid;
-	$database->setQuery($query);
-	$section = $database->loadResult();
-
-	if($uid == 0) {
-		$row->catid = 0;
-	}
-
-	if($uid) {
-		$row->checkout($my->id);
-
-		if(trim($row->images)) {
-			$row->images = explode("\n",$row->images);
-		} else {
-			$row->images = array();
-		}
+	if($task=='edit') {
+		$content->checkout($my->id);
 
 		$row->created = mosFormatDate($row->created,_CURRENT_SERVER_TIME_FORMAT);
 		$row->modified = $row->modified == $nullDate?'':mosFormatDate($row->modified,_CURRENT_SERVER_TIME_FORMAT);
@@ -2026,27 +2149,26 @@ function editItem($uid,$gid,&$access,$sectionid = 0,$task,$Itemid) {
 
 		if(trim($row->publish_down) == $nullDate || trim($row->publish_down) == '' ||
 			trim($row->publish_down) == '-') {
-			$row->publish_down = '�������';
+			$row->publish_down = 'Никогда';
 		}
 		$row->publish_down = mosFormatDate($row->publish_down,_CURRENT_SERVER_TIME_FORMAT);
 
-		$query = "SELECT name FROM #__users WHERE id = ".(int)$row->created_by;
-		$database->setQuery($query);
-		$row->creator = $database->loadResult();
 
-		// test to reduce unneeded query
+		$row->creator = $row->author_nickname;
+        $row->modifier = $row->modifier_nickname;
 		if($row->created_by == $row->modified_by) {
 			$row->modifier = $row->creator;
-		} else {
-			$query = "SELECT name FROM #__users WHERE id = ".(int)$row->modified_by;
-			$database->setQuery($query);
-			$row->modifier = $database->loadResult();
 		}
 
-		$query = "SELECT content_id FROM #__content_frontpage WHERE content_id = ".(int)
-			$row->id;
+		$query = "SELECT content_id FROM #__content_frontpage WHERE content_id = ".(int)$row->id;
 		$database->setQuery($query);
 		$row->frontpage = $database->loadResult();
+
+        if($row->sectionid){
+            $sec = new mosSection($database);
+            $sec->templates = $row->s_templates;
+            $params->section_data = $sec;
+        }
 
 
 	} else {
@@ -2055,16 +2177,16 @@ function editItem($uid,$gid,&$access,$sectionid = 0,$task,$Itemid) {
 		$row->ordering = 0;
 		$row->images = array();
 		$row->publish_up = date('Y-m-d H:i:s',time() + ($mosConfig_offset* 60* 60));
-		$row->publish_down = '�������';
+		$row->publish_down = 'Никогда';
 		$row->creator = 0;
 		$row->modifier = 0;
 		$row->frontpage = 0;
 
-        //���������� ��������
+        //публикация контента
         // Publishing state hardening for Authors
         $auto_publish = $params->get('auto_publish',0);
 
-        if(!$auto_publish){ //���� ������ ������ �������� - ����� �� �������
+        if(!$auto_publish){ //Если выбран первый параметр - права по группам
         	if(!$access->canPublish) {
         	    $row->state = 0;
             }
@@ -2079,60 +2201,6 @@ function editItem($uid,$gid,&$access,$sectionid = 0,$task,$Itemid) {
 
 
 
-	// pull param column from category info
-	$query = "SELECT params FROM #__categories WHERE id = ".(int)$row->catid;
-	$database->setQuery($query);
-	$categoryParam = $database->loadResult();
-
-	$paramsCat = new mosParameters($categoryParam,$mainframe->getPath('com_xml','com_categories'),'component');
-
-	$selected_folders = $paramsCat->get('imagefolders','');
-
-	if(!$selected_folders) {
-		$selected_folders = '*2*';
-	}
-
-	// check if images utilizes settings from section
-	if(strpos($selected_folders,'*2*') !== false) {
-		unset($selected_folders);
-		// load param column from section info
-		$query = "SELECT params FROM #__sections WHERE id = ".(int)$row->sectionid;
-		$database->setQuery($query);
-		$sectionParam = $database->loadResult();
-
-		$paramsSec = new mosParameters($sectionParam,$mainframe->getPath('com_xml','com_sections'),'component');
-		$selected_folders = $paramsSec->get('imagefolders','');
-	}
-
-	if(trim($selected_folders)) {
-		$temps = explode(',',$selected_folders);
-		foreach($temps as $temp) {
-			$folders[] = mosHTML::makeOption($temp,$temp);
-		}
-	} else {
-		$folders[] = mosHTML::makeOption('*1*');
-	}
-
-	// calls function to read image from directory
-	$pathA = $mosConfig_absolute_path.'/images/stories';
-	$pathL = $mosConfig_live_site.'/images/stories';
-	$images = array();
-
-	if($folders[0]->value == '*1*') {
-		$folders = array();
-		$folders[] = mosHTML::makeOption('/');
-		mosAdminMenus::ReadImages($pathA,'/',$folders,$images);
-	} else {
-		mosAdminMenus::ReadImagesX($folders,$images);
-	}
-
-	// list of folders in images/stories/
-	$lists['folders'] = mosAdminMenus::GetImageFolders($folders,$pathL);
-	// list of images in specfic folder in images/stories/
-	$lists['imagefiles'] = mosAdminMenus::GetImages($images,$pathL,$folders);
-	// list of saved images
-	$lists['imagelist'] = mosAdminMenus::GetSavedImages($row,$pathL);
-
 	// make the select list for the states
 	$states[] = mosHTML::makeOption(0,_CMN_UNPUBLISHED);
 	$states[] = mosHTML::makeOption(1,_CMN_PUBLISHED);
@@ -2140,66 +2208,75 @@ function editItem($uid,$gid,&$access,$sectionid = 0,$task,$Itemid) {
 
 	// build the html select list for ordering
 	$query = "SELECT ordering AS value, title AS text FROM #__content WHERE catid = ".(int)$row->catid."\n ORDER BY ordering";
-	$lists['ordering'] = mosAdminMenus::SpecificOrdering($row,$uid,$query,1);
+	$lists['ordering'] = mosAdminMenus::SpecificOrdering($row,$id,$query,1);
 
 	//$database->setQuery("SELECT CONCAT(s.id,'/',c.id) as value, CONCAT(s.name,'/',c.name) as text  FROM #__categories AS c ,#__sections AS s where s.id=c.section  ");
 	//$z_cats_main = $database->loadObjectList();
 	//$lists['catid'] = mosHTML::selectList($rows,'catid','class="inputbox" size="1"','value','text',intval($row->catid));
 
-	$database->setQuery(" SELECT  c.id AS cid , c.name AS c_name, c.section  FROM   #__categories AS c WHERE c.published=1 $where_c ORDER BY title ASC ");
-	$cids = $database->loadObjectList();
 
-    $database->setQuery(" SELECT   s.id, s.name  FROM  #__sections AS s WHERE s.published=1 $where_s ORDER BY title ASC");
-	$sids = $database->loadObjectList();
+    //--->>>Строим selectlist для выбора категории, к которой будет принадлежать материал: BEGIN---<<<
 
-    $return="<select name=\"catid\" class=\"inputbox\" size=\"1\">";
-    $cids_arr=array();
-    $i2=0;  $i3=0;
-	foreach($cids as $row2) {
-        $cids_arr[$i2]['cat_name']=$row2->c_name;
-        $cids_arr[$i2]['parent']=$row2->section;
-        $cids_arr[$i2]['cid']=$row2->cid;
-        $i2++;
-	}
+    //Если есть специальные настройки для добавления материала в раздел
+    //выбираем только категории, принадлежашие данному разделу
+    if($special_params){
+        $database->setQuery(" SELECT  CONCAT(c.section,'*',c.id) AS cid , c.title AS c_title, c.section  FROM   #__categories AS c WHERE c.section=$section AND c.published=1 $where_c ORDER BY c.title ASC ");
+	    $cids = $database->loadObjectList();
+        //$cats[] = mosHTML::makeOption('-1','Выберите категорию','id','c_title');
+		//$cats = array_merge($cats,$cids);
+		$lists['catid'] = mosHTML::selectList($cids,'catid','class="inputbox" size="1"','cid','c_title',intval($row->catid).'*'.($row->sectionid));
+    }
+    //если же это настройки по умолчанию - нужно построить селект, в котором присутствуют и разделы, и категории
+    else{
+    	$database->setQuery(" SELECT  c.id AS cid , c.title AS c_name, c.section  FROM   #__categories AS c WHERE c.published=1 $where_c ORDER BY title ASC ");
+	    $cids = $database->loadObjectList();
 
-    foreach($sids as $row3) {
-        $return .= "<option value=\"\" disabled=\"disabled\" style=\"color:#EF3527;\">" . $row3->name . "</option>";
-        foreach($cids_arr as $v){
-            if($v['parent']==$row3->id){
-                if($v['cid']==$row->catid){
-                    $extra = " selected=\"selected\"";
-                } else {
-                    $extra ="";
+        $database->setQuery(" SELECT   s.id, s.title  FROM  #__sections AS s WHERE s.published=1 $where_s ORDER BY title ASC");
+	    $sids = $database->loadObjectList();
+
+        //Здесь страшно, надо бы переписать ((
+        $return="<select name=\"catid\" class=\"inputbox\" size=\"1\">";
+        $cids_arr=array();
+        $i2=0;  $i3=0;
+    	foreach($cids as $row2) {
+            $cids_arr[$i2]['cat_name']=$row2->c_name;
+            $cids_arr[$i2]['parent']=$row2->section;
+            $cids_arr[$i2]['cid']=$row2->cid;
+            $i2++;
+    	}
+
+        foreach($sids as $row3) {
+            $return .= "<option value=\"\" disabled=\"disabled\" style=\"color:#EF3527;\">" . $row3->title . "</option>";
+            foreach($cids_arr as $v){
+                if($v['parent']==$row3->id){
+                    if($v['cid']==$row->catid){
+                        $extra = " selected=\"selected\"";
+                    } else {
+                        $extra ="";
+                    }
+                  $return .= "<option value=\"".$row3->id."*".$v['cid']."\"$extra>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- " . $v['cat_name'] . "</option>";
                 }
-              $return .= "<option value=\"".$row3->id."*".$v['cid']."\"$extra>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- " . $v['cat_name'] . "</option>";
             }
-        }
-        $i3++;
-	}
+            $i3++;
+    	}
 
-    $return .="</select>";
-    $lists['catid']=$return;
+        $return .="</select>";
+        $lists['catid']=$return;
+    }
+    //--->>>Строим selectlist для выбора категории, к которой будет принадлежать материал: END---<<<
 
 
-
-	// build the select list for the image positions
-	$lists['_align'] = mosAdminMenus::Positions('_align');
 	// build the html select list for the group access
 	$lists['access'] = mosAdminMenus::Access($row);
 
-	// build the select list for the image caption alignment
-	$lists['_caption_align'] = mosAdminMenus::Positions('_caption_align');
-	// build the html select list for the group access
-	// build the select list for the image caption position
-	$pos[] = mosHTML::makeOption('bottom',_CMN_BOTTOM);
-	$pos[] = mosHTML::makeOption('top',_CMN_TOP);
-	$lists['_caption_position'] = mosHTML::selectList($pos,'_caption_position','class="inputbox" size="1"','value','text');
+    $page = new stdClass();
+    $page->params = $params;
+    $page->access = $access;
+    $page->params->page_type = 'item_edit';
 
+    $row->lists = $lists;
 
-
-
-
-	HTML_content::editContent($row,$section,$lists,$images,$access,$my->id,$sectionid,$task,$Itemid,$params);
+	HTML_content::editContent($row,$page,$task);
 }
 
 
@@ -2253,7 +2330,7 @@ function saveContent(&$access,$task) {
 	$row->publish_up = mosFormatDate($row->publish_up,_CURRENT_SERVER_TIME_FORMAT,-
 		$mosConfig_offset);
 
-	if(trim($row->publish_down) == '�������' || trim($row->publish_down) == '') {
+	if(trim($row->publish_down) == 'Никогда' || trim($row->publish_down) == '') {
 		$row->publish_down = $nullDate;
 	} else {
 		if(strlen(trim($row->publish_down)) <= 10) {
@@ -2277,7 +2354,7 @@ function saveContent(&$access,$task) {
 	$row->title = ampReplace($row->title);
 
 	// Publishing state hardening for Authors
-    //������� ��������� � ������� ��������������
+    //Участок перенесен в функцию редактирования
 
     if(isset($_POST['catid'])){
       $catid0=explode('*', $_POST['catid']);
@@ -2327,6 +2404,27 @@ function saveContent(&$access,$task) {
 
 
 
+	$msg = $isNew?_THANK_SUB:_E_ITEM_SAVED;
+
+    if($my->usertype == 'Publisher' || $row->state==1){
+        $msg = _THANK_SUB_PUB;
+    }
+
+    $page = new stdClass();
+    $page->access = $access;
+    $page->task = $task;
+
+    if($isNew){
+        _after_create_content($row, $page);
+    }
+    else{
+        _after_update_content($row, $page);
+    }
+}
+
+function _after_create_content($row, $page){
+    global $my, $database, $mosConfig_absolute_path;
+
 	// gets section name of item
 	$query = "SELECT s.title"
 			."\n FROM #__sections AS s"
@@ -2343,10 +2441,9 @@ function saveContent(&$access,$task) {
 	$category = $database->loadResult();
 	$category = stripslashes($category);
 
-	if($isNew) {
-		// messaging for new items
-		require_once ($mosConfig_absolute_path.'/components/com_messages/messages.class.php');
 
+		// Отправка сообщения админам о новой записе
+		require_once ($mosConfig_absolute_path.'/components/com_messages/messages.class.php');
 		$query = "SELECT id"
 				."\n FROM #__users"
 				."\n WHERE sendEmail = 1";
@@ -2354,43 +2451,66 @@ function saveContent(&$access,$task) {
 		$users = $database->loadResultArray();
 		foreach($users as $user_id) {
 			$msg = new mosMessage($database);
-			$msg->send($my->id,$user_id,"����� ������",sprintf(_ON_NEW_CONTENT,$my->username,$row->title,$section,$category));
+			$msg->send($my->id,$user_id,"Новый объект",sprintf(_ON_NEW_CONTENT,$my->username,$row->title,$section,$category));
 		}
-	}
 
-	$msg = $isNew?_THANK_SUB:_E_ITEM_SAVED;
 
-    if($my->usertype == 'Publisher' || $row->state==1){
-        $msg = _THANK_SUB_PUB;
-    }
+    	switch($page->task) {
 
-	switch($task) {
+        //если "Применить"
 		case 'apply':
+            //возвращаемся на страницу редактирования
+            $msg = 'Изменения сохранены. Здесь (ссылка) страница для предпросмотра';
 			$link = $_SERVER['HTTP_REFERER'];
 			break;
 
-		case 'apply_new':
-			$Itemid = intval(mosGetParam($_POST,'Returnid',$Itemid));
-			$link = 'index.php?option=com_content&task=edit&id='.$row->id.'&Itemid='.$Itemid;
-			break;
+       //если "Сохранить"
+		case 'save':
+		default:
+            //если запись опубликована, даем ссылку на просмотр в обычном режиме
+            if($row->state==1){
+                $msg = 'Спасибо и все такое';
+                $link = 'index.php?option=com_content&task=view&id='.$row->id;
+            }
+            //иначе - формируем ссылку на предварительный просмотр статьи
+            else{
+                $msg = 'Материал был успешно добавлен и будет доступен для общего просмотра после проверки модератором. А пока повпечатляйтесь версией для предпросмотра.';
+                $link = 'index.php?option=com_content&task=preview&id='.$row->id;
+            }
 
+		    break;
+	}
+
+    mosRedirect($link,$msg);
+
+}
+
+function _after_update_content($row, $page){
+    global $my;
+
+    	switch($page->task) {
+		case 'apply':
+            $msg = 'Изменения сохранены.';
+			$link = $_SERVER['HTTP_REFERER'];
+			break;
 
 		case 'save':
 		default:
-			$Itemid = mosGetParam($_POST,'Returnid','');
-			if($Itemid) {
-				if($access->canEdit) {
-					$link = 'index.php?option=com_content&task=view&id='.$row->id.'&Itemid='.$Itemid;
-				} else {
-					$link = 'index.php';
-				}
-			} else {
-				$link = strval(mosGetParam($_POST,'referer',''));
-			}
-			break;
+            //если запись опубликована, даем ссылку на просмотр в обычном режиме
+            if($row->state==1){
+                $msg = 'Все изменения были успешно сохранены';
+                $link = 'index.php?option=com_content&task=view&id='.$row->id;
+            }
+            //иначе - формируем ссылку на предварительный просмотр статьи
+            else{
+                $msg = 'Внимание! Это версия для предпросмотра. Материал еще не был опубликован на сайте, вероятно, ожидается проверка модератором.';
+                $link = 'index.php?option=com_content&task=preview&id='.$row->id;
+            }
+
 	}
 
-  mosRedirect($link,$msg);
+    mosRedirect($link,$msg);
+
 }
 
 
@@ -2824,7 +2944,7 @@ function _where($type = 1,&$access,&$noauth,$gid,$id,$now = null,$year = null,$m
 
 	$where[] = "s.published = 1";
 	$where[] = "cc.published = 1";
-	/* ���� ������ �� ������ ��������� - �� ������ ����������� �� ��������, � ��������� ������ �� ����������� ����������*/
+	/* если сессии на фронте отключены - то значит авторизация не возможна, и проверять доступ по авторизации бесполезно*/
 	if($noauth and !$mosConfig_disable_access_control) {
 		$where[] = "a.access <= ".(int)$gid;
 		$where[] = "s.access <= ".(int)$gid;
