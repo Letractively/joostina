@@ -2043,7 +2043,7 @@ function editItem($task) {
 
     //Если это добавление новой записи
     if($task=='new'){
-
+         $row = $content;
         //запрещаем доступ тем, кому низя - у кого нет прав ни на редактирование вообще, ни на редактирование своего контента
 		if(!($access->canEdit || $access->canEditOwn)) {
 			HTML_content::_no_access();
@@ -2192,7 +2192,7 @@ function editItem($task) {
 
 
 	} else {
-		$row->sectionid = $sectionid;
+		$row->sectionid = $section;
 		$row->version = 0;
 		$row->ordering = 0;
 		$row->images = array();
@@ -2201,7 +2201,7 @@ function editItem($task) {
 		$row->creator = 0;
 		$row->modifier = 0;
 		$row->frontpage = 0;
-
+        $params->section_data = null;
         //публикация контента
         // Publishing state hardening for Authors
         $auto_publish = $params->get('auto_publish',0);
@@ -2217,6 +2217,13 @@ function editItem($task) {
         else{
             $row->state = 1;
         }
+
+        if($section){
+            $sec = new mosSection($database);
+            $sec->load((int)$section);
+            $params->section_data = $sec;
+        }
+
 	}
 
 
