@@ -1749,7 +1749,7 @@ function showItem($uid,$gid,&$access,$pop) {
         $params->section_data = null;
         $params->category_data = null;
 
-        if(!$row->section){
+        if(!$row->sectionid){
             //$template='static_content/default.php';
              $params->page_type ='item_static';
         }

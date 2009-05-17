@@ -569,7 +569,8 @@ class mosContent extends mosDBTable {
             return $currtemplate_path;
         }
 
-        function templates_select_list($page_type, $curr_value=null){
+        function templates_select_list($page_type, $curr_value_arr=null){
+            $curr_value = null;
 
             $system_path = self::get_system_path($page_type);
             $currtemplate_path = self::get_currtemplate_path($page_type);
@@ -587,6 +588,9 @@ class mosContent extends mosDBTable {
 		    }
             //return $options;
 
+            if($curr_value_arr && isset($curr_value_arr[$page_type])){
+                $curr_value = $curr_value_arr[$page_type];
+            }
             return mosHTML::selectList($options,'templates['.$page_type.']','class="inputbox"','value','text',$curr_value);
 
         }
@@ -602,18 +606,20 @@ class mosContent extends mosDBTable {
         }
 
         function parse_curr_templates($templates){
-            $tpls = array();
-            $tpls = explode('|', $templates);
+            if($templates){
+                $tpls = array();
+                $tpls = explode('|', $templates);
 
-            $return=array();
+                $return=array();
 
-            foreach($tpls as $tpl){
-                $arr = explode('=',$tpl);
-                $key = $arr[0]; $value = $arr[1];
-                $return[$key] = $value;
+                foreach($tpls as $tpl){
+                    $arr = explode('=',$tpl);
+                    $key = $arr[0]; $value = $arr[1];
+                    $return[$key] = $value;
+                }
+                return $return;
             }
-
-            return $return;
+            return null;
         }
 
         function isset_settings($page_type, $templates){

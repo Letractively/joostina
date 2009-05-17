@@ -335,38 +335,39 @@ class sections_html {
 					<th colspan="2">Шаблоны</th>
 				</tr>
 
-                 <?php $curr_templates = $s_templates->parse_curr_templates($row->templates); ?>
+                 <?php
+                    $curr_templates = $s_templates->parse_curr_templates($row->templates); ?>
 				    <tr>
 					<td width="200">Блог раздела:</td>
-                     <td><?php echo $s_templates->templates_select_list('section_blog', $curr_templates['section_blog']); ?> </td>
+                     <td><?php echo $s_templates->templates_select_list('section_blog', $curr_templates); ?> </td>
                      </tr>
                      <tr>
 					<td width="200">Архив раздела:</td>
-                     <td><?php echo $s_templates->templates_select_list('section_archive', $curr_templates['section_archive']); ?> </td>
+                     <td><?php echo $s_templates->templates_select_list('section_archive', $curr_templates); ?> </td>
                      </tr>
                      	<tr>
                      <td>Записи по группам категорий: </td>
-                    <td><?php echo $s_templates->templates_select_list('section_groupcats', $curr_templates['section_groupcats']); ?> </td>
+                    <td><?php echo $s_templates->templates_select_list('section_groupcats', $curr_templates); ?> </td>
                     </tr>
                     	<tr>
                     <td>Список категорий: </td>
-                   <td> <?php echo $s_templates->templates_select_list('section_tablecats', $curr_templates['section_catlist']); ?>  </td>
+                   <td> <?php echo $s_templates->templates_select_list('section_tablecats', $curr_templates); ?>  </td>
                     </tr>
                    	<tr>
                     <td> Блог категории: </td>
-                    <td><?php echo $s_templates->templates_select_list('category_blog', $curr_templates['category_blog']); ?>   </td>
+                    <td><?php echo $s_templates->templates_select_list('category_blog', $curr_templates); ?>   </td>
                      </tr>
                     	<tr>
                    <td> Таблица содержимого категории:  </td>
-                   <td> <?php echo $s_templates->templates_select_list('category_table', $curr_templates['category_table']); ?>  </td>
+                   <td> <?php echo $s_templates->templates_select_list('category_table', $curr_templates); ?>  </td>
                    </tr>
                    	<tr>
                    <td> Страница просмотра записи: </td>
-                   <td> <?php echo $s_templates->templates_select_list('item_full', $curr_templates['item_full']); ?> </td>
+                   <td> <?php echo $s_templates->templates_select_list('item_full', $curr_templates); ?> </td>
                     </tr>
                    	<tr>
                    <td> Страница добавления/редактирования записи:</td>
-                   <td> <?php echo $s_templates->templates_select_list('item_edit', $curr_templates['item_edit']); ?></td>
+                   <td> <?php echo $s_templates->templates_select_list('item_edit', $curr_templates); ?></td>
                    </tr>
 				</table>
 				<br />

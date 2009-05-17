@@ -419,19 +419,19 @@ class categories_html {
                  <?php $curr_templates = $c_templates->parse_curr_templates($row->templates); ?>
 				  	<tr>
                     <td width="200"> Блог категории: </td>
-                    <td><?php echo $c_templates->templates_select_list('category_blog', $curr_templates['category_blog']); ?>   </td>
+                    <td><?php echo $c_templates->templates_select_list('category_blog', $curr_templates); ?>   </td>
                      </tr>
                       <tr>
 					<td width="200">Архив категории:</td>
-                     <td><?php echo $c_templates->templates_select_list('category_archive', $curr_templates['category_archive']); ?> </td>
+                     <td><?php echo $c_templates->templates_select_list('category_archive', $curr_templates); ?> </td>
                      </tr>
                     	<tr>
                    <td> Таблица содержимого категории:  </td>
-                   <td> <?php echo $c_templates->templates_select_list('category_table', $curr_templates['category_table']); ?>  </td>
+                   <td> <?php echo $c_templates->templates_select_list('category_table', $curr_templates); ?>  </td>
                    </tr>
                    	<tr>
                    <td> Страница просмотра записи: </td>
-                   <td> <?php echo $c_templates->templates_select_list('item_full', $curr_templates['item_full']); ?> </td>
+                   <td> <?php echo $c_templates->templates_select_list('item_full', $curr_templates); ?> </td>
                     </tr>
 
 				</table>
