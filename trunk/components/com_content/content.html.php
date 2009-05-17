@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined('_VALID_MOS') or die();
 
 /**
@@ -59,20 +59,20 @@ class HTML_content {
 	function showMyTable( &$params, &$items, &$pageNav, &$access, &$lists, $order ) {
 		global $mosConfig_live_site, $Itemid,$mosConfig_form_date_full;
 		$link = 'index.php?option=com_content&amp;task=mycontent&amp;Itemid='. $Itemid;
-		/* подключаем fullajax */
+		/* РїРѕРґРєР»СЋС‡Р°РµРј fullajax */
 		mosCommonHTML::loadFullajax();
 		?>
 		<script type="text/javascript">
-		// смена статуса публикации, elID - идентификатор объекта у которого меняется статус публикации
+		// СЃРјРµРЅР° СЃС‚Р°С‚СѓСЃР° РїСѓР±Р»РёРєР°С†РёРё, elID - РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ РѕР±СЉРµРєС‚Р° Сѓ РєРѕС‚РѕСЂРѕРіРѕ РјРµРЅСЏРµС‚СЃСЏ СЃС‚Р°С‚СѓСЃ РїСѓР±Р»РёРєР°С†РёРё
 		function ch_publ(elID){
-			log('Смена статуса публикации содержимого: '+elID);
+			log('РЎРјРµРЅР° СЃС‚Р°С‚СѓСЃР° РїСѓР±Р»РёРєР°С†РёРё СЃРѕРґРµСЂР¶РёРјРѕРіРѕ: '+elID);
 			id('img-pub-'+elID).src = '/images/system/aload.gif';
 			dax({
 				url: 'ajax.index.php?option=com_content&utf=0&task=publish&id='+elID,
 				id:'publ-'+elID,
 				callback:
 					function(resp, idTread, status, ops){
-						log('Получен ответ: ' + resp.responseText);
+						log('РџРѕР»СѓС‡РµРЅ РѕС‚РІРµС‚: ' + resp.responseText);
 						id('img-pub-'+elID).src = ADMINISTRATOR_DIRECTORY.'/images/'+resp.responseText;
 					}
 			});
@@ -135,13 +135,13 @@ class HTML_content {
 						<a href="<?php echo $link; ?>"><?php echo $row->title; ?></a><br />
 						<span class="small"><?php
 						if($row->sectionid!=0)
-							echo $row->section.' / '.$row->category; // раздел / категория
+							echo $row->section.' / '.$row->category; // СЂР°Р·РґРµР» / РєР°С‚РµРіРѕСЂРёСЏ
 						else
-							echo 'Статичное содержимое'; // тип добавленного содержимого - статичное содержимое
+							echo 'РЎС‚Р°С‚РёС‡РЅРѕРµ СЃРѕРґРµСЂР¶РёРјРѕРµ'; // С‚РёРї РґРѕР±Р°РІР»РµРЅРЅРѕРіРѕ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ - СЃС‚Р°С‚РёС‡РЅРѕРµ СЃРѕРґРµСЂР¶РёРјРѕРµ
 						?></span>
 					</td>
 					<td align="center" <?php echo ($access->canPublish) ? 'onclick="ch_publ('.$row->id.');" class="td-state"' : null ;?>>
-						<img class="img-mini-state" src="<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="Публикация" />
+						<img class="img-mini-state" src="<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="РџСѓР±Р»РёРєР°С†РёСЏ" />
 					</td>
 					<td><?php echo $row->created; ?></td>
 					<td align="center"><?php echo $row->hits ? $row->hits : 0; ?></td>
@@ -221,16 +221,19 @@ class HTML_content {
 	    }
 
         if(!$items){
-            //Подключаем шаблон раздела
-            include_once($mosConfig_absolute_path.'/components/com_content/view/section/table_cats/default.php');
+            $page_type = 'section_catlist';
+            $templates = $params->section_data->templates;
+            //include_once($mosConfig_absolute_path.'/components/com_content/view/section/catlist/default.php');
         }
         else{
-            //Подключаем шаблон категории
-            include_once($mosConfig_absolute_path.'/components/com_content/view/category/table/default.php');
+            $page_type = 'category_table';
+            $templates = $params->category_data->templates;
+            //include_once($mosConfig_absolute_path.'/components/com_content/view/category/table/default.php');
         }
 
-
-
+        $template = new jstContentTemplate();
+        $template->set_template($page_type, $templates);
+        include_once($template->template_file);
 
 	}
 
@@ -239,7 +242,7 @@ class HTML_content {
 	* Display links to categories
 	*/
 	function showCategories(&$params,&$items,$gid,&$other_categories,$catid,$id,$Itemid) {
-        //подключается шаблон
+        //РїРѕРґРєР»СЋС‡Р°РµС‚СЃСЏ С€Р°Р±Р»РѕРЅ
 	}
 
 
@@ -247,7 +250,7 @@ class HTML_content {
 	* Display Table of items
 	*/
 	function showTable(&$params,&$items,&$gid,$catid,$id,&$pageNav,&$access,&$sectionid,&$lists,$order) {
-	   //подключается шаблон /components/com_content/view/table_of_items/default.php
+	   //РїРѕРґРєР»СЋС‡Р°РµС‚СЃСЏ С€Р°Р±Р»РѕРЅ /components/com_content/view/table_of_items/default.php
 	}
 
 
@@ -305,15 +308,15 @@ class HTML_content {
 
 
 	/**
-	* Отображение содержимого
+	* РћС‚РѕР±СЂР°Р¶РµРЅРёРµ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ
 	* @param object An object with the record
 	* @param boolean If <code>false</code>, the print button links to a popup window.  If <code>true</code> then the print button invokes the browser print method.
-	* boston + хак отключения мамботов группы content
+	* boston + С…Р°Рє РѕС‚РєР»СЋС‡РµРЅРёСЏ РјР°РјР±РѕС‚РѕРІ РіСЂСѓРїРїС‹ content
 	*/
 	function show(&$row,&$params,&$access,$page = 0, $template='') {
 		global $mainframe,$hide_js,$_MAMBOTS,$mosConfig_mmb_content_off,$mosConfig_live_site,$mosConfig_uid_news, $mosConfig_absolute_path;
 		global $news_uid,$task;
-		// уникальные идентификаторы новостей
+		// СѓРЅРёРєР°Р»СЊРЅС‹Рµ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂС‹ РЅРѕРІРѕСЃС‚РµР№
 		$news_uid_css_title = '';
 		$news_uid_css_body = '';
 		if($mosConfig_uid_news) {
@@ -321,7 +324,7 @@ class HTML_content {
 			$news_uid_css_title = 'id="title-news-uid-'.$news_uid.'" ';
 			$news_uid_css_body = 'id="body-news-uid-'.$news_uid.'" ';
 		}
-		// boston, это еще будет
+		// boston, СЌС‚Рѕ РµС‰Рµ Р±СѓРґРµС‚
 		//if($task == 'view') $news_uid_css = 'id="pageclass_uid_'.$params->get( 'pageclass_uids' ).'" ';
 
 		$mainframe->appendMetaTag('description',$row->metadesc);
@@ -332,14 +335,14 @@ class HTML_content {
 			$mainframe->setPageTitle($row->title.' '.$row->page_title);
 		}
 
-		// получение параметров текущего содержимого
+		// РїРѕР»СѓС‡РµРЅРёРµ РїР°СЂР°РјРµС‚СЂРѕРІ С‚РµРєСѓС‰РµРіРѕ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ
 		$cur_params = new mosParameters($row->attribs);
 		$news_uid_css_page = $cur_params->get('pageclass_uids');
 		if($cur_params->get('pageclass_uids_full') && trim($news_uid_css_page) != '') {
 			$news_uid_css_title = 'id="title-news-'.$news_uid_css_page.'" ';
 			$news_uid_css_body = 'id="body-news-'.$news_uid_css_page.'" ';
 		};
-		// расчет Itemid
+		// СЂР°СЃС‡РµС‚ Itemid
 		HTML_content::_Itemid($row);
 		// determines the link and `link text` of the readmore button & linked title
 		HTML_content::_linkInfo($row,$params);
@@ -349,12 +352,12 @@ class HTML_content {
         $row->title=HTML_content::Title($row,$params,$access);
 
 
-		// обработка контента ботами, если в глобальной конфигурации они отключены - то мамботы не  используем
+		// РѕР±СЂР°Р±РѕС‚РєР° РєРѕРЅС‚РµРЅС‚Р° Р±РѕС‚Р°РјРё, РµСЃР»Рё РІ РіР»РѕР±Р°Р»СЊРЅРѕР№ РєРѕРЅС„РёРіСѓСЂР°С†РёРё РѕРЅРё РѕС‚РєР»СЋС‡РµРЅС‹ - С‚Рѕ РјР°РјР±РѕС‚С‹ РЅРµ  РёСЃРїРѕР»СЊР·СѓРµРј
 		if($mosConfig_mmb_content_off != 1) {
 			$_MAMBOTS->loadBotGroup('content');
 			$results = $_MAMBOTS->trigger('onPrepareContent',array(&$row,&$params,$page),true);
 		}
-        //зануляем
+        //Р·Р°РЅСѓР»СЏРµРј
         $loadbot_onAfterDisplayTitle='';
         $loadbot_onBeforeDisplayContent='';
 
@@ -390,21 +393,36 @@ class HTML_content {
         $results_onAfterDisplayContent = $_MAMBOTS->trigger('onAfterDisplayContent',array(&$row,&$params,$page));
 		$loadbot_onAfterDisplayContent= trim(implode("\n",$results_onAfterDisplayContent));
 
-        if(!$template){
-            include($mosConfig_absolute_path.'/components/com_content/view/item/intro_view/simple/default.php');
-        } else{
+
+        //РµСЃР»Рё 'template' Р·Р°РґР°РЅРѕ - Р·РЅР°С‡РёС‚ РІС‹РІРѕРґРёС‚СЃСЏ РёРЅС‚СЂРѕ Р·Р°РїРёСЃРё РІ Р±Р»РѕРіРµ,
+        //РїРѕСЌС‚РѕРјСѓ РЅРёРєР°РєРёС… РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹С… РјР°РЅРёРїСѓР»СЏС†РёР№ РЅРµ С‚СЂРµР±СѓРµС‚СЃСЏ,
+        // С‚Р°Рє РєР°Рє РёРјСЏ С€Р°Р±Р»РѕРЅР° Р·Р°РґР°РµС‚СЃСЏ РЅРµРїРѕСЃСЂРµРґСЃС‚РІРµРЅРЅРѕ РІ С€Р°Р±Р»РѕРЅРµ Р±Р»РѕРіР° СЂР°Р·РґРµР»Р° РёР»Рё РєР°С‚РµРіРѕСЂРёРё
+        if($template){
             include($mosConfig_absolute_path.'/components/com_content/view/item/'.$template);
         }
+        //РёРЅР°С‡Рµ - СЌС‚Рѕ СЃС‚СЂР°РЅРёС†Р° Р·Р°РїРёСЃРё Рё РЅСѓР¶РЅРѕ РѕРїСЂРµРґРµР»РёС‚СЊ, РєР°РєРѕР№ С€Р°Р±Р»РѕРЅ  РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РґР»СЏ РІС‹РІРѕРґР°
+        else{
+            $template = new jstContentTemplate();
+            $templates=null;
 
+            //РµСЃР»Рё СЌС‚Рѕ СЃС‚Р°С‚РёС‡РЅРѕРµ СЃРѕРґРµСЂР¶РёРјРѕРµ РёР»Рё Сѓ Р·Р°РїРёСЃРё Р·Р°РґР°РЅ С€Р°Р±Р»РѕРЅ
+            if(!$row->id || $row->templates){
+                if($row->templates) {
+                    $templates = $row->templates;
+                }
+            }
+            //РёРЅР°С‡Рµ - РїСЂРѕРІРµСЂСЏРµРј РЅР°СЃС‚СЂРѕР№РєРё РєР°С‚РµРіРѕСЂРёРё, РІРѕР·РјРѕР¶РЅРѕ, С€Р°Р±Р»РѕРЅ Р·Р°РґР°РЅ С‚Р°Рј
+            elseif($template->isset_settings($params->page_type, $params->category_data->templates)){
+                $templates = $params->category_data->templates;
+            }
+            //РёРЅР°С‡Рµ - РїСЂРѕРІРµСЂСЏРµРј РЅР°СЃС‚СЂРѕР№РєРё СЂР°Р·РґРµР»Р°
+            elseif($template->isset_settings($params->page_type, $params->section_data->templates)){
+                $templates = $params->section_data->templates;
+            }
 
-		// displays the next & previous buttons
-		HTML_content::Navigation($row,$params);
-
-		// displays close button in pop-up window
-		mosHTML::CloseButton($params,$hide_js);
-
-		// displays back button in pop-up window
-	   //	mosHTML::BackButton($params,$hide_js);
+            $template->set_template($params->page_type, $templates);
+            include_once($template->template_file);
+        }
 
 	}
 
@@ -464,16 +482,16 @@ class HTML_content {
 	}
 
 	/**
-	* Вывод заголовка
+	* Р’С‹РІРѕРґ Р·Р°РіРѕР»РѕРІРєР°
 	*/
 	function Title(&$row,&$params,&$access) {
 		global $mosConfig_title_h1,$mosConfig_title_h1_only_view,$task;
 		if($params->get('item_title')) {
 
               //PbICb
-              //наводим порядок с выводом заголовков
+              //РЅР°РІРѕРґРёРј РїРѕСЂСЏРґРѕРє СЃ РІС‹РІРѕРґРѕРј Р·Р°РіРѕР»РѕРІРєРѕРІ
 
-              // Проверяем, нужно ли делать заголовки ссылками
+              // РџСЂРѕРІРµСЂСЏРµРј, РЅСѓР¶РЅРѕ Р»Рё РґРµР»Р°С‚СЊ Р·Р°РіРѕР»РѕРІРєРё СЃСЃС‹Р»РєР°РјРё
               if($params->get('link_titles') && $row->link_on != '') {
                   $row->title='<a href="'.$row->link_on.'" title="'.$row->title.'" class="contentpagetitle">'.$row->title.'</a>';
               }
@@ -486,9 +504,9 @@ class HTML_content {
                       $row->title='<h2>'.$row->title.'</h2>';
                   }
                   else{
-                      //Если включена группировка по категориям -
-                      // в тэге <h2> выводятся названия категорий
-                      // поэтому заключаем заголовки материалов в <h3>
+                      //Р•СЃР»Рё РІРєР»СЋС‡РµРЅР° РіСЂСѓРїРїРёСЂРѕРІРєР° РїРѕ РєР°С‚РµРіРѕСЂРёСЏРј -
+                      // РІ С‚СЌРіРµ <h2> РІС‹РІРѕРґСЏС‚СЃСЏ РЅР°Р·РІР°РЅРёСЏ РєР°С‚РµРіРѕСЂРёР№
+                      // РїРѕСЌС‚РѕРјСѓ Р·Р°РєР»СЋС‡Р°РµРј Р·Р°РіРѕР»РѕРІРєРё РјР°С‚РµСЂРёР°Р»РѕРІ РІ <h3>
                       $row->title='<h3>'.$row->title.'</h3>';
                   }
                 break;
@@ -502,7 +520,7 @@ class HTML_content {
                 break;
               }
 
-              //Выводим заголовок
+              //Р’С‹РІРѕРґРёРј Р·Р°РіРѕР»РѕРІРѕРє
 
               return $row->title;
 
@@ -693,9 +711,9 @@ class HTML_content {
 
 		if(($mod_date != '') && $params->get('modifydate')) {
 ?>
-			<tr>
-				<td colspan="2" align="left" class="modifydate"><?php echo _LAST_UPDATED; ?> ( <?php echo $mod_date; ?> )</td>
-			</tr>
+        <div class="modifydate">
+		<?php echo _LAST_UPDATED; ?> ( <?php echo $mod_date; ?> )
+			</div>
 <?php
 		}
 	}
@@ -707,11 +725,9 @@ class HTML_content {
 		if($params->get('readmore')) {
 			if($params->get('intro_only') && $row->link_text) {
 ?>
-				<tr>
-					<td align="left" colspan="2">
-						<a href="<?php echo $row->link_on; ?>" title="<?php echo $row->title; ?>" class="readon<?php echo $params->get('pageclass_sfx'); ?>"><?php echo $row->link_text; ?></a>
-					</td>
-				</tr>
+
+    <a href="<?php echo $row->link_on; ?>" title="<?php echo $row->title; ?>" class="readon<?php echo $params->get('pageclass_sfx'); ?>"><?php echo $row->link_text; ?></a>
+
 	<?php
 			}
 		}
@@ -778,430 +794,85 @@ class HTML_content {
 	* @param mosContent The category object
 	* @param string The html for the groups select list
 	*/
-    function editContent(&$row,$section,&$lists,&$images,&$access,$myid,$sectionid,$task,$Itemid,$params) {
-		global $mosConfig_live_site,$mainframe, $my;
+    function editContent(&$row,&$page,$task) {
+		global $mosConfig_live_site, $mosConfig_absolute_path, $mainframe, $my;
 
 		mosMakeHtmlSafe($row);
 
-		require_once ($GLOBALS['mosConfig_absolute_path'].'/includes/HTML_toolbar.php');
+        //Р—Р°РіСЂСѓР·РєР° СЃРєСЂРёРїС‚Р° ajax-РІР°Р»РёРґР°С†РёРё
+        mosCommonHTML::loadJqueryPlugins('jquery.validate');
 
+
+		require_once ($GLOBALS['mosConfig_absolute_path'].'/includes/HTML_toolbar.php');
+        $s_id = mosGetParam($_REQUEST,'section',0);
 		// used for spoof hardening
 		$validate = josSpoofValue();
 
-		$Returnid = intval(mosGetParam($_REQUEST,'Returnid',$Itemid));
-		$tabs = new mosTabs(0,1);
+        if($task=='edit'){
+            $section_id = $row->sectionid;
+        }
+        else{
+            $section_id = $s_id;
+        }
 
-		mosCommonHTML::loadOverlib();
 		mosCommonHTML::loadCalendar();
 
-		// параметры полученные из настроек ссылки в меню
-		$p_wwig = $params->get('wwig',1);// использование визуального редактора
-		$content_type = $params->get('content_type',1); // тип контента
-		$p_fulltext = $params->get('fulltext',1); // отображать поле полного основного текста
-		$allow_alias = $params->get('allow_alias',0); // отображать поле "Псевдоним заголовка"
-		$allow_img = $params->get('allow_img',1); // отображать вкладку "Изображения"
-		$allow_params = $params->get('allow_params',1); // отображать вкладку "параметры"
-		$allow_desc = $params->get('allow_desc',1); // отображать поле "Описание"
-		$allow_tags = $params->get('allow_tags',1); // отображать поле "Ключевые слова"
-        $auto_publish = $params->get('auto_publish',0); // настройки автопубликации
-        $allow_frontpage = $params->get('allow_frontpage',0); // переключатель "На главной"
-        $front_label = $params->get('front_label','На главной'); // подпись переключателя "На главной"
+		// РїР°СЂР°РјРµС‚СЂС‹ РїРѕР»СѓС‡РµРЅРЅС‹Рµ РёР· РЅР°СЃС‚СЂРѕРµРє СЃСЃС‹Р»РєРё РІ РјРµРЅСЋ
+        $params = $page->params;
 
-?>
-		<div id="overDiv" style="position:absolute; visibility:hidden; z-index:10000;"></div>
-        <script language="javascript" type="text/javascript">
-		onunload = WarnUser;
+		$p_wwig = $params->get('wwig',1);// РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РІРёР·СѓР°Р»СЊРЅРѕРіРѕ СЂРµРґР°РєС‚РѕСЂР°
+        $wwig_buttons = $params->get('wwig_buttons',0);// РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ РєРЅРѕРїРѕРє РїРѕРґ РІРёР·СѓР°Р»СЊРЅС‹Рј СЂРµРґР°РєС‚РѕСЂРѕРј
+		$content_type = $params->get('content_type',1); // С‚РёРї РєРѕРЅС‚РµРЅС‚Р°
+		$p_fulltext = $params->get('fulltext',1); // РѕС‚РѕР±СЂР°Р¶Р°С‚СЊ РїРѕР»Рµ РїРѕР»РЅРѕРіРѕ РѕСЃРЅРѕРІРЅРѕРіРѕ С‚РµРєСЃС‚Р°
+		$allow_alias = $params->get('allow_alias',0); // РѕС‚РѕР±СЂР°Р¶Р°С‚СЊ РїРѕР»Рµ "РџСЃРµРІРґРѕРЅРёРј Р·Р°РіРѕР»РѕРІРєР°"
+        $allow_info = $params->get('allow_info',1); // РѕС‚РѕР±СЂР°Р¶Р°С‚СЊ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ Р·Р°РїРёСЃРµ
+		$allow_params = $params->get('allow_params',1); // РѕС‚РѕР±СЂР°Р¶Р°С‚СЊ РІРєР»Р°РґРєСѓ "РїР°СЂР°РјРµС‚СЂС‹"
+		$allow_desc = $params->get('allow_desc',1); // РѕС‚РѕР±СЂР°Р¶Р°С‚СЊ РїРѕР»Рµ "РћРїРёСЃР°РЅРёРµ"
+		$allow_tags = $params->get('allow_tags',1); // РѕС‚РѕР±СЂР°Р¶Р°С‚СЊ РїРѕР»Рµ "РљР»СЋС‡РµРІС‹Рµ СЃР»РѕРІР°"
+        $auto_publish = $params->get('auto_publish',0); // РЅР°СЃС‚СЂРѕР№РєРё Р°РІС‚РѕРїСѓР±Р»РёРєР°С†РёРё
+        $allow_frontpage = $params->get('allow_frontpage',0); // РїРµСЂРµРєР»СЋС‡Р°С‚РµР»СЊ "РќР° РіР»Р°РІРЅРѕР№"
+        $front_label = $params->get('front_label','РќР° РіР»Р°РІРЅРѕР№'); // РїРѕРґРїРёСЃСЊ РїРµСЂРµРєР»СЋС‡Р°С‚РµР»СЏ "РќР° РіР»Р°РІРЅРѕР№"
 
-        <?php
-        //Отключаем вкладку "Изображения"
-        if($allow_img){ ?>
-		    var folderimages = new Array;
-
-            <?php
-		    $i = 0;
-		    foreach($images as $k => $items) {
-			    foreach($items as $v) {
-				    echo "\n folderimages[".$i++."] = new Array( '$k','".addslashes($v->value)."','".addslashes($v->text)."' );";
-			    }
-		    }
+        if($p_wwig){
+            $mainframe->set( 'allow_wysiwyg', 1 );
+            $wwig_params=array('m_buttons'=>$wwig_buttons);
         }
-        ?>
+        $access = $page->access;
+        $lists = $row->lists;
 
-		function submitbutton(pressbutton) {
-			var form = document.adminForm;
-			if (pressbutton == 'cancel') {
-				submitform( pressbutton );
-				return;
-			}
-
-			// var goodexit=false;
-			// assemble the images back into one field
-			form.goodexit.value=1;
-            <?php
-            //Отключаем вкладку "Изображения"
-            if($allow_img){ ?>
-                var temp = new Array;
-			    for (var i=0, n=form.imagelist.options.length; i < n; i++) {
-				    temp[i] = form.imagelist.options[i].value;
-		    	}
-			form.images.value = temp.join( '\n' );
-            <?php }?>
-
-
-			try {
-				form.onsubmit();
-			}
-			catch(e){}
-			// do field validation
-			if (form.title.value == "") {
-				alert ( "<?php echo addslashes(_E_WARNTITLE); ?>" );
-			} else if (parseInt('<?php echo $row->sectionid; ?>')) {
-<?php
-		getEditorContents('editor1','introtext');
-		getEditorContents('editor2','fulltext');
-?>
-					submitform(pressbutton);
-
-			//} else if (form.introtext.value == "") {
-			//	alert ( "<?php echo addslashes(_E_WARNTEXT); ?>" );
-			} else {
-				// for static content
-<?php
-		getEditorContents('editor1','introtext');
-?>
-				submitform(pressbutton);
-			}
-		}
-
-		function setgood(){
-			document.adminForm.goodexit.value=1;
-		}
-
-		function WarnUser(){
-
-			if (document.adminForm.goodexit.value==0) {
-				alert('<?php echo addslashes(_E_WARNUSER); ?>');
-				window.location="<?php echo sefRelToAbs("index.php?option=com_content&task=".$task."&sectionid=".$sectionid."&id=".$row->id."&Itemid=".$Itemid); ?>";
-			}
-		}
-
-        	/* скрытие дерева навигации по структуре содержимого */
-		function ntreetoggle(){
-			if(SRAX.get('ntdree').style.display =='none'){
-				SRAX.get('ntdree').style.display ='block';
-				SRAX.get('tdtoogle').className='tdtoogleoff';
-				setCookie('j-ntree-hide','0');
-			}else{
-				SRAX.get('ntdree').style.display ='none';
-				SRAX.get('tdtoogle').className='tdtoogleon';
-				setCookie('j-ntree-hide','1');
-			}
-		}
-	</script>
-		</script>
-
-<?php
-		$docinfo = "<strong>"._E_EXPIRES."</strong> ";
-		$docinfo .= $row->publish_down."<br />";
-		$docinfo .= "<strong>"._E_VERSION."</strong> ";
-		$docinfo .= $row->version."<br />";
-		$docinfo .= "<strong>"._E_CREATED."</strong> ";
-		$docinfo .= $row->created."<br />";
-		$docinfo .= "<strong>"._E_LAST_MOD."</strong> ";
-		$docinfo .= $row->modified."<br />";
-		$docinfo .= "<strong>"._E_HITS."</strong> ";
-		$docinfo .= $row->hits."<br />";
-?>
-		<form action="index.php" method="post" name="adminForm" onSubmit="javascript:setgood();" enctype="multipart/form-data">
-        <div class="componentheading"><?php echo $row->id ? _E_EDIT : _E_ADD; ?></div>
-
-        <?php if ($row->id){  ?>
-        <div class="joo_message">
-              <a href="javascript: void(0);" onMouseOver="return overlib('<table><?php echo $docinfo; ?></table>', CAPTION, '<?php echo _E_ITEM_INFO; ?>', BELOW, RIGHT);" onMouseOut="return nd();">
-					<strong>[Информация]</strong>
-				</a>
-        </div>
-        <?php }?>
-        <table class="cedit_misc" cellspacing="0" cellpadding="0" border="0">
-            <tr>
-               <?php mosToolBar::save(); 	mosToolBar::apply(); mosToolBar::cancel();  ;?>
-
-                <?php if($access->canPublish || $auto_publish==1 || $my->usertype=="Super Administrator"){?>
-                <td><b>&nbsp;&nbsp;Опубликовано:</b>&nbsp;&nbsp;</td><td><?php echo  mosHTML::yesnoRadioList('state','',$row->state);?></td>
-                <?php }?>
-
-                <?php if( ($row->sectionid || !$content_type) && ($allow_frontpage==1 || $my->usertype=="Super Administrator") ){?>
-				<td align="right">&nbsp;&nbsp;&nbsp;<b><?php echo $front_label;?>:</b>&nbsp;</td>
-				<td  align="left"> <?php echo mosHTML::yesnoRadioList('frontpage','',$row->frontpage ? 1:0);?></td>
-                <?php }?>
-
-            </tr>
-       </table>
-
-
-         <table class="cedit_main" cellspacing="0" cellpadding="0" border="0" width="100%">
-            <tr>
-                <td width="25"><strong>Заголовок:</strong></td>
-                <td><input class="text_area" type="text" name="title" size="30" maxlength="255" style="width:99%" value="<?php echo $row->title; ?>" /></td>
-            </tr>
-
-             <?php if( $row->sectionid || $allow_alias){?>
-            <tr>
-                <td><strong>Псевдоним:</strong></td>
-				<td>
-					<input name="title_alias" type="text" class="text_area" id="title_alias" value="<?php echo $row->title_alias; ?>" size="30" style="width:99%" maxlength="255" />
-				</td>
-            </tr>
-             <?php }?>
-             <?php if( $content_type==0 || $row->sectionid>0){?>
-            <tr>
-                <td><strong>Категория:</strong></td>
-				<td>
-				    <?php
-                    echo $lists['catid'];
-                    ?>
-				</td>
-            </tr>
-            <?php }?>
-            <?php  if($allow_tags){ ?>
-            <tr>
-				<td align="left" valign="top"><strong><?php echo _E_M_KEY; ?></strong></td>
-				<td><input class="inputbox" style="width:99%" type="text" name="metakey" value="<?php echo str_replace('&','&amp;',$row->metakey); ?>"></td>
-			</tr>
-            <?php }?>
-
-
-           <?php  if($allow_desc){ ?>   <tr>
-				<td align="left" valign="top"><strong><?php echo _E_M_DESC; ?></strong></td>
-				<td><textarea class="inputbox" style="width:99%"  rows="2" name="metadesc"><?php echo str_replace('&','&amp;',$row->metadesc); ?></textarea></td>
-			</tr>
-           <?php }?>
-
-         </table>
-
-         <br />
-         <div class="cedit_introtext">
-            <strong><?php echo _E_INTRO.' ('._CMN_REQUIRED.')'; ?>:</strong><br />
-            <?php if($p_wwig){
-			// parameters : areaname, content, hidden field, width, height, rows, cols
-			editorArea('editor1',$row->introtext,'introtext','700','400','70','15');
-		    }else{
-            ?>
-			<textarea style="width: 700px; height: 400px;" class="inputbox" rows="15" cols="70" id="introtext" name="introtext"/><?php echo $row->introtext;?></textarea>
-            <?php }?>
-         </div>
-
-         <?php if(($content_type==0 && $p_fulltext) || ($row->sectionid &&  $p_fulltext) ){?>
-		 <br /><br />
-         <div class="cedit_fulltext">
-            <strong><?php echo _E_MAIN.' ('._CMN_OPTIONAL.')'; ?>:</strong>
-            <?php if($p_wwig){
-			// parameters : areaname, content, hidden field, width, height, rows, cols
-			editorArea('editor2',$row->fulltext,'fulltext','600','400','70','15');
-		    }else { ?>
-			<textarea style="width: 700px; height: 400px;" class="inputbox" rows="15" cols="70" id="fulltext" name="fulltext"/><?php echo $row->fulltext;?></textarea>
-            <?php } ?>
-        </div>
-         <?php } ?>
-
-
-
-<?php if( $allow_params || $allow_img){
-		$tabs->startPane('content-pane');
-
-        if( $allow_img){
-		$tabs->startTab(_E_IMAGES,'images-page');
-?>
-			<table class="adminform">
-			<tr>
-				<td colspan="4">
-	<?php echo _CMN_SUBFOLDER; ?> :: <?php echo $lists['folders']; ?>
-				</td>
-			</tr>
-			<tr>
-				<td align="top">
-		<?php echo _E_GALLERY_IMAGES; ?>
-				</td>
-				<td width="2%">
-				</td>
-				<td align="top">
-		<?php echo _E_CONTENT_IMAGES; ?>
-				</td>
-				<td align="top">
-		<?php echo _E_EDIT_IMAGE; ?>
-				</td>
-			</tr>
-			<tr>
-				<td valign="top">
-		<?php echo $lists['imagefiles']; ?>
-					<br />
-					<input class="button" type="button" value="<?php echo _E_INSERT; ?>" onclick="addSelectedToList('adminForm','imagefiles','imagelist')" />
-				</td>
-				<td width="2%">
-					<input class="button" type="button" value=">>" onclick="addSelectedToList('adminForm','imagefiles','imagelist')" title="<?php echo _E_ADD; ?>"/>
-					<br/>
-					<input class="button" type="button" value="<<" onclick="delSelectedFromList('adminForm','imagelist')" title="<?php echo _E_REMOVE; ?>"/>
-				</td>
-				<td valign="top">
-		<?php echo $lists['imagelist']; ?>
-					<br />
-					<input class="button" type="button" value="<?php echo _E_UP; ?>" onclick="moveInList('adminForm','imagelist',adminForm.imagelist.selectedIndex,-1)" />
-					<input class="button" type="button" value="<?php echo _E_DOWN; ?>" onclick="moveInList('adminForm','imagelist',adminForm.imagelist.selectedIndex,+1)" />
-				</td>
-				<td valign="top">
-					<table>
-					<tr>
-						<td align="right">
-			<?php echo _E_SOURCE; ?>
-						</td>
-						<td>
-						<input class="inputbox" type="text" name= "_source" value="" size="15" />
-						</td>
-					</tr>
-					<tr>
-						<td align="right" valign="top">
-			<?php echo _E_ALIGN; ?>
-						</td>
-						<td>
-			<?php echo $lists['_align']; ?>
-						</td>
-					</tr>
-					<tr>
-						<td align="right">
-			<?php echo _E_ALT; ?>
-						</td>
-						<td>
-						<input class="inputbox" type="text" name="_alt" value="" size="15" />
-						</td>
-					</tr>
-					<tr>
-						<td align="right">
-			<?php echo _E_BORDER; ?>
-						</td>
-						<td>
-						<input class="inputbox" type="text" name="_border" value="" size="3" maxlength="1" />
-						</td>
-					</tr>
-					<tr>
-						<td align="right">
-			<?php echo _E_CAPTION; ?>:
-						</td>
-						<td>
-						<input class="text_area" type="text" name="_caption" value="" size="30" />
-						</td>
-					</tr>
-					<tr>
-						<td align="right">
-			<?php echo _E_CAPTION_POSITION; ?>:
-						</td>
-						<td>
-			<?php echo $lists['_caption_position']; ?>
-						</td>
-					</tr>
-					<tr>
-						<td align="right">
-			<?php echo _E_CAPTION_ALIGN; ?>:
-						</td>
-						<td>
-			<?php echo $lists['_caption_align']; ?>
-						</td>
-					</tr>
-					<tr>
-						<td align="right">
-			<?php echo _E_CAPTION_WIDTH; ?>:
-						</td>
-						<td>
-						<input class="text_area" type="text" name="_width" value="" size="5" maxlength="5" />
-						</td>
-					</tr>
-					<tr>
-						<td align="right">
-						</td>
-						<td>
-						<input class="button" type="button" value="<?php echo _E_APPLY; ?>" onclick="applyImageProps()" />
-						</td>
-					</tr>
-					</table>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<img name="view_imagefiles" src="<?php echo $mosConfig_live_site; ?>/images/M_images/blank.png" width="50" alt="<?php echo _E_NO_IMAGE; ?>" />
-				</td>
-				<td width="2%">
-				</td>
-				<td>
-					<img name="view_imagelist" src="<?php echo $mosConfig_live_site; ?>/images/M_images/blank.png" width="50" alt="<?php echo _E_NO_IMAGE; ?>" />
-				</td>
-				<td>
-				</td>
-			</tr>
-			</table>
-<?php
-		$tabs->endTab();
+        $class='';
+        if(count($lists['catid'])>1){
+            $class=' class="hidden" ';
         }
 
-        if( $allow_params){
-		$tabs->startTab(_E_PUBLISHING,'publish-page');
-?>
-			<table class="adminform">
-			<tr>
-				<td align="left"><?php echo _E_ACCESS_LEVEL; ?></td>
-				<td><?php echo $lists['access']; ?></td>
-			</tr>
-			<tr>
-				<td align="left"><?php echo _E_AUTHOR_ALIAS; ?></td>
-				<td>
-				<input type="text" name="created_by_alias" size="50" maxlength="255" value="<?php echo $row->created_by_alias; ?>" class="inputbox" />
-				</td>
-			</tr>
-			<tr>
-				<td align="left"><?php echo _E_ORDERING; ?></td>
-				<td><?php echo $lists['ordering']; ?></td>
-			</tr>
-			<tr>
-				<td align="left"><?php echo _E_START_PUB; ?></td>
-				<td>
-				<input class="inputbox" type="text" name="publish_up" id="publish_up" size="25" maxlength="19" value="<?php echo $row->publish_up; ?>" />
-				<input type="reset" class="button" value="..." onclick="return showCalendar('publish_up', 'y-mm-dd');" />
-				</td>
-			</tr>
-			<tr>
-				<td align="left"><?php echo _E_FINISH_PUB; ?></td>
-				<td>
-				<input class="inputbox" type="text" name="publish_down" id="publish_down" size="25" maxlength="19" value="<?php echo $row->publish_down; ?>" />
-				<input type="reset" class="button" value="..." onclick="return showCalendar('publish_down', 'y-mm-dd');" />
-				</td>
-			</tr>
-			</table>
-<?php
-		$tabs->endTab();
+        $good_exit_link = 'index.php?option=com_content&task='.$task;
+        if($s_id){
+            $good_exit_link .= '&section='.$section_id;
+        }
+        if($task == 'edit'){
+            $good_exit_link .= '&id='.$row->id;
+        }
+        $good_exit_link = sefRelToAbs($good_exit_link);
+
+        //Р•СЃР»Рё СЌС‚Рѕ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ СЃС‚Р°С‚РёС‡РЅРѕРіРѕ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ - РїРѕРґРєР»СЋС‡Р°РµРј С€Р°Р±Р»РѕРЅ item/edit/static.php
+        if($task=='edit' && $row->sectionid==0){ 
+            include($mosConfig_absolute_path.'/components/com_content/view/item/edit/static.php');
+            return;
+        }
+        //РёРЅР°С‡Рµ - РїСЂРѕРІРµСЂСЏРµРј, Р·Р°РґР°РЅ Р»Рё С€Р°Р±Р»РѕРЅ РІ РЅР°СЃС‚СЂРѕР№РєР°С… СЂР°Р·РґРµР»Р°
+        else{
+            $template = new jstContentTemplate();
+            $templates=null;
+
+            if($template->isset_settings($params->page_type, $params->section_data->templates)){
+                $templates = $params->section_data->templates;
+            }
+
+            $template->set_template($params->page_type, $templates);
+            include_once($template->template_file);
         }
 
-		$tabs->endPane();
-}
-?>
-
-		<div style="clear:both;"></div> <br /><br />
-        <table class="cedit_misc" cellspacing="0" cellpadding="0" border="0">
-            <tr>
-               <?php mosToolBar::save(); 	mosToolBar::apply(); mosToolBar::cancel();  ;?>
-            </tr>
-       </table>
-
-		<input type="hidden" name="images" value="" />
-		<input type="hidden" name="goodexit" value="0" />
-		<input type="hidden" name="option" value="com_content" />
-		<input type="hidden" name="Returnid" value="<?php echo $Returnid; ?>" />
-		<input type="hidden" name="id" value="<?php echo $row->id; ?>" />
-		<input type="hidden" name="version" value="<?php echo $row->version; ?>" />
-		<input type="hidden" name="sectionid" value="<?php echo $row->sectionid; ?>" />
-		<input type="hidden" name="created_by" value="<?php echo $row->created_by; ?>" />
-		<input type="hidden" name="referer" value="<?php echo ampReplace(@$_SERVER['HTTP_REFERER']); ?>" />
-		<input type="hidden" name="task" value="" />
-		<input type="hidden" name="<?php echo $validate; ?>" value="1" />
-		</form>
-<?php
+        //include($mosConfig_absolute_path.'/components/com_content/view/item/edit_form/'.$template);
 	}
 
 	/**
@@ -1297,5 +968,17 @@ class HTML_content {
 		</a>
 <?php
 	}
+
+    function _no_access($message='РР·РІРёРЅРёС‚Рµ, Сѓ Р’Р°СЃ РЅРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РїСЂР°РІ РґР»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РґР°РЅРЅРѕР№ СЃС‚СЂР°РЅРёС†С‹'){
+    	?>
+		<div class="error"><?php echo $message;?></div>
+	    <?php
+    }
+
+function _after_create_content($row){
+    ?>
+     РЈСЃС‘ РїСѓС‡РєРѕРјРј
+    <?php
+}
 }
 ?>

@@ -14,7 +14,7 @@ $mosConfig_absolute_path = dirname( __FILE__ );
 
 
 require ($mosConfig_absolute_path.'/includes/globals.php');
-require_once ($mosConfig_absolute_path.'/configuration.php');
+require_once ('./configuration.php');
 
 // SSL check - $http_host returns <live site url>:<port number if it is 443>
 $http_host = explode(':',$_SERVER['HTTP_HOST']);

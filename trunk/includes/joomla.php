@@ -476,6 +476,10 @@ class mosMainFrame {
 	/**
 	@var boolean True if in the admin client*/
 	var $_isAdmin = false;
+
+    var $allow_wysiwyg = 0;
+
+
 	/**
 	* Class constructor
 	* @param database A database connection object
@@ -2376,23 +2380,21 @@ class mosHTML {
 ?>
 			<script language="javascript" type="text/javascript">
 			<!--
-			document.write('<td align="right" width="100%" class="buttonheading">');
 			document.write('<a href="#" class="print_button" onclick="javascript:window.print(); return false;" title="<?php echo _CMN_PRINT; ?>">');
 			document.write('<?php echo $image; ?>');
 			document.write('</a>');
-			document.write('</td>');
 			//-->
 			</script>
 <?php
 			} else {
 ?>
-			<td align="right" width="100%" class="buttonheading">
+
 <?php if(!Jconfig::getInstance()->config_index_print) { ?>
 				<noindex><a href="#" target="_blank" onclick="window.open('<?php echo $link; ?>','win2','<?php echo $status; ?>'); return false;" title="<?php echo _CMN_PRINT; ?>"><?php echo $image; ?></a></noindex>
 <?php } else { ?>
 				<a href="<?php echo $link; ?>" target="_blank" title="<?php echo _CMN_PRINT; ?>"><?php echo $image; ?></a>
 <?php } ; ?>
-			</td>
+
 <?php
 			}
 		}
@@ -2731,7 +2733,7 @@ function mosReadDirectory($path,$filter = '.',$recurse = false,$fullpath = false
 * @param string A filter for the names
 */
 function mosRedirect($url,$msg = '') {
-
+    global $mainframe;
 	// specific filters
 	$iFilter = new InputFilter();
 	$url = $iFilter->process($url);
@@ -2746,7 +2748,7 @@ function mosRedirect($url,$msg = '') {
 		$url = $GLOBALS['mosConfig_live_site'];
 	}
 
-	if(trim($msg)) {
+    if(trim($msg)) {
 		if(strpos($url,'?')) {
 			$url .= '&mosmsg='.urlencode($msg);
 		} else {

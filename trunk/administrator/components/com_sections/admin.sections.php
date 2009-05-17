@@ -11,6 +11,7 @@
 defined('_VALID_MOS') or die();
 
 require_once ($mainframe->getPath('admin_html'));
+require_once (Jconfig::getInstance()->config_absolute_path.'/components/com_content/content.class.php');
 
 global $option;
 
@@ -442,6 +443,9 @@ function saveSection($option,$scope,$task) {
 						$folders = str_replace('*#*','',$folders);
 					}
 	$row->params = 'imagefolders='.$folders;
+
+    $templates = new jstContentTemplate();
+    $row->templates = $templates->prepare_for_save(mosGetParam($_POST,'templates',array()));
 
 	if(!$row->store()) {
 		echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";

@@ -59,7 +59,7 @@ if(!defined('_JOS_EDITOR_INCLUDED')) {
 		}
 	}
 	// just present a textarea
-	function editorArea($name,$content,$hiddenField,$width,$height,$col,$row) {
+	function editorArea($name,$content,$hiddenField,$width,$height,$col,$row, $params=null) {
 		global $mainframe,$_MAMBOTS,$my;
 		// загрузка ботов раздела editor-xtd, константа _JOS_EDITORXTD_INCLUDED сигнализирует что мамботы загружены
 		if(!defined('_JOS_EDITORXTD_INCLUDED')) {
@@ -67,7 +67,7 @@ if(!defined('_JOS_EDITOR_INCLUDED')) {
 			$_MAMBOTS->loadBotGroup('editors-xtd');
 		}
 		$mainframe->set('loadEditor',true);
-		$results = $_MAMBOTS->trigger('onEditorArea',array($name,$content,$hiddenField,$width,$height,$col,$row));
+		$results = $_MAMBOTS->trigger('onEditorArea',array($name,$content,$hiddenField,$width,$height,$col,$row, $params));
 		foreach($results as $result) {
 			if(trim($result)) {
 				echo $result;

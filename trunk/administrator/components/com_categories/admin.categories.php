@@ -11,7 +11,7 @@
 defined('_VALID_MOS') or die();
 
 require_once ($mainframe->getPath('admin_html'));
-
+require_once (Jconfig::getInstance()->config_absolute_path.'/components/com_content/content.class.php');
 define('COM_IMAGE_BASE',$mosConfig_absolute_path.DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'stories');
 
 // get parameters from the URL or submitted form
@@ -497,6 +497,9 @@ function saveCategory($task) {
 		echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
 		exit();
 	}
+
+    $templates = new jstContentTemplate();
+    $row->templates = $templates->prepare_for_save(mosGetParam($_POST,'templates',array()));
 
 	if(!$row->store()) {
 		echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";

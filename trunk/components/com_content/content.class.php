@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright Àâòîðñêèå ïðàâà (C) 2008-2009 Joostina team. Âñå ïðàâà çàùèùåíû.
-* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
-* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
-* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+* @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2009 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
+* @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
+* Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
+* Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
 */
 
-// çàïðåò ïðÿìîãî äîñòóïà
+// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
 defined('_VALID_MOS') or die();
 
 /**
@@ -58,6 +58,8 @@ class mosCategory extends mosDBTable {
 	@var string*/
 	var $params = null;
 
+    var $templates = null;
+
 	/**
 	* @param database A database connector object
 	*/
@@ -91,6 +93,14 @@ class mosCategory extends mosDBTable {
 		}
 		return true;
 	}
+
+    function get_category($id){
+        $query = 'SELECT cc.* FROM #__categories AS cc WHERE cc.id = '.$id;
+        $r = null;
+        $this->_db->setQuery($query);
+        $this->_db->loadObject($r);
+        return $r;
+    }
 }
 
 /**
@@ -138,6 +148,8 @@ class mosSection extends mosDBTable {
 	@var string*/
 	var $params = null;
 
+    var $templates = null;
+
 	/**
 	* @param database A database connector object
 	*/
@@ -170,6 +182,14 @@ class mosSection extends mosDBTable {
 		}
 		return true;
 	}
+
+    function get_section($id){
+        $query = 'SELECT s.* FROM #__sections AS s WHERE s.id = '.$id;
+        $r = null;
+        $this->_db->setQuery($query);
+        $this->_db->loadObject($r);
+        return $r;
+    }
 }
 
 /**
@@ -270,6 +290,8 @@ class mosContent extends mosDBTable {
 	/**
 	@var string*/
 	var $notetext = null;
+
+    var $templates = null;
 	/**
 	* @param database A database connector object
 	*/
@@ -297,6 +319,25 @@ class mosContent extends mosDBTable {
 			$this->fulltext = '';
 		}
 		return true;
+	}
+
+    function get_item($id){
+
+		$sql = 'SELECT  item.*,
+                        s.name AS section_name, s.params AS section_params, s.templates as s_templates,
+                        c.name AS cat_name, c.params AS cat_params,
+                        author.username AS author_nickname, author.name AS author_name,
+                        modifier.username AS modifier_nickname, modifier.name AS modifier_name
+                FROM #__content AS item
+                INNER JOIN #__sections AS s ON s.id = item.sectionid
+                INNER JOIN #__categories AS c ON c.id = item.catid
+                INNER JOIN #__users AS author ON author.id = item.created_by
+                LEFT JOIN #__users AS modifier ON modifier.id = item.modified_by
+                WHERE item.id='.$id;
+        $r=null;
+		$this->_db->setQuery($sql);
+		$this->_db->loadObject($r);
+        return $r;
 	}
 
 	/**
@@ -349,13 +390,12 @@ class mosContent extends mosDBTable {
 
                 else{
                     $switcher=$mosConfig_author_name;
-                    //$switcher='4';
                 }
 
                 switch($switcher){
                     case '1':
                     case '3':
-                        $author_name=$row->author;
+                        $author_name = $row->author;
                     break;
 
                     case '2':
@@ -422,5 +462,171 @@ class mosContent extends mosDBTable {
         return $return;
 	}
 }
+
+    class jstContentTemplate{
+
+        var $page_type = null;
+        var $template_dir = null;
+        var $template_file = null;
+
+        function get_template_dir($page_type){
+
+            $dir = str_replace('_', '/', $page_type);
+
+/*            switch($page_type){
+                case 'blog_section':
+                    $dir = 'section/blog';
+                    break;
+
+                case 'groupcats_section':
+                    $dir = 'section/groupcats';
+                    break;
+
+                case 'table_cats_section':
+                    $dir = 'section/table_cats';
+                    break;
+
+                case 'table_items_section':
+                    $dir = 'section/table_items';
+                    break;
+
+                case 'blog_category':
+                    $dir = 'category/blog';
+                    break;
+
+                case 'table_category':
+                    $dir = 'category/table';
+                    break;
+
+                case 'archive':
+                    $dir = 'archive';
+                    break;
+
+                case 'item':
+                    $dir = 'item/full_view';
+                    break;
+
+                case 'item_static':
+                    $dir = 'item/static_content';
+                    break;
+
+                case 'item_editform':
+                    $dir = 'item/edit_form';
+                    break;
+
+                default:
+                    $dir = null;
+                    break;
+
+            }*/
+            return $dir;
+        }
+
+        function set_template($page_type, $templates=null){
+            $this->page_type = $page_type;
+
+            $this->template_dir = self::get_system_path($this->page_type);
+            $this->template_file = Jconfig::getInstance()->config_absolute_path.'/'.$this->template_dir.'/default.php';
+
+            if($templates){
+                $tpl_arr = self::parse_curr_templates($templates);
+                $template_file = $tpl_arr[$page_type];
+
+                if(isset($template_file)){
+                    $template_pref =  substr($template_file, 0, 3);
+                    $template_file =  str_replace($template_pref, '', $template_file);
+
+                    switch ($template_pref){
+                        case '[t]':
+                            $this->template_dir = self::get_currtemplate_path($page_type);
+                        break;
+
+                        default:
+                        break;
+                    }
+                    if(is_file(Jconfig::getInstance()->config_absolute_path.'/'.$this->template_dir.'/'.$template_file)){
+                        $this->template_file = Jconfig::getInstance()->config_absolute_path.'/'.$this->template_dir.'/'.$template_file;
+                    }
+
+                }
+            }
+
+        }
+
+
+
+        function get_system_path($page_type){
+            $template_dir = self::get_template_dir($page_type);
+            $system_path = 'components/com_content/view/'.$template_dir;
+            return $system_path;
+        }
+
+        function get_currtemplate_path($page_type){
+            $mainframe = new mosMainFrame(null,null,null,false);
+
+            $template_dir = self::get_template_dir($page_type);
+            $currtemplate_path = 'templates/'.$mainframe->getTemplate().'/html/com_content/'.$template_dir;
+            return $currtemplate_path;
+        }
+
+        function templates_select_list($page_type, $curr_value=null){
+
+            $system_path = self::get_system_path($page_type);
+            $currtemplate_path = self::get_currtemplate_path($page_type);
+
+            $files_system  = mosReadDirectory(Jconfig::getInstance()->config_absolute_path.'/'.$system_path,'\.php$');
+            $files_from_currtemplate= mosReadDirectory(Jconfig::getInstance()->config_absolute_path.'/'.$currtemplate_path,'\.php$');
+
+            $options = array();
+            $options[] = mosHTML::makeOption('0','ÐŸÐ¾ ÑƒÐ¼Ð¾Ð»Ñ‡Ð°Ð½Ð¸ÑŽ');
+		    foreach($files_system as $file) {
+			    $options[] = mosHTML::makeOption('[s]'.$file,'[s]'.$file);
+		    }
+		    foreach($files_from_currtemplate as $file) {
+			    $options[] = mosHTML::makeOption('[t]'.$file,'[t]'.$file);
+		    }
+            //return $options;
+
+            return mosHTML::selectList($options,'templates['.$page_type.']','class="inputbox"','value','text',$curr_value);
+
+        }
+
+        function prepare_for_save($templates){
+            $txt = array();
+	        foreach($templates as $k => $v) {
+	            if($v){
+                    $txt[] = "$k=$v";
+	            }
+	        }
+            return implode('|',$txt);
+        }
+
+        function parse_curr_templates($templates){
+            $tpls = array();
+            $tpls = explode('|', $templates);
+
+            $return=array();
+
+            foreach($tpls as $tpl){
+                $arr = explode('=',$tpl);
+                $key = $arr[0]; $value = $arr[1];
+                $return[$key] = $value;
+            }
+
+            return $return;
+        }
+
+        function isset_settings($page_type, $templates){
+            if($page_type && $templates){
+                $templates = self::parse_curr_templates($templates);
+                if(isset($templates[$page_type])){
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+    }
 
 ?>

@@ -13,7 +13,7 @@ defined('_VALID_MOS') or die();
 * Displays the capture output of the main element
 */
 function mosMainBody() {
-	global $mosConfig_live_site;
+	global $mosConfig_live_site, $mainframe;
 	// message passed via the url
 	$mosmsg = stripslashes(strval(mosGetParam($_REQUEST,'mosmsg','')));
 
@@ -36,15 +36,16 @@ function mosMainBody() {
 		$sessionCheck = 1;
 	}
 
-	// limit mosmsg to 150 characters
-	if(strlen($mosmsg) > 150) {
-		$mosmsg = substr($mosmsg,0,150);
+	// limit mosmsg to 350 characters
+	if(strlen($mosmsg) > 350) {
+		$mosmsg = substr($mosmsg,0,350);
 	}
 
 	// mosmsg outputed within html
 	if($mosmsg && !$popMessages && $browserCheck && $sessionCheck) {
 		echo "\n<div class=\"message\">$mosmsg</div>";
 	}
+
 
 	echo $GLOBALS['_MOS_OPTION']['buffer'];
 
@@ -190,7 +191,7 @@ function mosLoadModules($position = 'left',$style = 0,$noindex = 0) {
 */
 function mosShowHead() {
 	global $database,$option,$my,$mainframe,$_VERSION,$task,$id,$mosConfig_disable_favicon;
-	global $mosConfig_MetaDesc,$mosConfig_MetaKeys,$mosConfig_live_site,$mosConfig_sef,$mosConfig_absolute_path,$mosConfig_sitename,$mosConfig_favicon;
+    global $mosConfig_MetaDesc,$mosConfig_MetaKeys,$mosConfig_live_site,$mosConfig_sef,$mosConfig_absolute_path,$mosConfig_sitename,$mosConfig_favicon;
 
 	$description = '';
 	$keywords = '';
@@ -228,8 +229,8 @@ function mosShowHead() {
 	}
 	// boston, отключение тега Generator
 	global $mosConfig_generator_off,$mosConfig_lang;
-	if($mosConfig_generator_off == 0){
-		$mainframe->addMetaTag('Generator',$_VERSION->CMS.' - '.$_VERSION->COPYRIGHT);
+	if($mosConfig_generator_off == 0) {
+        $mainframe->addMetaTag('Generator',$_VERSION->CMS.' - '.$_VERSION->COPYRIGHT);
 	}
 
 	global $mosConfig_index_tag,$mosConfig_mtage_base,$mosConfig_mtage_revisit;
@@ -254,7 +255,7 @@ function mosShowHead() {
 	}
 	// очистка ссылки на главную страницу даже при отключенном sef
 	if ( $mosConfig_mtage_base == 1) {
-		echo "<base href=\"$mosConfig_live_site/\" />\r\n";
+	    echo "<base href=\"$mosConfig_live_site/\" />\r\n";
 	}
 
 	if($my->id || $mainframe->get('joomlaJavascript')) {
@@ -267,7 +268,9 @@ function mosShowHead() {
 	global $mosConfig_syndicate_off;
 	if($mosConfig_syndicate_off==0) {
 		$row = new mosComponent($database);
-		$query = "SELECT a.* FROM #__components AS a WHERE ( a.admin_menu_link = 'option=com_syndicate' OR a.admin_menu_link = 'option=com_syndicate&hidemainmenu=1' ) AND a.option = 'com_syndicate'";
+        $query = "  SELECT a.*
+                    FROM #__components AS a
+                    WHERE ( a.admin_menu_link = 'option=com_syndicate' OR a.admin_menu_link = 'option=com_syndicate&hidemainmenu=1' ) AND a.option = 'com_syndicate'";
 		$database->setQuery($query);
 		$database->loadObject($row);
 

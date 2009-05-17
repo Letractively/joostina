@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright ¿‚ÚÓÒÍËÂ Ô‡‚‡ (C) 2008-2009 Joostina team. ¬ÒÂ Ô‡‚‡ Á‡˘Ë˘ÂÌ˚.
-* @license ÀËˆÂÌÁËˇ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, ËÎË help/license.php
-* Joostina! - Ò‚Ó·Ó‰ÌÓÂ ÔÓ„‡ÏÏÌÓÂ Ó·ÂÒÔÂ˜ÂÌËÂ ‡ÒÔÓÒÚ‡ÌˇÂÏÓÂ ÔÓ ÛÒÎÓ‚ËˇÏ ÎËˆÂÌÁËË GNU/GPL
-* ƒÎˇ ÔÓÎÛ˜ÂÌËˇ ËÌÙÓÏ‡ˆËË Ó ËÒÔÓÎ¸ÁÛÂÏ˚ı ‡Ò¯ËÂÌËˇı Ë Á‡ÏÂ˜‡ÌËÈ Ó· ‡‚ÚÓÒÍÓÏ Ô‡‚Â, ÒÏÓÚËÚÂ Ù‡ÈÎ help/copyright.php.
+* @copyright –ê–≤—Ç–æ—Ä—Å–∫–∏–µ –ø—Ä–∞–≤–∞ (C) 2008-2009 Joostina team. –í—Å–µ –ø—Ä–∞–≤–∞ –∑–∞—â–∏—â–µ–Ω—ã.
+* @license –õ–∏—Ü–µ–Ω–∑–∏—è http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, –∏–ª–∏ help/license.php
+* Joostina! - —Å–≤–æ–±–æ–¥–Ω–æ–µ –ø—Ä–æ–≥—Ä–∞–º–º–Ω–æ–µ –æ–±–µ—Å–ø–µ—á–µ–Ω–∏–µ —Ä–∞—Å–ø—Ä–æ—Å—Ç—Ä–∞–Ω—è–µ–º–æ–µ –ø–æ —É—Å–ª–æ–≤–∏—è–º –ª–∏—Ü–µ–Ω–∑–∏–∏ GNU/GPL
+* –î–ª—è –ø–æ–ª—É—á–µ–Ω–∏—è –∏–Ω—Ñ–æ—Ä–º–∞—Ü–∏–∏ –æ –∏—Å–ø–æ–ª—å–∑—É–µ–º—ã—Ö —Ä–∞—Å—à–∏—Ä–µ–Ω–∏—è—Ö –∏ –∑–∞–º–µ—á–∞–Ω–∏–π –æ–± –∞–≤—Ç–æ—Ä—Å–∫–æ–º –ø—Ä–∞–≤–µ, —Å–º–æ—Ç—Ä–∏—Ç–µ —Ñ–∞–π–ª help/copyright.php.
 */
 
-// Á‡ÔÂÚ ÔˇÏÓ„Ó ‰ÓÒÚÛÔ‡
+// –∑–∞–ø—Ä–µ—Ç –ø—Ä—è–º–æ–≥–æ –¥–æ—Å—Ç—É–ø–∞
 defined('_VALID_MOS') or die();
 
 /**
@@ -134,6 +134,8 @@ class sections_html {
 	function edit(&$row,$option,&$lists,&$menus) {
 		global $mosConfig_live_site;
 
+        $s_templates = new jstContentTemplate;
+
 		if($row->name != '') {
 			$name = $row->name;
 		} else {
@@ -193,7 +195,7 @@ class sections_html {
 		<table class="adminheading">
 		<tr>
 			<th class="sections">
-			–‡Á‰ÂÎ:
+			–†–∞–∑–¥–µ–ª:
 			<small><?php echo $row->id?_O_EDITING:_O_CREATION; ?></small>
 			<small><small>
 			[ <?php echo stripslashes($name); ?> ]
@@ -207,7 +209,7 @@ class sections_html {
 				<table class="adminform">
 				<tr>
 					<th colspan="3"><?php echo _SECTION_DETAILS?></th>
-				<tr>
+				</tr>
 				<tr>
 					<td width="150"><?php echo _SECTION_USED_IN?>:</td>
 					<td width="85%" colspan="2"><strong><?php echo $row->scope; ?></strong></td>
@@ -273,28 +275,28 @@ class sections_html {
 				<table class="adminform">
 				<tr>
 					<th colspan="2"><?php echo _MENU_LINK?></th>
-				<tr>
+				</tr>
 				<tr>
 					<td colspan="2"><?php echo _SECTION_NEW_MENU_LINK?><br /><br /></td>
-				<tr>
+				</tr>
 				<tr>
 					<td valign="top" width="100px"><?php echo _CHOOSE_MENU?></td>
 					<td><?php echo $lists['menuselect']; ?></td>
-				<tr>
+				</tr>
 				<tr>
 					<td valign="top" width="100px"><?php echo _CHOOSE_MENU_TYPE?></td>
 					<td><?php echo $lists['link_type']; ?></td>
-				<tr>
+				</tr>
 				<tr>
 					<td valign="top" width="100px"><?php echo _MENU_NAME?></td>
 					<td><input type="text" name="link_name" class="inputbox" value="" size="25" /></td>
-				<tr>
+				</tr>
 				<tr>
 					<td></td>
 					<td>
 						<input name="menu_link" type="button" class="button" value="<?php echo _CREATE_MENU_ITEM?>" onClick="submitbutton('menulink');" />
 					</td>
-				<tr>
+				</tr>
 				<tr>
 					<th colspan="2"><?php echo _EXISTED_MENU_ITEMS?></th>
 				</tr>
@@ -327,7 +329,46 @@ class sections_html {
 			</table>
 <?php
 		}
-?>
+?>            <br />
+				<table class="adminform">
+				<tr>
+					<th colspan="2">–®–∞–±–ª–æ–Ω—ã</th>
+				</tr>
+
+                 <?php $curr_templates = $s_templates->parse_curr_templates($row->templates); ?>
+				    <tr>
+					<td width="200">–ë–ª–æ–≥ —Ä–∞–∑–¥–µ–ª–∞:</td>
+                     <td><?php echo $s_templates->templates_select_list('section_blog', $curr_templates['section_blog']); ?> </td>
+                     </tr>
+                     <tr>
+					<td width="200">–ê—Ä—Ö–∏–≤ —Ä–∞–∑–¥–µ–ª–∞:</td>
+                     <td><?php echo $s_templates->templates_select_list('section_archive', $curr_templates['section_archive']); ?> </td>
+                     </tr>
+                     	<tr>
+                     <td>–ó–∞–ø–∏—Å–∏ –ø–æ –≥—Ä—É–ø–ø–∞–º –∫–∞—Ç–µ–≥–æ—Ä–∏–π: </td>
+                    <td><?php echo $s_templates->templates_select_list('section_groupcats', $curr_templates['section_groupcats']); ?> </td>
+                    </tr>
+                    	<tr>
+                    <td>–°–ø–∏—Å–æ–∫ –∫–∞—Ç–µ–≥–æ—Ä–∏–π: </td>
+                   <td> <?php echo $s_templates->templates_select_list('section_tablecats', $curr_templates['section_catlist']); ?>  </td>
+                    </tr>
+                   	<tr>
+                    <td> –ë–ª–æ–≥ –∫–∞—Ç–µ–≥–æ—Ä–∏–∏: </td>
+                    <td><?php echo $s_templates->templates_select_list('category_blog', $curr_templates['category_blog']); ?>   </td>
+                     </tr>
+                    	<tr>
+                   <td> –¢–∞–±–ª–∏—Ü–∞ —Å–æ–¥–µ—Ä–∂–∏–º–æ–≥–æ –∫–∞—Ç–µ–≥–æ—Ä–∏–∏:  </td>
+                   <td> <?php echo $s_templates->templates_select_list('category_table', $curr_templates['category_table']); ?>  </td>
+                   </tr>
+                   	<tr>
+                   <td> –°—Ç—Ä–∞–Ω–∏—Ü–∞ –ø—Ä–æ—Å–º–æ—Ç—Ä–∞ –∑–∞–ø–∏—Å–∏: </td>
+                   <td> <?php echo $s_templates->templates_select_list('item_full', $curr_templates['item_full']); ?> </td>
+                    </tr>
+                   	<tr>
+                   <td> –°—Ç—Ä–∞–Ω–∏—Ü–∞ –¥–æ–±–∞–≤–ª–µ–Ω–∏—è/—Ä–µ–¥–∞–∫—Ç–∏—Ä–æ–≤–∞–Ω–∏—è –∑–∞–ø–∏—Å–∏:</td>
+                   <td> <?php echo $s_templates->templates_select_list('item_edit', $curr_templates['item_edit']); ?></td>
+                   </tr>
+				</table>
 				<br />
 				<table class="adminform">
 				<tr>
@@ -337,6 +378,9 @@ class sections_html {
 					<td colspan="2"><?php echo $lists['folders']; ?></td>
 				</tr>
 				</table>
+                <br />
+
+
 			</td>
 		</tr>
 		</table>
@@ -534,7 +578,7 @@ class sections_html {
 	<table id="adminlist" class="adminlist">
 		<tbody>
 		<tr>
-			<th align="left">–ÂÁÛÎ¸Ú‡Ú˚</th>
+			<th align="left">–†–µ–∑—É–ª—å—Ç–∞—Ç—ã</th>
 		</tr>
 <?php
 		$k = 0;

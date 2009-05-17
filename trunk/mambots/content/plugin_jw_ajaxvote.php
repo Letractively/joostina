@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright Àâòîðñêèå ïðàâà (C) 2008-2009 Joostina team. Âñå ïðàâà çàùèùåíû.
-* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
-* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
-* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+* @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2009 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
+* @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
+* Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
+* Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
 */
 
-// çàïðåò ïðÿìîãî äîñòóïà
+// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
 defined('_VALID_MOS') or die();
 
 $_MAMBOTS->registerFunction('onBeforeDisplayContent','pluginJWAjaxVote');
@@ -16,7 +16,7 @@ function pluginJWAjaxVote(&$row,&$params) {
 	global $mainframe,$addScriptJWAjaxVote,$mosConfig_caching;
 
 	$id = $row->id;
-	$result = 0;
+	$result = 0;  $return='';
 	if($params->get('rating') && !$params->get('popup')) {
 		$vote = new stdClass;
 		$vote->rating_count	= $row->rating_count;
@@ -38,35 +38,38 @@ function pluginJWAjaxVote(&$row,&$params) {
 <script type="text/javascript" src="'.$mainframe->getCfg('live_site').'/mambots/content/plugin_jw_ajaxvote/js/ajaxvote.js"></script>';
 		if(!$addScriptJWAjaxVote) {
 			$addScriptJWAjaxVote = 1;
-			/* ïðè âêëþ÷åííîì êýøèðîâàíèè âûâåäåì ïîäêëþ÷åíèå js êîäà âìåñòå ñ ïåðâûì âûâîäîì êíîïîê ãîëîñîâàíèÿ*/
+			/* Ð¿Ñ€Ð¸ Ð²ÐºÐ»ÑŽÑ‡ÐµÐ½Ð½Ð¾Ð¼ ÐºÑÑˆÐ¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ð¸ Ð²Ñ‹Ð²ÐµÐ´ÐµÐ¼ Ð¿Ð¾Ð´ÐºÐ»ÑŽÑ‡ÐµÐ½Ð¸Ðµ js ÐºÐ¾Ð´Ð° Ð²Ð¼ÐµÑÑ‚Ðµ Ñ Ð¿ÐµÑ€Ð²Ñ‹Ð¼ Ð²Ñ‹Ð²Ð¾Ð´Ð¾Ð¼ ÐºÐ½Ð¾Ð¿Ð¾Ðº Ð³Ð¾Ð»Ð¾ÑÐ¾Ð²Ð°Ð½Ð¸Ñ*/
 			if($mosConfig_caching)
-				echo $script;
-			else // åñëè êýøèðîâàíèå íå àêòèâíî - äîáàâèì js êîä â çàãîëîâîê ñòðàíèöû - òàê ïðàâèëüíåå
+				$return .=$script;
+			else // ÐµÑÐ»Ð¸ ÐºÑÑˆÐ¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ Ð½Ðµ Ð°ÐºÑ‚Ð¸Ð²Ð½Ð¾ - Ð´Ð¾Ð±Ð°Ð²Ð¸Ð¼ js ÐºÐ¾Ð´ Ð² Ð·Ð°Ð³Ð¾Ð»Ð¾Ð²Ð¾Ðº ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñ‹ - Ñ‚Ð°Ðº Ð¿Ñ€Ð°Ð²Ð¸Ð»ÑŒÐ½ÐµÐµ
 				$mainframe->addCustomHeadTag($script);
 		}
 
-?>
+$return .='
 <div class="jwajaxvote-inline-rating">
 	<ul class="jwajaxvote-star-rating">
-		<li id="rating<?php echo $id ?>" class="current-rating" style="width:<?php echo $result ?>%;"></li>
-		<li><a href="javascript:void(null)" onclick="javascript:jwAjaxVote(<?php echo $id ?>,1,<?php echo $rating_sum ?>,<?php echo $rating_count ?>);" title="1 áàëë èç 5" class="one-star">1</a></li>
-		<li><a href="javascript:void(null)" onclick="javascript:jwAjaxVote(<?php echo $id ?>,2,<?php echo $rating_sum ?>,<?php echo $rating_count ?>);" title="2 áàëëà èç 5" class="two-stars">2</a></li>
-		<li><a href="javascript:void(null)" onclick="javascript:jwAjaxVote(<?php echo $id ?>,3,<?php echo $rating_sum ?>,<?php echo $rating_count ?>);" title="3 áàëëà èç 5" class="three-stars">3</a></li>
-		<li><a href="javascript:void(null)" onclick="javascript:jwAjaxVote(<?php echo $id ?>,4,<?php echo $rating_sum ?>,<?php echo $rating_count ?>);" title="4 áàëëà èç 5" class="four-stars">4</a></li>
-		<li><a href="javascript:void(null)" onclick="javascript:jwAjaxVote(<?php echo $id ?>,5,<?php echo $rating_sum ?>,<?php echo $rating_count ?>);" title="5 áàëëîâ èç 5" class="five-stars">5</a></li>
+		<li id="rating'.$id.'" class="current-rating" style="width:'.$result.'%;"></li>
+		<li><a href="javascript:void(null)" onclick="javascript:jwAjaxVote('.$id.',1,'.$rating_sum.','.$rating_count.');" title="1 Ð±Ð°Ð»Ð» Ð¸Ð· 5" class="one-star">&nbsp;</a></li>
+		<li><a href="javascript:void(null)" onclick="javascript:jwAjaxVote('.$id.',2,'.$rating_sum.','.$rating_count.');" title="2 Ð±Ð°Ð»Ð»Ð° Ð¸Ð· 5" class="two-stars">&nbsp;</a></li>
+		<li><a href="javascript:void(null)" onclick="javascript:jwAjaxVote('.$id.',3,'.$rating_sum.','.$rating_count.');" title="3 Ð±Ð°Ð»Ð»Ð° Ð¸Ð· 5" class="three-stars">&nbsp;</a></li>
+		<li><a href="javascript:void(null)" onclick="javascript:jwAjaxVote('.$id.',4,'.$rating_sum.','.$rating_count.');" title="4 Ð±Ð°Ð»Ð»Ð° Ð¸Ð· 5" class="four-stars">&nbsp;</a></li>
+		<li><a href="javascript:void(null)" onclick="javascript:jwAjaxVote('.$id.',5,'.$rating_sum.','.$rating_count.');" title="5 Ð±Ð°Ð»Ð»Ð¾Ð² Ð¸Ð· 5" class="five-stars">&nbsp;</a></li>
 	</ul>
-	<div id="jwajaxvote<?php echo $id ?>" class="jwajaxvote-box">
-<?php
-		if($rating_count != 1) {
-			echo '('.$rating_count.' '._AV_VOTES.')';
+	<div id="jwajaxvote'.$id.'" class="jwajaxvote-box">';
+
+	if($rating_count != 1) {
+		  $return .='('.$rating_count.' '._AV_VOTES.')';
 		} else {
-			echo '('.$rating_count.' '._AV_VOTE.')';
+			 $return .='('.$rating_count.' '._AV_VOTE.')';
 		}
-?>
+ $return .='
 	</div>
 </div>
 <div class="jwajaxvote-clr"></div>
-<?php
+';
+
+
+$row->rating=$return;
 	}
 }
 ?>
