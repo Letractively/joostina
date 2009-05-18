@@ -41,8 +41,8 @@ class content_blog_category {
 				mosArrayToInts($catidsArray);
 				$catids = 'c.id='.implode(' OR c.id=',$catidsArray);
 				$query = "SELECT c.id AS `value`, c.section AS `id`, CONCAT_WS( ' / ', s.title, c.title) AS `text`".
-					"\n FROM #__sections AS s"."\n INNER JOIN #__categories AS c ON c.section = s.id".
-					"\n WHERE s.scope = 'content'"."\n AND ( $catids )"."\n ORDER BY s.name,c.name";
+					"\n FROM #__sections AS s INNER JOIN #__categories AS c ON c.section = s.id".
+					"\n WHERE s.scope = 'content' AND ( $catids )"."\n ORDER BY s.name,c.name";
 				$database->setQuery($query);
 				$lookup = $database->loadObjectList();
 			} else {
@@ -58,7 +58,7 @@ class content_blog_category {
 		}
 
 		// build the html select list for category
-		$rows[] = mosHTML::makeOption('','Все категории');
+		$rows[] = mosHTML::makeOption('',_CREATE_CATEGORIES);
 		$query = "SELECT c.id AS `value`, c.section AS `id`, CONCAT_WS( ' / ', s.title, c.title) AS `text`".
 			"\n FROM #__sections AS s".
 			"\n INNER JOIN #__categories AS c ON c.section = s.id".

@@ -47,9 +47,9 @@ $(document).ready(function(){
                     </div>
                 </div>
                 <div class="header_right">
-                    <a title="РќР° РіР»Р°РІРЅСѓСЋ" href="<?php echo $mosConfig_live_site;?>" id="home" class="navbar">&nbsp;</a>
-                    <a title="РќР°РїРёСЃР°С‚СЊ РїРёСЃСЊРјРѕ" href="mailto:<?php echo $mosConfig_mailfrom;?>" id="mail" class="navbar">&nbsp;</a>
-                    <a title="РљР°СЂС‚Р° СЃР°Р№С‚Р°" href="<?php echo sefRelToAbs('index.php?option=com_xmap&amp;Itemid=27'); ?>" id="map" class="navbar">&nbsp;</a>
+                    <a title="Главная" href="<?php echo $mosConfig_live_site;?>" id="home" class="navbar">&nbsp;</a>
+                    <a title="Обратная связь" href="mailto:<?php echo $mosConfig_mailfrom;?>" id="mail" class="navbar">&nbsp;</a>
+                    <a title="Карта сайта" href="<?php echo sefRelToAbs('index.php?option=com_xmap&amp;Itemid=27'); ?>" id="map" class="navbar">&nbsp;</a>
                     <?php mosLoadModules('toolbar',-2); ?>
                </div>
             <!--header:end-->
@@ -144,7 +144,7 @@ $(document).ready(function(){
     <!--footer:begin-->
     <div class="footer">
         <div class="bottom">
-            <a title="Рћ РїСЂРѕРµРєС‚Рµ Joostina CMS" href="http://www.joostina.ru" id="about" class="bottom_bar">&nbsp;</a>
+            <a title="Работает на системе управления сайтами Joostina CMS" href="http://www.joostina.ru" target="_blank" id="about" class="bottom_bar">&nbsp;</a>
             <?php mosLoadModules('bottom',-1); ?>
             <div class="valid">
                 <a href="http://jigsaw.w3.org/css-validator/validator?uri=<?php echo $mosConfig_live_site;?>" target="_blank" title="CSS Validity" style="text-decoration: none;">

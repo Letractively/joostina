@@ -10,11 +10,14 @@
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
+
+$config = &Jconfig::getInstance();
+
 // проверка на ключевую строке в адресе админки
-if($mosConfig_enable_admin_secure_code){
-	if($mosConfig_admin_secure_code != $_SERVER['QUERY_STRING']){
-		$path  = $mosConfig_live_site;
-		$path .= $mosConfig_admin_redirect_options == 1 ? '/'.$mosConfig_admin_redirect_path : '';
+if($config->config_enable_admin_secure_code){
+	if($config->config_admin_secure_code != $_SERVER['QUERY_STRING']){
+		$path  = $config->config_live_site;
+		$path .= $config->config_admin_redirect_options == 1 ? '/'.$config->config_admin_redirect_path : '';
 		mosRedirect ($path);
 	}
 }
@@ -23,7 +26,7 @@ if($mosConfig_enable_admin_secure_code){
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title>
-		<?php echo $mosConfig_sitename; ?> - <?php echo _JOOSTINA_CONTRIL_PANEL?></title>
+		<?php echo $config->config_sitename; ?> - <?php echo _JOOSTINA_CONTRIL_PANEL?></title>
 	<meta http-equiv="Content-Type" content="text/html; <?php echo _ISO; ?>" />
 	<style type="text/css">
 		@import url(templates/joostfree/css/admin_login.css);
@@ -40,7 +43,7 @@ if($mosConfig_enable_admin_secure_code){
 		<img src="templates/joostfree/images/logo.png" alt="Joostina!" />
 	</div>
 <?php
-	include_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/modules/mod_mosmsg.php');
+	include_once ($config->config_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/modules/mod_mosmsg.php');
 ?>
 	<div id="ctr1" align="center">
 		<div class="login">
@@ -52,15 +55,15 @@ if($mosConfig_enable_admin_secure_code){
 							<?php echo _PASS ?>
 							<input name="pass" type="password" class="inputbox" size="15" />
 <?php
-if($mosConfig_captcha) {
-	session_start();
+if($config->config_captcha) {
+	//session_start();
 ?>
 						<div>
 							<img id="loginCaptcha" alt="<?php echo _PRESS_HERE_TO_RELOAD_CAPTCHA?>" onclick="document.loginForm.loginCaptcha.src='<?php
-								echo $mosConfig_live_site; ?>/includes/libraries/kcaptcha/index.php?' + new String(Math.random())" src="<?php
-								echo $mosConfig_live_site; ?>/includes/libraries/kcaptcha/index.php?<?php echo session_id() ?>" />
+								echo $config->config_live_site; ?>/includes/libraries/kcaptcha/index.php?' + new String(Math.random())" src="<?php
+								echo $config->config_live_site; ?>/includes/libraries/kcaptcha/index.php?<?php echo session_id() ?>" />
 						</div>
-						<span class="captcha" onclick="document.loginForm.loginCaptcha.src='<?php echo $mosConfig_live_site; ?>/includes/libraries/kcaptcha/index.php?' + new String(Math.random())"><?php echo _SHOW_CAPTCHA?></span>
+						<span class="captcha" onclick="document.loginForm.loginCaptcha.src='<?php echo $config->config_live_site; ?>/includes/libraries/kcaptcha/index.php?' + new String(Math.random())"><?php echo _SHOW_CAPTCHA?></span>
 						<div><?php echo _PLEASE_ENTER_CAPTCHA?>:</div>
 						<div>
 							<input name="captcha" type="text" class="inputbox" size="15" />
@@ -71,7 +74,7 @@ if($mosConfig_captcha) {
 						<div align="center">
 							<input type="submit" name="submit" class="button" value="Войти" />
 							<br />
-							<input type="button" name="submit" onClick="document.location.href='<?php echo $mosConfig_live_site; ?>'" class="button" value="Перейти на сайт" />
+							<input type="button" name="submit" onClick="document.location.href='<?php echo $config->config_live_site; ?>'" class="button" value="Перейти на сайт" />
 						</div>
 					</div>
 				</form>

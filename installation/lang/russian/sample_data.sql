@@ -165,3 +165,9 @@ INSERT INTO `#__weblinks` VALUES (10, 13, 0, 'Joomla.ru', 'http://www.joomla.ru/
 
 # Базовая карта для Xmap
 INSERT INTO `#__xmap_sitemap` VALUES (1, 'Карта сайта', 0, 0, 0, 1, 1, 'img_grey.gif', 'mainmenu,0,1,1,0.5,daily\ntopmenu,1,1,1,0.5,daily', '', 1, 0, 900, 'sitemap', 0, 43, 0, 39, 0, 1233415318);
+
+
+# экспериментально - потом внести в общую базу
+ALTER TABLE `jos_sections` ADD `templates` TEXT NOT NULL ;
+ALTER TABLE `jos_categories` ADD `templates` TEXT NOT NULL ;
+ALTER TABLE `jos_content` ADD `templates` VARCHAR( 255 ) NOT NULL ;

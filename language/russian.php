@@ -2245,4 +2245,12 @@ DEFINE('_MODULES_COPY', 'Копия ');
 /* administrator components com_content */
 DEFINE('_TASK_UPLOAD', 'Загрузить');
 DEFINE('_COUNTER_RESET', 'Счетчик просмотров сброшен');
+
+/* administrator components com_sections */
+DEFINE('_CREATE_CATEGORY', 'Создать категорию');
+
+/* administrator components com_menus */
+DEFINE('_NEW_MENU_ITEM', 'Новый пункт меню');
+DEFINE('_CREATE_CATEGORIES', '-все категории-');
+
 ?>

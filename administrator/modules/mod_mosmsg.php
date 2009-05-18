@@ -9,16 +9,9 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-$mosmsg = strval((stripslashes(htmlspecialchars(mosGetParam($_REQUEST,'mosmsg','')))));
+$mosmsg = mosMainFrame::getInstance()->get_mosmsg();
 
 if($mosmsg) {
-
-	//200 chars max
-	if(strlen($mosmsg) > 200) {
-		
-		$mosmsg = substr($mosmsg,0,200);
-	}
-	
-	echo "<div id=\"message\" class=\"message\">{$mosmsg}</div>";
+	echo '<div class="message">'.$mosmsg.'</div>';
 }
 ?>

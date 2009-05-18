@@ -136,7 +136,7 @@ return formValid;
 									</tr>
 									<tr class="trongate-1">
 										<td colspan="2" valign="top">
-											<input type="checkbox" name="create_db" id="create_db" value="1" /><label for="create_db">создать базу если её нет</label>
+											<input type="checkbox" name="create_db" id="create_db" value="1" checked="checked" /><label for="create_db">создать базу если её нет</label>
 										</td>
 										<td>
 										Внимание! Не на всех хостингах создание БД таким способом будет возможно. В случае возникновения ошибок - создайте пустую БД стандартным для вашего хостинга способом и выберите её.

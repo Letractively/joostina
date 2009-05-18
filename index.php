@@ -135,7 +135,7 @@ if(!$Itemid) {
 }
 
 // mainframe - основная рабочая среда API, осуществляет взаимодействие с 'ядром'
-$mainframe = mosMainFrame::getInstance();
+$mainframe = &mosMainFrame::getInstance();
 
 // отключение ведения сессий на фронте
 if($mosConfig_session_front == 0) {
@@ -320,7 +320,6 @@ if($mosConfig_mmb_mainbody_off == 0) {
 unset($_MAMBOTS,$mainframe,$my);
 // вывод стека всего тела страницы, уже после обработки мамботами группы onTemplate
 echo $_MOS_OPTION['mainbody'];
-flush();
 
 // подсчет времени генерации страницы
 if($mosConfig_time_gen) {

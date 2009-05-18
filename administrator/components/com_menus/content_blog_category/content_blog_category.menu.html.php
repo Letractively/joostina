@@ -88,7 +88,7 @@ class content_blog_category_html {
 					</td>
 				</tr>
 				<tr>
-					<td valign="top" align="right">Категория:</td>
+					<td valign="top" align="right"><?php echo _E_CATEGORY?>:</td>
 					<td><?php echo $lists['categoryid']; ?></td>
 					<td valign="top">
 <?php
@@ -100,7 +100,7 @@ class content_blog_category_html {
 					<td align="right">URL:</td>
 					<td colspan="2"><?php echo ampReplace($lists['link']); ?></td>
 				</tr>
-				<tr>
+				<tr valign="top">
 					<td align="right"><?php echo _PARENT_MENU_ITEM?>:</td>
 					<td colspan="2"><?php echo $lists['parent']; ?></td>
 				</tr>

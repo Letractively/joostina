@@ -128,8 +128,7 @@ class HTML_menusections {
 	/**
 	* Отображение списка типов пунктов меню для создания
 	*/
-	function addMenuItem(&$cid,$menutype,$option,$types_content,$types_component,$types_link,
-		$types_other,$types_submit) {
+	function addMenuItem(&$cid,$menutype,$option,$types_content,$types_component,$types_link,$types_other,$types_submit) {
 
 		mosCommonHTML::loadOverlib();
 ?>
@@ -144,7 +143,7 @@ class HTML_menusections {
 		<form action="index2.php" method="post" name="adminForm">
 		<table class="adminheading">
 			<tr>
-				<th width="100px" class="menus">Новый пункт меню</th>
+				<th width="100px" class="menus"><?php echo _NEW_MENU_ITEM ?></th>
 				<td class="jtd_nowrap" style="color: red;">
 					<?php echo _NOTE_MENU_ITEMS1?>
 				</td>
