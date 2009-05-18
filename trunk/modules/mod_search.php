@@ -10,8 +10,8 @@
 // запрет прямого доступа
 defined( '_VALID_MOS' ) or die();
 
-$moduleclass_sfx        = $params->get( 'moduleclass_sfx' );
-$button_vis			= $params->get( 'button', 1 );
+$moduleclass_sfx= $params->get( 'moduleclass_sfx' );
+$button_vis		= $params->get( 'button', 1 );
 $button_pos		= $params->get( 'button_pos', 'left' );
 $button_text	= $params->get( 'button_text', _SEARCH_TITLE );
 $width			= intval( $params->get( 'width', 20 ) );
@@ -68,33 +68,28 @@ switch ( $button_pos ) {
 		break;
 }	  
 
-// set Itemid id for links
+// указываем Itemid
 if ( $set_Itemid ) {
-	// use param setting
 	$_Itemid	= $set_Itemid;
 	$link		= 'index.php?option=com_search&amp;Itemid='. $set_Itemid;
 } else {
-$query = "SELECT id"
-	. "\n FROM #__menu"
-	. "\n WHERE link = 'index.php?option=com_search'"
-	. "\n AND published = 1"
-;
-$database->setQuery( $query );
-$rows = $database->loadObjectList(); 
+	$query = "SELECT id FROM #__menu WHERE link = 'index.php?option=com_search' AND published = 1";
+	$database->setQuery( $query,0,1 );
+	$s_itemid = $database->loadResult();
 
 	// try to auto detect search component Itemid
-if ( count( $rows ) ) {
-	$_Itemid	= $rows[0]->id;
-	$link		= 'index.php?option=com_search&amp;Itemid='. $_Itemid;
-} else {
+	if ( $s_itemid ) {
+		$_Itemid	= $s_itemid;
+		$link		= 'index.php?Itemid='. $_Itemid;
+	} else {
 	// Assign no Itemid
 	$_Itemid	= '';
-	$link		= 'index.php?option=com_search';	
+	$link		= 'index.php';
 	}
 }
 ?>
 
-<form action="<?php echo $link; ?>" method="get">
+<form action="<?php echo $link; ?>" method="post">
 	<div class="search<?php echo $moduleclass_sfx; ?>"><?php echo $output; ?></div>
 	<input type="hidden" name="option" value="com_search" />
 	<input type="hidden" name="Itemid" value="<?php echo $_Itemid; ?>" />

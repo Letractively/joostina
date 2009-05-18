@@ -9,7 +9,7 @@
 
 error_reporting(E_ALL);
 
-if(isset($_REQUEST[session_name()])) {
+if(isset($_REQUEST[session_name()]) ) {
 	session_start();
 }
 
@@ -154,14 +154,11 @@ class KCAPTCHA {
 
 		// credits. To remove, see configuration file
 		$img2 = imagecreatetruecolor($width,$height + ($show_credits?12:0));
-		$foreground = imagecolorallocate($img2,$foreground_color[0],$foreground_color[1],
-			$foreground_color[2]);
-		$background = imagecolorallocate($img2,$background_color[0],$background_color[1],
-			$background_color[2]);
+		$foreground = imagecolorallocate($img2,$foreground_color[0],$foreground_color[1],$foreground_color[2]);
+		$background = imagecolorallocate($img2,$background_color[0],$background_color[1],$background_color[2]);
 		imagefilledrectangle($img2,0,$height,$width - 1,$height + 12,$foreground);
 		$credits = empty($credits)?$_SERVER['HTTP_HOST']:$credits;
-		imagestring($img2,2,$width / 2 - ImageFontWidth(2)* strlen($credits) / 2,$height -
-			2,$credits,$background);
+		imagestring($img2,2,$width / 2 - ImageFontWidth(2)* strlen($credits) / 2,$height -2,$credits,$background);
 
 		// periods
 		$rand1 = mt_rand(750000,1200000) / 10000000;
@@ -180,8 +177,7 @@ class KCAPTCHA {
 		//wave distortion
 		for($x = 0; $x < $width; $x++) {
 			for($y = 0; $y < $height; $y++) {
-				$sx = $x + (sin($x* $rand1 + $rand5) + sin($y* $rand3 + $rand6))* $rand9 - $width /
-					2 + $center + 1;
+				$sx = $x + (sin($x* $rand1 + $rand5) + sin($y* $rand3 + $rand6))* $rand9 - $width / 2 + $center + 1;
 				$sy = $y + (sin($x* $rand2 + $rand7) + sin($y* $rand4 + $rand8))* $rand10;
 
 				if($sx < 0 || $sy < 0 || $sx >= $width - 1 || $sy >= $height - 1) {
@@ -211,8 +207,7 @@ class KCAPTCHA {
 						$frsx1 = 1 - $frsx;
 						$frsy1 = 1 - $frsy;
 
-						$newcolor = ($color* $frsx1* $frsy1 + $color_x* $frsx* $frsy1 + $color_y* $frsx1*
-							$frsy + $color_xy* $frsx* $frsy);
+						$newcolor = ($color* $frsx1* $frsy1 + $color_x* $frsx* $frsy1 + $color_y* $frsx1*$frsy + $color_xy* $frsx* $frsy);
 
 						if($newcolor > 255) $newcolor = 255;
 						$newcolor = $newcolor / 255;

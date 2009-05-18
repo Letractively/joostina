@@ -13,16 +13,14 @@ defined('_VALID_MOS') or die();
 * Displays the capture output of the main element
 */
 function mosMainBody() {
-	global $mosConfig_live_site, $mainframe;
-	// message passed via the url
-	$mosmsg = stripslashes(strval(mosGetParam($_REQUEST,'mosmsg','')));
+	$mainframe = &mosMainFrame::getInstance();
+	$mosConfig_live_site = &Jconfig::getInstance()->config_live_site;
 
 	$popMessages = false;
 
 	// Browser Check
 	$browserCheck = 0;
-	if(isset($_SERVER['HTTP_USER_AGENT']) && isset($_SERVER['HTTP_REFERER']) &&
-		strpos($_SERVER['HTTP_REFERER'],$mosConfig_live_site) !== false) {
+	if(isset($_SERVER['HTTP_USER_AGENT']) && isset($_SERVER['HTTP_REFERER']) &&strpos($_SERVER['HTTP_REFERER'],$mosConfig_live_site) !== false) {
 		$browserCheck = 1;
 	}
 
@@ -36,16 +34,10 @@ function mosMainBody() {
 		$sessionCheck = 1;
 	}
 
-	// limit mosmsg to 350 characters
-	if(strlen($mosmsg) > 350) {
-		$mosmsg = substr($mosmsg,0,350);
-	}
-
-	// mosmsg outputed within html
+	$mosmsg = $mainframe->get_mosmsg();
 	if($mosmsg && !$popMessages && $browserCheck && $sessionCheck) {
-		echo "\n<div class=\"message\">$mosmsg</div>";
+		echo '<div class="message">'.$mosmsg.'</div>';
 	}
-
 
 	echo $GLOBALS['_MOS_OPTION']['buffer'];
 

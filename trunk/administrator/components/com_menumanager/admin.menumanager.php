@@ -75,10 +75,13 @@ switch($task) {
 * Compiles a list of menumanager items
 */
 function showMenu($option) {
-	global $database,$mainframe,$mosConfig_list_limit;
 
-	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mosConfig_list_limit));
-	$limitstart = intval($mainframe->getUserStateFromRequest("view{".$option."}limitstart",'limitstart',0));
+	$database	= &database::getInstance();
+	$mainframe	= &mosMainFrame::getInstance();
+	$config		= &Jconfig::getInstance();
+
+	$limit		= intval($mainframe->getUserStateFromRequest("viewlistlimit",'limit',$config->config_list_limit));
+	$limitstart	= intval($mainframe->getUserStateFromRequest("view{".$option."}limitstart",'limitstart',0));
 
 	$menuTypes = mosAdminMenus::menutypes();
 
@@ -88,8 +91,7 @@ function showMenu($option) {
 		$menus[$i]->type = $a;
 
 		// query to get number of modules for menutype
-		$query = "SELECT count( id ) FROM #__modules WHERE module = 'mod_mainmenu' OR module = 'mod_mljoostinamenu'"
-				."\n AND params LIKE '%".$database->getEscaped($a)."%'";
+		$query = "SELECT count( id ) FROM #__modules WHERE module = 'mod_mainmenu' OR module = 'mod_mljoostinamenu' AND params LIKE '%".$database->getEscaped($a)."%'";
 		$database->setQuery($query);
 		$modules = $database->loadResult();
 
@@ -97,25 +99,22 @@ function showMenu($option) {
 			$modules = '-';
 		}
 		$menus[$i]->modules = $modules;
-
+		unset($modules);
 		$i++;
 	}
 
 	// Query to get published menu item counts
-	$query = "SELECT a.menutype, count( a.menutype ) as num FROM #__menu AS a"
-			."\n WHERE a.published = 1 GROUP BY a.menutype ORDER BY a.menutype";
+	$query = "SELECT a.menutype, count( a.menutype ) as num FROM #__menu AS a WHERE a.published = 1 GROUP BY a.menutype ORDER BY a.menutype";
 	$database->setQuery($query);
 	$published = $database->loadObjectList();
 
 	// Query to get unpublished menu item counts
-	$query = "SELECT a.menutype, count( a.menutype ) as num FROM #__menu AS a"
-			."\n WHERE a.published = 0 GROUP BY a.menutype ORDER BY a.menutype";
+	$query = "SELECT a.menutype, count( a.menutype ) as num FROM #__menu AS a WHERE a.published = 0 GROUP BY a.menutype ORDER BY a.menutype";
 	$database->setQuery($query);
 	$unpublished = $database->loadObjectList();
 
 	// Query to get trash menu item counts
-	$query = "SELECT a.menutype, count( a.menutype ) as num FROM #__menu AS a"
-			."\n WHERE a.published = -2 GROUP BY a.menutype ORDER BY a.menutype";
+	$query = "SELECT a.menutype, count( a.menutype ) as num FROM #__menu AS a WHERE a.published = -2 GROUP BY a.menutype ORDER BY a.menutype";
 	$database->setQuery($query);
 	$trash = $database->loadObjectList();
 
@@ -149,7 +148,7 @@ function showMenu($option) {
 		}
 	}
 
-	require_once ($GLOBALS['mosConfig_absolute_path'].'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
+	require_once ($config->config_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
 	HTML_menumanager::show($option,$menus,$pageNav);
@@ -243,8 +242,7 @@ function saveMenu() {
 			$query = "INSERT INTO #__modules_menu VALUES ( ".(int)$row->id.", 0 )";
 			$database->setQuery($query);
 			if(!$database->query()) {
-				echo "<script> alert('".$database->getErrorMsg().
-					"'); window.history.go(-1); </script>\n";
+				echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
 				exit();
 			}
 
@@ -324,8 +322,7 @@ function deleteConfirm($option,$type) {
 	$items = $database->loadObjectList();
 
 	// list of modules to delete
-	$query = "SELECT id FROM #__modules"
-			."\n WHERE module = 'mod_mainmenu' OR module = 'mod_mljoostinamenu' AND params LIKE '%".$database->getEscaped($type)."%'";
+	$query = "SELECT id FROM #__modules WHERE module = 'mod_mainmenu' OR module = 'mod_mljoostinamenu' AND params LIKE '%".$database->getEscaped($type)."%'";
 	$database->setQuery($query);
 	$mods = $database->loadResultArray();
 
@@ -368,7 +365,7 @@ function deleteMenu($option,$cid,$type) {
 	if(count($mid)) {
 		// delete menu items
 		$mids = 'id='.implode(' OR id=',$mid);
-		$query = "DELETE FROM #__menu"."\n WHERE ( $mids )";
+		$query = "DELETE FROM #__menu WHERE ( $mids )";
 		$database->setQuery($query);
 		if(!$database->query()) {
 			echo "<script> alert('".$database->getErrorMsg()."');</script>\n";
@@ -381,11 +378,10 @@ function deleteMenu($option,$cid,$type) {
 	if(count($cid)) {
 		// delete modules
 		$cids = 'id='.implode(' OR id=',$cid);
-		$query = "DELETE FROM #__modules"."\n WHERE ( $cids )";
+		$query = "DELETE FROM #__modules WHERE ( $cids )";
 		$database->setQuery($query);
 		if(!$database->query()) {
-			echo "<script> alert('".$database->getErrorMsg().
-				"'); window.history.go(-1); </script>\n";
+			echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
 			exit;
 		}
 		// delete all module entires in jos_modules_menu
@@ -419,8 +415,7 @@ function copyConfirm($option,$type) {
 	global $database;
 
 	// Content Items query
-	$query = "SELECT a.name, a.id"."\n FROM #__menu AS a"."\n WHERE a.menutype = ".
-		$database->Quote($type)."\n ORDER BY a.name";
+	$query = "SELECT a.name, a.id FROM #__menu AS a WHERE a.menutype = $database->Quote($type) ORDER BY a.name";
 	$database->setQuery($query);
 	$items = $database->loadObjectList();
 
@@ -500,8 +495,7 @@ function copyMenu($option,$cid,$type) {
 	$query = "INSERT INTO #__modules_menu VALUES ( ".(int)$row->id.", 0 )";
 	$database->setQuery($query);
 	if(!$database->query()) {
-		echo "<script> alert('".$database->getErrorMsg().
-			"'); window.history.go(-1); </script>\n";
+		echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
 		exit();
 	}
 

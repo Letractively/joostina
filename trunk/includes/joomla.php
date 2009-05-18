@@ -477,8 +477,11 @@ class mosMainFrame {
 	@var boolean True if in the admin client*/
 	var $_isAdmin = false;
 
-    var $allow_wysiwyg = 0;
+	var $allow_wysiwyg = 0;
 
+
+	/* системное сообщение */
+	var $mosmsg = '';
 
 	/**
 	* Class constructor
@@ -1021,8 +1024,8 @@ class mosMainFrame {
 	* Deperciated 1.1
 	*/
 	function sessionCookieName() {
-		global $mainframe;
 		$_config = &Jconfig::getInstance();
+		$mainframe = &mosMainFrame::getInstance();
 
 		if(substr($_config->config_live_site,0,7) == 'http://') {
 			$hash = md5('site'.substr($_config->config_live_site,7));
@@ -1040,11 +1043,9 @@ class mosMainFrame {
 	* Deperciated 1.1
 	*/
 	function sessionCookieValue($id = null) {
-		global $mainframe;
-
-		$type = $mainframe->getCfg('session_type');
-
-		$browser = @$_SERVER['HTTP_USER_AGENT'];
+		$mainframe	= &mosMainFrame::getInstance();
+		$type		= $mainframe->getCfg('session_type');
+		$browser	= @$_SERVER['HTTP_USER_AGENT'];
 
 		switch($type) {
 			case 2:
@@ -1984,6 +1985,35 @@ class mosMainFrame {
 	function isAdmin() {
 		return $this->_isAdmin;
 	}
+
+	// указание системного сообщения
+	function set_mosmsg($msg=''){
+		$msg = Jstring::trim($msg);
+		// проверяем, стартовала ли сессия
+		$_s = session_id();
+		if(!isset($_s)) {
+			session_start();
+		}
+
+		if($msg!=''){
+			$_SESSION['joostina.mosmsg'] = $msg;
+		}
+		return;
+	}
+	// получение системного сообщения
+	function get_mosmsg(){
+		$mosmsg_ss = stripslashes(strval(mosGetParam($_SESSION,'joostina.mosmsg','')));
+		$mosmsg_rq = stripslashes(strval(mosGetParam($_REQUEST,'mosmsg','')));
+
+		$mosmsg = ($mosmsg_ss!='') ? $mosmsg_ss : $mosmsg_rq;
+
+		if(Jstring::strlen($mosmsg) > 300) { // выводим сообщения не длинее 300 символов
+			$mosmsg = Jstring::substr($mosmsg,0,300);
+		}
+		unset($_SESSION['joostina.mosmsg']);
+		return $mosmsg;
+	}
+
 }
 
 /**
@@ -2733,13 +2763,14 @@ function mosReadDirectory($path,$filter = '.',$recurse = false,$fullpath = false
 * @param string A filter for the names
 */
 function mosRedirect($url,$msg = '') {
-    global $mainframe;
+	global $mainframe;
 	// specific filters
 	$iFilter = new InputFilter();
 	$url = $iFilter->process($url);
 	if(!empty($msg)) {
 		$msg = $iFilter->process($msg);
 	}
+	$mainframe->set_mosmsg($msg);
 
 	// Strip out any line breaks and throw away the rest
 	$url = preg_split("/[\r\n]/",$url);
@@ -2748,13 +2779,6 @@ function mosRedirect($url,$msg = '') {
 		$url = $GLOBALS['mosConfig_live_site'];
 	}
 
-    if(trim($msg)) {
-		if(strpos($url,'?')) {
-			$url .= '&mosmsg='.urlencode($msg);
-		} else {
-			$url .= '?mosmsg='.urlencode($msg);
-		}
-	}
 
 	if(headers_sent()) {
 		echo "<script>document.location.href='$url';</script>\n";

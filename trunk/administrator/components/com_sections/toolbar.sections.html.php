@@ -74,7 +74,7 @@ class TOOLBAR_sections {
 	*/
 	function _DEFAULT() {
 		mosMenuBar::startTable();
-		mosMenuBar::ext('Создать категорию','index2.php?option=com_categories&task=new','-new');
+		mosMenuBar::ext(_CREATE_CATEGORY,'index2.php?option=com_categories&task=new','-new');
 		mosMenuBar::publishList();
 		mosMenuBar::spacer();
 		mosMenuBar::unpublishList();
