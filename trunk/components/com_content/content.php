@@ -41,8 +41,8 @@ if($option == 'com_frontpage') {
 
 switch($task) {
 
-	case 'mycontent':
-		showMyItems($access, $limit, $order, $limitstart);
+	case 'ucontent':
+		showUserItems();
 		break;
 
 	case 'findkey':
@@ -135,8 +135,18 @@ switch($task) {
 * @param int The number of items to dislpay
 * @param int The offset for pagination
 */
-function showMyItems( &$access, $limit, $selected, $limitstart  ) {
-	global $database, $mainframe, $Itemid, $my;
+function showUserItems() {
+	global $database, $mainframe, $Itemid, $my, $acl;
+
+    $limit		= intval(mosGetParam($_REQUEST,'limit',0));
+    $limitstart	= intval(mosGetParam($_REQUEST,'limitstart',0));
+    $orderby		= strval(mosGetParam($_REQUEST,'order',''));
+    $user_id	= intval(mosGetParam($_REQUEST,'user',0));
+
+    $access = new stdClass();
+    $access->canEdit	= $acl->acl_check('action','edit','users',$my->usertype,'content','all');
+    $access->canEditOwn	= $acl->acl_check('action','edit','users',$my->usertype,'content','own');
+    $access->canPublish	= $acl->acl_check('action','publish','users',$my->usertype,'content','all');
 
 	// Paramters
 	$params = new stdClass();
@@ -162,13 +172,11 @@ function showMyItems( &$access, $limit, $selected, $limitstart  ) {
 	$params->def('display_num', 50);
 	$params->def('display', 1);
 
-	if ( $selected ) {
-		$orderby = $selected;
-	} else {
+	if (!$orderby) {
 		$orderby = $params->get( 'orderby', 'rdate' );
-		$selected = $orderby;
-	}
 
+	}
+    $selected = $orderby;
 	// Ordering control
 	$orderby = _orderby_sec( $orderby );
 
@@ -200,7 +208,7 @@ function showMyItems( &$access, $limit, $selected, $limitstart  ) {
 		$menu = new mosMenu( $database );
 		$menu->load( $Itemid );
 		$pagetitle = $menu->name;
-	} // if
+	}
 
 	$query = "SELECT COUNT(a.id)"
 		. "\n FROM #__content AS a"
@@ -208,7 +216,7 @@ function showMyItems( &$access, $limit, $selected, $limitstart  ) {
 		. "\n LEFT JOIN #__groups AS g ON a.access = g.id"
 		. "\n LEFT JOIN #__categories AS c on a.catid = c.id"
 		. "\n LEFT JOIN #__sections AS s on s.id = c.section"
-		. "\n WHERE a.created_by = $my->id"
+		. "\n WHERE a.created_by = $user_id"
 		. "\n AND a.state > -1"
 		. $and;
 	$database->setQuery( $query );
@@ -227,7 +235,7 @@ function showMyItems( &$access, $limit, $selected, $limitstart  ) {
 		. "\n LEFT JOIN #__groups AS g ON a.access = g.id"
 		. "\n LEFT JOIN #__categories AS c on a.catid = c.id"
 		. "\n LEFT JOIN #__sections AS s on s.id = c.section"
-		. "\n WHERE a.created_by = $my->id"
+		. "\n WHERE a.created_by = $user_id"
 		. "\n AND a.state > -1"
 		. $and
 		. "\n ORDER BY $orderby"
@@ -272,7 +280,7 @@ function showMyItems( &$access, $limit, $selected, $limitstart  ) {
 
 	// Dynamic Page Title
 	$mainframe->SetPageTitle( $pagetitle );
-	HTML_content::showMyContentList( $items, $access, $params, $pageNav, $lists, $selected );
+	HTML_content::showUserContent( $items, $access, $params, $pageNav, $lists, $selected );
 } // showCategory
 
 /**
