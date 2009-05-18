@@ -20,8 +20,11 @@ class HTML_content {
 	* Draws a Content List
 	* Used by Content Category & Content Section
 	*/
-	function showMyContentList( &$items, &$access, &$params, &$pageNav, &$lists, $order ) {
-		global $Itemid, $database;
+	function showUserContent( &$items, &$access, &$params, &$pageNav, &$lists, $order ) {
+		global $Itemid, $database, $mosConfig_absolute_path, $mosConfig_live_site, $Itemid,$mosConfig_form_date_full;
+
+        $user_id = intval(mosGetParam($_REQUEST,'user',0));
+        $k = 0;
 
 		if ( $params->get( 'page_title' ) ) {
 			$title = $params->get( 'my_page_title' );
@@ -30,147 +33,19 @@ class HTML_content {
 				$menu->load( $Itemid );
 				$title = $menu->name;
 			}
-?>
-			<div class="componentheading<?php echo $params->get( 'pageclass_sfx' ); ?>"><?php echo $title; ?></div>
-<?php
-		}
-?>
-		<table width="100%" align="center" class="contentpane<?php echo $params->get( 'pageclass_sfx' ); ?>">
-			<tr>
-				<td  width="100%">
-<?php
-				if ( $items ) {
-					HTML_content::showMyTable( $params, $items, $pageNav, $access, $lists, $order );
-				} else {
-					echo _YOU_HAVE_NO_CONTENT;
-				}?>
-				</td>
-			</tr>
-		</table>
-<?php
-		// displays back button
-		mosHTML::BackButton ( $params );
+        }
+
+        $page_link = 'index.php?option=com_content&amp;task=ucontent&amp;user='.$user_id.'&amp;Itemid='.$Itemid;
+        if ($params->get('display')) {
+            $page_link = 'index.php?option=com_content&amp;task=ucontent&amp;user='.$user_id.'&amp;Itemid='. $Itemid.'&amp;order='.$order;
+        }
+
+        //$template = new jstContentTemplate();
+        //$template->set_template($params->page_type, $templates);
+        include_once($mosConfig_absolute_path.'/components/com_content/view/user/items/default.php');
+
 	}
 
-
-	/**
-	* Display Table of items
-	*/
-	function showMyTable( &$params, &$items, &$pageNav, &$access, &$lists, $order ) {
-		global $mosConfig_live_site, $Itemid,$mosConfig_form_date_full;
-		$link = 'index.php?option=com_content&amp;task=mycontent&amp;Itemid='. $Itemid;
-		/* подключаем fullajax */
-		mosCommonHTML::loadFullajax();
-		?>
-		<script type="text/javascript">
-		// смена статуса публикации, elID - идентификатор объекта у которого меняется статус публикации
-		function ch_publ(elID){
-			log('Смена статуса публикации содержимого: '+elID);
-			id('img-pub-'+elID).src = '/images/system/aload.gif';
-			dax({
-				url: 'ajax.index.php?option=com_content&utf=0&task=publish&id='+elID,
-				id:'publ-'+elID,
-				callback:
-					function(resp, idTread, status, ops){
-						log('Получен ответ: ' + resp.responseText);
-						id('img-pub-'+elID).src = ADMINISTRATOR_DIRECTORY.'/images/'+resp.responseText;
-					}
-			});
-		}
-		</script>
-		<form action="<?php echo sefRelToAbs($link); ?>" method="post" name="adminForm" id="adminForm">
-		<table width="100%" border="0" cellspacing="0" cellpadding="0">
-<?php
-		if ( $params->get( 'filter' ) || $params->get( 'order_select' ) || $params->get( 'display' ) ) {
-			?>
-			<tr>
-				<td colspan="5">
-					<table>
-					<tr>
-			<?php
-						if ( $params->get( 'filter' ) ) {
-							?>
-								<td align="right" width="80%"><?php echo _FILTER; ?><br />
-									<input type="text" name="filter" size="50" value="<?php echo $lists['filter'];?>" class="inputbox" onchange="document.adminForm.submit();" />
-								</td><?php
-						}
-							if ( $params->get( 'order_select' ) ) {
-						?>
-							<td align="right" width="20%"><?php echo _ORDER_DROPDOWN;?><br /><?php echo $lists['order']; ?></td><?php
-						}
-						if ( $params->get( 'display' ) ) {
-							?>
-							<td align="right" width="80%"><?php echo _PN_DISPLAY_NR;?><br /><?php
-							$link = 'index.php?option=com_content&amp;task=mycontent&amp;Itemid='. $Itemid.'&amp;order='.$order;
-							echo $pageNav->getLimitBox( $link );
-							?></td><?php
-						}
-						?>
-					</tr>
-					</table>
-				</td>
-			</tr>
-			<tr>
-				<td class="sectiontableheader<?php echo $params->get( 'pageclass_sfx' ); ?>">&nbsp;</td>
-				<td class="sectiontableheader<?php echo $params->get( 'pageclass_sfx' ); ?>" width="60%"><?php echo _HEADER_TITLE;?></td>
-				<td class="sectiontableheader<?php echo $params->get( 'pageclass_sfx' ); ?>"><?php echo _E_PUBLISHING;?></td>
-				<td class="sectiontableheader<?php echo $params->get( 'pageclass_sfx' ); ?>" width="20%"><?php echo _DATE;?></td>
-				<td class="sectiontableheader<?php echo $params->get( 'pageclass_sfx' ); ?>"><?php echo _HEADER_HITS;?></td>
-			</tr>
-<?php
-		}
-
-		$k = 0;
-		foreach ( $items as $row ) {
-			$row->Itemid_link = '&amp;Itemid='.$Itemid;
-			$row->_Itemid = $Itemid;
-			$row->created = mosFormatDate ($row->created,$mosConfig_form_date_full,'0');
-			$link	= sefRelToAbs( 'index.php?option=com_content&amp;task=view&amp;id='. $row->id .'&amp;Itemid='. $Itemid );
-			$img	= $row->published ? 'publish_g.png' : 'publish_x.png';
-			$img	= $mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/images/'.$img;
-			?>
-			<tr class="sectiontableentry<?php echo ($k+1) . $params->get( 'pageclass_sfx' ); ?>" >
-					<td><?php HTML_content::EditIcon( $row, $params, $access );?></td>
-					<td>
-						<a href="<?php echo $link; ?>"><?php echo $row->title; ?></a><br />
-						<span class="small"><?php
-						if($row->sectionid!=0)
-							echo $row->section.' / '.$row->category; // раздел / категория
-						else
-							echo 'Статичное содержимое'; // тип добавленного содержимого - статичное содержимое
-						?></span>
-					</td>
-					<td align="center" <?php echo ($access->canPublish) ? 'onclick="ch_publ('.$row->id.');" class="td-state"' : null ;?>>
-						<img class="img-mini-state" src="<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="Публикация" />
-					</td>
-					<td><?php echo $row->created; ?></td>
-					<td align="center"><?php echo $row->hits ? $row->hits : 0; ?></td>
-			</tr>
-<?php
-			$k = 1 - $k;
-		}
-		if ( $params->get( 'navigation' ) ) {
-			?>
-			<tr>
-				<td colspan="5">&nbsp;</td>
-			</tr>
-			<tr>
-				<td align="center" colspan="5" class="sectiontablefooter<?php echo $params->get( 'pageclass_sfx' ); ?>">
-	<?php
-				$link = 'index.php?option=com_content&amp;task=mycontent&amp;Itemid='. $Itemid. '&amp;order=' .$order;
-				echo $pageNav->writePagesLinks( $link );
-				?>
-				</td>
-			</tr>
-<?php
-		}
-		?>
-		</table>
-		<input type="hidden" name="task" value="mycontent" />
-		<input type="hidden" name="option" value="com_content" />
-		</form>
-<?php
-	}
 
 	/**
 	* Draws a Content List
