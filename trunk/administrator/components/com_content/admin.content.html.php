@@ -1065,5 +1065,40 @@ class HTML_content {
 		mosCommonHTML::loadOverlib();
 		echo $params->render(null);
 	}
+
+    function config($config,$option){
+        $u_page = $config->u_page;
+        ?>
+		<script language="javascript" type="text/javascript">
+		function submitbutton(pressbutton) {
+			var form = document.adminForm;
+			if (pressbutton == 'cancel') {
+				submitform( pressbutton );
+				return;
+			}
+
+				submitform( pressbutton );
+
+		}
+		</script>
+        <h1>Конфигурация com_content</h1>
+        <h2>Настройки страницы с содержимым пользователя</h2>
+        <form action="index2.php" method="post" name="adminForm">
+
+            <table class="adminform">
+                <tr>
+                    <td>Заголовок страницы</td>
+                    <td><input class="inputbox" type="text" name="title" value="<?php echo $u_page->title;?>" /></td>
+                </tr>
+            </table>
+
+            <input type="hidden" name="option" value="<?php echo $option; ?>" />
+		    <input type="hidden" name="task" value="save_config" />
+            <input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
+        </form>
+
+
+        <?php
+    }
 }
 ?>

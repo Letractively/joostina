@@ -140,37 +140,15 @@ function showUserItems() {
 
     $limit		= intval(mosGetParam($_REQUEST,'limit',0));
     $limitstart	= intval(mosGetParam($_REQUEST,'limitstart',0));
-    $orderby		= strval(mosGetParam($_REQUEST,'order',''));
+    $orderby	= strval(mosGetParam($_REQUEST,'order',''));
     $user_id	= intval(mosGetParam($_REQUEST,'user',0));
 
-    $access = new stdClass();
-    $access->canEdit	= $acl->acl_check('action','edit','users',$my->usertype,'content','all');
-    $access->canEditOwn	= $acl->acl_check('action','edit','users',$my->usertype,'content','own');
-    $access->canPublish	= $acl->acl_check('action','publish','users',$my->usertype,'content','all');
+    //права доступа
+    $access = new jstContentAccess();
+    // Paramters
+    $params = new jstContentUserpageConfig($database);
 
-	// Paramters
-	$params = new stdClass();
-	if ( $Itemid ) {
-		$menu = new mosMenu( $database );
-		$menu->load( $Itemid );
-		$params = new mosParameters( $menu->params );
-	} else {
-		$menu = '';
-		$params = new mosParameters( '' );
-	}
-
-	$params->def('date', 1);
-	$params->def('hits', 1);
-	$params->def('filter', 1);
-	$params->def('title', 1);
-	$params->def('section', 1);
-	$params->def('order_select', 1);
-	$params->def('headings', 1);
-	$params->def('navigation', 1);
-	$params->def('page_title', 1);
-	$params->def('allow_create', 1);
-	$params->def('display_num', 50);
-	$params->def('display', 1);
+    $limit = $limit ? $limit : $params->get('display_num');
 
 	if (!$orderby) {
 		$orderby = $params->get( 'orderby', 'rdate' );
@@ -202,48 +180,16 @@ function showUserItems() {
 		}
 	}
 
+    $user_items = new mosContent($database);
+    //Получаем количество записей пользователя
+    $total = $user_items->load_count_user_items($user_id, $and);
+    //Получаем все записи пользователя
+    $items = $user_items->load_user_items($user_id, $limitstart, $limit, $orderby, $and);
 
-	$pagetitle = '';
-	if ( $Itemid ) {
-		$menu = new mosMenu( $database );
-		$menu->load( $Itemid );
-		$pagetitle = $menu->name;
-	}
-
-	$query = "SELECT COUNT(a.id)"
-		. "\n FROM #__content AS a"
-		. "\n LEFT JOIN #__users AS u ON u.id = a.created_by"
-		. "\n LEFT JOIN #__groups AS g ON a.access = g.id"
-		. "\n LEFT JOIN #__categories AS c on a.catid = c.id"
-		. "\n LEFT JOIN #__sections AS s on s.id = c.section"
-		. "\n WHERE a.created_by = $user_id"
-		. "\n AND a.state > -1"
-		. $and;
-	$database->setQuery( $query );
-	$total = $database->loadResult();
-	$limit = $limit ? $limit : $params->get( 'display_num' ) ;
-	if ( $total <= $limit ) $limitstart = 0;
-
+    //Постраничная навигация
+	if ($total <= $limit) $limitstart = 0;
 	require_once( $GLOBALS['mosConfig_absolute_path'] . '/includes/pageNavigation.php' );
 	$pageNav = new mosPageNav( $total, $limitstart, $limit );
-
-	// get the list of items for this category
-	$query = "SELECT a.sectionid, a.checked_out, a.id, a.state AS published, a.title, a.hits, a.created_by, a.created_by_alias, a.created AS created, a.access, u.name AS author, a.state, g.name AS groups,"
-		. "\n c.name AS category, s.name AS section"
-		. "\n FROM #__content AS a"
-		. "\n LEFT JOIN #__users AS u ON u.id = a.created_by"
-		. "\n LEFT JOIN #__groups AS g ON a.access = g.id"
-		. "\n LEFT JOIN #__categories AS c on a.catid = c.id"
-		. "\n LEFT JOIN #__sections AS s on s.id = c.section"
-		. "\n WHERE a.created_by = $user_id"
-		. "\n AND a.state > -1"
-		. $and
-		. "\n ORDER BY $orderby"
-		. "\n LIMIT $limitstart, $limit"
-		;
-	$database->setQuery( $query );
-
-	$items = $database->loadObjectList();
 
 	$check = 0;
 	if ( $params->get( 'date' ) ) {
@@ -278,8 +224,17 @@ function showUserItems() {
 	$lists['limit'] = $limit;
 	$lists['limitstart'] = $limitstart;
 
+
+    $pagetitle = '';
+	if ( $Itemid ) {
+		$menu = new mosMenu( $database );
+		$menu->load( $Itemid );
+		$pagetitle = $menu->name;
+	}
 	// Dynamic Page Title
 	$mainframe->SetPageTitle( $pagetitle );
+
+
 	HTML_content::showUserContent( $items, $access, $params, $pageNav, $lists, $selected );
 } // showCategory
 

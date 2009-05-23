@@ -76,10 +76,8 @@ class gacl {
 		$this->_mos_add_acl('action', 'publish', 'users', 'super administrator','content', 'all');
 		$this->acl_count = count($this->acl);
 	}
-	function _mos_add_acl($aco_section_value, $aco_value, $aro_section_value, $aro_value,
-		$axo_section_value = null, $axo_value = null) {
-		$this->acl[] = array($aco_section_value, $aco_value, $aro_section_value, $aro_value,
-			$axo_section_value, $axo_value);
+	function _mos_add_acl($aco_section_value, $aco_value, $aro_section_value, $aro_value, $axo_section_value = null, $axo_value = null) {
+		$this->acl[] = array($aco_section_value, $aco_value, $aro_section_value, $aro_value, $axo_section_value, $axo_value);
 		$this->acl_count = count($this->acl);
 	}
 	function debug_text($text) {
@@ -866,8 +864,7 @@ class gacl_api extends gacl {
 		$this->debug_text("add_object(): Added object as ID: $insert_id");
 		return $insert_id;
 	}
-	function edit_object($object_id, $section_value, $name, $value = 0, $order = 0,
-		$hidden = 0, $object_type = null) {
+	function edit_object($object_id, $section_value, $name, $value = 0, $order = 0,	$hidden = 0, $object_type = null) {
 		switch(strtolower(trim($object_type))) {
 			case 'aco':
 				$object_type = 'aco';

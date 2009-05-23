@@ -119,9 +119,49 @@ switch($task) {
 		saveOrder($cid);
 		break;
 
+    case 'config':
+        config($option);
+        break;
+
+    case 'save_config':
+        save_config();
+        break;
+
 	default:
 		viewContent($sectionid,$option);
 		break;
+}
+
+function config($option){
+    global $database;
+
+/*    $info_array = array();
+    $info_array['page_title']['title'] = 'Заголовок страницы';
+    $info_array['page_title']['info'] = 'Заголовок страницы, на которой выводятся все записи пользователя';
+    $config = new jstContentUserpageConfig($database);
+    $config->storeConfig($info_array);*/
+    $config = new StdClass();
+
+    $u_page =  new jstContentUserpageConfig($database);
+    $config->u_page = $u_page;
+    HTML_content::config($config,$option);
+
+}
+
+function save_config(){
+    global $database;
+    $config = new jstContentUserpageConfig($database);
+    if (!$config->bindConfig($_REQUEST)) {
+        echo "<script> alert('".$config->_error."'); window.history.go(-1); </script>\n";
+        exit();
+    }
+
+    if (!$config->storeConfig()) {
+        echo "<script> alert('".$config->_error."'); window.history.go(-1); </script>\n";
+        exit();
+    }
+
+    mosRedirect('index2.php?option=com_content&task=config');
 }
 
 function submitContent(){
