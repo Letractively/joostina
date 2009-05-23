@@ -9,6 +9,8 @@
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
+global $mosConfig_absolute_path;
+require_once($mosConfig_absolute_path.'/includes/libraries/database/config/jstconfig.class.php');
 
 /**
 * Category database table class
@@ -340,6 +342,43 @@ class mosContent extends mosDBTable {
         return $r;
 	}
 
+    function load_user_items($user_id, $limitstart = 0, $limit = 50, $orderby = 'a.created DESC', $and = ''){
+	$query = "  SELECT  a.sectionid, a.checked_out, a.id, a.state AS published,
+                        a.title, a.hits, a.created_by, a.created_by_alias,
+                        a.created AS created, a.access, a.state,
+                        u.name AS author, u.usertype, u.username,
+                        g.name AS groups,
+                        c.name AS category,
+                        s.name AS section
+                FROM #__content AS a
+                LEFT JOIN #__users AS u ON u.id = a.created_by
+                LEFT JOIN #__groups AS g ON a.access = g.id
+                LEFT JOIN #__categories AS c on a.catid = c.id
+                LEFT JOIN #__sections AS s on s.id = c.section
+                WHERE   a.created_by = $user_id
+                        AND a.state > -1
+                        ". $and . "
+                ORDER BY $orderby
+            ";
+
+	$this->_db->setQuery($query, $limitstart, $limit);
+	return  $this->_db->loadObjectList();
+    }
+
+    function load_count_user_items($user_id, $and = ''){
+
+        $query = "  SELECT COUNT(a.id)
+                    FROM #__content AS a
+                    LEFT JOIN #__users AS u ON u.id = a.created_by
+                    LEFT JOIN #__groups AS g ON a.access = g.id
+                    LEFT JOIN #__categories AS c on a.catid = c.id
+                    LEFT JOIN #__sections AS s on s.id = c.section
+                    WHERE a.created_by = $user_id AND a.state > -1
+                    ". $and;
+	    $this->_db->setQuery($query);
+	    return $this->_db->loadResult();
+    }
+
 	/**
 	* Converts record to XML
 	* @param boolean Map foreign keys to text values
@@ -634,5 +673,78 @@ class mosContent extends mosDBTable {
         }
 
     }
+
+    class jstContentUserpageConfig extends jstConfig{
+
+    	/**
+    	 * Заголовок страницы
+    	 */
+        var $title = 'Содержимое пользователяm';
+    	/**
+    	 * Отображать дату
+    	 */
+        var $date = 1;
+    	/**
+    	 * Отображать количество просмотров
+    	 */
+        var $hits = 1;
+    	/**
+    	 * Отображать раздел/категорию
+    	 */
+        var $section = 1;
+        /**
+    	 * Поле фильтра
+    	 */
+        var $filter = 1;
+        /**
+    	 * Выбор типа сортировки
+    	 */
+        var $order_select = 1;
+        /**
+    	 * Выпадающий список для выбора количества записей на странице
+    	 */
+        var $display = 1;
+        /**
+    	 * Количество записей на сранице по умолчанию
+    	 */
+        var $display_num = 50;
+        /**
+    	 * Заголовки таблицы
+    	 */
+        var $headings = 1;
+        /**
+    	 * Постраничная навигация
+    	 */
+        var $navigation = 1;
+
+
+        function jstContentUserpageConfig(&$db, $group = 'com_content', $subgroup = 'user_page') {
+            $this->jstConfig($db, $group, $subgroup);
+        }
+
+    }
+
+    class jstContentAccess{
+
+        var $canView = 1;
+        var $canCreate = 1;
+        var $canEditOwn = 1;
+        var $canEdit = 1;
+
+        function jstContentAccess(){
+            global $acl, $my;
+
+            $this->canEdit	= $acl->acl_check('action','edit','users',$my->usertype,'content','all');
+            $this->canEditOwn	= $acl->acl_check('action','edit','users',$my->usertype,'content','own');
+            $this->canPublish	= $acl->acl_check('action','publish','users',$my->usertype,'content','all');
+        }
+
+        function set($group, $value){
+            $this->$group = $value;
+        }
+
+    }
+
+
 
 ?>

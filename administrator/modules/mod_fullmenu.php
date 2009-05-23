@@ -158,6 +158,7 @@ _cmSplit,
 ['<img src="../includes/js/ThemeOffice/edit.png" />','<?php echo _ARCHIVE?>','index2.php?option=com_content&task=showarchive&sectionid=0',null,'<?php echo _ARCHIVE?>'],
 ['<img src="../includes/js/ThemeOffice/globe3.png" />', '<?php echo _PAGES_HITS?>', 'index2.php?option=com_statistics&task=pageimp', null, '<?php echo _PAGES_HITS?>'],
 ['<img src="../includes/js/ThemeOffice/trash.png" />','<?php echo _CONTENT_TRASH?>','index2.php?option=com_trash&catid=content',null,'<?php echo _CONTENT_TRASH?>'],
+['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo 'Настройки'?>','index2.php?option=com_content&task=config',null,'<?php echo 'Настройки'?>'],
 ],
 <?php
 			// Components Sub-Menu

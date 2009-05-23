@@ -41,6 +41,14 @@ class TOOLBAR_content {
 		mosMenuBar::endTable();
 	}
 
+    function _CONFIG(){
+		mosMenuBar::startTable();
+		mosMenuBar::save('save_config');
+		mosMenuBar::spacer();
+		mosMenuBar::cancel();
+		mosMenuBar::endTable();
+    }
+
 	function _ARCHIVE() {
 		mosMenuBar::startTable();
 		mosMenuBar::unarchiveList();
