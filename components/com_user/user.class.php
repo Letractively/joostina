@@ -262,6 +262,35 @@ class mosUser extends mosDBTable {
 				$img = '/images/avatars/mini/none.jpg';
 		return $img;
 	}
+
+	/**
+	* ѕолучение статуса пользовател€
+	*/
+    function get_user_status($uid){
+
+        $qq = "SELECT * FROM #__session WHERE userid=$uid AND guest=0  ";
+        $this->_db->setQuery( $qq );
+        $sessions = $this->_db->loadObjectList();
+        $sess=& $sessions[0];
+
+        $status = 0;
+        if(isset($sess->userid)){
+            $status = 1;
+        }
+        return $status;
+    }
+
+	/**
+	* ѕолучение дополнительных данных пользовател€
+	*/
+    function get_user_extra($uid){
+
+        $qq = "SELECT * FROM #__users_extra WHERE user_id=$uid   ";
+        $r = null;
+        $this->_db->setQuery( $qq );
+        $this->_db->loadObject($r);
+        return $r;
+    }
 }
 
 /**
