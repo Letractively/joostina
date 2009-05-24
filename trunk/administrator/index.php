@@ -65,7 +65,7 @@ if(isset($_POST['submit'])) {
 	session_start();
 
 	if($pass == null) {
-		mosRedirect($config->config_live_site.'/administrator/',_PLEASE_ENTER_PASSWORD);
+		mosRedirect($config->config_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/',_PLEASE_ENTER_PASSWORD);
 		exit();
 	}
 
@@ -73,7 +73,7 @@ if(isset($_POST['submit'])) {
 		$captcha = mosGetParam($_POST,'captcha','');
 		$captcha_keystring = mosGetParam($_SESSION,'captcha_keystring','');
 		if($captcha_keystring!=$captcha) {
-			mosRedirect($config->config_live_site.'/administrator/',_BAD_CAPTCHA_STRING);
+			mosRedirect($config->config_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/',_BAD_CAPTCHA_STRING);
 			unset($_SESSION['captcha_keystring']);
 			exit;
 		}
@@ -86,7 +86,7 @@ if(isset($_POST['submit'])) {
 	$database->setQuery($query);
 	$count = intval($database->loadResult());
 	if($count < 1) {
-		mosRedirect($config->config_live_site.'/administrator/index.php?'.$config->config_admin_secure_code,_LOGIN_NOADMINS);
+		mosRedirect($config->config_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/index.php?'.$config->config_admin_secure_code,_LOGIN_NOADMINS);
 	}
 
 	$my = null;
@@ -124,7 +124,7 @@ if(isset($_POST['submit'])) {
 			$database->setQuery($query);
 			$database->query();
 			$_SESSION['bad_auth'] = ((int)$_SESSION['bad_auth']) + 1;
-			mosRedirect($config->config_live_site.'/administrator/index.php?'.$config->config_admin_secure_code,_BAD_USERNAME_OR_PASSWORD);
+			mosRedirect($config->config_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/index.php?'.$config->config_admin_secure_code,_BAD_USERNAME_OR_PASSWORD);
 			exit();
 		}
 		session_destroy();
@@ -217,7 +217,7 @@ if(isset($_POST['submit'])) {
 		echo "<script>document.location.href='$expired';</script>\n";
 		exit();
 	} else {
-		mosRedirect($config->config_live_site.'/administrator/index.php?'.$config->config_admin_secure_code,_BAD_USERNAME_OR_PASSWORD2);
+		mosRedirect($config->config_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/index.php?'.$config->config_admin_secure_code,_BAD_USERNAME_OR_PASSWORD2);
 		exit();
 	}
 } else {

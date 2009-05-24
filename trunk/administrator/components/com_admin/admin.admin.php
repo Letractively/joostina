@@ -9,19 +9,20 @@
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
+
 require_once ($mainframe->getPath('admin_html'));
 
 switch($task) {
 	// очистка кэша содержимого
 	case 'clean_cache':
 		mosCache::cleanCache('com_content');
-		mosRedirect('index2.php','Кэш содержимого очищен');
+		mosRedirect('index2.php',_CACHE_CLEAR_CONTENT);
 		break;
 	// очистка всего кэша
 	case 'clean_all_cache':
 		mosCache::cleanCache();
 		mosCache::cleanCache('page');
-		mosRedirect('index2.php','Весь кэш очищен');
+		mosRedirect('index2.php',_CACHE_CLEAR_ALL);
 		break;
 
 	case 'redirect':

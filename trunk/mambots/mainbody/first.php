@@ -10,26 +10,19 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
+// очистка кода работы компонентов
 $_MAMBOTS->registerFunction('onMainbody','body_clear');
-$_MAMBOTS->registerFunction('onTemplate','template_clear');
-
-global $mosConfig_absolute_path;
-
-require_once ($mosConfig_absolute_path.'/includes/libraries/html_optimize/html_optimize.php');
+// очистка кода всего шаблона
+$_MAMBOTS->registerFunction('onTemplate','body_clear');
 
 
-/* функция производит очистку содержимого главного стека компонента от спецсимволов*/
-function body_clear() {
-	global $_MOS_OPTION;
-	$_MOS_OPTION['buffer'] = html_optimize($_MOS_OPTION['buffer']);
-	return;
+/* функция производит очистку от спецсимволов*/
+function body_clear(&$body) {
+	require_once (Jconfig::getInstance()->config_absolute_path.DS.'includes'.DS.'libraries'.DS.'html_optimize'.DS.'html_optimize.php');
+	$body = html_optimize($body);
+	return true;
 }
 
-/* очистка всего тела страницы от спецтегов*/
-function template_clear() {
-	global $_MOS_OPTION;
-	$_MOS_OPTION['mainbody'] = html_optimize($_MOS_OPTION['mainbody']);
-	return;
-}
+
 
 ?>

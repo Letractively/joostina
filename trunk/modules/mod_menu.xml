@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mosinstall type="module" version="1.0.0">
+	<name>Меню</name>
+	<author>Joostina! Project</author>
+	<creationDate>04.2008</creationDate>
+	<copyright>(C) 2008-2009 Joostina team.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL</license>
+	<authorEmail>joostinacms@gmail.com</authorEmail>
+	<authorUrl>www.joostina.ru</authorUrl>
+	<version>0.1.0</version>
+	<description>Модуль меню</description>
+	<files>
+		<filename module="mod_menu">mod_menu.php</filename>
+	</files>
+	<params>
+		<param type="tabs" default="startPane" name="one" />
+
+
+		<param type="tabs" default="startTab" name="0" label="Используемое меню"/>
+			<param name="moduleclass_sfx" type="text" default="" label="Суффикс класса модуля" description="" />
+			<param name="menutype" type="mos_menu" default="mainmenu" label="Используемое меню" description="" />
+			<param name="type_menu" type="list" default="standart" label="Тип вывода меню" description="">
+				<option value="standart">Обычное</option>
+				<option value="tree">Дерево</option>
+				<option value="step">Пошаговое</option>
+				<option value="flickr.com.horizontal">flickr горизонтальное</option>
+				<option value="mtv.com">mtv горизонтальное</option>
+				<option value="adobe.com">adobe горизонтальное</option>
+				<option value="test">тест</option>
+			</param>
+		<param name="spacer" type="text" default="" label="Разделитель пунктов" description="" />
+
+		<param type="tabs" default="endTab" />
+
+		<param type="tabs" default="startTab" name="1" label="Пошаговое"/>
+			<param name="active_css" type="text" default="active-menu" label="Стиль активного пункта меню" description="Название CSS стиля активного пунтка. Отображается при указании пути к текущей ссылке" />
+			<param name="select_css" type="text" default="select-menu" label="Стиль выбраного пункта меню" description="Название CSS стиля выбранного пунтка. Стиль, которым отображается родительская ссылки при нажати на неё и появлении дочерних пунктов." />
+			<param name="on_type" type="list" default="onclick" label="Раскрывать подменю" description="">
+				<option value="onclick">По клику</option>
+				<option value="onmouseover">При наведении</option>
+			</param>
+		<param type="tabs" default="endTab" />
+
+
+		<param type="tabs" default="endPane" />
+	</params>
+</mosinstall>

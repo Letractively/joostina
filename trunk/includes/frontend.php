@@ -15,6 +15,7 @@ defined('_VALID_MOS') or die();
 function mosMainBody() {
 	$mainframe = &mosMainFrame::getInstance();
 	$mosConfig_live_site = &Jconfig::getInstance()->config_live_site;
+	$config = &Jconfig::getInstance();
 
 	$popMessages = false;
 
@@ -39,7 +40,18 @@ function mosMainBody() {
 		echo '<div class="message">'.$mosmsg.'</div>';
 	}
 
-	echo $GLOBALS['_MOS_OPTION']['buffer'];
+	$_body = $GLOBALS['_MOS_OPTION']['buffer'];
+
+	// активация мамботов группы mainbody
+	if($config->config_mmb_mainbody_off == 0) {
+		global $_MAMBOTS;
+		$_MAMBOTS->loadBotGroup('mainbody');
+		$_MAMBOTS->trigger('onMainbody',array(&$_body));
+	}
+
+	echo $_body;
+
+	unset($GLOBALS['_MOS_OPTION']['buffer']);
 
 	// mosmsg outputed in JS Popup
 	if($mosmsg && $popMessages && $browserCheck && $sessionCheck) {
@@ -182,8 +194,11 @@ function mosLoadModules($position = 'left',$style = 0,$noindex = 0) {
 * Шапка страницы
 */
 function mosShowHead() {
-	global $database,$option,$my,$mainframe,$_VERSION,$task,$id,$mosConfig_disable_favicon;
-    global $mosConfig_MetaDesc,$mosConfig_MetaKeys,$mosConfig_live_site,$mosConfig_sef,$mosConfig_absolute_path,$mosConfig_sitename,$mosConfig_favicon;
+	global $option,$my,$_VERSION,$task,$id;
+
+	$config = &Jconfig::getInstance();
+	$database = &database::getInstance();
+	$mainframe = &mosMainFrame::getInstance();
 
 	$description = '';
 	$keywords = '';
@@ -196,19 +211,20 @@ function mosShowHead() {
 		if($mainframe->_head['meta'][$i][0] == 'keywords') {
 			$_meta_keys_index = $i;
 			$keywords = $mainframe->_head['meta'][$i][1];
-		} else
+		} else{
 			if($mainframe->_head['meta'][$i][0] == 'description') {
 				$_meta_desc_index = $i;
 				$description = $mainframe->_head['meta'][$i][1];
 			}
+		}
 	}
 
 	if(!$description) {
-		$mainframe->appendMetaTag('description',$mosConfig_MetaDesc);
+		$mainframe->appendMetaTag('description',$config->config_MetaDesc);
 	}
 
 	if(!$keywords) {
-		$mainframe->appendMetaTag('keywords',$mosConfig_MetaKeys);
+		$mainframe->appendMetaTag('keywords',$config->config_MetaKeys);
 	}
 
 	if($_meta_keys_index != -1) {
@@ -219,136 +235,59 @@ function mosShowHead() {
 		$keys = implode(', ',array_unique(split(', ',$keys)));
 		$mainframe->_head['meta'][$_meta_keys_index][1] = $keys;
 	}
-	// boston, отключение тега Generator
-	global $mosConfig_generator_off,$mosConfig_lang;
-	if($mosConfig_generator_off == 0) {
-        $mainframe->addMetaTag('Generator',$_VERSION->CMS.' - '.$_VERSION->COPYRIGHT);
+	// отключение тега Generator
+
+	if($config->config_generator_off == 0) {
+		$mainframe->addMetaTag('Generator',$_VERSION->CMS.' - '.$_VERSION->COPYRIGHT);
 	}
 
-	global $mosConfig_index_tag,$mosConfig_mtage_base,$mosConfig_mtage_revisit;
-	if($mosConfig_index_tag == 1) {
+
+	if($config->config_index_tag == 1) {
 		$mainframe->addMetaTag('distribution','global');
 		$mainframe->addMetaTag('rating','General');
 		$mainframe->addMetaTag('document-state','Dynamic');
 		$mainframe->addMetaTag('documentType','WebDocument');
 		$mainframe->addMetaTag('audience','all');
-		$mainframe->addMetaTag('revisit',$mosConfig_mtage_revisit.' days');
-		$mainframe->addMetaTag('revisit-after',$mosConfig_mtage_revisit.' days');
+		$mainframe->addMetaTag('revisit',$config->config_mtage_revisit.' days');
+		$mainframe->addMetaTag('revisit-after',$config->config_mtage_revisit.' days');
 		$mainframe->addMetaTag('allow-search','yes');
-		$mainframe->addMetaTag('language',$mosConfig_lang);
+		$mainframe->addMetaTag('language',$config->config_lang);
 	}
 
-	// активируем кэширование
-	if(isset($_SERVER['QUERY_STRING']) && !empty($_SERVER['QUERY_STRING'])) {
-		$cache = &mosCache::getCache('header');
-		echo $cache->call('mainframe->getHead',@$_SERVER['QUERY_STRING'],$id);
-	} else {
-		echo $mainframe->getHead();
-	}
+	echo $mainframe->getHead();
+
 	// очистка ссылки на главную страницу даже при отключенном sef
-	if ( $mosConfig_mtage_base == 1) {
-	    echo "<base href=\"$mosConfig_live_site/\" />\r\n";
+	if ( $config->config_mtage_base == 1) {
+		echo '<base href="'.$config->config_live_site.'" />'."\r\n";
 	}
 
 	if($my->id || $mainframe->get('joomlaJavascript')) {
-?>
-		<script src="<?php echo $mosConfig_live_site; ?>/includes/js/joomla.javascript.js" type="text/javascript"></script>
-		<?php
+		?><script src="<?php echo $mosConfig_live_site; ?>/includes/js/joomla.javascript.js" type="text/javascript"></script><?php
 	}
 
-	// boston, отключение RSS
-	global $mosConfig_syndicate_off;
-	if($mosConfig_syndicate_off==0) {
-		$row = new mosComponent($database);
-        $query = "  SELECT a.*
-                    FROM #__components AS a
-                    WHERE ( a.admin_menu_link = 'option=com_syndicate' OR a.admin_menu_link = 'option=com_syndicate&hidemainmenu=1' ) AND a.option = 'com_syndicate'";
-		$database->setQuery($query);
-		$database->loadObject($row);
+	// отключение RSS вывода в шапку
 
-		// get params definitions
-		$syndicateParams = new mosParameters($row->params,$mainframe->getPath('com_xml',$row->option),'component');
+	if($config->config_syndicate_off==0) {
+		$cache = &mosCache::getCache('header');
+		echo $cache->call('syndicate_header');
+	}
 
-		// needed to reduce query
-		$GLOBALS['syndicateParams'] = $syndicateParams;
-
-		$live_bookmark = $syndicateParams->get('live_bookmark',0);
-
-		// and to allow disabling/enabling of selected feed types
-		switch($live_bookmark) {
-			case 'RSS0.91':
-				if(!$syndicateParams->get('rss091',1)) {
-					$live_bookmark = 0;
-				}
-				break;
-
-			case 'RSS1.0':
-				if(!$syndicateParams->get('rss10',1)) {
-					$live_bookmark = 0;
-				}
-				break;
-
-			case 'RSS2.0':
-				if(!$syndicateParams->get('rss20',1)) {
-					$live_bookmark = 0;
-				}
-				break;
-
-			case 'ATOM0.3':
-				if(!$syndicateParams->get('atom03',1)) {
-					$live_bookmark = 0;
-				}
-				break;
-		}
-
-		// support for Live Bookmarks ability for site syndication
-		if($live_bookmark) {
-			$show = 1;
-
-			$link_file = $mosConfig_live_site.'/index2.php?option=com_rss&feed='.$live_bookmark.'&no_html=1';
-
-			// xhtml check
-			$link_file = ampReplace($link_file);
-
-			// security chcek
-			$check = $syndicateParams->def('check',1);
-			if($check) {
-				// test if rssfeed module is published
-				// if not disable access
-				$query = "SELECT m.id"
-						."\n FROM #__modules AS m"
-						."\n WHERE m.module = 'mod_rssfeed'"
-						."\n AND m.published = 1";
-				$database->setQuery($query);
-				$check = $database->loadResultArray();
-				if(empty($check)) {
-					$show = 0;
-				}
-			}
-			// outputs link tag for page
-			if($show) {
-				// test if security check is enbled
-?>
-				<link rel="alternate" type="application/rss+xml" title="<?php echo $mosConfig_sitename; ?>" href="<?php echo $link_file; ?>" />
-				<?php
-			}
-		}
-	} // boston, окончание хака отключения RSS
 	// favourites icon
-	if(!$mosConfig_disable_favicon) {
-		if(!$mosConfig_favicon) {
-			$mosConfig_favicon = 'favicon.ico';
+	if(!$config->config_disable_favicon) {
+		if(!$config->config_favicon) {
+			$config->config_favicon = 'favicon.ico';
 		}
-		$icon = $mosConfig_absolute_path.'/images/'.$mosConfig_favicon;
+		$icon = $config->config_absolute_path.'/images/'.$config->config_favicon;
 		if(!file_exists($icon)) {
-			$icon = $mosConfig_live_site.'/images/favicon.ico';
+			$icon = $config->config_live_site.'/images/favicon.ico';
 		} else {
-			$icon = $mosConfig_live_site.'/images/'.$mosConfig_favicon;
+			$icon = $config->config_live_site.'/images/'.$config->config_favicon;
 		}
 		echo '<link rel="shortcut icon" href="'.$icon.'" />';
 	}
 }
 
+// установка мета-тэгов для поисковика
 function set_robot_metatag($robots) {
 	global $mainframe;
 	if($robots == 0) {
@@ -362,6 +301,81 @@ function set_robot_metatag($robots) {
 	}
 	if($robots == 3) {
 		$mainframe->addMetaTag('robots','noindex, nofollow');
+	}
+}
+
+// выводк лент RSS
+
+//syndicate_header();
+
+function syndicate_header(){
+	$mainframe =  &mosMainFrame::getInstance();
+	$database = &database::getInstance();
+	$config = &Jconfig::getInstance();
+
+	$row = new mosComponent();
+	$query = "SELECT a.params, a.option FROM #__components AS a WHERE ( a.admin_menu_link = 'option=com_syndicate' OR a.admin_menu_link = 'option=com_syndicate&hidemainmenu=1' ) AND a.option = 'com_syndicate'";
+	$database->setQuery($query);
+	$database->loadObject($row);
+
+	// get params definitions
+	$syndicateParams = new mosParameters($row->params,$mainframe->getPath('com_xml',$row->option),'component');
+
+	// needed to reduce query
+	$GLOBALS['syndicateParams'] = $syndicateParams;
+
+	$live_bookmark = $syndicateParams->get('live_bookmark',0);
+
+	// and to allow disabling/enabling of selected feed types
+	switch($live_bookmark) {
+		case 'RSS0.91':
+			if(!$syndicateParams->get('rss091',1)) {
+				$live_bookmark = 0;
+			}
+			break;
+
+		case 'RSS1.0':
+			if(!$syndicateParams->get('rss10',1)) {
+				$live_bookmark = 0;
+			}
+			break;
+
+		case 'RSS2.0':
+			if(!$syndicateParams->get('rss20',1)) {
+				$live_bookmark = 0;
+			}
+			break;
+
+		case 'ATOM0.3':
+			if(!$syndicateParams->get('atom03',1)) {
+				$live_bookmark = 0;
+			}
+			break;
+	}
+
+	// support for Live Bookmarks ability for site syndication
+	if(!$live_bookmark) {
+		$show = 1;
+
+		$link_file = $config->config_live_site.'/index2.php?option=com_rss&feed='.$live_bookmark.'&no_html=1';
+
+		// xhtml check
+		$link_file = ampReplace($link_file);
+
+		// security chcek
+		$check = $syndicateParams->def('check',1);
+		if($check) {
+			// проверяем, не опубликован ли уже модель с RSS
+			$query = "SELECT m.id FROM #__modules AS m WHERE m.module = 'mod_rssfeed' AND m.published = 1";
+			$database->setQuery($query);
+			$check = $database->loadResultArray();
+			if(empty($check)) {
+				$show = 0;
+			}
+		}
+		if($show) {
+			?><link rel="alternate" type="application/rss+xml" title="<?php echo $config->config_sitename; ?>" href="<?php echo $link_file; ?>" /><?php
+		}
 	}
 }
 

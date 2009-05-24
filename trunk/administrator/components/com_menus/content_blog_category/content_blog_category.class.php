@@ -58,7 +58,7 @@ class content_blog_category {
 		}
 
 		// build the html select list for category
-		$rows[] = mosHTML::makeOption('',_CREATE_CATEGORIES);
+		$rows[] = mosHTML::makeOption('',_ALL_CATEGORIES);
 		$query = "SELECT c.id AS `value`, c.section AS `id`, CONCAT_WS( ' / ', s.title, c.title) AS `text`".
 			"\n FROM #__sections AS s".
 			"\n INNER JOIN #__categories AS c ON c.section = s.id".

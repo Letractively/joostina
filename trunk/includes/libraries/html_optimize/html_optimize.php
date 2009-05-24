@@ -117,6 +117,7 @@ function html_optimize(/*string*/ $s, $is_js = false, $is_css = true)
 
     #восстанавливаем вр≈менные метки на содержимое тагов
     $s = _html_optimize_placeholder($s, $is_restore = true);
+    $s = str_replace("/>\r",'/>',$s);
     return str_replace(array('<nooptimize>', '</nooptimize>'), '', $s);
 }
 
@@ -153,7 +154,7 @@ function _html_optimize_placeholder(/*string*/ $s, $is_restore = false)
 function _html_optimize_chunks(array &$m)
 {
     #<script> or <style> tag
-    if (@$m[1])
+    if (isset($m[1]))
     {
         if (! $m[3]) return $m[0];
         $s = (strtolower($m[2]) === 'script') ? _html_optimize_parse_js($m[3], $is_script_tag = true)
@@ -161,14 +162,14 @@ function _html_optimize_chunks(array &$m)
         return $m[1] . _html_optimize_placeholder(_html_optimize_strip_spaces($s)) . $m[4];
     }
 
-    if ($m[6] === 'style')
+    if (isset($m[6]) && $m[6] === 'style')
     {
         if ($GLOBALS['html_optimize_is_css']) $m[7] = _html_optimize_parse_css($m[7]);
         return _html_optimize_placeholder('style=' . _html_optimize_strip_spaces($m[7]));
     }
 
     #js events: onClick, onMouseOver and etc.
-    if (@$m[6])
+    if (isset($m[6]))
     {
         if (! $GLOBALS['html_optimize_is_js']) return _html_optimize_placeholder(_html_optimize_strip_spaces($m[6] . '=' . $m[7]));
         $attr  =& $m[6];
@@ -181,7 +182,7 @@ function _html_optimize_chunks(array &$m)
     }
 
     #условные комментарии IE не вырезаем!
-    if (@$m[5]) return $m[0];
+    if (isset($m[5])) return $m[0];
     #счетчики и баннеры могут использовать в комментари€х свои сигнатуры,
     #поэтому не вырезаем комментарии, если длина текста мала, текст в ANSI и нет переносов строк и тагов
     if (preg_match('/^<!--(?:[\x20-\x7e]{4,60}+$|\xc2\xa0|&nbsp;)/sSX', $m[0]) &&  #\xc2\xa0 = &nbsp;

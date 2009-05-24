@@ -50,7 +50,7 @@ switch($task) {
 		break;
 
 	case 'view':
-    case 'preview':
+	case 'preview':
 		if($mosConfig_enable_stats) {
 			showItem($id,$gid,$access,$pop,$option,0);
 		} else {

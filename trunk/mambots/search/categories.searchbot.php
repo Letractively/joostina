@@ -27,8 +27,7 @@ function botSearchCategories($text,$phrase = '',$ordering = '') {
 	// check if param query has previously been processed
 	if(!isset($_MAMBOTS->_search_mambot_params['categories'])) {
 		// load mambot params info
-		$query = "SELECT params"."\n FROM #__mambots"."\n WHERE element = 'categories.searchbot'".
-			"\n AND folder = 'search'";
+		$query = "SELECT params FROM #__mambots WHERE element = 'categories.searchbot' AND folder = 'search'";
 		$database->setQuery($query);
 		$database->loadObject($mambot);
 

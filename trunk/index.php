@@ -272,11 +272,6 @@ if($path = $mainframe->getPath('front')) {
 $_MOS_OPTION['buffer'] = ob_get_contents(); // главное содержимое - стек вывода компонента - mainbody
 ob_end_clean();
 
-// активация мамботов группы mainbody
-if($mosConfig_mmb_mainbody_off == 0) {
-	$_MAMBOTS->loadBotGroup('mainbody');
-	$_MAMBOTS->trigger('onMainbody');
-}
 
 initGzip();
 
@@ -308,18 +303,19 @@ if(!file_exists($mosConfig_absolute_path.'/templates/'.$cur_template.'/index.php
 } else {
 	require_once ($mosConfig_absolute_path.'/templates/'.$cur_template.'/index.php');
 }
-$_MOS_OPTION['mainbody'] = ob_get_contents(); // главное содержимое - стек вывода компонента - mainbody
+$_template_body = ob_get_contents(); // главное содержимое - стек вывода компонента - mainbody
 ob_end_clean();
 
 // активация мамботов группы mainbody
 if($mosConfig_mmb_mainbody_off == 0) {
 	$_MAMBOTS->loadBotGroup('mainbody');
-	$_MAMBOTS->trigger('onTemplate');
+	$_MAMBOTS->trigger('onTemplate',array(&$_template_body));
 }
-// boston, уменьшает расход памяти, но момент всё-таки спорный
+// уменьшает расход памяти, но момент всё-таки спорный
 unset($_MAMBOTS,$mainframe,$my);
+
 // вывод стека всего тела страницы, уже после обработки мамботами группы onTemplate
-echo $_MOS_OPTION['mainbody'];
+echo $_template_body;
 
 // подсчет времени генерации страницы
 if($mosConfig_time_gen) {

@@ -11,8 +11,8 @@
 defined('_VALID_MOS') or die();
 
 require_once ($mainframe->getPath('admin_html'));
-require_once (Jconfig::getInstance()->config_absolute_path.'/components/com_content/content.class.php');
-define('COM_IMAGE_BASE',$mosConfig_absolute_path.DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'stories');
+require_once (Jconfig::getInstance()->config_absolute_path.DS.'components'.DS.'com_content'.DS.'content.class.php');
+define('COM_IMAGE_BASE',$mosConfig_absolute_path.DS.'images'.DS.'stories');
 
 // get parameters from the URL or submitted form
 $section = stripslashes(strval(mosGetParam($_REQUEST,'section','content')));
@@ -55,7 +55,6 @@ switch($task) {
 	case 'menulink':
 	case 'save':
 	case 'apply':
-		/* boston, добавил параметр 'save_and_new' - признак возврата в редактирование категорий для добавления нового*/
 	case 'save_and_new':
 		js_menu_cache_clear();
 		saveCategory($task);
@@ -207,7 +206,8 @@ function showCategories($section,$option) {
 		"COUNT( DISTINCT s2.checked_out ) AS checked_out".$content_add."\n FROM #__categories AS c".
 		"\n LEFT JOIN #__users AS u ON u.id = c.checked_out"."\n LEFT JOIN #__groups AS g ON g.id = c.access".
 		"\n LEFT JOIN `#__$table` AS s2 ON s2.catid = c.id AND s2.checked_out > 0".$content_join.
-		$where.$filter."\n AND c.published != -2"."\n GROUP BY c.id".$order;
+		$where.$filter."\n AND c.published != -2"
+		."\n GROUP BY c.id".$order;
 	$database->setQuery($query,$pageNav->limitstart,$pageNav->limit);
 	$rows = $database->loadObjectList();
 	if($database->getErrorNum()) {
@@ -218,16 +218,14 @@ function showCategories($section,$option) {
 	$count = count($rows);
 	// number of Active Items
 	for($i = 0; $i < $count; $i++) {
-		$query = "SELECT COUNT( a.id )"."\n FROM #__content AS a"."\n WHERE a.catid = ".(int)
-			$rows[$i]->id."\n AND a.state != -2";
+		$query = "SELECT COUNT( a.id )"."\n FROM #__content AS a"."\n WHERE a.catid = ".(int)$rows[$i]->id."\n AND a.state != -2";
 		$database->setQuery($query);
 		$active = $database->loadResult();
 		$rows[$i]->active = $active;
 	}
 	// number of Trashed Items
 	for($i = 0; $i < $count; $i++) {
-		$query = "SELECT COUNT( a.id )"."\n FROM #__content AS a"."\n WHERE a.catid = ".(int)
-			$rows[$i]->id."\n AND a.state = -2";
+		$query = "SELECT COUNT( a.id )"."\n FROM #__content AS a"."\n WHERE a.catid = ".(int)$rows[$i]->id."\n AND a.state = -2";
 		$database->setQuery($query);
 		$trash = $database->loadResult();
 		$rows[$i]->trash = $trash;
@@ -253,7 +251,7 @@ function editCategory($uid = 0,$section = '') {
 	$redirect = strval(mosGetParam($_REQUEST,'section','content'));
 
 	// check for existance of any sections
-	$query = "SELECT COUNT( id )"."\n FROM #__sections"."\n WHERE scope = 'content'";
+	$query = "SELECT COUNT( id ) FROM #__sections WHERE scope = 'content'";
 	$database->setQuery($query);
 	$sections = $database->loadResult();
 	if(!$sections && $type != 'other') {
@@ -302,7 +300,7 @@ function editCategory($uid = 0,$section = '') {
 
 		// content
 		if($row->section > 0) {
-			$query = "SELECT*"."\n FROM #__menu"."\n WHERE componentid = ".(int)$row->id."\n AND ( type = 'content_archive_category' OR type = 'content_blog_category' OR type = 'content_category' )";
+			$query = "SELECT* FROM #__menu WHERE componentid = ".(int)$row->id." AND ( type = 'content_archive_category' OR type = 'content_blog_category' OR type = 'content_category' )";
 			$database->setQuery($query);
 			$menus = $database->loadObjectList();
 
@@ -338,7 +336,7 @@ function editCategory($uid = 0,$section = '') {
 				$selected_folders[] = mosHTML::makeOption('*2*');
 			}
 		} else {
-			$query = "SELECT*"."\n FROM #__menu"."\n WHERE componentid = ".(int)$row->id.$and;
+			$query = "SELECT* FROM #__menu WHERE componentid = ".(int)$row->id.$and;
 			$database->setQuery($query);
 			$menus = $database->loadObjectList();
 
@@ -362,7 +360,7 @@ function editCategory($uid = 0,$section = '') {
 
 	// make order list
 	$order = array();
-	$query = "SELECT COUNT(*)"."\n FROM #__categories"."\n WHERE section = ".$database->Quote($row->section);
+	$query = "SELECT COUNT(*) FROM #__categories WHERE section = ".$database->Quote($row->section);
 	$database->setQuery($query);
 	$max = intval($database->loadResult()) + 1;
 
@@ -372,7 +370,7 @@ function editCategory($uid = 0,$section = '') {
 
 	// build the html select list for sections
 	if($section == 'content') {
-		$query = "SELECT s.id AS value, s.title AS text"."\n FROM #__sections AS s"."\n ORDER BY s.ordering";
+		$query = "SELECT s.id AS value, s.title AS text FROM #__sections AS s ORDER BY s.ordering";
 		$database->setQuery($query);
 		$sections = $database->loadObjectList();
 		$lists['section'] = mosHTML::selectList($sections,'section','class="inputbox" size="1"','value','text');
@@ -498,8 +496,8 @@ function saveCategory($task) {
 		exit();
 	}
 
-    $templates = new jstContentTemplate();
-    $row->templates = $templates->prepare_for_save(mosGetParam($_POST,'templates',array()));
+	$templates = new jstContentTemplate();
+	$row->templates = $templates->prepare_for_save(mosGetParam($_POST,'templates',array()));
 
 	if(!$row->store()) {
 		echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
@@ -511,8 +509,7 @@ function saveCategory($task) {
 
 	if($oldtitle) {
 		if($oldtitle != $row->title) {
-			$query = "UPDATE #__menu"."\n SET name = ".$database->Quote($row->title)."\n WHERE name = ".
-				$database->Quote($oldtitle)."\n AND type = 'content_category'";
+			$query = "UPDATE #__menu SET name = ".$database->Quote($row->title)." WHERE name = ".$database->Quote($oldtitle)." AND type = 'content_category'";
 			$database->setQuery($query);
 			$database->query();
 		}
@@ -521,12 +518,11 @@ function saveCategory($task) {
 	// Update Section Count
 	if($row->section != 'com_contact_details' && $row->section != 'com_newsfeeds' &&
 		$row->section != 'com_weblinks') {
-		$query = "UPDATE #__sections SET count=count+1"."\n WHERE id = ".$database->Quote($row->section);
+		$query = "UPDATE #__sections SET count=count+1 WHERE id = ".$database->Quote($row->section);
 		$database->setQuery($query);
 	}
 	if(!$database->query()) {
-		echo "<script> alert('".$database->getErrorMsg().
-			"'); window.history.go(-1); </script>\n";
+		echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
 		exit();
 	}
 
@@ -549,20 +545,18 @@ function saveCategory($task) {
 			break;
 
 		case 'apply':
-			$msg = 'Изменения в категории сохранены';
-			mosRedirect('index2.php?option=com_categories&section='.$redirect.'&task=editA&hidemainmenu=1&id='.$row->id,$msg);
+			mosRedirect('index2.php?option=com_categories&section='.$redirect.'&task=editA&hidemainmenu=1&id='.$row->id,_COM_CATEGORIES_SAVE_MOD);
 			break;
 
 			/* boston, после сохранения возвращаемся в окно добавления новой категории*/
 		case 'save_and_new':
-			$msg = $row->title.' - сохранено.';
+			$msg = $row->title._COM_CATEGORIES_SAVED_2;
 			mosRedirect('index2.php?option=com_categories&task=new',$msg);
 			break;
 
 		case 'save':
 		default:
-			$msg = 'Категория сохранена';
-			mosRedirect('index2.php?option=com_categories&section='.$redirect,$msg);
+			mosRedirect('index2.php?option=com_categories&section='.$redirect,_COM_CATEGORIES_SAVED);
 			break;
 	}
 }
@@ -595,8 +589,7 @@ function removeCategories($section,$cid) {
 	}
 	mosArrayToInts($cid);
 	$cids = 'c.id='.implode(' OR c.id=',$cid);
-	$query = "SELECT c.id, c.name, COUNT( s.catid ) AS numcat"."\n FROM #__categories AS c".
-		"\n LEFT JOIN `#__$table` AS s ON s.catid = c.id"."\n WHERE ( $cids )"."\n GROUP BY c.id";
+	$query = "SELECT c.id, c.name, COUNT( s.catid ) AS numcat FROM #__categories AS c LEFT JOIN `#__$table` AS s ON s.catid = c.id WHERE ( $cids ) GROUP BY c.id";
 	$database->setQuery($query);
 
 	if(!($rows = $database->loadObjectList())) {
@@ -631,8 +624,7 @@ function removeCategories($section,$cid) {
 	if(count($err)) {
 		$cids = implode("\', \'",$err);
 		$msg = str_replace("#CIDS#",$cids,_CANNOT_REMOVE_CATEGORY);
-		
-		mosRedirect('index2.php?option=com_categories&section='.$section.'&mosmsg='.$msg);
+ 		mosRedirect('index2.php?option=com_categories&section='.$section.'&mosmsg='.$msg);
 	}
 
 	mosRedirect('index2.php?option=com_categories&section='.$section);
@@ -666,7 +658,7 @@ function publishCategories($section,$categoryid = null,$cid = null,$publish = 1)
 	mosArrayToInts($cid);
 	$cids = 'id='.implode(' OR id=',$cid);
 
-	$query = "UPDATE #__categories"."\n SET published = ".(int)$publish."\n WHERE ( $cids )"."\n AND ( checked_out = 0 OR ( checked_out = ".(int)$my->id." ) )";
+	$query = "UPDATE #__categories SET published = ".(int)$publish."\n WHERE ( $cids ) AND ( checked_out = 0 OR ( checked_out = ".(int)$my->id." ) )";
 	$database->setQuery($query);
 	if(!$database->query()) {
 		echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
@@ -679,7 +671,6 @@ function publishCategories($section,$categoryid = null,$cid = null,$publish = 1)
 	}
 
 	if($section == 'content') {
-		// clean any existing cache files
 		mosCache::cleanCache('com_content');
 	}
 
@@ -729,7 +720,7 @@ function moveCategorySelect($option,$cid,$sectionOld) {
 	global $database;
 
 	$redirect = mosGetParam($_POST,'section','content');
-	;
+
 
 	if(!is_array($cid) || count($cid) < 1) {
 		echo "<script> alert('"._CHOOSE_OBJECT_TO_MOVE."'); window.history.go(-1);</script>\n";
@@ -739,19 +730,19 @@ function moveCategorySelect($option,$cid,$sectionOld) {
 	## query to list selected categories
 	mosArrayToInts($cid);
 	$cids = 'a.id='.implode(' OR a.id=',$cid);
-	$query = "SELECT a.name, a.section"."\n FROM #__categories AS a"."\n WHERE ( $cids )";
+	$query = "SELECT a.name, a.section FROM #__categories AS a WHERE ( $cids )";
 	$database->setQuery($query);
 	$items = $database->loadObjectList();
 
 	## query to list items from categories
 	// mosArrayToInts( $cid ); // Just done a few lines earlier
 	$cids = 'a.catid='.implode(' OR a.catid=',$cid);
-	$query = "SELECT a.title"."\n FROM #__content AS a"."\n WHERE ( $cids )"."\n ORDER BY a.catid, a.title";
+	$query = "SELECT a.title FROM #__content AS a WHERE ( $cids ) ORDER BY a.catid, a.title";
 	$database->setQuery($query);
 	$contents = $database->loadObjectList();
 
 	## query to choose section to move to
-	$query = "SELECT a.name AS text, a.id AS value"."\n FROM #__sections AS a"."\n WHERE a.published = 1"."\n ORDER BY a.name";
+	$query = "SELECT a.name AS text, a.id AS value FROM #__sections AS a WHERE a.published = 1 ORDER BY a.name";
 	$database->setQuery($query);
 	$sections = $database->loadObjectList();
 
@@ -781,7 +772,7 @@ function moveCategorySave($cid,$sectionOld) {
 
 	mosArrayToInts($cid);
 	$cids = 'id='.implode(' OR id=',$cid);
-	$query = "UPDATE #__categories"."\n SET section = ".$sectionMove."\n WHERE ( $cids )";
+	$query = "UPDATE #__categories SET section = ".$sectionMove." WHERE ( $cids )";
 	$database->setQuery($query);
 	if(!$database->query()) {
 		echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
@@ -789,7 +780,7 @@ function moveCategorySave($cid,$sectionOld) {
 	}
 	// mosArrayToInts( $cid ); // Just done a few lines earlier
 	$cids = 'catid='.implode(' OR catid=',$cid);
-	$query = "UPDATE #__content"."\n SET sectionid = ".$sectionMove."\n WHERE ( $cids )";
+	$query = "UPDATE #__content SET sectionid = ".$sectionMove." WHERE ( $cids )";
 	$database->setQuery($query);
 	if(!$database->query()) {
 		echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
