@@ -134,14 +134,6 @@ return formValid;
 											Имя существующей или новой БД, которая будет использоваться для сайта
 										</td>
 									</tr>
-									<tr class="trongate-1">
-										<td colspan="2" valign="top">
-											<input type="checkbox" name="create_db" id="create_db" value="1" checked="checked" /><label for="create_db">создать базу если её нет</label>
-										</td>
-										<td>
-										Внимание! Не на всех хостингах создание БД таким способом будет возможно. В случае возникновения ошибок - создайте пустую БД стандартным для вашего хостинга способом и выберите её.
-										</td>
-									</tr>
 									<tr class="trongate-2">
 										<td colspan="2" valign="top"> Префикс таблиц БД MySQL<br />
 											<input class="inputbox" type="text" name="DBPrefix" value="<?php echo $DBPrefix; ?>" />
@@ -180,9 +172,15 @@ return formValid;
 										<td valign="top" width="200px">
 											<label for="DBSample">Установить демонстрационные данные
 											</label></td>
-										<td valign="top">
-											Не выключайте это, если Вы ещё не знакомы с Joostina!
-											</td>
+										<td valign="top">Не выключайте это, если Вы ещё не знакомы с Joostina!</td>
+									</tr>
+									<tr class="trongate-1">
+										<td colspan="2" valign="top">
+											<input type="checkbox" name="create_db" id="create_db" value="1" checked="checked" /><label for="create_db">создать базу если её нет</label>
+										</td>
+										<td>
+										Внимание! Не на всех хостингах создание БД таким способом будет возможно. В случае возникновения ошибок - создайте пустую БД стандартным для вашего хостинга способом и выберите её.
+										</td>
 									</tr>
 								</table>
 							</div>

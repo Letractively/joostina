@@ -10,22 +10,29 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
+// флаг использования ядра
 DEFINE('_MOS_MAMBO_INCLUDED',1);
+// разделитель каталогов
 DEFINE('DS',DIRECTORY_SEPARATOR );
+// каталог администратора
 DEFINE('ADMINISTRATOR_DIRECTORY','administrator');
+// формат даты
 DEFINE('_CURRENT_SERVER_TIME_FORMAT','%Y-%m-%d %H:%M:%S');
 // текущее время сервера
 DEFINE('_CURRENT_SERVER_TIME',date('Y-m-d H:i',time()));
 // схемы не http/https протоколов
 DEFINE('_URL_SCHEMES','data:, file:, ftp:, gopher:, imap:, ldap:, mailto:, news:, nntp:, telnet:, javascript:, irc:, mms:');
-// пробуем устанавить более удобный режим работы зрз
+
+// пробуем устанавить более удобный режим работы
 @set_magic_quotes_runtime(0);
+
 // установка режима отображения ошибок
 if($mosConfig_error_reporting == 0) {
 	error_reporting(0);
 }elseif($mosConfig_error_reporting > 0) {
 	error_reporting($mosConfig_error_reporting);
 }
+
 /* ядро для работы с юникодом */
 include_once $mosConfig_absolute_path.'/includes/libraries/utf8/utf8.php';
 /* файл данных версии */
@@ -34,9 +41,11 @@ require_once ($mosConfig_absolute_path.'/includes/version.php');
 require_once ($mosConfig_absolute_path.'/includes/joomla.xml.php');
 /* класс фильтрации данных */
 require_once ($mosConfig_absolute_path.'/includes/libraries/phpInputFilter/class.inputfilter.php');
+
 /* класс работы с базой данных */
 require_once ($mosConfig_absolute_path.'/includes/libraries/database/database.php');
 $database = database::getInstance();
+
 /* класс работы с правами пользователей */
 require_once ($mosConfig_absolute_path.'/includes/libraries/gacl/gacl.class.php');
 $acl = new gacl_api();
@@ -909,15 +918,12 @@ class mosMainFrame {
 			// if task action is to `save` or `apply` complete action before doing session checks.
 			if($task != 'save' && $task != 'apply') {
 				// test for session_life_admin
-				if(@$GLOBALS['mosConfig_session_life_admin']) {
-					$session_life_admin = $GLOBALS['mosConfig_session_life_admin'];
+				if($_config->config_session_life_admin) {
+					$session_life_admin = $_config->config_session_life_admin;
 				} else {
 					$session_life_admin = 1800;
 				}
 
-				// purge expired admin sessions only
-				$past = time() - $session_life_admin;
-				$query = "DELETE FROM #__session WHERE time < '".(int)$past."' AND guest = 1 AND gid = 0 AND userid <> 0";
 				// если в настройка не указано что сессии админки не уничтожаются - выполняем запрос по очистке сессий
 				if($_config->config_admin_autologout==1) {
 					// purge expired admin sessions only
@@ -938,9 +944,9 @@ class mosMainFrame {
 				$this->setSessionGarbageClean();
 
 				// check against db record of session
-				$query = "SELECT COUNT( session_id ) FROM #__session WHERE session_id = ".$this->_db->Quote($session_id)."\n AND username = ".$this->_db->Quote($my->username)."\n AND userid = ".intval($my->id);
+				$query = "SELECT COUNT( session_id ) FROM #__session WHERE session_id = ".$this->_db->Quote($session_id)." AND username = ".$this->_db->Quote($my->username)."\n AND userid = ".intval($my->id);
 				$this->_db->setQuery($query);
-				$count = $this->_db->loadResult();
+				$count = ($_config->config_admin_autologout==1) ? $this->_db->loadResult() : 1;
 
 				// если в таблиц
 				if($count == 0) {
@@ -971,13 +977,13 @@ class mosMainFrame {
 							$saveparams = implode("\n",$txt);
 						}
 
-						$query = "UPDATE #__users SET params = ".$this->_db->Quote($saveparams)."\n WHERE id = ".(int)$my->id."\n AND username = ".$this->_db->Quote($my->username)."\n AND usertype = ".
-							$this->_db->Quote($my->usertype);
+						$query = "UPDATE #__users SET params = ".$this->_db->Quote($saveparams)." WHERE id = ".(int)$my->id." AND username = ".$this->_db->Quote($my->username)." AND usertype = ".$this->_db->Quote($my->usertype);
 						$this->_db->setQuery($query);
 						$this->_db->query();
 					}
-					echo "<script>document.location.href='index.php?mosmsg="._ADMIN_SESSION_ENDED."'</script>\n";
-					exit();
+
+					mosRedirect($_config->config_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/',_ADMIN_SESSION_ENDED);
+
 				} else {
 					// load variables into session, used to help secure /popups/ functionality
 					$_SESSION['option'] = $option;

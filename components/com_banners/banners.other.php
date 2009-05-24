@@ -43,22 +43,7 @@ function showBanners(&$params) {
 		$where = '(' . implode(' OR ', $where) . ') AND';
 	else
 		$where = '';
-/*
-	$query = "SELECT #__banners.* FROM #__banners,#__banners_categories,#__banners_clients
-		WHERE 1 AND $where
-		(('$date' <= publish_down_date OR publish_down_date = '0000-00-00')
-		AND '$date' >= publish_up_date
-		AND ((reccurtype = 0)
-			OR (reccurtype = 1 AND reccurweekdays LIKE '%$weekday%'))
-		AND '$time' >= publish_up_time
-		AND ('$time' <= publish_down_time OR publish_down_time = '00:00:00')
-		AND access <= '$my->gid'
-		AND state = '1'
-		AND #__banners.tid = #__banners_categories.id
-		AND #__banners_categories.published = 1
-		AND #__banners.cid = #__banners_clients.cid
-		AND #__banners_clients.published = 1 ) ORDER BY last_show ASC, msec ASC";
-*/
+
 	$query ="SELECT b.* FROM #__banners AS b
 	INNER JOIN #__banners_categories AS cat ON b.tid = cat.id
 	INNER JOIN #__banners_clients AS cl ON b.cid = cl.cid

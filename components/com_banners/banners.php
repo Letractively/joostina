@@ -20,7 +20,7 @@ if(file_exists($mosConfig_absolute_path . '/language/'.$mosConfig_lang.'/com_ban
 include_once ($mosConfig_absolute_path . '/language/'.$artbannerslanguage.'/com_banners.php');
 
 // including classes
-require_once ($mosConfig_absolute_path . "/components/com_banners/banners.class.php");
+require_once ($mainframe->getPath('class'));
 
 $id = intval(mosGetParam($_REQUEST, 'id', 0));
 $task = strval(mosGetParam($_REQUEST, 'task', ''));
