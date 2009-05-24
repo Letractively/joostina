@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined('_VALID_MOS') or die();
 
 /**
@@ -25,6 +25,86 @@ class HTML_user {
 	</table>
 <?php
 	}
+
+function profile($row,$option, &$params){
+      	global $mosConfig_absolute_path,$mosConfig_frontend_userparams,$mosConfig_live_site, $my, $database;
+        	mosCommonHTML::loadFullajax();
+
+        $user_info = $params->get( 'user_info', '' );
+        $user_interes = $params->get( 'user_interes', '' );
+
+        $owner=0;
+        if($my->id && $row->id==$my->id){
+          $owner=1;
+?>
+
+<?
+          $editable=' editable';
+          $edit_info_link=sefRelToAbs('index.php?option=com_user&task=UserDetails&Itemid=17');
+          $avatar_pic='<img class="avatar" src="'.$mosConfig_live_site.mosUser::avatar($row->id,'big').'" />';
+        }
+
+        else{
+          $editable='';
+          $avatar_pic=' <img class="avatar" src="'.$mosConfig_live_site.mosUser::avatar($row->id, 'big').'" /> ';
+          $avatar_edit='';
+        }
+
+        $user_id= $row->id;
+
+        //РџРµСЂРµРјРµРЅРЅС‹Рµ РґР»СЏ С€Р°Р±Р»РѕРЅР°
+        $user_real_name = $row->name;
+        $user_nickname = $row->username;
+
+        $user_status = $row->get_user_status($row->id);
+        if($user_status){
+            $user_status='<span class="online"><img  src="'.$mosConfig_live_site.'/images/system_images/online.png" /> РЅР° СЃР°Р№С‚Рµ</span>';
+            }
+        else {
+             $user_status='<span class="offline"><img  src="'.$mosConfig_live_site.'/images/system_images/ofline.png" /> РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚</span>';
+        }
+
+        $registerDate = mosFormatDate($row->registerDate);
+        $lastvisitDate = mosFormatDate($row->lastvisitDate);
+
+        $user_content_href=sefRelToAbs('index.php?option=com_content&task=mycontent&user='.$user_id.'&Itemid=28');
+
+        switch($row->usertype){
+          case 'Registered':
+          default:
+            $template_file='registered_profile.php';
+            break;
+
+          case 'Editor':
+            $template_file='editor_profile.php';
+            break;
+
+          case 'Author':
+            $template_file='author_profile.php';
+            break;
+
+          case 'Super Administrator':
+            $template_file='superadmin_profile.php';
+            break;
+        }
+
+        //РћРїСЂРµРґРµР»СЏРµРј РїР»Р°РіРёРЅ
+        $view=mosGetParam( $_REQUEST, 'view', '' );
+        if($view){
+            $plugin_file = $mosConfig_absolute_path.'/components/com_user/plugins/user_'.$view.'/user_'.$view.'.php';
+            if (file_exists($plugin_file)) {
+	            $plugin_page =  $plugin_file;
+            } else {
+                $view = 'info';
+                $plugin_page =  $mosConfig_absolute_path.'/components/com_user/plugins/user_info.php';
+            }
+        } else{
+            $view = 'info';
+            $plugin_page =  $mosConfig_absolute_path.'/components/com_user/plugins/user_info.php';
+        }
+
+        include ($mosConfig_absolute_path.'/components/com_user/tpl/'.$template_file);
+    }
 
 	function userEdit($row,$option,$submitvalue,&$params) {
 		global $mosConfig_absolute_path,$mosConfig_frontend_userparams,$mosConfig_live_site;
@@ -72,7 +152,7 @@ class HTML_user {
 		function funishupload(text) {
 			log(text);
 			if(text!='0'){
-				log('Всё ок!');
+				log('Р’СЃС‘ РѕРє!');
 				log(text);
 				SRAX.get('userav').src = text;
 			}
@@ -90,13 +170,13 @@ class HTML_user {
 			return false;
 		}
 		function delavatar(){
-			log('Удаление аватара: ');
+			log('РЈРґР°Р»РµРЅРёРµ Р°РІР°С‚Р°СЂР°: ');
 			SRAX.get('userav').src = 'images/system/aload.gif';
 			dax({
 				url: 'ajax.index.php?option=com_user&utf=0&task=delavatar',
 				callback:
 					function(resp, idTread, status, ops){
-						log('Получен ответ: ' + resp.responseText);
+						log('РџРѕР»СѓС‡РµРЅ РѕС‚РІРµС‚: ' + resp.responseText);
 						SRAX.get('userav').src = resp.responseText;
 			}});
 		}

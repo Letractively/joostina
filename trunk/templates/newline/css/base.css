@@ -88,6 +88,11 @@ input [ type = text ], input [ type = password ], input.inputbox, input.text_are
 	margin: 0 5px 5px 1px;
 	padding: 2px 6px;
 }
+.inputbox.error{
+    border: 2px solid red;
+}
+
+
 select.inputbox {
 	padding: 2px;
 }

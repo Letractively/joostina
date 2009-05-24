@@ -10,9 +10,7 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-if(!$my->id) {
-	die('error-acl');
-}
+
 
 $task	= mosGetParam($_REQUEST,'task','');
 $id		= $my->id;
@@ -25,6 +23,10 @@ switch($task) {
 	case 'delavatar':
 		echo x_delavatar();
 		return;
+
+    case 'request_from_plugin':
+        request_from_plugin();
+        break;
 
 	default:
 		echo 'error-task';
@@ -80,5 +82,19 @@ function img_resize($src,$dest,$width=250,$height=250,$quality = 100) {
 	imagedestroy($isrc);
 	imagedestroy($idest);
 	return true;
+}
+
+function  request_from_plugin(){
+    global $mosConfig_absolute_path;
+
+    $plugin	= mosGetParam($_REQUEST,'plugin','');
+    $act	= mosGetParam($_REQUEST,'act','');
+
+    // проверяем, какой файл необходимо подключить, данные берутся из пришедшего GET запроса
+    if(file_exists($mosConfig_absolute_path . "/components/com_user/plugins/$plugin/$plugin.ajax.php")) {
+	    include_once ($mosConfig_absolute_path . "/components/com_user/plugins/$plugin/$plugin.ajax.php");
+    } else {
+	    die('error-1');
+    }
 }
 ?>

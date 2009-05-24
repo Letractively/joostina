@@ -4835,7 +4835,7 @@ class mosCommonHTML {
 		return true;
 	}
 	/* подключение расширений Jquery*/
-	function loadJqueryPlugins($name,$ret = false) {
+	function loadJqueryPlugins($name,$ret = false, $css = '') {
 		$name = trim($name);
 		// если само ядро Jquery не загружено - сначала грузим его
 		if(!defined('_JQUERY_LOADED')) {
@@ -4847,8 +4847,16 @@ class mosCommonHTML {
 			define($const,1);
 			if($ret){?>
 				<script language="javascript" type="text/javascript" src="<?php echo Jconfig::getInstance()->config_live_site;?>/includes/js/jquery/plugins/<?php echo $name; ?>.js"></script>
+            <?php if($css){
+                ?>
+                    <link type="text/css" rel="stylesheet" href="<?php echo Jconfig::getInstance()->config_live_site;?>/includes/js/jquery/plugins/<?php echo $name; ?>.css" />
+                <?php
+            }?>
 			<?php }else{
 				MosMainFrame::getInstance()->addJS(Jconfig::getInstance()->config_live_site.'/includes/js/jquery/plugins/'.$name.'.js');
+                if($css){
+                    MosMainFrame::getInstance()->addCSS(Jconfig::getInstance()->config_live_site.'/includes/js/jquery/plugins/'.$name.'.css');
+                }
 			}
 		}
 		return true;

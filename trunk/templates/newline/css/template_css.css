@@ -8,6 +8,7 @@
  */
 @import "reset.css";
 @import "base.css";
+@import "user_profile.css";
 
 html {
 	height: 100%;
