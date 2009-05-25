@@ -33,12 +33,12 @@ function profile($row,$option, &$params){
         $user_info = $params->get( 'user_info', '' );
         $user_interes = $params->get( 'user_interes', '' );
 
-        $owner=0;
+        $owner=0;  $admin = 0;
+        if($my->user_type = 'Super Administrator'){
+             $admin = 1; 
+        }
         if($my->id && $row->id==$my->id){
           $owner=1;
-?>
-
-<?
           $editable=' editable';
           $edit_info_link=sefRelToAbs('index.php?option=com_user&task=UserDetails&Itemid=17');
           $avatar_pic='<img class="avatar" src="'.$mosConfig_live_site.mosUser::avatar($row->id,'big').'" />';

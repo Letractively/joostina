@@ -89,7 +89,7 @@ function logoutForm($params_aray){
 		$name = $my->username;
 	}
 
-    $user_link = 'index.php?option=com_user&amp;task=UserDetails&amp;user='.$my->id;
+    $user_link = 'index.php?option=com_user&amp;task=profile&amp;user='.$my->id;
     $user_seflink = sefRelToAbs($user_link);
     $profile_link="";
 	if ($params_aray['profile_link']==0) {

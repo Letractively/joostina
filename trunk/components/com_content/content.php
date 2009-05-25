@@ -198,43 +198,43 @@ function showUserItems() {
 
     if($user_items){
 
-    //Постраничная навигация
-	if ($user_items->total <= $limit) $limitstart = 0;
-	require_once( $GLOBALS['mosConfig_absolute_path'] . '/includes/pageNavigation.php' );
-	$pageNav = new mosPageNav($user_items->total, $limitstart, $limit);
+        //Постраничная навигация
+    	if ($user_items->total <= $limit) $limitstart = 0;
+    	require_once( $GLOBALS['mosConfig_absolute_path'] . '/includes/pageNavigation.php' );
+    	$pageNav = new mosPageNav($user_items->total, $limitstart, $limit);
 
-	$check = 0;
-	if ( $params->get( 'date' ) ) {
-		$order[] = mosHTML::makeOption( 'date', _ORDER_DROPDOWN_DA );
-		$order[] = mosHTML::makeOption( 'rdate', _ORDER_DROPDOWN_DD );
-		$check .= 1;
-	}
-	if ( $params->get( 'title' ) ) {
-		$order[] = mosHTML::makeOption( 'alpha', _ORDER_DROPDOWN_TA );
-		$order[] = mosHTML::makeOption( 'ralpha', _ORDER_DROPDOWN_TD );
-		$check .= 1;
-	}
-	if ( $params->get( 'hits' ) ) {
-		$order[] = mosHTML::makeOption( 'hits', _ORDER_DROPDOWN_HA );
-		$order[] = mosHTML::makeOption( 'rhits', _ORDER_DROPDOWN_HD );
-		$check .= 1;
-	}
-	if ( $params->get( 'section' ) ) {
-		$order[] = mosHTML::makeOption( 'section', 'Раздел / Категория по возрастанию' );
-		$order[] = mosHTML::makeOption( 'rsection',  'Раздел / Категория по убыванию' );
-		$check .= 1;
-	}
-	$order[] = mosHTML::makeOption( 'order', _ORDER_DROPDOWN_O );
-	$lists['order'] = mosHTML::selectList( $order, 'order', 'class="inputbox" size="1" onchange="document.adminForm.submit();"', 'value', 'text', $selected );
-	if ( $check < 1 ) {
-		$lists['order'] = '';
-		$params->set( 'order_select', 0 );
-	}
+    	$check = 0;
+    	if ( $params->get( 'date' ) ) {
+    		$order[] = mosHTML::makeOption( 'date', _ORDER_DROPDOWN_DA );
+    		$order[] = mosHTML::makeOption( 'rdate', _ORDER_DROPDOWN_DD );
+    		$check .= 1;
+    	}
+    	if ( $params->get( 'title' ) ) {
+    		$order[] = mosHTML::makeOption( 'alpha', _ORDER_DROPDOWN_TA );
+    		$order[] = mosHTML::makeOption( 'ralpha', _ORDER_DROPDOWN_TD );
+    		$check .= 1;
+    	}
+    	if ( $params->get( 'hits' ) ) {
+    		$order[] = mosHTML::makeOption( 'hits', _ORDER_DROPDOWN_HA );
+    		$order[] = mosHTML::makeOption( 'rhits', _ORDER_DROPDOWN_HD );
+    		$check .= 1;
+    	}
+    	if ( $params->get( 'section' ) ) {
+    		$order[] = mosHTML::makeOption( 'section', 'Раздел / Категория по возрастанию' );
+    		$order[] = mosHTML::makeOption( 'rsection',  'Раздел / Категория по убыванию' );
+    		$check .= 1;
+    	}
+    	$order[] = mosHTML::makeOption( 'order', _ORDER_DROPDOWN_O );
+    	$lists['order'] = mosHTML::selectList( $order, 'order', 'class="inputbox" size="1" onchange="document.adminForm.submit();"', 'value', 'text', $selected );
+    	if ( $check < 1 ) {
+    		$lists['order'] = '';
+    		$params->set( 'order_select', 0 );
+    	}
 
-	$lists['task'] = 'category';
-	$lists['filter'] = $filter;
-	$lists['limit'] = $limit;
-	$lists['limitstart'] = $limitstart;
+    	$lists['task'] = 'category';
+    	$lists['filter'] = $filter;
+    	$lists['limit'] = $limit;
+    	$lists['limitstart'] = $limitstart;
 
     }
 
@@ -249,7 +249,7 @@ function showUserItems() {
 
 
 	HTML_content::showUserContent( $user_items, $access, $params, $pageNav, $lists, $selected );
-} // showCategory
+}
 
 /**
 * Searches for an item by a key parameter

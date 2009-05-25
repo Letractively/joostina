@@ -86,6 +86,7 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
         <!--Таблица с записями :BEGIN-->
         <table width="100%" border="0" cellspacing="0" cellpadding="0">
             <!--Заголовок таблицы-->
+            <?php if ( $params->get( 'headings' ) ) { ?>
 			<tr>
 				<th class="sectiontableheader">&nbsp;</th>
 				<th class="sectiontableheader" width="60%"><?php echo _HEADER_TITLE;?></th>
@@ -93,7 +94,7 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
 				<th class="sectiontableheader" width="20%"><?php echo _DATE;?></th>
 				<th class="sectiontableheader"><?php echo _HEADER_HITS;?></th>
 			</tr>
-
+            <?php } ?>
        <?php
 
        //foreach:begin
