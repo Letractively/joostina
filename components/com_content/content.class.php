@@ -10,7 +10,7 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 global $mosConfig_absolute_path;
-require_once($mosConfig_absolute_path.'/includes/libraries/database/config/jstconfig.class.php');
+require_once($mosConfig_absolute_path.'/includes/libraries/dbconfig/dbconfig.php');
 
 /**
 * Category database table class
@@ -674,7 +674,7 @@ class mosContent extends mosDBTable {
 
     }
 
-    class jstContentUserpageConfig extends jstConfig{
+    class jstContentUserpageConfig extends dbConfig{
 
     	/**
     	 * Заголовок страницы
@@ -719,7 +719,7 @@ class mosContent extends mosDBTable {
 
 
         function jstContentUserpageConfig(&$db, $group = 'com_content', $subgroup = 'user_page') {
-            $this->jstConfig($db, $group, $subgroup);
+            $this->dbConfig($db, $group, $subgroup);
         }
 
     }
