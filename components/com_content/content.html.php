@@ -425,7 +425,7 @@ class HTML_content {
 			return;
 		}
 		mosCommonHTML::loadOverlib();
-		$link = 'index.php?option=com_content&amp;task=edit&amp;id='.$row->id.$row->Itemid_link.'&amp;Returnid='.$row->_Itemid;
+		$link = 'index.php?option=com_content&amp;task=edit&amp;id='.$row->id;
 		$image = mosAdminMenus::ImageCheck('edit.png','/images/M_images/',null,null,_E_EDIT,_E_EDIT);
 		if($row->state == 0) {
 			$overlib = _CMN_UNPUBLISHED;
