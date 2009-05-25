@@ -1,6 +1,22 @@
 <?php
 defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.' );
 ?>
+
+<?php if(!$user_items){
+    //Случай, если пользователь не найден
+    ?>
+     <div class="page_user_items<?php echo $params->get( 'pageclass_sfx' ); ?>">
+        <?php if($params->get( 'title')) { ?>
+            <div class="componentheading"><h1><?php echo $params->title; ?></h1></div>
+        <?php }?>
+        <div class="error">
+            Извините, пользователь не найден
+        </div>
+     </div>
+    <?php
+    return;
+}?>
+
     <?php mosCommonHTML::loadFullajax();?>
 	<script type="text/javascript">
 		// смена статуса публикации, elID - идентификатор объекта у которого меняется статус публикации

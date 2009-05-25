@@ -20,8 +20,15 @@ class HTML_content {
 	* Draws a Content List
 	* Used by Content Category & Content Section
 	*/
-	function showUserContent( &$items, &$access, &$params, &$pageNav, &$lists, $order ) {
+	function showUserContent( $user_items, &$access, &$params, &$pageNav=null, &$lists=null, $order=null ) {
 		global $Itemid, $database, $mosConfig_absolute_path, $mosConfig_live_site, $Itemid,$mosConfig_form_date_full;
+
+        if(!$user_items){
+             include_once($mosConfig_absolute_path.'/components/com_content/view/user/items/default.php');
+             return;
+        }
+
+        $items = $user_items->items;
 
         $user_id = intval(mosGetParam($_REQUEST,'user',0));
         $k = 0;

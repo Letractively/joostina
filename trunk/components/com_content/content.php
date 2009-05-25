@@ -182,14 +182,26 @@ function showUserItems() {
 
     $user_items = new mosContent($database);
     //Получаем количество записей пользователя
-    $total = $user_items->load_count_user_items($user_id, $and);
+    $user_items->total = $user_items->load_count_user_items($user_id, $and);
     //Получаем все записи пользователя
-    $items = $user_items->load_user_items($user_id, $limitstart, $limit, $orderby, $and);
+    $user_items->items = $user_items->load_user_items($user_id, $limitstart, $limit, $orderby, $and);
+
+    if(!$user_items->items){
+        $user = new mosUser($database);
+        if($user->load($user_id)){
+            $user_items->user = $user;
+        }
+        else{
+            $user_items = null;
+        }
+    }
+
+    if($user_items){
 
     //Постраничная навигация
-	if ($total <= $limit) $limitstart = 0;
+	if ($user_items->total <= $limit) $limitstart = 0;
 	require_once( $GLOBALS['mosConfig_absolute_path'] . '/includes/pageNavigation.php' );
-	$pageNav = new mosPageNav( $total, $limitstart, $limit );
+	$pageNav = new mosPageNav($user_items->total, $limitstart, $limit);
 
 	$check = 0;
 	if ( $params->get( 'date' ) ) {
@@ -224,6 +236,7 @@ function showUserItems() {
 	$lists['limit'] = $limit;
 	$lists['limitstart'] = $limitstart;
 
+    }
 
     $pagetitle = '';
 	if ( $Itemid ) {
@@ -235,7 +248,7 @@ function showUserItems() {
 	$mainframe->SetPageTitle( $pagetitle );
 
 
-	HTML_content::showUserContent( $items, $access, $params, $pageNav, $lists, $selected );
+	HTML_content::showUserContent( $user_items, $access, $params, $pageNav, $lists, $selected );
 } // showCategory
 
 /**
