@@ -293,6 +293,31 @@ class mosUser extends mosDBTable {
     }
 }
 
+class jstUsersExtra extends mosDBTable{
+
+  	 var $user_id = null;
+	 var $gender = null;
+	 var $about = null;
+	 var $location = null;
+	 var $url = null;
+	 var $icq = null;
+	 var $skype = null;
+	 var $jabber = null;
+	 var $msn = null;
+	 var $yahoo = null;
+	 var $phone = null;
+	 var $fax = null;
+	 var $mobil = null;
+     var $birthdate = null;
+
+	/**
+	* @param database A database connector object
+	*/
+	function jstUsersExtra(&$db) {
+		$this->mosDBTable('#__users_extra','user_id',$db);
+	}
+}
+
 /**
 * Session database table class
 * @package Joostina

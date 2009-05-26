@@ -1,0 +1,49 @@
+/* Модуль авторизации  */
+#log_in {
+	background: url(../images/log_in.png) no-repeat top left;
+	clear: both;
+	cursor: pointer;
+	font-size: 22px;
+	height: 51px;
+	line-height: 50px;
+	margin: 0 0 0 10px;
+	padding: 0 0 0 10px;
+	text-align: center;
+	width: 120px;
+}
+#box1 {
+	position: absolute;
+}
+.loginform_area {
+	background-color: white;
+	border: 9px solid #5d5d5d;
+	display: none;
+	margin: 15px 0 0 0;
+	margin-right: -90px;
+	padding: 8px;
+	position: absolute;
+	right: 10px;
+	top: 0;
+	width: 400px;
+	z-index: 3000;
+}
+.closewin {
+	background: url(../images/cross.png) no-repeat center #FFF;
+	cursor: pointer;
+	display: block;
+	height: 20px;
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	right: 15px;
+	top: 0;
+	width: 20px;
+	z-index: 4000;
+}
+.loginform_area_inside {
+	background-color: white;
+	border: 6px solid #cacaca;
+	clear: both;
+	padding: 15px;
+	text-align: left;
+}

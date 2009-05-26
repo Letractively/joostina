@@ -26,50 +26,47 @@ class HTML_user {
 <?php
 	}
 
-function profile($row,$option, &$params){
+function profile($user,$option, &$params){
       	global $mosConfig_absolute_path,$mosConfig_frontend_userparams,$mosConfig_live_site, $my, $database;
         	mosCommonHTML::loadFullajax();
 
-        $user_info = $params->get( 'user_info', '' );
-        $user_interes = $params->get( 'user_interes', '' );
-
         $owner=0;  $admin = 0;
         if($my->user_type = 'Super Administrator'){
-             $admin = 1; 
+             $admin = 1;
         }
-        if($my->id && $row->id==$my->id){
+        if($my->id && $user->id==$my->id){
           $owner=1;
           $editable=' editable';
           $edit_info_link=sefRelToAbs('index.php?option=com_user&task=UserDetails&Itemid=17');
-          $avatar_pic='<img class="avatar" src="'.$mosConfig_live_site.mosUser::avatar($row->id,'big').'" />';
+          $avatar_pic='<img class="avatar" src="'.$mosConfig_live_site.mosUser::avatar($user->id,'big').'" />';
         }
 
         else{
           $editable='';
-          $avatar_pic=' <img class="avatar" src="'.$mosConfig_live_site.mosUser::avatar($row->id, 'big').'" /> ';
+          $avatar_pic=' <img class="avatar" src="'.$mosConfig_live_site.mosUser::avatar($user->id, 'big').'" /> ';
           $avatar_edit='';
         }
 
-        $user_id= $row->id;
+        $user_id= $user->id;
 
         //Переменные для шаблона
-        $user_real_name = $row->name;
-        $user_nickname = $row->username;
+        $user_real_name = $user->name;
+        $user_nickname = $user->username;
 
-        $user_status = $row->get_user_status($row->id);
+        $user_status = $user->get_user_status($user->id);
         if($user_status){
-            $user_status='<span class="online"><img  src="'.$mosConfig_live_site.'/images/system_images/online.png" /> на сайте</span>';
+            $user_status='<span class="online">на сайте</span>';
             }
         else {
-             $user_status='<span class="offline"><img  src="'.$mosConfig_live_site.'/images/system_images/ofline.png" /> отсутствует</span>';
+             $user_status='<span class="offline">отсутствует</span>';
         }
 
-        $registerDate = mosFormatDate($row->registerDate);
-        $lastvisitDate = mosFormatDate($row->lastvisitDate);
+        $registerDate = mosFormatDate($user->registerDate);
+        $lastvisitDate = mosFormatDate($user->lastvisitDate);
 
         $user_content_href=sefRelToAbs('index.php?option=com_content&task=mycontent&user='.$user_id.'&Itemid=28');
 
-        switch($row->usertype){
+        switch($user->usertype){
           case 'Registered':
           default:
             $template_file='registered_profile.php';
@@ -88,6 +85,10 @@ function profile($row,$option, &$params){
             break;
         }
 
+        if(!is_file($mosConfig_absolute_path.'/components/com_user/view/profile/'.$template_file)){
+            $template_file='default.php';
+        }
+
         //Определяем плагин
         $view=mosGetParam( $_REQUEST, 'view', '' );
         if($view){
@@ -103,155 +104,28 @@ function profile($row,$option, &$params){
             $plugin_page =  $mosConfig_absolute_path.'/components/com_user/plugins/user_info.php';
         }
 
-        include ($mosConfig_absolute_path.'/components/com_user/tpl/'.$template_file);
+        include ($mosConfig_absolute_path.'/components/com_user/view/profile/'.$template_file);
     }
 
-	function userEdit($row,$option,$submitvalue,&$params) {
+	function userEdit($user,$option,$submitvalue,&$params) {
 		global $mosConfig_absolute_path,$mosConfig_frontend_userparams,$mosConfig_live_site;
 		require_once ($mosConfig_absolute_path.'/includes/HTML_toolbar.php');
 		// used for spoof hardening
 		$validate = josSpoofValue();
-
 		mosCommonHTML::loadFullajax();
-
-		$tabs = new mosTabs(1);
+        $tabs = new mosTabs(1);
 		mosCommonHTML::loadOverlib();
-?>
-		<script language="javascript" type="text/javascript">
-		function submitbutton( pressbutton ) {
-			var form = document.mosUserForm;
-			var r = new RegExp("[\<|\>|\"|\'|\%|\;|\(|\)|\&|\+|\-]", "i");
 
-			if (pressbutton == 'cancel') {
-				form.task.value = 'cancel';
-				form.submit();
-				return;
-			}
+        $user_extra = $user->user_extra;
+        $bday_date = mosFormatDate($user_extra->birthdate, '%d', '0') ;
+        $bday_month = mosFormatDate($user_extra->birthdate, '%m', '0') ;
+        $bday_year = mosFormatDate($user_extra->birthdate, '%Y', '0') ;
 
-			// do field validation
-			if (form.name.value == "") {
-				alert( "<?php echo addslashes(_REGWARN_NAME); ?>" );
-			} else if (form.username.value == "") {
-				alert( "<?php echo addslashes(_REGWARN_UNAME); ?>" );
-			} else if (r.exec(form.username.value) || form.username.value.length < 3) {
-				alert( "<?php printf(addslashes(_VALID_AZ09),addslashes(_PROMPT_UNAME),4); ?>" );
-			} else if (form.email.value == "") {
-				alert( "<?php echo addslashes(_REGWARN_MAIL); ?>" );
-			} else if ((form.password.value != "") && (form.password.value != form.verifyPass.value)){
-				alert( "<?php echo addslashes(_REGWARN_VPASS2); ?>" );
-			} else if (r.exec(form.password.value)) {
-				alert( "<?php printf(addslashes(_VALID_AZ09),addslashes(_REGISTER_PASS),4); ?>" );
-			} else {
-				form.submit();
-			}
-		}
-		function startupload() {
-			SRAX.get('userav').src = 'images/system/aload.gif';
-			return true;
-		};
-		function funishupload(text) {
-			log(text);
-			if(text!='0'){
-				log('Всё ок!');
-				log(text);
-				SRAX.get('userav').src = text;
-			}
-			SRAX.get('mosUserForm').action='index.php';
-			SRAX.get('mosUserForm').target='';
-			SRAX.get('task').value='saveUserEdit';
-			SRAX.get('mosUserForm').reset();
-			return true;
-		};
-		function addavatar(){
-			SRAX.get('mosUserForm').action='ajax.index.php';
-			log(SRAX.get('mosUserForm').action);
-			SRAX.get('task').value='uploadavatar';
-			SRAX.Uploader('mosUserForm', startupload, funishupload, true);
-			return false;
-		}
-		function delavatar(){
-			log('Удаление аватара: ');
-			SRAX.get('userav').src = 'images/system/aload.gif';
-			dax({
-				url: 'ajax.index.php?option=com_user&utf=0&task=delavatar',
-				callback:
-					function(resp, idTread, status, ops){
-						log('Получен ответ: ' + resp.responseText);
-						SRAX.get('userav').src = resp.responseText;
-			}});
-		}
-		</script>
-	<form action="index.php" method="post" name="mosUserForm" id="mosUserForm" enctype="multipart/form-data">
-	<div style="float: right;height: 100%;">
-<?php
-		mosToolBar::startTable();
-		mosToolBar::spacer();
-		mosToolBar::save();
-		mosToolBar::cancel();
-		mosToolBar::endtable();
-?>
-	</div>
-	<div class="componentheading"><?php echo _EDIT_TITLE; ?></div>
-<?php
-	$tabs->startPane("userInfo");
-	$tabs->startTab(_GENERAL,"main-page");
-?>
-<table width="100%" id="table_userprofile">
-	<tr>
-		<td id="user_avatar">
-			<div><img id="userav" src="<?php echo $mosConfig_live_site.mosUser::avatar($row->id,'big');?>" /></div>
-			<br />
-			<input class="inputbox" type="file" name="avatar" id="fileavatar" /><br /><br />
-			<button class="inputbox" onclick="addavatar(); return false;"><?php echo _TASK_UPLOAD?></button>
-			<button class="inputbox" onclick="delavatar(); return false;"><?php echo _CMN_DELETE?></button>
-		</td>
-		<td valign="top">
-			<table cellpadding="5" width="100%">
-				<tr>
-					<td><input class="inputbox" type="text" name="username" id="username" value="<?php echo $row->username; ?>" size="50" /></td>
-					<td><label for="username"><?php echo _UNAME; ?></label></td>
-				</tr>
-				<tr>
-					<td><input class="inputbox" type="text" name="name" id="name" value="<?php echo $row->name; ?>" size="50" /></td>
-					<td><label for="name"><?php echo _YOUR_NAME; ?></label></td>
-				</tr>
-				<tr>
-					<td><input class="inputbox" type="text" name="email" id="email" value="<?php echo $row->email; ?>" size="50" /></td>
-					<td><label for="email"><?php echo _EMAIL; ?></label></td>
-				</tr>
-				<tr>
-					<td><input class="inputbox" type="password" name="password" id="password" value="" size="50" /></td>
-					<td><label for="password"><?php echo _PASS; ?></label></td>
-				</tr>
-				<tr>
-					<td><input class="inputbox" type="password" name="verifyPass" id="verifyPass" size="50" /></td>
-					<td><label for="verifyPass"><?php echo _VPASS; ?></label></td>
-				</tr>
-			</table>
-		</td>
-	</tr>
-</table>
-<?php
-	$tabs->endTab();
-	if($mosConfig_frontend_userparams == '1' || $mosConfig_frontend_userparams == 1 ||$mosConfig_frontend_userparams == null) {
-	$tabs->startTab(_ADVANCED,"ext-page");
-?>
-	<table cellpadding="5" cellspacing="0" border="0" width="100%">
-		<tr>
-			<td colspan="2"><?php echo $params->render('params'); ?></td>
-		</tr>
-	</table>
-<?php
-		}
-	$tabs->endTab();
-?>
-	<input type="hidden" name="id" value="<?php echo $row->id; ?>" />
-	<input type="hidden" name="option" value="<?php echo $option; ?>" />
-	<input type="hidden" name="task" id="task" value="saveUserEdit" />
-	<input type="hidden" name="<?php echo $validate; ?>" value="1" />
-	</form>
-<?php
-	$tabs->endPane();
+        define('_MALE', 'Мужской');
+        define('_FEMALE', 'Женский');
+
+        include ($mosConfig_absolute_path.'/components/com_user/view/edit/default.php');
+
 	}
 
 	function confirmation() {
@@ -263,6 +137,6 @@ function profile($row,$option, &$params){
 		</tr>
 	</table>
 <?php
-	}
+ }
 }
 ?>

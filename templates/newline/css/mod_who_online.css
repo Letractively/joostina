@@ -1,0 +1,31 @@
+/* Модуль "Пользователи on-line" */
+.mod_who_online_info {
+	background: url(../images/user_small.png) no-repeat top left;
+	padding: 4px 0 0 32px;
+}
+.mod_who_online span {
+	color: #D43014;
+	font-size: 16px;
+	font-weight: bold;
+}
+ul.users_online {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+/* Модуль "Пользователи on-line" - горизонтальный вывод*/
+ul.users_online li {
+	background: #F3F4EE;
+	border: 1px solid #E6E9D4;
+	display: inline;
+	height: 43px;
+	line-height: 40px;
+	list-style: none;
+	margin: 0 10px 0 2px;
+	overflow: hidden;
+	padding: 2px 1px 3px 2px;
+}
+ul.users_online li a img {
+	padding: 0 5px 0 0;
+	vertical-align: middle;
+}

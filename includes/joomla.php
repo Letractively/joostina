@@ -2198,6 +2198,37 @@ class mosHTML {
 			mosHTML::makeOption('12',_DEC));
 		return mosHTML::selectList($arr,$tag_name,$tag_attribs,'value','text',$selected);
 	}
+
+	function daySelectList($tag_name,$tag_attribs,$selected) {
+        $arr = array();
+
+        for($i = 1; $i <= 31; $i++){
+            $pref = '';
+            if($i <= 9){
+                $pref = '0';
+            }
+            $arr[] = mosHTML::makeOption($pref.$i,$pref.$i);
+        }
+
+	   	return mosHTML::selectList($arr,$tag_name,$tag_attribs,'value','text',$selected);
+	}
+
+	function yearSelectList($tag_name,$tag_attribs,$selected, $min=1930, $max=2009) {
+        $arr = array();
+        for($i = $min; $i <= $max; $i++){
+            $arr[] = mosHTML::makeOption($i,$i);
+        }
+	   	return mosHTML::selectList($arr,$tag_name,$tag_attribs,'value','text',$selected);
+	}
+
+	function genderSelectList($tag_name,$tag_attribs,$selected) {
+		$arr = array(
+			mosHTML::makeOption('male',_MALE),
+			mosHTML::makeOption('female',_FEMALE));
+		return mosHTML::selectList($arr,$tag_name,$tag_attribs,'value','text',$selected);
+	}
+
+
 	/**
 	* Generates an HTML select list from a tree based query list
 	* @param array Source array with id and parent fields
@@ -3167,7 +3198,7 @@ function mosMenuCheck($Itemid,$menu_option,$task,$gid) {
 * @returns formated date
 */
 function mosFormatDate($date,$format = "",$offset = null) {
-	
+
 	if ($date == '0000-00-00 00:00:00') return ' — ';//database::$_nullDate - при ошибках парсера
 
 	if($format == '') {
