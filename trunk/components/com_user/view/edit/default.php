@@ -140,7 +140,7 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
                     <td><label>Дата рождения</label></td>
 					<td>
                         <?php echo mosHTML::daySelectList('birthdate[day]','class="inputbox"', $bday_month);?>
-                        <?php echo mosHTML::monthSelectList('birthdate[month]','class="inputbox"', $bday_month);?>
+                        <?php echo mosHTML::monthSelectList('birthdate[month]','class="inputbox"', $bday_month,1);?>
                         <?php echo mosHTML::yearSelectList('birthdate[year]','class="inputbox"', $bday_year);?>
                     </td>
 				</tr>

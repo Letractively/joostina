@@ -47,7 +47,7 @@ class mosPageNav {
 		$limits[] = mosHTML::makeOption('50');
 		$limits[] = mosHTML::makeOption('100');
 		$limits[] = mosHTML::makeOption('150');
-		$limits[] = mosHTML::makeOption('5000','-Все-');
+		$limits[] = mosHTML::makeOption('5000',_PN_ALL);
 		// build the html select list
 		$html = mosHTML::selectList($limits,'limit','class="inputbox" size="1" onchange="document.adminForm.submit();"','value','text',$this->limit);
 		$html .= "\n<input type=\"hidden\" name=\"limitstart\" value=\"$this->limitstart\" />";
@@ -152,14 +152,9 @@ class mosPageNav {
 	* @param string The alt text for the icon
 	* @return string
 	*/
-	function orderUpIcon($i,$condition = true,$task = 'orderup',$alt =
-		'Передвинуть выше') {
+	function orderUpIcon($i,$condition = true,$task = 'orderup',$alt = _PN_MOVE_TOP) {
 		if(($i > 0 || ($i + $this->limitstart > 0)) && $condition) {
-			return '<a href="#reorder" onClick="return listItemTask(\'cb'.$i.'\',\''.$task.
-				'\')" title="'.$alt.'">
-				<img src="images/uparrow.png" width="12" height="12" border="0" alt="'.$alt.
-				'" />
-			</a>';
+			return '<a href="#reorder" onClick="return listItemTask(\'cb'.$i.'\',\''.$task.'\')" title="'.$alt.'"><img src="images/uparrow.png" width="12" height="12" border="0" alt="'.$alt.'" /></a>';
 		} else {
 			return '&nbsp;';
 		}
@@ -171,14 +166,9 @@ class mosPageNav {
 	* @param string The alt text for the icon
 	* @return string
 	*/
-	function orderDownIcon($i,$n,$condition = true,$task = 'orderdown',$alt =
-		'Передвинуть ниже') {
+	function orderDownIcon($i,$n,$condition = true,$task = 'orderdown',$alt =_PN_MOVE_DOWN) {
 		if(($i < $n - 1 || $i + $this->limitstart < $this->total - 1) && $condition) {
-			return '<a href="#reorder" onClick="return listItemTask(\'cb'.$i.'\',\''.$task.
-				'\')" title="'.$alt.'">
-				<img src="images/downarrow.png" width="12" height="12" border="0" alt="'.$alt.
-				'" />
-			</a>';
+			return '<a href="#reorder" onClick="return listItemTask(\'cb'.$i.'\',\''.$task.'\')" title="'.$alt.'"><img src="images/downarrow.png" width="12" height="12" border="0" alt="'.$alt.'" /></a>';
 		} else {
 			return '&nbsp;';
 		}

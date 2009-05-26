@@ -62,6 +62,7 @@ if(isset($_POST['submit'])) {
 	$usrname	= stripslashes(mosGetParam($_POST,'usrname',null));
 	$pass		= stripslashes(mosGetParam($_POST,'pass',null));
 
+	session_name(md5($mosConfig_live_site));
 	session_start();
 
 	if($pass == null) {

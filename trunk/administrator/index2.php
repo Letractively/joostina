@@ -15,12 +15,13 @@ if(!file_exists('../configuration.php')) {
 	exit();
 }
 
-require ('../includes/globals.php');
-require_once ('../configuration.php');
+// корень админки
+$root = dirname(dirname(__FILE__));
+define('ADMIТ_ROOT',$root);
 
-// отключаем кэширование запросов базы данных для панели управления
-$mosConfig_db_cache_handler_orig = $mosConfig_db_cache_handler;
-$mosConfig_db_cache_handler = 'none';
+require_once (ADMIТ_ROOT.DIRECTORY_SEPARATOR.'includes'.DIRECTORY_SEPARATOR.'globals.php');
+require_once (ADMIТ_ROOT.DIRECTORY_SEPARATOR.'configuration.php');
+
 
 // SSL проверка  - $http_host returns <live site url>:<port number if it is 443>
 $http_host = explode(':',$_SERVER['HTTP_HOST']);
@@ -28,15 +29,16 @@ if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset
 	$mosConfig_live_site = 'https://' . substr($mosConfig_live_site,7);
 }
 
-require_once ($mosConfig_absolute_path . '/includes/joomla.php');
-include_once ($mosConfig_absolute_path . '/language/' . $mosConfig_lang . '.php');
-require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/includes/admin.php');
+require_once ($mosConfig_absolute_path .DIRECTORY_SEPARATOR. 'includes'.DIRECTORY_SEPARATOR.'joomla.php');
+include_once ($mosConfig_absolute_path .DS.'language' .DS. $mosConfig_lang . '.php');
+require_once ($mosConfig_absolute_path.DS.ADMINISTRATOR_DIRECTORY.DS.'includes'.DS.'admin.php');
 
 $database = database::getInstance();
 
 // работа с сессиями начинается до создания главного объекта взаимодействия с ядром
 session_name(md5($mosConfig_live_site));
 session_start();
+
 
 // получение основных параметров
 $option		= strval(strtolower(mosGetParam($_REQUEST,'option','')));
@@ -51,6 +53,7 @@ $mainframe = mosMainFrame::getInstance(true);
 
 // запуск сессий панели управления
 $my = $mainframe->initSessionAdmin($option,$task);
+
 // получаем название шаблона для панели управления
 $cur_template = $mainframe->getTemplate();
 // установка параметра overlib

@@ -2254,6 +2254,9 @@ DEFINE('_ALL_CATEGORIES', '-все категории-');
 
 /** pageNavigation*/
 DEFINE('_PN_ALL','-Все-');
+DEFINE('_PN_MOVE_TOP','Передвинуть выше');
+DEFINE('_PN_MOVE_DOWN','Передвинуть ниже');
+
 
 /* com_admin */
 DEFINE('_CACHE_CLEAR_ALL','Весь кэш очищен');
@@ -2263,5 +2266,20 @@ DEFINE('_CACHE_CLEAR_CONTENT','Кэш содержимого очищен');
 DEFINE('_COM_CATEGORIES_SAVE_MOD','Изменения в категории сохранены');
 DEFINE('_COM_CATEGORIES_SAVED','Категория сохранена');
 DEFINE('_COM_CATEGORIES_SAVED_2','- сохранено');
+
+/* даты со склонением */
+DEFINE('_JAN_2','Января');
+DEFINE('_FEB_2','Февраля');
+DEFINE('_MAR_2','Марта');
+DEFINE('_APR_2','Апреля');
+DEFINE('_MAY_2','Мая');
+DEFINE('_JUN_2','Июня');
+DEFINE('_JUL_2','Июля');
+DEFINE('_AUG_2','Августа');
+DEFINE('_SEP_2','Сентября');
+DEFINE('_OCT_2','Октября');
+DEFINE('_NOV_2','Ноября');
+DEFINE('_DEC_2','Декабря');
+
 
 ?>

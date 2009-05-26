@@ -1,31 +1,23 @@
 <?php
 defined('_VALID_MOS') or die();
-$iso = explode('=',_ISO); 
-echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>';
+$iso = explode('=',_ISO);
+echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'."\n";
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo $iso[1];?>" />
-<?php mosCommonHTML::loadJquery(1) ;?> 
 <?php
-	mosShowHead();
+	// загружаемверхнюю часть страницы со всеми js и css файлами, и обязательным использованием jquery
+	mosShowHead(array('js'=>1,'css'=>1,'jquery'=>1));
 	global $task,$my,$mosConfig_live_site, $mosConfig_mailfrom;
 	if ($my->id && $mainframe->allow_wysiwyg) { initEditor(); }
 	$block1_count = (mosCountModules('user1')>0) + (mosCountModules('user2')>0) + (mosCountModules('user3')>0);
 	$block2_count = (mosCountModules('user4')>0) + (mosCountModules('user5')>0) + (mosCountModules('user6')>0);
 	$block3_count = (mosCountModules('user7')>0) + (mosCountModules('user8')>0) + (mosCountModules('user9')>0);
 ?>
+
 <link href="<?php echo $mosConfig_live_site;?>/templates/<?php echo $mainframe->getTemplate(); ?>/css/template_css.css" rel="stylesheet" type="text/css" />
-
-
-<script type="text/javascript" src="<?php echo $mosConfig_live_site;?>/includes/js/jquery/plugins/corner.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-	$('div.moduletable-round').corner();
-	$('div.block2 h3').corner();
-});
-</script>
 <!--[if lte IE 6]>
 <link href="<?php echo $mosConfig_live_site; ?>/templates/<?php echo $mainframe->getTemplate(); ?>/css/ieonly.css" rel="stylesheet" type="text/css" />
 <![endif]-->
@@ -158,7 +150,22 @@ $(document).ready(function(){
         </div>
     <!--footer:end-->
     </div>
+<?php
+// подключаем плагин Jquery
+mosCommonHTML::loadJqueryPlugins('corner');
 
+// выводим футер только с js - скриптам без перехвата обработчиков шапки
+mosShowFooter(array('js'=>1,'fromheader'=>1));
+
+
+?>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$('div.moduletable-round').corner();
+	$('div.block2 h3').corner();
+});
+</script>
 <!--body:end-->
 </body>
 </html>
