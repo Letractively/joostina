@@ -7,7 +7,7 @@ require_once ($mosConfig_absolute_path.'/components/com_content/content.html.php
 $k = 0;
 
 $user_items = new mosContent($database);
-$user_items = $user_items->load_user_items($row->id, 0, 10);
+$user_items = $user_items->load_user_items($user->id, 0, 10);
 
 $access = new jstContentAccess();
 

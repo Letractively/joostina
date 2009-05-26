@@ -3,6 +3,7 @@
     background: #EAECDE;
     padding:10px;
     overflow:hidden;
+    margin: 22px 0 0 0;
 }
 .jstProfile_menu ul,
 .jstProfile_menu ul li{
@@ -30,3 +31,25 @@
 {
 background: #4B8EC2;
 }
+
+.jstProfile_info{
+    overflow: hidden;
+    margin: 0 0 10px 0;
+}
+
+
+.jstProfile_info .avatar{
+    float: left;
+    margin: 0 20px 0 0;
+}
+
+.last_visite{
+    display: block;
+}
+
+.plugins_area{
+    padding: 0 0 0 15px;
+}
+
+
+

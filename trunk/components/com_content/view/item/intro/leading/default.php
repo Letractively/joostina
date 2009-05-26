@@ -4,29 +4,37 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
 
 		<?php if($params->get('item_title')) { ?>
 
-            <div <?php echo $news_uid_css_title; ?>class="item_title">
-                <div class="contentheading">
+                <div <?php echo $news_uid_css_title; ?> class="contentheading">
                     <?php echo $row->title;?>
                 </div>
-            </div>
+
 
         <?php } $loadbot_onAfterDisplayTitle; $loadbot_onBeforeDisplayContent; ?>
 
 
+        <?php if($params->get('createdate',0)) { ?>
+            <span class="date"><?php echo $create_date; ?></span>
+        <?php  }?>
+
+        <?php if($params->get('author',0)) { ?>
+            <span class="author"><?php echo $author;?></span>
+        <?php  }?>
+
+        <?php if($params->get('section') || $params->get('category')){ ?>
+        <div class="section_cat">
+            	<?php if($params->get('section')){ ?>
+                <span class="section_name"><?php echo $row->section;?></span>
+                <?php  }?>
+
+                <?php if($params->get('category')){ ?>
+                <span class="cat_name">&rarr; <?php echo $row->category;?></span>
+                <?php  }?>
+        </div>
+        <?php  }?>
+
         <div class="buttons_wrap">
             <table width="100%" cellpadding="0" cellspacing="0">
                 <tr>
-                    <td>
-
-                    <?php if($params->get('createdate',0)) { ?>
-                        <span><?php echo _E_START_PUB.$create_date; ?></span>
-                    <?php  }?>
-
-                    <?php if($params->get('author',0)) { ?>
-                        <span><?php echo $author;?></span>
-                    <?php  }?>
-
-                    </td>
 
                     <td width="60" align="right">
                         <div class="icons_c">
@@ -48,17 +56,6 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
 
 	 <div <?php echo $news_uid_css_body; ?>class="item_body">
 
-     <?php if($params->get('section') || $params->get('category')){ ?>
-        <div class="section_cat">
-            	<?php if($params->get('section')){ ?>
-                <span class="section_name"><?php echo $row->section;?></span>
-                <?php  }?>
-
-                <?php if($params->get('category')){ ?>
-                <span class="cat_name"><?php echo $row->category;?></span>
-                <?php  }?>
-        </div>
-     <?php  }?>
 
 	    <?php if($params->get('url') && $row->urls) { ?>
             <div class="blog_urls">

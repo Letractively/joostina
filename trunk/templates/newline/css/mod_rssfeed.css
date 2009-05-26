@@ -1,0 +1,15 @@
+/* Syndicate  */
+.syndicate {
+	float: left;
+	overflow: hidden;
+}
+.syndicate a.RSS20, .syndicate a.Yandex, .syndicate a.RSS091, .syndicate a.RSS10, .syndicate a.ATOM03, .syndicate a.OPML {
+	background: url(../images/rss_small.png) no-repeat top left;
+	display: block;
+	float: left;
+	height: 30px;
+	width: 36px;
+}
+.syndicate img {
+	display: none;
+}

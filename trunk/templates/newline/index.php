@@ -7,6 +7,7 @@ echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>';
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo $iso[1];?>" />
+<?php mosCommonHTML::loadJquery(1) ;?> 
 <?php
 	mosShowHead();
 	global $task,$my,$mosConfig_live_site, $mosConfig_mailfrom;
@@ -17,7 +18,7 @@ echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>';
 ?>
 <link href="<?php echo $mosConfig_live_site;?>/templates/<?php echo $mainframe->getTemplate(); ?>/css/template_css.css" rel="stylesheet" type="text/css" />
 
-<?php mosCommonHTML::loadJquery(1) ;?>
+
 <script type="text/javascript" src="<?php echo $mosConfig_live_site;?>/includes/js/jquery/plugins/corner.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){

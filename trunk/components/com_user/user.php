@@ -59,6 +59,9 @@ function profile($option){
     $row = new mosUser($database);
 	//$row->load((int)$uid);
     if($row->load((int)$uid)){
+        //Дополнительная информация о пользователе
+        $row->user_extra = $row->get_user_extra($uid);
+
         $file = $mainframe->getPath('com_xml','com_users');
 	    $params = &new mosUserParameters($row->params,$file,'component');
         HTML_user::profile($row,$option, $params);
@@ -91,18 +94,22 @@ function userEdit($option,$uid,$submitvalue) {
 		mosNotAuth();
 		return;
 	}
-	$row = new mosUser($database);
-	$row->load((int)$uid);
-	$row->orig_password = $row->password;
+	$user = new mosUser($database);
+	$user->load((int)$uid);
+	$user->orig_password = $user->password;
 
-	$row->name = trim($row->name);
-	$row->email = trim($row->email);
-	$row->username = trim($row->username);
+	$user->name = trim($user->name);
+	$user->email = trim($user->email);
+	$user->username = trim($user->username);
 
 	$file = $mainframe->getPath('com_xml','com_users');
-	$params = &new mosUserParameters($row->params,$file,'component');
+	$params = &new mosUserParameters($user->params,$file,'component');
 
-	HTML_user::userEdit($row,$option,$submitvalue,$params);
+    $user_extra = new jstUsersExtra($database);
+    $user_extra->load((int)$uid);
+    $user->user_extra = $user_extra;
+
+	HTML_user::userEdit($user,$option,$submitvalue,$params);
 }
 
 function userSave($option,$uid) {

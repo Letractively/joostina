@@ -1,0 +1,21 @@
+/* Модуль "Опрос" */
+.poll {
+}
+.poll input[type=radio] {
+	margin: 3px 5px 0 0;
+}
+.pollstableborder {
+}
+.poll_buttons {
+	margin: 10px 0 0 0;
+}
+.poll_buttons input.button {
+	background: none;
+	border: none;
+	border-bottom: 1px solid #000;
+	cursor: pointer;
+	font-size: 13px;
+	font-weight: bold;
+	margin: 0 10px 0 0;
+	padding: 0;
+}
