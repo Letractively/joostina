@@ -25,8 +25,8 @@ class mosPageNav {
 	@var int Total number of rows*/
 	var $total = null;
 
-    var $prev_exist = 0;
-    var $next_exist = 0;
+	var $prev_exist = 0;
+	var $next_exist = 0;
 
 	function mosPageNav($total,$limitstart,$limit) {
 		$this->total = (int)$total;

@@ -397,7 +397,7 @@ function viewArchive($sectionid,$option) {
 	}
 
 	// get list of categories for dropdown filter
-	$query = "SELECT c.id AS value, c.title AS text"."\n FROM #__categories AS c".$filter."\n ORDER BY c.ordering";
+	$query = "SELECT c.id AS value, c.title AS text FROM #__categories AS c".$filter." ORDER BY c.ordering";
 	$lists['catid'] = filterCategory($query,$catid);
 
 	// get list of sections for dropdown filter
@@ -429,12 +429,16 @@ function viewArchive($sectionid,$option) {
 * @param integer The id of the content section
 */
 function editContent($uid = 0,$sectionid = 0,$option) {
-	global $database,$my,$mainframe,$mosConfig_auto_frontpage,$mosConfig_one_editor;
+	global $my,$mosConfig_auto_frontpage,$mosConfig_one_editor;
 	global $mosConfig_absolute_path,$mosConfig_live_site,$mosConfig_offset;
+
+	$database = &database::getInstance();
+	$mainframe = mosMainFrame::getInstance(true);
+
+	$catid = intval( mosGetParam($_REQUEST,'catid',0));
 
 	$nullDate = $database->getNullDate();
 	if ($uid) {
-		$catid = intval( mosGetParam($_REQUEST,'catid',0));
 		$filter_authorid = intval( mosGetParam($_REQUEST,'filter_authorid',0) );
 		if ($filter_authorid <> 0)  {
 			$link = '&filter_authorid='.$filter_authorid;
@@ -490,9 +494,7 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 		if($row->created_by == $row->modified_by) {
 			$row->modifier = $row->creator;
 		} else {
-			$query = "SELECT name"
-					."\n FROM #__users"
-					."\n WHERE id = ".(int)$row->modified_by;
+			$query = "SELECT name FROM #__users WHERE id = ".(int)$row->modified_by;
 			$database->setQuery($query);
 			$row->modifier = $database->loadResult();
 		}
@@ -501,17 +503,16 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 		$database->setQuery($query);
 		$row->frontpage = $database->loadResult();
 
-		// get list of links to this item
-		$and = "\n AND componentid = ".(int)$row->id;
+		$and = ' AND componentid = '.(int)$row->id;
 		$menus = mosAdminMenus::Links2Menu('content_item_link',$and);
 	} else {
 		if(!$sectionid && @$_POST['filter_sectionid']) {
 			$sectionid = $_POST['filter_sectionid'];
 		}
-		if(@$_POST['catid']) {
-			$row->catid = (int)$_POST['catid'];
+		if($catid) {
+			$row->catid = $catid;
 			$category = new mosCategory($database);
-			$category->load((int)$_POST['catid']);
+			$category->load($catid);
 			$sectionid = $category->section;
 		} else {
 			$row->catid = 0;
@@ -523,7 +524,7 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 		$row->ordering = 0;
 		$row->images = array();
 		$row->publish_up = date('Y-m-d H:i:s',time() + ($mosConfig_offset* 60* 60));
-		$row->publish_down = 'Никогда';
+		$row->publish_down = _NEVER;
 		$row->creator = '';
 		$row->modified = $nullDate;
 		$row->modifier = '';
@@ -533,12 +534,10 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 
 	$javascript = "onchange=\"changeDynaList( 'catid', sectioncategories, document.adminForm.sectionid.options[document.adminForm.sectionid.selectedIndex].value, 0, 0);\"";
 
-	$query = "SELECT s.id, s.title"
-			."\n FROM #__sections AS s"
-			."\n ORDER BY s.ordering";
+	$query = "SELECT s.id, s.title FROM #__sections AS s ORDER BY s.ordering";
 	$database->setQuery($query);
 	if($sectionid == 0) {
-		$sections[] = mosHTML::makeOption('-1','Выберите раздел','id','title');
+		$sections[] = mosHTML::makeOption('-1',_SEL_SECTION,'id','title');
 		$sections = array_merge($sections,$database->loadObjectList());
 		$lists['sectionid'] = mosHTML::selectList($sections,'sectionid','class="inputbox" size="1" style="width:99%"'.$javascript,'id','title');
 	} else {
@@ -567,10 +566,7 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 	mosArrayToInts($section_list);
 	$section_list = 'section IN('.implode(',',$section_list).')';
 
-	$query = "SELECT id, title as name, section"
-			."\n FROM #__categories"
-			."\n WHERE $section_list "
-			."\n ORDER BY title ASC";
+	$query = "SELECT id, title as name, section FROM #__categories WHERE $section_list ORDER BY title ASC";
 	$database->setQuery($query);
 	$cat_list = $database->loadObjectList();
 	foreach($sections as $section) {
@@ -619,9 +615,7 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 	$lists['ordering'] = mosAdminMenus::SpecificOrdering($row,$uid,$query,1);
 
 	// pull param column from category info
-	$query = "SELECT params"
-			."\n FROM #__categories"
-			."\n WHERE id = ".(int)$row->catid;
+	$query = 'SELECT params FROM #__categories WHERE id = '.(int)$row->catid;
 	$database->setQuery($query);
 	$categoryParam = $database->loadResult();
 
@@ -636,9 +630,7 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 	if(strpos($selected_folders,'*2*') !== false) {
 		unset($selected_folders);
 		// load param column from section info
-		$query = "SELECT params"
-				."\n FROM #__sections"
-				."\n WHERE id = ".(int)$row->sectionid;
+		$query = 'SELECT params FROM #__sections WHERE id = '.(int)$row->sectionid;
 		$database->setQuery($query);
 		$sectionParam = $database->loadResult();
 
@@ -749,7 +741,7 @@ function saveContent($sectionid,$task) {
 	if($row->created && strlen(trim($row->created)) <= 10) {
 		$row->created .= ' 00:00:00';
 	}
-	$row->created = $row->created?mosFormatDate($row->created,'%Y-%m-%d %H:%M:%S',-$mosConfig_offset):date('Y-m-d H:i:s');
+	$row->created = $row->created ? mosFormatDate($row->created,'%Y-%m-%d %H:%M:%S',-$mosConfig_offset):date('Y-m-d H:i:s');
 
 	if(strlen(trim($row->publish_up)) <= 10) {
 		$row->publish_up .= ' 00:00:00';
@@ -792,9 +784,9 @@ function saveContent($sectionid,$task) {
 
 	$row->title = ampReplace($row->title);
 
-    $templates = new jstContentTemplate();
-    $row->templates = $templates->prepare_for_save(mosGetParam($_POST,'templates',array()));
-    
+	$templates = new jstContentTemplate();
+	$row->templates = $templates->prepare_for_save(mosGetParam($_POST,'templates',array()));
+
 	if(!$row->check()) {
 		echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
 		exit();
@@ -814,7 +806,7 @@ function saveContent($sectionid,$task) {
 		// toggles go to first place
 		if(!$fp->load((int)$row->id)) {
 			// new entry
-			$query = "INSERT INTO #__content_frontpage"."\n VALUES ( ".(int)$row->id.", 1 )";
+			$query = "INSERT INTO #__content_frontpage VALUES ( ".(int)$row->id.", 1 )";
 			$database->setQuery($query);
 			if(!$database->query()) {
 				echo "<script> alert('".$database->stderr()."');</script>\n";
@@ -866,7 +858,7 @@ function saveContent($sectionid,$task) {
 			/* boston, после сохранения возвращаемся в окно добавления нового содержимого*/
 		case 'save_and_new':
 			$msg = $row->title.' - '._E_ITEM_SAVED;
-			mosRedirect('index2.php?option=com_content&sectionid=0&task=new',$msg);
+			mosRedirect('index2.php?option=com_content&sectionid=0&task=new&sectionid='.$row->sectionid.'&catid='.$row->catid,$msg);
 			break;
 
 		case 'save':

@@ -1,56 +1,56 @@
 <?php
 /**
 * @package Joostina
-* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
-* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
-* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
-* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
+* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
 */
 
-// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+// запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-// С„Р»Р°Рі РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ СЏРґСЂР°
+// флаг использования ядра
 DEFINE('_MOS_MAMBO_INCLUDED',1);
-// СЂР°Р·РґРµР»РёС‚РµР»СЊ РєР°С‚Р°Р»РѕРіРѕРІ
+// разделитель каталогов
 DEFINE('DS',DIRECTORY_SEPARATOR );
-// РєР°С‚Р°Р»РѕРі Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР°
+// каталог администратора
 DEFINE('ADMINISTRATOR_DIRECTORY','administrator');
-// С„РѕСЂРјР°С‚ РґР°С‚С‹
+// формат даты
 DEFINE('_CURRENT_SERVER_TIME_FORMAT','%Y-%m-%d %H:%M:%S');
-// С‚РµРєСѓС‰РµРµ РІСЂРµРјСЏ СЃРµСЂРІРµСЂР°
+// текущее время сервера
 DEFINE('_CURRENT_SERVER_TIME',date('Y-m-d H:i',time()));
-// СЃС…РµРјС‹ РЅРµ http/https РїСЂРѕС‚РѕРєРѕР»РѕРІ
+// схемы не http/https протоколов
 DEFINE('_URL_SCHEMES','data:, file:, ftp:, gopher:, imap:, ldap:, mailto:, news:, nntp:, telnet:, javascript:, irc:, mms:');
 
-// РїСЂРѕР±СѓРµРј СѓСЃС‚Р°РЅР°РІРёС‚СЊ Р±РѕР»РµРµ СѓРґРѕР±РЅС‹Р№ СЂРµР¶РёРј СЂР°Р±РѕС‚С‹
+// пробуем устанавить более удобный режим работы
 @set_magic_quotes_runtime(0);
 
-// СѓСЃС‚Р°РЅРѕРІРєР° СЂРµР¶РёРјР° РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РѕС€РёР±РѕРє
+// установка режима отображения ошибок
 if($mosConfig_error_reporting == 0) {
 	error_reporting(0);
 }elseif($mosConfig_error_reporting > 0) {
 	error_reporting($mosConfig_error_reporting);
 }
 
-/* СЏРґСЂРѕ РґР»СЏ СЂР°Р±РѕС‚С‹ СЃ СЋРЅРёРєРѕРґРѕРј */
+/* ядро для работы с юникодом */
 include_once $mosConfig_absolute_path.'/includes/libraries/utf8/utf8.php';
-/* С„Р°Р№Р» РґР°РЅРЅС‹С… РІРµСЂСЃРёРё */
+/* файл данных версии */
 require_once ($mosConfig_absolute_path.'/includes/version.php');
-/* СЏРґСЂРѕ СЂР°Р±РѕС‚С‹ СЃ XML */
+/* ядро работы с XML */
 require_once ($mosConfig_absolute_path.'/includes/joomla.xml.php');
-/* РєР»Р°СЃСЃ С„РёР»СЊС‚СЂР°С†РёРё РґР°РЅРЅС‹С… */
+/* класс фильтрации данных */
 require_once ($mosConfig_absolute_path.'/includes/libraries/phpInputFilter/class.inputfilter.php');
 
-/* РєР»Р°СЃСЃ СЂР°Р±РѕС‚С‹ СЃ Р±Р°Р·РѕР№ РґР°РЅРЅС‹С… */
+/* класс работы с базой данных */
 require_once ($mosConfig_absolute_path.'/includes/libraries/database/database.php');
 $database = database::getInstance();
 
-/* РєР»Р°СЃСЃ СЂР°Р±РѕС‚С‹ СЃ РїСЂР°РІР°РјРё РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№ */
+/* класс работы с правами пользователей */
 require_once ($mosConfig_absolute_path.'/includes/libraries/gacl/gacl.class.php');
 $acl = new gacl_api();
 
-// РєРѕСЂСЂРµРєС‚РёСЂРѕРІРєР° СЂР°Р±РѕС‚С‹ СЃ РґР°РЅРЅС‹РјРё РїРѕР»СѓС‡РµРЅРЅС‹РјРё РѕС‚ СЃРµСЂРІРµСЂР°
+// корректировка работы с данными полученными от сервера
 if(isset($_SERVER['REQUEST_URI'])) {
 	$request_uri = $_SERVER['REQUEST_URI'];
 } else {
@@ -61,7 +61,7 @@ if(isset($_SERVER['REQUEST_URI'])) {
 }
 $_SERVER['REQUEST_URI'] = $request_uri;
 
-// РіР»Р°РІРЅС‹Р№ РєР»Р°СЃСЃ РєРѕРЅС„РёРіСѓСЂР°С†РёРё СЃРёСЃС‚РµРјС‹
+// главный класс конфигурации системы
 class JConfig {
 	/** @var int*/
 	var $config_offline = null;
@@ -201,134 +201,134 @@ class JConfig {
 	var $config_multilingual_support = 0;
 	/** @var int*/
 	var $config_multipage_toc = 0;
-	/** Р РµР¶РёРј СЂР°Р±РѕС‚С‹ СЃ itemid, 0 - РїСЂРµР¶РЅРёР№ СЂРµР¶РёРј*/
+	/** Режим работы с itemid, 0 - прежний режим*/
 	var $config_itemid_compat = 0;
-	/** @var int РѕС‚РєР»СЋС‡РµРЅРёРµ РІРµРґРµРЅРёСЏ СЃРµСЃСЃРёР№ РЅР° С„СЂРѕРЅС‚Рµ*/
+	/** @var int отключение ведения сессий на фронте*/
 	var $config_session_front = 0;
-	/** @var int РѕС‚РєР»СЋС‡РµРЅРёРµ syndicate*/
+	/** @var int отключение syndicate*/
 	var $config_syndicate_off = 0;
-	/** @var int РѕС‚РєР»СЋС‡РµРЅРёРµ С‚РµРіР° Generator*/
+	/** @var int отключение тега Generator*/
 	var $config_generator_off = 0;
-	/** @var int РѕС‚РєР»СЋС‡РµРЅРёРµ РјР°РјР±РѕС‚РѕРІ РіСЂСѓРїРїС‹ system*/
+	/** @var int отключение мамботов группы system*/
 	var $config_mmb_system_off = 0;
-	/** @var str РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РѕРґРЅРѕРіРѕ С€Р°Р±Р»РѕРЅР° РЅР° РІРµСЃСЊ СЃР°Р№С‚*/
+	/** @var str использование одного шаблона на весь сайт*/
 	var $config_one_template = '...';
-	/** @var int РїРѕРґСЃС‡РµС‚ РІСЂРµРјРµРЅРё РіРµРЅРµСЂР°С†РёРё СЃС‚СЂР°РЅРёС†С‹*/
+	/** @var int подсчет времени генерации страницы*/
 	var $config_time_gen = 0;
-	/** @var int РёРЅРґРµРєСЃР°С†РёСЏ СЃС‚СЂР°РЅРёС†С‹ РїРµС‡Р°С‚Рё*/
+	/** @var int индексация страницы печати*/
 	var $config_index_print = 0;
-	/** @var int СЂР°СЃС€РёСЂРµРЅРЅС‹Рµ С‚РµРіРё РёРЅРґРµРєСЃР°С†РёРё*/
+	/** @var int расширенные теги индексации*/
 	var $config_index_tag = 0;
-	/** @var int РѕС‚РєР»СЋС‡РµРЅРёРµ РјРѕРґСѓР»РµР№ РЅР° СЃС‚СЂР°РЅРёС†Рµ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ СЃ С„СЂРѕРЅС‚Р°*/
+	/** @var int отключение модулей на странице редактирования с фронта*/
 	var $config_module_on_edit_off = 0;
-	/** @var int РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РµР¶РµСЃСѓС‚РѕС‡РЅРѕР№ РѕРїС‚РёРјРёР·Р°С†РёРё С‚Р°Р±Р»РёС† Р±Р°Р·С‹ РґР°РЅРЅС‹С…*/
+	/** @var int использование ежесуточной оптимизации таблиц базы данных*/
 	var $config_optimizetables = 1;
-	/** @var int РѕС‚РєР»СЋС‡РµРЅРёРµ РјР°РјР±РѕС‚РѕРІ РіСЂСѓРїРїС‹ content*/
+	/** @var int отключение мамботов группы content*/
 	var $config_mmb_content_off = 0;
-	/** @var int РєСЌС€РёСЂРѕРІР°РЅРёРµ РјРµРЅСЋ РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ*/
+	/** @var int кэширование меню панели управления*/
 	var $config_adm_menu_cache = 0;
-	/** @var int СЂР°СЃРїРѕР»РѕР¶РµРЅРёРµ СЌР»РµРјРµРЅС‚РѕРІ title*/
+	/** @var int расположение элементов title*/
 	var $config_pagetitles_first = 1;
-	/** @var string СЂР°Р·РґРµР»РёС‚РµР»СЊ "Р·Р°РіРѕР»РѕРІРѕРє СЃС‚СЂР°РЅРёС†С‹ - РќР°Р·РІР°РЅРёРµ СЃР°Р№С‚Р° "*/
+	/** @var string разделитель "заголовок страницы - Название сайта "*/
 	var $config_tseparator = ' - ';
-	/** @int РѕС‚РєР»СЋС‡РµРЅРёРµ captcha*/
+	/** @int отключение captcha*/
 	var $config_captcha = 1;
-	/** @int РѕС‡РёСЃС‚РєР° СЃСЃС‹Р»РєРё РЅР° com_frontpage*/
+	/** @int очистка ссылки на com_frontpage*/
 	var $config_com_frontpage_clear = 1;
-	/** @str РєРѕСЂРµРЅСЊ РґР»СЏ РєРѕРјРїРѕРЅРµРЅС‚Р° СѓРїСЂР°РІР»РµРЅРёСЏ РјРµРґРёР° СЃРѕРґРµСЂР¶РёРјС‹Рј*/
+	/** @str корень для компонента управления медиа содержимым*/
 	var $config_media_dir = 'images/stories';
-	/** @str РєРѕСЂРµРЅСЊ С„Р°Р№Р»РѕРІРѕРіРѕ РјРµРЅРµРґР¶РµСЂР°*/
+	/** @str корень файлового менеджера*/
 	var $config_joomlaxplorer_dir = null;
-	/** @int Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєР°СЏ СѓСЃС‚Р°РЅРѕРІРєР° "РџСѓР±Р»РёРєРѕРІР°С‚СЊ РЅР° РіР»Р°РІРЅРѕР№"*/
+	/** @int автоматическая установка "Публиковать на главной"*/
 	var $config_auto_frontpage = 0;
-	/** @int СѓРЅРёРєР°Р»СЊРЅС‹Рµ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂС‹ РЅРѕРІРѕСЃС‚РµР№*/
+	/** @int уникальные идентификаторы новостей*/
 	var $config_uid_news = 0;
-	/** @int РїРѕРґСЃС‡РµС‚ РїСЂРѕС‡С‚РµРЅРёР№ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ*/
+	/** @int подсчет прочтений содержимого*/
 	var $config_content_hits = 1;
-	/** @str С„РѕСЂРјР°С‚ РґР°С‚С‹*/
-	var $config_form_date = '%d.%m.%Y Рі.';
-	/** @str РїРѕР»РЅС‹Р№ С„РѕСЂРјР°С‚ РґР°С‚С‹ Рё РІСЂРµРјРµРЅРё*/
-	var $config_form_date_full = '%d.%m.%Y Рі. %H:%M';
-	/** @int РЅРµ РїРѕРєР°Р·С‹РІР°С‚СЊ "Р“Р»Р°РІРЅР°СЏ" РЅР° РїРµСЂРІРѕР№ СЃС‚СЂР°РЅРёС†Рµ*/
+	/** @str формат даты*/
+	var $config_form_date = '%d.%m.%Y г.';
+	/** @str полный формат даты и времени*/
+	var $config_form_date_full = '%d.%m.%Y г. %H:%M';
+	/** @int не показывать "Главная" на первой странице*/
 	var $config_pathway_clean = 1;
-	/** @int Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРёРµ СЂР°Р·Р»РѕРіРёРЅРёРІР°РЅРёРµ РІ РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ РїРѕСЃР»Рµ РѕРєРѕРЅС‡Р°РЅРёСЏ Р¶РёР·РЅРё СЃРµСЃСЃРёРё */
+	/** @int автоматические разлогинивание в панели управления после окончания жизни сессии */
 	var $config_admin_autologout = 1;
-	/** @int РѕС‚РєР»СЋС‡РµРЅРёРµ РєРЅРѕРїРєРё "РџРѕРјРѕС‰СЊ"*/
+	/** @int отключение кнопки "Помощь"*/
 	var $config_disable_button_help = 0;
-	/** @int РѕС‚РєР»СЋС‡РµРЅРёРµ Р±Р»РѕРєРёСЂРѕРІРѕРє РѕР±СЉРµРєС‚РѕРІ*/
+	/** @int отключение блокировок объектов*/
 	var $config_disable_checked_out = 0;
-	/** @int РѕС‚РєР»СЋС‡РµРЅРёРµ favicon*/
+	/** @int отключение favicon*/
 	var $config_disable_favicon = 1;
-	/** @str СЃРјРµС‰РµРЅРёРµ РґР»СЏ rss*/
+	/** @str смещение для rss*/
 	var $config_feed_timeoffset = null;
-	/** @int РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ СЂР°СЃС€РёСЂРµРЅРЅСѓСЋ РѕС‚Р»Р°РґРєСѓ РЅР° С„СЂРѕРЅС‚Рµ*/
+	/** @int использовать расширенную отладку на фронте*/
 	var $config_front_debug = 0;
-	/** @var int РѕС‚РєР»СЋС‡РµРЅРёРµ РјР°РјР±РѕС‚РѕРІ РіСЂСѓРїРїС‹ mainbody*/
+	/** @var int отключение мамботов группы mainbody*/
 	var $config_mmb_mainbody_off = 0;
-	/** @var int Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєР°СЏ Р°РІС‚РѕСЂРёР·Р°С†РёСЏ РїРѕСЃР»Рµ РїРѕРґС‚РІРµСЂР¶РґРµРЅРёСЏ СЂРµРіРёСЃС‚СЂР°С†РёРё*/
+	/** @var int автоматическая авторизация после подтверждения регистрации*/
 	var $config_auto_activ_login = 0;
-	/** @var int РѕС‚РєР»СЋС‡РµРЅРёРµ SET sql_mode*/
+	/** @var int отключение SET sql_mode*/
 	var $config_sql_mode_off = 0;
-	/** @var int РѕС‚РєР»СЋС‡РµРЅРёРµ РІРєР»Р°РґРєРё 'РР·РѕР±СЂР°Р¶РµРЅРёСЏ'*/
+	/** @var int отключение вкладки 'Изображения'*/
 	var $config_disable_image_tab = 0;
-	/** @var int РѕР±СЂР°РјР»СЏС‚СЊ Р·Р°РіРѕР»РѕРІРєРё С‚РµРіРѕРј h1*/
+	/** @var int обрамлять заголовки тегом h1*/
 	var $config_title_h1 = 0;
-	/** @var int РѕР±СЂР°РјР»СЏС‚СЊ Р·Р°РіРѕР»РѕРІРєРё С‚РµРіРѕРј h1 С‚РѕР»СЊРєРѕ РІ СЂРµР¶РёРјРµ РїРѕР»РЅРѕРіРѕ РїСЂРѕСЃРјРѕС‚СЂР° СЃРѕРґРµСЂР¶РёРјРѕРіРѕ*/
+	/** @var int обрамлять заголовки тегом h1 только в режиме полного просмотра содержимого*/
 	var $config_title_h1_only_view = 1;
-	/** @var int РѕС‚РєР»СЋС‡РёС‚СЊ РїСЂРѕРІРµСЂРєРё РїСѓР±Р»РёРєР°С†РёР№ РїРѕ РґР°С‚Р°Рј*/
+	/** @var int отключить проверки публикаций по датам*/
 	var $config_disable_date_state = 0;
-	/** @var int РѕС‚РєР»СЋС‡РёС‚СЊ РєРѕРЅС‚СЂРѕР»СЊ РґРѕСЃС‚СѓРїР° Рє СЃРѕРґРµСЂР¶РёРјРѕРјСѓ*/
+	/** @var int отключить контроль доступа к содержимому*/
 	var $config_disable_access_control = 0;
-	/** @var int РІРєР»СЋС‡РµРЅРёРµ РѕРїС‚РёРјРёР·Р°С†РёРё С„СѓРЅРєС†РёРё РєСЌС€РёСЂРѕРІР°РЅРёСЏ*/
+	/** @var int включение оптимизации функции кэширования*/
 	var $config_cache_opt = 0;
-	/** @var int РІРєР»СЋС‡РµРЅРёРµ СЃР¶Р°С‚РёСЏ css Рё js С„Р°Р№Р»РѕРІ*/
+	/** @var int включение сжатия css и js файлов*/
 	var $config_gz_js_css = 0;
-	/** @var int captcha РґР»СЏ СЂРµРіРёСЃС‚СЂР°С†РёРё*/
+	/** @var int captcha для регистрации*/
 	var $config_captcha_reg = 0;
-	/** @var int captcha РґР»СЏ С„РѕСЂРјС‹ РєРѕРЅС‚Р°РєС‚РѕРІ*/
+	/** @var int captcha для формы контактов*/
 	var $config_captcha_cont = 0;
-	/** @var int РІРёР·СѓР°Р»СЊРЅС‹Р№ СЂРµРґР°РєС‚РѕСЂ РґР»СЏ РїСЂР°РІРєРё html Рё css*/
+	/** @var int визуальный редактор для правки html и css*/
 	var $config_codepress = 0;
-	/** @var int РѕР±СЂР°Р±РѕС‚С‡РёРє РєСЌС€РёСЂРѕРІР°РЅРёСЏ Р·Р°РїСЂРѕСЃРѕРІ Р±Р°Р·С‹ РґР°РЅРЅС‹С… */
+	/** @var int обработчик кэширования запросов базы данных */
 	var $config_db_cache_handler = 'none';
-	/** @var int РІСЂРµРјСЏ Р¶РёР·РЅРё РєСЌС€Р° Р·Р°РїСЂРѕСЃРѕРІ Р±Р°Р·С‹ РґР°РЅРЅС‹С… */
+	/** @var int время жизни кэша запросов базы данных */
 	var $config_db_cache_time = 0;
-	/** * @var int РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РѕРґРЅРѕРіРѕ СЂРµРґР°РєС‚РѕСЂР° РїСЂРё СЃРѕР·РґР°РЅРёРё СЃРѕРґРµСЂР¶РёРјРѕРіРѕ */
+	/** * @var int использование одного редактора при создании содержимого */
 	var $config_one_editor = 0;
-	/** @var int РїРµСЂРµР°РґСЂРµСЃР°С†РёСЏ СЃ РЅРµ WWW Р°РґСЂРµСЃРѕРІ */
+	/** @var int переадресация с не WWW адресов */
 	var $config_www_redir = 0;
-	/** @var int Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєР°СЏ РѕС‡РёСЃС‚РєР° РєСЌС€Р° */
+	/** @var int автоматическая очистка кэша */
 	var $config_clearCache = 0;
-	/** @var int РІС‹РІРѕРґ РјРµС‚Р°-С‚РµРіР° baser */
+	/** @var int вывод мета-тега baser */
 	var $config_mtage_base = 1;
-	/** @var int РІС‹РІРѕРґ РјРµС‚Р°-С‚РµРіР° revisit РІ РґРЅСЏС… */
+	/** @var int вывод мета-тега revisit в днях */
 	var $config_mtage_revisit = 10;
-	/** @var int РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ СЃС‚СЂР°РЅРёС†С‹ РїРµС‡Р°С‚Рё РёР· РєР°С‚Р°Р»РѕРіР° С‚РµРєСѓС‰РµРіРѕ С€Р°Р±Р»РѕРЅР° */
+	/** @var int использование страницы печати из каталога текущего шаблона */
 	var $config_custom_print = 0;
-	/** @var int РѕС‚РєР»СЋС‡РёС‚СЊ РјРЅРѕРіРѕСЏР·С‹С‡РЅРѕСЃС‚СЊ РјРѕРґСѓР»РµР№ */
+	/** @var int отключить многоязычность модулей */
 	var $config_module_multilang = 0;
-	/** @var int РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ СЃРѕРІРјРµСЃС‚РёРјРѕРіРѕ РІС‹РІРѕРґР° С‚СѓР»Р»Р±Р°СЂР° */
+	/** @var int использование совместимого вывода туллбара */
 	var $config_old_toolbar = 0;
-	/** @var int РѕС‚РєР»СЋС‡РµРЅРёРµ РїСЂРµРґРїСЂРѕСЃРјРѕС‚СЂР° С€Р°Р±Р»РѕРЅРѕРІ С‡РµСЂРµР· &tp=1 */
+	/** @var int отключение предпросмотра шаблонов через &tp=1 */
 	var $config_disable_tpreview = 0;
-	/** @int РІРєР»СЋС‡РµРЅРёРµ РєРѕРґР° Р±РµР·РѕРїР°СЃРЅРѕСЃС‚Рё РґР»СЏ РґРѕСЃС‚СѓРїР° Рє РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ*/
+	/** @int включение кода безопасности для доступа к панели управления*/
 	var $config_enable_admin_secure_code = 0;
-	/** @int РІРєР»СЋС‡РµРЅРёРµ РєРѕРґР° Р±РµР·РѕРїР°СЃРЅРѕСЃС‚Рё РґР»СЏ РґРѕСЃС‚СѓРїР° Рє РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ*/
+	/** @int включение кода безопасности для доступа к панели управления*/
 	var $config_admin_secure_code = 'admin';
-	/** @int СЂРµР¶РёРј СЂРµРґРёСЂРµРєС‚Р° РїСЂРё РІРєР»СЋС‡РµРЅРЅРѕРј РєРѕРґРµ Р±РµР·РѕРїР°СЃРЅРѕС‚Рё*/
+	/** @int режим редиректа при включенном коде безопасноти*/
 	var $config_admin_redirect_options = 0;
-	/** @int Р°РґСЂРµСЃ СЂРµРґРёСЂРµРєС‚Р° РїСЂРё РІРєР»СЋС‡РµРЅРЅРѕРј РєРѕРґРµ Р±РµР·РѕРїР°СЃРЅРѕС‚Рё*/
+	/** @int адрес редиректа при включенном коде безопасноти*/
 	var $config_admin_redirect_path = '404.html';
-	/** @var int С‡РёСЃР»Рѕ РїРѕРїС‹С‚РѕРє Р°РІС‚РѕРѕРёР·Р°С†РёРё РґР»СЏ РІС…РѕРґР° РІ Р°РґРјРёРЅРєСѓ*/
+	/** @var int число попыток автооизации для входа в админку*/
 	var $config_admin_bad_auth = 5;
-	/** @var int РѕР±СЂР°Р±РѕС‚С‡РёРє РєСЌС€РёСЂРѕРІР°РЅРёСЏ */
+	/** @var int обработчик кэширования */
 	var $config_cache_handler = 'none';
-	/** @var int С‚РёРї РІС‹РІРѕРґР° РЅРёРєР° Р°РІС‚РѕСЂР° РјР°С‚РµСЂРёР°Р»Р° */
+	/** @var int тип вывода ника автора материала */
 	var $config_author_name = 4;
-	/** @var int РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РЅРµРѕРїСѓР±Р»РёРєРѕРІР°РЅРЅС‹С… РјР°РјР±РѕС‚РѕРІ */
+	/** @var int использование неопубликованных мамботов */
 	var $config_use_unpublished_mambots = 1;
 
-	// РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РєР»Р°СЃСЃР° РєРѕРЅС„РёРіСѓСЂР°С†РёРё - СЃРѕР±РёСЂР°РµРј РїРµСЂРµРјРµРЅРЅС‹Рµ РєРѕРЅС„РёРіСѓСЂР°С†РёРё
+	// инициализация класса конфигурации - собираем переменные конфигурации
 	function JConfig(){
 		$this->bindGlobals();
 	}
@@ -387,7 +387,7 @@ class JConfig {
 	}
 
 	/**
-	* Р·Р°РїРѕР»РЅРµРЅРёРµ РґР°РЅРЅС‹С… РєР»Р°СЃСЃР° РґР°РЅРЅС‹РјРё РёР· РіР»РѕР±Р°Р»СЊРЅС‹С… РїРµСЂРјРµРЅРЅС‹С…
+	* заполнение данных класса данными из глобальных перменных
 	*/
 	function bindGlobals() {
 		$vars = $this->getPublicVars();
@@ -396,7 +396,7 @@ class JConfig {
 			if(isset($GLOBALS[$k])) $this->$v = $GLOBALS[$k];
 		}
 		/*
-		* РґР»СЏ РєРѕСЂСЂРµРєС‚РЅРѕР№ СЂР°Р±РѕС‚С‹ https://
+		* для корректной работы https://
 		*/
 		$_patch = dirname(dirname( __FILE__ ));
 		require ($_patch.'/configuration.php');
@@ -415,7 +415,6 @@ class mosCache {
 	* @return object A function cache object
 	*/
 	function &getCache($group = 'default', $handler = 'callback', $storage = null){
-		//global $mosConfig_absolute_path, $mosConfig_caching, $mosConfig_cachepath, $mosConfig_cachetime, $mosConfig_cache_handler, $mosConfig_db_cache_handler, $mosConfig_lang;
 
 		$handler = ($handler == 'function') ? 'callback' : $handler;
 
@@ -488,8 +487,11 @@ class mosMainFrame {
 
 	var $allow_wysiwyg = 0;
 
+	/**
+	@var массив данных выводящися в нижней части страницы */
+	var $_footer = null;
 
-	/* СЃРёСЃС‚РµРјРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ */
+	/* системное сообщение */
 	var $mosmsg = '';
 
 	/**
@@ -577,7 +579,6 @@ class mosMainFrame {
 	* @param boolean True (default) to add traling slash
 	*/
 	function getBasePath($client = 0,$addTrailingSlash = true) {
-		//global $mosConfig_absolute_path;
 
 		switch($client) {
 			case '0':
@@ -600,40 +601,43 @@ class mosMainFrame {
 		}
 	}
 	/**
-	* @param string
+	* установка title страницы
 	*/
 	function setPageTitle($title = null,$pageparams = null) {
-		$page_title = $GLOBALS['mosConfig_sitename'];
-		if($GLOBALS['mosConfig_pagetitles']) {
+
+		$config = &Jconfig::getInstance();
+		$page_title = $config->config_sitename;
+		if($config->config_pagetitles) {
 			$title = trim(strip_tags($title));
-			$tseparator = $GLOBALS['mosConfig_tseparator'] ? $GLOBALS['mosConfig_tseparator'] : ' - ';
+			// разделитель названия страницы и сайта
+			$tseparator = $config->config_tseparator ? $config->config_tseparator : ' - ';
 			if($pageparams != null) {
-				$pageownname = trim( htmlspecialchars( $pageparams->get('page_name') ) ); // РЅР°Р·РІР°РЅРёРµ СЃС‚СЂР°РЅРёС†С‹ СѓРєР°Р·Р°РЅРЅРѕРµ РІ РЅР°СЃС‚СЂРѕР№РєР°С… РїСѓРЅРєС‚Р° РјРµРЅСЋ РёР»Рё СЃРІРѕР№СЃС‚РІР°С… СЃРѕРґРµСЂР¶РёРјРѕРіРѕ
+				// название страницы указанное в настройках пункта меню или свойствах содержимого
+				$pageownname = trim( htmlspecialchars( $pageparams->get('page_name') ) );
 				$page_title = $pageparams->get('no_site_name') ?
-				( $pageownname ? $pageownname : ( $title ? $title : $GLOBALS['mosConfig_sitename'] )) :
-				( $GLOBALS['mosConfig_pagetitles_first'] ? (( $pageownname ? $pageownname : $title ) . $tseparator . $GLOBALS['mosConfig_sitename']) :
-				( $GLOBALS['mosConfig_sitename']. $tseparator . ( $pageownname ? $pageownname : $title )));
-			} elseif($GLOBALS['mosConfig_pagetitles_first']==1) {
+				( $pageownname ? $pageownname : ( $title ? $title : $config->config_sitename )) :
+				( $config->config_pagetitles_first ? (( $pageownname ? $pageownname : $title ) . $tseparator . $config->config_sitename) :
+				( $config->config_sitename. $tseparator . ( $pageownname ? $pageownname : $title )));
+			} elseif($config->config_pagetitles_first==1) {
 				$pageownname = null;
-				$page_title = $title ? $title.$tseparator.$GLOBALS['mosConfig_sitename'] : $GLOBALS['mosConfig_sitename'];
+				$page_title = $title ? $title.$tseparator.$config->config_sitename : $config->config_sitename;
 			}else{
 				$pageownname = null;
-				$page_title = $title ? $GLOBALS['mosConfig_sitename'].$tseparator.$title : $GLOBALS['mosConfig_sitename'];
+				$page_title = $title ? $config->config_sitename.$tseparator.$title : $config->config_sitename;
 			}
 		}
-		
 
-		// РЅР°Р·РІР°РЅРёРµ СЃС‚СЂР°РЅРёС†С‹, РЅРµ title!
+		// название страницы, не title!
 		$this->_head['pagename'] = $pageownname ? $pageownname : $title;
-		$GLOBALS['mosConfig_pagetitles_first'];
-		switch($GLOBALS['mosConfig_pagetitles_first']) {
+
+		switch($config->config_pagetitles_first) {
 			case '0':
 			case '1':
 			default:
 				$this->_head['title'] = $page_title;
 				break;
 			case '2':
-				$this->_head['title'] = $GLOBALS['mosConfig_sitename'];
+				$this->_head['title'] = $config->config_sitename;
 				break;
 			case '3':
 				$this->_head['title'] = $pageownname ? $pageownname : $title;
@@ -666,8 +670,7 @@ class mosMainFrame {
 				$content = trim(htmlspecialchars($content));
 				if($content != '' & $this->_head['meta'][$i][1] == "") {
 					$this->_head['meta'][$i][1] .= ' '.$content;
-				}
-				;
+				};
 				return;
 			}
 		}
@@ -700,9 +703,10 @@ class mosMainFrame {
 	/**
 	* @return string
 	*/
-	function getHead() {
+	function getHead($params=array('js'=>1,'css'=>1,'jquery'=>0)) {
 		$head = array();
 		$head[] = '<title>'.$this->_head['title'].'</title>';
+
 		foreach($this->_head['meta'] as $meta) {
 			if($meta[2]) {
 				$head[] = $meta[2];
@@ -712,22 +716,76 @@ class mosMainFrame {
 				$head[] = $meta[3];
 			}
 		}
+
 		foreach($this->_head['custom'] as $html) {
 			$head[] = $html;
 		}
+
+		if(isset($params['jquery']) && $params['jquery']==1){
+			$head[] = mosCommonHTML::loadJquery(true,true);
+		}
+
+		if(isset($params['js']) && $params['js']==1 && isset($this->_head['js']) ){
+			$i = 0;
+			foreach($this->_head['js'] as $html) {
+				$head[] = $html;
+				unset($this->_head['js'][$i]);
+				$i++;
+			}
+		}
+
+		if(isset($params['css']) && $params['css']==1 && isset($this->_head['css']) ){
+			foreach($this->_head['css'] as $html) {
+				$head[] = $html;
+			}
+		}
+		//unset($this->_head);
 		return implode("\n",$head)."\n";
 	}
+
+	function getFooter($params=array('fromheader'=>1,'custom'=>0,'js'=>1,'css'=>1)) {
+		$footer = array();
+
+		if(isset($params['fromheader']) && $params['fromheader']==1 ){
+			$this->_footer = $this->_head;
+		}
+
+		if(isset($params['custom']) && $params['custom']==1 ){
+			foreach($this->_footer['custom'] as $html) {
+				$footer[] = $html;
+			}
+		}
+
+		if(isset($params['jquery']) && $params['jquery']==1 ){
+			$footer[] = mosCommonHTML::loadJquery(true,true);
+		}
+
+		if(isset($params['js']) && $params['js']==1 && isset($this->_footer['js']) ){
+			foreach($this->_footer['js'] as $html) {
+				$footer[] = $html;
+			}
+		}
+
+		if(isset($params['css'])  && $params['css']==1 && isset($this->_footer['css']) ){
+			foreach($this->_footer['css'] as $html) {
+				$footer[] = $html;
+			}
+		}
+		unset($this->_footer);
+		return implode("\n",$footer)."\n";
+	}
+
 	/**
-	* РґРѕР±Р°РІР»РµРЅРёРµ js С„Р°Р№Р»РѕРІ РІ С€Р°РїРєСѓ СЃС‚СЂР°РЅРёС†С‹
+	* добавление js файлов в шапку страницы
 	*/
 	function addJS($patch){
-		$this->_head['custom'][] = '<script language="JavaScript" src="'. $patch .'" type="text/javascript"></script>';
+		$this->_head['js'][] = '<script language="JavaScript" src="'. $patch .'" type="text/javascript"></script>';
 	}
 	/**
-	* РґРѕР±Р°РІР»РµРЅРёРµ css С„Р°Р№Р»РѕРІ РІ С€Р°РїРєСѓ СЃС‚СЂР°РЅРёС†С‹
+	* добавление css файлов в шапку страницы
 	*/
 	function addCSS($patch){
-		$this->_head['custom'][] = '<link type="text/css" rel="stylesheet" href="'. $patch .'" />';
+		$this->_head['css'][] = '<link type="text/css" rel="stylesheet" href="'. $patch .'" />';
 	}
 
 	/**
@@ -903,13 +961,12 @@ class mosMainFrame {
 		$my->params = mosGetParam($_SESSION,'session_user_params','');
 		$my->bad_auth_count = mosGetParam($_SESSION,'session_bad_auth_count','');
 
-
 		$session_id = mosGetParam($_SESSION,'session_id','');
 		$logintime = mosGetParam($_SESSION,'session_logintime','');
 
 		if($session_id != session_id()) {
 			// session id does not correspond to required session format
-			echo "<script>document.location.href='index.php?mosmsg="._YOU_NEED_TO_AUTH."'</script>\n";
+			mosRedirect($_config->config_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/',_YOU_NEED_TO_AUTH);
 			exit();
 		}
 
@@ -924,7 +981,7 @@ class mosMainFrame {
 					$session_life_admin = 1800;
 				}
 
-				// РµСЃР»Рё РІ РЅР°СЃС‚СЂРѕР№РєР° РЅРµ СѓРєР°Р·Р°РЅРѕ С‡С‚Рѕ СЃРµСЃСЃРёРё Р°РґРјРёРЅРєРё РЅРµ СѓРЅРёС‡С‚РѕР¶Р°СЋС‚СЃСЏ - РІС‹РїРѕР»РЅСЏРµРј Р·Р°РїСЂРѕСЃ РїРѕ РѕС‡РёСЃС‚РєРµ СЃРµСЃСЃРёР№
+				// если в настройка не указано что сессии админки не уничтожаются - выполняем запрос по очистке сессий
 				if($_config->config_admin_autologout==1) {
 					// purge expired admin sessions only
 					$past = time() - $session_life_admin;
@@ -948,7 +1005,7 @@ class mosMainFrame {
 				$this->_db->setQuery($query);
 				$count = ($_config->config_admin_autologout==1) ? $this->_db->loadResult() : 1;
 
-				// РµСЃР»Рё РІ С‚Р°Р±Р»РёС†
+				// если в таблиц
 				if($count == 0) {
 					$link = null;
 					if($_SERVER['QUERY_STRING']) {
@@ -1130,7 +1187,7 @@ class mosMainFrame {
 	*/
 	function login($username = null,$passwd = null,$remember = 0,$userid = null) {
 		global $acl,$_VERSION;
-		// РµСЃР»Рё СЃРµСЃРёРё РЅР° С„СЂРѕРЅС‚Рµ РѕС‚РєР»СЋС‡РµРЅС‹ - РїСЂРµРєСЂР°С‰Р°РµРј РІС‹РїРѕР»РЅРµРЅРёРµ РїСЂРѕС†РµРґСѓСЂС‹
+		// если сесии на фронте отключены - прекращаем выполнение процедуры
 		if(Jconfig::getInstance()->config_session_front) return;
 		
 		$bypost = 0;
@@ -1300,7 +1357,7 @@ class mosMainFrame {
 
 	/**
 	* @return mosUser A user object with the information from the current session
-	* boston, + С…Р°Рє РґР»СЏ РѕС‚РєР»СЋС‡РµРЅРёСЏ РІРµРґРµРЅРёСЏ СЃРµСЃСЃРёР№ РЅР° С„СЂРѕРЅС‚Рµ
+	* boston, + хак для отключения ведения сессий на фронте
 	*/
 	function getUser() {
 
@@ -1308,10 +1365,10 @@ class mosMainFrame {
 
 		$user = new mosUser($this->_db);
 		if(Jconfig::getInstance()->config_session_front == 1) {
-			// boston, РїР°СЂР°РјРµС‚СЂС‹ id Рё gid РїСЂРё РёРЅРёС†РёР°Р»РёР·Р°С†РёРё РѕР±СЉСЏРІР»СЏСЋС‚СЃСЏ РєР°Рє null - СЌС‚Рѕ РІСЂРµРґРёС‚ РЅРµРєРѕС‚РѕСЂС‹Рј РєРѕРјРїРѕРЅРµРЅС‚Р°Рј, РїСЂРѕРёРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј РёС… РІ РЅСѓР»Рё
+			// boston, параметры id и gid при инициализации объявляются как null - это вредит некоторым компонентам, проинициализируем их в нули
 			$user->id = 0;
 			$user->gid = 0;
-			return $user; // РµСЃР»Рё СЃРµСЃСЃРёРё (Р°РІС‚РѕСЂРёР·Р°С†РёСЏ) РЅР° С„СЂРѕРЅС‚Рµ РѕС‚РєР»СЋС‡РµРЅС‹ - РІРѕР·РІСЂР°С‰Р°РµРј РїСѓСЃС‚РѕР№ РѕР±СЉРµРєС‚
+			return $user; // если сессии (авторизация) на фронте отключены - возвращаем пустой объект
 		}
 		$user->id = intval($this->_session->userid);
 		$user->username = $this->_session->username;
@@ -1344,40 +1401,35 @@ class mosMainFrame {
 			return null;
 		}
 	}
-	/** boston, С„СѓРЅРєС†РёСЏ РѕРїСЂРµРґРµР»РµРЅРёСЏ С€Р°Р±Р»РѕРЅР°, РµСЃР»Рё РІ РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ СѓРєР°Р·Р°РЅРѕ С‡С‚Рѕ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РѕРґРёРЅ С€Р°Р±Р»РѕРЅ - СЃСЂР°Р·Сѓ РІРѕР·РІСЂР°С‰Р°РµРј РµРіРѕ РЅР°Р·РІР°РЅРёРµ, С„СѓРЅРєС†РёСЋ РЅРµ РїСЂРѕРІРѕРґРёРј РґРѕ РєРѕРЅС†Р°*/
+	/** boston, функция определения шаблона, если в панели управления указано что использовать один шаблон - сразу возвращаем его название, функцию не проводим до конца*/
 	function _setTemplate($isAdmin = false) {
 		global $Itemid;
-		if(!$isAdmin and Jconfig::getInstance()->config_one_template != '...') { // boston, РµСЃР»Рё Сѓ РЅР°СЃ РІ РЅР°СЃС‚СЂРѕР№РєР°С… СѓРєР°Р·Р°РЅ С€Р°Р±Р»РѕРЅ Рё РѕРїСЂРµРґРµР»РµРЅРёРµ РёРґС‘С‚ РЅРµ РґР»СЏ РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ - РІРѕР·РІСЂР°С‰Р°РµРј РЅР°Р·РІР°РЅРёРµ С€Р°Р±Р»РѕРЅР° РёР· РіР»РѕР±Р°Р»СЊРЅРѕР№ РєРѕРЅС„РёРіСѓСЂР°С†РёРё
-			$this->_template = Jconfig::getInstance()->config_one_template;
+
+		$config = &Jconfig::getInstance();
+		// если у нас в настройках указан шаблон и определение идёт не для панели управления - возвращаем название шаблона из глобальной конфигурации
+		if(!$isAdmin and $config->config_one_template != '...') {
+			$this->_template = $config->config_one_template;
 			return;
 		}
-		Jconfig::getInstance()->config_absolute_path = $this->getCfg('absolute_path');
 
 		if($isAdmin) {
-			$query = "SELECT template"
-					."\n FROM #__templates_menu"
-					."\n WHERE client_id = 1"
-					."\n AND menuid = 0";
+			$query = 'SELECT template FROM #__templates_menu WHERE client_id = 1 AND menuid = 0';
 			$this->_db->setQuery($query);
 			$cur_template = $this->_db->loadResult();
-			$path = Jconfig::getInstance()->config_absolute_path.'/'.ADMINISTRATOR_DIRECTORY."/templates/$cur_template/index.php";
+			$path = $config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY.DS.'templates'.DS.$cur_template.DS.'index.php';
 			if(!file_exists($path)) {
 				$cur_template = 'joostfree';
 			}
 		} else {
-			$assigned = (!empty($Itemid)?" OR menuid = ".(int)$Itemid:'');
+			$assigned = (!empty($Itemid) ? ' OR menuid = '.(int)$Itemid : '');
 
-			$query = "SELECT template"
-					."\n FROM #__templates_menu"
-					."\n WHERE client_id = 0"
-					."\n AND ( menuid = 0 $assigned )"
-					."\n ORDER BY menuid DESC";
+			$query = 'SELECT template FROM #__templates_menu WHERE client_id = 0 AND ( menuid = 0 '.$assigned.' ) ORDER BY menuid DESC';
 			$this->_db->setQuery($query,0,1);
 			$cur_template = $this->_db->loadResult();
 
 			// TemplateChooser Start
-			$jos_user_template = strval(mosGetParam($_COOKIE,'jos_user_template',''));
-			$jos_change_template = strval(mosGetParam($_REQUEST,'jos_change_template',$jos_user_template));
+			$jos_user_template		= strval(mosGetParam($_COOKIE,'jos_user_template',''));
+			$jos_change_template	= strval(mosGetParam($_REQUEST,'jos_change_template',$jos_user_template));
 			if($jos_change_template) {
 				// clean template name
 				$jos_change_template = preg_replace('#\W#','',$jos_change_template);
@@ -1386,15 +1438,14 @@ class mosMainFrame {
 				}
 
 				// check that template exists in case it was deleted
-				if(file_exists(Jconfig::getInstance()->config_absolute_path.'/templates/'.$jos_change_template.'/index.php')) {
+				if(file_exists($config->config_absolute_path.DS.'templates'.DS.$jos_change_template.DS.'index.php')) {
 					$lifetime = 60* 10;
 					$cur_template = $jos_change_template;
-					setcookie('jos_user_template',"$jos_change_template",time() + $lifetime);
+					setcookie('jos_user_template',$jos_change_template,time() + $lifetime);
 				} else {
 					setcookie('jos_user_template','',time() - 3600);
 				}
 			}
-			// TemplateChooser End
 		}
 
 		$this->_template = $cur_template;
@@ -1992,12 +2043,14 @@ class mosMainFrame {
 		return $this->_isAdmin;
 	}
 
-	// СѓРєР°Р·Р°РЅРёРµ СЃРёСЃС‚РµРјРЅРѕРіРѕ СЃРѕРѕР±С‰РµРЅРёСЏ
+	// указание системного сообщения
 	function set_mosmsg($msg=''){
+		//global $_SESSION;
 		$msg = Jstring::trim($msg);
-		// РїСЂРѕРІРµСЂСЏРµРј, СЃС‚Р°СЂС‚РѕРІР°Р»Р° Р»Рё СЃРµСЃСЃРёСЏ
+		// проверяем, стартовала ли сессия
 		$_s = session_id();
 		if(!isset($_s)) {
+			session_name(md5(Jconfig::getInstance()->config_live_site));
 			session_start();
 		}
 
@@ -2006,14 +2059,14 @@ class mosMainFrame {
 		}
 		return;
 	}
-	// РїРѕР»СѓС‡РµРЅРёРµ СЃРёСЃС‚РµРјРЅРѕРіРѕ СЃРѕРѕР±С‰РµРЅРёСЏ
+	// получение системного сообщения
 	function get_mosmsg(){
 		$mosmsg_ss = stripslashes(strval(mosGetParam($_SESSION,'joostina.mosmsg','')));
 		$mosmsg_rq = stripslashes(strval(mosGetParam($_REQUEST,'mosmsg','')));
 
 		$mosmsg = ($mosmsg_ss!='') ? $mosmsg_ss : $mosmsg_rq;
 
-		if(Jstring::strlen($mosmsg) > 300) { // РІС‹РІРѕРґРёРј СЃРѕРѕР±С‰РµРЅРёСЏ РЅРµ РґР»РёРЅРµРµ 300 СЃРёРјРІРѕР»РѕРІ
+		if(Jstring::strlen($mosmsg) > 300) { // выводим сообщения не длинее 300 символов
 			$mosmsg = Jstring::substr($mosmsg,0,300);
 		}
 		unset($_SESSION['joostina.mosmsg']);
@@ -2077,6 +2130,7 @@ class mosComponent extends mosDBTable {
 * @package Joostina
 */
 class mosHTML {
+
 	function makeOption($value,$text = '',$value_name = 'value',$text_name = 'text') {
 		$obj = new stdClass;
 		$obj->$value_name = $value;
@@ -2086,8 +2140,8 @@ class mosHTML {
 
 	function writableCell($folder,$relative = 1,$text = '',$visible = 1) {
 
-		$writeable = '<b><font color="green">'._WRITEABLE.'</font></b>';
-		$unwriteable = '<b><font color="red">'._UNWRITEABLE.'</font></b>';
+		$writeable		= '<b><font color="green">'._WRITEABLE.'</font></b>';
+		$unwriteable	= '<b><font color="red">'._UNWRITEABLE.'</font></b>';
 
 		echo '<tr>';
 		echo '<td class="item">';
@@ -2182,8 +2236,9 @@ class mosHTML {
 	* @param mixed The key that is selected
 	* @returns string HTML for the select list values
 	*/
-	function monthSelectList($tag_name,$tag_attribs,$selected) {
-		$arr = array(
+	function monthSelectList($tag_name,$tag_attribs,$selected,$type = 0) {
+		// месяца для выбора
+		$arr_1 = array(
 			mosHTML::makeOption('01',_JAN),
 			mosHTML::makeOption('02',_FEB),
 			mosHTML::makeOption('03',_MAR),
@@ -2195,36 +2250,54 @@ class mosHTML {
 			mosHTML::makeOption('09',_SEP),
 			mosHTML::makeOption('10',_OCT),
 			mosHTML::makeOption('11',_NOV),
-			mosHTML::makeOption('12',_DEC));
+			mosHTML::makeOption('12',_DEC)
+		);
+		// месяца с правильным склонением
+		$arr_2 = array(
+			mosHTML::makeOption('01',_JAN_2),
+			mosHTML::makeOption('02',_FEB_2),
+			mosHTML::makeOption('03',_MAR_2),
+			mosHTML::makeOption('04',_APR_2),
+			mosHTML::makeOption('05',_MAY_2),
+			mosHTML::makeOption('06',_JUN_2),
+			mosHTML::makeOption('07',_JUL_2),
+			mosHTML::makeOption('08',_AUG_2),
+			mosHTML::makeOption('09',_SEP_2),
+			mosHTML::makeOption('10',_OCT_2),
+			mosHTML::makeOption('11',_NOV_2),
+			mosHTML::makeOption('12',_DEC_2)
+		);
+		$arr = $type ? $arr_2 : $arr_1;
 		return mosHTML::selectList($arr,$tag_name,$tag_attribs,'value','text',$selected);
 	}
 
 	function daySelectList($tag_name,$tag_attribs,$selected) {
-        $arr = array();
+		$arr = array();
 
-        for($i = 1; $i <= 31; $i++){
-            $pref = '';
-            if($i <= 9){
-                $pref = '0';
-            }
-            $arr[] = mosHTML::makeOption($pref.$i,$pref.$i);
-        }
+		for($i = 1; $i <= 31; $i++){
+			$pref = '';
+			if($i <= 9){
+				$pref = '0';
+			}
+			$arr[] = mosHTML::makeOption($pref.$i,$pref.$i);
+		}
 
-	   	return mosHTML::selectList($arr,$tag_name,$tag_attribs,'value','text',$selected);
+		return mosHTML::selectList($arr,$tag_name,$tag_attribs,'value','text',$selected);
 	}
 
 	function yearSelectList($tag_name,$tag_attribs,$selected, $min=1930, $max=2009) {
-        $arr = array();
-        for($i = $min; $i <= $max; $i++){
-            $arr[] = mosHTML::makeOption($i,$i);
-        }
-	   	return mosHTML::selectList($arr,$tag_name,$tag_attribs,'value','text',$selected);
+		$arr = array();
+		for($i = $min; $i <= $max; $i++){
+			$arr[] = mosHTML::makeOption($i,$i);
+		}
+		return mosHTML::selectList($arr,$tag_name,$tag_attribs,'value','text',$selected);
 	}
 
 	function genderSelectList($tag_name,$tag_attribs,$selected) {
 		$arr = array(
 			mosHTML::makeOption('male',_MALE),
-			mosHTML::makeOption('female',_FEMALE));
+			mosHTML::makeOption('female',_FEMALE)
+		);
 		return mosHTML::selectList($arr,$tag_name,$tag_attribs,'value','text',$selected);
 	}
 
@@ -2424,7 +2497,7 @@ class mosHTML {
 	}
 
 	/**
-	* Р’С‹РІРѕРґ Р·РЅР°С‡РєР° РїРµС‡Р°С‚Рё, РІСЃС‚СЂРѕРµРЅ С…Р°Рє РёРЅРґРµРєСЃР°С†РёРё РїРµС‡Р°С‚РЅРѕР№ РІРµСЂСЃРёРё
+	* Вывод значка печати, встроен хак индексации печатной версии
 	*/
 	function PrintIcon($row,&$params,$hide_js,$link,$status = null) {
 		global $cpr_i;
@@ -2544,7 +2617,7 @@ class mosHTML {
 	}
 }
 
-// РєР»Р°СЃСЃ СЂР°Р±РѕС‚С‹ СЃ РєРѕРЅС‚РµРЅС‚РѕРј
+// класс работы с контентом
 require_once(Jconfig::getInstance()->config_absolute_path.'/components/com_content/content.class.php');
 
 
@@ -2621,7 +2694,7 @@ class mosMenu extends mosDBTable {
 	}
 }
 
-// РєР»Р°СЃСЃ СЂР°Р±РѕС‚С‹ СЃ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏРјРё
+// класс работы с пользователями
 require_once(Jconfig::getInstance()->config_absolute_path.'/components/com_user/user.class.php');
 
 /**
@@ -3061,7 +3134,7 @@ function mosObjectToArray($p_obj) {
 /**
 * Checks the user agent string against known browsers
 */
-/* 05.08.07, boston, С…Р°Рє СѓР»СѓС‡С€РµРЅРЅРѕРіРѕ РѕРїСЂРµРґРµР»РµРЅРёСЏ Р±СЂР°СѓР·РµСЂРѕРІ*/
+/* 05.08.07, boston, хак улучшенного определения браузеров*/
 function mosGetBrowser($agent) {
 	//global $mosConfig_absolute_path;
 
@@ -3199,7 +3272,7 @@ function mosMenuCheck($Itemid,$menu_option,$task,$gid) {
 */
 function mosFormatDate($date,$format = "",$offset = null) {
 
-	if ($date == '0000-00-00 00:00:00') return ' вЂ” ';//database::$_nullDate - РїСЂРё РѕС€РёР±РєР°С… РїР°СЂСЃРµСЂР°
+	if ($date == '0000-00-00 00:00:00') return ' — ';//database::$_nullDate - при ошибках парсера
 
 	if($format == '') {
 		// %Y-%m-%d %H:%M:%S
@@ -3276,7 +3349,7 @@ function mosToolTip($tooltip,$title = '',$width = '',$image = 'tooltip.png',$tex
 function mosWarning($warning,$title = _MOS_WARNING) {
 	$mouseover = 'return overlib(\''.$warning.'\', CAPTION, \''.$title.'\', BELOW, RIGHT);';
 	$tip = '<a href="javascript: void(0)" onmouseover="'.$mouseover.'" onmouseout="return nd();">';
-	$tip .= '<img src="'.Jconfig::getInstance()->config_live_site.'/includes/js/ThemeOffice/warning.png" border="0" alt="РїСЂРµРґСѓРїСЂРµР¶РґРµРЅРёРµ"/></a>';
+	$tip .= '<img src="'.Jconfig::getInstance()->config_live_site.'/includes/js/ThemeOffice/warning.png" border="0" alt="предупреждение"/></a>';
 	return $tip;
 }
 
@@ -3449,7 +3522,7 @@ function mosMail($from,$fromname,$recipient,$subject,$body,$mode = 0,$cc = null,
 	}
 	$mailssend = $mail->Send();
 	if(Jconfig::getInstance()->config_debug) {
-		//$mosDebug->message( "РџРёСЃСЊРјР° РѕС‚РїСЂР°РІР»РµРЅС‹: $mailssend");
+		//$mosDebug->message( "Письма отправлены: $mailssend");
 	}
 	if($mail->error_count > 0) {
 		//$mosDebug->message( "The mail message $fromname <$from> about $subject to $recipient <b>failed</b><br /><pre>$body</pre>", false );
@@ -3793,7 +3866,7 @@ class mosMambotHandler {
 }
 
 /**
-* РЎРѕР·РґР°РЅРёРµ С‚Р°Р±РѕРІ
+* Создание табов
 * @package Joostina
 */
 class mosTabs {
@@ -3807,7 +3880,7 @@ class mosTabs {
 	*/
 	function mosTabs($useCookies,$xhtml = 0) {
 		//global $mosConfig_live_site,$mainframe,$mosConfig_gz_js_css;
-		// Р°РєС‚РёРІР°С†РёСЏ gzip СЃР¶Р°С‚РёСЏ css Рё js С„Р°Р№Р»РѕРІ
+		// активация gzip сжатия css и js файлов
 		if(Jconfig::getInstance()->config_gz_js_css) {
 			$css_f = 'joostina.tabs.css.php';
 			$js_f = 'joostina.tabs.js.php';
@@ -3817,7 +3890,7 @@ class mosTabs {
 		}
 		$css = '<link rel="stylesheet" type="text/css" media="all" href="'.Jconfig::getInstance()->config_live_site.'/includes/js/tabs/'.$css_f.'" id="luna-tab-style-sheet" />';
 		$js = '<script type="text/javascript" src="'.Jconfig::getInstance()->config_live_site.'/includes/js/tabs/'.$js_f.'"></script>';
-		/* boston, С…Р°Рє, Р·Р°РїСЂРµС‚ РїРѕРІС‚РѕСЂРЅРѕРіРѕ РІРєР»СЋС‡РµРЅРёСЏ css Рё js С„Р°Р№Р»РѕРІ РІ РґРѕРєСѓРјРµРЅС‚*/
+		/* boston, хак, запрет повторного включения css и js файлов в документ*/
 		if(!defined('_MTABS_LOADED')) {
 			define('_MTABS_LOADED',1);
 
@@ -4108,7 +4181,7 @@ class mosAdminMenus {
 		$query = "SELECT s.id AS `value`, s.id AS `id`, s.title AS `text` FROM #__sections AS s WHERE s.scope = 'content' ORDER BY s.name";
 		$database->setQuery($query);
 		if($all) {
-			$rows[] = mosHTML::makeOption(0,'- Р’СЃРµ СЂР°Р·РґРµР»С‹ -');
+			$rows[] = mosHTML::makeOption(0,'- Все разделы -');
 			$rows = array_merge($rows,$database->loadObjectList());
 		} else {
 			$rows = $database->loadObjectList();
@@ -4740,7 +4813,7 @@ class mosCommonHTML {
 							</td>
 						</tr>
 						<tr>
-								<td width="90px" valign="top">РўРёРї</td>
+								<td width="90px" valign="top">Тип</td>
 								<td><?php echo $menu->type; ?></td>
 						</tr>
 						<tr>
@@ -4795,12 +4868,12 @@ class mosCommonHTML {
 		return $checked;
 	}
 
-	/* РїРѕРґРєР»СЋС‡РµРЅРёРµ Р±РёР±Р»РёРѕС‚РµРєРё РІСЃРїР»С‹РІР°СЋС‰РёС… РїРѕРґСЃРєР°Р·РѕРє */
+	/* подключение библиотеки всплывающих подсказок */
 	function loadOverlib($ret = false) {
 		$mainframe = MosMainFrame::getInstance();
 		if(!$mainframe->get('loadOverlib') &&!$ret ) {
 			$mainframe->addJS(Jconfig::getInstance()->config_live_site.'/includes/js/overlib_full.js');
-			// СѓСЃС‚Р°РЅРѕРІРєР° С„Р»Р°РіР° Рѕ Р·Р°РіСЂСѓР¶РµРЅРЅРѕР№ Р±РёР±Р»РёРѕС‚РµРєРµ РІСЃРїР»С‹РІР°СЋС‰РёС… РїРѕРґСЃРєР°Р·РѕРє
+			// установка флага о загруженной библиотеке всплывающих подсказок
 			$mainframe->set('loadOverlib',true);
 		}
 		if(!$mainframe->get('loadOverlib') && $ret==true){?>
@@ -4810,7 +4883,7 @@ class mosCommonHTML {
 	}
 
 	/*
-	* РџРѕРґРєР»СЋС‡РµРЅРёРµ JS С„Р°Р№Р»РѕРІ РљР°Р»РµРЅРґР°СЂСЏ
+	* Подключение JS файлов Календаря
 	*/
 	function loadCalendar() {
 		if(!defined('_CALLENDAR_LOADED')) {
@@ -4821,7 +4894,7 @@ class mosCommonHTML {
 			$mainframe->addJS(Jconfig::getInstance()->config_live_site.'/includes/js/calendar/lang/calendar-ru.js');
 		}
 	}
-	/* РїРѕРґРєР»СЋС‡РµРЅРёРµ mootools*/
+	/* подключение mootools*/
 	function loadMootools($ret = false) {
 		if(!defined('_MOO_LOADED')) {
 			define('_MOO_LOADED',1);
@@ -4832,14 +4905,14 @@ class mosCommonHTML {
 			<script language="javascript" type="text/javascript" src="<?php echo Jconfig::getInstance()->config_live_site;?>/includes/js/mootools/mootools.js"></script>
 <?php
 	}
-	/* РїРѕРґРєР»СЋС‡РµРЅРёРµ prettyTable*/
+	/* подключение prettyTable*/
 	function loadPrettyTable() {
 		if(!defined('_PRT_LOADED')) {
 			define('_PRT_LOADED',1);
 			MosMainFrame::getInstance()->addJS(Jconfig::getInstance()->config_live_site.'/includes/js/jsfunction/jrow.js');
 		}
 	}
-	/* РїРѕРґРєР»СЋС‡РµРЅРёРµ Fullajax*/
+	/* подключение Fullajax*/
 	function loadFullajax($ret = false) {
 		if(!defined('_FAX_LOADED')) {
 			define('_FAX_LOADED',1);
@@ -4853,46 +4926,46 @@ class mosCommonHTML {
 	}
 
 
-	/* РїРѕРґРєР»СЋС‡РµРЅРёРµ Jquery*/
-	function loadJquery($ret = false) {
+	/* подключение Jquery*/
+	function loadJquery($ret = false,$all = false) {
 		if(!defined('_JQUERY_LOADED')) {
 			define('_JQUERY_LOADED',1);
-			if($ret){?>
-				<script language="javascript" type="text/javascript" src="<?php echo Jconfig::getInstance()->config_live_site;?>/includes/js/jquery/jquery.js"></script>
-			<?php }else{
+			if($ret){
+				return '<script language="javascript" type="text/javascript" src="'.Jconfig::getInstance()->config_live_site.'/includes/js/jquery/jquery.js"></script>';
+			}else{
 				MosMainFrame::getInstance()->addJS(Jconfig::getInstance()->config_live_site.'/includes/js/jquery/jquery.js');
+				return true;
 			}
 		}
-		return true;
 	}
-	/* РїРѕРґРєР»СЋС‡РµРЅРёРµ СЂР°СЃС€РёСЂРµРЅРёР№ Jquery*/
+	/* подключение расширений Jquery*/
 	function loadJqueryPlugins($name,$ret = false, $css = '') {
 		$name = trim($name);
-		// РµСЃР»Рё СЃР°РјРѕ СЏРґСЂРѕ Jquery РЅРµ Р·Р°РіСЂСѓР¶РµРЅРѕ - СЃРЅР°С‡Р°Р»Р° РіСЂСѓР·РёРј РµРіРѕ
+		// если само ядро Jquery не загружено - сначала грузим его
 		if(!defined('_JQUERY_LOADED')) {
 			mosCommonHTML::loadJquery();
 		}
-		// С„РѕСЂРјРёСЂСѓРµРј РєРѕРЅСЃС‚Р°РЅС‚Сѓ-С„Р»Р°Рі РґР»СЏ РёСЃРєР»СЋС‡РµРЅРёСЏ РїРѕРІС‚РѕСЂРѕРЅРѕР№ Р·Р°РіСЂСѓР·РєРё
+		// формируем константу-флаг для исключения повтороной загрузки
 		$const = '_JQUERY_PL_'.strtoupper($name).'_LOADED';
 		if(!defined($const)) {
 			define($const,1);
-			if($ret){?>
-				<script language="javascript" type="text/javascript" src="<?php echo Jconfig::getInstance()->config_live_site;?>/includes/js/jquery/plugins/<?php echo $name; ?>.js"></script>
-            <?php if($css){
-                ?>
-                    <link type="text/css" rel="stylesheet" href="<?php echo Jconfig::getInstance()->config_live_site;?>/includes/js/jquery/plugins/<?php echo $name; ?>.css" />
-                <?php
-            }?>
+			if($ret){
+			?><script language="javascript" type="text/javascript" src="<?php echo Jconfig::getInstance()->config_live_site;?>/includes/js/jquery/plugins/<?php echo $name; ?>.js"></script>
+<?php
+		if($css){
+			?><link type="text/css" rel="stylesheet" href="<?php echo Jconfig::getInstance()->config_live_site;?>/includes/js/jquery/plugins/<?php echo $name; ?>.css" />
+<?php
+			}?>
 			<?php }else{
 				MosMainFrame::getInstance()->addJS(Jconfig::getInstance()->config_live_site.'/includes/js/jquery/plugins/'.$name.'.js');
-                if($css){
-                    MosMainFrame::getInstance()->addCSS(Jconfig::getInstance()->config_live_site.'/includes/js/jquery/plugins/'.$name.'.css');
-                }
+				if($css){
+					MosMainFrame::getInstance()->addCSS(Jconfig::getInstance()->config_live_site.'/includes/js/jquery/plugins/'.$name.'.css');
+				}
 			}
 		}
 		return true;
 	}
-	/* РїРѕРґРєР»СЋС‡РµРЅРёРµ С„Р°Р№Р»Р° Jquery UI*/
+	/* подключение файла Jquery UI*/
 	function loadJqueryUI($ret = false) {
 		if(!defined('_JQUERY_UI_LOADED')) {
 			define('_JQUERY_UI_LOADED',1);
@@ -4905,7 +4978,7 @@ class mosCommonHTML {
 		return true;
 	}
 
-	/* РїРѕРґРєР»СЋС‡РµРЅРёРµ codepress*/
+	/* подключение codepress*/
 	function loadCodepress() {
 		if(!defined('_CODEPRESS_LOADED')) {
 			define('_CODEPRESS_LOADED',1);
@@ -4930,7 +5003,7 @@ else window.addEventListener('DOMContentLoaded',CodePress.run,false);
 		}
 	}
 
-	/* РїРѕРґРєР»СЋС‡РµРЅРёРµ dTree*/
+	/* подключение dTree*/
 	function loadDtree() {
 		if(!defined('_DTR_LOADED')) {
 			define('_DTR_LOADED',1);
@@ -4939,7 +5012,7 @@ else window.addEventListener('DOMContentLoaded',CodePress.run,false);
 		}
 	}
 
-	/* РїРѕРґРєР»СЋС‡РµРЅРёРµ jwondow*/
+	/* подключение jwondow*/
 	function loadJWin() {
 		if(!defined('_JWIN_LOADED')) {
 			define('_JWIN_LOADED',1);
@@ -4969,7 +5042,7 @@ else window.addEventListener('DOMContentLoaded',CodePress.run,false);
 	}
 
 	/*
-	* РџСЂРѕРІРµСЂРєР° Р±Р»РѕРєРёСЂРѕРІРєРё РѕР±СЉРµРєС‚Р°
+	* Проверка блокировки объекта
 	*/
 	function CheckedOutProcessing(&$row,$i) {
 		global $my;
@@ -5351,8 +5424,8 @@ class patHTML {
 	*/
 	function yesNoRadio(&$tmpl,$template,$name,$value,$varname = null) {
 		$a = array(
-			patHTML::makeOption(0,'РќРµС‚'),
-			patHTML::makeOption(1,'Р”Р°')
+			patHTML::makeOption(0,'Нет'),
+			patHTML::makeOption(1,'Да')
 		);
 		patHTML::radioSet($tmpl,$template,$name,$value,$a,$varname);
 	}
@@ -5728,7 +5801,7 @@ class mosAbstractTasker {
 	* @return null
 	*/
 	function taskNotFound($task) {
-		echo 'Р—Р°РґР°С‡Р° '.$task.' РЅРµ РЅР°Р№РґРµРЅР°';
+		echo 'Задача '.$task.' не найдена';
 		return null;
 	}
 	/**
@@ -5737,7 +5810,7 @@ class mosAbstractTasker {
 	* @return null
 	*/
 	function methodNotFound($name) {
-		echo 'РњРµС‚РѕРґ '.$name.' РЅРµ РѕР±РЅР°СЂСѓР¶РµРЅ';
+		echo 'Метод '.$name.' не обнаружен';
 		return null;
 	}
 	/**
@@ -5753,15 +5826,15 @@ class mosAbstractTasker {
 
 
 /**
-* РћР±СЉРµРґРёРЅРµРЅРёРµ СЂР°СЃС€РёСЂРµРЅРёР№ СЃРёСЃС‚РµРјС‹ РІ РѕРґРЅРѕ РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІРѕ РёРјС‘РЅ
+* Объединение расширений системы в одно пространство имён
 *
 */
 class joostina_api {
 	/**
-	* РљРѕРЅРІРµСЂС‚РёСЂРѕРІР°РЅРёРµ С‚РµРєСЃС‚Р° РёР· СЋРЅРёРєРѕРґР° РІ РєРёСЂРёР»Р»РёС†Сѓ
-	* Р§Р°С‰Рµ РІСЃРµРіРѕ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РґР»СЏ РђСЏРєСЃ С„СѓРЅРєС†РёР№.
-	* Р’ РєР°С‡РµСЃС‚РІРµ РїР°СЂР°РјРµС‚СЂР° РїСЂРёРЅРёРјР°РµС‚ СЃС‚СЂРѕРєРѕРІРѕРµ Р·РЅР°С‡РµРЅРёРµ РІ РєРѕРґРёСЂРѕРІРєРµ UTF-8, РІРѕР·РІСЂР°С‰Р°РµС‚ СЃС‚СЂРѕРєРѕРІРѕРµ Р·РЅР°С‡РµРЅРёРµ РІ РєРѕРґРёСЂРѕРІРєРµ windows-1251
-	* $type - РїР°СЂР°РјРµС‚СЂ РєРѕРЅРІРµСЂС‚Р°С†РёРё, РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РєРѕРЅРІРµСЂС‚РёСЂСѓРµС‚СЃСЏ РёР· utf-8.
+	* Конвертирование текста из юникода в кириллицу
+	* Чаще всего используется для Аякс функций.
+	* В качестве параметра принимает строковое значение в кодировке UTF-8, возвращает строковое значение в кодировке windows-1251
+	* $type - параметр конвертации, по умолчанию конвертируется из utf-8.
 	**/
 	function convert($text,$type = null) {
 
@@ -5780,7 +5853,7 @@ class joostina_api {
 			}
 		}
 		if($text == '') {
-			return ''; // РєР»Р°СЃСЃ РєРѕРЅРІРµСЂС‚РѕСЂР° РЅРµ РїСЂРёРЅРёРјР°РµС‚ РїСѓСЃС‚С‹Рµ Р·РЅР°С‡РµРЅРёСЏ, РІ РѕР±С…РѕРґ РµРіРѕ РІРµСЂРЅС‘С‚ РїСЂРѕР±РµР»
+			return ''; // класс конвертора не принимает пустые значения, в обход его вернёт пробел
 		}
 		require_once $config->config_absolute_path.'/includes/libraries/convert/ConvertCharset.class.php';
 		$iso = explode( '=', _ISO );
@@ -5790,8 +5863,8 @@ class joostina_api {
 	}
 
 	/**
-	* РћРїС‚РёРјРёР·Р°С†РёСЏ С‚Р°Р±Р»РёС† Р±Р°Р·С‹ РґР°РЅРЅС‹С…
-	* РћСЃРЅРѕРІР°РЅРѕ РЅР° РјР°РјР±РѕС‚Рµ OptimizeTables - smart (C) 2006, Joomlaportal.ru. All rights reserved
+	* Оптимизация таблиц базы данных
+	* Основано на мамботе OptimizeTables - smart (C) 2006, Joomlaportal.ru. All rights reserved
 	*/
 	function optimizetables() {
 		if(mt_rand(1,50)==1) {
@@ -5799,15 +5872,15 @@ class joostina_api {
 		}
 	}
 	/**
-	* Р РµРґРёСЂРµРєС‚ СЃ РЅРµ WWW Р°РґСЂРµСЃР°
-	* РћСЃРЅРѕРІР°РЅРѕ РЅР° РјР°РјР±РѕС‚Рµ seo_bot_redir - Alecfyz (C) Gorsk.net Studio Dec 2006
+	* Редирект с не WWW адреса
+	* Основано на мамботе seo_bot_redir - Alecfyz (C) Gorsk.net Studio Dec 2006
 	*/
 	function check_host() {
 		register_shutdown_function('_check_host');
 	}
 	/**
-	* РћС‡РёСЃС‚РєР° РєСЌС€Р°
-	* РћСЃРЅРѕРІР°РЅРѕ РЅР° РјР°РјР±РѕС‚Рµ botClearCache - (C) 2008 Denis Ryabov ( http://physicist.phpnet.us/ )
+	* Очистка кэша
+	* Основано на мамботе botClearCache - (C) 2008 Denis Ryabov ( http://physicist.phpnet.us/ )
 	*/
 	function clear_cache(){
 		if(mt_rand(1,100)==1) {
@@ -5837,7 +5910,7 @@ function _check_host() {
 	}
 }
 
-// РѕС‡РёСЃС‚РєР° РєР°С‚Р°Р»РѕРіР° РєСЌС€Р°
+// очистка каталога кэша
 function _clear_cache(){
 	//global $mosConfig_cachepath,$mosConfig_cachetime;
 

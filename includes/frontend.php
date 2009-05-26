@@ -193,7 +193,7 @@ function mosLoadModules($position = 'left',$style = 0,$noindex = 0) {
 /**
 * Шапка страницы
 */
-function mosShowHead() {
+function mosShowHead($params=array('js'=>1,'css'=>1)) {
 	global $option,$my,$_VERSION,$task,$id;
 
 	$config = &Jconfig::getInstance();
@@ -235,8 +235,8 @@ function mosShowHead() {
 		$keys = implode(', ',array_unique(split(', ',$keys)));
 		$mainframe->_head['meta'][$_meta_keys_index][1] = $keys;
 	}
-	// отключение тега Generator
 
+	// отключение тега Generator
 	if($config->config_generator_off == 0) {
 		$mainframe->addMetaTag('Generator',$_VERSION->CMS.' - '.$_VERSION->COPYRIGHT);
 	}
@@ -254,7 +254,7 @@ function mosShowHead() {
 		$mainframe->addMetaTag('language',$config->config_lang);
 	}
 
-	echo $mainframe->getHead();
+	echo $mainframe->getHead($params);
 
 	// очистка ссылки на главную страницу даже при отключенном sef
 	if ( $config->config_mtage_base == 1) {
@@ -262,7 +262,8 @@ function mosShowHead() {
 	}
 
 	if($my->id || $mainframe->get('joomlaJavascript')) {
-		?><script src="<?php echo $mosConfig_live_site; ?>/includes/js/joomla.javascript.js" type="text/javascript"></script><?php
+		?><script src="<?php echo $config->config_live_site; ?>/includes/js/joomla.javascript.js" type="text/javascript"></script><?php
+		echo "\r\n";
 	}
 
 	// отключение RSS вывода в шапку
@@ -270,6 +271,7 @@ function mosShowHead() {
 	if($config->config_syndicate_off==0) {
 		$cache = &mosCache::getCache('header');
 		echo $cache->call('syndicate_header');
+		echo "\r\n";
 	}
 
 	// favourites icon
@@ -285,6 +287,11 @@ function mosShowHead() {
 		}
 		echo '<link rel="shortcut icon" href="'.$icon.'" />';
 	}
+}
+
+function mosShowFooter($params=array('fromheader'=>1,'js'=>1)) {
+	$mainframe = &mosMainFrame::getInstance();
+	echo $mainframe->getFooter($params);
 }
 
 // установка мета-тэгов для поисковика

@@ -1050,3 +1050,20 @@ CREATE TABLE IF NOT EXISTS `#__config` (
 ) ENGINE=MYISAM  CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 
+# расширенные поля профиля пользователя
+
+CREATE TABLE IF NOT EXISTS `jos_users_extra` (
+  `user_id` int(11) NOT NULL,
+  `gender` varchar(10) NOT NULL,
+  `about` tinytext NOT NULL,
+  `location` varchar(255) NOT NULL,
+  `url` varchar(255) NOT NULL,
+  `icq` varchar(255) NOT NULL,
+  `skype` varchar(255) NOT NULL,
+  `jabber` varchar(255) NOT NULL,
+  `msn` varchar(255) NOT NULL,
+  `yahoo` varchar(255) NOT NULL,
+  `phone` varchar(255) NOT NULL,
+  `fax` varchar(255) NOT NULL,
+  `mobil` varchar(255) NOT NULL
+) ENGINE=MYISAM  CHARACTER SET utf8 COLLATE utf8_general_ci;

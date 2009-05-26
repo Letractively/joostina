@@ -22,10 +22,13 @@ class HTML_content {
 	*/
 	function showContent(&$rows,$section,&$lists,$search,$pageNav,$all = null,$redirect='') {
 		global $my,$acl,$database,$mosConfig_live_site;
+
+		$selected_cat = intval( mosGetParam($_REQUEST,'catid',0));
+		
 		mosCommonHTML::loadOverlib();
 		mosCommonHTML::loadDtree();
 	?>
-    <script type="text/javascript">
+	<script type="text/javascript">
 		// смена статуса отображения на главной странице
 		function ch_fpage(elID){
 			log('Смена отображения на главной: '+elID);
@@ -130,6 +133,7 @@ class HTML_content {
 			$link = 'index2.php?option=com_content&sectionid='.$redirect.'&task=edit&hidemainmenu=1&id='.$row->id;
 			$row->sect_link = 'index2.php?option=com_sections&task=editA&hidemainmenu=1&id='.$row->sectionid;
 			$row->cat_link = 'index2.php?option=com_categories&task=editA&hidemainmenu=1&id='.$row->catid;
+
 			if($now <= $row->publish_up && $row->state == 1) {
 				// опубликовано
 				$img = 'publish_y.png';
@@ -159,7 +163,7 @@ class HTML_content {
 			} else {
 				$times .= "<tr><td>"._START.": $row->publish_up</td></tr>";
 			}
-			if($row->publish_down == $nullDate || $row->publish_down == 'Никогда') {
+			if($row->publish_down == $nullDate || $row->publish_down == _NEVER) {
 				$times .= "<tr><td>"._END.": "._WITHOUT_END."</td></tr>";
 			} else {
 				$times .= "<tr><td>"._END.": $row->publish_down</td></tr>";
@@ -178,7 +182,7 @@ class HTML_content {
 					$author = $row->author;
 				}
 			}
-			//$date		= mosFormatDate($row->created,'%x');
+
 			$access		= mosCommonHTML::AccessProcessing($row,$i,1);
 			$checked	= mosCommonHTML::CheckedOutProcessing($row,$i);
 			// значок отображения на главной странице
@@ -235,6 +239,7 @@ class HTML_content {
 		<?php mosCommonHTML::ContentLegend(); ?>
 		<input type="hidden" name="option" value="com_content" />
 		<input type="hidden" name="sectionid" value="<?php echo $section->id; ?>" />
+		<input type="hidden" name="catid" value="<?php echo $selected_cat; ?>" />
 		<input type="hidden" name="task" value="" />
 		<input type="hidden" name="boxchecked" value="0" />
 		<input type="hidden" name="hidemainmenu" value="0" />
