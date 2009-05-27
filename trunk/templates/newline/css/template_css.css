@@ -340,3 +340,8 @@ ul.bigred li {
 #email, #print {
 	padding: 3px;
 }
+
+#jdebug{
+	padding: 10px;
+	text-align:left;
+}

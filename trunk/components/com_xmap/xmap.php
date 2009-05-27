@@ -10,39 +10,44 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-// load Xmap language file
-global $mosConfig_absolute_path,$mosConfig_locale,$mosConfig_sef,$mosConfig_lang;
 
 $view = mosGetParam( $_REQUEST, 'view', 'html' );
+$config = &Jconfig::getInstance();
 
 if ($view == 'xslfile') {
 	header('Content-Type: text/xml');
-	@readfile($mosConfig_absolute_path.'/components/com_xmap/gss.xsl');
+	@readfile($config->config_absolute_path.'/components/com_xmap/gss.xsl');
 	exit;
 }
 
-$LangPath = $mosConfig_absolute_path . '/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/language/';
-if( file_exists( $LangPath . $mosConfig_lang . '.php') ) {
-	require_once( $LangPath . $mosConfig_lang. '.php' );
+$LangPath = $config->config_absolute_path .DS.ADMINISTRATOR_DIRECTORY.DS.'components'.DS.'com_xmap'.DS.'language'.DS;
+if( file_exists( $LangPath . $config->config_lang . '.php') ) {
+	require_once( $LangPath . $config->config_lang. '.php' );
 } else {
 	require_once( $LangPath . 'russian.php' );
 }
 
-require_once( $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/classes/XmapConfig.php' );
-require_once( $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/classes/XmapSitemap.php' );
-require_once( $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/classes/XmapPlugins.php' );
-require_once( $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/classes/XmapCache.php' );
+require_once( $config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY.DS.'components'.DS.'com_xmap'.DS.'classes'.DS.'XmapConfig.php' );
+require_once( $config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY.DS.'components'.DS.'com_xmap'.DS.'classes'.DS.'XmapSitemap.php' );
+require_once( $config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY.DS.'components'.DS.'com_xmap'.DS.'classes'.DS.'XmapPlugins.php' );
+require_once( $config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY.DS.'components'.DS.'com_xmap'.DS.'classes'.DS.'XmapCache.php' );
+
+$mainframe = &mosMainFrame::getInstance();
 
 $menu = $mainframe->get('menu');
+
 $params = new mosParameters($menu->params);
 $params->def('page_title',1);
 $params->def('header',$menu->name);
+
 if($params->get('header') == '') {
 	$mainframe->SetPageTitle($menu->name,$params);
 } else {
 	$mainframe->SetPageTitle($params->get('header'),$params);
 }
+
 set_robot_metatag($params->get('robots'));
+
 if($params->get('meta_description') != "") {
 	$mainframe->addMetaTag('description',$params->get('meta_description'));
 } else {
@@ -62,15 +67,8 @@ $xConfig = new XmapConfig;
 $xConfig->load();
 
 $Itemid = intval(mosGetParam( $_REQUEST, 'Itemid', '' ));
-$sitemapid =  '';
 
-// Firts lets try to get the sitemap's id from the menu's params
-if ( $Itemid ) {
-	$menu = new mosMenu( $database );
-	$menu->load( $Itemid );
-	$params = new mosParameters( $menu->params );
-	$sitemapid=intval($params->get( 'sitemap','' ));
-}
+$sitemapid =intval($params->get( 'sitemap','' ));
 
 if (!$sitemapid) { //If the is no sitemap id specificated
 	$sitemapid = intval(mosGetParam($_REQUEST,'sitemap',''));
@@ -95,10 +93,12 @@ global $xmap;
 
 $xmapCache = XmapCache::getCache($xSitemap);
 if ($xSitemap->usecache) {
-	$xmapCache->call('xmapCallShowSitemap',$view,$xSitemap->id,$mosConfig_locale,$mosConfig_sef);	// call plugin's handler function
+	$xmapCache->call('xmapCallShowSitemap',$view,$xSitemap->id,$title,$config->config_locale,$config->config_sef,$menu->name);	// call plugin's handler function
 } else {
-	xmapCallShowSitemap($view,$xSitemap->id);
+	xmapCallShowSitemap($view,$xSitemap->id,null,null,$menu->name);
 }
+
+unset($menu,$params);
 
 switch ($view) {
 	case 'html':
@@ -125,24 +125,26 @@ switch ($view) {
 * use with the cache call method
 * The params locale and sef are only for cache purppses
 */
-function xmapCallShowSitemap($view,$sitemapid,$locale='',$sef='') {
-	global $xmapCache,$mosConfig_absolute_path,$mosConfig_live_site,$xSitemap,$xConfig;
+function xmapCallShowSitemap($view,$sitemapid,$locale='',$sef='',$title='') {
+	global $xmapCache,$xSitemap,$xConfig;
+
+	$config = &Jconfig::getInstance();
 
 	switch( $view ) {
 		case 'xml': 	// XML Sitemaps output
-			require_once( $mosConfig_absolute_path .'/components/com_xmap/xmap.xml.php' );
+			require_once( $config->config_absolute_path .DS.'components'.DS.'com_xmap'.DS.'xmap.xml.php' );
 			$xmap = new XmapXML( $xConfig, $xSitemap );
-			$xmap->generateSitemap($view,$xConfig,$xmapCache);
+			$xmap->generateSitemap($view,$xConfig,$xmapCache,$title);
 			$xSitemap->count_xml = $xmap->count;
 			break;
 		default:	// Html output
-			global $mainframe;
+			$mainframe = &mosMainFrame::getInstance();
 			require_once( $mainframe->getPath('front_html') );
 			if (!$xConfig->exclude_css) {
-				$mainframe->addCustomHeadTag( '<link rel="stylesheet" type="text/css" media="all" href="' . $mosConfig_live_site . '/components/com_xmap/css/xmap.css" />' );
+				$mainframe->addCustomHeadTag( '<link rel="stylesheet" type="text/css" media="all" href="' . $config->config_live_site . '/components/com_xmap/css/xmap.css" />' );
 			}
 			$xmap = new XmapHtml( $xConfig, $xSitemap );
-			$xmap->generateSitemap($view,$xConfig,$xmapCache);
+			$xmap->generateSitemap($view,$xConfig,$xmapCache,$title);
 			$xSitemap->count_html = $xmap->count;
 			break;
 	}
@@ -169,7 +171,7 @@ class Xmap {
 
 	/** Default constructor, requires the config as parameter. */
 	function Xmap( &$config, &$sitemap ) {
-		global $acl, $my, $mainframe,$mosConfig_offset;
+		global $acl, $my;
 
 		$access = new stdClass();
 		$access->canEdit	 = $acl->acl_check( 'action', 'edit', 'users', $my->usertype, 'content', 'all' );
@@ -177,19 +179,19 @@ class Xmap {
 		$access->canPublish = $acl->acl_check( 'action', 'publish', 'users', $my->usertype, 'content', 'all' );
 		$this->access = &$access;
 
-		$this->noauth 	= $mainframe->getCfg( 'shownoauth' );
+		$this->noauth 	= mosMainFrame::getInstance()->getCfg( 'shownoauth' );
 		$this->gid	= $my->gid;
-		$this->now	= (time() - ($mosConfig_offset * 60 * 60));
+		$this->now	= (time() - (Jconfig::getInstance()->config_offset * 60 * 60));
 		$this->config = &$config;
 		$this->sitemap = &$sitemap;
 	}
 
 	/** Generate a full website tree */
-	function generateSitemap( $type,&$config, &$cache ) {
+	function generateSitemap( $type,&$config, &$cache,$title ) {
 		$menus = $this->sitemap->getMenus();
 		$plugins = XmapPlugins::loadAvailablePlugins();
 		$root = array();
-		$this->startOutput($menus,$config);
+		$this->startOutput($menus,$config,$title);
 		foreach ( $menus as $menutype => $menu ) {
 			if ( ($type == 'html' && !$menu->show) || ($type == 'xml' && !$menu->showXML ) ) {
 				continue;
@@ -223,7 +225,8 @@ class Xmap {
 	 * A tree with subtrees for each menuentry is returned.
 	 */
 	function printMenuTree( &$menu, &$cache, $plugins) {
-		global $database;
+
+		$database = database::getInstance();
 
 		if( strlen($menu->menutype) == 0 ) {
 			$result = null;
@@ -232,22 +235,7 @@ class Xmap {
 
 		$menuExluded	= explode( ',', $this->sitemap->exclmenus ); 		// by mic: fill array with excluded menu IDs
 
-		/* * noauth is true:
-			- Will show links to registered content, even if the client is not logged in.
-			- The user will need to login to see the item in full.
-			* noauth is false:
-			- Will show only links to content for which the logged in client has access.
-		*/
-		$sql = "SELECT m.id, m.name, m.parent, m.link, m.type, m.browserNav, m.menutype, m.ordering, m.params, m.componentid, c.name AS component"
-	 		. "\n FROM #__menu AS m"
-	 		. "\n LEFT JOIN #__components AS c ON m.type='components' AND c.id=m.componentid"
-	 		. "\n WHERE m.published='1' AND m.parent=".$menu->id." AND m.menutype = '".$menu->menutype."'"
-	 		. ( $this->noauth ? '' : "\n AND m.access <= '". $this->gid ."'" )
-	 		. "\n ORDER BY m.menutype,m.parent,m.ordering";
-
-		// Load all menuentries
-		$database->setQuery( $sql );
-		$items = $database->loadObjectList();
+		$items = $this->_getmenuTree($menu);
 
 		if( count($items) <= 0) {	//ignore empty menus
 			$result = null;
@@ -255,8 +243,6 @@ class Xmap {
 		}
 
 		$this->changeLevel(1);
-		
-		$isJ15 = defined ('_JEXEC') && defined('JPATH_COMPONENT');
 
 		foreach ( $items as $i => $item ) {		// Add each menu entry to the root tree.
 			$item->priority = $menu->priority;
@@ -267,8 +253,8 @@ class Xmap {
 
 			$node = new stdclass;
 
-			$node->id 		= $item->id;
-			$node->uid 		= "item".$item->id;
+			$node->id 			= $item->id;
+			$node->uid 			= "item".$item->id;
 			$node->name 		= $item->name;							// displayed name of node
 			$node->parent 		= $item->parent;						// id of parent node
 			$node->browserNav 	= $item->browserNav;						// how to open link
@@ -277,11 +263,7 @@ class Xmap {
 			$node->changefreq 	= $item->changefreq;
 			$node->type 		= $item->type;							// menuentry-type
 			$node->menutype 	= $item->menutype;						// menuentry-type
-			if ( $isJ15 && substr($item->link,0,9) == 'index.php' ) {
-				$node->link 	= 'index.php?Itemid=' . $node->id;				// For Joomla 1.5 SEF compatibility
-			} else {
-				$node->link 	= isset( $item->link ) ? htmlspecialchars( $item->link ) : '';	// convert link to valid xml
-			}
+			$node->link 	= isset( $item->link ) ? htmlspecialchars( $item->link ) : '';	// convert link to valid xml
 			$this->printNode($node);
 			XmapPlugins::printTree( $this, $item, $cache, $plugins );	// Determine the menu entry's type and call it's handler
 			$this->printMenuTree($node,$cache,$plugins);
@@ -292,16 +274,20 @@ class Xmap {
 
 	/** Look up the title for the module that links to $menutype */
 	function getMenuTitle($menutype) {
-		global $database;
+
+		$database = database::getInstance();
+
 		$query = "SELECT title FROM #__modules WHERE published='1' AND (module='mod_mainmenu' OR module='mod_mljoostinamenu') AND params LIKE '%menutype=". $menutype ."%' LIMIT 1";
 		$database->setQuery( $query );
-		if( !$database->loadObject($row) )
+		if( !$database->loadObject($row) ){
 			return '';
-        return $row->title;
+		}
+		return $row->title;
 	}
 
 	function getItemLink (&$node) {
-		global $mosConfig_live_site;
+
+		$config = &Jconfig::getInstance();
 
 		$link = $node->link;
 		if ( isset($node->id) ) {
@@ -330,10 +316,10 @@ class Xmap {
 			if (strcasecmp( substr( $link, 0, 9), 'index.php' ) === 0 ){
 				$link = sefRelToAbs($link);             // apply SEF transformation
 				if( strcasecmp( substr($link,0,4), 'http' ) ) {       // fix broken sefRelToAbs()
-					$link = $mosConfig_live_site. (substr($link,0,1) == '/'? '' : '/').$link;
+					$link = $config->config_live_site. (substr($link,0,1) == '/'? '' : '/').$link;
 				}
 			} else { // Case for internal links not starting with index.php
-				$link = $mosConfig_live_site. '/' .$link;
+				$link = $config->config_live_site. '/' .$link;
 			}
 		}
 
@@ -344,17 +330,42 @@ class Xmap {
 	function printDebugTree( &$tree ) {
 		foreach( $tree as $menu) {
 			echo $menu->name."<br />\n";
-			echo '<pre>';
-			print_r( $menu->tree );
-			echo '</pre>';
+			_xdump( $menu->tree );
 		}
 	}
 
 	/** called with usort to sort menus */
 	function sort_ordering( &$a, &$b) {
-		if( $a->ordering == $b->ordering )
+		if( $a->ordering == $b->ordering ){
 			return 0;
+		}
 		return $a->ordering < $b->ordering ? -1 : 1;
+	}
+
+	function _getmenuTree($menu){
+		static $instance;
+
+		if (!is_array( $instance ) OR !isset($instance[$menu->menutype]) ) {
+			$database = database::getInstance();
+			$sql = "SELECT m.id, m.name, m.parent, m.link, m.type, m.browserNav, m.menutype, m.ordering, m.params, m.componentid, c.name AS component"
+				. "\n FROM #__menu AS m"
+				. "\n LEFT JOIN #__components AS c ON m.type='components' AND c.id=m.componentid"
+				. "\n WHERE m.published='1' AND m.menutype = '".$menu->menutype."'"
+				. ( $this->noauth ? '' : "\n AND m.access <= '". $this->gid ."'" )
+				. "\n ORDER BY m.menutype,m.parent,m.ordering";
+
+			$database->setQuery( $sql );
+			$items = $database->loadObjectList();
+			$instance = array();
+			foreach ($items as $item){
+				$instance[$menu->menutype][$item->parent][]=$item;
+			}
+			unset($items,$item);
+		}
+
+		return (isset($instance[$menu->menutype][$menu->id])) ? $instance[$menu->menutype][$menu->id]:null;
+	
+
 	}
 
 }

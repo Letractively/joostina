@@ -104,14 +104,11 @@ class XmapHtml extends Xmap {
 	}
 
 	/** Print component heading, etc. Then call getHtmlList() to print list */
-	function startOutput(&$menus,&$config) {
+	function startOutput(&$menus,&$config,$title) {
 		global $database, $Itemid;
+
 		$sitemap = &$this->sitemap;
 
-		$menu = new mosMenu( $database );
-		$menu->load( $Itemid );			// Load params for the Xmap menu-item
-		$title = $menu->name;
-		
 		$exlink[0] = $sitemap->exlinks;		// image to mark popup links
 		$exlink[1] = $sitemap->ext_image;
 
