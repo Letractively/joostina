@@ -229,3 +229,15 @@ iframe #blockrandom {
 .com_wrapper {
 	overflow: auto;
 }
+
+/*-------------------------------пагинация*/
+span.pagenav{color:#FE0693;}
+.pagenavigation{padding:20px 0 20px 0;clear:both;}
+.pagenavigation ul{list-style:none;padding:0;margin:0;}
+.pagenavigation ul li{list-style:none;padding:3px;font-size:11px;display:inline;}
+.pagenavigation ul li a{padding:3px 5px 3px 5px;text-decoration:none;font-size:11px;background:#D8E6F1;border:1px solid #9BC7EA;color:#000;}
+.pagenavigation ul li a:hover{background:#C3DDF1;}
+li.first_page span,li.last_page span{display:none;visibility:hidden;}
+.pn_nav{text-align:center;margin:15px 0 20px 0;clear:both;}
+.pn_nav a{color:#FFF;font-weight:bold;font-size:11px;margin:0 5px;background:#656565;border:3px solid #D0D0D0;padding:5px 6px;text-decoration:none;}
+.pn_nav a:hover{color:#FDCDEB;background:#000;border:3px solid #656565;

@@ -158,14 +158,14 @@ DEFINE('_CONTACT_DOWNLOAD_AS','Скачать информацию в форма
 DEFINE('_VCARD','VCard');
 
 /** pageNavigation*/
-DEFINE('_PN_LT','&lt;');
-DEFINE('_PN_RT','&gt;');
+DEFINE('_PN_LT','&larr;');
+DEFINE('_PN_RT','&rarr;');
 DEFINE('_PN_PAGE','Страница');
 DEFINE('_PN_OF','из');
-DEFINE('_PN_START','[Первая]');
+DEFINE('_PN_START','Первая');
 DEFINE('_PN_PREVIOUS','Предыдущая');
 DEFINE('_PN_NEXT','Следующая');
-DEFINE('_PN_END','[Последняя]');
+DEFINE('_PN_END','Последняя');
 DEFINE('_PN_DISPLAY_NR','Отображать');
 DEFINE('_PN_RESULTS','Результаты');
 
