@@ -120,8 +120,10 @@ class xmap_com_content {
 		$query = "SELECT a.id, a.introtext, a.fulltext, a.title, a.modified, a.created"
 			. ($isJ15 ? ',CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(":", a.id, a.alias) ELSE a.id END as slug'
 			. ',CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(":", c.id, c.alias) ELSE c.id END as catslug' : '')
-			. "\n FROM #__content AS a" . ($isJ15 ? ',#__categories AS c' : '') . "\n WHERE a.catid=(" . $catid . ")"
-			. ($isJ15 ? "\n AND a.catid=c.id" : '') . "\n AND a.state='1'"
+			. "\n FROM #__content AS a" . ($isJ15 ? ',#__categories AS c' : '')
+			. "\n WHERE a.catid=(" . $catid . ")"
+			. ($isJ15 ? "\n AND a.catid=c.id" : '')
+			. "\n AND a.state='1'"
 			. "\n AND ( a.publish_up = '0000-00-00 00:00:00' OR a.publish_up <= '" . date('Y-m-d H:i:s', $xmap->now) . "' )"
 			. "\n AND ( a.publish_down = '0000-00-00 00:00:00' OR a.publish_down >= '" . date('Y-m-d H:i:s', $xmap->now) . "' )"
 			. ($xmap->noauth ? '' : "\n AND a.access<='" . $xmap->gid . "'") // authentication required ?

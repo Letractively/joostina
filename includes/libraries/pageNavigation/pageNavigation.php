@@ -129,7 +129,6 @@ class mosPageNav {
 				$mainframe->addCustomHeadTag('<link rel="prev" href="'.sefRelToAbs($link.'&amp;limitstart='.$page).'" />');
 				$this->prev_exist = 1;
 			}
-            }
 
 			$txt .= '<li class="first_page"><a href="'.sefRelToAbs("$link&amp;limitstart=0").'" class="pagenav" title="'._PN_START.'">'._PN_START.'</a></li> ';
 			$txt .= '<li class="back"><a href="'.sefRelToAbs("$link&amp;limitstart=$page").'" class="pagenav" title="'._PN_PREVIOUS.'">'._PN_LT.$pnSpace._PN_PREVIOUS.'</a></li> ';
@@ -152,10 +151,10 @@ class mosPageNav {
 			$page = $this_page* $this->limit;
 			$end_page = ($total_pages - 1)* $this->limit;
 
-            if (!$this->next_exist){
-                $mainframe->addCustomHeadTag("<link rel='next' href='".sefRelToAbs($link.'&amp;limitstart='.$page)."' />");
-                $this->next_exist = 1;
-            }
+			if (!$this->next_exist){
+				$mainframe->addCustomHeadTag("<link rel='next' href='".sefRelToAbs($link.'&amp;limitstart='.$page)."' />");
+				$this->next_exist = 1;
+			}
 
 			$txt .= '<li class="next"><a href="'.sefRelToAbs($link.'&amp;limitstart='.$page).' " class="pagenav" title="'._PN_NEXT.'">'._PN_NEXT.$pnSpace._PN_RT.'</a> </li>';
 			$txt .= '<li class="last_page"><a href="'.sefRelToAbs($link.'&amp;limitstart='.$end_page).' " class="pagenav" title="'._PN_END.'">'._PN_END.'</a></li>';

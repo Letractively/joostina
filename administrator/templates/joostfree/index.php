@@ -17,7 +17,7 @@ echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'."\n";
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<title><?php echo $mosConfig_sitename; ?>  - <?php echo _JOOSTINA_CONTRIL_PANEL?></title>
+		<title><?php echo $mosConfig_sitename; ?> - <?php echo _JOOSTINA_CONTRIL_PANEL?></title>
 		<meta http-equiv="Content-Type" content="text/html; <?php echo _ISO; ?>" />
 <?php
 /* подключаем fullajax */
@@ -43,6 +43,21 @@ if(isset($mainframe->_head['custom'])) {
 	}
 	echo implode("\n",$head)."\n";
 };
+if(isset($mainframe->_head['js'])) {
+	$head = array();
+	foreach($mainframe->_head['js'] as $html) {
+		$head[] = $html;
+	}
+	echo implode("\n",$head)."\n";
+};
+if(isset($mainframe->_head['css'])) {
+	$head = array();
+	foreach($mainframe->_head['css'] as $html) {
+		$head[] = $html;
+	}
+	echo implode("\n",$head)."\n";
+};
+
 // отправим пользователю шапку - пусть браузер работает пока будет формироваться дальнейший код страницы
 flush();
 ?>

@@ -93,7 +93,7 @@ class XmapSitemap {
 		$query = "SELECT * FROM #__xmap_sitemap where id=$id";
 		$database->setQuery( $query );
 		if( $database->loadObject( $this ) === FALSE ) {
-			return false;														// defaults are still set, though
+			return false;// defaults are still set, though
 		}
 		return true;
 	}
@@ -115,19 +115,19 @@ class XmapSitemap {
 		}
 
 		if ($this->id && !$forceinstall) {
-		    $sep = "";
-		    $values="";
-		    foreach ($fields as $k  => $value) {
+			$sep = "";
+			$values="";
+			foreach ($fields as $k  => $value) {
 			if ($k != 'id') {
 				$values .= "$sep$k=$value";
 				$sep = ",";
 			}
-		    }
-		    $query = "UPDATE #__xmap_sitemap SET $values WHERE id=" . intval($this->id);
-		    $isInsert = 0;
+			}
+			$query = "UPDATE #__xmap_sitemap SET $values WHERE id=" . intval($this->id);
+			$isInsert = 0;
 		} else {
-		    $query = "INSERT INTO #__xmap_sitemap (". implode(',',array_keys($fields)) .") VALUES (".implode(',',$fields).")";
-		    $isInsert = 1;
+			$query = "INSERT INTO #__xmap_sitemap (". implode(',',array_keys($fields)) .") VALUES (".implode(',',$fields).")";
+			$isInsert = 1;
 		}
 		$database->setQuery( $query );
 		# echo $database->getQuery( );
