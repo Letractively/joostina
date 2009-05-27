@@ -41,12 +41,12 @@ class mosPageNav {
 	function getLimitBox($link) {
 		$limits = array();
 		for($i = 5; $i <= 30; $i += 5) {
-			$limits[] = mosHTML::makeOption("$i");
+			$limits[] = mosHTML::makeOption($i);
 		}
 		$limits[] = mosHTML::makeOption('50');
 		$limits[] = mosHTML::makeOption('100');
 		$limits[] = mosHTML::makeOption('150');
-		$limits[] = mosHTML::makeOption('5000','-Все-');
+		$limits[] = mosHTML::makeOption('5000',_PN_ALL);
 		// build the html select list
 		$link = $link."&amp;limit=' + this.options[selectedIndex].value + '&amp;limitstart=".$this->limitstart;
 		$link = sefRelToAbs($link);
@@ -125,10 +125,10 @@ class mosPageNav {
 
 			$page = ($this_page - 2)* $this->limit;
 
-            if (!$this->prev_exist){
-                $mainframe->addCustomHeadTag("<link rel='prev' href='".sefRelToAbs("$link&amp;limitstart=$page")."' />");
-                $mainframe->addCustomHeadTag("<link rel='prev' href='".sefRelToAbs($link)."' />");
-                $this->prev_exist = 1;
+			if (!$this->prev_exist){
+				$mainframe->addCustomHeadTag('<link rel="prev" href="'.sefRelToAbs($link.'&amp;limitstart='.$page).'" />');
+				$this->prev_exist = 1;
+			}
             }
 
 			$txt .= '<li class="first_page"><a href="'.sefRelToAbs("$link&amp;limitstart=0").'" class="pagenav" title="'._PN_START.'">'._PN_START.'</a></li> ';
