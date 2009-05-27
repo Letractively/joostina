@@ -41,12 +41,12 @@ class mosPageNav {
 	function getLimitBox($link) {
 		$limits = array();
 		for($i = 5; $i <= 30; $i += 5) {
-			$limits[] = mosHTML::makeOption($i);
+			$limits[] = mosHTML::makeOption("$i");
 		}
 		$limits[] = mosHTML::makeOption('50');
 		$limits[] = mosHTML::makeOption('100');
 		$limits[] = mosHTML::makeOption('150');
-		$limits[] = mosHTML::makeOption('5000',_PN_ALL);
+		$limits[] = mosHTML::makeOption('5000','-Все-');
 		// build the html select list
 		$link = $link."&amp;limit=' + this.options[selectedIndex].value + '&amp;limitstart=".$this->limitstart;
 		$link = sefRelToAbs($link);
@@ -94,15 +94,15 @@ class mosPageNav {
 	* @param string The basic link to include in the href
 	*/
 	function writePagesLinks($link) {
-		
+
 		global $mainframe;
-		$txt = '';
+		$txt = '<div class="pagenavigation"><ul>';
 
 		$displayed_pages = 10;
 		$total_pages = $this->limit?ceil($this->total / $this->limit):0;
 		// скрываем навигатор по страницам если их меньше 2х.
 		if($total_pages<2) return;
-		
+
 		$this_page = $this->limit?ceil(($this->limitstart + 1) / $this->limit):1;
 		$start_loop = (floor(($this_page - 1) / $displayed_pages))* $displayed_pages +1;
 		if($start_loop + $displayed_pages - 1 < $total_pages) {
@@ -114,8 +114,8 @@ class mosPageNav {
 		$link .= '&amp;limit='.$this->limit;
 
 		if(!defined('_PN_LT') || !defined('_PN_RT')) {
-			DEFINE('_PN_LT','&lt;');
-			DEFINE('_PN_RT','&gt;');
+			DEFINE('_PN_LT','&larr;');
+			DEFINE('_PN_RT','&rarr;');
 		}
 
 		$pnSpace = '';
@@ -125,44 +125,45 @@ class mosPageNav {
 
 			$page = ($this_page - 2)* $this->limit;
 
-			if (!$this->prev_exist){
-				$mainframe->addCustomHeadTag('<link rel="prev" href="'.sefRelToAbs($link.'&amp;limitstart='.$page).'" />');
-				$this->prev_exist = 1;
-			}
+            if (!$this->prev_exist){
+                $mainframe->addCustomHeadTag("<link rel='prev' href='".sefRelToAbs("$link&amp;limitstart=$page")."' />");
+                $mainframe->addCustomHeadTag("<link rel='prev' href='".sefRelToAbs($link)."' />");
+                $this->prev_exist = 1;
+            }
 
-			$txt .= '<a href="'.sefRelToAbs("$link&amp;limitstart=0").'" class="pagenav" title="'._PN_START.'">'._PN_LT._PN_LT.$pnSpace._PN_START.'</a> ';
-			$txt .= '<a href="'.sefRelToAbs("$link&amp;limitstart=$page").'" class="pagenav" title="'._PN_PREVIOUS.'">'._PN_LT.$pnSpace._PN_PREVIOUS.'</a> ';
+			$txt .= '<li class="first_page"><a href="'.sefRelToAbs("$link&amp;limitstart=0").'" class="pagenav" title="'._PN_START.'">'._PN_START.'</a></li> ';
+			$txt .= '<li class="back"><a href="'.sefRelToAbs("$link&amp;limitstart=$page").'" class="pagenav" title="'._PN_PREVIOUS.'">'._PN_LT.$pnSpace._PN_PREVIOUS.'</a></li> ';
 		} else {
-			$txt .= '<span class="pagenav">'._PN_LT._PN_LT.$pnSpace._PN_START.'</span> ';
-			$txt .= '<span class="pagenav">'._PN_LT.$pnSpace._PN_PREVIOUS.'</span> ';
+			$txt .= '<li class="first_page"><span class="pagenav">'._PN_START.'</span></li> ';
+			$txt .= '<li class="back"><span class="pagenav">'._PN_LT.$pnSpace._PN_PREVIOUS.'</span></li> ';
 		}
 
 		for($i = $start_loop; $i <= $stop_loop; $i++) {
 			$page = ($i - 1)* $this->limit;
 			if($i == $this_page) {
-				$txt .= '<span class="pagenav">'.$i.'</span> ';
+				$txt .= '<li><span class="pagenav">'.$i.'</span></li>';
 			} else {
-				$txt .= '<a href="'.sefRelToAbs($link.'&amp;limitstart='.$page).'" class="pagenav"><strong>'.$i.'</strong></a> ';
+				$txt .= '<li><a href="'.sefRelToAbs($link.'&amp;limitstart='.$page).'" class="pagenav"><strong>'.$i.'</strong></a></li>';
 			}
 		}
 
 		if($this_page < $total_pages) {
-			
+
 			$page = $this_page* $this->limit;
 			$end_page = ($total_pages - 1)* $this->limit;
 
-			if (!$this->next_exist){
-				$mainframe->addCustomHeadTag('<link rel="next" href="'.sefRelToAbs($link.'&amp;limitstart='.$page).'" />');
-				$this->next_exist = 1;
-			}
+            if (!$this->next_exist){
+                $mainframe->addCustomHeadTag("<link rel='next' href='".sefRelToAbs($link.'&amp;limitstart='.$page)."' />");
+                $this->next_exist = 1;
+            }
 
-			$txt .= '<a href="'.sefRelToAbs($link.'&amp;limitstart='.$page).' " class="pagenav" title="'._PN_NEXT.'">'._PN_NEXT.$pnSpace._PN_RT.'</a> ';
-			$txt .= '<a href="'.sefRelToAbs($link.'&amp;limitstart='.$end_page).' " class="pagenav" title="'._PN_END.'">'._PN_END.$pnSpace._PN_RT._PN_RT.'</a>';
+			$txt .= '<li class="next"><a href="'.sefRelToAbs($link.'&amp;limitstart='.$page).' " class="pagenav" title="'._PN_NEXT.'">'._PN_NEXT.$pnSpace._PN_RT.'</a> </li>';
+			$txt .= '<li class="last_page"><a href="'.sefRelToAbs($link.'&amp;limitstart='.$end_page).' " class="pagenav" title="'._PN_END.'">'._PN_END.'</a></li>';
 		} else {
-			$txt .= '<span class="pagenav">'._PN_NEXT.$pnSpace._PN_RT.'</span> ';
-			$txt .= '<span class="pagenav">'._PN_END.$pnSpace._PN_RT._PN_RT.'</span>';
+			$txt .= '<li class="next"><span class="pagenav">'._PN_NEXT.$pnSpace._PN_RT.'</span></li> ';
+			$txt .= '<li class="last_page"><span class="pagenav">'._PN_END.$pnSpace._PN_RT.'</span></li>';
 		}
-		return $txt;
+		 return $txt.'</ul></div>';
 	}
 	/**
 	* Sets the vars {PAGE_LINKS}, {PAGE_LIST_OPTIONS} and {PAGE_COUNTER} for the page navigation template
