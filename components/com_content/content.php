@@ -8,7 +8,7 @@
 */
 
 // запрет прямого доступа
-defined('_VALID_MOS') or die(); 
+defined('_VALID_MOS') or die();
 require_once ($mainframe->getPath('front_html','com_content'));
 
 global $gid,$task,$Itemid,$option,$my;
@@ -1503,6 +1503,20 @@ function BlogOutput(&$rows,&$params,$gid,&$access,$pop,&$menu,$limitstart,$limit
 	// Back Button
 	$params->set('back_button',$back);
 
+    //Тэги
+    $tags = new contentTags($database);
+    $all_tags = $tags->load_by_type('com_content');
+    $tags_arr = array();
+    foreach ($all_tags as $tag){
+        $tag->tag = '<a class="tag" href="'.$tags->get_tag_url($tag->tag).'">'.$tag->tag.'</a>';
+        if(array_key_exists($tag->obj_id, $tags_arr)){
+            $tags_arr[$tag->obj_id] .=  ', '.$tag->tag;
+        }
+        else{
+            $tags_arr[$tag->obj_id] =  $tag->tag;
+        }
+    }
+
     $template = new jstContentTemplate();
      $templates = null;
     //Определяем шаблон вывода страницы
@@ -1530,6 +1544,8 @@ function BlogOutput(&$rows,&$params,$gid,&$access,$pop,&$menu,$limitstart,$limit
             break;
         }
     }
+
+
 
     //Если это главная страница - компонент 'com_frontpage'
    else if($_REQUEST['option']=='com_frontpage'){
@@ -1567,6 +1583,8 @@ function BlogOutput(&$rows,&$params,$gid,&$access,$pop,&$menu,$limitstart,$limit
                 break;
         }
     }
+
+
 
     $template->set_template($page_type, $templates);
     include_once($template->template_file);
@@ -1719,7 +1737,9 @@ function showItem($uid,$gid,&$access,$pop) {
 			unset($list);
 		}
 
-
+        $tags = new contentTags($database);
+        $row->tags = $tags->load_by($row);
+        $row->tags = $tags->arr_to_links($row->tags, ', ');
 
 
         $params->section_data = null;
@@ -1979,6 +1999,7 @@ function show($row,$params,$gid,&$access,$pop, $template='') {
 	// needed for caching purposes to stop different cachefiles being created for same item
 	// does not affect anything else as hits data not outputted
 	$row->hits = 0;
+
 
 	$cache->call('HTML_content::show',$row,$params,$access,$page, $template);
 }
@@ -2279,6 +2300,9 @@ function editItem($task) {
 
     $row->lists = $lists;
 
+    $tags = new contentTags($database);
+    $row->tags = implode(',', $tags->load_by($row));
+
 	HTML_content::editContent($row,$page,$task);
 }
 
@@ -2365,17 +2389,26 @@ function saveContent(&$access,$task) {
       $row->sectionid=$catid0[0];
     }
 
-
-
 	if(!$row->check()) {
 		echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
 		exit();
 	}
+
+    //Подготовка тэгов
+    $tags = explode(',', $_POST['tags']);
+    $tag = new contentTags($database);
+    $tags = $tag->clear_tags($tags);
+    $row->metakey = implode(',', $tags);
+
 	$row->version++;
 	if(!$row->store()) {
 		echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
 		exit();
 	}
+
+    //Запись тэгов
+    $row->obj_type = 'com_content';
+    $tag->update($tags, $row);
 
 	// manage frontpage items
 	require_once ($mainframe->getPath('class','com_frontpage'));

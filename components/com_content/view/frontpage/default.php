@@ -27,7 +27,12 @@
     		<?php if($leading) { ?>
     			<div class="leading_block">
 
-    			<?php for($z = 0; $z < $leading; $z++) { if($i >= ($total - $limitstart)) { break; } ?>
+    			<?php for($z = 0; $z < $leading; $z++) {
+    			    if($i >= ($total - $limitstart)) { break; }
+                    if(array_key_exists($rows[$i]->id, $tags_arr)){
+                        $rows[$i]->tags = $tags_arr[$rows[$i]->id];
+                    }
+                    ?>
 
     			    <div class="intro leading" id="leading_<?php echo $i;?>">
     				    <?php  show($rows[$i],$params,$gid,$access,$pop, 'intro/leading/frontpage.php');?>
@@ -43,7 +48,9 @@
 			<table class="intro_table" width="100%"  cellpadding="0" cellspacing="0">
 
             <?php for($z = 0; $z < $intro; $z++) {
-
+                    if(array_key_exists($rows[$i]->id, $tags_arr)){
+                        $rows[$i]->tags = $tags_arr[$rows[$i]->id];
+                    }
                 if($i >= ($total - $limitstart)) { break; } if(!($z % $columns) || $columns == 1) { ?>
 			    <tr>
 			    <?php } ?>

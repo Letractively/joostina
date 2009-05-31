@@ -14,6 +14,8 @@ defined('_VALID_MOS') or die();
  * @subpackage Search
  */
 class search_html {
+
+
 	function openhtml($params) {
 		if($params->get('page_title')) {
 ?>
@@ -169,5 +171,49 @@ class search_html {
 		$link = $mosConfig_live_site . "/index.php?option=$option&amp;Itemid=$Itemid&amp;searchword=$searchword&amp;searchphrase=$searchphrase&amp;ordering=$ordering";
 		echo $pageNav->writePagesLinks($link);
 	}
+}
+
+class search_by_tag_HTML{
+
+    function tag_page ($items, $params, $groups){
+        ?>
+            <div class="tag_page">
+                <div class="contentpagetitle">
+                     <h1><?php echo $params->title;?>  "<?php echo $items->tag;?>" </h1>
+                     <div class="search_result">
+                        <?php echo self::view_group($items, $params, $groups);?>
+                     </div>
+                </div>
+            </div>
+        <?php
+    }
+
+    function view_group($items, $params, $groups){
+        global $mosConfig_live_site;
+		?>
+
+		<?php if(count($items)>0){?>
+			<?php
+                foreach($groups as $key=>$group){
+                    foreach($items->items[$key] as $item){
+                        $item->link = searchByTag::construct_url($item, $group);
+                    ?>
+
+                    <div class="search_item">
+                        <a href="<?php echo $item->link;?>"><?php echo $item->title;?></a> <br />
+                        <span class="date"><?php echo $item->date;?></span> <br />
+                        <p><?php echo $item->text;?></p>
+                    </div>
+
+                <?php }
+            }
+
+
+
+		}else{?>
+			<div>Хм... С этим тэгом ничего не связано</div>
+		<?php };?>
+	<?php
+    }
 }
 ?>

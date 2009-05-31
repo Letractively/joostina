@@ -10,13 +10,101 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
+require_once ($mainframe->getPath('class','com_search'));
 require_once ($mainframe->getPath('front_html'));
 
-// page title
-$mainframe->setPageTitle(_SEARCH_TITLE);
+$tag = mosGetParam( $_REQUEST, 'tag', '' );
+if($tag){
+    search_by_tag($tag);
+}
+else{
+    $mainframe->setPageTitle(_SEARCH_TITLE);
+    viewSearch();
+}
 
-viewSearch();
+function search_by_tag($tag){
+    global $database, $mainframe;
 
+    $items = new contentTags($database);
+
+    /**
+    * Формируем "поисковые группы" )
+     * Каждая группа - относится к какому-то конкретному компоненту
+     *
+     * >    'group_name' - имя группы, должно совпадать с названием компонента
+            и названием типа объекта (который записывается в таблицу с тэгами)
+     * >     'group_title' - заголовок группы. Это значение может использоваться
+            при выводе результатов поиска по тэгу. Так как результаты группируются на странице,
+            логично  было бы указывать заголовки групп
+     * >    'table' - таблица, в которой хранятся записи
+     * >    'id' - ключевое поле/идентификатор записи
+     * >    'title' - поле, значение из которого будет использоваться для вывода заголовков результатов
+     * >    'text' -  поле, значение из которого будет использоваться для вывода текстов результатов
+     * >    'date' -  поле, значение из которого будет использоваться для вывода даты создания записи в списке результатов
+
+     *  В случае, если ссылка для перехода к найденному объекту выглядит просто
+        (например, как в com_content: task=view&id=$item->id)
+        никаких дополнительных манипуляций не требуется. Достаточно прописать значение 'task'
+     * >    'task' -  обращение к странице полного просмотра объекта поиска
+
+     * Если же специфика компонента предусматривает переход к записи по ссылке, содержащей дополнительные параметры,
+     * необходимо описать эти параметры в 'url_params'
+     * Допустим: нам необходимо сформировать ссылку на объект компонента com_content, указав дополнительно в параметрах
+     * ссылки id категории и раздела, к которым принадлежит найденный материал. А также нужно передать еще один просто параметр
+     * 'page_type' со значением, например, 'simple'
+     * Т.е. ссылка на переход к странице со статьёй должен выглядеть примерно так:
+        index.php?option=com_content&task=view&id=[значение_id]&page_type=simple&category=[id_категории]&section=[id_раздела]
+
+     *  index.php? - будет подставлено автоматически
+     *  option=com_content - будет автоматически сформировано из типа объекта (obj_type в таблице с тэгами)
+     *  task=view   -  будет автоматически сформировано со значением поля 'task'
+     *  id=[значение_id]   - формируется автоматически
+     *  остальные параметры будем формировать вручную:
+        ---  'url_params'=>'page_type=simple&category=%category&section=%section'
+     *  >>>  знак '%' обозначает, что в качестве значения здесь будет одноименное свойство объекта $item,
+     *  >>>  т.е., вместо %category - будет подставлено $item->category, а вместо %section - $item->section
+     *  В таблице 'content' ID категории хранится в поле 'catid', а ID раздела в поле 'sectionid', следовательно
+     *  необходимо включить эти поля в выборку для поиска, присвои им соответствующие псевдонимы
+
+     * >    'select' - дополнительный текст для SQL-оператора SELECT
+
+     *  Итак, в нашем случае, параметр 'select' будет выглядеть следующим образом:
+        ---  'select'=>'item.catid AS category, item.sectionid AS section'
+
+	 */
+    $groups = array();
+    $comcontent_params = array(
+                        'group_name' => 'com_content',
+                        'group_title' => 'Содержимое',
+                        'table'=>'content',
+                        'id'=>'id',
+                        'title'=>'title',
+                        'text'=>'introtext',
+                        'date'=>'created',
+                        'task'=>'view',
+                        'url_params'=>'',
+                        'select'=>'',
+                        'join'=>'',
+                        'where'=>'',
+                        'order'=>'id DESC'
+
+                    );
+    $groups['com_content'] = $comcontent_params;
+
+    $items->items = array();
+    foreach($groups as $v){
+        $group_name = $v['group_name'];
+        $items->items[$group_name] = $items->load_by_type_tag($v, $tag);
+    }
+
+    $items->tag = $tag;
+
+    //Params
+    $params = new searchByTagConfig($database);
+    $mainframe->setPageTitle($params->title.' - '.$tag);
+
+    search_by_tag_HTML::tag_page($items, $params, $groups);
+}
 
 function viewSearch() {
 	global $mainframe,$mosConfig_absolute_path,$mosConfig_lang;
