@@ -643,6 +643,10 @@ class HTML_content {
 					<td><strong><?php echo _LAST_CHANGE?>:</strong> </td>
 					<td><?php echo $mod_date ? $mod_date.$row->modifier : _NOT_CHANGED;?></td>
 				</tr>
+				<tr>
+					<td><strong><?php echo _TAGS?>:</strong> </td>
+					<td><input type="text" name="tags" style="width:90%" size="30" maxlength="100" value="<?php echo $row->tags; ?>" class="text_area" /></td>
+				</tr>
 			</table>
 <?php
 		$tabs->startPane("content-pane");

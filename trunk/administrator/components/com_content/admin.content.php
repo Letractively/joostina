@@ -697,6 +697,12 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 	$robots[] = mosHTML::makeOption('3','NoIndex, NoFollow');
 	$lists['robots'] = mosHTML::selectList($robots,'params[robots]','class="inputbox" style="width: 356px;" size="1"','value','text',$params->get('robots'));
 
+    $row->tags='';
+    if($row->id){
+        $tags = new contentTags($database);
+        $row->tags = implode(',', $tags->load_by($row));
+    }
+
 	HTML_content::editContent($row,$contentSection,$lists,$sectioncategories,$images,$params,$option,$redirect,$menus);
 }
 
@@ -792,11 +798,21 @@ function saveContent($sectionid,$task) {
 		exit();
 	}
 
+    //Подготовка тэгов
+    $tags = explode(',', $_POST['tags']);
+    $tag = new contentTags($database);
+    $tags = $tag->clear_tags($tags);
+    $row->metakey = implode(',', $tags);
+
 	$row->version++;
 	if(!$row->store()) {
 		echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
 		exit();
 	}
+
+    //Запись тэгов
+    $row->obj_type = 'com_content';
+    $tag->update($tags, $row);
 
 	// manage frontpage items
 	require_once ($mainframe->getPath('class','com_frontpage'));

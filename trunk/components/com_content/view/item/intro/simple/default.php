@@ -74,6 +74,12 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
             <div class="item_text"><?php echo ampReplace($row->text);?></div>
        <?php  }?>
 
+       <?php if(isset($row->tags)){
+           ?>
+           <strong><?php echo $row->tags;?></strong>
+           <?php
+       }?>
+
         <?php if($params->get('modifydate')) { ?>
     		<div class="modified_date">
 			    <strong><?php echo _LAST_UPDATED; ?> </strong> <?php echo $mod_date; ?>
