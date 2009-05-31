@@ -36,6 +36,10 @@ class XmapXML extends Xmap {
 		if( !isset($node->priority) )
 			$node->priority = "0.5";
 
+		if(!isset($node->uid)){
+			$node->uid = 0;
+		}
+
 		if( !isset($node->changefreq) )
 			$node->changefreq = 'daily';
 

@@ -15,15 +15,50 @@ global $mosConfig_sef,$mosConfig_absolute_path,$mosConfig_live_site;
 
 if($mosConfig_sef) {
 	// перебрасываем на корректный адрес
-	if (strpos($_SERVER['REQUEST_URI'], 'index.php') && $_SERVER['REQUEST_METHOD']=='GET') {
-		$url  = sefRelToAbs('index.php?'.$_SERVER['QUERY_STRING']);
-		header("Location: ".$url,TRUE,301);
-		exit(301);
+	if (ltrim(strpos($_SERVER['REQUEST_URI'], 'index.php'),'/')==1 && $_SERVER['REQUEST_METHOD']=='GET') { //Проверка SEF ли урл, т.е. вначале стоит index.php
+		$bSefGoto = true; //Флаг перехода
+		//Проверка компонентов
+		$sSef_option	= mosGetParam($_GET,'option',''); // Получение опции (компонента)
+		$sSef_task		= mosGetParam($_GET,'task','');   // Получение задачи
+		$sSef_tp		= mosGetParam($_GET,'tp','');   // Предпросмотр
+
+		//Режим предпросмотра
+		if ($sSef_tp=='1') {
+			$bSefGoto = false;
+		}
+		//Компонент поиска
+		if ($sSef_option == 'com_search') {
+			$bSefGoto = false;
+		}
+		//Компонент контекста (статьи, новости)
+		if ($sSef_option == 'com_content') {
+			$aConTask = array('edit','new','mycontent'); //Задачи компонента, если надо добавить свою задачу, добавьте в массив
+			if(in_array($sSef_task,$aConTask)) { //Если текущая задача в списке запрещенных, то пропускаем ее
+				$bSefGoto = false;
+			}
+		}
+		if ($bSefGoto==true) { //Переход
+			$url = sefRelToAbs('index.php?'.$_SERVER['QUERY_STRING']); //Преобразование урл
+			header("Location: ".$url,TRUE,301); //Формирование заголовка с перенаправлением
+			exit(301); //Завершение работы, с отдачей кода завершения
+		}
 	}
+
+	$QUERY_STRING = '';
 
 	$url_array = explode('/',$_SERVER['REQUEST_URI']);
 
-	if(in_array('content',$url_array)) {
+	if(strpos($_SERVER['REQUEST_URI'], 'sitemap.xml')){
+		$QUERY_STRING = 'option=com_xmap&sitemap=1&view=xml&no_html=1';
+		$_GET['option'] = 'com_xmap';
+		$_REQUEST['option'] = 'com_xmap';
+		$_GET['sitemap'] = '1';
+		$_REQUEST['sitemap'] = '1';
+		$_GET['view'] = 'xml';
+		$_REQUEST['view'] = 'xml';
+		$_GET['no_html'] = '1';
+		$_REQUEST['no_html'] = '1';
+	}elseif(in_array('content',$url_array)) {
 
 		/**
 		* Content
@@ -308,8 +343,7 @@ if($mosConfig_sef) {
 		$REQUEST_URI = $uri[0].'index.php?'.$QUERY_STRING;
 		$_SERVER['REQUEST_URI'] = $REQUEST_URI;
 
-	} else
-		if(in_array('component',$url_array)) {
+	} elseif(in_array('component',$url_array)) {
 
 			/*
 			* Components

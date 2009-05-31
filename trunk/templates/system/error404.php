@@ -18,13 +18,13 @@ p {font-family:"Verdana";font-weight:normal;color:black;font-size:9pt;margin-top
 </head>
 <body>
 <h1>Page Not Found</h1>
-<h2><?php echo nl2br(CHtml::encode($data['message'])); ?></h2>
+<h2><?php echo _404; ?></h2>
 <p>
 The requested URL was not found on this server.
 If you entered the URL manually please check your spelling and try again.
 </p>
 <p>
-If you think this is a server error, please contact <?php echo $data['admin']; ?>.
+If you think this is a server error, please contact <?php echo $mosConfig_live_site; ?>.
 </p>
 <div class="version">
 <?php echo date('Y-m-d H:i:s',$data['time']) .' '. $data['version']; ?>
