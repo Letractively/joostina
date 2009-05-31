@@ -116,13 +116,10 @@ class xmap_com_content {
 		$orderby = !empty($menuparams['orderby']) ? $menuparams['orderby'] : (!empty($menuparams['orderby_sec']) ? $menuparams['orderby_sec'] : 'rdate');
 		$orderby = xmap_com_content::orderby_sec($orderby);
 
-		$isJ15 = ($parent->type == 'component' ? 1 : 0);
+		$isJ15 = 0;
 		$query = "SELECT a.id, a.introtext, a.fulltext, a.title, a.modified, a.created"
-			. ($isJ15 ? ',CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(":", a.id, a.alias) ELSE a.id END as slug'
-			. ',CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(":", c.id, c.alias) ELSE c.id END as catslug' : '')
-			. "\n FROM #__content AS a" . ($isJ15 ? ',#__categories AS c' : '')
+			. "\n FROM #__content AS a"
 			. "\n WHERE a.catid=(" . $catid . ")"
-			. ($isJ15 ? "\n AND a.catid=c.id" : '')
 			. "\n AND a.state='1'"
 			. "\n AND ( a.publish_up = '0000-00-00 00:00:00' OR a.publish_up <= '" . date('Y-m-d H:i:s', $xmap->now) . "' )"
 			. "\n AND ( a.publish_down = '0000-00-00 00:00:00' OR a.publish_down >= '" . date('Y-m-d H:i:s', $xmap->now) . "' )"
@@ -215,7 +212,7 @@ class xmap_com_content {
 		$where = xmap_com_content::where(1, $xmap->access, $xmap->noauth, $xmap->gid, $secid, date('Y-m-d H:i:s', $xmap->now));
 
 		$isJ15 = ($parent->type == 'component' ? 1 : 0);
-		$query = "SELECT a.id, a.introtext, a.fulltext, a.title, a.modified, a.created" . ($isJ15 ? ',CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(":", a.id, a.alias) ELSE a.id END as slug' : '') . "\n FROM #__content AS a" . "\n INNER JOIN #__categories AS cc ON cc.id = a.catid" . "\n LEFT JOIN #__users AS u ON u.id = a.created_by" . "\n LEFT JOIN #__content_rating AS v ON a.id = v.content_id" . "\n LEFT JOIN #__sections AS s ON a.sectionid = s.id" . "\n LEFT JOIN #__groups AS g ON a.access = g.id" . "\n WHERE " . implode("\n AND ", $where) . "\n AND s.access <= " . $xmap->gid . "\n AND cc.access <= " . $xmap->gid . "\n AND s.published = 1" . "\n AND cc.published = 1" . ($xmap->view != 'xmal' ? "\n ORDER BY $order_pri $order_sec" : '');
+		$query = "SELECT a.id, a.introtext, a.fulltext, a.title, a.modified, a.created FROM #__content AS a INNER JOIN #__categories AS cc ON cc.id = a.catid LEFT JOIN #__users AS u ON u.id = a.created_by LEFT JOIN #__content_rating AS v ON a.id = v.content_id LEFT JOIN #__sections AS s ON a.sectionid = s.id LEFT JOIN #__groups AS g ON a.access = g.id WHERE " . implode("\n AND ", $where) . "\n AND s.access <= " . $xmap->gid . " AND cc.access <= " . $xmap->gid . "\n AND s.published = 1" . "\n AND cc.published = 1" . ($xmap->view != 'xmal' ? "\n ORDER BY $order_pri $order_sec" : '');
 
 		$database->setQuery($query);
 		$items = $database->loadObjectList();

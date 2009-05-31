@@ -1052,7 +1052,7 @@ CREATE TABLE IF NOT EXISTS `#__config` (
 
 # расширенные поля профиля пользователя
 
-CREATE TABLE IF NOT EXISTS `jos_users_extra` (
+CREATE TABLE IF NOT EXISTS `#__users_extra` (
   `user_id` int(11) NOT NULL,
   `gender` varchar(10) NOT NULL,
   `about` tinytext NOT NULL,
@@ -1066,4 +1066,14 @@ CREATE TABLE IF NOT EXISTS `jos_users_extra` (
   `phone` varchar(255) NOT NULL,
   `fax` varchar(255) NOT NULL,
   `mobil` varchar(255) NOT NULL
+) ENGINE=MYISAM  CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+# таблица тэгов
+CREATE TABLE `#__content_tags` (
+  `id` int(11) NOT NULL auto_increment,
+  `obj_id` int(11) NOT NULL,
+  `obj_type` varchar(255) NOT NULL,
+  `tag` varchar(255) NOT NULL,
+  PRIMARY KEY  (`id`),
+  KEY `obj_id` (`obj_id`,`tag`)
 ) ENGINE=MYISAM  CHARACTER SET utf8 COLLATE utf8_general_ci;

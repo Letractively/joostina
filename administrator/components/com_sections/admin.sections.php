@@ -124,16 +124,14 @@ switch($task) {
 function mass_add($option){
 	global $database;
 	// получение списка существующих разделов
-	$query = "SELECT id AS value, title AS text"
-			."\n FROM #__sections"
-			."\n ORDER BY title ASC";
+	$query = "SELECT id AS value, title AS text FROM #__sections ORDER BY title ASC";
 	$database->setQuery($query);
 	$sections = $database->loadObjectList();
 	$sec = mosHTML::selectList($sections,'section','class="inputbox" size="15" style="width: 98%;"','value','text');
 
 	$query = "SELECT c.id AS value, CONCAT(s.title,' / ',c.title) AS text FROM #__categories AS c, #__sections AS s WHERE c.section = s.id ORDER BY s.title ASC";
 	$database->setQuery($query);
-	$typc[] = mosHTML::makeOption('0','Статичное содержимое');
+	$typc[] = mosHTML::makeOption('0',_CONTENT_STATIC);
 	$cat = array_merge($typc,$database->loadObjectList());
 
 	$cat = mosHTML::selectList($cat,'catid','class="inputbox" size="15" style="width: 98%;"','value','text',0);
@@ -154,6 +152,8 @@ function mass_save(){
 	$_POST['catid']		= intval(mosGetParam($_REQUEST,'catid',0));
 
 	$_POST['created_by'] = $my->id;
+
+	$_POST['created'] = date('Y-m-d H:i:s');
 
 	$parsed = explode ("\n",$addcontent);
 	$results=array();

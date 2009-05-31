@@ -2281,5 +2281,7 @@ DEFINE('_OCT_2','Октября');
 DEFINE('_NOV_2','Ноября');
 DEFINE('_DEC_2','Декабря');
 
+/* com_sections*/
+DEFINE('_CONTENT_STATIC','- Статичное содержимое -');
 
 ?>
