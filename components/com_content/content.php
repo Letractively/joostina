@@ -779,20 +779,9 @@ function showBlogSection($id = 0,$gid,&$access,$pop,$now = null,$limit,$limitsta
 	$now = _CURRENT_SERVER_TIME;
 	$noauth = !$mainframe->getCfg('shownoauth');
 
-	// Parameters
-	$params = new stdClass();
-	if($Itemid) {
-		$menu = $mainframe->get('menu');
-		$params = new mosParameters($menu->params);
-	} else {
-		$menu = '';
-		$params = new mosParameters('');
-	}
+    //Установка параметров страницы блога раздела
+    $params = contentPageConfig::setup_blog_section_page($id);
 
-	// new blog multiple section handling
-	if(!$id) {
-		$id = $params->def('sectionid',0);
-	}
 
 	$where = _where(1,$access,$noauth,$gid,$id,$now,null,null,$params);
 	$where = (count($where)?"\n WHERE ".implode("\n AND ",$where):'');
@@ -856,14 +845,14 @@ function showBlogSection($id = 0,$gid,&$access,$pop,$now = null,$limit,$limitsta
 
 
 	// Dynamic Page Title
-	if($menu) {
+	if($params->menu) {
 		if(trim($params->get('page_name'))) {
-			$mainframe->SetPageTitle($menu->name,$params);
+			$mainframe->SetPageTitle($params->menu->name,$params);
 		} else
 			if($params->get('header') != '') {
 				$mainframe->SetPageTitle($params->get('header',1),$params);
 			} else {
-				$mainframe->SetPageTitle($menu->name,$params);
+				$mainframe->SetPageTitle($params->menu->name,$params);
 			}
 	}
 
@@ -1388,7 +1377,6 @@ function BlogOutput(&$rows,&$params,$gid,&$access,$pop,&$menu,$limitstart,$limit
 	$links = $params->def('link',4);
 	$pagination = $params->def('pagination',2);
 	$pagination_results = $params->def('pagination_results',1);
-	$pagination_results = $params->def('pagination_results',1);
 	$descrip = $params->def('description',0);
 	$descrip_image = $params->def('description_image',0);
 	$back = $params->get('back_button',$mainframe->getCfg('back_button'));
@@ -1402,6 +1390,30 @@ function BlogOutput(&$rows,&$params,$gid,&$access,$pop,&$menu,$limitstart,$limit
 	 $cats_arr=array(); $k=0;
 	 
 	 $sfx = $params->get('pageclass_sfx');
+
+     //Настройки вывода материалов в блоге
+	// GC Parameters
+	$params->def('link_titles',$mainframe->getCfg('link_titles'));
+	$params->def('author',!$mainframe->getCfg('hideAuthor'));
+	$params->def('createdate',!$mainframe->getCfg('hideCreateDate'));
+	$params->def('modifydate',!$mainframe->getCfg('hideModifyDate'));
+	$params->def('print',!$mainframe->getCfg('hidePrint'));
+	$params->def('email',!$mainframe->getCfg('hideEmail'));
+	$params->def('rating',$mainframe->getCfg('vote'));
+	$params->def('icons',$mainframe->getCfg('icons'));
+	$params->def('readmore',$mainframe->getCfg('readmore'));
+	// Other Params
+	$params->def('image',1);
+	$params->def('section',0);
+	$params->def('section_link',0);
+	$params->def('category',0);
+	$params->def('category_link',0);
+	$params->def('introtext',$params->get('introtext',1));
+    $params->def('view_introtext',1);
+	//$params->def('introtext',1);
+	$params->def('pageclass_sfx','');
+	$params->def('item_title',1);
+	$params->def('url',1);
 
 	// used to display section/catagory description text and images
 	// currently not supported in Archives
@@ -1583,34 +1595,17 @@ function BlogOutput(&$rows,&$params,$gid,&$access,$pop,&$menu,$limitstart,$limit
                 break;
         }
     }
-
-
-
     $template->set_template($page_type, $templates);
     include_once($template->template_file);
 }
 
 
-function showItem($uid,$gid,&$access,$pop) {
+function showItem($id,$gid,&$access,$pop) {
 	global $database,$mainframe,$mosConfig_disable_date_state,$mosConfig_disable_access_control;
 	global $mosConfig_MetaTitle,$mosConfig_MetaAuthor;
     global $task, $my;
 
-	$now = _CURRENT_SERVER_TIME;
-	$nullDate = $database->getNullDate();
-
-	if($access->canEdit || $task =='preview') {
-		$xwhere = '';
-	} else {
-		$xwhere = " AND ( a.state = 1 OR a.state = -1 )";
-		if(!$mosConfig_disable_date_state) {
-			$xwhere .= " AND ( a.publish_up = ".$database->Quote($nullDate)	. " OR a.publish_up <= ".$database->Quote($now)." )";
-			$xwhere .= " AND ( a.publish_down = ".$database->Quote($nullDate)	. " OR a.publish_down >= ".$database->Quote($now)." )";
-		}
-		;
-	}
-	if(!$mosConfig_disable_access_control) $where_ac = "\n AND a.access <= ".(int)$gid;
-	else $where_ac = '';
+    $where = mosContent::_construct_where_for_fullItem($access);
 	// main query
 	$query = "SELECT a.*,
                     cc.name AS category, cc.templates as c_templates, cc.access AS cat_access, cc.id as cat_id, cc.published AS cat_pub,
@@ -1622,7 +1617,7 @@ function showItem($uid,$gid,&$access,$pop) {
             LEFT JOIN #__sections AS s ON s.id = cc.section AND s.scope = 'content'
             LEFT JOIN #__users AS u ON u.id = a.created_by
             LEFT JOIN #__groups AS g ON a.access = g.id
-            WHERE a.id = ".(int)$uid.$xwhere.$where_ac;
+            WHERE a.id = ".(int)$id.$where;
 	$database->setQuery($query);
 	$row = null;
 
@@ -1662,103 +1657,21 @@ function showItem($uid,$gid,&$access,$pop) {
 			return;
 		}
 
-		$params = new mosParameters($row->attribs);
-		$params->set('intro_only',0);
-		$params->def('back_button',$mainframe->getCfg('back_button'));
-		if($row->sectionid == 0) {
-			$params->set('item_navigation',0);
-		} else {
-			$params->set('item_navigation',$mainframe->getCfg('item_navigation'));
-		}
+        //Устанавливаем необходимые параметры страницы
+        $page_config = new contentPageConfig();
+        $params = $page_config->setup_full_item_page($row);
 
 		// loads the links for Next & Previous Button
 		if($params->get('item_navigation')) {
-			// Paramters for menu item as determined by controlling Itemid
-			$menu = $mainframe->get('menu');
-			$mparams = new mosParameters($menu->params);
-
-			// the following is needed as different menu items types utilise a different param to control ordering
-			// for Blogs the `orderby_sec` param is the order controlling param
-			// for Table and List views it is the `orderby` param
-			$mparams_list = $mparams->toArray();
-			if(array_key_exists('orderby_sec',$mparams_list)) {
-				$order_method = $mparams->get('orderby_sec','');
-			} else {
-				$order_method = $mparams->get('orderby','');
-			}
-
-			// additional check for invalid sort ordering
-			if($order_method == 'front') {
-				$order_method = '';
-			}
-			$orderby = _orderby_sec($order_method);
-
-			$where_ac = (!$mosConfig_disable_access_control?'':"\n AND a.access <= ".(int)$gid);
-
-			$uname = '';
-			$ufrom = '';
-			if($order_method=='author' OR $order_method=='rauthor'){
-				$uname = ', u.name ';
-				$ufrom = ', #__users AS u ';
-			}
-
-			// array of content items in same category correctly ordered
-			$query = "SELECT a.id, a.title $uname FROM #__content AS a $ufrom WHERE a.catid = "
-					.(int)$row->catid
-					."\n AND a.state = ".(int)$row->state.($access->canEdit? '' : $where_ac)
-					.$xwhere."\n ORDER BY $orderby";
-			$database->setQuery($query);
-			$list = $database->loadObjectList();
-
-			// this check needed if incorrect Itemid is given resulting in an incorrect result
-			//  это кажется не надо, ведь чуть выше загружали объект - loadObjectList
-			//if(!is_array($list)) {
-			//	$list = array();
-			//}
-			// location of current content item in array list
-			$prev = null;
-			$current = array_shift($list);
-			$next = array_shift($list);
-			while($current->id != $uid) {
-				$prev = $current;
-				$current = $next;
-				$next = array_shift($list);
-			}
-			$row->prev = '';
+            $row->prev = '';
 			$row->next = '';
-			if(!empty($prev)) {
-				$row->prev = $prev->id;
-				$row->prev_title = $prev->title;
-			}
-			if(!empty($next)) {
-				$row->next = $next->id;
-				$row->next_title = $next->title;
-			}
-			unset($list);
+            $row = mosContent::get_prev_next($row, $where, $access);
 		}
 
+        //Тэги
         $tags = new contentTags($database);
         $row->tags = $tags->load_by($row);
         $row->tags = $tags->arr_to_links($row->tags, ', ');
-
-
-        $params->section_data = null;
-        $params->category_data = null;
-
-        if(!$row->sectionid){
-            //$template='static_content/default.php';
-             $params->page_type ='item_static';
-        }
-        else{
-            //$template='full_view/default.php';
-            $section = new mosSection($database);
-            $category = new mosCategory($database);
-
-            $params->page_type ='item_full';
-            $params->section_data = $section;
-            $params->category_data = $category;
-        }
-
 
         //$row->rating=$row->total_rate;
 		show($row,$params,$gid,$access,$pop);
@@ -1826,28 +1739,7 @@ function show($row,$params,$gid,&$access,$pop, $template='') {
 		}
 	}
 
-	// GC Parameters
-	$params->def('link_titles',$mainframe->getCfg('link_titles'));
-	$params->def('author',!$mainframe->getCfg('hideAuthor'));
-	$params->def('createdate',!$mainframe->getCfg('hideCreateDate'));
-	$params->def('modifydate',!$mainframe->getCfg('hideModifyDate'));
-	$params->def('print',!$mainframe->getCfg('hidePrint'));
-	$params->def('email',!$mainframe->getCfg('hideEmail'));
-	$params->def('rating',$mainframe->getCfg('vote'));
-	$params->def('icons',$mainframe->getCfg('icons'));
-	$params->def('readmore',$mainframe->getCfg('readmore'));
-	// Other Params
-	$params->def('image',1);
-	$params->def('section',0);
-	$params->def('section_link',0);
-	$params->def('category',0);
-	$params->def('category_link',0);
-	$params->def('introtext',$params->get('introtext',1));
-    $params->def('view_introtext',1);
-	//$params->def('introtext',1);
-	$params->def('pageclass_sfx','');
-	$params->def('item_title',1);
-	$params->def('url',1);
+
 
     $limit_introtext=$params->get('introtext_limit', 0);
 
