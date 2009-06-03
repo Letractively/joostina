@@ -2284,4 +2284,8 @@ DEFINE('_DEC_2','Декабря');
 /* com_sections*/
 DEFINE('_CONTENT_STATIC','- Статичное содержимое -');
 
+
+/* com_quickicons */
+DEFINE('_QI_REFERENCE_NOT_SELECTED','Ссылка не выбрана');
+
 ?>

@@ -72,10 +72,6 @@ require_once ($mosConfig_absolute_path . '/includes/editor.php');
 ob_start();
 if($path = $mainframe->getPath('admin')) {
 	require_once ($path);
-	// скидываем счетчик неудачных авторзаций в админке
-	$query = 'UPDATE #__users SET bad_auth_count = 0 WHERE id = ' . $my->id;
-	$database->setQuery($query);
-	$database->query();
 } else {
 ?>
 	<img src="images/error.png" border="0" alt="Joostina!" />
@@ -86,7 +82,7 @@ $_MOS_OPTION['buffer'] = ob_get_contents();
 ob_end_clean();
 
 initGzip();
-
+header('Content-type: text/html; charset=UTF-8');
 // начало вывода html
 if($no_html == 0) {
 	// загрузка файла шаблона

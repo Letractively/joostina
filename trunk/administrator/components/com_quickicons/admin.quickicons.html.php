@@ -41,14 +41,15 @@ class HTML_QuickIcons {
 				<th width="7%" class="jtd_nowrap"><?php echo _ACCESS?></th>
 				<th width="7%" class="jtd_nowrap"><?php echo _CMN_PUBLISHED?></th>
 				<th width="7%" colspan="2" class="jtd_nowrap"><?php echo _CMN_ORDERING?></th>
-				<th width="2%">Порядок</th>
+				<th width="2%"><?php echo _SORT_ORDER ?></th>
 				<th width="1%">
 					<a href="javascript:saveorder(<?php echo count($rows) - 1; ?>)" title="<?php echo _SAVE_ORDER?>"><img src="images/filesave.png" border="0" width="16" height="16" alt="<?php echo _SAVE_ORDER?>" /></a>
 				</th>
 			</tr>
-			<?php
+<?php
 		$k = 0;
-		for($i = 0; $i < count($rows); $i++) {
+		$n = count($rows);
+		for($i = 0; $i < $n; $i++) {
 			$row	= $rows[$i];
 			$editLink = 'index2.php?option=com_quickicons&amp;task=edit&amp;id='.$row->id;
 			$link	= 'index2.php?option=com_quickicons&amp;task=';
@@ -81,7 +82,7 @@ class HTML_QuickIcons {
 						<a href="<?php echo $editLink; ?>" title="<?php echo _PRESS_TO_EDIT_ELEMENT?>"><?php echo $row->text; ?></a><br />
 						<?php
 							if($row->target == 'index2.php?option=' || !$row->target) {
-								echo '<span style="color:red; font-weight:bold;">Ссылка не выбрана</span>';
+								?><span style="color:red; font-weight:bold;"><?php echo _QI_REFERENCE_NOT_SELECTED ?></span><?php
 							} else {
 								echo htmlentities($row->target);
 							}
@@ -106,7 +107,7 @@ class HTML_QuickIcons {
 						<input type="text" name="order[]" size="5" value="<?php echo $row->ordering; ?>" class="text_area" style="text-align: center" />
 					</td>
 				</tr>
-				<?php
+<?php
 			$k = 1 - $k;
 		} ?>
 			</table>
@@ -196,8 +197,7 @@ class HTML_QuickIcons {
 				<th>
 <?php
 	if($row->id) {
-?>
-						<?php echo _EDIT_BUTTON?>&nbsp;[&nbsp;<small><?php echo $row->text; ?></small>&nbsp;]
+		echo _EDIT_BUTTON?>&nbsp;[&nbsp;<small><?php echo $row->text; ?></small>&nbsp;]
 <?php
 	} else {
 		echo _O_CREATION;
@@ -218,13 +218,13 @@ class HTML_QuickIcons {
 						<tr>
 							<td align="right"><?php echo _BUTTON_TEXT?>:</td>
 							<td align="left">
-								<input class="inputbox" type="text" name="text" size="50" maxlength="100" value="<?php echo $row->text; ?>" />
+								<input class="inputbox" type="text" name="text" size="75" maxlength="100" value="<?php echo $row->text; ?>" />
 							</td>
 						</tr>
 						<tr>
 							<td align="right"><?php echo _BUTTON_TITLE?>:</td>
 							<td align="left">
-								<input class="inputbox" type="text" name="title" size="50" maxlength="64" value="<?php echo $row->title; ?>" />
+								<input class="inputbox" type="text" name="title" size="75" maxlength="100" value="<?php echo $row->title; ?>" />
 <?php
 								$tip = _BUTTON_TITLE_TIP;
 								echo mosToolTip($tip);
@@ -248,6 +248,7 @@ class HTML_QuickIcons {
 								<label for="new_window"><?php echo _BUTTON_LINK_IN_NEW_WINDOW?>:</label>
 							</td>
 							<td align="left">
+								<input type="hidden" name="new_window" value="0" />
 								<input type="checkbox" name="new_window" value="1" id="new_window"<?php echo $row->new_window ? ' checked="checked"':''; ?> />
 <?php
 									$tip = _BUTTON_LINK_IN_NEW_WINDOW_TIP;

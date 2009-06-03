@@ -132,21 +132,17 @@ function showCategories($section,$option) {
 	if(intval($section) > 0) {
 		$table = 'content';
 
-		$query = "SELECT name"
-				."\n FROM #__sections"
-				."\n WHERE id = ".(int)$section;
+		$query = "SELECT name FROM #__sections WHERE id = ".(int)$section;
 		$database->setQuery($query);
 		$section_name = $database->loadResult();
-		$section_name = 'Содержимое: '.$section_name;
+		$section_name = _E_CONTENT.' : '.$section_name;
 		$where = "\n WHERE c.section = ".$database->Quote($section);
 		$type = 'content';
 	} else
 		if(strpos($section,'com_') === 0) {
 			$table = substr($section,4);
 
-			$query = "SELECT name"
-					."\n FROM #__components"
-					."\n WHERE link = 'option=".$database->getEscaped($section)."'";
+			$query = "SELECT name FROM #__components WHERE link = 'option=".$database->getEscaped($section)."'";
 			$database->setQuery($query);
 			$section_name = $database->loadResult();
 			$where = "\n WHERE c.section = ".$database->Quote($section);
@@ -163,9 +159,7 @@ function showCategories($section,$option) {
 		}
 
 	// get the total number of records
-	$query = "SELECT COUNT(*)"
-			."\n FROM #__categories"
-			."\n WHERE section = ".$database->Quote($section);
+	$query = "SELECT COUNT(*) FROM #__categories WHERE section = ".$database->Quote($section);
 	$database->setQuery($query);
 	$total = $database->loadResult();
 
@@ -179,7 +173,7 @@ function showCategories($section,$option) {
 		$order = "\n ORDER BY c.section, c.ordering, c.name";
 		$section_name = _ALL_CONTENT;
 		// get the total number of records
-		$query = "SELECT COUNT(*)"."\n FROM #__categories"."\n INNER JOIN #__sections AS s ON s.id = section";
+		$query = "SELECT COUNT(*) FROM #__categories INNER JOIN #__sections AS s ON s.id = section";
 		if($sectionid > 0) {
 			$query .= "\n WHERE section = ".$database->Quote($sectionid);
 		}
@@ -202,34 +196,52 @@ function showCategories($section,$option) {
 	if(!in_array($mosConfig_dbprefix.$table,$tablesAllowed)) {
 		$table = 'content';
 	}
-	$query = "SELECT  c.*, c.checked_out as checked_out_contact_category, g.name AS groupname, u.name AS editor,".
-		"COUNT( DISTINCT s2.checked_out ) AS checked_out".$content_add."\n FROM #__categories AS c".
-		"\n LEFT JOIN #__users AS u ON u.id = c.checked_out"."\n LEFT JOIN #__groups AS g ON g.id = c.access".
-		"\n LEFT JOIN `#__$table` AS s2 ON s2.catid = c.id AND s2.checked_out > 0".$content_join.
-		$where.$filter."\n AND c.published != -2"
-		."\n GROUP BY c.id".$order;
+
+	$query = "SELECT  c.*, c.checked_out as checked_out_contact_category, g.name AS groupname, u.name AS editor,"
+		."COUNT( DISTINCT s2.checked_out ) AS checked_out"
+		.$content_add
+		."\n FROM #__categories AS c"
+		."\n LEFT JOIN #__users AS u ON u.id = c.checked_out"
+		."\n LEFT JOIN #__groups AS g ON g.id = c.access"
+		."\n LEFT JOIN `#__$table` AS s2 ON s2.catid = c.id AND s2.checked_out > 0"
+		.$content_join
+		.$where
+		.$filter
+		."\n AND c.published != -2"
+		."\n GROUP BY c.id"
+		.$order;
+
 	$database->setQuery($query,$pageNav->limitstart,$pageNav->limit);
-	$rows = $database->loadObjectList();
+	$rows = $database->loadObjectList('id');
 	if($database->getErrorNum()) {
 		echo $database->stderr();
 		return;
 	}
 
-	$count = count($rows);
-	// number of Active Items
-	for($i = 0; $i < $count; $i++) {
-		$query = "SELECT COUNT( a.id )"."\n FROM #__content AS a"."\n WHERE a.catid = ".(int)$rows[$i]->id."\n AND a.state != -2";
-		$database->setQuery($query);
-		$active = $database->loadResult();
-		$rows[$i]->active = $active;
+	$cat_ids = array();
+	foreach ($rows as $row){
+		$cat_ids[]=$row->id;
 	}
-	// number of Trashed Items
-	for($i = 0; $i < $count; $i++) {
-		$query = "SELECT COUNT( a.id )"."\n FROM #__content AS a"."\n WHERE a.catid = ".(int)$rows[$i]->id."\n AND a.state = -2";
-		$database->setQuery($query);
-		$trash = $database->loadResult();
-		$rows[$i]->trash = $trash;
+	unset($row);
+
+	$query = "SELECT COUNT( a.id ) as count,a.state,a.catid FROM #__content AS a WHERE a.catid IN(".implode(',',$cat_ids).") AND a.state != -2 GROUP BY a.catid";
+	$database->setQuery($query);
+	$cats_info = $database->loadObjectList();
+
+	$new_rows = array();
+	foreach ($cats_info as $cat_info){
+		if($cat_info->state=='-2'){
+			$rows[$cat_info->catid]->trash = $cat_info->count;
+			$rows[$cat_info->catid]->active = 0;
+		}else{
+			$rows[$cat_info->catid]->active = $cat_info->count;
+			$rows[$cat_info->catid]->trash = 0;
+		}
+		$new_rows[] = $rows[$cat_info->catid];
 	}
+
+	$rows = $new_rows;
+	unset($new_rows);
 
 	// get list of sections for dropdown filter
 	$javascript = 'onchange="document.adminForm.submit();"';
