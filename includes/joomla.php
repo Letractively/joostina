@@ -3134,10 +3134,7 @@ function mosObjectToArray($p_obj) {
 /**
 * Checks the user agent string against known browsers
 */
-/* 05.08.07, boston, хак улучшенного определения браузеров*/
 function mosGetBrowser($agent) {
-	//global $mosConfig_absolute_path;
-
 	require_once(Jconfig::getInstance()->config_absolute_path.'/includes/libraries/phpSniff/phpSniff.class.php');
 	$client = new phpSniff($agent);
 
@@ -3155,8 +3152,8 @@ function mosGetBrowser($agent) {
 * Checks the user agent string against known operating systems
 */
 function mosGetOS($agent) {
-	//global $mosConfig_absolute_path;
 	require_once(Jconfig::getInstance()->config_absolute_path.'/includes/libraries/phpSniff/phpSniff.class.php');
+
 	foreach($osSearchOrder as $key) {
 		if(preg_match("/$key/i",$agent)) {
 			return $osAlias[$key];
@@ -3187,7 +3184,7 @@ function mosGetOrderingList($sql,$chop = '30') {
 	$order[] = mosHTML::makeOption(0,'0 '._FIRST);
 	for($i = 0,$n = count($orders); $i < $n; $i++) {
 		if(strlen($orders[$i]->text) > $chop) {
-			$text = substr($orders[$i]->text,0,$chop)."...";
+			$text = Jstring::substr($orders[$i]->text,0,$chop)."...";
 		} else {
 			$text = $orders[$i]->text;
 		}
@@ -4256,7 +4253,6 @@ class mosAdminMenus {
 	* build the select list to choose an image
 	*/
 	function Images($name,&$active,$javascript = null,$directory = null) {
-		//global $mosConfig_absolute_path;
 
 		if(!$directory) {
 			$directory = '/images/stories';
@@ -4309,11 +4305,7 @@ class mosAdminMenus {
 			$and = "\n AND gid > 18";
 		}
 
-		$query = "SELECT id AS value, name AS text"
-				."\n FROM #__users"
-				."\n WHERE block = 0"
-				.$and
-				."\n ORDER BY $order";
+		$query = "SELECT id AS value, name AS text FROM #__users WHERE block = 0 $and ORDER BY $order";
 		$database->setQuery($query);
 		if($nouser) {
 			$users[] = mosHTML::makeOption('0','- '._NO_USER.' -');

@@ -174,7 +174,7 @@ if(isset($_POST['submit'])) {
 
 		// check if site designated as a production site
 		// for a demo site disallow expired page functionality
-		if($_VERSION->SITE == 1 && @$mosConfig_admin_expired === '1') {
+		if($_VERSION->SITE == 1 && $mosConfig_admin_expired === '1') {
 			$file = $mainframe->getPath('com_xml','com_users');
 			$params = &new mosParameters($my->params,$file,'component');
 
@@ -211,6 +211,12 @@ if(isset($_POST['submit'])) {
 			$query = "UPDATE #__users SET params = " . $database->Quote($saveparams) ." WHERE id = " . (int)$my->id . " AND username = " . $database->Quote($my->username) . " AND usertype = " . $database->Quote($my->usertype);
 			$database->setQuery($query);
 			$database->query();
+
+			// скидываем счетчик неудачных авторзаций в админке
+			$query = 'UPDATE #__users SET bad_auth_count = 0 WHERE id = ' . $my->id;
+			$database->setQuery($query);
+			$database->query();
+
 		}
 
 		/** cannot using mosredirect as this stuffs up the cookie in IIS*/

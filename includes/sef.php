@@ -20,7 +20,7 @@ if($mosConfig_sef) {
 		//Проверка компонентов
 		$sSef_option	= mosGetParam($_GET,'option',''); // Получение опции (компонента)
 		$sSef_task		= mosGetParam($_GET,'task','');   // Получение задачи
-		$sSef_tp		= mosGetParam($_GET,'tp','');   // Предпросмотр
+		$sSef_tp		= mosGetParam($_GET,'tp',0);   // Предпросмотр
 
 		//Режим предпросмотра
 		if ($sSef_tp=='1') {
