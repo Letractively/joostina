@@ -5644,6 +5644,30 @@ class mosAbstractLog {
 	}
 }
 
+class errorCase{
+    var $type = null;
+    var $message = null;
+
+    function errorCase($type = 1){
+        $this->type = $type;
+        self::_display_error();
+    }
+
+    function _display_error(){
+        switch ($this->type){
+            case '1':
+            default:
+                $this->message = 'Запрошенная страница не существует';
+            break;
+
+            case '2':
+                $this->message = 'Доступ к данной странице запрещён';
+            break;
+        }
+        echo $this->message;
+    }
+}
+
 /**
 * Task routing class
 * @package Joostina
