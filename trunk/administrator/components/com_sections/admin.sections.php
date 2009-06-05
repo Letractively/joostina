@@ -13,13 +13,12 @@ defined('_VALID_MOS') or die();
 require_once ($mainframe->getPath('admin_html'));
 require_once (Jconfig::getInstance()->config_absolute_path.'/components/com_content/content.class.php');
 
-global $option;
-
 define('COM_IMAGE_BASE',$mosConfig_absolute_path.DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'stories');
 
 // get parameters from the URL or submitted form
 $scope		= stripslashes(mosGetParam($_REQUEST,'scope',''));
 $section	= stripslashes(mosGetParam($_REQUEST,'scope',''));
+$option	= strval(mosGetParam($_REQUEST,'option',''));
 
 $cid = josGetArrayInts('cid');
 
@@ -51,39 +50,38 @@ switch($task) {
 	case 'menulink':
 	case 'save':
 	case 'apply':
-		/* boston, добавил параметр 'save_and_new' - признак возврата в редактирование разделов для добавления нового*/
 	case 'save_and_new':
-		//boston, чистим кэш меню панели управления
+		//чистим кэш меню панели управления
 		js_menu_cache_clear();
 		saveSection($option,$scope,$task);
 		break;
 
 	case 'remove':
-		//boston, чистим кэш меню панели управления
+		// чистим кэш меню панели управления
 		js_menu_cache_clear();
 		removeSections($cid,$scope,$option);
 		break;
 
 	case 'copyselect':
-		//boston, чистим кэш меню панели управления
+		// чистим кэш меню панели управления
 		js_menu_cache_clear();
 		copySectionSelect($option,$cid,$section);
 		break;
 
 	case 'copysave':
-		//boston, чистим кэш меню панели управления
+		// чистим кэш меню панели управления
 		js_menu_cache_clear();
 		copySectionSave($cid);
 		break;
 
 	case 'publish':
-		//boston, чистим кэш меню панели управления
+		// чистим кэш меню панели управления
 		js_menu_cache_clear();
 		publishSections($scope,$cid,1,$option);
 		break;
 
 	case 'unpublish':
-		//boston, чистим кэш меню панели управления
+		// чистим кэш меню панели управления
 		js_menu_cache_clear();
 		publishSections($scope,$cid,0,$option);
 		break;
@@ -122,7 +120,7 @@ switch($task) {
 }
 
 function mass_add($option){
-	global $database;
+	$database = &database::getInstance();
 	// получение списка существующих разделов
 	$query = "SELECT id AS value, title AS text FROM #__sections ORDER BY title ASC";
 	$database->setQuery($query);
@@ -140,8 +138,10 @@ function mass_add($option){
 }
 
 function mass_save(){
-	global $database,$my;
+	global $my;
 	josSpoofCheck();
+
+	$database = &database::getInstance();
 
 	$addcontent	= stripslashes(mosGetParam($_REQUEST,'addcontent',''));
 	$type		= intval(mosGetParam($_REQUEST,'type',0));
@@ -201,7 +201,8 @@ function mass_save(){
 }
 
 function _gedsid($cid){
-	global $database;
+
+	$database = &database::getInstance();
 	$query = 'SELECT section FROM #__categories WHERE id='.$cid;
 	$database->setQuery($query);
 	return $database->loadResult();
@@ -214,19 +215,21 @@ function _gedsid($cid){
 * @param string The name of the current user
 */
 function showSections($scope,$option) {
-	global $database,$my,$mainframe,$mosConfig_list_limit;
+	global $my;
 
-	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mosConfig_list_limit));
+	$database = &database::getInstance();
+	$mainframe = &mosMainFrame::getInstance(true);
+	$config = &Jconfig::getInstance();
+
+	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit",'limit',$config->config_list_limit));
 	$limitstart = intval($mainframe->getUserStateFromRequest("view{$option}limitstart",'limitstart',0));
 
 	// get the total number of records
-	$query = "SELECT COUNT(*)"
-			."\n FROM #__sections"
-			."\n WHERE scope = ".$database->Quote($scope);
+	$query = "SELECT COUNT(*) FROM #__sections WHERE scope = ".$database->Quote($scope);
 	$database->setQuery($query);
 	$total = $database->loadResult();
 
-	require_once ($GLOBALS['mosConfig_absolute_path'].'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
+	require_once ($config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY.DS.'includes'.DS.'pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
 	$query = "SELECT c.*, g.name AS groupname, u.name AS editor"
@@ -238,23 +241,45 @@ function showSections($scope,$option) {
 			."\n GROUP BY c.id"
 			."\n ORDER BY c.ordering, c.name";
 	$database->setQuery($query,$pageNav->limitstart,$pageNav->limit);
-	$rows = $database->loadObjectList();
+	$rows = $database->loadObjectList('id');
 	if($database->getErrorNum()) {
 		echo $database->stderr();
 		return false;
 	}
 
-	$count = count($rows);
-	// number of Active Items
-	for($i = 0; $i < $count; $i++) {
-		$query = "SELECT COUNT( a.id )"
-				."\n FROM #__categories AS a"
-				."\n WHERE a.section = '".(int)$rows[$i]->id."'"
-				."\n AND a.published != -2";
-		$database->setQuery($query);
-		$active = $database->loadResult();
-		$rows[$i]->categories = $active;
+	$sects_ids = array();
+	foreach ($rows as $row){
+		$sects_ids[]=$row->id;
+		unset($row);
 	}
+
+	$query = "SELECT COUNT( a.id ) as count,a.section FROM #__categories AS a WHERE a.section IN (".implode(',',$sects_ids).") AND a.published != -2 GROUP BY a.section";
+	$database->setQuery($query);
+	$sects_info = $database->loadObjectList();
+
+	$new_rows = array();
+	foreach ($sects_info as $sect_info){
+		$rows[$sect_info->section]->categories = $sect_info->count;
+	}
+
+	$query = "SELECT COUNT( a.id ) as count,a.state,a.sectionid FROM #__content AS a WHERE a.sectionid IN (".implode(',',$sects_ids).") GROUP BY a.sectionid";
+	$database->setQuery($query);
+	$contents_info = $database->loadObjectList();
+
+	foreach ($contents_info as $content_info){
+		if($content_info->state=='-2'){
+			$rows[$content_info->sectionid]->trash = $content_info->count;
+			$rows[$content_info->sectionid]->active = 0;
+		}else{
+			$rows[$content_info->sectionid]->active = $content_info->count;
+			$rows[$content_info->sectionid]->trash = 0;
+		}
+		$rows_new[]=$rows[$content_info->sectionid];
+	}
+
+//_xdump($rows_new);
+//exit();
+/*
 	// number of Active Items
 	for($i = 0; $i < $count; $i++) {
 		$query = "SELECT COUNT( a.id )"
@@ -275,8 +300,8 @@ function showSections($scope,$option) {
 		$trash = $database->loadResult();
 		$rows[$i]->trash = $trash;
 	}
-
-	sections_html::show($rows,$scope,$my->id,$pageNav,$option);
+*/
+	sections_html::show($rows_new,$scope,$my->id,$pageNav,$option);
 }
 
 /**

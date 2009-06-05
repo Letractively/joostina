@@ -86,7 +86,7 @@ class components_menu_html {
 					</td>
 				</tr>
 				<tr>
-					<td width="10%" align="right" valign="top">title ссылки:</td>
+					<td width="10%" align="right" valign="top"><?php echo _LINK_TITLE?>:</td>
 					<td width="80%">
 						<input class="inputbox" type="text" name="params[title]" size="50" maxlength="100" value="<?php echo htmlspecialchars($params->get('title',''),ENT_QUOTES); ?>" />
 					</td>

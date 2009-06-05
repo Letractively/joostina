@@ -28,7 +28,7 @@ class HTML_typedcontent {
 	<table class="adminheading">
 	<tr>
 		<th class="edit"><?php echo _STATIC_CONTENT?></th>
-		<td>Фильтр:&nbsp;</td>
+		<td><?php echo _FILTER?>:&nbsp;</td>
 		<td><input type="text" name="search" value="<?php echo htmlspecialchars($search); ?>" class="text_area" onChange="document.adminForm.submit();" /></td>
 		<td>&nbsp;<?php echo _CMN_ORDERING?>:&nbsp;</td>
 		<td><?php echo $lists['order']; ?></td>
@@ -50,7 +50,8 @@ class HTML_typedcontent {
 <?php
 	$k = 0;
 	$nullDate = $database->getNullDate();
-	for($i = 0,$n = count($rows); $i < $n; $i++) {
+	$_n = count($rows);
+	for($i = 0,$n = $_n; $i < $n; $i++) {
 		$row = &$rows[$i];
 		mosMakeHtmlSafe($row);
 		$now = _CURRENT_SERVER_TIME;
@@ -179,27 +180,28 @@ class HTML_typedcontent {
 <?php
 	}
 
-	function edit(&$row,&$images,&$lists,&$params,$option,&$menus) {
-	global $database,$mosConfig_live_site;
-	mosMakeHtmlSafe($row);
-	$create_date = null;
-	$mod_date = null;
-	$nullDate = $database->getNullDate();
-	if($row->created != $nullDate) {
-		$create_date = mosFormatDate($row->created,'%A, %d %B %Y %H:%M','0');
-	}
-	if($row->modified != $nullDate) {
-		$mod_date = mosFormatDate($row->modified,'%A, %d %B %Y %H:%M','0');
-	}
-	$tabs = new mosTabs(1);
-	// used to hide "Reset Hits" when hits = 0
-	if(!$row->hits) {
-		$visibility = "style='display: none; visibility: hidden;'";
-	} else {
-		$visibility = "";
-	}
-	mosCommonHTML::loadOverlib();
-	mosCommonHTML::loadCalendar();
+	function edit(&$row,&$images,&$lists,&$params,$option,&$menus,$nullDate) {
+		global $mosConfig_live_site;
+
+		mosMakeHtmlSafe($row);
+		$create_date = null;
+		$mod_date = null;
+
+		if($row->created != $nullDate) {
+			$create_date = mosFormatDate($row->created,'%A, %d %B %Y %H:%M','0');
+		}
+		if($row->modified != $nullDate) {
+			$mod_date = mosFormatDate($row->modified,'%A, %d %B %Y %H:%M','0');
+		}
+		$tabs = new mosTabs(1);
+		// used to hide "Reset Hits" when hits = 0
+		if(!$row->hits) {
+			$visibility = "style='display: none; visibility: hidden;'";
+		} else {
+			$visibility = "";
+		}
+		mosCommonHTML::loadOverlib();
+		mosCommonHTML::loadCalendar();
 ?>
 	<script language="javascript" type="text/javascript">
 	var folderimages = new Array;
@@ -353,32 +355,32 @@ class HTML_typedcontent {
 	}
 ?>
 		<tr>
-			<td width="120" valign="top" align="right"><?php echo _O_STATE?></td>
+			<td width="120" valign="top" align="right"><?php echo _O_STATE?>:</td>
 			<td><?php echo $row->state > 0? _CMN_PUBLISHED :($row->state < 0? _IN_ARCHIVE :_DRAFT_NOT_PUBLISHED); ?></td>
 		</tr>
 		<tr>
-			<td valign="top" align="right"><?php echo _VIEW_COUNT?></td>
+			<td valign="top" align="right"><?php echo _VIEW_COUNT?>:</td>
 			<td>
-				<?php echo $row->hits; ?>
+				<?php echo $row->hits ? $row->hits : 0; ?>
 				<div <?php echo $visibility; ?>>
 					<input name="reset_hits" type="button" class="button" value="<?php echo _RESET?>" onClick="submitbutton('resethits');">
 				</div>
 			</td>
 		</tr>
 		<tr>
-			<td valign="top" align="right"><?php echo _E_VERSION?></td>
+			<td valign="top" align="right"><?php echo _E_VERSION?>:</td>
 			<td><?php echo $row->version; ?></td>
 		</tr>
 		<tr>
-			<td valign="top" align="right"><?php echo _CREATED?></td>
+			<td valign="top" align="right"><?php echo _CREATED?>:</td>
 			<td><?php echo $create_date ? $create_date : _NEW_DOCUMENT;?></td>
 		</tr>
 		<tr>
-			<td valign="top" align="right"><?php echo _E_LAST_MOD?></td>
+			<td valign="top" align="right"><?php echo _E_LAST_MOD?>:</td>
 			<td><?php echo $mod_date ? $mod_date.'<br />'.$row->modifier : _NOT_CHANGED;?></td>
 		</tr>
 		<tr>
-			<td valign="top" align="right"><?php echo _END_PUBLICATION?></td>
+			<td valign="top" align="right"><?php echo _END_PUBLICATION?>:</td>
 			<td><?php echo $row->publish_down; ?></td>
 		</tr>
 	</table>
@@ -407,8 +409,8 @@ class HTML_typedcontent {
 						<br />
 						<?php echo $lists['imagelist']; ?>
 						<br />
-						<input class="button" type="button" value="Вверх" onclick="moveInList('adminForm','imagelist',adminForm.imagelist.selectedIndex,-1)" />
-						<input class="button" type="button" value="Вниз" onclick="moveInList('adminForm','imagelist',adminForm.imagelist.selectedIndex,+1)" />
+						<input class="button" type="button" value="<?php echo _TO_TOP?>" onclick="moveInList('adminForm','imagelist',adminForm.imagelist.selectedIndex,-1)" />
+						<input class="button" type="button" value="<?php echo _TO_BOTTOM?>" onclick="moveInList('adminForm','imagelist',adminForm.imagelist.selectedIndex,+1)" />
 						</div>
 					</td>
 				</tr>
@@ -516,7 +518,7 @@ class HTML_typedcontent {
 		</tr>
 		<tr>
 			<td>&nbsp;</td>
-			<td><input name="menu_link" type="button" class="button" value="Создать пункт меню" onClick="submitbutton('menulink');" /></td>
+			<td><input name="menu_link" type="button" class="button" value="<?php echo _CREATE_MENU_ITEM?>" onClick="submitbutton('menulink');" /></td>
 		</tr>
 			<tr><th colspan="2"><?php echo _EXISTED_MENU_LINKS?></th>
 		</tr>
@@ -548,9 +550,8 @@ class HTML_typedcontent {
 		<input type="hidden" name="id" value="<?php echo $row->id; ?>" />
 		<input type="hidden" name="hits" value="<?php echo $row->hits; ?>" />
 		<input type="hidden" name="task" value="" />
-	<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
-
-		</form>
+		<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
+	</form>
 		<?php
 	}
 }

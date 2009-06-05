@@ -129,7 +129,7 @@ class XmapHtml extends Xmap {
 		global $database, $Itemid;
 		$sitemap = &$this->sitemap;
 		echo '<div style="clear:left"></div>';
-		echo "</div>";
+		echo '</div>';
 		echo "</div>\n";
 	}
 

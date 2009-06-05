@@ -114,57 +114,77 @@ function view($option) {
 	require_once ($GLOBALS['mosConfig_absolute_path'].'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
-	$query = "SELECT c.*, g.name AS groupname, u.name AS editor, z.name AS creator".
-		"\n FROM #__content AS c"."\n LEFT JOIN #__groups AS g ON g.id = c.access"."\n LEFT JOIN #__users AS u ON u.id = c.checked_out".
-		"\n LEFT JOIN #__users AS z ON z.id = c.created_by"."\n WHERE c.sectionid = 0".
-		"\n AND c.catid = 0"."\n AND c.state != -2".$search_query.$filter."\n ORDER BY ".
+	$query = "SELECT c.*, g.name AS groupname, u.name AS editor, z.name AS creator, 0 as links"
+		."\n FROM #__content AS c"
+		."\n LEFT JOIN #__groups AS g ON g.id = c.access"
+		."\n LEFT JOIN #__users AS u ON u.id = c.checked_out"
+		."\n LEFT JOIN #__users AS z ON z.id = c.created_by"
+		."\n WHERE c.sectionid = 0"
+		."\n AND c.catid = 0"
+		."\n AND c.state != -2"
+		.$search_query
+		.$filter
+		."\n ORDER BY ".
 		$order;
 	$database->setQuery($query,$pageNav->limitstart,$pageNav->limit);
-	$rows = $database->loadObjectList();
+	$rows = $database->loadObjectList('id');
 
 	if($database->getErrorNum()) {
 		echo $database->stderr();
 		return false;
 	}
 
-	$count = count($rows);
-	for($i = 0; $i < $count; $i++) {
-		$query = "SELECT COUNT( id )"."\n FROM #__menu"."\n WHERE componentid = ".(int)
-			$rows[$i]->id."\n AND type = 'content_typed'"."\n AND published != -2";
-		$database->setQuery($query);
-		$rows[$i]->links = $database->loadResult();
-	}
+	$new_rows = array();
 
-	$ordering[] = mosHTML::makeOption('c.ordering ASC','Порядок по возрастанию');
-	$ordering[] = mosHTML::makeOption('c.ordering DESC','Порядок по убыванию');
-	$ordering[] = mosHTML::makeOption('c.id ASC','По возрастанию ID');
-	$ordering[] = mosHTML::makeOption('c.id DESC','По убыванию ID');
-	$ordering[] = mosHTML::makeOption('c.title ASC','Заголовки по алфавиту');
-	$ordering[] = mosHTML::makeOption('c.title DESC','Заголовки против алфавита');
-	$ordering[] = mosHTML::makeOption('c.created ASC','Дата по возрастанию');
-	$ordering[] = mosHTML::makeOption('c.created DESC','Дата по убыванию');
-	$ordering[] = mosHTML::makeOption('z.name ASC','Авторы по алфавиту');
-	$ordering[] = mosHTML::makeOption('z.name DESC','Авторы против алфавита');
-	$ordering[] = mosHTML::makeOption('c.state ASC','Сначала неопубликованные');
-	$ordering[] = mosHTML::makeOption('c.state DESC','Сначала опубликованные');
-	$ordering[] = mosHTML::makeOption('c.access ASC','Доступ по возрастанию');
-	$ordering[] = mosHTML::makeOption('c.access DESC','Доступ по убыванию');
+	$contents_ids = array();
+	foreach ($rows as $row){
+		$contents_ids[]=$row->id;
+	}
+	unset($row);
+
+	$query = "SELECT COUNT( id ) as count,componentid FROM #__menu WHERE componentid IN(".implode(',',$contents_ids).") AND type = 'content_typed' AND published != -2";
+	$database->setQuery($query);
+	$links = $database->loadObjectList('componentid');
+
+	foreach ($rows as $row){
+		if(isset($links[$row->id])){
+			$rows[$links[$row->id]->componentid]->links = $links[$row->id]->count ? $links[$row->id]->count : 0;
+		}
+		$new_rows[] = $rows[$row->id];
+	}
+	unset($rows,$links,$contents_ids);
+
+	$ordering[] = mosHTML::makeOption('c.ordering ASC',_ORDER_BY_ASC);
+	$ordering[] = mosHTML::makeOption('c.ordering DESC',_ORDER_BY_DESC);
+	$ordering[] = mosHTML::makeOption('c.id ASC',_ORDER_BY_ID_ASC);
+	$ordering[] = mosHTML::makeOption('c.id DESC',_ORDER_BY_ID_DESC);
+	$ordering[] = mosHTML::makeOption('c.title ASC',_ORDER_BY_TITLE_ASC);
+	$ordering[] = mosHTML::makeOption('c.title DESC',_ORDER_BY_TITLE_DESC);
+	$ordering[] = mosHTML::makeOption('c.created ASC',_ORDER_BY_DATE_ASC);
+	$ordering[] = mosHTML::makeOption('c.created DESC',_ORDER_BY_TITLE_DESC);
+	$ordering[] = mosHTML::makeOption('z.name ASC',_ORDER_BY_AUTORS_ASC);
+	$ordering[] = mosHTML::makeOption('z.name DESC',_ORDER_BY_AUTORS_DESC);
+	$ordering[] = mosHTML::makeOption('c.state ASC',_ORDER_BY_PUBL_ASC);
+	$ordering[] = mosHTML::makeOption('c.state DESC',_ORDER_BY_PUBL_DESC);
+	$ordering[] = mosHTML::makeOption('c.access ASC',_ORDER_BY_ACCESS_ASC);
+	$ordering[] = mosHTML::makeOption('c.access DESC',_ORDER_BY_ACCESS_DESC);
 	$javascript = 'onchange="document.adminForm.submit();"';
-	$lists['order'] = mosHTML::selectList($ordering,'zorder',
-		'class="inputbox" size="1"'.$javascript,'value','text',$order);
+	$lists['order'] = mosHTML::selectList($ordering,'zorder','class="inputbox" size="1"'.$javascript,'value','text',$order);
 
 	// get list of Authors for dropdown filter
-	$query = "SELECT c.created_by AS value, u.name AS text"."\n FROM #__content AS c".
-		"\n LEFT JOIN #__users AS u ON u.id = c.created_by"."\n WHERE c.sectionid = 0".
-		"\n GROUP BY u.name"."\n ORDER BY u.name";
+	$query = "SELECT c.created_by AS value, u.name AS text"
+		."\n FROM #__content AS c"
+		."\n LEFT JOIN #__users AS u ON u.id = c.created_by"
+		."\n WHERE c.sectionid = 0"
+		."\n GROUP BY u.name"
+		."\n ORDER BY u.name";
 	$authors[] = mosHTML::makeOption('0',_SEL_AUTHOR);
 	$database->setQuery($query);
 	$authors = array_merge($authors,$database->loadObjectList());
-	$lists['authorid'] = mosHTML::selectList($authors,'filter_authorid',
-		'class="inputbox" size="1" onchange="document.adminForm.submit( );"','value',
-		'text',$filter_authorid);
+	$lists['authorid'] = mosHTML::selectList($authors,'filter_authorid','class="inputbox" size="1" onchange="document.adminForm.submit( );"','value','text',$filter_authorid);
 
-	HTML_typedcontent::showContent($rows,$pageNav,$option,$search,$lists);
+
+	HTML_typedcontent::showContent($new_rows,$pageNav,$option,$search,$lists);
 }
 
 /**
@@ -186,7 +206,7 @@ function edit($uid,$option) {
 	if($uid) {
 		// fail if checked out not by 'me'
 		if($row->isCheckedOut($my->id)) {
-			mosErrorAlert($row->title." - "._MODULE_IS_EDITING_BY_ADMIN);
+			mosErrorAlert($row->title.' - '._MODULE_IS_EDITING_BY_ADMIN);
 		}
 
 		$row->checkout($my->id);
@@ -198,18 +218,15 @@ function edit($uid,$option) {
 		}
 
 		$row->created = mosFormatDate($row->created,_CURRENT_SERVER_TIME_FORMAT);
-		$row->modified = $row->modified == $nullDate?'':mosFormatDate($row->modified,
-			_CURRENT_SERVER_TIME_FORMAT);
+		$row->modified = $row->modified == $nullDate?'':mosFormatDate($row->modified,_CURRENT_SERVER_TIME_FORMAT);
 		$row->publish_up = mosFormatDate($row->publish_up,_CURRENT_SERVER_TIME_FORMAT);
 
-		if(trim($row->publish_down) == $nullDate || trim($row->publish_down) == '' ||
-			trim($row->publish_down) == '-') {
+		if(trim($row->publish_down) == $nullDate || trim($row->publish_down) == '' ||trim($row->publish_down) == '-') {
 			$row->publish_down = _NEVER;
 		}
-		$row->publish_down = mosFormatDate($row->publish_down,
-			_CURRENT_SERVER_TIME_FORMAT);
+		$row->publish_down = mosFormatDate($row->publish_down,_CURRENT_SERVER_TIME_FORMAT);
 
-		$query = "SELECT name"."\n FROM #__users"."\n WHERE id = ".(int)$row->created_by;
+		$query = "SELECT name FROM #__users WHERE id = ".(int)$row->created_by;
 		$database->setQuery($query);
 		$row->creator = $database->loadResult();
 
@@ -217,7 +234,7 @@ function edit($uid,$option) {
 		if($row->created_by == $row->modified_by) {
 			$row->modifier = $row->creator;
 		} else {
-			$query = "SELECT name"."\n FROM #__users"."\n WHERE id = ".(int)$row->modified_by;
+			$query = "SELECT name FROM #__users WHERE id = ".(int)$row->modified_by;
 			$database->setQuery($query);
 			$row->modifier = $database->loadResult();
 		}
@@ -231,7 +248,7 @@ function edit($uid,$option) {
 		$row->state = 1;
 		$row->images = array();
 		$row->publish_up = date('Y-m-d H:i:s',time() + ($mosConfig_offset* 60* 60));
-		$row->publish_down = 'Никогда';
+		$row->publish_down = _NEVER;
 		$row->sectionid = 0;
 		$row->catid = 0;
 		$row->creator = '';
@@ -269,13 +286,14 @@ function edit($uid,$option) {
 	// build the select list for the image caption position
 	$pos[] = mosHTML::makeOption('bottom',_CMN_BOTTOM);
 	$pos[] = mosHTML::makeOption('top',_CMN_TOP);
-	$lists['_caption_position'] = mosHTML::selectList($pos,'_caption_position',
-		'class="inputbox" size="1"','value','text');
+	$lists['_caption_position'] = mosHTML::selectList($pos,'_caption_position','class="inputbox" size="1"','value','text');
 
 	// get params definitions
 	$params = new mosParameters($row->attribs,$mainframe->getPath('com_xml','com_typedcontent'),'component');
 
-	HTML_typedcontent::edit($row,$images,$lists,$params,$option,$menus);
+
+	$nullDate = $database->getNullDate();
+	HTML_typedcontent::edit($row,$images,$lists,$params,$option,$menus,$nullDate);
 }
 
 /**
