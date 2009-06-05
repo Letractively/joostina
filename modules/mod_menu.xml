@@ -26,6 +26,7 @@
 				<option value="flickr.com.horizontal">flickr горизонтальное</option>
 				<option value="mtv.com">mtv горизонтальное</option>
 				<option value="adobe.com">adobe горизонтальное</option>
+				<option value="tree">древовидное</option>
 				<option value="test">тест</option>
 			</param>
 		<param name="spacer" type="text" default="" label="Разделитель пунктов" description="" />

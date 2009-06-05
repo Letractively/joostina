@@ -84,7 +84,7 @@ class XmapXML extends Xmap {
 		header('Content-type: text/xml; charset=utf-8');
 		echo '<?xml version="1.0" encoding="UTF-8"?>'."\n";
 		if (!$config->exclude_xsl) {
-			echo '<?xml-stylesheet type="text/xsl" href="'. $mosConfig_live_site.'/index2.php?option=com_xmap&view=xslfile"?>'."\n";
+			echo '<?xml-stylesheet type="text/xsl" href="'. $mosConfig_live_site.'/index2.php?option=com_xmap&amp;view=xslfile"?>'."\n";
 		}
 		echo '<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'."\n";
 	}

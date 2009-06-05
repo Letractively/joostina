@@ -1,14 +1,14 @@
 <?php
 /**
 * @package Joostina
-* @copyright Àâòîðñêèå ïðàâà (C) 2008-2009 Joostina team. Âñå ïðàâà çàùèùåíû.
-* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
-* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
-* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+* @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2009 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
+* @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
+* Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
+* Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
 */
 
-// çàïðåò ïðÿìîãî äîñòóïà
-defined( '_VALID_MOS' ) or die( 'Ïðÿìîé âûçîâ ôàéëà çàïðåùåí' );
+// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+defined( '_VALID_MOS' ) or die( 'ÐŸÑ€ÑÐ¼Ð¾Ð¹ Ð²Ñ‹Ð·Ð¾Ð² Ñ„Ð°Ð¹Ð»Ð° Ð·Ð°Ð¿Ñ€ÐµÑ‰ÐµÐ½' );
 /**
 * PHPMailer language file.
 * Russian Version
@@ -17,15 +17,15 @@ defined( '_VALID_MOS' ) or die( 'Ïðÿìîé âûçîâ ôàéëà çàïðåùåí' );
 $PHPMAILER_LANG = array();
 
 $PHPMAILER_LANG["provide_address"] = 'You must provide at least one recipient email address.';
-$PHPMAILER_LANG["mailer_not_supported"] = ' mailer íå ïîääåðæèâàåòñÿ.';
-$PHPMAILER_LANG["execute"] = 'Íå âûïîëíåíî: ';
+$PHPMAILER_LANG["mailer_not_supported"] = ' mailer Ð½Ðµ Ð¿Ð¾Ð´Ð´ÐµÑ€Ð¶Ð¸Ð²Ð°ÐµÑ‚ÑÑ.';
+$PHPMAILER_LANG["execute"] = 'ÐÐµ Ð²Ñ‹Ð¿Ð¾Ð»Ð½ÐµÐ½Ð¾: ';
 $PHPMAILER_LANG["instantiate"] = 'Could not instantiate mail function.';
-$PHPMAILER_LANG["authenticate"] = 'Îøèáêà SMTP: Could not authenticate.';
+$PHPMAILER_LANG["authenticate"] = 'ÐžÑˆÐ¸Ð±ÐºÐ° SMTP: Could not authenticate.';
 $PHPMAILER_LANG["from_failed"] = 'The following From address failed: ';
 $PHPMAILER_LANG["recipients_failed"] = 'SMTP Error: The following recipients failed: ';
 $PHPMAILER_LANG["data_not_accepted"] = 'SMTP Error: Data not accepted.';
 $PHPMAILER_LANG["connect_host"] = 'SMTP Error: Could not connect to SMTP host.';
-$PHPMAILER_LANG["file_access"] = 'Íåò äîñòóïà ê ôàéëó: ';
-$PHPMAILER_LANG["file_open"] = 'Îøèáêà ðàáîòû ñ ôàéëîì: Íåâîçìîæíî îòêðûòü ôàéë: ';
-$PHPMAILER_LANG["encoding"] = 'Íåèçâåñòíàÿ êîäèðîâêà: ';
+$PHPMAILER_LANG["file_access"] = 'ÐÐµÑ‚ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð° Ðº Ñ„Ð°Ð¹Ð»Ñƒ: ';
+$PHPMAILER_LANG["file_open"] = 'ÐžÑˆÐ¸Ð±ÐºÐ° Ñ€Ð°Ð±Ð¾Ñ‚Ñ‹ Ñ Ñ„Ð°Ð¹Ð»Ð¾Ð¼: ÐÐµÐ²Ð¾Ð·Ð¼Ð¾Ð¶Ð½Ð¾ Ð¾Ñ‚ÐºÑ€Ñ‹Ñ‚ÑŒ Ñ„Ð°Ð¹Ð»: ';
+$PHPMAILER_LANG["encoding"] = 'ÐÐµÐ¸Ð·Ð²ÐµÑÑ‚Ð½Ð°Ñ ÐºÐ¾Ð´Ð¸Ñ€Ð¾Ð²ÐºÐ°: ';
 ?>

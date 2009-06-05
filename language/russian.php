@@ -2288,4 +2288,24 @@ DEFINE('_CONTENT_STATIC','- Статичное содержимое -');
 /* com_quickicons */
 DEFINE('_QI_REFERENCE_NOT_SELECTED','Ссылка не выбрана');
 
+/* com_typedcontent */
+DEFINE('_ORDER_BY_ASC','Порядок по возрастанию');
+DEFINE('_ORDER_BY_DESC','Порядок по убыванию');
+DEFINE('_ORDER_BY_ID_ASC','По возрастанию ID');
+DEFINE('_ORDER_BY_ID_DESC','По убыванию ID');
+DEFINE('_ORDER_BY_TITLE_ASC','Заголовки по алфавиту');
+DEFINE('_ORDER_BY_TITLE_DESC','Заголовки против алфавита');
+DEFINE('_ORDER_BY_DATE_ASC','Дата по возрастанию');
+DEFINE('_ORDER_BY_DATE_DESC','Дата по убыванию');
+DEFINE('_ORDER_BY_AUTORS_ASC','Авторы по алфавиту');
+DEFINE('_ORDER_BY_AUTORS_DESC','Авторы против алфавита');
+DEFINE('_ORDER_BY_PUBL_ASC','Сначала неопубликованные');
+DEFINE('_ORDER_BY_PUBL_DESC','Сначала опубликованные');
+DEFINE('_ORDER_BY_ACCESS_ASC','Доступ по возрастанию');
+DEFINE('_ORDER_BY_ACCESS_DESC','Доступ по убыванию');
+
+/* images_tab */
+DEFINE('_TO_TOP','Вверх');
+DEFINE('_TO_BOTTOM','Вниз');
+
 ?>

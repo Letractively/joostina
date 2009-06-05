@@ -1,15 +1,71 @@
-<?php
+<?php #
 /**
 * @package Joostina
-* @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
-* @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
-* Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
-* Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
 */
 
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+// çàïðåò ïðÿìîãî äîñòóïà
 defined( '_VALID_MOS' ) or die();
+
+$menutype = $params->get('menutype','mainmenu');
+
+$menus = get_menu_links($menutype);
+
+$config = &Jconfig::getInstance();
+
+// ñîáèðàåì âñåõ äåòåé
+$parent_array = array();
+foreach ($menus as $menu){
+    if($menu->parent>0){
+        $parent_array[$menu->parent][] = $menu;
+    }
+}
+
+ob_start();
+?>d = new dTree('d','<?php echo $config->config_live_site ?>/modules/mod_menu/tree/images/');
+d.add(0,-1,'');<?php
+$n = 1;
+foreach ( $menus as $menu ){
+    if( !isset($parent_array[$menu->id])){
+        $menu->id = '1010101'.$n;
+    }
+    ?>d.add(<?php echo $menu->id ?>,<?php echo $menu->parent ?>,'<?php echo htmlspecialchars($menu->name) ?>','<?php echo sefRelToAbs($menu->link) ?>');<?php
+    $n++;
+}
+?>
+document.write(d);
+<?php
+$cur_menu = ob_get_contents();
+ob_end_clean();
+
+
+function get_menu_links($menutype){
+    global $database;
+    $sql = 'SELECT id,name,link,parent FROM #__menu'
+    . ' WHERE menutype = ' . $database->Quote( $menutype )
+    . ' AND published = 1 ORDER BY parent, ordering' ;
+    $database->setQuery( $sql );
+    $menus = $database->loadObjectList();
+    unset($menus[0]); // óáèðàåì ïåðâûé ïóíêò ìåíþ
+
+    return $menus;
+
+
+    $children = array();
+    foreach($menus as $v) {
+        $pt = $v->parent;
+        $list = @$children[$pt]?$children[$pt]:array();
+        array_push($list,$v);
+        $children[$pt] = $list;
+    }
+    return mosTreeRecurse(0,'',array(),$children,max(0,5 - 1));
+}
 
 
 ?>
-Ð”ÐµÑ€Ð²Ð¾Ð²Ð¸Ð´Ð½Ð¾Ðµ Ð¼ÐµÐ½ÑŽ
+<div class="dtree"><script type="text/javascript" src="<?php echo $config->config_live_site ?>/modules/mod_menu/tree/js/tree.js"></script></div>
+<script type="text/javascript"><?php echo $cur_menu; ?></script>
+<link href="<?php echo $config->config_live_site ?>/modules/mod_menu/tree/css/tree.css" rel="stylesheet" type="text/css" />

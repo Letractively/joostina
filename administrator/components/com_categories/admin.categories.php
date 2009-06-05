@@ -221,10 +221,10 @@ function showCategories($section,$option) {
 	$cat_ids = array();
 	foreach ($rows as $row){
 		$cat_ids[]=$row->id;
+		unset($row);
 	}
-	unset($row);
 
-	$query = "SELECT COUNT( a.id ) as count,a.state,a.catid FROM #__content AS a WHERE a.catid IN(".implode(',',$cat_ids).") AND a.state != -2 GROUP BY a.catid";
+	$query = "SELECT COUNT( a.id ) as count,a.state,a.catid FROM #__content AS a WHERE a.catid IN(".implode(',',$cat_ids).") GROUP BY a.catid";
 	$database->setQuery($query);
 	$cats_info = $database->loadObjectList();
 

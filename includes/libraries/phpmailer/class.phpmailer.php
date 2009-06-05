@@ -1,38 +1,38 @@
 <?php
 /**
 * @package Joostina
-* @copyright Àâòîðñêèå ïðàâà (C) 2007 Joostina team. Âñå ïðàâà çàùèùåíû.
-* @license Ëèöåíçèÿ http://www.gnu.org/copyleft/gpl.html GNU/GPL, èëè LICENSE.php
-* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
-* Äëÿ ïðîñìîòðà ïîäðîáíîñòåé è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë COPYRIGHT.php.
+* @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2007 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
+* @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/copyleft/gpl.html GNU/GPL, Ð¸Ð»Ð¸ LICENSE.php
+* Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
+* Ð”Ð»Ñ Ð¿Ñ€Ð¾ÑÐ¼Ð¾Ñ‚Ñ€Ð° Ð¿Ð¾Ð´Ñ€Ð¾Ð±Ð½Ð¾ÑÑ‚ÐµÐ¹ Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» COPYRIGHT.php.
 */
 
 defined('_VALID_MOS') or die();
 class mosPHPMailer {
 	var $Priority = 3;
-	var $CharSet = "iso-8859-1";
-	var $ContentType = "text/plain";
-	var $Encoding = "8bit";
-	var $ErrorInfo = "";
-	var $From = "root@localhost";
-	var $FromName = "Root User";
-	var $Sender = "";
-	var $Subject = "";
-	var $Body = "";
-	var $AltBody = "";
+	var $CharSet = 'UTF-8';
+	var $ContentType = 'text/plain';
+	var $Encoding = '8bit';
+	var $ErrorInfo = '';
+	var $From = 'root@localhost';
+	var $FromName = 'Root User';
+	var $Sender = '';
+	var $Subject = '';
+	var $Body = '';
+	var $AltBody = '';
 	var $WordWrap = 0;
-	var $Mailer = "mail";
-	var $Sendmail = "/usr/sbin/sendmail";
-	var $PluginDir = "";
-	var $Version = "1.73";
-	var $ConfirmReadingTo = "";
-	var $Hostname = "";
-	var $Host = "localhost";
+	var $Mailer = 'mail';
+	var $Sendmail = '/usr/sbin/sendmail';
+	var $PluginDir = '';
+	var $Version = '1.73';
+	var $ConfirmReadingTo = '';
+	var $Hostname = '';
+	var $Host = 'localhost';
 	var $Port = 25;
-	var $Helo = "";
+	var $Helo = '';
 	var $SMTPAuth = false;
-	var $Username = "";
-	var $Password = "";
+	var $Username = '';
+	var $Password = '';
 	var $Timeout = 10;
 	var $SMTPDebug = false;
 	var $SMTPKeepAlive = false;
@@ -50,91 +50,91 @@ class mosPHPMailer {
 	var $LE = "\n";
 	function IsHTML($bool) {
 		if($bool == true)
-			$this->ContentType = "text/html";
+			$this->ContentType = 'text/html';
 		else
-			$this->ContentType = "text/plain";
+			$this->ContentType = 'text/plain';
 	}
 	function IsSMTP() {
-		$this->Mailer = "smtp";
+		$this->Mailer = 'smtp';
 	}
 	function IsMail() {
-		$this->Mailer = "mail";
+		$this->Mailer = 'mail';
 	}
 	function IsSendmail() {
-		$this->Mailer = "sendmail";
+		$this->Mailer = 'sendmail';
 	}
 	function IsQmail() {
-		$this->Sendmail = "/var/qmail/bin/sendmail";
-		$this->Mailer = "sendmail";
+		$this->Sendmail = '/var/qmail/bin/sendmail';
+		$this->Mailer = 'sendmail';
 	}
-	function AddAddress($address,$name = "") {
+	function AddAddress($address,$name = '') {
 		$cur = count($this->to);
 		$this->to[$cur][0] = trim($address);
 		$this->to[$cur][1] = $name;
 	}
-	function AddCC($address,$name = "") {
+	function AddCC($address,$name = '') {
 		$cur = count($this->cc);
 		$this->cc[$cur][0] = trim($address);
 		$this->cc[$cur][1] = $name;
 	}
-	function AddBCC($address,$name = "") {
+	function AddBCC($address,$name = '') {
 		$cur = count($this->bcc);
 		$this->bcc[$cur][0] = trim($address);
 		$this->bcc[$cur][1] = $name;
 	}
-	function AddReplyTo($address,$name = "") {
+	function AddReplyTo($address,$name = '') {
 		$cur = count($this->ReplyTo);
 		$this->ReplyTo[$cur][0] = trim($address);
 		$this->ReplyTo[$cur][1] = $name;
 	}
 	function Send() {
-		$header = "";
+		$header = '';
 
 		$result = true;
 		if((count($this->to) + count($this->cc) + count($this->bcc)) < 1) {
-			$this->SetError($this->Lang("provide_address"));
+			$this->SetError($this->Lang('provide_address'));
 			return false;
 		}
 		if(!empty($this->AltBody))
-			$this->ContentType = "multipart/alternative";
+			$this->ContentType = 'multipart/alternative';
 		$this->error_count = 0;
 		$this->SetMessageType();
 		$header .= $this->CreateHeader();
 		$body = $this->CreateBody();
-		if($body == "") {
+		if($body == '') {
 			return false;
 		}
 		switch($this->Mailer) {
-			case "sendmail":
+			case 'sendmail':
 				$result = $this->SendmailSend($header,$body);
 				break;
-			case "mail":
+			case 'mail':
 				$result = $this->MailSend($header,$body);
 				break;
-			case "smtp":
+			case 'smtp':
 				$result = $this->SmtpSend($header,$body);
 				break;
 			default:
-				$this->SetError($this->Mailer.$this->Lang("mailer_not_supported"));
+				$this->SetError($this->Mailer.$this->Lang('mailer_not_supported'));
 				$result = false;
 				break;
 		}
 		return $result;
 	}
 	function SendmailSend($header,$body) {
-		if($this->Sender != "")
+		if($this->Sender != '')
 			$sendmail = sprintf("%s -oi -f %s -t",$this->Sendmail,$this->Sender);
 		else
 			$sendmail = sprintf("%s -oi -t",$this->Sendmail);
 		if(!@$mail = popen($sendmail,"w")) {
-			$this->SetError($this->Lang("execute").$this->Sendmail);
+			$this->SetError($this->Lang('execute').$this->Sendmail);
 			return false;
 		}
 		fputs($mail,$header);
 		fputs($mail,$body);
 		$result = pclose($mail) >> 8 & 0xFF;
 		if($result != 0) {
-			$this->SetError($this->Lang("execute").$this->Sendmail);
+			$this->SetError($this->Lang('execute').$this->Sendmail);
 			return false;
 		}
 		return true;
@@ -360,37 +360,28 @@ class mosPHPMailer {
 		$this->boundary[1] = "b1_".$uniq_id;
 		$this->boundary[2] = "b2_".$uniq_id;
 		$result .= $this->HeaderLine("Date",$this->RFCDate());
-		if($this->Sender == "")
+		if($this->Sender == ""){
 			$result .= $this->HeaderLine("Return-Path",trim($this->From));
-		else
+		}else{
 			$result .= $this->HeaderLine("Return-Path",trim($this->Sender));
+		}
 		if($this->Mailer != "mail") {
-			if(count($this->to) > 0)
-				$result .= $this->AddrAppend("To",$this->to);
-			else
-				if(count($this->cc) == 0)
-					$result .= $this->HeaderLine("To","undisclosed-recipients:;");
-			if(count($this->cc) > 0)
-				$result .= $this->AddrAppend("Cc",$this->cc);
+			if(count($this->to) > 0)$result .= $this->AddrAppend("To",$this->to);
+			elseif(count($this->cc) == 0) $result .= $this->HeaderLine("To","undisclosed-recipients:;");
+			if(count($this->cc) > 0)$result .= $this->AddrAppend("Cc",$this->cc);
 		}
 		$from = array();
 		$from[0][0] = trim($this->From);
 		$from[0][1] = $this->FromName;
 		$result .= $this->AddrAppend("From",$from);
-		if((($this->Mailer == "sendmail") || ($this->Mailer == "mail")) && (count($this->bcc) >
-			0))
-			$result .= $this->AddrAppend("Bcc",$this->bcc);
-		if(count($this->ReplyTo) > 0)
-			$result .= $this->AddrAppend("Reply-to",$this->ReplyTo);
-		if($this->Mailer != "mail")
-			$result .= $this->HeaderLine("Subject",$this->EncodeHeader(trim($this->Subject)));
+		if((($this->Mailer == "sendmail") || ($this->Mailer == "mail")) && (count($this->bcc) >0)) $result .= $this->AddrAppend("Bcc",$this->bcc);
+		if(count($this->ReplyTo) > 0) $result .= $this->AddrAppend("Reply-to",$this->ReplyTo);
+		if($this->Mailer != "mail") $result .= $this->HeaderLine("Subject",$this->EncodeHeader(trim($this->Subject)));
 		$result .= sprintf("Message-ID: <%s@%s>%s",$uniq_id,$this->ServerHostname(),$this->LE);
 		$result .= $this->HeaderLine("X-Priority",$this->Priority);
-		$result .= $this->HeaderLine("X-Mailer","PHPMailer [version ".$this->Version.
-			"]");
+		$result .= $this->HeaderLine("X-Mailer","PHPMailer [version ".$this->Version."]");
 		if($this->ConfirmReadingTo != "") {
-			$result .= $this->HeaderLine("Disposition-Notification-To","<".trim($this->ConfirmReadingTo).
-				">");
+			$result .= $this->HeaderLine("Disposition-Notification-To","<".trim($this->ConfirmReadingTo).">");
 		}
 		for($index = 0; $index < count($this->CustomHeader); $index++) {
 			$result .= $this->HeaderLine(trim($this->CustomHeader[$index][0]),$this->EncodeHeader
@@ -405,8 +396,7 @@ class mosPHPMailer {
 			case "attachments":
 			case "alt_attachments":
 				if($this->InlineImageExists()) {
-					$result .= sprintf("Content-Type: %s;%s\ttype=\"text/html\";%s\tboundary=\"%s\"%s",
-						"multipart/related",$this->LE,$this->LE,$this->boundary[1],$this->LE);
+					$result .= sprintf("Content-Type: %s;%s\ttype=\"text/html\";%s\tboundary=\"%s\"%s","multipart/related",$this->LE,$this->LE,$this->boundary[1],$this->LE);
 				} else {
 					$result .= $this->HeaderLine("Content-Type","multipart/mixed;");
 					$result .= $this->TextLine("\tboundary=\"".$this->boundary[1].'"');
@@ -500,8 +490,7 @@ class mosPHPMailer {
 	function TextLine($value) {
 		return $value.$this->LE;
 	}
-	function AddAttachment($path,$name = "",$encoding = "base64",$type =
-		"application/octet-stream") {
+	function AddAttachment($path,$name = "",$encoding = "base64",$type ="application/octet-stream") {
 		if(!@is_file($path)) {
 			$this->SetError($this->Lang("file_access").$path);
 			return false;
@@ -637,10 +626,8 @@ class mosPHPMailer {
 		$encoded = $this->FixEOL($str);
 		if(substr($encoded,-(strlen($this->LE))) != $this->LE)
 			$encoded .= $this->LE;
-		$encoded = preg_replace('/([\000-\010\013\014\016-\037\075\177-\377])/e',
-			"'='.sprintf('%02X', ord('\\1'))",$encoded);
-		$encoded = preg_replace("/([\011\040])".$this->LE."/e",
-			"'='.sprintf('%02X', ord('\\1')).'".$this->LE."'",$encoded);
+		$encoded = preg_replace('/([\000-\010\013\014\016-\037\075\177-\377])/e',"'='.sprintf('%02X', ord('\\1'))",$encoded);
+		$encoded = preg_replace("/([\011\040])".$this->LE."/e","'='.sprintf('%02X', ord('\\1')).'".$this->LE."'",$encoded);
 		$encoded = $this->WrapText($encoded,74,true);
 		return $encoded;
 	}
@@ -648,22 +635,19 @@ class mosPHPMailer {
 		$encoded = preg_replace("[\r\n]","",$str);
 		switch(strtolower($position)) {
 			case "phrase":
-				$encoded = preg_replace("/([^A-Za-z0-9!*+\/ -])/e","'='.sprintf('%02X', ord('\\1'))",
-					$encoded);
+				$encoded = preg_replace("/([^A-Za-z0-9!*+\/ -])/e","'='.sprintf('%02X', ord('\\1'))",$encoded);
 				break;
 			case "comment":
 				$encoded = preg_replace("/([\(\)\"])/e","'='.sprintf('%02X', ord('\\1'))",$encoded);
 			case "text":
 			default:
-				$encoded = preg_replace('/([\000-\011\013\014\016-\037\075\077\137\177-\377])/e',
-					"'='.sprintf('%02X', ord('\\1'))",$encoded);
+				$encoded = preg_replace('/([\000-\011\013\014\016-\037\075\077\137\177-\377])/e',"'='.sprintf('%02X', ord('\\1'))",$encoded);
 				break;
 		}
 		$encoded = str_replace(" ","_",$encoded);
 		return $encoded;
 	}
-	function AddStringAttachment($string,$filename,$encoding = "base64",$type =
-		"application/octet-stream") {
+	function AddStringAttachment($string,$filename,$encoding = "base64",$type ="application/octet-stream") {
 		$cur = count($this->attachment);
 		$this->attachment[$cur][0] = $string;
 		$this->attachment[$cur][1] = $filename;
@@ -674,8 +658,7 @@ class mosPHPMailer {
 		$this->attachment[$cur][6] = "attachment";
 		$this->attachment[$cur][7] = 0;
 	}
-	function AddEmbeddedImage($path,$cid,$name = "",$encoding = "base64",$type =
-		"application/octet-stream") {
+	function AddEmbeddedImage($path,$cid,$name = "",$encoding = "base64",$type ="application/octet-stream") {
 		if(!@is_file($path)) {
 			$this->SetError($this->Lang("file_access").$path);
 			return false;
