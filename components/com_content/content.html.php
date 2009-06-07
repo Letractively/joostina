@@ -52,18 +52,86 @@ class HTML_content {
         include_once($mosConfig_absolute_path.'/components/com_content/view/user/items/default.php');
 
 	}
+	
+function showSection_catlist($section,&$access,&$params) {
+		global $Itemid,$mosConfig_live_site, $mosConfig_absolute_path, $my;
+
+		
+		$id = $section->id;
+		$categories_exist = $section->categories_exist;
+		$categories = $section->content;
+
+		//echo $params->get('cat_description') ;
+		
+		$items = $section->content;
+		$gid = $my->gid;
+		//$other_categories = $section->other_categories;
+		$order = $params->get('selected');
+
+		if(strtolower(get_class($section)) == 'mossection') {
+			$catid = 0;
+		} else {
+			$catid = $title->id;
+		}
+        $sfx = $params->get('pageclass_sfx');
+        $page_title='';
+        $title_description = '';
+        $title_image = '';
+        $add_button = '';
+
+
+        if ($params->get('page_title')) {
+            $page_title = htmlspecialchars($section->name, ENT_QUOTES);
+        }
+
+        if ($params->get('description') && $section->description) {
+            $title_description = $section->description;
+        }
+
+        if($params->get('description_image') && $section->image){
+            $link = $mosConfig_live_site . '/images/stories/' . $section->image;
+            $title_image = '<img class="desc_img" src="'.$link.'" align="'.$section->image_position.'"  alt="'.$section->image.'" />';
+        }
+
+	    if (($access->canEdit || $access->canEditOwn) && $categories_exist) {
+		    $link = sefRelToAbs('index.php?option=com_content&amp;task=new&amp;sectionid=' . $id . '&amp;Itemid=' . $Itemid);
+            $add_button = '<a href="'.$link.'" class="add_button add_content">'._CMN_NEW.'</a>';
+	   	}
+
+		$templates = $section->templates; 
+        
+       	//require_once ($GLOBALS['mosConfig_absolute_path'].'/includes/pageNavigation.php');
+		//$pageNav = new mosPageNav($section->total,$params->get('limitstart'),$params->get('limit'));
+
+        $template = new jstContentTemplate(); 
+        $template->set_template($params->page_type, $templates);
+        include_once($template->template_file);
+
+	}
+
 
 
 	/**
 	* Draws a Content List
 	* Used by Content Category & Content Section
 	*/
-	function showContentList($title,&$items,&$access,$id = 0,$sectionid = null,$gid,&$params,&$pageNav,$other_categories,&$lists,$order,$categories_exist) {
-		global $Itemid,$mosConfig_live_site, $mosConfig_absolute_path;
+	function showContentList($obj,&$access,&$params) {
+		global $Itemid,$mosConfig_live_site, $mosConfig_absolute_path, $my;
 
-		if($sectionid) {
-			$id = $sectionid;
+		if($params->page_type=='section_table') {
+			$id = $obj->id;
+			$categories_exist = $obj->categories_exist;
+		}else{
+			$sectionid = $obj->section;
+			$categories_exist = null;
+			$lists = $obj->get_lists($params);
 		}
+		
+		$title = $obj;
+		$items = $obj->content;
+		$gid = $my->gid;
+		$other_categories = $obj->other_categories;
+		$order = $params->get('selected');
 
 		if(strtolower(get_class($title)) == 'mossection') {
 			$catid = 0;
@@ -96,7 +164,7 @@ class HTML_content {
             $add_button = '<a href="'.$link.'" class="add_button add_content">'._CMN_NEW.'</a>';
 	   	}
 
-        if (((count($other_categories) > 1) || (count($other_categories) < 2 && count($items) < 1))) {
+        if ( ((count($other_categories) > 1) || (count($other_categories) < 2 && count($items) < 1)) ) {
 		    if ( (($params->get('type') == 'category') && $params->get('other_cat'))  || (($params->get('type') == 'section') && $params->get('other_cat_section'))) {
 		        $show_categories = 1;
             }
@@ -112,9 +180,12 @@ class HTML_content {
             $templates = $params->category_data->templates;
             //include_once($mosConfig_absolute_path.'/components/com_content/view/category/table/default.php');
         }
+        
+       	require_once ($GLOBALS['mosConfig_absolute_path'].'/includes/pageNavigation.php');
+		$pageNav = new mosPageNav($obj->total,$params->get('limitstart'),$params->get('limit'));
 
         $template = new jstContentTemplate();
-        $template->set_template($page_type, $templates);
+        $template->set_template($params->page_type, $templates);
         include_once($template->template_file);
 
 	}
@@ -370,9 +441,8 @@ class HTML_content {
 		global $mosConfig_title_h1,$mosConfig_title_h1_only_view,$task;
 		if($params->get('item_title')) {
 
-              //PbICb
-              //наводим порядок с выводом заголовков
 
+              //наводим порядок с выводом заголовков
               // Проверяем, нужно ли делать заголовки ссылками
               if($params->get('link_titles') && $row->link_on != '') {
                   $row->title='<a href="'.$row->link_on.'" title="'.$row->title.'" class="contentpagetitle">'.$row->title.'</a>';
@@ -863,4 +933,5 @@ function _after_create_content($row){
     <?php
 }
 }
+
 ?>

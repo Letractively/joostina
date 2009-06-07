@@ -72,6 +72,8 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
        <?php  if($params->get('view_introtext',1)){ ?>
             <div class="item_text"><?php echo ampReplace($row->text);?></div>
        <?php  }?>
+       
+       <?php echo $row->rating;?>
 
         <?php if($params->get('modifydate')) { ?>
     		<div class="modified_date">

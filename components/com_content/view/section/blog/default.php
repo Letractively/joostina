@@ -14,11 +14,11 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
                 <div class="contentdescription">
 
         			<?php if($display_desc_img) { ?>
-        			    <img src="<?php echo $mosConfig_live_site;?>/images/stories/<?php echo $description->image;?>" align="<?php echo $description->image_position;?>"  alt="" />
+        			    <img src="<?php echo $mosConfig_live_site;?>/images/stories/<?php echo $obj->image;?>" align="<?php echo $obj->image_position;?>"  alt="" />
         			<?php } ?>
 
                     <?php if($display_desc_text) { ?>
-        				<p> <?php echo $description->description;?> </p>
+        				<p> <?php echo $obj->description;?> </p>
         			<?php } ?>
 
     			</div>
@@ -37,7 +37,7 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
                     ?>
 
     			    <div class="intro leading" id="leading_<?php echo $i;?>">
-    				    <?php  show($rows[$i],$params,$gid,$access,$pop, 'intro/leading/default.php');?>
+    				    <?php  _showItem($rows[$i],$params,$gid,$access,$pop, 'intro/leading/default.php');?>
     			    </div>
 
                 <?php $i++; } ?>
@@ -51,7 +51,7 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
 
             <?php for($z = 0; $z < $intro; $z++) {
 
-                if(array_key_exists($rows[$i]->id, $tags_arr)){
+                if(isset($rows[$i]) && array_key_exists($rows[$i]->id, $tags_arr)){
                     $rows[$i]->tags = $tags_arr[$rows[$i]->id];
                 }
 
@@ -64,7 +64,7 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
                         <?php if($z < $intro) { ?>
 
                         <div class="intro" id="intro_<?php echo $i;?>">
-					       <?php show($rows[$i],$params,$gid,$access,$pop, 'intro/simple/default.php'); ?>
+					       <?php _showItem($rows[$i],$params,$gid,$access,$pop, 'intro/simple/default.php'); ?>
                         </div>
 
 			            <?php } else { echo '</td></tr>'; break; } ?>
@@ -83,7 +83,7 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
 		<?php } ?>
 
 
-        <?php if($display_blog_more){ ?>
+        <?php if($display_blog_more){ ?> 
 			<div class="blog_more">
 			    <?php  HTML_content::showLinks($rows,$links,$total,$i,$showmore);?>
 			</div>

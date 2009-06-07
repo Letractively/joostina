@@ -114,7 +114,7 @@
 			<option value="0">Скрыть</option>
 			<option value="1">Показать</option>
 		</param>
-        <param name="author_name" type="list" default="0" label="Механизм отображения имен авторов" description="">
+        <param name="author_name" type="list" default="0" label="Тип отображения имен авторов" description="">
             <option value="0">глобальные настройки</option>
             <option value="1">имя-текст</option>
             <option value="2">ник-текст</option>

@@ -30,6 +30,7 @@ $access->canEdit	= $acl->acl_check('action','edit','users',$my->usertype,'conten
 $access->canEditOwn	= $acl->acl_check('action','edit','users',$my->usertype,'content','own');
 $access->canPublish	= $acl->acl_check('action','publish','users',$my->usertype,'content','all');
 
+
 // cache activation
 $cache = &mosCache::getCache('com_content');
 
@@ -52,27 +53,23 @@ switch($task) {
 	case 'view':
 	case 'preview':
 		if($mosConfig_enable_stats) {
-			showItem($id,$gid,$access,$pop,$option,0);
+			showFullItem($id,$gid,$access,$pop,$option,0);
 		} else {
-			$cache->call('showItem',$id,$gid,$access,$pop,$option,0,$limit,$limitstart);
+			$cache->call('showFullItem',$id,$gid,$access,$pop,$option,0,$limit,$limitstart);
 		}
 		break;
 
 	case 'section':
-		$cache->call('showSection',$id,$gid,$access,0);
+		$cache->call('showSection_catlist',$id,$gid,$access,0);
 		break;
 
 	case 'category':
-		$selected = strval(mosGetParam($_REQUEST,'order',''));
-		$selected = preg_replace('/[^a-z]/i','',$selected);
-		$filter = stripslashes(strval(mosGetParam($_REQUEST,'filter','')));
-
-		$cache->call('showCategory',$id,$gid,$access,$sectionid,$limit,null,$limitstart,0,$selected,$filter);
+		$cache->call('showTableCategory',$id);
 		break;
 
 	case 'blogsection':
 		// Itemid is a dummy value to cater for caching
-		$cache->call('showBlogSection',$id,$gid,$access,$pop,$Itemid,$limit,$limitstart);
+		$cache->call('showBlogSection',$id);
 		break;
 
 	case 'blogcategorymulti':
@@ -83,19 +80,19 @@ switch($task) {
 
 	case 'archivesection':
 		// Itemid is a dummy value to cater for caching
-		$cache->call('showArchiveSection',$id,$gid,$access,$pop,$option,$year,$month,$limit,$limitstart,$Itemid);
+		$cache->call('showArchiveSection',$id);
 		break;
 
 	case 'archivecategory':
 		// Itemid is a dummy value to cater for caching
-		$cache->call('showArchiveCategory',$id,$gid,$access,$pop,$option,$year,$month,$module,$limit,$limitstart,$Itemid);
+		$cache->call('showArchiveCategory',$id,$access,$option);
 		break;
 
 	case 'edit':
 		editItem($task);
 		break;
 
-	case 'new':
+	case 'new': 
 		editItem($task);
 		break;
 
@@ -130,10 +127,7 @@ switch($task) {
 
 
 /**
-* @param int The access level of the user
-* @param int The section id
-* @param int The number of items to dislpay
-* @param int The offset for pagination
+* Страница с перечнем материалов пользователя
 */
 function showUserItems() {
 	global $database, $mainframe, $Itemid, $my, $acl;
@@ -277,232 +271,91 @@ function findKeyItem($gid,$access,$pop,$option) {
 	}
 }
 
-function frontpage($gid,&$access,$pop,$now,$limit,$limitstart) {
-	global $database,$mainframe,$mosConfig_MetaDesc,$mosConfig_MetaKeys;
+function frontpage() {
+	global $database,$mainframe,$mosConfig_MetaDesc,$mosConfig_MetaKeys, $my;
 
-	$now = _CURRENT_SERVER_TIME;
+    $pop = intval(mosGetParam($_REQUEST,'pop',0));
+    $limit		= intval(mosGetParam($_REQUEST,'limit',0));
+    $limitstart	= intval(mosGetParam($_REQUEST,'limitstart',0));
 
-	$noauth = !$mainframe->getCfg('shownoauth');
+    //права доступа
+    $access = new jstContentAccess();
 
-	// Parameters
-	$menu = $mainframe->get('menu');
-	$params = new mosParameters($menu->params);
-	// Ordering control
-	$orderby_sec = $params->def('orderby_sec','');
-	$orderby_pri = $params->def('orderby_pri','');
-	$order_sec = _orderby_sec($orderby_sec);
-	$order_pri = _orderby_pri($orderby_pri);
+    //Установка параметров страницы блога раздела
+    $params = contentPageConfig::setup_frontpage();
+    $limit = $params->get('intro') + $params->get('leading') + $params->get('link');
 
-	// voting control
-	$voting = $params->def('rating','');
-	$voting = votingQuery($voting);
+    $frontpage = new mosContent($database);
+    //Получаем общее количество записей на главной странице
+    $frontpage->total = $frontpage->_get_result_frontpage($params, $access);
 
-	$where = _where(1,$access,$noauth,$gid,0,$now,null,null,$params);
-	$where = (count($where)?"\n WHERE ".implode("\n AND ",$where):'');
-
-	// Limit & limitstart
-	$intro = $params->def('intro',4);
-	$leading = $params->def('leading',1);
-	$links = $params->def('link',4);
-
-	$limit = $intro + $leading + $links;
-
-	// query to determine total number of records
-	$query = "SELECT COUNT(a.id) FROM #__content AS a INNER JOIN #__content_frontpage AS f ON f.content_id = a.id"
-			."\n INNER JOIN #__categories AS cc ON cc.id = a.catid INNER JOIN #__sections AS s ON s.id = a.sectionid"
-			."\n LEFT JOIN #__users AS u ON u.id = a.created_by LEFT JOIN #__groups AS g ON a.access = g.id".
-		$where;
-	$database->setQuery($query);
-	$total = $database->loadResult();
-
-	if($total <= $limit) {
+	if($frontpage->total <= $limit) {
 		$limitstart = 0;
 	}
+    $params->set('limitstart', $limitstart);
+    $params->set('limit', $limit);
 
-	// query records
-	$query = "SELECT a.attribs, a.notetext, a.id, a.title, a.title_alias, a.introtext, a.sectionid, a.state, a.catid, a.created, a.created_by, a.created_by_alias, a.modified, a.modified_by,".
-		"\n a.checked_out, a.checked_out_time, a.publish_up, a.publish_down, a.images, a.urls, a.ordering, a.metakey, a.metadesc, a.access, a.hits,".
-		"\n CHAR_LENGTH( a.fulltext ) AS readmore, u.name AS author, u.usertype, u.username, s.name AS section, cc.name AS category, g.name AS groups".
-		"\n, s.id AS sec_id, cc.id as cat_id".$voting['select']."\n FROM #__content AS a".
-		"\n INNER JOIN #__content_frontpage AS f ON f.content_id = a.id"."\n INNER JOIN #__categories AS cc ON cc.id = a.catid".
-		"\n INNER JOIN #__sections AS s ON s.id = a.sectionid"."\n LEFT JOIN #__users AS u ON u.id = a.created_by".
-		"\n LEFT JOIN #__groups AS g ON a.access = g.id".$voting['join'].$where."\n ORDER BY $order_pri $order_sec";
-	$database->setQuery($query,$limitstart,$limit);
-	$rows = $database->loadObjectList();
+     //Выбираем все нужные записи
+    $frontpage->content = $frontpage->_load_frontpage($params, $access);
 
-	// Dynamic Page Title
-	//$mainframe->SetPageTitle( $menu->name );
-	// Makes the page title more dynamic, uses the pagetitle parameter instead of the menu name;
-	if(trim($params->get('page_name')) != '') {
-		$mainframe->SetPageTitle($menu->name,$params);
-	} else
-		if($params->get('header') != '') {
-			$mainframe->SetPageTitle($params->get('header',1),$params);
-		} else {
-			$mainframe->SetPageTitle($menu->name,$params);
-		}
-		set_robot_metatag($params->get('robots'));
-	if($params->get('meta_description') != "") {
-		$mainframe->addMetaTag('description',$params->get('meta_description'));
-	} else {
-		$mainframe->addMetaTag('description',$mosConfig_MetaDesc);
-	}
-	if($params->get('meta_keywords') != "") {
-		$mainframe->addMetaTag('keywords',$params->get('meta_keywords'));
-	} else {
-		$mainframe->addMetaTag('keywords',$mosConfig_MetaKeys);
-	}
-	if($params->get('meta_author') != "") {
-		$mainframe->addMetaTag('author',$params->get('meta_author'));
-	}
+    $params->def('pop', $pop);
+    $params->page_type = 'frontpage';
 
-	BlogOutput($rows,$params,$gid,$access,$pop,$menu,$limitstart,$limit,$total);
+    // Мета-данные страницы
+    $meta = new contentMeta($params);
+    $meta->set_meta();
+
+	BlogOutput($frontpage,$params,$access);
 }
 
 
-function showSection($id,$gid,&$access,$now) {
-	global $database,$mainframe,$Itemid,$mosConfig_MetaDesc,$mosConfig_MetaKeys;
+function showSection_catlist($id) {
+	global $database,$mainframe,$Itemid, $my;
+	
+    if(!$id){
+        $error = new errorCase(1);
+        return;
+    }
 
+    //права доступа
+    $access = new jstContentAccess();
+    
+    //Получаем данные раздела
 	$section = new mosSection($database);
 	$section->load((int)$id);
+	
+    //Проверяем права доступа к разделу 
+    if(!$section->published || $section->access > $my->gid) {
+        $error = new errorCase(2);
+        return;
+    }
+    
+    //Установка параметров страницы таблицы раздела
+    $params = contentPageConfig::setup_section_catlist_page($section);    
 
-	/*
-	* Check if section is published
-	*/
-	if(!$section->published) {
-		mosNotAuth();
-		return;
-	}
-	/*
-	* check whether section access level allows access
-	*/
-	if($section->access > $gid) {
-		mosNotAuth();
-		return;
-	}
-
-	$now = _CURRENT_SERVER_TIME;
-	$nullDate = $database->getNullDate();
-	$noauth = !$mainframe->getCfg('shownoauth');
-
-	// Paramters
-	$params = new stdClass();
-	if($Itemid) {
-		$menu = $mainframe->get('menu');
-		$params = new mosParameters($menu->params);
-	} else {
-		$menu = '';
-		$params = new mosEmpty();
-
-	}
-	$orderby = $params->get('orderby','');
-
-	$params->set('type','section');
-
-	$params->def('page_title',1);
-	$params->def('pageclass_sfx','');
-	$params->def('description_sec',1);
-	$params->def('description_sec_image',1);
-	$params->def('other_cat_section',1);
-	$params->def('empty_cat_section',0);
-	$params->def('other_cat',1);
-	$params->def('empty_cat',0);
-	$params->def('cat_items',1);
-	$params->def('cat_description',1);
-	$params->def('back_button',$mainframe->getCfg('back_button'));
-	$params->def('pageclass_sfx','');
-	// param controls whether unpublished items visible to publishers and above
-	$params->def('unpublished',1);
-
-	// Ordering control
-	$orderby = _orderby_sec($orderby);
-
-	// Description & Description Image control
-	$params->def('description',$params->get('description_sec'));
-	$params->def('description_image',$params->get('description_sec_image'));
-
+		
+	//Выбираем категории, принадлежащие текущему разделу
+    $section->content = $section->_load_table_section($section, $params, $access);
+	$categories = $section->content; 
+	
+	//Получаем общее количество опубликованных категорий в разделе,
+	//чтобы выяснить - можно ли выводить кнопку добавления материалов
+	$section->categories_exist = false;
 	if($access->canEdit) {
-		$xwhere = '';
-		if($params->get('unpublished')) {
-			// shows unpublished items for publishers and above
-			$xwhere2 = "\n AND (b.state >= 0 or b.state is null)";
-		} else {
-			// unpublished items NOT shown for publishers and above
-			$xwhere2 = "\n AND (b.state = 1 or b.state is null)";
-		}
-	} else {
-		$xwhere = "\n AND a.published = 1";
-		$xwhere2 = "\n AND b.state = 1"."\n AND ( b.publish_up = ".$database->Quote($nullDate).
-			" OR b.publish_up <= ".$database->Quote($now)." )"."\n AND ( b.publish_down = ".
-			$database->Quote($nullDate)." OR b.publish_down >= ".$database->Quote($now).
-			" )";
-	}
-
-	$empty = '';
-	$empty_sec = '';
-	if($params->get('type') == 'category') {
-		// show/hide empty categories
-		if(!$params->get('empty_cat')) {
-			$empty = "\n HAVING numitems > 0";
-		}
-	}
-	if($params->get('type') == 'section') {
-		// show/hide empty categories in section
-		if(!$params->get('empty_cat_section')) {
-			$empty_sec = "\n HAVING numitems > 0";
-		}
-	}
-
-	$access_check = '';
-	$access_check_content = '';
-	if($noauth) {
-		$access_check = "\n AND a.access <= ".(int)$gid;
-		$access_check_content = "\n AND ( b.access <= ".(int)$gid.
-			" OR b.access is null)";
-	}
-
-	// Query of categories within section
-	$query = "SELECT a.*, COUNT( b.id ) AS numitems"."\n FROM #__categories AS a"."\n LEFT JOIN #__content AS b ON b.catid = a.id".
-		$xwhere2."\n WHERE a.section = '".(int)$section->id."'".$xwhere.$access_check.$access_check_content.
-		"\n GROUP BY a.id".$empty.$empty_sec."\n ORDER BY $orderby";
-	$database->setQuery($query);
-	$categories = $database->loadObjectList();
-
-	// If categories exist, the "new content" icon may be displayed
-	$categories_exist = false;
-	if($access->canEdit) {
-		$query = "SELECT count(*) as numCategories"."\n FROM #__categories as a"."\n WHERE a.section = '".(int)
-			$section->id."'".$access_check;
-		$database->setQuery($query);
-		$categories_exist = ($database->loadResult()) > 0;
+		$section->categories_exist = $section->get_count_all_cats($section, $params, $access);
 	}
 
 	// remove slashes
 	$section->name = stripslashes($section->name);
 
-
-	$mainframe->SetPageTitle($menu->name,$params);
-	set_robot_metatag($params->get('robots'));
-	if($params->get('meta_description') != "") {
-		$mainframe->addMetaTag('description',$params->get('meta_description'));
-	} else {
-		$mainframe->addMetaTag('description',$mosConfig_MetaDesc);
-	}
-	if($params->get('meta_keywords') != "") {
-		$mainframe->addMetaTag('keywords',$params->get('meta_keywords'));
-	} else {
-		$mainframe->addMetaTag('keywords',$mosConfig_MetaKeys);
-	}
-	if($params->get('meta_author') != "") {
-		$mainframe->addMetaTag('author',$params->get('meta_author'));
-	}
-
-	$null = null;
-
-
     $params->section_data = $section;
+    $params->page_type = 'section_catlist';
 
-	HTML_content::showContentList($section,$null,$access,$id,$null,$gid,$params,$null,$categories,$null,$null,$categories_exist);
+	// Мета-данные страницы
+    $meta = new contentMeta($params);
+    $meta->set_meta();  
+
+	HTML_content::showSection_catlist($section,$access,$params);
 }
 
 
@@ -514,59 +367,53 @@ function showSection($id,$gid,&$access,$now) {
 * @param int The number of items to dislpay
 * @param int The offset for pagination
 */
-function showCategory($id,$gid,&$access,$sectionid,$limit,$selected,$limitstart,$now,$selected,$filter) {
-	global $database,$mainframe,$Itemid,$mosConfig_list_limit,$mosConfig_MetaDesc,$mosConfig_MetaKeys;
+function showTableCategory($id) {
+	global $database,$mainframe,$Itemid,$mosConfig_list_limit, $my;
 
-	$category = new mosCategory($database);
-	$category->load((int)$id);
+    $limit		= intval(mosGetParam($_REQUEST,'limit',0));
+    $limitstart	= intval(mosGetParam($_REQUEST,'limitstart',0));    
+    $sectionid	= intval(mosGetParam($_REQUEST,'sectionid',0));
+	    
+	$selected = strval(mosGetParam($_REQUEST,'order',''));
+	$selected = preg_replace('/[^a-z]/i','',$selected);
+	
+	$filter = stripslashes(strval(mosGetParam($_REQUEST,'filter','')));
 
-	/*
-	* Check if category is published
-	*/
-	if(!$category->published) {
-		mosNotAuth();
-		return;
+    if(!$id){
+        $error = new errorCase(1);
+        return;
+    }
+
+    //права доступа
+    $access = new jstContentAccess();
+
+    //Грузим данные категории
+    $category = new mosCategory($database);
+	if(!($category->load((int)$id))){
+        $error = new errorCase(1);
+        return;
 	}
-	/*
-	* check whether category access level allows access
-	*/
-	if($category->access > $gid) {
-		mosNotAuth();
-		return;
+    //Грузим данные раздела
+    $section = new mosSection($database);
+	if(!($section->load((int)$category->section))){
+        $error = new errorCase(1);
+        return;
 	}
+    $category->section_data = $section;
 
-	$section = new mosSection($database);
-	$section->load($category->section);
+    //Проверяем права доступа к разделу и категории
+    if(!$section->published || !$category->published) {
+        $error = new errorCase(2);
+        return;
+    }
+    if($section->access > $my->gid || $category->access > $my->gid) {
+        $error = new errorCase(2);
+        return;
+    }
 
-	/*
-	* Check if category is published
-	*/
-	if(!$section->published) {
-		mosNotAuth();
-		return;
-	}
-	/*
-	* check whether section access level allows access
-	*/
-	if($section->access > $gid) {
-		mosNotAuth();
-		return;
-	}
-
-	$now = _CURRENT_SERVER_TIME;
-	$nullDate = $database->getNullDate();
-	$noauth = !$mainframe->getCfg('shownoauth');
-
-	// Paramters
-	$params = new stdClass();
-	if($Itemid) {
-		$menu = $mainframe->get('menu');
-		$params = new mosParameters($menu->params);
-	} else {
-		$menu = '';
-		$params = new mosParameters('');
-	}
-
+    //Установка параметров страницы таблицы категории
+    $params = contentPageConfig::setup_table_category_page($category);
+    
 	$lists['order_value'] = '';
 	if($selected) {
 		$orderby = $selected;
@@ -574,785 +421,383 @@ function showCategory($id,$gid,&$access,$sectionid,$limit,$selected,$limitstart,
 	} else {
 		$orderby = $params->get('orderby','rdate');
 		$selected = $orderby;
-	}
-
-	$params->set('type','category');
-
-	$params->def('description_cat',1);
-	$params->def('description_cat_image',1);
-	$params->def('page_title',1);
-	$params->def('title',1);
-	$params->def('hits',$mainframe->getCfg('hits'));
-	$params->def('author',!$mainframe->getCfg('hideAuthor'));
-	$params->def('date',!$mainframe->getCfg('hideCreateDate'));
-	$params->def('date_format',_DATE_FORMAT_LC);
-	$params->def('navigation',2);
-	$params->def('display',1);
-	$params->def('display_num',$mosConfig_list_limit);
-	$params->def('other_cat',1);
-	$params->def('empty_cat',0);
-	$params->def('cat_items',1);
-	$params->def('cat_description',0);
-	$params->def('back_button',$mainframe->getCfg('back_button'));
-	$params->def('pageclass_sfx','');
-	$params->def('headings',1);
-	$params->def('order_select',1);
-	$params->def('filter',1);
-	$params->def('filter_type','title');
-	// param controls whether unpublished items visible to publishers and above
-	$params->def('unpublished',1);
-
-	// Ordering control
-	$orderby = _orderby_sec($orderby);
-
-	// Description & Description Image control
-	$params->def('description',$params->get('description_cat'));
-	$params->def('description_image',$params->get('description_cat_image'));
-
+	}	
+	$params->def('orderby', $orderby);
+	$params->def('cur_filter', $filter);
+	$params->def('selected', $selected);
+	
 	if($sectionid == 0) {
 		$sectionid = $category->section;
 	}
+	
+	//Список других категорий раздела
+	$category->other_categories = $category->get_other_cats($category, $access, $params);
 
-	if($access->canEdit) {
-		$xwhere = '';
-		if($params->get('unpublished')) {
-			// shows unpublished items for publishers and above
-			$xwhere2 = "\n AND b.state >= 0";
-		} else {
-			// unpublished items NOT shown for publishers and above
-			$xwhere2 = "\n AND b.state = 1";
-		}
-	} else {
-		$xwhere = "\n AND c.published = 1";
-		$xwhere2 = "\n AND b.state = 1"."\n AND ( b.publish_up = ".$database->Quote($nullDate).
-			" OR b.publish_up <= ".$database->Quote($now)." )"."\n AND ( b.publish_down = ".
-			$database->Quote($nullDate)." OR b.publish_down >= ".$database->Quote($now).
-			" )";
-	}
-
-
-
-	// show/hide empty categories
-	$empty = '';
-	if(!$params->get('empty_cat')) $empty = "\n HAVING COUNT( b.id ) > 0";
-
-	// get the list of other categories
-	$query = "SELECT c.*, COUNT( b.id ) AS numitems"."\n FROM #__categories AS c"."\n LEFT JOIN #__content AS b ON b.catid = c.id ".
-		$xwhere2.($noauth?"\n AND b.access <= ".(int)$gid:'')."\n WHERE c.section = '".(int)
-		$category->section."'".$xwhere.($noauth?"\n AND c.access <= ".(int)$gid:'')."\n GROUP BY c.id".
-		$empty."\n ORDER BY c.ordering";
-	$database->setQuery($query);
-	$other_categories = $database->loadObjectList();
-
-	// get the total number of published items in the category
-	// filter functionality
-	$and = null;
-	if($params->get('filter')) {
-		if($filter) {
-			// clean filter variable
-			$filter = strtolower($filter);
-
-			switch($params->get('filter_type')) {
-				case 'title':
-					$and = "\n AND LOWER( a.title ) LIKE '%".$database->getEscaped($filter, true )."%'";
-					break;
-
-				case 'author':
-					$and = "\n AND ( ( LOWER( u.name ) LIKE '%".$database->getEscaped($filter, true ).
-						"%' ) OR ( LOWER( a.created_by_alias ) LIKE '%".$database->getEscaped($filter, true ).
-						"%' ) )";
-					break;
-
-				case 'hits':
-					$and = "\n AND a.hits LIKE '%".$database->getEscaped($filter, true )."%'";
-					break;
-			}
-		}
-	}
-
-	if($access->canEdit) {
-		if($params->get('unpublished')) {
-			// shows unpublished items for publishers and above
-			$xwhere = "\n AND a.state >= 0";
-		} else {
-			// unpublished items NOT shown for publishers and above
-			$xwhere = "\n AND a.state = 1";
-		}
-	} else {
-		$xwhere = "\n AND a.state = 1"."\n AND ( publish_up = ".$database->Quote($nullDate).
-			" OR publish_up <= ".$database->Quote($now)." )"."\n AND ( publish_down = ".$database->Quote($nullDate).
-			" OR publish_down >= ".$database->Quote($now)." )";
-	}
+	$content = new mosContent($database); 
 
 	// query to determine total number of records
-	$query = "SELECT COUNT(a.id) as numitems"."\n FROM #__content AS a"."\n LEFT JOIN #__users AS u ON u.id = a.created_by".
-		"\n LEFT JOIN #__groups AS g ON a.access = g.id"."\n WHERE a.catid = ".(int)$category->id.
-		$xwhere.($noauth?"\n AND a.access <= ".(int)$gid:'')."\n AND ".(int)$category->access.
-		" <= ".(int)$gid.$and."\n ORDER BY $orderby";
-	$database->setQuery($query);
-	$counter = $database->loadObjectList();
-	$total = $counter[0]->numitems;
+	//Получаем общее количество записей в таблице категории
+    $category->total = $content->_get_result_table_category($category, $params, $access);
 
-	$limit = $limit?$limit:$params->get('display_num');
-	if($total <= $limit) {
+	$limit = $limit ? $limit : $params->get('display_num');
+	if($category->total <= $limit) {
 		$limitstart = 0;
 	}
-
-	require_once ($GLOBALS['mosConfig_absolute_path'].'/includes/pageNavigation.php');
-	$pageNav = new mosPageNav($total,$limitstart,$limit);
-
-	// get the list of items for this category
-	$query = "  SELECT  a.id, a.title, a.hits, a.created_by, a.created_by_alias,
-                        a.created AS created, a.access, a.state,
-                        u.name AS author, u.username,
-                        g.name AS groups
-                FROM #__content AS a
-                LEFT JOIN #__users AS u ON u.id = a.created_by
-                LEFT JOIN #__groups AS g ON a.access = g.id
-                WHERE a.catid = ".(int)$category->id.$xwhere.($noauth?"\n AND a.access <= ".(int)$gid:'')."\n AND ".(int)$category->access." <= ".(int)$gid.$and."\n ORDER BY $orderby";
-	$database->setQuery($query,$limitstart,$limit);
-	$items = $database->loadObjectList();
-
-	$check = 0;
-	if($params->get('date')) {
-		$order[] = mosHTML::makeOption('date',_ORDER_DROPDOWN_DA);
-		$order[] = mosHTML::makeOption('rdate',_ORDER_DROPDOWN_DD);
-		$check .= 1;
-	}
-	if($params->get('title')) {
-		$order[] = mosHTML::makeOption('alpha',_ORDER_DROPDOWN_TA);
-		$order[] = mosHTML::makeOption('ralpha',_ORDER_DROPDOWN_TD);
-		$check .= 1;
-	}
-	if($params->get('hits')) {
-		$order[] = mosHTML::makeOption('hits',_ORDER_DROPDOWN_HA);
-		$order[] = mosHTML::makeOption('rhits',_ORDER_DROPDOWN_HD);
-		$check .= 1;
-	}
-	if($params->get('author')) {
-		$order[] = mosHTML::makeOption('author',_ORDER_DROPDOWN_AUA);
-		$order[] = mosHTML::makeOption('rauthor',_ORDER_DROPDOWN_AUD);
-		$check .= 1;
-	}
-
-	$order[] = mosHTML::makeOption('order',_ORDER_DROPDOWN_O);
-	$lists['order'] = mosHTML::selectList($order,'order','class="inputbox" size="1"  onchange="document.adminForm.submit();"','value','text',$selected);
-	if($check < 1) {
-		$lists['order'] = '';
-		$params->set('order_select',0);
-	}
-
-	$lists['task'] = 'category';
-	$lists['filter'] = $filter;
-
+    $params->set('limitstart', $limitstart);
+    $params->set('limit', $limit);
+    
+    //Выбираем все нужные записи 
+    $category->content = $content->_load_table_category($category, $params, $access);
+	
 	// remove slashes
 	$category->name = stripslashes($category->name);
+	
+ 	$params->category_data = $category;
+    $params->section_data = $section;
+    $params->page_type = 'category_table';
 
-	// Makes the page title more dynamic, uses the pagetitle parameter instead of the menu name;
-	$mainframe->SetPageTitle($menu->name,$params);
-	set_robot_metatag($params->get('robots'));
-	if($params->get('meta_description') != "") {
-		$mainframe->addMetaTag('description',$params->get('meta_description'));
-	} else {
-		$mainframe->addMetaTag('description',$mosConfig_MetaDesc);
-	}
-	if($params->get('meta_keywords') != "") {
-		$mainframe->addMetaTag('keywords',$params->get('meta_keywords'));
-	} else {
-		$mainframe->addMetaTag('keywords',$mosConfig_MetaKeys);
-	}
-	if($params->get('meta_author') != "") {
-		$mainframe->addMetaTag('author',$params->get('meta_author'));
-	}
-
-    $params->category_data = $category;
-	HTML_content::showContentList($category,$items,$access,$id,$sectionid,$gid,$params, $pageNav,$other_categories,$lists,$selected,true);
-} // showCategory
+	// Мета-данные страницы
+    $meta = new contentMeta($params);
+    $meta->set_meta();    
+    
+	HTML_content::showContentList($category, $access, $params);
+	
+}
 
 
-function showBlogSection($id = 0,$gid,&$access,$pop,$now = null,$limit,$limitstart) {
-	global $database,$mainframe,$Itemid,$mosConfig_MetaDesc,$mosConfig_MetaKeys;
+function showBlogSection($id = 0) {
+	global $database,$mainframe,$Itemid, $my;
 
-	// needed for check whether section is published
-	$check = ($id?$id:0);
+    $pop = intval(mosGetParam($_REQUEST,'pop',0));
+    $limit		= intval(mosGetParam($_REQUEST,'limit',0));
+    $limitstart	= intval(mosGetParam($_REQUEST,'limitstart',0));
 
-	$now = _CURRENT_SERVER_TIME;
-	$noauth = !$mainframe->getCfg('shownoauth');
+    if(!$id){
+        $error = new errorCase(1);
+        return;
+    }
+
+    //права доступа
+    $access = new jstContentAccess();
 
     //Установка параметров страницы блога раздела
     $params = contentPageConfig::setup_blog_section_page($id);
 
+    //Количество записей на странице
+	$limit = $limit ? $limit : ($params->get('intro') + $params->get('leading') + $params->get('link'));
 
-	$where = _where(1,$access,$noauth,$gid,$id,$now,null,null,$params);
-	$where = (count($where)?"\n WHERE ".implode("\n AND ",$where):'');
-
-	// Ordering control
-	$orderby_sec = $params->def('orderby_sec','rdate');
-	$orderby_pri = $params->def('orderby_pri','');
-	$order_sec = _orderby_sec($orderby_sec);
-	$order_pri = _orderby_pri($orderby_pri);
-
-	// voting control
-	$voting = $params->def('rating','');
-	$voting = votingQuery($voting);
-
-	// Limit & limitstart
-	$intro = $params->def('intro',4);
-	$leading = $params->def('leading',1);
-	$links = $params->def('link',4);
-
-	$limit = $limit?$limit:($intro + $leading + $links);
-
-	// query to determine total number of records
-	$query = "  SELECT COUNT(a.id)
-                FROM #__content AS a
-                INNER JOIN #__categories AS cc ON cc.id = a.catid
-                LEFT JOIN #__users AS u ON u.id = a.created_by
-                LEFT JOIN #__sections AS s ON a.sectionid = s.id
-                LEFT JOIN #__groups AS g ON a.access = g.id
-                ".$where;
-	$database->setQuery($query);
-	$total = $database->loadResult();
-
-	if($total <= $limit) {
-		$limitstart = 0;
-	}
-
-	// Main data query
-	$query = "  SELECT  a.id, a.attribs , a.title, a.title_alias, a.introtext, a.sectionid,
-                        a.state, a.catid, a.created, a.created_by, a.created_by_alias, a.modified, a.modified_by,
-                        a.checked_out, a.checked_out_time, a.publish_up, a.publish_down, a.images, a.urls, a.ordering,
-                        a.metakey, a.metadesc, a.access, CHAR_LENGTH( a.fulltext ) AS readmore,
-                        u.name AS author, u.usertype, u.username,
-                        s.name AS section,
-                        cc.name AS category,
-                        g.name AS groups
-                        ".$voting['select']."
-                FROM #__content AS a
-                INNER JOIN #__categories AS cc ON cc.id = a.catid
-                LEFT JOIN #__users AS u ON u.id = a.created_by
-                LEFT JOIN #__sections AS s ON a.sectionid = s.id
-                LEFT JOIN #__groups AS g ON a.access = g.id
-                ".$voting['join']
-                .$where."
-                ORDER BY $order_pri $order_sec";
-	$database->setQuery($query,$limitstart,$limit);
-	$rows = $database->loadObjectList();
-
-	// Section data query
+    //Грузим данные раздела
     $section = new mosSection($database);
-    $params->section_data = $section->get_section($id);
-
-
-	// Dynamic Page Title
-	if($params->menu) {
-		if(trim($params->get('page_name'))) {
-			$mainframe->SetPageTitle($params->menu->name,$params);
-		} else
-			if($params->get('header') != '') {
-				$mainframe->SetPageTitle($params->get('header',1),$params);
-			} else {
-				$mainframe->SetPageTitle($params->menu->name,$params);
-			}
+	if(!($section->load((int)$id))){
+        $error = new errorCase(1);
+        return;
 	}
 
-	set_robot_metatag($params->get('robots'));
-	if($params->get('meta_description') != "") {
-		$mainframe->addMetaTag('description',$params->get('meta_description'));
-	} else {
-		$mainframe->addMetaTag('description',$mosConfig_MetaDesc);
-	}
-	if($params->get('meta_keywords') != "") {
-		$mainframe->addMetaTag('keywords',$params->get('meta_keywords'));
-	} else {
-		$mainframe->addMetaTag('keywords',$mosConfig_MetaKeys);
-	}
-	if($params->get('meta_author') != "") {
-		$mainframe->addMetaTag('author',$params->get('meta_author'));
-	}
-
-	// check whether section is published
-	if(!count($rows) && $check) {
-		$secCheck = new mosSection($database);
-		$secCheck->load((int)$check);
-
-		/*
-		* check whether section is published
-		*/
-		if(!$secCheck->published) {
-			mosNotAuth();
-			return;
-		}
-		/*
-		* check whether section access level allows access
-		*/
-		if($secCheck->access > $gid) {
-			mosNotAuth();
-			return;
-		}
-	}
-
-
-	BlogOutput($rows,$params,$gid,$access,$pop,$menu,$limitstart,$limit,$total);
-}
-
-function showBlogCategory($id = 0,$gid,&$access,$pop,$now,$limit,$limitstart) {
-	global $database,$mainframe,$Itemid,$mosConfig_MetaDesc,$mosConfig_MetaKeys;
-
-	$now = _CURRENT_SERVER_TIME;
-	$noauth = !$mainframe->getCfg('shownoauth');
-
-	// needed for check whether section & category is published
-	$check = ($id?$id:0);
-
-	// Paramters
-	$params = new stdClass();
-	if($Itemid) {
-		$menu = $mainframe->get('menu');
-		$params = new mosParameters($menu->params);
-	} else {
-		$menu = '';
-		$params = new mosParameters('');
-	}
-
-	// new blog multiple section handling
-	if(!$id) {
-		$id = $params->def('categoryid',0);
-	}
-
-    $where = '';
-	$where = _where(2,$access,$noauth,$gid,$id,$now,null,null,$params);
-    if(count($where)){
-        $where = "\n WHERE ".implode("\n AND ",$where);
+    //Проверяем права доступа к разделу
+    //Если раздел не опубликован или группа пользователя ниже группы доступа
+    //- выдаём сообщение о невозможности доступа
+    if(!$section->published) {
+        $error = new errorCase(2);
+        return;
+    }
+    if($section->access > $my->gid) {
+        $error = new errorCase(2);
+        return;
     }
 
-	// Ordering control
-	$orderby_sec = $params->def('orderby_sec','rdate');
-	$orderby_pri = $params->def('orderby_pri','');
-	$order_sec = _orderby_sec($orderby_sec);
-	$order_pri = _orderby_pri($orderby_pri);
+    $content = new mosContent($database);
+    //Получаем общее количество записей в блоге
+    $section->total = $content->_get_result_blog_section($section, $params, $access);
 
-	// voting control
-	$voting = $params->def('rating','');
-	$voting = votingQuery($voting);
-
-	// Limit & limitstart
-	$intro = $params->def('intro',4);
-	$leading = $params->def('leading',1);
-	$links = $params->def('link',4);
-
-	$limit = $limit?$limit:($intro + $leading + $links);
-
-	// query to determine total number of records
-	$query = "  SELECT COUNT(a.id)
-                FROM #__content AS a
-                LEFT JOIN #__categories AS cc ON cc.id = a.catid
-                LEFT JOIN #__users AS u ON u.id = a.created_by
-                LEFT JOIN #__sections AS s ON a.sectionid = s.id
-                LEFT JOIN #__groups AS g ON a.access = g.id
-                ".$where;
-	$database->setQuery($query);
-	$total = $database->loadResult();
-
-	if($total <= $limit) {
+    //Устанавливаем окончательные параметры $limit и $limitstart
+	if($section->total <= $limit) {
 		$limitstart = 0;
 	}
+    $params->set('limitstart', $limitstart);
+    $params->set('limit', $limit);
 
-	// Main data query
-	$query = "  SELECT a.id, a.notetext,a.attribs, a.title, a.title_alias, a.introtext,
-                    a.sectionid, a.state, a.catid, a.created, a.created_by, a.created_by_alias,
-                    a.modified, a.modified_by, a.checked_out, a.checked_out_time,
-                    a.publish_up, a.publish_down, a.images, a.urls, a.ordering, a.metakey, a.metadesc, a.access,
-                    CHAR_LENGTH( a.fulltext ) AS readmore,
-                    s.published AS sec_pub, s.name AS section, s.templates AS s_templates,
-                    cc.published AS sec_pub, cc.name AS category, cc.templates AS c_templates,
-                    u.name AS author, u.usertype, u.username,
-                    g.name AS groups
-                    ".$voting['select']."
-                FROM #__content AS a
-                LEFT JOIN #__categories AS cc ON cc.id = a.catid
-                LEFT JOIN #__users AS u ON u.id = a.created_by
-                LEFT JOIN #__sections AS s ON a.sectionid = s.id
-                LEFT JOIN #__groups AS g ON a.access = g.id
-                ".$voting['join']
-                .$where."
-                ORDER BY $order_pri $order_sec";
-	$database->setQuery($query,$limitstart,$limit);
-	$rows = $database->loadObjectList();
+    //Выбираем все нужные записи сблога
+    $section->content = $content->_load_blog_section($section, $params, $access);
 
+    $params->section_data = $section;
+    $params->def('pop', $pop);
+    $params->page_type = 'section_blog';
 
-    if($rows){
-        $category = new mosCategory($database);
-        $category->templates = $rows[0]->c_templates;
-        $params->category_data = $category;
+	// Мета-данные страницы
+    $meta = new contentMeta($params);
+    $meta->set_meta();
 
-        $section = new mosSection($database);
-        $section->templates = $rows[0]->s_templates;
-        $params->section_data = $section;
-    }
-
-
-	// check whether section & category is published
-	if(!count($rows) && $check) {
-		$catCheck = new mosCategory($database);
-		$catCheck->load((int)$check);
-        $params->category_data = $catCheck;
-
-		/*
-		* check whether category is published
-		*/
-		if(!$catCheck->published) {
-			mosNotAuth();
-			return;
-		}
-		/*
-		* check whether category access level allows access
-		*/
-		if($catCheck->access > $gid) {
-			mosNotAuth();
-			return;
-		}
-
-		$secCheck = new mosSection($database);
-		$secCheck->load($catCheck->section);
-        $params->section_data = $secCheck;
-		/*
-		* check whether section is published
-		*/
-		if(!$secCheck->published) {
-			mosNotAuth();
-			return;
-		}
-		/*
-		* check whether category access level allows access
-		*/
-		if($secCheck->access > $gid) {
-			mosNotAuth();
-			return;
-		}
-	}
-
-
-	if($params->get('header') == "") {
-		$mainframe->SetPageTitle($menu->name,$params);
-	} else {
-		$mainframe->SetPageTitle($params->get('header'));
-	}
-
-	set_robot_metatag($params->get('robots'));
-
-	if($params->get('meta_description') != "") {
-		$mainframe->addMetaTag('description',$params->get('meta_description'));
-	} else {
-		$mainframe->addMetaTag('description',$mosConfig_MetaDesc);
-	}
-	if($params->get('meta_keywords') != "") {
-		$mainframe->addMetaTag('keywords',$params->get('meta_keywords'));
-	} else {
-		$mainframe->addMetaTag('keywords',$mosConfig_MetaKeys);
-	}
-	if($params->get('meta_author') != "") {
-		$mainframe->addMetaTag('author',$params->get('meta_author'));
-	}
-
-	BlogOutput($rows,$params,$gid,$access,$pop,$menu,$limitstart,$limit,$total);
+	BlogOutput($section,$params,$access);
 }
 
-function showArchiveSection($id = null,$gid,&$access,$pop,$option,$year,$month,$limit,$limitstart) {
-	global $database,$mainframe,$mosConfig_MetaDesc,$mosConfig_MetaKeys;
-	global $Itemid;
+function showBlogCategory($id = 0) {
+	global $database, $mainframe, $Itemid, $my;
 
-	$secID = ($id?$id:0);
+    $pop = intval(mosGetParam($_REQUEST,'pop',0));
+    $limit		= intval(mosGetParam($_REQUEST,'limit',0));
+    $limitstart	= intval(mosGetParam($_REQUEST,'limitstart',0));
 
-	$noauth = !$mainframe->getCfg('shownoauth');
+    if(!$id){
+        $error = new errorCase(1);
+        return;
+    }
 
-	$params = new stdClass();
-	if($Itemid) {
-		$menu = $mainframe->get('menu');
-		$params = new mosParameters($menu->params);
-	} else {
-		$menu = "";
-		$params = new mosParameters('');
+    //права доступа
+    $access = new jstContentAccess();
+
+    //Установка параметров страницы блога категории
+    $params = contentPageConfig::setup_blog_category_page($id);
+
+    //Количество записей на странице
+	$limit = $limit ? $limit : ($params->get('intro') + $params->get('leading') + $params->get('link'));
+
+
+    //Грузим данные категории
+    $category = new mosCategory($database);
+	if(!($category->load((int)$id))){
+        $error = new errorCase(1);
+        return;
 	}
+    //Грузим данные раздела
+    $section = new mosSection($database);
+	if(!($section->load((int)$category->section))){
+        $error = new errorCase(1);
+        return;
+	}
+    $category->section = $section;
 
+    //Проверяем права доступа к разделу и категории
+    //Если раздел/категория не опубликованы или группа пользователя ниже группы доступа
+    //- выдаём сообщение о невозможности доступа
+    if(!$section->published || !$category->published) {
+        $error = new errorCase(2);
+        return;
+    }
+    if($section->access > $my->gid || $category->access > $my->gid) {
+        $error = new errorCase(2);
+        return;
+    }
+
+     $content = new mosContent($database);
+    //Получаем общее количество записей в блоге
+    $category->total = $content->_get_result_blog_category($category, $params, $access);
+
+	if($category->total <= $limit) {
+		$limitstart = 0;
+	}
+    $params->set('limitstart', $limitstart);
+    $params->set('limit', $limit);
+
+    //Выбираем все нужные записи сблога
+    $category->content = $content->_load_blog_category($category, $params, $access);
+
+
+    $params->category_data = $category;
+    $params->section_data = $section;
+    $params->def('pop', $pop);
+    $params->page_type = 'category_blog';
+
+	// Мета-данные страницы
+    $meta = new contentMeta($params);
+    $meta->set_meta();
+
+
+	BlogOutput($category,$params,$access);
+
+}
+
+function showArchiveSection($id = null) {
+	global $database, $mainframe, $Itemid, $my;
+	
+	$year		= intval(mosGetParam($_REQUEST,'year',date('Y')));
+	$month		= intval(mosGetParam($_REQUEST,'month',date('m')));
+	$module		= intval(mosGetParam($_REQUEST,'module',0));
+	
+	$pop = intval(mosGetParam($_REQUEST,'pop',0));
+    $limit		= intval(mosGetParam($_REQUEST,'limit',0));
+    $limitstart	= intval(mosGetParam($_REQUEST,'limitstart',0));
+    
+    if(!$id){
+        $error = new errorCase(1);
+        return;
+    }    
+    
+    //права доступа
+    $access = new jstContentAccess();
+
+    //Установка параметров страницы блога раздела
+    $params = contentPageConfig::setup_blog_archive_section_page($id);
+   	$params->set('year',$year);
+	$params->set('month',$month);
 	$params->set('intro_only',1);
-	$params->set('year',$year);
-	$params->set('month',$month);
 
-	// Ordering control
-	$orderby_sec = $params->def('orderby_sec','rdate');
-	$orderby_pri = $params->def('orderby_pri','');
-	$order_sec = _orderby_sec($orderby_sec);
-	$order_pri = _orderby_pri($orderby_pri);
+    //Количество записей на странице
+	$limit = $limit ? $limit : ($params->get('intro') + $params->get('leading') + $params->get('link'));
 
-	// used in query
-	$where = _where(-1,$access,$noauth,$gid,$id,null,$year,$month);
-	$where = (count($where)?"\n WHERE ".implode("\n AND ",$where):'');
 
-	// checks to see if 'All Sections' options used
-	if($id == 0) {
-		$check = '';
-	} else {
-		$check = "\n AND a.sectionid = ".(int)$id;
+    //Грузим данные раздела
+    $section = new mosSection($database);
+	if(!($section->load((int)$id))){
+        $error = new errorCase(1);
+        return;
 	}
-	// query to determine if there are any archived entries for the section
-	$query = "SELECT a.id"."\n FROM #__content as a"."\n WHERE a.state = -1".$check;
-	$database->setQuery($query);
-	$items = $database->loadObjectList();
-	$archives = count($items);
 
-	// voting control
-	$voting = $params->def('rating','');
-	$voting = votingQuery($voting);
+    //Проверяем права доступа к разделу
+    //Если раздел не опубликован или группа пользователя ниже группы доступа
+    //- выдаём сообщение о невозможности доступа
+    if(!$section->published) {
+        $error = new errorCase(2);
+        return;
+    }
+    if($section->access > $my->gid) {
+        $error = new errorCase(2);
+        return;
+    }    
+    
+    $content = new mosContent($database);
+    //Получаем общее количество записей в блоге
+    $section->total = $content->_get_result_archive_section($section, $params, $access);
 
-	// Limit & limitstart
-	$intro = $params->def('intro',4);
-	$leading = $params->def('leading',1);
-	$links = $params->def('link',4);
-
-	$limit = $limit?$limit:($intro + $leading + $links);
-
-	// query to determine total number of records
-	$query = "SELECT COUNT(a.id)"."\n FROM #__content AS a"."\n INNER JOIN #__categories AS cc ON cc.id = a.catid".
-		"\n LEFT JOIN #__users AS u ON u.id = a.created_by"."\n LEFT JOIN #__sections AS s ON a.sectionid = s.id".
-		"\n LEFT JOIN #__groups AS g ON a.access = g.id".$where;
-	$database->setQuery($query);
-	$total = $database->loadResult();
-
-	if($total <= $limit) {
+    //Устанавливаем окончательные параметры $limit и $limitstart
+	if($section->total <= $limit) {
 		$limitstart = 0;
 	}
+    $params->set('limitstart', $limitstart);
+    $params->set('limit', $limit);
 
-	// Main Query
-	$query = "SELECT a.id, a.title, a.title_alias, a.introtext, a.sectionid, a.state, a.catid, a.created, a.created_by, a.created_by_alias, a.modified, a.modified_by,".
-		"\n a.checked_out, a.checked_out_time, a.publish_up, a.publish_down, a.images, a.urls, a.ordering, a.metakey, a.metadesc, a.access,".
-		"\n CHAR_LENGTH( a.fulltext ) AS readmore, u.name AS author, u.usertype, s.name AS section, cc.name AS category, g.name AS groups".
-		$voting['select']."\n FROM #__content AS a"."\n INNER JOIN #__categories AS cc ON cc.id = a.catid".
-		"\n LEFT JOIN #__users AS u ON u.id = a.created_by"."\n LEFT JOIN #__sections AS s ON a.sectionid = s.id".
-		"\n LEFT JOIN #__groups AS g ON a.access = g.id".$voting['join'].$where."\n ORDER BY $order_pri $order_sec";
-	$database->setQuery($query,$limitstart,$limit);
-	$rows = $database->loadObjectList();
+    //Выбираем все нужные записи сблога
+    $section->content = $content->_load_archive_section($section, $params, $access);
 
-	// check whether section is published
-	if(!count($rows) && $secID != 0) {
-		$secCheck = new mosSection($database);
-		$secCheck->load((int)$secID);
+    $params->section_data = $section;
+    $params->def('pop', $pop);
+    $params->page_type = 'section_archive';
 
-		/*
-		* check whether section is published
-		*/
-		if(!$secCheck->published) {
-			mosNotAuth();
-			return;
-		}
-		/*
-		* check whether section access level allows access
-		*/
-		if($secCheck->access > $gid) {
-			mosNotAuth();
-			return;
-		}
-	}
+	// Мета-данные страницы
+    $meta = new contentMeta($params);
+    $meta->set_meta();
 
-	// Dynamic Page Title
-	if($params->get('header') == "") {
-		$mainframe->SetPageTitle($menu->name,$params);
-	} else {
-		$mainframe->SetPageTitle($params->get('header'));
-	}
-	# Joomlatwork: change into the dynamic robots metatag
-	# Remark: Primairly the settings of blogsection, second the global settings ..
-	#
-	set_robot_metatag($params->get('robots'));
+	BlogOutput($section,$params,$access);
 
-	if($params->get('meta_description') != "") {
-		$mainframe->addMetaTag('description',$params->get('meta_description'));
-	} else {
-		$mainframe->addMetaTag('description',$mosConfig_MetaDesc);
-	}
-	if($params->get('meta_keywords') != "") {
-		$mainframe->addMetaTag('keywords',$params->get('meta_keywords'));
-	} else {
-		$mainframe->addMetaTag('keywords',$mosConfig_MetaKeys);
-	}
-	if($params->get('meta_author') != "") {
-		$mainframe->addMetaTag('author',$params->get('meta_author'));
-	}
-
-
-	BlogOutput($rows,$params,$gid,$access,$pop,$menu,$limitstart,$limit,$total,1,1);
 
 }
 
 
-function showArchiveCategory($id = 0,$gid,&$access,$pop,$option,$year,$month,$module,$limit,$limitstart) {
-	global $database,$mainframe,$mosConfig_MetaDesc,$mosConfig_MetaKeys;
-	global $Itemid;
+function showArchiveCategory($id = 0) {
+	global $database, $mainframe, $Itemid, $my;
+	
+	$year		= intval(mosGetParam($_REQUEST,'year',date('Y')));
+	$month		= intval(mosGetParam($_REQUEST,'month',date('m')));
+	$module		= intval(mosGetParam($_REQUEST,'module',0));
+	
+	$pop = intval(mosGetParam($_REQUEST,'pop',0));
+    $limit		= intval(mosGetParam($_REQUEST,'limit',0));
+    $limitstart	= intval(mosGetParam($_REQUEST,'limitstart',0));
 
-	$noauth = !$mainframe->getCfg('shownoauth');
 
-	// needed for check whether section & category is published
-	$catID = ($id?$id:0);
+    if(!$module &&!$id){
+        $error = new errorCase(1);
+        return;
+    }
+ 
+    //права доступа
+    $access = new jstContentAccess();
 
-	// used by archive module
-	if($module) {
-		$check = '';
-	} else {
-		$check = "\n AND a.catid = ".(int)$id;
-	}
-
-	if($Itemid) {
-		$menu = $mainframe->get('menu');
-		$params = new mosParameters($menu->params);
-	} else {
-		$menu = '';
-		$params = new mosParameters('');
-	}
-
-	$params->set('year',$year);
+    //Установка параметров страницы блога категории
+    $params = contentPageConfig::setup_blog_archive_category_page($id);
+   	$params->set('year',$year);
 	$params->set('month',$month);
+	$params->def('module',$module);
 
-	// Ordering control
-	$orderby_sec = $params->def('orderby','rdate');
-	$order_sec = _orderby_sec($orderby_sec);
+    //Количество записей на странице
+	$limit = $limit ? $limit : ($params->get('intro') + $params->get('leading') + $params->get('link'));
 
-	// used in query
-	$where = _where(-2,$access,$noauth,$gid,$id,null,$year,$month);
-	$where = (count($where)?"\n WHERE ".implode("\n AND ",$where):'');
+	
 
-	// получение числа архивных объектов. оптимизировано по совету: smart ( http://joomlaforum.ru/index.php/topic,20369.msg119792.html#msg119792 )
-	$query = "SELECT COUNT(a.id)"."\n FROM #__content as a"."\n WHERE a.state = -1".$check;
-	$database->setQuery($query);
-	$archives = $database->loadResult();
+	if(!$params->get('module')){
+	    //Грузим данные категории
+	    $category = new mosCategory($database);
+		if(!($category->load((int)$id))){
+	        $error = new errorCase(1);
+	        return;
+		} 
+	    //Грузим данные раздела
+	    $section = new mosSection($database);
+		if(!($section->load((int)$category->section))){
+	        $error = new errorCase(1);
+	        return;
+		}
+	    $category->section = $section;
+	
+	    //Проверяем права доступа к разделу и категории
+	    //Если раздел/категория не опубликованы или группа пользователя ниже группы доступа
+	    //- выдаём сообщение о невозможности доступа
+	    if(!$section->published || !$category->published) {
+	        $error = new errorCase(2);
+	        return;
+	    }
+	    if($section->access > $my->gid || $category->access > $my->gid) {
+	        $error = new errorCase(2);
+	        return;
+	    }
+	    $params->page_type = 'category_archive';
+    }
+    else{
+    	$category = new stdClass();
+    	
+    	$section = new stdClass();
+    	$params->page_type = 'archive_by_month';
+    	$params->def('header','Архив');
+    }
 
-	// voting control
-	$voting = $params->def('rating','');
-	$voting = votingQuery($voting);
+	$content = new mosContent($database);
+    
+	//Получаем общее количество записей в блоге архива категории
+    $category->total = $content->_get_result_blog_archive_category($category, $params, $access);
+    
 
-	// Limit & limitstart
-	$intro = $params->def('intro',4);
-	$leading = $params->def('leading',1);
-	$links = $params->def('link',4);
-
-	$limit = $limit?$limit:($intro + $leading + $links);
-
-	// query to determine total number of records
-	$query = "  SELECT COUNT(a.id)
-                FROM #__content AS a
-                INNER JOIN #__categories AS cc ON cc.id = a.catid
-                LEFT JOIN #__users AS u ON u.id = a.created_by
-                LEFT JOIN #__sections AS s ON a.sectionid = s.id
-                LEFT JOIN #__groups AS g ON a.access = g.id
-                ".$where;
-	$database->setQuery($query);
-	$total = $database->loadResult();
-
-	if($total <= $limit) {
+	if($category->total <= $limit) {
 		$limitstart = 0;
 	}
+    $params->set('limitstart', $limitstart);
+    $params->set('limit', $limit);
+    
+    //Проверяем, есть ли вообще в базе архивные матриалы
+    $category->archives = $content->check_archives_categories($category, $params);
+    
+    //Выбираем все нужные записи сблога
+    $category->content = $content->_load_blog_archive_category($category, $params, $access); 
+    
 
-	// main query
-	$query = " SELECT   a.id, a.title, a.title_alias, a.introtext, a.sectionid, a.state, a.catid,
-                        a.created, a.created_by, a.created_by_alias, a.modified, a.modified_by,
-                        a.checked_out, a.checked_out_time, a.publish_up, a.publish_down, a.images,
-                        a.urls, a.ordering, a.metakey, a.metadesc, a.access,
-                        CHAR_LENGTH( a.fulltext ) AS readmore,
-                        u.name AS author, u.usertype, u.username,
-                        s.name AS section,
-                        cc.name AS category,
-                        g.name AS groups
-                        ".$voting['select']."
-                FROM #__content AS a
-                INNER JOIN #__categories AS cc ON cc.id = a.catid
-                LEFT JOIN #__users AS u ON u.id = a.created_by
-                LEFT JOIN #__sections AS s ON a.sectionid = s.id
-                LEFT JOIN #__groups AS g ON a.access = g.id
-                ".$voting['join']
-                .$where."
-                ORDER BY $order_sec";
-	$database->setQuery($query,$limitstart,$limit);
-	$rows = $database->loadObjectList();
+	$params->def('pop', $pop);
+    $params->category_data = $category;
+    $params->section_data = $section;
+    
 
-	// check whether section & category is published
-	if(!count($rows) && $catID != 0) {
-		$catCheck = new mosCategory($database);
-		$catCheck->load((int)$catID);
-
-		/*
-		* check whether category is published
-		*/
-		if(!$catCheck->published) {
-			mosNotAuth();
-			return;
-		}
-		/*
-		* check whether category access level allows access
-		*/
-		if($catCheck->access > $gid) {
-			mosNotAuth();
-			return;
-		}
-
-		$secCheck = new mosSection($database);
-		$secCheck->load($catCheck->section);
-
-		/*
-		* check whether section is published
-		*/
-		if(!$secCheck->published) {
-			mosNotAuth();
-			return;
-		}
-		/*
-		* check whether category access level allows access
-		*/
-		if($secCheck->access > $gid) {
-			mosNotAuth();
-			return;
-		}
-	}
+	// Мета-данные страницы
+    $meta = new contentMeta($params);
+    $meta->set_meta();
 
 
-
-	// Dynamic Page Title
-
-	if($params->get('header') == "") {
-		$mainframe->SetPageTitle($menu->name,$params);
-	} else {
-		$mainframe->SetPageTitle($params->get('header'),$params);
-	}
-	# Joomlatwork: change into the dynamic robots metatag
-	# Remark: Primairly the settings of blogsection, second the global settings ..
-	#
-	set_robot_metatag($params->get('robots'));
-
-	if($params->get('meta_description') != "") {
-		$mainframe->addMetaTag('description',$params->get('meta_description'));
-	} else {
-		$mainframe->addMetaTag('description',$mosConfig_MetaDesc);
-	}
-	if($params->get('meta_keywords') != "") {
-		$mainframe->addMetaTag('keywords',$params->get('meta_keywords'));
-	} else {
-		$mainframe->addMetaTag('keywords',$mosConfig_MetaKeys);
-	}
-	if($params->get('meta_author') != "") {
-		$mainframe->addMetaTag('author',$params->get('meta_author'));
-	}
-
-		// if coming from the Archive Module, the Archive Dropdown selector is not shown
-		if($id) {
-			BlogOutput($rows,$params,$gid,$access,$pop,$menu,$limitstart,$limit,$total,1,1);
-		} else {
-			BlogOutput($rows,$params,$gid,$access,$pop,$menu,$limitstart,$limit,$total,0,1);
-		}
-
+	BlogOutput($category,$params,$access);
 }
 
 
-function BlogOutput(&$rows,&$params,$gid,&$access,$pop,&$menu,$limitstart,$limit,$total,$archive = null,$archive_page = null) {
-	global $mainframe,$Itemid,$task,$id,$option,$database,$mosConfig_live_site, $mosConfig_absolute_path;
+function BlogOutput(&$obj,$params,&$access) {
+	global $mainframe,$Itemid,$task,$id,$option,$database,$mosConfig_live_site, $mosConfig_absolute_path, $my;
 
+    $rows = $obj->content;
+    $menu = $params->menu;
+    $limitstart = $params->get('limitstart');
+    $limit = $params->get('limit');
+    $total = $obj->total;
+    $pop = $params->get('pop');
+    $gid = $my->gid;
+
+    $archive = null; $archive_page = null;
+    if($params->page_type == 'section_archive' || $params->page_type == 'category_archive' || $params->page_type == 'archive_by_month'){
+        $archive = 1;
+    }
+    
     $i = 0;
     $header = '';
     $display_desc = 0;
@@ -1362,95 +807,70 @@ function BlogOutput(&$rows,&$params,$gid,&$access,$pop,&$menu,$limitstart,$limit
     $display_pagination_results = 0;
     $display_blog_more = 0;
     $tpl = '';
-    $group_cat=$params->get('group_cat',0);
+    
+    $header = $params->get('header');
+    if(!$header){
+        $header = $obj->name;
+    }
 
-	if($params->get('page_title',1) && $menu) {
-		$header = $params->def('header',$menu->name);
-	}
-
-	$columns = $params->def('columns',2);
+	$columns = $params->get('columns');
 	if($columns == 0) {
 		$columns = 1;
 	}
-	$intro = $params->def('intro',4);
-	$leading = $params->def('leading',1);
-	$links = $params->def('link',4);
-	$pagination = $params->def('pagination',2);
-	$pagination_results = $params->def('pagination_results',1);
-	$descrip = $params->def('description',0);
-	$descrip_image = $params->def('description_image',0);
-	$back = $params->get('back_button',$mainframe->getCfg('back_button'));
-	$params->set('back_button',0);
-	$params->def('pageclass_sfx','');
-	$params->set('intro_only',1);
 	
+	$intro = $params->get('intro');
+	$leading = $params->get('leading');
+	$links = $params->get('link');
+	$pagination = $params->get('pagination');
+	$pagination_results = $params->get('pagination_results');
+	$descrip = $params->get('description');
+	$descrip_image = $params->get('description_image');
+
 	 //группировка по категориям
-	 $group_cat=$params->get('group_cat',0);
-	 $groupcat_limit=$params->get('groupcat_limit',0);
+	 $group_cat=$params->get('group_cat');
+	 $groupcat_limit=$params->get('groupcat_limit');
 	 $cats_arr=array(); $k=0;
-	 
+
 	 $sfx = $params->get('pageclass_sfx');
 
-     //Настройки вывода материалов в блоге
-	// GC Parameters
-	$params->def('link_titles',$mainframe->getCfg('link_titles'));
-	$params->def('author',!$mainframe->getCfg('hideAuthor'));
-	$params->def('createdate',!$mainframe->getCfg('hideCreateDate'));
-	$params->def('modifydate',!$mainframe->getCfg('hideModifyDate'));
-	$params->def('print',!$mainframe->getCfg('hidePrint'));
-	$params->def('email',!$mainframe->getCfg('hideEmail'));
-	$params->def('rating',$mainframe->getCfg('vote'));
-	$params->def('icons',$mainframe->getCfg('icons'));
-	$params->def('readmore',$mainframe->getCfg('readmore'));
-	// Other Params
-	$params->def('image',1);
-	$params->def('section',0);
-	$params->def('section_link',0);
-	$params->def('category',0);
-	$params->def('category_link',0);
-	$params->def('introtext',$params->get('introtext',1));
-    $params->def('view_introtext',1);
-	//$params->def('introtext',1);
-	$params->def('pageclass_sfx','');
-	$params->def('item_title',1);
-	$params->def('url',1);
+
+     //Установка параметров записей в блоге
+    $params = contentPageConfig::setup_blog_item($params);
 
 	// used to display section/catagory description text and images
 	// currently not supported in Archives
-	if($menu && $menu->componentid && ($descrip || $descrip_image)) {
+	if($params->get('description') && ($descrip || $descrip_image)) {
 	    $display_desc = 1;
 
-		switch($menu->type) {
-			case 'content_blog_section':
-				$description = new mosSection($database);
-				$description->load((int)$menu->componentid);
-
+		switch($params->page_type) {
+			case 'section_blog':
+            case 'category_blog':
+				$description = $obj->description;
+                $description_img = $obj->image;
 				break;
 
-			case 'content_blog_category':
-				$description = new mosCategory($database);
-				$description->load((int)$menu->componentid);
-
-				break;
-
+            case 'frontpage':
 			default:
 				$menu->componentid = 0;
+                $description = '';
+                $description_img = '';
 				break;
 		}
-	    if($descrip_image && $description->image) {
+
+	    if($params->get('description_image') && $description_img) {
 	    	$display_desc_img = 1;
 	    }
-	            	if($descrip && $description->description) {
-            		$display_desc_text = 1;
+	    if($params->get('description') && $description) {
+            $display_desc_text = 1;
 		}
 	}
 
     // checks to see if there are there any items to display
-	if($total) {
+	if($total) { 
 		$col_with = 100 / $columns; // width of each column
 		$width = 'width="'.intval($col_with).'%"';
 
-		if($archive) {
+		if($archive) { 
 			// Search Success message
 			$msg = sprintf(_ARCHIVE_SEARCH_SUCCESS,$params->get('month'),$params->get('year'));
 		}
@@ -1512,8 +932,6 @@ function BlogOutput(&$rows,&$params,$gid,&$access,$pop,&$menu,$limitstart,$limit
 	    $msg = sprintf(_ARCHIVE_SEARCH_FAILURE,$params->get('month'),$params->get('year'));
     }
 
-	// Back Button
-	$params->set('back_button',$back);
 
     //Тэги
     $tags = new contentTags($database);
@@ -1534,7 +952,7 @@ function BlogOutput(&$rows,&$params,$gid,&$access,$pop,&$menu,$limitstart,$limit
     //Определяем шаблон вывода страницы
 
      //Если это архив
-    if($archive) {
+    if($archive) { 
         switch ($task){
             //Архив раздела
             case 'archivesection':
@@ -1546,6 +964,11 @@ function BlogOutput(&$rows,&$params,$gid,&$access,$pop,&$menu,$limitstart,$limit
             //Архив категории
             case 'archivecategory':
                 $page_type = 'category_archive';
+                
+                if($params->get('module')){
+                	include_once($mosConfig_absolute_path.'/components/com_content/view/category/archive_by_month/default.php');
+        			return;	
+                }
 
                 if($template->isset_settings($page_type, $params->category_data->templates)){
                     $templates = $params->category_data->templates;
@@ -1594,13 +1017,13 @@ function BlogOutput(&$rows,&$params,$gid,&$access,$pop,&$menu,$limitstart,$limit
                 $templates = $params->section_data->templates;
                 break;
         }
-    }
+    } 
     $template->set_template($page_type, $templates);
-    include_once($template->template_file);
+    include_once($template->template_file); 
 }
 
 
-function showItem($id,$gid,&$access,$pop) {
+function showFullItem($id,$gid,&$access,$pop) {
 	global $database,$mainframe,$mosConfig_disable_date_state,$mosConfig_disable_access_control;
 	global $mosConfig_MetaTitle,$mosConfig_MetaAuthor;
     global $task, $my;
@@ -1674,7 +1097,7 @@ function showItem($id,$gid,&$access,$pop) {
         $row->tags = $tags->arr_to_links($row->tags, ', ');
 
         //$row->rating=$row->total_rate;
-		show($row,$params,$gid,$access,$pop);
+		_showItem($row,$params,$gid,$access,$pop);
 
 		// page title
 		$mainframe->setPageTitle($row->title,$params);
@@ -1710,7 +1133,7 @@ function showItem($id,$gid,&$access,$pop) {
 }
 
 
-function show($row,$params,$gid,&$access,$pop, $template='') {
+function _showItem($row,$params,$gid,&$access,$pop, $template='') {
 	global $database,$mainframe,$mosConfig_content_hits;
 	global $cache;
 
@@ -1751,9 +1174,9 @@ function show($row,$params,$gid,&$access,$pop, $template='') {
 	}
 
 	// check if voting/rating enabled
+	$row->rating = null;
+	$row->rating_count = null;
 	if($params->get('rating')) {
-		$row->rating = null;
-		$row->rating_count = null;
 		global $voteLoad,$task;
 		if(!isset($voteLoad)) {
 			$query = "SELECT ROUND( rating_sum / rating_count ) AS rating, rating_count, content_id FROM #__content_rating";
@@ -1775,6 +1198,8 @@ function show($row,$params,$gid,&$access,$pop, $template='') {
 	}
 
 	$row->category = htmlspecialchars(stripslashes($row->category),ENT_QUOTES);
+
+    //Ссылка на раздел/категорию
 	if($params->get('section_link') || $params->get('category_link')) {
 		// loads the link for Section name
 		if($params->get('section_link') && $row->sectionid) {
@@ -1812,7 +1237,15 @@ function show($row,$params,$gid,&$access,$pop, $template='') {
 				$secLinkURL = ampReplace($secLinkURL);
 				$link = sefRelToAbs($secLinkURL.$_Itemid);
 			} else {
-				$link = sefRelToAbs('index.php?option=com_content&amp;task=section&amp;id='.$row->sectionid.$_Itemid);
+                $params->sectionid = $row->sectionid;
+                $params->Itemid = $_Itemid;
+                if($params->get('section_link_type')=='blog'){
+                    $link = mosSection::get_section_blog_url($params);
+                }
+                else{
+                    $link = mosSection::get_section_table_url($params);
+                }
+
 			}
 			$row->section = '<a href="'.$link.'">'.$row->section.'</a>';
 		}
@@ -1825,7 +1258,12 @@ function show($row,$params,$gid,&$access,$pop, $template='') {
 
 			// check if values have already been placed into mainframe memory
 			if($catLinkID == -1) {
-				$query = "SELECT id, link FROM #__menu WHERE published = 1 AND type IN ( 'content_category', 'content_blog_category' ) AND componentid = ".(int)$row->catid."\n ORDER BY type DESC, ordering";
+				$query = "	SELECT id, link 
+							FROM #__menu 
+							WHERE published = 1 
+							AND type IN ( 'content_category', 'content_blog_category' ) 
+							AND componentid = ".(int)$row->catid."\n 
+							ORDER BY type DESC, ordering";
 				$database->setQuery($query);
 				//$catLinkID = $database->loadResult();
 				$result = $database->loadRow();
@@ -1856,8 +1294,16 @@ function show($row,$params,$gid,&$access,$pop, $template='') {
 			if($catLinkURL) {
 				$link = sefRelToAbs($catLinkURL.$_Itemid);
 			} else {
-				$link = sefRelToAbs('index.php?option=com_content&amp;task=category&amp;sectionid='.
-					$row->sectionid.'&amp;id='.$row->catid.$_Itemid);
+			    $params->sectionid = $row->sectionid;
+                $params->catid = $row->catid;
+                $params->Itemid = $_Itemid;
+                if($params->get('cat_link_type')=='blog'){
+                    $link = mosCategory::get_category_blog_url($params);
+                }
+                else{
+                    $link = mosCategory::get_category_table_url($params);
+                }
+
 			}
 			$row->category = '<a href="'.$link.'">'.$row->category.'</a>';
 		}
@@ -2681,223 +2127,4 @@ function emailContentSend($uid,$gid) {
 	}
 }
 
-function recordVote() {
-	global $database;
-
-	$user_rating = intval(mosGetParam($_REQUEST,'user_rating',0));
-	$url = mosGetParam($_REQUEST,'url','');
-	$cid = intval(mosGetParam($_REQUEST,'cid',0));
-
-	if(($user_rating >= 1) and ($user_rating <= 5)) {
-		$currip = (phpversion() <= '4.2.1'?@getenv('REMOTE_ADDR'):$_SERVER['REMOTE_ADDR']);
-
-		$query = "SELECT*"."\n FROM #__content_rating"."\n WHERE content_id = ".(int)$cid;
-		$database->setQuery($query);
-		$votesdb = null;
-		if(!($database->loadObject($votesdb))) {
-			$query = "INSERT INTO #__content_rating ( content_id, lastip, rating_sum, rating_count )".
-				"\n VALUES ( ".(int)$cid.", ".$database->Quote($currip).", ".(int)$user_rating.
-				", 1 )";
-			$database->setQuery($query);
-			$database->query() or die($database->stderr());
-			;
-		} else {
-			if($currip != ($votesdb->lastip)) {
-				$query = "UPDATE #__content_rating"."\n SET rating_count = rating_count + 1, rating_sum = rating_sum + ".(int)
-					$user_rating.", lastip = ".$database->Quote($currip)."\n WHERE content_id = ".(int)
-					$cid;
-				$database->setQuery($query);
-				$database->query() or die($database->stderr());
-			} else {
-				mosRedirect($url,_ALREADY_VOTE);
-			}
-		}
-		mosRedirect($url,_THANKS);
-	}
-}
-
-
-function _orderby_pri($orderby) {
-	switch($orderby) {
-		case 'alpha':
-			$orderby = 'cc.title, ';
-			break;
-
-		case 'ralpha':
-			$orderby = 'cc.title DESC, ';
-			break;
-
-		case 'order':
-			$orderby = 'cc.ordering, ';
-			break;
-
-		default:
-			$orderby = '';
-			break;
-	}
-
-	return $orderby;
-}
-
-
-function _orderby_sec($orderby) {
-	switch($orderby) {
-		case 'date':
-			$orderby = 'a.created';
-			break;
-
-		case 'rdate':
-			$orderby = 'a.created DESC';
-			break;
-
-		case 'alpha':
-			$orderby = 'a.title';
-			break;
-
-		case 'ralpha':
-			$orderby = 'a.title DESC';
-			break;
-
-		case 'hits':
-			$orderby = 'a.hits';
-			break;
-
-		case 'rhits':
-			$orderby = 'a.hits DESC';
-			break;
-
-		case 'order':
-			$orderby = 'a.ordering';
-			break;
-
-		case 'author':
-			$orderby = 'a.created_by_alias, u.name';
-			break;
-
-		case 'rauthor':
-			$orderby = 'a.created_by_alias DESC, u.name DESC';
-			break;
-
-		case 'section':
-			$orderby = 's.name, c.name, a.created DESC';
-			break;
-
-		case 'rsection':
-			$orderby = 's.name DESC, c.name DESC, a.created DESC';
-			break;
-
-		case 'front':
-			$orderby = 'f.ordering';
-			break;
-
-		default:
-			$orderby = 'a.ordering';
-			break;
-	}
-
-	return $orderby;
-}
-
-/*
-* @param int 0 = Archives, 1 = Section, 2 = Category
-*/
-function _where($type = 1,&$access,&$noauth,$gid,$id,$now = null,$year = null,$month = null,
-	$params = null) {
-	global $database,$mainframe,$mosConfig_disable_date_state,$mosConfig_disable_access_control;
-
-	$noauth = !$mainframe->getCfg('shownoauth');
-	$nullDate = $database->getNullDate();
-	$now = _CURRENT_SERVER_TIME;
-	$where = array();
-	$unpublished = 0;
-
-	if(isset($params)) {
-		// param controls whether unpublished items visible to publishers and above
-		$unpublished = $params->def('unpublished',0);
-	}
-
-	// normal
-	if($type > 0) {
-		if(isset($params) && $unpublished) {
-			// shows unpublished items for publishers and above
-			if($access->canEdit) {
-				$where[] = "a.state >= 0";
-			} else {
-				$where[] = "a.state = 1";
-				if(!$mosConfig_disable_date_state) {
-					$where[] = "( a.publish_up = ".$database->Quote($nullDate)." OR a.publish_up <= ".$database->Quote($now)." )";
-					$where[] = "( a.publish_down = ".$database->Quote($nullDate)." OR a.publish_down >= ".$database->Quote($now)." )";
-				}
-			}
-		} else {
-			// unpublished items NOT shown for publishers and above
-			$where[] = "a.state = 1";
-			if(!$mosConfig_disable_date_state) {
-				$where[] = "( a.publish_up = ".$database->Quote($nullDate)." OR a.publish_up <= ".$database->Quote($now)." )";
-				$where[] = "( a.publish_down = ".$database->Quote($nullDate)." OR a.publish_down >= ".$database->Quote($now)." )";
-			}
-		}
-
-		// add query checks for category or section ids
-		if($id > 0) {
-			$ids = explode(',',$id);
-			mosArrayToInts($ids);
-			if($type == 1) {
-				$where[] = '( a.sectionid='.implode(' OR a.sectionid=',$ids).' )';
-			} else
-				if($type == 2) {
-					$where[] = '( a.catid='.implode(' OR a.catid=',$ids).' )';
-				}
-		}
-	}
-
-	// archive
-	if($type < 0) {
-		$where[] = "a.state = -1";
-		if($year) {
-			$where[] = "YEAR( a.created ) = ".$database->Quote($year);
-		}
-		if($month) {
-			$where[] = "MONTH( a.created ) = ".$database->Quote($month);
-		}
-		if($id > 0) {
-			if($type == -1) {
-				$where[] = "a.sectionid = ".(int)$id;
-			} else
-				if($type == -2) {
-					$where[] = "a.catid = ".(int)$id;
-				}
-		}
-	}
-
-	$where[] = "s.published = 1";
-	$where[] = "cc.published = 1";
-	/* если сессии на фронте отключены - то значит авторизация не возможна, и проверять доступ по авторизации бесполезно*/
-	if($noauth and !$mosConfig_disable_access_control) {
-		$where[] = "a.access <= ".(int)$gid;
-		$where[] = "s.access <= ".(int)$gid;
-		$where[] = "cc.access <= ".(int)$gid;
-	}
-
-	return $where;
-}
-
-function votingQuery($active = null) {
-	global $mainframe;
-
-	$voting = ($active?$active:$mainframe->getCfg('vote'));
-
-	if($voting) {
-		// calculate voting count
-		$select = "\n , ROUND( v.rating_sum / v.rating_count ) AS rating, v.rating_count";
-		$join = "\n LEFT JOIN #__content_rating AS v ON a.id = v.content_id";
-	} else {
-		$select = '';
-		$join = '';
-	}
-
-	$results = array('select' => $select,'join' => $join);
-
-	return $results;
-}
 ?>

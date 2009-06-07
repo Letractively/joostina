@@ -1,8 +1,8 @@
 
-    <?php if(!count($other_categories)) return; ?>
+    <?php if(!count($categories)) return; ?>
 
     <ul class="cat_list">
-    <?php foreach($other_categories as $row) {
+    <?php foreach($categories as $row) {
 	    $row->name = htmlspecialchars(stripslashes(ampReplace($row->name)),ENT_QUOTES);
 		if($catid != $row->id) { ?>
 

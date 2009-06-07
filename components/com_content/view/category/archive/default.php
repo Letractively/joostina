@@ -2,16 +2,19 @@
 defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.' );
 ?>
     <div class="page_archive">
+    
+    	
 
         <?php $link = ampReplace('index.php?option=com_content&task=archivecategory&id='.$id.'&Itemid='.$Itemid); ?>
         <form action="<?php echo sefRelToAbs($link); ?>" method="post">
 
-
+		<?php if(!$params->get('menu')) { // if coming from the Archive Module, the Archive Dropdown selector is not shown ?>
         <div class="form">
             <?php echo  mosHTML::monthSelectList('month','size="1" class="inputbox"',$params->get('month'));?>
             <?php echo mosHTML::integerSelectList(2000,2010,1,'year','size="1" class="inputbox"',$params->get('year'),"%04d"); ?>
             <input type="submit" class="button" value="<?php echo _SUBMIT_BUTTON;?>" />
         </div>
+        <?php }?>
 
     <?php if($total) { ?>
         <div class="contentdescription">
@@ -26,7 +29,7 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
     			<?php for($z = 0; $z < $leading; $z++) { if($i >= ($total - $limitstart)) { break; } ?>
 
     			    <div class="intro leading" id="leading_<?php echo $z;?>">
-    				    <?php  show($rows[$i],$params,$gid,$access,$pop, 'intro/leading/default.php');?>
+    				    <?php  _showItem($rows[$i],$params,$gid,$access,$pop, 'intro/leading/default.php');?>
     			    </div>
 
                 <?php $i++; } ?>
@@ -49,7 +52,7 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
                         <?php if($z < $intro) { ?>
 
                         <div class="intro" id="intro_<?php echo $z;?>">
-					        <?php show($rows[$i],$params,$gid,$access,$pop, 'intro/simple/default.php'); ?>
+					        <?php _showItem($rows[$i],$params,$gid,$access,$pop, 'intro/simple/default.php'); ?>
                         </div>
 
 			            <?php } else { echo '</td></tr>'; break; } ?>

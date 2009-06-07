@@ -30,7 +30,7 @@
     			<?php for($z = 0; $z < $leading; $z++) { if($i >= ($total - $limitstart)) { break; } ?>
 
     			    <div class="intro leading" id="leading_<?php echo $i;?>">
-    				    <?php  show($rows[$i],$params,$gid,$access,$pop, 'intro/leading/default.php');?>
+    				    <?php  _showItem($rows[$i],$params,$gid,$access,$pop, 'intro/leading/default.php');?>
     			    </div>
 
                 <?php $i++; } ?>
@@ -53,7 +53,7 @@
                         <?php if($z < $intro) { ?>
 
                         <div class="intro" id="intro_<?php echo $i;?>">
-					        <?php show($rows[$i],$params,$gid,$access,$pop, 'intro/simple/default.php'); ?>
+					        <?php _showItem($rows[$i],$params,$gid,$access,$pop, 'intro/simple/default.php'); ?>
                         </div>
 
 			            <?php } else { echo '</td></tr>'; break; } ?>
