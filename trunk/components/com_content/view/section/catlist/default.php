@@ -39,10 +39,7 @@
 
 
     <!--Список категорий раздела:BEGIN-->
-	<?php if ($show_categories) {
-	    include_once($mosConfig_absolute_path.'/components/com_content/view/category/show_categories/default.php');
-	    //HTML_content :: showCategories($params, $items, $gid, $other_categories, $catid, $id, $Itemid);
-	} ?>
+	<?php include_once($mosConfig_absolute_path.'/components/com_content/view/section/catlist_list/default.php'); ?>
     <!--Список категорий раздела:END-->
 
 

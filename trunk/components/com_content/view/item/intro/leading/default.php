@@ -78,6 +78,8 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
            <strong><?php echo $row->tags;?></strong>
            <?php
        }?>
+       
+       <?php echo $row->rating;?>
 
         <?php if($params->get('modifydate')) { ?>
     		<div class="modified_date">

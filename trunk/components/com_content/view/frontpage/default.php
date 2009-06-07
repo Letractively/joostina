@@ -12,11 +12,11 @@
                 <div class="contentdescription">
 
         			<?php if($display_desc_img) { ?>
-        			    <img src="<?php echo $mosConfig_live_site;?>/images/stories/<?php echo $description->image;?>" align="<?php echo $description->image_position;?>"  alt="" />
+        			    <img src="<?php echo $mosConfig_live_site;?>/images/stories/<?php echo $obj->image;?>" align="<?php echo $obj->image_position;?>"  alt="" />
         			<?php } ?>
 
                     <?php if($display_desc_text) { ?>
-        				<p> <?php echo $description->description;?> </p>
+        				<p> <?php echo $obj->description;?> </p>
         			<?php } ?>
 
     			</div>
@@ -35,7 +35,7 @@
                     ?>
 
     			    <div class="intro leading" id="leading_<?php echo $i;?>">
-    				    <?php  show($rows[$i],$params,$gid,$access,$pop, 'intro/leading/frontpage.php');?>
+    				    <?php  _showItem($rows[$i],$params,$gid,$access,$pop, 'intro/leading/frontpage.php');?>
     			    </div>
 
                 <?php $i++; } ?>
@@ -60,7 +60,7 @@
                         <?php if($z < $intro) { ?>
 
                         <div class="intro" id="intro_<?php echo $i;?>">
-					       <?php show($rows[$i],$params,$gid,$access,$pop, 'intro/simple/frontpage.php'); ?>
+					       <?php _showItem($rows[$i],$params,$gid,$access,$pop, 'intro/simple/frontpage.php'); ?>
                         </div>
 
 			            <?php } else { echo '</td></tr>'; break; } ?>

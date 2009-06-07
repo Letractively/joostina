@@ -351,7 +351,7 @@ class sections_html {
                     </tr>
                     	<tr>
                     <td>Список категорий: </td>
-                   <td> <?php echo $s_templates->templates_select_list('section_tablecats', $curr_templates); ?>  </td>
+                   <td> <?php echo $s_templates->templates_select_list('section_catlist', $curr_templates); ?>  </td>
                     </tr>
                    	<tr>
                     <td> Блог категории: </td>
