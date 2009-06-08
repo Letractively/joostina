@@ -638,14 +638,20 @@ class mosContent extends mosDBTable
         return $xwhere . $where_ac;
     }
 
-    function get_prev_next($row, $where, $access)
+    function get_prev_next($row, $where, $access, $params)
     {
         global $mainframe, $mosConfig_disable_access_control, $gid, $database;
 
         // Paramters for menu item as determined by controlling Itemid
-        $menu = $mainframe->get('menu');
-        $mparams = new mosParameters($menu->params);
-
+        
+		if($params->get('pop')){
+  			$row->prev = '';
+        	$row->next = '';
+        	return $row;		
+        }
+		
+		$menu = $mainframe->get('menu');
+ 		$mparams = new mosParameters($menu->params);
         // the following is needed as different menu items types utilise a different param to control ordering
         // for Blogs the `orderby_sec` param is the order controlling param
         // for Table and List views it is the `orderby` param
@@ -1172,6 +1178,12 @@ class contentMeta
             default:
                 $this->_meta_blog();
                 break;
+                
+            case 'item_full':
+            case 'item_static':
+            	$this->_meta_item();
+            	break;
+
         }
     }
 
@@ -1214,6 +1226,37 @@ class contentMeta
         {
             $mainframe->addMetaTag('author', $this->_params->get('meta_author'));
         }
+    }
+    
+    function _meta_item(){
+    	global $mainframe, $mosConfig_MetaDesc, $mosConfig_MetaKeys, $mosConfig_MetaTitle, $mosConfig_MetaAuthor;
+    	$row = $this->_params->object;
+    	
+		$mainframe->setPageTitle($row->title,$this->_params);
+
+		if($mosConfig_MetaTitle == '1') {
+			$mainframe->addMetaTag('title',$row->title);
+		}
+		if($mosConfig_MetaAuthor == '1') {
+			if($row->created_by_alias != "") {
+				$mainframe->addMetaTag('author',$row->created_by_alias);
+			} else {
+				$mainframe->addMetaTag('author',$row->author);
+			}
+
+		}
+		if($this->_params->get('robots') == 0) {
+			$mainframe->addMetaTag('robots','index, follow');
+		}
+		if($this->_params->get('robots') == 1) {
+			$mainframe->addMetaTag('robots','index, nofollow');
+		}
+		if($this->_params->get('robots') == 2) {
+			$mainframe->addMetaTag('robots','noindex, follow');
+		}
+		if($this->_params->get('robots') == 3) {
+			$mainframe->addMetaTag('robots','noindex, nofollow');
+		}	
     }
 }
 
@@ -1904,13 +1947,13 @@ class contentPageConfig
         //Сделать названия категорий ссылками
         $params->def('category_link', 1);
         //Показать/Спрятать рейтинг
-        $params->def('rating', $mainframe->getCfg('rating'));
+        $params->def('rating', $mainframe->getCfg('vote'));
         //Показать/Спрятать имя автора
-        $params->def('author', $mainframe->getCfg('author'));
+        $params->def('author', !$mainframe->getCfg('hideAuthor'));
         //Показать/Спрятать дату создания
-        $params->def('createdate', $mainframe->getCfg('createdate'));
+        $params->def('createdate', !$mainframe->getCfg('hideCreateDate'));
         //Показать/Спрятать дату изменения
-        $params->def('modifydate', $mainframe->getCfg('modifydate'));
+        $params->def('modifydate', !$mainframe->getCfg('hideModifyDate'));
         //Показать/Скрыть кнопку печати
         $params->def('print', !$mainframe->getCfg('hidePrint'));
         //Показать/Спрятать кнопку e-mail
@@ -1919,6 +1962,8 @@ class contentPageConfig
         $params->def('icons', $mainframe->getCfg('icons'));
         //Ключевая ссылка. Текст ключа, по которому можно ссылаться на этот объект (например, в системе справки)
         $params->def('keyref', '');
+        
+        $params->set('page_name', $row->title);
 
         return $params;
     }
@@ -2020,13 +2065,13 @@ class contentPageConfig
         //Показать/Скрыть возможность оценки объектов
         $params->def('rating', $mainframe->getCfg('rating'));
         //Показать/Скрыть имена авторов объектов
-        $params->def('author', $mainframe->getCfg('author'));
+        $params->def('author', !$mainframe->getCfg('hideAuthor'));
         //Тип отображения имен авторов
         $params->def('author_name', $mainframe->getCfg('author_name'));
         //Показать/Скрыть дату создания объекта
-        $params->def('createdate', $mainframe->getCfg('createdate'));
+        $params->def('createdate', !$mainframe->getCfg('hideCreateDate'));
         //оказать/Скрыть дату изменения объекта
-        $params->def('modifydate', $mainframe->getCfg('modifydate'));
+        $params->def('modifydate', !$mainframe->getCfg('hideModifyDate'));
         //Показать/Скрыть кнопку печати объекта
         $params->def('print', !$mainframe->getCfg('hidePrint'));
         //Показать/Скрыть кнопку отправки объекта на e-mail
@@ -2142,15 +2187,15 @@ class contentPageConfig
         //Показать/Скрыть ссылку [Подробнее...]
         $params->def('readmore', $mainframe->getCfg('readmore'));
         //Показать/Скрыть возможность оценки объектов
-        $params->def('rating', $mainframe->getCfg('rating'));
+        $params->def('rating', $mainframe->getCfg('vote'));
         //Показать/Скрыть имена авторов объектов
-        $params->def('author', $mainframe->getCfg('author'));
+        $params->def('author', !$mainframe->getCfg('hideAuthor'));
         //Тип отображения имен авторов
         $params->def('author_name', $mainframe->getCfg('author_name'));
         //Показать/Скрыть дату создания объекта
-        $params->def('createdate', $mainframe->getCfg('createdate'));
+        $params->def('createdate', !$mainframe->getCfg('hideCreateDate'));
         //оказать/Скрыть дату изменения объекта
-        $params->def('modifydate', $mainframe->getCfg('modifydate'));
+        $params->def('modifydate', !$mainframe->getCfg('hideModifyDate'));
         //Показать/Скрыть кнопку печати объекта
         $params->def('print', !$mainframe->getCfg('hidePrint'));
         //Показать/Скрыть кнопку отправки объекта на e-mail
@@ -2453,15 +2498,15 @@ class contentPageConfig
         //Показать/Скрыть ссылку [Подробнее...]
         $params->def('readmore', '');
         //Показать/Скрыть возможность оценки объектов
-        $params->def('rating', '');
+        $params->def('rating', $mainframe->getCfg('vote'));
         //Показать/Скрыть имена авторов объектов
-        $params->def('author', '');
+        $params->def('author', !$mainframe->getCfg('hideAuthor'));
         //Тип отображения имен авторов
         $params->def('author_name', 0);
         //Показать/Скрыть дату создания объекта
-        $params->def('createdate', '');
+        $params->def('createdate', !$mainframe->getCfg('hideCreateDate'));
         //оказать/Скрыть дату изменения объекта
-        $params->def('modifydate', '');
+        $params->def('modifydate', !$mainframe->getCfg('hideModifyDate'));
         //Показать/Скрыть кнопку печати объекта
         $params->def('print', !$mainframe->getCfg('hidePrint'));
         //Показать/Скрыть кнопку отправки объекта на e-mail
@@ -2476,7 +2521,7 @@ class contentPageConfig
         $params->def('description', 0);
         $params->def('description_image', 0);
         $params->def('back_button', $mainframe->getCfg('back_button'));
-        $params->def('intro_only', 0);
+       
 
         //Тип ссылки на категорию
         $params->def('cat_link_type', 'table');

@@ -1,12 +1,12 @@
-
+<?php $k = 0; ?>
     <div class="page_sectionblog<?php echo $sfx ;?>">
 
-        <?php if($header) { ?>
+        <?php if($header && $params->get('page_title')) { ?>
 		    <div class="componentheading"><h1><?php echo $header;?></h1></div>
 	    <?php }?>
 
         <?php if($total) { ?>
-            <div class="blog">
+            <div class="groupcats">
 
             <?php if($display_desc) { ?>
                 <div class="contentdescription">
@@ -22,56 +22,56 @@
     			</div>
 		    <?php } ?>
 
+<?php
 
+	
+	
+	foreach($cats_arr as $key=>$v){
+		echo '<h2 class="category_name">'.$v['cat_name'] . '</h2>';
+		
+		
+		
+		echo '<table>';
+		$kk = 0; echo '<tr>';
+			
+		foreach($v['obj'] as $row){
+			
+			
+		 
+			
+			echo '<td>'; 
+			_showItem($row,$params,$gid,$access,$pop, 'intro/simple/default.php');
+			echo '</td>';
+			
+			$kk++;
 
-            <?php  if($i < $total) { ?>
+			
+		
+			if( $kk % $columns == 0 && (isset($cats_arr[$row->catid]['obj'][$kk]) && $cats_arr[$row->catid]['obj'][$kk]->catid == $row->catid )  ){
+					echo "</tr><tr>";			
+			}
+		}
+		
+		echo '</tr></table>';
+		$cat_link = sefRelToAbs('index.php?option=com_content&amp;task=blogcategory&amp;id='.$key.'&amp;Itemid='.$_REQUEST['Itemid']);
+  		echo '<div class="readmore"><a class="readmore" href="'.$cat_link.'">все статьи</a></div>';
+	}
 
-
-            <?php for($z = 0; $z < $intro; $z++) {
-                if($groupcat_limit && ($i < $total)) {
-                    if(isset($rows[$i])  && !in_array($rows[$i]->catid, $cats_arr)){
-                        $cats_arr[$k]=$rows[$i]->catid;
-                        $k++;
-
-                        echo '<h2 class="category_name">'.$rows[$i]->category.'</h2> ';
-                        echo '<table width="100%" class="group_cat">';
-                        $kk=0;
-                     }
-
-
-                     if($kk<$groupcat_limit && $i<$total){
-                         if( $kk % $columns== 0) {echo "<tr>";}
-                        echo '<td width="50%">';
-
-					     _showItem($rows[$i],$params,$gid,$access,$pop, 'intro/simple/default.php');
-                        echo '</td>' ;
-
-
-                      }
-
-                      $i++; $kk++;
-                    if( $kk % $columns == 0){ echo "</tr>"; $kk=0;}
-
-
-
-             if((isset($rows[$i])  && !in_array($rows[$i]->catid, $cats_arr)) || (!isset($rows[$i])) ){
-                        echo '</table>';
-                        //Выводим ссылку на все статьи категории
-                        //$cat_link=HTML_content::get_cat_link($rows[$i-1]);
-                        $cat_link = sefRelToAbs('index.php?option=com_content&amp;task=blogcategory&amp;id='.$rows[$i-1]->catid.'&amp;Itemid='.$_REQUEST['Itemid']);
-                        echo '<div class="readmore"><a class="readmore" href="'.$cat_link.'">все статьи</a></div>';
-
-                    } ?>
+?>
 
 
 
-               <?php }
-
-			}?>
 
 
 
-		<?php } ?>
+
+
+
+
+
+          
+		
+		
 
 
         <?php if($display_blog_more){ ?>

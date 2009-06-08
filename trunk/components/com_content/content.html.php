@@ -690,6 +690,8 @@ function showSection_catlist($section,&$access,&$params) {
 	*/
     function Navigation(&$row,&$params) {
 		global $task;
+		
+		if($params->get('pop')){return;}
 
 		$link_part = 'index.php?option=com_content&amp;task=view&amp;id=';
 
