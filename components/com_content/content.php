@@ -53,9 +53,9 @@ switch($task) {
 	case 'view':
 	case 'preview':
 		if($mosConfig_enable_stats) {
-			showFullItem($id,$gid,$access,$pop,$option,0);
+			showFullItem($id);
 		} else {
-			$cache->call('showFullItem',$id,$gid,$access,$pop,$option,0,$limit,$limitstart);
+			$cache->call('showFullItem',$id);
 		}
 		break;
 
@@ -1014,6 +1014,17 @@ function BlogOutput(&$obj,$params,&$access) {
                 //Если включена группировка по категориям
                 else{
                     $page_type = 'section_groupcats';
+                    	$counts = array(); $k=0;
+						foreach($rows as $row){
+							if(!key_exists($row->catid, $counts)){
+								$counts[$row->catid] = 1;
+							}
+							if($counts[$row->catid] <= $groupcat_limit){
+								$cats_arr[$row->catid]['obj'][] = $row;
+								$cats_arr[$row->catid]['cat_name'] = $row->category;
+								$counts[$row->catid]++;	$k++;
+							}							
+						}
                 }
                 $templates = $params->section_data->templates;
                 break;
@@ -1024,24 +1035,39 @@ function BlogOutput(&$obj,$params,&$access) {
 }
 
 
-function showFullItem($id,$gid,&$access,$pop) {
+function showFullItem($id) {
 	global $database,$mainframe,$mosConfig_disable_date_state,$mosConfig_disable_access_control;
-	global $mosConfig_MetaTitle,$mosConfig_MetaAuthor;
     global $task, $my;
+    
+    $pop = intval(mosGetParam($_REQUEST,'pop',0));
+    
+    //права доступа
+    $access = new jstContentAccess();
+
+
 
     $where = mosContent::_construct_where_for_fullItem($access);
+    
+    // voting control
+    $params = new mosParameters('');
+    $params->def('rating', $mainframe->getCfg('vote'));
+    $voting = new contentVoiting($params);
+    $voting = $voting->_construct_sql();
+        
 	// main query
 	$query = "SELECT a.*,
                     cc.name AS category, cc.templates as c_templates, cc.access AS cat_access, cc.id as cat_id, cc.published AS cat_pub,
                     s.name AS section, s.published AS sec_pub, s.id AS sec_id, s.templates as s_templates, s.access AS sec_access,
                     u.name AS author, u.usertype, u.username,
                     g.name AS groups
+                    " . $voting['select'] . "
             FROM #__content AS a
             LEFT JOIN #__categories AS cc ON cc.id = a.catid
             LEFT JOIN #__sections AS s ON s.id = cc.section AND s.scope = 'content'
             LEFT JOIN #__users AS u ON u.id = a.created_by
             LEFT JOIN #__groups AS g ON a.access = g.id
-            WHERE a.id = ".(int)$id.$where;
+            ". $voting['join'] ."
+            WHERE a.id = ".(int)$id. $where;
 	$database->setQuery($query);
 	$row = null;
 
@@ -1069,27 +1095,28 @@ function showFullItem($id,$gid,&$access,$pop) {
 		/*
 		* check whether category access level allows access
 		*/
-		if(($row->cat_access > $gid) && $row->catid) {
+		if(($row->cat_access > $my->gid) && $row->catid) {
 			mosNotAuth();
 			return;
 		}
 		/*
 		* check whether section access level allows access
 		*/
-		if(($row->sec_access > $gid) && $row->sectionid) {
+		if(($row->sec_access > $my->gid) && $row->sectionid) {
 			mosNotAuth();
 			return;
 		}
 
         //Устанавливаем необходимые параметры страницы
-        $page_config = new contentPageConfig();
-        $params = $page_config->setup_full_item_page($row);
-
+    	$params = contentPageConfig::setup_full_item_page($row);
+		$params->def('pop', $pop);
+		
+		
 		// loads the links for Next & Previous Button
 		if($params->get('item_navigation')) {
             $row->prev = '';
 			$row->next = '';
-            $row = mosContent::get_prev_next($row, $where, $access);
+            $row = mosContent::get_prev_next($row, $where, $access, $params);
 		}
 
         //Тэги
@@ -1098,34 +1125,14 @@ function showFullItem($id,$gid,&$access,$pop) {
         $row->tags = $tags->arr_to_links($row->tags, ', ');
 
         //$row->rating=$row->total_rate;
-		_showItem($row,$params,$gid,$access,$pop);
+		_showItem($row,$params,$my->gid,$access,$pop);
 
-		// page title
-		$mainframe->setPageTitle($row->title,$params);
 
-		if($mosConfig_MetaTitle == '1') {
-			$mainframe->addMetaTag('title',$row->title);
-		}
-		if($mosConfig_MetaAuthor == '1') {
-			if($row->created_by_alias != "") {
-				$mainframe->addMetaTag('author',$row->created_by_alias);
-			} else {
-				$mainframe->addMetaTag('author',$row->author);
-			}
-
-		}
-		if($params->get('robots') == 0) {
-			$mainframe->addMetaTag('robots','index, follow');
-		}
-		if($params->get('robots') == 1) {
-			$mainframe->addMetaTag('robots','index, nofollow');
-		}
-		if($params->get('robots') == 2) {
-			$mainframe->addMetaTag('robots','noindex, follow');
-		}
-		if($params->get('robots') == 3) {
-			$mainframe->addMetaTag('robots','noindex, nofollow');
-		}
+		// Мета-данные страницы
+		$params->object = $row;		
+    	$meta = new contentMeta($params);
+    	$meta->set_meta();
+	
 
 	} else {
 		mosNotAuth();
@@ -1174,10 +1181,9 @@ function _showItem($row,$params,$gid,&$access,$pop, $template='') {
 		$params->set('popup',1);
 	}
 
-	// check if voting/rating enabled
-	$row->rating = null;
-	$row->rating_count = null;
-	if($params->get('rating')) {
+	// Рейтинг материала
+
+/*	if($params->get('rating')) {
 		global $voteLoad,$task;
 		if(!isset($voteLoad)) {
 			$query = "SELECT ROUND( rating_sum / rating_count ) AS rating, rating_count, content_id FROM #__content_rating";
@@ -1190,12 +1196,17 @@ function _showItem($row,$params,$gid,&$access,$pop, $template='') {
 				$voteLoad[$vote->content_id]['rating_count'] = $vote->rating_count;
 			}
 		}
-		;
+		
 
 		if(isset($voteLoad[$row->id])) {
 			$row->rating = $voteLoad[$row->id]['rating'];
 			$row->rating_count = $voteLoad[$row->id]['rating_count'];
 		}
+	} */
+	
+		if(!$params->get('rating')) {
+	$row->rating = null;
+	$row->rating_count = null;
 	}
 
 	$row->category = htmlspecialchars(stripslashes($row->category),ENT_QUOTES);
