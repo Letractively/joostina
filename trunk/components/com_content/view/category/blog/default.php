@@ -12,11 +12,11 @@
                 <div class="contentdescription">
 
         			<?php if($display_desc_img) { ?>
-        			    <img src="<?php echo $mosConfig_live_site;?>/images/stories/<?php echo $description->image;?>" align="<?php echo $description->image_position;?>"  alt="" />
+        			    <img src="<?php echo $mosConfig_live_site;?>/images/stories/<?php echo $obj->image;?>" align="<?php echo $obj->image_position;?>"  alt="" />
         			<?php } ?>
 
                     <?php if($display_desc_text) { ?>
-        				<p> <?php echo $description->description;?> </p>
+        				<p> <?php echo $obj->description;?> </p>
         			<?php } ?>
 
     			</div>

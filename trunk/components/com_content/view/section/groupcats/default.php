@@ -24,22 +24,7 @@
 
 
 
-    		<?php if($leading) { ?>
-    			<div class="leading_block">
-
-    			<?php for($z = 0; $z < $leading; $z++) { if($i >= ($total - $limitstart)) { break; } ?>
-
-    			    <div class="intro leading" id="leading_<?php echo $i;?>">
-    				    <?php  show($rows[$i],$params,$gid,$access,$pop, 'intro_view/leading/default.php');?>
-    			    </div>
-
-                <?php $i++; } ?>
-
-                </div>
-    		<?php } ?>
-
-
-            <?php if($intro && ($i < $total)) { ?>
+            <?php  if($i < $total) { ?>
 
 
             <?php for($z = 0; $z < $intro; $z++) {
@@ -54,18 +39,18 @@
                      }
 
 
-                     if($kk<$groupcat_limit){
-                         if( $kk % $columns== 0) echo "<tr>";
+                     if($kk<$groupcat_limit && $i<$total){
+                         if( $kk % $columns== 0) {echo "<tr>";}
                         echo '<td width="50%">';
 
-					     show($rows[$i],$params,$gid,$access,$pop, 'intro_view/simple/default.php');
+					     _showItem($rows[$i],$params,$gid,$access,$pop, 'intro/simple/default.php');
                         echo '</td>' ;
 
 
                       }
 
                       $i++; $kk++;
-                    if( $kk % $columns == 0) echo "</tr>";
+                    if( $kk % $columns == 0){ echo "</tr>"; $kk=0;}
 
 
 
