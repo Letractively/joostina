@@ -1835,15 +1835,19 @@ class jstContentAccess
 class contentPageConfig
 {
 	
-	//TODO:Описать все параметры из xml 
+    /**
+     * contentPageConfig::setup_full_item_page()
+     * 
+     * Установка дефолтных параметров для вывода страницы полного текста записи
+     * xml-файл для генерации формы установки параметров: administrator/components/com_content/content.xml
+     * 
+     * @return object $params
+     */
     function setup_full_item_page($row)
     {
         global $mainframe, $database;
 
-        $params = new mosParameters($row->attribs);
-
-        $params->set('intro_only', 0);
-        $params->def('back_button', $mainframe->getCfg('back_button'));
+        $params = new mosParameters($row->attribs);        
 
         if ($row->sectionid == 0)
         {
@@ -1858,7 +1862,8 @@ class contentPageConfig
         if (!$row->sectionid)
         {
             $params->page_type = 'item_static';
-        } else
+        } 
+		else
         {
             $section = new mosSection($database);
             $section->load((int)$row->sectionid);
@@ -1869,19 +1874,72 @@ class contentPageConfig
             $params->section_data = $section;
             $params->category_data = $category;
         }
+        
+        $params->set('intro_only', 0);       
 
+        //Название страницы, отображаемое в заголовке браузера (тег title): string
+        $params->def('page_name', '');
+        //Показать/скрыть название сайта в title страницы (заголовке браузера): bool
+        $params->def('no_site_name', 0);
+        //Суффикс CSS-класса страницы
+        $params->def('pageclass_sfx', '');
+        //Уникальный идентификатор CSS стиля используемый для оформления только этого материала. Полный идентификатор будет '#pageclass_uid_{введённое значение}'
+        $params->def('pageclass_uids', '');
+        //Преимущества. Использовать введённый идентификатор, даже если активированы автоматические уникальные идентификаторы стилей новостей
+        $params->def('pageclass_uids_full', 1);
+        //Показать/Скрыть кнопку Назад (Вернуться), возвращающую на предыдущую просмотренную страницу
+        $params->def('back_button', $mainframe->getCfg('back_button'));
+        //Показать/Спрятать заголовок объекта
+        $params->def('item_title', '');        
+        //Сделать заголовок объекта в виде ссылки на него
+        $params->def('link_titles', $mainframe->getCfg('link_titles'));
+        //Показать/Спрятать вводный текст
+        $params->def('introtext', 1);        
+        //Показать/Спрятать название раздела, к которому относится объект
+        $params->def('section', 1);
+        //Сделать названия разделов ссылками
+        $params->def('section_link', 1);
+        //Показать/Спрятать название категории, к которой относится объект
+        $params->def('category', 1);
+        //Сделать названия категорий ссылками
+        $params->def('category_link', 1);
+        //Показать/Спрятать рейтинг
+        $params->def('rating', $mainframe->getCfg('rating'));
+        //Показать/Спрятать имя автора
+        $params->def('author', $mainframe->getCfg('author'));
+        //Показать/Спрятать дату создания
+        $params->def('createdate', $mainframe->getCfg('createdate'));
+        //Показать/Спрятать дату изменения
+        $params->def('modifydate', $mainframe->getCfg('modifydate'));
+        //Показать/Скрыть кнопку печати
+        $params->def('print', !$mainframe->getCfg('hidePrint'));
+        //Показать/Спрятать кнопку e-mail
+        $params->def('email', !$mainframe->getCfg('hideEmail'));
+        //Отображать ссылки "Печать" и "Email" иконками
+        $params->def('icons', $mainframe->getCfg('icons'));
+        //Ключевая ссылка. Текст ключа, по которому можно ссылаться на этот объект (например, в системе справки)
+        $params->def('keyref', '');
 
         return $params;
     }
+    
+    /**
+     * contentPageConfig::setup_blog_section_page()
+     * 
+     * Установка дефолтных параметров для вывода страницы блога раздела
+     * xml-файл для генерации формы установки параметров: 
+	 * administrator/components/com_menus/content_blog_section/content_blog_section.xml
+     * 
+     * @return object $params
+     */
 
-	//TODO:Описать все параметры из xml 
     function setup_blog_section_page($id)
     {
         global $mainframe, $Itemid;
 
         //Отучаем com_content брать параметры из первого попавшегося пункта меню
         //Мысль - если пункт меню для текущего раздела не создан,
-        // занчит, - так надо, и нет необходимости приписывать разделу ненужные ему параметры ))
+        // значит, - так надо, и нет необходимости приписывать разделу ненужные ему параметры ))
         //есть параметры по умолчанию - вот их и будем использовать
         $menu = $mainframe->get('menu');
 
@@ -1900,28 +1958,98 @@ class contentPageConfig
         {
             $id = $params->def('sectionid', 0);
         }
-        $params->def('pop', 0);
-        $params->def('orderby_sec', 'rdate');
-        $params->def('orderby_pri', '');
-        $params->def('intro', 4);
-        $params->def('leading', 1);
-        $params->def('link', 4);
-        $params->def('limitstart', '0');
-        $params->def('limit', '10');
-        $params->def('rating', '');
-        $params->def('group_cat', 0);
-        $params->def('groupcat_limit', 0);
-        $params->def('columns', 2);
-        $params->def('pagination', 2);
-        $params->def('pagination_results', 1);
-        $params->def('description', 1);
-        $params->def('description_image', 1);
-        $params->def('back_button', $mainframe->getCfg('back_button'));
+        
+        //Название страницы, отображаемое в заголовке браузера (тег title)
+        $params->def('page_name', '');
+        //показать/скрыть название сайта в title страницы (заголовке браузера)
+        $params->def('no_site_name', 1);
+        
+        //Мета-тег robots, используемый на странице:
+        //int [-1,0,1,2,3]=['Не отображать', 'Index, follow', 'Index, NoFollow', 'NoIndex, Follow', 'NoIndex, NoFollow']
+        $params->def('robots', -1);
+        //META-тег: Description: string
+        $params->def('meta_description', '');
+        //ETA-тег keywords: string
+        $params->def('meta_keywords', '');
+        //META-тег author: string
+        $params->def('meta_author', '');
+        //Изображение меню
+        $params->def('menu_image', '');
+        //Суффикс CSS-класса страницы
         $params->def('pageclass_sfx', '');
-        $params->def('intro_only', 0);
-
-
+        //Заголовок страницы (контентной области)
+        $params->def('header', '');
+        //Показать/Скрыть заголовок страницы
+        $params->def('page_title', '');
+        //Показать/Скрыть кнопку Назад (Вернуться), возвращающую на предыдущую просмотренную страницу
+        $params->def('back_button', $mainframe->getCfg('back_button'));
+        //Количество главных объектов (на всю ширину). При 0 главные объекты отображаться не будут.
+        $params->def('leading', 1);
+        //Количество объектов, у которых показывается вступительный (intro) текст
+        $params->def('intro', 4);
+        //Сколько колонок в строке использовать при отображении вводного текста
+        $params->def('columns', 2);
+        //Количество объектов, отображаемых в виде ссыло
+        $params->def('link', 4);
+        //Сортировка объектов в категории
+        $params->def('orderby_pri', '');
+        //Порядок, в котором будут отображаться объекты
+        $params->def('orderby_sec', '');
+        //Показать/Скрыть постраничную навигацию
+        $params->def('pagination', 2);
+        //Показать/Скрыть информацию о результатах разбиения на страницы ( например, 1-4 из 4 )
+        $params->def('pagination_results', 1);
+        //Показывать {mosimages}
+        $params->def('image', 1);
+        //Показать/Скрыть названия разделов, к которым принадлежат объекты
+        $params->def('section', 0);
+        //Сделать названия разделов ссылками на страницу текущего раздела
+        $params->def('section_link', 0);
+        //Показать/Скрыть названия категорий, которым принадлежат объекты
+        $params->def('category', 0);
+        //Сделать названия категорий ссылками на страницу текущей категории
+        $params->def('category_link', 0);
+        //Тип ссылки на категорию: 'blog' / 'table'
         $params->def('cat_link_type', 'blog'); //TODO:вынести в xml
+        //Показать/Скрыть заголовки объектов
+        $params->def('item_title', 1);
+        //Сделать заголовки объектов в виде ссылок на объекты
+        $params->def('link_titles', $mainframe->getCfg('link_titles'));
+        //Показать/Скрыть ссылку [Подробнее...]
+        $params->def('readmore', $mainframe->getCfg('readmore'));
+        //Показать/Скрыть возможность оценки объектов
+        $params->def('rating', $mainframe->getCfg('rating'));
+        //Показать/Скрыть имена авторов объектов
+        $params->def('author', $mainframe->getCfg('author'));
+        //Тип отображения имен авторов
+        $params->def('author_name', $mainframe->getCfg('author_name'));
+        //Показать/Скрыть дату создания объекта
+        $params->def('createdate', $mainframe->getCfg('createdate'));
+        //оказать/Скрыть дату изменения объекта
+        $params->def('modifydate', $mainframe->getCfg('modifydate'));
+        //Показать/Скрыть кнопку печати объекта
+        $params->def('print', !$mainframe->getCfg('hidePrint'));
+        //Показать/Скрыть кнопку отправки объекта на e-mail
+        $params->def('email', !$mainframe->getCfg('hideEmail'));
+        //Показать/Скрыть неопубликованные объекты для группы пользователей `Publisher` и выше
+        $params->def('unpublished', 0);        
+        //Группировка по категориям
+        $params->def('group_cat', 0);
+        //Количество записей в группе
+        $params->def('groupcat_limit', 5);
+        
+        //Показать/Скрыть описание раздела
+        $params->def('description', 0);
+        //Показать/Скрыть изображение описания раздела
+        $params->def('description_image', 0);
+        
+        //Показать/Скрыть вводный текст
+        $params->def('view_introtext', 1);
+         //Лимит слов для интротекста. Если текст не нуждается в обрезке - оставьте поле пустым
+        $params->def('introtext_limit', '');  
+        
+        $params->def('intro_only', 1);
+        
 
         if ($params->get('page_title', 1) && $menu)
         {
@@ -1955,26 +2083,100 @@ class contentPageConfig
             $id = $params->def('categoryid', 0);
         }
 
-        $params->def('pop', 0);
-        $params->def('orderby_sec', 'rdate');
-        $params->def('orderby_pri', '');
-        $params->def('intro', 4);
-        $params->def('leading', 1);
-        $params->def('link', 4);
-        $params->def('limitstart', '0');
-        $params->def('limit', '10');
-        $params->def('rating', '');
-        $params->def('columns', 2);
-        $params->def('pagination', 2);
-        $params->def('pagination_results', 1);
-        $params->def('description', 1);
-        $params->def('description_image', 1);
-        $params->def('back_button', $mainframe->getCfg('back_button'));
+         //Название страницы, отображаемое в заголовке браузера (тег title)
+        $params->def('page_name', '');
+        //показать/скрыть название сайта в title страницы (заголовке браузера)
+        $params->def('no_site_name', 1);
+        
+        //Мета-тег robots, используемый на странице:
+        //int [-1,0,1,2,3]=['Не отображать', 'Index, follow', 'Index, NoFollow', 'NoIndex, Follow', 'NoIndex, NoFollow']
+        $params->def('robots', -1);
+        //META-тег: Description: string
+        $params->def('meta_description', '');
+        //ETA-тег keywords: string
+        $params->def('meta_keywords', '');
+        //META-тег author: string
+        $params->def('meta_author', '');
+        //Изображение меню
+        $params->def('menu_image', '');
+        //Суффикс CSS-класса страницы
         $params->def('pageclass_sfx', '');
-        $params->def('intro_only', 0);
+        //Заголовок страницы (контентной области)
+        $params->def('header', '');
+        //Показать/Скрыть заголовок страницы
+        $params->def('page_title', '');
+        //Показать/Скрыть кнопку Назад (Вернуться), возвращающую на предыдущую просмотренную страницу
+        $params->def('back_button', $mainframe->getCfg('back_button'));
+        //Количество главных объектов (на всю ширину). При 0 главные объекты отображаться не будут.
+        $params->def('leading', 1);
+        //Количество объектов, у которых показывается вступительный (intro) текст
+        $params->def('intro', 4);
+        //Сколько колонок в строке использовать при отображении вводного текста
+        $params->def('columns', 2);
+        //Количество объектов, отображаемых в виде ссыло
+        $params->def('link', 4);
+        //Сортировка объектов в категории
+        $params->def('orderby_pri', '');
+        //Порядок, в котором будут отображаться объекты
+        $params->def('orderby_sec', '');
+        //Показать/Скрыть постраничную навигацию
+        $params->def('pagination', 2);
+        //Показать/Скрыть информацию о результатах разбиения на страницы ( например, 1-4 из 4 )
+        $params->def('pagination_results', 1);
+        //Показывать {mosimages}
+        $params->def('image', 1);
+        //Показать/Скрыть названия разделов, к которым принадлежат объекты
+        $params->def('section', 0);
+        //Сделать названия разделов ссылками на страницу текущего раздела
+        $params->def('section_link', 0);
+        //Показать/Скрыть названия категорий, которым принадлежат объекты
+        $params->def('category', 0);
+        //Сделать названия категорий ссылками на страницу текущей категории
+        $params->def('category_link', 0);
+        //Тип ссылки на категорию: 'blog' / 'table'
+        $params->def('cat_link_type', 'blog'); //TODO:вынести в xml
+        //Показать/Скрыть заголовки объектов
+        $params->def('item_title', 1);
+        //Сделать заголовки объектов в виде ссылок на объекты
+        $params->def('link_titles', $mainframe->getCfg('link_titles'));
+        //Показать/Скрыть ссылку [Подробнее...]
+        $params->def('readmore', $mainframe->getCfg('readmore'));
+        //Показать/Скрыть возможность оценки объектов
+        $params->def('rating', $mainframe->getCfg('rating'));
+        //Показать/Скрыть имена авторов объектов
+        $params->def('author', $mainframe->getCfg('author'));
+        //Тип отображения имен авторов
+        $params->def('author_name', $mainframe->getCfg('author_name'));
+        //Показать/Скрыть дату создания объекта
+        $params->def('createdate', $mainframe->getCfg('createdate'));
+        //оказать/Скрыть дату изменения объекта
+        $params->def('modifydate', $mainframe->getCfg('modifydate'));
+        //Показать/Скрыть кнопку печати объекта
+        $params->def('print', !$mainframe->getCfg('hidePrint'));
+        //Показать/Скрыть кнопку отправки объекта на e-mail
+        $params->def('email', !$mainframe->getCfg('hideEmail'));
+        //Показать/Скрыть неопубликованные объекты для группы пользователей `Publisher` и выше
+        $params->def('unpublished', 0);        
+        //Группировка по категориям
+        $params->def('group_cat', 0);
+        //Количество записей в группе
+        $params->def('groupcat_limit', 5);
+        
+        //Показать/Скрыть описание категории
+        $params->def('description', 0);
+        //Показать/Скрыть изображение описания категории
+        $params->def('description_image', 0);
+        
+        //Показать/Скрыть вводный текст
+        $params->def('view_introtext', 1);
+         //Лимит слов для интротекста. Если текст не нуждается в обрезке - оставьте поле пустым
+        $params->def('introtext_limit', '');  
+        
+        $params->def('intro_only', 1);
 
 
         $params->def('cat_link_type', 'blog'); //TODO:вынести в xml
+        $params->def('section_link_type', 'blog'); //TODO:вынести в xml
 
         if ($params->get('page_title', 1) && $menu)
         {
@@ -2261,9 +2463,9 @@ class contentPageConfig
         //оказать/Скрыть дату изменения объекта
         $params->def('modifydate', '');
         //Показать/Скрыть кнопку печати объекта
-        $params->def('print', '');
+        $params->def('print', !$mainframe->getCfg('hidePrint'));
         //Показать/Скрыть кнопку отправки объекта на e-mail
-        $params->def('email', '');
+        $params->def('email', !$mainframe->getCfg('hideEmail'));
         //Показать/Скрыть неопубликованные объекты для группы пользователей `Publisher` и выше
         $params->def('unpublished', 0);
 

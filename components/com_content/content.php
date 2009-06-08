@@ -482,6 +482,8 @@ function showBlogSection($id = 0) {
 
     //Установка параметров страницы блога раздела
     $params = contentPageConfig::setup_blog_section_page($id);
+    $params->def('pop', $pop);
+    $params->page_type = 'section_blog';
 
     //Количество записей на странице
 	$limit = $limit ? $limit : ($params->get('intro') + $params->get('leading') + $params->get('link'));
@@ -520,8 +522,7 @@ function showBlogSection($id = 0) {
     $section->content = $content->_load_blog_section($section, $params, $access);
 
     $params->section_data = $section;
-    $params->def('pop', $pop);
-    $params->page_type = 'section_blog';
+
 
 	// Мета-данные страницы
     $meta = new contentMeta($params);
@@ -761,7 +762,7 @@ function showArchiveCategory($id = 0) {
     $params->set('limitstart', $limitstart);
     $params->set('limit', $limit);
     
-    //Проверяем, есть ли вообще в базе архивные матриалы
+    //Проверяем, есть ли вообще в базе архивные материалы
     $category->archives = $content->check_archives_categories($category, $params);
     
     //Выбираем все нужные записи сблога
@@ -1012,7 +1013,7 @@ function BlogOutput(&$obj,$params,&$access) {
                 }
                 //Если включена группировка по категориям
                 else{
-                    $page_type = 'groupcats';
+                    $page_type = 'section_groupcats';
                 }
                 $templates = $params->section_data->templates;
                 break;
@@ -1936,10 +1937,12 @@ function emailContentForm($uid,$gid) {
 		$params = new mosParameters('');
 	}
 	$email = intval($params->get('email',0));
-	if($mosConfig_hideEmail && !$email) {
-		echo _NOT_AUTH;
-		return;
+
+ 	if($mosConfig_hideEmail && !$email) {
+ 		echo _NOT_AUTH;
+ 		return;
 	}
+
 
 	$itemid = intval(mosGetParam($_GET,'itemid',0));
 
@@ -1951,7 +1954,7 @@ function emailContentForm($uid,$gid) {
 		"\n  s.access AS sec_access, cc.access AS cat_access, s.id AS sec_id, cc.id as cat_id".
 		"\n FROM #__content AS a"."\n LEFT JOIN #__categories AS cc ON cc.id = a.catid".
 		"\n LEFT JOIN #__sections AS s ON s.id = cc.section AND s.scope = 'content'"."\n WHERE a.id = ".(int)
-		$uid."\n AND a.state = 1"."\n AND a.access <= ".(int)$gid."\n AND ( a.publish_up = ".
+		$uid."\n AND a.state = 1 OR a.state = -1"."\n AND a.access <= ".(int)$gid."\n AND ( a.publish_up = ".
 		$database->Quote($nullDate)." OR a.publish_up <= ".$database->Quote($now)." )".
 		"\n AND ( a.publish_down = ".$database->Quote($nullDate).
 		" OR a.publish_down >= ".$database->Quote($now)." )";
