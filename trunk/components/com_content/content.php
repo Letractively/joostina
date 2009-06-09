@@ -13,6 +13,8 @@ require_once ($mainframe->getPath('front_html','com_content'));
 
 global $gid,$task,$Itemid,$option,$my;
 
+
+
 $id			= intval(mosGetParam($_REQUEST,'id',0));
 $sectionid	= intval(mosGetParam($_REQUEST,'sectionid',0));
 $pop		= intval(mosGetParam($_REQUEST,'pop',0));
@@ -37,6 +39,7 @@ $cache = &mosCache::getCache('com_content');
 // loads function for frontpage component
 if($option == 'com_frontpage') {
 	$cache->call('frontpage',$gid,$access,$pop,0,$limit,$limitstart);
+	
 	return;
 }
 
@@ -1180,33 +1183,10 @@ function _showItem($row,$params,$gid,&$access,$pop, $template='') {
 	if($pop) {
 		$params->set('popup',1);
 	}
-
-	// Рейтинг материала
-
-/*	if($params->get('rating')) {
-		global $voteLoad,$task;
-		if(!isset($voteLoad)) {
-			$query = "SELECT ROUND( rating_sum / rating_count ) AS rating, rating_count, content_id FROM #__content_rating";
-			$task == 'view' ? $query .= "\n WHERE content_id=$row->id":'';
-			$database->setQuery($query);
-			$Allvote = $database->loadObjectList();
-			$voteLoad = array();
-			foreach($Allvote as $vote) {
-				$voteLoad[$vote->content_id]['rating'] = $vote->rating;
-				$voteLoad[$vote->content_id]['rating_count'] = $vote->rating_count;
-			}
-		}
-		
-
-		if(isset($voteLoad[$row->id])) {
-			$row->rating = $voteLoad[$row->id]['rating'];
-			$row->rating_count = $voteLoad[$row->id]['rating_count'];
-		}
-	} */
 	
-		if(!$params->get('rating')) {
-	$row->rating = null;
-	$row->rating_count = null;
+	if(!$params->get('rating')) {
+		$row->rating = null;
+		$row->rating_count = null;
 	}
 
 	$row->category = htmlspecialchars(stripslashes($row->category),ENT_QUOTES);
@@ -2140,5 +2120,7 @@ function emailContentSend($uid,$gid) {
 		return;
 	}
 }
+
+
 
 ?>

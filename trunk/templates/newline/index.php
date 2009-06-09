@@ -153,7 +153,8 @@ echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'."\n";
 <?php
 // подключаем плагин Jquery
 mosCommonHTML::loadJqueryPlugins('corner');
-
+//Подключаем js com_content-а
+contentHelper::_load_core_js();
 // выводим футер только с js - скриптам без перехвата обработчиков шапки
 mosShowFooter(array('js'=>1,'fromheader'=>1));
 

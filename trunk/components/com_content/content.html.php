@@ -10,6 +10,14 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
+?>
+<script type="text/javascript">
+    var _com_content_url = '<?php echo $mosConfig_live_site;?>/components/com_content';
+    var _comcontent_ajax_handler = 'ajax.index.php?option=com_content';
+    var _comcontent_defines = new Array();
+</script>
+<?php
+
 /**
 * Utility class for writing the HTML for content
 * @package Joostina
@@ -47,13 +55,11 @@ class HTML_content {
             $page_link = 'index.php?option=com_content&amp;task=ucontent&amp;user='.$user_id.'&amp;Itemid='. $Itemid.'&amp;order='.$order;
         }
 
-        //$template = new jstContentTemplate();
-        //$template->set_template($params->page_type, $templates);
         include_once($mosConfig_absolute_path.'/components/com_content/view/user/items/default.php');
 
 	}
 	
-function showSection_catlist($section,&$access,&$params) {
+	function showSection_catlist($section,&$access,&$params) {
 		global $Itemid,$mosConfig_live_site, $mosConfig_absolute_path, $my;
 
 		
@@ -301,11 +307,11 @@ function showSection_catlist($section,&$access,&$params) {
 		HTML_content::_linkInfo($row,$params);
 		// link used by print button
 		$print_link = $mosConfig_live_site.'/index2.php?option=com_content&amp;task=view&amp;id='.$row->id.'&amp;pop=1&amp;page='.$page.$row->Itemid_link;
-
+		$readmore=mosContent::ReadMore($row,$params);
         $row->title=HTML_content::Title($row,$params,$access);
 
 
-		// обработка контента ботами, если в глобальной конфигурации они отключены - то мамботы не  используем
+		// обработка контента ботами, если в глобальной конфигурации они отключены - то мамботы не используем
 		if($mosConfig_mmb_content_off != 1) {
 			$_MAMBOTS->loadBotGroup('content');
 			$results = $_MAMBOTS->trigger('onPrepareContent',array(&$row,&$params,$page),true);
@@ -334,13 +340,11 @@ function showSection_catlist($section,&$access,&$params) {
 		}
 
         $author=mosContent::Author($row,$params);
-
-
-        $readmore=mosContent::ReadMore($row,$params);
+        
 
         $edit='';
         if($access->canEdit){
-            $edit=mosContent::EditIcon2($row,$params,$access);
+            $edit=mosContent::EditIcon2($row,$params,$access, 'Редактировать');
         }
 
         $results_onAfterDisplayContent = $_MAMBOTS->trigger('onAfterDisplayContent',array(&$row,&$params,$page));
@@ -482,7 +486,7 @@ function showSection_catlist($section,&$access,&$params) {
 	/**
 	* Writes Edit icon that links to edit page
 	*/
-	function EditIcon(&$row,&$params,&$access) {
+	function EditIcon(&$row,&$params,&$access, $text = '') {
 		global $my;
 
 		if($params->get('popup')) {
@@ -494,7 +498,10 @@ function showSection_catlist($section,&$access,&$params) {
 		if(!$access->canEdit && !($access->canEditOwn && $row->created_by == $my->id)) {
 			return;
 		}
-		mosCommonHTML::loadOverlib();
+		
+		mosCommonHTML::loadJqueryPlugins('tooltip/jquery.tooltip', false, true);
+		
+		
 		$link = 'index.php?option=com_content&amp;task=edit&amp;id='.$row->id;
 		$image = mosAdminMenus::ImageCheck('edit.png','/images/M_images/',null,null,_E_EDIT,_E_EDIT);
 		if($row->state == 0) {
@@ -512,7 +519,7 @@ function showSection_catlist($section,&$access,&$params) {
 		$overlib .= '<br />';
 		$overlib .= $author;
 ?>
-		<a href="<?php echo sefRelToAbs($link); ?>" onmouseover="return overlib('<?php echo $overlib; ?>', CAPTION, '<?php echo _E_EDIT; ?>', BELOW, RIGHT);" onmouseout="return nd();"><?php echo $image; ?></a>
+		<a href="<?php echo sefRelToAbs($link); ?>"><?php echo $image; ?></a>
 <?php
 	}
 

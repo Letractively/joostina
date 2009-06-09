@@ -10,7 +10,7 @@
 function jwAjaxVote(id,i,total,total_count){
 	var lsXmlHttp;
 	var div = document.getElementById('jwajaxvote'+id);
-	div.innerHTML='<img src="'+live_site+'/mambots/content/plugin_jw_ajaxvote/images/loading.gif" border="0" align="absmiddle" /> '+jwajaxvote_lang['UPDATING'];
+	div.innerHTML='<img src="'+live_site+'/images/system/loading.gif" border="0" align="absmiddle" /> '+jwajaxvote_lang['UPDATING'];
 	try	{
 		lsXmlHttp=new XMLHttpRequest();
 	} catch (e) {

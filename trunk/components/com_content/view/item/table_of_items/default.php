@@ -136,7 +136,7 @@
 
                     ?>
                     <td>
-                        <?php HTML_content::EditIcon($row,$params,$access); ?>
+                        <?php echo mosContent::EditIcon2($row,$params,$access); ?>
 					    <a href="<?php echo $link; ?>" title="<?php echo $row->title; ?>"><?php echo $row->title; ?></a>
 				    </td>
                 <?php } else { ?>

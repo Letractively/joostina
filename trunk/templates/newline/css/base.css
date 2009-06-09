@@ -162,7 +162,7 @@ table tr.sectiontableentry2 {
 	background: #F2F3EB;
 }
 tr.sectiontableentry1 td, tr.sectiontableentry2 td {
-	padding: 2px;
+	padding: 4px 2px;
 }
 td.sectiontableheader {
 	background: #EAECDE;

@@ -18,6 +18,7 @@
 @import "mod_search.css";
 @import "mod_stats.css";
 @import "mod_who_online.css";
+@import "tooltip.css";
 
 html {
 	height: 100%;
@@ -345,3 +346,62 @@ ul.bigred li {
 	padding: 10px;
 	text-align:left;
 }
+
+
+.table_of_items span.button, .table_of_items a.button{
+    display: block; float: left; line-height: 22px; height: 22px;
+}
+.table_of_items span.button {
+    margin: 0 5px 0 0;
+}
+.table_of_items span.button img {
+    margin: 2px 0 0 0;
+}
+
+.button {
+      display:inline-block;
+      line-height:22px;
+      padding:0 11px 0 0;
+      background:url(../images/buttons/bg-button-r.gif) right 0 no-repeat;
+      cursor:pointer;
+    }
+      .button a, .button b, .button input, .button button {
+        display:inline-block;
+        padding:0 0 0 11px;
+        font-family:Arial;
+        font-size:13px;
+        font-weight:normal;
+        color:#000;
+        text-decoration:none;
+        outline:none;
+        background:url(../images/buttons/bg-button-l.gif) 0 0 no-repeat;
+        border:none;
+        cursor:pointer;
+      }
+      .button input, .button button {
+        height:22px;
+      }
+      .button img {
+        vertical-align:middle;
+        border:none;
+      }
+    .button:hover {
+      background-position:100% -22px;
+    }
+      .button:hover a, .button:hover b, .button:hover input, .button:hover button {
+        background-position:0 -22px;
+        padding:0 0 0 11px;
+      }
+    .button:active {
+      background-position:100% -44px;
+    }
+      .button:active a, .button:active b, .button:active input, .button:active button {
+        background-position:0 -44px;
+      }
+
+.info{
+    padding: 10px;
+     background: #E9EBDF;
+     margin: 5px 0 10px 0;
+}
+
