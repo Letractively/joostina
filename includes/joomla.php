@@ -434,8 +434,8 @@ class mosMainFrame {
 	/**
 	* добавление js файлов в шапку страницы
 	*/
-	function addJS($patch){
-		$this->_head['js'][] = '<script language="JavaScript" src="'. $patch .'" type="text/javascript"></script>';
+	function addJS($patch, $footer=null){
+		$this->_head['js'][] = '<script language="JavaScript" src="'. $patch .'" type="text/javascript"></script>';			
 	}
 	/**
 	* добавление css файлов в шапку страницы
@@ -5032,6 +5032,8 @@ class mosCommonHTML {
 			<script language="javascript" type="text/javascript" src="<?php echo Jconfig::getInstance()->config_live_site;?>/includes/js/overlib_full.js"></script>
 <?php
 		}
+		
+
 	}
 
 	/*
@@ -5304,6 +5306,20 @@ else window.addEventListener('DOMContentLoaded',CodePress.run,false);
 		$text = str_replace('&apos;',"'",$text);
 
 		return $text;
+	}
+	
+	function get_element($file){
+		$mainframe = &mosMainFrame::getInstance();
+		
+		$file_templ = 'templates/'.$mainframe->getTemplate().'/images/elements/'.$file;
+		$file_system = 'M_images/'.$file;
+		
+		$return = $file_templ;
+		if(!is_file(Jconfig::getInstance()->config_absolute_path.'/'.$file_templ)){
+			$return = $file_system;	
+		}
+		
+		return $return;
 	}
 }
 

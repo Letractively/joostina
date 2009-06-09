@@ -13,6 +13,8 @@ defined('_VALID_MOS') or die();
 global $mosConfig_absolute_path;
 require_once ($mosConfig_absolute_path . '/includes/libraries/dbconfig/dbconfig.php');
 
+
+
 /**
  * Category database table class
  * @package Joostina
@@ -346,6 +348,15 @@ class mosSection extends mosDBTable
     }
     
     function get_count_all_cats($section, $access, $params){
+    	global $my, $mainframe; 
+    	
+    	$gid = $my->gid;
+        $noauth = !$mainframe->getCfg('shownoauth');
+        
+   		if($noauth) {
+			$access_check = " AND a.access <= ".(int)$gid;
+			$access_check_content = " AND ( b.access <= ".(int)$gid." OR b.access is null)";
+		}
     	
 	    $query = "	SELECT count(*) as numCategories
 					FROM #__categories as a
@@ -602,7 +613,7 @@ class mosContent extends mosDBTable
         {
             if ($params->get('intro_only') && $row->link_text)
             {
-                $return = '<a href="' . $row->link_on . '" title="' . $row->readmore . '" class="readon">' . $row->link_text . '</a>';
+                $return = '<a href="' . $row->link_on . '" title="' . $row->title . '" class="readon">' . $row->link_text . '</a>';
             }
         }
         return $return;
@@ -767,7 +778,7 @@ class mosContent extends mosDBTable
         return $author_name;
     }
 
-    function EditIcon2(&$row, &$params, &$access)
+    function EditIcon2(&$row, &$params, &$access, $text='')
     {
         global $my;
 
@@ -784,31 +795,35 @@ class mosContent extends mosDBTable
             return;
         }
 
-        mosCommonHTML::loadOverlib();
-
+        mosCommonHTML::loadJqueryPlugins('tooltip/jquery.tooltip');
+        ?>
+		<script language="JavaScript" type="text/javascript">
+            _comcontent_defines.push('load_tooltip');
+        </script>
+		<?php
+		
         $link = 'index.php?option=com_content&amp;task=edit&amp;id=' . $row->id . $row->Itemid_link . '&amp;Returnid=' . $row->_Itemid;
-        $image = mosAdminMenus::ImageCheck('edit.png', '/images/M_images/', null, null, _E_EDIT, _E_EDIT);
+        $image = mosCommonHTML::get_element('edit.png');
+        $image = Jconfig::getInstance()->config_live_site.'/'.$image;
 
         if ($row->state == 0)
         {
-            $overlib = _CMN_UNPUBLISHED;
+            $info = _CMN_UNPUBLISHED;
         } else
         {
-            $overlib = _CMN_PUBLISHED;
+            $info = _CMN_PUBLISHED;
         }
         $date = mosFormatDate($row->created);
         $author = $row->created_by_alias ? $row->created_by_alias : $row->author;
 
-        $overlib .= '<br />';
-        $overlib .= $row->groups;
-        $overlib .= '<br />';
-        $overlib .= $date;
-        $overlib .= '<br />';
-        $overlib .= $author;
 
+        $info .= ' - ';
+        $info .= $date;
+        $info .= '&rarr;';
+        $info .= $author;
+        
 
-        $return = "<a class=\"joo_ico edit_button\" href=\"" . sefRelToAbs($link) . "\" onmouseover=\"return overlib('" . $overlib .
-            "', CAPTION, '" . _E_EDIT . ", BELOW, RIGHT);\" onmouseout=\"return nd();\">" . $image . "</a>";
+        $return = '<span class="button"><a class="button edit_button" href="' . sefRelToAbs($link) . '" title="'.$info.'" ><img src="' . $image . '" /> '.$text.'</a></span>';
 
         return $return;
     }
@@ -1291,6 +1306,14 @@ class contentVoiting
         $results = array('select' => $select, 'join' => $join);
         return $results;
     }
+}
+
+class contentHelper{
+	
+	function _load_core_js(){
+        global $mosConfig_live_site, $mainframe;
+        $mainframe->addJS($mosConfig_live_site.'/components/com_content/js/com_content.js'); 
+	}
 }
 
 class contentSqlHelper
@@ -2435,8 +2458,15 @@ class contentPageConfig
     function setup_frontpage()
     {
         global $mainframe, $Itemid;
+        
+        if(!isset($mainframe->menu->id)){
+        	$menu = $mainframe->get('menu');	
+        }
+        else{
+        	$menu = $mainframe->menu;
+        }
 
-        $menu = $mainframe->get('menu');
+        
         $params = new mosParameters($menu->params);
 
         $params->menu = $menu;

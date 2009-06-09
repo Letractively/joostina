@@ -66,7 +66,7 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
         <div class="componentheading"><?php echo $row->id ?   '&nbsp;'.$params->get('form_title_edit',_E_EDIT):  '&nbsp;'.$params->get('form_title_add',_E_ADD ); ?></div>
 
         <?php if ($row->id && $allow_info){  ?>
-        <div class="jst_info">
+        <div class="info">
             <strong><?php echo _E_EXPIRES ;?></strong><?php echo $row->publish_down;?>
             <strong><?php echo _E_VERSION ;?></strong><?php echo $row->version;?>
             <strong><?php echo _E_CREATED ;?></strong><?php echo $row->created;?>
@@ -75,6 +75,13 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
 
         </div>
         <?php }?>
+        
+                <span class="button">
+			<input type="submit" class="button submit" name="submit" id="save" value="Сохранить" />			
+		</span>
+        <span class="button"><input type="submit" class="button apply" name="apply" id="apply" value="Применить" /></span>
+        <span class="button"><input type="submit" class="button cancel" name="cancel" id="cancel" value="Отмена" /></span>
+        
         <table class="cedit_misc" cellspacing="0" cellpadding="0" border="0">
             <tr>
 
@@ -193,9 +200,11 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
 
 		<div style="clear:both;"></div> <br /><br />
 
-        <input type="submit" class="button submit" name="submit" id="save" value="Сохранить" />
-        <input type="submit" class="button apply" name="apply" id="apply" value="Применить" />
-        <input type="submit" class="button cancel" name="cancel" id="cancel" value="Отмена" />
+        <span class="button">
+			<input type="submit" class="button submit" name="submit" id="save" value="Сохранить" />			
+		</span>
+        <span class="button"><input type="submit" class="button apply" name="apply" id="apply" value="Применить" /></span>
+        <span class="button"><input type="submit" class="button cancel" name="cancel" id="cancel" value="Отмена" /></span>
 
 		<input type="hidden" name="goodexit" id="goodexit" value="0" />
 		<input type="hidden" name="option" value="com_content" />
