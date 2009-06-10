@@ -88,8 +88,8 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
 	<form action="index.php" method="post" name="mosUserForm" id="mosUserForm" enctype="multipart/form-data">
 	<div style="float: right;height: 100%;">
 
-        <input type="submit" class="button submit" name="submit" id="save" value="Сохранить" />
-        <input type="submit" class="button cancel" name="cancel" id="cancel" value="Отмена" />
+        <span class="button"><input type="submit" class="button submit" name="submit" id="save" value="Сохранить" /></span>
+        <span class="button"><input type="submit" class="button cancel" name="cancel" id="cancel" value="Отмена" /></span>
 
 	</div>
 	<div class="componentheading"><h1><?php echo $user->name; ?>&nbsp;(<?php echo $user->username; ?>)</h1></div>

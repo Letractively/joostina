@@ -795,7 +795,7 @@ class mosContent extends mosDBTable
             return;
         }
 
-        mosCommonHTML::loadJqueryPlugins('tooltip/jquery.tooltip');
+        mosCommonHTML::loadJqueryPlugins('tooltip/jquery.tooltip', false, true);
         ?>
 		<script language="JavaScript" type="text/javascript">
             _comcontent_defines.push('load_tooltip');
@@ -1312,7 +1312,7 @@ class contentHelper{
 	
 	function _load_core_js(){
         global $mosConfig_live_site, $mainframe;
-        $mainframe->addJS($mosConfig_live_site.'/components/com_content/js/com_content.js'); 
+        $mainframe->addJS($mosConfig_live_site.'/components/com_content/js/com_content.js','custom'); 
 	}
 }
 

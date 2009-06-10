@@ -403,12 +403,12 @@ class mosMainFrame {
 		$footer = array();
 
 		if(isset($params['fromheader']) && $params['fromheader']==1 ){
-			$this->_footer = $this->_head;
+			$this->_footer = $this->_head; 
 		}
 
 		if(isset($params['custom']) && $params['custom']==1 ){
 			foreach($this->_footer['custom'] as $html) {
-				$footer[] = $html;
+				$footer[] = $html; 
 			}
 		}
 
@@ -418,8 +418,8 @@ class mosMainFrame {
 
 		if(isset($params['js']) && $params['js']==1 && isset($this->_footer['js']) ){
 			foreach($this->_footer['js'] as $html) {
-				$footer[] = $html;
-			}
+				$footer[] = $html;  
+			} 
 		}
 
 		if(isset($params['css'])  && $params['css']==1 && isset($this->_footer['css']) ){
@@ -427,15 +427,25 @@ class mosMainFrame {
 				$footer[] = $html;
 			}
 		}
-		unset($this->_footer);
+		//unset($this->_footer);
 		return implode("\n",$footer)."\n";
 	}
 
 	/**
-	* добавление js файлов в шапку страницы
+	* добавление js файлов в шапку или футер страницы
+	* если $footer - скрипт будет добавлен в $mainframe->_footer
+	* возможные значения $footer: 
+	* 	'js' - скрипт будет добавлен в $mainfrane->_footer['js'] (первый этап вывода футера)
+	* 	'custom' - скрипт будет добавлен в $mainfrane->_footer['custom'] (второй этап вывода футера)
 	*/
-	function addJS($patch, $footer=null){
-		$this->_head['js'][] = '<script language="JavaScript" src="'. $patch .'" type="text/javascript"></script>';			
+	function addJS($patch, $footer = ''){
+		if($footer){
+			$this->_footer[$footer][] = '<script language="JavaScript" src="'. $patch .'" type="text/javascript"></script>';		
+		}
+		else{
+			$this->_head['js'][] = '<script language="JavaScript" src="'. $patch .'" type="text/javascript"></script>';		
+				}
+				
 	}
 	/**
 	* добавление css файлов в шапку страницы
@@ -5093,7 +5103,7 @@ class mosCommonHTML {
 		}
 	}
 	/* подключение расширений Jquery*/
-	function loadJqueryPlugins($name,$ret = false, $css = '') {
+	function loadJqueryPlugins($name,$ret = false, $css = '', $footer = '') {
 		$name = trim($name);
 		// если само ядро Jquery не загружено - сначала грузим его
 		if(!defined('_JQUERY_LOADED')) {
@@ -5111,7 +5121,7 @@ class mosCommonHTML {
 <?php
 			}?>
 			<?php }else{
-				MosMainFrame::getInstance()->addJS(Jconfig::getInstance()->config_live_site.'/includes/js/jquery/plugins/'.$name.'.js');
+				MosMainFrame::getInstance()->addJS(Jconfig::getInstance()->config_live_site.'/includes/js/jquery/plugins/'.$name.'.js', $footer);
 				if($css){
 					MosMainFrame::getInstance()->addCSS(Jconfig::getInstance()->config_live_site.'/includes/js/jquery/plugins/'.$name.'.css');
 				}
