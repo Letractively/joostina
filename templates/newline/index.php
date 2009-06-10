@@ -7,9 +7,12 @@ echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'."\n";
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo $iso[1];?>" />
-<?php
+<?php 
+
+
 	// загружаемверхнюю часть страницы со всеми js и css файлами, и обязательным использованием jquery
-	mosShowHead(array('js'=>1,'css'=>1,'jquery'=>1));
+	mosShowHead(array('js'=>1,'css'=>1,'jquery'=>1));	
+	
 	global $task,$my,$mosConfig_live_site, $mosConfig_mailfrom;
 	if ($my->id && $mainframe->allow_wysiwyg) { initEditor(); }
 	$block1_count = (mosCountModules('user1')>0) + (mosCountModules('user2')>0) + (mosCountModules('user3')>0);
@@ -151,12 +154,17 @@ echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'."\n";
     <!--footer:end-->
     </div>
 <?php
-// подключаем плагин Jquery
-mosCommonHTML::loadJqueryPlugins('corner');
-//Подключаем js com_content-а
-contentHelper::_load_core_js();
-// выводим футер только с js - скриптам без перехвата обработчиков шапки
-mosShowFooter(array('js'=>1,'fromheader'=>1));
+
+
+	// подключаем в футер плагин Jquery
+	mosCommonHTML::loadJqueryPlugins('corner', false, false, 'js');
+
+
+// выводим js футера (первая ступень - в основном jQuery-плагины и вспомагательные скрипты)
+mosShowFooter(array('js'=>1));
+// выводим js футера (вторая ступень - js компонентов, инициализации для плагинов и т.п. - 
+//всё, что должно быть загружено после всех основных скриптов)
+mosShowFooter(array('custom'=>1));
 
 
 ?>

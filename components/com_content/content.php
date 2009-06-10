@@ -13,7 +13,8 @@ require_once ($mainframe->getPath('front_html','com_content'));
 
 global $gid,$task,$Itemid,$option,$my;
 
-
+//Подключаем js com_content-а
+contentHelper::_load_core_js();
 
 $id			= intval(mosGetParam($_REQUEST,'id',0));
 $sectionid	= intval(mosGetParam($_REQUEST,'sectionid',0));

@@ -499,7 +499,7 @@ class HTML_content {
 			return;
 		}
 		
-		mosCommonHTML::loadJqueryPlugins('tooltip/jquery.tooltip', false, true);
+		mosCommonHTML::loadJqueryPlugins('tooltip/jquery.tooltip', false, true, 'js');
 		
 		
 		$link = 'index.php?option=com_content&amp;task=edit&amp;id='.$row->id;
