@@ -180,52 +180,60 @@ function submitContent(){
 * @param database A database connector object
 */
 function viewContent($sectionid,$option) {
-	global $database,$mainframe,$mosConfig_list_limit;
 
-	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mosConfig_list_limit));
+	$database = &database::getInstance();
+	$mainframe = &mosMainFrame::getInstance();
+	$config = &Jconfig::getInstance();
+
+	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit",'limit',$config->config_list_limit));
 	$limitstart = intval($mainframe->getUserStateFromRequest("view{$option}{$sectionid}limitstart",'limitstart',0));
 
 	$search = $mainframe->getUserStateFromRequest("search{$option}{$sectionid}",'search','');
 
 	$order_by = $mainframe->getUserStateFromRequest("order_by{$option}{$sectionid}",'order_by','');
-	$order_sort = $mainframe->getUserStateFromRequest("order_sort{$option}{$sectionid}",'order_sort','');
+	$order_sort = intval($mainframe->getUserStateFromRequest("order_sort{$option}{$sectionid}",'order_sort',1));
 
 	$filter_sectionid = intval($mainframe->getUserStateFromRequest("filter_sectionid{$option}{$sectionid}",'filter_sectionid',0));
 
 	$catid = intval( mosGetParam($_REQUEST,'catid',0));
 	$filter_authorid = intval( mosGetParam($_REQUEST,'filter_authorid',0) );
+
 	if ($filter_authorid <> 0)  {
 		$link = '&filter_authorid='.$filter_authorid;
-	}
-	else {
+	}else {
 		$link = '&catid='.$catid;
 	}
 	$redirect = $sectionid.$link;
 
-	if($order_sort == '1'){
-		$order_sort_sql = ' DESC';
-	}else{
-		$order_sort_sql = ' ASC';
-	}
+	// сортировка
+	$order_sort_sql = ($order_sort==0) ? ' DESC':' ASC';
 
-	$sql_order = "\n ORDER BY ";
+
+	$sql_order = ' ORDER BY ';
 	switch($order_by) {
+
 		case '0': // внутренний порядок
-		default:
-			$sql_order .= "\n cc.ordering, cc.title, c.ordering";
+			$sql_order .= 'cc.ordering, cc.title, c.ordering';
 			break;
+
 		case '1': // заголовки
 			$sql_order .= 'c.title';
 			break;
+
+		default:
 		case '2': // дата создания
 			$sql_order .= 'c.created';
 			break;
+
 		case '3': // дата последней модификации
 			$sql_order .= 'c.modified';
 			break;
+
+
 		case '4': // идентификаторы
 			$sql_order .= 'c.id';
 			break;
+
 		case '5': // просмотры
 			$sql_order .= 'c.hits';
 			break;
@@ -322,8 +330,8 @@ function viewContent($sectionid,$option) {
 	$lists['order'] = mosHTML::selectList($order_list,'order_by','class="inputbox" size="1" style="width:99%" onchange="document.adminForm.submit( );"','order_by','name',$order_by);
 
 	$order_sort_list = array();
-	$order_sort_list[] = mosHTML::makeOption('0',_CMN_SORT_ASC,'order_sort','name');
-	$order_sort_list[] = mosHTML::makeOption('1',_CMN_SORT_DESC,'order_sort','name');
+	$order_sort_list[] = mosHTML::makeOption('1',_CMN_SORT_ASC,'order_sort','name');
+	$order_sort_list[] = mosHTML::makeOption('0',_CMN_SORT_DESC,'order_sort','name');
 	$lists['order_sort'] = mosHTML::selectList($order_sort_list,'order_sort','class="inputbox" size="1" style="width:99%" onchange="document.adminForm.submit( );"','order_sort','name',$order_sort);
 
 	HTML_content::showContent($rows,$section,$lists,$search,$pageNav,$all,$redirect);

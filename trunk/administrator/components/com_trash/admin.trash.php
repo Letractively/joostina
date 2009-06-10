@@ -52,7 +52,10 @@ switch($task) {
 * Compiles a list of trash items
 */
 function viewTrash($option) {
-	global $database,$mainframe,$mosConfig_list_limit;
+	global $mosConfig_list_limit;
+
+	$database = &database::getInstance();
+	$mainframe = &mosMainFrame::getInstance();
 
 	$catid = $mainframe->getUserStateFromRequest("catid{$option}",'catid','content');
 	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mosConfig_list_limit));
@@ -125,14 +128,14 @@ function viewTrash($option) {
 * Compiles a list of the items you have selected to permanently delte
 */
 function viewdeleteTrash($cid,$mid,$option) {
-	global $database;
+
+	$database = &database::getInstance();
 
 	if(!in_array(0,$cid)) {
 		// Content Items query
 		mosArrayToInts($cid);
 		$cids = 'a.id='.implode(' OR a.id=',$cid);
-		$query = "SELECT a.title AS name"."\n FROM #__content AS a"."\n WHERE ( $cids )".
-			"\n ORDER BY a.title";
+		$query = "SELECT a.title AS name FROM #__content AS a WHERE ( $cids ) ORDER BY a.title";
 		$database->setQuery($query);
 		$items = $database->loadObjectList();
 		$id = $cid;
@@ -142,7 +145,7 @@ function viewdeleteTrash($cid,$mid,$option) {
 			// Content Items query
 			mosArrayToInts($mid);
 			$mids = 'a.id='.implode(' OR a.id=',$mid);
-			$query = "SELECT a.name"."\n FROM #__menu AS a"."\n WHERE ( $mids )"."\n ORDER BY a.name";
+			$query = "SELECT a.name FROM #__menu AS a WHERE ( $mids ) ORDER BY a.name";
 			$database->setQuery($query);
 			$items = $database->loadObjectList();
 			$id = $mid;
@@ -157,17 +160,25 @@ function viewdeleteTrash($cid,$mid,$option) {
 * Permanently deletes the selected list of trash items
 */
 function deleteTrash($cid,$option) {
-	global $database;
+	global $_MAMBOTS;
 	josSpoofCheck();
-	$type = mosGetParam($_POST,'type',array(0));
 
+	$type = mosGetParam($_POST,'type',array(0));
 	$total = count($cid);
+
+	$database = &database::getInstance();
+
+	if(Jconfig::getInstance()->config_use_content_delete_mambots) {
+		$_MAMBOTS->loadBotGroup('content');
+	}
 
 	if($type == 'content') {
 		$obj = new mosContent($database);
 		$fp = new mosFrontPage($database);
 		foreach($cid as $id) {
 			$id = intval($id);
+			// обработка мамботами удаления содержимого
+			$_MAMBOTS->trigger('onDeleteContent',array($id));
 			$obj->delete($id);
 			$fp->delete($id);
 		}
@@ -181,7 +192,7 @@ function deleteTrash($cid,$option) {
 		}
 
 	$msg = $total." "._OBJECTS_DELETED;
-	mosRedirect("index2.php?option=$option&mosmsg=".$msg."");
+	mosRedirect('index2.php?option='.$option,$msg);
 }
 
 /**
@@ -189,8 +200,11 @@ function deleteTrash($cid,$option) {
 *
 */
 function clearTrash() {
-	global $database;
+	global $_MAMBOTS;
+
 	josSpoofCheck();
+
+	$database = &database::getInstance();
 
 	// выбираем из таблицы содержимого записи помеченные как удалённые
 	$sql_content = 'SELECT id FROM #__content WHERE state="-2" ';
@@ -203,9 +217,15 @@ function clearTrash() {
 	$obj = new mosContent($database);
 	$fp = new mosFrontPage($database);
 	// перебирая по циклу элементы помеченные как удалённые произведём их физическое удаление
+
+	if(Jconfig::getInstance()->config_use_content_delete_mambots) {
+		$_MAMBOTS->loadBotGroup('content');
+	}
+
 	foreach($cid as $id) {
 		$id = intval($id);
-		echo $id;
+		// обработка мамботами удаления содержимого
+		$_MAMBOTS->trigger('onDeleteContent',array($id));
 		$obj->delete($id);
 		$fp->delete($id);
 	}
@@ -224,7 +244,7 @@ function clearTrash() {
 	}
 	//собираем итоговое сообщение
 	$msg = _SUCCESS_DELETION.': '.$total_content.', '.$total_menu;
-	mosRedirect("index2.php?option=$option&mosmsg=".$msg."");
+	mosRedirect('index2.php?option='.$option,$msg);
 }
 /**
 * Compiles a list of the items you have selected to permanently delte
@@ -278,8 +298,7 @@ function restoreTrash($cid,$option) {
 		// query to restore content items
 		mosArrayToInts($cid);
 		$cids = 'id='.implode(' OR id=',$cid);
-		$query = "UPDATE #__content"."\n SET state = ".(int)$state.", ordering = ".(int)
-			$ordering."\n WHERE ( $cids )";
+		$query = "UPDATE #__content"."\n SET state = ".(int)$state.", ordering = ".(int)$ordering."\n WHERE ( $cids )";
 		$database->setQuery($query);
 		if(!$database->query()) {
 			echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
@@ -304,16 +323,13 @@ function restoreTrash($cid,$option) {
 
 					if(!$check) {
 						// if menu items parent is not found that are published/unpublished make it a root menu item
-						$query = "UPDATE #__menu"
-								."\n SET parent = 0, published = ".(int)$state.", ordering = 9999"
-								."\n WHERE id = ".(int)$id;
+						$query = "UPDATE #__menu SET parent = 0, published = ".(int)$state.", ordering = 9999 WHERE id = ".(int)$id;
 					}
 				}
 
 				if($check) {
 					// query to restore menu items
-					$query = "UPDATE #__menu"."\n SET published = ".(int)$state.", ordering = 9999".
-						"\n WHERE id = ".(int)$id;
+					$query = "UPDATE #__menu SET published = ".(int)$state.", ordering = 9999 WHERE id = ".(int)$id;
 				}
 
 				$database->setQuery($query);
@@ -325,6 +341,6 @@ function restoreTrash($cid,$option) {
 		}
 
 	$msg = $total." "._OBJECTS_RESTORED;
-	mosRedirect("index2.php?option=$option&mosmsg=".$msg."");
+	mosRedirect("index2.php?option=".$option,$msg);
 }
 ?>

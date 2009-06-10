@@ -2009,6 +2009,9 @@ class JConfig {
 	var $config_author_name = 4;
 	/** @var int использование неопубликованных мамботов */
 	var $config_use_unpublished_mambots = 1;
+	/** @var int использование неопубликованных мамботов */
+	var $config_use_content_delete_mambots = 1;
+
 
 	// инициализация класса конфигурации - собираем переменные конфигурации
 	function JConfig(){
