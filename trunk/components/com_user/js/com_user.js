@@ -41,39 +41,3 @@
 			}
 		}
 
-
-		function startupload() {
-			SRAX.get('userav').src = 'images/system/aload.gif';
-			return true;
-		};
-		function funishupload(text) {
-			log(text);
-			if(text!='0'){
-				log('Всё ок!');
-				log(text);
-				SRAX.get('userav').src = text;
-			}
-			SRAX.get('mosUserForm').action='index.php';
-			SRAX.get('mosUserForm').target='';
-			SRAX.get('task').value='saveUserEdit';
-			SRAX.get('mosUserForm').reset();
-			return true;
-		};
-		function addavatar(){
-			SRAX.get('mosUserForm').action='ajax.index.php';
-			log(SRAX.get('mosUserForm').action);
-			SRAX.get('task').value='uploadavatar';
-			SRAX.Uploader('mosUserForm', startupload, funishupload, true);
-			return false;
-		}
-		function delavatar(){
-			log('Удаление аватара: ');
-			SRAX.get('userav').src = 'images/system/aload.gif';
-			dax({
-				url: 'ajax.index.php?option=com_user&utf=0&task=delavatar',
-				callback:
-					function(resp, idTread, status, ops){
-						log('Получен ответ: ' + resp.responseText);
-						SRAX.get('userav').src = resp.responseText;
-			}});
-		}

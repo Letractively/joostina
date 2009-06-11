@@ -78,22 +78,7 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
 				</tr>
 			</table>
 
-            <br />
-            <h3>Аватар</h3>
             
-            <?php 
-            $form_params = new stdClass();
-            $form_params->id = 'avatar_uploadForm';
-            $form_params->img_field = 'avatar';
-            $form_params->img_path = 'images/avatars/';
-            $form_params->default_img = 'images/avatars/none.jpg';
-            $form_params->img_class = 'user_avatar';
-            
-			if(!$user->avatar){
-                userHelper::_build_img_upload_area($user, $form_params, 'upload');
-            } else {
-                userHelper::_build_img_upload_area($user, $form_params, 'reupload');
-            } ?>
 			
 
    			<br />
@@ -162,6 +147,23 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
 	<input type="hidden" name="task" id="task" value="saveUserEdit" />
 	<input type="hidden" name="<?php echo $validate; ?>" value="1" />
 	</form>
+	
+	<br />
+            <h3>Аватар</h3>
+            
+            <?php 
+            $form_params = new stdClass();
+            $form_params->id = 'avatar_uploadForm';
+            $form_params->img_field = 'avatar';
+            $form_params->img_path = 'images/avatars';
+            $form_params->default_img = 'images/avatars/none.jpg';
+            $form_params->img_class = 'user_avatar';
+            
+			if(!$user->avatar){
+                userHelper::_build_img_upload_area($user, $form_params, 'upload');
+            } else {
+                userHelper::_build_img_upload_area($user, $form_params, 'reupload');
+            } ?>
 <?php
 	$tabs->endPane();
 

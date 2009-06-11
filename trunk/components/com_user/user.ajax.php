@@ -16,8 +16,8 @@ $task	= mosGetParam($_REQUEST,'task','');
 $id		= $my->id;
 
 switch($task) {
-	case 'uploadavatar':
-		echo x_uploadavatar($id);
+	case 'upload_avatar':
+		echo upload_avatar();
 		return;
 
 	case 'delavatar':
@@ -32,6 +32,50 @@ switch($task) {
 		echo 'error-task';
 		return;
 }
+
+ function upload_avatar(){
+        global $database, $my, $mosConfig_absolute_path;
+        $id = intval(mosGetParam($_REQUEST,'id',0));
+        
+        require_once ($mosConfig_absolute_path.'/includes/libraries/images/images.class.php');
+        
+        $return = array();
+
+        $resize_options = array(
+                'method' => '0',        //Приводит к заданной ширине, сохраняя пропорции.
+                'output_file' => '',    //если 'thumb', то ресайзенная копия ляжет в подпапку "thumb'
+                'width'  => '150',
+                'height' => '150'
+        );
+
+        $file = new Image();
+        $file->field_name = 'avatar';
+        $file->directory = 'images/avatars' ;
+        $file->file_prefix = 'av_';
+        $file->max_size = 0.5 * 1024 * 1024;
+
+        $foto_name = $file->upload($resize_options);
+
+        if($foto_name){
+            if($id){
+                $user = new mosUser($database);
+                $user->load((int)$id);
+                $user_id = $user->id;
+                if($user->avatar!=''){
+                    $foto = new Image();
+                    $foto->directory = 'images/avatars';
+                    $foto->name = $user->avatar;
+                    $foto->delFile($foto);
+                }
+                $user->update_avatar($id, $foto_name);
+            }
+
+            echo $foto_name;
+
+        }else{
+            return false;
+        };
+    }
 
 function x_uploadavatar($id){
 	global $mosConfig_absolute_path,$mosConfig_live_site;
