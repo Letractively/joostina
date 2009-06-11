@@ -406,7 +406,7 @@ class mosMainFrame {
 			$this->_footer = $this->_head; 
 		}
 
-		if(isset($params['custom']) && $params['custom']==1 ){
+		if(isset($params['custom']) && $params['custom']==1 && isset($this->_footer['custom'])){
 			foreach($this->_footer['custom'] as $html) {
 				$footer[] = $html; 
 			}
@@ -416,7 +416,7 @@ class mosMainFrame {
 			$footer[] = mosCommonHTML::loadJquery(true,true);
 		}
 
-		if(isset($params['js']) && $params['js']==1 && isset($this->_footer['js']) ){
+		if(isset($params['js']) && $params['js']==1 && isset($this->_footer['js'])){
 			foreach($this->_footer['js'] as $html) {
 				$footer[] = $html;  
 			} 

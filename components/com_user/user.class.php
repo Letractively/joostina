@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright ¿‚ÚÓÒÍËÂ Ô‡‚‡ (C) 2008-2009 Joostina team. ¬ÒÂ Ô‡‚‡ Á‡˘Ë˘ÂÌ˚.
-* @license ÀËˆÂÌÁËˇ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, ËÎË help/license.php
-* Joostina! - Ò‚Ó·Ó‰ÌÓÂ ÔÓ„‡ÏÏÌÓÂ Ó·ÂÒÔÂ˜ÂÌËÂ ‡ÒÔÓÒÚ‡ÌˇÂÏÓÂ ÔÓ ÛÒÎÓ‚ËˇÏ ÎËˆÂÌÁËË GNU/GPL
-* ƒÎˇ ÔÓÎÛ˜ÂÌËˇ ËÌÙÓÏ‡ˆËË Ó ËÒÔÓÎ¸ÁÛÂÏ˚ı ‡Ò¯ËÂÌËˇı Ë Á‡ÏÂ˜‡ÌËÈ Ó· ‡‚ÚÓÒÍÓÏ Ô‡‚Â, ÒÏÓÚËÚÂ Ù‡ÈÎ help/copyright.php.
+* @copyright –ê–≤—Ç–æ—Ä—Å–∫–∏–µ –ø—Ä–∞–≤–∞ (C) 2008-2009 Joostina team. –í—Å–µ –ø—Ä–∞–≤–∞ –∑–∞—â–∏—â–µ–Ω—ã.
+* @license –õ–∏—Ü–µ–Ω–∑–∏—è http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, –∏–ª–∏ help/license.php
+* Joostina! - —Å–≤–æ–±–æ–¥–Ω–æ–µ –ø—Ä–æ–≥—Ä–∞–º–º–Ω–æ–µ –æ–±–µ—Å–ø–µ—á–µ–Ω–∏–µ —Ä–∞—Å–ø—Ä–æ—Å—Ç—Ä–∞–Ω—è–µ–º–æ–µ –ø–æ —É—Å–ª–æ–≤–∏—è–º –ª–∏—Ü–µ–Ω–∑–∏–∏ GNU/GPL
+* –î–ª—è –ø–æ–ª—É—á–µ–Ω–∏—è –∏–Ω—Ñ–æ—Ä–º–∞—Ü–∏–∏ –æ –∏—Å–ø–æ–ª—å–∑—É–µ–º—ã—Ö —Ä–∞—Å—à–∏—Ä–µ–Ω–∏—è—Ö –∏ –∑–∞–º–µ—á–∞–Ω–∏–π –æ–± –∞–≤—Ç–æ—Ä—Å–∫–æ–º –ø—Ä–∞–≤–µ, —Å–º–æ—Ç—Ä–∏—Ç–µ —Ñ–∞–π–ª help/copyright.php.
 */
 
-// Á‡ÔÂÚ ÔˇÏÓ„Ó ‰ÓÒÚÛÔ‡
+// –∑–∞–ø—Ä–µ—Ç –ø—Ä—è–º–æ–≥–æ –¥–æ—Å—Ç—É–ø–∞
 defined('_VALID_MOS') or die();
 
 
@@ -57,6 +57,9 @@ class mosUser extends mosDBTable {
 	/**
 	@var string*/
 	var $params = null;
+	/**
+	@var string*/
+	var $avatar = null;
 
 	/**
 	* @param database A database connector object
@@ -224,9 +227,9 @@ class mosUser extends mosDBTable {
 		}
 	}
 	/**
-	* ÙÛÌÍˆËˇ ÔÓÎÛ˜ÂÌËˇ ‡‚‡Ú‡‡ ÔÓÎ¸ÁÓ‚‡ÚÂÎˇ, ‚ÓÁ‚‡˘‡ÂÚ ÔÛÚ¸ Í ËÁÓ·‡ÊÂÌËˇ ‡‚‡Ú‡‡ ÓÚ ÍÓÌˇ Ò‡ÈÚ‡
+	* —Ñ—É–Ω–∫—Ü–∏—è –ø–æ–ª—É—á–µ–Ω–∏—è –∞–≤–∞—Ç–∞—Ä–∞ –ø–æ–ª—å–∑–æ–≤–∞—Ç–µ–ª—è, –≤–æ–∑–≤—Ä–∞—â–∞–µ—Ç –ø—É—Ç—å –∫ –∏–∑–æ–±—Ä–∞–∂–µ–Ω–∏—è –∞–≤–∞—Ç–∞—Ä–∞ –æ—Ç –∫–æ—Ä–Ω—è —Å–∞–π—Ç–∞
 	*/
-	function avatar($id,$size='normal'){
+	function avatar($user,$size='normal'){
 		global $mosConfig_absolute_path;
 
 		switch($size) {
@@ -244,15 +247,15 @@ class mosUser extends mosDBTable {
 				break;
 		}
 
-		if(file_exists($mosConfig_absolute_path.'/images/avatars/'.$pach.$id.'.jpg')){
-			$img = '/images/avatars/'.$pach.$id.'.jpg';
+		if(file_exists($mosConfig_absolute_path.'/images/avatars/'.$pach.$user->id.'.jpg')){
+			$img = '/images/avatars/'.$pach.$user->id.'.jpg';
 		}else{
 			$img = '/images/avatars/'.$pach.'none.jpg';
 		}
 		return $img;
 	}
 	/**
-	* ÙÛÌÍˆËˇ ÔÓÎÛ˜ÂÌËˇ ÏËÌË - ‡‚‡Ú‡‡ ÔÓÎ¸ÁÓ‚‡ÚÂÎˇ, ‚ÓÁ‚‡˘‡ÂÚ ÔÛÚ¸ Í ËÁÓ·‡ÊÂÌËˇ ‡‚‡Ú‡‡ ÓÚ ÍÓÌˇ Ò‡ÈÚ‡
+	* —Ñ—É–Ω–∫—Ü–∏—è –ø–æ–ª—É—á–µ–Ω–∏—è –º–∏–Ω–∏ - –∞–≤–∞—Ç–∞—Ä–∞ –ø–æ–ª—å–∑–æ–≤–∞—Ç–µ–ª—è, –≤–æ–∑–≤—Ä–∞—â–∞–µ—Ç –ø—É—Ç—å –∫ –∏–∑–æ–±—Ä–∞–∂–µ–Ω–∏—è –∞–≤–∞—Ç–∞—Ä–∞ –æ—Ç –∫–æ—Ä–Ω—è —Å–∞–π—Ç–∞
 	*/
 	function miniavatar($id){
 		global $mosConfig_absolute_path;
@@ -264,7 +267,7 @@ class mosUser extends mosDBTable {
 	}
 
 	/**
-	* œÓÎÛ˜ÂÌËÂ ÒÚ‡ÚÛÒ‡ ÔÓÎ¸ÁÓ‚‡ÚÂÎˇ
+	* –ü–æ–ª—É—á–µ–Ω–∏–µ —Å—Ç–∞—Ç—É—Å–∞ –ø–æ–ª—å–∑–æ–≤–∞—Ç–µ–ª—è
 	*/
     function get_user_status($uid){
 
@@ -281,7 +284,7 @@ class mosUser extends mosDBTable {
     }
 
 	/**
-	* œÓÎÛ˜ÂÌËÂ ‰ÓÔÓÎÌËÚÂÎ¸Ì˚ı ‰‡ÌÌ˚ı ÔÓÎ¸ÁÓ‚‡ÚÂÎˇ
+	* –ü–æ–ª—É—á–µ–Ω–∏–µ –¥–æ–ø–æ–ª–Ω–∏—Ç–µ–ª—å–Ω—ã—Ö –¥–∞–Ω–Ω—ã—Ö –ø–æ–ª—å–∑–æ–≤–∞—Ç–µ–ª—è
 	*/
     function get_user_extra($uid){
 
@@ -293,7 +296,7 @@ class mosUser extends mosDBTable {
     }
 }
 
-class jstUsersExtra extends mosDBTable{
+class userUsersExtra extends mosDBTable{
 
   	 var $user_id = null;
 	 var $gender = null;
@@ -313,9 +316,115 @@ class jstUsersExtra extends mosDBTable{
 	/**
 	* @param database A database connector object
 	*/
-	function jstUsersExtra(&$db) {
+	function userUsersExtra(&$db) {
 		$this->mosDBTable('#__users_extra','user_id',$db);
 	}
+}
+
+class userHelper{
+	
+	function _load_core_js(){
+        global $mosConfig_live_site, $mainframe;
+        $mainframe->addJS($mosConfig_live_site.'/components/com_user/js/com_user.js','custom'); 
+	}
+	
+	function _load_jquery_form(){
+        mosCommonHTML::loadJqueryPlugins('jquery.form', false, false, 'js');
+        ?>
+        <script language="JavaScript" type="text/javascript">
+            _js_defines.push('load_jquery_form');
+        </script>
+        <?php
+	}
+	
+ 	
+	 function _build_img_upload_area($obj, $form_params, $state){
+        global $mosConfig_live_site,$mosConfig_absolute_path;
+    	$field = $form_params->img_field;
+    ?>
+                <script type="text/javascript">
+                $(document).ready(function() {
+                    $("a#reupload_<?php echo $form_params->img_field;?>").click(function () {
+                        $(".upload_area_<?php echo $form_params->img_field;?>").removeClass("hidden");
+                        $("#<?php echo $form_params->img_field;?>").addClass("required");
+                        return false;
+                    });
+                });
+            </script>
+
+            <?php if($state!='upload'){?>
+                    <div id="current_<?php echo $form_params->img_field;?>">
+                        <img class="site_img" src="<?php echo $mosConfig_live_site;?>/<?php echo $form_params->img_path;?>/<?php echo $obj->$field;?>" />
+                        <a  href="#" id="reupload_<?php echo $form_params->img_field;?>">–°–º–µ–Ω–∏—Ç—å favicon</a>
+                    </div>
+                    <div class="upload_area_<?php echo $form_params->img_field;?> hidden">
+                        <?php echo self::_build_img_upload_form($obj, $form_params);?>
+                    </div>
+            <?php } else {
+            ?>
+                    <div id="current_<?php echo $form_params->img_field;?>">
+                        <img class="site_img" src="<?php echo $mosConfig_live_site;?>/<?php echo $form_params->default_img;?>" />
+                    </div>
+                    <div class="upload_area_<?php echo $form_params->img_field;?>">
+                        <?php echo self::_build_img_upload_form($obj, $form_params);?>
+                    </div>
+            <?php
+            } ?>
+    <?php
+    }
+
+function _build_img_upload_form(&$obj, $form_params){
+
+	    global $mosConfig_live_site,$mosConfig_absolute_path;
+        self::_load_jquery_form();
+
+	?>
+
+        <script type="text/javascript">
+        $(document).ready(function(){
+
+            $('#<?php echo $form_params->img_field;?>_uploadForm').ajaxForm({
+                beforeSubmit: function(a,f,o) {
+                    o.dataType = "html";
+                    $('#<?php echo $form_params->img_field;?>_uploadOutput').html('–ó–∞–≥—Ä—É–∑–∫–∞...');
+                    if(!$('#upload_<?php echo $form_params->img_field;?>').val()){
+                        $('#<?php echo $form_params->img_field;?>_uploadOutput').html('–í—ã–±–µ—Ä–∏—Ç–µ –∏–∑–æ–±—Ä–∞–∂–µ–Ω–∏–µ');
+                        return false;
+                    }
+                },
+                success: function(data) {
+                    var $out = $('#<?php echo $form_params->img_field;?>_uploadOutput');
+                    $out.html('');
+
+                   if(data){
+                        if (typeof data == 'object' && data.nodeType)
+                        data = elementToString(data.documentElement, true);
+                        else if (typeof data == 'object')
+                        data = objToString(data);
+                        $('#current_<?php echo $form_params->img_field;?>').html('<img class="site_img" src="<?php echo $mosConfig_live_site;?>/<?php echo $form_params->img_path;?>/'+data+'" />');
+                        $('#new_<?php echo $form_params->img_field;?>').val(data);
+                   }
+
+                }
+            });
+        });
+        </script>
+
+		<form name="<?php echo $form_params->img_field;?>_uploadForm" class="ajaxForm" enctype="multipart/form-data" method="post" action="ajax.index.php" id="<?php echo $form_params->img_field;?>_uploadForm">
+     	    <input name="<?php echo $form_params->img_field;?>"  id="upload_<?php echo $form_params->img_field;?>"  type="file" />
+
+			<input type="submit" name="Submit" value="–ó–∞–≥—Ä—É–∑–∏—Ç—å" />
+			<input type="hidden" name="task" value="upload_<?php echo $form_params->img_field;?>" />
+			<input type="hidden" name="id" value="<?php echo $obj->id;?>" />
+			<input type="hidden" name="option" value="com_user" />
+		</form>
+
+        <img id="loading_<?php echo $form_params->img_field;?>" src="images/system_image/loader.gif" style="display:none;"/>
+        <div id="<?php echo $form_params->img_field;?>_uploadOutput"></div>
+
+	<?php
+
+    }
 }
 
 /**

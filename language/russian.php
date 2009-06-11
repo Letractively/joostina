@@ -2308,4 +2308,6 @@ DEFINE('_ORDER_BY_ACCESS_DESC','Доступ по убыванию');
 DEFINE('_TO_TOP','Вверх');
 DEFINE('_TO_BOTTOM','Вниз');
 
+DEFINE('_PROFILE_SITE_SETTINGS','Настройки сайта');
+
 ?>

@@ -12,6 +12,7 @@ echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'."\n";
 
 	// загружаемверхнюю часть страницы со всеми js и css файлами, и обязательным использованием jquery
 	mosShowHead(array('js'=>1,'css'=>1,'jquery'=>1));	
+
 	
 	global $task,$my,$mosConfig_live_site, $mosConfig_mailfrom;
 	if ($my->id && $mainframe->allow_wysiwyg) { initEditor(); }
@@ -24,6 +25,13 @@ echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'."\n";
 <!--[if lte IE 6]>
 <link href="<?php echo $mosConfig_live_site; ?>/templates/<?php echo $mainframe->getTemplate(); ?>/css/ieonly.css" rel="stylesheet" type="text/css" />
 <![endif]-->
+
+
+<script type="text/javascript">
+    var _live_site = '<?php echo $mosConfig_live_site;?>';
+    var _option = '<?php echo mosGetParam( $_REQUEST, 'option', '' );?>';
+    var _js_defines = new Array();
+</script>
 </head>
 <!--body:begin-->
 <body class="joo_flex">
