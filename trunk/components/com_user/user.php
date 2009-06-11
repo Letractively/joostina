@@ -12,6 +12,8 @@ defined('_VALID_MOS') or die();
 
 global $my,$task,$option;
 
+userHelper::_load_core_js();
+
 // Editor usertype check
 $access = new stdClass();
 $access->canEdit = $acl->acl_check('action','edit','users',$my->usertype,'content','all');
@@ -38,7 +40,7 @@ switch($task) {
 		break;
 
 	case 'cancel':
-		mosRedirect('index.php');
+		mosRedirect('index.php?option=com_user&task=profile&user='.mosGetParam( $_REQUEST, 'id', 0 ));
 		break;
 
     case 'profile':
@@ -105,7 +107,7 @@ function userEdit($option,$uid,$submitvalue) {
 	$file = $mainframe->getPath('com_xml','com_users');
 	$params = &new mosUserParameters($user->params,$file,'component');
 
-    $user_extra = new jstUsersExtra($database);
+    $user_extra = new userUsersExtra($database);
     $user_extra->load((int)$uid);
     $user->user_extra = $user_extra;
 
@@ -179,6 +181,15 @@ function userSave($option,$uid) {
 		echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
 		exit();
 	}
+	
+	$user_extra = new userUsersExtra($database);
+	$user_extra->load((int)$user_id);
+	if(!$user_extra->bind($_POST, $user_id)) {
+		echo "<script> alert('".$user_extra->getError()."'); window.history.go(-1); </script>\n";
+		exit();
+	}
+    $user_extra->store();
+    
 
 	// check if username has been changed
 	if($orig_username != $row->username) {

@@ -138,5 +138,6 @@ function profile($user,$option, &$params){
 	</table>
 <?php
  }
+
 }
 ?>

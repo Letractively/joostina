@@ -1,89 +1,9 @@
 <?php
 defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.' );
     //Подключение плагина валидации форм
-    mosCommonHTML::loadJqueryPlugins('jquery.validate');
+    mosCommonHTML::loadJqueryPlugins('jquery.validate', 'js');
 
-?>
-    <script language="javascript" type="text/javascript">
-
-    $(document).ready(function() {
-        $("#save").click(function () {
-            $("input#task").val('saveUserEdit');
-            $("#mosUserForm").submit();
-        });
-        $("#cancel").click(function () {
-            $("input#task").val('cancel');
-            $("#mosUserForm").submit();
-        });
-   });
-
-
-    $(document).ready(function(){
-        jQuery.validator.messages.required = "";
-        $("#mosUserForm").validate();
-  });
-  </script>
-
-   	<script language="javascript" type="text/javascript">
-		function submitbutton( pressbutton ) {
-			var form = document.mosUserForm;
-			var r = new RegExp("[\<|\>|\"|\'|\%|\;|\(|\)|\&|\+|\-]", "i");
-
-			// do field validation
-			if (form.name.value == "") {
-				alert( "<?php echo addslashes(_REGWARN_NAME); ?>" );
-			} else if (form.username.value == "") {
-				alert( "<?php echo addslashes(_REGWARN_UNAME); ?>" );
-			} else if (r.exec(form.username.value) || form.username.value.length < 3) {
-				alert( "<?php printf(addslashes(_VALID_AZ09),addslashes(_PROMPT_UNAME),4); ?>" );
-			} else if (form.email.value == "") {
-				alert( "<?php echo addslashes(_REGWARN_MAIL); ?>" );
-			} else if ((form.password.value != "") && (form.password.value != form.verifyPass.value)){
-				alert( "<?php echo addslashes(_REGWARN_VPASS2); ?>" );
-			} else if (r.exec(form.password.value)) {
-				alert( "<?php printf(addslashes(_VALID_AZ09),addslashes(_REGISTER_PASS),4); ?>" );
-			} else {
-				form.submit();
-			}
-		}
-
-
-		function startupload() {
-			SRAX.get('userav').src = 'images/system/aload.gif';
-			return true;
-		};
-		function funishupload(text) {
-			log(text);
-			if(text!='0'){
-				log('Всё ок!');
-				log(text);
-				SRAX.get('userav').src = text;
-			}
-			SRAX.get('mosUserForm').action='index.php';
-			SRAX.get('mosUserForm').target='';
-			SRAX.get('task').value='saveUserEdit';
-			SRAX.get('mosUserForm').reset();
-			return true;
-		};
-		function addavatar(){
-			SRAX.get('mosUserForm').action='ajax.index.php';
-			log(SRAX.get('mosUserForm').action);
-			SRAX.get('task').value='uploadavatar';
-			SRAX.Uploader('mosUserForm', startupload, funishupload, true);
-			return false;
-		}
-		function delavatar(){
-			log('Удаление аватара: ');
-			SRAX.get('userav').src = 'images/system/aload.gif';
-			dax({
-				url: 'ajax.index.php?option=com_user&utf=0&task=delavatar',
-				callback:
-					function(resp, idTread, status, ops){
-						log('Получен ответ: ' + resp.responseText);
-						SRAX.get('userav').src = resp.responseText;
-			}});
-		}
-		</script>
+?>   
 
 	<form action="index.php" method="post" name="mosUserForm" id="mosUserForm" enctype="multipart/form-data">
 	<div style="float: right;height: 100%;">
@@ -104,17 +24,17 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
 			<table width="100%">
 				<tr>
                     <td><label for="username"><?php echo _UNAME; ?></label></td>
-					<td><input class="inputbox" type="text" name="username" id="username" value="<?php echo $user->username; ?>"/></td>
+					<td><input class="inputbox required" type="text" name="username" id="username" value="<?php echo $user->username; ?>"/></td>
 
 				</tr>
 				<tr>
                     <td><label for="name"><?php echo _YOUR_NAME; ?></label></td>
-					<td><input class="inputbox" type="text" name="name" id="name" value="<?php echo $user->name; ?>"/></td>
+					<td><input class="inputbox required" type="text" name="name" id="name" value="<?php echo $user->name; ?>"/></td>
 
 				</tr>
 				<tr>
                     <td><label for="email"><?php echo _EMAIL; ?></label></td>
-					<td><input class="inputbox" type="text" name="email" id="email" value="<?php echo $user->email; ?>"/></td>
+					<td><input class="inputbox required" type="text" name="email" id="email" value="<?php echo $user->email; ?>"/></td>
 
 				</tr>
 				<tr>
@@ -144,16 +64,80 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
                         <?php echo mosHTML::yearSelectList('birthdate[year]','class="inputbox"', $bday_year);?>
                     </td>
 				</tr>
+				<tr>
+                    <td><label>О себе</label></td>
+					<td>
+                        <textarea class="inputbox" name="about" id="about"><?php echo $user->user_extra->about ?></textarea>
+                    </td>
+				</tr>
+				<tr>
+                    <td><label>Местоположение</label></td>
+					<td>
+                        <input class="inputbox" type="text" name="location" id="location" value="<?php echo $user->user_extra->location ?>"/>
+                    </td>
+				</tr>
 			</table>
 
             <br />
             <h3>Аватар</h3>
+            
+            <?php 
+            $form_params = new stdClass();
+            $form_params->id = 'avatar_uploadForm';
+            $form_params->img_field = 'avatar';
+            $form_params->img_path = 'images/avatars/';
+            $form_params->default_img = 'images/avatars/none.jpg';
+            $form_params->img_class = 'user_avatar';
+            
+			if(!$user->avatar){
+                userHelper::_build_img_upload_area($user, $form_params, 'upload');
+            } else {
+                userHelper::_build_img_upload_area($user, $form_params, 'reupload');
+            } ?>
+			
 
-			<div><img id="userav" src="<?php echo $mosConfig_live_site.mosUser::avatar($user->id,'big');?>" /></div>
-			<br />
-			<input class="inputbox" type="file" name="avatar" id="fileavatar" /><br /><br />
-			<button class="inputbox" onclick="addavatar(); return false;"><?php echo _TASK_UPLOAD?></button>
-			<button class="inputbox" onclick="delavatar(); return false;"><?php echo _CMN_DELETE?></button>
+   			<br />
+            <h3>Контактная информация</h3>
+			<table width="100%">
+				<tr>
+                    <td><label>Сайт</label></td>
+					<td><input class="inputbox" type="text" name="url" id="url" value="<?php echo $user->user_extra->url ?>"/></td>
+				</tr>
+				<tr>
+                    <td><label>ICQ</label></td>
+					<td><input class="inputbox" type="text" name="icq" id="icq" value="<?php echo $user->user_extra->icq ?>"/></td>
+				</tr>
+				<tr>
+                    <td><label>Skype</label></td>
+					<td><input class="inputbox" type="text" name="skype" id="skype" value="<?php echo $user->user_extra->skype ?>"/></td>
+				</tr>
+				<tr>
+                    <td><label>Jabber </label></td>
+					<td><input class="inputbox" type="text" name="jabber" id="jabber" value="<?php echo $user->user_extra->jabber ?>"/></td>
+				</tr>
+				<tr>
+                    <td><label>MSN</label></td>
+					<td><input class="inputbox" type="text" name="msn" id="msn" value="<?php echo $user->user_extra->msn ?>"/></td>
+				</tr>
+				<tr>
+                    <td><label>Yahoo</label></td>
+					<td><input class="inputbox" type="text" name="yahoo" id="yahoo" value="<?php echo $user->user_extra->yahoo ?>"/></td>
+				</tr>
+				<tr>
+                    <td><label>Телефон</label></td>
+					<td><input class="inputbox" type="text" name="phone" id="phone" value="<?php echo $user->user_extra->phone ?>"/></td>
+				</tr>
+				<tr>
+                    <td><label>Факс</label></td>
+					<td><input class="inputbox" type="text" name="fax" id="fax" value="<?php echo $user->user_extra->fax ?>"/></td>
+				</tr>
+				<tr>
+                    <td><label>Мобильный</label></td>
+					<td><input class="inputbox" type="text" name="mobil" id="mobil" value="<?php echo $user->user_extra->mobil ?>"/></td>
+				</tr>
+
+			</table>
+
 
 
 
@@ -161,7 +145,7 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
 <?php
 	$tabs->endTab();
 	if($mosConfig_frontend_userparams == '1' || $mosConfig_frontend_userparams == 1 ||$mosConfig_frontend_userparams == null) {
-	$tabs->startTab(_ADVANCED,"ext-page");
+	$tabs->startTab(_PROFILE_SITE_SETTINGS,"ext-page");
 ?>
 	<table cellpadding="5" cellspacing="0" border="0" width="100%">
 		<tr>
@@ -169,8 +153,9 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
 		</tr>
 	</table>
 <?php
-		}
-	$tabs->endTab();
+	$tabs->endTab();		
+	}
+	
 ?>
 	<input type="hidden" name="id" value="<?php echo $user->id; ?>" />
 	<input type="hidden" name="option" value="<?php echo $option; ?>" />

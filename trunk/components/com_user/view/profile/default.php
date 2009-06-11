@@ -24,7 +24,7 @@ $(document).ready(function() {
 
                             <?php if($owner){?>
                                 <span class="edit"><a class="edit" title="Редактировать" href="<?php echo $edit_info_link;?>">
-                                    Редактировать данные
+                                    Редактировать профиль
                                 </a></span>
                             <?php }  ?>
 
