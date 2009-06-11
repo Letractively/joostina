@@ -38,12 +38,12 @@ function profile($user,$option, &$params){
           $owner=1;
           $editable=' editable';
           $edit_info_link=sefRelToAbs('index.php?option=com_user&task=UserDetails&Itemid=17');
-          $avatar_pic='<img class="avatar" src="'.$mosConfig_live_site.mosUser::avatar($user->id,'big').'" />';
+          $avatar_pic='<img class="avatar" src="'.$mosConfig_live_site.mosUser::avatar($user,'big').'" />';
         }
 
         else{
           $editable='';
-          $avatar_pic=' <img class="avatar" src="'.$mosConfig_live_site.mosUser::avatar($user->id, 'big').'" /> ';
+          $avatar_pic=' <img class="avatar" src="'.$mosConfig_live_site.mosUser::avatar($user, 'big').'" /> ';
           $avatar_edit='';
         }
 

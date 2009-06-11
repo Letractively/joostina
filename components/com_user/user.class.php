@@ -294,6 +294,16 @@ class mosUser extends mosDBTable {
         $this->_db->loadObject($r);
         return $r;
     }
+    
+	/**
+	* Смена аватара
+	*/
+    
+    function update_avatar($id, $img){
+		$sql = 'UPDATE #__users SET avatar = \''.$img.'\' WHERE id='.$id;
+		$this->_db->setQuery($sql);
+		$this->_db->query();
+	}
 }
 
 class userUsersExtra extends mosDBTable{
@@ -345,7 +355,7 @@ class userHelper{
                 <script type="text/javascript">
                 $(document).ready(function() {
                     $("a#reupload_<?php echo $form_params->img_field;?>").click(function () {
-                        $(".upload_area_<?php echo $form_params->img_field;?>").removeClass("hidden");
+                        $(".upload_area_<?php echo $form_params->img_field;?>").css("display", "block");
                         $("#<?php echo $form_params->img_field;?>").addClass("required");
                         return false;
                     });
@@ -355,9 +365,9 @@ class userHelper{
             <?php if($state!='upload'){?>
                     <div id="current_<?php echo $form_params->img_field;?>">
                         <img class="site_img" src="<?php echo $mosConfig_live_site;?>/<?php echo $form_params->img_path;?>/<?php echo $obj->$field;?>" />
-                        <a  href="#" id="reupload_<?php echo $form_params->img_field;?>">Сменить favicon</a>
+                        <a  href="#" id="reupload_<?php echo $form_params->img_field;?>">Сменить</a>
                     </div>
-                    <div class="upload_area_<?php echo $form_params->img_field;?> hidden">
+                    <div class="upload_area_<?php echo $form_params->img_field;?> hidden" style="display:none;">
                         <?php echo self::_build_img_upload_form($obj, $form_params);?>
                     </div>
             <?php } else {
