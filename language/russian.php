@@ -256,6 +256,8 @@ DEFINE('_E_ITEM_SAVED','Успешно сохранено!');
 DEFINE('_ITEM_PREVIOUS','&laquo; ');
 DEFINE('_ITEM_NEXT',' &raquo;');
 DEFINE('_KEY_NOT_FOUND','Ключ не найден');
+DEFINE('_TAGS','Тэги:');
+DEFINE('_TAGS_NOT_DEFINED','Не заданы');
 
 
 /** content.php*/
