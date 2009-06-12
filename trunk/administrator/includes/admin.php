@@ -31,21 +31,24 @@ function mosCountAdminModules($position = 'left') {
 * @param int 0 = no style, 1 = tabbed
 */
 function mosLoadAdminModules($position = 'left',$style = 0) {
-	global $database,$acl,$my;
+	global $acl,$my;
 
-	$query = "SELECT id, title, module, position, content, showtitle, params"
-			."\n FROM #__modules AS m"
-			."\n WHERE m.published = 1"
-			."\n AND m.position = ".$database->Quote($position)
-			."\n AND m.client_id = 1"
-			."\n ORDER BY m.ordering";
-	$database->setQuery($query);
-	$modules = $database->loadObjectList();
+	static $all_modules;
+	if(!isset($all_modules)){
+		$database = &database::getInstance();
 
-	if($database->getErrorNum()) {
-		echo "MA ".$database->stderr(true);
-		return;
+		$query = "SELECT id, title, module, position, content, showtitle, params FROM #__modules AS m WHERE m.published = 1 AND m.client_id = 1 ORDER BY m.ordering";
+		$database->setQuery($query);
+		$_all_modules = $database->loadObjectList();
+
+		$all_modules = array();
+		foreach($_all_modules as $__all_modules){
+			$all_modules[$__all_modules->position][]=$__all_modules;
+		}
+		unset($_all_modules,$__all_modules);
 	}
+
+	$modules = isset($all_modules[$position]) ? $all_modules[$position] : array();
 
 	switch($style) {
 		case 1:
@@ -56,8 +59,7 @@ function mosLoadAdminModules($position = 'left',$style = 0) {
 				$params = new mosParameters($module->params);
 				$editAllComponents = $acl->acl_check('administration','edit','users',$my->usertype,'components','all');
 				// special handling for components module
-				if($module->module != 'mod_components' || ($module->module == 'mod_components' &&
-					$editAllComponents)) {
+				if($module->module != 'mod_components' || ($module->module == 'mod_components' && $editAllComponents)) {
 					$tabs->startTab($module->title,'module'.$module->id);
 					if($module->module == '') {
 						mosLoadCustomModule($module,$params);
@@ -336,27 +338,23 @@ function josSecurityCheck($width = '95%') {
 	// проверка регистрации глобальных переменных
 	if(ini_get('register_globals') == '1')$wrongSettingsTexts[] = _PHP_REGISTER_GLOBALS_ON_OFF;
 	// проверка активированности внутренней системы защиты
-	if(RG_EMULATION != 0) $wrongSettingsTexts[] =	_RG_EMULATION_ON_OFF;
+	if(RG_EMULATION != 0) $wrongSettingsTexts[] = _RG_EMULATION_ON_OFF;
 
 	if(count($wrongSettingsTexts)) {
 ?>
-		<div style="clear: both; margin: 3px; margin-top: 10px; padding: 5px 15px; display: block; float: left; border: 1px solid #cc0000; background: #ffffcc; text-align: left; width: <?php echo $width; ?>;">
-			<p style="color: #CC0000;">
-				<?php echo _PHP_SETTINGS_WARNING?>:
-			</p>
+		<div style="width: <?php echo $width; ?>;" class="jwarning">
+			<h3 style="color:#484848"><?php echo _PHP_SETTINGS_WARNING?>:</h3>
 			<ul style="margin: 0px; padding: 0px; padding-left: 15px; list-style: none;" >
 <?php
 				foreach($wrongSettingsTexts as $txt) {
 ?>	
-				<li style="min-height: 25px; padding-bottom: 5px; padding-left: 25px; color: red; font-weight: bold; background-image: url(../includes/js/ThemeOffice/warning.png); background-repeat: no-repeat; background-position: 0px 2px;" >
-					<?php echo $txt;?>
-				</li>
+				<li style="font-size: 12px; color: red;"><b><?php echo $txt;?></b></li>
 <?php
 		}
 ?>
 			</ul>
 		</div>
-		<?php
+<?php
 	}
 }
 
@@ -366,7 +364,7 @@ function js_menu_cache_clear() {
 	if(!$mosConfig_adm_menu_cache) return;
 	$usertype = str_replace(' ','_',$my->usertype);
 	$menuname = md5($usertype.$mosConfig_secret);
-	$file = $mosConfig_absolute_path."/cache/adm_menu_".$menuname.".js";
+	$file = $mosConfig_absolute_path.'/cache/adm_menu_'.$menuname.'.js';
 	if(file_exists($file)) {
 		if(unlink($file))
 			echo joost_info(_MENU_CACHE_CLEANED);

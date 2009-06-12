@@ -38,10 +38,10 @@ function getByType( $type, $id='' ){
 	switch( $type ){
 		case 'section_link':
 			$label = $pl['select_section'];
-			$onchange = "insertLink(this.value);";			
+			$onchange = "insertLink(this.value);";
 			$html = '<select class="link_select" name="' . $type . '" onchange="' . $onchange . '">';
 			$html .= '<option value="">--' . $pl['select_section'] . '--</option>';
-			foreach( $section_content as $section ){			
+			foreach( $section_content as $section ){
 				$html .= '<option value="index.php?option=com_content&amp;task=view&amp;id=' . $section->value . '">' . $section->text . '</option>';
 			}
 			break;
@@ -49,7 +49,7 @@ function getByType( $type, $id='' ){
 		case 'section_select_article':
 			$label = $pl['select_section'];
 			$this_type = ( $type == 'section_select_category' ) ? 'category_link' : 'category_select_article';
-			$onchange = "if(this.value!=''){loadType('". $this_type ."', this.value);}";						
+			$onchange = "if(this.value!=''){loadType('". $this_type ."', this.value);}";
 			$html = '<select class="link_select" name="' . $type . '" onchange="' . $onchange . '">';
 			$html .= '<option value="">--' . $pl['select_section'] . '--</option>';
 			foreach( $section_content as $section ){
@@ -87,7 +87,7 @@ function getByType( $type, $id='' ){
 			$label = $pl['select_category'];
 			$category_content = getCategory( $id );
 			$html = '<select class="link_select" name="' . $type . '" onchange="' . $onchange . '">';
-			$html .= '<option value="">--' . $pl['select_category'] . '--</option>';		
+			$html .= '<option value="">--' . $pl['select_category'] . '--</option>';
 			foreach( $category_content as $content ){
 				$html .= '<option value="' . $content->value . '">' . $content->text . '</option>';
 			}
@@ -98,7 +98,7 @@ function getByType( $type, $id='' ){
 			$onchange = "insertLink(this.value);";
 			$div = 'list_level_3';
 			$html = '<select class="link_select" name="' . $type . '" onchange="' . $onchange . '">';
-			$html .= '<option value="">--' . $pl['select_article'] . '--</option>';		
+			$html .= '<option value="">--' . $pl['select_article'] . '--</option>';
 			foreach( $article_content as $article ){
 				$itemid = $mainframe->getItemId( $article->value );
 				if( !$itemid ) $itemid = '1'; 
@@ -111,7 +111,7 @@ function getByType( $type, $id='' ){
 			$onchange = "insertLink(this.value);";
 			$div = 'list_level_2';
 			$html = '<select class="link_select" name="' . $type . '" onchange="' . $onchange . '">';
-			$html .= '<option value="">--' . $pl['select_weblink'] . '--</option>';		
+			$html .= '<option value="">--' . $pl['select_weblink'] . '--</option>';
 			foreach( $weblink_content as $weblink ){
 				$html .= '<option value="index.php?option=com_weblinks&task=view&catid=' .$id  . '&amp;id=' . $weblink->value . '">' . $weblink->text . '</option>';
 			}
@@ -122,37 +122,37 @@ function getByType( $type, $id='' ){
 			$onchange = "insertLink(this.value);";
 			$div = 'list_level_2';
 			$html = '<select class="link_select" name="' . $type . '" onchange="' . $onchange . '">';
-			$html .= '<option value="">--' . $pl['select_contact'] . '--</option>';		
+			$html .= '<option value="">--' . $pl['select_contact'] . '--</option>';
 			foreach( $contact_content as $contact ){
 				$itemid = $mainframe->getItemId( $contact->value );
 				if( !$itemid ) $itemid = '1'; 
 				$html .= '<option value="index.php?option=com_contact&amp;task=view&amp;contact_id=' . $contact->value. '&amp;Itemid="' . $itemid . '>' . $contact->text . '</option>';
 			}
 			break;
-		case 'static_link':			
-			$static_list = getStatic();			
+		case 'static_link':
+			$static_list = getStatic();
 			$onchange = "insertLink(this.value);";
 			$div = 'list_level_1';
 			$label = $pl['select_static'];
 			$html = '<select class="link_select" name="' . $type . '" onchange="' . $onchange . '">';
-			$html .= '<option value="">--' . $pl['select_static'] . '--</option>';		
+			$html .= '<option value="">--' . $pl['select_static'] . '--</option>';
 			foreach( $static_list as $static ){
 				$itemid = $mainframe->getItemId( $static->value );
 				if( !$itemid ) $itemid = '1'; 
 				$html .= '<option value="index.php?option=com_content&amp;task=view&amp;id=' . $static->value . '&amp;Itemid=' . $itemid . '">' . $static->text . '</option>';
-			}			
+			}
 			break;
 		case 'menu_link':
-			$menu_list = getMenu();			
+			$menu_list = getMenu();
 			$onchange = "insertLink(this.value);";
 			$div = 'list_level_1';
 			$label = $pl['select_menu'];
 			$html = '<select class="link_select" name="' . $type . '" onchange="' . $onchange . '">';
-			$html .= '<option value="">--' . $pl['select_menu'] . '--</option>';		
+			$html .= '<option value="">--' . $pl['select_menu'] . '--</option>';
 			foreach( $menu_list as $menu ){
-				$itemid = ( strpos( $menu->href, '://' ) ) ? '' : '&Itemid=' . $menu->value;			
+				$itemid = ( strpos( $menu->href, '://' ) ) ? '' : '&Itemid=' . $menu->value;
 				$html .= '<option value="' . $menu->href . $itemid . '">' . $menu->text . '</option>';
-			}				
+			}
 			break;
 	}
 	$html .= '</select>';
@@ -164,9 +164,8 @@ function getSection(){
 			 FROM #__sections AS a
 			 WHERE a.published = '1' AND a.scope='content'
 			 ORDER BY a.id";
-	
 			$database->setQuery( $query );
-			$section_content = $database->loadObjectList( );		
+			$section_content = $database->loadObjectList( );
 			
 	return $section_content;
 }
@@ -178,7 +177,7 @@ function getCategory( $sid ){
 			 ORDER BY a.id";
 	
 			$database->setQuery( $query );
-			$category_content = $database->loadObjectList( );		
+			$category_content = $database->loadObjectList( );
 			
 	return $category_content;
 }
