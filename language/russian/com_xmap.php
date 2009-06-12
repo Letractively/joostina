@@ -177,7 +177,7 @@ if( !defined( 'JOOMAP_LANG' )) {
 	define('_PUBLICATION', 'Публикация');
 	define('_VERSION', 'Версия');
 	define('_REMOVAL', 'Удаление');
-	define('_DATE', 'Дата');
+	//define('_DATE', 'Дата');
 
 
 }
