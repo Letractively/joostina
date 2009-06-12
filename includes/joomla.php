@@ -661,7 +661,7 @@ class mosMainFrame {
 				// update session timestamp
 				$query = "UPDATE #__session SET time = ".$this->_db->Quote($current_time)." WHERE session_id = ".$this->_db->Quote($session_id);
 				$this->_db->setQuery($query);
-				$this->_db->query();
+				$_config->config_admin_autologout==1 ? $this->_db->query() : null;
 
 				// set garbage cleaning timeout
 				$this->setSessionGarbageClean();
@@ -671,7 +671,7 @@ class mosMainFrame {
 				$this->_db->setQuery($query);
 				$count = ($_config->config_admin_autologout==1) ? $this->_db->loadResult() : 1;
 
-				// если в таблиц
+				// если в таблице
 				if($count == 0) {
 					$link = null;
 					if($_SERVER['QUERY_STRING']) {
@@ -681,7 +681,7 @@ class mosMainFrame {
 					// check if site designated as a production site
 					// for a demo site disallow expired page functionality
 					// link must also be a Joomla link to stop malicious redirection
-					if($link && strpos($link,'index2.php?option=com_') === 0 && $_VERSION->SITE == 1 && $_config->config_admin_expired == 1) {
+					if($link && strpos($link,'index2.php?option=com_') === 0 && $_VERSION->SITE == 1) {
 						$now = time();
 
 						$file = $this->getPath('com_xml','com_users');
@@ -1081,11 +1081,15 @@ class mosMainFrame {
 		}
 
 		if($isAdmin) {
-			$query = 'SELECT template FROM #__templates_menu WHERE client_id = 1 AND menuid = 0';
-			$this->_db->setQuery($query);
-			$cur_template = $this->_db->loadResult();
-			$path = $config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY.DS.'templates'.DS.$cur_template.DS.'index.php';
-			if(!file_exists($path)) {
+			if($config->config_admin_template=='...'){
+				$query = 'SELECT template FROM #__templates_menu WHERE client_id = 1 AND menuid = 0';
+				$this->_db->setQuery($query);
+				$cur_template = $this->_db->loadResult();
+				$path = $config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY.DS.'templates'.DS.$cur_template.DS.'index.php';
+				if(!file_exists($path)) {
+					$cur_template = 'joostfree';
+				}
+			}else{
 				$cur_template = 'joostfree';
 			}
 		} else {
@@ -2011,6 +2015,9 @@ class JConfig {
 	var $config_use_unpublished_mambots = 1;
 	/** @var int использование неопубликованных мамботов */
 	var $config_use_content_delete_mambots = 1;
+	/** @var str название шаблона панели управления */
+	var $config_admin_template = '...';
+
 
 
 	// инициализация класса конфигурации - собираем переменные конфигурации

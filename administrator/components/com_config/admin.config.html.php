@@ -558,6 +558,15 @@ $comp_list = mosHTML::selectList($out_components_arr,'component','','name','name
 						echo mosToolTip(_HTML_CSS_EDITOR2); ?>
 				</td>
 			</tr>
+			<tr>
+				<td><?php echo _USE_TEMPLATE?>:</td>
+				<td><?php echo $lists['config_admin_template'];
+						$tip = _USE_TEMPLATE2;
+						echo mosToolTip($tip);
+?>
+				</td>
+			</tr>
+
 		</table>
 <?php
 		$tabs->endTab();

@@ -510,8 +510,32 @@ function showconfig($option) {
 	// использование неопубликованных мамботов
 	$lists['config_use_unpublished_mambots']= mosHTML::yesnoRadioList('config_use_unpublished_mambots','class="inputbox"',$row->config_use_unpublished_mambots);
 
-	// boston, отключение syndicate
+	// отключение syndicate
 	$lists['syndicate_off']= mosHTML::yesnoRadioList('config_syndicate_off','class="inputbox"',$row->config_syndicate_off);
+
+	// список шаблонов панели управления
+	$titlelength = 20;
+	$admin_template_path = $mosConfig_absolute_path.DS.'administrator'.DS.'templates';
+	$templatefolder = @dir($admin_template_path);
+
+	$admin_templates = array();
+	$admin_templates[]= mosHTML::makeOption('...',_O_OTHER); // параметр по умолчанию - позволяет использовать стандартный способ определения шаблона
+	if($templatefolder) {
+		while($templatefile = $templatefolder->read()) {
+			if($templatefile != "." && $templatefile != ".." && $templatefile != ".svn" && is_dir($admin_template_path.DS.$templatefile)) {
+				if(strlen($templatefile) > $titlelength) {
+					$templatename = substr($templatefile,0,$titlelength - 3);
+					$templatename .= "...";
+				} else {
+					$templatename = $templatefile;
+				}
+				$admin_templates[]= mosHTML::makeOption($templatefile,$templatename);
+			}
+		}
+		$templatefolder->close();
+	}
+	sort($admin_templates);
+	$lists['config_admin_template']= mosHTML::selectList($admin_templates,'config_admin_template','class="inputbox" ','value','text',$row->config_admin_template);
 
 	HTML_config::showconfig($row,$lists,$option);
 }
