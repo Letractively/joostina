@@ -123,7 +123,6 @@ function jceEditorInit() {
 	$row4 = $jce->getRow( 4 );
 	$row5 = $jce->getRow( 5 );
 
-	$jce_langs = $jce->getLangs();
 	$jce_curr_lang = $jce->getLanguage();
 	$invalid_elements = implode( ',', $invalid_elements );
 
@@ -160,7 +159,6 @@ function jceEditorInit() {
 		document_base_url: \"" . $base_url . "/\",
 		theme : \"advanced\",
 		language : \"" . $jce_curr_lang . "\",
-		lang_list : \"" . $jce_langs . "\",
 		width : \"" . $editor_width . "\",
 		height : \"" . $editor_height . "\",
 		mode : \"specific_textareas\",

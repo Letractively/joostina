@@ -69,7 +69,7 @@ $jce->processAjax();
 						<td>
 						<table border="0" cellspacing="0" cellpadding="0">
 							<tr>
-								<td colspan="2"><input id="href" name="href" type="text" value="" size="150" /></td>
+								<td colspan="2"><input id="href" name="href" type="text" value="" size="200" /></td>
 							</tr>
 						</table>
 						</td>
@@ -84,7 +84,7 @@ $jce->processAjax();
 								<option value="_self"><?php echo $jce->translate('self');?></option>
 								<option value="_blank"><?php echo $jce->translate('blank');?></option>
 								<option value="_parent"><?php echo $jce->translate('parent');?></option>
-								<option value="_top"><?php echo $jce->translate('top');?></option>								
+								<option value="_top"><?php echo $jce->translate('top');?></option>
 							</select>
 						</td>
 					</tr>

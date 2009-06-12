@@ -2026,11 +2026,11 @@ DEFINE('_USER_WHO_ADD_CONTENT','Добавил');
 
 /* administrator modules mod_latest_users */
 DEFINE('_NOW_ON_SITE','Сейчас на сайте');
-DEFINE('_REGISTERED_USERS_COUNT','Зарегистрировано');
-DEFINE('_ALL_REGISTERED_USERS_COUNT','Всего');
-DEFINE('_TODAY_REGISTERED_USERS_COUNT','За сегодня');
-DEFINE('_WEEK_REGISTERED_USERS_COUNT','За неделю');
-DEFINE('_MONTH_REGISTERED_USERS_COUNT','За месяц');
+DEFINE('_REGISTERED_USERS_COUNT','Регистраций');
+DEFINE('_ALL_REGISTERED_USERS_COUNT','всего');
+DEFINE('_TODAY_REGISTERED_USERS_COUNT','за сегодня');
+DEFINE('_WEEK_REGISTERED_USERS_COUNT','за неделю');
+DEFINE('_MONTH_REGISTERED_USERS_COUNT','за месяц');
 
 /* administrator modules mod_logged */
 DEFINE('_NOW_ON_SITE_REGISTERED','Сейчас на сайте авторизованы');

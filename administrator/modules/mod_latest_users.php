@@ -96,7 +96,7 @@ unset($rows,$row);
 $text = '';
 $text .= $show_logged	? _NOW_ON_SITE.': <b>'.$show_logged. '</b><br />':null;
 if($show_total or $show_today or $show_week or $show_month ){
-	$text .= _REGISTERED_USERS_COUNT.': ';
+	$text .= _REGISTERED_USERS_COUNT.' ';
 };
 $text .= $show_total	? _ALL_REGISTERED_USERS_COUNT.': <b>'.$show_total. '</b>, ':null;
 $text .= $show_today	? _TODAY_REGISTERED_USERS_COUNT.': <b>'.$show_today. '</b>, ':null;

@@ -51,8 +51,8 @@ var TinyMCE_AdvancedLinkPlugin = {
 					var template = new Array();
 
 					template['file']   =  tinyMCE.getParam('site')+'/index2.php?option=com_jce&no_html=1&task=plugin&plugin=advlink&file=link.php';
-					template['width']  = 460;
-					template['height'] = 465;
+					template['width']  = 600;
+					template['height'] = 650;
 
 					// Language specific width and height addons
 					template['width']  += tinyMCE.getLang('lang_advlink_delta_width', 0);

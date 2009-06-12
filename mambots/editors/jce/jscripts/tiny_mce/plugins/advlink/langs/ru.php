@@ -1,77 +1,77 @@
 <?php
-// Ðóññêàÿ ëîêàëèçàöèÿ
+// Ð ÑƒÑÑÐºÐ°Ñ Ð»Ð¾ÐºÐ°Ð»Ð¸Ð·Ð°Ñ†Ð¸Ñ
 $pl['title'] = 'Advanced Link';
-$pl['content'] = 'Ññûëêè íà êîíòåíò Joomla!';
-$pl['article'] = 'Ñòàòüÿ';
-$pl['section'] = 'Ðàçäåë';
-$pl['category'] = 'Êàòåãîðèÿ';
-$pl['static'] = 'Ñòàòè÷íûé ìàòåðèàë';
-$pl['contact'] = 'Êîíòàêò';
-$pl['menu'] = 'Ìåíþ';
-$pl['weblink'] = 'Âåá-ññûëêà';
+$pl['content'] = 'Ð¡ÑÑ‹Ð»ÐºÐ¸ Ð½Ð° ÐºÐ¾Ð½Ñ‚ÐµÐ½Ñ‚ Joostina!';
+$pl['article'] = 'Ð¡Ñ‚Ð°Ñ‚ÑŒÑ';
+$pl['section'] = 'Ð Ð°Ð·Ð´ÐµÐ»';
+$pl['category'] = 'ÐšÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸Ñ';
+$pl['static'] = 'Ð¡Ñ‚Ð°Ñ‚Ð¸Ñ‡Ð½Ñ‹Ð¹ Ð¼Ð°Ñ‚ÐµÑ€Ð¸Ð°Ð»';
+$pl['contact'] = 'ÐšÐ¾Ð½Ñ‚Ð°ÐºÑ‚';
+$pl['menu'] = 'ÐœÐµÐ½ÑŽ';
+$pl['weblink'] = 'Ð’ÐµÐ±-ÑÑÑ‹Ð»ÐºÐ°';
 
 //1.1
-$pl['select_link_type'] = 'Âûáåðèòå òèï ññûëêè';
-$pl['select_menu'] = 'Âûáåðèòå ìåíþ';
-$pl['select_weblink'] = 'Âûáåðèòå âåá-ññûëêó';
+$pl['select_link_type'] = 'Ð’Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ Ñ‚Ð¸Ð¿ ÑÑÑ‹Ð»ÐºÐ¸';
+$pl['select_menu'] = 'Ð’Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ Ð¼ÐµÐ½ÑŽ';
+$pl['select_weblink'] = 'Ð’Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ Ð²ÐµÐ±-ÑÑÑ‹Ð»ÐºÑƒ';
 
-$pl['select_article'] = 'Âûáåðèòå ñòàòüþ';
-$pl['select_section'] = 'Âûáåðèòå ðàçäåë';
-$pl['select_category'] = 'Âûáåðèòå êàòåãîðèþ';
-$pl['select_static'] = 'Âûáåðèòå ñòàòè÷íûé ìàòåðèàë';
-$pl['select_contact'] = 'Âûáåðèòå êîíòàêò';
+$pl['select_article'] = 'Ð’Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ ÑÑ‚Ð°Ñ‚ÑŒÑŽ';
+$pl['select_section'] = 'Ð’Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ Ñ€Ð°Ð·Ð´ÐµÐ»';
+$pl['select_category'] = 'Ð’Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ ÐºÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸ÑŽ';
+$pl['select_static'] = 'Ð’Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ ÑÑ‚Ð°Ñ‚Ð¸Ñ‡Ð½Ñ‹Ð¹ Ð¼Ð°Ñ‚ÐµÑ€Ð¸Ð°Ð»';
+$pl['select_contact'] = 'Ð’Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ ÐºÐ¾Ð½Ñ‚Ð°ÐºÑ‚';
 
 
-$pl['search'] = 'Ïîèñê';
-$pl['order'] = 'Óïîðÿäî÷èòü';
-$pl['key'] = 'Êëþ÷';
+$pl['search'] = 'ÐŸÐ¾Ð¸ÑÐº';
+$pl['order'] = 'Ð£Ð¿Ð¾Ñ€ÑÐ´Ð¾Ñ‡Ð¸Ñ‚ÑŒ';
+$pl['key'] = 'ÐšÐ»ÑŽÑ‡';
 
-$pl['email'] = 'E-Mail àäðåñ';
-$pl['address'] = 'Àäðåñ';
-$pl['subject'] = 'Òåìà';
-$pl['create'] = 'Ñîçäàòü';
+$pl['email'] = 'E-Mail Ð°Ð´Ñ€ÐµÑ';
+$pl['address'] = 'ÐÐ´Ñ€ÐµÑ';
+$pl['subject'] = 'Ð¢ÐµÐ¼Ð°';
+$pl['create'] = 'Ð¡Ð¾Ð·Ð´Ð°Ñ‚ÑŒ';
 
-$pl['favourites'] = 'Èçáðàííîå';
-$pl['add_fav'] = 'Äîáàâèòü â Èçáðàííîå';
-$pl['del_fav'] = 'Óäàëèòü èç Èçáðàííîãî';
+$pl['favourites'] = 'Ð˜Ð·Ð±Ñ€Ð°Ð½Ð½Ð¾Ðµ';
+$pl['add_fav'] = 'Ð”Ð¾Ð±Ð°Ð²Ð¸Ñ‚ÑŒ Ð² Ð˜Ð·Ð±Ñ€Ð°Ð½Ð½Ð¾Ðµ';
+$pl['del_fav'] = 'Ð£Ð´Ð°Ð»Ð¸Ñ‚ÑŒ Ð¸Ð· Ð˜Ð·Ð±Ñ€Ð°Ð½Ð½Ð¾Ð³Ð¾';
 
-$pl['general_tab'] = 'Îáùèå';
-$pl['popup_tab'] = 'Âñïëûâàþùåå îêíî';
-$pl['events_tab'] = 'Ñîáûòèÿ';
-$pl['advanced_tab'] = 'Äîïîëíèòåëüíî';
+$pl['general_tab'] = 'ÐžÐ±Ñ‰Ð¸Ðµ';
+$pl['popup_tab'] = 'Ð’ÑÐ¿Ð»Ñ‹Ð²Ð°ÑŽÑ‰ÐµÐµ Ð¾ÐºÐ½Ð¾';
+$pl['events_tab'] = 'Ð¡Ð¾Ð±Ñ‹Ñ‚Ð¸Ñ';
+$pl['advanced_tab'] = 'Ð”Ð¾Ð¿Ð¾Ð»Ð½Ð¸Ñ‚ÐµÐ»ÑŒÐ½Ð¾';
 
-$pl['anchors'] = 'ßêîðÿ';
-$pl['popup'] = 'Âñïëûâàþùåå îêíî';
-$pl['popup_name'] = 'Èìÿ îêíà';
-$pl['popup_size'] = 'Ðàçìåð';
-$pl['popup_position'] = 'Ïîçèöèÿ (X/Y)';
-$pl['popup_position_centre'] = 'c / c = öåíòð';
-$pl['popup_options'] = 'Ñâîéñòâà';
-$pl['popup_location'] = 'Ïîêàçûâàòü àäðåñ';
-$pl['popup_menubar'] = 'Ïîêàçûâàòü ìåíþ';
-$pl['popup_toolbar'] = 'Ïîêàçûâàòü èíñòðóìåíòû';
-$pl['popup_scrollbars'] = 'Ïîêàçûâàòü ïðîêðóòêó';
-$pl['popup_statusbar'] = 'Ïîêàçûâàòü ñòðîêó ñîñòîÿíèÿ';
-$pl['popup_resizeable'] = 'Ñäåëàòü ðàçìåðû îêíà èçìåíÿåìûìè';
-$pl['popup_dependant'] = 'Çàâèñèìîå (òîëüêî äëÿ Mozilla/Firefox)';
-$pl['popup_return'] = 'Âñòàâèòü \'return false\'';
+$pl['anchors'] = 'Ð¯ÐºÐ¾Ñ€Ñ';
+$pl['popup'] = 'Ð’ÑÐ¿Ð»Ñ‹Ð²Ð°ÑŽÑ‰ÐµÐµ Ð¾ÐºÐ½Ð¾';
+$pl['popup_name'] = 'Ð˜Ð¼Ñ Ð¾ÐºÐ½Ð°';
+$pl['popup_size'] = 'Ð Ð°Ð·Ð¼ÐµÑ€';
+$pl['popup_position'] = 'ÐŸÐ¾Ð·Ð¸Ñ†Ð¸Ñ (X/Y)';
+$pl['popup_position_centre'] = 'c / c = Ñ†ÐµÐ½Ñ‚Ñ€';
+$pl['popup_options'] = 'Ð¡Ð²Ð¾Ð¹ÑÑ‚Ð²Ð°';
+$pl['popup_location'] = 'ÐŸÐ¾ÐºÐ°Ð·Ñ‹Ð²Ð°Ñ‚ÑŒ Ð°Ð´Ñ€ÐµÑ';
+$pl['popup_menubar'] = 'ÐŸÐ¾ÐºÐ°Ð·Ñ‹Ð²Ð°Ñ‚ÑŒ Ð¼ÐµÐ½ÑŽ';
+$pl['popup_toolbar'] = 'ÐŸÐ¾ÐºÐ°Ð·Ñ‹Ð²Ð°Ñ‚ÑŒ Ð¸Ð½ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½Ñ‚Ñ‹';
+$pl['popup_scrollbars'] = 'ÐŸÐ¾ÐºÐ°Ð·Ñ‹Ð²Ð°Ñ‚ÑŒ Ð¿Ñ€Ð¾ÐºÑ€ÑƒÑ‚ÐºÑƒ';
+$pl['popup_statusbar'] = 'ÐŸÐ¾ÐºÐ°Ð·Ñ‹Ð²Ð°Ñ‚ÑŒ ÑÑ‚Ñ€Ð¾ÐºÑƒ ÑÐ¾ÑÑ‚Ð¾ÑÐ½Ð¸Ñ';
+$pl['popup_resizeable'] = 'Ð¡Ð´ÐµÐ»Ð°Ñ‚ÑŒ Ñ€Ð°Ð·Ð¼ÐµÑ€Ñ‹ Ð¾ÐºÐ½Ð° Ð¸Ð·Ð¼ÐµÐ½ÑÐµÐ¼Ñ‹Ð¼Ð¸';
+$pl['popup_dependant'] = 'Ð—Ð°Ð²Ð¸ÑÐ¸Ð¼Ð¾Ðµ (Ñ‚Ð¾Ð»ÑŒÐºÐ¾ Ð´Ð»Ñ Mozilla/Firefox)';
+$pl['popup_return'] = 'Ð’ÑÑ‚Ð°Ð²Ð¸Ñ‚ÑŒ \'return false\'';
 
-$pl['advanced_target_name'] = 'Èìÿ öåëè ññûëêè';
-$pl['advanced_target_langcode'] = 'ßçûê öåëè ññûëêè';
-$pl['advanced_langcode'] = 'Êîä ÿçûêà';
-$pl['advanced_encoding'] = 'Êîäèðîâêà öåëè ññûëêè';
-$pl['advanced_mime'] = 'Òèï MIME öåëè ññûëêè';
-$pl['advanced_rel'] = 'Îòíîøåíèå òåêóùåé ñòðàíèöû ê öåëè ññûëêè';
-$pl['advanced_rev'] = 'Îòíîøåíèå öåëè ññûëêè ê òåêóùåé ñòðàíèöå';
-$pl['advanced_tabindex'] = 'Tabindex';
-$pl['advanced_accesskey'] = 'Accesskey';
+$pl['advanced_target_name'] = 'Ð˜Ð¼Ñ Ñ†ÐµÐ»Ð¸ ÑÑÑ‹Ð»ÐºÐ¸';
+$pl['advanced_target_langcode'] = 'Ð¯Ð·Ñ‹Ðº Ñ†ÐµÐ»Ð¸ ÑÑÑ‹Ð»ÐºÐ¸';
+$pl['advanced_langcode'] = 'ÐšÐ¾Ð´ ÑÐ·Ñ‹ÐºÐ°';
+$pl['advanced_encoding'] = 'ÐšÐ¾Ð´Ð¸Ñ€Ð¾Ð²ÐºÐ° Ñ†ÐµÐ»Ð¸ ÑÑÑ‹Ð»ÐºÐ¸';
+$pl['advanced_mime'] = 'Ð¢Ð¸Ð¿ MIME Ñ†ÐµÐ»Ð¸ ÑÑÑ‹Ð»ÐºÐ¸';
+$pl['advanced_rel'] = 'ÐžÑ‚Ð½Ð¾ÑˆÐµÐ½Ð¸Ðµ Ñ‚ÐµÐºÑƒÑ‰ÐµÐ¹ ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñ‹ Ðº Ñ†ÐµÐ»Ð¸ ÑÑÑ‹Ð»ÐºÐ¸';
+$pl['advanced_rev'] = 'ÐžÑ‚Ð½Ð¾ÑˆÐµÐ½Ð¸Ðµ Ñ†ÐµÐ»Ð¸ ÑÑÑ‹Ð»ÐºÐ¸ Ðº Ñ‚ÐµÐºÑƒÑ‰ÐµÐ¹ ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ðµ';
+$pl['advanced_tabindex'] = 'ÐŸÐ¾ÑÐ»ÐµÐ´Ð¾Ð²Ð°Ñ‚ÐµÐ»ÑŒÐ½Ð¾ÑÑ‚ÑŒ Ñ‚Ð°Ð±ÑƒÐ»ÑÑ†Ð¸Ð¸';
+$pl['advanced_accesskey'] = 'ÐšÐ½Ð¾Ð¿ÐºÐ° Ð²Ñ‹Ð·Ð¾Ð²Ñƒ';
 
 //Help Index and Titles
-$ph['about'] = 'Î ïðèëîæåíèè';
-$ph['interface'] = 'Èíòåðôåéñ';
-$ph['events'] = 'Ñîáûòèÿ';
-$ph['advanced'] = 'äîïîëíèòåëüíî';
-$ph['joomla'] = 'Ññûëêè íà êîíòåíò Joomla!';
-$ph['insert'] = 'Âñòàâèòü/Îáíîâèòü';
+$ph['about'] = 'Ðž Ð¿Ñ€Ð¸Ð»Ð¾Ð¶ÐµÐ½Ð¸Ð¸';
+$ph['interface'] = 'Ð˜Ð½Ñ‚ÐµÑ€Ñ„ÐµÐ¹Ñ';
+$ph['events'] = 'Ð¡Ð¾Ð±Ñ‹Ñ‚Ð¸Ñ';
+$ph['advanced'] = 'Ð´Ð¾Ð¿Ð¾Ð»Ð½Ð¸Ñ‚ÐµÐ»ÑŒÐ½Ð¾';
+$ph['joomla'] = 'Ð¡ÑÑ‹Ð»ÐºÐ¸ Ð½Ð° ÐºÐ¾Ð½Ñ‚ÐµÐ½Ñ‚ Joostina!';
+$ph['insert'] = 'Ð’ÑÑ‚Ð°Ð²Ð¸Ñ‚ÑŒ/ÐžÐ±Ð½Ð¾Ð²Ð¸Ñ‚ÑŒ';
 $ph['email'] = 'E-mail';
 ?>
