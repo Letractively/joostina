@@ -78,7 +78,7 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
        <?php  }?>
 
        <div class="tags">
-            <span class="tags">Тэги:</span>     <?php echo isset($row->tags) ? $row->tags : 'Не заданы';?>
+            <span class="tags"><?php echo _TAGS; ?></span>     <?php echo isset($row->tags) ? $row->tags : _TAGS_NOT_DEFINED;?>
        </div>
 
         <?php if($params->get('modifydate')) { ?>
