@@ -427,12 +427,12 @@ class XmapAdminHtml {
 		if (count($rows)) {?>
 			<form action="index2.php" method="post" name="installedPlugins">
 			<table class="adminlist" width="100%">
-				<th>Название расширения</th>
-				<th>Публикация</th>
-				<th>Версия</th>
+				<th><?php echo _EXTENSION_NAME;?></th>
+				<th><?php echo _PUBLICATION;?></th>
+				<th><?php echo _VERSION;?></th>
 				<th><?php echo _XMAP_AUTHOR;?></th>
-				<th>Удаление</th>
-				<th>Дата</th>
+				<th><?php echo _REMOVAL;?></th>
+				<th><?php echo _DATE;?></th>
 <?php
 			$rc = 0;
 			$k = 0;
