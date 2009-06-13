@@ -11,36 +11,19 @@
 defined('_VALID_MOS') or die();
 require_once ($mainframe->getPath('front_html','com_content'));
 
-global $gid,$task,$Itemid,$option,$my;
+global $task,$Itemid,$option,$my;
 
 //Подключаем js com_content-а
 contentHelper::_load_core_js();
 
-$id			= intval(mosGetParam($_REQUEST,'id',0));
-$sectionid	= intval(mosGetParam($_REQUEST,'sectionid',0));
-$pop		= intval(mosGetParam($_REQUEST,'pop',0));
-$limit		= intval(mosGetParam($_REQUEST,'limit',0));
-$limitstart	= intval(mosGetParam($_REQUEST,'limitstart',0));
-$year		= intval(mosGetParam($_REQUEST,'year',date('Y')));
-$month		= intval(mosGetParam($_REQUEST,'month',date('m')));
-$module		= intval(mosGetParam($_REQUEST,'module',0));
-$filter		= strval(mosGetParam($_REQUEST,'filter',''));
-$order		= strval(mosGetParam($_REQUEST,'order',''));
-
-// Editor usertype check
-$access = new stdClass();
-$access->canEdit	= $acl->acl_check('action','edit','users',$my->usertype,'content','all');
-$access->canEditOwn	= $acl->acl_check('action','edit','users',$my->usertype,'content','own');
-$access->canPublish	= $acl->acl_check('action','publish','users',$my->usertype,'content','all');
-
+$id	= intval(mosGetParam($_REQUEST,'id',0));
 
 // cache activation
 $cache = &mosCache::getCache('com_content');
 
 // loads function for frontpage component
 if($option == 'com_frontpage') {
-	$cache->call('frontpage',$gid,$access,$pop,0,$limit,$limitstart);
-	
+	$cache->call('frontpage');	
 	return;
 }
 
@@ -48,10 +31,6 @@ switch($task) {
 
 	case 'ucontent':
 		showUserItems();
-		break;
-
-	case 'findkey':
-		findKeyItem($gid,$access,$pop,$option,0);
 		break;
 
 	case 'view':
@@ -64,7 +43,7 @@ switch($task) {
 		break;
 
 	case 'section':
-		$cache->call('showSection_catlist',$id,$gid,$access,0);
+		$cache->call('showSection_catlist',$id);
 		break;
 
 	case 'category':
@@ -79,7 +58,7 @@ switch($task) {
 	case 'blogcategorymulti':
 	case 'blogcategory':
 		// Itemid is a dummy value to cater for caching
-		$cache->call('showBlogCategory',$id,$gid,$access,$pop,$Itemid,$limit,$limitstart);
+		$cache->call('showBlogCategory',$id);
 		break;
 
 	case 'archivesection':
@@ -89,7 +68,7 @@ switch($task) {
 
 	case 'archivecategory':
 		// Itemid is a dummy value to cater for caching
-		$cache->call('showArchiveCategory',$id,$access,$option);
+		$cache->call('showArchiveCategory',$id);
 		break;
 
 	case 'edit':
@@ -104,19 +83,19 @@ switch($task) {
 	case 'apply':
 	case 'apply_new':
 		mosCache::cleanCache('com_content');
-		saveContent($access,$task);
+		saveContent($task);
 		break;
 
 	case 'cancel':
-		cancelContent($access);
+		cancelContent();
 		break;
 
 	case 'emailform':
-		emailContentForm($id,$gid);
+		emailContentForm($id,$my->gid);
 		break;
 
 	case 'emailsend':
-		emailContentSend($id,$gid);
+		emailContentSend($id,$my->gid);
 		break;
 
 	case 'vote':
@@ -142,7 +121,7 @@ function showUserItems() {
     $user_id	= intval(mosGetParam($_REQUEST,'user',0));
 
     //права доступа
-    $access = new jstContentAccess();
+    $access = new contentAccess();
     // Paramters
     $params = new jstContentUserpageConfig($database);
 
@@ -249,32 +228,6 @@ function showUserItems() {
 	HTML_content::showUserContent( $user_items, $access, $params, $pageNav, $lists, $selected );
 }
 
-/**
-* Searches for an item by a key parameter
-* @param int The user access level
-* @param object Actions this user can perform
-* @param int
-* @param string The url option
-* @param string A timestamp
-*/
-function findKeyItem($gid,$access,$pop,$option) {
-	global $database;
-
-	$keyref = stripslashes(strval(mosGetParam($_REQUEST,'keyref','')));
-
-	$query = "SELECT id"
-		. "\n FROM #__content"
-		. "\n WHERE attribs LIKE '%keyref=" . $database->getEscaped( $keyref, true ) . "\n%'";
-	$database->setQuery( $query );
-	$id = $database->loadResult();
-
-	if($id > 0) {
-		showItem($id,$gid,$access,$pop,$option,0);
-	} else {
-		echo _KEY_NOT_FOUND;
-	}
-}
-
 function frontpage() {
 	global $database,$mainframe,$mosConfig_MetaDesc,$mosConfig_MetaKeys, $my;
 
@@ -283,7 +236,7 @@ function frontpage() {
     $limitstart	= intval(mosGetParam($_REQUEST,'limitstart',0));
 
     //права доступа
-    $access = new jstContentAccess();
+    $access = new contentAccess();
 
     //Установка параметров страницы блога раздела
     $params = contentPageConfig::setup_frontpage();
@@ -322,7 +275,7 @@ function showSection_catlist($id) {
     }
 
     //права доступа
-    $access = new jstContentAccess();
+    $access = new contentAccess();
     
     //Получаем данные раздела
 	$section = new mosSection($database);
@@ -389,7 +342,7 @@ function showTableCategory($id) {
     }
 
     //права доступа
-    $access = new jstContentAccess();
+    $access = new contentAccess();
 
     //Грузим данные категории
     $category = new mosCategory($database);
@@ -482,7 +435,7 @@ function showBlogSection($id = 0) {
     }
 
     //права доступа
-    $access = new jstContentAccess();
+    $access = new contentAccess();
 
     //Установка параметров страницы блога раздела
     $params = contentPageConfig::setup_blog_section_page($id);
@@ -548,7 +501,7 @@ function showBlogCategory($id = 0) {
     }
 
     //права доступа
-    $access = new jstContentAccess();
+    $access = new contentAccess();
 
     //Установка параметров страницы блога категории
     $params = contentPageConfig::setup_blog_category_page($id);
@@ -628,7 +581,7 @@ function showArchiveSection($id = null) {
     }    
     
     //права доступа
-    $access = new jstContentAccess();
+    $access = new contentAccess();
 
     //Установка параметров страницы блога раздела
     $params = contentPageConfig::setup_blog_archive_section_page($id);
@@ -705,7 +658,7 @@ function showArchiveCategory($id = 0) {
     }
  
     //права доступа
-    $access = new jstContentAccess();
+    $access = new contentAccess();
 
     //Установка параметров страницы блога категории
     $params = contentPageConfig::setup_blog_archive_category_page($id);
@@ -1046,7 +999,7 @@ function showFullItem($id) {
     $pop = intval(mosGetParam($_REQUEST,'pop',0));
     
     //права доступа
-    $access = new jstContentAccess();
+    $access = new contentAccess();
 
 
 
@@ -1641,12 +1594,15 @@ function editItem($task) {
 /**
 * Saves the content item an edit form submit
 */
-function saveContent(&$access,$task) {
+function saveContent($task) {
 	global $database,$mainframe,$my;
 	global $mosConfig_absolute_path,$mosConfig_offset,$Itemid;
 
 	// simple spoof check security
 	josSpoofCheck();
+	
+ 	//права доступа
+    $access = new contentAccess();
 
 	$nullDate = $database->getNullDate();
     $row = new mosContent($database);
@@ -1885,8 +1841,11 @@ function _after_update_content($row, $page){
 * Cancels an edit operation
 * @param database A database connector object
 */
-function cancelContent(&$access) {
+function cancelContent() {
 	global $database,$my,$task;
+	
+ 	//права доступа
+    $access = new contentAccess();
 
 	$row = new mosContent($database);
 	$row->bind($_POST);

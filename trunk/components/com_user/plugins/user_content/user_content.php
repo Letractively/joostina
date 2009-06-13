@@ -1,15 +1,15 @@
 <?php
 defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.' );
-global $database, $mosConfig_live_site, $mosConfig_form_date_full, $mainframe, $mosConfig_absolute_path;
+global $database, $mosConfig_live_site, $mosConfig_form_date_full, $mainframe, $mosConfig_absolute_path, $Itemid;
 require_once ($mainframe->getPath('class','com_content'));
 require_once ($mosConfig_absolute_path.'/components/com_content/content.html.php');
 
 $k = 0;
 
 $user_items = new mosContent($database);
-$user_items = $user_items->load_user_items($user->id, 0, 10);
+$user_items = $user_items->load_user_items($user->id, 0, 5);
 
-$access = new jstContentAccess();
+$access = new contentAccess();
 
 if(!$user_items){
     ?>
@@ -32,6 +32,9 @@ if(!$user_items){
 			$link	= sefRelToAbs( 'index.php?option=com_content&amp;task=view&amp;id='. $row->id);
 			$img	= $row->published ? 'publish_g.png' : 'publish_x.png';
 			$img	= $mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/images/'.$img;
+			
+			$row->Itemid_link = '&amp;Itemid='.$Itemid;
+			$row->_Itemid = $Itemid;
 
             // раздел / категория
             $section_cat = $row->section.' / '.$row->category;
@@ -50,7 +53,7 @@ if(!$user_items){
 
                 <?php if($access->canEdit){?>
                 <td>
-                    <?php HTML_content::EditIcon( $row, $params, $access );?>
+                    <?php mosContent::EditIcon2($row, $params, $access);?>
                 </td>
                 <?php }?>
 
