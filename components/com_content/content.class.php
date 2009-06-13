@@ -1873,7 +1873,7 @@ class jstContentUserpageConfig extends dbConfig
 }
 
 
-class jstContentAccess
+class contentAccess
 {
 
     var $canView = null;
@@ -1882,7 +1882,7 @@ class jstContentAccess
     var $canEdit = null;
     var $canPublish = null;
 
-    function jstContentAccess()
+    function contentAccess()
     {
         global $acl, $my;
 
@@ -2128,7 +2128,6 @@ class contentPageConfig
 
     }
 
-	//TODO:Описать все параметры из xml 
     function setup_blog_category_page($id)
     {
         global $mainframe, $Itemid;
