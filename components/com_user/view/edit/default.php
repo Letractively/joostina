@@ -1,25 +1,25 @@
 <?php
 defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.' );
-    //Подключение плагина валидации форм
-    mosCommonHTML::loadJqueryPlugins('jquery.validate', 'js');
+    
+	//Подключение плагина валидации форм
+    mosCommonHTML::loadJqueryPlugins('jquery.validate', false, false, 'js');
 
 ?>   
 
-	<form action="index.php" method="post" name="mosUserForm" id="mosUserForm" enctype="multipart/form-data">
-	<div style="float: right;height: 100%;">
+	<div class="page_edit_profile">
 
-        <span class="button"><input type="submit" class="button submit" name="submit" id="save" value="Сохранить" /></span>
-        <span class="button"><input type="submit" class="button cancel" name="cancel" id="cancel" value="Отмена" /></span>
+	<div class="componentheading"><h1><?php echo $user->name; ?>&nbsp;(<?php echo $user->username; ?>)</h1></div>
+	
+	<?php $tabs->startPane("userInfo"); ?>
+
+	<form action="index.php" method="post" name="mosUserForm" id="mosUserForm">
+		<div style="float: right;height: 100%;">
+
+        <span class="button"><button type="submit" class="button submit" name="submit" id="save">Сохранить</button></span>
+        <span class="button"><button type="submit" class="button cancel" name="cancel" id="cancel">Отмена</button></span>
 
 	</div>
-	<div class="componentheading"><h1><?php echo $user->name; ?>&nbsp;(<?php echo $user->username; ?>)</h1></div>
-<?php
-	$tabs->startPane("userInfo");
-	$tabs->startTab(_GENERAL,"main-page");
-?>
-
-
-
+	<?php $tabs->startTab(_GENERAL,"general"); ?>
             <h3>Данные аккаунта</h3>
 			<table width="100%">
 				<tr>
@@ -48,6 +48,16 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
 
 				</tr>
 			</table>
+			
+			<?php if($mosConfig_frontend_userparams == '1' || $mosConfig_frontend_userparams == 1 ||$mosConfig_frontend_userparams == null) {
+			?>
+			<h3>Настройки сайта</h3>
+			<table cellpadding="5" cellspacing="0" border="0" width="100%">
+				<tr>
+					<td colspan="2"><?php echo $params->render('params'); ?></td>
+				</tr>
+			</table>
+			<?php } ?>
 
             <br />
             <h3>Личные данные</h3>
@@ -59,9 +69,9 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
 				<tr>
                     <td><label>Дата рождения</label></td>
 					<td>
-                        <?php echo mosHTML::daySelectList('birthdate[day]','class="inputbox"', $bday_month);?>
-                        <?php echo mosHTML::monthSelectList('birthdate[month]','class="inputbox"', $bday_month,1);?>
-                        <?php echo mosHTML::yearSelectList('birthdate[year]','class="inputbox"', $bday_year);?>
+                        <?php echo mosHTML::daySelectList('birthdate_day','class="inputbox"', $bday_date);?>
+                        <?php echo mosHTML::monthSelectList('birthdate_month','class="inputbox"', $bday_month,1);?>
+                        <?php echo mosHTML::yearSelectList('birthdate_year','class="inputbox"', $bday_year);?>
                     </td>
 				</tr>
 				<tr>
@@ -77,11 +87,10 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
                     </td>
 				</tr>
 			</table>
-
-            
 			
+		<?php $tabs->endTab(); ?>
+		 <?php $tabs->startTab('Контакты',"cantacts"); ?> 	
 
-   			<br />
             <h3>Контактная информация</h3>
 			<table width="100%">
 				<tr>
@@ -123,33 +132,15 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
 
 			</table>
 
-
-
-
-
-<?php
-	$tabs->endTab();
-	if($mosConfig_frontend_userparams == '1' || $mosConfig_frontend_userparams == 1 ||$mosConfig_frontend_userparams == null) {
-	$tabs->startTab(_PROFILE_SITE_SETTINGS,"ext-page");
-?>
-	<table cellpadding="5" cellspacing="0" border="0" width="100%">
-		<tr>
-			<td colspan="2"><?php echo $params->render('params'); ?></td>
-		</tr>
-	</table>
-<?php
-	$tabs->endTab();		
-	}
-	
-?>
-	<input type="hidden" name="id" value="<?php echo $user->id; ?>" />
+	<?php $tabs->endTab(); ?>
+		<input type="hidden" name="id" value="<?php echo $user->id; ?>" />
 	<input type="hidden" name="option" value="<?php echo $option; ?>" />
 	<input type="hidden" name="task" id="task" value="saveUserEdit" />
 	<input type="hidden" name="<?php echo $validate; ?>" value="1" />
 	</form>
 	
-	<br />
-            <h3>Аватар</h3>
+	<?php $tabs->startTab('Аватар',"avatar"); ?> 
+	<h3>Аватар</h3>
             
             <?php 
             $form_params = new stdClass();
@@ -158,14 +149,15 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
             $form_params->img_path = 'images/avatars';
             $form_params->default_img = 'images/avatars/none.jpg';
             $form_params->img_class = 'user_avatar';
+            $form_params->ajax_handler = 'ajax.index.php?option=com_user';
             
 			if(!$user->avatar){
                 userHelper::_build_img_upload_area($user, $form_params, 'upload');
             } else {
                 userHelper::_build_img_upload_area($user, $form_params, 'reupload');
             } ?>
-<?php
-	$tabs->endPane();
-
-
-?>
+            
+	<?php $tabs->endTab(); ?>
+<?php $tabs->endPane(); ?>
+</div> 
+		

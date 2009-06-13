@@ -5125,6 +5125,9 @@ class mosCommonHTML {
 			define($const,1);
 			if($ret){
 			?><script language="javascript" type="text/javascript" src="<?php echo Jconfig::getInstance()->config_live_site;?>/includes/js/jquery/plugins/<?php echo $name; ?>.js"></script>
+   		<script language="JavaScript" type="text/javascript">
+            _js_defines.push('<?php echo $name; ?>');
+        </script>
 <?php
 		if($css){
 			?><link type="text/css" rel="stylesheet" href="<?php echo Jconfig::getInstance()->config_live_site;?>/includes/js/jquery/plugins/<?php echo $name; ?>.css" />
@@ -5132,6 +5135,7 @@ class mosCommonHTML {
 			}?>
 			<?php }else{
 				MosMainFrame::getInstance()->addJS(Jconfig::getInstance()->config_live_site.'/includes/js/jquery/plugins/'.$name.'.js', $footer);
+				MosMainFrame::getInstance()->addCustomHeadTag('<script language="JavaScript" type="text/javascript">_js_defines.push("'.$name.'");</script>');
 				if($css){
 					MosMainFrame::getInstance()->addCSS(Jconfig::getInstance()->config_live_site.'/includes/js/jquery/plugins/'.$name.'.css');
 				}

@@ -1,4 +1,4 @@
-<?php #model
+<?php 
 /**
  * (c) boston, 2008 Joostina.Team
  *
@@ -53,12 +53,12 @@ class Image {
                 $file_params['ext']=$ext;
 
     			if ($_FILES[$name_file]['size']>$this->max_size){
-                    echo "<script> alert('Ошибка при добавлении файла. Проверьте размер документа.');  </script>\n";
+                    echo "<script> alert('РћС€РёР±РєР° РїСЂРё РґРѕР±Р°РІР»РµРЅРёРё С„Р°Р№Р»Р°. РџСЂРѕРІРµСЂСЊС‚Рµ СЂР°Р·РјРµСЂ РґРѕРєСѓРјРµРЅС‚Р°.');  </script>\n";
     		        exit();
     			}
 
     			else if (!in_array($ext, $this->valid_types)){
-                    echo "<script> alert('Ошибка при добавлении файла. Проверьте  тип документа.');  </script>\n";
+                    echo "<script> alert('РћС€РёР±РєР° РїСЂРё РґРѕР±Р°РІР»РµРЅРёРё С„Р°Р№Р»Р°. РџСЂРѕРІРµСЂСЊС‚Рµ  С‚РёРї РґРѕРєСѓРјРµРЅС‚Р°.');  </script>\n";
     		        exit();
     			}
 
@@ -76,7 +76,7 @@ class Image {
                                 $return=$file_params;
                             }
 
-                            //Ресайз фото
+                            //Р РµСЃР°Р№Р· С„РѕС‚Рѕ
                              if($resize_options){
                                  
                                 if($resize_options['output_file']=='thumb'){
@@ -84,13 +84,13 @@ class Image {
                                         mkdir($dir_name.'/thumb', 0700);
                                     }
                                     if(!Thumbnail::output($dir_name.'/'.$name, $dir_name.'/thumb/'.$name, $resize_options)){
-                                        echo "<script> alert('Ошибка при добавлении файла. Возможно, файл поврежден');  </script>\n";
+                                        echo "<script> alert('РћС€РёР±РєР° РїСЂРё РґРѕР±Р°РІР»РµРЅРёРё С„Р°Р№Р»Р°. Р’РѕР·РјРѕР¶РЅРѕ, С„Р°Р№Р» РїРѕРІСЂРµР¶РґРµРЅ');  </script>\n";
     		                            exit();  	return false;
                                     }
                                 }else{
                                     if(!Thumbnail::output($dir_name.'/'.$name, $dir_name.'/'.$name, $resize_options)){
 
-                                        echo "<script> alert('Ошибка при добавлении файла. Возможно, файл поврежден2');  </script>\n";
+                                        echo "<script> alert('РћС€РёР±РєР° РїСЂРё РґРѕР±Р°РІР»РµРЅРёРё С„Р°Р№Р»Р°. Р’РѕР·РјРѕР¶РЅРѕ, С„Р°Р№Р» РїРѕРІСЂРµР¶РґРµРЅ2');  </script>\n";
     		                            exit();  	return false;
 
                                     }
@@ -100,23 +100,23 @@ class Image {
                             return $return;
     					}
                         else{
-                            echo "<script> alert('Файл не может быть перемещен в директорию назначения. Попробуйте еще раз, при повторении ошибки сообщите администратору сайта');  </script>\n";
+                            echo "<script> alert('Р¤Р°Р№Р» РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РїРµСЂРµРјРµС‰РµРЅ РІ РґРёСЂРµРєС‚РѕСЂРёСЋ РЅР°Р·РЅР°С‡РµРЅРёСЏ. РџРѕРїСЂРѕР±СѓР№С‚Рµ РµС‰Рµ СЂР°Р·, РїСЂРё РїРѕРІС‚РѕСЂРµРЅРёРё РѕС€РёР±РєРё СЃРѕРѕР±С‰РёС‚Рµ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂСѓ СЃР°Р№С‚Р°');  </script>\n";
     		                exit();
                         }
     				}
                     else{
-                        echo "<script> alert('Ошибка при добавлении файла. Возможно, файл поврежден');  </script>\n";
+                        echo "<script> alert('РћС€РёР±РєР° РїСЂРё РґРѕР±Р°РІР»РµРЅРёРё С„Р°Р№Р»Р°. Р’РѕР·РјРѕР¶РЅРѕ, С„Р°Р№Р» РїРѕРІСЂРµР¶РґРµРЅ');  </script>\n";
     		            exit();
                     }
     			}
     		}
             else{
-                echo "<script> alert('Файл не может быть загружен. Попробуйте еще раз, при повторении ошибки сообщите администратору сайта');  </script>\n";
+                echo "<script> alert('Р¤Р°Р№Р» РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ Р·Р°РіСЂСѓР¶РµРЅ. РџРѕРїСЂРѕР±СѓР№С‚Рµ РµС‰Рµ СЂР°Р·, РїСЂРё РїРѕРІС‚РѕСЂРµРЅРёРё РѕС€РёР±РєРё СЃРѕРѕР±С‰РёС‚Рµ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂСѓ СЃР°Р№С‚Р°');  </script>\n";
     		    exit();
             }
         }
         else{
-            echo "<script> alert('Ошибка при добавлении файла. Файл не существует или поврежден'); window.history.go(-1); </script>\n";
+            echo "<script> alert('РћС€РёР±РєР° РїСЂРё РґРѕР±Р°РІР»РµРЅРёРё С„Р°Р№Р»Р°. Р¤Р°Р№Р» РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚ РёР»Рё РїРѕРІСЂРµР¶РґРµРЅ'); window.history.go(-1); </script>\n";
     		exit();
         }
 
@@ -124,126 +124,7 @@ class Image {
     		return false;
 	}
 
-    function upload_multi($resize_options=NULL, $i){
-	    global $mosConfig_absolute_path, $_FILES;
-
-        $name_file=$this->field_name;
-        $filename_tmp = $_FILES[$name_file]['tmp_name'][$i];
-        $file_error = $_FILES[$name_file]['error'][$i];
-        $file_orig = $_FILES[$name_file]['name'][$i];
-
-        $ext = substr($file_orig, 1 + strrpos($file_orig, "."));
-        $file_params['ext']=$ext;
-
-    	$size = $_FILES[$name_file]['size'][$i];
-        $file_params['size']=$size;
-
-    	$dir_name = $mosConfig_absolute_path."/".$this->directory;
-        if(!is_dir($dir_name)){
-            mkdir($dir_name, 0700);
-        }
-
-        $filename_new = mktime().$i;
-    	$filename_pref='file_';
-        if($this->file_prefix){
-            $filename_pref=$this->file_prefix;
-        }
-
-    	$name = 0;
-
-        $file_params=array();
-
-        if(!empty($file_error)){
-    		switch($file_error){
-
-    			case '1':
-    				$error = 'размер загруженного файла превышает размер установленный параметром upload_max_filesize  в php.ini ';
-    				break;
-    			case '2':
-    				$error = 'размер загруженного файла превышает размер установленный параметром MAX_FILE_SIZE в HTML форме. ';
-    				break;
-    			case '3':
-    				$error = 'загружена только часть файла ';
-    				break;
-    			case '4':
-    				$error = 'файл не был загружен (Пользователь в форме указал неверный путь к файлу). ';
-    				break;
-    			case '6':
-    				$error = 'неверная временная дирректория';
-    				break;
-    			case '7':
-    				$error = 'ошибка записи файла на диск';
-    				break;
-    			case '8':
-    				$error = 'загрузка файла прервана';
-    				break;
-    			case '999':
-    			default:
-    				$error = 'No error code avaiable';
-    		}
-        }
-
-        else if(empty($filename_tmp) || $filename_tmp == 'none'){
-		    $error = 'Файлы не были загружены';
-	    }
-
-        else {
-
-
-
-
-            if(!$size){
-                $error = 'Ошибка при добавлении файла. Возможно, файл поврежден';
-    		}
-
-            else if ($size > $this->max_size){
-                $error = 'Ошибка загрузки. Размер файла превышает допустимый';
-    		}
-
-            else if (!in_array($ext, $this->valid_types)){
-                $error = 'Ошибка загрузки. Недопустимый формат файла';
-    		}
-
-    		else {
-
-
-
-    					if (move_uploaded_file($filename_tmp, $dir_name.'/'.$filename_pref.$filename_new.'.'.$ext)) {
-    						chmod($dir_name.'/'.$filename_pref.$filename_new.'.'.$ext, 0644);
-    						$name = $filename_pref.$filename_new.'.'.$ext;
-                            $file_params['name']=$name;
-                            $return = $name;
-                            if ($this->return_params=='array'){
-                                $return=$file_params;
-                            }
-                              //Ресайз фото
-                             if($resize_options){
-                                include_once( $mosConfig_absolute_path.'/includes/images/Thumbnail.php');
-                                if($resize_options['output_file']=='thumb'){
-                                    if(!is_dir($dir_name.'/thumb')){
-                                        mkdir($dir_name.'/thumb', 0700);
-                                    }
-                                    Thumbnail::output($dir_name.'/'.$name, $dir_name.'/thumb/'.$name, $resize_options);
-                                }else{
-                                    Thumbnail::output($dir_name.'/'.$name, $dir_name.'/'.$name, $resize_options);
-                                }
-
-                            }
-
-                            return $return;
-    					}
-                        else{
-                            $error = 'Файл не может быть перемещен в директорию назначения. Попробуйте еще раз, при повторении ошибки сообщите администратору сайта';
-                        }
-    				}
-
-    			}
-        echo $error;
-        return false;
-
-        }
-
-
+    
     function isFileIsset($file){
         global $mosConfig_absolute_path;
 
@@ -270,6 +151,7 @@ class Image {
     }
 
 }
+
 
 /**
  * This is a driver for the thumbnail creating

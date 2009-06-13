@@ -1,20 +1,27 @@
-<?php
+<?php 
+
 defined('_VALID_MOS') or die();
-$iso = explode('=',_ISO);
-echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'."\n";
+global $task,$my,$mosConfig_live_site, $mosConfig_mailfrom;
+
+$iso = explode('=',_ISO); echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'."\n";
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo $iso[1];?>" />
+
+<script type="text/javascript">
+    var _live_site = '<?php echo $mosConfig_live_site;?>';
+    var _option = '<?php echo mosGetParam( $_REQUEST, 'option', '' );?>';
+    var _js_defines = new Array();
+</script>
+
+
 <?php 
-
-
 	// загружаемверхнюю часть страницы со всеми js и css файлами, и обязательным использованием jquery
 	mosShowHead(array('js'=>1,'css'=>1,'jquery'=>1));	
-
 	
-	global $task,$my,$mosConfig_live_site, $mosConfig_mailfrom;
+	
 	if ($my->id && $mainframe->allow_wysiwyg) { initEditor(); }
 	$block1_count = (mosCountModules('user1')>0) + (mosCountModules('user2')>0) + (mosCountModules('user3')>0);
 	$block2_count = (mosCountModules('user4')>0) + (mosCountModules('user5')>0) + (mosCountModules('user6')>0);
@@ -27,11 +34,7 @@ echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'."\n";
 <![endif]-->
 
 
-<script type="text/javascript">
-    var _live_site = '<?php echo $mosConfig_live_site;?>';
-    var _option = '<?php echo mosGetParam( $_REQUEST, 'option', '' );?>';
-    var _js_defines = new Array();
-</script>
+
 </head>
 <!--body:begin-->
 <body class="joo_flex">

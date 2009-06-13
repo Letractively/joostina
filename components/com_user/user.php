@@ -13,6 +13,13 @@ defined('_VALID_MOS') or die();
 global $my,$task,$option;
 
 userHelper::_load_core_js();
+?>
+<script type="text/javascript">
+    var _comuser_url = '<?php echo $mosConfig_live_site;?>/components/com_user';
+    var _comuser_ajax_handler = 'ajax.index.php?option=com_user';
+    var _comuser_defines = new Array();
+</script>
+<?php
 
 // Editor usertype check
 $access = new stdClass();
@@ -142,6 +149,7 @@ function userSave($option,$uid) {
 	$row->name = trim($row->name);
 	$row->email = trim($row->email);
 	$row->username = trim($row->username);
+	
 
 	mosMakeHtmlSafe($row);
 
@@ -188,6 +196,8 @@ function userSave($option,$uid) {
 		echo "<script> alert('".$user_extra->getError()."'); window.history.go(-1); </script>\n";
 		exit();
 	}
+	$user_extra->birthdate  = $_POST['birthdate_year'].'-'.$_POST['birthdate_month'].'-'.$_POST['birthdate_day'].' 00:00:00';
+	
     $user_extra->store();
     
 
