@@ -229,40 +229,14 @@ class mosUser extends mosDBTable {
 	/**
 	* функция получения аватара пользователя, возвращает путь к изображения аватара от корня сайта
 	*/
-	function avatar($user,$size='normal'){
+	function get_avatar($user){
 		global $mosConfig_absolute_path;
 
-		switch($size) {
-			case 'big':
-				$pach = '';
-				break;
-
-			case 'mini':
-				$pach = 'mini/';
-				break;
-
-			default:
-			case 'normal':
-				$pach = 'normal/';
-				break;
-		}
-
-		if(file_exists($mosConfig_absolute_path.'/images/avatars/'.$pach.$user->id.'.jpg')){
-			$img = '/images/avatars/'.$pach.$user->id.'.jpg';
+		if(is_file($mosConfig_absolute_path.'/images/avatars/'.$user->avatar)){
+			$img = 'images/avatars/'.$user->avatar;
 		}else{
-			$img = '/images/avatars/'.$pach.'none.jpg';
+			$img = 'images/avatars/none.jpg';
 		}
-		return $img;
-	}
-	/**
-	* функция получения мини - аватара пользователя, возвращает путь к изображения аватара от корня сайта
-	*/
-	function miniavatar($id){
-		global $mosConfig_absolute_path;
-			if(file_exists($mosConfig_absolute_path.'/images/avatars/mini/'.$id.'.jpg'))
-				$img = '/images/avatars/mini/'.$id.'.jpg';
-			else
-				$img = '/images/avatars/mini/none.jpg';
 		return $img;
 	}
 
@@ -299,8 +273,18 @@ class mosUser extends mosDBTable {
 	* Смена аватара
 	*/
     
-    function update_avatar($id, $img){
-		$sql = 'UPDATE #__users SET avatar = \''.$img.'\' WHERE id='.$id;
+    function update_avatar($id = null, $img, $del=null){
+    	
+		$val = $img;
+    	if($del) $val = '';
+    	
+    	if(!$id){
+    		$sql = 'UPDATE #__users SET avatar = \''.$val.'\' WHERE avatar="'.$img.'"';	
+    	}
+    	else{
+    		$sql = 'UPDATE #__users SET avatar = \''.$val.'\' WHERE id='.$id;
+    	}
+		
 		$this->_db->setQuery($sql);
 		$this->_db->query();
 	}
@@ -340,11 +324,6 @@ class userHelper{
 	
 	function _load_jquery_form(){
         mosCommonHTML::loadJqueryPlugins('jquery.form', false, false, 'js');
-        ?>
-        <script language="JavaScript" type="text/javascript">
-            _js_defines.push('load_jquery_form');
-        </script>
-        <?php
 	}
 	
  	
@@ -352,29 +331,101 @@ class userHelper{
         global $mosConfig_live_site,$mosConfig_absolute_path;
     	$field = $form_params->img_field;
     ?>
-                <script type="text/javascript">
+    		<script type="text/javascript">
                 $(document).ready(function() {
-                    $("a#reupload_<?php echo $form_params->img_field;?>").click(function () {
-                        $(".upload_area_<?php echo $form_params->img_field;?>").css("display", "block");
+                	
+                	//---Кнопка "Сменить"
+                    $("a#reupload_<?php echo $form_params->img_field;?>").live('click', function () {
+                    	$(".upload_area_<?php echo $form_params->img_field;?>").fadeIn(1000);                   
                         $("#<?php echo $form_params->img_field;?>").addClass("required");
                         return false;
                     });
-                });
-            </script>
+                    
+                     //---Кнопка "Удалить"
+    				$('a#del_<?php echo $form_params->img_field;?>').live('click', function(){
+    					
+    					//Индикатор выполнения
+    					$('#indicate_<?php echo $form_params->img_field;?>').fadeIn(1000, function () {
+    						$("#indicate_<?php echo $form_params->img_field;?>").addClass("inprogress");
+    						$("#indicate_<?php echo $form_params->img_field;?>").html("Удаляем...");
+    					});
+    					
+    					//отправляем ajax-запрос
+				        $.post( //---post:begin
+				                '<?php echo $form_params->ajax_handler; ?>',
+				                {
+				                    task: "del_<?php echo $form_params->img_field;?>",
+				                    file_name: $("#curr_<?php echo $form_params->img_field;?>").val()
+				                } ,
+				                
+				                //пришёл ответ
+				                function onAjaxSuccess(data){				                	
+									//Плавная смена изображения
+				        			$('#current_<?php echo $form_params->img_field;?>_img').fadeOut(1000);
+				        			$('#current_<?php echo $form_params->img_field;?>_img').fadeOut(1000, function(){
+                    					$('#current_<?php echo $form_params->img_field;?>_img').html('<img class="avatar" src="<?php echo $mosConfig_live_site;?>/<?php echo $form_params->img_path;?>/'+data+'" />');	
+                    					//Скрываем индикатор                						
+										$("#indicate_<?php echo $form_params->img_field;?>").removeClass("inprogress");
+										$("#indicate_<?php echo $form_params->img_field;?>").html("");
+										  									
+                    				});
+                    				$('#current_<?php echo $form_params->img_field;?>_img').fadeIn(1000, function () {
+                						$('#current_<?php echo $form_params->img_field;?>_img').show('slow');
+                						
+            						});
+            						//Скрываем кнопку "Удалить" 
+										$('a#del_<?php echo $form_params->img_field;?>').parent().fadeOut("slow"); 
+										
+				                }
+				        ); //---post:end
+				
+				        return false;
+    				});    	
+    	
+   				});
+
+     		</script>
 
             <?php if($state!='upload'){?>
                     <div id="current_<?php echo $form_params->img_field;?>">
-                        <img class="site_img" src="<?php echo $mosConfig_live_site;?>/<?php echo $form_params->img_path;?>/<?php echo $obj->$field;?>" />
-                        <a  href="#" id="reupload_<?php echo $form_params->img_field;?>">Сменить</a>
+                    
+                    	<div class="current_img" id="current_<?php echo $form_params->img_field;?>_img">
+                        	<img class="avatar" src="<?php echo $mosConfig_live_site;?>/<?php echo $form_params->img_path;?>/<?php echo $obj->$field;?>" />
+                        	<input type="hidden" name="curr_<?php echo $form_params->img_field;?>" id="curr_<?php echo $form_params->img_field;?>" value="<?php echo $obj->$field;?>" />
+                        	
+                    	</div>
+                        <div class="indicator" id="indicate_<?php echo $form_params->img_field;?>">&nbsp;</div>
+                        
+						<div class="user_buttons buttons_<?php echo $form_params->img_field;?>">
+							<span class="button">
+								<a class="reupload_button button"  href="#" id="reupload_<?php echo $form_params->img_field;?>">Сменить</a>
+							</span>
+							<span class="button">
+								<a class="del_button button"  href="javascript:void(0)" id="del_<?php echo $form_params->img_field;?>">Удалить</a>
+							</span>
+						</div>
+						
                     </div>
-                    <div class="upload_area_<?php echo $form_params->img_field;?> hidden" style="display:none;">
+                    <div class="upload_area upload_area_<?php echo $form_params->img_field;?>" style="display:none;">
                         <?php echo self::_build_img_upload_form($obj, $form_params);?>
                     </div>
             <?php } else {
             ?>
-                    <div id="current_<?php echo $form_params->img_field;?>">
-                        <img class="site_img" src="<?php echo $mosConfig_live_site;?>/<?php echo $form_params->default_img;?>" />
+            <div id="current_<?php echo $form_params->img_field;?>">
+                    <div class="current_img" id="current_<?php echo $form_params->img_field;?>_img">
+                        <img class="avatar" src="<?php echo $mosConfig_live_site;?>/<?php echo $form_params->default_img;?>" />
                     </div>
+                    <div class="indicator" id="indicate_<?php echo $form_params->img_field;?>">&nbsp;</div>
+                    
+					<div class="user_buttons buttons_<?php echo $form_params->img_field;?>" style="display:none;">
+							<span class="button">
+								<a class="reupload_button button"  href="#" id="reupload_<?php echo $form_params->img_field;?>">Сменить</a>
+							</span>
+							<span class="button">
+								<a class="del_button button"  href="javascript:void(0)" id="del_<?php echo $form_params->img_field;?>">Удалить</a>
+							</span>
+						</div>
+                    </div>                    
                     <div class="upload_area_<?php echo $form_params->img_field;?>">
                         <?php echo self::_build_img_upload_form($obj, $form_params);?>
                     </div>
@@ -391,49 +442,62 @@ function _build_img_upload_form(&$obj, $form_params){
 	?>
 
         <script type="text/javascript">
-        $(document).ready(function(){
-
-            $('#<?php echo $form_params->img_field;?>_uploadForm').ajaxForm({
-                beforeSubmit: function(a,f,o) {
-                    o.dataType = "html";
-                    $('#<?php echo $form_params->img_field;?>_uploadOutput').html('Загрузка...');
-                    if(!$('#upload_<?php echo $form_params->img_field;?>').val()){
+        $(document).ready(function(){            
+            $('#<?php echo $form_params->img_field;?>_upload_button').live('click', function() {     		
+    			$('#<?php echo $form_params->img_field;?>_uploadForm').ajaxSubmit({
+    			beforeSubmit: function(a,f,o) {
+                    o.dataType = "html";                 
+					$('#<?php echo $form_params->img_field;?>_uploadOutput').fadeIn(1000, function () {
+            			$('#<?php echo $form_params->img_field;?>_uploadOutput').addClass("inprogress");
+        			});
+                    $('#current_<?php echo $form_params->img_field;?>').fadeOut(1000);
+        			if(!$('#upload_<?php echo $form_params->img_field;?>').val()){
                         $('#<?php echo $form_params->img_field;?>_uploadOutput').html('Выберите изображение');
                         return false;
-                    }
+                    }                    
+                    $(".upload_area_<?php echo $form_params->img_field;?>").fadeOut(900);
+                    $('#current_<?php echo $form_params->img_field;?>').fadeIn(1000);
                 },
                 success: function(data) {
                     var $out = $('#<?php echo $form_params->img_field;?>_uploadOutput');
                     $out.html('');
-
-                   if(data){
+                   	if(data){
                         if (typeof data == 'object' && data.nodeType)
                         data = elementToString(data.documentElement, true);
                         else if (typeof data == 'object')
                         data = objToString(data);
-                        $('#current_<?php echo $form_params->img_field;?>').html('<img class="site_img" src="<?php echo $mosConfig_live_site;?>/<?php echo $form_params->img_path;?>/'+data+'" />');
+                    	$(".buttons_<?php echo $form_params->img_field;?>").fadeOut(1000);
+                    	$('#current_<?php echo $form_params->img_field;?>_img').fadeOut(1000);    
+                       	$('#current_<?php echo $form_params->img_field;?>_img').fadeOut(1000, function(){
+                    		$('#current_<?php echo $form_params->img_field;?>_img').html('<img class="avatar" src="<?php echo $mosConfig_live_site;?>/<?php echo $form_params->img_path;?>/'+data+'" />');	
+                    	});
+                    	$('#current_<?php echo $form_params->img_field;?>_img').fadeIn(1000, function () {
+                			$('#current_<?php echo $form_params->img_field;?>_img').show('slow', function () {
+                    			$('#current_<?php echo $form_params->img_field;?>_img').fadeIn(1000);
+                			});
+            			});
+                    	$(".buttons_<?php echo $form_params->img_field;?>").fadeIn(1000);			
                         $('#new_<?php echo $form_params->img_field;?>').val(data);
                    }
 
-                }
-            });
+                }	
+    			}); 			
+    			return false; 
+			});        
+
         });
-        </script>
+		</script>
 
 		<form name="<?php echo $form_params->img_field;?>_uploadForm" class="ajaxForm" enctype="multipart/form-data" method="post" action="ajax.index.php" id="<?php echo $form_params->img_field;?>_uploadForm">
-     	    <input name="<?php echo $form_params->img_field;?>"  id="upload_<?php echo $form_params->img_field;?>"  type="file" />
-
-			<input type="submit" name="Submit" value="Загрузить" />
+     	    <input name="<?php echo $form_params->img_field;?>"  id="upload_<?php echo $form_params->img_field;?>"  type="file" />     	    
+     	    <span class="button"><button type="button" id="<?php echo $form_params->img_field;?>_upload_button" class="button" >Загрузить</button></span>			
 			<input type="hidden" name="task" value="upload_<?php echo $form_params->img_field;?>" />
 			<input type="hidden" name="id" value="<?php echo $obj->id;?>" />
 			<input type="hidden" name="option" value="com_user" />
 		</form>
-
-        <img id="loading_<?php echo $form_params->img_field;?>" src="images/system_image/loader.gif" style="display:none;"/>
-        <div id="<?php echo $form_params->img_field;?>_uploadOutput"></div>
-
+        
+        <div id="<?php echo $form_params->img_field;?>_uploadOutput" style="display:none;">Загрузка</div>
 	<?php
-
     }
 }
 

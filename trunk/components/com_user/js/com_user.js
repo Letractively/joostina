@@ -9,16 +9,13 @@
             $("input#task").val('cancel');
             $("#mosUserForm").submit();
         });
-   });
 
-
-    $(document).ready(function(){
-        jQuery.validator.messages.required = "";
-        $("#mosUserForm").validate();
+		if((jQuery.inArray("jquery.validate", _js_defines)>-1)){
+        	jQuery.validator.messages.required = "";
+        	$("#mosUserForm").validate();
+    	}
+        
   });
-
-
-  
 		function submitbutton( pressbutton ) {
 			var form = document.mosUserForm;
 			var r = new RegExp("[\<|\>|\"|\'|\%|\;|\(|\)|\&|\+|\-]", "i");

@@ -28,7 +28,6 @@ class HTML_user {
 
 function profile($user,$option, &$params){
       	global $mosConfig_absolute_path,$mosConfig_frontend_userparams,$mosConfig_live_site, $my, $database;
-        	mosCommonHTML::loadFullajax();
 
         $owner=0;  $admin = 0;
         if($my->user_type = 'Super Administrator'){
@@ -38,18 +37,17 @@ function profile($user,$option, &$params){
           $owner=1;
           $editable=' editable';
           $edit_info_link=sefRelToAbs('index.php?option=com_user&task=UserDetails&Itemid=17');
-          $avatar_pic='<img class="avatar" src="'.$mosConfig_live_site.mosUser::avatar($user,'big').'" />';
+          
         }
 
         else{
           $editable='';
-          $avatar_pic=' <img class="avatar" src="'.$mosConfig_live_site.mosUser::avatar($user, 'big').'" /> ';
           $avatar_edit='';
         }
-
-        $user_id= $user->id;
-
+        
         //Переменные для шаблона
+        $avatar_pic = '<img class="avatar" src="'.$mosConfig_live_site.'/'.$user->get_avatar($user).'" />';
+        $user_id= $user->id;
         $user_real_name = $user->name;
         $user_nickname = $user->username;
 
@@ -112,14 +110,15 @@ function profile($user,$option, &$params){
 		require_once ($mosConfig_absolute_path.'/includes/HTML_toolbar.php');
 		// used for spoof hardening
 		$validate = josSpoofValue();
-		mosCommonHTML::loadFullajax();
+
         $tabs = new mosTabs(1);
-		mosCommonHTML::loadOverlib();
+
 
         $user_extra = $user->user_extra;
         $bday_date = mosFormatDate($user_extra->birthdate, '%d', '0') ;
         $bday_month = mosFormatDate($user_extra->birthdate, '%m', '0') ;
         $bday_year = mosFormatDate($user_extra->birthdate, '%Y', '0') ;
+
 
         define('_MALE', 'Мужской');
         define('_FEMALE', 'Женский');
