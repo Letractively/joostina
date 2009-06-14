@@ -138,12 +138,12 @@ class mosInstallerComponent extends mosInstaller {
 				// если в запросе нет указания кодировки, но есть явные команды создания таблиц, а база работает в режиме совместимости со старшими версиями MySQL - добавим определение кодировки
 				if(($mosConfig_dbold!=1) && (!$d) && (!$c) && ($r) && ($t) ){
 					$sql = str_replace(';','',$sql);
-					$sql .= ' DEFAULT CHARSET=cp1251';
 				}
 
 				$database->setQuery( $sql );
 				if(!$database->query()) {
 					$this->setError(1,_SQL_ERROR.": ".$database->getEscaped($sql).".<br /> "._ERROR_MESSAGE.":".$database->stderr(true));
+					$this->cleanAfterError();
 					return false;
 				}
 				unset($sql);
@@ -158,6 +158,7 @@ class mosInstallerComponent extends mosInstaller {
 			if(!file_exists($this->componentAdminDir().$installfile_elemet->getText())) {
 				if(!$this->copyFiles($this->installDir(),$this->componentAdminDir(),array($installfile_elemet->getText()))) {
 					$this->setError(1,_CANNOT_COPY_PHP_INSTALL);
+					$this->cleanAfterError();
 					return false;
 				}
 			}
@@ -170,6 +171,7 @@ class mosInstallerComponent extends mosInstaller {
 			if(!file_exists($this->componentAdminDir().$uninstallfile_elemet->getText())) {
 				if(!$this->copyFiles($this->installDir(),$this->componentAdminDir(),array($uninstallfile_elemet->getText()))) {
 					$this->setError(1,_CANNOT_COPY_PHP_REMOVE);
+					$this->cleanAfterError();
 					return false;
 				}
 			}
