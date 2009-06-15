@@ -47,7 +47,7 @@ if($tmpimage != "") {
 }
 
 $mainframe->addCSS($mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jwmmxtd/css/jw_mmxtd.css');
-mosCommonHTML::loadMootools();
+
 
 if($task == 'edit') {
 	$mainframe->addJS($mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jwmmxtd/js/jw_mmxtd_edit.php');
@@ -56,24 +56,6 @@ if($task == 'edit') {
 	$jw_mmxtd_head = '
 	<script type="text/javascript">
 	<!--
-	if (navigator.appName.indexOf("Microsoft") == 0) {
-		function loadEvent(obj, evType, fn) {
-			if (obj.addEventListener) {
-				obj.addEventListener(evType, fn, false);
-				return (true);
-			} else if (obj.attachEvent) {
-				var r = obj.attachEvent("on"+evType, fn);
-				return (r);
-			} else return (false);
-		}
-		loadEvent(window, "load", Slider.init);
-		loadEvent(window, "load", Lightbox.init.bind(Lightbox));
-		loadEvent(window, "load", Videobox.init.bind(Videobox));
-	} else {
-		window.addEvent("domready", Slider.init);
-		window.addEvent("domready", Lightbox.init.bind(Lightbox));
-		window.addEvent("domready", Videobox.init.bind(Videobox));
-	};
 		function updateDir(){
 			var allPaths = window.top.document.forms[0].dirPath.options;
 			for(i=0; i<allPaths.length; i++) {
@@ -96,10 +78,19 @@ if($task == 'edit') {
 			}
 			if(confirm("'._JWMM_DELETE_CATALOG.' \""+folder+"\"?")) return true; return false;
 		}
+		function get_image(file,name,width,height){
+			get_file(file,name);
+			id("file_url").value=\'<img width="\'+width+\'" height="\'+height+\'" src="\'+file+\'" alt="\'+name+\'" />\';
+		}
+		function get_file(file,name){
+			id("file_href").value=\'<a href="\'+file+\'">\'+name+\'</a>\';
+			id("file_link").value=file;
+			id("file_url").value = \'\';
+		}
 	-->
-	</script>
-';
+	</script>';
 	$mainframe->addCustomHeadTag($jw_mmxtd_head);
+	mosCommonHTML::loadJqueryPlugins('multiple-file-upload/jquery.MultiFile');
 }
 
 
@@ -435,7 +426,7 @@ function listofImages($listdir) {
 			}
 			// разные файлы
 			if(count($docs) > 0) {
-				echo '<fieldset><legend>'._JWMM_FILES.'</legend>';
+				echo '<fieldset><legend>'._JWMM_FILE.'</legend>';
 				for($i = 0; $i < count($docs); $i++) {
 					$doc_name = key($docs);
 					$iconfile = $GLOBALS['mosConfig_absolute_path'].'/images/icons/'.substr($doc_name,-3).'.png';
@@ -508,14 +499,14 @@ function viewMediaManager($curdirectory = "",$mosmsg = "",$selectedfile = "") {
 	if(is_array($folders)) {
 		sort($folders);
 	}
-	$dirPath = mosHTML::selectList($folders,'curdirectory',"class=\"inputbox\" size=\"1\" onchange=\"document.adminForm.task.value='';document.adminForm.submit( );\" ",'value','text',$curdirectory);
-	if($curdirectory == "") $upcategory = "";
-	else {
-		$tmp = explode("/",$curdirectory);
+	$dirPath = mosHTML::selectList($folders,'curdirectory',"class=\"inputbox\" size=\"5\" style=\"width:95%;\" onchange=\"document.adminForm.task.value='';document.adminForm.submit( );\" ",'value','text',$curdirectory);
+	if($curdirectory == ''){
+		$upcategory = '';
+	}else {
+		$tmp = explode('/',$curdirectory);
 		end($tmp);
 		unset($tmp[key($tmp)]);
-		$upcategory = implode("/",$tmp);
-		if($upcategory == "") $upcategory = "";
+		$upcategory = implode('/',$tmp);
 	}
 	// сообщения о ошибках, уведомления
 	if($mosmsg) {
@@ -529,46 +520,38 @@ function viewMediaManager($curdirectory = "",$mosmsg = "",$selectedfile = "") {
 		<th class="media"><?php echo _JWMM_MEDIA_MANAGER?></th>
 		<td id="browse"><table cellpadding="0" cellspacing="4" align="right">
 			<tr>
-				<td><?php echo _JWMM_CREATE_DIRECTORY?></td>
-				<td style="width:220px;"><input class="inputbox" type="text" name="createfolder" id="createfolder" /></td>
+				<td><?php echo _JWMM_CREATE_DIRECTORY?>:</td>
+				<td><input style="width:200px;" class="inputbox" type="text" name="createfolder" id="createfolder" /></td>
 				<td>
 					<input type="button" class="button" onclick="javascript:document.adminForm.task.value='createfolder';document.adminForm.submit( );" value="<?php echo _CMN_NEW?>" />
 				</td>
 			</tr>
 			<tr>
-				<td><?php echo _UPLOAD_FILE?>:<a id="toggle" name="toggle" href="#">(+)</a></td>
-				<td><input type="file" class="inputbox" name="upimage[]" />
-				<div class="wrap">
-				<div id="upload_more">
-					<input type="file" class="inputbox" name="upimage[]" /><br />
-					<input type="file" class="inputbox" name="upimage[]" /><br />
-					<input type="file" class="inputbox" name="upimage[]" /><br />
-					<input type="file" class="inputbox" name="upimage[]" /><br />
-					</div>
-				</div>
-				</td>
+				<td><?php echo _UPLOAD_FILE?>:</td>
+				<td><input type="file" class="inputbox multi" name="upimage[]" maxlength="8" /></td>
 				<td>
 					<input type="button" class="button" onclick="javascript:document.adminForm.task.value='uploadimages';document.adminForm.submit( );" value="<?php echo _TASK_UPLOAD?>" />
-				</td>
-			</tr>
-			<tr>
-				<td><?php echo _JWMM_FILE_PATH?>:</td>
-				<td><?php echo $dirPath; ?></td>
-				<td>
-					<a href="index2.php?option=com_jwmmxtd&amp;curdirectory=<?php echo $upcategory; ?>"><img src="images/uparrow.png" alt="<?php echo _JWMM_UP_TO_DIRECTORY?>" /></a>
 				</td>
 			</tr>
 			</table></td>
 		</tr>
 	</table>
+	<table style="width:100%;" cellpadding="0" cellspacing="0">
+		<tr>
+			<td><?php echo _JWMM_IMAGE_LINK ?></td><td><input type="text" id="file_link" name="file_link" class="inputbox" size="100"/></td>
+			<td rowspan="3" width="50%"><?php echo _JWMM_FILE_PATH?>:<a href="index2.php?option=com_jwmmxtd&amp;curdirectory=<?php echo $upcategory; ?>"><img src="images/uparrow.png" alt="<?php echo _JWMM_UP_TO_DIRECTORY?>" /></a><br /><?php echo $dirPath; ?></td>
+		</tr>
+		<tr><td><?php echo _JWMM_IMAGE_HREF ?></td><td><input type="text" id="file_href" name="file_href" class="inputbox" size="100"/></td></tr>
+		<tr><td><?php echo _JWMM_IMAGE_TAG ?></td><td><input type="text" id="file_url" name="file_url" class="inputbox" size="100"/></td></tr>
+	</table>
 	<div id="actions">
 <?php if($selectedfile != "" && $subtask == "renamefile") { ?>
-		<fieldset class="block">
+	<fieldset class="block">
 		<legend><?php echo _JWMM_RENAMING?>: <span><?php echo $selectedfile; ?></span></legend>
 		<input type="hidden" name="curfile" value="<?php echo $selectedfile; ?>"><?php echo _JWMM_NEW_NAME?>:
 		<input type="text" name="newfilename" id="newfilename">
 		<input type="button" onclick="javascript:document.adminForm.task.value='alterfilename';document.adminForm.submit( );" class="button" value="<?php echo _RENAME?>" />
-		</fieldset>
+	</fieldset>
 <?php } ?>
 
 <?php if($selectedfile != "" && $subtask == "copyfile") { ?>
