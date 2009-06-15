@@ -61,7 +61,8 @@ class mosMessage extends mosDBTable {
 	}
 
 	function send($from_id = null,$to_id = null,$subject = null,$message = null) {
-		global $database,$mosConfig_mailfrom,$mosConfig_fromname;
+		$database = &database::getInstance();
+		$config = &Jconfig::getInstance();
 
 		if(is_object($this)) {
 			$from_id = $from_id?$from_id:$this->user_id_from;
@@ -93,7 +94,7 @@ class mosMessage extends mosDBTable {
 					$subject = _NEW_MESSAGE;
 					$msg = _NEW_MESSAGE;
 
-					mosMail($mosConfig_mailfrom,$mosConfig_fromname,$recipient,$subject,$msg);
+					mosMail($config->config_mailfrom,$config->config_fromname,$recipient,$subject,$msg);
 				}
 				return true;
 			}

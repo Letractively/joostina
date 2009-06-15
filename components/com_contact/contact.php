@@ -44,16 +44,21 @@ switch($task) {
 
 
 function listContacts($option,$catid) {
-	global $mainframe,$database,$my;
-	global $mosConfig_live_site;
-	global $Itemid,$mosConfig_MetaDesc,$mosConfig_MetaKeys;
-	;
+	global $my,$Itemid;
+
+	$database = &database::getInstance();
+	$mainframe = &mosMainFrame::getInstance();
+	$config = &Jconfig::getInstance();
 
 	/* Query to retrieve all categories that belong under the contacts section and that are published.*/
-	$query = "SELECT*, COUNT( a.id ) AS numlinks"."\n FROM #__categories AS cc"."\n LEFT JOIN #__contact_details AS a ON a.catid = cc.id".
-		"\n WHERE a.published = 1"."\n AND cc.section = 'com_contact_details'"."\n AND cc.published = 1".
-		"\n AND a.access <= ".(int)$my->gid."\n AND cc.access <= ".(int)$my->gid."\n GROUP BY cc.id".
-		"\n ORDER BY cc.ordering";
+	$query = "SELECT*, COUNT( a.id ) AS numlinks FROM #__categories AS cc"
+		."\n LEFT JOIN #__contact_details AS a ON a.catid = cc.id"
+		."\n WHERE a.published = 1 AND cc.section = 'com_contact_details'"
+		."\n AND cc.published = 1"
+		."\n AND a.access <= "
+		.(int)$my->gid."\n AND cc.access <= ".(int)$my->gid
+		."\n GROUP BY cc.id"
+		."\n ORDER BY cc.ordering";
 	$database->setQuery($query);
 	$categories = $database->loadObjectList();
 
@@ -90,12 +95,12 @@ function listContacts($option,$catid) {
 		if($params->get('meta_description') != "") {
 			$mainframe->addMetaTag('description',$params->get('meta_description'));
 		} else {
-			$mainframe->addMetaTag('description',$mosConfig_MetaDesc);
+			$mainframe->addMetaTag('description',$config->config_MetaDesc);
 		}
 		if($params->get('meta_keywords') != "") {
 			$mainframe->addMetaTag('keywords',$params->get('meta_keywords'));
 		} else {
-			$mainframe->addMetaTag('keywords',$mosConfig_MetaKeys);
+			$mainframe->addMetaTag('keywords',$config->config_MetaKeys);
 		}
 		if($params->get('meta_author') != "") {
 			$mainframe->addMetaTag('author',$params->get('meta_author'));
@@ -134,14 +139,12 @@ function listContacts($option,$catid) {
 
 		if($catid) {
 			// url links info for category
-			$query = "SELECT*"."\n FROM #__contact_details"."\n WHERE catid = ".(int)$catid.
-				"\n AND published =1"."\n AND access <= ".(int)$my->gid."\n ORDER BY ordering";
+			$query = "SELECT* FROM #__contact_details WHERE catid = ".(int)$catid." AND published =1 AND access <= ".(int)$my->gid." ORDER BY ordering";
 			$database->setQuery($query);
 			$rows = $database->loadObjectList();
 
 			// current category info
-			$query = "SELECT id, name, description, image, image_position"."\n FROM #__categories".
-				"\n WHERE id = ".(int)$catid."\n AND published = 1"."\n AND access <= ".(int)$my->gid;
+			$query = "SELECT id, name, description, image, image_position FROM #__categories WHERE id = ".(int)$catid." AND published = 1 AND access <= ".(int)$my->gid;
 			$database->setQuery($query);
 			$database->loadObject($currentcat);
 
@@ -197,12 +200,18 @@ function listContacts($option,$catid) {
 
 
 function contactpage($contact_id) {
-	global $mainframe,$database,$my,$Itemid;
+	global $my,$Itemid;
 
-	$query = "SELECT a.id AS value, CONCAT_WS( ' - ', a.name, a.con_position ) AS text, a.catid, cc.access AS cat_access".
-		"\n FROM #__contact_details AS a"."\n LEFT JOIN #__categories AS cc ON cc.id = a.catid".
-		"\n WHERE a.published = 1"."\n AND cc.published = 1"."\n AND a.access <= ".(int)
-		$my->gid."\n ORDER BY a.default_con DESC, a.ordering ASC";
+	$database = &database::getInstance();
+	$mainframe = &mosMainFrame::getInstance();
+
+	$query = "SELECT a.id AS value, CONCAT_WS( ' - ', a.name, a.con_position ) AS text, a.catid, cc.access AS cat_access"
+		."\n FROM #__contact_details AS a"
+		."\n LEFT JOIN #__categories AS cc ON cc.id = a.catid WHERE a.published = 1"
+		."\n AND cc.published = 1"
+		."\n AND a.access <= "
+		.(int)$my->gid
+		."\n ORDER BY a.default_con DESC, a.ordering ASC";
 	$database->setQuery($query);
 	$checks = $database->loadObjectList();
 
@@ -212,9 +221,12 @@ function contactpage($contact_id) {
 			$contact_id = $checks[0]->value;
 		}
 
-		$query = "SELECT a.*, cc.access AS cat_access"."\n FROM #__contact_details AS a".
-			"\n LEFT JOIN #__categories AS cc ON cc.id = a.catid"."\n WHERE a.published = 1".
-			"\n AND a.id = ".(int)$contact_id."\n AND a.access <= ".(int)$my->gid;
+		$query = "SELECT a.*, cc.access AS cat_access"
+			."\n FROM #__contact_details AS a"
+			."\n LEFT JOIN #__categories AS cc ON cc.id = a.catid"
+			."\n WHERE a.published = 1"
+			."\n AND a.id = ".(int)$contact_id
+			."\n AND a.access <= ".(int)$my->gid;
 		$database->SetQuery($query);
 		$contacts = $database->LoadObjectList();
 
@@ -390,9 +402,11 @@ function contactpage($contact_id) {
 
 
 function sendmail($con_id,$option) {
-	global $mainframe,$database,$Itemid,$mosConfig_captcha_cont;
-	global $mosConfig_sitename,$mosConfig_live_site,$mosConfig_mailfrom,$mosConfig_fromname,
-		$mosConfig_db;
+	global $Itemid;
+
+	$database = &database::getInstance();
+	$mainframe = &mosMainFrame::getInstance();
+	$config = &Jconfig::getInstance();
 
 	// simple spoof check security
 	josSpoofCheck(1);
@@ -402,7 +416,7 @@ function sendmail($con_id,$option) {
 	$contact = $database->loadObjectList();
 
 	if(count($contact) > 0) {
-		$default = $mosConfig_sitename.' '._ENQUIRY;
+		$default = $config->config_sitename.' '._ENQUIRY;
 		$email = strval(mosGetParam($_POST,'email',''));
 		$text = strval(mosGetParam($_POST,'text',''));
 		$name = strval(mosGetParam($_POST,'name',''));
@@ -429,8 +443,8 @@ function sendmail($con_id,$option) {
 		}
 
 		// check for session cookie
-		global $mosConfig_session_front;//if front sessions disabled
-		if(!$mosConfig_session_front && $sessionCheck) {
+
+		if(!$config->config_session_front && $sessionCheck) {
 			// Session Cookie `name`
 			$sessionCookieName = mosMainFrame::sessionCookieName();
 			// Get Session Cookie `value`
@@ -481,7 +495,7 @@ function sendmail($con_id,$option) {
 		$prefix = sprintf(_ENQUIRY_TEXT,$mosConfig_live_site);
 		$text = $prefix."\n".$name.' <'.$email.'>'."\n\n".stripslashes($text);
 
-		$success = mosMail($email,$name,$contact[0]->email_to,$mosConfig_fromname.': '.$subject,$text);
+		$success = mosMail($email,$name,$contact[0]->email_to,$config->config_fromname.': '.$subject,$text);
 		if(!$success) {
 			mosErrorAlert(_CONTACT_FORM_NC);
 		}
@@ -492,11 +506,11 @@ function sendmail($con_id,$option) {
 
 		// check whether email copy function activated
 		if($email_copy && $emailcopyCheck) {
-			$copy_text = sprintf(_COPY_TEXT,$contact[0]->name,$mosConfig_sitename);
+			$copy_text = sprintf(_COPY_TEXT,$contact[0]->name,$config->config_sitename);
 			$copy_text = $copy_text."\n\n".$text.'';
 			$copy_subject = _COPY_SUBJECT.$subject;
 
-			$success = mosMail($mosConfig_mailfrom,$mosConfig_fromname,$email,$copy_subject,$copy_text);
+			$success = mosMail($config->config_mailfrom,$config->config_fromname,$email,$copy_subject,$copy_text);
 			if(!$success) {
 				mosErrorAlert(_CONTACT_FORM_NC);
 			}
@@ -509,8 +523,8 @@ function sendmail($con_id,$option) {
 }
 
 function vCard($id) {
-	global $database;
-	global $mosConfig_sitename,$mosConfig_live_site;
+	$database = &database::getInstance();
+	$config = &Jconfig::getInstance();
 
 	$contact = new mosContact($database);
 	$contact->load((int)$id);
@@ -554,14 +568,14 @@ function vCard($id) {
 		$v->setAddress('','',$contact->address,$contact->suburb,$contact->state,$contact->postcode,$contact->country,'WORK;POSTAL');
 		$v->setEmail($contact->email_to);
 		$v->setNote($contact->misc);
-		$v->setURL($mosConfig_live_site,'WORK');
+		$v->setURL($config->config_live_site,'WORK');
 		$v->setTitle($contact->con_position);
-		$v->setOrg($mosConfig_sitename);
+		$v->setOrg($config->config_sitename);
 
 		$filename = str_replace(' ','_',$contact->name);
 		$v->setFilename($filename);
 
-		$output = $v->getVCard($mosConfig_sitename);
+		$output = $v->getVCard($config->config_sitename);
 		$filename = $v->getFileName();
 
 		// header info for page

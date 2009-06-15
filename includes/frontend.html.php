@@ -83,17 +83,17 @@ class modules_html {
 	* @param int -1=show without wrapper and title, -2=xhtml style
 	*/
 	function module2(&$module,&$params,$Itemid,$style = 0,$count = 0) {
-		global $mosConfig_lang,$mosConfig_absolute_path,$mosConfig_module_multilang;
+		$config = &Jconfig::getInstance();
 
 		$moduleclass_sfx = $params->get('moduleclass_sfx');
 
-		if($mosConfig_module_multilang){
+		if($config->config_module_multilang){
 			// check for custom language file
-			$path = $mosConfig_absolute_path.'/modules/'.$module->module.$mosConfig_lang.'.php';
+			$path = $config->config_absolute_path.'/modules/'.$module->module.$config->config_lang.'.php';
 			if(file_exists($path)) {
 				include ($path);
 			} else {
-				$path = $mosConfig_absolute_path.'/modules/'.$module->module.'.russian.php';
+				$path = $config->config_absolute_path.'/modules/'.$module->module.'.russian.php';
 				if(file_exists($path)) {
 					include ($path);
 				}
@@ -130,10 +130,10 @@ class modules_html {
 
 	// feed output
 	function modoutput_feed(&$module,&$params,$moduleclass_sfx) {
-		global $mosConfig_absolute_path,$mosConfig_cachepath;
+		$config = &Jconfig::getInstance();
 
 		// check if cache directory is writeable
-		$cacheDir = $mosConfig_cachepath.'/';
+		$cacheDir = $config->config_cachepath.'/';
 		if(!is_writable($cacheDir)) {
 			$module->content = _CACHE_DIR_IS_NOT_WRITEABLE2;
 			return;
@@ -150,8 +150,8 @@ class modules_html {
 
 		$contentBuffer = '';
 
-		$LitePath = $mosConfig_absolute_path.'/includes/Cache/Lite.php';
-		require_once ($mosConfig_absolute_path.'/includes/domit/xml_domit_rss.php');
+		$LitePath = $config->onfig_absolute_path.'/includes/Cache/Lite.php';
+		require_once ($config->config_absolute_path.'/includes/domit/xml_domit_rss.php');
 
 		$rssDoc = new xml_domit_rss_document();
 		$rssDoc->setRSSTimeout(2);
@@ -291,8 +291,11 @@ class modules_html {
 	* standard tabled output
 	*/
 	function modoutput_table($module,$params,$Itemid,$moduleclass_sfx,$type = 0) {
-		global $mosConfig_live_site,$mosConfig_sitename,$mosConfig_lang,$mosConfig_absolute_path;
-		global $mainframe,$database,$my;
+		global $my;
+		$database = &database::getInstance();
+		$mainframe = &mosMainFrame::getInstance();
+		$config = &Jconfig::getInstance();
+
 ?>
 		<table cellpadding="0" cellspacing="0" class="moduletable<?php echo $moduleclass_sfx; ?>">
 <?php
@@ -310,7 +313,7 @@ class modules_html {
 		if($type) {
 			modules_html::CustomContent($module,$params);
 		} else {
-			include ($mosConfig_absolute_path.'/modules/'.$module->module.'.php');
+			include ($config->config_absolute_path.'/modules/'.$module->module.'.php');
 
 			if(isset($content)) {
 				echo $content;
@@ -327,13 +330,16 @@ class modules_html {
 	* show a naked module - no wrapper and no title
 	*/
 	function modoutput_naked($module,$params,$Itemid,$moduleclass_sfx,$type = 0) {
-		global $mosConfig_live_site,$mosConfig_sitename,$mosConfig_lang,$mosConfig_absolute_path;
-		global $mainframe,$database,$my;
+		global $my;
+
+		$database = &database::getInstance();
+		$mainframe = &mosMainFrame::getInstance();
+		$config = &Jconfig::getInstance();
 
 		if($type) {
 			modules_html::CustomContent($module,$params);
 		} else {
-			include ($mosConfig_absolute_path.'/modules/'.$module->module.'.php');
+			include ($config->config_absolute_path.'/modules/'.$module->module.'.php');
 
 			if(isset($content)) {
 				echo $content;
@@ -345,8 +351,12 @@ class modules_html {
 	* xhtml (divs and font headder tags)
 	*/
 	function modoutput_xhtml($module,$params,$Itemid,$moduleclass_sfx,$type = 0) {
-		global $mosConfig_live_site,$mosConfig_sitename,$mosConfig_lang,$mosConfig_absolute_path;
-		global $mainframe,$database,$my;
+		global $my;
+
+		$database = &database::getInstance();
+		$mainframe = &mosMainFrame::getInstance();
+		$config = &Jconfig::getInstance();
+
 ?>
 		<div class="moduletable<?php echo $moduleclass_sfx; ?>">
 <?php
@@ -361,7 +371,7 @@ class modules_html {
 		if($type) {
 			modules_html::CustomContent($module,$params);
 		} else {
-			include ($mosConfig_absolute_path.'/modules/'.$module->module.'.php');
+			include ($config->config_absolute_path.'/modules/'.$module->module.'.php');
 
 			if(isset($content)) {
 				echo $content;
@@ -376,8 +386,12 @@ class modules_html {
 	* allows for rounded corners
 	*/
 	function modoutput_rounded($module,$params,$Itemid,$moduleclass_sfx,$type = 0) {
-		global $mosConfig_live_site,$mosConfig_sitename,$mosConfig_lang,$mosConfig_absolute_path;
-		global $mainframe,$database,$my;
+		global $my;
+
+		$database = &database::getInstance();
+		$mainframe = &mosMainFrame::getInstance();
+		$config = &Jconfig::getInstance();
+
 ?>
 		<div class="module<?php echo $moduleclass_sfx; ?>">
 			<div>
@@ -391,7 +405,7 @@ class modules_html {
 		if($type) {
 			modules_html::CustomContent($module,$params);
 		} else {
-			include ($mosConfig_absolute_path.'/modules/'.$module->module.'.php');
+			include ($config->config_absolute_path.'/modules/'.$module->module.'.php');
 
 			if(isset($content)) {
 				echo $content;

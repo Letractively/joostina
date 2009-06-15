@@ -87,46 +87,11 @@ $option = strval(strtolower(mosGetParam($_REQUEST,'option')));
 $Itemid = intval(mosGetParam($_REQUEST,'Itemid',null));
 
 
-/* для отключения доступа к компонентам
-if(in_array($option, array( 'com_content', 'com_bookmark')) ){
-	mosRedirect('index.php');
-}
-*/
-
 if($option == '') {
-	if($Itemid) {
-		$query = "SELECT id, link"
-		."\n FROM #__menu"
-		."\n WHERE menutype = 'mainmenu'"
-		."\n AND id = ".(int)$Itemid
-		."\n AND published = 1";
-		$database->setQuery($query);
-	} else {
-		$query = "SELECT id, link"
-		."\n FROM #__menu"
-		."\n WHERE menutype = 'mainmenu'"
-		."\n AND published = 1"
-		."\n ORDER BY parent, ordering";
-		$database->setQuery($query,0,1);
-	}
-	$menu = new mosMenu($database);
-	if($database->loadObject($menu)) {
-		$Itemid = $menu->id;
-	}
-	$link = $menu->link;
-	unset($menu);
-	if(($pos = strpos($link,'?')) !== false) {
-		$link = substr($link,$pos + 1).'&Itemid='.$Itemid;
-	}
-	parse_str($link,$temp);
-	/** это путь, требуется переделать для лучшего управления глобальными переменными*/
-	foreach($temp as $k => $v) {
-		$GLOBALS[$k] = $v;
-		$_REQUEST[$k] = $v;
-		if($k == 'option') {
-			$option = $v;
-		}
-	}
+	$_temp = get_option($Itemid);
+	$Itemid = $_temp[0];
+	$option = $_temp[1];
+	unset($_temp);
 }
 
 if(!$Itemid) {
@@ -164,14 +129,11 @@ if($Itemid === 0) {
 }
 
 // путь уменьшения воздействия на шаблоны
-if($option == 'search') {
-	$option = 'com_search';
-}
+$option = ($option == 'search') ? 'com_search' : $option;
 
 // загрузка файла русского языка по умолчанию
-if($mosConfig_lang == '') {
-	$mosConfig_lang = 'russian';
-}
+$mosConfig_lang = ($mosConfig_lang == '') ? 'russian' : $mosConfig_lang;
+
 include_once ($mosConfig_absolute_path.'/language/'.$mosConfig_lang.'.php');
 
 // контроль входа и выхода в фронт-энд
@@ -242,7 +204,6 @@ if($option == 'login') {
 	}
 }
 
-
 // получение шаблона страницы
 $cur_template = $mainframe->getTemplate();
 
@@ -255,6 +216,7 @@ if($mosConfig_frontend_login == 1) {
 	require_once ($mosConfig_absolute_path.'/includes/editor.php');
 }
 // начало буферизации основного содержимого
+
 
 ob_start();
 if($path = $mainframe->getPath('front')) {

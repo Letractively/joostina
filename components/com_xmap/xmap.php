@@ -226,7 +226,7 @@ class Xmap {
 	 */
 	function printMenuTree( &$menu, &$cache, $plugins) {
 
-		$database = database::getInstance();
+		$database = &database::getInstance();
 
 		if( strlen($menu->menutype) == 0 ) {
 			$result = null;
@@ -275,7 +275,7 @@ class Xmap {
 	/** Look up the title for the module that links to $menutype */
 	function getMenuTitle($menutype) {
 
-		$database = database::getInstance();
+		$database = &database::getInstance();
 
 		$query = "SELECT title FROM #__modules WHERE published='1' AND (module='mod_mainmenu' OR module='mod_mljoostinamenu') AND params LIKE '%menutype=". $menutype ."%' LIMIT 1";
 		$database->setQuery( $query );

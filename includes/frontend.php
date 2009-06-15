@@ -63,8 +63,10 @@ function mosMainBody() {
 */
 function mosLoadComponent($name) {
 	// set up some global variables for use by frontend components
-	global $mainframe,$database,$my,$acl;
+	global $my,$acl;
 	global $task,$Itemid,$id,$option,$gid;
+	$mainframe = &mosMainFrame::getInstance();
+	$database = &database::getInstance();
 	include ($mainframe->getCfg('absolute_path')."/components/com_$name/$name.php");
 }
 /**
@@ -72,7 +74,9 @@ function mosLoadComponent($name) {
 * @return array
 */
 function &initModules() {
-	global $database,$my,$Itemid,$mosConfig_disable_access_control;
+	global $my,$Itemid;
+
+	$database = &database::getInstance();
 
 	if(!isset($GLOBALS['_MOS_MODULES'])) {
 		$Itemid = intval($Itemid);
@@ -80,7 +84,7 @@ function &initModules() {
 		if($Itemid) {
 			$check_Itemid = "OR mm.menuid = ".(int)$Itemid;
 		}
-		if(!$mosConfig_disable_access_control) $where_ac = "\n AND access <= ".(int)$my->gid;
+		if(!Jconfig::getInstance()->config_disable_access_control) $where_ac = "\n AND access <= ".(int)$my->gid;
 		else $where_ac = '';
 #		$query = "SELECT id, title, module, position, content, showtitle, params, assign_to_url FROM #__modules AS m"
 		$query = "SELECT id, title, module, position, content, showtitle, params FROM #__modules AS m"
@@ -103,7 +107,9 @@ function &initModules() {
 * @param string THe template position
 */
 function mosCountModules($position = 'left') {
-	global $database,$my,$Itemid;
+	global $my,$Itemid;
+
+	$database = &database::getInstance();
 
 	$tp = intval(mosGetParam($_GET,'tp',0));
 	if($tp) {
@@ -122,11 +128,14 @@ function mosCountModules($position = 'left') {
 * @param int The style.  0=normal, 1=horiz, -1=no wrapper
 */
 function mosLoadModules($position = 'left',$style = 0,$noindex = 0) {
-	global $mosConfig_gzip,$mosConfig_absolute_path,$database,$my,$Itemid,$mosConfig_caching,$mainframe,$mosConfig_disable_tpreview;
+	global $my,$Itemid;
+
+	$database = &database::getInstance();
+	$config = &Jconfig::getInstance();
 
 	$tp = intval(mosGetParam($_GET,'tp',0));
 
-	if($tp && !$mosConfig_disable_tpreview ) {
+	if($tp && !$config->config_disable_tpreview ) {
 		echo '<div style="height:50px;background-color:#eee;margin:2px;padding:10px;border:1px solid #f00;color:#700;">';
 		echo $position;
 		echo '</div>';
@@ -135,7 +144,7 @@ function mosLoadModules($position = 'left',$style = 0,$noindex = 0) {
 	$style = intval($style);
 	$cache = &mosCache::getCache('modules');
 
-	require_once ($mosConfig_absolute_path.'/includes/frontend.html.php');
+	require_once ($config->config_absolute_path.'/includes/frontend.html.php');
 
 	$allModules = &initModules();
 
@@ -164,7 +173,7 @@ function mosLoadModules($position = 'left',$style = 0,$noindex = 0) {
 
 		if((substr($module->module,0,4)) == 'mod_') {
 			// normal modules
-			if($params->get('cache') == 1 && $mosConfig_caching == 1) {
+			if($params->get('cache') == 1 && $config->config_caching == 1) {
 				// module caching
 				$cache->call('modules_html::module2',$module,$params,$Itemid,$style,$my->gid);
 			} else {
@@ -172,7 +181,7 @@ function mosLoadModules($position = 'left',$style = 0,$noindex = 0) {
 			}
 		} else {
 			// custom or new modules
-			if($params->get('cache') == 1 && $mosConfig_caching == 1) {
+			if($params->get('cache') == 1 && $config->config_caching == 1) {
 				// module caching
 				$cache->call('modules_html::module',$module,$params,$Itemid,$style,0,$my->gid);
 			} else {
@@ -296,7 +305,8 @@ function mosShowFooter($params=array('fromheader'=>1,'js'=>1)) {
 
 // установка мета-тэгов для поисковика
 function set_robot_metatag($robots) {
-	global $mainframe;
+	$mainframe = &mosMainFrame::getInstance();
+
 	if($robots == 0) {
 		$mainframe->addMetaTag('robots','index, follow');
 	}
