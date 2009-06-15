@@ -12,7 +12,9 @@ defined('_VALID_MOS') or die();
 
 // function that selecting one or more banner/s
 function showBanners(&$params) {
-	global $database, $my;
+	global $my;
+
+	$database = &database::getInstance();
 
 	$random = $params->get('random', 0);
 	$count = $params->get('count', 1);
@@ -118,7 +120,8 @@ function showBanners(&$params) {
 
 // function that showing one banner
 function showSingleBanner(&$banner) {
-	global $mosConfig_live_site, $database, $mosConfig_absolute_path;
+	$database = &database::getInstance();
+	$config = &Jconfig::getInstance();
 
 	$result = '';
 
@@ -136,8 +139,8 @@ function showSingleBanner(&$banner) {
 		$result .= $banner->custom_banner_code;
 	} else
 		if(eregi("(\.bmp|\.gif|\.jpg|\.jpeg|\.png)$", $banner->image_url)) {
-			$image_url = "$mosConfig_live_site/images/banners/$banner->image_url";
-			$imginfo = @getimagesize("$mosConfig_absolute_path/images/banners/" . $banner->image_url);
+			$image_url = "$config->config_live_site/images/banners/$banner->image_url";
+			$imginfo = @getimagesize("$config->config_absolute_path/images/banners/" . $banner->image_url);
 			$target = $banner->target;
 			$border_value = $banner->border_value;
 			$border_style = $banner->border_style;
@@ -152,8 +155,8 @@ function showSingleBanner(&$banner) {
 			$result = "<a href=\"index.php?option=com_banners&amp;task=clk&amp;id=$banner->id\" target=\"_" . $target . "\"><img src=\"" . $image_url . "\" style=\"border:" . $border_value . "px " . $border_style ." " . $border_color . "\" vspace=\"0\" alt=\"$alt\" title=\"$title\" width=\"$imginfo[0]\" height=\"$imginfo[1]\" /></a>";
 		} else
 			if(eregi(".swf", $banner->image_url)) {
-				$image_url = "$mosConfig_live_site/images/banners/" . $banner->image_url;
-				$swfinfo = @getimagesize("$mosConfig_absolute_path/images/banners/" . $banner->image_url);
+				$image_url = "$config->config_live_site/images/banners/" . $banner->image_url;
+				$swfinfo = @getimagesize("$config->onfig_absolute_path/images/banners/" . $banner->image_url);
 				$result = "<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=4,0,2,0\" border=\"0\" width=\"$swfinfo[0]\" height=\"$swfinfo[1]\" vspace=\"0\"><param name=\"SRC\" value=\"$image_url\"><embed src=\"$image_url\" loop=\"false\" pluginspage=\"http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash\" type=\"application/x-shockwave-flash\" width=\"$swfinfo[0]\" height=\"$swfinfo[1]\"></object>";
 			}
 

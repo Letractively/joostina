@@ -28,14 +28,17 @@ switch($task) {
 
 
 function listFeeds($catid) {
-	global $mainframe,$database,$my;
-	global $mosConfig_live_site;
-	global $Itemid;
+	global $my,$Itemid;
+
+	$database = &database::getInstance();
+	$mainframe = &mosMainFrame::getInstance();
+	$config = &Jconfig::getInstance();
 
 	/* Query to retrieve all categories that belong under the contacts section and that are published.*/
-	$query = "SELECT cc.*, a.catid, COUNT(a.id) AS numlinks FROM #__categories AS cc".
-		"\n LEFT JOIN #__newsfeeds AS a ON a.catid = cc.id WHERE a.published = 1".
-		"\n AND cc.section = 'com_newsfeeds'AND cc.published = 1 AND cc.access <= ".(int)$my->gid."\n GROUP BY cc.id ORDER BY cc.ordering";
+	$query = "SELECT cc.*, a.catid, COUNT(a.id) AS numlinks FROM #__categories AS cc"
+	."\n LEFT JOIN #__newsfeeds AS a ON a.catid = cc.id WHERE a.published = 1"
+	."\n AND cc.section = 'com_newsfeeds'AND cc.published = 1 AND cc.access <= ".(int)$my->gid
+	."\n GROUP BY cc.id ORDER BY cc.ordering";
 	$database->setQuery($query);
 	$categories = $database->loadObjectList();
 
@@ -43,12 +46,12 @@ function listFeeds($catid) {
 	$currentcat = null;
 	if($catid) {
 		// url links info for category
-		$query = "SELECT* FROM #__newsfeeds WHERE catid = ".(int)$catid."\n AND published = 1 ORDER BY ordering";
+		$query = "SELECT* FROM #__newsfeeds WHERE catid = ".(int)$catid." AND published = 1 ORDER BY ordering";
 		$database->setQuery($query);
 		$rows = $database->loadObjectList();
 
 		// current category info
-		$query = "SELECT id, name, description, image, image_position FROM #__categories WHERE id = ".(int)$catid."\n AND published = 1 AND access <= ".(int)$my->gid;
+		$query = "SELECT id, name, description, image, image_position FROM #__categories WHERE id = ".(int)$catid." AND published = 1 AND access <= ".(int)$my->gid;
 		$database->setQuery($query);
 		$database->loadObject($currentcat);
 
@@ -104,7 +107,7 @@ function listFeeds($catid) {
 
 	// page image
 	$currentcat->img = '';
-	$path = $mosConfig_live_site.'/images/stories/';
+	$path = $config->config_live_site.'/images/stories/';
 	if((@$currentcat->image) != '') {
 		$currentcat->img = $path.$currentcat->image;
 		$currentcat->align = $currentcat->image_position;
@@ -134,10 +137,14 @@ function listFeeds($catid) {
 
 
 function showFeed($feedid) {
-	global $database,$mainframe,$mosConfig_absolute_path,$mosConfig_cachepath,$Itemid,$my;
+	global $Itemid,$my;
+
+	$database = &database::getInstance();
+	$mainframe = &mosMainFrame::getInstance();
+	$config = &Jconfig::getInstance();
 
 	// check if cache directory is writeable
-	$cacheDir = $mosConfig_cachepath.'/';
+	$cacheDir = $config->config_cachepath.'/';
 	if(!is_writable($cacheDir)) {
 		echo 'Каталог кэша недоступен для записи';
 		return;
@@ -175,8 +182,8 @@ function showFeed($feedid) {
 	}
 
 	// full RSS parser used to access image information
-	require_once ($mosConfig_absolute_path.'/includes/domit/xml_domit_rss.php');
-	$LitePath = $mosConfig_absolute_path.'/includes/includes/libraries/cache/cache.php';
+	require_once ($config->config_absolute_path.'/includes/domit/xml_domit_rss.php');
+	$LitePath = $config->config_absolute_path.'/includes/includes/libraries/cache/cache.php';
 
 	// Adds parameter handling
 	$menu = $mainframe->get('menu');

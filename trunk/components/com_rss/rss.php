@@ -33,8 +33,8 @@ switch($task) {
 * Creates feed from Content Iems associated to teh frontpage component
 */
 function feedFrontpage($showFeed) {
-	global $database,$mainframe;
-	global $mosConfig_live_site,$mosConfig_cachepath,$mosConfig_sitename,$mosConfig_MetaDesc;
+	$database = &database::getInstance();
+	$config = &Jconfig::getInstance();
 
 	$nullDate = $database->getNullDate();
 	// pull id of syndication component
@@ -68,18 +68,18 @@ function feedFrontpage($showFeed) {
 	$info['date'] = date('r');
 	$info['year'] = date('Y');
 	$info['encoding'] = $iso[1];
-	$info['link'] = htmlspecialchars($mosConfig_live_site);
+	$info['link'] = htmlspecialchars($config->onfig_live_site);
 	$info['cache'] = $params->def('cache',1);
 	$info['cache_time'] = $params->def('cache_time',3600);
 	$info['count'] = $params->def('count',5);
 	$info['orderby'] = $params->def('orderby','');
-	$info['title'] = $params->def('title',$mosConfig_sitename);
-	$info['description'] = $params->def('description',$mosConfig_MetaDesc);
+	$info['title'] = $params->def('title',$config->config_sitename);
+	$info['description'] = $params->def('description',$config->config_MetaDesc);
 	$info['image_file'] = $params->def('image_file','joostina_rss.png');
 	if($info['image_file'] == -1) {
 		$info['image'] = null;
 	} else {
-		$info['image'] = $mosConfig_live_site.'/images/M_images/'.$info['image_file'];
+		$info['image'] = $config->config_live_site.'/images/M_images/'.$info['image_file'];
 	}
 	$info['image_alt'] = $params->def('image_alt','Работает на Joostina!');
 	$info['limit_text'] = $params->def('limit_text',0);
@@ -163,7 +163,7 @@ function feedFrontpage($showFeed) {
 		echo _NOT_AUTH;
 		return;
 	}
-	$info['file'] = $mosConfig_cachepath.'/'.$filename;
+	$info['file'] = $config->config_cachepath.'/'.$filename;
 
 	// load feed creator class
 	$rss = new UniversalFeedCreator();

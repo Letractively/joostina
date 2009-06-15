@@ -26,10 +26,6 @@ switch($task) {
 		break;
 
 	case 'edit':
-		/*
-		* Disabled until ACL system is implemented.  When enabled the $id variable
-		* will be passed instead of a 0
-		*/
 		editWebLink(0,$option);
 		break;
 
@@ -51,20 +47,22 @@ switch($task) {
 }
 
 function listWeblinks($catid) {
-	global $mainframe,$database,$my;
-	global $mosConfig_live_site;
-	global $mosConfig_MetaDesc,$mosConfig_MetaKeys;
+	global $my;
+
+	$database = &database::getInstance();
+	$mainframe = &mosMainFrame::getInstance();
+	$config = &Jconfig::getInstance();
 
 	$rows = array();
 	$currentcat = null;
 	if($catid) {
 		// url links info for category
-		$query = "SELECT id, url, title, description, date, hits, params FROM #__weblinks WHERE catid = ".(int)$catid."\n AND published = 1 AND archived = 0"."\n ORDER BY ordering";
+		$query = "SELECT id, url, title, description, date, hits, params FROM #__weblinks WHERE catid = ".(int)$catid." AND published = 1 AND archived = 0"."\n ORDER BY ordering";
 		$database->setQuery($query);
 		$rows = $database->loadObjectList();
 
 		// current cate info
-		$query = "SELECT* FROM #__categories WHERE id = ".(int)$catid."\n AND published = 1 AND access <= ".(int)$my->gid;
+		$query = "SELECT* FROM #__categories WHERE id = ".(int)$catid." AND published = 1 AND access <= ".(int)$my->gid;
 		$database->setQuery($query);
 		$database->loadObject($currentcat);
 
@@ -80,8 +78,10 @@ function listWeblinks($catid) {
 	/* Query to retrieve all categories that belong under the web links section and that are published.*/
 	$query = "SELECT cc.*, a.catid, a.title, a.url, COUNT(a.id) AS numlinks"
 			."\n FROM #__categories AS cc LEFT JOIN #__weblinks AS a ON a.catid = cc.id"
-			."\n WHERE a.published = 1"."\n AND section = 'com_weblinks' AND cc.published = 1"
-			."\n AND cc.access <= ".(int)$my->gid."\n GROUP BY cc.id"
+			."\n WHERE a.published = 1"
+			."\n AND section = 'com_weblinks' AND cc.published = 1"
+			."\n AND cc.access <= ".(int)$my->gid
+			."\n GROUP BY cc.id"
 			."\n ORDER BY cc.ordering";
 	$database->setQuery($query);
 	$categories = $database->loadObjectList();
@@ -124,7 +124,7 @@ function listWeblinks($catid) {
 
 	// page image
 	$currentcat->img = '';
-	$path = $mosConfig_live_site.'/images/stories/';
+	$path = $config->config_live_site.'/images/stories/';
 	if((@$currentcat->image) != '') {
 		$currentcat->img = $path.$currentcat->image;
 		$currentcat->align = $currentcat->image_position;
@@ -156,12 +156,12 @@ function listWeblinks($catid) {
 	if($params->get('meta_description') != "") {
 		$mainframe->addMetaTag('description',$params->get('meta_description'));
 	} else {
-		$mainframe->addMetaTag('description',$mosConfig_MetaDesc);
+		$mainframe->addMetaTag('description',$config->config_MetaDesc);
 	}
 	if($params->get('meta_keywords') != "") {
 		$mainframe->addMetaTag('keywords',$params->get('meta_keywords'));
 	} else {
-		$mainframe->addMetaTag('keywords',$mosConfig_MetaKeys);
+		$mainframe->addMetaTag('keywords',$config->config_MetaKeys);
 	}
 	if($params->get('meta_author') != "") {
 		$mainframe->addMetaTag('author',$params->get('meta_author'));
@@ -171,7 +171,8 @@ function listWeblinks($catid) {
 
 
 function showItem($id) {
-	global $database,$my,$mosConfig_MetaDesc,$mosConfig_MetaKeys;
+	$database = &database::getInstance();
+	$config = &Jconfig::getInstance();
 
 	$link = new mosWeblink($database);
 	$link->load((int)$id);
@@ -226,17 +227,19 @@ function showItem($id) {
 	if($params->get('meta_description') != "") {
 		$mainframe->addMetaTag('description',$params->get('meta_description'));
 	} else {
-		$mainframe->addMetaTag('description',$mosConfig_MetaDesc);
+		$mainframe->addMetaTag('description',$config->config_MetaDesc);
 	}
 	if($params->get('meta_keywords') != "") {
 		$mainframe->addMetaTag('keywords',$params->get('meta_keywords'));
 	} else {
-		$mainframe->addMetaTag('keywords',$mosConfig_MetaKeys);
+		$mainframe->addMetaTag('keywords',$config->config_MetaKeys);
 	}
 }
 
 function editWebLink($id,$option) {
-	global $database,$my;
+	global $my;
+
+	$database = &database::getInstance();
 
 	if($my->gid < 1) {
 		mosNotAuth();
@@ -245,7 +248,7 @@ function editWebLink($id,$option) {
 
 	// security check to see if link exists in a menu
 	$link = 'index.php?option=com_weblinks&task=new';
-	$query = "SELECT id"."\n FROM #__menu"."\n WHERE link LIKE '%$link%'"."\n AND published = 1";
+	$query = "SELECT id FROM #__menu WHERE link LIKE '%$link%' AND published = 1";
 	$database->setQuery($query);
 	$exists = $database->loadResult();
 	if(!$exists) {
@@ -279,7 +282,9 @@ function editWebLink($id,$option) {
 }
 
 function cancelWebLink() {
-	global $database,$my;
+	global $my;
+
+	$database = &database::getInstance();
 
 	if($my->gid < 1) {
 		mosNotAuth();
@@ -299,7 +304,9 @@ function cancelWebLink() {
 * @param database A database connector object
 */
 function saveWeblink() {
-	global $database,$my;
+	global $my;
+
+	$database = &database::getInstance();
 
 	if($my->gid < 1) {
 		mosNotAuth();
@@ -308,7 +315,7 @@ function saveWeblink() {
 
 	// security check to see if link exists in a menu
 	$link = 'index.php?option=com_weblinks&task=new';
-	$query = "SELECT id"."\n FROM #__menu"."\n WHERE link LIKE '%$link%'"."\n AND published = 1";
+	$query = "SELECT id FROM #__menu WHERE link LIKE '%$link%'"." AND published = 1";
 	$database->setQuery($query);
 	$exists = $database->loadResult();
 	if(!$exists) {
@@ -325,9 +332,6 @@ function saveWeblink() {
 		exit();
 	}
 
-	// sanitise id field
-	// $row->id = (int) $row->id;
-	// until full edit capabilities are given for weblinks - limit saving to new weblinks only
 	$row->id = 0;
 
 	$isNew = $row->id < 1;
@@ -348,7 +352,7 @@ function saveWeblink() {
 	$gid = 25;
 
 	// list of admins
-	$query = "SELECT email, name"."\n FROM #__users"."\n WHERE gid = ".(int)$gid."\n AND sendEmail = 1";
+	$query = "SELECT email, name FROM #__users WHERE gid = ".(int)$gid." AND sendEmail = 1";
 	$database->setQuery($query);
 	if(!$database->query()) {
 		echo $database->stderr(true);

@@ -38,7 +38,7 @@ switch($task) {
 /* Function to redirect the clicks to the correct url and add 1 click
 */
 function clickArtBanner($id) {
-	global $database;
+	$database = &database::getInstance();
 
 	$banner = new mosArtBanner($database);
 	$banner->load($id);
@@ -52,7 +52,7 @@ function clickArtBanner($id) {
 }
 
 function showStatistics($id) {
-	global $database;
+	$database = database::getInstance();
 
 	$password = strval(mosGetParam($_REQUEST, 'password', ''));
 

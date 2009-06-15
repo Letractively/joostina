@@ -210,11 +210,10 @@ class mosParameters {
 	* @return string HTML
 	*/
 	function render($name = 'params') {
-		global $mosConfig_absolute_path;
 
 		if($this->_path) {
 			if(!is_object($this->_xmlElem)) {
-				require_once ($mosConfig_absolute_path.'/includes/domit/xml_domit_lite_include.php');
+				require_once (Jconfig::getInstance()->config_absolute_path.'/includes/domit/xml_domit_lite_include.php');
 				$xmlDoc = new DOMIT_Lite_Document();
 				$xmlDoc->resolveErrors(true);
 				if($xmlDoc->loadXML($this->_path,false,true)) {
@@ -292,7 +291,7 @@ class mosParameters {
 		} else {
 			$result[0] = mosToolTip(addslashes($description),addslashes($result[0]),'','',$result[0],'#',0);
 		}
-        $type = $param->getAttribute('type');
+		$type = $param->getAttribute('type');
 		if(in_array('_form_'.$type,$this->_methods)) {
 			$result[1] = call_user_func(array(&$this,'_form_'.$type),$name,$value,$param,$control_name, $label);
 		} else {
@@ -366,7 +365,7 @@ class mosParameters {
 	* @return string The html for the element
 	*/
 	function _form_mos_section($name,$value,&$node,$control_name) {
-		global $database;
+		$database = &database::getInstance();
 
 		$query = "SELECT id, title FROM #__sections WHERE published = 1 AND scope = 'content' ORDER BY title";
 		$database->setQuery($query);
@@ -383,7 +382,7 @@ class mosParameters {
 	* @return string The html for the element
 	*/
 	function _form_mos_category($name,$value,&$node,$control_name) {
-		global $database;
+		$database = &database::getInstance();
 
 		$scope = $node->getAttribute('scope');
 		if(!isset($scope)) {
@@ -427,10 +426,9 @@ class mosParameters {
 	* @return string The html for the element
 	*/
 	function _form_filelist($name,$value,&$node,$control_name) {
-		global $mosConfig_absolute_path;
 
 		// path to images directory
-		$path = $mosConfig_absolute_path.$node->getAttribute('directory');
+		$path = Jconfig::getInstance()->config_absolute_path.$node->getAttribute('directory');
 		$filter = $node->getAttribute('filter');
 		$files = mosReadDirectory($path,$filter);
 
@@ -490,9 +488,8 @@ class mosParameters {
 	}
 
 	function _form_tabs($name,$value,$param,$control_name, $label) {
-		//global $mosConfig_live_site,$mainframe;
 
-		$config = JConfig::getInstance();
+		$config = &JConfig::getInstance();
 		$css_f = 'tabpane.css';
 		$js_f = 'tabpane_mini.js';
 		$css = '<link rel="stylesheet" type="text/css" media="all" href="'.$config->config_live_site.'/includes/js/tabs/'.$css_f.'" id="luna-tab-style-sheet" />';

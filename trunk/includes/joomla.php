@@ -44,7 +44,7 @@ require_once ($mosConfig_absolute_path.'/includes/libraries/phpInputFilter/class
 
 /* класс работы с базой данных */
 require_once ($mosConfig_absolute_path.'/includes/libraries/database/database.php');
-$database = database::getInstance();
+$database = &database::getInstance();
 
 /* класс работы с правами пользователей */
 require_once ($mosConfig_absolute_path.'/includes/libraries/gacl/gacl.class.php');
@@ -3853,6 +3853,45 @@ if(!function_exists('html_entity_decode')) {
 	}
 }
 
+function get_option($Itemid){
+	$database = database::getInstance();
+	if($Itemid) {
+		$query = "SELECT id, link"
+		."\n FROM #__menu"
+		."\n WHERE menutype = 'mainmenu'"
+		."\n AND id = ".(int)$Itemid
+		."\n AND published = 1";
+		$database->setQuery($query);
+	} else {
+		$query = "SELECT id, link"
+		."\n FROM #__menu"
+		."\n WHERE menutype = 'mainmenu'"
+		."\n AND published = 1"
+		."\n ORDER BY parent, ordering";
+		$database->setQuery($query,0,1);
+	}
+	$menu = new mosMenu($database);
+	if($database->loadObject($menu)) {
+		$Itemid = $menu->id;
+	}
+	$link = $menu->link;
+
+	unset($menu);
+	if(($pos = strpos($link,'?')) !== false) {
+		$link = substr($link,$pos + 1).'&Itemid='.$Itemid;
+	}
+	parse_str($link,$temp);
+	/** это путь, требуется переделать для лучшего управления глобальными переменными*/
+	foreach($temp as $k => $v) {
+		$GLOBALS[$k] = $v;
+		$_REQUEST[$k] = $v;
+		if($k == 'option') {
+			$option = $v;
+		}
+	}
+	return array($Itemid,$option);
+}
+
 /**
 * Plugin handler
 * @package Joostina
@@ -6146,8 +6185,6 @@ function _clear_cache(){
 }
 
 function _optimizetables() {
-	//global $mosConfig_db,$mosConfig_cachepath;
-
 	$database = database::getInstance();
 
 	$flag = Jconfig::getInstance()->config_cachepath.'/optimizetables.flag';
