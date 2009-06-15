@@ -65,7 +65,7 @@ class HTML_mmxtd {
 // вывод изображения
 	function show_image($img,$file,$info,$size,$listdir) {
 		$img_file = basename($img);
-		$img_url_link = JWMMXTD_STARTURLPATH.$listdir."/".rawurlencode($img_file);
+		$img_url_link = JWMMXTD_STARTURLPATH.$listdir.'/'.rawurlencode($img_file);
 		$cur = $listdir;
 		$filesize = HTML_mmxtd::parse_size($size);
 		if(($info[0] > 200) || ($info[1] > 200)) {
@@ -97,8 +97,8 @@ class HTML_mmxtd {
 			</td>
 		</tr>
 </table>
-<div class="fileimage"> <a href="<?php echo $img_url_link; ?>" rel="lightbox[jwmmxtd]" title="<?php echo _FILE?>:<br /><?php echo $file; ?>" alt="<?php echo _CLICK_TO_PREVIEW?>">
-	<img src="<?php echo $img_url_link; ?>?ok=ok" <?php echo $img_dimensions; ?> alt="<?php echo _CLICK_TO_PREVIEW?>" title="<?php echo _CLICK_TO_PREVIEW?>" /></a>
+<div class="fileimage" onclick="get_image('<?php echo $img_url_link; ?>','<?php echo $file?>',<?php echo $info[0] ?>,<?php echo $info[1] ?>);">
+	<img src="<?php echo $img_url_link; ?>" <?php echo $img_dimensions; ?> alt="<?php echo _JWMM_CLICK_TO_URL?>" title="<?php echo _CLICK_TO_PREVIEW?>" />
 </div>
 <?php echo _JWMM_FILESIZE?>: <?php echo $filesize; ?><br />
 <?php echo _WIDTH?>: <?php echo $info[0]; ?>px, <?php echo _HEIGHT?>: <?php echo $info[1]; ?>px
@@ -114,11 +114,10 @@ class HTML_mmxtd {
 			$d = dir($dir);
 
 			while(false !== ($entry = $d->read())) {
-				if(substr($entry,0,1) != '.' && is_file($dir.DIRECTORY_SEPARATOR.$entry) &&
-					strpos($entry,'.html') === false && strpos($entry,'.php') === false) {
+				if(substr($entry,0,1) != '.' && is_file($dir.DS.$entry) && strpos($entry,'.html') === false && strpos($entry,'.php') === false) {
 					$total_file++;
 				}
-				if(substr($entry,0,1) != '.' && is_dir($dir.DIRECTORY_SEPARATOR.$entry)) {
+				if(substr($entry,0,1) != '.' && is_dir($dir.DS.$entry)) {
 					$total_dir++;
 				}
 			}
@@ -147,7 +146,7 @@ class HTML_mmxtd {
 // архив
 if($icon == "../images/icons/zip.png") { ?>
 		<a href="#" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $doc ?>';document.adminForm.subtask.value='unzipfile';document.adminForm.submit( );" title="<?php echo _UNPACK?>">
-		<img src="components/com_jwmmxtd/images/compress.png" alt="<?php echo _UNPACK?>" title="<?php echo _UNPACK?>" /></a>
+		<img src="images/ico/compress.png" alt="<?php echo _UNPACK?>" title="<?php echo _UNPACK?>" /></a>
 <?php } ?>
 			<a href="#" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $doc ?>';document.adminForm.subtask.value='renamefile';document.adminForm.submit( );" title="<?php echo _RENAME?>">
 			<img src="images/ico/rename.png" alt="<?php echo _RENAME?>" title="<?php echo _RENAME?>" /></a>
@@ -160,12 +159,12 @@ if($icon == "../images/icons/zip.png") { ?>
 		</td>
 	</tr>
 </table>
-<div class="fileimage">
+<div class="fileimage" onclick="get_file('<?php echo $doc_url_link; ?>','<?php echo $doc?>');">
 <?php
 	// флеш - файл flv
 	if($icon == "../images/icons/flv.png") {
 ?>
-	<a href="components/com_jwmmxtd/js/flvplayer.swf?file=<?php echo $doc_url_link; ?>&amp;autostart=true&amp;allowfullscreen=true" rel="vidbox 800 600" title="<?php echo _JWMM_VIDEO_FILE?>:<br /><?php echo $doc; ?>" alt="<?php echo _CLICK_TO_PREVIEW?>">
+	<a href="components/com_jwmmxtd/js/flvplayer.swf?file=<?php echo $doc_url_link; ?>&amp;autostart=true&amp;allowfullscreen=true" target="_blank" title="<?php echo _JWMM_VIDEO_FILE?>:<br /><?php echo $doc; ?>" alt="<?php echo _CLICK_TO_PREVIEW?>">
 	<img src="<?php echo $icon ?>" alt="<?php echo $doc; ?>" title="<?php echo _CLICK_TO_PREVIEW?>" /></a>
 <?php
 	// флеш - файл swf
@@ -184,7 +183,8 @@ if($icon == "../images/icons/zip.png") { ?>
 </div>
 </div>
 <?php
-	}
+}
+
 // расчет и отображение размера изображения
 	function imageResize($width,$height,$target) {
 		if($width > $height) {
