@@ -25,10 +25,10 @@ class search_html {
 	}
 
 	function searchbox($searchword, &$lists, $params) {
-		global $Itemid;
+		global $Itemid, $mainframe;
 ?>
 <br />
-<form action="index.php" method="get">
+		<form action="<?php echo $mainframe->getCfg('live_site');?>/index.php" method="get">
 	<input type="hidden" name="option" value="com_search" />
 	<input type="hidden" name="Itemid" value="<?php echo $Itemid; ?>" />
 	<div class="contentpaneopen<?php echo $params->get('pageclass_sfx'); ?>">
