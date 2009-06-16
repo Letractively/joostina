@@ -71,7 +71,7 @@ switch ( $button_pos ) {
 // указываем Itemid
 if ( $set_Itemid ) {
 	$_Itemid	= $set_Itemid;
-	$link		= 'index.php?option=com_search&amp;Itemid='. $set_Itemid;
+	$link		= $mainframe->getCfg('live_site') . '/index.php?option=com_search&amp;Itemid='. $set_Itemid;
 } else {
 	$query = "SELECT id FROM #__menu WHERE link = 'index.php?option=com_search' AND published = 1";
 	$database->setQuery( $query,0,1 );
@@ -80,7 +80,7 @@ if ( $set_Itemid ) {
 	// try to auto detect search component Itemid
 	if ( $s_itemid ) {
 		$_Itemid	= $s_itemid;
-		$link		= 'index.php?Itemid='. $_Itemid;
+		$link		= $mainframe->getCfg('live_site') . '/index.php?Itemid='. $_Itemid;
 	} else {
 	// Assign no Itemid
 	$_Itemid	= '';
