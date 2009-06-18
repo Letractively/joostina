@@ -69,7 +69,7 @@ function x_apply() {
 		$where = "client_id='0'";
 	}
 	$row->updateOrder("folder = ".$database->Quote($row->folder)." AND ordering > -10000 AND ordering < 10000 AND ( $where )");
-	$msg = 'Все изменения мамбота <b>'.$row->name.'</b> успешно сохранены';
+	$msg = sprintf(_COM_MAMBOTS_APPLY,$row->name);
 	return $msg;
 }
 
