@@ -2233,7 +2233,7 @@ DEFINE('_ENABLE_UNPUBLISHED_MAMBOTS', 'Использовать неопубли
 DEFINE('_ENABLE_UNPUBLISHED_MAMBOTS_HELP', 'Некоторые мамботы работают даже в неопубликованном состоянии, и вычищать текст от спецтегов типа {**}/. Если у вас их нет - рекомендуется выбрать НЕТ.');
 
 /* com_installer */
-DEFINE('_DISABLE_ALLOW_URL_FOPEN', 'Установка через URL невозможна, настройка allow_url_fopen сервера запрещена');
+DEFINE('_DISABLE_ALLOW_URL_FOPEN', 'Установка через URL невозможна, настройка <a href="http://php.net/manual/en/features.remote-files.php" target="_blank">allow_url_fopen</a> сервера запрещена');
 DEFINE('_CANNOT_CONNECT_SERVER', 'Не удалось установить связь с удаленным сервером');
 
 /* jdebug */
@@ -2314,4 +2314,7 @@ DEFINE('_PROFILE_SITE_SETTINGS','Настройки сайта');
 
 /* com_content */
 DEFINE('_COM_CONTENT_USER_NOT_FOUND','Извините, пользователь не найден');
+
+/* com_mambots */
+DEFINE('_COM_MAMBOTS_APPLY','Все изменения мамбота <b>%s</b> успешно сохранены');
 ?>

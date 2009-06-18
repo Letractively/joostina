@@ -107,21 +107,14 @@ class HTML_installer_core {
 						<th colspan="2"><?php echo _INSTALL_FROM_URL?></th>
 					</tr>
 					<tr>
-					<td align="left" style="width: 15%; color: red; font-weight: bold;">
-					<?php 
-						if(!(bool)ini_get('allow_url_fopen')) {
-							echo _DISABLE_ALLOW_URL_FOPEN;
-						}
-					?>
-					</td>
-					</tr>
-					<tr>
-						<td align="left" style="width: 15%;">
+						<td colspan="2">
+							<?php if((bool)ini_get('allow_url_fopen')){ ?>
+									<div class="jwarning"><?php echo _DISABLE_ALLOW_URL_FOPEN; ?></div>
+							<?php }else{ ?>
 							<?php echo _INSTALLATION_URL?>:
-						</td>
-						<td align="left" style="width: 85%;">
-							<input type="text" name="url" class="text_area" size="50" value="http://"/>
+							<input type="text" name="url" class="text_area" size="100" value="http://"/>
 							<input type="button" class="button" value="<?php echo _INSTALL?>" onclick="submitbutton4()" />
+							<?php } ?>
 						</td>
 					</tr>
 					</table>
