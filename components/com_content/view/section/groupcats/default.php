@@ -28,9 +28,7 @@
 	
 	foreach($cats_arr as $key=>$v){
 		echo '<h2 class="category_name">'.$v['cat_name'] . '</h2>';
-		
-		
-		
+
 		echo '<table>';
 		$kk = 0; echo '<tr>';
 			
@@ -48,7 +46,7 @@
 			
 		
 			if( $kk % $columns == 0 && (isset($cats_arr[$row->catid]['obj'][$kk]) && $cats_arr[$row->catid]['obj'][$kk]->catid == $row->catid )  ){
-					echo "</tr><tr>";			
+					echo "</tr><tr>";
 			}
 		}
 		
@@ -59,19 +57,6 @@
 
 ?>
 
-
-
-
-
-
-
-
-
-
-
-          
-		
-		
 
 
         <?php if($display_blog_more){ ?>

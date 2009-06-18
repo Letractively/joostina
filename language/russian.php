@@ -2312,4 +2312,6 @@ DEFINE('_TO_BOTTOM','Вниз');
 
 DEFINE('_PROFILE_SITE_SETTINGS','Настройки сайта');
 
+/* com_content */
+DEFINE('_COM_CONTENT_USER_NOT_FOUND','Извините, пользователь не найден');
 ?>

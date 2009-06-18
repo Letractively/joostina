@@ -9,9 +9,7 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
         <?php if($params->get( 'title')) { ?>
             <div class="componentheading"><h1><?php echo $params->title; ?></h1></div>
         <?php }?>
-        <div class="error">
-            Извините, пользователь не найден
-        </div>
+        <div class="error"><?php echo _COM_CONTENT_USER_NOT_FOUND?></div>
      </div>
     <?php
     return;
