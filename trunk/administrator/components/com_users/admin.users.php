@@ -16,6 +16,7 @@ if(!$acl->acl_check('administration','manage','users',$my->usertype,'components'
 
 require_once ($mainframe->getPath('admin_html'));
 require_once ($mainframe->getPath('class'));
+require_once ($mainframe->getPath('config','com_user'));
 
 $cid = josGetArrayInts('cid');
 
@@ -75,10 +76,39 @@ switch($task) {
 		$contact_id = mosGetParam($_POST,'contact_id','');
 		mosRedirect('index2.php?option=com_contact&task=editA&id='.$contact_id);
 		break;
+		
+  	case 'config':
+        config($option);
+        break;
+
+    case 'save_config':
+        save_config();
+        break;
 
 	default:
 		showUsers($option);
 		break;
+}
+
+function config($option){
+    global $database, $mainframe;     
+    mosCommonHTML::loadOverlib();
+    
+    $act = mosGetParam($_REQUEST,'act','');
+    $config_class = 'configUser_'.$act;
+    $config = new $config_class($database);
+    $config->display_config($option);
+
+}
+
+function save_config(){
+    global $database;
+    $act = mosGetParam($_REQUEST,'act','');
+    $config_class = 'configUser_'.$act;
+    $config = new $config_class($database);
+    $config->save_config(); 
+
+    mosRedirect('index2.php?option=com_users&task=config&act='.$act, 'Конфигурация успешно сохранена');
 }
 
 function showUsers($option) {
@@ -560,6 +590,10 @@ function changeUserBlock($cid = null,$block = 1,$option) {
 			logoutUser($id,'com_users','block');
 		}
 	}
+	
+	//TODO: сделать отсылку письма
+	//Если в настройках регистрации включен параметр "Активация администратором",
+	//отправляем письмо пользователю, что его аккаунт был активирован
 
 	mosRedirect('index2.php?option='.$option);
 }

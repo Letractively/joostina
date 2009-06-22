@@ -227,13 +227,13 @@ function BuildLoginForm($params_aray, $orientation){
      }
 
       if ($params_aray['show_lost_pass'] == 1) {
-		  $lost_pass='<a class="ml_login" href="'.sefRelToAbs( 'index.php?option=com_registration&amp;task=lostPassword' ).'">'.$params_aray['ml_rem_pass_text'].'</a>';
+		  $lost_pass='<a class="ml_login" href="'.sefRelToAbs( 'index.php?option=com_user&amp;task=lostPassword' ).'">'.$params_aray['ml_rem_pass_text'].'</a>';
      } else {
          $lost_pass ='';
      }
 
       if ($params_aray['show_register'] == 1) {
-		  $register_me='<a class="ml_login" href="'.sefRelToAbs( 'index.php?option=com_registration&amp;task=register' ).'">'.$params_aray['ml_reg_text'].'</a>';
+		  $register_me='<a class="ml_login" href="'.sefRelToAbs( 'index.php?option=com_user&amp;task=register' ).'">'.$params_aray['ml_reg_text'].'</a>';
      } else {
          $register_me ='';
      }

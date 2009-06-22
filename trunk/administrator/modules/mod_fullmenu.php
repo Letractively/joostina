@@ -109,10 +109,10 @@ _cmSplit,
 <?php	if($canManageUsers || $canMassMail) {
 ?>[null,'<?php echo _USERS?>',null,null,'<?php echo _USERS?>',
 	['<img src="../includes/js/ThemeOffice/user.png" />','Все пользователи','index2.php?option=com_users&task=view',null,'Все пользователи'],
-	['<img src="../includes/js/ThemeOffice/template.png" />','Добавить пользователя','index2.php?option=com_users&task=view',null,'Добавить'],
+	['<img src="../includes/js/ThemeOffice/template.png" />','Добавить пользователя','index2.php?option=com_users&task=edit',null,'Добавить'],
 	_cmSplit,
-	['<img src="../includes/js/ThemeOffice/template.png" />','Настройки регистрации','index2.php?option=com_users&task=view',null,'Настройки регистрации'],
-	['<img src="../includes/js/ThemeOffice/template.png" />','Настройки профиля','index2.php?option=com_users&task=view',null,'Настройки профиля']
+	['<img src="../includes/js/ThemeOffice/template.png" />','Настройки регистрации','index2.php?option=com_users&task=config&act=registration',null,'Настройки регистрации'],
+	['<img src="../includes/js/ThemeOffice/template.png" />','Настройки профиля','index2.php?option=com_users&task=config&act=profile',null,'Настройки профиля']
 ],
 <?php 	} ?>
 _cmSplit,

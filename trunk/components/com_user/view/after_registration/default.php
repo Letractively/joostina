@@ -10,21 +10,6 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-require_once ($mainframe->getPath('toolbar_html'));
+echo $msg;
 
-switch($task) {
-	case 'new':
-	case 'edit':
-	case 'editA':
-		TOOLBAR_users::_EDIT();
-		break;
-		
-  	case 'config':
-        TOOLBAR_users::_CONFIG();
-        break;
 
-	default:
-		TOOLBAR_users::_DEFAULT();
-		break;
-}
-?>
