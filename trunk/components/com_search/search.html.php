@@ -64,7 +64,7 @@ class search_html {
 	}
 
 	function display(&$rows, $params, $pageNav, $limitstart, $limit, $total, $totalRows, $searchword) {
-		global $mosConfig_hideCreateDate;
+		global $mosConfig_showCreateDate;
 		global $mosConfig_live_site, $option, $Itemid;
 		$image = mosAdminMenus::ImageCheck('google.png', '/components/com_search/images/', null, null, 'Google', 'Google', 1);
 		$image1 = mosAdminMenus::ImageCheck('yandex.gif', '/components/com_search/images/', null, null, 'Yandex', 'Yandex', 1);
@@ -138,7 +138,7 @@ class search_html {
 </div>
 <div><?php echo ampReplace($row->text); ?></div>
 <?php
-	if(!$mosConfig_hideCreateDate) {
+	if($mosConfig_showCreateDate) {
 ?>
 <div class="small<?php echo $params->get('pageclass_sfx'); ?>"><?php echo $created; ?></div>
 <?php

@@ -68,6 +68,19 @@ class DBconfig{
 			return true;
 		}
 	}
+	
+	function prepare_for_xml_render(){	
+			
+		$rows = get_object_vars($this); 
+		$array = array();
+		foreach ($rows as $key => $value) {
+			if(substr($key, 0, 1) !== '_'){
+				$array[] = "$key=$value";	
+			}	
+		}
+		$txt = implode("\n", $array);
+		return $txt;	
+	}
 
 	function storeConfig() {
 		$rows = get_object_vars($this);

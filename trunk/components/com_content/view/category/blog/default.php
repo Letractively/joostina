@@ -1,7 +1,7 @@
 
     <div class="page_sectionblog<?php echo $sfx ;?>">
 
-        <?php if($header) { ?>
+        <?php if($params->get('page_title')) { ?>
 		    <div class="componentheading"><?php echo $header;?></div>
 	    <?php }?>
 

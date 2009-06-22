@@ -296,7 +296,7 @@ function contactpage($contact_id) {
 		$params->set('page_title',0);
 		$params->def('pageclass_sfx','');
 		$params->def('back_button',$mainframe->getCfg('back_button'));
-		$params->def('print',!$mainframe->getCfg('hidePrint'));
+		$params->def('print',$mainframe->getCfg('showPrint'));
 		$params->def('name',1);
 		$params->def('email',0);
 		$params->def('street_address',1);

@@ -1116,6 +1116,8 @@ class mosMainFrame {
 				$this->_path->front = "$basePath/components/$option/$name.php";
 				$this->_path->front_html = "$basePath/components/$option/$name.html.php";
 			}
+			
+		$this->_path->config = "$basePath/components/$option/$name.config.php";
 
 		if(file_exists("$basePath/".ADMINISTRATOR_DIRECTORY."/components/$option/admin.$name.php")) {
 			$this->_path->admin = "$basePath/".ADMINISTRATOR_DIRECTORY."/components/$option/admin.$name.php";
@@ -1823,17 +1825,17 @@ class JConfig {
 	/** @var int*/
 	var $config_vote = 0;
 	/** @var int*/
-	var $config_hideAuthor = 0;
+	var $config_showAuthor = 0;
 	/** @var int*/
-	var $config_hideCreateDate = 0;
+	var $config_showCreateDate = 0;
 	/** @var int*/
-	var $config_hideModifyDate = 0;
+	var $config_showModifyDate = 0;
 	/** @var int*/
 	var $config_hits = 1;
 	/** @var int*/
-	var $config_hidePrint = 0;
+	var $config_showPrint = 0;
 	/** @var int*/
-	var $config_hideEmail = 0;
+	var $config_showEmail = 0;
 	/** @var int*/
 	var $config_icons = 1;
 	/** @var int*/

@@ -171,11 +171,11 @@ if($siteUrl) {
 	$config .= "\$mosConfig_locale = 'ru_RU.utf8';\n";
 	$config .= "\$mosConfig_offset = '0';\n";
 	$config .= "\$mosConfig_offset_user = '0';\n";
-	$config .= "\$mosConfig_hideAuthor = '0';\n";
-	$config .= "\$mosConfig_hideCreateDate = '0';\n";
-	$config .= "\$mosConfig_hideModifyDate = '1';\n";
-	$config .= "\$mosConfig_hidePrint = '0';\n";
-	$config .= "\$mosConfig_hideEmail = '1';\n";
+	$config .= "\$mosConfig_showAuthor = '1';\n";
+	$config .= "\$mosConfig_showCreateDate = '1';\n";
+	$config .= "\$mosConfig_showModifyDate = '0';\n";
+	$config .= "\$mosConfig_showPrint = '1';\n";
+	$config .= "\$mosConfig_showEmail = '1';\n";
 	$config .= "\$mosConfig_enable_log_items = '0';\n";
 	$config .= "\$mosConfig_enable_log_searches = '0';\n";
 	$config .= "\$mosConfig_enable_stats = '0';\n";

@@ -10,8 +10,8 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-
 require_once ($mainframe->getPath('admin_html'));
+require_once ($mainframe->getPath('config','com_content'));
 
 global $task,$option,$id;
 
@@ -133,35 +133,37 @@ switch($task) {
 }
 
 function config($option){
-    global $database;
+    global $database, $mainframe;     
+    mosCommonHTML::loadOverlib();
+    
+    $act = mosGetParam($_REQUEST,'act','');
+    $config_class = 'configContent_'.$act;
+    $config = new $config_class($database);
+    $config->display_config($option);
 
 /*    $info_array = array();
     $info_array['page_title']['title'] = 'Заголовок страницы';
     $info_array['page_title']['info'] = 'Заголовок страницы, на которой выводятся все записи пользователя';
     $config = new jstContentUserpageConfig($database);
     $config->storeConfig($info_array);*/
-    $config = new StdClass();
+    
+	
+	//$config = new StdClass();
 
-    $u_page =  new jstContentUserpageConfig($database);
-    $config->u_page = $u_page;
-    HTML_content::config($config,$option);
+    //$u_page =  new jstContentUserpageConfig($database);
+    //$config->u_page = $u_page;
+    //HTML_content::config($config,$option);
 
 }
 
 function save_config(){
     global $database;
-    $config = new jstContentUserpageConfig($database);
-    if (!$config->bindConfig($_REQUEST)) {
-        echo "<script> alert('".$config->_error."'); window.history.go(-1); </script>\n";
-        exit();
-    }
+    $act = mosGetParam($_REQUEST,'act','');
+    $config_class = 'configContent_'.$act;
+    $config = new $config_class($database);
+    $config->save_config(); 
 
-    if (!$config->storeConfig()) {
-        echo "<script> alert('".$config->_error."'); window.history.go(-1); </script>\n";
-        exit();
-    }
-
-    mosRedirect('index2.php?option=com_content&task=config');
+    mosRedirect('index2.php?option=com_content&task=config&act='.$act, 'Конфигурация успешно сохранена');
 }
 
 function submitContent(){

@@ -59,6 +59,7 @@
 			<option value="rhits">Сначала редко читаемые</option>
 			<option value="order">Упорядоченно</option>
 		</param>
+		
 		<param name="date_format" type="text" size="15" default="" label="Формат даты" description="Формат отображаемой даты. Для форматирования используется функция PHP - strftime. Если поле оставлено пустым, то будет использоваться формат из языкового файла" />
 		<param name="date" type="radio" default="" label="Столбец Дата" description="Показать/Скрыть в таблице столбец Дата">
 			<option value="">Использовать глобальные</option>

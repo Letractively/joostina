@@ -89,8 +89,15 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
 				<th class="sectiontableheader">&nbsp;</th>
 				<th class="sectiontableheader" width="60%"><?php echo _HEADER_TITLE;?></th>
 				<th class="sectiontableheader"><?php echo _E_PUBLISHING;?></th>
+				
+				<?php if ( $params->get( 'date' ) ) { ?>
 				<th class="sectiontableheader" width="20%"><?php echo _DATE;?></th>
+				<?php } ?>
+				
+				<?php if ( $params->get( 'hits' ) ) { ?>				
 				<th class="sectiontableheader"><?php echo _HEADER_HITS;?></th>
+				<?php } ?>
+				
 			</tr>
             <?php } ?>
        <?php
@@ -118,18 +125,28 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
                 </td>
 				<td>
 				    <a href="<?php echo $link; ?>"><?php echo $row->title; ?></a>
+				    
+				    <?php if ( $params->get( 'section' ) ) { ?>
                     <br />
 					<span class="small"><?php  echo $section_cat; ?></span>
+					 <?php } ?>
+					 
 				</td>
 				<td align="center" <?php echo ($access->canPublish) ? 'onclick="ch_publ('.$row->id.');" class="td-state"' : null ;?>>
 				    <img class="img-mini-state" src="<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="Публикация" />
 				</td>
+				
+				<?php if ( $params->get( 'date' ) ) { ?>
 				<td>
                     <?php echo $row->created; ?>
                 </td>
+                <?php } ?>
+                
+                <?php if ( $params->get( 'hits' ) ) { ?>
 				<td align="center">
                     <?php echo $row->hits ? $row->hits : 0; ?>
                 </td>
+                <?php } ?>
 
 			</tr>
             <?php $k = 1 - $k; ?>

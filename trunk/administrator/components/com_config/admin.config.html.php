@@ -602,7 +602,7 @@ $comp_list = mosHTML::selectList($out_components_arr,'component','','name','name
 						</tr>
 						<tr>
 						<td><?php echo _AUTHOR_NAMES?>:</td>
-								<td><?php echo $lists['hideAuthor']; ?></td>
+								<td><?php echo $lists['showAuthor']; ?></td>
 								<td><?php
 		$tip = _AUTHOR_NAMES2;
 		echo mosToolTip($tip);
@@ -618,7 +618,7 @@ $comp_list = mosHTML::selectList($out_components_arr,'component','','name','name
 						</tr>
 						<tr>
 						<td><?php echo _DATE_TIME_CREATION?>:</td>
-								<td><?php echo $lists['hideCreateDate']; ?></td>
+								<td><?php echo $lists['showCreateDate']; ?></td>
 								<td><?php
 		$tip = _DATE_TIME_CREATION2;
 		echo mosToolTip($tip);
@@ -626,7 +626,7 @@ $comp_list = mosHTML::selectList($out_components_arr,'component','','name','name
 						</tr>
 						<tr>
 						<td><?php echo _DATE_TIME_MODIFICATION?>:</td>
-								<td><?php echo $lists['hideModifyDate']; ?></td>
+								<td><?php echo $lists['showModifyDate']; ?></td>
 								<td><?php
 		$tip = _DATE_TIME_MODIFICATION2;
 		echo mosToolTip($tip);
@@ -642,12 +642,12 @@ $comp_list = mosHTML::selectList($out_components_arr,'component','','name','name
 						</tr>
 						<tr>
 						<td><?php echo _LINK_PRINT?>:</td>
-								<td><?php echo $lists['hidePrint']; ?></td>
+								<td><?php echo $lists['showPrint']; ?></td>
 								<td>&nbsp;</td>
 						</tr>
 						<tr>
 						<td><?php echo _LINK_EMAIL?>:</td>
-								<td><?php echo $lists['hideEmail']; ?></td>
+								<td><?php echo $lists['showEmail']; ?></td>
 								<td>&nbsp;</td>
 						</tr>
 						<tr>
