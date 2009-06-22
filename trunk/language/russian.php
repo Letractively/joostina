@@ -1372,7 +1372,7 @@ DEFINE('_CANNOT_DELETE_THIS_TEMPLATE_WHEN_USING','Этот шаблон испо
 DEFINE('_UNSUCCES_OPERATION_CANNOT_OPEN','Операция неудачна: невозможно открыть');
 DEFINE('_POSITIONS_SAVED','Позиции сохранены');
 DEFINE('_TEMPLATE_USE_IN_CONFIG','( выбрано в глобальной конфигурации )');
-
+DEFINE('_TEMPLATE_EDITOR_HEADER', 'HTML-редактор шаблона');
 
 /* menubar.html.old.php + menubar.html.php */
 DEFINE('_BUTTON','Кнопка');
