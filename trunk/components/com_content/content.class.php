@@ -2104,7 +2104,7 @@ class contentPageConfig
      */
     function setup_blog_category_page($id)
     {
-        global $mainframe, $Itemid;
+        global $mainframe, $Itemid, $database;
 
         $menu = $mainframe->get('menu');
 
@@ -2145,7 +2145,7 @@ class contentPageConfig
     
     function setup_blog_archive_section_page($id)
     {
-        global $mainframe, $Itemid;
+        global $mainframe, $Itemid, $database;
 
         $menu = $mainframe->get('menu');
 
@@ -2185,7 +2185,7 @@ class contentPageConfig
      */
     function setup_blog_archive_category_page($id)
     {
-        global $mainframe, $Itemid;
+        global $mainframe, $Itemid, $database;
 
         $menu = $mainframe->get('menu');
 
@@ -2222,7 +2222,7 @@ class contentPageConfig
      */
     function setup_table_category_page($category)
     {
-        global $mainframe, $Itemid, $mosConfig_list_limit;
+        global $mainframe, $Itemid, $mosConfig_list_limit, $database;
 
         $menu = $mainframe->get('menu');
 
@@ -2255,7 +2255,7 @@ class contentPageConfig
      */
     
     function setup_section_catlist_page($section){
-    	global $mainframe, $Itemid;
+    	global $mainframe, $Itemid, $database;
     	
     	$menu = $mainframe->get('menu');
     	
