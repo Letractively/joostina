@@ -2184,4 +2184,12 @@ DEFINE('_AV_VOTES','Votes');
 DEFINE('_AV_VOTE','Vote');
 DEFINE('_AV_THANKS','Thanks for you vote!');
 DEFINE('_AV_THANKS_CACHE','Thanks for you vote! The result will update after recounting.');
+
+/* search.html.php */
+DEFINE('_SEARCH_RESULTS','Search results');
+
+/** pageNavigation*/
+DEFINE('_PN_ALL','-All-');
+DEFINE('_PN_MOVE_TOP','Move to top');
+DEFINE('_PN_MOVE_DOWN','Move to down');
 ?>
