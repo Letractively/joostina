@@ -541,8 +541,39 @@ class mosContent extends mosDBTable
         return $r;
     }
 
-    function load_user_items($user_id, $limitstart = 0, $limit = 50, $orderby = 'a.created DESC', $and = '')
+    function _load_user_items($user_id, $params)
     {
+    	
+  	 	$orderby	= strval(mosGetParam($_REQUEST,'order',''));
+		if (!$orderby) {
+			$orderby = $params->get( 'orderby', 'rdate' );
+		}
+		$params->set('orderby', $orderby);	
+    	$orderby = contentSqlHelper::_orderby_sec($orderby);    	
+    	
+		// filter functionality
+		$and = ''; $filter = '';
+		if ( $params->get( 'filter' ) ) {
+			$filter = mosGetParam( $_POST, 'filter', '' );
+
+			if ( $filter ) {
+				// clean filter variable
+				$filter = strtolower( $filter );
+
+				switch ( $params->get( 'filter_type' ) ) {
+					
+					case 'title':
+						$and = "\n AND LOWER( a.title ) LIKE '%$filter%'";
+						break;
+
+					case 'hits':
+						$and = "\n AND a.hits LIKE '%$filter%'";
+						break;
+				}
+			}
+		}
+		$params->set('filter_value', $filter);
+    	
         $query = "  SELECT  a.sectionid, a.checked_out, a.id, a.state AS published,
                         a.title, a.hits, a.created_by, a.created_by_alias,
                         a.created AS created, a.access, a.state,
@@ -561,12 +592,33 @@ class mosContent extends mosDBTable
                 ORDER BY $orderby
             ";
 
-        $this->_db->setQuery($query, $limitstart, $limit);
+        $this->_db->setQuery($query, $params->get('limitstart'), $params->get('limit'));
         return $this->_db->loadObjectList();
     }
 
-    function load_count_user_items($user_id, $and = '')
+    function _get_count_user_items($user_id, $params)
     {
+		// filter functionality
+		$and = '';
+		if ( $params->get( 'filter' ) ) {
+			$filter = mosGetParam( $_POST, 'filter', '' );
+
+			if ( $filter ) {
+				// clean filter variable
+				$filter = strtolower( $filter );
+
+				switch ( $params->get( 'filter_type' ) ) {
+					
+					case 'title':
+						$and = "\n AND LOWER( a.title ) LIKE '%$filter%'";
+						break;
+
+					case 'hits':
+						$and = "\n AND a.hits LIKE '%$filter%'";
+						break;
+				}
+			}
+		}
 
         $query = "  SELECT COUNT(a.id)
                     FROM #__content AS a
@@ -1219,6 +1271,9 @@ class contentMeta
                 {
                     $mainframe->SetPageTitle($this->_params->menu->name, $this->_params);
                 }
+        }
+        else {
+        	$mainframe->SetPageTitle($this->_params->get('header'), $this->_params);	
         }
 
         set_robot_metatag($this->_params->get('robots'));
@@ -1972,20 +2027,19 @@ class contentPageConfig
         //Показать/Спрятать рейтинг
         $params->def('rating', $mainframe->getCfg('vote'));
         //Показать/Спрятать имя автора
-        $params->def('author', !$mainframe->getCfg('hideAuthor'));
+        $params->def('author', $mainframe->getCfg('showAuthor'));
         //Показать/Спрятать дату создания
-        $params->def('createdate', !$mainframe->getCfg('hideCreateDate'));
+        $params->def('createdate', $mainframe->getCfg('showCreateDate'));
         //Показать/Спрятать дату изменения
-        $params->def('modifydate', !$mainframe->getCfg('hideModifyDate'));
+        $params->def('modifydate', $mainframe->getCfg('showModifyDate'));
         //Показать/Скрыть кнопку печати
-        $params->def('print', !$mainframe->getCfg('hidePrint'));
+        $params->def('print', $mainframe->getCfg('showPrint'));
         //Показать/Спрятать кнопку e-mail
-        $params->def('email', !$mainframe->getCfg('hideEmail'));
+        $params->def('email', $mainframe->getCfg('showEmail'));
         //Отображать ссылки "Печать" и "Email" иконками
         $params->def('icons', $mainframe->getCfg('icons'));
         //Ключевая ссылка. Текст ключа, по которому можно ссылаться на этот объект (например, в системе справки)
-        $params->def('keyref', '');
-        
+        $params->def('keyref', '');        
         $params->set('page_name', $row->title);
 
         return $params;
@@ -2003,7 +2057,7 @@ class contentPageConfig
 
     function setup_blog_section_page($id)
     {
-        global $mainframe, $Itemid;
+        global $mainframe, $Itemid, $database;
 
         //Отучаем com_content брать параметры из первого попавшегося пункта меню
         //Мысль - если пункт меню для текущего раздела не создан,
@@ -2014,10 +2068,12 @@ class contentPageConfig
         if ($menu && strpos($menu->link, 'task=blogsection&id=' . $id) !== false)
         {
             $params = new mosParameters($menu->params);
-        } else
+        } 
+		else
         {
             $menu = '';
-            $params = new mosParameters('');
+            //$params = new mosParameters('');
+            $params = new configContent_sectionblog($database);
         }
 
         $params->menu = $menu;
@@ -2025,98 +2081,7 @@ class contentPageConfig
         if (!$id)
         {
             $id = $params->def('sectionid', 0);
-        }
-        
-        //Название страницы, отображаемое в заголовке браузера (тег title)
-        $params->def('page_name', '');
-        //показать/скрыть название сайта в title страницы (заголовке браузера)
-        $params->def('no_site_name', 1);
-        
-        //Мета-тег robots, используемый на странице:
-        //int [-1,0,1,2,3]=['Не отображать', 'Index, follow', 'Index, NoFollow', 'NoIndex, Follow', 'NoIndex, NoFollow']
-        $params->def('robots', -1);
-        //META-тег: Description: string
-        $params->def('meta_description', '');
-        //ETA-тег keywords: string
-        $params->def('meta_keywords', '');
-        //META-тег author: string
-        $params->def('meta_author', '');
-        //Изображение меню
-        $params->def('menu_image', '');
-        //Суффикс CSS-класса страницы
-        $params->def('pageclass_sfx', '');
-        //Заголовок страницы (контентной области)
-        $params->def('header', '');
-        //Показать/Скрыть заголовок страницы
-        $params->def('page_title', '');
-        //Показать/Скрыть кнопку Назад (Вернуться), возвращающую на предыдущую просмотренную страницу
-        $params->def('back_button', $mainframe->getCfg('back_button'));
-        //Количество главных объектов (на всю ширину). При 0 главные объекты отображаться не будут.
-        $params->def('leading', 1);
-        //Количество объектов, у которых показывается вступительный (intro) текст
-        $params->def('intro', 4);
-        //Сколько колонок в строке использовать при отображении вводного текста
-        $params->def('columns', 2);
-        //Количество объектов, отображаемых в виде ссыло
-        $params->def('link', 4);
-        //Сортировка объектов в категории
-        $params->def('orderby_pri', '');
-        //Порядок, в котором будут отображаться объекты
-        $params->def('orderby_sec', '');
-        //Показать/Скрыть постраничную навигацию
-        $params->def('pagination', 2);
-        //Показать/Скрыть информацию о результатах разбиения на страницы ( например, 1-4 из 4 )
-        $params->def('pagination_results', 1);
-        //Показывать {mosimages}
-        $params->def('image', 1);
-        //Показать/Скрыть названия разделов, к которым принадлежат объекты
-        $params->def('section', 0);
-        //Сделать названия разделов ссылками на страницу текущего раздела
-        $params->def('section_link', 0);
-        //Показать/Скрыть названия категорий, которым принадлежат объекты
-        $params->def('category', 0);
-        //Сделать названия категорий ссылками на страницу текущей категории
-        $params->def('category_link', 0);
-        //Тип ссылки на категорию: 'blog' / 'table'
-        $params->def('cat_link_type', 'blog'); //TODO:вынести в xml
-        //Показать/Скрыть заголовки объектов
-        $params->def('item_title', 1);
-        //Сделать заголовки объектов в виде ссылок на объекты
-        $params->def('link_titles', $mainframe->getCfg('link_titles'));
-        //Показать/Скрыть ссылку [Подробнее...]
-        $params->def('readmore', $mainframe->getCfg('readmore'));
-        //Показать/Скрыть возможность оценки объектов
-        $params->def('rating', $mainframe->getCfg('rating'));
-        //Показать/Скрыть имена авторов объектов
-        $params->def('author', !$mainframe->getCfg('hideAuthor'));
-        //Тип отображения имен авторов
-        $params->def('author_name', $mainframe->getCfg('author_name'));
-        //Показать/Скрыть дату создания объекта
-        $params->def('createdate', !$mainframe->getCfg('hideCreateDate'));
-        //оказать/Скрыть дату изменения объекта
-        $params->def('modifydate', !$mainframe->getCfg('hideModifyDate'));
-        //Показать/Скрыть кнопку печати объекта
-        $params->def('print', !$mainframe->getCfg('hidePrint'));
-        //Показать/Скрыть кнопку отправки объекта на e-mail
-        $params->def('email', !$mainframe->getCfg('hideEmail'));
-        //Показать/Скрыть неопубликованные объекты для группы пользователей `Publisher` и выше
-        $params->def('unpublished', 0);        
-        //Группировка по категориям
-        $params->def('group_cat', 0);
-        //Количество записей в группе
-        $params->def('groupcat_limit', 5);
-        
-        //Показать/Скрыть описание раздела
-        $params->def('description', 0);
-        //Показать/Скрыть изображение описания раздела
-        $params->def('description_image', 0);
-        
-        //Показать/Скрыть вводный текст
-        $params->def('view_introtext', 1);
-         //Лимит слов для интротекста. Если текст не нуждается в обрезке - оставьте поле пустым
-        $params->def('introtext_limit', '');  
-        
-        $params->def('intro_only', 1);
+        }              
         
 
         if ($params->get('page_title', 1) && $menu)
@@ -2128,6 +2093,15 @@ class contentPageConfig
 
     }
 
+    /**
+     * contentPageConfig::setup_blog_category_page()
+     * 
+     * Установка дефолтных параметров для вывода страницы блога категории
+     * xml-файл для генерации формы установки параметров: 
+	 * administrator/components/com_menus/content_blog_category/content_blog_category.xml
+     * 
+     * @return object $params
+     */
     function setup_blog_category_page($id)
     {
         global $mainframe, $Itemid;
@@ -2140,7 +2114,7 @@ class contentPageConfig
         } else
         {
             $menu = '';
-            $params = new mosParameters('');
+            $params = new configContent_categoryblog($database);
         }
 
         $params->menu = $menu;
@@ -2150,101 +2124,6 @@ class contentPageConfig
             $id = $params->def('categoryid', 0);
         }
 
-         //Название страницы, отображаемое в заголовке браузера (тег title)
-        $params->def('page_name', '');
-        //показать/скрыть название сайта в title страницы (заголовке браузера)
-        $params->def('no_site_name', 1);
-        
-        //Мета-тег robots, используемый на странице:
-        //int [-1,0,1,2,3]=['Не отображать', 'Index, follow', 'Index, NoFollow', 'NoIndex, Follow', 'NoIndex, NoFollow']
-        $params->def('robots', -1);
-        //META-тег: Description: string
-        $params->def('meta_description', '');
-        //ETA-тег keywords: string
-        $params->def('meta_keywords', '');
-        //META-тег author: string
-        $params->def('meta_author', '');
-        //Изображение меню
-        $params->def('menu_image', '');
-        //Суффикс CSS-класса страницы
-        $params->def('pageclass_sfx', '');
-        //Заголовок страницы (контентной области)
-        $params->def('header', '');
-        //Показать/Скрыть заголовок страницы
-        $params->def('page_title', '');
-        //Показать/Скрыть кнопку Назад (Вернуться), возвращающую на предыдущую просмотренную страницу
-        $params->def('back_button', $mainframe->getCfg('back_button'));
-        //Количество главных объектов (на всю ширину). При 0 главные объекты отображаться не будут.
-        $params->def('leading', 1);
-        //Количество объектов, у которых показывается вступительный (intro) текст
-        $params->def('intro', 4);
-        //Сколько колонок в строке использовать при отображении вводного текста
-        $params->def('columns', 2);
-        //Количество объектов, отображаемых в виде ссыло
-        $params->def('link', 4);
-        //Сортировка объектов в категории
-        $params->def('orderby_pri', '');
-        //Порядок, в котором будут отображаться объекты
-        $params->def('orderby_sec', '');
-        //Показать/Скрыть постраничную навигацию
-        $params->def('pagination', 2);
-        //Показать/Скрыть информацию о результатах разбиения на страницы ( например, 1-4 из 4 )
-        $params->def('pagination_results', 1);
-        //Показывать {mosimages}
-        $params->def('image', 1);
-        //Показать/Скрыть названия разделов, к которым принадлежат объекты
-        $params->def('section', 0);
-        //Сделать названия разделов ссылками на страницу текущего раздела
-        $params->def('section_link', 0);
-        //Показать/Скрыть названия категорий, которым принадлежат объекты
-        $params->def('category', 0);
-        //Сделать названия категорий ссылками на страницу текущей категории
-        $params->def('category_link', 0);
-        //Тип ссылки на категорию: 'blog' / 'table'
-        $params->def('cat_link_type', 'blog'); //TODO:вынести в xml
-        //Показать/Скрыть заголовки объектов
-        $params->def('item_title', 1);
-        //Сделать заголовки объектов в виде ссылок на объекты
-        $params->def('link_titles', $mainframe->getCfg('link_titles'));
-        //Показать/Скрыть ссылку [Подробнее...]
-        $params->def('readmore', $mainframe->getCfg('readmore'));
-        //Показать/Скрыть возможность оценки объектов
-        $params->def('rating', $mainframe->getCfg('vote'));
-        //Показать/Скрыть имена авторов объектов
-        $params->def('author', !$mainframe->getCfg('hideAuthor'));
-        //Тип отображения имен авторов
-        $params->def('author_name', $mainframe->getCfg('author_name'));
-        //Показать/Скрыть дату создания объекта
-        $params->def('createdate', !$mainframe->getCfg('hideCreateDate'));
-        //оказать/Скрыть дату изменения объекта
-        $params->def('modifydate', !$mainframe->getCfg('hideModifyDate'));
-        //Показать/Скрыть кнопку печати объекта
-        $params->def('print', !$mainframe->getCfg('hidePrint'));
-        //Показать/Скрыть кнопку отправки объекта на e-mail
-        $params->def('email', !$mainframe->getCfg('hideEmail'));
-        //Показать/Скрыть неопубликованные объекты для группы пользователей `Publisher` и выше
-        $params->def('unpublished', 0);        
-        //Группировка по категориям
-        $params->def('group_cat', 0);
-        //Количество записей в группе
-        $params->def('groupcat_limit', 5);
-        
-        //Показать/Скрыть описание категории
-        $params->def('description', 0);
-        //Показать/Скрыть изображение описания категории
-        $params->def('description_image', 0);
-        
-        //Показать/Скрыть вводный текст
-        $params->def('view_introtext', 1);
-         //Лимит слов для интротекста. Если текст не нуждается в обрезке - оставьте поле пустым
-        $params->def('introtext_limit', '');  
-        
-        $params->def('intro_only', 1);
-
-
-        $params->def('cat_link_type', 'blog'); //TODO:вынести в xml
-        $params->def('section_link_type', 'blog'); //TODO:вынести в xml
-
         if ($params->get('page_title', 1) && $menu)
         {
             $header = $params->def('header', $menu->name);
@@ -2253,6 +2132,16 @@ class contentPageConfig
         return $params;
 
     }
+    
+    /**
+     * contentPageConfig::setup_blog_archive_section_page()
+     * 
+     * Установка дефолтных параметров для вывода страницы архива раздела
+     * xml-файл для генерации формы установки параметров: 
+	 * administrator/components/com_menus/content_archive_section/content_archive_section.xml
+     * 
+     * @return object $params
+     */
     
     function setup_blog_archive_section_page($id)
     {
@@ -2266,7 +2155,7 @@ class contentPageConfig
         } else
         {
             $menu = '';
-            $params = new mosParameters('');
+            $params = new configContent_sectionarchive($database);
         }
 
         $params->menu = $menu;
@@ -2276,28 +2165,6 @@ class contentPageConfig
             $id = $params->def('sectionid', 0);
         }
         $params->def('pop', 0);
-        $params->def('orderby_sec', 'rdate');
-        $params->def('orderby_pri', '');
-        $params->def('intro', 4);
-        $params->def('leading', 1);
-        $params->def('link', 4);
-        $params->def('limitstart', '0');
-        $params->def('limit', '10');
-        $params->def('rating', '');
-        $params->def('group_cat', 0);
-        $params->def('groupcat_limit', 0);
-        $params->def('columns', 2);
-        $params->def('pagination', 2);
-        $params->def('pagination_results', 1);
-        $params->def('description', 1);
-        $params->def('description_image', 1);
-        $params->def('back_button', $mainframe->getCfg('back_button'));
-        $params->def('pageclass_sfx', '');
-        $params->def('intro_only', 0);
-
-
-        $params->def('cat_link_type', 'blog'); //TODO:вынести в xml
-
         if ($params->get('page_title', 1) && $menu)
         {
             $header = $params->def('header', $menu->name);
@@ -2307,6 +2174,15 @@ class contentPageConfig
 
     }
     
+    /**
+     * contentPageConfig::setup_blog_archive_category_page()
+     * 
+     * Установка дефолтных параметров для вывода страницы архива категории
+     * xml-файл для генерации формы установки параметров: 
+	 * administrator/components/com_menus/content_archive_category/content_archive_category.xml
+     * 
+     * @return object $params
+     */
     function setup_blog_archive_category_page($id)
     {
         global $mainframe, $Itemid;
@@ -2319,31 +2195,13 @@ class contentPageConfig
         } else
         {
             $menu = '';
-            $params = new mosParameters('');
+            $params = new configContent_categoryarchive($database);
         }
 
         $params->menu = $menu;
 
         $params->def('pop', 0);
-        $params->def('orderby', 'rdate');
-        $params->def('intro', 4);
-        $params->def('leading', 1);
-        $params->def('link', 4);
-        $params->def('limitstart', '0');
-        $params->def('limit', '10');
-        $params->def('rating', '');
-        $params->def('columns', 2);
-        $params->def('pagination', 2);
-        $params->def('pagination_results', 1);
-        $params->def('description', 1);
-        $params->def('description_image', 1);
-        $params->def('back_button', $mainframe->getCfg('back_button'));
-        $params->def('pageclass_sfx', '');
-        $params->def('intro_only', 0);
-
-
-        $params->def('cat_link_type', 'blog'); //TODO:вынести в xml
-
+        
         if ($params->get('page_title', 1) && $menu)
         {
             $header = $params->def('header', $menu->name);
@@ -2353,7 +2211,15 @@ class contentPageConfig
 
     }
 
-	//TODO:Описать все параметры из xml 
+    /**
+     * contentPageConfig::setup_table_category_page()
+     * 
+     * Установка дефолтных параметров для вывода страницы с таблицей материалов категории
+     * xml-файл для генерации формы установки параметров: 
+	 * administrator/components/com_menus/content_category/content_category.xml
+     * 
+     * @return object $params
+     */
     function setup_table_category_page($category)
     {
         global $mainframe, $Itemid, $mosConfig_list_limit;
@@ -2368,46 +2234,26 @@ class contentPageConfig
 		else
         {
             $menu = '';
-            $params = new mosParameters('');
+            $params = new configContent_categorytable($database);
         }
 
         $params->menu = $menu;
-
-        $params->def('description_cat', 1);
-        $params->def('description_cat_image', 1);
-        $params->def('page_title', 1);
-        $params->def('title', 1);
-        $params->def('hits', $mainframe->getCfg('hits'));
-        $params->def('author', !$mainframe->getCfg('hideAuthor'));
-        $params->def('date', !$mainframe->getCfg('hideCreateDate'));
-        $params->def('date_format', _DATE_FORMAT_LC);
-        $params->def('navigation', 2);
-        $params->def('display', 1);
-        $params->def('display_num', $mosConfig_list_limit);
-        $params->def('other_cat', 1);
-        $params->def('empty_cat', 0);
-        $params->def('cat_items', 1);
-        $params->def('cat_description', 0);
-        $params->def('back_button', $mainframe->getCfg('back_button'));
-        $params->def('pageclass_sfx', '');
-        $params->def('headings', 1);
-        $params->def('order_select', 1);
-        $params->def('filter', 1);
-        $params->def('filter_type', 'title');
-        $params->def('unpublished', 1);
-
-
-        // Description & Description Image control
-        $params->def('description', $params->get('description_cat'));
-        $params->def('description_image', $params->get('description_cat_image'));
-
         $params->set('type', 'category');
 
         return $params;
 
     }
     
-	//TODO:Описать все параметры из xml      
+    /**
+     * contentPageConfig::setup_section_catlist_page()
+     * 
+     * Установка дефолтных параметров для вывода страницы с перечнем категорий данного раздела
+     * xml-файл для генерации формы установки параметров: 
+	 * administrator/components/com_menus/content_section/content_section.xml
+     * 
+     * @return object $params
+     */
+    
     function setup_section_catlist_page($section){
     	global $mainframe, $Itemid;
     	
@@ -2419,28 +2265,10 @@ class contentPageConfig
         } else
         {
             $menu = '';
-            $params = new mosParameters('');
-            //$params = new mosEmpty();
+            $params = new configContent_sectionlist($database);
         }
 
         $params->menu = $menu;
-
-		$params->def('orderby','');	
-		$params->def('page_title',1);
-		$params->def('pageclass_sfx','');
-		$params->def('description_sec',1);
-		$params->def('description_sec_image',1);
-		$params->def('other_cat_section',1);
-		$params->def('empty_cat_section',0);
-		$params->def('other_cat',1);
-		$params->def('empty_cat',0);
-		$params->def('cat_items',1);
-		$params->def('cat_description',1);
-		$params->def('back_button',$mainframe->getCfg('back_button'));
-		$params->def('pageclass_sfx','');
-		$params->def('unpublished',1);
-		$params->def('description',$params->get('description_sec'));
-		$params->def('description_image',$params->get('description_sec_image'));	
 		$params->set('type','section');
 		
 		return $params;
@@ -2529,17 +2357,17 @@ class contentPageConfig
         //Показать/Скрыть возможность оценки объектов
         $params->def('rating', $mainframe->getCfg('vote'));
         //Показать/Скрыть имена авторов объектов
-        $params->def('author', !$mainframe->getCfg('hideAuthor'));
+        $params->def('author', $mainframe->getCfg('showAuthor'));
         //Тип отображения имен авторов
         $params->def('author_name', 0);
         //Показать/Скрыть дату создания объекта
-        $params->def('createdate', !$mainframe->getCfg('hideCreateDate'));
+        $params->def('createdate', $mainframe->getCfg('showCreateDate'));
         //оказать/Скрыть дату изменения объекта
-        $params->def('modifydate', !$mainframe->getCfg('hideModifyDate'));
+        $params->def('modifydate', $mainframe->getCfg('showModifyDate'));
         //Показать/Скрыть кнопку печати объекта
-        $params->def('print', !$mainframe->getCfg('hidePrint'));
+        $params->def('print', $mainframe->getCfg('showPrint'));
         //Показать/Скрыть кнопку отправки объекта на e-mail
-        $params->def('email', !$mainframe->getCfg('hideEmail'));
+        $params->def('email', $mainframe->getCfg('showEmail'));
         //Показать/Скрыть неопубликованные объекты для группы пользователей `Publisher` и выше
         $params->def('unpublished', 0);
 
@@ -2569,11 +2397,11 @@ class contentPageConfig
         global $mainframe, $Itemid;
 
         $params->def('link_titles', $mainframe->getCfg('link_titles'));
-        $params->def('author', !$mainframe->getCfg('hideAuthor'));
-        $params->def('createdate', !$mainframe->getCfg('hideCreateDate'));
-        $params->def('modifydate', !$mainframe->getCfg('hideModifyDate'));
-        $params->def('print', !$mainframe->getCfg('hidePrint'));
-        $params->def('email', !$mainframe->getCfg('hideEmail'));
+        $params->def('author', $mainframe->getCfg('showAuthor'));
+        $params->def('createdate', $mainframe->getCfg('showCreateDate'));
+        $params->def('modifydate', $mainframe->getCfg('showModifyDate'));
+        $params->def('print', $mainframe->getCfg('showPrint'));
+        $params->def('email', $mainframe->getCfg('showEmail'));
         $params->def('rating', $mainframe->getCfg('vote'));
         $params->def('icons', $mainframe->getCfg('icons'));
         $params->def('readmore', $mainframe->getCfg('readmore'));

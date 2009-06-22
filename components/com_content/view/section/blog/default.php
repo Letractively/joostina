@@ -3,7 +3,7 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
 ?>
     <div class="page_sectionblog<?php echo $sfx ;?>">
 
-        <?php if($header) { ?>
+        <?php if($params->get('page_title')) { ?>
 		    <div class="componentheading"><?php echo $header;?></div>
 	    <?php }?>
 

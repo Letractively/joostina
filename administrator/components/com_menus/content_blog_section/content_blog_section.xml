@@ -90,6 +90,18 @@
  			<option value="1">Показать</option>
  		</param>
  		<param name="@spacer" type="spacer" default="" label="" description="" />
+ 		<param name="section" type="radio" default="0" label="Название раздела" description="Показать/Скрыть названия раздела, которому принадлежат объекты">
+			<option value="0">Скрыть</option>
+			<option value="1">Показать</option>
+		</param>
+		<param name="section_link" type="radio" default="0" label="Названия раздела в виде ссылок" description="Сделать названия разделов ссылками на страницу текущей категории">
+			<option value="0">Нет</option>
+			<option value="1">Да</option>
+		</param>
+		<param name="section_link_type" type="list" default="blog" label="Тип ссылки на раздел" description="Тип ссылки на раздел">
+			<option value="blog">Блог раздела</option>
+			<option value="list">Список категорий раздела</option>
+		</param>
 		<param name="category" type="radio" default="0" label="Название категории" description="Показать/Скрыть названия категорий, которым принадлежат объекты">
 			<option value="0">Скрыть</option>
 			<option value="1">Показать</option>
@@ -97,6 +109,10 @@
 		<param name="category_link" type="radio" default="0" label="Названия категорий в виде ссылок" description="Сделать названия категорий ссылками на страницу текущей категории">
 			<option value="0">Нет</option>
 			<option value="1">Да</option>
+		</param>
+		<param name="cat_link_type" type="list" default="blog" label="Тип ссылки на категорию" description="Тип ссылки на категорию">
+			<option value="blog">Блог категории</option>
+			<option value="table">Таблица категории</option>
 		</param>
 		<param name="item_title" type="radio" default="1" label="Заголовки объектов" description="Показать/Скрыть заголовки объектов">
 			<option value="0">Скрыть</option>
@@ -106,6 +122,10 @@
 			<option value="">Использовать глобальные</option>
 			<option value="0">Нет</option>
 			<option value="1">Да</option>
+		</param>
+		<param name="intro_only" type="radio" default="1" label="Показывать только интротекст?" description="Использовать для вывода только интро записи или всю запись целиком">
+			<option value="0">Нет, запись полностью</option>
+			<option value="1">Да, только интротекст</option>
 		</param>
 		<param name="view_introtext" type="radio" default="1" label="Интротекст" description="Показать/Скрыть вводный текст">
 			<option value="0">Скрыть</option>

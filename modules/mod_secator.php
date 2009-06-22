@@ -21,16 +21,11 @@ if($use_to==1){
 
 # используем для разделов
 function _use_sections(&$params){
-	echo 'use SEC';
 	$order_section = strval($params->get( 'order_section', 'order' ));
-
-
 }
 
 # используем для категорий
 function _use_category(&$params){
-	echo 'use CAT';
-
 	$database = &database::getInstance();
 
 	$count			= intval($params->get( 'count', 5 ));
@@ -44,13 +39,13 @@ function _use_category(&$params){
 			INNER JOIN #__sections ON #__sections.id = #__categories.section
 			'.$_where.$_where_published.' ORDER BY #__categories.'.$order_category.' '.$order_asc_desc.' ';
 	$database->setQuery( $sql,0,$count );
-	echo $database->getQuery( );
+	$database->getQuery( );
 	$rows = $database->loadObjectList();
 
 	$view_category	= strval($params->get( 'view_category', 'category_defaults.php' ));
 
 	$_config		= Jconfig::getInstance();
-	echo $file			= $_config->config_absolute_path.DS.'modules'.DS.'mod_secator'.DS.$view_category;
+	$file			= $_config->config_absolute_path.DS.'modules'.DS.'mod_secator'.DS.$view_category;
 	$file_defaults	= $_config->config_absolute_path.DS.'modules'.DS.'mod_secator'.DS.'category_defaults.php';
 
 	require_once is_file($file) ? $file : $file_defaults;

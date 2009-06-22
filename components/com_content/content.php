@@ -10,6 +10,7 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 require_once ($mainframe->getPath('front_html','com_content'));
+require_once ($mainframe->getPath('config','com_content'));
 
 global $task,$Itemid,$option,$my;
 
@@ -117,51 +118,23 @@ function showUserItems() {
 
     $limit		= intval(mosGetParam($_REQUEST,'limit',0));
     $limitstart	= intval(mosGetParam($_REQUEST,'limitstart',0));
-    $orderby	= strval(mosGetParam($_REQUEST,'order',''));
+   
     $user_id	= intval(mosGetParam($_REQUEST,'user',0));
 
     //права доступа
     $access = new contentAccess();
     // Paramters
-    $params = new jstContentUserpageConfig($database);
-
+    $params = new configContent_ucontent($database);
     $limit = $limit ? $limit : $params->get('display_num');
-
-	if (!$orderby) {
-		$orderby = $params->get( 'orderby', 'rdate' );
-
-	}
-    $selected = $orderby;
-	// Ordering control
-	$orderby = _orderby_sec( $orderby );
-
-	// get the total number of published items in the category
-	// filter functionality
-	$and = '';
-	if ( $params->get( 'filter' ) ) {
-		$filter = mosGetParam( $_POST, 'filter', '' );
-
-		if ( $filter ) {
-			// clean filter variable
-			$filter = strtolower( $filter );
-
-			switch ( $params->get( 'filter_type' ) ) {
-				case 'title':
-					$and = "\n AND LOWER( a.title ) LIKE '%$filter%'";
-					break;
-
-				case 'hits':
-					$and = "\n AND a.hits LIKE '%$filter%'";
-					break;
-			}
-		}
-	}
+    $params->set('limitstart', $limitstart);
+    $params->set('limit', $limit);
 
     $user_items = new mosContent($database);
     //Получаем количество записей пользователя
-    $user_items->total = $user_items->load_count_user_items($user_id, $and);
+    $user_items->total = $user_items->_get_count_user_items($user_id, $params);
     //Получаем все записи пользователя
-    $user_items->items = $user_items->load_user_items($user_id, $limitstart, $limit, $orderby, $and);
+    $user_items->items = $user_items->_load_user_items($user_id, $params);
+    
 
     if(!$user_items->items){
         $user = new mosUser($database);
@@ -202,14 +175,14 @@ function showUserItems() {
     		$check .= 1;
     	}
     	$order[] = mosHTML::makeOption( 'order', _ORDER_DROPDOWN_O );
-    	$lists['order'] = mosHTML::selectList( $order, 'order', 'class="inputbox" size="1" onchange="document.adminForm.submit();"', 'value', 'text', $selected );
+    	$lists['order'] = mosHTML::selectList( $order, 'order', 'class="inputbox" size="1" onchange="document.adminForm.submit();"', 'value', 'text', $params->get('orderby') );
     	if ( $check < 1 ) {
     		$lists['order'] = '';
     		$params->set( 'order_select', 0 );
     	}
 
     	$lists['task'] = 'category';
-    	$lists['filter'] = $filter;
+    	$lists['filter'] = $params->get('filter_value');
     	$lists['limit'] = $limit;
     	$lists['limitstart'] = $limitstart;
 
@@ -225,7 +198,7 @@ function showUserItems() {
 	$mainframe->SetPageTitle( $pagetitle );
 
 
-	HTML_content::showUserContent( $user_items, $access, $params, $pageNav, $lists, $selected );
+	HTML_content::showUserContent( $user_items, $access, $params, $pageNav, $lists, $params->get('orderby'));
 }
 
 function frontpage() {
@@ -442,6 +415,7 @@ function showBlogSection($id = 0) {
     $params->def('pop', $pop);
     $params->page_type = 'section_blog';
 
+
     //Количество записей на странице
 	$limit = $limit ? $limit : ($params->get('intro') + $params->get('leading') + $params->get('link'));
 
@@ -482,6 +456,9 @@ function showBlogSection($id = 0) {
 
 
 	// Мета-данные страницы
+ 	if(!$params->get('header')){
+        $params->set('header',  $section->name);
+    }
     $meta = new contentMeta($params);
     $meta->set_meta();
 
@@ -744,12 +721,15 @@ function BlogOutput(&$obj,$params,&$access) {
 	global $mainframe,$Itemid,$task,$id,$option,$database,$mosConfig_live_site, $mosConfig_absolute_path, $my;
 
     $rows = $obj->content;
+    $total = $obj->total;
+    
+    $gid = $my->gid;
+    
     $menu = $params->menu;
     $limitstart = $params->get('limitstart');
-    $limit = $params->get('limit');
-    $total = $obj->total;
+    $limit = $params->get('limit');    
     $pop = $params->get('pop');
-    $gid = $my->gid;
+    
 
     $archive = null; $archive_page = null;
     if($params->page_type == 'section_archive' || $params->page_type == 'category_archive' || $params->page_type == 'archive_by_month'){
@@ -1877,7 +1857,7 @@ function cancelContent() {
 * @param int The content item id
 */
 function emailContentForm($uid,$gid) {
-	global $database,$mosConfig_hideEmail;
+	global $database,$mosConfig_showEmail;
 
 	$id = intval(mosGetParam($_REQUEST,'id',0));
 	if($id) {
@@ -1889,7 +1869,7 @@ function emailContentForm($uid,$gid) {
 	}
 	$email = intval($params->get('email',0));
 
- 	if($mosConfig_hideEmail && !$email) {
+ 	if(!$mosConfig_showEmail && !$email) {
  		echo _NOT_AUTH;
  		return;
 	}
@@ -1960,7 +1940,7 @@ function emailContentForm($uid,$gid) {
 */
 function emailContentSend($uid,$gid) {
 	global $database,$mainframe;
-	global $mosConfig_sitename,$mosConfig_hideEmail;
+	global $mosConfig_sitename,$mosConfig_showEmail;
 
 	$id = intval(mosGetParam($_REQUEST,'id',0));
 	if($id) {
@@ -1971,7 +1951,7 @@ function emailContentSend($uid,$gid) {
 		$params = new mosParameters('');
 	}
 	$paramEmail = intval($params->get('email',0));
-	if($mosConfig_hideEmail && !$paramEmail) {
+	if(!$mosConfig_showEmail && !$paramEmail) {
 		echo _NOT_AUTH;
 		return;
 	}
