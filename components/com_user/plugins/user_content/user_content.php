@@ -82,7 +82,7 @@ if(!$user_items){
         <?php }  ?>
     </table>
     <?php if ( $params->get( 'show_link' ) ) { ?>
-    	<a class="readmore" href="<?php echo $user_content_link; ?>">Все материалы пользователя</a>
+    	<a class="readon" href="<?php echo $user_content_link; ?>">Все материалы пользователя</a>
     <?php }?>
     
 </div>

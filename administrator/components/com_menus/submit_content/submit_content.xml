@@ -58,7 +58,7 @@
 			<option value="0">Нет</option>
 			<option value="1">Да</option>
 </param>
-<param name="allow_tags" type="radio" default="1" label="Ключевые слова" description="Отображать поле ввода ключевых слов?">
+<param name="allow_tags" type="radio" default="1" label="Тэги" description="Отображать поле ввода тэгов?">
 			<option value="0">Нет</option>
 			<option value="1">Да</option>
 </param>

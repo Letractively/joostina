@@ -15,7 +15,7 @@ class configUser_registration extends dbConfig{
     /**
      * Заголовок страницы
      */
-    var $title = '_REGISTER_TITLE';
+    var $title = 'Регистрация';
     /**
      * Текст перед формой регистрации
      */

@@ -1564,8 +1564,17 @@ function editItem($task) {
 
     $row->lists = $lists;
 
-    $tags = new contentTags($database);
-    $row->tags = implode(',', $tags->load_by($row));
+	//Тэги
+	$row->tags = null;
+		if($row->id){
+		$tags = new contentTags($database);
+	    
+	    $load_tags = $tags->load_by($row);
+	    if(count($load_tags)){
+	    	$row->tags = implode(',', $load_tags);	
+	    }
+	}
+    
 
 	HTML_content::editContent($row,$page,$task);
 }

@@ -109,7 +109,7 @@ function display_form(){
 
         </div>
 
-        <input type="submit" class="button" name="button"  value="Отправить" />
+        <div class="button"><input type="submit" class="button" name="button"  value="Отправить" /></div>
         <input type="hidden" name="act" value="user_sendmail" />
         <input type="hidden" name="user_id" value="<?php echo $user_id;?>"  />
         </form>

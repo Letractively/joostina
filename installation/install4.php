@@ -327,7 +327,7 @@ if($siteUrl) {
 	// создание администратора
 	$installdate = date('Y-m-d H:i:s');
 	$adminLogin = $database->getEscaped($adminLogin);
-	$query = "INSERT INTO `#__users` VALUES (62, 'Administrator', '$adminLogin', '$adminEmail', '$cryptpass', 'Super Administrator', 0, 1, 25, '$installdate', '$nullDate', '', '',0)";
+	$query = "INSERT INTO `#__users` VALUES (62, 'Administrator', '$adminLogin', '$adminEmail', '$cryptpass', 'Super Administrator', 0, 1, 25, '$installdate', '$nullDate', '', '',0, '')";
 	$database->setQuery($query);
 	$database->query();
 	// добавить ARO (Access Request Object)

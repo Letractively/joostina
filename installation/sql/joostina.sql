@@ -722,6 +722,7 @@ CREATE TABLE `#__users` (
   `activation` varchar(100) NOT NULL default '',
   `params` text NOT NULL,
   `bad_auth_count` int(2) default '0',
+  `avatar` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`id`),
   KEY `usertype` (`usertype`),
   KEY `idx_name` (`name`),
