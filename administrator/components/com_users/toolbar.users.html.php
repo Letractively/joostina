@@ -36,6 +36,14 @@ class TOOLBAR_users {
 		mosMenuBar::help('screen.users');
 		mosMenuBar::endTable();
 	}
+	
+ 	function _CONFIG(){
+		mosMenuBar::startTable();
+		mosMenuBar::save('save_config');
+		mosMenuBar::spacer();
+		mosMenuBar::cancel();
+		mosMenuBar::endTable();
+    }
 
 	function _DEFAULT() {
 		mosMenuBar::startTable();

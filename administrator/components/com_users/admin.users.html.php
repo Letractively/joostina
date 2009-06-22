@@ -58,7 +58,7 @@ class HTML_users {
 		<tr class="<?php echo "row$k"; ?>">
 			<td><?php echo $i + 1 + $pageNav->limitstart; ?></td>
 			<td><?php echo mosHTML::idBox($i,$row->id); ?></td>
-			<td width="1%"><img class="miniavatar" id="userav" src="<?php echo $mosConfig_live_site.mosUser::miniavatar($row->id);?>" /></td>
+			<td width="1%"><img width="60" class="miniavatar" id="userav" src="<?php echo $mosConfig_live_site.'/'.mosUser::get_avatar($row);?>" /></td>
 			<td align="left"><a href="<?php echo $link; ?>">
 			<?php echo $row->name; ?></a></td>
 			<td align="left"><?php echo $row->username; ?></td>
@@ -180,7 +180,7 @@ class HTML_users {
 				</tr>
 				<tr>
 					<td width="50%" rowspan="6" id="user_avatar" align="center">
-						<div ><img id="userav" src="<?php echo $mosConfig_live_site.mosUser::avatar($row->id,'big');?>" /></div>
+						<div ><img id="userav" src="<?php echo $mosConfig_live_site.'/'.mosUser::get_avatar($row);?>" /></div>
 						<br />
 						<?php if($row->id){?>
 						<input class="inputbox" type="file" size="1" id="fileavatar" name="avatar"/>

@@ -218,8 +218,7 @@ class gacl_api extends gacl {
 		$row = $rows[0];
 		return $row[0];
 	}
-	function get_group_children($group_id, $group_type = 'ARO', $recurse =
-		'NO_RECURSE') {
+	function get_group_children($group_id, $group_type = 'ARO', $recurse ='NO_RECURSE') {
 		$this->debug_text("get_group_children(): Group_ID: $group_id Group Type: $group_type Recurse: $recurse");
 		switch(strtolower(trim($group_type))) {
 			case 'axo':

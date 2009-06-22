@@ -10,6 +10,8 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
+global $mosConfig_absolute_path;
+require_once ($mosConfig_absolute_path . '/includes/libraries/dbconfig/dbconfig.php');
 
 /**
 * Users Table Class
@@ -287,6 +289,41 @@ class mosUser extends mosDBTable {
 		
 		$this->_db->setQuery($sql);
 		$this->_db->query();
+	}
+	
+	function send_mail_to_user($subject, $message){
+		global $mosConfig_mailfrom, $mosConfig_fromname, $database;
+	
+		// check if Global Config `mailfrom` and `fromname` values exist
+		if($mosConfig_mailfrom != '' && $mosConfig_fromname != '') {
+			$adminName2 = $mosConfig_fromname;
+			$adminEmail2 = $mosConfig_mailfrom;
+		} else {
+			// use email address and name of first superadmin for use in email sent to user
+			$query = "SELECT name, email FROM #__users WHERE LOWER( usertype ) = 'superadministrator' OR LOWER( usertype ) = 'super administrator'";
+			$database->setQuery($query);
+			$rows = $database->loadObjectList();
+			$row2 = $rows[0];
+			$adminName2 = $row2->name;
+			$adminEmail2 = $row2->email;
+		}
+		
+		mosMail($adminEmail2,$adminName2,$email,$subject,$message);
+		
+	}
+	
+	function send_mail_to_admins($subject, $message){
+		global $mosConfig_mailfrom, $mosConfig_fromname, $database;
+	
+		// get email addresses of all admins and superadmins set to recieve system emails
+		$query = "SELECT email, sendEmail FROM #__users WHERE ( gid = 24 OR gid = 25 ) AND sendEmail = 1 AND block = 0";
+		$database->setQuery($query);
+		$admins = $database->loadObjectList();
+	
+		foreach($admins as $admin) {
+			// send email to admin & super admin set to recieve system emails
+			mosMail($adminEmail2,$adminName2,$admin->email,$subject2,$message2);
+		}		
 	}
 }
 
