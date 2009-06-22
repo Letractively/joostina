@@ -256,6 +256,8 @@ DEFINE('_E_ITEM_SAVED','Item successfully saved.');
 DEFINE('_ITEM_PREVIOUS','&lt; Prev');
 DEFINE('_ITEM_NEXT','Next &gt;');
 DEFINE('_KEY_NOT_FOUND','Key not found');
+DEFINE('_TAGS','Tags:');
+DEFINE('_TAGS_NOT_DEFINED','not defined');
 
 
 /** content.php*/
@@ -2174,4 +2176,12 @@ DEFINE('_CHECKIN_OJECT','Checkin');
 /* administrator modules mod_latest_users */
 DEFINE('_NEW_USERS','New users');
 DEFINE('_USER_REG_DATE','Registered');
+
+/* plugin_jw_ajaxvote.php */
+DEFINE('_AV_UPDATING','Saving');
+DEFINE('_AV_ALREADY_VOTE','Your voice is considered!');
+DEFINE('_AV_VOTES','Votes');
+DEFINE('_AV_VOTE','Vote');
+DEFINE('_AV_THANKS','Thanks for you vote!');
+DEFINE('_AV_THANKS_CACHE','Thanks for you vote! The result will update after recounting.');
 ?>
