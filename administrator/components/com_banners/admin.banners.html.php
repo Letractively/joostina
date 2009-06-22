@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined('_VALID_MOS') or die();
 
 class HTML_banners {
@@ -616,9 +616,9 @@ $onclick; ?>><img src="images/<?php echo $img; ?>" border=0 alt="" /></a>
 			<td><?php echo _ABP_BORDER_STYLE; ?></td>
 			<td colspan="2">
 				<select name="border_style" id="border_style">
-					<option value="solid" <?php echo ($row->border_style == 'solid') ? 'selected' : ''; ?>>Сплошная</option>
-					<option value="dotted" <?php echo ($row->border_style == 'dotted') ? 'selected' : ''; ?>>Пунктирная</option>
-					<option value="double" <?php echo ($row->border_style == 'double') ? 'selected' : ''; ?>>Двойная</option>
+					<option value="solid" <?php echo ($row->border_style == 'solid') ? 'selected' : ''; ?>>РЎРїР»РѕС€РЅР°СЏ</option>
+					<option value="dotted" <?php echo ($row->border_style == 'dotted') ? 'selected' : ''; ?>>РџСѓРЅРєС‚РёСЂРЅР°СЏ</option>
+					<option value="double" <?php echo ($row->border_style == 'double') ? 'selected' : ''; ?>>Р”РІРѕР№РЅР°СЏ</option>
 				</select>
 			</td>
 		</tr>
@@ -723,7 +723,7 @@ $onclick; ?>><img src="images/<?php echo $img; ?>" border=0 alt="" /></a>
 		</tr>
 		<tr >
 			<td valign="top" align="right" colspan="2">
-			<?php echo _ABP_TOT_IMP_CLIC; ?> Руб. <?php echo $row->click_value * $row->complete_clicks + $row->imp_value * $row->imp_made; ?>
+			<?php echo _ABP_TOT_IMP_CLIC; ?> Р СѓР±. <?php echo $row->click_value * $row->complete_clicks + $row->imp_value * $row->imp_made; ?>
 			</td>
 		</tr>
 		</table>
@@ -812,7 +812,7 @@ $onclick; ?>><img src="images/<?php echo $img; ?>" border=0 alt="" /></a>
 
 	<table class="adminheading" border="0">
 		<tr>
-			<th class="cpanel">Баннеры</th>
+			<th class="cpanel"><?php echo _ABP_FOLDER_BANNER;?></th>
 		</tr>
 	</table>
 	<table>
@@ -834,10 +834,10 @@ $onclick; ?>><img src="images/<?php echo $img; ?>" border=0 alt="" /></a>
 	HTML_banners::quickiconButton($link,'joostina.png', _ABP_IMPORT_JOOMLA_BANNER);
 
 	$link = 'index2.php?option=com_banners&amp;task=backup';
-	HTML_banners::quickiconButton($link,'db.png', 'Архивировать баннеры');
+	HTML_banners::quickiconButton($link,'db.png', _ABP_ARCHIVE_BANNERS);
 
 	$link = 'index2.php?option=com_banners&amp;task=restore';
-	HTML_banners::quickiconButton($link,'down.png', 'Восстановить баннеры');
+	HTML_banners::quickiconButton($link,'down.png', _ABP_RESTORE_BANNERS);
 
 ?>
 			</div>
@@ -881,7 +881,7 @@ $onclick; ?>><img src="images/<?php echo $img; ?>" border=0 alt="" /></a>
 <?php
 	}
 
-	// прорисовка кнопок управления
+	// РїСЂРѕСЂРёСЃРѕРІРєР° РєРЅРѕРїРѕРє СѓРїСЂР°РІР»РµРЅРёСЏ
 	function quickiconButton($link,$image,$text) {
 	?>
 		<span>
