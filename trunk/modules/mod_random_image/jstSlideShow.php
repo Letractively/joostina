@@ -18,10 +18,12 @@
  */
  // запрет прямого доступа
  defined('_VALID_MOS') or die();
+ global  $mosConfig_live_site;
  ?>
 
 <script type="text/javascript">
-    var simpleGallery_navpanel={
+    var site_url = "<?php echo $mosConfig_live_site . '/';?>";
+	var simpleGallery_navpanel={
     	panel: {
     	            height:'<?php echo $panel_height;?>',
                     opacity: <?php echo $panel_opacity;?>,
@@ -29,10 +31,10 @@
                     fontStyle:'<?php echo $panel_font;?>'
                 },
     	images: [
-                    'modules/mod_random_image/images/left.gif',
-                    'modules/mod_random_image/images/play.gif',
-                    'modules/mod_random_image/images/right.gif',
-                    'modules/mod_random_image/images/pause.gif'
+                    site_url +'modules/mod_random_image/images/left.gif',
+                    site_url +'modules/mod_random_image/images/play.gif',
+                    site_url +'modules/mod_random_image/images/right.gif',
+                    site_url +'modules/mod_random_image/images/pause.gif'
                 ],
     	imageSpacing: {
     	                offsetTop:[-4, 0, -4],
