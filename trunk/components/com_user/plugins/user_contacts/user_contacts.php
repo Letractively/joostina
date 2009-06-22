@@ -44,7 +44,7 @@
         global $mosConfig_live_site;
 		$img_url = $mosConfig_live_site."/images/system_images";
 
-        if ($user->user_extra->icq)
+        if (isset($user->user_extra->icq))
 		    {
 		        ?>
     			<span class="icq">
@@ -57,7 +57,7 @@
                 <?php
 		    }
 
-		if ($user->user_extra->skype)
+		if (isset($user->user_extra->skype))
 		    {
 		        ?>
 			    <span class="skype">

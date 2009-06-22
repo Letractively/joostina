@@ -124,7 +124,7 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
             <?php  if($allow_tags){ ?>
             <tr>
 				<td align="left" valign="top"><strong><?php echo _TAGS; ?></strong></td>
-				<td><input class="inputbox" style="width:99%" type="text" name="tags" value="<?php echo $row->tags;?>"></td>
+				<td><input class="inputbox" style="width:99%" type="text" name="tags" value="<?php echo $row->tags;?>" /></td>
 			</tr>
             <?php }?>
 
