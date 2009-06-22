@@ -1041,12 +1041,13 @@ INSERT INTO `#__xmap_ext` ( `extension`, `published`, `params`) VALUES ( 'com_we
 
 # таблица хранения конфигураций сайта
 CREATE TABLE IF NOT EXISTS `#__config` (
-  `name` VARCHAR( 50 ) NOT NULL ,
-  `title` VARCHAR( 100 ) NOT NULL ,
-  `value` TINYTEXT NOT NULL ,
-  `info` TINYTEXT NOT NULL ,
-  `syte_id` INT NOT NULL ,
-  INDEX ( `name` , `syte_id` )
+  `id` int(11) NOT NULL auto_increment,
+  `group` varchar(255) NOT NULL,
+  `subgroup` varchar(255) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `value` tinytext NOT NULL,
+  PRIMARY KEY  (`id`),
+  KEY `name` (`name`)
 ) ENGINE=MYISAM  CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 
@@ -1065,7 +1066,9 @@ CREATE TABLE IF NOT EXISTS `#__users_extra` (
   `yahoo` varchar(255) NOT NULL,
   `phone` varchar(255) NOT NULL,
   `fax` varchar(255) NOT NULL,
-  `mobil` varchar(255) NOT NULL
+  `mobil` varchar(255) NOT NULL,
+  `birthdate` datetime default '0000-00-00 00:00:00',
+  PRIMARY KEY  (`user_id`)
 ) ENGINE=MYISAM  CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 # таблица тэгов
