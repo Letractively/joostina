@@ -2244,7 +2244,6 @@ DEFINE('_USER_MODULES', 'Пользовательские');
 DEFINE('_MODULES_COPY', 'Копия ');
 
 /* administrator components com_content */
-DEFINE('_TASK_UPLOAD', 'Загрузить');
 DEFINE('_COUNTER_RESET', 'Счетчик просмотров сброшен');
 
 /* administrator components com_sections */
