@@ -1692,7 +1692,7 @@ class mosMainFrame {
 	}
 	// получение системного сообщения
 	function get_mosmsg(){
-		$mosmsg_ss = stripslashes(strval(mosGetParam($_SESSION,'joostina.mosmsg','')));
+		$mosmsg_ss = trim(stripslashes(strval(mosGetParam($_SESSION,'joostina.mosmsg',''))));
 		$mosmsg_rq = stripslashes(strval(mosGetParam($_REQUEST,'mosmsg','')));
 
 		$mosmsg = ($mosmsg_ss!='') ? $mosmsg_ss : $mosmsg_rq;
@@ -1978,7 +1978,6 @@ class JConfig {
 	var $config_admin_template = '...';
 
 
-
 	// инициализация класса конфигурации - собираем переменные конфигурации
 	function JConfig(){
 		$this->bindGlobals();
@@ -1989,7 +1988,6 @@ class JConfig {
 
 		if (!is_object( $instance )) {
 			$instance = new JConfig();
-
 		}
 
 		return $instance;
