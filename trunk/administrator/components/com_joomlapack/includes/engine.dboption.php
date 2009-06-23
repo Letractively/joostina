@@ -77,7 +77,7 @@ function viewTables($option) {
 	$stats_list['rows'] = number_format($stats_list['rows'],0,',','.');
 	$stats_list['data'] = mosGetSizes($stats_list['data']);
 	$stats_list['over'] = mosGetSizes($stats_list['over']);
-	HTML_joomlapack::showTables($option,$lists,&$table_lists,$stats_list);
+	HTML_joomlapack::showTables($option,$lists,$table_lists,$stats_list);
 }
 
 // работа с базой, оптимизация, восстановление и т.д.

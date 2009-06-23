@@ -944,7 +944,7 @@ DEFINE('_TITLE_SEPARATOR2','Разделитель элементов загол
 DEFINE('_INDEX_PRINT_PAGE','Индексация печатной версии');
 DEFINE('_INDEX_PRINT_PAGE2','Если `Да`, то печатная версия содержимого будет доступна для индексации');
 DEFINE('_REDIR_FROM_NOT_WWW','Переадресация с не WWW адресов');
-DEFINE('_REDIR_FROM_NOT_WWW2','При заходе на сайт по ссылке site.ru, автоматически будет произведена переадресация на www.sie.ru');
+DEFINE('_REDIR_FROM_NOT_WWW2','При заходе на сайт по ссылке site.ru, автоматически будет произведена переадресация на www.site.ru');
 DEFINE('_ADMIN_CAPTCHA','Для авторизации в панели управления');
 DEFINE('_ADMIN_CAPTCHA2','Использовать captcha для более безопасной авторизации в панели управления.');
 DEFINE('_REGISTRATION_CAPTCHA','Для регистрации');
@@ -2316,4 +2316,8 @@ DEFINE('_COM_CONTENT_USER_NOT_FOUND','Извините, пользователь
 
 /* com_mambots */
 DEFINE('_COM_MAMBOTS_APPLY','Все изменения мамбота <b>%s</b> успешно сохранены');
+
+/* com_messages */
+DEFINE('_COM_MESSAGES_STATUS','Статус');
+
 ?>

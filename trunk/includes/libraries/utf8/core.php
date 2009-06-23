@@ -46,7 +46,7 @@ class Jstring{
 				$config = JConfig::getInstance();
 				include_once $config->config_absolute_path.'/includes/libraries/utf8/to_utf8.php';
 			}
-			return cp1259_to_utf8(&$text);
+			return cp1259_to_utf8($text);
 		}
 		return $text;
 	}

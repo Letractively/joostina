@@ -39,46 +39,28 @@ class HTML_messages {
 				#
           </th>
 			<th width="5%" class="title"> 
-				<input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo
-count($rows); ?>);" />
+				<input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo count($rows); ?>);" />
 			</th>
-          <th width="50%" class="title">
-<?php echo _MAIL_SUBJECT?>
-</th>
-          <th width="20%" class="title">
-<?php echo _MAIL_FROM?>
-</th>
-          <th width="15%" class="title">
-<?php echo _DATE?>
-</th>
-          <th width="10%" class="title">
-Статус
-</th>
+          <th width="50%" class="title"><?php echo _MAIL_SUBJECT?></th>
+          <th width="20%" class="title"><?php echo _MAIL_FROM?></th>
+          <th width="15%" class="title"><?php echo _DATE?></th>
+          <th width="10%" class="title"><?php echo _COM_MESSAGES_STATUS?></th>
         </tr>
 <?php
 		$k = 0;
 		for($i = 0,$n = count($rows); $i < $n; $i++) {
 			$row = &$rows[$i];
 ?>
-        <tr class="<?php echo "row$k"; ?>">
-          <td width="20">
-<?php echo $i + 1 + $pageNav->limitstart; ?>
-</td>
-          <td width="5%">
-<?php echo mosHTML::idBox($i,$row->message_id); ?>
-</td>
+        <tr class="row<?php echo $k ?>">
+          <td width="20"><?php echo $i + 1 + $pageNav->limitstart; ?></td>
+          <td width="5%"><?php echo mosHTML::idBox($i,$row->message_id); ?></td>
           <td width="50%">
-<a href="#edit" onClick="hideMainMenu();return listItemTask('cb<?php echo $i; ?>','view')">
-						<?php echo $row->subject; ?></a> 
-				</td>
-				<td width="20%">
-					<?php echo $row->user_from; ?>
-				</td>
-				<td width="15%">
-					<?php echo $row->date_time; ?>
-				</td>
+			<a href="#edit" onClick="hideMainMenu();return listItemTask('cb<?php echo $i; ?>','view')"><?php echo $row->subject; ?></a>
+			</td>
+		<td width="20%"><?php echo $row->user_from; ?></td>
+			<td width="15%"><?php echo $row->date_time; ?></td>
 				<td width="10%">
-					<?php
+<?php
 			if(intval($row->state) == "1") {
 				echo _MAIL_READED;
 			} else {
