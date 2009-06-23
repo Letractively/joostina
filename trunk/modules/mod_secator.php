@@ -79,7 +79,7 @@ function _get_secator_link($row,$params){
 	}
 
 	$link = $link.'&task='.$task.'&id='.$row->id.'&Itemid='.$Itemid;
-	
+
 	return sefRelToAbs($link);
 }
 
