@@ -182,21 +182,19 @@ function x_publish($id = null) {
 }
 // получение списка позиций модулей
 function x_get_position($id){
-	global $database;
+	$database = database::getInstance();
+
 	$row = new mosModule($database);
 	$row->load((int)$id);
 	$active = ($row->position ? $row->position:'left');
 
-	$query = "SELECT position, description"
-			."\n FROM #__template_positions"
-			."\n WHERE position != ''"
-			."\n ORDER BY position";
+	$query = "SELECT position, description FROM #__template_positions WHERE position != '' ORDER BY position";
 	$database->setQuery($query);
 	$positions = $database->loadObjectList();
 
 	$orders2 = array();
 	$pos = array();
-	$pos[] = mosHTML::makeOption($active,'--Закрыть--');
+	$pos[] = mosHTML::makeOption($active,'--'._CLOSE.'--');
 	foreach($positions as $position) {
 		if($position->description=='') $position->description = $position->position;
 		if($row->position==$position->position) $position->description = '--'.$position->description.'--';
@@ -208,11 +206,7 @@ function x_save_position($id){
 	global $database,$my;
 	$new_pos = strval(mosGetParam($_GET,'new_pos','left'));
 	if($new_pos=='0') return 1;
-	$query = "UPDATE #__modules"
-			."\n SET position = '".$new_pos
-			."'\n WHERE id = ".$id.
-			"\n AND ( checked_out = 0"
-			."\n OR ( checked_out = ".(int)$my->id." ) )";
+	$query = "UPDATE #__modules SET position = '".$new_pos."' WHERE id = ".$id." AND ( checked_out = 0 OR ( checked_out = ".(int)$my->id." ) )";
 	$database->setQuery($query);
 	if($database->query()) {
 		return 1; // новая позиция сохранения
