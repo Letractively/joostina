@@ -403,7 +403,7 @@ function editModule($option,$uid,$client) {
 			$lists['access'] = 'N/A';
 			$lists['selections'] = 'N/A';
 		} else {
-			$lists['access'] = mosAdminMenus::Access($row);
+			$lists['access'] = mosAdminMenus::Access($row,true);
 			$lists['selections'] = mosAdminMenus::MenuLinks($lookup,1,1);
 		}
 		$lists['showtitle'] = mosHTML::yesnoRadioList('showtitle','class="inputbox"',$row->showtitle);

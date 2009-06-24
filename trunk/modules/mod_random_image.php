@@ -36,9 +36,9 @@ $the_array		= array();
 $the_image		= array();
 
 if($s_autoplay){
-    $s_autoplay=='true';
+	$s_autoplay=='true';
 } else{
-    $s_autoplay == 'false';
+	$s_autoplay == 'false';
 }
 
 
@@ -83,9 +83,9 @@ if (is_dir($abspath_folder)) {
 	$i=0;
 	$k=1;
 
-         $pics = array();
+	$pics = array();
 
-         foreach ($the_image as $v) {
+	foreach ($the_image as $v) {
 
             if(!$rotate_type){
                 $random = mt_rand(0, $count - 1);
@@ -145,7 +145,7 @@ if (is_dir($abspath_folder)) {
 				}else{
 					$pics_str = implode(',', $pics);
 					mosCommonHTML::loadJqueryPlugins('simplegallery',1);
-					include (Jconfig::getInstance()->config_absolute_path.'/modules/mod_random_image/jstSlideShow.php');
+					include (Jconfig::getInstance()->config_absolute_path.'/modules/mod_random_image/slide_show.php');
 ?>
 					<div id="<?php echo $slideshow_name;?>"></div>
 <?php

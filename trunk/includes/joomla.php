@@ -3917,6 +3917,7 @@ class mosMambotHandler {
 	function mosMambotHandler() {
 		$this->_events = array();
 	}
+
 	/**
 	* Loads all the bot files for a particular group
 	* @param string The group name, relates to the sub-directory in the mambots directory
@@ -4175,13 +4176,14 @@ class mosAdminMenus {
 	/**
 	* build the select list for access level
 	*/
-	function Access(&$row) {
+	function Access(&$row,$guest=false) {
 		$database = &database::getInstance();
 
 		$query = "SELECT id AS value, name AS text FROM #__groups ORDER BY id";
 		$database->setQuery($query);
 		$groups = $database->loadObjectList();
-		$access = mosHTML::selectList($groups,'access','class="inputbox" size="3"','value','text',intval($row->access));
+		$guest ? $groups[]=mosHTML::makeOption(3,_COM_MODULES_GUEST) : null;
+		$access = mosHTML::selectList($groups,'access','class="inputbox" size="4"','value','text',intval($row->access));
 		return $access;
 	}
 	/**

@@ -76,18 +76,21 @@ function mosLoadComponent($name) {
 function &initModules() {
 	global $my,$Itemid;
 
-	$database = &database::getInstance();
+	static $all_modules;
 
-	if(!isset($GLOBALS['_MOS_MODULES'])) {
+	if(!$all_modules) {
+		$database = &database::getInstance();
+		$all_modules = array();
+
 		$Itemid = intval($Itemid);
 		$check_Itemid = '';
 		if($Itemid) {
 			$check_Itemid = "OR mm.menuid = ".(int)$Itemid;
 		}
-		if(!Jconfig::getInstance()->config_disable_access_control) $where_ac = "\n AND access <= ".(int)$my->gid;
-		else $where_ac = '';
-#		$query = "SELECT id, title, module, position, content, showtitle, params, assign_to_url FROM #__modules AS m"
-		$query = "SELECT id, title, module, position, content, showtitle, params FROM #__modules AS m"
+
+		$where_ac = Jconfig::getInstance()->config_disable_access_control ? '' : "\n AND (m.access=3 OR m.access <= ".(int)$my->gid.') ';
+
+		$query = "SELECT id, title, module, position, content, showtitle, params,access FROM #__modules AS m"
 				."\n INNER JOIN #__modules_menu AS mm ON mm.moduleid = m.id"
 				."\n WHERE m.published = 1"
 				.$where_ac
@@ -98,10 +101,16 @@ function &initModules() {
 		$modules = $database->loadObjectList();
 
 		foreach($modules as $module) {
-			$GLOBALS['_MOS_MODULES'][$module->position][] = $module;
+			if($module->access==3){
+				$my->gid==0 ? $GLOBALS['_MOS_MODULES'][$module->position][] = $module : null;
+			}else{
+				$GLOBALS['_MOS_MODULES'][$module->position][] = $module;
+				$all_modules[][$module->position][] = $module;
+			}
 		}
+		unset($modules,$module);
 	}
-	return $GLOBALS['_MOS_MODULES'];
+	return $all_modules;
 }
 /**
 * @param string THe template position

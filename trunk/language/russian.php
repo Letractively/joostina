@@ -2333,5 +2333,6 @@ DEFINE('_TASK_UPLOAD','Загрузить');
 DEFINE('_COM_CONTENT_TYPES','Типы содержимого');
 DEFINE('_COM_CONTENT_ARCHIVE_CONTENT','Содержимое в архиве');
 
-
+/* com_modules */
+DEFINE('_COM_MODULES_GUEST','Гостевой');
 ?>

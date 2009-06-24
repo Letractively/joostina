@@ -106,6 +106,7 @@ $mainframe = &mosMainFrame::getInstance();
 if($mosConfig_session_front == 0) {
 	$mainframe->initSession();
 }
+
 // ענטדדונ סמבûעטי onAfterStart
 if($mosConfig_mmb_system_off == 0) {
 	$_MAMBOTS->trigger('onAfterStart');
