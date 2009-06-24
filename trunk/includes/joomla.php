@@ -1972,11 +1972,14 @@ class JConfig {
 	var $config_author_name = 4;
 	/** @var int использование неопубликованных мамботов */
 	var $config_use_unpublished_mambots = 1;
-	/** @var int использование неопубликованных мамботов */
+	/** @var int использование мамботов удаления содержимого */
 	var $config_use_content_delete_mambots = 1;
 	/** @var str название шаблона панели управления */
 	var $config_admin_template = '...';
-
+	/** @var int режим сортировки содержимого в панели управления */
+	var $config_admin_content_order_by = 2;
+	/** @var str порядок сортировки содержимого в панели управления */
+	var $config_admin_content_order_sort = 0;
 
 	// инициализация класса конфигурации - собираем переменные конфигурации
 	function JConfig(){

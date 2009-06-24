@@ -192,8 +192,8 @@ function viewContent($sectionid,$option) {
 
 	$search = $mainframe->getUserStateFromRequest("search{$option}{$sectionid}",'search','');
 
-	$order_by = $mainframe->getUserStateFromRequest("order_by{$option}{$sectionid}",'order_by','');
-	$order_sort = intval($mainframe->getUserStateFromRequest("order_sort{$option}{$sectionid}",'order_sort',1));
+	$order_by = $mainframe->getUserStateFromRequest("order_by{$option}{$sectionid}",'order_by',$config->config_admin_content_order_by);
+	$order_sort = intval($mainframe->getUserStateFromRequest("order_sort{$option}{$sectionid}",'order_sort',$config->config_admin_content_order_sort));
 
 	$filter_sectionid = intval($mainframe->getUserStateFromRequest("filter_sectionid{$option}{$sectionid}",'filter_sectionid',0));
 
@@ -294,6 +294,7 @@ function viewContent($sectionid,$option) {
 			.implode(' AND ',$where):"");
 	$database->setQuery($query);
 	$total = $database->loadResult();
+
 	require_once ($GLOBALS['mosConfig_absolute_path'].'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
