@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
-* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
-* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
-* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
+* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
 */
 
-// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+// запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 /**
@@ -114,49 +114,13 @@ class HTML_config {
 				form: 'adminForm',
 				callback:
 					function(resp){
-						log('РџРѕР»СѓС‡РµРЅ РѕС‚РІРµС‚: ' + resp.responseText);
+						log('Получен ответ: ' + resp.responseText);
 						mess_cool(resp.responseText);
 						SRAX.get('tb-apply').className='tb-apply';
 			}});
 		}
 	//-->
 	</script>
-<?php
-/*
-//РІС‹РїР°РґР°СЋС‰РёР№ СЃРїРёСЃРѕРє РєРѕРјРїРѕРЅРµРЅС‚РѕРІ, РєРѕС‚РѕСЂС‹Рµ РјРѕР¶РЅРѕ РєРѕРЅС„РёРіСѓСЂРёСЂРѕРІР°С‚СЊ
-$adm_components = glob($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/*',GLOB_ONLYDIR);
-$usr_components = glob($mosConfig_absolute_path.'/components/*',GLOB_ONLYDIR);
-$components_arr = array();
-foreach($adm_components as $compo) {
-
-	$cname = basename($compo);
-	if (!in_array($compo,$components_arr)) $components_arr[] = basename($compo);
-}
-foreach($usr_components as $compo) {
-
-	$cname = basename($compo);
-	if (!in_array($compo,$components_arr)) $components_arr[] = basename($compo);
-}
-$out_components_arr = array();
-foreach($components_arr as $compo) {
-
-	if (getComponentConfigXMLPath($compo)) {
-		
-		$e = new stdClass();
-		$e->name = $compo;
-		$out_components_arr[] = $e;
-	}
-}
-$comp_list = mosHTML::selectList($out_components_arr,'component','','name','name','');
-*/
-?>
-<p>
-<!--
-<form action='index2.php?option=com_config&task=component_config' method='POST'>
-<?php #echo _COMPONENT?>: <?php #echo $comp_list?> <input type='submit' value='<?php echo _SUBMIT_BUTTON?>'>
-</form>
--->
-</p>
 <div style="text-align:left;">
 	<form action="index2.php" method="post" name="adminForm" id="adminForm">
 		<div id="overDiv" style="position:absolute; visibility:hidden; z-index:10000;"></div>
@@ -207,8 +171,7 @@ $comp_list = mosHTML::selectList($out_components_arr,'component','','name','name
 						<td>
 							<textarea class="text_area" cols="60" rows="2" style="width:500px; height:40px" name="config_offline_message"><?php echo $row->config_offline_message; ?></textarea>
 <?php
-	$tip = _SITE_OFFLINE_MESSAGE2;
-	echo mosToolTip($tip);
+	echo mosToolTip(_SITE_OFFLINE_MESSAGE2);
 ?>
 						</td>
 					</tr>
@@ -216,31 +179,22 @@ $comp_list = mosHTML::selectList($out_components_arr,'component','','name','name
 						<td valign="top"><?php echo _SYSTEM_ERROR_MESSAGE?>:</td>
 						<td><textarea class="text_area" cols="60" rows="2" style="width:500px; height:40px" name="config_error_message"><?php echo $row->config_error_message; ?></textarea>
 <?php
-	$tip = _SYSTEM_ERROR_MESSAGE2;
-	echo mosToolTip($tip);
+	echo mosToolTip(_SYSTEM_ERROR_MESSAGE2);
 ?>
 						</td>
 					</tr>
 					<tr>
 						<td><?php echo _SHOW_READMORE_TO_AUTH?>:</td>
-						<td><?php echo $lists['shownoauth']; ?><?php $tip = _SHOW_READMORE_TO_AUTH2;
-		echo mosToolTip($tip);
-?></td>
+						<td><?php echo $lists['shownoauth']; ?><?php echo mosToolTip(_SHOW_READMORE_TO_AUTH2); ?></td>
 						</tr>
 						<tr>
 						<td><?php echo _ENABLE_USER_REGISTRATION?>:</td>
-								<td><?php echo $lists['allowUserRegistration']; ?><?php
-		$tip = _ENABLE_USER_REGISTRATION2;
-		echo mosToolTip($tip);
-?></td>
+						<td><?php echo $lists['allowUserRegistration']; ?><?php echo mosToolTip(_ENABLE_USER_REGISTRATION2); ?></td>
 						</tr>
 						<tr>
 						<td><?php echo _ACCOUNT_ACTIVATION?>:</td>
 								<td><?php echo $lists['useractivation']; ?>
-								<?php
-		$tip = _ACCOUNT_ACTIVATION2;
-		echo mosToolTip($tip);
-?></td>
+								<?php echo mosToolTip(_ACCOUNT_ACTIVATION2); ?></td>
 						</tr>
 						<tr>
 						<td><?php echo _UNIQUE_EMAIL?>:</td>
@@ -279,7 +233,7 @@ $comp_list = mosHTML::selectList($out_components_arr,'component','','name','name
 		$tabs->startTab(_FRONTPAGE,"front-page"); ?>
 		<table class="adminform">
 			<tr>
-				<td width="300">РЇР·С‹Рє СЃР°Р№С‚Р°:</td>
+				<td width="300">Язык сайта:</td>
 				<td><?php echo $lists['lang']; ?></td>
 			</tr>
 				<td><?php echo _CUSTOM_PRINT?>:</td>
@@ -410,7 +364,7 @@ $comp_list = mosHTML::selectList($out_components_arr,'component','','name','name
 			<tr>
 				<td><?php echo _FRONT_SESSION_TIME?>:</td>
 				<td>
-					<input class="text_area" type="text" name="config_lifetime" size="10" value="<?php echo $row->config_lifetime; ?>"/>&nbsp;СЃРµРєСѓРЅРґ&nbsp;
+					<input class="text_area" type="text" name="config_lifetime" size="10" value="<?php echo $row->config_lifetime; ?>"/>&nbsp;секунд&nbsp;
 						<?php echo mosWarning(_FRONT_SESSION_TIME2); ?>
 					</td>
 			</tr>
@@ -560,13 +514,28 @@ $comp_list = mosHTML::selectList($out_components_arr,'component','','name','name
 			</tr>
 			<tr>
 				<td><?php echo _USE_TEMPLATE?>:</td>
-				<td><?php echo $lists['config_admin_template'];
-						$tip = _USE_TEMPLATE2;
-						echo mosToolTip($tip);
-?>
+				<td><?php
+					echo $lists['config_admin_template'];
+					echo mosToolTip(_USE_TEMPLATE2);
+				?>
 				</td>
 			</tr>
-
+			<tr>
+				<td><?php echo _USE_TEMPLATE?>:</td>
+				<td><?php
+					echo $lists['admin_content_order_by'];
+					echo mosToolTip(_USE_TEMPLATE2);
+				?>
+				</td>
+			</tr>
+			<tr>
+				<td><?php echo _USE_TEMPLATE?>:</td>
+				<td><?php
+					echo $lists['admin_content_order_sort'];
+					echo mosToolTip(_USE_TEMPLATE2);
+				?>
+				</td>
+			</tr>
 		</table>
 <?php
 		$tabs->endTab();
@@ -609,10 +578,10 @@ $comp_list = mosHTML::selectList($out_components_arr,'component','','name','name
 ?></td>
 						</tr>
 <tr>
-						<td><?php echo 'РўРёРї РІС‹РІРѕРґР° РёРјРµРЅРё РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ'?>:</td>
+						<td><?php echo 'Тип вывода имени пользователя'?>:</td>
 								<td><?php echo $lists['authorName']; ?></td>
 								<td><?php
-		$tip = 'Р’С‹Р±РµСЂРёС‚Рµ С‚РёРї РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РёРјРµРЅРё Р°РІС‚РѕСЂР° РїСѓР±Р»РёРєР°С†РёРё';
+		$tip = 'Выберите тип отображения имени автора публикации';
 		echo mosToolTip($tip);
 ?></td>
 						</tr>
@@ -793,7 +762,7 @@ $comp_list = mosHTML::selectList($out_components_arr,'component','','name','name
 ?>
 		<table class="adminform">
 			<tr>
-				<td>URL СЃР°Р№С‚Р°:</td>
+				<td>URL сайта:</td>
 				<td><strong><?php echo $row->config_live_site; ?></strong></td>
 				<td>&nbsp;</td>
 			</tr>
@@ -870,7 +839,7 @@ $comp_list = mosHTML::selectList($out_components_arr,'component','','name','name
 									<?php if($mode) echo ' checked="checked"'; ?>/></td>
 									<td>
 									<label for="filePermsMode1"><?php echo _FILE_MODE4?></label>
-										<span id="filePermsValue"<?php if(!$mode) echo ' style="display:none"'; ?>>РєР°Рє:
+										<span id="filePermsValue"<?php if(!$mode) echo ' style="display:none"'; ?>>как:
 											<input class="text_area" type="text" readonly="readonly" name="config_fileperms" size="4" value="<?php echo $row->config_fileperms; ?>"/>
 										</span>
 										<span id="filePermsTooltip"<?php if($mode) echo ' style="display:none"'; ?>>
