@@ -2,18 +2,15 @@
 <mosinstall type="module" version="1.0.0">
 	<name>Случайное изображение</name>
 	<author>Joostina! Project</author>
-	<creationDate>Июнь 2008</creationDate>
+	<creationDate>Июнь 2009</creationDate>
 	<copyright>(C) 2008-2009 Joostina team.</copyright>
 	<license>http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL</license>
 	<authorEmail>joostinacms@gmail.com</authorEmail>
 	<authorUrl>www.joostina.ru</authorUrl>
 	<version>1.0.0</version>
-	<description>
-      Этот модуль позволяет показывать случайное изображение из заданной папки
-
-    </description>
+	<description>Этот модуль позволяет показывать случайное изображение из заданной папки</description>
 	<files>
-	<filename module="mod_random_image">mod_random_image.php</filename>
+		<filename module="mod_random_image">mod_random_image.php</filename>
 	</files>
 	<params>
 
@@ -21,7 +18,7 @@
     <param name="params" type="tabs"  default="startPane"  />
 
         <!-- первая вкладка: начало -->
-        <param name="tab1" type="tabs"  default="startTab"  label="Основные настройки" />
+        <param name="tab1" type="tabs"  default="startTab" label="Основные настройки" />
 
             <param name="rotate_type" type="list" default="0" label="Тип вывода" description="Обычный - вывод одной картинки случайнм образом; Слайд-шоу - ajax-ротация изображений">
 		        <option value="0">Обычный</option>
@@ -59,7 +56,6 @@
 
     <param name="params" type="tabs"  default="endPane" />
     <!-- панель с вкладками: конец -->
-
 
 	</params>
 </mosinstall>

@@ -17,7 +17,7 @@ if(!($acl->acl_check('administration','edit','users',$my->usertype,'modules','al
 }
 
 $task	= mosGetParam($_GET,'task','publish');
-$id		= intval(mosGetParam($_GET,'id','0'));
+$id		= intval(mosGetParam($_GET,'id',0));
 
 
 switch($task) {
