@@ -24,7 +24,8 @@ class HTML_content {
 		global $my,$acl,$database,$mosConfig_live_site;
 
 		$selected_cat = intval( mosGetParam($_REQUEST,'catid',0));
-		
+		$showarchive = intval( mosGetParam($_REQUEST,'showarchive',0));
+
 		mosCommonHTML::loadOverlib();
 		mosCommonHTML::loadDtree();
 	?>
@@ -127,7 +128,8 @@ class HTML_content {
 		$k = 0;
 		$nullDate = $database->getNullDate();
 		$now = _CURRENT_SERVER_TIME;
-		for($i = 0,$n = count($rows); $i < $n; $i++) {
+		$_c = count($rows);
+		for($i = 0,$n = $_c; $i < $n; $i++) {
 			$row = &$rows[$i];
 			mosMakeHtmlSafe($row);
 			$link = 'index2.php?option=com_content&sectionid='.$redirect.'&task=edit&hidemainmenu=1&id='.$row->id;
@@ -150,6 +152,8 @@ class HTML_content {
 				// Не опубликовано
 				$img = 'publish_x.png';
 				//$alt = 'Не опубликовано';
+			}elseif($row->state == -1){
+				$img = 'publish_x.png';
 			}
 			// корректировка и проверка времени
 			$row->publish_up = mosFormatDate($row->publish_up,_CURRENT_SERVER_TIME_FORMAT);
@@ -201,7 +205,7 @@ class HTML_content {
 				}
 ?>
 				<br />
-				<?php echo $row->created;?>,  <?php echo $row->hits;?> <?php echo _HEADER_HITS?> : <?php echo $author; ?>
+				<?php echo $row->created;?>, <?php echo $row->hits;?> <?php echo _HEADER_HITS?> : <?php echo $author; ?>
 				</td>
 <?php
 			if($times) {
@@ -243,6 +247,7 @@ class HTML_content {
 		<input type="hidden" name="task" value="" />
 		<input type="hidden" name="boxchecked" value="0" />
 		<input type="hidden" name="hidemainmenu" value="0" />
+		<input type="hidden" name="showarchive" value="<?php echo $showarchive ?>" />
 		<input type="hidden" name="redirect" value="<?php echo $redirect; ?>" />
 		<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
 		</form>

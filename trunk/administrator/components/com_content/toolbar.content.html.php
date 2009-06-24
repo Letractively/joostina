@@ -26,28 +26,29 @@ class TOOLBAR_content {
 		mosMenuBar::spacer();
 		mosMenuBar::save();
 		mosMenuBar::spacer();
-		if($id)
+		if($id){
 			mosMenuBar::ext(_CMN_APPLY,'#','-apply','id="tb-apply" onclick="return ch_apply();"');
-		else
+		}else{
 			mosMenuBar::apply();
+		}
 		mosMenuBar::spacer();
-		if($id)
-			// for existing content items the button is renamed `close`
+		if($id){
 			mosMenuBar::cancel('cancel',_CLOSE);
-		else
+		}else{
 			mosMenuBar::cancel();
+		}
 		mosMenuBar::spacer();
 		mosMenuBar::help('screen.content.edit');
 		mosMenuBar::endTable();
 	}
 
-    function _CONFIG(){
+	function _CONFIG(){
 		mosMenuBar::startTable();
 		mosMenuBar::save('save_config');
 		mosMenuBar::spacer();
 		mosMenuBar::cancel();
 		mosMenuBar::endTable();
-    }
+	}
 
 	function _ARCHIVE() {
 		mosMenuBar::startTable();

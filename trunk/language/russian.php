@@ -2321,10 +2321,17 @@ DEFINE('_COM_MAMBOTS_APPLY','Все изменения мамбота <b>%s</b> 
 DEFINE('_COM_MESSAGES_STATUS','Статус');
 
 /* com_config */
-DEFINE('_COM_CONFIG_CONTENT_ORDER_BY','Сортировка содержимого');
+DEFINE('_COM_CONFIG_CONTENT_ORDER_BY','Базовая сортировка содержимого по');
 DEFINE('_COM_CONFIG_CONTENT_ORDER_BY_HELP','Выберите последовательность сортировки содержимого по умолчанию');
 DEFINE('_COM_CONFIG_CONTENT_ORDER_SORT','Порядок сортировки');
-DEFINE('_COM_CONFIG_CONTENT_ORDER_SORT','Выберите порядок сортировки по умолчанию для содержимого');
+DEFINE('_COM_CONFIG_CONTENT_ORDER_SORT_HELP','Выберите порядок сортировки по умолчанию для содержимого');
+
+/* menubar.html */
+DEFINE('_TASK_UPLOAD','Загрузить');
+
+/* com_content */
+DEFINE('_COM_CONTENT_TYPES','Типы содержимого');
+DEFINE('_COM_CONTENT_ARCHIVE_CONTENT','Содержимое в архиве');
 
 
 ?>
