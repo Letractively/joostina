@@ -10,29 +10,22 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-// ensure user has access to this function
-//if(!$acl->acl_check('administration','install','users',$my->usertype,$element.'s','all')) {
-//	mosRedirect('index2.php',_NOT_AUTH);
-//}
-global $mainframe;
+if(!$acl->acl_check('administration','install','users',$my->usertype,$element.'s','all')) {
+	mosRedirect('index2.php',_NOT_AUTH);
+}
+
 require_once ($mainframe->getPath('installer_html','component'));
 require_once ($mainframe->getPath('installer_class','component'));
 
 switch($task) {
-case 'remove':
-	{
-		//echo "<script>alert('sdssd');</script>";
+	case 'remove':
 		removeElement($client);
 		js_menu_cache_clear();
 		break;
-	}
-default:
-	{
-		//echo "<script>alert('sdssd');</script>";
+	default:
 		showInstalledComponents($option);
 		js_menu_cache_clear();
 		break;
-	}
 }
 //showInstalledComponents($option);
 
@@ -61,18 +54,17 @@ function removeElement($client) {
 * @param string The URL option
 */
 function showInstalledComponents($option) {
-	global $database,$mosConfig_absolute_path;
 
-	$query = "SELECT*"
-			."\n FROM #__components"
-			."\n WHERE parent = 0"
-			."\n AND iscore = 0"
-			."\n ORDER BY name";
+	$database = database::getInstance();
+
+	$query = "SELECT c.*, g.name AS groupname FROM #__components as c
+			LEFT JOIN #__groups AS g ON g.id = c.access
+			WHERE parent = 0 AND iscore = 0 ORDER BY name";
 	$database->setQuery($query);
 	$rows = $database->loadObjectList();
 
 	// Read the component dir to find components
-	$componentBaseDir = mosPathName($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components');
+	$componentBaseDir = mosPathName(Jconfig::getInstance()->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY.DS.'components');
 	$componentDirs = mosReadDirectory($componentBaseDir);
 
 	$n = count($rows);
@@ -119,6 +111,9 @@ function showInstalledComponents($option) {
 			$row->version = $element?$element->getText():'';
 
 			$row->mosname = strtolower(str_replace(" ","_",$row->name));
+
+			$row->img  = ($row->access==1) ? 'publish_g.png':'publish_x.png';
+			unset($xmlDoc,$root,$element);
 		}
 	}
 

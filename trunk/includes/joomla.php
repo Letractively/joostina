@@ -117,6 +117,7 @@ class mosMainFrame {
 		$option = strval(strtolower(mosGetParam($_REQUEST,'option')));
 
 		$this->_db = &database::getInstance();;
+
 		$this->_setTemplate($isAdmin);
 		$this->_setAdminPaths($option,$this->getCfg('absolute_path'));
 		$this->_isAdmin = (boolean)$isAdmin;
@@ -129,8 +130,9 @@ class mosMainFrame {
 		}
 
 		if(!$isAdmin){
+			$this->getCfg('components_access') ? $this->check_option($option): null;
 			$this->_head = array();
-			$this->_head['title'] = $GLOBALS['mosConfig_sitename'];
+			$this->_head['title'] = $this->getCfg('sitename');
 			$this->_head['meta'] = array();
 			$this->_head['custom'] = array();
 			$this->detect();
@@ -1017,9 +1019,10 @@ class mosMainFrame {
 	* @return mixed The value of the configuration variable or null if not found
 	*/
 	function getCfg($varname) {
-		$varname = 'mosConfig_'.$varname;
-		if(isset($GLOBALS[$varname])) {
-			return $GLOBALS[$varname];
+		$config = &Jconfig::getInstance();
+		$varname = 'config_'.$varname;
+		if(isset($config->$varname)) {
+			return $config->$varname;
 		} else {
 			return null;
 		}
@@ -1029,6 +1032,7 @@ class mosMainFrame {
 		global $Itemid;
 
 		$config = &Jconfig::getInstance();
+
 		// если у нас в настройках указан шаблон и определение идёт не для панели управления - возвращаем название шаблона из глобальной конфигурации
 		if(!$isAdmin and $config->config_one_template != '...') {
 			$this->_template = $config->config_one_template;
@@ -1676,12 +1680,11 @@ class mosMainFrame {
 
 	// указание системного сообщения
 	function set_mosmsg($msg=''){
-		//global $_SESSION;
 		$msg = Jstring::trim($msg);
 		// проверяем, стартовала ли сессия
 		$_s = session_id();
 		if(!isset($_s)) {
-			session_name(md5(Jconfig::getInstance()->config_live_site));
+			session_name(md5($this->getCfg('live_site')));
 			session_start();
 		}
 
@@ -1702,6 +1705,13 @@ class mosMainFrame {
 		}
 		unset($_SESSION['joostina.mosmsg']);
 		return $mosmsg;
+	}
+
+	function check_option($option){
+		if($option=='com_content') return true;
+		$sql = 'SELECT access FROM #__components WHERE #__components.option=\''.$option.'\'';
+		$this->_db->setQuery($sql);
+		$this->_db->loadResult() ? null : mosRedirect($this->getCfg('live_site'));
 	}
 
 }
@@ -1980,6 +1990,9 @@ class JConfig {
 	var $config_admin_content_order_by = 2;
 	/** @var str порядок сортировки содержимого в панели управления */
 	var $config_admin_content_order_sort = 0;
+	/** @var int активация блокировок компонентов */
+	var $config_components_access = 0;
+
 
 	// инициализация класса конфигурации - собираем переменные конфигурации
 	function JConfig(){
@@ -3174,15 +3187,16 @@ function mosReadDirectory($path,$filter = '.',$recurse = false,$fullpath = false
 * @param string A filter for the names
 */
 function mosRedirect($url,$msg = '') {
-	$mainframe = &mosMainFrame::getInstance();
+
 
 	// specific filters
 	$iFilter = new InputFilter();
 	$url = $iFilter->process($url);
 	if(!empty($msg)) {
 		$msg = $iFilter->process($msg);
+		$mainframe = &mosMainFrame::getInstance();
+		$mainframe->set_mosmsg($msg);
 	}
-	$mainframe->set_mosmsg($msg);
 
 	// Strip out any line breaks and throw away the rest
 	$url = preg_split("/[\r\n]/",$url);
@@ -5245,18 +5259,18 @@ if(window.attachEvent){
 		if(!$row->access) {
 			$color_access = 'style="color: green;"';
 			$task_access = 'accessregistered';
-		} else
-			if($row->access == 1) {
-				$color_access = 'style="color: red;"';
-				$task_access = 'accessspecial';
-			} else {
-				$color_access = 'style="color: black;"';
-				$task_access = 'accesspublic';
-			}
-		if(!$ajax)
+		} elseif($row->access == 1) {
+			$color_access = 'style="color: red;"';
+			$task_access = 'accessspecial';
+		} else {
+			$color_access = 'style="color: black;"';
+			$task_access = 'accesspublic';
+		}
+		if(!$ajax){
 			$href = '<a href="javascript: void(0);" onclick="return listItemTask(\'cb'.$i.'\',\''.$task_access.'\')" '.$color_access.'>'.$row->groupname.'</a>';
-		else
+		}else{
 			$href = '<a href="#" onclick="ch_access('.$row->id.',\''.$task_access.'\',\''.$option.'\');" '.$color_access.'>'.$row->groupname.'</a>';
+		}
 		return $href;
 	}
 

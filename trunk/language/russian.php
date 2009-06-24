@@ -2335,4 +2335,7 @@ DEFINE('_COM_CONTENT_ARCHIVE_CONTENT','Содержимое в архиве');
 
 /* com_modules */
 DEFINE('_COM_MODULES_GUEST','Гостевой');
+
+/* com_installer */
+DEFINE('_COM_INSTALLER_ACTIVE','Разрешен');
 ?>

@@ -218,7 +218,6 @@ if($mosConfig_frontend_login == 1) {
 }
 // начало буферизации основного содержимого
 
-
 ob_start();
 if($path = $mainframe->getPath('front')) {
 	$task = strval(mosGetParam($_REQUEST,'task',''));

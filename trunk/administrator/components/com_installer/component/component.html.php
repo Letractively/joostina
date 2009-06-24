@@ -39,6 +39,7 @@ class HTML_component {
 		<table class="adminlist" id="adminlist">
 			<tr>
 				<th width="20%" class="title"><?php echo _COMPONENT_NAME?></th>
+				<th width="5%" align="center"><?php echo _COM_INSTALLER_ACTIVE?></th>
 				<th width="5%" align="center"><?php echo _E_VERSION?></th>
 				<th width="20%" class="title"><?php echo _COMPONENT_LINK?></th>
 				<th width="10%" align="left"><?php echo _AUTHOR_BY?></th>
@@ -48,18 +49,21 @@ class HTML_component {
 			</tr>
 <?php
 			$rc = 0;
-			$_n = count($rows);
-			for($i = 0,$n =$_n ; $i < $n; $i++) {
+			$n = count($rows);
+			for($i = 0,$n =$n ; $i < $n; $i++) {
 				$row = &$rows[$i];
 ?>
 				<tr class="row<?php echo $rc?>">
 					<td align="left"><input type="radio" id="cb<?php echo $i; ?>" name="cid[]" value="<?php echo $row->id; ?>" onclick="alert(\"123\"); isChecked(this.checked);"><span class="bold"><?php echo $row->name; ?></span></td>
-					<td align="center"><?php echo @$row->version != ""?$row->version:"&nbsp;"; ?></td>
-					<td align="left"><?php echo @$row->link != ""?$row->link:"&nbsp;"; ?></td>
-					<td align="left"><?php echo @$row->author != ""?$row->author:"&nbsp;"; ?></td>
-					<td align="center"><?php echo @$row->creationdate != ""?$row->creationdate:"&nbsp;"; ?></td>
-					<td align="center"><?php echo @$row->authorEmail != ""?$row->authorEmail:"&nbsp;"; ?></td>
-					<td align="center"><?php echo @$row->authorUrl != ""?"<a href=\"".(substr($row->authorUrl,0,7) =='http://'?$row->authorUrl:'http://'.$row->authorUrl)."\" target=\"_blank\">$row->authorUrl</a>":"&nbsp;"; ?></td>
+					<td align="center" onclick="ch_publ(<?php echo $row->id?>,'com_installer');" class="td-state">
+						<img class="img-mini-state" src="images/<?php echo $row->img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?php echo _E_PUBLISHING?>" />
+					</td>
+					<td align="center"><?php echo isset($row->version) ? $row->version : "&nbsp;"; ?></td>
+					<td align="left"><?php echo isset($row->link) ? $row->link : "&nbsp;"; ?></td>
+					<td align="left"><?php echo isset($row->author) ? $row->author:"&nbsp;"; ?></td>
+					<td align="center"><?php echo isset($row->creationdate) ? $row->creationdate:"&nbsp;"; ?></td>
+					<td align="center"><?php echo isset($row->authorEmail) ? $row->authorEmail:"&nbsp;"; ?></td>
+					<td align="center"><?php echo isset($row->authorUrl) ? '<a href="'.(substr($row->authorUrl,0,7) =='http://'?$row->authorUrl:'http://'.$row->authorUrl)."\" target=\"_blank\">$row->authorUrl</a>":"&nbsp;"; ?></td>
 				</tr>
 <?php
 				$rc = 1 - $rc;
