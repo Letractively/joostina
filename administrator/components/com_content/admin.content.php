@@ -199,6 +199,7 @@ function viewContent($sectionid,$option) {
 
 	$catid = intval( mosGetParam($_REQUEST,'catid',0));
 	$filter_authorid = intval( mosGetParam($_REQUEST,'filter_authorid',0) );
+	$showarchive = intval( mosGetParam($_REQUEST,'showarchive',0) );
 
 	if ($filter_authorid <> 0)  {
 		$link = '&filter_authorid='.$filter_authorid;
@@ -244,16 +245,17 @@ function viewContent($sectionid,$option) {
 		$search = stripslashes($search);
 	}
 
-
+	$where_arh = $showarchive ? "c.state = -1" : "c.state >= 0";
+	
 	if($sectionid == 0 && $catid==0) {
 		// used to show All content items
-		$where = array("c.state >= 0","c.catid = cc.id","cc.section = s.id","s.scope = 'content'",);
+		$where = array($where_arh,"c.catid = cc.id","cc.section = s.id","s.scope = 'content'",);
 		$order = $sql_order.$order_sort_sql; // подставляем свой параметр сортировки
 		$all = 1;
 		$section->title = _ALL_CONTENT;
 		$section->id = 0;
 	} elseif(!$catid) {
-		$where = array("c.state >= 0","c.catid = cc.id","cc.section = s.id","s.scope = 'content'","c.sectionid = ".(int)$sectionid);
+		$where = array($where_arh,"c.catid = cc.id","cc.section = s.id","s.scope = 'content'","c.sectionid = ".(int)$sectionid);
 		$all = null;
 		$section = new mosSection($database);
 		$section->load((int)$sectionid);
@@ -283,15 +285,16 @@ function viewContent($sectionid,$option) {
 	if($search) {
 		$where[] = "LOWER( c.title ) LIKE '%".$database->getEscaped(trim(strtolower($search)))."%'";
 	}
-	$where[]='state<>-2';
+	// отображение архивного содержимого
+	$where[]= $showarchive ? 'c.state=-1' : 'state<>-1';
+
 	$order = $sql_order.$order_sort_sql; // подставляем свой параметр сортировки
 	// get the total number of records
 	$query = "SELECT COUNT(*)"
 			."\n FROM #__content AS c"
 			."\n LEFT JOIN #__categories AS cc ON cc.id = c.catid"
 			."\n LEFT JOIN #__sections AS s ON s.id = c.sectionid"
-			.(count($where)?"\n WHERE "
-			.implode(' AND ',$where):"");
+			.(count($where) ? "\n WHERE ".implode(' AND ',$where) : '');
 	$database->setQuery($query);
 	$total = $database->loadResult();
 
@@ -398,8 +401,8 @@ function viewArchive($sectionid,$option) {
 			."\n LEFT JOIN #__categories AS cc ON cc.id = c.catid"
 			."\n LEFT JOIN #__sections AS s ON s.id = c.sectionid"
 			."\n LEFT JOIN #__groups AS g ON g.id = c.access"
-			."\n LEFT JOIN #__users AS v ON v.id = c.created_by".(count
-		($where)?"\n WHERE ".implode(' AND ',$where):'')."\n ORDER BY c.catid, c.ordering";
+			."\n LEFT JOIN #__users AS v ON v.id = c.created_by"
+			.(count($where) ? "\n WHERE ".implode(' AND ',$where) : '')."\n ORDER BY c.catid, c.ordering";
 	$database->setQuery($query,$pageNav->limitstart,$pageNav->limit);
 	$rows = $database->loadObjectList();
 	if($database->getErrorNum()) {
@@ -423,7 +426,7 @@ function viewArchive($sectionid,$option) {
 			."\n FROM #__content AS c"
 			."\n INNER JOIN #__sections AS s ON s.id = c.sectionid"
 			."\n LEFT JOIN #__users AS u ON u.id = c.created_by"
-			."\n WHERE c.state = -1"."\n GROUP BY u.name"
+			."\n WHERE c.state = -1 GROUP BY u.name"
 			."\n ORDER BY u.name";
 	$authors[] = mosHTML::makeOption('0',_SEL_AUTHOR,'created_by','name');
 	$database->setQuery($query);
@@ -1461,6 +1464,8 @@ function saveOrder(&$cid) {
 function seccatli($act = 0,$filter_authorid=0){
 	global $database,$mosConfig_live_site;
 
+	$showarchive = intval( mosGetParam($_REQUEST,'showarchive',0));
+
 	$sectli = '<div id="ntree" class="dtree"><script type="text/javascript"><!--';
 	$sectli .= "\n c = new dTree('c','$mosConfig_live_site/".ADMINISTRATOR_DIRECTORY."/images/dtree/');";
 	$sectli .= "\n c.add(0,-1,'"._E_CONTENT." (<a href=\"index2.php?option=com_content&sectionid=0&catid=0\">"._ALL."<\/a>)');";
@@ -1489,8 +1494,13 @@ function seccatli($act = 0,$filter_authorid=0){
 		$sectli .= "\n u.add($row->id,$row->gid,'$row->name ($row->num)');";
 	}
 
+	$sectli .= "\n t = new dTree('t','$mosConfig_live_site/".ADMINISTRATOR_DIRECTORY."/images/dtree/');";
+	$sectli .= "\n t.add(0,-1,'"._COM_CONTENT_TYPES."');";
+	$sectli .= $showarchive ? "\n t.add(1,0,'"._COM_CONTENT_ARCHIVE_CONTENT."');" : "\n t.add(1,0,'<a href=\"index2.php?option=com_content&showarchive=1\">"._COM_CONTENT_ARCHIVE_CONTENT."</a>');";
+
 	$sectli .= "\n document.write(c);";
 	$sectli .= "\n document.write(u);";
+	$sectli .= "\n document.write(t);";
 	$sectli .= '//--></script></div>';
 	return $sectli;
 }
@@ -1500,13 +1510,12 @@ function _cat_d($act){
 	$query = "SELECT cat.id, cat.title, cat.section, COUNT(con.catid) AS countcon"
 			."\n FROM #__categories AS cat"
 			."\n LEFT JOIN #__content AS con ON con.catid = cat.id"
-			."\n WHERE state!=-2" // все кроме архивных
+			."\n WHERE con.state<>'-1'" // все кроме архивных
 			."\n GROUP BY cat.id"
 			."\n ORDER BY cat.section ASC";
 	$database->setQuery($query);
 	$rows = $database->loadObjectList();
 
-//_xdump($rows);
 	$ret = '';
 	$n=0;
 	foreach($rows as $row) {
@@ -1532,7 +1541,7 @@ function _user_d(){
 	foreach($rows as $row) {
 		$ret .= "\n u.add($row->group_id,0,'$row->name','','','','','$mosConfig_live_site/".ADMINISTRATOR_DIRECTORY."/images/dtree/folder_user.gif');";
 	}
-	unset($rows);
+	unset($rows,$row);
 	return $ret;
 }
 

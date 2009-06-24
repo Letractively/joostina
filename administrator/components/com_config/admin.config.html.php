@@ -521,18 +521,18 @@ class HTML_config {
 				</td>
 			</tr>
 			<tr>
-				<td><?php echo _USE_TEMPLATE?>:</td>
+				<td><?php echo _COM_CONFIG_CONTENT_ORDER_BY?>:</td>
 				<td><?php
 					echo $lists['admin_content_order_by'];
-					echo mosToolTip(_USE_TEMPLATE2);
+					echo mosToolTip(_COM_CONFIG_CONTENT_ORDER_BY_HELP);
 				?>
 				</td>
 			</tr>
 			<tr>
-				<td><?php echo _USE_TEMPLATE?>:</td>
+				<td><?php echo _COM_CONFIG_CONTENT_ORDER_SORT?>:</td>
 				<td><?php
 					echo $lists['admin_content_order_sort'];
-					echo mosToolTip(_USE_TEMPLATE2);
+					echo mosToolTip(_COM_CONFIG_CONTENT_ORDER_SORT_HELP);
 				?>
 				</td>
 			</tr>
