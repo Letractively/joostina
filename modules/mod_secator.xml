@@ -55,7 +55,7 @@
 		<param type="tabs" default="endTab" />
 		<param type="tabs" default="startTab" name="1" label="Разделы"/>
 
-			<param name="view_section" type="filelist" directory="/modules/mod_secator/" filter="section_*" hide_none="1" hide_default="1" default="section_defaults.php" label="Шаблон раздела" description="Выберите шаблон для отображения списка разделов" />
+			<param name="view_section" type="filelist" directory="/modules/mod_secator/section/" filter="section_*" hide_none="1" hide_default="1" default="section_defaults.php" label="Шаблон раздела" description="Выберите шаблон для отображения списка разделов" />
 
 			<param name="task_section" type="list" default="blogsection" label="Тип ссылки" description="Позволяет указать вид для вывода соержимого при переходе по ссылке">
 				<option value="blogsection">Блог - Содержимое раздела</option>
@@ -77,7 +77,7 @@
 		<param type="tabs" default="endTab" />
 		<param type="tabs" default="startTab" name="1" label="Категории"/>
 
-			<param name="view_category" type="filelist" directory="/modules/mod_secator/" filter="category_*" hide_none="1" hide_default="1" default="category_defaults.php" label="Шаблон категории" description="Выберите шаблон для отображения списка категорий" />
+			<param name="view_category" type="filelist" directory="/modules/mod_secator/category/" filter="category_*" hide_none="1" hide_default="1" default="category_defaults.php" label="Шаблон категории" description="Выберите шаблон для отображения списка категорий" />
 
 			<param name="task_category" type="list" default="blogcategory" label="Тип ссылки" description="Позволяет указать вид для вывода соержимого при переходе по ссылке">
 				<option value="blogcategory">Блог - Содержимое категории</option>
