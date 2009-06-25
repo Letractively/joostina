@@ -17,10 +17,10 @@ if(!file_exists('../configuration.php')) {
 
 // корень админки
 $root = dirname(dirname(__FILE__));
-define('ADMIТ_ROOT',$root);
+define('ADMIN_ROOT',$root);
 
-require_once (ADMIТ_ROOT.DIRECTORY_SEPARATOR.'includes'.DIRECTORY_SEPARATOR.'globals.php');
-require_once (ADMIТ_ROOT.DIRECTORY_SEPARATOR.'configuration.php');
+require_once (ADMIN_ROOT.DIRECTORY_SEPARATOR.'includes'.DIRECTORY_SEPARATOR.'globals.php');
+require_once (ADMIN_ROOT.DIRECTORY_SEPARATOR.'configuration.php');
 
 
 // SSL проверка  - $http_host returns <live site url>:<port number if it is 443>
