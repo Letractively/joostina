@@ -204,6 +204,7 @@ function contactpage($contact_id) {
 
 	$database = &database::getInstance();
 	$mainframe = &mosMainFrame::getInstance();
+	$config = &Jconfig::getInstance();
 
 	$query = "SELECT a.id AS value, CONCAT_WS( ' - ', a.name, a.con_position ) AS text, a.catid, cc.access AS cat_access"
 		."\n FROM #__contact_details AS a"
@@ -253,9 +254,6 @@ function contactpage($contact_id) {
 		// creates dropdown select list
 		$contact->select = mosHTML::selectList($list,'contact_id','class="inputbox" onchange="ViewCrossReference(this);"','value','text',$contact_id);
 
-		// Parameters
-
-		global $mosConfig_MetaDesc,$mosConfig_MetaKeys;
 		$menu = $mainframe->get('menu');
 		$params = new mosParameters($menu->params);
 
@@ -279,12 +277,12 @@ function contactpage($contact_id) {
 		if($params->get('meta_description') != "") {
 			$mainframe->addMetaTag('description',$params->get('meta_description'));
 		} else {
-			$mainframe->addMetaTag('description',$mosConfig_MetaDesc);
+			$mainframe->addMetaTag('description',$config->config_MetaDesc);
 		}
 		if($params->get('meta_keywords') != "") {
 			$mainframe->addMetaTag('keywords',$params->get('meta_keywords'));
 		} else {
-			$mainframe->addMetaTag('keywords',$mosConfig_MetaKeys);
+			$mainframe->addMetaTag('keywords',$config->config_MetaKeys);
 		}
 		if($params->get('meta_author') != "") {
 			$mainframe->addMetaTag('author',$params->get('meta_author'));
@@ -404,12 +402,12 @@ function contactpage($contact_id) {
 function sendmail($con_id,$option) {
 	global $Itemid;
 
+	// simple spoof check security
+	josSpoofCheck(1);
+
 	$database = &database::getInstance();
 	$mainframe = &mosMainFrame::getInstance();
 	$config = &Jconfig::getInstance();
-
-	// simple spoof check security
-	josSpoofCheck(1);
 
 	$query = "SELECT* FROM #__contact_details WHERE id = ".(int)$con_id;
 	$database->setQuery($query);
@@ -586,7 +584,7 @@ function vCard($id) {
 		header('Cache-Control: store, cache');
 		header('Pragma: cache');
 
-		print $output;
+		echo $output;
 	} else {
 		mosNotAuth();
 		return;

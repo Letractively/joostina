@@ -222,7 +222,8 @@ function copyModule($option,$uid,$client) {
 * Saves the module after an edit form submit
 */
 function saveModule($option,$client,$task) {
-	global $database;
+	$database = &database::getInstanse();
+
 	josSpoofCheck();
 	$params = mosGetParam($_POST,'params','');
 	if(is_array($params)) {

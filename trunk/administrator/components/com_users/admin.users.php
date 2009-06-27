@@ -76,8 +76,8 @@ switch($task) {
 		$contact_id = mosGetParam($_POST,'contact_id','');
 		mosRedirect('index2.php?option=com_contact&task=editA&id='.$contact_id);
 		break;
-		
-  	case 'config':
+
+	case 'config':
         config($option);
         break;
 
@@ -167,7 +167,8 @@ function showUsers($option) {
 	require_once ($GLOBALS['mosConfig_absolute_path'].'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
-	$query = "SELECT a.*, g.name AS groupname"."\n FROM #__users AS a"."\n INNER JOIN #__core_acl_aro AS aro ON aro.value = a.id"
+	$query = "SELECT a.*, g.name AS groupname FROM #__users AS a"
+		."\n INNER JOIN #__core_acl_aro AS aro ON aro.value = a.id"
 		// map user to aro
 		."\n INNER JOIN #__core_acl_groups_aro_map AS gm ON gm.aro_id = aro.aro_id"
 		// map aro to group
@@ -195,15 +196,15 @@ function showUsers($option) {
 	}
 
 	// get list of Groups for dropdown filter
-	$query = "SELECT name AS value, name AS text"."\n FROM #__core_acl_aro_groups"."\n WHERE name != 'ROOT'"."\n AND name != 'USERS'";
-	$types[] = mosHTML::makeOption('0','- Выберите группу -');
+	$query = "SELECT name AS value, name AS text FROM #__core_acl_aro_groups WHERE name != 'ROOT' AND name != 'USERS'";
+	$types[] = mosHTML::makeOption('0',_COM_USERS_SELECT_GROOP);
 	$database->setQuery($query);
 	$types = array_merge($types,$database->loadObjectList());
 	$lists['type'] = mosHTML::selectList($types,'filter_type','class="inputbox" size="1" onchange="document.adminForm.submit( );"','value','text',"$filter_type");
 
 	// get list of Log Status for dropdown filter
-	$logged[] = mosHTML::makeOption(0,'- Выберите статус - ');
-	$logged[] = mosHTML::makeOption(1,'Авторизован(а) на сайте');
+	$logged[] = mosHTML::makeOption(0,_COM_USERS_SELECT_STATUS);
+	$logged[] = mosHTML::makeOption(1,_COM_USERS_USER_LOGED);
 	$lists['logged'] = mosHTML::selectList($logged,'filter_logged','class="inputbox" size="1" onchange="document.adminForm.submit( );"','value','text',"$filter_logged");
 
 	HTML_users::showUsers($rows,$pageNav,$search,$option,$lists);
@@ -295,11 +296,9 @@ function saveUser($task) {
 
 	$userIdPosted = mosGetParam($_POST,'id');
 	if($userIdPosted) {
-		$msg = checkUserPermissions(array($userIdPosted),'save',in_array($my->gid,array
-			(24,25)));
+		$msg = checkUserPermissions(array($userIdPosted),'save',in_array($my->gid,array(24,25)));
 		if($msg) {
-			echo "<script type=\"text/javascript\"> alert('".$msg.
-				"'); window.history.go(-1);</script>\n";
+			echo "<script type=\"text/javascript\"> alert('".$msg."'); window.history.go(-1);</script>\n";
 			exit;
 		}
 	}
@@ -358,7 +357,7 @@ function saveUser($task) {
 		if($row->gid != $original->gid) {
 			if($original->gid == 25) {
 				// count number of active super admins
-				$query = "SELECT COUNT( id )"."\n FROM #__users"."\n WHERE gid = 25"."\n AND block = 0";
+				$query = "SELECT COUNT( id ) FROM #__users WHERE gid = 25 AND block = 0";
 				$database->setQuery($query);
 				$count = $database->loadResult();
 
@@ -398,9 +397,7 @@ function saveUser($task) {
 	}
 
 	// save usertype to usertype column
-	$query = "SELECT name"
-			."\n FROM #__core_acl_aro_groups"
-			."\n WHERE group_id = ".(int)$row->gid;
+	$query = "SELECT name FROM #__core_acl_aro_groups WHERE group_id = ".(int)$row->gid;
 	$database->setQuery($query);
 	$usertype = $database->loadResult();
 	$row->usertype = $usertype;
@@ -434,24 +431,18 @@ function saveUser($task) {
 
 	// update the ACL
 	if(!$isNew) {
-		$query = "SELECT aro_id"
-				."\n FROM #__core_acl_aro"
-				."\n WHERE value = ".(int)$row->id;
+		$query = "SELECT aro_id FROM #__core_acl_aro WHERE value = ".(int)$row->id;
 		$database->setQuery($query);
 		$aro_id = $database->loadResult();
 
-		$query = "UPDATE #__core_acl_groups_aro_map"
-				."\n SET group_id = ".(int)$row->gid
-				."\n WHERE aro_id = ".(int)$aro_id;
+		$query = "UPDATE #__core_acl_groups_aro_map SET group_id = ".(int)$row->gid." WHERE aro_id = ".(int)$aro_id;
 		$database->setQuery($query);
 		$database->query() or die($database->stderr());
 	}
 
 	// for new users, email username and password
 	if($isNew) {
-		$query = "SELECT email"
-				."\n FROM #__users"
-				."\n WHERE id = ".(int)$my->id;
+		$query = "SELECT email FROM #__users WHERE id = ".(int)$my->id;
 		$database->setQuery($query);
 		$adminEmail = $database->loadResult();
 
@@ -463,9 +454,7 @@ function saveUser($task) {
 			$adminName = $mosConfig_fromname;
 			$adminEmail = $mosConfig_mailfrom;
 		} else {
-			$query = "SELECT name, email"
-					."\n FROM #__users"
-					."\n WHERE gid = 25";
+			$query = "SELECT name, email FROM #__users WHERE gid = 25";
 			$database->setQuery($query);
 			$admins = $database->loadObjectList();
 			$admin = $admins[0];

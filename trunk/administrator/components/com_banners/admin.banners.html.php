@@ -26,10 +26,10 @@ class HTML_banners {
 		<th width="20"><input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo count($rows); ?>);" /></th>
 		<th>ID</th>
 		<th align="left"><?php echo _ABP_BANNER_NAME; ?></th>
-		<th ><?php echo _ABP_CATEGORY; ?></th>
+		<th><?php echo _ABP_CATEGORY; ?></th>
 		<th align="left"><?php echo _ABP_CLIENT_NAME; ?></th>
-		<th ><?php echo _ABP_IMPMADE; ?></th>
-		<th ><?php echo _ABP_IMPLEFT; ?></th>
+		<th><?php echo _ABP_IMPMADE; ?></th>
+		<th><?php echo _ABP_IMPLEFT; ?></th>
 		<th width="90"><?php echo _ABP_CLICKS; ?></th>
 		<th width="90"><?php echo _ABP_PRCLICKS; ?></th>
 		<th width="90"><?php echo _ABP_REPEAT_TYPE; ?></th>

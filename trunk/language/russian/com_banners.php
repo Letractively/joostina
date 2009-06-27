@@ -244,7 +244,6 @@ DEFINE('_BANNER_COUNTER_RESETTED','Счётчик показа баннеров 
 DEFINE('_CHECK_PUBLISH_DATE','Проверьте правильность ввода даты публикации');
 DEFINE('_CHECK_START_PUBLICATION_DATE','Проверьта дату начала публикации');
 DEFINE('_CHECK_END_PUBLICATION_DATE','Проверьта дату окончания публикации');
-DEFINE('_TASK_UPLOAD','Загрузить');
 DEFINE('_BANNERS_PANEL','Панель баннеров');
 DEFINE('_BANNERS_DIRECTORY_DOESNOT_EXISTS','Папка banners не существует');
 DEFINE('_CHOOSE_BANNER_IMAGE','Выберите изображение для загрузки');

@@ -2338,4 +2338,17 @@ DEFINE('_COM_MODULES_GUEST','Гостевой');
 
 /* com_installer */
 DEFINE('_COM_INSTALLER_ACTIVE','Разрешен');
+
+/* com_config */
+DEFINE('_COM_CONFIG_COMPONENTS_ACCESS','Блокировка компонентов');
+DEFINE('_COM_CONFIG_COMPONENTS_ACCESS_HELP','Разрешить блокировку доступа к компонентам');
+
+/* com_users */
+DEFINE('_COM_USERS_SELECT_GROOP','- Выберите группу -');
+DEFINE('_COM_USERS_SELECT_STATUS','- Выберите статус -');
+DEFINE('_COM_USERS_USER_LOGED','Авторизован(а) на сайте');
+
+/* com_banners */
+DEFINE('_COM_BANNERS_NONE_ACCESS','Доступ не возможен');
+
 ?>

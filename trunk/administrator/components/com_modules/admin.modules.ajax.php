@@ -42,8 +42,9 @@ switch($task) {
 }
 
 function x_apply() {
-	global $database;
 	josSpoofCheck();
+
+	$database = &database::getInstance();
 
 	$params = mosGetParam($_POST,'params','');
 	$client = strval(mosGetParam($_REQUEST,'client',''));
@@ -113,7 +114,8 @@ function x_apply() {
 
 
 function x_access($id){
-	global $database;
+	$database = &database::getInstance();
+
 	$access = mosGetParam($_GET,'chaccess','accessregistered');
 	$option = strval(mosGetParam($_REQUEST,'option',''));
 	switch($access) {
@@ -140,21 +142,23 @@ function x_access($id){
 	if(!$row->access) {
 		$color_access = 'style="color: green;"';
 		$task_access = 'accessregistered';
-		$text_href = 'Общий';
+		$text_href = _USER_GROUP_ALL;
 	} elseif($row->access == 1) {
 		$color_access = 'style="color: red;"';
 		$task_access = 'accessspecial';
-		$text_href = 'Участники';
+		$text_href = _USER_GROUP_REGISTERED;
 	} else {
 		$color_access = 'style="color: black;"';
 		$task_access = 'accesspublic';
-		$text_href = 'Специальный';
+		$text_href = _USER_GROUP_SPECIAL;
 	}
 	return '<a href="#" onclick="ch_access('.$row->id.',\''.$task_access.'\',\''.$option.'\')" '.$color_access.'>'.$text_href.'</a>';
 }
 
 function x_publish($id = null) {
-	global $database,$my;
+	global $my;
+
+	$database = &database::getInstance();
 
 	if(!$id) return 'error-id';
 
@@ -182,7 +186,7 @@ function x_publish($id = null) {
 }
 // получение списка позиций модулей
 function x_get_position($id){
-	$database = database::getInstance();
+	$database = &database::getInstance();
 
 	$row = new mosModule($database);
 	$row->load((int)$id);
@@ -203,7 +207,9 @@ function x_get_position($id){
 	return mosHTML::selectList($pos,'position','class="inputbox" size="1" onchange="ch_sav_pos('.$id.',this.value)"','value','text',$active);
 }
 function x_save_position($id){
-	global $database,$my;
+	global $my;
+	$database = &database::getInstance();
+
 	$new_pos = strval(mosGetParam($_GET,'new_pos','left'));
 	if($new_pos=='0') return 1;
 	$query = "UPDATE #__modules SET position = '".$new_pos."' WHERE id = ".$id." AND ( checked_out = 0 OR ( checked_out = ".(int)$my->id." ) )";

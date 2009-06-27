@@ -52,7 +52,7 @@ function clickArtBanner($id) {
 }
 
 function showStatistics($id) {
-	$database = database::getInstance();
+	$database = &database::getInstance();
 
 	$password = strval(mosGetParam($_REQUEST, 'password', ''));
 
@@ -92,7 +92,7 @@ function showStatistics($id) {
 						echo "<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=4,0,2,0\" border=\"0\" width=\"$width\" height=\"$height\" vspace=\"0\"><param name=\"SRC\" value=\"$image_url\"><embed src=\"$image_url\" loop=\"false\" pluginspage=\"http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash\" type=\"application/x-shockwave-flash\" width=\"$width\" height=\"$height\"></object>";
 					}
 		} else {
-			echo 'Доступ не возможен';
+			echo _COM_BANNERS_NONE_ACCESS;
 		}
 	}
 }

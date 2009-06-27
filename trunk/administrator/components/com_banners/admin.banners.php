@@ -170,7 +170,7 @@ switch($task) {
 
 
 function cPanel($option) {
-	global $database;
+	$database = &database::getInstance();
 
 	$info_banner = array();
 	$info_categories = array();
@@ -307,7 +307,7 @@ function cPanel($option) {
 }
 
 function importJoomlaBanners($option) {
-	global $database;
+	$database = &database::getInstance();
 
 	// leggo le info dei banner da importare
 	$query = 'SELECT count(*) FROM #__banner';
@@ -391,7 +391,7 @@ function importJoomlaBanners($option) {
 }
 
 function importArtBanners($option) {
-	global $database;
+	$database = &database::getInstance();
 
 	// leggo le info dei banner da importare
 	$query = 'SELECT count(*) FROM #__artbanners';
@@ -503,9 +503,12 @@ function importArtBanners($option) {
 }
 
 function viewBanners($option) {
-	global $database, $my, $mainframe, $mosConfig_list_limit;
+	global $my;
 
-	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit", 'limit', $mosConfig_list_limit));
+	$database = &database::getInstance();
+	$mainframe = &mosMainFrame::getInstance();
+
+	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit", 'limit', $mainframe->getCfg('list_limit')));
 	$limitstart = intval($mainframe->getUserStateFromRequest("view{$option}bannerslimitstart", 'limitstart', 0));
 	$catid = intval($mainframe->getUserStateFromRequest("category{$option}id", 'catid', 0));
 	$cliid = intval($mainframe->getUserStateFromRequest("client{$option}id", 'cliid', 0));
@@ -578,7 +581,10 @@ function viewBanners($option) {
 }
 
 function editBanner($bannerid, $option) {
-	global $database, $mainframe, $my;
+	global $my;
+
+	$database = &database::getInstance();
+	$mainframe = &mosMainFrame::getInstance();
 
 	$banner = new mosArtBanner($database);
 
@@ -674,7 +680,7 @@ function editBanner($bannerid, $option) {
 }
 
 function saveBanner($option, $task) {
-	global $database;
+	$database = &database::getInstance();
 
 	$_publish_up_date = trim(mosGetParam($_POST, '_publish_up_date', '0000-00-00'));
 	$_publish_up_hour = trim(mosGetParam($_POST, '_publish_up_hour', '00'));
@@ -819,7 +825,8 @@ function saveBanner($option, $task) {
 }
 
 function cancelEditBanner($option) {
-	global $database;
+	$database = &database::getInstance();
+
 	$banner = new mosArtBanner($database);
 	$banner->bind($_POST);
 	$banner->checkin();
@@ -834,7 +841,9 @@ function cancelEditBanner($option) {
 }
 
 function publishBanner($cid, $publish = 1, $option) {
-	global $database, $my;
+	global $my;
+
+	$database = &database::getInstance();
 
 	if(!is_array($cid) || count($cid) == 0) {
 		$action = $publish ? _ABP_L_PUBLISH : _ABP_L_UNPUBLISH;
@@ -867,7 +876,9 @@ function publishBanner($cid, $publish = 1, $option) {
 }
 
 function removeBanner($cid, $option) {
-	global $database, $my;
+	global $my;
+
+	$database = &database::getInstance();
 
 	if(!is_array($cid) || count($cid) == 0) {
 		echo "<script> alert('" . _ABP_PSACLI . "'); window.history.go(-1);</script>\n";
@@ -903,9 +914,12 @@ function removeBanner($cid, $option) {
 // ---------- BANNER CLIENTS ----------
 
 function viewBannerClients($option) {
-	global $database, $mainframe, $my, $mosConfig_list_limit;
+	global $my;
 
-	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit", 'limit', $mosConfig_list_limit));
+	$database = &database::getInstance();
+	$mainframe = &mosMainFrame::getInstance();
+
+	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit", 'limit', $mainframe->getCfg('list_limit')));
 	$limitstart = intval($mainframe->getUserStateFromRequest("view{$option}clientslimitstart", 'limitstart', 0));
 	$published = $mainframe->getUserStateFromRequest("published{$option}", 'published', -1);
 
@@ -929,44 +943,29 @@ function viewBannerClients($option) {
 		$where = " where a.published  = $published ";
 	}
 
-	$query = "SELECT a.*, count(b.id) AS id, u.name AS editor" . "\nFROM #__banners_clients AS a" . "\nLEFT JOIN #__banners AS b ON a.cid = b.cid" . "\nLEFT JOIN #__users AS u ON u.id = a.checked_out" .
-		"\n $where " . "\nGROUP BY a.cid";
+	$query = "SELECT a.*, count(b.id) AS id, u.name AS editor FROM #__banners_clients AS a LEFT JOIN #__banners AS b ON a.cid = b.cid LEFT JOIN #__users AS u ON u.id = a.checked_out $where GROUP BY a.cid";
 	$database->setQuery($query, $pageNav->limitstart, $pageNav->limit);
-
 	$clients = $database->loadObjectList();
 
 	$info_banner = array();
-	for($i = 0, $n = count($clients); $i < $n; $i++) {
+	$_c = count($clients);
+	for($i = 0, $n = $_c; $i < $n; $i++) {
 
 		$cid = $clients[$i]->cid;
 
 		/*
 		** Conta i banner attivi del cliente
 		*/
-		$sql = "SELECT count(b.id) as attivi" . "\nFROM #__banners_clients as c, #__banners as b" . "\nwhere c.cid = $cid and b.cid = c.cid and b.state = 1" . "\nAND ('$date' <= b.publish_down_date OR b.publish_down_date = '0000-00-00')" .
-			"\nAND '$date' >= b.publish_up_date" . "\nAND '$time' >= b.publish_up_time" . "\nAND ('$time' <= b.publish_down_time OR b.publish_down_time = '00:00:00')";
-
+		$sql = "SELECT count(b.id) as attivi" . "\nFROM #__banners_clients as c, #__banners as b where c.cid = $cid and b.cid = c.cid and b.state = 1 AND ('$date' <= b.publish_down_date OR b.publish_down_date = '0000-00-00') AND '$date' >= b.publish_up_date" . "\nAND '$time' >= b.publish_up_time" . "\nAND ('$time' <= b.publish_down_time OR b.publish_down_time = '00:00:00')";
 		$database->setQuery($sql);
-
-		if(!$result = $database->query()) {
-			echo $database->stderr();
-			return false;
-		}
-
 		$result = $database->loadObjectList();
 		$info_banner[$i]['attivi'] = $result[0]->attivi;
 
 		/*
 		** Conta i banner terminati del cliente
 		*/
-		$sql = "SELECT count(b.id) as terminati" . "\nFROM #__banners_clients as c, #__banners as b" . "\nwhere c.cid = $cid and b.cid = c.cid and b.state = 1" . "\nAND  '$date' >= b.publish_down_date and b.publish_down_date != '0000-00-00'";
-
+		$sql = "SELECT count(b.id) as terminati FROM #__banners_clients as c, #__banners as b" . "\nwhere c.cid = $cid and b.cid = c.cid and b.state = 1" . "\nAND  '$date' >= b.publish_down_date and b.publish_down_date != '0000-00-00'";
 		$database->setQuery($sql);
-
-		if(!$result = $database->query()) {
-			echo $database->stderr();
-			return false;
-		}
 		$result = $database->loadObjectList();
 		$info_banner[$i]['terminati'] = $result[0]->terminati;
 
@@ -974,13 +973,7 @@ function viewBannerClients($option) {
 		** Conta i banner non_publicati del cliente
 		*/
 		$sql = "SELECT count(b.id) as non_publ" . "\nFROM #__banners_clients as c, #__banners as b" . "\nwhere c.cid = $cid and b.cid = c.cid and b.state = 0";
-
 		$database->setQuery($sql);
-
-		if(!$result = $database->query()) {
-			echo $database->stderr();
-			return false;
-		}
 		$result = $database->loadObjectList();
 		$info_banner[$i]['non_publ'] = $result[0]->non_publ;
 
@@ -988,13 +981,7 @@ function viewBannerClients($option) {
 		** Conta i banner in attivazione del cliente
 		*/
 		$sql = "SELECT count(b.id) as in_attiv" . "\nFROM #__banners_clients as c, #__banners as b" . "\nwhere c.cid = $cid and b.cid = c.cid and b.state = 1" . "\nAND  '$date' < b.publish_up_date ";
-
 		$database->setQuery($sql);
-
-		if(!$result = $database->query()) {
-			echo $database->stderr();
-			return false;
-		}
 		$result = $database->loadObjectList();
 		$info_banner[$i]['in_attiv'] = $result[0]->in_attiv;
 	}
@@ -1010,7 +997,10 @@ function viewBannerClients($option) {
 }
 
 function editBannerClient($clientid, $option) {
-	global $database, $my;
+	global $my;
+
+	$database = &database::getInstance();
+
 	$client = new mosArtBannerClient($database);
 
 	if($clientid) {
@@ -1030,7 +1020,7 @@ function editBannerClient($clientid, $option) {
 }
 
 function saveBannerClient($option) {
-	global $database;
+	$database = &database::getInstance();
 
 	$client = new mosArtBannerClient($database);
 
@@ -1057,7 +1047,9 @@ function saveBannerClient($option) {
 }
 
 function publishClient($cid = null, $publish = 1) {
-	global $database, $my;
+	global $my;
+
+	$database = &database::getInstance();
 
 	if(!is_array($cid) || count($cid) == 0) {
 		$action = $publish ? _ABP_SACT_PUB : _ABP_SACT_UNPUB;
@@ -1083,7 +1075,8 @@ function publishClient($cid = null, $publish = 1) {
 }
 
 function cancelEditClient($option) {
-	global $database;
+	$database = &database::getInstance();
+
 	$client = new mosArtBannerClient($database);
 	$client->bind($_POST);
 	$client->checkin();
@@ -1091,7 +1084,9 @@ function cancelEditClient($option) {
 }
 
 function removeBannerClients($cid, $option) {
-	global $database, $my;
+	global $my;
+
+	$database = &database::getInstance();
 
 	if(!is_array($cid) || count($cid) == 0) {
 		echo "<script> alert('" . _ABP_PSACLI . "'); window.history.go(-1);</script>\n";
@@ -1146,9 +1141,12 @@ function removeBannerClients($cid, $option) {
  * @param string The name of the current user
  */
 function viewCategories($option) {
-	global $database, $my, $mainframe, $mosConfig_list_limit;
+	global $my;
 
-	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit", 'limit', $mosConfig_list_limit));
+	$database = &database::getInstance();
+	$mainframe = &mosMainFrame::getInstance();
+
+	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit", 'limit', $mainframe->getCfg('list_limit')));
 	$limitstart = intval($mainframe->getUserStateFromRequest("view{$option}categorieslimitstart", 'limitstart', 0));
 	$published = $mainframe->getUserStateFromRequest("published{$option}", 'published', -1);
 
@@ -1168,8 +1166,7 @@ function viewCategories($option) {
 		$where = " where c.published  = $published ";
 	}
 
-	$query = "SELECT c.*,u.name AS editor, " . "\nCOUNT(DISTINCT b.id) AS banners" . "\nFROM #__banners_categories AS c" . "\nLEFT JOIN #__users AS u ON u.id = c.checked_out" . "\nLEFT JOIN #__banners AS b ON b.tid = c.id" .
-		"\n $where " . "\nGROUP BY c.id" . "\nORDER BY c.name";
+	$query = "SELECT c.*,u.name AS editor, COUNT(DISTINCT b.id) AS banners FROM #__banners_categories AS c LEFT JOIN #__users AS u ON u.id = c.checked_out LEFT JOIN #__banners AS b ON b.tid = c.id $where GROUP BY c.id ORDER BY c.name";
 
 	$database->setQuery($query, $pageNav->limitstart, $pageNav->limit);
 
@@ -1196,7 +1193,9 @@ function viewCategories($option) {
  * @param string The name of the current user
  */
 function editCategory($cid, $option) {
-	global $database, $my;
+	global $my;
+
+	$database = &database::getInstance();
 
 	$category = new mosArtCategory($database);
 
@@ -1220,7 +1219,7 @@ function editCategory($cid, $option) {
  * @param string The name of the category section
  */
 function saveCategory($option) {
-	global $database;
+	$database = &database::getInstance();
 
 	$category = new mosArtCategory($database);
 
@@ -1248,7 +1247,7 @@ function saveCategory($option) {
  * @param array An array of unique category id numbers
  */
 function removeCategories($cid, $option) {
-	global $database;
+	$database = &database::getInstance();
 
 	if(!is_array($cid) || count($cid) == 0) {
 		echo "<script> alert('" . _ABP_SACTD . "'); window.history.go(-1);</script>\n";
@@ -1300,7 +1299,9 @@ function removeCategories($cid, $option) {
  * @param integer 0 if unpublishing, 1 if publishing
  */
 function publishCategories($cid = null, $publish = 1) {
-	global $database, $my;
+	global $my;
+
+	$database = &database::getInstance();
 
 	if(!is_array($cid) || count($cid) == 0) {
 		$action = $publish ? _ABP_SACT_PUB : _ABP_SACT_UNPUB;
@@ -1328,7 +1329,8 @@ function publishCategories($cid = null, $publish = 1) {
  * Cancels an edit operation
  */
 function cancelEditCategory($option) {
-	global $database;
+	$database = &database::getInstance();
+
 	$category = new mosArtCategory($database);
 	$category->bind($_POST);
 	$category->checkin();
@@ -1421,7 +1423,9 @@ function getTextNode($node, $tag, $default = '') {
 
 function doRestore($option) {
 
-	global $mosConfig_absolute_path, $database;
+	global $mosConfig_absolute_path;
+
+	$database = &database::getInstance();
 
 	$media_path = $mosConfig_absolute_path . '/media/';
 
@@ -1634,8 +1638,9 @@ function doRestore($option) {
 }
 
 function doBackup() {
+	global $mosConfig_db, $mosConfig_sitename;
 
-	global $database, $mosConfig_db, $mosConfig_sitename;
+	$database = &database::getInstance();
 
 	$UserAgent = $_SERVER['HTTP_USER_AGENT'];
 
