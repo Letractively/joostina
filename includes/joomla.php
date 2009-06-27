@@ -2229,6 +2229,8 @@ class mosComponent extends mosDBTable {
 	/**
 	@var string*/
 	var $params = null;
+	/*@var int права доступа к компоненту */
+	var $access = null;
 
 	/**
 	* @param database A database connector object

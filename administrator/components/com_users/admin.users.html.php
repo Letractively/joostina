@@ -23,7 +23,7 @@ class HTML_users {
 		<table class="adminheading">
 		<tr>
 			<th class="user"><?php echo _USERS?></th>
-			<td>Фильтр:</td>
+			<td><?php echo _FILTER?></td>
 			<td>
 				<input type="text" name="search" value="<?php echo htmlspecialchars($search); ?>" class="inputbox" onChange="document.adminForm.submit();" />
 			</td>
@@ -58,7 +58,7 @@ class HTML_users {
 		<tr class="<?php echo "row$k"; ?>">
 			<td><?php echo $i + 1 + $pageNav->limitstart; ?></td>
 			<td><?php echo mosHTML::idBox($i,$row->id); ?></td>
-			<td width="1%"><img width="60" class="miniavatar" id="userav" src="<?php echo $mosConfig_live_site.'/'.mosUser::get_avatar($row);?>" /></td>
+			<td width="1%"><img width="25" class="miniavatar" id="userav" src="<?php echo $mosConfig_live_site.'/'.mosUser::get_avatar($row);?>" /></td>
 			<td align="left"><a href="<?php echo $link; ?>">
 			<?php echo $row->name; ?></a></td>
 			<td align="left"><?php echo $row->username; ?></td>
@@ -71,7 +71,7 @@ class HTML_users {
 			<td class="jtd_nowrap"><?php echo mosFormatDate($row->lastvisitDate,_CURRENT_SERVER_TIME_FORMAT); ?></td>
 			<td><?php echo $row->id; ?></td>
 		</tr>
-		<?php
+<?php
 		$k = 1 - $k;
 	}
 ?>

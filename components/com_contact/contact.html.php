@@ -34,12 +34,12 @@ class HTML_contact {
 		<table width="100%" cellpadding="4" cellspacing="0" border="0" align="center" class="contentpane<?php echo $params->get('pageclass_sfx'); ?>">
 		<tr>
 			<td width="60%" valign="top" class="contentdescription<?php echo $params->get('pageclass_sfx'); ?>" colspan="2">
-			<?php
+<?php
 		// show image
 		if($currentcat->img) {
 ?>
 				<img src="<?php echo $currentcat->img; ?>" align="<?php echo $currentcat->align; ?>" hspace="6" alt="<?php echo _WEBLINKS_TITLE; ?>" />
-				<?php
+<?php
 		}
 		echo $currentcat->descrip;
 ?>
@@ -47,7 +47,7 @@ class HTML_contact {
 		</tr>
 		<tr>
 			<td width="100%">
-			<?php
+<?php
 		if(count($rows)) {
 			HTML_contact::showTable($params,$rows,$catid,$tabclass);
 		}
@@ -59,7 +59,7 @@ class HTML_contact {
 		</tr>
 		<tr>
 			<td>
-			<?php
+<?php
 		// Displays listing of Categories
 		if(($params->get('type') == 'category') && $params->get('other_cat')) {
 			HTML_contact::showCategories($params,$categories,$catid);
@@ -72,7 +72,7 @@ class HTML_contact {
 		</tr>
 		</table>
 		</form>
-		<?php
+<?php
 		// displays back button
 		mosHTML::BackButton($params,$hide_js);
 	}
@@ -84,73 +84,70 @@ class HTML_contact {
 		global $mosConfig_live_site,$Itemid;
 ?>
 		<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
-		<?php
+<?php
 		if($params->get('headings')) {
 ?>
 			<tr>
 				<td height="20" class="sectiontableheader<?php echo $params->get('pageclass_sfx'); ?>">
 					<?php echo _CONTACT_HEADER_NAME; ?>
 				</td>
-				<?php
+<?php
 			if($params->get('position')) {
 ?>
 					<td height="20" class="sectiontableheader<?php echo $params->get('pageclass_sfx'); ?>">
 						<?php echo _CONTACT_HEADER_POS; ?>
 					</td>
-					<?php
+<?php
 			}
-?>
-				<?php
 			if($params->get('email')) {
 ?>
 					<td height="20" class="sectiontableheader<?php echo $params->get('pageclass_sfx'); ?>">
 						<?php echo _CONTACT_HEADER_EMAIL; ?>
 					</td>
-					<?php
+<?php
 			}
 ?>
-				<?php
+<?php
 			if($params->get('telephone')) {
 ?>
 					<td height="20" class="sectiontableheader<?php echo $params->get('pageclass_sfx'); ?>">
 						<?php echo _CONTACT_HEADER_PHONE; ?>
 					</td>
-					<?php
+<?php
 			}
 ?>
-				<?php
+<?php
 			if($params->get('fax')) {
 ?>
 					<td height="20" class="sectiontableheader<?php echo $params->get('pageclass_sfx'); ?>">
 						<?php echo _CONTACT_HEADER_FAX; ?>
 					</td>
-					<?php
+<?php
 			}
 ?>
 			</tr>
-			<?php
+<?php
 		}
 
 		$k = 0;
 		foreach($rows as $row) {
-			$link = 'index.php?option=com_contact&amp;task=view&amp;contact_id='.$row->id.
-				'&amp;Itemid='.$Itemid;
+			$link = 'index.php?option=com_contact&amp;task=view&amp;contact_id='.$row->id.'&amp;Itemid='.$Itemid;
 ?>
 			<tr>
 				<td height="20" class="<?php echo $tabclass[$k]; ?>">
 					<a href="<?php echo sefRelToAbs($link); ?>" class="category<?php echo $params->get('pageclass_sfx'); ?>">
 						<?php echo $row->name; ?></a>
 				</td>
-				<?php
+<?php
 			if($params->get('position')) {
 ?>
 					<td width="25%" class="<?php echo $tabclass[$k]; ?>">
 						<?php echo $row->con_position; ?>
 					</td>
-					<?php
+<?php
 			}
 ?>
-				<?php
+<?php
 			if($params->get('email')) {
 				if($row->email_to) {
 					$row->email_to = mosHTML::emailCloaking($row->email_to,1);
@@ -159,19 +156,19 @@ class HTML_contact {
 					<td width="20%" class="<?php echo $tabclass[$k]; ?>">
 						<?php echo $row->email_to; ?>
 					</td>
-					<?php
+<?php
 			}
 ?>
-				<?php
+<?php
 			if($params->get('telephone')) {
 ?>
 					<td width="15%" class="<?php echo $tabclass[$k]; ?>">
 						<?php echo $row->telephone; ?>
 					</td>
-					<?php
+<?php
 			}
 ?>
-				<?php
+<?php
 			if($params->get('fax')) {
 ?>
 					<td width="15%" class="<?php echo $tabclass[$k]; ?>">

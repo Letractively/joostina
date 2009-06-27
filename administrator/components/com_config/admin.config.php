@@ -545,6 +545,10 @@ function showconfig($option) {
 	);
 	$lists['admin_content_order_sort']= mosHTML::selectList($order_sort_list,'config_admin_content_order_sort','class="inputbox" size="1"','value','text',$row->config_admin_content_order_sort);
 
+	// блокировка компонентов
+	$lists['components_access']= mosHTML::yesnoRadioList('config_components_access','class="inputbox"',$row->config_components_access);
+
+
 	HTML_config::showconfig($row,$lists,$option);
 }
 

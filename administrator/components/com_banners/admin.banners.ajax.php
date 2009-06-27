@@ -32,10 +32,10 @@ switch($task) {
 }
 
 function x_cat_publish($id = null) {
-	global $database,$my;
+	global $my;
+	$database = &database::getInstance();
 
 	if(!$id) return 'error-id';
-
 
 	$query = "SELECT published FROM #__banners_categories WHERE id = ".(int)$id;
 	$database->setQuery($query);
@@ -62,7 +62,8 @@ function x_cat_publish($id = null) {
 }
 
 function x_client_publish($id = null) {
-	global $database,$my;
+	global $my;
+	$database = &database::getInstance();
 
 	if(!$id) return 'error-id';
 

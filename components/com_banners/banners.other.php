@@ -139,8 +139,8 @@ function showSingleBanner(&$banner) {
 		$result .= $banner->custom_banner_code;
 	} else
 		if(eregi("(\.bmp|\.gif|\.jpg|\.jpeg|\.png)$", $banner->image_url)) {
-			$image_url = "$config->config_live_site/images/banners/$banner->image_url";
-			$imginfo = @getimagesize("$config->config_absolute_path/images/banners/" . $banner->image_url);
+			$image_url = $config->config_live_site.'/images/banners/'.$banner->image_url;
+			#$imginfo = @getimagesize($config->config_absolute_path.'/images/banners/'. $banner->image_url);
 			$target = $banner->target;
 			$border_value = $banner->border_value;
 			$border_style = $banner->border_style;
@@ -152,7 +152,7 @@ function showSingleBanner(&$banner) {
 
 			$title = $banner->title;
 
-			$result = "<a href=\"index.php?option=com_banners&amp;task=clk&amp;id=$banner->id\" target=\"_" . $target . "\"><img src=\"" . $image_url . "\" style=\"border:" . $border_value . "px " . $border_style ." " . $border_color . "\" vspace=\"0\" alt=\"$alt\" title=\"$title\" width=\"$imginfo[0]\" height=\"$imginfo[1]\" /></a>";
+			$result = "<a href=\"index.php?option=com_banners&amp;task=clk&amp;id=$banner->id\" target=\"_" . $target . "\"><img src=\"" . $image_url . "\" style=\"border:" . $border_value . "px " . $border_style ." " . $border_color . "\" vspace=\"0\" alt=\"$alt\" title=\"$title\"/></a>";
 		} else
 			if(eregi(".swf", $banner->image_url)) {
 				$image_url = "$config->config_live_site/images/banners/" . $banner->image_url;

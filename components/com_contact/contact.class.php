@@ -108,8 +108,7 @@ class mosContact extends mosDBTable {
 class MambovCard extends vCard {
 
 	// needed to fix bug in vcard class
-	function setName($family = '',$first = '',$additional = '',$prefix = '',$suffix =
-		'') {
+	function setName($family = '',$first = '',$additional = '',$prefix = '',$suffix = '') {
 		$this->properties["N"] = "$family;$first;$additional;$prefix;$suffix";
 		$this->setFormattedName(trim("$prefix $first $additional $family $suffix"));
 	}

@@ -285,8 +285,7 @@ class HTML_config {
 			<tr>
 				<td><?php echo _USE_H1_HEADERS_ALWAYS?>:</td>
 				<td><?php echo $lists['config_title_h1'];
-		$tip = _USE_H1_HEADERS_ALWAYS2;
-		echo mosToolTip($tip);
+		echo mosToolTip(_USE_H1_HEADERS_ALWAYS2);
 ?>
 				</td>
 			</tr>
@@ -458,7 +457,6 @@ class HTML_config {
 				<td><?php echo _ADMIN_SECURE_CODE?>:</td>
 				<td>
 				<input class="text_area" type="text" name="config_admin_secure_code" size="60" value="<?php echo $row->config_admin_secure_code; ?>"/>
-
 				</td>
 			</tr>
 
@@ -536,6 +534,15 @@ class HTML_config {
 				?>
 				</td>
 			</tr>
+			<tr>
+				<td><?php echo _COM_CONFIG_COMPONENTS_ACCESS?>:</td>
+				<td><?php
+					echo $lists['components_access'];
+					echo mosToolTip(_COM_CONFIG_COMPONENTS_ACCESS_HELP);
+				?>
+				</td>
+			</tr>
+
 		</table>
 <?php
 		$tabs->endTab();
