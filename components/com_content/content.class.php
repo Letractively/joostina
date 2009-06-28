@@ -12,7 +12,7 @@
 defined('_VALID_MOS') or die();
 global $mosConfig_absolute_path;
 require_once ($mosConfig_absolute_path . '/includes/libraries/dbconfig/dbconfig.php');
-
+require_once ($mosConfig_absolute_path . '/includes/libraries/tags/tags.class.php');
 
 
 /**
@@ -110,6 +110,16 @@ class mosCategory extends mosDBTable
         $this->_db->setQuery($query);
         $this->_db->loadObject($r);
         return $r;
+    }
+    
+    function get_category_url($params)
+    {
+        if($params->get('cat_link_type')=='blog'){
+        	return self::get_category_blog_url($params);
+        }
+        else{
+        	return self::get_category_table_url($params);	
+        }
     }
 
     function get_category_table_url($params)
@@ -1875,58 +1885,6 @@ class jstContentTemplate
 
 }
 
-class jstContentUserpageConfig extends dbConfig
-{
-
-    /**
-     * Заголовок страницы
-     */
-    var $title = 'Содержимое пользователяm';
-    /**
-     * Отображать дату
-     */
-    var $date = 1;
-    /**
-     * Отображать количество просмотров
-     */
-    var $hits = 1;
-    /**
-     * Отображать раздел/категорию
-     */
-    var $section = 1;
-    /**
-     * Поле фильтра
-     */
-    var $filter = 1;
-    /**
-     * Выбор типа сортировки
-     */
-    var $order_select = 1;
-    /**
-     * Выпадающий список для выбора количества записей на странице
-     */
-    var $display = 1;
-    /**
-     * Количество записей на сранице по умолчанию
-     */
-    var $display_num = 50;
-    /**
-     * Заголовки таблицы
-     */
-    var $headings = 1;
-    /**
-     * Постраничная навигация
-     */
-    var $navigation = 1;
-
-
-    function jstContentUserpageConfig(&$db, $group = 'com_content', $subgroup = 'user_page')
-    {
-        $this->dbConfig($db, $group, $subgroup);
-    }
-
-}
-
 
 class contentAccess
 {
@@ -2344,14 +2302,24 @@ class contentPageConfig
         $params->def('section', 0);
         //Сделать названия разделов ссылками на страницу текущего раздела
         $params->def('section_link', 0);
-        //Показать/Скрыть названия категорий, которым принадлежат объекты
+        //Тип ссылки на раздел: 'blog' / 'list'
+        $params->def('section_link_type', 'blog');         
+		//Показать/Скрыть названия категорий, которым принадлежат объекты
         $params->def('category', 0);
         //Сделать названия категорий ссылками на страницу текущей категории
         $params->def('category_link', 0);
+        //Тип ссылки на категорию: 'blog' / 'table'
+        $params->def('cat_link_type', 'blog'); 
         //Показать/Скрыть заголовки объектов
         $params->def('item_title', 1);
         //Сделать заголовки объектов в виде ссылок на объекты
         $params->def('link_titles', '');
+        //Показать/Скрыть вводный текст
+        $params->def('view_introtext',1);
+         //Лимит слов для интротекста. Если текст не нуждается в обрезке - оставьте поле пустым
+        $params->def('introtext_limit', '');  
+        //Только интротекст
+        $params->def('intro_only', 1); //TODO: не работает
         //Показать/Скрыть ссылку [Подробнее...]
         $params->def('readmore', '');
         //Показать/Скрыть возможность оценки объектов
@@ -2370,6 +2338,9 @@ class contentPageConfig
         $params->def('email', $mainframe->getCfg('showEmail'));
         //Показать/Скрыть неопубликованные объекты для группы пользователей `Publisher` и выше
         $params->def('unpublished', 0);
+        
+        //Показать/Скрыть тэги материалов
+        $params->def('view_tags', 1);
 
 
         $params->def('pop', 0);

@@ -3,12 +3,19 @@
 
     <ul class="cat_list">
     <?php foreach($categories as $row) {
+    	
+   		$params->def('catid', $row->id);
+   		$params->def('sectionid', $row->section);
+    	$params->def('Itemid', '&Itemid='.$Itemid);
+    	
 	    $row->name = htmlspecialchars(stripslashes(ampReplace($row->name)),ENT_QUOTES);
 		if($catid != $row->id) { ?>
 
         <li>
 
-            <?php if($row->access <= $gid) { $link = sefRelToAbs('index.php?option=com_content&amp;task=category&amp;sectionid='.$row->section.'&amp;id='.$row->id.'&amp;Itemid='.$Itemid); ?>
+            <?php if($row->access <= $gid) {
+
+            	$link = mosCategory::get_category_url($params); ?>
                 <a href="<?php echo $link; ?>" class="category" title="<?php echo $row->name; ?>"><?php echo $row->name; ?></a>
 
                 <?php if($params->get('cat_items')) { ?>

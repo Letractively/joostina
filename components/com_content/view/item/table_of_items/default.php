@@ -101,9 +101,9 @@
 			    <th class="sectiontableheader" width="15%"><?php echo _DATE; ?></th>
             <?php } ?>
 
-            <?php if($params->get('title')) { ?>
+            
 			    <th class="sectiontableheader"><?php echo _HEADER_TITLE; ?></th>
-            <?php } ?>
+            
 
             <?php if($params->get('author')) { ?>
 			    <th class="sectiontableheader" align="left"><?php echo _HEADER_AUTHOR; ?></th>
@@ -120,7 +120,7 @@
         <?php
         foreach($items as $row) {
             $row->created = mosFormatDate($row->created,$params->get('date_format'));
-            HTML_content::_Itemid($row);
+            HTML_content::_Itemid($row);  
             ?>
 
             <tr class="sectiontableentry<?php echo ($k + 1); ?>">
@@ -130,7 +130,7 @@
             <?php } ?>
 
             <?php
-            if($params->get('title')) {
+            
 				if($row->access <= $gid) {
 				    $link = sefRelToAbs('index.php?option=com_content&amp;task=view&amp;id='.$row->id.'&amp;Itemid='.$Itemid);
 
@@ -148,7 +148,7 @@
 					    <a href="<?php echo $link; ?>" title="<?php echo $row->title; ?>"><?php echo _READ_MORE_REGISTER; ?></a>
 				    </td>
                 <?php }?>
-            <?php } ?>
+            
 
             <?php if($params->get('author')) { ?>
 			    <td align="left"><?php echo $row->created_by_alias ? $row->created_by_alias : $row->author; ?></td>
