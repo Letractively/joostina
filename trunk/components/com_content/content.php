@@ -44,7 +44,7 @@ switch($task) {
 		break;
 
 	case 'section':
-		$cache->call('showSection_catlist',$id);
+		$cache->call('showSectionCatlist',$id);
 		break;
 
 	case 'category':
@@ -239,7 +239,7 @@ function frontpage() {
 }
 
 
-function showSection_catlist($id) {
+function showSectionCatlist($id) {
 	global $database,$mainframe,$Itemid, $my;
 	
     if(!$id){
@@ -282,10 +282,13 @@ function showSection_catlist($id) {
     $params->page_type = 'section_catlist';
 
 	// Мета-данные страницы
+ 	if(!$params->get('header')){
+        $params->set('header',  $section->name);
+    }
     $meta = new contentMeta($params);
     $meta->set_meta();  
 
-	HTML_content::showSection_catlist($section,$access,$params);
+	HTML_content::showSectionCatlist($section,$access,$params);
 }
 
 
@@ -368,6 +371,8 @@ function showTableCategory($id) {
 	// query to determine total number of records
 	//Получаем общее количество записей в таблице категории
     $category->total = $content->_get_result_table_category($category, $params, $access);
+    
+    
 
 	$limit = $limit ? $limit : $params->get('display_num');
 	if($category->total <= $limit) {
@@ -387,6 +392,9 @@ function showTableCategory($id) {
     $params->page_type = 'category_table';
 
 	// Мета-данные страницы
+	if(!$params->get('header')){
+        $params->set('header',  $category->name);
+    }
     $meta = new contentMeta($params);
     $meta->set_meta();    
     

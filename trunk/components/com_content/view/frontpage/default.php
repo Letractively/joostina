@@ -48,7 +48,7 @@
 			<table class="intro_table" width="100%"  cellpadding="0" cellspacing="0">
 
             <?php for($z = 0; $z < $intro; $z++) {
-                    if(array_key_exists($rows[$i]->id, $tags_arr)){
+                    if(isset($rows[$i]->id) && array_key_exists($rows[$i]->id, $tags_arr)){
                         $rows[$i]->tags = $tags_arr[$rows[$i]->id];
                     }
                 if($i >= ($total - $limitstart)) { break; } if(!($z % $columns) || $columns == 1) { ?>

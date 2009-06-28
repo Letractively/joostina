@@ -71,6 +71,10 @@
 			<option value="0">Скрыть</option>
 			<option value="1">Показать</option>
 		</param>
+		<param name="cat_link_type" type="list" default="blog" label="Тип ссылки на категорию" description="Тип ссылки на категорию">
+			<option value="blog">Блог категории</option>
+			<option value="table">Таблица категории</option>
+		</param>
 		<param name="other_cat" type="radio" default="1" label="Список категорий - Категория" description="Показать/Скрыть список категорий в таблице при просмотре страницы">
 			<option value="0">Скрыть</option>
 			<option value="1">Показать</option>

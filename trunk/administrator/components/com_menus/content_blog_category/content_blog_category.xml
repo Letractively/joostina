@@ -19,8 +19,8 @@
 		<param name="@spacer" type="spacer" default="" label="" description="" />
 		<param name="menu_image" type="imagelist" directory="/images/stories" hide_default="1" default="" label="Изображение меню" description="Маленькое изображение, располагаемое слева или справа от пункта меню. Изображение должно находиться в папке images/stories/" />
 		<param name="pageclass_sfx" type="text" size="20" default="" label="Суффикс CSS-класса страницы" description="Суффикс CSS-класса, используемого на этой странице. Необходим для использования индивидуального стиля страницы" />
-		<param name="back_button" type="radio" default="" label="Кнопка Назад (Вернуться)" description="Показать/Скрыть кнопку Назад (Вернуться), возвращающую на предыдущую просмотренную страницу">
-			<option value="">Использовать глобальные</option>
+		<param name="back_button" type="radio" default="-1" label="Кнопка Назад (Вернуться)" description="Показать/Скрыть кнопку Назад (Вернуться), возвращающую на предыдущую просмотренную страницу">
+			<option value="-1">Использовать глобальные</option>
 			<option value="0">Скрыть</option>
 			<option value="1">Показать</option>
 		</param>

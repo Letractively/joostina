@@ -73,6 +73,16 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
             <div class="item_text"><?php echo ampReplace($row->text);?></div>
        <?php  }?>
        
+		<?php if($params->get('view_tags')){ ?>
+	 		<?php if(isset($row->tags)){ ?>
+	           <span class="tags">Тэги: <?php echo $row->tags;?></span>
+	        <?php } else {
+	        	?>
+	        	<span class="tags">Тэги: не заданы</span>
+	        	<?php
+	        }?>	
+		<?php } ?>
+       
        <?php echo $row->rating;?>
 
         <?php if($params->get('modifydate')) { ?>

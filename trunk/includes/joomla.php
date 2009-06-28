@@ -2338,164 +2338,6 @@ class mosMenu extends mosDBTable {
 	}
 }
 
-/* работа с тэгами */
-class contentTags extends mosDBTable{
-	var $id = null;
-	var $obj_id = null;
-	var $obj_type = null;
-	var $tag = '';
-
-
-	function contentTags(&$_db){
-		$this->mosDBTable('#__content_tags','id',$_db);
-	}
-
-	function check() {
-		return true;
-	}
-		function classname(){
-		return __CLASS__;
-	}
-
-	function load_all(){
-		$sql = 'SELECT tag FROM #__content_tags
-				ORDER BY tag ASC';
-		$this->_db->setQuery($sql);
-		return $this->_db->loadResultArray();
-	}
-
-
-	function load_by($obj){
-		$sql = 'SELECT tag FROM #__content_tags  WHERE obj_id = '.$obj->id;
-		$this->_db->setQuery($sql);
-		return $this->_db->loadResultArray();
-	}
-
-	function load_by_tag($tag){
-		$sql = 'SELECT tag.obj_id, tag.obj_type, content.*  FROM #__content_tags AS tag
-				INNER JOIN #__content AS content ON content.id = tag.obj_id
-				WHERE tag.tag =\''.$tag.'\'';
-		$this->_db->setQuery($sql);
-		return $this->_db->loadObjectList();
-	}
-
-	function load_by_type($type){
-		$sql = 'SELECT tag.* FROM #__content_tags AS tag WHERE tag.obj_type =\''.$type.'\'';
-		$this->_db->setQuery($sql);
-		return $this->_db->loadObjectList();
-	}
-
-	function load_by_type_tag($group, $tag){
-
-		$select = '';
-		$where = '';
-		$order = 'item.id DESC';
-
-		if($group["select"]){
-			$select = ', '.$group["select"];
-		}
-		if($group["where"]){
-			$where = 'AND '.$group["where"];
-		}
-		if($group["order"]){
-			$order = 'item.'.$group["order"];
-		}
-
-		$sql = 'SELECT tag.*,
-				item.'.$group["id"].' AS id, item.'.$group["title"].' AS title, item.'.$group["text"].' AS text, item.'.$group["date"].' AS date
-				'.$select.'
-				FROM #__content_tags AS tag
-				INNER JOIN #__'.$group["table"].' AS item ON item.'.$group["id"].' = tag.obj_id
-				'.$group["join"].'
-				WHERE tag.tag = \''.$tag.'\' AND tag.obj_type =\''.$group["group_name"].'\'
-				ORDER BY '.$order;
-		$this->_db->setQuery($sql);
-		return $this->_db->loadObjectList();
-	}
-
-	function add($tags,$obj){
-		$sql_temp = '';
-		$max = count($tags);
-		$n = 1;
-		foreach($tags as $title){
-				$sql_temp .= '('.$obj->id.', \''.$obj->obj_type.'\',   \''.$title.'\')';
-				if($n<$max){
-					$sql_temp .= ',';
-				}
-			$n++;
-		}
-		$sql = 'INSERT  #__content_tags (obj_id, obj_type, tag) VALUES  '. $sql_temp;
-		$this->_db->setQuery($sql);
-		return $this->_db->query();
-
-	}
-
-	function update($tags,$obj){
-		$sql = 'DELETE FROM #__content_tags WHERE obj_id = '.$obj->id;
-		$this->_db->setQuery($sql);
-		$this->_db->Query();
-		$sql_temp = '';
-		$max = count($tags);
-		$n = 1;
-		foreach($tags as $title){
-				$sql_temp .= '('.$obj->id.', \''.$obj->obj_type.'\',   \''.$title.'\')';
-				if($n<$max){
-					$sql_temp .= ',';
-				}
-			$n++;
-		}
-
-		$sql = 'INSERT  #__content_tags (obj_id, obj_type,  tag) VALUES  '. $sql_temp;
-		$this->_db->setQuery($sql);
-		return $this->_db->query();
-
-	}
-
-	function clear_tags($tags){
-		$return=array();
-		foreach($tags as $tag){
-			$tag = self::good_tag($tag);
-			if($tag){
-				$return[] = $tag;
-			}
-		}
-
-		return $return;
-	}
-
-	function good_tag($tag){
-		$bad_tag = array('я', ' ');
-
-		if(in_array($tag, $bad_tag)){
-			return false;
-		}
-
-		if($tag==''){
-			return false;
-		}
-
-		$tag = mosHTML::cleanText($tag);
-		return trim($tag);
-	}
-
-	function get_tag_url($tag){
-		return sefRelToAbs('index.php?option=com_search&tag='.$tag);
-	}
-
-	function arr_to_links($tags, $ds = ', '){
-		if(!$tags){
-			return;
-		}
-
-		$return=array();
-		foreach($tags as $tag){
-			$return[] = '<a class="tag" href="'.self::get_tag_url($tag).'">'.$tag.'</a>';
-		}
-
-		return implode($ds, $return);
-
-	}
-}
 
 /**
 * Class to support function caching
@@ -2881,16 +2723,24 @@ class mosHTML {
 
 	/**
 	* Writes Back Button
+	* Сыылка "Вернуться" отображается в следующих случаях:
+	* - не переданы параметры (если, например, нет необходимости проверять значения настроек, а нужно принудительно вывести ссылку);
+	* - параметры переданы и имеют соответствующие значения (используется в com_content)
+	* - параметры переданы, но настройка `back_button` не задана (т.е. должно использоваться глобальное значение параметра) 
+	* 	и в глобальных настройках включено отображение ссылки	 
+	* 
 	*/
-	function BackButton(&$params,$hide_js = null) {
-		// Back Button
-		if($params->get('back_button') && !$params->get('popup') && !$hide_js) {
-?>
-		<div class="back_button">
-			<a href='javascript:history.go(-1)'><?php echo _BACK; ?></a>
-		</div>
-<?php
-		}
+	//TODO: справка - Back Button
+	function BackButton(&$params = null,$hide_js = null) {
+		$config = &Jconfig::getInstance();
+
+		if( !$params ||  ($params->get('back_button')==1 && !$params->get('popup') && !$hide_js) || ($params->get('back_button') == -1 && $config->config_back_button == 1 ) ) 
+		{
+			include_once($config->config_absolute_path.'/templates/system/back_button.php');
+		 }
+		 else{
+		 	return false;
+		 }
 	}
 
 	/**

@@ -59,7 +59,7 @@ class HTML_content {
 
 	}
 	
-	function showSection_catlist($section,&$access,&$params) {
+	function showSectionCatlist($section,&$access,&$params) {
 		global $Itemid,$mosConfig_live_site, $mosConfig_absolute_path, $my;
 
 		
@@ -87,14 +87,14 @@ class HTML_content {
 
 
         if ($params->get('page_title')) {
-            $page_title = htmlspecialchars($section->name, ENT_QUOTES);
+            $page_title = htmlspecialchars($params->get('header'), ENT_QUOTES);
         }
 
-        if ($params->get('description') && $section->description) {
+        if ($params->get('description_sec') && $section->description) {
             $title_description = $section->description;
         }
 
-        if($params->get('description_image') && $section->image){
+        if($params->get('description_sec_image') && $section->image){
             $link = $mosConfig_live_site . '/images/stories/' . $section->image;
             $title_image = '<img class="desc_img" src="'.$link.'" align="'.$section->image_position.'"  alt="'.$section->image.'" />';
         }
@@ -137,14 +137,23 @@ class HTML_content {
 		$items = $obj->content;
 		$gid = $my->gid;
 		$other_categories = $obj->other_categories;
+		
 		$order = $params->get('selected');
+		$sfx = $params->get('pageclass_sfx');
+		
+		if($params->get('date') == '' && JConfig::getInstance()->config_showCreateDate == 1){
+			$params->set('date', 1);	
+		}
+		if($params->get('author') == '' && JConfig::getInstance()->config_showAuthor == 1){
+			$params->set('author', 1);	
+		}
 
 		if(strtolower(get_class($title)) == 'mossection') {
 			$catid = 0;
 		} else {
 			$catid = $title->id;
 		}
-        $sfx = $params->get('pageclass_sfx');
+        
         $page_title='';
         $title_description = '';
         $title_image = '';
@@ -153,7 +162,7 @@ class HTML_content {
 
 
         if ($params->get('page_title')) {
-            $page_title = htmlspecialchars($title->name, ENT_QUOTES);
+            $page_title = htmlspecialchars($params->get('header'), ENT_QUOTES);
         }
 
         if ($params->get('description') && $title->description) {
