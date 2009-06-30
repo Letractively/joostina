@@ -208,9 +208,9 @@ class mosCategory extends mosDBTable
 		//	} 
 		
 		
-	    $params->sectionid = $row->sectionid;
-        $params->catid = $row->catid;
-        $params->Itemid = $_Itemid;
+   		$params->set('catid', $row->catid);
+   		$params->set('sectionid', $row->sectionid);
+    	$params->set('Itemid', $_Itemid);
         
         if($params->get('cat_link_type')=='blog'){
             $link = mosCategory::get_category_blog_url($params);
@@ -474,13 +474,13 @@ class mosSection extends mosDBTable
 
     function get_section_table_url($params)
     {
-        $link = sefRelToAbs('index.php?option=com_content&amp;task=section&amp;id=' . $params->sectionid . $params->Itemid);
+        $link = sefRelToAbs('index.php?option=com_content&amp;task=section&amp;id=' . $params->get('sectionid') . $params->get('Itemid'));
         return $link;
     }
 
     function get_section_blog_url($params)
     {
-        $link = sefRelToAbs('index.php?option=com_content&amp;task=blogsection&amp;id=' . $params->sectionid . $params->Itemid);
+        $link = sefRelToAbs('index.php?option=com_content&amp;task=blogsection&amp;id=' . $params->get('sectionid') . $params->get('Itemid'));
         return $link;
     }
     
@@ -549,8 +549,9 @@ class mosSection extends mosDBTable
 			$secLinkURL = ampReplace($secLinkURL);
 			$link = sefRelToAbs($secLinkURL.$_Itemid);
 		} else {
-            $params->sectionid = $row->sectionid;
-            $params->Itemid = $_Itemid;
+   			$params->set('catid', $row->id);
+   			$params->set('sectionid', $row->sectionid);
+    		$params->set('Itemid', $_Itemid);
             if($params->get('section_link_type')=='blog'){
                 $link = mosSection::get_section_blog_url($params);
             }
