@@ -57,22 +57,6 @@
 
 ?>
 
-
-
-        <?php if($display_blog_more){ ?>
-			<div class="blog_more">
-			    <?php  HTML_content::showLinks($rows,$links,$total,$i,$showmore);?>
-			</div>
-       <?php } ?>
-
-       <?php if($display_pagination){
-	        echo $pageNav->writePagesLinks($link);
-            if($display_pagination_results){
-    			echo $pageNav->writePagesCounter();
-            }
-       } ?>
-
-
        </div>
 
        <?php } else { echo _EMPTY_BLOG; }
