@@ -130,9 +130,97 @@ class mosCategory extends mosDBTable
     }
 
     function get_category_blog_url($params)
-    {
-        $link = sefRelToAbs('index.php?option=com_content&amp;task=blogcategory&amp;id=' . $params->catid . $params->Itemid);
+    { 
+        $link = sefRelToAbs('index.php?option=com_content&amp;task=blogcategory&amp;id=' . $params->get('catid') . $params->get('Itemid'));
         return $link;
+    }
+    
+     function get_category_menu($cat_id, $type = null){
+    	$database = &database::getInstance();
+    	
+    	if(!$type){
+    		$and_type = "AND type IN ( 'content_category', 'content_blog_category' )";
+    	}
+    	else{
+    		switch($type){
+    			case 'blog':
+    			default:
+    				$and_type = "AND type = 'content_blog_category' ";	
+    			break;
+    			
+    			case 'table':
+    				$and_type = "AND type = 'content_category' ";
+    			break;
+    		}
+    		
+    	}
+    	
+		$query = "	SELECT id, link 
+					FROM #__menu 
+					WHERE published = 1 
+						".$and_type." 
+						AND componentid = ".$cat_id."
+					ORDER BY type DESC, ordering";
+		$database->setQuery($query);
+		$result = $database->loadRow();
+		
+		return $result;
+    }
+    
+    function get_category_link($row, $params){
+    	$mainframe = &mosMainFrame::getInstance();
+    	
+   		$catLinkID = $mainframe->get('catID_'.$row->catid,-1);
+		$catLinkURL = $mainframe->get('catURL_'.$row->catid);
+
+		// check if values have already been placed into mainframe memory
+		if($catLinkID == -1) {
+			$result = self::get_category_menu($row->catid, $params->get('cat_link_type'));
+			
+			$catLinkID = $result[0];
+			$catLinkURL = $result[1];
+
+			if($catLinkID == null) {
+				$catLinkID = 0;
+				// save 0 query result to mainframe
+				$mainframe->set('catID_'.$row->catid,0);
+			} else {
+				// save query result to mainframe
+				$mainframe->set('catID_'.$row->catid,$catLinkID);
+				$mainframe->set('catURL_'.$row->catid,$catLinkURL);
+			}
+		}
+
+		$_Itemid = '';
+		// use Itemid for category found in query
+		if($catLinkID != -1 && $catLinkID) {
+			$_Itemid = '&amp;Itemid='.$catLinkID;
+		} 
+		else if($mainframe->get('secID_'.$row->sectionid,-1) != -1  && $mainframe->get('secID_'.$row->sectionid,-1)) {
+				// use Itemid for section found in query
+				$_Itemid = '&amp;Itemid='.$mainframe->get('secID_'.$row->sectionid,-1);
+		}
+		
+		//Эта штуковина больше не нужна, поскольку теперь мы предоставляем админу
+		//право вручную выставлять тип ссылки в настройках пункта
+		
+		//	if($catLinkURL) {
+		//		$link = sefRelToAbs($catLinkURL.$_Itemid);
+		//	} 
+		
+		
+	    $params->sectionid = $row->sectionid;
+        $params->catid = $row->catid;
+        $params->Itemid = $_Itemid;
+        
+        if($params->get('cat_link_type')=='blog'){
+            $link = mosCategory::get_category_blog_url($params);
+        }
+        else{
+            $link = mosCategory::get_category_table_url($params);
+        }		
+		
+		return $link;
     }
 
     function get_other_cats($category, $access, $params)
@@ -395,6 +483,85 @@ class mosSection extends mosDBTable
     {
         $link = sefRelToAbs('index.php?option=com_content&amp;task=blogsection&amp;id=' . $params->sectionid . $params->Itemid);
         return $link;
+    }
+    
+    function get_section_menu($section_id, $type = null){
+    	$database = &database::getInstance();
+    	
+    	if(!$type){
+    		$and_type = "AND type IN ( 'content_section', 'content_blog_section' )";
+    	}
+    	else{
+    		switch($type){
+    			case 'blog':
+    			default:
+    				$and_type = "AND type = 'content_blog_section' ";	
+    			break;
+    			
+    			case 'list':
+    				$and_type = "AND type = 'content_section' ";
+    			break;
+    		}
+    		
+    	}
+    	
+    	$query = "	SELECT id, link 
+					FROM #__menu 
+					WHERE 	published = 1 
+							".$and_type." 
+							AND componentid = ".(int)$section_id."
+					ORDER BY type DESC, ordering";
+		$database->setQuery($query);
+		$result = $database->loadRow();	
+		
+		return $result;
+    }
+    
+    function get_section_link($row, $params){
+    	$mainframe = &mosMainFrame::getInstance();
+    	
+   		// pull values from mainframe
+		$secLinkID = $mainframe->get('secID_'.$row->sectionid,-1);
+		$secLinkURL = $mainframe->get('secURL_'.$row->sectionid);
+
+		// check if values have already been placed into mainframe memory
+		if($secLinkID == -1) {
+			
+			$result = self::get_section_menu($row->sectionid, $params->get('section_link_type'));
+			$secLinkID = $result[0];
+			$secLinkURL = $result[1];
+
+			if($secLinkID == null) {
+				$secLinkID = 0;
+				// save 0 query result to mainframe
+				$mainframe->set('secID_'.$row->sectionid,0);
+			} else {
+				// save query result to mainframe
+				$mainframe->set('secID_'.$row->sectionid,$secLinkID);
+				$mainframe->set('secURL_'.$row->sectionid,$secLinkURL);
+			}
+		}
+
+		$_Itemid = '';
+		if($secLinkID != -1 && $secLinkID) {
+			$_Itemid = '&amp;Itemid='.$secLinkID;
+		}
+		if($secLinkURL) {
+			$secLinkURL = ampReplace($secLinkURL);
+			$link = sefRelToAbs($secLinkURL.$_Itemid);
+		} else {
+            $params->sectionid = $row->sectionid;
+            $params->Itemid = $_Itemid;
+            if($params->get('section_link_type')=='blog'){
+                $link = mosSection::get_section_blog_url($params);
+            }
+            else{
+                $link = mosSection::get_section_table_url($params);
+            }
+
+		}
+		
+		return $link;
     }
 }
 

@@ -1114,13 +1114,7 @@ function _showItem($row,$params,$gid,&$access,$pop, $template='') {
 			}
 		}
 	}
-
-
-
-    $limit_introtext=$params->get('introtext_limit', 0);
-
-
-
+	
 	// if a popup item (e.g. print page) set popup param to correct value
 	if($pop) {
 		$params->set('popup',1);
@@ -1134,112 +1128,18 @@ function _showItem($row,$params,$gid,&$access,$pop, $template='') {
 	$row->category = htmlspecialchars(stripslashes($row->category),ENT_QUOTES);
 
     //Ссылка на раздел/категорию
-	if($params->get('section_link') || $params->get('category_link')) {
-		// loads the link for Section name
-		if($params->get('section_link') && $row->sectionid) {
-			// pull values from mainframe
-			$secLinkID = $mainframe->get('secID_'.$row->sectionid,-1);
-			$secLinkURL = $mainframe->get('secURL_'.$row->sectionid);
+	if($params->get('section_link') || $params->get('category_link')) {		
+		
+		// Ссылка на раздел
+		if($params->get('section_link') && $row->sectionid) {			
+			$section_link = mosSection::get_section_link($row, $params);
+			$row->section = '<a href="'.$section_link.'">'.$row->section.'</a>';
+		}		
 
-			// check if values have already been placed into mainframe memory
-			if($secLinkID == -1) {
-				$query = "SELECT id, link FROM #__menu WHERE published = 1 AND type IN ( 'content_section', 'content_blog_section' ) AND componentid = ".(int)$row->sectionid."\n ORDER BY type DESC, ordering";
-				$database->setQuery($query);
-				//$secLinkID = $database->loadResult();
-				$result = $database->loadRow();
-
-				$secLinkID = $result[0];
-				$secLinkURL = $result[1];
-
-				if($secLinkID == null) {
-					$secLinkID = 0;
-					// save 0 query result to mainframe
-					$mainframe->set('secID_'.$row->sectionid,0);
-				} else {
-					// save query result to mainframe
-					$mainframe->set('secID_'.$row->sectionid,$secLinkID);
-					$mainframe->set('secURL_'.$row->sectionid,$secLinkURL);
-				}
-			}
-
-			$_Itemid = '';
-			// use Itemid for section found in query
-			if($secLinkID != -1 && $secLinkID) {
-				$_Itemid = '&amp;Itemid='.$secLinkID;
-			}
-			if($secLinkURL) {
-				$secLinkURL = ampReplace($secLinkURL);
-				$link = sefRelToAbs($secLinkURL.$_Itemid);
-			} else {
-                $params->sectionid = $row->sectionid;
-                $params->Itemid = $_Itemid;
-                if($params->get('section_link_type')=='blog'){
-                    $link = mosSection::get_section_blog_url($params);
-                }
-                else{
-                    $link = mosSection::get_section_table_url($params);
-                }
-
-			}
-			$row->section = '<a href="'.$link.'">'.$row->section.'</a>';
-		}
-
-		// loads the link for Category name
+		// ссылка на категорию
 		if($params->get('category_link') && $row->catid) {
-			// pull values from mainframe
-			$catLinkID = $mainframe->get('catID_'.$row->catid,-1);
-			$catLinkURL = $mainframe->get('catURL_'.$row->catid);
-
-			// check if values have already been placed into mainframe memory
-			if($catLinkID == -1) {
-				$query = "	SELECT id, link 
-							FROM #__menu 
-							WHERE published = 1 
-							AND type IN ( 'content_category', 'content_blog_category' ) 
-							AND componentid = ".(int)$row->catid."\n 
-							ORDER BY type DESC, ordering";
-				$database->setQuery($query);
-				//$catLinkID = $database->loadResult();
-				$result = $database->loadRow();
-
-				$catLinkID = $result[0];
-				$catLinkURL = $result[1];
-
-				if($catLinkID == null) {
-					$catLinkID = 0;
-					// save 0 query result to mainframe
-					$mainframe->set('catID_'.$row->catid,0);
-				} else {
-					// save query result to mainframe
-					$mainframe->set('catID_'.$row->catid,$catLinkID);
-					$mainframe->set('catURL_'.$row->catid,$catLinkURL);
-				}
-			}
-
-			$_Itemid = '';
-			// use Itemid for category found in query
-			if($catLinkID != -1 && $catLinkID) {
-				$_Itemid = '&amp;Itemid='.$catLinkID;
-			} else
-				if(isset($secLinkID) && $secLinkID != -1 && $secLinkID) {
-					// use Itemid for section found in query
-					$_Itemid = '&amp;Itemid='.$secLinkID;
-				}
-			if($catLinkURL) {
-				$link = sefRelToAbs($catLinkURL.$_Itemid);
-			} else {
-			    $params->sectionid = $row->sectionid;
-                $params->catid = $row->catid;
-                $params->Itemid = $_Itemid;
-                if($params->get('cat_link_type')=='blog'){
-                    $link = mosCategory::get_category_blog_url($params);
-                }
-                else{
-                    $link = mosCategory::get_category_table_url($params);
-                }
-
-			}
-			$row->category = '<a href="'.$link.'">'.$row->category.'</a>';
+			$category_link = mosCategory::get_category_link($row, $params);
+			$row->category = '<a href="'.$category_link.'">'.$row->category.'</a>';			
 		}
 	}
 
@@ -1253,6 +1153,8 @@ function _showItem($row,$params,$gid,&$access,$pop, $template='') {
 		$row->text = $row->fulltext;
 	}
 
+	//Лимит интротекста
+	$limit_introtext=$params->get('introtext_limit', 0);
     if($limit_introtext){
          $row->text=mosHTML::cleanText($row->text);
          $row->text = implode(" ", array_slice(preg_split("/\s+/", $row->text), 0, $limit_introtext)).'...';
@@ -1271,7 +1173,6 @@ function _showItem($row,$params,$gid,&$access,$pop, $template='') {
 	// needed for caching purposes to stop different cachefiles being created for same item
 	// does not affect anything else as hits data not outputted
 	$row->hits = 0;
-
 
 	$cache->call('HTML_content::show',$row,$params,$access,$page, $template);
 }
