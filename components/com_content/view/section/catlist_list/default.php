@@ -4,9 +4,11 @@
     <ul class="cat_list">
     <?php foreach($categories as $row) {
     	
-   		$params->def('catid', $row->id);
-   		$params->def('sectionid', $row->section);
-    	$params->def('Itemid', '&Itemid='.$Itemid);
+   		$params->set('catid', $row->id);
+   		$params->set('sectionid', $row->section);
+    	$params->set('Itemid', '&Itemid='.$Itemid);
+    	
+    	
     	
 	    $row->name = htmlspecialchars(stripslashes(ampReplace($row->name)),ENT_QUOTES);
 		if($catid != $row->id) { ?>
