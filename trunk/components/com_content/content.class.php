@@ -124,8 +124,7 @@ class mosCategory extends mosDBTable
 
     function get_category_table_url($params)
     {
-        $link = sefRelToAbs('index.php?option=com_content&amp;task=category&amp;sectionid=' . $params->sectionid . '&amp;id=' . $params->
-            catid . $params->Itemid);
+        $link = sefRelToAbs('index.php?option=com_content&amp;task=category&amp;sectionid=' . $params->get('sectionid') . '&amp;id=' . $params->get('catid'). $params->get('Itemid'));
         return $link;
     }
 
