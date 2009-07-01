@@ -26,7 +26,7 @@ class HTML_user {
 <?php
 	}
 
-function profile($user,$option, &$params){
+function profile($user,$option, &$params, $config){
       	global $mosConfig_absolute_path,$mosConfig_frontend_userparams,$mosConfig_live_site, $my, $database;
 
         $owner=0;  $admin = 0;
@@ -64,28 +64,13 @@ function profile($user,$option, &$params){
 
         $user_content_href=sefRelToAbs('index.php?option=com_content&task=mycontent&user='.$user_id.'&Itemid=28');
 
-        switch($user->usertype){
-          case 'Registered':
-          default:
-            $template_file='registered_profile.php';
-            break;
-
-          case 'Editor':
-            $template_file='editor_profile.php';
-            break;
-
-          case 'Author':
-            $template_file='author_profile.php';
-            break;
-
-          case 'Super Administrator':
-            $template_file='superadmin_profile.php';
-            break;
-        }
-
-        if(!is_file($mosConfig_absolute_path.'/components/com_user/view/profile/'.$template_file)){
-            $template_file='default.php';
-        }
+		//Шаблон
+		$template_file='default.php';
+		if(!$config->get('template')){			
+			if(is_file($mosConfig_absolute_path.'/components/com_user/view/profile/'.strtolower(str_replace(' ', '', $user->usertype )).'.php')){
+            	$template_file=strtolower(str_replace(' ', '', $user->usertype )).'.php';
+        	}	
+		}
 
         //Определяем плагин
         $view=mosGetParam( $_REQUEST, 'view', '' );
@@ -105,7 +90,7 @@ function profile($user,$option, &$params){
         include ($mosConfig_absolute_path.'/components/com_user/view/profile/'.$template_file);
     }
 
-	function userEdit($user,$option,$submitvalue,&$params) {
+	function userEdit($user,$option,$submitvalue,&$params, $config) {
 		global $mosConfig_absolute_path,$mosConfig_frontend_userparams,$mosConfig_live_site;
 		require_once ($mosConfig_absolute_path.'/includes/HTML_toolbar.php');
 		// used for spoof hardening
@@ -122,8 +107,16 @@ function profile($user,$option, &$params){
 
         define('_MALE', 'Мужской');
         define('_FEMALE', 'Женский');
+        
+		//Шаблон
+		$template_file='default.php';
+		if(!$config->get('template_edit')){			
+			if(is_file($mosConfig_absolute_path.'/components/com_user/view/edit/'.strtolower(str_replace(' ', '', $user->usertype )).'.php')){
+            	$template_file=strtolower(str_replace(' ', '', $user->usertype )).'.php';
+        	}	
+		}
 
-        include ($mosConfig_absolute_path.'/components/com_user/view/edit/default.php');
+        include ($mosConfig_absolute_path.'/components/com_user/view/edit/'.$template_file);
 
 	}
 

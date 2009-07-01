@@ -1,13 +1,14 @@
 <?php
 defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.' );
 
+
 ?>
  <script type="text/javascript">
 $(document).ready(function() {
    $(".jstProfile_menu > ul> li > a#user_<?php echo $view;?>_link").addClass("active");
 });
 </script>
-    <div class="componentheading"><h1 class="profile">Профиль пользователя</h1></div><br />
+    <div class="componentheading"><h1 class="profile"><?php echo $config->get('title');?></h1></div><br />
 
                     <div class="jstProfile">
 
@@ -30,8 +31,12 @@ $(document).ready(function() {
 
                     <div class="jstProfile_menu">
                         <ul class="menu_userInfo">
-                            <li><a href="<?php echo sefRelToAbs("index.php?option=com_user&task=profile&user=$user_id");?>" id="user_info_link">информация</a></li>
-                            <li><a href="<?php echo sefRelToAbs("index.php?option=com_user&task=profile&view=content&user=$user_id");?>" id="user_content_link">публикации</a></li>
+                            <li>
+								<a href="<?php echo sefRelToAbs("index.php?option=com_user&task=profile&user=$user_id");?>" id="user_info_link">информация</a>
+							</li>
+                            <li>
+								<a href="<?php echo sefRelToAbs("index.php?option=com_user&task=profile&view=content&user=$user_id");?>" id="user_content_link">публикации</a>
+							</li>
                         </ul>
                     </div>
 

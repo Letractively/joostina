@@ -114,7 +114,10 @@ function profile($option){
 
         $file = $mainframe->getPath('com_xml','com_users');
 	    $params = &new mosUserParameters($row->params,$file,'component');
-        HTML_user::profile($row,$option, $params);
+	    
+	    $config = new configUser_profile($database);
+	    
+        HTML_user::profile($row,$option, $params, $config);
     }else{
       echo 'Извините, пользователь не найден';
     }
@@ -124,19 +127,6 @@ function profile($option){
 function userEdit($option,$uid,$submitvalue) {
 	global $database,$mainframe;
 	global $mosConfig_absolute_path;
-
-	// security check to see if link exists in a menu
-	$link = 'index.php?option=com_user&task=UserDetails';
-	$query = "SELECT id"
-			."\n FROM #__menu"
-			."\n WHERE link LIKE '%$link%'"
-			."\n AND published = 1";
-	$database->setQuery($query);
-	$exists = $database->loadResult();
-	if(!$exists) {
-		mosNotAuth();
-		return;
-	}
 
 	require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_users/users.class.php');
 
@@ -158,8 +148,10 @@ function userEdit($option,$uid,$submitvalue) {
     $user_extra = new userUsersExtra($database);
     $user_extra->load((int)$uid);
     $user->user_extra = $user_extra;
-
-	HTML_user::userEdit($user,$option,$submitvalue,$params);
+	
+	$config = new configUser_profile($database);
+	
+	HTML_user::userEdit($user,$option,$submitvalue,$params, $config);
 }
 
 function userSave($option,$uid) {

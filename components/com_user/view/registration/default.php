@@ -61,9 +61,6 @@ $mainframe->SetPageTitle($params->get('title'));
 		
 		<table cellpadding="0" cellspacing="0" border="0" width="100%" class="contentpane">
 		<tr>
-			<td colspan="2"><?php echo _REGISTER_REQUIRED; ?></td>
-		</tr>
-		<tr>
 			<td width="30%"><?php echo _REGISTER_NAME; ?>*</td>
 			<td>
 				<input type="text" name="name" size="40" value="" class="inputbox" maxlength="50" />

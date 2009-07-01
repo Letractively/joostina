@@ -98,11 +98,13 @@ class configUser_registration extends dbConfig{
 	
 			}	
 		</script>
-        <h1 class="config">Пользователи: настройки регистрации</h1>
+		<table class="adminheading">
+			<tr><th class="config">Пользователи: настройки регистрации</th></tr>
+		</table>
 
         <form action="index2.php" method="post" name="adminForm">
 
-            <table class="paramslist">
+            <table class="paramlist">
                 <tr>
                     <th width="250">Заголовок страницы</th>
                     <td><input class="inputbox" type="text" name="title" value="<?php echo $this->title;?>" /></td>
@@ -156,5 +158,103 @@ class configUser_registration extends dbConfig{
 	}	
 }
 
+class configUser_profile extends dbConfig{
+    /**
+     * Заголовок страницы
+     */
+    var $title = 'Профиль пользователя';
+   
+    /**
+     * Использовать единый шаблон профиля для всех групп пользователей
+     * да - один шаблон (view/profile/default.php)
+     * нет - для каждой группы будет использован шаблон, имя которого формируется по следующему правилу:
+     * view/profile/название_группы_без_пробелов.php
+     * 
+     * ВНИМАНИЕ! Эти шаблоны Вы должны создать самостоятельно. Можете скопировать шаблон по-умолчанию и назвать
+     * его согласно вышеописанному правилу.
+     */
+    var $template = 1;
+    
+    /**
+     * Использовать единый шаблон редактирования данных для всех групп пользователей
+     * да - один шаблон (view/edit/default.php)
+     * нет - для каждой группы будет использован шаблон, имя которого формируется по следующему правилу:
+     * view/edit/название_группы_без_пробелов.php
+     * 
+     * ВНИМАНИЕ! Эти шаблоны Вы должны создать самостоятельно. Можете скопировать шаблон по-умолчанию и назвать
+     * его согласно вышеописанному правилу.
+     */
+    var $template_edit = 1;
+   
+
+    function configUser_profile(&$db, $group = 'com_user', $subgroup = 'profile')
+    {
+        $this->dbConfig($db, $group, $subgroup);
+    }
+	
+	function display_config($option){
+		global $acl;
+		
+		$gtree = $acl->get_group_children_tree(null,'USERS',false);
+		?>
+		<script language="javascript" type="text/javascript">
+			function submitbutton(pressbutton) {
+				var form = document.adminForm;
+				if (pressbutton == 'cancel') {
+					submitform( pressbutton );
+					return;
+				}
+
+					submitform( pressbutton );
+
+	
+			}	
+		</script>
+		<table class="adminheading">
+			<tr><th class="config">Пользователи: настройки профиля</th></tr>
+		</table>
+
+        <form action="index2.php" method="post" name="adminForm">
+
+            <table class="paramlist">
+                <tr>
+                    <th width="250">Заголовок страницы</th>
+                    <td><input class="inputbox" type="text" name="title" value="<?php echo $this->title;?>" /></td>
+                </tr>
+                
+                <tr>
+                    <th>Использовать единый шаблон профиля для всех групп пользователей</th>
+                    <td><?php echo mosHTML::yesnoRadioList('template','',$this->template ? 1:0);?></td>
+                </tr> 
+                
+                <tr>
+                    <th>Использовать единый шаблон редактирования данных для всех групп пользователей</th>
+                    <td><?php echo mosHTML::yesnoRadioList('template_edit','',$this->template_edit ? 1:0);?></td>
+                </tr> 
+                
+            </table>
+
+            <input type="hidden" name="option" value="<?php echo $option; ?>" />
+            <input type="hidden" name="act" value="profile" />
+		    <input type="hidden" name="task" value="save_config" />
+            <input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
+        </form>
+
+
+        <?php
+	}
+	
+	function save_config(){
+	    if (!$this->bindConfig($_REQUEST)) {
+        	echo "<script> alert('".$this->_error."'); window.history.go(-1); </script>";
+        	exit();
+    	}
+
+    	if (!$this->storeConfig()) {
+        	echo "<script> alert('".$this->_error."'); window.history.go(-1); </script>";
+        	exit();
+    	}	
+	}	
+}
 
 ?>
