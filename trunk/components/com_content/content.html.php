@@ -12,7 +12,7 @@ defined('_VALID_MOS') or die();
 
 ?>
 <script type="text/javascript">
-    var _com_content_url = '<?php echo $mosConfig_live_site;?>/components/com_content';
+    var _com_content_url = '<?php echo Jconfig::getInstance()->config_live_site;?>/components/com_content';
     var _comcontent_ajax_handler = 'ajax.index.php?option=com_content';
     var _comcontent_defines = new Array();
 </script>

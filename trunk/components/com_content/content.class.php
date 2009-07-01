@@ -1433,7 +1433,8 @@ class contentMeta
 
     function _meta_blog()
     {
-        global $mainframe, $mosConfig_MetaDesc, $mosConfig_MetaKeys;
+    	$mainframe = &mosMainFrame::getInstance();
+    	$config = &Jconfig::getInstance();
 
         if ($this->_params->menu)
         {
@@ -1460,14 +1461,14 @@ class contentMeta
             $mainframe->addMetaTag('description', $this->_params->get('meta_description'));
         } else
         {
-            $mainframe->addMetaTag('description', $mosConfig_MetaDesc);
+            $mainframe->addMetaTag('description', $config->config_MetaDesc);
         }
         if ($this->_params->get('meta_keywords') != "")
         {
             $mainframe->addMetaTag('keywords', $this->_params->get('meta_keywords'));
         } else
         {
-            $mainframe->addMetaTag('keywords', $mosConfig_MetaKeys);
+            $mainframe->addMetaTag('keywords', $config->config_MetaKeys);
         }
         if ($this->_params->get('meta_author') != "")
         {
@@ -1476,15 +1477,17 @@ class contentMeta
     }
     
     function _meta_item(){
-    	global $mainframe, $mosConfig_MetaDesc, $mosConfig_MetaKeys, $mosConfig_MetaTitle, $mosConfig_MetaAuthor;
+    	$mainframe = &mosMainFrame::getInstance();
+    	$config = &Jconfig::getInstance();
+
     	$row = $this->_params->object;
     	
 		$mainframe->setPageTitle($row->title,$this->_params);
 
-		if($mosConfig_MetaTitle == '1') {
+		if($config->config_MetaTitle == '1') {
 			$mainframe->addMetaTag('title',$row->title);
 		}
-		if($mosConfig_MetaAuthor == '1') {
+		if($config->config_MetaAuthor == '1') {
 			if($row->created_by_alias != "") {
 				$mainframe->addMetaTag('author',$row->created_by_alias);
 			} else {
@@ -1522,9 +1525,8 @@ class contentVoiting
 
     function _construct_sql()
     {
-        global $mainframe;
 
-        $voting = ($this->active ? $this->active : $mainframe->getCfg('vote'));
+        $voting = ($this->active ? $this->active : mosMainFrame::getInstance()->getCfg('vote'));
 
         if ($voting)
         {
@@ -1543,8 +1545,7 @@ class contentVoiting
 class contentHelper{
 	
 	function _load_core_js(){
-        global $mosConfig_live_site, $mainframe;
-        $mainframe->addJS($mosConfig_live_site.'/components/com_content/js/com_content.js','custom'); 
+        mosMainFrame::getInstance()->addJS(Jconfig::getInstance()->config_live_site.'/components/com_content/js/com_content.js','custom'); 
 	}
 }
 
@@ -1556,7 +1557,8 @@ class contentSqlHelper
     */
     function construct_where_blog($type = 1, $obj = null, $access, $params = null)
     {
-        global $database, $mainframe, $mosConfig_disable_date_state, $mosConfig_disable_access_control, $my;
+        $database = &database::getInstance();
+		global $mosConfig_disable_date_state, $mosConfig_disable_access_control, $my;
 
 
         $id = 0;
@@ -1566,7 +1568,7 @@ class contentSqlHelper
         }
 
         $gid = $my->gid;
-        $noauth = !$mainframe->getCfg('shownoauth');
+        $noauth = !mosMainFrame::getInstance()->getCfg('shownoauth');
         $nullDate = $database->getNullDate();
         $now = _CURRENT_SERVER_TIME;
         $where = array();
