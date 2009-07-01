@@ -1984,7 +1984,7 @@ class JConfig {
 	/** @var int использование неопубликованных мамботов */
 	var $config_use_unpublished_mambots = 1;
 	/** @var int использование мамботов удаления содержимого */
-	var $config_use_content_delete_mambots = 1;
+	var $config_use_content_delete_mambots = 0;
 	/** @var str название шаблона панели управления */
 	var $config_admin_template = '...';
 	/** @var int режим сортировки содержимого в панели управления */
@@ -1993,7 +1993,10 @@ class JConfig {
 	var $config_admin_content_order_sort = 0;
 	/** @var int активация блокировок компонентов */
 	var $config_components_access = 0;
-
+	/** @var int использование мамботов редактирования содержимого */
+	var $config_use_content_edit_mambots = 0;
+	/** @var int использование мамботов сохранения содержимого */
+	var $config_use_content_save_mambots = 0;
 
 	// инициализация класса конфигурации - собираем переменные конфигурации
 	function JConfig(){

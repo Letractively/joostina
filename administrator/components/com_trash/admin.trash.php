@@ -160,15 +160,16 @@ function viewdeleteTrash($cid,$mid,$option) {
 * Permanently deletes the selected list of trash items
 */
 function deleteTrash($cid,$option) {
-	global $_MAMBOTS;
 	josSpoofCheck();
+
+	$database = &database::getInstance();
+	$config = &Jconfig::getInstance();
 
 	$type = mosGetParam($_POST,'type',array(0));
 	$total = count($cid);
 
-	$database = &database::getInstance();
-
 	if(Jconfig::getInstance()->config_use_content_delete_mambots) {
+		global $_MAMBOTS;
 		$_MAMBOTS->loadBotGroup('content');
 	}
 
@@ -178,7 +179,7 @@ function deleteTrash($cid,$option) {
 		foreach($cid as $id) {
 			$id = intval($id);
 			// обработка мамботами удаления содержимого
-			$_MAMBOTS->trigger('onDeleteContent',array($id));
+			$config->config_use_content_delete_mambots ? $_MAMBOTS->trigger('onDeleteContent',array($id)) : null;
 			$obj->delete($id);
 			$fp->delete($id);
 		}
@@ -200,11 +201,10 @@ function deleteTrash($cid,$option) {
 *
 */
 function clearTrash() {
-	global $_MAMBOTS;
-
 	josSpoofCheck();
 
 	$database = &database::getInstance();
+	$config = &Jconfig::getInstance();
 
 	// выбираем из таблицы содержимого записи помеченные как удалённые
 	$sql_content = 'SELECT id FROM #__content WHERE state="-2" ';
@@ -216,16 +216,17 @@ function clearTrash() {
 	// создаём объекты содержимого и главной страницы
 	$obj = new mosContent($database);
 	$fp = new mosFrontPage($database);
-	// перебирая по циклу элементы помеченные как удалённые произведём их физическое удаление
 
-	if(Jconfig::getInstance()->config_use_content_delete_mambots) {
+	if($config->config_use_content_delete_mambots) {
+		global $_MAMBOTS;
 		$_MAMBOTS->loadBotGroup('content');
 	}
 
+	// перебирая по циклу элементы помеченные как удалённые произведём их физическое удаление
 	foreach($cid as $id) {
 		$id = intval($id);
 		// обработка мамботами удаления содержимого
-		$_MAMBOTS->trigger('onDeleteContent',array($id));
+		$config->config_use_content_delete_mambots ? $_MAMBOTS->trigger('onDeleteContent',array($id)) : null;
 		$obj->delete($id);
 		$fp->delete($id);
 	}
@@ -250,7 +251,8 @@ function clearTrash() {
 * Compiles a list of the items you have selected to permanently delte
 */
 function viewrestoreTrash($cid,$mid,$option) {
-	global $database;
+	$database = &database::getInstance();
+
 	if(!in_array(0,$cid)) {
 		// Content Items query
 		mosArrayToInts($cid);
@@ -283,8 +285,9 @@ function viewrestoreTrash($cid,$mid,$option) {
 * Restores items selected to normal - restores to an unpublished state
 */
 function restoreTrash($cid,$option) {
-	global $database;
 	josSpoofCheck();
+
+	$database = &database::getInstance();
 
 	$type = mosGetParam($_POST,'type',array(0));
 
@@ -315,7 +318,7 @@ function restoreTrash($cid,$option) {
 
 				// check if menu item is a child item
 				if($row->parent != 0) {
-					$query = "SELECT id"."\n FROM #__menu"
+					$query = "SELECT id FROM #__menu"
 							."\n WHERE id = ".(int)$row->parent
 							."\n AND ( published = 0 OR published = 1 )";
 					$database->setQuery($query);
