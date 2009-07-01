@@ -1710,9 +1710,9 @@ class mosMainFrame {
 
 	function check_option($option){
 		if($option=='com_content') return true;
-		$sql = 'SELECT access FROM #__components WHERE #__components.option=\''.$option.'\'';
+		$sql = 'SELECT menuid FROM #__components WHERE #__components.option=\''.$option.'\'';
 		$this->_db->setQuery($sql);
-		$this->_db->loadResult() ? null : mosRedirect($this->getCfg('live_site'));
+		($this->_db->loadResult()==0) ? null : mosRedirect($this->getCfg('live_site'));
 	}
 
 }
@@ -2209,10 +2209,9 @@ class mosModule extends mosDBTable {
 		return $module_obj;
 	}
 	
-    function set_template($params)
-    {
+    function set_template($params){
     	$mainframe = &mosMainFrame::getInstance();
-    	
+    	$config = &Jconfig::getInstance();
     	
     	if($params->get('template', '') == ''){
     		return false;
@@ -2228,14 +2227,14 @@ class mosModule extends mosDBTable {
 		}
 		
 		if($params->get('template')){
-  			if (is_file(Jconfig::getInstance()->config_absolute_path . '/' . $template_dir . '/' . $params->get('template')))
+  			if (is_file($config->config_absolute_path . '/' . $template_dir . '/' . $params->get('template')))
                 { 
-                    $this->template = Jconfig::getInstance()->config_absolute_path . '/' . $template_dir . '/' . $params->get('template');
+                    $this->template = $config->config_absolute_path . '/' . $template_dir . '/' . $params->get('template');
                     return true;
                 }
-     		else if (is_file(Jconfig::getInstance()->config_absolute_path . '/' . $default_template))
+     		else if (is_file($config->config_absolute_path . '/' . $default_template))
                 {
-                    $this->template = Jconfig::getInstance()->config_absolute_path . '/' . $default_template;
+                    $this->template = $config->config_absolute_path . '/' . $default_template;
                     return true;
                 }
 				
@@ -2288,7 +2287,7 @@ class mosComponent extends mosDBTable {
 	@var string*/
 	var $params = null;
 	/*@var int права доступа к компоненту */
-	var $access = null;
+	#var $access = null;
 
 	/**
 	* @param database A database connector object

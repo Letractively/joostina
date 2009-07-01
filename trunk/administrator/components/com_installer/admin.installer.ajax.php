@@ -27,25 +27,22 @@ switch($task) {
 }
 
 function x_publish($id = null) {
-
-	$database = database::getInstance();
+	$database = &database::getInstance();
 
 	if(!$id) return 'error-id';
 
-	$query = "SELECT access FROM #__components WHERE id = ".(int)$id;
+	$query = "SELECT menuid FROM #__components WHERE id = ".(int)$id;
 	$database->setQuery($query);
 	$state = $database->loadResult();
 
-	if($state == '1') {
+	if($state == 0) {
 		$ret_img = 'publish_x.png';
-		$state = '0';
+		$state = 1;
 	} else {
 		$ret_img = 'publish_g.png';
-		$state = '1';
+		$state = 0;
 	}
-	$query = "UPDATE #__components"
-			."\n SET access = ".(int)$state
-			."\n WHERE id = ".$id;
+	$query = "UPDATE #__components SET menuid = ".(int)$state." WHERE id = ".$id;
 	$database->setQuery($query);
 	if(!$database->query()) {
 		return 'error-db';

@@ -118,52 +118,38 @@ CREATE TABLE `#__components` (
   `admin_menu_img` varchar(255) NOT NULL default '',
   `iscore` tinyint(4) NOT NULL default '0',
   `params` text NOT NULL,
-  `access` smallint(1) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
-
-#
-# Данные таблицы `#__components_params`
-#
-
-#CREATE TABLE `#__components_params` (
-#  `id` bigint(20) unsigned NOT NULL auto_increment,
-#  `component` varchar(50) NOT NULL default '',
-#  `params` blob NOT NULL,
-#  PRIMARY KEY  (`id`)
-#) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci ;
 
 #
 # Данные таблицы `#__components`
 #
 
-INSERT INTO `#__components` VALUES (1, 'Баннеры', '', 0, 0, 'option=com_banners', 'Управление баннерами', 'com_banners', 0, 'js/ThemeOffice/component.png', 0, '',1);
-INSERT INTO `#__components` VALUES (2, 'Баннеры', '', 0, 1, 'option=com_banners&task=banners', 'Активные баннеры', 'com_banners', 1, 'js/ThemeOffice/edit.png', 0, '',1);
-INSERT INTO `#__components` VALUES (3, 'Клиенты', '', 0, 1, 'option=com_banners&task=clients', 'Управление клиентами', 'com_banners', 2, 'js/ThemeOffice/categories.png', 0, '',1);
-INSERT INTO `#__components` VALUES (25, 'Категории', '', 0, 1, 'option=com_banners&task=categories', 'Управление категориями', 'com_banners', 2, 'js/ThemeOffice/categories.png', 0, '',1);
-INSERT INTO `#__components` VALUES (4, 'Каталог ссылок', 'option=com_weblinks', 0, 0, '', 'Управление ссылками', 'com_weblinks', 0, 'js/ThemeOffice/globe2.png', 0, '',1);
-INSERT INTO `#__components` VALUES (5, 'Ссылки', '', 0, 4, 'option=com_weblinks', 'Просмотр существующих ссылок', 'com_weblinks', 1, 'js/ThemeOffice/edit.png', 0, '',1);
-INSERT INTO `#__components` VALUES (6, 'Категории', '', 0, 4, 'option=categories&section=com_weblinks', 'Управление категориями ссылок', '', 2, 'js/ThemeOffice/categories.png', 0, '',1);
-INSERT INTO `#__components` VALUES (7, 'Контакты', 'option=com_contact', 0, 0, '', 'Редактировать контактную информацию', 'com_contact', 0, 'js/ThemeOffice/user.png', 1, '',1);
-INSERT INTO `#__components` VALUES (8, 'Контакты', '', 0, 7, 'option=com_contact', 'Редактировать контактную информацию', 'com_contact', 0, 'js/ThemeOffice/edit.png', 1, '',1);
-INSERT INTO `#__components` VALUES (9, 'Категории', '', 0, 7, 'option=categories&section=com_contact_details', 'Управление категориями контактов', '', 2, 'js/ThemeOffice/categories.png', 1, '',1);
-INSERT INTO `#__components` VALUES (10, 'Главная страница', 'option=com_frontpage', 0, 0, '', 'Управление объектами главной страницы', 'com_frontpage', 0, 'js/ThemeOffice/component.png', 1, '',1);
-INSERT INTO `#__components` VALUES (11, 'Опросы', 'option=com_poll', 0, 0, 'option=com_poll', 'Управление опросами', 'com_poll', 0, 'js/ThemeOffice/component.png', 0, '',1);
-INSERT INTO `#__components` VALUES (12, 'Ленты новостей', 'option=com_newsfeeds', 0, 0, '', 'Управление настройками лент новостей', 'com_newsfeeds', 0, 'js/ThemeOffice/rss_go.png', 0, '',1);
-INSERT INTO `#__components` VALUES (13, 'Ленты новостей', '', 0, 12, 'option=com_newsfeeds', 'Управление лентами новостей', 'com_newsfeeds', 1, 'js/ThemeOffice/edit.png', 0, '',1);
-INSERT INTO `#__components` VALUES (14, 'Категории', '', 0, 12, 'option=com_categories&section=com_newsfeeds', 'Управление категориями', '', 2, 'js/ThemeOffice/categories.png', 0, '',1);
-INSERT INTO `#__components` VALUES (15, 'Авторизация', 'option=com_login', 0, 0, '', '', 'com_login', 0, '', 1, '',1);
-INSERT INTO `#__components` VALUES (16, 'Поиск', 'option=com_search', 0, 0, '', '', 'com_search', 0, '', 1, '',1);
-INSERT INTO `#__components` VALUES (17, 'RSS экспорт', '', 0, 0, 'option=com_syndicate&hidemainmenu=1', 'Управление настройками экспорта новостей', 'com_syndicate', 0, 'js/ThemeOffice/rss.png', 0, '',1);
-INSERT INTO `#__components` VALUES (18, 'Рассылка почты', '', 0, 0, 'option=com_massmail&hidemainmenu=1', 'Массовая рассылка почты', 'com_massmail', 0, 'js/ThemeOffice/mass_email.png', 0, '',1);
-INSERT INTO `#__components` VALUES (19, 'Визуальный редактор', 'option=com_jce', 0, 0, 'option=com_jce', 'Визуальный редактор JCE', 'com_jce', 0, 'js/ThemeOffice/editor_on.png', 0, '',1);
-INSERT INTO `#__components` VALUES (20, 'Настройки', '', 0, 19, 'option=com_jce&task=config', 'Настройки редактора JCE', 'com_jce', 0, 'js/ThemeOffice/controlpanel.png', 0, '',1);
-INSERT INTO `#__components` VALUES (21, 'Языки интерфейса', '', 0, 19, 'option=com_jce&task=lang', 'Языки интерфейса JCE', 'com_jce', 1, 'js/ThemeOffice/language.png', 0, '',1);
-INSERT INTO `#__components` VALUES (22, 'Расширения', '', 0, 19, 'option=com_jce&task=showplugins', 'Расширения JCE', 'com_jce', 2, 'js/ThemeOffice/add_section.png', 0, '',1);
-INSERT INTO `#__components` VALUES (23, 'Расположение кнопок', '0', 0, 19, 'option=com_jce&task=editlayout', 'Расположение кнопок JCE', 'com_jce', 3, 'js/ThemeOffice/content.png', 0, '',1);
-INSERT INTO `#__components` VALUES (24, 'Карта сайта', 'option=com_xmap', 0, 0, 'option=com_xmap', '', 'com_xmap', 0, 'js/ThemeOffice/map.png', 0, '',1);
-
-
+INSERT INTO `#__components` VALUES (1, 'Баннеры', '', 0, 0, 'option=com_banners', 'Управление баннерами', 'com_banners', 0, 'js/ThemeOffice/component.png', 0, '');
+INSERT INTO `#__components` VALUES (2, 'Баннеры', '', 0, 1, 'option=com_banners&task=banners', 'Активные баннеры', 'com_banners', 1, 'js/ThemeOffice/edit.png', 0, '');
+INSERT INTO `#__components` VALUES (3, 'Клиенты', '', 0, 1, 'option=com_banners&task=clients', 'Управление клиентами', 'com_banners', 2, 'js/ThemeOffice/categories.png', 0, '');
+INSERT INTO `#__components` VALUES (25, 'Категории', '', 0, 1, 'option=com_banners&task=categories', 'Управление категориями', 'com_banners', 2, 'js/ThemeOffice/categories.png', 0, '');
+INSERT INTO `#__components` VALUES (4, 'Каталог ссылок', 'option=com_weblinks', 0, 0, '', 'Управление ссылками', 'com_weblinks', 0, 'js/ThemeOffice/globe2.png', 0, '');
+INSERT INTO `#__components` VALUES (5, 'Ссылки', '', 0, 4, 'option=com_weblinks', 'Просмотр существующих ссылок', 'com_weblinks', 1, 'js/ThemeOffice/edit.png', 0, '');
+INSERT INTO `#__components` VALUES (6, 'Категории', '', 0, 4, 'option=categories&section=com_weblinks', 'Управление категориями ссылок', '', 2, 'js/ThemeOffice/categories.png', 0, '');
+INSERT INTO `#__components` VALUES (7, 'Контакты', 'option=com_contact', 0, 0, '', 'Редактировать контактную информацию', 'com_contact', 0, 'js/ThemeOffice/user.png', 1, '');
+INSERT INTO `#__components` VALUES (8, 'Контакты', '', 0, 7, 'option=com_contact', 'Редактировать контактную информацию', 'com_contact', 0, 'js/ThemeOffice/edit.png', 1, '');
+INSERT INTO `#__components` VALUES (9, 'Категории', '', 0, 7, 'option=categories&section=com_contact_details', 'Управление категориями контактов', '', 2, 'js/ThemeOffice/categories.png', 1, '');
+INSERT INTO `#__components` VALUES (10, 'Главная страница', 'option=com_frontpage', 0, 0, '', 'Управление объектами главной страницы', 'com_frontpage', 0, 'js/ThemeOffice/component.png', 1, '');
+INSERT INTO `#__components` VALUES (11, 'Опросы', 'option=com_poll', 0, 0, 'option=com_poll', 'Управление опросами', 'com_poll', 0, 'js/ThemeOffice/component.png', 0, '');
+INSERT INTO `#__components` VALUES (12, 'Ленты новостей', 'option=com_newsfeeds', 0, 0, '', 'Управление настройками лент новостей', 'com_newsfeeds', 0, 'js/ThemeOffice/rss_go.png', 0, '');
+INSERT INTO `#__components` VALUES (13, 'Ленты новостей', '', 0, 12, 'option=com_newsfeeds', 'Управление лентами новостей', 'com_newsfeeds', 1, 'js/ThemeOffice/edit.png', 0, '');
+INSERT INTO `#__components` VALUES (14, 'Категории', '', 0, 12, 'option=com_categories&section=com_newsfeeds', 'Управление категориями', '', 2, 'js/ThemeOffice/categories.png', 0, '');
+INSERT INTO `#__components` VALUES (15, 'Авторизация', 'option=com_login', 0, 0, '', '', 'com_login', 0, '', 1, '');
+INSERT INTO `#__components` VALUES (16, 'Поиск', 'option=com_search', 0, 0, '', '', 'com_search', 0, '', 1, '');
+INSERT INTO `#__components` VALUES (17, 'RSS экспорт', '', 0, 0, 'option=com_syndicate&hidemainmenu=1', 'Управление настройками экспорта новостей', 'com_syndicate', 0, 'js/ThemeOffice/rss.png', 0, '');
+INSERT INTO `#__components` VALUES (18, 'Рассылка почты', '', 0, 0, 'option=com_massmail&hidemainmenu=1', 'Массовая рассылка почты', 'com_massmail', 0, 'js/ThemeOffice/mass_email.png', 0, '');
+INSERT INTO `#__components` VALUES (19, 'Визуальный редактор', 'option=com_jce', 0, 0, 'option=com_jce', 'Визуальный редактор JCE', 'com_jce', 0, 'js/ThemeOffice/editor_on.png', 0, '');
+INSERT INTO `#__components` VALUES (20, 'Настройки', '', 0, 19, 'option=com_jce&task=config', 'Настройки редактора JCE', 'com_jce', 0, 'js/ThemeOffice/controlpanel.png', 0, '');
+INSERT INTO `#__components` VALUES (21, 'Языки интерфейса', '', 0, 19, 'option=com_jce&task=lang', 'Языки интерфейса JCE', 'com_jce', 1, 'js/ThemeOffice/language.png', 0, '');
+INSERT INTO `#__components` VALUES (22, 'Расширения', '', 0, 19, 'option=com_jce&task=showplugins', 'Расширения JCE', 'com_jce', 2, 'js/ThemeOffice/add_section.png', 0, '');
+INSERT INTO `#__components` VALUES (23, 'Расположение кнопок', '0', 0, 19, 'option=com_jce&task=editlayout', 'Расположение кнопок JCE', 'com_jce', 3, 'js/ThemeOffice/content.png', 0, '');
+INSERT INTO `#__components` VALUES (24, 'Карта сайта', 'option=com_xmap', 0, 0, 'option=com_xmap', '', 'com_xmap', 0, 'js/ThemeOffice/map.png', 0, '');
 
 #
 # Структура таблицы `#__contact_details`
