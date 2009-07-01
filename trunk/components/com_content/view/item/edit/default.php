@@ -63,15 +63,17 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
 
 
 		<form action="index.php" id="addContent" onSubmit="javascript:setgood();" method="post" name="adminForm" enctype="multipart/form-data">
-        <div class="componentheading"><?php echo $row->id ?   '&nbsp;'.$params->get('form_title_edit',_E_EDIT):  '&nbsp;'.$params->get('form_title_add',_E_ADD ); ?></div>
+        <div class="componentheading"><?php echo $row->id ? '&nbsp;'.$params->get('form_title_edit',_E_EDIT):  '&nbsp;'.$params->get('form_title_add',_E_ADD ); ?></div>
 
-        <?php if ($row->id && $allow_info){  ?>
+        <?php if ($row->id && $allow_info){ ?>
         <div class="info">
-            <strong><?php echo _E_EXPIRES ;?></strong><?php echo $row->publish_down;?>
-            <strong><?php echo _E_VERSION ;?></strong><?php echo $row->version;?>
-            <strong><?php echo _E_CREATED ;?></strong><?php echo $row->created;?>
-            <strong><?php echo _E_LAST_MOD ;?></strong><?php echo $row->modified;?>
-            <strong><?php echo _E_HITS ;?></strong><?php echo $row->hits;?>
+            <strong><?php echo _E_EXPIRES ;?></strong> <?php echo $row->publish_down;?>
+            <strong><?php echo _E_VERSION ;?></strong> <?php echo $row->version;?>
+            <strong><?php echo _E_CREATED ;?></strong> <?php echo $row->created;?>
+            <?php if($row->modified){?>
+				<strong><?php echo _E_LAST_MOD ;?></strong> <?php echo $row->modified;?>
+			<?php } ?>
+			<strong><?php echo _E_HITS ;?></strong> <?php echo $row->hits;?>
 
         </div>
         <?php }?>
@@ -86,7 +88,7 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
             <tr>
 
                 <?php if($access->canPublish || $auto_publish==1 || $my->usertype=="Super Administrator"){?>
-                <td><b>Опубликовано:</b>&nbsp;&nbsp;</td><td><?php echo  mosHTML::yesnoRadioList('state','',$row->state);?></td>
+                <td><b><?php echo _CMN_PUBLISHED ?>:</b>&nbsp;&nbsp;</td><td><?php echo  mosHTML::yesnoRadioList('state','',$row->state);?></td>
                 <?php }?>
 
                 <?php if( $allow_frontpage==1 || $my->usertype=="Super Administrator") {?>
@@ -100,21 +102,21 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
 
          <table class="cedit_main" cellspacing="0" cellpadding="0" border="0" width="100%">
             <tr>
-                <td width="25"><strong>Заголовок:</strong></td>
+                <td width="25"><strong><?php echo _HEADER_TITLE?>:</strong></td>
                 <td><input class="inputbox required title" type="text" name="title" size="30" maxlength="255" style="width:99%" value="<?php echo $row->title; ?>" /></td>
             </tr>
 
              <?php if($allow_alias){?>
             <tr>
-                <td><strong>Псевдоним:</strong></td>
+                <td><strong><?php echo _ALIAS?>:</strong></td>
 				<td>
 					<input name="title_alias" type="text" class="inputbox" id="title_alias" value="<?php echo $row->title_alias; ?>" size="30" style="width:99%" maxlength="255" />
 				</td>
             </tr>
-             <?php }?>
+             <?php } ?>
 
                         <tr <?php echo $class;?>>
-                            <td><strong>Категория:</strong></td>
+                            <td><strong><?php echo _E_CATEGORY?>:</strong></td>
 				            <td> <?php  echo $lists['catid'];?>	</td>
                         </tr>
 

@@ -56,7 +56,7 @@ if(file_exists('../installation/index.php') && $_VERSION->SVN == 0) {
 $option = strtolower(strval(mosGetParam($_REQUEST,'option',null)));
 
 // mainframe - основная рабочая среда API, осуществляет взаимодействие с 'ядром'
-$mainframe = mosMainFrame::getInstance(true);
+$mainframe = &mosMainFrame::getInstance(true);
 
 if(isset($_POST['submit'])) {
 	$usrname	= stripslashes(mosGetParam($_POST,'usrname',null));

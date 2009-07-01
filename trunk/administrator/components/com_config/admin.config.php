@@ -548,6 +548,14 @@ function showconfig($option) {
 	// блокировка компонентов
 	$lists['components_access']= mosHTML::yesnoRadioList('config_components_access','class="inputbox"',$row->config_components_access);
 
+	// использование мамботов удаления содержимого
+	$lists['config_use_content_delete_mambots']= mosHTML::yesnoRadioList('config_use_content_delete_mambots','class="inputbox"',$row->config_use_content_delete_mambots);
+	// использование редактирования смодержимого
+	$lists['config_use_content_edit_mambots']= mosHTML::yesnoRadioList('config_use_content_edit_mambots','class="inputbox"',$row->config_use_content_edit_mambots);
+	// использование мамботов сохранения содержимого
+	$lists['config_use_content_save_mambots']= mosHTML::yesnoRadioList('config_use_content_save_mambots','class="inputbox"',$row->config_use_content_save_mambots);
+
+
 
 	HTML_config::showconfig($row,$lists,$option);
 }

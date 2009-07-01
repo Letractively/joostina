@@ -740,8 +740,8 @@ class HTML_content {
 										<br />
 										<?php echo $lists['imagelist']; ?>
 										<br />
-										<input class="button" type="button" value="Вверх" onclick="moveInList('adminForm','imagelist',adminForm.imagelist.selectedIndex,-1)" />
-										<input class="button" type="button" value="Вниз" onclick="moveInList('adminForm','imagelist',adminForm.imagelist.selectedIndex,+1)" />
+										<input class="button" type="button" value="<?php echo _TO_TOP?>" onclick="moveInList('adminForm','imagelist',adminForm.imagelist.selectedIndex,-1)" />
+										<input class="button" type="button" value="<?php echo _TO_BOTTOM?>" onclick="moveInList('adminForm','imagelist',adminForm.imagelist.selectedIndex,+1)" />
 									</div>
 								</td>
 							</tr>
@@ -829,22 +829,22 @@ class HTML_content {
 ?>
 					<table class="adminform">
 					<tr>
-						<td><?php echo _CMN_DESCRIPTION?>:
-						<br />
-						<textarea class="text_area" cols="60" rows="8" style="width:98%" name="metadesc"><?php echo str_replace('&','&amp;',$row->metadesc); ?></textarea>
+							<td><?php echo _CMN_DESCRIPTION?>:
+							<br />
+							<textarea class="text_area" cols="60" rows="8" style="width:98%" name="metadesc"><?php echo str_replace('&','&amp;',$row->metadesc); ?></textarea>
 						</td>
 					</tr>
 					<tr>
 						<td>
-						<?php echo _E_M_KEY?>
-						<br />
-						<textarea class="text_area" cols="60" rows="8" style="width:98%" name="metakey" id="metakey"><?php echo str_replace('&','&amp;',$row->metakey); ?></textarea>
+							<?php echo _E_M_KEY?>
+							<br />
+							<textarea class="text_area" cols="60" rows="8" style="width:98%" name="metakey" id="metakey"><?php echo str_replace('&','&amp;',$row->metakey); ?></textarea>
 						</td>
 					</tr>
 					<tr>
 						<td>
-						<input type="button" class="button" value="Добавить (Раздел, Категорию, Заголовок)" onclick="f=document.adminForm;f.metakey.value=document.adminForm.sectionid.options[document.adminForm.sectionid.selectedIndex].text+', '+getSelectedText('adminForm','catid')+', '+f.title.value+', '+f.metakey.value;" />
-						<input type="button" class="button" value="Автоматически"onclick="return ch_metakey();" />
+							<input type="button" class="button" value="<?php echo _CC_ADD_S_C_T?>" onclick="f=document.adminForm;f.metakey.value=document.adminForm.sectionid.options[document.adminForm.sectionid.selectedIndex].text+', '+getSelectedText('adminForm','catid')+', '+f.title.value+', '+f.metakey.value;" />
+							<input type="button" class="button" value="<?php echo _CC_AUTO?>"onclick="return ch_metakey();" />
 						</td>
 					</tr>
 					<tr>
@@ -869,7 +869,7 @@ class HTML_content {
 				</tr>
 				<tr>
 					<td>&nbsp;</td>
-					<td><input name="menu_link" type="button" class="button" value="Связать с меню" onclick="submitbutton('menulink');" /></td>
+					<td><input name="menu_link" type="button" class="button" value="<?php echo _CC_LINK_TO_MENU?>" onclick="submitbutton('menulink');" /></td>
 				</tr>
 				<tr>
 					<th colspan="2"><?php echo _EXISTED_MENUITEMS?></th>
@@ -893,24 +893,19 @@ class HTML_content {
 		$tabs->endTab();
 		$tabs->startTab(_TEMPLATES,"template-page");
 ?>
-
-
- <table class="adminform">
-				<tr>
-					<th colspan="2">Шаблоны</th>
-				</tr>
-
-                 <?php
-                 $templates = new jstContentTemplate;
-                 $curr_templates = $templates->parse_curr_templates($row->templates); ?>
-
-                   	<tr>
-                   <td> Страница просмотра записи: </td>
-                   <td> <?php echo $templates->templates_select_list('item_full', $curr_templates); ?> </td>
-                    </tr>
-
-
-				</table>
+<table class="adminform">
+	<tr>
+		<th colspan="2"><?php echo _TEMPLATES?></th>
+	</tr>
+<?php
+	$templates = new jstContentTemplate;
+	$curr_templates = $templates->parse_curr_templates($row->templates);
+?>
+	<tr>
+		<td><?php echo _CC_PAGE_TEMPLATE?>: </td>
+		<td><?php echo $templates->templates_select_list('item_full', $curr_templates); ?> </td>
+	</tr>
+</table>
 <?php
 		$tabs->endTab();
 		$tabs->endPane();

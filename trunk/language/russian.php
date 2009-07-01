@@ -243,9 +243,9 @@ DEFINE('_E_M_DESC','Описание:');
 DEFINE('_E_M_KEY','Ключевые слова:');
 DEFINE('_E_SUBJECT','Тема:');
 DEFINE('_E_EXPIRES','Дата истечения:');
-DEFINE('_E_VERSION','Версия');
-DEFINE('_E_ABOUT','Об объекте');
-DEFINE('_E_CREATED','Дата создания');
+DEFINE('_E_VERSION','Версия:');
+DEFINE('_E_ABOUT','Об объекте:');
+DEFINE('_E_CREATED','Дата создания:');
 DEFINE('_E_LAST_MOD','Последнее изменение:');
 DEFINE('_E_HITS','Количество просмотров:');
 DEFINE('_E_SAVE','Сохранить');
@@ -257,7 +257,7 @@ DEFINE('_ITEM_PREVIOUS','&laquo; ');
 DEFINE('_ITEM_NEXT',' &raquo;');
 DEFINE('_KEY_NOT_FOUND','Ключ не найден');
 DEFINE('_TAGS','Тэги:');
-DEFINE('_TAGS_NOT_DEFINED','Не заданы');
+DEFINE('_TAGS_NOT_DEFINED','Тэги не указаны');
 
 
 /** content.php*/
@@ -2350,5 +2350,17 @@ DEFINE('_COM_USERS_USER_LOGED','Авторизован(а) на сайте');
 
 /* com_banners */
 DEFINE('_COM_BANNERS_NONE_ACCESS','Доступ не возможен');
+
+/* com_jwmmxtd */
+DEFINE('_JWMM_IMAGE_LINK','Путь к файлу:');
+DEFINE('_JWMM_IMAGE_HREF','Тэг-ссылка на файл:');
+DEFINE('_JWMM_IMAGE_TAG','Тэг вставки изображения:');
+
+/* com_content */
+DEFINE('_CC_CONFIG_SAVED','Конфигурация успешно сохранена');
+DEFINE('_CC_AUTO','Автоматически');
+DEFINE('_CC_ADD_S_C_T','Добавить (Раздел, Категорию, Заголовок)');
+DEFINE('_CC_LINK_TO_MENU','Связать с меню');
+DEFINE('_CC_PAGE_TEMPLATE','Страница просмотра записи');
 
 ?>

@@ -17,7 +17,7 @@ global $task,$Itemid,$option,$my;
 //Подключаем js com_content-а
 contentHelper::_load_core_js();
 
-$id	= intval(mosGetParam($_REQUEST,'id',0));
+$id = intval(mosGetParam($_REQUEST,'id',0));
 
 // cache activation
 $cache = &mosCache::getCache('com_content');
@@ -1548,6 +1548,13 @@ function editItem($task) {
 	}
     
 
+	// мамботы редждактирования
+	if($mainframe->getCfg('use_content_edit_mambots')){
+		global $_MAMBOTS;
+		$_MAMBOTS->loadBotGroup('content');
+		$_MAMBOTS->trigger('onEditContent',array($row));
+	}
+
 	HTML_content::editContent($row,$page,$task);
 }
 
@@ -1564,11 +1571,11 @@ function saveContent($task) {
 	// simple spoof check security
 	josSpoofCheck();
 	
- 	//права доступа
-    $access = new contentAccess();
+	//права доступа
+	$access = new contentAccess();
 
 	$nullDate = $database->getNullDate();
-    $row = new mosContent($database);
+	$row = new mosContent($database);
 
 	if(!$row->bind($_POST)) {
 		echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
@@ -1651,6 +1658,14 @@ function saveContent($task) {
     $row->metakey = implode(',', $tags);
 
 	$row->version++;
+
+	// мамботы сохранения
+	if($mainframe->getCfg('use_content_save_mambots')){
+		global $_MAMBOTS;
+		$_MAMBOTS->loadBotGroup('content');
+		$_MAMBOTS->trigger('onSaveContent',array($row));
+	}
+
 	if(!$row->store()) {
 		echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
 		exit();

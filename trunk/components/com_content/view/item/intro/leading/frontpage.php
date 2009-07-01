@@ -75,10 +75,10 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
        
 		<?php if($params->get('view_tags')){ ?>
 	 		<?php if(isset($row->tags)){ ?>
-	           <span class="tags">Тэги: <?php echo $row->tags;?></span>
+	           <span class="tags"><?php echo _TAGS?> <?php echo $row->tags;?></span>
 	        <?php } else {
 	        	?>
-	        	<span class="tags">Тэги: не заданы</span>
+	        	<span class="tags"><?php echo _TAGS_NOT_DEFINED?></span>
 	        	<?php
 	        }?>	
 		<?php } ?>
