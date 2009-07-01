@@ -133,7 +133,7 @@ class FeedCreator extends HtmlDescribable {
 	var $xslStyleSheet = "";
 	var $items = array();
 	var $contentType = "application/xml";
-	var $encoding = "windows-1251";
+	var $encoding = "UTF-8";
 	var $additionalElements = array();
 	function addItem($item) {
 		$this->items[] = $item;
