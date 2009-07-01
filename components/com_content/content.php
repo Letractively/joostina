@@ -114,8 +114,11 @@ switch($task) {
 * Страница с перечнем материалов пользователя
 */
 function showUserItems() {
-	global $database, $mainframe, $Itemid, $my, $acl;
-
+	global $Itemid, $my, $acl;
+	
+	$mainframe = &mosMainFrame::getInstance();
+	$database = &database::getInstance();
+	
     $limit		= intval(mosGetParam($_REQUEST,'limit',0));
     $limitstart	= intval(mosGetParam($_REQUEST,'limitstart',0));
    
@@ -201,8 +204,15 @@ function showUserItems() {
 	HTML_content::showUserContent( $user_items, $access, $params, $pageNav, $lists, $params->get('orderby'));
 }
 
+/**
+ * Вывод главной страницы
+ * Компонент 'com_frontpage'
+ */
 function frontpage() {
-	global $database,$mainframe,$mosConfig_MetaDesc,$mosConfig_MetaKeys, $my;
+	global $my;
+	
+	$mainframe = &mosMainFrame::getInstance();
+	$database = &database::getInstance();
 
     $pop = intval(mosGetParam($_REQUEST,'pop',0));
     $limit		= intval(mosGetParam($_REQUEST,'limit',0));
@@ -238,9 +248,17 @@ function frontpage() {
 	BlogOutput($frontpage,$params,$access);
 }
 
-
+/**
+ * Вывод списка категорий раздела
+ * тип ссылки - таблица раздела
+ * 
+ * @param int The section id
+ */
 function showSectionCatlist($id) {
-	global $database,$mainframe,$Itemid, $my;
+	global $Itemid, $my;
+	
+	$mainframe = &mosMainFrame::getInstance();
+	$database = &database::getInstance();
 	
     if(!$id){
         $error = new errorCase(1);
@@ -293,15 +311,15 @@ function showSectionCatlist($id) {
 
 
 /**
-* @param int The category id
-* @param int The group id of the user
-* @param int The access level of the user
-* @param int The section id
-* @param int The number of items to dislpay
-* @param int The offset for pagination
-*/
+ * Вывод таблицы содержимого категории
+ * 
+ * @param int The category id
+ */
 function showTableCategory($id) {
-	global $database,$mainframe,$Itemid,$mosConfig_list_limit, $my;
+	global $Itemid,$mosConfig_list_limit, $my;
+	
+	$mainframe = &mosMainFrame::getInstance();
+	$database = &database::getInstance();
 
     $limit		= intval(mosGetParam($_REQUEST,'limit',0));
     $limitstart	= intval(mosGetParam($_REQUEST,'limitstart',0));    
@@ -402,9 +420,16 @@ function showTableCategory($id) {
 	
 }
 
-
+/**
+ * Вывод блога раздела
+ * 
+ * @param int The section id
+ */
 function showBlogSection($id = 0) {
-	global $database,$mainframe,$Itemid, $my;
+	global $Itemid, $my;
+	
+	$mainframe = &mosMainFrame::getInstance();
+	$database = &database::getInstance();
 
     $pop = intval(mosGetParam($_REQUEST,'pop',0));
     $limit		= intval(mosGetParam($_REQUEST,'limit',0));
@@ -473,8 +498,16 @@ function showBlogSection($id = 0) {
 	BlogOutput($section,$params,$access);
 }
 
+/**
+ * Вывод блога категории
+ * 
+ * @param int The category id
+ */
 function showBlogCategory($id = 0) {
-	global $database, $mainframe, $Itemid, $my;
+	global $Itemid, $my;
+	
+	$mainframe = &mosMainFrame::getInstance();
+	$database = &database::getInstance();
 
     $pop = intval(mosGetParam($_REQUEST,'pop',0));
     $limit		= intval(mosGetParam($_REQUEST,'limit',0));
@@ -549,8 +582,16 @@ function showBlogCategory($id = 0) {
 
 }
 
+/**
+ * Вывод архива раздела
+ * 
+ * @param int The section id
+ */
 function showArchiveSection($id = null) {
-	global $database, $mainframe, $Itemid, $my;
+	global $Itemid, $my;
+	
+	$mainframe = &mosMainFrame::getInstance();
+	$database = &database::getInstance();
 	
 	$year		= intval(mosGetParam($_REQUEST,'year',date('Y')));
 	$month		= intval(mosGetParam($_REQUEST,'month',date('m')));
@@ -624,9 +665,16 @@ function showArchiveSection($id = null) {
 
 }
 
-
+/**
+ * Вывод архива категории
+ * 
+ * @param int The category id
+ */
 function showArchiveCategory($id = 0) {
-	global $database, $mainframe, $Itemid, $my;
+	global $Itemid, $my;
+	
+	$mainframe = &mosMainFrame::getInstance();
+	$database = &database::getInstance();
 	
 	$year		= intval(mosGetParam($_REQUEST,'year',date('Y')));
 	$month		= intval(mosGetParam($_REQUEST,'month',date('m')));
@@ -726,7 +774,10 @@ function showArchiveCategory($id = 0) {
 
 
 function BlogOutput(&$obj,$params,&$access) {
-	global $mainframe,$Itemid,$task,$id,$option,$database,$mosConfig_live_site, $mosConfig_absolute_path, $my;
+	global $Itemid,$task,$id,$option,$mosConfig_live_site, $mosConfig_absolute_path, $my;
+	
+	$mainframe = &mosMainFrame::getInstance();
+	$database = &database::getInstance();
 
     $rows = $obj->content;
     $total = $obj->total;
@@ -979,18 +1030,22 @@ function BlogOutput(&$obj,$params,&$access) {
     include_once($template->template_file); 
 }
 
-
+/**
+ * Страница просмотра материала
+ * 
+ * @param int The item id
+ */
 function showFullItem($id) {
-	global $database,$mainframe,$mosConfig_disable_date_state,$mosConfig_disable_access_control;
-    global $task, $my;
+	global $mosConfig_disable_date_state,$mosConfig_disable_access_control, $task, $my;
+    
+   	$mainframe = &mosMainFrame::getInstance();
+	$database = &database::getInstance();
     
     $pop = intval(mosGetParam($_REQUEST,'pop',0));
     
     //права доступа
-    $access = new contentAccess();
-
-
-
+    $access = new contentAccess();    
+    
     $where = mosContent::_construct_where_for_fullItem($access);
     
     // voting control
@@ -1085,10 +1140,14 @@ function showFullItem($id) {
 	}
 }
 
-
+/**
+ * Вывод материала в блоге
+ */
 function _showItem($row,$params,$gid,&$access,$pop, $template='') {
-	global $database,$mainframe,$mosConfig_content_hits;
-	global $cache;
+	global $mosConfig_content_hits, $cache;
+	
+	$mainframe = &mosMainFrame::getInstance();
+	$database = &database::getInstance();
 
 	$noauth = !$mainframe->getCfg('shownoauth');
 
@@ -1177,12 +1236,16 @@ function _showItem($row,$params,$gid,&$access,$pop, $template='') {
 	$cache->call('HTML_content::show',$row,$params,$access,$page, $template);
 }
 
-
+/**
+ * редактирование материала
+ */
 function editItem($task) {
-	global $database,$my, $gid, $mainframe, $acl;
+	global $my, $gid, $acl;
 	global $mosConfig_absolute_path,$mosConfig_live_site,$mosConfig_offset;
-	// boston, при редактировании материала с фронта отключаем показ всех модулей - пользователю будет не повадно переходить по ссылкам без сохранения, и место освободим
 	global $mosConfig_module_on_edit_off;
+	
+	$mainframe = &mosMainFrame::getInstance();
+	$database = &database::getInstance();
 
     if($mosConfig_module_on_edit_off == 1) {
         $GLOBALS['_MOS_MODULES'] = '';
@@ -1490,12 +1553,14 @@ function editItem($task) {
 
 
 /**
-* Saves the content item an edit form submit
+* Сохранение материала
 */
 function saveContent($task) {
-	global $database,$mainframe,$my;
-	global $mosConfig_absolute_path,$mosConfig_offset,$Itemid;
+	global $my, $mosConfig_absolute_path,$mosConfig_offset,$Itemid;
 
+	$mainframe = &mosMainFrame::getInstance();
+	$database = &database::getInstance();
+	
 	// simple spoof check security
 	josSpoofCheck();
 	
@@ -1644,7 +1709,9 @@ function saveContent($task) {
 }
 
 function _after_create_content($row, $page){
-    global $my, $database, $mosConfig_absolute_path;
+    global $my,  $mosConfig_absolute_path;
+
+	$database = &database::getInstance();
 
 	// gets section name of item
 	$query = "SELECT s.title"
@@ -1737,10 +1804,11 @@ function _after_update_content($row, $page){
 
 /**
 * Cancels an edit operation
-* @param database A database connector object
 */
 function cancelContent() {
-	global $database,$my,$task;
+	global $my,$task;
+
+	$database = &database::getInstance();
 	
  	//права доступа
     $access = new contentAccess();
@@ -1772,10 +1840,11 @@ function cancelContent() {
 
 /**
 * Shows the email form for a given content item.
-* @param int The content item id
 */
 function emailContentForm($uid,$gid) {
-	global $database,$mosConfig_showEmail;
+	global $mosConfig_showEmail;
+
+	$database = &database::getInstance();
 
 	$id = intval(mosGetParam($_REQUEST,'id',0));
 	if($id) {
@@ -1854,11 +1923,12 @@ function emailContentForm($uid,$gid) {
 
 /**
 * Shows the email form for a given content item.
-* @param int The content item id
 */
 function emailContentSend($uid,$gid) {
-	global $database,$mainframe;
 	global $mosConfig_sitename,$mosConfig_showEmail;
+	
+	$mainframe = &mosMainFrame::getInstance();
+	$database = &database::getInstance();
 
 	$id = intval(mosGetParam($_REQUEST,'id',0));
 	if($id) {
