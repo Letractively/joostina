@@ -1710,9 +1710,10 @@ class mosMainFrame {
 
 	function check_option($option){
 		if($option=='com_content') return true;
-		$sql = 'SELECT menuid FROM #__components WHERE #__components.option=\''.$option.'\'';
+		$sql = 'SELECT menuid FROM #__components WHERE #__components.option=\''.$option.'\' AND parent=0';
 		$this->_db->setQuery($sql);
 		($this->_db->loadResult()==0) ? null : mosRedirect($this->getCfg('live_site'));
+		return true;
 	}
 
 }
