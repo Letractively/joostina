@@ -101,7 +101,7 @@ function logoutForm($params_aray){
    	}
 
     if($params_aray['ml_avatar']){
-		$avatar='<div class="mod_avatar"><img id="mod_avatar_img" src="'.$mosConfig_live_site.mosUser::avatar($my->id,'normal').'" alt="'.$my->name.'"/></div>';     } else {$avatar='';}
+		$avatar='<div class="mod_avatar"><img id="mod_avatar_img" src="'.$mosConfig_live_site.'/'.mosUser::get_avatar($my).'" alt="'.$my->name.'"/></div>';     } else {$avatar='';}
 
     ?>
 	<form action="<?php echo sefRelToAbs( 'index.php?option=logout' ); ?>" method="post" name="logout">
@@ -116,7 +116,9 @@ function logoutForm($params_aray){
 	?>
 	</div>
 
+	<span class="button">	
 		<input type="submit" name="Submit" id="logout_button" class="button<?php echo $params_aray['moduleclass_sfx']; ?>" value="<?php echo _BUTTON_LOGOUT; ?>" />
+	</span>
 
 	<input type="hidden" name="option" value="logout" />
 	<input type="hidden" name="op2" value="logout" />
@@ -238,7 +240,7 @@ function BuildLoginForm($params_aray, $orientation){
          $register_me ='';
      }
 
-     $submit_button='<input type="submit" name="Submit" class="button" id="login_button" value="'.$params_aray['submit_button_text'].'" /> ';
+     $submit_button='<span class="button"><input type="submit" name="Submit" class="button" id="login_button" value="'.$params_aray['submit_button_text'].'" /></span>';
 
      //Выводим форму
      echo '<div class="form_pretext">'.$params_aray['pretext'].'</div>';

@@ -27,7 +27,7 @@ class modules_html {
 	* Output Handling for Custom modules
 	*/
 	function module(&$module,&$params,$Itemid,$style = 0) {
-		global $_MAMBOTS;
+		global $_MAMBOTS, $database;
 
 		// custom module params
 		$moduleclass_sfx = $params->get('moduleclass_sfx');
@@ -50,7 +50,8 @@ class modules_html {
 			$results = $_MAMBOTS->trigger('onPrepareContent',array(&$row,&$params,0),true);
 
 			$module->content = $row->text;
-		}
+		}		
+
 
 		switch($style) {
 			case - 3:
@@ -104,7 +105,9 @@ class modules_html {
 		if($count > 0) {
 			$number = '<span>'.$count.'</span> ';
 		}
-
+		
+		$module = mosModule::convert_to_object($module);
+		
 		switch($style) {
 			case - 3:
 				// allows for rounded corners

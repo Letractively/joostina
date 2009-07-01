@@ -39,8 +39,6 @@ switch ($text_pos){
 
 }
 
-
-
 if ( $button_vis ) {
 	$button = '<input type="submit" value="'. $button_text .'" class="button'. $moduleclass_sfx .'"/>';
 }else{
@@ -87,10 +85,9 @@ if ( $set_Itemid ) {
 	$link		= 'index.php';
 	}
 }
-?>
 
-<form action="<?php echo $link; ?>" method="post">
-	<div class="search<?php echo $moduleclass_sfx; ?>"><?php echo $output; ?></div>
-	<input type="hidden" name="option" value="com_search" />
-	<input type="hidden" name="Itemid" value="<?php echo $_Itemid; ?>" />
-</form>
+//Подключаем шаблон
+if($module->set_template($params)){
+	$module->template;
+	require($module->template);	
+}

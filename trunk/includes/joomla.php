@@ -998,12 +998,13 @@ class mosMainFrame {
 		$user->usertype = $this->_session->usertype;
 		$user->gid = intval($this->_session->gid);
 		if($user->id) {
-			$query = "SELECT id, name, email, block, sendEmail, registerDate, lastvisitDate, activation, params FROM #__users WHERE id = ".(int)$user->id;
+			$query = "SELECT id, name, email, avatar, block, sendEmail, registerDate, lastvisitDate, activation, params FROM #__users WHERE id = ".(int)$user->id;
 			$database->setQuery($query);
 			$database->loadObject($my);
 			$user->params = $my->params;
 			$user->name = $my->name;
 			$user->email = $my->email;
+			$user->avatar = $my->avatar;
 			$user->block = $my->block;
 			$user->sendEmail = $my->sendEmail;
 			$user->registerDate = $my->registerDate;
@@ -2169,6 +2170,10 @@ class mosModule extends mosDBTable {
 	/**
 	@var string*/
 	var $client_id = null;
+	/**
+	@var string*/
+	var $template = null;
+
 
 	/**
 	* @param database A database connector object
@@ -2186,6 +2191,56 @@ class mosModule extends mosDBTable {
 
 		return true;
 	}
+	
+	function convert_to_object($module){
+		$database = &database::getInstance();
+		
+		$module_obj = new mosModule($database);
+		$rows = get_object_vars($module_obj);
+		foreach($rows as $key => $value){
+				if (isset($module->$key)) {
+					$module_obj->$key = $module->$key;	
+				}		
+		}
+		
+		return $module_obj;
+	}
+	
+    function set_template($params)
+    {
+    	$mainframe = &mosMainFrame::getInstance();
+    	
+    	
+    	if($params->get('template', '') == ''){
+    		return false;
+    	}
+
+		$default_template = 'modules/'.$this->module.'/view/default.php';
+		
+		if($params->get('template_dir',0) == 0){
+			$template_dir = 'modules/'.$this->module.'/view';	
+		}
+		else{
+			$template_dir = 'templates/' . $mainframe->getTemplate() . '/html/'.$this->module;	
+		}
+		
+		if($params->get('template')){
+  			if (is_file(Jconfig::getInstance()->config_absolute_path . '/' . $template_dir . '/' . $params->get('template')))
+                { 
+                    $this->template = Jconfig::getInstance()->config_absolute_path . '/' . $template_dir . '/' . $params->get('template');
+                    return true;
+                }
+     		else if (is_file(Jconfig::getInstance()->config_absolute_path . '/' . $default_template))
+                {
+                    $this->template = Jconfig::getInstance()->config_absolute_path . '/' . $default_template;
+                    return true;
+                }
+				
+		}
+		return false;
+		
+    }
+
 }
 
 /**
