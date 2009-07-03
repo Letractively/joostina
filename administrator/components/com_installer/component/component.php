@@ -54,12 +54,9 @@ function removeElement($client) {
 * @param string The URL option
 */
 function showInstalledComponents($option) {
+	$database = &database::getInstance();
 
-	$database = database::getInstance();
-
-	$query = "SELECT c.*, g.name AS groupname FROM #__components as c
-			LEFT JOIN #__groups AS g ON g.id = c.access
-			WHERE parent = 0 AND iscore = 0 ORDER BY name";
+	$query = "SELECT * FROM #__components WHERE parent = 0 AND iscore = 0 ORDER BY name";
 	$database->setQuery($query);
 	$rows = $database->loadObjectList();
 
@@ -112,7 +109,7 @@ function showInstalledComponents($option) {
 
 			$row->mosname = strtolower(str_replace(" ","_",$row->name));
 
-			$row->img  = ($row->access==1) ? 'publish_g.png':'publish_x.png';
+			$row->img = ($row->menuid ==0) ? 'publish_g.png':'publish_x.png';
 			unset($xmlDoc,$root,$element);
 		}
 	}

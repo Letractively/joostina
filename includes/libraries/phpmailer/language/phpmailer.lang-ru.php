@@ -28,4 +28,5 @@ $PHPMAILER_LANG["connect_host"] = 'SMTP Error: Could not connect to SMTP host.';
 $PHPMAILER_LANG["file_access"] = 'Нет доступа к файлу: ';
 $PHPMAILER_LANG["file_open"] = 'Ошибка работы с файлом: Невозможно открыть файл: ';
 $PHPMAILER_LANG["encoding"] = 'Неизвестная кодировка: ';
+$PHPMAILER_LANG["signing"] ='PHPMAILER_SIGNING'
 ?>

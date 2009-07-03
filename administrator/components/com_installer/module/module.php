@@ -10,23 +10,20 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-global $mainframe;
 require_once ($mainframe->getPath('installer_html','module'));
 require_once ($mainframe->getPath('installer_class','module'));
 
 switch($task) {
-	case 'remove':{
+	case 'remove':
 		removeElement($client);
 		js_menu_cache_clear();
 		break;
-		}
-	default:{
+
+	default:
 		showInstalledModules($option);
 		js_menu_cache_clear();
 		break;
-		}
 }
-//showInstalledModules($option);
 
 
 /**
@@ -52,7 +49,8 @@ function removeElement($client) {
 }
 
 function showInstalledModules($_option) {
-	global $database,$mosConfig_absolute_path;
+	$database = &database::getInstance();
+	$config = &Jconfig::getInstance();
 
 	$filter = mosGetParam($_POST,'filter','');
 	$select[] = mosHTML::makeOption('',_CMN_ALL);
@@ -69,7 +67,7 @@ function showInstalledModules($_option) {
 		$and = "\n AND client_id = 1";
 	}
 
-	$query = "SELECT id, module, client_id FROM #__modules WHERE module LIKE 'mod_%' AND iscore='0'".$and."\n GROUP BY module, client_id ORDER BY client_id, module";
+	$query = "SELECT id, module, client_id FROM #__modules WHERE module LIKE 'mod_%' AND iscore='0'".$and." GROUP BY module, client_id ORDER BY client_id, module";
 	$database->setQuery($query);
 	$rows = $database->loadObjectList();
 
@@ -79,13 +77,13 @@ function showInstalledModules($_option) {
 
 		// path to module directory
 		if($row->client_id == "1") {
-			$moduleBaseDir = mosPathName(mosPathName($mosConfig_absolute_path).ADMINISTRATOR_DIRECTORY."/modules");
+			$moduleBaseDir = mosPathName(mosPathName($config->config_absolute_path).ADMINISTRATOR_DIRECTORY.DS.'modules');
 		} else {
-			$moduleBaseDir = mosPathName(mosPathName($mosConfig_absolute_path)."modules");
+			$moduleBaseDir = mosPathName(mosPathName($config->config_absolute_path).'modules');
 		}
 
 		// xml file for module
-		$xmlfile = $moduleBaseDir."/".$row->module.".xml";
+		$xmlfile = $moduleBaseDir.DS.$row->module.".xml";
 
 		if(file_exists($xmlfile)) {
 			$xmlDoc = new DOMIT_Lite_Document();

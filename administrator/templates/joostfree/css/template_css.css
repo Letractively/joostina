@@ -867,7 +867,7 @@ form {
 
 div.page {
 	min-height: 100%;
-    	margin: 0 0 -34px 0;
+	margin: 0 0 -34px 0;
 }
 
 .quote {
@@ -906,7 +906,7 @@ span.editlinktip {
 	border: 0;
 	padding: 0;
 	overflow: visible;
-	border: 1px solid #b5b8c8;
+	border: 1px solid #cfd3e8;
 }
 .ThemeOfficeSubMenuTable {
 	overflow: visible;
@@ -916,6 +916,7 @@ span.editlinktip {
 }
 /* пункты главного меню */
 td.ThemeOfficeMainItem {
+width:1px;
 }
 /* стиль подпункта меню при наведении курсора */
 .ThemeOfficeMainItemHover, .ThemeOfficeMainItemActive {
@@ -982,6 +983,10 @@ tr.ThemeOfficeMainItem td.ThemeOfficeMainFolderText, tr.ThemeOfficeMainItem td.T
 	padding-right: 5px;
 	border: 0;
 	background-color: inherit;
+}
+.ThemeOfficeMainFolderText{
+	padding-left: 3px;
+	padding-right: 3px;
 }
 tr.ThemeOfficeMainItem td.ThemeOfficeMainItemRight, tr.ThemeOfficeMainItem td.ThemeOfficeMainFolderRight {
 	padding-top: 3px;
@@ -1089,4 +1094,29 @@ td.header_info img{
 	width:22px;
 	height:22px;
 	vertical-align: middle;
+}
+
+/* строка подпунктов меню компонента */
+#component_menu{
+	list-style: none;
+	background-color:#F1F3F5;
+	border-bottom:1px solid #CCCCCC;
+	height:25px;
+	margin: 0;
+	padding: 0 0 0 10px;
+}
+#component_menu li{
+	float: left;
+	list-style: none;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-top: 2px;
+	border-right: 2px dotted #CCCCCC;
+	height:25px;
+	vertical-align:middle;
+}
+#component_menu li img{
+	padding: 2px;
+	display: inline;
+	float:left;
 }

@@ -10,23 +10,19 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-global $mainframe;
 require_once ($mainframe->getPath('installer_html','template'));
 require_once ($mainframe->getPath('installer_class','template'));
 
 switch($task) {
-case 'remove':
-	{
+	case 'remove':
 		removeElement($client);
 		js_menu_cache_clear();
 		break;
-	}
-default:
-	{
+
+	default:
 		viewTemplates('com_installer',$client);
 		js_menu_cache_clear();
 		break;
-	}
 }
 
 /**
@@ -57,16 +53,16 @@ function removeElement($client) {
 * is ignored
 */
 function viewTemplates($option,$client) {
-	global $database,$mainframe;
-	global $mosConfig_absolute_path,$mosConfig_list_limit;
+	$mainframe = &mosMainFrame::getInstance(true);
+	$database = &database::getInstance();
 
-	$limit = $mainframe->getUserStateFromRequest('viewlistlimit','limit',$mosConfig_list_limit);
+	$limit = $mainframe->getUserStateFromRequest('viewlistlimit','limit',$mainframe->getCfg('list_limit'));
 	$limitstart = $mainframe->getUserStateFromRequest("view{$option}limitstart",'limitstart',0);
 
 	if($client == 'admin') {
-		$templateBaseDir = mosPathName($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/templates');
+		$templateBaseDir = mosPathName($mainframe->getCfg('absolute_path').DS.ADMINISTRATOR_DIRECTORY.DS.'templates');
 	} else {
-		$templateBaseDir = mosPathName($mosConfig_absolute_path.'/templates');
+		$templateBaseDir = mosPathName($mainframe->getCfg('absolute_path').DS.'templates');
 	}
 
 	$rows = array();
@@ -156,7 +152,7 @@ function viewTemplates($option,$client) {
 		}
 	}
 
-	require_once ($GLOBALS['mosConfig_absolute_path'].'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
+	require_once ($mainframe->getCfg('absolute_path').DS.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav(count($rows),$limitstart,$limit);
 
 	$rows = array_slice($rows,$pageNav->limitstart,$pageNav->limit);

@@ -45,7 +45,6 @@ function showconfig($option) {
 
 	// compile list of the languages
 	$langs = array();
-	$menuitems = array();
 	$lists = array();
 
 	// PRE-PROCESS SOME LISTS
@@ -73,23 +72,16 @@ function showconfig($option) {
 	$database->setQuery($query);
 	$edits = $database->loadObjectList();
 
-	// -- пункты меню --
-	$query = "SELECT id AS value, name AS text FROM #__menu"
-			."\n WHERE ( type='content_section' OR type='components' OR type='content_typed' )"
-			."\n AND published = 1"
-			."\n AND access = 0"
-			."\n ORDER BY name";
-	$database->setQuery($query);
-	$menuitems = array_merge($menuitems,$database->loadObjectList());
-
-	// НАСТРОЙКИ САЙТА
-	$lists['offline']= mosHTML::yesnoRadioList('config_offline','class="inputbox"',$row->config_offline);
-
 	if(!$row->config_editor) {
 		$row->config_editor = '';
 	}
 	// build the html select list
 	$lists['editor']= mosHTML::selectList($edits,'config_editor','class="inputbox" size="1"','value','text',$row->config_editor);
+
+
+	// НАСТРОЙКИ САЙТА
+	$lists['offline']= mosHTML::yesnoRadioList('config_offline','class="inputbox"',$row->config_offline);
+
 
 	$listLimit = array(
 		mosHTML::makeOption(5,5),
@@ -165,22 +157,22 @@ function showconfig($option) {
 	$lists['config_content_hits']= mosHTML::yesnoRadioList('config_content_hits','class="inputbox"',$row->config_content_hits);
 	// формат времени
 	$date_help = array(
-		mosHTML::makeOption('%d.%m.%Y г. %H:%M', strftime('%d.%m.%Y г. %H:%M') ),
-		mosHTML::makeOption('%d:%m:%Y г. %H:%M', strftime('%d:%m:%Y г. %H:%M') ),
-		mosHTML::makeOption('%d-%m-%Y г. %H-%M', strftime('%d-%m-%Y г. %H-%M') ),
-		mosHTML::makeOption('%d/%m/%Y г. %H/%M', strftime('%d/%m/%Y г. %H/%M') ),
+		mosHTML::makeOption('%d.%m.%Y '._COM_CONFIG_YEAR.' %H:%M', strftime('%d.%m.%Y '._COM_CONFIG_YEAR.' %H:%M') ),
+		mosHTML::makeOption('%d:%m:%Y '._COM_CONFIG_YEAR.' %H:%M', strftime('%d:%m:%Y '._COM_CONFIG_YEAR.' %H:%M') ),
+		mosHTML::makeOption('%d-%m-%Y '._COM_CONFIG_YEAR.' %H-%M', strftime('%d-%m-%Y '._COM_CONFIG_YEAR.' %H-%M') ),
+		mosHTML::makeOption('%d/%m/%Y '._COM_CONFIG_YEAR.' %H/%M', strftime('%d/%m/%Y '._COM_CONFIG_YEAR.' %H/%M') ),
 		mosHTML::makeOption('%d/%m/%Y %H/%M', strftime('%d/%m/%Y %H/%M') ),
 		mosHTML::makeOption('%d/%m/%Y', strftime('%d/%m/%Y') ),
 		mosHTML::makeOption('%d:%m:%Y', strftime('%d:%m:%Y') ),
 		mosHTML::makeOption('%d.%m.%Y', strftime('%d.%m.%Y') ),
-		mosHTML::makeOption('%d/%m/%Y г.', strftime('%d/%m/%Y г.') ),
-		mosHTML::makeOption('%d:%m:%Y г.', strftime('%d:%m:%Y г.') ),
-		mosHTML::makeOption('%d.%m.%Y г.', strftime('%d.%m.%Y г.') ),
+		mosHTML::makeOption('%d/%m/%Y '._COM_CONFIG_YEAR, strftime('%d/%m/%Y '._COM_CONFIG_YEAR) ),
+		mosHTML::makeOption('%d:%m:%Y '._COM_CONFIG_YEAR, strftime('%d:%m:%Y '._COM_CONFIG_YEAR) ),
+		mosHTML::makeOption('%d.%m.%Y '._COM_CONFIG_YEAR, strftime('%d.%m.%Y '._COM_CONFIG_YEAR) ),
 		mosHTML::makeOption('%H/%M', strftime('%H/%M') ),
 		mosHTML::makeOption('%H:%M', strftime('%H:%M') ),
-		mosHTML::makeOption('%H ч:%M м', strftime('%H ч:%M м') ),
-		mosHTML::makeOption('%A %d/%m/%Y г. %H/%M', strftime('%A %d/%m/%Y г. %H/%M') ),
-		mosHTML::makeOption('%d %B %Y', strftime('%d %B %Y') )
+		mosHTML::makeOption('%H '._COM_CONFIG_HOURS.'%M '._COM_CONFIG_MONTH, strftime('%H '._COM_CONFIG_HOURS.' %M '._COM_CONFIG_MONTH) ),
+		mosHTML::makeOption('%A %d/%m/%Y '._COM_CONFIG_YEAR.' %H/%M', Jstring::to_utf8(strftime('%A %d/%m/%Y '._COM_CONFIG_YEAR.' %H/%M')) ),
+		mosHTML::makeOption('%d %B %Y', Jstring::to_utf8(strftime('%d %B %Y')) )
 	);
 	$lists['form_date_help']= mosHTML::selectList($date_help,'config_form_date_h','class="inputbox" size="1" onchange="adminForm.config_form_date.value=this.value;"','value','text',$row->config_form_date);
 	// полный формат даты и времени
@@ -241,10 +233,12 @@ function showconfig($option) {
 	$lists['session_type']= mosHTML::selectList($session,'config_session_type','class="inputbox" size="1"','value','text',$row->config_session_type);
 
 	$errors = array(
-		mosHTML::makeOption(-1,'Настройки системы'),
-		mosHTML::makeOption(0,'Отсутствуют'),
-		mosHTML::makeOption(E_ERROR | E_WARNING | E_PARSE,'Простые'),
-		mosHTML::makeOption(E_ALL,'Максимум (все)'));
+		mosHTML::makeOption(-1,_COM_CONFIG_ERROR_SYSTEM),
+		mosHTML::makeOption(0,_COM_CONFIG_ERROR_HIDE),
+		mosHTML::makeOption(E_ERROR | E_WARNING | E_PARSE,_COM_CONFIG_ERROR_TINY),
+		mosHTML::makeOption(E_ALL,_COM_CONFIG_ERROR_ALL),
+		mosHTML::makeOption(E_ALL & ~E_NOTICE,_COM_CONFIG_ERROR_PARANOIDAL),
+	);
 
 	$lists['error_reporting']	= mosHTML::selectList($errors,'config_error_reporting','class="inputbox" size="1"','value','text',$row->config_error_reporting);
 
@@ -370,29 +364,30 @@ function showconfig($option) {
 	$lists['log_items']		= mosHTML::yesnoRadioList( 'config_enable_log_items', 'class="inputbox"', $row->config_enable_log_items );
 
 // НАСТРОЙКИ SEO
-	$lists['sef']				= mosHTML::yesnoRadioList( 'config_sef', 'class="inputbox" onclick="javascript: if (document.adminForm.config_sef[1].checked) { alert(\'Необходимо переименовать htaccess.txt в .htaccess\') }"', $row->config_sef );
+	$lists['sef']			= mosHTML::yesnoRadioList( 'config_sef', 'class="inputbox" onclick="javascript: if (document.adminForm.config_sef[1].checked) { alert(\'Необходимо переименовать htaccess.txt в .htaccess\') }"', $row->config_sef );
 	$lists['pagetitles']	= mosHTML::yesnoRadioList( 'config_pagetitles', 'class="inputbox"', $row->config_pagetitles );
 
 	$pagetitles_first = array(
-		mosHTML::makeOption( '0', 'Название сайта - Заголовок страницы' ),
-		mosHTML::makeOption( '1', 'Заголовок страницы - Название сайта (по умолчанию)' ),
-		mosHTML::makeOption( '2', 'Название сайта ( только )' ),
-		mosHTML::makeOption( '3', 'Заголовок страницы ( только )' ),
+		mosHTML::makeOption( 0, _COM_CONFIG_SEO_TYPE_1 ),
+		mosHTML::makeOption( 1, _COM_CONFIG_SEO_TYPE_2 ),
+		mosHTML::makeOption( 2, _COM_CONFIG_SEO_TYPE_3 ),
+		mosHTML::makeOption( 3, _COM_CONFIG_SEO_TYPE_4 ),
 	);
 	$lists['pagetitles_first']	= mosHTML::selectList( $pagetitles_first, 'config_pagetitles_first', 'class="inputbox" size="1"', 'value', 'text', $row->config_pagetitles_first );
 
 // НАСТРОЙКИ СОДЕРЖИМОГО
 	$author_name_type = array(
-		mosHTML::makeOption( '1', 'Имя-текст' ),
-		mosHTML::makeOption( '2', 'Ник-текст' ),
-		mosHTML::makeOption( '3', 'Имя-ссылка' ),
-		mosHTML::makeOption( '4', 'Ник-ссылка' ),
+		mosHTML::makeOption( 1, _COM_CONFIG_CC_NAME_TEXT ),
+		mosHTML::makeOption( 2, _COM_CONFIG_CC_LOGIN_TEXT ),
+		mosHTML::makeOption( 3, _COM_CONFIG_CC_NAME_LINK ),
+		mosHTML::makeOption( 4, _COM_CONFIG_CC_LIGIN_LINK ),
 	);
+	$lists['authorName']		= mosHTML::selectList( $author_name_type, 'config_author_name', 'class="inputbox" size="1"', 'value', 'text', $row->config_author_name );
+
 	$lists['link_titles']		= mosHTML::yesnoRadioList( 'config_link_titles', 'class="inputbox"', $row->config_link_titles );
 	$lists['readmore']			= mosHTML::yesnoRadioList('config_readmore', 'class="inputbox"', $row->config_readmore);
 	$lists['vote']				= mosHTML::yesnoRadioList('config_vote', 'class="inputbox"', $row->config_vote );
 	$lists['showAuthor']		= mosHTML::yesnoRadioList('config_showAuthor', 'class="inputbox"', $row->config_showAuthor );
-	$lists['authorName']		= mosHTML::selectList( $author_name_type, 'config_author_name', 'class="inputbox" size="1"', 'value', 'text', $row->config_author_name );
 	$lists['showCreateDate']	= mosHTML::yesnoRadioList('config_showCreateDate', 'class="inputbox"', $row->config_showCreateDate);
 	$lists['showModifyDate']	= mosHTML::yesnoRadioList('config_showModifyDate', 'class="inputbox"', $row->config_showModifyDate);
 	$lists['hits']				= mosHTML::yesnoRadioList('config_hits', 'class="inputbox"', $row->config_hits);
@@ -575,9 +570,7 @@ function saveconfig($task) {
 	// if Session Authentication Type changed, delete all old Frontend sessions only - which used old Authentication Type
 	if($mosConfig_session_type != $row->config_session_type) {
 		$past = time();
-		$query = "DELETE FROM #__session"
-			."\n WHERE time < ".$database->Quote($past)
-			."\n AND ( ( guest = 1 AND userid = 0 ) OR ( guest = 0 AND gid > 0 ) )";
+		$query = "DELETE FROM #__session WHERE time < ".$database->Quote($past)." AND ( ( guest = 1 AND userid = 0 ) OR ( guest = 0 AND gid > 0 ) )";
 		$database->setQuery($query);
 		$database->query();
 	}

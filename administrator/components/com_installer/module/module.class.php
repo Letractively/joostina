@@ -9,8 +9,7 @@
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
-global $mainframe;
-require_once ($mainframe->getPath('installer_class','installer'));
+
 /**
 * Module installer
 * @package Joostina

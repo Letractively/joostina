@@ -10,7 +10,6 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-global $mainframe;
 require_once ($mainframe->getPath('installer_html','installer'));
 require_once ($mainframe->getPath('installer_class','installer'));
 
@@ -24,39 +23,34 @@ $classMap = array(
 );
 
 $generalInstaller = new mosGeneralInstaller();
+js_menu_cache_clear();
 
 switch($task) {
-		case 'installfromurl':{
-			js_menu_cache_clear();
+		case 'installfromurl':
 			$generalInstaller->getPackageFromUrl($url, $client);
-			js_menu_cache_clear();
 			break;
-		}
-		case 'uploadfile':{
-			js_menu_cache_clear();
+
+		case 'uploadfile':
 			$generalInstaller->uploadPackage($option,$element,$client);
-			js_menu_cache_clear();
 			break;
-		}
-		case 'installfromdir':{
-			js_menu_cache_clear();
+
+		case 'installfromdir':
 			$generalInstaller->installFromDirectory($option,$element,$client);
-			js_menu_cache_clear();
 			break;
-		}
-		default:{
-			js_menu_cache_clear();
+
+		default:
 			$generalInstaller->showInstallForm();
-			js_menu_cache_clear();
 			break;
-		}
 }
+
+js_menu_cache_clear();
+
 class mosGeneralInstaller {
-	
+
 	function showInstallForm() {
 		HTML_installer_core::showInstallForm(_INSTALL_MANAGER,'com_installer', 'installer','',Jconfig::getInstance()->config_absolute_path . '/media');
 	}
-	
+
 	function uploadFile($filename,$userfile_name,&$msg) {
 		josSpoofCheck();
 		$baseDir = mosPathName(Jconfig::getInstance()->config_absolute_path.'/media');
@@ -123,7 +117,9 @@ class mosGeneralInstaller {
 			}
 	}
 	function uploadPackage($option,$element,$client) {
-		global $classMap, $mosConfig_absolute_path;
+		global $classMap;
+		$config = &Jconfig::getInstance();
+		
 		$pre_installer = new mosInstaller();
 		josSpoofCheck();
 		
@@ -157,7 +153,7 @@ class mosGeneralInstaller {
 			$installType = $pre_installer->getInstallType();
 			if ($installType != "" && array_key_exists($installType,$classMap)) {
 
-				require ($mosConfig_absolute_path."/".ADMINISTRATOR_DIRECTORY."/components/com_installer/$installType/$installType.class.php");
+				require ($config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY.DS.'components'.DS.'com_installer'.DS.$installType.DS.$installType.'.class.php');
 
 				$installer = new $classMap[$installType]($pre_installer);
 
@@ -179,7 +175,9 @@ class mosGeneralInstaller {
 	* @param string The URL option
 	*/
 	function installFromDirectory($option,$element,$client) {
-		global $classMap, $mosConfig_absolute_path;
+		global $classMap;
+		$config = &Jconfig::getInstance();
+
 		$pre_installer = new mosInstaller();
 		$userfile = mosGetParam($_REQUEST,'userfile','');
 		josSpoofCheck();
@@ -199,7 +197,7 @@ class mosGeneralInstaller {
 		$installType = $pre_installer->getInstallType();		
 		if ($installType != "" && array_key_exists($installType,$classMap)) {
 			
-			require ($mosConfig_absolute_path."/".ADMINISTRATOR_DIRECTORY."/components/com_installer/$installType/$installType.class.php");
+			require ($config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY."/components/com_installer/$installType/$installType.class.php");
 				
 			$installer = new $classMap[$installType]($pre_installer);
 				

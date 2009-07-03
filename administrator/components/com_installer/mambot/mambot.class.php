@@ -9,8 +9,7 @@
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
-global $mainframe;
-require_once ($mainframe->getPath('installer_class','installer'));
+
 /**
 * Module installer
 * @package Joostina
@@ -19,30 +18,29 @@ require_once ($mainframe->getPath('installer_class','installer'));
 class mosInstallerMambot extends mosInstaller {
 	
 	function __construct($pre_installer){
-	  // Copy data 
-	  $this->i_installfilename = $pre_installer->i_installfilename;
-	  $this->i_installarchive = $pre_installer->i_installarchive;
-	  $this->i_installdir = $pre_installer->i_installdir;
-	  $this->i_iswin = $pre_installer->i_iswin;
-	  $this->i_errno = $pre_installer->i_errno;
-	  $this->i_error = $pre_installer->i_error;
-	  $this->i_installtype = $pre_installer->i_installtype;
-	  $this->i_unpackdir = $pre_installer->i_unpackdir;
-	  $this->i_docleanup = $pre_installer->i_docleanup;
-	  $this->i_elementdir = $pre_installer->i_elementdir;
-	  $this->i_elementname = $pre_installer->i_elementname;
-	  $this->i_elementspecial = $pre_installer->i_elementspecial;
-	  $this->i_xmldoc = $pre_installer->i_xmldoc;
-	  $this->i_hasinstallfile = $pre_installer->i_hasinstallfile;
-	  $this->i_installfile = $pre_installer->i_installfile;
-
+		$this->i_installfilename = $pre_installer->i_installfilename;
+		$this->i_installarchive = $pre_installer->i_installarchive;
+		$this->i_installdir = $pre_installer->i_installdir;
+		$this->i_iswin = $pre_installer->i_iswin;
+		$this->i_errno = $pre_installer->i_errno;
+		$this->i_error = $pre_installer->i_error;
+		$this->i_installtype = $pre_installer->i_installtype;
+		$this->i_unpackdir = $pre_installer->i_unpackdir;
+		$this->i_docleanup = $pre_installer->i_docleanup;
+		$this->i_elementdir = $pre_installer->i_elementdir;
+		$this->i_elementname = $pre_installer->i_elementname;
+		$this->i_elementspecial = $pre_installer->i_elementspecial;
+		$this->i_xmldoc = $pre_installer->i_xmldoc;
+		$this->i_hasinstallfile = $pre_installer->i_hasinstallfile;
+		$this->i_installfile = $pre_installer->i_installfile;
 	}
 	/**
 	* Custom install method
 	* @param boolean True if installing from directory
 	*/
 	function install($p_fromdir = null) {
-		global $mosConfig_absolute_path,$database;
+		$database = &database::getInstance();
+		$config = &Jconfig::getInstance();
 
 		if(!$this->preInstallCheck($p_fromdir,'mambot')) {
 			return false;
@@ -56,7 +54,7 @@ class mosInstallerMambot extends mosInstaller {
 		$this->elementName($e->getText());
 
 		$folder = $mosinstall->getAttribute('group');
-		$this->elementDir(mosPathName($mosConfig_absolute_path.'/mambots/'.$folder));
+		$this->elementDir(mosPathName($config->config_absolute_path.'/mambots/'.$folder));
 
 		if(!file_exists($this->elementDir()) && !mosMakePath($this->elementDir())) {
 			$this->setError(1,_CANNOT_CREATE_DIR.' "'.$this->elementDir().'"');
@@ -68,9 +66,37 @@ class mosInstallerMambot extends mosInstaller {
 			return false;
 		}
 
+		// Are there any SQL queries??
+		$query_element = &$mosinstall->getElementsByPath('install/queries',1);
+		if(!is_null($query_element)) {
+			$queries = $query_element->childNodes;
+			foreach($queries as $query) {
+				// проверяем на наличие в запросе команды задания кодировки таблицы, и если она авно не указана
+				$sql	= $query->getText();
+				// строки явно указывающие кодировку создаваемой таблицы
+				$d		= strpos( $sql, 'DEFAULT' );
+				$c		= strpos( $sql, 'CHARSET' );
+				// если эти слова есть в запросе - то идёт создание таблицы
+				$r		= strpos( $sql, 'CREATE' );
+				$t		= strpos( $sql, 'TABLE' );
+				// если в запросе нет указания кодировки, но есть явные команды создания таблиц, а база работает в режиме совместимости со старшими версиями MySQL - добавим определение кодировки
+				if((!$d) && (!$c) && ($r) && ($t) ){
+					$sql = str_replace(';','',$sql);
+					$sql .= ' CHARACTER SET utf8 COLLATE utf8_general_ci;';
+				}
+
+				$database->setQuery( $sql );
+				echo $sql;
+				if(!$database->query()) {
+					$this->setError(1,_SQL_ERROR.": ".$database->getEscaped($sql).".<br /> "._ERROR_MESSAGE.":".$database->stderr(true));
+					return false;
+				}
+				unset($sql);
+			}
+		}
+
 		// Insert mambot in DB
-		$query = "SELECT id"."\n FROM #__mambots"."\n WHERE element = ".$database->Quote($this->elementName
-			());
+		$query = "SELECT id FROM #__mambots WHERE element = ".$database->Quote($this->elementName());
 		$database->setQuery($query);
 		if(!$database->query()) {
 			$this->setError(1,_SQL_ERROR.': '.$database->stderr(true));
@@ -98,7 +124,7 @@ class mosInstallerMambot extends mosInstaller {
 				return false;
 			}
 		} else {
-			$this->setError(1,'Mambot "'.$this->elementName().'" already exists!');
+			$this->setError(1, sprintf(_COM_INSTALLER_MAMBOT_EXIST,$this->elementName()));
 			return false;
 		}
 		if($e = &$mosinstall->getElementsByPath('description',1)) {
@@ -114,18 +140,18 @@ class mosInstallerMambot extends mosInstaller {
 	* @param int The client id
 	*/
 	function uninstall($id,$option,$client = 0) {
-		global $database,$mosConfig_absolute_path;
+		$database = &database::getInstance();
+		$config = &Jconfig::getInstance();
 
 		$id = intval($id);
-		$query = "SELECT name, folder, element, iscore"."\n FROM #__mambots"."\n WHERE id = ".(int)
+		$query = "SELECT name, folder, element, iscore FROM #__mambots WHERE id = ".(int)
 			$id;
 		$database->setQuery($query);
 
 		$row = null;
 		$database->loadObject($row);
 		if($database->getErrorNum()) {
-			HTML_installer::showInstallMessage($database->stderr(),_UNINSTALL_ERROR,$this->returnTo
-				($option,'mambot',$client));
+			HTML_installer::showInstallMessage($database->stderr(),_UNINSTALL_ERROR,$this->returnTo($option,'mambot',$client));
 			exit();
 		}
 		if($row == null) {
@@ -138,7 +164,7 @@ class mosInstallerMambot extends mosInstaller {
 			exit();
 		}
 
-		$basepath = $mosConfig_absolute_path.'/mambots/'.$row->folder.'/';
+		$basepath = $config->config_absolute_path.DS.'mambots'.DS.$row->folder.DS;
 		$xmlfile = $basepath.$row->element.'.xml';
 
 		// see if there is an xml install file, must be same name as element
@@ -169,8 +195,6 @@ class mosInstallerMambot extends mosInstaller {
 						}
 					}
 
-					// remove XML file from front
-					echo "Deleting XML File: $xmlfile";
 					@unlink(mosPathName($xmlfile,false));
 
 					// define folders that should not be removed
@@ -202,8 +226,8 @@ class mosInstallerMambot extends mosInstaller {
 	* Uninstall method
 	*/
 	function cleanAfterError() {
-		global $database,$mosConfig_absolute_path;
 		josSpoofCheck();
+
 		$basepath = $this->elementDir();
 		$mosinstall = &$this->i_xmldoc->documentElement;
 		// get the files element
@@ -220,12 +244,9 @@ class mosInstallerMambot extends mosInstaller {
 				}
 			}
 		}
-		if($this->isWindows())
-		{
+		if($this->isWindows()){
 			$elementName = substr(substr(strrchr($xmlfilename, '\\'), 1), 0,  -4);
-		}
-		else
-		{
+		}else{
 			$elementName = substr(substr(strrchr($xmlfilename, '/'), 1), 0, -4);
 		}
 		
@@ -246,8 +267,7 @@ class mosInstallerMambot extends mosInstaller {
 			}
 			// remove XML file from front
 			@unlink(mosPathName($xmlfilename,false));
-			if(file_exists($basepath. $elementName))
-			{
+			if(file_exists($basepath. $elementName)){
 				deldir($basepath. $elementName . '/');
 			}
 			return true;

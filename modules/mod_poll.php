@@ -21,32 +21,29 @@ if(!defined('_JOS_POLL_MODULE')) {
 	 * @param string CSS suffix
 	 */
 	function show_poll_vote_form($Itemid, &$params) {
-		global $database;
+		$database = &database::getInstance();
 
 		$query = "SELECT p.id, p.title FROM #__polls AS p INNER JOIN #__poll_menu AS pm ON  pm.pollid = p.id WHERE ( pm.menuid = " . (int)$Itemid . " OR pm.menuid = 0 ) AND p.published = 1";
 
 		$database->setQuery($query);
 		$polls = $database->loadObjectList();
 
-		if($database->getErrorNum()) {
-			echo "MB " . $database->stderr(true);
-			return;
+		$def_itemid	= $params->get( 'def_itemid', $Itemid );
+
+		if($def_itemid<1){
+			$query = "SELECT id FROM #__menu WHERE type = 'components' AND published = 1 AND link = 'index.php?option=com_poll'";
+			$database->setQuery($query);
+			$Itemid = $database->loadResult();
 		}
-
-		// try to find poll component's Itemid
-		$query = "SELECT id FROM #__menu WHERE type = 'components' AND published = 1 AND link = 'index.php?option=com_poll'";
-		$database->setQuery($query);
-		$_Itemid = $database->loadResult();
-
-		if($_Itemid) {
-			$_Itemid = '&amp;Itemid=' . $_Itemid;
+		if($Itemid) {
+			$_Itemid = '&amp;Itemid=' . $Itemid;
 		}
 
 		$z = 1;
 		foreach($polls as $poll) {
 			if($poll->id && $poll->title) {
 
-				$query = "SELECT id, text FROM #__poll_data WHERE pollid = " . (int)$poll->id . "\n AND text != '' ORDER BY id";
+				$query = "SELECT id, text FROM #__poll_data WHERE pollid = " . (int)$poll->id . " AND text != '' ORDER BY id";
 				$database->setQuery($query);
 
 				if(!($options = $database->loadObjectList())) {
@@ -72,7 +69,7 @@ if(!defined('_JOS_POLL_MODULE')) {
 		$tabcnt = 0;
 		$moduleclass_sfx = $params->get('moduleclass_sfx');
 
-		$cookiename = "voted$poll->id";
+		$cookiename = 'voted'.$poll->id;
 		$voted = mosGetParam($_COOKIE, $cookiename, 'z');
 
 		// used for spoof hardening
@@ -113,13 +110,7 @@ if(!defined('_JOS_POLL_MODULE')) {
 				<td valign="top" class="<?php echo $tabclass_arr[$tabcnt]; ?><?php echo $moduleclass_sfx; ?>">
 					<label for="voteid<?php echo $options[$i]->id; ?>"><?php echo stripslashes($options[$i]->text); ?></label>
 				</td>
-			</tr>
-<?php if($tabcnt == 1) {
-				$tabcnt = 0;
-			} else {
-				$tabcnt++;
-			}
-		} ?>
+			</tr><?php $tabcnt= ($tabcnt == 1) ? 0 : 1; } ?>
 			</table>
 			<div class="poll_buttons">
 				<input type="button" onclick="submitbutton_Poll<?php echo $z; ?>();" name="task_button" class="button" value="<?php echo _BUTTON_VOTE; ?>" />

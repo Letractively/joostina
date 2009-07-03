@@ -9,8 +9,6 @@
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
-global $mainframe;
-require_once ($mainframe->getPath('installer_class','installer'));
 
 /**
 * Template installer
@@ -19,25 +17,23 @@ require_once ($mainframe->getPath('installer_class','installer'));
 */
 class mosInstallerTemplate extends mosInstaller {
 	
-	function __construct($pre_installer)
-	{
-	  // Copy data 
-	  $this->i_installfilename = $pre_installer->i_installfilename;
-	  $this->i_installarchive = $pre_installer->i_installarchive;
-	  $this->i_installdir = $pre_installer->i_installdir;
-	  $this->i_iswin = $pre_installer->i_iswin;
-	  $this->i_errno = $pre_installer->i_errno;
-	  $this->i_error = $pre_installer->i_error;
-	  $this->i_installtype = $pre_installer->i_installtype;
-	  $this->i_unpackdir = $pre_installer->i_unpackdir;
-	  $this->i_docleanup = $pre_installer->i_docleanup;
-	  $this->i_elementdir = $pre_installer->i_elementdir;
-	  $this->i_elementname = $pre_installer->i_elementname;
-	  $this->i_elementspecial = $pre_installer->i_elementspecial;
-	  $this->i_xmldoc = $pre_installer->i_xmldoc;
-	  $this->i_hasinstallfile = $pre_installer->i_hasinstallfile;
-	  $this->i_installfile = $pre_installer->i_installfile;
-
+	function __construct($pre_installer){
+		// Copy data
+		$this->i_installfilename = $pre_installer->i_installfilename;
+		$this->i_installarchive = $pre_installer->i_installarchive;
+		$this->i_installdir = $pre_installer->i_installdir;
+		$this->i_iswin = $pre_installer->i_iswin;
+		$this->i_errno = $pre_installer->i_errno;
+		$this->i_error = $pre_installer->i_error;
+		$this->i_installtype = $pre_installer->i_installtype;
+		$this->i_unpackdir = $pre_installer->i_unpackdir;
+		$this->i_docleanup = $pre_installer->i_docleanup;
+		$this->i_elementdir = $pre_installer->i_elementdir;
+		$this->i_elementname = $pre_installer->i_elementname;
+		$this->i_elementspecial = $pre_installer->i_elementspecial;
+		$this->i_xmldoc = $pre_installer->i_xmldoc;
+		$this->i_hasinstallfile = $pre_installer->i_hasinstallfile;
+		$this->i_installfile = $pre_installer->i_installfile;
 	}
 	/**
 	* Custom install method
@@ -45,6 +41,8 @@ class mosInstallerTemplate extends mosInstaller {
 	*/
 	function install($p_fromdir = null) {
 		global $mosConfig_absolute_path,$database;
+		$database = &database::getInstance();
+
 		josSpoofCheck();
 		if(!$this->preInstallCheck($p_fromdir,'template')) {
 			return false;

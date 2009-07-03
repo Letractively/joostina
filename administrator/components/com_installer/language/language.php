@@ -10,25 +10,21 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-global $mainframe;
+
 require_once ($mainframe->getPath('installer_html','language'));
 require_once ($mainframe->getPath('installer_class','language'));
 
 switch($task) {
-case 'remove':
-	{
-		//echo "<script>alert('sdssd');</script>";
+	case 'remove':
 		removeElement($client);
 		js_menu_cache_clear();
 		break;
-	}
-default:
-	{
-		//echo "<script>alert('sdssd');</script>";
+
+	default:
 		viewLanguages('com_installer','');
 		js_menu_cache_clear();
 		break;
-	}
+
 }
 
 /**
@@ -56,19 +52,17 @@ function removeElement($client) {
 * Compiles a list of installed languages
 */
 function viewLanguages($option) {
-	global $languages;
-	global $mainframe;
-	global $mosConfig_lang,$mosConfig_absolute_path,$mosConfig_list_limit;
+	$mainframe = &mosMainFrame::getInstance(true);
 
-	$limit = $mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mosConfig_list_limit);
+	$limit = $mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mainframe->getCfg('list_limit'));
 	$limitstart = $mainframe->getUserStateFromRequest("view{$option}limitstart",'limitstart',0);
 
 	// get current languages
-	$cur_language = $mosConfig_lang;
+	$cur_language = $mainframe->getCfg('lang');
 
 	$rows = array();
 	// Read the template dir to find templates
-	$languageBaseDir = mosPathName(mosPathName($mosConfig_absolute_path)."language");
+	$languageBaseDir = mosPathName(mosPathName($mainframe->getCfg('absolute_path')).'language');
 
 	$rowid = 0;
 
@@ -129,7 +123,7 @@ function viewLanguages($option) {
 		$rowid++;
 	}
 
-	require_once ($GLOBALS['mosConfig_absolute_path'].'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
+	require_once ($mainframe->getCfg('absolute_path').DS.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav(count($rows),$limitstart,$limit);
 
 	$rows = array_slice($rows,$pageNav->limitstart,$pageNav->limit);

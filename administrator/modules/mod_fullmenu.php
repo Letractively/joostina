@@ -24,15 +24,17 @@ if(!defined('_JOS_FULLMENU_MODULE')) {
 		* @param string The current user type
 		*/
 		function show($usertype = '') {
-			global $acl,$database,$my,$mosConfig_cachepath;
-			global $mosConfig_live_site,$mosConfig_enable_stats,$mosConfig_caching,$mosConfig_secret,$mosConfig_cachepath,$mosConfig_adm_menu_cache;
+			global $acl,$my;
+			$database = &database::getInstance();
+			$config = &Jconfig::getInstance();
+
 			echo '<div id="myMenuID"></div>'; // в этот слой выводится содержимое меню
-			if($mosConfig_adm_menu_cache) { // проверяем, активировано ли кэширование в панели управления
+			if($config->config_adm_menu_cache) { // проверяем, активировано ли кэширование в панели управления
 				$usertype = $my->usertype;
 				$usertype_menu = str_replace(' ','_',$usertype);
 				// название файла меню получим из md5 хеша типа пользователя и секретного слова конкретной установки
-				$menuname = md5($usertype_menu.$mosConfig_secret);
-				echo "<script type=\"text/javascript\" src=\"".$mosConfig_live_site."/cache/adm_menu_".$menuname.".js\"></script>";
+				$menuname = md5($usertype_menu.$config->config_secret);
+				echo '<script type="text/javascript" src="'.$config->config_live_site.'/cache/adm_menu_'.$menuname.'.js"></script>';
 				if(js_menu_cache('',$usertype_menu,1) == 'true') { // файл есть, выводим ссылку на него и прекращаем работу
 					return; // дальнейшую обработку меню не ведём
 				} // файла не было - генерируем его, создаём и всё равно возвращаем ссылку
@@ -52,11 +54,7 @@ if(!defined('_JOS_FULLMENU_MODULE')) {
 			$canMassMail = $acl->acl_check('administration','manage','users',$usertype,'components','com_massmail');
 			$canManageUsers = $acl->acl_check('administration','manage','users',$usertype,'components','com_users');
 			$menuTypes = mosAdminMenus::menutypes();
-			$query = "SELECT a.id, a.title, a.name"
-					."\n FROM #__sections AS a"
-					."\n WHERE a.scope = 'content'"
-					."\n GROUP BY a.id"
-					."\n ORDER BY a.ordering";
+			$query = "SELECT a.id, a.title, a.name FROM #__sections AS a WHERE a.scope = 'content' ORDER BY a.ordering";
 			$database->setQuery($query);
 			$sections = $database->loadObjectList();
 			ob_start(); // складываем всё выдаваемое меню в буфер
@@ -76,13 +74,13 @@ var myMenu =[
 <?php
 	}
 ?>['<img src="../includes/js/ThemeOffice/preview.png" />', '<?php echo _MENU_SITE_PREVIEW?>', null, null, '<?php echo _MENU_SITE_PREVIEW?>',
-['<img src="../includes/js/ThemeOffice/preview.png" />','<?php echo _MENU_SITE_PREVIEW_IN_NEW_WINDOW?>','<?php echo $mosConfig_live_site; ?>/index.php','_blank','<?php echo $mosConfig_live_site; ?>'],
-['<img src="../includes/js/ThemeOffice/preview.png" />','<?php echo _MENU_SITE_PREVIEW_IN_THIS_WINDOW?>','index2.php?option=com_admin&task=preview',null,'<?php echo $mosConfig_live_site; ?>'],
-['<img src="../includes/js/ThemeOffice/preview.png" />','<?php echo _MENU_SITE_PREVIEW_WITH_MODULE_POSITIONS?>','index2.php?option=com_admin&task=preview2',null,'<?php echo $mosConfig_live_site; ?>'],
+['<img src="../includes/js/ThemeOffice/preview.png" />','<?php echo _MENU_SITE_PREVIEW_IN_NEW_WINDOW?>','<?php echo $config->config_live_site; ?>/index.php','_blank','<?php echo $config->config_live_site; ?>'],
+['<img src="../includes/js/ThemeOffice/preview.png" />','<?php echo _MENU_SITE_PREVIEW_IN_THIS_WINDOW?>','index2.php?option=com_admin&task=preview',null,'<?php echo $config->config_live_site; ?>'],
+['<img src="../includes/js/ThemeOffice/preview.png" />','<?php echo _MENU_SITE_PREVIEW_WITH_MODULE_POSITIONS?>','index2.php?option=com_admin&task=preview2',null,'<?php echo $config->config_live_site; ?>'],
 ],
  ['<img src="../includes/js/ThemeOffice/globe1.png" />', '<?php echo _MENU_SITE_STATS?>', null, null, '<?php echo _MENU_SITE_STATS_TIP?>',
 <?php
-	if($mosConfig_enable_stats == 1) {
+	if($config->config_enable_stats == 1) {
 ?> ['<img src="../includes/js/ThemeOffice/globe4.png" />', '<?php echo _MENU_STATS_BROWSERS?>', 'index2.php?option=com_statistics', null, '<?php echo _MENU_STATS_BROWSERS_TIP?>'],
 <?php
 	}
@@ -93,19 +91,15 @@ var myMenu =[
 	if($manageTemplates) {
 ?>['<img src="../includes/js/ThemeOffice/template.png" />','<?php echo _TEMPLATES?>',null,null,'<?php echo _MENU_TEMPLATES_TIP?>',
 	['<img src="../includes/js/ThemeOffice/template.png" />','<?php echo _MENU_SITE_TEMPLATES?>','index2.php?option=com_templates',null,'<?php echo _MENU_SITE_TEMPLATES?>'],
-	['<img src="../includes/js/ThemeOffice/install.png" />','<?php echo _MENU_NEW_SITE_TEMPLATE?>','index2.php?option=com_installer&element=template&client=',null,'<?php echo _MENU_NEW_SITE_TEMPLATE?>'],
-	_cmSplit,
 	['<img src="../includes/js/ThemeOffice/template.png" />','<?php echo _MENU_ADMIN_TEMPLATES?>','index2.php?option=com_templates&client=admin',null,'<?php echo _MENU_ADMIN_TEMPLATES?>'],
-	['<img src="../includes/js/ThemeOffice/install.png" />','<?php echo _MENU_NEW_ADMIN_TEMPLATE?>','index2.php?option=com_installer&element=template&client=admin',null,'<?php echo _MENU_NEW_ADMIN_TEMPLATE?>'],
 	_cmSplit,
-	['<img src="../includes/js/ThemeOffice/template.png" />','<?php echo _MODULES_POSITION?>','index2.php?option=com_templates&task=positions',null,'<?php echo _MODULES_POSITION?>']
+	['<img src="../includes/js/ThemeOffice/template.png" />','<?php echo _MODULES_POSITION?>','index2.php?option=com_templates&task=positions',null,'<?php echo _MODULES_POSITION?>'],
+	['<img src="../includes/js/ThemeOffice/install.png" />','<?php echo _MENU_NEW_SITE_TEMPLATE?>','index2.php?option=com_installer&element=template&client=admin',null,'<?php echo _MENU_NEW_SITE_TEMPLATE?>']
 	],
 <?php }
 
 		// Menu Sub-Menu
 ?>],
-
-_cmSplit,
 <?php	if($canManageUsers || $canMassMail) {
 ?>[null,'<?php echo _USERS?>',null,null,'<?php echo _USERS?>',
 	['<img src="../includes/js/ThemeOffice/user.png" />','Все пользователи','index2.php?option=com_users&task=view',null,'Все пользователи'],
@@ -114,9 +108,7 @@ _cmSplit,
 	['<img src="../includes/js/ThemeOffice/template.png" />','Настройки регистрации','index2.php?option=com_users&task=config&act=registration',null,'Настройки регистрации'],
 	['<img src="../includes/js/ThemeOffice/template.png" />','Настройки профиля','index2.php?option=com_users&task=config&act=profile',null,'Настройки профиля']
 ],
-<?php 	} ?>
-_cmSplit,
-
+<?php } ?>
 
 [null,'<?php echo _MENU?>',null,null,'<?php echo _MENU?>',
 <?php
@@ -135,7 +127,7 @@ _cmSplit,['<img src="../includes/js/ThemeOffice/trash.png" />','<?php echo _MENU
 <?php
 	}
 ?>
-],_cmSplit,[null,'<?php echo _E_CONTENT?>',null,null,'<?php echo _E_CONTENT?>',
+],[null,'<?php echo _E_CONTENT?>',null,null,'<?php echo _E_CONTENT?>',
 <?php
 		if(count($sections) > 0) {
 ?>  ['<img src="../includes/js/ThemeOffice/edit.png" />','<?php echo _CONTENT_IN_SECTIONS?>',null,null,'<?php echo _CONTENT_IN_SECTIONS?>',
@@ -178,12 +170,11 @@ _cmSplit,
 ],
 ['<img src="../includes/js/ThemeOffice/globe3.png" />', '<?php echo _PAGES_HITS?>', 'index2.php?option=com_statistics&task=pageimp', null, '<?php echo _PAGES_HITS?>'],
 ['<img src="../includes/js/ThemeOffice/trash.png" />','<?php echo _CONTENT_TRASH?>','index2.php?option=com_trash&catid=content',null,'<?php echo _CONTENT_TRASH?>'],
-
 ],
 <?php
-			// Components Sub-Menu
-			if($installComponents | $editAllComponents) {
-?>_cmSplit,
+	// Components Sub-Menu
+	if($installComponents | $editAllComponents) {
+?>
 [null,'<?php echo _COMPONENTS?>',null,null,'<?php echo _COMPONENTS?>',
 <?php
 				$query = "SELECT* FROM #__components ORDER BY ordering, name";
@@ -238,7 +229,7 @@ _cmSplit,
 	}
 	// Modules Sub-Menu
 	if($installModules | $editAllModules) {
-?>_cmSplit,
+?>
 [null,'<?php echo _MODULES?>',null,null,'<?php echo _MODULES_SETUP?>',
 <?php
 	if($editAllModules) {
@@ -253,7 +244,6 @@ _cmSplit,
 <?php
 	}
 } if($installMambots | $editAllMambots) { ?>
-_cmSplit,
 [null,'<?php echo _MAMBOTS?>',null,null,'<?php echo _MAMBOTS?>',
 <?php if($editAllMambots) { ?>
 ['<img src="../includes/js/ThemeOffice/module.png" />', '<?php echo _SITE_MAMBOTS?>', "index2.php?option=com_mambots", null, '<?php echo _SITE_MAMBOTS?>'],
@@ -262,7 +252,6 @@ _cmSplit,
 <?php } ?>
 ],
 <?php } if($installModules) { ?>
-_cmSplit,
 [null,'<?php echo _EXTENSIONS?>',null,null,'<?php echo _EXTENSION_MANAGEMENT?>',
 ['<img src="../includes/js/ThemeOffice/install.png" />', '<?php echo _INSTALLATION . " / " . _DELETING?>','index2.php?option=com_installer&element=installer',null,'<?php echo _INSTALLATION . " / " . _DELETING?>'],
 <?php if($manageLanguages) { ?>
@@ -274,7 +263,6 @@ _cmSplit,
 <?php } ?>
 ],
 <?php }?>
-_cmSplit,
 [null,'<?php echo _JOOMLA_TOOLS?>',null,null,'<?php echo _JOOMLA_TOOLS?>',
 ['<img src="../includes/js/ThemeOffice/messaging_inbox.png" />','<?php echo _PRIVATE_MESSAGES?>','index2.php?option=com_messages',null,'<?php echo _PRIVATE_MESSAGES?>'],
 ['<img src="../includes/js/ThemeOffice/messaging_config.png" />','<?php echo _PRIVATE_MESSAGES_CONFIG?>','index2.php?option=com_messages&task=config&hidemainmenu=1',null,'<?php echo _PRIVATE_MESSAGES_CONFIG?>'],
@@ -292,13 +280,10 @@ _cmSplit,
 ['<img src="../includes/js/ThemeOffice/db.png" />','<?php echo _JP_DB_MANAGEMENT?>','index2.php?option=com_joomlapack&act=db',null,'<?php echo _JP_DB_MANAGEMENT?>'],
 ['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo _BACKUP_CONFIG?>','index2.php?option=com_joomlapack&act=config',null,'<?php echo _BACKUP_CONFIG?>']],
 <?php } ?>
-<?php if($mosConfig_caching) { ?>
-_cmSplit,
-<?php //if(file_exists('../components/com_cache')) {?>
-['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo _CACHE_MANAGEMENT?>','index2.php?option=com_cache',null,'<?php echo _CACHE_MANAGEMENT?>'],
-<?php //}?>
-['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo _CLEAR_CONTENT_CACHE?>','index2.php?option=com_admin&task=clean_cache',null,'<?php echo _CLEAR_CONTENT_CACHE?>'],
-['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo _CLEAR_ALL_CACHE?>','index2.php?option=com_admin&task=clean_all_cache',null,'<?php echo _CLEAR_ALL_CACHE?>'],
+<?php if($config->config_caching) { ?>
+	['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo _CACHE_MANAGEMENT?>','index2.php?option=com_cache',null,'<?php echo _CACHE_MANAGEMENT?>'],
+	['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo _CLEAR_CONTENT_CACHE?>','index2.php?option=com_admin&task=clean_cache',null,'<?php echo _CLEAR_CONTENT_CACHE?>'],
+	['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo _CLEAR_ALL_CACHE?>','index2.php?option=com_admin&task=clean_all_cache',null,'<?php echo _CLEAR_ALL_CACHE?>'],
 <?php }?>
 <?php
 if($canConfig) {?>
@@ -313,14 +298,12 @@ cmDraw ('myMenuID', myMenu, 'hbr', cmThemeOffice, 'ThemeOffice');
 			// boston, складываем меню в кэш, и записываем в файл
 			$cur_menu = ob_get_contents();
 			ob_end_clean();
-			/*$cur_menu = str_replace("\n",'',$cur_menu);
-			$cur_menu = str_replace("\r",'',$cur_menu);
-			$cur_menu = str_replace("\t",'',$cur_menu);
-			$cur_menu = str_replace('  ',' ',$cur_menu);*/
-			if($mosConfig_adm_menu_cache) js_menu_cache($cur_menu,$usertype_menu);
-			else echo '<script language="JavaScript" type="text/javascript">'.$cur_menu.'</script>';
-?>
-<?php
+			if($config->config_adm_menu_cache){
+				js_menu_cache($cur_menu,$usertype_menu);
+			}else{
+				echo '<script language="JavaScript" type="text/javascript">'.$cur_menu.'</script>';
+			}
+
 	}
 		/**
 		* Show an disbaled version of the menu, used in edit pages
@@ -336,9 +319,6 @@ cmDraw ('myMenuID', myMenu, 'hbr', cmThemeOffice, 'ThemeOffice');
 			$editAllMambots = $acl->acl_check('administration','edit','users',$usertype,'mambots','all');
 			$installComponents = $acl->acl_check('administration','install','users',$usertype,'components','all');
 			$editAllComponents = $acl->acl_check('administration','edit','users',$usertype,'components','all');
-//			$canMassMail = $acl->acl_check('administration','manage','users',$usertype,'components','com_massmail');
-//			$canManageUsers = $acl->acl_check('administration','manage','users',$usertype,'components','com_users');
-
 			$text = _NO_ACTIVE_MENU_ON_THIS_PAGE;
 ?>
   <div id="myMenuID" class="inactive"></div>
@@ -347,9 +327,6 @@ cmDraw ('myMenuID', myMenu, 'hbr', cmThemeOffice, 'ThemeOffice');
   [
    [null,'<?php echo _SITE; ?>',null,null,'<?php echo $text; ?>'
    ],
-  <?php
-			/* Menu Sub-Menu*/
-?>
    _cmSplit,
    [null,'<?php echo _MENU; ?>',null,null,'<?php echo $text; ?>'
    ],
@@ -386,13 +363,8 @@ _cmSplit,
 [null,'<?php echo _MAMBOTS; ?>',null,null,'<?php echo $text; ?>'],
 <?php
 			} // if ( $installMambots | $editAllMambots)
-
-?>
-
-
-   <?php
 			/* Installer Sub-Menu*/
-			if($installModules) {
+	if($installModules) {
 ?>
     _cmSplit,
     [null,'<?php echo _EXTENSIONS; ?>',null,null,'<?php echo $text; ?>'
@@ -415,8 +387,6 @@ _cmSplit,[null,'<?php echo _JOOMLA_TOOLS; ?>',null,null,'<?php echo $text; ?>'],
 		}
 	}
 }
-$cache = &mosCache::getCache('mos_fullmenu');
-
 $hide = intval(mosGetParam($_REQUEST,'hidemainmenu',0));
 
 global $my;
