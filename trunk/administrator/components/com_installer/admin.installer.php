@@ -11,6 +11,8 @@
 defined('_VALID_MOS') or die();
 
 require_once ($mainframe->getPath('admin_html'));
+require_once ($mainframe->getPath('installer_class','installer'));
+
 
 // XML library
 require_once ($mosConfig_absolute_path.'/includes/domit/xml_domit_lite_include.php');
@@ -25,7 +27,7 @@ if(!$acl->acl_check('administration','install','users',$my->usertype,$element.'s
 	mosRedirect('index2.php',_NOT_AUTH);
 }
 
-$path = $mosConfig_absolute_path."/".ADMINISTRATOR_DIRECTORY."/components/com_installer/$element/$element.php";
+$path = $mosConfig_absolute_path.DS.ADMINISTRATOR_DIRECTORY."/components/com_installer/$element/$element.php";
 
 if(file_exists($path)) {
 	require $path;

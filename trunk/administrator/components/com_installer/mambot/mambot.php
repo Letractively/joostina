@@ -10,32 +10,24 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-// ensure user has access to this function
-//if(!$acl->acl_check('administration','install','users',$my->usertype,$element.'s','all')) {
-//	mosRedirect('index2.php',_NOT_AUTH);
-//}
-global $mainframe;
+if(!$acl->acl_check('administration','install','users',$my->usertype,$element.'s','all')) {
+	mosRedirect('index2.php',_NOT_AUTH);
+}
+
 require_once ($mainframe->getPath('installer_html','mambot'));
 require_once ($mainframe->getPath('installer_class','mambot'));
 
 switch($task) {
-case 'remove':
-	{
-		//echo "<script>alert('sdssd');</script>";
+	case 'remove':
 		removeElement($client);
 		js_menu_cache_clear();
 		break;
-	}
-default:
-	{
-		//echo "<script>alert('sdssd');</script>";
+
+	default:
 		showInstalledMambots($option);
 		js_menu_cache_clear();
 		break;
-	}
 }
-//showInstalledModules($option);
-
 
 /**
 *
@@ -60,21 +52,22 @@ function removeElement($client) {
 }
 
 function showInstalledMambots($_option) {
-	global $database,$mosConfig_absolute_path;
+	$database = &database::getInstance();
+	$config = &Jconfig::getInstance();
 
 	$query = "SELECT id, name, folder, element, client_id FROM #__mambots WHERE iscore = 0 ORDER BY folder, name";
 	$database->setQuery($query);
 	$rows = $database->loadObjectList();
 
 	// path to mambot directory
-	$mambotBaseDir = mosPathName(mosPathName($mosConfig_absolute_path)."mambots");
+	$mambotBaseDir = mosPathName(mosPathName($config->config_absolute_path)."mambots");
 
 	$id = 0;
 	$n = count($rows);
 	for($i = 0; $i < $n; $i++) {
 		$row = &$rows[$i];
 		// xml file for module
-		$xmlfile = $mambotBaseDir."/".$row->folder.'/'.$row->element.".xml";
+		$xmlfile = $mambotBaseDir.DS.$row->folder.DS.$row->element.".xml";
 
 		if(file_exists($xmlfile)) {
 			$xmlDoc = new DOMIT_Lite_Document();

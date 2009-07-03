@@ -72,9 +72,9 @@ class mosInstaller {
 	* @return boolean True on success, False on error
 	*/
 	function extractArchive() {
-		global $mosConfig_absolute_path;
+		$config = &Jconfig::getInstance();
 
-		$base_Dir = mosPathName($mosConfig_absolute_path.'/media');
+		$base_Dir = mosPathName($config->config_absolute_path.'/media');
 
 		$archivename = $base_Dir.$this->installArchive();
 		$tmpdir = uniqid('install_');
@@ -86,10 +86,9 @@ class mosInstaller {
 
 		if(eregi('.zip$',$archivename)) {
 			// Extract functions
-			require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/includes/pcl/pclzip.lib.php');
-			require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/includes/pcl/pclerror.lib.php');
-			//require_once( $mosConfig_absolute_path . '/administrator/includes/pcl/pcltrace.lib.php' );
-			//require_once( $mosConfig_absolute_path . '/administrator/includes/pcl/pcltar.lib.php' );
+			require_once ($config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY.'/includes/pcl/pclzip.lib.php');
+			require_once ($config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY.'/includes/pcl/pclerror.lib.php');
+
 			$zipfile = new PclZip($archivename);
 			if($this->isWindows()) {
 				define('OS_WINDOWS',1);
@@ -99,11 +98,11 @@ class mosInstaller {
 
 			$ret = $zipfile->extract(PCLZIP_OPT_PATH,$extractdir);
 			if($ret == 0) {
-				$this->setError(1,'Неисправимая ошибка "'.$zipfile->errorName(true).'"');
+				$this->setError(1,'Error:: "'.$zipfile->errorName(true).'"');
 				return false;
 			}
 		} else {
-			require_once ($mosConfig_absolute_path.'/includes/Archive/Tar.php');
+			require_once ($config->config_absolute_path.'/includes/Archive/Tar.php');
 			$archive = new Archive_Tar($archivename);
 			$archive->setErrorHandling(PEAR_ERROR_PRINT);
 
@@ -256,7 +255,8 @@ class mosInstaller {
 	* @return mixed Number of file or False on error
 	*/
 	function parseFiles($tagName = 'files',$special = '',$specialError = '',$adminFiles =0) {
-		global $mosConfig_absolute_path;
+		$config = &Jconfig::getInstance();
+
 		// Find files to copy
 		$xmlDoc = &$this->xmlDoc();
 		$root = &$xmlDoc->documentElement;
@@ -322,7 +322,7 @@ class mosInstaller {
 
 		if($tagName == 'media') {
 			// media is a special tag
-			$installTo = mosPathName($mosConfig_absolute_path.'/images/stories');
+			$installTo = mosPathName($config->config_absolute_path.'/images/stories');
 		} else
 			if($adminFiles) {
 				$installTo = $this->componentAdminDir();
@@ -380,8 +380,7 @@ class mosInstaller {
 				($this->installFilename())),true);
 		} else
 			if($where == 'front') {
-				return $this->copyFiles($this->installDir(),$this->elementDir(),array(basename($this->installFilename
-					())),true);
+				return $this->copyFiles($this->installDir(),$this->elementDir(),array(basename($this->installFilename())),true);
 			}
 	}
 
@@ -482,11 +481,11 @@ class mosInstaller {
 }
 
 function cleanupInstall($userfile_name,$resultdir) {
-	global $mosConfig_absolute_path;
+	$config = &Jconfig::getInstance();
 
 	if(file_exists($resultdir)) {
 		deldir($resultdir);
-		unlink(mosPathName($mosConfig_absolute_path.'/media/'.$userfile_name,false));
+		unlink(mosPathName($config->config_absolute_path.DS.'media'.DS.$userfile_name,false));
 	}
 }
 

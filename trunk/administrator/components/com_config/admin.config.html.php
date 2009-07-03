@@ -233,7 +233,7 @@ class HTML_config {
 		$tabs->startTab(_FRONTPAGE,"front-page"); ?>
 		<table class="adminform">
 			<tr>
-				<td width="300">Язык сайта:</td>
+				<td width="300"><?php echo _COM_CONFIG_SITE_LANG?>:</td>
 				<td><?php echo $lists['lang']; ?></td>
 			</tr>
 				<td><?php echo _CUSTOM_PRINT?>:</td>
@@ -363,7 +363,7 @@ class HTML_config {
 			<tr>
 				<td><?php echo _FRONT_SESSION_TIME?>:</td>
 				<td>
-					<input class="text_area" type="text" name="config_lifetime" size="10" value="<?php echo $row->config_lifetime; ?>"/>&nbsp;секунд&nbsp;
+					<input class="text_area" type="text" name="config_lifetime" size="10" value="<?php echo $row->config_lifetime; ?>"/> <?php echo _SECONDS?>
 						<?php echo mosWarning(_FRONT_SESSION_TIME2); ?>
 					</td>
 			</tr>
@@ -585,12 +585,9 @@ class HTML_config {
 ?></td>
 						</tr>
 <tr>
-						<td><?php echo 'Тип вывода имени пользователя'?>:</td>
+						<td><?php echo _COM_CONFIG_CC_TYPE_USERNAME?>:</td>
 								<td><?php echo $lists['authorName']; ?></td>
-								<td><?php
-		$tip = 'Выберите тип отображения имени автора публикации';
-		echo mosToolTip($tip);
-?></td>
+								<td><?php echo mosToolTip(_COM_CONFIG_CC_TYPE_USERNAME_HELP);?></td>
 						</tr>
 						<tr>
 						<td><?php echo _DATE_TIME_CREATION?>:</td>
@@ -769,7 +766,7 @@ class HTML_config {
 ?>
 		<table class="adminform">
 			<tr>
-				<td>URL сайта:</td>
+				<td><?php echo _COM_CONFIG_SYTE_URL?>:</td>
 				<td><strong><?php echo $row->config_live_site; ?></strong></td>
 				<td>&nbsp;</td>
 			</tr>
@@ -846,7 +843,7 @@ class HTML_config {
 									<?php if($mode) echo ' checked="checked"'; ?>/></td>
 									<td>
 									<label for="filePermsMode1"><?php echo _FILE_MODE4?></label>
-										<span id="filePermsValue"<?php if(!$mode) echo ' style="display:none"'; ?>>как:
+										<span id="filePermsValue"<?php if(!$mode) echo ' style="display:none"'; ?>>
 											<input class="text_area" type="text" readonly="readonly" name="config_fileperms" size="4" value="<?php echo $row->config_fileperms; ?>"/>
 										</span>
 										<span id="filePermsTooltip"<?php if($mode) echo ' style="display:none"'; ?>>

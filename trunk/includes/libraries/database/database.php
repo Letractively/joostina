@@ -328,18 +328,11 @@ class database {
 			$this->_errorNum = mysql_errno($this->_resource);
 			$this->_errorMsg = mysql_error($this->_resource)." SQL=$this->_sql";
 			if($this->_debug) {
-				trigger_error(mysql_error($this->_resource),E_USER_NOTICE);
-				echo '<pre>' . $this->_sql . '</pre>';
-				if(function_exists('debug_backtrace')) {
-					foreach(debug_backtrace() as $back) {
-						if(@$back['file']) {
-							echo '<br />'.$back['file'].':'.$back['line'];
-						}
-					}
-				}
+				$this->show_db_error(mysql_error($this->_resource),$this->_sql);
 			}
 			return false;
 		}
+		
 		// тут тоже раскомментировать, что бу верхнее условие оказалось в комментариях, или еще лучше его вообще удалить
 		//*/
 		return $this->_cursor;
@@ -706,6 +699,21 @@ class database {
 	function GenID() {
 		return 0;
 	}
+	
+	function show_db_error($message,$sql=null){
+		echo '<div style="display:block;width:100%;"><b>DB::error:</b> ';
+		echo $message;
+		echo $sql ? '<pre>'.$sql.'</pre><b>UseFiles</b>::' : '';
+		if(function_exists('debug_backtrace')) {
+			foreach(debug_backtrace() as $back) {
+				if(@$back['file']) {
+					echo '<br />'.$back['file'].':'.$back['line'];
+				}
+			}
+		}
+		echo '</div>';
+	}
+	
 }
 
 /**

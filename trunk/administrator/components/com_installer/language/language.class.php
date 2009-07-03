@@ -9,7 +9,7 @@
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
-require_once ($mainframe->getPath('installer_class','installer'));
+
 /**
 * Language installer
 * @package Joostina
@@ -21,7 +21,9 @@ class mosInstallerLanguage extends mosInstaller {
 	* @param boolean True if installing from directory
 	*/
 	function install($p_fromdir = null) {
-		global $mosConfig_absolute_path,$database;
+		$database = &database::getInstance();
+		$config = &Jconfig::getIntance();
+
 		josSpoofCheck();
 		if(!$this->preInstallCheck($p_fromdir,'language')) {
 			return false;
@@ -33,7 +35,7 @@ class mosInstallerLanguage extends mosInstaller {
 		// Set some vars
 		$e = &$root->getElementsByPath('name',1);
 		$this->elementName($e->getText());
-		$this->elementDir(mosPathName($mosConfig_absolute_path."/language/"));
+		$this->elementDir(mosPathName($config->config_absolute_path.DS.'language'.DS));
 
 		// Find files to copy
 		if($this->parseFiles('files','language') === false) {
@@ -52,7 +54,8 @@ class mosInstallerLanguage extends mosInstaller {
 	* @param int The client id
 	*/
 	function uninstall($id,$option,$client = 0) {
-		global $mosConfig_absolute_path;
+		$config = &Jconfig::getIntance();
+
 		josSpoofCheck(null, null, 'request');
 		$id = str_replace(array('\\','/'),'',$id);
 		$basepath = $mosConfig_absolute_path.'/language/';
