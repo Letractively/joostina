@@ -1998,6 +1998,10 @@ class JConfig {
 	var $config_use_content_edit_mambots = 0;
 	/** @var int использование мамботов сохранения содержимого */
 	var $config_use_content_save_mambots = 0;
+	/** @var int чисто неудачный авторизаций для блокировки аккаунта */
+	var $config_count_for_user_block = 10;
+
+
 
 	// инициализация класса конфигурации - собираем переменные конфигурации
 	function JConfig(){

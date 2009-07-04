@@ -417,20 +417,19 @@ class HTML_config {
 			<tr>
 				<td><?php echo _IS_SITE_DEBUG?>:</td>
 				<td><?php echo $lists['debug'];
-		$tip = _IS_SITE_DEBUG2;
-		echo mosToolTip($tip);
+		echo mosToolTip(_IS_SITE_DEBUG2);
 ?></td>
 				</tr>
 			<tr>
 				<td><?php echo _EXTENDED_DEBUG?>:</td>
 				<td><?php echo $lists['config_front_debug'];
-		echo mosToolTip(_EXTENDED_DEBUG2); ?>
+							echo mosToolTip(_EXTENDED_DEBUG2); ?>
 				</td>
 			</tr>
 			<tr>
 				<td><?php echo _DISABLE_TPREVIEW?>:</td>
 				<td><?php echo $lists['tpreview'];
-		echo mosToolTip(_DISABLE_TPREVIEW_INFO); ?>
+							echo mosToolTip(_DISABLE_TPREVIEW_INFO); ?>
 				</td>
 			</tr>
 			
@@ -449,14 +448,14 @@ class HTML_config {
 			<tr>
 				<td width="300"><?php echo _ENABLE_ADMIN_SECURE_CODE?>:</td>
 				<td><?php echo $lists['config_enable_admin_secure_code'];
-							echo mosToolTip(_ADMIN_SECURE_CODE_HELP); ?>
+						echo mosToolTip(_ADMIN_SECURE_CODE_HELP); ?>
 				</td>
 			</tr>
 
 			<tr>
 				<td><?php echo _ADMIN_SECURE_CODE?>:</td>
 				<td>
-				<input class="text_area" type="text" name="config_admin_secure_code" size="60" value="<?php echo $row->config_admin_secure_code; ?>"/>
+					<input class="text_area" type="text" name="config_admin_secure_code" size="60" value="<?php echo $row->config_admin_secure_code; ?>"/>
 				</td>
 			</tr>
 
@@ -473,6 +472,14 @@ class HTML_config {
 				<?php echo mosToolTip(_ADMIN_SECURE_CODE_REDIRECT_PATH); ?>
 				</td>
 			</tr>
+
+			<tr>
+				<td><?php echo _COM_CONFIG_COUNT_FOR_USER_BLOCK?>:</td>
+				<td>
+					<input class="text_area" type="text" name="config_count_for_user_block" size="10" value="<?php echo $row->config_count_for_user_block; ?>"/>
+				</td>
+			</tr>
+
 			<tr>
 				<td><?php echo _DISABLE_HELP_BUTTON?>:</td>
 				<td><?php echo $lists['config_disable_button_help'];

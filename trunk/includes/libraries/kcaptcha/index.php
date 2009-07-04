@@ -9,7 +9,10 @@
 
 error_reporting(E_ALL);
 
+require_once( dirname(dirname(dirname(dirname(__FILE__)))).'/configuration.php' );
+
 if(isset($_REQUEST[session_name()]) ) {
+	session_name(md5($mosConfig_live_site));
 	session_start();
 }
 

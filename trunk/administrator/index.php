@@ -22,7 +22,6 @@ require_once ($mosConfig_absolute_path.'/includes/joomla.php');
 $config		= &Jconfig::getInstance();
 $database	= &database::getInstance();
 
-
 // SSL check - $http_host returns <live site url>:<port number if it is 443>
 $http_host = explode(':',$_SERVER['HTTP_HOST']);
 if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset($http_host[1]) && $http_host[1] == 443) && substr($config->config_live_site,0,8) !='https://') {
@@ -44,7 +43,7 @@ if($config->config_lang == '') {
 	$mosConfig_lang = 'russian';
 }
 
-include_once ($config->config_absolute_path . '/language/' . $mosConfig_lang . '.php');
+include_once ($config->config_absolute_path .DS.'language'.DS.$config->config_lang.'.php');
 
 //Installation sub folder check, removed for work with SVN
 if(file_exists('../installation/index.php') && $_VERSION->SVN == 0) {
@@ -58,19 +57,22 @@ $option = strtolower(strval(mosGetParam($_REQUEST,'option',null)));
 // mainframe - основна€ рабоча€ среда API, осуществл€ет взаимодействие с '€дром'
 $mainframe = &mosMainFrame::getInstance(true);
 
+session_name(md5($mosConfig_live_site));
+session_start();
+
+$bad_auth_count =intval(mosGetParam($_SESSION,'bad_auth',0));
+
 if(isset($_POST['submit'])) {
 	$usrname	= stripslashes(mosGetParam($_POST,'usrname',null));
 	$pass		= stripslashes(mosGetParam($_POST,'pass',null));
 
-	session_name(md5($mosConfig_live_site));
-	session_start();
-
 	if($pass == null) {
-		mosRedirect($config->config_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/',_PLEASE_ENTER_PASSWORD);
+		mosRedirect($config->config_live_site.DS.ADMINISTRATOR_DIRECTORY.DS,_PLEASE_ENTER_PASSWORD);
 		exit();
 	}
 
-	if($config->config_admin_bad_auth <= mosGetParam($_SESSION,'bad_auth','') && (int) $config->config_admin_bad_auth >= 0) {
+
+	if($config->config_admin_bad_auth <= $bad_auth_count && (int) $config->config_admin_bad_auth >= 0) {
 		$captcha = mosGetParam($_POST,'captcha','');
 		$captcha_keystring = mosGetParam($_SESSION,'captcha_keystring','');
 		if($captcha_keystring!=$captcha) {
@@ -78,16 +80,6 @@ if(isset($_POST['submit'])) {
 			unset($_SESSION['captcha_keystring']);
 			exit;
 		}
-	}
-	// провер€ем, имеютс€ ли на сайте администраторы и суперадминистраторы
-	$query = "SELECT COUNT(*) FROM #__users"
-			."\n WHERE (" // јдминистраторы
-			."\n gid = 24" // —уперјдминистраторы
-			."\n OR gid = 25 )";
-	$database->setQuery($query);
-	$count = intval($database->loadResult());
-	if($count < 1) {
-		mosRedirect($config->config_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/index.php?'.$config->config_admin_secure_code,_LOGIN_NOADMINS);
 	}
 
 	$my = null;
@@ -111,9 +103,7 @@ if(isset($_POST['submit'])) {
 			// Now lets store it in the database
 			$query = 'UPDATE #__users SET password = ' . $database->Quote($my->password) . 'WHERE id = ' . (int)$my->id;
 			$database->setQuery($query);
-			if(!$database->query()) {
-				// This is an error but not sure what to do with it ... we'll still work for now
-			}
+			$database->query();
 		}
 
 		list($hash,$salt) = explode(':',$my->password);
@@ -124,10 +114,18 @@ if(isset($_POST['submit'])) {
 			$query = 'UPDATE #__users SET bad_auth_count = bad_auth_count + 1 WHERE id = ' . (int)$my->id;
 			$database->setQuery($query);
 			$database->query();
-			$_SESSION['bad_auth'] = ((int)$_SESSION['bad_auth']) + 1;
+			$_SESSION['bad_auth'] = $bad_auth_count + 1;
+
+			if($_SESSION['bad_auth']>=$config->config_count_for_user_block){
+				$query = 'UPDATE #__users SET block = 1 WHERE id = ' . (int)$my->id;
+				$database->setQuery($query);
+				$database->query();
+			}
+
 			mosRedirect($config->config_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/index.php?'.$config->config_admin_secure_code,_BAD_USERNAME_OR_PASSWORD);
 			exit();
 		}
+
 		session_destroy();
 		session_unset();
 		session_write_close();
@@ -229,15 +227,11 @@ if(isset($_POST['submit'])) {
 	}
 } else {
 	initGzip();
-	session_start();
-	if(!isset($_SESSION['bad_auth'])){
-		$_SESSION['bad_auth'] = 0;
-	}
 
-	if($config->config_admin_bad_auth <= $_SESSION['bad_auth'] && (int)$config->config_admin_bad_auth >= 0) {
+	if($config->config_admin_bad_auth <= $bad_auth_count && (int)$config->config_admin_bad_auth >= 0) {
 		$config->config_captcha = 1;
 	}
-	$path = $config->config_absolute_path . '/'.ADMINISTRATOR_DIRECTORY.'/templates/' . $mainframe->getTemplate() . '/login.php';
+	$path = $config->config_absolute_path .DS.ADMINISTRATOR_DIRECTORY.DS.'templates'.DS. $mainframe->getTemplate() .DS. 'login.php';
 	require_once ($path);
 	doGzip();
 }

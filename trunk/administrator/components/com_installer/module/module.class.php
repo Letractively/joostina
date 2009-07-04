@@ -17,23 +17,22 @@ defined('_VALID_MOS') or die();
 class mosInstallerModule extends mosInstaller {
 	
 	function __construct($pre_installer){
-	  // Copy data 
-	  $this->i_installfilename = $pre_installer->i_installfilename;
-	  $this->i_installarchive = $pre_installer->i_installarchive;
-	  $this->i_installdir = $pre_installer->i_installdir;
-	  $this->i_iswin = $pre_installer->i_iswin;
-	  $this->i_errno = $pre_installer->i_errno;
-	  $this->i_error = $pre_installer->i_error;
-	  $this->i_installtype = $pre_installer->i_installtype;
-	  $this->i_unpackdir = $pre_installer->i_unpackdir;
-	  $this->i_docleanup = $pre_installer->i_docleanup;
-	  $this->i_elementdir = $pre_installer->i_elementdir;
-	  $this->i_elementname = $pre_installer->i_elementname;
-	  $this->i_elementspecial = $pre_installer->i_elementspecial;
-	  $this->i_xmldoc = $pre_installer->i_xmldoc;
-	  $this->i_hasinstallfile = $pre_installer->i_hasinstallfile;
-	  $this->i_installfile = $pre_installer->i_installfile;
-
+		// Copy data
+		$this->i_installfilename = $pre_installer->i_installfilename;
+		$this->i_installarchive = $pre_installer->i_installarchive;
+		$this->i_installdir = $pre_installer->i_installdir;
+		$this->i_iswin = $pre_installer->i_iswin;
+		$this->i_errno = $pre_installer->i_errno;
+		$this->i_error = $pre_installer->i_error;
+		$this->i_installtype = $pre_installer->i_installtype;
+		$this->i_unpackdir = $pre_installer->i_unpackdir;
+		$this->i_docleanup = $pre_installer->i_docleanup;
+		$this->i_elementdir = $pre_installer->i_elementdir;
+		$this->i_elementname = $pre_installer->i_elementname;
+		$this->i_elementspecial = $pre_installer->i_elementspecial;
+		$this->i_xmldoc = $pre_installer->i_xmldoc;
+		$this->i_hasinstallfile = $pre_installer->i_hasinstallfile;
+		$this->i_installfile = $pre_installer->i_installfile;
 	}
 	
 	/**
@@ -41,7 +40,9 @@ class mosInstallerModule extends mosInstaller {
 	* @param boolean True if installing from directory
 	*/
 	function install($p_fromdir = null) {
-		global $mosConfig_absolute_path,$database;
+		$database = &database::getInstance();
+		$config = &Jconfig::getInstance();
+
 		josSpoofCheck();
 		if(!$this->preInstallCheck($p_fromdir,'module')) {
 			return false;
@@ -63,7 +64,7 @@ class mosInstallerModule extends mosInstaller {
 		// Set some vars
 		$e = &$mosinstall->getElementsByPath('name',1);
 		$this->elementName($e->getText());
-		$this->elementDir(mosPathName($mosConfig_absolute_path.($client == 'admin'?'/'.ADMINISTRATOR_DIRECTORY:'').'/modules/'));
+		$this->elementDir(mosPathName($config->config_absolute_path.($client == 'admin'?'/'.ADMINISTRATOR_DIRECTORY:'').'/modules/'));
 
 		$e = &$mosinstall->getElementsByPath('position',1);
 		if(!is_null($e)) {

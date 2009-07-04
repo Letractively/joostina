@@ -16,8 +16,9 @@ defined('_VALID_MOS') or die();
 * @subpackage Installer
 */
 class mosInstallerMambot extends mosInstaller {
-	
+
 	function __construct($pre_installer){
+		// Copy data
 		$this->i_installfilename = $pre_installer->i_installfilename;
 		$this->i_installarchive = $pre_installer->i_installarchive;
 		$this->i_installdir = $pre_installer->i_installdir;
@@ -34,6 +35,7 @@ class mosInstallerMambot extends mosInstaller {
 		$this->i_hasinstallfile = $pre_installer->i_hasinstallfile;
 		$this->i_installfile = $pre_installer->i_installfile;
 	}
+
 	/**
 	* Custom install method
 	* @param boolean True if installing from directory
@@ -86,7 +88,6 @@ class mosInstallerMambot extends mosInstaller {
 				}
 
 				$database->setQuery( $sql );
-				echo $sql;
 				if(!$database->query()) {
 					$this->setError(1,_SQL_ERROR.": ".$database->getEscaped($sql).".<br /> "._ERROR_MESSAGE.":".$database->stderr(true));
 					return false;
@@ -174,6 +175,20 @@ class mosInstallerMambot extends mosInstaller {
 
 			if($this->i_xmldoc->loadXML($xmlfile,false,true)) {
 				$mosinstall = &$this->i_xmldoc->documentElement;
+
+				// Are there any SQL queries??
+				$query_element = &$mosinstall->getElementsbyPath('uninstall/queries',1);
+				if(!is_null($query_element)) {
+					$queries = $query_element->childNodes;
+					foreach($queries as $query) {
+						$database->setQuery($query->getText());
+						if(!$database->query()) {
+							HTML_installer::showInstallMessage($database->stderr(true),_UNINSTALL_ERROR,$this->returnTo($option,'component',$client));
+							exit();
+						}
+					}
+				}
+
 				// get the files element
 				$files_element = &$mosinstall->getElementsByPath('files',1);
 				if(!is_null($files_element)) {

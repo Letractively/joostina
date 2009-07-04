@@ -30,7 +30,7 @@ if($mosConfig_gz_js_css) { // работа со сжатыми css и js фай�
 	$mainframe->addCSS($mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/templates/joostfree/css/template_css.css');
 	$mainframe->addJS($mosConfig_live_site.'/includes/js/joomla.javascript.full.js');
 };
-include_once ($mosConfig_absolute_path.'/editor/editor.php');
+include_once ($mosConfig_absolute_path.DS.'editor/editor.php');
 initEditor();
 /**
 * вывод подключения js и css

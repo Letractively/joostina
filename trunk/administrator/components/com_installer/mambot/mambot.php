@@ -36,6 +36,8 @@ switch($task) {
 function removeElement($client) {
 	josSpoofCheck(null, null, 'request');
 	$cid = mosGetParam($_REQUEST,'cid',array(0));
+	$option = mosGetParam($_REQUEST,'option','com_installer');
+
 	if(!is_array($cid)) {
 		$cid = array(0);
 	}
@@ -48,7 +50,7 @@ function removeElement($client) {
 
 	$msg = $installer->getError();
 
-	mosRedirect($installer->returnTo('com_installer','module',$client),$result?_DELETE_SUCCESS.' '.$msg : _UNSUCCESS.' '.$msg);
+	mosRedirect($installer->returnTo('com_installer','mambot',$client),$result?_DELETE_SUCCESS.' '.$msg : _UNSUCCESS.' '.$msg);
 }
 
 function showInstalledMambots($_option) {
