@@ -2008,7 +2008,7 @@ DEFINE('_COMPONENTS_INSTALL_UNINSTALL','Управление компонент�
 DEFINE('_MODULES_SETUP','Управление модулями');
 DEFINE('_MODULES_INSTALL_DEINSTALL','Управление модулями');
 DEFINE('_SITE_MAMBOTS','Мамботы сайта');
-DEFINE('_MAMBOTS_INSTALL_UNINSTALL','Управление модулями');
+DEFINE('_MAMBOTS_INSTALL_UNINSTALL','Управление мамботами');
 DEFINE('_SITE_LANGUAGES','Языки сайта');
 DEFINE('_JOOMLA_TOOLS','Инструменты');
 DEFINE('_PRIVATE_MESSAGES_CONFIG','Настройки сообщений');
@@ -2387,5 +2387,7 @@ DEFINE('_COM_CONFIG_SEO_TYPE_4','Заголовок страницы ( толь�
 /* com_installer */
 DEFINE('_COM_INSTALLER_MAMBOT_EXIST','Мамбот %s уже существует');
 
+/* com_config */
+DEFINE('_COM_CONFIG_COUNT_FOR_USER_BLOCK','Число неудачных авторизаций для блокировки аккаунта');
 
 ?>

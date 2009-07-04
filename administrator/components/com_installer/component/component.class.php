@@ -284,7 +284,7 @@ class mosInstallerComponent extends mosInstaller {
 
 		$row = null;
 		if(!$database->loadObject($row)) {
-			HTML_installer::showInstallMessage($database->stderr(true),	_ERROR_DELETING,$this->returnTo($option,'component',$client));
+			HTML_installer::showInstallMessage($database->stderr(true),_ERROR_DELETING,$this->returnTo($option,'component',$client));
 			exit();
 		}
 

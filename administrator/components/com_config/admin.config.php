@@ -550,8 +550,6 @@ function showconfig($option) {
 	// использование мамботов сохранения содержимого
 	$lists['config_use_content_save_mambots']= mosHTML::yesnoRadioList('config_use_content_save_mambots','class="inputbox"',$row->config_use_content_save_mambots);
 
-
-
 	HTML_config::showconfig($row,$lists,$option);
 }
 
