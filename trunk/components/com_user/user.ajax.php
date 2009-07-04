@@ -96,8 +96,8 @@ function  request_from_plugin(){
     $act	= mosGetParam($_REQUEST,'act','');
 
     // проверяем, какой файл необходимо подключить, данные берутся из пришедшего GET запроса
-    if(file_exists($mosConfig_absolute_path . "/components/com_user/plugins/$plugin/$plugin.ajax.php")) {
-	    include_once ($mosConfig_absolute_path . "/components/com_user/plugins/$plugin/$plugin.ajax.php");
+    if(file_exists($mosConfig_absolute_path . "/mambots/profile/$plugin/$plugin.ajax.php")) {
+	    include_once ($mosConfig_absolute_path . "/mambots/profile/$plugin/$plugin.ajax.php");
     } else {
 	    die('error-1');
     }

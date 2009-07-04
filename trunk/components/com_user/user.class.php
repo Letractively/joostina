@@ -325,6 +325,29 @@ class mosUser extends mosDBTable {
 			mosMail($adminEmail2,$adminName2,$admin->email,$subject2,$message2);
 		}		
 	}
+	
+	function get_gender($user, $params){
+		
+		switch($user->user_extra->gender){
+			case 'female':
+			default:
+				$gender = 'женский';
+				break;				
+			
+			case 'male':
+				$gender = 'мужской';
+				break;
+		}
+		
+		if($params->get('gender')==1){
+			return $gender;
+		}
+		
+		else{
+			$gender = '<img alt="" title="'.$gender.'" src="images/system/'.$user->user_extra->gender.'.png" />';
+		}
+		return $gender;
+	}
 }
 
 class userUsersExtra extends mosDBTable{
@@ -721,6 +744,34 @@ class mosUserParameters extends mosParameters {
 		array_unshift($editors,mosHTML::makeOption('',_SELECT_EDITOR));
 		return mosHTML::selectList($editors,''.$control_name.'['.$name.']','class="inputbox"','value','text',$value);
 	}
+}
+
+class userPlugins{
+	
+	var $_group = null;
+	var $_plugins = null;
+	
+	function get_plugins($group = 'profile'){
+		global $_MAMBOTS;
+		
+		$plugins = $_MAMBOTS->loadBotGroup($group, 1);	
+		$this->_group = $group;
+		$this->_plugins = $plugins;	
+		
+		return $this->_plugins;	
+	}
+	
+	function allow_plugin($cur_plugin){
+		
+		foreach($this->_plugins as $plug){
+			if($plug->element == $cur_plugin){
+				return true;
+			}	
+		}
+		//$plugins_array = mosObjectToArray($this->_plugins);
+		
+		return false;		
+	}	
 }
 
 ?>

@@ -3833,8 +3833,12 @@ class mosMambotHandler {
 	@var array An array of the content mambot params*/
 	var $_content_mambot_params = array();
 	/**
-	@var array An array of the content mambot params*/
+	@var array An array of the search mambot params*/
 	var $_search_mambot_params = array();
+	/**
+	* @var array An array of the  mambot params
+	*/
+	var $_mambot_params = array();
 	/**
 	* Constructor
 	*/
@@ -3846,7 +3850,7 @@ class mosMambotHandler {
 	* Loads all the bot files for a particular group
 	* @param string The group name, relates to the sub-directory in the mambots directory
 	*/
-	function loadBotGroup($group) {
+	function loadBotGroup($group, $load = 0) {
 		global $my;
 
 		$database = &database::getInstance();
@@ -3881,7 +3885,7 @@ class mosMambotHandler {
 				$bots = $this->_content_mambots;
 				break;
 			default:
-				$query = 'SELECT folder, element, published, params FROM #__mambots WHERE published = 1'.$where_ac.' AND folder = '.$database->Quote($group).' ORDER BY ordering';
+				$query = 'SELECT folder, element, published, params FROM #__mambots WHERE published = 1'.$where_ac.' AND folder = '.$database->Quote($group).' ORDER BY ordering, id DESC';
 				$database->setQuery($query);
 				if(!($bots = $database->loadObjectList())) {
 					return false;
@@ -3889,12 +3893,20 @@ class mosMambotHandler {
 				break;
 		}
 
-		// load bots found by queries
-		$n = count($bots);
-		for($i = 0; $i < $n; $i++) {
-			$this->loadBot($bots[$i]->folder,$bots[$i]->element,$bots[$i]->published,$bots[$i]->params);
-		}
-		return true;
+		
+			// load bots found by queries
+			$n = count($bots);
+			for($i = 0; $i < $n; $i++) {
+				$this->loadBot($bots[$i]->folder,$bots[$i]->element,$bots[$i]->published,$bots[$i]->params);
+			}
+			if(!$load){
+				return true;
+			}
+			else{
+				return $bots;	
+			}
+
+
 	}
 	/**
 	* Loads the bot file
@@ -3916,6 +3928,7 @@ class mosMambotHandler {
 			$bot->lookup = $folder.'/'.$element;
 			$bot->params = $params;
 			$this->_bots[] = $bot;
+			$this->_mambot_params[$element] = $params;
 			require_once ($path);
 			$this->_loading = null;
 		}
@@ -3997,6 +4010,22 @@ class mosMambotHandler {
 			}
 		}
 		return null;
+	}
+	
+	//Адресный вызов мамбота
+	function call_mambot($event, $element, $args){
+
+			if(isset($this->_events[$event])) { 
+			foreach($this->_events[$event] as $func) {
+				if($this->_bots[$func[1]]->element == $element && function_exists($func[0])) {
+					$this->_mambot_params[$element] = $this->_bots[$func[1]]->params;
+					if($this->_bots[$func[1]]->published) {
+						return call_user_func($func[0],$args);
+					}
+				}
+			}
+		}
+		return null;	
 	}
 }
 
