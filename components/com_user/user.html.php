@@ -27,7 +27,7 @@ class HTML_user {
 	}
 
 function profile($user,$option, &$params, $config){
-      	global $mosConfig_absolute_path,$mosConfig_frontend_userparams,$mosConfig_live_site, $my, $database;
+      	global $mosConfig_absolute_path,$mosConfig_frontend_userparams,$mosConfig_live_site, $my, $database, $_MAMBOTS;
 
         $owner=0;  $admin = 0;
         if($my->user_type = 'Super Administrator'){
@@ -71,22 +71,38 @@ function profile($user,$option, &$params, $config){
             	$template_file=strtolower(str_replace(' ', '', $user->usertype )).'.php';
         	}	
 		}
-
-        //Определяем плагин
-        $view=mosGetParam( $_REQUEST, 'view', '' );
-        if($view){
-            $plugin_file = $mosConfig_absolute_path.'/components/com_user/plugins/user_'.$view.'/user_'.$view.'.php';
-            if (file_exists($plugin_file)) {
-	            $plugin_page =  $plugin_file;
-            } else {
-                $view = 'info';
-                $plugin_page =  $mosConfig_absolute_path.'/components/com_user/plugins/user_info.php';
-            }
-        } else{
-            $view = 'info';
-            $plugin_page =  $mosConfig_absolute_path.'/components/com_user/plugins/user_info.php';
-        }
-
+		
+		
+		//Находим плагины профиля пользователя
+		$plugins = new userPlugins();
+		$profile_plugins = $plugins->get_plugins('profile');
+		
+		$plugin_page = '';
+		$cur_plugin = mosGetParam( $_REQUEST, 'view', '' );
+		//Если плагины установлены 
+		if($profile_plugins){
+			
+			//выцепляем первый плагин в группе как плагин по-умолчанию
+			$plugin_page = $profile_plugins[0]->element;
+			
+			
+   			//Обращение к странице плагина        	
+        	if($cur_plugin){         	
+        		//Проверяем запрашиваемый плагин на доступность
+        		if($plugins->allow_plugin($cur_plugin)){
+        			$plugin_page = $cur_plugin; 
+        		}        	
+   			}
+   			else{
+				$cur_plugin = $plugin_page; 	
+   			}   			
+   			//подключаем плагин
+   			$_MAMBOTS->loadBot('profile',$plugin_page,1);		
+		
+		}
+		//$user->profile_plugins = $profile_plugins;
+		//$user->current_plugin = $plugin->get_current_plugin($profile_plugins);
+		
         include ($mosConfig_absolute_path.'/components/com_user/view/profile/'.$template_file);
     }
 
