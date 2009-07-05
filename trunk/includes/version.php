@@ -24,17 +24,17 @@ class joomlaVersion {
 	/** @var int Номер основной версии*/
 	var $RELEASE = '1.0';
 	/** @var строка  статус разработки*/
-	var $DEV_STATUS = 'alfa2';
+	var $DEV_STATUS = 'alfa3';
 	/** @var int Подверсия*/
 	var $DEV_LEVEL = '15';
 	/** @var int Номер сборки*/
-	var $BUILD = '$: 199';
+	var $BUILD = '$: 200';
 	/** @var string Кодовое имя*/
 	var $CODENAME = 'a';
 	/** @var string Дата*/
-	var $RELDATE = '01:07:2009';
+	var $RELDATE = '06:07:2009';
 	/** @var string Время*/
-	var $RELTIME = '11:59';
+	var $RELTIME = '00:41';
 	/** @var string Временная зона*/
 	var $RELTZ = '+5 GMT';
 	/** @var string Текст авторских прав*/
