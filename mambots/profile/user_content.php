@@ -16,7 +16,7 @@ $_MAMBOTS->registerFunction('userProfile','botUserContent');
 */
 function botUserContent(&$user) {
 	global $_MAMBOTS;
-	
+
 	$mainframe = &mosMainFrame::getInstance();
 	$database = &database::getInstance();
 	$config = &Jconfig::getInstance();
@@ -42,7 +42,7 @@ function botUserContent(&$user) {
 	if(!$user_items){
 	    ?>
 	    <div id="userContent_area">
-	        <div class="error">Пользователь еще ничего не опубликовал</div>
+	        <div class="error"><?php echo USER_CONTENT_NO_USER_CONTENTS?></div>
 	    </div>
 	    <?php
 	    return;
@@ -67,7 +67,7 @@ function botUserContent(&$user) {
 	            // раздел / категория
 	            $section_cat = $row->section.' / '.$row->category;
 	            if($row->sectionid==0){
-	                $section_cat = 'Статичное содержимое';
+	                $section_cat = USER_CONTENT_TYPED_CONTENT;
 	            }
 	
 				?>
@@ -102,7 +102,7 @@ function botUserContent(&$user) {
 	        <?php }  ?>
 	    </table>
 	    <?php if ( $params->get( 'show_link' ) ) { ?>
-	    	<a class="readon" href="<?php echo $user_content_link; ?>">Все материалы пользователя</a>
+	    	<a class="readon" href="<?php echo $user_content_link; ?>"><?php echo USER_CONTENT_ALL_USER_CONTENTS ?></a>
 	    <?php }?>
 	    
 	</div>

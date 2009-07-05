@@ -2390,4 +2390,20 @@ DEFINE('_COM_INSTALLER_MAMBOT_EXIST','Мамбот %s уже существуе�
 /* com_config */
 DEFINE('_COM_CONFIG_COUNT_FOR_USER_BLOCK','Число неудачных авторизаций для блокировки аккаунта');
 
+/* bot_user_contacts */
+DEFINE('BOT_USER_CONTACTS_SEND_MESSAGE','Отправить сообщение пользователю');
+
+/* bot_user_content */
+DEFINE('USER_CONTENT_NO_USER_CONTENTS','Пользователь еще ничего не опубликовал');
+DEFINE('USER_CONTENT_TYPED_CONTENT','Статичное содержимое');
+DEFINE('USER_CONTENT_ALL_USER_CONTENTS','Все материалы пользователя');
+/* bot_user_info */
+DEFINE('BOT_USER_INFO_GENDER','Пол:');
+DEFINE('BOT_USER_INFO_GENDER_NON_SELECT','не указан');
+DEFINE('BOT_USER_INFO_FROM','Откуда:');
+DEFINE('BOT_USER_INFO_FROM_NON_SELECT','не указано');
+DEFINE('BOT_USER_INFO_AGE_NON_SELECT','Возраст не указан');
+DEFINE('BOT_USER_INFO_USER_INFO_NONE','Пользователь еще не рассказал о себе');
+
+
 ?>

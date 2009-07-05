@@ -19,56 +19,53 @@ function botUserInfo(&$user) {
 
 	$params = new mosParameters($_MAMBOTS->_mambot_params['user_info']);
 	
-	?>                        
+	?>
 	<div id="userInfo_area">
-                 
+
 		<?php if($params->get('show_header') && $params->get('header') ){
 			?>
 				<h6><?php echo $params->get('header') ?></h6>
 			<?php
 		} ?>
-		
+
 		<?php if($params->get('gender')){?>
         	<?php if(isset($user->user_extra->gender)) {?>
-            	<strong>Пол:</strong> <?php echo $user->get_gender($user, $params);?>
+            	<strong><?php echo BOT_USER_INFO_GENDER ?></strong> <?php echo $user->get_gender($user, $params);?>
         	<?php } else {?>
-            	<strong>Пол:</strong> не указан
+            	<strong><?php echo BOT_USER_INFO_GENDER ?></strong> <?php echo BOT_USER_INFO_GENDER_NON_SELECT?>
         	<?php }?>
 		<?php } ?>
 		
 		<?php if($params->get('show_location')){?>
         	<?php if(isset($user->user_extra->location)) {?>
-            	<strong>Откуда:</strong> <?php echo $user->user_extra->location;?>
+            	<strong><?php echo BOT_USER_INFO_FROM?></strong> <?php echo $user->user_extra->location;?>
         	<?php } else {?>
-            	<strong>Откуда:</strong> не указано
+            	<strong><?php echo BOT_USER_INFO_FROM?></strong> <?php echo BOT_USER_INFO_FROM_NON_SELECT?>
         	<?php }?>
 		<?php } ?>
-		
+
 		<br />
 		
 		<?php if($params->get('show_birthdate')){?>
         	<?php if(isset($user->user_extra->birthdate)) {?>
             	<?php echo $user->get_birthdate($user, $params);?>
         	<?php } else {?>
-            	Возраст не указан
+            	<?php echo BOT_USER_INFO_AGE_NON_SELECT?>
         	<?php }?>
 		<?php } ?>
-		
+
 		<br />
-		
+
 		<?php if($params->get('show_about')){?>
 	        <?php if(isset($user->user_extra->about)) {?>
 	            <p><?php echo $user->user_extra->about;?></p>
 	        <?php } else {?>
-	            <p>Пользователь еще не рассказал о себе</p>
+	            <p><?php echo BOT_USER_INFO_USER_INFO_NONE?></p>
 	        <?php }?>
-  		<?php } ?>
+		<?php } ?>
 
 	</div>
-	
 	<?php
-
-	
 }
 
 ?>
