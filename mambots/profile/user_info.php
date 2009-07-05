@@ -44,6 +44,18 @@ function botUserInfo(&$user) {
         	<?php }?>
 		<?php } ?>
 		
+		<br />
+		
+		<?php if($params->get('show_birthdate')){?>
+        	<?php if(isset($user->user_extra->birthdate)) {?>
+            	<?php echo $user->get_birthdate($user, $params);?>
+        	<?php } else {?>
+            	Возраст не указан
+        	<?php }?>
+		<?php } ?>
+		
+		<br />
+		
 		<?php if($params->get('show_about')){?>
 	        <?php if(isset($user->user_extra->about)) {?>
 	            <p><?php echo $user->user_extra->about;?></p>

@@ -213,6 +213,33 @@ class mosMainFrame {
 				break;
 		}
 	}
+	
+	/**
+	* Подключение библиотеки
+	* @param string $lib Название библиотеки. Может быть сформировано как: `lib_name`, `lib_name/lib_name.php`, `lib_name.php`
+	* @param string $dir Директория библиотеки. Необязательный параметр. По умолчанию, поиск файла осуществляется в 'includes/libraries' 
+	*/
+	function addLib($lib, $dir = ''){
+		
+		if(!$dir){
+			$dir = 'includes/libraries';
+		}
+	
+		if(is_file(Jconfig::getInstance()->config_absolute_path.'/'.$dir.'/'.$lib)){
+			$lib = Jconfig::getInstance()->config_absolute_path.'/'.$dir.'/'.$lib; 
+		}
+
+		else if(is_file(Jconfig::getInstance()->config_absolute_path.'/'.$dir.'/'.$lib.'/'.$lib.'.php')){
+			$lib = Jconfig::getInstance()->config_absolute_path.'/'.$dir.'/'.$lib.'/'.$lib.'.php'; 
+		}
+		else{ 
+			return false;
+		}		
+		
+		require_once($lib);
+	}
+	
+	
 	/**
 	* установка title страницы
 	*/
@@ -6175,6 +6202,8 @@ function _xdump( $var, $text='<pre>' ){
 	print_r( $var );
 	echo "\n";
 }
+
+
 /**
  @global mosPlugin $_MAMBOTS*/
 $_MAMBOTS = new mosMambotHandler();

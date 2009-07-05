@@ -27,6 +27,11 @@
 			<option value="0">Нет</option>
 			<option value="1">Да</option>
 		</param>
+		<param name="show_birthdate" type="radio" default="0" label="Вывести возраст пользователя" description="">
+			<option value="0">Не отображать</option>
+			<option value="1">Показать дату рождения</option>
+			<option value="2">Показать возраст</option>
+		</param>
 		<param name="show_about" type="radio" default="0" label="Вывести информацию [О себе]" description="">
 			<option value="0">Нет</option>
 			<option value="1">Да</option>

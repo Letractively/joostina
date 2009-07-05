@@ -8,17 +8,12 @@
  */
 @import "reset.css";
 @import "base.css";
-@import "user_profile.css";
+@import "modules.css";
+@import "menu.css";
+@import "com_user.css";
 @import "com_content.css";
 @import "com_poll.css";
-@import "mod_login.css";
-@import "mod_poll.css";
-@import "mod_random_image.css";
-@import "mod_rssfeed.css";
-@import "mod_search.css";
-@import "mod_stats.css";
-@import "mod_who_online.css";
-@import "tooltip.css";
+
 
 html {
 	height: 100%;
@@ -113,126 +108,7 @@ a#rss {
 	float: right;
 	width: 180px;
 }
-/* -----Верхнее меню: BEGIN------  */
-ul#mainlevel-nav, ul#mainlevel-nav li {
-	display: inline;
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
-.top_menu_1 {
-	background: url(../images/topmenu_left.png) no-repeat top left;
-	margin: 15px 0 0 0;
-	padding: 0 0 0 36px;
-}
-.top_menu_2 {
-	background: url(../images/topmenu_right.png) no-repeat top right;
-	padding: 0 24px 0 0;
-}
-ul#mainlevel-nav {
-	background: url(../images/topmenu_bg.png) repeat-x center;
-	display: block;
-	height: 51px;
-	padding: 0 12px 0 0;
-	text-align: center;
-}
-ul#mainlevel-nav li a {
-	display: inline;
-	font-size: 18px;
-	line-height: 51px;
-	margin: 0 8px;
-	position: relative;
-}
-ul#mainlevel-nav li a#active_menu-nav {
-	color: #4B8EC2;
-	text-decoration: none;
-}
-/* -----Верхнее меню: END------  */
-/* -----Левое меню: BEGIN------  */
-.moduletable-round {
-	background: #EAECDE;
-	padding: 15px 20px 15px 20px;
-}
-.moduletable-round a {
-	border-bottom: 1px dashed #CCC;
-	color: #5B5B5B;
-	display: block;
-	font-size: 13px;
-	font-weight: bold;
-	padding: 1px 5px;
-	text-decoration: none;
-}
-.moduletable-round a:hover, .moduletable-round a#active_menu {
-	background: #DEE0D3;
-	color: #BD3620;
-}
-.moduletable-round ul, .moduletable-round ul li {
-	list-style: none;
-	margin: 2px 0;
-	padding: 0;
-}
-/* -----Левое меню: END------  */
-/* -----Дополнительное меню: BEGIN------  */
-.moduletable-help {
-	background: url(../images/help.jpg) no-repeat top left;
-	margin: 15px 0;
-	overflow: hidden;
-	padding: 20px 0 10px 0;
-}
-.moduletable-help h3 {
-	padding: 0 10px 8px 108px;
-}
-.moduletable-help ul {
-	float: left;
-	list-style: none;
-	margin: 0 6px 0 0;
-	padding: 0;
-	width: 46%;
-}
-.moduletable-help ul li {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
-.moduletable-help ul li a {
-	color: #498FC3;
-}
-/* -----Дополнительное меню: END------  */
-/* -----Нижнее меню: BEGIN------  */
-.footer ul.menulist-bottom {
-	float: left;
-	margin: 0 0 0 20%;
-	text-align: center;
-}
-.footer ul.menulist-bottom li {
-	display: inline;
-	height: 32px;
-	line-height: 32px;
-	margin: 0 9px 0 0;
-}
-.footer ul.menulist-bottom li a {
-	color: #000;
-	font-size: 14px;
-}
-/* -----Нижнее меню: END------  */
-/* -----Сервисные ссылки: BEGIN------  */
-a.navbar {
-	display: block;
-	float: left;
-	height: 60px;
-	text-decoration: none;
-	width: 48px;
-}
-a.navbar#home {
-	background: url(../images/home.jpg) no-repeat center;
-}
-a.navbar#mail {
-	background: url(../images/mail.jpg) no-repeat center;
-}
-a.navbar#map {
-	background: url(../images/map.jpg) no-repeat center;
-}
-/* -----Сервисные ссылки: END------  */
+
 .block_w1, .block_w2, .block_w3 {
 	float: left;
 	margin: 0 0 10px 0;
@@ -338,15 +214,6 @@ ul.bigred li {
 	margin: 0 0 6px 0;
 	padding: 0 0 0 40px;
 }
-#email, #print {
-	padding: 3px;
-}
-
-#jdebug{
-	padding: 10px;
-	text-align:left;
-}
-
 
 .table_of_items span.button, .table_of_items a.button{
     display: block; float: left; line-height: 22px; height: 22px;
@@ -358,50 +225,5 @@ ul.bigred li {
     margin: 2px 0 0 0;
 }
 
-.button {
-      display:inline-block;
-      line-height:22px;
-      padding:0 11px 0 0;
-      background:url(../images/buttons/bg-button-r.gif) right 0 no-repeat;
-      cursor:pointer;
-    }
-      .button a, .button b, .button input, .button button {
-        display:inline-block;
-        padding:0 0 0 11px;
-        font-family:Arial;
-        font-size:13px;
-        font-weight:normal;
-        color:#000;
-        text-decoration:none;
-        outline:none;
-        background:url(../images/buttons/bg-button-l.gif) 0 0 no-repeat;
-        border:none;
-        cursor:pointer;
-      }
-      .button input, .button button {
-        height:22px;
-      }
-      .button img {
-        vertical-align:middle;
-        border:none;
-      }
-    .button:hover {
-      background-position:100% -22px;
-    }
-      .button:hover a, .button:hover b, .button:hover input, .button:hover button {
-        background-position:0 -22px;
-        padding:0 0 0 11px;
-      }
-    .button:active {
-      background-position:100% -44px;
-    }
-      .button:active a, .button:active b, .button:active input, .button:active button {
-        background-position:0 -44px;
-      }
 
-.info{
-    padding: 10px;
-     background: #E9EBDF;
-     margin: 5px 0 10px 0;
-}
 
