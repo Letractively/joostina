@@ -326,7 +326,7 @@ class mosUser extends mosDBTable {
 		}		
 	}
 	
-	function get_gender($user, $params){
+	function get_gender($user, $params = null){
 		
 		switch($user->user_extra->gender){
 			case 'female':
@@ -339,7 +339,7 @@ class mosUser extends mosDBTable {
 				break;
 		}
 		
-		if($params->get('gender')==1){
+		if($params->get('gender')==1 || !$params){
 			return $gender;
 		}
 		
@@ -348,6 +348,23 @@ class mosUser extends mosDBTable {
 		}
 		return $gender;
 	}
+	
+	function get_birthdate($user, $params = null){
+		mosMainFrame::getInstance()->addLib('text');
+		mosMainFrame::getInstance()->addLib('datetime');
+		
+		if($params->get('show_birthdate')==1){
+			return mosFormatDate($user->user_extra->birthdate, '%d-%m-%Y', 0);
+		}
+		
+		else{
+			$delta = DateAndTime::getDelta(DateAndTime::mysql_to_unix($user->user_extra->birthdate), DateAndTime::mysql_to_unix(_CURRENT_SERVER_TIME));
+			$age = $delta['year'];
+			return 	 $age.' '.Text::_declension($user->user_extra->birthdate ,array('год', 'года', 'лет'));
+		}
+
+	}
+	
 }
 
 class userUsersExtra extends mosDBTable{

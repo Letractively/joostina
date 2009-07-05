@@ -25,7 +25,7 @@ function pluginJWAjaxVote(&$row,&$params) {
 		$rating_sum		= intval($vote->rating_sum);
 		$rating_count	= intval($vote->rating_count);
 		$thmess = $mosConfig_caching ? _AV_THANKS_CACHE : _AV_THANKS;
-		$script = '<link href="'.$mainframe->getCfg('live_site').'/templates/'.$mainframe->getTemplate().'/css/ajaxvote.css" rel="stylesheet" type="text/css" />
+		$script = '
 <script type="text/javascript">
 	var live_site = \''.$mainframe->getCfg('live_site').'\';
 	var jwajaxvote_lang = new Array();

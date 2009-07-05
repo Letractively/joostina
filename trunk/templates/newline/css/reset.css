@@ -10,23 +10,14 @@ html {
 	color: #000;
 }
 html, body, address, blockquote, div, p, pre, h1, h2, h3, h4, h5, h6, hr, dd, dl, dt, ul, ol, li, a, abbr, acronym, b, big, br, cite, code, del, dfn, em, i, ins, kbd, q, samp, small, span, strong, sub, sup, tt, var, img, object, caption, table, tbody, td, tfoot, th, thead, tr, textarea, select, form, fieldset, legend, label, font, u, s, center, dir, menu, strike, xmp {
-	color: #616161;
-	font-family: "Trebuchet MS";
+	color: #616161;	
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
 	text-indent: 0;
 	vertical-align: baseline;
 }
-html, body {
-	font: normal 13px/20px "Trebuchet MS";
-	text-align: left;
-	text-decoration: none;
-}
-table, td {
-	font: normal 13px/20px "Trebuchet MS";
-	text-align: left;
-}
+
 input, input.button {
 	margin: 0;
 	padding: 0;
@@ -120,4 +111,7 @@ select[size="1"] {
 input[type=checkbox], input[type=radio] {
 	margin: 3px 3px 0 0;
 	vertical-align: top;
+}
+.com_wrapper {
+	overflow: auto;
 }
