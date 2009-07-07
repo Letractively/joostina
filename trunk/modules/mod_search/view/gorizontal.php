@@ -10,14 +10,16 @@
 // запрет прямого доступа
 defined( '_VALID_MOS' ) or die();
 
-if ($params->get('numrows',0)) {
-?>
-    <div class="mod_newsflash <?php echo $params->get('moduleclass_sfx', '');?>">
-        <ul>
-            <?php foreach ($items as $row): ?>
-                <?php $module->helper->prepare_row($row, $params);?>
-                    <li>
-                        <?php if($params->get('image',1)): ?>
+
+if ($params->get('numrows',0)) { ?>
+
+        <div class="mod_newsflash <?php echo $params->get('moduleclass_sfx', '');?>">
+            <table>
+                <tr>
+                <?php foreach ($items as $row): ?>
+                     <?php $module->helper->prepare_row($row, $params);?>
+                    <td>
+                        <?php if($params->get('image',0)): ?>
                             <?php echo $row->image;?>
                         <?php endif; ?>
 
@@ -29,11 +31,11 @@ if ($params->get('numrows',0)) {
                             <span class="author"><?php echo $row->author;?></span>
                         <?php endif; ?>
 
-                        <?php if($params->get('item_title',1)): ?>
+                        <?php if($params->get('item_title',0)): ?>
                             <?php echo $row->title;?>
                         <?php endif; ?>
 
-                        <?php if($params->get('text',1)): ?>
+                        <?php if($params->get('text',0)): ?>
                             <?php echo $row->text;?>
                         <?php endif; ?>
 
@@ -41,9 +43,10 @@ if ($params->get('numrows',0)) {
                             <div class="readmore"><?php echo $row->readmore ;?></div>
                         <?php endif; ?>
 
-                    </li>
+                    </td>
                 <?php endforeach; ?>
-        </ul>
-    </div>
-    <?php
-}
+                </tr>
+            </table>
+        </div>
+
+<?php } ?>
