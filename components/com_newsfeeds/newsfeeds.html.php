@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ (C) 2008-2009 Joostina team. пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
+* @license пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, пїЅпїЅпїЅ help/license.php
+* Joostina! - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ GNU/GPL
+* пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ help/copyright.php.
 */
 
-// запрет прямого доступа
+// пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 defined('_VALID_MOS') or die();
 
 /**
@@ -276,7 +276,7 @@ class HTML_newsfeed {
 				if($iUrl && $params->get('feed_image')) {
 ?>
 					<tr>
-						<td><img src="<?php echo $iUrl; ?>" alt="<?php echo mosCommonHTML::newsfeedEncoding(rssDoc,$iTitle,$utf8enc); ?>" /></td>
+						<td><img src="<?php echo $iUrl; ?>" alt="<?php echo mosCommonHTML::newsfeedEncoding($rssDoc,$iTitle,$utf8enc); ?>" /></td>
 					</tr>
 <?php
 				}
@@ -318,7 +318,7 @@ class HTML_newsfeed {
 ?>
 									<a href="<?php echo ampReplace($currItem->getLink()); ?>" target="_blank"><?php echo $item_title; ?></a>
 									<br />
-									Ссылка: 
+									пїЅпїЅпїЅпїЅпїЅпїЅ:
 									<a href="<?php echo $eUrl; ?>" target="_blank"><?php echo ampReplace($eUrl); ?></a>
 <?php
 							}

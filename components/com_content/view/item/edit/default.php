@@ -1,33 +1,33 @@
 <?php
 defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.' );
 ?>
- 
-  <script>
 
-    $(document).ready(function() {
-        $("#apply").click(function () {
-            $("input#task").val('apply');
-            $("#addContent").submit();
-        });
-        $("#save").click(function () {
-            $("input#task").val('save');
-            $("#addContent").submit();
-        });
-        $("#cancel").click(function () {
-            $("input#task").val('cancel');
-            $("#addContent").submit();
-        });
-   });
+<script>
 
-
-    $(document).ready(function(){
-        jQuery.validator.messages.required = "";
-        $("#addContent").validate();
-  });
-  </script>
+	$(document).ready(function() {
+		$("#apply").click(function () {
+			$("input#task").val('apply');
+			$("#addContent").submit();
+		});
+		$("#save").click(function () {
+			$("input#task").val('save');
+			$("#addContent").submit();
+		});
+		$("#cancel").click(function () {
+			$("input#task").val('cancel');
+			$("#addContent").submit();
+		});
+});
 
 
-   <script language="javascript" type="text/javascript">
+	$(document).ready(function(){
+		jQuery.validator.messages.required = "";
+		$("#addContent").validate();
+});
+</script>
+
+
+<script language="javascript" type="text/javascript">
 		onunload = WarnUser;
 
 		function submitbutton(pressbutton) {
@@ -38,12 +38,12 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
 			}
 			catch(e){}
 
-            <?php
-		        getEditorContents('editor1','introtext');
-		        getEditorContents('editor2','fulltext');
-            ?>
+			<?php
+				getEditorContents('editor1','introtext');
+				getEditorContents('editor2','fulltext');
+			?>
 
-            submitform(pressbutton);
+			submitform(pressbutton);
 		}
 
 		function setgood(){
@@ -62,112 +62,112 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
 
 
 
-		<form action="index.php" id="addContent" onSubmit="javascript:setgood();" method="post" name="adminForm" enctype="multipart/form-data">
-        <div class="componentheading"><?php echo $row->id ? '&nbsp;'.$params->get('form_title_edit',_E_EDIT):  '&nbsp;'.$params->get('form_title_add',_E_ADD ); ?></div>
+		<form action="<?php echo $mosConfig_live_site;?>/index.php" id="addContent" onSubmit="javascript:setgood();" method="post" name="adminForm" enctype="multipart/form-data">
+		<div class="componentheading"><?php echo $row->id ? '&nbsp;'.$params->get('form_title_edit',_E_EDIT):  '&nbsp;'.$params->get('form_title_add',_E_ADD ); ?></div>
 
-        <?php if ($row->id && $allow_info){ ?>
-        <div class="info">
-            <strong><?php echo _E_EXPIRES ;?></strong> <?php echo $row->publish_down;?>
-            <strong><?php echo _E_VERSION ;?></strong> <?php echo $row->version;?>
-            <strong><?php echo _E_CREATED ;?></strong> <?php echo $row->created;?>
-            <?php if($row->modified){?>
+		<?php if ($row->id && $allow_info){ ?>
+		<div class="info">
+			<strong><?php echo _E_EXPIRES ;?></strong> <?php echo $row->publish_down;?>
+			<strong><?php echo _E_VERSION ;?></strong> <?php echo $row->version;?>
+			<strong><?php echo _E_CREATED ;?></strong> <?php echo $row->created;?>
+			<?php if($row->modified){?>
 				<strong><?php echo _E_LAST_MOD ;?></strong> <?php echo $row->modified;?>
 			<?php } ?>
 			<strong><?php echo _E_HITS ;?></strong> <?php echo $row->hits;?>
 
-        </div>
-        <?php }?>
-        
-                <span class="button">
-			<input type="submit" class="button submit" name="submit" id="save" value="Сохранить" />			
+		</div>
+		<?php }?>
+
+				<span class="button">
+			<input type="submit" class="button submit" name="submit" id="save" value="Сохранить" />
 		</span>
-        <span class="button"><input type="submit" class="button apply" name="apply" id="apply" value="Применить" /></span>
-        <span class="button"><input type="submit" class="button cancel" name="cancel" id="cancel" value="Отмена" /></span>
-        
-        <table class="cedit_misc" cellspacing="0" cellpadding="0" border="0">
-            <tr>
+		<span class="button"><input type="submit" class="button apply" name="apply" id="apply" value="Применить" /></span>
+		<span class="button"><input type="submit" class="button cancel" name="cancel" id="cancel" value="Отмена" /></span>
 
-                <?php if($access->canPublish || $auto_publish==1 || $my->usertype=="Super Administrator"){?>
-                <td><b><?php echo _CMN_PUBLISHED ?>:</b>&nbsp;&nbsp;</td><td><?php echo  mosHTML::yesnoRadioList('state','',$row->state);?></td>
-                <?php }?>
+		<table class="cedit_misc" cellspacing="0" cellpadding="0" border="0">
+			<tr>
 
-                <?php if( $allow_frontpage==1 || $my->usertype=="Super Administrator") {?>
+				<?php if($access->canPublish || $auto_publish==1 || $my->usertype=="Super Administrator"){?>
+				<td><b><?php echo _CMN_PUBLISHED ?>:</b>&nbsp;&nbsp;</td><td><?php echo  mosHTML::yesnoRadioList('state','',$row->state);?></td>
+				<?php }?>
+
+				<?php if( $allow_frontpage==1 || $my->usertype=="Super Administrator") {?>
 				<td align="right">&nbsp;&nbsp;&nbsp;<b><?php echo $front_label;?>:</b>&nbsp;</td>
 				<td  align="left"> <?php echo mosHTML::yesnoRadioList('frontpage','',$row->frontpage ? 1:0);?></td>
-                <?php }?>
+				<?php }?>
 
-            </tr>
-       </table>
+			</tr>
+	   </table>
 
 
-         <table class="cedit_main" cellspacing="0" cellpadding="0" border="0" width="100%">
-            <tr>
-                <td width="25"><strong><?php echo _HEADER_TITLE?>:</strong></td>
-                <td><input class="inputbox required title" type="text" name="title" size="30" maxlength="255" style="width:99%" value="<?php echo $row->title; ?>" /></td>
-            </tr>
+		 <table class="cedit_main" cellspacing="0" cellpadding="0" border="0" width="100%">
+			<tr>
+				<td width="25"><strong><?php echo _HEADER_TITLE?>:</strong></td>
+				<td><input class="inputbox required title" type="text" name="title" size="30" maxlength="255" style="width:99%" value="<?php echo $row->title; ?>" /></td>
+			</tr>
 
-             <?php if($allow_alias){?>
-            <tr>
-                <td><strong><?php echo _ALIAS?>:</strong></td>
+			 <?php if($allow_alias){?>
+			<tr>
+				<td><strong><?php echo _ALIAS?>:</strong></td>
 				<td>
 					<input name="title_alias" type="text" class="inputbox" id="title_alias" value="<?php echo $row->title_alias; ?>" size="30" style="width:99%" maxlength="255" />
 				</td>
-            </tr>
-             <?php } ?>
+			</tr>
+			 <?php } ?>
 
-                        <tr <?php echo $class;?>>
-                            <td><strong><?php echo _E_CATEGORY?>:</strong></td>
-				            <td> <?php  echo $lists['catid'];?>	</td>
-                        </tr>
-
-
+						<tr <?php echo $class;?>>
+							<td><strong><?php echo _E_CATEGORY?>:</strong></td>
+							<td> <?php  echo $lists['catid'];?>	</td>
+						</tr>
 
 
-            <?php  if($allow_tags){ ?>
-            <tr>
+
+
+			<?php  if($allow_tags){ ?>
+			<tr>
 				<td align="left" valign="top"><strong><?php echo _TAGS; ?></strong></td>
 				<td><input class="inputbox" style="width:99%" type="text" name="tags" value="<?php echo $row->tags;?>" /></td>
 			</tr>
-            <?php }?>
+			<?php }?>
 
 
-           <?php  if($allow_desc){ ?>   <tr>
+		   <?php  if($allow_desc){ ?>   <tr>
 				<td align="left" valign="top"><strong><?php echo _E_M_DESC; ?></strong></td>
 				<td><textarea class="inputbox" style="width:99%"  rows="2" name="metadesc"><?php echo str_replace('&','&amp;',$row->metadesc); ?></textarea></td>
 			</tr>
-           <?php }?>
+		   <?php }?>
 
-         </table>
+		 </table>
 
-         <br />
-         <div class="cedit_introtext">
-            <strong><?php echo _E_INTRO.' ('._CMN_REQUIRED.')'; ?>:</strong><br />
-            <?php if($p_wwig){
+		 <br />
+		 <div class="cedit_introtext">
+			<strong><?php echo _E_INTRO.' ('._CMN_REQUIRED.')'; ?>:</strong><br />
+			<?php if($p_wwig){
 			// parameters : areaname, content, hidden field, width, height, rows, cols
 			editorArea('editor1',$row->introtext,'introtext','700','400','70','15', $wwig_params);
-		    }else{
-            ?>
+			}else{
+			?>
 			<textarea style="width: 700px; height: 400px;" class="inputbox introtext" rows="15" cols="70" id="introtext" name="introtext"/><?php echo $row->introtext;?></textarea>
-            <?php }?>
-         </div>
+			<?php }?>
+		 </div>
 
-         <?php if($p_fulltext){?>
-		 <br /><br />
-         <div class="cedit_fulltext">
-            <strong><?php echo _E_MAIN.' ('._CMN_OPTIONAL.')'; ?>:</strong>
-            <?php if($p_wwig){
+		 <?php if($p_fulltext){?>
+		<br /><br />
+		 <div class="cedit_fulltext">
+			<strong><?php echo _E_MAIN.' ('._CMN_OPTIONAL.')'; ?>:</strong>
+			<?php if($p_wwig){
 			// parameters : areaname, content, hidden field, width, height, rows, cols
 			editorArea('editor2',$row->fulltext,'fulltext','600','400','70','15', $wwig_params);
-		    }else { ?>
+			}else { ?>
 			<textarea style="width: 700px; height: 400px;" class="inputbox" rows="15" cols="70" id="fulltext" name="fulltext"/><?php echo $row->fulltext;?></textarea>
-            <?php } ?>
-        </div>
-         <?php } ?>
+			<?php } ?>
+		</div>
+		 <?php } ?>
 
 
 
 <?php if( $allow_params){ ?>
-    <h4><?php echo _E_PUBLISHING;?></h4>
+	<h4><?php echo _E_PUBLISHING;?></h4>
 			<table class="adminform">
 			<tr>
 				<td align="left"><?php echo _E_ACCESS_LEVEL; ?></td>
@@ -202,11 +202,11 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
 
 		<div style="clear:both;"></div> <br /><br />
 
-        <span class="button">
-			<input type="submit" class="button submit" name="submit" id="save" value="Сохранить" />			
+		<span class="button">
+			<input type="submit" class="button submit" name="submit" id="save" value="Сохранить" />
 		</span>
-        <span class="button"><input type="submit" class="button apply" name="apply" id="apply" value="Применить" /></span>
-        <span class="button"><input type="submit" class="button cancel" name="cancel" id="cancel" value="Отмена" /></span>
+		<span class="button"><input type="submit" class="button apply" name="apply" id="apply" value="Применить" /></span>
+		<span class="button"><input type="submit" class="button cancel" name="cancel" id="cancel" value="Отмена" /></span>
 
 		<input type="hidden" name="goodexit" id="goodexit" value="0" />
 		<input type="hidden" name="option" value="com_content" />
