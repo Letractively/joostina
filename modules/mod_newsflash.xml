@@ -8,11 +8,16 @@
 	<authorEmail>joostinacms@gmail.com</authorEmail>
 	<authorUrl>www.joostina.ru</authorUrl>
 	<version>1.0.1</version>
-	<description>Этот модуль случайно выбирает один из опубликованных объектов из определенной категории при каждом обновлении страницы. В зависимости от конфигурации новости показываются горизонтально или вертикально.</description>
+	<description>Этот модуль случайно выбирает один или несколько (в зависимости от настроек) опубликованных объектов из определенной категории при каждом обновлении страницы. В зависимости от конфигурации новости показываются горизонтально или вертикально. Материалы сортируются в соответствии с их сортировкой внутри категории.</description>
 	<files>
 		<filename module="mod_newsflash">mod_newsflash.php</filename>
 	</files>
 	<params>
+        <param name="template" type="text" default="" label="Шаблон модуля (название.расширение)" description="Введите название файла (например: template.php). Внимаение! В случае задания шаблона - указанные настройки стиля вывода будут проигнорированы, поскольку оформление будет браться из заданного шаблона. Если оставить поле пустым - будет использован шаблон по-умолчанию (с учетом заданного стиля вывода)." />
+		<param name="template_dir" type="radio" default="0" label="Директория шаблона" description="Системная - шаблон находится в modules/название_модуля/view. Папка шаблона сайта - шаблон находится в templates/текущий_шаблон_сайта/html/название_модуля ">
+			<option value="0">Системная</option>
+			<option value="1">Папка шаблона сайта</option>
+		</param>
 		<param name="cache" type="radio" default="0" label="Разрешить кэширование" description="Выберите, кэшировать ли содержимое этого модуля">
 			<option value="0">Нет</option>
 			<option value="1">Да</option>
@@ -25,12 +30,40 @@
 			<option value="horiz">Горизонтально</option>
 			<option value="vert">Вертикально</option>
 		</param>
-		<param name="image" type="radio" default="0" label="Показывать изображения" description="Показывать изображения объекта содержимого">
-			<option value="1">Да</option>
+		<param name="image" type="list" default="0" label="Показывать изображения" description="Показывать изображения объекта содержимого">
 			<option value="0">Нет</option>
+			<option value="mosimage">Использовать {mosimage}</option>
+            <option value="img">Использовать [img]</option>
+		</param>
+        <param name="image_link" type="radio" default="0" label="Изображение - ссылка на материал" description="">
+			<option value="0">Нет</option>
+			<option value="1">Да</option>
+		</param>
+        <param name="image_default" type="radio" default="0" label="Выводить изображение по-умолчанию" description="Если ДА - то вместо отсутствующего в материале изображения будет выведена картинка по-умолчанию (images/noimage.jpg)">
+			<option value="0">Нет</option>
+			<option value="1">Да</option>
+		</param>
+        <param name="item_title" type="radio" default="1" label="Заголовок объекта" description="Показывать ли заголовок объекта">
+			<option value="0">Нет</option>
+			<option value="1">Да</option>
 		</param>
 		<param name="link_titles" type="list" default="" label="Заголовки в виде ссылок" description="Создание заголовков объекта в виде ссылок">
 			<option value="">Использовать глобальные настройки</option>
+			<option value="0">Нет</option>
+			<option value="1">Да</option>
+		</param>
+        <param name="text" type="list" default="1" label="Текст новости" description="">
+			<option value="0">Не показывать</option>
+			<option value="1">Текстом</option>
+            <option value="2">Ссылкой</option>
+		</param>
+        <param name="crop_text" type="list" default="0" label="Лимит текста" description="">
+			<option value="0">Без лимита</option>
+			<option value="simbol">Лимит символов</option>
+            <option value="word">Лимит слов</option>
+		</param>
+        <param name="text_limit" type="text" default="" label="Размер лимита" description="" />
+        <param name="show_author" type="radio" default="0" label="Показать автора" description="">
 			<option value="0">Нет</option>
 			<option value="1">Да</option>
 		</param>
@@ -38,9 +71,8 @@
 			<option value="0">Скрыть</option>
 			<option value="1">Показать</option>
 		</param>
-		<param name="item_title" type="list" default="0" label="Заголовок объекта" description="Показывать ли заголовок объекта">
-			<option value="0">Нет</option>
-			<option value="1">Да</option>
-		</param>
+        <param name="link_text" type="text" default="" label="Текст [Подробнее]" description="Если оставить поле пустым - будет использован текст по-умолчанию." />
+        <param name="Itemid" type="text" default="" label="Itemid" description="" />
+
 </params>
 </mosinstall>

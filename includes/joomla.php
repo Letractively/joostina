@@ -2208,6 +2208,9 @@ class mosModule extends mosDBTable {
 	/**
 	@var string*/
 	var $template = null;
+    /**
+	@var string*/
+	var $helper = null;
 
 
 	/**
@@ -2237,14 +2240,14 @@ class mosModule extends mosDBTable {
 					$module_obj->$key = $module->$key;	
 				}		
 		}
-		
+
 		return $module_obj;
 	}
 	
     function set_template($params){
     	$mainframe = &mosMainFrame::getInstance();
     	$config = &Jconfig::getInstance();
-    	
+
     	if($params->get('template', '') == ''){
     		return false;
     	}
@@ -2272,7 +2275,21 @@ class mosModule extends mosDBTable {
 				
 		}
 		return false;
-		
+
+    }
+
+    function get_helper(){
+    	$config = &Jconfig::getInstance();
+		$help_file = 'modules/'.$this->module.'/helper.php';
+
+	    if (is_file($config->config_absolute_path . '/' . $help_file)) {
+            require_once($config->config_absolute_path . '/' . $help_file);
+
+            $helper_class = $this->module.'_Helper';
+            $this->helper = new $helper_class();
+            return true;
+        }
+		return false;
     }
 
 }

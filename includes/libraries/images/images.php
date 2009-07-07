@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * (c) boston, 2008 Joostina.Team
  *
@@ -19,8 +19,6 @@ class Image {
     var $url ='';
 
 	function Image(){
-		global $mosConfig_live_site;
-		$this->url = $mosConfig_live_site.$this->url;
 	}
 
 
@@ -149,6 +147,63 @@ class Image {
         }
         return false;
     }
+
+    function get_image_from_text($text, $type = 'img', $default_image = null){
+
+        if($type){
+            $image = self::get_mosimage($text, $default_image);
+        }
+        else{
+            $image = self::get_image($text, $default_image);
+        }
+
+        return $image;
+    }
+
+
+    function get_mosimage($images, $default_image = null){
+        $images = explode("\n", $images);
+		$total = count($images);
+		$image = '';
+		for ($i=0; $i<$total; $i++) {
+			$image = trim($images[$i]);
+			if ($image) {
+				$filename = explode('|', $image);
+				$image = $filename[0];
+				break;
+			}
+		}
+
+        if($image){
+            return Jconfig::getInstance()->config_live_site.'/images/stories/'.$image;
+        }
+        else if($default_image){
+            return Jconfig::getInstance()->config_live_site.'/images/noimage.jpg';
+         }
+         else{
+             return '';
+         }
+
+    }
+
+    function get_image($text, $default_image = null){
+
+        $matches=array();
+        $regex = '#<img[^>]*src=(["\'])([^"\']*)\1[^>]*>#is';
+         if(preg_match($regex, $text, $matches)){
+             $img =  $matches[0];
+             return $img;
+         }
+         else if($default_image){
+            return Jconfig::getInstance()->config_live_site.'/images/noimage.jpg';
+         }
+         else{
+             return '';
+         }
+
+    }
+
+
 
 }
 

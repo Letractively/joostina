@@ -450,10 +450,9 @@ class HTML_content {
 	/**
 	* Вывод заголовка
 	*/
-	function Title(&$row,&$params,&$access) {
+	function Title(&$row,&$params,&$access = null) {
 		global $mosConfig_title_h1,$mosConfig_title_h1_only_view,$task;
 		if($params->get('item_title')) {
-
 
               //наводим порядок с выводом заголовков
               // Проверяем, нужно ли делать заголовки ссылками
@@ -463,7 +462,6 @@ class HTML_content {
 
               switch($task){
                 case 'blogsection':
-                default:
                   $group_cat=$params->get('group_cat',0);
                   if(!$group_cat){
                       $row->title='<h2>'.$row->title.'</h2>';
@@ -482,6 +480,10 @@ class HTML_content {
 
                 case 'view':
                   $row->title='<h1>'.$row->title.'</h1>';
+                break;
+
+                default:
+                    $row->title='<h4>'.$row->title.'</h4>';
                 break;
               }
 
@@ -694,7 +696,7 @@ class HTML_content {
 			if($params->get('intro_only') && $row->link_text) {
 ?>
 
-    <a href="<?php echo $row->link_on; ?>" title="<?php echo $row->title; ?>" class="readon<?php echo $params->get('pageclass_sfx'); ?>"><?php echo $row->link_text; ?></a>
+    <a href="<?php echo $row->link_on; ?>" title="<?php echo $row->title; ?>" class="readon"><?php echo $row->link_text; ?></a>
 
 	<?php
 			}
