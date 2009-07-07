@@ -37,7 +37,7 @@ switch($task) {
         global $database, $my, $mosConfig_absolute_path;
         $id = intval(mosGetParam($_REQUEST,'id',0));
         
-        require_once ($mosConfig_absolute_path.'/includes/libraries/images/images.class.php');
+        mosMainFrame::getInstance()->addLib('images');
         
         $return = array();
 
