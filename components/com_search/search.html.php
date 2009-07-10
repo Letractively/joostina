@@ -35,13 +35,13 @@ class search_html {
 		<label for="search_searchword"><?php echo _PROMPT_KEYWORD; ?>:</label>
 		<br />
 		<input type="text" name="searchword" id="search_searchword" size="30" maxlength="20" value="<?php echo stripslashes($searchword);?>" class="inputbox" />
-		<input type="submit" name="submit" value="<?php echo _SEARCH_TITLE; ?>" class="button" />
+		<input type="submit" name="submit" value="<?php echo _SEARCH; ?>" class="button" />
 		<br />
 		<?php echo $lists['searchphrase']; ?>
 		<br />
 		<br />
 		<h3><?php echo _SEARCH_RESULTS ?></h3>
-		<label for="search_ordering"><?php echo _CMN_ORDERING; ?>:</label>
+		<label for="search_ordering"><?php echo _ORDERING; ?>:</label>
 		<?php echo $lists['ordering']; ?>
 	</div>
 </form>

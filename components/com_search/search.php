@@ -18,7 +18,7 @@ if($tag){
     search_by_tag($tag);
 }
 else{
-    $mainframe->setPageTitle(_SEARCH_TITLE);
+    $mainframe->setPageTitle(_SEARCH);
     viewSearch();
 }
 
@@ -135,13 +135,13 @@ function viewSearch() {
 		$params = new mosParameters($menu->params);
 		$params->def('page_title',1);
 		$params->def('pageclass_sfx','');
-		$params->def('header',$menu->name,_SEARCH_TITLE);
+		$params->def('header',$menu->name,_SEARCH);
 		$params->def('back_button',$mainframe->getCfg('back_button'));
 	} else {
 		$params = new mosParameters('');
 		$params->def('page_title',1);
 		$params->def('pageclass_sfx','');
-		$params->def('header',_SEARCH_TITLE);
+		$params->def('header',_SEARCH);
 		$params->def('back_button',$mainframe->getCfg('back_button'));
 	}
 
@@ -182,7 +182,7 @@ function viewSearch() {
 			$restriction = 1;
 		}
 	}
-	@include "$mosConfig_absolute_path/language/$mosConfig_lang.ignore.php";
+	@include "$mosConfig_absolute_path/language/$mosConfig_lang/ignore.php";
 
 	$orders = array();
 	$orders[] = mosHTML::makeOption('newest',_SEARCH_NEWEST);
@@ -294,7 +294,7 @@ function viewSearch() {
 				}
 			}
 
-			$mainframe->setPageTitle(_SEARCH_TITLE);
+			$mainframe->setPageTitle(_SEARCH);
 
 			$total = $totalRows;
 			$limit = intval(mosGetParam($_GET,'limit',$mosConfig_list_limit));

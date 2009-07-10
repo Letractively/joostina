@@ -53,12 +53,12 @@ define('NET_FTP_ERR_DELETEDIR_FAILED',-29);
 define('NET_FTP_ERR_RAWDIRLIST_FAILED',-30);
 define('NET_FTP_ERR_DIRLIST_UNSUPPORTED',-31);
 define('NET_FTP_ERR_DISCONNECT_FAILED',-32);
-define('NET_FTP_ERR_USERNAMENOSTRING',-33);
+define('NET_FTP_ERR_USERNOSTRING',-33);
 define('NET_FTP_ERR_PASSWORDNOSTRING',-33);
 class Net_FTP extends PEAR {
 var $_hostname;
 var $_port = 21;
-var $_username;
+var $_USER;
 var $_password;
 var $_passv;
 var $_mode = FTP_BINARY;
@@ -563,9 +563,9 @@ return true;
 }
 function setUsername($user) {
 if(empty($user) || !is_string($user)) {
-return PEAR::raiseError('Username $user invalid.',NET_FTP_ERR_USERNAMENOSTRING);
+return PEAR::raiseError('Username $user invalid.',NET_FTP_ERR_USERNOSTRING);
 }
-$this->_username = $user;
+$this->_USER = $user;
 }
 function setPassword($password) {
 if(empty($password) || !is_string($password)) {
@@ -631,7 +631,7 @@ function getPort() {
 return $this->_port;
 }
 function getUsername() {
-return $this->_username;
+return $this->_USER;
 }
 function getPassword() {
 return $this->_password;

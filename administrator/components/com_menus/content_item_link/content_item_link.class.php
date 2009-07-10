@@ -65,7 +65,7 @@ class content_item_link_menu {
 			</tr>
 			<tr>
 				<td width="10%">
-				'._E_CATEGORY.':
+				'._CATEGORY.':
 				</td>
 				<td>
 				'.$content[0]->category.'

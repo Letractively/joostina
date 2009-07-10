@@ -24,10 +24,10 @@ if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset
 	$mosConfig_live_site = 'https://' . substr($mosConfig_live_site,7);
 }
 
-// подключаем ядро и язык
+// подключаем ядро
 require_once ($mosConfig_absolute_path.'/includes/joomla.php');
-include_once ($mosConfig_absolute_path.'/language/'.$mosConfig_lang.'.php');
-require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/includes/admin.php');
+//include_once ($mosConfig_absolute_path.'/language/'.$mosConfig_lang.'.php');
+
 
 // создаём сессии
 session_name(md5($mosConfig_live_site));
@@ -38,6 +38,10 @@ $task		= strval(mosGetParam($_REQUEST,'task',''));
 
 // mainframe - основная рабочая среда API, осуществляет взаимодействие с 'ядром'
 $mainframe = mosMainFrame::getInstance(true);
+$mainframe->set('lang', $mosConfig_lang);
+include_once($mainframe->getLangFile());
+
+require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/includes/admin.php');
 
 $my = $mainframe->initSessionAdmin($option,$task);
 
@@ -53,6 +57,10 @@ header ("Cache-Control: no-cache, must-revalidate ");
 initGzip();
 // проверяем, какой файл необходимо подключить, данные берутся из пришедшего GET запроса
 if(file_exists($mosConfig_absolute_path . "/".ADMINISTRATOR_DIRECTORY."/components/$option/admin.$commponent.ajax.php")) {
+	//Подключаем язык компонента
+ 	if($mainframe->getLangFile($option)){ 
+ 		include($mainframe->getLangFile($option));        	
+	}
 	include_once ($mosConfig_absolute_path . "/".ADMINISTRATOR_DIRECTORY."/components/$option/admin.$commponent.ajax.php");
 } else {
 	die('error-inc-component');

@@ -53,7 +53,7 @@ function showconfig($option) {
 	if($handle = opendir($mosConfig_absolute_path.'/language/')) {
 		$i = 0;
 		while(false !== ($file = readdir($handle))) {
-			if(!strcasecmp(substr($file,-4),".php") && $file != "." && $file != ".." && strcasecmp(substr($file,-11),".ignore.php")) {
+			if(!strcasecmp(substr($file,-4),".xml") && $file != "." && $file != ".." && strcasecmp(substr($file,-11),".ignore.php")) {
 				$langs[]= mosHTML::makeOption(substr($file,0,-4));
 			}
 		}
@@ -535,8 +535,8 @@ function showconfig($option) {
 	$lists['admin_content_order_by']= mosHTML::selectList($order_list,'config_admin_content_order_by','class="inputbox" size="1"','value','text',$row->config_admin_content_order_by);
 
 	$order_sort_list = array(
-		mosHTML::makeOption(1,_CMN_SORT_ASC),
-		mosHTML::makeOption(0,_CMN_SORT_DESC)
+		mosHTML::makeOption(1,_SORT_ASC),
+		mosHTML::makeOption(0,_SORT_DESC)
 	);
 	$lists['admin_content_order_sort']= mosHTML::selectList($order_sort_list,'config_admin_content_order_sort','class="inputbox" size="1"','value','text',$row->config_admin_content_order_sort);
 

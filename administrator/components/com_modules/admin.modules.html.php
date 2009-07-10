@@ -77,8 +77,8 @@ class HTML_modules {
 				<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count($rows); ?>);" />
 			</th>
 			<th class="title"><?php echo _MODULE_NAME?></th>
-			<th class="jtd_nowrap" width="10%"><?php echo _CMN_PUBLISHED?></th>
-			<th colspan="2" align="center" width="5%"><?php echo _CMN_ORDERING?></th>
+			<th class="jtd_nowrap" width="10%"><?php echo _PUBLISHED?></th>
+			<th colspan="2" align="center" width="5%"><?php echo _ORDERING?></th>
 			<th width="2%"><?php echo _ORDER_DROPDOWN?></th>
 			<th width="1%">
 				<a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="<?php echo _SAVE_ORDER?>" /></a>
@@ -121,7 +121,7 @@ class HTML_modules {
 ?>
 			</td>
 			<td align="center" <?php echo ($row->checked_out && ($row->checked_out != $my->id)) ? null : 'onclick="ch_publ('.$row->id.',\'com_modules\');" class="td-state"';?>>
-				<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?php echo _E_PUBLISHING?>" />
+				<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?php echo _PUBLISHING?>" />
 			</td>
 			<td><?php echo $pageNav->orderUpIcon($i,($row->position == @$rows[$i - 1]->position)); ?></td>
 			<td><?php echo $pageNav->orderDownIcon($i,$n,($row->position == @$rows[$i + 1]->position)); ?></td>
@@ -146,12 +146,12 @@ class HTML_modules {
 			<td align="center">
 <?php
 			if(is_null($row->pages)) {
-				echo _CMN_NO;
+				echo _NO;
 			} else
 				if($row->pages > 0) {
 					echo _MODULE_PAGES_SOME;
 				} else {
-					echo _CMN_ALL;
+					echo _ALL;
 				}
 ?>
 			</td>
@@ -274,11 +274,11 @@ class HTML_modules {
 					</td>
 				</tr>
 				<tr>
-					<td valign="top" class="key"><?php echo _CMN_ACCESS?>:</td>
+					<td valign="top" class="key"><?php echo _ACCESS?>:</td>
 					<td><?php echo $lists['access']; ?></td>
 				</tr>
 				<tr>
-					<td valign="top" class="key"><?php echo _CMN_PUBLISHED?>:</td>
+					<td valign="top" class="key"><?php echo _PUBLISHED?>:</td>
 					<td><?php echo $lists['published']; ?></td>
 				</tr>
 				<tr>
@@ -286,7 +286,7 @@ class HTML_modules {
 					<td><?php echo $row->id; ?></td>
 				</tr>
 				<tr>
-					<td valign="top" class="key"><?php echo _CMN_DESCRIPTION?>:</td>
+					<td valign="top" class="key"><?php echo _DESCRIPTION?>:</td>
 					<td><?php echo $row->description; ?></td>
 				</tr>
 				</table>
@@ -343,7 +343,7 @@ class HTML_modules {
 							<th colspan="2"><?php echo _MODULE_USER_CONTENT?></th>
 						</tr>
 						<tr>
-							<td valign="top" align="left"><?php echo _E_CONTENT?>:</td>
+							<td valign="top" align="left"><?php echo _CONTENT?>:</td>
 							<td>
 <?php
 								// parameters : areaname, content, hidden field, width, height, rows, cols

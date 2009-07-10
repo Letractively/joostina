@@ -61,7 +61,7 @@ class HTML_joomlapack {
 						."\t<th align=\"left\">"._JP_TABLES."</th>\n"
 						."\t<th width=\"5%\">"._JP_TABLE_ROWS."</th>\n"
 						."\t<th width=\"5%\">"._JP_SIZE."</th>\n"
-						."\t<th width=\"5%\">"._E_CAPTION."</th>\n"
+						."\t<th width=\"5%\">"._CAPTION."</th>\n"
 						."\t<th width=\"5%\">"._JP_INCREMENT."</th>\n"
 						."\t<th width=\"5%\">"._JP_CREATION_DATE."</th>\n"
 						."\t<th width=\"5%\">"._JP_CHECKING."</th>\n"

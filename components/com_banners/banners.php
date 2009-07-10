@@ -11,13 +11,15 @@
 defined('_VALID_MOS') or die();
 
 
-if(file_exists($mosConfig_absolute_path . '/language/'.$mosConfig_lang.'/com_banners.php')) {
-	$artbannerslanguage = $mosConfig_lang;
-}else{
-	$artbannerslanguage = 'russian';
-}
+/**
+ * if(file_exists($mosConfig_absolute_path . '/language/'.$mosConfig_lang.'/com_banners.php')) {
+ * 	$artbannerslanguage = $mosConfig_lang;
+ * }else{
+ * 	$artbannerslanguage = 'russian';
+ * }
 
-include_once ($mosConfig_absolute_path . '/language/'.$artbannerslanguage.'/com_banners.php');
+ * include_once ($mosConfig_absolute_path . '/language/'.$artbannerslanguage.'/com_banners.php');
+ */
 
 // including classes
 require_once ($mainframe->getPath('class'));

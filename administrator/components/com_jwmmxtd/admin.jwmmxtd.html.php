@@ -42,8 +42,8 @@ class HTML_mmxtd {
 			<img src="images/ico/copy.png" alt="<?php echo _COPY?>" title="<?php echo _COPY?>" /></a>
 			<a href="javascript:void(null)" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $path ?>';document.adminForm.subtask.value='movefile';document.adminForm.submit( );" title="<?php echo _JWMM_MOVE?>">
 			<img src="images/ico/cut.png" alt="<?php echo _JWMM_MOVE?>" title="<?php echo _JWMM_MOVE?>" /></a>
-			<a href="index2.php?option=com_jwmmxtd&amp;task=deletefolder&amp;delFolder=<?php echo $path; ?>&amp;curdirectory=<?php echo $listdir; ?>" onclick="return deleteFolder('<?php echo $dir; ?>', <?php echo $num_files; ?>);" title="<?php echo _CMN_DELETE?>">
-			<img src="images/ico/delete.png" alt="<?php echo _CMN_DELETE?>" title="<?php echo _CMN_DELETE?>" /></a>
+			<a href="index2.php?option=com_jwmmxtd&amp;task=deletefolder&amp;delFolder=<?php echo $path; ?>&amp;curdirectory=<?php echo $listdir; ?>" onclick="return deleteFolder('<?php echo $dir; ?>', <?php echo $num_files; ?>);" title="<?php echo _DELETE?>">
+			<img src="images/ico/delete.png" alt="<?php echo _DELETE?>" title="<?php echo _DELETE?>" /></a>
 		</td>
 	</tr>
 </table>
@@ -84,16 +84,16 @@ class HTML_mmxtd {
 		</tr>
 		<tr>
 			<td class="fileactions">
-				<a href="index2.php?option=com_jwmmxtd&task=edit&curdirectory=<?php echo $cur; ?>&img=<?php echo $img_file; ?>" title="<?php echo _E_EDIT?>">
-				<img src="images/ico/picture_edit.png" alt="<?php echo _E_EDIT?>" title="<?php echo _E_EDIT?>" /></a>
+				<a href="index2.php?option=com_jwmmxtd&task=edit&curdirectory=<?php echo $cur; ?>&img=<?php echo $img_file; ?>" title="<?php echo _EDIT?>">
+				<img src="images/ico/picture_edit.png" alt="<?php echo _EDIT?>" title="<?php echo _EDIT?>" /></a>
 				<a href="#" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $file ?>';document.adminForm.subtask.value='renamefile';document.adminForm.submit( );" title="<?php echo _RENAME?>">
 				<img src="images/ico/rename.png" alt="<?php echo _RENAME?>" title="<?php echo _RENAME?>" /></a>
 				<a href="#" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $file ?>';document.adminForm.subtask.value='copyfile';document.adminForm.submit( );" title="<?php echo _COPY?>">
 				<img src="images/ico/copy.png" alt="<?php echo _COPY?>" title="<?php echo _COPY?>" /></a>
 				<a href="#" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $file ?>';document.adminForm.subtask.value='movefile';document.adminForm.submit( );" title="<?php echo _JWMM_MOVE?>">
 				<img src="images/ico/cut.png" alt="<?php echo _JWMM_MOVE?>" title="<?php echo _JWMM_MOVE?>" /></a>
-				<a href="index2.php?option=com_jwmmxtd&amp;task=delete&amp;delFile=<?php echo $file; ?>&amp;curdirectory=<?php echo $cur; ?>" onclick="javascript:if(confirm('<?php echo _JWMM_DELETE_FILE_CONFIRM?>:<?php echo $file; ?>')) return true; return false;" title="<?php echo _CMN_DELETE?>">
-				<img src="images/ico/delete.png" alt="<?php echo _CMN_DELETE?>" title="<?php echo _CMN_DELETE?>" /></a>
+				<a href="index2.php?option=com_jwmmxtd&amp;task=delete&amp;delFile=<?php echo $file; ?>&amp;curdirectory=<?php echo $cur; ?>" onclick="javascript:if(confirm('<?php echo _JWMM_DELETE_FILE_CONFIRM?>:<?php echo $file; ?>')) return true; return false;" title="<?php echo _DELETE?>">
+				<img src="images/ico/delete.png" alt="<?php echo _DELETE?>" title="<?php echo _DELETE?>" /></a>
 			</td>
 		</tr>
 </table>
@@ -154,8 +154,8 @@ if($icon == "../images/icons/zip.png") { ?>
 			<img src="images/ico/copy.png" alt="<?php echo _COPY?>" title="<?php echo _COPY?>" /></a>
 			<a href="#" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $doc ?>';document.adminForm.subtask.value='movefile';document.adminForm.submit( );" title="<?php echo _JWMM_MOVE?>">
 			<img src="images/ico/cut.png" alt="<?php echo _JWMM_MOVE?>" title="<?php echo _JWMM_MOVE?>" /></a>
-			<a href="index2.php?option=com_jwmmxtd&amp;task=delete&amp;delFile=<?php echo $doc; ?>&amp;curdirectory=<?php echo $cur; ?>" onclick="javascript:if(confirm('<?php echo _JWMM_DELETE_FILE_CONFIRM?>: <?php echo $doc; ?>')) return true; return false;" title="<?php echo _CMN_DELETE?>">
-			<img src="images/ico/delete.png" alt="<?php echo _CMN_DELETE?>" title="<?php echo _CMN_DELETE?>" /></a>
+			<a href="index2.php?option=com_jwmmxtd&amp;task=delete&amp;delFile=<?php echo $doc; ?>&amp;curdirectory=<?php echo $cur; ?>" onclick="javascript:if(confirm('<?php echo _JWMM_DELETE_FILE_CONFIRM?>: <?php echo $doc; ?>')) return true; return false;" title="<?php echo _DELETE?>">
+			<img src="images/ico/delete.png" alt="<?php echo _DELETE?>" title="<?php echo _DELETE?>" /></a>
 		</td>
 	</tr>
 </table>

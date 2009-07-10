@@ -172,7 +172,7 @@ function userSave($option,$uid) {
 	$row->load((int)$user_id);
 
 	$orig_password = $row->password;
-	$orig_username = $row->username;
+	$orig_USER = $row->username;
 
 	if(!$row->bind($_POST,'gid usertype')) {
 		echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
@@ -235,11 +235,11 @@ function userSave($option,$uid) {
     
 
 	// check if username has been changed
-	if($orig_username != $row->username) {
+	if($orig_USER != $row->username) {
 		// change username value in session table
 		$query = "UPDATE #__session"
 				."\n SET username = ".$database->Quote($row->username)
-				."\n WHERE username = ".$database->Quote($orig_username)
+				."\n WHERE username = ".$database->Quote($orig_USER)
 				."\n AND userid = ".(int)$my->id
 				."\n AND gid = ".(int)$my->gid
 				."\n AND guest = 0";

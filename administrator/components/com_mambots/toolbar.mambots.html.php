@@ -25,7 +25,7 @@ class TOOLBAR_modules {
 		mosMenuBar::save();
 		mosMenuBar::spacer();
 		// кнопка "Применить" с Ajax
-		mosMenuBar::ext(_CMN_APPLY,'#','-apply','id="tb-apply" onclick="ch_apply();return;"');
+		mosMenuBar::ext(_APPLY,'#','-apply','id="tb-apply" onclick="ch_apply();return;"');
 
 		mosMenuBar::spacer();
 		if($id) {

@@ -23,7 +23,7 @@ class HTML_menusections {
 		<form action="index2.php" method="post" name="adminForm">
 		<table class="adminheading">
 		<tr>
-			<th class="menus"><?php echo _MENU_MANAGER?> <small>[ <?php echo $menutype; ?> ]</small></th>
+			<th class="menus"><?php echo _COM_MENUS_MENU_MANAGER?> <small>[ <?php echo $menutype; ?> ]</small></th>
 			<td class="jtd_nowrap"><?php echo _MAXIMUM_LEVELS?></td>
 			<td><?php echo $levellist; ?></td>
 			<td><?php echo _FILTER?>:</td>
@@ -52,9 +52,9 @@ class HTML_menusections {
 				<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count($rows); ?>);" />
 			</th>
 			<th class="title" width="40%"><?php echo _MENUITEM?></th>
-			<th width="5%"><?php echo _CMN_PUBLISHED?></th>
-			<th colspan="2" width="5%"><?php echo _CMN_ORDERING?></th>
-			<th width="2%"><?php echo _ORDER_DROPDOWN?></th>
+			<th width="5%"><?php echo _PUBLISHED?></th>
+			<th colspan="2" width="5%"><?php echo _ORDERING?></th>
+			<th width="2%"><?php echo _COM_MENUS_ORDER_DROPDOWN?></th>
 			<th width="1%">
 				<a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="<?php echo _SAVE_ORDER?>" /></a>
 			</th>
@@ -153,7 +153,7 @@ class HTML_menusections {
 		<tr>
 			<td width="50%" valign="top">
 				<fieldset>
-				<legend><?php echo _E_CONTENT?></legend>
+				<legend><?php echo _CONTENT?></legend>
 					<table class="adminform">
 <?php
 		$k = 0;

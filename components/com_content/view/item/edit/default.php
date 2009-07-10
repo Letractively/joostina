@@ -63,17 +63,17 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
 
 
 		<form action="<?php echo $mosConfig_live_site;?>/index.php" id="addContent" onSubmit="javascript:setgood();" method="post" name="adminForm" enctype="multipart/form-data">
-		<div class="componentheading"><?php echo $row->id ? '&nbsp;'.$params->get('form_title_edit',_E_EDIT):  '&nbsp;'.$params->get('form_title_add',_E_ADD ); ?></div>
+		<div class="componentheading"><?php echo $row->id ? '&nbsp;'.$params->get('form_title_edit',_EDIT):  '&nbsp;'.$params->get('form_title_add',_ADD ); ?></div>
 
 		<?php if ($row->id && $allow_info){ ?>
 		<div class="info">
 			<strong><?php echo _E_EXPIRES ;?></strong> <?php echo $row->publish_down;?>
-			<strong><?php echo _E_VERSION ;?></strong> <?php echo $row->version;?>
-			<strong><?php echo _E_CREATED ;?></strong> <?php echo $row->created;?>
+			<strong><?php echo _VERSION ;?></strong> <?php echo $row->version;?>
+			<strong><?php echo _CREATED ;?></strong> <?php echo $row->created;?>
 			<?php if($row->modified){?>
 				<strong><?php echo _E_LAST_MOD ;?></strong> <?php echo $row->modified;?>
 			<?php } ?>
-			<strong><?php echo _E_HITS ;?></strong> <?php echo $row->hits;?>
+			<strong><?php echo _HITS ;?></strong> <?php echo $row->hits;?>
 
 		</div>
 		<?php }?>
@@ -88,7 +88,7 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
 			<tr>
 
 				<?php if($access->canPublish || $auto_publish==1 || $my->usertype=="Super Administrator"){?>
-				<td><b><?php echo _CMN_PUBLISHED ?>:</b>&nbsp;&nbsp;</td><td><?php echo  mosHTML::yesnoRadioList('state','',$row->state);?></td>
+				<td><b><?php echo _PUBLISHED ?>:</b>&nbsp;&nbsp;</td><td><?php echo  mosHTML::yesnoRadioList('state','',$row->state);?></td>
 				<?php }?>
 
 				<?php if( $allow_frontpage==1 || $my->usertype=="Super Administrator") {?>
@@ -116,7 +116,7 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
 			 <?php } ?>
 
 						<tr <?php echo $class;?>>
-							<td><strong><?php echo _E_CATEGORY?>:</strong></td>
+							<td><strong><?php echo _CATEGORY?>:</strong></td>
 							<td> <?php  echo $lists['catid'];?>	</td>
 						</tr>
 
@@ -141,7 +141,7 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
 
 		 <br />
 		 <div class="cedit_introtext">
-			<strong><?php echo _E_INTRO.' ('._CMN_REQUIRED.')'; ?>:</strong><br />
+			<strong><?php echo _E_INTRO.' ('._REQUIRED.')'; ?>:</strong><br />
 			<?php if($p_wwig){
 			// parameters : areaname, content, hidden field, width, height, rows, cols
 			editorArea('editor1',$row->introtext,'introtext','700','400','70','15', $wwig_params);
@@ -154,7 +154,7 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
 		 <?php if($p_fulltext){?>
 		<br /><br />
 		 <div class="cedit_fulltext">
-			<strong><?php echo _E_MAIN.' ('._CMN_OPTIONAL.')'; ?>:</strong>
+			<strong><?php echo _E_MAIN.' ('._OPTIONAL.')'; ?>:</strong>
 			<?php if($p_wwig){
 			// parameters : areaname, content, hidden field, width, height, rows, cols
 			editorArea('editor2',$row->fulltext,'fulltext','600','400','70','15', $wwig_params);
@@ -167,7 +167,7 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
 
 
 <?php if( $allow_params){ ?>
-	<h4><?php echo _E_PUBLISHING;?></h4>
+	<h4><?php echo _PUBLISHING;?></h4>
 			<table class="adminform">
 			<tr>
 				<td align="left"><?php echo _E_ACCESS_LEVEL; ?></td>

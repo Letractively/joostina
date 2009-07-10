@@ -65,7 +65,7 @@ class HTML_admin_misc {
 ?>
 		<table class="adminheading">
 		<tr>
-			<th class="info"><?php echo _E_ITEM_INFO?></th>
+			<th class="info"><?php echo _INFO?></th>
 		</tr>
 		</table>
 
@@ -433,7 +433,7 @@ class HTML_admin_misc {
 				<table width="100%">
 					<tr>
 						<td>
-							<strong><?php echo _SEARCH_TITLE?>:</strong>
+							<strong><?php echo _SEARCH?>:</strong>
 							<input class="text_area" type="hidden" name="option" value="com_admin" />
 							<input type="text" name="helpsearch" value="<?php echo $helpsearch; ?>" class="inputbox" />
 							<input type="submit" value="<?php echo _FIND?>" class="button" />

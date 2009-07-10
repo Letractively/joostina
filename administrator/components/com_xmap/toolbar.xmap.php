@@ -12,11 +12,6 @@ defined('_VALID_MOS') or die();
 
 global $mosConfig_lang;
 
-if(file_exists($mosConfig_absolute_path . '/language/'.$mosConfig_lang.'/com_xmap.php')) {
-	require_once( $mosConfig_absolute_path .'/language/' . $mosConfig_lang . '/com_xmap.php' );
-} else {
-	require_once( $mosConfig_absolute_path .'/language/russian/com_xmap.php' );
-}
 // load html output class
 require_once( $mainframe->getPath( 'toolbar_html' ) );
 

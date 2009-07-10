@@ -34,7 +34,7 @@ class TOOLBAR_categories {
 		mosMenuBar::spacer();
 		if($id) // используем Ajax кнопку "Применить" только для уже существующей категории
 			// кнопка "Применить" с Ajax
-			mosMenuBar::ext(_CMN_APPLY,'#','-apply','id="tb-apply" onclick="ch_apply();return;"');
+			mosMenuBar::ext(_APPLY,'#','-apply','id="tb-apply" onclick="ch_apply();return;"');
 		else
 			mosMenuBar::apply();
 

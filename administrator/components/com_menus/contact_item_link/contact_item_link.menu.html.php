@@ -47,7 +47,7 @@ class contact_item_link_menu_html {
 		<table class="adminheading">
 		<tr>
 			<th class="menus">
-			<?php echo $menu->id?_O_EDITING.' -':_O_CREATION.' -'; ?> <?php echo _MENU_ITEM_CONTACT_OBJECT?>
+			<?php echo $menu->id?_EDITING.' -':_CREATION.' -'; ?> <?php echo _MENU_ITEM_CONTACT_OBJECT?>
 			</th>
 		</tr>
 		</table>
@@ -63,7 +63,7 @@ class contact_item_link_menu_html {
 				</tr>
 				<tr>
 					<td width="10%" align="right">
-					<?php echo _CMN_NAME?>:
+					<?php echo _NAME?>:
 					</td>
 					<td width="80%">
 					<input class="inputbox" type="text" name="name" id="name" size="50" maxlength="100" value="<?php echo htmlspecialchars($menu->name,ENT_QUOTES); ?>" />
@@ -117,14 +117,14 @@ class contact_item_link_menu_html {
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					<?php echo _CMN_ACCESS?>:
+					<?php echo _ACCESS?>:
 					</td>
 					<td>
 					<?php echo $lists['access']; ?>
 					</td>
 				</tr>
 				<tr>
-					<td valign="top" align="right"><?php echo _CMN_PUBLISHED?>:</td>
+					<td valign="top" align="right"><?php echo _PUBLISHED?>:</td>
 					<td>
 					<?php echo $lists['published']; ?>
 					</td>

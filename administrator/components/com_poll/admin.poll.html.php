@@ -40,7 +40,7 @@ class HTML_poll {
 			<?php echo _POLL_HEADER?>
 			</th>
 			<th width="10%" align="center">
-			<?php echo _CMN_PUBLISHED?>
+			<?php echo _PUBLISHED?>
 			</th>
 			<th width="10%" align="center">
 			<?php echo _PARAMETERS?>
@@ -58,7 +58,7 @@ class HTML_poll {
 
 			$task = $row->published?'unpublish':'publish';
 			$img = $row->published?'publish_g.png':'publish_x.png';
-			$alt = $row->published?_CMN_PUBLISHED:_CMN_UNPUBLISHED;
+			$alt = $row->published?_PUBLISHED:_UNPUBLISHED;
 
 			$checked = mosCommonHTML::CheckedOutProcessing($row,$i);
 ?>
@@ -128,7 +128,7 @@ class HTML_poll {
 			<th class="menus">
 			Опрос:
 			<small>
-			<?php echo $row->id?_O_EDITING:_O_CREATION; ?>
+			<?php echo $row->id?_EDITING:_CREATION; ?>
 			</small>
 			</th>
 		</tr>
@@ -142,7 +142,7 @@ class HTML_poll {
 		</tr>
 		<tr>
 			<td width="10%">
-			<?php echo _E_CAPTION?>:
+			<?php echo _CAPTION?>:
 			</td>
 			<td>
 			<input class="inputbox" type="text" name="title" size="60" value="<?php echo $row->title; ?>" />
@@ -166,7 +166,7 @@ class HTML_poll {
 		</tr>
 		<tr>
 			<td valign="top">
-			<?php echo _CMN_PUBLISHED?>:
+			<?php echo _PUBLISHED?>:
 			</td>
 			<td>
 			<?php echo $lists['published']; ?>

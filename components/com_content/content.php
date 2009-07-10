@@ -1462,8 +1462,8 @@ function editItem($task) {
 
 
 	// make the select list for the states
-	$states[] = mosHTML::makeOption(0,_CMN_UNPUBLISHED);
-	$states[] = mosHTML::makeOption(1,_CMN_PUBLISHED);
+	$states[] = mosHTML::makeOption(0,_UNPUBLISHED);
+	$states[] = mosHTML::makeOption(1,_PUBLISHED);
 	$lists['state'] = mosHTML::selectList($states,'state','class="inputbox" size="1"','value','text',intval($row->state));
 
 	// build the html select list for ordering

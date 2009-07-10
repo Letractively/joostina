@@ -46,7 +46,7 @@ class TOOLBAR_templates {
 	function _EDIT_SOURCE() {
 		mosMenuBar::startTable();
 		mosMenuBar::save('save_source');
-		mosMenuBar::ext(_CMN_APPLY,'#','-apply','id="tb-apply" onclick="ch_apply();return;"');
+		mosMenuBar::ext(_APPLY,'#','-apply','id="tb-apply" onclick="ch_apply();return;"');
 		mosMenuBar::spacer();
 		mosMenuBar::cancel();
 		mosMenuBar::endTable();
@@ -55,7 +55,7 @@ class TOOLBAR_templates {
 	function _EDIT_CSS() {
 		mosMenuBar::startTable();
 		mosMenuBar::save('save_css');
-		mosMenuBar::ext(_CMN_APPLY,'#','-apply','id="tb-apply" onclick="ch_apply();return;"');
+		mosMenuBar::ext(_APPLY,'#','-apply','id="tb-apply" onclick="ch_apply();return;"');
 		mosMenuBar::spacer();
 		mosMenuBar::cancel();
 		mosMenuBar::endTable();
@@ -63,7 +63,7 @@ class TOOLBAR_templates {
 
 	function _ASSIGN() {
 		mosMenuBar::startTable();
-		mosMenuBar::save('save_assign',_CMN_SAVE);
+		mosMenuBar::save('save_assign',_SAVE);
 		mosMenuBar::spacer();
 		mosMenuBar::cancel();
 		mosMenuBar::spacer();

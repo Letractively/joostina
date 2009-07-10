@@ -27,7 +27,7 @@ class TOOLBAR_content {
 		mosMenuBar::save();
 		mosMenuBar::spacer();
 		if($id){
-			mosMenuBar::ext(_CMN_APPLY,'#','-apply','id="tb-apply" onclick="return ch_apply();"');
+			mosMenuBar::ext(_APPLY,'#','-apply','id="tb-apply" onclick="return ch_apply();"');
 		}else{
 			mosMenuBar::apply();
 		}
@@ -62,7 +62,7 @@ class TOOLBAR_content {
 
 	function _MOVE() {
 		mosMenuBar::startTable();
-		mosMenuBar::custom('movesectsave','-save','',_CMN_SAVE,false);
+		mosMenuBar::custom('movesectsave','-save','',_SAVE,false);
 		mosMenuBar::spacer();
 		mosMenuBar::cancel();
 		mosMenuBar::endTable();
@@ -70,7 +70,7 @@ class TOOLBAR_content {
 
 	function _COPY() {
 		mosMenuBar::startTable();
-		mosMenuBar::custom('copysave','-save','',_CMN_SAVE,false);
+		mosMenuBar::custom('copysave','-save','',_SAVE,false);
 		mosMenuBar::spacer();
 		mosMenuBar::cancel();
 		mosMenuBar::endTable();

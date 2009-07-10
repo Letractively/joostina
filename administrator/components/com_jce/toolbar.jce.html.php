@@ -31,19 +31,19 @@ class TOOLBAR_JCE {
 		mosMenuBar::spacer();
 		mosMenuBar::custom('editlayout','-preview','',_PREVIEW,false);
 		mosMenuBar::spacer();
-		mosMenuBar::custom('cancel','-cancel','',_CMN_CANCEL,false);
+		mosMenuBar::custom('cancel','-cancel','',_CANCEL,false);
 		mosMenuBar::endTable();
 	}
 	function _EDIT_PLUGINS() {
 		global $id;
 
 		mosMenuBar::startTable();
-		mosMenuBar::custom('saveplugin','-save','',_CMN_SAVE,false);
+		mosMenuBar::custom('saveplugin','-save','',_SAVE,false);
 		mosMenuBar::spacer();
 		if($id) {
 			mosMenuBar::custom('canceledit','-cancel','',_CLOSE,false);
 		} else {
-			mosMenuBar::custom('canceledit','-cancel','',_CMN_CANCEL,false);
+			mosMenuBar::custom('canceledit','-cancel','',_CANCEL,false);
 		}
 		mosMenuBar::spacer();
 		mosMenuBar::endTable();
@@ -53,28 +53,28 @@ class TOOLBAR_JCE {
 			mosMenuBar::startTable();
 			mosMenuBar::custom('showplugins','-new','',_PLUGINS,false);
 			mosMenuBar::spacer();
-			mosMenuBar::custom('removeplugin','-delete','',_CMN_DELETE,false);
+			mosMenuBar::custom('removeplugin','-delete','',_DELETE,false);
 			mosMenuBar::spacer();
-			mosMenuBar::custom('cancel','-cancel','',_CMN_CANCEL,false);
+			mosMenuBar::custom('cancel','-cancel','',_CANCEL,false);
 			mosMenuBar::endTable();
 		}
 	}
 	function _LAYOUT() {
 		mosMenuBar::startTable();
-		mosMenuBar::custom('savelayout','-save','',_CMN_SAVE,false);
+		mosMenuBar::custom('savelayout','-save','',_SAVE,false);
 		mosMenuBar::spacer();
-		mosMenuBar::custom('cancel','-cancel','',_CMN_CANCEL,false);
+		mosMenuBar::custom('cancel','-cancel','',_CANCEL,false);
 		mosMenuBar::endTable();
 	}
 	function _LANGS() {
 		mosMenuBar::startTable();
 		mosMenuBar::publishList('publishlang');
 		mosMenuBar::spacer();
-		mosMenuBar::custom('removelang','-delete','',_CMN_DELETE,false);
+		mosMenuBar::custom('removelang','-delete','',_DELETE,false);
 		mosMenuBar::spacer();
 		mosMenuBar::custom('newlang','-new','',_INSTALLATION,false);
 		mosMenuBar::spacer();
-		mosMenuBar::custom('cancel','-cancel','',_CMN_CANCEL,false);
+		mosMenuBar::custom('cancel','-cancel','',_CANCEL,false);
 		mosMenuBar::endTable();
 	}
 }

@@ -30,15 +30,12 @@ if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset
 }
 
 require_once ($mosConfig_absolute_path .DIRECTORY_SEPARATOR. 'includes'.DIRECTORY_SEPARATOR.'joomla.php');
-include_once ($mosConfig_absolute_path .DS.'language' .DS. $mosConfig_lang . '.php');
-require_once ($mosConfig_absolute_path.DS.ADMINISTRATOR_DIRECTORY.DS.'includes'.DS.'admin.php');
 
 $database = database::getInstance();
 
 // работа с сесси€ми начинаетс€ до создани€ главного объекта взаимодействи€ с €дром
 session_name(md5($mosConfig_live_site));
 session_start();
-
 
 // получение основных параметров
 $option		= strval(strtolower(mosGetParam($_REQUEST,'option','')));
@@ -50,6 +47,12 @@ $id			= intval(mosGetParam($_REQUEST,'id',0));
 
 // mainframe - основна€ рабоча€ среда API, осуществл€ет взаимодействие с '€дром'
 $mainframe = mosMainFrame::getInstance(true);
+$mainframe->set('lang', $mosConfig_lang);
+//include_once ($mosConfig_absolute_path .DS.'language' .DS. $mosConfig_lang . '.php');
+include_once($mainframe->getLangFile());
+
+require_once ($mosConfig_absolute_path.DS.ADMINISTRATOR_DIRECTORY.DS.'includes'.DS.'admin.php');
+
 
 // запуск сессий панели управлени€
 $my = $mainframe->initSessionAdmin($option,$task);
@@ -71,6 +74,10 @@ require_once ($mosConfig_absolute_path . '/includes/editor.php');
 
 ob_start();
 if($path = $mainframe->getPath('admin')) {
+	//ѕодключаем €зык компонента
+ 	if($mainframe->getLangFile($option)){ 
+ 		include_once($mainframe->getLangFile($option));        	
+	}
 	require_once ($path);
 } else {
 ?>
@@ -89,6 +96,8 @@ if($no_html == 0) {
 	if(!file_exists($mosConfig_absolute_path . '/'.ADMINISTRATOR_DIRECTORY.'/templates/' . $cur_template .'/index.php')) {
 		echo _TEMPLATE_NOT_FOUND.': ',$cur_template;
 	} else {
+		//ѕодключаем €зык шаблона
+		if($mainframe->getLangFile('tmpl_'.$cur_template)){include_once($mainframe->getLangFile('tmpl_'.$cur_template));}
 		require_once ($mosConfig_absolute_path . '/'.ADMINISTRATOR_DIRECTORY.'/templates/' . $cur_template .'/index.php');
 	}
 } else {

@@ -48,7 +48,7 @@ class HTML_wrapper {
 		align="top"
 		frameborder="0"
 		class="wrapper<?php echo $params->get('pageclass_sfx'); ?>">
-		<?php echo _CMN_IFRAMES; ?>
+		<?php echo _IFRAMES; ?>
 		</iframe>
         </div>
 		</div>

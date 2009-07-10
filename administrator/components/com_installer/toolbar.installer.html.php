@@ -23,7 +23,7 @@ class TOOLBAR_installer {
 
 	function _DEFAULT2() {
 		mosMenuBar::startTable();
-		mosMenuBar::deleteList('','remove',_CMN_DELETE);
+		mosMenuBar::deleteList('','remove',_DELETE);
 		mosMenuBar::spacer();
 		mosMenuBar::help('screen.installer2');
 		mosMenuBar::endTable();

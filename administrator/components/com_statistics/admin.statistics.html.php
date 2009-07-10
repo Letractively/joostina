@@ -189,7 +189,7 @@ class HTML_statistics {
 		<tr>
 			<th style="text-align:right">#</th>
 			<th class="title"><?php echo _CONTENT_TITLE?></th>
-			<th align="center" class="jtd_nowrap"><?php echo _E_HITS?></th>
+			<th align="center" class="jtd_nowrap"><?php echo _HITS?></th>
 		</tr>
 		<?php
 		$i = $pageNav->limitstart;

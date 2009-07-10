@@ -37,11 +37,11 @@ class HTML_users {
 			<th width="1%" class="title">
 				<input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo count($rows); ?>);" />
 			</th>
-			<th class="title" colspan="2"><?php echo _CMN_NAME?></th>
+			<th class="title" colspan="2"><?php echo _NAME?></th>
 			<th width="22%"><?php echo _USER_LOGIN_TXT?></th>
 			<th width="5%"><?php echo _LOGGED_IN?></th>
 			<th width="5%"><?php echo _ALLOWED?></th>
-			<th width="10%"><?php echo _O_GROUP?></th>
+			<th width="10%"><?php echo _GROUP?></th>
 			<th width="10%">E-Mail</th>
 			<th width="13%"><?php echo _LAST_LOGIN?></th>
 			<th width="1%">ID</th>
@@ -185,7 +185,7 @@ class HTML_users {
 						<?php if($row->id){?>
 						<input class="inputbox" type="file" size="1" id="fileavatar" name="avatar"/>
 						<button class="inputbox" onclick="addavatar();">Загрузить</button>
-						<button class="inputbox" onclick="delavatar(<?php echo $row->id;?>); return false;"><?php echo _CMN_DELETE?></button>
+						<button class="inputbox" onclick="delavatar(<?php echo $row->id;?>); return false;"><?php echo _DELETE?></button>
 						<?php };?>
 					</td>
 					<td width="200" class="key"><?php echo _YOUR_NAME?>:</td>
@@ -207,7 +207,7 @@ class HTML_users {
 					<td><input class="inputbox" type="password" name="password2" size="40" value="" /></td>
 				</tr>
 				<tr>
-					<td valign="top" class="key"><?php echo _O_GROUP?>:</td>
+					<td valign="top" class="key"><?php echo _GROUP?>:</td>
 					<td><?php echo $lists['gid']; ?></td>
 				</tr>
 <?php

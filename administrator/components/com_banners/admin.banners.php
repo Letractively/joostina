@@ -23,13 +23,6 @@ define('BANNER_NON_PUBBLICATO', 4);
 require_once ($mainframe->getPath('admin_html'));
 require_once ($mainframe->getPath('class'));
 
-if(file_exists($mosConfig_absolute_path . '/language/'.$mosConfig_lang.'/com_banners.php')) {
-	$artbannerslanguage = $mosConfig_lang;
-}else{
-	$artbannerslanguage = 'russian';
-}
-
-include_once ($mosConfig_absolute_path . '/language/'.$artbannerslanguage.'/com_banners.php');
 
 
 $cid = josGetArrayInts('cid');

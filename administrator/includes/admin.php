@@ -105,14 +105,17 @@ function mosLoadAdminModules($position = 'left',$style = 0) {
 function mosLoadAdminModule($name,$params = null) {
 	global $mosConfig_absolute_path,$mosConfig_live_site,$task;
 	global $database,$acl,$my,$mainframe,$option;
-
+	
 	// legacy support for $act
 	$act = mosGetParam($_REQUEST,'act','');
 
 	$name = str_replace('/','',$name);
 	$name = str_replace('\\','',$name);
 	$path = "$mosConfig_absolute_path/".ADMINISTRATOR_DIRECTORY."/modules/mod_$name.php";
-	if(file_exists($path)) {
+	if(file_exists($path)) { 
+ 		if($mainframe->getLangFile('mod_'.$name)){ 
+  			include($mainframe->getLangFile('mod_'.$name));        	
+		}
 		require $path;
 	}
 }
@@ -302,6 +305,7 @@ function mosMakePath($base,$path = '',$mode = null) {
 }
 
 function mosMainBody_Admin() {
+
 	echo $GLOBALS['_MOS_OPTION']['buffer'];
 }
 

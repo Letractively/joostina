@@ -190,7 +190,7 @@ function mass_save(){
 					if(!$row->store()) {
 						$results[]= '<b>'.$parse.'</b> - '._ERROR_WHEN_ADDING.': <font color="red">'.$row->getError().'</font>';
 					}else{
-						$results[]= _E_ITEM_SAVED.' <font color="green">'.$parse.' ('.$link.$row->id.'"> '._E_EDIT.' )</a></font>';
+						$results[]= _E_ITEM_SAVED.' <font color="green">'.$parse.' ('.$link.$row->id.'"> '._EDIT.' )</a></font>';
 					}
 					$row->checkin();
 				}
@@ -275,6 +275,17 @@ function showSections($scope,$option) {
 			$rows[$content_info->sectionid]->trash = 0;
 		}
 		$rows_new[]=$rows[$content_info->sectionid];
+	}
+	
+	//Добавляем в $new_rows разделы без категорий
+	
+	foreach($sects_ids as $v){
+		if (!in_array($rows[$v], $rows_new)){
+			$rows[$v]->trash = 0;
+			$rows[$v]->active = 0; 
+			$rows[$v]->categories = 0; 
+			$rows_new[] = $rows[$v];
+		}
 	}
 
 //_xdump($rows_new);
@@ -404,7 +415,7 @@ function editSection($uid = 0,$scope = '',$option) {
 	$len = strlen(COM_IMAGE_BASE);
 
 	// handling for MOSImage directories
-	$folders[] = mosHTML::makeOption('*1*',_CMN_ALL);
+	$folders[] = mosHTML::makeOption('*1*',_ALL);
 	$folders[] = mosHTML::makeOption('*0*',_NOT_EXISTS);
 	$folders[] = mosHTML::makeOption('*#*','---------------------');
 	$folders[] = mosHTML::makeOption('/');

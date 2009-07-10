@@ -67,7 +67,6 @@ function mosLoadComponent($name) {
 	global $task,$Itemid,$id,$option,$gid;
 	$mainframe = &mosMainFrame::getInstance();
 	$database = &database::getInstance();
-
 	include ($mainframe->getCfg('absolute_path')."/components/com_$name/$name.php");
 }
 /**

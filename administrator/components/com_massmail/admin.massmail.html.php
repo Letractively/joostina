@@ -54,7 +54,7 @@ class HTML_massmail {
 		</tr>
 		<tr>
 			<td width="150" valign="top">
-			<?php echo _O_GROUP?>:
+			<?php echo _GROUP?>:
 			</td>
 			<td width="85%">
 			<?php echo $lists['gid']; ?>
@@ -78,7 +78,7 @@ class HTML_massmail {
 		</tr>
 		<tr>
 			<td>
-			<?php echo _MAIL_SUBJECT?>:
+			<?php echo _SUBJECT?>:
 			</td>
 			<td>
 			<input class="inputbox" type="text" name="mm_subject" value="" size="50"/>

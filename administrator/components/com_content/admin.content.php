@@ -166,7 +166,7 @@ function save_config(){
     $config = new $config_class($database);
     $config->save_config(); 
 
-    mosRedirect('index2.php?option=com_content&task=config&act='.$act, _CC_CONFIG_SAVED);
+    mosRedirect('index2.php?option=com_content&task=config&act='.$act, _CONFIG_SAVED);
 }
 
 function submitContent(){
@@ -272,7 +272,7 @@ function viewContent($sectionid,$option) {
 		$section = new mosCategory($database);
 		$section->load((int)$catid);
 		$section->params = array();
-		$section->params['name']=_E_CATEGORY;
+		$section->params['name']=_CATEGORY;
 		$section->params['link']='index2.php?option=com_categories&section=content&task=editA&hidemainmenu=1&id='.$section->id;
 	}
 
@@ -318,6 +318,7 @@ function viewContent($sectionid,$option) {
 	$database->setQuery($query,$pageNav->limitstart,$pageNav->limit);
 	$rows = $database->loadObjectList();
 
+
 	if($database->getErrorNum()) {
 		echo $database->stderr();
 		return false;
@@ -341,8 +342,8 @@ function viewContent($sectionid,$option) {
 	$lists['order'] = mosHTML::selectList($order_list,'order_by','class="inputbox" size="1" style="width:99%" onchange="document.adminForm.submit( );"','order_by','name',$order_by);
 
 	$order_sort_list = array();
-	$order_sort_list[] = mosHTML::makeOption('1',_CMN_SORT_ASC,'order_sort','name');
-	$order_sort_list[] = mosHTML::makeOption('0',_CMN_SORT_DESC,'order_sort','name');
+	$order_sort_list[] = mosHTML::makeOption('1',_SORT_ASC,'order_sort','name');
+	$order_sort_list[] = mosHTML::makeOption('0',_SORT_DESC,'order_sort','name');
 	$lists['order_sort'] = mosHTML::selectList($order_sort_list,'order_sort','class="inputbox" size="1" style="width:99%" onchange="document.adminForm.submit( );"','order_sort','name',$order_sort);
 
 	HTML_content::showContent($rows,$section,$lists,$search,$pageNav,$all,$redirect);
@@ -483,7 +484,7 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 
 	// fail if checked out not by 'me'
 	if($row->checked_out && $row->checked_out != $my->id) {
-		mosRedirect('index2.php?option=com_content',_E_CONTENT.' '.$row->title.' '._NOW_EDITING_BY_OTHER);
+		mosRedirect('index2.php?option=com_content',_CONTENT.' '.$row->title.' '._NOW_EDITING_BY_OTHER);
 	}
 
 	$selected_folders = null;
@@ -700,8 +701,8 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 	$lists['menuselect'] = mosAdminMenus::MenuSelect();
 
 	// build the select list for the image caption position
-	$pos[] = mosHTML::makeOption('bottom',_CMN_BOTTOM);
-	$pos[] = mosHTML::makeOption('top',_CMN_TOP);
+	$pos[] = mosHTML::makeOption('bottom',_BOTTOM);
+	$pos[] = mosHTML::makeOption('top',_TOP);
 	$lists['_caption_position'] = mosHTML::selectList($pos,'_caption_position','class="inputbox" size="1"','value','text');
 
 	// get params definitions
@@ -1219,7 +1220,7 @@ function moveSectionSave(&$cid,$sectionid,$option) {
 	// clean any existing cache files
 	mosCache::cleanCache('com_content');
 
-	$msg = $total.' '._OBJECTS_MOVED_TO_SECTION.': '.$section.', '._E_CATEGORY.': '.$category;
+	$msg = $total.' '._OBJECTS_MOVED_TO_SECTION.': '.$section.', '._CATEGORY.': '.$category;
 	mosRedirect('index2.php?option='.$option.'&sectionid='.$sectionid.'&mosmsg='.$msg);
 }
 
@@ -1337,7 +1338,7 @@ function copyItemSave($cid,$sectionid,$option) {
 	// clean any existing cache files
 	mosCache::cleanCache('com_content');
 
-	$msg = $total.' '._OBJECTS_COPIED_TO_SECTION.': '.$section.', '._E_CATEGORY.': '.$category;
+	$msg = $total.' '._OBJECTS_COPIED_TO_SECTION.': '.$section.', '._CATEGORY.': '.$category;
 	mosRedirect('index2.php?option='.$option.'&sectionid='.$sectionid.'&mosmsg='.$msg);
 }
 
@@ -1515,7 +1516,7 @@ function seccatli($act = 0,$filter_authorid=0){
 
 	$sectli = '<div id="ntree" class="dtree"><script type="text/javascript"><!--';
 	$sectli .= "\n c = new dTree('c','{$mainframe->getCfg('live_site')}/".ADMINISTRATOR_DIRECTORY."/images/dtree/');";
-	$sectli .= "\n c.add(0,-1,'"._E_CONTENT." (<a href=\"index2.php?option=com_content&sectionid=0&catid=0\">"._ALL."<\/a>)');";
+	$sectli .= "\n c.add(0,-1,'"._CONTENT." (<a href=\"index2.php?option=com_content&sectionid=0&catid=0\">"._ALL."<\/a>)');";
 
 	$query = "SELECT s.id, s.title, c.section"
 			."\n FROM #__sections AS s"

@@ -38,10 +38,10 @@ class HTML_contact {
 			<th width="20" class="title">
 				<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count($rows); ?>);" />
 			</th>
-			<th class="title"><?php echo _CMN_NAME?></th>
+			<th class="title"><?php echo _NAME?></th>
 			<th width="5%" class="title"><?php echo _ON_SITE?></th>
-			<th colspan="2" class="jtd_nowrap" width="5%"><?php echo _CMN_ORDERING?></th>
-			<th width="15%" align="left"><?php echo _E_CATEGORY?></th>
+			<th colspan="2" class="jtd_nowrap" width="5%"><?php echo _ORDERING?></th>
+			<th width="15%" align="left"><?php echo _CATEGORY?></th>
 			<th class="title" width="15%"><?php echo _RELATED_WITH_USER?></th>
 		</tr>
 <?php
@@ -54,7 +54,7 @@ class HTML_contact {
 
 			$img = $row->published?'tick.png':'publish_x.png';
 			$task = $row->published?'unpublish':'publish';
-			$alt = $row->published? _CMN_PUBLISHED : _CMN_UNPUBLISHED;
+			$alt = $row->published? _PUBLISHED : _UNPUBLISHED;
 
 			$checked = mosCommonHTML::CheckedOutProcessing($row,$i);
 			$row->cat_link = 'index2.php?option=com_categories&section=com_contact_details&task=editA&hidemainmenu=1&id='.$row->catid;
@@ -127,7 +127,7 @@ class HTML_contact {
 			if ( form.name.value == "" ) {
 				alert( "<?php echo _ENTER_NAME_PLEASE?>" );
 			} else if ( form.catid.value == 0 ) {
-				alert( "<?php echo _E_WARNCAT?>" );
+				alert( "<?php echo _WARNCAT?>" );
 			} else {
 				submitform( pressbutton );
 			}
@@ -151,7 +151,7 @@ class HTML_contact {
 					<th colspan="2"><?php echo _CONTACT_DETAILS?></th>
 				<tr>
 				<tr>
-					<td width="30%" align="right"><?php echo _E_CATEGORY?>:</td>
+					<td width="30%" align="right"><?php echo _CATEGORY?>:</td>
 					<td width="40%"><?php echo $lists['catid']; ?></td>
 				</tr>
 				<tr>
@@ -159,7 +159,7 @@ class HTML_contact {
 					<td><?php echo $lists['user_id']; ?></td>
 				</tr>
 				<tr>
-					<td width="30%" align="right"><?php echo _CMN_NAME?>:</td>
+					<td width="30%" align="right"><?php echo _NAME?>:</td>
 					<td>
 						<input class="inputbox" type="text" name="name" size="100" maxlength="100" value="<?php echo $row->name; ?>" />
 					</td>
@@ -171,7 +171,7 @@ class HTML_contact {
 					</td>
 				</tr>
 				<tr>
-					<td align="right"><?php echo _CMN_EMAIL?>:</td>
+					<td align="right"><?php echo _EMAIL?>:</td>
 					<td>
 						<input class="inputbox" type="text" name="email_to" size="100" maxlength="100" value="<?php echo $row->email_to; ?>" />
 					</td>
@@ -231,14 +231,14 @@ class HTML_contact {
 			<td width="40%" valign="top">
 <?php
 		$tabs->startPane("content-pane");
-		$tabs->startTab(_E_PUBLISHING,"publish-page");
+		$tabs->startTab(_PUBLISHING,"publish-page");
 ?>
 				<table width="100%" class="adminform">
 				<tr>
 					<th colspan="2"><?php echo _PUBLISH_INFO?></th>
 				<tr>
 				<tr>
-					<td valign="top" align="right"><?php echo _CMN_PUBLISHED?>:</td>
+					<td valign="top" align="right"><?php echo _PUBLISHED?>:</td>
 					<td><?php echo $lists['published']; ?></td>
 				</tr>
 				<tr>
@@ -246,13 +246,13 @@ class HTML_contact {
 					<td><?php echo $lists['ordering']; ?></td>
 				</tr>
 				<tr>
-					<td valign="top" align="right"><?php echo _CMN_ACCESS?>:</td>
+					<td valign="top" align="right"><?php echo _ACCESS?>:</td>
 					<td><?php echo $lists['access']; ?></td>
 				</tr>
 				</table>
 <?php
 		$tabs->endTab();
-		$tabs->startTab(_E_IMAGES,"images-page");
+		$tabs->startTab(_IMAGES,"images-page");
 ?>
 				<table width="100%" class="adminform">
 				<tr>

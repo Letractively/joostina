@@ -101,7 +101,7 @@ class HTML_content {
 
 	    if (($access->canEdit || $access->canEditOwn) && $categories_exist) {
 		    $link = sefRelToAbs('index.php?option=com_content&amp;task=new&amp;sectionid=' . $id . '&amp;Itemid=' . $Itemid);
-            $add_button = '<a href="'.$link.'" class="add_button add_content">'._CMN_NEW.'</a>';
+            $add_button = '<a href="'.$link.'" class="add_button add_content">'._NEW.'</a>';
 	   	}
 
 		$templates = $section->templates; 
@@ -176,7 +176,7 @@ class HTML_content {
 
 	    if (($access->canEdit || $access->canEditOwn) && $categories_exist) {
 		    $link = sefRelToAbs('index.php?option=com_content&amp;task=new&amp;sectionid=' . $id . '&amp;Itemid=' . $Itemid);
-            $add_button = '<a href="'.$link.'" class="add_button add_content">'._CMN_NEW.'</a>';
+            $add_button = '<a href="'.$link.'" class="add_button add_content">'._NEW.'</a>';
 	   	}
 
         if ( ((count($other_categories) > 1) || (count($other_categories) < 2 && count($items) < 1)) ) {
@@ -475,15 +475,15 @@ class HTML_content {
                 break;
 
                 case 'blogcategory':
-                  $row->title='<h2>'.$row->title.'</h2>';
+                  $row->title = '<h2>'.$row->title.'</h2>';
                 break;
 
                 case 'view':
-                  $row->title='<h1>'.$row->title.'</h1>';
+                  $row->title = '<h1>'.$row->title.'</h1>';
                 break;
 
                 default:
-                    $row->title='<h4>'.$row->title.'</h4>';
+                    $row->title = $row->title;
                 break;
               }
 
@@ -514,11 +514,11 @@ class HTML_content {
 		
 		
 		$link = 'index.php?option=com_content&amp;task=edit&amp;id='.$row->id;
-		$image = mosAdminMenus::ImageCheck('edit.png','/images/M_images/',null,null,_E_EDIT,_E_EDIT);
+		$image = mosAdminMenus::ImageCheck('edit.png','/images/M_images/',null,null,_EDIT,_EDIT);
 		if($row->state == 0) {
-			$overlib = _CMN_UNPUBLISHED;
+			$overlib = _UNPUBLISHED;
 		} else {
-			$overlib = _CMN_PUBLISHED;
+			$overlib = _PUBLISHED;
 		}
 		$date = mosFormatDate($row->created);
 		$author = $row->created_by_alias ? $row->created_by_alias : $row->author;
@@ -555,14 +555,14 @@ class HTML_content {
 			$link = $mosConfig_live_site.'/index2.php?option=com_content&amp;task=emailform&amp;id='.$row->id.$_Itemid;
 
 			if($params->get('icons')) {
-				$image = mosAdminMenus::ImageCheck('emailButton.png','/images/M_images/',null,null,_CMN_EMAIL,'email'.$cne_i);
+				$image = mosAdminMenus::ImageCheck('emailButton.png','/images/M_images/',null,null,_EMAIL,'email'.$cne_i);
 				$cne_i++;
 			} else {
-				$image = '&nbsp;'._CMN_EMAIL;
+				$image = '&nbsp;'._EMAIL;
 			}
 ?>
 			<td align="right" width="100%" class="buttonheading">
-				<a href="<?php echo $link; ?>" target="_blank" onclick="window.open('<?php echo $link; ?>','win2','<?php echo $status; ?>'); return false;" title="<?php echo _CMN_EMAIL; ?>"><?php echo $image; ?></a>
+				<a href="<?php echo $link; ?>" target="_blank" onclick="window.open('<?php echo $link; ?>','win2','<?php echo $status; ?>'); return false;" title="<?php echo _EMAIL; ?>"><?php echo $image; ?></a>
 			</td>
 <?php
 		}

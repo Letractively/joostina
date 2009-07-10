@@ -48,10 +48,10 @@ class HTML_newsfeeds {
 			<?php echo _NEWSFEED_ON_SITE?>
 			</th>
 			<th colspan="2" width="5%">
-			<?php echo _CMN_ORDERING?>
+			<?php echo _ORDERING?>
 			</th>
 			<th class="title" width="20%">
-			<?php echo _E_CATEGORY?>
+			<?php echo _CATEGORY?>
 			</th>
 			<th width="5%" class="jtd_nowrap">
 			<?php echo _NEWSFEEDS_NUM_OF_CONTENT_ITEMS?>
@@ -69,7 +69,7 @@ class HTML_newsfeeds {
 
 			$img = $row->published?'tick.png':'publish_x.png';
 			$task = $row->published?'unpublish':'publish';
-			$alt = $row->published?_CMN_PUBLISHED:_CMN_UNPUBLISHED;
+			$alt = $row->published?_PUBLISHED:_UNPUBLISHED;
 			$checked = mosCommonHTML::CheckedOutProcessing($row,$i);
 
 			$row->cat_link = 'index2.php?option=com_categories&section=com_newsfeeds&task=editA&hidemainmenu=1&id='.
@@ -168,11 +168,11 @@ class HTML_newsfeeds {
 			if (form.name.value == '') {
 				alert( "<?php echo _PLEASE_ENTER_NEWSFEED_NAME?>" );
 			} else if (form.catid.value == 0) {
-				alert( "<?php echo _E_WARNCAT?>" );
+				alert( "<?php echo _WARNCAT?>" );
 			} else if (form.link.value == '') {
 				alert( "<?php echo _PLEASE_ENTER_NEWSFEED_LINK?>" );
 			} else if (getSelectedValue('adminForm','catid') < 0) {
-				alert( "<?php echo _E_WARNCAT?>" );
+				alert( "<?php echo _WARNCAT?>" );
 			} else if (form.numarticles.value == "" || form.numarticles.value == 0) {
 				alert( "<?php echo _PLEASE_ENTER_NEWSFEED_NUM_OF_CONTENT_ITEMS?>" );
 			} else if (form.cache_time.value == "" || form.cache_time.value == 0) {
@@ -187,7 +187,7 @@ class HTML_newsfeeds {
 		<table class="adminheading">
 		<tr>
 			<th class="edit">
-			<?php echo _NEWSFEED_TITLE?>: <small><?php echo $row->id?_O_EDITING:_O_CREATION; ?></small> <small><small>[ <?php echo $row->name; ?> ]</small></small>
+			<?php echo _NEWSFEED_TITLE?>: <small><?php echo $row->id?_EDITING:_CREATION; ?></small> <small><small>[ <?php echo $row->name; ?> ]</small></small>
 			</th>
 		</tr>
 		</table>
@@ -200,7 +200,7 @@ class HTML_newsfeeds {
 		</tr>
 		<tr>
 			<td>
-			<?php echo _CMN_NAME?>
+			<?php echo _NAME?>
 			</td>
 			<td>
 			<input class="inputbox" type="text" size="40" name="name" value="<?php echo $row->name; ?>">
@@ -208,7 +208,7 @@ class HTML_newsfeeds {
 		</tr>
 		<tr>
 			<td>
-			<?php echo _E_CATEGORY?>
+			<?php echo _CATEGORY?>
 			</td>
 			<td>
 			<?php echo $lists['category']; ?>
@@ -256,7 +256,7 @@ class HTML_newsfeeds {
 		</tr>
 		<tr>
 			<td valign="top" align="right">
-			<?php echo _CMN_PUBLISHED?>:
+			<?php echo _PUBLISHED?>:
 			</td>
 			<td>
 			<?php echo $lists['published']; ?>

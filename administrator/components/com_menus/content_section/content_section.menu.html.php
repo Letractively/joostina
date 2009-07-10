@@ -66,7 +66,7 @@ class content_section_menu_html {
 		<table class="adminheading">
 		<tr>
 			<th class="menus">
-			<?php echo $menu->id?_O_EDITING.' -':_O_CREATION.' -'; ?> <?php echo _MENU_ITEM_TABLE_CONTENT_SECTION?>
+			<?php echo $menu->id?_EDITING.' -':_CREATION.' -'; ?> <?php echo _MENU_ITEM_TABLE_CONTENT_SECTION?>
 			</th>
 		</tr>
 		</table>
@@ -81,7 +81,7 @@ class content_section_menu_html {
 					</th>
 				</tr>
 				<tr>
-					<td width="20%" align="right" valign="top"><?php echo _CMN_NAME?>:</td>
+					<td width="20%" align="right" valign="top"><?php echo _NAME?>:</td>
 					<td width="200px">
 					<input type="text" name="name" size="30" maxlength="100" class="inputbox" value="<?php echo htmlspecialchars($menu->name,ENT_QUOTES); ?>"/>
 					</td>
@@ -126,13 +126,13 @@ class content_section_menu_html {
 					</td>
 				</tr>
 				<tr>
-					<td valign="top" align="right"><?php echo _CMN_ACCESS?>:</td>
+					<td valign="top" align="right"><?php echo _ACCESS?>:</td>
 					<td colspan="2">
 					<?php echo $lists['access']; ?>
 					</td>
 				</tr>
 				<tr>
-					<td valign="top" align="right"><?php echo _CMN_PUBLISHED?>:</td>
+					<td valign="top" align="right"><?php echo _PUBLISHED?>:</td>
 					<td colspan="2">
 					<?php echo $lists['published']; ?>
 					</td>

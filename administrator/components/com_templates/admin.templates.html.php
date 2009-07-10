@@ -72,8 +72,8 @@ class HTML_templates {
 		}
 ?>
 			<th width="20%" align="left"><?php echo _AUTHOR_BY?></th>
-			<th width="5%" align="center"><?php echo _E_VERSION?></th>
-			<th width="10%" align="center"><?php echo _E_CREATED?></th>
+			<th width="5%" align="center"><?php echo _VERSION?></th>
+			<th width="10%" align="center"><?php echo _CREATED?></th>
 			<th width="20%" align="left">URL</th>
 		</tr>
 <?php
@@ -357,7 +357,7 @@ class HTML_templates {
 ?>
 			<th width="25">#</th>
 			<th align="left"><?php echo _POSITION?></th>
-			<th align="left"><?php echo _CMN_DESCRIPTION?></th>
+			<th align="left"><?php echo _DESCRIPTION?></th>
 <?php
 		}
 ?>

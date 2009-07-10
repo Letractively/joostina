@@ -416,7 +416,7 @@ function listofImages($listdir) {
 
 			// изображения
 			if(count($images) > 0) {
-				echo '<fieldset><legend>'._E_IMAGES.'</legend>';
+				echo '<fieldset><legend>'._IMAGES.'</legend>';
 				for($i = 0; $i < count($images); $i++) {
 					$image_name = key($images);
 					HTML_mmxtd::show_image($images[$image_name]['file'],$image_name,$images[$image_name]['img_info'],$images[$image_name]['size'],str_replace(JWMMXTD_STARTABSPATH,"",$listdir));
@@ -523,7 +523,7 @@ function viewMediaManager($curdirectory = "",$mosmsg = "",$selectedfile = "") {
 				<td><?php echo _JWMM_CREATE_DIRECTORY?>:</td>
 				<td><input style="width:200px;" class="inputbox" type="text" name="createfolder" id="createfolder" /></td>
 				<td>
-					<input type="button" class="button" onclick="javascript:document.adminForm.task.value='createfolder';document.adminForm.submit( );" value="<?php echo _CMN_NEW?>" />
+					<input type="button" class="button" onclick="javascript:document.adminForm.task.value='createfolder';document.adminForm.submit( );" value="<?php echo _NEW?>" />
 				</td>
 			</tr>
 			<tr>

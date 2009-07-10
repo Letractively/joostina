@@ -84,7 +84,7 @@ if(!class_exists('mosMenuBar')) {
 		* @param string An override for the task
 		* @param string An override for the alt text
 		*/
-		function addNew($task = 'new',$alt = _CMN_NEW) {
+		function addNew($task = 'new',$alt = _NEW) {
 ?>
 			<td>
 				<a class="tb-add-new" href="javascript:submitbutton('<?php echo $task; ?>');"><span><?php echo
@@ -98,7 +98,7 @@ if(!class_exists('mosMenuBar')) {
 		* @param string An override for the task
 		* @param string An override for the alt text
 		*/
-		function addNewX($task = 'new',$alt = _CMN_NEW) {
+		function addNewX($task = 'new',$alt = _NEW) {
 ?>
 			<td>
 				<a class="tb-add-new-x" href="javascript:hideMainMenu();submitbutton('<?php echo
@@ -112,7 +112,7 @@ if(!class_exists('mosMenuBar')) {
 		* @param string An override for the task
 		* @param string An override for the alt text
 		*/
-		function publish($task = 'publish',$alt = _CMN_SHOW) {
+		function publish($task = 'publish',$alt = _SHOW) {
 ?>
 			<td>
 				<a class="tb-publish" href="javascript:submitbutton('<?php echo $task; ?>');"><span><?php echo
@@ -125,7 +125,7 @@ if(!class_exists('mosMenuBar')) {
 		* @param string An override for the task
 		* @param string An override for the alt text
 		*/
-		function publishList($task = 'publish',$alt = _CMN_SHOW) {
+		function publishList($task = 'publish',$alt = _SHOW) {
 ?>
 			<td>
 				<a class="tb-publish-list" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('<?php echo _PLEASE_CHOOSE_ELEMENT_FOR_PUBLICATION?>'); } else {submitbutton('<?php echo
@@ -167,7 +167,7 @@ if(!class_exists('mosMenuBar')) {
 		* @param string An override for the task
 		* @param string An override for the alt text
 		*/
-		function unpublish($task = 'unpublish',$alt = _CMN_HIDE) {
+		function unpublish($task = 'unpublish',$alt = _HIDE) {
 ?>
 			<td>
 				<a class="tb-unpublish" href="javascript:submitbutton('<?php echo $task; ?>');"><span><?php echo
@@ -181,7 +181,7 @@ if(!class_exists('mosMenuBar')) {
 		* @param string An override for the task
 		* @param string An override for the alt text
 		*/
-		function unpublishList($task = 'unpublish',$alt = _CMN_HIDE) {
+		function unpublishList($task = 'unpublish',$alt = _HIDE) {
 ?>
 			<td>
 				<a class="tb-unpublish-list" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('<?php echo _PLEASE_CHOOSE_ELEMENT_TO_UNPUBLISH?>'); } else {submitbutton('<?php echo
@@ -221,7 +221,7 @@ if(!class_exists('mosMenuBar')) {
 		* @param string An override for the task
 		* @param string An override for the alt text
 		*/
-		function editList($task = 'edit',$alt = _E_EDIT) {
+		function editList($task = 'edit',$alt = _EDIT) {
 ?>
 			<td>
 				<a class="tb-edit-list" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('<?php echo _PLEASE_CHOOSE_ELEMENT_TO_EDIT?>'); } else {submitbutton('<?php echo $task; ?>', '');}"><span><?php echo $alt; ?></span></a>
@@ -235,7 +235,7 @@ if(!class_exists('mosMenuBar')) {
 		* @param string An override for the task
 		* @param string An override for the alt text
 		*/
-		function editListX($task = 'edit',$alt = _E_EDIT) {
+		function editListX($task = 'edit',$alt = _EDIT) {
 ?>
 			<td>
 				<a class="tb-edit-list-x" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('<?php echo _PLEASE_CHOOSE_ELEMENT_TO_EDIT?>'); } else {hideMainMenu();submitbutton('<?php echo $task; ?>', '');}"><span><?php echo $alt; ?></span></a>
@@ -303,7 +303,7 @@ if(!class_exists('mosMenuBar')) {
 		* @param string An override for the task
 		* @param string An override for the alt text
 		*/
-		function deleteList($msg = '',$task = 'remove',$alt = _CMN_DELETE) {
+		function deleteList($msg = '',$task = 'remove',$alt = _DELETE) {
 ?>
 			<td>
 				<a class="tb-delete-list" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('<?php echo _PLEASE_CHOOSE_ELEMENT_TO_DELETE?>'); } else if (confirm('<?php echo _REALLY_WANT_TO_DELETE_OBJECTS?> <?php echo $msg; ?>')){ submitbutton('<?php echo $task; ?>');}"><span><?php echo $alt; ?></span></a>
@@ -318,7 +318,7 @@ if(!class_exists('mosMenuBar')) {
 		* @param string An override for the task
 		* @param string An override for the alt text
 		*/
-		function deleteListX($msg = '',$task = 'remove',$alt = _CMN_DELETE) {
+		function deleteListX($msg = '',$task = 'remove',$alt = _DELETE) {
 ?>
 			<td>
 				<a class="tb-delete-list-x" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('<?php echo _PLEASE_CHOOSE_ELEMENT_TO_DELETE?>'); } else if (confirm('<?php echo _REALLY_WANT_TO_DELETE_OBJECTS?> <?php echo $msg; ?>')){ hideMainMenu();submitbutton('<?php echo $task; ?>');}"><span><?php echo $alt; ?></span></a>
@@ -414,7 +414,7 @@ if(!class_exists('mosMenuBar')) {
 		* @param string An override for the task
 		* @param string An override for the alt text
 		*/
-		function apply($task = 'apply',$alt = _CMN_APPLY) {
+		function apply($task = 'apply',$alt = _APPLY) {
 ?>
 			<td>
 				<a class="tb-apply" href="javascript:submitbutton('<?php echo $task; ?>');"><span><?php echo $alt; ?></span></a>
@@ -428,7 +428,7 @@ if(!class_exists('mosMenuBar')) {
 		* @param string An override for the task
 		* @param string An override for the alt text
 		*/
-		function save($task = 'save',$alt = _CMN_SAVE) {
+		function save($task = 'save',$alt = _SAVE) {
 ?>
 			<td>
 				<a class="tb-save" href="javascript:submitbutton('<?php echo $task; ?>');"><span><?php echo $alt; ?></span></a>
@@ -442,7 +442,7 @@ if(!class_exists('mosMenuBar')) {
 		function savenew() {
 ?>
 			<td>
-				<a class="tb-save-new" href="javascript:submitbutton('savenew');"><span><?php echo _CMN_SAVE?></span></a>
+				<a class="tb-save-new" href="javascript:submitbutton('savenew');"><span><?php echo _SAVE?></span></a>
 			</td>
 <?php
 		}
@@ -453,7 +453,7 @@ if(!class_exists('mosMenuBar')) {
 		function saveedit() {
 ?>
 			<td>
-				<a class="tb-save-edit" href="javascript:submitbutton('saveedit');"><span><?php echo _CMN_SAVE?></span></a>
+				<a class="tb-save-edit" href="javascript:submitbutton('saveedit');"><span><?php echo _SAVE?></span></a>
 			</td>
 <?php
 		}
@@ -463,7 +463,7 @@ if(!class_exists('mosMenuBar')) {
 		* @param string An override for the task
 		* @param string An override for the alt text
 		*/
-		function cancel($task = 'cancel',$alt = _CMN_CANCEL) {
+		function cancel($task = 'cancel',$alt = _CANCEL) {
 ?>
 			<td>
 				<a class="tb-cancel" href="javascript:submitbutton('<?php echo $task; ?>');"><span><?php echo $alt; ?></span></a>

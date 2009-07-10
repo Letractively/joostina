@@ -30,7 +30,7 @@ class HTML_typedcontent {
 		<th class="edit"><?php echo _STATIC_CONTENT?></th>
 		<td><?php echo _FILTER?>:&nbsp;</td>
 		<td><input type="text" name="search" value="<?php echo htmlspecialchars($search); ?>" class="text_area" onChange="document.adminForm.submit();" /></td>
-		<td>&nbsp;<?php echo _CMN_ORDERING?>:&nbsp;</td>
+		<td>&nbsp;<?php echo _ORDERING?>:&nbsp;</td>
 		<td><?php echo $lists['order']; ?></td>
 		<td width="right"><?php echo $lists['authorid']; ?></td>
 	</tr>
@@ -40,8 +40,8 @@ class HTML_typedcontent {
 		<th width="5">#</th>
 		<th width="5px"><input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo count($rows); ?>);" /></th>
 		<th class="title"><?php echo _HEADER_TITLE?></th>
-		<th width="5%"><?php echo _CMN_PUBLISHED?></th>
-		<th width="2%"><?php echo _CMN_ORDERING?></th>
+		<th width="5%"><?php echo _PUBLISHED?></th>
+		<th width="2%"><?php echo _ORDERING?></th>
 		<th width="1%"><a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="<?php echo _SAVE_ORDER?>" /></a></th>
 		<th width="10%"><?php echo _ACCESS?></th>
 		<th width="5%">ID</th>
@@ -58,12 +58,12 @@ class HTML_typedcontent {
 		if($now <= $row->publish_up && $row->state == 1) {
 		// Published
 		$img = 'publish_y.png';
-		$alt = _CMN_PUBLISHED;
+		$alt = _PUBLISHED;
 		} else
 		if(($now <= $row->publish_down || $row->publish_down == $nullDate) && $row->state == 1) {
 			// Pending
 			$img = 'publish_g.png';
-			$alt = _CMN_PUBLISHED;
+			$alt = _PUBLISHED;
 		} else
 			if($now > $row->publish_down && $row->state == 1) {
 			// Expired
@@ -72,7 +72,7 @@ class HTML_typedcontent {
 			} elseif($row->state == 0) {
 			// Unpublished
 			$img = 'publish_x.png';
-			$alt = _CMN_UNPUBLISHED;
+			$alt = _UNPUBLISHED;
 			}
 
 		// correct times to include server offset info
@@ -152,7 +152,7 @@ class HTML_typedcontent {
 		if($times) {
 ?>
 		<td align="center" <?php echo ($row->checked_out && ($row->checked_out != $my->id))?null:'onclick="ch_publ('.$row->id.',\'com_typedcontent\');" class="td-state"'; ?>>
-			<img class="img-mini-state" src="images/<?php echo $img; ?>" id="img-pub-<?php echo $row->id; ?>" alt="<?php echo _E_PUBLISHING?>" />
+			<img class="img-mini-state" src="images/<?php echo $img; ?>" id="img-pub-<?php echo $row->id; ?>" alt="<?php echo _PUBLISHING?>" />
 		</td>
 <?php
 		}
@@ -261,7 +261,7 @@ class HTML_typedcontent {
 	</script>
 	<table class="adminheading">
 	<tr>
-		<th class="edit"><?php echo _STATIC_CONTENT?>: <small><?php echo $row->id? _O_EDITING : _O_CREATION; ?></small></th>
+		<th class="edit"><?php echo _STATIC_CONTENT?>: <small><?php echo $row->id? _EDITING : _CREATION; ?></small></th>
 	</tr>
 	</table>
 	<form action="index2.php" method="post" name="adminForm">
@@ -297,19 +297,19 @@ class HTML_typedcontent {
 			<div id="params" style="width:410px">
 <?php
 	$tabs->startPane("content-pane");
-	$tabs->startTab(_E_PUBLISHING,"publish-page");
+	$tabs->startTab(_PUBLISHING,"publish-page");
 ?>
 	<table class="adminform">
 		<tr>
 			<td valign="top" align="right" width="120"><?php echo _O_STATE?>:</td>
-			<td><?php echo $row->state > 0? _CMN_PUBLISHED : _DRAFT_NOT_PUBLISHED; ?></td>
+			<td><?php echo $row->state > 0? _PUBLISHED : _DRAFT_NOT_PUBLISHED; ?></td>
 		</tr>
 		<tr>
-			<td valign="top" align="right"><?php echo _CMN_PUBLISHED?>:</td>
+			<td valign="top" align="right"><?php echo _PUBLISHED?>:</td>
 			<td><input type="checkbox" name="published" value="1" <?php echo $row->state?'checked="checked"':''; ?> /></td>
 		</tr>
 		<tr>
-			<td valign="top" align="right"><?php echo _CMN_ACCESS?>:</td>
+			<td valign="top" align="right"><?php echo _ACCESS?>:</td>
 			<td><?php echo $lists['access']; ?></td>
 		</tr>
 		<tr>
@@ -321,7 +321,7 @@ class HTML_typedcontent {
 			<td><?php echo $lists['created_by']; ?></td>
 		</tr>
 		<tr>
-			<td valign="top" align="right"><?php echo _E_CREATED?>:</td>
+			<td valign="top" align="right"><?php echo _CREATED?>:</td>
 			<td>
 				<input class="inputbox" type="text" name="created" id="created" size="25" maxlength="19" value="<?php echo $row->created; ?>" />
 				<input name="reset" type="reset" class="button" onClick="return showCalendar('created', 'y-mm-dd');" value="...">
@@ -356,7 +356,7 @@ class HTML_typedcontent {
 ?>
 		<tr>
 			<td width="120" valign="top" align="right"><?php echo _O_STATE?>:</td>
-			<td><?php echo $row->state > 0? _CMN_PUBLISHED :($row->state < 0? _IN_ARCHIVE :_DRAFT_NOT_PUBLISHED); ?></td>
+			<td><?php echo $row->state > 0? _PUBLISHED :($row->state < 0? _IN_ARCHIVE :_DRAFT_NOT_PUBLISHED); ?></td>
 		</tr>
 		<tr>
 			<td valign="top" align="right"><?php echo _VIEW_COUNT?>:</td>
@@ -368,7 +368,7 @@ class HTML_typedcontent {
 			</td>
 		</tr>
 		<tr>
-			<td valign="top" align="right"><?php echo _E_VERSION?>:</td>
+			<td valign="top" align="right"><?php echo _VERSION?>:</td>
 			<td><?php echo $row->version; ?></td>
 		</tr>
 		<tr>
@@ -386,7 +386,7 @@ class HTML_typedcontent {
 	</table>
 <?php
 	$tabs->endTab();
-	$tabs->startTab(_E_IMAGES,"images-page");
+	$tabs->startTab(_IMAGES,"images-page");
 ?>
 	<table class="adminform">
 		<tr>
@@ -400,8 +400,8 @@ class HTML_typedcontent {
 					</div>
 					</td>
 					<td width="2%">
-						<input class="button" type="button" value=">>" onclick="addSelectedToList('adminForm','imagefiles','imagelist')" title="<?php echo _E_ADD?>"/>
-						<input class="button" type="button" value="<<" onclick="delSelectedFromList('adminForm','imagelist')" title="<?php echo _CMN_DELETE?>"/>
+						<input class="button" type="button" value=">>" onclick="addSelectedToList('adminForm','imagefiles','imagelist')" title="<?php echo _ADD?>"/>
+						<input class="button" type="button" value="<<" onclick="delSelectedFromList('adminForm','imagelist')" title="<?php echo _DELETE?>"/>
 					</td>
 					<td width="48%">
 						<div align="center">
@@ -415,7 +415,7 @@ class HTML_typedcontent {
 					</td>
 				</tr>
 				</table>
-				<?php echo _CMN_SUBFOLDER?>: <?php echo $lists['folders']; ?>
+				<?php echo _SUBFOLDER?>: <?php echo $lists['folders']; ?>
 			</td>
 		</tr>
 		<tr valign="top">
@@ -453,23 +453,23 @@ class HTML_typedcontent {
 					<td><input class="text_area" type="text" name="_border" value="" size="3" maxlength="1" /></td>
 				</tr>
 				<tr>
-					<td align="right"><?php echo _E_CAPTION?>:</td>
+					<td align="right"><?php echo _CAPTION?>:</td>
 					<td><input class="text_area" type="text" name="_caption" value="" size="30" /></td>
 				</tr>
 				<tr>
-					<td align="right"><?php echo _E_CAPTION_POSITION?>:</td>
+					<td align="right"><?php echo _CAPTION_POSITION?>:</td>
 					<td><?php echo $lists['_caption_position']; ?></td>
 				</tr>
 				<tr>
-					<td align="right"><?php echo _E_CAPTION_ALIGN?>:</td>
+					<td align="right"><?php echo _CAPTION_ALIGN?>:</td>
 					<td><?php echo $lists['_caption_align']; ?></td>
 				</tr>
 				<tr>
-					<td align="right"><?php echo _E_CAPTION_WIDTH?>:</td>
+					<td align="right"><?php echo _CAPTION_WIDTH?>:</td>
 					<td><input class="text_area" type="text" name="_width" value="" size="5" maxlength="5" /></td>
 				</tr>
 				<tr>
-					<td colspan="2"><input class="button" type="button" value="<?php echo _CMN_APPLY?>" onClick="applyImageProps()" /></td>
+					<td colspan="2"><input class="button" type="button" value="<?php echo _APPLY?>" onClick="applyImageProps()" /></td>
 				</tr>
 			</table>
 			</td>
@@ -490,7 +490,7 @@ class HTML_typedcontent {
 ?>
 	<table class="adminform">
 		<tr>
-			<td align="left"><?php echo _CMN_DESCRIPTION?>:<br />
+			<td align="left"><?php echo _DESCRIPTION?>:<br />
 				<textarea class="inputbox" cols="40" rows="5" name="metadesc" style="width:98%"><?php echo str_replace('&','&amp;',$row->metadesc); ?></textarea>
 			</td>
 		</tr>

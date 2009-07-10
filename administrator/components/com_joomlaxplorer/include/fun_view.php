@@ -20,7 +20,7 @@ function jx_show_file($dir, $item) {
 	if(get_is_editable($abs_item) && $GLOBALS['jx_File']->is_writable($abs_item)) {
 		echo '<a class="componentheading" href="'.make_link('edit', $dir, $item).'&amp;return_to='.urlencode($_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING']).'">[ '.$GLOBALS["messages"]["editlink"].' ]</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
 	}
-	echo '<a class="componentheading" href="#bottom">[ '._CMN_BOTTOM.' ]</a>';
+	echo '<a class="componentheading" href="#bottom">[ '._BOTTOM.' ]</a>';
 	echo '<br /><br />';
 	if(@eregi($GLOBALS["images_ext"], $item)) {
 		echo '<img src="'.$GLOBALS['home_url'].'/'.$dir.'/'.$item.'" alt="'.$GLOBALS["messages"]["actview"].": ".$item.'" /><br /><br />';
@@ -34,7 +34,7 @@ function jx_show_file($dir, $item) {
 		}
 		echo '<div class="quote" style="text-align:left;">'.nl2br(htmlentities($GLOBALS['jx_File']->file_get_contents(get_abs_item($dir, $item)),ENT_QUOTES,_ISO2)).'</div>';
 	}
-	echo '<a href="#top" name="bottom" class="componentheading">[ '._CMN_TOP.' ]</a><br /><br />';
+	echo '<a href="#top" name="bottom" class="componentheading">[ '._TOP.' ]</a><br /><br />';
 }
 
 

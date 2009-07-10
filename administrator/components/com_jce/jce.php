@@ -113,7 +113,7 @@ function showPopup() {
                     <td align="left" class="contentheading" style="width:<?php echo $w - 18; ?>px; margin-left: 5px;"><?php echo $title; ?></td>
                     <td align="right" style="width:18px;" class="buttonheading">
 				        <?php if($print) { ?>
-                            <a href="javascript:;" onClick="window.print(); return false"><img src="<?php echo $mainframe->getCfg('live_site'); ?>/images/M_images/printButton.png" width="16" height="16" alt="<?php echo _CMN_PRINT; ?>" title="<?php echo _CMN_PRINT; ?>" border="0" style="vertical-align:middle;"/></a>
+                            <a href="javascript:;" onClick="window.print(); return false"><img src="<?php echo $mainframe->getCfg('live_site'); ?>/images/M_images/printButton.png" width="16" height="16" alt="<?php echo _PRINT; ?>" title="<?php echo _PRINT; ?>" border="0" style="vertical-align:middle;"/></a>
                         <?php } ?>
                     </td>
                 </tr>

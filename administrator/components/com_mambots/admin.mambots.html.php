@@ -42,8 +42,8 @@ class HTML_modules {
 				<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count($rows); ?>);" />
 			</th>
 			<th class="title"><?php echo _MAMBOT_NAME?></th>
-			<th class="jtd_nowrap" width="10%"><?php echo _CMN_PUBLISHED?></th>
-			<th colspan="2" class="jtd_nowrap" width="5%"><?php echo _CMN_ORDERING?></th>
+			<th class="jtd_nowrap" width="10%"><?php echo _PUBLISHED?></th>
+			<th colspan="2" class="jtd_nowrap" width="5%"><?php echo _ORDERING?></th>
 			<th width="2%"><?php echo _ORDER_DROPDOWN?></th>
 			<th width="1%">
 				<a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="<?php echo _SAVE_ORDER?>" /></a>
@@ -78,7 +78,7 @@ class HTML_modules {
 ?>
 				</td>
 				<td align="center" <?php echo ($row->checked_out && ($row->checked_out != $my->id)) ? null : 'onclick="ch_publ('.$row->id.',\'com_mambots\');" class="td-state"';?>>
-					<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?php echo _E_PUBLISHING?>" />
+					<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?php echo _PUBLISHING?>" />
 				</td>
 				<td><?php echo $pageNav->orderUpIcon($i,($row->folder == @$rows[$i - 1]->folder && $row->ordering > -10000 && $row->ordering < 10000)); ?></td>
 				<td><?php echo $pageNav->orderDownIcon($i,$n,($row->folder == @$rows[$i + 1]->folder && $row->ordering > -10000 && $row->ordering < 10000)); ?></td>
@@ -159,7 +159,7 @@ class HTML_modules {
 	</script>
 	<table class="adminheading">
 		<tr>
-			<th class="mambots"><?php echo _SITE_MAMBOT?>:<small><?php echo $row->id?_O_EDITING:_O_CREATION; ?></small><?php echo $row->nameA; ?></th>
+			<th class="mambots"><?php echo _SITE_MAMBOT?>:<small><?php echo $row->id?_EDITING:_CREATION; ?></small><?php echo $row->nameA; ?></th>
 		</tr>
 		</table>
 		<form action="index2.php" method="post" name="adminForm" id="adminForm">
@@ -187,15 +187,15 @@ class HTML_modules {
 					<td><?php echo $lists['ordering']; ?></td>
 				</tr>
 				<tr>
-					<td valign="top" class="key"><?php echo _CMN_ACCESS?>:</td>
+					<td valign="top" class="key"><?php echo _ACCESS?>:</td>
 					<td><?php echo $lists['access']; ?></td>
 				</tr>
 				<tr>
-					<td valign="top" class="key"><?php echo _CMN_PUBLISHED?>:</td>
+					<td valign="top" class="key"><?php echo _PUBLISHED?>:</td>
 					<td><?php echo $lists['published']; ?></td>
 				</tr>
 				<tr>
-					<td valign="top" class="key"><?php echo _CMN_DESCRIPTION?>:</td>
+					<td valign="top" class="key"><?php echo _DESCRIPTION?>:</td>
 					<td><?php echo $text = joostina_api::convert($row->description,true);; ?></td>
 				</tr>
 				</table>

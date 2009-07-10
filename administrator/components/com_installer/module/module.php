@@ -53,7 +53,7 @@ function showInstalledModules($_option) {
 	$config = &Jconfig::getInstance();
 
 	$filter = mosGetParam($_POST,'filter','');
-	$select[] = mosHTML::makeOption('',_CMN_ALL);
+	$select[] = mosHTML::makeOption('',_ALL);
 	$select[] = mosHTML::makeOption('0',_SITE_MODULES);
 	$select[] = mosHTML::makeOption('1',_ADMIN_MODULES);
 	$lists['filter'] = mosHTML::selectList($select,'filter','class="inputbox" size="1" onchange="document.adminForm.submit();"','value','text',$filter);

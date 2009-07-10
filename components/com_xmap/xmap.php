@@ -20,12 +20,14 @@ if ($view == 'xslfile') {
 	exit;
 }
 
-$LangPath = $config->config_absolute_path .DS.ADMINISTRATOR_DIRECTORY.DS.'components'.DS.'com_xmap'.DS.'language'.DS;
-if( file_exists( $LangPath . $config->config_lang . '.php') ) {
-	require_once( $LangPath . $config->config_lang. '.php' );
-} else {
-	require_once( $LangPath . 'russian.php' );
-}
+/**
+ * $LangPath = $config->config_absolute_path .DS.ADMINISTRATOR_DIRECTORY.DS.'components'.DS.'com_xmap'.DS.'language'.DS;
+ * if( file_exists( $LangPath . $config->config_lang . '.php') ) {
+ * 	require_once( $LangPath . $config->config_lang. '.php' );
+ * } else {
+ * 	require_once( $LangPath . 'russian.php' );
+ * }
+ */
 
 require_once( $config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY.DS.'components'.DS.'com_xmap'.DS.'classes'.DS.'XmapConfig.php' );
 require_once( $config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY.DS.'components'.DS.'com_xmap'.DS.'classes'.DS.'XmapSitemap.php' );

@@ -351,7 +351,7 @@ function contactpage($contact_id) {
 			case 1:
 				// text
 				$params->set('marker_address',_CONTACT_ADDRESS);
-				$params->set('marker_email',_CONTACT_EMAIL);
+				$params->set('marker_email',_EMAIL);
 				$params->set('marker_telephone',_CONTACT_TELEPHONE);
 				$params->set('marker_fax',_CONTACT_FAX);
 				$params->set('marker_misc',_CONTACT_MISC);
@@ -369,7 +369,7 @@ function contactpage($contact_id) {
 			default:
 				// icons
 				$image1 = mosAdminMenus::ImageCheck('con_address.png','/images/M_images/',$params->get('icon_address'),'/images/M_images/',_CONTACT_ADDRESS,'adress');
-				$image2 = mosAdminMenus::ImageCheck('emailButton.png','/images/M_images/',$params->get('icon_email'),'/images/M_images/',_CONTACT_EMAIL,'email');
+				$image2 = mosAdminMenus::ImageCheck('emailButton.png','/images/M_images/',$params->get('icon_email'),'/images/M_images/',_EMAIL,'email');
 				$image3 = mosAdminMenus::ImageCheck('con_tel.png','/images/M_images/',$params->get('icon_telephone'),'/images/M_images/',_CONTACT_TELEPHONE,'phone');
 				$image4 = mosAdminMenus::ImageCheck('con_fax.png','/images/M_images/',$params->get('icon_fax'),'/images/M_images/',_CONTACT_FAX,'fax');
 				$image5 = mosAdminMenus::ImageCheck('con_info.png','/images/M_images/',$params->get('icon_misc'),'/images/M_images/',_CONTACT_MISC,'more');

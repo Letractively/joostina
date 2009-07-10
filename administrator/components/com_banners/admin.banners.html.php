@@ -497,7 +497,7 @@ $onclick; ?>><img src="images/<?php echo $img; ?>" border=0 alt="" /></a>
 		</td>
 	</tr>
 	<tr class="row1">
-		<td align="right"><?php echo _ABP_E_CATEGORY_NAME; ?></td>
+		<td align="right"><?php echo _ABP_CATEGORY_NAME; ?></td>
 		<td colspan="2" align="left"><?php echo $categorylist; ?></td>
 	</tr>
 	<tr class="row0">
@@ -917,7 +917,7 @@ class HTML_bannerClient {
 		<th width="20"><b>ID</b></th>
 		<th align="left"><?php echo _ABP_CLIENT_NAME; ?></th>
 		<th width="177" align="left"><?php echo _ABP_CONTACT; ?></th>
-		<th width="177" align="left"><?php echo _ABP_E_CONTACT_EMAIL; ?></th>
+		<th width="177" align="left"><?php echo _ABP_E_EMAIL; ?></th>
 		<th align="center"><?php echo _ABP_NO_OF_BANNERS; ?></th>
 		<th align="center"><?php echo _ABP_BANNERS_ATT; ?></th>
 		<th align="center"><?php echo _ABP_BANNERS_TER; ?></th>
@@ -952,7 +952,7 @@ class HTML_bannerClient {
 		<td width="100" align="center"><?php echo $info_banner[$i]['non_publ']; ?></td>
 		<td width="100" align="center"><?php echo $info_banner[$i]['in_attiv']; ?></td>
 		<td align="center" onclick="ch_publ(<?php echo $row->cid; ?>,'com_banners','&act=client_publish');" class="td-state" >
-			<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->cid;?>" alt="<?php echo _E_PUBLISHING?>" />
+			<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->cid;?>" alt="<?php echo _PUBLISHING?>" />
 		</td>
 	</tr>
 <?php
@@ -1009,7 +1009,7 @@ class HTML_bannerClient {
 		<td><input class="inputbox" type="text" name="contact" size="70" maxlength="60" value="<?php echo $row->contact; ?>"></td>
 	</tr>
 	<tr class="row0">
-		<td><?php echo _ABP_E_CONTACT_EMAIL; ?></td>
+		<td><?php echo _ABP_E_EMAIL; ?></td>
 		<td><input class="inputbox" type="text" name="email" size="70" maxlength="60" value="<?php echo $row->email; ?>"></td>
 	</tr>
 	<tr class="row1">
@@ -1077,7 +1077,7 @@ class HTML_bannerCategory {
 			</td>
 			<td width="15%" align="center"><?php echo $row->banners; ?></td>
 			<td align="center" <?php echo ($row->checked_out && ($row->checked_out != $my->id)) ? null : 'onclick="ch_publ('.$row->id.',\'com_banners\',\'&act=cat_publish\');" class="td-state"';?>>
-				<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?php echo _E_PUBLISHING?>" />
+				<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?php echo _PUBLISHING?>" />
 			</td>
 		</tr>
 <?php
@@ -1112,7 +1112,7 @@ function submitbutton(pressbutton, section) {
 		return;
 	}
 	if (document.adminForm.name.value == ""){
-		alert("<?php echo _ABP_E_CATEGORY_MUST_HAVE_A_NAME; ?>");
+		alert("<?php echo _ABP_CATEGORY_MUST_HAVE_A_NAME; ?>");
 	} else {
 		submitform(pressbutton);
 		}
@@ -1128,7 +1128,7 @@ function submitbutton(pressbutton, section) {
 </table>
 <table class="adminform">
 	<tr class="row0">
-		<td><?php echo _ABP_E_CATEGORY_NAME; ?></td>
+		<td><?php echo _ABP_CATEGORY_NAME; ?></td>
 		<td><input class="inputbox" type="text" name="name" value="<?php echo $row->name; ?>" size="70" maxlength="255" /></td>
 	</tr>
 	<tr class="row1">

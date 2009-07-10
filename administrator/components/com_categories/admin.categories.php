@@ -135,7 +135,7 @@ function showCategories($section,$option) {
 		$query = "SELECT name FROM #__sections WHERE id = ".(int)$section;
 		$database->setQuery($query);
 		$section_name = $database->loadResult();
-		$section_name = _E_CONTENT.' : '.$section_name;
+		$section_name = _CONTENT.' : '.$section_name;
 		$where = "\n WHERE c.section = ".$database->Quote($section);
 		$type = 'content';
 	} else
@@ -224,23 +224,40 @@ function showCategories($section,$option) {
 		unset($row);
 	}
 
+
 	$query = "SELECT COUNT( a.id ) as count,a.state,a.catid FROM #__content AS a WHERE a.catid IN(".implode(',',$cat_ids).") GROUP BY a.catid";
 	$database->setQuery($query);
 	$cats_info = $database->loadObjectList();
+	
+	//echo count($cats_info);
+	//echo '<br />'.implode(', ', $cat_ids);
 
 	$new_rows = array();
 	foreach ($cats_info as $cat_info){
 		if($cat_info->state=='-2'){
 			$rows[$cat_info->catid]->trash = $cat_info->count;
-			$rows[$cat_info->catid]->active = 0;
+			$rows[$cat_info->catid]->active = 0; 
 		}else{
 			$rows[$cat_info->catid]->active = $cat_info->count;
-			$rows[$cat_info->catid]->trash = 0;
+			$rows[$cat_info->catid]->trash = 0; 
 		}
 		$new_rows[] = $rows[$cat_info->catid];
 	}
+	
+	//А теперь добавим в $new_rows категории без контента,
+	// а то не по фен-шую как-то получается
+	
+	foreach($cat_ids as $v){
+		if (!in_array($rows[$v], $new_rows)){
+			$rows[$v]->trash = 0;
+			$rows[$v]->active = 0; 
+			$new_rows[] = $rows[$v];
+		}
+	}
 
 	$rows = $new_rows;
+	
+	
 	unset($new_rows);
 
 	// get list of sections for dropdown filter
@@ -441,7 +458,7 @@ function editCategory($uid = 0,$section = '') {
 
 		$folders[] = mosHTML::makeOption('*2*',_USE_SECTION_SETTINGS);
 		$folders[] = mosHTML::makeOption('*#*','---------------------');
-		$folders[] = mosHTML::makeOption('*1*',_CMN_ALL);
+		$folders[] = mosHTML::makeOption('*1*',_ALL);
 		$folders[] = mosHTML::makeOption('*0*',_NOT_EXISTS);
 		$folders[] = mosHTML::makeOption('*#*','---------------------');
 		$folders[] = mosHTML::makeOption('/');
@@ -662,7 +679,7 @@ function publishCategories($section,$categoryid = null,$cid = null,$publish = 1)
 	}
 
 	if(count($cid) < 1) {
-		$action = $publish? _CMN_PUBLISHED : _CMN_UNPUBLISHED;
+		$action = $publish? _PUBLISHED : _UNPUBLISHED;
 		echo "<script> alert('"._CHOOSE_CATEGORY_FOR_." $action'); window.history.go(-1);</script>\n";
 		exit;
 	}

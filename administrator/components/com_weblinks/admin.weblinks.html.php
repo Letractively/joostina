@@ -48,16 +48,16 @@ class HTML_weblinks {
 			<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count($rows); ?>);" />
 			</th>
 			<th class="title">
-			<?php echo _E_CAPTION?>
+			<?php echo _CAPTION?>
 			</th>
 			<th width="5%">
 			<?php echo _ON_SITE?>
 			</th>
 			<th colspan="2" width="5%">
-			<?php echo _CMN_ORDERING?>
+			<?php echo _ORDERING?>
 			</th>
 			<th width="25%" align="left">
-			<?php echo _E_CATEGORY?>
+			<?php echo _CATEGORY?>
 			</th>
 			<th width="5%">
 			<?php echo _WEBLINKS_HITS?>
@@ -72,7 +72,7 @@ class HTML_weblinks {
 
 			$task = $row->published?'unpublish':'publish';
 			$img = $row->published?'publish_g.png':'publish_x.png';
-			$alt = $row->published?_CMN_PUBLISHED:_CMN_UNPUBLISHED;
+			$alt = $row->published?_PUBLISHED:_UNPUBLISHED;
 
 			$checked = mosCommonHTML::CheckedOutProcessing($row,$i);
 
@@ -174,7 +174,7 @@ class HTML_weblinks {
 			<th>
 			<?php echo _WEBLINK_URL?>:
 			<small>
-			<?php echo $row->id?_O_EDITING:_O_CREATION; ?>
+			<?php echo $row->id?_EDITING:_CREATION; ?>
 			</small>
 			</th>
 		</tr>
@@ -199,7 +199,7 @@ class HTML_weblinks {
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					<?php echo _E_CATEGORY?>:
+					<?php echo _CATEGORY?>:
 					</td>
 					<td>
 					<?php echo $lists['catid']; ?>
@@ -215,7 +215,7 @@ class HTML_weblinks {
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					<?php echo _CMN_DESCRIPTION?>:
+					<?php echo _DESCRIPTION?>:
 					</td>
 					<td>
 					<textarea class="text_area" cols="50" rows="5" name="description" style="width:500px" width="500"><?php echo $row->description; ?></textarea>
@@ -232,7 +232,7 @@ class HTML_weblinks {
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					<?php echo _CMN_PUBLISHED?>:
+					<?php echo _PUBLISHED?>:
 					</td>
 					<td>
 					<?php echo $lists['published']; ?>

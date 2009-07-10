@@ -24,7 +24,7 @@ if(!defined('_INSTALL_CHECK')) {
 		// восстановление некоторых переменных сессии
 		$admin = new mosUser($database);
 		$admin->id = intval(mosGetParam($_SESSION,'session_user_id',''));
-		$admin->username = strval(mosGetParam($_SESSION,'session_username',''));
+		$admin->username = strval(mosGetParam($_SESSION,'session_USER',''));
 		$admin->usertype = strval(mosGetParam($_SESSION,'session_usertype',''));
 		$session_id = mosGetParam($_SESSION,'session_id','');
 		$logintime = mosGetParam($_SESSION,'session_logintime','');
