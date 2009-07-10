@@ -68,7 +68,7 @@ class categories_html {
 <?php
 		} else {
 ?>
-			<th class="categories"><?php echo _CONTENT_CATEGORIES?> <small><small>[ <?php echo $section_name; ?> ]</small></small></th>
+			<th class="categories"><?php echo _CATEGORIES?> <small><small>[ <?php echo $section_name; ?> ]</small></small></th>
 <?php
 		}
 ?>
@@ -79,11 +79,11 @@ class categories_html {
 			<th width="10" align="left">#</th>
 			<th width="20"><input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo count($rows); ?>);" /></th>
 			<th class="title"><?php echo _NAME?></th>
-			<th width="8%"><?php echo _CMN_PUBLISHED?></th>
+			<th width="8%"><?php echo _PUBLISHED?></th>
 <?php
 		if($section != 'content') {
 ?>
-			<th colspan="2" width="5%"><?php echo _CMN_ORDERING?></th>
+			<th colspan="2" width="5%"><?php echo _ORDERING?></th>
 <?php
 		}
 ?>
@@ -91,7 +91,7 @@ class categories_html {
 			<th width="1%">
 				<a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="Сохранить порядок" /></a>
 			</th>
-			<th width="8%"><?php echo _CMN_ACCESS?></th>
+			<th width="8%"><?php echo _ACCESS?></th>
 <?php
 		if($section == 'content') {
 ?>
@@ -115,6 +115,7 @@ class categories_html {
 		</tr>
 		<?php
 		$k = 0;
+		
 		for($i = 0,$n = count($rows); $i < $n; $i++) {
 			$row = &$rows[$i];
 			mosMakeHtmlSafe($row);
@@ -144,7 +145,7 @@ class categories_html {
 ?>
 				</td>
 				<td align="center" <?php echo ($row->checked_out && ($row->checked_out != $my->id)) ? null : 'onclick="ch_publ('.$row->id.',\'com_categories\');" class="td-state"';?>>
-					<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?php echo _E_PUBLISHING?>" />
+					<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?php echo _PUBLISHING?>" />
 				</td>
 <?php
 			if($section != 'content') {
@@ -323,15 +324,15 @@ class categories_html {
 					<td><?php echo $lists['image_position']; ?></td>
 				</tr>
 				<tr>
-					<td><?php echo _CMN_ACCESS?>:</td>
+					<td><?php echo _ACCESS?>:</td>
 					<td><?php echo $lists['access']; ?></td>
 				</tr>
 				<tr>
-					<td><?php echo _CMN_PUBLISHED?>:</td>
+					<td><?php echo _PUBLISHED?>:</td>
 					<td><?php echo $lists['published']; ?></td>
 				</tr>
 				<tr>
-					<td valign="top" colspan="2"><?php echo _CMN_DESCRIPTION?>:</td>
+					<td valign="top" colspan="2"><?php echo _DESCRIPTION?>:</td>
 				</tr>
 				<tr>
 					<td colspan="3">

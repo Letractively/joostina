@@ -112,7 +112,7 @@ class HTML_content {
 				<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count($rows); ?>);" />
 			</th>
 			<th class="title"><?php echo _HEADER_TITLE?></th>
-			<th><?php echo _CMN_PUBLISHED?></th>
+			<th><?php echo _PUBLISHED?></th>
 			<th class="jtd_nowrap"><?php echo _ON_FRONTPAGE?></th>
 			<th width="2%"><?php echo _ORDER_DROPDOWN?></th>
 			<th width="1%">
@@ -211,7 +211,7 @@ class HTML_content {
 			if($times) {
 ?>
 				<td align="center" <?php echo ($row->checked_out && ($row->checked_out != $my->id)) ? null : 'onclick="ch_publ('.$row->id.',\'com_content\');" class="td-state"';?>>
-					<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?php echo _E_PUBLISHING?>" />
+					<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?php echo _PUBLISHING?>" />
 				</td>
 <?php
 			}
@@ -321,7 +321,7 @@ class HTML_content {
 			<th width="1%">
 				<a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="<?php echo _SAVE_ORDER?>" /></a>
 			</th>
-			<th width="15%" align="left"><?php echo _E_CATEGORY?></th>
+			<th width="15%" align="left"><?php echo _CATEGORY?></th>
 			<th width="15%" align="left"><?php echo _AUTHOR_BY?></th>
 			<th align="center" width="10"><?php echo _DATE?></th>
 		</tr>
@@ -548,7 +548,7 @@ class HTML_content {
 		//-->
 		</script>
 		<table class="adminheading">
-		<tr><th class="edit"><?php echo _E_CONTENT?>: <small><?php echo $row->id ? _O_EDITING: _O_CREATION; ?></small></th></tr>
+		<tr><th class="edit"><?php echo _CONTENT?>: <small><?php echo $row->id ? _EDITING: _CREATION; ?></small></th></tr>
 		</table>
 		<form action="index2.php" method="post" name="adminForm" id="adminForm">
 		<table class="adminform" cellspacing="0" cellpadding="0" width="100%">
@@ -566,7 +566,7 @@ class HTML_content {
 							<td width="50%">
 								<input class="text_area" type="text" name="title" size="30" maxlength="255" style="width:99%" value="<?php echo $row->title; ?>" />
 							</td>
-							<td width="15"><?php echo _CMN_PUBLISHED?>:</td>
+							<td width="15"><?php echo _PUBLISHED?>:</td>
 							<td width="50%"><?php echo mosHTML::yesnoRadioList('published','',$row->state);?></td>
 						</tr>
 						<tr>
@@ -580,7 +580,7 @@ class HTML_content {
 						<tr>
 							<td width="15"><?php echo _SECTION?>:</td>
 							<td width="50%"><?php echo $lists['sectionid']; ?></td>
-							<td width="15"><?php echo _E_CATEGORY?>:</td>
+							<td width="15"><?php echo _CATEGORY?>:</td>
 							<td width="50%"><?php echo $lists['catid']; ?></td>
 						</tr>
 						</table>
@@ -628,7 +628,7 @@ class HTML_content {
 				<table width="100%">
 				<tr>
 					<td><strong><?php echo _E_STATE?></strong></td>
-					<td><?php echo $row->state > 0? _CMN_PUBLISHED :($row->state < 0? _IN_ARCHIVE : _DRAFT_NOT_PUBLISHED); ?></td>
+					<td><?php echo $row->state > 0? _PUBLISHED :($row->state < 0? _IN_ARCHIVE : _DRAFT_NOT_PUBLISHED); ?></td>
 				</tr>
 				<tr <?php echo $visibility; ?>>
 					<td><strong><?php echo _HEADER_HITS?>:</strong></td>
@@ -655,11 +655,11 @@ class HTML_content {
 			</table>
 <?php
 		$tabs->startPane("content-pane");
-		$tabs->startTab(_E_PUBLISHING,"publish-page");
+		$tabs->startTab(_PUBLISHING,"publish-page");
 ?>
 			<table width="100%" class="adminform">
 					<tr>
-						<td valign="top" align="right"><?php echo _CMN_ACCESS?>:</td>
+						<td valign="top" align="right"><?php echo _ACCESS?>:</td>
 						<td><?php echo $lists['access']; ?></td>
 					</tr>
 					<tr>
@@ -677,7 +677,7 @@ class HTML_content {
 						<td><?php echo $lists['ordering']; ?></td>
 					</tr>
 					<tr>
-						<td valign="top" align="right"><?php echo _E_CREATED?></td>
+						<td valign="top" align="right"><?php echo _CREATED?></td>
 						<td>
 							<input class="text_area" type="text" name="created" id="created" size="25" maxlength="19" value="<?php echo $row->created; ?>" />
 							<input name="reset" type="reset" class="button" onclick="return showCalendar('created', 'y-mm-dd');" value="..." />
@@ -715,7 +715,7 @@ class HTML_content {
 		$tabs->endTab();
 		// отключение вкладки "Изображения"
 		if(!$mosConfig_disable_image_tab) {
-			$tabs->startTab(_E_IMAGES,"images-page");
+			$tabs->startTab(_IMAGES,"images-page");
 ?>
 					<table class="adminform" width="100%">
 					<tr>
@@ -765,7 +765,7 @@ class HTML_content {
 					</tr>
 					<tr>
 						<td colspan="2">
-						<?php echo _E_EDIT_IMAGE?>:
+						<?php echo _EDIT_IMAGE?>:
 							<table>
 							<tr>
 								<td align="right"><?php echo _SOURCE?>:</td>
@@ -784,23 +784,23 @@ class HTML_content {
 								<td><input class="text_area" type="text" name="_border" value="" size="3" maxlength="1" /></td>
 							</tr>
 							<tr>
-								<td align="right"><?php echo _E_CAPTION?>:</td>
+								<td align="right"><?php echo _CAPTION?>:</td>
 								<td><input class="text_area" type="text" name="_caption" value="" size="30" /></td>
 							</tr>
 							<tr>
-								<td align="right"><?php echo _E_CAPTION_POSITION?>:</td>
+								<td align="right"><?php echo _CAPTION_POSITION?>:</td>
 								<td><?php echo $lists['_caption_position']; ?></td>
 							</tr>
 							<tr>
-								<td align="right"><?php echo _E_CAPTION_ALIGN?>:</td>
+								<td align="right"><?php echo _CAPTION_ALIGN?>:</td>
 								<td><?php echo $lists['_caption_align']; ?></td>
 							</tr>
 							<tr>
-								<td align="right"><?php echo _E_CAPTION_WIDTH?>:</td>
+								<td align="right"><?php echo _CAPTION_WIDTH?>:</td>
 								<td><input class="text_area" type="text" name="_width" value="" size="5" maxlength="5" /></td>
 							</tr>
 							<tr>
-								<td colspan="2"><input class="button" type="button" value="<?php echo _CMN_APPLY?>" onclick="applyImageProps()" /></td>
+								<td colspan="2"><input class="button" type="button" value="<?php echo _APPLY?>" onclick="applyImageProps()" /></td>
 							</tr>
 							</table>
 						</td>
@@ -829,7 +829,7 @@ class HTML_content {
 ?>
 					<table class="adminform">
 					<tr>
-							<td><?php echo _CMN_DESCRIPTION?>:
+							<td><?php echo _DESCRIPTION?>:
 							<br />
 							<textarea class="text_area" cols="60" rows="8" style="width:98%" name="metadesc"><?php echo str_replace('&','&amp;',$row->metadesc); ?></textarea>
 						</td>

@@ -61,40 +61,40 @@ if(!defined('_JOS_FULLMENU_MODULE')) {
 
 ?>
 var myMenu =[
-[null,'<?php echo _SITE?>',null,null,'<?php echo _MENU_CMS_FEATURES?>',
+[null,'<?php echo _SITE?>',null,null,'<?php echo _MOD_FULLMENU_CMS_FEATURES?>',
 <?php
 	if($canConfig) {
-?>['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo _MENU_GLOBAL_CONFIG?>','index2.php?option=com_config&hidemainmenu=1',null,'<?php echo _MENU_GLOBAL_CONFIG_TIP?>'],
+?>['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo _MOD_FULLMENU_GLOBAL_CONFIG?>','index2.php?option=com_config&hidemainmenu=1',null,'<?php echo _MOD_FULLMENU_GLOBAL_CONFIG_TIP?>'],
 <?php
 	}
 	if($manageLanguages) {
-?>['<img src="../includes/js/ThemeOffice/language.png" />','<?php echo _MENU_LANGUAGES?>','index2.php?option=com_languages',null,'<?php echo _MENU_LANGUAGES_TIP?>',
+?>['<img src="../includes/js/ThemeOffice/language.png" />','<?php echo _MOD_FULLMENU_LANGUAGES?>','index2.php?option=com_languages',null,'<?php echo _MOD_FULLMENU_LANGUAGES_TIP?>',
 
 ],
 <?php
 	}
-?>['<img src="../includes/js/ThemeOffice/preview.png" />', '<?php echo _MENU_SITE_PREVIEW?>', null, null, '<?php echo _MENU_SITE_PREVIEW?>',
-['<img src="../includes/js/ThemeOffice/preview.png" />','<?php echo _MENU_SITE_PREVIEW_IN_NEW_WINDOW?>','<?php echo $config->config_live_site; ?>/index.php','_blank','<?php echo $config->config_live_site; ?>'],
-['<img src="../includes/js/ThemeOffice/preview.png" />','<?php echo _MENU_SITE_PREVIEW_IN_THIS_WINDOW?>','index2.php?option=com_admin&task=preview',null,'<?php echo $config->config_live_site; ?>'],
-['<img src="../includes/js/ThemeOffice/preview.png" />','<?php echo _MENU_SITE_PREVIEW_WITH_MODULE_POSITIONS?>','index2.php?option=com_admin&task=preview2',null,'<?php echo $config->config_live_site; ?>'],
+?>['<img src="../includes/js/ThemeOffice/preview.png" />', '<?php echo _MOD_FULLMENU_SITE_PREVIEW?>', null, null, '<?php echo _MOD_FULLMENU_SITE_PREVIEW?>',
+['<img src="../includes/js/ThemeOffice/preview.png" />','<?php echo _MOD_FULLMENU_SITE_PREVIEW_IN_NEW_WINDOW?>','<?php echo $config->config_live_site; ?>/index.php','_blank','<?php echo $config->config_live_site; ?>'],
+['<img src="../includes/js/ThemeOffice/preview.png" />','<?php echo _MOD_FULLMENU_SITE_PREVIEW_IN_THIS_WINDOW?>','index2.php?option=com_admin&task=preview',null,'<?php echo $config->config_live_site; ?>'],
+['<img src="../includes/js/ThemeOffice/preview.png" />','<?php echo _MOD_FULLMENU_SITE_PREVIEW_WITH_MODULE_POSITIONS?>','index2.php?option=com_admin&task=preview2',null,'<?php echo $config->config_live_site; ?>'],
 ],
- ['<img src="../includes/js/ThemeOffice/globe1.png" />', '<?php echo _MENU_SITE_STATS?>', null, null, '<?php echo _MENU_SITE_STATS_TIP?>',
+ ['<img src="../includes/js/ThemeOffice/globe1.png" />', '<?php echo _MOD_FULLMENU_SITE_STATS?>', null, null, '<?php echo _MOD_FULLMENU_SITE_STATS_TIP?>',
 <?php
 	if($config->config_enable_stats == 1) {
-?> ['<img src="../includes/js/ThemeOffice/globe4.png" />', '<?php echo _MENU_STATS_BROWSERS?>', 'index2.php?option=com_statistics', null, '<?php echo _MENU_STATS_BROWSERS_TIP?>'],
+?> ['<img src="../includes/js/ThemeOffice/globe4.png" />', '<?php echo _MOD_FULLMENU_STATS_BROWSERS?>', 'index2.php?option=com_statistics', null, '<?php echo _MOD_FULLMENU_STATS_BROWSERS_TIP?>'],
 <?php
 	}
-?>['<img src="../includes/js/ThemeOffice/search_text.png" />', '<?php echo _MENU_SEARCHES?>', 'index2.php?option=com_statistics&task=searches', null, '<?php echo _MENU_SEARCHES_TIP?>'],
-['<img src="../includes/js/ThemeOffice/globe3.png" />', '<?php echo _MENU_PAGE_STATS?>', 'index2.php?option=com_statistics&task=pageimp', null, '<?php echo _MENU_PAGE_STATS?>']
+?>['<img src="../includes/js/ThemeOffice/search_text.png" />', '<?php echo _MOD_FULLMENU_SEARCHES?>', 'index2.php?option=com_statistics&task=searches', null, '<?php echo _MOD_FULLMENU_SEARCHES_TIP?>'],
+['<img src="../includes/js/ThemeOffice/globe3.png" />', '<?php echo _MOD_FULLMENU_PAGE_STATS?>', 'index2.php?option=com_statistics&task=pageimp', null, '<?php echo _MOD_FULLMENU_PAGE_STATS?>']
 ],
 <?php
 	if($manageTemplates) {
-?>['<img src="../includes/js/ThemeOffice/template.png" />','<?php echo _TEMPLATES?>',null,null,'<?php echo _MENU_TEMPLATES_TIP?>',
-	['<img src="../includes/js/ThemeOffice/template.png" />','<?php echo _MENU_SITE_TEMPLATES?>','index2.php?option=com_templates',null,'<?php echo _MENU_SITE_TEMPLATES?>'],
-	['<img src="../includes/js/ThemeOffice/template.png" />','<?php echo _MENU_ADMIN_TEMPLATES?>','index2.php?option=com_templates&client=admin',null,'<?php echo _MENU_ADMIN_TEMPLATES?>'],
+?>['<img src="../includes/js/ThemeOffice/template.png" />','<?php echo _TEMPLATES?>',null,null,'<?php echo _MOD_FULLMENU_TEMPLATES_TIP?>',
+	['<img src="../includes/js/ThemeOffice/template.png" />','<?php echo _MOD_FULLMENU_SITE_TEMPLATES?>','index2.php?option=com_templates',null,'<?php echo _MOD_FULLMENU_SITE_TEMPLATES?>'],
+	['<img src="../includes/js/ThemeOffice/template.png" />','<?php echo _MOD_FULLMENU_ADMIN_TEMPLATES?>','index2.php?option=com_templates&client=admin',null,'<?php echo _MOD_FULLMENU_ADMIN_TEMPLATES?>'],
 	_cmSplit,
-	['<img src="../includes/js/ThemeOffice/template.png" />','<?php echo _MODULES_POSITION?>','index2.php?option=com_templates&task=positions',null,'<?php echo _MODULES_POSITION?>'],
-	['<img src="../includes/js/ThemeOffice/install.png" />','<?php echo _MENU_NEW_SITE_TEMPLATE?>','index2.php?option=com_installer&element=template&client=admin',null,'<?php echo _MENU_NEW_SITE_TEMPLATE?>']
+	['<img src="../includes/js/ThemeOffice/template.png" />','<?php echo _MOD_FULLMENU_MODULES_POSITION?>','index2.php?option=com_templates&task=positions',null,'<?php echo _MOD_FULLMENU_MODULES_POSITION?>'],
+	['<img src="../includes/js/ThemeOffice/install.png" />','<?php echo _MOD_FULLMENU_NEW_SITE_TEMPLATE?>','index2.php?option=com_installer&element=template&client=admin',null,'<?php echo _MOD_FULLMENU_NEW_SITE_TEMPLATE?>']
 	],
 <?php }
 
@@ -110,10 +110,10 @@ var myMenu =[
 ],
 <?php } ?>
 
-[null,'<?php echo _MENU?>',null,null,'<?php echo _MENU?>',
+[null,'<?php echo _MOD_FULLMENU_MENU?>',null,null,'<?php echo _MOD_FULLMENU_MENU?>',
 <?php
 	if($manageMenuMan) {
-?>['<img src="../includes/js/ThemeOffice/menus.png" />','<?php echo _MENU?>','index2.php?option=com_menumanager',null,'<?php echo _MENU?>'],
+?>['<img src="../includes/js/ThemeOffice/menus.png" />','<?php echo _MOD_FULLMENU_MENU?>','index2.php?option=com_menumanager',null,'<?php echo _MOD_FULLMENU_MENU?>'],
 _cmSplit,
 <?php
 	}
@@ -123,21 +123,21 @@ _cmSplit,
 	}
 	if($manageTrash) {
 ?>
-_cmSplit,['<img src="../includes/js/ThemeOffice/trash.png" />','<?php echo _MENU_TRASH?>','index2.php?option=com_trash&catid=menu',null,'<?php echo _MENU_TRASH?>'],
+_cmSplit,['<img src="../includes/js/ThemeOffice/trash.png" />','<?php echo _TRASH?>','index2.php?option=com_trash&catid=menu',null,'<?php echo _TRASH?>'],
 <?php
 	}
 ?>
-],[null,'<?php echo _E_CONTENT?>',null,null,'<?php echo _E_CONTENT?>',
+],[null,'<?php echo _CONTENT?>',null,null,'<?php echo _CONTENT?>',
 <?php
 		if(count($sections) > 0) {
-?>  ['<img src="../includes/js/ThemeOffice/edit.png" />','<?php echo _CONTENT_IN_SECTIONS?>',null,null,'<?php echo _CONTENT_IN_SECTIONS?>',
+?>  ['<img src="../includes/js/ThemeOffice/edit.png" />','<?php echo _MOD_FULLMENU_CONTENT_IN_SECTIONS?>',null,null,'<?php echo _MOD_FULLMENU_CONTENT_IN_SECTIONS?>',
 <?php
 	foreach($sections as $section) {
 		$txt = addslashes($section->title?$section->title:$section->name);
 ?>['<img src="../includes/js/ThemeOffice/document.png" />','<?php echo $txt; ?>', null, null,'<?php echo _SECTION?>: <?php echo $txt; ?>',
-	['<img src="../includes/js/ThemeOffice/edit.png" />', '<?php echo _CONTENT_IN_SECTION?>: <?php echo $txt; ?>', 'index2.php?option=com_content&sectionid=<?php echo $section->id; ?>',null,null],
-	['<img src="../includes/js/ThemeOffice/backup.png" />', '<?php echo _SECTION_ARCHIVE?>: <?php echo $txt; ?>', 'index2.php?option=com_content&task=showarchive&sectionid=<?php echo $section->id; ?>',null,null],
-	['<img src="../includes/js/ThemeOffice/sections.png" />', '<?php echo _SECTION_CATEGORIES2?>: <?php echo $txt; ?>', 'index2.php?option=com_categories&section=<?php echo $section->id; ?>',null, null],
+	['<img src="../includes/js/ThemeOffice/edit.png" />', '<?php echo _MOD_FULLMENU_CONTENT_IN_SECTION?>: <?php echo $txt; ?>', 'index2.php?option=com_content&sectionid=<?php echo $section->id; ?>',null,null],
+	['<img src="../includes/js/ThemeOffice/backup.png" />', '<?php echo _MOD_FULLMENU_SECTION_ARCHIVE?>: <?php echo $txt; ?>', 'index2.php?option=com_content&task=showarchive&sectionid=<?php echo $section->id; ?>',null,null],
+	['<img src="../includes/js/ThemeOffice/sections.png" />', '<?php echo _MOD_FULLMENU_SECTION_CATEGORIES2?>: <?php echo $txt; ?>', 'index2.php?option=com_categories&section=<?php echo $section->id; ?>',null, null],
 ],
 <?php
 	} // foreach
@@ -147,16 +147,16 @@ _cmSplit,['<img src="../includes/js/ThemeOffice/trash.png" />','<?php echo _MENU
 	}
 ?>
 ['<img src="../includes/js/ThemeOffice/edit.png" />','<?php echo _ALL_CONTENT?>','index2.php?option=com_content&sectionid=0',null,'<?php echo _ALL_CONTENT?>'],
-['<img src="../includes/js/ThemeOffice/edit.png" />','<?php echo _ADD_CONTENT_ITEM?>','index2.php?option=com_content&sectionid=0&task=new',null,'<?php echo _ADD_CONTENT_ITEM?>'],
+['<img src="../includes/js/ThemeOffice/edit.png" />','<?php echo _MOD_FULLMENU_ADD_CONTENT_ITEM?>','index2.php?option=com_content&sectionid=0&task=new',null,'<?php echo _MOD_FULLMENU_ADD_CONTENT_ITEM?>'],
 _cmSplit,
 ['<img src="../includes/js/ThemeOffice/edit.png" />','<?php echo _STATIC_CONTENT?>','index2.php?option=com_typedcontent',null,'<?php echo _STATIC_CONTENT?>'],
-['<img src="../includes/js/ThemeOffice/edit.png" />','<?php echo _ADD_STATIC_CONTENT?>','index2.php?option=com_typedcontent&task=new',null,'<?php echo _ADD_STATIC_CONTENT?>'],
+['<img src="../includes/js/ThemeOffice/edit.png" />','<?php echo _MOD_FULLMENU_ADD_STATIC_CONTENT?>','index2.php?option=com_typedcontent&task=new',null,'<?php echo _MOD_FULLMENU_ADD_STATIC_CONTENT?>'],
 _cmSplit,
 ['<img src="../includes/js/ThemeOffice/add_section.png" />','<?php echo _SECTIONS?>','index2.php?option=com_sections&scope=content',null,'<?php echo _SECTIONS?>'],
 ['<img src="../includes/js/ThemeOffice/sections.png" />','<?php echo _CATEGORIES?>','index2.php?option=com_categories&section=content',null,'<?php echo _CATEGORIES?>'],
-['<img src="../includes/js/ThemeOffice/masadd.png" />','<?php echo _MASS_CONTENT_ADD?>','index2.php?option=com_sections&task=masadd',null,'<?php echo _MASS_CONTENT_ADD?>'],
+['<img src="../includes/js/ThemeOffice/masadd.png" />','<?php echo _MOD_FULLMENU_MASS_CONTENT_ADD?>','index2.php?option=com_sections&task=masadd',null,'<?php echo _MOD_FULLMENU_MASS_CONTENT_ADD?>'],
 _cmSplit,
-['<img src="../includes/js/ThemeOffice/home.png" />','<?php echo _CONTENT_ON_FRONTPAGE?>','index2.php?option=com_frontpage',null,'<?php echo _CONTENT_ON_FRONTPAGE?>'],
+['<img src="../includes/js/ThemeOffice/home.png" />','<?php echo _MOD_FULLMENU_CONTENT_ON_FRONTPAGE?>','index2.php?option=com_frontpage',null,'<?php echo _MOD_FULLMENU_CONTENT_ON_FRONTPAGE?>'],
 ['<img src="../includes/js/ThemeOffice/edit.png" />','<?php echo _ARCHIVE?>','index2.php?option=com_content&task=showarchive&sectionid=0',null,'<?php echo _ARCHIVE?>'],
 _cmSplit,
 ['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo 'Настройки по умолчанию'?>',null,null,'<?php echo 'Настройки по умолчанию'?>',
@@ -168,8 +168,8 @@ _cmSplit,
 	['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo 'Архив категории'?>','index2.php?option=com_content&task=config&act=categoryarchive',null,'<?php echo 'Архив категории'?>'],
 	['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo 'Материалы пользователя'?>','index2.php?option=com_content&task=config&act=ucontent',null,'<?php echo 'Материалы пользователя'?>']
 ],
-['<img src="../includes/js/ThemeOffice/globe3.png" />', '<?php echo _PAGES_HITS?>', 'index2.php?option=com_statistics&task=pageimp', null, '<?php echo _PAGES_HITS?>'],
-['<img src="../includes/js/ThemeOffice/trash.png" />','<?php echo _CONTENT_TRASH?>','index2.php?option=com_trash&catid=content',null,'<?php echo _CONTENT_TRASH?>'],
+['<img src="../includes/js/ThemeOffice/globe3.png" />', '<?php echo _MOD_FULLMENU_PAGES_HITS?>', 'index2.php?option=com_statistics&task=pageimp', null, '<?php echo _MOD_FULLMENU_PAGES_HITS?>'],
+['<img src="../includes/js/ThemeOffice/trash.png" />','<?php echo _MOD_FULLMENU_CONTENT_TRASH?>','index2.php?option=com_trash&catid=content',null,'<?php echo _MOD_FULLMENU_CONTENT_TRASH?>'],
 ],
 <?php
 	// Components Sub-Menu
@@ -218,26 +218,26 @@ _cmSplit,
 					}
 				}
 				if($topLevelLimit < $topLevelCount) {
-					echo "['<img src=\"../includes/js/ThemeOffice/sections.png\" />','"._ALL_COMPONENTS."','index2.php?option=com_admin&task=listcomponents',null,'"._ALL_COMPONENTS."'],\n";
+					echo "['<img src=\"../includes/js/ThemeOffice/sections.png\" />','"._MOD_FULLMENU_ALL_COMPONENTS."','index2.php?option=com_admin&task=listcomponents',null,'"._MOD_FULLMENU_ALL_COMPONENTS."'],\n";
 				}
 				if($installModules){
 					?> _cmSplit,
-					['<img src="../includes/js/ThemeOffice/install.png" />', '<?php echo _EDIT_COMPONENTS_MENU?>','index2.php?option=com_linkeditor ',null,'<?php echo _EDIT_COMPONENTS_MENU?>'],
-					['<img src="../includes/js/ThemeOffice/install.png" />', '<?php echo _COMPONENTS_INSTALL_UNINSTALL?>','index2.php?option=com_installer&element=component',null,'<?php echo _COMPONENTS_INSTALL_UNINSTALL?>'],
+					['<img src="../includes/js/ThemeOffice/install.png" />', '<?php echo _MOD_FULLMENU_EDIT_COMPONENTS_MENU?>','index2.php?option=com_linkeditor ',null,'<?php echo _MOD_FULLMENU_EDIT_COMPONENTS_MENU?>'],
+					['<img src="../includes/js/ThemeOffice/install.png" />', '<?php echo _MOD_FULLMENU_COMPONENTS_INSTALL_UNINSTALL?>','index2.php?option=com_installer&element=component',null,'<?php echo _MOD_FULLMENU_COMPONENTS_INSTALL_UNINSTALL?>'],
 					],
 <?php
 	}
 	// Modules Sub-Menu
 	if($installModules | $editAllModules) {
 ?>
-[null,'<?php echo _MODULES?>',null,null,'<?php echo _MODULES_SETUP?>',
+[null,'<?php echo _MODULES?>',null,null,'<?php echo _MOD_FULLMENU_MODULES_SETUP?>',
 <?php
 	if($editAllModules) {
 ?>
-	['<img src="../includes/js/ThemeOffice/module.png" />', '<?php echo _SITE_MODULES?>', "index2.php?option=com_modules", null, '<?php echo _SITE_MODULES?>'],
-	['<img src="../includes/js/ThemeOffice/module.png" />', '<?php echo _ADMIN_MODULES?>', "index2.php?option=com_modules&client=admin", null, '<?php echo _ADMIN_MODULES?>'],
+	['<img src="../includes/js/ThemeOffice/module.png" />', '<?php echo _MOD_FULLMENU_SITE_MODULES?>', "index2.php?option=com_modules", null, '<?php echo _MOD_FULLMENU_SITE_MODULES?>'],
+	['<img src="../includes/js/ThemeOffice/module.png" />', '<?php echo _MOD_FULLMENU_ADMIN_MODULES?>', "index2.php?option=com_modules&client=admin", null, '<?php echo _MOD_FULLMENU_ADMIN_MODULES?>'],
 	_cmSplit,
-	['<img src="../includes/js/ThemeOffice/install.png" />', '<?php echo _MODULES_INSTALL_DEINSTALL?>', 'index2.php?option=com_installer&element=module', null, '<?php echo _MODULES_INSTALL_DEINSTALL?>'],
+	['<img src="../includes/js/ThemeOffice/install.png" />', '<?php echo _MOD_FULLMENU_MODULES_INSTALL_DEINSTALL?>', 'index2.php?option=com_installer&element=module', null, '<?php echo _MOD_FULLMENU_MODULES_INSTALL_DEINSTALL?>'],
 	<?php
 	}
 ?>],
@@ -246,39 +246,39 @@ _cmSplit,
 } if($installMambots | $editAllMambots) { ?>
 [null,'<?php echo _MAMBOTS?>',null,null,'<?php echo _MAMBOTS?>',
 <?php if($editAllMambots) { ?>
-['<img src="../includes/js/ThemeOffice/module.png" />', '<?php echo _SITE_MAMBOTS?>', "index2.php?option=com_mambots", null, '<?php echo _SITE_MAMBOTS?>'],
+['<img src="../includes/js/ThemeOffice/module.png" />', '<?php echo _MOD_FULLMENU_SITE_MAMBOTS?>', "index2.php?option=com_mambots", null, '<?php echo _MOD_FULLMENU_SITE_MAMBOTS?>'],
 _cmSplit,
-['<img src="../includes/js/ThemeOffice/install.png" />', '<?php echo _MAMBOTS_INSTALL_UNINSTALL?>', 'index2.php?option=com_installer&element=mambot', null, '<?php echo _MAMBOTS_INSTALL_UNINSTALL?>'],
+['<img src="../includes/js/ThemeOffice/install.png" />', '<?php echo _MOD_FULLMENU_MAMBOTS_INSTALL_UNINSTALL?>', 'index2.php?option=com_installer&element=mambot', null, '<?php echo _MOD_FULLMENU_MAMBOTS_INSTALL_UNINSTALL?>'],
 <?php } ?>
 ],
 <?php } if($installModules) { ?>
-[null,'<?php echo _EXTENSIONS?>',null,null,'<?php echo _EXTENSION_MANAGEMENT?>',
+[null,'<?php echo _EXTENSIONS?>',null,null,'<?php echo _MOD_FULLMENU_EXTENSION_MANAGEMENT?>',
 ['<img src="../includes/js/ThemeOffice/install.png" />', '<?php echo _INSTALLATION . " / " . _DELETING?>','index2.php?option=com_installer&element=installer',null,'<?php echo _INSTALLATION . " / " . _DELETING?>'],
 <?php if($manageLanguages) { ?>
-_cmSplit,['<img src="../includes/js/ThemeOffice/install.png" />','<?php echo _SITE_LANGUAGES?>','index2.php?option=com_installer&element=language',null,'<?php echo _SITE_LANGUAGES?>'],
+_cmSplit,['<img src="../includes/js/ThemeOffice/install.png" />','<?php echo _MOD_FULLMENU_SITE_LANGUAGES?>','index2.php?option=com_installer&element=language',null,'<?php echo _MOD_FULLMENU_SITE_LANGUAGES?>'],
 <?php } if($manageTemplates) {?>
 _cmSplit,
-['<img src="../includes/js/ThemeOffice/install.png" />','<?php echo _MENU_SITE_TEMPLATES?>','index2.php?option=com_installer&element=template&client=',null,'<?php echo _MENU_SITE_TEMPLATES?>'],
-['<img src="../includes/js/ThemeOffice/install.png" />','<?php echo _MENU_ADMIN_TEMPLATES?>','index2.php?option=com_installer&element=template&client=admin',null,'<?php echo _MENU_ADMIN_TEMPLATES?>'],
+['<img src="../includes/js/ThemeOffice/install.png" />','<?php echo _MOD_FULLMENU_SITE_TEMPLATES?>','index2.php?option=com_installer&element=template&client=',null,'<?php echo _MOD_FULLMENU_SITE_TEMPLATES?>'],
+['<img src="../includes/js/ThemeOffice/install.png" />','<?php echo _MOD_FULLMENU_ADMIN_TEMPLATES?>','index2.php?option=com_installer&element=template&client=admin',null,'<?php echo _MOD_FULLMENU_ADMIN_TEMPLATES?>'],
 <?php } ?>
 ],
 <?php }?>
-[null,'<?php echo _JOOMLA_TOOLS?>',null,null,'<?php echo _JOOMLA_TOOLS?>',
-['<img src="../includes/js/ThemeOffice/messaging_inbox.png" />','<?php echo _PRIVATE_MESSAGES?>','index2.php?option=com_messages',null,'<?php echo _PRIVATE_MESSAGES?>'],
-['<img src="../includes/js/ThemeOffice/messaging_config.png" />','<?php echo _PRIVATE_MESSAGES_CONFIG?>','index2.php?option=com_messages&task=config&hidemainmenu=1',null,'<?php echo _PRIVATE_MESSAGES_CONFIG?>'],
+[null,'<?php echo _MOD_FULLMENU_JOOMLA_TOOLS?>',null,null,'<?php echo _MOD_FULLMENU_JOOMLA_TOOLS?>',
+['<img src="../includes/js/ThemeOffice/messaging_inbox.png" />','<?php echo _MOD_FULLMENU_PRIVATE_MESSAGES?>','index2.php?option=com_messages',null,'<?php echo _MOD_FULLMENU_PRIVATE_MESSAGES?>'],
+['<img src="../includes/js/ThemeOffice/messaging_config.png" />','<?php echo _MOD_FULLMENU_PRIVATE_MESSAGES_CONFIG?>','index2.php?option=com_messages&task=config&hidemainmenu=1',null,'<?php echo _MOD_FULLMENU_PRIVATE_MESSAGES_CONFIG?>'],
 _cmSplit,
-['<img src="../includes/js/ThemeOffice/media.png" />','<?php echo _JWMM_MEDIA_MANAGER?>','index2.php?option=com_jwmmxtd',null,'<?php echo _JWMM_MEDIA_MANAGER?>'],
+['<img src="../includes/js/ThemeOffice/media.png" />','<?php echo _MOD_FULLMENU_JWMM_MEDIA_MANAGER?>','index2.php?option=com_jwmmxtd',null,'<?php echo _MOD_FULLMENU_JWMM_MEDIA_MANAGER?>'],
 <?php if($canConfig) { ?>
-['<img src="../includes/js/ThemeOffice/jfmanager.png" />','<?php echo _FILE_MANAGER?>','index2.php?option=com_joomlaxplorer',null,'<?php echo _FILE_MANAGER?>'],
-['<img src="../includes/js/ThemeOffice/license.png" />','<?php echo _SQL_CONSOLE?>','index2.php?option=com_easysql',null,'<?php echo _SQL_CONSOLE?>'],
+['<img src="../includes/js/ThemeOffice/jfmanager.png" />','<?php echo _MOD_FULLMENU_FILE_MANAGER?>','index2.php?option=com_joomlaxplorer',null,'<?php echo _MOD_FULLMENU_FILE_MANAGER?>'],
+['<img src="../includes/js/ThemeOffice/license.png" />','<?php echo _MOD_FULLMENU_SQL_CONSOLE?>','index2.php?option=com_easysql',null,'<?php echo _MOD_FULLMENU_SQL_CONSOLE?>'],
 _cmSplit,
-['<img src="../includes/js/ThemeOffice/checkin.png" />', '<?php echo _GLOBAL_CHECKIN?>', 'index2.php?option=com_checkin', null,'<?php echo _GLOBAL_CHECKIN?>'],
-['<img src="../includes/js/ThemeOffice/checkin.png" />', '<?php echo _BLOCKED_OBJECTS?>', 'index2.php?option=com_checkin&task=mycheckin', null,'<?php echo _BLOCKED_OBJECTS?>'],
+['<img src="../includes/js/ThemeOffice/checkin.png" />', '<?php echo _MOD_FULLMENU_GLOBAL_CHECKIN?>', 'index2.php?option=com_checkin', null,'<?php echo _MOD_FULLMENU_GLOBAL_CHECKIN?>'],
+['<img src="../includes/js/ThemeOffice/checkin.png" />', '<?php echo _MOD_FULLMENU_BLOCKED_OBJECTS?>', 'index2.php?option=com_checkin&task=mycheckin', null,'<?php echo _MOD_FULLMENU_BLOCKED_OBJECTS?>'],
  _cmSplit,
-['<img src="../includes/js/ThemeOffice/jbackup.png" />','<?php echo _JP_BACKUP_MANAGEMENT?>','index2.php?option=com_joomlapack',null,'<?php echo _JP_BACKUP_MANAGEMENT?>',
-['<img src="../includes/js/ThemeOffice/jbackup.png" />','<?php echo _JP_CREATE_BACKUP?>','index2.php?option=com_joomlapack&act=pack&hidemainmenu=1',null,'<?php echo _JP_CREATE_BACKUP?>'],
-['<img src="../includes/js/ThemeOffice/db.png" />','<?php echo _JP_DB_MANAGEMENT?>','index2.php?option=com_joomlapack&act=db',null,'<?php echo _JP_DB_MANAGEMENT?>'],
-['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo _BACKUP_CONFIG?>','index2.php?option=com_joomlapack&act=config',null,'<?php echo _BACKUP_CONFIG?>']],
+['<img src="../includes/js/ThemeOffice/jbackup.png" />','<?php echo _MOD_FULLMENU_JP_BACKUP_MANAGEMENT?>','index2.php?option=com_joomlapack',null,'<?php echo _MOD_FULLMENU_JP_BACKUP_MANAGEMENT?>',
+['<img src="../includes/js/ThemeOffice/jbackup.png" />','<?php echo _MOD_FULLMENU_JP_CREATE_BACKUP?>','index2.php?option=com_joomlapack&act=pack&hidemainmenu=1',null,'<?php echo _MOD_FULLMENU_JP_CREATE_BACKUP?>'],
+['<img src="../includes/js/ThemeOffice/db.png" />','<?php echo _MOD_FULLMENU_JP_DB_MANAGEMENT?>','index2.php?option=com_joomlapack&act=db',null,'<?php echo _MOD_FULLMENU_JP_DB_MANAGEMENT?>'],
+['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo _MOD_FULLMENU_BACKUP_CONFIG?>','index2.php?option=com_joomlapack&act=config',null,'<?php echo _MOD_FULLMENU_BACKUP_CONFIG?>']],
 <?php } ?>
 <?php if($config->config_caching) { ?>
 	['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo _CACHE_MANAGEMENT?>','index2.php?option=com_cache',null,'<?php echo _CACHE_MANAGEMENT?>'],
@@ -287,7 +287,7 @@ _cmSplit,
 <?php }?>
 <?php
 if($canConfig) {?>
-['<img src="../includes/js/ThemeOffice/sysinfo.png" />', '<?php echo _SYSTEM_INFO?>', 'index2.php?option=com_admin&task=sysinfo', null,'<?php echo _SYSTEM_INFO?>'],
+['<img src="../includes/js/ThemeOffice/sysinfo.png" />', '<?php echo _MOD_FULLMENU_SYSTEM_INFO?>', 'index2.php?option=com_admin&task=sysinfo', null,'<?php echo _MOD_FULLMENU_SYSTEM_INFO?>'],
 <?php
 }
 ?>
@@ -319,7 +319,7 @@ cmDraw ('myMenuID', myMenu, 'hbr', cmThemeOffice, 'ThemeOffice');
 			$editAllMambots = $acl->acl_check('administration','edit','users',$usertype,'mambots','all');
 			$installComponents = $acl->acl_check('administration','install','users',$usertype,'components','all');
 			$editAllComponents = $acl->acl_check('administration','edit','users',$usertype,'components','all');
-			$text = _NO_ACTIVE_MENU_ON_THIS_PAGE;
+			$text = _MOD_FULLMENU_NO_ACTIVE_MENU_ON_THIS_PAGE;
 ?>
   <div id="myMenuID" class="inactive"></div>
   <script language="JavaScript" type="text/javascript">
@@ -328,13 +328,13 @@ cmDraw ('myMenuID', myMenu, 'hbr', cmThemeOffice, 'ThemeOffice');
    [null,'<?php echo _SITE; ?>',null,null,'<?php echo $text; ?>'
    ],
    _cmSplit,
-   [null,'<?php echo _MENU; ?>',null,null,'<?php echo $text; ?>'
+   [null,'<?php echo _MOD_FULLMENU_MENU; ?>',null,null,'<?php echo $text; ?>'
    ],
    _cmSplit,
   <?php
 			/* Content Sub-Menu*/
 ?>
-    [null,'<?php echo _E_CONTENT; ?>',null,null,'<?php echo $text; ?>'
+    [null,'<?php echo _CONTENT; ?>',null,null,'<?php echo $text; ?>'
    ],
   <?php
 			/* Components Sub-Menu*/
@@ -376,7 +376,7 @@ _cmSplit,
 	/* System Sub-Menu*/
 if($canConfig) {
 ?>
-_cmSplit,[null,'<?php echo _JOOMLA_TOOLS; ?>',null,null,'<?php echo $text; ?>'],
+_cmSplit,[null,'<?php echo _MOD_FULLMENU_JOOMLA_TOOLS; ?>',null,null,'<?php echo $text; ?>'],
 <?php
 	}
 ?>

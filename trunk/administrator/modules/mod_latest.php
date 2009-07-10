@@ -102,7 +102,7 @@ if($ext){
 ?>
 		</td>
 		<td width="5%" class="td-state" align="center" onclick="ch_publ(<?php echo $row->id;?>,'com_content');">
-			<img id="img-pub-<?php echo $row->id;?>" class="img-mini-state" alt="<?php echo _E_PUBLISHING?>" src="images/<?php echo $img;?>"/>
+			<img id="img-pub-<?php echo $row->id;?>" class="img-mini-state" alt="<?php echo _PUBLISHING?>" src="images/<?php echo $img;?>"/>
 		</td>
 		<td align="left" width="20%"><?php echo $author; ?></td>
 	</tr>

@@ -33,7 +33,7 @@ class HTML_weblinks {
 		// show image
 		if($currentcat->img) {
 ?>
-				<img src="<?php echo $currentcat->img; ?>" align="<?php echo $currentcat->align; ?>" hspace="6" alt="<?php echo _WEBLINKS_TITLE; ?>" />
+				<img src="<?php echo $currentcat->img; ?>" align="<?php echo $currentcat->align; ?>" hspace="6" alt="<?php echo _WEBLINKS; ?>" />
 <?php
 		}
 		echo $currentcat->descrip;
@@ -94,7 +94,7 @@ class HTML_weblinks {
 <?php
 			}
 ?>
-				<td width="90%" height="20" class="sectiontableheader<?php echo $params->get('pageclass_sfx'); ?>"><?php echo _HEADER_TITLE_WEBLINKS; ?></td>
+				<td width="90%" height="20" class="sectiontableheader<?php echo $params->get('pageclass_sfx'); ?>"><?php echo _WEBLINK; ?></td>
 <?php
 			if($params->get('hits')) {
 ?>

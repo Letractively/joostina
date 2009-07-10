@@ -50,7 +50,7 @@ class contact_item_link_menu {
 			<table width="100%">
 			<tr>
 				<td width="10%">
-				'._CMN_NAME.':
+				'._NAME.':
 				</td>
 				<td>
 				'.$contact[0]->name.'

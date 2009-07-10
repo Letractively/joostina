@@ -194,12 +194,12 @@ function record_html($query) {
 				.base64_encode($table)
 				.'&key='.$key.'&id='.$row[$key].'&prm2='
 				.base64_encode($query)
-				.'"><img border=0 src="../images/M_images/edit.png" alt="'._E_EDIT.'" /></a>&nbsp;
+				.'"><img border=0 src="../images/M_images/edit.png" alt="'._EDIT.'" /></a>&nbsp;
 				<a href="index2.php?option=com_easysql&task=delete&prm1='
 				.base64_encode($table)
 				.'&key='.$key.'&id='.$row[$key].'&prm2='
 				.base64_encode($query)
-				.'"><img border=0 src="images/publish_x.png" alt="'._CMN_DELETE.'" /></a></td>';
+				.'"><img border=0 src="images/publish_x.png" alt="'._DELETE.'" /></a></td>';
 			foreach($row as $var => $val) {
 				if(ereg("[a-zA-Z]+",$var,$array)) $body .= '<td>&nbsp;'.prepare(substr($val,0,50))."</td>\n";
 			}
@@ -286,7 +286,7 @@ function EditRecord($task,$table,$id) {
 	<table class="adminheading" >
 		<tr>
 			<th class="db">
-				<?php echo "$table [ $key = $id ]"; ?>:<small><?php echo _O_EDITING?></small>
+				<?php echo "$table [ $key = $id ]"; ?>:<small><?php echo _EDITING?></small>
 			</th>
 		</tr>
 		</table>

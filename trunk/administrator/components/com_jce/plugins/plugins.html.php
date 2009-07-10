@@ -76,7 +76,7 @@ class JCE_plugins {
 			$link = 'index2.php?option=com_jce&client='.$client.'&task=editplugin&hidemainmenu=1&id='.$row->id;
 			$checked = mosCommonHTML::CheckedOutProcessing($row,$i);
 			$published = mosCommonHTML::PublishedProcessing($row,$i);
-			$core = ($row->iscore == 1)?_CMN_YES:_CMN_NO;
+			$core = ($row->iscore == 1)?_YES:_NO;
 			switch($row->access) {
 				case '0':
 					$access_value = _GUEST;

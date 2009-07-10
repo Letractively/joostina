@@ -134,8 +134,9 @@ $option = ($option == 'search') ? 'com_search' : $option;
 
 // загрузка файла русского языка по умолчанию
 $mosConfig_lang = ($mosConfig_lang == '') ? 'russian' : $mosConfig_lang;
-
-include_once ($mosConfig_absolute_path.'/language/'.$mosConfig_lang.'.php');
+$mainframe->set('lang', $mosConfig_lang);
+include_once($mainframe->getLangFile());
+//include_once ($mosConfig_absolute_path.'/language/'.$mosConfig_lang.'/system.php');
 
 // контроль входа и выхода в фронт-энд
 $return		= strval(mosGetParam($_REQUEST,'return',null));
@@ -223,6 +224,10 @@ if($path = $mainframe->getPath('front')) {
 	$task = strval(mosGetParam($_REQUEST,'task',''));
 	$ret = mosMenuCheck($Itemid,$option,$task,$gid);
 	if($ret) {
+			//Подключаем язык компонента
+ 			if($mainframe->getLangFile($option)){ 
+ 				include($mainframe->getLangFile($option));        	
+			}
 		require_once ($path);
 	} else {
 		mosNotAuth();

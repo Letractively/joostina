@@ -35,7 +35,7 @@ class HTML_module {
 			<table class="adminlist" id="adminlist">
 			<tr>
 				<th width="20%" class="title"><?php echo _MODULE?></th>
-				<th width="5%" align="center"><?php echo _E_VERSION?></th>
+				<th width="5%" align="center"><?php echo _VERSION?></th>
 				<th width="10%" align="left"><?php echo _USED_ON?></th>
 				<th width="10%" align="left"><?php echo _AUTHOR_BY?></th>
 				<th width="10%" align="center"><?php echo _DATE?></th>

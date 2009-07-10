@@ -31,11 +31,13 @@ $xmapComponentURL = $mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/component
 $xmapAdministratorURL = $mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY;
 $xmapSiteURL = $mosConfig_live_site;
 
-if(file_exists($mosConfig_absolute_path . '/language/'.$mosConfig_lang.'/com_xmap.php')) {
-	require_once( $mosConfig_absolute_path .'/language/' . $mosConfig_lang . '/com_xmap.php' );
-} else {
-	require_once( $mosConfig_absolute_path .'/language/russian/com_xmap.php' );
-}
+/**
+ * if(file_exists($mosConfig_absolute_path . '/language/'.$mosConfig_lang.'/com_xmap.php')) {
+ * 	require_once( $mosConfig_absolute_path .'/language/' . $mosConfig_lang . '/com_xmap.php' );
+ * } else {
+ * 	require_once( $mosConfig_absolute_path .'/language/russian/com_xmap.php' );
+ * }
+ */
 
 require_once( $xmapComponentPath.'/classes/XmapAdmin.php' );
 

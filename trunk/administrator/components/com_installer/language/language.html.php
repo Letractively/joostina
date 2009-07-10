@@ -50,13 +50,13 @@ class HTML_language {
 		HTML_language::quickiconButton($link,'ext.png', _MAMBOTS);
 
 		$link = 'index2.php?option=com_installer&amp;element=template';
-		HTML_language::quickiconButton($link,'joostina.png', _MENU_SITE_TEMPLATES);
+		HTML_language::quickiconButton($link,'joostina.png', _COM_INSTALLER_SITE_TEMPLATES);
 		
 		$link = 'index2.php?option=com_installer&amp;element=template&client=admin';
-		HTML_language::quickiconButton($link,'joostina.png', _MENU_ADMIN_TEMPLATES);
+		HTML_language::quickiconButton($link,'joostina.png', _COM_INSTALLER_ADMIN_TEMPLATES);
 
 		$link = 'index2.php?option=com_installer&amp;element=language';
-		HTML_language::quickiconButton($link,'log.png', _SITE_LANGUAGES);
+		HTML_language::quickiconButton($link,'log.png', _COM_INSTALLER_SITE_LANGUAGES);
 
 		?>
 		</div>
@@ -101,7 +101,7 @@ class HTML_language {
 			<?php echo _USED_ON?>
 			</th>
 			<th width="10%">
-			<?php echo _E_VERSION?>
+			<?php echo _VERSION?>
 			</th>
 			<th width="10%">
 			<?php echo _DATE?>
@@ -128,7 +128,7 @@ class HTML_language {
 				<td width="5%" align="center">
 				<?php
 			if($row->published == 1) { ?>
-					<img src="images/tick.png" alt="<?php echo _CMN_PUBLISHED?>"/>
+					<img src="images/tick.png" alt="<?php echo _PUBLISHED?>"/>
 					<?php
 			} else {
 ?>

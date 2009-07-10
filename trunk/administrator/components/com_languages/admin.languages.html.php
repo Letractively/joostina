@@ -43,7 +43,7 @@ class HTML_languages {
 			<?php echo _USED_ON?>
 			</th>
 			<th width="10%">
-			<?php echo _E_VERSION?>
+			<?php echo _VERSION?>
 			</th>
 			<th width="10%">
 			<?php echo _DATE?>
@@ -70,7 +70,7 @@ class HTML_languages {
 				<td width="5%" align="center">
 				<?php
 			if($row->published == 1) { ?>
-					<img src="images/tick.png" alt="<?php echo _CMN_PUBLISHED?>"/>
+					<img src="images/tick.png" alt="<?php echo _PUBLISHED?>"/>
 					<?php
 			} else {
 ?>
@@ -109,7 +109,7 @@ class HTML_languages {
 
 	function editLanguageSource($language,&$content,$option) {
 		global $mosConfig_absolute_path;
-		$language_path = $mosConfig_absolute_path."/language/".$language.".php";
+		$language_path = $mosConfig_absolute_path."/language/".$language."/system.php";
 ?>
 		<form action="index2.php" method="post" name="adminForm">
 		<table cellpadding="1" cellspacing="1" border="0" width="100%">
@@ -122,7 +122,7 @@ class HTML_languages {
 				</table>
 			</td>
 			<td width="240">
-				<span class="componentheading"><?php echo $language; ?>.php :<b><?php echo is_writable($language_path)?'<font color="green"> '._WRITEABLE.'</font>':'<font color="red"> '._UNWRITEABLE.'</font>' ?></b>
+				<span class="componentheading"> system.php :<b><?php echo is_writable($language_path)?'<font color="green"> '._WRITEABLE.'</font>':'<font color="red"> '._UNWRITEABLE.'</font>' ?></b>
 				</span>
 			</td>
 <?php

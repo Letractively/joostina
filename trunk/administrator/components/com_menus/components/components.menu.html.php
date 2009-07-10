@@ -68,7 +68,7 @@ class components_menu_html {
 		<table class="adminheading">
 		<tr>
 			<th class="menus">
-			<?php echo $menu->id?_O_EDITING.' -':_O_CREATION.' -'; ?> <?php echo _MENU_ITEM_COMPONENT?> <small><small><?php echo $title; ?></small></small>
+			<?php echo $menu->id?_EDITING.' -':_CREATION.' -'; ?> <?php echo _MENU_ITEM_COMPONENT?> <small><small><?php echo $title; ?></small></small>
 			</th>
 		</tr>
 		</table>
@@ -80,7 +80,7 @@ class components_menu_html {
 					<th colspan="2"><?php echo _DETAILS?></th>
 				</tr>
 				<tr>
-					<td width="10%" align="right"><?php echo _CMN_NAME?>:</td>
+					<td width="10%" align="right"><?php echo _NAME?>:</td>
 					<td width="80%">
 						<input class="inputbox" type="text" name="name" size="50" maxlength="100" value="<?php echo htmlspecialchars($menu->name,ENT_QUOTES); ?>" />
 					</td>
@@ -110,11 +110,11 @@ class components_menu_html {
 					<td><?php echo $lists['ordering']; ?></td>
 				</tr>
 				<tr>
-					<td valign="top" align="right"><?php echo _CMN_ACCESS?>:</td>
+					<td valign="top" align="right"><?php echo _ACCESS?>:</td>
 					<td><?php echo $lists['access']; ?></td>
 				</tr>
 				<tr>
-					<td valign="top" align="right"><?php echo _CMN_PUBLISHED?>:</td>
+					<td valign="top" align="right"><?php echo _PUBLISHED?>:</td>
 					<td><?php echo $lists['published']; ?></td>
 				</tr>
 				<tr>

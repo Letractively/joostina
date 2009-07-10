@@ -44,7 +44,7 @@ class HTML_mambot {
 				<th width="20%" class="title"><?php echo _MAMBOT?></th>
 				<th width="10%" class="title"><?php echo _TYPE?></th>
 				<th width="10%" align="left"><?php echo _AUTHOR_BY?></th>
-				<th width="5%" align="center"><?php echo _E_VERSION?></th>
+				<th width="5%" align="center"><?php echo _VERSION?></th>
 				<th width="10%" align="center"><?php echo _DATE?></th>
 				<th width="15%" align="left">E-mail</th>
 				<th width="15%" align="left"><?php echo _COMPONENT_AUTHOR_URL?></th>

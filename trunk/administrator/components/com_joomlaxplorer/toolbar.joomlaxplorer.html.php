@@ -16,7 +16,7 @@ class TOOLBAR_jx {
 		mosMenuBar::startTable();
 		mosMenuBar::ext(_COPY,'#','-copy','id="tb-copy" onclick="javascript:Copy();"');
 		mosMenuBar::ext(_MENU_MOVE,'#','-move','id="tb-move" onclick="javascript:Move();"');
-		mosMenuBar::ext(_CMN_DELETE,'#','-delete','id="tb-delete" onclick="javascript:Delete();"');
+		mosMenuBar::ext(_DELETE,'#','-delete','id="tb-delete" onclick="javascript:Delete();"');
 		mosMenuBar::ext(_MENU_CHMOD,'#','-chmod','id="tb-chmod" onclick="javascript:Chmod();"');
 		if(ini_get("file_uploads")) {
 			mosMenuBar::ext(_TASK_UPLOAD,make_link("upload", $dir, null),'-upload','id="tb-upload"');

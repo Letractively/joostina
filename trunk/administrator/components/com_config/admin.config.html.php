@@ -553,7 +553,7 @@ class HTML_config {
 		</table>
 <?php
 		$tabs->endTab();
-		$tabs->startTab(_E_CONTENT,"content-page");
+		$tabs->startTab(_CONTENT,"content-page");
 ?>
 						<table class="adminform">
 						<tr>
@@ -592,9 +592,9 @@ class HTML_config {
 ?></td>
 						</tr>
 <tr>
-						<td><?php echo _COM_CONFIG_CC_TYPE_USERNAME?>:</td>
+						<td><?php echo _COM_CONFIG_CC_TYPE_USER?>:</td>
 								<td><?php echo $lists['authorName']; ?></td>
-								<td><?php echo mosToolTip(_COM_CONFIG_CC_TYPE_USERNAME_HELP);?></td>
+								<td><?php echo mosToolTip(_COM_CONFIG_CC_TYPE_USER_HELP);?></td>
 						</tr>
 						<tr>
 						<td><?php echo _DATE_TIME_CREATION?>:</td>
@@ -872,7 +872,7 @@ class HTML_config {
 											<td style="padding:0px" colspan="3"><label for="filePermsUserExecute"><?php echo _O_EXEC?></label></td>
 																				</tr>
 																				<tr>
-											<td style="padding:0px"><?php echo _O_GROUP?>:</td>
+											<td style="padding:0px"><?php echo _GROUP?>:</td>
 																						<td style="padding:0px"><input type="checkbox" id="filePermsGroupRead" name="filePermsGroupRead" value="1" onclick="saveFilePerms()"<?php if($flags &040) echo ' checked="checked"'; ?>/></td>
 											<td style="padding:0px"><label for="filePermsGroupRead"><?php echo _O_READ?></label></td>
 																						<td style="padding:0px"><input type="checkbox" id="filePermsGroupWrite" name="filePermsGroupWrite" value="1" onclick="saveFilePerms()"<?php if($flags &020) echo ' checked="checked"'; ?>/></td>
@@ -890,7 +890,7 @@ class HTML_config {
 																						</td>
 																				</tr>
 																				<tr>
-											<td style="padding:0px"><?php echo _CMN_ALL?>:</td>
+											<td style="padding:0px"><?php echo _ALL?>:</td>
 																						<td style="padding:0px"><input type="checkbox" id="filePermsWorldRead" name="filePermsWorldRead" value="1" onclick="saveFilePerms()"<?php if($flags &04) echo ' checked="checked"'; ?>/></td>
 											<td style="padding:0px"><label for="filePermsWorldRead"><?php echo _O_READ?></label></td>
 																						<td style="padding:0px"><input type="checkbox" id="filePermsWorldWrite" name="filePermsWorldWrite" value="1" onclick="saveFilePerms()"<?php if($flags &02) echo ' checked="checked"'; ?>/></td>
@@ -950,7 +950,7 @@ class HTML_config {
 											<td style="padding:0px" colspan="3"><label for="dirPermsUserSearch"><?php echo _O_SEARCH?></label></td>
 																				</tr>
 																				<tr>
-											<td style="padding:0px"><?php echo _O_GROUP?>:</td>
+											<td style="padding:0px"><?php echo _GROUP?>:</td>
 																						<td style="padding:0px"><input type="checkbox" id="dirPermsGroupRead" name="dirPermsGroupRead" value="1" onclick="saveDirPerms()"<?php if($flags &040) echo ' checked="checked"'; ?>/></td>
 											<td style="padding:0px"><label for="dirPermsGroupRead"><?php echo _O_READ?></label></td>
 																						<td style="padding:0px"><input type="checkbox" id="dirPermsGroupWrite" name="dirPermsGroupWrite" value="1" onclick="saveDirPerms()"<?php if($flags &020) echo ' checked="checked"'; ?>/></td>
@@ -967,7 +967,7 @@ class HTML_config {
 																						</td>
 																				</tr>
 																				<tr>
-											<td style="padding:0px"><?php echo _CMN_ALL?>:</td>
+											<td style="padding:0px"><?php echo _ALL?>:</td>
 																						<td style="padding:0px"><input type="checkbox" id="dirPermsWorldRead" name="dirPermsWorldRead" value="1" onclick="saveDirPerms()"<?php if($flags &04) echo ' checked="checked"'; ?>/></td>
 											<td style="padding:0px"><label for="dirPermsWorldRead"><?php echo _O_READ?></label></td>
 																						<td style="padding:0px"><input type="checkbox" id="dirPermsWorldWrite" name="dirPermsWorldWrite" value="1" onclick="saveDirPerms()"<?php if($flags &02) echo ' checked="checked"'; ?>/></td>

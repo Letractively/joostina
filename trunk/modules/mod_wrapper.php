@@ -68,5 +68,5 @@ scrolling="<?php echo $params->get( 'scrolling' ); ?>"
 align="top"
 frameborder="0"
 class="wrapper<?php echo $params->get( 'moduleclass_sfx' ); ?>">
-<?php echo _CMN_IFRAMES; ?>
+<?php echo _IFRAMES; ?>
 </iframe>

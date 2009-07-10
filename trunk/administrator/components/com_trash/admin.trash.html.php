@@ -71,7 +71,7 @@ class HTML_trash {
 			<?php echo _SECTION?>
 			</th>
 			<th>
-			<?php echo _E_CATEGORY?>
+			<?php echo _CATEGORY?>
 			</th>
 			<th width="70px">
 			ID
@@ -169,8 +169,8 @@ class HTML_trash {
 			<br /><br /><br />
 			<div style="border: 1px dotted gray; width: 70px; padding: 10px; margin-left: 50px;">
 			<a class="toolbar" href="javascript:if (confirm('<?php echo _REALLY_DELETE_OBJECTS?>')){ submitbutton('delete');}">
-			<img name="remove" src="images/delete.png" alt="<?php echo _CMN_DELETE?>" border="0" align="middle" />
-			&nbsp;<?php echo _CMN_DELETE?>
+			<img name="remove" src="images/delete.png" alt="<?php echo _DELETE?>" border="0" align="middle" />
+			&nbsp;<?php echo _DELETE?>
 			</a>
 			</div>
 			</td>

@@ -22,7 +22,7 @@ class TOOLBAR_menumanager {
 		mosMenuBar::startTable();
 		mosMenuBar::customX('copyconfirm','-copy','',_COPY,true);
 		mosMenuBar::spacer();
-		mosMenuBar::customX('deleteconfirm','-delete','',_CMN_DELETE,true);
+		mosMenuBar::customX('deleteconfirm','-delete','',_DELETE,true);
 		mosMenuBar::spacer();
 		mosMenuBar::editListX();
 		mosMenuBar::spacer();
@@ -46,7 +46,7 @@ class TOOLBAR_menumanager {
 	*/
 	function _NEWMENU() {
 		mosMenuBar::startTable();
-		mosMenuBar::custom('savemenu','-save','',_CMN_SAVE,false);
+		mosMenuBar::custom('savemenu','-save','',_SAVE,false);
 		mosMenuBar::spacer();
 		mosMenuBar::cancel();
 		mosMenuBar::spacer();

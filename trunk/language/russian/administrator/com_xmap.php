@@ -178,6 +178,8 @@ if( !defined( 'JOOMAP_LANG' )) {
 	define('_VERSION', 'Версия');
 	define('_REMOVAL', 'Удаление');
 	//define('_DATE', 'Дата');
+	
+	DEFINE('_XMAP_PAGE',' страница');
 
 
 }

@@ -23,7 +23,7 @@ class TOOLBAR_FrontPage {
 		mosMenuBar::spacer();
 		mosMenuBar::unpublishList();
 		mosMenuBar::spacer();
-		mosMenuBar::custom('remove','-delete','',_CMN_DELETE,true);
+		mosMenuBar::custom('remove','-delete','',_DELETE,true);
 		mosMenuBar::spacer();
 		mosMenuBar::help('screen.frontpage');
 		mosMenuBar::endTable();

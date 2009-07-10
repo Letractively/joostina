@@ -284,8 +284,8 @@ function edit($uid,$option) {
 	// build the select list for the image caption alignment
 	$lists['_caption_align'] = mosAdminMenus::Positions('_caption_align');
 	// build the select list for the image caption position
-	$pos[] = mosHTML::makeOption('bottom',_CMN_BOTTOM);
-	$pos[] = mosHTML::makeOption('top',_CMN_TOP);
+	$pos[] = mosHTML::makeOption('bottom',_BOTTOM);
+	$pos[] = mosHTML::makeOption('top',_TOP);
 	$lists['_caption_position'] = mosHTML::selectList($pos,'_caption_position','class="inputbox" size="1"','value','text');
 
 	// get params definitions

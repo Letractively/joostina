@@ -68,15 +68,15 @@ class HTML_content {
 			</th>
 			<th class="title"><?php echo _HEADER_TITLE?></th>
 			<th align="center"><?php echo _REMOVE_FROM_FRONT?></th>
-			<th width="10%" class="jtd_nowrap"><?php echo _CMN_PUBLISHED?></th>
-			<th colspan="2" class="jtd_nowrap" width="5%"><?php echo _CMN_ORDERING?></th>
+			<th width="10%" class="jtd_nowrap"><?php echo _PUBLISHED?></th>
+			<th colspan="2" class="jtd_nowrap" width="5%"><?php echo _ORDERING?></th>
 			<th width="2%">Порядок</th>
 			<th width="1%">
 				<a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="<?php echo _SAVE_ORDER?>" /></a>
 			</th>
-			<th width="8%" class="jtd_nowrap"><?php echo _CMN_ACCESS?></th>
+			<th width="8%" class="jtd_nowrap"><?php echo _ACCESS?></th>
 			<th width="10%" align="left"><?php echo _SECTION?></th>
-			<th width="10%" align="left"><?php echo _E_CATEGORY?></th>
+			<th width="10%" align="left"><?php echo _CATEGORY?></th>
 		</tr>
 		<?php
 		$k = 0;
@@ -90,18 +90,18 @@ class HTML_content {
 			$now = _CURRENT_SERVER_TIME;
 			if($now <= $row->publish_up && $row->state == '1') {
 				$img = 'publish_y.png';
-				$alt = _CMN_PUBLISHED;
+				$alt = _PUBLISHED;
 			} else
 				if(($now <= $row->publish_down || $row->publish_down == $nullDate) && $row->state =='1') {
 					$img = 'publish_g.png';
-					$alt = _CMN_PUBLISHED;
+					$alt = _PUBLISHED;
 				} else
 					if($now > $row->publish_down && $row->state == '1') {
 						$img = 'publish_r.png';
 						$alt = _PUBLISH_TIME_END;
 					} elseif($row->state == "0") {
 						$img = "publish_x.png";
-						$alt = _CMN_UNPUBLISHED;
+						$alt = _UNPUBLISHED;
 					}
 
 			$times = '';
@@ -163,7 +163,7 @@ class HTML_content {
 <?php
 				if ( !$row->checked_out ){
 				?>
-					<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?php echo _E_PUBLISHING?>" />
+					<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?php echo _PUBLISHING?>" />
 <?php
 				}else{
 ?>

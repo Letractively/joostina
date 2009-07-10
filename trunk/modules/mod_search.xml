@@ -48,6 +48,6 @@
 			<option value="top">Выше</option>
 			<option value="bottom">Ниже</option>
 		</param>
-		<param name="button_text" type="text" default="" label="Текст на кнопке" description="Текст на кнопке поиска. Если оставлено пустым, то будет загружен _SEARCH_TITLE из Вашего языкового файла" />
+		<param name="button_text" type="text" default="" label="Текст на кнопке" description="Текст на кнопке поиска. Если оставлено пустым, то будет загружен _SEARCH из Вашего языкового файла" />
 	</params>
 </mosinstall>

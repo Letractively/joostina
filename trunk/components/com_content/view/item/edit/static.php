@@ -62,15 +62,15 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
 
 
 		<form action="index.php" id="addContent" onSubmit="javascript:setgood();" method="post" name="adminForm" enctype="multipart/form-data">
-        <div class="componentheading"><?php echo $row->id ?   '&nbsp;'.$params->get('form_title_edit',_E_EDIT):  '&nbsp;'.$params->get('form_title_add',_E_ADD ); ?></div>
+        <div class="componentheading"><?php echo $row->id ?   '&nbsp;'.$params->get('form_title_edit',_EDIT):  '&nbsp;'.$params->get('form_title_add',_ADD ); ?></div>
 
         <?php if ($row->id && $allow_info){  ?>
         <div class="jst_info">
             <strong><?php echo _E_EXPIRES ;?></strong><?php echo $row->publish_down;?>
-            <strong><?php echo _E_VERSION ;?></strong><?php echo $row->version;?>
-            <strong><?php echo _E_CREATED ;?></strong><?php echo $row->created;?>
+            <strong><?php echo _VERSION ;?></strong><?php echo $row->version;?>
+            <strong><?php echo _CREATED ;?></strong><?php echo $row->created;?>
             <strong><?php echo _E_LAST_MOD ;?></strong><?php echo $row->modified;?>
-            <strong><?php echo _E_HITS ;?></strong><?php echo $row->hits;?>
+            <strong><?php echo _HITS ;?></strong><?php echo $row->hits;?>
 
         </div>
         <?php }?>
@@ -121,7 +121,7 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
 
 		 <br />
          <div class="cedit_fulltext">
-            <strong><?php echo _E_MAIN.' ('._CMN_OPTIONAL.')'; ?>:</strong>
+            <strong><?php echo _E_MAIN.' ('._OPTIONAL.')'; ?>:</strong>
             <?php if($p_wwig){
 			// parameters : areaname, content, hidden field, width, height, rows, cols
 			editorArea('editor2',$row->introtext,'introtext','600','400','70','15', $wwig_params);
@@ -134,7 +134,7 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
 
 
 <?php if( $allow_params){ ?>
-    <h4><?php echo _E_PUBLISHING;?></h4>
+    <h4><?php echo _PUBLISHING;?></h4>
 			<table class="adminform">
 			<tr>
 				<td align="left"><?php echo _E_ACCESS_LEVEL; ?></td>

@@ -57,7 +57,7 @@ $params->get('pageclass_sfx'); ?>">
 				<table>
 				<tr>
 					<td align="center">
-					<?php echo _USERNAME; ?>
+					<?php echo _USER; ?>
 					<br />
 					</td>
 					<td align="center">
@@ -109,7 +109,7 @@ _BUTTON_LOGIN; ?>" />
 		<tr>
 			<td colspan="2">
 			<noscript>
-			<?php echo _CMN_JAVASCRIPT; ?>
+			<?php echo _JAVASCRIPT; ?>
 			</noscript>
 			</td>
 		</tr>

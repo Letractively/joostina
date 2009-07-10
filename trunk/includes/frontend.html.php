@@ -52,7 +52,7 @@ class modules_html {
 			$module->content = $row->text;
 		}		
 
-
+		$module = mosModule::convert_to_object($module);
 		switch($style) {
 			case - 3:
 				// allows for rounded corners
@@ -90,11 +90,12 @@ class modules_html {
 
 		if($config->config_module_multilang){
 			// check for custom language file
-			$path = $config->config_absolute_path.'/modules/'.$module->module.$config->config_lang.'.php';
+			$path = $config->config_absolute_path.'/language/'.$config->config_lang.'/frontend/'.$module->module.'.php';
+			//echo $path;
 			if(file_exists($path)) {
 				include ($path);
 			} else {
-				$path = $config->config_absolute_path.'/modules/'.$module->module.'.russian.php';
+				$path = $config->config_absolute_path.'/language/russian/frontend/'.$module->module.'.php';
 				if(file_exists($path)) {
 					include ($path);
 				}
@@ -434,8 +435,14 @@ class modules_html {
 			echo trim(implode("\n",$results));
 			$module->content = $row->text;
 		}
-		// output custom module contents
-		echo $module->content;
+		// output custom module contents		
+		if($params->get('user_template', '') && $module->set_template_custom($params->get('user_template', ''))){
+			require($module->template);			
+		}
+		else{
+			echo $module->content;	
+		}
+		
 		if($firebots) {
 			$results = $_MAMBOTS->trigger('onAfterDisplayContent',array(&$row,&$params,0));
 			echo trim(implode("\n",$results));

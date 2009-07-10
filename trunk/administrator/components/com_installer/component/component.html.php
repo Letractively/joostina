@@ -40,11 +40,11 @@ class HTML_component {
 			<tr>
 				<th width="20%" class="title"><?php echo _COMPONENT_NAME?></th>
 				<th width="5%" align="center"><?php echo _COM_INSTALLER_ACTIVE?></th>
-				<th width="5%" align="center"><?php echo _E_VERSION?></th>
+				<th width="5%" align="center"><?php echo _VERSION?></th>
 				<th width="20%" class="title"><?php echo _COMPONENT_LINK?></th>
 				<th width="10%" align="left"><?php echo _AUTHOR_BY?></th>
 				<th width="10%" align="center"><?php echo _DATE?></th>
-				<th width="15%" align="left"><?php echo _CONTACT_EMAIL?></th>
+				<th width="15%" align="left"><?php echo _EMAIL?></th>
 				<th width="15%" align="left"><?php echo _COMPONENT_AUTHOR_URL?></th>
 			</tr>
 <?php
@@ -56,7 +56,7 @@ class HTML_component {
 				<tr class="row<?php echo $rc?>">
 					<td align="left"><input type="radio" id="cb<?php echo $i; ?>" name="cid[]" value="<?php echo $row->id; ?>" onclick="alert(\"123\"); isChecked(this.checked);"><span class="bold"><?php echo $row->name; ?></span></td>
 					<td align="center" onclick="ch_publ(<?php echo $row->id?>,'com_installer');" class="td-state">
-						<img class="img-mini-state" src="images/<?php echo $row->img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?php echo _E_PUBLISHING?>" />
+						<img class="img-mini-state" src="images/<?php echo $row->img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?php echo _PUBLISHING?>" />
 					</td>
 					<td align="center"><?php echo isset($row->version) ? $row->version : "&nbsp;"; ?></td>
 					<td align="left"><?php echo isset($row->link) ? $row->link : "&nbsp;"; ?></td>

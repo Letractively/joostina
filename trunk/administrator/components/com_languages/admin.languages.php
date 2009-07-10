@@ -191,7 +191,7 @@ function removeLanguage($cid,$option,$client = 'admin') {
 }
 
 function editLanguageSource($p_lname,$option) {
-	$file = stripslashes("../language/$p_lname.php");
+	$file = stripslashes("../language/$p_lname/system.php");
 
 	if($fp = fopen($file,"r")) {
 		$content = fread($fp,filesize($file));
@@ -215,7 +215,7 @@ function saveLanguageSource($option) {
 		mosRedirect("index2.php?option=$option&mosmsg="._UNSUCCESS_OPERATION_NO_TEMPLATE);
 	}
 
-	$file = "../language/$language.php";
+	$file = "../language/$language/system.php";
 	$enable_write = mosGetParam($_POST,'enable_write',0);
 	$oldperms = fileperms($file);
 	if($enable_write) @chmod($file,$oldperms | 0222);

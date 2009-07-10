@@ -37,8 +37,8 @@ class sections_html {
 				<input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo count($rows); ?>);" />
 			</th>
 			<th class="title"><?php echo _SECTION_NAME?></th>
-			<th width="10%"><?php echo _CMN_PUBLISHED?></th>
-			<th colspan="2" width="5%"><?php echo _CMN_ORDERING?></th>
+			<th width="10%"><?php echo _PUBLISHED?></th>
+			<th colspan="2" width="5%"><?php echo _ORDERING?></th>
 			<th width="2%"><?php echo _ORDER_DROPDOWN?></th>
 			<th width="1%">
 				<a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="<?php echo _SAVE_ORDER?>" /></a>
@@ -79,7 +79,7 @@ class sections_html {
 <?php
 				if ( !$row->checked_out ){
 				?>
-					<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?php echo _E_PUBLISHING?>" />
+					<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?php echo _PUBLISHING?>" />
 <?php
 				}else{
 ?>
@@ -196,7 +196,7 @@ class sections_html {
 		<tr>
 			<th class="sections">
 			Раздел:
-			<small><?php echo $row->id?_O_EDITING:_O_CREATION; ?></small>
+			<small><?php echo $row->id?_EDITING:_CREATION; ?></small>
 			<small><small>
 			[ <?php echo stripslashes($name); ?> ]
 			</small></small>
@@ -221,7 +221,7 @@ class sections_html {
 					</td>
 				</tr>
 				<tr>
-					<td><?php echo _CMN_NAME?> <?php echo (isset($row->section)?_SECTION_NAME_OF_CATEGORY:_SECTION_NAME_OF_SECTION); ?>:</td>
+					<td><?php echo _NAME?> <?php echo (isset($row->section)?_SECTION_NAME_OF_CATEGORY:_SECTION_NAME_OF_SECTION); ?>:</td>
 					<td colspan="2">
 						<input class="text_area" type="text" name="name" value="<?php echo $row->name; ?>" size="50" maxlength="255" title="<?php echo _SECTION_NAME_TIP?>" />
 					</td>
@@ -248,15 +248,15 @@ class sections_html {
 					<td><?php echo $lists['image_position']; ?></td>
 				</tr>
 				<tr>
-					<td><?php echo _CMN_ACCESS?>:</td>
+					<td><?php echo _ACCESS?>:</td>
 					<td><?php echo $lists['access']; ?></td>
 				</tr>
 				<tr>
-					<td><?php echo _CMN_PUBLISHED?>:</td>
+					<td><?php echo _PUBLISHED?>:</td>
 					<td><?php echo $lists['published']; ?></td>
 				</tr>
 				<tr>
-					<td valign="top" colspan="2"><?php echo _CMN_DESCRIPTION?>:</td>
+					<td valign="top" colspan="2"><?php echo _DESCRIPTION?>:</td>
 				</tr>
 				<tr>
 					<td colspan="3">
@@ -492,7 +492,7 @@ class sections_html {
 				<table width="100%" class="adminform">
 					<tbody>
 						<tr>
-							<th><?php echo _E_ADD?></th>
+							<th><?php echo _ADD?></th>
 						</tr>
 						<tr>
 							<td>
@@ -521,20 +521,20 @@ class sections_html {
 							<label onclick="return catclick();" for="catid"><?php echo _CATEGORIES?></label>
 							<br />
 							<input onclick="return conclick();" type="radio" class="inputbox" value="2" id="conid" name="type"/>
-							<label onclick="return conclick();" for="conid"><?php echo _E_CONTENT?></label>
+							<label onclick="return conclick();" for="conid"><?php echo _CONTENT?></label>
 						</td>
 					</tr>
 					<tr>
-						<td><?php echo _CMN_PUBLISHED?>:</td>
+						<td><?php echo _PUBLISHED?>:</td>
 						<td>
 							<input type="radio" class="inputbox" value="0" id="published0" name="published"/>
-							<label for="published0"><?php echo _CMN_NO?></label>
+							<label for="published0"><?php echo _NO?></label>
 							<input type="radio" class="inputbox" checked="checked" value="1" id="published1" name="published"/>
-							<label for="published1"><?php echo _CMN_YES?></label>
+							<label for="published1"><?php echo _YES?></label>
 						</td>
 					</tr>
 					<tr>
-						<td valign="top" align="left"><?php echo _CMN_ACCESS?>:</td>
+						<td valign="top" align="left"><?php echo _ACCESS?>:</td>
 						<td>
 							<select size="4" class="inputbox" name="access" style="width: 98%;">
 								<option selected="selected" value="0"><?php echo _USER_GROUP_ALL?></option>

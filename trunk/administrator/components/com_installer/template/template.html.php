@@ -36,7 +36,7 @@ class HTML_templates {
 			if (document.adminForm.doPreview.checked) {
 				var src = '<?php echo $mosConfig_live_site.($client == 'admin'?'/'.ADMINISTRATOR_DIRECTORY:''); ?>/templates/'+dir+'/template_thumbnail.png';
 				var html=name;
-				html = '<br /><img border="1" src="'+src+'" name="imagelib" alt="<?php echo _NO_PREVIEW?>" width="206" height="145" />';
+				html = '<br /><img border="1" src="'+src+'" name="imagelib" alt="<?php echo _COM_INSTALLER_NO_PREVIEW?>" width="206" height="145" />';
 				return overlib(html, CAPTION, name)
 			} else {
 				return false;
@@ -50,7 +50,7 @@ class HTML_templates {
 			<th class="templates">
 				<?php echo _TEMPLATES?> <small><small>[ <?php echo $client == 'admin'?_CONTROL_PANEL:_SITE; ?> ]</small></small>
 			</th>
-			<td align="right" class="jtd_nowrap"><?php echo _TEMPLATE_PREVIEW?></td>
+			<td align="right" class="jtd_nowrap"><?php echo _COM_INSTALLER_TEMPLATE_PREVIEW?></td>
 			<td align="right"><input type="checkbox" name="doPreview" checked="checked"/></td>
 		</tr>
 		<tr> 
@@ -76,8 +76,8 @@ class HTML_templates {
 		}
 ?>
 			<th width="20%" align="left"><?php echo _AUTHOR_BY?></th>
-			<th width="5%" align="center"><?php echo _E_VERSION?></th>
-			<th width="10%" align="center"><?php echo _E_CREATED?></th>
+			<th width="5%" align="center"><?php echo _VERSION?></th>
+			<th width="10%" align="center"><?php echo _CREATED?></th>
 			<th width="20%" align="left">URL</th>
 		</tr>
 <?php
@@ -355,7 +355,7 @@ class HTML_templates {
 ?>
 			<th width="25">#</th>
 			<th align="left"><?php echo _POSITION?></th>
-			<th align="left"><?php echo _CMN_DESCRIPTION?></th>
+			<th align="left"><?php echo _DESCRIPTION?></th>
 <?php
 		}
 ?>

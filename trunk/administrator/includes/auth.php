@@ -39,7 +39,7 @@ if(!isset($my)) {
 }
 
 $my->id = intval(mosGetParam($_SESSION,'session_user_id',''));
-$my->username = strval(mosGetParam($_SESSION,'session_username',''));
+$my->username = strval(mosGetParam($_SESSION,'session_USER',''));
 $my->usertype = strval(mosGetParam($_SESSION,'session_usertype',''));
 $my->gid = intval(mosGetParam($_SESSION,'session_gid',''));
 $session_id = strval(mosGetParam($_SESSION,'session_id',''));

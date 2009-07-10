@@ -95,15 +95,21 @@ class mosMainFrame {
 	/**
 	@var boolean True if in the admin client*/
 	var $_isAdmin = false;
-
+	/**
+	 * флаг визуального редактора
+	 */
 	var $allow_wysiwyg = 0;
-
 	/**
 	@var массив данных выводящися в нижней части страницы */
 	var $_footer = null;
-
-	/* системное сообщение */
-	var $mosmsg = '';
+	/**
+    * системное сообщение
+    */ 
+	var $mosmsg = '';	
+	/**
+	 * текущий язык
+	 */
+	var $lang = null;
 
 	/**
 	* Class constructor
@@ -237,6 +243,35 @@ class mosMainFrame {
 		}		
 		
 		require_once($lib);
+	}
+
+	
+	function getLangFile($name = ''){
+		if(!$name){
+			$file = 'system';
+			return $this->getCfg('absolute_path').'/language/'.$this->lang.'/system.php';
+		}
+		else{
+			$file = $name;
+		}
+		if($this->_isAdmin){
+			if(is_file($this->getCfg('absolute_path').'/language/'.$this->lang.'/administrator/'.$file.'.php')){
+				return $this->getCfg('absolute_path').'/language/'.$this->lang.'/administrator/'.$file.'.php';
+			}
+			else{
+				if(is_file($this->getCfg('absolute_path').'/language/'.$this->lang.'/frontend/'.$file.'.php')){
+					return $this->getCfg('absolute_path').'/language/'.$this->lang.'/frontend/'.$file.'.php';
+				}
+			}	
+		}
+		else{
+			if(is_file($this->getCfg('absolute_path').'/language/'.$this->lang.'/frontend/'.$file.'.php')){
+				return $this->getCfg('absolute_path').'/language/'.$this->lang.'/frontend/'.$file.'.php';
+			}
+		}		
+
+		return null;
+
 	}
 	
 	
@@ -605,7 +640,7 @@ class mosMainFrame {
 		// restore some session variables
 		$my = new mosUser($this->_db);
 		$my->id = intval(mosGetParam($_SESSION,'session_user_id',''));
-		$my->username = strval(mosGetParam($_SESSION,'session_username',''));
+		$my->username = strval(mosGetParam($_SESSION,'session_USER',''));
 		$my->usertype = strval(mosGetParam($_SESSION,'session_usertype',''));
 		$my->gid = intval(mosGetParam($_SESSION,'session_gid',''));
 		$my->params = mosGetParam($_SESSION,'session_user_params','');
@@ -875,10 +910,10 @@ class mosMainFrame {
 
 				list($hash,$salt) = explode(':',$user->password);
 
-				$check_username = md5($user->username.$harden);
+				$check_USER = md5($user->username.$harden);
 				$check_password = md5($hash.$harden);
 
-				if($check_username == $username && $check_password == $passwd) {
+				if($check_USER == $username && $check_password == $passwd) {
 					$row = $user;
 					$valid_remember = true;
 				}
@@ -2258,7 +2293,7 @@ class mosModule extends mosDBTable {
 			$template_dir = 'modules/'.$this->module.'/view';	
 		}
 		else{
-			$template_dir = 'templates/' . $mainframe->getTemplate() . '/html/'.$this->module;	
+			$template_dir = 'templates/' . $mainframe->getTemplate() . '/html/modules/'.$this->module;	
 		}
 		
 		if($params->get('template')){
@@ -2276,6 +2311,19 @@ class mosModule extends mosDBTable {
 		}
 		return false;
 
+    }
+    
+    function set_template_custom($template){
+    	$mainframe = &mosMainFrame::getInstance();
+    	$config = &Jconfig::getInstance();
+    	
+		$template_file = $config->config_absolute_path .'/templates/'. $mainframe->getTemplate() . '/html/user_modules/'.$template;
+
+	    if (is_file($template_file)) {
+            $this->template = $template_file;
+            return true;
+        }
+		return false;
     }
 
     function get_helper(){
@@ -2719,7 +2767,7 @@ class mosHTML {
 	* @param mixed The key that is selected
 	* @returns string HTML for the select list values
 	*/
-	function yesnoSelectList($tag_name,$tag_attribs,$selected,$yes = _CMN_YES,$no =_CMN_NO) {
+	function yesnoSelectList($tag_name,$tag_attribs,$selected,$yes = _YES,$no =_NO) {
 		$arr = array(mosHTML::makeOption('0',$no),mosHTML::makeOption('1',$yes),);
 
 		return mosHTML::selectList($arr,$tag_name,$tag_attribs,'value','text',$selected);
@@ -2771,7 +2819,7 @@ class mosHTML {
 	* @param mixed The key that is selected
 	* @returns string HTML for the radio list
 	*/
-	function yesnoRadioList($tag_name,$tag_attribs,$selected,$yes = _CMN_YES,$no = _CMN_NO) {
+	function yesnoRadioList($tag_name,$tag_attribs,$selected,$yes = _YES,$no = _NO) {
 		$arr = array(
 			mosHTML::makeOption('0',$no),
 			mosHTML::makeOption('1',$yes)
@@ -2796,7 +2844,7 @@ class mosHTML {
 	}
 
 	function sortIcon($base_href,$field,$state = 'none') {
-		$alts = array('none' => _CMN_SORT_NONE,'asc' => _CMN_SORT_ASC,'desc' =>_CMN_SORT_DESC,);
+		$alts = array('none' => _SORT_NONE,'asc' => _SORT_ASC,'desc' =>_SORT_DESC,);
 		$next_state = 'asc';
 		if($state == 'asc') {
 			$next_state = 'desc';
@@ -2883,16 +2931,16 @@ class mosHTML {
 			}
 			// checks template image directory for image, if non found default are loaded
 			if($params->get('icons')) {
-				$image = mosAdminMenus::ImageCheck('printButton.png','/images/M_images/',null,null,_CMN_PRINT,'print'.$cpr_i);
+				$image = mosAdminMenus::ImageCheck('printButton.png','/images/M_images/',null,null,_PRINT,'print'.$cpr_i);
 				$cpr_i++;
 			} else {
-				$image = _ICON_SEP.'&nbsp;'._CMN_PRINT.'&nbsp;'._ICON_SEP;
+				$image = _ICON_SEP.'&nbsp;'._PRINT.'&nbsp;'._ICON_SEP;
 			}
 			if($params->get('popup') && !$hide_js) {
 ?>
 			<script language="javascript" type="text/javascript">
 			<!--
-			document.write('<a href="#" class="print_button" onclick="javascript:window.print(); return false;" title="<?php echo _CMN_PRINT; ?>">');
+			document.write('<a href="#" class="print_button" onclick="javascript:window.print(); return false;" title="<?php echo _PRINT; ?>">');
 			document.write('<?php echo $image; ?>');
 			document.write('</a>');
 			//-->
@@ -2902,9 +2950,9 @@ class mosHTML {
 ?>
 
 <?php if(!Jconfig::getInstance()->config_index_print) { ?>
-			<noindex><a href="#" target="_blank" onclick="window.open('<?php echo $link; ?>','win2','<?php echo $status; ?>'); return false;" title="<?php echo _CMN_PRINT; ?>"><?php echo $image; ?></a></noindex>
+			<noindex><a href="#" target="_blank" onclick="window.open('<?php echo $link; ?>','win2','<?php echo $status; ?>'); return false;" title="<?php echo _PRINT; ?>"><?php echo $image; ?></a></noindex>
 <?php } else { ?>
-			<a href="<?php echo $link; ?>" target="_blank" title="<?php echo _CMN_PRINT; ?>"><?php echo $image; ?></a>
+			<a href="<?php echo $link; ?>" target="_blank" title="<?php echo _PRINT; ?>"><?php echo $image; ?></a>
 <?php } ; ?>
 
 <?php
@@ -3965,7 +4013,7 @@ class mosMambotHandler {
 	*/
 	function loadBot($folder,$element,$published,$params = '') {
 		global $_MAMBOTS;
-
+		
 		$path = Jconfig::getInstance()->config_absolute_path.'/mambots/'.$folder.'/'.$element.'.php';
 		if(file_exists($path)) {
 			$this->_loading = count($this->_bots);
@@ -3977,6 +4025,7 @@ class mosMambotHandler {
 			$bot->params = $params;
 			$this->_bots[] = $bot;
 			$this->_mambot_params[$element] = $params;
+			if(mosMainFrame::getInstance()->getLangFile('bot_'.$element)){include_once(mosMainFrame::getInstance()->getLangFile('bot_'.$element));}		
 			require_once ($path);
 			$this->_loading = null;
 		}
@@ -4170,7 +4219,7 @@ class mosAdminMenus {
 			$order = mosGetOrderingList($query);
 			$ordering = mosHTML::selectList($order,'ordering','class="inputbox" size="1"','value','text',intval($row->ordering));
 		} else {
-			$ordering = '<input type="hidden" name="ordering" value="'.$row->ordering.'" />'._CMN_NEW_ITEM_LAST;
+			$ordering = '<input type="hidden" name="ordering" value="'.$row->ordering.'" />'._NEW_ITEM_LAST;
 		}
 		return $ordering;
 	}
@@ -4334,7 +4383,7 @@ class mosAdminMenus {
 		$mitems = array();
 		if($all) {
 			// prepare an array with 'all' as the first item
-			$mitems[] = mosHTML::makeOption(0,_CMN_ALL);
+			$mitems[] = mosHTML::makeOption(0,_ALL);
 			// adds space, in select box which is not saved
 			$mitems[] = mosHTML::makeOption(-999,'----');
 		}
@@ -4495,9 +4544,9 @@ class mosAdminMenus {
 	*/
 	function SpecificOrdering(&$row,$id,$query,$neworder = 0,$limit = 30) {
 		if($neworder) {
-			$text = _CMN_NEW_ITEM_FIRST;
+			$text = _NEW_ITEM_FIRST;
 		} else {
-			$text = _CMN_NEW_ITEM_LAST;
+			$text = _NEW_ITEM_LAST;
 		}
 
 		if($id) {
@@ -4541,16 +4590,16 @@ class mosAdminMenus {
 	function Positions($name,$active = null,$javascript = null,$none = 1,$center = 1,
 		$left = 1,$right = 1) {
 		if($none) {
-			$pos[] = mosHTML::makeOption('',_CMN_NONE);
+			$pos[] = mosHTML::makeOption('',_NONE);
 		}
 		if($center) {
-			$pos[] = mosHTML::makeOption('center',_CMN_CENTER);
+			$pos[] = mosHTML::makeOption('center',_CENTER);
 		}
 		if($left) {
-			$pos[] = mosHTML::makeOption('left',_CMN_LEFT);
+			$pos[] = mosHTML::makeOption('left',_LEFT);
 		}
 		if($right) {
-			$pos[] = mosHTML::makeOption('right',_CMN_RIGHT);
+			$pos[] = mosHTML::makeOption('right',_RIGHT);
 		}
 
 		$positions = mosHTML::selectList($pos,$name,'class="inputbox" size="1"'.$javascript,'value','text',$active);
@@ -4967,11 +5016,11 @@ class mosCommonHTML {
 					echo '<font color="red">'._MENU_EXPIRED.'</font>';
 					break;
 				case 0:
-					echo _CMN_UNPUBLISHED;
+					echo _UNPUBLISHED;
 					break;
 				case 1:
 				default:
-					echo '<font color="green">'._CMN_PUBLISHED.'</font>';
+					echo '<font color="green">'._PUBLISHED.'</font>';
 					break;
 			}
 ?>
@@ -5038,11 +5087,11 @@ class mosCommonHTML {
 					echo '<font color="red">'._MENU_EXPIRED.'</font>';
 					break;
 				case 0:
-					echo _CMN_UNPUBLISHED;
+					echo _UNPUBLISHED;
 					break;
 				case 1:
 				default:
-					echo '<font color="green">'._CMN_PUBLISHED.'</font>';
+					echo '<font color="green">'._PUBLISHED.'</font>';
 					break;
 			}
 ?>
@@ -5277,7 +5326,7 @@ if(window.attachEvent){
 	function PublishedProcessing(&$row,$i) {
 		$img = $row->published?'publish_g.png':'publish_x.png';
 		$task = $row->published?'unpublish':'publish';
-		$alt = $row->published?_CMN_PUBLISHED:_CMN_UNPUBLISHED;
+		$alt = $row->published?_PUBLISHED:_UNPUBLISHED;
 		$action = $row->published?_UNPUBLISH_ON_FRONTPAGE:_PUBLISH_ON_FRONTPAGE;
 		$href = '<a href="javascript: void(0);" onclick="return listItemTask(\'cb'.$i.'\',\''.$task.'\')" title="'.$action.'"><img src="images/'.$img.'" border="0" alt="'.$alt.'" /></a>';
 		return $href;

@@ -10,7 +10,7 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-
+include_once($mainframe->getLangFile('com_languages'));
 require_once ($mainframe->getPath('installer_html','language'));
 require_once ($mainframe->getPath('installer_class','language'));
 

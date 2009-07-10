@@ -25,12 +25,19 @@ if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset
 }
 
 require_once ($mosConfig_absolute_path . '/includes/joomla.php');
-include_once ($mosConfig_absolute_path . '/language/' . $mosConfig_lang . '.php');
-require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/includes/admin.php');
+//include_once ($mosConfig_absolute_path . '/language/' . $mosConfig_lang . '.php');
+
 
 // must start the session before we create the mainframe object
 session_name(md5($mosConfig_live_site));
 session_start();
+
+// mainframe - основна€ рабоча€ среда API, осуществл€ет взаимодействие с '€дром'
+$mainframe = mosMainFrame::getInstance(true);
+$mainframe->set('lang', $mosConfig_lang);
+include_once($mainframe->getLangFile());
+
+require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/includes/admin.php');
 
 $act		= strtolower(mosGetParam($_REQUEST,'act',''));
 $section	= mosGetParam($_REQUEST,'section','');
@@ -40,8 +47,7 @@ $mosmsg		= strval(strip_tags(mosGetParam($_REQUEST,'mosmsg','')));
 $option		= strval(strtolower(mosGetParam($_REQUEST,'option','')));
 $task		= strval(mosGetParam($_REQUEST,'task',''));
 
-// mainframe - основна€ рабоча€ среда API, осуществл€ет взаимодействие с '€дром'
-$mainframe = mosMainFrame::getInstance(true);
+
 
 // admin session handling
 $my = $mainframe->initSessionAdmin($option,$task);
@@ -49,6 +55,10 @@ $my = $mainframe->initSessionAdmin($option,$task);
 // start the html output
 if($no_html) {
 	if($path = $mainframe->getPath('admin')) {
+		//ѕодключаем €зык компонента
+ 		if($mainframe->getLangFile($option)){ 
+ 			include($mainframe->getLangFile($option));        	
+		}
 		require $path;
 	}
 	exit;

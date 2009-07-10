@@ -40,11 +40,14 @@ $commponent = str_replace('com_','',$option);
 $mainframe = mosMainFrame::getInstance();
 $mainframe->initSession();
 
+
 // загрузка файла русского языка по умолчанию
 if($mosConfig_lang == '') {
 	$mosConfig_lang = 'russian';
 }
-include_once ($mosConfig_absolute_path.'/language/'.$mosConfig_lang.'.php');
+$mainframe->set('lang', $mosConfig_lang);
+include_once($mainframe->getLangFile());
+//include_once ($mosConfig_absolute_path.'/language/'.$mosConfig_lang.'.php');
 
 // get the information about the current user from the sessions table
 $my = $mainframe->getUser();

@@ -75,7 +75,7 @@ class JCE_languages {
 				<td width="5%" align="center">
 				<?php
 			if($row->published == 1) { ?>
-					<img src="images/tick.png" alt="<?php echo _CMN_PUBLISHED?>"/>
+					<img src="images/tick.png" alt="<?php echo _PUBLISHED?>"/>
 					<?php
 			} else {
 ?>

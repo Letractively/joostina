@@ -62,7 +62,7 @@ class contact_category_table_menu_html {
 		<form action="index2.php" method="post" name="adminForm">
 		<table class="adminheading">
 		<tr>
-			<th class="menus"><?php echo $menu->id?_O_EDITING.' -':_O_CREATION.' -'; ?> <?php echo _MENU_ITEM_TABLE_CONTACT_CATEGORY?></th>
+			<th class="menus"><?php echo $menu->id?_EDITING.' -':_CREATION.' -'; ?> <?php echo _MENU_ITEM_TABLE_CONTACT_CATEGORY?></th>
 		</tr>
 		</table>
 
@@ -95,7 +95,7 @@ class contact_category_table_menu_html {
 					</td>
 				</tr>
 				<tr>
-					<td width="10%" align="right" valign="top"><?php echo _E_CATEGORY?>:</td>
+					<td width="10%" align="right" valign="top"><?php echo _CATEGORY?>:</td>
 					<td colspan="2"><?php echo $lists['componentid']; ?></td>
 				</tr>
 				<tr>
@@ -111,11 +111,11 @@ class contact_category_table_menu_html {
 					<td colspan="2"><?php echo $lists['ordering']; ?></td>
 				</tr>
 				<tr>
-					<td valign="top" align="right"><?php echo _CMN_ACCESS?>:</td>
+					<td valign="top" align="right"><?php echo _ACCESS?>:</td>
 					<td colspan="2"><?php echo $lists['access']; ?></td>
 				</tr>
 				<tr>
-					<td valign="top" align="right"><?php echo _CMN_PUBLISHED?>:</td>
+					<td valign="top" align="right"><?php echo _PUBLISHED?>:</td>
 					<td colspan="2"><?php echo $lists['published']; ?></td>
 				</tr>
 				<tr>

@@ -13,7 +13,7 @@ defined('_VALID_MOS') or die();
 /** load the html drawing class*/
 require_once ($mainframe->getPath('front_html'));
 require_once ($mainframe->getPath('class'));
-//$mainframe->setPageTitle(_WEBLINKS_TITLE);
+//$mainframe->setPageTitle(_WEBLINKS);
 
 $id = intval(mosGetParam($_REQUEST,'id',0));
 $catid = intval(mosGetParam($_REQUEST,'catid',0));

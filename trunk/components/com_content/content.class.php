@@ -1037,10 +1037,10 @@ class mosContent extends mosDBTable
 
         if ($row->state == 0)
         {
-            $info = _CMN_UNPUBLISHED;
+            $info = _UNPUBLISHED;
         } else
         {
-            $info = _CMN_PUBLISHED;
+            $info = _PUBLISHED;
         }
         $date = mosFormatDate($row->created);
         $author = $row->created_by_alias ? $row->created_by_alias : $row->author;

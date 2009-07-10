@@ -61,7 +61,7 @@ class content_blog_category_html {
 		<table class="adminheading">
 		<tr>
 			<th class="menus">
-			<?php echo $menu->id?_O_EDITING.' -':_O_CREATION.' -'; ?> <?php echo _MENU_ITEM_BLOGCATEGORY?>
+			<?php echo $menu->id?_EDITING.' -':_CREATION.' -'; ?> <?php echo _MENU_ITEM_BLOGCATEGORY?>
 			</th>
 		</tr>
 		</table>
@@ -74,7 +74,7 @@ class content_blog_category_html {
 					<th colspan="3"><?php echo _DETAILS?></th>
 				</tr>
 				<tr>
-					<td width="10%" align="right"><?php echo _CMN_NAME?>:</td>
+					<td width="10%" align="right"><?php echo _NAME?>:</td>
 					<td width="200px">
 					<input class="inputbox" type="text" name="name" id="name" size="50" maxlength="100" value="<?php echo htmlspecialchars($menu->name,ENT_QUOTES); ?>" />
 					</td>
@@ -88,7 +88,7 @@ class content_blog_category_html {
 					</td>
 				</tr>
 				<tr>
-					<td valign="top" align="right"><?php echo _E_CATEGORY?>:</td>
+					<td valign="top" align="right"><?php echo _CATEGORY?>:</td>
 					<td><?php echo $lists['categoryid']; ?></td>
 					<td valign="top">
 <?php
@@ -109,11 +109,11 @@ class content_blog_category_html {
 					<td colspan="2"><?php echo $lists['ordering']; ?></td>
 				</tr>
 				<tr>
-					<td valign="top" align="right"><?php echo _CMN_ACCESS?>:</td>
+					<td valign="top" align="right"><?php echo _ACCESS?>:</td>
 					<td colspan="2"><?php echo $lists['access']; ?></td>
 				</tr>
 				<tr>
-					<td valign="top" align="right"><?php echo _CMN_PUBLISHED?>:</td>
+					<td valign="top" align="right"><?php echo _PUBLISHED?>:</td>
 					<td colspan="2"><?php echo $lists['published']; ?></td>
 				</tr>
 				<tr>

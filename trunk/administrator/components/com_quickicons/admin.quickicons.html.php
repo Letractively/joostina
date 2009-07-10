@@ -39,8 +39,8 @@ class HTML_QuickIcons {
 				<th width="53%" class="title"><?php echo _HEADER_TITLE?></th>
 				<th width="10%" class="jtd_nowrap"><?php echo _DISPLAY_METHOD?></th>
 				<th width="7%" class="jtd_nowrap"><?php echo _ACCESS?></th>
-				<th width="7%" class="jtd_nowrap"><?php echo _CMN_PUBLISHED?></th>
-				<th width="7%" colspan="2" class="jtd_nowrap"><?php echo _CMN_ORDERING?></th>
+				<th width="7%" class="jtd_nowrap"><?php echo _PUBLISHED?></th>
+				<th width="7%" colspan="2" class="jtd_nowrap"><?php echo _ORDERING?></th>
 				<th width="2%"><?php echo _SORT_ORDER ?></th>
 				<th width="1%">
 					<a href="javascript:saveorder(<?php echo count($rows) - 1; ?>)" title="<?php echo _SAVE_ORDER?>"><img src="images/filesave.png" border="0" width="16" height="16" alt="<?php echo _SAVE_ORDER?>" /></a>
@@ -91,7 +91,7 @@ class HTML_QuickIcons {
 					<td align="center"><?php echo $display; ?></td>
 					<td align="left"><?php echo $row->groupname; ?></td> 
 					<td align="center" onclick="ch_publ(<?php echo $row->id; ?>,'com_quickicons');" class="td-state">
-						<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?php echo _E_PUBLISHING?>" />
+						<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?php echo _PUBLISHING?>" />
 					</td>
 					<td align="center">
 						<?php if($i!=0){?>
@@ -200,7 +200,7 @@ class HTML_QuickIcons {
 		echo _EDIT_BUTTON?>&nbsp;[&nbsp;<small><?php echo $row->text; ?></small>&nbsp;]
 <?php
 	} else {
-		echo _O_CREATION;
+		echo _CREATION;
 	}
 ?>
 				</th>
@@ -232,7 +232,7 @@ class HTML_QuickIcons {
 							</td>
 						</tr>
 						<tr>
-							<td align="right" width="120"><?php echo _HEADER_TITLE_WEBLINKS?>:</td>
+							<td align="right" width="120"><?php echo _WEBLINK?>:</td>
 							<td align="left">
 								<input class="inputbox" type="text" name="target" id="target" size="75" maxlength="255" value="<?php echo ($row->target ? $row->target:'index2.php?option='); ?>" />
 								<button onclick="addTarget(); return false;">&larr;</button>&nbsp;
@@ -265,10 +265,10 @@ class HTML_QuickIcons {
 							<td align="left"><?php echo $lists['gid']; ?></td>
 						</tr>
 						<tr>
-							<td align="right" width="130"><?php echo _CMN_PUBLISHED?>:</td>
+							<td align="right" width="130"><?php echo _PUBLISHED?>:</td>
 							<td align="left">
-								<input type="radio" id="published1" name="published" value="1"<?php echo $row->published ? ' checked="checked"':''; ?> /><label for="published1"><?php echo _CMN_YES?></label>
-								<input type="radio" id="published2" name="published" value="0"<?php echo $row->published ? '':' checked="checked"'; ?> /><label for="published2"><?php echo _CMN_NO?></label>
+								<input type="radio" id="published1" name="published" value="1"<?php echo $row->published ? ' checked="checked"':''; ?> /><label for="published1"><?php echo _YES?></label>
+								<input type="radio" id="published2" name="published" value="0"<?php echo $row->published ? '':' checked="checked"'; ?> /><label for="published2"><?php echo _NO?></label>
 							</td>
 						</tr>
 					</table>

@@ -62,7 +62,7 @@ if($show_logged==1){
 <tr>
 	<th><?PHP echo _NEW_USERS?></th>
 	<th><?PHP echo _ALLOWED?></th>
-	<th><?PHP echo _O_GROUP?></th>
+	<th><?PHP echo _GROUP?></th>
 	<th><?PHP echo _USER_REG_DATE?></th>
 </tr>
 <?php

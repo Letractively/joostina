@@ -143,13 +143,13 @@ class HTML_installer {
 		HTML_installer::quickiconButton($link,'ext.png', _MAMBOTS);
 
 		$link = 'index2.php?option=com_installer&amp;element=template';
-		HTML_installer::quickiconButton($link,'joostina.png', _MENU_SITE_TEMPLATES);
+		HTML_installer::quickiconButton($link,'joostina.png', _COM_INSTALLER_SITE_TEMPLATES);
 
 		$link = 'index2.php?option=com_installer&amp;element=template&client=admin';
-		HTML_installer::quickiconButton($link,'joostina.png', _MENU_ADMIN_TEMPLATES);
+		HTML_installer::quickiconButton($link,'joostina.png', _COM_INSTALLER_ADMIN_TEMPLATES);
 
 		$link = 'index2.php?option=com_installer&amp;element=language';
-		HTML_installer::quickiconButton($link,'log.png', _SITE_LANGUAGES);
+		HTML_installer::quickiconButton($link,'log.png', _COM_INSTALLER_SITE_LANGUAGES);
 
 ?>
 		</div>

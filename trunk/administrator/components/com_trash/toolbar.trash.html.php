@@ -19,7 +19,7 @@ class TOOLBAR_Trash {
 		mosMenuBar::startTable();
 		mosMenuBar::custom('restoreconfirm','-check','',_RESTORE,true);
 		mosMenuBar::spacer();
-		mosMenuBar::custom('deleteconfirm','-delete','',_CMN_DELETE,true);
+		mosMenuBar::custom('deleteconfirm','-delete','',_DELETE,true);
 		mosMenuBar::spacer();
 		mosMenuBar::custom('deleteall','-delete','',_CLEAR_TRASH,false);
 		mosMenuBar::spacer();

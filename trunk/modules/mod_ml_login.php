@@ -53,7 +53,7 @@ $params_aray=array(
 
 //-------------------------------Поля Логин/Пароль
 'show_login_text'=> $params->get( 'show_login_text',1),         //Показать текст Пользователь
-'ml_login_text'=> $params->get( 'ml_login_text', _USERNAME ),   //Текст Пользователь
+'ml_login_text'=> $params->get( 'ml_login_text', _USER ),   //Текст Пользователь
 'show_login_tooltip'=> $params->get( 'show_login_tooltip' ),
 'login_tooltip_text'=> $params->get( 'login_tooltip_text' ),
 
@@ -179,7 +179,7 @@ function BuildLoginForm($params_aray, $orientation){
     }
 
     $login_label_def='<span class="login_label" id="login_lbl">'.$params_aray['ml_login_text'].'</span>';
-    $login_input_def='<input type="text" name="username" id="mod_login_username" class="inputbox" alt="username" value="" '.$login_tooltip.' />';
+    $login_input_def='<input type="text" name="username" id="mod_login_USER" class="inputbox" alt="username" value="" '.$login_tooltip.' />';
 
     $pass_label_def='<span class="pass_label" id="pass_lbl">'.$params_aray['ml_pass_text'].'</span>';
     $pass_input_def='<input type="password" id="mod_login_password" name="passwd" class="inputbox" alt="password" value="" />';
@@ -194,7 +194,7 @@ function BuildLoginForm($params_aray, $orientation){
         break;
 
         case '2':
-        $input_login='<input type="text" name="username" id="mod_login_username"  class="inputbox" alt="username" value="'. $params_aray['ml_login_text'] .'" onblur="if(this.value==\'\') this.value=\''. $params_aray['ml_login_text'] .'\';" onfocus="if(this.value==\''. $params_aray['ml_login_text'] .'\') this.value=\'\';" />';
+        $input_login='<input type="text" name="username" id="mod_login_USER"  class="inputbox" alt="username" value="'. $params_aray['ml_login_text'] .'" onblur="if(this.value==\'\') this.value=\''. $params_aray['ml_login_text'] .'\';" onfocus="if(this.value==\''. $params_aray['ml_login_text'] .'\') this.value=\'\';" />';
         break;
 
         case '3':

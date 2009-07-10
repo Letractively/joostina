@@ -227,18 +227,18 @@ function createNavigation(&$row,$page,$n) {
 		$link_next = $link.'&amp;limit=1&amp;limitstart='.($page + 1);
 		$link_next = sefRelToAbs($link_next);
 
-		$next = '<a href="'.$link_next.'">'._CMN_NEXT._CMN_NEXT_ARROW.'</a>';
+		$next = '<a href="'.$link_next.'">'._NEXT._NEXT_ARROW.'</a>';
 	} else {
-		$next = _CMN_NEXT;
+		$next = _NEXT;
 	}
 
 	if($page > 0) {
 		$link_prev = $link.'&amp;limit=1&amp;limitstart='.($page - 1);
 		$link_prev = sefRelToAbs($link_prev);
 
-		$prev = '<a href="'.$link_prev.'">'._CMN_PREV_ARROW._CMN_PREV.'</a>';
+		$prev = '<a href="'.$link_prev.'">'._PREV_ARROW._PREV.'</a>';
 	} else {
-		$prev = _CMN_PREV;
+		$prev = _PREV;
 	}
 
 	$row->text .= '<div>'.$prev.' - '.$next.'</div>';

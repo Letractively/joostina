@@ -35,7 +35,7 @@ class HTML_newsfeed {
 		// show image
 		if($currentcat->img) {
 ?>
-				<img src="<?php echo $currentcat->img; ?>" align="<?php echo $currentcat->align; ?>" hspace="6" alt="<?php echo _WEBLINKS_TITLE; ?>" />
+				<img src="<?php echo $currentcat->img; ?>" align="<?php echo $currentcat->align; ?>" hspace="6" alt="<?php echo _WEBLINKS; ?>" />
 				<?php
 		}
 		echo $currentcat->descrip;

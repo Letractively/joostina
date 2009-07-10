@@ -64,7 +64,7 @@ function JP_BUFA_Main() {
 		<tr>
 			<th class="title"><?php echo _FILE_NAME?></th>
 			<th width="80" align="right"><?php echo _JP_DOWNLOAD_FILE?></th>
-			<th width="80" align="right"><?php echo _CMN_DELETE?></th>
+			<th width="80" align="right"><?php echo _DELETE?></th>
 		</tr>
 <?php
 	JP_GetFileList();
@@ -106,7 +106,7 @@ function JP_GetFileList() {
 					<td align="center">
 						<img src="images/ico/down.png" border="0">&nbsp;&nbsp;<a href="<?php echo $linkDownload; ?>"><?php echo _JP_DOWNLOAD_FILE?></a></td>
 					<td align="center">
-						<img src="images/publish_x.png" border="0">&nbsp;&nbsp;<a href="<?php echo $linkDelete; ?>"><?php echo _CMN_DELETE?></a>
+						<img src="images/publish_x.png" border="0">&nbsp;&nbsp;<a href="<?php echo $linkDelete; ?>"><?php echo _DELETE?></a>
 					</td>
 				</tr>
 <?php

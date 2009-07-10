@@ -30,7 +30,7 @@ class HTML_linkeditor {
 		</th>
 		<th width="30"><?php echo _ICON?></th>
 		<th width="20%"><?php echo _HEADER_TITLE?></th>
-		<th width="60%"><?php echo _CMN_DESCRIPTION?></th>
+		<th width="60%"><?php echo _DESCRIPTION?></th>
 		<th width="30"><?php echo _KERNEL?></th>
 		<th width="30" class="jtd_nowrap"><?php echo _ORDER_DROPDOWN?></th>
 		<th width="1%"><a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="Save Order" /></a></th>
@@ -103,7 +103,7 @@ class HTML_linkeditor {
 		</tr>
 		<tr>
 			<td align="right">
-				<?php echo _CMN_DESCRIPTION?>:
+				<?php echo _DESCRIPTION?>:
 			</td>
 			<td>
 				<input class="inputbox" type="text" name="admin_menu_alt" size="45" value="<?php echo $row->admin_menu_alt; ?>" />

@@ -69,10 +69,15 @@ if($option == 'search') {
 }
 
 // загрузка файла русского языка по умолчанию
-if($mosConfig_lang == '') {
-	$mosConfig_lang = 'russian';
-}
-include_once ($mosConfig_absolute_path.'/language/'.$mosConfig_lang.'.php');
+//if($mosConfig_lang == '') {
+	//$mosConfig_lang = 'russian';
+//}
+//include_once ($mosConfig_absolute_path.'/language/'.$mosConfig_lang.'.php');
+
+// загрузка файла русского языка по умолчанию
+$mosConfig_lang = ($mosConfig_lang == '') ? 'russian' : $mosConfig_lang;
+$mainframe->set('lang', $mosConfig_lang);
+include_once($mainframe->getLangFile());
 
 if($option == 'login') {
 	$mainframe->login();
@@ -93,6 +98,10 @@ if($path = $mainframe->getPath('front')) {
 	$task = strval(mosGetParam($_REQUEST,'task',''));
 	$ret = mosMenuCheck($Itemid,$option,$task,$gid);
 	if($ret) {
+		//Подключаем язык компонента
+		if($mainframe->getLangFile($option)){ 
+			include_once($mainframe->getLangFile($option));        	
+		}
 		require_once ($path);
 	} else {
 		mosNotAuth();

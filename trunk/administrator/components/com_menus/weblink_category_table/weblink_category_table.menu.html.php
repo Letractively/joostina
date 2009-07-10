@@ -62,7 +62,7 @@ class weblink_category_table_menu_html {
 		<form action="index2.php" method="post" name="adminForm">
 		<table class="adminheading">
 		<tr>
-			<th class="menus"><?php echo $menu->id?_O_EDITING.' -':_O_CREATION.' -'; ?> <?php echo _MENU_ITEM_WEBLINKS_CATEGORY?></th>
+			<th class="menus"><?php echo $menu->id?_EDITING.' -':_CREATION.' -'; ?> <?php echo _MENU_ITEM_WEBLINKS_CATEGORY?></th>
 		</tr>
 		</table>
 
@@ -77,7 +77,7 @@ class weblink_category_table_menu_html {
 				</tr>
 				<tr>
 					<td width="10%" align="right" valign="top">
-					<?php echo _CMN_NAME?>:
+					<?php echo _NAME?>:
 					</td>
 					<td width="200px">
 					<input type="text" name="name" size="30" maxlength="100" class="inputbox" value="<?php echo htmlspecialchars($menu->name,ENT_QUOTES); ?>"/>
@@ -95,7 +95,7 @@ class weblink_category_table_menu_html {
 					<td width="80%"><input class="inputbox" type="text" name="params[title]" size="50" maxlength="100" value="<?php echo htmlspecialchars($params->get('title',''),ENT_QUOTES); ?>" /></td>
 				</tr>
 				<tr>
-					<td width="10%" align="right" valign="top"><?php echo _E_CATEGORY?>:</td>
+					<td width="10%" align="right" valign="top"><?php echo _CATEGORY?>:</td>
 					<td colspan="2"><?php echo $lists['componentid']; ?></td>
 				</tr>
 				<tr>
@@ -124,7 +124,7 @@ class weblink_category_table_menu_html {
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					<?php echo _CMN_ACCESS?>:
+					<?php echo _ACCESS?>:
 					</td>
 					<td colspan="2">
 					<?php echo $lists['access']; ?>
@@ -132,7 +132,7 @@ class weblink_category_table_menu_html {
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					<?php echo _CMN_PUBLISHED?>:
+					<?php echo _PUBLISHED?>:
 					</td>
 					<td colspan="2">
 					<?php echo $lists['published']; ?>

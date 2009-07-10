@@ -47,7 +47,7 @@ function botSearchWeblinks($text,$phrase = '',$ordering = '') {
 	if($text == '') {
 		return array();
 	}
-	$section = _WEBLINKS_TITLE;
+	$section = _WEBLINKS;
 
 	$wheres = array();
 	switch($phrase) {

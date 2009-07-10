@@ -25,7 +25,7 @@ class HTML_messages {
 <?php echo _PRIVATE_MESSAGES?>
 </th>
           <td>
-<?php echo _SEARCH_TITLE?>:
+<?php echo _SEARCH?>:
 </td>
 			<td> 
 				<input type="text" name="search" value="<?php echo htmlspecialchars($search); ?>" class="inputbox" onChange="document.adminForm.submit();" />
@@ -41,7 +41,7 @@ class HTML_messages {
 			<th width="5%" class="title"> 
 				<input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo count($rows); ?>);" />
 			</th>
-          <th width="50%" class="title"><?php echo _MAIL_SUBJECT?></th>
+          <th width="50%" class="title"><?php echo _SUBJECT?></th>
           <th width="20%" class="title"><?php echo _MAIL_FROM?></th>
           <th width="15%" class="title"><?php echo _DATE?></th>
           <th width="10%" class="title"><?php echo _COM_MESSAGES_STATUS?></th>
@@ -175,7 +175,7 @@ function submitbutton(pressbutton) {
                 </tr>
                 <tr>
                         <td>
-<?php echo _MAIL_SUBJECT?>:
+<?php echo _SUBJECT?>:
 </td>
                         <td bgcolor="#ffffff">
 				<?php echo htmlspecialchars($row->subject,ENT_QUOTES); ?>
@@ -218,7 +218,7 @@ function submitbutton(pressbutton) {
 
                 // do field validation
                 if (form.subject.value == "") {
-                        alert( "<?php echo _PLEASE_ENTER_MAIL_SUBJECT?>" );
+                        alert( "<?php echo _PLEASE_ENTER_SUBJECT?>" );
                 } else if (form.message.value == "") {
                         alert( "<?php echo _PLEASE_ENTER_MESSAGE_BODY?>" );
                 } else if (getSelectedValue('adminForm','user_id_to') < 1) {
@@ -249,7 +249,7 @@ function submitbutton(pressbutton) {
                 </tr>
                 <tr>
                         <td>
-<?php echo _MAIL_SUBJECT?>:
+<?php echo _SUBJECT?>:
 </td>
                         <td>
 				<input type="text" name="subject" size="50" maxlength="100" class="inputbox" value="<?php echo

@@ -76,7 +76,7 @@ class mosToolBar {
 	* @param string An override for the task
 	* @param string An override for the alt text
 	*/
-	function addNew($task = 'new',$alt = _CMN_NEW) {
+	function addNew($task = 'new',$alt = _NEW) {
 		$image = mosAdminMenus::ImageCheck('new_f2.png','/images/system/',null,null,$alt,$task,1,'middle',$alt);
 ?>
 		<td>
@@ -90,7 +90,7 @@ class mosToolBar {
 	* @param string An override for the task
 	* @param string An override for the alt text
 	*/
-	function publish($task = 'publish',$alt = _CMN_PUBLISHED) {
+	function publish($task = 'publish',$alt = _PUBLISHED) {
 		$image = mosAdminMenus::ImageCheck('publish_f2.png','/images/system/',null,null,$alt,$task,1,'middle',$alt);
 ?>
 		<td>
@@ -105,7 +105,7 @@ class mosToolBar {
 	* @param string An override for the task
 	* @param string An override for the alt text
 	*/
-	function publishList($task = 'publish',$alt = _CMN_PUBLISHED) {
+	function publishList($task = 'publish',$alt = _PUBLISHED) {
 		$image = mosAdminMenus::ImageCheck('publish_f2.png','/images/system/',null,null,$alt,$task,1,'middle',$alt);
 ?>
 		<td>
@@ -120,7 +120,7 @@ class mosToolBar {
 	* @param string An override for the task
 	* @param string An override for the alt text
 	*/
-	function unpublish($task = 'unpublish',$alt = _CMN_UNPUBLISHED) {
+	function unpublish($task = 'unpublish',$alt = _UNPUBLISHED) {
 		$image = mosAdminMenus::ImageCheck('unpublish_f2.png','/images/system/',null,null,$alt,
 			$task,1,'middle',$alt);
 ?>
@@ -136,7 +136,7 @@ class mosToolBar {
 	* @param string An override for the task
 	* @param string An override for the alt text
 	*/
-	function unpublishList($task = 'unpublish',$alt = _CMN_UNPUBLISHED) {
+	function unpublishList($task = 'unpublish',$alt = _UNPUBLISHED) {
 		$image = mosAdminMenus::ImageCheck('unpublish_f2.png','/images/system/',null,null,$alt,
 			$task,1,'middle',$alt);
 ?>
@@ -179,7 +179,7 @@ class mosToolBar {
 	* @param string An override for the task
 	* @param string An override for the alt text
 	*/
-	function editList($task = 'edit',$alt = _E_EDIT) {
+	function editList($task = 'edit',$alt = _EDIT) {
 		$image = mosAdminMenus::ImageCheck('edit_f2.png','/images/system/',null,null,$alt,$task,1,'middle',$alt);
 ?>
 		<td>
@@ -222,7 +222,7 @@ class mosToolBar {
 	* @param string An override for the task
 	* @param string An override for the alt text
 	*/
-	function deleteList($msg = '',$task = 'remove',$alt = _CMN_DELETE) {
+	function deleteList($msg = '',$task = 'remove',$alt = _DELETE) {
 		$image = mosAdminMenus::ImageCheck('delete_f2.png','/images/system/',null,null,$alt,$task,1,'middle',$alt);
 ?>
 		<td>
@@ -254,7 +254,7 @@ class mosToolBar {
 	* @param string An override for the task
 	* @param string An override for the alt text
 	*/
-	function save($task = 'save',$alt = _CMN_SAVE) {
+	function save($task = 'save',$alt = _SAVE) {
 		$image = mosAdminMenus::ImageCheck('save_f2.png','/images/system/',null,null,$alt,$task,1,'middle',$alt);
 ?>
 		<td>
@@ -268,7 +268,7 @@ class mosToolBar {
 	* @param string An override for the task
 	* @param string An override for the alt text
 	*/
-	function apply($task = 'apply',$alt = _CMN_APPLY) {
+	function apply($task = 'apply',$alt = _APPLY) {
 		$image = mosAdminMenus::ImageCheck('apply_f2.png','/images/system/',null,null,$alt,$task,1,'middle',$alt);
 ?>
 		<td>
@@ -306,7 +306,7 @@ class mosToolBar {
 	* @param string An override for the task
 	* @param string An override for the alt text
 	*/
-	function cancel($task = 'cancel',$alt = _CMN_CANCEL) {
+	function cancel($task = 'cancel',$alt = _CANCEL) {
 		$image = mosAdminMenus::ImageCheck('cancel_f2.png','/images/system/',null,null,$alt,$task,	1,'middle',$alt);
 ?>
 		<td>

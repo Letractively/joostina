@@ -45,7 +45,7 @@ class HTML_menumanager {
 			<th width="2%">&nbsp;</th>
 			<th class="title"><?php echo _MENU_NAME?></th>
 			<th width="5%" class="jtd_nowrap"><?php echo _MENU_ITEMS?></th>
-			<th width="10%"><?php echo _CMN_PUBLISHED?></th>
+			<th width="10%"><?php echo _PUBLISHED?></th>
 			<th width="15%"><?php echo _MENU_ITEMS_UNPUBLISHED?></th>
 			<th width="15%"><?php echo _IN_TRASH?></th>
 			<th width="15%"><?php echo _MENU_MUDULES?></th>
@@ -291,7 +291,7 @@ class HTML_menumanager {
 			<br /><br /><br />
 			<div style="border: 1px dotted gray; width: 70px; padding: 10px; margin-left: 100px;">
 			<a class="toolbar" href="javascript:if (confirm('<?php echo _REALLY_DELETE_MENU?>')){ submitbutton('deletemenu');}" onmouseout="MM_swapImgRestore();"  onmouseover="MM_swapImage('remove','','images/delete_f2.png',1);">
-			<img name="remove" src="images/delete.png" alt="<?php echo _CMN_DELETE?>" border="0" align="middle" />
+			<img name="remove" src="images/delete.png" alt="<?php echo _DELETE?>" border="0" align="middle" />
 			&nbsp;Удалить
 			</a>
 			</div>

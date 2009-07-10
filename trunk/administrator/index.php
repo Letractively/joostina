@@ -43,7 +43,12 @@ if($config->config_lang == '') {
 	$mosConfig_lang = 'russian';
 }
 
-include_once ($config->config_absolute_path .DS.'language'.DS.$config->config_lang.'.php');
+//include_once ($config->config_absolute_path .DS.'language'.DS.$config->config_lang.'.php');
+
+// mainframe - основная рабочая среда API, осуществляет взаимодействие с 'ядром'
+$mainframe = &mosMainFrame::getInstance(true);
+$mainframe->set('lang', $mosConfig_lang);
+include_once($mainframe->getLangFile());
 
 //Installation sub folder check, removed for work with SVN
 if(file_exists('../installation/index.php') && $_VERSION->SVN == 0) {
@@ -54,8 +59,6 @@ if(file_exists('../installation/index.php') && $_VERSION->SVN == 0) {
 
 $option = strtolower(strval(mosGetParam($_REQUEST,'option',null)));
 
-// mainframe - основная рабочая среда API, осуществляет взаимодействие с 'ядром'
-$mainframe = &mosMainFrame::getInstance(true);
 
 session_name(md5($mosConfig_live_site));
 session_start();
@@ -122,7 +125,7 @@ if(isset($_POST['submit'])) {
 				$database->query();
 			}
 
-			mosRedirect($config->config_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/index.php?'.$config->config_admin_secure_code,_BAD_USERNAME_OR_PASSWORD);
+			mosRedirect($config->config_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/index.php?'.$config->config_admin_secure_code,_BAD_USER_OR_PASSWORD);
 			exit();
 		}
 
@@ -158,7 +161,7 @@ if(isset($_POST['submit'])) {
 
 		$_SESSION['session_id'] = $session_id;
 		$_SESSION['session_user_id'] = $my->id;
-		$_SESSION['session_username'] = $my->username;
+		$_SESSION['session_USER'] = $my->username;
 		$_SESSION['session_usertype'] = $my->usertype;
 		$_SESSION['session_gid'] = $my->gid;
 		$_SESSION['session_logintime'] = $logintime;
@@ -222,7 +225,7 @@ if(isset($_POST['submit'])) {
 		echo "<script>document.location.href='$expired';</script>\n";
 		exit();
 	} else {
-		mosRedirect($config->config_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/index.php?'.$config->config_admin_secure_code,_BAD_USERNAME_OR_PASSWORD2);
+		mosRedirect($config->config_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/index.php?'.$config->config_admin_secure_code,_BAD_USER_OR_PASSWORD2);
 		exit();
 	}
 } else {
