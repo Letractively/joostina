@@ -2091,11 +2091,11 @@ class contentPageConfig
      * 
      * @return object $params
      */
-    function setup_full_item_page($row)
+    function setup_full_item_page($row, $params)
     {
         global $mainframe, $database;
 
-        $params = new mosParameters($row->attribs);        
+                
 
         if ($row->sectionid == 0)
         {
@@ -2168,6 +2168,8 @@ class contentPageConfig
         //Ключевая ссылка. Текст ключа, по которому можно ссылаться на этот объект (например, в системе справки)
         $params->def('keyref', '');        
         $params->set('page_name', $row->title);
+        
+        //echo $params->get('category');
 
         return $params;
     }

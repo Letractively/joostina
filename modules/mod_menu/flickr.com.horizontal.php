@@ -33,20 +33,20 @@ function menu_recurse( $id, $level, &$children) {
 		foreach ($children[$id] as $row) {
 			if (isset($children[$row->id])) {
 				_add_tab($level);//
-				echo '<li><a href="#" class="dir">'.$row->name."</a>\n";
+				echo '<li><span class="parent"><a href="'.$row->link.'&Itemid='.$row->id.'" class="dir">'.$row->name."</a></span>\n";
 				if (isset($children[$row->id])) {
 					_add_tab($level);//
-					echo "<ul>\n";
+					echo '<ul class="dropdown2">';
 					_add_tab($level);//
 					menu_recurse( $row->id, $level+1, $children);
 					_add_tab($level);//
-					echo "</ul>\n";
+					echo "</ul></li>\n";
 				}
 				_add_tab($level);//
 				echo "</li>\n";
 			} else {
 				_add_tab($level);//
-				echo '<li><a href="#">'.$row->name."</a></li>\n";
+				echo '<li><span><a href="'.$row->link.'&Itemid='.$row->id.'">'.$row->name."</a></span></li>\n";
 			}
 		}
 	}
@@ -61,12 +61,14 @@ function _add_tab($count){
 
 ?>
 
+<?php if($params->get('css')) : ?>
 <link href="<?php echo $config->config_live_site ?>/modules/mod_menu/css/dropdown.css" media="screen" rel="stylesheet" type="text/css" />
 <link href="<?php echo $config->config_live_site ?>/modules/mod_menu/flickr.com.horizontal/default.ultimate.css" media="screen" rel="stylesheet" type="text/css" />
+<?php endif ?>
 <!--[if lt IE 7]>
 	<script type="text/javascript" src="<?php echo $config->config_live_site ?>/modules/mod_menu/js/jquery/jquery.js"></script>
 	<script type="text/javascript" src="<?php echo $config->config_live_site ?>/modules/mod_menu/js/jquery/jquery.dropdown.js"></script>
 <![endif]-->
-<ul id="nav" class="dropdown dropdown-horizontal">
+<ul class="dropdown">
 	<?php menu_recurse( 0, 0, $children ); ?>
 </ul>
