@@ -993,7 +993,7 @@ class mosContent extends mosDBTable
                 if ($switcher == '3' || $switcher == '4')
                 {
                     $uid = $row->created_by;
-                    $author_link = 'index.php?option=com_user&amp;task=profile&amp;user=' . $uid;
+                    $author_link = 'index.php?option=com_users&amp;task=profile&amp;user=' . $uid;
                     $author_seflink = sefRelToAbs($author_link);
                     $author_name = '<a href="' . $author_seflink . '">' . $author_name . '</a>';
                 }

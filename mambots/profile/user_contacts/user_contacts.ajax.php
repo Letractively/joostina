@@ -9,7 +9,7 @@
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
-require_once (Jconfig::getInstance()->config_absolute_path.'/components/com_user/plugins/user_contacts/user_contacts.class.php');
+require_once (Jconfig::getInstance()->config_absolute_path.'/components/com_users/plugins/user_contacts/user_contacts.class.php');
 $act = mosGetParam( $_REQUEST, 'act', '' );
 
 switch ($act){
@@ -32,7 +32,7 @@ switch ($act){
 function display_form(){
     global $mosConfig_live_site, $my,  $database;
 
-    $ajax_handler = 'ajax.index.php?option=com_user&task=request_from_plugin&plugin=user_contacts';
+    $ajax_handler = 'ajax.index.php?option=com_users&task=request_from_plugin&plugin=user_contacts';
     $user_id = mosGetParam( $_REQUEST, 'user_id', 0 );
 
     //Подключение плагина валидации форм
@@ -51,7 +51,7 @@ function display_form(){
                 var u_options = {
                     beforeSubmit: u_validate_this,
                     url:         '<?php echo $ajax_handler;?>',
-                    //url:         'components/com_user/plugins/user_contacts/user_sendmail.php',
+                    //url:         'components/com_users/plugins/user_contacts/user_sendmail.php',
                     clearForm:   false,
                     success: showResponse
                 };

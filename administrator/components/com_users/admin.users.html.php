@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined('_VALID_MOS') or die();
 
 /**
@@ -94,10 +94,30 @@ class HTML_users {
 		$tabs = new mosTabs(0,1);
 
 		mosCommonHTML::loadOverlib();
+		mosCommonHTML::loadJqueryPlugins('jquery.form', true, false);
+		
 		$canBlockUser = $acl->acl_check('administration','edit','users',$my->usertype,'user properties','block_user');
 		$canEmailEvents = $acl->acl_check('workflow','email_events','users',$acl->get_group_name($row->gid,'ARO'));
+		
+		
+		
+  		$bday_date = mosFormatDate($row->user_extra->birthdate, '%d', '0') ;
+        $bday_month = mosFormatDate($row->user_extra->birthdate, '%m', '0') ;
+        $bday_year = mosFormatDate($row->user_extra->birthdate, '%Y', '0') ;
 ?>
 		<script language="javascript" type="text/javascript">
+		    $(document).ready(function() {
+        $("#save").click(function () {
+            $("input#task").val('saveUserEdit');
+            $("#mosUserForm").submit();
+        });
+        $("#cancel").click(function () {
+            $("input#task").val('cancel');
+            $("#mosUserForm").submit();
+        });
+        
+  });
+		
 		function submitbutton(pressbutton) {
 			var form = document.adminForm;
 			if (pressbutton == 'cancel') {
@@ -132,62 +152,25 @@ class HTML_users {
 			form.contact_id.value = id;
 			submitform( 'contact' );
 		}
-		function startupload() {
-			SRAX.get('userav').src = 'images/aload.gif';
-		};
-		function funishupload(text) {
-			log(text);
-			if(text!='0'){
-				log('Всё ок!');
-				log(text);
-				SRAX.get('userav').src = text;
-			}
-			SRAX.get('adminForm').action='index2.php';
-			SRAX.get('adminForm').target='';
-			SRAX.get('adminForm').reset();
-		};
-		function addavatar(){
-			SRAX.get('adminForm').action='ajax.index.php';
-			log(SRAX.get('adminForm').action);
-			SRAX.get('task').value='uploadavatar';
-			SRAX.Uploader('adminForm', startupload, funishupload, true);
-		}
-		function delavatar(elid){
-			log('Удаление аватара: ');
-			SRAX.get('userav').src = 'images/aload.gif';
-			dax({
-				url: 'ajax.index.php?option=com_users&utf=0&task=delavatar&id='+elid,
-				callback:
-					function(resp, idTread, status, ops){
-						log('Получен ответ: ' + resp.responseText);
-						SRAX.get('userav').src = resp.responseText;
-			}});
-		}
+
 		</script>
-		<form action="index2.php" method="post" name="adminForm" id="adminForm" enctype="multipart/form-data">
-		<table class="adminheading">
+				<table class="adminheading">
 		<tr>
-			<th class="user"><small><?php echo $row->id ? 'Редактирование профиля пользователя: '.$row->name : 'Новый пользователь'; ?></small></th>
+			<th class="user"><small><?php echo $row->id ? 'Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ РїСЂРѕС„РёР»СЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ: '.$row->name : 'РќРѕРІС‹Р№ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ'; ?></small></th>
 		</tr>
 		</table>
+		<br clear="all"> 
+		
+		<?php $tabs->startPane("userInfo"); ?>
+		
+		<form action="index2.php" method="post" name="adminForm" id="adminForm" enctype="multipart/form-data">
 
-		<table width="100%">
-		<tr>
-			<td width="60%" valign="top">
+
+
+		<?php $tabs->startTab(_USER_INFO,"general"); ?>
+
 				<table class="adminform">
 				<tr>
-					<th colspan="3"><?php echo _USER_INFO?></th>
-				</tr>
-				<tr>
-					<td width="50%" rowspan="6" id="user_avatar" align="center">
-						<div ><img id="userav" src="<?php echo $mosConfig_live_site.'/'.mosUser::get_avatar($row);?>" /></div>
-						<br />
-						<?php if($row->id){?>
-						<input class="inputbox" type="file" size="1" id="fileavatar" name="avatar"/>
-						<button class="inputbox" onclick="addavatar();">Загрузить</button>
-						<button class="inputbox" onclick="delavatar(<?php echo $row->id;?>); return false;"><?php echo _DELETE?></button>
-						<?php };?>
-					</td>
 					<td width="200" class="key"><?php echo _YOUR_NAME?>:</td>
 					<td><input type="text" name="name" class="inputbox" size="40" value="<?php echo $row->name; ?>" maxlength="50" /></td>
 				</tr>
@@ -246,23 +229,96 @@ class HTML_users {
 					<td colspan="3">&nbsp;</td>
 				</tr>
 				</table>
-			</td>
-			<td width="40%" valign="top">
-				<table class="adminform">
-				<tr>
-					<th colspan="1"><?php echo _PARAMETERS?>:</th>
-				</tr>
+		<?php $tabs->endTab(); ?>
+		
+			
+		<?php $tabs->startTab(_PARAMETERS,"params"); ?>	
+		<table class="adminform">
 				<tr>
 					<td><?php echo $params->render('params'); ?></td>
 				</tr>
 				</table>
-<?php
+		<?php $tabs->endTab(); ?>
+			
+			
+		<?php $tabs->startTab("Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ","user_info_extra"); ?>	
+				<table width="100%">
+				<tr>
+                    <td width="200"><label for="gender">РџРѕР»</label></td>
+					<td><?php echo mosHTML::genderSelectList('gender','class="inputbox"', $row->user_extra->gender);?> </td>
+				</tr>
+				<tr>
+                    <td><label>Р”Р°С‚Р° СЂРѕР¶РґРµРЅРёСЏ</label></td>
+					<td>
+                        <?php echo mosHTML::daySelectList('birthdate_day','class="inputbox"', $bday_date);?>
+                        <?php echo mosHTML::monthSelectList('birthdate_month','class="inputbox"', $bday_month,1);?>
+                        <?php echo mosHTML::yearSelectList('birthdate_year','class="inputbox"', $bday_year);?>
+                    </td>
+				</tr>
+				<tr>
+                    <td><label>Рћ СЃРµР±Рµ</label></td>
+					<td>
+                        <textarea class="inputbox" name="about" id="about"><?php echo $row->user_extra->about ?></textarea>
+                    </td>
+				</tr>
+				<tr>
+                    <td><label>РњРµСЃС‚РѕРїРѕР»РѕР¶РµРЅРёРµ</label></td>
+					<td>
+                        <input class="inputbox" type="text" name="location" id="location" value="<?php echo $row->user_extra->location ?>"/>
+                    </td>
+				</tr>
+			</table>	
+		<?php $tabs->endTab(); ?>
+		
+		
+		
+		<?php $tabs->startTab("РљРѕРЅС‚Р°РєС‚РЅС‹Рµ РґР°РЅРЅС‹Рµ","user_info_contacts"); ?>
+					<table width="100%">
+				<tr>
+                    <td><label>РЎР°Р№С‚</label></td>
+					<td><input class="inputbox" type="text" name="url" id="url" value="<?php echo $row->user_extra->url ?>"/></td>
+				</tr>
+				<tr>
+                    <td><label>ICQ</label></td>
+					<td><input class="inputbox" type="text" name="icq" id="icq" value="<?php echo $row->user_extra->icq ?>"/></td>
+				</tr>
+				<tr>
+                    <td><label>Skype</label></td>
+					<td><input class="inputbox" type="text" name="skype" id="skype" value="<?php echo $row->user_extra->skype ?>"/></td>
+				</tr>
+				<tr>
+                    <td><label>Jabber </label></td>
+					<td><input class="inputbox" type="text" name="jabber" id="jabber" value="<?php echo $row->user_extra->jabber ?>"/></td>
+				</tr>
+				<tr>
+                    <td><label>MSN</label></td>
+					<td><input class="inputbox" type="text" name="msn" id="msn" value="<?php echo $row->user_extra->msn ?>"/></td>
+				</tr>
+				<tr>
+                    <td><label>Yahoo</label></td>
+					<td><input class="inputbox" type="text" name="yahoo" id="yahoo" value="<?php echo $row->user_extra->yahoo ?>"/></td>
+				</tr>
+				<tr>
+                    <td><label>РўРµР»РµС„РѕРЅ</label></td>
+					<td><input class="inputbox" type="text" name="phone" id="phone" value="<?php echo $row->user_extra->phone ?>"/></td>
+				</tr>
+				<tr>
+                    <td><label>Р¤Р°РєСЃ</label></td>
+					<td><input class="inputbox" type="text" name="fax" id="fax" value="<?php echo $row->user_extra->fax ?>"/></td>
+				</tr>
+				<tr>
+                    <td><label>РњРѕР±РёР»СЊРЅС‹Р№</label></td>
+					<td><input class="inputbox" type="text" name="mobil" id="mobil" value="<?php echo $row->user_extra->mobil ?>"/></td>
+				</tr>
+
+			</table>
+			<?php $tabs->endTab(); ?>
+			
+			<?php $tabs->startTab(_CONTACT_INFO_COM_CONTACT,"user_info_com_contact"); ?>
+			<?php
 		if(!$contact) {
 ?>
 					<table class="adminform">
-					<tr>
-						<th><?php echo _CONTACT_INFO?>:</th>
-					</tr>
 					<tr>
 						<td>
 						<br />
@@ -275,9 +331,6 @@ class HTML_users {
 		} else {
 ?>
 					<table class="adminform">
-					<tr>
-						<th colspan="2"><?php echo _CONTACT_INFO?>:</th>
-					</tr>
 					<tr>
 						<td width="15%"><?php echo _FULL_NAME?>:</td>
 						<td>
@@ -324,10 +377,10 @@ class HTML_users {
 <?php
 		}
 ?>
-			</td>
-		</tr>
-		</table>
+		<?php $tabs->endTab(); ?>
+
 		<input type="hidden" name="id" value="<?php echo $row->id; ?>" />
+		<input type="hidden" name="user_id" value="<?php echo $row->id; ?>" />
 		<input type="hidden" name="option" value="<?php echo $option; ?>" />
 		<input type="hidden" name="task" id="task" value="" />
 		<input type="hidden" name="contact_id" value="" />
@@ -340,6 +393,32 @@ class HTML_users {
 ?>
 		<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
 		</form>
+		
+		<?php $tabs->startTab('РђРІР°С‚Р°СЂ',"avatar"); ?> 
+			<table class="adminform"><tr><td>
+            
+            <?php 
+            $form_params = new stdClass();
+            $form_params->id = 'avatar_uploadForm';
+            $form_params->img_field = 'avatar';
+            $form_params->img_path = 'images/avatars';
+            $form_params->default_img = 'images/avatars/none.jpg';
+            $form_params->img_class = 'user_avatar';
+            $form_params->ajax_handler = 'ajax.index.php?option=com_users';
+            
+			if(!$row->avatar){
+                userHelper::_build_img_upload_area($row, $form_params, 'upload');
+            } else {
+                userHelper::_build_img_upload_area($row, $form_params, 'reupload');
+            } ?>
+            
+            </td></tr></table>
+            
+            <?php $tabs->endTab(); ?>
+            
+   <?php $tabs->endPane(); ?>
+   
+   
 <?php
 	}
 }

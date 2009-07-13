@@ -355,6 +355,23 @@ class mosUser extends mosDBTable {
 		}
 
 	}
+	
+	function get_users($usertype = ''){
+		
+		$and = '';
+		if($usertype){
+			$and .= " AND usertype='".$usertype."'";
+		}
+	
+		$query = "	SELECT *
+					FROM #__users 
+					WHERE block = '0'"
+					.$and;
+			
+		$this->_db->setQuery($query);
+		return  $this->_db->loadObjectList();
+
+	}
 
 }
 
@@ -381,13 +398,18 @@ class userUsersExtra extends mosDBTable{
 	function userUsersExtra(&$db) {
 		$this->mosDBTable('#__users_extra','user_id',$db);
 	}
+	function insert($id){
+		$this->user_id = $id;
+		return $this->_db->insertObject('#__users_extra', $this, 'user_id');
+		
+	}
 }
 
 class userHelper{
 
 	function _load_core_js(){
 		global $mosConfig_live_site, $mainframe;
-		$mainframe->addJS($mosConfig_live_site.'/components/com_user/js/com_user.js','custom');
+		$mainframe->addJS($mosConfig_live_site.'/components/com_users/js/com_users.js','custom');
 	}
 
 	function _load_jquery_form(){
@@ -561,12 +583,13 @@ function _build_img_upload_form(&$obj, $form_params){
 			<span class="button"><button type="button" id="<?php echo $form_params->img_field;?>_upload_button" class="button" >Загрузить</button></span>
 			<input type="hidden" name="task" value="upload_<?php echo $form_params->img_field;?>" />
 			<input type="hidden" name="id" value="<?php echo $obj->id;?>" />
-			<input type="hidden" name="option" value="com_user" />
+			<input type="hidden" name="option" value="com_users" />
 		</form>
 
 		<div id="<?php echo $form_params->img_field;?>_uploadOutput" style="display:none;">Загрузка</div>
 	<?php
 	}
+
 }
 
 /**

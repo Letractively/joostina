@@ -28,7 +28,7 @@ function botUserContacts($user) {
 	*/
     function UserContacts_output($user){
         global $mainframe, $mosConfig_live_site;
-         $ajax_handler = 'ajax.index.php?option=com_user&task=request_from_plugin&plugin=user_contacts';
+         $ajax_handler = 'ajax.index.php?option=com_users&task=request_from_plugin&plugin=user_contacts';
 
         ?>
         <!-- Всплывающее окно с формой отправки сообщения-->

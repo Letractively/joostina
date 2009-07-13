@@ -89,7 +89,7 @@ function logoutForm($params_aray){
 		$name = $my->username;
 	}
 
-    $user_link = 'index.php?option=com_user&amp;task=profile&amp;user='.$my->id;
+    $user_link = 'index.php?option=com_users&amp;task=profile&amp;user='.$my->id;
     $user_seflink = sefRelToAbs($user_link);
     $profile_link="";
 	if ($params_aray['profile_link']==0) {
@@ -229,13 +229,13 @@ function BuildLoginForm($params_aray, $orientation){
      }
 
       if ($params_aray['show_lost_pass'] == 1) {
-		  $lost_pass='<a class="ml_login" href="'.sefRelToAbs( 'index.php?option=com_user&amp;task=lostPassword' ).'">'.$params_aray['ml_rem_pass_text'].'</a>';
+		  $lost_pass='<a class="ml_login" href="'.sefRelToAbs( 'index.php?option=com_users&amp;task=lostPassword' ).'">'.$params_aray['ml_rem_pass_text'].'</a>';
      } else {
          $lost_pass ='';
      }
 
       if ($params_aray['show_register'] == 1) {
-		  $register_me='<a class="ml_login" href="'.sefRelToAbs( 'index.php?option=com_user&amp;task=register' ).'">'.$params_aray['ml_reg_text'].'</a>';
+		  $register_me='<a class="ml_login" href="'.sefRelToAbs( 'index.php?option=com_users&amp;task=register' ).'">'.$params_aray['ml_reg_text'].'</a>';
      } else {
          $register_me ='';
      }

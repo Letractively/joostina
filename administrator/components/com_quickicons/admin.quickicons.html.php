@@ -23,7 +23,7 @@ class HTML_QuickIcons {
 		<table class="adminheading">
 			<tr>
 				<th class="quickicons"><?php echo _QUICK_BUTTONS?></th>
-				<td><?php echo _FIND?>:</td>
+				<td><?php echo _SEARCH?>:</td>
 				<td align="right">
 					<input type="text" name="search" value="<?php echo $search; ?>" class="inputbox" onChange="document.adminForm.submit();" />
 				</td>
