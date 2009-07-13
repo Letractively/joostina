@@ -457,20 +457,20 @@ class mosMainFrame {
 	* 	'js' - скрипт будет добавлен в $mainfrane->_footer['js'] (первый этап вывода футера)
 	* 	'custom' - скрипт будет добавлен в $mainfrane->_footer['custom'] (второй этап вывода футера)
 	*/
-	function addJS($patch, $footer = ''){
+	function addJS($path, $footer = ''){
 		if($footer){
-			$this->_footer[$footer][] = '<script language="JavaScript" src="'. $patch .'" type="text/javascript"></script>';		
+			$this->_footer[$footer][] = '<script language="JavaScript" src="'. $path .'" type="text/javascript"></script>';
 		}
 		else{
-			$this->_head['js'][] = '<script language="JavaScript" src="'. $patch .'" type="text/javascript"></script>';		
+			$this->_head['js'][] = '<script language="JavaScript" src="'. $path .'" type="text/javascript"></script>';
 				}
 				
 	}
 	/**
 	* добавление css файлов в шапку страницы
 	*/
-	function addCSS($patch){
-		$this->_head['css'][] = '<link type="text/css" rel="stylesheet" href="'. $patch .'" />';
+	function addCSS($path){
+		$this->_head['css'][] = '<link type="text/css" rel="stylesheet" href="'. $path .'" />';
 	}
 
 	/**

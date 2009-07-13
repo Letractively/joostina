@@ -1146,7 +1146,7 @@ function showFullItem($id) {
  */
 function _showItem($row,$params,$gid,&$access,$pop, $template='') {
 	global $mosConfig_content_hits, $cache;
-	
+
 	$mainframe = &mosMainFrame::getInstance();
 	$database = &database::getInstance();
 
@@ -1217,7 +1217,6 @@ function _showItem($row,$params,$gid,&$access,$pop, $template='') {
 	$limit_introtext=$params->get('introtext_limit', 0);
     if($limit_introtext){
          $mainframe->addLib('text');
-         $row->text=mosHTML::cleanText($row->text);
          $row->text = Text::word_limiter($row->text, $limit_introtext, '');         
     }
 
