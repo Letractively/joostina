@@ -67,6 +67,10 @@
 			<option value="0">Скрыть</option>
 			<option value="1">Показать</option>
 		</param>
+		<param name="tags" type="list" default="1" label="Тэги" description="Показать/Спрятать тэги публикации">
+			<option value="0">Скрыть</option>
+			<option value="1">Показать</option>
+		</param>
 		<param name="createdate" type="list" default="" label="Дата и время создания" description="Показать/Спрятать дату создания - действует только на этой странице">
 			<option value="">Использовать глобальные настройки</option>
 			<option value="0">Скрыть</option>

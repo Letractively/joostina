@@ -16,7 +16,7 @@ if(!$acl->acl_check('administration','manage','users',$my->usertype,'components'
 
 require_once ($mainframe->getPath('admin_html'));
 require_once ($mainframe->getPath('class'));
-require_once ($mainframe->getPath('config','com_user'));
+require_once ($mainframe->getPath('config','com_users'));
 
 $cid = josGetArrayInts('cid');
 
@@ -197,14 +197,14 @@ function showUsers($option) {
 
 	// get list of Groups for dropdown filter
 	$query = "SELECT name AS value, name AS text FROM #__core_acl_aro_groups WHERE name != 'ROOT' AND name != 'USERS'";
-	$types[] = mosHTML::makeOption('0',_COM_USERS_SELECT_GROOP);
+	$types[] = mosHTML::makeOption('0',_com_users_SELECT_GROOP);
 	$database->setQuery($query);
 	$types = array_merge($types,$database->loadObjectList());
 	$lists['type'] = mosHTML::selectList($types,'filter_type','class="inputbox" size="1" onchange="document.adminForm.submit( );"','value','text',"$filter_type");
 
 	// get list of Log Status for dropdown filter
-	$logged[] = mosHTML::makeOption(0,_COM_USERS_SELECT_STATUS);
-	$logged[] = mosHTML::makeOption(1,_COM_USERS_USER_LOGED);
+	$logged[] = mosHTML::makeOption(0,_com_users_SELECT_STATUS);
+	$logged[] = mosHTML::makeOption(1,_com_users_USER_LOGED);
 	$lists['logged'] = mosHTML::selectList($logged,'filter_logged','class="inputbox" size="1" onchange="document.adminForm.submit( );"','value','text',"$filter_logged");
 
 	HTML_users::showUsers($rows,$pageNav,$search,$option,$lists);
@@ -285,6 +285,10 @@ function editUser($uid = '0',$option = 'users') {
 
 	$file = $mainframe->getPath('com_xml','com_users');
 	$params = &new mosUserParameters($row->params,$file,'component');
+	
+	$user_extra = new userUsersExtra($database);
+	$user_extra->load((int)$uid);
+	$row->user_extra = $user_extra;
 
 	HTML_users::edituser($row,$contact,$lists,$option,$uid,$params);
 }
@@ -420,6 +424,22 @@ function saveUser($task) {
 		echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
 		exit();
 	}
+	
+	$user_id = $row->id;
+
+	//Сохранение дополнительной информации
+	$user_extra = new userUsersExtra($database);
+	$ret = $user_extra->load((int)$user_id);
+	if(!$user_extra->bind($_POST)) {
+		echo "<script> alert('".$user_extra->getError()."'); window.history.go(-1); </script>\n";
+		exit();
+	}		
+	$user_extra->birthdate  = $_POST['birthdate_year'].'-'.$_POST['birthdate_month'].'-'.$_POST['birthdate_day'].' 00:00:00';
+  	if(!$ret){
+  		$user_extra->insert($user_id);
+  	}
+	$user_extra->store();
+	
 	$row->checkin();
 
 	// updates the current users param settings
@@ -476,8 +496,7 @@ function saveUser($task) {
 	switch($task) {
 		case 'apply':
 			$msg = _PROFILE_SAVE_SUCCESS.': '.$row->name;
-			mosRedirect('index2.php?option=com_users&task=editA&hidemainmenu=1&id='.$row->id,
-				$msg);
+			mosRedirect('index2.php?option=com_users&task=editA&hidemainmenu=1&id='.$row->id,	$msg);
 			break;
 
 		case 'save':

@@ -36,7 +36,7 @@ function profile($user,$option, &$params, $config){
         if($my->id && $user->id==$my->id){
           $owner=1;
           $editable=' editable';
-          $edit_info_link=sefRelToAbs('index.php?option=com_user&task=UserDetails&Itemid=17');
+          $edit_info_link=sefRelToAbs('index.php?option=com_users&task=UserDetails&Itemid=17');
           
         }
 
@@ -67,7 +67,7 @@ function profile($user,$option, &$params, $config){
 		//Шаблон
 		$template_file='default.php';
 		if(!$config->get('template')){			
-			if(is_file($mosConfig_absolute_path.'/components/com_user/view/profile/'.strtolower(str_replace(' ', '', $user->usertype )).'.php')){
+			if(is_file($mosConfig_absolute_path.'/components/com_users/view/profile/'.strtolower(str_replace(' ', '', $user->usertype )).'.php')){
             	$template_file=strtolower(str_replace(' ', '', $user->usertype )).'.php';
         	}	
 		}
@@ -103,7 +103,7 @@ function profile($user,$option, &$params, $config){
 		//$user->profile_plugins = $profile_plugins;
 		//$user->current_plugin = $plugin->get_current_plugin($profile_plugins);
 		
-        include ($mosConfig_absolute_path.'/components/com_user/view/profile/'.$template_file);
+        include ($mosConfig_absolute_path.'/components/com_users/view/profile/'.$template_file);
     }
 
 	function userEdit($user,$option,$submitvalue,&$params, $config) {
@@ -121,18 +121,17 @@ function profile($user,$option, &$params, $config){
         $bday_year = mosFormatDate($user_extra->birthdate, '%Y', '0') ;
 
 
-        define('_MALE', 'Мужской');
-        define('_FEMALE', 'Женский');
+
         
 		//Шаблон
 		$template_file='default.php';
 		if(!$config->get('template_edit')){			
-			if(is_file($mosConfig_absolute_path.'/components/com_user/view/edit/'.strtolower(str_replace(' ', '', $user->usertype )).'.php')){
+			if(is_file($mosConfig_absolute_path.'/components/com_users/view/edit/'.strtolower(str_replace(' ', '', $user->usertype )).'.php')){
             	$template_file=strtolower(str_replace(' ', '', $user->usertype )).'.php';
         	}	
 		}
 
-        include ($mosConfig_absolute_path.'/components/com_user/view/edit/'.$template_file);
+        include ($mosConfig_absolute_path.'/components/com_users/view/edit/'.$template_file);
 
 	}
 

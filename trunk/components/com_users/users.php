@@ -15,8 +15,8 @@ global $my, $task, $option, $mosConfig_frontend_login, $mosConfig_useractivation
 userHelper::_load_core_js();
 ?>
 <script type="text/javascript">
-	var _comuser_url = '<?php echo $mosConfig_live_site;?>/components/com_user';
-	var _comuser_ajax_handler = 'ajax.index.php?option=com_user';
+	var _comuser_url = '<?php echo $mosConfig_live_site;?>/components/com_users';
+	var _comuser_ajax_handler = 'ajax.index.php?option=com_users';
 	var _comuser_defines = new Array();
 </script>
 <?php
@@ -27,7 +27,8 @@ $access->canEdit = $acl->acl_check('action','edit','users',$my->usertype,'conten
 $access->canEditOwn = $acl->acl_check('action','edit','users',$my->usertype,'content','own');
 
 require_once ($mainframe->getPath('front_html'));
-require_once ($mainframe->getPath('config','com_user'));
+require_once ($mainframe->getPath('config','com_users'));
+require_once ($mainframe->getPath('class'));
 
 switch($task) {
 	case 'UserDetails':
@@ -48,7 +49,7 @@ switch($task) {
 		break;
 
 	case 'cancel':
-		mosRedirect('index.php?option=com_user&task=profile&user='.mosGetParam( $_REQUEST, 'id', 0 ));
+		mosRedirect('index.php?option=com_users&task=profile&user='.mosGetParam( $_REQUEST, 'id', 0 ));
 		break;
 
 	case 'profile':
@@ -94,6 +95,10 @@ switch($task) {
 		}
 		activate($option);
 		break;
+		
+	case 'userlist':
+		userlist();
+		break;
 
 	default:
 		HTML_user::frontpage();
@@ -128,7 +133,7 @@ function userEdit($option,$uid,$submitvalue) {
 	global $database,$mainframe;
 	global $mosConfig_absolute_path;
 
-	require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_users/users.class.php');
+	//require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_users/users.class.php');
 
 	if($uid == 0) {
 		mosNotAuth();
@@ -224,15 +229,16 @@ function userSave($option,$uid) {
 	}
 
 	$user_extra = new userUsersExtra($database);
-	$user_extra->load((int)$user_id);
-	if(!$user_extra->bind($_POST, $user_id)) {
+	$ret = $user_extra->load((int)$user_id);
+	if(!$user_extra->bind($_POST)) {
 		echo "<script> alert('".$user_extra->getError()."'); window.history.go(-1); </script>\n";
 		exit();
-	}
+	}		
 	$user_extra->birthdate  = $_POST['birthdate_year'].'-'.$_POST['birthdate_month'].'-'.$_POST['birthdate_day'].' 00:00:00';
-
+  	if(!$ret){
+  		$user_extra->insert($user_id);
+  	}
 	$user_extra->store();
-
 
 	// check if username has been changed
 	if($orig_USER != $row->username) {
@@ -250,6 +256,58 @@ function userSave($option,$uid) {
 	userEdit($option,$my->id,_UPDATE);
 }
 
+function userlist(){
+	global $acl;
+	
+	$db = &database::getInstance();
+	$mainframe = &mosMainFrame::getInstance();
+	
+	$gid = intval(mosGetParam($_REQUEST,'group',0));	
+	
+	if(isset($mainframe->menu)){
+		$menu = $mainframe->menu;		
+	}
+	else{
+		$link = 'index.php?option=com_users&task=userlist';
+		if($gid){
+			$link = 'index.php?option=com_users&task=userlist&group='.$gid;	
+		}
+		$menu = new mosMenu($db);
+		$menu = $menu->getMenu(false, 'userlist', $link);	
+	}
+		
+	$params = new mosParameters($mainframe->menu->params);
+	$usertype = $acl->get_group_name($params->get('group', 0));
+	
+	$template = 'default.php';
+	$template_dir = 'components/com_users/view/userlist';
+	
+	if($params->get('template')){
+		$template = $params->get('template');	
+	}
+	else if($params->get('group', 0)){
+		$template = strtolower(str_replace(' ', '', $usertype )).'.php';	
+	}
+	
+	
+	if($params->get('template_dir')){
+		$template_dir = 'templates/' . $mainframe->getTemplate() . '/html/com_users/userlist';	
+	}
+	$template_file = $mainframe->getCfg('absolute_path').'/'.$template_dir.'/'.$template;
+	
+	//Получаем список пользователей
+	$users = new mosUser($db);
+	$users->user_list = $users->get_users($usertype);
+	
+	//Подключаем шаблон
+	if(is_file($template_file)){
+		include_once($template_file);
+	}
+		
+	
+		
+}
+
 function CheckIn($userid,$access) {
 	global $database;
 	global $mosConfig_db;
@@ -261,7 +319,7 @@ function CheckIn($userid,$access) {
 	}
 
 	// security check to see if link exists in a menu
-	$link = 'index.php?option=com_user&task=CheckIn';
+	$link = 'index.php?option=com_users&task=CheckIn';
 	$query = "SELECT id"
 			."\n FROM #__menu"
 			."\n WHERE link LIKE '%$link%'"
@@ -409,7 +467,7 @@ function sendNewPass($option) {
 		die("SQL error".$database->stderr(true));
 	}
 
-	mosRedirect('index.php?option=com_user&mosmsg='._NEWPASS_SENT);
+	mosRedirect('index.php?option=com_users&mosmsg='._NEWPASS_SENT);
 }
 
 function registerForm($option,$useractivation) {
@@ -428,7 +486,7 @@ function registerForm($option,$useractivation) {
 	if(!$params->get('template')){
 		$type = mosGetParam( $_REQUEST, 'type', '' );
 		if($type){
-			if(!is_file($mosConfig_absolute_path.'/components/com_user/view/registration/'.$type.'.php')){
+			if(!is_file($mosConfig_absolute_path.'/components/com_users/view/registration/'.$type.'.php')){
 				$template = $type.'.php';
 			}
 		}
@@ -437,7 +495,7 @@ function registerForm($option,$useractivation) {
 	// used for spoof hardening
 	$validate = josSpoofValue();
 
-	include ($mosConfig_absolute_path.'/components/com_user/view/registration/'.$template);
+	include ($mosConfig_absolute_path.'/components/com_users/view/registration/'.$template);
 	//HTML_registration::registerForm($option,$useractivation, $params);
 }
 
@@ -522,7 +580,7 @@ function saveRegistration() {
 	if($mosConfig_useractivation == 1  ) {
 		$email_info['message'] = sprintf(_USEND_MSG_ACTIVATE, $email_info['name'],
 							$mosConfig_sitename,
-							$mosConfig_live_site."/index.php?option=com_user&task=activate&activation=".
+							$mosConfig_live_site."/index.php?option=com_users&task=activate&activation=".
 							$row->activation, $mosConfig_live_site, $email_info['username'], $pwd);
 	} else {
 		$email_info['message'] = sprintf(_USEND_MSG,$email_info['name'],
@@ -581,19 +639,19 @@ function saveRegistration() {
 		if(!$params->get('template')){
 			$group_name = $acl->get_group_name($row->gid,'ARO');
 			if($group_name){
-				if(!is_file($mosConfig_absolute_path.'/components/com_user/view/after_registration/'.$group_name.'.php')){
+				if(!is_file($mosConfig_absolute_path.'/components/com_users/view/after_registration/'.$group_name.'.php')){
 					$template = $group_name.'.php';
 				}
 			}
 		}
 
-		include ($mosConfig_absolute_path.'/components/com_user/view/after_registration/'.$template);
+		include ($mosConfig_absolute_path.'/components/com_users/view/after_registration/'.$template);
 		return;
 
 	}
 	else {
 		$msg = _REG_COMPLETE;
-		mosRedirect('index.php?option=com_user&task=profile&user='.$row->id, $msg);
+		mosRedirect('index.php?option=com_users&task=profile&user='.$row->id, $msg);
 	}
 }
 

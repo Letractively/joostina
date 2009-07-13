@@ -149,7 +149,7 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
             $form_params->img_path = 'images/avatars';
             $form_params->default_img = 'images/avatars/none.jpg';
             $form_params->img_class = 'user_avatar';
-            $form_params->ajax_handler = 'ajax.index.php?option=com_user';
+            $form_params->ajax_handler = 'ajax.index.php?option=com_users';
             
 			if(!$user->avatar){
                 userHelper::_build_img_upload_area($user, $form_params, 'upload');

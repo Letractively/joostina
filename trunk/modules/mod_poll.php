@@ -10,7 +10,8 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die('Прямой вызов файла запрещен.');
 
-global $Itemid;
+global $Itemid, $mainframe;
+include($mainframe->getLangFile('com_poll'));
 
 if(!defined('_JOS_POLL_MODULE')) {
 	/** обеспечивает запуск функции только один раз*/

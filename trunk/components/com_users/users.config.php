@@ -9,7 +9,7 @@
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
-require_once ($mainframe->getPath('class','com_user'));
+require_once ($mainframe->getPath('class','com_users'));
 
 class configUser_registration extends dbConfig{
     /**
@@ -65,7 +65,7 @@ class configUser_registration extends dbConfig{
     
 
 
-    function configUser_registration(&$db, $group = 'com_user', $subgroup = 'registration')
+    function configUser_registration(&$db, $group = 'com_users', $subgroup = 'registration')
     {
         $this->dbConfig($db, $group, $subgroup);
     }
@@ -187,7 +187,7 @@ class configUser_profile extends dbConfig{
     var $template_edit = 1;
    
 
-    function configUser_profile(&$db, $group = 'com_user', $subgroup = 'profile')
+    function configUser_profile(&$db, $group = 'com_users', $subgroup = 'profile')
     {
         $this->dbConfig($db, $group, $subgroup);
     }

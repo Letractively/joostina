@@ -26,6 +26,19 @@ DEFINE('_LANGUAGE','ru');
 DEFINE('_ISO2','utf8');
 DEFINE('_ISO','charset=UTF-8');
 
+DEFINE('_JAN','Январь');
+DEFINE('_FEB','Февраль');
+DEFINE('_MAR','Март');
+DEFINE('_APR','Апрель');
+DEFINE('_MAY','Май');
+DEFINE('_JUN','Июнь');
+DEFINE('_JUL','Июль');
+DEFINE('_AUG','Август');
+DEFINE('_SEP','Сентябрь');
+DEFINE('_OCT','Октябрь');
+DEFINE('_NOV','Ноябрь');
+DEFINE('_DEC','Декабрь');
+
 /**
   * даты со склонением
 */ 
@@ -155,6 +168,7 @@ DEFINE('_HELP','Помощь');
 DEFINE('_HI','Здравствуйте, ');
 DEFINE('_HIDE','Скрыть');
 DEFINE('_HITS','Количество просмотров:'); 
+DEFINE('_ICON','Значок');
 DEFINE('_ICON_SEP','|');
 DEFINE('_IMAGE','Изображение'); 
 DEFINE('_IMAGES','Изображения');  
@@ -236,7 +250,8 @@ DEFINE('_TO_BOTTOM','Вниз');
 DEFINE('_TO_TOP','Вверх');
 DEFINE('_TOP','Вверху');
 DEFINE('_TYPE','Тип');
-DEFINE('_VERSION','Версия:'); 
+DEFINE('_VERSION','Версия:');
+DEFINE('_VIEW_COUNT','Кол-во просмотров');   
 DEFINE('_UNAME','Имя пользователя');
 DEFINE('_UNKNOWN','Неизвестно');
 DEFINE('_UNPUBLISH_ON_FRONTPAGE','Скрыть (Не показывать на сайте)');
@@ -251,6 +266,8 @@ DEFINE('_WITHOUT_END','Без окончания');
 DEFINE('_WRITEABLE','Доступен для записи');  
 DEFINE('_WRITTEN_BY',' Автор');
 DEFINE('_YES','Да');
+DEFINE('_MALE', 'Мужской');
+DEFINE('_FEMALE', 'Женский');
 
 /**
  * CAPTCHA

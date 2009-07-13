@@ -29,13 +29,13 @@ $(document).ready(function() {
                     <div class="jstProfile_menu">
                         <ul class="menu_userInfo">
                             <li>
-								<a href="<?php echo sefRelToAbs("index.php?option=com_user&task=profile&user=$user_id");?>" id="user_user_info_link">информация</a>
+								<a href="<?php echo sefRelToAbs("index.php?option=com_users&task=profile&user=$user_id");?>" id="user_user_info_link">информация</a>
 							</li>
                             <li>
-								<a href="<?php echo sefRelToAbs("index.php?option=com_user&task=profile&view=user_content&user=$user_id");?>" id="user_user_content_link">Публикации</a>
+								<a href="<?php echo sefRelToAbs("index.php?option=com_users&task=profile&view=user_content&user=$user_id");?>" id="user_user_content_link">Публикации</a>
 							</li>
        						<li>
-								<a href="<?php echo sefRelToAbs("index.php?option=com_user&task=profile&view=user_contacts&user=$user_id");?>" id="user_user_contacts_link">Контакты</a>
+								<a href="<?php echo sefRelToAbs("index.php?option=com_users&task=profile&view=user_contacts&user=$user_id");?>" id="user_user_contacts_link">Контакты</a>
 							</li>
                         </ul>
                     </div>

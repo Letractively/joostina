@@ -2490,6 +2490,34 @@ class mosMenu extends mosDBTable {
 		$this->filter($ignoreList);
 		return true;
 	}
+	
+	function getMenu($id = null, $type = '', $link = ''){
+		$mainframe = &mosMainFrame::getInstance();
+		
+		$where = ''; $and = array();
+		if($id || $type || $link){
+			$where .= ' WHERE ';
+		}
+		if ($id){
+			$and[] = ' menu.id = '.$id;	
+		}
+		if ($type){
+			$and[] = " menu.type = '".$type."'";	
+		}
+		if ($link){
+			$and[] = "menu.link LIKE '%$link'";	
+		}
+		$and = implode(' AND ', $and);
+		
+        $query = "  SELECT menu.*
+                    FROM #__menu AS menu
+                    ".$where.$and;
+        $r=null;
+        $this->_db->setQuery($query);
+        $this->_db->loadObject($r);
+        return $r;
+		
+	}
 }
 
 
@@ -3041,7 +3069,7 @@ class mosHTML {
 require_once(Jconfig::getInstance()->config_absolute_path.'/components/com_content/content.class.php');
 
 // класс работы с пользователями
-require_once(Jconfig::getInstance()->config_absolute_path.'/components/com_user/user.class.php');
+require_once(Jconfig::getInstance()->config_absolute_path.'/components/com_users/users.class.php');
 
 /**
 * Utility function to return a value from a named array or a specified default

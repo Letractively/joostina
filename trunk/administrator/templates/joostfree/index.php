@@ -19,6 +19,12 @@ echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'."\n";
 	<head>
 		<title><?php echo $mosConfig_sitename; ?> - <?php echo _JOOSTINA_CONTRIL_PANEL?></title>
 		<meta http-equiv="Content-Type" content="text/html; <?php echo _ISO; ?>" />
+		
+		<script type="text/javascript">
+    		var _live_site = '<?php echo $mosConfig_live_site;?>';
+    		var _option = '<?php echo mosGetParam( $_REQUEST, 'option', '' );?>';
+    		var _js_defines = new Array();
+		</script>
 <?php
 /* подключаем fullajax */
 mosCommonHTML::loadFullajax();
