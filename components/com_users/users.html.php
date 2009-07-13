@@ -200,7 +200,7 @@ class HTML_registration {
 <?php } ?>
 		<tr>
 			<td colspan="2">
-				<input type="submit" class="button" value="<?php echo _BUTTON_SEND_PASS; ?>" />
+				<span class="button"><input type="submit" class="button" value="<?php echo _BUTTON_SEND_PASS; ?>" /></span>
 			</td>
 		</tr>
 		</table>

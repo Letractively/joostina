@@ -98,7 +98,7 @@ class HTML_weblinks {
 <?php
 			if($params->get('hits')) {
 ?>
-					<td width="30" height="20" class="sectiontableheader<?php echo $params->get('pageclass_sfx'); ?>" align="right"><?php echo _HEADER_HITS; ?></td>
+					<td width="30" height="20" class="sectiontableheader<?php echo $params->get('pageclass_sfx'); ?>" align="right"><?php echo _COM_WEBLINKS_HEADER_HITS; ?></td>
 <?php
 			}
 ?>

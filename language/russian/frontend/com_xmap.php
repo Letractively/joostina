@@ -175,7 +175,6 @@ if( !defined( 'JOOMAP_LANG' )) {
 	define('_XMAP_INVALID_SID','Ошибка идентификатора карты');
 	define('_EXTENSION_NAME', 'Название расширения');
 	define('_PUBLICATION', 'Публикация');
-	define('_VERSION', 'Версия');
 	define('_REMOVAL', 'Удаление');
 	//define('_DATE', 'Дата');
 	

@@ -164,6 +164,10 @@
 			<option value="0">Скрыть</option>
 			<option value="1">Показать</option>
 		</param>
+		<param name="view_tags" type="radio" default="1" label="Тэги" description="Показать/Скрыть тэги материалов">
+			<option value="0">Скрыть</option>
+			<option value="1">Показать</option>
+		</param>
 		<param name="print" type="radio" default="" label="Значок Печать" description="Показать/Скрыть кнопку печати объекта. Применяется только для этой страницы">
 			<option value="">Использовать глобальные</option>
 			<option value="0">Скрыть</option>

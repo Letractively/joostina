@@ -663,7 +663,7 @@ class HTML_contact {
 					<br />
 					<input type="text" name="email" id="contact_email" size="30" class="inputbox" value="" />
 					<br />
-					<label for="contact_subject"><?php echo (_SUBJECT_PROMPT); ?></label>
+					<label for="contact_subject"><?php echo (_SUBJECT); ?>:</label>
 					<br />
 					<input type="text" name="subject" id="contact_subject" size="30" class="inputbox" value="" />
 					<br /><br />
@@ -692,7 +692,7 @@ class HTML_contact {
 						</div>
 <?php } ?>
 					<br />
-					<input type="button" name="send" value="<?php echo (_SEND_BUTTON); ?>" class="button" onclick="validate()" />
+					<span class="button"><input type="button" name="send" value="<?php echo (_SEND_BUTTON); ?>" class="button" onclick="validate()" /></span>
 				</div>
 				<input type="hidden" name="option" value="com_contact" />
 				<input type="hidden" name="con_id" value="<?php echo $contact->id; ?>" />

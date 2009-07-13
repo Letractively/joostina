@@ -142,7 +142,7 @@ function view($option) {
 	}
 	unset($row);
 
-	$query = "SELECT COUNT( id ) as count,componentid FROM #__menu WHERE componentid IN(".implode(',',$contents_ids).") AND type = 'content_typed' AND published != -2";
+	$query = "SELECT COUNT( id ) as count,componentid FROM #__menu WHERE componentid IN(".implode(',',$contents_ids).") AND type = 'content_typed' AND published != -2 GROUP BY componentid";
 	$database->setQuery($query);
 	$links = $database->loadObjectList('componentid');
 
@@ -288,6 +288,17 @@ function edit($uid,$option) {
 	$pos[] = mosHTML::makeOption('top',_TOP);
 	$lists['_caption_position'] = mosHTML::selectList($pos,'_caption_position','class="inputbox" size="1"','value','text');
 
+	//Тэги
+	$row->tags = null;
+		if($row->id){
+		$tags = new contentTags($database);
+	    
+	    $load_tags = $tags->load_by($row);
+	    if(count($load_tags)){
+	    	$row->tags = implode(',', $load_tags);	
+	    }
+	}
+
 	// get params definitions
 	$params = new mosParameters($row->attribs,$mainframe->getPath('com_xml','com_typedcontent'),'component');
 
@@ -359,11 +370,22 @@ function save($option,$task) {
 		echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
 		exit();
 	}
+	
+	
 	if(!$row->store()) {
 		echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
 		exit();
 	}
 	$row->checkin();
+	
+ 	//Подготовка тэгов
+    $tags = explode(',', $_POST['tags']);
+    $tag = new contentTags($database);
+    $tags = $tag->clear_tags($tags);
+    //Запись тэгов
+    $row->obj_type = 'com_content';
+    $tag->update($tags, $row);
+    //$row->metakey = implode(',', $tags);
 
 	// clean any existing cache files
 	mosCache::cleanCache('com_content');

@@ -11,6 +11,7 @@
 defined('_VALID_MOS') or die();
 require_once ($mainframe->getPath('front_html','com_content'));
 require_once ($mainframe->getPath('config','com_content'));
+include_once ($mainframe->getLangFile('com_content'));
 
 global $task,$Itemid,$option,$my;
 
@@ -1652,12 +1653,6 @@ function saveContent($task) {
 		exit();
 	}
 
-    //Подготовка тэгов
-    $tags = explode(',', $_POST['tags']);
-    $tag = new contentTags($database);
-    $tags = $tag->clear_tags($tags);
-    $row->metakey = implode(',', $tags);
-
 	$row->version++;
 
 	// мамботы сохранения
@@ -1671,10 +1666,15 @@ function saveContent($task) {
 		echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
 		exit();
 	}
-
+	
+	    //Подготовка тэгов
+    $tags = explode(',', $_POST['tags']);
+    $tag = new contentTags($database);
+    $tags = $tag->clear_tags($tags);
     //Запись тэгов
     $row->obj_type = 'com_content';
     $tag->update($tags, $row);
+    //$row->metakey = implode(',', $tags);
 
 	// manage frontpage items
 	require_once ($mainframe->getPath('class','com_frontpage'));
