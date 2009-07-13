@@ -717,10 +717,15 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 	$robots[] = mosHTML::makeOption('3','NoIndex, NoFollow');
 	$lists['robots'] = mosHTML::selectList($robots,'params[robots]','class="inputbox" style="width: 356px;" size="1"','value','text',$params->get('robots'));
 
-	$row->tags='';
-	if($row->id){
+	//Тэги
+	$row->tags = null;
+		if($row->id){
 		$tags = new contentTags($database);
-		$row->tags = implode(', ', $tags->load_by($row));
+	    
+	    $load_tags = $tags->load_by($row);
+	    if(count($load_tags)){
+	    	$row->tags = implode(',', $load_tags);	
+	    }
 	}
 
 	if($mainframe->getCfg('use_content_edit_mambots')){
@@ -830,11 +835,6 @@ function saveContent($sectionid,$task) {
 		exit();
 	}
 
-	//Подготовка тэгов
-	$tags = explode(',', $_POST['tags']);
-	$tag = new contentTags($database);
-	$tags = $tag->clear_tags($tags);
-	$row->metakey = implode(',', $tags);
 
 	$row->version++;
 
@@ -849,9 +849,14 @@ function saveContent($sectionid,$task) {
 		exit();
 	}
 
-	//Запись тэгов
-	$row->obj_type = 'com_content';
-	$tag->update($tags, $row);
+    //Подготовка тэгов
+    $tags = explode(',', $_POST['tags']);
+    $tag = new contentTags($database);
+    $tags = $tag->clear_tags($tags);
+    //Запись тэгов
+    $row->obj_type = 'com_content';
+    $tag->update($tags, $row);
+    //$row->metakey = implode(',', $tags);
 
 	// manage frontpage items
 	require_once ($mainframe->getPath('class','com_frontpage'));

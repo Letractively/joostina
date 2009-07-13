@@ -17,19 +17,19 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
         <div class="buttons_wrap">
             <table width="100%" cellpadding="0" cellspacing="0">
                 <tr>
-                    <td width="200">
+                    <td>
 
                     <?php if($params->get('createdate',0)) { ?>
-                        <span><?php echo _E_START_PUB.$create_date; ?></span>
+                        <span class="date"><strong><?php echo _E_START_PUB;?></strong> <?php echo $create_date; ?></span>
                     <?php  }?>
 
                     <?php if($params->get('author',0)) { ?>
-                        <span><?php echo $author;?></span>
+                        <span class="author"><strong><?php echo _AUTHOR;?>:</strong> <?php echo $author;?></span>
                     <?php  }?>
 
                     </td>
 
-                    <td  align="right">
+                    <td width="200"  align="right">
                         <div class="icons_c">
 
                         <?php  if( $params->get('print')) { ?>
@@ -79,7 +79,7 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
 
 		<?php  if($params->get('tags',1)){ ?>
        <div class="tags">
-            <span class="tags"><?php echo _TAGS; ?></span>     <?php echo isset($row->tags) ? $row->tags : _TAGS_NOT_DEFINED;?>
+            <span class="tags"><strong><?php echo _TAGS; ?></strong> <?php echo isset($row->tags) ? $row->tags : _TAGS_NOT_DEFINED;?></span>
        </div>
        <?php  }?>
 

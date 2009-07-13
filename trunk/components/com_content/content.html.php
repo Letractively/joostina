@@ -561,9 +561,9 @@ class HTML_content {
 				$image = '&nbsp;'._EMAIL;
 			}
 ?>
-			<td align="right" width="100%" class="buttonheading">
+		
 				<a href="<?php echo $link; ?>" target="_blank" onclick="window.open('<?php echo $link; ?>','win2','<?php echo $status; ?>'); return false;" title="<?php echo _EMAIL; ?>"><?php echo $image; ?></a>
-			</td>
+		
 <?php
 		}
 	}

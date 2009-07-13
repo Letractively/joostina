@@ -341,6 +341,10 @@ class HTML_typedcontent {
 				<input type="reset" class="button" value="..." onclick="return showCalendar('publish_down', 'y-mm-dd');">
 			</td>
 		</tr>
+						<tr>
+					<td><strong><?php echo _TAGS?>:</strong> </td>
+					<td><input type="text" name="tags" style="width:90%" size="30" maxlength="100" value="<?php echo $row->tags; ?>" class="text_area" /></td>
+				</tr>
 	</table>
 	<br />
 	<table class="adminform" width="100%">
