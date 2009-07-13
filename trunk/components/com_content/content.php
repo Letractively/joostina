@@ -1108,7 +1108,8 @@ function showFullItem($id) {
 		}
 
         //Устанавливаем необходимые параметры страницы
-    	$params = contentPageConfig::setup_full_item_page($row);
+        $params = new mosParameters($row->attribs);
+    	$params = contentPageConfig::setup_full_item_page($row, $params);
 		$params->def('pop', $pop);
 		
 		
@@ -1215,8 +1216,9 @@ function _showItem($row,$params,$gid,&$access,$pop, $template='') {
 	//Лимит интротекста
 	$limit_introtext=$params->get('introtext_limit', 0);
     if($limit_introtext){
+         $mainframe->addLib('text');
          $row->text=mosHTML::cleanText($row->text);
-         $row->text = implode(" ", array_slice(preg_split("/\s+/", $row->text), 0, $limit_introtext)).'...';
+         $row->text = Text::word_limiter($row->text, $limit_introtext, '');         
     }
 
 	// deal with the {mospagebreak} mambots

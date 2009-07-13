@@ -150,7 +150,7 @@ class Image {
 
     function get_image_from_text($text, $type = 'img', $default_image = null){
 
-        if($type){
+        if($type=='mosimage'){
             $image = self::get_mosimage($text, $default_image);
         }
         else{
@@ -175,10 +175,10 @@ class Image {
 		}
 
         if($image){
-            return Jconfig::getInstance()->config_live_site.'/images/stories/'.$image;
+            return '<img src="'.Jconfig::getInstance()->config_live_site.'/images/stories/'.$image.'"/>';
         }
         else if($default_image){
-            return Jconfig::getInstance()->config_live_site.'/images/noimage.jpg';
+            return '<img src="'.Jconfig::getInstance()->config_live_site.'/images/noimage.jpg"/>';
          }
          else{
              return '';

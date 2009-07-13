@@ -30,7 +30,11 @@
 				<option value="test">тест</option>
 			</param>
 		<param name="spacer" type="text" default="" label="Разделитель пунктов" description="" />
-
+		
+		<param name="css" type="radio" default="1" label="Подключать CSS модуля" description="Подключать CSS модуля или использовать стиили шаблона">
+			<option value="0">Нет</option>
+			<option value="1">Да</option>
+		</param>
 		<param type="tabs" default="endTab" />
 
 		<param type="tabs" default="startTab" name="1" label="Пошаговое"/>

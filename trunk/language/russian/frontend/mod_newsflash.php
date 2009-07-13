@@ -9,3 +9,6 @@
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
+
+DEFINE('_MOD_NEWSFLASH_NEWS','Новости');
+DEFINE('_MOD_NEWSFLASH_READMORE','все новости');
