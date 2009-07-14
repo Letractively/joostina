@@ -50,6 +50,10 @@ $database = &database::getInstance();
 require_once ($mosConfig_absolute_path.'/includes/libraries/gacl/gacl.class.php');
 $acl = new gacl_api();
 
+/* вспомогательная библиотека работы с массивами */
+mosMainFrame::addLib('array');
+
+
 // корректировка работы с данными полученными от сервера
 if(isset($_SERVER['REQUEST_URI'])) {
 	$request_uri = $_SERVER['REQUEST_URI'];
@@ -2610,7 +2614,7 @@ class mosHTML {
 	* @param mixed The key that is selected
 	* @returns string HTML for the select list
 	*/
-	function selectList(&$arr,$tag_name,$tag_attribs,$key,$text,$selected = null) {
+	function selectList(&$arr,$tag_name,$tag_attribs,$key,$text,$selected = null, $first_el_key = '*000', $first_el_text = '*000') {
 		// check if array
 		if(is_array($arr)) {
 			reset($arr);
@@ -2618,6 +2622,10 @@ class mosHTML {
 
 		$html = "\n<select name=\"$tag_name\" $tag_attribs>";
 		$count = count($arr);
+		
+		if ($first_el_key!='*000' && $first_el_text!='*000') {
+			$html .= "\n\t<option value=\"$first_el_key\">$first_el_text</option>";
+		}
 
 		for($i = 0,$n = $count; $i < $n; $i++) {
 			$k = $arr[$i]->$key;
@@ -3176,6 +3184,8 @@ function mosBindArrayToObject($array,&$obj,$ignore = '',$prefix = null,$checkSla
 	}
 	return true;
 }
+
+
 
 /**
 * Utility function to read the files in a directory

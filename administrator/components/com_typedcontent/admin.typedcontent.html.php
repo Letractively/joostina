@@ -543,6 +543,23 @@ class HTML_typedcontent {
 	</table>
 <?php
 	$tabs->endTab();
+	$tabs->startTab(_TEMPLATES,"template-page");
+?>
+<table class="adminform">
+	<tr>
+		<th colspan="2"><?php echo _TEMPLATES?></th>
+	</tr>
+<?php
+	$templates = new jstContentTemplate;
+	$curr_templates = $templates->parse_curr_templates($row->templates);
+?>
+	<tr>
+		<td><?php echo _CC_PAGE_TEMPLATE?>: </td>
+		<td><?php echo $templates->templates_select_list('item_static', $curr_templates); ?> </td>
+	</tr>
+</table>
+<?php
+		$tabs->endTab();
 	$tabs->endPane();
 ?>
 				</div>
