@@ -2343,6 +2343,30 @@ class mosModule extends mosDBTable {
         }
 		return false;
     }
+    
+    function load_module($name = '', $title = ''){ 
+    	
+   		$where = " m.module = '".$name."'";
+   		if(!$name || $title){
+   			$where = " m.title = '".$title."'";	
+   		}
+
+    	
+		$query = "SELECT * FROM #__modules AS m WHERE ".$where;
+		$row = null;	
+		$this->_db->setQuery($query);
+		$this->_db->loadObject($row);
+
+		$rows = get_object_vars($this);
+
+		foreach ($rows as $key => $value) {
+			
+			if (isset($row->$key)) {
+				$this->$key = $row->$key;				
+			}
+		}
+		return true;   	
+    }
 
 }
 
@@ -5234,7 +5258,7 @@ class mosCommonHTML {
 		}
 	}
 	/* подключение расширений Jquery*/
-	function loadJqueryPlugins($name,$ret = false, $css = '', $footer = '') {
+	function loadJqueryPlugins($name,$ret = false, $css = false, $footer = '') {
 		$mainframe = &MosMainFrame::getInstance();
 		$config = &Jconfig::getInstance();
 

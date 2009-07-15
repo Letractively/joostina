@@ -11,6 +11,7 @@
 defined( '_VALID_MOS' ) or die();
 
 require_once( $mainframe->getPath( 'class', 'com_content') );
+require_once( $mainframe->getPath( 'front_html', 'com_content') );
 global $my, $mosConfig_shownoauth, $mosConfig_offset, $mosConfig_link_titles, $acl;
 
 $category = new stdClass();
@@ -44,7 +45,7 @@ if(!$params->get('template', '')){
     	case 'vert':
             $params->set('template', 'vertical.php');
     		break;
-    	case 'flash':
+    	case 'random':
     	default:
         	srand ((double) microtime()* 1000000);
 	        $flashnum = rand( 0, $params->get('numrows') - 1 );
@@ -52,6 +53,14 @@ if(!$params->get('template', '')){
             $params->set('template', 'flash.php');
     		break;
     }
+}
+else{
+
+	if($params->get('style')=='random'){
+		srand ((double) microtime()* 1000000);
+  		$flashnum = rand( 0, $params->get('numrows') - 1 );
+	    $row = $items[$flashnum];	
+	}
 }
 
 //Подключаем вспомогательный класс
