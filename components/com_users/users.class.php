@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
-* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
-* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
-* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
+* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
 */
 
-// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+// запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 global $mosConfig_absolute_path;
@@ -229,7 +229,7 @@ class mosUser extends mosDBTable {
 		}
 	}
 	/**
-	* С„СѓРЅРєС†РёСЏ РїРѕР»СѓС‡РµРЅРёСЏ Р°РІР°С‚Р°СЂР° РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ, РІРѕР·РІСЂР°С‰Р°РµС‚ РїСѓС‚СЊ Рє РёР·РѕР±СЂР°Р¶РµРЅРёСЏ Р°РІР°С‚Р°СЂР° РѕС‚ РєРѕСЂРЅСЏ СЃР°Р№С‚Р°
+	* функция получения аватара пользователя, возвращает путь к изображения аватара от корня сайта
 	*/
 	function get_avatar($user){
 		global $mosConfig_absolute_path;
@@ -241,9 +241,13 @@ class mosUser extends mosDBTable {
 		}
 		return $img;
 	}
+	
+	function get_link($user){
+		return sefRelToAbs('index.php?option=com_users&task=profile&user='.$user->id);	
+	}
 
 	/**
-	* РџРѕР»СѓС‡РµРЅРёРµ СЃС‚Р°С‚СѓСЃР° РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
+	* Получение статуса пользователя
 	*/
 	function get_user_status($uid){
 
@@ -260,7 +264,7 @@ class mosUser extends mosDBTable {
 	}
 
 	/**
-	* РџРѕР»СѓС‡РµРЅРёРµ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹С… РґР°РЅРЅС‹С… РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
+	* Получение дополнительных данных пользователя
 	*/
 	function get_user_extra($uid){
 
@@ -272,7 +276,7 @@ class mosUser extends mosDBTable {
 	}
 
 	/**
-	* РЎРјРµРЅР° Р°РІР°С‚Р°СЂР°
+	* Смена аватара
 	*/
 
 	function update_avatar($id = null, $img, $del=null){
@@ -322,11 +326,11 @@ class mosUser extends mosDBTable {
 		switch($user->user_extra->gender){
 			case 'female':
 			default:
-				$gender = 'Р¶РµРЅСЃРєРёР№';
+				$gender = 'женский';
 				break;
 
 			case 'male':
-				$gender = 'РјСѓР¶СЃРєРѕР№';
+				$gender = 'мужской';
 				break;
 		}
 
@@ -351,27 +355,52 @@ class mosUser extends mosDBTable {
 		else{
 			$delta = DateAndTime::getDelta(DateAndTime::mysql_to_unix($user->user_extra->birthdate), DateAndTime::mysql_to_unix(_CURRENT_SERVER_TIME));
 			$age = $delta['year'];
-			return 	 $age.' '.Text::_declension($user->user_extra->birthdate ,array('РіРѕРґ', 'РіРѕРґР°', 'Р»РµС‚'));
+			return 	 $age.' '.Text::_declension($user->user_extra->birthdate ,array('год', 'года', 'лет'));
 		}
 
 	}
 	
-	function get_users($usertype = ''){
+	function get_total($usertype = ''){
 		
 		$and = '';
 		if($usertype){
 			$and .= " AND usertype='".$usertype."'";
 		}
 	
-		$query = "	SELECT *
+		$query = "	SELECT COUNT(id)
 					FROM #__users 
 					WHERE block = '0'"
 					.$and;
 			
 		$this->_db->setQuery($query);
+		return  $this->_db->loadResult();
+
+	}
+	
+	function get_users($usertype = '', $limitstart, $limit){
+		
+		$and = '';
+		if($usertype){
+			$and .= " AND usertype='".$usertype."'";
+		}
+	
+		$query = "	SELECT u.*, u_extra.*
+					FROM #__users AS u
+					LEFT JOIN #__users_extra AS u_extra ON u_extra.user_id = u.id
+					WHERE u.block = '0'"
+					.$and;
+			
+		$this->_db->setQuery($query, $limitstart, $limit);
 		return  $this->_db->loadObjectList();
 
 	}
+	
+ 	function paginate($total,$page, $limit){
+        //require_once (dirname( __FILE__ ).'/lib/pageNavigation.php');
+        mosMainFrame::getInstance()->addLib('pageNavigation');
+        $r = new mosPageNav( $total, $page, $limit );
+        return  $r;
+    }
 
 }
 
@@ -424,23 +453,23 @@ class userHelper{
 			<script type="text/javascript">
 				$(document).ready(function() {
 
-					//---РљРЅРѕРїРєР° "РЎРјРµРЅРёС‚СЊ"
+					//---Кнопка "Сменить"
 					$("a#reupload_<?php echo $form_params->img_field;?>").live('click', function () {
 						$(".upload_area_<?php echo $form_params->img_field;?>").fadeIn(1000);
 						$("#<?php echo $form_params->img_field;?>").addClass("required");
 						return false;
 					});
 
-					//---РљРЅРѕРїРєР° "РЈРґР°Р»РёС‚СЊ"
+					//---Кнопка "Удалить"
 					$('a#del_<?php echo $form_params->img_field;?>').live('click', function(){
 
-						//РРЅРґРёРєР°С‚РѕСЂ РІС‹РїРѕР»РЅРµРЅРёСЏ
+						//Индикатор выполнения
 						$('#indicate_<?php echo $form_params->img_field;?>').fadeIn(1000, function () {
 							$("#indicate_<?php echo $form_params->img_field;?>").addClass("inprogress");
-							$("#indicate_<?php echo $form_params->img_field;?>").html("РЈРґР°Р»СЏРµРј...");
+							$("#indicate_<?php echo $form_params->img_field;?>").html("Удаляем...");
 						});
 
-						//РѕС‚РїСЂР°РІР»СЏРµРј ajax-Р·Р°РїСЂРѕСЃ
+						//отправляем ajax-запрос
 						$.post( //---post:begin
 								'<?php echo $form_params->ajax_handler; ?>',
 								{
@@ -448,13 +477,13 @@ class userHelper{
 									file_name: $("#curr_<?php echo $form_params->img_field;?>").val()
 								} ,
 
-								//РїСЂРёС€С‘Р» РѕС‚РІРµС‚
+								//пришёл ответ
 								function onAjaxSuccess(data){
-									//РџР»Р°РІРЅР°СЏ СЃРјРµРЅР° РёР·РѕР±СЂР°Р¶РµРЅРёСЏ
+									//Плавная смена изображения
 									$('#current_<?php echo $form_params->img_field;?>_img').fadeOut(1000);
 									$('#current_<?php echo $form_params->img_field;?>_img').fadeOut(1000, function(){
 										$('#current_<?php echo $form_params->img_field;?>_img').html('<img class="avatar" src="<?php echo $mosConfig_live_site;?>/<?php echo $form_params->img_path;?>/'+data+'" />');
-										//РЎРєСЂС‹РІР°РµРј РёРЅРґРёРєР°С‚РѕСЂ
+										//Скрываем индикатор
 										$("#indicate_<?php echo $form_params->img_field;?>").removeClass("inprogress");
 										$("#indicate_<?php echo $form_params->img_field;?>").html("");
 
@@ -463,7 +492,7 @@ class userHelper{
 										$('#current_<?php echo $form_params->img_field;?>_img').show('slow');
 
 									});
-									//РЎРєСЂС‹РІР°РµРј РєРЅРѕРїРєСѓ "РЈРґР°Р»РёС‚СЊ"
+									//Скрываем кнопку "Удалить"
 										$('a#del_<?php echo $form_params->img_field;?>').parent().fadeOut("slow");
 
 								}
@@ -488,10 +517,10 @@ class userHelper{
 
 						<div class="user_buttons buttons_<?php echo $form_params->img_field;?>">
 							<span class="button">
-								<a class="reupload_button button"  href="#" id="reupload_<?php echo $form_params->img_field;?>">РЎРјРµРЅРёС‚СЊ</a>
+								<a class="reupload_button button"  href="#" id="reupload_<?php echo $form_params->img_field;?>">Сменить</a>
 							</span>
 							<span class="button">
-								<a class="del_button button"  href="javascript:void(0)" id="del_<?php echo $form_params->img_field;?>">РЈРґР°Р»РёС‚СЊ</a>
+								<a class="del_button button"  href="javascript:void(0)" id="del_<?php echo $form_params->img_field;?>">Удалить</a>
 							</span>
 						</div>
 
@@ -509,10 +538,10 @@ class userHelper{
 
 					<div class="user_buttons buttons_<?php echo $form_params->img_field;?>" style="display:none;">
 							<span class="button">
-								<a class="reupload_button button"  href="#" id="reupload_<?php echo $form_params->img_field;?>">РЎРјРµРЅРёС‚СЊ</a>
+								<a class="reupload_button button"  href="#" id="reupload_<?php echo $form_params->img_field;?>">Сменить</a>
 							</span>
 							<span class="button">
-								<a class="del_button button"  href="javascript:void(0)" id="del_<?php echo $form_params->img_field;?>">РЈРґР°Р»РёС‚СЊ</a>
+								<a class="del_button button"  href="javascript:void(0)" id="del_<?php echo $form_params->img_field;?>">Удалить</a>
 							</span>
 						</div>
 					</div>
@@ -542,7 +571,7 @@ function _build_img_upload_form(&$obj, $form_params){
 					});
 					$('#current_<?php echo $form_params->img_field;?>').fadeOut(1000);
 					if(!$('#upload_<?php echo $form_params->img_field;?>').val()){
-						$('#<?php echo $form_params->img_field;?>_uploadOutput').html('Р’С‹Р±РµСЂРёС‚Рµ РёР·РѕР±СЂР°Р¶РµРЅРёРµ');
+						$('#<?php echo $form_params->img_field;?>_uploadOutput').html('Выберите изображение');
 						return false;
 					}
 					$(".upload_area_<?php echo $form_params->img_field;?>").fadeOut(900);
@@ -580,13 +609,13 @@ function _build_img_upload_form(&$obj, $form_params){
 
 		<form name="<?php echo $form_params->img_field;?>_uploadForm" class="ajaxForm" enctype="multipart/form-data" method="post" action="ajax.index.php" id="<?php echo $form_params->img_field;?>_uploadForm">
 			<input name="<?php echo $form_params->img_field;?>"  id="upload_<?php echo $form_params->img_field;?>"  type="file" />
-			<span class="button"><button type="button" id="<?php echo $form_params->img_field;?>_upload_button" class="button" >Р—Р°РіСЂСѓР·РёС‚СЊ</button></span>
+			<span class="button"><button type="button" id="<?php echo $form_params->img_field;?>_upload_button" class="button" >Загрузить</button></span>
 			<input type="hidden" name="task" value="upload_<?php echo $form_params->img_field;?>" />
 			<input type="hidden" name="id" value="<?php echo $obj->id;?>" />
 			<input type="hidden" name="option" value="com_users" />
 		</form>
 
-		<div id="<?php echo $form_params->img_field;?>_uploadOutput" style="display:none;">Р—Р°РіСЂСѓР·РєР°</div>
+		<div id="<?php echo $form_params->img_field;?>_uploadOutput" style="display:none;">Загрузка</div>
 	<?php
 	}
 

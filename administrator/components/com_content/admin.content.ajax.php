@@ -287,13 +287,11 @@ function x_save() {
  	//Подготовка тэгов
     $tags = explode(',', $_POST['tags']);
     $tags = ArrayHelper::clear($tags);
-    if(count($tags)){
-        $tag = new contentTags($database);
-    	$tags = $tag->clear_tags($tags);
-    	//Запись тэгов
-    	$row->obj_type = 'com_content';
-    	$tag->update($tags, $row);	
-    }
+    $tag = new contentTags($database);
+   	$tags = $tag->clear_tags($tags);
+   	$row->obj_type = 'com_content';
+   	$tag->update($tags, $row);	
+
 
 
 	// manage frontpage items

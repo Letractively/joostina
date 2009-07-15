@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2009 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
-* @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
-* Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
-* Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
+* @copyright Àâòîðñêèå ïðàâà (C) 2008-2009 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
 */
 
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
 
 global $my, $task, $option, $mosConfig_frontend_login, $mosConfig_useractivation;
@@ -114,7 +114,7 @@ function profile($option){
 	$row = new mosUser($database);
 	//$row->load((int)$uid);
 	if($row->load((int)$uid)){
-		//Ð”Ð¾Ð¿Ð¾Ð»Ð½Ð¸Ñ‚ÐµÐ»ÑŒÐ½Ð°Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ñ Ð¾ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»Ðµ
+		//Äîïîëíèòåëüíàÿ èíôîðìàöèÿ î ïîëüçîâàòåëå
 		$row->user_extra = $row->get_user_extra($uid);
 
 		$file = $mainframe->getPath('com_xml','com_users');
@@ -124,7 +124,7 @@ function profile($option){
 
 		HTML_user::profile($row,$option, $params, $config);
 	}else{
-	echo 'Ð˜Ð·Ð²Ð¸Ð½Ð¸Ñ‚Ðµ, Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»ÑŒ Ð½Ðµ Ð½Ð°Ð¹Ð´ÐµÐ½';
+	echo 'Èçâèíèòå, ïîëüçîâàòåëü íå íàéäåí';
 	}
 
 }
@@ -262,7 +262,7 @@ function userlist(){
 	$db = &database::getInstance();
 	$mainframe = &mosMainFrame::getInstance();
 	
-	$gid = intval(mosGetParam($_REQUEST,'group',0));	
+	$gid = intval(mosGetParam($_REQUEST,'group',0));
 	
 	if(isset($mainframe->menu)){
 		$menu = $mainframe->menu;		
@@ -278,6 +278,9 @@ function userlist(){
 		
 	$params = new mosParameters($mainframe->menu->params);
 	$usertype = $acl->get_group_name($params->get('group', 0));
+	
+	$limit		= intval(mosGetParam($_REQUEST,'limit',$params->get('limit',20)));
+    $limitstart	= intval(mosGetParam($_REQUEST,'limitstart',0));
 	
 	$template = 'default.php';
 	$template_dir = 'components/com_users/view/userlist';
@@ -295,11 +298,14 @@ function userlist(){
 	}
 	$template_file = $mainframe->getCfg('absolute_path').'/'.$template_dir.'/'.$template;
 	
-	//ÐŸÐ¾Ð»ÑƒÑ‡Ð°ÐµÐ¼ ÑÐ¿Ð¸ÑÐ¾Ðº Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»ÐµÐ¹
+	//Ïîëó÷àåì ñïèñîê ïîëüçîâàòåëåé
 	$users = new mosUser($db);
-	$users->user_list = $users->get_users($usertype);
+	//Îáùåå êîëè÷åñòâî
+	$users->total = $users->get_total($usertype);
+	// ñïèñîê
+	$users->user_list = $users->get_users($usertype, $limitstart, $limit);
 	
-	//ÐŸÐ¾Ð´ÐºÐ»ÑŽÑ‡Ð°ÐµÐ¼ ÑˆÐ°Ð±Ð»Ð¾Ð½
+	//Ïîäêëþ÷àåì øàáëîí
 	if(is_file($template_file)){
 		include_once($template_file);
 	}
@@ -435,7 +441,7 @@ function sendNewPass($option) {
 		session_start();
 		$captcha = $_POST['captcha'];
 		if(!isset($_SESSION['captcha_keystring']) || $_SESSION['captcha_keystring'] !==$captcha) {
-			mosErrorAlert('Ð’Ð²ÐµÐ´ÐµÐ½ Ð½ÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ ÐºÐ¾Ð´ Ð¿Ñ€Ð¾Ð²ÐµÑ€ÐºÐ¸.');
+			mosErrorAlert('Ââåäåí íåâåðíûé êîä ïðîâåðêè.');
 			unset($_SESSION['captcha_keystring']);
 			exit;
 		}
@@ -480,7 +486,7 @@ function registerForm($option,$useractivation) {
 
 	$params = new configUser_registration($database);
 
-	//ÐžÐ¿Ñ€ÐµÐ´ÐµÐ»ÑÐµÐ¼ ÑˆÐ°Ð±Ð»Ð¾Ð½ Ð´Ð»Ñ Ð²Ñ‹Ð²Ð¾Ð´Ð° Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€Ð°Ñ†Ð¸Ð¾Ð½Ð½Ð¾Ð¹ Ñ„Ð¾Ñ€Ð¼Ñ‹
+	//Îïðåäåëÿåì øàáëîí äëÿ âûâîäà ðåãèñòðàöèîííîé ôîðìû
 	$template = 'default.php';
 
 	if(!$params->get('template')){
@@ -518,7 +524,7 @@ function saveRegistration() {
 		$captcha = $_POST['captcha'];
 		if(!isset($_SESSION['captcha_keystring']) || $_SESSION['captcha_keystring'] !==
 			$captcha) {
-			mosErrorAlert('Ð’Ð²ÐµÐ´ÐµÐ½ Ð½ÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ ÐºÐ¾Ð´ Ð¿Ñ€Ð¾Ð²ÐµÑ€ÐºÐ¸.');
+			mosErrorAlert('Ââåäåí íåâåðíûé êîä ïðîâåðêè.');
 			unset($_SESSION['captcha_keystring']);
 			exit;
 		}
@@ -573,7 +579,7 @@ function saveRegistration() {
 	$email_info['email']	= trim($row->email);
 	$email_info['username']	= trim($row->username);
 
-	//ÐŸÐ¾Ð´Ð³Ð¾Ñ‚Ð°Ð²Ð»Ð¸Ð²Ð°ÐµÐ¼ Ð¿Ð¸ÑÑŒÐ¼Ð¾ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»ÑŽ
+	//Ïîäãîòàâëèâàåì ïèñüìî ïîëüçîâàòåëþ
 	$email_info['subject'] = sprintf(_SEND_SUB, $email_info['name'], $mosConfig_sitename);
 	$email_info['subject'] = html_entity_decode($email_info['subject'], ENT_QUOTES);
 
@@ -601,19 +607,19 @@ function saveRegistration() {
 		$email_info['adminEmail'] = $row2->email;
 	}
 
-	// ÐžÑ‚ÑÑ‹Ð»Ð°ÐµÐ¼ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»ÑŽ Ð¿Ð¸ÑÑŒÐ¼Ð¾ Ñ‚Ð¾Ð»ÑŒÐºÐ¾ Ð² ÑÐ»ÑƒÑ‡Ð°Ðµ, ÐµÑÐ»Ð¸ Ð½Ðµ Ð²ÐºÐ»ÑŽÑ‡ÐµÐ½Ð¾ "ÐÐºÑ‚Ð¸Ð²Ð°Ñ†Ð¸Ñ Ð°Ð´Ð¼Ð¸Ð½Ð¸ÑÑ‚Ñ€Ð°Ñ‚Ð¾Ñ€Ð¾Ð¼"
+	// Îòñûëàåì ïîëüçîâàòåëþ ïèñüìî òîëüêî â ñëó÷àå, åñëè íå âêëþ÷åíî "Àêòèâàöèÿ àäìèíèñòðàòîðîì"
 	if(!$params->get('admin_activation')){
 		$row->send_mail_to_user($email_info);
 	}
 
 
-	// ÐŸÐ¾Ð´Ð³Ð¾Ñ‚Ð°Ð²Ð»Ð¸Ð²Ð°ÐµÐ¼ Ð¿Ð¸ÑÑŒÐ¼Ð¾ Ð°Ð´Ð¼Ð¸Ð½Ð¸ÑÑ‚Ñ€Ð°Ñ‚Ð¾Ñ€Ð°Ð¼ ÑÐ°Ð¹Ñ‚Ð°
+	// Ïîäãîòàâëèâàåì ïèñüìî àäìèíèñòðàòîðàì ñàéòà
 	$email_info['subject'] = sprintf(_SEND_SUB, $email_info['name'],$mosConfig_sitename);
 	$email_info['message'] = sprintf(_ASEND_MSG, $email_info['adminName'],
 							$mosConfig_sitename, $row->name, $email_info['email'],$email_info['username']);
 	$email_info['subject'] = html_entity_decode($email_info['subject'],ENT_QUOTES);
 	$email_info['message'] = html_entity_decode($email_info['message'],ENT_QUOTES);
-	//Ð¾Ñ‚Ð¿Ñ€Ð°Ð²Ð»ÑÐµÐ¼ Ð¿Ð¸ÑÑŒÐ¼Ð°
+	//îòïðàâëÿåì ïèñüìà
 	$row->send_mail_to_admins($email_info);
 
 
@@ -622,20 +628,20 @@ function saveRegistration() {
 
 		$msg = _REG_COMPLETE_ACTIVATE;
 		if($params->get('admin_activation')){
-			$msg = 'Ð‘Ð»Ð°Ð³Ð¾Ð´Ð°Ñ€Ð¸Ð¼ Ð·Ð° Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€Ð°Ñ†Ð¸ÑŽ. Ð”Ð¾ÑÑ‚ÑƒÐ¿ Ðº Ð°ÐºÐºÐ°ÑƒÐ½Ñ‚Ñƒ Ð±ÑƒÐ´ÐµÑ‚ Ð¿Ñ€ÐµÐ´Ð¾ÑÑ‚Ð°Ð²Ð»ÐµÐ½ Ð¿Ð¾ÑÐ»Ðµ Ð¿Ñ€Ð¾Ð²ÐµÑ€ÐºÐ¸ Ð¼Ð¾Ð´ÐµÑ€Ð°Ñ‚Ð¾Ñ€Ð¾Ð¼.';
+			$msg = 'Áëàãîäàðèì çà ðåãèñòðàöèþ. Äîñòóï ê àêêàóíòó áóäåò ïðåäîñòàâëåí ïîñëå ïðîâåðêè ìîäåðàòîðîì.';
 		}
 
 		if($params->get('redirect_url')){
 			mosRedirect($params->get('redirect_url'), $msg);
 		}
 
-		//ÐžÐ¿Ñ€ÐµÐ´ÐµÐ»ÑÐµÐ¼ ÑˆÐ°Ð±Ð»Ð¾Ð½
+		//Îïðåäåëÿåì øàáëîí
 		$template = 'default.php';
 
-		//Ð•ÑÐ»Ð¸ Ð² Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ð°Ñ… Ð½Ð°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸ Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€Ð°Ñ†Ð¸Ð¸ Ð·Ð°Ð´Ð°Ð½Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ð½Ð¸Ðµ
-		//Ñ€Ð°Ð·Ð½Ñ‹Ñ… ÑˆÐ°Ð±Ð»Ð¾Ð½Ð¾Ð² Ð´Ð»Ñ Ñ€Ð°Ð·Ð½Ñ‹Ñ… Ð³Ñ€ÑƒÐ¿Ð¿ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»ÐµÐ¹ -
-		//Ð´Ð°Ñ‘Ð¼ Ð²Ð¾Ð·Ð¼Ð¾Ð¶Ð½Ð¾ÑÑ‚ÑŒ Ð²Ñ‹Ð²Ð¾Ð´Ð¸Ñ‚ÑŒ ÑÐ¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ñ Ñ‚Ð°ÐºÐ¶Ðµ Ñ Ð¿Ð¾Ð¼Ð¾Ñ‰ÑŒÑŽ Ñ€Ð°Ð·Ð½Ñ‹Ñ… ÑˆÐ°Ð±Ð»Ð¾Ð½Ð¾Ð²
-		//Ð•ÑÐ»Ð¸ ÑˆÐ°Ð±Ð»Ð¾Ð½ Ð´Ð»Ñ Ð³Ñ€ÑƒÐ¿Ð¿Ñ‹ Ð½Ðµ Ð½Ð°Ð¹Ð´ÐµÐ½ - Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼ ÑÑ‚Ð°Ð½Ð´Ð°Ñ€Ñ‚Ð½Ñ‹Ð¹ ÑˆÐ°Ð±Ð»Ð¾Ð½
+		//Åñëè â ïàðàìåòðàõ íàñòðîéêè ðåãèñòðàöèè çàäàíî èñïîëüçîâàíèå
+		//ðàçíûõ øàáëîíîâ äëÿ ðàçíûõ ãðóïï ïîëüçîâàòåëåé -
+		//äà¸ì âîçìîæíîñòü âûâîäèòü ñîîáùåíèÿ òàêæå ñ ïîìîùüþ ðàçíûõ øàáëîíîâ
+		//Åñëè øàáëîí äëÿ ãðóïïû íå íàéäåí - èñïîëüçóåì ñòàíäàðòíûé øàáëîí
 		if(!$params->get('template')){
 			$group_name = $acl->get_group_name($row->gid,'ARO');
 			if($group_name){
