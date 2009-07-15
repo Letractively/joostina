@@ -17,5 +17,7 @@
 			<option value="0">Системная</option>
 			<option value="1">Папка шаблона сайта</option>
 		</param>
+		<param name="limit" type="text" default="20" label="Количество записе на страницу" description="" />
+		<param name="header" type="text" default="" label="Заголовок страницы" description="" />
 	</params>
 </mosinstall>

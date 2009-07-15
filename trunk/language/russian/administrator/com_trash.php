@@ -24,3 +24,4 @@ DEFINE('_OBJECTS_DELETED','Объект(ы) успешно удален(ы)');
 DEFINE('_SUCCESS_DELETION','Успешно удалено');
 DEFINE('_OBJECTS_RESTORED','Объект(ов) успешно восстановлен(о)');
 DEFINE('_CLEAR_TRASH','Очистить корзину');
+DEFINE('_COM_TRASH_OBJECT_COUNT','Кол-во объектов'); 

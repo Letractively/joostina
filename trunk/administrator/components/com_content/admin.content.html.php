@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined('_VALID_MOS') or die();
 
 /**
@@ -30,22 +30,22 @@ class HTML_content {
 		mosCommonHTML::loadDtree();
 	?>
 	<script type="text/javascript">
-		// смена статуса отображения на главной странице
+		// СЃРјРµРЅР° СЃС‚Р°С‚СѓСЃР° РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РЅР° РіР»Р°РІРЅРѕР№ СЃС‚СЂР°РЅРёС†Рµ
 		function ch_fpage(elID){
-			log('Смена отображения на главной: '+elID);
+			log('РЎРјРµРЅР° РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РЅР° РіР»Р°РІРЅРѕР№: '+elID);
 			SRAX.get('img-fpage-'+elID).src = 'images/aload.gif';
 			dax({
 				url: 'ajax.index.php?option=com_content&utf=0&task=frontpage&id='+elID,
 				id:'fpage-'+elID,
 				callback:
 					function(resp, idTread, status, ops){
-						log('Получен ответ: ' + resp.responseText);
+						log('РџРѕР»СѓС‡РµРЅ РѕС‚РІРµС‚: ' + resp.responseText);
 						SRAX.get('img-fpage-' + elID).src = 'images/'+resp.responseText;
 			}});
 		}
-		// перемещение содержимого в корзину
+		// РїРµСЂРµРјРµС‰РµРЅРёРµ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ РІ РєРѕСЂР·РёРЅСѓ
 		function ch_trash(elID){
-			log('Удаление в корзину: '+elID);
+			log('РЈРґР°Р»РµРЅРёРµ РІ РєРѕСЂР·РёРЅСѓ: '+elID);
 			if(SRAX.get('img-trash-'+elID).src == '<?php echo $mosConfig_live_site;?>/<?php echo ADMINISTRATOR_DIRECTORY?>/images/trash_mini.png'){
 				SRAX.get('img-trash-'+elID).src = 'images/help.png';
 				return null;
@@ -57,17 +57,17 @@ class HTML_content {
 				id:'trash-'+elID,
 				callback:
 					function(resp, idTread, status, ops){
-						log('Получен ответ: ' + resp.responseText);
+						log('РџРѕР»СѓС‡РµРЅ РѕС‚РІРµС‚: ' + resp.responseText);
 						if(resp.responseText=='1') {
-							log('Перемещение в корзину успешно: ' + elID);
+							log('РџРµСЂРµРјРµС‰РµРЅРёРµ РІ РєРѕСЂР·РёРЅСѓ СѓСЃРїРµС€РЅРѕ: ' + elID);
 							SRAX.remove('tr-el-'+elID);
 						}else{
-							log('Ошибка перемещения в корзину: ' + elID);
+							log('РћС€РёР±РєР° РїРµСЂРµРјРµС‰РµРЅРёСЏ РІ РєРѕСЂР·РёРЅСѓ: ' + elID);
 							SRAX.get('tr-el-'+elID).style.background='red';
 						}
 			}});
 		}
-		/* скрытие дерева навигации по структуре содержимого */
+		/* СЃРєСЂС‹С‚РёРµ РґРµСЂРµРІР° РЅР°РІРёРіР°С†РёРё РїРѕ СЃС‚СЂСѓРєС‚СѓСЂРµ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ */
 		function ntreetoggle(){
 			if(SRAX.get('ntdree').style.display =='none'){
 				SRAX.get('ntdree').style.display ='block';
@@ -137,25 +137,25 @@ class HTML_content {
 			$row->cat_link = 'index2.php?option=com_categories&task=editA&hidemainmenu=1&id='.$row->catid;
 
 			if($now <= $row->publish_up && $row->state == 1) {
-				// опубликовано
+				// РѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ
 				$img = 'publish_y.png';
-				//$alt = 'Опубликовано';
+				//$alt = 'РћРїСѓР±Р»РёРєРѕРІР°РЅРѕ';
 			} else if(($now <= $row->publish_down || $row->publish_down == $nullDate) && $row->state ==1) {
-				// Доступно
+				// Р”РѕСЃС‚СѓРїРЅРѕ
 				$img = 'publish_g.png';
-				//$alt = 'Опубликовано';
+				//$alt = 'РћРїСѓР±Р»РёРєРѕРІР°РЅРѕ';
 			} else if($now > $row->publish_down && $row->state == 1) {
-				// Истекло
+				// РСЃС‚РµРєР»Рѕ
 				$img = 'publish_r.png';
-				//$alt = 'Просрочено';
+				//$alt = 'РџСЂРѕСЃСЂРѕС‡РµРЅРѕ';
 			} elseif($row->state == 0) {
-				// Не опубликовано
+				// РќРµ РѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ
 				$img = 'publish_x.png';
-				//$alt = 'Не опубликовано';
+				//$alt = 'РќРµ РѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ';
 			}elseif($row->state == -1){
 				$img = 'publish_x.png';
 			}
-			// корректировка и проверка времени
+			// РєРѕСЂСЂРµРєС‚РёСЂРѕРІРєР° Рё РїСЂРѕРІРµСЂРєР° РІСЂРµРјРµРЅРё
 			$row->publish_up = mosFormatDate($row->publish_up,_CURRENT_SERVER_TIME_FORMAT);
 			if(trim($row->publish_down) == $nullDate || trim($row->publish_down) == '' || trim($row->publish_down) == '-') {
 				$row->publish_down = _NEVER;
@@ -189,7 +189,7 @@ class HTML_content {
 
 			$access		= mosCommonHTML::AccessProcessing($row,$i,1);
 			$checked	= mosCommonHTML::CheckedOutProcessing($row,$i);
-			// значок отображения на главной странице
+			// Р·РЅР°С‡РѕРє РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РЅР° РіР»Р°РІРЅРѕР№ СЃС‚СЂР°РЅРёС†Рµ
 			$front_img = $row->frontpage ? 'tick.png' : 'publish_x.png';
 ?>
 			<tr class="row<?php echo $k; ?>" id="tr-el-<?php echo $row->id;?>">
@@ -337,7 +337,7 @@ class HTML_content {
 					$author = $row->created_by_alias;
 				} else {
 					$linkA = 'index2.php?option=com_users&task=editA&hidemainmenu=1&id='.$row->created_by;
-					$author = '<a href="'.$linkA.'" title="Изменить данные пользователя">'.$row->author.'</a>';
+					$author = '<a href="'.$linkA.'" title="РР·РјРµРЅРёС‚СЊ РґР°РЅРЅС‹Рµ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ">'.$row->author.'</a>';
 				}
 			} else {
 				if($row->created_by_alias) {
@@ -384,14 +384,14 @@ class HTML_content {
 
 
 	/**
-	* Отображение формы создания / редактирования содержимого
+	* РћС‚РѕР±СЂР°Р¶РµРЅРёРµ С„РѕСЂРјС‹ СЃРѕР·РґР°РЅРёСЏ / СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ
 	*
-	* Новая запись характеризуется значениями <var>$row</var> и  <var>id</var>
-	* равными 0.
+	* РќРѕРІР°СЏ Р·Р°РїРёСЃСЊ С…Р°СЂР°РєС‚РµСЂРёР·СѓРµС‚СЃСЏ Р·РЅР°С‡РµРЅРёСЏРјРё <var>$row</var> Рё  <var>id</var>
+	* СЂР°РІРЅС‹РјРё 0.
 	* @param mosContent The category object
 	* @param string The html for the groups select list
 	*/
-	function editContent(&$row,$section,&$lists,&$sectioncategories,&$images,&$params,$option,$redirect,&$menus) {
+function editContent(&$row,$section,&$lists,&$sectioncategories,&$images,&$params,$option,$redirect,&$menus) {
 		global $database,$mosConfig_disable_image_tab,$mosConfig_one_editor;
 		mosMakeHtmlSafe($row);
 		$nullDate = $database->getNullDate();
@@ -425,7 +425,7 @@ class HTML_content {
 		}
 ?>
 <?php
-		// отключение вкладки "Изображения"
+		// РѕС‚РєР»СЋС‡РµРЅРёРµ РІРєР»Р°РґРєРё "РР·РѕР±СЂР°Р¶РµРЅРёСЏ"
 		if(!$mosConfig_disable_image_tab) { ?>
 			var folderimages = new Array;
 <?php
@@ -454,7 +454,7 @@ class HTML_content {
 				return;
 			}
 <?php
-	// отключение вкладки "Изображения"
+	// РѕС‚РєР»СЋС‡РµРЅРёРµ РІРєР»Р°РґРєРё "РР·РѕР±СЂР°Р¶РµРЅРёСЏ"
 	if(!$mosConfig_disable_image_tab) {
 ?>
 			var temp = new Array;
@@ -486,7 +486,7 @@ class HTML_content {
 			<?php if(!$mosConfig_one_editor) getEditorContents('editor2','fulltext'); ?>
 			<?php getEditorContents('editor3','notetext'); ?>
 <?php
-	// отключение вкладки "Изображения"
+	// РѕС‚РєР»СЋС‡РµРЅРёРµ РІРєР»Р°РґРєРё "РР·РѕР±СЂР°Р¶РµРЅРёСЏ"
 	if(!$mosConfig_disable_image_tab) {
 ?>
 			var temp = new Array;
@@ -502,7 +502,7 @@ class HTML_content {
 				form: 'adminForm',
 				callback:
 					function(resp){
-						log('Получен ответ: ' + resp.responseText);
+						log('РџРѕР»СѓС‡РµРЅ РѕС‚РІРµС‚: ' + resp.responseText);
 						mess_cool(resp.responseText);
 						SRAX.get('tb-apply').className='tb-apply';
 			}});
@@ -518,7 +518,7 @@ class HTML_content {
 				form: 'adminForm',
 				callback:
 					function(resp){
-						log('Получен ответ: ' + resp.responseText);
+						log('РџРѕР»СѓС‡РµРЅ РѕС‚РІРµС‚: ' + resp.responseText);
 						SRAX.get('metakey').value = (resp.responseText);
 			}});
 		}
@@ -540,7 +540,7 @@ class HTML_content {
 				method:'post',
 				callback:
 					function(resp){
-						log('Получен ответ: ' + resp.responseText);
+						log('РџРѕР»СѓС‡РµРЅ РѕС‚РІРµС‚: ' + resp.responseText);
 						mess_cool(resp.responseText);
 						SRAX.get('count_hits').innerHTML='0';
 			}});
@@ -550,14 +550,15 @@ class HTML_content {
 		<table class="adminheading">
 		<tr><th class="edit"><?php echo _CONTENT?>: <small><?php echo $row->id ? _EDITING: _CREATION; ?></small></th></tr>
 		</table>
+
 		<form action="index2.php" method="post" name="adminForm" id="adminForm">
-		<table class="adminform" cellspacing="0" cellpadding="0" width="100%">
-		<tr>
-			<td width="100%" valign="top">
-				<table width="100%" class="adminform" style="width:100%;" id="adminForm">
-				<tr>
-					<td width="100%">
-						<table cellspacing="0" cellpadding="0" border="0" width="100%">
+
+			<table class="adminform" cellspacing="0" cellpadding="0" width="100%"><tr>
+
+				<!--РћСЃРЅРѕРІРЅР°СЏ РѕР±Р»Р°СЃС‚СЊ СЃ СЂРµРґР°РєС‚РѕСЂРѕРј:BEGIN-->
+				<td class="main_area" width="100%" valign="top">
+
+					<table width="100%">
 						<tr>
 							<th colspan="4"><?php echo _OBJECT_DETAILS?></th>
 						</tr>
@@ -570,62 +571,78 @@ class HTML_content {
 							<td width="50%"><?php echo mosHTML::yesnoRadioList('published','',$row->state);?></td>
 						</tr>
 						<tr>
-							<td width="15"><?php echo _ALIAS?>:</td>
-							<td width="50%">
+							<td><?php echo _ALIAS?>:</td>
+							<td>
 								<input name="title_alias" type="text" class="text_area" id="title_alias" value="<?php echo $row->title_alias; ?>" size="30" style="width:99%" maxlength="255" />
 							</td>
-							<td width="15"><?php echo _ON_FRONTPAGE?>:</td>
-							<td width="50%"><?php echo mosHTML::yesnoRadioList('frontpage','',$row->frontpage ? 1:0);?></td>
+							<td><?php echo _ON_FRONTPAGE?>:</td>
+							<td><?php echo mosHTML::yesnoRadioList('frontpage','',$row->frontpage ? 1:0);?></td>
 						</tr>
 						<tr>
-							<td width="15"><?php echo _SECTION?>:</td>
-							<td width="50%"><?php echo $lists['sectionid']; ?></td>
-							<td width="15"><?php echo _CATEGORY?>:</td>
-							<td width="50%"><?php echo $lists['catid']; ?></td>
+							<td><?php echo _SECTION?>:</td>
+							<td><?php echo $lists['sectionid']; ?></td>
+							<td><?php echo _CATEGORY?>:</td>
+							<td><?php echo $lists['catid']; ?></td>
 						</tr>
-						</table>
-					</td>
-				</tr>
+
+						<tr>
+							<td><?php echo _TAGS?></td>
+							<td>
+								<input type="text" name="tags" style="width:99%" size="30" maxlength="255" value="<?php echo $row->tags; ?>" class="text_area" />
+							</td>
+							<td><?php echo _AUTHOR_BY?>:</td>
+							<td><?php echo $lists['created_by']; ?></td>
+						</tr>
+
+						<tr>
+							<td></td>
+							<td></td>
+						<td><?php echo _E_AUTHOR_ALIAS?></td>
+						<td>
+							<input type="text" name="created_by_alias" style="width:99%" size="30" maxlength="100" value="<?php echo $row->created_by_alias; ?>" class="text_area" />
+						</td>
+						</tr>
+
 				<tr>
-					<td width="100%">
+					<td colspan="4" width="100%">
 						<?php echo $mosConfig_one_editor ? '': _INTROTEXT_M ; ?>
 						<div id="intro_text"><?php editorArea('editor1',$row->introtext,'introtext','99%;','350','75','30'); ?></div>
 					</td>
 				</tr>
 				<?php if(!$mosConfig_one_editor){?>
 				<tr>
-					<td width="100%">
+					<td  colspan="4"  width="100%">
 						<?php echo _MAINTEXT_M?>
 						<div id="full_text"><?php editorArea('editor2',$row->fulltext,'fulltext','99%;','400','75','30'); ?></div>
 					</td>
 				</tr>
 				<?php };?>
 				<tr>
-					<td width="100%">
+					<td  colspan="4"  width="100%">
 						<?php echo _NOTETEXT_M?>
 						<div id="note_text"><?php editorArea('editor3',$row->notetext,'notetext','99%;','150','75','10'); ?></div>
 					</td>
 				</tr>
 				</table>
+
 			</td>
+			<!--РћСЃРЅРѕРІРЅР°СЏ РѕР±Р»Р°СЃС‚СЊ СЃ СЂРµРґР°РєС‚РѕСЂРѕРј:END-->
+
+			<!--РєРЅРѕРїРєР° СЃРєСЂС‹С‚РёСЏ РїСЂР°РІРѕР№ РєРѕР»РѕРЅРєРё:BEGIN-->
 			<td onclick="ntreetoggle();" width="1" id="tdtoogle" class="tdtoogleon">
 				<img border="0" alt="<?php echo _HIDE_PARAMS_PANEL?>" src="images/tgl.gif" />
 			</td>
+			<!--РєРЅРѕРїРєР° СЃРєСЂС‹С‚РёСЏ РїСЂР°РІРѕР№ РєРѕР»РѕРЅРєРё:END-->
+
+			<!--РїСЂР°РІР°СЏ РєРѕР»РѕРЅРєР°:BEGIN-->
 			<td valign="top" id="ncontent">
-				<img src="images/con_pix.gif" width="410px;">
-				<table class="adminform">
-				<tr>
-					<th>
-					<table class="adminform">
-						<tr>
-							<th><?php echo _SETTINGS?></th>
-						</tr>
-					</table>
-					</th>
-				</tr>
-				<tr>
-				<td>
-				<table width="100%">
+
+				<img src="images/con_pix.gif" width="410px;" />
+
+				<table width="100%"><tr><th>РРЅС„РѕСЂРјР°С†РёСЏ</th></tr></table>
+
+
+				<table class="params" width="100%">
 				<tr>
 					<td><strong><?php echo _E_STATE?></strong></td>
 					<td><?php echo $row->state > 0? _PUBLISHED :($row->state < 0? _IN_ARCHIVE : _DRAFT_NOT_PUBLISHED); ?></td>
@@ -648,30 +665,26 @@ class HTML_content {
 					<td><strong><?php echo _LAST_CHANGE?>:</strong> </td>
 					<td><?php echo $mod_date ? $mod_date.$row->modifier : _NOT_CHANGED;?></td>
 				</tr>
-				<tr>
-					<td><strong><?php echo _TAGS?>:</strong> </td>
-					<td><input type="text" name="tags" style="width:90%" size="30" maxlength="100" value="<?php echo $row->tags; ?>" class="text_area" /></td>
-				</tr>
+				<?php if($row->id) {?>
+					<tr>
+						<td><strong><?php echo _OBJECT_ID?>:</strong></td>
+						<td><?php echo $row->id; ?></td>
+					</tr>
+				<?php } ?>
+
 			</table>
 <?php
-		$tabs->startPane("content-pane");
-		$tabs->startTab(_PUBLISHING,"publish-page");
+
+
 ?>
-			<table width="100%" class="adminform">
+			<table width="100%"><tr><th><?php echo _SETTINGS?></th></tr></table>
+			<table class="params" width="100%">
+				<tr><th>РџСѓР±Р»РёРєР°С†РёСЏ</th><th></th></tr>
 					<tr>
 						<td valign="top" align="right"><?php echo _ACCESS?>:</td>
 						<td><?php echo $lists['access']; ?></td>
 					</tr>
-					<tr>
-						<td valign="top" align="right"><?php echo _E_AUTHOR_ALIAS?></td>
-						<td>
-							<input type="text" name="created_by_alias" style="width:90%" size="30" maxlength="100" value="<?php echo $row->created_by_alias; ?>" class="text_area" />
-						</td>
-					</tr>
-					<tr>
-						<td valign="top" align="right"><?php echo _AUTHOR_BY?>:</td>
-						<td><?php echo $lists['created_by']; ?></td>
-					</tr>
+
 					<tr>
 						<td valign="top" align="right"><?php echo _ORDER_DROPDOWN?>:</td>
 						<td><?php echo $lists['ordering']; ?></td>
@@ -698,136 +711,26 @@ class HTML_content {
 						</td>
 					</tr>
 				</table>
+				
 				<br />
-				<table class="adminform">
-<?php
-	if($row->id) {
-?>
+								<table class="params" width="100%">
+					<tr><th><?php echo _TEMPLATES?></th><th></th></tr>
+					<?php
+					$templates = new jstContentTemplate;
+					$curr_templates = $templates->parse_curr_templates($row->templates);
+					?>
 					<tr>
-						<td><strong><?php echo _OBJECT_ID?>:</strong></td>
-						<td><?php echo $row->id; ?></td>
+						<td><?php echo _CC_PAGE_TEMPLATE?>: </td>
+						<td><?php echo $templates->templates_select_list('item_full', $curr_templates); ?> </td>
 					</tr>
-<?php
-		}
-?>
-			</table>
-<?php
-		$tabs->endTab();
-		// отключение вкладки "Изображения"
-		if(!$mosConfig_disable_image_tab) {
-			$tabs->startTab(_IMAGES,"images-page");
-?>
-					<table class="adminform" width="100%">
-					<tr>
-						<td colspan="2">
-							<table width="100%">
-							<tr>
-								<td width="48%" valign="top">
-									<div align="center">
-										<?php echo _E_GALLERY_IMAGES?>:
-										<br />
-										<?php echo $lists['imagefiles']; ?>
-									</div>
-								</td>
-								<td width="2%">
-									<input class="button" type="button" value=">>" onclick="addSelectedToList('adminForm','imagefiles','imagelist')" title="Добавить" />
-									<br />
-									<input class="button" type="button" value="<<" onclick="delSelectedFromList('adminForm','imagelist')" title="Удалить" />
-								</td>
-								<td width="48%">
-									<div align="center">
-										<?php echo _USED_IMAGES?>:
-										<br />
-										<?php echo $lists['imagelist']; ?>
-										<br />
-										<input class="button" type="button" value="<?php echo _TO_TOP?>" onclick="moveInList('adminForm','imagelist',adminForm.imagelist.selectedIndex,-1)" />
-										<input class="button" type="button" value="<?php echo _TO_BOTTOM?>" onclick="moveInList('adminForm','imagelist',adminForm.imagelist.selectedIndex,+1)" />
-									</div>
-								</td>
-							</tr>
-							</table>
-							<?php echo _SUBDIRECTORY?>: <?php echo $lists['folders']; ?>
-						</td>
-					</tr>
-					<tr valign="top">
-						<td>
-							<div align="center">
-								<?php echo _IMAGE_EXAMPLE?>:<br />
-								<img name="view_imagefiles" src="../images/M_images/blank.png" alt="<?php echo _IMAGE_EXAMPLE?>" width="100" />
-							</div>
-						</td>
-						<td valign="top">
-							<div align="center">
-								<?php echo _ACTIVE_IMAGE?>:<br />
-								<img name="view_imagelist" src="../images/M_images/blank.png" alt="Активное изображение" width="100" />
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2">
-						<?php echo _EDIT_IMAGE?>:
-							<table>
-							<tr>
-								<td align="right"><?php echo _SOURCE?>:</td>
-								<td><input style="width:99%" class="text_area" type="text" name= "_source" value="" /></td>
-							</tr>
-							<tr>
-								<td align="right"><?php echo _ALIGN?>:</td>
-								<td><?php echo $lists['_align']; ?></td>
-							</tr>
-							<tr>
-								<td align="right"><?php echo _E_ALT?>:</td>
-								<td><input style="width:99%" class="text_area" type="text" name="_alt" value="" /></td>
-							</tr>
-							<tr>
-								<td align="right"><?php echo _E_BORDER?></td>
-								<td><input class="text_area" type="text" name="_border" value="" size="3" maxlength="1" /></td>
-							</tr>
-							<tr>
-								<td align="right"><?php echo _CAPTION?>:</td>
-								<td><input class="text_area" type="text" name="_caption" value="" size="30" /></td>
-							</tr>
-							<tr>
-								<td align="right"><?php echo _CAPTION_POSITION?>:</td>
-								<td><?php echo $lists['_caption_position']; ?></td>
-							</tr>
-							<tr>
-								<td align="right"><?php echo _CAPTION_ALIGN?>:</td>
-								<td><?php echo $lists['_caption_align']; ?></td>
-							</tr>
-							<tr>
-								<td align="right"><?php echo _CAPTION_WIDTH?>:</td>
-								<td><input class="text_area" type="text" name="_width" value="" size="5" maxlength="5" /></td>
-							</tr>
-							<tr>
-								<td colspan="2"><input class="button" type="button" value="<?php echo _APPLY?>" onclick="applyImageProps()" /></td>
-							</tr>
-							</table>
-						</td>
-					</tr>
-					</table>
-<?php
-		$tabs->endTab();
-		} else
-		echo '<input type="hidden" name="images" id="images" value="" />';
-		$tabs->startTab(_PARAMETERS,"params-page");
-?>
-					<table class="adminform">
-					<tr>
-						<td>
-						<?php echo _PARAMS_IN_VIEW?>
-						<br />
-						</td>
-					</tr>
-					<tr>
-						<td><?php echo $params->render(); ?></td>
-					</tr>
-					</table>
-<?php
-		$tabs->endTab();
-		$tabs->startTab(_METADATA,"metadata-page");
-?>
-					<table class="adminform">
+				</table>
+				<br />
+				
+		
+				
+				
+				<table class="params" width="100%">
+				<tr><th><?php echo _METADATA?></th><th></th></tr>
 					<tr>
 							<td><?php echo _DESCRIPTION?>:
 							<br />
@@ -851,72 +754,169 @@ class HTML_content {
 						<td><?php echo _ROBOTS_PARAMS?>: <br /><?php echo $lists['robots'] ?></td>
 					</tr>
 				</table>
-<?php
-		$tabs->endTab();
-		$tabs->startTab(_MENU_LINK,"link-page");
-?>
-			<table class="adminform">
-				<tr>
-					<td colspan="2"><?php echo _MENU_LINK2?></td>
-				</tr>
-				<tr>
-					<td valign="top" width="90"><?php echo _CHOOSE_MENU_PLEASE?></td>
-					<td><?php echo $lists['menuselect']; ?></td>
-				</tr>
-				<tr>
-					<td valign="top" width="90"><?php echo _MENU_NAME?></td>
-					<td><input style="width:90%" type="text" name="link_name" class="text_area" value="" size="30" /></td>
-				</tr>
-				<tr>
-					<td>&nbsp;</td>
-					<td><input name="menu_link" type="button" class="button" value="<?php echo _CC_LINK_TO_MENU?>" onclick="submitbutton('menulink');" /></td>
-				</tr>
-				<tr>
-					<th colspan="2"><?php echo _EXISTED_MENUITEMS?></th>
-				</tr>
-<?php
-		if($menus == null) {
-?>
-				<tr>
-					<td colspan="2"><?php echo _NOT_EXISTS?></td>
-				</tr>
-<?php
-		} else {
-			mosCommonHTML::menuLinksContent($menus);
-		}
-?>
-				<tr>
-					<td colspan="2">&nbsp;</td>
-				</tr>
-			</table>
-<?php
-		$tabs->endTab();
-		$tabs->startTab(_TEMPLATES,"template-page");
-?>
-<table class="adminform">
-	<tr>
-		<th colspan="2"><?php echo _TEMPLATES?></th>
-	</tr>
-<?php
-	$templates = new jstContentTemplate;
-	$curr_templates = $templates->parse_curr_templates($row->templates);
-?>
-	<tr>
-		<td><?php echo _CC_PAGE_TEMPLATE?>: </td>
-		<td><?php echo $templates->templates_select_list('item_full', $curr_templates); ?> </td>
-	</tr>
-</table>
-<?php
-		$tabs->endTab();
-		$tabs->endPane();
-?>
+				
+				<br />
+				
+				<table class="params" width="100%">
+					<tr><th>Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅРѕ</th><th></th></tr>
+				</table>
 
-				</td>
-			</tr>
-		</table>
-		</tr>
+				<?php $tabs->startPane("content-pane"); ?>
+				
+					<?php $tabs->startTab(_MENU_LINK,"link-page"); ?>
+						<table class="adminform">
+							<tr>
+								<td colspan="2"><?php echo _MENU_LINK2?></td>
+							</tr>
+							<tr>
+								<td valign="top" width="90"><?php echo _CHOOSE_MENU_PLEASE?></td>
+								<td><?php echo $lists['menuselect']; ?></td>
+							</tr>
+							<tr>
+								<td valign="top" width="90"><?php echo _MENU_NAME?></td>
+								<td><input style="width:90%" type="text" name="link_name" class="text_area" value="" size="30" /></td>
+							</tr>
+							<tr>
+								<td>&nbsp;</td>
+								<td><input name="menu_link" type="button" class="button" value="<?php echo _CC_LINK_TO_MENU?>" onclick="submitbutton('menulink');" /></td>
+							</tr>
+							<tr>
+								<th colspan="2"><?php echo _EXISTED_MENUITEMS?></th>
+							</tr>
+							<?php if($menus == null) { ?>
+							<tr>
+								<td colspan="2"><?php echo _NOT_EXISTS?></td>
+							</tr>
+							<?php } else {
+								mosCommonHTML::menuLinksContent($menus);
+							}?>
+							<tr>
+								<td colspan="2">&nbsp;</td>
+							</tr>
+						</table>
+					<?php $tabs->endTab(); ?>
+					
+					
+					<?php		
+					// РѕС‚РєР»СЋС‡РµРЅРёРµ РІРєР»Р°РґРєРё "РР·РѕР±СЂР°Р¶РµРЅРёСЏ"
+					if(!$mosConfig_disable_image_tab) {
+						$tabs->startTab(_IMAGES,"images-page");
+					?>
+						<table class="adminform" width="100%">
+							<tr>
+								<td colspan="2">
+									<table width="100%">
+									<tr>
+										<td width="48%" valign="top">
+											<div align="center">
+												<?php echo _E_GALLERY_IMAGES?>:
+												<br />
+												<?php echo $lists['imagefiles']; ?>
+											</div>
+										</td>
+										<td width="2%">
+											<input class="button" type="button" value=">>" onclick="addSelectedToList('adminForm','imagefiles','imagelist')" title="Р”РѕР±Р°РІРёС‚СЊ" />
+											<br />
+											<input class="button" type="button" value="<<" onclick="delSelectedFromList('adminForm','imagelist')" title="РЈРґР°Р»РёС‚СЊ" />
+										</td>
+										<td width="48%">
+											<div align="center">
+												<?php echo _USED_IMAGES?>:
+												<br />
+												<?php echo $lists['imagelist']; ?>
+												<br />
+												<input class="button" type="button" value="<?php echo _TO_TOP?>" onclick="moveInList('adminForm','imagelist',adminForm.imagelist.selectedIndex,-1)" />
+												<input class="button" type="button" value="<?php echo _TO_BOTTOM?>" onclick="moveInList('adminForm','imagelist',adminForm.imagelist.selectedIndex,+1)" />
+											</div>
+										</td>
+									</tr>
+									</table>
+									<?php echo _SUBDIRECTORY?>: <?php echo $lists['folders']; ?>
+								</td>
+							</tr>
+							<tr valign="top">
+								<td>
+									<div align="center">
+										<?php echo _IMAGE_EXAMPLE?>:<br />
+										<img name="view_imagefiles" src="../images/M_images/blank.png" alt="<?php echo _IMAGE_EXAMPLE?>" width="100" />
+									</div>
+								</td>
+								<td valign="top">
+									<div align="center">
+										<?php echo _ACTIVE_IMAGE?>:<br />
+										<img name="view_imagelist" src="../images/M_images/blank.png" alt="РђРєС‚РёРІРЅРѕРµ РёР·РѕР±СЂР°Р¶РµРЅРёРµ" width="100" />
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+								<?php echo _EDIT_IMAGE?>:
+									<table>
+									<tr>
+										<td align="right"><?php echo _SOURCE?>:</td>
+										<td><input style="width:99%" class="text_area" type="text" name= "_source" value="" /></td>
+									</tr>
+									<tr>
+										<td align="right"><?php echo _ALIGN?>:</td>
+										<td><?php echo $lists['_align']; ?></td>
+									</tr>
+									<tr>
+										<td align="right"><?php echo _E_ALT?>:</td>
+										<td><input style="width:99%" class="text_area" type="text" name="_alt" value="" /></td>
+									</tr>
+									<tr>
+										<td align="right"><?php echo _E_BORDER?></td>
+										<td><input class="text_area" type="text" name="_border" value="" size="3" maxlength="1" /></td>
+									</tr>
+									<tr>
+										<td align="right"><?php echo _CAPTION?>:</td>
+										<td><input class="text_area" type="text" name="_caption" value="" size="30" /></td>
+									</tr>
+									<tr>
+										<td align="right"><?php echo _CAPTION_POSITION?>:</td>
+										<td><?php echo $lists['_caption_position']; ?></td>
+									</tr>
+									<tr>
+										<td align="right"><?php echo _CAPTION_ALIGN?>:</td>
+										<td><?php echo $lists['_caption_align']; ?></td>
+									</tr>
+									<tr>
+										<td align="right"><?php echo _CAPTION_WIDTH?>:</td>
+										<td><input class="text_area" type="text" name="_width" value="" size="5" maxlength="5" /></td>
+									</tr>
+									<tr>
+										<td colspan="2"><input class="button" type="button" value="<?php echo _APPLY?>" onclick="applyImageProps()" /></td>
+									</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					<?php $tabs->endTab(); } else echo '<input type="hidden" name="images" id="images" value="" />'; ?>
+					
+					<?php $tabs->startTab(_PARAMETERS,"params-page");?>
+						<table class="adminform">
+						<tr>
+							<td>
+							<?php echo _PARAMS_IN_VIEW?>
+							<br />
+							</td>
+						</tr>
+						<tr>
+							<td><?php echo $params->render(); ?></td>
+						</tr>
+						</table>
+					<?php $tabs->endTab(); ?>
+					
+					
+			<?php $tabs->endPane(); ?>
+
+
 		</td>
-		</table>
+		<!--РїСЂР°РІР°СЏ РєРѕР»РѕРЅРєР°:END-->
+
+		</tr></table>
+
+
 		<input type="hidden" name="id" id="id" value="<?php echo $row->id; ?>" />
 		<input type="hidden" name="version" value="<?php echo $row->version; ?>" />
 		<input type="hidden" name="mask" value="0" />
@@ -930,7 +930,6 @@ class HTML_content {
 		<?php
 
 	}
-
 
 	/**
 	* Form to select Section/Category to move item(s) to
@@ -1090,13 +1089,13 @@ class HTML_content {
 
 		}
 		</script>
-        <h1>Конфигурация com_content</h1>
-        <h2>Настройки страницы с содержимым пользователя</h2>
+        <h1>РљРѕРЅС„РёРіСѓСЂР°С†РёСЏ com_content</h1>
+        <h2>РќР°СЃС‚СЂРѕР№РєРё СЃС‚СЂР°РЅРёС†С‹ СЃ СЃРѕРґРµСЂР¶РёРјС‹Рј РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ</h2>
         <form action="index2.php" method="post" name="adminForm">
 
             <table class="adminform">
                 <tr>
-                    <td>Заголовок страницы</td>
+                    <td>Р—Р°РіРѕР»РѕРІРѕРє СЃС‚СЂР°РЅРёС†С‹</td>
                     <td><input class="inputbox" type="text" name="title" value="<?php echo $u_page->title;?>" /></td>
                 </tr>
             </table>
