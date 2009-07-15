@@ -93,11 +93,11 @@ class modules_html {
 			$path = $config->config_absolute_path.'/language/'.$config->config_lang.'/frontend/'.$module->module.'.php';
 			//echo $path;
 			if(file_exists($path)) {
-				include ($path);
+				include_once ($path);
 			} else {
 				$path = $config->config_absolute_path.'/language/russian/frontend/'.$module->module.'.php';
 				if(file_exists($path)) {
-					include ($path);
+					include_once ($path);
 				}
 			}
 		}

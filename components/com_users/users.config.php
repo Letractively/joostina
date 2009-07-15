@@ -185,6 +185,13 @@ class configUser_profile extends dbConfig{
      * его согласно вышеописанному правилу.
      */
     var $template_edit = 1;
+    
+    /**
+     * Директория шаблона
+     * системная - шаблоны расположены в `components/com_users/view/profile`
+     * папка шаблона - шаблоны расположены в `templates/шаблон_сайта/html/com_users/profile`
+     */
+    var $template_dir = '';
    
 
     function configUser_profile(&$db, $group = 'com_users', $subgroup = 'profile')
@@ -230,6 +237,11 @@ class configUser_profile extends dbConfig{
                 <tr>
                     <th>Использовать единый шаблон редактирования данных для всех групп пользователей</th>
                     <td><?php echo mosHTML::yesnoRadioList('template_edit','',$this->template_edit ? 1:0);?></td>
+                </tr> 
+                
+                <tr>
+                    <th>Директория шаблона</th>
+                    <td><?php echo mosHTML::yesnoRadioList('template_dir','',$this->template_dir ? 1:0, 'Папка шаблона', 'Системная');?></td>
                 </tr> 
                 
             </table>

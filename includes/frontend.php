@@ -208,6 +208,79 @@ function mosLoadModules($position = 'left',$style = 0,$noindex = 0) {
 	if($noindex == 1) echo '</noindex>';
 	return;
 }
+
+/**
+* @param string The position
+* @param int The style.  0=normal, 1=horiz, -1=no wrapper
+*/
+function mosLoadModule($name = '', $title = '', $style = 0, $noindex = 0) {
+	global $my,$Itemid;
+
+	$database = &database::getInstance();
+	$config = &Jconfig::getInstance();
+
+	$tp = intval(mosGetParam($_GET,'tp',0));
+
+	if($tp && !$config->config_disable_tpreview ) {
+		echo '<div style="height:50px;background-color:#eee;margin:2px;padding:10px;border:1px solid #f00;color:#700;">';
+		echo $position;
+		echo '</div>';
+		return;
+	}
+	$style = intval($style);
+	$cache = &mosCache::getCache('modules');
+
+	require_once ($config->config_absolute_path.'/includes/frontend.html.php');
+	
+	$module = new mosModule($database);
+	$module->load_module($name, $title);
+
+	//$allModules = &initModules();
+
+
+	if($noindex == 1) echo '<noindex>';
+
+	if($style == 1) {
+		echo '<table cellspacing="1" cellpadding="0" border="0" width="100%"><tr>';
+	}
+	$prepend = ($style == 1)?"<td valign=\"top\">\n":'';
+	$postpend = ($style == 1)?"</td>\n":'';
+
+	$count = 1;
+
+
+		$params = new mosParameters($module->params);
+		echo $prepend;
+
+		if((substr($module->module,0,4)) == 'mod_') {
+			// normal modules
+			if($params->get('cache') == 1 && $config->config_caching == 1) {
+				// module caching
+				$cache->call('modules_html::module2',$module,$params,$Itemid,$style,$my->gid);
+			} else {
+				modules_html::module2($module,$params,$Itemid,$style,$count);
+			}
+		} else {
+			// custom or new modules
+			if($params->get('cache') == 1 && $config->config_caching == 1) {
+				// module caching
+				$cache->call('modules_html::module',$module,$params,$Itemid,$style,0,$my->gid);
+			} else {
+				modules_html::module($module,$params,$Itemid,$style);
+			}
+		}
+
+		echo $postpend;
+
+		$count++;
+
+	if($style == 1) {
+		echo "</tr>\n</table>\n";
+	}
+	if($noindex == 1) echo '</noindex>';
+	return;
+}
+
 /**
 * Шапка страницы
 */

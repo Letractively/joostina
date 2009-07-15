@@ -28,7 +28,8 @@ class HTML_user {
 
 function profile($user,$option, &$params, $config){
       	global $mosConfig_absolute_path,$mosConfig_frontend_userparams,$mosConfig_live_site, $my, $database, $_MAMBOTS;
-
+		$mainframe = &mosMainFrame::getInstance();
+		
         $owner=0;  $admin = 0;
         if($my->user_type = 'Super Administrator'){
              $admin = 1;
@@ -65,12 +66,19 @@ function profile($user,$option, &$params, $config){
         $user_content_href=sefRelToAbs('index.php?option=com_content&task=mycontent&user='.$user_id.'&Itemid=28');
 
 		//Шаблон
-		$template_file='default.php';
-		if(!$config->get('template')){			
-			if(is_file($mosConfig_absolute_path.'/components/com_users/view/profile/'.strtolower(str_replace(' ', '', $user->usertype )).'.php')){
-            	$template_file=strtolower(str_replace(' ', '', $user->usertype )).'.php';
-        	}	
+		$template = 'default.php';
+		$template_dir = 'components/com_users/view/profile';
+
+		
+		//Если используются разные шаблоны для разных групп пользователей
+		if(!$config->get('template')){
+			$template=strtolower(str_replace(' ', '', $user->usertype )).'.php';	
 		}
+		
+		if($config->get('template_dir')){
+			$template_dir = 'templates/' . $mainframe->getTemplate() . '/html/com_users/profile';	
+		}
+		$template_file = $mainframe->getCfg('absolute_path').'/'.$template_dir.'/'.$template;	
 		
 		
 		//Находим плагины профиля пользователя
@@ -103,7 +111,7 @@ function profile($user,$option, &$params, $config){
 		//$user->profile_plugins = $profile_plugins;
 		//$user->current_plugin = $plugin->get_current_plugin($profile_plugins);
 		
-        include ($mosConfig_absolute_path.'/components/com_users/view/profile/'.$template_file);
+        include ($template_file);
     }
 
 	function userEdit($user,$option,$submitvalue,&$params, $config) {

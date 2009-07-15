@@ -54,8 +54,6 @@ DEFINE('_MOD_FULLMENU_JOOMLA_TOOLS','Инструменты');
 DEFINE('_MOD_FULLMENU_PRIVATE_MESSAGES_CONFIG','Настройки сообщений');
 DEFINE('_MOD_FULLMENU_FILE_MANAGER','Менеджер файлов');
 DEFINE('_MOD_FULLMENU_BACKUP_CONFIG','Настройки сохранения данных');
-DEFINE('_MOD_FULLMENU_CLEAR_CONTENT_CACHE','Очистить кэш содержимого');
-DEFINE('_MOD_FULLMENU_CLEAR_ALL_CACHE','Очистить ВЕСЬ кэш');
 DEFINE('_MOD_FULLMENU_SYSTEM_INFO','Информация о системе');
 DEFINE('_MOD_FULLMENU_NO_ACTIVE_MENU_ON_THIS_PAGE','На этой странице меню не активно');
 DEFINE('_MOD_FULLMENU_MASS_CONTENT_ADD','Массовое добавление');
@@ -72,3 +70,6 @@ DEFINE('_MOD_FULLMENU_JP_CREATE_BACKUP','Создать архив данных'
 DEFINE('_MOD_FULLMENU_JP_DB_MANAGEMENT','Управление базой данных');
 DEFINE('_MOD_FULLMENU_PAGES_HITS','Статистика посещения страниц');
 DEFINE('_MOD_FULLMENU_MODULES_POSITION','Позиции модулей'); 
+DEFINE('_MOD_FULLMENU_CACHE_MANAGEMENT','Управление кешем');
+DEFINE('_MOD_FULLMENU_CLEAR_CONTENT_CACHE','Очистить кэш содержимого');
+DEFINE('_MOD_FULLMENU_CLEAR_ALL_CACHE','Очистить весь кэш');
