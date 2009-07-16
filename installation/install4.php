@@ -276,10 +276,6 @@ if($siteUrl) {
 	$config .= "\$mosConfig_clearCache = '0';\n";
 	// использование страницы печати из каталога текущего шаблона
 	$config .= "\$mosConfig_custom_print = '0';\n";
-	// отключить многоязычность модулей
-	$config .= "\$mosConfig_module_multilang = '0';\n";
-	// отключить кэш запросов БД
-	$config .= "\$mosConfig_db_cache_handler = 'none';\n";
 
 	$config .= "\$mosConfig_smtppass = '';\n";
 	$config .= "\$mosConfig_smtphost = 'localhost';\n";
