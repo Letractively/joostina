@@ -245,16 +245,6 @@ class HTML_config {
 ?>
 				</td>
 			</tr>
-			</tr>
-				<td><?php echo _MODULES_MULTI_LANG?>:</td>
-				<td>
-<?php
-		echo $lists['config_module_multilang'];
-		$tip = _MODULES_MULTI_LANG2;
-		echo mosToolTip($tip);
-?>
-				</td>
-			</tr>
 			<tr>
 				<td><?php echo _DATE_FORMAT_TXT?>:</td>
 				<td><input class="text_area" type="text" name="config_form_date" size="35" value="<?php echo $row->config_form_date; ?>"/>
