@@ -2028,8 +2028,6 @@ class JConfig {
 	var $config_mtage_revisit = 10;
 	/** @var int использование страницы печати из каталога текущего шаблона */
 	var $config_custom_print = 0;
-	/** @var int отключить многоязычность модулей */
-	var $config_module_multilang = 0;
 	/** @var int использование совместимого вывода туллбара */
 	var $config_old_toolbar = 0;
 	/** @var int отключение предпросмотра шаблонов через &tp=1 */

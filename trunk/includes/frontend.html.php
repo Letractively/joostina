@@ -88,27 +88,19 @@ class modules_html {
 
 		$moduleclass_sfx = $params->get('moduleclass_sfx');
 
-		if($config->config_module_multilang){
-			// check for custom language file
-			$path = $config->config_absolute_path.'/language/'.$config->config_lang.'/frontend/'.$module->module.'.php';
-			//echo $path;
-			if(file_exists($path)) {
-				include_once ($path);
-			} else {
-				$path = $config->config_absolute_path.'/language/russian/frontend/'.$module->module.'.php';
-				if(file_exists($path)) {
-					include_once ($path);
-				}
-			}
-		}
+		$path = $config->config_absolute_path.'/language/'.$config->config_lang.'/frontend/'.$module->module.'.php';
+		$path_def = $config->config_absolute_path.'/language/russian/frontend/'.$module->module.'.php';
+
+		file_exists($path) ? include_once ($path) : (file_exists($path_def) ? include_once ($path_def):null);
+
 
 		$number = '';
 		if($count > 0) {
 			$number = '<span>'.$count.'</span> ';
 		}
-		
+
 		$module = mosModule::convert_to_object($module);
-		
+
 		switch($style) {
 			case - 3:
 				// allows for rounded corners
@@ -137,7 +129,7 @@ class modules_html {
 		$config = &Jconfig::getInstance();
 
 		// check if cache directory is writeable
-		$cacheDir = $config->config_cachepath.'/';
+		$cacheDir = $config->config_cachepath.DS;
 		if(!is_writable($cacheDir)) {
 			$module->content = _CACHE_DIR_IS_NOT_WRITEABLE2;
 			return;
