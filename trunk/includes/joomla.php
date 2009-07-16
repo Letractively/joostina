@@ -5210,7 +5210,9 @@ class mosCommonHTML {
 			$mainframe = MosMainFrame::getInstance();
 			$mainframe->addCSS($config->config_live_site.'/includes/js/calendar/calendar-mos.css');
 			$mainframe->addJS($config->config_live_site.'/includes/js/calendar/calendar_mini.js');
-			$mainframe->addJS($config->config_live_site.'/includes/js/calendar/lang/calendar-ru.js');
+			$_lang_file = $config->config_absolute_path.'/includes/js/calendar/lang/calendar-'._LANGUAGE.'.js';
+			$_lang_file = (is_file($_lang_file)) ? $config->config_live_site.'/includes/js/calendar/lang/calendar-'._LANGUAGE.'.js' : $config->config_live_site.'/includes/js/calendar/lang/calendar-ru.js';
+			$mainframe->addJS($_lang_file);
 		}
 	}
 	/* подключение mootools*/
