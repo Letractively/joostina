@@ -401,7 +401,6 @@ function showconfig($option) {
 	$lists['one_editor']		= mosHTML::yesnoRadioList( 'config_one_editor', 'class="inputbox"', $row->config_one_editor );
 	$lists['mtage_base']		= mosHTML::yesnoRadioList( 'config_mtage_base', 'class="inputbox"', $row->config_mtage_base );
 	$lists['config_custom_print']		= mosHTML::yesnoRadioList( 'config_custom_print', 'class="inputbox"', $row->config_custom_print );
-	$lists['config_module_multilang']	= mosHTML::yesnoRadioList( 'config_module_multilang', 'class="inputbox"', $row->config_module_multilang );
 	$lists['config_old_toolbar']		= mosHTML::yesnoRadioList( 'config_old_toolbar', 'class="inputbox"', $row->config_old_toolbar );
 
 	$itemid_compat = array(
