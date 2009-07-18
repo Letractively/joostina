@@ -258,8 +258,6 @@ if($siteUrl) {
 	$config .= "\$mosConfig_disable_button_help = '1';\n";
 	// авторизовать пользователя после подтверждения регистрации
 	$config .= "\$mosConfig_auto_activ_login = '1';\n";
-	// отключение SET sql_mode
-	$config .= "\$mosConfig_sql_mode_off = '0';\n";
 	// обрамлять заголовки тегом h1
 	$config .= "\$mosConfig_title_h1 = '0';\n";
 	// обрамлять заголовки тегом h1 только в режиме полного просмотра содержимого

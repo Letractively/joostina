@@ -193,8 +193,6 @@ function showconfig($option) {
 	$lists['config_mmb_mainbody_off']= mosHTML::yesnoRadioList('config_mmb_mainbody_off','class="inputbox"',$row->config_mmb_mainbody_off);
 	// автоматическая авторизация после подтверждения регистрации
 	$lists['config_auto_activ_login']= mosHTML::yesnoRadioList('config_auto_activ_login','class="inputbox"',$row->config_auto_activ_login);
-	// автоматическая авторизация после подтверждения регистрации
-	$lists['config_sql_mode_off']= mosHTML::yesnoRadioList('config_sql_mode_off','class="inputbox"',$row->config_sql_mode_off);
 	// отключение вкладки 'Изображения'
 	$lists['config_disable_image_tab']= mosHTML::yesnoRadioList('config_disable_image_tab','class="inputbox"',$row->config_disable_image_tab);
 	// обрамлять заголовки тегом h1

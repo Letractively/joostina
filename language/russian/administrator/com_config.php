@@ -134,8 +134,6 @@ DEFINE('_DISABLE_PATHWAY_ON_FRONT','Скрывать пачвей (pathway) на
 DEFINE('_DISABLE_PATHWAY_ON_FRONT2','При включенном режиме строка \\\'Главная\\\' на первой странице сайта будет заменена на символ неразрывного пробела.');
 DEFINE('_DISABLE_RSS','Отключить генерацию RSS (syndicate)');
 DEFINE('_DISABLE_RSS2','Если `Да`, то будет отключена возможность генерации RSS лент и работа с ними');
-DEFINE('_DISABLE_SET_SQL','Отключить SET sql_mode');
-DEFINE('_DISABLE_SET_SQL2','Отключить перевод режима работы базы данных SET sql_mode');
 DEFINE('_DISABLE_SYSTEM_MAMBOTS','Отключить мамботы группы system');
 DEFINE('_DISABLE_SYSTEM_MAMBOTS2','Если `Да`, то использование системных мамботов будет прекращено. ВНИМАНИЕ, если на сайте используются мамботы этой группы, то активация параметра не рекомендуется');
 DEFINE('_DISABLE_TPREVIEW','Запретить просмотр позиций модулей шаблона');

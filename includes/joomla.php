@@ -1990,8 +1990,6 @@ class JConfig {
 	var $config_mmb_mainbody_off = 0;
 	/** @var int автоматическа€ авторизаци€ после подтверждени€ регистрации*/
 	var $config_auto_activ_login = 0;
-	/** @var int отключение SET sql_mode*/
-	var $config_sql_mode_off = 0;
 	/** @var int отключение вкладки '»зображени€'*/
 	var $config_disable_image_tab = 0;
 	/** @var int обрамл€ть заголовки тегом h1*/
