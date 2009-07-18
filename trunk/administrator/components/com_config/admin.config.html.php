@@ -747,15 +747,6 @@ class HTML_config {
 ?>
 				</td>
 			</tr>
-			<tr>
-				<td><?php echo _DISABLE_SET_SQL?>:</td>
-				<td>
-<?php echo $lists['config_sql_mode_off'];
-		$tip = _DISABLE_SET_SQL2;
-		echo mosToolTip($tip);
-?>
-				</td>
-			</tr>
 		</table>
 <?php
 		$tabs->endTab();
