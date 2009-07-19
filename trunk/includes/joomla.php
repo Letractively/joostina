@@ -2533,9 +2533,7 @@ class mosMenu extends mosDBTable {
 		}
 		$and = implode(' AND ', $and);
 		
-        $query = "  SELECT menu.*
-                    FROM #__menu AS menu
-                    ".$where.$and;
+		$query = "  SELECT menu.* FROM #__menu AS menu ".$where.$and;
         $r=null;
         $this->_db->setQuery($query);
         $this->_db->loadObject($r);
@@ -2553,11 +2551,13 @@ class mosCache {
 	/**
 	* @return object A function cache object
 	*/
-	function &getCache($group = 'default', $handler = 'callback', $storage = null){
+	function &getCache($group = 'default', $handler = 'callback', $storage = null,$cachetime = null){
 
 		$handler = ($handler == 'function') ? 'callback' : $handler;
 
 		$config = &Jconfig::getInstance();
+
+		$def_cachetime = (isset($cachetime)) ? $cachetime : $config->config_cachetime;
 
 		if(!isset($storage)) {
 			$storage =($config->config_cache_handler != '')? $config->config_cache_handler : 'file';
@@ -2566,13 +2566,14 @@ class mosCache {
 		$options = array(
 			'defaultgroup' 	=> $group,
 			'cachebase' 	=> $config->config_cachepath.'/',
-			'lifetime' 		=> $config->config_cachetime,// minutes to seconds
+			'lifetime' 		=> $def_cachetime,// minutes to seconds
 			'language' 		=> $config->config_lang,
 			'storage'		=> $storage
 		);
 
 		require_once ($config->config_absolute_path.'/includes/libraries/cache/cache.php');
 		$cache =&JCache::getInstance( $handler, $options );
+
 		if($cache != NULL){
 			$cache->setCaching($config->config_caching);
 		}
