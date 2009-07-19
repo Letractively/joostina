@@ -25,7 +25,13 @@ $cache = &mosCache::getCache('com_content');
 
 // loads function for frontpage component
 if($option == 'com_frontpage') {
-	$cache->call('frontpage');	
+	$r = $cache->call('frontpage',$my->gid);
+
+	$meta = new contentMeta($r['params']);
+	$meta->set_meta();
+
+	echo $r['content'];
+	unset($r,$cache);
 	return;
 }
 
@@ -211,7 +217,7 @@ function showUserItems() {
  */
 function frontpage() {
 	global $my;
-	
+
 	$mainframe = &mosMainFrame::getInstance();
 	$database = &database::getInstance();
 
@@ -242,11 +248,13 @@ function frontpage() {
     $params->def('pop', $pop);
     $params->page_type = 'frontpage';
 
-    // Мета-данные страницы
-    $meta = new contentMeta($params);
-    $meta->set_meta();
-
+	ob_start();
 	BlogOutput($frontpage,$params,$access);
+	$content_boby = ob_get_contents(); // главное содержимое - стек вывода компонента - mainbody
+	ob_end_clean();
+
+
+	return array('content'=>$content_boby,'params'=>$params);
 }
 
 /**
@@ -415,7 +423,7 @@ function showTableCategory($id) {
         $params->set('header',  $category->name);
     }
     $meta = new contentMeta($params);
-    $meta->set_meta();    
+    $meta->set_meta();
     
 	HTML_content::showContentList($category, $access, $params);
 	
