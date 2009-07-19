@@ -105,7 +105,7 @@ function &initModules() {
 				$my->gid==0 ? $GLOBALS['_MOS_MODULES'][$module->position][] = $module : null;
 			}else{
 				$GLOBALS['_MOS_MODULES'][$module->position][] = $module;
-				$all_modules[][$module->position][] = $module;
+				$all_modules[$module->position][] = $module;
 			}
 		}
 		unset($modules,$module);
@@ -113,7 +113,7 @@ function &initModules() {
 	return $all_modules;
 }
 /**
-* @param string THe template position
+* @param string the template position
 */
 function mosCountModules($position = 'left') {
 	global $my,$Itemid;
@@ -125,9 +125,9 @@ function mosCountModules($position = 'left') {
 		return 1;
 	}
 
-	$modules = &initModules();
-	if(isset($GLOBALS['_MOS_MODULES'][$position])) {
-		return count($GLOBALS['_MOS_MODULES'][$position]);
+	$allModules = &initModules();
+	if(isset($allModules[$position])) {
+		return count($allModules[$position]);
 	} else {
 		return 0;
 	}
@@ -151,36 +151,41 @@ function mosLoadModules($position = 'left',$style = 0,$noindex = 0) {
 		return;
 	}
 	$style = intval($style);
-	$cache = &mosCache::getCache('modules');
 
 	require_once ($config->config_absolute_path.'/includes/frontend.html.php');
 
 	$allModules = &initModules();
 
-	if(isset($GLOBALS['_MOS_MODULES'][$position])) {
-		$modules = $GLOBALS['_MOS_MODULES'][$position];
+	if(isset($allModules[$position])) {
+		$modules = $allModules[$position];
 	} else {
 		$modules = array();
 	}
 
-	if($noindex == 1) echo '<noindex>';
+	echo ($noindex == 1) ? '<noindex>' : null;
+
 	if(count($modules) < 1) {
 		$style = 0;
 	}
 	if($style == 1) {
 		echo '<table cellspacing="1" cellpadding="0" border="0" width="100%"><tr>';
 	}
-	$prepend = ($style == 1)?"<td valign=\"top\">\n":'';
-	$postpend = ($style == 1)?"</td>\n":'';
+	$prepend = ($style == 1) ? "<td valign=\"top\">\n" : '';
+	$postpend = ($style == 1) ? "</td>\n" : '';
 
 	$count = 1;
+
 	foreach($modules as $module) {
 
 		$params = new mosParameters($module->params);
 
+		$def_cachetime = ($params->get('cache_time')>0) ? $params->get('cache_time') : null;
+
 		echo $prepend;
 
 		if((substr($module->module,0,4)) == 'mod_') {
+
+			$cache = &mosCache::getCache($module->module.'_'.$module->id,'function',null,$def_cachetime);
 			// normal modules
 			if($params->get('cache') == 1 && $config->config_caching == 1) {
 				// module caching
@@ -189,6 +194,8 @@ function mosLoadModules($position = 'left',$style = 0,$noindex = 0) {
 				modules_html::module2($module,$params,$Itemid,$style,$count);
 			}
 		} else {
+
+			$cache = &mosCache::getCache('mod_user_'.$module->id,'function',null,$def_cachetime);
 			// custom or new modules
 			if($params->get('cache') == 1 && $config->config_caching == 1) {
 				// module caching
@@ -201,6 +208,7 @@ function mosLoadModules($position = 'left',$style = 0,$noindex = 0) {
 		echo $postpend;
 
 		$count++;
+		unset($cache);
 	}
 	if($style == 1) {
 		echo "</tr>\n</table>\n";
