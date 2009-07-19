@@ -5126,7 +5126,7 @@ class mosCommonHTML {
 							</td>
 						</tr>
 						<tr>
-								<td width="90px" valign="top">“ип</td>
+								<td width="90px" valign="top"><?php echo _TYPE?></td>
 								<td><?php echo $menu->type; ?></td>
 						</tr>
 						<tr>

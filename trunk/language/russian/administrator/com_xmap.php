@@ -141,12 +141,12 @@ if( !defined( 'JOOMAP_LANG' )) {
 
 	// New on Xmap 1.1 beta 1
 	define('_XMAP_PLUGINS','Расширения');
-	define( '_XMAP_INSTALL_3PD_WARN', 'ВНИМАНИЕ: Установка сторонних расширений может негативно сказаться на безопасности сервера и сайта.' );
+	define('_XMAP_INSTALL_3PD_WARN', 'ВНИМАНИЕ: Установка сторонних расширений может негативно сказаться на безопасности сервера и сайта.' );
 	define('_XMAP_INSTALL_NEW_PLUGIN', 'Установить новое расширение');
 	define('_XMAP_UNKNOWN_AUTHOR','Автор неизвестен');
 	define('_XMAP_PLUGIN_VERSION','Версия %s');
 	define('_XMAP_TAB_INSTALL_PLUGIN','Установить');
-	define('_XMAP_TAB_EXTENSIONS','Расширение');
+	define('_XMAP_TAB_EXTENSIONS','Расширения');
 	define('_XMAP_TAB_INSTALLED_EXTENSIONS','Установленные расширения');
 	define('_XMAP_NO_PLUGINS_INSTALLED','Расширения не установлены');
 	define('_XMAP_AUTHOR','Автор');
@@ -175,12 +175,9 @@ if( !defined( 'JOOMAP_LANG' )) {
 	define('_XMAP_INVALID_SID','Ошибка идентификатора карты');
 	define('_EXTENSION_NAME', 'Название расширения');
 	define('_PUBLICATION', 'Публикация');
-	define('_VERSION', 'Версия');
 	define('_REMOVAL', 'Удаление');
-	//define('_DATE', 'Дата');
-	
 	DEFINE('_XMAP_PAGE',' страница');
-
+	DEFINE('_XMAP_PLUGIN_SET','Настройки расширения: ');
 
 }
 ?>

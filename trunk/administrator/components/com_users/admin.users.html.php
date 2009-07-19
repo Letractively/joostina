@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
-* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
-* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
-* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
+* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
 */
 
-// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+// запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 /**
@@ -85,6 +85,7 @@ class HTML_users {
 	</form>
 	<?php
 	}
+	/* редактирование пользователя */
 	function edituser(&$row,&$contact,&$lists,$option,$uid,&$params) {
 		global $my,$acl;
 		global $mosConfig_live_site;
@@ -156,7 +157,7 @@ class HTML_users {
 		</script>
 				<table class="adminheading">
 		<tr>
-			<th class="user"><small><?php echo $row->id ? 'Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ РїСЂРѕС„РёР»СЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ: '.$row->name : 'РќРѕРІС‹Р№ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ'; ?></small></th>
+			<th class="user"><small><?php echo $row->id ? 'Редактирование профиля пользователя: '.$row->name : 'Новый пользователь'; ?></small></th>
 		</tr>
 		</table>
 		<br clear="all"> 
@@ -241,14 +242,14 @@ class HTML_users {
 		<?php $tabs->endTab(); ?>
 			
 			
-		<?php $tabs->startTab("Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ","user_info_extra"); ?>	
+		<?php $tabs->startTab("Дополнительная информация","user_info_extra"); ?>	
 				<table width="100%">
 				<tr>
-                    <td width="200"><label for="gender">РџРѕР»</label></td>
+                    <td width="200"><label for="gender">Пол</label></td>
 					<td><?php echo mosHTML::genderSelectList('gender','class="inputbox"', $row->user_extra->gender);?> </td>
 				</tr>
 				<tr>
-                    <td><label>Р”Р°С‚Р° СЂРѕР¶РґРµРЅРёСЏ</label></td>
+                    <td><label>Дата рождения</label></td>
 					<td>
                         <?php echo mosHTML::daySelectList('birthdate_day','class="inputbox"', $bday_date);?>
                         <?php echo mosHTML::monthSelectList('birthdate_month','class="inputbox"', $bday_month,1);?>
@@ -256,13 +257,13 @@ class HTML_users {
                     </td>
 				</tr>
 				<tr>
-                    <td><label>Рћ СЃРµР±Рµ</label></td>
+                    <td><label>О себе</label></td>
 					<td>
                         <textarea class="inputbox" name="about" id="about"><?php echo $row->user_extra->about ?></textarea>
                     </td>
 				</tr>
 				<tr>
-                    <td><label>РњРµСЃС‚РѕРїРѕР»РѕР¶РµРЅРёРµ</label></td>
+                    <td><label>Местоположение</label></td>
 					<td>
                         <input class="inputbox" type="text" name="location" id="location" value="<?php echo $row->user_extra->location ?>"/>
                     </td>
@@ -272,10 +273,10 @@ class HTML_users {
 		
 		
 		
-		<?php $tabs->startTab("РљРѕРЅС‚Р°РєС‚РЅС‹Рµ РґР°РЅРЅС‹Рµ","user_info_contacts"); ?>
+		<?php $tabs->startTab("Контактные данные","user_info_contacts"); ?>
 					<table width="100%">
 				<tr>
-                    <td><label>РЎР°Р№С‚</label></td>
+                    <td><label>Сайт</label></td>
 					<td><input class="inputbox" type="text" name="url" id="url" value="<?php echo $row->user_extra->url ?>"/></td>
 				</tr>
 				<tr>
@@ -299,15 +300,15 @@ class HTML_users {
 					<td><input class="inputbox" type="text" name="yahoo" id="yahoo" value="<?php echo $row->user_extra->yahoo ?>"/></td>
 				</tr>
 				<tr>
-                    <td><label>РўРµР»РµС„РѕРЅ</label></td>
+                    <td><label>Телефон</label></td>
 					<td><input class="inputbox" type="text" name="phone" id="phone" value="<?php echo $row->user_extra->phone ?>"/></td>
 				</tr>
 				<tr>
-                    <td><label>Р¤Р°РєСЃ</label></td>
+                    <td><label>Факс</label></td>
 					<td><input class="inputbox" type="text" name="fax" id="fax" value="<?php echo $row->user_extra->fax ?>"/></td>
 				</tr>
 				<tr>
-                    <td><label>РњРѕР±РёР»СЊРЅС‹Р№</label></td>
+                    <td><label>Мобильный</label></td>
 					<td><input class="inputbox" type="text" name="mobil" id="mobil" value="<?php echo $row->user_extra->mobil ?>"/></td>
 				</tr>
 
@@ -394,7 +395,7 @@ class HTML_users {
 		<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
 		</form>
 		
-		<?php $tabs->startTab('РђРІР°С‚Р°СЂ',"avatar"); ?> 
+		<?php $tabs->startTab('Аватар',"avatar"); ?> 
 			<table class="adminform"><tr><td>
             
             <?php 

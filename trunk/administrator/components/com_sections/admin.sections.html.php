@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
-* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
-* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
-* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
+* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
 */
 
-// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+// запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 /**
@@ -134,7 +134,7 @@ class sections_html {
 	function edit(&$row,$option,&$lists,&$menus) {
 		global $mosConfig_live_site;
 
-        $s_templates = new jstContentTemplate;
+		$s_templates = new jstContentTemplate;
 
 		if($row->name != '') {
 			$name = $row->name;
@@ -195,7 +195,7 @@ class sections_html {
 		<table class="adminheading">
 		<tr>
 			<th class="sections">
-			Р Р°Р·РґРµР»:
+			<?php echo _SECTION?>:
 			<small><?php echo $row->id?_EDITING:_CREATION; ?></small>
 			<small><small>
 			[ <?php echo stripslashes($name); ?> ]
@@ -332,41 +332,41 @@ class sections_html {
 ?>            <br />
 				<table class="adminform">
 				<tr>
-					<th colspan="2">РЁР°Р±Р»РѕРЅС‹</th>
+					<th colspan="2"><?php echo _TEMPLATES?></th>
 				</tr>
 
                  <?php
                     $curr_templates = $s_templates->parse_curr_templates($row->templates); ?>
 				    <tr>
-					<td width="200">Р‘Р»РѕРі СЂР°Р·РґРµР»Р°:</td>
+					<td width="200">Блог раздела:</td>
                      <td><?php echo $s_templates->templates_select_list('section_blog', $curr_templates); ?> </td>
                      </tr>
                      <tr>
-					<td width="200">РђСЂС…РёРІ СЂР°Р·РґРµР»Р°:</td>
+					<td width="200">Архив раздела:</td>
                      <td><?php echo $s_templates->templates_select_list('section_archive', $curr_templates); ?> </td>
                      </tr>
                      	<tr>
-                     <td>Р—Р°РїРёСЃРё РїРѕ РіСЂСѓРїРїР°Рј РєР°С‚РµРіРѕСЂРёР№: </td>
+                     <td>Записи по группам категорий: </td>
                     <td><?php echo $s_templates->templates_select_list('section_groupcats', $curr_templates); ?> </td>
                     </tr>
                     	<tr>
-                    <td>РЎРїРёСЃРѕРє РєР°С‚РµРіРѕСЂРёР№: </td>
+                    <td>Список категорий: </td>
                    <td> <?php echo $s_templates->templates_select_list('section_catlist', $curr_templates); ?>  </td>
                     </tr>
                    	<tr>
-                    <td> Р‘Р»РѕРі РєР°С‚РµРіРѕСЂРёРё: </td>
+                    <td> Блог категории: </td>
                     <td><?php echo $s_templates->templates_select_list('category_blog', $curr_templates); ?>   </td>
                      </tr>
                     	<tr>
-                   <td> РўР°Р±Р»РёС†Р° СЃРѕРґРµСЂР¶РёРјРѕРіРѕ РєР°С‚РµРіРѕСЂРёРё:  </td>
+                   <td> Таблица содержимого категории:  </td>
                    <td> <?php echo $s_templates->templates_select_list('category_table', $curr_templates); ?>  </td>
                    </tr>
                    	<tr>
-                   <td> РЎС‚СЂР°РЅРёС†Р° РїСЂРѕСЃРјРѕС‚СЂР° Р·Р°РїРёСЃРё: </td>
+                   <td> Страница просмотра записи: </td>
                    <td> <?php echo $s_templates->templates_select_list('item_full', $curr_templates); ?> </td>
                     </tr>
                    	<tr>
-                   <td> РЎС‚СЂР°РЅРёС†Р° РґРѕР±Р°РІР»РµРЅРёСЏ/СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ Р·Р°РїРёСЃРё:</td>
+                   <td> Страница добавления/редактирования записи:</td>
                    <td> <?php echo $s_templates->templates_select_list('item_edit', $curr_templates); ?></td>
                    </tr>
 				</table>
@@ -579,7 +579,7 @@ class sections_html {
 	<table id="adminlist" class="adminlist">
 		<tbody>
 		<tr>
-			<th align="left">Р РµР·СѓР»СЊС‚Р°С‚С‹</th>
+			<th align="left">Результаты</th>
 		</tr>
 <?php
 		$k = 0;
