@@ -57,3 +57,7 @@ DEFINE('_SECTION_CONTENT_COPYED','Выбранное содержимое раз
 DEFINE('_MENU_MASS_ADD','Добавить еще');
 DEFINE('_CONTENT_STATIC','- Статичное содержимое -');
 DEFINE('_CREATE_CATEGORY', 'Создать категорию');
+
+DEFINE('_SECTION_TYPE', 'Тип раздела');
+DEFINE('_SECTION_LIST', 'Список раздела');
+

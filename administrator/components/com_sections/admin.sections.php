@@ -287,31 +287,6 @@ function showSections($scope,$option) {
 			$rows_new[] = $rows[$v];
 		}
 	}
-
-//_xdump($rows_new);
-//exit();
-/*
-	// number of Active Items
-	for($i = 0; $i < $count; $i++) {
-		$query = "SELECT COUNT( a.id )"
-				."\n FROM #__content AS a"
-				."\n WHERE a.sectionid = ".(int)$rows[$i]->id
-				."\n AND a.state != -2";
-		$database->setQuery($query);
-		$active = $database->loadResult();
-		$rows[$i]->active = $active;
-	}
-	// number of Trashed Items
-	for($i = 0; $i < $count; $i++) {
-		$query = "SELECT COUNT( a.id )"
-				."\n FROM #__content AS a"
-				."\n WHERE a.sectionid = ".(int)$rows[$i]->id
-				."\n AND a.state = -2";
-		$database->setQuery($query);
-		$trash = $database->loadResult();
-		$rows[$i]->trash = $trash;
-	}
-*/
 	sections_html::show($rows_new,$scope,$my->id,$pageNav,$option);
 }
 
@@ -323,7 +298,9 @@ function showSections($scope,$option) {
 * @param string The name of the current user
 */
 function editSection($uid = 0,$scope = '',$option) {
-	global $database,$my,$mainframe;
+	global $my,$mainframe;
+
+	$database = &database::getInstance();
 
 	$row = new mosSection($database);
 	// load the row from the db table
@@ -339,7 +316,7 @@ function editSection($uid = 0,$scope = '',$option) {
 	if($uid) {
 		$row->checkout($my->id);
 		if($row->id > 0) {
-			$query = "SELECT*"."\n FROM #__menu"."\n WHERE componentid = ".(int)$row->id."\n AND ( type = 'content_archive_section' OR type = 'content_blog_section' OR type = 'content_section' )";
+			$query = "SELECT* FROM #__menu WHERE componentid = ".(int)$row->id."\n AND ( type = 'content_archive_section' OR type = 'content_blog_section' OR type = 'content_section' )";
 			$database->setQuery($query);
 			$menus = $database->loadObjectList();
 			$count = count($menus);
@@ -365,8 +342,7 @@ function editSection($uid = 0,$scope = '',$option) {
 		// handling for MOSImage directories
 		if(trim($row->params)) {
 			// get params definitions
-			$params = new mosParameters($row->params,$mainframe->getPath('com_xml',
-				'com_sections'),'component');
+			$params = new mosParameters($row->params,$mainframe->getPath('com_xml','com_sections'),'component');
 			$temps = $params->get('imagefolders','');
 
 			$temps = explode(',',$temps);
@@ -386,16 +362,14 @@ function editSection($uid = 0,$scope = '',$option) {
 	}
 
 	// build the html select list for section types
-	$types[] = mosHTML::makeOption('','Тип раздела');
-	$types[] = mosHTML::makeOption('content_section','Список раздела');
-	$types[] = mosHTML::makeOption('content_blog_section','Блог раздела');
-	$types[] = mosHTML::makeOption('content_archive_section','Блог архива раздела');
+	$types[] = mosHTML::makeOption('',_SECTION_TYPE);
+	$types[] = mosHTML::makeOption('content_section',_SECTION_LIST);
+	$types[] = mosHTML::makeOption('content_blog_section',_SECTION_BLOG);
+	$types[] = mosHTML::makeOption('content_archive_section',_SECTION_BLOG_ARCHIVE);
 	$lists['link_type'] = mosHTML::selectList($types,'link_type','class="inputbox" size="1"','value','text');
 
 	// build the html select list for ordering
-	$query = "SELECT ordering AS value, title AS text"
-			."\n FROM #__sections"
-			."\n WHERE scope=".$database->Quote($row->scope)." ORDER BY ordering";
+	$query = "SELECT ordering AS value, title AS text FROM #__sections WHERE scope=".$database->Quote($row->scope)." ORDER BY ordering";
 	$lists['ordering'] = mosAdminMenus::SpecificOrdering($row,$uid,$query);
 
 	// build the select list for the image positions

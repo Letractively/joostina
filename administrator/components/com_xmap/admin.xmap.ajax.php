@@ -29,17 +29,11 @@ define ('_XMAP_JOOMLA15',0);
 define('_XMAP_MAMBO',0);
 
 $xmapLang = strtolower($mosConfig_lang);
-$xmapComponentPath = $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap';
-$xmapAdministratorPath = $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY;
-$xmapComponentURL = $mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap';
-$xmapAdministratorURL = $mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY;
+$xmapComponentPath = $mosConfig_absolute_path.DS.ADMINISTRATOR_DIRECTORY.'/components/com_xmap';
+$xmapAdministratorPath = $mosConfig_absolute_path.DS.ADMINISTRATOR_DIRECTORY;
+$xmapComponentURL = $mosConfig_live_site.DS.ADMINISTRATOR_DIRECTORY.'/components/com_xmap';
+$xmapAdministratorURL = $mosConfig_live_site.DS.ADMINISTRATOR_DIRECTORY;
 $xmapSiteURL = $mosConfig_live_site;
-
-if(file_exists($mosConfig_absolute_path . '/language/'.$mosConfig_lang.'/com_xmap.php')) {
-	require_once( $mosConfig_absolute_path .'/language/' . $mosConfig_lang . '/com_xmap.php' );
-} else {
-	require_once( $mosConfig_absolute_path .'/language/russian/com_xmap.php' );
-}
 
 require_once( $xmapComponentPath.'/classes/XmapAdmin.php' );
 
@@ -47,8 +41,8 @@ require_once( $xmapComponentPath.'/classes/XmapAdmin.php' );
 require_once( $xmapComponentPath.'/classes/XmapConfig.php' );
 require_once( $xmapComponentPath.'/admin.xmap.html.php' );
 
-require_once( $mosConfig_absolute_path . '/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/classes/XmapCache.php' );
-require_once( $mosConfig_absolute_path . '/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/classes/XmapPlugin.php' );
+require_once( $mosConfig_absolute_path . DS.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/classes/XmapCache.php' );
+require_once( $mosConfig_absolute_path . DS.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/classes/XmapPlugin.php' );
 
 switch ($action) {
 	case 'add_sitemap':
@@ -136,10 +130,7 @@ switch ($action) {
 			$lists['columns'] = mosHTML::selectList( $columns, 'columns', 'id="columns" class="inputbox" size="1"', 'value', 'text', $sitemap->columns );
 
 			// get list of menu entries in all menus
-			$query = "SELECT id AS value, name AS text, CONCAT( id, ' - ', name ) AS menu"
-			. "\n FROM #__menu"
-			. "\n WHERE published != -2"
-			. "\n ORDER BY menutype, parent, ordering";
+			$query = "SELECT id AS value, name AS text, CONCAT( id, ' - ', name ) AS menu FROM #__menu WHERE published != -2 ORDER BY menutype, parent, ordering";
 			$database->setQuery( $query );
 			$exclmenus = $database->loadObjectList();
 			$lists['exclmenus'] = mosHTML::selectList( $exclmenus, 'excl_menus', 'class="inputbox" size="1"', 'value', 'menu', NULL );

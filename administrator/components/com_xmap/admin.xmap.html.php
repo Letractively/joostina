@@ -577,7 +577,7 @@ class XmapAdminHtml {
 		$xmlfile = $extension->getXmlPath();
 		$params = new mosParameters( $extension->getParams($itemid,true), $xmlfile, 'xmap_ext' );
 ?>
-		<table class="adminform"><tr><th>Настройки расширения: <?php echo $extension->extension;?></th></tr></table>
+		<table class="adminform"><tr><th><?php echo _XMAP_PLUGIN_SET.$extension->extension;?></th></tr></table>
 		<form name="frmSettings" id="frmSettings<?php echo $extension->id; ?>">
 			<input type="hidden" name="id" value="<?php echo $extension->id; ?>" />
 			<input type="hidden" name="boston" value="boston" />
