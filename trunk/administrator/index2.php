@@ -31,8 +31,6 @@ if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset
 
 require_once ($mosConfig_absolute_path .DIRECTORY_SEPARATOR. 'includes'.DIRECTORY_SEPARATOR.'joomla.php');
 
-$database = database::getInstance();
-
 // работа с сессиями начинается до создания главного объекта взаимодействия с ядром
 session_name(md5($mosConfig_live_site));
 session_start();
@@ -45,6 +43,8 @@ $section	= mosGetParam($_REQUEST,'section','');
 $no_html	= intval(mosGetParam($_REQUEST,'no_html',0));
 $id			= intval(mosGetParam($_REQUEST,'id',0));
 
+// объект работы с базой данных
+$database = &database::getInstance();
 // mainframe - основная рабочая среда API, осуществляет взаимодействие с 'ядром'
 $mainframe = mosMainFrame::getInstance(true);
 $mainframe->set('lang', $mosConfig_lang);
@@ -75,8 +75,8 @@ require_once ($mosConfig_absolute_path . '/includes/editor.php');
 ob_start();
 if($path = $mainframe->getPath('admin')) {
 	//Подключаем язык компонента
- 	if($mainframe->getLangFile($option)){ 
- 		include_once($mainframe->getLangFile($option));        	
+	if($mainframe->getLangFile($option)){
+		include_once($mainframe->getLangFile($option));
 	}
 	require_once ($path);
 } else {

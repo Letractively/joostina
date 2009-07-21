@@ -254,8 +254,7 @@ class mosMainFrame {
 		if(!$name){
 			$file = 'system';
 			return $this->getCfg('absolute_path').'/language/'.$this->lang.'/system.php';
-		}
-		else{
+		}else{
 			$file = $name;
 		}
 		if($this->_isAdmin){

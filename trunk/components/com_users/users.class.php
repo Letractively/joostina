@@ -220,7 +220,7 @@ class mosUser extends mosDBTable {
 			mosArrayToInts($objects['users']);
 			$gWhere = '(id ='.implode(' OR id =',$objects['users']).')';
 
-			$query = "SELECT id AS value, name AS text FROM #__users WHERE block = '0' AND ".$gWhere."\n ORDER BY ".$order;
+			$query = "SELECT id AS value, name AS text FROM #__users WHERE block = '0' AND ".$gWhere." ORDER BY ".$order;
 			$this->_db->setQuery($query);
 			$options = $this->_db->loadObjectList();
 			return $options;
@@ -517,10 +517,10 @@ class userHelper{
 
 						<div class="user_buttons buttons_<?php echo $form_params->img_field;?>">
 							<span class="button">
-								<a class="reupload_button button"  href="#" id="reupload_<?php echo $form_params->img_field;?>">Сменить</a>
+								<a class="reupload_button button"  href="#" id="reupload_<?php echo $form_params->img_field;?>"><?php echo _C_USERS_AVATARS_SHOISE?></a>
 							</span>
 							<span class="button">
-								<a class="del_button button"  href="javascript:void(0)" id="del_<?php echo $form_params->img_field;?>">Удалить</a>
+								<a class="del_button button"  href="javascript:void(0)" id="del_<?php echo $form_params->img_field;?>"><?php echo _DELETE?></a>
 							</span>
 						</div>
 
@@ -528,8 +528,7 @@ class userHelper{
 					<div class="upload_area upload_area_<?php echo $form_params->img_field;?>" style="display:none;">
 						<?php echo self::_build_img_upload_form($obj, $form_params);?>
 					</div>
-			<?php } else {
-			?>
+			<?php } else { ?>
 			<div id="current_<?php echo $form_params->img_field;?>">
 					<div class="current_img" id="current_<?php echo $form_params->img_field;?>_img">
 						<img class="avatar" src="<?php echo $mosConfig_live_site;?>/<?php echo $form_params->default_img;?>" />
@@ -538,10 +537,10 @@ class userHelper{
 
 					<div class="user_buttons buttons_<?php echo $form_params->img_field;?>" style="display:none;">
 							<span class="button">
-								<a class="reupload_button button"  href="#" id="reupload_<?php echo $form_params->img_field;?>">Сменить</a>
+								<a class="reupload_button button"  href="#" id="reupload_<?php echo $form_params->img_field;?>"><?php echo _C_USERS_AVATARS_SHOISE?></a>
 							</span>
 							<span class="button">
-								<a class="del_button button"  href="javascript:void(0)" id="del_<?php echo $form_params->img_field;?>">Удалить</a>
+								<a class="del_button button"  href="javascript:void(0)" id="del_<?php echo $form_params->img_field;?>"><?php echo _DELETE?></a>
 							</span>
 						</div>
 					</div>
@@ -571,7 +570,7 @@ function _build_img_upload_form(&$obj, $form_params){
 					});
 					$('#current_<?php echo $form_params->img_field;?>').fadeOut(1000);
 					if(!$('#upload_<?php echo $form_params->img_field;?>').val()){
-						$('#<?php echo $form_params->img_field;?>_uploadOutput').html('Выберите изображение');
+						$('#<?php echo $form_params->img_field;?>_uploadOutput').html('<?php echo _C_USERS_AVATARS_SHOISE_IMAGE?>');
 						return false;
 					}
 					$(".upload_area_<?php echo $form_params->img_field;?>").fadeOut(900);
@@ -609,13 +608,13 @@ function _build_img_upload_form(&$obj, $form_params){
 
 		<form name="<?php echo $form_params->img_field;?>_uploadForm" class="ajaxForm" enctype="multipart/form-data" method="post" action="ajax.index.php" id="<?php echo $form_params->img_field;?>_uploadForm">
 			<input name="<?php echo $form_params->img_field;?>"  id="upload_<?php echo $form_params->img_field;?>"  type="file" />
-			<span class="button"><button type="button" id="<?php echo $form_params->img_field;?>_upload_button" class="button" >Загрузить</button></span>
+			<span class="button"><button type="button" id="<?php echo $form_params->img_field;?>_upload_button" class="button" ><?php echo _TASK_UPLOAD?></button></span>
 			<input type="hidden" name="task" value="upload_<?php echo $form_params->img_field;?>" />
 			<input type="hidden" name="id" value="<?php echo $obj->id;?>" />
 			<input type="hidden" name="option" value="com_users" />
 		</form>
 
-		<div id="<?php echo $form_params->img_field;?>_uploadOutput" style="display:none;">Загрузка</div>
+		<div id="<?php echo $form_params->img_field;?>_uploadOutput" style="display:none;"><?php echo _C_USERS_AVATARS_UPLOAD?></div>
 	<?php
 	}
 
@@ -767,10 +766,8 @@ class mosSession extends mosDBTable {
 			$past_guest = time() - 900;
 
 			$query = "DELETE FROM $this->_tbl"."\n WHERE ("
-				// purging expired logged sessions
-				."\n ( time < '".(int)$past_logged."' ) AND guest = 0 AND gid > 0 ) OR ("
-				// purging expired guest sessions
-				."\n ( time < '".(int)$past_guest."' ) AND guest = 1 AND userid = 0".
+				."\n ( time < '".(int)$past_logged."' ) AND guest = 0 AND gid > 0 ) OR (" // purging expired logged sessions
+				."\n ( time < '".(int)$past_guest."' ) AND guest = 1 AND userid = 0". // purging expired guest sessions
 				"\n )";
 		} else {
 			// kept for backward compatability

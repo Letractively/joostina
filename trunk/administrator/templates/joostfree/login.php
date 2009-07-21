@@ -26,7 +26,7 @@ if($config->config_enable_admin_secure_code){
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title>
-		<?php echo $config->config_sitename; ?> - <?php echo _JOOSTINA_CONTRIL_PANEL?></title>
+		<?php echo $config->config_sitename; ?> - <?php echo _JOOSTINA_CONTROL_PANEL?></title>
 	<meta http-equiv="Content-Type" content="text/html; <?php echo _ISO; ?>" />
 	<style type="text/css">
 		@import url(templates/joostfree/css/admin_login.css);
