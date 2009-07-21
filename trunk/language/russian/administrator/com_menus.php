@@ -76,7 +76,7 @@ DEFINE('_ALL_CATEGORIES', '-все категории-');
 
 DEFINE('_COM_MENUS_MENU_MANAGER','Управление меню'); 
 DEFINE('_COM_MENUS_ORDER_DROPDOWN','Порядок'); 
-
+DEFINE('_ALL_SECTIONS','Все разделы');
 
 
 

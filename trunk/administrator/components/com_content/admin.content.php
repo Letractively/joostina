@@ -161,12 +161,14 @@ function config($option){
 function save_config(){
 	$database = &database::getInstance();
 
-    $act = mosGetParam($_REQUEST,'act','');
-    $config_class = 'configContent_'.$act;
-    $config = new $config_class($database);
-    $config->save_config(); 
+	$act = mosGetParam($_REQUEST,'act','');
+	$config_class = 'configContent_'.$act;
+	$config = new $config_class($database);
+	$config->save_config();
 
-    mosRedirect('index2.php?option=com_content&task=config&act='.$act, _CONFIG_SAVED);
+	mosCache::cleanCache('com_content');
+
+	mosRedirect('index2.php?option=com_content&task=config&act='.$act, _CONFIG_SAVED);
 }
 
 function submitContent(){

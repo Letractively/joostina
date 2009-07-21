@@ -1,12 +1,12 @@
 <?php /**
  * @package Joostina
- * @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
- * @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
- * Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
- * Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
  */
 
-// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+// запрет прямого доступа
 defined('_VALID_MOS') or die();
 require_once ($mainframe->getPath('front_html', 'com_content'));
 require_once ($mainframe->getPath('config', 'com_content'));
@@ -14,7 +14,7 @@ include_once ($mainframe->getLangFile('com_content'));
 
 global $task, $Itemid, $option, $my;
 
-//РџРѕРґРєР»СЋС‡Р°РµРј js com_content-Р°
+//Подключаем js com_content-а
 contentHelper::_load_core_js();
 
 $id = intval(mosGetParam($_REQUEST, 'id', 0));
@@ -54,8 +54,7 @@ switch ($task) {
 		break;
 
 	case 'blogsection':
-		// Itemid is a dummy value to cater for caching
-		$cache->call('showBlogSection', $id);
+		showBlogSection($id,$my->gid);
 		break;
 
 	case 'blogcategorymulti':
@@ -112,7 +111,7 @@ switch ($task) {
 }
 
 /**
- * РЎС‚СЂР°РЅРёС†Р° СЃ РїРµСЂРµС‡РЅРµРј РјР°С‚РµСЂРёР°Р»РѕРІ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
+ * Страница с перечнем материалов пользователя
  */
 function showUserItems() {
 	global $Itemid, $my, $acl;
@@ -125,7 +124,7 @@ function showUserItems() {
 
 	$user_id = intval(mosGetParam($_REQUEST, 'user', 0));
 
-	//РїСЂР°РІР° РґРѕСЃС‚СѓРїР°
+	//права доступа
 	$access = new contentAccess();
 	// Paramters
 	$params = new configContent_ucontent($database);
@@ -134,9 +133,9 @@ function showUserItems() {
 	$params->set('limit', $limit);
 
 	$user_items = new mosContent($database);
-	//РџРѕР»СѓС‡Р°РµРј РєРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°РїРёСЃРµР№ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
+	//Получаем количество записей пользователя
 	$user_items->total = $user_items->_get_count_user_items($user_id, $params);
-	//РџРѕР»СѓС‡Р°РµРј РІСЃРµ Р·Р°РїРёСЃРё РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
+	//Получаем все записи пользователя
 	$user_items->items = $user_items->_load_user_items($user_id, $params);
 
 	if(!$user_items->items) {
@@ -150,7 +149,7 @@ function showUserItems() {
 
 	if($user_items) {
 
-		//РџРѕСЃС‚СЂР°РЅРёС‡РЅР°СЏ РЅР°РІРёРіР°С†РёСЏ
+		//Постраничная навигация
 		if($user_items->total <= $limit)
 			$limitstart = 0;
 		require_once ($GLOBALS['mosConfig_absolute_path'].'/includes/pageNavigation.php');
@@ -173,8 +172,8 @@ function showUserItems() {
 			$check .= 1;
 		}
 		if($params->get('section')) {
-			$order[] = mosHTML::makeOption('section', 'Р Р°Р·РґРµР» / РљР°С‚РµРіРѕСЂРёСЏ РїРѕ РІРѕР·СЂР°СЃС‚Р°РЅРёСЋ');
-			$order[] = mosHTML::makeOption('rsection', 'Р Р°Р·РґРµР» / РљР°С‚РµРіРѕСЂРёСЏ РїРѕ СѓР±С‹РІР°РЅРёСЋ');
+			$order[] = mosHTML::makeOption('section', 'Раздел / Категория по возрастанию');
+			$order[] = mosHTML::makeOption('rsection', 'Раздел / Категория по убыванию');
 			$check .= 1;
 		}
 		$order[] = mosHTML::makeOption('order', _ORDER_DROPDOWN_O);
@@ -204,8 +203,8 @@ function showUserItems() {
 }
 
 /**
- * Р’С‹РІРѕРґ РіР»Р°РІРЅРѕР№ СЃС‚СЂР°РЅРёС†С‹
- * РљРѕРјРїРѕРЅРµРЅС‚ 'com_frontpage'
+ * Вывод главной страницы
+ * Компонент 'com_frontpage'
  */
 function frontpage() {
 	global $my;
@@ -217,15 +216,15 @@ function frontpage() {
 	$limit = intval(mosGetParam($_REQUEST, 'limit', 0));
 	$limitstart = intval(mosGetParam($_REQUEST, 'limitstart', 0));
 
-	//РїСЂР°РІР° РґРѕСЃС‚СѓРїР°
+	//права доступа
 	$access = new contentAccess();
 
-	//РЈСЃС‚Р°РЅРѕРІРєР° РїР°СЂР°РјРµС‚СЂРѕРІ СЃС‚СЂР°РЅРёС†С‹ Р±Р»РѕРіР° СЂР°Р·РґРµР»Р°
+	//Установка параметров страницы блога раздела
 	$params = contentPageConfig::setup_frontpage();
 	$limit = $params->get('intro') + $params->get('leading') + $params->get('link');
 
 	$frontpage = new mosContent($database);
-	//РџРѕР»СѓС‡Р°РµРј РѕР±С‰РµРµ РєРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°РїРёСЃРµР№ РЅР° РіР»Р°РІРЅРѕР№ СЃС‚СЂР°РЅРёС†Рµ
+	//Получаем общее количество записей на главной странице
 	$frontpage->total = $frontpage->_get_result_frontpage($params, $access);
 
 	if($frontpage->total <= $limit) {
@@ -234,7 +233,7 @@ function frontpage() {
 	$params->set('limitstart', $limitstart);
 	$params->set('limit', $limit);
 
-	//Р’С‹Р±РёСЂР°РµРј РІСЃРµ РЅСѓР¶РЅС‹Рµ Р·Р°РїРёСЃРё
+	//Выбираем все нужные записи
 	$frontpage->content = $frontpage->_load_frontpage($params, $access);
 
 	$params->def('pop', $pop);
@@ -242,15 +241,15 @@ function frontpage() {
 
 	ob_start();
 	BlogOutput($frontpage, $params, $access);
-	$content_boby = ob_get_contents(); // РіР»Р°РІРЅРѕРµ СЃРѕРґРµСЂР¶РёРјРѕРµ - СЃС‚РµРє РІС‹РІРѕРґР° РєРѕРјРїРѕРЅРµРЅС‚Р° - mainbody
+	$content_boby = ob_get_contents(); // главное содержимое - стек вывода компонента - mainbody
 	ob_end_clean();
 
 	return array('content' => $content_boby, 'params' => $params);
 }
 
 /**
- * Р’С‹РІРѕРґ СЃРїРёСЃРєР° РєР°С‚РµРіРѕСЂРёР№ СЂР°Р·РґРµР»Р°
- * С‚РёРї СЃСЃС‹Р»РєРё - С‚Р°Р±Р»РёС†Р° СЂР°Р·РґРµР»Р°
+ * Вывод списка категорий раздела
+ * тип ссылки - таблица раздела
  *
  * @param int The section id
  */
@@ -265,28 +264,28 @@ function showSectionCatlist($id) {
 		return;
 	}
 
-	//РїСЂР°РІР° РґРѕСЃС‚СѓРїР°
+	//права доступа
 	$access = new contentAccess();
 
-	//РџРѕР»СѓС‡Р°РµРј РґР°РЅРЅС‹Рµ СЂР°Р·РґРµР»Р°
+	//Получаем данные раздела
 	$section = new mosSection($database);
 	$section->load((int)$id);
 
-	//РџСЂРѕРІРµСЂСЏРµРј РїСЂР°РІР° РґРѕСЃС‚СѓРїР° Рє СЂР°Р·РґРµР»Сѓ
+	//Проверяем права доступа к разделу
 	if(!$section->published || $section->access > $my->gid) {
 		$error = new errorCase(2);
 		return;
 	}
 
-	//РЈСЃС‚Р°РЅРѕРІРєР° РїР°СЂР°РјРµС‚СЂРѕРІ СЃС‚СЂР°РЅРёС†С‹ С‚Р°Р±Р»РёС†С‹ СЂР°Р·РґРµР»Р°
+	//Установка параметров страницы таблицы раздела
 	$params = contentPageConfig::setup_section_catlist_page($section);
 
-	//Р’С‹Р±РёСЂР°РµРј РєР°С‚РµРіРѕСЂРёРё, РїСЂРёРЅР°РґР»РµР¶Р°С‰РёРµ С‚РµРєСѓС‰РµРјСѓ СЂР°Р·РґРµР»Сѓ
+	//Выбираем категории, принадлежащие текущему разделу
 	$section->content = $section->_load_table_section($section, $params, $access);
 	$categories = $section->content;
 
-	//РџРѕР»СѓС‡Р°РµРј РѕР±С‰РµРµ РєРѕР»РёС‡РµСЃС‚РІРѕ РѕРїСѓР±Р»РёРєРѕРІР°РЅРЅС‹С… РєР°С‚РµРіРѕСЂРёР№ РІ СЂР°Р·РґРµР»Рµ,
-	//С‡С‚РѕР±С‹ РІС‹СЏСЃРЅРёС‚СЊ - РјРѕР¶РЅРѕ Р»Рё РІС‹РІРѕРґРёС‚СЊ РєРЅРѕРїРєСѓ РґРѕР±Р°РІР»РµРЅРёСЏ РјР°С‚РµСЂРёР°Р»РѕРІ
+	//Получаем общее количество опубликованных категорий в разделе,
+	//чтобы выяснить - можно ли выводить кнопку добавления материалов
 	$section->categories_exist = false;
 	if($access->canEdit) {
 		$section->categories_exist = $section->get_count_all_cats($section, $params, $access);
@@ -298,7 +297,7 @@ function showSectionCatlist($id) {
 	$params->section_data = $section;
 	$params->page_type = 'section_catlist';
 
-	// РњРµС‚Р°-РґР°РЅРЅС‹Рµ СЃС‚СЂР°РЅРёС†С‹
+	// Мета-данные страницы
 	if(!$params->get('header')) {
 		$params->set('header', $section->name);
 	}
@@ -309,7 +308,7 @@ function showSectionCatlist($id) {
 }
 
 /**
- * Р’С‹РІРѕРґ С‚Р°Р±Р»РёС†С‹ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ РєР°С‚РµРіРѕСЂРёРё
+ * Вывод таблицы содержимого категории
  *
  * @param int The category id
  */
@@ -333,16 +332,16 @@ function showTableCategory($id) {
 		return;
 	}
 
-	//РїСЂР°РІР° РґРѕСЃС‚СѓРїР°
+	//права доступа
 	$access = new contentAccess();
 
-	//Р“СЂСѓР·РёРј РґР°РЅРЅС‹Рµ РєР°С‚РµРіРѕСЂРёРё
+	//Грузим данные категории
 	$category = new mosCategory($database);
 	if(!($category->load((int)$id))) {
 		$error = new errorCase(1);
 		return;
 	}
-	//Р“СЂСѓР·РёРј РґР°РЅРЅС‹Рµ СЂР°Р·РґРµР»Р°
+	//Грузим данные раздела
 	$section = new mosSection($database);
 	if(!($section->load((int)$category->section))) {
 		$error = new errorCase(1);
@@ -350,7 +349,7 @@ function showTableCategory($id) {
 	}
 	$category->section_data = $section;
 
-	//РџСЂРѕРІРµСЂСЏРµРј РїСЂР°РІР° РґРѕСЃС‚СѓРїР° Рє СЂР°Р·РґРµР»Сѓ Рё РєР°С‚РµРіРѕСЂРёРё
+	//Проверяем права доступа к разделу и категории
 	if(!$section->published || !$category->published) {
 		$error = new errorCase(2);
 		return;
@@ -360,7 +359,7 @@ function showTableCategory($id) {
 		return;
 	}
 
-	//РЈСЃС‚Р°РЅРѕРІРєР° РїР°СЂР°РјРµС‚СЂРѕРІ СЃС‚СЂР°РЅРёС†С‹ С‚Р°Р±Р»РёС†С‹ РєР°С‚РµРіРѕСЂРёРё
+	//Установка параметров страницы таблицы категории
 	$params = contentPageConfig::setup_table_category_page($category);
 
 	$lists['order_value'] = '';
@@ -379,13 +378,13 @@ function showTableCategory($id) {
 		$sectionid = $category->section;
 	}
 
-	//РЎРїРёСЃРѕРє РґСЂСѓРіРёС… РєР°С‚РµРіРѕСЂРёР№ СЂР°Р·РґРµР»Р°
+	//Список других категорий раздела
 	$category->other_categories = $category->get_other_cats($category, $access, $params);
 
 	$content = new mosContent($database);
 
 	// query to determine total number of records
-	//РџРѕР»СѓС‡Р°РµРј РѕР±С‰РµРµ РєРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°РїРёСЃРµР№ РІ С‚Р°Р±Р»РёС†Рµ РєР°С‚РµРіРѕСЂРёРё
+	//Получаем общее количество записей в таблице категории
 	$category->total = $content->_get_result_table_category($category, $params, $access);
 
 	$limit = $limit?$limit : $params->get('display_num');
@@ -395,7 +394,7 @@ function showTableCategory($id) {
 	$params->set('limitstart', $limitstart);
 	$params->set('limit', $limit);
 
-	//Р’С‹Р±РёСЂР°РµРј РІСЃРµ РЅСѓР¶РЅС‹Рµ Р·Р°РїРёСЃРё
+	//Выбираем все нужные записи
 	$category->content = $content->_load_table_category($category, $params, $access);
 
 	// remove slashes
@@ -405,7 +404,7 @@ function showTableCategory($id) {
 	$params->section_data = $section;
 	$params->page_type = 'category_table';
 
-	// РњРµС‚Р°-РґР°РЅРЅС‹Рµ СЃС‚СЂР°РЅРёС†С‹
+	// Мета-данные страницы
 	if(!$params->get('header')) {
 		$params->set('header', $category->name);
 	}
@@ -416,47 +415,59 @@ function showTableCategory($id) {
 
 }
 
-/**
- * Р’С‹РІРѕРґ Р±Р»РѕРіР° СЂР°Р·РґРµР»Р°
- *
- * @param int The section id
- */
-function showBlogSection($id = 0) {
-	global $Itemid, $my;
-
-	$mainframe = &mosMainFrame::getInstance();
-	$database = &database::getInstance();
-
+function showBlogSection($id = 0,$gid=0) {
+	$config = &Jconfig::getInstance();
+	
 	$pop = intval(mosGetParam($_REQUEST, 'pop', 0));
 	$limit = intval(mosGetParam($_REQUEST, 'limit', 0));
 	$limitstart = intval(mosGetParam($_REQUEST, 'limitstart', 0));
+
+	$cache = &mosCache::getCache('com_content');
+	$r = $cache->call('_showBlogSection', $id,$gid,$pop,$limit,$limitstart);
+
+	$meta = new contentMeta($r['params']);
+	$meta->set_meta();
+	echo $r['content'];
+	unset($r, $cache);
+}
+
+/**
+ * Вывод блога раздела
+ *
+ * @param int The section id
+ */
+function _showBlogSection($id,$gid,$pop,$limit,$limitstart) {
+	global $Itemid, $my;
+
+	$mainframe = &mosMainFrame::getInstance();
+	$database  = &database::getInstance();
 
 	if(!$id) {
 		$error = new errorCase(1);
 		return;
 	}
 
-	//РїСЂР°РІР° РґРѕСЃС‚СѓРїР°
+	//права доступа
 	$access = new contentAccess();
 
-	//РЈСЃС‚Р°РЅРѕРІРєР° РїР°СЂР°РјРµС‚СЂРѕРІ СЃС‚СЂР°РЅРёС†С‹ Р±Р»РѕРіР° СЂР°Р·РґРµР»Р°
+	//Установка параметров страницы блога раздела
 	$params = contentPageConfig::setup_blog_section_page($id);
 	$params->def('pop', $pop);
 	$params->page_type = 'section_blog';
 
-	//РљРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°РїРёСЃРµР№ РЅР° СЃС‚СЂР°РЅРёС†Рµ
-	$limit = $limit?$limit : ($params->get('intro') + $params->get('leading') + $params->get('link'));
+	//Количество записей на странице
+	$limit = $limit ? $limit : ($params->get('intro') + $params->get('leading') + $params->get('link'));
 
-	//Р“СЂСѓР·РёРј РґР°РЅРЅС‹Рµ СЂР°Р·РґРµР»Р°
+	//Грузим данные раздела
 	$section = new mosSection($database);
 	if(!($section->load((int)$id))) {
 		$error = new errorCase(1);
 		return;
 	}
 
-	//РџСЂРѕРІРµСЂСЏРµРј РїСЂР°РІР° РґРѕСЃС‚СѓРїР° Рє СЂР°Р·РґРµР»Сѓ
-	//Р•СЃР»Рё СЂР°Р·РґРµР» РЅРµ РѕРїСѓР±Р»РёРєРѕРІР°РЅ РёР»Рё РіСЂСѓРїРїР° РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РЅРёР¶Рµ РіСЂСѓРїРїС‹ РґРѕСЃС‚СѓРїР°
-	//- РІС‹РґР°С‘Рј СЃРѕРѕР±С‰РµРЅРёРµ Рѕ РЅРµРІРѕР·РјРѕР¶РЅРѕСЃС‚Рё РґРѕСЃС‚СѓРїР°
+	//Проверяем права доступа к разделу
+	//Если раздел не опубликован или группа пользователя ниже группы доступа
+	//- выдаём сообщение о невозможности доступа
 	if(!$section->published) {
 		$error = new errorCase(2);
 		return;
@@ -467,33 +478,37 @@ function showBlogSection($id = 0) {
 	}
 
 	$content = new mosContent($database);
-	//РџРѕР»СѓС‡Р°РµРј РѕР±С‰РµРµ РєРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°РїРёСЃРµР№ РІ Р±Р»РѕРіРµ
+	//Получаем общее количество записей в блоге
 	$section->total = $content->_get_result_blog_section($section, $params, $access);
 
-	//РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј РѕРєРѕРЅС‡Р°С‚РµР»СЊРЅС‹Рµ РїР°СЂР°РјРµС‚СЂС‹ $limit Рё $limitstart
+	//Устанавливаем окончательные параметры $limit и $limitstart
 	if($section->total <= $limit) {
 		$limitstart = 0;
 	}
 	$params->set('limitstart', $limitstart);
 	$params->set('limit', $limit);
 
-	//Р’С‹Р±РёСЂР°РµРј РІСЃРµ РЅСѓР¶РЅС‹Рµ Р·Р°РїРёСЃРё СЃР±Р»РѕРіР°
+	//Выбираем все нужные записи сблога
 	$section->content = $content->_load_blog_section($section, $params, $access);
 
 	$params->section_data = $section;
 
-	// РњРµС‚Р°-РґР°РЅРЅС‹Рµ СЃС‚СЂР°РЅРёС†С‹
+	// Мета-данные страницы
 	if(!$params->get('header')) {
 		$params->set('header', $section->name);
 	}
-	$meta = new contentMeta($params);
-	$meta->set_meta();
 
+	ob_start();
 	BlogOutput($section, $params, $access);
+	$content_boby = ob_get_contents(); // главное содержимое - стек вывода компонента - mainbody
+	ob_end_clean();
+
+	unset($params->_db,$params->section_data->_db,$params->section_data->_db,$params->section_data->content);
+	return array('content' => $content_boby, 'params' => $params);
 }
 
 /**
- * Р’С‹РІРѕРґ Р±Р»РѕРіР° РєР°С‚РµРіРѕСЂРёРё
+ * Вывод блога категории
  *
  * @param int The category id
  */
@@ -512,22 +527,22 @@ function showBlogCategory($id = 0) {
 		return;
 	}
 
-	//РїСЂР°РІР° РґРѕСЃС‚СѓРїР°
+	//права доступа
 	$access = new contentAccess();
 
-	//РЈСЃС‚Р°РЅРѕРІРєР° РїР°СЂР°РјРµС‚СЂРѕРІ СЃС‚СЂР°РЅРёС†С‹ Р±Р»РѕРіР° РєР°С‚РµРіРѕСЂРёРё
+	//Установка параметров страницы блога категории
 	$params = contentPageConfig::setup_blog_category_page($id);
 
-	//РљРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°РїРёСЃРµР№ РЅР° СЃС‚СЂР°РЅРёС†Рµ
+	//Количество записей на странице
 	$limit = $limit?$limit : ($params->get('intro') + $params->get('leading') + $params->get('link'));
 
-	//Р“СЂСѓР·РёРј РґР°РЅРЅС‹Рµ РєР°С‚РµРіРѕСЂРёРё
+	//Грузим данные категории
 	$category = new mosCategory($database);
 	if(!($category->load((int)$id))) {
 		$error = new errorCase(1);
 		return;
 	}
-	//Р“СЂСѓР·РёРј РґР°РЅРЅС‹Рµ СЂР°Р·РґРµР»Р°
+	//Грузим данные раздела
 	$section = new mosSection($database);
 	if(!($section->load((int)$category->section))) {
 		$error = new errorCase(1);
@@ -535,9 +550,9 @@ function showBlogCategory($id = 0) {
 	}
 	$category->section = $section;
 
-	//РџСЂРѕРІРµСЂСЏРµРј РїСЂР°РІР° РґРѕСЃС‚СѓРїР° Рє СЂР°Р·РґРµР»Сѓ Рё РєР°С‚РµРіРѕСЂРёРё
-	//Р•СЃР»Рё СЂР°Р·РґРµР»/РєР°С‚РµРіРѕСЂРёСЏ РЅРµ РѕРїСѓР±Р»РёРєРѕРІР°РЅС‹ РёР»Рё РіСЂСѓРїРїР° РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РЅРёР¶Рµ РіСЂСѓРїРїС‹ РґРѕСЃС‚СѓРїР°
-	//- РІС‹РґР°С‘Рј СЃРѕРѕР±С‰РµРЅРёРµ Рѕ РЅРµРІРѕР·РјРѕР¶РЅРѕСЃС‚Рё РґРѕСЃС‚СѓРїР°
+	//Проверяем права доступа к разделу и категории
+	//Если раздел/категория не опубликованы или группа пользователя ниже группы доступа
+	//- выдаём сообщение о невозможности доступа
 	if(!$section->published || !$category->published) {
 		$error = new errorCase(2);
 		return;
@@ -548,7 +563,7 @@ function showBlogCategory($id = 0) {
 	}
 
 	$content = new mosContent($database);
-	//РџРѕР»СѓС‡Р°РµРј РѕР±С‰РµРµ РєРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°РїРёСЃРµР№ РІ Р±Р»РѕРіРµ
+	//Получаем общее количество записей в блоге
 	$category->total = $content->_get_result_blog_category($category, $params, $access);
 
 	if($category->total <= $limit) {
@@ -557,7 +572,7 @@ function showBlogCategory($id = 0) {
 	$params->set('limitstart', $limitstart);
 	$params->set('limit', $limit);
 
-	//Р’С‹Р±РёСЂР°РµРј РІСЃРµ РЅСѓР¶РЅС‹Рµ Р·Р°РїРёСЃРё СЃР±Р»РѕРіР°
+	//Выбираем все нужные записи сблога
 	$category->content = $content->_load_blog_category($category, $params, $access);
 
 	$params->category_data = $category;
@@ -565,7 +580,7 @@ function showBlogCategory($id = 0) {
 	$params->def('pop', $pop);
 	$params->page_type = 'category_blog';
 
-	// РњРµС‚Р°-РґР°РЅРЅС‹Рµ СЃС‚СЂР°РЅРёС†С‹
+	// Мета-данные страницы
 	$meta = new contentMeta($params);
 	$meta->set_meta();
 
@@ -574,7 +589,7 @@ function showBlogCategory($id = 0) {
 }
 
 /**
- * Р’С‹РІРѕРґ Р°СЂС…РёРІР° СЂР°Р·РґРµР»Р°
+ * Вывод архива раздела
  *
  * @param int The section id
  */
@@ -597,28 +612,28 @@ function showArchiveSection($id = null) {
 		return;
 	}
 
-	//РїСЂР°РІР° РґРѕСЃС‚СѓРїР°
+	//права доступа
 	$access = new contentAccess();
 
-	//РЈСЃС‚Р°РЅРѕРІРєР° РїР°СЂР°РјРµС‚СЂРѕРІ СЃС‚СЂР°РЅРёС†С‹ Р±Р»РѕРіР° СЂР°Р·РґРµР»Р°
+	//Установка параметров страницы блога раздела
 	$params = contentPageConfig::setup_blog_archive_section_page($id);
 	$params->set('year', $year);
 	$params->set('month', $month);
 	$params->set('intro_only', 1);
 
-	//РљРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°РїРёСЃРµР№ РЅР° СЃС‚СЂР°РЅРёС†Рµ
+	//Количество записей на странице
 	$limit = $limit?$limit : ($params->get('intro') + $params->get('leading') + $params->get('link'));
 
-	//Р“СЂСѓР·РёРј РґР°РЅРЅС‹Рµ СЂР°Р·РґРµР»Р°
+	//Грузим данные раздела
 	$section = new mosSection($database);
 	if(!($section->load((int)$id))) {
 		$error = new errorCase(1);
 		return;
 	}
 
-	//РџСЂРѕРІРµСЂСЏРµРј РїСЂР°РІР° РґРѕСЃС‚СѓРїР° Рє СЂР°Р·РґРµР»Сѓ
-	//Р•СЃР»Рё СЂР°Р·РґРµР» РЅРµ РѕРїСѓР±Р»РёРєРѕРІР°РЅ РёР»Рё РіСЂСѓРїРїР° РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РЅРёР¶Рµ РіСЂСѓРїРїС‹ РґРѕСЃС‚СѓРїР°
-	//- РІС‹РґР°С‘Рј СЃРѕРѕР±С‰РµРЅРёРµ Рѕ РЅРµРІРѕР·РјРѕР¶РЅРѕСЃС‚Рё РґРѕСЃС‚СѓРїР°
+	//Проверяем права доступа к разделу
+	//Если раздел не опубликован или группа пользователя ниже группы доступа
+	//- выдаём сообщение о невозможности доступа
 	if(!$section->published) {
 		$error = new errorCase(2);
 		return;
@@ -629,24 +644,24 @@ function showArchiveSection($id = null) {
 	}
 
 	$content = new mosContent($database);
-	//РџРѕР»СѓС‡Р°РµРј РѕР±С‰РµРµ РєРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°РїРёСЃРµР№ РІ Р±Р»РѕРіРµ
+	//Получаем общее количество записей в блоге
 	$section->total = $content->_get_result_archive_section($section, $params, $access);
 
-	//РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј РѕРєРѕРЅС‡Р°С‚РµР»СЊРЅС‹Рµ РїР°СЂР°РјРµС‚СЂС‹ $limit Рё $limitstart
+	//Устанавливаем окончательные параметры $limit и $limitstart
 	if($section->total <= $limit) {
 		$limitstart = 0;
 	}
 	$params->set('limitstart', $limitstart);
 	$params->set('limit', $limit);
 
-	//Р’С‹Р±РёСЂР°РµРј РІСЃРµ РЅСѓР¶РЅС‹Рµ Р·Р°РїРёСЃРё СЃР±Р»РѕРіР°
+	//Выбираем все нужные записи сблога
 	$section->content = $content->_load_archive_section($section, $params, $access);
 
 	$params->section_data = $section;
 	$params->def('pop', $pop);
 	$params->page_type = 'section_archive';
 
-	// РњРµС‚Р°-РґР°РЅРЅС‹Рµ СЃС‚СЂР°РЅРёС†С‹
+	// Мета-данные страницы
 	$meta = new contentMeta($params);
 	$meta->set_meta();
 
@@ -655,7 +670,7 @@ function showArchiveSection($id = null) {
 }
 
 /**
- * Р’С‹РІРѕРґ Р°СЂС…РёРІР° РєР°С‚РµРіРѕСЂРёРё
+ * Вывод архива категории
  *
  * @param int The category id
  */
@@ -678,26 +693,26 @@ function showArchiveCategory($id = 0) {
 		return;
 	}
 
-	//РїСЂР°РІР° РґРѕСЃС‚СѓРїР°
+	//права доступа
 	$access = new contentAccess();
 
-	//РЈСЃС‚Р°РЅРѕРІРєР° РїР°СЂР°РјРµС‚СЂРѕРІ СЃС‚СЂР°РЅРёС†С‹ Р±Р»РѕРіР° РєР°С‚РµРіРѕСЂРёРё
+	//Установка параметров страницы блога категории
 	$params = contentPageConfig::setup_blog_archive_category_page($id);
 	$params->set('year', $year);
 	$params->set('month', $month);
 	$params->def('module', $module);
 
-	//РљРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°РїРёСЃРµР№ РЅР° СЃС‚СЂР°РЅРёС†Рµ
+	//Количество записей на странице
 	$limit = $limit?$limit : ($params->get('intro') + $params->get('leading') + $params->get('link'));
 
 	if(!$params->get('module')) {
-		//Р“СЂСѓР·РёРј РґР°РЅРЅС‹Рµ РєР°С‚РµРіРѕСЂРёРё
+		//Грузим данные категории
 		$category = new mosCategory($database);
 		if(!($category->load((int)$id))) {
 			$error = new errorCase(1);
 			return;
 		}
-		//Р“СЂСѓР·РёРј РґР°РЅРЅС‹Рµ СЂР°Р·РґРµР»Р°
+		//Грузим данные раздела
 		$section = new mosSection($database);
 		if(!($section->load((int)$category->section))) {
 			$error = new errorCase(1);
@@ -705,9 +720,9 @@ function showArchiveCategory($id = 0) {
 		}
 		$category->section = $section;
 
-		//РџСЂРѕРІРµСЂСЏРµРј РїСЂР°РІР° РґРѕСЃС‚СѓРїР° Рє СЂР°Р·РґРµР»Сѓ Рё РєР°С‚РµРіРѕСЂРёРё
-		//Р•СЃР»Рё СЂР°Р·РґРµР»/РєР°С‚РµРіРѕСЂРёСЏ РЅРµ РѕРїСѓР±Р»РёРєРѕРІР°РЅС‹ РёР»Рё РіСЂСѓРїРїР° РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РЅРёР¶Рµ РіСЂСѓРїРїС‹ РґРѕСЃС‚СѓРїР°
-		//- РІС‹РґР°С‘Рј СЃРѕРѕР±С‰РµРЅРёРµ Рѕ РЅРµРІРѕР·РјРѕР¶РЅРѕСЃС‚Рё РґРѕСЃС‚СѓРїР°
+		//Проверяем права доступа к разделу и категории
+		//Если раздел/категория не опубликованы или группа пользователя ниже группы доступа
+		//- выдаём сообщение о невозможности доступа
 		if(!$section->published || !$category->published) {
 			$error = new errorCase(2);
 			return;
@@ -722,12 +737,12 @@ function showArchiveCategory($id = 0) {
 
 		$section = new stdClass();
 		$params->page_type = 'archive_by_month';
-		$params->def('header', 'РђСЂС…РёРІ');
+		$params->def('header', 'Архив');
 	}
 
 	$content = new mosContent($database);
 
-	//РџРѕР»СѓС‡Р°РµРј РѕР±С‰РµРµ РєРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°РїРёСЃРµР№ РІ Р±Р»РѕРіРµ Р°СЂС…РёРІР° РєР°С‚РµРіРѕСЂРёРё
+	//Получаем общее количество записей в блоге архива категории
 	$category->total = $content->_get_result_blog_archive_category($category, $params, $access);
 
 	if($category->total <= $limit) {
@@ -736,17 +751,17 @@ function showArchiveCategory($id = 0) {
 	$params->set('limitstart', $limitstart);
 	$params->set('limit', $limit);
 
-	//РџСЂРѕРІРµСЂСЏРµРј, РµСЃС‚СЊ Р»Рё РІРѕРѕР±С‰Рµ РІ Р±Р°Р·Рµ Р°СЂС…РёРІРЅС‹Рµ РјР°С‚РµСЂРёР°Р»С‹
+	//Проверяем, есть ли вообще в базе архивные материалы
 	$category->archives = $content->check_archives_categories($category, $params);
 
-	//Р’С‹Р±РёСЂР°РµРј РІСЃРµ РЅСѓР¶РЅС‹Рµ Р·Р°РїРёСЃРё СЃР±Р»РѕРіР°
+	//Выбираем все нужные записи сблога
 	$category->content = $content->_load_blog_archive_category($category, $params, $access);
 
 	$params->def('pop', $pop);
 	$params->category_data = $category;
 	$params->section_data = $section;
 
-	// РњРµС‚Р°-РґР°РЅРЅС‹Рµ СЃС‚СЂР°РЅРёС†С‹
+	// Мета-данные страницы
 	$meta = new contentMeta($params);
 	$meta->set_meta();
 
@@ -803,7 +818,7 @@ function BlogOutput(&$obj, $params, &$access) {
 	$descrip = $params->get('description');
 	$descrip_image = $params->get('description_image');
 
-	//РіСЂСѓРїРїРёСЂРѕРІРєР° РїРѕ РєР°С‚РµРіРѕСЂРёСЏРј
+	//группировка по категориям
 	$group_cat = $params->get('group_cat');
 	$groupcat_limit = $params->get('groupcat_limit');
 	$cats_arr = array();
@@ -811,7 +826,7 @@ function BlogOutput(&$obj, $params, &$access) {
 
 	$sfx = $params->get('pageclass_sfx');
 
-	//РЈСЃС‚Р°РЅРѕРІРєР° РїР°СЂР°РјРµС‚СЂРѕРІ Р·Р°РїРёСЃРµР№ РІ Р±Р»РѕРіРµ
+	//Установка параметров записей в блоге
 	$params = contentPageConfig::setup_blog_item($params);
 
 	// used to display section/catagory description text and images
@@ -908,7 +923,7 @@ function BlogOutput(&$obj, $params, &$access) {
 			$msg = sprintf(_ARCHIVE_SEARCH_FAILURE, $params->get('month'), $params->get('year'));
 		}
 
-	//РўСЌРіРё
+	//Тэги
 	$tags = new contentTags($database);
 	$all_tags = $tags->load_by_type('com_content');
 	$tags_arr = array();
@@ -923,19 +938,19 @@ function BlogOutput(&$obj, $params, &$access) {
 
 	$template = new jstContentTemplate();
 	$templates = null;
-	//РћРїСЂРµРґРµР»СЏРµРј С€Р°Р±Р»РѕРЅ РІС‹РІРѕРґР° СЃС‚СЂР°РЅРёС†С‹
+	//Определяем шаблон вывода страницы
 
-	//Р•СЃР»Рё СЌС‚Рѕ Р°СЂС…РёРІ
+	//Если это архив
 	if($archive) {
 		switch ($task) {
-				//РђСЂС…РёРІ СЂР°Р·РґРµР»Р°
+				//Архив раздела
 			case 'archivesection':
 			default:
 				$page_type = 'section_archive';
 				$templates = $params->section_data->templates;
 				break;
 
-				//РђСЂС…РёРІ РєР°С‚РµРіРѕСЂРёРё
+				//Архив категории
 			case 'archivecategory':
 				$page_type = 'category_archive';
 
@@ -953,24 +968,24 @@ function BlogOutput(&$obj, $params, &$access) {
 		}
 	}
 
-	//Р•СЃР»Рё СЌС‚Рѕ РіР»Р°РІРЅР°СЏ СЃС‚СЂР°РЅРёС†Р° - РєРѕРјРїРѕРЅРµРЅС‚ 'com_frontpage'
+	//Если это главная страница - компонент 'com_frontpage'
 	else
 		if($_REQUEST['option'] == 'com_frontpage') {
 			include_once ($mosConfig_absolute_path.'/components/com_content/view/frontpage/default.php');
 			return;
 		}
 
-	//РќРµ РіР»Р°РІРЅР°СЏ СЃС‚СЂР°РЅРёС†Р° Рё РЅРµ Р°СЂС…РёРІ - РѕР±С‹С‡РЅС‹Р№ Р±Р»РѕРі СЂР°Р·РґРµР»Р° РёР»Рё РєР°С‚РµРіРѕСЂРёРё
+	//Не главная страница и не архив - обычный блог раздела или категории
 		else {
 			switch ($task) {
 				case 'blogcategory':
 				default:
 					$page_type = 'category_blog';
-					//РїСЂРѕРІРµСЂСЏРµРј РЅР°СЃС‚СЂРѕР№РєРё РєР°С‚РµРіРѕСЂРёРё РЅР° РїСЂРµРґРјРµС‚  Р·Р°РґР°РЅРЅРѕРіРѕ С€Р°Р±Р»РѕРЅР°
+					//проверяем настройки категории на предмет  заданного шаблона
 					if($template->isset_settings($page_type, $params->category_data->templates)) {
 						$templates = $params->category_data->templates;
 					}
-					//РёРЅР°С‡Рµ - РїСЂРѕРІРµСЂСЏРµРј РЅР°СЃС‚СЂРѕР№РєРё СЂР°Р·РґРµР»Р°
+					//иначе - проверяем настройки раздела
 					elseif($template->isset_settings($page_type, $params->section_data->templates)) {
 						$templates = $params->section_data->templates;
 					}
@@ -978,11 +993,11 @@ function BlogOutput(&$obj, $params, &$access) {
 					break;
 
 				case 'blogsection':
-					//Р•СЃР»Рё РіСЂСѓРїРїРёСЂРѕРІРєР° РїРѕ РєР°С‚РµРіРѕСЂРёСЏРј РѕС‚РєР»СЋС‡РµРЅР° - РѕСЃС‚Р°РІР»СЏРµРј РІС‹РІРѕРґ РєР°Рє Рё Р±С‹Р» РїСЂРµР¶РґРµ
+					//Если группировка по категориям отключена - оставляем вывод как и был прежде
 					if(!$group_cat) {
 						$page_type = 'section_blog';
 					}
-					//Р•СЃР»Рё РІРєР»СЋС‡РµРЅР° РіСЂСѓРїРїРёСЂРѕРІРєР° РїРѕ РєР°С‚РµРіРѕСЂРёСЏРј
+					//Если включена группировка по категориям
 					else {
 						$page_type = 'section_groupcats';
 						$counts = array();
@@ -1007,22 +1022,23 @@ function BlogOutput(&$obj, $params, &$access) {
 	include_once ($template->template_file);
 }
 
+// кэширование с сохранением мета-тэгов
 function showFullItem($id,$gid=0){
 	$config = &Jconfig::getInstance();
 	if($config->config_enable_stats) {
-		_showFullItem($id);
+		$r =_showFullItem($id);
 	} else {
 		$cache = &mosCache::getCache('com_content');
 		$r = $cache->call('_showFullItem', $id,$gid);
-		$meta = new contentMeta($r['params']);
-		$meta->set_meta();
-		echo $r['content'];
-		unset($r, $cache);
 	}
+	$meta = new contentMeta($r['params']);
+	$meta->set_meta();
+	echo $r['content'];
+	unset($r, $cache);
 }
 
 /**
- * РЎС‚СЂР°РЅРёС†Р° РїСЂРѕСЃРјРѕС‚СЂР° РјР°С‚РµСЂРёР°Р»Р°
+ * Страница просмотра материала
  *
  * @param int The item id
  */
@@ -1035,7 +1051,7 @@ function _showFullItem($id) {
 	$pop = intval(mosGetParam($_REQUEST, 'pop', 0));
 	$task = strval(mosGetParam($_REQUEST, 'task', ''));
 
-	//РїСЂР°РІР° РґРѕСЃС‚СѓРїР°
+	//права доступа
 	$access = new contentAccess();
 
 	$where = mosContent::_construct_where_for_fullItem($access);
@@ -1099,7 +1115,7 @@ function _showFullItem($id) {
 			return;
 		}
 
-		//РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј РЅРµРѕР±С…РѕРґРёРјС‹Рµ РїР°СЂР°РјРµС‚СЂС‹ СЃС‚СЂР°РЅРёС†С‹
+		//Устанавливаем необходимые параметры страницы
 		$params = new mosParameters($row->attribs);
 		$params = contentPageConfig::setup_full_item_page($row, $params);
 		$params->def('pop', $pop);
@@ -1111,25 +1127,25 @@ function _showFullItem($id) {
 			$row = mosContent::get_prev_next($row, $where, $access, $params);
 		}
 
-		//РўСЌРіРё
+		//Тэги
 		$tags = new contentTags($database);
 		$row->tags = $tags->load_by($row);
 		$row->tags = $tags->arr_to_links($row->tags, ', ');
 
-		// РњРµС‚Р°-РґР°РЅРЅС‹Рµ СЃС‚СЂР°РЅРёС†С‹
+		// Мета-данные страницы
 		$meta_params = new mosParameters('');
 		$meta_params = $params;
 		$meta_params->object->title = $row->title;
 		$meta_params->object->created_by_alias = $row->created_by_alias;
 		$meta_params->object->author = $row->author;
 		$meta_params->page_type = $params->page_type;
-		// СѓР±РёСЂР°РµРј Р»РёС€РЅРёРµ РѕР±СЉРµРєС‚С‹, РґР»СЏ РјРµС‚Р°-С‚СЌРіРѕРІ РѕРЅРё РЅРµ РёСЃРїРѕРѕР»СЊР·СѓСЋС‚СЃСЏ, Рё РІ РєСЌС€Рµ РЅРµ РЅСѓР¶РЅС‹
+		// убираем лишние объекты, для мета-тэгов они не испоользуются, и в кэше не нужны
 		unset($meta_params->_raw,$meta_params->section_data->_db,$meta_params->category_data->_db);
 
-		// СЃРѕР±РёСЂР°РµРј СЃРѕРґРµСЂР¶РёРјРѕРµ СЃС‚СЂР°РЅРёС†С‹ РІ Р±СѓС„РµСЂ - РґР»СЏ РєСЌС€РёСЂРѕРІР°РЅРёСЏ
+		// собираем содержимое страницы в буфер - для кэширования
 		ob_start();
 			_showItem($row, $params, $my->gid, $access, $pop);
-			$content_boby = ob_get_contents(); // РіР»Р°РІРЅРѕРµ СЃРѕРґРµСЂР¶РёРјРѕРµ - СЃС‚РµРє РІС‹РІРѕРґР° РєРѕРјРїРѕРЅРµРЅС‚Р° - mainbody
+			$content_boby = ob_get_contents(); // главное содержимое - стек вывода компонента - mainbody
 		ob_end_clean();
 
 		return array('content' => $content_boby, 'params' => $meta_params);
@@ -1139,7 +1155,7 @@ function _showFullItem($id) {
 }
 
 /**
- * Р’С‹РІРѕРґ РјР°С‚РµСЂРёР°Р»Р° РІ Р±Р»РѕРіРµ
+ * Вывод материала в блоге
  */
 function _showItem($row, $params, $gid, &$access, $pop, $template = '') {
 	global $mosConfig_content_hits, $cache;
@@ -1184,16 +1200,16 @@ function _showItem($row, $params, $gid, &$access, $pop, $template = '') {
 
 	$row->category = htmlspecialchars(stripslashes($row->category), ENT_QUOTES);
 
-	//РЎСЃС‹Р»РєР° РЅР° СЂР°Р·РґРµР»/РєР°С‚РµРіРѕСЂРёСЋ
+	//Ссылка на раздел/категорию
 	if($params->get('section_link') || $params->get('category_link')) {
 
-		// РЎСЃС‹Р»РєР° РЅР° СЂР°Р·РґРµР»
+		// Ссылка на раздел
 		if($params->get('section_link') && $row->sectionid) {
 			$section_link = mosSection::get_section_link($row, $params);
 			$row->section = '<a href="'.$section_link.'">'.$row->section.'</a>';
 		}
 
-		// СЃСЃС‹Р»РєР° РЅР° РєР°С‚РµРіРѕСЂРёСЋ
+		// ссылка на категорию
 		if($params->get('category_link') && $row->catid) {
 			$category_link = mosCategory::get_category_link($row, $params);
 			$row->category = '<a href="'.$category_link.'">'.$row->category.'</a>';
@@ -1210,7 +1226,7 @@ function _showItem($row, $params, $gid, &$access, $pop, $template = '') {
 		$row->text = $row->fulltext;
 	}
 
-	//Р›РёРјРёС‚ РёРЅС‚СЂРѕС‚РµРєСЃС‚Р°
+	//Лимит интротекста
 	$limit_introtext = $params->get('introtext_limit', 0);
 	if($limit_introtext) {
 		$mainframe->addLib('text');
@@ -1221,7 +1237,7 @@ function _showItem($row, $params, $gid, &$access, $pop, $template = '') {
 	// only permitted in the full text area
 	$page = intval(mosGetParam($_REQUEST, 'limitstart', 0));
 
-	// Р·Р°РїРёСЃСЊ СЃС‡РµС‚С‡РёРєР° РїСЂРѕС‡С‚РµРЅРёСЏ
+	// запись счетчика прочтения
 	if(!$params->get('intro_only') && ($page == 0) && ($mosConfig_content_hits)) {
 		$obj = new mosContent($database);
 		$obj->hit($row->id);
@@ -1235,7 +1251,7 @@ function _showItem($row, $params, $gid, &$access, $pop, $template = '') {
 }
 
 /**
- * СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ РјР°С‚РµСЂРёР°Р»Р°
+ * редактирование материала
  */
 function editItem($task) {
 	global $my, $gid, $acl;
@@ -1252,13 +1268,13 @@ function editItem($task) {
 	$nullDate = $database->getNullDate();
 	$lists = array();
 
-	//$id РѕР±РЅР°СЂСѓР¶РёРІР°РµС‚СЃСЏ РІ Р°РґСЂРµСЃРЅРѕР№ СЃС‚СЂРѕРєРµ С‚РѕР»СЊРєРѕ РІ С‚РѕРј СЃР»СѓС‡Р°Рµ, РµСЃР»Рё РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ СЂРµРґР°РєС‚РёСЂСѓРµС‚ РјР°С‚РµСЂРёР°Р»
+	//$id обнаруживается в адресной строке только в том случае, если пользователь редактирует материал
 	$id = intval(mosGetParam($_REQUEST, 'id', 0));
-	//$section РјРѕР¶РµС‚ РїСЂРёСЃСѓС‚СЃС‚РІРѕРІР°С‚СЊ РІ СЃСЃС‹Р»РєРµ, РµСЃР»Рё С„РѕСЂРјР° РЅР°СЃС‚СЂРѕРµРЅР° РґР»СЏ РєР°РєРѕРіРѕ-С‚Рѕ РєРѕРЅРєСЂРµС‚РЅРѕРіРѕ СЂР°Р·РґРµР»Р°  Рё СЌС‚Рѕ РґРѕР±Р°РІР»РµРЅРёРµ Р·Р°РїРёСЃРё
+	//$section может присутствовать в ссылке, если форма настроена для какого-то конкретного раздела  и это добавление записи
 	$section = intval(mosGetParam($_REQUEST, 'section', 0));
 
-	//РџРѕ-СѓРјРѕР»С‡Р°РЅРёСЋ РІ '__menus' СЃРѕРґРµСЂР¶РёС‚СЃСЏ Р·Р°РїРёСЃСЊ Рѕ РїСѓРЅРєС‚Рµ РјРµРЅСЋ,
-	//СЃ РїРѕРјРѕС‰СЊСЋ РєРѕС‚РѕСЂРѕРіРѕ РЅР°СЃС‚СЂР°РёРІР°РµС‚СЃСЏ РґРѕР±Р°РІР»РµРЅРёРµ/СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ РІСЃРµС… Р·Р°РїРёСЃРµР№ (РЅРµР·Р°РІРёСЃРёРјРѕ РѕС‚ СЂР°Р·РґРµР»Р°)
+	//По-умолчанию в '__menus' содержится запись о пункте меню,
+	//с помощью которого настраивается добавление/редактирование всех записей (независимо от раздела)
 	$link = 'index.php?option=com_content&task=new';
 	$special_params = 0;
 
@@ -1268,26 +1284,26 @@ function editItem($task) {
 	$access->canEditOwn = $acl->acl_check('action', 'edit', 'users', $my->usertype, 'content', 'own');
 	$access->canPublish = $acl->acl_check('action', 'publish', 'users', $my->usertype, 'content', 'all');
 
-	//РЎРѕР·РґР°РµРј РѕР±СЉРµРєС‚
+	//Создаем объект
 	$content = new mosContent($database);
 
-	//Р•СЃР»Рё СЌС‚Рѕ РґРѕР±Р°РІР»РµРЅРёРµ РЅРѕРІРѕР№ Р·Р°РїРёСЃРё
+	//Если это добавление новой записи
 	if($task == 'new') {
 		$row = $content;
-		//Р·Р°РїСЂРµС‰Р°РµРј РґРѕСЃС‚СѓРї С‚РµРј, РєРѕРјСѓ РЅРёР·СЏ - Сѓ РєРѕРіРѕ РЅРµС‚ РїСЂР°РІ РЅРё РЅР° СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ РІРѕРѕР±С‰Рµ, РЅРё РЅР° СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ СЃРІРѕРµРіРѕ РєРѕРЅС‚РµРЅС‚Р°
+		//запрещаем доступ тем, кому низя - у кого нет прав ни на редактирование вообще, ни на редактирование своего контента
 		if(!($access->canEdit || $access->canEditOwn)) {
 			HTML_content::_no_access();
 			return;
 		}
 
-		//РµСЃР»Рё РІ СЃСЃС‹Р»РєРµ, РїРѕ РєРѕС‚РѕСЂРѕР№ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРёС€РµР» РґРѕР±Р°РІР»СЏС‚СЊ РєРѕРЅС‚РµРЅС‚, РѕР±РЅР°СЂСѓР¶РёРІР°РµС‚СЃСЏ 'section' -
-		//РёС‰РµРј РІ Р±Р°Р·Рµ РїСѓРЅРєС‚ РјРµРЅСЋ, СЃ РїРѕРјРѕС‰СЊСЋ РєРѕС‚РѕСЂРѕРіРѕ РЅР°СЃС‚СЂР°РёРІР°РµС‚СЃСЏ С„РѕСЂРјР° РёРјРµРЅРЅРѕ РґР»СЏ С‚РµРєСѓС‰РµРіРѕ СЂР°Р·РґРµР»Р°
+		//если в ссылке, по которой пользователь пришел добавлять контент, обнаруживается 'section' -
+		//ищем в базе пункт меню, с помощью которого настраивается форма именно для текущего раздела
 		if($section) {
 			$link = 'index.php?option=com_content&task=new&section='.(int)$section;
 			$special_params = 1;
 		}
 
-		//Р·Р°РїСЂРѕСЃ РЅР° РґР°РЅРЅС‹Рµ Рѕ РїСѓРЅРєС‚Рµ РјРµРЅСЋ
+		//запрос на данные о пункте меню
 		$query = "SELECT id, params FROM #__menu WHERE (link LIKE '%$link') AND published = 1";
 		$r = null;
 		$database->setQuery($query);
@@ -1295,28 +1311,28 @@ function editItem($task) {
 		$exists = $r;
 	}
 
-	//Р•СЃР»Рё СЌС‚Рѕ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ Р·Р°РїРёСЃРё
+	//Если это редактирование записи
 	else
 		if($task == 'edit') {
 			$row = $content->get_item((int)$id);
 
 			$section = $row->sectionid;
-			// Р·Р°РїСЂРµС‰Р°РµРј РґРѕСЃС‚СѓРї
+			// запрещаем доступ
 			if(!($access->canEdit || ($access->canEditOwn && $row->created_by == $my->id))) {
 				mosNotAuth();
 				return;
 			}
 
-			// РІС‹РІРѕРґРёРј СЃРѕРѕР±С‰РµРЅРёРµ, РµСЃР»Рё РґР°РЅРЅР°СЏ Р·Р°РїРёСЃСЊ СЃРµР№С‡Р°СЃ СЂРµРґР°РєС‚РёСЂСѓРµС‚СЃСЏ РєРµРј-С‚Рѕ РґСЂСѓРіРёРј
+			// выводим сообщение, если данная запись сейчас редактируется кем-то другим
 			if($content->isCheckedOut($my->id)) {
 				mosErrorAlert("[ ".$row->title." ] "._CONTENT_IS_BEING_EDITED_BY_OTHER_PEOPLE);
 			}
 
-			//РґРІР° РІР°СЂРёР°РЅС‚Р°, РІ РєРѕС‚РѕСЂС‹С… РјРѕРіСѓС‚ СЃСѓС‰РµСЃС‚РІРѕРІР°С‚СЊ СЃСЃС‹Р»РєРё РЅР° РґРѕР±Р°РІР»РµРЅРёРµ/СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ
+			//два варианта, в которых могут существовать ссылки на добавление/редактирование
 			$link1 = 'index.php?option=com_content&task=new&section='.(int)$section;
 			$link2 = 'index.php?option=com_content&task=new';
 
-			//Р·Р°РїСЂРѕСЃ РЅР° РґР°РЅРЅС‹Рµ Рѕ РїСѓРЅРєС‚Рµ РјРµРЅСЋ
+			//запрос на данные о пункте меню
 			$query = "  SELECT a.id AS menu_id2, a.params AS menu_params2 , b.id AS menu_id1, b.params AS menu_params1
                     FROM #__menu AS a
                     LEFT JOIN  #__menu AS b  ON  b.link LIKE '%$link1' AND b.published = 1
@@ -1331,60 +1347,60 @@ function editItem($task) {
 		return;
 	}
 
-	//РµСЃР»Рё СЌС‚Рѕ РґРѕР±Р°РІР»РµРЅРёРµ РЅРѕРІРѕР№ Р·Р°РїРёСЃРё - РІСЃРµ РїСЂРѕСЃС‚Рѕ, РїРµСЂРµРґР°РµРј РїР°СЂР°РјРµС‚СЂС‹ РґР»СЏ РїР°СЂСЃРёРЅРіР°
+	//если это добавление новой записи - все просто, передаем параметры для парсинга
 	if($task == 'new') {
 		$params = new mosParameters($exists->params);
 	}
-	//РµСЃР»Рё Р¶Рµ СЌС‚Рѕ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ - С‚Рѕ РЅСѓР¶РЅРѕ РѕРїСЂРµРґРµР»РёС‚СЊ, РєР°РєРёРµ РёРјРµРЅРЅРѕ РїР°СЂР°РјРµС‚СЂС‹ Р±СѓРґРµРј РїРµСЂРµРґР°РІР°С‚СЊ
-	//- РёР· РЅР°СЃС‚СЂРѕРµРє СЃСЃС‹Р»РєРё РїРѕ-СѓРјРѕР»С‡Р°РЅРёСЋ, РёР»Рё Р¶Рµ РµСЃС‚СЊ РЅР°СЃС‚СЂРѕР№РєРё РґР»СЏ С‚РµРєСѓС‰РµРіРѕ СЂР°Р·РґРµР»Р°
+	//если же это редактирование - то нужно определить, какие именно параметры будем передавать
+	//- из настроек ссылки по-умолчанию, или же есть настройки для текущего раздела
 	else {
-		//РїСЂРѕРІРµСЂРёРј, РµСЃС‚СЊ Р»Рё СЃРїРµС†РёР°Р»СЊРЅС‹Рµ РЅР°СЃС‚СЂРѕР№РєРё
+		//проверим, есть ли специальные настройки
 		if(isset($exists[0]->menu_id1)) {
 			$params = new mosParameters($exists[0]->menu_params1);
 			$special_params = 1;
 		}
-		//РёРЅР°С‡Рµ РїСЂРѕРІРµСЂРёРј, СЃСѓС‰РµСЃС‚РІСѓСЋС‚ Р»Рё РЅР°СЃС‚СЂРѕР№РєРё РїРѕ-СѓРјРѕР»С‡Р°РЅРёСЋ
+		//иначе проверим, существуют ли настройки по-умолчанию
 		else
 			if(isset($exists[0]->menu_id2)) {
 				$params = new mosParameters($exists[0]->menu_params2);
 			}
-		//РЅСѓ Рё С‚Р°Рє, РЅР° РІСЃСЏРєРёР№ СЃР»СѓС‡Р°Р№. Рђ РІРґСЂСѓРі!
+		//ну и так, на всякий случай. А вдруг!
 			else {
 				$menu = $mainframe->get('menu');
 				$params = new mosParameters($menu->params);
 			}
 	}
 
-	// РїР°СЂР°РјРµС‚СЂС‹ РїРѕР»СѓС‡РµРЅРЅС‹Рµ РёР· РЅР°СЃС‚СЂРѕРµРє СЃСЃС‹Р»РєРё РІ РјРµРЅСЋ
-	$ids_user = $params->get('ids_user', 0); // РІРІРµРґРµРЅРЅС‹Рµ Р·РЅР°С‡РµРЅРёСЏ ID
-	$ids_action = $params->get('ids_action', 0); // С‚РёРї РѕР±СЂР°Р±РѕС‚РєРё РІРІРµРґРµРЅРЅС‹С… ID
+	// параметры полученные из настроек ссылки в меню
+	$ids_user = $params->get('ids_user', 0); // введенные значения ID
+	$ids_action = $params->get('ids_action', 0); // тип обработки введенных ID
 
 	$where_c = "";
 	$where_s = "";
 	if($ids_action && $ids_user) {
 		switch ($ids_action) {
-			case '1': //СЂР°Р·СЂРµС€РёС‚СЊ РїСѓР±Р»РёРєР°С†РёСЋ С‚РѕР»СЊРєРѕ РІ СѓРєР°Р·Р°РЅРЅС‹С… Р РђР—Р”Р•Р›РђРҐ
+			case '1': //разрешить публикацию только в указанных РАЗДЕЛАХ
 			default:
 				$where_s = " AND ( s.id IN (".$ids_user.") )";
-				//РµСЃР»Рё РµСЃС‚СЊ СЃРїРµС†РёР°Р»СЊРЅС‹Рµ РЅР°СЃС‚СЂРѕР№РєРё РґР»СЏ СЂР°Р·РґРµР»Р° - СЃР±СЂР°СЃС‹РІР°РµРј РїРµСЂРµС‡РµРЅСЊ ID СЂР°Р·РґРµР»РѕРІ, РєРѕС‚РѕСЂРµ Р·Р°РґР°Р» РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ
-				//РїРѕСЃРєРѕР»СЊРєСѓ РµСЃР»Рё РµСЃС‚СЊ СЃРїРµС†РёР°Р»СЊРЅС‹Рµ РЅР°СЃС‚СЂРѕР№РєРё -  Р·Р°РїРёСЃСЊ РјРѕР¶РµС‚ Р±С‹С‚СЊ РґРѕР±Р°РІР»РµРЅР° С‚РѕР»СЊРєРѕ РІ РѕРїСЂРµРґРµР»РµРЅРЅС‹Р№ СЂР°Р·РґРµР»
+				//если есть специальные настройки для раздела - сбрасываем перечень ID разделов, которе задал пользователь
+				//поскольку если есть специальные настройки -  запись может быть добавлена только в определенный раздел
 				if($special_params) {
 					$where_s = " ";
 				}
 				break;
 
-			case '2': //СЂР°Р·СЂРµС€РёС‚СЊ РїСѓР±Р»РёРєР°С†РёСЋ С‚РѕР»СЊРєРѕ РІ СѓРєР°Р·Р°РЅРЅС‹С… РљРђРўР•Р“РћР РРЇРҐ
+			case '2': //разрешить публикацию только в указанных КАТЕГОРИЯХ
 				$where_c = " AND ( c.id IN (".$ids_user.") )";
 				break;
 
-			case '3': //Р·Р°РїСЂРµС‚РёС‚СЊ РїСѓР±Р»РёРєР°С†РёСЋ РІ СѓРєР°Р·Р°РЅРЅС‹С… Р РђР—Р”Р•Р›РђРҐ
+			case '3': //запретить публикацию в указанных РАЗДЕЛАХ
 				$where_s = " AND ( s.id NOT IN (".$ids_user.") )";
 				if($special_params) {
 					$where_s = " ";
 				}
 				break;
 
-			case '4': //Р·Р°РїСЂРµС‚РёС‚СЊ РїСѓР±Р»РёРєР°С†РёСЋ РІ СѓРєР°Р·Р°РЅРЅС‹С… РљРђРўР•Р“РћР РРЇРҐ
+			case '4': //запретить публикацию в указанных КАТЕГОРИЯХ
 				$where_c = " AND ( c.id NOT IN (".$ids_user.") )";
 				break;
 		}
@@ -1398,7 +1414,7 @@ function editItem($task) {
 		$row->publish_up = mosFormatDate($row->publish_up, _CURRENT_SERVER_TIME_FORMAT);
 
 		if(trim($row->publish_down) == $nullDate || trim($row->publish_down) == '' || trim($row->publish_down) == '-') {
-			$row->publish_down = 'РќРёРєРѕРіРґР°';
+			$row->publish_down = 'Никогда';
 		}
 		$row->publish_down = mosFormatDate($row->publish_down, _CURRENT_SERVER_TIME_FORMAT);
 
@@ -1424,16 +1440,16 @@ function editItem($task) {
 		$row->ordering = 0;
 		$row->images = array();
 		$row->publish_up = date('Y-m-d H:i:s', time() + ($mosConfig_offset * 60 * 60));
-		$row->publish_down = 'РќРёРєРѕРіРґР°';
+		$row->publish_down = 'Никогда';
 		$row->creator = 0;
 		$row->modifier = 0;
 		$row->frontpage = 0;
 		$params->section_data = null;
-		//РїСѓР±Р»РёРєР°С†РёСЏ РєРѕРЅС‚РµРЅС‚Р°
+		//публикация контента
 		// Publishing state hardening for Authors
 		$auto_publish = $params->get('auto_publish', 0);
 
-		if(!$auto_publish) { //Р•СЃР»Рё РІС‹Р±СЂР°РЅ РїРµСЂРІС‹Р№ РїР°СЂР°РјРµС‚СЂ - РїСЂР°РІР° РїРѕ РіСЂСѓРїРїР°Рј
+		if(!$auto_publish) { //Если выбран первый параметр - права по группам
 			if(!$access->canPublish) {
 				$row->state = 0;
 			} else {
@@ -1464,18 +1480,18 @@ function editItem($task) {
 	//$z_cats_main = $database->loadObjectList();
 	//$lists['catid'] = mosHTML::selectList($rows,'catid','class="inputbox" size="1"','value','text',intval($row->catid));
 
-	//--->>>РЎС‚СЂРѕРёРј selectlist РґР»СЏ РІС‹Р±РѕСЂР° РєР°С‚РµРіРѕСЂРёРё, Рє РєРѕС‚РѕСЂРѕР№ Р±СѓРґРµС‚ РїСЂРёРЅР°РґР»РµР¶Р°С‚СЊ РјР°С‚РµСЂРёР°Р»: BEGIN---<<<
+	//--->>>Строим selectlist для выбора категории, к которой будет принадлежать материал: BEGIN---<<<
 
-	//Р•СЃР»Рё РµСЃС‚СЊ СЃРїРµС†РёР°Р»СЊРЅС‹Рµ РЅР°СЃС‚СЂРѕР№РєРё РґР»СЏ РґРѕР±Р°РІР»РµРЅРёСЏ РјР°С‚РµСЂРёР°Р»Р° РІ СЂР°Р·РґРµР»
-	//РІС‹Р±РёСЂР°РµРј С‚РѕР»СЊРєРѕ РєР°С‚РµРіРѕСЂРёРё, РїСЂРёРЅР°РґР»РµР¶Р°С€РёРµ РґР°РЅРЅРѕРјСѓ СЂР°Р·РґРµР»Сѓ
+	//Если есть специальные настройки для добавления материала в раздел
+	//выбираем только категории, принадлежашие данному разделу
 	if($special_params) {
 		$database->setQuery(" SELECT  CONCAT(c.section,'*',c.id) AS cid , c.title AS c_title, c.section  FROM   #__categories AS c WHERE c.section=$section AND c.published=1 $where_c ORDER BY c.title ASC ");
 		$cids = $database->loadObjectList();
-		//$cats[] = mosHTML::makeOption('-1','Р’С‹Р±РµСЂРёС‚Рµ РєР°С‚РµРіРѕСЂРёСЋ','id','c_title');
+		//$cats[] = mosHTML::makeOption('-1','Выберите категорию','id','c_title');
 		//$cats = array_merge($cats,$cids);
 		$lists['catid'] = mosHTML::selectList($cids, 'catid', 'class="inputbox" size="1"', 'cid', 'c_title', intval($row->catid).'*'.($row->sectionid));
 	}
-	//РµСЃР»Рё Р¶Рµ СЌС‚Рѕ РЅР°СЃС‚СЂРѕР№РєРё РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ - РЅСѓР¶РЅРѕ РїРѕСЃС‚СЂРѕРёС‚СЊ СЃРµР»РµРєС‚, РІ РєРѕС‚РѕСЂРѕРј РїСЂРёСЃСѓС‚СЃС‚РІСѓСЋС‚ Рё СЂР°Р·РґРµР»С‹, Рё РєР°С‚РµРіРѕСЂРёРё
+	//если же это настройки по умолчанию - нужно построить селект, в котором присутствуют и разделы, и категории
 	else {
 		$database->setQuery(" SELECT  c.id AS cid , c.title AS c_name, c.section  FROM   #__categories AS c WHERE c.published=1 $where_c ORDER BY title ASC ");
 		$cids = $database->loadObjectList();
@@ -1483,7 +1499,7 @@ function editItem($task) {
 		$database->setQuery(" SELECT   s.id, s.title  FROM  #__sections AS s WHERE s.published=1 $where_s ORDER BY title ASC");
 		$sids = $database->loadObjectList();
 
-		//Р—РґРµСЃСЊ СЃС‚СЂР°С€РЅРѕ, РЅР°РґРѕ Р±С‹ РїРµСЂРµРїРёСЃР°С‚СЊ ((
+		//Здесь страшно, надо бы переписать ((
 		$return = "<select name=\"catid\" class=\"inputbox\" size=\"1\">";
 		$cids_arr = array();
 		$i2 = 0;
@@ -1513,7 +1529,7 @@ function editItem($task) {
 		$return .= "</select>";
 		$lists['catid'] = $return;
 	}
-	//--->>>РЎС‚СЂРѕРёРј selectlist РґР»СЏ РІС‹Р±РѕСЂР° РєР°С‚РµРіРѕСЂРёРё, Рє РєРѕС‚РѕСЂРѕР№ Р±СѓРґРµС‚ РїСЂРёРЅР°РґР»РµР¶Р°С‚СЊ РјР°С‚РµСЂРёР°Р»: END---<<<
+	//--->>>Строим selectlist для выбора категории, к которой будет принадлежать материал: END---<<<
 
 	// build the html select list for the group access
 	$lists['access'] = mosAdminMenus::Access($row);
@@ -1525,7 +1541,7 @@ function editItem($task) {
 
 	$row->lists = $lists;
 
-	//РўСЌРіРё
+	//Тэги
 	$row->tags = null;
 	if($row->id) {
 		$tags = new contentTags($database);
@@ -1536,7 +1552,7 @@ function editItem($task) {
 		}
 	}
 
-	// РјР°РјР±РѕС‚С‹ СЂРµРґР¶РґР°РєС‚РёСЂРѕРІР°РЅРёСЏ
+	// мамботы редждактирования
 	if($mainframe->getCfg('use_content_edit_mambots')) {
 		global $_MAMBOTS;
 		$_MAMBOTS->loadBotGroup('content');
@@ -1547,7 +1563,7 @@ function editItem($task) {
 }
 
 /**
- * РЎРѕС…СЂР°РЅРµРЅРёРµ РјР°С‚РµСЂРёР°Р»Р°
+ * Сохранение материала
  */
 function saveContent($task) {
 	global $my, $mosConfig_absolute_path, $mosConfig_offset, $Itemid;
@@ -1558,7 +1574,7 @@ function saveContent($task) {
 	// simple spoof check security
 	josSpoofCheck();
 
-	//РїСЂР°РІР° РґРѕСЃС‚СѓРїР°
+	//права доступа
 	$access = new contentAccess();
 
 	$nullDate = $database->getNullDate();
@@ -1598,7 +1614,7 @@ function saveContent($task) {
 	}
 	$row->publish_up = mosFormatDate($row->publish_up, _CURRENT_SERVER_TIME_FORMAT, -$mosConfig_offset);
 
-	if(trim($row->publish_down) == 'РќРёРєРѕРіРґР°' || trim($row->publish_down) == '') {
+	if(trim($row->publish_down) == 'Никогда' || trim($row->publish_down) == '') {
 		$row->publish_down = $nullDate;
 	} else {
 		if(strlen(trim($row->publish_down)) <= 10) {
@@ -1621,7 +1637,7 @@ function saveContent($task) {
 	$row->title = ampReplace($row->title);
 
 	// Publishing state hardening for Authors
-	//РЈС‡Р°СЃС‚РѕРє РїРµСЂРµРЅРµСЃРµРЅ РІ С„СѓРЅРєС†РёСЋ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ
+	//Участок перенесен в функцию редактирования
 
 	if(isset($_POST['catid'])) {
 		$catid0 = explode('*', $_POST['catid']);
@@ -1636,7 +1652,7 @@ function saveContent($task) {
 
 	$row->version++;
 
-	// РјР°РјР±РѕС‚С‹ СЃРѕС…СЂР°РЅРµРЅРёСЏ
+	// мамботы сохранения
 	if($mainframe->getCfg('use_content_save_mambots')) {
 		global $_MAMBOTS;
 		$_MAMBOTS->loadBotGroup('content');
@@ -1648,11 +1664,11 @@ function saveContent($task) {
 		exit();
 	}
 
-	//РџРѕРґРіРѕС‚РѕРІРєР° С‚СЌРіРѕРІ
+	//Подготовка тэгов
 	$tags = explode(',', $_POST['tags']);
 	$tag = new contentTags($database);
 	$tags = $tag->clear_tags($tags);
-	//Р—Р°РїРёСЃСЊ С‚СЌРіРѕРІ
+	//Запись тэгов
 	$row->obj_type = 'com_content';
 	$tag->update($tags, $row);
 	//$row->metakey = implode(',', $tags);
@@ -1718,36 +1734,36 @@ function _after_create_content($row, $page) {
 	$category = $database->loadResult();
 	$category = stripslashes($category);
 
-	// РћС‚РїСЂР°РІРєР° СЃРѕРѕР±С‰РµРЅРёСЏ Р°РґРјРёРЅР°Рј Рѕ РЅРѕРІРѕР№ Р·Р°РїРёСЃРµ
+	// Отправка сообщения админам о новой записе
 	require_once ($mosConfig_absolute_path.'/components/com_messages/messages.class.php');
 	$query = "SELECT id"."\n FROM #__users"."\n WHERE sendEmail = 1";
 	$database->setQuery($query);
 	$users = $database->loadResultArray();
 	foreach ($users as $user_id) {
 		$msg = new mosMessage($database);
-		$msg->send($my->id, $user_id, "РќРѕРІС‹Р№ РѕР±СЉРµРєС‚", sprintf(_ON_NEW_CONTENT, $my->username, $row->title, $section, $category));
+		$msg->send($my->id, $user_id, "Новый объект", sprintf(_ON_NEW_CONTENT, $my->username, $row->title, $section, $category));
 	}
 
 	switch ($page->task) {
 
-			//РµСЃР»Рё "РџСЂРёРјРµРЅРёС‚СЊ"
+			//если "Применить"
 		case 'apply':
-			//РІРѕР·РІСЂР°С‰Р°РµРјСЃСЏ РЅР° СЃС‚СЂР°РЅРёС†Сѓ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ
-			$msg = 'РР·РјРµРЅРµРЅРёСЏ СЃРѕС…СЂР°РЅРµРЅС‹. Р—РґРµСЃСЊ (СЃСЃС‹Р»РєР°) СЃС‚СЂР°РЅРёС†Р° РґР»СЏ РїСЂРµРґРїСЂРѕСЃРјРѕС‚СЂР°';
+			//возвращаемся на страницу редактирования
+			$msg = 'Изменения сохранены. Здесь (ссылка) страница для предпросмотра';
 			$link = $_SERVER['HTTP_REFERER'];
 			break;
 
-			//РµСЃР»Рё "РЎРѕС…СЂР°РЅРёС‚СЊ"
+			//если "Сохранить"
 		case 'save':
 		default:
-			//РµСЃР»Рё Р·Р°РїРёСЃСЊ РѕРїСѓР±Р»РёРєРѕРІР°РЅР°, РґР°РµРј СЃСЃС‹Р»РєСѓ РЅР° РїСЂРѕСЃРјРѕС‚СЂ РІ РѕР±С‹С‡РЅРѕРј СЂРµР¶РёРјРµ
+			//если запись опубликована, даем ссылку на просмотр в обычном режиме
 			if($row->state == 1) {
-				$msg = 'РЎРїР°СЃРёР±Рѕ Рё РІСЃРµ С‚Р°РєРѕРµ';
+				$msg = 'Спасибо и все такое';
 				$link = 'index.php?option=com_content&task=view&id='.$row->id;
 			}
-			//РёРЅР°С‡Рµ - С„РѕСЂРјРёСЂСѓРµРј СЃСЃС‹Р»РєСѓ РЅР° РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅС‹Р№ РїСЂРѕСЃРјРѕС‚СЂ СЃС‚Р°С‚СЊРё
+			//иначе - формируем ссылку на предварительный просмотр статьи
 			else {
-				$msg = 'РњР°С‚РµСЂРёР°Р» Р±С‹Р» СѓСЃРїРµС€РЅРѕ РґРѕР±Р°РІР»РµРЅ Рё Р±СѓРґРµС‚ РґРѕСЃС‚СѓРїРµРЅ РґР»СЏ РѕР±С‰РµРіРѕ РїСЂРѕСЃРјРѕС‚СЂР° РїРѕСЃР»Рµ РїСЂРѕРІРµСЂРєРё РјРѕРґРµСЂР°С‚РѕСЂРѕРј. Рђ РїРѕРєР° РїРѕРІРїРµС‡Р°С‚Р»СЏР№С‚РµСЃСЊ РІРµСЂСЃРёРµР№ РґР»СЏ РїСЂРµРґРїСЂРѕСЃРјРѕС‚СЂР°.';
+				$msg = 'Материал был успешно добавлен и будет доступен для общего просмотра после проверки модератором. А пока повпечатляйтесь версией для предпросмотра.';
 				$link = 'index.php?option=com_content&task=preview&id='.$row->id;
 			}
 
@@ -1763,20 +1779,20 @@ function _after_update_content($row, $page) {
 
 	switch ($page->task) {
 		case 'apply':
-			$msg = 'РР·РјРµРЅРµРЅРёСЏ СЃРѕС…СЂР°РЅРµРЅС‹.';
+			$msg = 'Изменения сохранены.';
 			$link = $_SERVER['HTTP_REFERER'];
 			break;
 
 		case 'save':
 		default:
-			//РµСЃР»Рё Р·Р°РїРёСЃСЊ РѕРїСѓР±Р»РёРєРѕРІР°РЅР°, РґР°РµРј СЃСЃС‹Р»РєСѓ РЅР° РїСЂРѕСЃРјРѕС‚СЂ РІ РѕР±С‹С‡РЅРѕРј СЂРµР¶РёРјРµ
+			//если запись опубликована, даем ссылку на просмотр в обычном режиме
 			if($row->state == 1) {
-				$msg = 'Р’СЃРµ РёР·РјРµРЅРµРЅРёСЏ Р±С‹Р»Рё СѓСЃРїРµС€РЅРѕ СЃРѕС…СЂР°РЅРµРЅС‹';
+				$msg = 'Все изменения были успешно сохранены';
 				$link = 'index.php?option=com_content&task=view&id='.$row->id;
 			}
-			//РёРЅР°С‡Рµ - С„РѕСЂРјРёСЂСѓРµРј СЃСЃС‹Р»РєСѓ РЅР° РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅС‹Р№ РїСЂРѕСЃРјРѕС‚СЂ СЃС‚Р°С‚СЊРё
+			//иначе - формируем ссылку на предварительный просмотр статьи
 			else {
-				$msg = 'Р’РЅРёРјР°РЅРёРµ! Р­С‚Рѕ РІРµСЂСЃРёСЏ РґР»СЏ РїСЂРµРґРїСЂРѕСЃРјРѕС‚СЂР°. РњР°С‚РµСЂРёР°Р» РµС‰Рµ РЅРµ Р±С‹Р» РѕРїСѓР±Р»РёРєРѕРІР°РЅ РЅР° СЃР°Р№С‚Рµ, РІРµСЂРѕСЏС‚РЅРѕ, РѕР¶РёРґР°РµС‚СЃСЏ РїСЂРѕРІРµСЂРєР° РјРѕРґРµСЂР°С‚РѕСЂРѕРј.';
+				$msg = 'Внимание! Это версия для предпросмотра. Материал еще не был опубликован на сайте, вероятно, ожидается проверка модератором.';
 				$link = 'index.php?option=com_content&task=preview&id='.$row->id;
 			}
 
@@ -1794,7 +1810,7 @@ function cancelContent() {
 
 	$database = &database::getInstance();
 
-	//РїСЂР°РІР° РґРѕСЃС‚СѓРїР°
+	//права доступа
 	$access = new contentAccess();
 
 	$row = new mosContent($database);

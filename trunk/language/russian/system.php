@@ -269,6 +269,8 @@ DEFINE('_YES','Да');
 DEFINE('_MALE', 'Мужской');
 DEFINE('_FEMALE', 'Женский');
 DEFINE('_CACHE','Кэш');
+DEFINE('_MESSAGE_ERROR_404','Запрошенная страница не существует');
+DEFINE('_MESSAGE_ERROR_403','Доступ к данной странице запрещён');
 
 
 
@@ -456,5 +458,7 @@ DEFINE('_TEMPLATE_NOT_FOUND','Шаблон не обнаружен');
 /* users */
 DEFINE('_USERS_USERLIST','Список пользователей');
 DEFINE('_REGISTERED_USERS_COUNT','Регистраций');
+
+
 
 ?>

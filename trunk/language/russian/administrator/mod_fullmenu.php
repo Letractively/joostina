@@ -73,3 +73,18 @@ DEFINE('_MOD_FULLMENU_MODULES_POSITION','Позиции модулей');
 DEFINE('_MOD_FULLMENU_CACHE_MANAGEMENT','Управление кешем');
 DEFINE('_MOD_FULLMENU_CLEAR_CONTENT_CACHE','Очистить кэш содержимого');
 DEFINE('_MOD_FULLMENU_CLEAR_ALL_CACHE','Очистить весь кэш');
+DEFINE('_MOD_FULLMENU_ALL_USERS','Все пользователи');
+DEFINE('_MOD_FULLMENU_ADD_USER','Добавить пользователя');
+DEFINE('_MOD_FULLMENU_REGISTER_SETUP','Настройки регистрации');
+DEFINE('_MOD_FULLMENU_PROFILE_SETUP','Настройки профиля');
+DEFINE('_MOD_FULLMENU_C_DEF_SETUP','Настройки по умолчанию');
+DEFINE('_MOD_FULLMENU_C_SECTION_BLOG','Блог раздела');
+DEFINE('_MOD_FULLMENU_C_CAT_BLOG','Блог категории');
+DEFINE('_MOD_FULLMENU_C_LIST_BLOG','Список раздела');
+DEFINE('_MOD_FULLMENU_C_TABLE_BLOG','Таблица категории');
+DEFINE('_MOD_FULLMENU_C_ARH_SECTION','Архив раздела');
+DEFINE('_MOD_FULLMENU_C_ARH_CAT','Архив категории');
+DEFINE('_MOD_FULLMENU_USER_CONTENT','Материалы пользователя');
+//DEFINE('_MOD_FULLMENU_','');
+//DEFINE('_MOD_FULLMENU_','');
+
