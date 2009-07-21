@@ -70,7 +70,8 @@ class submit_content_menu_html {
 					<td width="200px">
 						<input type="text" name="name" size="50" maxlength="100" class="inputbox" value="<?php echo htmlspecialchars($menu->name,ENT_QUOTES); ?>"/>
 					</td>
-					<td><?php
+					<td>
+<?php
 		if(!$menu->id) {
 			echo mosToolTip(_SECTION_TITLE_IF_FILED_IS_EMPTY);
 		}

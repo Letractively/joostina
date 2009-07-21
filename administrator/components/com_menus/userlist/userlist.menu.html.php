@@ -65,30 +65,29 @@ class userlist_menu_html {
 		<table class="adminheading">
 		<tr>
 			<th class="menus">
-			<?php echo $menu->id?_EDITING.' -':_CREATION.' -'; ?> Список пользователей
+<?php
+			echo $menu->id?_EDITING.' - ':_CREATION.' - ';
+			echo _USERS_USERLIST;
+?>
 			</th>
 		</tr>
 		</table>
 
 		<table width="100%">
 		<tr valign="top">
-			<td width="70%">
+			<td width="60%">
 				<table class="adminform">
 				<tr>
-					<th colspan="2">
-					<?php echo _DETAILS?>
-					</th>
+					<th colspan="2"><?php echo _DETAILS?></th>
 				</tr>
 				<tr>
-					<td width="30%" align="right">
-					<?php echo _NAME?>:
-					</td>
-					<td width="70%">
+					<td width="20%" align="right"><?php echo _NAME?>:</td>
+					<td width="80%">
 					<input class="inputbox" type="text" name="name" size="50" maxlength="150" value="<?php echo htmlspecialchars($menu->name,ENT_QUOTES); ?>" />
 					</td>
 				</tr>
 				<tr>
-					<td width="10%" align="right" valign="top">
+					<td align="right" valign="top">
 					<?php echo _LINK_TITLE?>:
 					</td>
 					<td width="80%">
@@ -96,9 +95,7 @@ class userlist_menu_html {
 					</td>
 				</tr>
 				<tr>
-					<td width="30%" align="right">
-					<?php echo _GROUP?>:
-					</td>
+					<td align="right"><?php echo _GROUP?>:</td>
 					<td width="70%">
 					<?php echo mosHTML::selectList($gtree,'gid','size="1"','value','text',$params->get('group',''));?>
 					<br />
@@ -108,58 +105,34 @@ class userlist_menu_html {
 					</td>
 				</tr>
 				<tr>
-					<td valign="top" align="right">
-					<?php echo _LINK_TARGET?>
-					</td>
-					<td>
-					<?php echo $lists['target']; ?>
-					</td>
+					<td valign="top" align="right"><?php echo _LINK_TARGET?></td>
+					<td><?php echo $lists['target']; ?></td>
 				</tr>
 				<tr>
-					<td align="right">
-					<?php echo _PARENT_MENU_ITEM?>:
-					</td>
-					<td>
-					<?php echo $lists['parent']; ?>
-					</td>
+					<td align="right"><?php echo _PARENT_MENU_ITEM?>:</td>
+					<td><?php echo $lists['parent']; ?></td>
 				</tr>
 				<tr>
-					<td valign="top" align="right">
-					<?php echo _ORDER_DROPDOWN?>:
-					</td>
-					<td>
-					<?php echo $lists['ordering']; ?>
-					</td>
+					<td valign="top" align="right"><?php echo _ORDER_DROPDOWN?>:</td>
+					<td><?php echo $lists['ordering']; ?></td>
 				</tr>
 				<tr>
-					<td valign="top" align="right">
-					<?php echo _ACCESS?>:
-					</td>
-					<td>
-					<?php echo $lists['access']; ?>
-					</td>
+					<td valign="top" align="right"><?php echo _ACCESS?>:</td>
+					<td><?php echo $lists['access']; ?></td>
 				</tr>
 				<tr>
-					<td valign="top" align="right">
-					<?php echo _PUBLISHED?>:
-					</td>
-					<td>
-					<?php echo $lists['published']; ?>
-					</td>
+					<td valign="top" align="right"><?php echo _PUBLISHED?>:</td>
+					<td><?php echo $lists['published']; ?></td>
 				</tr>
 				</table>
 			</td>
 			<td width="30%">
 				<table class="adminform">
 				<tr>
-					<th>
-					<?php echo _PARAMETERS?>
-					</th>
+					<th><?php echo _PARAMETERS?></th>
 				</tr>
 				<tr>
-					<td>
-					<?php echo $params->render(); ?>
-					</td>
+					<td><?php echo $params->render(); ?></td>
 				</tr>
 				</table>
 			</td>

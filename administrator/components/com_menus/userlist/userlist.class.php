@@ -63,10 +63,8 @@ class userlist_menu {
 		userlist_menu_html::edit($menu,$lists,$params,$option);
 	}
 	
-		function saveMenu($option,$task) {
-		global $database;
-		
-		
+	function saveMenu($option,$task) {
+		$database = &database::getInstance();
 
 		$params = mosGetParam($_POST,'params','');
 		$params['group'] = $_POST['gid'];
@@ -84,8 +82,6 @@ class userlist_menu {
 			echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
 			exit();
 		}
-
-		
 
 		if(!$row->check()) {
 			echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
