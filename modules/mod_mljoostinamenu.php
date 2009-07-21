@@ -327,15 +327,11 @@ var onImgArray = new Array();
 		}
 	}
 
-	function mosJoostinaGetmenu(&$params){
-		global $my;
-		// активирование кэширования
-		$cache = &mosCache::getCache('mod_mljoostinamenu');
-		return $cache->call('_mosJoostinaGetmenu',$params,$my->gid);
-	}
+	function mosJoostinaGetmenu(&$params,$gid){
+		global $mosConfig_shownoauth,$mosConfig_disable_access_control;
 
-	function _mosJoostinaGetmenu(&$params,$gid){
-		global $database, $mosConfig_shownoauth,$mosConfig_disable_access_control;
+		$database = &database::getInstance();
+
 		$and = '';
 		if ( !$mosConfig_shownoauth AND !$mosConfig_disable_access_control ) {
 			$and = "\n AND access <= " . (int) $gid;
@@ -354,10 +350,11 @@ var onImgArray = new Array();
 
 	// подготовка ссылок ,замена стилей в ссылках
 	function mosJoostinaPrepareLink (&$params, $style=0) {
-		global $database, $my;
-		global $mosConfig_shownoauth,$mosConfig_disable_access_control;
+		global $my,$mosConfig_shownoauth,$mosConfig_disable_access_control;
 
-		$rows = mosJoostinaGetmenu($params);
+		$database = &database::getInstance();
+
+		$rows = mosJoostinaGetmenu($params,$my->gid);
 
 		$links = array();
 
@@ -629,85 +626,88 @@ onImgArray["ml_img_11_<?php echo $ml_module_number; ?>"].src = "<?php echo $mosC
 </script>
 <?php
 	}
+			switch ($style) {
 
-	switch ($style) {
+				// вывод горизонтальной таблицей
+				case 1:
+					echo '<table class="menutable'.$params->get('moduleclass_sfx').'" cellspacing="0" cellpadding="0" border="0"><tr>';
+					mosJoostinaPrepareLink($params,1);
+					echo '</tr></table>';
+				break;
 
-		// вывод горизонтальной таблицей
-		case 1:
-			echo '<table class="menutable'.$params->get('moduleclass_sfx').'" cellspacing="0" cellpadding="0" border="0"><tr>';
-			mosJoostinaPrepareLink($params,1);
-			echo '</tr></table>';
-		break;
+				// вывод списком
+				case 2:
+					echo '<ul class="menulist'.$params->get('moduleclass_sfx').'">';
+					mosJoostinaPrepareLink($params,2);
+					echo '</ul>';
+				break;
 
-		// вывод списком
-		case 2:
-			echo '<ul class="menulist'.$params->get('moduleclass_sfx').'">';
-			mosJoostinaPrepareLink($params,2);
-			echo '</ul>';
-		break;
+				// вывод чистых ссылок
+				case 3:
+					mosJoostinaPrepareLink($params,3);
+					break;
 
-		// вывод чистых ссылок
-		case 3:
-			mosJoostinaPrepareLink($params,3);
-			break;
+				// вывод в 100% ширины
+				case 4:
+					echo '<table class="menutable'.$params->get('moduleclass_sfx').'" cellspacing="0" cellpadding="0" border="0" width="100%"><tr>';
+					mosJoostinaPrepareLink($params,4);
+					echo '</tr></table>';
+				break;
 
-		// вывод в 100% ширины
-		case 4:
-			echo '<table class="menutable'.$params->get('moduleclass_sfx').'" cellspacing="0" cellpadding="0" border="0" width="100%"><tr>';
-			mosJoostinaPrepareLink($params,4);
-			echo '</tr></table>';
-		break;
+				case 5:
+					echo '<div class="maindiv">';
+					mosJoostinaPrepareLink($params,5);
+					echo '</div>';
+				break;
 
-		case 5:
-			echo '<div class="maindiv">';
-			mosJoostinaPrepareLink($params,5);
-			echo '</div>';
-		break;
+				case 6:
+					echo '<table class="menutable'.$params->get('moduleclass_sfx').'" cellspacing="0" cellpadding="0" border="0" >';
+					mosJoostinaPrepareLink($params,6);
+					echo '</table>';
+				break;
 
-		case 6:
-			echo '<table class="menutable'.$params->get('moduleclass_sfx').'" cellspacing="0" cellpadding="0" border="0" >';
-			mosJoostinaPrepareLink($params,6);
-			echo '</table>';
-		break;
-
-		default:
-			echo 'empty';
-		break;
-	}
-
-	}
-
+				default:
+					echo 'empty';
+				break;
+			}
+		}
 	}
 
 	$params->def('menutype', 'mainmenu');
-	$ml_separated_element		= $params->get('ml_separated_element');
-	$ml_separated_link_first	= $params->get('ml_separated_link_first');
-	$ml_separated_link_last		= $params->get('ml_separated_link_last');
-	$ml_separated_element_first	= $params->get('ml_separated_element_first');
-	$ml_separated_element_last	= $params->get('ml_separated_element_last');
-	$ml_linked_sep				= $params->get('ml_linked_sep');
+
+	$menu_cache = &mosCache::getCache('mod_mljoostinamenu');
+	// убираем лишний элемент
+	unset($params->_raw);
 
 	switch ($params->get( 'menu_style' ) ) {
+
 		case 'horizontal':
-			mosJoostinaShowLink ($params,1);
+			echo $menu_cache->call('mosJoostinaShowLink',$params,1,$Itemid);
 		break;
+
 		case 'ulli':
-			mosJoostinaShowLink ($params,2);
+			echo $menu_cache->call('mosJoostinaShowLink',$params,2,$Itemid);
 		break;
+
 		case 'linksonly':
-			mosJoostinaShowLink ($params,3);
+			echo $menu_cache->call('mosJoostinaShowLink',$params,3,$Itemid);
 		break;
+
 		case 'horiz_tab':
-			mosJoostinaShowLink ($params,4);
+			echo $menu_cache->call('mosJoostinaShowLink',$params,4,$Itemid);
 		break;
+
 		case 'divs':
-			mosJoostinaShowLink ($params,5);
+			echo $menu_cache->call('mosJoostinaShowLink',$params,5,$Itemid);
 		break;
+
 		case 'ml_vertical':
-			mosJoostinaShowLink ($params,6);
+			echo $menu_cache->call('mosJoostinaShowLink',$params,6,$Itemid);
 		break;
+
 		default:
-			mosShowVIMenuMLZ ($params);
+			echo $menu_cache->call('mosShowVIMenuMLZ',$params,$Itemid);
 		break ;
 	}
+	unset($menu_cache,$params);
 ?>
