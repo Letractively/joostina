@@ -79,7 +79,7 @@ class JCacheStorageFile extends JCacheStorage
 		$written	= false;
 		$path		= $this->_getFilePath($id, $group);
 		$expirePath	= $path . '_expire';
-		$die		= '<?php die("Access Denied"); ?>'."\n";
+		$die		= '<?php die(); ?>'."\n";
 		
 		$data		= $die.$data;
 

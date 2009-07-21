@@ -11,7 +11,6 @@
 defined('_VALID_MOS') or die();
 
 DEFINE('_NOW_ON_SITE','Сейчас на сайте');
-DEFINE('_REGISTERED_USERS_COUNT','Регистраций');
 DEFINE('_ALL_REGISTERED_USERS_COUNT','всего');
 DEFINE('_TODAY_REGISTERED_USERS_COUNT','за сегодня');
 DEFINE('_WEEK_REGISTERED_USERS_COUNT','за неделю');

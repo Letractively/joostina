@@ -268,6 +268,9 @@ DEFINE('_WRITTEN_BY',' Автор');
 DEFINE('_YES','Да');
 DEFINE('_MALE', 'Мужской');
 DEFINE('_FEMALE', 'Женский');
+DEFINE('_CACHE','Кэш');
+
+
 
 /**
  * CAPTCHA
@@ -452,5 +455,6 @@ DEFINE('_TEMPLATE_NOT_FOUND','Шаблон не обнаружен');
 
 /* users */
 DEFINE('_USERS_USERLIST','Список пользователей');
+DEFINE('_REGISTERED_USERS_COUNT','Регистраций');
 
 ?>
