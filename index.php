@@ -34,7 +34,7 @@ require_once ('./configuration.php');
 
 // считаем время за которое сгенерирована страница
 if($mosConfig_time_gen) {
-	list($usec,$sec) = explode(" ",microtime());
+	list($usec,$sec) = explode(' ',microtime());
 	$sysstart = ((float)$usec + (float)$sec);
 }
 // проверка и активация расширенного отладчика

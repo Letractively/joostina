@@ -53,6 +53,8 @@ $acl = new gacl_api();
 /* вспомогательная библиотека работы с массивами */
 mosMainFrame::addLib('array');
 
+//_xdump($_SERVER);
+//exit();
 
 // корректировка работы с данными полученными от сервера
 if(isset($_SERVER['REQUEST_URI'])) {

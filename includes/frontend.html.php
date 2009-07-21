@@ -27,7 +27,9 @@ class modules_html {
 	* Output Handling for Custom modules
 	*/
 	function module(&$module,&$params,$Itemid,$style = 0) {
-		global $_MAMBOTS, $database;
+		global $_MAMBOTS;
+
+		$database = &database::getInstance();
 
 		// custom module params
 		$moduleclass_sfx = $params->get('moduleclass_sfx');
@@ -88,8 +90,8 @@ class modules_html {
 
 		$moduleclass_sfx = $params->get('moduleclass_sfx');
 
-		$path = $config->config_absolute_path.'/language/'.$config->config_lang.'/frontend/'.$module->module.'.php';
-		$path_def = $config->config_absolute_path.'/language/russian/frontend/'.$module->module.'.php';
+		$path = $config->config_absolute_path.DS.'language'.DS.$config->config_lang.DS.'frontend'.DS.$module->module.'.php';
+		$path_def = $config->config_absolute_path.DS.'language/russian/frontend'.DS.$module->module.'.php';
 
 		file_exists($path) ? include_once ($path) : (file_exists($path_def) ? include_once ($path_def):null);
 
@@ -239,17 +241,17 @@ class modules_html {
 						if($currItem->getEnclosure()) {
 							$enclosure = $currItem->getEnclosure();
 							$eUrl = $enclosure->getUrl();
-							$content_buffer .= "        <a href=\"".ampReplace($eUrl)."\" target=\"_blank\">\n";
-							$content_buffer .= "      ".$item_title."</a>\n";
+							$content_buffer .= "<a href=\"".ampReplace($eUrl)."\" target=\"_blank\">\n";
+							$content_buffer .= " ".$item_title."</a>\n";
 						} else
 							if(($currItem->getEnclosure()) && ($currItem->getLink())) {
 								$enclosure = $currItem->getEnclosure();
 								$eUrl = $enclosure->getUrl();
-								$content_buffer .= "        <a href=\"".ampReplace($currItem->getLink())."\" target=\"_blank\">\n";
+								$content_buffer .= "  <a href=\"".ampReplace($currItem->getLink())."\" target=\"_blank\">\n";
 								$content_buffer .= "      ".$item_title."</a><br/>\n";
-								$content_buffer .= "        <a href=\"".ampReplace($eUrl)."\" target=\"_blank\"><u>Download</u></a>\n";
+								$content_buffer .= "   <a href=\"".ampReplace($eUrl)."\" target=\"_blank\"><u>Download</u></a>\n";
 							}
-					$content_buffer .= "	</strong>\n";
+					$content_buffer .= "</strong>\n";
 					// END fix for RSS enclosure tag url not showing
 					// item description
 					if($rssitemdesc) {
@@ -290,7 +292,6 @@ class modules_html {
 		global $my;
 		$database = &database::getInstance();
 		$mainframe = &mosMainFrame::getInstance();
-		$config = &Jconfig::getInstance();
 
 ?>
 		<table cellpadding="0" cellspacing="0" class="moduletable<?php echo $moduleclass_sfx; ?>">
@@ -309,7 +310,7 @@ class modules_html {
 		if($type) {
 			modules_html::CustomContent($module,$params);
 		} else {
-			include ($config->config_absolute_path.'/modules/'.$module->module.'.php');
+			include ($mainframe->getCfg('absolute_path').DS.'modules'.DS.$module->module.'.php');
 
 			if(isset($content)) {
 				echo $content;
@@ -330,12 +331,11 @@ class modules_html {
 
 		$database = &database::getInstance();
 		$mainframe = &mosMainFrame::getInstance();
-		$config = &Jconfig::getInstance();
 
 		if($type) {
 			modules_html::CustomContent($module,$params);
 		} else {
-			include ($config->config_absolute_path.'/modules/'.$module->module.'.php');
+			include ($mainframe->getCfg('absolute_path').DS.'modules'.DS.$module->module.'.php');
 
 			if(isset($content)) {
 				echo $content;
@@ -351,15 +351,10 @@ class modules_html {
 
 		$database = &database::getInstance();
 		$mainframe = &mosMainFrame::getInstance();
-		$config = &Jconfig::getInstance();
 
 ?>
 		<div class="moduletable<?php echo $moduleclass_sfx; ?>">
-<?php
-		if($module->showtitle != 0) {
-			//echo $number;
-
-?>
+<?php if($module->showtitle != 0) {?>
 			<h3><?php echo htmlspecialchars($module->title); ?></h3>
 <?php
 		}
@@ -367,8 +362,7 @@ class modules_html {
 		if($type) {
 			modules_html::CustomContent($module,$params);
 		} else {
-			include ($config->config_absolute_path.'/modules/'.$module->module.'.php');
-
+			include ($mainframe->getCfg('absolute_path').DS.'modules'.DS.$module->module.'.php');
 			if(isset($content)) {
 				echo $content;
 			}

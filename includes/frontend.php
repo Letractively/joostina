@@ -357,12 +357,29 @@ function mosShowHead($params=array('js'=>1,'css'=>1)) {
 
 	// очистка ссылки на главную страницу даже при отключенном sef
 	if ( $config->config_mtage_base == 1) {
-		echo '<base href="'.$config->config_live_site.'" />'."\r\n";
+		// вычисление ткущего адреса страницы. Код взят из Joomla 1.5.x
+		if (isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) && (strtolower($_SERVER['HTTPS']) != 'off')) {
+			$https = 's://';
+		} else {
+			$https = '://';
+		}
+		if (!empty ($_SERVER['PHP_SELF']) && !empty ($_SERVER['REQUEST_URI'])) {
+			$theURI = 'http' . $https . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+		} else {
+			$theURI = 'http' . $https . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'];
+			if (isset($_SERVER['QUERY_STRING']) && !empty($_SERVER['QUERY_STRING'])) {
+				$theURI .= '?' . $_SERVER['QUERY_STRING'];
+			}
+		}
+		$theURI = str_replace($config->config_live_site.'/','',$theURI);
+		echo '<base href="'.sefRelToAbs($theURI).'" />'."\r\n";
 	}
 
+
+
 	if($my->id || $mainframe->get('joomlaJavascript')) {
-		?><script src="<?php echo $config->config_live_site; ?>/includes/js/joomla.javascript.js" type="text/javascript"></script><?php
-		echo "\r\n";
+		?><script src="<?php echo $config->config_live_site; ?>/includes/js/joomla.javascript.js" type="text/javascript"></script>
+		<?php
 	}
 
 	// отключение RSS вывода в шапку
