@@ -234,7 +234,7 @@ class HTML_users {
 				<tr>
 					<td class="key"><label><?php echo _C_USERS_DESCRIPTION ?></label></td>
 					<td>
-						<textarea class="inputbox" name="about" id="about"><?php echo $row->user_extra->about ?></textarea>
+						<textarea cols="56" rows="7" class="inputbox" name="about" id="about"><?php echo $row->user_extra->about ?></textarea>
 					</td>
 				</tr>
 				<tr>

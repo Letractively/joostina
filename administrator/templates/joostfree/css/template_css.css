@@ -50,6 +50,7 @@ text-align: left;
 	font-weight:bold;
 	text-align:right;
 	width:200px;
+	vertical-align: top;
 }
 /* слой в котором выводится изображение аватара пользователя */
 #user_avatar{
