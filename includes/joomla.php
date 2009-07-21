@@ -5998,27 +5998,27 @@ class mosAbstractLog {
 }
 
 class errorCase{
-    var $type = null;
-    var $message = null;
+	var $type = null;
+	var $message = null;
 
-    function errorCase($type = 1){
-        $this->type = $type;
-        self::_display_error();
-    }
+	function errorCase($type = 1){
+		$this->type = $type;
+		self::_display_error();
+	}
 
-    function _display_error(){
-        switch ($this->type){
-            case '1':
-            default:
-                $this->message = 'Запрошенная страница не существует';
-            break;
+	function _display_error(){
+		switch ($this->type){
+			case 1:
+			default:
+				$this->message = _MESSAGE_ERROR_404;
+			break;
 
-            case '2':
-                $this->message = 'Доступ к данной странице запрещён';
-            break;
-        }
-        echo $this->message;
-    }
+			case 2:
+				$this->message = _MESSAGE_ERROR_403;
+			break;
+		}
+		echo $this->message;
+	}
 }
 
 /**

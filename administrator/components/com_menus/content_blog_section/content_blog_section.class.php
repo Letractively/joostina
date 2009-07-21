@@ -21,7 +21,9 @@ class content_blog_section {
 	* @param integer The unique id of the section to edit (0 if new)
 	*/
 	function edit($uid,$menutype,$option) {
-		global $database,$my,$mainframe;
+		global $my,$mainframe;
+
+		$database = &database::getInstance();
 
 		$menu = new mosMenu($database);
 		$menu->load((int)$uid);
@@ -40,8 +42,7 @@ class content_blog_section {
 				$secidsArray = explode(',',$secids);
 				mosArrayToInts($secidsArray);
 				$secids = 's.id='.implode(' OR s.id=',$secidsArray);
-				$query = "SELECT s.id AS `value`, s.id AS `id`, s.title AS `text`"."\n FROM #__sections AS s".
-					"\n WHERE s.scope = 'content'"."\n AND ( $secids )"."\n ORDER BY s.name";
+				$query = "SELECT s.id AS `value`, s.id AS `id`, s.title AS `text` FROM #__sections AS s WHERE s.scope = 'content' AND ( $secids )"." ORDER BY s.name";
 				$database->setQuery($query);
 				$lookup = $database->loadObjectList();
 			} else {
@@ -57,9 +58,8 @@ class content_blog_section {
 		}
 
 		// build the html select list for section
-		$rows[] = mosHTML::makeOption('','Все разделы');
-		$query = "SELECT s.id AS `value`, s.id AS `id`, s.title AS `text`"."\n FROM #__sections AS s".
-			"\n WHERE s.scope = 'content'"."\n ORDER BY s.name";
+		$rows[] = mosHTML::makeOption('',_ALL_SECTIONS);
+		$query = "SELECT s.id AS `value`, s.id AS `id`, s.title AS `text` FROM #__sections AS s WHERE s.scope = 'content' ORDER BY s.name";
 		$database->setQuery($query);
 		$rows = array_merge($rows,$database->loadObjectList());
 		$section = mosHTML::selectList($rows,'secid[]','class="inputbox" ondblclick="jadd(\'name\',this.options[this.selectedIndex].text);" size="10" multiple="multiple"','value','text',$lookup);
@@ -77,13 +77,14 @@ class content_blog_section {
 		$lists['link'] = mosAdminMenus::Link($menu,$uid);
 
 		// get params definitions
-		$params = new mosParameters($menu->params,$mainframe->getPath('menu_xml',$menu->type),	'menu');
+		$params = new mosParameters($menu->params,$mainframe->getPath('menu_xml',$menu->type),'menu');
 
 		content_blog_section_html::edit($menu,$lists,$params,$option);
 	}
 
 	function saveMenu($option,$task) {
-		global $database;
+
+		$database = &database::getInstance();
 
 		$params = mosGetParam($_POST,'params','');
 

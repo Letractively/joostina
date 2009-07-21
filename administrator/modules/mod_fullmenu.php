@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright –ê–≤—Ç–æ—Ä—Å–∫–∏–µ –ø—Ä–∞–≤–∞ (C) 2008-2009 Joostina team. –í—Å–µ –ø—Ä–∞–≤–∞ –∑–∞—â–∏—â–µ–Ω—ã.
-* @license –õ–∏—Ü–µ–Ω–∑–∏—è http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, –∏–ª–∏ help/license.php
-* Joostina! - —Å–≤–æ–±–æ–¥–Ω–æ–µ –ø—Ä–æ–≥—Ä–∞–º–º–Ω–æ–µ –æ–±–µ—Å–ø–µ—á–µ–Ω–∏–µ —Ä–∞—Å–ø—Ä–æ—Å—Ç—Ä–∞–Ω—è–µ–º–æ–µ –ø–æ —É—Å–ª–æ–≤–∏—è–º –ª–∏—Ü–µ–Ω–∑–∏–∏ GNU/GPL
-* –î–ª—è –ø–æ–ª—É—á–µ–Ω–∏—è –∏–Ω—Ñ–æ—Ä–º–∞—Ü–∏–∏ –æ –∏—Å–ø–æ–ª—å–∑—É–µ–º—ã—Ö —Ä–∞—Å—à–∏—Ä–µ–Ω–∏—è—Ö –∏ –∑–∞–º–µ—á–∞–Ω–∏–π –æ–± –∞–≤—Ç–æ—Ä—Å–∫–æ–º –ø—Ä–∞–≤–µ, —Å–º–æ—Ç—Ä–∏—Ç–µ —Ñ–∞–π–ª help/copyright.php.
+* @copyright ¿‚ÚÓÒÍËÂ Ô‡‚‡ (C) 2008-2009 Joostina team. ¬ÒÂ Ô‡‚‡ Á‡˘Ë˘ÂÌ˚.
+* @license ÀËˆÂÌÁËˇ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, ËÎË help/license.php
+* Joostina! - Ò‚Ó·Ó‰ÌÓÂ ÔÓ„‡ÏÏÌÓÂ Ó·ÂÒÔÂ˜ÂÌËÂ ‡ÒÔÓÒÚ‡ÌˇÂÏÓÂ ÔÓ ÛÒÎÓ‚ËˇÏ ÎËˆÂÌÁËË GNU/GPL
+* ƒÎˇ ÔÓÎÛ˜ÂÌËˇ ËÌÙÓÏ‡ˆËË Ó ËÒÔÓÎ¸ÁÛÂÏ˚ı ‡Ò¯ËÂÌËˇı Ë Á‡ÏÂ˜‡ÌËÈ Ó· ‡‚ÚÓÒÍÓÏ Ô‡‚Â, ÒÏÓÚËÚÂ Ù‡ÈÎ help/copyright.php.
 */
 
-// –∑–∞–ø—Ä–µ—Ç –ø—Ä—è–º–æ–≥–æ –¥–æ—Å—Ç—É–ø–∞
+// Á‡ÔÂÚ ÔˇÏÓ„Ó ‰ÓÒÚÛÔ‡
 defined('_VALID_MOS') or die();
 
 if(!defined('_JOS_FULLMENU_MODULE')) {
@@ -28,18 +28,18 @@ if(!defined('_JOS_FULLMENU_MODULE')) {
 			$database = &database::getInstance();
 			$config = &Jconfig::getInstance();
 
-			echo '<div id="myMenuID"></div>'; // –≤ —ç—Ç–æ—Ç —Å–ª–æ–π –≤—ã–≤–æ–¥–∏—Ç—Å—è —Å–æ–¥–µ—Ä–∂–∏–º–æ–µ –º–µ–Ω—é
-			if($config->config_adm_menu_cache) { // –ø—Ä–æ–≤–µ—Ä—è–µ–º, –∞–∫—Ç–∏–≤–∏—Ä–æ–≤–∞–Ω–æ –ª–∏ –∫—ç—à–∏—Ä–æ–≤–∞–Ω–∏–µ –≤ –ø–∞–Ω–µ–ª–∏ —É–ø—Ä–∞–≤–ª–µ–Ω–∏—è
+			echo '<div id="myMenuID"></div>'; // ‚ ˝ÚÓÚ ÒÎÓÈ ‚˚‚Ó‰ËÚÒˇ ÒÓ‰ÂÊËÏÓÂ ÏÂÌ˛
+			if($config->config_adm_menu_cache) { // ÔÓ‚ÂˇÂÏ, ‡ÍÚË‚ËÓ‚‡ÌÓ ÎË Í˝¯ËÓ‚‡ÌËÂ ‚ Ô‡ÌÂÎË ÛÔ‡‚ÎÂÌËˇ
 				$usertype = $my->usertype;
 				$usertype_menu = str_replace(' ','_',$usertype);
-				// –Ω–∞–∑–≤–∞–Ω–∏–µ —Ñ–∞–π–ª–∞ –º–µ–Ω—é –ø–æ–ª—É—á–∏–º –∏–∑ md5 —Ö–µ—à–∞ —Ç–∏–ø–∞ –ø–æ–ª—å–∑–æ–≤–∞—Ç–µ–ª—è –∏ —Å–µ–∫—Ä–µ—Ç–Ω–æ–≥–æ —Å–ª–æ–≤–∞ –∫–æ–Ω–∫—Ä–µ—Ç–Ω–æ–π —É—Å—Ç–∞–Ω–æ–≤–∫–∏
+				// Ì‡Á‚‡ÌËÂ Ù‡ÈÎ‡ ÏÂÌ˛ ÔÓÎÛ˜ËÏ ËÁ md5 ıÂ¯‡ ÚËÔ‡ ÔÓÎ¸ÁÓ‚‡ÚÂÎˇ Ë ÒÂÍÂÚÌÓ„Ó ÒÎÓ‚‡ ÍÓÌÍÂÚÌÓÈ ÛÒÚ‡ÌÓ‚ÍË
 				$menuname = md5($usertype_menu.$config->config_secret);
 				echo '<script type="text/javascript" src="'.$config->config_live_site.'/cache/adm_menu_'.$menuname.'.js"></script>';
-				if(js_menu_cache('',$usertype_menu,1) == 'true') { // —Ñ–∞–π–ª –µ—Å—Ç—å, –≤—ã–≤–æ–¥–∏–º —Å—Å—ã–ª–∫—É –Ω–∞ –Ω–µ–≥–æ –∏ –ø—Ä–µ–∫—Ä–∞—â–∞–µ–º —Ä–∞–±–æ—Ç—É
-					return; // –¥–∞–ª—å–Ω–µ–π—à—É—é –æ–±—Ä–∞–±–æ—Ç–∫—É –º–µ–Ω—é –Ω–µ –≤–µ–¥—ë–º
-				} // —Ñ–∞–π–ª–∞ –Ω–µ –±—ã–ª–æ - –≥–µ–Ω–µ—Ä–∏—Ä—É–µ–º –µ–≥–æ, —Å–æ–∑–¥–∞—ë–º –∏ –≤—Å—ë —Ä–∞–≤–Ω–æ –≤–æ–∑–≤—Ä–∞—â–∞–µ–º —Å—Å—ã–ª–∫—É
+				if(js_menu_cache('',$usertype_menu,1) == 'true') { // Ù‡ÈÎ ÂÒÚ¸, ‚˚‚Ó‰ËÏ ÒÒ˚ÎÍÛ Ì‡ ÌÂ„Ó Ë ÔÂÍ‡˘‡ÂÏ ‡·ÓÚÛ
+					return; // ‰‡Î¸ÌÂÈ¯Û˛ Ó·‡·ÓÚÍÛ ÏÂÌ˛ ÌÂ ‚Â‰∏Ï
+				} // Ù‡ÈÎ‡ ÌÂ ·˚ÎÓ - „ÂÌÂËÛÂÏ Â„Ó, ÒÓÁ‰‡∏Ï Ë ‚Ò∏ ‡‚ÌÓ ‚ÓÁ‚‡˘‡ÂÏ ÒÒ˚ÎÍÛ
 			}
-			// –ø–æ–ª—É—á–µ–Ω–∏–µ –¥–∞–Ω–Ω—ã—Ö –æ –ø—Ä–∞–≤–∞—Ö –ø–æ–ª—å–∑–æ–≤–∞—Ç–µ–ª—è
+			// ÔÓÎÛ˜ÂÌËÂ ‰‡ÌÌ˚ı Ó Ô‡‚‡ı ÔÓÎ¸ÁÓ‚‡ÚÂÎˇ
 			$canConfig = $acl->acl_check('administration','config','users',$usertype);
 			$manageTemplates = $acl->acl_check('administration','manage','users',$usertype,'components','com_templates');
 			$manageTrash = $acl->acl_check('administration','manage','users',$usertype,'components','com_trash');
@@ -57,7 +57,7 @@ if(!defined('_JOS_FULLMENU_MODULE')) {
 			$query = "SELECT a.id, a.title, a.name FROM #__sections AS a WHERE a.scope = 'content' ORDER BY a.ordering";
 			$database->setQuery($query);
 			$sections = $database->loadObjectList();
-			ob_start(); // —Å–∫–ª–∞–¥—ã–≤–∞–µ–º –≤—Å—ë –≤—ã–¥–∞–≤–∞–µ–º–æ–µ –º–µ–Ω—é –≤ –±—É—Ñ–µ—Ä
+			ob_start(); // ÒÍÎ‡‰˚‚‡ÂÏ ‚Ò∏ ‚˚‰‡‚‡ÂÏÓÂ ÏÂÌ˛ ‚ ·ÛÙÂ
 
 ?>
 var myMenu =[
@@ -102,11 +102,11 @@ var myMenu =[
 ?>],
 <?php	if($canManageUsers || $canMassMail) {
 ?>[null,'<?php echo _USERS?>',null,null,'<?php echo _USERS?>',
-	['<img src="../includes/js/ThemeOffice/user.png" />','–í—Å–µ –ø–æ–ª—å–∑–æ–≤–∞—Ç–µ–ª–∏','index2.php?option=com_users&task=view',null,'–í—Å–µ –ø–æ–ª—å–∑–æ–≤–∞—Ç–µ–ª–∏'],
-	['<img src="../includes/js/ThemeOffice/template.png" />','–î–æ–±–∞–≤–∏—Ç—å –ø–æ–ª—å–∑–æ–≤–∞—Ç–µ–ª—è','index2.php?option=com_users&task=edit',null,'–î–æ–±–∞–≤–∏—Ç—å'],
+	['<img src="../includes/js/ThemeOffice/user.png" />','<?php echo _MOD_FULLMENU_ALL_USERS?>','index2.php?option=com_users&task=view',null,'<?php echo _MOD_FULLMENU_ALL_USERS?>'],
+	['<img src="../includes/js/ThemeOffice/template.png" />','<?php echo _MOD_FULLMENU_ADD_USER?>','index2.php?option=com_users&task=edit',null,'<?php echo _MOD_FULLMENU_ADD_USER?>'],
 	_cmSplit,
-	['<img src="../includes/js/ThemeOffice/template.png" />','–ù–∞—Å—Ç—Ä–æ–π–∫–∏ —Ä–µ–≥–∏—Å—Ç—Ä–∞—Ü–∏–∏','index2.php?option=com_users&task=config&act=registration',null,'–ù–∞—Å—Ç—Ä–æ–π–∫–∏ —Ä–µ–≥–∏—Å—Ç—Ä–∞—Ü–∏–∏'],
-	['<img src="../includes/js/ThemeOffice/template.png" />','–ù–∞—Å—Ç—Ä–æ–π–∫–∏ –ø—Ä–æ—Ñ–∏–ª—è','index2.php?option=com_users&task=config&act=profile',null,'–ù–∞—Å—Ç—Ä–æ–π–∫–∏ –ø—Ä–æ—Ñ–∏–ª—è']
+	['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo _MOD_FULLMENU_REGISTER_SETUP?>','index2.php?option=com_users&task=config&act=registration',null,'<?php echo _MOD_FULLMENU_REGISTER_SETUP?>'],
+	['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo _MOD_FULLMENU_PROFILE_SETUP?>','index2.php?option=com_users&task=config&act=profile',null,'<?php echo _MOD_FULLMENU_PROFILE_SETUP?>']
 ],
 <?php } ?>
 
@@ -159,14 +159,14 @@ _cmSplit,
 ['<img src="../includes/js/ThemeOffice/home.png" />','<?php echo _MOD_FULLMENU_CONTENT_ON_FRONTPAGE?>','index2.php?option=com_frontpage',null,'<?php echo _MOD_FULLMENU_CONTENT_ON_FRONTPAGE?>'],
 ['<img src="../includes/js/ThemeOffice/edit.png" />','<?php echo _ARCHIVE?>','index2.php?option=com_content&task=showarchive&sectionid=0',null,'<?php echo _ARCHIVE?>'],
 _cmSplit,
-['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo '–ù–∞—Å—Ç—Ä–æ–π–∫–∏ –ø–æ —É–º–æ–ª—á–∞–Ω–∏—é'?>',null,null,'<?php echo '–ù–∞—Å—Ç—Ä–æ–π–∫–∏ –ø–æ —É–º–æ–ª—á–∞–Ω–∏—é'?>',
-	['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo '–ë–ª–æ–≥ —Ä–∞–∑–¥–µ–ª–∞'?>','index2.php?option=com_content&task=config&act=sectionblog',null,'<?php echo '–ù–∞—Å—Ç—Ä–æ–π–∫–∏ –ø–æ —É–º–æ–ª—á–∞–Ω–∏—é'?>'],
-	['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo '–ë–ª–æ–≥ –∫–∞—Ç–µ–≥–æ—Ä–∏–∏'?>','index2.php?option=com_content&task=config&act=categoryblog',null,'<?php echo '–ë–ª–æ–≥ –∫–∞—Ç–µ–≥–æ—Ä–∏–∏'?>'],
-	['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo '–°–ø–∏—Å–æ–∫ —Ä–∞–∑–¥–µ–ª–∞'?>','index2.php?option=com_content&task=config&act=sectionlist',null,'<?php echo '–°–ø–∏—Å–æ–∫ —Ä–∞–∑–¥–µ–ª–∞'?>'],
-	['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo '–¢–∞–±–ª–∏—Ü–∞ –∫–∞—Ç–µ–≥–æ—Ä–∏–∏'?>','index2.php?option=com_content&task=config&act=categorytable',null,'<?php echo '–¢–∞–±–ª–∏—Ü–∞ –∫–∞—Ç–µ–≥–æ—Ä–∏–∏'?>'],
-	['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo '–ê—Ä—Ö–∏–≤ —Ä–∞–∑–¥–µ–ª–∞'?>','index2.php?option=com_content&task=config&act=sectionarchive',null,'<?php echo '–ê—Ä—Ö–∏–≤ —Ä–∞–∑–¥–µ–ª–∞'?>'],
-	['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo '–ê—Ä—Ö–∏–≤ –∫–∞—Ç–µ–≥–æ—Ä–∏–∏'?>','index2.php?option=com_content&task=config&act=categoryarchive',null,'<?php echo '–ê—Ä—Ö–∏–≤ –∫–∞—Ç–µ–≥–æ—Ä–∏–∏'?>'],
-	['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo '–ú–∞—Ç–µ—Ä–∏–∞–ª—ã –ø–æ–ª—å–∑–æ–≤–∞—Ç–µ–ª—è'?>','index2.php?option=com_content&task=config&act=ucontent',null,'<?php echo '–ú–∞—Ç–µ—Ä–∏–∞–ª—ã –ø–æ–ª—å–∑–æ–≤–∞—Ç–µ–ª—è'?>']
+['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo _MOD_FULLMENU_C_DEF_SETUP?>',null,null,'<?php echo _MOD_FULLMENU_C_DEF_SETUP?>',
+	['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo _MOD_FULLMENU_C_SECTION_BLOG?>','index2.php?option=com_content&task=config&act=sectionblog',null,'<?php echo _MOD_FULLMENU_C_SECTION_BLOG?>'],
+	['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo _MOD_FULLMENU_C_CAT_BLOG?>','index2.php?option=com_content&task=config&act=categoryblog',null,'<?php echo _MOD_FULLMENU_C_CAT_BLOG?>'],
+	['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo _MOD_FULLMENU_C_LIST_BLOG?>','index2.php?option=com_content&task=config&act=sectionlist',null,'<?php echo _MOD_FULLMENU_C_LIST_BLOG?>'],
+	['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo _MOD_FULLMENU_C_TABLE_BLOG?>','index2.php?option=com_content&task=config&act=categorytable',null,'<?php echo _MOD_FULLMENU_C_TABLE_BLOG?>'],
+	['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo _MOD_FULLMENU_C_ARH_SECTION?>','index2.php?option=com_content&task=config&act=sectionarchive',null,'<?php echo _MOD_FULLMENU_C_ARH_SECTION?>'],
+	['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo _MOD_FULLMENU_C_ARH_CAT?>','index2.php?option=com_content&task=config&act=categoryarchive',null,'<?php echo _MOD_FULLMENU_C_ARH_CAT?>'],
+	['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo _MOD_FULLMENU_USER_CONTENT?>','index2.php?option=com_content&task=config&act=ucontent',null,'<?php echo _MOD_FULLMENU_USER_CONTENT?>']
 ],
 ['<img src="../includes/js/ThemeOffice/globe3.png" />', '<?php echo _MOD_FULLMENU_PAGES_HITS?>', 'index2.php?option=com_statistics&task=pageimp', null, '<?php echo _MOD_FULLMENU_PAGES_HITS?>'],
 ['<img src="../includes/js/ThemeOffice/trash.png" />','<?php echo _MOD_FULLMENU_CONTENT_TRASH?>','index2.php?option=com_trash&catid=content',null,'<?php echo _MOD_FULLMENU_CONTENT_TRASH?>'],
@@ -295,7 +295,7 @@ if($canConfig) {?>
 _cmSplit];
 cmDraw ('myMenuID', myMenu, 'hbr', cmThemeOffice, 'ThemeOffice');
 <?php
-			// boston, —Å–∫–ª–∞–¥—ã–≤–∞–µ–º –º–µ–Ω—é –≤ –∫—ç—à, –∏ –∑–∞–ø–∏—Å—ã–≤–∞–µ–º –≤ —Ñ–∞–π–ª
+			// boston, ÒÍÎ‡‰˚‚‡ÂÏ ÏÂÌ˛ ‚ Í˝¯, Ë Á‡ÔËÒ˚‚‡ÂÏ ‚ Ù‡ÈÎ
 			$cur_menu = ob_get_contents();
 			ob_end_clean();
 			if($config->config_adm_menu_cache){

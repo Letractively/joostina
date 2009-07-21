@@ -78,7 +78,7 @@ class content_blog_section_html {
 				<tr>
 					<td width="10%" align="right"><?php echo _NAME?>:</td>
 					<td width="200px">
-					<input class="inputbox" type="text" name="name" id="name" size="30" maxlength="100" value="<?php echo htmlspecialchars($menu->name,ENT_QUOTES); ?>" />
+					<input class="inputbox" type="text" name="name" id="name" size="70" maxlength="100" value="<?php echo htmlspecialchars($menu->name,ENT_QUOTES); ?>" />
 					</td>
 					<td>
 					</td>
@@ -88,16 +88,12 @@ class content_blog_section_html {
 					<?php echo _LINK_TITLE?>:
 					</td>
 					<td width="80%">
-						<input class="inputbox" type="text" name="params[title]" size="50" maxlength="100" value="<?php echo htmlspecialchars($params->get('title',''),ENT_QUOTES); ?>" />
+						<input class="inputbox" type="text" name="params[title]" size="70" maxlength="100" value="<?php echo htmlspecialchars($params->get('title',''),ENT_QUOTES); ?>" />
 					</td>
 				</tr>
 				<tr>
-					<td valign="top" align="right">
-					<?php echo _SECTION?>:
-					</td>
-					<td>
-					<?php echo $lists['sectionid']; ?>
-					</td>
+					<td valign="top" align="right"><?php echo _SECTION?>:</td>
+					<td><?php echo $lists['sectionid']; ?></td>
 					<td valign="top">
 <?php
 		echo mosToolTip(_YOU_CAN_CHOOSE_SEVERAL_SECTIONS)
