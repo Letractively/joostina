@@ -450,6 +450,7 @@ DEFINE('_CHECKIN_OJECT','Разблокировать');
 DEFINE('_PLEASE_ENTER_PASSWORD','Пожалуйста, введите пароль');
 DEFINE('_TEMPLATE_NOT_FOUND','Шаблон не обнаружен');
 
-
+/* users */
+DEFINE('_USERS_USERLIST','Список пользователей');
 
 ?>
