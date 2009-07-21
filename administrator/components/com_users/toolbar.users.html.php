@@ -1,7 +1,7 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+* @copyright Авторские права (C) 2008 Joostina team. Все права защищены.
 * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
 * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
 * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
@@ -36,18 +36,22 @@ class TOOLBAR_users {
 		mosMenuBar::help('screen.users');
 		mosMenuBar::endTable();
 	}
-	
- 	function _CONFIG(){
+
+	function _CONFIG(){
 		mosMenuBar::startTable();
 		mosMenuBar::save('save_config');
 		mosMenuBar::spacer();
 		mosMenuBar::cancel();
 		mosMenuBar::endTable();
-    }
+	}
 
 	function _DEFAULT() {
 		mosMenuBar::startTable();
 		mosMenuBar::custom('logout','-cancel','',_DISABLE);
+		mosMenuBar::spacer();
+		mosMenuBar::custom('block','-cancel','',_BLOCK_USER);
+		mosMenuBar::spacer();
+		mosMenuBar::custom('unblock','-publish','',_CHECKIN_OJECT);
 		mosMenuBar::spacer();
 		mosMenuBar::deleteList();
 		mosMenuBar::spacer();
@@ -59,4 +63,3 @@ class TOOLBAR_users {
 		mosMenuBar::endTable();
 	}
 }
-?>
