@@ -25,12 +25,7 @@ $cache = &mosCache::getCache('com_content');
 // loads function for frontpage component
 if($option == 'com_frontpage') {
 	$r = $cache->call('frontpage', $my->gid);
-
-	$meta = new contentMeta($r['params']);
-	$meta->set_meta();
-
-	echo $r['content'];
-	unset($r, $cache);
+	from_cache($r);
 	return;
 }
 
@@ -42,15 +37,15 @@ switch ($task) {
 
 	case 'view':
 	case 'preview':
-		showFullItem($id,$my->gid);
+		showFullItem($id,$my->gid,$cache);
 		break;
 
 	case 'section':
-		$cache->call('showSectionCatlist', $id);
+		showSectionCatlist($id,$cache);
 		break;
 
 	case 'category':
-		$cache->call('showTableCategory', $id);
+		showTableCategory($id,$cache);
 		break;
 
 	case 'blogsection':
@@ -247,13 +242,23 @@ function frontpage() {
 	return array('content' => $content_boby, 'params' => $params);
 }
 
+function showSectionCatlist($id,$cache){
+	global $Itemid, $my;
+
+	$config = &Jconfig::getInstance();
+
+	$r = $cache->call('_showSectionCatlist', $id,$my->gid);
+
+	from_cache($r);
+}
+
 /**
  * Вывод списка категорий раздела
  * тип ссылки - таблица раздела
  *
  * @param int The section id
  */
-function showSectionCatlist($id) {
+function _showSectionCatlist($id) {
 	global $Itemid, $my;
 
 	$mainframe = &mosMainFrame::getInstance();
@@ -301,10 +306,29 @@ function showSectionCatlist($id) {
 	if(!$params->get('header')) {
 		$params->set('header', $section->name);
 	}
-	$meta = new contentMeta($params);
-	$meta->set_meta();
 
+	ob_start();
 	HTML_content::showSectionCatlist($section, $access, $params);
+	$content_boby = ob_get_contents(); // главное содержимое - стек вывода компонента - mainbody
+	ob_end_clean();
+
+	unset($params->_raw,$params->section_data,$params->menu->params);
+
+	return array('content' => $content_boby, 'params' => $params);
+}
+
+function showTableCategory($id,$cache){
+	global $my;
+
+	$limit = intval(mosGetParam($_REQUEST, 'limit', 0));
+	$limitstart = intval(mosGetParam($_REQUEST, 'limitstart', 0));
+	$sectionid = intval(mosGetParam($_REQUEST, 'sectionid', 0));
+	$selected = strval(mosGetParam($_REQUEST, 'order', ''));
+	$filter = stripslashes(strval(mosGetParam($_REQUEST, 'filter', '')));
+
+	$r = $cache->call('_showTableCategory', $id,$my->gid,$limit,$limitstart,$sectionid,$selected,$filter);
+
+	from_cache($r);
 }
 
 /**
@@ -312,20 +336,13 @@ function showSectionCatlist($id) {
  *
  * @param int The category id
  */
-function showTableCategory($id) {
+function _showTableCategory($id,$gid,$limit,$limitstart,$sectionid,$selected,$filter) {
 	global $Itemid, $mosConfig_list_limit, $my;
 
 	$mainframe = &mosMainFrame::getInstance();
 	$database = &database::getInstance();
 
-	$limit = intval(mosGetParam($_REQUEST, 'limit', 0));
-	$limitstart = intval(mosGetParam($_REQUEST, 'limitstart', 0));
-	$sectionid = intval(mosGetParam($_REQUEST, 'sectionid', 0));
-
-	$selected = strval(mosGetParam($_REQUEST, 'order', ''));
 	$selected = preg_replace('/[^a-z]/i', '', $selected);
-
-	$filter = stripslashes(strval(mosGetParam($_REQUEST, 'filter', '')));
 
 	if(!$id) {
 		$error = new errorCase(1);
@@ -408,16 +425,20 @@ function showTableCategory($id) {
 	if(!$params->get('header')) {
 		$params->set('header', $category->name);
 	}
-	$meta = new contentMeta($params);
-	$meta->set_meta();
 
+	ob_start();
 	HTML_content::showContentList($category, $access, $params);
+	$content_boby = ob_get_contents(); // главное содержимое - стек вывода компонента - mainbody
+	ob_end_clean();
+
+	unset($params->category_data,$params->_db,$params->section_data);
+
+	return array('content' => $content_boby, 'params' => $params);
 
 }
 
 function showBlogSection($id = 0,$gid=0) {
-	$config = &Jconfig::getInstance();
-	
+
 	$pop = intval(mosGetParam($_REQUEST, 'pop', 0));
 	$limit = intval(mosGetParam($_REQUEST, 'limit', 0));
 	$limitstart = intval(mosGetParam($_REQUEST, 'limitstart', 0));
@@ -425,10 +446,7 @@ function showBlogSection($id = 0,$gid=0) {
 	$cache = &mosCache::getCache('com_content');
 	$r = $cache->call('_showBlogSection', $id,$gid,$pop,$limit,$limitstart);
 
-	$meta = new contentMeta($r['params']);
-	$meta->set_meta();
-	echo $r['content'];
-	unset($r, $cache);
+	from_cache($r);
 }
 
 /**
@@ -1023,18 +1041,14 @@ function BlogOutput(&$obj, $params, &$access) {
 }
 
 // кэширование с сохранением мета-тэгов
-function showFullItem($id,$gid=0){
+function showFullItem($id,$gid=0,$cache){
 	$config = &Jconfig::getInstance();
 	if($config->config_enable_stats) {
 		$r =_showFullItem($id);
 	} else {
-		$cache = &mosCache::getCache('com_content');
 		$r = $cache->call('_showFullItem', $id,$gid);
 	}
-	$meta = new contentMeta($r['params']);
-	$meta->set_meta();
-	echo $r['content'];
-	unset($r, $cache);
+	from_cache($r);
 }
 
 /**
@@ -2038,4 +2052,12 @@ function emailContentSend($uid, $gid) {
 		mosNotAuth();
 		return;
 	}
-} ?>
+}
+
+function from_cache($cache){
+	$meta = new contentMeta($cache['params']);
+	$meta->set_meta();
+	echo $cache['content'];
+	unset($cache);
+	return false;
+}
