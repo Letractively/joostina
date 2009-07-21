@@ -66,6 +66,25 @@ DEFINE('_PROFILE_SITE_SETTINGS','Настройки сайта');
 DEFINE('_SELECT_EDITOR','- Выберите редактор -');
 DEFINE('_VALID_AZ09',"Пожалуйста, проверьте, правильно ли написано %s.  Имя не должно содержать пробелов, только символы 0-9,a-z,A-Z и иметь длину не менее %d символов.");
 DEFINE('_VALID_AZ09_USER',"Пожалуйста, правильно введите %s. Должно содержать только символы 0-9,a-z,A-Z и иметь длину не менее %d символов.");
-DEFINE('_YOUR_NAME','Полное имя');  
+DEFINE('_YOUR_NAME','Полное имя');
 DEFINE('_COM_USERS_CONTACT_INFO','Контактная информация');  
 DEFINE('_CONTACT_INFO_COM_CONTACT','Связь с компонентом контактов'); 
+
+DEFINE('_C_USERS_USER_EDIT','Редактирование профиля пользователя');
+DEFINE('_C_USERS_USER_NEW','Новый пользователь');
+DEFINE('_C_USERS_EXTRA_INFO','Дополнительная информация');
+DEFINE('_C_USERS_B_DAY','Дата рождения');
+DEFINE('_C_USERS_DESCRIPTION','О себе');
+DEFINE('_C_USERS_LOCATION','Местоположение');
+DEFINE('_C_USERS_CONTACT_INFO','Контактные данные');
+DEFINE('_C_USERS_CONTACT_SITE','Сайт');
+DEFINE('_C_USERS_CONTACT_PHONE','Телефон');
+DEFINE('_C_USERS_CONTACT_PHONE_MOBILE','Мобильный телефон');
+DEFINE('_C_USERS_CONTACT_FAX','Факс');
+DEFINE('_C_USERS_GENDER','Пол');
+DEFINE('_C_USERS_AVATARS','Аватар');
+
+DEFINE('_C_USERS_AVATARS_SHOISE','Сменить');
+DEFINE('_C_USERS_AVATARS_SHOISE_IMAGE','Выберите изображение');
+DEFINE('_C_USERS_AVATARS_UPLOAD','Загрузка');
+

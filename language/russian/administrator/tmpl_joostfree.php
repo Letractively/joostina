@@ -10,7 +10,7 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-DEFINE('_JOOSTINA_CONTRIL_PANEL','Панель управления [ Joostina ]');
+DEFINE('_JOOSTINA_CONTROL_PANEL','Панель управления [ Joostina ]');
 DEFINE('_GO_TO_MAIN_ADMIN_PAGE','Перейти на главную страницу Панели управления');
 DEFINE('_TOGGLE_WYSIWYG_EDITOR','Использование визуального редактора');
 DEFINE('_DISABLE_WYSIWYG_EDITOR','Отключить редактор');

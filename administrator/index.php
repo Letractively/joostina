@@ -234,6 +234,9 @@ if(isset($_POST['submit'])) {
 	if($config->config_admin_bad_auth <= $bad_auth_count && (int)$config->config_admin_bad_auth >= 0) {
 		$config->config_captcha = 1;
 	}
+	if($mainframe->getLangFile('tmpl_joostfree')){
+		include_once($mainframe->getLangFile('tmpl_joostfree'));
+	}
 	$path = $config->config_absolute_path .DS.ADMINISTRATOR_DIRECTORY.DS.'templates'.DS. $mainframe->getTemplate() .DS. 'login.php';
 	require_once ($path);
 	doGzip();
