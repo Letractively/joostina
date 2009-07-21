@@ -1480,8 +1480,8 @@ class contentMeta
     	$mainframe = &mosMainFrame::getInstance();
     	$config = &Jconfig::getInstance();
 
-    	$row = $this->_params->object;
-    	
+		$row = $this->_params->object;
+
 		$mainframe->setPageTitle($row->title,$this->_params);
 
 		if($config->config_MetaTitle == '1') {
