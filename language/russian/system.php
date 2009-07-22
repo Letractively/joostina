@@ -459,6 +459,14 @@ DEFINE('_TEMPLATE_NOT_FOUND','Шаблон не обнаружен');
 DEFINE('_USERS_USERLIST','Список пользователей');
 DEFINE('_REGISTERED_USERS_COUNT','Регистраций');
 
+/* section,category */
+DEFINE('_MENU_LINK_AVAILABLE_AFTER_SAVE','Связь с меню будет доступна после сохранения');
+DEFINE('_CATEGORIES_BLOG', 'Блог категории');
+DEFINE('_CATEGORIES_ARHIVE', 'Архив категории');
+DEFINE('_CATEGORIES_TABLE', 'Таблица содержимого категории');
+DEFINE('_TEMPLATE_ITEM_SHOW', 'Страница просмотра записи');
+DEFINE('_TEMPLATE_ITEM_EDIT', 'Страница добавления/редактирования записи');
 
+DEFINE('_CONTACT', 'Контакт');
 
 ?>

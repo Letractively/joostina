@@ -224,26 +224,24 @@ function showCategories($section,$option) {
 		unset($row);
 	}
 
-
-	$query = "SELECT COUNT( a.id ) as count,a.state,a.catid FROM #__content AS a WHERE a.catid IN(".implode(',',$cat_ids).") GROUP BY a.catid";
-	$database->setQuery($query);
-	$cats_info = $database->loadObjectList();
-	
-	//echo count($cats_info);
-	//echo '<br />'.implode(', ', $cat_ids);
-
 	$new_rows = array();
-	foreach ($cats_info as $cat_info){
-		if($cat_info->state=='-2'){
-			$rows[$cat_info->catid]->trash = $cat_info->count;
-			$rows[$cat_info->catid]->active = 0; 
-		}else{
-			$rows[$cat_info->catid]->active = $cat_info->count;
-			$rows[$cat_info->catid]->trash = 0; 
+	if(count($cat_ids)>0){
+		$query = "SELECT COUNT( a.id ) as count,a.state,a.catid FROM #__content AS a WHERE a.catid IN(".implode(',',$cat_ids).") GROUP BY a.catid";
+		$database->setQuery($query);
+		$cats_info = $database->loadObjectList();
+
+		foreach ($cats_info as $cat_info){
+			if($cat_info->state=='-2'){
+				$rows[$cat_info->catid]->trash = $cat_info->count;
+				$rows[$cat_info->catid]->active = 0;
+			}else{
+				$rows[$cat_info->catid]->active = $cat_info->count;
+				$rows[$cat_info->catid]->trash = 0;
+			}
+			$new_rows[] = $rows[$cat_info->catid];
 		}
-		$new_rows[] = $rows[$cat_info->catid];
 	}
-	
+
 	//А теперь добавим в $new_rows категории без контента,
 	// а то не по фен-шую как-то получается
 	
