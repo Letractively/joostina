@@ -921,10 +921,9 @@ class mosContent extends mosDBTable
         }
 
         // array of content items in same category correctly ordered
-        $query = "  SELECT a.id, a.title $uname
-                        FROM #__content AS a $ufrom
-                        WHERE a.catid = " . (int)$row->catid . " AND a.state = " . (int)$row->state . $where . "
-                        ORDER BY $orderby";
+        $query = "SELECT a.id, a.title $uname FROM #__content AS a $ufrom "
+				." WHERE a.catid = " . (int)$row->catid . " AND a.state = " . (int)$row->state . $where
+				." ORDER BY $orderby";
         $database->setQuery($query);
         $list = $database->loadObjectList();
 

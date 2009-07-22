@@ -1078,18 +1078,18 @@ function _showFullItem($id) {
 
 	// main query
 	$query = "SELECT a.*,
-            cc.name AS category, cc.templates as c_templates, cc.access AS cat_access, cc.id as cat_id, cc.published AS cat_pub,
-            s.name AS section, s.published AS sec_pub, s.id AS sec_id, s.templates as s_templates, s.access AS sec_access,
-            u.name AS author, u.usertype, u.username,
-            g.name AS groups
-            ".$voting['select']."
-            FROM #__content AS a
-            LEFT JOIN #__categories AS cc ON cc.id = a.catid
-            LEFT JOIN #__sections AS s ON s.id = cc.section AND s.scope = 'content'
-            LEFT JOIN #__users AS u ON u.id = a.created_by
-            LEFT JOIN #__groups AS g ON a.access = g.id
-            ".$voting['join']."
-            WHERE a.id = ".(int)$id.$where;
+	cc.name AS category, cc.templates as c_templates, cc.access AS cat_access, cc.id as cat_id, cc.published AS cat_pub,
+	s.name AS section, s.published AS sec_pub, s.id AS sec_id, s.templates as s_templates, s.access AS sec_access,
+	u.name AS author, u.usertype, u.username,
+	g.name AS groups
+	".$voting['select']."
+	FROM #__content AS a
+	LEFT JOIN #__categories AS cc ON cc.id = a.catid
+	LEFT JOIN #__sections AS s ON s.id = cc.section AND s.scope = 'content'
+	LEFT JOIN #__users AS u ON u.id = a.created_by
+	LEFT JOIN #__groups AS g ON a.access = g.id
+	".$voting['join']."
+	WHERE a.id = ".(int)$id.$where;
 	$database->setQuery($query);
 	$row = null;
 
@@ -1428,7 +1428,7 @@ function editItem($task) {
 		$row->publish_up = mosFormatDate($row->publish_up, _CURRENT_SERVER_TIME_FORMAT);
 
 		if(trim($row->publish_down) == $nullDate || trim($row->publish_down) == '' || trim($row->publish_down) == '-') {
-			$row->publish_down = 'Никогда';
+			$row->publish_down = _NEVER;
 		}
 		$row->publish_down = mosFormatDate($row->publish_down, _CURRENT_SERVER_TIME_FORMAT);
 
@@ -1454,7 +1454,7 @@ function editItem($task) {
 		$row->ordering = 0;
 		$row->images = array();
 		$row->publish_up = date('Y-m-d H:i:s', time() + ($mosConfig_offset * 60 * 60));
-		$row->publish_down = 'Никогда';
+		$row->publish_down = _NEVER;
 		$row->creator = 0;
 		$row->modifier = 0;
 		$row->frontpage = 0;
@@ -1628,7 +1628,7 @@ function saveContent($task) {
 	}
 	$row->publish_up = mosFormatDate($row->publish_up, _CURRENT_SERVER_TIME_FORMAT, -$mosConfig_offset);
 
-	if(trim($row->publish_down) == 'Никогда' || trim($row->publish_down) == '') {
+	if(trim($row->publish_down) == _NEVER || trim($row->publish_down) == '') {
 		$row->publish_down = $nullDate;
 	} else {
 		if(strlen(trim($row->publish_down)) <= 10) {
