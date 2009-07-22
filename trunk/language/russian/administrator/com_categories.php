@@ -23,7 +23,6 @@ DEFINE('_CATEGORY_PROPERTIES','Свойства категории');
 DEFINE('_CATEGORY_TITLE','Заголовок категории (Title)');
 DEFINE('_CATEGORY_NAME','Название категории (Name)');
 DEFINE('_NEW_MENUITEM_IN_YOUR_MENU','Создание нового пункта в выбранном вами меню.');
-DEFINE('_MENU_LINK_AVAILABLE_AFTER_SAVE','Связь с меню будет доступна после сохранения');
 DEFINE('_MOVE_CATEGORIES','Перемещение категорий');
 DEFINE('_CHOOSE_CATEGORY_SECTION','Пожалуйста, выберите раздел для перемещаемой категории');
 DEFINE('_MOVE_INTO_SECTION','Переместить в раздел');

@@ -51,7 +51,8 @@ class sections_html {
 		</tr>
 		<?php
 		$k = 0;
-		for($i = 0,$n = count($rows); $i < $n; $i++) {
+		$num = count($rows);
+		for($i = 0,$n = $num; $i < $n; $i++) {
 			$row = &$rows[$i];
 			mosMakeHtmlSafe($row);
 			$link		= 'index2.php?option=com_sections&scope=content&task=editA&hidemainmenu=1&id='.$row->id;
@@ -329,59 +330,55 @@ class sections_html {
 			</table>
 <?php
 		}
-?>            <br />
-				<table class="adminform">
+?>			<br />
+<?php $curr_templates = $s_templates->parse_curr_templates($row->templates); ?>
+			<table class="adminform">
 				<tr>
 					<th colspan="2"><?php echo _TEMPLATES?></th>
 				</tr>
-
-                 <?php
-                    $curr_templates = $s_templates->parse_curr_templates($row->templates); ?>
-				    <tr>
-					<td width="200">Блог раздела:</td>
-                     <td><?php echo $s_templates->templates_select_list('section_blog', $curr_templates); ?> </td>
-                     </tr>
-                     <tr>
-					<td width="200">Архив раздела:</td>
-                     <td><?php echo $s_templates->templates_select_list('section_archive', $curr_templates); ?> </td>
-                     </tr>
-                     	<tr>
-                     <td>Записи по группам категорий: </td>
-                    <td><?php echo $s_templates->templates_select_list('section_groupcats', $curr_templates); ?> </td>
-                    </tr>
-                    	<tr>
-                    <td>Список категорий: </td>
-                   <td> <?php echo $s_templates->templates_select_list('section_catlist', $curr_templates); ?>  </td>
-                    </tr>
-                   	<tr>
-                    <td> Блог категории: </td>
-                    <td><?php echo $s_templates->templates_select_list('category_blog', $curr_templates); ?>   </td>
-                     </tr>
-                    	<tr>
-                   <td> Таблица содержимого категории:  </td>
-                   <td> <?php echo $s_templates->templates_select_list('category_table', $curr_templates); ?>  </td>
-                   </tr>
-                   	<tr>
-                   <td> Страница просмотра записи: </td>
-                   <td> <?php echo $s_templates->templates_select_list('item_full', $curr_templates); ?> </td>
-                    </tr>
-                   	<tr>
-                   <td> Страница добавления/редактирования записи:</td>
-                   <td> <?php echo $s_templates->templates_select_list('item_edit', $curr_templates); ?></td>
-                   </tr>
-				</table>
-				<br />
-				<table class="adminform">
+				<tr>
+					<td width="200"><?php echo _SECTION_BLOG?>:</td>
+					<td><?php echo $s_templates->templates_select_list('section_blog', $curr_templates); ?> </td>
+				</tr>
+				<tr>
+					<td width="200"><?php echo _SECTION_BLOG_ARCHIVE?>:</td>
+					<td><?php echo $s_templates->templates_select_list('section_archive', $curr_templates); ?> </td>
+				</tr>
+				<tr>
+					<td><?php echo _SECTION_CAT_CONTENT_LIST?>:</td>
+					<td><?php echo $s_templates->templates_select_list('section_groupcats', $curr_templates); ?> </td>
+				</tr>
+				<tr>
+					<td><?php echo _SECTION_CATEGORIES_LIST?>:</td>
+					<td><?php echo $s_templates->templates_select_list('section_catlist', $curr_templates); ?>  </td>
+				</tr>
+				<tr>
+					<td><?php echo _CATEGORIES_BLOG?>:</td>
+					<td><?php echo $s_templates->templates_select_list('category_blog', $curr_templates); ?>   </td>
+				</tr>
+				<tr>
+					<td><?php echo _CATEGORIES_TABLE?>:</td>
+					<td><?php echo $s_templates->templates_select_list('category_table', $curr_templates); ?>  </td>
+				</tr>
+				<tr>
+					<td><?php echo _TEMPLATE_ITEM_SHOW?>:</td>
+					<td><?php echo $s_templates->templates_select_list('item_full', $curr_templates); ?> </td>
+				</tr>
+				<tr>
+					<td><?php echo _TEMPLATE_ITEM_EDIT ?>:</td>
+					<td><?php echo $s_templates->templates_select_list('item_edit', $curr_templates); ?></td>
+				</tr>
+			</table>
+			<br />
+			<table class="adminform">
 				<tr>
 					<th colspan="2"><?php echo _IMAGES_DIRS?></th>
 				</tr>
 				<tr>
 					<td colspan="2"><?php echo $lists['folders']; ?></td>
 				</tr>
-				</table>
-                <br />
-
-
+			</table>
+			<br />
 			</td>
 		</tr>
 		</table>

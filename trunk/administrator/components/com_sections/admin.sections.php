@@ -252,35 +252,35 @@ function showSections($scope,$option) {
 		$sects_ids[]=$row->id;
 		unset($row);
 	}
-
-	$query = "SELECT COUNT( a.id ) as count,a.section FROM #__categories AS a WHERE a.section IN (".implode(',',$sects_ids).") AND a.published != -2 GROUP BY a.section";
-	$database->setQuery($query);
-	$sects_info = $database->loadObjectList();
-
 	$new_rows = array();
-	foreach ($sects_info as $sect_info){
-		$rows[$sect_info->section]->categories = $sect_info->count;
-	}
+	if( count($sects_ids)>0 ){
+		$query = "SELECT COUNT( a.id ) as count,a.section FROM #__categories AS a WHERE a.section IN (".implode(',',$sects_ids).") AND a.published != -2 GROUP BY a.section";
+		$database->setQuery($query);
+		$sects_info = $database->loadObjectList();
 
-	$query = "SELECT COUNT( a.id ) as count,a.state,a.sectionid FROM #__content AS a WHERE a.sectionid IN (".implode(',',$sects_ids).") GROUP BY a.sectionid";
-	$database->setQuery($query);
-	$contents_info = $database->loadObjectList();
 
-	foreach ($contents_info as $content_info){
-		if($content_info->state=='-2'){
-			$rows[$content_info->sectionid]->trash = $content_info->count;
-			$rows[$content_info->sectionid]->active = 0;
-		}else{
-			$rows[$content_info->sectionid]->active = $content_info->count;
-			$rows[$content_info->sectionid]->trash = 0;
+		foreach ($sects_info as $sect_info){
+			$rows[$sect_info->section]->categories = $sect_info->count;
 		}
-		$rows_new[]=$rows[$content_info->sectionid];
+
+		$query = "SELECT COUNT( a.id ) as count,a.state,a.sectionid FROM #__content AS a WHERE a.sectionid IN (".implode(',',$sects_ids).") GROUP BY a.sectionid";
+		$database->setQuery($query);
+		$contents_info = $database->loadObjectList();
+
+		foreach ($contents_info as $content_info){
+			if($content_info->state=='-2'){
+				$rows[$content_info->sectionid]->trash = $content_info->count;
+				$rows[$content_info->sectionid]->active = 0;
+			}else{
+				$rows[$content_info->sectionid]->active = $content_info->count;
+				$rows[$content_info->sectionid]->trash = 0;
+			}
+			$rows_new[]=$rows[$content_info->sectionid];
+		}
 	}
-	
 	//Добавляем в $new_rows разделы без категорий
-	
 	foreach($sects_ids as $v){
-		if (!in_array($rows[$v], $rows_new)){
+		if (!in_array($rows[$v], $new_rows)){
 			$rows[$v]->trash = 0;
 			$rows[$v]->active = 0; 
 			$rows[$v]->categories = 0; 

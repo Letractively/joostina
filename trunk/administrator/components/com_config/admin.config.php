@@ -362,7 +362,7 @@ function showconfig($option) {
 	$lists['log_items']		= mosHTML::yesnoRadioList( 'config_enable_log_items', 'class="inputbox"', $row->config_enable_log_items );
 
 // ÍÀÑÒĞÎÉÊÈ SEO
-	$lists['sef']			= mosHTML::yesnoRadioList( 'config_sef', 'class="inputbox" onclick="javascript: if (document.adminForm.config_sef[1].checked) { alert(\'Íåîáõîäèìî ïåğåèìåíîâàòü htaccess.txt â .htaccess\') }"', $row->config_sef );
+	$lists['sef']			= mosHTML::yesnoRadioList( 'config_sef', 'class="inputbox" onclick="javascript: if (document.adminForm.config_sef[1].checked) { alert(\''._C_CONFIG_HTACCESS_RENAME.'\') }"', $row->config_sef );
 	$lists['pagetitles']	= mosHTML::yesnoRadioList( 'config_pagetitles', 'class="inputbox"', $row->config_pagetitles );
 
 	$pagetitles_first = array(

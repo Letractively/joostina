@@ -1,27 +1,27 @@
 <?php
 /**
 * @package Joostina
-* @copyright Àâòîðñêèå ïðàâà (C) 2008-2009 Joostina team. Âñå ïðàâà çàùèùåíû.
-* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
-* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
-* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+* @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2009 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
+* @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
+* Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
+* Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
 */
 
-// çàïðåò ïðÿìîãî äîñòóïà
+// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
 defined('_VALID_MOS') or die();
 
 
-DEFINE('_ORDER_BY_ASC','Ïîðÿäîê ïî âîçðàñòàíèþ');
-DEFINE('_ORDER_BY_DESC','Ïîðÿäîê ïî óáûâàíèþ');
-DEFINE('_ORDER_BY_ID_ASC','Ïî âîçðàñòàíèþ ID');
-DEFINE('_ORDER_BY_ID_DESC','Ïî óáûâàíèþ ID');
-DEFINE('_ORDER_BY_TITLE_ASC','Çàãîëîâêè ïî àëôàâèòó');
-DEFINE('_ORDER_BY_TITLE_DESC','Çàãîëîâêè ïðîòèâ àëôàâèòà');
-DEFINE('_ORDER_BY_DATE_ASC','Äàòà ïî âîçðàñòàíèþ');
-DEFINE('_ORDER_BY_DATE_DESC','Äàòà ïî óáûâàíèþ');
-DEFINE('_ORDER_BY_AUTORS_ASC','Àâòîðû ïî àëôàâèòó');
-DEFINE('_ORDER_BY_AUTORS_DESC','Àâòîðû ïðîòèâ àëôàâèòà');
-DEFINE('_ORDER_BY_PUBL_ASC','Ñíà÷àëà íåîïóáëèêîâàííûå');
-DEFINE('_ORDER_BY_PUBL_DESC','Ñíà÷àëà îïóáëèêîâàííûå');
-DEFINE('_ORDER_BY_ACCESS_ASC','Äîñòóï ïî âîçðàñòàíèþ');
-DEFINE('_ORDER_BY_ACCESS_DESC','Äîñòóï ïî óáûâàíèþ');
+DEFINE('_ORDER_BY_ASC','ÐŸÐ¾Ñ€ÑÐ´Ð¾Ðº Ð¿Ð¾ Ð²Ð¾Ð·Ñ€Ð°ÑÑ‚Ð°Ð½Ð¸ÑŽ');
+DEFINE('_ORDER_BY_DESC','ÐŸÐ¾Ñ€ÑÐ´Ð¾Ðº Ð¿Ð¾ ÑƒÐ±Ñ‹Ð²Ð°Ð½Ð¸ÑŽ');
+DEFINE('_ORDER_BY_ID_ASC','ÐŸÐ¾ Ð²Ð¾Ð·Ñ€Ð°ÑÑ‚Ð°Ð½Ð¸ÑŽ ID');
+DEFINE('_ORDER_BY_ID_DESC','ÐŸÐ¾ ÑƒÐ±Ñ‹Ð²Ð°Ð½Ð¸ÑŽ ID');
+DEFINE('_ORDER_BY_TITLE_ASC','Ð—Ð°Ð³Ð¾Ð»Ð¾Ð²ÐºÐ¸ Ð¿Ð¾ Ð°Ð»Ñ„Ð°Ð²Ð¸Ñ‚Ñƒ');
+DEFINE('_ORDER_BY_TITLE_DESC','Ð—Ð°Ð³Ð¾Ð»Ð¾Ð²ÐºÐ¸ Ð¿Ñ€Ð¾Ñ‚Ð¸Ð² Ð°Ð»Ñ„Ð°Ð²Ð¸Ñ‚Ð°');
+DEFINE('_ORDER_BY_DATE_ASC','Ð”Ð°Ñ‚Ð° Ð¿Ð¾ Ð²Ð¾Ð·Ñ€Ð°ÑÑ‚Ð°Ð½Ð¸ÑŽ');
+DEFINE('_ORDER_BY_DATE_DESC','Ð”Ð°Ñ‚Ð° Ð¿Ð¾ ÑƒÐ±Ñ‹Ð²Ð°Ð½Ð¸ÑŽ');
+DEFINE('_ORDER_BY_AUTORS_ASC','ÐÐ²Ñ‚Ð¾Ñ€Ñ‹ Ð¿Ð¾ Ð°Ð»Ñ„Ð°Ð²Ð¸Ñ‚Ñƒ');
+DEFINE('_ORDER_BY_AUTORS_DESC','ÐÐ²Ñ‚Ð¾Ñ€Ñ‹ Ð¿Ñ€Ð¾Ñ‚Ð¸Ð² Ð°Ð»Ñ„Ð°Ð²Ð¸Ñ‚Ð°');
+DEFINE('_ORDER_BY_PUBL_ASC','Ð¡Ð½Ð°Ñ‡Ð°Ð»Ð° Ð½ÐµÐ¾Ð¿ÑƒÐ±Ð»Ð¸ÐºÐ¾Ð²Ð°Ð½Ð½Ñ‹Ðµ');
+DEFINE('_ORDER_BY_PUBL_DESC','Ð¡Ð½Ð°Ñ‡Ð°Ð»Ð° Ð¾Ð¿ÑƒÐ±Ð»Ð¸ÐºÐ¾Ð²Ð°Ð½Ð½Ñ‹Ðµ');
+DEFINE('_ORDER_BY_ACCESS_ASC','Ð”Ð¾ÑÑ‚ÑƒÐ¿ Ð¿Ð¾ Ð²Ð¾Ð·Ñ€Ð°ÑÑ‚Ð°Ð½Ð¸ÑŽ');
+DEFINE('_ORDER_BY_ACCESS_DESC','Ð”Ð¾ÑÑ‚ÑƒÐ¿ Ð¿Ð¾ ÑƒÐ±Ñ‹Ð²Ð°Ð½Ð¸ÑŽ');

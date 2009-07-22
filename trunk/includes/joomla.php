@@ -1120,11 +1120,18 @@ class mosMainFrame {
 				$cur_template = 'joostfree';
 			}
 		} else {
+
 			$assigned = (!empty($Itemid) ? ' OR menuid = '.(int)$Itemid : '');
 
-			$query = 'SELECT template FROM #__templates_menu WHERE client_id = 0 AND ( menuid = 0 '.$assigned.' ) ORDER BY menuid DESC';
-			$this->_db->setQuery($query,0,1);
-			$cur_template = $this->_db->loadResult();
+			static $_all_templates;
+
+			if(!isset($_all_templates[$assigned])){
+				$query = 'SELECT template FROM #__templates_menu WHERE client_id = 0 AND ( menuid = 0 '.$assigned.' ) ORDER BY menuid DESC';
+				$this->_db->setQuery($query,0,1);
+				$_all_templates["$assigned"] = $this->_db->loadResult();
+			}
+
+			$cur_template = $_all_templates["$assigned"];
 
 			// TemplateChooser Start
 			$jos_user_template		= strval(mosGetParam($_COOKIE,'jos_user_template',''));
