@@ -230,7 +230,7 @@ if(isset($_POST['submit'])) {
 	}
 } else {
 	initGzip();
-
+	header('Content-type: text/html; charset=UTF-8');
 	if($config->config_admin_bad_auth <= $bad_auth_count && (int)$config->config_admin_bad_auth >= 0) {
 		$config->config_captcha = 1;
 	}

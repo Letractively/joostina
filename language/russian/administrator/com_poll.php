@@ -10,7 +10,7 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-DEFINE('_POLLS','Опросы');
+
 DEFINE('_POLL_HEADER','Заголовок опроса');
 DEFINE('_POLL_LAG','Задержка');
 DEFINE('_CHANGE_POLL','Изменить опрос');

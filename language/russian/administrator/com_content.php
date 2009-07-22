@@ -11,7 +11,6 @@
 defined('_VALID_MOS') or die();
 
 DEFINE('_ACTIVE_IMAGE','Активное изображение');
-DEFINE('_ALIAS','Псевдоним');
 DEFINE('_ALIGN','Выравнивание');
 DEFINE('_ALL_SECTIONS','Все разделы');
 DEFINE('_CANNOT_EDIT_ARCHIVED_ITEM','Вы не можете отредактировать архивный объект');

@@ -189,7 +189,9 @@ function x_save_old($id) {
 * boston, добавил параметр -  возврат в редактирование содержимого после сохранения для добавления нового
 */
 function x_save() {
-	global $database,$my,$mainframe,$mosConfig_offset,$mosConfig_one_editor;
+	global $my,$mainframe,$mosConfig_offset,$mosConfig_one_editor;
+
+	$database = &database::getInstance();
 
 	$menu		= strval(mosGetParam($_POST,'menu','mainmenu'));
 	$menuid		= intval(mosGetParam($_POST,'menuid',0));
@@ -284,14 +286,15 @@ function x_save() {
 		exit();
 	}
 	
- 	//Подготовка тэгов
-    $tags = explode(',', $_POST['tags']);
-    $tags = ArrayHelper::clear($tags);
-    $tag = new contentTags($database);
-   	$tags = $tag->clear_tags($tags);
-   	$row->obj_type = 'com_content';
-   	$tag->update($tags, $row);	
-
+	//Подготовка тэгов
+	$tags = explode(',', trim($_POST['tags']));
+	if($tags[0]!=''){
+		$tags = ArrayHelper::clear($tags);
+		$tag = new contentTags($database);
+		$tags = $tag->clear_tags($tags);
+		$row->obj_type = 'com_content';
+		$tag->update($tags, $row);
+	}
 
 
 	// manage frontpage items
