@@ -82,25 +82,17 @@ if(file_exists($mosConfig_absolute_path.'/components/com_sef/sef.php')) {
 
 require_once ($mosConfig_absolute_path.'/includes/frontend.php');
 
+// mainframe - основная рабочая среда API, осуществляет взаимодействие с 'ядром'
+$mainframe = &mosMainFrame::getInstance();
+
 // поиск некоторых аргументов url (или form)
 $option = strval(strtolower(mosGetParam($_REQUEST,'option')));
 $Itemid = intval(mosGetParam($_REQUEST,'Itemid',null));
-
-
-if($option == '') {
-	$_temp = get_option($Itemid);
-	$Itemid = $_temp[0];
-	$option = $_temp[1];
-	unset($_temp);
-}
 
 if(!$Itemid) {
 	// когда не найден Itemid, то ему присваивается значение по умолчанию
 	$Itemid = 99999999;
 }
-
-// mainframe - основная рабочая среда API, осуществляет взаимодействие с 'ядром'
-$mainframe = &mosMainFrame::getInstance();
 
 // отключение ведения сессий на фронте
 if($mosConfig_session_front == 0) {
