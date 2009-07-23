@@ -67,7 +67,7 @@ function mosLoadComponent($name) {
 	global $task,$Itemid,$id,$option,$gid;
 	$mainframe = &mosMainFrame::getInstance();
 	$database = &database::getInstance();
-	include ($mainframe->getCfg('absolute_path')."/components/com_$name/$name.php");
+	include ($mainframe->getCfg('absolute_path').DS."components/com_$name/$name.php");
 }
 /**
 * Cache some modules information
@@ -78,7 +78,7 @@ function &initModules() {
 
 	static $all_modules;
 
-	if(!$all_modules) {
+	if(!isset($all_modules)) {
 		$database = &database::getInstance();
 		$all_modules = array();
 
