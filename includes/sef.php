@@ -429,7 +429,7 @@ function sefRelToAbs($string) {
 	}
 
 	// если ссылка идёт на компонент главной страницы - очистим её
-	if(eregi("option=com_frontpage",$string) & $mosConfig_com_frontpage_clear & !eregi("limit",$string)) {
+	if((strpos($string,'option=com_frontpage')>0) & $mosConfig_com_frontpage_clear & !(strpos($string,'limit'))) {
 		$string = '';
 	}
 	// SEF URL Handling

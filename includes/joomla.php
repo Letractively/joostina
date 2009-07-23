@@ -126,9 +126,14 @@ class mosMainFrame {
 	function mosMainFrame($db,$option,$basePath=null,$isAdmin = false) {
 		unset($db,$option);
 
-		$option = strval(strtolower(mosGetParam($_REQUEST,'option')));
+		$this->_db = &database::getInstance();
 
-		$this->_db = &database::getInstance();;
+		if(!$isAdmin){ // работаем с меню в один запрос
+			$this->set('all_menu',mosMenu::getInstance()->get_menu());
+			$option = $this->get_option();
+		}else{// для панели управления работаем с меню напрямую
+			$option = strval(strtolower(mosGetParam($_REQUEST,'option')));
+		}
 
 		$this->_setTemplate($isAdmin);
 		$this->_setAdminPaths($option,$this->getCfg('absolute_path'));
@@ -1782,12 +1787,59 @@ class mosMainFrame {
 		return $mosmsg;
 	}
 
+	/* проверка доступа к активному компоненту */
 	function check_option($option){
 		if($option=='com_content') return true;
 		$sql = 'SELECT menuid FROM #__components WHERE #__components.option=\''.$option.'\' AND parent=0';
 		$this->_db->setQuery($sql);
 		($this->_db->loadResult()==0) ? null : mosRedirect($this->getCfg('live_site'));
 		return true;
+	}
+
+	function get_option(){
+
+		$Itemid = intval(strtolower(mosGetParam($_REQUEST,'Itemid',null)));
+		$option = trim(strval(strtolower(mosGetParam($_REQUEST,'option',null))));
+
+		if(isset($option) && $option!='') {
+			return $option;
+		}
+
+		if($Itemid) {
+			$query = "SELECT id, link"
+			."\n FROM #__menu"
+			."\n WHERE menutype = 'mainmenu'"
+			."\n AND id = ".(int)$Itemid
+			."\n AND published = 1";
+			$this->_db->setQuery($query);
+			$menu = new mosMenu($database);
+			$this->_db->loadObject($menu);
+		} else {
+			// получение пурвого элемента главного меню
+			$menu = $this->get('all_menu');
+			$menu = $menu['mainmenu'];
+			$items = array_values($menu);
+			$menu = $items[0];
+		}
+
+		$Itemid = $menu->id;
+		$link = $menu->link;
+
+		unset($menu);
+		if(($pos = strpos($link,'?')) !== false) {
+			$link = substr($link,$pos + 1).'&Itemid='.$Itemid;
+		}
+		parse_str($link,$temp);
+		/** это путь, требуется переделать для лучшего управления глобальными переменными*/
+		foreach($temp as $k => $v) {
+			$GLOBALS[$k] = $v;
+			$_REQUEST[$k] = $v;
+			if($k == 'option') {
+				$option = $v;
+			}
+		}
+
+		return $option;
 	}
 
 }
@@ -2347,9 +2399,8 @@ class mosModule extends mosDBTable {
         }
 		return false;
     }
-    
+
     function load_module($name = '', $title = ''){ 
-    	
    		$where = " m.module = '".$name."'";
    		if(!$name || $title){
    			$where = " m.title = '".$title."'";	
@@ -2364,13 +2415,12 @@ class mosModule extends mosDBTable {
 		$rows = get_object_vars($this);
 
 		foreach ($rows as $key => $value) {
-			
 			if (isset($row->$key)) {
-				$this->$key = $row->$key;				
+				$this->$key = $row->$key;
 			}
 		}
-		return true;   	
-    }
+		return true;
+	}
 
 }
 
@@ -2513,6 +2563,30 @@ class mosMenu extends mosDBTable {
 	*/
 	function mosMenu(&$db) {
 		$this->mosDBTable('#__menu','id',$db);
+		$this->_menu = array();
+	}
+
+	function &getInstance(){
+		static $instance;
+
+		if (!is_object( $instance )) {
+			$db = &database::getInstance();
+			$instance = new mosMenu($db);
+
+			// ведёргиваем из базы все пункты меню, они еще пригодяться несколько раз
+			$sql = 'SELECT* FROM #__menu WHERE published=1 ORDER BY parent, ordering ASC';
+			$this->_db->setQuery($sql);
+			$menus = $this->_db->loadObjectList();
+
+			$m = array();
+			foreach($menus as $menu){
+				$m[$menu->menutype][$menu->id]=$menu;
+			}
+			$instance->_menu = $m;
+			unset($m,$sql,$menus,$menu);
+		}
+
+		return $instance;
 	}
 
 	function check() {
@@ -2525,7 +2599,7 @@ class mosMenu extends mosDBTable {
 	
 	function getMenu($id = null, $type = '', $link = ''){
 		$mainframe = &mosMainFrame::getInstance();
-		
+
 		$where = ''; $and = array();
 		if($id || $type || $link){
 			$where .= ' WHERE ';
@@ -2534,20 +2608,24 @@ class mosMenu extends mosDBTable {
 			$and[] = ' menu.id = '.$id;	
 		}
 		if ($type){
-			$and[] = " menu.type = '".$type."'";	
+			$and[] = " menu.type = '".$type."'";
 		}
 		if ($link){
 			$and[] = "menu.link LIKE '%$link'";	
 		}
 		$and = implode(' AND ', $and);
 		
-		$query = "  SELECT menu.* FROM #__menu AS menu ".$where.$and;
-        $r=null;
-        $this->_db->setQuery($query);
-        $this->_db->loadObject($r);
-        return $r;
-		
+		$query = 'SELECT menu.* FROM #__menu AS menu '.$where.$and;
+		$r=null;
+		$this->_db->setQuery($query);
+		$this->_db->loadObject($r);
+		return $r;
 	}
+
+	function get_menu(){
+		return $this->_menu;
+	}
+
 }
 
 
@@ -3504,21 +3582,33 @@ function mosMenuCheck($Itemid,$menu_option,$task,$gid) {
 	$database = &database::getInstance();
 	$mainframe = &mosMainFrame::getInstance();
 	
+	$results = array();
+	
 	if($Itemid != '' && $Itemid != 0 && $Itemid != 99999999) {
 		$query = "SELECT* FROM #__menu WHERE id = ".(int)$Itemid;
+		$all_menus = $mainframe->get('all_menu');
+		foreach($all_menus as $menu){
+			if(isset($menu[$Itemid])){
+				$results[0]=$menu[$Itemid];
+				$access = $results[0]->access;
+			}
+		}
 	} else {
 		$dblink = "index.php?option=".$database->getEscaped($menu_option, true);
 		if($task != '') {
 			$dblink .= "&task=".$database->getEscaped($task, true);
 		}
 		$query = "SELECT* FROM #__menu WHERE published = 1 AND link LIKE '$dblink%'";
+		$database->setQuery($query);
+		$results = $database->loadObjectList();
+
+		$access = 0;
+		foreach($results as $result) {
+			$access = max($access,$result->access);
+		}
 	}
-	$database->setQuery($query);
-	$results = $database->loadObjectList();
-	$access = 0;
-	foreach($results as $result) {
-		$access = max($access,$result->access);
-	}
+
+	
 	// save menu information to global mainframe
 	if(isset($results[0])) {
 		// loads menu info of particular Itemid
@@ -3933,44 +4023,6 @@ if(!function_exists('html_entity_decode')) {
 	}
 }
 
-function get_option($Itemid){
-	$database = &database::getInstance();
-	if($Itemid) {
-		$query = "SELECT id, link"
-		."\n FROM #__menu"
-		."\n WHERE menutype = 'mainmenu'"
-		."\n AND id = ".(int)$Itemid
-		."\n AND published = 1";
-		$database->setQuery($query);
-	} else {
-		$query = "SELECT id, link"
-		."\n FROM #__menu"
-		."\n WHERE menutype = 'mainmenu'"
-		."\n AND published = 1"
-		."\n ORDER BY parent, ordering";
-		$database->setQuery($query,0,1);
-	}
-	$menu = new mosMenu($database);
-	if($database->loadObject($menu)) {
-		$Itemid = $menu->id;
-	}
-	$link = $menu->link;
-
-	unset($menu);
-	if(($pos = strpos($link,'?')) !== false) {
-		$link = substr($link,$pos + 1).'&Itemid='.$Itemid;
-	}
-	parse_str($link,$temp);
-	/** это путь, требуется переделать для лучшего управления глобальными переменными*/
-	foreach($temp as $k => $v) {
-		$GLOBALS[$k] = $v;
-		$_REQUEST[$k] = $v;
-		if($k == 'option') {
-			$option = $v;
-		}
-	}
-	return array($Itemid,$option);
-}
 
 /**
 * Plugin handler
