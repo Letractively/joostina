@@ -829,7 +829,7 @@ function saveContent($sectionid,$task) {
 
 	$row->title = ampReplace($row->title);
 
-	$templates = new jstContentTemplate();
+	$templates = new ContentTemplate();
 	$row->templates = $templates->prepare_for_save(mosGetParam($_POST,'templates',array()));
 
 	if(!$row->check()) {

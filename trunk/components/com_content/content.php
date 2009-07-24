@@ -1,4 +1,5 @@
-<?php /**
+<?php
+/**
  * @package Joostina
  * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
  * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
@@ -8,6 +9,7 @@
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
+
 require_once ($mainframe->getPath('front_html', 'com_content'));
 require_once ($mainframe->getPath('config', 'com_content'));
 include_once ($mainframe->getLangFile('com_content'));
@@ -54,17 +56,17 @@ switch ($task) {
 
 	case 'blogcategorymulti':
 	case 'blogcategory':
-		// Itemid is a dummy value to cater for caching
-		$cache->call('showBlogCategory', $id);
+		// блог категории
+		showBlogCategory($id,$my->gid);
 		break;
 
 	case 'archivesection':
-		// Itemid is a dummy value to cater for caching
+		// архив раздела
 		$cache->call('showArchiveSection', $id);
 		break;
 
 	case 'archivecategory':
-		// Itemid is a dummy value to cater for caching
+		// архив категории
 		$cache->call('showArchiveCategory', $id);
 		break;
 
@@ -438,7 +440,6 @@ function _showTableCategory($id,$gid,$limit,$limitstart,$sectionid,$selected,$fi
 }
 
 function showBlogSection($id = 0,$gid=0) {
-
 	$pop = intval(mosGetParam($_REQUEST, 'pop', 0));
 	$limit = intval(mosGetParam($_REQUEST, 'limit', 0));
 	$limitstart = intval(mosGetParam($_REQUEST, 'limitstart', 0));
@@ -517,8 +518,8 @@ function _showBlogSection($id,$gid,$pop,$limit,$limitstart) {
 	}
 
 	ob_start();
-	BlogOutput($section, $params, $access);
-	$content_boby = ob_get_contents(); // главное содержимое - стек вывода компонента - mainbody
+		BlogOutput($section, $params, $access);
+		$content_boby = ob_get_contents(); // главное содержимое - стек вывода компонента - mainbody
 	ob_end_clean();
 
 	unset($params->_db,$params->section_data->_db,$params->section_data->_db,$params->section_data->content);
@@ -530,15 +531,23 @@ function _showBlogSection($id,$gid,$pop,$limit,$limitstart) {
  *
  * @param int The category id
  */
-function showBlogCategory($id = 0) {
-	global $Itemid, $my;
-
-	$mainframe = &mosMainFrame::getInstance();
-	$database = &database::getInstance();
+function showBlogCategory($id = 0,$gid=0) {
 
 	$pop = intval(mosGetParam($_REQUEST, 'pop', 0));
 	$limit = intval(mosGetParam($_REQUEST, 'limit', 0));
 	$limitstart = intval(mosGetParam($_REQUEST, 'limitstart', 0));
+
+	$cache = &mosCache::getCache('com_content');
+	$r = $cache->call('_showBlogCategory', $id,$gid,$pop,$limit,$limitstart);
+
+	from_cache($r);
+}
+
+function _showBlogCategory($id = 0,$gid,$pop,$limit,$limitstart) {
+	global $Itemid, $my;
+
+	$mainframe = &mosMainFrame::getInstance();
+	$database = &database::getInstance();
 
 	if(!$id) {
 		$error = new errorCase(1);
@@ -598,12 +607,12 @@ function showBlogCategory($id = 0) {
 	$params->def('pop', $pop);
 	$params->page_type = 'category_blog';
 
-	// Мета-данные страницы
-	$meta = new contentMeta($params);
-	$meta->set_meta();
-
-	BlogOutput($category, $params, $access);
-
+	ob_start();
+		BlogOutput($category, $params, $access);
+		$content_boby = ob_get_contents(); // главное содержимое - стек вывода компонента - mainbody
+	ob_end_clean();
+	unset($params->_db,$params->section_data->_db,$params->section_data->_db,$params->section_data->content);
+	return array('content' => $content_boby, 'params' => $params);
 }
 
 /**
@@ -954,7 +963,7 @@ function BlogOutput(&$obj, $params, &$access) {
 		}
 	}
 
-	$template = new jstContentTemplate();
+	$template = new ContentTemplate();
 	$templates = null;
 	//Определяем шаблон вывода страницы
 
@@ -1152,6 +1161,8 @@ function _showFullItem($id) {
 		$meta_params->object->title = $row->title;
 		$meta_params->object->created_by_alias = $row->created_by_alias;
 		$meta_params->object->author = $row->author;
+		$meta_params->object->description = $row->metadesc;
+		$meta_params->object->metakey = $row->metakey;
 		$meta_params->page_type = $params->page_type;
 		// убираем лишние объекты, для мета-тэгов они не испоользуются, и в кэше не нужны
 		unset($meta_params->_raw,$meta_params->section_data->_db,$meta_params->category_data->_db);
@@ -1232,10 +1243,7 @@ function _showItem($row, $params, $gid, &$access, $pop, $template = '') {
 
 	// show/hides the intro text
 	if($params->get('introtext')) {
-		if($params->get('jeditable'))
-			$row->text = $row->introtext.($params->get('intro_only')?'' : chr(13).'</div><div id="jneditf-'.$row->id.'">'.chr(13).$row->fulltext.chr(13).chr(13).$row->notetext);
-		else
-			$row->text = $row->introtext.($params->get('intro_only')?'' : chr(13).chr(13).$row->fulltext.chr(13).chr(13).$row->notetext);
+		$row->text = $row->introtext.($params->get('intro_only')?'' : chr(13).chr(13).$row->fulltext.chr(13).chr(13).$row->notetext);
 	} else {
 		$row->text = $row->fulltext;
 	}

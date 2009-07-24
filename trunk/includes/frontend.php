@@ -325,16 +325,16 @@ function mosShowHead($params=array('js'=>1,'css'=>1)) {
 	if(!$keywords) {
 		$mainframe->appendMetaTag('keywords',$config->config_MetaKeys);
 	}
-
+/* этот участок делает что-то странное с мета-тэгом keywords, он уберает дубли слов, очень толсто...
 	if($_meta_keys_index != -1) {
 		$keys = $mainframe->_head['meta'][$_meta_keys_index][1];
 		$keys = preg_replace("/\,+/is",", ",$keys);
 		$keys = preg_replace("/\s+/is"," ",$keys);
-		$keys = strtolower($keys);
+		$keys = Jstring::strtolower($keys);
 		$keys = implode(', ',array_unique(split(', ',$keys)));
 		$mainframe->_head['meta'][$_meta_keys_index][1] = $keys;
 	}
-
+*/
 	// отключение тега Generator
 	if($config->config_generator_off == 0) {
 		$mainframe->addMetaTag('Generator',$_VERSION->CMS.' - '.$_VERSION->COPYRIGHT);

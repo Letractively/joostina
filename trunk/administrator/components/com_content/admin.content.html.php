@@ -716,7 +716,7 @@ function editContent(&$row,$section,&$lists,&$sectioncategories,&$images,&$param
 								<table class="params" width="100%">
 					<tr><th><?php echo _TEMPLATES?></th><th></th></tr>
 					<?php
-					$templates = new jstContentTemplate;
+					$templates = new ContentTemplate;
 					$curr_templates = $templates->parse_curr_templates($row->templates);
 					?>
 					<tr>

@@ -454,7 +454,7 @@ function saveSection($option,$scope,$task) {
 					}
 	$row->params = 'imagefolders='.$folders;
 
-    $templates = new jstContentTemplate();
+    $templates = new ContentTemplate();
     $row->templates = $templates->prepare_for_save(mosGetParam($_POST,'templates',array()));
 
 	if(!$row->store()) {
