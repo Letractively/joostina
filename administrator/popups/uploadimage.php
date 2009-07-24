@@ -11,7 +11,10 @@ define("_VALID_MOS",1);
 
 /** проверка безопасности*/
 require ('../includes/auth.php');
-include_once ($mosConfig_absolute_path.'/language/'.$mosConfig_lang.'.php');
+
+$mainframe = &mosMainFrame::getInstance(true);
+$mainframe->set('lang', $mosConfig_lang);
+include_once($mainframe->getLangFile());
 
 /*
 * Stops file upload below /images/stories directory
@@ -105,7 +108,7 @@ if(isset($_FILES['userfile'])) {
 	}
 
 	if((strcasecmp(substr($userfile_name,-4),'.gif')) && (strcasecmp(substr($userfile_name,-4),'.jpg')) && (strcasecmp(substr($userfile_name,-4),'.png')) && (strcasecmp(substr($userfile_name,-4),'.bmp')) && (strcasecmp(substr($userfile_name,-4),'.doc')) &&(strcasecmp(substr($userfile_name,-4),'.xls')) && (strcasecmp(substr($userfile_name,-4),'.ppt')) && (strcasecmp(substr($userfile_name,-4),'.swf')) && (strcasecmp(substr($userfile_name,-4),'.pdf'))) {
-		mosErrorAlert(_FILE_MUST_HAVE_THIS_EXTENSION.' gif, png, jpg, bmp, swf, doc, xls или ppt',$action);
+		mosErrorAlert(_FILE_MUST_HAVE_THIS_EXTENSION.' gif, png, jpg, bmp, swf, doc, xls, ppt',$action);
 	}
 
 
@@ -125,7 +128,7 @@ if(isset($_FILES['userfile'])) {
 
 // css file handling
 // check to see if template exists
-if($css != '' && !is_dir($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$css.'/css/template_css.css')) {
+if($css != '' && !is_dir($mosConfig_absolute_path.DS.ADMINISTRATOR_DIRECTORY.'/templates/'.$css.'/css/template_css.css')) {
 	$css = 'joostfree';
 } else
 	if($css == '') {
@@ -154,7 +157,7 @@ echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>';
 		</tr>
 		<tr>
 			<td align="center">
-				<input class="inputbox" name="userfile" type="file" /><input class="button" type="submit" value="«агрузить" name="fileupload" />
+				<input class="inputbox" name="userfile" type="file" /><input class="button" type="submit" value="<?php echo _TASK_UPLOAD?>" name="fileupload" />
 			</td>
 		</tr>
 		<tr>

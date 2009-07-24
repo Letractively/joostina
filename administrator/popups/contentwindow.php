@@ -10,7 +10,10 @@
 define("_VALID_MOS",1);
 
 require_once ('../includes/auth.php');
-include_once ($mosConfig_absolute_path.'/language/'.$mosConfig_lang.'.php');
+
+$mainframe = &mosMainFrame::getInstance(true);
+$mainframe->set('lang', $mosConfig_lang);
+include_once($mainframe->getLangFile());
 
 // limit access to functionality
 $option = strval(mosGetParam($_SESSION,'option',''));
@@ -35,12 +38,13 @@ $css = mosGetParam($_REQUEST,'t','');
 
 // css file handling
 // check to see if template exists
-if($css != '' && is_dir($mosConfig_absolute_path.'/templates/'.$css.'/css/template_css.css')) {
+if($css != '' && is_file($mainframe->getCfg('absolute_path').DS.'templates'.DS.$css.'/css/template_css.css')) {
 	$css = $css;
-} else
+} else{
 	if($css == '') {
-		$css = 'jooway';
+		$css = 'newline';
 	}
+}
 
 $iso = split('=',_ISO);
 // xml prolog
@@ -50,7 +54,7 @@ echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>';
 <html xmlns="http://www.w3.org/1999/xhtml">
 <base href="<?php echo ($mosConfig_live_site); ?>/" />
 <head>
-<title>Просмотр содержимого</title>
+<title><?php echo _CONTENT_PREVIEW?></title>
 <link rel="stylesheet" href="templates/<?php echo $css; ?>/css/template_css.css" type="text/css" />
 	<script>
 		var form = window.opener.document.adminForm

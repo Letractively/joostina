@@ -1072,3 +1072,8 @@ CREATE TABLE `#__content_tags` (
   PRIMARY KEY  (`id`),
   KEY `obj_id` (`obj_id`,`tag`)
 ) ENGINE=MYISAM  CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+# новые поля в таблицах
+ALTER TABLE `#__sections` ADD `templates` TEXT NOT NULL ;
+ALTER TABLE `#__categories` ADD `templates` TEXT NOT NULL ;
+ALTER TABLE `#__content` ADD `templates` VARCHAR( 255 ) NOT NULL ;

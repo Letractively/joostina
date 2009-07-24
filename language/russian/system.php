@@ -491,3 +491,7 @@ DEFINE('_JWMM_BYTES','байт');
 DEFINE('_JWMM_KBYTES','кб');
 DEFINE('_JWMM_MBYTES','мб');
 DEFINE('_JWMM_FILE_DELETED','Файл успешно удалён');
+
+DEFINE('_CONTENT_PREVIEW','Просмотр содержимого');
+DEFINE('_MAX_SIZE','Максимальный размер');
+DEFINE('_FILE_UPLOAD','Загрузка файла');
