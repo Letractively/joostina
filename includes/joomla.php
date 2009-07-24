@@ -241,18 +241,14 @@ class mosMainFrame {
 		if(!$dir){
 			$dir = 'includes/libraries';
 		}
-	
-		if(is_file(Jconfig::getInstance()->config_absolute_path.'/'.$dir.'/'.$lib)){
-			$lib = Jconfig::getInstance()->config_absolute_path.'/'.$dir.'/'.$lib; 
-		}
-
-		else if(is_file(Jconfig::getInstance()->config_absolute_path.'/'.$dir.'/'.$lib.'/'.$lib.'.php')){
-			$lib = Jconfig::getInstance()->config_absolute_path.'/'.$dir.'/'.$lib.'/'.$lib.'.php'; 
-		}
-		else{ 
+		$config = &Jconfig::getInstance();
+		if(is_file($config->config_absolute_path.DS.$dir.DS.$lib)){
+			$lib = $config->config_absolute_path.DS.$dir.DS.$lib;
+		}else if(is_file($config->config_absolute_path.DS.$dir.DS.$lib.DS.$lib.'.php')){
+			$lib = $config->config_absolute_path.DS.$dir.DS.$lib.DS.$lib.'.php';
+		}else{
 			return false;
-		}		
-		
+		}
 		require_once($lib);
 	}
 
@@ -260,23 +256,23 @@ class mosMainFrame {
 	function getLangFile($name = ''){
 		if(!$name){
 			$file = 'system';
-			return $this->getCfg('absolute_path').'/language/'.$this->lang.'/system.php';
+			return $this->getCfg('absolute_path').DS.'language'.DS.$this->lang.DS.'system.php';
 		}else{
 			$file = $name;
 		}
 		if($this->_isAdmin){
-			if(is_file($this->getCfg('absolute_path').'/language/'.$this->lang.'/administrator/'.$file.'.php')){
-				return $this->getCfg('absolute_path').'/language/'.$this->lang.'/administrator/'.$file.'.php';
+			if(is_file($this->getCfg('absolute_path').DS.'language'.DS.$this->lang.DS.'administrator'.DS.$file.'.php')){
+				return $this->getCfg('absolute_path').DS.'language'.DS.$this->lang.DS.'administrator'.DS.$file.'.php';
 			}
 			else{
-				if(is_file($this->getCfg('absolute_path').'/language/'.$this->lang.'/frontend/'.$file.'.php')){
-					return $this->getCfg('absolute_path').'/language/'.$this->lang.'/frontend/'.$file.'.php';
+				if(is_file($this->getCfg('absolute_path').DS.'language'.DS.$this->lang.DS.'frontend'.DS.$file.'.php')){
+					return $this->getCfg('absolute_path').DS.'language'.DS.$this->lang.DS.'frontend'.DS.$file.'.php';
 				}
 			}	
 		}
 		else{
-			if(is_file($this->getCfg('absolute_path').'/language/'.$this->lang.'/frontend/'.$file.'.php')){
-				return $this->getCfg('absolute_path').'/language/'.$this->lang.'/frontend/'.$file.'.php';
+			if(is_file($this->getCfg('absolute_path').DS.'language'.DS.$this->lang.DS.'frontend'.DS.$file.'.php')){
+				return $this->getCfg('absolute_path').DS.'language'.DS.$this->lang.DS.'frontend'.DS.$file.'.php';
 			}
 		}		
 
@@ -293,12 +289,12 @@ class mosMainFrame {
 		$config = &Jconfig::getInstance();
 		$page_title = $config->config_sitename;
 		if($config->config_pagetitles) {
-			$title = trim(strip_tags($title));
+			$title = Jstring::trim(strip_tags($title));
 			// разделитель названия страницы и сайта
 			$tseparator = $config->config_tseparator ? $config->config_tseparator : ' - ';
 			if($pageparams != null) {
 				// название страницы указанное в настройках пункта меню или свойствах содержимого
-				$pageownname = trim( htmlspecialchars( $pageparams->get('page_name') ) );
+				$pageownname = Jstring::trim( htmlspecialchars( $pageparams->get('page_name') ) );
 				$page_title = $pageparams->get('no_site_name') ?
 				( $pageownname ? $pageownname : ( $title ? $title : $config->config_sitename )) :
 				( $config->config_pagetitles_first ? (( $pageownname ? $pageownname : $title ) . $tseparator . $config->config_sitename) :
@@ -336,10 +332,10 @@ class mosMainFrame {
 	* @param string Text to display after the tag
 	*/
 	function addMetaTag($name,$content,$prepend = '',$append = '') {
-		$name		= trim(htmlspecialchars($name));
-		$content	= trim(htmlspecialchars($content));
-		$prepend	= trim($prepend);
-		$append		= trim($append);
+		$name		= Jstring::trim(htmlspecialchars($name));
+		$content	= Jstring::trim(htmlspecialchars($content));
+		$prepend	= Jstring::trim($prepend);
+		$append		= Jstring::trim($append);
 		$this->_head['meta'][] = array($name,$content,$prepend,$append);
 	}
 	/**
@@ -348,17 +344,18 @@ class mosMainFrame {
 	* Tags ordered in with Site Keywords and Description first
 	*/
 	function appendMetaTag($name,$content) {
-		$name = trim(htmlspecialchars($name));
+		$name = Jstring::trim(htmlspecialchars($name));
 		$n = count($this->_head['meta']);
 		for($i = 0; $i < $n; $i++) {
 			if($this->_head['meta'][$i][0] == $name) {
-				$content = trim(htmlspecialchars($content));
+				$content = Jstring::trim(htmlspecialchars($content));
 				if($content != '' & $this->_head['meta'][$i][1] == "") {
 					$this->_head['meta'][$i][1] .= ' '.$content;
 				};
 				return;
 			}
 		}
+
 		$this->addMetaTag($name,$content);
 	}
 
@@ -3581,9 +3578,10 @@ function mosMakeHtmlSafe(&$mixed,$quote_style = ENT_QUOTES,$exclude_keys = '') {
 function mosMenuCheck($Itemid,$menu_option,$task,$gid) {
 	$database = &database::getInstance();
 	$mainframe = &mosMainFrame::getInstance();
-	
+
 	$results = array();
-	
+	$access = 0;
+
 	if($Itemid != '' && $Itemid != 0 && $Itemid != 99999999) {
 		$query = "SELECT* FROM #__menu WHERE id = ".(int)$Itemid;
 		$all_menus = $mainframe->get('all_menu');
@@ -3601,8 +3599,6 @@ function mosMenuCheck($Itemid,$menu_option,$task,$gid) {
 		$query = "SELECT* FROM #__menu WHERE published = 1 AND link LIKE '$dblink%'";
 		$database->setQuery($query);
 		$results = $database->loadObjectList();
-
-		$access = 0;
 		foreach($results as $result) {
 			$access = max($access,$result->access);
 		}

@@ -550,7 +550,7 @@ class HTML_typedcontent {
 		<th colspan="2"><?php echo _TEMPLATES?></th>
 	</tr>
 <?php
-	$templates = new jstContentTemplate;
+	$templates = new ContentTemplate;
 	$curr_templates = $templates->parse_curr_templates($row->templates);
 ?>
 	<tr>

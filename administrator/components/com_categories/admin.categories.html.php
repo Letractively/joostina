@@ -410,7 +410,7 @@ class categories_html {
 		}
 		// content
 		if($row->section > 0 || $row->section == 'content') {
-			$c_templates = new jstContentTemplate;
+			$c_templates = new ContentTemplate;
 ?>
 <?php $curr_templates = $c_templates->parse_curr_templates($row->templates); ?>
 		<table class="adminform">

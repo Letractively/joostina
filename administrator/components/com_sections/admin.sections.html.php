@@ -135,7 +135,7 @@ class sections_html {
 	function edit(&$row,$option,&$lists,&$menus) {
 		global $mosConfig_live_site;
 
-		$s_templates = new jstContentTemplate;
+		$s_templates = new ContentTemplate;
 
 		if($row->name != '') {
 			$name = $row->name;

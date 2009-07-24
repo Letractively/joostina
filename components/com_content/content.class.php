@@ -2,15 +2,16 @@
 
 /**
  * @package Joostina
- * @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
- * @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
- * Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
- * Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
  */
 
-// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+// запрет прямого доступа
 defined('_VALID_MOS') or die();
 global $mosConfig_absolute_path;
+
 require_once ($mosConfig_absolute_path . '/includes/libraries/dbconfig/dbconfig.php');
 require_once ($mosConfig_absolute_path . '/includes/libraries/tags/tags.class.php');
 
@@ -200,8 +201,8 @@ class mosCategory extends mosDBTable
 				$_Itemid = '&amp;Itemid='.$mainframe->get('secID_'.$row->sectionid,-1);
 		}
 		
-		//Р­С‚Р° С€С‚СѓРєРѕРІРёРЅР° Р±РѕР»СЊС€Рµ РЅРµ РЅСѓР¶РЅР°, РїРѕСЃРєРѕР»СЊРєСѓ С‚РµРїРµСЂСЊ РјС‹ РїСЂРµРґРѕСЃС‚Р°РІР»СЏРµРј Р°РґРјРёРЅСѓ
-		//РїСЂР°РІРѕ РІСЂСѓС‡РЅСѓСЋ РІС‹СЃС‚Р°РІР»СЏС‚СЊ С‚РёРї СЃСЃС‹Р»РєРё РІ РЅР°СЃС‚СЂРѕР№РєР°С… РїСѓРЅРєС‚Р°
+		//Эта штуковина больше не нужна, поскольку теперь мы предоставляем админу
+		//право вручную выставлять тип ссылки в настройках пункта
 		
 		//	if($catLinkURL) {
 		//		$link = sefRelToAbs($catLinkURL.$_Itemid);
@@ -397,11 +398,11 @@ class mosSection extends mosDBTable
        	$empty = '';  $empty_sec = '';
 		$access_check = ''; $access_check_content = '';
 		        
-        //РџР°СЂР°РјРµС‚СЂС‹ СЃРѕСЂС‚РёСЂРѕРІРєРё
+        //Параметры сортировки
         // Ordering control
         $orderby = contentSqlHelper::_orderby_sec($params->get('orderby'));
 		
-		//Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рµ СѓСЃР»РѕРІРёСЏ
+		//Дополнительные условия
 		if($access->canEdit) {
 			if($params->get('unpublished')) {
 				// shows unpublished items for publishers and above
@@ -1076,15 +1077,15 @@ class mosContent extends mosDBTable
         $voting = new contentVoiting($params);
         $voting = $voting->_construct_sql();
 
-        //Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рµ СѓСЃР»РѕРІРёСЏ
+        //Дополнительные условия
         $where = contentSqlHelper::construct_where_blog(1, $section, $access, $params);
         $where = (count($where) ? "\n WHERE " . implode("\n AND ", $where) : '');
 
-        //РџР°СЂР°РјРµС‚СЂС‹ СЃРѕСЂС‚РёСЂРѕРІРєРё
+        //Параметры сортировки
         $order_sec = contentSqlHelper::_orderby_sec($params->get('orderby_sec'));
         $order_pri = contentSqlHelper::_orderby_pri($params->get('orderby_pri'));
 
-        //РћСЃРЅРѕРІРЅРѕР№ Р·Р°РїСЂРѕСЃ
+        //Основной запрос
         $query = '  SELECT  a.id, a.attribs , a.title, a.title_alias, a.introtext, a.sectionid,
                         a.state, a.catid, a.created, a.created_by, a.created_by_alias, a.modified, a.modified_by,
                         a.checked_out, a.checked_out_time, a.publish_up, a.publish_down, a.images, a.urls, a.ordering,
@@ -1130,15 +1131,15 @@ class mosContent extends mosDBTable
         $voting = new contentVoiting($params);
         $voting = $voting->_construct_sql();
 
-        //Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рµ СѓСЃР»РѕРІРёСЏ
+        //Дополнительные условия
         $where = contentSqlHelper::construct_where_blog(2, $category, $access, $params);
         $where = (count($where) ? " WHERE " . implode("\n AND ", $where) : '');
 
-        //РџР°СЂР°РјРµС‚СЂС‹ СЃРѕСЂС‚РёСЂРѕРІРєРё
+        //Параметры сортировки
         $order_sec = contentSqlHelper::_orderby_sec($params->get('orderby_sec'));
         $order_pri = contentSqlHelper::_orderby_pri($params->get('orderby_pri'));
 
-        //РћСЃРЅРѕРІРЅРѕР№ Р·Р°РїСЂРѕСЃ
+        //Основной запрос
         $query = '  SELECT a.id, a.notetext,a.attribs, a.title, a.title_alias, a.introtext,
                     a.sectionid, a.state, a.catid, a.created, a.created_by, a.created_by_alias,
                     a.modified, a.modified_by, a.checked_out, a.checked_out_time,
@@ -1203,15 +1204,15 @@ class mosContent extends mosDBTable
         $voting = new contentVoiting($params);
         $voting = $voting->_construct_sql();
 
-        //Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рµ СѓСЃР»РѕРІРёСЏ
+        //Дополнительные условия
         $where = contentSqlHelper::construct_where_blog(-1, $section, $access, $params);
         $where = (count($where) ? " WHERE " . implode(" AND ", $where) : '');
 
-        //РџР°СЂР°РјРµС‚СЂС‹ СЃРѕСЂС‚РёСЂРѕРІРєРё
+        //Параметры сортировки
         $order_sec = contentSqlHelper::_orderby_sec($params->get('orderby_sec'));
         $order_pri = contentSqlHelper::_orderby_pri($params->get('orderby_pri'));
 
-        //РћСЃРЅРѕРІРЅРѕР№ Р·Р°РїСЂРѕСЃ
+        //Основной запрос
        	// Main Query
 		$query = "	SELECT 	a.id, a.title, a.title_alias, a.introtext, a.sectionid, 
 							a.state, a.catid, a.created, a.created_by, a.created_by_alias, 
@@ -1262,14 +1263,14 @@ class mosContent extends mosDBTable
         $voting = new contentVoiting($params);
         $voting = $voting->_construct_sql();
 
-        //Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рµ СѓСЃР»РѕРІРёСЏ
+        //Дополнительные условия
         $where = contentSqlHelper::construct_where_blog(-2, $category, $access, $params);
         $where = (count($where) ? " WHERE " . implode("\n AND ", $where) : '');
 
-        //РџР°СЂР°РјРµС‚СЂС‹ СЃРѕСЂС‚РёСЂРѕРІРєРё
+        //Параметры сортировки
         $order_sec = contentSqlHelper::_orderby_sec($params->get('orderby'));
 
-        //РћСЃРЅРѕРІРЅРѕР№ Р·Р°РїСЂРѕСЃ
+        //Основной запрос
         // main query
 		$query = " SELECT   a.id, a.title, a.title_alias, a.introtext, a.sectionid, a.state, a.catid,
                         a.created, a.created_by, a.created_by_alias, a.modified, a.modified_by,
@@ -1297,15 +1298,15 @@ class mosContent extends mosDBTable
     {
         global $my;
 
-        //Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рµ СѓСЃР»РѕРІРёСЏ
+        //Дополнительные условия
         $xwhere = contentSqlHelper::construct_where_table_category($category, $access, $params);
         $and = contentSqlHelper::construct_filter_table_category($category, $access, $params);
 
-        //РџР°СЂР°РјРµС‚СЂС‹ СЃРѕСЂС‚РёСЂРѕРІРєРё
+        //Параметры сортировки
         // Ordering control
         $orderby = contentSqlHelper::_orderby_sec($params->get('orderby'));
 
-        //РћСЃРЅРѕРІРЅРѕР№ Р·Р°РїСЂРѕСЃ
+        //Основной запрос
         // get the list of items for this category
         $query = '  SELECT  a.id, a.title, a.hits, a.created_by, a.created_by_alias,
                         a.created AS created, a.access, a.state,
@@ -1347,15 +1348,15 @@ class mosContent extends mosDBTable
         $voting = new contentVoiting($params);
         $voting = $voting->_construct_sql();
 
-        //Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рµ СѓСЃР»РѕРІРёСЏ
+        //Дополнительные условия
         $where = contentSqlHelper::construct_where_blog(1, null, $access, $params);
         $where = (count($where) ? "\n WHERE " . implode("\n AND ", $where) : '');
 
-        //РџР°СЂР°РјРµС‚СЂС‹ СЃРѕСЂС‚РёСЂРѕРІРєРё
+        //Параметры сортировки
         $order_sec = contentSqlHelper::_orderby_sec($params->get('orderby_sec'));
         $order_pri = contentSqlHelper::_orderby_pri($params->get('orderby_pri'));
 
-        //РћСЃРЅРѕРІРЅРѕР№ Р·Р°РїСЂРѕСЃ
+        //Основной запрос
         $query = '  SELECT
                         a.attribs, a.notetext, a.id, a.title, a.title_alias,
                         a.introtext, a.sectionid, a.state, a.catid, a.created,
@@ -1462,6 +1463,7 @@ class contentMeta
         {
             $mainframe->addMetaTag('description', $config->config_MetaDesc);
         }
+
         if ($this->_params->get('meta_keywords') != "")
         {
             $mainframe->addMetaTag('keywords', $this->_params->get('meta_keywords'));
@@ -1482,6 +1484,9 @@ class contentMeta
 		$row = $this->_params->object;
 
 		$mainframe->setPageTitle($row->title,$this->_params);
+
+		$mainframe->appendMetaTag('description',Jstring::to_utf8($row->description));
+		$mainframe->appendMetaTag('keywords',Jstring::to_utf8($row->metakey));
 
 		if($config->config_MetaTitle == '1') {
 			$mainframe->addMetaTag('title',$row->title);
@@ -1542,9 +1547,8 @@ class contentVoiting
 }
 
 class contentHelper{
-	
 	function _load_core_js(){
-        mosMainFrame::getInstance()->addJS(Jconfig::getInstance()->config_live_site.'/components/com_content/js/com_content.js','custom'); 
+		mosMainFrame::getInstance()->addJS(Jconfig::getInstance()->config_live_site.'/components/com_content/js/com_content.js','custom');
 	}
 }
 
@@ -1651,7 +1655,7 @@ class contentSqlHelper
 
         $where[] = "s.published = 1";
         $where[] = "cc.published = 1";
-        /* РµСЃР»Рё СЃРµСЃСЃРёРё РЅР° С„СЂРѕРЅС‚Рµ РѕС‚РєР»СЋС‡РµРЅС‹ - С‚Рѕ Р·РЅР°С‡РёС‚ Р°РІС‚РѕСЂРёР·Р°С†РёСЏ РЅРµ РІРѕР·РјРѕР¶РЅР°, Рё РїСЂРѕРІРµСЂСЏС‚СЊ РґРѕСЃС‚СѓРї РїРѕ Р°РІС‚РѕСЂРёР·Р°С†РёРё Р±РµСЃРїРѕР»РµР·РЅРѕ*/
+        /* если сессии на фронте отключены - то значит авторизация не возможна, и проверять доступ по авторизации бесполезно*/
         if ($noauth and !$mosConfig_disable_access_control)
         {
             $where[] = "a.access <= " . (int)$gid;
@@ -1859,7 +1863,7 @@ class contentSqlHelper
     }
 }
 
-class jstContentTemplate
+class ContentTemplate
 {
 
     var $page_type = null;
@@ -1984,7 +1988,7 @@ class jstContentTemplate
         $files_from_currtemplate = mosReadDirectory(Jconfig::getInstance()->config_absolute_path . '/' . $currtemplate_path, '\.php$');
 
         $options = array();
-        $options[] = mosHTML::makeOption('0', 'РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ');
+        $options[] = mosHTML::makeOption('0', 'По умолчанию');
         foreach ($files_system as $file)
         {
             $options[] = mosHTML::makeOption('[s]' . $file, '[s]' . $file);
@@ -2085,8 +2089,8 @@ class contentPageConfig
     /**
      * contentPageConfig::setup_full_item_page()
      * 
-     * РЈСЃС‚Р°РЅРѕРІРєР° РґРµС„РѕР»С‚РЅС‹С… РїР°СЂР°РјРµС‚СЂРѕРІ РґР»СЏ РІС‹РІРѕРґР° СЃС‚СЂР°РЅРёС†С‹ РїРѕР»РЅРѕРіРѕ С‚РµРєСЃС‚Р° Р·Р°РїРёСЃРё
-     * xml-С„Р°Р№Р» РґР»СЏ РіРµРЅРµСЂР°С†РёРё С„РѕСЂРјС‹ СѓСЃС‚Р°РЅРѕРІРєРё РїР°СЂР°РјРµС‚СЂРѕРІ: administrator/components/com_content/content.xml
+     * Установка дефолтных параметров для вывода страницы полного текста записи
+     * xml-файл для генерации формы установки параметров: administrator/components/com_content/content.xml
      * 
      * @return object $params
      */
@@ -2124,47 +2128,47 @@ class contentPageConfig
         
         $params->set('intro_only', 0);       
 
-        //РќР°Р·РІР°РЅРёРµ СЃС‚СЂР°РЅРёС†С‹, РѕС‚РѕР±СЂР°Р¶Р°РµРјРѕРµ РІ Р·Р°РіРѕР»РѕРІРєРµ Р±СЂР°СѓР·РµСЂР° (С‚РµРі title): string
+        //Название страницы, отображаемое в заголовке браузера (тег title): string
         $params->def('page_name', '');
-        //РџРѕРєР°Р·Р°С‚СЊ/СЃРєСЂС‹С‚СЊ РЅР°Р·РІР°РЅРёРµ СЃР°Р№С‚Р° РІ title СЃС‚СЂР°РЅРёС†С‹ (Р·Р°РіРѕР»РѕРІРєРµ Р±СЂР°СѓР·РµСЂР°): bool
+        //Показать/скрыть название сайта в title страницы (заголовке браузера): bool
         $params->def('no_site_name', 0);
-        //РЎСѓС„С„РёРєСЃ CSS-РєР»Р°СЃСЃР° СЃС‚СЂР°РЅРёС†С‹
+        //Суффикс CSS-класса страницы
         $params->def('pageclass_sfx', '');
-        //РЈРЅРёРєР°Р»СЊРЅС‹Р№ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ CSS СЃС‚РёР»СЏ РёСЃРїРѕР»СЊР·СѓРµРјС‹Р№ РґР»СЏ РѕС„РѕСЂРјР»РµРЅРёСЏ С‚РѕР»СЊРєРѕ СЌС‚РѕРіРѕ РјР°С‚РµСЂРёР°Р»Р°. РџРѕР»РЅС‹Р№ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ Р±СѓРґРµС‚ '#pageclass_uid_{РІРІРµРґС‘РЅРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ}'
+        //Уникальный идентификатор CSS стиля используемый для оформления только этого материала. Полный идентификатор будет '#pageclass_uid_{введённое значение}'
         $params->def('pageclass_uids', '');
-        //РџСЂРµРёРјСѓС‰РµСЃС‚РІР°. РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РІРІРµРґС‘РЅРЅС‹Р№ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ, РґР°Р¶Рµ РµСЃР»Рё Р°РєС‚РёРІРёСЂРѕРІР°РЅС‹ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРёРµ СѓРЅРёРєР°Р»СЊРЅС‹Рµ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂС‹ СЃС‚РёР»РµР№ РЅРѕРІРѕСЃС‚РµР№
+        //Преимущества. Использовать введённый идентификатор, даже если активированы автоматические уникальные идентификаторы стилей новостей
         $params->def('pageclass_uids_full', 1);
-        //РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РєРЅРѕРїРєСѓ РќР°Р·Р°Рґ (Р’РµСЂРЅСѓС‚СЊСЃСЏ), РІРѕР·РІСЂР°С‰Р°СЋС‰СѓСЋ РЅР° РїСЂРµРґС‹РґСѓС‰СѓСЋ РїСЂРѕСЃРјРѕС‚СЂРµРЅРЅСѓСЋ СЃС‚СЂР°РЅРёС†Сѓ
+        //Показать/Скрыть кнопку Назад (Вернуться), возвращающую на предыдущую просмотренную страницу
         $params->def('back_button', $mainframe->getCfg('back_button'));
-        //РџРѕРєР°Р·Р°С‚СЊ/РЎРїСЂСЏС‚Р°С‚СЊ Р·Р°РіРѕР»РѕРІРѕРє РѕР±СЉРµРєС‚Р°
+        //Показать/Спрятать заголовок объекта
         $params->def('item_title', '');        
-        //РЎРґРµР»Р°С‚СЊ Р·Р°РіРѕР»РѕРІРѕРє РѕР±СЉРµРєС‚Р° РІ РІРёРґРµ СЃСЃС‹Р»РєРё РЅР° РЅРµРіРѕ
+        //Сделать заголовок объекта в виде ссылки на него
         $params->def('link_titles', $mainframe->getCfg('link_titles'));
-        //РџРѕРєР°Р·Р°С‚СЊ/РЎРїСЂСЏС‚Р°С‚СЊ РІРІРѕРґРЅС‹Р№ С‚РµРєСЃС‚
+        //Показать/Спрятать вводный текст
         $params->def('introtext', 1);        
-        //РџРѕРєР°Р·Р°С‚СЊ/РЎРїСЂСЏС‚Р°С‚СЊ РЅР°Р·РІР°РЅРёРµ СЂР°Р·РґРµР»Р°, Рє РєРѕС‚РѕСЂРѕРјСѓ РѕС‚РЅРѕСЃРёС‚СЃСЏ РѕР±СЉРµРєС‚
+        //Показать/Спрятать название раздела, к которому относится объект
         $params->def('section', 1);
-        //РЎРґРµР»Р°С‚СЊ РЅР°Р·РІР°РЅРёСЏ СЂР°Р·РґРµР»РѕРІ СЃСЃС‹Р»РєР°РјРё
+        //Сделать названия разделов ссылками
         $params->def('section_link', 1);
-        //РџРѕРєР°Р·Р°С‚СЊ/РЎРїСЂСЏС‚Р°С‚СЊ РЅР°Р·РІР°РЅРёРµ РєР°С‚РµРіРѕСЂРёРё, Рє РєРѕС‚РѕСЂРѕР№ РѕС‚РЅРѕСЃРёС‚СЃСЏ РѕР±СЉРµРєС‚
+        //Показать/Спрятать название категории, к которой относится объект
         $params->def('category', 1);
-        //РЎРґРµР»Р°С‚СЊ РЅР°Р·РІР°РЅРёСЏ РєР°С‚РµРіРѕСЂРёР№ СЃСЃС‹Р»РєР°РјРё
+        //Сделать названия категорий ссылками
         $params->def('category_link', 1);
-        //РџРѕРєР°Р·Р°С‚СЊ/РЎРїСЂСЏС‚Р°С‚СЊ СЂРµР№С‚РёРЅРі
+        //Показать/Спрятать рейтинг
         $params->def('rating', $mainframe->getCfg('vote'));
-        //РџРѕРєР°Р·Р°С‚СЊ/РЎРїСЂСЏС‚Р°С‚СЊ РёРјСЏ Р°РІС‚РѕСЂР°
+        //Показать/Спрятать имя автора
         $params->def('author', $mainframe->getCfg('showAuthor'));
-        //РџРѕРєР°Р·Р°С‚СЊ/РЎРїСЂСЏС‚Р°С‚СЊ РґР°С‚Сѓ СЃРѕР·РґР°РЅРёСЏ
+        //Показать/Спрятать дату создания
         $params->def('createdate', $mainframe->getCfg('showCreateDate'));
-        //РџРѕРєР°Р·Р°С‚СЊ/РЎРїСЂСЏС‚Р°С‚СЊ РґР°С‚Сѓ РёР·РјРµРЅРµРЅРёСЏ
+        //Показать/Спрятать дату изменения
         $params->def('modifydate', $mainframe->getCfg('showModifyDate'));
-        //РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РєРЅРѕРїРєСѓ РїРµС‡Р°С‚Рё
+        //Показать/Скрыть кнопку печати
         $params->def('print', $mainframe->getCfg('showPrint'));
-        //РџРѕРєР°Р·Р°С‚СЊ/РЎРїСЂСЏС‚Р°С‚СЊ РєРЅРѕРїРєСѓ e-mail
+        //Показать/Спрятать кнопку e-mail
         $params->def('email', $mainframe->getCfg('showEmail'));
-        //РћС‚РѕР±СЂР°Р¶Р°С‚СЊ СЃСЃС‹Р»РєРё "РџРµС‡Р°С‚СЊ" Рё "Email" РёРєРѕРЅРєР°РјРё
+        //Отображать ссылки "Печать" и "Email" иконками
         $params->def('icons', $mainframe->getCfg('icons'));
-        //РљР»СЋС‡РµРІР°СЏ СЃСЃС‹Р»РєР°. РўРµРєСЃС‚ РєР»СЋС‡Р°, РїРѕ РєРѕС‚РѕСЂРѕРјСѓ РјРѕР¶РЅРѕ СЃСЃС‹Р»Р°С‚СЊСЃСЏ РЅР° СЌС‚РѕС‚ РѕР±СЉРµРєС‚ (РЅР°РїСЂРёРјРµСЂ, РІ СЃРёСЃС‚РµРјРµ СЃРїСЂР°РІРєРё)
+        //Ключевая ссылка. Текст ключа, по которому можно ссылаться на этот объект (например, в системе справки)
         $params->def('keyref', '');        
         $params->set('page_name', $row->title);
         
@@ -2176,8 +2180,8 @@ class contentPageConfig
     /**
      * contentPageConfig::setup_blog_section_page()
      * 
-     * РЈСЃС‚Р°РЅРѕРІРєР° РґРµС„РѕР»С‚РЅС‹С… РїР°СЂР°РјРµС‚СЂРѕРІ РґР»СЏ РІС‹РІРѕРґР° СЃС‚СЂР°РЅРёС†С‹ Р±Р»РѕРіР° СЂР°Р·РґРµР»Р°
-     * xml-С„Р°Р№Р» РґР»СЏ РіРµРЅРµСЂР°С†РёРё С„РѕСЂРјС‹ СѓСЃС‚Р°РЅРѕРІРєРё РїР°СЂР°РјРµС‚СЂРѕРІ: 
+     * Установка дефолтных параметров для вывода страницы блога раздела
+     * xml-файл для генерации формы установки параметров: 
 	 * administrator/components/com_menus/content_blog_section/content_blog_section.xml
      * 
      * @return object $params
@@ -2187,10 +2191,10 @@ class contentPageConfig
     {
         global $mainframe, $Itemid, $database;
 
-        //РћС‚СѓС‡Р°РµРј com_content Р±СЂР°С‚СЊ РїР°СЂР°РјРµС‚СЂС‹ РёР· РїРµСЂРІРѕРіРѕ РїРѕРїР°РІС€РµРіРѕСЃСЏ РїСѓРЅРєС‚Р° РјРµРЅСЋ
-        //РњС‹СЃР»СЊ - РµСЃР»Рё РїСѓРЅРєС‚ РјРµРЅСЋ РґР»СЏ С‚РµРєСѓС‰РµРіРѕ СЂР°Р·РґРµР»Р° РЅРµ СЃРѕР·РґР°РЅ,
-        // Р·РЅР°С‡РёС‚, - С‚Р°Рє РЅР°РґРѕ, Рё РЅРµС‚ РЅРµРѕР±С…РѕРґРёРјРѕСЃС‚Рё РїСЂРёРїРёСЃС‹РІР°С‚СЊ СЂР°Р·РґРµР»Сѓ РЅРµРЅСѓР¶РЅС‹Рµ РµРјСѓ РїР°СЂР°РјРµС‚СЂС‹ ))
-        //РµСЃС‚СЊ РїР°СЂР°РјРµС‚СЂС‹ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ - РІРѕС‚ РёС… Рё Р±СѓРґРµРј РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ
+        //Отучаем com_content брать параметры из первого попавшегося пункта меню
+        //Мысль - если пункт меню для текущего раздела не создан,
+        // значит, - так надо, и нет необходимости приписывать разделу ненужные ему параметры ))
+        //есть параметры по умолчанию - вот их и будем использовать
         $menu = $mainframe->get('menu');
 
         if ($menu && strpos($menu->link, 'task=blogsection&id=' . $id) !== false)
@@ -2224,8 +2228,8 @@ class contentPageConfig
     /**
      * contentPageConfig::setup_blog_category_page()
      * 
-     * РЈСЃС‚Р°РЅРѕРІРєР° РґРµС„РѕР»С‚РЅС‹С… РїР°СЂР°РјРµС‚СЂРѕРІ РґР»СЏ РІС‹РІРѕРґР° СЃС‚СЂР°РЅРёС†С‹ Р±Р»РѕРіР° РєР°С‚РµРіРѕСЂРёРё
-     * xml-С„Р°Р№Р» РґР»СЏ РіРµРЅРµСЂР°С†РёРё С„РѕСЂРјС‹ СѓСЃС‚Р°РЅРѕРІРєРё РїР°СЂР°РјРµС‚СЂРѕРІ: 
+     * Установка дефолтных параметров для вывода страницы блога категории
+     * xml-файл для генерации формы установки параметров: 
 	 * administrator/components/com_menus/content_blog_category/content_blog_category.xml
      * 
      * @return object $params
@@ -2264,8 +2268,8 @@ class contentPageConfig
     /**
      * contentPageConfig::setup_blog_archive_section_page()
      * 
-     * РЈСЃС‚Р°РЅРѕРІРєР° РґРµС„РѕР»С‚РЅС‹С… РїР°СЂР°РјРµС‚СЂРѕРІ РґР»СЏ РІС‹РІРѕРґР° СЃС‚СЂР°РЅРёС†С‹ Р°СЂС…РёРІР° СЂР°Р·РґРµР»Р°
-     * xml-С„Р°Р№Р» РґР»СЏ РіРµРЅРµСЂР°С†РёРё С„РѕСЂРјС‹ СѓСЃС‚Р°РЅРѕРІРєРё РїР°СЂР°РјРµС‚СЂРѕРІ: 
+     * Установка дефолтных параметров для вывода страницы архива раздела
+     * xml-файл для генерации формы установки параметров: 
 	 * administrator/components/com_menus/content_archive_section/content_archive_section.xml
      * 
      * @return object $params
@@ -2305,8 +2309,8 @@ class contentPageConfig
     /**
      * contentPageConfig::setup_blog_archive_category_page()
      * 
-     * РЈСЃС‚Р°РЅРѕРІРєР° РґРµС„РѕР»С‚РЅС‹С… РїР°СЂР°РјРµС‚СЂРѕРІ РґР»СЏ РІС‹РІРѕРґР° СЃС‚СЂР°РЅРёС†С‹ Р°СЂС…РёРІР° РєР°С‚РµРіРѕСЂРёРё
-     * xml-С„Р°Р№Р» РґР»СЏ РіРµРЅРµСЂР°С†РёРё С„РѕСЂРјС‹ СѓСЃС‚Р°РЅРѕРІРєРё РїР°СЂР°РјРµС‚СЂРѕРІ: 
+     * Установка дефолтных параметров для вывода страницы архива категории
+     * xml-файл для генерации формы установки параметров: 
 	 * administrator/components/com_menus/content_archive_category/content_archive_category.xml
      * 
      * @return object $params
@@ -2342,8 +2346,8 @@ class contentPageConfig
     /**
      * contentPageConfig::setup_table_category_page()
      * 
-     * РЈСЃС‚Р°РЅРѕРІРєР° РґРµС„РѕР»С‚РЅС‹С… РїР°СЂР°РјРµС‚СЂРѕРІ РґР»СЏ РІС‹РІРѕРґР° СЃС‚СЂР°РЅРёС†С‹ СЃ С‚Р°Р±Р»РёС†РµР№ РјР°С‚РµСЂРёР°Р»РѕРІ РєР°С‚РµРіРѕСЂРёРё
-     * xml-С„Р°Р№Р» РґР»СЏ РіРµРЅРµСЂР°С†РёРё С„РѕСЂРјС‹ СѓСЃС‚Р°РЅРѕРІРєРё РїР°СЂР°РјРµС‚СЂРѕРІ: 
+     * Установка дефолтных параметров для вывода страницы с таблицей материалов категории
+     * xml-файл для генерации формы установки параметров: 
 	 * administrator/components/com_menus/content_category/content_category.xml
      * 
      * @return object $params
@@ -2375,8 +2379,8 @@ class contentPageConfig
     /**
      * contentPageConfig::setup_section_catlist_page()
      * 
-     * РЈСЃС‚Р°РЅРѕРІРєР° РґРµС„РѕР»С‚РЅС‹С… РїР°СЂР°РјРµС‚СЂРѕРІ РґР»СЏ РІС‹РІРѕРґР° СЃС‚СЂР°РЅРёС†С‹ СЃ РїРµСЂРµС‡РЅРµРј РєР°С‚РµРіРѕСЂРёР№ РґР°РЅРЅРѕРіРѕ СЂР°Р·РґРµР»Р°
-     * xml-С„Р°Р№Р» РґР»СЏ РіРµРЅРµСЂР°С†РёРё С„РѕСЂРјС‹ СѓСЃС‚Р°РЅРѕРІРєРё РїР°СЂР°РјРµС‚СЂРѕРІ: 
+     * Установка дефолтных параметров для вывода страницы с перечнем категорий данного раздела
+     * xml-файл для генерации формы установки параметров: 
 	 * administrator/components/com_menus/content_section/content_section.xml
      * 
      * @return object $params
@@ -2405,8 +2409,8 @@ class contentPageConfig
     /**
      * contentPageConfig::setup_frontpage()
      * 
-     * РЈСЃС‚Р°РЅРѕРІРєР° РґРµС„РѕР»С‚РЅС‹С… РїР°СЂР°РјРµС‚СЂРѕРІ РґР»СЏ РІС‹РІРѕРґР° СЃС‚СЂР°РЅРёС†С‹ РєРѕРјРїРѕРЅРµРЅС‚Р° "com_frontpage"
-     * xml-С„Р°Р№Р» РґР»СЏ РіРµРЅРµСЂР°С†РёРё С„РѕСЂРјС‹ СѓСЃС‚Р°РЅРѕРІРєРё РїР°СЂР°РјРµС‚СЂРѕРІ: administrator/components/com_frontpage/frontpage.xml
+     * Установка дефолтных параметров для вывода страницы компонента "com_frontpage"
+     * xml-файл для генерации формы установки параметров: administrator/components/com_frontpage/frontpage.xml
      * 
      * @return object $params
      */
@@ -2427,89 +2431,89 @@ class contentPageConfig
         $params->menu = $menu;
 
         $params->def('title', '');
-        //РќР°Р·РІР°РЅРёРµ СЃС‚СЂР°РЅРёС†С‹, РѕС‚РѕР±СЂР°Р¶Р°РµРјРѕРµ РІ Р·Р°РіРѕР»РѕРІРєРµ Р±СЂР°СѓР·РµСЂР° (С‚РµРі title): string
+        //Название страницы, отображаемое в заголовке браузера (тег title): string
         $params->def('page_name', '');
-        //РџРѕРєР°Р·Р°С‚СЊ/СЃРєСЂС‹С‚СЊ РЅР°Р·РІР°РЅРёРµ СЃР°Р№С‚Р° РІ title СЃС‚СЂР°РЅРёС†С‹ (Р·Р°РіРѕР»РѕРІРєРµ Р±СЂР°СѓР·РµСЂР°): bool
+        //Показать/скрыть название сайта в title страницы (заголовке браузера): bool
         $params->def('no_site_name', 0);
-        //РњРµС‚Р°-С‚РµРі robots, РёСЃРїРѕР»СЊР·СѓРµРјС‹Р№ РЅР° СЃС‚СЂР°РЅРёС†Рµ:
-        //int [-1,0,1,2,3]=['РќРµ РѕС‚РѕР±СЂР°Р¶Р°С‚СЊ', 'Index, follow', 'Index, NoFollow', 'NoIndex, Follow', 'NoIndex, NoFollow']
+        //Мета-тег robots, используемый на странице:
+        //int [-1,0,1,2,3]=['Не отображать', 'Index, follow', 'Index, NoFollow', 'NoIndex, Follow', 'NoIndex, NoFollow']
         $params->def('robots', -1);
-        //META-С‚РµРі: Description: string
+        //META-тег: Description: string
         $params->def('meta_description', '');
-        //ETA-С‚РµРі keywords: string
+        //ETA-тег keywords: string
         $params->def('meta_keywords', '');
-        //META-С‚РµРі author: string
+        //META-тег author: string
         $params->def('meta_author', '');
-        //РР·РѕР±СЂР°Р¶РµРЅРёРµ РјРµРЅСЋ
+        //Изображение меню
         $params->def('menu_image', '');
-        //РЎСѓС„С„РёРєСЃ CSS-РєР»Р°СЃСЃР° СЃС‚СЂР°РЅРёС†С‹
+        //Суффикс CSS-класса страницы
         $params->def('pageclass_sfx', '');
-        //Р—Р°РіРѕР»РѕРІРѕРє СЃС‚СЂР°РЅРёС†С‹ (РєРѕРЅС‚РµРЅС‚РЅРѕР№ РѕР±Р»Р°СЃС‚Рё)
+        //Заголовок страницы (контентной области)
         $params->def('header', '');
-        //РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ Р·Р°РіРѕР»РѕРІРѕРє СЃС‚СЂР°РЅРёС†С‹
+        //Показать/Скрыть заголовок страницы
         $params->def('page_title', '');
-        //РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РєРЅРѕРїРєСѓ РќР°Р·Р°Рґ (Р’РµСЂРЅСѓС‚СЊСЃСЏ), РІРѕР·РІСЂР°С‰Р°СЋС‰СѓСЋ РЅР° РїСЂРµРґС‹РґСѓС‰СѓСЋ РїСЂРѕСЃРјРѕС‚СЂРµРЅРЅСѓСЋ СЃС‚СЂР°РЅРёС†Сѓ
+        //Показать/Скрыть кнопку Назад (Вернуться), возвращающую на предыдущую просмотренную страницу
         $params->def('back_button', 0);
-        //РљРѕР»РёС‡РµСЃС‚РІРѕ РіР»Р°РІРЅС‹С… РѕР±СЉРµРєС‚РѕРІ (РЅР° РІСЃСЋ С€РёСЂРёРЅСѓ). РџСЂРё 0 РіР»Р°РІРЅС‹Рµ РѕР±СЉРµРєС‚С‹ РѕС‚РѕР±СЂР°Р¶Р°С‚СЊСЃСЏ РЅРµ Р±СѓРґСѓС‚.
+        //Количество главных объектов (на всю ширину). При 0 главные объекты отображаться не будут.
         $params->def('leading', 1);
-        //РљРѕР»РёС‡РµСЃС‚РІРѕ РѕР±СЉРµРєС‚РѕРІ, Сѓ РєРѕС‚РѕСЂС‹С… РїРѕРєР°Р·С‹РІР°РµС‚СЃСЏ РІСЃС‚СѓРїРёС‚РµР»СЊРЅС‹Р№ (intro) С‚РµРєСЃС‚
+        //Количество объектов, у которых показывается вступительный (intro) текст
         $params->def('intro', 4);
-        //РЎРєРѕР»СЊРєРѕ РєРѕР»РѕРЅРѕРє РІ СЃС‚СЂРѕРєРµ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РїСЂРё РѕС‚РѕР±СЂР°Р¶РµРЅРёРё РІРІРѕРґРЅРѕРіРѕ С‚РµРєСЃС‚Р°
+        //Сколько колонок в строке использовать при отображении вводного текста
         $params->def('columns', 2);
-        //РљРѕР»РёС‡РµСЃС‚РІРѕ РѕР±СЉРµРєС‚РѕРІ, РѕС‚РѕР±СЂР°Р¶Р°РµРјС‹С… РІ РІРёРґРµ СЃСЃС‹Р»Рѕ
+        //Количество объектов, отображаемых в виде ссыло
         $params->def('link', 4);
-        //РЎРѕСЂС‚РёСЂРѕРІРєР° РѕР±СЉРµРєС‚РѕРІ РІ РєР°С‚РµРіРѕСЂРёРё
+        //Сортировка объектов в категории
         $params->def('orderby_pri', '');
-        //РџРѕСЂСЏРґРѕРє, РІ РєРѕС‚РѕСЂРѕРј Р±СѓРґСѓС‚ РѕС‚РѕР±СЂР°Р¶Р°С‚СЊСЃСЏ РѕР±СЉРµРєС‚С‹
+        //Порядок, в котором будут отображаться объекты
         $params->def('orderby_sec', '');
-        //РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РїРѕСЃС‚СЂР°РЅРёС‡РЅСѓСЋ РЅР°РІРёРіР°С†РёСЋ
+        //Показать/Скрыть постраничную навигацию
         $params->def('pagination', 2);
-        //РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ СЂРµР·СѓР»СЊС‚Р°С‚Р°С… СЂР°Р·Р±РёРµРЅРёСЏ РЅР° СЃС‚СЂР°РЅРёС†С‹ ( РЅР°РїСЂРёРјРµСЂ, 1-4 РёР· 4 )
+        //Показать/Скрыть информацию о результатах разбиения на страницы ( например, 1-4 из 4 )
         $params->def('pagination_results', 1);
-        //РџРѕРєР°Р·С‹РІР°С‚СЊ {mosimages}
+        //Показывать {mosimages}
         $params->def('image', 1);
-        //РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РЅР°Р·РІР°РЅРёСЏ СЂР°Р·РґРµР»РѕРІ, Рє РєРѕС‚РѕСЂС‹Рј РїСЂРёРЅР°РґР»РµР¶Р°С‚ РѕР±СЉРµРєС‚С‹
+        //Показать/Скрыть названия разделов, к которым принадлежат объекты
         $params->def('section', 0);
-        //РЎРґРµР»Р°С‚СЊ РЅР°Р·РІР°РЅРёСЏ СЂР°Р·РґРµР»РѕРІ СЃСЃС‹Р»РєР°РјРё РЅР° СЃС‚СЂР°РЅРёС†Сѓ С‚РµРєСѓС‰РµРіРѕ СЂР°Р·РґРµР»Р°
+        //Сделать названия разделов ссылками на страницу текущего раздела
         $params->def('section_link', 0);
-        //РўРёРї СЃСЃС‹Р»РєРё РЅР° СЂР°Р·РґРµР»: 'blog' / 'list'
+        //Тип ссылки на раздел: 'blog' / 'list'
         $params->def('section_link_type', 'blog');         
-		//РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РЅР°Р·РІР°РЅРёСЏ РєР°С‚РµРіРѕСЂРёР№, РєРѕС‚РѕСЂС‹Рј РїСЂРёРЅР°РґР»РµР¶Р°С‚ РѕР±СЉРµРєС‚С‹
+		//Показать/Скрыть названия категорий, которым принадлежат объекты
         $params->def('category', 0);
-        //РЎРґРµР»Р°С‚СЊ РЅР°Р·РІР°РЅРёСЏ РєР°С‚РµРіРѕСЂРёР№ СЃСЃС‹Р»РєР°РјРё РЅР° СЃС‚СЂР°РЅРёС†Сѓ С‚РµРєСѓС‰РµР№ РєР°С‚РµРіРѕСЂРёРё
+        //Сделать названия категорий ссылками на страницу текущей категории
         $params->def('category_link', 0);
-        //РўРёРї СЃСЃС‹Р»РєРё РЅР° РєР°С‚РµРіРѕСЂРёСЋ: 'blog' / 'table'
+        //Тип ссылки на категорию: 'blog' / 'table'
         $params->def('cat_link_type', 'blog'); 
-        //РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ Р·Р°РіРѕР»РѕРІРєРё РѕР±СЉРµРєС‚РѕРІ
+        //Показать/Скрыть заголовки объектов
         $params->def('item_title', 1);
-        //РЎРґРµР»Р°С‚СЊ Р·Р°РіРѕР»РѕРІРєРё РѕР±СЉРµРєС‚РѕРІ РІ РІРёРґРµ СЃСЃС‹Р»РѕРє РЅР° РѕР±СЉРµРєС‚С‹
+        //Сделать заголовки объектов в виде ссылок на объекты
         $params->def('link_titles', '');
-        //РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РІРІРѕРґРЅС‹Р№ С‚РµРєСЃС‚
+        //Показать/Скрыть вводный текст
         $params->def('view_introtext',1);
-         //Р›РёРјРёС‚ СЃР»РѕРІ РґР»СЏ РёРЅС‚СЂРѕС‚РµРєСЃС‚Р°. Р•СЃР»Рё С‚РµРєСЃС‚ РЅРµ РЅСѓР¶РґР°РµС‚СЃСЏ РІ РѕР±СЂРµР·РєРµ - РѕСЃС‚Р°РІСЊС‚Рµ РїРѕР»Рµ РїСѓСЃС‚С‹Рј
+         //Лимит слов для интротекста. Если текст не нуждается в обрезке - оставьте поле пустым
         $params->def('introtext_limit', '');  
-        //РўРѕР»СЊРєРѕ РёРЅС‚СЂРѕС‚РµРєСЃС‚
-        $params->def('intro_only', 1); //TODO: РЅРµ СЂР°Р±РѕС‚Р°РµС‚
-        //РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ СЃСЃС‹Р»РєСѓ [РџРѕРґСЂРѕР±РЅРµРµ...]
+        //Только интротекст
+        $params->def('intro_only', 1); //TODO: не работает
+        //Показать/Скрыть ссылку [Подробнее...]
         $params->def('readmore', '');
-        //РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ РѕС†РµРЅРєРё РѕР±СЉРµРєС‚РѕРІ
+        //Показать/Скрыть возможность оценки объектов
         $params->def('rating', $mainframe->getCfg('vote'));
-        //РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РёРјРµРЅР° Р°РІС‚РѕСЂРѕРІ РѕР±СЉРµРєС‚РѕРІ
+        //Показать/Скрыть имена авторов объектов
         $params->def('author', $mainframe->getCfg('showAuthor'));
-        //РўРёРї РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РёРјРµРЅ Р°РІС‚РѕСЂРѕРІ
+        //Тип отображения имен авторов
         $params->def('author_name', 0);
-        //РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РґР°С‚Сѓ СЃРѕР·РґР°РЅРёСЏ РѕР±СЉРµРєС‚Р°
+        //Показать/Скрыть дату создания объекта
         $params->def('createdate', $mainframe->getCfg('showCreateDate'));
-        //РѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РґР°С‚Сѓ РёР·РјРµРЅРµРЅРёСЏ РѕР±СЉРµРєС‚Р°
+        //оказать/Скрыть дату изменения объекта
         $params->def('modifydate', $mainframe->getCfg('showModifyDate'));
-        //РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РєРЅРѕРїРєСѓ РїРµС‡Р°С‚Рё РѕР±СЉРµРєС‚Р°
+        //Показать/Скрыть кнопку печати объекта
         $params->def('print', $mainframe->getCfg('showPrint'));
-        //РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РєРЅРѕРїРєСѓ РѕС‚РїСЂР°РІРєРё РѕР±СЉРµРєС‚Р° РЅР° e-mail
+        //Показать/Скрыть кнопку отправки объекта на e-mail
         $params->def('email', $mainframe->getCfg('showEmail'));
-        //РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РЅРµРѕРїСѓР±Р»РёРєРѕРІР°РЅРЅС‹Рµ РѕР±СЉРµРєС‚С‹ РґР»СЏ РіСЂСѓРїРїС‹ РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№ `Publisher` Рё РІС‹С€Рµ
+        //Показать/Скрыть неопубликованные объекты для группы пользователей `Publisher` и выше
         $params->def('unpublished', 0);
         
-        //РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ С‚СЌРіРё РјР°С‚РµСЂРёР°Р»РѕРІ
+        //Показать/Скрыть тэги материалов
         $params->def('view_tags', 1);
 
 
@@ -2521,7 +2525,7 @@ class contentPageConfig
         $params->def('back_button', $mainframe->getCfg('back_button'));
        
 
-        //РўРёРї СЃСЃС‹Р»РєРё РЅР° РєР°С‚РµРіРѕСЂРёСЋ
+        //Тип ссылки на категорию
         $params->def('cat_link_type', 'table');
 
         if ($params->get('page_title', 1) && $menu)

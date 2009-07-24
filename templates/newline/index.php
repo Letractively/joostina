@@ -20,21 +20,18 @@ $iso = explode('=',_ISO); echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'
 <?php 
 	// загружаемверхнюю часть страницы со всеми js и css файлами, и обязательным использованием jquery
 	mosShowHead(array('js'=>1,'css'=>1,'jquery'=>1));	
-	
-	
+
 	if ($my->id && $mainframe->allow_wysiwyg) { initEditor(); }
+
 	$block1_count = (mosCountModules('user1')>0) + (mosCountModules('user2')>0) + (mosCountModules('user3')>0);
 	$block2_count = (mosCountModules('user4')>0) + (mosCountModules('user5')>0) + (mosCountModules('user6')>0);
 	$block3_count = (mosCountModules('user7')>0) + (mosCountModules('user8')>0) + (mosCountModules('user9')>0);
-?>
 
+?>
 <link href="<?php echo $mosConfig_live_site;?>/templates/<?php echo $mainframe->getTemplate(); ?>/css/template_css.css" rel="stylesheet" type="text/css" />
 <!--[if lte IE 6]>
-<link href="<?php echo $mosConfig_live_site; ?>/templates/<?php echo $mainframe->getTemplate(); ?>/css/ieonly.css" rel="stylesheet" type="text/css" />
+	<link href="<?php echo $mosConfig_live_site; ?>/templates/<?php echo $mainframe->getTemplate(); ?>/css/ieonly.css" rel="stylesheet" type="text/css" />
 <![endif]-->
-
-
-
 </head>
 <!--body:begin-->
 <body class="joo_flex">
@@ -166,10 +163,8 @@ $iso = explode('=',_ISO); echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'
     </div>
 <?php
 
-
-	// подключаем в футер плагин Jquery
-	mosCommonHTML::loadJqueryPlugins('corner', false, false, 'js');
-
+// подключаем в футер плагин Jquery
+mosCommonHTML::loadJqueryPlugins('corner', false, false, 'js');
 
 // выводим js футера (первая ступень - в основном jQuery-плагины и вспомагательные скрипты)
 mosShowFooter(array('js'=>1));
@@ -177,9 +172,7 @@ mosShowFooter(array('js'=>1));
 //всё, что должно быть загружено после всех основных скриптов)
 mosShowFooter(array('custom'=>1));
 
-
 ?>
-
 <script type="text/javascript">
 $(document).ready(function(){
 	$('div.moduletable-round').corner();
