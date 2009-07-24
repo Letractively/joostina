@@ -159,7 +159,7 @@ sajax_show_javascript();
 			if ( CUBEArray['Domain'] == 'FileList' ) {
 				SRAX.get('pack_step_1').className='pack_step_activ';
 				SRAX.get('state_1').innerHTML=SRAX.get('Init').innerHTML;
-				CUBEArray['Substep'] = 'Получение списка файлов';
+				CUBEArray['Substep'] = '<?php echo _JP_GET_FILE_LISTING?>';
 			} else if ( CUBEArray['Domain'] == 'PackDB' ) {
 				SRAX.get('pack_step_1').className='pack_step_done';
 				SRAX.get('pack_step_2').className='pack_step_activ';

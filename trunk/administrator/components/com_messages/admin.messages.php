@@ -52,7 +52,7 @@ switch($task) {
 function editConfig($option) {
 	global $database,$my;
 
-	$query = "SELECT cfg_name, cfg_value"."\n FROM #__messages_cfg"."\n WHERE user_id = ".(int)$my->id;
+	$query = "SELECT cfg_name, cfg_value FROM #__messages_cfg WHERE user_id = ".(int)$my->id;
 	$database->setQuery($query);
 	$data = $database->loadObjectList('cfg_name');
 
@@ -77,9 +77,11 @@ function editConfig($option) {
 }
 
 function saveConfig($option) {
-	global $database,$my;
+	global $my;
 	josSpoofCheck();
-	$query = "DELETE FROM #__messages_cfg"."\n WHERE user_id = ".(int)$my->id;
+	$database = &database::getInstance();
+
+	$query = "DELETE FROM #__messages_cfg WHERE user_id = ".(int)$my->id;
 	$database->setQuery($query);
 	$database->query();
 
@@ -89,8 +91,7 @@ function saveConfig($option) {
 			$k = stripslashes($k);
 			$v = stripslashes($v);
 		}
-		$query = "INSERT INTO #__messages_cfg"."\n ( user_id, cfg_name, cfg_value )"."\n VALUES ( ".(int)
-			$my->id.", ".$database->Quote($k).", ".$database->Quote($v)." )";
+		$query = "INSERT INTO #__messages_cfg ( user_id, cfg_name, cfg_value ) VALUES ( ".(int)$my->id.", ".$database->Quote($k).", ".$database->Quote($v)." )";
 		$database->setQuery($query);
 		$database->query();
 	}
@@ -98,7 +99,9 @@ function saveConfig($option) {
 }
 
 function newMessage($option) {
-	global $database,$acl;
+	global $acl;
+
+	$database = &database::getInstance();
 
 	$user = intval(mosGetParam($_REQUEST,'userid',0));
 	$subject = stripslashes(strval(mosGetParam($_REQUEST,'subject','')));
@@ -108,24 +111,23 @@ function newMessage($option) {
 	$gids = $acl->get_group_children($gid,'ARO','RECURSE');
 
 	// get list of usernames
-	$recipients = array(mosHTML::makeOption('0','- Выберите пользователя -'));
+	$recipients = array(mosHTML::makeOption('0',_C_MESSAGE_SELECT_USER));
 
 	mosArrayToInts($gids);
 	$gids = 'gid='.implode(' OR gid=',$gids);
 
-	$query = "SELECT id AS value, name AS text FROM #__users"."\n WHERE ( $gids )".
-		"\n ORDER BY name";
+	$query = "SELECT id AS value, name AS text FROM #__users WHERE ( $gids ) ORDER BY name";
 	$database->setQuery($query);
 	$recipients = array_merge($recipients,$database->loadObjectList());
 
-	$recipientslist = mosHTML::selectList($recipients,'user_id_to',
-		'class="inputbox" size="1"','value','text',$user);
+	$recipientslist = mosHTML::selectList($recipients,'user_id_to','class="inputbox" size="1"','value','text',$user);
 
 	HTML_messages::newMessage($option,$recipientslist,$subject);
 }
 
 function saveMessage($option) {
-	global $database,$mainframe,$my;
+	$database = &database::getInstance();
+
 	josSpoofCheck();
 	$row = new mosMessage($database);
 	if(!$row->bind($_POST)) {
@@ -145,11 +147,12 @@ function saveMessage($option) {
 }
 
 function showMessages($option) {
-	global $database,$mainframe,$my,$mosConfig_list_limit;
+	global $mainframe,$my;
 
-	$limit = $mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mosConfig_list_limit);
-	$limitstart = $mainframe->getUserStateFromRequest("view{$option}limitstart",
-		'limitstart',0);
+	$database = &database::getInstance();
+
+	$limit = $mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mainframe->getCfg('list_limit'));
+	$limitstart = $mainframe->getUserStateFromRequest("view{$option}limitstart",'limitstart',0);
 	$search = $mainframe->getUserStateFromRequest("search{$option}",'search','');
 	if(get_magic_quotes_gpc()) {
 		$search = stripslashes($search);
@@ -163,17 +166,14 @@ function showMessages($option) {
 		$wheres[] = "( u.username LIKE '%$searchEscaped%' OR email LIKE '%$searchEscaped%' OR u.name LIKE '%$searchEscaped%' )";
 	}
 
-	$query = "SELECT COUNT(*)"."\n FROM #__messages AS a"."\n INNER JOIN #__users AS u ON u.id = a.user_id_from".($wheres?
-		" WHERE ".implode(" AND ",$wheres):'');
+	$query = "SELECT COUNT(*) FROM #__messages AS a INNER JOIN #__users AS u ON u.id = a.user_id_from".($wheres?" WHERE ".implode(" AND ",$wheres):'');
 	$database->setQuery($query);
 	$total = $database->loadResult();
 
-	require_once ($GLOBALS['mosConfig_absolute_path'].
-		'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
+	require_once ($GLOBALS['mosConfig_absolute_path'].DS.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
-	$query = "SELECT a.*, u.name AS user_from"."\n FROM #__messages AS a"."\n INNER JOIN #__users AS u ON u.id = a.user_id_from".($wheres?
-		"\n WHERE ".implode(" AND ",$wheres):"")."\n ORDER BY date_time DESC";
+	$query = "SELECT a.*, u.name AS user_from FROM #__messages AS a INNER JOIN #__users AS u ON u.id = a.user_id_from".($wheres?"\n WHERE ".implode(" AND ",$wheres):"")."\n ORDER BY date_time DESC";
 	$database->setQuery($query,$pageNav->limitstart,$pageNav->limit);
 
 	$rows = $database->loadObjectList();
@@ -186,16 +186,16 @@ function showMessages($option) {
 }
 
 function viewMessage($uid = '0',$option) {
-	global $database,$my,$acl;
+	global $my,$acl;
+
+	$database = &database::getInstance();
 
 	$row = null;
-	$query = "SELECT a.*, u.name AS user_from"."\n FROM #__messages AS a"."\n INNER JOIN #__users AS u ON u.id = a.user_id_from".
-		"\n WHERE a.message_id = ".(int)$uid."\n ORDER BY date_time DESC";
+	$query = "SELECT a.*, u.name AS user_from FROM #__messages AS a INNER JOIN #__users AS u ON u.id = a.user_id_from WHERE a.message_id = ".(int)$uid."\n ORDER BY date_time DESC";
 	$database->setQuery($query);
 	$database->loadObject($row);
 
-	$query = "UPDATE #__messages"."\n SET state = 1"."\n WHERE message_id = ".(int)
-		$uid;
+	$query = "UPDATE #__messages SET state = 1 WHERE message_id = ".(int)$uid;
 	$database->setQuery($query);
 	$database->query();
 
@@ -203,7 +203,8 @@ function viewMessage($uid = '0',$option) {
 }
 
 function removeMessage($cid,$option) {
-	global $database;
+	$database = &database::getInstance();
+
 	josSpoofCheck();
 	if(!is_array($cid) || count($cid) < 1) {
 		echo "<script> alert('Выберите объект для удаления'); window.history.go(-1);</script>\n";
@@ -212,7 +213,7 @@ function removeMessage($cid,$option) {
 	if(count($cid)) {
 		mosArrayToInts($cid);
 		$cids = 'message_id='.implode(' OR message_id=',$cid);
-		$query = "DELETE FROM #__messages"."\n WHERE ( $cids )";
+		$query = "DELETE FROM #__messages WHERE ( $cids )";
 		$database->setQuery($query);
 		if(!$database->query()) {
 			echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";

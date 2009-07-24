@@ -400,7 +400,7 @@ function contactpage($contact_id) {
 
 
 function sendmail($con_id,$option) {
-	global $Itemid;
+	global $Itemid,$mosConfig_live_site;
 
 	// simple spoof check security
 	josSpoofCheck(1);
@@ -428,11 +428,12 @@ function sendmail($con_id,$option) {
 		$bannedText = $mparams->get('bannedText','');
 		$sessionCheck = $mparams->get('sessionCheck',1);
 
-		if($mosConfig_captcha_cont) {
+		if($config->config_captcha_cont) {
+			session_name(md5($mosConfig_live_site));
 			session_start();
 			$captcha = $_POST['captcha'];
 			if(!isset($_SESSION['captcha_keystring']) || $_SESSION['captcha_keystring'] !==$captcha) {
-				mosErrorAlert('¬веден неверный код проверки.');
+				mosErrorAlert(_CAPTCHA_ERROR);
 				unset($_SESSION['captcha_keystring']);
 				exit;
 			}
@@ -490,7 +491,7 @@ function sendmail($con_id,$option) {
 		if(!$email || !$text || (JosIsValidEmail($email) == false)) {
 			mosErrorAlert(_CONTACT_FORM_NC);
 		}
-		$prefix = sprintf(_ENQUIRY_TEXT,$mosConfig_live_site);
+		$prefix = sprintf(_ENQUIRY_TEXT,$config->config_live_site);
 		$text = $prefix."\n".$name.' <'.$email.'>'."\n\n".stripslashes($text);
 
 		$success = mosMail($email,$name,$contact[0]->email_to,$config->config_fromname.': '.$subject,$text);

@@ -144,3 +144,7 @@ DEFINE('_JP_REPAIR','Исправить');
 DEFINE('_JP_OPTIMIZE','Оптимизировать');
 DEFINE('_JP_ANALYSE','Анализировать');
 DEFINE('_JP_CHECK','Проверить');
+DEFINE('_JP_TABLE','Таблица');
+DEFINE('_JP_TYPE','Тип');
+DEFINE('_JP_STATUS','Статус');
+DEFINE('_JP_GET_FILE_LISTING','Получение списка файлов');

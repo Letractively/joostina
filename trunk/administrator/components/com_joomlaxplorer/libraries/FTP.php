@@ -94,8 +94,7 @@ $this->setPort($port);
 }
 $handle = @ftp_connect($this->getHostname(),$this->getPort(),$this->_timeout);
 if(!$handle) {
-return $this->raiseError("FTP сервер не обнаружен. Подключение не возможно.",
-NET_FTP_ERR_CONNECT_FAILED);
+	return $this->raiseError(_C_JXPLORER_FTP_SERVER_NOT_FOUND,NET_FTP_ERR_CONNECT_FAILED);
 } else {
 $this->_handle = &$handle;
 return true;

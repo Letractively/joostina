@@ -5318,6 +5318,7 @@ class mosCommonHTML {
 		$config = &Jconfig::getInstance();
 
 		$name = trim($name);
+
 		// если само ядро Jquery не загружено - сначала грузим его
 		if(!defined('_JQUERY_LOADED')) {
 			mosCommonHTML::loadJquery();

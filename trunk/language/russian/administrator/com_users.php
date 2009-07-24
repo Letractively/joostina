@@ -83,8 +83,3 @@ DEFINE('_C_USERS_CONTACT_PHONE_MOBILE','Мобильный телефон');
 DEFINE('_C_USERS_CONTACT_FAX','Факс');
 DEFINE('_C_USERS_GENDER','Пол');
 DEFINE('_C_USERS_AVATARS','Аватар');
-
-DEFINE('_C_USERS_AVATARS_SHOISE','Сменить');
-DEFINE('_C_USERS_AVATARS_SHOISE_IMAGE','Выберите изображение');
-DEFINE('_C_USERS_AVATARS_UPLOAD','Загрузка');
-

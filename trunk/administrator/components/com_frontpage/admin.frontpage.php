@@ -11,9 +11,7 @@
 defined('_VALID_MOS') or die();
 
 // ensure user has access to this function
-if(!($acl->acl_check('administration','edit','users',$my->usertype,'components',
-	'all') | $acl->acl_check('administration','edit','users',$my->usertype,
-	'components','com_frontpage'))) {
+if(!($acl->acl_check('administration','edit','users',$my->usertype,'components','all') | $acl->acl_check('administration','edit','users',$my->usertype,'components','com_frontpage'))) {
 	mosRedirect('index2.php',_NOT_AUTH);
 }
 
@@ -74,7 +72,9 @@ switch($task) {
 * Compiles a list of frontpage items
 */
 function viewFrontPage($option) {
-	global $database,$mainframe,$mosConfig_list_limit;
+	global $mainframe,$mosConfig_list_limit;
+
+	$database = &database::getInstance();
 
 	$catid = intval($mainframe->getUserStateFromRequest("catid{$option}",'catid',0));
 	$filter_authorid = intval($mainframe->getUserStateFromRequest("filter_authorid{$option}",'filter_authorid',0));
@@ -101,8 +101,7 @@ function viewFrontPage($option) {
 	}
 
 	if($search) {
-		$where[] = "LOWER( c.title ) LIKE '%".$database->getEscaped(trim(strtolower($search))).
-			"%'";
+		$where[] = "LOWER( c.title ) LIKE '%".$database->getEscaped(trim(strtolower($search)))."%'";
 	}
 
 	// get the total number of records
@@ -169,10 +168,13 @@ function viewFrontPage($option) {
 * @param integer 0 if unpublishing, 1 if publishing
 */
 function changeFrontPage($cid = null,$state = 0,$option) {
-	global $database,$my;
+	global $my;
+
+	$database = &database::getInstance();
+
 	josSpoofCheck();
 	if(count($cid) < 1) {
-		$action = $state == 1?'публикации':($state == -1?'архивирования':'сокрытия');
+		$action = $state == 1 ? _CHANGE_TO_PUBLISH : ($state == -1 ? _CHANGE_TO_ARH  : _CHANGE_TO_UNPUBLISH);
 		echo "<script> alert('Выберите объект для $action'); window.history.go(-1);</script>\n";
 		exit;
 	}
@@ -201,8 +203,10 @@ function changeFrontPage($cid = null,$state = 0,$option) {
 }
 
 function removeFrontPage(&$cid,$option) {
-	global $database;
 	josSpoofCheck();
+
+	$database = &database::getInstance();
+
 	if(!is_array($cid) || count($cid) < 1) {
 		echo "<script> alert('"._CHOOSE_OBJ_DELETE."'); window.history.go(-1);</script>\n";
 		exit;
@@ -234,8 +238,10 @@ function removeFrontPage(&$cid,$option) {
 * @param integer The increment to reorder by
 */
 function orderFrontPage($uid,$inc,$option) {
-	global $database;
 	josSpoofCheck();
+
+	$database = &database::getInstance();
+
 	$fp = new mosFrontPage($database);
 	$fp->load((int)$uid);
 	$fp->move($inc);
@@ -252,8 +258,10 @@ function orderFrontPage($uid,$inc,$option) {
 * @param string The URL option
 */
 function accessMenu($uid,$access) {
-	global $database;
 	josSpoofCheck();
+
+	$database = &database::getInstance();
+
 	$row = new mosContent($database);
 	$row->load((int)$uid);
 	$row->access = $access;
@@ -272,8 +280,10 @@ function accessMenu($uid,$access) {
 }
 
 function saveOrder(&$cid) {
-	global $database;
 	josSpoofCheck();
+
+	$database = &database::getInstance();
+
 	$total = count($cid);
 	$order = josGetArrayInts('order');
 

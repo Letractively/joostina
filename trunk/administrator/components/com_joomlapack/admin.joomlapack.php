@@ -15,9 +15,6 @@ if(!$acl->acl_check('administration','config','users',$my->usertype)) {
 }
 
 require_once ($mainframe->getPath('admin_html'));
-// отключаем кэширование базы данных
-$mosConfig_db_cache_handler = 'none';
-
 
 $option = 'com_joomlapack';
 
@@ -25,12 +22,12 @@ $act	= mosGetParam($_REQUEST,'act','default');
 $task	= mosGetParam($_REQUEST,'task','');
 
 // подключение класса конфигурации
-require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_joomlapack/includes/configuration.php');
+require_once ($mosConfig_absolute_path.DS.ADMINISTRATOR_DIRECTORY.'/components/com_joomlapack/includes/configuration.php');
 
 switch($act) {
 	// функции работы с базой данных
 	case 'db':
-		require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_joomlapack/includes/engine.dboption.php');
+		require_once ($mosConfig_absolute_path.DS.ADMINISTRATOR_DIRECTORY.'/components/com_joomlapack/includes/engine.dboption.php');
 		break;
 
 	case 'config':
@@ -52,13 +49,13 @@ switch($act) {
 		}
 		break;
 	case 'pack':
-		require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_joomlapack/includes/sajax.php');
-		require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_joomlapack/includes/ajaxtool.php');
+		require_once ($mosConfig_absolute_path.DS.ADMINISTRATOR_DIRECTORY.'/components/com_joomlapack/includes/sajax.php');
+		require_once ($mosConfig_absolute_path.DS.ADMINISTRATOR_DIRECTORY.'/components/com_joomlapack/includes/ajaxtool.php');
 		jpackScreens::fPack();
 		break;
 	case 'def':
 		// список каталогов которые не попадут в бэкап
-		require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_joomlapack/includes/engine.exdirs.php');
+		require_once ($mosConfig_absolute_path.DS.ADMINISTRATOR_DIRECTORY.'/components/com_joomlapack/includes/engine.exdirs.php');
 		jpackScreens::fDirExclusion();
 		break;
 	case 'log':
@@ -72,6 +69,7 @@ switch($act) {
 // получение параметров конфигурации и сохранение
 function processSave() {
 	global $JPConfiguration;
+
 	$outdir		= mosGetParam($_REQUEST,'outdir','');
 	$tempdir	= mosGetParam($_REQUEST,'tempdir','');
 	$sqlcompat	= mosGetParam($_REQUEST,'sqlcompat','');
@@ -95,8 +93,6 @@ function processSave() {
 	$JPConfiguration->logLevel			= $logLevel;
 	$JPConfiguration->sql_pack			= $sql_pack;
 	$JPConfiguration->sql_pref			= $sql_pref;
-
-
 
 	$JPConfiguration->SaveConfiguration();
 }

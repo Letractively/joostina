@@ -31,3 +31,5 @@ DEFINE('_MAIL_ANSWER','Ответить');
 DEFINE('_COM_MESSAGES_STATUS','Статус');
 DEFINE('_NEW_MESSAGE','Вам пришло новое личное сообщение');
 DEFINE('_MESSAGE_FAILED','Пользователь заблокировал свой почтовый ящик. Сообщение не доставлено.');
+DEFINE('_C_MESSAGE_SELECT_USER','- Выберите пользователя -');
+DEFINE('_C_MESSAGE_MESSAGE','Сообщение');

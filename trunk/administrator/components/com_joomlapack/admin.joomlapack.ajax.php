@@ -13,12 +13,11 @@ defined('_VALID_MOS') or die();
 if(!$acl->acl_check('administration','config','users',$my->usertype)) {
 	die('error-acl');
 }
-// отключаем кэширование базы данных
-$mosConfig_db_cache_handler = 'none';
+
 // подключение класса конфигурации
-require_once ($mosConfig_absolute_path."/".ADMINISTRATOR_DIRECTORY."/components/com_joomlapack/includes/configuration.php");
+require_once ($mosConfig_absolute_path.DS.ADMINISTRATOR_DIRECTORY."/components/com_joomlapack/includes/configuration.php");
 
-require_once ($mosConfig_absolute_path."/".ADMINISTRATOR_DIRECTORY."/components/com_joomlapack/includes/sajax.php");
+require_once ($mosConfig_absolute_path.DS.ADMINISTRATOR_DIRECTORY."/components/com_joomlapack/includes/sajax.php");
 
-require_once ($mosConfig_absolute_path."/".ADMINISTRATOR_DIRECTORY."/components/com_joomlapack/includes/ajaxtool.php");
+require_once ($mosConfig_absolute_path.DS.ADMINISTRATOR_DIRECTORY."/components/com_joomlapack/includes/ajaxtool.php");
 ?>

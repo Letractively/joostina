@@ -164,7 +164,7 @@ $iso = explode('=',_ISO); echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'
 <?php
 
 // подключаем в футер плагин Jquery
-mosCommonHTML::loadJqueryPlugins('corner', false, false, 'js');
+mosCommonHTML::loadJqueryPlugins('jquery.corner', false, false, 'js');
 
 // выводим js футера (первая ступень - в основном jQuery-плагины и вспомагательные скрипты)
 mosShowFooter(array('js'=>1));

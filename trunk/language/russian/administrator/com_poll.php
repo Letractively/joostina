@@ -23,3 +23,4 @@ DEFINE('_POLL_OPTIONS','Варианты ответов');
 DEFINE('_POLL_IS_BEING_EDITED_BY_ADMIN','Опрос в настоящее время редактируется другим администратором');
 DEFINE('_MODULE_WITH_THIS_NAME_ALREADY_EDISTS','Уже существует модуль с таким названием. Введите другое  название.');
 DEFINE('_POLL_PREVIEW','Предпросмотр опроса');
+DEFINE('_POLL','Опрос');

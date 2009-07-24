@@ -15,3 +15,8 @@ DEFINE('_REMOVE_FROM_FRONT','Убрать с главной');
 DEFINE('_PUBLISH_TIME_END','Время публикации истекло');
 DEFINE('_CANNOT_CHANGE_PUBLISH_STATE','Смена статуса публикации недоступна');
 DEFINE('_CHANGE_SECTION','Изменить раздел');
+DEFINE('_CHANGE_TO_PUBLISH','публикации');
+DEFINE('_CHANGE_TO_ARH','архивирования');
+DEFINE('_CHANGE_TO_UNPUBLISH','сокрытия');
+DEFINE('_C_FRONTPAGE_CONTENT','Содержимое главной страницы');
+

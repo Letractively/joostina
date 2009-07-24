@@ -13,3 +13,4 @@ defined('_VALID_MOS') or die();
 DEFINE('_MENU_GZIP','Упаковать');
 DEFINE('_MENU_MOVE','Переместить');
 DEFINE('_MENU_CHMOD','Смена прав');
+DEFINE('_C_JXPLORER_FTP_SERVER_NOT_FOUND','FTP сервер не обнаружен. Подключение не возможно.');
