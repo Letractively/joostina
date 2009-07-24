@@ -11,9 +11,7 @@
 defined('_VALID_MOS') or die();
 
 // ensure user has access to this function
-if(!($acl->acl_check('administration','edit','users',$my->usertype,'components',
-	'all') | $acl->acl_check('administration','edit','users',$my->usertype,
-	'components','com_poll'))) {
+if(!($acl->acl_check('administration','edit','users',$my->usertype,'components','all') | $acl->acl_check('administration','edit','users',$my->usertype,'components','com_poll'))) {
 	mosRedirect('index2.php',_NOT_AUTH);
 }
 
@@ -64,8 +62,7 @@ function showPolls($option) {
 	global $database,$mainframe,$mosConfig_list_limit;
 
 	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mosConfig_list_limit));
-	$limitstart = intval($mainframe->getUserStateFromRequest("view{$option}limitstart",
-		'limitstart',0));
+	$limitstart = intval($mainframe->getUserStateFromRequest("view{$option}limitstart",'limitstart',0));
 
 	$query = "SELECT COUNT(*)"."\n FROM #__polls";
 	$database->setQuery($query);
@@ -74,9 +71,7 @@ function showPolls($option) {
 	require_once ($GLOBALS['mosConfig_absolute_path'].'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
-	$query = "SELECT m.*, u.name AS editor,"."\n COUNT(d.id) AS numoptions"."\n FROM #__polls AS m".
-		"\n LEFT JOIN #__users AS u ON u.id = m.checked_out"."\n LEFT JOIN #__poll_data AS d ON d.pollid = m.id AND d.text != ''".
-		"\n GROUP BY m.id";
+	$query = "SELECT m.*, u.name AS editor, COUNT(d.id) AS numoptions FROM #__polls AS m LEFT JOIN #__users AS u ON u.id = m.checked_out LEFT JOIN #__poll_data AS d ON d.pollid = m.id AND d.text != ''"."\n GROUP BY m.id";
 	$database->setQuery($query,$pageNav->limitstart,$pageNav->limit);
 	$rows = $database->loadObjectList();
 
@@ -104,8 +99,7 @@ function editPoll($uid = 0,$option = 'com_poll') {
 
 	if($uid) {
 		$row->checkout($my->id);
-		$query = "SELECT id, text"."\n FROM #__poll_data"."\n WHERE pollid = ".(int)$uid.
-			"\n ORDER BY id";
+		$query = "SELECT id, text FROM #__poll_data WHERE pollid = ".(int)$uid." ORDER BY id";
 		$database->setQuery($query);
 		$options = $database->loadObjectList();
 	} else {
@@ -115,8 +109,7 @@ function editPoll($uid = 0,$option = 'com_poll') {
 
 	// get selected pages
 	if($uid) {
-		$query = "SELECT menuid AS value"."\n FROM #__poll_menu"."\n WHERE pollid = ".(int)
-			$row->id;
+		$query = "SELECT menuid AS value FROM #__poll_menu WHERE pollid = ".(int)$row->id;
 		$database->setQuery($query);
 		$lookup = $database->loadObjectList();
 	} else {
@@ -163,13 +156,11 @@ function savePoll($option) {
 			$text = addslashes($text);
 		}
 		if($isNew) {
-			$query = "INSERT INTO #__poll_data"."\n ( pollid, text )"."\n VALUES ( ".(int)$row->id.
-				", ".$database->Quote($text)." )";
+			$query = "INSERT INTO #__poll_data ( pollid, text ) VALUES ( ".(int)$row->id.", ".$database->Quote($text)." )";
 			$database->setQuery($query);
 			$database->query();
 		} else {
-			$query = "UPDATE #__poll_data"."\n SET text = ".$database->Quote($text)."\n WHERE id = ".(int)
-				$i."\n AND pollid = ".(int)$row->id;
+			$query = "UPDATE #__poll_data SET text = ".$database->Quote($text)." WHERE id = ".(int)$i." AND pollid = ".(int)$row->id;
 			$database->setQuery($query);
 			$database->query();
 		}
@@ -178,13 +169,12 @@ function savePoll($option) {
 	// update the menu visibility
 	$selections = mosGetParam($_POST,'selections',array());
 
-	$query = "DELETE FROM #__poll_menu"."\n WHERE pollid = ".(int)$row->id;
+	$query = "DELETE FROM #__poll_menu WHERE pollid = ".(int)$row->id;
 	$database->setQuery($query);
 	$database->query();
 
 	for($i = 0,$n = count($selections); $i < $n; $i++) {
-		$query = "INSERT INTO #__poll_menu"."\n SET pollid = ".(int)$row->id.
-			", menuid = ".(int)$selections[$i];
+		$query = "INSERT INTO #__poll_menu SET pollid = ".(int)$row->id.", menuid = ".(int)$selections[$i];
 		$database->setQuery($query);
 		$database->query();
 	}
@@ -223,12 +213,10 @@ function publishPolls($cid = null,$publish = 1,$option) {
 	mosArrayToInts($cid);
 	$cids = 'id='.implode(' OR id=',$cid);
 
-	$query = "UPDATE #__polls"."\n SET published = ".intval($publish)."\n WHERE ( $cids )".
-		"\n AND ( checked_out = 0 OR ( checked_out = ".(int)$my->id." ) )";
+	$query = "UPDATE #__polls SET published = ".intval($publish)." WHERE ( $cids )"." AND ( checked_out = 0 OR ( checked_out = ".(int)$my->id." ) )";
 	$database->setQuery($query);
 	if(!$database->query()) {
-		echo "<script> alert('".$database->getErrorMsg().
-			"'); window.history.go(-1); </script>\n";
+		echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
 		exit();
 	}
 

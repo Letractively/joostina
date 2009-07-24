@@ -11,7 +11,6 @@
 defined('_VALID_MOS') or die();
 
 DEFINE('_COMPONENTS_MENU_EDITOR','Редактирование меню компонентов');
-DEFINE('_ICON','Значок');
 DEFINE('_KERNEL','Ядро');
 DEFINE('_COMPONENTS_MENU_EDIT','Редактирование пункта меню компонентов');
 DEFINE('_COMPONENTS_MENU_NEW','Создание нового пункта меню компонентов');

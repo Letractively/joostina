@@ -356,11 +356,12 @@ function viewContent($sectionid,$option) {
 * @param int The section id
 */
 function viewArchive($sectionid,$option) {
+
 	$database = &database::getInstance();
 	$mainframe = &mosMainFrame::getInstance();
 
 	$catid = intval($mainframe->getUserStateFromRequest("catidarc{$option}{$sectionid}",'catid',0));
-	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mosConfig_list_limit));
+	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mainframe->getCfg('list_limit')));
 	$limitstart = intval($mainframe->getUserStateFromRequest("viewarc{$option}{$sectionid}limitstart",'limitstart',0));
 	$filter_authorid = intval($mainframe->getUserStateFromRequest("filter_authorid{$option}{$sectionid}",'filter_authorid',0));
 	$filter_sectionid = intval($mainframe->getUserStateFromRequest("filter_sectionid{$option}{$sectionid}",'filter_sectionid',0));

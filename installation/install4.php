@@ -19,13 +19,17 @@ $DBuserName		= mosGetParam($_POST,'DBuserName','');
 $DBpassword		= mosGetParam($_POST,'DBpassword','');
 $DBname			= mosGetParam($_POST,'DBname','');
 $DBPrefix		= mosGetParam($_POST,'DBPrefix','');
-$sitename		= mosGetParam($_POST,'sitename','');
+$sitename		= htmlspecialchars(stripslashes(mosGetParam($_POST,'sitename','')));
 $adminEmail		= mosGetParam($_POST,'adminEmail','');
 $siteUrl		= mosGetParam($_POST,'siteUrl','');
 $absolutePath	= mosGetParam($_POST,'absolutePath','');
 $adminPassword	= mosGetParam($_POST,'adminPassword','');
 $adminLogin		= mosGetParam($_POST,'adminLogin','');
 $filePerms		= '';
+
+if(get_magic_quotes_gpc()) {
+	$sitename = stripslashes(stripslashes($sitename));
+}
 
 if(mosGetParam($_POST,'filePermsMode',0))
 		$filePerms = '0'.(

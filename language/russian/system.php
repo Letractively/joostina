@@ -471,3 +471,23 @@ DEFINE('_CONTACT', 'Контакт');
 
 DEFINE('_ALIAS','Псевдоним');
 DEFINE('_POLLS','Опросы');
+
+/* content,users,avatars */
+DEFINE('_C_USERS_AVATARS_SHOISE','Сменить');
+DEFINE('_C_USERS_AVATARS_UPLOAD','Загрузка');
+DEFINE('_C_USERS_AVATARS_SHOISE_IMAGE','Выберите изображение');
+
+/* captha */
+DEFINE('_PRESS_HERE_TO_RELOAD_CAPTCHA','Нажмите чтобы обновить изображение');
+DEFINE('_SHOW_CAPTCHA','Обновить изображение');
+DEFINE('_PLEASE_ENTER_CAPTCHA','Введите код проверки с картинки выше');
+DEFINE('_CAPTCHA_ERROR','Введен неверный код проверки');
+DEFINE('_IN_NEW_WINDOW','Открыть в новом окне');
+
+DEFINE('_PREVIEW_SITE','Предпросмотр сайта');
+
+DEFINE('_JWMM_FILESIZE','Размер');
+DEFINE('_JWMM_BYTES','байт');
+DEFINE('_JWMM_KBYTES','кб');
+DEFINE('_JWMM_MBYTES','мб');
+DEFINE('_JWMM_FILE_DELETED','Файл успешно удалён');

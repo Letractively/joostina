@@ -27,7 +27,6 @@ class HTML_content {
 		<script type="text/javascript">
 		// удаление содержимого с публикации на главной
 		function ch_front(elID){
-			log('Удаление с главной: '+elID);
 			id('img-trash-'+elID).src = 'images/aload.gif';
 			dax({
 				url: 'ajax.index.php?option=com_frontpage&utf=0&task=rem_front&id='+elID,
@@ -36,10 +35,8 @@ class HTML_content {
 					function(resp, idTread, status, ops){
 						log('Получен ответ: ' + resp.responseText);
 						if(resp.responseText=='1') {
-							log('Удаление с главной содержимого с ID: ' + elID);
 							SRAX.remove('tr-el-'+elID);
 						}else{
-							log('Ошибка удаления публикации на главной: ' + elID);
 							id('tr-el-'+elID).style.background='red';
 						}
 			}});
@@ -48,13 +45,13 @@ class HTML_content {
 		<form action="index2.php" method="post" name="adminForm">
 		<table class="adminheading">
 		<tr>
-			<th class="frontpage" rowspan="2">Содержимое главной страницы</th>
+			<th class="frontpage" rowspan="2"><?php echo _C_FRONTPAGE_CONTENT?></th>
 			<td width="right"><?php echo $lists['sectionid']; ?></td>
 			<td width="right"><?php echo $lists['catid']; ?></td>
 			<td width="right"><?php echo $lists['authorid']; ?></td>
 		</tr>
 		<tr>
-			<td align="right" colspan="2">Фильтр:</td>
+			<td align="right" colspan="2"><?php echo _FILTER?>:</td>
 			<td>
 				<input type="text" name="search" value="<?php echo htmlspecialchars($search); ?>" class="text_area" onChange="document.adminForm.submit();" />
 			</td>
@@ -70,7 +67,7 @@ class HTML_content {
 			<th align="center"><?php echo _REMOVE_FROM_FRONT?></th>
 			<th width="10%" class="jtd_nowrap"><?php echo _PUBLISHED?></th>
 			<th colspan="2" class="jtd_nowrap" width="5%"><?php echo _ORDERING?></th>
-			<th width="2%">Порядок</th>
+			<th width="2%"><?php echo _ORDER_DROPDOWN?></th>
 			<th width="1%">
 				<a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="<?php echo _SAVE_ORDER?>" /></a>
 			</th>
@@ -78,9 +75,10 @@ class HTML_content {
 			<th width="10%" align="left"><?php echo _SECTION?></th>
 			<th width="10%" align="left"><?php echo _CATEGORY?></th>
 		</tr>
-		<?php
+<?php
 		$k = 0;
-		for($i = 0,$n = count($rows); $i < $n; $i++) {
+		$num = count($rows);
+		for($i = 0,$n = $num; $i < $n; $i++) {
 			$row = &$rows[$i];
 			mosMakeHtmlSafe($row);
 			$link = 'index2.php?option=com_content&sectionid=0&task=edit&hidemainmenu=1&id='.$row->id;
@@ -138,7 +136,7 @@ class HTML_content {
 				}
 			}
 ?>
-			<tr class="<?php echo "row$k"; ?>" id="tr-el-<?php echo $row->id;?>">
+			<tr class="row<?php echo $k; ?>" id="tr-el-<?php echo $row->id;?>">
 				<td><?php echo $pageNav->rowNumber($i); ?></td>
 				<td><?php echo $checked; ?></td>
 				<td align="left">
@@ -184,7 +182,7 @@ class HTML_content {
 				<td><a href="<?php echo $row->sect_link; ?>" title="<?php echo _CHANGE_SECTION?>"><?php echo $row->sect_name; ?></a></td>
 				<td><a href="<?php echo $row->cat_link; ?>" title="<?php echo _CHANGE_CATEGORY?>"><?php echo $row->name; ?></a></td>
 			</tr>
-			<?php
+<?php
 			$k = 1 - $k;
 		}
 ?>

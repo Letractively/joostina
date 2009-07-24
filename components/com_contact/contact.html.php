@@ -23,9 +23,7 @@ class HTML_contact {
 
 		if($params->get('page_title')) {
 ?>
-			<div class="componentheading<?php echo $params->get('pageclass_sfx'); ?>">
-				<?php echo $currentcat->header; ?>
-			</div>
+			<div class="componentheading<?php echo $params->get('pageclass_sfx'); ?>"><?php echo $currentcat->header; ?></div>
 			<?php
 		}
 ?>
@@ -178,7 +176,7 @@ class HTML_contact {
 			}
 ?>
 			</tr>
-			<?php
+<?php
 			$k = 1 - $k;
 		}
 ?>
@@ -285,8 +283,7 @@ class HTML_contact {
 		// For the pop window opened for print preview
 		if($params->get('popup')) {
 			$mainframe->setPageTitle($contact->name);
-			$mainframe->addCustomHeadTag('<link rel="stylesheet" href="templates/'.$template.
-				'/css/template_css.css" type="text/css" />');
+			$mainframe->addCustomHeadTag('<link rel="stylesheet" href="templates/'.$template.'/css/template_css.css" type="text/css" />');
 		}
 		if($menu_params->get('page_title')) {
 ?>
@@ -407,9 +404,7 @@ class HTML_contact {
 					</h4></td>
 					<?php
 				// displays Print Icon
-				$print_link = $mosConfig_live_site.
-					'/index2.php?option=com_contact&amp;task=view&amp;contact_id='.$contact->id.
-					'&amp;Itemid='.$Itemid.'&amp;pop=1';
+				$print_link = $mosConfig_live_site.'/index2.php?option=com_contact&amp;task=view&amp;contact_id='.$contact->id.'&amp;Itemid='.$Itemid.'&amp;pop=1';
 				mosHTML::PrintIcon($contact,$params,$hide_js,$print_link);
 ?>
 				</tr>
@@ -676,15 +671,16 @@ class HTML_contact {
 						<br />
 							<input type="checkbox" name="email_copy" id="contact_email_copy" value="1"  />
 							<label for="contact_email_copy"><?php echo (_EMAIL_A_COPY); ?></label>
-						<?php
+<?php
 			}
 ?>
 <?php
 			if($mosConfig_captcha_cont) {
-				session_start();
+session_name(md5($mosConfig_live_site));
+session_start();
 ?>
 						<div>
-							<img id="captchaimg" alt="Нажмите чтобы обновить изображение" onclick="document.emailForm.captchaimg.src='<?php echo $mosConfig_live_site; ?>/includes/libraries/kcaptcha/index.php?' + new String(Math.random())" src="<?php echo $mosConfig_live_site; ?>/includes/libraries/kcaptcha/index.php?<?php echo session_id() ?>" />
+							<img id="captchaimg" alt="<?php echo _PRESS_HERE_TO_RELOAD_CAPTCHA?>" onclick="document.emailForm.captchaimg.src='<?php echo $mosConfig_live_site; ?>/includes/libraries/kcaptcha/index.php?' + new String(Math.random())" src="<?php echo $mosConfig_live_site; ?>/includes/libraries/kcaptcha/index.php?<?php echo session_id() ?>" />
 						</div>
 						<div><?php echo _PLEASE_ENTER_CAPTCHA; ?></div>
 						<div>

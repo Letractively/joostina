@@ -49,7 +49,5 @@ DEFINE('_SUPPORT','Поддержка');
 DEFINE('_LICENSE','Лицензия');
 DEFINE('_CHANGELOG','Журнал изменений');
 DEFINE('_CHECK_VERSION','Проверить последнюю версию Joostina');
-DEFINE('_PREVIEW_SITE','Предпросмотр сайта');
-DEFINE('_IN_NEW_WINDOW','Открыть в новом окне');
 DEFINE('_CACHE_CLEAR_ALL','Весь кэш очищен');
 DEFINE('_CACHE_CLEAR_CONTENT','Кэш содержимого очищен');

@@ -17,7 +17,7 @@ $DBuserName		= mosGetParam($_POST,'DBuserName','');
 $DBpassword		= mosGetParam($_POST,'DBpassword','');
 $DBname			= mosGetParam($_POST,'DBname','');
 $DBPrefix		= mosGetParam($_POST,'DBPrefix','');
-$sitename		= mosGetParam($_POST,'sitename','');
+$sitename		= htmlspecialchars(stripslashes(mosGetParam($_POST,'sitename','')));
 $adminEmail		= mosGetParam($_POST,'adminEmail','');
 $filePerms		= mosGetParam($_POST,'filePerms','');
 $dirPerms		= mosGetParam($_POST,'dirPerms','');
@@ -29,6 +29,7 @@ if(get_magic_quotes_gpc()) {
 	$configArray['absolutePath'] = stripslashes(stripslashes($configArray['absolutePath']));
 	$sitename = stripslashes(stripslashes($sitename));
 }
+
 
 if($sitename == '') {
 	echo "<form name=\"stepBack\" method=\"post\" action=\"install2.php\">

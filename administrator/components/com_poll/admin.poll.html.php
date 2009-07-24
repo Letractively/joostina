@@ -30,28 +30,17 @@ class HTML_poll {
 
 		<table class="adminlist">
 		<tr>
-			<th width="5">
-			#
-			</th>
-			<th width="20">
-			<input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo count($rows); ?>);" />
-			</th>
-			<th align="left">
-			<?php echo _POLL_HEADER?>
-			</th>
-			<th width="10%" align="center">
-			<?php echo _PUBLISHED?>
-			</th>
-			<th width="10%" align="center">
-			<?php echo _PARAMETERS?>
-			</th>
-			<th width="10%" align="center">
-			<?php echo _POLL_LAG?>
-			</th>
+			<th width="5">#</th>
+			<th width="20"><input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo count($rows); ?>);" /></th>
+			<th align="left"><?php echo _POLL_HEADER?></th>
+			<th width="10%" align="center"><?php echo _PUBLISHED?></th>
+			<th width="10%" align="center"><?php echo _PARAMETERS?></th>
+			<th width="10%" align="center"><?php echo _POLL_LAG?></th>
 		</tr>
-		<?php
+<?php
 		$k = 0;
-		for($i = 0,$n = count($rows); $i < $n; $i++) {
+		$num = count($rows);
+		for($i = 0,$n = $num; $i < $n; $i++) {
 			$row = &$rows[$i];
 			mosMakeHtmlSafe($row);
 			$link = 'index2.php?option=com_poll&task=editA&hidemainmenu=1&id='.$row->id;
@@ -64,29 +53,29 @@ class HTML_poll {
 ?>
 			<tr class="<?php echo "row$k"; ?>">
 				<td>
-				<?php echo $pageNav->rowNumber($i); ?>
+					<?php echo $pageNav->rowNumber($i); ?>
 				</td>
 				<td>
-				<?php echo $checked; ?>
+					<?php echo $checked; ?>
 				</td>
 				<td>
-				<a href="<?php echo $link; ?>" title="<?php echo _CHANGE_POLL?>">
-				<?php echo $row->title; ?>
-				</a>
+					<a href="<?php echo $link; ?>" title="<?php echo _CHANGE_POLL?>">
+						<?php echo $row->title; ?>
+					</a>
 				</td>
 				<td align="center">
-				<a href="javascript: void(0);" onclick="return listItemTask('cb<?php echo $i; ?>','<?php echo $task; ?>')">
-				<img src="images/<?php echo $img; ?>" border="0" alt="<?php echo $alt; ?>" />
-				</a>
+					<a href="javascript: void(0);" onclick="return listItemTask('cb<?php echo $i; ?>','<?php echo $task; ?>')">
+						<img src="images/<?php echo $img; ?>" border="0" alt="<?php echo $alt; ?>" />
+					</a>
 				</td>
 				<td align="center">
-				<?php echo $row->numoptions; ?>
+					<?php echo $row->numoptions; ?>
 				</td>
 				<td align="center">
-				<?php echo $row->lag; ?>
+					<?php echo $row->lag; ?>
 				</td>
 			</tr>
-			<?php
+<?php
 			$k = 1 - $k;
 		}
 ?>
@@ -126,7 +115,7 @@ class HTML_poll {
 		<table class="adminheading">
 		<tr>
 			<th class="menus">
-			Опрос:
+			<?php echo _POLL?>:
 			<small>
 			<?php echo $row->id?_EDITING:_CREATION; ?>
 			</small>
@@ -178,8 +167,9 @@ class HTML_poll {
 			<?php echo _POLL_OPTIONS?>:
 			</td>
 		</tr>
-		<?php
-		for($i = 0,$n = count($options); $i < $n; $i++) {
+<?php
+		$num = count($options);
+		for($i = 0,$n = $num; $i < $n; $i++) {
 ?>
 			<tr>
 				<td>
