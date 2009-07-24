@@ -10,8 +10,6 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-DEFINE('_FILE_UPLOAD','Загрузка файла');
-DEFINE('_MAX_SIZE','Максимальный размер');
 DEFINE('_ABOUT_JOOSTINA','О Joostina');
 DEFINE('_ABOUT_SYSTEM','О системе');
 DEFINE('_SYSTEM_OS','Система');
