@@ -266,9 +266,11 @@ class mosUser extends mosDBTable {
 	/**
 	* ѕолучение дополнительных данных пользовател€
 	*/
-	function get_user_extra($uid){
+	function get_user_extra($uid=null){
 
-		$qq = "SELECT * FROM #__users_extra WHERE user_id=$uid   ";
+		$uid = ($uid) ? $uid : $this->id;
+
+		$qq = "SELECT * FROM #__users_extra WHERE user_id = $uid";
 		$r = null;
 		$this->_db->setQuery( $qq );
 		$this->_db->loadObject($r);
@@ -732,8 +734,7 @@ class mosSession extends mosDBTable {
 			$randnum = md5(uniqid(microtime(),1));
 			$new_session_id = mosMainFrame::sessionCookieValue($randnum);
 			if($randnum != '') {
-				$query = "SELECT $this->_tbl_key FROM $this->_tbl WHERE $this->_tbl_key = ".
-					$this->_db->Quote($new_session_id);
+				$query = "SELECT $this->_tbl_key FROM $this->_tbl WHERE $this->_tbl_key = ".$this->_db->Quote($new_session_id);
 				$this->_db->setQuery($query);
 				if(!$result = $this->_db->query()) {
 					die($this->_db->stderr(true));
@@ -759,16 +760,17 @@ class mosSession extends mosDBTable {
 	* @return boolean
 	*/
 	function purge($inc = 1800,$and = '') {
-		global $mainframe;
+		$mainframe = &mosMainFrame::getInstance();
 
 		if($inc == 'core') {
 			$past_logged = time() - $mainframe->getCfg('lifetime');
 			$past_guest = time() - 900;
 
-			$query = "DELETE FROM $this->_tbl"."\n WHERE ("
-				."\n ( time < '".(int)$past_logged."' ) AND guest = 0 AND gid > 0 ) OR (" // purging expired logged sessions
-				."\n ( time < '".(int)$past_guest."' ) AND guest = 1 AND userid = 0". // purging expired guest sessions
-				"\n )";
+			$query = "DELETE FROM $this->_tbl WHERE ("
+				// purging expired logged sessions
+				."\n ( time < '".(int)$past_logged."' ) AND guest = 0 AND gid > 0 ) OR (" 
+				// purging expired guest sessions
+				."\n ( time < '".(int)$past_guest."' ) AND guest = 1 AND userid = 0)";
 		} else {
 			// kept for backward compatability
 			$past = time() - $inc;

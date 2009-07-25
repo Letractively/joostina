@@ -19,7 +19,9 @@ class gacl {
 	var $acl = null;
 	var $acl_count = 0;
 	function gacl($db = null) {
-		global $database;
+
+		$database = &database::getInstance();
+
 		$this->db = $db ? $db:$database;
 		$this->acl = array();
 		$this->_mos_add_acl('administration', 'login', 'users', 'administrator', null, null);
@@ -76,6 +78,15 @@ class gacl {
 		$this->_mos_add_acl('action', 'publish', 'users', 'super administrator','content', 'all');
 		$this->acl_count = count($this->acl);
 	}
+
+	function &getInstance(){
+		static $instance;
+		if (!is_object( $instance )) {
+			$instance = new gacl_api();
+		}
+		return $instance;
+	}
+
 	function _mos_add_acl($aco_section_value, $aco_value, $aro_section_value, $aro_value, $axo_section_value = null, $axo_value = null) {
 		$this->acl[] = array($aco_section_value, $aco_value, $aro_section_value, $aro_value, $axo_section_value, $axo_value);
 		$this->acl_count = count($this->acl);

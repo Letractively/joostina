@@ -52,7 +52,6 @@ DEFINE('_CATEGORIES_MOVED_TO','Категории перемещены в ');
 DEFINE('_CATEGORY_MOVED_TO','Категории перемещены в ');
 DEFINE('_CATEGORIES_COPIED_TO','Категории скопированы в ');
 DEFINE('_CATEGORY_COPIED_TO','Категория скопирована в ');
-DEFINE('_NEW_ORDER_SAVED','Новый порядок сохранен');
 DEFINE('_CREATE_CONTENT','Создать содержимое');
 DEFINE('_COM_CATEGORIES_SAVE_MOD','Изменения в категории сохранены');
 DEFINE('_COM_CATEGORIES_SAVED','Категория сохранена');

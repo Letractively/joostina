@@ -1,5 +1,3 @@
-
-
     $(document).ready(function() {
         $("#save").click(function () {
             $("input#task").val('saveUserEdit');

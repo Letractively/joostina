@@ -448,7 +448,6 @@ DEFINE('_IMAGE_ALREADY_EXISST','Изображение уже существуе
  * administrator index.php index2.php index3.php
  */
 DEFINE('_ACCESS_DENIED','В доступе отказано');
-DEFINE('_BAD_CAPTCHA_STRING','Введен неверный код проверки');
 DEFINE('_BAD_USERNAME_OR_PASSWORD','Неверные имя пользователя, пароль, или уровень доступа.  Пожалуйста, повторите снова');
 DEFINE('_BAD_USERNAME_OR_PASSWORD2','Имя или пароль не верны. Повторите ввод.');//not equal to _BAD_USERNAME_OR_PASSWORD!!!
 DEFINE('_CHECKIN_OJECT','Разблокировать');
@@ -478,10 +477,10 @@ DEFINE('_C_USERS_AVATARS_UPLOAD','Загрузка');
 DEFINE('_C_USERS_AVATARS_SHOISE_IMAGE','Выберите изображение');
 
 /* captha */
+DEFINE('_BAD_CAPTCHA_STRING','Введен неверный код проверки');
 DEFINE('_PRESS_HERE_TO_RELOAD_CAPTCHA','Нажмите чтобы обновить изображение');
 DEFINE('_SHOW_CAPTCHA','Обновить изображение');
 DEFINE('_PLEASE_ENTER_CAPTCHA','Введите код проверки с картинки выше');
-DEFINE('_CAPTCHA_ERROR','Введен неверный код проверки');
 DEFINE('_IN_NEW_WINDOW','Открыть в новом окне');
 
 DEFINE('_PREVIEW_SITE','Предпросмотр сайта');
@@ -495,3 +494,12 @@ DEFINE('_JWMM_FILE_DELETED','Файл успешно удалён');
 DEFINE('_CONTENT_PREVIEW','Просмотр содержимого');
 DEFINE('_MAX_SIZE','Максимальный размер');
 DEFINE('_FILE_UPLOAD','Загрузка файла');
+
+DEFINE('_USER_BLOCK','Блокировка');
+
+DEFINE('_NEW_ORDER_SAVED','Новый порядок сохранен');
+DEFINE('_SAVE_ORDER','Сохранить порядок');
+DEFINE('_CHANGE_CONTENT','Изменить содержимое');
+DEFINE('_CHANGE_CATEGORY','Изменить категорию');
+
+DEFINE('_C_CONTENT_USER_CONTENT','Содержимое пользователя');

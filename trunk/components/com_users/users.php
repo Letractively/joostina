@@ -10,7 +10,7 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-global $my, $task, $option, $mosConfig_frontend_login, $mosConfig_useractivation;
+global $my, $task, $option;
 
 userHelper::_load_core_js();
 ?>
@@ -29,6 +29,8 @@ $access->canEditOwn = $acl->acl_check('action','edit','users',$my->usertype,'con
 require_once ($mainframe->getPath('front_html'));
 require_once ($mainframe->getPath('config','com_users'));
 require_once ($mainframe->getPath('class'));
+
+$config = &Jconfig::getInstance();
 
 switch($task) {
 	case 'UserDetails':
@@ -57,7 +59,7 @@ switch($task) {
 		break;
 
 	case 'lostPassword':
-		if($mosConfig_frontend_login != null && ($mosConfig_frontend_login === 0 || $mosConfig_frontend_login=== '0')) {
+		if($config->config_frontend_login != null && ($config->config_frontend_login === 0 || $config->config_frontend_login=== '0')) {
 			echo _NOT_AUTH;
 			return;
 		}
@@ -65,7 +67,7 @@ switch($task) {
 		break;
 
 	case 'sendNewPass':
-		if($mosConfig_frontend_login != null && ($mosConfig_frontend_login === 0 || $mosConfig_frontend_login=== '0')) {
+		if($config->config_frontend_login != null && ($config->config_frontend_login === 0 || $config->config_frontend_login=== '0')) {
 			echo _NOT_AUTH;
 			return;
 		}
@@ -73,15 +75,15 @@ switch($task) {
 		break;
 
 	case 'register':
-		if($mosConfig_frontend_login != null && ($mosConfig_frontend_login === 0 || $mosConfig_frontend_login=== '0')) {
+		if($config->config_frontend_login != null && ($config->config_frontend_login === 0 || $config->config_frontend_login=== '0')) {
 			echo _NOT_AUTH;
 			return;
 		}
-		registerForm($option,$mosConfig_useractivation);
+		registerForm($option,$config->config_useractivation);
 		break;
 
 	case 'saveRegistration':
-		if($mosConfig_frontend_login != null && ($mosConfig_frontend_login === 0 || $mosConfig_frontend_login=== '0')) {
+		if($config->config_frontend_login != null && ($config->config_frontend_login === 0 || $config->config_frontend_login=== '0')) {
 			echo _NOT_AUTH;
 			return;
 		}
@@ -89,7 +91,7 @@ switch($task) {
 		break;
 
 	case 'activate':
-		if($mosConfig_frontend_login != null && ($mosConfig_frontend_login === 0 || $mosConfig_frontend_login=== '0')) {
+		if($config->config_frontend_login != null && ($config->config_frontend_login === 0 || $config->config_frontend_login=== '0')) {
 			echo _NOT_AUTH;
 			return;
 		}
@@ -97,7 +99,7 @@ switch($task) {
 		break;
 		
 	case 'userlist':
-		userlist();
+		userList();
 		break;
 
 	default:
@@ -106,16 +108,16 @@ switch($task) {
 }
 
 function profile($option){
-	global $database,$mainframe, $mosConfig_absolute_path;
+
+	$mainframe = &mosMainFrame::getInstance();
+	$database = &database::getInstance();
 
 	$uid = mosGetParam( $_REQUEST, 'user', 0 );
 
-	//require_once ($mosConfig_absolute_path.'/administrator/components/com_users/users.class.php');
 	$row = new mosUser($database);
-	//$row->load((int)$uid);
 	if($row->load((int)$uid)){
 		//Дополнительная информация о пользователе
-		$row->user_extra = $row->get_user_extra($uid);
+		$row->user_extra = $row->get_user_extra();
 
 		$file = $mainframe->getPath('com_xml','com_users');
 		$params = &new mosUserParameters($row->params,$file,'component');
@@ -124,16 +126,15 @@ function profile($option){
 
 		HTML_user::profile($row,$option, $params, $config);
 	}else{
-	echo 'Извините, пользователь не найден';
+		echo _USER_NOT_FOUND;
 	}
 
 }
 
 function userEdit($option,$uid,$submitvalue) {
-	global $database,$mainframe;
-	global $mosConfig_absolute_path;
 
-	//require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_users/users.class.php');
+	$mainframe = &mosMainFrame::getInstance();
+	$database = &database::getInstance();
 
 	if($uid == 0) {
 		mosNotAuth();
@@ -160,7 +161,13 @@ function userEdit($option,$uid,$submitvalue) {
 }
 
 function userSave($option,$uid) {
-	global $database,$my,$mosConfig_frontend_userparams;
+	global $my;
+
+	// simple spoof check security
+	josSpoofCheck();
+
+	$config = &Jconfig::getInstance();
+	$database = &database::getInstance();
 
 	$user_id = intval(mosGetParam($_POST,'id',0));
 
@@ -169,9 +176,6 @@ function userSave($option,$uid) {
 		mosNotAuth();
 		return;
 	}
-
-	// simple spoof check security
-	josSpoofCheck();
 
 	$row = new mosUser($database);
 	$row->load((int)$user_id);
@@ -187,7 +191,6 @@ function userSave($option,$uid) {
 	$row->name = trim($row->name);
 	$row->email = trim($row->email);
 	$row->username = trim($row->username);
-
 
 	mosMakeHtmlSafe($row);
 
@@ -206,8 +209,7 @@ function userSave($option,$uid) {
 		$row->password = $orig_password;
 	}
 
-	if($mosConfig_frontend_userparams == '1' || $mosConfig_frontend_userparams == 1 ||
-		$mosConfig_frontend_userparams == null) {
+	if($config->config_frontend_userparams == '1' || $config->config_frontend_userparams == 1 || $config->config_frontend_userparams == null) {
 		// save params
 		$params = mosGetParam($_POST,'params','');
 		if(is_array($params)) {
@@ -233,11 +235,13 @@ function userSave($option,$uid) {
 	if(!$user_extra->bind($_POST)) {
 		echo "<script> alert('".$user_extra->getError()."'); window.history.go(-1); </script>\n";
 		exit();
-	}		
+	}
 	$user_extra->birthdate  = $_POST['birthdate_year'].'-'.$_POST['birthdate_month'].'-'.$_POST['birthdate_day'].' 00:00:00';
-  	if(!$ret){
-  		$user_extra->insert($user_id);
-  	}
+
+	if(!$ret){
+		$user_extra->insert($user_id);
+	}
+
 	$user_extra->store();
 
 	// check if username has been changed
@@ -256,67 +260,63 @@ function userSave($option,$uid) {
 	userEdit($option,$my->id,_UPDATE);
 }
 
-function userlist(){
-	global $acl;
-	
-	$db = &database::getInstance();
+function userList(){
+
+	$database = &database::getInstance();
 	$mainframe = &mosMainFrame::getInstance();
-	
+	$acl = &gacl::getInstance();
+
 	$gid = intval(mosGetParam($_REQUEST,'group',0));
-	
+
 	if(isset($mainframe->menu)){
-		$menu = $mainframe->menu;		
-	}
-	else{
+		$menu = $mainframe->menu;
+	}else{
 		$link = 'index.php?option=com_users&task=userlist';
 		if($gid){
-			$link = 'index.php?option=com_users&task=userlist&group='.$gid;	
+			$link = 'index.php?option=com_users&task=userlist&group='.$gid;
 		}
-		$menu = new mosMenu($db);
-		$menu = $menu->getMenu(false, 'userlist', $link);	
+		$menu = new mosMenu($database);
+		$menu = $menu->getMenu(false, 'userlist', $link);
 	}
-		
+
+
 	$params = new mosParameters($mainframe->menu->params);
 	$usertype = $acl->get_group_name($params->get('group', 0));
-	
+
 	$limit		= intval(mosGetParam($_REQUEST,'limit',$params->get('limit',20)));
-    $limitstart	= intval(mosGetParam($_REQUEST,'limitstart',0));
-	
+	$limitstart	= intval(mosGetParam($_REQUEST,'limitstart',0));
+
 	$template = 'default.php';
-	$template_dir = 'components/com_users/view/userlist';
-	
+	$template_dir = 'components'.DS.'com_users'.DS.'view'.DS.'userlist';
+
 	if($params->get('template')){
-		$template = $params->get('template');	
+		$template = $params->get('template');
+	}elseif($params->get('group', 0)){
+		$template = strtolower(str_replace(' ', '', $usertype )).'.php';
 	}
-	else if($params->get('group', 0)){
-		$template = strtolower(str_replace(' ', '', $usertype )).'.php';	
-	}
-	
-	
+
 	if($params->get('template_dir')){
-		$template_dir = 'templates/' . $mainframe->getTemplate() . '/html/com_users/userlist';	
+		$template_dir = 'templates'.DS. $mainframe->getTemplate() .DS.'html'.DS.'com_users'.DS.'userlist';
 	}
-	$template_file = $mainframe->getCfg('absolute_path').'/'.$template_dir.'/'.$template;
-	
+	$template_file = $mainframe->getCfg('absolute_path').DS.$template_dir.DS.$template;
+
 	//Получаем список пользователей
-	$users = new mosUser($db);
+	$users = new mosUser($database);
 	//Общее количество
 	$users->total = $users->get_total($usertype);
 	// список
 	$users->user_list = $users->get_users($usertype, $limitstart, $limit);
-	
+
 	//Подключаем шаблон
 	if(is_file($template_file)){
 		include_once($template_file);
 	}
-		
-	
-		
 }
 
 function CheckIn($userid,$access) {
-	global $database;
-	global $mosConfig_db;
+
+	$database = &database::getInstance();
+	$config = &Jconfig::getInstance();
 
 	$nullDate = $database->getNullDate();
 	if(!($access->canEdit || $access->canEditOwn || $userid > 0)) {
@@ -337,7 +337,7 @@ function CheckIn($userid,$access) {
 		return;
 	}
 
-	$lt = mysql_list_tables($mosConfig_db);
+	$lt = mysql_list_tables($config->config_db);
 	$k = 0;
 	echo "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
 	while(list($tn) = mysql_fetch_array($lt)) {
@@ -345,7 +345,7 @@ function CheckIn($userid,$access) {
 		if(strpos($tn,$database->_table_prefix) !== 0) {
 			continue;
 		}
-		$lf = mysql_list_fields($mosConfig_db,"$tn");
+		$lf = mysql_list_fields($config->config_db,"$tn");
 		$nf = mysql_num_fields($lf);
 
 		$checked_out = false;
@@ -417,31 +417,31 @@ function CheckIn($userid,$access) {
 		</td>
 	</tr>
 	</table>
-	<?php
+<?php
 }
 
+/* форма восстановления пароля */
 function lostPassForm($option) {
-	global $mainframe;
-
+	$mainframe = &mosMainFrame::getInstance();
 	$mainframe->SetPageTitle(_PROMPT_PASSWORD);
-
 	HTML_registration::lostPassForm($option);
 }
 
-function sendNewPass($option) {
-	global $database,$mosConfig_mailfrom,$mosConfig_fromname,$mosConfig_captcha_reg;
-
-	// simple spoof check security
+function sendNewPass() {
 	josSpoofCheck();
+
+	$database = &database::getInstance();
+	$config = &Jconfig::getInstance();
 
 	$checkusername = stripslashes(mosGetParam($_POST,'checkusername',''));
 	$confirmEmail = stripslashes(mosGetParam($_POST,'confirmEmail',''));
 
-	if($mosConfig_captcha_reg) {
+	if($config->config_captcha_reg) {
+		session_name(md5($config->config_live_site));
 		session_start();
 		$captcha = $_POST['captcha'];
 		if(!isset($_SESSION['captcha_keystring']) || $_SESSION['captcha_keystring'] !==$captcha) {
-			mosErrorAlert('Введен неверный код проверки.');
+			mosErrorAlert(_BAD_CAPTCHA_STRING);
 			unset($_SESSION['captcha_keystring']);
 			exit;
 		}
@@ -449,42 +449,47 @@ function sendNewPass($option) {
 		session_write_close();
 	}
 
-	$query = "SELECT id FROM #__users WHERE username = ".$database->Quote($checkusername)."\n AND email = ".$database->Quote($confirmEmail);
+	$query = "SELECT id FROM #__users WHERE username = ".$database->Quote($checkusername)." AND email = ".$database->Quote($confirmEmail);
 	$database->setQuery($query);
 	if(!($user_id = $database->loadResult()) || !$checkusername || !$confirmEmail) {
-		mosRedirect("index.php?option=$option&task=lostPassword&mosmsg="._ERROR_PASS);
+		mosRedirect("index.php?option=com_users&task=lostPassword",_ERROR_PASS);
 	}
 
-	$newpass = mosMakePassword();
+	echo $newpass = mosMakePassword();
 	$message = _NEWPASS_MSG;
 	eval("\$message = \"$message\";");
 	$subject = _NEWPASS_SUB;
 	eval("\$subject = \"$subject\";");
 
-	mosMail($mosConfig_mailfrom,$mosConfig_fromname,$confirmEmail,$subject,$message);
+	mosMail($config->config_mailfrom,$config->config_fromname,$confirmEmail,$subject,$message);
 
 	$salt = mosMakePassword(16);
 	$crypt = md5($newpass.$salt);
 	$newpass = $crypt.':'.$salt;
-	$sql = "UPDATE #__users SET password = ".$database->Quote($newpass)."\n WHERE id = ".(int)
-		$user_id;
+	$sql = "UPDATE #__users SET password = ".$database->Quote($newpass)." WHERE id = ".(int)$user_id;
 	$database->setQuery($sql);
 	if(!$database->query()) {
 		die("SQL error".$database->stderr(true));
 	}
 
-	mosRedirect('index.php?option=com_users&mosmsg='._NEWPASS_SENT);
+	mosRedirect('index.php?option=com_users',_NEWPASS_SENT);
 }
 
 function registerForm($option,$useractivation) {
-	global $mainframe, $database, $mosConfig_absolute_path, $mosConfig_live_site,$mosConfig_captcha_reg;
+
+	$database = &database::getInstance();
+	$mainframe = &mosMainFrame::getInstance();
+
 	if(!$mainframe->getCfg('allowUserRegistration')) {
 		mosNotAuth();
 		return;
 	}
+
 	session_start();
 
 	$params = new configUser_registration($database);
+
+	$mainframe->SetPageTitle($params->get('title'));
 
 	//Определяем шаблон для вывода регистрационной формы
 	$template = 'default.php';
@@ -492,7 +497,7 @@ function registerForm($option,$useractivation) {
 	if(!$params->get('template')){
 		$type = mosGetParam( $_REQUEST, 'type', '' );
 		if($type){
-			if(!is_file($mosConfig_absolute_path.'/components/com_users/view/registration/'.$type.'.php')){
+			if(!is_file($mainframe->getCfg('absolute_path').DS.'components'.DS.'com_users'.DS.'view'.DS.'registration'.DS.$type.'.php')){
 				$template = $type.'.php';
 			}
 		}
@@ -501,31 +506,32 @@ function registerForm($option,$useractivation) {
 	// used for spoof hardening
 	$validate = josSpoofValue();
 
-	include ($mosConfig_absolute_path.'/components/com_users/view/registration/'.$template);
-	//HTML_registration::registerForm($option,$useractivation, $params);
+	include ($mainframe->getCfg('absolute_path').DS.'components'.DS.'com_users'.DS.'view'.DS.'registration'.DS.$template);
+
 }
 
 function saveRegistration() {
-	global $database,$acl,$mosConfig_captcha_reg;
-	global $mosConfig_sitename,$mosConfig_live_site,$mosConfig_useractivation,$mosConfig_allowUserRegistration;
-	global $mosConfig_mailfrom,$mosConfig_fromname,$mosConfig_mailfrom,$mosConfig_fromname, $mosConfig_absolute_path;
 
-	if($mosConfig_allowUserRegistration == 0) {
+	josSpoofCheck();
+
+	$database = &database::getInstance();
+	$mainframe = &mosMainFrame::getInstance();
+	$acl = &gacl::getInstance();
+
+	if($mainframe->getCfg('allowUserRegistration') == 0) {
 		mosNotAuth();
 		return;
 	}
 
 	$params = new configUser_registration($database);
-	// simple spoof check security
-	josSpoofCheck();
 
-	if($mosConfig_captcha_reg) {
+	if($mainframe->getCfg('captcha_reg')) {
 		session_start();
-		$captcha = $_POST['captcha'];
-		if(!isset($_SESSION['captcha_keystring']) || $_SESSION['captcha_keystring'] !==
-			$captcha) {
-			mosErrorAlert('Введен неверный код проверки.');
+		$captcha = strval(mosGetParam($_POST, 'captcha', null));
+		$captcha_keystring =mosGetParam($_SESSION,'captcha_keystring');
+		if($captcha_keystring!== $captcha) {
 			unset($_SESSION['captcha_keystring']);
+			mosRedirect('index.php?option=com_users&task=register',_BAD_CAPTCHA_STRING);
 			exit;
 		}
 		session_unset();
@@ -547,10 +553,9 @@ function saveRegistration() {
 
 	$row->id = 0;
 	$row->usertype = '';
-	//$row->gid = $acl->get_group_id('Registered','ARO');
 	$row->gid = $params->get('gid');
 
-	if($mosConfig_useractivation == 1) {
+	if($mainframe->getCfg('useractivation') == 1) {
 		$row->activation = md5(mosMakePassword());
 		$row->block = '1';
 	}
@@ -571,7 +576,7 @@ function saveRegistration() {
 		echo "<script> alert('".html_entity_decode($row->getError())."'); window.history.go(-1); </script>\n";
 		exit();
 	}
-	$row->id = $row->insertid();
+	$row->id = $database->insertid();
 	$row->checkin();
 
 	$email_info = array();
@@ -580,23 +585,23 @@ function saveRegistration() {
 	$email_info['username']	= trim($row->username);
 
 	//Подготавливаем письмо пользователю
-	$email_info['subject'] = sprintf(_SEND_SUB, $email_info['name'], $mosConfig_sitename);
+	$email_info['subject'] = sprintf(_SEND_SUB, $email_info['name'], $mainframe->getCfg('sitename'));
 	$email_info['subject'] = html_entity_decode($email_info['subject'], ENT_QUOTES);
 
-	if($mosConfig_useractivation == 1  ) {
+	if($mainframe->getCfg('useractivation') == 1 ) {
 		$email_info['message'] = sprintf(_USEND_MSG_ACTIVATE, $email_info['name'],
-							$mosConfig_sitename,
-							$mosConfig_live_site."/index.php?option=com_users&task=activate&activation=".
-							$row->activation, $mosConfig_live_site, $email_info['username'], $pwd);
+							$mainframe->getCfg('sitename'),
+							$mainframe->getCfg('live_site')."/index.php?option=com_users&task=activate&activation=".$row->activation,
+							$mainframe->getCfg('live_site'),
+							$email_info['username'], $pwd);
 	} else {
-		$email_info['message'] = sprintf(_USEND_MSG,$email_info['name'],
-							$mosConfig_sitename,$mosConfig_live_site);
+		$email_info['message'] = sprintf(_USEND_MSG,$email_info['name'],$mainframe->getCfg('sitename'),$mainframe->getCfg('live_site'));
 	}
 	$email_info['message'] = html_entity_decode($email_info['message'],ENT_QUOTES);
 
-	if($mosConfig_mailfrom != '' && $mosConfig_fromname != '') {
-		$email_info['adminName'] = $mosConfig_fromname;
-		$email_info['adminEmail'] = $mosConfig_mailfrom;
+	if($mainframe->getCfg('mailfrom') != '' && $mainframe->getCfg('fromname') != '') {
+		$email_info['adminName'] = $mainframe->getCfg('fromname');
+		$email_info['adminEmail'] = $mainframe->getCfg('mailfrom');
 	} else {
 		// use email address and name of first superadmin for use in email sent to user
 		$query = "SELECT name, email FROM #__users WHERE LOWER( usertype ) = 'superadministrator' OR LOWER( usertype ) = 'super administrator'";
@@ -614,9 +619,8 @@ function saveRegistration() {
 
 
 	// Подготавливаем письмо администраторам сайта
-	$email_info['subject'] = sprintf(_SEND_SUB, $email_info['name'],$mosConfig_sitename);
-	$email_info['message'] = sprintf(_ASEND_MSG, $email_info['adminName'],
-							$mosConfig_sitename, $row->name, $email_info['email'],$email_info['username']);
+	$email_info['subject'] = sprintf(_SEND_SUB, $email_info['name'],$mainframe->getCfg('sitename'));
+	$email_info['message'] = sprintf(_ASEND_MSG, $email_info['adminName'],$mainframe->getCfg('sitename'), $row->name, $email_info['email'],$email_info['username']);
 	$email_info['subject'] = html_entity_decode($email_info['subject'],ENT_QUOTES);
 	$email_info['message'] = html_entity_decode($email_info['message'],ENT_QUOTES);
 	//отправляем письма
@@ -624,11 +628,11 @@ function saveRegistration() {
 
 
 
-	if($mosConfig_useractivation == 1) {
+	if($mainframe->getCfg('useractivation') == 1) {
 
 		$msg = _REG_COMPLETE_ACTIVATE;
 		if($params->get('admin_activation')){
-			$msg = 'Благодарим за регистрацию. Доступ к аккаунту будет предоставлен после проверки модератором.';
+			$msg = _WAIT_ACTIVATION;
 		}
 
 		if($params->get('redirect_url')){
@@ -645,13 +649,13 @@ function saveRegistration() {
 		if(!$params->get('template')){
 			$group_name = $acl->get_group_name($row->gid,'ARO');
 			if($group_name){
-				if(!is_file($mosConfig_absolute_path.'/components/com_users/view/after_registration/'.$group_name.'.php')){
+				if(!is_file($mainframe->getCfg('absolute_path').DS.'components'.DS.'com_users'.DS.'view'.DS.'after_registration'.DS.$group_name.'.php')){
 					$template = $group_name.'.php';
 				}
 			}
 		}
 
-		include ($mosConfig_absolute_path.'/components/com_users/view/after_registration/'.$template);
+		include ($mainframe->getCfg('absolute_path').DS.'components'.DS.'com_users'.DS.'view'.DS.'after_registration'.DS.$template);
 		return;
 
 	}
@@ -662,13 +666,16 @@ function saveRegistration() {
 }
 
 function activate() {
-	global $database,$my,$mosConfig_auto_activ_login,$mainframe,$mosConfig_auto_activ_login;
-	global $mosConfig_useractivation,$mosConfig_allowUserRegistration;
+	global $my;
+
+	$database = &database::getInstance();
+	$mainframe = &mosMainFrame::getInstance();
+
 	if($my->id) {
 		mosRedirect('index.php');
 	}
 
-	if($mosConfig_allowUserRegistration == '0' || $mosConfig_useractivation == '0') {
+	if($mainframe->getCfg('allowUserRegistration') == '0' || $mainframe->getCfg('useractivation') == '0') {
 		mosNotAuth();
 		return;
 	}
@@ -680,12 +687,12 @@ function activate() {
 		return;
 	}
 
-	$query = "SELECT id FROM #__users WHERE activation = ".$database->Quote($activation)."\n AND block = 1";
+	$query = "SELECT id FROM #__users WHERE activation = ".$database->Quote($activation)." AND block = 1";
 	$database->setQuery($query);
 	$result = $database->loadResult();
 
 	if($result) {
-		$query = "UPDATE #__users SET block = 0, activation = '' WHERE activation = ".$database->Quote($activation)."\n AND block = 1";
+		$query = "UPDATE #__users SET block = 0, activation = '' WHERE activation = ".$database->Quote($activation)." AND block = 1";
 		$database->setQuery($query);
 		if(!$database->query()) {
 			if(!defined(_REG_ACTIVATE_FAILURE)) {
@@ -693,7 +700,7 @@ function activate() {
 			}
 			echo _REG_ACTIVATE_FAILURE;
 		} else {
-			if($mosConfig_auto_activ_login == 1) {
+			if($mainframe->getCfg('auto_activ_login') == 1) {
 				$user = new mosUser($database);
 				if($user->load($result)) {
 					$_POST['remember'] = 1;

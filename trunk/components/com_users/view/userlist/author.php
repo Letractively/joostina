@@ -1,9 +1,20 @@
 <?php
-defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.' );
+/**
+* @package Joostina
+* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+*/
 
-if(!$menu || $menu->published == 0){echo 'РР·РІРёРЅРёС‚Рµ, Рє СЌС‚РѕР№ СЃС‚СЂР°РЅРёС†Рµ РґРѕСЃС‚СѓРї Р·Р°РєСЂС‹С‚'; return;}
+// запрет прямого доступа
+defined('_VALID_MOS') or die();
 
+if(!$menu || $menu->published == 0){
+	echo 'Извините, к этой странице доступ закрыт';
+	return;
+}
 
 foreach($users->user_list as $user){
-	echo $user->name;	
+	echo $user->name;
 }

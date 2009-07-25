@@ -1,13 +1,19 @@
 <?php
-defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.' );
-    
-	//РџРѕРґРєР»СЋС‡РµРЅРёРµ РїР»Р°РіРёРЅР° РІР°Р»РёРґР°С†РёРё С„РѕСЂРј
-    mosCommonHTML::loadJqueryPlugins('jquery.validate', false, false, 'js');
+/**
+* @package Joostina
+* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+*/
 
-?>   
+// запрет прямого доступа
+defined('_VALID_MOS') or die();
 
-	<div class="page_edit_profile">
+//Подключение плагина валидации форм
+mosCommonHTML::loadJqueryPlugins('jquery.validate', false, false, 'js');
 
+?><div class="page_edit_profile">
 	<div class="componentheading"><h1><?php echo $user->name; ?>&nbsp;(<?php echo $user->username; ?>)</h1></div>
 	
 	<?php $tabs->startPane("userInfo"); ?>
@@ -15,35 +21,35 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
 	<form action="index.php" method="post" name="mosUserForm" id="mosUserForm">
 		<div style="float: right;height: 100%;">
 
-        <span class="button"><button type="submit" class="button submit" name="submit" id="save">РЎРѕС…СЂР°РЅРёС‚СЊ</button></span>
-        <span class="button"><button type="submit" class="button cancel" name="cancel" id="cancel">РћС‚РјРµРЅР°</button></span>
+		<span class="button"><button type="submit" class="button submit" name="submit" id="save">Сохранить</button></span>
+		<span class="button"><button type="submit" class="button cancel" name="cancel" id="cancel">Отмена</button></span>
 
 	</div>
 	<?php $tabs->startTab(_GENERAL,"general"); ?>
-            <h3>Р”Р°РЅРЅС‹Рµ Р°РєРєР°СѓРЅС‚Р°</h3>
+			<h3>Данные аккаунта</h3>
 			<table width="100%">
 				<tr>
-                    <td><label for="username"><?php echo _UNAME; ?></label></td>
+					<td><label for="username"><?php echo _UNAME; ?></label></td>
 					<td><input class="inputbox required" type="text" name="username" id="username" value="<?php echo $user->username; ?>"/></td>
 
 				</tr>
 				<tr>
-                    <td><label for="name"><?php echo _YOUR_NAME; ?></label></td>
+					<td><label for="name"><?php echo _YOUR_NAME; ?></label></td>
 					<td><input class="inputbox required" type="text" name="name" id="name" value="<?php echo $user->name; ?>"/></td>
 
 				</tr>
 				<tr>
-                    <td><label for="email"><?php echo _EMAIL; ?></label></td>
+					<td><label for="email"><?php echo _EMAIL; ?></label></td>
 					<td><input class="inputbox required" type="text" name="email" id="email" value="<?php echo $user->email; ?>"/></td>
 
 				</tr>
 				<tr>
-                    <td><label for="password"><?php echo _PASS; ?></label></td>
+					<td><label for="password"><?php echo _PASS; ?></label></td>
 					<td><input class="inputbox" type="password" name="password" id="password" value=""/></td>
 
 				</tr>
 				<tr>
-                <td><label for="verifyPass"><?php echo _VPASS; ?></label></td>
+				<td><label for="verifyPass"><?php echo _VPASS; ?></label></td>
 					<td><input class="inputbox" type="password" name="verifyPass" id="verifyPass"/></td>
 
 				</tr>
@@ -51,7 +57,7 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
 			
 			<?php if($mosConfig_frontend_userparams == '1' || $mosConfig_frontend_userparams == 1 ||$mosConfig_frontend_userparams == null) {
 			?>
-			<h3>РќР°СЃС‚СЂРѕР№РєРё СЃР°Р№С‚Р°</h3>
+			<h3>Настройки сайта</h3>
 			<table cellpadding="5" cellspacing="0" border="0" width="100%">
 				<tr>
 					<td colspan="2"><?php echo $params->render('params'); ?></td>
@@ -59,74 +65,74 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
 			</table>
 			<?php } ?>
 
-            <br />
-            <h3>Р›РёС‡РЅС‹Рµ РґР°РЅРЅС‹Рµ</h3>
+			<br />
+			<h3>Личные данные</h3>
 			<table width="100%">
 				<tr>
-                    <td><label for="gender">РџРѕР»</label></td>
+					<td><label for="gender">Пол</label></td>
 					<td><?php echo mosHTML::genderSelectList('gender','class="inputbox"', $user_extra->gender);?> </td>
 				</tr>
 				<tr>
-                    <td><label>Р”Р°С‚Р° СЂРѕР¶РґРµРЅРёСЏ</label></td>
+					<td><label>Дата рождения</label></td>
 					<td>
-                        <?php echo mosHTML::daySelectList('birthdate_day','class="inputbox"', $bday_date);?>
-                        <?php echo mosHTML::monthSelectList('birthdate_month','class="inputbox"', $bday_month,1);?>
-                        <?php echo mosHTML::yearSelectList('birthdate_year','class="inputbox"', $bday_year);?>
-                    </td>
+						<?php echo mosHTML::daySelectList('birthdate_day','class="inputbox"', $bday_date);?>
+						<?php echo mosHTML::monthSelectList('birthdate_month','class="inputbox"', $bday_month,1);?>
+						<?php echo mosHTML::yearSelectList('birthdate_year','class="inputbox"', $bday_year);?>
+					</td>
 				</tr>
 				<tr>
-                    <td><label>Рћ СЃРµР±Рµ</label></td>
+					<td><label>О себе</label></td>
 					<td>
-                        <textarea class="inputbox" name="about" id="about"><?php echo $user->user_extra->about ?></textarea>
-                    </td>
+						<textarea class="inputbox" name="about" id="about"><?php echo $user->user_extra->about ?></textarea>
+					</td>
 				</tr>
 				<tr>
-                    <td><label>РњРµСЃС‚РѕРїРѕР»РѕР¶РµРЅРёРµ</label></td>
+					<td><label>Местоположение</label></td>
 					<td>
-                        <input class="inputbox" type="text" name="location" id="location" value="<?php echo $user->user_extra->location ?>"/>
-                    </td>
+						<input class="inputbox" type="text" name="location" id="location" value="<?php echo $user->user_extra->location ?>"/>
+					</td>
 				</tr>
 			</table>
 			
 		<?php $tabs->endTab(); ?>
-		 <?php $tabs->startTab('РљРѕРЅС‚Р°РєС‚С‹',"cantacts"); ?> 	
+		 <?php $tabs->startTab('Контакты',"cantacts"); ?> 	
 
-            <h3>РљРѕРЅС‚Р°РєС‚РЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ</h3>
+			<h3>Контактная информация</h3>
 			<table width="100%">
 				<tr>
-                    <td><label>РЎР°Р№С‚</label></td>
+					<td><label>Сайт</label></td>
 					<td><input class="inputbox" type="text" name="url" id="url" value="<?php echo $user->user_extra->url ?>"/></td>
 				</tr>
 				<tr>
-                    <td><label>ICQ</label></td>
+					<td><label>ICQ</label></td>
 					<td><input class="inputbox" type="text" name="icq" id="icq" value="<?php echo $user->user_extra->icq ?>"/></td>
 				</tr>
 				<tr>
-                    <td><label>Skype</label></td>
+					<td><label>Skype</label></td>
 					<td><input class="inputbox" type="text" name="skype" id="skype" value="<?php echo $user->user_extra->skype ?>"/></td>
 				</tr>
 				<tr>
-                    <td><label>Jabber </label></td>
+					<td><label>Jabber </label></td>
 					<td><input class="inputbox" type="text" name="jabber" id="jabber" value="<?php echo $user->user_extra->jabber ?>"/></td>
 				</tr>
 				<tr>
-                    <td><label>MSN</label></td>
+					<td><label>MSN</label></td>
 					<td><input class="inputbox" type="text" name="msn" id="msn" value="<?php echo $user->user_extra->msn ?>"/></td>
 				</tr>
 				<tr>
-                    <td><label>Yahoo</label></td>
+					<td><label>Yahoo</label></td>
 					<td><input class="inputbox" type="text" name="yahoo" id="yahoo" value="<?php echo $user->user_extra->yahoo ?>"/></td>
 				</tr>
 				<tr>
-                    <td><label>РўРµР»РµС„РѕРЅ</label></td>
+					<td><label>Телефон</label></td>
 					<td><input class="inputbox" type="text" name="phone" id="phone" value="<?php echo $user->user_extra->phone ?>"/></td>
 				</tr>
 				<tr>
-                    <td><label>Р¤Р°РєСЃ</label></td>
+					<td><label>Факс</label></td>
 					<td><input class="inputbox" type="text" name="fax" id="fax" value="<?php echo $user->user_extra->fax ?>"/></td>
 				</tr>
 				<tr>
-                    <td><label>РњРѕР±РёР»СЊРЅС‹Р№</label></td>
+					<td><label>Мобильный</label></td>
 					<td><input class="inputbox" type="text" name="mobil" id="mobil" value="<?php echo $user->user_extra->mobil ?>"/></td>
 				</tr>
 
@@ -139,24 +145,24 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
 	<input type="hidden" name="<?php echo $validate; ?>" value="1" />
 	</form>
 	
-	<?php $tabs->startTab('РђРІР°С‚Р°СЂ',"avatar"); ?> 
-	<h3>РђРІР°С‚Р°СЂ</h3>
-            
-            <?php 
-            $form_params = new stdClass();
-            $form_params->id = 'avatar_uploadForm';
-            $form_params->img_field = 'avatar';
-            $form_params->img_path = 'images/avatars';
-            $form_params->default_img = 'images/avatars/none.jpg';
-            $form_params->img_class = 'user_avatar';
-            $form_params->ajax_handler = 'ajax.index.php?option=com_users';
-            
+	<?php $tabs->startTab('Аватар',"avatar"); ?> 
+	<h3>Аватар</h3>
+
+			<?php
+			$form_params = new stdClass();
+			$form_params->id = 'avatar_uploadForm';
+			$form_params->img_field = 'avatar';
+			$form_params->img_path = 'images/avatars';
+			$form_params->default_img = 'images/avatars/none.jpg';
+			$form_params->img_class = 'user_avatar';
+			$form_params->ajax_handler = 'ajax.index.php?option=com_users';
+
 			if(!$user->avatar){
-                userHelper::_build_img_upload_area($user, $form_params, 'upload');
-            } else {
-                userHelper::_build_img_upload_area($user, $form_params, 'reupload');
-            } ?>
-            
+				userHelper::_build_img_upload_area($user, $form_params, 'upload');
+			} else {
+				userHelper::_build_img_upload_area($user, $form_params, 'reupload');
+			} ?>
+
 	<?php $tabs->endTab(); ?>
 <?php $tabs->endPane(); ?>
 </div> 

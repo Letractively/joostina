@@ -27,7 +27,6 @@ DEFINE('_NEW_USER_MESSAGE','Здравствуйте, %s
 DEFINE('_USER_LOGIN_TXT','Имя пользователя (логин )');
 DEFINE('_LOGGED_IN','На сайте');
 DEFINE('_LAST_LOGIN','Последнее посещение');
-DEFINE('_USER_BLOCK','Блокировка');
 DEFINE('_ALLOW','Разрешить');
 DEFINE('_DISALLOW','Запретить');
 DEFINE('_ENTER_LOGIN_PLEASE','Вы должны ввести имя пользователя для входа на сайт');

@@ -37,7 +37,7 @@ switch($task) {
         global $database, $my, $mosConfig_absolute_path;
         $id = intval(mosGetParam($_REQUEST,'id',0));
         
-        mosMainFrame::getInstance()->addLib('images');
+        mosMainFrame::addLib('images');
         
         $return = array();
 

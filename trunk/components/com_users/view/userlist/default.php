@@ -1,27 +1,32 @@
 <?php
-defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.' );
+/**
+* @package Joostina
+* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+*/
 
-	if(!$menu || $menu->published <= 0){echo 'РР·РІРёРЅРёС‚Рµ, Рє СЌС‚РѕР№ СЃС‚СЂР°РЅРёС†Рµ РґРѕСЃС‚СѓРї Р·Р°РєСЂС‹С‚'; return;}
+// запрет прямого доступа
+defined('_VALID_MOS') or die();
 
-	//РїР°РіРёРЅР°С†РёСЏ
-	if($users->total>0){             	
-		mosMainFrame::getInstance()->addLib('pageNavigation');
-     	$link = sefRelToAbs($menu->link.'&amp;Itemid='.$menu->id);
-		$paginate = new mosPageNav( $users->total, $limitstart, $limit );
-     }
+if(!$menu || $menu->published <= 0){echo 'Извините, к этой странице доступ закрыт'; return;}
 
-?>
-
-	<div class="userlist">
-	
+//пагинация
+if($users->total>0){
+	mosMainFrame::addLib('pageNavigation');
+	$link = sefRelToAbs($menu->link.'&amp;Itemid='.$menu->id);
+	$paginate = new mosPageNav( $users->total, $limitstart, $limit );
+}
+?><div class="userlist">
 		<?php if( $params->get('header', '')) : ?>
 			<div class="componentheading"><h1><?php echo $params->get('header', ''); ?></h1></div>
 		<?php endif;?>
-		
+
 		<ul>
 			<?php foreach($users->user_list as $user):
-						$avatar_pic = '<img class="avatar" src="'.$mainframe->getCfg('live_site').'/'.$users->get_avatar($user).'" />';
-						$profile_link = $users->get_link($user); ?>
+					$avatar_pic = '<img class="avatar" src="'.$mainframe->getCfg('live_site').DS.$users->get_avatar($user).'" />';
+					$profile_link = $users->get_link($user); ?>
 			<li>
 				<a class="thumb" href="<?php echo $profile_link;?>"><?php echo $avatar_pic;?></a>
 				<a href="<?php echo $profile_link;?>"><?php echo $user->name;?></a>
@@ -29,9 +34,7 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
 			</li>
 			<?php endforeach;?>
 		</ul>
-		
 	</div>
-
-    <?php if($users->total>0){
-        echo '<br clear="all" /> '. $paginate->writePagesLinks($link);
-    }?>
+<?php if($users->total>0){
+	echo '<br clear="all" /> '. $paginate->writePagesLinks($link);
+}?>

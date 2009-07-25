@@ -41,3 +41,4 @@ DEFINE('_CONTACT_ONE_EMAIL','Нельзя вводить более одного
 DEFINE('_EMAIL_A_COPY','Отправить копию сообщения на собственный адрес');
 DEFINE('_CONTACT_DOWNLOAD_AS','Скачать информацию в формате');
 DEFINE('_VCARD','VCard');
+DEFINE('_FAILID_MESSAGE','Сообщение не отправлено');

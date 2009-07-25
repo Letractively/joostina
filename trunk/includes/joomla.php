@@ -49,7 +49,7 @@ $database = &database::getInstance();
 
 /* класс работы с правами пользователей */
 require_once ($mosConfig_absolute_path.'/includes/libraries/gacl/gacl.class.php');
-$acl = new gacl_api();
+$acl = &gacl::getInstance();
 
 /* вспомогательная библиотека работы с массивами */
 mosMainFrame::addLib('array');
@@ -549,7 +549,7 @@ class mosMainFrame {
 	* the jos_sessions table.
 	*/
 	function initSession() {
-		if(Jconfig::getInstance()->config_session_front) return;
+		if($this->getCfg('session_front')) return;
 
 		// initailize session variables
 		$session = &$this->_session;
@@ -876,10 +876,13 @@ class mosMainFrame {
 	* the users details.
 	*/
 	function login($username = null,$passwd = null,$remember = 0,$userid = null) {
-		global $acl,$_VERSION;
+		global $_VERSION;
+
 		// если сесии на фронте отключены - прекращаем выполнение процедуры
-		if(Jconfig::getInstance()->config_session_front) return;
-		
+		if($this->getCfg('session_front')) return;
+
+		$acl = &gacl::getInstance();
+
 		$bypost = 0;
 		$valid_remember = false;
 
@@ -3602,7 +3605,6 @@ function mosMenuCheck($Itemid,$menu_option,$task,$gid) {
 		}
 	}
 
-	
 	// save menu information to global mainframe
 	if(isset($results[0])) {
 		// loads menu info of particular Itemid
@@ -6135,7 +6137,9 @@ class mosAbstractTasker {
 	* Access control check
 	*/
 	function accessCheck($task) {
-		global $acl,$my;
+		global $my;
+
+		$acl = &gacl::getInstance();
 
 		// only check if the derived class has set these values
 		if($this->_acoSection) {
