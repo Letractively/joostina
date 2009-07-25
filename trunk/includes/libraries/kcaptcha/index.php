@@ -11,16 +11,11 @@ error_reporting(E_ALL);
 
 require_once( dirname(dirname(dirname(dirname(__FILE__)))).'/configuration.php' );
 
-if(isset($_REQUEST[session_name()]) ) {
-	session_name(md5($mosConfig_live_site));
-	session_start();
-}
+session_name(md5($mosConfig_live_site));
+session_start();
 
 $captcha = new KCAPTCHA();
-
-if($_REQUEST[session_name()]) {
-	$_SESSION['captcha_keystring'] = $captcha->getKeyString();
-}
+$_SESSION['captcha_keystring'] = $captcha->getKeyString();
 
 
 # KCAPTCHA PROJECT VERSION 1.2.4
@@ -65,8 +60,9 @@ class KCAPTCHA {
 				for($i = 0; $i < $length; $i++) {
 					$this->keystring .= $allowed_symbols{mt_rand(0,strlen($allowed_symbols) - 1)};
 				}
-				if(!preg_match('/cp|cb|ck|c6|c9|rn|rm|mm|co|do|cl|db|qp|qb|dp/',$this->keystring))
-						break;
+				if(!preg_match('/cp|cb|ck|c6|c9|rn|rm|mm|co|do|cl|db|qp|qb|dp/',$this->keystring)){
+					break;
+				}
 			}
 
 			$font_file = $fonts[mt_rand(0,count($fonts) - 1)];
@@ -110,8 +106,7 @@ class KCAPTCHA {
 					$i}
 				];
 
-				$y = mt_rand(-$fluctuation_amplitude,$fluctuation_amplitude) + ($height - $fontfile_height) /
-					2 + 2;
+				$y = mt_rand(-$fluctuation_amplitude,$fluctuation_amplitude) + ($height - $fontfile_height) / 2 + 2;
 
 				if($no_spaces) {
 					$shift = 0;
@@ -228,15 +223,13 @@ class KCAPTCHA {
 		if(function_exists("imagejpeg")) {
 			header("Content-Type: image/jpeg");
 			imagejpeg($img2,null,$jpeg_quality);
-		} else
-			if(function_exists("imagegif")) {
-				header("Content-Type: image/gif");
-				imagegif($img2);
-			} else
-				if(function_exists("imagepng")) {
-					header("Content-Type: image/x-png");
-					imagepng($img2);
-				}
+		} elseif(function_exists("imagegif")) {
+			header("Content-Type: image/gif");
+			imagegif($img2);
+		} elseif(function_exists("imagepng")) {
+			header("Content-Type: image/x-png");
+			imagepng($img2);
+		}
 	}
 
 	// returns keystring
