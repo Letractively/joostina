@@ -32,7 +32,8 @@ if($mosConfig_error_reporting == 0) {
 }elseif($mosConfig_error_reporting > 0) {
 	error_reporting($mosConfig_error_reporting);
 }
-
+/* ядро отладчика */
+require_once ($mosConfig_absolute_path.DS.'includes'.DS.'libraries'.DS.'debug'.DS.'jdebug.php');
 /* ядро для работы с юникодом */
 include_once $mosConfig_absolute_path.'/includes/libraries/utf8/utf8.php';
 /* файл данных версии */
@@ -52,9 +53,6 @@ $acl = new gacl_api();
 
 /* вспомогательная библиотека работы с массивами */
 mosMainFrame::addLib('array');
-
-//_xdump($_SERVER);
-//exit();
 
 // корректировка работы с данными полученными от сервера
 if(isset($_SERVER['REQUEST_URI'])) {
@@ -6386,7 +6384,6 @@ function _xdump( $var, $text='<pre>' ){
 	print_r( $var );
 	echo "\n";
 }
-
 
 /**
  @global mosPlugin $_MAMBOTS*/

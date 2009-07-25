@@ -13,6 +13,11 @@ defined('_VALID_MOS') or die();
 
 $config = &Jconfig::getInstance();
 
+// подключение языкого файла tmpl_joostfree.php
+if($mainframe->getLangFile('tmpl_joostfree')){
+	include_once($mainframe->getLangFile('tmpl_joostfree'));
+}
+
 // проверка на ключевую строке в адресе админки
 if($config->config_enable_admin_secure_code){
 	if($config->config_admin_secure_code != $_SERVER['QUERY_STRING']){
@@ -43,7 +48,7 @@ if($config->config_enable_admin_secure_code){
 		<img src="templates/joostfree/images/logo.png" alt="Joostina!" />
 	</div>
 <?php
-	include_once ($config->config_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/modules/mod_mosmsg.php');
+	include_once ($config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY.DS.'modules'.DS.'mod_mosmsg.php');
 ?>
 	<div id="ctr1" align="center">
 		<div class="login">
@@ -54,23 +59,18 @@ if($config->config_enable_admin_secure_code){
 							<input name="usrname" id="usrname" type="text" class="inputbox" size="15" />
 							<?php echo _PASS ?>
 							<input name="pass" type="password" class="inputbox" size="15" />
-<?php
-if($config->config_captcha) {
-	//session_start();
-?>
+<?php if($config->config_captcha) { ?>
 						<div>
-							<img id="loginCaptcha" alt="<?php echo _PRESS_HERE_TO_RELOAD_CAPTCHA?>" onclick="document.loginForm.loginCaptcha.src='<?php
-								echo $config->config_live_site; ?>/includes/libraries/kcaptcha/index.php?' + new String(Math.random())" src="<?php
-								echo $config->config_live_site; ?>/includes/libraries/kcaptcha/index.php?<?php echo session_id() ?>" />
+							<img id="loginCaptcha" alt="<?php echo _PRESS_HERE_TO_RELOAD_CAPTCHA?>"
+								onclick="document.loginForm.loginCaptcha.src='<?php echo $config->config_live_site; ?>/includes/libraries/kcaptcha/index.php?' + new String(Math.random())"
+								src="<?php echo $config->config_live_site; ?>/includes/libraries/kcaptcha/index.php?<?php echo rand(0,2009) ?>" />
 						</div>
 						<span class="captcha" onclick="document.loginForm.loginCaptcha.src='<?php echo $config->config_live_site; ?>/includes/libraries/kcaptcha/index.php?' + new String(Math.random())"><?php echo _SHOW_CAPTCHA?></span>
 						<div><?php echo _PLEASE_ENTER_CAPTCHA?>:</div>
 						<div>
 							<input name="captcha" type="text" class="inputbox" size="15" />
 						</div>
-<?php
-	};
-?>
+<?php };?>
 						<div align="center">
 							<input type="submit" name="submit" class="button" value="Войти" />
 							<br />

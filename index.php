@@ -27,7 +27,7 @@ if(!file_exists('configuration.php') || filesize('configuration.php') < 10) {
 $mosConfig_absolute_path = dirname( __FILE__ );
 
 // подключение файла эмуляции отключения регистрации глобальных переменных
-require ($mosConfig_absolute_path.'/includes/globals.php');
+require ($mosConfig_absolute_path.DIRECTORY_SEPARATOR.'includes'.DIRECTORY_SEPARATOR.'globals.php');
 
 // подключение файла конфигурации
 require_once ('./configuration.php');
@@ -37,19 +37,16 @@ if($mosConfig_time_gen) {
 	list($usec,$sec) = explode(' ',microtime());
 	$sysstart = ((float)$usec + (float)$sec);
 }
-// проверка и активация расширенного отладчика
-if($mosConfig_debug) {
-	require_once $mosConfig_absolute_path.'/includes/libraries/debug/jdebug.php';
-	$debug = &jdebug::getInstance();
-}
 
 // Проверка SSL - $http_host возвращает <url_сайта>:<номер_порта, если он 443>
 $http_host = explode(':',$_SERVER['HTTP_HOST']);
 if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset($http_host[1]) && $http_host[1] == 443) && substr($mosConfig_live_site,0,8) !='https://') {
 	$mosConfig_live_site = 'https://'.substr($mosConfig_live_site,7);
 }
+
 // подключение главного файла - ядра системы
-require_once ($mosConfig_absolute_path.'/includes/joomla.php');
+require_once ($mosConfig_absolute_path.DIRECTORY_SEPARATOR.'includes'.DIRECTORY_SEPARATOR.'joomla.php');
+require_once ($mosConfig_absolute_path.DS.'includes'.DS.'frontend.php');
 
 // проверка и переадресация с не WWW адреса
 joostina_api::check_host();
@@ -57,13 +54,13 @@ joostina_api::check_host();
 //Проверка подпапки установки, удалена при работе с SVN
 if(file_exists('installation/index.php') && $_VERSION->SVN == 0) {
 	define('_INSTALL_CHECK',1);
-	include ($mosConfig_absolute_path.'/templates/system/offline.php');
+	include ($mosConfig_absolute_path.DS.'templates'.DS.'system'.DS.'offline.php');
 	exit();
 }
 
 // отображение страницы выключенного сайта
 if($mosConfig_offline == 1) {
-	require ($mosConfig_absolute_path.'/templates/system/offline.php');
+	require ($mosConfig_absolute_path.DS.'templates'.DS.'system'.DS.'offline.php');
 	exit();
 }
 
@@ -74,13 +71,11 @@ if($mosConfig_mmb_system_off == 0) {
 	$_MAMBOTS->trigger('onStart');
 }
 
-if(file_exists($mosConfig_absolute_path.'/components/com_sef/sef.php')) {
-	require_once ($mosConfig_absolute_path.'/components/com_sef/sef.php');
+if(file_exists($mosConfig_absolute_path.DS.'components'.DS.'com_sef'.DS.'sef.php')) {
+	require_once ($mosConfig_absolute_path.DS.'components'.DS.'com_sef'.DS.'sef.php');
 } else {
-	require_once ($mosConfig_absolute_path.'/includes/sef.php');
+	require_once ($mosConfig_absolute_path.DS.'includes'.DS.'sef.php');
 }
-
-require_once ($mosConfig_absolute_path.'/includes/frontend.php');
 
 // mainframe - основная рабочая среда API, осуществляет взаимодействие с 'ядром'
 $mainframe = &mosMainFrame::getInstance();

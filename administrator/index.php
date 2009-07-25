@@ -28,7 +28,6 @@ if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset
 	$config->config_live_site = 'https://' . substr($config->config_live_site,7);
 }
 
-
 // ѕровер€ем ip адрес: если он находитс€ в стоп-листе и выбрана опци€ блокировки достутпа в админку, то блокируем доступ
 if(file_exists('./components/com_security/block_access.php')) {
 	require_once ('./components/com_security/block_access.php');
@@ -43,8 +42,6 @@ if($config->config_lang == '') {
 	$mosConfig_lang = 'russian';
 }
 
-//include_once ($config->config_absolute_path .DS.'language'.DS.$config->config_lang.'.php');
-
 // mainframe - основна€ рабоча€ среда API, осуществл€ет взаимодействие с '€дром'
 $mainframe = &mosMainFrame::getInstance(true);
 $mainframe->set('lang', $mosConfig_lang);
@@ -53,7 +50,7 @@ include_once($mainframe->getLangFile());
 //Installation sub folder check, removed for work with SVN
 if(file_exists('../installation/index.php') && $_VERSION->SVN == 0) {
 	define('_INSTALL_CHECK',1);
-	include ($config->config_absolute_path . '/templates/system/offline.php');
+	include ($config->config_absolute_path .DS.'templates'.DS.'system'.DS.'offline.php');
 	exit();
 }
 
@@ -73,7 +70,6 @@ if(isset($_POST['submit'])) {
 		mosRedirect($config->config_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/',_PLEASE_ENTER_PASSWORD);
 		exit();
 	}
-
 
 	if($config->config_admin_bad_auth <= $bad_auth_count && (int) $config->config_admin_bad_auth >= 0) {
 		$captcha = mosGetParam($_POST,'captcha','');
@@ -233,9 +229,6 @@ if(isset($_POST['submit'])) {
 	header('Content-type: text/html; charset=UTF-8');
 	if($config->config_admin_bad_auth <= $bad_auth_count && (int)$config->config_admin_bad_auth >= 0) {
 		$config->config_captcha = 1;
-	}
-	if($mainframe->getLangFile('tmpl_joostfree')){
-		include_once($mainframe->getLangFile('tmpl_joostfree'));
 	}
 	$path = $config->config_absolute_path .DS.ADMINISTRATOR_DIRECTORY.DS.'templates'.DS. $mainframe->getTemplate() .DS. 'login.php';
 	require_once ($path);
