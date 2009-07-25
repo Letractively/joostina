@@ -70,7 +70,7 @@ if(isset($_POST['submit'])) {
 	$pass		= stripslashes(mosGetParam($_POST,'pass',null));
 
 	if($pass == null) {
-		mosRedirect($config->config_live_site.DS.ADMINISTRATOR_DIRECTORY.DS,_PLEASE_ENTER_PASSWORD);
+		mosRedirect($config->config_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/',_PLEASE_ENTER_PASSWORD);
 		exit();
 	}
 
