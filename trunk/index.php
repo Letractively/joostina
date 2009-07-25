@@ -40,7 +40,7 @@ if($mosConfig_time_gen) {
 // проверка и активация расширенного отладчика
 if($mosConfig_debug) {
 	require_once $mosConfig_absolute_path.'/includes/libraries/debug/jdebug.php';
-	$debug = new jdebug();
+	$debug = &jdebug::getInstance();
 }
 
 // Проверка SSL - $http_host возвращает <url_сайта>:<номер_порта, если он 443>
@@ -218,7 +218,7 @@ if($path = $mainframe->getPath('front')) {
 	if($ret) {
 			//Подключаем язык компонента
  			if($mainframe->getLangFile($option)){ 
- 				include($mainframe->getLangFile($option));        	
+ 				include($mainframe->getLangFile($option));
 			}
 		require_once ($path);
 	} else {
@@ -287,9 +287,9 @@ if($mosConfig_time_gen) {
 if($mosConfig_debug) {
 	if(function_exists('memory_get_usage')) {
 		$mem_usage = (memory_get_usage() - _MEM_USAGE_START);
-		$debug->add('<b>'._SCRIPT_MEMORY_USING.':</b> '.sprintf('%0.2f',$mem_usage / 1048576).' MB');
+		jd_log('<b>'._SCRIPT_MEMORY_USING.':</b> '.sprintf('%0.2f',$mem_usage / 1048576).' MB');
 	}
-	echo $debug->get($mosConfig_front_debug);
+	jd_get();
 }
 
 doGzip();
@@ -299,6 +299,5 @@ if($mosConfig_optimizetables == 1) {
 }
 
 joostina_api::clear_cache();
-
 exit();
 ?>
