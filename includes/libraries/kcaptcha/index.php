@@ -9,13 +9,15 @@
 
 error_reporting(E_ALL);
 
-require_once( dirname(dirname(dirname(dirname(__FILE__)))).'/configuration.php' );
-
-session_name(md5($mosConfig_live_site));
-session_start();
+if(isset($_REQUEST[session_name()])){
+	session_start();
+}
 
 $captcha = new KCAPTCHA();
-$_SESSION['captcha_keystring'] = $captcha->getKeyString();
+
+if($_REQUEST[session_name()]){
+	$_SESSION['captcha_keystring'] = $captcha->getKeyString();
+}
 
 
 # KCAPTCHA PROJECT VERSION 1.2.4
@@ -219,6 +221,11 @@ class KCAPTCHA {
 					imagesetpixel($img2,$x,$y,imagecolorallocate($img2,$newred,$newgreen,$newblue));
 			}
 		}
+
+		header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+		header('Cache-Control: no-store, no-cache, must-revalidate');
+		header('Cache-Control: post-check=0, pre-check=0', FALSE);
+		header('Pragma: no-cache');
 
 		if(function_exists("imagejpeg")) {
 			header("Content-Type: image/jpeg");

@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
-* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
-* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
-* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
+* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
 */
 
-// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+// запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 /**
@@ -46,7 +46,7 @@ function profile($user,$option, &$params, $config){
           $avatar_edit='';
         }
         
-        //РџРµСЂРµРјРµРЅРЅС‹Рµ РґР»СЏ С€Р°Р±Р»РѕРЅР°
+        //Переменные для шаблона
         $avatar_pic = '<img class="avatar" src="'.$mosConfig_live_site.'/'.$user->get_avatar($user).'" />';
         $user_id= $user->id;
         $user_real_name = $user->name;
@@ -54,10 +54,10 @@ function profile($user,$option, &$params, $config){
 
         $user_status = $user->get_user_status($user->id);
         if($user_status){
-            $user_status='<span class="online">РЅР° СЃР°Р№С‚Рµ</span>';
+            $user_status='<span class="online">на сайте</span>';
             }
         else {
-             $user_status='<span class="offline">РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚</span>';
+             $user_status='<span class="offline">отсутствует</span>';
         }
 
         $registerDate = mosFormatDate($user->registerDate);
@@ -65,12 +65,12 @@ function profile($user,$option, &$params, $config){
 
         $user_content_href=sefRelToAbs('index.php?option=com_content&task=mycontent&user='.$user_id.'&Itemid=28');
 
-		//РЁР°Р±Р»РѕРЅ
+		//Шаблон
 		$template = 'default.php';
 		$template_dir = 'components/com_users/view/profile';
 
 		
-		//Р•СЃР»Рё РёСЃРїРѕР»СЊР·СѓСЋС‚СЃСЏ СЂР°Р·РЅС‹Рµ С€Р°Р±Р»РѕРЅС‹ РґР»СЏ СЂР°Р·РЅС‹С… РіСЂСѓРїРї РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№
+		//Если используются разные шаблоны для разных групп пользователей
 		if(!$config->get('template')){
 			$template=strtolower(str_replace(' ', '', $user->usertype )).'.php';	
 		}
@@ -81,22 +81,22 @@ function profile($user,$option, &$params, $config){
 		$template_file = $mainframe->getCfg('absolute_path').'/'.$template_dir.'/'.$template;	
 		
 		
-		//РќР°С…РѕРґРёРј РїР»Р°РіРёРЅС‹ РїСЂРѕС„РёР»СЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
+		//Находим плагины профиля пользователя
 		$plugins = new userPlugins();
 		$profile_plugins = $plugins->get_plugins('profile');
 		
 		$plugin_page = '';
 		$cur_plugin = mosGetParam( $_REQUEST, 'view', '' );
-		//Р•СЃР»Рё РїР»Р°РіРёРЅС‹ СѓСЃС‚Р°РЅРѕРІР»РµРЅС‹ 
+		//Если плагины установлены 
 		if($profile_plugins){
 			
-			//РІС‹С†РµРїР»СЏРµРј РїРµСЂРІС‹Р№ РїР»Р°РіРёРЅ РІ РіСЂСѓРїРїРµ РєР°Рє РїР»Р°РіРёРЅ РїРѕ-СѓРјРѕР»С‡Р°РЅРёСЋ
+			//выцепляем первый плагин в группе как плагин по-умолчанию
 			$plugin_page = $profile_plugins[0]->element;
 			
 			
-   			//РћР±СЂР°С‰РµРЅРёРµ Рє СЃС‚СЂР°РЅРёС†Рµ РїР»Р°РіРёРЅР°        	
+   			//Обращение к странице плагина        	
         	if($cur_plugin){         	
-        		//РџСЂРѕРІРµСЂСЏРµРј Р·Р°РїСЂР°С€РёРІР°РµРјС‹Р№ РїР»Р°РіРёРЅ РЅР° РґРѕСЃС‚СѓРїРЅРѕСЃС‚СЊ
+        		//Проверяем запрашиваемый плагин на доступность
         		if($plugins->allow_plugin($cur_plugin)){
         			$plugin_page = $cur_plugin; 
         		}        	
@@ -104,7 +104,7 @@ function profile($user,$option, &$params, $config){
    			else{
 				$cur_plugin = $plugin_page; 	
    			}   			
-   			//РїРѕРґРєР»СЋС‡Р°РµРј РїР»Р°РіРёРЅ
+   			//подключаем плагин
    			$_MAMBOTS->loadBot('profile',$plugin_page,1);		
 		
 		}
@@ -131,7 +131,7 @@ function profile($user,$option, &$params, $config){
 
 
         
-		//РЁР°Р±Р»РѕРЅ
+		//Шаблон
 		$template_file='default.php';
 		if(!$config->get('template_edit')){			
 			if(is_file($mosConfig_absolute_path.'/components/com_users/view/edit/'.strtolower(str_replace(' ', '', $user->usertype )).'.php')){

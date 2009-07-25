@@ -111,10 +111,11 @@ switch ($task) {
  * Страница с перечнем материалов пользователя
  */
 function showUserItems() {
-	global $Itemid, $my, $acl;
+	global $Itemid, $my;
 
 	$mainframe = &mosMainFrame::getInstance();
 	$database = &database::getInstance();
+	$acl = &gacl::getInstance();
 
 	$limit = intval(mosGetParam($_REQUEST, 'limit', 0));
 	$limitstart = intval(mosGetParam($_REQUEST, 'limitstart', 0));
@@ -1276,12 +1277,13 @@ function _showItem($row, $params, $gid, &$access, $pop, $template = '') {
  * редактирование материала
  */
 function editItem($task) {
-	global $my, $gid, $acl;
+	global $my, $gid;
 	global $mosConfig_absolute_path, $mosConfig_live_site, $mosConfig_offset;
 	global $mosConfig_module_on_edit_off;
 
 	$mainframe = &mosMainFrame::getInstance();
 	$database = &database::getInstance();
+	$acl = &gacl::getInstance();
 
 	if($mosConfig_module_on_edit_off == 1) {
 		$GLOBALS['_MOS_MODULES'] = '';

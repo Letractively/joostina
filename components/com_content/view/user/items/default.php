@@ -36,7 +36,7 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
     <div class="page_user_items<?php echo $params->get( 'pageclass_sfx' ); ?>">
 
         <?php if($params->get( 'title')) { ?>
-            <div class="componentheading"><h1><?php echo $params->title; ?> <?php echo mosContent::Author(&$items[0]);?></h1></div>
+            <div class="componentheading"><h1><?php echo $params->title; ?> <?php echo mosContent::Author($items[0]);?></h1></div>
         <?php }?>
 
         <?php if (!$items) {echo _YOU_HAVE_NO_CONTENT; mosHTML::BackButton ($params); return;} ?>

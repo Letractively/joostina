@@ -55,21 +55,17 @@ if($config->config_enable_admin_secure_code){
 			<div class="login-form">
 				<form action="index.php" method="post" name="loginForm" id="loginForm">
 					<div class="form-block">
-							<?php echo _UNAME ?>
-							<input name="usrname" id="usrname" type="text" class="inputbox" size="15" />
-							<?php echo _PASS ?>
-							<input name="pass" type="password" class="inputbox" size="15" />
+						<?php echo _UNAME ?>
+						<input name="usrname" id="usrname" type="text" class="inputbox" size="15" />
+						<?php echo _PASS ?>
+						<input name="pass" type="password" class="inputbox" size="15" />
 <?php if($config->config_captcha) { ?>
 						<div>
-							<img id="loginCaptcha" alt="<?php echo _PRESS_HERE_TO_RELOAD_CAPTCHA?>"
-								onclick="document.loginForm.loginCaptcha.src='<?php echo $config->config_live_site; ?>/includes/libraries/kcaptcha/index.php?' + new String(Math.random())"
-								src="<?php echo $config->config_live_site; ?>/includes/libraries/kcaptcha/index.php?<?php echo rand(0,2009) ?>" />
+							<img id="captchaimg" alt="<?php echo _PRESS_HERE_TO_RELOAD_CAPTCHA?>" onclick="document.loginForm.captchaimg.src='<?php echo $mainframe->getCfg('live_site'); ?>/includes/libraries/kcaptcha/index.php?<?php echo session_name()?>=<?php echo session_id() ?>&' + new String(Math.random())" src="<?php echo $mainframe->getCfg('live_site'); ?>/includes/libraries/kcaptcha/index.php?<?php echo session_name()?>=<?php echo session_id() ?>" />
 						</div>
 						<span class="captcha" onclick="document.loginForm.loginCaptcha.src='<?php echo $config->config_live_site; ?>/includes/libraries/kcaptcha/index.php?' + new String(Math.random())"><?php echo _SHOW_CAPTCHA?></span>
 						<div><?php echo _PLEASE_ENTER_CAPTCHA?>:</div>
-						<div>
-							<input name="captcha" type="text" class="inputbox" size="15" />
-						</div>
+						<div><input name="captcha" type="text" class="inputbox" size="15" /></div>
 <?php };?>
 						<div align="center">
 							<input type="submit" name="submit" class="button" value="Войти" />

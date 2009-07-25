@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
-* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
-* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
-* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
+* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
 */
 
-// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+// запрет прямого доступа
 defined('_VALID_MOS') or die();
 require_once (Jconfig::getInstance()->config_absolute_path.'/mambots/profile/user_contacts/user_contacts.class.php');
 $act = mosGetParam( $_REQUEST, 'act', '' );
@@ -27,7 +27,7 @@ switch ($act){
 }
 
 /**
-* Р¤РѕСЂРјР° РѕС‚РїСЂР°РІРєРё СЃРѕРѕР±С‰РµРЅРёСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЋ
+* Форма отправки сообщения пользователю
 */
 function display_form(){
     global $mosConfig_live_site, $my,  $database;
@@ -35,16 +35,16 @@ function display_form(){
     $ajax_handler = 'ajax.index.php?option=com_users&task=request_from_plugin&plugin=user_contacts';
     $user_id = mosGetParam( $_REQUEST, 'user_id', 0 );
 
-    //РџРѕРґРєР»СЋС‡РµРЅРёРµ РїР»Р°РіРёРЅР° РІР°Р»РёРґР°С†РёРё С„РѕСЂРј
+    //Подключение плагина валидации форм
     mosCommonHTML::loadJqueryPlugins('jquery.validate',1);
-    //РџРѕРґРєР»СЋС‡РµРЅРёРµ РїР»Р°РіРёРЅР° ajax-С„РѕСЂРј
+    //Подключение плагина ajax-форм
     mosCommonHTML::loadJqueryPlugins('jquery.form',1);
 
-    //РџР°СЂР°РјРµС‚СЂС‹ С„РѕСЂРјС‹ РґР»СЏ РѕС‚РїСЂР°РІРєРё СЃРѕРѕР±С‰РµРЅРёСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЋ
+    //Параметры формы для отправки сообщения пользователю
     $form_params = new UserContactsEmail();
 
     ?>
-        <!--Р’Р°Р»РёРґР°С†РёСЏ С„РѕСЂРјС‹ РѕС‚РїСЂР°РІРєРё СЃРѕРѕР±С‰РµРЅРёСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЋ ajax-РѕС‚РїСЂР°РІРєР° РґР°РЅРЅС‹С…-->
+        <!--Валидация формы отправки сообщения пользователю ajax-отправка данных-->
         <script type="text/javascript">
             $(document).ready(function() {
 
@@ -82,7 +82,7 @@ function display_form(){
                         }
                     });
                     if ($("#UserContactsForm").valid()==false){
-                        /*alert('РџСЂРѕРІРµСЂСЊС‚Рµ РїСЂР°РІРёР»СЊРЅРѕСЃС‚СЊ Р·Р°РїРѕР»РЅРµРЅРёСЏ РїРѕР»РµР№!');*/
+                        /*alert('Проверьте правильность заполнения полей!');*/
                         return false;
                     }
                 };
@@ -94,22 +94,22 @@ function display_form(){
         <form  id="UserContactsForm" action="" class="validate" method="post" name="UserContactsForm">
         <div class="user_contact_form">
 
-                    РџСЂРµРґСЃС‚Р°РІСЊС‚РµСЃСЊ:<br />
+                    Представьтесь:<br />
                     <input type="text" name="from_uname" value="<?php echo $my->name;?>" class="inputbox required" />
 
                     <br />
 
-                    Р’Р°С€ e-mail:<br />
+                    Ваш e-mail:<br />
                     <input type="text" name="from_uemail" value="<?php echo $my->email;?>" class="inputbox required email" />
 
                    <br />
 
-                   РўРµРєСЃС‚ СЃРѕРѕР±С‰РµРЅРёСЏ:<br />
+                   Текст сообщения:<br />
                    <textarea class="inputbox required"  name="user_message" rows="5" cols="50"></textarea>
 
         </div>
 
-        <div class="button"><input type="submit" class="button" name="button"  value="РћС‚РїСЂР°РІРёС‚СЊ" /></div>
+        <div class="button"><input type="submit" class="button" name="button"  value="Отправить" /></div>
         <input type="hidden" name="act" value="user_sendmail" />
         <input type="hidden" name="user_id" value="<?php echo $user_id;?>"  />
         </form>
@@ -122,7 +122,7 @@ function display_form(){
 }
 
 function user_sendmail(){
-    global $database;
+	$database = &database::getInstance();
 
     $user_id = mosGetParam( $_REQUEST, 'user_id', 0 );
     $user = new mosUser($database);
@@ -135,10 +135,10 @@ function user_sendmail(){
     $form_params->message = $form_params->clean_message($_POST['user_message']);
 
     if($form_params->send_message()){
-        echo '<div class="info">РЎРѕРѕР±С‰РµРЅРёРµ СѓСЃРїРµС€РЅРѕ РѕС‚РїСЂР°РІР»РµРЅРѕ</div>';
+        echo '<div class="info">Сообщение успешно отправлено</div>';
     }
      else{
-        echo '<div class="error">РќРµ СѓРґР°Р»РѕСЃСЊ РѕС‚РїСЂР°РІРёС‚СЊ СЃРѕРѕР±С‰РµРЅРёРµ '. $form_params->_error.'</div>';
+        echo '<div class="error">Не удалось отправить сообщение '. $form_params->_error.'</div>';
     }
 
 

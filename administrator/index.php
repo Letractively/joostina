@@ -20,13 +20,15 @@ require_once ('../configuration.php');
 require_once ($mosConfig_absolute_path.'/includes/joomla.php');
 
 $config		= &Jconfig::getInstance();
-$database	= &database::getInstance();
 
 // SSL check - $http_host returns <live site url>:<port number if it is 443>
 $http_host = explode(':',$_SERVER['HTTP_HOST']);
 if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset($http_host[1]) && $http_host[1] == 443) && substr($config->config_live_site,0,8) !='https://') {
 	$config->config_live_site = 'https://' . substr($config->config_live_site,7);
 }
+
+$database	= &database::getInstance();
+$mainframe = &mosMainFrame::getInstance(true);
 
 // ѕровер€ем ip адрес: если он находитс€ в стоп-листе и выбрана опци€ блокировки достутпа в админку, то блокируем доступ
 if(file_exists('./components/com_security/block_access.php')) {
@@ -42,8 +44,6 @@ if($config->config_lang == '') {
 	$mosConfig_lang = 'russian';
 }
 
-// mainframe - основна€ рабоча€ среда API, осуществл€ет взаимодействие с '€дром'
-$mainframe = &mosMainFrame::getInstance(true);
 $mainframe->set('lang', $mosConfig_lang);
 include_once($mainframe->getLangFile());
 
@@ -56,8 +56,6 @@ if(file_exists('../installation/index.php') && $_VERSION->SVN == 0) {
 
 $option = strtolower(strval(mosGetParam($_REQUEST,'option',null)));
 
-
-session_name(md5($mosConfig_live_site));
 session_start();
 
 $bad_auth_count =intval(mosGetParam($_SESSION,'bad_auth',0));

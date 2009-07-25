@@ -13,7 +13,6 @@ defined('_VALID_MOS') or die();
 DEFINE('_CONTACT_MANAGEMENT','Управление контактами');
 DEFINE('_RELATED_WITH_USER','Связано с пользователем');
 DEFINE('_CHANGE_CONTACT','Изменить контакт');
-DEFINE('_CHANGE_CATEGORY','Изменить категорию');
 DEFINE('_CHANGE_USER','Изменить пользователя');
 DEFINE('_ENTER_NAME_PLEASE','Вы должны ввести имя');
 DEFINE('_NEW_CONTACT','Новый');

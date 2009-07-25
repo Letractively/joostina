@@ -9,55 +9,47 @@
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
-$mainframe->SetPageTitle($params->get('title'));
+?><script language="javascript" type="text/javascript">
+	function submitbutton_reg() {
+		var form = document.mosForm;
+		var r = new RegExp("[\<|\>|\"|\'|\%|\;|\(|\)|\&|\+|\-]", "i");
 
-?>
-		<script language="javascript" type="text/javascript">
-		function submitbutton_reg() {
-			var form = document.mosForm;
-			var r = new RegExp("[\<|\>|\"|\'|\%|\;|\(|\)|\&|\+|\-]", "i");
-
-			// do field validation
-			if (form.name.value == "") {
-				alert( "<?php echo addslashes(html_entity_decode(_REGWARN_NAME)); ?>" );
-			} else if (form.username.value == "") {
-				alert( "<?php echo addslashes(html_entity_decode(_REGWARN_UNAME)); ?>" );
-			} else if (r.exec(form.username.value) || form.username.value.length < 3) {
-				alert( "<?php printf(addslashes(html_entity_decode(_VALID_AZ09_USER)),addslashes(html_entity_decode(_PROMPT_UNAME)),2); ?>" );
-			} else if (form.email.value == "") {
-				alert( "<?php echo addslashes(html_entity_decode(_REGWARN_MAIL)); ?>" );
-			} else if (form.password.value.length < 6) {
-				alert( "<?php echo addslashes(html_entity_decode(_REGWARN_PASS)); ?>" );
-			} else if (form.password2.value == "") {
-				alert( "<?php echo addslashes(html_entity_decode(_REGWARN_VPASS1)); ?>" );
-			} else if ((form.password.value != "") && (form.password.value != form.password2.value)){
-				alert( "<?php echo addslashes(html_entity_decode(_REGWARN_VPASS2)); ?>" );
-			} else if (r.exec(form.password.value)) {
-				alert( "<?php printf(addslashes(html_entity_decode(_VALID_AZ09)),addslashes(html_entity_decode(_REGISTER_PASS)),6); ?>" );
-			}
-			
-			<?php if($mosConfig_captcha_reg){?>
-				else if (form.captcha.value == "") {
-					alert( "<?php echo addslashes(html_entity_decode(_REG_CAPTCHA_VAL)); ?>" );
-				}
-			<?php };?>
-			
-			
-			else {
-				form.submit();
-			}
+		// do field validation
+		if (form.name.value == "") {
+			alert( "<?php echo addslashes(html_entity_decode(_REGWARN_NAME)); ?>" );
+		} else if (form.username.value == "") {
+			alert( "<?php echo addslashes(html_entity_decode(_REGWARN_UNAME)); ?>" );
+		} else if (r.exec(form.username.value) || form.username.value.length < 3) {
+			alert( "<?php printf(addslashes(html_entity_decode(_VALID_AZ09_USER)),addslashes(html_entity_decode(_PROMPT_UNAME)),2); ?>" );
+		} else if (form.email.value == "") {
+			alert( "<?php echo addslashes(html_entity_decode(_REGWARN_MAIL)); ?>" );
+		} else if (form.password.value.length < 6) {
+			alert( "<?php echo addslashes(html_entity_decode(_REGWARN_PASS)); ?>" );
+		} else if (form.password2.value == "") {
+			alert( "<?php echo addslashes(html_entity_decode(_REGWARN_VPASS1)); ?>" );
+		} else if ((form.password.value != "") && (form.password.value != form.password2.value)){
+			alert( "<?php echo addslashes(html_entity_decode(_REGWARN_VPASS2)); ?>" );
+		} else if (r.exec(form.password.value)) {
+			alert( "<?php printf(addslashes(html_entity_decode(_VALID_AZ09)),addslashes(html_entity_decode(_REGISTER_PASS)),6); ?>" );
 		}
-		</script>
-		<form action="index.php" method="post" name="mosForm" id="mosForm">
+		<?php if($mainframe->getCfg('captcha_reg')){?>
+			else if (form.captcha.value == "") {
+				alert( "<?php echo addslashes(html_entity_decode(_REG_CAPTCHA_VAL)); ?>" );
+			}
+		<?php };?>
+		else {
+			form.submit();
+		}
+	}
+	</script>
+	<form action="index.php" method="post" name="mosForm" id="mosForm">
 		<div class="componentheading"><h1><?php echo $params->get('title'); ?></h1></div>
 		
-		<?php if($params->get('pre_text')){
-			?>
+<?php if($params->get('pre_text')){?>
 			<div class="info">
 				<?php echo $params->get('pre_text'); ?>	
 			</div>
-			<?php
-		}  ?>
+<?php } ?>
 		
 		<table cellpadding="0" cellspacing="0" border="0" width="100%" class="contentpane">
 		<tr>
@@ -92,12 +84,12 @@ $mainframe->SetPageTitle($params->get('title'));
 				<input class="inputbox" type="password" name="password2" size="40" value="" />
 			</td>
 		</tr>
-		
-		<?php if($mosConfig_captcha_reg) { ?>
+
+<?php if($mainframe->getCfg('captcha_reg')) { ?>
 		<tr>
 			<td>&nbsp;</td>
 			<td>
-				<img id="captchaimg" alt="<?php echo _REG_CAPTCHA_REF; ?>" onclick="document.mosForm.captchaimg.src='<?php echo $mosConfig_live_site; ?>/includes/libraries/kcaptcha/index.php?' + new String(Math.random())" src="<?php echo $mosConfig_live_site; ?>/includes/libraries/kcaptcha/index.php?<?php echo session_id() ?>" />
+				<img id="captchaimg" alt="<?php echo _PRESS_HERE_TO_RELOAD_CAPTCHA?>" onclick="document.mosForm.captchaimg.src='<?php echo $mainframe->getCfg('live_site'); ?>/includes/libraries/kcaptcha/index.php?<?php echo session_name()?>=<?php echo session_id() ?>&' + new String(Math.random())" src="<?php echo $mainframe->getCfg('live_site'); ?>/includes/libraries/kcaptcha/index.php?<?php echo session_name()?>=<?php echo session_id() ?>" />
 			</td>
 		</tr>
 		<tr>
@@ -106,18 +98,14 @@ $mainframe->SetPageTitle($params->get('title'));
 				<input type="text" name="captcha" class="inputbox" size="40" value=""/>
 			</td>
 		</tr>
-		<?php } ?>
-		
-		
+<?php } ?>
 		</table>
-		
-		<?php if($params->get('post_text')){
-			?>
+
+<?php if($params->get('post_text')){ ?>
 			<div class="info">
-				<?php echo $params->get('post_text'); ?>	
+				<?php echo $params->get('post_text'); ?>
 			</div>
-			<?php
-		}  ?>
+<?php }?>
 
 
 		<span class="button"><input type="button" value="<?php echo _BUTTON_SEND_REG; ?>" class="button" onclick="submitbutton_reg()" /></span>
@@ -125,4 +113,4 @@ $mainframe->SetPageTitle($params->get('title'));
 		<input type="hidden" name="option" value="<?php echo $option; ?>" />
 		<input type="hidden" name="task" value="saveRegistration" />		
 		<input type="hidden" name="<?php echo $validate; ?>" value="1" />
-		</form>
+	</form>

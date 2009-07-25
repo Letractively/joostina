@@ -11,5 +11,3 @@
 defined('_VALID_MOS') or die();
 
 echo $msg;
-
-

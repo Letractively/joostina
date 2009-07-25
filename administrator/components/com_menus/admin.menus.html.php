@@ -89,7 +89,7 @@ class HTML_menusections {
 ?>
 				</td>
 				<td align="center" <?php echo ($row->checked_out && ($row->checked_out != $my->id)) ? null : 'onclick="ch_publ('.$row->id.',\'com_menus\');" class="td-state"';?>>
-					<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="Публикация" />
+					<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?php echo _PUBLISHING?>" />
 				</td>
 				<td><?php echo $pageNav->orderUpIcon($i); ?></td>
 				<td><?php echo $pageNav->orderDownIcon($i,$n); ?></td>

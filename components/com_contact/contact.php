@@ -429,11 +429,12 @@ function sendmail($con_id,$option) {
 		$sessionCheck = $mparams->get('sessionCheck',1);
 
 		if($config->config_captcha_cont) {
-			session_name(md5($mosConfig_live_site));
 			session_start();
-			$captcha = $_POST['captcha'];
-			if(!isset($_SESSION['captcha_keystring']) || $_SESSION['captcha_keystring'] !==$captcha) {
-				mosErrorAlert(_CAPTCHA_ERROR);
+			$captcha = strval(mosGetParam($_POST, 'captcha', null));
+			$captcha_keystring =mosGetParam($_SESSION,'captcha_keystring');
+			if($captcha_keystring!== $captcha) {
+				$link = sefRelToAbs('index.php?option=com_contact&task=view&contact_id='.$contact[0]->id.'&Itemid='.$Itemid);
+				mosRedirect($link,_BAD_CAPTCHA_STRING);
 				unset($_SESSION['captcha_keystring']);
 				exit;
 			}
@@ -450,7 +451,8 @@ function sendmail($con_id,$option) {
 			$sessioncookie = mosGetParam($_COOKIE,$sessionCookieName,null);
 
 			if(!(strlen($sessioncookie) == 32 || $sessioncookie == '-')) {
-				mosErrorAlert(_NOT_AUTH);
+				$link = sefRelToAbs('index.php?option=com_contact&task=view&contact_id='.$contact[0]->id.'&Itemid='.$Itemid);
+				mosRedirect($link,_NOT_AUTH);
 			}
 		}
 
@@ -459,7 +461,8 @@ function sendmail($con_id,$option) {
 			$bannedEmail = explode(';',$bannedEmail);
 			foreach($bannedEmail as $value) {
 				if(stristr($email,$value)) {
-					mosErrorAlert(_NOT_AUTH);
+					$link = sefRelToAbs('index.php?option=com_contact&task=view&contact_id='.$contact[0]->id.'&Itemid='.$Itemid);
+					mosRedirect($link,_NOT_AUTH);
 				}
 			}
 		}
@@ -468,7 +471,8 @@ function sendmail($con_id,$option) {
 			$bannedSubject = explode(';',$bannedSubject);
 			foreach($bannedSubject as $value) {
 				if(stristr($subject,$value)) {
-					mosErrorAlert(_NOT_AUTH);
+					$link = sefRelToAbs('index.php?option=com_contact&task=view&contact_id='.$contact[0]->id.'&Itemid='.$Itemid);
+					mosRedirect($link,_NOT_AUTH);
 				}
 			}
 		}
@@ -477,7 +481,8 @@ function sendmail($con_id,$option) {
 			$bannedText = explode(';',$bannedText);
 			foreach($bannedText as $value) {
 				if(stristr($text,$value)) {
-					mosErrorAlert(_NOT_AUTH);
+					$link = sefRelToAbs('index.php?option=com_contact&task=view&contact_id='.$contact[0]->id.'&Itemid='.$Itemid);
+					mosRedirect($link,_NOT_AUTH);
 				}
 			}
 		}
@@ -485,18 +490,21 @@ function sendmail($con_id,$option) {
 		// test to ensure that only one email address is entered
 		$check = explode('@',$email);
 		if(strpos($email,';') || strpos($email,',') || strpos($email,' ') || count($check) >2) {
-			mosErrorAlert(_CONTACT_MORE_THAN);
+			$link = sefRelToAbs('index.php?option=com_contact&task=view&contact_id='.$contact[0]->id.'&Itemid='.$Itemid);
+			mosRedirect($link,_CONTACT_MORE_THAN);
 		}
 
 		if(!$email || !$text || (JosIsValidEmail($email) == false)) {
-			mosErrorAlert(_CONTACT_FORM_NC);
+			$link = sefRelToAbs('index.php?option=com_contact&task=view&contact_id='.$contact[0]->id.'&Itemid='.$Itemid);
+			mosRedirect($link,_CONTACT_FORM_NC);
 		}
 		$prefix = sprintf(_ENQUIRY_TEXT,$config->config_live_site);
 		$text = $prefix."\n".$name.' <'.$email.'>'."\n\n".stripslashes($text);
 
 		$success = mosMail($email,$name,$contact[0]->email_to,$config->config_fromname.': '.$subject,$text);
 		if(!$success) {
-			mosErrorAlert(_CONTACT_FORM_NC);
+			$link = sefRelToAbs('index.php?option=com_contact&task=view&contact_id='.$contact[0]->id.'&Itemid='.$Itemid);
+			mosRedirect($link,_FAILID_MESSAGE);
 		}
 
 		// parameter check
@@ -511,7 +519,8 @@ function sendmail($con_id,$option) {
 
 			$success = mosMail($config->config_mailfrom,$config->config_fromname,$email,$copy_subject,$copy_text);
 			if(!$success) {
-				mosErrorAlert(_CONTACT_FORM_NC);
+				$link = sefRelToAbs('index.php?option=com_contact&task=view&contact_id='.$contact[0]->id.'&Itemid='.$Itemid);
+				mosRedirect($link,_CONTACT_FORM_NC);
 			}
 		}
 
