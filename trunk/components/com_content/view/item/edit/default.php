@@ -92,7 +92,7 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
 				<?php }?>
 
 				<?php if( $allow_frontpage==1 || $my->usertype=="Super Administrator") {?>
-				<td align="right">&nbsp;&nbsp;&nbsp;<b><?php echo $front_label;?>:</b>&nbsp;</td>
+				<td align="right">&nbsp;&nbsp;&nbsp;<b><?php echo $front_label;?></b>&nbsp;</td>
 				<td  align="left"> <?php echo mosHTML::yesnoRadioList('frontpage','',$row->frontpage ? 1:0);?></td>
 				<?php }?>
 
