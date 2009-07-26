@@ -47,7 +47,6 @@ DEFINE('_ORDER_BY_ACCESS_ASC','Доступ по возрастанию');
 DEFINE('_ORDER_BY_ACCESS_DESC','Доступ по убыванию');
 
 DEFINE('_ACTIVE_IMAGE','Активное изображение');
-DEFINE('_ALIAS','Псевдоним');
 DEFINE('_ALIGN','Выравнивание');
 DEFINE('_ALL_SECTIONS','Все разделы');
 DEFINE('_CANNOT_EDIT_ARCHIVED_ITEM','Вы не можете отредактировать архивный объект');
@@ -58,7 +57,6 @@ DEFINE('_CC_ADD_S_C_T','Добавить (Раздел, Категорию, За
 DEFINE('_CC_AUTO','Автоматически');
 DEFINE('_CC_LINK_TO_MENU','Связать с меню');
 DEFINE('_CC_PAGE_TEMPLATE','Страница просмотра записи');
-DEFINE('_CHANGE_CONTENT','Изменить содержимое');
 DEFINE('_CHANGED','Изменялось');
 DEFINE('_CHOOSE_OBJ_DELETE','Выберите объект для удаления');
 DEFINE('_CHOOSE_OBJ_MOVE','Выберите объект для перемещения');

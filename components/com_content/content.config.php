@@ -1,5 +1,4 @@
-<?php
-/**
+<?php /**
  * @package Joostina
  * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
  * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
@@ -124,7 +123,7 @@ class configContent_ucontent extends dbConfig {
         </form>
 
 
-        <?php 	}
+        <?php }
 
 	function save_config() {
 		if(!$this->bindConfig($_REQUEST)) {
@@ -273,7 +272,7 @@ class configContent_sectionblog extends dbConfig {
         </form>
 
 
-        <?php 	}
+        <?php }
 
 	function save_config() {
 
@@ -426,7 +425,7 @@ class configContent_categoryblog extends dbConfig {
         </form>
 
 
-        <?php 	}
+        <?php }
 
 	function save_config() {
 
@@ -578,7 +577,7 @@ class configContent_sectionarchive extends dbConfig {
         </form>
 
 
-        <?php 	}
+        <?php }
 
 	function save_config() {
 
@@ -728,7 +727,7 @@ class configContent_categoryarchive extends dbConfig {
         </form>
 
 
-        <?php 	}
+        <?php }
 
 	function save_config() {
 
@@ -865,7 +864,7 @@ class configContent_categorytable extends dbConfig {
         </form>
 
 
-        <?php 	}
+        <?php }
 
 	function save_config() {
 
@@ -971,7 +970,7 @@ class configContent_sectionlist extends dbConfig {
         </form>
 
 
-        <?php 	}
+        <?php }
 
 	function save_config() {
 

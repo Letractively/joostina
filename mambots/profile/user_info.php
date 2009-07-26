@@ -32,7 +32,7 @@ function botUserInfo(&$user) {
 	<?php }?>
 <?php } ?>
 <?php if($params->get('show_location')){?>
-	<?php if(Jstring::trim($user->user_extra->location)!='') {?>
+	<?php if(isset($user->user_extra->location) && Jstring::trim($user->user_extra->location)!='') {?>
 		<strong><?php echo BOT_USER_INFO_FROM?></strong> <?php echo $user->user_extra->location;?>
 		<?php } else {?>
 		<strong><?php echo BOT_USER_INFO_FROM?></strong> <?php echo BOT_USER_INFO_FROM_NON_SELECT?>
