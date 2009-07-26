@@ -54,7 +54,7 @@ defined('_VALID_MOS') or die(); ?>
 			}
 		}
 	</script>
-	<form action="<?php echo $mosConfig_live_site; ?>/index.php" id="addContent" onSubmit="javascript:setgood();" method="post" name="adminForm" enctype="multipart/form-data">
+	<form action="<?php echo Jconfig::getInstance()->config_live_site; ?>/index.php" id="addContent" onSubmit="javascript:setgood();" method="post" name="adminForm" enctype="multipart/form-data">
 		<div class="componentheading"><?php echo $row->id?'&nbsp;'.$params->get('form_title_edit', _EDIT) : '&nbsp;'.$params->get('form_title_add', _ADD); ?></div>
 		<?php if($row->id && $allow_info) { ?>
 		<div class="info">

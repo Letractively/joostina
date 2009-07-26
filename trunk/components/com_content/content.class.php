@@ -10,167 +10,156 @@
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
-global $mosConfig_absolute_path;
 
-require_once ($mosConfig_absolute_path . '/includes/libraries/dbconfig/dbconfig.php');
-require_once ($mosConfig_absolute_path . '/includes/libraries/tags/tags.class.php');
-
+mosMainFrame::addLib('dbconfig');
+mosMainFrame::addLib('tags');
 
 /**
  * Category database table class
  * @package Joostina
  */
-class mosCategory extends mosDBTable
-{
-    /**
-     *  *  * @var int Primary key*/
-    var $id = null;
-    /**
-     *  *  * @var int*/
-    var $parent_id = null;
-    /**
-     *  *  * @var string The menu title for the Category (a short name)*/
-    var $title = null;
-    /**
-     *  *  * @var string The full name for the Category*/
-    var $name = null;
-    /**
-     *  *  * @var string*/
-    var $image = null;
-    /**
-     *  *  * @var string*/
-    var $section = null;
-    /**
-     *  *  * @var int*/
-    var $image_position = null;
-    /**
-     *  *  * @var string*/
-    var $description = null;
-    /**
-     *  *  * @var boolean*/
-    var $published = null;
-    /**
-     *  *  * @var boolean*/
-    var $checked_out = null;
-    /**
-     *  *  * @var time*/
-    var $checked_out_time = null;
-    /**
-     *  *  * @var int*/
-    var $ordering = null;
-    /**
-     *  *  * @var int*/
-    var $access = null;
-    /**
-     *  *  * @var string*/
-    var $params = null;
+class mosCategory extends mosDBTable{
+	/**
+	 *  *  * @var int Primary key*/
+	var $id = null;
+	/**
+	 *  *  * @var int*/
+	var $parent_id = null;
+	/**
+	 *  *  * @var string The menu title for the Category (a short name)*/
+	var $title = null;
+	/**
+	 *  *  * @var string The full name for the Category*/
+	var $name = null;
+	/**
+	 *  *  * @var string*/
+	var $image = null;
+	/**
+	 *  *  * @var string*/
+	var $section = null;
+	/**
+	 *  *  * @var int*/
+	var $image_position = null;
+	/**
+	 *  *  * @var string*/
+	var $description = null;
+	/**
+	 *  *  * @var boolean*/
+	var $published = null;
+	/**
+	 *  *  * @var boolean*/
+	var $checked_out = null;
+	/**
+	 *  *  * @var time*/
+	var $checked_out_time = null;
+	/**
+	 *  *  * @var int*/
+	var $ordering = null;
+	/**
+	 *  *  * @var int*/
+	var $access = null;
+	/**
+	 *  *  * @var string*/
+	var $params = null;
 
-    var $templates = null;
+	var $templates = null;
 
-    /**
-     * @param database A database connector object
-     */
-    function mosCategory(&$db)
-    {
-        $this->mosDBTable('#__categories', 'id', $db);
-    }
-    // overloaded check function
-    function check()
-    {
-        // check for valid name
-        if (trim($this->title) == '')
-        {
-            $this->_error = _ENTER_CATEGORY_TITLE;
-            return false;
-        }
-        if (trim($this->name) == '')
-        {
-            $this->_error = _ENTER_CATEGORY_NAME;
-            return false;
-        }
-        $ignoreList = array('description');
-        $this->filter($ignoreList);
-        // check for existing name
-        $query = "SELECT id" . "\n FROM #__categories " . "\n WHERE name = " . $this->_db->Quote($this->name) . "\n AND section = " . $this->
-            _db->Quote($this->section);
-        $this->_db->setQuery($query);
+	/**
+	 * @param database A database connector object
+	 */
+	function mosCategory(&$db){
+		$this->mosDBTable('#__categories', 'id', $db);
+	}
+	// overloaded check function
+	function check(){
+		// check for valid name
+		if (trim($this->title) == ''){
+			$this->_error = _ENTER_CATEGORY_TITLE;
+			return false;
+		}
+		if (trim($this->name) == ''){
+			$this->_error = _ENTER_CATEGORY_NAME;
+			return false;
+		}
+		$ignoreList = array('description');
+		$this->filter($ignoreList);
+		// check for existing name
+		$query = "SELECT id" . "\n FROM #__categories " . "\n WHERE name = " . $this->_db->Quote($this->name) . "\n AND section = " . $this->
+			_db->Quote($this->section);
+		$this->_db->setQuery($query);
 
-        $xid = intval($this->_db->loadResult());
-        if ($xid && $xid != intval($this->id))
-        {
-            $this->_error = _CATEGORY_ALREADY_EXISTS;
-            return false;
-        }
-        return true;
-    }
+		$xid = intval($this->_db->loadResult());
+		if ($xid && $xid != intval($this->id))
+		{
+			$this->_error = _CATEGORY_ALREADY_EXISTS;
+			return false;
+		}
+		return true;
+	}
 
-    function get_category($id)
-    {
-        $query = 'SELECT cc.* FROM #__categories AS cc WHERE cc.id = ' . $id;
-        $r = null;
-        $this->_db->setQuery($query);
-        $this->_db->loadObject($r);
-        return $r;
-    }
-    
-    function get_category_url($params)
-    {
-        if($params->get('cat_link_type')=='blog'){
-        	return self::get_category_blog_url($params);
-        }
-        else{
-        	return self::get_category_table_url($params);	
-        }
-    }
+	function get_category($id){
+		$query = 'SELECT cc.* FROM #__categories AS cc WHERE cc.id = ' . $id;
+		$r = null;
+		$this->_db->setQuery($query);
+		$this->_db->loadObject($r);
+		return $r;
+	}
 
-    function get_category_table_url($params)
-    {
-        $link = sefRelToAbs('index.php?option=com_content&amp;task=category&amp;sectionid=' . $params->get('sectionid') . '&amp;id=' . $params->get('catid'). $params->get('Itemid'));
-        return $link;
-    }
+	function get_category_url($params){
+		if($params->get('cat_link_type')=='blog'){
+			return self::get_category_blog_url($params);
+		}
+		else{
+			return self::get_category_table_url($params);
+		}
+	}
 
-    function get_category_blog_url($params)
-    { 
-        $link = sefRelToAbs('index.php?option=com_content&amp;task=blogcategory&amp;id=' . $params->get('catid') . $params->get('Itemid'));
-        return $link;
-    }
-    
-     function get_category_menu($cat_id, $type = null){
-    	$database = &database::getInstance();
-    	
-    	if(!$type){
-    		$and_type = "AND type IN ( 'content_category', 'content_blog_category' )";
-    	}
-    	else{
-    		switch($type){
-    			case 'blog':
-    			default:
-    				$and_type = "AND type = 'content_blog_category' ";	
-    			break;
-    			
-    			case 'table':
-    				$and_type = "AND type = 'content_category' ";
-    			break;
-    		}
-    		
-    	}
-    	
-		$query = "	SELECT id, link 
-					FROM #__menu 
-					WHERE published = 1 
-						".$and_type." 
-						AND componentid = ".$cat_id."
-					ORDER BY type DESC, ordering";
+	function get_category_table_url($params){
+		$link = sefRelToAbs('index.php?option=com_content&amp;task=category&amp;sectionid=' . $params->get('sectionid') . '&amp;id=' . $params->get('catid'). $params->get('Itemid'));
+		return $link;
+	}
+
+	function get_category_blog_url($params){
+		$link = sefRelToAbs('index.php?option=com_content&amp;task=blogcategory&amp;id=' . $params->get('catid') . $params->get('Itemid'));
+		return $link;
+	}
+
+	 function get_category_menu($cat_id, $type = null){
+		$database = &database::getInstance();
+
+		if(!$type){
+			$and_type = "AND type IN ( 'content_category', 'content_blog_category' )";
+		}
+		else{
+			switch($type){
+				case 'blog':
+				default:
+					$and_type = "AND type = 'content_blog_category' ";
+				break;
+
+				case 'table':
+					$and_type = "AND type = 'content_category' ";
+				break;
+			}
+
+		}
+
+		$query = "SELECT id, link
+				FROM #__menu
+				WHERE published = 1
+				".$and_type."
+				AND componentid = ".$cat_id."
+				ORDER BY type DESC, ordering";
 		$database->setQuery($query);
 		$result = $database->loadRow();
 		
 		return $result;
-    }
-    
-    function get_category_link($row, $params){
-    	$mainframe = &mosMainFrame::getInstance();
-    	
-   		$catLinkID = $mainframe->get('catID_'.$row->catid,-1);
+	}
+
+	function get_category_link($row, $params){
+		$mainframe = &mosMainFrame::getInstance();
+
+		$catLinkID = $mainframe->get('catID_'.$row->catid,-1);
 		$catLinkURL = $mainframe->get('catURL_'.$row->catid);
 
 		// check if values have already been placed into mainframe memory
@@ -195,8 +184,7 @@ class mosCategory extends mosDBTable
 		// use Itemid for category found in query
 		if($catLinkID != -1 && $catLinkID) {
 			$_Itemid = '&amp;Itemid='.$catLinkID;
-		} 
-		else if($mainframe->get('secID_'.$row->sectionid,-1) != -1  && $mainframe->get('secID_'.$row->sectionid,-1)) {
+		}else if($mainframe->get('secID_'.$row->sectionid,-1) != -1  && $mainframe->get('secID_'.$row->sectionid,-1)) {
 				// use Itemid for section found in query
 				$_Itemid = '&amp;Itemid='.$mainframe->get('secID_'.$row->sectionid,-1);
 		}
@@ -209,34 +197,33 @@ class mosCategory extends mosDBTable
 		//	} 
 		
 		
-   		$params->set('catid', $row->catid);
-   		$params->set('sectionid', $row->sectionid);
-    	$params->set('Itemid', $_Itemid);
-        
-        if($params->get('cat_link_type')=='blog'){
-            $link = mosCategory::get_category_blog_url($params);
-        }
-        else{
-            $link = mosCategory::get_category_table_url($params);
-        }		
+		$params->set('catid', $row->catid);
+		$params->set('sectionid', $row->sectionid);
+		$params->set('Itemid', $_Itemid);
+
+		if($params->get('cat_link_type')=='blog'){
+			$link = mosCategory::get_category_blog_url($params);
+		}
+		else{
+			$link = mosCategory::get_category_table_url($params);
+		}
 		
 		return $link;
-    }
+	}
 
-    function get_other_cats($category, $access, $params)
-    {
-        global $my;
+	function get_other_cats($category, $access, $params){
+		global $my;
 
-        $xwhere = contentSqlHelper::construct_where_table_category($category, $access, $params);
-        $xwhere2 = contentSqlHelper::construct_where_other_cats($category, $access, $params);
+		$xwhere = contentSqlHelper::construct_where_table_category($category, $access, $params);
+		$xwhere2 = contentSqlHelper::construct_where_other_cats($category, $access, $params);
 
 
-        // show/hide empty categories
-        $empty = '';
-        if (!$params->get('empty_cat')) $empty = " HAVING COUNT( a.id ) > 0";
+		// show/hide empty categories
+		$empty = '';
+		if (!$params->get('empty_cat')) $empty = " HAVING COUNT( a.id ) > 0";
 
-        // get the list of other categories
-        $query = "	SELECT c.*, COUNT( a.id ) AS numitems
+		// get the list of other categories
+		$query = "	SELECT c.*, COUNT( a.id ) AS numitems
 					FROM #__categories AS c
 					LEFT JOIN #__content AS a ON a.catid = c.id 
 					" . $xwhere2 . "
@@ -244,60 +231,52 @@ class mosCategory extends mosDBTable
 					GROUP BY c.id
 					" . $empty . "
 					ORDER BY c.ordering";
-        $this->_db->setQuery($query);
-        return $this->_db->loadObjectList();
-    }
+		$this->_db->setQuery($query);
+		return $this->_db->loadObjectList();
+	}
 
-    function get_lists($params)
-    {
-        $check = 0;
+	function get_lists($params){
+		$check = 0;
 
-        $lists['order_value'] = '';
-        if ($params->get('selected'))
-        {
-            $lists['order_value'] = $params->get('selected');
-        }
+		$lists['order_value'] = '';
+		if ($params->get('selected')){
+			$lists['order_value'] = $params->get('selected');
+		}
 
-        if ($params->get('date'))
-        {
-            $order[] = mosHTML::makeOption('date', _ORDER_DROPDOWN_DA);
-            $order[] = mosHTML::makeOption('rdate', _ORDER_DROPDOWN_DD);
-            $check .= 1;
-        }
-        if ($params->get('title'))
-        {
-            $order[] = mosHTML::makeOption('alpha', _ORDER_DROPDOWN_TA);
-            $order[] = mosHTML::makeOption('ralpha', _ORDER_DROPDOWN_TD);
-            $check .= 1;
-        }
-        if ($params->get('hits'))
-        {
-            $order[] = mosHTML::makeOption('hits', _ORDER_DROPDOWN_HA);
-            $order[] = mosHTML::makeOption('rhits', _ORDER_DROPDOWN_HD);
-            $check .= 1;
-        }
-        if ($params->get('author'))
-        {
-            $order[] = mosHTML::makeOption('author', _ORDER_DROPDOWN_AUA);
-            $order[] = mosHTML::makeOption('rauthor', _ORDER_DROPDOWN_AUD);
-            $check .= 1;
-        }
+		if ($params->get('date')){
+			$order[] = mosHTML::makeOption('date', _ORDER_DROPDOWN_DA);
+			$order[] = mosHTML::makeOption('rdate', _ORDER_DROPDOWN_DD);
+			$check .= 1;
+		}
+		if ($params->get('title')){
+			$order[] = mosHTML::makeOption('alpha', _ORDER_DROPDOWN_TA);
+			$order[] = mosHTML::makeOption('ralpha', _ORDER_DROPDOWN_TD);
+			$check .= 1;
+		}
+		if ($params->get('hits')){
+			$order[] = mosHTML::makeOption('hits', _ORDER_DROPDOWN_HA);
+			$order[] = mosHTML::makeOption('rhits', _ORDER_DROPDOWN_HD);
+			$check .= 1;
+		}
+		if ($params->get('author')){
+			$order[] = mosHTML::makeOption('author', _ORDER_DROPDOWN_AUA);
+			$order[] = mosHTML::makeOption('rauthor', _ORDER_DROPDOWN_AUD);
+			$check .= 1;
+		}
 
-        $order[] = mosHTML::makeOption('order', _ORDER_DROPDOWN_O);
-        $lists['order'] = mosHTML::selectList($order, 'order', 'class="inputbox" size="1"  onchange="document.adminForm.submit();"',
-            'value', 'text', $params->get('selected'));
-        if ($check < 1)
-        {
-            $lists['order'] = '';
-            $params->set('order_select', 0);
-        }
+		$order[] = mosHTML::makeOption('order', _ORDER_DROPDOWN_O);
+		$lists['order'] = mosHTML::selectList($order, 'order', 'class="inputbox" size="1"  onchange="document.adminForm.submit();"','value', 'text', $params->get('selected'));
+		if ($check < 1){
+			$lists['order'] = '';
+			$params->set('order_select', 0);
+		}
 
-        $lists['task'] = 'category';
-        $lists['filter'] = $params->get('cur_filter');
+		$lists['task'] = 'category';
+		$lists['filter'] = $params->get('cur_filter');
 
-        return $lists;
+		return $lists;
 
-    }
+	}
 }
 
 
@@ -305,102 +284,101 @@ class mosCategory extends mosDBTable
  * Section database table class
  * @package Joostina
  */
-class mosSection extends mosDBTable
-{
-    /**
-     *  *  * @var int Primary key*/
-    var $id = null;
-    /**
-     *  *  * @var string The menu title for the Section (a short name)*/
-    var $title = null;
-    /**
-     *  *  * @var string The full name for the Section*/
-    var $name = null;
-    /**
-     *  *  * @var string*/
-    var $image = null;
-    /**
-     *  *  * @var string*/
-    var $scope = null;
-    /**
-     *  *  * @var int*/
-    var $image_position = null;
-    /**
-     *  *  * @var string*/
-    var $description = null;
-    /**
-     *  *  * @var boolean*/
-    var $published = null;
-    /**
-     *  *  * @var boolean*/
-    var $checked_out = null;
-    /**
-     *  *  * @var time*/
-    var $checked_out_time = null;
-    /**
-     *  *  * @var int*/
-    var $ordering = null;
-    /**
-     *  *  * @var int*/
-    var $access = null;
-    /**
-     *  *  * @var string*/
-    var $params = null;
+class mosSection extends mosDBTable{
+	/**
+	 *  *  * @var int Primary key*/
+	var $id = null;
+	/**
+	 *  *  * @var string The menu title for the Section (a short name)*/
+	var $title = null;
+	/**
+	 *  *  * @var string The full name for the Section*/
+	var $name = null;
+	/**
+	 *  *  * @var string*/
+	var $image = null;
+	/**
+	 *  *  * @var string*/
+	var $scope = null;
+	/**
+	 *  *  * @var int*/
+	var $image_position = null;
+	/**
+	 *  *  * @var string*/
+	var $description = null;
+	/**
+	 *  *  * @var boolean*/
+	var $published = null;
+	/**
+	 *  *  * @var boolean*/
+	var $checked_out = null;
+	/**
+	 *  *  * @var time*/
+	var $checked_out_time = null;
+	/**
+	 *  *  * @var int*/
+	var $ordering = null;
+	/**
+	 *  *  * @var int*/
+	var $access = null;
+	/**
+	 *  *  * @var string*/
+	var $params = null;
 
-    var $templates = null;
+	var $templates = null;
 
-    /**
-     * @param database A database connector object
-     */
-    function mosSection(&$db)
-    {
-        $this->mosDBTable('#__sections', 'id', $db);
-    }
-    // overloaded check function
-    function check()
-    {
-        // check for valid name
-        if (trim($this->title) == '')
-        {
-            $this->_error = _ENTER_SECTION_TITLE;
-            return false;
-        }
-        if (trim($this->name) == '')
-        {
-            $this->_error = _ENTER_SECTION_NAME;
-            return false;
-        }
-        $ignoreList = array('description');
-        $this->filter($ignoreList);
-        // check for existing name
-        $query = "SELECT id" . "\n FROM #__sections " . "\n WHERE name = " . $this->_db->Quote($this->name) . "\n AND scope = " . $this->
-            _db->Quote($this->scope);
-        $this->_db->setQuery($query);
-        $xid = intval($this->_db->loadResult());
-        if ($xid && $xid != intval($this->id))
-        {
-            $this->_error = _SECTION_ALREADY_EXISTS;
-            return false;
-        }
-        return true;
-    }
-    
-    function _load_table_section($section, $params, $access)
-    {
-        global $my, $database, $mainframe;  
-		
+	/**
+	 * @param database A database connector object
+	 */
+	function mosSection(&$db){
+		$this->mosDBTable('#__sections', 'id', $db);
+	}
+	// overloaded check function
+	function check(){
+		// check for valid name
+		if (trim($this->title) == ''){
+			$this->_error = _ENTER_SECTION_TITLE;
+			return false;
+		}
+		if (trim($this->name) == ''){
+			$this->_error = _ENTER_SECTION_NAME;
+			return false;
+		}
+		$ignoreList = array('description');
+		$this->filter($ignoreList);
+		// check for existing name
+		$query = "SELECT id FROM #__sections WHERE name = " . $this->_db->Quote($this->name) . " AND scope = " . $this->
+			_db->Quote($this->scope);
+		$this->_db->setQuery($query);
+		$xid = intval($this->_db->loadResult());
+		if ($xid && $xid != intval($this->id))
+		{
+			$this->_error = _SECTION_ALREADY_EXISTS;
+			return false;
+		}
+		return true;
+	}
+
+	function _load_table_section($section, $params, $access){
+		global $my;
+
+		$mainframe = &mosMainFrame::getInstance();
+
 		$gid = $my->gid;
-        $noauth = !$mainframe->getCfg('shownoauth');
-        $nullDate = $database->getNullDate();
-        $now = _CURRENT_SERVER_TIME;
-        
-        $xwhere = ''; $xwhere2 = '';
-       	$empty = '';  $empty_sec = '';
-		$access_check = ''; $access_check_content = '';
-		        
-        //Параметры сортировки
-        // Ordering control
-        $orderby = contentSqlHelper::_orderby_sec($params->get('orderby'));
+		$noauth = !$mainframe->getCfg('shownoauth');
+		$nullDate = database::getInstance()->getNullDate();
+		$now = _CURRENT_SERVER_TIME;
+
+		$xwhere = '';
+		$xwhere2 = '';
+		$empty = '';
+		$empty_sec = '';
+		$access_check = '';
+		$access_check_content = '';
+
+		//Параметры сортировки
+		// Ordering control
+		$orderby = contentSqlHelper::_orderby_sec($params->get('orderby'));
 		
 		//Дополнительные условия
 		if($access->canEdit) {
@@ -412,10 +390,10 @@ class mosSection extends mosDBTable
 				$xwhere2 = " AND (b.state = 1 or b.state is null)";
 			}
 		} else {
-			$xwhere = " AND a.published = 1";
-			$xwhere2 = "	AND b.state = 1
-							AND ( b.publish_up = ".$database->Quote($nullDate)." OR b.publish_up <= ".$database->Quote($now)." )
-							AND ( b.publish_down = ".$database->Quote($nullDate)." OR b.publish_down >= ".$database->Quote($now)." )";
+			$xwhere = " AND a.published = 1 ";
+			$xwhere2 = "AND b.state = 1
+						AND ( b.publish_up = ".$this->_db->Quote($nullDate)." OR b.publish_up <= ".$this->_db->Quote($now)." )
+						AND ( b.publish_down = ".$this->_db->Quote($nullDate)." OR b.publish_down >= ".$this->_db->Quote($now)." )";
 		}	
 		if($params->get('type') == 'section') {
 			// show/hide empty categories in section
@@ -429,7 +407,7 @@ class mosSection extends mosDBTable
 		}
 	
 		// Query of categories within section
-		$query = "	SELECT a.*, COUNT( b.id ) AS numitems
+		$query = "SELECT a.*, COUNT( b.id ) AS numitems
 					FROM #__categories AS a
 					LEFT JOIN #__content AS b ON b.catid = a.id
 					".$xwhere2."
@@ -442,70 +420,69 @@ class mosSection extends mosDBTable
 					.$empty_sec."
 					ORDER BY ". $orderby;
 		$this->_db->setQuery($query);
-	 	return $this->_db->loadObjectList();
-    }
-    
-    function get_count_all_cats($section, $access, $params){
-    	global $my, $mainframe; 
-    	
-    	$gid = $my->gid;
-        $noauth = !$mainframe->getCfg('shownoauth');
-        
-   		if($noauth) {
+		return $this->_db->loadObjectList();
+	}
+
+	function get_count_all_cats($section, $access, $params){
+		global $my;
+
+		$mainframe = &mosMainFrame::getInstance();
+
+		$gid = $my->gid;
+		$noauth = !$mainframe->getCfg('shownoauth');
+
+		if($noauth) {
 			$access_check = " AND a.access <= ".(int)$gid;
 			$access_check_content = " AND ( b.access <= ".(int)$gid." OR b.access is null)";
 		}
-    	
-	    $query = "	SELECT count(*) as numCategories
+
+		$query = "SELECT count(*) as numCategories
 					FROM #__categories as a
 					WHERE a.section = '".(int)$section->id."'
 					".$access_check;
 			$this->_db->setQuery($query);
-			return ($this->_db->loadResult()) > 0;	
-    }
+			return ($this->_db->loadResult()) > 0;
+	}
 
-    function get_section($id)
-    {
-        $query = 'SELECT s.* FROM #__sections AS s WHERE s.id = ' . $id;
-        $r = null;
-        $this->_db->setQuery($query);
-        $this->_db->loadObject($r);
-        return $r;
-    }
+	function get_section($id){
+		$query = 'SELECT s.* FROM #__sections AS s WHERE s.id = ' . $id;
+		$r = null;
+		$this->_db->setQuery($query);
+		$this->_db->loadObject($r);
+		return $r;
+	}
 
-    function get_section_table_url($params)
-    {
-        $link = sefRelToAbs('index.php?option=com_content&amp;task=section&amp;id=' . $params->get('sectionid') . $params->get('Itemid'));
-        return $link;
-    }
+	function get_section_table_url($params){
+		$link = sefRelToAbs('index.php?option=com_content&amp;task=section&amp;id=' . $params->get('sectionid') . $params->get('Itemid'));
+		return $link;
+	}
 
-    function get_section_blog_url($params)
-    {
-        $link = sefRelToAbs('index.php?option=com_content&amp;task=blogsection&amp;id=' . $params->get('sectionid') . $params->get('Itemid'));
-        return $link;
-    }
-    
-    function get_section_menu($section_id, $type = null){
-    	$database = &database::getInstance();
-    	
-    	if(!$type){
-    		$and_type = "AND type IN ( 'content_section', 'content_blog_section' )";
-    	}
-    	else{
-    		switch($type){
-    			case 'blog':
-    			default:
-    				$and_type = "AND type = 'content_blog_section' ";	
-    			break;
-    			
-    			case 'list':
-    				$and_type = "AND type = 'content_section' ";
-    			break;
-    		}
-    		
-    	}
-    	
-    	$query = "	SELECT id, link 
+	function get_section_blog_url($params){
+		$link = sefRelToAbs('index.php?option=com_content&amp;task=blogsection&amp;id=' . $params->get('sectionid') . $params->get('Itemid'));
+		return $link;
+	}
+
+	function get_section_menu($section_id, $type = null){
+		$database = &database::getInstance();
+
+		if(!$type){
+			$and_type = "AND type IN ( 'content_section', 'content_blog_section' )";
+		}
+		else{
+			switch($type){
+				case 'blog':
+				default:
+					$and_type = "AND type = 'content_blog_section' ";
+				break;
+
+				case 'list':
+					$and_type = "AND type = 'content_section' ";
+				break;
+			}
+
+		}
+
+		$query = "	SELECT id, link
 					FROM #__menu 
 					WHERE 	published = 1 
 							".$and_type." 
@@ -513,14 +490,13 @@ class mosSection extends mosDBTable
 					ORDER BY type DESC, ordering";
 		$database->setQuery($query);
 		$result = $database->loadRow();	
-		
 		return $result;
-    }
-    
-    function get_section_link($row, $params){
-    	$mainframe = &mosMainFrame::getInstance();
-    	
-   		// pull values from mainframe
+	}
+
+	function get_section_link($row, $params){
+		$mainframe = &mosMainFrame::getInstance();
+
+		// pull values from mainframe
 		$secLinkID = $mainframe->get('secID_'.$row->sectionid,-1);
 		$secLinkURL = $mainframe->get('secURL_'.$row->sectionid);
 
@@ -550,185 +526,180 @@ class mosSection extends mosDBTable
 			$secLinkURL = ampReplace($secLinkURL);
 			$link = sefRelToAbs($secLinkURL.$_Itemid);
 		} else {
-   			$params->set('catid', $row->id);
-   			$params->set('sectionid', $row->sectionid);
-    		$params->set('Itemid', $_Itemid);
-            if($params->get('section_link_type')=='blog'){
-                $link = mosSection::get_section_blog_url($params);
-            }
-            else{
-                $link = mosSection::get_section_table_url($params);
-            }
+			$params->set('catid', $row->id);
+			$params->set('sectionid', $row->sectionid);
+			$params->set('Itemid', $_Itemid);
+			if($params->get('section_link_type')=='blog'){
+				$link = mosSection::get_section_blog_url($params);
+			}
+			else{
+				$link = mosSection::get_section_table_url($params);
+			}
 
 		}
 		
 		return $link;
-    }
+	}
 }
 
 /**
  * Module database table class
  * @package Joostina
  */
-class mosContent extends mosDBTable
-{
-    /**
-     *  *  * @var int Primary key*/
-    var $id = null;
-    /**
-     *  *  * @var string*/
-    var $title = null;
-    /**
-     *  *  * @var string*/
-    var $title_alias = null;
-    /**
-     *  *  * @var string*/
-    var $introtext = null;
-    /**
-     *  *  * @var string*/
-    var $fulltext = null;
-    /**
-     *  *  * @var int*/
-    var $state = null;
-    /**
-     *  *  * @var int The id of the category section*/
-    var $sectionid = null;
-    /**
-     *  *  * @var int DEPRECATED*/
-    var $mask = null;
-    /**
-     *  *  * @var int*/
-    var $catid = null;
-    /**
-     *  *  * @var datetime*/
-    var $created = null;
-    /**
-     *  *  * @var int User id*/
-    var $created_by = null;
-    /**
-     *  *  * @var string An alias for the author*/
-    var $created_by_alias = null;
-    /**
-     *  *  * @var datetime*/
-    var $modified = null;
-    /**
-     *  *  * @var int User id*/
-    var $modified_by = null;
-    /**
-     *  *  * @var boolean*/
-    var $checked_out = null;
-    /**
-     *  *  * @var time*/
-    var $checked_out_time = null;
-    /**
-     *  *  * @var datetime*/
-    var $frontpage_up = null;
-    /**
-     *  *  * @var datetime*/
-    var $frontpage_down = null;
-    /**
-     *  *  * @var datetime*/
-    var $publish_up = null;
-    /**
-     *  *  * @var datetime*/
-    var $publish_down = null;
-    /**
-     *  *  * @var string*/
-    var $images = null;
-    /**
-     *  *  * @var string*/
-    var $urls = null;
-    /**
-     *  *  * @var string*/
-    var $attribs = null;
-    /**
-     *  *  * @var int*/
-    var $version = null;
-    /**
-     *  *  * @var int*/
-    var $parentid = null;
-    /**
-     *  *  * @var int*/
-    var $ordering = null;
-    /**
-     *  *  * @var string*/
-    var $metakey = null;
-    /**
-     *  *  * @var string*/
-    var $metadesc = null;
-    /**
-     *  *  * @var int*/
-    var $access = null;
-    /**
-     *  *  * @var int*/
-    var $hits = null;
-    /**
-     *  *  * @var string*/
-    var $notetext = null;
+class mosContent extends mosDBTable{
+	/**
+	 *  *  * @var int Primary key*/
+	var $id = null;
+	/**
+	 *  *  * @var string*/
+	var $title = null;
+	/**
+	 *  *  * @var string*/
+	var $title_alias = null;
+	/**
+	 *  *  * @var string*/
+	var $introtext = null;
+	/**
+	 *  *  * @var string*/
+	var $fulltext = null;
+	/**
+	 *  *  * @var int*/
+	var $state = null;
+	/**
+	 *  *  * @var int The id of the category section*/
+	var $sectionid = null;
+	/**
+	 *  *  * @var int DEPRECATED*/
+	var $mask = null;
+	/**
+	 *  *  * @var int*/
+	var $catid = null;
+	/**
+	 *  *  * @var datetime*/
+	var $created = null;
+	/**
+	 *  *  * @var int User id*/
+	var $created_by = null;
+	/**
+	 *  *  * @var string An alias for the author*/
+	var $created_by_alias = null;
+	/**
+	 *  *  * @var datetime*/
+	var $modified = null;
+	/**
+	 *  *  * @var int User id*/
+	var $modified_by = null;
+	/**
+	 *  *  * @var boolean*/
+	var $checked_out = null;
+	/**
+	 *  *  * @var time*/
+	var $checked_out_time = null;
+	/**
+	 *  *  * @var datetime*/
+	var $frontpage_up = null;
+	/**
+	 *  *  * @var datetime*/
+	var $frontpage_down = null;
+	/**
+	 *  *  * @var datetime*/
+	var $publish_up = null;
+	/**
+	 *  *  * @var datetime*/
+	var $publish_down = null;
+	/**
+	 *  *  * @var string*/
+	var $images = null;
+	/**
+	 *  *  * @var string*/
+	var $urls = null;
+	/**
+	 *  *  * @var string*/
+	var $attribs = null;
+	/**
+	 *  *  * @var int*/
+	var $version = null;
+	/**
+	 *  *  * @var int*/
+	var $parentid = null;
+	/**
+	 *  *  * @var int*/
+	var $ordering = null;
+	/**
+	 *  *  * @var string*/
+	var $metakey = null;
+	/**
+	 *  *  * @var string*/
+	var $metadesc = null;
+	/**
+	 *  *  * @var int*/
+	var $access = null;
+	/**
+	 *  *  * @var int*/
+	var $hits = null;
+	/**
+	 *  *  * @var string*/
+	var $notetext = null;
 
-    var $templates = null;
-    /**
-     * @param database A database connector object
-     */
-    function mosContent(&$db)
-    {
-        $this->mosDBTable('#__content', 'id', $db);
-    }
+	var $templates = null;
+	/**
+	 * @param database A database connector object
+	 */
+	function mosContent(&$db){
+		$this->mosDBTable('#__content', 'id', $db);
+	}
 
-    /**
-     * Validation and filtering
-     */
-    function check()
-    {
-        // filter malicious code
-        $ignoreList = array('introtext', 'fulltext');
-        $this->filter($ignoreList);
+	/**
+	 * Validation and filtering
+	 */
+	function check(){
+		// filter malicious code
+		$ignoreList = array('introtext', 'fulltext');
+		$this->filter($ignoreList);
 
-        /*
-        * TODO: This filter is too rigorous,
-        * need to implement more configurable solution
-        * // specific filters
-        * $iFilter = new InputFilter( null, null, 1, 1 );
-        * $this->introtext = trim( $iFilter->process( $this->introtext ) );
-        * $this->fulltext =  trim( $iFilter->process( $this->fulltext ) );
-        */
-        if (trim(str_replace('&nbsp;', '', $this->fulltext)) == '')
-        {
-            $this->fulltext = '';
-        }
-        return true;
-    }
+		/*
+		* TODO: This filter is too rigorous,
+		* need to implement more configurable solution
+		* // specific filters
+		* $iFilter = new InputFilter( null, null, 1, 1 );
+		* $this->introtext = trim( $iFilter->process( $this->introtext ) );
+		* $this->fulltext =  trim( $iFilter->process( $this->fulltext ) );
+		*/
+		if (trim(str_replace('&nbsp;', '', $this->fulltext)) == '')
+		{
+			$this->fulltext = '';
+		}
+		return true;
+	}
 
-    function get_item($id)
-    {
+	function get_item($id){
 
-        $sql = 'SELECT  item.*,
-                        s.name AS section_name, s.params AS section_params, s.templates as s_templates,
-                        c.name AS cat_name, c.params AS cat_params,
-                        author.username AS author_nickname, author.name AS author_name,
-                        modifier.username AS modifier_nickname, modifier.name AS modifier_name
-                FROM #__content AS item
-                LEFT JOIN #__sections AS s ON s.id = item.sectionid
-                LEFT JOIN #__categories AS c ON c.id = item.catid
-                LEFT JOIN #__users AS author ON author.id = item.created_by
-                LEFT JOIN #__users AS modifier ON modifier.id = item.modified_by
-                WHERE item.id=' . $id;
-        $r = null;
-        $this->_db->setQuery($sql);
-        $this->_db->loadObject($r);
-        return $r;
-    }
+		$sql = 'SELECT  item.*,
+						s.name AS section_name, s.params AS section_params, s.templates as s_templates,
+						c.name AS cat_name, c.params AS cat_params,
+						author.username AS author_nickname, author.name AS author_name,
+						modifier.username AS modifier_nickname, modifier.name AS modifier_name
+				FROM #__content AS item
+				LEFT JOIN #__sections AS s ON s.id = item.sectionid
+				LEFT JOIN #__categories AS c ON c.id = item.catid
+				LEFT JOIN #__users AS author ON author.id = item.created_by
+				LEFT JOIN #__users AS modifier ON modifier.id = item.modified_by
+				WHERE item.id=' . $id;
+		$r = null;
+		$this->_db->setQuery($sql);
+		$this->_db->loadObject($r);
+		return $r;
+	}
 
-    function _load_user_items($user_id, $params)
-    {
-    	
-  	 	$orderby	= strval(mosGetParam($_REQUEST,'order',''));
+	function _load_user_items($user_id, $params){
+
+		$orderby = strval(mosGetParam($_REQUEST,'order',''));
 		if (!$orderby) {
 			$orderby = $params->get( 'orderby', 'rdate' );
 		}
 		$params->set('orderby', $orderby);	
-    	$orderby = contentSqlHelper::_orderby_sec($orderby);    	
-    	
+		$orderby = contentSqlHelper::_orderby_sec($orderby);
+
 		// filter functionality
 		$and = ''; $filter = '';
 		if ( $params->get( 'filter' ) ) {
@@ -751,31 +722,30 @@ class mosContent extends mosDBTable
 			}
 		}
 		$params->set('filter_value', $filter);
-    	
-        $query = "  SELECT  a.sectionid, a.checked_out, a.id, a.state AS published,
-                        a.title, a.hits, a.created_by, a.created_by_alias,
-                        a.created AS created, a.access, a.state,
-                        u.name AS author, u.usertype, u.username,
-                        g.name AS groups,
-                        c.name AS category,
-                        s.name AS section
-                FROM #__content AS a
-                LEFT JOIN #__users AS u ON u.id = a.created_by
-                LEFT JOIN #__groups AS g ON a.access = g.id
-                LEFT JOIN #__categories AS c on a.catid = c.id
-                LEFT JOIN #__sections AS s on s.id = c.section
-                WHERE   a.created_by = $user_id
-                        AND a.state > -1
-                        " . $and . "
-                ORDER BY $orderby
-            ";
 
-        $this->_db->setQuery($query, $params->get('limitstart'), $params->get('limit'));
-        return $this->_db->loadObjectList();
-    }
+		$query = "SELECT  a.sectionid, a.checked_out, a.id, a.state AS published,
+						a.title, a.hits, a.created_by, a.created_by_alias,
+						a.created AS created, a.access, a.state,
+						u.name AS author, u.usertype, u.username,
+						g.name AS groups,
+						c.name AS category,
+						s.name AS section
+				FROM #__content AS a
+				LEFT JOIN #__users AS u ON u.id = a.created_by
+				LEFT JOIN #__groups AS g ON a.access = g.id
+				LEFT JOIN #__categories AS c on a.catid = c.id
+				LEFT JOIN #__sections AS s on s.id = c.section
+				WHERE   a.created_by = $user_id
+						AND a.state > -1
+						" . $and . "
+				ORDER BY $orderby
+			";
 
-    function _get_count_user_items($user_id, $params)
-    {
+		$this->_db->setQuery($query, $params->get('limitstart'), $params->get('limit'));
+		return $this->_db->loadObjectList();
+	}
+
+	function _get_count_user_items($user_id, $params){
 		// filter functionality
 		$and = '';
 		if ( $params->get( 'filter' ) ) {
@@ -798,395 +768,361 @@ class mosContent extends mosDBTable
 			}
 		}
 
-        $query = "  SELECT COUNT(a.id)
-                    FROM #__content AS a
-                    LEFT JOIN #__users AS u ON u.id = a.created_by
-                    LEFT JOIN #__groups AS g ON a.access = g.id
-                    LEFT JOIN #__categories AS c on a.catid = c.id
-                    LEFT JOIN #__sections AS s on s.id = c.section
-                    WHERE a.created_by = $user_id AND a.state > -1
-                    " . $and;
-        $this->_db->setQuery($query);
-        return $this->_db->loadResult();
-    }
+		$query = "SELECT COUNT(a.id)
+					FROM #__content AS a
+					LEFT JOIN #__users AS u ON u.id = a.created_by
+					LEFT JOIN #__groups AS g ON a.access = g.id
+					LEFT JOIN #__categories AS c on a.catid = c.id
+					LEFT JOIN #__sections AS s on s.id = c.section
+					WHERE a.created_by = $user_id AND a.state > -1
+					" . $and;
+		$this->_db->setQuery($query);
+		return $this->_db->loadResult();
+	}
 
-    /**
-     * Converts record to XML
-     * @param boolean Map foreign keys to text values
-     */
-    function toXML($mapKeysToText = false)
-    {
-        global $database;
+	/**
+	 * Converts record to XML
+	 * @param boolean Map foreign keys to text values
+	 */
+	function toXML($mapKeysToText = false){
+		$database = &database::getInstance();
+		if ($mapKeysToText){
+			$query = "SELECT name FROM #__sections WHERE id = " . (int)$this->sectionid;
+			$database->setQuery($query);
+			$this->sectionid = $database->loadResult();
 
-        if ($mapKeysToText)
-        {
-            $query = "SELECT name FROM #__sections WHERE id = " . (int)$this->sectionid;
-            $database->setQuery($query);
-            $this->sectionid = $database->loadResult();
+			$query = "SELECT name FROM #__categories WHERE id = " . (int)$this->catid;
+			$database->setQuery($query);
+			$this->catid = $database->loadResult();
 
-            $query = "SELECT name FROM #__categories WHERE id = " . (int)$this->catid;
-            $database->setQuery($query);
-            $this->catid = $database->loadResult();
+			$query = "SELECT name FROM #__users WHERE id = " . (int)$this->created_by;
+			$database->setQuery($query);
+			$this->created_by = $database->loadResult();
+		}
 
-            $query = "SELECT name FROM #__users WHERE id = " . (int)$this->created_by;
-            $database->setQuery($query);
-            $this->created_by = $database->loadResult();
-        }
+		return parent::toXML($mapKeysToText);
+	}
 
-        return parent::toXML($mapKeysToText);
-    }
+	function ReadMore(&$row, &$params, $template = ''){
+		$return = '';
+		if ($params->get('readmore')){
+			if ($params->get('intro_only') && $row->link_text){
+				$return = '<a href="' . $row->link_on . '" title="' . $row->title . '" class="readon">' . $row->link_text . '</a>';
+			}
+		}
+		return $return;
+	}
 
-    function ReadMore(&$row, &$params, $template = '')
-    {
-        $return = '';
-        if ($params->get('readmore'))
-        {
-            if ($params->get('intro_only') && $row->link_text)
-            {
-                $return = '<a href="' . $row->link_on . '" title="' . $row->title . '" class="readon">' . $row->link_text . '</a>';
-            }
-        }
-        return $return;
-    }
+	function _construct_where_for_fullItem($access){
+		global $gid, $task;
 
-    function _construct_where_for_fullItem($access)
-    {
-        global $database, $gid, $task, $mosConfig_disable_date_state, $mosConfig_disable_access_control;
+		$database = &database::getInstance();
+		$config = &Jconfig::getInstance();
 
-        $now = _CURRENT_SERVER_TIME;
-        $nullDate = $database->getNullDate();
+		$now = _CURRENT_SERVER_TIME;
+		$nullDate = $database->getNullDate();
 
-        $where_ac = '';
+		$where_ac = '';
 
-        if ($access->canEdit || $task == 'preview')
-        {
-            $xwhere = '';
-        } else
-        {
-            $xwhere = ' AND ( a.state = 1 OR a.state = -1 ) ';
-            if (!$mosConfig_disable_date_state)
-            {
-                $xwhere .= " AND ( a.publish_up = " . $database->Quote($nullDate) . " OR a.publish_up <= " . $database->Quote($now) . " )";
-                $xwhere .= " AND ( a.publish_down = " . $database->Quote($nullDate) . " OR a.publish_down >= " . $database->Quote($now) . " )";
-            }
-        }
+		if ($access->canEdit || $task == 'preview'){
+			$xwhere = '';
+		} else{
+			$xwhere = ' AND ( a.state = 1 OR a.state = -1 ) ';
+			if (!$config->config_disable_date_state){
+				$xwhere .= " AND ( a.publish_up = " . $database->Quote($nullDate) . " OR a.publish_up <= " . $database->Quote($now) . " )";
+				$xwhere .= " AND ( a.publish_down = " . $database->Quote($nullDate) . " OR a.publish_down >= " . $database->Quote($now) . " )";
+			}
+		}
 
-        if (!$mosConfig_disable_access_control)
-        {
-            $where_ac = ' AND a.access <= ' . (int)$gid;
-        }
+		if (!$config->config_disable_access_control){
+			$where_ac = ' AND a.access <= ' . (int)$gid;
+		}
 
-        return $xwhere . $where_ac;
-    }
+		return $xwhere . $where_ac;
+	}
 
-    function get_prev_next($row, $where, $access, $params)
-    {
-        global $mainframe, $mosConfig_disable_access_control, $gid, $database;
+	function get_prev_next($row, $where, $access, $params){
+		global $gid;
 
-        // Paramters for menu item as determined by controlling Itemid
-        
+		$mainframe = &mosMainFrame::getInstance();
+		$database = &database::getInstance();
+
+		// Paramters for menu item as determined by controlling Itemid
+
 		if($params->get('pop')){
-  			$row->prev = '';
-        	$row->next = '';
-        	return $row;		
-        }
+			$row->prev = '';
+			$row->next = '';
+			return $row;
+		}
 		
 		$menu = $mainframe->get('menu');
  		$mparams = new mosParameters($menu->params);
-        // the following is needed as different menu items types utilise a different param to control ordering
-        // for Blogs the `orderby_sec` param is the order controlling param
-        // for Table and List views it is the `orderby` param
-        $mparams_list = $mparams->toArray();
-        if (array_key_exists('orderby_sec', $mparams_list))
-        {
-            $order_method = $mparams->get('orderby_sec', '');
-        } else
-        {
-            $order_method = $mparams->get('orderby', '');
-        }
+		// the following is needed as different menu items types utilise a different param to control ordering
+		// for Blogs the `orderby_sec` param is the order controlling param
+		// for Table and List views it is the `orderby` param
+		$mparams_list = $mparams->toArray();
+		if (array_key_exists('orderby_sec', $mparams_list)){
+			$order_method = $mparams->get('orderby_sec', '');
+		}else{
+			$order_method = $mparams->get('orderby', '');
+		}
 
-        // additional check for invalid sort ordering
-        if ($order_method == 'front')
-        {
-            $order_method = '';
-        }
-        
-        $orderby = contentSqlHelper::_orderby_sec($order_method);
+		// additional check for invalid sort ordering
+		if ($order_method == 'front'){
+			$order_method = '';
+		}
 
-        $uname = '';
-        $ufrom = '';
-        if ($order_method == 'author' or $order_method == 'rauthor')
-        {
-            $uname = ', u.name ';
-            $ufrom = ', #__users AS u ';
-        }
+		$orderby = contentSqlHelper::_orderby_sec($order_method);
 
-        // array of content items in same category correctly ordered
-        $query = "SELECT a.id, a.title $uname FROM #__content AS a $ufrom "
+		$uname = '';
+		$ufrom = '';
+		if ($order_method == 'author' or $order_method == 'rauthor'){
+			$uname = ', u.name ';
+			$ufrom = ', #__users AS u ';
+		}
+
+		// array of content items in same category correctly ordered
+		$query = "SELECT a.id, a.title $uname FROM #__content AS a $ufrom "
 				." WHERE a.catid = " . (int)$row->catid . " AND a.state = " . (int)$row->state . $where
 				." ORDER BY $orderby";
-        $database->setQuery($query);
-        $list = $database->loadObjectList();
+		$database->setQuery($query);
+		$list = $database->loadObjectList();
 
-        $prev = null;
-        $current = array_shift($list);
-        $next = array_shift($list);
-        while ($current->id != $row->id)
-        {
-            $prev = $current;
-            $current = $next;
-            $next = array_shift($list);
-        }
-        $row->prev = '';
-        $row->next = '';
-        if (!empty($prev))
-        {
-            $row->prev = $prev->id;
-            $row->prev_title = $prev->title;
-        }
-        if (!empty($next))
-        {
-            $row->next = $next->id;
-            $row->next_title = $next->title;
-        }
-        unset($list);
+		$prev = null;
+		$current = array_shift($list);
+		$next = array_shift($list);
+		while ($current->id != $row->id){
+			$prev = $current;
+			$current = $next;
+			$next = array_shift($list);
+		}
+		$row->prev = '';
+		$row->next = '';
+		if (!empty($prev)){
+			$row->prev = $prev->id;
+			$row->prev_title = $prev->title;
+		}
+		if (!empty($next)){
+			$row->next = $next->id;
+			$row->next_title = $next->title;
+		}
+		unset($list);
 
-        return $row;
-    }
-
-    function Author(&$row, &$params = '')
-    {
-        global $mosConfig_absolute_path, $database, $mainframe, $mosConfig_author_name;
-        $author_name = '';
-        if (!$params)
-        {
-            return $row->username;
-        }
-
-        if ($row->author != '')
-        {
-            if (!$row->created_by_alias)
-            {
-
-                if ($params->get('author_name', 0))
-                {
-                    $switcher = $params->get('author_name');
-                } else
-                {
-                    $switcher = $mosConfig_author_name;
-                }
-
-                switch ($switcher)
-                {
-                    case '1':
-                    case '3':
-                        $author_name = $row->author;
-                        break;
-
-                    case '2':
-                    case '4':
-                    default;
-                        $author_name = $row->username;
-                        break;
-                }
-
-                if ($switcher == '3' || $switcher == '4')
-                {
-                    $uid = $row->created_by;
-                    $author_link = 'index.php?option=com_users&amp;task=profile&amp;user=' . $uid;
-                    $author_seflink = sefRelToAbs($author_link);
-                    $author_name = '<a href="' . $author_seflink . '">' . $author_name . '</a>';
-                }
-
-            } else
-            {
-                $author_name = $row->created_by_alias;
-            }
-
-        }
-        return $author_name;
-    }
-
-    function EditIcon2(&$row, &$params, &$access, $text='')
-    {
-        global $my;
-
-        if ($params->get('popup'))
-        {
-            return;
-        }
-        if ($row->state < 0)
-        {
-            return;
-        }
-        if (!$access->canEdit && !($access->canEditOwn && $row->created_by == $my->id))
-        {
-            return;
-        }
-
-        mosCommonHTML::loadJqueryPlugins('tooltip/jquery.tooltip', false, true);
-        ?>
-		<script language="JavaScript" type="text/javascript">
-            _comcontent_defines.push('load_tooltip');
-        </script>
-		<?php
-		
-        $link = 'index.php?option=com_content&amp;task=edit&amp;id=' . $row->id . $row->Itemid_link . '&amp;Returnid=' . $row->_Itemid;
-        $image = mosCommonHTML::get_element('edit.png');
-        $image = Jconfig::getInstance()->config_live_site.'/'.$image;
-
-        if ($row->state == 0)
-        {
-            $info = _UNPUBLISHED;
-        } else
-        {
-            $info = _PUBLISHED;
-        }
-        $date = mosFormatDate($row->created);
-        $author = $row->created_by_alias ? $row->created_by_alias : $row->author;
-
-
-        $info .= ' - ';
-        $info .= $date;
-        $info .= '&rarr;';
-        $info .= $author;
-        
-
-        $return = '<span class="button"><a class="button edit_button" href="' . sefRelToAbs($link) . '" title="'.$info.'" ><img src="' . $image . '" /> '.$text.'</a></span>';
-
-        return $return;
-    }
-    
-    function check_archives_categories($category, $params){
-   
-	if($params->get('module')) {
-		$check = '';
-	} else {
-		$check = " AND a.catid = ".(int)$category->id;
+		return $row;
 	}
-	
-	$query = "SELECT COUNT(a.id)"."\n FROM #__content as a"."\n WHERE a.state = -1".$check;
-	$this->_db->setQuery($query);
-	return $this->_db->loadResult();	
-    }
 
-    function _load_blog_section($section, $params, $access)
-    {
+	function Author(&$row, &$params = ''){
 
-        // voting control
-        $voting = new contentVoiting($params);
-        $voting = $voting->_construct_sql();
+		$author_name = '';
+		if (!$params){
+			return $row->username;
+		}
 
-        //Дополнительные условия
-        $where = contentSqlHelper::construct_where_blog(1, $section, $access, $params);
-        $where = (count($where) ? "\n WHERE " . implode("\n AND ", $where) : '');
+		if ($row->author != ''){
+			if (!$row->created_by_alias){
 
-        //Параметры сортировки
-        $order_sec = contentSqlHelper::_orderby_sec($params->get('orderby_sec'));
-        $order_pri = contentSqlHelper::_orderby_pri($params->get('orderby_pri'));
+				if ($params->get('author_name', 0)){
+					$switcher = $params->get('author_name');
+				} else{
+					$switcher = Jconfig::getInstance()->config_author_name;
+				}
 
-        //Основной запрос
-        $query = '  SELECT  a.id, a.attribs , a.title, a.title_alias, a.introtext, a.sectionid,
-                        a.state, a.catid, a.created, a.created_by, a.created_by_alias, a.modified, a.modified_by,
-                        a.checked_out, a.checked_out_time, a.publish_up, a.publish_down, a.images, a.urls, a.ordering,
-                        a.fulltext, a.notetext,
-                        a.metakey, a.metadesc, a.access, CHAR_LENGTH( a.fulltext ) AS readmore,
-                        u.name AS author, u.usertype, u.username,
-                        s.name AS section,
-                        cc.name AS category,
-                        g.name AS groups
-                        ' . $voting['select'] . '
-                FROM #__content AS a
-                INNER JOIN #__categories AS cc ON cc.id = a.catid
-                LEFT JOIN #__users AS u ON u.id = a.created_by
-                LEFT JOIN #__sections AS s ON a.sectionid = s.id
-                LEFT JOIN #__groups AS g ON a.access = g.id
-                ' . $voting['join'] . $where . '
-                ORDER BY ' . $order_pri . $order_sec;
+				switch ($switcher){
+					case '1':
+					case '3':
+						$author_name = $row->author;
+						break;
 
-        $this->_db->setQuery($query, $params->get('limitstart'), $params->get('limit'));
-        return $this->_db->loadObjectList();
-    }
+					case '2':
+					case '4':
+					default;
+						$author_name = $row->username;
+						break;
+				}
 
-    function _get_result_blog_section($section, $params, $access)
-    {
-        $where = contentSqlHelper::construct_where_blog(1, $section, $access, $params);
-        $where = (count($where) ? "\n WHERE " . implode("\n AND ", $where) : '');
+				if ($switcher == '3' || $switcher == '4'){
+					$uid = $row->created_by;
+					$author_link = 'index.php?option=com_users&amp;task=profile&amp;user=' . $uid;
+					$author_seflink = sefRelToAbs($author_link);
+					$author_name = '<a href="' . $author_seflink . '">' . $author_name . '</a>';
+				}
 
-        $query = "  SELECT COUNT(a.id)
-                FROM #__content AS a
-                INNER JOIN #__categories AS cc ON cc.id = a.catid
-                LEFT JOIN #__users AS u ON u.id = a.created_by
-                LEFT JOIN #__sections AS s ON a.sectionid = s.id
-                LEFT JOIN #__groups AS g ON a.access = g.id
-                " . $where;
-        $this->_db->setQuery($query);
-        return $this->_db->loadResult();
-    }
+			} else{
+				$author_name = $row->created_by_alias;
+			}
 
-    function _load_blog_category($category, $params, $access)
-    {
+		}
+		return $author_name;
+	}
 
-        // voting control
-        $voting = new contentVoiting($params);
-        $voting = $voting->_construct_sql();
+	function EditIcon2(&$row, &$params, &$access, $text=''){
+		global $my;
 
-        //Дополнительные условия
-        $where = contentSqlHelper::construct_where_blog(2, $category, $access, $params);
-        $where = (count($where) ? " WHERE " . implode("\n AND ", $where) : '');
+		if ($params->get('popup')){
+			return;
+		}
+		if ($row->state < 0){
+			return;
+		}
+		if (!$access->canEdit && !($access->canEditOwn && $row->created_by == $my->id)){
+			return;
+		}
 
-        //Параметры сортировки
-        $order_sec = contentSqlHelper::_orderby_sec($params->get('orderby_sec'));
-        $order_pri = contentSqlHelper::_orderby_pri($params->get('orderby_pri'));
+		mosCommonHTML::loadJqueryPlugins('tooltip/jquery.tooltip', false, true);
 
-        //Основной запрос
-        $query = '  SELECT a.id, a.notetext,a.attribs, a.title, a.title_alias, a.introtext,
-                    a.sectionid, a.state, a.catid, a.created, a.created_by, a.created_by_alias,
-                    a.modified, a.modified_by, a.checked_out, a.checked_out_time,
-                    a.publish_up, a.publish_down, a.images, a.urls, a.ordering, a.metakey, a.metadesc, a.access,
-                    CHAR_LENGTH( a.fulltext ) AS readmore,
-                    s.published AS sec_pub, s.name AS section,
-                    cc.published AS sec_pub, cc.name AS category,
-                    u.name AS author, u.usertype, u.username,
-                    g.name AS groups
-                    ' . $voting['select'] . '
-                FROM #__content AS a
-                LEFT JOIN #__categories AS cc ON cc.id = a.catid
-                LEFT JOIN #__users AS u ON u.id = a.created_by
-                LEFT JOIN #__sections AS s ON a.sectionid = s.id
-                LEFT JOIN #__groups AS g ON a.access = g.id
-                ' . $voting['join'] . $where . '
-                ORDER BY ' . $order_pri . $order_sec;
+		static $_js_load;
+		if(!isset($_js_load)){
+			?><script language="JavaScript" type="text/javascript">_comcontent_defines.push('load_tooltip');</script><?php
+		}
 
-        $this->_db->setQuery($query, $params->get('limitstart'), $params->get('limit'));
-        return $this->_db->loadObjectList();
-    }
+		$link = 'index.php?option=com_content&amp;task=edit&amp;id=' . $row->id . $row->Itemid_link . '&amp;Returnid=' . $row->_Itemid;
+		$image = mosCommonHTML::get_element('edit.png');
+		$image = Jconfig::getInstance()->config_live_site.'/'.$image;
 
-    function _get_result_blog_category($category, $params, $access)
-    {
+		if ($row->state == 0){
+			$info = _UNPUBLISHED;
+		}else{
+			$info = _PUBLISHED;
+		}
+		$date = mosFormatDate($row->created);
+		$author = $row->created_by_alias ? $row->created_by_alias : $row->author;
 
-        $where = contentSqlHelper::construct_where_blog(2, $category, $access, $params);
-        $where = (count($where) ? "\n WHERE " . implode("\n AND ", $where) : '');
 
-        $query = '  SELECT COUNT(a.id)
-                    FROM #__content AS a
-                    LEFT JOIN #__categories AS cc ON cc.id = a.catid
-                    LEFT JOIN #__users AS u ON u.id = a.created_by
-                    LEFT JOIN #__sections AS s ON a.sectionid = s.id
-                    LEFT JOIN #__groups AS g ON a.access = g.id
-                    ' . $where;
-        $this->_db->setQuery($query);
-        return $this->_db->loadResult();
+		$info .= ' - ';
+		$info .= $date;
+		$info .= '&rarr;';
+		$info .= $author;
 
-    }
-    
-    function _get_result_archive_section($section, $params, $access)
-    {
-        $where = contentSqlHelper::construct_where_blog(-1, $section, $access, $params);
-        $where = (count($where) ? " WHERE " . implode(" AND ", $where) : '');
 
-       	// query to determine total number of records
-		$query = "	SELECT COUNT(a.id)
+		$return = '<span class="button"><a class="button edit_button" href="' . sefRelToAbs($link) . '" title="'.$info.'" ><img src="' . $image . '" /> '.$text.'</a></span>';
+
+		return $return;
+	}
+
+	function check_archives_categories($category, $params){
+		if($params->get('module')) {
+			$check = '';
+		} else {
+			$check = " AND a.catid = ".(int)$category->id;
+		}
+
+		$query = "SELECT COUNT(a.id) FROM #__content as a WHERE a.state = -1".$check;
+		$this->_db->setQuery($query);
+		return $this->_db->loadResult();
+	}
+
+	function _load_blog_section($section, $params, $access){
+
+		// voting control
+		$voting = new contentVoiting($params);
+		$voting = $voting->_construct_sql();
+
+		//Дополнительные условия
+		$where = contentSqlHelper::construct_where_blog(1, $section, $access, $params);
+		$where = (count($where) ? "\n WHERE " . implode("\n AND ", $where) : '');
+
+		//Параметры сортировки
+		$order_sec = contentSqlHelper::_orderby_sec($params->get('orderby_sec'));
+		$order_pri = contentSqlHelper::_orderby_pri($params->get('orderby_pri'));
+
+		//Основной запрос
+		$query = 'SELECT  a.id, a.attribs , a.title, a.title_alias, a.introtext, a.sectionid,
+						a.state, a.catid, a.created, a.created_by, a.created_by_alias, a.modified, a.modified_by,
+						a.checked_out, a.checked_out_time, a.publish_up, a.publish_down, a.images, a.urls, a.ordering,
+						a.fulltext, a.notetext,
+						a.metakey, a.metadesc, a.access, CHAR_LENGTH( a.fulltext ) AS readmore,
+						u.name AS author, u.usertype, u.username,
+						s.name AS section,
+						cc.name AS category,
+						g.name AS groups
+						' . $voting['select'] . '
+				FROM #__content AS a
+				INNER JOIN #__categories AS cc ON cc.id = a.catid
+				LEFT JOIN #__users AS u ON u.id = a.created_by
+				LEFT JOIN #__sections AS s ON a.sectionid = s.id
+				LEFT JOIN #__groups AS g ON a.access = g.id
+				' . $voting['join'] . $where . '
+				ORDER BY ' . $order_pri . $order_sec;
+
+		$this->_db->setQuery($query, $params->get('limitstart'), $params->get('limit'));
+		return $this->_db->loadObjectList();
+	}
+
+	function _get_result_blog_section($section, $params, $access){
+		$where = contentSqlHelper::construct_where_blog(1, $section, $access, $params);
+		$where = (count($where) ? "\n WHERE " . implode("\n AND ", $where) : '');
+
+		$query = "  SELECT COUNT(a.id)
+				FROM #__content AS a
+				INNER JOIN #__categories AS cc ON cc.id = a.catid
+				LEFT JOIN #__users AS u ON u.id = a.created_by
+				LEFT JOIN #__sections AS s ON a.sectionid = s.id
+				LEFT JOIN #__groups AS g ON a.access = g.id
+				" . $where;
+		$this->_db->setQuery($query);
+		return $this->_db->loadResult();
+	}
+
+	function _load_blog_category($category, $params, $access){
+
+		// voting control
+		$voting = new contentVoiting($params);
+		$voting = $voting->_construct_sql();
+
+		//Дополнительные условия
+		$where = contentSqlHelper::construct_where_blog(2, $category, $access, $params);
+		$where = (count($where) ? " WHERE " . implode("\n AND ", $where) : '');
+
+		//Параметры сортировки
+		$order_sec = contentSqlHelper::_orderby_sec($params->get('orderby_sec'));
+		$order_pri = contentSqlHelper::_orderby_pri($params->get('orderby_pri'));
+
+		//Основной запрос
+		$query = 'SELECT a.id, a.notetext,a.attribs, a.title, a.title_alias, a.introtext,
+					a.sectionid, a.state, a.catid, a.created, a.created_by, a.created_by_alias,
+					a.modified, a.modified_by, a.checked_out, a.checked_out_time,
+					a.publish_up, a.publish_down, a.images, a.urls, a.ordering, a.metakey, a.metadesc, a.access,
+					CHAR_LENGTH( a.fulltext ) AS readmore,
+					s.published AS sec_pub, s.name AS section,
+					cc.published AS sec_pub, cc.name AS category,
+					u.name AS author, u.usertype, u.username,
+					g.name AS groups
+					' . $voting['select'] . '
+				FROM #__content AS a
+				LEFT JOIN #__categories AS cc ON cc.id = a.catid
+				LEFT JOIN #__users AS u ON u.id = a.created_by
+				LEFT JOIN #__sections AS s ON a.sectionid = s.id
+				LEFT JOIN #__groups AS g ON a.access = g.id
+				' . $voting['join'] . $where . '
+				ORDER BY ' . $order_pri . $order_sec;
+
+		$this->_db->setQuery($query, $params->get('limitstart'), $params->get('limit'));
+		return $this->_db->loadObjectList();
+	}
+
+	function _get_result_blog_category($category, $params, $access){
+
+		$where = contentSqlHelper::construct_where_blog(2, $category, $access, $params);
+		$where = (count($where) ? "\n WHERE " . implode("\n AND ", $where) : '');
+
+		$query = 'SELECT COUNT(a.id)
+					FROM #__content AS a
+					LEFT JOIN #__categories AS cc ON cc.id = a.catid
+					LEFT JOIN #__users AS u ON u.id = a.created_by
+					LEFT JOIN #__sections AS s ON a.sectionid = s.id
+					LEFT JOIN #__groups AS g ON a.access = g.id
+					' . $where;
+		$this->_db->setQuery($query);
+		return $this->_db->loadResult();
+
+	}
+
+	function _get_result_archive_section($section, $params, $access){
+		$where = contentSqlHelper::construct_where_blog(-1, $section, $access, $params);
+		$where = (count($where) ? " WHERE " . implode(" AND ", $where) : '');
+
+		// query to determine total number of records
+		$query = "SELECT COUNT(a.id)
 					FROM #__content AS a
 					INNER JOIN #__categories AS cc ON cc.id = a.catid
 					LEFT JOIN #__users AS u ON u.id = a.created_by
@@ -1195,26 +1131,25 @@ class mosContent extends mosDBTable
 					".$where;
 		$this->_db->setQuery($query);
 		return $this->_db->loadResult();
-    }
-    
-    function _load_archive_section($section, $params, $access)
-    {
+	}
 
-        // voting control
-        $voting = new contentVoiting($params);
-        $voting = $voting->_construct_sql();
+	function _load_archive_section($section, $params, $access){
 
-        //Дополнительные условия
-        $where = contentSqlHelper::construct_where_blog(-1, $section, $access, $params);
-        $where = (count($where) ? " WHERE " . implode(" AND ", $where) : '');
+		// voting control
+		$voting = new contentVoiting($params);
+		$voting = $voting->_construct_sql();
 
-        //Параметры сортировки
-        $order_sec = contentSqlHelper::_orderby_sec($params->get('orderby_sec'));
-        $order_pri = contentSqlHelper::_orderby_pri($params->get('orderby_pri'));
+		//Дополнительные условия
+		$where = contentSqlHelper::construct_where_blog(-1, $section, $access, $params);
+		$where = (count($where) ? " WHERE " . implode(" AND ", $where) : '');
 
-        //Основной запрос
-       	// Main Query
-		$query = "	SELECT 	a.id, a.title, a.title_alias, a.introtext, a.sectionid, 
+		//Параметры сортировки
+		$order_sec = contentSqlHelper::_orderby_sec($params->get('orderby_sec'));
+		$order_pri = contentSqlHelper::_orderby_pri($params->get('orderby_pri'));
+
+		//Основной запрос
+	   	// Main Query
+		$query = "SELECT a.id, a.title, a.title_alias, a.introtext, a.sectionid,
 							a.state, a.catid, a.created, a.created_by, a.created_by_alias, 
 							a.modified, a.modified_by, a.checked_out, a.checked_out_time, 
 							a.publish_up, a.publish_down, a.images, a.urls, a.ordering, 
@@ -1233,265 +1168,242 @@ class mosContent extends mosDBTable
 					".$voting['join']
 					.$where."
 					ORDER BY ". $order_pri.$order_sec;
-        $this->_db->setQuery($query, $params->get('limitstart'), $params->get('limit'));
-        return $this->_db->loadObjectList();
-    }
-    
-    function _get_result_blog_archive_category($category, $params, $access)
-    {
+		$this->_db->setQuery($query, $params->get('limitstart'), $params->get('limit'));
+		return $this->_db->loadObjectList();
+	}
 
-        $where = contentSqlHelper::construct_where_blog(-2, $category, $access, $params);
-        $where = (count($where) ? "\n WHERE " . implode("\n AND ", $where) : '');
+	function _get_result_blog_archive_category($category, $params, $access){
 
+		$where = contentSqlHelper::construct_where_blog(-2, $category, $access, $params);
+		$where = (count($where) ? "\n WHERE " . implode("\n AND ", $where) : '');
 
-       	// query to determine total number of records
-		$query = "  SELECT COUNT(a.id)
-                FROM #__content AS a
-                INNER JOIN #__categories AS cc ON cc.id = a.catid
-                LEFT JOIN #__users AS u ON u.id = a.created_by
-                LEFT JOIN #__sections AS s ON a.sectionid = s.id
-                LEFT JOIN #__groups AS g ON a.access = g.id
-                ".$where;
+		// query to determine total number of records
+		$query = "SELECT COUNT(a.id)
+				FROM #__content AS a
+				INNER JOIN #__categories AS cc ON cc.id = a.catid
+				LEFT JOIN #__users AS u ON u.id = a.created_by
+				LEFT JOIN #__sections AS s ON a.sectionid = s.id
+				LEFT JOIN #__groups AS g ON a.access = g.id
+				".$where;
 		$this->_db->setQuery($query);
 		return $this->_db->loadResult();
-    }
-    
-    function _load_blog_archive_category($category, $params, $access)
-    {
+	}
 
-        // voting control
-        $voting = new contentVoiting($params);
-        $voting = $voting->_construct_sql();
+	function _load_blog_archive_category($category, $params, $access){
 
-        //Дополнительные условия
-        $where = contentSqlHelper::construct_where_blog(-2, $category, $access, $params);
-        $where = (count($where) ? " WHERE " . implode("\n AND ", $where) : '');
+		// voting control
+		$voting = new contentVoiting($params);
+		$voting = $voting->_construct_sql();
 
-        //Параметры сортировки
-        $order_sec = contentSqlHelper::_orderby_sec($params->get('orderby'));
+		//Дополнительные условия
+		$where = contentSqlHelper::construct_where_blog(-2, $category, $access, $params);
+		$where = (count($where) ? " WHERE " . implode("\n AND ", $where) : '');
 
-        //Основной запрос
-        // main query
-		$query = " SELECT   a.id, a.title, a.title_alias, a.introtext, a.sectionid, a.state, a.catid,
-                        a.created, a.created_by, a.created_by_alias, a.modified, a.modified_by,
-                        a.checked_out, a.checked_out_time, a.publish_up, a.publish_down, a.images,
-                        a.urls, a.ordering, a.metakey, a.metadesc, a.access, a.attribs,
-                        CHAR_LENGTH( a.fulltext ) AS readmore,
-                        u.name AS author, u.usertype, u.username,
-                        s.name AS section,
-                        cc.name AS category,
-                        g.name AS groups
-                        ".$voting['select']."
-                FROM #__content AS a
-                INNER JOIN #__categories AS cc ON cc.id = a.catid
-                LEFT JOIN #__users AS u ON u.id = a.created_by
-                LEFT JOIN #__sections AS s ON a.sectionid = s.id
-                LEFT JOIN #__groups AS g ON a.access = g.id
-                ".$voting['join']
-                .$where."
-                ORDER BY ". $order_sec;
-        $this->_db->setQuery($query, $params->get('limitstart'), $params->get('limit'));
-        return $this->_db->loadObjectList();
-    }
+		//Параметры сортировки
+		$order_sec = contentSqlHelper::_orderby_sec($params->get('orderby'));
 
-    function _load_table_category($category, $params, $access)
-    {
-        global $my;
+		//Основной запрос
+		// main query
+		$query = "SELECT a.id, a.title, a.title_alias, a.introtext, a.sectionid, a.state, a.catid,
+						a.created, a.created_by, a.created_by_alias, a.modified, a.modified_by,
+						a.checked_out, a.checked_out_time, a.publish_up, a.publish_down, a.images,
+						a.urls, a.ordering, a.metakey, a.metadesc, a.access, a.attribs,
+						CHAR_LENGTH( a.fulltext ) AS readmore,
+						u.name AS author, u.usertype, u.username,
+						s.name AS section,
+						cc.name AS category,
+						g.name AS groups
+						".$voting['select']."
+				FROM #__content AS a
+				INNER JOIN #__categories AS cc ON cc.id = a.catid
+				LEFT JOIN #__users AS u ON u.id = a.created_by
+				LEFT JOIN #__sections AS s ON a.sectionid = s.id
+				LEFT JOIN #__groups AS g ON a.access = g.id
+				".$voting['join']
+				.$where."
+				ORDER BY ". $order_sec;
+		$this->_db->setQuery($query, $params->get('limitstart'), $params->get('limit'));
+		return $this->_db->loadObjectList();
+	}
 
-        //Дополнительные условия
-        $xwhere = contentSqlHelper::construct_where_table_category($category, $access, $params);
-        $and = contentSqlHelper::construct_filter_table_category($category, $access, $params);
+	function _load_table_category($category, $params, $access){
+		global $my;
 
-        //Параметры сортировки
-        // Ordering control
-        $orderby = contentSqlHelper::_orderby_sec($params->get('orderby'));
+		//Дополнительные условия
+		$xwhere = contentSqlHelper::construct_where_table_category($category, $access, $params);
+		$and = contentSqlHelper::construct_filter_table_category($category, $access, $params);
 
-        //Основной запрос
-        // get the list of items for this category
-        $query = '  SELECT  a.id, a.title, a.hits, a.created_by, a.created_by_alias,
-                        a.created AS created, a.access, a.state,
-                        u.name AS author, u.username,
-                        g.name AS groups
-                	FROM #__content AS a
-                	LEFT JOIN #__users AS u ON u.id = a.created_by
-                	LEFT JOIN #__groups AS g ON a.access = g.id
-                	WHERE 	a.catid = ' . (int)$category->id . $xwhere . '
+		//Параметры сортировки
+		// Ordering control
+		$orderby = contentSqlHelper::_orderby_sec($params->get('orderby'));
+
+		//Основной запрос
+		// get the list of items for this category
+		$query = 'SELECT  a.id, a.title, a.hits, a.created_by, a.created_by_alias,
+					a.created AS created, a.access, a.state,
+					u.name AS author, u.username,
+					g.name AS groups
+					FROM #__content AS a
+					LEFT JOIN #__users AS u ON u.id = a.created_by
+					LEFT JOIN #__groups AS g ON a.access = g.id
+					WHERE 	a.catid = ' . (int)$category->id . $xwhere . '
 							AND ' . (int)$category->access . ' <= ' . (int)$my->gid . $and . '
 					ORDER BY ' . $orderby;
-        $this->_db->setQuery($query, $params->get('limitstart'), $params->get('limit'));
-        return $this->_db->loadObjectList();
-    }
+		$this->_db->setQuery($query, $params->get('limitstart'), $params->get('limit'));
+		return $this->_db->loadObjectList();
+	}
 
-    function _get_result_table_category($category, $params, $access)
-    {
+	function _get_result_table_category($category, $params, $access){
 
-        $xwhere = contentSqlHelper::construct_where_table_category($category, $access, $params);
-        $and = contentSqlHelper::construct_filter_table_category($category, $access, $params);
+		$xwhere = contentSqlHelper::construct_where_table_category($category, $access, $params);
+		$and = contentSqlHelper::construct_filter_table_category($category, $access, $params);
 
-        $query = '	SELECT COUNT(a.id) as numitems
+		$query = '	SELECT COUNT(a.id) as numitems
 					FROM #__content AS a
 					LEFT JOIN #__users AS u ON u.id = a.created_by
 					LEFT JOIN #__groups AS g ON a.access = g.id
 					WHERE a.catid = ' . (int)$category->id . $xwhere . $and;
-        $this->_db->setQuery($query);
-        $counter = $this->_db->loadObjectList();
-        $total = $counter[0]->numitems;
+		$this->_db->setQuery($query);
+		$counter = $this->_db->loadObjectList();
+		$total = $counter[0]->numitems;
 
-        return $total;
-    }
+		return $total;
+	}
 
 
-    function _load_frontpage($params, $access)
-    {
+	function _load_frontpage($params, $access){
 
-        // voting control
-        $voting = new contentVoiting($params);
-        $voting = $voting->_construct_sql();
+		// voting control
+		$voting = new contentVoiting($params);
+		$voting = $voting->_construct_sql();
 
-        //Дополнительные условия
-        $where = contentSqlHelper::construct_where_blog(1, null, $access, $params);
-        $where = (count($where) ? "\n WHERE " . implode("\n AND ", $where) : '');
+		//Дополнительные условия
+		$where = contentSqlHelper::construct_where_blog(1, null, $access, $params);
+		$where = (count($where) ? "\n WHERE " . implode("\n AND ", $where) : '');
 
-        //Параметры сортировки
-        $order_sec = contentSqlHelper::_orderby_sec($params->get('orderby_sec'));
-        $order_pri = contentSqlHelper::_orderby_pri($params->get('orderby_pri'));
+		//Параметры сортировки
+		$order_sec = contentSqlHelper::_orderby_sec($params->get('orderby_sec'));
+		$order_pri = contentSqlHelper::_orderby_pri($params->get('orderby_pri'));
 
-        //Основной запрос
-        $query = '  SELECT
-                        a.attribs, a.notetext, a.id, a.title, a.title_alias,
-                        a.introtext, a.sectionid, a.state, a.catid, a.created,
-                        a.created_by, a.created_by_alias, a.modified, a.modified_by,
-                        a.checked_out, a.checked_out_time, a.publish_up, a.publish_down,
-                        a.images, a.urls, a.ordering, a.metakey, a.metadesc, a.access, a.hits,
-                        CHAR_LENGTH( a.fulltext ) AS readmore,
-                        u.name AS author, u.usertype, u.username,
-                        s.name AS section, s.id AS sec_id,
-                        cc.name AS category, cc.id as cat_id,
-                        g.name AS groups
-                        ' . $voting['select'] . '
-                    FROM #__content AS a
-                    INNER JOIN #__content_frontpage AS f ON f.content_id = a.id
-                    INNER JOIN #__categories AS cc ON cc.id = a.catid
-                    INNER JOIN #__sections AS s ON s.id = a.sectionid
-                    LEFT JOIN #__users AS u ON u.id = a.created_by
-                    LEFT JOIN #__groups AS g ON a.access = g.id
-                    ' . $voting['join'] . $where . '
-                    ORDER BY ' . $order_pri . $order_sec;
+		//Основной запрос
+		$query = '  SELECT
+						a.attribs, a.notetext, a.id, a.title, a.title_alias,
+						a.introtext, a.sectionid, a.state, a.catid, a.created,
+						a.created_by, a.created_by_alias, a.modified, a.modified_by,
+						a.checked_out, a.checked_out_time, a.publish_up, a.publish_down,
+						a.images, a.urls, a.ordering, a.metakey, a.metadesc, a.access, a.hits,
+						CHAR_LENGTH( a.fulltext ) AS readmore,
+						u.name AS author, u.usertype, u.username,
+						s.name AS section, s.id AS sec_id,
+						cc.name AS category, cc.id as cat_id,
+						g.name AS groups
+						' . $voting['select'] . '
+					FROM #__content AS a
+					INNER JOIN #__content_frontpage AS f ON f.content_id = a.id
+					INNER JOIN #__categories AS cc ON cc.id = a.catid
+					INNER JOIN #__sections AS s ON s.id = a.sectionid
+					LEFT JOIN #__users AS u ON u.id = a.created_by
+					LEFT JOIN #__groups AS g ON a.access = g.id
+					' . $voting['join'] . $where . '
+					ORDER BY ' . $order_pri . $order_sec;
 
-        $this->_db->setQuery($query, $params->get('limitstart'), $params->get('limit'));
-        return $this->_db->loadObjectList();
-    }
+		$this->_db->setQuery($query, $params->get('limitstart'), $params->get('limit'));
+		return $this->_db->loadObjectList();
+	}
 
-    function _get_result_frontpage($params, $access)
-    {
-        $where = contentSqlHelper::construct_where_blog(1, null, $access, $params);
-        $where = (count($where) ? "\n WHERE " . implode("\n AND ", $where) : '');
+	function _get_result_frontpage($params, $access){
+		$where = contentSqlHelper::construct_where_blog(1, null, $access, $params);
+		$where = (count($where) ? "\n WHERE " . implode("\n AND ", $where) : '');
 
-        $query = '  SELECT COUNT(a.id)
-                    FROM #__content AS a
-                    INNER JOIN #__content_frontpage AS f ON f.content_id = a.id
-                    INNER JOIN #__categories AS cc ON cc.id = a.catid
-                    INNER JOIN #__sections AS s ON s.id = a.sectionid
-                    LEFT JOIN #__users AS u ON u.id = a.created_by
-                    LEFT JOIN #__groups AS g ON a.access = g.id
-                    ' . $where;
+		$query = '  SELECT COUNT(a.id)
+					FROM #__content AS a
+					INNER JOIN #__content_frontpage AS f ON f.content_id = a.id
+					INNER JOIN #__categories AS cc ON cc.id = a.catid
+					INNER JOIN #__sections AS s ON s.id = a.sectionid
+					LEFT JOIN #__users AS u ON u.id = a.created_by
+					LEFT JOIN #__groups AS g ON a.access = g.id
+					' . $where;
 
-        $this->_db->setQuery($query);
-        return $this->_db->loadResult();
-    }
+		$this->_db->setQuery($query);
+		return $this->_db->loadResult();
+	}
 }
 
-class contentMeta
-{
-    var $_params = null;
+class contentMeta{
+	var $_params = null;
 
 
-    function contentMeta($params)
-    {
-        $this->_params = $params;
-    }
+	function contentMeta($params){
+		$this->_params = $params;
+	}
 
-    function set_meta()
-    {
+	function set_meta(){
 
-        switch ($this->_params->page_type)
-        {
-            case 'section_blog':
-            case 'category_blog':
-            case 'frontpage':
-            default:
-                $this->_meta_blog();
-                break;
-                
-            case 'item_full':
-            case 'item_static':
-            	$this->_meta_item();
-            	break;
+		switch ($this->_params->page_type){
+			case 'section_blog':
+			case 'category_blog':
+			case 'frontpage':
+			default:
+				$this->_meta_blog();
+				break;
 
-        }
-    }
+			case 'item_full':
+			case 'item_static':
+				$this->_meta_item();
+				break;
 
-    function _meta_blog()
-    {
-    	$mainframe = &mosMainFrame::getInstance();
-    	$config = &Jconfig::getInstance();
+		}
+	}
 
-        if ($this->_params->menu)
-        {
-            if (trim($this->_params->get('page_name')))
-            {
-                $mainframe->SetPageTitle($this->_params->menu->name, $this->_params);
-            } else
-                if ($this->_params->get('header') != '')
-                {
-                    $mainframe->SetPageTitle($this->_params->get('header', 1), $this->_params);
-                } else
-                {
-                    $mainframe->SetPageTitle($this->_params->menu->name, $this->_params);
-                }
-        }
-        else {
-        	$mainframe->SetPageTitle($this->_params->get('header'), $this->_params);	
-        }
+	function _meta_blog(){
 
-        set_robot_metatag($this->_params->get('robots'));
+		$mainframe = &mosMainFrame::getInstance();
 
-        if ($this->_params->get('meta_description') != "")
-        {
-            $mainframe->addMetaTag('description', $this->_params->get('meta_description'));
-        } else
-        {
-            $mainframe->addMetaTag('description', $config->config_MetaDesc);
-        }
+		if ($this->_params->menu){
+			if (trim($this->_params->get('page_name'))){
+				$mainframe->SetPageTitle($this->_params->menu->name, $this->_params);
+			} elseif ($this->_params->get('header') != ''){
+				$mainframe->SetPageTitle($this->_params->get('header', 1), $this->_params);
+			} else{
+				$mainframe->SetPageTitle($this->_params->menu->name, $this->_params);
+			}
+		}else {
+			$mainframe->SetPageTitle($this->_params->get('header'), $this->_params);
+		}
 
-        if ($this->_params->get('meta_keywords') != "")
-        {
-            $mainframe->addMetaTag('keywords', $this->_params->get('meta_keywords'));
-        } else
-        {
-            $mainframe->addMetaTag('keywords', $config->config_MetaKeys);
-        }
-        if ($this->_params->get('meta_author') != "")
-        {
-            $mainframe->addMetaTag('author', $this->_params->get('meta_author'));
-        }
-    }
-    
-    function _meta_item(){
-    	$mainframe = &mosMainFrame::getInstance();
-    	$config = &Jconfig::getInstance();
+		set_robot_metatag($this->_params->get('robots'));
+
+		if ($this->_params->get('meta_description') != ""){
+			$mainframe->addMetaTag('description', $this->_params->get('meta_description'));
+		} else{
+			$mainframe->addMetaTag('description', $mainframe->getCfg('MetaDesc'));
+		}
+
+		if ($this->_params->get('meta_keywords') != ""){
+			$mainframe->addMetaTag('keywords', $this->_params->get('meta_keywords'));
+		} else{
+			$mainframe->addMetaTag('keywords', $mainframe->getCfg('MetaKeys'));
+		}
+
+		if ($this->_params->get('meta_author') != ""){
+			$mainframe->addMetaTag('author', $this->_params->get('meta_author'));
+		}
+	}
+
+	function _meta_item(){
+		$mainframe = &mosMainFrame::getInstance();
 
 		$row = $this->_params->object;
 
 		$mainframe->setPageTitle($row->title,$this->_params);
 
-		$mainframe->appendMetaTag('description',Jstring::to_utf8($row->description));
-		$mainframe->appendMetaTag('keywords',Jstring::to_utf8($row->metakey));
+		$mainframe->appendMetaTag('description',$row->description);
+		$mainframe->appendMetaTag('keywords',$row->metakey);
 
-		if($config->config_MetaTitle == '1') {
+		if($mainframe->getCfg('MetaTitle') == '1') {
 			$mainframe->addMetaTag('title',$row->title);
 		}
-		if($config->config_MetaAuthor == '1') {
+		if($mainframe->getCfg('MetaAuthor') == '1') {
 			if($row->created_by_alias != "") {
 				$mainframe->addMetaTag('author',$row->created_by_alias);
 			} else {
@@ -1511,39 +1423,33 @@ class contentMeta
 		if($this->_params->get('robots') == 3) {
 			$mainframe->addMetaTag('robots','noindex, nofollow');
 		}	
-    }
+	}
 }
 
-class contentVoiting
-{
+class contentVoiting{
 
-    var $active = null;
+	var $active = null;
 
-    function contentVoiting($params)
-    {
-        if ($params->get('rating'))
-        {
-            $this->active = $params->get('rating');
-        }
-    }
+	function contentVoiting($params){
+		if ($params->get('rating')){
+			$this->active = $params->get('rating');
+		}
+	}
 
-    function _construct_sql()
-    {
+	function _construct_sql(){
 
-        $voting = ($this->active ? $this->active : mosMainFrame::getInstance()->getCfg('vote'));
+		$voting = ($this->active ? $this->active : mosMainFrame::getInstance()->getCfg('vote'));
 
-        if ($voting)
-        {
-            $select = ', ROUND( v.rating_sum / v.rating_count ) AS rating, v.rating_count';
-            $join = ' LEFT JOIN #__content_rating AS v ON a.id = v.content_id';
-        } else
-        {
-            $select = '';
-            $join = '';
-        }
-        $results = array('select' => $select, 'join' => $join);
-        return $results;
-    }
+		if ($voting){
+			$select = ', ROUND( v.rating_sum / v.rating_count ) AS rating, v.rating_count';
+			$join = ' LEFT JOIN #__content_rating AS v ON a.id = v.content_id';
+		} else{
+			$select = '';
+			$join = '';
+		}
+		$results = array('select' => $select, 'join' => $join);
+		return $results;
+	}
 }
 
 class contentHelper{
@@ -1552,1023 +1458,943 @@ class contentHelper{
 	}
 }
 
-class contentSqlHelper
-{
+class contentSqlHelper{
 
-    /*
-    * @param int 0 = Archives, 1 = Section, 2 = Category
-    */
-    function construct_where_blog($type = 1, $obj = null, $access, $params = null)
-    {
-        $database = &database::getInstance();
-		global $mosConfig_disable_date_state, $mosConfig_disable_access_control, $my;
+	/*
+	* @param int 0 = Archives, 1 = Section, 2 = Category
+	*/
+	function construct_where_blog($type = 1, $obj = null, $access, $params = null){
+		global $my;
 
+		$database = &database::getInstance();
+		$config = &Jconfig::getInstance();
 
-        $id = 0;
-        if ($obj && isset($obj->id))
-        {
-            $id = $obj->id;
-        }
+		$id = 0;
+		if ($obj && isset($obj->id)){
+			$id = $obj->id;
+		}
 
-        $gid = $my->gid;
-        $noauth = !mosMainFrame::getInstance()->getCfg('shownoauth');
-        $nullDate = $database->getNullDate();
-        $now = _CURRENT_SERVER_TIME;
-        $where = array();
-        $unpublished = 0;
+		$gid = $my->gid;
+		$noauth = !$config->config_shownoauth;
+		$nullDate = $database->getNullDate();
+		$now = _CURRENT_SERVER_TIME;
+		$where = array();
+		$unpublished = 0;
 
-        if (isset($params))
-        {
-            // param controls whether unpublished items visible to publishers and above
-            $unpublished = $params->def('unpublished', 0);
-        }
+		if (isset($params)){
+			// param controls whether unpublished items visible to publishers and above
+			$unpublished = $params->def('unpublished', 0);
+		}
 
-        // normal
-        if ($type > 0)
-        {
-            if (isset($params) && $unpublished)
-            {
-                // shows unpublished items for publishers and above
-                if ($access->canEdit)
-                {
-                    $where[] = "a.state >= 0";
-                } else
-                {
-                    $where[] = "a.state = 1";
-                    if (!$mosConfig_disable_date_state)
-                    {
-                        $where[] = "( a.publish_up = " . $database->Quote($nullDate) . " OR a.publish_up <= " . $database->Quote($now) . " )";
-                        $where[] = "( a.publish_down = " . $database->Quote($nullDate) . " OR a.publish_down >= " . $database->Quote($now) . " )";
-                    }
-                }
-            } else
-            {
-                // unpublished items NOT shown for publishers and above
-                $where[] = "a.state = 1";
-                if (!$mosConfig_disable_date_state)
-                {
-                    $where[] = "( a.publish_up = " . $database->Quote($nullDate) . " OR a.publish_up <= " . $database->Quote($now) . " )";
-                    $where[] = "( a.publish_down = " . $database->Quote($nullDate) . " OR a.publish_down >= " . $database->Quote($now) . " )";
-                }
-            }
+		// normal
+		if ($type > 0){
+			if (isset($params) && $unpublished){
+				// shows unpublished items for publishers and above
+				if ($access->canEdit){
+					$where[] = "a.state >= 0";
+				} else{
+					$where[] = "a.state = 1";
+					if (!$config->config_disable_date_state){
+						$where[] = "( a.publish_up = " . $database->Quote($nullDate) . " OR a.publish_up <= " . $database->Quote($now) . " )";
+						$where[] = "( a.publish_down = " . $database->Quote($nullDate) . " OR a.publish_down >= " . $database->Quote($now) . " )";
+					}
+				}
+			} else{
+				// unpublished items NOT shown for publishers and above
+				$where[] = "a.state = 1";
+				if (!$config->config_disable_date_state){
+					$where[] = "( a.publish_up = " . $database->Quote($nullDate) . " OR a.publish_up <= " . $database->Quote($now) . " )";
+					$where[] = "( a.publish_down = " . $database->Quote($nullDate) . " OR a.publish_down >= " . $database->Quote($now) . " )";
+				}
+			}
 
-            // add query checks for category or section ids
-            if ($id > 0)
-            {
-                $ids = explode(',', $id);
-                mosArrayToInts($ids);
-                if ($type == 1)
-                {
-                    $where[] = '( a.sectionid=' . implode(' OR a.sectionid=', $ids) . ' )';
-                } else
-                    if ($type == 2)
-                    {
-                        $where[] = '( a.catid=' . implode(' OR a.catid=', $ids) . ' )';
-                    }
-            }
-        }
+			// add query checks for category or section ids
+			if ($id > 0){
+				$ids = explode(',', $id);
+				mosArrayToInts($ids);
+				if ($type == 1){
+					$where[] = '( a.sectionid=' . implode(' OR a.sectionid=', $ids) . ' )';
+				} elseif ($type == 2){
+					$where[] = '( a.catid=' . implode(' OR a.catid=', $ids) . ' )';
+				}
+			}
+		}
 
-        // archive
-        if ($type < 0)
-        {
-            $where[] = "a.state = -1";
-            if ($params->get('year'))
-            {
-                $where[] = "YEAR( a.created ) = " . $database->Quote($params->get('year'));
-            }
-            if ($params->get('month'))
-            {
-                $where[] = "MONTH( a.created ) = " . $database->Quote($params->get('month'));
-            }
-            if ($id > 0)
-            {
-                if ($type == -1)
-                {
-                    $where[] = "a.sectionid = " . (int)$id;
-                } else
-                    if ($type == -2 && !$params->get('module'))
-                    {
-                        $where[] = "a.catid = " . (int)$id;
-                    }
-            }
-        }
+		// archive
+		if ($type < 0){
+			$where[] = "a.state = -1";
+			if ($params->get('year')){
+				$where[] = "YEAR( a.created ) = " . $database->Quote($params->get('year'));
+			}
+			if ($params->get('month')){
+				$where[] = "MONTH( a.created ) = " . $database->Quote($params->get('month'));
+			}
+			if ($id > 0){
+				if ($type == -1){
+					$where[] = "a.sectionid = " . (int)$id;
+				} elseif ($type == -2 && !$params->get('module')){
+					$where[] = "a.catid = " . (int)$id;
+				}
+			}
+		}
 
-        $where[] = "s.published = 1";
-        $where[] = "cc.published = 1";
-        /* если сессии на фронте отключены - то значит авторизация не возможна, и проверять доступ по авторизации бесполезно*/
-        if ($noauth and !$mosConfig_disable_access_control)
-        {
-            $where[] = "a.access <= " . (int)$gid;
-            $where[] = "s.access <= " . (int)$gid;
-            $where[] = "cc.access <= " . (int)$gid;
-        }
+		$where[] = "s.published = 1";
+		$where[] = "cc.published = 1";
+		/* если сессии на фронте отключены - то значит авторизация не возможна, и проверять доступ по авторизации бесполезно*/
+		if ($noauth and !$config->config_disable_access_control){
+			$where[] = "a.access <= " . (int)$gid;
+			$where[] = "s.access <= " . (int)$gid;
+			$where[] = "cc.access <= " . (int)$gid;
+		}
 
-        return $where;
-    }
+		return $where;
+	}
 
-    function construct_where_table_category($category, $access, $params)
-    {
-        global $database, $mainframe, $my;
+	function construct_where_table_category($category, $access, $params){
+		global $my;
 
-        $gid = $my->gid;
-        $noauth = !$mainframe->getCfg('shownoauth');
-        $nullDate = $database->getNullDate();
-        $now = _CURRENT_SERVER_TIME;
+		$mainframe = &mosMainFrame::getInstance();
+		$database = &database::getInstance();
 
-        $xwhere = '';
+		$gid = $my->gid;
+		$noauth = !$mainframe->getCfg('shownoauth');
+		$nullDate = $database->getNullDate();
+		$now = _CURRENT_SERVER_TIME;
 
-        //where
-        if ($access->canEdit)
-        {
-            if ($params->get('unpublished'))
-            {
-                // shows unpublished items for publishers and above
-                $xwhere .= "\n AND a.state >= 0";
-            } else
-            {
-                // unpublished items NOT shown for publishers and above
-                $xwhere .= "\n AND a.state = 1";
-            }
-        } else
-        {
-            //$xwhere .= ' AND c.published = 1';
-            $xwhere .= "\n AND a.state = 1" . "\n AND ( publish_up = " . $database->Quote($nullDate) . " OR publish_up <= " . $database->
-                Quote($now) . " )" . "\n AND ( publish_down = " . $database->Quote($nullDate) . " OR publish_down >= " . $database->Quote($now) .
-                " )";
-        }
+		$xwhere = '';
 
-        if ($noauth)
-        {
-            $xwhere .= ' AND a.access <=' . (int)$gid;
-        }
+		//where
+		if ($access->canEdit){
+			if ($params->get('unpublished')){
+				// shows unpublished items for publishers and above
+				$xwhere .= "\n AND a.state >= 0";
+			} else {
+				// unpublished items NOT shown for publishers and above
+				$xwhere .= "\n AND a.state = 1";
+			}
+		}else{
+			//$xwhere .= ' AND c.published = 1';
+			$xwhere .= " AND a.state = 1"
+				." AND ( publish_up = " . $database->Quote($nullDate)
+				." OR publish_up <= " . $database->Quote($now)." )"
+				." AND ( publish_down = " . $database->Quote($nullDate)
+				." OR publish_down >= " . $database->Quote($now)." )";
+		}
 
-        return $xwhere;
+		if ($noauth){
+			$xwhere .= ' AND a.access <=' . (int)$gid;
+		}
 
-    }
+		return $xwhere;
 
-    function construct_filter_table_category($category, $access, $params)
-    {
-        global $database;
+	}
 
-        // filter functionality
-        $and = null;
-        if ($params->get('filter'))
-        {
-            if ($params->get('cur_filter'))
-            {
-                // clean filter variable
-                $filter = strtolower($params->get('cur_filter'));
+	function construct_filter_table_category($category, $access, $params){
+		$database = &database::getInstance();
 
-                switch ($params->get('filter_type'))
-                {
-                    case 'title':
-                        $and = "\n AND LOWER( a.title ) LIKE '%" . $database->getEscaped($filter, true) . "%'";
-                        break;
+		// filter functionality
+		$and = null;
+		if ($params->get('filter')){
+			if ($params->get('cur_filter')){
+				// clean filter variable
+				$filter = strtolower($params->get('cur_filter'));
 
-                    case 'author':
-                        $and = "\n AND ( ( LOWER( u.name ) LIKE '%" . $database->getEscaped($filter, true) .
-                            "%' ) OR ( LOWER( a.created_by_alias ) LIKE '%" . $database->getEscaped($filter, true) . "%' ) )";
-                        break;
+				switch ($params->get('filter_type')){
+					case 'title':
+						$and = "\n AND LOWER( a.title ) LIKE '%" . $database->getEscaped($filter, true) . "%'";
+						break;
 
-                    case 'hits':
-                        $and = "\n AND a.hits LIKE '%" . $database->getEscaped($filter, true) . "%'";
-                        break;
-                }
-            }
-        }
+					case 'author':
+						$and = "\n AND ( ( LOWER( u.name ) LIKE '%" . $database->getEscaped($filter, true) ."%' ) OR ( LOWER( a.created_by_alias ) LIKE '%" . $database->getEscaped($filter, true) . "%' ) )";
+						break;
 
-        return $and;
-    }
+					case 'hits':
+						$and = "\n AND a.hits LIKE '%" . $database->getEscaped($filter, true) . "%'";
+						break;
+				}
+			}
+		}
 
-    function construct_where_other_cats($category, $access, $params)
-    {
-        global $database, $mainframe, $my;
+		return $and;
+	}
 
-        $gid = $my->gid;
-        $noauth = !$mainframe->getCfg('shownoauth');
-        $nullDate = $database->getNullDate();
-        $now = _CURRENT_SERVER_TIME;
-        $xwhere2 = '';
+	function construct_where_other_cats($category, $access, $params){
+		global $my;
 
-        if ($access->canEdit)
-        {
-            if ($params->get('unpublished'))
-            {
-                // shows unpublished items for publishers and above
-                $xwhere2 = "\n AND a.state >= 0";
-            } else
-            {
-                // unpublished items NOT shown for publishers and above
-                $xwhere2 = "\n AND a.state = 1";
-            }
-        } else
-        {
+		$mainframe = &mosMainFrame::getInstance();
+		$database = &database::getInstance();
 
-            $xwhere2 = "\n AND a.state = 1" . "\n AND ( a.publish_up = " . $database->Quote($nullDate) . " OR a.publish_up <= " . $database->
-                Quote($now) . " )" . "\n AND ( a.publish_down = " . $database->Quote($nullDate) . " OR a.publish_down >= " . $database->Quote($now) .
-                " )";
-        }
+		$gid = $my->gid;
+		$noauth = !$mainframe->getCfg('shownoauth');
+		$nullDate = $database->getNullDate();
+		$now = _CURRENT_SERVER_TIME;
+		$xwhere2 = '';
 
-        if ($noauth)
-        {
-            $xwhere2 .= " AND a.access <= " . (int)$gid;
-        }
+		if ($access->canEdit){
+			if ($params->get('unpublished')){
+				// shows unpublished items for publishers and above
+				$xwhere2 = "\n AND a.state >= 0";
+			} else{
+				// unpublished items NOT shown for publishers and above
+				$xwhere2 = "\n AND a.state = 1";
+			}
+		} else{
+			$xwhere2 = "\n AND a.state = 1"
+				." AND ( a.publish_up = " . $database->Quote($nullDate)
+				." OR a.publish_up <= " . $database->Quote($now) . " )"
+				." AND ( a.publish_down = " . $database->Quote($nullDate)
+				." OR a.publish_down >= " . $database->Quote($now) ." )";
+		}
 
-        return $xwhere2;
-    }
+		if ($noauth){
+			$xwhere2 .= " AND a.access <= " . (int)$gid;
+		}
 
-    function _orderby_pri($orderby)
-    {
-        switch ($orderby)
-        {
-            case 'alpha':
-                $orderby = 'cc.title, ';
-                break;
+		return $xwhere2;
+	}
 
-            case 'ralpha':
-                $orderby = 'cc.title DESC, ';
-                break;
+	function _orderby_pri($orderby){
+		switch ($orderby){
+			case 'alpha':
+				$orderby = 'cc.title, ';
+				break;
 
-            case 'order':
-                $orderby = 'cc.ordering, ';
-                break;
+			case 'ralpha':
+				$orderby = 'cc.title DESC, ';
+				break;
 
-            default:
-                $orderby = '';
-                break;
-        }
+			case 'order':
+				$orderby = 'cc.ordering, ';
+				break;
 
-        return $orderby;
-    }
+			default:
+				$orderby = '';
+				break;
+		}
+
+		return $orderby;
+	}
 
 
-    function _orderby_sec($orderby)
-    {
-        switch ($orderby)
-        {
-            case 'date':
-                $orderby = 'a.created';
-                break;
+	function _orderby_sec($orderby){
+		switch ($orderby){
+			case 'date':
+				$orderby = 'a.created';
+				break;
 
-            case 'rdate':
-                $orderby = 'a.created DESC';
-                break;
+			case 'rdate':
+				$orderby = 'a.created DESC';
+				break;
 
-            case 'alpha':
-                $orderby = 'a.title';
-                break;
+			case 'alpha':
+				$orderby = 'a.title';
+				break;
 
-            case 'ralpha':
-                $orderby = 'a.title DESC';
-                break;
+			case 'ralpha':
+				$orderby = 'a.title DESC';
+				break;
 
-            case 'hits':
-                $orderby = 'a.hits';
-                break;
+			case 'hits':
+				$orderby = 'a.hits';
+				break;
 
-            case 'rhits':
-                $orderby = 'a.hits DESC';
-                break;
+			case 'rhits':
+				$orderby = 'a.hits DESC';
+				break;
 
-            case 'order':
-                $orderby = 'a.ordering';
-                break;
+			case 'order':
+				$orderby = 'a.ordering';
+				break;
 
-            case 'author':
-                $orderby = 'a.created_by_alias, u.name';
-                break;
+			case 'author':
+				$orderby = 'a.created_by_alias, u.name';
+				break;
 
-            case 'rauthor':
-                $orderby = 'a.created_by_alias DESC, u.name DESC';
-                break;
+			case 'rauthor':
+				$orderby = 'a.created_by_alias DESC, u.name DESC';
+				break;
 
-            case 'section':
-                $orderby = 's.name, c.name, a.created DESC';
-                break;
+			case 'section':
+				$orderby = 's.name, c.name, a.created DESC';
+				break;
 
-            case 'rsection':
-                $orderby = 's.name DESC, c.name DESC, a.created DESC';
-                break;
+			case 'rsection':
+				$orderby = 's.name DESC, c.name DESC, a.created DESC';
+				break;
 
-            case 'front':
-                $orderby = 'f.ordering';
-                break;
+			case 'front':
+				$orderby = 'f.ordering';
+				break;
 
-            default:
-                $orderby = 'a.ordering';
-                break;
-        }
+			default:
+				$orderby = 'a.ordering';
+				break;
+		}
 
-        return $orderby;
-    }
+		return $orderby;
+	}
 }
 
-class ContentTemplate
-{
+class ContentTemplate{
 
-    var $page_type = null;
-    var $template_dir = null;
-    var $template_file = null;
+	var $page_type = null;
+	var $template_dir = null;
+	var $template_file = null;
 
-    function get_template_dir($page_type)
-    {
+	function get_template_dir($page_type){
 
-        $dir = str_replace('_', '/', $page_type);
+		$dir = str_replace('_', '/', $page_type);
 
-        /*            switch($page_type){
-        case 'blog_section':
-        $dir = 'section/blog';
-        break;
+		/*			switch($page_type){
+		case 'blog_section':
+		$dir = 'section/blog';
+		break;
 
-        case 'groupcats_section':
-        $dir = 'section/groupcats';
-        break;
+		case 'groupcats_section':
+		$dir = 'section/groupcats';
+		break;
 
-        case 'table_cats_section':
-        $dir = 'section/table_cats';
-        break;
+		case 'table_cats_section':
+		$dir = 'section/table_cats';
+		break;
 
-        case 'table_items_section':
-        $dir = 'section/table_items';
-        break;
+		case 'table_items_section':
+		$dir = 'section/table_items';
+		break;
 
-        case 'blog_category':
-        $dir = 'category/blog';
-        break;
+		case 'blog_category':
+		$dir = 'category/blog';
+		break;
 
-        case 'table_category':
-        $dir = 'category/table';
-        break;
+		case 'table_category':
+		$dir = 'category/table';
+		break;
 
-        case 'archive':
-        $dir = 'archive';
-        break;
+		case 'archive':
+		$dir = 'archive';
+		break;
 
-        case 'item':
-        $dir = 'item/full_view';
-        break;
+		case 'item':
+		$dir = 'item/full_view';
+		break;
 
-        case 'item_static':
-        $dir = 'item/static_content';
-        break;
+		case 'item_static':
+		$dir = 'item/static_content';
+		break;
 
-        case 'item_editform':
-        $dir = 'item/edit_form';
-        break;
+		case 'item_editform':
+		$dir = 'item/edit_form';
+		break;
 
-        default:
-        $dir = null;
-        break;
+		default:
+		$dir = null;
+		break;
 
-        }*/
-        return $dir;
-    }
+		}*/
+		return $dir;
+	}
 
-    function set_template($page_type, $templates = null)
-    {
-        $this->page_type = $page_type;
+	function set_template($page_type, $templates = null){
 
-        $this->template_dir = self::get_system_path($this->page_type);
-        $this->template_file = Jconfig::getInstance()->config_absolute_path . '/' . $this->template_dir . '/default.php';
+		$absolute_path = Jconfig::getInstance()->config_absolute_path;
 
-        if ($templates)
-        {
-            $tpl_arr = self::parse_curr_templates($templates);
-            $template_file = $tpl_arr[$page_type];
+		$this->page_type = $page_type;
+		$this->template_dir = self::get_system_path($this->page_type);
+		$this->template_file = $absolute_path . DS . $this->template_dir .DS. 'default.php';
 
-            if (isset($template_file))
-            {
-                $template_pref = substr($template_file, 0, 3);
-                $template_file = str_replace($template_pref, '', $template_file);
+		if ($templates){
+			$tpl_arr = self::parse_curr_templates($templates);
+			$template_file = $tpl_arr[$page_type];
 
-                switch ($template_pref)
-                {
-                    case '[t]':
-                        $this->template_dir = self::get_currtemplate_path($page_type);
-                        break;
+			if (isset($template_file)){
+				$template_pref = substr($template_file, 0, 3);
+				$template_file = str_replace($template_pref, '', $template_file);
 
-                    default:
-                        break;
-                }
-                if (is_file(Jconfig::getInstance()->config_absolute_path . '/' . $this->template_dir . '/' . $template_file))
-                {
-                    $this->template_file = Jconfig::getInstance()->config_absolute_path . '/' . $this->template_dir . '/' . $template_file;
-                }
+				switch ($template_pref){
+					case '[t]':
+						$this->template_dir = self::get_currtemplate_path($page_type);
+						break;
 
-            }
-        }
-
-    }
+					default:
+						break;
+				}
+				if (is_file($absolute_path . DS . $this->template_dir . DS . $template_file)){
+					$this->template_file = $absolute_path . DS . $this->template_dir . DS . $template_file;
+				}
+			}
+		}
+	}
 
 
-    function get_system_path($page_type)
-    {
-        $template_dir = self::get_template_dir($page_type);
-        $system_path = 'components/com_content/view/' . $template_dir;
-        return $system_path;
-    }
+	function get_system_path($page_type){
+		$template_dir = self::get_template_dir($page_type);
+		$system_path = 'components'.DS.'com_content'.DS.'view'.DS.$template_dir;
+		return $system_path;
+	}
 
-    function get_currtemplate_path($page_type)
-    {
-        $mainframe = new mosMainFrame(null, null, null, false);
+	function get_currtemplate_path($page_type){
+		$mainframe = new mosMainFrame(null, null, null, false);
 
-        $template_dir = self::get_template_dir($page_type);
-        $currtemplate_path = 'templates/' . $mainframe->getTemplate() . '/html/com_content/' . $template_dir;
-        return $currtemplate_path;
-    }
+		$template_dir = self::get_template_dir($page_type);
+		$currtemplate_path = 'templates'.DS.$mainframe->getTemplate().DS.'html'.DS.'com_content'.DS.$template_dir;
+		return $currtemplate_path;
+	}
 
-    function templates_select_list($page_type, $curr_value_arr = null)
-    {
-        $curr_value = null;
+	function templates_select_list($page_type, $curr_value_arr = null){
+		$curr_value = null;
 
-        $system_path = self::get_system_path($page_type);
-        $currtemplate_path = self::get_currtemplate_path($page_type);
+		$system_path = self::get_system_path($page_type);
+		$currtemplate_path = self::get_currtemplate_path($page_type);
+		$absolute_path = Jconfig::getInstance()->config_absolute_path;
 
-        $files_system = mosReadDirectory(Jconfig::getInstance()->config_absolute_path . '/' . $system_path, '\.php$');
-        $files_from_currtemplate = mosReadDirectory(Jconfig::getInstance()->config_absolute_path . '/' . $currtemplate_path, '\.php$');
+		$files_system = mosReadDirectory($absolute_path . DS . $system_path, '\.php$');
+		$files_from_currtemplate = mosReadDirectory($absolute_path. DS . $currtemplate_path, '\.php$');
 
-        $options = array();
-        $options[] = mosHTML::makeOption('0', 'По умолчанию');
-        foreach ($files_system as $file)
-        {
-            $options[] = mosHTML::makeOption('[s]' . $file, '[s]' . $file);
-        }
-        foreach ($files_from_currtemplate as $file)
-        {
-            $options[] = mosHTML::makeOption('[t]' . $file, '[t]' . $file);
-        }
-        //return $options;
+		$options = array();
+		$options[] = mosHTML::makeOption('0', _DEFAULT);
+		foreach ($files_system as $file){
+			$options[] = mosHTML::makeOption('[s]' . $file, '[s]' . $file);
+		}
+		foreach ($files_from_currtemplate as $file){
+			$options[] = mosHTML::makeOption('[t]' . $file, '[t]' . $file);
+		}
+		//return $options;
 
-        if ($curr_value_arr && isset($curr_value_arr[$page_type]))
-        {
-            $curr_value = $curr_value_arr[$page_type];
-        }
-        return mosHTML::selectList($options, 'templates[' . $page_type . ']', 'class="inputbox"', 'value', 'text', $curr_value);
+		if ($curr_value_arr && isset($curr_value_arr[$page_type])){
+			$curr_value = $curr_value_arr[$page_type];
+		}
+		return mosHTML::selectList($options, 'templates[' . $page_type . ']', 'class="inputbox"', 'value', 'text', $curr_value);
 
-    }
+	}
 
-    function prepare_for_save($templates)
-    {
-        $txt = array();
-        foreach ($templates as $k => $v)
-        {
-            if ($v)
-            {
-                $txt[] = "$k=$v";
-            }
-        }
-        return implode('|', $txt);
-    }
+	function prepare_for_save($templates){
+		$txt = array();
+		foreach ($templates as $k => $v){
+			if ($v)
+			{
+				$txt[] = "$k=$v";
+			}
+		}
+		return implode('|', $txt);
+	}
 
-    function parse_curr_templates($templates)
-    {
-        if ($templates)
-        {
-            $tpls = array();
-            $tpls = explode('|', $templates);
+	function parse_curr_templates($templates){
+		if ($templates){
+			$tpls = array();
+			$tpls = explode('|', $templates);
 
-            $return = array();
+			$return = array();
 
-            foreach ($tpls as $tpl)
-            {
-                $arr = explode('=', $tpl);
-                $key = $arr[0];
-                $value = $arr[1];
-                $return[$key] = $value;
-            }
-            return $return;
-        }
-        return null;
-    }
+			foreach ($tpls as $tpl){
+				$arr = explode('=', $tpl);
+				$key = $arr[0];
+				$value = $arr[1];
+				$return[$key] = $value;
+			}
+			return $return;
+		}
+		return null;
+	}
 
-    function isset_settings($page_type, $templates)
-    {
-        if ($page_type && $templates)
-        {
-            $templates = self::parse_curr_templates($templates);
-            if (isset($templates[$page_type]))
-            {
-                return true;
-            }
-        }
+	function isset_settings($page_type, $templates){
+		if ($page_type && $templates)
+		{
+			$templates = self::parse_curr_templates($templates);
+			if (isset($templates[$page_type])){
+				return true;
+			}
+		}
 
-        return false;
-    }
+		return false;
+	}
 
 }
 
 
-class contentAccess
-{
+class contentAccess{
 
-    var $canView = null;
-    var $canCreate = null;
-    var $canEditOwn = null;
-    var $canEdit = null;
-    var $canPublish = null;
+	var $canView = null;
+	var $canCreate = null;
+	var $canEditOwn = null;
+	var $canEdit = null;
+	var $canPublish = null;
 
-    function contentAccess()
-    {
-        global $acl, $my;
+	function contentAccess(){
+		global $my;
 
-        $this->canEdit = $acl->acl_check('action', 'edit', 'users', $my->usertype, 'content', 'all');
-        $this->canEditOwn = $acl->acl_check('action', 'edit', 'users', $my->usertype, 'content', 'own');
-        $this->canPublish = $acl->acl_check('action', 'publish', 'users', $my->usertype, 'content', 'all');
-    }
+		$acl = &gacl::getInstance();
 
-    function set($group, $value)
-    {
-        $this->$group = $value;
-    }
+		$this->canEdit = $acl->acl_check('action', 'edit', 'users', $my->usertype, 'content', 'all');
+		$this->canEditOwn = $acl->acl_check('action', 'edit', 'users', $my->usertype, 'content', 'own');
+		$this->canPublish = $acl->acl_check('action', 'publish', 'users', $my->usertype, 'content', 'all');
+	}
+
+	function set($group, $value){
+		$this->$group = $value;
+	}
 
 }
 
-class contentPageConfig
-{
+class contentPageConfig{
 	
-    /**
-     * contentPageConfig::setup_full_item_page()
-     * 
-     * Установка дефолтных параметров для вывода страницы полного текста записи
-     * xml-файл для генерации формы установки параметров: administrator/components/com_content/content.xml
-     * 
-     * @return object $params
-     */
-    function setup_full_item_page($row, $params)
-    {
-        global $mainframe, $database;
+	/**
+	 * contentPageConfig::setup_full_item_page()
+	 *
+	 * Установка дефолтных параметров для вывода страницы полного текста записи
+	 * xml-файл для генерации формы установки параметров: administrator/components/com_content/content.xml
+	 *
+	 * @return object $params
+	 */
+	function setup_full_item_page($row, $params){
+		global $mainframe, $database;
 
-                
 
-        if ($row->sectionid == 0)
-        {
-            $params->set('item_navigation', 0);
-        } else
-        {
-            $params->set('item_navigation', $mainframe->getCfg('item_navigation'));
-        }
 
-        $params->section_data = null;
-        $params->category_data = null;
-        if (!$row->sectionid)
-        {
-            $params->page_type = 'item_static';
-        } 
-		else
-        {
-            $section = new mosSection($database);
-            $section->load((int)$row->sectionid);
-            $category = new mosCategory($database);
-            $category->load((int)$row->catid);
+		if ($row->sectionid == 0){
+			$params->set('item_navigation', 0);
+		} else{
+			$params->set('item_navigation', $mainframe->getCfg('item_navigation'));
+		}
 
-            $params->page_type = 'item_full';
-            $params->section_data = $section;
-            $params->category_data = $category;
-        }
-        
-        $params->set('intro_only', 0);       
+		$params->section_data = null;
+		$params->category_data = null;
+		if (!$row->sectionid){
+			$params->page_type = 'item_static';
+		}else{
+			$section = new mosSection($database);
+			$section->load((int)$row->sectionid);
+			$category = new mosCategory($database);
+			$category->load((int)$row->catid);
 
-        //Название страницы, отображаемое в заголовке браузера (тег title): string
-        $params->def('page_name', '');
-        //Показать/скрыть название сайта в title страницы (заголовке браузера): bool
-        $params->def('no_site_name', 0);
-        //Суффикс CSS-класса страницы
-        $params->def('pageclass_sfx', '');
-        //Уникальный идентификатор CSS стиля используемый для оформления только этого материала. Полный идентификатор будет '#pageclass_uid_{введённое значение}'
-        $params->def('pageclass_uids', '');
-        //Преимущества. Использовать введённый идентификатор, даже если активированы автоматические уникальные идентификаторы стилей новостей
-        $params->def('pageclass_uids_full', 1);
-        //Показать/Скрыть кнопку Назад (Вернуться), возвращающую на предыдущую просмотренную страницу
-        $params->def('back_button', $mainframe->getCfg('back_button'));
-        //Показать/Спрятать заголовок объекта
-        $params->def('item_title', '');        
-        //Сделать заголовок объекта в виде ссылки на него
-        $params->def('link_titles', $mainframe->getCfg('link_titles'));
-        //Показать/Спрятать вводный текст
-        $params->def('introtext', 1);        
-        //Показать/Спрятать название раздела, к которому относится объект
-        $params->def('section', 1);
-        //Сделать названия разделов ссылками
-        $params->def('section_link', 1);
-        //Показать/Спрятать название категории, к которой относится объект
-        $params->def('category', 1);
-        //Сделать названия категорий ссылками
-        $params->def('category_link', 1);
-        //Показать/Спрятать рейтинг
-        $params->def('rating', $mainframe->getCfg('vote'));
-        //Показать/Спрятать имя автора
-        $params->def('author', $mainframe->getCfg('showAuthor'));
-        //Показать/Спрятать дату создания
-        $params->def('createdate', $mainframe->getCfg('showCreateDate'));
-        //Показать/Спрятать дату изменения
-        $params->def('modifydate', $mainframe->getCfg('showModifyDate'));
-        //Показать/Скрыть кнопку печати
-        $params->def('print', $mainframe->getCfg('showPrint'));
-        //Показать/Спрятать кнопку e-mail
-        $params->def('email', $mainframe->getCfg('showEmail'));
-        //Отображать ссылки "Печать" и "Email" иконками
-        $params->def('icons', $mainframe->getCfg('icons'));
-        //Ключевая ссылка. Текст ключа, по которому можно ссылаться на этот объект (например, в системе справки)
-        $params->def('keyref', '');        
-        $params->set('page_name', $row->title);
-        
-        //echo $params->get('category');
+			$params->page_type = 'item_full';
+			$params->section_data = $section;
+			$params->category_data = $category;
+		}
 
-        return $params;
-    }
-    
-    /**
-     * contentPageConfig::setup_blog_section_page()
-     * 
-     * Установка дефолтных параметров для вывода страницы блога раздела
-     * xml-файл для генерации формы установки параметров: 
-	 * administrator/components/com_menus/content_blog_section/content_blog_section.xml
-     * 
-     * @return object $params
-     */
+		$params->set('intro_only', 0);
 
-    function setup_blog_section_page($id)
-    {
-        global $mainframe, $Itemid, $database;
+		//Название страницы, отображаемое в заголовке браузера (тег title): string
+		$params->def('page_name', '');
+		//Показать/скрыть название сайта в title страницы (заголовке браузера): bool
+		$params->def('no_site_name', 0);
+		//Суффикс CSS-класса страницы
+		$params->def('pageclass_sfx', '');
+		//Уникальный идентификатор CSS стиля используемый для оформления только этого материала. Полный идентификатор будет '#pageclass_uid_{введённое значение}'
+		$params->def('pageclass_uids', '');
+		//Преимущества. Использовать введённый идентификатор, даже если активированы автоматические уникальные идентификаторы стилей новостей
+		$params->def('pageclass_uids_full', 1);
+		//Показать/Скрыть кнопку Назад (Вернуться), возвращающую на предыдущую просмотренную страницу
+		$params->def('back_button', $mainframe->getCfg('back_button'));
+		//Показать/Спрятать заголовок объекта
+		$params->def('item_title', '');
+		//Сделать заголовок объекта в виде ссылки на него
+		$params->def('link_titles', $mainframe->getCfg('link_titles'));
+		//Показать/Спрятать вводный текст
+		$params->def('introtext', 1);
+		//Показать/Спрятать название раздела, к которому относится объект
+		$params->def('section', 1);
+		//Сделать названия разделов ссылками
+		$params->def('section_link', 1);
+		//Показать/Спрятать название категории, к которой относится объект
+		$params->def('category', 1);
+		//Сделать названия категорий ссылками
+		$params->def('category_link', 1);
+		//Показать/Спрятать рейтинг
+		$params->def('rating', $mainframe->getCfg('vote'));
+		//Показать/Спрятать имя автора
+		$params->def('author', $mainframe->getCfg('showAuthor'));
+		//Показать/Спрятать дату создания
+		$params->def('createdate', $mainframe->getCfg('showCreateDate'));
+		//Показать/Спрятать дату изменения
+		$params->def('modifydate', $mainframe->getCfg('showModifyDate'));
+		//Показать/Скрыть кнопку печати
+		$params->def('print', $mainframe->getCfg('showPrint'));
+		//Показать/Спрятать кнопку e-mail
+		$params->def('email', $mainframe->getCfg('showEmail'));
+		//Отображать ссылки "Печать" и "Email" иконками
+		$params->def('icons', $mainframe->getCfg('icons'));
+		//Ключевая ссылка. Текст ключа, по которому можно ссылаться на этот объект (например, в системе справки)
+		$params->def('keyref', '');
+		$params->set('page_name', $row->title);
 
-        //Отучаем com_content брать параметры из первого попавшегося пункта меню
-        //Мысль - если пункт меню для текущего раздела не создан,
-        // значит, - так надо, и нет необходимости приписывать разделу ненужные ему параметры ))
-        //есть параметры по умолчанию - вот их и будем использовать
-        $menu = $mainframe->get('menu');
+		//echo $params->get('category');
 
-        if ($menu && strpos($menu->link, 'task=blogsection&id=' . $id) !== false)
-        {
-            $params = new mosParameters($menu->params);
-        } 
-		else
-        {
-            $menu = '';
-            //$params = new mosParameters('');
-            $params = new configContent_sectionblog($database);
-        }
-
-        $params->menu = $menu;
-
-        if (!$id)
-        {
-            $id = $params->def('sectionid', 0);
-        }              
-        
-
-        if ($params->get('page_title', 1) && $menu)
-        {
-            $header = $params->def('header', $menu->name);
-        }
-
-        return $params;
-
-    }
-
-    /**
-     * contentPageConfig::setup_blog_category_page()
-     * 
-     * Установка дефолтных параметров для вывода страницы блога категории
-     * xml-файл для генерации формы установки параметров: 
-	 * administrator/components/com_menus/content_blog_category/content_blog_category.xml
-     * 
-     * @return object $params
-     */
-    function setup_blog_category_page($id)
-    {
-        global $mainframe, $Itemid, $database;
-
-        $menu = $mainframe->get('menu');
-
-        if ($menu && strpos($menu->link, 'task=blogcategory&id=' . $id) !== false)
-        {
-            $params = new mosParameters($menu->params);
-        } else
-        {
-            $menu = '';
-            $params = new configContent_categoryblog($database);
-        }
-
-        $params->menu = $menu;
-
-        if (!$id)
-        {
-            $id = $params->def('categoryid', 0);
-        }
-
-        if ($params->get('page_title', 1) && $menu)
-        {
-            $header = $params->def('header', $menu->name);
-        }
-
-        return $params;
-
-    }
-    
-    /**
-     * contentPageConfig::setup_blog_archive_section_page()
-     * 
-     * Установка дефолтных параметров для вывода страницы архива раздела
-     * xml-файл для генерации формы установки параметров: 
-	 * administrator/components/com_menus/content_archive_section/content_archive_section.xml
-     * 
-     * @return object $params
-     */
-    
-    function setup_blog_archive_section_page($id)
-    {
-        global $mainframe, $Itemid, $database;
-
-        $menu = $mainframe->get('menu');
-
-        if ($menu && strpos($menu->link, 'task=archivesection&id=' . $id) !== false)
-        {
-            $params = new mosParameters($menu->params);
-        } else
-        {
-            $menu = '';
-            $params = new configContent_sectionarchive($database);
-        }
-
-        $params->menu = $menu;
-
-        if (!$id)
-        {
-            $id = $params->def('sectionid', 0);
-        }
-        $params->def('pop', 0);
-        if ($params->get('page_title', 1) && $menu)
-        {
-            $header = $params->def('header', $menu->name);
-        }
-
-        return $params;
-
-    }
-    
-    /**
-     * contentPageConfig::setup_blog_archive_category_page()
-     * 
-     * Установка дефолтных параметров для вывода страницы архива категории
-     * xml-файл для генерации формы установки параметров: 
-	 * administrator/components/com_menus/content_archive_category/content_archive_category.xml
-     * 
-     * @return object $params
-     */
-    function setup_blog_archive_category_page($id)
-    {
-        global $mainframe, $Itemid, $database;
-
-        $menu = $mainframe->get('menu');
-
-        if ($menu && strpos($menu->link, 'task=archivecategory&id=' . $id) !== false)
-        {
-            $params = new mosParameters($menu->params);
-        } else
-        {
-            $menu = '';
-            $params = new configContent_categoryarchive($database);
-        }
-
-        $params->menu = $menu;
-
-        $params->def('pop', 0);
-        
-        if ($params->get('page_title', 1) && $menu)
-        {
-            $header = $params->def('header', $menu->name);
-        }
-
-        return $params;
-
-    }
-
-    /**
-     * contentPageConfig::setup_table_category_page()
-     * 
-     * Установка дефолтных параметров для вывода страницы с таблицей материалов категории
-     * xml-файл для генерации формы установки параметров: 
-	 * administrator/components/com_menus/content_category/content_category.xml
-     * 
-     * @return object $params
-     */
-    function setup_table_category_page($category)
-    {
-        global $mainframe, $Itemid, $mosConfig_list_limit, $database;
-
-        $menu = $mainframe->get('menu');
-
-        if (($menu && strpos($menu->link, 'task=category&sectionid=' . $category->section . '&id=' . $category->id) !== false) || (strpos($menu->link, 'task=section&amp;id=' . $category->section) !== false))
-        {
-            $params = new mosParameters($menu->params);
-        } 
-		
-		else
-        {
-            $menu = '';
-            $params = new configContent_categorytable($database);
-        }
-
-        $params->menu = $menu;
-        $params->set('type', 'category');
-
-        return $params;
-
-    }
-    
-    /**
-     * contentPageConfig::setup_section_catlist_page()
-     * 
-     * Установка дефолтных параметров для вывода страницы с перечнем категорий данного раздела
-     * xml-файл для генерации формы установки параметров: 
-	 * administrator/components/com_menus/content_section/content_section.xml
-     * 
-     * @return object $params
-     */
-    
-    function setup_section_catlist_page($section){
-    	global $mainframe, $Itemid, $database;
-    	
-    	$menu = $mainframe->get('menu');
-    	
-		if($menu && strpos($menu->link, 'task=section&id=' . $section->id) !== false)
-        {
-            $params = new mosParameters($menu->params);
-        } else
-        {
-            $menu = '';
-            $params = new configContent_sectionlist($database);
-        }
-
-        $params->menu = $menu;
-		$params->set('type','section');
-		
 		return $params;
-    }
+	}
 
-    /**
-     * contentPageConfig::setup_frontpage()
-     * 
-     * Установка дефолтных параметров для вывода страницы компонента "com_frontpage"
-     * xml-файл для генерации формы установки параметров: administrator/components/com_frontpage/frontpage.xml
-     * 
-     * @return object $params
-     */
-    function setup_frontpage()
-    {
-        global $mainframe, $Itemid;
-        
-        if(!isset($mainframe->menu->id)){
-        	$menu = $mainframe->get('menu');	
-        }
-        else{
-        	$menu = $mainframe->menu;
-        }
+	/**
+	 * contentPageConfig::setup_blog_section_page()
+	 *
+	 * Установка дефолтных параметров для вывода страницы блога раздела
+	 * xml-файл для генерации формы установки параметров:
+	 * administrator/components/com_menus/content_blog_section/content_blog_section.xml
+	 *
+	 * @return object $params
+	 */
 
-        
-        $params = new mosParameters($menu->params);
+	function setup_blog_section_page($id){
+		global $Itemid;
 
-        $params->menu = $menu;
+		$mainframe = &mosMainFrame::getInstance();
+		$database = &database::getInstance();
 
-        $params->def('title', '');
-        //Название страницы, отображаемое в заголовке браузера (тег title): string
-        $params->def('page_name', '');
-        //Показать/скрыть название сайта в title страницы (заголовке браузера): bool
-        $params->def('no_site_name', 0);
-        //Мета-тег robots, используемый на странице:
-        //int [-1,0,1,2,3]=['Не отображать', 'Index, follow', 'Index, NoFollow', 'NoIndex, Follow', 'NoIndex, NoFollow']
-        $params->def('robots', -1);
-        //META-тег: Description: string
-        $params->def('meta_description', '');
-        //ETA-тег keywords: string
-        $params->def('meta_keywords', '');
-        //META-тег author: string
-        $params->def('meta_author', '');
-        //Изображение меню
-        $params->def('menu_image', '');
-        //Суффикс CSS-класса страницы
-        $params->def('pageclass_sfx', '');
-        //Заголовок страницы (контентной области)
-        $params->def('header', '');
-        //Показать/Скрыть заголовок страницы
-        $params->def('page_title', '');
-        //Показать/Скрыть кнопку Назад (Вернуться), возвращающую на предыдущую просмотренную страницу
-        $params->def('back_button', 0);
-        //Количество главных объектов (на всю ширину). При 0 главные объекты отображаться не будут.
-        $params->def('leading', 1);
-        //Количество объектов, у которых показывается вступительный (intro) текст
-        $params->def('intro', 4);
-        //Сколько колонок в строке использовать при отображении вводного текста
-        $params->def('columns', 2);
-        //Количество объектов, отображаемых в виде ссыло
-        $params->def('link', 4);
-        //Сортировка объектов в категории
-        $params->def('orderby_pri', '');
-        //Порядок, в котором будут отображаться объекты
-        $params->def('orderby_sec', '');
-        //Показать/Скрыть постраничную навигацию
-        $params->def('pagination', 2);
-        //Показать/Скрыть информацию о результатах разбиения на страницы ( например, 1-4 из 4 )
-        $params->def('pagination_results', 1);
-        //Показывать {mosimages}
-        $params->def('image', 1);
-        //Показать/Скрыть названия разделов, к которым принадлежат объекты
-        $params->def('section', 0);
-        //Сделать названия разделов ссылками на страницу текущего раздела
-        $params->def('section_link', 0);
-        //Тип ссылки на раздел: 'blog' / 'list'
-        $params->def('section_link_type', 'blog');         
+		//Отучаем com_content брать параметры из первого попавшегося пункта меню
+		//Мысль - если пункт меню для текущего раздела не создан,
+		// значит, - так надо, и нет необходимости приписывать разделу ненужные ему параметры ))
+		//есть параметры по умолчанию - вот их и будем использовать
+		$menu = $mainframe->get('menu');
+
+		if ($menu && strpos($menu->link, 'task=blogsection&id=' . $id) !== false){
+			$params = new mosParameters($menu->params);
+		}else{
+			$menu = '';
+			//$params = new mosParameters('');
+			$params = new configContent_sectionblog($database);
+		}
+
+		$params->menu = $menu;
+
+		if (!$id){
+			$id = $params->def('sectionid', 0);
+		}
+
+
+		if ($params->get('page_title', 1) && $menu){
+			$header = $params->def('header', $menu->name);
+		}
+
+		return $params;
+
+	}
+
+	/**
+	 * contentPageConfig::setup_blog_category_page()
+	 *
+	 * Установка дефолтных параметров для вывода страницы блога категории
+	 * xml-файл для генерации формы установки параметров:
+	 * administrator/components/com_menus/content_blog_category/content_blog_category.xml
+	 *
+	 * @return object $params
+	 */
+	function setup_blog_category_page($id){
+		global $Itemid;
+
+		$mainframe = &mosMainFrame::getInstance();
+		$database = &database::getInstance();
+
+		$menu = $mainframe->get('menu');
+
+		if ($menu && strpos($menu->link, 'task=blogcategory&id=' . $id) !== false){
+			$params = new mosParameters($menu->params);
+		} else{
+			$menu = '';
+			$params = new configContent_categoryblog($database);
+		}
+
+		$params->menu = $menu;
+
+		if (!$id){
+			$id = $params->def('categoryid', 0);
+		}
+
+		if ($params->get('page_title', 1) && $menu){
+			$header = $params->def('header', $menu->name);
+		}
+
+		return $params;
+
+	}
+
+	/**
+	 * contentPageConfig::setup_blog_archive_section_page()
+	 *
+	 * Установка дефолтных параметров для вывода страницы архива раздела
+	 * xml-файл для генерации формы установки параметров:
+	 * administrator/components/com_menus/content_archive_section/content_archive_section.xml
+	 *
+	 * @return object $params
+	 */
+
+	function setup_blog_archive_section_page($id){
+		global $Itemid;
+
+		$mainframe = &mosMainFrame::getInstance();
+		$database = &database::getInstance();
+
+		$menu = $mainframe->get('menu');
+
+		if ($menu && strpos($menu->link, 'task=archivesection&id=' . $id) !== false){
+			$params = new mosParameters($menu->params);
+		} else{
+			$menu = '';
+			$params = new configContent_sectionarchive($database);
+		}
+
+		$params->menu = $menu;
+
+		if (!$id){
+			$id = $params->def('sectionid', 0);
+		}
+		$params->def('pop', 0);
+		if ($params->get('page_title', 1) && $menu){
+			$header = $params->def('header', $menu->name);
+		}
+
+		return $params;
+
+	}
+
+	/**
+	 * contentPageConfig::setup_blog_archive_category_page()
+	 *
+	 * Установка дефолтных параметров для вывода страницы архива категории
+	 * xml-файл для генерации формы установки параметров:
+	 * administrator/components/com_menus/content_archive_category/content_archive_category.xml
+	 *
+	 * @return object $params
+	 */
+	function setup_blog_archive_category_page($id){
+		global $Itemid;
+
+		$mainframe = &mosMainFrame::getInstance();
+		$database = &database::getInstance();
+
+		$menu = $mainframe->get('menu');
+
+		if ($menu && strpos($menu->link, 'task=archivecategory&id=' . $id) !== false){
+			$params = new mosParameters($menu->params);
+		} else{
+			$menu = '';
+			$params = new configContent_categoryarchive($database);
+		}
+
+		$params->menu = $menu;
+
+		$params->def('pop', 0);
+
+		if ($params->get('page_title', 1) && $menu){
+			$header = $params->def('header', $menu->name);
+		}
+
+		return $params;
+	}
+
+	/**
+	 * contentPageConfig::setup_table_category_page()
+	 *
+	 * Установка дефолтных параметров для вывода страницы с таблицей материалов категории
+	 * xml-файл для генерации формы установки параметров:
+	 * administrator/components/com_menus/content_category/content_category.xml
+	 *
+	 * @return object $params
+	 */
+	function setup_table_category_page($category){
+		global $Itemid;
+
+		$mainframe = &mosMainFrame::getInstance();
+
+		$menu = $mainframe->get('menu');
+
+		if (($menu && strpos($menu->link, 'task=category&sectionid=' . $category->section . '&id=' . $category->id) !== false) || (strpos($menu->link, 'task=section&amp;id=' . $category->section) !== false)){
+			$params = new mosParameters($menu->params);
+		}else{
+			$menu = '';
+			$params = new configContent_categorytable($database);
+		}
+
+		$params->menu = $menu;
+		$params->set('type', 'category');
+
+		return $params;
+
+	}
+
+	/**
+	 * contentPageConfig::setup_section_catlist_page()
+	 *
+	 * Установка дефолтных параметров для вывода страницы с перечнем категорий данного раздела
+	 * xml-файл для генерации формы установки параметров:
+	 * administrator/components/com_menus/content_section/content_section.xml
+	 *
+	 * @return object $params
+	 */
+
+	function setup_section_catlist_page($section){
+		global $Itemid;
+
+		$mainframe = &mosMainFrame::getInstance();
+		$menu = $mainframe->get('menu');
+
+		if($menu && strpos($menu->link, 'task=section&id=' . $section->id) !== false){
+			$params = new mosParameters($menu->params);
+		} else{
+			$menu = '';
+			$params = new configContent_sectionlist($database);
+		}
+
+		$params->menu = $menu;
+		$params->set('type','section');
+
+		return $params;
+	}
+
+	/**
+	 * contentPageConfig::setup_frontpage()
+	 *
+	 * Установка дефолтных параметров для вывода страницы компонента "com_frontpage"
+	 * xml-файл для генерации формы установки параметров: administrator/components/com_frontpage/frontpage.xml
+	 *
+	 * @return object $params
+	 */
+	function setup_frontpage(){
+		global $Itemid;
+
+		$mainframe = &mosMainFrame::getInstance();
+
+		if(!isset($mainframe->menu->id)){
+			$menu = $mainframe->get('menu');
+		}else{
+			$menu = $mainframe->menu;
+		}
+
+		$params = new mosParameters($menu->params);
+
+		$params->menu = $menu;
+
+		$params->def('title', '');
+		//Название страницы, отображаемое в заголовке браузера (тег title): string
+		$params->def('page_name', '');
+		//Показать/скрыть название сайта в title страницы (заголовке браузера): bool
+		$params->def('no_site_name', 0);
+		//Мета-тег robots, используемый на странице:
+		//int [-1,0,1,2,3]=['Не отображать', 'Index, follow', 'Index, NoFollow', 'NoIndex, Follow', 'NoIndex, NoFollow']
+		$params->def('robots', -1);
+		//META-тег: Description: string
+		$params->def('meta_description', '');
+		//ETA-тег keywords: string
+		$params->def('meta_keywords', '');
+		//META-тег author: string
+		$params->def('meta_author', '');
+		//Изображение меню
+		$params->def('menu_image', '');
+		//Суффикс CSS-класса страницы
+		$params->def('pageclass_sfx', '');
+		//Заголовок страницы (контентной области)
+		$params->def('header', '');
+		//Показать/Скрыть заголовок страницы
+		$params->def('page_title', '');
+		//Показать/Скрыть кнопку Назад (Вернуться), возвращающую на предыдущую просмотренную страницу
+		$params->def('back_button', 0);
+		//Количество главных объектов (на всю ширину). При 0 главные объекты отображаться не будут.
+		$params->def('leading', 1);
+		//Количество объектов, у которых показывается вступительный (intro) текст
+		$params->def('intro', 4);
+		//Сколько колонок в строке использовать при отображении вводного текста
+		$params->def('columns', 2);
+		//Количество объектов, отображаемых в виде ссыло
+		$params->def('link', 4);
+		//Сортировка объектов в категории
+		$params->def('orderby_pri', '');
+		//Порядок, в котором будут отображаться объекты
+		$params->def('orderby_sec', '');
+		//Показать/Скрыть постраничную навигацию
+		$params->def('pagination', 2);
+		//Показать/Скрыть информацию о результатах разбиения на страницы ( например, 1-4 из 4 )
+		$params->def('pagination_results', 1);
+		//Показывать {mosimages}
+		$params->def('image', 1);
+		//Показать/Скрыть названия разделов, к которым принадлежат объекты
+		$params->def('section', 0);
+		//Сделать названия разделов ссылками на страницу текущего раздела
+		$params->def('section_link', 0);
+		//Тип ссылки на раздел: 'blog' / 'list'
+		$params->def('section_link_type', 'blog');
 		//Показать/Скрыть названия категорий, которым принадлежат объекты
-        $params->def('category', 0);
-        //Сделать названия категорий ссылками на страницу текущей категории
-        $params->def('category_link', 0);
-        //Тип ссылки на категорию: 'blog' / 'table'
-        $params->def('cat_link_type', 'blog'); 
-        //Показать/Скрыть заголовки объектов
-        $params->def('item_title', 1);
-        //Сделать заголовки объектов в виде ссылок на объекты
-        $params->def('link_titles', '');
-        //Показать/Скрыть вводный текст
-        $params->def('view_introtext',1);
-         //Лимит слов для интротекста. Если текст не нуждается в обрезке - оставьте поле пустым
-        $params->def('introtext_limit', '');  
-        //Только интротекст
-        $params->def('intro_only', 1); //TODO: не работает
-        //Показать/Скрыть ссылку [Подробнее...]
-        $params->def('readmore', '');
-        //Показать/Скрыть возможность оценки объектов
-        $params->def('rating', $mainframe->getCfg('vote'));
-        //Показать/Скрыть имена авторов объектов
-        $params->def('author', $mainframe->getCfg('showAuthor'));
-        //Тип отображения имен авторов
-        $params->def('author_name', 0);
-        //Показать/Скрыть дату создания объекта
-        $params->def('createdate', $mainframe->getCfg('showCreateDate'));
-        //оказать/Скрыть дату изменения объекта
-        $params->def('modifydate', $mainframe->getCfg('showModifyDate'));
-        //Показать/Скрыть кнопку печати объекта
-        $params->def('print', $mainframe->getCfg('showPrint'));
-        //Показать/Скрыть кнопку отправки объекта на e-mail
-        $params->def('email', $mainframe->getCfg('showEmail'));
-        //Показать/Скрыть неопубликованные объекты для группы пользователей `Publisher` и выше
-        $params->def('unpublished', 0);
-        
-        //Показать/Скрыть тэги материалов
-        $params->def('view_tags', 1);
+		$params->def('category', 0);
+		//Сделать названия категорий ссылками на страницу текущей категории
+		$params->def('category_link', 0);
+		//Тип ссылки на категорию: 'blog' / 'table'
+		$params->def('cat_link_type', 'blog');
+		//Показать/Скрыть заголовки объектов
+		$params->def('item_title', 1);
+		//Сделать заголовки объектов в виде ссылок на объекты
+		$params->def('link_titles', '');
+		//Показать/Скрыть вводный текст
+		$params->def('view_introtext',1);
+		 //Лимит слов для интротекста. Если текст не нуждается в обрезке - оставьте поле пустым
+		$params->def('introtext_limit', '');
+		//Только интротекст
+		$params->def('intro_only', 1); //TODO: не работает
+		//Показать/Скрыть ссылку [Подробнее...]
+		$params->def('readmore', '');
+		//Показать/Скрыть возможность оценки объектов
+		$params->def('rating', $mainframe->getCfg('vote'));
+		//Показать/Скрыть имена авторов объектов
+		$params->def('author', $mainframe->getCfg('showAuthor'));
+		//Тип отображения имен авторов
+		$params->def('author_name', 0);
+		//Показать/Скрыть дату создания объекта
+		$params->def('createdate', $mainframe->getCfg('showCreateDate'));
+		//оказать/Скрыть дату изменения объекта
+		$params->def('modifydate', $mainframe->getCfg('showModifyDate'));
+		//Показать/Скрыть кнопку печати объекта
+		$params->def('print', $mainframe->getCfg('showPrint'));
+		//Показать/Скрыть кнопку отправки объекта на e-mail
+		$params->def('email', $mainframe->getCfg('showEmail'));
+		//Показать/Скрыть неопубликованные объекты для группы пользователей `Publisher` и выше
+		$params->def('unpublished', 0);
+
+		//Показать/Скрыть тэги материалов
+		$params->def('view_tags', 1);
+
+		$params->def('pop', 0);
+		$params->def('limitstart', '0');
+		$params->def('limit', '10');
+		$params->def('description', 0);
+		$params->def('description_image', 0);
+		$params->def('back_button', $mainframe->getCfg('back_button'));
 
 
-        $params->def('pop', 0);
-        $params->def('limitstart', '0');
-        $params->def('limit', '10');
-        $params->def('description', 0);
-        $params->def('description_image', 0);
-        $params->def('back_button', $mainframe->getCfg('back_button'));
-       
+		//Тип ссылки на категорию
+		$params->def('cat_link_type', 'table');
 
-        //Тип ссылки на категорию
-        $params->def('cat_link_type', 'table');
+		if ($params->get('page_title', 1) && $menu){
+			$header = $params->def('header', $menu->name);
+		}
 
-        if ($params->get('page_title', 1) && $menu)
-        {
-            $header = $params->def('header', $menu->name);
-        }
+		return $params;
 
-        return $params;
+	}
 
-    }
+	function setup_blog_item($params){
+		global $Itemid;
 
-    function setup_blog_item($params)
-    {
-        global $mainframe, $Itemid;
+		$mainframe = &mosMainFrame::getInstance();
 
-        $params->def('link_titles', $mainframe->getCfg('link_titles'));
-        $params->def('author', $mainframe->getCfg('showAuthor'));
-        $params->def('createdate', $mainframe->getCfg('showCreateDate'));
-        $params->def('modifydate', $mainframe->getCfg('showModifyDate'));
-        $params->def('print', $mainframe->getCfg('showPrint'));
-        $params->def('email', $mainframe->getCfg('showEmail'));
-        $params->def('rating', $mainframe->getCfg('vote'));
-        $params->def('icons', $mainframe->getCfg('icons'));
-        $params->def('readmore', $mainframe->getCfg('readmore'));
-        $params->def('image', 1);
-        $params->def('section', 0);
-        $params->def('section_link', 0);
-        $params->def('category', 0);
-        $params->def('category_link', 0);
-        $params->def('introtext', 1);
-        $params->def('view_introtext', 1);
-        $params->def('item_title', 1);
-        $params->def('jeditable', 0);
-        $params->def('intro_only', 1);
-        $params->def('url', 1);
+		$params->def('link_titles', $mainframe->getCfg('link_titles'));
+		$params->def('author', $mainframe->getCfg('showAuthor'));
+		$params->def('createdate', $mainframe->getCfg('showCreateDate'));
+		$params->def('modifydate', $mainframe->getCfg('showModifyDate'));
+		$params->def('print', $mainframe->getCfg('showPrint'));
+		$params->def('email', $mainframe->getCfg('showEmail'));
+		$params->def('rating', $mainframe->getCfg('vote'));
+		$params->def('icons', $mainframe->getCfg('icons'));
+		$params->def('readmore', $mainframe->getCfg('readmore'));
+		$params->def('image', 1);
+		$params->def('section', 0);
+		$params->def('section_link', 0);
+		$params->def('category', 0);
+		$params->def('category_link', 0);
+		$params->def('introtext', 1);
+		$params->def('view_introtext', 1);
+		$params->def('item_title', 1);
+		$params->def('jeditable', 0);
+		$params->def('intro_only', 1);
+		$params->def('url', 1);
 
-        $params->set('intro_only', 1);
+		$params->set('intro_only', 1);
 
-        return $params;
-
-    }
-
-
+		return $params;
+	}
 }
-
 ?>

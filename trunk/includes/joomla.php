@@ -33,22 +33,21 @@ if($mosConfig_error_reporting == 0) {
 	error_reporting($mosConfig_error_reporting);
 }
 /* ядро отладчика */
-require_once ($mosConfig_absolute_path.DS.'includes'.DS.'libraries'.DS.'debug'.DS.'jdebug.php');
+mosMainFrame::addLib('debug');
 /* ядро для работы с юникодом */
-include_once $mosConfig_absolute_path.'/includes/libraries/utf8/utf8.php';
+mosMainFrame::addLib('utf8');
 /* файл данных версии */
 require_once ($mosConfig_absolute_path.'/includes/version.php');
 /* ядро работы с XML */
 require_once ($mosConfig_absolute_path.'/includes/joomla.xml.php');
 /* класс фильтрации данных */
-require_once ($mosConfig_absolute_path.'/includes/libraries/phpInputFilter/class.inputfilter.php');
-
+mosMainFrame::addLib('inputfilter');
 /* класс работы с базой данных */
-require_once ($mosConfig_absolute_path.'/includes/libraries/database/database.php');
+mosMainFrame::addLib('database');
 $database = &database::getInstance();
 
 /* класс работы с правами пользователей */
-require_once ($mosConfig_absolute_path.'/includes/libraries/gacl/gacl.class.php');
+mosMainFrame::addLib('gacl');
 $acl = &gacl::getInstance();
 
 /* вспомогательная библиотека работы с массивами */
@@ -3734,12 +3733,14 @@ function mosExpandID($ID) {
 * @return object Mail object
 */
 function mosCreateMail($from = '',$fromname = '',$subject,$body) {
-	$config = &Jconfig::getInstance();
-	require_once ($config->config_absolute_path.'/includes/libraries/phpmailer/class.phpmailer.php');
+
+	mosMainFrame::addLib('phpmailer');
 	$mail = new mosPHPMailer();
 
-	$mail->PluginDir = $config->config_absolute_path.'/includes/libraries/phpmailer/';
-	$mail->SetLanguage('ru',$config->config_absolute_path.'/includes/libraries/phpmailer/language/');
+	$config = &Jconfig::getInstance();
+
+	$mail->PluginDir = $config->config_absolute_path.DS.'includes/libraries/phpmailer/';
+	$mail->SetLanguage(_LANGUAGE,$config->config_absolute_path.DS.'includes/libraries/phpmailer/language/');
 	$mail->CharSet = substr_replace(_ISO,'',0,8);
 	$mail->IsMail();
 	$mail->From = $from?$from:$config->config_mailfrom;
@@ -3753,7 +3754,6 @@ function mosCreateMail($from = '',$fromname = '',$subject,$body) {
 		$mail->Password = $config->config_smtppass;
 		$mail->Host = $config->config_smtphost;
 	} else // Set sendmail path
-
 		if($config->config_mailer == 'sendmail') {
 			if(isset($config->config_sendmail)) $mail->Sendmail = $config->config_sendmail;
 		} // if

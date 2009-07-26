@@ -15,31 +15,24 @@ defined('_VALID_MOS') or die();
  * Класс для получения параметров из базы данных
  */
 class DBconfig{
-	
-	/**
-	 * 
-	 */
 	var $_group = '';
 	var $_subgroup = '';
-	/**
-	 * 
-	 */
 	var $_db = null;
-	
 	var $_error = '';
-	
 	/**
 	 * 
 	 */
 	function DBconfig($database, $group = '', $subgroup='') {
 		global $option;
+
+		$database = &database::getInstance();
 		$this->_db = $database;
 		
 		// проверяем - задана ли группа
 		if (trim($group) == '') {
-			$this->_group = $option;	// нет не задана - принимаем значение $option
+			$this->_group = $option;// нет не задана - принимаем значение $option
 		} else {
-			$this->_group = $group;		// задано
+			$this->_group = $group;// задано
 		}
 
 		// проверяем - задана ли подгруппа
@@ -69,7 +62,7 @@ class DBconfig{
 		}
 	}
 	
-	function prepare_for_xml_render(){	
+	function prepare_for_xml_render(){
 			
 		$rows = get_object_vars($this); 
 		$array = array();
@@ -79,7 +72,7 @@ class DBconfig{
 			}	
 		}
 		$txt = implode("\n", $array);
-		return $txt;	
+		return $txt;
 	}
 
 	function storeConfig() {
@@ -191,26 +184,26 @@ class DBconfig{
 
 		$str = $this->_formatValue($type,$value);
 
-        $where = '';
-	    if($this->_subgroup){
-	        $where = " AND c.subgroup = '".$this->_subgroup."'";
-	    }
+		$where = '';
+		if($this->_subgroup){
+			$where = " AND c.subgroup = '".$this->_subgroup."'";
+		}
 
 		// проверим, есть ли в базе параметр с таким именем в группе
 		$this->_db->setQuery("SELECT c.id " .
 				"FROM #__config AS c " .
 				"WHERE c.name='$name' " .
-					"AND c.group='$this->_group' $where " .
+				"AND c.group='$this->_group' $where " .
 				"LIMIT 1;");
 
 		$id = $this->_db->loadResult();
-		if ($id) {											// если есть,
-			$sql = "UPDATE #__config " .				// то формируем запрос
-					"SET value='$str' " .					// для обновления записи
+		if ($id) {							// если есть,
+			$sql = "UPDATE #__config " .	// то формируем запрос
+					"SET value='$str' " .	// для обновления записи
 					"WHERE id='$id' " .
 					"LIMIT 1;";
-		} else {											// если нет,
-			$sql = "INSERT INTO #__config " .		// то формируем запрос
+		} else {							// если нет,
+			$sql = "INSERT INTO #__config " .// то формируем запрос
 					"VALUES (0,'$this->_group', '$this->_subgroup', '$name', '$str')";	// для добавления записи
 		}
 		$this->_db->setQuery($sql);
@@ -230,8 +223,7 @@ class DBconfig{
 	private function _parseValue($value) {
 		$value_array = array();
 
-		if (substr($value, 1, 1) == ":")
-		{
+		if (substr($value, 1, 1) == ":"){
 			$type = substr($value, 0, 1);
 		} else {
 			$type = "u";

@@ -36,11 +36,14 @@ switch($task) {
 }
 
 function x_jsave($id){
-	global $database,$my,$access;
+	global $my,$access;
+
 	if(!($access->canEdit || $access->canEditOwn)) {
 		mosNotAuth();
 		return;
 	}
+
+	$database = &database::getInstance();
 
 	$introtext	= trim(joostina_api::convert(mosGetParam($_POST,'introtext','',_MOS_ALLOWRAW)));
 	$fulltext	= trim(joostina_api::convert(mosGetParam($_POST,'fulltext',null,_MOS_ALLOWRAW)));
@@ -66,13 +69,15 @@ function x_jsave($id){
 * $id - идентификатор объекта
 */
 function x_publish($id = null) {
-	global $database,$my,$access;
+	global $my,$access;
 	// id содержимого для обработки не получен - выдаём ошибку
 	if(!$id) return 'error-id';
 
 	if(!($access->canEdit || ($access->canEditOwn))) {
 		return 'error-access';
 	}
+
+	$database = &database::getInstance();
 
 	$state = new stdClass();
 	$query = "SELECT state, publish_up, publish_down FROM #__content WHERE id = ".(int)$id;
@@ -130,5 +135,4 @@ function x_publish($id = null) {
 		return $ret_img;
 	}
 }
-
 ?>
