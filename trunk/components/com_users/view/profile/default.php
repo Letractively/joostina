@@ -25,7 +25,7 @@ $(document).ready(function() {
 	</div>
 <?php if($owner){?>
 	<span class="edit">
-		<a class="edit" title="Редактировать" href="<?php echo $edit_info_link;?>">
+		<a class="edit" title="<?php echo _USER_EDIT_PROFILE?>" href="<?php echo $edit_info_link;?>">
 			<?php echo _USER_EDIT_PROFILE?>
 		</a>
 	</span>
@@ -33,13 +33,13 @@ $(document).ready(function() {
 	<div class="jstProfile_menu">
 		<ul class="menu_userInfo">
 			<li>
-				<a href="<?php echo sefRelToAbs("index.php?option=com_users&task=profile&user=$user_id");?>" id="user_user_info_link">информация</a>
+				<a href="<?php echo sefRelToAbs("index.php?option=com_users&task=profile&user=$user_id");?>" id="user_user_info_link"><?php echo _USER_PERSONAL_DATA?></a>
 			</li>
 			<li>
-				<a href="<?php echo sefRelToAbs("index.php?option=com_users&task=profile&view=user_content&user=$user_id");?>" id="user_user_content_link">Публикации</a>
+				<a href="<?php echo sefRelToAbs("index.php?option=com_users&task=profile&view=user_content&user=$user_id");?>" id="user_user_content_link"><?php echo _USER_CONTENTS?></a>
 			</li>
 			<li>
-				<a href="<?php echo sefRelToAbs("index.php?option=com_users&task=profile&view=user_contacts&user=$user_id");?>" id="user_user_contacts_link">Контакты</a>
+				<a href="<?php echo sefRelToAbs("index.php?option=com_users&task=profile&view=user_contacts&user=$user_id");?>" id="user_user_contacts_link"><?php echo _USER_CONTACTS?></a>
 			</li>
 		</ul>
 	</div>

@@ -1286,7 +1286,7 @@ class mosMainFrame {
 					if($option == '') {
 						$path = $config.DS.ADMINISTRATOR_DIRECTORY.'/modules/custom.xml';
 					} else {
-						$path = $config->config_absolute_path.'/'.ADMINISTRATOR_DIRECTORY."/modules/$option.xml";
+						$path = $config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY."/modules/$option.xml";
 					}
 					if(file_exists($path)) {
 						$result = $path;
@@ -1295,28 +1295,28 @@ class mosMainFrame {
 
 				case 'bot_xml':
 					// Site mambots
-					$path = $config->config_absolute_path."/mambots/$option.xml";
+					$path = $config->config_absolute_path.DS.'mambots'.DS.$option.'.xml';
 					if(file_exists($path)) {
 						$result = $path;
 					}
 					break;
 
 				case 'menu_xml':
-					$path = $config->config_absolute_path.'/'.ADMINISTRATOR_DIRECTORY."/components/com_menus/$option/$option.xml";
+					$path = $config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY."/components/com_menus/$option/$option.xml";
 					if(file_exists($path)) {
 						$result = $path;
 					}
 					break;
 
 				case 'installer_html':
-					$path = $config->config_absolute_path.'/'.ADMINISTRATOR_DIRECTORY."/components/com_installer/$option/$option.html.php";
+					$path = $config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY."/components/com_installer/$option/$option.html.php";
 					if(file_exists($path)) {
 						$result = $path;
 					}
 					break;
 
 				case 'installer_class':
-					$path = $config->config_absolute_path.'/'.ADMINISTRATOR_DIRECTORY."/components/com_installer/$option/$option.class.php";
+					$path = $config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY."/components/com_installer/$option/$option.class.php";
 					if(file_exists($path)) {
 						$result = $path;
 					}
@@ -4133,8 +4133,8 @@ class mosMambotHandler {
 	*/
 	function loadBot($folder,$element,$published,$params = '') {
 		global $_MAMBOTS;
-		
-		$path = Jconfig::getInstance()->config_absolute_path.'/mambots/'.$folder.'/'.$element.'.php';
+
+		$path = Jconfig::getInstance()->config_absolute_path.DS.'mambots'.DS.$folder.DS.$element.'.php';
 		if(file_exists($path)) {
 			$this->_loading = count($this->_bots);
 			$bot = new stdClass;
@@ -4145,7 +4145,10 @@ class mosMambotHandler {
 			$bot->params = $params;
 			$this->_bots[] = $bot;
 			$this->_mambot_params[$element] = $params;
-			if(mosMainFrame::getInstance()->getLangFile('bot_'.$element)){include_once(mosMainFrame::getInstance()->getLangFile('bot_'.$element));}		
+			$lang = mosMainFrame::getInstance()->getLangFile('bot_'.$element);
+			if($lang){
+				include_once($lang);
+			}
 			require_once ($path);
 			$this->_loading = null;
 		}
@@ -4242,7 +4245,7 @@ class mosMambotHandler {
 				}
 			}
 		}
-		return null;	
+		return null;
 	}
 }
 

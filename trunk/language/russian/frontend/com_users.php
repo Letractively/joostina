@@ -124,7 +124,5 @@ DEFINE('_USER_OFF_LINE','отсутствует');
 DEFINE('_USER_PROFILE_INFO','Данные профиля');
 DEFINE('_USER_SITE_SETTINGS','Настройки сайта');
 DEFINE('_USER_PERSONAL_DATA','Личные данные');
-
-
-
-
+DEFINE('_USER_CONTENTS','Публикации');
+DEFINE('_USER_CONTACTS','Контакты');

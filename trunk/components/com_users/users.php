@@ -60,7 +60,9 @@ switch($task) {
 	case 'profile':
 		$cache = &mosCache::getCache('user_profile');
 		$_view = strval(mosGetParam( $_REQUEST, 'view', '' ));
-		$cache->call('profile',$uid,$_view);
+		$r = $cache->call('profile',$uid,$_view);
+		echo $r['content'];
+		mosMainFrame::getInstance()->SetPageTitle($r['title']);
 		break;
 
 	case 'lostPassword':
@@ -130,10 +132,16 @@ function profile($uid){
 		$params = &new mosUserParameters($row->params,$file,'component');
 
 		$config = new configUser_profile($database);
+		$config->set('title',sprintf($config->get('title'),$row->name));
+		$title = $config->get('title');
 
-		HTML_user::profile($row,'com_users', $params, $config);
+		ob_start();
+			HTML_user::profile($row,'com_users', $params, $config);
+			$content_boby = ob_get_contents(); // главное содержимое - стек вывода компонента - mainbody
+		ob_end_clean();
+		return array('content' => $content_boby, 'title' => $title);
 	}else{
-		echo _USER_NOT_FOUND;
+		return _USER_NOT_FOUND;
 	}
 
 }
