@@ -70,7 +70,6 @@ class HTML_user {
 		$template = 'default.php';
 		$template_dir = 'components/com_users/view/profile';
 
-		
 		//Если используются разные шаблоны для разных групп пользователей
 		if(!$config->get('template')){
 			$template=strtolower(str_replace(' ', '', $user->usertype )).'.php';
@@ -80,12 +79,11 @@ class HTML_user {
 			$template_dir = 'templates'.DS. $mainframe->getTemplate() . '/html/com_users/profile';
 		}
 		$template_file = $mainframe->getCfg('absolute_path').DS.$template_dir.DS.$template;
-		
-		
+
 		//Находим плагины профиля пользователя
 		$plugins = new userPlugins();
 		$profile_plugins = $plugins->get_plugins('profile');
-		
+
 		$plugin_page = '';
 		$cur_plugin = mosGetParam( $_REQUEST, 'view', '' );
 		//Если плагины установлены 

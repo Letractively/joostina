@@ -511,7 +511,7 @@ DEFINE('_YEARS','лет');
 
 DEFINE('_REGISTER_REQUIRED','Все поля, отмеченные символом (*), обязательны для заполнения!');
 DEFINE('_PAGE_TITLE','Заголовок страницы');
-DEFINE('_USER_PROFILE','Профиль пользователя');
+DEFINE('_USER_PROFILE','Профиль пользователя %s');
 
 DEFINE('_TEMPLATE_DIR','Шаблон из');
 DEFINE('_TEMPLATE_DIR_DEF','Каталога шаблона');

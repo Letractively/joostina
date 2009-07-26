@@ -89,14 +89,17 @@ function x_delavatar(){
 
 
 function  request_from_plugin(){
-	$config = %Jconfig::getInstance();
+	$mainframe = &mosMainFrame::getInstance();
 
 	$plugin	= mosGetParam($_REQUEST,'plugin','');
 	$act	= mosGetParam($_REQUEST,'act','');
 
 	// проверяем, какой файл необходимо подключить, данные берутся из пришедшего GET запроса
-	if(file_exists($config->config_absolute_path .DS. 'mambots'.DS.'profile'.$plugin.DS.$plugin.'ajax.php')) {
-		include_once ($config->config_absolute_path .DS. 'mambots'.DS.'profile'.$plugin.DS.$plugin.'ajax.php');
+	if(is_file($mainframe->getCfg('absolute_path').DS. 'mambots'.DS.'profile'.DS.$plugin.DS.$plugin.'.ajax.php')) {
+		if(is_file($mainframe->getLangFile('bot_'.$plugin))){
+			include_once ($mainframe->getLangFile('bot_'.$plugin));
+		}
+		include_once ($mainframe->getCfg('absolute_path').DS. 'mambots'.DS.'profile'.DS.$plugin.DS.$plugin.'.ajax.php');
 	} else {
 		die('error-1');
 	}

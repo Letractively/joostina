@@ -12,52 +12,54 @@ defined('_VALID_MOS') or die();
 
 class UserContactsEmail{
 
-    var $pretext = '';
-    var $posttext = '';
-    var $label_position = 1;
-    var $from = '';
-    var $fromname = '';
-    var $recipient = '';
-    var $subject = '';
-    var $message = '';
+	var $pretext = '';
+	var $posttext = '';
+	var $label_position = 1;
+	var $from = '';
+	var $fromname = '';
+	var $recipient = '';
+	var $subject = '';
+	var $message = '';
 
-    var $_error = '';
+	var $_error = '';
 
-    function UserContactsEmail(){
-        global $my,$mosConfig_sitename;
-        $this->subject = 'Сообщение от пользователя сайта '.$mosConfig_sitename;
-   }
+	function UserContactsEmail(){
+		$this->subject = BOT_USER_CONTACTS_MESSAGE_FROM.Jconfig::getInstance()->config_sitename;
+	}
 
-    function clean_message($text){
-        $text = preg_replace( "'<script[^>]*>.*?</script>'si", "", $text );
-        $text = preg_replace( "'<?php*.*?>'", "", $text );
-        $text = preg_replace( '/<a\s+.*?href="([^"]+)"[^>]*>([^<]+)<\/a>/is','\2 (\1)', $text );
-        $text = preg_replace( '/<!--.+?-->/', '', $text);
-        $text = preg_replace( '/{.+?}/', '', $text);
+	function clean_message($text){
+		$text = preg_replace( "'<script[^>]*>.*?</script>'si", "", $text );
+		$text = preg_replace( "'<?php*.*?>'", "", $text );
+		$text = preg_replace( '/<a\s+.*?href="([^"]+)"[^>]*>([^<]+)<\/a>/is','\2 (\1)', $text );
+		$text = preg_replace( '/<!--.+?-->/', '', $text);
+		$text = preg_replace( '/{.+?}/', '', $text);
 
-        return $text;
-   }
+		return $text;
+	}
 
-    function send_message(){
+	function send_message(){
 
 		if(eregi("[\<|\>|\"|\'|\%|\;|\(|\)|\&|\+|\-]",$this->fromname) || strlen($this->fromname) <3) {
-			$this->_error = 'Проверьте правильность введенного имени';
+			$this->_error = BOT_USER_CONTACTS_CHECK_NAME;
 			return false;
 		}
 
 		if((trim($this->from == "")) || (preg_match("/[\w\.\-]+@\w+[\w\.\-]*?\.\w{1,4}/",$this->from) == false)) {
-			$this->_error = 'Проверьте правильность введенного email';
+			$this->_error = BOT_USER_CONTACTS_CHECK_EMAIL;
 			return false;
 		}
 
-        if(strlen($this->fromname) > 35) {
+		if(strlen($this->fromname) > 35) {
 			$this->fromname = substr($this->fromname,0,35);
 		}
-        if(mosMail($this->from,$this->fromname,$this->recipient,$this->subject,$this->message)){
-            return true;
-        }
+		if(mosMail($this->from,$this->fromname,$this->recipient,$this->subject,$this->message)){
+			return true;
+		}else{
+			$this->_error = BOT_USER_CONTACTS_SYSTEM_ERROR;
+			return false;
+		}
 
-   }
+	}
 }
 
 
