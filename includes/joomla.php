@@ -252,25 +252,26 @@ class mosMainFrame {
 
 	
 	function getLangFile($name = ''){
+		$absolute_path = $this->getCfg('absolute_path');
 		if(!$name){
 			$file = 'system';
-			return $this->getCfg('absolute_path').DS.'language'.DS.$this->lang.DS.'system.php';
+			return $absolute_path.DS.'language'.DS.$this->lang.DS.'system.php';
 		}else{
 			$file = $name;
 		}
 		if($this->_isAdmin){
-			if(is_file($this->getCfg('absolute_path').DS.'language'.DS.$this->lang.DS.'administrator'.DS.$file.'.php')){
-				return $this->getCfg('absolute_path').DS.'language'.DS.$this->lang.DS.'administrator'.DS.$file.'.php';
+			if(is_file($absolute_path.DS.'language'.DS.$this->lang.DS.'administrator'.DS.$file.'.php')){
+				return $absolute_path.DS.'language'.DS.$this->lang.DS.'administrator'.DS.$file.'.php';
 			}
 			else{
-				if(is_file($this->getCfg('absolute_path').DS.'language'.DS.$this->lang.DS.'frontend'.DS.$file.'.php')){
-					return $this->getCfg('absolute_path').DS.'language'.DS.$this->lang.DS.'frontend'.DS.$file.'.php';
+				if(is_file($absolute_path.DS.'language'.DS.$this->lang.DS.'frontend'.DS.$file.'.php')){
+					return $absolute_path.DS.'language'.DS.$this->lang.DS.'frontend'.DS.$file.'.php';
 				}
 			}	
 		}
 		else{
-			if(is_file($this->getCfg('absolute_path').DS.'language'.DS.$this->lang.DS.'frontend'.DS.$file.'.php')){
-				return $this->getCfg('absolute_path').DS.'language'.DS.$this->lang.DS.'frontend'.DS.$file.'.php';
+			if(is_file($absolute_path.DS.'language'.DS.$this->lang.DS.'frontend'.DS.$file.'.php')){
+				return $absolute_path.DS.'language'.DS.$this->lang.DS.'frontend'.DS.$file.'.php';
 			}
 		}		
 
@@ -284,39 +285,43 @@ class mosMainFrame {
 	*/
 	function setPageTitle($title = null,$pageparams = null) {
 
-		$config = &Jconfig::getInstance();
-		$page_title = $config->config_sitename;
-		if($config->config_pagetitles) {
+		$sitename = $page_title = $this->getCfg('sitename');
+		$config_tseparator = $this->getCfg('tseparator');
+
+		if($this->getCfg('pagetitles')) {
 			$title = Jstring::trim(strip_tags($title));
 			// разделитель названия страницы и сайта
-			$tseparator = $config->config_tseparator ? $config->config_tseparator : ' - ';
+			$tseparator = $config_tseparator ? $config_tseparator : ' - ';
 			if($pageparams != null) {
 				// название страницы указанное в настройках пункта меню или свойствах содержимого
 				$pageownname = Jstring::trim( htmlspecialchars( $pageparams->get('page_name') ) );
 				$page_title = $pageparams->get('no_site_name') ?
-				( $pageownname ? $pageownname : ( $title ? $title : $config->config_sitename )) :
-				( $config->config_pagetitles_first ? (( $pageownname ? $pageownname : $title ) . $tseparator . $config->config_sitename) :
-				( $config->config_sitename. $tseparator . ( $pageownname ? $pageownname : $title )));
-			} elseif($config->config_pagetitles_first==1) {
+				( $pageownname ? $pageownname : ( $title ? $title : $sitename )) :
+				( $this->getCfg('pagetitles_first') ?
+					(( $pageownname ? $pageownname : $title ) . $tseparator . $sitename)
+				:
+					( $this->getCfg('sitename'). $tseparator . ( $pageownname ? $pageownname : $title ))
+				);
+			} elseif($this->getCfg('pagetitles_first')==1) {
 				$pageownname = null;
-				$page_title = $title ? $title.$tseparator.$config->config_sitename : $config->config_sitename;
+				$page_title = $title ? $title.$tseparator.$sitename : $sitename;
 			}else{
 				$pageownname = null;
-				$page_title = $title ? $config->config_sitename.$tseparator.$title : $config->config_sitename;
+				$page_title = $title ? $sitename.$tseparator.$title : $sitename;
 			}
 		}
 
 		// название страницы, не title!
 		$this->_head['pagename'] = $pageownname ? $pageownname : $title;
 
-		switch($config->config_pagetitles_first) {
+		switch($this->getCfg('pagetitles_first')) {
 			case '0':
 			case '1':
 			default:
 				$this->_head['title'] = $page_title;
 				break;
 			case '2':
-				$this->_head['title'] = $config->config_sitename;
+				$this->_head['title'] = $sitename;
 				break;
 			case '3':
 				$this->_head['title'] = $pageownname ? $pageownname : $title;

@@ -15,7 +15,9 @@ $_MAMBOTS->registerFunction('userProfile','botUserInfo');
 /**
 */
 function botUserInfo(&$user) {
-	global $database,$_MAMBOTS;
+	global $_MAMBOTS;
+
+	$database = &database::getInstance();
 
 	$params = new mosParameters($_MAMBOTS->_mambot_params['user_info']);
 	

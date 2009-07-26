@@ -10,8 +10,6 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-
-
 $task	= mosGetParam($_REQUEST,'task','');
 $id		= $my->id;
 
@@ -24,82 +22,83 @@ switch($task) {
 		echo x_delavatar();
 		return;
 
-    case 'request_from_plugin':
-        request_from_plugin();
-        break;
+	case 'request_from_plugin':
+		request_from_plugin();
+		break;
 
 	default:
 		echo 'error-task';
 		return;
 }
 
- function upload_avatar(){
-        global $database, $my, $mosConfig_absolute_path;
-        $id = intval(mosGetParam($_REQUEST,'id',0));
-        
-        mosMainFrame::addLib('images');
-        
-        $return = array();
+function upload_avatar(){
+	global $my;
 
-        $resize_options = array(
-                'method' => '0',        //Приводит к заданной ширине, сохраняя пропорции.
-                'output_file' => '',    //если 'thumb', то ресайзенная копия ляжет в подпапку "thumb'
-                'width'  => '150',
-                'height' => '150'
-        );
+	$database = &database::getInstance();
+	$id = intval(mosGetParam($_REQUEST,'id',0));
 
-        $file = new Image();
-        $file->field_name = 'avatar';
-        $file->directory = 'images/avatars' ;
-        $file->file_prefix = 'av_';
-        $file->max_size = 0.5 * 1024 * 1024;
+	mosMainFrame::addLib('images');
 
-        $foto_name = $file->upload($resize_options);
+	$return = array();
 
-        if($foto_name){
-            if($id){
-                $user = new mosUser($database);
-                $user->load((int)$id);
-                $user_id = $user->id;
-                if($user->avatar!=''){
-                    $foto = new Image();
-                    $foto->directory = 'images/avatars';
-                    $foto->name = $user->avatar;
-                    $foto->delFile($foto);
-                }
-                $user->update_avatar($id, $foto_name);
-            }
+	$resize_options = array(
+		'method' => '0',		//Приводит к заданной ширине, сохраняя пропорции.
+		'output_file' => '',	//если 'thumb', то ресайзенная копия ляжет в подпапку "thumb'
+		'width'  => '150',
+		'height' => '150'
+	);
 
-            echo $foto_name;
+	$file = new Image();
+	$file->field_name = 'avatar';
+	$file->directory = 'images/avatars' ;
+	$file->file_prefix = 'av_';
+	$file->max_size = 0.5 * 1024 * 1024;
 
-        }else{
-            return false;
-        };
-    }
+	$foto_name = $file->upload($resize_options);
+
+	if($foto_name){
+		if($id){
+			$user = new mosUser($database);
+			$user->load((int)$id);
+			$user_id = $user->id;
+			if($user->avatar!=''){
+				$foto = new Image();
+				$foto->directory = 'images/avatars';
+				$foto->name = $user->avatar;
+				$foto->delFile($foto);
+			}
+			$user->update_avatar($id, $foto_name);
+		}
+			echo $foto_name;
+	}else{
+		return false;
+	};
+}
 
 
 function x_delavatar(){
-	global $database;
+	$database = &database::getInstance();
+
 	$file_name = mosGetParam($_REQUEST,'file_name','');
-	
+
 	$user = new mosUser($database);
 	$user->update_avatar(null, $file_name, 1);
-	
-	echo 'none.jpg';
+
+	return 'none.jpg';
 }
 
 
 function  request_from_plugin(){
-    global $mosConfig_absolute_path;
+	$config = %Jconfig::getInstance();
 
-    $plugin	= mosGetParam($_REQUEST,'plugin','');
-    $act	= mosGetParam($_REQUEST,'act','');
+	$plugin	= mosGetParam($_REQUEST,'plugin','');
+	$act	= mosGetParam($_REQUEST,'act','');
 
-    // проверяем, какой файл необходимо подключить, данные берутся из пришедшего GET запроса
-    if(file_exists($mosConfig_absolute_path . "/mambots/profile/$plugin/$plugin.ajax.php")) {
-	    include_once ($mosConfig_absolute_path . "/mambots/profile/$plugin/$plugin.ajax.php");
-    } else {
-	    die('error-1');
-    }
+	// проверяем, какой файл необходимо подключить, данные берутся из пришедшего GET запроса
+	if(file_exists($config->config_absolute_path .DS. 'mambots'.DS.'profile'.$plugin.DS.$plugin.'ajax.php')) {
+		include_once ($config->config_absolute_path .DS. 'mambots'.DS.'profile'.$plugin.DS.$plugin.'ajax.php');
+	} else {
+		die('error-1');
+	}
 }
 ?>

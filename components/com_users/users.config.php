@@ -8,17 +8,16 @@
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
-require_once ($mainframe->getPath('class', 'com_users'));
 
 class configUser_registration extends dbConfig {
 	/**
 	 * Заголовок страницы
 	 */
-	var $title = 'Регистрация';
+	var $title = _CREATE_ACCOUNT;
 	/**
 	 * Текст перед формой регистрации
 	 */
-	var $pre_text = 'Все поля, отмеченные символом (*), обязательны для заполнения!';
+	var $pre_text = _REGISTER_REQUIRED;
 	/**
 	 * Текст после формы регистрации
 	 */
@@ -67,7 +66,8 @@ class configUser_registration extends dbConfig {
 	}
 
 	function display_config($option) {
-		global $acl;
+
+		$acl = &gacl::getInstance();
 
 		$gtree = $acl->get_group_children_tree(null, 'USERS', false); ?>
 		<script language="javascript" type="text/javascript">
@@ -94,38 +94,38 @@ class configUser_registration extends dbConfig {
 			}
 		</script>
 		<table class="adminheading">
-			<tr><th class="config">Пользователи: настройки регистрации</th></tr>
+			<tr><th class="config"><?php echo _C_USERS_REG_SETTINGS?></th></tr>
 		</table>
 
 		<form action="index2.php" method="post" name="adminForm">
 
 			<table class="paramlist">
 				<tr>
-					<th class="key">Заголовок страницы</th>
+					<th class="key"><?php echo _PAGE_TITLE?></th>
 					<td><input size="100" class="inputbox" type="text" name="title" value="<?php echo $this->title; ?>" /></td>
 				</tr>
 				<tr>
-					<th class="key">Текст перед формой регистрации</th>
+					<th class="key"><?php echo _C_USERS_REG_FORM_BEFORE?></th>
 					<td><textarea cols="56" rows="7" class="inputbox" name="pre_text"><?php echo $this->pre_text; ?></textarea></td>
 				</tr>
 				<tr>
-					<th class="key">Текст после формы регистрации</th>
+					<th class="key"><?php echo _C_USERS_REG_FORM_AFTER?></th>
 					<td><textarea cols="56" rows="7" class="inputbox" name="post_text"><?php echo $this->post_text; ?></textarea></td>
 				</tr>
 				<tr>
-					<th class="key">Ссылка для перехода после регистрации</th>
+					<th class="key"><?php echo _C_USERS_REG_AFTER_LINK?></th>
 					<td><input size="100" class="inputbox" type="text" name="redirect_url" value="<?php echo $this->redirect_url; ?>" /></td>
 				</tr>
 				<tr>
-					<th class="key">Использовать единый шаблон формы регистрации для всех групп пользователей</th>
+					<th class="key"><?php echo _C_USERS_REG_ONE_GROOP_TEMPLATE?></th>
 					<td><?php echo mosHTML::yesnoRadioList('template', '', $this->template?1 : 0); ?></td>
 				</tr>
 				<tr>
-					<th class="key">Группа пользователя по умолчанию</th>
+					<th class="key"><?php echo _C_USERS_REG_DEFAULT_GROOPS?></th>
 					<td><?php echo mosHTML::selectList($gtree, 'gid', 'size="1"', 'value', 'text', $this->gid); ?></td>
 				</tr>
 				<tr>
-					<th class="key">Активация аккаунта администратором (работает совместно с глобальной настройкой "Использовать активацию нового аккаунта:")</th>
+					<th class="key"><?php echo _C_USERS_REG_PROFILE_ACTIVATE?></th>
 					<td><?php echo mosHTML::yesnoRadioList('admin_activation', '', $this->admin_activation?1 : 0); ?></td>
 				</tr>
 			</table>
@@ -134,10 +134,8 @@ class configUser_registration extends dbConfig {
 			<input type="hidden" name="act" value="registration" />
 			<input type="hidden" name="task" value="save_config" />
 			<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
-		</form>
-
-
-		<?php 	}
+		</form><?php
+	}
 
 	function save_config() {
 		if(!$this->bindConfig($_REQUEST)) {
@@ -156,7 +154,7 @@ class configUser_profile extends dbConfig {
 	/**
 	 * Заголовок страницы
 	 */
-	var $title = 'Профиль пользователя';
+	var $title = _USER_PROFILE;
 
 	/**
 	 * Использовать единый шаблон профиля для всех групп пользователей
@@ -192,7 +190,8 @@ class configUser_profile extends dbConfig {
 	}
 
 	function display_config($option) {
-		global $acl;
+
+		$acl = &gacl::getInstance();
 
 		$gtree = $acl->get_group_children_tree(null, 'USERS', false); ?>
 		<script language="javascript" type="text/javascript">
@@ -206,30 +205,30 @@ class configUser_profile extends dbConfig {
 			}
 		</script>
 		<table class="adminheading">
-			<tr><th class="config">Пользователи: настройки профиля</th></tr>
+			<tr><th class="config"><?php echo _C_USERS_PROFILE_SETTINGS?></th></tr>
 		</table>
 
 		<form action="index2.php" method="post" name="adminForm">
 
 			<table class="paramlist">
 				<tr>
-					<th class="key">Заголовок страницы</th>
+					<th class="key"><?php echo _PAGE_TITLE?></th>
 					<td><input size="100" class="inputbox" type="text" name="title" value="<?php echo $this->title; ?>" /></td>
 				</tr>
 
 				<tr>
-					<th class="key">Использовать единый шаблон профиля для всех групп пользователей</th>
-					<td><?php echo mosHTML::yesnoRadioList('template', '', $this->template?1 : 0); ?></td>
+					<th class="key"><?php echo _C_USERS_PROFILE_ONE_TEMPLATE?></th>
+					<td><?php echo mosHTML::yesnoRadioList('template', '', $this->template ? 1 : 0); ?></td>
 				</tr>
 
 				<tr>
-					<th class="key">Использовать единый шаблон редактирования данных для всех групп пользователей</th>
+					<th class="key"><?php echo _C_USERS_PROFILE_ONE_TEMPLATE_EDIT?></th>
 					<td><?php echo mosHTML::yesnoRadioList('template_edit', '', $this->template_edit?1 : 0); ?></td>
 				</tr>
 
 				<tr>
-					<th class="key">Директория шаблона</th>
-					<td><?php echo mosHTML::yesnoRadioList('template_dir', '', $this->template_dir?1 : 0, 'Папка шаблона', 'Системная'); ?></td>
+					<th class="key"><?php echo _TEMPLATE_DIR?></th>
+					<td><?php echo mosHTML::yesnoRadioList('template_dir', '', $this->template_dir?1 : 0, _TEMPLATE_DIR_DEF, _TEMPLATE_DIR_SYSTEM); ?></td>
 				</tr>
 
 			</table>
@@ -238,10 +237,8 @@ class configUser_profile extends dbConfig {
 			<input type="hidden" name="act" value="profile" />
 			<input type="hidden" name="task" value="save_config" />
 			<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
-		</form>
-
-
-		<?php 	}
+		</form><?php
+	}
 
 	function save_config() {
 		if(!$this->bindConfig($_REQUEST)) {

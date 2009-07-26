@@ -10,9 +10,6 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-global $mosConfig_absolute_path;
-require_once ($mosConfig_absolute_path . '/includes/libraries/dbconfig/dbconfig.php');
-
 /**
 * Users Table Class
 *
@@ -75,7 +72,6 @@ class mosUser extends mosDBTable {
 	* @return boolean True is satisfactory
 	*/
 	function check() {
-		global $mosConfig_uniquemail;
 
 		// Validate user information
 		if(trim($this->name) == '') {
@@ -119,7 +115,7 @@ class mosUser extends mosDBTable {
 			return false;
 		}
 
-		if($mosConfig_uniquemail) {
+		if(Jconfig::getInstance()->config_uniquemail) {
 			// check for existing email
 			$query = "SELECT id FROM #__users WHERE email = ".$this->_db->Quote($this->email)." AND id != ".(int)$this->id;
 			$this->_db->setQuery($query);
@@ -134,7 +130,10 @@ class mosUser extends mosDBTable {
 	}
 
 	function store($updateNulls = false) {
-		global $acl,$migrate;
+		global $migrate;
+
+		$acl = &gacl::getInstance();
+
 		$section_value = 'users';
 
 		$k = $this->_tbl_key;
@@ -146,7 +145,9 @@ class mosUser extends mosDBTable {
 			// single group handled at the moment
 			// trivial to expand to multiple groups
 			$groups = $acl->get_object_groups($section_value,$this->$k,'ARO');
-			if(isset($groups[0])) $acl->del_group_object($groups[0],$section_value,$this->$k,'ARO');
+			if(isset($groups[0])) {
+				$acl->del_group_object($groups[0],$section_value,$this->$k,'ARO');
+			}
 			$acl->add_group_object($this->gid,$section_value,$this->$k,'ARO');
 
 			$object_id = $acl->get_object_id($section_value,$this->$k,'ARO');
@@ -167,7 +168,8 @@ class mosUser extends mosDBTable {
 	}
 
 	function delete($oid = null) {
-		global $acl;
+
+		$acl = &gacl::getInstance();
 
 		$k = $this->_tbl_key;
 		if($oid) {
@@ -212,7 +214,9 @@ class mosUser extends mosDBTable {
 	* @return array
 	*/
 	function getUserListFromGroup($value,$name,$recurse = 'NO_RECURSE',$order ='name') {
-		global $acl;
+
+		$acl = &gacl::getInstance();
+
 		$group_id = $acl->get_group_id($name, 'ARO');
 		$objects = $acl->get_group_objects($group_id,'ARO','RECURSE');
 
@@ -232,9 +236,7 @@ class mosUser extends mosDBTable {
 	* функция получения аватара пользователя, возвращает путь к изображения аватара от корня сайта
 	*/
 	function get_avatar($user){
-		global $mosConfig_absolute_path;
-
-		if(is_file($mosConfig_absolute_path.'/images/avatars/'.$user->avatar)){
+		if(is_file(Jconfig::getInstance()->config_absolute_path.'/images/avatars/'.$user->avatar)){
 			$img = 'images/avatars/'.$user->avatar;
 		}else{
 			$img = 'images/avatars/none.jpg';
@@ -251,7 +253,7 @@ class mosUser extends mosDBTable {
 	*/
 	function get_user_status($uid){
 
-		$qq = "SELECT * FROM #__session WHERE userid=$uid AND guest=0  ";
+		$qq = "SELECT * FROM #__session WHERE userid=$uid AND guest=0";
 		$this->_db->setQuery( $qq );
 		$sessions = $this->_db->loadObjectList();
 		$sess=& $sessions[0];
@@ -260,6 +262,7 @@ class mosUser extends mosDBTable {
 		if(isset($sess->userid)){
 			$status = 1;
 		}
+		unset($sessions,$sess);
 		return $status;
 	}
 
@@ -267,7 +270,6 @@ class mosUser extends mosDBTable {
 	* Получение дополнительных данных пользователя
 	*/
 	function get_user_extra($uid=null){
-
 		$uid = ($uid) ? $uid : $this->id;
 
 		$qq = "SELECT * FROM #__users_extra WHERE user_id = $uid";
@@ -288,8 +290,7 @@ class mosUser extends mosDBTable {
 
 		if(!$id){
 			$sql = 'UPDATE #__users SET avatar = \''.$val.'\' WHERE avatar="'.$img.'"';
-		}
-		else{
+		}else{
 			$sql = 'UPDATE #__users SET avatar = \''.$val.'\' WHERE id='.$id;
 		}
 
@@ -328,11 +329,11 @@ class mosUser extends mosDBTable {
 		switch($user->user_extra->gender){
 			case 'female':
 			default:
-				$gender = 'женский';
+				$gender = _USERS_FEMALE_S;
 				break;
 
 			case 'male':
-				$gender = 'мужской';
+				$gender = _USERS_MALE_S;
 				break;
 		}
 
@@ -347,8 +348,8 @@ class mosUser extends mosDBTable {
 	}
 
 	function get_birthdate($user, $params = null){
-		mosMainFrame::getInstance()->addLib('text');
-		mosMainFrame::getInstance()->addLib('datetime');
+		mosMainFrame::addLib('text');
+		mosMainFrame::addLib('datetime');
 
 		if($params->get('show_birthdate')==1){
 			return mosFormatDate($user->user_extra->birthdate, '%d-%m-%Y', 0);
@@ -357,7 +358,7 @@ class mosUser extends mosDBTable {
 		else{
 			$delta = DateAndTime::getDelta(DateAndTime::mysql_to_unix($user->user_extra->birthdate), DateAndTime::mysql_to_unix(_CURRENT_SERVER_TIME));
 			$age = $delta['year'];
-			return 	 $age.' '.Text::_declension($user->user_extra->birthdate ,array('год', 'года', 'лет'));
+			return 	 $age.' '.Text::_declension($user->user_extra->birthdate ,array(_YEAR, _YEAR_, _YEARS));
 		}
 
 	}
@@ -369,11 +370,7 @@ class mosUser extends mosDBTable {
 			$and .= " AND usertype='".$usertype."'";
 		}
 	
-		$query = "	SELECT COUNT(id)
-					FROM #__users 
-					WHERE block = '0'"
-					.$and;
-			
+		$query = "SELECT COUNT(id) FROM #__users WHERE block = '0'" .$and;
 		$this->_db->setQuery($query);
 		return  $this->_db->loadResult();
 
@@ -386,26 +383,24 @@ class mosUser extends mosDBTable {
 			$and .= " AND usertype='".$usertype."'";
 		}
 	
-		$query = "	SELECT u.*, u_extra.*
-					FROM #__users AS u
-					LEFT JOIN #__users_extra AS u_extra ON u_extra.user_id = u.id
-					WHERE u.block = '0'"
-					.$and;
-			
+		$query = "SELECT u.*, u_extra.* FROM #__users AS u
+				LEFT JOIN #__users_extra AS u_extra ON u_extra.user_id = u.id
+				WHERE u.block = '0'"
+				.$and;
 		$this->_db->setQuery($query, $limitstart, $limit);
 		return  $this->_db->loadObjectList();
 
 	}
 	
- 	function paginate($total,$page, $limit){
-        //require_once (dirname( __FILE__ ).'/lib/pageNavigation.php');
-        mosMainFrame::getInstance()->addLib('pageNavigation');
-        $r = new mosPageNav( $total, $page, $limit );
-        return  $r;
-    }
+	function paginate($total,$page, $limit){
+		mosMainFrame::addLib('pageNavigation');
+		$r = new mosPageNav( $total, $page, $limit );
+		return  $r;
+	}
 
 }
 
+/* расширенная информация о пользователе */
 class userUsersExtra extends mosDBTable{
 
 	var $user_id = null;
@@ -439,8 +434,8 @@ class userUsersExtra extends mosDBTable{
 class userHelper{
 
 	function _load_core_js(){
-		global $mosConfig_live_site, $mainframe;
-		$mainframe->addJS($mosConfig_live_site.'/components/com_users/js/com_users.js','custom');
+		$mainframe = &mosMainFrame::getInstance();
+		$mainframe->addJS($mainframe->getCfg('live_site').'/components/com_users/js/com_users.js','custom');
 	}
 
 	function _load_jquery_form(){
@@ -451,92 +446,76 @@ class userHelper{
 	function _build_img_upload_area($obj, $form_params, $state){
 		global $mosConfig_live_site,$mosConfig_absolute_path;
 		$field = $form_params->img_field;
-	?>
-			<script type="text/javascript">
-				$(document).ready(function() {
+	?><script type="text/javascript">
+		$(document).ready(function() {
 
-					//---Кнопка "Сменить"
-					$("a#reupload_<?php echo $form_params->img_field;?>").live('click', function () {
-						$(".upload_area_<?php echo $form_params->img_field;?>").fadeIn(1000);
-						$("#<?php echo $form_params->img_field;?>").addClass("required");
-						return false;
-					});
-
-					//---Кнопка "Удалить"
-					$('a#del_<?php echo $form_params->img_field;?>').live('click', function(){
-
-						//Индикатор выполнения
-						$('#indicate_<?php echo $form_params->img_field;?>').fadeIn(1000, function () {
-							$("#indicate_<?php echo $form_params->img_field;?>").addClass("inprogress");
-							$("#indicate_<?php echo $form_params->img_field;?>").html("Удаляем...");
-						});
-
-						//отправляем ajax-запрос
-						$.post( //---post:begin
-								'<?php echo $form_params->ajax_handler; ?>',
-								{
-									task: "del_<?php echo $form_params->img_field;?>",
-									file_name: $("#curr_<?php echo $form_params->img_field;?>").val()
-								} ,
-
-								//пришёл ответ
-								function onAjaxSuccess(data){
-									//Плавная смена изображения
-									$('#current_<?php echo $form_params->img_field;?>_img').fadeOut(1000);
-									$('#current_<?php echo $form_params->img_field;?>_img').fadeOut(1000, function(){
-										$('#current_<?php echo $form_params->img_field;?>_img').html('<img class="avatar" src="<?php echo $mosConfig_live_site;?>/<?php echo $form_params->img_path;?>/'+data+'" />');
-										//Скрываем индикатор
-										$("#indicate_<?php echo $form_params->img_field;?>").removeClass("inprogress");
-										$("#indicate_<?php echo $form_params->img_field;?>").html("");
-
-									});
-									$('#current_<?php echo $form_params->img_field;?>_img').fadeIn(1000, function () {
-										$('#current_<?php echo $form_params->img_field;?>_img').show('slow');
-
-									});
-									//Скрываем кнопку "Удалить"
-										$('a#del_<?php echo $form_params->img_field;?>').parent().fadeOut("slow");
-
-								}
-						); //---post:end
-
-						return false;
-					});
-
+			//---Кнопка "Сменить"
+			$("a#reupload_<?php echo $form_params->img_field;?>").live('click', function () {
+				$(".upload_area_<?php echo $form_params->img_field;?>").fadeIn(1000);
+				$("#<?php echo $form_params->img_field;?>").addClass("required");
+				return false;
+			});
+			//---Кнопка "Удалить"
+			$('a#del_<?php echo $form_params->img_field;?>').live('click', function(){
+				//Индикатор выполнения
+				$('#indicate_<?php echo $form_params->img_field;?>').fadeIn(1000, function () {
+					$("#indicate_<?php echo $form_params->img_field;?>").addClass("inprogress");
+					$("#indicate_<?php echo $form_params->img_field;?>").html("Удаляем...");
 				});
 
-			</script>
-
-			<?php if($state!='upload'){?>
+				//отправляем ajax-запрос
+				$.post( //---post:begin
+					'<?php echo $form_params->ajax_handler; ?>',
+					{
+						task: "del_<?php echo $form_params->img_field;?>",
+						file_name: $("#curr_<?php echo $form_params->img_field;?>").val()
+					} ,
+					//пришёл ответ
+					function onAjaxSuccess(data){
+						//Плавная смена изображения
+						$('#current_<?php echo $form_params->img_field;?>_img').fadeOut(1000);
+						$('#current_<?php echo $form_params->img_field;?>_img').fadeOut(1000, function(){
+						$('#current_<?php echo $form_params->img_field;?>_img').html('<img class="avatar" src="<?php echo $mosConfig_live_site;?>/<?php echo $form_params->img_path;?>/'+data+'" />');
+							//Скрываем индикатор
+							$("#indicate_<?php echo $form_params->img_field;?>").removeClass("inprogress");
+							$("#indicate_<?php echo $form_params->img_field;?>").html("");
+						});
+						$('#current_<?php echo $form_params->img_field;?>_img').fadeIn(1000, function () {
+							$('#current_<?php echo $form_params->img_field;?>_img').show('slow');
+						});
+						//Скрываем кнопку "Удалить"
+						$('a#del_<?php echo $form_params->img_field;?>').parent().fadeOut("slow");
+					}
+				); //---post:end
+				return false;
+			});
+		});
+		</script>
+<?php if($state!='upload'){?>
 					<div id="current_<?php echo $form_params->img_field;?>">
-
 						<div class="current_img" id="current_<?php echo $form_params->img_field;?>_img">
 							<img class="avatar" src="<?php echo $mosConfig_live_site;?>/<?php echo $form_params->img_path;?>/<?php echo $obj->$field;?>" />
 							<input type="hidden" name="curr_<?php echo $form_params->img_field;?>" id="curr_<?php echo $form_params->img_field;?>" value="<?php echo $obj->$field;?>" />
-
 						</div>
 						<div class="indicator" id="indicate_<?php echo $form_params->img_field;?>">&nbsp;</div>
-
 						<div class="user_buttons buttons_<?php echo $form_params->img_field;?>">
 							<span class="button">
-								<a class="reupload_button button"  href="#" id="reupload_<?php echo $form_params->img_field;?>"><?php echo _C_USERS_AVATARS_SHOISE?></a>
+								<a class="reupload_button button" href="#" id="reupload_<?php echo $form_params->img_field;?>"><?php echo _C_USERS_AVATARS_SHOISE?></a>
 							</span>
 							<span class="button">
-								<a class="del_button button"  href="javascript:void(0)" id="del_<?php echo $form_params->img_field;?>"><?php echo _DELETE?></a>
+								<a class="del_button button" href="javascript:void(0)" id="del_<?php echo $form_params->img_field;?>"><?php echo _DELETE?></a>
 							</span>
 						</div>
-
 					</div>
 					<div class="upload_area upload_area_<?php echo $form_params->img_field;?>" style="display:none;">
 						<?php echo self::_build_img_upload_form($obj, $form_params);?>
 					</div>
-			<?php } else { ?>
+<?php } else { ?>
 			<div id="current_<?php echo $form_params->img_field;?>">
 					<div class="current_img" id="current_<?php echo $form_params->img_field;?>_img">
 						<img class="avatar" src="<?php echo $mosConfig_live_site;?>/<?php echo $form_params->default_img;?>" />
 					</div>
 					<div class="indicator" id="indicate_<?php echo $form_params->img_field;?>">&nbsp;</div>
-
 					<div class="user_buttons buttons_<?php echo $form_params->img_field;?>" style="display:none;">
 							<span class="button">
 								<a class="reupload_button button"  href="#" id="reupload_<?php echo $form_params->img_field;?>"><?php echo _C_USERS_AVATARS_SHOISE?></a>
@@ -549,19 +528,14 @@ class userHelper{
 					<div class="upload_area_<?php echo $form_params->img_field;?>">
 						<?php echo self::_build_img_upload_form($obj, $form_params);?>
 					</div>
-			<?php
-			} ?>
-	<?php
+<?php } ?>
+<?php
 	}
 
-function _build_img_upload_form(&$obj, $form_params){
-
-		global $mosConfig_live_site,$mosConfig_absolute_path;
+	function _build_img_upload_form(&$obj, $form_params){
 		self::_load_jquery_form();
 
-	?>
-
-		<script type="text/javascript">
+?><script type="text/javascript">
 		$(document).ready(function(){
 			$('#<?php echo $form_params->img_field;?>_upload_button').live('click', function() {
 				$('#<?php echo $form_params->img_field;?>_uploadForm').ajaxSubmit({
@@ -589,7 +563,7 @@ function _build_img_upload_form(&$obj, $form_params){
 						$(".buttons_<?php echo $form_params->img_field;?>").fadeOut(1000);
 						$('#current_<?php echo $form_params->img_field;?>_img').fadeOut(1000);
 						$('#current_<?php echo $form_params->img_field;?>_img').fadeOut(1000, function(){
-							$('#current_<?php echo $form_params->img_field;?>_img').html('<img class="avatar" src="<?php echo $mosConfig_live_site;?>/<?php echo $form_params->img_path;?>/'+data+'" />');
+							$('#current_<?php echo $form_params->img_field;?>_img').html('<img class="avatar" src="<?php echo Jconfig::getInstance()->config_live_site;?>/<?php echo $form_params->img_path;?>/'+data+'" />');
 						});
 						$('#current_<?php echo $form_params->img_field;?>_img').fadeIn(1000, function () {
 							$('#current_<?php echo $form_params->img_field;?>_img').show('slow', function () {
@@ -607,7 +581,6 @@ function _build_img_upload_form(&$obj, $form_params){
 
 		});
 		</script>
-
 		<form name="<?php echo $form_params->img_field;?>_uploadForm" class="ajaxForm" enctype="multipart/form-data" method="post" action="ajax.index.php" id="<?php echo $form_params->img_field;?>_uploadForm">
 			<input name="<?php echo $form_params->img_field;?>"  id="upload_<?php echo $form_params->img_field;?>"  type="file" />
 			<span class="button"><button type="button" id="<?php echo $form_params->img_field;?>_upload_button" class="button" ><?php echo _TASK_UPLOAD?></button></span>
@@ -615,11 +588,9 @@ function _build_img_upload_form(&$obj, $form_params){
 			<input type="hidden" name="id" value="<?php echo $obj->id;?>" />
 			<input type="hidden" name="option" value="com_users" />
 		</form>
-
 		<div id="<?php echo $form_params->img_field;?>_uploadOutput" style="display:none;"><?php echo _C_USERS_AVATARS_UPLOAD?></div>
-	<?php
+<?php
 	}
-
 }
 
 /**
@@ -760,10 +731,10 @@ class mosSession extends mosDBTable {
 	* @return boolean
 	*/
 	function purge($inc = 1800,$and = '') {
-		$mainframe = &mosMainFrame::getInstance();
+		$config = &Jconfig::getInstance();
 
 		if($inc == 'core') {
-			$past_logged = time() - $mainframe->getCfg('lifetime');
+			$past_logged = time() - $config->config_lifetime;
 			$past_guest = time() - 900;
 
 			$query = "DELETE FROM $this->_tbl WHERE ("
@@ -791,7 +762,7 @@ class mosUserParameters extends mosParameters {
 	* @return string The html for the element
 	*/
 	function _form_editor_list($name,$value,&$node,$control_name) {
-		global $database;
+		$database = &database::getInstance();
 		// compile list of the editors
 		$query = "SELECT element AS value, name AS text"
 				."\n FROM #__mambots"
@@ -801,6 +772,7 @@ class mosUserParameters extends mosParameters {
 		$database->setQuery($query);
 		$editors = $database->loadObjectList();
 		array_unshift($editors,mosHTML::makeOption('',_SELECT_EDITOR));
+
 		return mosHTML::selectList($editors,''.$control_name.'['.$name.']','class="inputbox"','value','text',$value);
 	}
 }
