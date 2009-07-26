@@ -624,11 +624,10 @@ class HTML_content {
 			$mod_date = mosFormatDate($row->modified);
 		}
 
-		if(($mod_date != '') && $params->get('modifydate')) { ?>
-        <div class="modifydate">
-		<?php echo _LAST_UPDATED; ?> ( <?php echo $mod_date; ?> )
-			</div>
-<?php }
+		if(($mod_date != '') && $params->get('modifydate')) {
+			?><div class="modifydate"><?php echo _LAST_UPDATED; ?> ( <?php echo $mod_date; ?> )</div>
+<?php
+		}
 	}
 
 	/**
@@ -636,11 +635,9 @@ class HTML_content {
 	 */
 	function ReadMore(&$row, &$params) {
 		if($params->get('readmore')) {
-			if($params->get('intro_only') && $row->link_text) { ?>
-
-    <a href="<?php echo $row->link_on; ?>" title="<?php echo $row->title; ?>" class="readon"><?php echo $row->link_text; ?></a>
-
-	<?php }
+			if($params->get('intro_only') && $row->link_text) {
+				?><a href="<?php echo $row->link_on; ?>" title="<?php echo $row->title; ?>" class="readon"><?php echo $row->link_text; ?></a><?php
+			}
 		}
 	}
 
@@ -709,14 +706,15 @@ class HTML_content {
 	 * @param string The html for the groups select list
 	 */
 	function editContent(&$row, &$page, $task) {
-		global $mosConfig_live_site, $mosConfig_absolute_path, $mainframe, $my;
+		$mainframe = &mosMainFrame::getInstance();
 
 		mosMakeHtmlSafe($row);
 
 		//Загрузка скрипта ajax-валидации
 		mosCommonHTML::loadJqueryPlugins('jquery.validate');
+		mosCommonHTML::loadCalendar();
 
-		require_once ($GLOBALS['mosConfig_absolute_path'].'/includes/HTML_toolbar.php');
+		require_once ($mainframe->getCfg('absolute_path').DS.'includes/HTML_toolbar.php');
 		$s_id = mosGetParam($_REQUEST, 'section', 0);
 		// used for spoof hardening
 		$validate = josSpoofValue();
@@ -726,8 +724,6 @@ class HTML_content {
 		} else {
 			$section_id = $s_id;
 		}
-
-		mosCommonHTML::loadCalendar();
 
 		// параметры полученные из настроек ссылки в меню
 		$params = $page->params;
@@ -768,11 +764,9 @@ class HTML_content {
 
 		//Если это редактирование статичного содержимого - подключаем шаблон item/edit/static.php
 		if($task == 'edit' && $row->sectionid == 0) {
-			include ($mosConfig_absolute_path.'/components/com_content/view/item/edit/static.php');
+			include ($mainframe->getCfg('absolute_path').DS.'components/com_content/view/item/edit/static.php');
 			return;
-		}
-		//иначе - проверяем, задан ли шаблон в настройках раздела
-		else {
+		}else { //иначе - проверяем, задан ли шаблон в настройках раздела
 			$template = new ContentTemplate();
 			$templates = null;
 
@@ -791,7 +785,7 @@ class HTML_content {
 	 * Writes Email form for filling in the send destination
 	 */
 	function emailForm($uid, $title, $template = '', $itemid) {
-		global $mainframe;
+		$mainframe = &mosMainFrame::getInstance();
 
 		// used for spoof hardening
 		$validate = josSpoofValue();
@@ -865,23 +859,22 @@ class HTML_content {
 	 * @param string The current template
 	 */
 	function emailSent($to, $template = '') {
-		global $mosConfig_sitename, $mainframe;
+		$mainframe = &mosMainFrame::getInstance();
 
-		$mainframe->setPageTitle($mosConfig_sitename);
+		$mainframe->setPageTitle($mainframe->getCfg('sitename'));
 		$mainframe->addCustomHeadTag('<link rel="stylesheet" href="templates/'.$template.'/css/template_css.css" type="text/css" />'); ?>
 		<span class="contentheading"><?php echo _EMAIL_SENT." $to"; ?></span> <br />
 		<br />
 		<br />
-		<a href='javascript:window.close();'>
-		<span class="small"><?php echo _PROMPT_CLOSE; ?></span>
-		</a>
+		<a href='javascript:window.close();'><span class="small"><?php echo _PROMPT_CLOSE; ?></span></a>
 <?php }
 
-	function _no_access($message = 'Извините, у Вас недостаточно прав для просмотра данной страницы') { ?>
+	function _no_access($message = _NOT_AUTH) { ?>
 		<div class="error"><?php echo $message; ?></div>
-	    <?php }
+<?php
+	}
 
 	function _after_create_content($row) { ?>
-     Усё пучкомм
-    <?php }
+		Усё пучкомм
+	<?php }
 } ?>
