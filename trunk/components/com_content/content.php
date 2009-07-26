@@ -126,7 +126,7 @@ function showUserItems() {
 	$access = new contentAccess();
 	// Paramters
 	$params = new configContent_ucontent($database);
-	$limit = $limit?$limit : $params->get('display_num');
+	$limit = $limit ? $limit : $params->get('display_num');
 	$params->set('limitstart', $limitstart);
 	$params->set('limit', $limit);
 
@@ -148,9 +148,11 @@ function showUserItems() {
 	if($user_items) {
 
 		//Постраничная навигация
-		if($user_items->total <= $limit)
+		if($user_items->total <= $limit){
 			$limitstart = 0;
-		require_once ($GLOBALS['mosConfig_absolute_path'].'/includes/pageNavigation.php');
+		}
+
+		mosMainFrame::addLib('pageNavigation');
 		$pageNav = new mosPageNav($user_items->total, $limitstart, $limit);
 
 		$check = 0;
@@ -170,8 +172,8 @@ function showUserItems() {
 			$check .= 1;
 		}
 		if($params->get('section')) {
-			$order[] = mosHTML::makeOption('section', 'Раздел / Категория по возрастанию');
-			$order[] = mosHTML::makeOption('rsection', 'Раздел / Категория по убыванию');
+			$order[] = mosHTML::makeOption('section', _ORDER_DROPDOWN_S_C_ASC);
+			$order[] = mosHTML::makeOption('rsection', _ORDER_DROPDOWN_S_C_DESC);
 			$check .= 1;
 		}
 		$order[] = mosHTML::makeOption('order', _ORDER_DROPDOWN_O);
@@ -238,8 +240,8 @@ function frontpage() {
 	$params->page_type = 'frontpage';
 
 	ob_start();
-	BlogOutput($frontpage, $params, $access);
-	$content_boby = ob_get_contents(); // главное содержимое - стек вывода компонента - mainbody
+		BlogOutput($frontpage, $params, $access);
+		$content_boby = ob_get_contents(); // главное содержимое - стек вывода компонента - mainbody
 	ob_end_clean();
 
 	return array('content' => $content_boby, 'params' => $params);
@@ -249,9 +251,7 @@ function showSectionCatlist($id,$cache){
 	global $Itemid, $my;
 
 	$config = &Jconfig::getInstance();
-
 	$r = $cache->call('_showSectionCatlist', $id,$my->gid);
-
 	from_cache($r);
 }
 
@@ -311,8 +311,8 @@ function _showSectionCatlist($id) {
 	}
 
 	ob_start();
-	HTML_content::showSectionCatlist($section, $access, $params);
-	$content_boby = ob_get_contents(); // главное содержимое - стек вывода компонента - mainbody
+		HTML_content::showSectionCatlist($section, $access, $params);
+		$content_boby = ob_get_contents(); // главное содержимое - стек вывода компонента - mainbody
 	ob_end_clean();
 
 	unset($params->_raw,$params->section_data,$params->menu->params);
@@ -330,7 +330,6 @@ function showTableCategory($id,$cache){
 	$filter = stripslashes(strval(mosGetParam($_REQUEST, 'filter', '')));
 
 	$r = $cache->call('_showTableCategory', $id,$my->gid,$limit,$limitstart,$sectionid,$selected,$filter);
-
 	from_cache($r);
 }
 
@@ -340,7 +339,7 @@ function showTableCategory($id,$cache){
  * @param int The category id
  */
 function _showTableCategory($id,$gid,$limit,$limitstart,$sectionid,$selected,$filter) {
-	global $Itemid, $mosConfig_list_limit, $my;
+	global $Itemid, $my;
 
 	$mainframe = &mosMainFrame::getInstance();
 	$database = &database::getInstance();
@@ -430,8 +429,8 @@ function _showTableCategory($id,$gid,$limit,$limitstart,$sectionid,$selected,$fi
 	}
 
 	ob_start();
-	HTML_content::showContentList($category, $access, $params);
-	$content_boby = ob_get_contents(); // главное содержимое - стек вывода компонента - mainbody
+		HTML_content::showContentList($category, $access, $params);
+		$content_boby = ob_get_contents(); // главное содержимое - стек вывода компонента - mainbody
 	ob_end_clean();
 
 	unset($params->category_data,$params->_db,$params->section_data);
@@ -447,7 +446,6 @@ function showBlogSection($id = 0,$gid=0) {
 
 	$cache = &mosCache::getCache('com_content');
 	$r = $cache->call('_showBlogSection', $id,$gid,$pop,$limit,$limitstart);
-
 	from_cache($r);
 }
 
@@ -540,7 +538,6 @@ function showBlogCategory($id = 0,$gid=0) {
 
 	$cache = &mosCache::getCache('com_content');
 	$r = $cache->call('_showBlogCategory', $id,$gid,$pop,$limit,$limitstart);
-
 	from_cache($r);
 }
 
@@ -612,6 +609,7 @@ function _showBlogCategory($id = 0,$gid,$pop,$limit,$limitstart) {
 		BlogOutput($category, $params, $access);
 		$content_boby = ob_get_contents(); // главное содержимое - стек вывода компонента - mainbody
 	ob_end_clean();
+
 	unset($params->_db,$params->section_data->_db,$params->section_data->_db,$params->section_data->content);
 	return array('content' => $content_boby, 'params' => $params);
 }
@@ -797,7 +795,7 @@ function showArchiveCategory($id = 0) {
 }
 
 function BlogOutput(&$obj, $params, &$access) {
-	global $Itemid, $task, $id, $option, $mosConfig_live_site, $mosConfig_absolute_path, $my;
+	global $Itemid, $task, $id, $option, $my;
 
 	$mainframe = &mosMainFrame::getInstance();
 	$database = &database::getInstance();
@@ -907,8 +905,9 @@ function BlogOutput(&$obj, $params, &$access) {
 				// not visible when they is no 'other' pages to display
 			} else {
 				$display_pagination = 1;
-				require_once ($GLOBALS['mosConfig_absolute_path'].'/includes/pageNavigation.php');
 				$limitstart = $limitstart?$limitstart : 0;
+
+				mosMainFrame::addLib('pageNavigation');
 				$pageNav = new mosPageNav($total, $limitstart, $limit);
 
 				if($Itemid && $Itemid != 99999999) {
@@ -983,7 +982,7 @@ function BlogOutput(&$obj, $params, &$access) {
 				$page_type = 'category_archive';
 
 				if($params->get('module')) {
-					include_once ($mosConfig_absolute_path.'/components/com_content/view/category/archive_by_month/default.php');
+					include_once ($mainframe->getCfg('absolute_path').'/components/com_content/view/category/archive_by_month/default.php');
 					return;
 				}
 
@@ -997,14 +996,11 @@ function BlogOutput(&$obj, $params, &$access) {
 	}
 
 	//Если это главная страница - компонент 'com_frontpage'
-	else
+	else{
 		if($_REQUEST['option'] == 'com_frontpage') {
-			include_once ($mosConfig_absolute_path.'/components/com_content/view/frontpage/default.php');
+			include_once ($mainframe->getCfg('absolute_path').'/components/com_content/view/frontpage/default.php');
 			return;
-		}
-
-	//Не главная страница и не архив - обычный блог раздела или категории
-		else {
+		}else { //Не главная страница и не архив - обычный блог раздела или категории
 			switch ($task) {
 				case 'blogcategory':
 				default:
@@ -1012,9 +1008,8 @@ function BlogOutput(&$obj, $params, &$access) {
 					//проверяем настройки категории на предмет  заданного шаблона
 					if($template->isset_settings($page_type, $params->category_data->templates)) {
 						$templates = $params->category_data->templates;
-					}
 					//иначе - проверяем настройки раздела
-					elseif($template->isset_settings($page_type, $params->section_data->templates)) {
+					}elseif($template->isset_settings($page_type, $params->section_data->templates)) {
 						$templates = $params->section_data->templates;
 					}
 
@@ -1024,9 +1019,8 @@ function BlogOutput(&$obj, $params, &$access) {
 					//Если группировка по категориям отключена - оставляем вывод как и был прежде
 					if(!$group_cat) {
 						$page_type = 'section_blog';
-					}
 					//Если включена группировка по категориям
-					else {
+					}else {
 						$page_type = 'section_groupcats';
 						$counts = array();
 						$k = 0;
@@ -1046,7 +1040,8 @@ function BlogOutput(&$obj, $params, &$access) {
 					break;
 			}
 		}
-		$template->set_template($page_type, $templates);
+	}
+	$template->set_template($page_type, $templates);
 	include_once ($template->template_file);
 }
 
@@ -1184,8 +1179,6 @@ function _showFullItem($id) {
  * Вывод материала в блоге
  */
 function _showItem($row, $params, $gid, &$access, $pop, $template = '') {
-	global $mosConfig_content_hits, $cache;
-
 	$mainframe = &mosMainFrame::getInstance();
 	$database = &database::getInstance();
 
@@ -1252,7 +1245,7 @@ function _showItem($row, $params, $gid, &$access, $pop, $template = '') {
 	//Лимит интротекста
 	$limit_introtext = $params->get('introtext_limit', 0);
 	if($limit_introtext) {
-		$mainframe->addLib('text');
+		mosMainFrame::addLib('text');
 		$row->text = Text::word_limiter($row->text, $limit_introtext, '');
 	}
 
@@ -1261,7 +1254,7 @@ function _showItem($row, $params, $gid, &$access, $pop, $template = '') {
 	$page = intval(mosGetParam($_REQUEST, 'limitstart', 0));
 
 	// запись счетчика прочтения
-	if(!$params->get('intro_only') && ($page == 0) && ($mosConfig_content_hits)) {
+	if(!$params->get('intro_only') && ($page == 0) && ($mainframe->getCfg('content_hits'))) {
 		$obj = new mosContent($database);
 		$obj->hit($row->id);
 	}
@@ -1278,14 +1271,12 @@ function _showItem($row, $params, $gid, &$access, $pop, $template = '') {
  */
 function editItem($task) {
 	global $my, $gid;
-	global $mosConfig_absolute_path, $mosConfig_live_site, $mosConfig_offset;
-	global $mosConfig_module_on_edit_off;
 
 	$mainframe = &mosMainFrame::getInstance();
 	$database = &database::getInstance();
 	$acl = &gacl::getInstance();
 
-	if($mosConfig_module_on_edit_off == 1) {
+	if($mainframe->getCfg('module_on_edit_off') == 1) {
 		$GLOBALS['_MOS_MODULES'] = '';
 	}
 
@@ -1357,11 +1348,10 @@ function editItem($task) {
 			$link2 = 'index.php?option=com_content&task=new';
 
 			//запрос на данные о пункте меню
-			$query = "  SELECT a.id AS menu_id2, a.params AS menu_params2 , b.id AS menu_id1, b.params AS menu_params1
-                    FROM #__menu AS a
-                    LEFT JOIN  #__menu AS b  ON  b.link LIKE '%$link1' AND b.published = 1
-                    WHERE  a.link LIKE '%$link2' AND a.published = 1
-                  ";
+			$query = "SELECT a.id AS menu_id2, a.params AS menu_params2 , b.id AS menu_id1, b.params AS menu_params1
+				FROM #__menu AS a
+				LEFT JOIN  #__menu AS b  ON  b.link LIKE '%$link1' AND b.published = 1
+				WHERE  a.link LIKE '%$link2' AND a.published = 1";
 			$database->setQuery($query);
 			$exists = $database->loadObjectList();
 		}
@@ -1463,7 +1453,7 @@ function editItem($task) {
 		$row->version = 0;
 		$row->ordering = 0;
 		$row->images = array();
-		$row->publish_up = date('Y-m-d H:i:s', time() + ($mosConfig_offset * 60 * 60));
+		$row->publish_up = date('Y-m-d H:i:s', time() + ($mainframe->getCfg('offset') * 60 * 60));
 		$row->publish_down = _NEVER;
 		$row->creator = 0;
 		$row->modifier = 0;
@@ -1497,7 +1487,7 @@ function editItem($task) {
 	$lists['state'] = mosHTML::selectList($states, 'state', 'class="inputbox" size="1"', 'value', 'text', intval($row->state));
 
 	// build the html select list for ordering
-	$query = "SELECT ordering AS value, title AS text FROM #__content WHERE catid = ".(int)$row->catid."\n ORDER BY ordering";
+	$query = "SELECT ordering AS value, title AS text FROM #__content WHERE catid = ".(int)$row->catid." ORDER BY ordering";
 	$lists['ordering'] = mosAdminMenus::SpecificOrdering($row, $id, $query, 1);
 
 	//$database->setQuery("SELECT CONCAT(s.id,'/',c.id) as value, CONCAT(s.name,'/',c.name) as text  FROM #__categories AS c ,#__sections AS s where s.id=c.section  ");
@@ -1590,7 +1580,7 @@ function editItem($task) {
  * Сохранение материала
  */
 function saveContent($task) {
-	global $my, $mosConfig_absolute_path, $mosConfig_offset, $Itemid;
+	global $my,$Itemid;
 
 	$mainframe = &mosMainFrame::getInstance();
 	$database = &database::getInstance();
@@ -1636,7 +1626,7 @@ function saveContent($task) {
 	if(strlen(trim($row->publish_up)) <= 10) {
 		$row->publish_up .= ' 00:00:00';
 	}
-	$row->publish_up = mosFormatDate($row->publish_up, _CURRENT_SERVER_TIME_FORMAT, -$mosConfig_offset);
+	$row->publish_up = mosFormatDate($row->publish_up, _CURRENT_SERVER_TIME_FORMAT, -$mainframe->getCfg('offset'));
 
 	if(trim($row->publish_down) == _NEVER || trim($row->publish_down) == '') {
 		$row->publish_down = $nullDate;
@@ -1644,7 +1634,7 @@ function saveContent($task) {
 		if(strlen(trim($row->publish_down)) <= 10) {
 			$row->publish_down .= ' 00:00:00';
 		}
-		$row->publish_down = mosFormatDate($row->publish_down, _CURRENT_SERVER_TIME_FORMAT, -$mosConfig_offset);
+		$row->publish_down = mosFormatDate($row->publish_down, _CURRENT_SERVER_TIME_FORMAT, -$mainframe->getCfg('offset'));
 	}
 
 	// code cleaner for xhtml transitional compliance
@@ -1743,29 +1733,29 @@ function saveContent($task) {
 }
 
 function _after_create_content($row, $page) {
-	global $my, $mosConfig_absolute_path;
+	global $my;
 
 	$database = &database::getInstance();
 
 	// gets section name of item
-	$query = "SELECT s.title"."\n FROM #__sections AS s"."\n WHERE s.scope = 'content'"."\n AND s.id = ".(int)$row->sectionid;
+	$query = "SELECT s.title FROM #__sections AS s WHERE s.scope = 'content' AND s.id = ".(int)$row->sectionid;
 	$database->setQuery($query);
 	// gets category name of item
 	$section = $database->loadResult();
 
-	$query = "SELECT c.title"."\n FROM #__categories AS c"."\n WHERE c.id = ".(int)$row->catid;
+	$query = "SELECT c.title FROM #__categories AS c WHERE c.id = ".(int)$row->catid;
 	$database->setQuery($query);
 	$category = $database->loadResult();
 	$category = stripslashes($category);
 
 	// Отправка сообщения админам о новой записе
 	require_once ($mosConfig_absolute_path.'/components/com_messages/messages.class.php');
-	$query = "SELECT id"."\n FROM #__users"."\n WHERE sendEmail = 1";
+	$query = "SELECT id FROM #__users WHERE sendEmail = 1";
 	$database->setQuery($query);
 	$users = $database->loadResultArray();
 	foreach ($users as $user_id) {
 		$msg = new mosMessage($database);
-		$msg->send($my->id, $user_id, "Новый объект", sprintf(_ON_NEW_CONTENT, $my->username, $row->title, $section, $category));
+		$msg->send($my->id, $user_id, _COM_CONTENT_NEW_ITEM, sprintf(_ON_NEW_CONTENT, $my->username, $row->title, $section, $category));
 	}
 
 	switch ($page->task) {
@@ -1773,7 +1763,7 @@ function _after_create_content($row, $page) {
 			//если "Применить"
 		case 'apply':
 			//возвращаемся на страницу редактирования
-			$msg = 'Изменения сохранены. Здесь (ссылка) страница для предпросмотра';
+			$msg = _COM_CONTENT_ITEM_SAVED;
 			$link = $_SERVER['HTTP_REFERER'];
 			break;
 
@@ -1782,12 +1772,12 @@ function _after_create_content($row, $page) {
 		default:
 			//если запись опубликована, даем ссылку на просмотр в обычном режиме
 			if($row->state == 1) {
-				$msg = 'Спасибо и все такое';
+				$msg = _COM_CONTENT_ITEM_ADDED_THANK;
 				$link = 'index.php?option=com_content&task=view&id='.$row->id;
 			}
 			//иначе - формируем ссылку на предварительный просмотр статьи
 			else {
-				$msg = 'Материал был успешно добавлен и будет доступен для общего просмотра после проверки модератором. А пока повпечатляйтесь версией для предпросмотра.';
+				$msg = _COM_CONTENT_ITEM_ADDED;
 				$link = 'index.php?option=com_content&task=preview&id='.$row->id;
 			}
 
@@ -1803,7 +1793,7 @@ function _after_update_content($row, $page) {
 
 	switch ($page->task) {
 		case 'apply':
-			$msg = 'Изменения сохранены.';
+			$msg = _COM_CONTENT_ITEM_CHANGES_SAVED;
 			$link = $_SERVER['HTTP_REFERER'];
 			break;
 
@@ -1811,12 +1801,12 @@ function _after_update_content($row, $page) {
 		default:
 			//если запись опубликована, даем ссылку на просмотр в обычном режиме
 			if($row->state == 1) {
-				$msg = 'Все изменения были успешно сохранены';
+				$msg = _COM_CONTENT_ITEM_ALL_CHANGES_SAVED;
 				$link = 'index.php?option=com_content&task=view&id='.$row->id;
 			}
 			//иначе - формируем ссылку на предварительный просмотр статьи
 			else {
-				$msg = 'Внимание! Это версия для предпросмотра. Материал еще не был опубликован на сайте, вероятно, ожидается проверка модератором.';
+				$msg = _COM_CONTENT_ITEM_ADDED_THANK_2;
 				$link = 'index.php?option=com_content&task=preview&id='.$row->id;
 			}
 
@@ -1866,7 +1856,6 @@ function cancelContent() {
  * Shows the email form for a given content item.
  */
 function emailContentForm($uid, $gid) {
-	global $mosConfig_showEmail;
 
 	$database = &database::getInstance();
 
@@ -1880,7 +1869,7 @@ function emailContentForm($uid, $gid) {
 	}
 	$email = intval($params->get('email', 0));
 
-	if(!$mosConfig_showEmail && !$email) {
+	if(!Jconfig::getInstance()->config_showEmail && !$email) {
 		echo _NOT_AUTH;
 		return;
 	}
@@ -1891,8 +1880,16 @@ function emailContentForm($uid, $gid) {
 	$nullDate = $database->getNullDate();
 
 	// query to check for state and access levels
-	$query = "SELECT a.*, cc.name AS category, s.name AS section, s.published AS sec_pub, cc.published AS cat_pub,"."\n  s.access AS sec_access, cc.access AS cat_access, s.id AS sec_id, cc.id as cat_id"."\n FROM #__content AS a"."\n LEFT JOIN #__categories AS cc ON cc.id = a.catid"."\n LEFT JOIN #__sections AS s ON s.id = cc.section AND s.scope = 'content'"."\n WHERE a.id = ".(int)$uid."\n AND a.state = 1 OR a.state = -1".
-		"\n AND a.access <= ".(int)$gid."\n AND ( a.publish_up = ".$database->Quote($nullDate)." OR a.publish_up <= ".$database->Quote($now)." )"."\n AND ( a.publish_down = ".$database->Quote($nullDate)." OR a.publish_down >= ".$database->Quote($now)." )";
+	$query = "SELECT a.*, cc.name AS category, s.name AS section, s.published AS sec_pub, cc.published AS cat_pub,"
+		."\n s.access AS sec_access, cc.access AS cat_access, s.id AS sec_id, cc.id as cat_id"
+		."\n FROM #__content AS a"
+		."\n LEFT JOIN #__categories AS cc ON cc.id = a.catid"
+		."\n LEFT JOIN #__sections AS s ON s.id = cc.section AND s.scope = 'content'"
+		."\n WHERE a.id = ".(int)$uid."\n AND a.state = 1 OR a.state = -1"
+		."\n AND a.access <= ".(int)$gid."\n AND ( a.publish_up = ".$database->Quote($nullDate)
+		." OR a.publish_up <= ".$database->Quote($now)." )"
+		."\n AND ( a.publish_down = ".$database->Quote($nullDate)
+		." OR a.publish_down >= ".$database->Quote($now)." )";
 	$database->setQuery($query);
 	$row = null;
 
@@ -1926,7 +1923,7 @@ function emailContentForm($uid, $gid) {
 			return;
 		}
 
-		$query = "SELECT template"."\n FROM #__templates_menu"."\n WHERE client_id = 0"."\n AND menuid = 0";
+		$query = "SELECT template FROM #__templates_menu WHERE client_id = 0 AND menuid = 0";
 		$database->setQuery($query);
 		$template = $database->loadResult();
 
@@ -1941,7 +1938,6 @@ function emailContentForm($uid, $gid) {
  * Shows the email form for a given content item.
  */
 function emailContentSend($uid, $gid) {
-	global $mosConfig_sitename, $mosConfig_showEmail;
 
 	$mainframe = &mosMainFrame::getInstance();
 	$database = &database::getInstance();
@@ -1955,7 +1951,7 @@ function emailContentSend($uid, $gid) {
 		$params = new mosParameters('');
 	}
 	$paramEmail = intval($params->get('email', 0));
-	if(!$mosConfig_showEmail && !$paramEmail) {
+	if(!$mainframe->getCfg('showEmail') && !$paramEmail) {
 		echo _NOT_AUTH;
 		return;
 	}
@@ -2049,7 +2045,7 @@ function emailContentSend($uid, $gid) {
 		$link = sefRelToAbs('index.php?option=com_content&task=view&id='.$uid.$_itemid);
 
 		// message text
-		$msg = sprintf(_EMAIL_MSG, html_entity_decode($mosConfig_sitename, ENT_QUOTES), $yourname, $youremail, $link);
+		$msg = sprintf(_EMAIL_MSG, html_entity_decode($mainframe->getCfg('sitename'), ENT_QUOTES), $yourname, $youremail, $link);
 
 		// mail function
 		$success = mosMail($youremail, $yourname, $email, $subject, $msg);

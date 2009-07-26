@@ -21,7 +21,7 @@ DEFINE('_HEADER_HITS','Просмотров');
 DEFINE('_E_WARNUSER','Пожалуйста, нажмите кнопку "Отмена" или "Сохранить", чтобы покинуть эту страницу');
 DEFINE('_E_WARNTITLE','Содержимое должно иметь заголовок');
 DEFINE('_E_WARNTEXT','Содержимое должно иметь вводный текст');
-DEFINE('_E_TITLE','Заголовок:');
+DEFINE('_E_TITLE','Заголовок');
 DEFINE('_E_INTRO','Вводный текст');
 DEFINE('_E_MAIN','Основной текст');
 DEFINE('_E_MOSIMAGE','Вставить тег {mosimage}');
@@ -75,7 +75,40 @@ DEFINE('_ORDER_DROPDOWN_HD','Просмотры (по убыванию)');
 DEFINE('_ORDER_DROPDOWN_AUA','Автор (по возрастанию)');
 DEFINE('_ORDER_DROPDOWN_AUD','Автор (по убыванию)');
 DEFINE('_ORDER_DROPDOWN_O','По порядку');
+DEFINE('_ORDER_DROPDOWN_S_C_ASC','Раздел / Категория по возрастанию');
+DEFINE('_ORDER_DROPDOWN_S_C_DESC','Раздел / Категория по убыванию');
 DEFINE('_YOU_HAVE_NO_CONTENT','Нет добавленного Вами содержимого');
 DEFINE('_CONTENT_IS_BEING_EDITED_BY_OTHER_PEOPLE','Содержимое сейчас редактируется другим человеком');
 DEFINE('_EMPTY_BLOG','Нет объектов для отображения!');
 DEFINE('_COM_CONTENT_USER_NOT_FOUND','Извините, пользователь не найден');
+DEFINE('_COM_CONTENT_NEW_ITEM','Новый объект');
+DEFINE('_COM_CONTENT_ITEM_SAVED','Изменения сохранены. Здесь (ссылка) страница для предпросмотра');
+DEFINE('_COM_CONTENT_ITEM_ADDED','Материал был успешно добавлен и будет доступен для общего просмотра после проверки модератором. А пока повпечатляйтесь версией для предпросмотра.');
+DEFINE('_COM_CONTENT_ITEM_ADDED_THANK','Спасибо и все такое');
+DEFINE('_COM_CONTENT_ITEM_CHANGES_SAVED','Изменения сохранены.');
+DEFINE('_COM_CONTENT_ITEM_ALL_CHANGES_SAVED','Все изменения были успешно сохранены');
+DEFINE('_COM_CONTENT_ITEM_ADDED_THANK_2','Внимание! Это версия для предпросмотра. Материал еще не был опубликован на сайте, вероятно, ожидается проверка модератором.');
+/** письмо другу*/
+DEFINE('_EMAIL_TITLE','Отправить e-mail другу');
+DEFINE('_EMAIL_FRIEND','Отправить ссылку страницы на e-mail:');
+DEFINE('_EMAIL_FRIEND_ADDR','E-Mail друга:');
+DEFINE('_EMAIL_YOUR_NAME','Ваше имя:');
+DEFINE('_EMAIL_YOUR_MAIL','Ваш e-mail:');
+DEFINE('_SUBJECT_PROMPT',' Тема сообщения:');
+DEFINE('_BUTTON_SUBMIT_MAIL','Отправить');
+DEFINE('_BUTTON_CANCEL','Отмена');
+DEFINE('_EMAIL_ERR_NOINFO','Вы должны правильно ввести свой e-mail и e-mail получателя этого письма.');
+DEFINE('_EMAIL_MSG',' Здравствуйте! Следующую ссылку на страницу сайта "%s" отправил Вам %s ( %s ).
+
+Вы сможете просмотреть её по этой ссылке:
+%s');
+DEFINE('_EMAIL_INFO','Письмо отправил');
+DEFINE('_EMAIL_SENT','Ссылка на эту страницу отправлена для');
+DEFINE('_PROMPT_CLOSE','Закрыть окно');
+
+
+
+
+
+
+

@@ -284,7 +284,7 @@ class HTML_content {
 			$news_uid_css_title = 'id="title-news-'.$news_uid_css_page.'" ';
 			$news_uid_css_body = 'id="body-news-'.$news_uid_css_page.'" ';
 		}
-		;
+
 		// расчет Itemid
 		HTML_content::_Itemid($row);
 		// determines the link and `link text` of the readmore button & linked title
@@ -423,7 +423,8 @@ class HTML_content {
 	 * Вывод заголовка
 	 */
 	function Title(&$row, &$params, &$access = null) {
-		global $mosConfig_title_h1, $mosConfig_title_h1_only_view, $task;
+		global $task;
+
 		if($params->get('item_title')) {
 
 			//наводим порядок с выводом заголовков
@@ -459,10 +460,9 @@ class HTML_content {
 			}
 
 			//Выводим заголовок
-
 			return $row->title;
-
 		}
+		return $row->title;
 	}
 
 	/**
@@ -743,7 +743,7 @@ class HTML_content {
 		$allow_tags = $params->get('allow_tags', 1); // отображать поле "Ключевые слова"
 		$auto_publish = $params->get('auto_publish', 0); // настройки автопубликации
 		$allow_frontpage = $params->get('allow_frontpage', 0); // переключатель "На главной"
-		$front_label = $params->get('front_label', 'На главной'); // подпись переключателя "На главной"
+		$front_label = $params->get('front_label', _E_SHOW_FP); // подпись переключателя "На главной"
 
 		if($p_wwig) {
 			$mainframe->set('allow_wysiwyg', 1);

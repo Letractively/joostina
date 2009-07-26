@@ -531,3 +531,4 @@ DEFINE('_COM_USERS_CONTACT_INFO','Контактная информация');
 DEFINE('_USER_NONE_LAST_VISIT','не определено');
 
 DEFINE('_PAGE_ACCESS_DENIED','Извините, к этой странице доступ закрыт');
+DEFINE('_CONTENT_TYPED','Статичное содержимое');

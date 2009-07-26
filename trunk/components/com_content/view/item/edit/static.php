@@ -1,33 +1,32 @@
-<?php
-defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.' );
-?>
+<?php /**
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
-  <script>
-
-    $(document).ready(function() {
-        $("#apply").click(function () {
-            $("input#task").val('apply');
-            $("#addContent").submit();
-        });
-        $("#save").click(function () {
-            $("input#task").val('save');
-            $("#addContent").submit();
-        });
-        $("#cancel").click(function () {
-            $("input#task").val('cancel');
-            $("#addContent").submit();
-        });
-   });
-
-
-    $(document).ready(function(){
-        jQuery.validator.messages.required = "";
-        $("#addContent").validate();
-  });
-  </script>
-
-
-   <script language="javascript" type="text/javascript">
+// запрет прямого доступа
+defined('_VALID_MOS') or die(); ?>
+<script>
+	$(document).ready(function() {
+		$("#apply").click(function () {
+			$("input#task").val('apply');
+			$("#addContent").submit();
+		});
+		$("#save").click(function () {
+			$("input#task").val('save');
+			$("#addContent").submit();
+		});
+		$("#cancel").click(function () {
+			$("input#task").val('cancel');
+			$("#addContent").submit();
+		});
+		jQuery.validator.messages.required = "";
+		$("#addContent").validate();
+	});
+</script>
+<script language="javascript" type="text/javascript">
 		onunload = WarnUser;
 
 		function submitbutton(pressbutton) {
@@ -37,12 +36,8 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
 				form.onsubmit();
 			}
 			catch(e){}
-
-            <?php
-		        getEditorContents('editor2','introtext');
-            ?>
-
-            submitform(pressbutton);
+			<?php getEditorContents('editor2', 'introtext'); ?>
+			submitform(pressbutton);
 		}
 
 		function setgood(){
@@ -55,87 +50,65 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
 				window.location="<?php echo $good_exit_link; ?>";
 			}
 		}
-
-	</script>
-
-
-
-
+</script>
 		<form action="index.php" id="addContent" onSubmit="javascript:setgood();" method="post" name="adminForm" enctype="multipart/form-data">
-        <div class="componentheading"><?php echo $row->id ?   '&nbsp;'.$params->get('form_title_edit',_EDIT):  '&nbsp;'.$params->get('form_title_add',_ADD ); ?></div>
+		<div class="componentheading"><?php echo $row->id?'&nbsp;'.$params->get('form_title_edit', _EDIT) : '&nbsp;'.$params->get('form_title_add', _ADD); ?></div>
+<?php if($row->id && $allow_info) { ?>
+		<div class="jst_info">
+			<strong><?php echo _E_EXPIRES; ?></strong><?php echo $row->publish_down; ?>
+			<strong><?php echo _VERSION; ?></strong><?php echo $row->version; ?>
+			<strong><?php echo _CREATED; ?></strong><?php echo $row->created; ?>
+			<strong><?php echo _E_LAST_MOD; ?></strong><?php echo $row->modified; ?>
+			<strong><?php echo _HITS; ?></strong><?php echo $row->hits; ?>
+		</div>
+<?php } ?>
+		<table class="cedit_misc" cellspacing="0" cellpadding="0" border="0">
+			<tr>
+				<?php if($access->canPublish || $auto_publish == 1 || $my->usertype == "Super Administrator") { ?>
+				<td><b><?php echo _PUBLISHED?>:</b>&nbsp;&nbsp;</td><td><?php echo mosHTML::yesnoRadioList('state', '', $row->state); ?></td>
+				<?php } ?>
 
-        <?php if ($row->id && $allow_info){  ?>
-        <div class="jst_info">
-            <strong><?php echo _E_EXPIRES ;?></strong><?php echo $row->publish_down;?>
-            <strong><?php echo _VERSION ;?></strong><?php echo $row->version;?>
-            <strong><?php echo _CREATED ;?></strong><?php echo $row->created;?>
-            <strong><?php echo _E_LAST_MOD ;?></strong><?php echo $row->modified;?>
-            <strong><?php echo _HITS ;?></strong><?php echo $row->hits;?>
-
-        </div>
-        <?php }?>
-        <table class="cedit_misc" cellspacing="0" cellpadding="0" border="0">
-            <tr>
-
-                <?php if($access->canPublish || $auto_publish==1 || $my->usertype=="Super Administrator"){?>
-                <td><b>РћРїСѓР±Р»РёРєРѕРІР°РЅРѕ:</b>&nbsp;&nbsp;</td><td><?php echo  mosHTML::yesnoRadioList('state','',$row->state);?></td>
-                <?php }?>
-
-            </tr>
-       </table>
-
-
-         <table class="cedit_main" cellspacing="0" cellpadding="0" border="0" width="100%">
-            <tr>
-                <td width="25"><strong>Р—Р°РіРѕР»РѕРІРѕРє:</strong></td>
-                <td><input class="inputbox required title" type="text" name="title" size="30" maxlength="255" style="width:99%" value="<?php echo $row->title; ?>" /></td>
-            </tr>
-
-             <?php if($allow_alias){?>
-            <tr>
-                <td><strong>РџСЃРµРІРґРѕРЅРёРј:</strong></td>
+			</tr>
+		</table>
+		<table class="cedit_main" cellspacing="0" cellpadding="0" border="0" width="100%">
+			<tr>
+				<td width="25"><strong><?php echo _E_TITLE?>:</strong></td>
+				<td><input class="inputbox required title" type="text" name="title" size="30" maxlength="255" style="width:99%" value="<?php echo $row->title; ?>" /></td>
+			</tr>
+<?php if($allow_alias) { ?>
+			<tr>
+				<td><strong><?php echo _ALIAS?>:</strong></td>
 				<td>
 					<input name="title_alias" type="text" class="inputbox" id="title_alias" value="<?php echo $row->title_alias; ?>" size="30" style="width:99%" maxlength="255" />
 				</td>
-            </tr>
-             <?php }?>
-
-
-            <?php  if($allow_tags){ ?>
-            <tr>
+			</tr>
+<?php } ?>
+<?php if($allow_tags) { ?>
+			<tr>
 				<td align="left" valign="top"><strong><?php echo _E_M_KEY; ?></strong></td>
-				<td><input class="inputbox" style="width:99%" type="text" name="metakey" value="<?php echo str_replace('&','&amp;',$row->metakey); ?>"></td>
+				<td><input class="inputbox" style="width:99%" type="text" name="metakey" value="<?php echo str_replace('&', '&amp;', $row->metakey); ?>"></td>
 			</tr>
-            <?php }?>
-
-
-           <?php  if($allow_desc){ ?>   <tr>
+<?php } ?>
+<?php if($allow_desc) { ?>
+			<tr>
 				<td align="left" valign="top"><strong><?php echo _E_M_DESC; ?></strong></td>
-				<td><textarea class="inputbox" style="width:99%"  rows="2" name="metadesc"><?php echo str_replace('&','&amp;',$row->metadesc); ?></textarea></td>
+				<td><textarea class="inputbox" style="width:99%"  rows="2" name="metadesc"><?php echo str_replace('&', '&amp;', $row->metadesc); ?></textarea></td>
 			</tr>
-           <?php }?>
-
-         </table>
-
-         <br />
-
-		 <br />
-         <div class="cedit_fulltext">
-            <strong><?php echo _E_MAIN.' ('._OPTIONAL.')'; ?>:</strong>
-            <?php if($p_wwig){
-			// parameters : areaname, content, hidden field, width, height, rows, cols
-			editorArea('editor2',$row->introtext,'introtext','600','400','70','15', $wwig_params);
-		    }else { ?>
-			<textarea style="width: 700px; height: 400px;" class="inputbox" rows="15" cols="70" id="introtext" name="introtext"/><?php echo $row->introtext;?></textarea>
-            <?php } ?>
-        </div>
-
-
-
-
-<?php if( $allow_params){ ?>
-    <h4><?php echo _PUBLISHING;?></h4>
-			<table class="adminform">
+<?php } ?>
+		</table>
+		<br />
+		<br />
+		<div class="cedit_fulltext">
+			<strong><?php echo _E_MAIN.' ('._OPTIONAL.')'; ?>:</strong>
+<?php if($p_wwig) {
+	editorArea('editor2', $row->introtext, 'introtext', '600', '400', '70', '15', $wwig_params);
+} else { ?>
+			<textarea style="width: 700px; height: 400px;" class="inputbox" rows="15" cols="70" id="introtext" name="introtext"/><?php echo $row->introtext; ?></textarea>
+<?php } ?>
+		</div>
+<?php if($allow_params) { ?>
+	<h4><?php echo _PUBLISHING; ?></h4>
+		<table class="adminform">
 			<tr>
 				<td align="left"><?php echo _E_ACCESS_LEVEL; ?></td>
 				<td><?php echo $lists['access']; ?></td>
@@ -166,16 +139,12 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
 			</tr>
 			</table>
 <?php } ?>
-
-		<div style="clear:both;"></div> <br /><br />
-
-        <input type="submit" class="button submit" name="submit" id="save" value="РЎРѕС…СЂР°РЅРёС‚СЊ" />
-        <input type="submit" class="button apply" name="apply" id="apply" value="РџСЂРёРјРµРЅРёС‚СЊ" />
-        <input type="submit" class="button cancel" name="cancel" id="cancel" value="РћС‚РјРµРЅР°" />
-
+		<div style="clear:both;"></div><br /><br />
+		<input type="submit" class="button submit" name="submit" id="save" value="<?php echo _SAVE?>" />
+		<input type="submit" class="button apply" name="apply" id="apply" value="<?php echo _APPLY?>" />
+		<input type="submit" class="button cancel" name="cancel" id="cancel" value="<?php echo _CANCEL?>" />
 		<input type="hidden" name="goodexit" id="goodexit" value="0" />
 		<input type="hidden" name="option" value="com_content" />
-
 		<input type="hidden" name="id" value="<?php echo $row->id; ?>" />
 		<input type="hidden" name="version" value="<?php echo $row->version; ?>" />
 		<input type="hidden" name="sectionid" value="0" />
@@ -183,4 +152,4 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
 		<input type="hidden" name="referer" value="<?php echo ampReplace(@$_SERVER['HTTP_REFERER']); ?>" />
 		<input type="hidden" name="task" id="task" value="save" />
 		<input type="hidden" name="<?php echo $validate; ?>" value="1" />
-		</form>
+	</form>
