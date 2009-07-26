@@ -32,7 +32,10 @@ require_once ($mainframe->getPath('class'));
 
 $config = &Jconfig::getInstance();
 
+$uid = intval(mosGetParam( $_REQUEST, 'user', 0 ));
+
 switch($task) {
+	case 'edit';
 	case 'UserDetails':
 		userEdit($option,$my->id,_UPDATE);
 		break;
@@ -55,7 +58,9 @@ switch($task) {
 		break;
 
 	case 'profile':
-		profile($option);
+		$cache = &mosCache::getCache('user_profile');
+		$_view = strval(mosGetParam( $_REQUEST, 'view', '' ));
+		$cache->call('profile',$uid,$_view);
 		break;
 
 	case 'lostPassword':
@@ -99,7 +104,11 @@ switch($task) {
 		break;
 		
 	case 'userlist':
-		userList();
+		$cache = &mosCache::getCache('user_lists');
+		$gid = intval(mosGetParam($_GET,'group',0));
+		$limit = intval(mosGetParam($_REQUEST,'limit',null));
+		$limitstart = intval(mosGetParam($_REQUEST,'limitstart',0));
+		$cache->call('userList',$gid,$limit,$limitstart);
 		break;
 
 	default:
@@ -107,15 +116,13 @@ switch($task) {
 		break;
 }
 
-function profile($option){
+function profile($uid){
 
 	$mainframe = &mosMainFrame::getInstance();
 	$database = &database::getInstance();
 
-	$uid = mosGetParam( $_REQUEST, 'user', 0 );
-
 	$row = new mosUser($database);
-	if($row->load((int)$uid)){
+	if($row->load($uid)){
 		//Дополнительная информация о пользователе
 		$row->user_extra = $row->get_user_extra();
 
@@ -124,7 +131,7 @@ function profile($option){
 
 		$config = new configUser_profile($database);
 
-		HTML_user::profile($row,$option, $params, $config);
+		HTML_user::profile($row,'com_users', $params, $config);
 	}else{
 		echo _USER_NOT_FOUND;
 	}
@@ -155,9 +162,9 @@ function userEdit($option,$uid,$submitvalue) {
 	$user_extra->load((int)$uid);
 	$user->user_extra = $user_extra;
 
-	$config = new configUser_profile($database);
+	$user_config = new configUser_profile($database);
 
-	HTML_user::userEdit($user,$option,$submitvalue,$params, $config);
+	HTML_user::userEdit($user,$option,$submitvalue,$params, $user_config);
 }
 
 function userSave($option,$uid) {
@@ -260,13 +267,11 @@ function userSave($option,$uid) {
 	userEdit($option,$my->id,_UPDATE);
 }
 
-function userList(){
+function userList($gid,$limit,$limitstart=0){
 
 	$database = &database::getInstance();
 	$mainframe = &mosMainFrame::getInstance();
 	$acl = &gacl::getInstance();
-
-	$gid = intval(mosGetParam($_REQUEST,'group',0));
 
 	if(isset($mainframe->menu)){
 		$menu = $mainframe->menu;
@@ -279,12 +284,10 @@ function userList(){
 		$menu = $menu->getMenu(false, 'userlist', $link);
 	}
 
-
 	$params = new mosParameters($mainframe->menu->params);
-	$usertype = $acl->get_group_name($params->get('group', 0));
 
-	$limit		= intval(mosGetParam($_REQUEST,'limit',$params->get('limit',20)));
-	$limitstart	= intval(mosGetParam($_REQUEST,'limitstart',0));
+	$usertype = $acl->get_group_name($params->get('group', 0));
+	$limit = $limit ? $limit : $params->get('limit',20);
 
 	$template = 'default.php';
 	$template_dir = 'components'.DS.'com_users'.DS.'view'.DS.'userlist';
@@ -437,12 +440,12 @@ function sendNewPass() {
 	$confirmEmail = stripslashes(mosGetParam($_POST,'confirmEmail',''));
 
 	if($config->config_captcha_reg) {
-		session_name(md5($config->config_live_site));
 		session_start();
-		$captcha = $_POST['captcha'];
-		if(!isset($_SESSION['captcha_keystring']) || $_SESSION['captcha_keystring'] !==$captcha) {
-			mosErrorAlert(_BAD_CAPTCHA_STRING);
+		$captcha = strval(mosGetParam($_POST, 'captcha', null));
+		$captcha_keystring =mosGetParam($_SESSION,'captcha_keystring');
+		if($captcha_keystring!== $captcha) {
 			unset($_SESSION['captcha_keystring']);
+			mosRedirect('index.php?option=com_users&task=lostPassword',_BAD_CAPTCHA_STRING);
 			exit;
 		}
 		session_unset();
@@ -472,7 +475,7 @@ function sendNewPass() {
 		die("SQL error".$database->stderr(true));
 	}
 
-	mosRedirect('index.php?option=com_users',_NEWPASS_SENT);
+	mosRedirect('index.php',_NEWPASS_SENT);
 }
 
 function registerForm($option,$useractivation) {

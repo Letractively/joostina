@@ -44,7 +44,8 @@ class HTML_users {
 			<th width="13%"><?php echo _LAST_LOGIN ?></th>
 			<th width="1%">ID</th>
 		</tr>
-<?php $k = 0;
+<?php
+		$k = 0;
 		$num = count($rows);
 		for ($i = 0, $n = $num; $i < $n; $i++) {
 			$row = &$rows[$i];

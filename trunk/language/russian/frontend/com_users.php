@@ -75,7 +75,6 @@ DEFINE('_REGISTER_UNAME','Имя пользователя:');
 DEFINE('_REGISTER_EMAIL','E-mail:');
 DEFINE('_REGISTER_PASS','Пароль:');
 DEFINE('_REGISTER_VPASS','Подтверждение пароля:');
-DEFINE('_REGISTER_REQUIRED','Все поля, отмеченные символом (*), обязательны для заполнения!');
 DEFINE('_BUTTON_SEND_REG','Отправить данные');
 DEFINE('_SENDING_PASSWORD','Ваш пароль будет отправлен на указанный выше адрес e-mail.<br />Когда Вы получите новый пароль, Вы сможете зайти на сайт и изменить этот пароль в любое время.');
 DEFINE('_VALID_AZ09',"Пожалуйста, проверьте, правильно ли написано %s.  Имя не должно содержать пробелов, только символы 0-9,a-z,A-Z и иметь длину не менее %d символов.");
@@ -117,3 +116,15 @@ DEFINE('_PROFILE_SITE_SETTINGS','Настройки сайта');
 DEFINE('_SELECT_EDITOR','- Выберите редактор -');
 DEFINE('_USER_NOT_FOUND','Извините, пользователь не найден');
 DEFINE('_WAIT_ACTIVATION','Благодарим за регистрацию. Доступ к аккаунту будет предоставлен после проверки модератором.');
+DEFINE('_USER_LAST_VISIT','Последний визит');
+DEFINE('_USER_EDIT_PROFILE','Редактировать профиль');
+DEFINE('_USER_ON_LINE','на сайте');
+DEFINE('_USER_OFF_LINE','отсутствует');
+
+DEFINE('_USER_PROFILE_INFO','Данные профиля');
+DEFINE('_USER_SITE_SETTINGS','Настройки сайта');
+DEFINE('_USER_PERSONAL_DATA','Личные данные');
+
+
+
+

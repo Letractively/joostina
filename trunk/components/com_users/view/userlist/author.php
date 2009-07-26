@@ -11,7 +11,7 @@
 defined('_VALID_MOS') or die();
 
 if(!$menu || $menu->published == 0){
-	echo 'Извините, к этой странице доступ закрыт';
+	echo _PAGE_ACCESS_DENIED;
 	return;
 }
 

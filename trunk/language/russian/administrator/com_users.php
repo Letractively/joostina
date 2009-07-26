@@ -66,19 +66,23 @@ DEFINE('_SELECT_EDITOR','- Выберите редактор -');
 DEFINE('_VALID_AZ09',"Пожалуйста, проверьте, правильно ли написано %s.  Имя не должно содержать пробелов, только символы 0-9,a-z,A-Z и иметь длину не менее %d символов.");
 DEFINE('_VALID_AZ09_USER',"Пожалуйста, правильно введите %s. Должно содержать только символы 0-9,a-z,A-Z и иметь длину не менее %d символов.");
 DEFINE('_YOUR_NAME','Полное имя');
-DEFINE('_COM_USERS_CONTACT_INFO','Контактная информация');  
-DEFINE('_CONTACT_INFO_COM_CONTACT','Связь с компонентом контактов'); 
+DEFINE('_CONTACT_INFO_COM_CONTACT','Связь с компонентом контактов');
 
 DEFINE('_C_USERS_USER_EDIT','Редактирование профиля пользователя');
 DEFINE('_C_USERS_USER_NEW','Новый пользователь');
 DEFINE('_C_USERS_EXTRA_INFO','Дополнительная информация');
-DEFINE('_C_USERS_B_DAY','Дата рождения');
-DEFINE('_C_USERS_DESCRIPTION','О себе');
-DEFINE('_C_USERS_LOCATION','Местоположение');
 DEFINE('_C_USERS_CONTACT_INFO','Контактные данные');
-DEFINE('_C_USERS_CONTACT_SITE','Сайт');
-DEFINE('_C_USERS_CONTACT_PHONE','Телефон');
-DEFINE('_C_USERS_CONTACT_PHONE_MOBILE','Мобильный телефон');
-DEFINE('_C_USERS_CONTACT_FAX','Факс');
-DEFINE('_C_USERS_GENDER','Пол');
-DEFINE('_C_USERS_AVATARS','Аватар');
+
+DEFINE('_C_USERS_REG_SETTINGS','Пользователи: настройки регистрации');
+DEFINE('_C_USERS_REG_FORM_BEFORE','Текст перед формой регистрации');
+DEFINE('_C_USERS_REG_FORM_AFTER','Текст после формы регистрации');
+DEFINE('_C_USERS_REG_AFTER_LINK','Ссылка для перехода после регистрации');
+DEFINE('_C_USERS_REG_ONE_GROOP_TEMPLATE','Использовать единый шаблон формы регистрации для всех групп пользователей');
+DEFINE('_C_USERS_REG_DEFAULT_GROOPS','Группа пользователя по умолчанию');
+DEFINE('_C_USERS_REG_PROFILE_ACTIVATE','Активация аккаунта администратором (работает совместно с глобальной настройкой "Использовать активацию нового аккаунта:"');
+
+DEFINE('_C_USERS_PROFILE_SETTINGS','Пользователи: настройки профиля');
+DEFINE('_C_USERS_PROFILE_ONE_TEMPLATE','Использовать единый шаблон профиля для всех групп пользователей');
+DEFINE('_C_USERS_PROFILE_ONE_TEMPLATE_EDIT','Использовать единый шаблон редактирования данных для всех групп пользователей');
+
+

@@ -9,6 +9,7 @@
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
+
 ?><script language="javascript" type="text/javascript">
 	function submitbutton_reg() {
 		var form = document.mosForm;
@@ -44,13 +45,11 @@ defined('_VALID_MOS') or die();
 	</script>
 	<form action="index.php" method="post" name="mosForm" id="mosForm">
 		<div class="componentheading"><h1><?php echo $params->get('title'); ?></h1></div>
-		
 <?php if($params->get('pre_text')){?>
-			<div class="info">
-				<?php echo $params->get('pre_text'); ?>	
-			</div>
+		<div class="info">
+			<?php echo $params->get('pre_text'); ?>
+		</div>
 <?php } ?>
-		
 		<table cellpadding="0" cellspacing="0" border="0" width="100%" class="contentpane">
 		<tr>
 			<td width="30%"><?php echo _REGISTER_NAME; ?>*</td>
@@ -84,7 +83,6 @@ defined('_VALID_MOS') or die();
 				<input class="inputbox" type="password" name="password2" size="40" value="" />
 			</td>
 		</tr>
-
 <?php if($mainframe->getCfg('captcha_reg')) { ?>
 		<tr>
 			<td>&nbsp;</td>
@@ -100,17 +98,13 @@ defined('_VALID_MOS') or die();
 		</tr>
 <?php } ?>
 		</table>
-
 <?php if($params->get('post_text')){ ?>
 			<div class="info">
 				<?php echo $params->get('post_text'); ?>
 			</div>
 <?php }?>
-
-
 		<span class="button"><input type="button" value="<?php echo _BUTTON_SEND_REG; ?>" class="button" onclick="submitbutton_reg()" /></span>
-
 		<input type="hidden" name="option" value="<?php echo $option; ?>" />
-		<input type="hidden" name="task" value="saveRegistration" />		
+		<input type="hidden" name="task" value="saveRegistration" />
 		<input type="hidden" name="<?php echo $validate; ?>" value="1" />
 	</form>

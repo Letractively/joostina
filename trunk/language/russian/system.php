@@ -143,16 +143,16 @@ DEFINE('_COPY','Копировать');
 DEFINE('_CREATE_ACCOUNT','Регистрация');
 DEFINE('_CREATE','Создать'); 
 DEFINE('_CREATED','Дата создания:');
-DEFINE('_CREATION','Создание'); 
-DEFINE('_DATABASE','База данных'); 
+DEFINE('_CREATION','Создание');
+DEFINE('_DATABASE','База данных');
 DEFINE('_DATE','Дата');
 DEFINE('_DEFAULT','По умолчанию');
 DEFINE('_DELETE','Удалить');
-DEFINE('_DELETING','Удаление');  
+DEFINE('_DELETING','Удаление');
 DEFINE('_DESCRIPTION','Описание');
 DEFINE('_DETAILS','Детали'); 
 DEFINE('_EDIT','Редактировать');
-DEFINE('_EDIT_CATEGORY','Редактирование категории');   
+DEFINE('_EDIT_CATEGORY','Редактирование категории');
 DEFINE('_EDITING','Редактирование');
 DEFINE('_EMAIL','E-mail ');
 DEFINE('_END','Окончание');
@@ -503,3 +503,31 @@ DEFINE('_CHANGE_CONTENT','Изменить содержимое');
 DEFINE('_CHANGE_CATEGORY','Изменить категорию');
 
 DEFINE('_C_CONTENT_USER_CONTENT','Содержимое пользователя');
+DEFINE('_USERS_MALE_S','мужской');
+DEFINE('_USERS_FEMALE_S','женский');
+DEFINE('_YEAR','год');
+DEFINE('_YEAR_','года');
+DEFINE('_YEARS','лет');
+
+DEFINE('_REGISTER_REQUIRED','Все поля, отмеченные символом (*), обязательны для заполнения!');
+DEFINE('_PAGE_TITLE','Заголовок страницы');
+DEFINE('_USER_PROFILE','Профиль пользователя');
+
+DEFINE('_TEMPLATE_DIR','Шаблон из');
+DEFINE('_TEMPLATE_DIR_DEF','Каталога шаблона');
+DEFINE('_TEMPLATE_DIR_SYSTEM','Системный каталог');
+
+DEFINE('_C_USERS_GENDER','Пол');
+DEFINE('_C_USERS_B_DAY','Дата рождения');
+DEFINE('_C_USERS_DESCRIPTION','О себе');
+DEFINE('_C_USERS_CONTACTS','Контакты');
+DEFINE('_C_USERS_CONTACT_SITE','Сайт');
+DEFINE('_C_USERS_CONTACT_PHONE','Телефон');
+DEFINE('_C_USERS_CONTACT_PHONE_MOBILE','Мобильный телефон');
+DEFINE('_C_USERS_CONTACT_FAX','Факс');
+DEFINE('_C_USERS_AVATARS','Аватар');
+DEFINE('_C_USERS_LOCATION','Местоположение');
+DEFINE('_COM_USERS_CONTACT_INFO','Контактная информация');
+DEFINE('_USER_NONE_LAST_VISIT','не определено');
+
+DEFINE('_PAGE_ACCESS_DENIED','Извините, к этой странице доступ закрыт');
