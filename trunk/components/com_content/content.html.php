@@ -305,8 +305,6 @@ class HTML_content {
 			$results = $_MAMBOTS->trigger('onPrepareContent', array(&$row, &$params, $page), true);
 		}
 
-		unset($mainframe);
-
 		//зануляем
 		$loadbot_onAfterDisplayTitle = '';
 		$loadbot_onBeforeDisplayContent = '';
