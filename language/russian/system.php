@@ -532,3 +532,5 @@ DEFINE('_USER_NONE_LAST_VISIT','не определено');
 
 DEFINE('_PAGE_ACCESS_DENIED','Извините, к этой странице доступ закрыт');
 DEFINE('_CONTENT_TYPED','Статичное содержимое');
+
+DEFINE('_E_ITEM_SAVED','Успешно сохранено!');

@@ -102,17 +102,20 @@ function viewMambots($option,$client) {
 	}
 
 	// get the total number of records
-	$query = "SELECT COUNT(*)"."\n FROM #__mambots AS m".(count($where)?"\n WHERE ".implode(' AND ',$where):'');
+	$query = "SELECT COUNT(*) FROM #__mambots AS m".(count($where)?"\n WHERE ".implode(' AND ',$where):'');
 	$database->setQuery($query);
 	$total = $database->loadResult();
 
-	require_once ($GLOBALS['mosConfig_absolute_path'].
-		'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
+	require_once ($GLOBALS['mosConfig_absolute_path'].DS.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
-	$query = "SELECT m.*, u.name AS editor, g.name AS groupname"."\n FROM #__mambots AS m".
-		"\n LEFT JOIN #__users AS u ON u.id = m.checked_out"."\n LEFT JOIN #__groups AS g ON g.id = m.access".(count
-		($where)?"\n WHERE ".implode(' AND ',$where):'')."\n GROUP BY m.id"."\n ORDER BY m.folder ASC, m.ordering ASC, m.name ASC";
+	$query = "SELECT m.*, u.name AS editor, g.name AS groupname"
+		."\n FROM #__mambots AS m"
+		."\n LEFT JOIN #__users AS u ON u.id = m.checked_out"
+		."\n LEFT JOIN #__groups AS g ON g.id = m.access"
+		.(count($where)?"\n WHERE ".implode(' AND ',$where):'')
+		."\n GROUP BY m.id"
+		."\n ORDER BY m.folder ASC, m.ordering ASC, m.name ASC";
 	$database->setQuery($query,$pageNav->limitstart,$pageNav->limit);
 	$rows = $database->loadObjectList();
 	if($database->getErrorNum()) {
@@ -121,14 +124,15 @@ function viewMambots($option,$client) {
 	}
 
 	// get list of Positions for dropdown filter
-	$query = "SELECT folder AS value, folder AS text"."\n FROM #__mambots"."\n WHERE client_id = ".(int)
-		$client_id."\n GROUP BY folder"."\n ORDER BY folder";
+	$query = "SELECT folder AS value, folder AS text"
+		."\n FROM #__mambots"
+		."\n WHERE client_id = ".(int)$client_id
+		."\n GROUP BY folder"
+		."\n ORDER BY folder";
 	$types[] = mosHTML::makeOption(1,_SEL_TYPE);
 	$database->setQuery($query);
 	$types = array_merge($types,$database->loadObjectList());
-	$lists['type'] = mosHTML::selectList($types,'filter_type',
-		'class="inputbox" size="1" onchange="document.adminForm.submit( );"','value',
-		'text',$filter_type);
+	$lists['type'] = mosHTML::selectList($types,'filter_type','class="inputbox" size="1" onchange="document.adminForm.submit( );"','value','text',$filter_type);
 
 	HTML_modules::showMambots($rows,$client,$pageNav,$option,$lists,$search);
 }
@@ -200,7 +204,7 @@ function editMambot($option,$uid,$client) {
 
 	// fail if checked out not by 'me'
 	if($row->isCheckedOut($my->id)) {
-		mosErrorAlert("The module ".$row->title." is currently being edited by another administrator");
+		mosErrorAlert($row->title.' '._COM_MAMBOTS_NON_EDIT);
 	}
 
 	if($client == 'admin') {
@@ -222,23 +226,26 @@ function editMambot($option,$uid,$client) {
 
 		if($row->ordering > -10000 && $row->ordering < 10000) {
 			// build the html select list for ordering
-			$query = "SELECT ordering AS value, name AS text"."\n FROM #__mambots"
+			$query = "SELECT ordering AS value, name AS text"
+				."\n FROM #__mambots"
 				."\n WHERE folder = "
-				.$database->Quote($row->folder)."\n AND published > 0"
+				.$database->Quote($row->folder)
+				."\n AND published > 0"
 				."\n AND $where"
 				."\n AND ordering > -10000"
-				."\n AND ordering < 10000"."\n ORDER BY ordering";
+				."\n AND ordering < 10000"
+				."\n ORDER BY ordering";
 			$order = mosGetOrderingList($query);
 			$lists['ordering'] = mosHTML::selectList($order,'ordering','class="inputbox" size="1"','value','text',intval($row->ordering));
 		} else {
-			$lists['ordering'] = '<input type="hidden" name="ordering" value="'.$row->ordering.'" />Порядок расположения этого мамбота не может быть изменен';
+			$lists['ordering'] = '<input type="hidden" name="ordering" value="'.$row->ordering.'" />'._COM_MAMBOTS_NON_REORDER;
 		}
 		$lists['folder'] = '<input type="hidden" name="folder" value="'.$row->folder.'" />'.$row->folder;
 
 		// XML library
 		require_once ($mosConfig_absolute_path.'/includes/domit/xml_domit_lite_include.php');
 		// xml file for module
-		$xmlfile = $mosConfig_absolute_path.'/mambots/'.$row->folder.'/'.$row->element.'.xml';
+		$xmlfile = $mosConfig_absolute_path.DS.'mambots'.DS.$row->folder.DS.$row->element.'.xml';
 		$xmlDoc = new DOMIT_Lite_Document();
 		$xmlDoc->resolveErrors(true);
 		if($xmlDoc->loadXML($xmlfile,false,true)) {
@@ -254,10 +261,10 @@ function editMambot($option,$uid,$client) {
 		$row->published = 1;
 		$row->description = '';
 
-		$folders = mosReadDirectory($mosConfig_absolute_path.'/mambots/');
+		$folders = mosReadDirectory($mosConfig_absolute_path.DS.'mambots'.DS);
 		$folders2 = array();
 		foreach($folders as $folder) {
-			if(is_dir($mosConfig_absolute_path.'/mambots/'.$folder) && ($folder != 'CVS')) {
+			if(is_dir($mosConfig_absolute_path.DS.'mambots'.DS.$folder) && ($folder != 'CVS')) {
 				$folders2[] = mosHTML::makeOption($folder);
 			}
 		}
@@ -267,7 +274,7 @@ function editMambot($option,$uid,$client) {
 
 	$lists['published'] = mosHTML::yesnoRadioList('published','class="inputbox"',$row->published);
 
-	$path = $mosConfig_absolute_path."/mambots/$row->folder/$row->element.xml";
+	$path = $mosConfig_absolute_path.DS."mambots/$row->folder/$row->element.xml";
 	if(!file_exists($path)) {
 		$path = '';
 	}
