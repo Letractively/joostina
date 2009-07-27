@@ -49,7 +49,6 @@ DEFINE('_E_GALLERY_IMAGES','Галерея изображений');
 DEFINE('_E_HIDE_TITLE','Скрыть заголовок:');
 DEFINE('_E_INSERT','Вставить');
 DEFINE('_E_INTRO','Вводный текст');
-DEFINE('_E_ITEM_SAVED','Успешно сохранено!');
 DEFINE('_E_LAST_MOD','Последнее изменение:');
 DEFINE('_E_M_DESC','Описание:');
 DEFINE('_E_M_KEY','Ключевые слова:');

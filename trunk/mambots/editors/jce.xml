@@ -40,7 +40,7 @@
 			<option value="ltr">Слева на право</option>
 			<option value="rtl">Справа на лево</option>
 		</param>
-		<param name="charset" type="text" default="windows-1251" label="Кодировка" description="Кодировка редактируемых данных для использования в аякс функциях." />
+		<param name="charset" type="text" default="utf-8" label="Кодировка" description="Кодировка редактируемых данных для использования в аякс функциях." />
 		<param name="table_inline" type="radio" default="0" label="Расширенное управление таблицами" description="Использовать продвинутый редактор для таблиц">
 			<option value="0">Нет</option>
 			<option value="1">Да</option>
