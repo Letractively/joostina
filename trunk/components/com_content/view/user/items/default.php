@@ -101,10 +101,10 @@ defined('_VALID_MOS') or die(); ?>
 foreach ($items as $row) {
 	$row->Itemid_link = '&amp;Itemid='.$Itemid;
 	$row->_Itemid = $Itemid;
-	$row->created = mosFormatDate($row->created, $mosConfig_form_date_full, '0');
+	$row->created = mosFormatDate($row->created, $config->config_form_date_full, '0');
 	$link = sefRelToAbs('index.php?option=com_content&amp;task=view&amp;id='.$row->id.'&amp;Itemid='.$Itemid);
 	$img = $row->published?'publish_g.png' : 'publish_x.png';
-	$img = $mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/images/'.$img;
+	$img = $config->config_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/images/'.$img;
 
 	// раздел / категория
 	$section_cat = $row->section.' / '.$row->category;

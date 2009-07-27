@@ -63,67 +63,65 @@ class configContent_ucontent extends dbConfig {
 				submitform( pressbutton );
 				return;
 			}
-
-				submitform( pressbutton );
+			submitform( pressbutton );
 
 		}
 		</script>
-        <h1>Содержимое: настройки по умолчанию</h1>
-        <h2>Страница с материалами пользователя</h2>
-        <form action="index2.php" method="post" name="adminForm">
-
-            <table class="adminform">
-                <tr>
-                    <td width="250">Заголовок страницы</td>
-                    <td><input class="inputbox" type="text" name="title" value="<?php echo $this->title; ?>" /></td>
-                </tr>
-                <tr>
-                    <td>Отображать дату</td>
-                    <td><?php echo mosHTML::yesnoRadioList('date', '', $this->date?1 : 0); ?></td>
-                </tr>
-                <tr>
-                    <td>Отображать количество просмотров</td>
-                    <td><?php echo mosHTML::yesnoRadioList('hits', '', $this->hits?1 : 0); ?></td>
-                </tr>
-                <tr>
-                    <td>Отображать раздел/категорию</td>
-                    <td><?php echo mosHTML::yesnoRadioList('section', '', $this->section?1 : 0); ?></td>
-                </tr>
-                <tr>
-                    <td>Поле фильтра</td>
-                    <td><?php echo mosHTML::yesnoRadioList('filter', '', $this->filter?1 : 0); ?></td>
-                </tr>
-                <tr>
-                    <td>Выбор типа сортировки</td>
-                    <td><?php echo mosHTML::yesnoRadioList('order_select', '', $this->order_select?1 : 0); ?></td>
-                </tr>
-                <tr>
-                    <td>Выпадающий список для выбора количества записей на странице</td>
-                    <td><?php echo mosHTML::yesnoRadioList('display', '', $this->display?1 : 0); ?></td>
-                </tr>
-                <tr>
-                    <td>Количество записей на странице по умолчанию</td>
-                    <td><input class="inputbox" type="text" name="display_num" value="<?php echo $this->display_num; ?>" /></td>
-                </tr>
-                <tr>
-                    <td>Заголовки таблицы</td>
-                    <td><?php echo mosHTML::yesnoRadioList('headings', '', $this->headings?1 : 0); ?></td>
-                </tr>
-                <tr>
-                    <td>Постраничная навигация</td>
-                    <td><?php echo mosHTML::yesnoRadioList('navigation', '', $this->navigation?1 : 0); ?></td>
-                </tr>
-                
-            </table>
-
-            <input type="hidden" name="option" value="<?php echo $option; ?>" />
-            <input type="hidden" name="act" value="ucontent" />
-		    <input type="hidden" name="task" value="save_config" />
-            <input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
-        </form>
-
-
-        <?php }
+	<table class="adminheading"><tbody>
+		<tr><th class="config">
+		<?php echo _C_CONTENT_SET_DEF_CONTENT_SETTINGS?><br />
+		<small><?php echo _C_CONTENT_SET_USER_CONTENT?></small>
+		</th></tr>
+	</tbody></table>
+	<form action="index2.php" method="post" name="adminForm">
+		<table class="adminform">
+			<tr>
+				<td width="250"><?php echo _PAGE_TITLE?></td>
+				<td><input class="inputbox" type="text" name="title" size="100" value="<?php echo $this->title; ?>" /></td>
+			</tr>
+			<tr>
+				<td><?php echo _C_CONTENT_SET_DISPLAY_DATE?></td>
+				<td><?php echo mosHTML::yesnoRadioList('date', '', $this->date?1 : 0); ?></td>
+			</tr>
+			<tr>
+				<td><?php echo _C_CONTENT_SET_DISPLAY_HIT_COUNTER?></td>
+				<td><?php echo mosHTML::yesnoRadioList('hits', '', $this->hits?1 : 0); ?></td>
+			</tr>
+			<tr>
+				<td><?php echo _C_CONTENT_SET_DISPLAY_SEC_CAT?></td>
+				<td><?php echo mosHTML::yesnoRadioList('section', '', $this->section?1 : 0); ?></td>
+			</tr>
+			<tr>
+				<td><?php echo _C_CONTENT_SET_DISPLAY_FILTER?></td>
+				<td><?php echo mosHTML::yesnoRadioList('filter', '', $this->filter?1 : 0); ?></td>
+			</tr>
+			<tr>
+				<td><?php echo _C_CONTENT_SET_DISPLAY_ORDER?></td>
+				<td><?php echo mosHTML::yesnoRadioList('order_select', '', $this->order_select?1 : 0); ?></td>
+			</tr>
+			<tr>
+				<td><?php echo _C_CONTENT_SET_DISPLAY_PAGE_LIMIT?></td>
+				<td><?php echo mosHTML::yesnoRadioList('display', '', $this->display?1 : 0); ?></td>
+			</tr>
+			<tr>
+				<td><?php echo _C_CONTENT_SET_DISPLAY_DEF_PAGE_LIMIT?></td>
+				<td><input class="inputbox" type="text" name="display_num" value="<?php echo $this->display_num; ?>" /></td>
+			</tr>
+			<tr>
+				<td><?php echo _C_CONTENT_SET_DISPLAY_TABLE_HEADER?></td>
+				<td><?php echo mosHTML::yesnoRadioList('headings', '', $this->headings?1 : 0); ?></td>
+			</tr>
+			<tr>
+				<td><?php echo _C_CONTENT_SET_DISPLAY_PAGENAV?></td>
+				<td><?php echo mosHTML::yesnoRadioList('navigation', '', $this->navigation?1 : 0); ?></td>
+			</tr>
+		</table>
+		<input type="hidden" name="option" value="<?php echo $option; ?>" />
+		<input type="hidden" name="act" value="ucontent" />
+		<input type="hidden" name="task" value="save_config" />
+		<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
+		</form>
+	<?php }
 
 	function save_config() {
 		if(!$this->bindConfig($_REQUEST)) {
@@ -244,7 +242,8 @@ class configContent_sectionblog extends dbConfig {
 	}
 
 	function display_config($option) {
-		global $mainframe;
+		$mainframe = &mosMainFrame::getInstance();
+
 		$params = $this->prepare_for_xml_render();
 		$params = new mosParameters($params, $mainframe->getPath('menu_xml', 'content_blog_section'), 'menu'); ?>
 		<script language="javascript" type="text/javascript">
@@ -254,25 +253,23 @@ class configContent_sectionblog extends dbConfig {
 				submitform( pressbutton );
 				return;
 			}
-
-				submitform( pressbutton );
-
+			submitform( pressbutton );
 		}
 		</script>
-        <h1 class="config">Содержимое: настройки по умолчанию</h1>
-        <h2>Страница "Блог раздела"</h2>
-        <form action="index2.php" method="post" name="adminForm">
-		
-			<?php echo $params->render(); ?>	
-			
-            <input type="hidden" name="option" value="<?php echo $option; ?>" />
-            <input type="hidden" name="act" value="sectionblog" />
-		    <input type="hidden" name="task" value="save_config" />
-            <input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
-        </form>
-
-
-        <?php }
+		<table class="adminheading"><tbody>
+			<tr><th class="config">
+			<?php echo _C_CONTENT_SET_DEF_CONTENT_SETTINGS?><br />
+			<small><?php echo _C_CONTENT_SET_SECTION_BLOG?></small>
+			</th></tr>
+		</tbody></table>
+		<form action="index2.php" method="post" name="adminForm">
+			<?php echo $params->render(); ?>
+			<input type="hidden" name="option" value="<?php echo $option; ?>" />
+			<input type="hidden" name="act" value="sectionblog" />
+			<input type="hidden" name="task" value="save_config" />
+			<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
+		</form>
+	<?php }
 
 	function save_config() {
 
@@ -397,7 +394,8 @@ class configContent_categoryblog extends dbConfig {
 	}
 
 	function display_config($option) {
-		global $mainframe;
+		$mainframe = &mosMainFrame::getInstance();
+
 		$params = $this->prepare_for_xml_render();
 		$params = new mosParameters($params, $mainframe->getPath('menu_xml', 'content_blog_category'), 'menu'); ?>
 		<script language="javascript" type="text/javascript">
@@ -407,25 +405,23 @@ class configContent_categoryblog extends dbConfig {
 				submitform( pressbutton );
 				return;
 			}
-
-				submitform( pressbutton );
-
+			submitform( pressbutton );
 		}
 		</script>
-        <h1 class="config">Содержимое: настройки по умолчанию</h1>
-        <h2>Страница "Блог категории"</h2>
-        <form action="index2.php" method="post" name="adminForm">
-		
-			<?php echo $params->render(); ?>	
-			
-            <input type="hidden" name="option" value="<?php echo $option; ?>" />
-            <input type="hidden" name="act" value="categoryblog" />
-		    <input type="hidden" name="task" value="save_config" />
-            <input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
-        </form>
-
-
-        <?php }
+		<table class="adminheading"><tbody>
+			<tr><th class="config">
+			<?php echo _C_CONTENT_SET_DEF_CONTENT_SETTINGS?><br />
+			<small><?php echo _C_CONTENT_SET_CATEGORY_BLOG?></small>
+			</th></tr>
+		</tbody></table>
+		<form action="index2.php" method="post" name="adminForm">
+			<?php echo $params->render(); ?>
+			<input type="hidden" name="option" value="<?php echo $option; ?>" />
+			<input type="hidden" name="act" value="categoryblog" />
+			<input type="hidden" name="task" value="save_config" />
+			<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
+		</form>
+	<?php }
 
 	function save_config() {
 
@@ -564,20 +560,20 @@ class configContent_sectionarchive extends dbConfig {
 
 		}
 		</script>
-        <h1 class="config">Содержимое: настройки по умолчанию</h1>
-        <h2>Страница "Архив раздела"</h2>
-        <form action="index2.php" method="post" name="adminForm">
-		
-			<?php echo $params->render(); ?>	
-			
-            <input type="hidden" name="option" value="<?php echo $option; ?>" />
-            <input type="hidden" name="act" value="sectionarchive" />
-		    <input type="hidden" name="task" value="save_config" />
-            <input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
-        </form>
-
-
-        <?php }
+		<table class="adminheading"><tbody>
+			<tr><th class="config">
+			<?php echo _C_CONTENT_SET_DEF_CONTENT_SETTINGS?><br />
+			<small><?php echo _C_CONTENT_SET_SECTION_ARHIVE?></small>
+			</th></tr>
+		</tbody></table>
+		<form action="index2.php" method="post" name="adminForm">
+			<?php echo $params->render(); ?>
+			<input type="hidden" name="option" value="<?php echo $option; ?>" />
+			<input type="hidden" name="act" value="sectionarchive" />
+			<input type="hidden" name="task" value="save_config" />
+			<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
+		</form>
+	<?php }
 
 	function save_config() {
 
@@ -714,20 +710,20 @@ class configContent_categoryarchive extends dbConfig {
 
 		}
 		</script>
-        <h1 class="config">Содержимое: настройки по умолчанию</h1>
-        <h2>Страница "Архив категории"</h2>
-        <form action="index2.php" method="post" name="adminForm">
-		
-			<?php echo $params->render(); ?>	
-			
-            <input type="hidden" name="option" value="<?php echo $option; ?>" />
-            <input type="hidden" name="act" value="categoryarchive" />
-		    <input type="hidden" name="task" value="save_config" />
-            <input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
-        </form>
-
-
-        <?php }
+		<table class="adminheading"><tbody>
+			<tr><th class="config">
+			<?php echo _C_CONTENT_SET_DEF_CONTENT_SETTINGS?><br />
+			<small><?php echo _C_CONTENT_SET_CATEGORY_ARHIVE?></small>
+			</th></tr>
+		</tbody></table>
+		<form action="index2.php" method="post" name="adminForm">
+			<?php echo $params->render(); ?>
+			<input type="hidden" name="option" value="<?php echo $option; ?>" />
+			<input type="hidden" name="act" value="categoryarchive" />
+			<input type="hidden" name="task" value="save_config" />
+			<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
+		</form>
+	<?php }
 
 	function save_config() {
 
@@ -851,20 +847,20 @@ class configContent_categorytable extends dbConfig {
 
 		}
 		</script>
-        <h1 class="config">Содержимое: настройки по умолчанию</h1>
-        <h2>Страница "Таблица с материалами категории"</h2>
-        <form action="index2.php" method="post" name="adminForm">
-		
-			<?php echo $params->render(); ?>	
-			
-            <input type="hidden" name="option" value="<?php echo $option; ?>" />
-            <input type="hidden" name="act" value="categorytable" />
-		    <input type="hidden" name="task" value="save_config" />
-            <input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
-        </form>
-
-
-        <?php }
+		<table class="adminheading"><tbody>
+			<tr><th class="config">
+			<?php echo _C_CONTENT_SET_DEF_CONTENT_SETTINGS?><br />
+			<small><?php echo _C_CONTENT_SET_CATEGORY_TABLE?></small>
+			</th></tr>
+		</tbody></table>
+		<form action="index2.php" method="post" name="adminForm">
+			<?php echo $params->render(); ?>
+			<input type="hidden" name="option" value="<?php echo $option; ?>" />
+			<input type="hidden" name="act" value="categorytable" />
+			<input type="hidden" name="task" value="save_config" />
+			<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
+		</form>
+	<?php }
 
 	function save_config() {
 
@@ -874,7 +870,6 @@ class configContent_categorytable extends dbConfig {
 			foreach ($params as $k => $v) {
 				$_REQUEST[$k] = $v;
 			}
-
 		}
 
 		if(!$this->bindConfig($_REQUEST)) {
@@ -957,20 +952,20 @@ class configContent_sectionlist extends dbConfig {
 
 		}
 		</script>
-        <h1 class="config">Содержимое: настройки по умолчанию</h1>
-        <h2>Страница "список категорий раздела"</h2>
-        <form action="index2.php" method="post" name="adminForm">
-		
-			<?php echo $params->render(); ?>	
-			
-            <input type="hidden" name="option" value="<?php echo $option; ?>" />
-            <input type="hidden" name="act" value="sectionlist" />
-		    <input type="hidden" name="task" value="save_config" />
-            <input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
-        </form>
-
-
-        <?php }
+		<table class="adminheading"><tbody>
+			<tr><th class="config">
+			<?php echo _C_CONTENT_SET_DEF_CONTENT_SETTINGS?><br />
+			<small><?php echo _C_CONTENT_SET_SECTION_TABLE?></small>
+			</th></tr>
+		</tbody></table>
+		<form action="index2.php" method="post" name="adminForm">
+			<?php echo $params->render(); ?>
+			<input type="hidden" name="option" value="<?php echo $option; ?>" />
+			<input type="hidden" name="act" value="sectionlist" />
+			<input type="hidden" name="task" value="save_config" />
+			<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
+		</form>
+	<?php }
 
 	function save_config() {
 
@@ -980,7 +975,6 @@ class configContent_sectionlist extends dbConfig {
 			foreach ($params as $k => $v) {
 				$_REQUEST[$k] = $v;
 			}
-
 		}
 
 		if(!$this->bindConfig($_REQUEST)) {

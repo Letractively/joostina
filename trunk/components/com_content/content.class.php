@@ -84,7 +84,7 @@ class mosCategory extends mosDBTable{
 		$ignoreList = array('description');
 		$this->filter($ignoreList);
 		// check for existing name
-		$query = "SELECT id" . "\n FROM #__categories " . "\n WHERE name = " . $this->_db->Quote($this->name) . "\n AND section = " . $this->
+		$query = "SELECT id FROM #__categories WHERE name = " . $this->_db->Quote($this->name) . " AND section = " . $this->
 			_db->Quote($this->section);
 		$this->_db->setQuery($query);
 
@@ -347,8 +347,7 @@ class mosSection extends mosDBTable{
 		$ignoreList = array('description');
 		$this->filter($ignoreList);
 		// check for existing name
-		$query = "SELECT id FROM #__sections WHERE name = " . $this->_db->Quote($this->name) . " AND scope = " . $this->
-			_db->Quote($this->scope);
+		$query = "SELECT id FROM #__sections WHERE name = " . $this->_db->Quote($this->name) . " AND scope = " . $this->_db->Quote($this->scope);
 		$this->_db->setQuery($query);
 		$xid = intval($this->_db->loadResult());
 		if ($xid && $xid != intval($this->id))
@@ -482,11 +481,11 @@ class mosSection extends mosDBTable{
 
 		}
 
-		$query = "	SELECT id, link
+		$query = "SELECT id, link
 					FROM #__menu 
-					WHERE 	published = 1 
-							".$and_type." 
-							AND componentid = ".(int)$section_id."
+					WHERE published = 1
+					".$and_type."
+					AND componentid = ".(int)$section_id."
 					ORDER BY type DESC, ordering";
 		$database->setQuery($query);
 		$result = $database->loadRow();	
@@ -674,11 +673,11 @@ class mosContent extends mosDBTable{
 
 	function get_item($id){
 
-		$sql = 'SELECT  item.*,
-						s.name AS section_name, s.params AS section_params, s.templates as s_templates,
-						c.name AS cat_name, c.params AS cat_params,
-						author.username AS author_nickname, author.name AS author_name,
-						modifier.username AS modifier_nickname, modifier.name AS modifier_name
+		$sql = 'SELECT item.*,
+				s.name AS section_name, s.params AS section_params, s.templates as s_templates,
+				c.name AS cat_name, c.params AS cat_params,
+				author.username AS author_nickname, author.name AS author_name,
+				modifier.username AS modifier_nickname, modifier.name AS modifier_name
 				FROM #__content AS item
 				LEFT JOIN #__sections AS s ON s.id = item.sectionid
 				LEFT JOIN #__categories AS c ON c.id = item.catid
@@ -724,22 +723,19 @@ class mosContent extends mosDBTable{
 		$params->set('filter_value', $filter);
 
 		$query = "SELECT  a.sectionid, a.checked_out, a.id, a.state AS published,
-						a.title, a.hits, a.created_by, a.created_by_alias,
-						a.created AS created, a.access, a.state,
-						u.name AS author, u.usertype, u.username,
-						g.name AS groups,
-						c.name AS category,
-						s.name AS section
+				a.title, a.hits, a.created_by, a.created_by_alias,
+				a.created AS created, a.access, a.state,
+				u.name AS author, u.usertype, u.username,
+				g.name AS groups,c.name AS category,s.name AS section
 				FROM #__content AS a
 				LEFT JOIN #__users AS u ON u.id = a.created_by
 				LEFT JOIN #__groups AS g ON a.access = g.id
 				LEFT JOIN #__categories AS c on a.catid = c.id
 				LEFT JOIN #__sections AS s on s.id = c.section
-				WHERE   a.created_by = $user_id
-						AND a.state > -1
-						" . $and . "
-				ORDER BY $orderby
-			";
+				WHERE a.created_by = $user_id
+				AND a.state > -1
+				" . $and . "
+				ORDER BY $orderby";
 
 		$this->_db->setQuery($query, $params->get('limitstart'), $params->get('limit'));
 		return $this->_db->loadObjectList();
@@ -769,13 +765,13 @@ class mosContent extends mosDBTable{
 		}
 
 		$query = "SELECT COUNT(a.id)
-					FROM #__content AS a
-					LEFT JOIN #__users AS u ON u.id = a.created_by
-					LEFT JOIN #__groups AS g ON a.access = g.id
-					LEFT JOIN #__categories AS c on a.catid = c.id
-					LEFT JOIN #__sections AS s on s.id = c.section
-					WHERE a.created_by = $user_id AND a.state > -1
-					" . $and;
+				FROM #__content AS a
+				LEFT JOIN #__users AS u ON u.id = a.created_by
+				LEFT JOIN #__groups AS g ON a.access = g.id
+				LEFT JOIN #__categories AS c on a.catid = c.id
+				LEFT JOIN #__sections AS s on s.id = c.section
+				WHERE a.created_by = $user_id AND a.state > -1
+				" . $and;
 		$this->_db->setQuery($query);
 		return $this->_db->loadResult();
 	}
@@ -1027,15 +1023,15 @@ class mosContent extends mosDBTable{
 
 		//Основной запрос
 		$query = 'SELECT  a.id, a.attribs , a.title, a.title_alias, a.introtext, a.sectionid,
-						a.state, a.catid, a.created, a.created_by, a.created_by_alias, a.modified, a.modified_by,
-						a.checked_out, a.checked_out_time, a.publish_up, a.publish_down, a.images, a.urls, a.ordering,
-						a.fulltext, a.notetext,
-						a.metakey, a.metadesc, a.access, CHAR_LENGTH( a.fulltext ) AS readmore,
-						u.name AS author, u.usertype, u.username,
-						s.name AS section,
-						cc.name AS category,
-						g.name AS groups
-						' . $voting['select'] . '
+				a.state, a.catid, a.created, a.created_by, a.created_by_alias, a.modified, a.modified_by,
+				a.checked_out, a.checked_out_time, a.publish_up, a.publish_down, a.images, a.urls, a.ordering,
+				a.fulltext, a.notetext,
+				a.metakey, a.metadesc, a.access, CHAR_LENGTH( a.fulltext ) AS readmore,
+				u.name AS author, u.usertype, u.username,
+				s.name AS section,
+				cc.name AS category,
+				g.name AS groups
+				' . $voting['select'] . '
 				FROM #__content AS a
 				INNER JOIN #__categories AS cc ON cc.id = a.catid
 				LEFT JOIN #__users AS u ON u.id = a.created_by
@@ -1052,7 +1048,7 @@ class mosContent extends mosDBTable{
 		$where = contentSqlHelper::construct_where_blog(1, $section, $access, $params);
 		$where = (count($where) ? "\n WHERE " . implode("\n AND ", $where) : '');
 
-		$query = "  SELECT COUNT(a.id)
+		$query = "SELECT COUNT(a.id)
 				FROM #__content AS a
 				INNER JOIN #__categories AS cc ON cc.id = a.catid
 				LEFT JOIN #__users AS u ON u.id = a.created_by
@@ -1079,15 +1075,14 @@ class mosContent extends mosDBTable{
 
 		//Основной запрос
 		$query = 'SELECT a.id, a.notetext,a.attribs, a.title, a.title_alias, a.introtext,
-					a.sectionid, a.state, a.catid, a.created, a.created_by, a.created_by_alias,
-					a.modified, a.modified_by, a.checked_out, a.checked_out_time,
-					a.publish_up, a.publish_down, a.images, a.urls, a.ordering, a.metakey, a.metadesc, a.access,
-					CHAR_LENGTH( a.fulltext ) AS readmore,
-					s.published AS sec_pub, s.name AS section,
-					cc.published AS sec_pub, cc.name AS category,
-					u.name AS author, u.usertype, u.username,
-					g.name AS groups
-					' . $voting['select'] . '
+				a.sectionid, a.state, a.catid, a.created, a.created_by, a.created_by_alias,
+				a.modified, a.modified_by, a.checked_out, a.checked_out_time,
+				a.publish_up, a.publish_down, a.images, a.urls, a.ordering, a.metakey, a.metadesc, a.access,
+				CHAR_LENGTH( a.fulltext ) AS readmore,
+				s.published AS sec_pub, s.name AS section,
+				cc.published AS sec_pub, cc.name AS category,
+				u.name AS author, u.usertype, u.username,g.name AS groups
+				' . $voting['select'] . '
 				FROM #__content AS a
 				LEFT JOIN #__categories AS cc ON cc.id = a.catid
 				LEFT JOIN #__users AS u ON u.id = a.created_by
@@ -1106,12 +1101,12 @@ class mosContent extends mosDBTable{
 		$where = (count($where) ? "\n WHERE " . implode("\n AND ", $where) : '');
 
 		$query = 'SELECT COUNT(a.id)
-					FROM #__content AS a
-					LEFT JOIN #__categories AS cc ON cc.id = a.catid
-					LEFT JOIN #__users AS u ON u.id = a.created_by
-					LEFT JOIN #__sections AS s ON a.sectionid = s.id
-					LEFT JOIN #__groups AS g ON a.access = g.id
-					' . $where;
+				FROM #__content AS a
+				LEFT JOIN #__categories AS cc ON cc.id = a.catid
+				LEFT JOIN #__users AS u ON u.id = a.created_by
+				LEFT JOIN #__sections AS s ON a.sectionid = s.id
+				LEFT JOIN #__groups AS g ON a.access = g.id
+				' . $where;
 		$this->_db->setQuery($query);
 		return $this->_db->loadResult();
 
@@ -1122,13 +1117,12 @@ class mosContent extends mosDBTable{
 		$where = (count($where) ? " WHERE " . implode(" AND ", $where) : '');
 
 		// query to determine total number of records
-		$query = "SELECT COUNT(a.id)
-					FROM #__content AS a
-					INNER JOIN #__categories AS cc ON cc.id = a.catid
-					LEFT JOIN #__users AS u ON u.id = a.created_by
-					LEFT JOIN #__sections AS s ON a.sectionid = s.id
-					LEFT JOIN #__groups AS g ON a.access = g.id
-					".$where;
+		$query = "SELECT COUNT(a.id) FROM #__content AS a
+				INNER JOIN #__categories AS cc ON cc.id = a.catid
+				LEFT JOIN #__users AS u ON u.id = a.created_by
+				LEFT JOIN #__sections AS s ON a.sectionid = s.id
+				LEFT JOIN #__groups AS g ON a.access = g.id
+				".$where;
 		$this->_db->setQuery($query);
 		return $this->_db->loadResult();
 	}
@@ -1149,25 +1143,23 @@ class mosContent extends mosDBTable{
 
 		//Основной запрос
 	   	// Main Query
-		$query = "SELECT a.id, a.title, a.title_alias, a.introtext, a.sectionid,
-							a.state, a.catid, a.created, a.created_by, a.created_by_alias, 
-							a.modified, a.modified_by, a.checked_out, a.checked_out_time, 
-							a.publish_up, a.publish_down, a.images, a.urls, a.ordering, 
-							a.metakey, a.metadesc, a.access, a.attribs,
-							CHAR_LENGTH( a.fulltext ) AS readmore, 
-							u.name AS author, u.usertype, 
-							s.name AS section, 
-							cc.name AS category, 
-							g.name AS groups
-							".$voting['select']."
-					FROM #__content AS a
-					INNER JOIN #__categories AS cc ON cc.id = a.catid
-					LEFT JOIN #__users AS u ON u.id = a.created_by
-					LEFT JOIN #__sections AS s ON a.sectionid = s.id
-					LEFT JOIN #__groups AS g ON a.access = g.id
-					".$voting['join']
-					.$where."
-					ORDER BY ". $order_pri.$order_sec;
+		$query = "SELECT a.id, a.title, a.title_alias, a.introtext, a.sectionid,a.state, a.catid, a.created, a.created_by, a.created_by_alias,
+				a.modified, a.modified_by, a.checked_out, a.checked_out_time, a.publish_up, a.publish_down, a.images, a.urls, a.ordering,
+				a.metakey, a.metadesc, a.access, a.attribs,
+				CHAR_LENGTH( a.fulltext ) AS readmore,
+				u.name AS author, u.usertype,
+				s.name AS section,
+				cc.name AS category,
+				g.name AS groups
+				".$voting['select']."
+				FROM #__content AS a
+				INNER JOIN #__categories AS cc ON cc.id = a.catid
+				LEFT JOIN #__users AS u ON u.id = a.created_by
+				LEFT JOIN #__sections AS s ON a.sectionid = s.id
+				LEFT JOIN #__groups AS g ON a.access = g.id
+				".$voting['join']
+				.$where."
+				ORDER BY ". $order_pri.$order_sec;
 		$this->_db->setQuery($query, $params->get('limitstart'), $params->get('limit'));
 		return $this->_db->loadObjectList();
 	}
@@ -1205,15 +1197,15 @@ class mosContent extends mosDBTable{
 		//Основной запрос
 		// main query
 		$query = "SELECT a.id, a.title, a.title_alias, a.introtext, a.sectionid, a.state, a.catid,
-						a.created, a.created_by, a.created_by_alias, a.modified, a.modified_by,
-						a.checked_out, a.checked_out_time, a.publish_up, a.publish_down, a.images,
-						a.urls, a.ordering, a.metakey, a.metadesc, a.access, a.attribs,
-						CHAR_LENGTH( a.fulltext ) AS readmore,
-						u.name AS author, u.usertype, u.username,
-						s.name AS section,
-						cc.name AS category,
-						g.name AS groups
-						".$voting['select']."
+				a.created, a.created_by, a.created_by_alias, a.modified, a.modified_by,
+				a.checked_out, a.checked_out_time, a.publish_up, a.publish_down, a.images,
+				a.urls, a.ordering, a.metakey, a.metadesc, a.access, a.attribs,
+				CHAR_LENGTH( a.fulltext ) AS readmore,
+				u.name AS author, u.usertype, u.username,
+				s.name AS section,
+				cc.name AS category,
+				g.name AS groups
+				".$voting['select']."
 				FROM #__content AS a
 				INNER JOIN #__categories AS cc ON cc.id = a.catid
 				LEFT JOIN #__users AS u ON u.id = a.created_by
@@ -1239,16 +1231,15 @@ class mosContent extends mosDBTable{
 
 		//Основной запрос
 		// get the list of items for this category
-		$query = 'SELECT  a.id, a.title, a.hits, a.created_by, a.created_by_alias,
-					a.created AS created, a.access, a.state,
-					u.name AS author, u.username,
-					g.name AS groups
-					FROM #__content AS a
-					LEFT JOIN #__users AS u ON u.id = a.created_by
-					LEFT JOIN #__groups AS g ON a.access = g.id
-					WHERE 	a.catid = ' . (int)$category->id . $xwhere . '
-							AND ' . (int)$category->access . ' <= ' . (int)$my->gid . $and . '
-					ORDER BY ' . $orderby;
+		$query = 'SELECT a.id, a.title, a.hits, a.created_by, a.created_by_alias,a.created AS created, a.access, a.state,
+				u.name AS author, u.username,
+				g.name AS groups
+				FROM #__content AS a
+				LEFT JOIN #__users AS u ON u.id = a.created_by
+				LEFT JOIN #__groups AS g ON a.access = g.id
+				WHERE a.catid = ' . (int)$category->id . $xwhere . '
+				AND ' . (int)$category->access . ' <= ' . (int)$my->gid . $and . '
+				ORDER BY ' . $orderby;
 		$this->_db->setQuery($query, $params->get('limitstart'), $params->get('limit'));
 		return $this->_db->loadObjectList();
 	}
@@ -1258,11 +1249,11 @@ class mosContent extends mosDBTable{
 		$xwhere = contentSqlHelper::construct_where_table_category($category, $access, $params);
 		$and = contentSqlHelper::construct_filter_table_category($category, $access, $params);
 
-		$query = '	SELECT COUNT(a.id) as numitems
-					FROM #__content AS a
-					LEFT JOIN #__users AS u ON u.id = a.created_by
-					LEFT JOIN #__groups AS g ON a.access = g.id
-					WHERE a.catid = ' . (int)$category->id . $xwhere . $and;
+		$query = 'SELECT COUNT(a.id) as numitems
+				FROM #__content AS a
+				LEFT JOIN #__users AS u ON u.id = a.created_by
+				LEFT JOIN #__groups AS g ON a.access = g.id
+				WHERE a.catid = ' . (int)$category->id . $xwhere . $and;
 		$this->_db->setQuery($query);
 		$counter = $this->_db->loadObjectList();
 		$total = $counter[0]->numitems;
@@ -1286,26 +1277,23 @@ class mosContent extends mosDBTable{
 		$order_pri = contentSqlHelper::_orderby_pri($params->get('orderby_pri'));
 
 		//Основной запрос
-		$query = '  SELECT
-						a.attribs, a.notetext, a.id, a.title, a.title_alias,
-						a.introtext, a.sectionid, a.state, a.catid, a.created,
-						a.created_by, a.created_by_alias, a.modified, a.modified_by,
-						a.checked_out, a.checked_out_time, a.publish_up, a.publish_down,
-						a.images, a.urls, a.ordering, a.metakey, a.metadesc, a.access, a.hits,
-						CHAR_LENGTH( a.fulltext ) AS readmore,
-						u.name AS author, u.usertype, u.username,
-						s.name AS section, s.id AS sec_id,
-						cc.name AS category, cc.id as cat_id,
-						g.name AS groups
-						' . $voting['select'] . '
-					FROM #__content AS a
-					INNER JOIN #__content_frontpage AS f ON f.content_id = a.id
-					INNER JOIN #__categories AS cc ON cc.id = a.catid
-					INNER JOIN #__sections AS s ON s.id = a.sectionid
-					LEFT JOIN #__users AS u ON u.id = a.created_by
-					LEFT JOIN #__groups AS g ON a.access = g.id
-					' . $voting['join'] . $where . '
-					ORDER BY ' . $order_pri . $order_sec;
+		$query = 'SELECT a.attribs, a.notetext, a.id, a.title, a.title_alias,a.introtext, a.sectionid, a.state, a.catid, a.created,
+				a.created_by, a.created_by_alias, a.modified, a.modified_by,a.checked_out, a.checked_out_time, a.publish_up, a.publish_down,
+				a.images, a.urls, a.ordering, a.metakey, a.metadesc, a.access, a.hits,
+				CHAR_LENGTH( a.fulltext ) AS readmore,
+				u.name AS author, u.usertype, u.username,
+				s.name AS section, s.id AS sec_id,
+				cc.name AS category, cc.id as cat_id,
+				g.name AS groups
+				' . $voting['select'] . '
+				FROM #__content AS a
+				INNER JOIN #__content_frontpage AS f ON f.content_id = a.id
+				INNER JOIN #__categories AS cc ON cc.id = a.catid
+				INNER JOIN #__sections AS s ON s.id = a.sectionid
+				LEFT JOIN #__users AS u ON u.id = a.created_by
+				LEFT JOIN #__groups AS g ON a.access = g.id
+				' . $voting['join'] . $where . '
+				ORDER BY ' . $order_pri . $order_sec;
 
 		$this->_db->setQuery($query, $params->get('limitstart'), $params->get('limit'));
 		return $this->_db->loadObjectList();
@@ -1315,14 +1303,14 @@ class mosContent extends mosDBTable{
 		$where = contentSqlHelper::construct_where_blog(1, null, $access, $params);
 		$where = (count($where) ? "\n WHERE " . implode("\n AND ", $where) : '');
 
-		$query = '  SELECT COUNT(a.id)
-					FROM #__content AS a
-					INNER JOIN #__content_frontpage AS f ON f.content_id = a.id
-					INNER JOIN #__categories AS cc ON cc.id = a.catid
-					INNER JOIN #__sections AS s ON s.id = a.sectionid
-					LEFT JOIN #__users AS u ON u.id = a.created_by
-					LEFT JOIN #__groups AS g ON a.access = g.id
-					' . $where;
+		$query = 'SELECT COUNT(a.id)
+				FROM #__content AS a
+				INNER JOIN #__content_frontpage AS f ON f.content_id = a.id
+				INNER JOIN #__categories AS cc ON cc.id = a.catid
+				INNER JOIN #__sections AS s ON s.id = a.sectionid
+				LEFT JOIN #__users AS u ON u.id = a.created_by
+				LEFT JOIN #__groups AS g ON a.access = g.id
+				' . $where;
 
 		$this->_db->setQuery($query);
 		return $this->_db->loadResult();
@@ -1946,9 +1934,9 @@ class contentPageConfig{
 	 * @return object $params
 	 */
 	function setup_full_item_page($row, $params){
-		global $mainframe, $database;
 
-
+		$mainframe = &mosMainFrame::getInstance();
+		$database = &database::getInstance();
 
 		if ($row->sectionid == 0){
 			$params->set('item_navigation', 0);
