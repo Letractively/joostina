@@ -24,10 +24,13 @@ class HTML_content {
 	 * Used by Content Category & Content Section
 	 */
 	function showUserContent($user_items, &$access, &$params, &$pageNav = null, &$lists = null, $order = null) {
-		global $Itemid, $database, $mosConfig_absolute_path, $mosConfig_live_site, $Itemid, $mosConfig_form_date_full;
+		global $Itemid;
+
+		$database = &database::getInstance();
+		$config = &Jconfig::getInstance();
 
 		if(!$user_items) {
-			include_once ($mosConfig_absolute_path.'/components/com_content/view/user/items/default.php');
+			include_once ($config->config_absolute_path.'/components/com_content/view/user/items/default.php');
 			return;
 		}
 
@@ -50,18 +53,18 @@ class HTML_content {
 			$page_link = 'index.php?option=com_content&amp;task=ucontent&amp;user='.$user_id.'&amp;Itemid='.$Itemid.'&amp;order='.$order;
 		}
 
-		include_once ($mosConfig_absolute_path.'/components/com_content/view/user/items/default.php');
+		include_once ($config->config_absolute_path.'/components/com_content/view/user/items/default.php');
 
 	}
 
 	function showSectionCatlist($section, &$access, &$params) {
-		global $Itemid, $mosConfig_live_site, $mosConfig_absolute_path, $my;
+		global $Itemid, $my;
 
 		$id = $section->id;
 		$categories_exist = $section->categories_exist;
 		$categories = $section->content;
 
-		//echo $params->get('cat_description') ;
+		$config = &Jconfig::getInstance();
 
 		$items = $section->content;
 		$gid = $my->gid;
@@ -88,7 +91,7 @@ class HTML_content {
 		}
 
 		if($params->get('description_sec_image') && $section->image) {
-			$link = $mosConfig_live_site.'/images/stories/'.$section->image;
+			$link = $config->config_live_site.'/images/stories/'.$section->image;
 			$title_image = '<img class="desc_img" src="'.$link.'" align="'.$section->image_position.'"  alt="'.$section->image.'" />';
 		}
 
@@ -104,6 +107,7 @@ class HTML_content {
 
 		$template = new ContentTemplate();
 		$template->set_template($params->page_type, $templates);
+
 		include_once ($template->template_file);
 
 	}
@@ -113,7 +117,9 @@ class HTML_content {
 	 * Used by Content Category & Content Section
 	 */
 	function showContentList($obj, &$access, &$params) {
-		global $Itemid, $mosConfig_live_site, $mosConfig_absolute_path, $my;
+		global $Itemid, $my;
+
+		$config = &Jconfig::getInstance();
 
 		if($params->page_type == 'section_table') {
 			$id = $obj->id;
@@ -160,7 +166,7 @@ class HTML_content {
 		}
 
 		if($params->get('description_image') && $title->image) {
-			$link = $mosConfig_live_site.'/images/stories/'.$title->image;
+			$link = $config->config_live_site.'/images/stories/'.$title->image;
 			$title_image = '<img class="desc_img" src="'.$link.'" align="'.$title->image_position.'"  alt="'.$title->image.'" />';
 		}
 
@@ -185,7 +191,8 @@ class HTML_content {
 			//include_once($mosConfig_absolute_path.'/components/com_content/view/category/table/default.php');
 		}
 
-		require_once ($GLOBALS['mosConfig_absolute_path'].'/includes/pageNavigation.php');
+
+		mosMainFrame::addLib('pageNavigation');
 		$pageNav = new mosPageNav($obj->total, $params->get('limitstart'), $params->get('limit'));
 
 		$template = new ContentTemplate();
@@ -218,15 +225,12 @@ class HTML_content {
 		$compat = (int)$mainframe->getCfg('itemid_compat');
 
 		if($show && isset($rows[$i])) { ?>
-		    <div class="more_items">
-		        <strong> <?php echo _MORE; ?></strong>
-		    </div>
-        <?php } ?>
-
-
-        <ul class="more_items">
-
-            <?php for ($z = 0; $z < $links; $z++) {
+			<div class="more_items">
+				<strong><?php echo _MORE; ?></strong>
+			</div>
+		<?php } ?>
+		<ul class="more_items">
+		<?php for ($z = 0; $z < $links; $z++) {
 			if(!isset($rows[$i])) {
 				// stops loop if total number of items is less than the number set to display as intro + leading
 				break;
@@ -247,17 +251,13 @@ class HTML_content {
 			}
 
 			$link = sefRelToAbs('index.php?option=com_content&amp;task=view&amp;id='.$rows[$i]->id.$Itemid_link) ?>
-
-            <li>
-			    <a class="blogsection" href="<?php echo $link; ?>" title="<?php echo $rows[$i]->title; ?>"><?php echo $rows[$i]->title; ?></a>
+			<li>
+				<a class="blogsection" href="<?php echo $link; ?>" title="<?php echo $rows[$i]->title; ?>"><?php echo $rows[$i]->title; ?></a>
 			</li>
-
-            <?php $i++;
-		} ?>
+			<?php $i++;
+		}?>
 		</ul>
-
-
-    <?php }
+	<?php }
 
 	/**
 	 * Отображение содержимого
@@ -266,12 +266,15 @@ class HTML_content {
 	 * boston + хак отключения мамботов группы content
 	 */
 	function show(&$row, &$params, &$access, $page = 0, $template = '') {
-		global $mainframe, $hide_js, $_MAMBOTS, $mosConfig_mmb_content_off, $mosConfig_live_site, $mosConfig_uid_news, $mosConfig_absolute_path;
+		global $hide_js, $_MAMBOTS;
 		global $news_uid, $task;
+
+		$mainframe = &mosMainFrame::getInstance();
+
 		// уникальные идентификаторы новостей
 		$news_uid_css_title = '';
 		$news_uid_css_body = '';
-		if($mosConfig_uid_news) {
+		if($mainframe->getCfg('uid_news')) {
 			$news_uid++;
 			$news_uid_css_title = 'id="title-news-uid-'.$news_uid.'" ';
 			$news_uid_css_body = 'id="body-news-uid-'.$news_uid.'" ';
@@ -291,16 +294,19 @@ class HTML_content {
 		HTML_content::_linkInfo($row, $params);
 
 		// link used by print button
-		$print_link = $mosConfig_live_site.'/index2.php?option=com_content&amp;task=view&amp;id='.$row->id.'&amp;pop=1&amp;page='.$page.$row->Itemid_link;
+		$print_link = $mainframe->getCfg('live_site').'/index2.php?option=com_content&amp;task=view&amp;id='.$row->id.'&amp;pop=1&amp;page='.$page.$row->Itemid_link;
 		$readmore = mosContent::ReadMore($row, $params);
 
 		$row->title = HTML_content::Title($row, $params, $access);
 
 		// обработка контента ботами, если в глобальной конфигурации они отключены - то мамботы не используем
-		if($mosConfig_mmb_content_off != 1) {
+		if($mainframe->getCfg('mmb_content_off') != 1) {
 			$_MAMBOTS->loadBotGroup('content');
 			$results = $_MAMBOTS->trigger('onPrepareContent', array(&$row, &$params, $page), true);
 		}
+
+		unset($mainframe);
+
 		//зануляем
 		$loadbot_onAfterDisplayTitle = '';
 		$loadbot_onBeforeDisplayContent = '';
@@ -337,7 +343,7 @@ class HTML_content {
 		//поэтому никаких дополнительных манипуляций не требуется,
 		// так как имя шаблона задается непосредственно в шаблоне блога раздела или категории
 		if($template) {
-			include ($mosConfig_absolute_path.'/components/com_content/view/item/'.$template);
+			include ($mainframe->getCfg('absolute_path').'/components/com_content/view/item/'.$template);
 		}
 		//иначе - это страница записи и нужно определить, какой шаблон  использовать для вывода
 		else {
@@ -362,14 +368,16 @@ class HTML_content {
 			$template->set_template($params->page_type, $templates);
 			include_once ($template->template_file);
 		}
-
 	}
 
 	/**
 	 * calculate Itemid
 	 */
 	function _Itemid(&$row) {
-		global $task, $Itemid, $mainframe;
+		global $task, $Itemid;
+
+		$mainframe = &mosMainFrame::getInstance();
+
 		// getItemid compatibility mode, holds maintenance version number
 		$compat = (int)$mainframe->getCfg('itemid_compat');
 		if(($compat > 0 && $compat <= 11) && $task != 'view' && $task != 'category') {
@@ -506,9 +514,11 @@ class HTML_content {
 	 * Writes Email icon
 	 */
 	function EmailIcon(&$row, &$params, $hide_js) {
-		global $mosConfig_live_site, $Itemid, $task, $cne_i;
-		if(!isset($cne_i))
+		global $Itemid, $task, $cne_i;
+		if(!isset($cne_i)){
 			$cne_i = '';
+		}
+
 		if($params->get('email') && !$params->get('popup') && !$hide_js) {
 			$status = 'status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=400,height=250,directories=no,location=no';
 
@@ -518,7 +528,7 @@ class HTML_content {
 				$_Itemid = '';
 			}
 
-			$link = $mosConfig_live_site.'/index2.php?option=com_content&amp;task=emailform&amp;id='.$row->id.$_Itemid;
+			$link = Jconfig::getInstance()->config_live_site.'/index2.php?option=com_content&amp;task=emailform&amp;id='.$row->id.$_Itemid;
 
 			if($params->get('icons')) {
 				$image = mosAdminMenus::ImageCheck('emailButton.png', '/images/M_images/', null, null, _EMAIL, 'email'.$cne_i);
@@ -526,9 +536,7 @@ class HTML_content {
 			} else {
 				$image = '&nbsp;'._EMAIL;
 			} ?>
-		
-				<a href="<?php echo $link; ?>" target="_blank" onclick="window.open('<?php echo $link; ?>','win2','<?php echo $status; ?>'); return false;" title="<?php echo _EMAIL; ?>"><?php echo $image; ?></a>
-		
+			<a href="<?php echo $link; ?>" target="_blank" onclick="window.open('<?php echo $link; ?>','win2','<?php echo $status; ?>'); return false;" title="<?php echo _EMAIL; ?>"><?php echo $image; ?></a>
 <?php }
 	}
 
@@ -558,13 +566,13 @@ class HTML_content {
 	 */
 	function Section(&$row, &$params) {
 		if($params->get('section')) { ?>
-				<span class="section_name">
+			<span class="section_name">
 	<?php echo $row->section;
 			// writes dash between section & Category Name when both are active
 			if($params->get('category')) {
 				echo ' - ';
 			} ?>
-				</span>
+			</span>
 <?php }
 	}
 
@@ -573,10 +581,8 @@ class HTML_content {
 	 */
 	function Category(&$row, &$params) {
 		if($params->get('category')) { ?>
-			<span class="category_name">
-<?php echo $row->category; ?>
-			</span>
-<?php }
+		<span class="category_name"><?php echo $row->category; ?></span>
+	<?php }
 	}
 
 	/**
@@ -670,31 +676,24 @@ class HTML_content {
 
 		if($params->get('item_navigation') && ($task == 'view') && !$params->get('popup') && ($row->prev || $row->next)) { ?>
 
-            <table class="page_navigation">
-			    <tr>
-
-	            <?php if($row->prev) { ?>
-				    <th class="pagenav_prev">
-					    <a href="<?php echo $row->prev; ?>" title="<?php echo $row->prev_title; ?>"><?php echo _ITEM_PREVIOUS.$row->prev_title; ?></a>
-				    </th>
-
-                <?php } ?>
-
-                <?php if($row->prev && $row->next) { ?>
-				    <th width="50">&nbsp;</th>
-		        <?php } ?>
-
-                <?php if($row->next) { ?>
-				    <th class="pagenav_next">
-					    <a href="<?php echo $row->next; ?>" title="<?php echo $row->next_title; ?>">
-				        <?php echo $row->next_title._ITEM_NEXT; ?></a>
-				    </th>
-		        <?php } ?>
-
-			    </tr>
-			</table>
-
-        <?php }
+		<table class="page_navigation">
+			<tr>
+<?php if($row->prev) { ?>
+				<th class="pagenav_prev">
+					<a href="<?php echo $row->prev; ?>" title="<?php echo $row->prev_title; ?>"><?php echo _ITEM_PREVIOUS.$row->prev_title; ?></a>
+				</th>
+<?php } ?>
+<?php if($row->prev && $row->next) { ?>
+				<th width="50">&nbsp;</th>
+<?php } ?>
+<?php if($row->next) { ?>
+				<th class="pagenav_next">
+					<a href="<?php echo $row->next; ?>" title="<?php echo $row->next_title; ?>"><?php echo $row->next_title._ITEM_NEXT; ?></a>
+				</th>
+<?php } ?>
+			</tr>
+		</table>
+<?php }
 	}
 
 	/**
@@ -804,8 +803,8 @@ class HTML_content {
 		}
 		</script>
 
-		<form action="index2.php?option=com_content&amp;task=emailsend" name="frontendForm" method="post" onSubmit="return submitbutton();">
-		<table cellspacing="0" cellpadding="0" border="0">
+	<form action="index2.php?option=com_content&amp;task=emailsend" name="frontendForm" method="post" onSubmit="return submitbutton();">
+	<table cellspacing="0" cellpadding="0" border="0">
 		<tr>
 			<td colspan="2"><?php echo _EMAIL_FRIEND; ?></td>
 		</tr>
@@ -846,11 +845,11 @@ class HTML_content {
 			<input type="button" name="cancel" value="<?php echo _BUTTON_CANCEL; ?>" class="button" onclick="window.close();" />
 			</td>
 		</tr>
-		</table>
-		<input type="hidden" name="id" value="<?php echo $uid; ?>" />
-		<input type="hidden" name="itemid" value="<?php echo $itemid; ?>" />
-		<input type="hidden" name="<?php echo $validate; ?>" value="1" />
-		</form>
+	</table>
+	<input type="hidden" name="id" value="<?php echo $uid; ?>" />
+	<input type="hidden" name="itemid" value="<?php echo $itemid; ?>" />
+	<input type="hidden" name="<?php echo $validate; ?>" value="1" />
+	</form>
 <?php }
 
 	/**
@@ -863,7 +862,8 @@ class HTML_content {
 
 		$mainframe->setPageTitle($mainframe->getCfg('sitename'));
 		$mainframe->addCustomHeadTag('<link rel="stylesheet" href="templates/'.$template.'/css/template_css.css" type="text/css" />'); ?>
-		<span class="contentheading"><?php echo _EMAIL_SENT." $to"; ?></span> <br />
+		<span class="contentheading"><?php echo _EMAIL_SENT." $to"; ?></span>
+		<br />
 		<br />
 		<br />
 		<a href='javascript:window.close();'><span class="small"><?php echo _PROMPT_CLOSE; ?></span></a>
