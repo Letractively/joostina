@@ -37,7 +37,7 @@ class JCacheCallback extends JCache
 	 * @since	1.3
 	 */
 	function call(){
-		jd_insc('cache::call');
+		jd_inc('cache::call');
 		// Get callback and arguments
 		$args		= func_get_args();
 		$callback	= array_shift($args);
