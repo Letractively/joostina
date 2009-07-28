@@ -148,7 +148,7 @@ function submitbutton(pressbutton) {
                 </tr>
                 <tr>
                         <td valign="top"><?php echo _C_MESSAGE_MESSAGE?>:</td>
-                        <td width="100%" bgcolor="#ffffff"><pre><?php echo htmlspecialchars($row->message,ENT_QUOTES); ?></pre></td>
+                        <td width="100%" bgcolor="#ffffff"><?php echo htmlspecialchars($row->message,ENT_QUOTES); ?></td>
                 </tr>
         </table>
 		
