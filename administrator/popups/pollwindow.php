@@ -10,8 +10,8 @@
 define("_VALID_MOS",1);
 
 require_once ('../includes/auth.php');
-include_once ($mosConfig_absolute_path.'/language/'.$mosConfig_lang.'.php');
-
+include_once ($mosConfig_absolute_path.'/language/'.$mosConfig_lang.'/system.php');
+include_once ($mosConfig_absolute_path.'/language/'.$mosConfig_lang.'/frontend/mod_poll.php');
 $database = new database($mosConfig_host,$mosConfig_user,$mosConfig_password,$mosConfig_db,
 	$mosConfig_dbprefix);
 $database->debug($mosConfig_debug);
