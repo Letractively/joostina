@@ -86,7 +86,7 @@ class HTML_messages {
 function submitbutton(pressbutton) {
         var form = document.adminForm;
         if (pressbutton == 'saveconfig') {
-                if (confirm ("Вы уверены?")) {
+                if (confirm ("<?php echo _ARE_YOU_SURE; ?>")) {
                         submitform( pressbutton );
                 }
         } else {
