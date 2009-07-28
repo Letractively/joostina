@@ -1733,7 +1733,7 @@ function saveContent($task) {
 }
 
 function _after_create_content($row, $page) {
-	global $my;
+	global $my, $mosConfig_absolute_path;
 
 	$database = &database::getInstance();
 
