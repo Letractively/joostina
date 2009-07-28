@@ -454,7 +454,7 @@ function optionsMenu(id) {
 }
 
 function handleClick() {
-	if ( divOptions && divOptions.clicks >= 1 ) {
+	if ( divOptions && divOptions.clicks >= 2 ) {
 		closeOptionsMenu();
 	} else if ( divOptions ) {
 		divOptions.clicks++;
