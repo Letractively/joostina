@@ -56,3 +56,4 @@ DEFINE('_CREATE_CONTENT','Создать содержимое');
 DEFINE('_COM_CATEGORIES_SAVE_MOD','Изменения в категории сохранены');
 DEFINE('_COM_CATEGORIES_SAVED','Категория сохранена');
 DEFINE('_COM_CATEGORIES_SAVED_2','- сохранено');
+DEFINE('_ENQUIRY','Контакт');
