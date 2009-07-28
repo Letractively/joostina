@@ -16,7 +16,7 @@ class jdebug {
 	/* буфер сообщений лога*/
 	var $text = null;
 	/* счетчики */
-	var $_insc = array();
+	var $_inc = array();
 
 	function getInstance(){
 		static $instance;
@@ -32,11 +32,11 @@ class jdebug {
 	}
 
 	/* добавление сообщения в лог*/
-	function insc($key) {
-		if(!isset($this->_insc[$key])){
-			$this->_insc[$key] = 0;
+	function inc($key) {
+		if(!isset($this->_inc[$key])){
+			$this->_inc[$key] = 0;
 		}
-		$this->_insc[$key] ++;
+		$this->_inc[$key] ++;
 	}
 
 	
@@ -52,8 +52,8 @@ class jdebug {
 		}
 
 		/* счетчики */
-		foreach($this->_insc as $key => $value) {
-			$this->text .= 'INSC: <b>'.$key.'</b>: '.$value.'<br />';
+		foreach($this->_inc as $key => $value) {
+			$this->text .= 'FUNC_COUNTER: <b>'.$key.'</b>: '.$value.'<br />';
 		}
 		/* лог */
 		foreach($this->_log as $key => $value) {
@@ -83,9 +83,9 @@ function jd_log($text) {
 	$debug->add($text);
 }
 /* счетчики вызывов */
-function jd_insc($name='counter'){
+function jd_inc($name='counter'){
 	$debug = &jdebug::getInstance();
-	$debug->insc($name);
+	$debug->inc($name);
 }
 
 function jd_get(){
