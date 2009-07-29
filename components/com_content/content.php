@@ -233,8 +233,12 @@ function frontpage() {
 	$params->set('limitstart', $limitstart);
 	$params->set('limit', $limit);
 
-	//Выбираем все нужные записи
-	$frontpage->content = $frontpage->_load_frontpage($params, $access);
+	if($frontpage->total>0){
+		//Выбираем все нужные записи
+		$frontpage->content = $frontpage->_load_frontpage($params, $access);
+	}else{
+		$frontpage->content = new stdClass();
+	}
 
 	$params->def('pop', $pop);
 	$params->page_type = 'frontpage';
