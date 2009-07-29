@@ -105,8 +105,9 @@ function logoutForm($params_aray){
 
     ?>
 	<form action="<?php echo sefRelToAbs( 'index.php?option=logout' ); ?>" method="post" name="logout">
-<?php echo $avatar; ?>
+
 	<div class="ml_login_info">
+	<?php echo $avatar; ?>
 <?php
 	if ( $params_aray['greeting'] ) {
 		echo _HI;
@@ -114,7 +115,7 @@ function logoutForm($params_aray){
 	}
 	echo $profile_link;
 	?>
-	</div>
+	
 
 	<span class="button">	
 		<input type="submit" name="Submit" id="logout_button" class="button<?php echo $params_aray['moduleclass_sfx']; ?>" value="<?php echo _BUTTON_LOGOUT; ?>" />
@@ -125,6 +126,7 @@ function logoutForm($params_aray){
 	<input type="hidden" name="lang" value="<?php echo $mosConfig_lang; ?>" />
 	<input type="hidden" name="return" value="<?php echo sefRelToAbs( $params_aray['logout'] ); ?>" />
 	<input type="hidden" name="message" value="<?php echo $params_aray['message_logout']; ?>" />
+	</div>
 	</form>
 <?php
 

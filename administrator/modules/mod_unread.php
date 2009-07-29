@@ -20,8 +20,9 @@ $database->setQuery($query);
 $unread = $database->loadResult();
 
 if($unread) {
-	echo "<a href=\"index2.php?option=com_messages\" style=\"color: red; text-decoration: none;  font-weight: bold\">$unread <img src=\"images/mail.png\" align=\"middle\" border=\"0\" alt=\"项黩郳" /></a>";
+	echo "<a class=\"adminmail\" href=\"index2.php?option=com_messages\" style=\"color: red; text-decoration: none;  font-weight: bold\"><img  src=\"images/mail.png\" align=\"top\" border=\"0\" alt=\"项黩郳" /> $unread </a>";
 } else {
-	echo "<a href=\"index2.php?option=com_messages\" style=\"color: black; text-decoration: none;\">$unread <img src=\"images/nomail.png\" align=\"middle\" border=\"0\" alt=\"项黩郳" /></a>";
+	echo "<a class=\"adminmail\" href=\"index2.php?option=com_messages\" style=\"color: black; text-decoration: none;\"><img src=\"images/nomail.png\" align=\"top\" border=\"0\" alt=\"项黩郳" /> $unread </a>";
 }
 ?>
+

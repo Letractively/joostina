@@ -29,6 +29,12 @@ if($mosConfig_offline == 1) {
 	exit();
 }
 
+if(file_exists($mosConfig_absolute_path.'/components/com_sef/sef.php')) {
+	require_once ($mosConfig_absolute_path.'/components/com_sef/sef.php');
+} else {
+	require_once ($mosConfig_absolute_path.'/includes/sef.php');
+}
+
 // автоматическая перекодировка в юникод, по умолчанию актвино
 $utf_conv	= intval(mosGetParam($_REQUEST,'utf',1));
 $option		= strval(strtolower(mosGetParam($_REQUEST,'option','')));
