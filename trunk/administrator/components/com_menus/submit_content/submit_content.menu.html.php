@@ -53,7 +53,7 @@ class submit_content_menu_html {
 		<table class="adminheading">
 		<tr>
 			<th class="menus">
-			<?php echo $menu->id?_EDITING.' -':_CREATION.' -'; ?> Пункт меню :: Добавить содержимое
+			<?php echo $menu->id?_EDITING.' -':_CREATION.' - '._COM_MENUS_SUBMIT_CONTENT; ?>
 			</th>
 		</tr>
 		</table>
