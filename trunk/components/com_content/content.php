@@ -460,7 +460,7 @@ function _showBlogSection($id,$gid,$pop,$limit,$limitstart) {
 	$mainframe = &mosMainFrame::getInstance();
 	$database  = &database::getInstance();
 
-	if(!$id) {
+	if(!$id && !$Itemid) {
 		$error = new errorCase(1);
 		return;
 	}

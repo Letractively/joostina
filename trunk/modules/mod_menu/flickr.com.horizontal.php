@@ -31,22 +31,30 @@ unset($database,$access,$sql,$rows,$pt,$list,$v);
 function menu_recurse( $id, $level, &$children) {
 	if (isset($children[$id])) {
 		foreach ($children[$id] as $row) {
+			if($row->type=='separator'){
+				$href = 'javascript:void(0)';
+			}
+			else{
+				$href = sefRelToAbs($row->link.'&Itemid='.$row->id);	
+			}
+				
 			if (isset($children[$row->id])) {
-				_add_tab($level);//
-				echo '<li><span class="parent"><a href="'.$row->link.'&Itemid='.$row->id.'" class="dir">'.$row->name."</a></span>\n";
+				_add_tab($level);
+
+				echo '<li><span class="parent"><a href="'.$href.'" class="dir">'.$row->name."</a></span>\n";
 				if (isset($children[$row->id])) {
 					_add_tab($level);//
 					echo '<ul class="dropdown2">';
 					_add_tab($level);//
 					menu_recurse( $row->id, $level+1, $children);
 					_add_tab($level);//
-					echo "</ul></li>\n";
+					echo "</ul>\n";
 				}
 				_add_tab($level);//
 				echo "</li>\n";
 			} else {
 				_add_tab($level);//
-				echo '<li><span><a href="'.$row->link.'&Itemid='.$row->id.'">'.$row->name."</a></span></li>\n";
+				echo '<li><span><a href="'.$href.'">'.$row->name."</a></span></li>\n";
 			}
 		}
 	}
