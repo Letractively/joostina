@@ -124,8 +124,7 @@ class HTML_installer {
 		<?php
 	}
 	function cPanel() {?>
-	<table>
-		<tr>
+
 		<td width="100%" valign="top">
 		<div class="cpicons">
 <?php
@@ -134,28 +133,27 @@ class HTML_installer {
 		HTML_installer::quickiconButton($link,'down.png', _INSTALLATION);
 
 		$link = 'index2.php?option=com_installer&amp;element=component';
-		HTML_installer::quickiconButton($link,'db.png', _COMPONENTS);
+		HTML_installer::quickiconButton($link,'component.png', _COMPONENTS);
 
 		$link = 'index2.php?option=com_installer&amp;element=module';
-		HTML_installer::quickiconButton($link,'db.png', _MODULES);
+		HTML_installer::quickiconButton($link,'module.png', _MODULES);
 
 		$link = 'index2.php?option=com_installer&amp;element=mambot';
 		HTML_installer::quickiconButton($link,'ext.png', _MAMBOTS);
 
 		$link = 'index2.php?option=com_installer&amp;element=template';
-		HTML_installer::quickiconButton($link,'joostina.png', _COM_INSTALLER_SITE_TEMPLATES);
+		HTML_installer::quickiconButton($link,'templates.png', _COM_INSTALLER_SITE_TEMPLATES);
 
 		$link = 'index2.php?option=com_installer&amp;element=template&client=admin';
-		HTML_installer::quickiconButton($link,'joostina.png', _COM_INSTALLER_ADMIN_TEMPLATES);
+		HTML_installer::quickiconButton($link,'templates.png', _COM_INSTALLER_ADMIN_TEMPLATES);
 
 		$link = 'index2.php?option=com_installer&amp;element=language';
-		HTML_installer::quickiconButton($link,'log.png', _COM_INSTALLER_SITE_LANGUAGES);
+		HTML_installer::quickiconButton($link,'lang.png', _COM_INSTALLER_SITE_LANGUAGES);
 
 ?>
 		</div>
 		</td>
-		</tr>
-	</table>
+
 		<?php
 	}
 

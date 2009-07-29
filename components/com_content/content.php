@@ -459,10 +459,28 @@ function _showBlogSection($id,$gid,$pop,$limit,$limitstart) {
 
 	$mainframe = &mosMainFrame::getInstance();
 	$database  = &database::getInstance();
-
-	if(!$id && !$Itemid) {
-		$error = new errorCase(1);
-		return;
+	
+	$section = new mosSection($database);
+	//Если ID найден - получаем данные о конкретном разделе
+	if($id){
+		//ID передано, но раздела с таким ID не существует
+		//вернем ошибку
+		if(!($section->load((int)$id))) {
+			$error = new errorCase(1);
+			return; 
+		}
+		
+		//Проверяем права доступа к разделу
+		//Если раздел не опубликован или группа пользователя ниже группы доступа
+		//- выдаём сообщение о невозможности доступа
+		if(!$section->published) {
+			$error = new errorCase(2);
+			return;
+		}
+		if($section->access > $my->gid) {
+			$error = new errorCase(2);
+			return;
+		}		
 	}
 
 	//права доступа
@@ -475,25 +493,6 @@ function _showBlogSection($id,$gid,$pop,$limit,$limitstart) {
 
 	//Количество записей на странице
 	$limit = $limit ? $limit : ($params->get('intro') + $params->get('leading') + $params->get('link'));
-
-	//Грузим данные раздела
-	$section = new mosSection($database);
-	if(!($section->load((int)$id))) {
-		$error = new errorCase(1);
-		return;
-	}
-
-	//Проверяем права доступа к разделу
-	//Если раздел не опубликован или группа пользователя ниже группы доступа
-	//- выдаём сообщение о невозможности доступа
-	if(!$section->published) {
-		$error = new errorCase(2);
-		return;
-	}
-	if($section->access > $my->gid) {
-		$error = new errorCase(2);
-		return;
-	}
 
 	$content = new mosContent($database);
 	//Получаем общее количество записей в блоге
@@ -547,11 +546,6 @@ function _showBlogCategory($id = 0,$gid,$pop,$limit,$limitstart) {
 	$mainframe = &mosMainFrame::getInstance();
 	$database = &database::getInstance();
 
-	if(!$id) {
-		$error = new errorCase(1);
-		return;
-	}
-
 	//права доступа
 	$access = new contentAccess();
 
@@ -561,31 +555,35 @@ function _showBlogCategory($id = 0,$gid,$pop,$limit,$limitstart) {
 	//Количество записей на странице
 	$limit = $limit?$limit : ($params->get('intro') + $params->get('leading') + $params->get('link'));
 
-	//Грузим данные категории
-	$category = new mosCategory($database);
-	if(!($category->load((int)$id))) {
-		$error = new errorCase(1);
-		return;
-	}
-	//Грузим данные раздела
-	$section = new mosSection($database);
-	if(!($section->load((int)$category->section))) {
-		$error = new errorCase(1);
-		return;
-	}
-	$category->section = $section;
 
-	//Проверяем права доступа к разделу и категории
-	//Если раздел/категория не опубликованы или группа пользователя ниже группы доступа
-	//- выдаём сообщение о невозможности доступа
-	if(!$section->published || !$category->published) {
-		$error = new errorCase(2);
-		return;
+	$category = new mosCategory($database);
+	$section = new mosSection($database);
+	
+	if($id){
+		if(!($category->load((int)$id))) {
+			$error = new errorCase(1);
+			return;
+		}
+		//Грузим данные раздела	
+		if(!($section->load((int)$category->section))) {
+			$error = new errorCase(1);
+			return;
+		}
+		
+		//Проверяем права доступа к разделу и категории
+		//Если раздел/категория не опубликованы или группа пользователя ниже группы доступа
+		//- выдаём сообщение о невозможности доступа
+		if(!$section->published || !$category->published) {
+			$error = new errorCase(2);
+			return;
+		}
+		if($section->access > $my->gid || $category->access > $my->gid) {
+			$error = new errorCase(2);
+			return;
+		}		
 	}
-	if($section->access > $my->gid || $category->access > $my->gid) {
-		$error = new errorCase(2);
-		return;
-	}
+
+	$category->section = $section;
 
 	$content = new mosContent($database);
 	//Получаем общее количество записей в блоге

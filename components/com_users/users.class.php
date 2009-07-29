@@ -363,22 +363,24 @@ class mosUser extends mosDBTable {
 
 	}
 	
-	function get_total($usertype = ''){
+	function get_total($usertype = '', $and = ''){
 		
-		$and = '';
 		if($usertype){
 			$and .= " AND usertype='".$usertype."'";
 		}
 	
-		$query = "SELECT COUNT(id) FROM #__users WHERE block = '0'" .$and;
+		$query = "SELECT COUNT(id) 
+		FROM #__users AS u
+		LEFT JOIN #__users_extra AS u_extra ON u_extra.user_id = u.id 
+		WHERE block = '0'" .$and;
+		
 		$this->_db->setQuery($query);
 		return  $this->_db->loadResult();
 
 	}
 	
-	function get_users($usertype = '', $limitstart, $limit){
+	function get_users($usertype = '', $limitstart = 0, $limit = 0, $and = ''){
 		
-		$and = '';
 		if($usertype){
 			$and .= " AND usertype='".$usertype."'";
 		}

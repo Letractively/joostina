@@ -663,6 +663,11 @@ class HTML_config {
 							<td><?php echo $lists['one_editor']; ?></td>
 							<td><?php echo mosToolTip(_ONE_EDITOR2); ?></td>
 						</tr>
+						<tr>
+							<td><?php echo _GLOBAL_TEMPLATES?>:</td>
+							<td><?php echo $lists['global_templates']; ?></td>
+							<td><?php echo mosToolTip(_GLOBAL_TEMPLATES_TIP); ?></td>
+						</tr>
 				</table>
 				<input type="hidden" name="config_multilingual_support" value="<?php echo $row->config_multilingual_support ?>" />
 <?php

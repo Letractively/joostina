@@ -1020,6 +1020,11 @@ class mosContent extends mosDBTable{
 		//Параметры сортировки
 		$order_sec = contentSqlHelper::_orderby_sec($params->get('orderby_sec'));
 		$order_pri = contentSqlHelper::_orderby_pri($params->get('orderby_pri'));
+		
+		if($params->get('group_cat')){
+			$params->set('limitstart', 0);
+			$params->set('limit', 0);	
+		}
 
 		//Основной запрос
 		$query = 'SELECT  a.id, a.attribs , a.title, a.title_alias, a.introtext, a.sectionid,
@@ -1326,6 +1331,7 @@ class contentMeta{
 	}
 
 	function set_meta(){
+		if(!$this->_params){return;}
 
 		switch ($this->_params->page_type){
 			case 'section_blog':
@@ -1783,13 +1789,14 @@ class ContentTemplate{
 	}
 
 	function set_template($page_type, $templates = null){
-
+		$config = &Jconfig::getInstance();
 		$absolute_path = Jconfig::getInstance()->config_absolute_path;
 
 		$this->page_type = $page_type;
-		$this->template_dir = self::get_system_path($this->page_type);
-		$this->template_file = $absolute_path . DS . $this->template_dir .DS. 'default.php';
-
+		$this->template_dir = self::get_system_path($this->page_type);		
+		$this->template_file = 'default.php';
+	
+		//если найдены записи о шаблонах
 		if ($templates){
 			$tpl_arr = self::parse_curr_templates($templates);
 			$template_file = $tpl_arr[$page_type];
@@ -1810,7 +1817,26 @@ class ContentTemplate{
 					$this->template_file = $absolute_path . DS . $this->template_dir . DS . $template_file;
 				}
 			}
+			
+			
 		}
+		//смотрим, что у нас в глобальной конфигурации сказано по поводу размещения шаблонов по-умолчанию 
+		else if($config->config_global_templates==1){ 
+			
+			if (is_file($absolute_path . DS . self::get_currtemplate_path($page_type) . DS . $this->template_file)){
+				$this->template_file = $absolute_path . DS . self::get_currtemplate_path($page_type) . DS . $this->template_file;
+			}
+			else{
+				$this->template_file = $absolute_path . DS . $this->template_dir . DS . $this->template_file;	
+			}
+			
+				
+		}
+		//шаблон мы так и не нашли, так что цепляем что-нибудь по-умолчанию
+		else{
+			$this->template_file = $absolute_path . DS . $this->template_dir . DS . $this->template_file;				
+		}
+		
 	}
 
 

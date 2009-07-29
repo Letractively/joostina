@@ -30,9 +30,11 @@ defined('_VALID_MOS') or die(); ?>
 		if($i >= ($total - $limitstart)) {
 			break;
 		} ?>
-				<div class="intro leading" id="leading_<?php echo $z; ?>">
-					<?php _showItem($rows[$i], $params, $gid, $access, $pop, 'intro/leading/default.php'); ?>
-				</div>
+			<div class="intro leading" id="leading_<?php echo $i; ?>">
+				<?php $params->set('page_type', 'item_intro_leading');  
+					_showItem($rows[$i], $params, $gid, $access, $pop, '[s]default.php'); 
+				?>
+			</div>
 		<?php $i++;
 		} ?>
 				</div>
@@ -48,8 +50,10 @@ defined('_VALID_MOS') or die(); ?>
 			<?php } ?>
 				<td valign="top" <?php echo $width; ?>>
 					<?php if($z < $intro) { ?>
-					<div class="intro" id="intro_<?php echo $z; ?>">
-						<?php _showItem($rows[$i], $params, $gid, $access, $pop, 'intro/simple/default.php'); ?>
+					<div class="intro" id="intro_<?php echo $i; ?>">
+						<?php $params->set('page_type', 'item_intro_simple'); 
+								_showItem($rows[$i], $params, $gid, $access, $pop, '[s]default.php'); 
+						?>
 					</div>
 				<?php } else {
 				echo '</td></tr>';

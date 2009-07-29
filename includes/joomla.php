@@ -2124,6 +2124,8 @@ class JConfig {
 	var $config_use_content_save_mambots = 0;
 	/** @var int чисто неудачный авторизаций для блокировки аккаунта */
 	var $config_count_for_user_block = 10;
+	/** @var int директория шаблонов содержимого по-умолчанию */
+	var $config_global_templates = 0;
 
 
 
