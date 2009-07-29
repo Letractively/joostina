@@ -400,6 +400,7 @@ function showconfig($option) {
 	$lists['mtage_base']		= mosHTML::yesnoRadioList( 'config_mtage_base', 'class="inputbox"', $row->config_mtage_base );
 	$lists['config_custom_print']		= mosHTML::yesnoRadioList( 'config_custom_print', 'class="inputbox"', $row->config_custom_print );
 	$lists['config_old_toolbar']		= mosHTML::yesnoRadioList( 'config_old_toolbar', 'class="inputbox"', $row->config_old_toolbar );
+	$lists['global_templates']		= mosHTML::yesnoRadioList( 'config_global_templates', 'class="inputbox"', $row->config_global_templates, _GLOBAL_TEMPLATES_CURTEMPLATE, _GLOBAL_TEMPLATES_SYSTEMDIR );
 
 	$itemid_compat = array(
 		mosHTML::makeOption( '11', '< Joomla! 1.0.11' ),

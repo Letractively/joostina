@@ -265,7 +265,7 @@ class HTML_content {
 	 * @param boolean If <code>false</code>, the print button links to a popup window.  If <code>true</code> then the print button invokes the browser print method.
 	 * boston + хак отключения мамботов группы content
 	 */
-	function show(&$row, &$params, &$access, $page = 0, $template = '') {
+	function show(&$row, &$params, &$access, $page = 0, $_template = '') {
 		global $hide_js, $_MAMBOTS;
 		global $news_uid, $task;
 
@@ -340,8 +340,13 @@ class HTML_content {
 		//если 'template' задано - значит выводится интро записи в блоге,
 		//поэтому никаких дополнительных манипуляций не требуется,
 		// так как имя шаблона задается непосредственно в шаблоне блога раздела или категории
-		if($template) {
-			include ($mainframe->getCfg('absolute_path').'/components/com_content/view/item/'.$template);
+		if($params->get('page_type')=='item_intro_simple' || $params->get('page_type')=='item_intro_leading') {
+			
+			$template = new ContentTemplate();
+			$_template = $params->get('page_type').'='.$_template; 
+			$template->set_template($params->get('page_type'), $_template);
+			include ($template->template_file);
+			//include ($mainframe->getCfg('absolute_path').'/components/com_content/view/item/'.$template);
 		}
 		//иначе - это страница записи и нужно определить, какой шаблон  использовать для вывода
 		else {

@@ -30,6 +30,7 @@ class HTML_user {
 		global $my, $_MAMBOTS,$Itemid;
 
 		$mainframe = &mosMainFrame::getInstance();
+		$database = &database::getInstance();
 
 		$owner=0;
 		$admin = 0;

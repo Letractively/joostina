@@ -53,9 +53,9 @@ class HTML_templates {
 			<td align="right" class="jtd_nowrap"><?php echo _COM_INSTALLER_TEMPLATE_PREVIEW?></td>
 			<td align="right"><input type="checkbox" name="doPreview" checked="checked"/></td>
 		</tr>
-		<tr> 
+		<tr>
 			<?php HTML_installer::cPanel(); ?>
-		</tr>
+		</td>
 		</table>
 		<table class="adminlist">
 		<tr>

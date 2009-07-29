@@ -32,7 +32,9 @@ defined('_VALID_MOS') or die(); ?>
 		echo '<tr>';
 		foreach ($v['obj'] as $row) {
 			echo '<td>';
-			_showItem($row, $params, $gid, $access, $pop, 'intro/simple/default.php');
+									 $params->set('page_type', 'item_intro_simple'); 
+								_showItem($row, $params, $gid, $access, $pop, '[s]default.php'); 
+					
 			echo '</td>';
 			$kk++;
 			if($kk % $columns == 0 && (isset($cats_arr[$row->catid]['obj'][$kk]) && $cats_arr[$row->catid]['obj'][$kk]->catid == $row->catid)) {

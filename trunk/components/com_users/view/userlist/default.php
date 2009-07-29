@@ -15,6 +15,11 @@ if(!$menu || $menu->published <= 0){
 	return;
 }
 
+	//Общее количество
+	$users->total = $users->get_total($usertype);
+	// список
+	$users->user_list = $users->get_users($usertype, $limitstart, $limit);
+
 //пагинация
 if($users->total>0){
 	mosMainFrame::addLib('pageNavigation');
@@ -27,7 +32,7 @@ if($users->total>0){
 <?php endif;?>
 	<ul>
 <?php foreach($users->user_list as $user){
-		$avatar_pic = '<img class="avatar" src="'.$mainframe->getCfg('live_site').DS.$users->get_avatar($user).'" />';
+		$avatar_pic = '<img class="avatar" src="'.$mainframe->getCfg('live_site').'/'.$users->get_avatar($user).'" />';
 		$profile_link = $users->get_link($user); ?>
 		<li>
 			<a class="thumb" href="<?php echo $profile_link;?>"><?php echo $avatar_pic;?></a>
