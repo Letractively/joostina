@@ -133,7 +133,6 @@ DEFINE('_OBJECTS_MOVED_TO_SECTION','объект(ы) успешно переме
 DEFINE('_OBJECTS_TO_COPY','Будут скопированы объекты');
 DEFINE('_OBJECTS_TO_MOVE','Будут перемещены объекты');
 DEFINE('_ON_FRONTPAGE','На главной');
-DEFINE('_ON_NEW_CONTENT',"Пользователь [ %s ] добавил новый объект [ %s ]. Раздел: [ %s ]. Категория: [ %s ]");
 DEFINE('_ORDER_DROPDOWN_AUA','Автор (по возрастанию)');
 DEFINE('_ORDER_DROPDOWN_AUD','Автор (по убыванию)');
 DEFINE('_ORDER_DROPDOWN_DA','Дата (по возрастанию)');

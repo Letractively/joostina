@@ -1735,7 +1735,7 @@ function saveContent($task) {
 }
 
 function _after_create_content($row, $page) {
-	global $my, $mosConfig_absolute_path;
+	global $my;
 
 	$database = &database::getInstance();
 
@@ -1751,7 +1751,7 @@ function _after_create_content($row, $page) {
 	$category = stripslashes($category);
 
 	// Отправка сообщения админам о новой записе
-	require_once ($mosConfig_absolute_path.'/components/com_messages/messages.class.php');
+	require_once (Jconfig::getInstance()->config_absolute_path.'/components/com_messages/messages.class.php');
 	$query = "SELECT id FROM #__users WHERE sendEmail = 1";
 	$database->setQuery($query);
 	$users = $database->loadResultArray();

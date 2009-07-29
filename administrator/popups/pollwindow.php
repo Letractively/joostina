@@ -12,19 +12,19 @@ define("_VALID_MOS",1);
 require_once ('../includes/auth.php');
 include_once ($mosConfig_absolute_path.'/language/'.$mosConfig_lang.'/system.php');
 include_once ($mosConfig_absolute_path.'/language/'.$mosConfig_lang.'/frontend/mod_poll.php');
-$database = new database($mosConfig_host,$mosConfig_user,$mosConfig_password,$mosConfig_db,
-	$mosConfig_dbprefix);
+include_once ($mosConfig_absolute_path.'/language/'.$mosConfig_lang.'/administrator/com_poll.php');
+
+$database = &database::getInstance();
 $database->debug($mosConfig_debug);
 
 $pollid = mosGetParam($_REQUEST,'pollid',0);
 $css = mosGetParam($_REQUEST,'t','');
 
-$query = "SELECT title"."\n FROM #__polls"."\n WHERE id = ".(int)$pollid;
+$query = "SELECT title FROM #__polls WHERE id = ".(int)$pollid;
 $database->setQuery($query);
 $title = $database->loadResult();
 
-$query = "SELECT text"."\n FROM #__poll_data"."\n WHERE pollid = ".(int)$pollid.
-	"\n ORDER BY id";
+$query = "SELECT text FROM #__poll_data WHERE pollid = ".(int)$pollid." ORDER BY id";
 $database->setQuery($query);
 $options = $database->loadResultArray();
 
@@ -49,8 +49,7 @@ echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>';
 	<?php foreach($options as $text) {
 	if($text != "") { ?>
 		<tr>
-			<td valign="top" height="30"><input type="radio" name="poll" value="<?php echo
-$text; ?>"></td>
+			<td valign="top" height="30"><input type="radio" name="poll" value="<?php echo $text; ?>"></td>
 			<td class="poll" width="100%" valign="top"><?php echo $text; ?></td>
 		</tr>
 		<?php }
