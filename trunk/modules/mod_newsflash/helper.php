@@ -44,8 +44,7 @@ class mod_newsflash_Helper{
                 $text_with_image = $row->images;
             }
             $img = Image::get_image_from_text($text_with_image, $params->get('image', 1), $params->get('image_default',0));
-            //$row->image = '<img class="thumb" title="'.$row->title.'" src="'.$img.'" />';
-            $row->image = $img;
+            $row->image = '<img title="'.$row->title.'" alt="" src="'.$img.'" />';
 
             if($params->get('image_link',0) && $row->image){
                 $row->image =  '<a class="thumb" href="'.$row->link_on.'">'.$row->image.'</a>';
