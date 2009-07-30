@@ -215,6 +215,7 @@ if($path = $mainframe->getPath('front')) {
  			if($mainframe->getLangFile($option)){ 
  				include($mainframe->getLangFile($option));
 			}
+		$mainframe->addLib('mylib');	
 		require_once ($path);
 	} else {
 		mosNotAuth();
