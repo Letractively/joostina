@@ -311,13 +311,8 @@ function userList($gid,$limit,$limitstart=0){
 	}
 	$template_file = $mainframe->getCfg('absolute_path').DS.$template_dir.DS.$template;
 
-	//Получаем список пользователей
 	$users = new mosUser($database);
-	//Общее количество
-	$users->total = $users->get_total($usertype);
-	// список
-	$users->user_list = $users->get_users($usertype, $limitstart, $limit);
-
+	
 	//Подключаем шаблон
 	if(is_file($template_file)){
 		include_once($template_file);
