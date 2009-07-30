@@ -672,6 +672,11 @@ class mosContent extends mosDBTable{
 	}
 
 	function get_item($id){
+		
+		$my_func = new myFunctions('get_item', array('id'=>$id));
+ 		if($my_func->check_user_function()){
+ 			return $my_func->start_user_function();
+   		};
 
 		$sql = 'SELECT item.*,
 				s.name AS section_name, s.params AS section_params, s.templates as s_templates,
@@ -691,6 +696,11 @@ class mosContent extends mosDBTable{
 	}
 
 	function _load_user_items($user_id, $params){
+		
+		$my_func = new myFunctions('_load_user_items', array('user_id'=>$user_id, 'params'=>$params));
+ 		if($my_func->check_user_function()){
+ 			return $my_func->start_user_function();
+   		};
 
 		$orderby = strval(mosGetParam($_REQUEST,'order',''));
 		if (!$orderby) {
@@ -742,6 +752,12 @@ class mosContent extends mosDBTable{
 	}
 
 	function _get_count_user_items($user_id, $params){
+		
+		$my_func = new myFunctions('_get_count_user_items', array('user_id'=>$user_id, 'params'=>$params));
+ 		if($my_func->check_user_function()){
+ 			return $my_func->start_user_function();
+   		};
+   		
 		// filter functionality
 		$and = '';
 		if ( $params->get( 'filter' ) ) {
@@ -839,6 +855,11 @@ class mosContent extends mosDBTable{
 
 	function get_prev_next($row, $where, $access, $params){
 		global $gid;
+		
+		$my_func = new myFunctions('get_prev_next', array('row'=>$row, 'where'=>$where, 'params'=>$params, 'access'=>$access));
+ 		if($my_func->check_user_function()){
+ 			return $my_func->start_user_function();
+   		};
 
 		$mainframe = &mosMainFrame::getInstance();
 		$database = &database::getInstance();
@@ -1009,7 +1030,7 @@ class mosContent extends mosDBTable{
 
 	function _load_blog_section($section, $params, $access){
 		
-		$my_func = new myFunctions('_load_blog_category', array('category'=>$category, 'params'=>$params, 'access'=>$access));
+		$my_func = new myFunctions('_load_blog_section', array('category'=>$section, 'params'=>$params, 'access'=>$access));
         if($my_func->check_user_function()){
         	return $my_func->start_user_function();
         };
@@ -1055,6 +1076,12 @@ class mosContent extends mosDBTable{
 	}
 
 	function _get_result_blog_section($section, $params, $access){
+		
+		$my_func = new myFunctions('_get_result_blog_section', array('section'=>$section, 'params'=>$params, 'access'=>$access));
+ 		if($my_func->check_user_function()){
+ 			return $my_func->start_user_function();
+   		};
+   		
 		$where = contentSqlHelper::construct_where_blog(1, $section, $access, $params);
 		$where = (count($where) ? "\n WHERE " . implode("\n AND ", $where) : '');
 
@@ -1070,6 +1097,11 @@ class mosContent extends mosDBTable{
 	}
 
 	function _load_blog_category($category, $params, $access){
+		
+		$my_func = new myFunctions('_load_blog_category', array('category'=>$category, 'params'=>$params, 'access'=>$access));
+ 		if($my_func->check_user_function()){
+ 			return $my_func->start_user_function();
+   		};
 
 		// voting control
 		$voting = new contentVoiting($params);
@@ -1106,6 +1138,11 @@ class mosContent extends mosDBTable{
 	}
 
 	function _get_result_blog_category($category, $params, $access){
+		
+		$my_func = new myFunctions('_get_result_blog_category', array('category'=>$category, 'params'=>$params, 'access'=>$access));
+ 		if($my_func->check_user_function()){
+ 			return $my_func->start_user_function();
+   		};
 
 		$where = contentSqlHelper::construct_where_blog(2, $category, $access, $params);
 		$where = (count($where) ? "\n WHERE " . implode("\n AND ", $where) : '');
@@ -1123,6 +1160,12 @@ class mosContent extends mosDBTable{
 	}
 
 	function _get_result_archive_section($section, $params, $access){
+		
+		$my_func = new myFunctions('_get_result_archive_section', array('section'=>$section, 'params'=>$params, 'access'=>$access));
+ 		if($my_func->check_user_function()){
+ 			return $my_func->start_user_function();
+   		};
+		
 		$where = contentSqlHelper::construct_where_blog(-1, $section, $access, $params);
 		$where = (count($where) ? " WHERE " . implode(" AND ", $where) : '');
 
@@ -1138,6 +1181,11 @@ class mosContent extends mosDBTable{
 	}
 
 	function _load_archive_section($section, $params, $access){
+		
+		$my_func = new myFunctions('_load_archive_section', array('section'=>$section, 'params'=>$params, 'access'=>$access));
+ 		if($my_func->check_user_function()){
+ 			return $my_func->start_user_function();
+   		};
 
 		// voting control
 		$voting = new contentVoiting($params);
@@ -1175,6 +1223,11 @@ class mosContent extends mosDBTable{
 	}
 
 	function _get_result_blog_archive_category($category, $params, $access){
+		
+		$my_func = new myFunctions('_get_result_blog_archive_category', array('category'=>$category, 'params'=>$params, 'access'=>$access));
+ 		if($my_func->check_user_function()){
+ 			return $my_func->start_user_function();
+   		};
 
 		$where = contentSqlHelper::construct_where_blog(-2, $category, $access, $params);
 		$where = (count($where) ? "\n WHERE " . implode("\n AND ", $where) : '');
@@ -1192,6 +1245,11 @@ class mosContent extends mosDBTable{
 	}
 
 	function _load_blog_archive_category($category, $params, $access){
+		
+		$my_func = new myFunctions('_load_blog_archive_category', array('category'=>$category, 'params'=>$params, 'access'=>$access));
+ 		if($my_func->check_user_function()){
+ 			return $my_func->start_user_function();
+   		};
 
 		// voting control
 		$voting = new contentVoiting($params);
@@ -1230,6 +1288,11 @@ class mosContent extends mosDBTable{
 
 	function _load_table_category($category, $params, $access){
 		global $my;
+		
+		$my_func = new myFunctions('_load_table_category', array('category'=>$category, 'params'=>$params, 'access'=>$access));
+ 		if($my_func->check_user_function()){
+ 			return $my_func->start_user_function();
+   		};
 
 		//Дополнительные условия
 		$xwhere = contentSqlHelper::construct_where_table_category($category, $access, $params);
@@ -1255,6 +1318,11 @@ class mosContent extends mosDBTable{
 	}
 
 	function _get_result_table_category($category, $params, $access){
+		
+		$my_func = new myFunctions('_get_result_table_category', array('category'=>$category, 'params'=>$params, 'access'=>$access));
+ 		if($my_func->check_user_function()){
+ 			return $my_func->start_user_function();
+   		};
 
 		$xwhere = contentSqlHelper::construct_where_table_category($category, $access, $params);
 		$and = contentSqlHelper::construct_filter_table_category($category, $access, $params);
@@ -1273,6 +1341,11 @@ class mosContent extends mosDBTable{
 
 
 	function _load_frontpage($params, $access){
+		
+		$my_func = new myFunctions('_load_frontpage', array('params'=>$params, 'access'=>$access));
+ 		if($my_func->check_user_function()){
+ 			return $my_func->start_user_function();
+   		};
 
 		// voting control
 		$voting = new contentVoiting($params);
@@ -1310,6 +1383,12 @@ class mosContent extends mosDBTable{
 	}
 
 	function _get_result_frontpage($params, $access){
+		
+		$my_func = new myFunctions('_get_result_frontpage', array('params'=>$params, 'access'=>$access));
+ 		if($my_func->check_user_function()){
+ 			return $my_func->start_user_function();
+   		};
+   		
 		$where = contentSqlHelper::construct_where_blog(1, null, $access, $params);
 		$where = (count($where) ? "\n WHERE " . implode("\n AND ", $where) : '');
 

@@ -161,7 +161,7 @@ class Image {
     }
 
 
-    function get_mosimage($images, $default_image = null){
+	function get_mosimage($images, $default_image = null){
         $images = explode("\n", $images);
 		$total = count($images);
 		$image = '';
@@ -175,13 +175,13 @@ class Image {
 		}
 
         if($image){
-            return '<img src="'.Jconfig::getInstance()->config_live_site.'/images/stories/'.$image.'"/>';
+            return '/images/stories/'.$image;
         }
         else if($default_image){
-            return '<img src="'.Jconfig::getInstance()->config_live_site.'/images/noimage.jpg"/>';
+            return '/images/noimage.jpg';
          }
          else{
-             return '';
+             return false;
          }
 
     }
@@ -191,16 +191,25 @@ class Image {
         $matches=array();
         $regex = '#<img[^>]*src=(["\'])([^"\']*)\1[^>]*>#is';
          if(preg_match($regex, $text, $matches)){
-             $img =  $matches[0];
+             $img =  $matches[2];
+             $img = self::check_href($img);
              return $img;
          }
          else if($default_image){
-            return Jconfig::getInstance()->config_live_site.'/images/noimage.jpg';
+            return '/images/noimage.jpg';
          }
          else{
-             return '';
+             return false;
          }
 
+    }
+    
+    function check_href($href){
+    	if(!(substr($href, 0, 4)=='http') && !(substr($href, 0, 1)=='/')){
+    		$href = '/'.$href;
+    	}
+    	
+    	return $href;
     }
 
 
