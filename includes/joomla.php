@@ -6261,6 +6261,42 @@ class mosAbstractTasker {
 	}
 }
 
+class myFunctions{
+	
+	var $func = null;
+	var $params = null;
+	var $obj = null;
+	
+	function myFunctions($func, $params){
+		
+		$this->func = $func;
+		$this->params = $params;		
+		$this->bind();		
+	}
+	
+	function bind(){
+		
+		$obj = new stdClass();
+		foreach($this->params as $key=>$val){
+			$obj->$key = $val;
+		}
+		
+		$this->obj = $obj;		
+	}
+	
+	function check_user_function(){ 
+		$methods = get_class_methods('myLib');
+		if(in_array($this->func, $methods)){
+			return true;				
+		}
+		return false;	
+	}
+
+	function start_user_function(){
+		return call_user_func(array('myLib', $this->func), $this->obj);	
+	}
+	
+}
 
 /**
 * Объединение расширений системы в одно пространство имён

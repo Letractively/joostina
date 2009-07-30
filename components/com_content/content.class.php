@@ -1008,6 +1008,11 @@ class mosContent extends mosDBTable{
 	}
 
 	function _load_blog_section($section, $params, $access){
+		
+		$my_func = new myFunctions('_load_blog_category', array('category'=>$category, 'params'=>$params, 'access'=>$access));
+        if($my_func->check_user_function()){
+        	return $my_func->start_user_function();
+        };
 
 		// voting control
 		$voting = new contentVoiting($params);
