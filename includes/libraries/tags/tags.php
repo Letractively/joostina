@@ -168,3 +168,80 @@ class contentTags extends mosDBTable{
 
 	}
 }
+
+class TagsCloud{
+
+
+   var $tags;
+   var $font_size_min = 14;
+   var $font_size_step = 5;
+
+	function __construct($tags) {
+
+		shuffle($tags);
+		$this->tags = $tags;
+
+	}
+
+	function get_tag_count($tag_name, $tags) {
+
+		$count = 0;
+
+		foreach ($tags as $tag) {
+			if ($tag == $tag_name) {
+				$count++;
+			}
+		}
+
+		return $count;
+
+	}
+
+	function tagscloud($tags) {
+
+		$tags_list = array();
+
+		foreach ($tags as $tag) {
+			$tags_list[$tag] = self::get_tag_count($tag, $tags);
+		}
+
+		return $tags_list;
+
+	}
+
+	function get_min_count($tags_list) {
+
+		$min = $tags_list[$this->tags[0]];
+
+		foreach ($tags_list as $tag_count) {
+
+			if ($tag_count < $min) $min = $tag_count;
+
+		}
+
+		return $min;
+
+	}
+
+   function get_cloud() {
+
+		$cloud = Array();
+
+		$tags_list = self::tagscloud($this->tags);
+		$min_count = self::get_min_count($tags_list);
+
+		foreach ($tags_list as $tag=>$count) {
+
+			$font_steps = $count - $min_count;
+			$font_size = $this->font_size_min + $this->font_size_step * $font_steps;
+
+			$cloud[$tag][] = $font_size;
+           // $cloud['tag'][] =
+		}
+
+		return $cloud;
+
+	}
+
+}
+

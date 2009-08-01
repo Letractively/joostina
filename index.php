@@ -10,7 +10,6 @@
 // Установка флага родительского файла
 define('_VALID_MOS',1);
 
-
 if(function_exists('memory_get_usage')){
 	define('_MEM_USAGE_START', memory_get_usage());
 }else{
@@ -80,6 +79,11 @@ if(file_exists($mosConfig_absolute_path.DS.'components'.DS.'com_sef'.DS.'sef.php
 // mainframe - основная рабочая среда API, осуществляет взаимодействие с 'ядром'
 $mainframe = &mosMainFrame::getInstance();
 
+//Межсайтовая интеграция
+if(is_file($mosConfig_absolute_path.DS.'multisite.config.php')){
+	include_once($mosConfig_absolute_path.DS.'multisite.config.php');	
+}
+
 // поиск некоторых аргументов url (или form)
 $option = strval(strtolower(mosGetParam($_REQUEST,'option')));
 $Itemid = intval(mosGetParam($_REQUEST,'Itemid',null));
@@ -131,7 +135,14 @@ $message	= intval(mosGetParam($_POST,'message',0));
 
 /** получение информации о текущих пользователях из таблицы сессий*/
 // $my - важный параметр, в нём содержатся вс еданные по текущему пользователю
-$my = $mainframe->getUser();
+if($mainframe->get('_multisite')=='2' && $cookie_exist ){
+	$mainframe->set('_multisite_params', $m_s);	
+	$my = $mainframe->getUser_from_sess($_COOKIE[mosMainFrame::sessionCookieName($m_s->main_site)]);
+}
+else{
+	$my = $mainframe->getUser();	
+}
+
 $gid = intval($my->gid);
 
 if($option == 'login') {
@@ -217,6 +228,7 @@ if($path = $mainframe->getPath('front')) {
 			}
 		$mainframe->addLib('mylib');	
 		require_once ($path);
+		
 	} else {
 		mosNotAuth();
 	}
@@ -245,6 +257,7 @@ if(!$mosConfig_caching) { // не кэшируется
 	header('Cache-Control: max-age=3600');
 }
 */
+//echo $_COOKIE[mosMainFrame::sessionCookieName('www.joostina_local.ru')];
 
 // отображение предупреждения о выключенном сайте, при входе админа
 if(defined('_ADMIN_OFFLINE')) {

@@ -435,6 +435,11 @@ class HTML_content {
 	 */
 	function Title(&$row, &$params, &$access = null) {
 		global $task;
+		
+		$my_func = new myFunctions('Title', array('row'=>$row, 'params'=>$params, 'access'=>$access));
+		if($my_func->check_user_function()){
+			return $my_func->start_user_function();
+		};
 
 		if($params->get('item_title')) {
 

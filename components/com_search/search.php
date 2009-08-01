@@ -12,6 +12,7 @@ defined('_VALID_MOS') or die();
 
 require_once ($mainframe->getPath('class','com_search'));
 require_once ($mainframe->getPath('front_html'));
+$mainframe->addLib('text');
 
 $tag = mosGetParam( $_REQUEST, 'tag', '' );
 if($tag){

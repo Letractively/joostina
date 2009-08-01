@@ -18,7 +18,7 @@ $tabs = new mosTabs(1);
 ?><div class="page_edit_profile">
 	<div class="componentheading"><h1><?php echo $user->name; ?>&nbsp;(<?php echo $user->username; ?>)</h1></div>
 <?php $tabs->startPane("userInfo"); ?>
-	<form action="index.php" method="post" name="mosUserForm" id="mosUserForm">
+	<form action="<?php echo sefRelToAbs('index.php');  ?>" method="post" name="mosUserForm" id="mosUserForm">
 		<div style="float: right;height: 100%;">
 			<span class="button"><button type="submit" class="button submit" name="submit" id="save"><?php echo _SAVE?></button></span>
 			<span class="button"><button type="submit" class="button cancel" name="cancel" id="cancel"><?php echo _CANCEL?></button></span>
@@ -139,7 +139,7 @@ $tabs = new mosTabs(1);
 	$form_params->img_path = 'images/avatars';
 	$form_params->default_img = 'images/avatars/none.jpg';
 	$form_params->img_class = 'user_avatar';
-	$form_params->ajax_handler = 'ajax.index.php?option=com_users';
+	$form_params->ajax_handler = $config->config_live_site.'/ajax.index.php?option=com_users';
 	if(!$user->avatar){
 		userHelper::_build_img_upload_area($user, $form_params, 'upload');
 	} else {

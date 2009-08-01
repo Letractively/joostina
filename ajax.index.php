@@ -44,6 +44,10 @@ $commponent = str_replace('com_','',$option);
 
 // mainframe - основная рабочая среда API, осуществляет взаимодействие с 'ядром'
 $mainframe = mosMainFrame::getInstance();
+//Межсайтовая интеграция
+if(is_file($mosConfig_absolute_path.DS.'multisite.config.php')){
+	include_once($mosConfig_absolute_path.DS.'multisite.config.php');	
+}
 $mainframe->initSession();
 
 
@@ -56,7 +60,13 @@ include_once($mainframe->getLangFile());
 //include_once ($mosConfig_absolute_path.'/language/'.$mosConfig_lang.'.php');
 
 // get the information about the current user from the sessions table
-$my = $mainframe->getUser();
+if($mainframe->get('_multisite')=='2' && $cookie_exist ){
+	$mainframe->set('_multisite_params', $m_s);	
+	$my = $mainframe->getUser_from_sess($_COOKIE[mosMainFrame::sessionCookieName($m_s->main_site)]);
+}
+else{
+	$my = $mainframe->getUser();	
+}
 $gid = intval($my->gid);
 
 // в зависимости от использования автоперекодировки в UTF-8

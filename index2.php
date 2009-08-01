@@ -54,14 +54,28 @@ $print = false;
 if($pop=='1' && $page==0) $print = true;
 
 // главное окно рабочего компонента API, для взаимодействия многих 'ядер'
-$mainframe = new mosMainFrame($database,$option,'.');
-$mainframe->initSession();
+//$mainframe = new mosMainFrame($database,$option,'.');
+$mainframe = &mosMainFrame::getInstance();
+
+//Межсайтовая интеграция
+if(is_file($mosConfig_absolute_path.DS.'multisite.config.php')){
+	include_once($mosConfig_absolute_path.DS.'multisite.config.php');	
+}
+
+if($mosConfig_session_front == 0) {
+	$mainframe->initSession();
+}
 
 // trigger the onAfterStart events
 $_MAMBOTS->trigger('onAfterStart');
 
-// get the information about the current user from the sessions table
-$my = $mainframe->getUser();
+if($mainframe->get('_multisite')=='2' && $cookie_exist ){
+	$mainframe->set('_multisite_params', $m_s);	
+	$my = $mainframe->getUser_from_sess($_COOKIE[mosMainFrame::sessionCookieName($m_s->main_site)]);
+}
+else{
+	$my = $mainframe->getUser();	
+}
 $gid = intval($my->gid);
 // patch to lessen the impact on templates
 if($option == 'search') {
