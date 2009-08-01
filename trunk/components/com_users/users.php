@@ -485,7 +485,8 @@ function registerForm($option,$useractivation) {
 
 	$database = &database::getInstance();
 	$mainframe = &mosMainFrame::getInstance();
-
+	$acl = &gacl::getInstance();
+	
 	if(!$mainframe->getCfg('allowUserRegistration')) {
 		mosNotAuth();
 		return;
@@ -494,20 +495,24 @@ function registerForm($option,$useractivation) {
 	session_start();
 
 	$params = new configUser_registration($database);
+	
+	$type = mosGetParam( $_REQUEST, 'type', '' );
+	$gid = $params->get('gid');	
 
 	$mainframe->SetPageTitle($params->get('title'));
 
 	//Определяем шаблон для вывода регистрационной формы
 	$template = 'default.php';
-
-	if(!$params->get('template')){
-		$type = mosGetParam( $_REQUEST, 'type', '' );
+	
+	if(!$params->get('template')){		
 		if($type){
-			if(!is_file($mainframe->getCfg('absolute_path').DS.'components'.DS.'com_users'.DS.'view'.DS.'registration'.DS.$type.'.php')){
+			if(is_file($mainframe->getCfg('absolute_path').DS.'components'.DS.'com_users'.DS.'view'.DS.'registration'.DS.$type.'.php')){
 				$template = $type.'.php';
 			}
+			$gid = $acl->get_group_id($type,'ARO');
 		}
 	}
+	$gid_check = mosHash($gid);
 
 	// used for spoof hardening
 	$validate = josSpoofValue();
@@ -558,8 +563,25 @@ function saveRegistration() {
 	mosMakeHtmlSafe($row);
 
 	$row->id = 0;
-	$row->usertype = '';
-	$row->gid = $params->get('gid');
+	
+	//Определяем группу пользователя
+	//Если в настройках регистрации выбрано использование разных шаблонов - будем брать группу из скрытого поля
+	//регистрационной формы
+	//Если используется единый шаблон - группу берем из натроек регистрации.
+	if(!$params->get('template')){
+		$row->gid = $_POST['gid'];			
+	}
+	else{
+		$row->gid = $params->get('gid');	
+	}
+	//Проверяем, не подменена ли группа "на лету"
+	$gid_md5 = $_POST['gid_check'];
+	
+	if($gid_md5 != md5($GLOBALS['mosConfig_secret'].md5($row->gid))){ 
+		mosErrorAlert('Go home, stuppid hacker!');
+	}
+		
+	$row->usertype = $acl->get_group_name($row->gid,'ARO');
 
 	if($mainframe->getCfg('useractivation') == 1) {
 		$row->activation = md5(mosMakePassword());
@@ -576,13 +598,14 @@ function saveRegistration() {
 	$salt = mosMakePassword(16);
 	$crypt = md5($row->password.$salt);
 	$row->password = $crypt.':'.$salt;
+	
 	$row->registerDate = date('Y-m-d H:i:s');
 
 	if(!$row->store()) {
 		echo "<script> alert('".html_entity_decode($row->getError())."'); window.history.go(-1); </script>\n";
 		exit();
 	}
-	$row->id = $database->insertid();
+	//$row->id = $database->insertid();
 	$row->checkin();
 
 	$email_info = array();
@@ -667,6 +690,7 @@ function saveRegistration() {
 	}
 	else {
 		$msg = _REG_COMPLETE;
+		//$mainframe->login($row->username,$row->password,0,$row->id);
 		mosRedirect('index.php?option=com_users&task=profile&user='.$row->id, $msg);
 	}
 }

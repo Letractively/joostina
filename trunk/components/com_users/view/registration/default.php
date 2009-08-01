@@ -43,7 +43,7 @@ defined('_VALID_MOS') or die();
 		}
 	}
 	</script>
-	<form action="index.php" method="post" name="mosForm" id="mosForm">
+	<form action="<?php echo sefRelToAbs('index.php') ?>" method="post" name="mosForm" id="mosForm">
 		<div class="componentheading"><h1><?php echo $params->get('title'); ?></h1></div>
 <?php if($params->get('pre_text')){?>
 		<div class="info">
@@ -106,5 +106,7 @@ defined('_VALID_MOS') or die();
 		<span class="button"><input type="button" value="<?php echo _BUTTON_SEND_REG; ?>" class="button" onclick="submitbutton_reg()" /></span>
 		<input type="hidden" name="option" value="<?php echo $option; ?>" />
 		<input type="hidden" name="task" value="saveRegistration" />
+		<input type="hidden" name="gid" value="<?php echo $gid; ?>" />
+		<input type="hidden" name="gid_check" value="<?php echo $gid_check; ?>" />
 		<input type="hidden" name="<?php echo $validate; ?>" value="1" />
 	</form>

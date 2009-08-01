@@ -197,10 +197,11 @@ class search_by_tag_HTML{
                 foreach($groups as $key=>$group){
                     foreach($items->items[$key] as $item){
                         $item->link = searchByTag::construct_url($item, $group);
+                        $item->text = Text::word_limiter($item->text, 25);
                     ?>
 
                     <div class="search_item">
-                        <a href="<?php echo $item->link;?>"><?php echo $item->title;?></a> <br />
+                        <h2><a class="contentpagetitle" href="<?php echo $item->link;?>"><?php echo $item->title;?></a> </h2>
                         <span class="date"><?php echo $item->date;?></span> <br />
                         <p><?php echo $item->text;?></p>
                     </div>

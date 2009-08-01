@@ -14,6 +14,7 @@ defined( '_VALID_MOS' ) or die();
 
 global $mosConfig_frontend_login,$my,$mosConfig_lang, $mainframe;
 
+
 if ( $mosConfig_frontend_login != NULL && ($mosConfig_frontend_login === 0 || $mosConfig_frontend_login === '0')) {
 	return;
 }
@@ -83,30 +84,35 @@ $params_aray=array(
 
 function logoutForm($params_aray){
   global $mosConfig_frontend_login,$my,$mosConfig_lang, $mosConfig_live_site;
+  $mainframe = &mosMainFrame::getInstance();
 	if ($params_aray['user_name']) {
 		$name = $my->name;
 	} else {
 		$name = $my->username;
 	}
 
-    $user_link = 'index.php?option=com_users&amp;task=profile&amp;user='.$my->id;
-    $user_seflink = sefRelToAbs($user_link);
+    $user_link = mosUser::get_link($my);
     $profile_link="";
 	if ($params_aray['profile_link']==0) {
-	    $profile_link0='<a href="'.$user_seflink.'">'.$name.'</a>';
+	    $profile_link0='<a href="'.$user_link.'">'.$name.'</a>';
         $name=$profile_link0;
         $profile_link="";
    	} else if($params_aray['profile_link']==1) {
-        $profile_link='<a href="'.$user_seflink.'">'.$params_aray['profile_link_text'].'</a>';
+        $profile_link='<a href="'.$user_link.'">'.$params_aray['profile_link_text'].'</a>';
    	}
 
     if($params_aray['ml_avatar']){
 		$avatar='<div class="mod_avatar"><img id="mod_avatar_img" src="'.$mosConfig_live_site.'/'.mosUser::get_avatar($my).'" alt="'.$my->name.'"/></div>';     } else {$avatar='';}
+		
+	$action = sefRelToAbs( 'index.php?option=logout' );
+	if($mainframe->get('_multisite')==2){
+		$action = sefRelToAbs( $mainframe->_multisite_params->main_site.'/index.php?option=logout'); 
+	}
 
     ?>
-	<form action="<?php echo sefRelToAbs( 'index.php?option=logout' ); ?>" method="post" name="logout">
+	<form action="<?php echo $action; ?>" method="post" name="logout">
 
-	<div class="ml_login_info">
+	<div class="logout">
 	<?php echo $avatar; ?>
 <?php
 	if ( $params_aray['greeting'] ) {
@@ -116,11 +122,11 @@ function logoutForm($params_aray){
 	echo $profile_link;
 	?>
 	
-
+<div class="ml_login_info">
 	<span class="button">	
 		<input type="submit" name="Submit" id="logout_button" class="button<?php echo $params_aray['moduleclass_sfx']; ?>" value="<?php echo _BUTTON_LOGOUT; ?>" />
 	</span>
-
+</div>
 	<input type="hidden" name="option" value="logout" />
 	<input type="hidden" name="op2" value="logout" />
 	<input type="hidden" name="lang" value="<?php echo $mosConfig_lang; ?>" />
@@ -134,6 +140,13 @@ function logoutForm($params_aray){
 
 function loginForm($params_aray){
   global $mainframe, $mosConfig_live_site;
+  
+  if($mainframe->get('_multisite')==2){
+  	?>
+  	<a href="<?php echo $mainframe->_multisite_params->main_site; ?>/index.php?option=com_login" class="login_button" id="log_in"><?php echo $params_aray['dr_login_text'];?></a>
+  	<?php
+  	return;
+  }
 
     if ($params_aray['ml_visibility']==0){
         BuildLoginForm($params_aray, $params_aray['orientation'] );

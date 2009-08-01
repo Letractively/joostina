@@ -113,6 +113,9 @@ class mosMainFrame {
 	 * текущий язык
 	 */
 	var $lang = null;
+	
+	var $_multisite = 0;
+	var $_multisite_params = null;
 
 	/**
 	* Class constructor
@@ -780,17 +783,22 @@ class mosMainFrame {
 	* Added as of 1.0.8
 	* Deperciated 1.1
 	*/
-	function sessionCookieName() {
+	function sessionCookieName($site_name = '') {
 		$_config = &Jconfig::getInstance();
 		$mainframe = &mosMainFrame::getInstance();
-
-		if(substr($_config->config_live_site,0,7) == 'http://') {
-			$hash = md5('site'.substr($_config->config_live_site,7));
-		} elseif(substr($_config->config_live_site,0,8) == 'https://') {
-			$hash = md5('site'.substr($_config->config_live_site,8));
-		} else {
-			$hash = md5('site'.$mainframe->getCfg('live_site'));
+		
+		if(!$site_name){
+			$site_name = $_config->config_live_site;
 		}
+
+		if(substr($site_name,0,7) == 'http://') {
+			$hash = md5('site'.substr($site_name,7));
+		} elseif(substr($site_name,0,8) == 'https://') {
+			$hash = md5('site'.substr($site_name,8));
+		} else {
+			$hash = md5('site'.$site_name);
+		}
+
 		return $hash;
 	}
 
@@ -1057,6 +1065,12 @@ class mosMainFrame {
 	* + хак для отключения ведения сессий на фронте
 	*/
 	function getUser() {
+		
+		if($this->_multisite == 2){
+			$m_s = new stdClass();
+			$m_s = $this->get('_multisite_params');
+			return $this->getUser_from_sess($_COOKIE[$this->sessionCookieName($m_s->main_site)]);
+		}
 
 		$database = &database::getInstance();
 
@@ -1089,6 +1103,56 @@ class mosMainFrame {
 		unset($user->_db);
 		return $user;
 	}
+	
+	
+	function getUser_from_sess($sess_id) {
+		
+		$mainframe = &mosMainFrame::getInstance();
+		$sess_id = mosMainFrame::sessionCookieValue($sess_id);
+		
+		$m_s = new stdClass();
+		$m_s = $mainframe->get('_multisite_params');
+
+		$database = new database($m_s->db_host,$m_s->db_user,$m_s->db_pass,$m_s->db_name,$m_s->table_preffix);
+		$user = new mosUser($database);
+		$user->id = 0; $user->gid = 0;
+		
+		// и кто это у нас тут такой, залогиненныыый
+		$sql = "SELECT * FROM #__session 
+		WHERE session_id = '".$sess_id."' AND guest = 0";
+		
+		$row = null;
+		$database->setQuery($sql);
+		$database->loadObject($row);
+		
+		if($row){
+			$user->id = $row->userid;
+			
+			$query = "SELECT id, name, username, usertype, email, avatar, block, sendEmail, registerDate, 
+			lastvisitDate, activation, params 
+			FROM #__users 
+			WHERE id = ".(int)$user->id;
+			
+			$database->setQuery($query);
+			$database->loadObject($my);
+			$user->params = $my->params;
+			$user->name = $my->name;
+			$user->username = $my->username;
+			$user->email = $my->email;
+			$user->avatar = $my->avatar;
+			$user->block = $my->block;
+			$user->sendEmail = $my->sendEmail;
+			$user->registerDate = $my->registerDate;
+			$user->lastvisitDate = $my->lastvisitDate;
+			$user->activation = $my->activation;
+			$user->usertype = $my->usertype; 
+			
+		}
+		/* чистка памяти */
+		unset($user->_db);	
+		return $user;
+	}
+	
 	/**
 	* @param string The name of the variable (from configuration.php)
 	* @return mixed The value of the configuration variable or null if not found

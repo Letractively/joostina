@@ -64,7 +64,22 @@ class mosUser extends mosDBTable {
 	* @param database A database connector object
 	*/
 	function mosUser(&$database) {
-		$this->mosDBTable('#__users','id',$database);
+		$mainframe = &mosMainFrame::getInstance();
+		
+		if($mainframe->get('_multisite') == 2){
+			$this->mosUser_multi($mainframe);
+		}
+		else{
+			$this->mosDBTable('#__users','id',$database);	
+		}		
+		
+	}
+	
+	function mosUser_multi($mainframe){
+		$m_s = $mainframe->get('_multisite_params');
+		$database =  new database($m_s->db_host,$m_s->db_user,$m_s->db_pass,$m_s->db_name,$m_s->table_preffix);
+		mosUser::mosDBTable('#__users','id',$database);
+		return;
 	}
 
 	/**
@@ -236,7 +251,16 @@ class mosUser extends mosDBTable {
 	* функци€ получени€ аватара пользовател€, возвращает путь к изображени€ аватара от корн€ сайта
 	*/
 	function get_avatar($user){
-		if(is_file(Jconfig::getInstance()->config_absolute_path.'/images/avatars/'.$user->avatar)){
+		
+		$mainframe = &mosMainFrame::getInstance();
+		$config = &Jconfig::getInstance();
+		
+		$avatar_file = $config->config_absolute_path.'/images/avatars/'.$user->avatar;
+		if($mainframe->get('_multisite')==2){
+			$avatar_file = $mainframe->_multisite_params->main_site.'/images/avatars/'.$user->avatar; 
+		}		
+		
+		if(is_file($avatar_file)){
 			$img = 'images/avatars/'.$user->avatar;
 		}else{
 			$img = 'images/avatars/none.jpg';
@@ -245,7 +269,13 @@ class mosUser extends mosDBTable {
 	}
 	
 	function get_link($user){
-		return sefRelToAbs('index.php?option=com_users&task=profile&user='.$user->id);	
+		$mainframe = &mosMainFrame::getInstance();
+		
+		$url = 'index.php?option=com_users&task=profile&user='.$user->id;
+		if($mainframe->get('_multisite') == 2){
+			$url = $mainframe->_multisite_params->main_site.'/'.$url;
+		}
+		return sefRelToAbs($url);	
 	}
 
 	/**
