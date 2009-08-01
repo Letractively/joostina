@@ -197,7 +197,8 @@ class search_by_tag_HTML{
                 foreach($groups as $key=>$group){
                     foreach($items->items[$key] as $item){
                         $item->link = searchByTag::construct_url($item, $group);
-                        $item->text = Text::word_limiter($item->text, 25);
+                        $item->text = Text::word_limiter(mosHTML::cleanText($item->text), 25);
+
                     ?>
 
                     <div class="search_item">

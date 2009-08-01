@@ -1000,9 +1000,15 @@ function BlogOutput(&$obj, $params, &$access) {
 	//Если это главная страница - компонент 'com_frontpage'
 	else{
 		if($_REQUEST['option'] == 'com_frontpage') {
-			include_once ($mainframe->getCfg('absolute_path').'/components/com_content/view/frontpage/default.php');
-			return;
-		}else { //Не главная страница и не архив - обычный блог раздела или категории
+			$page_type = 'frontpage_blog'; $templates = null;
+			//include_once ($mainframe->getCfg('absolute_path').'/components/com_content/view/frontpage/default.php');
+			$template->set_template($page_type, $templates); 
+			include_once ($template->template_file);
+			
+			return;	
+		}
+		else { 
+			//Не главная страница и не архив - обычный блог раздела или категории
 			switch ($task) {
 				case 'blogcategory':
 				default:
@@ -1043,7 +1049,7 @@ function BlogOutput(&$obj, $params, &$access) {
 			}
 		}
 	}
-	$template->set_template($page_type, $templates);
+	$template->set_template($page_type, $templates); 
 	include_once ($template->template_file);
 }
 

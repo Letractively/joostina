@@ -388,9 +388,11 @@ class configContent_categoryblog extends dbConfig {
 
 	//Показать/Скрыть тэги материалов
 	var $view_tags = 1;
+	var $_params = null;
 
 	function configContent_categoryblog(&$db, $group = 'com_content', $subgroup = 'category_blog') {
 		$this->dbConfig($db, $group, $subgroup);
+		$this->_params = $this;
 	}
 
 	function display_config($option) {

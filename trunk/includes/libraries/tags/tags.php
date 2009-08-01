@@ -151,7 +151,7 @@ class contentTags extends mosDBTable{
 	}
 
 	function get_tag_url($tag){
-		return sefRelToAbs('index.php?option=com_search&tag='.$tag);
+		return Jconfig::getInstance()->config_live_site . '/index.php?option=com_search&tag='.$tag;
 	}
 
 	function arr_to_links($tags, $ds = ', '){
@@ -178,7 +178,7 @@ class TagsCloud{
 
 	function __construct($tags) {
 
-		shuffle($tags);
+		//shuffle($tags);
 		$this->tags = $tags;
 
 	}
@@ -244,4 +244,3 @@ class TagsCloud{
 	}
 
 }
-
