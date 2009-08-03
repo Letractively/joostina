@@ -27,15 +27,13 @@ defined('_VALID_MOS') or die(); ?>
 	<script type="text/javascript">
 		// смена статуса публикации, elID - идентификатор объекта у которого меняется статус публикации
 		function ch_publ(elID){
-			log('Смена статуса публикации содержимого: '+elID);
-			id('img-pub-'+elID).src = '/images/system/aload.gif';
+			id('img-pub-'+elID).src = '<?php echo $config->config_live_site ?>/images/system/aload.gif';
 			dax({
-				url: 'ajax.index.php?option=com_content&utf=0&task=publish&id='+elID,
+				url: '<?php echo $config->config_live_site ?>/ajax.index.php?option=com_content&task=publish&id='+elID,
 				id:'publ-'+elID,
 				callback:
 					function(resp, idTread, status, ops){
-						log('Получен ответ: ' + resp.responseText);
-						id('img-pub-'+elID).src = ADMINISTRATOR_DIRECTORY.'/images/'+resp.responseText;
+						id('img-pub-'+elID).src = '<?php echo $config->config_live_site.'/'.ADMINISTRATOR_DIRECTORY ?>/images/'+resp.responseText;
 					}
 			});
 		}
@@ -123,7 +121,7 @@ foreach ($items as $row) {
 <?php } ?>
 				</td>
 				<td align="center" <?php echo ($access->canPublish)?'onclick="ch_publ('.$row->id.');" class="td-state"' : null; ?>>
-					<img class="img-mini-state" src="<?php echo $img; ?>" id="img-pub-<?php echo $row->id; ?>" alt="Публикация" />
+					<img class="img-mini-state" src="<?php echo $img; ?>" id="img-pub-<?php echo $row->id; ?>" alt="<?php echo _PUBLISHING?>" />
 				</td>
 <?php if($params->get('date')) { ?>
 				<td><?php echo $row->created; ?></td>
@@ -140,7 +138,7 @@ foreach ($items as $row) {
 <?php if($params->get('navigation')) { ?>
 		<?php echo $pageNav->writePagesLinks($page_link); ?>
 <?php } ?>
-		<input type="hidden" name="task" value="ucontent" />
+		<input type="hidden" name="task" value="user_content" />
 		<input type="hidden" name="option" value="com_content" />
 	</form>
 <?php mosHTML::BackButton($params); ?>

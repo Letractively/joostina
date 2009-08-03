@@ -85,8 +85,7 @@ if($mosConfig_sef) {
 			}
 		}
 
-		if(isset($url_array[$pos + 8]) && $url_array[$pos + 8] != '' && in_array('category',
-			$url_array) && (strpos($url_array[$pos + 5],'order,') !== false) && (strpos($url_array[$pos + 6],'filter,') !== false)) {
+		if(isset($url_array[$pos + 8]) && $url_array[$pos + 8] != '' && in_array('category',$url_array) && (strpos($url_array[$pos + 5],'order,') !== false) && (strpos($url_array[$pos + 6],'filter,') !== false)) {
 			// $option/$task/$sectionid/$id/$Itemid/$order/$filter/$limit/$limitstart
 			$task = $url_array[$pos + 1];
 			$sectionid = $url_array[$pos + 2];
@@ -117,8 +116,7 @@ if($mosConfig_sef) {
 
 			$QUERY_STRING = "option=com_content&task=$task&sectionid=$sectionid&id=$id&Itemid=$Itemid&order=$order&filter=$filter&limit=$limit&limitstart=$limitstart";
 		} else
-			if(isset($url_array[$pos + 7]) && $url_array[$pos + 7] != '' && $url_array[$pos +
-				5] > 1000 && (in_array('archivecategory',$url_array) || in_array('archivesection',
+			if(isset($url_array[$pos + 7]) && $url_array[$pos + 7] != '' && $url_array[$pos +5] > 1000 && (in_array('archivecategory',$url_array) || in_array('archivesection',
 				$url_array))) {
 				// $option/$task/$id/$limit/$limitstart/year/month/module
 				$task = $url_array[$pos + 1];
@@ -147,9 +145,7 @@ if($mosConfig_sef) {
 
 				$QUERY_STRING = "option=com_content&task=$task&id=$id&limit=$limit&limitstart=$limitstart&year=$year&month=$month&module=$module";
 			} else
-				if(isset($url_array[$pos + 7]) && $url_array[$pos + 7] != '' && $url_array[$pos +
-					6] > 1000 && (in_array('archivecategory',$url_array) || in_array('archivesection',
-					$url_array))) {
+				if(isset($url_array[$pos + 7]) && $url_array[$pos + 7] != '' && $url_array[$pos +6] > 1000 && (in_array('archivecategory',$url_array) || in_array('archivesection',$url_array))) {
 					// $option/$task/$id/$Itemid/$limit/$limitstart/year/month
 					$task = $url_array[$pos + 1];
 					$id = $url_array[$pos + 2];
@@ -177,8 +173,7 @@ if($mosConfig_sef) {
 
 					$QUERY_STRING = "option=com_content&task=$task&id=$id&Itemid=$Itemid&limit=$limit&limitstart=$limitstart&year=$year&month=$month";
 				} else
-					if(isset($url_array[$pos + 7]) && $url_array[$pos + 7] != '' && in_array('category',
-						$url_array) && (strpos($url_array[$pos + 5],'order,') !== false)) {
+					if(isset($url_array[$pos + 7]) && $url_array[$pos + 7] != '' && in_array('category',$url_array) && (strpos($url_array[$pos + 5],'order,') !== false)) {
 						// $option/$task/$sectionid/$id/$Itemid/$order/$limit/$limitstart
 						$task = $url_array[$pos + 1];
 						$sectionid = $url_array[$pos + 2];
@@ -253,8 +248,7 @@ if($mosConfig_sef) {
 
 								$QUERY_STRING = "option=com_content&task=$task&id=$id&Itemid=$Itemid&limit=$limit&limitstart=$limitstart";
 							} else
-								if(isset($url_array[$pos + 4]) && $url_array[$pos + 4] != '' && (in_array('archivecategory',
-									$url_array) || in_array('archivesection',$url_array))) {
+								if(isset($url_array[$pos + 4]) && $url_array[$pos + 4] != '' && (in_array('archivecategory',$url_array) || in_array('archivesection',$url_array))) {
 									// $option/$task/$year/$month/$module
 									$task = $url_array[$pos + 1];
 									$year = $url_array[$pos + 2];
@@ -273,8 +267,7 @@ if($mosConfig_sef) {
 
 									$QUERY_STRING = "option=com_content&task=$task&year=$year&month=$month&module=$module";
 								} else
-									if(!(isset($url_array[$pos + 5]) && $url_array[$pos + 5] != '') && isset($url_array[$pos +
-										4]) && $url_array[$pos + 4] != '') {
+									if(!(isset($url_array[$pos + 5]) && $url_array[$pos + 5] != '') && isset($url_array[$pos +4]) && $url_array[$pos + 4] != '') {
 										// $option/$task/$sectionid/$id/$Itemid
 										$task = $url_array[$pos + 1];
 										$sectionid = $url_array[$pos + 2];
@@ -293,8 +286,7 @@ if($mosConfig_sef) {
 
 										$QUERY_STRING = "option=com_content&task=$task&sectionid=$sectionid&id=$id&Itemid=$Itemid";
 									} else
-										if(!(isset($url_array[$pos + 4]) && $url_array[$pos + 4] != '') && (isset($url_array[$pos +
-											3]) && $url_array[$pos + 3] != '')) {
+										if(!(isset($url_array[$pos + 4]) && $url_array[$pos + 4] != '') && (isset($url_array[$pos +3]) && $url_array[$pos + 3] != '')) {
 											// $option/$task/$id/$Itemid
 											$task = $url_array[$pos + 1];
 											$id = $url_array[$pos + 2];
@@ -310,8 +302,7 @@ if($mosConfig_sef) {
 
 											$QUERY_STRING = "option=com_content&task=$task&id=$id&Itemid=$Itemid";
 										} else
-											if(!(isset($url_array[$pos + 3]) && $url_array[$pos + 3] != '') && (isset($url_array[$pos +
-												2]) && $url_array[$pos + 2] != '')) {
+											if(!(isset($url_array[$pos + 3]) && $url_array[$pos + 3] != '') && (isset($url_array[$pos +2]) && $url_array[$pos + 2] != '')) {
 												// $option/$task/$id
 												$task = $url_array[$pos + 1];
 												$id = $url_array[$pos + 2];
@@ -324,8 +315,7 @@ if($mosConfig_sef) {
 
 												$QUERY_STRING = "option=com_content&task=$task&id=$id";
 											} else
-												if(!(isset($url_array[$pos + 2]) && $url_array[$pos + 2] != '') && (isset($url_array[$pos +
-													1]) && $url_array[$pos + 1] != '')) {
+												if(!(isset($url_array[$pos + 2]) && $url_array[$pos + 2] != '') && (isset($url_array[$pos +1]) && $url_array[$pos + 1] != '')) {
 													// $option/$task
 													$task = $url_array[$pos + 1];
 
@@ -375,7 +365,6 @@ if($mosConfig_sef) {
 					}
 				}
 			}
-
 			$_SERVER['QUERY_STRING'] = $QUERY_STRING;
 			$REQUEST_URI = $uri[0].'index.php?'.$QUERY_STRING;
 			$_SERVER['REQUEST_URI'] = $REQUEST_URI;
@@ -528,6 +517,10 @@ function sefRelToAbs($string) {
 				// lang
 				if(isset($parts['lang'])) {
 					$sefstring .= 'lang,'.$parts['lang'].'/';
+				}
+				// user
+				if(isset($parts['user'])) {
+					$sefstring .= 'user,'.$parts['user'].'/';
 				}
 
 				$string = $sefstring;

@@ -239,7 +239,7 @@ function print_table($dir, $list, $allow) {
 				echo $GLOBALS["messages"]["editlink"]."\" /></a>\n";
 			} else {
 				echo "<img border=\"0\" ";
-				echo "src=\"/images/ico/edit.png\" alt=\"".$GLOBALS["messages"]["editlink"]."\" title=\"";
+				echo "src=\"images/ico/edit.png\" alt=\"".$GLOBALS["messages"]["editlink"]."\" title=\"";
 				echo $GLOBALS["messages"]["editlink"]."\" />\n";
 			}
 		} else {

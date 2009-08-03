@@ -86,7 +86,7 @@ class HTML_linkeditor {
 		<table class="adminform">
 		<tr>
 			<td width="20%" align="right" >
-				Заголовок<font color="red">*</font>:
+				<?php echo _C_LINKEDITOR_TITLE?><font color="red">*</font>:
 			</td>
 			<td width="25%">
 			<input class="inputbox" type="text" name="name" size="45" value="<?php echo $row->name; ?>" />
@@ -115,7 +115,7 @@ class HTML_linkeditor {
 		</tr>
 		<tr>
 			<td align="right">
-			Ссылка:<font color="red">*</font>:
+			<?php echo _C_LINKEDITOR_LINK?>:<font color="red">*</font>:
 			</td>
 			<td>
 			<input class="inputbox" type="text" name="admin_menu_link" size="45" value="<?php echo $row->admin_menu_link; ?>" />

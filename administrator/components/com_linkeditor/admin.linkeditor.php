@@ -50,11 +50,11 @@ switch($task) {
 }
 
 function deleteLink(&$cid) {
-	global $database;
+	$database = &database::getInstance();
 
 	if(count($cid)) {
 		$cids = implode(',',$cid);
-		$query = "DELETE FROM #__components"."\n WHERE id IN ( $cids )";
+		$query = "DELETE FROM #__components WHERE id IN ( $cids )";
 		$database->setQuery($query);
 		if(!$database->query()) {
 			echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
@@ -65,7 +65,7 @@ function deleteLink(&$cid) {
 
 }
 function saveOrder(&$cid) {
-	global $database;
+	$database = &database::getInstance();
 
 	$total = count($cid);
 	$order = mosGetParam($_POST,'order',array(0));
@@ -105,7 +105,10 @@ function saveOrder(&$cid) {
 } // saveOrder
 
 function editLink($id = 0) {
-	global $database,$mosConfig_absolute_path,$mosConfig_live_site;
+	global $mosConfig_absolute_path,$mosConfig_live_site;
+
+	$database = &database::getInstance();
+
 	$row = new mosComponent($database);
 	$row->load($id);
 
@@ -151,7 +154,7 @@ function ReadImages($imagePath,$folderPath,&$folders,&$images) {
 }
 
 function categoryParentList($id,$action,$options = array()) {
-	global $database;
+	$database = &database::getInstance();
 
 	$list = categoryArray();
 
@@ -178,7 +181,7 @@ function categoryParentList($id,$action,$options = array()) {
 }
 
 function categoryArray() {
-	global $database;
+	$database = &database::getInstance();
 
 	// get a list of the menu items
 	$query = "SELECT* FROM #__components ORDER BY ordering";
@@ -202,7 +205,8 @@ function categoryArray() {
 
 
 function saveLink() {
-	global $database;
+	$database = &database::getInstance();
+
 	$image = mosGetParam($_POST,'admin_menu_img');
 
 	$admin_menu_img = "js/ThemeOffice/".$image;
@@ -222,7 +226,10 @@ function saveLink() {
 }
 
 function viewLinks() {
-	global $database,$mainframe,$mosConfig_list_limit,$option,$section,$menutype;
+	global $mainframe,$mosConfig_list_limit,$option,$section,$menutype;
+
+	$database = &database::getInstance();
+
 	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mosConfig_list_limit));
 	$limitstart = intval($mainframe->getUserStateFromRequest("view{$section}limitstart",'limitstart',0));
 	$levellimit = intval($mainframe->getUserStateFromRequest("view{$option}limit$menutype",'levellimit',10));
@@ -246,7 +253,7 @@ function viewLinks() {
 
 	$total = count($list);
 
-	require_once ($GLOBALS['mosConfig_absolute_path'].'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
+	require_once ($GLOBALS['mosConfig_absolute_path'].DS.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
 	// slice out elements based on limits

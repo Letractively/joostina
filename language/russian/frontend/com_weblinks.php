@@ -18,3 +18,6 @@ DEFINE('_WEBLINK_EXIST','Ссылка с таким именем уже суще
 DEFINE('_WEBLINK_TITLE','Ссылка должна иметь название.');
 DEFINE('_ENTER_CORRECT_URL','Введите правильный URL');
 DEFINE('_COM_WEBLINKS_HEADER_HITS','Просмотров'); 
+DEFINE('_COM_WEBLINKS_NONE_TITLE','Необходимо указать название ссылки');
+DEFINE('_COM_WEBLINKS_NONE_CAT','Необходимо указать категорию ссылки');
+DEFINE('_COM_WEBLINKS_NONE_URL','Необходимо указать саму ссылку');
