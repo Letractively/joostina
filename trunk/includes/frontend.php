@@ -429,9 +429,6 @@ function set_robot_metatag($robots) {
 }
 
 // выводк лент RSS
-
-//syndicate_header();
-
 function syndicate_header(){
 	$mainframe =  &mosMainFrame::getInstance();
 	$database = &database::getInstance();
@@ -444,6 +441,7 @@ function syndicate_header(){
 
 	// get params definitions
 	$syndicateParams = new mosParameters($row->params,$mainframe->getPath('com_xml',$row->option),'component');
+
 
 	// needed to reduce query
 	$GLOBALS['syndicateParams'] = $syndicateParams;
@@ -478,7 +476,7 @@ function syndicate_header(){
 	}
 
 	// support for Live Bookmarks ability for site syndication
-	if(!$live_bookmark) {
+	if($live_bookmark) {
 		$show = 1;
 
 		$link_file = $config->config_live_site.'/index2.php?option=com_rss&feed='.$live_bookmark.'&no_html=1';
@@ -490,10 +488,10 @@ function syndicate_header(){
 		$check = $syndicateParams->def('check',1);
 		if($check) {
 			// проверяем, не опубликован ли уже модель с RSS
-			$query = "SELECT m.id FROM #__modules AS m WHERE m.module = 'mod_rssfeed' AND m.published = 1";
+			$query = "SELECT m.id FROM #__modules AS m WHERE m.module = 'mod_rssfeed' AND m.published = 1 LIMIT 1";
 			$database->setQuery($query);
-			$check = $database->loadResultArray();
-			if(empty($check)) {
+			$check = $database->loadResult();
+			if($check>0) {
 				$show = 0;
 			}
 		}
