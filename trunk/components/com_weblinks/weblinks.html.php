@@ -238,11 +238,11 @@ class HTML_weblinks {
 
 			// do field validation
 			if (form.title.value == ""){
-				alert( "Weblink item must have a title" );
+				alert( "<?php echo _COM_WEBLINKS_NONE_TITLE?>" );
 			} else if (getSelectedValue('adminForm','catid') < 1) {
-				alert( "You must select a category." );
+				alert( "<?php echo _COM_WEBLINKS_NONE_CAT?>" );
 			} else if (form.url.value == ""){
-				alert( "You must have a url." );
+				alert( "<?php echo _COM_WEBLINKS_NONE_URL?>" );
 			} else {
 				submitform( pressbutton );
 			}
@@ -252,11 +252,9 @@ class HTML_weblinks {
 		<form action="<?php echo sefRelToAbs("index.php"); ?>" method="post" name="adminForm" id="adminForm">
 		<table cellpadding="0" cellspacing="0" border="0" width="100%">
 		<tr>
-			<td class="contentheading">
-			<?php echo _SUBMIT_LINK; ?>
-			</td>
+			<td class="contentheading"><?php echo _SUBMIT_LINK; ?></td>
 			<td width="10%">
-			<?php
+<?php
 		mosToolBar::startTable();
 		mosToolBar::spacer();
 		mosToolBar::save();
@@ -269,9 +267,7 @@ class HTML_weblinks {
 
 		<table cellpadding="4" cellspacing="1" border="0" width="100%">
 		<tr>
-			<td width="20%" align="right">
-			<?php echo _NAME; ?>
-			</td>
+			<td width="20%" align="right"><?php echo _NAME; ?></td>
 			<td width="80%">
 			<input class="inputbox" type="text" name="title" size="50" maxlength="250" value="<?php echo htmlspecialchars($row->title,ENT_QUOTES); ?>" />
 			</td>
@@ -306,4 +302,3 @@ class HTML_weblinks {
 		<?php
 	}
 }
-?>

@@ -20,21 +20,24 @@ global $task, $Itemid, $option, $my;
 contentHelper::_load_core_js();
 
 $id = intval(mosGetParam($_REQUEST, 'id', 0));
+$pop = intval(mosGetParam($_REQUEST, 'pop', 0));
+$limit = intval(mosGetParam($_REQUEST, 'limit', 0));
+$limitstart = intval(mosGetParam($_REQUEST, 'limitstart', 0));
 
 // cache activation
 $cache = &mosCache::getCache('com_content');
 
 // loads function for frontpage component
 if($option == 'com_frontpage') {
-	$r = $cache->call('frontpage', $my->gid);
+	$r = $cache->call('frontpage', $my->gid,$limit,$limitstart,$pop);
 	from_cache($r);
 	return;
 }
 
 switch ($task) {
 
-	case 'ucontent':
-		showUserItems();
+	case 'user_content':
+		showUserItems($id);
 		break;
 
 	case 'view':
@@ -110,7 +113,7 @@ switch ($task) {
 /**
  * Страница с перечнем материалов пользователя
  */
-function showUserItems() {
+function showUserItems($user_id) {
 	global $Itemid, $my;
 
 	$mainframe = &mosMainFrame::getInstance();
@@ -119,8 +122,6 @@ function showUserItems() {
 
 	$limit = intval(mosGetParam($_REQUEST, 'limit', 0));
 	$limitstart = intval(mosGetParam($_REQUEST, 'limitstart', 0));
-
-	$user_id = intval(mosGetParam($_REQUEST, 'user', 0));
 
 	//права доступа
 	$access = new contentAccess();
@@ -206,15 +207,11 @@ function showUserItems() {
  * Вывод главной страницы
  * Компонент 'com_frontpage'
  */
-function frontpage() {
+function frontpage($gid,$limit,$limitstart,$pop) {
 	global $my;
 
 	$mainframe = &mosMainFrame::getInstance();
 	$database = &database::getInstance();
-
-	$pop = intval(mosGetParam($_REQUEST, 'pop', 0));
-	$limit = intval(mosGetParam($_REQUEST, 'limit', 0));
-	$limitstart = intval(mosGetParam($_REQUEST, 'limitstart', 0));
 
 	//права доступа
 	$access = new contentAccess();

@@ -24,7 +24,8 @@ function make_link($_action, $_dir, $_item = null, $_order = null, $_srt = null,
 		$_srt = $GLOBALS["srt"];
 	if($languages == null)
 		$languages = (isset($GLOBALS["lang"])?$GLOBALS["lang"]:null);
-	$link = $GLOBALS["script_name"]."?option=com_joomlaxplorer&action=".$_action;
+//	$link = $GLOBALS["script_name"]."?option=com_joomlaxplorer&action=".$_action;
+	$link = "?option=com_joomlaxplorer&action=".$_action;
 	$link .= "&dir=".urlencode($_dir);
 	if($_item != null)
 		$link .= "&item=".urlencode($_item);

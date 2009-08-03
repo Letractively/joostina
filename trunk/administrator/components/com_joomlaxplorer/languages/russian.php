@@ -86,8 +86,8 @@ $GLOBALS['messages'] = array( // ссылки
 	// Сообщения, joomlaXplorer 1.3.0 и выше
 	'renamelink' => 'Переименовать','confirm_delete_file' =>
 	'Вы уверены, что хотите удалить файл? \\n%s','success_delete_file' =>
-	'Объект(ы), успешно удален..','success_rename_file' =>
-	'Каталог/файл %s переименован к %s.', // actions
+	'Удалено успешно..','success_rename_file' =>
+	'Каталог/файл %s переименован в %s.', // actions
 	'actdir' => 'Каталог','actperms' => 'Смена прав доступа','actedit' =>
 	'Редактирование файла','actsearchresults' => 'Поиск','actcopyitems' =>
 	'Копировать объект(ы)','actcopyfrom' => 'Копировать из /%s в /%s ',

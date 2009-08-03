@@ -36,7 +36,7 @@ class HTML_content {
 
 		$items = $user_items->items;
 
-		$user_id = intval(mosGetParam($_REQUEST, 'user', 0));
+		$user_id = intval(mosGetParam($_REQUEST, 'id', 0));
 		$k = 0;
 
 		if($params->get('page_title')) {
@@ -48,9 +48,9 @@ class HTML_content {
 			}
 		}
 
-		$page_link = 'index.php?option=com_content&amp;task=ucontent&amp;user='.$user_id.'&amp;Itemid='.$Itemid;
+		$page_link = 'index.php?option=com_content&amp;task=user_content&amp;id='.$user_id.'&amp;Itemid='.$Itemid;
 		if($params->get('display')) {
-			$page_link = 'index.php?option=com_content&amp;task=ucontent&amp;user='.$user_id.'&amp;Itemid='.$Itemid.'&amp;order='.$order;
+			$page_link = 'index.php?option=com_content&amp;task=user_content&amp;id='.$user_id.'&amp;Itemid='.$Itemid.'&amp;order='.$order;
 		}
 
 		include_once ($config->config_absolute_path.'/components/com_content/view/user/items/default.php');

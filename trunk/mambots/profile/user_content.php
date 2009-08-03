@@ -47,7 +47,6 @@ function botUserContent(&$user) {
 	<br />
 	<table width="100%" border="0" cellspacing="0" cellpadding="0">
 <?php
-	$user_content_link = sefRelToAbs( 'index.php?option=com_content&amp;task=ucontent&amp;user='. $user->id);
 	foreach ($user_items as $row) {
 		$row->created = mosFormatDate ($row->created,$config->config_form_date_full,'0');
 		$link	= sefRelToAbs( 'index.php?option=com_content&amp;task=view&amp;id='. $row->id);
@@ -83,7 +82,9 @@ function botUserContent(&$user) {
 		<?php $k = 1 - $k; ?>
 <?php } ?>
 	</table>
-<?php if ( $params->get( 'show_link' ) ) { ?>
+<?php if ( $params->get( 'show_link' ) ) {
+	$user_content_link = sefRelToAbs( 'index.php?option=com_content&amp;task=user_content&amp;id='. $user->id);
+?>
 		<a class="readon" href="<?php echo $user_content_link; ?>"><?php echo USER_CONTENT_ALL_USER_CONTENTS ?></a>
 <?php }?>
 	</div>

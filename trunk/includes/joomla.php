@@ -2918,6 +2918,7 @@ class mosHTML {
 
 	function genderSelectList($tag_name,$tag_attribs,$selected) {
 		$arr = array(
+			mosHTML::makeOption('no_gender',_GENDER_NONE),
 			mosHTML::makeOption('male',_MALE),
 			mosHTML::makeOption('female',_FEMALE)
 		);
@@ -3695,7 +3696,7 @@ function mosMenuCheck($Itemid,$menu_option,$task,$gid) {
 */
 function mosFormatDate($date,$format = "",$offset = null) {
 
-	if ($date == '0000-00-00 00:00:00') return ' Ч ';//database::$_nullDate - при ошибках парсера
+	if ($date == '0000-00-00 00:00:00') return $date;//database::$_nullDate - при ошибках парсера
 
 	if($format == '') {
 		// %Y-%m-%d %H:%M:%S
