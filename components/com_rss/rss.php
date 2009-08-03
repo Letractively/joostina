@@ -11,10 +11,10 @@
 defined('_VALID_MOS') or die();
 
 
-global $task,$mosConfig_absolute_path;
+global $task;
 
 // load feed creator class
-require_once ($mosConfig_absolute_path.'/includes/libraries/feedcreator/feedcreator.class.php');
+mosMainFrame::addLib('feedcreator');
 
 $info = null;
 $rss = null;
@@ -35,6 +35,7 @@ switch($task) {
 function feedFrontpage($showFeed) {
 	$database = &database::getInstance();
 	$config = &Jconfig::getInstance();
+	$mainframe = &mosMainFrame::getInstance();
 
 	$nullDate = $database->getNullDate();
 	// pull id of syndication component
@@ -81,7 +82,7 @@ function feedFrontpage($showFeed) {
 	} else {
 		$info['image'] = $config->config_live_site.'/images/M_images/'.$info['image_file'];
 	}
-	$info['image_alt'] = $params->def('image_alt','Работает на Joostina!');
+	$info['image_alt'] = $params->def('image_alt','Joostina CMS!');
 	$info['limit_text'] = $params->def('limit_text',0);
 	$info['text_length'] = $params->def('text_length',20);
 	// get feed type from url
@@ -163,7 +164,7 @@ function feedFrontpage($showFeed) {
 		echo _NOT_AUTH;
 		return;
 	}
-	$info['file'] = $config->config_cachepath.'/'.$filename;
+	$info['file'] = $config->config_cachepath.DS.$filename;
 
 	// load feed creator class
 	$rss = new UniversalFeedCreator();

@@ -163,6 +163,7 @@ if($my->id || $mainframe->get('joomlaJavascript')) {
 
 initGzip();
 
+/*
 // при активном кэшировании отправим браузеру более "правильные" заголовки
 if(!$mosConfig_caching) { // не кэшируется
 	header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
@@ -175,7 +176,7 @@ if(!$mosConfig_caching) { // не кэшируется
 	// 60*60=3600 - использования кэширования на 1 час
 	header('Expires: '.gmdate('D, d M Y H:i:s',time() + 3600).' GMT');
 	header('Cache-Control: max-age=3600');
-}
+}*/
 
 // отображение состояния выключенного сайта при входе админа
 if(defined('_ADMIN_OFFLINE')) {
