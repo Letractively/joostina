@@ -698,9 +698,9 @@ class mosContent extends mosDBTable{
 	function _load_user_items($user_id, $params){
 		
 		$my_func = new myFunctions('_load_user_items', array('user_id'=>$user_id, 'params'=>$params));
- 		if($my_func->check_user_function()){
- 			return $my_func->start_user_function();
-   		};
+		if($my_func->check_user_function()){
+			return $my_func->start_user_function();
+		};
 
 		$orderby = strval(mosGetParam($_REQUEST,'order',''));
 		if (!$orderby) {
@@ -754,10 +754,10 @@ class mosContent extends mosDBTable{
 	function _get_count_user_items($user_id, $params){
 		
 		$my_func = new myFunctions('_get_count_user_items', array('user_id'=>$user_id, 'params'=>$params));
- 		if($my_func->check_user_function()){
- 			return $my_func->start_user_function();
-   		};
-   		
+		if($my_func->check_user_function()){
+			return $my_func->start_user_function();
+		};
+
 		// filter functionality
 		$and = '';
 		if ( $params->get( 'filter' ) ) {
@@ -782,8 +782,6 @@ class mosContent extends mosDBTable{
 
 		$query = "SELECT COUNT(a.id)
 				FROM #__content AS a
-				LEFT JOIN #__users AS u ON u.id = a.created_by
-				LEFT JOIN #__groups AS g ON a.access = g.id
 				LEFT JOIN #__categories AS c on a.catid = c.id
 				LEFT JOIN #__sections AS s on s.id = c.section
 				WHERE a.created_by = $user_id AND a.state > -1
@@ -857,9 +855,9 @@ class mosContent extends mosDBTable{
 		global $gid;
 		
 		$my_func = new myFunctions('get_prev_next', array('row'=>$row, 'where'=>$where, 'params'=>$params, 'access'=>$access));
- 		if($my_func->check_user_function()){
- 			return $my_func->start_user_function();
-   		};
+		if($my_func->check_user_function()){
+			return $my_func->start_user_function();
+		};
 
 		$mainframe = &mosMainFrame::getInstance();
 		$database = &database::getInstance();
@@ -1031,9 +1029,9 @@ class mosContent extends mosDBTable{
 	function _load_blog_section($section, $params, $access){
 		
 		$my_func = new myFunctions('_load_blog_section', array('category'=>$section, 'params'=>$params, 'access'=>$access));
-        if($my_func->check_user_function()){
-        	return $my_func->start_user_function();
-        };
+		if($my_func->check_user_function()){
+			return $my_func->start_user_function();
+		};
 
 		// voting control
 		$voting = new contentVoiting($params);
@@ -1078,19 +1076,17 @@ class mosContent extends mosDBTable{
 	function _get_result_blog_section($section, $params, $access){
 		
 		$my_func = new myFunctions('_get_result_blog_section', array('section'=>$section, 'params'=>$params, 'access'=>$access));
- 		if($my_func->check_user_function()){
- 			return $my_func->start_user_function();
-   		};
-   		
+		if($my_func->check_user_function()){
+			return $my_func->start_user_function();
+		};
+
 		$where = contentSqlHelper::construct_where_blog(1, $section, $access, $params);
 		$where = (count($where) ? "\n WHERE " . implode("\n AND ", $where) : '');
 
 		$query = "SELECT COUNT(a.id)
 				FROM #__content AS a
 				INNER JOIN #__categories AS cc ON cc.id = a.catid
-				LEFT JOIN #__users AS u ON u.id = a.created_by
 				LEFT JOIN #__sections AS s ON a.sectionid = s.id
-				LEFT JOIN #__groups AS g ON a.access = g.id
 				" . $where;
 		$this->_db->setQuery($query);
 		return $this->_db->loadResult();
@@ -1140,9 +1136,9 @@ class mosContent extends mosDBTable{
 	function _get_result_blog_category($category, $params, $access){
 		
 		$my_func = new myFunctions('_get_result_blog_category', array('category'=>$category, 'params'=>$params, 'access'=>$access));
- 		if($my_func->check_user_function()){
- 			return $my_func->start_user_function();
-   		};
+		if($my_func->check_user_function()){
+			return $my_func->start_user_function();
+		};
 
 		$where = contentSqlHelper::construct_where_blog(2, $category, $access, $params);
 		$where = (count($where) ? "\n WHERE " . implode("\n AND ", $where) : '');
@@ -1150,9 +1146,7 @@ class mosContent extends mosDBTable{
 		$query = 'SELECT COUNT(a.id)
 				FROM #__content AS a
 				LEFT JOIN #__categories AS cc ON cc.id = a.catid
-				LEFT JOIN #__users AS u ON u.id = a.created_by
 				LEFT JOIN #__sections AS s ON a.sectionid = s.id
-				LEFT JOIN #__groups AS g ON a.access = g.id
 				' . $where;
 		$this->_db->setQuery($query);
 		return $this->_db->loadResult();
@@ -1162,9 +1156,9 @@ class mosContent extends mosDBTable{
 	function _get_result_archive_section($section, $params, $access){
 		
 		$my_func = new myFunctions('_get_result_archive_section', array('section'=>$section, 'params'=>$params, 'access'=>$access));
- 		if($my_func->check_user_function()){
- 			return $my_func->start_user_function();
-   		};
+		if($my_func->check_user_function()){
+			return $my_func->start_user_function();
+		};
 		
 		$where = contentSqlHelper::construct_where_blog(-1, $section, $access, $params);
 		$where = (count($where) ? " WHERE " . implode(" AND ", $where) : '');
@@ -1172,9 +1166,6 @@ class mosContent extends mosDBTable{
 		// query to determine total number of records
 		$query = "SELECT COUNT(a.id) FROM #__content AS a
 				INNER JOIN #__categories AS cc ON cc.id = a.catid
-				LEFT JOIN #__users AS u ON u.id = a.created_by
-				LEFT JOIN #__sections AS s ON a.sectionid = s.id
-				LEFT JOIN #__groups AS g ON a.access = g.id
 				".$where;
 		$this->_db->setQuery($query);
 		return $this->_db->loadResult();
@@ -1183,9 +1174,9 @@ class mosContent extends mosDBTable{
 	function _load_archive_section($section, $params, $access){
 		
 		$my_func = new myFunctions('_load_archive_section', array('section'=>$section, 'params'=>$params, 'access'=>$access));
- 		if($my_func->check_user_function()){
- 			return $my_func->start_user_function();
-   		};
+		if($my_func->check_user_function()){
+			return $my_func->start_user_function();
+		};
 
 		// voting control
 		$voting = new contentVoiting($params);
@@ -1236,9 +1227,6 @@ class mosContent extends mosDBTable{
 		$query = "SELECT COUNT(a.id)
 				FROM #__content AS a
 				INNER JOIN #__categories AS cc ON cc.id = a.catid
-				LEFT JOIN #__users AS u ON u.id = a.created_by
-				LEFT JOIN #__sections AS s ON a.sectionid = s.id
-				LEFT JOIN #__groups AS g ON a.access = g.id
 				".$where;
 		$this->_db->setQuery($query);
 		return $this->_db->loadResult();
@@ -1329,8 +1317,6 @@ class mosContent extends mosDBTable{
 
 		$query = 'SELECT COUNT(a.id) as numitems
 				FROM #__content AS a
-				LEFT JOIN #__users AS u ON u.id = a.created_by
-				LEFT JOIN #__groups AS g ON a.access = g.id
 				WHERE a.catid = ' . (int)$category->id . $xwhere . $and;
 		$this->_db->setQuery($query);
 		$counter = $this->_db->loadObjectList();
@@ -1385,22 +1371,19 @@ class mosContent extends mosDBTable{
 	function _get_result_frontpage($params, $access){
 		
 		$my_func = new myFunctions('_get_result_frontpage', array('params'=>$params, 'access'=>$access));
- 		if($my_func->check_user_function()){
- 			return $my_func->start_user_function();
-   		};
-   		
+		if($my_func->check_user_function()){
+			return $my_func->start_user_function();
+		};
+
 		$where = contentSqlHelper::construct_where_blog(1, null, $access, $params);
 		$where = (count($where) ? "\n WHERE " . implode("\n AND ", $where) : '');
 
 		$query = 'SELECT COUNT(a.id)
-				FROM #__content AS a
-				INNER JOIN #__content_frontpage AS f ON f.content_id = a.id
-				INNER JOIN #__categories AS cc ON cc.id = a.catid
-				INNER JOIN #__sections AS s ON s.id = a.sectionid
-				LEFT JOIN #__users AS u ON u.id = a.created_by
-				LEFT JOIN #__groups AS g ON a.access = g.id
-				' . $where;
-
+			FROM #__content AS a
+			INNER JOIN #__content_frontpage AS f ON f.content_id = a.id
+			INNER JOIN #__categories AS cc ON cc.id = a.catid
+			INNER JOIN #__sections AS s ON s.id = a.sectionid
+			' . $where;
 		$this->_db->setQuery($query);
 		return $this->_db->loadResult();
 	}
