@@ -24,4 +24,4 @@ DEFINE('_THIS_FILEDS_REQUIRED','<font color="red">*</font> пункты обяз
 DEFINE('_MENU_ITEM_DELETED','Пункт меню удалён');
 DEFINE('_FIRST_LEVEL','Первый уровень');
 DEFINE('_C_LINKEDITOR_TITLE','Заголовок');
-DEFINE('_C_LINKEDITOR_LINK','Сылка');
+DEFINE('_C_LINKEDITOR_LINK','Ссылка');

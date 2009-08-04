@@ -42,17 +42,21 @@ if(strstr($mosConfig_absolute_path,"/")) {
 if(($mosConfig_joomlaxplorer_dir=='') OR ($mosConfig_joomlaxplorer_dir=='0') ) $mosConfig_joomlaxplorer_dir = $mosConfig_absolute_path;
 // the home directory for the filemanager: (use '/', not '\' or '\\', no trailing '/')
 
+/*
 $dir_above = substr($mosConfig_absolute_path,0,strrpos($mosConfig_absolute_path,$GLOBALS["separator"]));
 
 if(!@is_readable($dir_above)) {
+*/
 	$GLOBALS["home_dir"] = $mosConfig_absolute_path;
 	// the url corresponding with the home directory: (no trailing '/')
 	$GLOBALS["home_url"] = $mosConfig_live_site;
+	/*
 } else {
 	$GLOBALS["home_dir"] = $mosConfig_joomlaxplorer_dir;
 	// the url corresponding with the home directory: (no trailing '/')
 	$GLOBALS["home_url"] = substr($mosConfig_live_site,0,strrpos($mosConfig_live_site,'/'));
 }
+*/
 
 // show hidden files in QuiXplorer: (hide files starting with '.', as in Linux/UNIX)
 $GLOBALS["show_hidden"] = true;
