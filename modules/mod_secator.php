@@ -63,6 +63,10 @@ if(!defined('_SECATOR_INCLUDE')){
 			$Itemid = $params->get( 'Itemid', null );
 			$use_to = $params->get( 'use_to', 0 );
 
+			if(!$Itemid){
+				global $Itemid;
+			}
+
 			if($use_to==1){
 				// используем категроии
 				$task = $params->get( 'task_category', 'blogcategory' );

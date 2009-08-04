@@ -44,10 +44,10 @@ switch($task) {
 		if(in_array($plugin,$plugins)) {
 			$file = cleanInput(basename(mosGetParam($_REQUEST,'file')));
 			$path = $mainframe->getCfg('absolute_path').'/mambots/editors/jce/jscripts/tiny_mce/plugins/'.$plugin;
-			if(is_dir($path) && file_exists($path.'/'.$file)) {
-				include_once $path.'/'.$file;
+			if(is_dir($path) && file_exists($path.DS.$file)) {
+				include_once $path.DS.$file;
 			} else {
-			echo $path.'/'.$file;
+			echo $path.DS.$file;
 				die(_FILE_NOT_FOUND);
 			}
 		} else {
