@@ -32,20 +32,19 @@ $(document).ready(function() {
 <?php } ?>
 	<div class="jstProfile_menu">
 		<ul class="menu_userInfo">
-			<li>
-				<a href="<?php echo sefRelToAbs("index.php?option=com_users&task=profile&user=$user_id");?>" id="user_user_info_link"><?php echo _USER_PERSONAL_DATA?></a>
-			</li>
-			<li>
-				<a href="<?php echo sefRelToAbs("index.php?option=com_users&task=profile&view=user_content&user=$user_id");?>" id="user_user_content_link"><?php echo _USER_CONTENTS?></a>
-			</li>
-			<li>
-				<a href="<?php echo sefRelToAbs("index.php?option=com_users&task=profile&view=user_contacts&user=$user_id");?>" id="user_user_contacts_link"><?php echo _USER_CONTACTS?></a>
-			</li>
+<?php
+	$tabs = $_MAMBOTS->trigger( 'userProfileTab', array($user) );
+	foreach ($tabs as $tab){
+		$id = isset($tab['id']) ? ' id="'.$tab['id'].'"' : '';
+		$class = isset($tab['class']) ? ' class="'.$tab['class'].'"' : '';
+		$title = isset($tab['title']) ? $tab['title'] : $tab['name'];
+		?>		<li><a title="<?php echo $title?>" href="<?php echo sefRelToAbs($tab['href']) ?>" <?php echo $id.$class?>><?php echo $tab['name'] ?></a></li><?php
+	}
+?>
 		</ul>
 	</div>
 	<div class="plugins_area">
 <?php
-	$tabs = $_MAMBOTS->trigger( 'userProfileTab', array($user) );
 
 	//Вывод плагинов
 	$_MAMBOTS->call_mambot('userProfile', $plugin_page, $user);
