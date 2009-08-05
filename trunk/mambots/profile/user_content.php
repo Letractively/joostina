@@ -11,6 +11,18 @@
 defined('_VALID_MOS') or die();
 
 $_MAMBOTS->registerFunction('userProfile','botUserContent');
+$_MAMBOTS->registerFunction('userProfileTab','botUserContent_tab');
+
+/* добавляем вкладку профиля */
+function botUserContent_tab(&$user){
+	return array(
+		'name'=>_USER_CONTENTS,
+		'title'=>_USER_CONTENTS,
+		'href'=>'index.php?option=com_users&task=profile&view=user_content&user='.$user->id,
+		'id'=>'user_user_content_link',
+		'class'=>''
+	);
+}
 
 /**
 */

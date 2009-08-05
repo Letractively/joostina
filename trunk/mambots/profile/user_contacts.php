@@ -11,6 +11,18 @@
 defined('_VALID_MOS') or die();
 
 $_MAMBOTS->registerFunction('userProfile','botUserContacts');
+$_MAMBOTS->registerFunction('userProfileTab','botUserContacts_tab');
+
+/* добавляем вкладку профиля */
+function botUserContacts_tab(&$user){
+	return array(
+		'name'=>_USER_CONTACTS,
+		'title'=>_USER_CONTACTS,
+		'href'=>'index.php?option=com_users&task=profile&view=user_contacts&user='.$user->id,
+		'id'=>'user_user_contacts_link',
+		'class'=>''
+	);
+}
 
 /**
 */
