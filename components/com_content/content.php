@@ -581,7 +581,7 @@ function _showBlogCategory($id = 0,$gid,$pop,$limit,$limitstart) {
 		if($section->access > $my->gid || $category->access > $my->gid) {
 			$error = new errorCase(2);
 			return;
-		}		
+		}
 	}
 
 	$category->section = $section;
