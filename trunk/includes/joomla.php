@@ -4167,6 +4167,26 @@ class mosMambotHandler {
 				// pull bots to be processed from class variable
 				$bots = $this->_content_mambots;
 				break;
+
+			case 'search':
+				if(!defined('_JOS_SEARCH_MAMBOTS')) {
+					define('_JOS_SEARCH_MAMBOTS',1);
+
+					$query = 'SELECT folder, element, published, params FROM #__mambots WHERE published = 1'.$where_ac.' AND folder = \'search\' ORDER BY ordering, id DESC';
+					$database->setQuery($query);
+					if(!($this->_search_mambot = $database->loadObjectList())) {
+						return false;
+					}
+
+					foreach($this->_search_mambot as $bot) {
+						$this->_search_mambot_params[str_replace('.searchbot','',$bot->element)]->params = $bot->params;
+					}
+				}
+
+				// pull bots to be processed from class variable
+				$bots = $this->_search_mambot;
+				break;
+
 			default:
 				$query = 'SELECT folder, element, published, params FROM #__mambots WHERE published = 1'.$where_ac.' AND folder = '.$database->Quote($group).' ORDER BY ordering, id DESC';
 				$database->setQuery($query);
@@ -4176,20 +4196,16 @@ class mosMambotHandler {
 				break;
 		}
 
-		
-			// load bots found by queries
-			$n = count($bots);
-			for($i = 0; $i < $n; $i++) {
-				$this->loadBot($bots[$i]->folder,$bots[$i]->element,$bots[$i]->published,$bots[$i]->params);
-			}
-			if(!$load){
-				return true;
-			}
-			else{
-				return $bots;	
-			}
-
-
+		// load bots found by queries
+		$n = count($bots);
+		for($i = 0; $i < $n; $i++) {
+			$this->loadBot($bots[$i]->folder,$bots[$i]->element,$bots[$i]->published,$bots[$i]->params);
+		}
+		if(!$load){
+			return true;
+		}else{
+			return $bots;
+		}
 	}
 	/**
 	* Loads the bot file
@@ -4208,7 +4224,7 @@ class mosMambotHandler {
 			$bot->folder = $folder;
 			$bot->element = $element;
 			$bot->published = $published;
-			$bot->lookup = $folder.'/'.$element;
+			$bot->lookup = $folder.DS.$element;
 			$bot->params = $params;
 			$this->_bots[] = $bot;
 			$this->_mambot_params[$element] = $params;

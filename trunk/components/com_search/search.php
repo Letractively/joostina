@@ -246,7 +246,7 @@ function viewSearch() {
 			mosLogSearch($searchword);
 
 			$_MAMBOTS->loadBotGroup('search');
-			$results 	= $_MAMBOTS->trigger( 'onSearch', array( $database->getEscaped( $searchword, true ), $searchphrase, $ordering ) );
+			$results	= $_MAMBOTS->trigger( 'onSearch', array( $database->getEscaped( $searchword, true ), $searchphrase, $ordering ) );
 			$totalRows = 0;
 
 			$rows = array();

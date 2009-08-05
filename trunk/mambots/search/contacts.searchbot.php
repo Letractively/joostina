@@ -22,13 +22,14 @@ $_MAMBOTS->registerFunction('onSearch','botSearchContacts');
 * @param определяет порядок сортировки: newest|oldest|popular|alpha|category
 */
 function botSearchContacts($text,$phrase = '',$ordering = '') {
-	global $database,$my,$_MAMBOTS;
+	global $my,$_MAMBOTS;
+
+	$database = &database::getInstance();
 
 	// check if param query has previously been processed
 	if(!isset($_MAMBOTS->_search_mambot_params['contacts'])) {
 		// load mambot params info
-		$query = "SELECT params"."\n FROM #__mambots"."\n WHERE element = 'contacts.searchbot'".
-			"\n AND folder = 'search'";
+		$query = "SELECT params FROM #__mambots WHERE element = 'contacts.searchbot' AND folder = 'search'";
 		$database->setQuery($query);
 		$database->loadObject($mambot);
 
@@ -82,4 +83,3 @@ function botSearchContacts($text,$phrase = '',$ordering = '') {
 
 	return $rows;
 }
-?>

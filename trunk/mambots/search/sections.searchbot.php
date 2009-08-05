@@ -22,13 +22,14 @@ $_MAMBOTS->registerFunction('onSearch','botSearchSections');
 * @param определяет параметр сортировки: newest|oldest|popular|alpha|category
 */
 function botSearchSections($text,$phrase = '',$ordering = '') {
-	global $database,$my,$_MAMBOTS;
+	global $my,$_MAMBOTS;
+
+	$database = &database::getInstance();
 
 	// check if param query has previously been processed
 	if(!isset($_MAMBOTS->_search_mambot_params['sections'])) {
 		// load mambot params info
-		$query = "SELECT params"."\n FROM #__mambots"."\n WHERE element = 'sections.searchbot'".
-			"\n AND folder = 'search'";
+		$query = "SELECT params FROM #__mambots WHERE element = 'sections.searchbot' AND folder = 'search'";
 		$database->setQuery($query);
 		$database->loadObject($mambot);
 
@@ -73,17 +74,14 @@ function botSearchSections($text,$phrase = '',$ordering = '') {
 	$count = count($rows);
 	for($i = 0; $i < $count; $i++) {
 		if($rows[$i]->menutype == 'content_section') {
-			$rows[$i]->href = 'index.php?option=com_content&task=section&id='.$rows[$i]->secid.
-				'&Itemid='.$rows[$i]->menuid;
+			$rows[$i]->href = 'index.php?option=com_content&task=section&id='.$rows[$i]->secid.'&Itemid='.$rows[$i]->menuid;
 			$rows[$i]->section = _SEARCH_SECLIST;
 		}
 		if($rows[$i]->menutype == 'content_blog_section') {
-			$rows[$i]->href = 'index.php?option=com_content&task=blogsection&id='.$rows[$i]->secid.
-				'&Itemid='.$rows[$i]->menuid;
+			$rows[$i]->href = 'index.php?option=com_content&task=blogsection&id='.$rows[$i]->secid.'&Itemid='.$rows[$i]->menuid;
 			$rows[$i]->section = _SEARCH_SECBLOG;
 		}
 	}
 
 	return $rows;
 }
-?>
