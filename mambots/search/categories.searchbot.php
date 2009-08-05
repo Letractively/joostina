@@ -22,7 +22,9 @@ $_MAMBOTS->registerFunction('onSearch','botSearchCategories');
 * @param определяет порядок сортировки: newest|oldest|popular|alpha|category
 */
 function botSearchCategories($text,$phrase = '',$ordering = '') {
-	global $database,$my,$_MAMBOTS;
+	global $my,$_MAMBOTS;
+
+	$database = &database::getInstance();
 
 	// check if param query has previously been processed
 	if(!isset($_MAMBOTS->_search_mambot_params['categories'])) {
@@ -75,12 +77,10 @@ function botSearchCategories($text,$phrase = '',$ordering = '') {
 	$count = count($rows);
 	for($i = 0; $i < $count; $i++) {
 		if($rows[$i]->menutype == 'content_blog_category') {
-			$rows[$i]->href = 'index.php?option=com_content&task=blogcategory&id='.$rows[$i]->catid.
-				'&Itemid='.$rows[$i]->menuid;
+			$rows[$i]->href = 'index.php?option=com_content&task=blogcategory&id='.$rows[$i]->catid.'&Itemid='.$rows[$i]->menuid;
 			$rows[$i]->section = _SEARCH_CATBLOG;
 		} else {
-			$rows[$i]->href = 'index.php?option=com_content&task=category&sectionid='.$rows[$i]->secid.
-				'&id='.$rows[$i]->catid.'&Itemid='.$rows[$i]->menuid;
+			$rows[$i]->href = 'index.php?option=com_content&task=category&sectionid='.$rows[$i]->secid.'&id='.$rows[$i]->catid.'&Itemid='.$rows[$i]->menuid;
 			$rows[$i]->section = _SEARCH_CATLIST;
 		}
 	}

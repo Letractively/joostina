@@ -22,13 +22,14 @@ $_MAMBOTS->registerFunction('onSearch','botSearchWeblinks');
 * @param определяет параметр сортировки: newest|oldest|popular|alpha|category
 */
 function botSearchWeblinks($text,$phrase = '',$ordering = '') {
-	global $database,$my,$_MAMBOTS;
+	global $my,$_MAMBOTS;
+
+	$database = &database::getInstance();
 
 	// check if param query has previously been processed
 	if(!isset($_MAMBOTS->_search_mambot_params['weblinks'])) {
 		// load mambot params info
-		$query = "SELECT params"."\n FROM #__mambots"."\n WHERE element = 'weblinks.searchbot'".
-			"\n AND folder = 'search'";
+		$query = "SELECT params FROM #__mambots WHERE element = 'weblinks.searchbot' AND folder = 'search'";
 		$database->setQuery($query);
 		$database->loadObject($mambot);
 
@@ -108,4 +109,3 @@ function botSearchWeblinks($text,$phrase = '',$ordering = '') {
 
 	return $rows;
 }
-?>

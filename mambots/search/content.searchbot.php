@@ -22,13 +22,14 @@ $_MAMBOTS->registerFunction('onSearch','botSearchContent');
 * @param определяет параметр сортировки: newest|oldest|popular|alpha|category
 */
 function botSearchContent($text,$phrase = '',$ordering = '') {
-	global $database,$my,$_MAMBOTS;
+	global $my,$_MAMBOTS;
+
+	$database = &database::getInstance();
 
 	// check if param query has previously been processed
 	if(!isset($_MAMBOTS->_search_mambot_params['content'])) {
 		// load mambot params info
-		$query = "SELECT params"."\n FROM #__mambots"."\n WHERE element = 'content.searchbot'".
-			"\n AND folder = 'search'";
+		$query = "SELECT params FROM #__mambots WHERE element = 'content.searchbot' AND folder = 'search'";
 		$database->setQuery($query);
 		$database->loadObject($mambot);
 
@@ -176,4 +177,3 @@ function botSearchContent($text,$phrase = '',$ordering = '') {
 
 	return array_merge($list,$list2,$list3,(array )$list4);
 }
-?>

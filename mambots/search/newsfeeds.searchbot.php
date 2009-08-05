@@ -22,13 +22,14 @@ $_MAMBOTS->registerFunction('onSearch','botSearchNewsfeedslinks');
 * @param определяет параметр сортировки: newest|oldest|popular|alpha|category
 */
 function botSearchNewsfeedslinks($text,$phrase = '',$ordering = '') {
-	global $database,$my,$_MAMBOTS;
+	global $my,$_MAMBOTS;
+
+	$database = &database::getInstance();
 
 	// check if param query has previously been processed
 	if(!isset($_MAMBOTS->_search_mambot_params['newsfeeds'])) {
 		// load mambot params info
-		$query = "SELECT params"."\n FROM #__mambots"."\n WHERE element = 'newsfeeds.searchbot'".
-			"\n AND folder = 'search'";
+		$query = "SELECT params FROM #__mambots WHERE element = 'newsfeeds.searchbot' AND folder = 'search'";
 		$database->setQuery($query);
 		$database->loadObject($mambot);
 
@@ -99,4 +100,3 @@ function botSearchNewsfeedslinks($text,$phrase = '',$ordering = '') {
 
 	return $rows;
 }
-?>

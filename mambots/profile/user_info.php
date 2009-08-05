@@ -12,6 +12,28 @@ defined('_VALID_MOS') or die();
 
 $_MAMBOTS->registerFunction('userProfile','botUserInfo');
 
+$_MAMBOTS->registerFunction('userProfileTab','botUserInfo_tab');
+$_MAMBOTS->registerFunction('userProfileTab','botUserInfo_tab2');
+
+/* добавляем вкладку профиля */
+function botUserInfo_tab(&$user){
+	return array('name'=>'Личные данные',
+	'title'=>'Личные данные пользователя',
+	'href'=>'index.php?option=com_users&task=profile&user='.$user->id,
+	'id'=>'user_user_info_link',
+	'class'=>''
+	);
+}
+
+function botUserInfo_tab2(&$user){
+	return array('name'=>'Личные данные2',
+	'title'=>'Личные данные пользователя',
+	'href'=>'index.php?option=com_users&task=profile&user='.$user->id,
+	'id'=>'user_user_info_link',
+	'class'=>''
+	);
+}
+
 /**
 */
 function botUserInfo(&$user) {

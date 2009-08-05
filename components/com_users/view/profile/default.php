@@ -45,6 +45,8 @@ $(document).ready(function() {
 	</div>
 	<div class="plugins_area">
 <?php
+	$tabs = $_MAMBOTS->trigger( 'userProfileTab', array($user) );
+
 	//Вывод плагинов
 	$_MAMBOTS->call_mambot('userProfile', $plugin_page, $user);
 ?>
