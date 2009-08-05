@@ -54,7 +54,7 @@ defined('_VALID_MOS') or die(); ?>
 		<form action="index.php" id="addContent" onSubmit="javascript:setgood();" method="post" name="adminForm" enctype="multipart/form-data">
 		<div class="componentheading"><?php echo $row->id?'&nbsp;'.$params->get('form_title_edit', _EDIT) : '&nbsp;'.$params->get('form_title_add', _ADD); ?></div>
 <?php if($row->id && $allow_info) { ?>
-		<div class="jst_info">
+		<div class="info">
 			<strong><?php echo _E_EXPIRES; ?></strong><?php echo $row->publish_down; ?>
 			<strong><?php echo _VERSION; ?></strong><?php echo $row->version; ?>
 			<strong><?php echo _CREATED; ?></strong><?php echo $row->created; ?>
@@ -140,9 +140,9 @@ defined('_VALID_MOS') or die(); ?>
 			</table>
 <?php } ?>
 		<div style="clear:both;"></div><br /><br />
-		<input type="submit" class="button submit" name="submit" id="save" value="<?php echo _SAVE?>" />
-		<input type="submit" class="button apply" name="apply" id="apply" value="<?php echo _APPLY?>" />
-		<input type="submit" class="button cancel" name="cancel" id="cancel" value="<?php echo _CANCEL?>" />
+		<span class="button"><input type="submit" class="button submit" name="submit" id="save" value="<?php echo _SAVE?>" /></span>
+		<span class="button"><input type="submit" class="button apply" name="apply" id="apply" value="<?php echo _APPLY?>" /></span>
+		<span class="button"><input type="submit" class="button cancel" name="cancel" id="cancel" value="<?php echo _CANCEL?>" /></span>
 		<input type="hidden" name="goodexit" id="goodexit" value="0" />
 		<input type="hidden" name="option" value="com_content" />
 		<input type="hidden" name="id" value="<?php echo $row->id; ?>" />
