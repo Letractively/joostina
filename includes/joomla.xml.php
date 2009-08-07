@@ -544,6 +544,31 @@ class mosParameters {
 
 		return $txt;
 	}
+
+	/*
+	* селектор выбора времени кэиширования
+	*/
+	function _form_cache_list($name,$value,$param,$control_name) {
+		$options[] = mosHTML::makeOption('0',_M_CACHE_0);
+		$options[] = mosHTML::makeOption('60',_M_CACHE_60);
+		$options[] = mosHTML::makeOption('300',_M_CACHE_300);
+		$options[] = mosHTML::makeOption('600',_M_CACHE_600);
+		$options[] = mosHTML::makeOption('900',_M_CACHE_900);
+		$options[] = mosHTML::makeOption('1200',_M_CACHE_1200);
+		$options[] = mosHTML::makeOption('1800',_M_CACHE_1800);
+		$options[] = mosHTML::makeOption('3600',_M_CACHE_3600);
+		$options[] = mosHTML::makeOption('7200',_M_CACHE_7200);
+		$options[] = mosHTML::makeOption('9000',_M_CACHE_9000);
+		$options[] = mosHTML::makeOption('7200',_M_CACHE_7200);
+		$options[] = mosHTML::makeOption('18000',_M_CACHE_18000);
+		$options[] = mosHTML::makeOption('43200',_M_CACHE_43200);
+		$options[] = mosHTML::makeOption('86400',_M_CACHE_86400);
+		$options[] = mosHTML::makeOption('172800',_M_CACHE_172800);
+		$options[] = mosHTML::makeOption('604800',_M_CACHE_604800);
+
+		return mosHTML::selectList($options,$control_name.'['.$name.']','class="inputbox"','value','text',$value);
+	}
+
 }
 
 /**

@@ -15,5 +15,6 @@
 	<params>
 		<param name="count" type="text" default="5" label="Число объектов" description="Количество отображаемых объектов (по умолчанию - 5)" />
 		<param name="moduleclass_sfx" type="text" default="" label="CSS-суффикс класса модуля" description="Суффикс, который будет использован в описании класса (table.moduletable) таблицы стилей (CSS) модуля. Это позволяет использовать индивидуальный стиль модуля." />
+		<param type="cache_list" name="cache_time" label="Кэшировать" description="Выберите время на которое необходимо кэшировать данный модуль. По умолчанию используется время, указанное в глобальной конфигураци." />
 	</params>
 </mosinstall>

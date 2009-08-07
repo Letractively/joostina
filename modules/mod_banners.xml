@@ -13,7 +13,7 @@
 		<filename module="mod_banners">mod_banners.php</filename>
 	</files>
 	<params>
-		<param name="categories" type="text" default="" label="Категории"  description="Какие категории отображать? (напр. 1,2,7 - отображают первую, вторую и седьмую)" />
+		<param name="categories" type="text" default="" label="Категории" description="Какие категории отображать? (напр. 1,2,7 - отображают первую, вторую и седьмую)" />
 		<param name="banners" type="text" default="" label="Баннеры" description="Какие баннеры будут отображены? (напр. 1,5 - отображают первые и пятые)" />
 		<param name="clients" type="text" default="" label="Клиенты" description="Какие клиенты будут отображены? (напр. 1,5 - отображают первые и пятые)" />
 		<param name="count" type="text" default="1" label="Счетчик" description="Счетчик баннеров, которые будут отображены? (напр. 5 - отображают пять баннеров из выбранных категорий)" />

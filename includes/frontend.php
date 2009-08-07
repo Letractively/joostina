@@ -178,8 +178,7 @@ function mosLoadModules($position = 'left',$style = 0,$noindex = 0) {
 	foreach($modules as $module) {
 
 		$params = new mosParameters($module->params);
-
-		$def_cachetime = ($params->get('cache_time')>0) ? $params->get('cache_time') : null;
+		$def_cachetime = ($params->get('cache_time',0)>0) ? $params->get('cache_time') : null;
 
 		echo $prepend;
 
@@ -187,7 +186,7 @@ function mosLoadModules($position = 'left',$style = 0,$noindex = 0) {
 
 			$cache = &mosCache::getCache($module->module.'_'.$module->id,'function',null,$def_cachetime);
 			// normal modules
-			if($params->get('cache') == 1 && $config->config_caching == 1) {
+			if(($params->get('cache',0) == 1 OR $def_cachetime>0) && $config->config_caching == 1) {
 				// module caching
 				$cache->call('modules_html::module2',$module,$params,$Itemid,$style,$my->gid);
 			} else {
