@@ -95,7 +95,6 @@ class modules_html {
 
 		file_exists($path) ? include_once ($path) : (file_exists($path_def) ? include_once ($path_def):null);
 
-
 		$number = '';
 		if($count > 0) {
 			$number = '<span>'.$count.'</span> ';
