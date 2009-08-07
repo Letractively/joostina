@@ -14,19 +14,21 @@ require_once ($mainframe->getPath('class','com_search'));
 require_once ($mainframe->getPath('front_html'));
 $mainframe->addLib('text');
 
-$tag = mosGetParam( $_REQUEST, 'tag', '' );
+$tag = Jstring::to_utf8(urldecode(mosGetParam( $_GET, 'tag', '' )));
+
 if($tag){
-    search_by_tag($tag);
+	search_by_tag($tag);
 }
 else{
-    $mainframe->setPageTitle(_SEARCH);
-    viewSearch();
+	$mainframe->setPageTitle(_SEARCH);
+	viewSearch();
 }
 
 function search_by_tag($tag){
-    global $database, $mainframe;
+	$mainframe = &mosMainFrame::getInstance();
+	$database = &database::getInstance();
 
-    $items = new contentTags($database);
+	$items = new contentTags($database);
 
     /**
     * Формируем "поисковые группы" )
@@ -73,38 +75,37 @@ function search_by_tag($tag){
         ---  'select'=>'item.catid AS category, item.sectionid AS section'
 
 	 */
-    $groups = array();
-    $comcontent_params = array(
-                        'group_name' => 'com_content',
-                        'group_title' => 'Содержимое',
-                        'table'=>'content',
-                        'id'=>'id',
-                        'title'=>'title',
-                        'text'=>'introtext',
-                        'date'=>'created',
-                        'task'=>'view',
-                        'url_params'=>'',
-                        'select'=>'',
-                        'join'=>'',
-                        'where'=>'',
-                        'order'=>'id DESC'
+	$groups = array();
+	$comcontent_params = array(
+		'group_name' => 'com_content',
+		'group_title' => _CONTENT,
+		'table'=>'content',
+		'id'=>'id',
+		'title'=>'title',
+		'text'=>'introtext',
+		'date'=>'created',
+		'task'=>'view',
+		'url_params'=>'',
+		'select'=>'',
+		'join'=>'',
+		'where'=>'',
+		'order'=>'id DESC'
+	);
+	$groups['com_content'] = $comcontent_params;
 
-                    );
-    $groups['com_content'] = $comcontent_params;
+	$items->items = array();
+	foreach($groups as $v){
+		$group_name = $v['group_name'];
+		$items->items[$group_name] = $items->load_by_type_tag($v, $tag);
+	}
 
-    $items->items = array();
-    foreach($groups as $v){
-        $group_name = $v['group_name'];
-        $items->items[$group_name] = $items->load_by_type_tag($v, $tag);
-    }
+	$items->tag = $tag;
 
-    $items->tag = $tag;
+	//Params
+	$params = new searchByTagConfig($database);
+	$mainframe->setPageTitle($params->title.' - '.$tag);
 
-    //Params
-    $params = new searchByTagConfig($database);
-    $mainframe->setPageTitle($params->title.' - '.$tag);
-
-    search_by_tag_HTML::tag_page($items, $params, $groups);
+	search_by_tag_HTML::tag_page($items, $params, $groups);
 }
 
 function viewSearch() {

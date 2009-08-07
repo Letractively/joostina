@@ -30,15 +30,14 @@ class contentTags extends mosDBTable{
 	}
 
 	function load_all(){
-		$sql = 'SELECT tag FROM #__content_tags
-				ORDER BY tag ASC';
+		$sql = 'SELECT tag FROM #__content_tags ORDER BY tag ASC';
 		$this->_db->setQuery($sql);
 		return $this->_db->loadResultArray();
 	}
 
 
 	function load_by($obj){
-		$sql = 'SELECT tag FROM #__content_tags  WHERE obj_id = '.$obj->id;
+		$sql = 'SELECT tag FROM #__content_tags WHERE obj_id = '.$obj->id;
 		$this->_db->setQuery($sql);
 		return $this->_db->loadResultArray();
 	}
@@ -151,7 +150,7 @@ class contentTags extends mosDBTable{
 	}
 
 	function get_tag_url($tag){
-		return Jconfig::getInstance()->config_live_site . '/index.php?option=com_search&tag='.$tag;
+		return sefRelToAbs('index.php?option=com_search&tag='.$tag);
 	}
 
 	function arr_to_links($tags, $ds = ', '){

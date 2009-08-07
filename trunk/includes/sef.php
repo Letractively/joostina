@@ -48,7 +48,14 @@ if($mosConfig_sef) {
 
 	$url_array = explode('/',$_SERVER['REQUEST_URI']);
 
-	if(strpos($_SERVER['REQUEST_URI'], 'sitemap.xml')){
+	// делаем красивые ссылки на тэги
+	if(in_array('tag',$url_array)) {
+		$QUERY_STRING = 'option=com_search&tag=';
+		$_GET['option'] = 'com_search';
+		$_REQUEST['option'] = 'com_search';
+		$pos = array_search('tag',$url_array);
+		$_GET['tag'] = $url_array[$pos+1];
+	}elseif(strpos($_SERVER['REQUEST_URI'], 'sitemap.xml')){
 		$QUERY_STRING = 'option=com_xmap&sitemap=1&view=xml&no_html=1';
 		$_GET['option'] = 'com_xmap';
 		$_REQUEST['option'] = 'com_xmap';
@@ -527,8 +534,9 @@ function sefRelToAbs($string) {
 
 				// all other components
 				// index.php?option=com_xxxx &...
-			} else
-				if(isset($parts['option']) && (strpos($parts['option'],'com_') !== false)) {
+			}elseif(isset($parts['option']) && $parts['option']=='com_search' && isset($parts['tag'])){
+				$string = 'tag/'.$parts['tag'];
+			} elseif(isset($parts['option']) && (strpos($parts['option'],'com_') !== false)) {
 					// do not SEF where com_content - `edit` or `new` task link
 					if(!(($parts['option'] == 'com_content') && ((isset($parts['task']) == 'new') ||
 						(isset($parts['task']) == 'edit')))) {
