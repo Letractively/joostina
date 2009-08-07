@@ -427,4 +427,3 @@ class mosInstallerComponent extends mosInstaller {
 		}
 	}
 }
-?>
