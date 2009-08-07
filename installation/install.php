@@ -69,7 +69,7 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\"?".">"; ?>
 					<div class="clr"></div>
 					<div class="license-form">
 						<div class="form-block" style="padding: 0px;">
-							<iframe src="lang/<?php echo $lang;?>/license.html" class="license" frameborder="0" scrolling="auto"></iframe>
+							<iframe src="lang/<?php echo $lang;?>/license.php" class="license" frameborder="0" scrolling="auto"></iframe>
 						</div>
 					</div>
 				</div>

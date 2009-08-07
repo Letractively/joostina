@@ -6343,34 +6343,34 @@ class mosAbstractTasker {
 }
 
 class myFunctions{
-	
+
 	var $func = null;
 	var $params = null;
 	var $obj = null;
-	
+
 	function myFunctions($func, $params){
-		
 		$this->func = $func;
-		$this->params = $params;		
-		$this->bind();		
+		$this->params = $params;
+		$this->bind();
 	}
-	
+
 	function bind(){
 		
 		$obj = new stdClass();
 		foreach($this->params as $key=>$val){
 			$obj->$key = $val;
 		}
-		
-		$this->obj = $obj;		
+		$this->obj = $obj;
 	}
-	
-	function check_user_function(){ 
+
+	function check_user_function(){
+		return false; // опционально, до начала использования библиотеки в системе
+		mosMainFrame::addLib('myLib');
 		$methods = get_class_methods('myLib');
 		if(in_array($this->func, $methods)){
-			return true;				
+			return true;
 		}
-		return false;	
+		return false;
 	}
 
 	function start_user_function(){

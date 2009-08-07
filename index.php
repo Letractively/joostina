@@ -213,7 +213,7 @@ $_MOS_OPTION = array();
 
 // подключение функций редактора, т.к. сессии(авторизация ) на фронте отключены - это тоже запрещаем
 if($mosConfig_frontend_login == 1) {
-	require_once ($mosConfig_absolute_path.'/includes/editor.php');
+	require_once ($mosConfig_absolute_path.DS.'includes'.DS.'editor.php');
 }
 // начало буферизации основного содержимого
 
@@ -222,11 +222,10 @@ if($path = $mainframe->getPath('front')) {
 	$task = strval(mosGetParam($_REQUEST,'task',''));
 	$ret = mosMenuCheck($Itemid,$option,$task,$gid);
 	if($ret) {
-			//Подключаем язык компонента
- 			if($mainframe->getLangFile($option)){ 
- 				include($mainframe->getLangFile($option));
-			}
-		$mainframe->addLib('mylib');	
+		//Подключаем язык компонента
+		if($mainframe->getLangFile($option)){
+			require_once($mainframe->getLangFile($option));
+		}
 		require_once ($path);
 		
 	} else {

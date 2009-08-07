@@ -34,6 +34,8 @@ switch($task) {
 function removeElement($client) {
 	josSpoofCheck(null, null, 'request');
 	$cid = mosGetParam($_REQUEST,'cid',array(0));
+	$option = mosGetParam($_REQUEST,'option','com_installer');
+
 	if(!is_array($cid)) {
 		$cid = array(0);
 	}

@@ -54,11 +54,11 @@ class mosInstallerLanguage extends mosInstaller {
 	* @param int The client id
 	*/
 	function uninstall($id,$option,$client = 0) {
-		$config = &Jconfig::getIntance();
+		$config = &Jconfig::getInstance();
 
 		josSpoofCheck(null, null, 'request');
 		$id = str_replace(array('\\','/'),'',$id);
-		$basepath = $mosConfig_absolute_path.'/language/';
+		$basepath = $config->config_absolute_path.DS.'language'.DS;
 		$xmlfile = $basepath.$id.'.xml';
 
 		// see if there is an xml install file, must be same name as element
