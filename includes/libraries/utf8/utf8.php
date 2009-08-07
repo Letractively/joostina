@@ -114,23 +114,17 @@ class utf8 {
 	 * @param   string  string to clean
 	 * @return  string
 	 */
-	public static function clean($str)
-	{
-		if (is_array($str) OR is_object($str))
-		{
-			foreach ($str as $key => $val)
-			{
+	public static function clean($str){
+		if (is_array($str) OR is_object($str)){
+			foreach ($str as $key => $val){
 				// Recursion!
 				$str[self::clean($key)] = self::clean($val);
 			}
-		}
-		elseif (is_string($str) AND $str !== '')
-		{
+		}elseif (is_string($str) AND $str !== ''){
 			// Remove control characters
 			$str = self::strip_ascii_ctrl($str);
 
-			if ( ! self::is_ascii($str))
-			{
+			if ( ! self::is_ascii($str)){
 
 				// Disable notices
 				$ER = error_reporting(~E_NOTICE);

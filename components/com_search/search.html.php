@@ -175,47 +175,34 @@ class search_html {
 
 class search_by_tag_HTML{
 
-    function tag_page ($items, $params, $groups){
-        ?>
-            <div class="tag_page">
-                <div class="contentpagetitle">
-                     <h1><?php echo $params->title;?>  "<?php echo $items->tag;?>" </h1>
-                     <div class="search_result">
-                        <?php echo self::view_group($items, $params, $groups);?>
-                     </div>
-                </div>
-            </div>
-        <?php
-    }
-
-    function view_group($items, $params, $groups){
-        global $mosConfig_live_site;
+	function tag_page ($items, $params, $groups){
 		?>
+			<div class="tag_page">
+				<div class="contentpagetitle">
+					<h1><?php echo $params->title;?> "<?php echo $items->tag;?>"</h1>
+					<div class="search_result"><?php echo self::view_group($items, $params, $groups);?></div>
+				</div>
+			</div>
+		<?php
+	}
 
-		<?php if(count($items)>0){?>
-			<?php
-                foreach($groups as $key=>$group){
-                    foreach($items->items[$key] as $item){
-                        $item->link = searchByTag::construct_url($item, $group);
-                        $item->text = Text::word_limiter(mosHTML::cleanText($item->text), 25);
-
-                    ?>
-
-                    <div class="search_item">
-                        <h2><a class="contentpagetitle" href="<?php echo $item->link;?>"><?php echo $item->title;?></a> </h2>
-                        <span class="date"><?php echo $item->date;?></span> <br />
-                        <p><?php echo $item->text;?></p>
-                    </div>
-
-                <?php }
-            }
-
-
-
+	function view_group($items, $params, $groups){
+		if(count($items->items['com_content'])>0){
+				foreach($groups as $key=>$group){
+					foreach($items->items[$key] as $item){
+						$item->link = searchByTag::construct_url($item, $group);
+						$item->text = Text::word_limiter(mosHTML::cleanText($item->text), 25);
+					?><div class="search_item">
+						<h2><a class="contentpagetitle" href="<?php echo $item->link;?>"><?php echo $item->title;?></a> </h2>
+						<span class="date"><?php echo $item->date;?></span> <br />
+						<p><?php echo $item->text;?></p>
+					</div>
+				<?php }
+			}
 		}else{?>
-			<div>Хм... С этим тэгом ничего не связано</div>
+			<div><?php echo _SEARCH_NONE_W_TAG?></div>
 		<?php };?>
 	<?php
-    }
+	}
 }
 ?>

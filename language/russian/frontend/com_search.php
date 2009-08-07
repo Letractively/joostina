@@ -31,3 +31,4 @@ DEFINE('_SEARCH_NEWSFEEDS','Ленты новостей');
 DEFINE('_SEARCH_SECLIST','Список раздела');
 DEFINE('_SEARCH_SECBLOG','Блог раздела');
 DEFINE('_SEARCH_RESULTS','Результаты поиска');
+DEFINE('_SEARCH_NONE_W_TAG','Хм... С этим тэгом ничего не связано');
