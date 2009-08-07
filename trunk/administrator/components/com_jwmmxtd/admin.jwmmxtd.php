@@ -14,7 +14,7 @@ defined('_VALID_MOS') or die();
 global $mosConfig_media_dir,$mosConfig_cachepath,$mosConfig_live_site;
 $jwmmxtd_browsepath = $mosConfig_media_dir;
 
-define('JWMMXTD_STARTABSPATH',$mosConfig_absolute_path.DIRECTORY_SEPARATOR.$jwmmxtd_browsepath);
+define('JWMMXTD_STARTABSPATH',$mosConfig_absolute_path.DS.$jwmmxtd_browsepath);
 define('JWMMXTD_STARTURLPATH',$mosConfig_live_site.'/'.$jwmmxtd_browsepath);
 
 require_once ($mainframe->getPath('admin_html'));
@@ -43,7 +43,7 @@ if(is_int(strpos($curdirectory,".."))) {
 // очистка каталога кэша
 $tmpimage = mosGetParam($_REQUEST,'tmpimage','');
 if($tmpimage != "") {
-	@unlink($mosConfig_cachepath.DIRECTORY_SEPARATOR.$tmpimage);
+	@unlink($mosConfig_cachepath.DS.$tmpimage);
 }
 
 $mainframe->addCSS($mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jwmmxtd/css/jw_mmxtd.css');
@@ -1073,7 +1073,7 @@ function editImage($img,$cur) {
 			</td>
 			</tr>
 			<tr>
-			<td><?php echo _MODULE_POSITION?></td>
+			<td><?php echo _POSITION?></td>
 			<td><select name="textposition" id="textposition">
 				<option value="none"><?php echo _JWMM_CHOOSE?></option>
 				<option value="TL">Top - Left</option>

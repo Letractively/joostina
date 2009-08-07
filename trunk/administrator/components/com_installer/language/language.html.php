@@ -15,57 +15,7 @@ defined('_VALID_MOS') or die();
 * @subpackage Templates
 */
 class HTML_language {
-	
-	// прорисовка кнопок управления
-	function quickiconButton($link,$image,$text) {
-		?>
-		<span>
-		<a href="<?php echo $link; ?>" title="<?php echo $text; ?>">
-		<?php
-		echo mosAdminMenus::imageCheckAdmin($image,'/'.ADMINISTRATOR_DIRECTORY.'/images/',null,null,$text);
-		echo $text;
-		?>
-		</a>
-		</span>
-		<?php
-	}
-	function cPanel() {?>
 
-		<table>
-		<tr>
-		<td width="100%" valign="top">
-		<div class="cpicons">
-		<?php
-
-		$link = 'index2.php?option=com_installer&amp;element=installer';
-		HTML_language::quickiconButton($link,'down.png', _INSTALLATION);
-
-		$link = 'index2.php?option=com_installer&amp;element=component';
-		HTML_language::quickiconButton($link,'db.png', _COMPONENTS);
-
-		$link = 'index2.php?option=com_installer&amp;element=module';
-		HTML_language::quickiconButton($link,'db.png', _MODULES);
-
-		$link = 'index2.php?option=com_installer&amp;element=mambot';
-		HTML_language::quickiconButton($link,'ext.png', _MAMBOTS);
-
-		$link = 'index2.php?option=com_installer&amp;element=template';
-		HTML_language::quickiconButton($link,'joostina.png', _COM_INSTALLER_SITE_TEMPLATES);
-		
-		$link = 'index2.php?option=com_installer&amp;element=template&client=admin';
-		HTML_language::quickiconButton($link,'joostina.png', _COM_INSTALLER_ADMIN_TEMPLATES);
-
-		$link = 'index2.php?option=com_installer&amp;element=language';
-		HTML_language::quickiconButton($link,'log.png', _COM_INSTALLER_SITE_LANGUAGES);
-
-		?>
-		</div>
-		</td>
-		</tr>
-		</table>
-		<?php
-	}
-	
 	/**
 	* @param array An array of data objects
 	* @param object A page navigation object
@@ -73,8 +23,7 @@ class HTML_language {
 	*/
 	function showLanguages($cur_lang,&$rows,&$pageNav,$option) {
 		global $my;
-?>
-		<form action="index2.php" method="post" name="adminForm">
+?><form action="index2.php" method="post" name="adminForm">
 		<table class="adminheading">
 		<tr>
 			<th class="langmanager">
@@ -82,36 +31,20 @@ class HTML_language {
 			</th>
 		</tr>
 		<tr> 
-			<?php HTML_language::cPanel(); ?>
+			<?php HTML_installer::cPanel(); ?>
 		</tr>
 		</table>
 
 		<table class="adminlist">
 		<tr>
-			<th width="20">
-			#
-			</th>
-			<th width="30">
-			&nbsp;
-			</th>
-			<th width="25%" class="title">
-			<?php echo _E_LANGUAGE?>
-			</th>
-			<th width="5%">
-			<?php echo _USED_ON?>
-			</th>
-			<th width="10%">
-			<?php echo _VERSION?>
-			</th>
-			<th width="10%">
-			<?php echo _DATE?>
-			</th>
-			<th width="20%">
-			<?php echo _AUTHOR_BY?>
-			</th>
-			<th width="25%">
-			E-mail
-			</th>
+			<th width="20">#</th>
+			<th width="30">&nbsp;</th>
+			<th width="25%" class="title"><?php echo _E_LANGUAGE?></th>
+			<th width="5%"><?php echo _USED_ON?></th>
+			<th width="10%"><?php echo _VERSION?></th>
+			<th width="10%"><?php echo _DATE?></th>
+			<th width="20%"><?php echo _AUTHOR_BY?></th>
+			<th width="25%">E-mail</th>
 		</tr>
 <?php
 		$k = 0;
