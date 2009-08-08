@@ -276,22 +276,17 @@ if (!defined( '_MOS_MAINMENU_MODULE' )) {
 	* Прорисовка горизонтального 'плоского' стиля меню (выбираемого очень просто)
 	*/
 	function mosShowHFMenu(  &$params, $style=0 ) {
-		global $database, $my, $mosConfig_shownoauth;
+		global $my;
 
-		$and = '';
-		if ( !$mosConfig_shownoauth ) {
-			$and = "\n AND access <= " . (int) $my->gid;
+		$all_menu = &mosMenu::getInstance();
+		$menus =$all_menu->_menu[$params->get( 'menutype' )];
+
+		$rows = array();
+		foreach ($menus as $menu){
+			if($menu->parent==0 && $menu->access<=(int) $my->gid){
+				$rows[$menu->id]=$menu;
+			}
 		}
-		$sql = "SELECT m.*"
-		. "\n FROM #__menu AS m"
-		. "\n WHERE menutype = " . $database->Quote( $params->get( 'menutype' ) )
-		. "\n AND published = 1"
-		. $and
-		. "\n AND parent = 0"
-		. "\n ORDER BY ordering"
-		;
-		$database->setQuery( $sql );
-		$rows = $database->loadObjectList( 'id' );
 
 		$links = array();
 		foreach ($rows as $row) {
@@ -311,7 +306,7 @@ if (!defined( '_MOS_MAINMENU_MODULE' )) {
 				
 				default:
 					$spacer_start	= $params->get( 'spacer' );
-					$spacer_end	= $params->get( 'end_spacer' );
+					$spacer_end		= $params->get( 'end_spacer' );
 					
 				echo '<table width="100%" border="0" cellpadding="0" cellspacing="1">';
 				echo '<tr>';
@@ -356,7 +351,7 @@ $params->def( 'indent_image5', 'indent5.png' );
 $params->def( 'indent_image6', 'indent.png' );
 $params->def( 'spacer', '' );
 $params->def( 'end_spacer', '' );
-$params->def('full_active_id',		0);
+$params->def('full_active_id',0);
 
 switch ( $params->get( 'menu_style', 'vert_indent' ) ) {
 	case 'list_flat':
@@ -371,4 +366,3 @@ switch ( $params->get( 'menu_style', 'vert_indent' ) ) {
 		mosShowVIMenu( $params );
 		break;
 }
-?>

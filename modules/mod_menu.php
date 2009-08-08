@@ -29,4 +29,3 @@ if(file_exists($file)){
 	require_once $file;
 }
 unset($config,$params,$type_menu,$file,$use_menu);
-?>
