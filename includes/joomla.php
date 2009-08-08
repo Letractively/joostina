@@ -1026,7 +1026,8 @@ class mosMainFrame {
 					$remCookieValue = mosMainFrame::remCookieValue_User($row->username).mosMainFrame::remCookieValue_Pass($hash).$row->id;
 					setcookie($remCookieName,$remCookieValue,$lifetime,'/');
 				}
-				mosCache::cleanCache();
+				// а зачем чистить кэш после каждой авторизации?
+				//mosCache::cleanCache();
 			} else {
 				if($bypost) {
 					mosErrorAlert(_LOGIN_INCORRECT);
@@ -1069,7 +1070,9 @@ class mosMainFrame {
 		if($this->_multisite == 2){
 			$m_s = new stdClass();
 			$m_s = $this->get('_multisite_params');
-			return $this->getUser_from_sess($_COOKIE[$this->sessionCookieName($m_s->main_site)]);
+			if(isset($_COOKIE[$this->sessionCookieName($m_s->main_site)])){
+				return $this->getUser_from_sess($_COOKIE[$this->sessionCookieName($m_s->main_site)]);
+			}
 		}
 
 		$database = &database::getInstance();
