@@ -472,7 +472,7 @@ function sendNewPass() {
 	$salt = mosMakePassword(16);
 	$crypt = md5($newpass.$salt);
 	$newpass = $crypt.':'.$salt;
-	$sql = "UPDATE #__users SET password = ".$database->Quote($newpass)." WHERE id = ".(int)$user_id;
+	$sql = "UPDATE #__users SET block = 0, password = ".$database->Quote($newpass)." WHERE id = ".(int)$user_id;
 	$database->setQuery($sql);
 	if(!$database->query()) {
 		die("SQL error".$database->stderr(true));
