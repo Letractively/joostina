@@ -55,6 +55,18 @@ if($mosConfig_sef) {
 		$_REQUEST['option'] = 'com_search';
 		$pos = array_search('tag',$url_array);
 		$_GET['tag'] = $url_array[$pos+1];
+	}elseif(in_array('register',$url_array)) {
+		$QUERY_STRING = 'option=com_users&task=register';
+		$_GET['option'] = 'com_users';
+		$_REQUEST['option'] = 'com_users';
+		$_GET['task'] = 'register';
+		$_REQUEST['task'] = 'register';
+	}elseif(in_array('lostpassword',$url_array)) {
+		$QUERY_STRING = 'option=com_users&task=lostPassword';
+		$_GET['option'] = 'com_users';
+		$_REQUEST['option'] = 'com_users';
+		$_GET['task'] = 'lostPassword';
+		$_REQUEST['task'] = 'lostPassword';
 	}elseif(strpos($_SERVER['REQUEST_URI'], 'sitemap.xml')){
 		$QUERY_STRING = 'option=com_xmap&sitemap=1&view=xml&no_html=1';
 		$_GET['option'] = 'com_xmap';
@@ -536,6 +548,10 @@ function sefRelToAbs($string) {
 				// index.php?option=com_xxxx &...
 			}elseif(isset($parts['option']) && $parts['option']=='com_search' && isset($parts['tag'])){
 				$string = 'tag/'.$parts['tag'];
+			}elseif(isset($parts['option']) && $parts['option']=='com_users' && isset($parts['task']) && $parts['task']=='register'){
+				$string = 'register/';
+			}elseif(isset($parts['option']) && $parts['option']=='com_users' && isset($parts['task']) && $parts['task']=='lostPassword'){
+				$string = 'lostpassword/';
 			} elseif(isset($parts['option']) && (strpos($parts['option'],'com_') !== false)) {
 					// do not SEF where com_content - `edit` or `new` task link
 					if(!(($parts['option'] == 'com_content') && ((isset($parts['task']) == 'new') ||
