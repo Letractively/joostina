@@ -27,7 +27,7 @@ $show_logged	= $params->get('show_logged', 1);
 
 
 // запрос из базы параметров пользователей
-$query = "SELECT id, name, username, registerDate, usertype, block FROM #__users ORDER BY registerDate DESC";
+$query = "SELECT id, name, username, registerDate, usertype, block, bad_auth_count FROM #__users ORDER BY registerDate DESC";
 $database->setQuery($query,0,$limit);
 $rows = $database->loadObjectList();
 
@@ -60,10 +60,11 @@ if($show_logged==1){
 ?>
 <table class="adminlist">
 <tr>
-	<th><?PHP echo _NEW_USERS?></th>
-	<th><?PHP echo _ALLOWED?></th>
-	<th><?PHP echo _GROUP?></th>
-	<th><?PHP echo _USER_REG_DATE?></th>
+	<th><?php echo _NEW_USERS?></th>
+	<th><?php echo _ALLOWED?></th>
+	<th><?php echo _GROUP?></th>
+	<th><?php echo _USER_REG_DATE?></th>
+	
 </tr>
 <?php
 $i = 0;
@@ -94,6 +95,7 @@ $k = 1 - $k;
 unset($rows,$row);
 
 $text = '';
+$text .= '<a style="color: red; font-weight: bold;">' . _BAD_AUTH_NUMBER .': <b>'. $my->bad_auth_count. '</b></a><br />';
 $text .= $show_logged	? _NOW_ON_SITE.': <b>'.$show_logged. '</b><br />':null;
 if($show_total or $show_today or $show_week or $show_month ){
 	$text .= _REGISTERED_USERS_COUNT.' ';
