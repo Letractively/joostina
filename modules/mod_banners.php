@@ -13,3 +13,4 @@ defined( '_VALID_MOS' ) or die();
 include_once( Jconfig::getInstance()->config_absolute_path.'/components/com_banners/banners.other.php' );
 $params = & new mosParameters($module->params);
 $content = showBanners( $params );
+unset($params);

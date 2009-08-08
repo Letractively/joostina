@@ -129,8 +129,11 @@ class mosMainFrame {
 		$this->_db = &database::getInstance();
 
 		if(!$isAdmin){ // работаем с меню в один запрос
-			$this->set('all_menu',mosMenu::getInstance()->get_menu());
+			$menu = &mosMenu::getInstance();
+			$this->set('all_menu',$menu->get_menu());
+			$this->set('all_menu_links',$menu->get_menu_links());
 			$option = $this->get_option();
+			unset($menu);
 		}else{// для панели управления работаем с меню напрямую
 			$option = strval(strtolower(mosGetParam($_REQUEST,'option')));
 		}
@@ -1478,7 +1481,7 @@ class mosMainFrame {
 
 		// getItemid compatibility mode, holds maintenance version number
 		$compat = (int)$this->getCfg('itemid_compat');
-		$compat = ($compat == 0)?12:$compat;
+		$compat = ($compat == 0) ? 12 : $compat;
 		$_Itemid = '';
 
 		if($_Itemid == '' && $typed && $this->getStaticContentCount()) {
@@ -1491,15 +1494,19 @@ class mosMainFrame {
 					break;
 				}
 			}
+			unset($key,$value);
 			// if id hasnt been checked before initaite query
 			if(!$exists) {
-				// Search for typed link
-				$query = "SELECT id FROM #__menu WHERE type = 'content_typed' AND published = 1 AND link = 'index.php?option=com_content&task=view&id=".(int)$id."'";
-				$this->_db->setQuery($query);
-				// pull existing query storage into temp variable
 				$ContentTyped = $this->get('_ContentTyped',array());
-				// add query result to temp array storage
-				$ContentTyped[$id] = $this->_db->loadResult();
+
+				if(isset($this->all_menu_links['index.php?option=com_content&task=view&id='.$id]) && $this->all_menu_links['index.php?option=com_content&task=view&id='.$id]['type']=='content_typed'){
+					$ContentTyped[$id] =$this->all_menu_links['index.php?option=com_content&task=view&id='.$id]['id'];
+				}else{
+					// Search for typed link
+					$query = "SELECT id FROM #__menu WHERE type = 'content_typed' AND published = 1 AND link = 'index.php?option=com_content&task=view&id=".(int)$id."'";
+					$this->_db->setQuery($query);
+					$ContentTyped[$id] = $this->_db->loadResult();
+				}
 				// save temp array to main array storage
 				$this->set('_ContentTyped',$ContentTyped);
 
@@ -1517,6 +1524,7 @@ class mosMainFrame {
 					break;
 				}
 			}
+			unset($key,$value);
 			// if id hasnt been checked before initaite query
 			if(!$exists) {
 				// Search for item link
@@ -1530,6 +1538,7 @@ class mosMainFrame {
 				$this->set('_ContentItemLink',$ContentItemLink);
 
 				$_Itemid = $ContentItemLink[$id];
+				unset($ContentItemLink);
 			}
 		}
 
@@ -1545,16 +1554,28 @@ class mosMainFrame {
 			}
 			// if id hasnt been checked before initaite query
 			if(!$exists) {
-				$query = "SELECT ms.id AS sid, ms.type AS stype, mc.id AS cid, mc.type AS ctype, i.id as sectionid, i.id As catid, ms.published AS spub, mc.published AS cpub"
-					."\n FROM #__content AS i"
-					."\n LEFT JOIN #__sections AS s ON i.sectionid = s.id"
-					."\n LEFT JOIN #__menu AS ms ON ms.componentid = s.id "
-					."\n LEFT JOIN #__categories AS c ON i.catid = c.id"
-					."\n LEFT JOIN #__menu AS mc ON mc.componentid = c.id "
-					."\n WHERE ( ms.type IN ( 'content_section', 'content_blog_section' ) OR mc.type IN ( 'content_blog_category', 'content_category' ) )"
-					."\n AND i.id = ".(int)$id."\n ORDER BY ms.type DESC, mc.type DESC, ms.id, mc.id";
-				$this->_db->setQuery($query);
-				$links = $this->_db->loadObjectList();
+
+				// пытаемся исправить недоработки Joomla...
+				static $_links;
+				if(!isset($_links)){
+					$query = "SELECT ms.id AS sid, ms.type AS stype, mc.id AS cid, mc.type AS ctype, i.id as sectionid, i.id As catid, ms.published AS spub, mc.published AS cpub"
+						."\n FROM #__content AS i"
+						."\n LEFT JOIN #__sections AS s ON i.sectionid = s.id"
+						."\n LEFT JOIN #__menu AS ms ON ms.componentid = s.id "
+						."\n LEFT JOIN #__categories AS c ON i.catid = c.id"
+						."\n LEFT JOIN #__menu AS mc ON mc.componentid = c.id "
+						."\n WHERE ( ms.type IN ( 'content_section', 'content_blog_section' ) OR mc.type IN ( 'content_blog_category', 'content_category' ) )"
+						//."\n AND i.id = ".(int)$id."\n ORDER BY ms.type DESC, mc.type DESC, ms.id, mc.id";
+						."\n ORDER BY ms.type DESC, mc.type DESC, ms.id, mc.id";
+					$this->_db->setQuery($query);
+					$links = $bbad = $this->_db->loadObjectList();
+					$_links = array();
+					foreach($bbad as $bad){
+						$_links[$bad->sectionid][]=$bad;
+					}
+					unset($bbad,$bad);
+				}
+				$links = $_links[$id];
 
 				if(count($links)) {
 					foreach($links as $link) {
@@ -2701,8 +2722,23 @@ class mosMenu extends mosDBTable {
 		return $r;
 	}
 
+	// возвращает всё содержимое всех меню
 	function get_menu(){
 		return $this->_menu;
+	}
+
+	function get_menu_links(){
+		$_all = $this->_menu;
+		$return = array();
+		foreach($_all as $menus){
+			foreach($menus as $menu){
+				// тут еще можно будет сделать красивые sef-ссылки на пункты меню
+				//$return[$menu->link]=array('id'=>$menu->id,'name'=>$menu->name);
+				$return[$menu->link]=array('id'=>$menu->id,'type'=>$menu->type);
+			}
+		}
+		unset($menu,$menuss);
+		return $return;
 	}
 
 }
