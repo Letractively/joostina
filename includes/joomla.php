@@ -2171,6 +2171,22 @@ class JConfig {
 	var $config_admin_bad_auth = 5;
 	/** @var int обработчик кэширования */
 	var $config_cache_handler = 'none';
+	/** @var array настройки memCached */
+	var $config_memcache_persistent = 0;
+	/** @var array настройки memCached */
+	var $config_memcache_compression = 0;
+	/** @var array настройки memCached */
+	var $config_memcache_host = 'localhost';
+	/** @var array настройки memCached */
+	var $config_memcache_port = '11211';
+	/** @var array настройки memCached */
+	var $config_memcache_persistent = 0;
+	/** @var array настройки memCached */
+	var $config_memcache_compression = 0;
+	/** @var array настройки memCached */
+	var $config_memcache_host = 'localhost';
+	/** @var array настройки memCached */
+	var $config_memcache_port = '11211';
 	/** @var int тип вывода ника автора материала */
 	var $config_author_name = 4;
 	/** @var int использование неопубликованных мамботов */
