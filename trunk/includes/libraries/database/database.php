@@ -56,10 +56,6 @@ class database {
 	@var string Quote for named objects*/
 	var $_nameQuote = '`';
 	/**
-	* @var obj кэширование запросов базы данных
-	**/
-	var $dbcache = null;
-	/**
 	* Database object constructor
 	* @param string Database host
 	* @param string Database user name

@@ -2403,7 +2403,7 @@ class mosModule extends mosDBTable {
 	/**
 	@var string*/
 	var $template = null;
-    /**
+	/**
 	@var string*/
 	var $helper = null;
 
@@ -2439,74 +2439,67 @@ class mosModule extends mosDBTable {
 		return $module_obj;
 	}
 	
-    function set_template($params){
-    	$mainframe = &mosMainFrame::getInstance();
-    	$config = &Jconfig::getInstance();
+	function set_template($params){
+		$mainframe = &mosMainFrame::getInstance();
+		$config = &Jconfig::getInstance();
 
-    	if($params->get('template', '') == ''){
-    		return false;
-    	}
+		if($params->get('template', '') == ''){
+			return false;
+		}
 
-		$default_template = 'modules/'.$this->module.'/view/default.php';
-		
+		$default_template = 'modules'.DS.$this->module.'/view/default.php';
+
 		if($params->get('template_dir',0) == 0){
-			$template_dir = 'modules/'.$this->module.'/view';	
+			$template_dir = 'modules'.DS.$this->module.'/view';
 		}
 		else{
-			$template_dir = 'templates/' . $mainframe->getTemplate() . '/html/modules/'.$this->module;	
+			$template_dir = 'templates'.DS. $mainframe->getTemplate() .DS.'html/modules'.DS.$this->module;
 		}
 		
 		if($params->get('template')){
-  			if (is_file($config->config_absolute_path . '/' . $template_dir . '/' . $params->get('template')))
-                { 
-                    $this->template = $config->config_absolute_path . '/' . $template_dir . '/' . $params->get('template');
-                    return true;
-                }
-     		else if (is_file($config->config_absolute_path . '/' . $default_template))
-                {
-                    $this->template = $config->config_absolute_path . '/' . $default_template;
-                    return true;
-                }
-				
+			if (is_file($config->config_absolute_path . DS . $template_dir . DS . $params->get('template'))){
+				$this->template = $config->config_absolute_path . DS . $template_dir . DS . $params->get('template');
+				return true;
+			}else if (is_file($config->config_absolute_path . DS . $default_template)){
+				$this->template = $config->config_absolute_path . DS . $default_template;
+				return true;
+			}
 		}
 		return false;
+	}
 
-    }
-    
-    function set_template_custom($template){
-    	$mainframe = &mosMainFrame::getInstance();
-    	$config = &Jconfig::getInstance();
-    	
-		$template_file = $config->config_absolute_path .'/templates/'. $mainframe->getTemplate() . '/html/user_modules/'.$template;
+	function set_template_custom($template){
+		$mainframe = &mosMainFrame::getInstance();
+		$config = &Jconfig::getInstance();
 
-	    if (is_file($template_file)) {
-            $this->template = $template_file;
-            return true;
-        }
+		$template_file = $config->config_absolute_path .DS.'templates'.DS. $mainframe->getTemplate() .DS.'html/user_modules'.DS.$template;
+
+		if (is_file($template_file)) {
+			$this->template = $template_file;
+			return true;
+		}
 		return false;
-    }
+	}
 
-    function get_helper(){
-    	$config = &Jconfig::getInstance();
-		$help_file = 'modules/'.$this->module.'/helper.php';
+	function get_helper(){
+		$config = &Jconfig::getInstance();
+		$help_file = 'modules'.DS.$this->module.DS.'helper.php';
 
-	    if (is_file($config->config_absolute_path . '/' . $help_file)) {
-            require_once($config->config_absolute_path . '/' . $help_file);
-
-            $helper_class = $this->module.'_Helper';
-            $this->helper = new $helper_class();
-            return true;
-        }
+		if (is_file($config->config_absolute_path . DS . $help_file)) {
+			require_once($config->config_absolute_path . DS . $help_file);
+			$helper_class = $this->module.'_Helper';
+			$this->helper = new $helper_class();
+			return true;
+		}
 		return false;
-    }
+	}
 
-    function load_module($name = '', $title = ''){ 
-   		$where = " m.module = '".$name."'";
-   		if(!$name || $title){
-   			$where = " m.title = '".$title."'";	
-   		}
+	function load_module($name = '', $title = ''){
+		$where = " m.module = '".$name."'";
+		if(!$name || $title){
+			$where = " m.title = '".$title."'";
+		}
 
-    	
 		$query = "SELECT * FROM #__modules AS m WHERE ".$where;
 		$row = null;	
 		$this->_db->setQuery($query);
