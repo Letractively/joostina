@@ -280,7 +280,7 @@ _cmSplit,
 ['<img src="../includes/js/ThemeOffice/db.png" />','<?php echo _MOD_FULLMENU_JP_DB_MANAGEMENT?>','index2.php?option=com_joomlapack&act=db',null,'<?php echo _MOD_FULLMENU_JP_DB_MANAGEMENT?>'],
 ['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo _MOD_FULLMENU_BACKUP_CONFIG?>','index2.php?option=com_joomlapack&act=config',null,'<?php echo _MOD_FULLMENU_BACKUP_CONFIG?>']],
 <?php } ?>
-<?php if($config->config_caching) { ?>
+<?php if($config->config_caching && $config->config_cache_handler == 'file') { ?>
 	['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo _MOD_FULLMENU_CACHE_MANAGEMENT?>','index2.php?option=com_cache',null,'<?php echo _MOD_FULLMENU_CACHE_MANAGEMENT?>'],
 	['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo _MOD_FULLMENU_CLEAR_CONTENT_CACHE?>','index2.php?option=com_admin&task=clean_cache',null,'<?php echo _MOD_FULLMENU_CLEAR_CONTENT_CACHE?>'],
 	['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo _MOD_FULLMENU_CLEAR_ALL_CACHE?>','index2.php?option=com_admin&task=clean_all_cache',null,'<?php echo _MOD_FULLMENU_CLEAR_ALL_CACHE?>'],
