@@ -30,7 +30,9 @@ var onImgArray = new Array();
 <?php
 	}
 	function mosGetJoostinaLink( $mitem, $level=0, &$params, $open=null ) {
-		global $Itemid, $mosConfig_live_site, $mainframe;
+		global $Itemid;
+		$mainframe = &mosMainFrame::getInstance();
+
 		$txt = '';
 		$menuparams = new mosParameters( $mitem->params );
 		$pg_title = $menuparams->get('title',$mitem->name);
@@ -58,7 +60,9 @@ var onImgArray = new Array();
 				} else {
 					$temp = split('&task=view&id=', $mitem->link);
 					if ( $mitem->type == 'content_typed' ) {
-						$mitem->link .= '&Itemid='. $mainframe->getItemid($temp[1], 1, 0);
+						// еще один небольшой эксперимент, вместе лишнего запроса в базу - возьмём идентификатор ссылки на статичное содержимое из глобального объекта
+						//$mitem->link .= '&Itemid='. $mainframe->getItemid($temp[1], 1, 0);
+						$mitem->link .= '&Itemid='. ( (isset($mainframe->all_menu_links[$mitem->link]['id']) ? $mainframe->all_menu_links[$mitem->link]['id']:$mitem->id));
 					} else {
 						$mitem->link .= '&Itemid='. $mainframe->getItemid($temp[1], 0, 1);
 					}

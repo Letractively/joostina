@@ -565,7 +565,7 @@ class mosMainFrame {
 		$session = &$this->_session;
 		$session = new mosSession($this->_db);
 		// purge expired sessions
-		$session->purge('core');
+		(rand(0,1)==1) ? $session->purge('core') : null;
 		// Session Cookie `name`
 		$sessionCookieName = mosMainFrame::sessionCookieName();
 		// Get Session Cookie `value`
