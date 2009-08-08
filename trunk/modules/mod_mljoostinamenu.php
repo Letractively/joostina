@@ -328,24 +328,18 @@ var onImgArray = new Array();
 	}
 
 	function mosJoostinaGetmenu(&$params,$gid){
-		global $mosConfig_shownoauth,$mosConfig_disable_access_control;
 
-		$database = &database::getInstance();
+		$all_menu = &mosMenu::getInstance();
+		$menus =$all_menu->_menu[$params->get( 'menutype' )];
 
-		$and = '';
-		if ( !$mosConfig_shownoauth AND !$mosConfig_disable_access_control ) {
-			$and = "\n AND access <= " . (int) $gid;
+		$return = array();
+		foreach ($menus as $menu){
+			if($menu->parent==0 && $menu->access<=(int) $gid){
+				$return[$menu->id]=$menu;
+			}
 		}
-		$sql = "SELECT m.*"
-		. "\n FROM #__menu AS m"
-		. "\n WHERE menutype = " . $database->Quote( $params->get( 'menutype' ) )
-		. "\n AND published = 1"
-		. $and
-		. "\n AND parent = 0"
-		. "\n ORDER BY ordering"
-		;
-		$database->setQuery( $sql );
-		return $database->loadObjectList( 'id' );
+
+		return $return;
 	}
 
 	// подготовка ссылок ,замена стилей в ссылках

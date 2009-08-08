@@ -4585,7 +4585,7 @@ class mosAdminMenus {
 					// do not display `url` menu item types that contain `index.php` and `Itemid`
 					if(!($mitems_a->type == 'url' && strpos($mitems_a->link,'index.php') !== false &&
 						strpos($mitems_a->link,'Itemid=') !== false)) {
-						$text = $mitems_a->menutype.' | '.$list_a->treename;
+						$text = $mitems_a->menutype.' : '.$list_a->treename;
 						$list_temp[] = mosHTML::makeOption($list_a->id,$text);
 
 						if(strlen($text) > $text_count) {
@@ -4621,6 +4621,16 @@ class mosAdminMenus {
 		foreach($list as $item) {
 			$mitems[] = mosHTML::makeOption($item->value,$item->text);
 		}
+/*
+		// добавляем в список типы страниц "по умолчанию"
+		$pages = array(
+			mosHTML::makeOption(0,'----'),
+			mosHTML::makeOption(0,_PAGES.' : '._CREATE_ACCOUNT),
+			mosHTML::makeOption(0,_PAGES.' : '._LOST_PASSWORD),
+		);
+		$mitems = array_merge($mitems,$pages);
+*/
+
 		$pages = mosHTML::selectList($mitems,'selections[]','class="inputbox" size="26" multiple="multiple"','value','text',$lookup);
 		return $pages;
 	}

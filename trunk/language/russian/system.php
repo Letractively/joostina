@@ -539,3 +539,5 @@ DEFINE('_REGWARN_EMAIL_INUSE','Этот e-mail уже используется. 
 DEFINE('_REGWARN_INUSE','Это имя пользователя уже используется. Пожалуйста, выберите другое имя.');
 DEFINE('_REGWARN_MAIL','Пожалуйста, правильно введите адрес e-mail.');
 DEFINE('_MODULE_PREVIEW','Предпросмотр модуля.');
+DEFINE('_PAGES','Страницы');
+DEFINE('_LOST_PASSWORD','Забыли пароль?');
