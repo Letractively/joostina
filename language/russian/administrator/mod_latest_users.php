@@ -17,3 +17,4 @@ DEFINE('_WEEK_REGISTERED_USERS_COUNT','за неделю');
 DEFINE('_MONTH_REGISTERED_USERS_COUNT','за месяц');
 DEFINE('_NEW_USERS','Новые пользователи');
 DEFINE('_USER_REG_DATE','Зарегистрирован');
+DEFINE('_BAD_AUTH_NUMBER','Число неудачных попыток авторизации');
