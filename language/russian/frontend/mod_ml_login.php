@@ -9,9 +9,6 @@
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
-
-
-DEFINE('_LOST_PASSWORD','Забыли пароль?');
-DEFINE('_PASSWORD','Пароль');
-DEFINE('_REMEMBER_ME','Запомнить');
+$mainframe = &mosMainFrame::getInstance();
+include_once($mainframe->getLangFile('com_login'));
 DEFINE('_SITE_AUTH','Авторизация на сайте'); 
