@@ -336,3 +336,8 @@ DEFINE('_GLOBAL_TEMPLATES', 'Директория шаблонов по-умол
 DEFINE('_GLOBAL_TEMPLATES_TIP', '');
 DEFINE('_GLOBAL_TEMPLATES_CURTEMPLATE', 'Папка текущего шаблона');
 DEFINE('_GLOBAL_TEMPLATES_SYSTEMDIR', 'Папка компонента (системная)');
+DEFINE('_MEMCACHE_PERSISTENT', 'Постоянная кеш память');
+DEFINE('_MEMORY_CACHE_COMPRESSION', 'Компрессия кеш памяти');
+DEFINE('_MEMCACHE_SERVER', 'Memcache Сервер');
+DEFINE('_HOST', 'Хост');
+DEFINE('_PORT', 'Порт');

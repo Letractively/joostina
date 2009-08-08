@@ -1112,21 +1112,57 @@ class HTML_config {
 					<td><?php echo $lists['cache_handler'];?></td>
 					<td>&nbsp;</td>
 				</tr>
-				<tr>
+		<?php } ?>
+		
+		<tr id="memcache_persist" <?php echo ($row->config_cache_handler != 'memcache')? "style='display: none;'" : ""; ?>>
+			<td>
+				<?php echo _MEMCACHE_PERSISTENT; ?>
+			</td>
+			<td id="memcache_persist_value">
+				<?php echo $lists['memcache_persist']; ?>
+			</td>
+			
+		</tr>
+		<tr id="memcache_compress" <?php echo ($row->config_cache_handler != 'memcache')? "style='display: none;'" : ""; ?>>
+			<td>
+				<?php echo _MEMORY_CACHE_COMPRESSION; ?>
+			</td>
+			<td>
+				<?php echo $lists['memcache_compress']; ?>
+			</td>
+		</tr>
+		<tr id="memcache_server" <?php echo ($row->config_cache_handler != 'memcache')? "style='display: none;'" : ""; ?>>
+			<td>
+				<?php echo _MEMCACHE_SERVER; ?>
+			</td>
+			<td>
+				<?php echo _HOST; ?>:
+				<input class="text_area" type="text" id="config_memcache_host" name="config_memcache_host" size="25" value="<?php echo $row->config_memcache_host; ?>" />
+				<br /><br />
+				<?php echo _PORT; ?>:
+				<input class="text_area" type="text" id="config_memcache_port" name="config_memcache_port" size="6" value="<?php echo $row->config_memcache_port; ?>" />
+			</td>
+		
+		</tr>
+		
+		<?php
+		if(is_writeable($row->config_cachepath)) {
+		?>		
+			<tr>
 					<td><?php echo _CACHE_OPTIMIZATION?>:</td>
 					<td><?php echo $lists['config_cache_opt']; ?><?php echo mosToolTip(_CACHE_OPTIMIZATION2); ?></td>
 					<td>&nbsp;</td>
-				</tr>
-				<tr>
-					<td><?php echo _AUTOCLEAN_CACHE_DIR?>:</td>
-					<td><?php echo $lists['config_clearCache']; ?><?php echo mosToolTip(_AUTOCLEAN_CACHE_DIR2); ?></td>
-					<td>&nbsp;</td>
-				</tr>
-				<tr>
-					<td><?php echo _CACHE_MENU?>:</td>
-					<td><?php echo $lists['adm_menu_cache']; ?><?php echo mosToolTip(_CACHE_MENU2); ?></td>
-					<td>&nbsp;</td>
-				</tr>
+			</tr>
+			<tr>
+				<td><?php echo _AUTOCLEAN_CACHE_DIR?>:</td>
+				<td><?php echo $lists['config_clearCache']; ?><?php echo mosToolTip(_AUTOCLEAN_CACHE_DIR2); ?></td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td><?php echo _CACHE_MENU?>:</td>
+				<td><?php echo $lists['adm_menu_cache']; ?><?php echo mosToolTip(_CACHE_MENU2); ?></td>
+				<td>&nbsp;</td>
+			</tr>
 <?php
 		} else {
 ?>				<tr>
@@ -1137,9 +1173,9 @@ class HTML_config {
 <?php
 		}
 ?>
-				<tr>
-					<td><?php echo _CACHE_DIR?>:</td>
-					<td><input class="text_area" type="text" name="config_cachepath" size="50" value="<?php echo $row->config_cachepath; ?>"/>
+		<tr>
+			<td><?php echo _CACHE_DIR?>:</td>
+			<td><input class="text_area" type="text" name="config_cachepath" size="50" value="<?php echo $row->config_cachepath; ?>"/>
 <?php
 		if(is_writeable($row->config_cachepath)) {
 			echo mosToolTip(_CACHE_DIR2);

@@ -488,9 +488,36 @@ function showconfig($option) {
 	if(extension_loaded('apc'))		$cache_handler[] = mosHTML::makeOption( 'apc', 'APC' );
 	if(class_exists('Memcache'))			$cache_handler[] = mosHTML::makeOption( 'memcache', 'Memcache' );
 	if(function_exists('xcache_set'))		$cache_handler[] = mosHTML::makeOption( 'xcache', 'Xcache' );
+	
+	?>
+	<script>
+	function showHideMemCacheSettings()
+	{
+		if(document.getElementById("config_cache_handler").value != "memcache")
+		{
+			document.getElementById("memcache_persist").style.display = "none";
+			document.getElementById("memcache_compress").style.display = "none";
+			document.getElementById("memcache_server").style.display = "none";
+		}
+		else
+		{
+			document.getElementById("memcache_persist").style.display = "";
+			document.getElementById("memcache_compress").style.display = "";
+			document.getElementById("memcache_server").style.display = "";
+		}
+	}
+	</script>
+	
+	<?php
 	// оработчик кэширования
-	$lists['cache_handler']= mosHTML::selectList($cache_handler, 'config_cache_handler','class="inputbox" ','value','text',$mosConfig_cache_handler);
-
+	$lists['cache_handler']= mosHTML::selectList($cache_handler, 'config_cache_handler','class="inputbox" id="config_cache_handler" onchange="showHideMemCacheSettings();" ','value','text',$row->config_cache_handler);
+	
+	if (!empty($row->config_memcache_settings) && !is_array($row->config_memcache_settings)) {
+			$row->config_memcache_settings = unserialize(stripslashes($row->config_memcache_settings));
+	}
+	$lists['memcache_persist'] = mosHTML::yesnoRadioList('config_memcache_persistent', 'class="inputbox"', $row->config_memcache_persistent);
+	$lists['memcache_compress'] = mosHTML::yesnoRadioList('config_memcache_compression', 'class="inputbox"', $row->config_memcache_compression);
+	
 	// использование неопубликованных мамботов
 	$lists['config_use_unpublished_mambots']= mosHTML::yesnoRadioList('config_use_unpublished_mambots','class="inputbox"',$row->config_use_unpublished_mambots);
 
@@ -562,7 +589,7 @@ function saveconfig($task) {
 	if(!$row->bind($_POST)) {
 		mosRedirect('index2.php',$row->getError());
 	}
-
+	
 	// if Session Authentication Type changed, delete all old Frontend sessions only - which used old Authentication Type
 	if($mosConfig_session_type != $row->config_session_type) {
 		$past = time();

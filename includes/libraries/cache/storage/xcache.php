@@ -31,8 +31,8 @@ class JCacheStorageXCache extends JCacheStorage
 	{
 		parent::__construct($options);
 
-		$config			=& JFactory::getConfig();
-		$this->_hash	= $config->getValue('config.secret');
+		$config		= Jconfig::getInstance();
+		$this->_hash	= $config->config_secret;
 	}
 
 	/**
