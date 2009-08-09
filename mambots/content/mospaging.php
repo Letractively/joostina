@@ -109,8 +109,8 @@ function botMosPaging($published,&$row,&$params,$page = 0) {
 			$row->toc = '';
 		}
 
-		// обычная навигация joomla по страницам
-		require_once ($GLOBALS['mosConfig_absolute_path'].'/includes/pageNavigation.php');
+		// обычная навигация по страницам
+		mosMainFrame::addLibr('pageNavigation');
 		$pageNav = new mosPageNav($n,$page,1);
 
 		// счетчик страниц
@@ -243,4 +243,3 @@ function createNavigation(&$row,$page,$n) {
 
 	$row->text .= '<div>'.$prev.' - '.$next.'</div>';
 }
-?>

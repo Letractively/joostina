@@ -28,7 +28,7 @@ class jdebug {
 
 	/* добавление сообщения в лог*/
 	function add($text) {
-		$this->_log[] = $text;
+		$this->_log[] = htmlentities($text);
 	}
 
 	/* добавление сообщения в лог*/
@@ -42,38 +42,18 @@ class jdebug {
 	
 	/* вывод сообщений из лога*/
 	function get($db = 1) {
-		$database = &database::getInstance();
-
-		$this->add('<b>'._INCLUDED_FILES.':</b> '.count(get_included_files()));
-		if($db){
-			$this->_db();
-		}else{
-			$this->add(_SQL_QUERIES_COUNT.': '.count($database->_log));
-		}
-
+		echo '<pre>';
 		/* счетчики */
 		foreach($this->_inc as $key => $value) {
-			$this->text .= 'FUNC_COUNTER: <b>'.$key.'</b>: '.$value.'<br />';
+			$this->text .= '<small>COUNTER:</small> <b>'.htmlentities($key).'</b>: '.$value.'<br />';
 		}
 		/* лог */
 		foreach($this->_log as $key => $value) {
-			$this->text .= $value.'<br />';
+			$this->text .= '<small>LOG:</small> '.$value.'<br />';
 		}
 
 		echo '<noindex><div id="jdebug">'.$this->text.'</div></noindex>';
-	}
-
-	/* отладка sql запросов базы данных*/
-	function _db() {
-		$database = &database::getInstance();
-
-		count($database->_log);
-		$this->add('<b>SQL:</b> '.count($database->_log).'<pre>');
-		foreach($database->_log as $k => $sql) {
-			$this->add($k + 1 . ': '.$sql.'<hr />');
-		}
-		$this->add('</pre>');
-		return;
+		echo '</pre>';
 	}
 }
 ;
@@ -92,5 +72,3 @@ function jd_get(){
 	$debug = &jdebug::getInstance();
 	echo $debug->get();
 }
-
-?>

@@ -14,8 +14,7 @@ defined('_VALID_MOS') or die();
 */
 function mosMainBody() {
 	$mainframe = &mosMainFrame::getInstance();
-	$mosConfig_live_site = &Jconfig::getInstance()->config_live_site;
-	$config = &Jconfig::getInstance();
+	$mosConfig_live_site = $mainframe->getCfg('live_site');
 
 	$popMessages = false;
 
@@ -43,7 +42,7 @@ function mosMainBody() {
 	$_body = $GLOBALS['_MOS_OPTION']['buffer'];
 
 	// активация мамботов группы mainbody
-	if($config->config_mmb_mainbody_off == 0) {
+	if($mainframe->getCfg('mmb_mainbody_off') == 0) {
 		global $_MAMBOTS;
 		$_MAMBOTS->loadBotGroup('mainbody');
 		$_MAMBOTS->trigger('onMainbody',array(&$_body));
@@ -63,8 +62,8 @@ function mosMainBody() {
 */
 function mosLoadComponent($name) {
 	// set up some global variables for use by frontend components
-	global $my,$acl;
-	global $task,$Itemid,$id,$option,$gid;
+	global $my,$acl,$task,$Itemid,$id,$option,$gid;
+
 	$mainframe = &mosMainFrame::getInstance();
 	$database = &database::getInstance();
 	include ($mainframe->getCfg('absolute_path').DS."components/com_$name/$name.php");
@@ -180,21 +179,19 @@ function mosLoadModules($position = 'left',$style = 0,$noindex = 0) {
 		echo $prepend;
 
 		if((substr($module->module,0,4)) == 'mod_') {
-
-			$cache = &mosCache::getCache($module->module.'_'.$module->id,'function',null,$def_cachetime);
 			// normal modules
 			if(($params->get('cache',0) == 1 OR $def_cachetime>0) && $config->config_caching == 1) {
 				// module caching
+				$cache = &mosCache::getCache($module->module.'_'.$module->id,'function',null,$def_cachetime);
 				$cache->call('modules_html::module2',$module,$params,$Itemid,$style,$my->gid);
 			} else {
 				modules_html::module2($module,$params,$Itemid,$style,$count);
 			}
 		} else {
-
-			$cache = &mosCache::getCache('mod_user_'.$module->id,'function',null,$def_cachetime);
 			// custom or new modules
 			if($params->get('cache') == 1 && $config->config_caching == 1) {
 				// module caching
+				$cache = &mosCache::getCache('mod_user_'.$module->id,'function',null,$def_cachetime);
 				$cache->call('modules_html::module',$module,$params,$Itemid,$style,0,$my->gid);
 			} else {
 				modules_html::module($module,$params,$Itemid,$style);
@@ -228,13 +225,10 @@ function mosLoadModule($name = '', $title = '', $style = 0, $noindex = 0) {
 	$tp = intval(mosGetParam($_GET,'tp',0));
 
 	if($tp && !$config->config_disable_tpreview ) {
-		echo '<div style="height:50px;background-color:#eee;margin:2px;padding:10px;border:1px solid #f00;color:#700;">';
-		echo $position;
-		echo '</div>';
+		echo '<div style="height:50px;background-color:#eee;margin:2px;padding:10px;border:1px solid #f00;color:#700;">'.$position.'</div>';
 		return;
 	}
 	$style = intval($style);
-	$cache = &mosCache::getCache('modules');
 
 	$module = new mosModule($database);
 	$module->load_module($name, $title);
@@ -242,11 +236,10 @@ function mosLoadModule($name = '', $title = '', $style = 0, $noindex = 0) {
 
 	if($noindex == 1) echo '<noindex>';
 
-	if($style == 1) {
-		echo '<table cellspacing="1" cellpadding="0" border="0" width="100%"><tr>';
-	}
-	$prepend = ($style == 1)?"<td valign=\"top\">\n":'';
-	$postpend = ($style == 1)?"</td>\n":'';
+	if($style == 1) echo '<table cellspacing="1" cellpadding="0" border="0" width="100%"><tr>';
+
+	$prepend = ($style == 1) ? "<td valign=\"top\">\n":'';
+	$postpend = ($style == 1) ? "</td>\n":'';
 
 	$count = 1;
 
@@ -257,6 +250,7 @@ function mosLoadModule($name = '', $title = '', $style = 0, $noindex = 0) {
 		// normal modules
 		if($params->get('cache') == 1 && $config->config_caching == 1) {
 			// module caching
+			$cache = &mosCache::getCache('modules');
 			$cache->call('modules_html::module2',$module,$params,$Itemid,$style,$my->gid);
 		} else {
 			modules_html::module2($module,$params,$Itemid,$style,$count);
@@ -287,7 +281,6 @@ function mosLoadModule($name = '', $title = '', $style = 0, $noindex = 0) {
 function mosShowHead($params=array('js'=>1,'css'=>1)) {
 	global $option,$my,$_VERSION,$task,$id;
 
-	$config = &Jconfig::getInstance();
 	$database = &database::getInstance();
 	$mainframe = &mosMainFrame::getInstance();
 
@@ -311,11 +304,11 @@ function mosShowHead($params=array('js'=>1,'css'=>1)) {
 	}
 
 	if(!$description) {
-		$mainframe->appendMetaTag('description',$config->config_MetaDesc);
+		$mainframe->appendMetaTag('description',$mainframe->getCfg('MetaDesc'));
 	}
 
 	if(!$keywords) {
-		$mainframe->appendMetaTag('keywords',$config->config_MetaKeys);
+		$mainframe->appendMetaTag('keywords',$mainframe->getCfg('MetaKeys'));
 	}
 /* этот участок делает что-то странное с мета-тэгом keywords, он уберает дубли слов, очень толсто...
 	if($_meta_keys_index != -1) {
@@ -328,27 +321,27 @@ function mosShowHead($params=array('js'=>1,'css'=>1)) {
 	}
 */
 	// отключение тега Generator
-	if($config->config_generator_off == 0) {
+	if($mainframe->getCfg('generator_off') == 0) {
 		$mainframe->addMetaTag('Generator',$_VERSION->CMS.' - '.$_VERSION->COPYRIGHT);
 	}
 
 
-	if($config->config_index_tag == 1) {
+	if($mainframe->getCfg('index_tag') == 1) {
 		$mainframe->addMetaTag('distribution','global');
 		$mainframe->addMetaTag('rating','General');
 		$mainframe->addMetaTag('document-state','Dynamic');
 		$mainframe->addMetaTag('documentType','WebDocument');
 		$mainframe->addMetaTag('audience','all');
-		$mainframe->addMetaTag('revisit',$config->config_mtage_revisit.' days');
-		$mainframe->addMetaTag('revisit-after',$config->config_mtage_revisit.' days');
+		$mainframe->addMetaTag('revisit',$mainframe->getCfg('mtage_revisit').' days');
+		$mainframe->addMetaTag('revisit-after',$mainframe->getCfg('mtage_revisit').' days');
 		$mainframe->addMetaTag('allow-search','yes');
-		$mainframe->addMetaTag('language',$config->config_lang);
+		$mainframe->addMetaTag('language',$mainframe->getCfg('lang'));
 	}
 
 	echo $mainframe->getHead($params);
 
 	// очистка ссылки на главную страницу даже при отключенном sef
-	if ( $config->config_mtage_base == 1) {
+	if ( $mainframe->getCfg('mtage_base') == 1) {
 		// вычисление ткущего адреса страницы. Код взят из Joomla 1.5.x
 		if (isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) && (strtolower($_SERVER['HTTPS']) != 'off')) {
 			$https = 's://';
@@ -363,35 +356,41 @@ function mosShowHead($params=array('js'=>1,'css'=>1)) {
 				$theURI .= '?' . $_SERVER['QUERY_STRING'];
 			}
 		}
-		$theURI = str_replace($config->config_live_site.'/','',$theURI);
+		$theURI = str_replace($mainframe->getCfg('live_site').'/','',$theURI);
 		echo '<base href="'.sefRelToAbs($theURI).'" />'."\r\n";
 	}
 
 
 
 	if($my->id || $mainframe->get('joomlaJavascript')) {
-		?><script src="<?php echo $config->config_live_site; ?>/includes/js/joomla.javascript.js" type="text/javascript"></script>
+		?><script src="<?php echo $mainframe->getCfg('live_site'); ?>/includes/js/joomla.javascript.js" type="text/javascript"></script>
 		<?php
 	}
 
 	// отключение RSS вывода в шапку
 
-	if($config->config_syndicate_off==0) {
-		$cache = &mosCache::getCache('header');
-		echo $cache->call('syndicate_header');
+	if($mainframe->getCfg('syndicate_off')==0) {
+		if($mainframe->getCfg('caching')==1){
+			$cache = &mosCache::getCache('header');
+			echo $cache->call('syndicate_header');
+		}else{
+			echo syndicate_header();
+		}
 		echo "\r\n";
 	}
 
 	// favourites icon
-	if(!$config->config_disable_favicon) {
-		if(!$config->config_favicon) {
-			$config->config_favicon = 'favicon.ico';
+	if(!$mainframe->getCfg('disable_favicon')) {
+		if(!$mainframe->getCfg('favicon')) {
+			$favicon = 'favicon.ico';
+		}else{
+			$favicon = $mainframe->getCfg('favicon');
 		}
-		$icon = $config->config_absolute_path.'/images/'.$config->config_favicon;
+		$icon = $mainframe->getCfg('absolute_path').'/images/'.$favicon;
 		if(!file_exists($icon)) {
-			$icon = $config->config_live_site.'/images/favicon.ico';
+			$icon = $mainframe->getCfg('live_site').'/images/favicon.ico';
 		} else {
-			$icon = $config->config_live_site.'/images/'.$config->config_favicon;
+			$icon = $mainframe->getCfg('live_site').'/images/'.$favicon;
 		}
 		echo '<link rel="shortcut icon" href="'.$icon.'" />';
 	}
@@ -434,9 +433,8 @@ function syndicate_header(){
 	// get params definitions
 	$syndicateParams = new mosParameters($row->params,$mainframe->getPath('com_xml',$row->option),'component');
 
-
 	// needed to reduce query
-	$GLOBALS['syndicateParams'] = $syndicateParams;
+	//$GLOBALS['syndicateParams'] = $syndicateParams;
 
 	$live_bookmark = $syndicateParams->get('live_bookmark',0);
 
@@ -492,5 +490,3 @@ function syndicate_header(){
 		}
 	}
 }
-
-?>

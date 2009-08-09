@@ -24,12 +24,15 @@ $pop = intval(mosGetParam($_REQUEST, 'pop', 0));
 $limit = intval(mosGetParam($_REQUEST, 'limit', 0));
 $limitstart = intval(mosGetParam($_REQUEST, 'limitstart', 0));
 
-// cache activation
-$cache = &mosCache::getCache('com_content');
 
 // loads function for frontpage component
 if($option == 'com_frontpage') {
-	$r = $cache->call('frontpage', $my->gid,$limit,$limitstart,$pop);
+	if(Jconfig::getInstance()->config_caching==1){
+		$cache = &mosCache::getCache('com_content');
+		$r = $cache->call('frontpage', $my->gid,$limit,$limitstart,$pop);
+	}else{
+		$r = frontpage($my->gid,$limit,$limitstart,$pop);
+	}
 	from_cache($r);
 	return;
 }
@@ -42,14 +45,16 @@ switch ($task) {
 
 	case 'view':
 	case 'preview':
-		showFullItem($id,$my->gid,$cache);
+		showFullItem($id,$my->gid);
 		break;
 
 	case 'section':
+		$cache = &mosCache::getCache('com_content');
 		showSectionCatlist($id,$cache);
 		break;
 
 	case 'category':
+		$cache = &mosCache::getCache('com_content');
 		showTableCategory($id,$cache);
 		break;
 
@@ -63,14 +68,25 @@ switch ($task) {
 		showBlogCategory($id,$my->gid);
 		break;
 
+	// архив раздела
 	case 'archivesection':
-		// архив раздела
-		$cache->call('showArchiveSection', $id);
+		if(Jconfig::getInstance()->config_caching==1){
+			$cache = &mosCache::getCache('com_content');
+			$cache->call('showArchiveSection', $id);
+		}else{
+			showArchiveSection($id);
+		}
 		break;
 
+	// архив категории
 	case 'archivecategory':
-		// архив категории
-		$cache->call('showArchiveCategory', $id);
+		if(Jconfig::getInstance()->config_caching==1){
+			$cache = &mosCache::getCache('com_content');
+			$cache->call('showArchiveCategory', $id);
+		}else{
+			showArchiveCategory($id);
+		}
+
 		break;
 
 	case 'edit':
@@ -445,8 +461,12 @@ function showBlogSection($id = 0,$gid=0) {
 	$limit = intval(mosGetParam($_REQUEST, 'limit', 0));
 	$limitstart = intval(mosGetParam($_REQUEST, 'limitstart', 0));
 
-	$cache = &mosCache::getCache('com_content');
-	$r = $cache->call('_showBlogSection', $id,$gid,$pop,$limit,$limitstart);
+	if(Jconfig::getInstance()->config_caching==1){
+		$cache = &mosCache::getCache('com_content');
+		$r = $cache->call('_showBlogSection', $id,$gid,$pop,$limit,$limitstart);
+	}else{
+		$r = _showBlogSection($id,$gid,$pop,$limit,$limitstart);
+	}
 	from_cache($r);
 }
 
@@ -536,8 +556,12 @@ function showBlogCategory($id = 0,$gid=0) {
 	$limit = intval(mosGetParam($_REQUEST, 'limit', 0));
 	$limitstart = intval(mosGetParam($_REQUEST, 'limitstart', 0));
 
-	$cache = &mosCache::getCache('com_content');
-	$r = $cache->call('_showBlogCategory', $id,$gid,$pop,$limit,$limitstart);
+	if(Jconfig::getInstance()->config_caching==1){
+		$cache = &mosCache::getCache('com_content');
+		$r = $cache->call('_showBlogCategory', $id,$gid,$pop,$limit,$limitstart);
+	}else{
+		$r = _showBlogCategory($id,$gid,$pop,$limit,$limitstart);
+	}
 	from_cache($r);
 }
 
@@ -1051,12 +1075,15 @@ function BlogOutput(&$obj, $params, &$access) {
 }
 
 // кэширование с сохранением мета-тэгов
-function showFullItem($id,$gid=0,$cache){
+function showFullItem($id,$gid=0){
 	$config = &Jconfig::getInstance();
 	if($config->config_enable_stats) {
 		$r =_showFullItem($id);
-	} else {
+	} elseif($config->config_caching==1){
+		$cache = &mosCache::getCache('com_content');
 		$r = $cache->call('_showFullItem', $id,$gid);
+	}else{
+		$r =_showFullItem($id);
 	}
 	from_cache($r);
 }

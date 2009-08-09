@@ -102,9 +102,6 @@ class HTML_content {
 
 		$templates = $section->templates;
 
-		//require_once ($GLOBALS['mosConfig_absolute_path'].'/includes/pageNavigation.php');
-		//$pageNav = new mosPageNav($section->total,$params->get('limitstart'),$params->get('limit'));
-
 		$template = new ContentTemplate();
 		$template->set_template($params->page_type, $templates);
 

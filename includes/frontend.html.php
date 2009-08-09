@@ -420,12 +420,12 @@ class modules_html {
 			echo trim(implode("\n",$results));
 			$module->content = $row->text;
 		}
-		// output custom module contents		
+		// output custom module contents
 		if($params->get('user_template', '') && $module->set_template_custom($params->get('user_template', ''))){
-			require($module->template);			
+			require($module->template);
 		}
 		else{
-			echo $module->content;	
+			echo $module->content;
 		}
 		
 		if($firebots) {
@@ -436,4 +436,3 @@ class modules_html {
 		}
 	}
 }
-?>

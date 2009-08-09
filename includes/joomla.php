@@ -1049,7 +1049,8 @@ class mosMainFrame {
 	* Reverts the current session record back to 'anonymous' parameters
 	*/
 	function logout() {
-		mosCache::cleanCache();
+		// тоже странный момент, при при разлогинивании пользователя - чистить ВЕСЬ кэш...
+		//mosCache::cleanCache();
 		$session = &$this->_session;
 		$session->guest = 1;
 		$session->username = '';
@@ -1069,7 +1070,7 @@ class mosMainFrame {
 	* + хак для отключения ведения сессий на фронте
 	*/
 	function getUser() {
-		
+
 		if($this->_multisite == 2){
 			$m_s = new stdClass();
 			$m_s = $this->get('_multisite_params');
@@ -2747,6 +2748,9 @@ class mosCache {
 	*/
 	function &getCache($group = 'default', $handler = 'callback', $storage = null,$cachetime = null){
 
+		jd_inc('getCache');
+		jd_log($group);
+
 		$handler = ($handler == 'function') ? 'callback' : $handler;
 
 		$config = &Jconfig::getInstance();
@@ -2765,7 +2769,7 @@ class mosCache {
 			'storage'		=> $storage
 		);
 
-		require_once ($config->config_absolute_path.'/includes/libraries/cache/cache.php');
+		mosMainFrame::addLib('cache');
 		$cache =&JCache::getInstance( $handler, $options );
 
 		if($cache != NULL){
@@ -6569,4 +6573,3 @@ function _xdump( $var, $text='<pre>' ){
 /**
  @global mosPlugin $_MAMBOTS*/
 $_MAMBOTS = new mosMambotHandler();
-?>

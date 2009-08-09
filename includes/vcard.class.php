@@ -217,4 +217,3 @@ class vCard {
 		return $this->filename;
 	}
 }
-?>

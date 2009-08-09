@@ -45,15 +45,14 @@ class JCache{
 	 * @access	protected
 	 * @param	array	$options	options
 	 */
-	function __construct($options)
-	{
+	function __construct($options){
 		$this->_options =& $options;
 		
 		// Get the default group and caching
 		if(isset($options['language'])) {
 			$this->_options['language'] = $options['language'];
 		} else {
-			$options['language'] = 'en-GB';
+			$options['language'] = 'ru-RU';
 		}
 
 		if(isset($options['cachebase'])) {
@@ -460,5 +459,3 @@ class JCacheStorage{
 		return true;
 	}
 }
-
-?>
