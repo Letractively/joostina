@@ -1178,5 +1178,3 @@ class mosAroGroup extends mosDBTable {
 		$this->mosDBTable('#__core_acl_aro_groups', 'group_id', $db);
 	}
 }
-
-?>

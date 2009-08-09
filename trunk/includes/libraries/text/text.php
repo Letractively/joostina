@@ -11,12 +11,9 @@
 defined('_VALID_MOS') or die();
 
 class Text{
-	
 	var $text = null;
-	
-	function Text(){
-		
-	}
+
+	function Text(){}
 	
 	/**
 	 * Вывод численных результатов с учетом склонения слов
@@ -25,7 +22,7 @@ class Text{
 	 * @param integer $int 
 	 * @param array $expressions Например: array("ответ", "ответа", "ответов")
 	 */
- 	function _declension($int, $expressions){
+	function _declension($int, $expressions){
 		if (count($expressions) < 3) {
 			$expressions[2] = $expressions[1];
 		};
@@ -58,21 +55,18 @@ class Text{
 	 * @param	string	the end character. Usually an ellipsis
 	 * @return	string
 	 */	
-	function word_limiter($str, $limit = 100, $end_char = '&#8230;')
-	{
-		if (trim($str) == '')
-		{
+	function word_limiter($str, $limit = 100, $end_char = '&#8230;'){
+		if (Jstring::trim($str) == ''){
 			return $str;
 		}
 	
 		preg_match('/^\s*+(?:\S++\s*+){1,'.(int) $limit.'}/', $str, $matches);
 			
-		if (strlen($str) == strlen($matches[0]))
-		{
+		if (Jstring::strlen($str) == Jstring::strlen($matches[0])){
 			$end_char = '';
 		}
 		
-		return rtrim($matches[0]).$end_char;
+		return Jstring::rtrim($matches[0]).$end_char;
 	}
 
 
@@ -88,30 +82,25 @@ class Text{
 	 * @param	string	the end character. Usually an ellipsis
 	 * @return	string
 	 */	
-	function character_limiter($str, $n = 500, $end_char = '&#8230;')
-	{
-		if (strlen($str) < $n)
-		{
+	function character_limiter($str, $n = 500, $end_char = '&#8230;'){
+		if (strlen($str) < $n){
 			return $str;
 		}
 		
 		$str = preg_replace("/\s+/", ' ', str_replace(array("\r\n", "\r", "\n"), ' ', $str));
 
-		if (strlen($str) <= $n)
-		{
+		if (Jstring::strlen($str) <= $n){
 			return $str;
 		}
 
 		$out = "";
-		foreach (explode(' ', trim($str)) as $val)
-		{
+		foreach (explode(' ', Jstring::trim($str)) as $val){
 			$out .= $val.' ';
 			
-			if (strlen($out) >= $n)
-			{
-				$out = trim($out);
-				return (strlen($out) == strlen($str)) ? $out : $out.$end_char;
-			}		
+			if (Jstring::strlen($out) >= $n){
+				$out = Jstring::trim($out);
+				return (Jstring::strlen($out) == Jstring::strlen($str)) ? $out : $out.$end_char;
+			}
 		}
 	}
 	
@@ -128,14 +117,12 @@ class Text{
 	 * @param	string	the optional replacement value
 	 * @return	string
 	 */	
-	function word_censor($str, $censored, $replacement = '')
-	{
-		if ( ! is_array($censored))
-		{
+	function word_censor($str, $censored, $replacement = ''){
+		if ( ! is_array($censored)){
 			return $str;
 		}
-        
-        $str = ' '.$str.' ';
+
+		$str = ' '.$str.' ';
 
 		// \w, \b and a few others do not match on a unicode character
 		// set for performance reasons. As a result words like uber
@@ -143,23 +130,14 @@ class Text{
 		// a bad word will be bookended by any of these characters.
 		$delim = '[-_\'\"`(){}<>\[\]|!?@#%&,.:;^~*+=\/ 0-9\n\r\t]';
 
-		foreach ($censored as $badword)
-		{
-			if ($replacement != '')
-			{
+		foreach ($censored as $badword){
+			if ($replacement != ''){
 				$str = preg_replace("/({$delim})(".str_replace('\*', '\w*?', preg_quote($badword, '/')).")({$delim})/i", "\\1{$replacement}\\3", $str);
-			}
-			else
-			{
+			}else{
 				$str = preg_replace("/({$delim})(".str_replace('\*', '\w*?', preg_quote($badword, '/')).")({$delim})/ie", "'\\1'.str_repeat('#', strlen('\\2')).'\\3'", $str);
 			}
 		}
 
-        return trim($str);
+		return trim($str);
 	}
-
-
-	
 }
-
-

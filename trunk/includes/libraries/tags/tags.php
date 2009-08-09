@@ -169,11 +169,9 @@ class contentTags extends mosDBTable{
 }
 
 class TagsCloud{
-
-
-   var $tags;
-   var $font_size_min = 14;
-   var $font_size_step = 5;
+	var $tags;
+	var $font_size_min = 14;
+	var $font_size_step = 5;
 
 	function __construct($tags) {
 
@@ -209,20 +207,17 @@ class TagsCloud{
 	}
 
 	function get_min_count($tags_list) {
-
 		$min = $tags_list[$this->tags[0]];
 
 		foreach ($tags_list as $tag_count) {
-
 			if ($tag_count < $min) $min = $tag_count;
-
 		}
 
 		return $min;
 
 	}
 
-   function get_cloud() {
+	function get_cloud() {
 
 		$cloud = Array();
 
@@ -235,11 +230,8 @@ class TagsCloud{
 			$font_size = $this->font_size_min + $this->font_size_step * $font_steps;
 
 			$cloud[$tag][] = $font_size;
-           // $cloud['tag'][] =
+			// $cloud['tag'][] =
 		}
-
 		return $cloud;
-
 	}
-
 }

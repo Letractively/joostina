@@ -314,4 +314,3 @@ function utf8_html_entity_decode($s, $is_htmlspecialchars = false)
     }
     return $s;
 }
-?>

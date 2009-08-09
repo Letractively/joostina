@@ -255,4 +255,3 @@ function _html_optimize_vacuumize_js(array &$m)
     $s = str_replace(array(' ', "\r", "\n", "\t"), '', $s);
     return preg_replace('/ ;++ (\}++) $/sxSX', '$1;', $s);
 }
-?>

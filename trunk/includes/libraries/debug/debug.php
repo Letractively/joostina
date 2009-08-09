@@ -28,7 +28,7 @@ class jdebug {
 
 	/* добавление сообщения в лог*/
 	function add($text) {
-		$this->_log[] = htmlentities($text);
+		$this->_log[] = $text;
 	}
 
 	/* добавление сообщения в лог*/

@@ -11,63 +11,58 @@
 defined('_VALID_MOS') or die();
 
 class ArrayHelper{
- 
- 	/**
-     * clear
-     *
-     * remove empty elements
-     *
-     * @access  public
-     * @param   type     $param  param_descr
-     * @return  Array
-     */
+	/**
+	 * clear
+	 *
+	 * remove empty elements
+	 *
+	 * @access  public
+	 * @param   type	 $param  param_descr
+	 * @return  Array
+	 */
 	function clear($array){
 		$res = array();
-        foreach ($array as $key => $val)  {
-            if (!empty($val)) {
-                if (is_numeric($key)) {
-                    array_push($res, $val);
-                } else {
-                    $res[$key] = $val;
-                }
-            }
-        }
-        $array = $res;
-        return $array;	
+		foreach ($array as $key => $val)  {
+			if (!empty($val)) {
+				if (is_numeric($key)) {
+					array_push($res, $val);
+				} else {
+					$res[$key] = $val;
+				}
+			}
+		}
+		$array = $res;
+		return $array;
 	}
 	
 	
 	/**
-     * first
-     *
-     * return first element
-     *
-     * @access  public
-     * @return  mixed
-     */
+	 * first
+	 *
+	 * return first element
+	 *
+	 * @access  public
+	 * @return  mixed
+	 */
 	function first($array){
-        $first = array_shift($array);
-        array_unshift($array, $first);
-        
-        return $first;
-    }
-    
-    /**
-     * last
-     *
-     * return last element
-     *
-     * @access  public
-     * @return  mixed
-     */
-    function last($array){
-        $lastt = array_pop($array);
-        array_push($array, $last);
-        
-        return $last;
-    }
+		$first = array_shift($array);
+		array_unshift($array, $first);
 
-	
+		return $first;
+	}
+
+	/**
+	 * last
+	 *
+	 * return last element
+	 *
+	 * @access  public
+	 * @return  mixed
+	 */
+	function last($array){
+		$lastt = array_pop($array);
+		array_push($array, $last);
+
+		return $last;
+	}
 }
-
-
