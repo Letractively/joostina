@@ -47,6 +47,7 @@ class jdebug {
 		foreach($this->_inc as $key => $value) {
 			$this->text .= '<small>COUNTER:</small> <b>'.htmlentities($key).'</b>: '.$value.'<br />';
 		}
+		$this->text.= '<b>'._INCLUDED_FILES.':</b> '.count(get_included_files()).'<br />';
 		/* лог */
 		foreach($this->_log as $key => $value) {
 			$this->text .= '<small>LOG:</small> '.$value.'<br />';
