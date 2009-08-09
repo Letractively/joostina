@@ -29,4 +29,3 @@ function utf8_chr($cp) # = utf8_from_unicode() or unicode_to_utf8()
     #U+FFFD REPLACEMENT CHARACTER
     return $cache[$cp] = "\xEF\xBF\xBD";
 }
-?>

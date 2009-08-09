@@ -831,6 +831,3 @@ class Yandex extends FeedCreator {
 		return $feed;
 	}
 }
-
-
-?>

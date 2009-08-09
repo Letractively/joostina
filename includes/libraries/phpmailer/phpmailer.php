@@ -1915,5 +1915,3 @@ class mosPHPMailer {
   }
 
 }
-
-?>

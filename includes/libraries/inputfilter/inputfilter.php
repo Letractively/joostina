@@ -220,4 +220,3 @@ class InputFilter {
 		return $string;
 	}
 }
-?>

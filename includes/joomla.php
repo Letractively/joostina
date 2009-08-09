@@ -3596,7 +3596,7 @@ function mosObjectToArray($p_obj) {
 * Checks the user agent string against known browsers
 */
 function mosGetBrowser($agent) {
-	require_once(Jconfig::getInstance()->config_absolute_path.'/includes/libraries/phpSniff/phpSniff.class.php');
+	mosMainFrame::addLibr('phpSniff');
 	$client = new phpSniff($agent);
 
 	$client_long_name = $client->property('long_name');
@@ -3613,7 +3613,7 @@ function mosGetBrowser($agent) {
 * Checks the user agent string against known operating systems
 */
 function mosGetOS($agent) {
-	require_once(Jconfig::getInstance()->config_absolute_path.'/includes/libraries/phpSniff/phpSniff.class.php');
+	mosMainFrame::addLibr('phpSniff');
 
 	foreach($osSearchOrder as $key) {
 		if(preg_match("/$key/i",$agent)) {
@@ -6444,30 +6444,9 @@ class joostina_api {
 	* В качестве параметра принимает строковое значение в кодировке UTF-8, возвращает строковое значение в кодировке windows-1251
 	* $type - параметр конвертации, по умолчанию конвертируется из utf-8.
 	**/
+	// это больше НЕ требуется
 	function convert($text,$type = null) {
-
 		return $text;
-
-		$config = &JConfig::getInstance();
-		if(is_string($text)) {
-			return $text;
-			$text = trim($text);
-		} else {
-			if(is_array($text)) {
-				foreach($text as $key => $val) {
-					$text[$key] = joostina_api::convert($val,$type);
-				}
-				return $text;
-			}
-		}
-		if($text == '') {
-			return ''; // класс конвертора не принимает пустые значения, в обход его вернёт пробел
-		}
-		require_once $config->config_absolute_path.'/includes/libraries/convert/ConvertCharset.class.php';
-		$iso = explode( '=', _ISO );
-		$charset = strtolower($iso[1]);
-		$encoding = new convertUtf8($charset);
-		return $type ? $encoding->strToUtf8($text) : $encoding->utf8ToStr($text);
 	}
 
 	/**

@@ -307,5 +307,4 @@ if($mosConfig_optimizetables == 1) {
 }
 
 joostina_api::clear_cache();
-exit();
 ?>

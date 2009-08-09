@@ -199,7 +199,7 @@ if($no_html == 0) {
 <head>
 	<link rel="shortcut icon" href="<?php echo $mosConfig_live_site; ?>/images/favicon.ico" />
 	<meta http-equiv="Content-Type" content="text/html; <?php echo _ISO; ?>" />
-<?php echo $mainframe->getHead(); ?>
+	<?php echo $mainframe->getHead(); ?>
 </head>
 	<body class="contentpane">
 	<?php mosMainBody(); ?>

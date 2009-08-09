@@ -7,11 +7,8 @@
 
 defined('_VALID_MOS') or die();
 
-$mainframe = &mosMainFrame::getInstance();
+//$mainframe = &mosMainFrame::getInstance();
 
 class myLib {
-
-	function myLib(){
-		
-	}
+	function myLib(){}
 }

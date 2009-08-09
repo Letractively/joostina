@@ -464,8 +464,7 @@ class SMTP {
 			echo "SMTP -> FROM SERVER:".$this->CRLF.$rply;
 		}
 		if($code != 250 && $code != 251) {
-			$this->error = array("error" => "VRFY failed on name '$name'","smtp_code" => $code,
-				"smtp_msg" => substr($rply,4));
+			$this->error = array("error" => "VRFY failed on name '$name'","smtp_code" => $code,"smtp_msg" => substr($rply,4));
 			if($this->do_debug >= 1) {
 				echo "SMTP -> ERROR: ".$this->error["error"].": ".$rply.$this->CRLF;
 			}
@@ -491,6 +490,3 @@ class SMTP {
 		return $data;
 	}
 }
-
-
-?>
