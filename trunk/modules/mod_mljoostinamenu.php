@@ -673,39 +673,42 @@ onImgArray["ml_img_11_<?php echo $ml_module_number; ?>"].src = "<?php echo $mosC
 
 	$params->def('menutype', 'mainmenu');
 
-	$menu_cache = &mosCache::getCache('mod_mljoostinamenu');
+	$config = &Jconfig::getInstance();
+
+	if($config->config_caching){
+		$menu_cache = &mosCache::getCache('mod_mljoostinamenu');
+	}
 	// убираем лишний элемент
 	unset($params->_raw);
 
 	switch ($params->get( 'menu_style' ) ) {
 
 		case 'horizontal':
-			echo $menu_cache->call('mosJoostinaShowLink',$params,1,$Itemid);
+			echo $config->config_caching ? $menu_cache->call('mosJoostinaShowLink',$params,1,$Itemid) : mosJoostinaShowLink($params,1,$Itemid);
 		break;
 
 		case 'ulli':
-			echo $menu_cache->call('mosJoostinaShowLink',$params,2,$Itemid);
+			echo $config->config_caching ?  $menu_cache->call('mosJoostinaShowLink',$params,2,$Itemid) : mosJoostinaShowLink($params,2,$Itemid);
 		break;
 
 		case 'linksonly':
-			echo $menu_cache->call('mosJoostinaShowLink',$params,3,$Itemid);
+			echo $config->config_caching ?  $menu_cache->call('mosJoostinaShowLink',$params,3,$Itemid) : mosJoostinaShowLink($params,3,$Itemid);
 		break;
 
 		case 'horiz_tab':
-			echo $menu_cache->call('mosJoostinaShowLink',$params,4,$Itemid);
+			echo $config->config_caching ?  $menu_cache->call('mosJoostinaShowLink',$params,4,$Itemid) : mosJoostinaShowLink($params,4,$Itemid);
 		break;
 
 		case 'divs':
-			echo $menu_cache->call('mosJoostinaShowLink',$params,5,$Itemid);
+			echo $config->config_caching ?  $menu_cache->call('mosJoostinaShowLink',$params,5,$Itemid) : mosJoostinaShowLink($params,5,$Itemid);
 		break;
 
 		case 'ml_vertical':
-			echo $menu_cache->call('mosJoostinaShowLink',$params,6,$Itemid);
+			echo $config->config_caching ?  $menu_cache->call('mosJoostinaShowLink',$params,6,$Itemid) : mosJoostinaShowLink($params,6,$Itemid);
 		break;
 
 		default:
-			echo $menu_cache->call('mosShowVIMenuMLZ',$params,$Itemid);
+			echo $config->config_caching ?  $menu_cache->call('mosShowVIMenuMLZ',$params,$Itemid) : mosShowVIMenuMLZ($params,$Itemid);;
 		break ;
 	}
-	unset($menu_cache,$params);
-?>
+unset($menu_cache,$params,$config);

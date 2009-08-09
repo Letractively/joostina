@@ -92,4 +92,3 @@ if(!defined('_JOS_EDITOR_INCLUDED')) {
 	// установка константы - флага, что редактор подключен
 	define('_JOS_EDITOR_INCLUDED',1);
 }
-?>

@@ -310,8 +310,11 @@ class database {
 				$this->_sql .= "\nLIMIT $this->_offset, $this->_limit";
 			}
 		if($this->_debug) {
-			$this->_ticker++;
-			$this->_log[] = $this->_sql;
+			// что бы не приклеивать к каждому объекту простыню из всез запросов - будем писать их в общесистемный лог
+			jd_log($this->_ticker++.'-> '.$this->_sql);
+			jd_inc('database->query->count');
+			//$this->_ticker++;
+			//$this->_log[] = $this->_sql;
 		}
 		$this->_errorNum = 0;
 		$this->_errorMsg = '';
@@ -1331,4 +1334,3 @@ class mosDBTable {
 		return $xml;
 	}
 }
-?>

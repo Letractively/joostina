@@ -308,7 +308,7 @@ function viewSearch() {
 
 			if($n) {
 				// html output
-				require_once ($GLOBALS['mosConfig_absolute_path'].'/includes/pageNavigation.php');
+				mosMainFrame::addLibr('pageNavigation');
 				$pageNav = new mosPageNav($total,$limitstart,$limit);
 
 				search_html::display($rows,$params,$pageNav,$limitstart,$limit,$total,$totalRows,$searchword_clean);

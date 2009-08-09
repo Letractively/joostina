@@ -85,7 +85,7 @@ class mosParameters {
 	*/
 	function get($key,$default = '') {
 		if(isset($this->_params->$key)) {
-			return $this->_params->$key === ''?$default:$this->_params->$key;
+			return $this->_params->$key === '' ? $default:$this->_params->$key;
 		} else {
 			return $default;
 		}
@@ -96,17 +96,21 @@ class mosParameters {
 	* @param boolean add an associative index for each section [in brackets]
 	* @return object
 	*/
-
 	function parse($txt,$process_sections = false,$asArray = false) {
+		// если в параметрах ничего нет - не будем дальшепытаться его распатсить
+		if(trim($txt)==''){
+			return $asArray ? array():new stdClass();
+		};
+
 		if(is_string($txt)) {
 			$lines = explode("\n",$txt);
-		} else
-			if(is_array($txt)) {
-				$lines = $txt;
-			} else {
-				$lines = array();
-			}
-			$obj = $asArray?array():new stdClass();
+		} elseif(is_array($txt)) {
+			$lines = $txt;
+		} else {
+			$lines = array();
+		}
+
+		$obj = $asArray ? array():new stdClass();
 
 		$sec_name = '';
 		$unparsed = 0;
@@ -589,4 +593,3 @@ class mosEmpty {
 		return 1;
 	}
 }
-?>

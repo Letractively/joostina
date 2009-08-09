@@ -379,4 +379,3 @@ class mosToolBar {
 		<?php
 	}
 }
-?>

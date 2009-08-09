@@ -19,8 +19,7 @@ defined('_VALID_MOS') or die();
  * @subpackage	Cache
  * @since		1.3
  */
-class JCacheCallback extends JCache
-{
+class JCacheCallback extends JCache{
 	/**
 	 * Executes a cacheable callback if not found in cache else returns cached output and result
 	 *
@@ -37,11 +36,10 @@ class JCacheCallback extends JCache
 	 * @since	1.3
 	 */
 	function call(){
-		jd_inc('cache::call');
 		// Get callback and arguments
 		$args		= func_get_args();
+		jd_inc('cache::call->'.$args[0]);
 		$callback	= array_shift($args);
-
 		return $this->get( $callback, $args );
 	}
 

@@ -10,10 +10,5 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-global $mosConfig_absolute_path;
-
-require_once ($mosConfig_absolute_path.'/includes/libraries/pageNavigation/pageNavigation.php');
-
-/*  ВНИМАНИЕ, файл оставлен для совместимости, оригинальное местонахождение прописано выше */
-
-?>
+mosMainFrame::addLibr('pageNavigation');
+/*  ВНИМАНИЕ, файл оставлен для совместимости*/
