@@ -8,5 +8,5 @@
 */
 
 defined('_VALID_MOS') or die();
-mosMainFrame::addLibr('feedcreator');
+mosMainFrame::addLib('feedcreator');
 /*  ְֲֵָָּֽֽ, פאיכ מסעאגכום הכÿ סמגלוסעטלמסעט */

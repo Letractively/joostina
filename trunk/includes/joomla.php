@@ -3596,7 +3596,7 @@ function mosObjectToArray($p_obj) {
 * Checks the user agent string against known browsers
 */
 function mosGetBrowser($agent) {
-	mosMainFrame::addLibr('phpSniff');
+	mosMainFrame::addLib('phpSniff');
 	$client = new phpSniff($agent);
 
 	$client_long_name = $client->property('long_name');
@@ -3613,7 +3613,7 @@ function mosGetBrowser($agent) {
 * Checks the user agent string against known operating systems
 */
 function mosGetOS($agent) {
-	mosMainFrame::addLibr('phpSniff');
+	mosMainFrame::addLib('phpSniff');
 
 	foreach($osSearchOrder as $key) {
 		if(preg_match("/$key/i",$agent)) {

@@ -9,5 +9,5 @@
 
 defined('_VALID_MOS') or die();
 
-mosMainFrame::addLibr('database');
+mosMainFrame::addLib('database');
 /*  ְֲֵָָּֽֽ, פאיכ מסעאגכום הכÿ סמגלוסעטלמסעט */
