@@ -10,5 +10,5 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-mosMainFrame::addLibr('pageNavigation');
+mosMainFrame::addLib('pageNavigation');
 /*  ВНИМАНИЕ, файл оставлен для совместимости*/

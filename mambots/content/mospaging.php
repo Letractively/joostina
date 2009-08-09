@@ -110,13 +110,11 @@ function botMosPaging($published,&$row,&$params,$page = 0) {
 		}
 
 		// обычная навигация по страницам
-		mosMainFrame::addLibr('pageNavigation');
+		mosMainFrame::addLib('pageNavigation');
 		$pageNav = new mosPageNav($n,$page,1);
 
 		// счетчик страниц
-		$row->text .= '<div class="pagenavcounter">';
-		$row->text .= $pageNav->writeLeafsCounter();
-		$row->text .= '</div>';
+		$row->text .= '<div class="pagenavcounter">'.$pageNav->writeLeafsCounter().'</div>';
 
 		// текст страницы
 		$row->text .= $text[$page];
