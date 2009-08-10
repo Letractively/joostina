@@ -58,8 +58,8 @@ else{
 
 	if($params->get('style')=='random'){
 		srand ((double) microtime()* 1000000);
-  		$flashnum = rand( 0, $params->get('numrows') - 1 );
-	    $row = $items[$flashnum];	
+		$flashnum = rand( 0, $params->get('numrows') - 1 );
+		$row = $items[$flashnum];
 	}
 }
 
@@ -68,6 +68,6 @@ $module->get_helper();
 
 //Подключаем шаблон
 if($module->set_template($params)){
-    $module->template;
-    require($module->template);
+	$module->template;
+	require($module->template);
 }
