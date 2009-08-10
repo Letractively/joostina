@@ -52,5 +52,4 @@
     	pause: <?php echo $s_pause;?>, //pause between slides (milliseconds)
     	fadeduration: <?php echo $s_fadeduration;?> //transition duration (milliseconds)
    })
-
 </script>

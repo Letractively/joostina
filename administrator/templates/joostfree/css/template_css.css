@@ -586,110 +586,110 @@ table.adminheading th {
 	width: 98%;
 }
 table.adminheading th.filemanager {
-	background: url(../images/th/folder.gif) no-repeat left;
+	background: url(../images/header_ico/folder.gif) no-repeat left;
 }
 table.adminheading th.edit {
-	background: url(../images/th/edit.gif) no-repeat left;
+	background: url(../images/header_ico/edit.gif) no-repeat left;
 }
 /* пользователя */
 table.adminheading th.user {
-	background: url(../images/th/user.gif) no-repeat left;
+	background: url(../images/header_ico/user.gif) no-repeat left;
 }
 /* конфигурация */
 table.adminheading th.config {
-	background: url(../images/th/config.gif) no-repeat left;
+	background: url(../images/header_ico/config.gif) no-repeat left;
 }
 /* RSS */
 table.adminheading th.rss {
-	background: url(../images/th/rss.gif) no-repeat left;
+	background: url(../images/header_ico/rss.gif) no-repeat left;
 }
 /* установка */
 table.adminheading th.install {
-	background: url(../images/th/install.gif) no-repeat left;
+	background: url(../images/header_ico/install.gif) no-repeat left;
 }
 /* личные сообщения */
 table.adminheading th.inbox {
-	background: url(../images/th/inbox.gif) no-repeat left;
+	background: url(../images/header_ico/inbox.gif) no-repeat left;
 }
 /* медиа-менеджер */
 table.adminheading th.media {
-	background: url(../images/th/media.gif) no-repeat left;
+	background: url(../images/header_ico/media.gif) no-repeat left;
 }
 /* разблокировка */
 table.adminheading th.checkin {
-	background: url(../images/th/checkin.gif) no-repeat left;
+	background: url(../images/header_ico/checkin.gif) no-repeat left;
 }
 /* корзина */
 table.adminheading th.trash {
-	background: url(../images/th/trash.gif) no-repeat left;
+	background: url(../images/header_ico/trash.gif) no-repeat left;
 }
 /* языки */
 table.adminheading th.langmanager {
-	background: url(../images/th/langmanager.gif) no-repeat left;
+	background: url(../images/header_ico/langmanager.gif) no-repeat left;
 }
 /* поисковые запросы */
 table.adminheading th.searchtext {
-	background: url(../images/th/searchtext.gif) no-repeat left;
+	background: url(../images/header_ico/searchtext.gif) no-repeat left;
 }
 /* статистика посещения страниц */
 table.adminheading th.impressions {
-	background: url(../images/th/impressions.gif) no-repeat left;
+	background: url(../images/header_ico/impressions.gif) no-repeat left;
 }
 /* шаблоны */
 table.adminheading th.templates {
-	background: url(../images/th/templates.gif) no-repeat left;
+	background: url(../images/header_ico/templates.gif) no-repeat left;
 }
 /* информация */
 table.adminheading th.info {
-	background: url(../images/th/info.gif) no-repeat left;
+	background: url(../images/header_ico/info.gif) no-repeat left;
 }
 /* меню */
 table.adminheading th.menus {
-	background: url(../images/th/menus.gif) no-repeat left;
+	background: url(../images/header_ico/menus.gif) no-repeat left;
 }
 /* содержимое главной */
 table.adminheading th.frontpage {
-	background: url(../images/th/frontpage.gif) no-repeat left;
+	background: url(../images/header_ico/frontpage.gif) no-repeat left;
 }
 /* массовое добавление */
 table.adminheading th.massadd {
-	background: url(../images/th/massadd.gif) no-repeat left;
+	background: url(../images/header_ico/massadd.gif) no-repeat left;
 }
 /* категории */
 table.adminheading th.categories {
-	background: url(../images/th/categories.gif) no-repeat left;
+	background: url(../images/header_ico/categories.gif) no-repeat left;
 }
 /* разделы */
 table.adminheading th.sections {
-	background: url(../images/th/sections.gif) no-repeat left;
+	background: url(../images/header_ico/sections.gif) no-repeat left;
 }
 /* рассылка почты */
 table.adminheading th.massemail {
-	background: url(../images/th/massemail.gif) no-repeat left;
+	background: url(../images/header_ico/massemail.gif) no-repeat left;
 }
 /* модули */
 table.adminheading th.modules {
-	background: url(../images/th/modules.gif) no-repeat left;
+	background: url(../images/header_ico/modules.gif) no-repeat left;
 }
 /* мамботы */
 table.adminheading th.mambots {
-	background: url(../images/th/modules.gif) no-repeat left;
+	background: url(../images/header_ico/modules.gif) no-repeat left;
 }
 /* резервное копирование */
 table.adminheading th.cpanel {
-	background: url(../images/th/cpanel.gif) no-repeat left;
+	background: url(../images/header_ico/cpanel.gif) no-repeat left;
 }
 /* работа с базой данных */
 table.adminheading th.db {
-	background: url(../images/th/db.gif) no-repeat left;
+	background: url(../images/header_ico/db.gif) no-repeat left;
 }
 /* кнопки быстрого доступа */
 table.adminheading th.quickicons {
-	background: url(../images/th/menus.gif) no-repeat left;
+	background: url(../images/header_ico/menus.gif) no-repeat left;
 }
 /* меню компонентов панели управления */
 table.adminheading th.linkeditor {
-	background: url(../images/th/menus.gif) no-repeat left;
+	background: url(../images/header_ico/menus.gif) no-repeat left;
 }
 
 

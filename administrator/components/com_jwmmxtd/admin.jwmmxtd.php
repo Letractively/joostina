@@ -52,7 +52,6 @@ $mainframe->addCSS($mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/components
 if($task == 'edit') {
 	$mainframe->addJS($mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jwmmxtd/js/jw_mmxtd_edit.php');
 } else {
-	$mainframe->addJS($mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jwmmxtd/js/jw_mmxtd_browse.php');
 	$jw_mmxtd_head = '
 	<script type="text/javascript">
 	<!--
@@ -251,8 +250,7 @@ function emptyTmp() {
 	if(is_dir($dir)) {
 		$d = dir($dir);
 		while(false !== ($entry = $d->read())) {
-			if(substr($entry,-4) == ".jpg" || substr($entry,-4) == ".gif" || substr($entry,
-				-4) == ".png") {
+			if(substr($entry,-4) == ".jpg" || substr($entry,-4) == ".gif" || substr($entry,-4) == ".png") {
 				@unlink($dir."/".$entry);
 			}
 		}
@@ -262,8 +260,7 @@ function emptyTmp() {
 	if(is_dir($dir)) {
 		$d = dir($dir);
 		while(false !== ($entry = $d->read())) {
-			if(substr($entry,-4) == ".jpg" || substr($entry,-4) == ".gif" || substr($entry,
-				-4) == ".png") {
+			if(substr($entry,-4) == ".jpg" || substr($entry,-4) == ".gif" || substr($entry,-4) == ".png") {
 				$total_file++;
 			}
 		}
@@ -429,11 +426,15 @@ function listofImages($listdir) {
 				echo '<fieldset><legend>'._JWMM_FILE.'</legend>';
 				for($i = 0; $i < count($docs); $i++) {
 					$doc_name = key($docs);
-					$iconfile = $GLOBALS['mosConfig_absolute_path'].'/images/icons/'.substr($doc_name,-3).'.png';
+					//$iconfile = $GLOBALS['mosConfig_absolute_path'].'/images/icons/'.substr($doc_name,-3).'.png';
+
+					$mainframe = mosMainFrame::getInstance(true);
+					$iconfile = $mainframe->getCfg('absolute_path').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/file_ico/'.substr($doc_name,-3).'.png';
+
 					if(file_exists($iconfile)) {
-						$icon = '../images/icons/'.(substr($doc_name,-3)).'.png';
+						$icon = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/file_ico/'.substr($doc_name,-3).'.png';
 					} else {
-						$icon = '../images/icons/document.png';
+						$icon = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/file_ico/file.png';
 					}
 					$icon = strtolower($icon);
 					HTML_mmxtd::show_doc($doc_name,$docs[$doc_name]['size'],str_replace(JWMMXTD_STARTABSPATH,'',$listdir),$icon);

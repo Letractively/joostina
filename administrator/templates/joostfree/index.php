@@ -92,7 +92,7 @@ flush();
 						<?php mosLoadAdminModules('header',-2); ?>
 					</td>
 					<td align="right">
-						<input type="image" name="jtoggle_editor" id="jtoggle_editor" title="<?php echo _TOGGLE_WYSIWYG_EDITOR?>" onclick="jtoggle_editor();" src="images/<?php echo (intval(mosGetParam($_SESSION,'user_editor_off',''))) ? 'editor_off.png':'editor_on.png'?>" alt="<?php echo _DISABLE_WYSIWYG_EDITOR?>" />
+						<input type="image" name="jtoggle_editor" id="jtoggle_editor" title="<?php echo _TOGGLE_WYSIWYG_EDITOR?>" onclick="jtoggle_editor();" src="templates/joostfree/images/toolbar_ico/<?php echo (intval(mosGetParam($_SESSION,'user_editor_off',''))) ? 'editor_off.png':'editor_on.png'?>" alt="<?php echo _DISABLE_WYSIWYG_EDITOR?>" />
 					</td>
 					<td align="right">
 						<a href="<?php echo $mosConfig_live_site; ?>/" target="_blank" title="<?php echo _PREVIEW_SITE?>">

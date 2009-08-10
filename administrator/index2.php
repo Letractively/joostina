@@ -106,12 +106,7 @@ if($no_html == 0) {
 
 // информация отладки, число запросов в БД
 if($mosConfig_debug) {
-	echo _SQL_QUERIES_COUNT.': '. $database->_ticker;
-	echo '<pre>';
-	foreach($database->_log as $k => $sql) {
-		echo $k + 1 . ":&nbsp;" . $sql . '<br /><br />';
-	}
-	echo '</pre>';
+	jd_get();
 }
 
 // восстановление сессий
@@ -120,5 +115,3 @@ if($task == 'save' || $task == 'apply' || $task == 'save_and_new' ) {
 }
 
 doGzip();
-
-?>

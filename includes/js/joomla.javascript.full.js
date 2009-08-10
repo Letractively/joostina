@@ -91,7 +91,7 @@ id:'jte',
 cb:
 function(resp, idTread, status, ops){
 SRAX.debug('Получен ответ: ' + resp.responseText);
-jeimage.src = 'images/'+resp.responseText;
+jeimage.src = resp.responseText;
 }
 });
 return false;
