@@ -211,4 +211,3 @@ if($no_html == 0) {
 	mosMainBody();
 }
 doGzip();
-?>

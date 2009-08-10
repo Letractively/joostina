@@ -14,13 +14,6 @@ $mosConfig_absolute_path = dirname( __FILE__ );
 require ($mosConfig_absolute_path.'/includes/globals.php');
 require_once ('./configuration.php');
 
-
-// обработка безопасного режима
-$http_host = explode(':',$_SERVER['HTTP_HOST']);
-if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset($http_host[1]) && $http_host[1] == 443) && substr($mosConfig_live_site,0,8) !='https://') {
-	$mosConfig_live_site = 'https://' . substr($mosConfig_live_site,7);
-}
-
 require_once ('includes/joomla.php');
 
 // отображение состояния выключенного сайта
@@ -43,11 +36,12 @@ $task		= strval(mosGetParam($_REQUEST,'task',''));
 $commponent = str_replace('com_','',$option);
 
 // mainframe - основная рабочая среда API, осуществляет взаимодействие с 'ядром'
-$mainframe = mosMainFrame::getInstance();
+$mainframe = &mosMainFrame::getInstance();
 //Межсайтовая интеграция
 if(is_file($mosConfig_absolute_path.DS.'multisite.config.php')){
-	include_once($mosConfig_absolute_path.DS.'multisite.config.php');	
+	include_once($mosConfig_absolute_path.DS.'multisite.config.php');
 }
+
 $mainframe->initSession();
 
 
@@ -57,27 +51,19 @@ if($mosConfig_lang == '') {
 }
 $mainframe->set('lang', $mosConfig_lang);
 include_once($mainframe->getLangFile());
-//include_once ($mosConfig_absolute_path.'/language/'.$mosConfig_lang.'.php');
 
 // get the information about the current user from the sessions table
 if($mainframe->get('_multisite')=='2' && $cookie_exist ){
-	$mainframe->set('_multisite_params', $m_s);	
+	$mainframe->set('_multisite_params', $m_s);
 	$my = $mainframe->getUser_from_sess($_COOKIE[mosMainFrame::sessionCookieName($m_s->main_site)]);
 }
 else{
-	$my = $mainframe->getUser();	
+	$my = $mainframe->getUser();
 }
 $gid = intval($my->gid);
 
-// в зависимости от использования автоперекодировки в UTF-8
-if($utf_conv){
-	header("Content-type: text/html; charset=utf-8");
-	header ("Cache-Control: no-cache, must-revalidate ");
-	ob_start();
-}else{
-	header("Content-type: text/html; "._ISO);
-	header ("Cache-Control: no-cache, must-revalidate ");
-}
+header("Content-type: text/html; charset=utf-8");
+header ("Cache-Control: no-cache, must-revalidate ");
 
 // проверяем, какой файл необходимо подключить, данные берутся из пришедшего GET запроса
 if(file_exists($mosConfig_absolute_path . "/components/$option/$commponent.ajax.php")) {
@@ -85,11 +71,3 @@ if(file_exists($mosConfig_absolute_path . "/components/$option/$commponent.ajax.
 } else {
 	die('error-1');
 }
-
-if($utf_conv){
-	$_ajax_body = ob_get_contents();
-	ob_end_clean();
-	// если активированна автоматическая перекодировка в юникод
-	echo joostina_api::convert($_ajax_body,1); // выводим перекодированный текст
-}
-?>

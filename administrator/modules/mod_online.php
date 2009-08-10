@@ -18,4 +18,3 @@ $database->setQuery($query);
 $online_num = intval($database->loadResult());
 
 echo $online_num." <img src=\"images/users.png\" align=\"middle\" alt=\""._ONLINE_USERS."\" />";
-?>

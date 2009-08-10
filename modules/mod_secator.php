@@ -104,5 +104,3 @@ if($use_to==1){
 }else{
 	mod_secator::use_sections($params); // используем разделы
 }
-
-?>

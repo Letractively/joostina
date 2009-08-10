@@ -283,16 +283,13 @@ class mosUser extends mosDBTable {
 	*/
 	function get_user_status($uid){
 
-		$qq = "SELECT * FROM #__session WHERE userid=$uid AND guest=0";
+		$qq = "SELECT userid FROM #__session WHERE userid=$uid AND guest=0";
 		$this->_db->setQuery( $qq,0,1 );
-		$sess = $this->_db->loadResult();
-
-		$status = 0;
-		if(isset($sess->userid)){
-			$status = 1;
+		if($this->_db->loadResult()){
+			return 1;
+		}else{
+			return 0;
 		}
-		unset($sessions,$sess);
-		return $status;
 	}
 
 	/**

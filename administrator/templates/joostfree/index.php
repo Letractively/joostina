@@ -107,7 +107,7 @@ flush();
 		</div>
 		<div id="top-toolbar"><?php mosLoadAdminModule('toolbar'); ?></div>
 		<?php mosLoadAdminModule('mosmsg'); ?>
-		<?php mosLoadAdminModule('component_menu'); ?>
+		<?php //mosLoadAdminModule('component_menu'); ?>
 		<div id="status-info" style="display: none;">&nbsp;</div>
 		<table width="100%" class="menubar" cellpadding="0" cellspacing="0" border="0">
 			<tr>

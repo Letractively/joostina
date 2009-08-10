@@ -69,4 +69,3 @@ function botUserInfo(&$user) {
 	</div>
 	<?php
 }
-?>

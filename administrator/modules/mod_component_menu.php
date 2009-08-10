@@ -38,5 +38,3 @@ function get_components_menu(){
 	?></ul><?php
 	}
 }
-
-?>

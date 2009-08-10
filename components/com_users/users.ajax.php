@@ -104,4 +104,3 @@ function  request_from_plugin(){
 		die('error-1');
 	}
 }
-?>

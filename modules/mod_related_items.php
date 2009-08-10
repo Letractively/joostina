@@ -15,7 +15,6 @@ global $mosConfig_offset, $option, $task,$my;
 $id		= intval( mosGetParam( $_REQUEST, 'id', null ) );
 $limit = $params->get( 'limit',5);
 
-
 $now		= _CURRENT_SERVER_TIME;
 $nullDate = $database->getNullDate();
 
@@ -85,4 +84,3 @@ if ($option == 'com_content' && $task == 'view' && $id) {
 	}
 }
 unset($related,$item,$likes);
-?>

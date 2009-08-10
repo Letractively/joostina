@@ -130,14 +130,7 @@ function user_sendmail(){
 
 	if($form_params->send_message()){
 		echo '<div class="info">'.BOT_USER_CONTACTS_MESSAGE_SEND.'</div>';
-	}
-	 else{
+	}else{
 		echo '<div class="error">'.BOT_USER_CONTACTS_MESSAGE_NOT_SEND.' '. $form_params->_error.'</div>';
 	}
-
-
 }
-
-
-
-?>

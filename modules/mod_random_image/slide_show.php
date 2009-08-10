@@ -1,26 +1,24 @@
- <?php
-
- /**
- * jstslideshow.php. Используется для подключения сконфигурированного js-скрипта
- *
- * @package     Joostina
- * @subpackage  modules
- * @copyright   Copyright (c) 2007-2009 Joostina Team. All rights reserved.
- * @license     GNU/GPL, see help/license.php
- * @version     $Id: jstslideshow.php 2009-01-29 11:05 ZaiSL $;
- * @link        http://www.joostina.ru/API/subpackage/modules/mod_random_image
- * @since       File available since Joostina 1.2.0
- *
- * Joostina! - свободное программное обеспечение распространяемое
- * по условиям лицензии GNU/GPL
- * Для получения информации о используемых расширениях и
- * замечаний об авторском праве, смотрите файл help/copyright.php.
- */
- // запрет прямого доступа
- defined('_VALID_MOS') or die();
- global  $mosConfig_live_site;
- ?>
-
+<?php
+/**
+* jstslideshow.php. Используется для подключения сконфигурированного js-скрипта
+*
+* @package     Joostina
+* @subpackage  modules
+* @copyright   Copyright (c) 2007-2009 Joostina Team. All rights reserved.
+* @license     GNU/GPL, see help/license.php
+* @version     $Id: jstslideshow.php 2009-01-29 11:05 ZaiSL $;
+* @link        http://www.joostina.ru/API/subpackage/modules/mod_random_image
+* @since       File available since Joostina 1.2.0
+*
+* Joostina! - свободное программное обеспечение распространяемое
+* по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и
+* замечаний об авторском праве, смотрите файл help/copyright.php.
+*/
+// запрет прямого доступа
+defined('_VALID_MOS') or die();
+global  $mosConfig_live_site;
+?>
 <script type="text/javascript">
     var site_url = "<?php echo $mosConfig_live_site . '/';?>";
 	var simpleGallery_navpanel={

@@ -21,88 +21,59 @@ class JCE_languages {
 		$database->setQuery("SELECT lang FROM #__jce_langs WHERE published= '1'");
 		$lang = $database->loadResult();
 
-		require_once ($mainframe->getCfg('absolute_path').
-			"/".ADMINISTRATOR_DIRECTORY."/components/com_jce/language/".$lang.".php");
+		require_once ($mainframe->getCfg('absolute_path').DS.ADMINISTRATOR_DIRECTORY."/components/com_jce/language/".$lang.".php");
 ?>
 		<form action="index2.php" method="post" name="adminForm">
 		<table class="adminheading">
 		<tr>
 			<th class="langmanager">
-			<?php echo _JCE_LANG_HEADING; ?> <small><small>[ Сайт ]</small></small>
+			<?php echo _JCE_LANG_HEADING; ?> <small></small>
 			</th>
 		</tr>
 		</table>
 
 		<table class="adminlist">
 		<tr>
-			<th width="20">
-			№
-			</th>
-			<th width="30">&nbsp;
-
-			</th>
-			<th width="25%" class="title">
-			<?php echo _JCE_LANG_LANG; ?>
-			</th>
-			<th width="5%">
-            <?php echo _JCE_PUBLISHED; ?>
-			</th>
-			<th width="10%">
-			<?php echo _JCE_VERSION; ?>
-			</th>
-			<th width="10%">
-			<?php echo _JCE_DATE; ?>
-			</th>
-			<th width="20%">
-			<?php echo _JCE_AUTHOR; ?>
-			</th>
-			<th width="25%">
-			<?php echo _JCE_AUTHOR_EMAIL; ?>
-			</th>
+			<th width="20">№</th>
+			<th width="30">&nbsp;</th>
+			<th width="25%" class="title"><?php echo _JCE_LANG_LANG; ?></th>
+			<th width="5%"><?php echo _JCE_PUBLISHED; ?></th>
+			<th width="10%"><?php echo _JCE_VERSION; ?></th>
+			<th width="10%"><?php echo _JCE_DATE; ?></th>
+			<th width="20%"><?php echo _JCE_AUTHOR; ?></th>
+			<th width="25%"><?php echo _JCE_AUTHOR_EMAIL; ?></th>
 		</tr>
-		<?php
+<?php
 		$k = 0;
 		for($i = 0,$n = count($rows); $i < $n; $i++) {
 			$row = &$rows[$i];
 ?>
 			<tr class="<?php echo "row$k"; ?>">
 				<td width="20"><?php echo $pageNav->rowNumber($i); ?></td>
-				<td width="20">
-				<input type="radio" id="cb<?php echo $i; ?>" name="cid[]" value="<?php echo $row->language; ?>" onClick="isChecked(this.checked);" />
-				</td>
-				<td width="25%">
-				<?php echo $row->name; ?></td>
+				<td width="20"><input type="radio" id="cb<?php echo $i; ?>" name="cid[]" value="<?php echo $row->language; ?>" onClick="isChecked(this.checked);" /></td>
+				<td width="25%"><?php echo $row->name; ?></td>
 				<td width="5%" align="center">
-				<?php
+<?php
 			if($row->published == 1) { ?>
 					<img src="images/tick.png" alt="<?php echo _PUBLISHED?>"/>
-					<?php
+<?php
 			} else {
 ?>
 					&nbsp;
-				<?php
+<?php
 			}
 ?>
 				</td>
-				<td align=center>
-				<?php echo $row->version; ?>
-				</td>
-				<td align=center>
-				<?php echo $row->creationdate; ?>
-				</td>
-				<td align=center>
-				<?php echo $row->author; ?>
-				</td>
-				<td align=center>
-				<?php echo $row->authorEmail; ?>
-				</td>
+				<td align=center><?php echo $row->version; ?></td>
+				<td align=center><?php echo $row->creationdate; ?></td>
+				<td align=center><?php echo $row->author; ?></td>
+				<td align=center><?php echo $row->authorEmail; ?></td>
 			</tr>
 		<?php
 		}
 ?>
 		</table>
 		<?php echo $pageNav->getListFooter(); ?>
-
 		<input type="hidden" name="option" value="<?php echo $option; ?>" />
 		<input type="hidden" name="task" value="" />
 		<input type="hidden" name="hidemainmenu" value="0" />
@@ -111,4 +82,3 @@ class JCE_languages {
 		<?php
 	}
 }
-?>

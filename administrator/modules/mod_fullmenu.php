@@ -400,4 +400,3 @@ if($hide) {
 } else {
 	mosFullAdminMenu::show($my->usertype);
 }
-?>
