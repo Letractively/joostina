@@ -117,7 +117,7 @@ class HTML_installer {
 		?>
 		<span><a href="<?php echo $link; ?>" title="<?php echo $text; ?>">
 <?php
-		echo mosAdminMenus::imageCheckAdmin($image,'/'.ADMINISTRATOR_DIRECTORY.'/images/',null,null,$text);
+		echo mosAdminMenus::imageCheckAdmin($image,'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.mosMainFrame::getInstance(true)->getTemplate().'/images/system_ico/',null,null,$text);
 		echo $text;
 ?>
 		</a></span>
@@ -153,9 +153,6 @@ class HTML_installer {
 ?>
 		</div>
 		</td>
-
 		<?php
 	}
-
 }
-?>

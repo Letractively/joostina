@@ -52,9 +52,9 @@ echo colorizeAppStatus($appStatusGood);
 			<div style="clear:both;">&nbsp;</div>
 		</td>
 		<td valign="top">
-		<?php
-		require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_joomlapack/includes/html.files.php');
-		?>
+<?php
+	require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_joomlapack/includes/html.files.php');
+?>
 		</td>
 	</tr>
 </table>
@@ -77,7 +77,7 @@ function quickiconButton($link,$image,$text) {
 	<span>
 		<a href="<?php echo $link; ?>" title="<?php echo $text; ?>">
 <?php
-			echo mosAdminMenus::imageCheckAdmin($image,'/'.ADMINISTRATOR_DIRECTORY.'/images/',null,null,$text);
+			echo mosAdminMenus::imageCheckAdmin($image,'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.mosMainFrame::getInstance(true)->getTemplate().'/images/system_ico/',null,null,$text);
 			echo $text;
 ?>
 		</a>

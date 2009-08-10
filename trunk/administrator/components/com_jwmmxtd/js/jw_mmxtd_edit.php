@@ -18,4 +18,3 @@ include("color_functions.js");
 echo "\n\n";
 include("js_color_picker_v2.js");
 ob_flush();
-?>

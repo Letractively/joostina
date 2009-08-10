@@ -57,44 +57,48 @@ if(!defined('_JOS_FULLMENU_MODULE')) {
 			$query = "SELECT a.id, a.title, a.name FROM #__sections AS a WHERE a.scope = 'content' ORDER BY a.ordering";
 			$database->setQuery($query);
 			$sections = $database->loadObjectList();
-			ob_start(); // складываем всё выдаваемое меню в буфер
 
+			// получеполучаем каталог с графикой верхнего меню
+			$mainframe = mosMainFrame::getInstance(true);
+			$cur_file_icons_patch = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/menu_ico/';
+
+			ob_start(); // складываем всё выдаваемое меню в буфер
 ?>
 var myMenu =[
 [null,'<?php echo _SITE?>',null,null,'<?php echo _MOD_FULLMENU_CMS_FEATURES?>',
 <?php
 	if($canConfig) {
-?>['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo _MOD_FULLMENU_GLOBAL_CONFIG?>','index2.php?option=com_config&hidemainmenu=1',null,'<?php echo _MOD_FULLMENU_GLOBAL_CONFIG_TIP?>'],
+?>['<img src="<?php echo $cur_file_icons_patch ?>config.png" />','<?php echo _MOD_FULLMENU_GLOBAL_CONFIG?>','index2.php?option=com_config&hidemainmenu=1',null,'<?php echo _MOD_FULLMENU_GLOBAL_CONFIG_TIP?>'],
 <?php
 	}
 	if($manageLanguages) {
-?>['<img src="../includes/js/ThemeOffice/language.png" />','<?php echo _MOD_FULLMENU_LANGUAGES?>','index2.php?option=com_languages',null,'<?php echo _MOD_FULLMENU_LANGUAGES_TIP?>',
+?>['<img src="<?php echo $cur_file_icons_patch ?>language.png" />','<?php echo _MOD_FULLMENU_LANGUAGES?>','index2.php?option=com_languages',null,'<?php echo _MOD_FULLMENU_LANGUAGES_TIP?>',
 
 ],
 <?php
 	}
-?>['<img src="../includes/js/ThemeOffice/preview.png" />', '<?php echo _MOD_FULLMENU_SITE_PREVIEW?>', null, null, '<?php echo _MOD_FULLMENU_SITE_PREVIEW?>',
-['<img src="../includes/js/ThemeOffice/preview.png" />','<?php echo _MOD_FULLMENU_SITE_PREVIEW_IN_NEW_WINDOW?>','<?php echo $config->config_live_site; ?>/index.php','_blank','<?php echo $config->config_live_site; ?>'],
-['<img src="../includes/js/ThemeOffice/preview.png" />','<?php echo _MOD_FULLMENU_SITE_PREVIEW_IN_THIS_WINDOW?>','index2.php?option=com_admin&task=preview',null,'<?php echo $config->config_live_site; ?>'],
-['<img src="../includes/js/ThemeOffice/preview.png" />','<?php echo _MOD_FULLMENU_SITE_PREVIEW_WITH_MODULE_POSITIONS?>','index2.php?option=com_admin&task=preview2',null,'<?php echo $config->config_live_site; ?>'],
+?>['<img src="<?php echo $cur_file_icons_patch ?>preview.png" />', '<?php echo _MOD_FULLMENU_SITE_PREVIEW?>', null, null, '<?php echo _MOD_FULLMENU_SITE_PREVIEW?>',
+['<img src="<?php echo $cur_file_icons_patch ?>preview.png" />','<?php echo _MOD_FULLMENU_SITE_PREVIEW_IN_NEW_WINDOW?>','<?php echo $config->config_live_site; ?>/index.php','_blank','<?php echo $config->config_live_site; ?>'],
+['<img src="<?php echo $cur_file_icons_patch ?>preview.png" />','<?php echo _MOD_FULLMENU_SITE_PREVIEW_IN_THIS_WINDOW?>','index2.php?option=com_admin&task=preview',null,'<?php echo $config->config_live_site; ?>'],
+['<img src="<?php echo $cur_file_icons_patch ?>preview.png" />','<?php echo _MOD_FULLMENU_SITE_PREVIEW_WITH_MODULE_POSITIONS?>','index2.php?option=com_admin&task=preview2',null,'<?php echo $config->config_live_site; ?>'],
 ],
- ['<img src="../includes/js/ThemeOffice/globe1.png" />', '<?php echo _MOD_FULLMENU_SITE_STATS?>', null, null, '<?php echo _MOD_FULLMENU_SITE_STATS_TIP?>',
+ ['<img src="<?php echo $cur_file_icons_patch ?>globe1.png" />', '<?php echo _MOD_FULLMENU_SITE_STATS?>', null, null, '<?php echo _MOD_FULLMENU_SITE_STATS_TIP?>',
 <?php
 	if($config->config_enable_stats == 1) {
-?> ['<img src="../includes/js/ThemeOffice/globe4.png" />', '<?php echo _MOD_FULLMENU_STATS_BROWSERS?>', 'index2.php?option=com_statistics', null, '<?php echo _MOD_FULLMENU_STATS_BROWSERS_TIP?>'],
+?> ['<img src="<?php echo $cur_file_icons_patch ?>globe4.png" />', '<?php echo _MOD_FULLMENU_STATS_BROWSERS?>', 'index2.php?option=com_statistics', null, '<?php echo _MOD_FULLMENU_STATS_BROWSERS_TIP?>'],
 <?php
 	}
-?>['<img src="../includes/js/ThemeOffice/search_text.png" />', '<?php echo _MOD_FULLMENU_SEARCHES?>', 'index2.php?option=com_statistics&task=searches', null, '<?php echo _MOD_FULLMENU_SEARCHES_TIP?>'],
-['<img src="../includes/js/ThemeOffice/globe3.png" />', '<?php echo _MOD_FULLMENU_PAGE_STATS?>', 'index2.php?option=com_statistics&task=pageimp', null, '<?php echo _MOD_FULLMENU_PAGE_STATS?>']
+?>['<img src="<?php echo $cur_file_icons_patch ?>search_text.png" />', '<?php echo _MOD_FULLMENU_SEARCHES?>', 'index2.php?option=com_statistics&task=searches', null, '<?php echo _MOD_FULLMENU_SEARCHES_TIP?>'],
+['<img src="<?php echo $cur_file_icons_patch ?>globe3.png" />', '<?php echo _MOD_FULLMENU_PAGE_STATS?>', 'index2.php?option=com_statistics&task=pageimp', null, '<?php echo _MOD_FULLMENU_PAGE_STATS?>']
 ],
 <?php
 	if($manageTemplates) {
-?>['<img src="../includes/js/ThemeOffice/template.png" />','<?php echo _TEMPLATES?>',null,null,'<?php echo _MOD_FULLMENU_TEMPLATES_TIP?>',
-	['<img src="../includes/js/ThemeOffice/template.png" />','<?php echo _MOD_FULLMENU_SITE_TEMPLATES?>','index2.php?option=com_templates',null,'<?php echo _MOD_FULLMENU_SITE_TEMPLATES?>'],
-	['<img src="../includes/js/ThemeOffice/template.png" />','<?php echo _MOD_FULLMENU_ADMIN_TEMPLATES?>','index2.php?option=com_templates&client=admin',null,'<?php echo _MOD_FULLMENU_ADMIN_TEMPLATES?>'],
+?>['<img src="<?php echo $cur_file_icons_patch ?>template.png" />','<?php echo _TEMPLATES?>',null,null,'<?php echo _MOD_FULLMENU_TEMPLATES_TIP?>',
+	['<img src="<?php echo $cur_file_icons_patch ?>template.png" />','<?php echo _MOD_FULLMENU_SITE_TEMPLATES?>','index2.php?option=com_templates',null,'<?php echo _MOD_FULLMENU_SITE_TEMPLATES?>'],
+	['<img src="<?php echo $cur_file_icons_patch ?>template.png" />','<?php echo _MOD_FULLMENU_ADMIN_TEMPLATES?>','index2.php?option=com_templates&client=admin',null,'<?php echo _MOD_FULLMENU_ADMIN_TEMPLATES?>'],
 	_cmSplit,
-	['<img src="../includes/js/ThemeOffice/template.png" />','<?php echo _MOD_FULLMENU_MODULES_POSITION?>','index2.php?option=com_templates&task=positions',null,'<?php echo _MOD_FULLMENU_MODULES_POSITION?>'],
-	['<img src="../includes/js/ThemeOffice/install.png" />','<?php echo _MOD_FULLMENU_NEW_SITE_TEMPLATE?>','index2.php?option=com_installer&element=template&client=admin',null,'<?php echo _MOD_FULLMENU_NEW_SITE_TEMPLATE?>']
+	['<img src="<?php echo $cur_file_icons_patch ?>template.png" />','<?php echo _MOD_FULLMENU_MODULES_POSITION?>','index2.php?option=com_templates&task=positions',null,'<?php echo _MOD_FULLMENU_MODULES_POSITION?>'],
+	['<img src="<?php echo $cur_file_icons_patch ?>install.png" />','<?php echo _MOD_FULLMENU_NEW_SITE_TEMPLATE?>','index2.php?option=com_installer&element=template&client=admin',null,'<?php echo _MOD_FULLMENU_NEW_SITE_TEMPLATE?>']
 	],
 <?php }
 
@@ -102,42 +106,42 @@ var myMenu =[
 ?>],
 <?php	if($canManageUsers || $canMassMail) {
 ?>[null,'<?php echo _USERS?>',null,null,'<?php echo _USERS?>',
-	['<img src="../includes/js/ThemeOffice/user.png" />','<?php echo _MOD_FULLMENU_ALL_USERS?>','index2.php?option=com_users&task=view',null,'<?php echo _MOD_FULLMENU_ALL_USERS?>'],
-	['<img src="../includes/js/ThemeOffice/template.png" />','<?php echo _MOD_FULLMENU_ADD_USER?>','index2.php?option=com_users&task=edit',null,'<?php echo _MOD_FULLMENU_ADD_USER?>'],
+	['<img src="<?php echo $cur_file_icons_patch ?>user.png" />','<?php echo _MOD_FULLMENU_ALL_USERS?>','index2.php?option=com_users&task=view',null,'<?php echo _MOD_FULLMENU_ALL_USERS?>'],
+	['<img src="<?php echo $cur_file_icons_patch ?>template.png" />','<?php echo _MOD_FULLMENU_ADD_USER?>','index2.php?option=com_users&task=edit',null,'<?php echo _MOD_FULLMENU_ADD_USER?>'],
 	_cmSplit,
-	['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo _MOD_FULLMENU_REGISTER_SETUP?>','index2.php?option=com_users&task=config&act=registration',null,'<?php echo _MOD_FULLMENU_REGISTER_SETUP?>'],
-	['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo _MOD_FULLMENU_PROFILE_SETUP?>','index2.php?option=com_users&task=config&act=profile',null,'<?php echo _MOD_FULLMENU_PROFILE_SETUP?>']
+	['<img src="<?php echo $cur_file_icons_patch ?>config.png" />','<?php echo _MOD_FULLMENU_REGISTER_SETUP?>','index2.php?option=com_users&task=config&act=registration',null,'<?php echo _MOD_FULLMENU_REGISTER_SETUP?>'],
+	['<img src="<?php echo $cur_file_icons_patch ?>config.png" />','<?php echo _MOD_FULLMENU_PROFILE_SETUP?>','index2.php?option=com_users&task=config&act=profile',null,'<?php echo _MOD_FULLMENU_PROFILE_SETUP?>']
 ],
 <?php } ?>
 
 [null,'<?php echo _MOD_FULLMENU_MENU?>',null,null,'<?php echo _MOD_FULLMENU_MENU?>',
 <?php
 	if($manageMenuMan) {
-?>['<img src="../includes/js/ThemeOffice/menus.png" />','<?php echo _MOD_FULLMENU_MENU?>','index2.php?option=com_menumanager',null,'<?php echo _MOD_FULLMENU_MENU?>'],
+?>['<img src="<?php echo $cur_file_icons_patch ?>menus.png" />','<?php echo _MOD_FULLMENU_MENU?>','index2.php?option=com_menumanager',null,'<?php echo _MOD_FULLMENU_MENU?>'],
 _cmSplit,
 <?php
 	}
 	foreach($menuTypes as $menuType) {
-?>['<img src="../includes/js/ThemeOffice/menus.png" />','<?php echo $menuType; ?>','index2.php?option=com_menus&menutype=<?php echo $menuType; ?>',null,''],
+?>['<img src="<?php echo $cur_file_icons_patch ?>menus.png" />','<?php echo $menuType; ?>','index2.php?option=com_menus&menutype=<?php echo $menuType; ?>',null,''],
 <?php
 	}
 	if($manageTrash) {
 ?>
-_cmSplit,['<img src="../includes/js/ThemeOffice/trash.png" />','<?php echo _TRASH?>','index2.php?option=com_trash&catid=menu',null,'<?php echo _TRASH?>'],
+_cmSplit,['<img src="<?php echo $cur_file_icons_patch ?>trash.png" />','<?php echo _TRASH?>','index2.php?option=com_trash&catid=menu',null,'<?php echo _TRASH?>'],
 <?php
 	}
 ?>
 ],[null,'<?php echo _CONTENT?>',null,null,'<?php echo _CONTENT?>',
 <?php
 		if(count($sections) > 0) {
-?>  ['<img src="../includes/js/ThemeOffice/edit.png" />','<?php echo _MOD_FULLMENU_CONTENT_IN_SECTIONS?>',null,null,'<?php echo _MOD_FULLMENU_CONTENT_IN_SECTIONS?>',
+?>  ['<img src="<?php echo $cur_file_icons_patch ?>edit.png" />','<?php echo _MOD_FULLMENU_CONTENT_IN_SECTIONS?>',null,null,'<?php echo _MOD_FULLMENU_CONTENT_IN_SECTIONS?>',
 <?php
 	foreach($sections as $section) {
 		$txt = addslashes($section->title?$section->title:$section->name);
-?>['<img src="../includes/js/ThemeOffice/document.png" />','<?php echo $txt; ?>', null, null,'<?php echo _SECTION?>: <?php echo $txt; ?>',
-	['<img src="../includes/js/ThemeOffice/edit.png" />', '<?php echo _MOD_FULLMENU_CONTENT_IN_SECTION?>: <?php echo $txt; ?>', 'index2.php?option=com_content&sectionid=<?php echo $section->id; ?>',null,null],
-	['<img src="../includes/js/ThemeOffice/backup.png" />', '<?php echo _MOD_FULLMENU_SECTION_ARCHIVE?>: <?php echo $txt; ?>', 'index2.php?option=com_content&task=showarchive&sectionid=<?php echo $section->id; ?>',null,null],
-	['<img src="../includes/js/ThemeOffice/sections.png" />', '<?php echo _MOD_FULLMENU_SECTION_CATEGORIES2?>: <?php echo $txt; ?>', 'index2.php?option=com_categories&section=<?php echo $section->id; ?>',null, null],
+?>['<img src="<?php echo $cur_file_icons_patch ?>document.png" />','<?php echo $txt; ?>', null, null,'<?php echo _SECTION?>: <?php echo $txt; ?>',
+	['<img src="<?php echo $cur_file_icons_patch ?>edit.png" />', '<?php echo _MOD_FULLMENU_CONTENT_IN_SECTION?>: <?php echo $txt; ?>', 'index2.php?option=com_content&sectionid=<?php echo $section->id; ?>',null,null],
+	['<img src="<?php echo $cur_file_icons_patch ?>backup.png" />', '<?php echo _MOD_FULLMENU_SECTION_ARCHIVE?>: <?php echo $txt; ?>', 'index2.php?option=com_content&task=showarchive&sectionid=<?php echo $section->id; ?>',null,null],
+	['<img src="<?php echo $cur_file_icons_patch ?>sections.png" />', '<?php echo _MOD_FULLMENU_SECTION_CATEGORIES2?>: <?php echo $txt; ?>', 'index2.php?option=com_categories&section=<?php echo $section->id; ?>',null, null],
 ],
 <?php
 	} // foreach
@@ -146,30 +150,30 @@ _cmSplit,['<img src="../includes/js/ThemeOffice/trash.png" />','<?php echo _TRAS
 <?php
 	}
 ?>
-['<img src="../includes/js/ThemeOffice/edit.png" />','<?php echo _ALL_CONTENT?>','index2.php?option=com_content&sectionid=0',null,'<?php echo _ALL_CONTENT?>'],
-['<img src="../includes/js/ThemeOffice/edit.png" />','<?php echo _MOD_FULLMENU_ADD_CONTENT_ITEM?>','index2.php?option=com_content&sectionid=0&task=new',null,'<?php echo _MOD_FULLMENU_ADD_CONTENT_ITEM?>'],
+['<img src="<?php echo $cur_file_icons_patch ?>edit.png" />','<?php echo _ALL_CONTENT?>','index2.php?option=com_content&sectionid=0',null,'<?php echo _ALL_CONTENT?>'],
+['<img src="<?php echo $cur_file_icons_patch ?>edit.png" />','<?php echo _MOD_FULLMENU_ADD_CONTENT_ITEM?>','index2.php?option=com_content&sectionid=0&task=new',null,'<?php echo _MOD_FULLMENU_ADD_CONTENT_ITEM?>'],
 _cmSplit,
-['<img src="../includes/js/ThemeOffice/edit.png" />','<?php echo _STATIC_CONTENT?>','index2.php?option=com_typedcontent',null,'<?php echo _STATIC_CONTENT?>'],
-['<img src="../includes/js/ThemeOffice/edit.png" />','<?php echo _MOD_FULLMENU_ADD_STATIC_CONTENT?>','index2.php?option=com_typedcontent&task=new',null,'<?php echo _MOD_FULLMENU_ADD_STATIC_CONTENT?>'],
+['<img src="<?php echo $cur_file_icons_patch ?>edit.png" />','<?php echo _STATIC_CONTENT?>','index2.php?option=com_typedcontent',null,'<?php echo _STATIC_CONTENT?>'],
+['<img src="<?php echo $cur_file_icons_patch ?>edit.png" />','<?php echo _MOD_FULLMENU_ADD_STATIC_CONTENT?>','index2.php?option=com_typedcontent&task=new',null,'<?php echo _MOD_FULLMENU_ADD_STATIC_CONTENT?>'],
 _cmSplit,
-['<img src="../includes/js/ThemeOffice/add_section.png" />','<?php echo _SECTIONS?>','index2.php?option=com_sections&scope=content',null,'<?php echo _SECTIONS?>'],
-['<img src="../includes/js/ThemeOffice/sections.png" />','<?php echo _CATEGORIES?>','index2.php?option=com_categories&section=content',null,'<?php echo _CATEGORIES?>'],
-['<img src="../includes/js/ThemeOffice/masadd.png" />','<?php echo _MOD_FULLMENU_MASS_CONTENT_ADD?>','index2.php?option=com_sections&task=masadd',null,'<?php echo _MOD_FULLMENU_MASS_CONTENT_ADD?>'],
+['<img src="<?php echo $cur_file_icons_patch ?>add_section.png" />','<?php echo _SECTIONS?>','index2.php?option=com_sections&scope=content',null,'<?php echo _SECTIONS?>'],
+['<img src="<?php echo $cur_file_icons_patch ?>sections.png" />','<?php echo _CATEGORIES?>','index2.php?option=com_categories&section=content',null,'<?php echo _CATEGORIES?>'],
+['<img src="<?php echo $cur_file_icons_patch ?>masadd.png" />','<?php echo _MOD_FULLMENU_MASS_CONTENT_ADD?>','index2.php?option=com_sections&task=masadd',null,'<?php echo _MOD_FULLMENU_MASS_CONTENT_ADD?>'],
 _cmSplit,
-['<img src="../includes/js/ThemeOffice/home.png" />','<?php echo _MOD_FULLMENU_CONTENT_ON_FRONTPAGE?>','index2.php?option=com_frontpage',null,'<?php echo _MOD_FULLMENU_CONTENT_ON_FRONTPAGE?>'],
-['<img src="../includes/js/ThemeOffice/edit.png" />','<?php echo _ARCHIVE?>','index2.php?option=com_content&task=showarchive&sectionid=0',null,'<?php echo _ARCHIVE?>'],
+['<img src="<?php echo $cur_file_icons_patch ?>home.png" />','<?php echo _MOD_FULLMENU_CONTENT_ON_FRONTPAGE?>','index2.php?option=com_frontpage',null,'<?php echo _MOD_FULLMENU_CONTENT_ON_FRONTPAGE?>'],
+['<img src="<?php echo $cur_file_icons_patch ?>edit.png" />','<?php echo _ARCHIVE?>','index2.php?option=com_content&task=showarchive&sectionid=0',null,'<?php echo _ARCHIVE?>'],
 _cmSplit,
-['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo _MOD_FULLMENU_C_DEF_SETUP?>',null,null,'<?php echo _MOD_FULLMENU_C_DEF_SETUP?>',
-	['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo _MOD_FULLMENU_C_SECTION_BLOG?>','index2.php?option=com_content&task=config&act=sectionblog',null,'<?php echo _MOD_FULLMENU_C_SECTION_BLOG?>'],
-	['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo _MOD_FULLMENU_C_CAT_BLOG?>','index2.php?option=com_content&task=config&act=categoryblog',null,'<?php echo _MOD_FULLMENU_C_CAT_BLOG?>'],
-	['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo _MOD_FULLMENU_C_LIST_BLOG?>','index2.php?option=com_content&task=config&act=sectionlist',null,'<?php echo _MOD_FULLMENU_C_LIST_BLOG?>'],
-	['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo _MOD_FULLMENU_C_TABLE_BLOG?>','index2.php?option=com_content&task=config&act=categorytable',null,'<?php echo _MOD_FULLMENU_C_TABLE_BLOG?>'],
-	['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo _MOD_FULLMENU_C_ARH_SECTION?>','index2.php?option=com_content&task=config&act=sectionarchive',null,'<?php echo _MOD_FULLMENU_C_ARH_SECTION?>'],
-	['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo _MOD_FULLMENU_C_ARH_CAT?>','index2.php?option=com_content&task=config&act=categoryarchive',null,'<?php echo _MOD_FULLMENU_C_ARH_CAT?>'],
-	['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo _MOD_FULLMENU_USER_CONTENT?>','index2.php?option=com_content&task=config&act=ucontent',null,'<?php echo _MOD_FULLMENU_USER_CONTENT?>']
+['<img src="<?php echo $cur_file_icons_patch ?>config.png" />','<?php echo _MOD_FULLMENU_C_DEF_SETUP?>',null,null,'<?php echo _MOD_FULLMENU_C_DEF_SETUP?>',
+	['<img src="<?php echo $cur_file_icons_patch ?>config.png" />','<?php echo _MOD_FULLMENU_C_SECTION_BLOG?>','index2.php?option=com_content&task=config&act=sectionblog',null,'<?php echo _MOD_FULLMENU_C_SECTION_BLOG?>'],
+	['<img src="<?php echo $cur_file_icons_patch ?>config.png" />','<?php echo _MOD_FULLMENU_C_CAT_BLOG?>','index2.php?option=com_content&task=config&act=categoryblog',null,'<?php echo _MOD_FULLMENU_C_CAT_BLOG?>'],
+	['<img src="<?php echo $cur_file_icons_patch ?>config.png" />','<?php echo _MOD_FULLMENU_C_LIST_BLOG?>','index2.php?option=com_content&task=config&act=sectionlist',null,'<?php echo _MOD_FULLMENU_C_LIST_BLOG?>'],
+	['<img src="<?php echo $cur_file_icons_patch ?>config.png" />','<?php echo _MOD_FULLMENU_C_TABLE_BLOG?>','index2.php?option=com_content&task=config&act=categorytable',null,'<?php echo _MOD_FULLMENU_C_TABLE_BLOG?>'],
+	['<img src="<?php echo $cur_file_icons_patch ?>config.png" />','<?php echo _MOD_FULLMENU_C_ARH_SECTION?>','index2.php?option=com_content&task=config&act=sectionarchive',null,'<?php echo _MOD_FULLMENU_C_ARH_SECTION?>'],
+	['<img src="<?php echo $cur_file_icons_patch ?>config.png" />','<?php echo _MOD_FULLMENU_C_ARH_CAT?>','index2.php?option=com_content&task=config&act=categoryarchive',null,'<?php echo _MOD_FULLMENU_C_ARH_CAT?>'],
+	['<img src="<?php echo $cur_file_icons_patch ?>config.png" />','<?php echo _MOD_FULLMENU_USER_CONTENT?>','index2.php?option=com_content&task=config&act=ucontent',null,'<?php echo _MOD_FULLMENU_USER_CONTENT?>']
 ],
-['<img src="../includes/js/ThemeOffice/globe3.png" />', '<?php echo _MOD_FULLMENU_PAGES_HITS?>', 'index2.php?option=com_statistics&task=pageimp', null, '<?php echo _MOD_FULLMENU_PAGES_HITS?>'],
-['<img src="../includes/js/ThemeOffice/trash.png" />','<?php echo _MOD_FULLMENU_CONTENT_TRASH?>','index2.php?option=com_trash&catid=content',null,'<?php echo _MOD_FULLMENU_CONTENT_TRASH?>'],
+['<img src="<?php echo $cur_file_icons_patch ?>globe3.png" />', '<?php echo _MOD_FULLMENU_PAGES_HITS?>', 'index2.php?option=com_statistics&task=pageimp', null, '<?php echo _MOD_FULLMENU_PAGES_HITS?>'],
+['<img src="<?php echo $cur_file_icons_patch ?>trash.png" />','<?php echo _MOD_FULLMENU_CONTENT_TRASH?>','index2.php?option=com_trash&catid=content',null,'<?php echo _MOD_FULLMENU_CONTENT_TRASH?>'],
 ],
 <?php
 	// Components Sub-Menu
@@ -218,12 +222,12 @@ _cmSplit,
 					}
 				}
 				if($topLevelLimit < $topLevelCount) {
-					echo "['<img src=\"../includes/js/ThemeOffice/sections.png\" />','"._MOD_FULLMENU_ALL_COMPONENTS."','index2.php?option=com_admin&task=listcomponents',null,'"._MOD_FULLMENU_ALL_COMPONENTS."'],\n";
+					echo "['<img src=\"<?php echo $cur_file_icons_patch ?>sections.png\" />','"._MOD_FULLMENU_ALL_COMPONENTS."','index2.php?option=com_admin&task=listcomponents',null,'"._MOD_FULLMENU_ALL_COMPONENTS."'],\n";
 				}
 				if($installModules){
 					?> _cmSplit,
-					['<img src="../includes/js/ThemeOffice/install.png" />', '<?php echo _MOD_FULLMENU_EDIT_COMPONENTS_MENU?>','index2.php?option=com_linkeditor ',null,'<?php echo _MOD_FULLMENU_EDIT_COMPONENTS_MENU?>'],
-					['<img src="../includes/js/ThemeOffice/install.png" />', '<?php echo _MOD_FULLMENU_COMPONENTS_INSTALL_UNINSTALL?>','index2.php?option=com_installer&element=component',null,'<?php echo _MOD_FULLMENU_COMPONENTS_INSTALL_UNINSTALL?>'],
+					['<img src="<?php echo $cur_file_icons_patch ?>install.png" />', '<?php echo _MOD_FULLMENU_EDIT_COMPONENTS_MENU?>','index2.php?option=com_linkeditor ',null,'<?php echo _MOD_FULLMENU_EDIT_COMPONENTS_MENU?>'],
+					['<img src="<?php echo $cur_file_icons_patch ?>install.png" />', '<?php echo _MOD_FULLMENU_COMPONENTS_INSTALL_UNINSTALL?>','index2.php?option=com_installer&element=component',null,'<?php echo _MOD_FULLMENU_COMPONENTS_INSTALL_UNINSTALL?>'],
 					],
 <?php
 	}
@@ -234,10 +238,10 @@ _cmSplit,
 <?php
 	if($editAllModules) {
 ?>
-	['<img src="../includes/js/ThemeOffice/module.png" />', '<?php echo _MOD_FULLMENU_SITE_MODULES?>', "index2.php?option=com_modules", null, '<?php echo _MOD_FULLMENU_SITE_MODULES?>'],
-	['<img src="../includes/js/ThemeOffice/module.png" />', '<?php echo _MOD_FULLMENU_ADMIN_MODULES?>', "index2.php?option=com_modules&client=admin", null, '<?php echo _MOD_FULLMENU_ADMIN_MODULES?>'],
+	['<img src="<?php echo $cur_file_icons_patch ?>module.png" />', '<?php echo _MOD_FULLMENU_SITE_MODULES?>', "index2.php?option=com_modules", null, '<?php echo _MOD_FULLMENU_SITE_MODULES?>'],
+	['<img src="<?php echo $cur_file_icons_patch ?>module.png" />', '<?php echo _MOD_FULLMENU_ADMIN_MODULES?>', "index2.php?option=com_modules&client=admin", null, '<?php echo _MOD_FULLMENU_ADMIN_MODULES?>'],
 	_cmSplit,
-	['<img src="../includes/js/ThemeOffice/install.png" />', '<?php echo _MOD_FULLMENU_MODULES_INSTALL_DEINSTALL?>', 'index2.php?option=com_installer&element=module', null, '<?php echo _MOD_FULLMENU_MODULES_INSTALL_DEINSTALL?>'],
+	['<img src="<?php echo $cur_file_icons_patch ?>install.png" />', '<?php echo _MOD_FULLMENU_MODULES_INSTALL_DEINSTALL?>', 'index2.php?option=com_installer&element=module', null, '<?php echo _MOD_FULLMENU_MODULES_INSTALL_DEINSTALL?>'],
 	<?php
 	}
 ?>],
@@ -246,48 +250,48 @@ _cmSplit,
 } if($installMambots | $editAllMambots) { ?>
 [null,'<?php echo _MAMBOTS?>',null,null,'<?php echo _MAMBOTS?>',
 <?php if($editAllMambots) { ?>
-['<img src="../includes/js/ThemeOffice/module.png" />', '<?php echo _MOD_FULLMENU_SITE_MAMBOTS?>', "index2.php?option=com_mambots", null, '<?php echo _MOD_FULLMENU_SITE_MAMBOTS?>'],
+['<img src="<?php echo $cur_file_icons_patch ?>module.png" />', '<?php echo _MOD_FULLMENU_SITE_MAMBOTS?>', "index2.php?option=com_mambots", null, '<?php echo _MOD_FULLMENU_SITE_MAMBOTS?>'],
 _cmSplit,
-['<img src="../includes/js/ThemeOffice/install.png" />', '<?php echo _MOD_FULLMENU_MAMBOTS_INSTALL_UNINSTALL?>', 'index2.php?option=com_installer&element=mambot', null, '<?php echo _MOD_FULLMENU_MAMBOTS_INSTALL_UNINSTALL?>'],
+['<img src="<?php echo $cur_file_icons_patch ?>install.png" />', '<?php echo _MOD_FULLMENU_MAMBOTS_INSTALL_UNINSTALL?>', 'index2.php?option=com_installer&element=mambot', null, '<?php echo _MOD_FULLMENU_MAMBOTS_INSTALL_UNINSTALL?>'],
 <?php } ?>
 ],
 <?php } if($installModules) { ?>
 [null,'<?php echo _EXTENSIONS?>',null,null,'<?php echo _MOD_FULLMENU_EXTENSION_MANAGEMENT?>',
-['<img src="../includes/js/ThemeOffice/install.png" />', '<?php echo _INSTALLATION . " / " . _DELETING?>','index2.php?option=com_installer&element=installer',null,'<?php echo _INSTALLATION . " / " . _DELETING?>'],
+['<img src="<?php echo $cur_file_icons_patch ?>install.png" />', '<?php echo _INSTALLATION . " / " . _DELETING?>','index2.php?option=com_installer&element=installer',null,'<?php echo _INSTALLATION . " / " . _DELETING?>'],
 <?php if($manageLanguages) { ?>
-_cmSplit,['<img src="../includes/js/ThemeOffice/install.png" />','<?php echo _MOD_FULLMENU_SITE_LANGUAGES?>','index2.php?option=com_installer&element=language',null,'<?php echo _MOD_FULLMENU_SITE_LANGUAGES?>'],
+_cmSplit,['<img src="<?php echo $cur_file_icons_patch ?>install.png" />','<?php echo _MOD_FULLMENU_SITE_LANGUAGES?>','index2.php?option=com_installer&element=language',null,'<?php echo _MOD_FULLMENU_SITE_LANGUAGES?>'],
 <?php } if($manageTemplates) {?>
 _cmSplit,
-['<img src="../includes/js/ThemeOffice/install.png" />','<?php echo _MOD_FULLMENU_SITE_TEMPLATES?>','index2.php?option=com_installer&element=template&client=',null,'<?php echo _MOD_FULLMENU_SITE_TEMPLATES?>'],
-['<img src="../includes/js/ThemeOffice/install.png" />','<?php echo _MOD_FULLMENU_ADMIN_TEMPLATES?>','index2.php?option=com_installer&element=template&client=admin',null,'<?php echo _MOD_FULLMENU_ADMIN_TEMPLATES?>'],
+['<img src="<?php echo $cur_file_icons_patch ?>install.png" />','<?php echo _MOD_FULLMENU_SITE_TEMPLATES?>','index2.php?option=com_installer&element=template&client=',null,'<?php echo _MOD_FULLMENU_SITE_TEMPLATES?>'],
+['<img src="<?php echo $cur_file_icons_patch ?>install.png" />','<?php echo _MOD_FULLMENU_ADMIN_TEMPLATES?>','index2.php?option=com_installer&element=template&client=admin',null,'<?php echo _MOD_FULLMENU_ADMIN_TEMPLATES?>'],
 <?php } ?>
 ],
 <?php }?>
 [null,'<?php echo _MOD_FULLMENU_JOOMLA_TOOLS?>',null,null,'<?php echo _MOD_FULLMENU_JOOMLA_TOOLS?>',
-['<img src="../includes/js/ThemeOffice/messaging_inbox.png" />','<?php echo _MOD_FULLMENU_PRIVATE_MESSAGES?>','index2.php?option=com_messages',null,'<?php echo _MOD_FULLMENU_PRIVATE_MESSAGES?>'],
-['<img src="../includes/js/ThemeOffice/messaging_config.png" />','<?php echo _MOD_FULLMENU_PRIVATE_MESSAGES_CONFIG?>','index2.php?option=com_messages&task=config&hidemainmenu=1',null,'<?php echo _MOD_FULLMENU_PRIVATE_MESSAGES_CONFIG?>'],
+['<img src="<?php echo $cur_file_icons_patch ?>messaging_inbox.png" />','<?php echo _MOD_FULLMENU_PRIVATE_MESSAGES?>','index2.php?option=com_messages',null,'<?php echo _MOD_FULLMENU_PRIVATE_MESSAGES?>'],
+['<img src="<?php echo $cur_file_icons_patch ?>messaging_config.png" />','<?php echo _MOD_FULLMENU_PRIVATE_MESSAGES_CONFIG?>','index2.php?option=com_messages&task=config&hidemainmenu=1',null,'<?php echo _MOD_FULLMENU_PRIVATE_MESSAGES_CONFIG?>'],
 _cmSplit,
-['<img src="../includes/js/ThemeOffice/media.png" />','<?php echo _MOD_FULLMENU_JWMM_MEDIA_MANAGER?>','index2.php?option=com_jwmmxtd',null,'<?php echo _MOD_FULLMENU_JWMM_MEDIA_MANAGER?>'],
+['<img src="<?php echo $cur_file_icons_patch ?>media.png" />','<?php echo _MOD_FULLMENU_JWMM_MEDIA_MANAGER?>','index2.php?option=com_jwmmxtd',null,'<?php echo _MOD_FULLMENU_JWMM_MEDIA_MANAGER?>'],
 <?php if($canConfig) { ?>
-['<img src="../includes/js/ThemeOffice/jfmanager.png" />','<?php echo _MOD_FULLMENU_FILE_MANAGER?>','index2.php?option=com_joomlaxplorer',null,'<?php echo _MOD_FULLMENU_FILE_MANAGER?>'],
-['<img src="../includes/js/ThemeOffice/license.png" />','<?php echo _MOD_FULLMENU_SQL_CONSOLE?>','index2.php?option=com_easysql',null,'<?php echo _MOD_FULLMENU_SQL_CONSOLE?>'],
+['<img src="<?php echo $cur_file_icons_patch ?>jfmanager.png" />','<?php echo _MOD_FULLMENU_FILE_MANAGER?>','index2.php?option=com_joomlaxplorer',null,'<?php echo _MOD_FULLMENU_FILE_MANAGER?>'],
+['<img src="<?php echo $cur_file_icons_patch ?>license.png" />','<?php echo _MOD_FULLMENU_SQL_CONSOLE?>','index2.php?option=com_easysql',null,'<?php echo _MOD_FULLMENU_SQL_CONSOLE?>'],
 _cmSplit,
-['<img src="../includes/js/ThemeOffice/checkin.png" />', '<?php echo _MOD_FULLMENU_GLOBAL_CHECKIN?>', 'index2.php?option=com_checkin', null,'<?php echo _MOD_FULLMENU_GLOBAL_CHECKIN?>'],
-['<img src="../includes/js/ThemeOffice/checkin.png" />', '<?php echo _MOD_FULLMENU_BLOCKED_OBJECTS?>', 'index2.php?option=com_checkin&task=mycheckin', null,'<?php echo _MOD_FULLMENU_BLOCKED_OBJECTS?>'],
+['<img src="<?php echo $cur_file_icons_patch ?>checkin.png" />', '<?php echo _MOD_FULLMENU_GLOBAL_CHECKIN?>', 'index2.php?option=com_checkin', null,'<?php echo _MOD_FULLMENU_GLOBAL_CHECKIN?>'],
+['<img src="<?php echo $cur_file_icons_patch ?>checkin.png" />', '<?php echo _MOD_FULLMENU_BLOCKED_OBJECTS?>', 'index2.php?option=com_checkin&task=mycheckin', null,'<?php echo _MOD_FULLMENU_BLOCKED_OBJECTS?>'],
  _cmSplit,
-['<img src="../includes/js/ThemeOffice/jbackup.png" />','<?php echo _MOD_FULLMENU_JP_BACKUP_MANAGEMENT?>','index2.php?option=com_joomlapack',null,'<?php echo _MOD_FULLMENU_JP_BACKUP_MANAGEMENT?>',
-['<img src="../includes/js/ThemeOffice/jbackup.png" />','<?php echo _MOD_FULLMENU_JP_CREATE_BACKUP?>','index2.php?option=com_joomlapack&act=pack&hidemainmenu=1',null,'<?php echo _MOD_FULLMENU_JP_CREATE_BACKUP?>'],
-['<img src="../includes/js/ThemeOffice/db.png" />','<?php echo _MOD_FULLMENU_JP_DB_MANAGEMENT?>','index2.php?option=com_joomlapack&act=db',null,'<?php echo _MOD_FULLMENU_JP_DB_MANAGEMENT?>'],
-['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo _MOD_FULLMENU_BACKUP_CONFIG?>','index2.php?option=com_joomlapack&act=config',null,'<?php echo _MOD_FULLMENU_BACKUP_CONFIG?>']],
+['<img src="<?php echo $cur_file_icons_patch ?>jbackup.png" />','<?php echo _MOD_FULLMENU_JP_BACKUP_MANAGEMENT?>','index2.php?option=com_joomlapack',null,'<?php echo _MOD_FULLMENU_JP_BACKUP_MANAGEMENT?>',
+['<img src="<?php echo $cur_file_icons_patch ?>jbackup.png" />','<?php echo _MOD_FULLMENU_JP_CREATE_BACKUP?>','index2.php?option=com_joomlapack&act=pack&hidemainmenu=1',null,'<?php echo _MOD_FULLMENU_JP_CREATE_BACKUP?>'],
+['<img src="<?php echo $cur_file_icons_patch ?>db.png" />','<?php echo _MOD_FULLMENU_JP_DB_MANAGEMENT?>','index2.php?option=com_joomlapack&act=db',null,'<?php echo _MOD_FULLMENU_JP_DB_MANAGEMENT?>'],
+['<img src="<?php echo $cur_file_icons_patch ?>config.png" />','<?php echo _MOD_FULLMENU_BACKUP_CONFIG?>','index2.php?option=com_joomlapack&act=config',null,'<?php echo _MOD_FULLMENU_BACKUP_CONFIG?>']],
 <?php } ?>
 <?php if($config->config_caching && $config->config_cache_handler == 'file') { ?>
-	['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo _MOD_FULLMENU_CACHE_MANAGEMENT?>','index2.php?option=com_cache',null,'<?php echo _MOD_FULLMENU_CACHE_MANAGEMENT?>'],
-	['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo _MOD_FULLMENU_CLEAR_CONTENT_CACHE?>','index2.php?option=com_admin&task=clean_cache',null,'<?php echo _MOD_FULLMENU_CLEAR_CONTENT_CACHE?>'],
-	['<img src="../includes/js/ThemeOffice/config.png" />','<?php echo _MOD_FULLMENU_CLEAR_ALL_CACHE?>','index2.php?option=com_admin&task=clean_all_cache',null,'<?php echo _MOD_FULLMENU_CLEAR_ALL_CACHE?>'],
+	['<img src="<?php echo $cur_file_icons_patch ?>config.png" />','<?php echo _MOD_FULLMENU_CACHE_MANAGEMENT?>','index2.php?option=com_cache',null,'<?php echo _MOD_FULLMENU_CACHE_MANAGEMENT?>'],
+	['<img src="<?php echo $cur_file_icons_patch ?>config.png" />','<?php echo _MOD_FULLMENU_CLEAR_CONTENT_CACHE?>','index2.php?option=com_admin&task=clean_cache',null,'<?php echo _MOD_FULLMENU_CLEAR_CONTENT_CACHE?>'],
+	['<img src="<?php echo $cur_file_icons_patch ?>config.png" />','<?php echo _MOD_FULLMENU_CLEAR_ALL_CACHE?>','index2.php?option=com_admin&task=clean_all_cache',null,'<?php echo _MOD_FULLMENU_CLEAR_ALL_CACHE?>'],
 <?php }?>
 <?php
 if($canConfig) {?>
-['<img src="../includes/js/ThemeOffice/sysinfo.png" />', '<?php echo _MOD_FULLMENU_SYSTEM_INFO?>', 'index2.php?option=com_admin&task=sysinfo', null,'<?php echo _MOD_FULLMENU_SYSTEM_INFO?>'],
+['<img src="<?php echo $cur_file_icons_patch ?>sysinfo.png" />', '<?php echo _MOD_FULLMENU_SYSTEM_INFO?>', 'index2.php?option=com_admin&task=sysinfo', null,'<?php echo _MOD_FULLMENU_SYSTEM_INFO?>'],
 <?php
 }
 ?>

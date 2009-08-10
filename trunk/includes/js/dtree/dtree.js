@@ -53,7 +53,7 @@ function dTree(objName,basePath) {
 		root		: basePath+'empty.gif',
 		folder		: basePath+'folder.gif',
 		folderOpen	: basePath+'folderopen.gif',
-		node		: basePath+'empty.gif',
+		//node		: basePath+'empty.gif',
 		empty		: basePath+'empty.gif',
 		line		: basePath+'line.gif',
 		join		: basePath+'join.gif',

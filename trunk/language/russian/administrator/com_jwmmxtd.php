@@ -114,3 +114,4 @@ DEFINE('_JWMM_IMAGE_LINK','Путь к файлу:');
 DEFINE('_JWMM_IMAGE_HREF','Тэг-ссылка на файл:');
 DEFINE('_JWMM_IMAGE_TAG','Тэг вставки изображения:');
 DEFINE('_JWMM_CLICK_TO_URL','Нажмите для получения ссылок');
+DEFINE('_JWMM_FILE','Файлы');

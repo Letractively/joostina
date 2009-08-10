@@ -1522,8 +1522,12 @@ function seccatli($act = 0,$filter_authorid=0){
 
 	$showarchive = intval( mosGetParam($_REQUEST,'showarchive',0));
 
+	$mainframe = mosMainFrame::getInstance(true);
+	$cur_file_icons_patch = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/dtree_ico/';
+
+
 	$sectli = '<div id="ntree" class="dtree"><script type="text/javascript"><!--';
-	$sectli .= "\n c = new dTree('c','{$mainframe->getCfg('live_site')}/".ADMINISTRATOR_DIRECTORY."/images/dtree/');";
+	$sectli .= "\n c = new dTree('c','{$cur_file_icons_patch}');";
 	$sectli .= "\n c.add(0,-1,'"._CONTENT." (<a href=\"index2.php?option=com_content&sectionid=0&catid=0\">"._ALL."<\/a>)');";
 
 	$query = "SELECT s.id, s.title, c.section"
@@ -1539,7 +1543,7 @@ function seccatli($act = 0,$filter_authorid=0){
 	}
 	$sectli .= _cat_d($act);
 
-	$sectli .= "\n u = new dTree('u','{$mainframe->getCfg('live_site')}/".ADMINISTRATOR_DIRECTORY."/images/dtree/');";
+	$sectli .= "\n u = new dTree('u','{$cur_file_icons_patch}');";
 	$sectli .= "\n u.add(0,-1,'"._AUTHORS."');";
 	$sectli .=_user_d($act);
 	$query = "SELECT u.id,u.gid,u.name,COUNT(c.id) AS num FROM #__users AS u INNER JOIN #__content AS c ON c.created_by = u.id WHERE c.sectionid>0 AND c.state!='-2' GROUP BY c.created_by";
@@ -1550,7 +1554,7 @@ function seccatli($act = 0,$filter_authorid=0){
 		$sectli .= "\n u.add($row->id,$row->gid,'$row->name ($row->num)');";
 	}
 
-	$sectli .= "\n t = new dTree('t','{$mainframe->getCfg('live_site')}/".ADMINISTRATOR_DIRECTORY."/images/dtree/');";
+	$sectli .= "\n t = new dTree('t','{$cur_file_icons_patch}');";
 	$sectli .= "\n t.add(0,-1,'"._COM_CONTENT_TYPES."');";
 	$sectli .= $showarchive ? "\n t.add(1,0,'"._COM_CONTENT_ARCHIVE_CONTENT."');" : "\n t.add(1,0,'<a href=\"index2.php?option=com_content&showarchive=1\">"._COM_CONTENT_ARCHIVE_CONTENT."</a>');";
 

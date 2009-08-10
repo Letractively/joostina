@@ -228,7 +228,7 @@ class HTML_trash {
 			<br /><br /><br />
 			<div style="border: 1px dotted gray; width: 120px; height:25px; padding: 10px; margin-left: 50px;">
 			<a class="toolbar" href="javascript:if (confirm('<?php echo _REALLY_RESTORE_OBJECTS?>')){ submitbutton('restore');}">
-			<img name="restore" src="images/restore.png" alt="<?php echo _RESTORE?>" border="0" align="left" />
+			<img name="restore" src="<?php echo mosMainFrame::getInstance(true)->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.mosMainFrame::getInstance(true)->getTemplate().'/images/system_ico/'; ?>restore.png" alt="<?php echo _RESTORE?>" border="0" align="left" />
 			&nbsp;<?php echo _RESTORE?>
 			</a>
 			</div>
@@ -248,6 +248,4 @@ class HTML_trash {
 		</form>
 <?php
 	}
-
 }
-?>
