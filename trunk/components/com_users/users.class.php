@@ -284,9 +284,8 @@ class mosUser extends mosDBTable {
 	function get_user_status($uid){
 
 		$qq = "SELECT * FROM #__session WHERE userid=$uid AND guest=0";
-		$this->_db->setQuery( $qq );
-		$sessions = $this->_db->loadObjectList();
-		$sess=& $sessions[0];
+		$this->_db->setQuery( $qq,0,1 );
+		$sess = $this->_db->loadResult();
 
 		$status = 0;
 		if(isset($sess->userid)){
@@ -836,5 +835,3 @@ class userPlugins{
 		return false;
 	}
 }
-
-?>

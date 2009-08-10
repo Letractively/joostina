@@ -1082,12 +1082,14 @@ class mosMainFrame {
 		$database = &database::getInstance();
 
 		$user = new mosUser($database);
+
 		if(Jconfig::getInstance()->config_session_front == 1) {
 			// параметры id и gid при инициализации объ€вл€ютс€ как null - это вредит некоторым компонентам, проинициализируем их в нули
 			$user->id = 0;
 			$user->gid = 0;
 			return $user; // если сессии (авторизаци€) на фронте отключены - возвращаем пустой объект
 		}
+
 		$user->id = intval($this->_session->userid);
 		$user->username = $this->_session->username;
 		$user->usertype = $this->_session->usertype;
@@ -1125,8 +1127,7 @@ class mosMainFrame {
 		$user->id = 0; $user->gid = 0;
 		
 		// и кто это у нас тут такой, залогиненныыый
-		$sql = "SELECT * FROM #__session 
-		WHERE session_id = '".$sess_id."' AND guest = 0";
+		$sql = "SELECT * FROM #__session WHERE session_id = '".$sess_id."' AND guest = 0";
 		
 		$row = null;
 		$database->setQuery($sql);
@@ -1135,11 +1136,9 @@ class mosMainFrame {
 		if($row){
 			$user->id = $row->userid;
 			
-			$query = "SELECT id, name, username, usertype, email, avatar, block, sendEmail, registerDate, 
-			lastvisitDate, activation, params 
-			FROM #__users 
-			WHERE id = ".(int)$user->id;
-			
+			$query = "SELECT id, name, username, usertype, email, avatar, block, sendEmail, registerDate, lastvisitDate, activation, params
+			FROM #__users WHERE id = ".(int)$user->id;
+
 			$database->setQuery($query);
 			$database->loadObject($my);
 			$user->params = $my->params;
@@ -1852,10 +1851,14 @@ class mosMainFrame {
 	// указание системного сообщени€
 	function set_mosmsg($msg=''){
 		$msg = Jstring::trim($msg);
-		// провер€ем, стартовала ли сесси€
-		$_s = session_id();
-		if(!isset($_s)) {
-			session_name(md5($this->getCfg('live_site')));
+
+		if($this->_isAdmin){
+			if(session_name()!=md5($this->getCfg('live_site'))) {
+				session_name(md5($this->getCfg('live_site')));
+				session_start();
+			}
+		}else{
+			session_name($this->_session->session_id);
 			session_start();
 		}
 
@@ -1866,14 +1869,25 @@ class mosMainFrame {
 	}
 	// получение системного сообщени€
 	function get_mosmsg(){
+
+		if(!$this->_isAdmin){
+			session_name($this->_session->session_id);
+			session_start();
+		}
+
 		$mosmsg_ss = trim(stripslashes(strval(mosGetParam($_SESSION,'joostina.mosmsg',''))));
 		$mosmsg_rq = stripslashes(strval(mosGetParam($_REQUEST,'mosmsg','')));
+
+		if(!$this->_isAdmin){
+			session_destroy();
+		}
 
 		$mosmsg = ($mosmsg_ss!='') ? $mosmsg_ss : $mosmsg_rq;
 
 		if(Jstring::strlen($mosmsg) > 300) { // выводим сообщени€ не длинее 300 символов
 			$mosmsg = Jstring::substr($mosmsg,0,300);
 		}
+
 		unset($_SESSION['joostina.mosmsg']);
 		return $mosmsg;
 	}
@@ -3451,8 +3465,6 @@ function mosReadDirectory($path,$filter = '.',$recurse = false,$fullpath = false
 * @param string A filter for the names
 */
 function mosRedirect($url,$msg = '') {
-
-
 	// specific filters
 	$iFilter = new InputFilter();
 	$url = $iFilter->process($url);
@@ -3468,7 +3480,6 @@ function mosRedirect($url,$msg = '') {
 	if($iFilter->badAttributeValue(array('href',$url))) {
 		$url = $GLOBALS['mosConfig_live_site'];
 	}
-
 
 	if(headers_sent()) {
 		echo "<script>document.location.href='$url';</script>\n";
@@ -5729,7 +5740,7 @@ function SortArrayObjects(&$a,$k,$sort_direction = 1) {
 /**
 * Sends mail to admin
 */
-function mosSendAdminMail($adminName,$adminEmail,$email,$type) {
+function mosSendAdminMail($adminName,$adminEmail,$email,$type,$title='',$author='' ) {
 	$subject = _MAIL_SUB." '$type'";
 	$message = _MAIL_MSG;
 	eval("\$message = \"$message\";");

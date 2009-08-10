@@ -1,19 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright ��������� ����� (C) 2008-2009 Joostina team. ��� ����� ��������.
-* @license �������� http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, ��� help/license.php
-* Joostina! - ��������� ����������� ����������� ���������������� �� �������� �������� GNU/GPL
-* ��� ��������� ���������� � ������������ ����������� � ��������� �� ��������� �����, �������� ���� help/copyright.php.
+* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
 */
 
-// ������ ������� �������
+// запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 /** load the html drawing class*/
 require_once ($mainframe->getPath('front_html'));
 require_once ($mainframe->getPath('class'));
-//$mainframe->setPageTitle(_WEBLINKS);
 
 $id = intval(mosGetParam($_REQUEST,'id',0));
 $catid = intval(mosGetParam($_REQUEST,'catid',0));
@@ -147,11 +146,12 @@ function listWeblinks($catid) {
 	// used to show table rows in alternating colours
 	$tabclass = array('sectiontableentry1','sectiontableentry2');
 
-	if($params->get('header') == "") {
+	if($params->get('header') == '') {
 		$mainframe->SetPageTitle($menu->name);
 	} else {
 		$mainframe->SetPageTitle($params->get('header'));
 	}
+
 	set_robot_metatag($params->get('robots'));
 	if($params->get('meta_description') != "") {
 		$mainframe->addMetaTag('description',$params->get('meta_description'));
@@ -308,6 +308,9 @@ function cancelWebLink() {
 function saveWeblink() {
 	global $my;
 
+	// simple spoof check security
+	josSpoofCheck();
+
 	$database = &database::getInstance();
 
 	if($my->gid < 1) {
@@ -324,9 +327,6 @@ function saveWeblink() {
 		mosNotAuth();
 		return;
 	}
-
-	// simple spoof check security
-	josSpoofCheck();
 
 	$row = new mosWeblink($database);
 	if(!$row->bind($_POST,'published')) {
@@ -354,7 +354,7 @@ function saveWeblink() {
 	$gid = 25;
 
 	// list of admins
-	$query = "SELECT email, name FROM #__users WHERE gid = ".(int)$gid." AND sendEmail = 1";
+	$query = "SELECT email, name FROM #__users WHERE gid = ".$gid." AND sendEmail = 1";
 	$database->setQuery($query);
 	if(!$database->query()) {
 		echo $database->stderr(true);
@@ -367,7 +367,6 @@ function saveWeblink() {
 		mosSendAdminMail($adminRow->name,$adminRow->email,'','Weblink',$row->title,$my->username);
 	}
 
-	$msg = $isNew?_THANK_SUB:'';
+	$msg = $isNew ? _THANK_SUB:'';
 	mosRedirect('index.php',$msg);
 }
-?>

@@ -8,7 +8,7 @@
 */
 
 // запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+defined( '_VALID_MOS' ) or die();
 /**
 * PHPMailer language file.
 * Russian Version
@@ -28,4 +28,4 @@ $PHPMAILER_LANG["connect_host"] = 'SMTP Error: Could not connect to SMTP host.';
 $PHPMAILER_LANG["file_access"] = 'Нет доступа к файлу: ';
 $PHPMAILER_LANG["file_open"] = 'Ошибка работы с файлом: Невозможно открыть файл: ';
 $PHPMAILER_LANG["encoding"] = 'Неизвестная кодировка: ';
-$PHPMAILER_LANG["signing"] ='PHPMAILER_SIGNING'
+$PHPMAILER_LANG["signing"] ='PHPMAILER_SIGNING';

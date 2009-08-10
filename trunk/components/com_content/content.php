@@ -1870,7 +1870,7 @@ function cancelContent() {
 
 	$referer = strval(mosGetParam($_POST, 'referer', ''));
 	$parts = parse_url($referer);
-	parse_str($parts['query'], $query);
+	@parse_str($parts['query'], $query);
 
 	if($task == 'edit' || $task == 'cancel') {
 		$Itemid = mosGetParam($_POST, 'Returnid', '');

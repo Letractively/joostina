@@ -8,9 +8,8 @@
 */
 
 // запрет прямого доступа
-defined('_VALID_MOS') or die('Прямой вызов файла запрещен.');
+defined('_VALID_MOS') or die();
 
-global $Itemid, $mainframe;
 require_once($mainframe->getLangFile('com_poll'));
 
 if(!defined('_JOS_POLL_MODULE')) {
@@ -126,4 +125,3 @@ if(!defined('_JOS_POLL_MODULE')) {
 	}
 }
 show_poll_vote_form($Itemid, $params);
-?>
