@@ -81,5 +81,4 @@ function UserContacts_messengers($user){
 		</span>
 <?php } ?>
 <?php
-	}
-?>
+}

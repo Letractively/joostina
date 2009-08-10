@@ -14,4 +14,3 @@ $mosmsg = mosMainFrame::getInstance()->get_mosmsg();
 if($mosmsg) {
 	echo '<div class="message">'.$mosmsg.'</div>';
 }
-?>

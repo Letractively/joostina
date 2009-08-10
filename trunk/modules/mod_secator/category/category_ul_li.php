@@ -39,4 +39,5 @@ $all_counters = mod_secator::get_count_content();
 	<li><a href="<?php echo mod_secator::get_secator_link($row,$params);?>" <?php echo $target; ?>><?php echo $row->title ?></a> [<?php echo $all_counters[$row->id] ?>]</li>
 <?php } ?>
 </ul>
-<?php unset($rows,$row,$all_counters,$target,$moduleclass_sfx) ?>
+<?php
+unset($rows,$row,$all_counters,$target,$moduleclass_sfx)

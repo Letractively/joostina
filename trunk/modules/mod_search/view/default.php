@@ -10,7 +10,6 @@
 // запрет прямого доступа
 defined( '_VALID_MOS' ) or die();
 ?>
-
 <form action="<?php echo $link; ?>" method="post">
 	<div class="search<?php echo $moduleclass_sfx; ?>"><?php echo $output; ?></div>
 	<input type="hidden" name="option" value="com_search" />

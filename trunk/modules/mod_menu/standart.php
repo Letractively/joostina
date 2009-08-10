@@ -710,4 +710,3 @@ onImgArray["ml_img_11_<?php echo $ml_module_number; ?>"].src = "<?php echo $mosC
 			mosShowVIMenuMLZ ($params);
 		break ;
 	}
-?>

@@ -52,4 +52,3 @@ if(isset($categories_array[$section->id])){
 
 <?php
 unset($database,$rows,$row,$params,$categories,$category);
-?>

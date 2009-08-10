@@ -18,15 +18,9 @@ $rows = $database->loadObjectList();
 
 <table class="adminlist">
 <tr>
-	<th class="title">
-		<?php echo _POPULAR_CONTENT?>
-	</th>
-	<th class="title">
-		<?php echo _CREATED_CONTENT?>
-	</th>
-	<th class="title">
-		<?php echo _CONTENT_HITS?>
-	</th>
+	<th class="title"><?php echo _POPULAR_CONTENT?></th>
+	<th class="title"><?php echo _CREATED_CONTENT?></th>
+	<th class="title"><?php echo _CONTENT_HITS?></th>
 </tr>
 <?php
 foreach($rows as $row) {
@@ -39,22 +33,12 @@ foreach($rows as $row) {
 	}
 ?>
 	<tr>
-		<td>
-			<a href="<?php echo $link; ?>">
-				<?php echo htmlspecialchars($row->title,ENT_QUOTES); ?></a>
-		</td>
-		<td>
-			<?php echo $row->created; ?>
-		</td>
-		<td style="text-align: center">
-			<?php echo $row->hits; ?>
-		</td>
+		<td><a href="<?php echo $link; ?>"><?php echo htmlspecialchars($row->title,ENT_QUOTES); ?></a></td>
+		<td><?php echo $row->created; ?></td>
+		<td style="text-align: center"><?php echo $row->hits; ?></td>
 	</tr>
-	<?php
+<?php
 }
 ?>
-<tr>
-	<th colspan="3">
-	</th>
-</tr>
+<tr><th colspan="3"></th></tr>
 </table>

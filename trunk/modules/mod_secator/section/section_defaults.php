@@ -33,4 +33,3 @@ $rows = $database->loadObjectList();
 
 <?php
 unset($database,$rows,$row,$params);
-?>

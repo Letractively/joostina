@@ -101,6 +101,4 @@ function botUserContent(&$user) {
 <?php }?>
 	</div>
 <?php
-	
 }
-?>

@@ -106,7 +106,7 @@ if($ext){
 		</td>
 		<td align="left" width="20%"><?php echo $author; ?></td>
 	</tr>
-	<?php
+<?php
 	$k = 1 - $k;
 }
 unset($rows,$row);

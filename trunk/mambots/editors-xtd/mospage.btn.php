@@ -31,7 +31,5 @@ function botMosPageButton() {
 			$button = array('mospage.gif','{mospagebreak}');
 			break;
 	}
-
 	return $button;
 }
-?>

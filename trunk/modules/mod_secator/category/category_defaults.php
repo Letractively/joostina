@@ -32,7 +32,5 @@ $rows = $database->loadObjectList();
 	<a href="<?php echo mod_secator::get_secator_link($row,$params);?>"><?php echo $row->title;?></a><br />
 <?php } ?>
 </div>
-
 <?php
 unset($database,$rows,$row,$params);
-?>

@@ -140,4 +140,3 @@ function go_child($rows,$pid,$state,$active_css,$spacer){
 	$return['vis'] = $akt_parent;
 	return $return;
 }
-?>

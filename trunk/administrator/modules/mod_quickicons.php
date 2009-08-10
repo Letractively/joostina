@@ -18,15 +18,14 @@ if(!defined('_QUICKICON_MODULE')) {
 	define('_QUICKICON_MODULE',1);
 	if($use_ext){
 		// использование значков отображения шаблона
-		if(file_exists($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$cur_template.'/html/quickicons.php')) {
-			require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$cur_template.'/html/quickicons.php');
+		if(file_exists($mosConfig_absolute_path.DS.ADMINISTRATOR_DIRECTORY.'/templates/'.$cur_template.'/html/quickicons.php')) {
+			require_once ($mosConfig_absolute_path.DS.ADMINISTRATOR_DIRECTORY.'/templates/'.$cur_template.'/html/quickicons.php');
 		} else {
 			// использование стандартных значков отображения
-			require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_quickicons/quickicons.php');
+			require_once ($mosConfig_absolute_path.DS.ADMINISTRATOR_DIRECTORY.'/components/com_quickicons/quickicons.php');
 		}
 	}else{
 		// использование стандартных значков отображения
-		require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_quickicons/quickicons.php');
+		require_once ($mosConfig_absolute_path.DS.ADMINISTRATOR_DIRECTORY.'/components/com_quickicons/quickicons.php');
 	}
 }
-?>

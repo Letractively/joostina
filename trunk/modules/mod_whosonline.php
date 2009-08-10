@@ -67,7 +67,8 @@ function display_module($params_aray) {
 }
 
 function online_users($params_aray) {
-	global $database;
+	$database = &database::getInstance();
+
 	$output = '';
 	$query = "SELECT guest, usertype FROM #__session";
 	$database->setQuery($query);
@@ -126,9 +127,12 @@ function online_users($params_aray) {
 
 
 function who_online($params_aray) {
-	global $database, $mosConfig_live_site;
+	global $mosConfig_live_site;
+
+	$database = &database::getInstance();
+
 	$output = '';
-	$query = "SELECT  a.username, a.userid, b.name, b.id FROM #__session AS a, #__users AS b WHERE a.guest = 0 AND a.userid=b.id";
+	$query = "SELECT a.username, a.userid, b.name, b.id FROM #__session AS a, #__users AS b WHERE a.guest = 0 AND a.userid=b.id";
 	$database->setQuery($query);
 	$rows = $database->loadObjectList();
 
@@ -173,16 +177,10 @@ function who_online($params_aray) {
 
 
 function all_user() {
-	global $database;
+	$database = &database::getInstance();
 
 	$q = "SELECT COUNT(id) FROM #__users WHERE block = '0' ";
 	$database->setQuery($q);
 	$row = $database->loadResult();
-
 	return $row;
 }
-
-
-
-
-?>

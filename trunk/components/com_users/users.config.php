@@ -251,4 +251,4 @@ class configUser_profile extends dbConfig {
 			exit();
 		}
 	}
-} ?>
+}

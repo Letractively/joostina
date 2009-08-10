@@ -24,5 +24,3 @@ if($unread) {
 } else {
 	echo "<a class=\"adminmail\" href=\"index2.php?option=com_messages\" style=\"color: black; text-decoration: none;\"><img src=\"images/nomail.png\" align=\"top\" border=\"0\" alt=\"Почта\" /> $unread </a>";
 }
-?>
-

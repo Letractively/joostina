@@ -31,7 +31,5 @@ function botMosImageButton() {
 			$button = array('mosimage.gif','{mosimage}');
 			break;
 	}
-
 	return $button;
 }
-?>

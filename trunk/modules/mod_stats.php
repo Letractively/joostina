@@ -60,4 +60,3 @@ if ($mosConfig_enable_stats) {
 		}
 	}
 }
-?>

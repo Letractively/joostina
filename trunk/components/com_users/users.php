@@ -745,4 +745,3 @@ function activate() {
 		echo _REG_ACTIVATE_NOT_FOUND;
 	}
 }
-?>
