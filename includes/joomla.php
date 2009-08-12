@@ -3123,7 +3123,7 @@ class mosHTML {
 				$next_state = 'none';
 			}
 
-		$html = '<a href='.$base_href.'&field='.$field.'&order='.$next_state.'"><img src="'.Jconfig::getInstance()->config_live_site.DS.ADMINISTRATOR_DIRECTORY.'/images/sort_'.$state.'.png" width="12" height="12" border="0" alt="'.$alts[$next_state].'" /></a>';
+		$html = '<a href='.$base_href.'&field='.$field.'&order='.$next_state.'"><img src="'.Jconfig::getInstance()->config_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/images/sort_'.$state.'.png" width="12" height="12" border="0" alt="'.$alts[$next_state].'" /></a>';
 		return $html;
 	}
 
@@ -3611,8 +3611,8 @@ function mosGetBrowser($agent) {
 	$client = new phpSniff($agent);
 
 	$client_long_name = $client->property('long_name');
-	if(array_key_exists($client_long_name,$browsersAlias)) {
-		$name = $browsersAlias[$client_long_name];
+	if(array_key_exists($client_long_name,$client->browsersAlias)) {
+		$name = $client->browsersAlias[$client_long_name];
 	} else {
 		$name = $client_long_name;
 	}
@@ -3625,10 +3625,12 @@ function mosGetBrowser($agent) {
 */
 function mosGetOS($agent) {
 	mosMainFrame::addLib('phpSniff');
+	$client = new phpSniff($agent);
+	$osSearchOrder = $client->osSearchOrder;
 
 	foreach($osSearchOrder as $key) {
 		if(preg_match("/$key/i",$agent)) {
-			return $osAlias[$key];
+			return $client->osAlias[$key];
 			break;
 		}
 	}

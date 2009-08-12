@@ -15,8 +15,7 @@ defined('_VALID_MOS') or die();
 * @subpackage Statistics
 */
 class HTML_statistics {
-	function show(&$browsers,&$platforms,$tldomains,$bstats,$pstats,$dstats,$sorts,
-		$option) {
+	function show(&$browsers,&$platforms,$tldomains,$bstats,$pstats,$dstats,$sorts,$option) {
 		global $mosConfig_live_site;
 
 		$tab = mosGetParam($_REQUEST,'tab','tab1');
@@ -36,7 +35,7 @@ class HTML_statistics {
 		</tr>
 		</table>
 		<form action="index2.php" method="post" name="adminForm">
-		<?php
+<?php
 		$tabs->startPane("statsPane");
 		$tabs->startTab(_BROWSERS,"browsers-page");
 ?>
@@ -47,7 +46,7 @@ class HTML_statistics {
 			<th width="100" align="left">% <?php echo $sorts['b_hits']; ?></th>
 			<th width="100" align="left">#</th>
 		</tr>
-		<?php
+<?php
 		$c = 1;
 		if(is_array($browsers) && count($browsers) > 0) {
 			$k = 0;
@@ -56,20 +55,14 @@ class HTML_statistics {
 				$w = $width* $f;
 ?>
 			<tr class="row<?php echo $k; ?>">
-				<td width="200" align="left">
-					&nbsp;<?php echo $b->agent; ?>&nbsp;
-				</td>
+				<td width="200" align="left">&nbsp;<?php echo $b->agent; ?>&nbsp;</td>
 				<td align="left" width="<?php echo $width + 10; ?>">
 					<div align="left">&nbsp;<img src="<?php echo $mosConfig_live_site; ?>/components/com_poll/images/blank.png" class="bar_<?php echo $c; ?>" height="6" width="<?php echo $w; ?>"></div>
 				</td>
-				<td align="left">
-					<?php printf("%.2f%%",$f* 100); ?>
-				</td>
-				<td align="left">
-					<?php echo $b->hits; ?>
-				</td>
+				<td align="left"><?php printf("%.2f%%",$f* 100); ?></td>
+				<td align="left"><?php echo $b->hits; ?></td>
 			</tr>
-			<?php
+<?php
 				$c = $c % 5 + 1;
 				$k = 1 - $k;
 			}
@@ -81,16 +74,16 @@ class HTML_statistics {
 		</table>
 		<?php
 		$tabs->endTab();
-		$tabs->startTab("ОС","os-page");
+		$tabs->startTab(_OS,"os-page");
 ?>
 		<table class="adminlist">
 		<tr>
-			<th align="left">&nbsp;Операционная система <?php echo $sorts['o_agent']; ?></th>
+			<th align="left"><?php echo _OS?> <?php echo $sorts['o_agent']; ?></th>
 			<th>&nbsp;</th>
 			<th width="100" align="left">% <?php echo $sorts['o_hits']; ?></th>
 			<th width="100" align="left">#</th>
 		</tr>
-		<?php
+<?php
 		$c = 1;
 		if(is_array($platforms) && count($platforms) > 0) {
 			$k = 0;
@@ -99,20 +92,14 @@ class HTML_statistics {
 				$w = $width* $f;
 ?>
 				<tr class="row<?php echo $k; ?>">
-					<td width="200" align="left">
-					&nbsp;<?php echo $p->agent; ?>&nbsp;
-					</td>
+					<td width="200" align="left">&nbsp;<?php echo $p->agent; ?>&nbsp;</td>
 					<td align="left" width="<?php echo $width + 10; ?>">
-					<div align="left">&nbsp;<img src="<?php echo $mosConfig_live_site; ?>/components/com_poll/images/blank.png" class="bar_<?php echo $c; ?>" height="6" width="<?php echo $w; ?>"></div>
+						<div align="left">&nbsp;<img src="<?php echo $mosConfig_live_site; ?>/components/com_poll/images/blank.png" class="bar_<?php echo $c; ?>" height="6" width="<?php echo $w; ?>"></div>
 					</td>
-					<td align="left">
-					<?php printf("%.2f%%",$f* 100); ?>
-					</td>
-					<td align="left">
-					<?php echo $p->hits; ?>
-					</td>
+					<td align="left"><?php printf("%.2f%%",$f* 100); ?></td>
+					<td align="left"><?php echo $p->hits; ?></td>
 				</tr>
-				<?php
+<?php
 				$c = $c % 5 + 1;
 				$k = 1 - $k;
 			}
@@ -122,7 +109,7 @@ class HTML_statistics {
 			<th colspan="4">&nbsp;</th>
 		</tr>
 		</table>
-		<?php
+<?php
 		$tabs->endTab();
 		$tabs->startTab(_DOMAINS,"domain-page");
 ?>
@@ -133,7 +120,7 @@ class HTML_statistics {
 			<th width="100" align="left">% <?php echo $sorts['d_hits']; ?></th>
 			<th width="100" align="left">#</th>
 		</tr>
-		<?php
+<?php
 		$c = 1;
 		if(is_array($tldomains) && count($tldomains) > 0) {
 			$k = 0;
@@ -148,14 +135,10 @@ class HTML_statistics {
 					<td align="left" width="<?php echo $width + 10; ?>">
 						<div align="left">&nbsp;<img src="<?php echo $mosConfig_live_site; ?>/components/com_poll/images/blank.png" class="bar_<?php echo $c; ?>" height="6" width="<?php echo $w; ?>"></div>
 					</td>
-					<td align="left">
-						<?php printf("%.2f%%",$f* 100); ?>
-					</td>
-					<td align="left">
-						<?php echo $b->hits; ?>
-					</td>
+					<td align="left"><?php printf("%.2f%%",$f* 100); ?></td>
+					<td align="left"><?php echo $b->hits; ?></td>
 				</tr>
-				<?php
+<?php
 				$c = $c % 5 + 1;
 				$k = 1 - $k;
 			}
@@ -165,7 +148,7 @@ class HTML_statistics {
 			<th colspan="4">&nbsp;</th>
 		</tr>
 		</table>
-		<?php
+<?php
 		$tabs->endTab();
 		$tabs->endPane();
 ?>
@@ -173,7 +156,7 @@ class HTML_statistics {
 		<input type="hidden" name="tab" value="<?php echo $tab; ?>" />
 		<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
 		</form>
-		<?php
+<?php
 	}
 
 	function pageImpressions(&$rows,$pageNav,$option,$task) {
@@ -191,7 +174,7 @@ class HTML_statistics {
 			<th class="title"><?php echo _CONTENT_TITLE?></th>
 			<th align="center" class="jtd_nowrap"><?php echo _HITS?></th>
 		</tr>
-		<?php
+<?php
 		$i = $pageNav->limitstart;
 		$k = 0;
 		foreach($rows as $row) {
@@ -203,21 +186,19 @@ class HTML_statistics {
 				<td align="left">
 					&nbsp;<?php echo $row->title." (".$row->created.")"; ?>&nbsp;
 				</td>
-				<td align="center">
-					<?php echo $row->hits; ?>
-				</td>
+				<td align="center"><?php echo $row->hits; ?></td>
 			</tr>
-			<?php
+<?php
 			$k = 1 - $k;
 		}
 ?>
 		</table>
-		<?php echo $pageNav->getListFooter(); ?>
+<?php echo $pageNav->getListFooter(); ?>
 		<input type="hidden" name="option" value="<?php echo $option; ?>" />
 		<input type="hidden" name="task" value="<?php echo $task; ?>" />
 		<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
 		</form>
-		<?php
+<?php
 	}
 
 	function showSearches(&$rows,$pageNav,$option,$task,$showResults) {
@@ -230,26 +211,26 @@ class HTML_statistics {
 			<th class="searchtext">
 				<?php echo _SEARCH_QUERIES?>:
 				<span class="componentheading"><?php echo _LOG_SEARCH_QUERIES?>:
-				<?php echo $mainframe->getCfg('enable_log_searches')?'<b><font color="green">'._ALLOWED.'</font></b>':'<b><font color="red">'._DISALLOWED.'</font></b>' ?>
+					<?php echo $mainframe->getCfg('enable_log_searches')?'<b><font color="green">'._ALLOWED.'</font></b>':'<b><font color="red">'._DISALLOWED.'</font></b>' ?>
 				</span>
 				</th>
 			<td align="right">
-				<?php
+<?php
 		if(!$showResults) {
 			echo mosWarning(_LOG_LOW_PERFOMANCE);
 		}
 ?>
 			</td>
 			<td align="right">
-				<?php
+<?php
 		if($showResults) {
 ?>
 					<input name="search_results" type="button" class="button" value="<?php echo _HIDE_SEARCH_RESULTS?>" onclick="submitbutton('searches');">
-					<?php
+<?php
 		} else {
 ?>
 					<input name="search_results" type="button" class="button" value="<?php echo _SHOW_SEARCH_RESULTS?>" onclick="submitbutton('searchesresults');">
-					<?php
+<?php
 		}
 ?>
 			</td>
@@ -258,61 +239,45 @@ class HTML_statistics {
 
 		<table class="adminlist">
 		<tr>
-			<th style="text-align:right" width="10">
-				#
-			</th>
-			<th class="title">
-				<?php echo _SEARCH_QUERY_TEXT?>
-			</th>
-			<th class="jtd_nowrap">
-				<?php echo _SEARCH_QUERY_COUNT?>
-			</th>
-			<?php
+			<th style="text-align:right" width="10">#</th>
+			<th class="title"><?php echo _SEARCH_QUERY_TEXT?></th>
+			<th class="jtd_nowrap"><?php echo _SEARCH_QUERY_COUNT?></th>
+<?php
 		if($showResults) {
 ?>
-			<th class="jtd_nowrap">
-				<?php echo _SHOW_RESULTS?>
-			</th>
-				<?php
+			<th class="jtd_nowrap"><?php echo _SHOW_RESULTS?></th>
+<?php
 		}
 ?>
 		</tr>
-		<?php
+<?php
 		$k = 0;
-		for($i = 0,$n = count($rows); $i < $n; $i++) {
+		$_n = count($rows);
+		for($i = 0,$n = $_n; $i < $n; $i++) {
 			$row = &$rows[$i];
 ?>
 			<tr class="row<?php echo $k; ?>">
-				<td align="right">
-				<?php echo $i + 1 + $pageNav->limitstart; ?>
-				</td>
-				<td align="left">
-					<?php echo $row->search_term; ?>
-				</td>
-				<td align="center">
-					<?php echo $row->hits; ?>
-				</td>
-				<?php
+				<td align="right"><?php echo $i + 1 + $pageNav->limitstart; ?></td>
+				<td align="left"><?php echo $row->search_term; ?></td>
+				<td align="center"><?php echo $row->hits; ?></td>
+<?php
 			if($showResults) {
 ?>
-					<td align="center">
-						<?php echo $row->returns; ?>
-					</td>
-					<?php
+				<td align="center"><?php echo $row->returns; ?></td>
+<?php
 			}
 ?>
 			</tr>
-			<?php
+<?php
 			$k = 1 - $k;
 		}
 ?>
 	</table>
-	<?php echo $pageNav->getListFooter(); ?>
+<?php echo $pageNav->getListFooter(); ?>
 	<input type="hidden" name="option" value="<?php echo $option; ?>" />
 	<input type="hidden" name="task" value="<?php echo $task; ?>" />
 	<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
 	</form>
-	<?php
+<?php
 	}
 }
-?>

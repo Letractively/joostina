@@ -31,7 +31,8 @@ switch($task) {
 }
 
 function showSummary($option,$task) {
-	global $database,$mainframe;
+	$database = &database::getInstance();
+	$mainframe = mosMainFrame::getInstance(true);
 
 	// get sort field and check against allowable field names
 	$field = strtolower(mosGetParam($_REQUEST,'field',''));
@@ -78,34 +79,31 @@ function showSummary($option,$task) {
 			break;
 	}
 
-	$query = "SELECT*"."\n FROM #__stats_agents"."\n WHERE type = 0"."\n ORDER BY $order_by";
+	$query = "SELECT* FROM #__stats_agents WHERE type = 0 ORDER BY $order_by";
 	$database->setQuery($query);
 	$browsers = $database->loadObjectList();
 
-	$query = "SELECT SUM( hits ) AS totalhits, MAX( hits ) AS maxhits"."\n FROM #__stats_agents".
-		"\n WHERE type = 0";
+	$query = "SELECT SUM( hits ) AS totalhits, MAX( hits ) AS maxhits FROM #__stats_agents WHERE type = 0";
 	$database->setQuery($query);
 	$bstats = null;
 	$database->loadObject($bstats);
 
 	// platform statistics
-	$query = "SELECT*"."\n FROM #__stats_agents"."\n WHERE type = 1"."\n ORDER BY hits DESC";
+	$query = "SELECT*"."\n FROM #__stats_agents WHERE type = 1 ORDER BY hits DESC";
 	$database->setQuery($query);
 	$platforms = $database->loadObjectList();
 
-	$query = "SELECT SUM( hits ) AS totalhits, MAX( hits ) AS maxhits"."\n FROM #__stats_agents".
-		"\n WHERE type = 1";
+	$query = "SELECT SUM( hits ) AS totalhits, MAX( hits ) AS maxhits FROM #__stats_agents WHERE type = 1";
 	$database->setQuery($query);
 	$pstats = null;
 	$database->loadObject($pstats);
 
 	// domain statistics
-	$query = "SELECT*"."\n FROM #__stats_agents"."\n WHERE type = 2"."\n ORDER BY hits DESC";
+	$query = "SELECT* FROM #__stats_agents WHERE type = 2 ORDER BY hits DESC";
 	$database->setQuery($query);
 	$tldomains = $database->loadObjectList();
 
-	$query = "SELECT SUM( hits ) AS totalhits, MAX( hits ) AS maxhits"."\n FROM #__stats_agents".
-		"\n WHERE type = 2";
+	$query = "SELECT SUM( hits ) AS totalhits, MAX( hits ) AS maxhits FROM #__stats_agents WHERE type = 2";
 	$database->setQuery($query);
 	$dstats = null;
 	$database->loadObject($dstats);
@@ -115,20 +113,20 @@ function showSummary($option,$task) {
 }
 
 function showPageImpressions($option,$task) {
-	global $database,$mainframe,$mosConfig_list_limit;
+	$database = &database::getInstance();
+	$mainframe = mosMainFrame::getInstance(true);
 
-	$query = "SELECT COUNT( id )"."\n FROM #__content";
+	$query = "SELECT COUNT( id ) FROM #__content";
 	$database->setQuery($query);
 	$total = $database->loadResult();
 
-	$limit = $mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mosConfig_list_limit);
-	$limitstart = $mainframe->getUserStateFromRequest("view{$option}{$task}limitstart",
-		'limitstart',0);
+	$limit = $mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mainframe->getCfg('list_limit'));
+	$limitstart = $mainframe->getUserStateFromRequest("view{$option}{$task}limitstart",'limitstart',0);
 
-	require_once ($GLOBALS['mosConfig_absolute_path'].'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
+	require_once ($mainframe->getCfg('absolute_path').'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
-	$query = "SELECT id, title, created, hits"."\n FROM #__content"."\n ORDER BY hits DESC";
+	$query = "SELECT id, title, created, hits FROM #__content ORDER BY hits DESC";
 	$database->setQuery($query,$pageNav->limitstart,$pageNav->limit);
 
 	$rows = $database->loadObjectList();
@@ -137,22 +135,23 @@ function showPageImpressions($option,$task) {
 }
 
 function showSearches($option,$task,$showResults = null) {
-	global $database,$mainframe,$mosConfig_list_limit;
 	global $_MAMBOTS;
 
-	$limit = $mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mosConfig_list_limit);
-	$limitstart = $mainframe->getUserStateFromRequest("view{$option}{$task}limitstart",
-		'limitstart',0);
+	$database = &database::getInstance();
+	$mainframe = mosMainFrame::getInstance(true);
+
+	$limit = $mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mainframe->getCfg('list_limit'));
+	$limitstart = $mainframe->getUserStateFromRequest("view{$option}{$task}limitstart",'limitstart',0);
 
 	// get the total number of records
-	$query = "SELECT COUNT(*)"."\n FROM #__core_log_searches";
+	$query = "SELECT COUNT(*) FROM #__core_log_searches";
 	$database->setQuery($query);
 	$total = $database->loadResult();
 
-	require_once ($GLOBALS['mosConfig_absolute_path'].'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
+	require_once ($mainframe->getCfg('absolute_path').'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
-	$query = "SELECT*"."\n FROM #__core_log_searches"."\n ORDER BY hits DESC";
+	$query = "SELECT* FROM #__core_log_searches ORDER BY hits DESC";
 	$database->setQuery($query,$pageNav->limitstart,$pageNav->limit);
 
 	$rows = $database->loadObjectList();
@@ -184,4 +183,3 @@ function showSearches($option,$task,$showResults = null) {
 
 	HTML_statistics::showSearches($rows,$pageNav,$option,$task,$showResults);
 }
-?>

@@ -798,10 +798,8 @@ class phpSniff {
 	function _set_quirk($k) {
 		$this->_quirks[strtolower($k)] = true;
 	}
-}
 
-
-$browserSearchOrder = array( // Most frequent standard web browsers are first in this list
+var $browserSearchOrder = array( // Most frequent standard web browsers are first in this list
 	'icab','go!zilla','konqueror','links','lynx','omniweb','opera','msie 6\.0',
 	'apachebench','wget', // Other standard web browsers
 	'22acidownload','aol\\-iweng','amaya','amigavoyager','aweb','bpftp','chimera',
@@ -826,7 +824,7 @@ $browserSearchOrder = array( // Most frequent standard web browsers are first in
 	'mmef','mspie','wapalizer','wapsilon','webcollage','up\.',
 	// Works for UP.Browser and UP.Link
 	// PDA/Phonecell I-Mode browsers
-'docomo','portalmmm', // Others (TV)
+	'docomo','portalmmm', // Others (TV)
 	'webtv', // Other kind of browsers
 	'csscheck','w3m','w3c_css_validator','w3c_validator','wdg_validator','webzip',
 	'staroffice','mozilla',
@@ -834,7 +832,7 @@ $browserSearchOrder = array( // Most frequent standard web browsers are first in
 	'libwww' // Must be at end because some browser have both 'browser id' and 'libwww'
 	);
 // 05.08.07. boston, хак улучшения определения браузеров
-$browsersAlias = array('msie' => 'Microsoft Internet Explorer','netscape' =>
+var $browsersAlias = array('msie' => 'Microsoft Internet Explorer','netscape' =>
 	'netscape', // Common web browsers text (IE and Netscape must not be in this list)
 	'icab' => 'iCab','go!zilla' => 'Go!Zilla','konqueror' => 'Konqueror','links' =>
 	'Links','lynx' => 'Lynx','omniweb' => 'OmniWeb','opera' => 'Opera','msie 6\.0' =>
@@ -880,7 +878,7 @@ $browsersAlias = array('msie' => 'Microsoft Internet Explorer','netscape' =>
 	'webcollage' => 'WebCollage (PDA/Phone browser)','up\.' =>
 	'UP.Browser (PDA/Phone browser)', // Works for UP.Browser and UP.Link
 	// PDA/Phonecell I-Mode browsers
-'docomo' => 'I-Mode phone (PDA/Phone browser)','portalmmm' =>
+	'docomo' => 'I-Mode phone (PDA/Phone browser)','portalmmm' =>
 	'I-Mode phone (PDA/Phone browser)', // Others (TV)
 	'webtv' => 'WebTV browser', // Other kind of browsers
 	'csscheck' => 'WDG CSS Validator','w3m' => 'w3m','w3c_css_validator' =>
@@ -893,15 +891,14 @@ $browsersAlias = array('msie' => 'Microsoft Internet Explorer','netscape' =>
 // Put here an entry for each browser in BrowsersSearchIDOrder that are grabber
 // browsers.
 //---------------------------------------------------------------------------
-$BrowsersHereAreGrabbers = array('teleport' => '1','webcapture' => '1',
-	'webcopier' => '1',);
+var $BrowsersHereAreGrabbers = array('teleport' => '1','webcapture' => '1','webcopier' => '1',);
 
 
 // BrowsersHashIcon
 // Each Browsers Search ID is associated to a string that is the name of icon
 // file for this browser.
 //---------------------------------------------------------------------------
-$BrowsersHashIcon = array( // Standard web browsers
+var $BrowsersHashIcon = array( // Standard web browsers
 	'msie' => 'msie','netscape' => 'netscape','icab' => 'icab','go!zilla' =>
 	'gozilla','konqueror' => 'konqueror','links' => 'notavailable','lynx' => 'lynx',
 	'omniweb' => 'omniweb','opera' => 'opera','wget' => 'notavailable',
@@ -954,12 +951,12 @@ $BrowsersHashIcon = array( // Standard web browsers
 * you must add an entry in BrowsersSearchIDOrder and in BrowsersHashIDLib.
 */
 
-$osSearchOrder = array('windows nt 6\.0','windows nt 5\.2','windows nt 5\.1',
+var $osSearchOrder = array('windows nt 6\.0','windows nt 5\.2','windows nt 5\.1',
 	'windows nt 5\.0','winnt4\.0','winnt','windows 98','windows 95','win98','win95',
 	'mac os x','debian','freebsd','linux','ppc','beos','sunos','apachebench','aix',
 	'irix','osf','hp-ux','netbsd','bsdi','openbsd','gnu','unix');
 
-$osAlias = array('windows nt 6\.0' => 'Windows Longhorn','windows nt 5\.2' =>
+var $osAlias = array('windows nt 6\.0' => 'Windows Longhorn','windows nt 5\.2' =>
 	'Windows 2003','windows nt 5\.0' => 'Windows 2000','windows nt 5\.1' =>
 	'Windows XP','winnt' => 'Windows NT','winnt 4\.0' => 'Windows NT','windows 98' =>
 	'Windows 98','win98' => 'Windows 98','windows 95' => 'Windows 95','win95' =>
@@ -970,3 +967,4 @@ $osAlias = array('windows nt 6\.0' => 'Windows Longhorn','windows nt 5\.2' =>
 	'NetBSD','bsdi' => 'BSDi','openbsd' => 'OpenBSD','gnu' => 'GNU/Linux','unix' =>
 	'Unknown Unix system'
 );
+}
