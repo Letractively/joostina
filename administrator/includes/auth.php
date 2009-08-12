@@ -33,6 +33,9 @@ global $database,$my;
 
 session_name(md5($mosConfig_live_site));
 session_start();
+
+header('Content-type: text/html; charset=UTF-8');
+
 // restore some session variables
 if(!isset($my)) {
 	$my = new mosUser($database);
@@ -49,4 +52,3 @@ if($session_id != md5($my->id.$my->username.$my->usertype.$logintime)) {
 	mosRedirect('index.php');
 	die;
 }
-?>

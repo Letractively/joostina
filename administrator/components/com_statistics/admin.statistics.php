@@ -89,7 +89,7 @@ function showSummary($option,$task) {
 	$database->loadObject($bstats);
 
 	// platform statistics
-	$query = "SELECT*"."\n FROM #__stats_agents WHERE type = 1 ORDER BY hits DESC";
+	$query = "SELECT* FROM #__stats_agents WHERE type = 1 ORDER BY hits DESC";
 	$database->setQuery($query);
 	$platforms = $database->loadObjectList();
 

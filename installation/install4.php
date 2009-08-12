@@ -302,7 +302,7 @@ if($siteUrl) {
 	$config .= "\$mosConfig_admin_redirect_options = '0';\n";
 	$config .= "\$mosConfig_admin_redirect_path = '404.html';\n";
 	$config .= "\$mosConfig_admin_secure_code = 'admin';\n";
-	$config .= "\$mosConfig_admin_bad_auth = '1';\n";
+	$config .= "\$mosConfig_admin_bad_auth = '5';\n";
 	$config .= "\$mosConfig_cache_handler = 'file';\n";
 	$config .= "\$mosConfig_enable_admin_secure_code = '0';\n";
     $config .= "\$mosConfig_author_name = '4';\n";

@@ -102,4 +102,3 @@ class mosPoll extends mosDBTable {
 		}
 	}
 }
-?>

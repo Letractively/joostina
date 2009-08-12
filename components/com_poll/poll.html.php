@@ -79,7 +79,8 @@ class poll_html {
 			<th class="poll_graph"><?php echo _POLL_SCHEDULE ?></th>
 		</tr>
 <?php
-		for($i = 0, $n = count($data_arr["text"]); $i < $n; $i++) {
+		$_n = count($data_arr["text"]);
+		for($i = 0, $n = $_n; $i < $n; $i++) {
 			$text = &$data_arr["text"][$i];
 			$hits = &$data_arr["hits"][$i];
 			$sumval = &$data_arr['voters'][$i];
@@ -127,4 +128,3 @@ class poll_html {
 		<?php
 	}
 }
-?>

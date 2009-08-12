@@ -157,7 +157,8 @@ function pollresult($uid) {
 	$link = sefRelToAbs('index.php?option=com_poll&amp;task=results&amp;id=\' + this.options[selectedIndex].value + \''.$_Itemid.'\' + \'');
 	$pollist = '<select name="id" class="inputbox" size="1" style="width:200px" onchange="if (this.options[selectedIndex].value != \'\') {document.location.href=\''.$link.'\'}">';
 	$pollist .= '<option value="">'._SELECT_POLL.'</option>';
-	for($i = 0,$n = count($polls); $i < $n; $i++) {
+	$_n =count($polls);
+	for($i = 0,$n = $_n; $i < $n; $i++) {
 		$k = $polls[$i]->id;
 		$t = $polls[$i]->title;
 
@@ -179,4 +180,3 @@ function pollresult($uid) {
 
 	poll_html::showResults($poll,$votes,$first_vote,$last_vote,$pollist,$params);
 }
-?>
