@@ -14,6 +14,8 @@ class HTML_linkeditor {
 
 	function viewall(&$rows,$pageNav) {
 		global $mosConfig_live_site;
+		$mainframe = &mosMainFrame::getInstance();
+		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
 		mosCommonHTML::loadOverlib();
 ?>
 <form action="index2.php" method="post" name="adminForm">
@@ -33,7 +35,7 @@ class HTML_linkeditor {
 		<th width="60%"><?php echo _DESCRIPTION?></th>
 		<th width="30"><?php echo _KERNEL?></th>
 		<th width="30" class="jtd_nowrap"><?php echo _ORDER_DROPDOWN?></th>
-		<th width="1%"><a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="Save Order" /></a></th>
+		<th width="1%"><a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="<?php echo $cur_file_icons_path;?>/filesave.png" border="0" width="16" height="16" alt="Save Order" /></a></th>
 	</tr>
 <?php
 		$k = 0;
@@ -52,7 +54,7 @@ class HTML_linkeditor {
 		<td align="left"><a href="<?php echo $link; ?>"><?php echo stripslashes($row->treename); ?></a></td>
 		<td align="left"><?php echo $row->admin_menu_alt; ?></td>
 		<td align="center">
-			<img src="images/<?php echo ($row->iscore)?'tick.png':'publish_x.png'; ?>" border="0" alt="<?php echo ($row->iscore) ? 'Да':'Нет'; ?>" />
+			<img src="<?php echo $cur_file_icons_path;?>/<?php echo ($row->iscore)?'tick.png':'publish_x.png'; ?>" border="0" alt="<?php echo ($row->iscore) ? 'Да':'Нет'; ?>" />
 		</td>
 		<td align="center" colspan="2"><input type="text" name="order[]" size="5" value="<?php echo $row->ordering; ?>" class="text_area" style="text-align: center" /></td>
 	</tr>

@@ -22,6 +22,8 @@ class HTML_templates {
 	*/
 	function showTemplates(&$rows,&$pageNav,$option,$client) {
 		global $my,$mosConfig_live_site,$mosConfig_one_template;
+		$mainframe = &mosMainFrame::getInstance();
+		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
 		if(isset($row->authorUrl) && $row->authorUrl != '') {
 			$row->authorUrl = str_replace('http://','',$row->authorUrl);
 		}
@@ -110,12 +112,12 @@ class HTML_templates {
 <?php
 			if($client == 'admin') {
 ?>
-				<td align="center"><?php echo $row->published ? '<img src="images/tick.png" alt="'._ASSIGNED_TO.'" />' : '&nbsp;'; ?></td>
+				<td align="center"><?php echo $row->published ? '<img src="'.$cur_file_icons_path.'/tick.png" alt="'._ASSIGNED_TO.'" />' : '&nbsp;'; ?></td>
 <?php
 			} else {
 ?>
-				<td align="center"><?php echo $row->published ? '<img src="images/tick.png" alt="'._ASSIGNED_TO.'" />' : '&nbsp;'; ?></td>
-				<td align="center"><?php echo $row->assigned ? '<img src="images/tick.png" alt="'._ASSIGNED_TO.'" />' : '&nbsp;'; ?></td>
+				<td align="center"><?php echo $row->published ? '<img src="'.$cur_file_icons_path.'/tick.png" alt="'._ASSIGNED_TO.'" />' : '&nbsp;'; ?></td>
+				<td align="center"><?php echo $row->assigned ? '<img src="'.$cur_file_icons_path.'/tick.png" alt="'._ASSIGNED_TO.'" />' : '&nbsp;'; ?></td>
 <?php
 			}
 ?>

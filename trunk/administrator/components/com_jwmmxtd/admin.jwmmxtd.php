@@ -429,12 +429,12 @@ function listofImages($listdir) {
 					//$iconfile = $GLOBALS['mosConfig_absolute_path'].'/images/icons/'.substr($doc_name,-3).'.png';
 
 					$mainframe = mosMainFrame::getInstance(true);
-					$iconfile = $mainframe->getCfg('absolute_path').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/file_ico/'.substr($doc_name,-3).'.png';
+					$iconfile = $mainframe->getCfg('absolute_path').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico/'.substr($doc_name,-3).'.png';
 
 					if(file_exists($iconfile)) {
-						$icon = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/file_ico/'.substr($doc_name,-3).'.png';
+						$icon = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico/'.substr($doc_name,-3).'.png';
 					} else {
-						$icon = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/file_ico/file.png';
+						$icon = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico/file.png';
 					}
 					$icon = strtolower($icon);
 					HTML_mmxtd::show_doc($doc_name,$docs[$doc_name]['size'],str_replace(JWMMXTD_STARTABSPATH,'',$listdir),$icon);
@@ -490,6 +490,10 @@ function listofdirectories($base) {
 // отображение медиа-менеджера
 function viewMediaManager($curdirectory = "",$mosmsg = "",$selectedfile = "") {
 	global $my,$mosConfig_absolute_path,$subtask;
+	
+	$mainframe = &mosMainFrame::getInstance();
+	$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
+	
 	$imgFiles = listofdirectories(JWMMXTD_STARTABSPATH);
 	$folders = array();
 	$folders[] = mosHTML::makeOption("","/");
@@ -540,7 +544,7 @@ function viewMediaManager($curdirectory = "",$mosmsg = "",$selectedfile = "") {
 	<table style="width:100%;" cellpadding="0" cellspacing="0">
 		<tr>
 			<td><?php echo _JWMM_IMAGE_LINK ?></td><td><input type="text" id="file_link" name="file_link" class="inputbox" size="100"/></td>
-			<td rowspan="3" width="50%"><?php echo _JWMM_FILE_PATH?>:<a href="index2.php?option=com_jwmmxtd&amp;curdirectory=<?php echo $upcategory; ?>"><img src="images/uparrow.png" alt="<?php echo _JWMM_UP_TO_DIRECTORY?>" /></a><br /><?php echo $dirPath; ?></td>
+			<td rowspan="3" width="50%"><?php echo _JWMM_FILE_PATH?>:<a href="index2.php?option=com_jwmmxtd&amp;curdirectory=<?php echo $upcategory; ?>"><img src="<?php echo $cur_file_icons_path;?>/uparrow.png" alt="<?php echo _JWMM_UP_TO_DIRECTORY?>" /></a><br /><?php echo $dirPath; ?></td>
 		</tr>
 		<tr><td><?php echo _JWMM_IMAGE_HREF ?></td><td><input type="text" id="file_href" name="file_href" class="inputbox" size="100"/></td></tr>
 		<tr><td><?php echo _JWMM_IMAGE_TAG ?></td><td><input type="text" id="file_url" name="file_url" class="inputbox" size="100"/></td></tr>

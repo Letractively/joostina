@@ -153,8 +153,10 @@ class mosPageNav {
 	* @return string
 	*/
 	function orderUpIcon($i,$condition = true,$task = 'orderup',$alt = _PN_MOVE_TOP) {
+		$mainframe = &mosMainFrame::getInstance();
+		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
 		if(($i > 0 || ($i + $this->limitstart > 0)) && $condition) {
-			return '<a href="#reorder" onClick="return listItemTask(\'cb'.$i.'\',\''.$task.'\')" title="'.$alt.'"><img src="images/uparrow.png" width="12" height="12" border="0" alt="'.$alt.'" /></a>';
+			return '<a href="#reorder" onClick="return listItemTask(\'cb'.$i.'\',\''.$task.'\')" title="'.$alt.'"><img src="'.$cur_file_icons_path.'/uparrow.png" width="12" height="12" border="0" alt="'.$alt.'" /></a>';
 		} else {
 			return '&nbsp;';
 		}
@@ -167,8 +169,10 @@ class mosPageNav {
 	* @return string
 	*/
 	function orderDownIcon($i,$n,$condition = true,$task = 'orderdown',$alt =_PN_MOVE_DOWN) {
+		$mainframe = &mosMainFrame::getInstance();
+		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
 		if(($i < $n - 1 || $i + $this->limitstart < $this->total - 1) && $condition) {
-			return '<a href="#reorder" onClick="return listItemTask(\'cb'.$i.'\',\''.$task.'\')" title="'.$alt.'"><img src="images/downarrow.png" width="12" height="12" border="0" alt="'.$alt.'" /></a>';
+			return '<a href="#reorder" onClick="return listItemTask(\'cb'.$i.'\',\''.$task.'\')" title="'.$alt.'"><img src="'.$cur_file_icons_path.'/downarrow.png" width="12" height="12" border="0" alt="'.$alt.'" /></a>';
 		} else {
 			return '&nbsp;';
 		}
@@ -181,6 +185,8 @@ class mosPageNav {
 	* @return string
 	*/
 	function orderUpIcon2($id,$order) {
+	$mainframe = &mosMainFrame::getInstance();
+	$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
 		if($order == 0) {
 			$img = 'uparrow.png';
 			$show = true;
@@ -195,7 +201,7 @@ class mosPageNav {
 			;
 		if($show) {
 			$output = '<a href="#ordering" onClick="listItemTask(\'cb'.$id.'\',\'orderup\')" title="'._NAV_ORDER_UP.'">';
-			$output .= '<img src="images/'.$img.'" width="12" height="12" border="0" alt="'._NAV_ORDER_UP.'" title="'._NAV_ORDER_UP.'" /></a>';
+			$output .= '<img src="'.$cur_file_icons_path.'/'.$img.'" width="12" height="12" border="0" alt="'._NAV_ORDER_UP.'" title="'._NAV_ORDER_UP.'" /></a>';
 
 			return $output;
 		} else {
@@ -211,6 +217,9 @@ class mosPageNav {
 	* @return string
 	*/
 	function orderDownIcon2($id,$order) {
+		
+		$mainframe = &mosMainFrame::getInstance();
+		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
 
 		if($order == 0) {
 			$img = 'downarrow.png';
@@ -226,7 +235,7 @@ class mosPageNav {
 			;
 		if($show) {
 			$output = '<a href="#ordering" onClick="listItemTask(\'cb'.$id.'\',\'orderdown\')" title="'._NAV_ORDER_DOWN.'">';
-			$output .= '<img src="images/'.$img.'" width="12" height="12" border="0" alt="'._NAV_ORDER_DOWN.'" title="'._NAV_ORDER_DOWN.'" /></a>';
+			$output .= '<img src="'.$cur_file_icons_path.'/'.$img.'" width="12" height="12" border="0" alt="'._NAV_ORDER_DOWN.'" title="'._NAV_ORDER_DOWN.'" /></a>';
 
 			return $output;
 		} else {

@@ -45,6 +45,8 @@ switch($task) {
 function checkall(){
 	global $database,$mosConfig_dbprefix;
 	$nullDate = $database->getNullDate();
+	$mainframe = &mosMainFrame::getInstance();
+	$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
 	?>
 	<table class="adminheading">
 		<tr>
@@ -99,7 +101,7 @@ function checkall(){
 					echo "<tr class=\"row$k\">";
 					echo "\n<td width=\"350\">"._CHECHKED_TABLE." - $tn</td>";
 					echo "\n<td width=\"150\">"._UNBLOCKED." - <b>$num</b></td>";
-					echo "\n<td width=\"100\" align=\"center\"><img src=\"images/tick.png\" border=\"0\" alt=\"tick\" /></td>";
+					echo "\n<td width=\"100\" align=\"center\"><img src=\"".$cur_file_icons_path."/tick.png\" border=\"0\" alt=\"tick\" /></td>";
 					echo "\n<td>&nbsp;</td>";
 					echo "\n</tr>";
 				} else {
@@ -239,6 +241,9 @@ function showMyCheckin($option) {
 
 function checkin($pkey,$checkid,$component,$editor) {
 	global $database;
+	
+	$mainframe = &mosMainFrame::getInstance();
+	$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
 
 	if($editor == "Y") {
 		$database->setQuery("UPDATE $component SET checked_out=0, checked_out_time='00:00:00', editor=NULL WHERE $pkey = $checkid AND checked_out > 0");
@@ -250,7 +255,7 @@ function checkin($pkey,$checkid,$component,$editor) {
 	echo "<tr class=\"row1\">";
 	echo "<td align=\"center\" width=\"70%\"><b>$component</b> "._UNBLOCKED2;
 	if($res == 1) {
-		echo "<img src=\"images/tick.png\" border=\"0\" alt=\"успешно\" />";
+		echo "<img src=\"".$cur_file_icons_path."/tick.png\" border=\"0\" alt=\"успешно\" />";
 	} else {
 		echo _ERROR_WHEN_UNBLOCKING;
 	}

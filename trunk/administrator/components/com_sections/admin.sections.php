@@ -280,7 +280,7 @@ function showSections($scope,$option) {
 	}
 	//Добавляем в $new_rows разделы без категорий
 	foreach($sects_ids as $v){
-		if (!in_array($rows[$v], $new_rows)){
+		if (!in_array($rows[$v], $rows_new)){
 			$rows[$v]->trash = 0;
 			$rows[$v]->active = 0; 
 			$rows[$v]->categories = 0; 

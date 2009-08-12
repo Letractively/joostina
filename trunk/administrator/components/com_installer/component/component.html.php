@@ -21,6 +21,8 @@ class HTML_component {
 	* @param string The URL option
 	*/
 	function showInstalledComponents($rows,$option) {
+		$mainframe = &mosMainFrame::getInstance();
+		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
 		if(count($rows)) {
 		// подключение скрипта чудесных таблиц
 		mosCommonHTML::loadPrettyTable();
@@ -56,7 +58,7 @@ class HTML_component {
 				<tr class="row<?php echo $rc?>">
 					<td align="left"><input type="radio" id="cb<?php echo $i; ?>" name="cid[]" value="<?php echo $row->id; ?>" onclick="alert(\"123\"); isChecked(this.checked);"><span class="bold"><?php echo $row->name; ?></span></td>
 					<td align="center" onclick="ch_publ(<?php echo $row->id?>,'com_installer');" class="td-state">
-						<img class="img-mini-state" src="images/<?php echo $row->img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?php echo _PUBLISHING?>" />
+						<img class="img-mini-state" src="<?php echo $cur_file_icons_path;?>/<?php echo $row->img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?php echo _PUBLISHING?>" />
 					</td>
 					<td align="center"><?php echo isset($row->version) ? $row->version : "&nbsp;"; ?></td>
 					<td align="left"><?php echo isset($row->link) ? $row->link : "&nbsp;"; ?></td>

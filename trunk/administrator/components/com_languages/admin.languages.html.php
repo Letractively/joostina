@@ -18,6 +18,8 @@ class HTML_languages {
 
 	function showLanguages($cur_lang,&$rows,&$pageNav,$option) {
 		global $my;
+		$mainframe = &mosMainFrame::getInstance();
+		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
 ?>
 		<form action="index2.php" method="post" name="adminForm">
 		<table class="adminheading">
@@ -70,7 +72,7 @@ class HTML_languages {
 				<td width="5%" align="center">
 				<?php
 			if($row->published == 1) { ?>
-					<img src="images/tick.png" alt="<?php echo _PUBLISHED?>"/>
+					<img src="<?php echo $cur_file_icons_path;?>/tick.png" alt="<?php echo _PUBLISHED?>"/>
 					<?php
 			} else {
 ?>

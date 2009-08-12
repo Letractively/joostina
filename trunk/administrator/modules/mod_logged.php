@@ -11,6 +11,8 @@
 defined('_VALID_MOS') or die();
 
 global $mosConfig_list_limit,$my,$mosConfig_absolute_path,$option;
+$mainframe = &mosMainFrame::getInstance();
+$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
 
 require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 
@@ -66,7 +68,7 @@ foreach($rows as $row) {
 ?>
 		<td>
 			<a href="index2.php?option=com_users&task=flogout&id=<?php echo $row->userid; ?>&<?php echo josSpoofValue(); ?>=1">
-				<img src="images/publish_x.png" width="12" height="12" border="0" alt="<?php echo _DISABLE?>" title="<?php echo _DISABLE?>" />
+				<img src="<?php echo $cur_file_icons_path;?>/publish_x.png" width="12" height="12" border="0" alt="<?php echo _DISABLE?>" title="<?php echo _DISABLE?>" />
 			</a>
 		</td>
 <?php

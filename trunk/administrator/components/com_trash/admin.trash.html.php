@@ -137,6 +137,9 @@ class HTML_trash {
 	* Writes list of the items that have been selected for deletion
 	*/
 	function showDelete($option,$cid,$items,$type) {
+		
+		$mainframe = &mosMainFrame::getInstance();
+		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
 ?>
 		<form action="index2.php" method="post" name="adminForm">
 		<table class="adminheading">
@@ -169,7 +172,7 @@ class HTML_trash {
 			<br /><br /><br />
 			<div style="border: 1px dotted gray; width: 70px; padding: 10px; margin-left: 50px;">
 			<a class="toolbar" href="javascript:if (confirm('<?php echo _REALLY_DELETE_OBJECTS?>')){ submitbutton('delete');}">
-			<img name="remove" src="images/delete.png" alt="<?php echo _DELETE?>" border="0" align="middle" />
+			<img name="remove" src="<?php echo $cur_file_icons_path;?>/delete.png" alt="<?php echo _DELETE?>" border="0" align="middle" />
 			&nbsp;<?php echo _DELETE?>
 			</a>
 			</div>
@@ -196,6 +199,9 @@ class HTML_trash {
 	* Writes list of the items that have been selected for restore
 	*/
 	function showRestore($option,$cid,$items,$type) {
+		
+		$mainframe = &mosMainFrame::getInstance();
+		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
 ?>
 		<form action="index2.php" method="post" name="adminForm">
 		<table class="adminheading">
@@ -228,7 +234,7 @@ class HTML_trash {
 			<br /><br /><br />
 			<div style="border: 1px dotted gray; width: 120px; height:25px; padding: 10px; margin-left: 50px;">
 			<a class="toolbar" href="javascript:if (confirm('<?php echo _REALLY_RESTORE_OBJECTS?>')){ submitbutton('restore');}">
-			<img name="restore" src="<?php echo mosMainFrame::getInstance(true)->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.mosMainFrame::getInstance(true)->getTemplate().'/images/system_ico/'; ?>restore.png" alt="<?php echo _RESTORE?>" border="0" align="left" />
+			<img name="restore" src="<?php echo $cur_file_icons_path;?>/restore.png" alt="<?php echo _RESTORE?>" border="0" align="left" />
 			&nbsp;<?php echo _RESTORE?>
 			</a>
 			</div>

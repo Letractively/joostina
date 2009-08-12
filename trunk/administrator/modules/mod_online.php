@@ -9,6 +9,8 @@
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
+$mainframe = &mosMainFrame::getInstance();
+$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
 
 $session_id = stripslashes(mosGetParam($_SESSION,'session_id',''));
 
@@ -17,4 +19,4 @@ $query = "SELECT COUNT( session_id ) FROM #__session WHERE session_id != ".$data
 $database->setQuery($query);
 $online_num = intval($database->loadResult());
 
-echo $online_num." <img src=\"images/users.png\" align=\"middle\" alt=\""._ONLINE_USERS."\" />";
+echo $online_num." <img src=\"".$cur_file_icons_path."/users.png\" align=\"middle\" alt=\""._ONLINE_USERS."\" />";

@@ -17,6 +17,9 @@ class JCE_languages {
 
 	function showLanguages($cur_lang,&$rows,&$pageNav,$option) {
 		global $my,$database,$mainframe;
+		
+		$mainframe = &mosMainFrame::getInstance();
+		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
 
 		$database->setQuery("SELECT lang FROM #__jce_langs WHERE published= '1'");
 		$lang = $database->loadResult();
@@ -55,7 +58,7 @@ class JCE_languages {
 				<td width="5%" align="center">
 <?php
 			if($row->published == 1) { ?>
-					<img src="images/tick.png" alt="<?php echo _PUBLISHED?>"/>
+					<img src="<?php echo $cur_file_icons_path;?>/tick.png" alt="<?php echo _PUBLISHED?>"/>
 <?php
 			} else {
 ?>

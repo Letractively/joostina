@@ -11,6 +11,9 @@
 defined('_VALID_MOS') or die();
 global $my;
 
+$mainframe = &mosMainFrame::getInstance();
+$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
+
 // число пользователей для вывода
 $limit		= $params->get('num',10);
 // зарегистрированны сегодня
@@ -84,7 +87,7 @@ foreach ( $rows as $row ) {
 	<tr class="row<?php echo $k; ?>">
 		<td align="left"><?php echo $username; ?></td>
 		<td width="5%" align="center" <?php echo $check;?>>
-			<img id="img-pub-<?php echo $row->id;?>" class="img-mini-state" alt="<?php echo _USER_BLOCK?>" src="images/<?php echo $img;?>"/>
+			<img id="img-pub-<?php echo $row->id;?>" class="img-mini-state" alt="<?php echo _USER_BLOCK?>" src="<?php echo $cur_file_icons_path;?>/<?php echo $img;?>"/>
 		</td>
 		<td align="center"><?php echo $row->usertype;?></td>
 		<td align="center"><?php echo mosFormatDate( $row->registerDate ); ?></td>

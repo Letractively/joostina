@@ -33,8 +33,7 @@ class JCE_layout {
 					echo "<li class=\"sortableitem\" id=\"$row_num\"><img src=\"$img\" height=\"20\" alt=\"$name\" title=\"$name\" /></li>\n";
 					break;
 				case 'plugin':
-					$img = $mainframe->getCfg('live_site').$plugin_path.$item['plugin'].'/images/'.
-						$item['layout_icon'].'.gif';
+					$img = $mainframe->getCfg('live_site').$plugin_path.$item['plugin'].'/images/'.$item['layout_icon'].'.gif';
 					echo "<li class=\"sortableitem\" id=\"$row_num\"><img src=\"$img\" height=\"20\" alt=\"$name\" title=\"$name\" /></li>\n";
 					break;
 			}
