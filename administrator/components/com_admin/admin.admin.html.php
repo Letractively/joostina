@@ -59,6 +59,9 @@ class HTML_admin_misc {
 
 	function system_info($version) {
 		global $mosConfig_absolute_path,$database,$mosConfig_cachepath,$mainframe,$mosConfig_live_site;
+		
+		$mainframe = &mosMainFrame::getInstance();
+		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
 
 		$width = 400; // width of 100%
 		$tabs = new mosTabs(0);
@@ -139,7 +142,7 @@ class HTML_admin_misc {
 						</td>
 						<td>
 							<?php $img = ((RG_EMULATION)?'publish_x.png':'tick.png'); ?>
-							<img src="../images/system/<?php echo $img; ?>" />
+							<img src="<?php echo $cur_file_icons_path;?>/<?php echo $img; ?>" />
 						</td>
 					</tr>
 					<tr>
@@ -147,7 +150,7 @@ class HTML_admin_misc {
 						<td style="font-weight: bold;"><?php echo HTML_admin_misc::get_php_setting('register_globals',1,0); ?></td>
 						<td>
 							<?php $img = ((ini_get('register_globals'))?'publish_x.png':'tick.png'); ?>
-							<img src="../images/system/<?php echo $img; ?>" />
+							<img src="<?php echo $cur_file_icons_path;?>/<?php echo $img; ?>" />
 						</td>
 					</tr>
 					<tr>
@@ -157,7 +160,7 @@ class HTML_admin_misc {
 						</td>
 						<td>
 							<?php $img = (!(ini_get('magic_quotes_gpc'))?'publish_x.png':'tick.png'); ?>
-							<img src="../images/system/<?php echo $img; ?>" />
+							<img src="<?php echo $cur_file_icons_path;?>/<?php echo $img; ?>" />
 						</td>
 					</tr>
 					<tr>
@@ -167,7 +170,7 @@ class HTML_admin_misc {
 						</td>
 						<td>
 							<?php $img = ((ini_get('safe_mode'))?'publish_x.png':'tick.png'); ?>
-							<img src="../images/system/<?php echo $img; ?>" />
+							<img src="<?php echo $cur_file_icons_path;?>/<?php echo $img; ?>" />
 						</td>
 					</tr>
 					<tr>
@@ -177,7 +180,7 @@ class HTML_admin_misc {
 						</td>
 						<td>
 							<?php $img = ((!ini_get('file_uploads'))?'publish_x.png':'tick.png'); ?>
-							<img src="../images/system/<?php echo $img; ?>" />
+							<img src="<?php echo $cur_file_icons_path;?>/<?php echo $img; ?>" />
 						</td>
 					</tr>
 					<tr>
@@ -187,7 +190,7 @@ class HTML_admin_misc {
 						</td>
 						<td>
 							<?php $img = ((ini_get('session.auto_start'))?'publish_x.png':'tick.png'); ?>
-							<img src="../images/system/<?php echo $img; ?>" />
+							<img src="<?php echo $cur_file_icons_path;?>/<?php echo $img; ?>" />
 						</td>
 					</tr>
 					<tr>

@@ -387,32 +387,40 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\"?".">";?>
 <?php echo '<script language="JavaScript" src="'.$siteUrl.'/includes/js/jquery/jquery.js" type="text/javascript"></script>'; ?>
 </head>
 <body>
- <div id="wrapper">
-  <div id="header">
-   <div id="joomla"><img src="img/header_install.png" alt="Установка Joostina" /></div>
-  </div>
- </div>
+
  <div id="ctr" align="center">
   <form action="dummy" name="form" id="form">
    <div class="install">
-			<div id="step"><span>Конфигурация сайта</span>
+	<div id="header">
+				<p>Joostina 1.3.0 beta [ b3 ] 06:08:2009 03:11 +5 GMT</p>
+				<p class="jst"><a href="http://www.joostina.ru">Joostina</a> - свободное программное обеспечение, распространяемое по лицензии GNU/GPL.</p>
+			</div>	
+			
+			<div id="navigator">
+				<big>Установка Joostina CMS</big>				
+				<ul>
+					<li class="step"><strong>1</strong><span>Проверка системы</span></li>
+					<li class="arrow">&nbsp;</li>
+					<li class="step"><strong>2</strong><span>Лицензионное соглашение</span></li>
+					<li class="arrow">&nbsp;</li>
+					<li class="step"><strong>3</strong><span>Конфигурация базы данных</span></li>
+					<li class="arrow">&nbsp;</li>
+					<li class="step"><strong>4</strong><span>Название сайта</span></li>
+					<li class="arrow">&nbsp;</li>
+					<li class="step"><strong>5</strong><span>Конфигурация сайта</span></li>
+					<li class="arrow">&nbsp;</li>
+					<li class="step  step-on"><strong>6</strong><span>Завершение установки</span></li>
+				</ul>				
 			</div>
-    <div id="stepbar">
-    <div class="step-off">Проверка системы</div>
-    <div class="step-off">Лицензия</div>
-    <div class="step-off">Шаг 1</div>
-    <div class="step-off">Шаг 2</div>
-    <div class="step-off">Шаг 3</div>
-    <div class="step-on">Шаг 4</div>
-   </div>
-   <div id="right">
+   <div id="wrap">
+   
     <div class="install-form">
      <div class="form-block">
-      <table width="100%" class="content">
-	<tr><td align="center"><span id="alert_mess" class="error">ПОЖАЛУЙСТА, <b> УДАЛИТЕ КАТАЛОГ 'INSTALLATION'</b>,<br />ИНАЧЕ ВАШ САЙТ НЕ ЗАГРУЗИТСЯ</span></td></tr>
-	<tr><td>&nbsp;</td></tr>
-<tr><td align="center">
-<input class="button" type="button" name="runSite" value="Просмотр сайта"
+     	<div class="install-text">ПОЖАЛУЙСТА, <b> УДАЛИТЕ КАТАЛОГ 'INSTALLATION'</b>, ИНАЧЕ ВАШ САЙТ НЕ ЗАГРУЗИТСЯ</div>
+     
+     
+
+<input class="button small" type="button" name="runSite" value="Просмотр сайта"
 <?php
 if($siteUrl) {
 	echo "onClick=\"window.location.href='$siteUrl/' \"";
@@ -420,7 +428,7 @@ if($siteUrl) {
 	echo "onClick=\"window.location.href='".$configArray['siteURL']."/index.php' \"";
 }
 ?>/>
-&nbsp;<input class="button" type="button" name="Admin" value="Панель управления"
+&nbsp;<input class="button small" type="button" name="Admin" value="Панель управления"
 <?php
 if($siteUrl) {
 	echo "onClick=\"window.location.href='$siteUrl/administrator/index.php' \"";
@@ -431,31 +439,26 @@ if($siteUrl) {
 <?php
 $url = $siteUrl.'/installation/install.ajax.php?task=rminstalldir';
 $clk = 'onclick=\'$.ajax({url: "'.$url.'/installation/install.ajax.php", beforeSend: function(response){$("#status").show("normal")}, success: function(response){$("#delbutton").val(response);$("#alert_mess").hide("fast")}, dataType: "html"}); return false;\'';
-$delbutton = '&nbsp;<input class="button" '.$clk.' type="button" id="delbutton" name="delbutton" value="Удалить installation" />';
+$delbutton = '&nbsp;<input class="button small" '.$clk.' type="button" id="delbutton" name="delbutton" value="Удалить installation" />';
 echo $delbutton;
 ?>
 <div id="status" style="display:none;"></div>
-</td></tr>
-<tr><td>&nbsp;</td></tr>
-                        <tr><td align="center"><h2>Данные для авторизации Главного Администратора сайта:</h2></td></tr>
-                        <tr><td align="center">Логин: <b><?php echo $adminLogin;?></b> Пароль: <b><?php echo $adminPassword; ?></b></td></tr>
+<h2>Данные для авторизации Главного Администратора сайта:</h2>
+                       <b><?php echo $adminLogin;?></b> Пароль: <b><?php echo $adminPassword; ?></b>
        <?php if(!$canWrite) { ?>
-       <tr>
-        <td class="small">
+       <div class="install-text">
          Ваш конфигурационный файл или нужный каталог недоступны для записи,
          или есть какая-то проблема с созданием основного конфигурационного файла.
          Вам придется загрузить этот код вручную.<br />
          ОБЯЗАТЕЛЬНО выделите и скопируйте весь следующий код:
-        </td>
-       </tr>
-       <tr>
-        <td align="center">
+        </div>
+        
+      
          <textarea rows="5" cols="60" name="configcode" onclick="javascript:this.form.configcode.focus();this.form.configcode.select();" ><?php echo htmlspecialchars($config); ?></textarea>
-        </td>
-       </tr>
+       
        <?php } ?>
-						<tr><td class="small"><?php /*echo $chmod_report*/; ?></td></tr>
-      </table>
+						<div><?php /*echo $chmod_report*/; ?></div>
+ 
      </div>
     </div>
     <div id="break"></div>
@@ -465,6 +468,6 @@ echo $delbutton;
   </form>
  </div>
  <div class="clr"></div>
- <div class="ctr" id="footer"><a href="http://www.joostina.ru" target="_blank">Joostina</a> - свободное программное обеспечение, распространяемое по лицензии GNU/GPL.</div>
+ 
 </body>
 </html>

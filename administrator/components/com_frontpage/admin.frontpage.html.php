@@ -23,6 +23,9 @@ class HTML_content {
 		global $my,$acl,$database;
 		mosCommonHTML::loadOverlib();
 		$nullDate = $database->getNullDate();
+		
+		$mainframe = &mosMainFrame::getInstance();
+		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
 ?>
 		<script type="text/javascript">
 		// удаление содержимого с публикации на главной
@@ -69,7 +72,7 @@ class HTML_content {
 			<th colspan="2" class="jtd_nowrap" width="5%"><?php echo _ORDERING?></th>
 			<th width="2%"><?php echo _ORDER_DROPDOWN?></th>
 			<th width="1%">
-				<a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="<?php echo _SAVE_ORDER?>" /></a>
+				<a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="<?php echo $cur_file_icons_path;?>/filesave.png" border="0" width="16" height="16" alt="<?php echo _SAVE_ORDER?>" /></a>
 			</th>
 			<th width="8%" class="jtd_nowrap"><?php echo _ACCESS?></th>
 			<th width="10%" align="left"><?php echo _SECTION?></th>
@@ -152,7 +155,7 @@ class HTML_content {
 ?>
 				</td>
 				<td align="center" <?php echo $row->checked_out ? null : 'onclick="ch_front('.$row->id.');" class="td-state"';?>>
-					<img class="img-mini-state" src="images/trash_mini.png" id="img-trash-<?php echo $row->id;?>"/>
+					<img class="img-mini-state" src="<?php echo $cur_file_icons_path;?>/trash_mini.png" id="img-trash-<?php echo $row->id;?>"/>
 				</td>
 <?php
 			if($times) {
@@ -161,11 +164,11 @@ class HTML_content {
 <?php
 				if ( !$row->checked_out ){
 				?>
-					<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?php echo _PUBLISHING?>" />
+					<img class="img-mini-state" src="<?php echo $cur_file_icons_path;?>/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?php echo _PUBLISHING?>" />
 <?php
 				}else{
 ?>
-					<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?php echo _CANNOT_CHANGE_PUBLISH_STATE?>"/>
+					<img class="img-mini-state" src="<?php echo $cur_file_icons_path;?>/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?php echo _CANNOT_CHANGE_PUBLISH_STATE?>"/>
 <?php
 				}
 ?>

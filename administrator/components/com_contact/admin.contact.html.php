@@ -18,6 +18,8 @@ class HTML_contact {
 
 	function showContacts(&$rows,&$pageNav,$search,$option,&$lists) {
 		global $my;
+		$mainframe = &mosMainFrame::getInstance();
+		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
 
 		mosCommonHTML::loadOverlib();
 ?>
@@ -76,7 +78,7 @@ class HTML_contact {
 				</td>
 				<td align="center">
 					<a href="javascript: void(0);" onClick="return listItemTask('cb<?php echo $i; ?>','<?php echo $task; ?>')">
-					<img src="images/<?php echo $img; ?>" border="0" alt="<?php echo $alt; ?>" />
+					<img src="<?php echo $cur_file_icons_path;?>/<?php echo $img; ?>" border="0" alt="<?php echo $alt; ?>" />
 					</a>
 				</td>
 				<td><?php echo $pageNav->orderUpIcon($i,($row->catid == @$rows[$i - 1]->catid)); ?></td>

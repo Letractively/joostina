@@ -16,7 +16,10 @@ defined('_VALID_MOS') or die();
 class HTML_users {
 
 	function showUsers(&$rows, $pageNav, $search, $option, $lists) {
-		global $my, $mosConfig_live_site; ?>
+		global $my, $mosConfig_live_site; 
+		$mainframe = &mosMainFrame::getInstance();
+		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
+		?>
 		<form action="index2.php" method="post" name="adminForm" id="adminForm">
 		<table class="adminheading">
 		<tr>
@@ -60,10 +63,10 @@ class HTML_users {
 			<td align="left"><a href="<?php echo $link; ?>">
 			<?php echo $row->name; ?></a></td>
 			<td align="left"><?php echo $row->username; ?></td>
-			<td align="center"><?php echo $row->loggedin?'<img src="images/tick.png" border="0" alt="" />' : ''; ?></td>
+			<td align="center"><?php echo $row->loggedin?'<img src="'.$cur_file_icons_path.'/tick.png" border="0" alt="" />' : ''; ?></td>
 			<td width="5%" align="center" <?php if($row->id != $my->id) { ?> class="td-state" onclick="ch_publ(<?php echo $row->id; ?>,'com_users');" <?php }
 			; ?>>
-				<img id="img-pub-<?php echo $row->id; ?>" class="img-mini-state" alt="<?php echo _USER_BLOCK ?>" src="images/<?php echo $img; ?>"/>
+				<img id="img-pub-<?php echo $row->id; ?>" class="img-mini-state" alt="<?php echo _USER_BLOCK ?>" src="<?php echo $cur_file_icons_path;?>/<?php echo $img; ?>"/>
 			</td>
 			<td><?php echo $row->groupname; ?></td>
 			<td><a href="mailto:<?php echo $row->email; ?>"><?php echo $row->email; ?></a></td>

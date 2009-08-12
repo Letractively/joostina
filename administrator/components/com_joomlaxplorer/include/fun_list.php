@@ -113,6 +113,8 @@ function make_tables($dir, &$dir_list, &$file_list, &$tot_file_size, &$num_items
 }
 function print_table($dir, $list, $allow) {
 	global $dir_up;
+	$mainframe = mosMainFrame::getInstance(true);
+	$cur_file_icons_patch = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico/';
 	if(!is_array($list))
 		return;
 	if($dir != "" || strstr($dir, _QUIXPLORER_PATH)) {
@@ -120,7 +122,7 @@ function print_table($dir, $list, $allow) {
 	 			<td>&nbsp;</td>
 	 			<td valign=\"baseline\">
 	 				<a href=\"".make_link("list", $dir_up, null)."\">
-	 				<img border=\"0\" align=\"absmiddle\" src=\"images/uparrow.png\" alt=\"".$GLOBALS["messages"]["uplink"]."\" title=\"".$GLOBALS["messages"]["uplink"]."\"/>&nbsp;&nbsp;..</a>
+	 				<img border=\"0\" align=\"absmiddle\" src=\"".$cur_file_icons_path."/uparrow.png\" alt=\"".$GLOBALS["messages"]["uplink"]."\" title=\"".$GLOBALS["messages"]["uplink"]."\"/>&nbsp;&nbsp;..</a>
 	 			</td>
 	 			<td>&nbsp;</td>
 	 			<td>&nbsp;</td>
@@ -135,8 +137,7 @@ function print_table($dir, $list, $allow) {
 	$i = 0;
 	$toggle = false;
 
-	$mainframe = mosMainFrame::getInstance(true);
-	$cur_file_icons_patch = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/file_ico/';
+
 
 
 	while(list($item, $info) = each($list)) {
@@ -303,6 +304,7 @@ function list_dir($dir) {
 	global $dir_up, $mosConfig_live_site, $_VERSION,$mainframe;
 	mosCommonHTML::loadOverlib();
 	$mainframe->addJS($mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_joomlaxplorer/scripts/joomlaxplorer.js');
+	$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
 ?>
 	<div id="overDiv" style="position:absolute; visibility:hidden; z-index:10000;"></div>
 <?php
@@ -325,7 +327,7 @@ function list_dir($dir) {
 			$dir_links .= "<a href=\"".make_link("list", $implode, null)."\">$directory</a>/";
 		}
 	}
-	$images = "&nbsp;<img width=\"10\" height=\"10\" border=\"0\" align=\"absmiddle\" src=\"/images/";
+	$images = "&nbsp;<img width=\"10\" height=\"10\" border=\"0\" align=\"absmiddle\" src=\"/".$cur_file_icons_path."/";
 	if($GLOBALS["srt"] == "yes") {
 		$_srt = "no";
 		$images .= "uparrow.png\" alt=\"^\">";

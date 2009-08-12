@@ -1786,6 +1786,15 @@ class contentSqlHelper{
 			case 'front':
 				$orderby = 'f.ordering';
 				break;
+				
+			case 'rmodified':
+				$orderby = 'a.modified DESC';
+				break;
+				
+			case 'modified':
+				$orderby = 'a.modified';
+				break;
+			
 
 			default:
 				$orderby = 'a.ordering';

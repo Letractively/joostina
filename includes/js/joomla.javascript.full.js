@@ -44,14 +44,14 @@ document.getElementById('status-info').style.display = 'block';
 function ch_publ(elID,option,extra){
 	log('Смена статуса публикации элемента: '+elID+' для компонента '+option);
 	if (extra == null) extra = ''
-	document.getElementById('img-pub-'+elID).src = 'images/aload.gif';
+	document.getElementById('img-pub-'+elID).src = _live_site+'/administrator/templates/'+_cur_template+'/images/aload.gif';
 	dax({
 		url: 'ajax.index.php?option='+option+'&utf=0&task=publish&id='+elID,
 		id:'publ-'+elID,
 		callback:
 			function(resp, idTread, status, ops){
 				log('Получен ответ: ' + resp.responseText);
-				document.getElementById('img-pub-'+elID).src = 'images/'+resp.responseText;
+				document.getElementById('img-pub-'+elID).src = _live_site+'/administrator/templates/'+_cur_template+'/images/ico/'+resp.responseText;
 			}
 	});
 	return false;
@@ -61,7 +61,7 @@ function ch_publ(elID,option,extra){
 // смена группы доступа, elID - идентификатор элемента у котогоменяется доступ, aCC - группа доступа
 function ch_access(elID,aCC,option){
 SRAX.debug('Смена группы доступа: '+elID+' элемента на '+aCC+' для компонента '+option);
-SRAX.replaceHtml('acc-id-'+elID,'<img src="images/aload.gif" />');
+SRAX.replaceHtml('acc-id-'+elID,'<img src="'+_live_site+'/administrator/templates/'+_cur_template+'/images/aload.gif" />');
 dax({
 url: 'ajax.index.php?option='+option+'&utf=1&task=access&id='+elID+'&chaccess='+aCC,
 id:'acc-id-'+elID,
@@ -73,7 +73,7 @@ log('Смена группы доступа успешно: ' + elID);
 SRAX.replaceHtml('acc-id-'+elID,resp.responseText);
 }else{
 SRAX.debug('Ошибка смены группы доступа: ' + elID);
-SRAX.replaceHtml('acc-id'+elID,'<img src="images/error.png" />');
+SRAX.replaceHtml('acc-id'+elID,'<img src="'+_live_site+'/administrator/templates/'+_cur_template+'/images/ico/error.png" />');
 
 }
 }
@@ -84,7 +84,7 @@ return false;
 function jtoggle_editor(){
 SRAX.debug('Изменение состояния редактора');
 jeimage = document.getElementById('jtoggle_editor');
-jeimage.src = 'images/aload.gif';
+jeimage.src = _live_site+'/administrator/templates/'+_cur_template+'/images/aload.gif';
 dax({
 url: 'ajax.index.php?option=com_admin&utf=0&task=toggle_editor',
 id:'jte',

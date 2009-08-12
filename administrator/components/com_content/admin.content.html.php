@@ -22,7 +22,11 @@ class HTML_content {
 	*/
 	function showContent(&$rows,$section,&$lists,$search,$pageNav,$all = null,$redirect='') {
 		global $my,$acl,$database,$mosConfig_live_site;
-
+		
+		$mainframe = &mosMainFrame::getInstance();
+		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
+		$cur_file_icons_path2 = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images';
+		
 		$selected_cat = intval( mosGetParam($_REQUEST,'catid',0));
 		$showarchive = intval( mosGetParam($_REQUEST,'showarchive',0));
 
@@ -40,14 +44,14 @@ class HTML_content {
 				callback:
 					function(resp, idTread, status, ops){
 						log('Получен ответ: ' + resp.responseText);
-						SRAX.get('img-fpage-' + elID).src = 'images/'+resp.responseText;
+						SRAX.get('img-fpage-' + elID).src = '<?php echo $cur_file_icons_path;?>/'+resp.responseText;
 			}});
 		}
 		// перемещение содержимого в корзину
 		function ch_trash(elID){
 			log('Удаление в корзину: '+elID);
-			if(SRAX.get('img-trash-'+elID).src == '<?php echo $mosConfig_live_site;?>/<?php echo ADMINISTRATOR_DIRECTORY?>/images/trash_mini.png'){
-				SRAX.get('img-trash-'+elID).src = 'images/help.png';
+			if(SRAX.get('img-trash-'+elID).src == '<?php echo $cur_file_icons_path;?>/trash_mini.png'){
+				SRAX.get('img-trash-'+elID).src = '<?php echo $cur_file_icons_path;?>/help.png';
 				return null;
 			}
 
@@ -102,8 +106,8 @@ class HTML_content {
 
 <table class="adminlisttop adminlist">
 	<tr class="row0">
-	<td valign="top" align="left" id="ntdree"><img src="images/con_pix.gif" /><?php echo $lists['sectree'];?></td>
-	<td onclick="ntreetoggle();" width="1" id="tdtoogle" <?php echo $lists['sectreetoggle'];?>><img border="0" alt="<?php echo _HIDE_NAV_TREE?>" src="images/tgl.gif" /></td>
+	<td valign="top" align="left" id="ntdree"><?php echo $lists['sectree'];?></td>
+	<td onclick="ntreetoggle();" width="1" id="tdtoogle" <?php echo $lists['sectreetoggle'];?>><img border="0" alt="<?php echo _HIDE_NAV_TREE?>" src="<?php echo $cur_file_icons_path2;?>/tgl.gif" /></td>
 	<td valign="top" width="100%">
 	<table class="adminlist" width="100%">
 		<thead>
@@ -116,7 +120,7 @@ class HTML_content {
 			<th class="jtd_nowrap"><?php echo _ON_FRONTPAGE?></th>
 			<th width="2%"><?php echo _ORDER_DROPDOWN?></th>
 			<th width="1%">
-				<a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="<?php echo _SAVE_ORDER?>" /></a>
+				<a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="<?php echo $cur_file_icons_path;?>/filesave.png" border="0" width="16" height="16" alt="<?php echo _SAVE_ORDER?>" /></a>
 			</th>
 			<th width="10%"><?php echo _ACCESS_RIGHTS?></th>
 			<th align="center"><?php echo _TO_TRASH?></th>
@@ -211,13 +215,13 @@ class HTML_content {
 			if($times) {
 ?>
 				<td align="center" <?php echo ($row->checked_out && ($row->checked_out != $my->id)) ? null : 'onclick="ch_publ('.$row->id.',\'com_content\');" class="td-state"';?>>
-					<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?php echo _PUBLISHING?>" />
+					<img class="img-mini-state" src="<?php echo $cur_file_icons_path;?>/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?php echo _PUBLISHING?>" />
 				</td>
 <?php
 			}
 ?>
 				<td align="center" <?php echo ($row->checked_out && ($row->checked_out != $my->id)) ? null : 'onclick="ch_fpage('.$row->id.');" class="td-state"';?>>
-					<img class="img-mini-state" src="images/<?php echo $front_img;?>" id="img-fpage-<?php echo $row->id;?>" alt="<?php echo _ON_FRONTPAGE?>" />
+					<img class="img-mini-state" src="<?php echo $cur_file_icons_path;?>/<?php echo $front_img;?>" id="img-fpage-<?php echo $row->id;?>" alt="<?php echo _ON_FRONTPAGE?>" />
 				</td>
 				<td align="center" colspan="2">
 					<?php echo $pageNav->orderUpIcon($i,($row->catid == @$rows[$i - 1]->catid)); ?>
@@ -226,7 +230,7 @@ class HTML_content {
 				</td>
 				<td align="center" id="acc-id-<?php echo $row->id;?>"><?php echo $access; ?></td>
 				<td align="center" <?php echo $row->checked_out ? null : 'onclick="ch_trash('.$row->id.');" class="td-state"';?>>
-					<img class="img-mini-state" src="images/trash_mini.png" id="img-trash-<?php echo $row->id;?>"/>
+					<img class="img-mini-state" src="<?php echo $cur_file_icons_path;?>/trash_mini.png" id="img-trash-<?php echo $row->id;?>"/>
 				</td>
 				<td align="center"><?php echo $row->id; ?></td>
 			</tr>
@@ -261,6 +265,9 @@ class HTML_content {
 	*/
 	function showArchive(&$rows,$section,&$lists,$search,$pageNav,$option,$all = null,$redirect) {
 		global $my,$acl;
+		
+		$mainframe = &mosMainFrame::getInstance();
+		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
 
 ?>
 		<script language="javascript" type="text/javascript">
@@ -319,7 +326,7 @@ class HTML_content {
 			<th class="title"><?php echo _HEADER_TITLE?></th>
 			<th width="2%"><?php echo _ORDER_DROPDOWN?></th>
 			<th width="1%">
-				<a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="<?php echo _SAVE_ORDER?>" /></a>
+				<a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="<?php echo $cur_file_icons_path;?>/filesave.png" border="0" width="16" height="16" alt="<?php echo _SAVE_ORDER?>" /></a>
 			</th>
 			<th width="15%" align="left"><?php echo _CATEGORY?></th>
 			<th width="15%" align="left"><?php echo _AUTHOR_BY?></th>
@@ -393,6 +400,10 @@ class HTML_content {
 	*/
 function editContent(&$row,$section,&$lists,&$sectioncategories,&$images,&$params,$option,$redirect,&$menus) {
 		global $database,$mosConfig_disable_image_tab,$mosConfig_one_editor;
+		
+		$mainframe = &mosMainFrame::getInstance();
+		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images';
+		
 		mosMakeHtmlSafe($row);
 		$nullDate = $database->getNullDate();
 		$create_date = null;
@@ -630,14 +641,12 @@ function editContent(&$row,$section,&$lists,&$sectioncategories,&$images,&$param
 
 			<!--кнопка скрытия правой колонки:BEGIN-->
 			<td onclick="ntreetoggle();" width="1" id="tdtoogle" class="tdtoogleon">
-				<img border="0" alt="<?php echo _HIDE_PARAMS_PANEL?>" src="images/tgl.gif" />
+				<img border="0" alt="<?php echo _HIDE_PARAMS_PANEL?>" src="<?php echo $cur_file_icons_path;?>/tgl.gif" />
 			</td>
 			<!--кнопка скрытия правой колонки:END-->
 
 			<!--правая колонка:BEGIN-->
 			<td valign="top" id="ncontent">
-
-				<img src="images/con_pix.gif" width="410px;" />
 
 				<table width="100%"><tr><th>Информация</th></tr></table>
 

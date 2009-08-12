@@ -99,12 +99,12 @@ function checkResultChangePluginState (ajaxResponse,pluginid) {
 	var pluginimg = $('pluginstate'+pluginid);
 	var plugin = $('plugin'+pluginid);
 	if ( ajaxResponse == '1' ) {
-		pluginimg.src = 'images/publish_g.png';
+		pluginimg.src = _live_site+'/administrator/templates/'+_cur_template+'/images/ico/publish_g.png';
 		plugin.removeClass('unpublished');
 		plugin.addClass('published');
 		pluginimg.title='Published';
 	} else if ( ajaxResponse == '0' ) {
-		pluginimg.src = 'images/publish_x.png';
+		pluginimg.src = _live_site+'/administrator/templates/'+_cur_template+'/images/ico/publish_x.png';
 		plugin.removeClass('published');
 		plugin.addClass('unpublished');
 		pluginimg.title='Unpublished';

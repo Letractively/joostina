@@ -158,6 +158,10 @@ function is_table($table) {
 
 function record_html($query) {
 	global $database;
+
+	$mainframe = &mosMainFrame::getInstance();
+	$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
+
 	// exec query
 	$database->setQuery($query);
 	$rows = $database->loadAssocList();
@@ -194,12 +198,12 @@ function record_html($query) {
 				.base64_encode($table)
 				.'&key='.$key.'&id='.$row[$key].'&prm2='
 				.base64_encode($query)
-				.'"><img border=0 src="../images/M_images/edit.png" alt="'._EDIT.'" /></a>&nbsp;
+				.'"><img border=0 src="'.$cur_file_icons_path.'/edit.png" alt="'._EDIT.'" /></a>&nbsp;
 				<a href="index2.php?option=com_easysql&task=delete&prm1='
 				.base64_encode($table)
 				.'&key='.$key.'&id='.$row[$key].'&prm2='
 				.base64_encode($query)
-				.'"><img border=0 src="images/publish_x.png" alt="'._DELETE.'" /></a></td>';
+				.'"><img border=0 src="'.$cur_file_icons_path.'/publish_x.png" alt="'._DELETE.'" /></a></td>';
 			foreach($row as $var => $val) {
 				if(ereg("[a-zA-Z]+",$var,$array)) $body .= '<td>&nbsp;'.prepare(substr($val,0,50))."</td>\n";
 			}

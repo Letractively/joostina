@@ -81,7 +81,7 @@ if($path = $mainframe->getPath('admin')) {
 	require_once ($path);
 } else {
 ?>
-	<img src="images/error.png" border="0" alt="Joostina!" />
+	<img src="<?php echo $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate();?>/images/ico/error.png" border="0" alt="Joostina!" />
 <?php
 }
 

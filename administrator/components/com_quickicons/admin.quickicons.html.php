@@ -17,6 +17,9 @@ class HTML_QuickIcons {
 
 	function show(&$rows,$option,$search,&$pageNav) {
 		global $mosConfig_live_site;
+		
+		$mainframe = &mosMainFrame::getInstance();
+		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
 		mosCommonHTML::loadOverlib();
 ?>
 		<form action="index2.php" method="post" name="adminForm">
@@ -43,7 +46,7 @@ class HTML_QuickIcons {
 				<th width="7%" colspan="2" class="jtd_nowrap"><?php echo _ORDERING?></th>
 				<th width="2%"><?php echo _SORT_ORDER ?></th>
 				<th width="1%">
-					<a href="javascript:saveorder(<?php echo count($rows) - 1; ?>)" title="<?php echo _SAVE_ORDER?>"><img src="images/filesave.png" border="0" width="16" height="16" alt="<?php echo _SAVE_ORDER?>" /></a>
+					<a href="javascript:saveorder(<?php echo count($rows) - 1; ?>)" title="<?php echo _SAVE_ORDER?>"><img src="<?php echo $cur_file_icons_path;?>/filesave.png" border="0" width="16" height="16" alt="<?php echo _SAVE_ORDER?>" /></a>
 				</th>
 			</tr>
 <?php
@@ -91,16 +94,16 @@ class HTML_QuickIcons {
 					<td align="center"><?php echo $display; ?></td>
 					<td align="left"><?php echo $row->groupname; ?></td> 
 					<td align="center" onclick="ch_publ(<?php echo $row->id; ?>,'com_quickicons');" class="td-state">
-						<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?php echo _PUBLISHING?>" />
+						<img class="img-mini-state" src="<?php echo $cur_file_icons_path;?>/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?php echo _PUBLISHING?>" />
 					</td>
 					<td align="center">
 						<?php if($i!=0){?>
-							<a href="<?php echo $link.'orderUp&amp;id='.$row->id; ?>" title="<?php echo _E_UP?>"><img src="images/uparrow.png" border="0" alt="<?php echo _E_UP; ?>" /></a>
+							<a href="<?php echo $link.'orderUp&amp;id='.$row->id; ?>" title="<?php echo _E_UP?>"><img src="<?php echo $cur_file_icons_path;?>/uparrow.png" border="0" alt="<?php echo _E_UP; ?>" /></a>
 						<?php };?>
 					</td>
 					<td align="center">
 						<?php if($i!=(count($rows)-1)){?>
-							<a href="<?php echo $link.'orderDown&amp;id='.$row->id; ?>" title="<?php echo _E_DOWN?>"><img src="images/downarrow.png" border="0" alt="<?php echo _E_DOWN; ?>" /></a>
+							<a href="<?php echo $link.'orderDown&amp;id='.$row->id; ?>" title="<?php echo _E_DOWN?>"><img src="<?php echo $cur_file_icons_path;?>/downarrow.png" border="0" alt="<?php echo _E_DOWN; ?>" /></a>
 						<?php };?>
 					</td>
 					<td align="center" colspan="2">

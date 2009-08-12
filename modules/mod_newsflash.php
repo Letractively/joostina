@@ -22,12 +22,15 @@ $access->canEdit	= 0;
 $access->canEditOwn = 0;
 $access->canPublish = 0;
 
+$date_type = $params->get('date_type', 'created');
+
 $content_params = $params;
 $content_params->set('rating', 0);
 $content_params->set('limitstart', 0);
 $content_params->set('limit', $params->get('items', 3));
-$content_params->set('orderby_pri', 'order');
-$content_params->set('orderby_sec', 'date');
+$content_params->set('orderby_pri', '');
+$content_params->set('orderby_sec', $date_type);
+
 
 $content_items = new mosContent(database::getInstance());
 $items = $content_items->_load_blog_category($category, $content_params, $access);

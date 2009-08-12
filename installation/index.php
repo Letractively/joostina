@@ -32,35 +32,41 @@ echo '<?xml version="1.0" encoding="utf-8"?'.'>';?>
 		<link rel="stylesheet" href="install.css" type="text/css" />
 	</head>
 	<body>
-		<div id="wrapper">
-			<div id="header">
-				<div id="joomla">
-					<img src="img/header_install.png" alt="Установка Joostina" />
-				</div>
-			</div>
-		</div>
+
+		
 		<div id="ctr" align="center">
 			<div class="install">
-				<div id="step"><span>Проверка системы</span>
-					<div class="step-right">
-						<input type="button" class="button" value="Проверить снова" onclick="window.location=window.location" />
-						<input name="Button2" type="submit" class="button" value="Далее >>" onclick="window.location='install.php';" />
-					</div>
-				</div>
-				<div id="stepbar">
-					<div class="step-on">Проверка системы</div>
-					<div class="step-off">Лицензия</div>
-					<div class="step-off">Шаг 1</div>
-					<div class="step-off">Шаг 2</div>
-					<div class="step-off">Шаг 3</div>
-					<div class="step-off">Шаг 4</div>
-					<div class="step-off">
-						<img src="img/img-1.png" alt="Установка Joostina" />
-					</div>
-				</div>
-				<div id="right">
-					<div class="clr"></div>
-					<h1 style="text-align:center;"><?php echo $version; ?></h1>
+			
+			<div id="header">
+				<p><?php echo $version; ?></p>
+				<p class="jst"><a href="http://www.joostina.ru">Joostina</a> - свободное программное обеспечение, распространяемое по лицензии GNU/GPL.</p>
+			</div>	
+			
+			<div id="navigator">
+				<big>Установка Joostina CMS</big>				
+				<ul>
+					<li class="step step-on"><strong>1</strong><span>Проверка системы</span></li>
+					<li class="arrow">&nbsp;</li>
+					<li class="step"><strong>2</strong><span>Лицензионное соглашение</span></li>
+					<li class="arrow">&nbsp;</li>
+					<li class="step"><strong>3</strong><span>Конфигурация базы данных</span></li>
+					<li class="arrow">&nbsp;</li>
+					<li class="step"><strong>4</strong><span>Название сайта</span></li>
+					<li class="arrow">&nbsp;</li>
+					<li class="step"><strong>5</strong><span>Конфигурация сайта</span></li>
+					<li class="arrow">&nbsp;</li>
+					<li class="step"><strong>6</strong><span>Завершение установки</span></li>
+				</ul>				
+			</div>
+			
+			<div class="buttons">
+				<input type="button" class="button small" value="Проверить снова" onclick="window.location=window.location" />
+				<input name="Button2" type="submit" class="button" value="Далее >>" onclick="window.location='install.php';" />
+			</div>		
+			
+
+				<div id="wrap">
+
 					<h1>Проверка настроек сервера: </h1>
 					<div class="install-text">
 						Если на сервере имеются настройки, способные привести к ошибкам во время установки или работы Joostina, то на этой странице они будут отмечены <b>
@@ -342,10 +348,10 @@ foreach($php_recommended_settings as $phprec) {
 		</div>
 	<div class="install-form">
 		<div class="form-block">
-		<div class="button" id="cr" style="width: 98%;" onclick="document.getElementById('cool_dirs').style.display=''; document.getElementById('dir_info').style.display=''; document.getElementById('cr').style.display='none';">
+		<div class="button2" id="cr" style="width: 98%;" onclick="document.getElementById('cool_dirs').style.display=''; document.getElementById('dir_info').style.display=''; document.getElementById('cr').style.display='none';">
 			Проверить права доступа к системным каталогам
 		</div>
-		<div class="clr">&nbsp;</div><br /><br />
+		<div class="clr">&nbsp;</div>
 <?php
 // список каталогов которые необхоимо проверять на возможность записи в них
 $dirs = array(
@@ -394,7 +400,7 @@ echo '<table id="cool_dirs" class="content" style="display:none;">'.$cool_dirs.'
 	<div class="clr"></div>
 	</div>
 	</div>
-	<div class="ctr" id="footer"><a href="http://www.joostina.ru" target="_blank">Joostina</a> - свободное программное обеспечение, распространяемое по лицензии GNU/GPL.</div>
+
 </body>
 </html>
 <?php

@@ -76,6 +76,9 @@ function JP_BUFA_Main() {
 // получение списка резервных копий
 function JP_GetFileList() {
 	global $JPConfiguration;
+	
+	$mainframe = &mosMainFrame::getInstance();
+	$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
 
 	require_once 'engine.abstraction.php';
 	$FS = new CFSAbstraction();
@@ -102,11 +105,11 @@ function JP_GetFileList() {
 					$linkDelete		= "javascript:if (confirm('"._JP_REALLY_DELETE_FILE."')){ SRAX.get('no_html').value = 0; postTaskForm('deletefile', '".addslashes($fileName)."'); }";
 ?>
 				<tr class="row<?php echo $k;?>">
-					<td align="left"><img src="images/ico/<?php echo $ico; ?>" border="0"><?php echo $onlyName.'<br />'._JP_FILE_CREATION_DATE.': <b>'.$createdTime.'</b>, '._JWMM_FILESIZE.': <b>'.$fileSizeKb; ?> <?php echo _JWMM_KBYTES?></b></td>
+					<td align="left"><img src="<?php echo $cur_file_icons_path;?>/<?php echo $ico; ?>" border="0"><?php echo $onlyName.'<br />'._JP_FILE_CREATION_DATE.': <b>'.$createdTime.'</b>, '._JWMM_FILESIZE.': <b>'.$fileSizeKb; ?> <?php echo _JWMM_KBYTES?></b></td>
 					<td align="center">
-						<img src="images/ico/down.png" border="0">&nbsp;&nbsp;<a href="<?php echo $linkDownload; ?>"><?php echo _JP_DOWNLOAD_FILE?></a></td>
+						<img src="<?php echo $cur_file_icons_path;?>/down.png" border="0">&nbsp;&nbsp;<a href="<?php echo $linkDownload; ?>"><?php echo _JP_DOWNLOAD_FILE?></a></td>
 					<td align="center">
-						<img src="images/publish_x.png" border="0">&nbsp;&nbsp;<a href="<?php echo $linkDelete; ?>"><?php echo _DELETE?></a>
+						<img src="<?php echo $cur_file_icons_path;?>/publish_x.png" border="0">&nbsp;&nbsp;<a href="<?php echo $linkDelete; ?>"><?php echo _DELETE?></a>
 					</td>
 				</tr>
 <?php

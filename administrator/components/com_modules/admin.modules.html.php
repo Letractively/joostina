@@ -22,6 +22,9 @@ class HTML_modules {
 	*/
 	function showModules(&$rows,$myid,$client,&$pageNav,$option,&$lists,$search) {
 		global $my,$mosConfig_live_site;
+		$mainframe = &mosMainFrame::getInstance();
+		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
+		
 		mosCommonHTML::loadOverlib();
 ?>
 	<script type="text/javascript">
@@ -50,7 +53,7 @@ class HTML_modules {
 					if(resp.responseText==1)
 						SRAX.replaceHtml('mod-id-'+elID,'<a href="#" onclick="ch_get_positon(\''+elID+'\');" >'+newPOS+'</a>');
 					else
-						SRAX.replaceHtml('mod-id-'+elID,'<img src="images/error.png" />');
+						SRAX.replaceHtml('mod-id-'+elID,'<img src="<?php echo $cur_file_icons_path;?>/error.png" />');
 		}});
 	}
 	</script>
@@ -81,7 +84,7 @@ class HTML_modules {
 			<th colspan="2" align="center" width="5%"><?php echo _ORDERING?></th>
 			<th width="2%"><?php echo _ORDER_DROPDOWN?></th>
 			<th width="1%">
-				<a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="<?php echo _SAVE_ORDER?>" /></a>
+				<a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="<?php echo $cur_file_icons_path;?>/filesave.png" border="0" width="16" height="16" alt="<?php echo _SAVE_ORDER?>" /></a>
 			</th>
 <?php
 		if(!$client) {
@@ -121,7 +124,7 @@ class HTML_modules {
 ?>
 			</td>
 			<td align="center" <?php echo ($row->checked_out && ($row->checked_out != $my->id)) ? null : 'onclick="ch_publ('.$row->id.',\'com_modules\');" class="td-state"';?>>
-				<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?php echo _PUBLISHING?>" />
+				<img class="img-mini-state" src="<?php echo $cur_file_icons_path;?>/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?php echo _PUBLISHING?>" />
 			</td>
 			<td><?php echo $pageNav->orderUpIcon($i,($row->position == @$rows[$i - 1]->position)); ?></td>
 			<td><?php echo $pageNav->orderDownIcon($i,$n,($row->position == @$rows[$i + 1]->position)); ?></td>

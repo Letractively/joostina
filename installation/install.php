@@ -35,35 +35,44 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\"?".">"; ?>
 		<link rel="stylesheet" href="install.css" type="text/css" />
 	</head>
 	<body>
-		<div id="wrapper">
-			<div id="header">
-				<div id="joomla">
-					<img src="img/header_install.png" alt="Установка Joostina" />
-				</div>
-			</div>
-		</div>
+
 		<div id="ctr" align="center">
 		<form action="install1.php" method="post" name="adminForm" id="adminForm">
+			
+			
 			<div class="install">
-				<div id="step"><span>Лицензия</span>
-					<div class="step-right">
+			
+			<div id="header">
+				<p>Joostina 1.3.0 beta [ b3 ] 06:08:2009 03:11 +5 GMT</p>
+				<p class="jst"><a href="http://www.joostina.ru">Joostina</a> - свободное программное обеспечение, распространяемое по лицензии GNU/GPL.</p>
+			</div>	
+			
+			<div id="navigator">
+				<big>Установка Joostina CMS</big>				
+				<ul>
+					<li class="step"><strong>1</strong><span>Проверка системы</span></li>
+					<li class="arrow">&nbsp;</li>
+					<li class="step step-on"><strong>2</strong><span>Лицензионное соглашение</span></li>
+					<li class="arrow">&nbsp;</li>
+					<li class="step"><strong>3</strong><span>Конфигурация базы данных</span></li>
+					<li class="arrow">&nbsp;</li>
+					<li class="step"><strong>4</strong><span>Название сайта</span></li>
+					<li class="arrow">&nbsp;</li>
+					<li class="step"><strong>5</strong><span>Конфигурация сайта</span></li>
+					<li class="arrow">&nbsp;</li>
+					<li class="step"><strong>6</strong><span>Завершение установки</span></li>
+				</ul>				
+			</div>
+			
+				<div class="buttons">
+					
 						<input class="button" type="submit" name="next" value="Далее &gt;&gt;"/>
-					</div>
+				
 				</div>
-				<div id="stepbar">
-					<div class="step-off">Проверка системы</div>
-					<div class="step-on">Лицензия</div>
-					<div class="step-off">Шаг 1</div>
-					<div class="step-off">Шаг 2</div>
-					<div class="step-off">Шаг 3</div>
-					<div class="step-off">Шаг 4</div>
-					<div class="step-off">
-						<img src="img/img-1.png" alt="Установка Joostina" />
-					</div>
-				</div>
-				<div id="right">
+
+				<div id="wrap">
 					<div class="clr"></div>
-					<div class="licensetext">
+					<div class="install-text">
 						Joostina- свободное программное обеспечение, распространяемое по лицензии GNU/GPL, для использования системы Вы должны полностью согласиться с предоставленной лицензией.
 					</div>
 					<div class="clr"></div>
@@ -79,6 +88,6 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\"?".">"; ?>
 			</div>
 		</form>
 		</div>
-	<div class="ctr" id="footer"><a href="http://www.Joostina.ru" target="_blank">Joostina</a> - свободное программное обеспечение, распространяемое по лицензии GNU/GPL.</div>
+
 </body>
 </html>

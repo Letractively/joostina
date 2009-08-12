@@ -458,10 +458,12 @@ class XmapAdminHtml {
 	
 	function printPluginInfo (&$row,$k) {
 		global $mosConfig_live_site;
+		$mainframe = &mosMainFrame::getInstance();
+		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
 ?>
 		<tr id="plugin<?php echo $row->id; ?>" class="row<?php echo $k; ?>">
 			<td><a href="javascript:settingsPlugin(<?php echo $row->id; ?>);"><?php echo $row->name; ?></a></td>
-			<td align="center"><a href="javascript:changePluginState(<?php echo $row->id; ?>)"><img id="pluginstate<?php echo $row->id; ?>" src="images/<?php echo $row->published?'publish_g.png" title="'._XMAP_EXT_PUBLISHED.'"':'publish_x.png" title="'._XMAP_EXT_UNPUBLISHED.'"'; ?>" border="0" /></a></td>
+			<td align="center"><a href="javascript:changePluginState(<?php echo $row->id; ?>)"><img id="pluginstate<?php echo $row->id; ?>" src="<?php echo $cur_file_icons_path;?>/<?php echo $row->published?'publish_g.png" title="'._XMAP_EXT_PUBLISHED.'"':'publish_x.png" title="'._XMAP_EXT_UNPUBLISHED.'"'; ?>" border="0" /></a></td>
 			<td align="center"><?php echo @$row->version != "" ? $row->version : "&nbsp;"; ?></td>
 			<td align="center"><?php echo (@$row->author != "" ? $row->author : _XMAP_UNKNOWN_AUTHOR) . (@$row->authorEmail != "" ? ' &lt;'.$row->authorEmail.'&gt;' : "&nbsp;"); ?>
 				<?php echo @$row->authorUrl != "" ? "<a href=\"" .(substr( $row->authorUrl, 0, 7) == 'http://' ? $row->authorUrl : 'http://'.$row->authorUrl) ."\" target=\"_blank\">$row->authorUrl</a>" : "&nbsp;"; ?></div>

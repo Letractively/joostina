@@ -34,11 +34,14 @@ function dir_list($dir) {
 	return $dir_list;
 }
 function dir_print($dir_list, $new_dir) {
+	$mainframe = &mosMainFrame::getInstance();
+	$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
+	
 	$dir_up = dirname($new_dir);
 	if($dir_up == "."){
 		$dir_up = "";
 	}
-	echo "<tr><td><a href=\"javascript:NewDir('".$dir_up."');\"><img border=\"0\" align=\"absmiddle\" src=\"images/uparrow.png\" alt=\"\">&nbsp;..</a></td></tr>\n";
+	echo "<tr><td><a href=\"javascript:NewDir('".$dir_up."');\"><img border=\"0\" align=\"absmiddle\" src=\"".$cur_file_icons_path."/uparrow.png\" alt=\"\">&nbsp;..</a></td></tr>\n";
 	if(!is_array($dir_list))
 		return;
 	while(list($new_item, $info) = each($dir_list)) {
@@ -48,10 +51,12 @@ function dir_print($dir_list, $new_dir) {
 		$s_item = $new_item;
 		if(strlen($s_item) > 40)
 			$s_item = substr($s_item, 0, 37)."...";
-		echo "<tr><td><a href=\"javascript:NewDir('".get_rel_item($new_dir, $new_item)."');\"><img border=\"0\"  align=\"absmiddle\" "."src=\"images/ico/folder.png\" alt=\"\">&nbsp;".$s_item."</a></td></tr>\n";
+		echo "<tr><td><a href=\"javascript:NewDir('".get_rel_item($new_dir, $new_item)."');\"><img border=\"0\"  align=\"absmiddle\" "."src=\"".$cur_file_icons_path."/folder.png\" alt=\"\">&nbsp;".$s_item."</a></td></tr>\n";
 	}
 }
 function copy_move_items($dir) {
+	$mainframe = &mosMainFrame::getInstance();
+	$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
 	if(($GLOBALS["permissions"] & 01) != 01)
 		show_error($GLOBALS["error_msg"]["accessfunc"]);
 	$first = $GLOBALS['__POST']["first"];
@@ -63,9 +68,9 @@ function copy_move_items($dir) {
 		$new_dir = "";
 	$cnt = count($GLOBALS['__POST']["selitems"]);
 	if($GLOBALS["action"] != "move") {
-		$images = "images/ico/copy.png";
+		$images = "".$cur_file_icons_path."/copy.png";
 	} else {
-		$images = "images/ico/copy.png";
+		$images = "".$cur_file_icons_path."/copy.png";
 	}
 	if(!isset($GLOBALS['__POST']["confirm"]) || $GLOBALS['__POST']["confirm"] !="true") {
 		show_header(($GLOBALS["action"] != "move"?$GLOBALS["messages"]["actcopyitems"]:$GLOBALS["messages"]["actmoveitems"]));

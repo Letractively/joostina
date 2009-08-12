@@ -240,3 +240,7 @@ wz-tooltip
 Значки шаблона "NewLine" (в базовой поставке Joostina CMS): Diagona Icons
 Авторские права: (с) Yusuke Kamiyamane ( http://www.pinvoke.com/ )
 Лицензия: Creative Commons Attribution 3.0 license
+
+Значки системы: Oxygen Icons
+Авторские права: Vignoni David (http://www.oxygen-icons.org)
+Лицензия: Creative Common Attribution-ShareAlike 3.0 License or the GNU Library General Public License

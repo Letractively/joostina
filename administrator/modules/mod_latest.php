@@ -11,11 +11,14 @@
 defined('_VALID_MOS') or die();
 
 global $my;
+$mainframe = &mosMainFrame::getInstance();
+$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
 
 // число объектов содержимого для вывода
 $limit = $params->get('num',10);
 $type = $params->get('type',0);
 $ext = $params->get('ext',1);
+
 
 $where = $ext ? "\n LEFT JOIN #__categories AS c ON c.id = a.catid LEFT JOIN #__sections AS s ON s.id = a.sectionid" : '';
 
@@ -102,7 +105,7 @@ if($ext){
 ?>
 		</td>
 		<td width="5%" class="td-state" align="center" onclick="ch_publ(<?php echo $row->id;?>,'com_content');">
-			<img id="img-pub-<?php echo $row->id;?>" class="img-mini-state" alt="<?php echo _PUBLISHING?>" src="images/<?php echo $img;?>"/>
+			<img id="img-pub-<?php echo $row->id;?>" class="img-mini-state" alt="<?php echo _PUBLISHING?>" src="<?php echo $cur_file_icons_path;?>/<?php echo $img;?>"/>
 		</td>
 		<td align="left" width="20%"><?php echo $author; ?></td>
 	</tr>

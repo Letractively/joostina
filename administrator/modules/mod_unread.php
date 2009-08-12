@@ -11,6 +11,8 @@
 defined('_VALID_MOS') or die();
 
 global $my;
+$mainframe = &mosMainFrame::getInstance();
+$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
 
 $query = "SELECT COUNT(*)"
 		."\n FROM #__messages"
@@ -20,7 +22,7 @@ $database->setQuery($query);
 $unread = $database->loadResult();
 
 if($unread) {
-	echo "<a class=\"adminmail\" href=\"index2.php?option=com_messages\" style=\"color: red; text-decoration: none;  font-weight: bold\"><img  src=\"images/mail.png\" align=\"top\" border=\"0\" alt=\"项黩郳" /> $unread </a>";
+	echo "<a class=\"adminmail\" href=\"index2.php?option=com_messages\" style=\"color: red; text-decoration: none;  font-weight: bold\"><img  src=\"".$cur_file_icons_path."/mail.png\" align=\"top\" border=\"0\" alt=\"项黩郳" /> $unread </a>";
 } else {
-	echo "<a class=\"adminmail\" href=\"index2.php?option=com_messages\" style=\"color: black; text-decoration: none;\"><img src=\"images/nomail.png\" align=\"top\" border=\"0\" alt=\"项黩郳" /> $unread </a>";
+	echo "<a class=\"adminmail\" href=\"index2.php?option=com_messages\" style=\"color: black; text-decoration: none;\"><img src=\"".$cur_file_icons_path."/nomail.png\" align=\"top\" border=\"0\" alt=\"项黩郳" /> $unread </a>";
 }

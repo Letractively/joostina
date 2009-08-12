@@ -710,6 +710,7 @@ class HTML_content {
 	 * @param string The html for the groups select list
 	 */
 	function editContent(&$row, &$page, $task) {
+		global $my;
 		$mainframe = &mosMainFrame::getInstance();
 
 		mosMakeHtmlSafe($row);

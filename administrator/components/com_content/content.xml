@@ -45,17 +45,25 @@
 			<option value="0">Скрыть</option>
 			<option value="1">Показать</option>
 		</param>
-		<param name="section_link" type="radio" default="0" label="Название раздела как ссылка" description="Сделать названия разделов ссылками">
+		<param name="section_link" type="radio" default="1" label="Название раздела как ссылка" description="Сделать названия разделов ссылками">
 			<option value="0">Нет</option>
 			<option value="1">Да</option>
+		</param>
+		<param name="section_link_type" type="list" default="blog" label="Тип ссылки на раздел" description="Тип ссылки на раздел">
+			<option value="blog">Блог раздела</option>
+			<option value="list">Список категорий раздела</option>
 		</param>
 		<param name="category" type="radio" default="0" label="Название категории" description="Показать/Спрятать название категории, к которой относится объект">
 			<option value="0">Скрыть</option>
 			<option value="1">Показать</option>
 		</param>
-		<param name="category_link" type="radio" default="0" label="Название категории как ссылка" description="Сделать названия категорий ссылками">
+		<param name="category_link" type="radio" default="1" label="Название категории как ссылка" description="Сделать названия категорий ссылками">
 			<option value="0">Нет</option>
 			<option value="1">Да</option>
+		</param>
+		<param name="cat_link_type" type="list" default="blog" label="Тип ссылки на категорию" description="Тип ссылки на категорию">
+			<option value="blog">Блог категории</option>
+			<option value="table">Таблица категории</option>
 		</param>
 		<param name="rating" type="list" default="" label="Рейтинг" description="Показать/Спрятать рейтинг - действует только на этой странице">
 			<option value="">Использовать глобальные настройки</option>

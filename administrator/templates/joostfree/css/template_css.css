@@ -26,19 +26,19 @@ text-align: left;
 .pack_step{
 	margin-top: 5px;
 	padding: 2px 20px 2px 40px;
-	background: url(../../../images/info.png) no-repeat scroll 15px 50%;
+	background: url(../images/ico/info.png) no-repeat scroll 15px 50%;
 	text-align: left;
 }
 .pack_step_activ{
 	margin-top: 5px;
 	padding: 2px 20px 2px 45px;
-	background: url(../../../images/aload.gif) no-repeat scroll 15px 50%;
+	background: url(../images/aload.gif) no-repeat scroll 15px 50%;
 	text-align: left;
 }
 .pack_step_done{
 	margin-top: 5px;
 	padding: 2px 20px 2px 45px;
-	background: url(../../../images/tick.png) no-repeat scroll 15px 50%;
+	background: url(../images/ico/tick.png) no-repeat scroll 15px 50%;
 	text-align: left;
 }
 /* ключи параметров и настроек */
@@ -96,10 +96,10 @@ a.abig{
 	margin: 0;
 }
 .tdtoogleoff{
-	background: url(../../../images/tgl.gif) no-repeat;
+	background: url(../images/tgl.gif) no-repeat;
 }
 .tdtoogleon{
-	background: url(../../../images/tgr.gif) no-repeat;
+	background: url(../images/tgr.gif) no-repeat;
 }
 .tdtoogleoff:hover, .tdtoogleon:hover{
 	background-color: #FFFFCC;
@@ -218,7 +218,7 @@ div.cpicons div  {
 /* кнопки тулбара*/
 /* индикатор выполнения */
 .tb-load {
-	background: url(../../../images/aload.gif);
+	background: url(../images/aload.gif);
 }
 /* закрыть / выйти */
 .tb-cancel, .tb-custom-cancel, .tb-ext-cancel {
@@ -841,7 +841,7 @@ form {
 	border-top: 2px solid rgb(181, 212, 254);
 	border-bottom: 2px solid rgb(181, 212, 254);
 	padding: 5px 20px 5px 45px;
-	background: #FBEEF1 url(../images/error.png) no-repeat scroll 15px 50%;
+	background: #FBEEF1 url(../images/ico/error.png) no-repeat scroll 15px 50%;
 	/** -moz-background-clip: -moz-initial;
 	-moz-background-origin: -moz-initial;
 	-moz-background-inline-policy: -moz-initial; **/
@@ -853,7 +853,7 @@ form {
 	border-top: 2px solid rgb(181, 212, 254);
 	border-bottom: 2px solid rgb(181, 212, 254);
 	padding: 5px 20px 5px 45px;
-	background: #e4eef6 url(../images/info.png) no-repeat scroll 15px 50%;
+	background: #e4eef6 url(../images/ico/info.png) no-repeat scroll 15px 50%;
 	/** -moz-background-clip: -moz-initial;
 	-moz-background-origin: -moz-initial;
 	-moz-background-inline-policy: -moz-initial; **/

@@ -226,11 +226,7 @@ function check() {
  </script>
 </head>
 <body onload="document.form.sitename.focus();">
- <div id="wrapper">
-  <div id="header">
-   <div id="joomla"><img src="img/header_install.png" alt="Установка Joostina" /></div>
-  </div>
- </div>
+
  <div id="ctr" align="center">
   <form action="install3.php" method="post" name="form" id="form" onsubmit="return check();">
    <input type="hidden" name="DBhostname" value="<?php echo $DBhostname; ?>" />
@@ -240,22 +236,36 @@ function check() {
    <input type="hidden" name="DBPrefix" value="<?php echo $DBPrefix; ?>" />
    <input type="hidden" name="DBcreated" value="<?php echo $DBcreated; ?>" />
    <div class="install">
-					<div id="step"><span>Название сайта</span>
-						<div class="step-right">
-						<?php if(!$isErr) { ?>
-							<input class="button" type="submit" name="next" value="Далее >>"/>
-						<?php } ?>
-						</div>
-					</div>
-    <div id="stepbar">
-     <div class="step-off">Проверка системы</div>
-     <div class="step-off">Лицензия</div>
-     <div class="step-off">Шаг 1</div>
-     <div class="step-on">Шаг 2</div>
-     <div class="step-off">Шаг 3</div>
-     <div class="step-off">Шаг 4</div>
-    </div>
-    <div id="right">
+   
+   	<div id="header">
+				<p>Joostina 1.3.0 beta [ b3 ] 06:08:2009 03:11 +5 GMT</p>
+				<p class="jst"><a href="http://www.joostina.ru">Joostina</a> - свободное программное обеспечение, распространяемое по лицензии GNU/GPL.</p>
+			</div>	
+			
+			<div id="navigator">
+				<big>Установка Joostina CMS</big>				
+				<ul>
+					<li class="step"><strong>1</strong><span>Проверка системы</span></li>
+					<li class="arrow">&nbsp;</li>
+					<li class="step"><strong>2</strong><span>Лицензионное соглашение</span></li>
+					<li class="arrow">&nbsp;</li>
+					<li class="step"><strong>3</strong><span>Конфигурация базы данных</span></li>
+					<li class="arrow">&nbsp;</li>
+					<li class="step step-on"><strong>4</strong><span>Название сайта</span></li>
+					<li class="arrow">&nbsp;</li>
+					<li class="step"><strong>5</strong><span>Конфигурация сайта</span></li>
+					<li class="arrow">&nbsp;</li>
+					<li class="step"><strong>6</strong><span>Завершение установки</span></li>
+				</ul>				
+			</div>
+			
+				<div class="buttons">
+				<?php if(!$isErr) { ?>					
+						<input class="button" type="submit" name="next" value="Далее &gt;&gt;"/>
+						<?php } ?>				
+				</div>
+
+    <div id="wrap">
      <div class="far-right">
      </div>
      <div class="install-text">

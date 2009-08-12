@@ -22,6 +22,8 @@ class categories_html {
 	*/
 	function show(&$rows,$section,$section_name,&$pageNav,&$lists,$type) {
 		global $my;
+		$mainframe = &mosMainFrame::getInstance();
+		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
 		mosCommonHTML::loadOverlib();
 ?>
 	<script type="text/javascript">
@@ -49,7 +51,7 @@ class categories_html {
 				function(resp, idTread, status, ops){
 					log('Получен ответ: ' + resp.responseText);
 					if(resp.responseText==2)
-						SRAX.replaceHtml('cat-id-'+elID,'<div style="text-align:center;"><img src="images/error.png" /></div>');
+						SRAX.replaceHtml('cat-id-'+elID,'<div style="text-align:center;"><img src="<?php echo $cur_file_icons_path;?>/error.png" /></div>');
 					else
 						SRAX.replaceHtml('cat-id-'+elID,resp.responseText);
 		}});
@@ -89,7 +91,7 @@ class categories_html {
 ?>
 			<th width="2%"><?php echo _ORDER_DROPDOWN?></th>
 			<th width="1%">
-				<a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="Сохранить порядок" /></a>
+				<a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="<?php echo $cur_file_icons_path;?>/filesave.png" border="0" width="16" height="16" alt="Сохранить порядок" /></a>
 			</th>
 			<th width="8%"><?php echo _ACCESS?></th>
 <?php
@@ -145,7 +147,7 @@ class categories_html {
 ?>
 				</td>
 				<td align="center" <?php echo ($row->checked_out && ($row->checked_out != $my->id)) ? null : 'onclick="ch_publ('.$row->id.',\'com_categories\');" class="td-state"';?>>
-					<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?php echo _PUBLISHING?>" />
+					<img class="img-mini-state" src="<?php echo $cur_file_icons_path;?>/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?php echo _PUBLISHING?>" />
 				</td>
 <?php
 			if($section != 'content') {

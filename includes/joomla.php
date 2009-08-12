@@ -5102,9 +5102,9 @@ class mosAdminMenus {
 		$align	= $align ? ' align="'.$align.'"':'';
 		// change directory path from frontend or backend
 		if($admin) {
-			$path = DS.ADMINISTRATOR_DIRECTORY.'/templates/'.$cur_template.'/images/';
+			$path = DS.ADMINISTRATOR_DIRECTORY.'/templates/'.$cur_template.'/images/ico/';
 		} else {
-			$path = '/templates/'.$cur_template.'/images/';
+			$path = '/templates/'.$cur_template.'/images/ico/';
 		}
 		if($param) {
 			$image = $config->config_live_site.$param_directory.$param;
@@ -5206,16 +5206,18 @@ class mosAdminMenus {
 
 class mosCommonHTML {
 	function ContentLegend() {
+		$mainframe = &mosMainFrame::getInstance();
+		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
 ?>
 		<table cellspacing="0" cellpadding="4" border="0" align="center">
 			<tr align="center">
-				<td><img src="images/publish_y.png" border="0" /></td>
+				<td><img src="<?php echo $cur_file_icons_path;?>/publish_y.png" border="0" /></td>
 				<td><?php echo _PUBLISHED_VUT_NOT_ACTIVE?> |</td>
-				<td><img src="images/publish_g.png" border="0" /></td>
+				<td><img src="<?php echo $cur_file_icons_path;?>/publish_g.png" border="0" /></td>
 				<td><?php echo _PUBLISHED_AND_ACTIVE?> |</td>
-				<td><img src="images/publish_r.png" border="0" /></td>
+				<td><img src="<?php echo $cur_file_icons_path;?>/publish_r.png" border="0" /></td>
 				<td><?php echo _PUBLISHED_BUT_DATE_EXPIRED?> |</td>
-				<td><img src="images/publish_x.png" border="0" /></td>
+				<td><img src="<?php echo $cur_file_icons_path;?>/publish_x.png" border="0" /></td>
 				<td><?php echo _NOT_PUBLISHED?></td>
 			</tr>
 		</table>
@@ -5377,6 +5379,8 @@ class mosCommonHTML {
 	}
 
 	function checkedOut(&$row,$overlib = 1) {
+		$mainframe = &mosMainFrame::getInstance();
+		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
 		$hover = '';
 		if($overlib) {
 			$date = mosFormatDate($row->checked_out_time,'%A, %d %B %Y');
@@ -5389,7 +5393,7 @@ class mosCommonHTML {
 			$checked_out_text .= '</table>';
 			$hover = 'onMouseOver="return overlib(\''.$checked_out_text.'\', CAPTION, \''._CHECKED_OUT.'\', BELOW, RIGHT);" onMouseOut="return nd();"';
 		}
-		$checked = '<img src="images/checked_out.png" '.$hover.'/>';
+		$checked = '<img src="'.$cur_file_icons_path.'/checked_out.png" '.$hover.'/>';
 		return $checked;
 	}
 
@@ -5598,11 +5602,13 @@ if(window.attachEvent){
 	}
 
 	function PublishedProcessing(&$row,$i) {
+		$mainframe = &mosMainFrame::getInstance();
+		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
 		$img = $row->published?'publish_g.png':'publish_x.png';
 		$task = $row->published?'unpublish':'publish';
 		$alt = $row->published?_PUBLISHED:_UNPUBLISHED;
 		$action = $row->published?_UNPUBLISH_ON_FRONTPAGE:_PUBLISH_ON_FRONTPAGE;
-		$href = '<a href="javascript: void(0);" onclick="return listItemTask(\'cb'.$i.'\',\''.$task.'\')" title="'.$action.'"><img src="images/'.$img.'" border="0" alt="'.$alt.'" /></a>';
+		$href = '<a href="javascript: void(0);" onclick="return listItemTask(\'cb'.$i.'\',\''.$task.'\')" title="'.$action.'"><img src="'.$cur_file_icons_path.'/'.$img.'" border="0" alt="'.$alt.'" /></a>';
 		return $href;
 	}
 

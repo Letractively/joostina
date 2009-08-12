@@ -22,6 +22,8 @@ class HTML_typedcontent {
 	 */
 	function showContent(&$rows,&$pageNav,$option,$search,&$lists) {
 	global $my,$acl,$database,$mosConfig_live_site;
+	$mainframe = &mosMainFrame::getInstance();
+	$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
 	mosCommonHTML::loadOverlib();
 ?>
 <form action="index2.php" method="post" name="adminForm">
@@ -42,7 +44,7 @@ class HTML_typedcontent {
 		<th class="title"><?php echo _HEADER_TITLE?></th>
 		<th width="5%"><?php echo _PUBLISHED?></th>
 		<th width="2%"><?php echo _ORDERING?></th>
-		<th width="1%"><a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="<?php echo _SAVE_ORDER?>" /></a></th>
+		<th width="1%"><a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="<?php echo $cur_file_icons_path;?>/filesave.png" border="0" width="16" height="16" alt="<?php echo _SAVE_ORDER?>" /></a></th>
 		<th width="10%"><?php echo _ACCESS?></th>
 		<th width="5%">ID</th>
 		<th width="1%" align="left"><?php echo _LINKS_COUNT?></th>
@@ -152,7 +154,7 @@ class HTML_typedcontent {
 		if($times) {
 ?>
 		<td align="center" <?php echo ($row->checked_out && ($row->checked_out != $my->id))?null:'onclick="ch_publ('.$row->id.',\'com_typedcontent\');" class="td-state"'; ?>>
-			<img class="img-mini-state" src="images/<?php echo $img; ?>" id="img-pub-<?php echo $row->id; ?>" alt="<?php echo _PUBLISHING?>" />
+			<img class="img-mini-state" src="<?php echo $cur_file_icons_path;?>/<?php echo $img; ?>" id="img-pub-<?php echo $row->id; ?>" alt="<?php echo _PUBLISHING?>" />
 		</td>
 <?php
 		}
