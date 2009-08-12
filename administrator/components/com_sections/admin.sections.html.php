@@ -578,7 +578,7 @@ class sections_html {
 	<table id="adminlist" class="adminlist">
 		<tbody>
 		<tr>
-			<th align="left">Результаты</th>
+			<th align="left"><?php echo _MASS_RESULTS?></th>
 		</tr>
 <?php
 		$k = 0;
