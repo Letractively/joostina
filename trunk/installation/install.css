@@ -183,7 +183,7 @@ color:#000;
     width: auto; color: #FFF; cursor: pointer; font-weight: bold;
 }
 input, select {
-    background: url(imag/input_bg.png) top left repeat-x #FEFEFE;
+    background: url(img/input_bg.png) top left repeat-x #FEFEFE;
     padding: 3px 5px;
 }
 

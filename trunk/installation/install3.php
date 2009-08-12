@@ -70,8 +70,7 @@ $flags = 0644;
 if($filePerms != '') {
 	$mode = 1;
 	$flags = octdec($filePerms);
-}
-;
+};
 
 echo "<?xml version=\"1.0\" encoding=\"utf-8\"?".">";?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -81,7 +80,7 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\"?".">";?>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<link rel="shortcut icon" href="../images/favicon.ico" />
 		<link rel="stylesheet" href="install.css" type="text/css" />
- <script type="text/javascript">
+<script type="text/javascript">
 <!--
 function check() {
         // form validation check
@@ -211,7 +210,7 @@ function changeDirPermsMode(mode)
 		<tr class="trongate-2">
 			<th>Пароль Администратора</th>
 				<td>
-					<input class="inputbox" type="text" name="adminPassword" value="<?php if($adminPassword!='') echo $adminPassword; else mosMakePassword(8); ?>" size="40"/>
+					<input class="inputbox" type="text" name="adminPassword" id="adminPassword" value="<?php if($adminPassword!='') echo $adminPassword; else mosMakePassword(8); ?>" size="40"/>
 					Рекомендуется использовать пароль не короче <b>6</b> символов.
 			</td>
 		</tr>
@@ -388,6 +387,14 @@ if($dirPerms != '') {
   </form>
  </div>
  <div class="clr"></div>
- 
+<script type="text/javascript" src="../includes/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="../includes/js/jquery/plugins/jquery.dpassword.js"></script>
+<script type="text/javascript">
+	$(document).ready( function() {
+		$('#adminPassword').dPassword({
+			showIcon: false
+		});
+	});
+</script>
 </body>
 </html>
