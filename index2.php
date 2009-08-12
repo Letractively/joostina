@@ -102,9 +102,8 @@ if($option == 'login') {
 }
 
 $cur_template = $mainframe->getTemplate();
-
-// предварительный захват вывода компонента
-require_once ($mosConfig_absolute_path.'/editor/editor.php');
+// подключаем визуальный редактор
+require_once ($mosConfig_absolute_path . '/includes/editor.php');
 
 ob_start();
 
@@ -114,9 +113,9 @@ if($path = $mainframe->getPath('front')) {
 	if($ret) {
 		//Подключаем язык компонента
 		if($mainframe->getLangFile($option)){ 
-			include_once($mainframe->getLangFile($option));        	
+			include_once($mainframe->getLangFile($option));
 		}
-		$mainframe->addLib('mylib');
+		//$mainframe->addLib('mylib');
 		require_once ($path);
 	} else {
 		mosNotAuth();
