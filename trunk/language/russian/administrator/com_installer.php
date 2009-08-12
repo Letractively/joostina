@@ -67,7 +67,6 @@ DEFINE('_UNSUCCESS','неудачно');
 DEFINE('_UPLOAD_OF_EXT','Загрузка нового элемента');
 DEFINE('_DELETE_SUCCESS','Удаление успешно');
 DEFINE('_CANNOT_CHMOD','Не могу изменить права доступа к закачанному файлу');
-DEFINE('_CANNOT_MOVE_TO_MEDIA','Не могу переместить скачанный файл в каталог <code>/media</code>');
 DEFINE('_CANNOT_WRITE_TO_MEDIA','Загрузка сорвана, так как каталог <code>/media</code> недоступен для записи.');
 DEFINE('_CANNOT_INSTALL_NO_MEDIA','Загрузка сорвана, так как каталог <code>/media</code> не существует');
 DEFINE('_ERROR_NO_XML_JOOMLA','ОШИБКА: В установочном пакете невозможно найти XML-файл установки Joostina.');

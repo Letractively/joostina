@@ -114,7 +114,7 @@ function make_tables($dir, &$dir_list, &$file_list, &$tot_file_size, &$num_items
 function print_table($dir, $list, $allow) {
 	global $dir_up;
 	$mainframe = mosMainFrame::getInstance(true);
-	$cur_file_icons_patch = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico/';
+	$cur_file_icons_patch = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/file_ico/';
 	if(!is_array($list))
 		return;
 	if($dir != "" || strstr($dir, _QUIXPLORER_PATH)) {
@@ -122,7 +122,7 @@ function print_table($dir, $list, $allow) {
 	 			<td>&nbsp;</td>
 	 			<td valign=\"baseline\">
 	 				<a href=\"".make_link("list", $dir_up, null)."\">
-	 				<img border=\"0\" align=\"absmiddle\" src=\"".$cur_file_icons_path."/uparrow.png\" alt=\"".$GLOBALS["messages"]["uplink"]."\" title=\"".$GLOBALS["messages"]["uplink"]."\"/>&nbsp;&nbsp;..</a>
+	 				<img border=\"0\" align=\"absmiddle\" src=\"".$cur_file_icons_patch."/uparrow.png\" alt=\"".$GLOBALS["messages"]["uplink"]."\" title=\"".$GLOBALS["messages"]["uplink"]."\"/>&nbsp;&nbsp;..</a>
 	 			</td>
 	 			<td>&nbsp;</td>
 	 			<td>&nbsp;</td>

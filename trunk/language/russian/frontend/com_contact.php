@@ -15,7 +15,6 @@ DEFINE('_ENQUIRY_TEXT','Это сообщение отправлено с сай
 DEFINE('_COPY_TEXT','Это копия сообщения, которое Вы отправили для %s с сайта %s ');
 DEFINE('_COPY_SUBJECT','Копия: ');
 DEFINE('_THANK_MESSAGE','Спасибо! Сообщение успешно отправлено.');
-DEFINE('_CLOAKING','Этот e-mail защищен от спам-ботов. Для его просмотра в вашем браузере должна быть включена поддержка Java-script');
 DEFINE('_CONTACT_HEADER_NAME','Имя');
 DEFINE('_CONTACT_HEADER_POS','Положение');
 DEFINE('_CONTACT_HEADER_EMAIL','E-mail');

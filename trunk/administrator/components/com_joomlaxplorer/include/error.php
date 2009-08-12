@@ -55,27 +55,26 @@ function show_error($error, $extra = null) {
 	add_error($msg);
 	if(empty($_GET['error'])) {
 		session_write_close();
-		mosRedirect(make_link("show_error", $GLOBALS["dir"]).'&error=1&extra='.
-			urlencode($extra));
+		mosRedirect(make_link("show_error", $GLOBALS["dir"]).'&error=1&extra='.urlencode($extra));
 	} else {
 		show_header($GLOBALS["error_msg"]["error"]);
 		$errors = count_errors();
 		$messages = count_messages();
+		
+		$mmes = isset($GLOBALS["error_msg"]["message"]) ? $GLOBALS["error_msg"]["message"]: '';
+		
 		echo '<div class="quote">';
 		if($errors) {
-			echo '<a href="#errors">'.$errors.' '.$GLOBALS["error_msg"]["error"].
-				'</a><br />';
+			echo '<a href="#errors">'.$errors.' '.$GLOBALS["error_msg"]["error"].'</a><br />';
 		}
 		if($messages) {
-			echo '<a href="#messages">'.$messages.' '.$GLOBALS["error_msg"]["message"].
-				'</a><br />';
+			echo '<a href="#messages">'.$messages.' '.$mmes.'</a><br />';
 		}
 		echo "</div>\n";
 		if(!empty($_SESSION['jx_message'])) {
 			echo "<a href=\"".str_replace('&dir=', '&ignore=', make_link("list", ''))."\">[ ".
 				$GLOBALS["error_msg"]["back"]." ]</a>";
-			echo "<div class=\"jx_message\"><a name=\"messages\"></a>
-					<h3>".$GLOBALS["error_msg"]["message"].":</strong>"."</h3>\n";
+			echo "<div class=\"jx_message\"><a name=\"messages\"></a><h3>".$mmes.":</strong>"."</h3>\n";
 			foreach($_SESSION['jx_message'] as $msgtype) {
 				foreach($msgtype as $message) {
 					echo $message."\n<br/>";
@@ -87,8 +86,7 @@ function show_error($error, $extra = null) {
 				echo " - ".urldecode($_REQUEST['extra']);
 			echo "</div>\n";
 		}
-		echo "<div class=\"jx_error\"><a name=\"errors\"></a>
-				<h3>".$GLOBALS["error_msg"]["error"].":</strong>"."</h3>\n";
+		echo "<div class=\"jx_error\"><a name=\"errors\"></a><h3>".$GLOBALS["error_msg"]["error"].":</strong>"."</h3>\n";
 		foreach($_SESSION['jx_error'] as $errortype) {
 			foreach($errortype as $error) {
 				echo $error."\n<br/>";
@@ -103,9 +101,3 @@ function show_error($error, $extra = null) {
 		echo "</div>\n";
 	}
 }
-
-
-
-
-
-?>

@@ -191,37 +191,30 @@ class HTML_contact {
 		global $mosConfig_live_site,$Itemid;
 ?>
 		<ul>
-		<?php
+<?php
 		foreach($categories as $cat) {
 			if($catid == $cat->catid) {
 ?>
 				<li>
-					<b>
-					<?php echo $cat->title; ?>
-					</b>
+					<b><?php echo $cat->title; ?></b>
 					&nbsp;
-					<span class="small<?php echo $params->get('pageclass_sfx'); ?>">
-					(<?php echo $cat->numlinks; ?>)
-					</span>
+					<span class="small<?php echo $params->get('pageclass_sfx'); ?>">(<?php echo $cat->numlinks; ?>)</span>
 				</li>
 				<?php
 			} else {
 				$link = 'index.php?option=com_contact&amp;catid='.$cat->catid.'&amp;Itemid='.$Itemid;
 ?>
 				<li>
-					<a href="<?php echo sefRelToAbs($link); ?>" class="category<?php echo $params->get('pageclass_sfx'); ?>">
-						<?php echo $cat->title; ?></a>
-					<?php
+					<a href="<?php echo sefRelToAbs($link); ?>" class="category<?php echo $params->get('pageclass_sfx'); ?>"><?php echo $cat->title; ?></a>
+<?php
 				if($params->get('cat_items')) {
 ?>
 						&nbsp;
-						<span class="small<?php echo $params->get('pageclass_sfx'); ?>">
-							(<?php echo $cat->numlinks; ?>)
-						</span>
-						<?php
+					<span class="small<?php echo $params->get('pageclass_sfx'); ?>">(<?php echo $cat->numlinks; ?>)</span>
+<?php
 				}
 ?>
-					<?php
+<?php
 				// Writes Category Description
 				if($params->get('cat_description')) {
 					echo '<br />';
@@ -229,12 +222,12 @@ class HTML_contact {
 				}
 ?>
 				</li>
-				<?php
+<?php
 			}
 		}
 ?>
 		</ul>
-		<?php
+<?php
 	}
 
 
@@ -252,10 +245,14 @@ class HTML_contact {
 			if ( ( document.emailForm.text.value == "" ) || ( document.emailForm.email.value.search("@") == -1 ) || ( document.emailForm.email.value.search("[.*]" ) == -1 ) ) {
 				alert( "<?php echo addslashes(_CONTACT_FORM_NC); ?>" );
 			} else if ( ( document.emailForm.email.value.search(";") != -1 ) || ( document.emailForm.email.value.search(",") != -1 ) || ( document.emailForm.email.value.search(" ") != -1 ) ) {
-				alert( "<?php echo addslashes(_CONTACT_ONE_EMAIL); ?>" );			
+				alert( "<?php echo addslashes(_CONTACT_ONE_EMAIL); ?>" );
+<?php if($mainframe->getCfg('captcha_cont')==1) {?>
+			} else if ( ( document.emailForm.captcha.value=="" ) ) {
+				alert( "<?php echo addslashes(_NO_CAPTCHA_CODE); ?>" );
+<?php } ?>
 			} else {
-			document.emailForm.action = "<?php echo sefRelToAbs("index.php?option=com_contact&Itemid=$Itemid"); ?>"
-			document.emailForm.submit();
+				document.emailForm.action = "<?php echo sefRelToAbs("index.php?option=com_contact&Itemid=$Itemid"); ?>"
+				document.emailForm.submit();
 			}
 		}
 		//-->
@@ -264,11 +261,10 @@ class HTML_contact {
 		<!--
 		function ViewCrossReference( selSelectObject ){
 			var links = new Array();
-			<?php
+<?php
 		$n = count($list);
 		for($i = 0; $i < $n; $i++) {
-			echo "\nlinks[".$list[$i]->value."]='".sefRelToAbs('index.php?option=com_contact&task=view&contact_id='.
-				$list[$i]->value.'&Itemid='.$Itemid)."';";
+			echo "\nlinks[".$list[$i]->value."]='".sefRelToAbs('index.php?option=com_contact&task=view&contact_id='.$list[$i]->value.'&Itemid='.$Itemid)."';";
 		}
 ?>
 
@@ -287,10 +283,8 @@ class HTML_contact {
 		}
 		if($menu_params->get('page_title')) {
 ?>
-			<div class="componentheading<?php echo $menu_params->get('pageclass_sfx'); ?>">
-				<?php echo $menu_params->get('header'); ?>
-			</div>
-			<?php
+			<div class="componentheading<?php echo $menu_params->get('pageclass_sfx'); ?>"><?php echo $menu_params->get('header'); ?></div>
+<?php
 		}
 ?>
 
@@ -310,7 +304,7 @@ class HTML_contact {
 				<table width="100%">
 				<tr>
 					<td>
-					<?php
+<?php
 		// displays Address
 		HTML_contact::_writeContactAddress($contact,$params);
 
@@ -322,7 +316,7 @@ class HTML_contact {
 ?>
 					</td>
 					<td align="right" valign="top">
-					<?php
+<?php
 		// displays Image
 		HTML_contact::_writeImage($contact,$params);
 ?>
@@ -332,7 +326,7 @@ class HTML_contact {
 			</td>
 			<td>&nbsp;</td>
 		</tr>
-		<?php
+<?php
 		// displays Email Form
 		HTML_contact::_writeVcard($contact,$params);
 		// displays Email Form
@@ -355,11 +349,9 @@ class HTML_contact {
 		if($params->get('page_title') && !$params->get('popup')) {
 ?>
 			<tr>
-				<td width="100%" class="componentheading<?php echo $menu_params->get('pageclass_sfx'); ?>">
-					<?php echo $params->get('header'); ?>
-				</td>
+				<td width="100%" class="componentheading<?php echo $menu_params->get('pageclass_sfx'); ?>"><?php echo $params->get('header'); ?></td>
 			</tr>
-			<?php
+<?php
 		}
 	}
 
@@ -380,7 +372,7 @@ class HTML_contact {
 				</form>
 				</td>
 			</tr>
-			<?php
+<?php
 		}
 	}
 
@@ -397,12 +389,8 @@ class HTML_contact {
 					<td class="contentheading<?php echo $menu_params->get('pageclass_sfx'); ?>" width="100%">
 						<table width="100%">
 						<tr>
-							<td width="100%"> <h4>
-					<?php
-				echo $contact->name;
-?>
-					</h4></td>
-					<?php
+							<td width="100%"><h4><?php echo $contact->name; ?></h4></td>
+<?php
 				// displays Print Icon
 				$print_link = $mosConfig_live_site.'/index2.php?option=com_contact&amp;task=view&amp;contact_id='.$contact->id.'&amp;Itemid='.$Itemid.'&amp;pop=1';
 				mosHTML::PrintIcon($contact,$params,$hide_js,$print_link);
@@ -411,19 +399,17 @@ class HTML_contact {
 						</table><br />
 					</td>
 				</tr>
-				<?php
+<?php
 			}
 			if($contact->con_position && $params->get('position')) {
 ?>
 				<tr>
 					<td width="100%">
-					<?php
-				echo $contact->con_position;
-?>
-					<br /><br />
+						<?php echo $contact->con_position; ?>
+						<br /><br />
 					</td>
 				</tr>
-				<?php
+<?php
 			}
 		}
 	}
@@ -439,7 +425,7 @@ class HTML_contact {
 			<div style="float: right;">
 			<img src="<?php echo $mosConfig_live_site; ?>/images/stories/<?php echo $contact->image; ?>" align="middle" alt="<?php echo _CONTACT_TITLE; ?>" />
 			</div>
-			<?php
+<?php
 		}
 	}
 
@@ -451,79 +437,79 @@ class HTML_contact {
 			$contact->state || $contact->country || $contact->postcode)) {
 ?>
 			<table width="100%" cellpadding="0" cellspacing="0" border="0">
-			<?php
+<?php
 			if($params->get('address_check') > 0) {
 ?>
 				<tr>
 					<td rowspan="6" valign="top" width="<?php echo $params->get('column_width'); ?>" align="left">
-					<?php
+<?php
 				echo $params->get('marker_address');
 ?>
 					</td>
 				</tr>
-				<?php
+<?php
 			}
 ?>
-			<?php
+<?php
 			if($contact->address && $params->get('street_address')) {
 ?>
 				<tr>
 					<td valign="top">
-					<?php
+<?php
 				echo $contact->address;
 ?>
 					</td>
 				</tr>
-				<?php
+<?php
 			}
 			if($contact->suburb && $params->get('suburb')) {
 ?>
 				<tr>
 					<td valign="top">
-					<?php
+<?php
 				echo $contact->suburb;
 ?>
 					</td>
 				</tr>
-				<?php
+<?php
 			}
 			if($contact->state && $params->get('state')) {
 ?>
 				<tr>
 					<td valign="top">
-					<?php
+<?php
 				echo $contact->state;
 ?>
 					</td>
 				</tr>
-				<?php
+<?php
 			}
 			if($contact->country && $params->get('country')) {
 ?>
 				<tr>
 					<td valign="top">
-					<?php
+<?php
 				echo $contact->country;
 ?>
 					</td>
 				</tr>
-				<?php
+<?php
 			}
 			if($contact->postcode && $params->get('postcode')) {
 ?>
 				<tr>
 					<td valign="top">
-					<?php
+<?php
 				echo $contact->postcode;
 ?>
 					</td>
 				</tr>
-				<?php
+<?php
 			}
 ?>
 			</table>
 			<br />
-			<?php
+<?php
 		}
 	}
 
@@ -534,59 +520,59 @@ class HTML_contact {
 		if($contact->email_to || $contact->telephone || $contact->fax) {
 ?>
 			<table width="100%" cellpadding="0" cellspacing="0" border="0">
-			<?php
+<?php
 			if($contact->email_to && $params->get('email')) {
 ?>
 				<tr>
 					<td width="<?php echo $params->get('column_width'); ?>" align="left">
-					<?php
+<?php
 				echo $params->get('marker_email');
 ?>
 					</td>
 					<td>
-					<?php
+<?php
 				echo $contact->email;
 ?>
 					</td>
 				</tr>
-				<?php
+<?php
 			}
 			if($contact->telephone && $params->get('telephone')) {
 ?>
 				<tr>
 					<td width="<?php echo $params->get('column_width'); ?>" align="left">
-					<?php
+<?php
 				echo $params->get('marker_telephone');
 ?>
 					</td>
 					<td>
-					<?php
+<?php
 				echo $contact->telephone;
 ?>
 					</td>
 				</tr>
-				<?php
+<?php
 			}
 			if($contact->fax && $params->get('fax')) {
 ?>
 				<tr>
 					<td width="<?php echo $params->get('column_width'); ?>" align="left">
-					<?php
+<?php
 				echo $params->get('marker_fax');
 ?>
 					</td>
 					<td>
-					<?php
+<?php
 				echo $contact->fax;
 ?>
 					</td>
 				</tr>
-				<?php
+<?php
 			}
 ?>
 			</table>
 			<br />
-			<?php
+<?php
 		}
 	}
 
@@ -599,19 +585,19 @@ class HTML_contact {
 			<table width="100%" cellpadding="0" cellspacing="0" border="0">
 			<tr>
 				<td width="<?php echo $params->get('column_width'); ?>" valign="top" align="left">
-				<?php
+<?php
 			echo $params->get('marker_misc');
 ?>
 				</td>
 				<td>
-				<?php
+<?php
 			echo $contact->misc;
 ?>
 				</td>
 			</tr>
 			</table>
 			<br />
-			<?php
+<?php
 		}
 	}
 
@@ -715,4 +701,3 @@ class HTML_contact {
 		mosHTML::BackButton($params);
 	}
 }
-?>

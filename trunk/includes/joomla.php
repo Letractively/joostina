@@ -1870,7 +1870,7 @@ class mosMainFrame {
 	// получение системного сообщения
 	function get_mosmsg(){
 
-		if(!$this->_isAdmin){
+		if(!$this->_isAdmin && !$this->_session->session_id){
 			session_name($this->_session->session_id);
 			session_start();
 		}
@@ -1878,7 +1878,7 @@ class mosMainFrame {
 		$mosmsg_ss = trim(stripslashes(strval(mosGetParam($_SESSION,'joostina.mosmsg',''))));
 		$mosmsg_rq = stripslashes(strval(mosGetParam($_REQUEST,'mosmsg','')));
 
-		if(!$this->_isAdmin){
+		if(!$this->_isAdmin && !$this->_session->session_id){
 			session_destroy();
 		}
 
@@ -3123,7 +3123,7 @@ class mosHTML {
 				$next_state = 'none';
 			}
 
-		$html = '<a href='.$base_href.'&field='.$field.'&order='.$next_state.'"><img src="'.Jconfig::getInstance()->config_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/images/sort_'.$state.'.png" width="12" height="12" border="0" alt="'.$alts[$next_state].'" /></a>';
+		$html = '<a href="'.$base_href.'&field='.$field.'&order='.$next_state.'"><img src="'.Jconfig::getInstance()->config_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/images/sort_'.$state.'.png" width="12" height="12" border="0" alt="'.$alts[$next_state].'" /></a>';
 		return $html;
 	}
 

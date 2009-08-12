@@ -107,13 +107,13 @@ td.sectiontableheader {
 
 
 /*Ёлементы форм*/
-input [ type = text ], 
-input [ type = password ], 
-input.inputbox, 
-input.text_area,  
-textarea.inputbox, 
-select.inputbox, 
-textarea.inputbox, 
+input [type=text],
+input [type=password],
+input.inputbox,
+input.text_area,
+textarea.inputbox,
+select.inputbox,
+textarea.inputbox,
 textarea.text_area {
 	border: 2px solid #EAE6DF;
 	color: #828282;
@@ -126,7 +126,7 @@ textarea.text_area {
 select.inputbox {
 	padding: 2px;
 }
-*:first-child + html input [ type = radio ] {
+*:first-child + html input [type=radio] {
 	margin: 0;
 }
 
