@@ -14,14 +14,12 @@ if(file_exists('../configuration.php') && filesize('../configuration.php') > 10)
 	exit();
 }
 require ('../includes/globals.php');
-require_once ('../includes/version.php');
 
 /** подключаем common.php*/
 include_once ('common.php');
+
 $sp = ini_get('session.save_path');
-$_VERSION = new joomlaVersion();
-$versioninfo = $_VERSION->RELEASE.'.'.$_VERSION->CMS_ver;
-$version = $_VERSION->CMS.' '.$_VERSION->CMS_ver.' '.$_VERSION->DEV_STATUS.' [ '.$_VERSION->CODENAME.' ] '.$_VERSION->RELDATE.' '.$_VERSION->RELTIME.' '.$_VERSION->RELTZ;
+
 echo '<?xml version="1.0" encoding="utf-8"?'.'>';?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -43,7 +41,7 @@ echo '<?xml version="1.0" encoding="utf-8"?'.'>';?>
 			</div>	
 			
 			<div id="navigator">
-				<big>Установка Joostina CMS</big>				
+				<big>Установка Joostina CMS</big>
 				<ul>
 					<li class="step step-on"><strong>1</strong><span>Проверка системы</span></li>
 					<li class="arrow">&nbsp;</li>
