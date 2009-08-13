@@ -420,7 +420,7 @@ function checkKey (e,elm,input,id){
 function updateSitemapProperty(elm,input,id,event) {
 	if (elm.oldInnerHTML != input.value) {
 		saveProperty(id,input.name,input.value);
-	} 
+	}
 	var value = input.value;
 	Element.remove(input);
 	elm.editing=false;
@@ -435,7 +435,6 @@ function optionsMenu(id) {
 	}
 	if (divOptions.sitemapid && divOptions.sitemapid != id) {
 		divOptions.setStyle('visibility','hidden');
-		
 	}
 	divOptions.sitemapid=id;
 	var elm = $('optionsbut'+id);

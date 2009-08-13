@@ -41,7 +41,7 @@ class jdebug {
 
 	
 	/* вывод сообщений из лога*/
-	function get($db = 1) {
+	function get() {
 		echo '<pre>';
 		/* счетчики */
 		foreach($this->_inc as $key => $value) {

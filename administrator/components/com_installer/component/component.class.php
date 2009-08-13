@@ -76,10 +76,11 @@ class mosInstallerComponent extends mosInstaller {
 	 * @param boolean True if installing from directory
 	 */
 	function install($p_fromdir = null) {
+		josSpoofCheck();
+
 		$database = &database::getInstance();
 		$config = &Jconfig::getInstance();
-		
-		josSpoofCheck();
+
 		if(!$this->preInstallCheck($p_fromdir,'component')) {
 			return false;
 		}
@@ -231,8 +232,9 @@ class mosInstallerComponent extends mosInstaller {
 		$this->setError(0,$desc);
 
 		if($this->hasInstallfile()) {
-			if(is_file($this->componentAdminDir().'/'.$this->installFile())) {
-				require_once ($this->componentAdminDir()."/".$this->installFile());
+			if(is_file($this->componentAdminDir().DS.$this->installFile())) {
+				$mosConfig_live_site = $config->config_live_site;
+				require_once ($this->componentAdminDir().DS.$this->installFile());
 				$ret = com_install();
 				if($ret != '') {
 					$this->setError(0,$desc.$ret);
