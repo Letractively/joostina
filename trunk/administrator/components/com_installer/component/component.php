@@ -116,4 +116,3 @@ function showInstalledComponents($option) {
 
 	HTML_component::showInstalledComponents($rows,$option);
 }
-?>

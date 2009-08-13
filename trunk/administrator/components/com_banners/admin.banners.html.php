@@ -43,8 +43,7 @@ class HTML_banners {
 					<th width="90"><?php echo _ABP_REPEAT_TYPE; ?></th>
 					<th width="47"><?php echo _ABP_PUBLISHED; ?></th>
 				</tr>
-				
-				<?php
+<?php
 				$k = 0;
 				for($i = 0, $n = count($rows); $i < $n; $i++) {
 					$row = &$rows[$i];
@@ -75,7 +74,7 @@ class HTML_banners {
 					$info .= '<br>' . _ABP_PRICE_IMPRESSION . ': ' . _ABP_CURRENCY . ' ' . $row->imp_value . ' / ' . _ABP_CURRENCY . ' ' . $pay_imp;
 
 					if(eregi("(\.bmp|\.gif|\.jpg|\.jpeg|\.png)$", $row->image_url)) {
-						$over = 'onmouseover="return overlib(\'<img border=0 src=../images/banners/' . str_replace(' ', '%20', $row->image_url) . '\><br>' . $info . '\',CAPTION,\'' . _ABP_PREVIEW . '\',WIDTH,468);" onmouseout="return nd();"';
+						$over = 'onmouseover="return overlib(\'<img border=0 src=../images/show/' . str_replace(' ', '%20', $row->image_url) . '\><br>' . $info . '\',CAPTION,\'' . _ABP_PREVIEW . '\',WIDTH,468);" onmouseout="return nd();"';
 					} 
 					else 
 					{
@@ -119,8 +118,7 @@ class HTML_banners {
 							} 
 							?>
 						</td>
-						
-						<?php						
+<?php
 						$times = "<tr><td>" . _ABP_FROM . " : " . $row->publish_up_date . "</td></tr>";
 						$times .= "<tr><td>" . _ABP_TO . " : ";
 			
@@ -280,7 +278,7 @@ class HTML_banners {
 
 		 if (document.adminForm.image_url.value.indexOf('.swf') != -1) {
 			toggleBox('flashDiv', 1);
-			document.getElementById("flashDiv").innerHTML='<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=4,0,2,0" border="0" vspace="0" width="'+w+'" height="'+h+'"><param name="SRC" value="../images/banners/' + document.adminForm.image_url.value+'"><embed src="../images/banners/' + document.adminForm.image_url.value+'" loop="false" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="'+w+'" height="'+h+'"></object>';
+			document.getElementById("flashDiv").innerHTML='<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=4,0,2,0" border="0" vspace="0" width="'+w+'" height="'+h+'"><param name="SRC" value="../images/show/' + document.adminForm.image_url.value+'"><embed src="../images/show/' + document.adminForm.image_url.value+'" loop="false" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="'+w+'" height="'+h+'"></object>';
 			document.adminForm.imagelib.src='images/blank.png';
 
 			toggleBox('flashDivText', 1);
@@ -299,7 +297,7 @@ class HTML_banners {
 			toggleBox('flashDivText', 0);
 			document.getElementById("flashDivText").innerHTML='';
 
-			document.adminForm.imagelib.src='../images/banners/' + document.adminForm.image_url.value;
+			document.adminForm.imagelib.src='../images/show/' + document.adminForm.image_url.value;
 		 }
 	  } else {
 
@@ -563,7 +561,7 @@ class HTML_banners {
 			} else
 				if(eregi("(\.bmp|\.gif|\.jpg|\.jpeg|\.png)$", $row->image_url)) {
 ?>
-			<img src="../images/banners/<?php echo $row->image_url; ?>" name="imagelib" />
+			<img src="../images/show/<?php echo $row->image_url; ?>" name="imagelib" />
 <?php
 				} else {
 					echo $image_blank;
@@ -907,7 +905,7 @@ class HTML_banners {
 		<span>
 			<a href="<?php echo $link; ?>" title="<?php echo $text; ?>">
 	<?php
-				echo mosAdminMenus::imageCheckAdmin($image,'/'.ADMINISTRATOR_DIRECTORY.'/images/',null,null,$text);
+				echo mosAdminMenus::imageCheckAdmin($image,'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.mosMainFrame::getInstance(true)->getTemplate().'/images/system_ico/',null,null,$text);
 				echo $text;
 	?>
 			</a>
@@ -1193,7 +1191,3 @@ class HTML_bannersOther {
 <?php
 	}
 }
-
-
-
-?>

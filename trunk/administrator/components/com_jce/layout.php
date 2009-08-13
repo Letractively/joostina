@@ -10,10 +10,8 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-require_once ($mainframe->getCfg('absolute_path').
-	'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jce/layout.html.php');
-require_once ($mainframe->getCfg('absolute_path').
-	'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jce/plugins/plugins.class.php');
+require_once ($mainframe->getCfg('absolute_path').DS.ADMINISTRATOR_DIRECTORY.'/components/com_jce/layout.html.php');
+require_once ($mainframe->getCfg('absolute_path').DS.ADMINISTRATOR_DIRECTORY.'/components/com_jce/plugins/plugins.class.php');
 
 $client = mosGetParam($_REQUEST,'client','');
 

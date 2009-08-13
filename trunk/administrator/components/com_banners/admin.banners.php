@@ -23,8 +23,6 @@ define('BANNER_NON_PUBBLICATO', 4);
 require_once ($mainframe->getPath('admin_html'));
 require_once ($mainframe->getPath('class'));
 
-
-
 $cid = josGetArrayInts('cid');
 
 if(intval($cid[0])==0){
@@ -622,14 +620,14 @@ function editBanner($bannerid, $option) {
 	// Imagelist
 	// get list of images
 	$dimension = array();
-	$imgFiles = mosReadDirectory($mainframe->getCfg('absolute_path') . "/images/banners");
+	$imgFiles = mosReadDirectory($mainframe->getCfg('absolute_path') . "/images/show");
 	$images = array();
 	$images[] = mosHTML::makeOption('', _ABP_PSANIMG);
 	foreach($imgFiles as $file) {
 		if(eregi("(\.bmp|\.gif|\.jpg|\.jpeg|\.png|\.swf)$", $file)) {
 			$images[] = mosHTML::makeOption($file);
 			// get image info
-			$image_info = @getimagesize($mainframe->getCfg('absolute_path') . "/images/banners/" . $file);
+			$image_info = @getimagesize($mainframe->getCfg('absolute_path') . "/images/show/" . $file);
 			$dimension[$file]['w'] = $image_info[0];
 			$dimension[$file]['h'] = $image_info[1];
 		}
@@ -1778,4 +1776,3 @@ function getStato(&$row) {
 
 	return $iRet;
 }
-?>

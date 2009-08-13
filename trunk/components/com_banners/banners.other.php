@@ -139,7 +139,7 @@ function showSingleBanner(&$banner) {
 		$result .= $banner->custom_banner_code;
 	} else
 		if(eregi("(\.bmp|\.gif|\.jpg|\.jpeg|\.png)$", $banner->image_url)) {
-			$image_url = $config->config_live_site.'/images/banners/'.$banner->image_url;
+			$image_url = $config->config_live_site.'/images/show/'.$banner->image_url;
 			#$imginfo = @getimagesize($config->config_absolute_path.'/images/banners/'. $banner->image_url);
 			$target = $banner->target;
 			$border_value = $banner->border_value;
@@ -162,5 +162,3 @@ function showSingleBanner(&$banner) {
 
 	return $result;
 }
-
-?>
