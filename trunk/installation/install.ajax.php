@@ -41,5 +41,3 @@ function deldir($dir) {
 	@closedir($current_dir);
 	return @rmdir($dir);
 }
-
-?>

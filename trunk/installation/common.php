@@ -19,7 +19,6 @@ header('Content-type: text/html; charset=UTF-8');
 header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
 header("Pragma: no-cache"); // HTTP/1.0
 
-
 /**
 * Сервисные функции для установок значений по умолчанию
 */
@@ -84,5 +83,7 @@ function mosChmodRecursive($path,$filemode = null,$dirmode = null) {
 	return $ret;
 } // mosChmodRecursive
 
-
-?>
+require_once ('../includes/version.php');
+$_VERSION = new joomlaVersion();
+$versioninfo = $_VERSION->RELEASE.'.'.$_VERSION->CMS_ver;
+$version = $_VERSION->CMS.' '.$_VERSION->CMS_ver.' '.$_VERSION->DEV_STATUS.' [ '.$_VERSION->CODENAME.' ] '.$_VERSION->RELDATE.' '.$_VERSION->RELTIME.' '.$_VERSION->RELTZ;

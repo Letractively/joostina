@@ -147,7 +147,7 @@ function changeDirPermsMode(mode)
    <input type="hidden" name="sitename" value="<?php echo $sitename; ?>" />
    <div class="install">
 	<div id="header">
-				<p>Joostina 1.3.0 beta [ b3 ] 06:08:2009 03:11 +5 GMT</p>
+				<p><?php echo $version; ?></p>
 				<p class="jst"><a href="http://www.joostina.ru">Joostina</a> - свободное программное обеспечение, распространяемое по лицензии GNU/GPL.</p>
 			</div>	
 			
