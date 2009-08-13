@@ -295,7 +295,7 @@ if($mosConfig_time_gen) {
 if($mosConfig_debug) {
 	if(function_exists('memory_get_usage')) {
 		$mem_usage = (memory_get_usage() - _MEM_USAGE_START);
-		jd_log('<b>'._SCRIPT_MEMORY_USING.':</b> '.sprintf('%0.2f',$mem_usage / 1048576).' MB');
+		jd_log_top('<b>'._SCRIPT_MEMORY_USING.':</b> '.sprintf('%0.2f',$mem_usage / 1048576).' MB');
 	}
 	jd_get();
 }

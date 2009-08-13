@@ -27,8 +27,8 @@ class jdebug {
 	}
 
 	/* добавление сообщения в лог*/
-	function add($text) {
-		$this->_log[] = $text;
+	function add($text,$top=0) {
+		$top ? array_unshift($this->_log,$text) : $this->_log[] = $text;
 	}
 
 	/* добавление сообщения в лог*/
@@ -53,16 +53,28 @@ class jdebug {
 			$this->text .= '<small>LOG:</small> '.$value.'<br />';
 		}
 
+		/* подключенные файлы */
+		$files = get_included_files();
+		foreach($files as $key => $value) {
+			$this->text .= '<small>FILE:</small> '.$value.'<br />';
+		}
+
 		echo '<noindex><div id="jdebug">'.$this->text.'</div></noindex>';
 		echo '</pre>';
 	}
 }
 ;
-/* упрощенная процедура добавления сообщения в лог*/
+/* упрощенная процедура добавления сообщения в лог */
 function jd_log($text) {
 	$debug = &jdebug::getInstance();
 	$debug->add($text);
 }
+/* упрощенная процедура добавления сообщения в начало лога */
+function jd_log_top($text) {
+	$debug = &jdebug::getInstance();
+	$debug->add($text,1);
+}
+
 /* счетчики вызывов */
 function jd_inc($name='counter'){
 	$debug = &jdebug::getInstance();

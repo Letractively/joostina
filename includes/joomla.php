@@ -272,13 +272,13 @@ class mosMainFrame {
 				if(is_file($absolute_path.DS.'language'.DS.$this->lang.DS.'frontend'.DS.$file.'.php')){
 					return $absolute_path.DS.'language'.DS.$this->lang.DS.'frontend'.DS.$file.'.php';
 				}
-			}	
+			}
 		}
 		else{
 			if(is_file($absolute_path.DS.'language'.DS.$this->lang.DS.'frontend'.DS.$file.'.php')){
 				return $absolute_path.DS.'language'.DS.$this->lang.DS.'frontend'.DS.$file.'.php';
 			}
-		}		
+		}
 
 		return null;
 
