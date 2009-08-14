@@ -55,13 +55,9 @@ $params_aray=array(
 //-------------------------------Поля Логин/Пароль
 'show_login_text'=> $params->get( 'show_login_text',1),         //Показать текст Пользователь
 'ml_login_text'=> $params->get( 'ml_login_text', _USER ),   //Текст Пользователь
-'show_login_tooltip'=> $params->get( 'show_login_tooltip' ),
-'login_tooltip_text'=> $params->get( 'login_tooltip_text' ),
 
 'show_pass_text'=> $params->get( 'show_pass_text',	1),
 'ml_pass_text'=> $params->get( 'ml_pass_text', _PASSWORD ),
-'show_pass_tooltip'=> $params->get( 'show_pass_tooltip' ),
-'pass_tooltip_text'=> $params->get( 'pass_tooltip_text' ),
 
 //-------------------------------Другие элементы формы
 'ml_avatar'   => $params->get ( 'ml_avatar',1 ),
@@ -73,9 +69,7 @@ $params_aray=array(
 'ml_reg_text'=> $params->get( 'ml_reg_text', _CREATE_ACCOUNT ),
 'submit_button_text'=> $params->get( 'submit_button_text', _BUTTON_LOGIN )
 );
-    if( $params_aray['show_login_tooltip']==1 OR $params_aray['show_pass_tooltip']){
-        mosCommonHTML::loadOverlib(1);
-    }
+
     if ( $my->id ) {
         logoutForm($params_aray);
     } else {
@@ -181,20 +175,9 @@ function BuildLoginForm($params_aray, $orientation){
     global $mosConfig_frontend_login,$my,$mosConfig_lang;
     $validate = josSpoofValue(1);
 
-    if($params_aray['show_login_tooltip']){
-      $login_tooltip="onmouseover=\"return overlib('".$params_aray['login_tooltip_text']."');\" onmouseout=\"return nd();\"";
-    }else{
-        $login_tooltip='';
-    }
-
-    if($params_aray['show_pass_tooltip']){
-        $pass_tooltip="onmouseover=\"return overlib('".$params_aray['pass_tooltip_text']."');\" onmouseout=\"return nd();\"";
-    }else{
-        $pass_tooltip='';
-    }
 
     $login_label_def='<span class="login_label" id="login_lbl">'.$params_aray['ml_login_text'].'</span>';
-    $login_input_def='<input type="text" name="username" id="mod_login_USER" class="inputbox" alt="username" value="" '.$login_tooltip.' />';
+    $login_input_def='<input type="text" name="username" id="mod_login_USER" class="inputbox" alt="username" value="" />';
 
     $pass_label_def='<span class="pass_label" id="pass_lbl">'.$params_aray['ml_pass_text'].'</span>';
     $pass_input_def='<input type="password" id="mod_login_password" name="passwd" class="inputbox" alt="password" value="" />';

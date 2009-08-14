@@ -16,7 +16,7 @@ require( $basePath . '/../../../includes/globals.php' );
 $basePath = dirname( __FILE__ );
 require( $basePath . '/../../../configuration.php' );
 
-require_once($GLOBALS['mosConfig_absolute_path'].'/includes/database.php');
+require_once($GLOBALS['mosConfig_absolute_path'].'/includes/libraries/database/database.php');
 
 if ( $GLOBALS['mosConfig_db'] != "") {
 	$database = new database( $GLOBALS['mosConfig_host'], $GLOBALS['mosConfig_user'], $GLOBALS['mosConfig_password'], $GLOBALS['mosConfig_db'], $GLOBALS['mosConfig_dbprefix'] );

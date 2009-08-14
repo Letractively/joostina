@@ -17,7 +17,7 @@ defined('_VALID_MOS') or die(); ?>
 <?php if($display_desc) { ?>
 		<div class="contentdescription">
 <?php if($display_desc_img) { ?>
-			<img src="<?php echo $mosConfig_live_site; ?>/images/stories/<?php echo $obj->image; ?>" align="<?php echo $obj->image_position; ?>"  alt="" />
+			<img src="<?php echo $mainframe->getCfg('live_site'); ?>/images/stories/<?php echo $obj->image; ?>" align="<?php echo $obj->image_position; ?>"  alt="" />
 <?php } ?>
 <?php if($display_desc_text) { ?>
 			<p><?php echo $obj->description; ?></p>

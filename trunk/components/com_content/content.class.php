@@ -815,10 +815,8 @@ class mosContent extends mosDBTable{
 
 	function ReadMore(&$row, &$params, $template = ''){
 		$return = '';
-		if ($params->get('readmore')){
-			if ($params->get('intro_only') && $row->link_text){
-				$return = '<a href="' . $row->link_on . '" title="' . $row->title . '" class="readon">' . $row->link_text . '</a>';
-			}
+		if ($params->get('readmore') && $params->get('intro_only') && $row->link_text){
+			$return = '<a href="' . $row->link_on . '" title="' . $row->title . '" class="readon">' . $row->link_text . '</a>';
 		}
 		return $return;
 	}
@@ -1912,7 +1910,7 @@ class ContentTemplate{
 		else{
 			$this->template_file = $absolute_path . DS . $this->template_dir . DS . $this->template_file;				
 		}
-		
+	
 	}
 
 
@@ -2106,6 +2104,8 @@ class contentPageConfig{
 		//Ключевая ссылка. Текст ключа, по которому можно ссылаться на этот объект (например, в системе справки)
 		$params->def('keyref', '');
 		$params->set('page_name', $row->title);
+		
+		$params->def('tags', $mainframe->getCfg('tags'));
 
 		//echo $params->get('category');
 
@@ -2481,6 +2481,8 @@ class contentPageConfig{
 		$params->def('jeditable', 0);
 		$params->def('intro_only', 1);
 		$params->def('url', 1);
+		
+		$params->def('view_tags', $mainframe->getCfg('tags'));
 
 		$params->set('intro_only', 1);
 

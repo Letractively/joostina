@@ -69,6 +69,8 @@ DEFINE('_COM_CONFIG_SEO_TYPE_4','Заголовок страницы ( толь�
 DEFINE('_COM_CONFIG_SITE_LANG','Язык сайта');
 DEFINE('_COM_CONFIG_SYTE_URL','URL сайта');
 DEFINE('_COM_CONFIG_YEAR','г.');
+DEFINE('_COM_CONFIG_TAGS','Показывать тэги');
+DEFINE('_COM_CONFIG_TAGS2','Если ДА - тэги будут показаны');
 DEFINE('_CONFIG_SAVING','Сохранение конфигурации');
 DEFINE('_CONFIGURATION_IS_UPDATED','Конфигурация успешно обновлена');
 DEFINE('_CONSTRUCT_ERROR','ошибка сборки');

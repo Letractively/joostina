@@ -223,9 +223,7 @@ class HTML_content {
 
 		if($show && isset($rows[$i])) { ?>
 			<div class="more_items">
-				<strong><?php echo _MORE; ?></strong>
-			</div>
-		<?php } ?>
+				<strong><?php echo _MORE; ?></strong>		
 		<ul class="more_items">
 		<?php for ($z = 0; $z < $links; $z++) {
 			if(!isset($rows[$i])) {
@@ -254,6 +252,8 @@ class HTML_content {
 			<?php $i++;
 		}?>
 		</ul>
+		</div>
+		<?php } ?>
 	<?php }
 
 	/**

@@ -502,7 +502,7 @@ INSERT INTO `#__modules_menu` VALUES (31, 0);
 INSERT INTO `#__modules_menu` VALUES (34, 1);
 INSERT INTO `#__modules_menu` VALUES (37, 1);
 INSERT INTO `#__modules_menu` VALUES (38, 1);
-INSERT INTO `#__modules_menu` VALUES (39, 0);
+INSERT INTO `#__modules_menu` VALUES (39, 1);
 
 
 # --------------------------------------------------------

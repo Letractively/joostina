@@ -44,7 +44,7 @@ DEFINE('_E_STATE','Состояние:');
 DEFINE('_E_AUTHOR_ALIAS','Псевдоним автора:');
 DEFINE('_E_ACCESS_LEVEL','Уровень доступа:');
 DEFINE('_E_ORDERING','Порядок:');
-DEFINE('_E_START_PUB','Дата начала публикации:');
+DEFINE('_E_START_PUB','Дата:');
 DEFINE('_E_FINISH_PUB','Дата окончания публикации:');
 DEFINE('_E_SHOW_FP','Показывать на главной странице:');
 DEFINE('_E_HIDE_TITLE','Скрыть заголовок:');

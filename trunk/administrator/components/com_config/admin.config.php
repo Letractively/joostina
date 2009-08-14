@@ -195,10 +195,6 @@ function showconfig($option) {
 	$lists['config_auto_activ_login']= mosHTML::yesnoRadioList('config_auto_activ_login','class="inputbox"',$row->config_auto_activ_login);
 	// отключение вкладки 'Изображения'
 	$lists['config_disable_image_tab']= mosHTML::yesnoRadioList('config_disable_image_tab','class="inputbox"',$row->config_disable_image_tab);
-	// обрамлять заголовки тегом h1
-	$lists['config_title_h1']= mosHTML::yesnoRadioList('config_title_h1','class="inputbox"',$row->config_title_h1);
-	// обрамлять заголовки тегом h1 только в режиме полного просмотра содержимого
-	$lists['config_title_h1_only_view']= mosHTML::yesnoRadioList('config_title_h1_only_view','class="inputbox"',$row->config_title_h1_only_view);
 	// отключить проверки публикаций по датам
 	$lists['config_disable_date_state']= mosHTML::yesnoRadioList('config_disable_date_state','class="inputbox"',$row->config_disable_date_state);
 	// отключить проверку доступа к содержимому
@@ -389,6 +385,7 @@ function showconfig($option) {
 	$lists['showCreateDate']	= mosHTML::yesnoRadioList('config_showCreateDate', 'class="inputbox"', $row->config_showCreateDate);
 	$lists['showModifyDate']	= mosHTML::yesnoRadioList('config_showModifyDate', 'class="inputbox"', $row->config_showModifyDate);
 	$lists['hits']				= mosHTML::yesnoRadioList('config_hits', 'class="inputbox"', $row->config_hits);
+	$lists['tags']				= mosHTML::yesnoRadioList( 'config_tags', 'class="inputbox"', $row->config_tags);
 	$lists['back_button']		= mosHTML::yesnoRadioList('config_back_button', 'class="inputbox"', $row->config_back_button);
 	$lists['item_navigation']	= mosHTML::yesnoRadioList('config_item_navigation', 'class="inputbox"', $row->config_item_navigation);
 	$lists['multipage_toc']		= mosHTML::yesnoRadioList('config_multipage_toc', 'class="inputbox"', $row->config_multipage_toc);

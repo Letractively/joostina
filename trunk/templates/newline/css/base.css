@@ -226,43 +226,6 @@ span.edit{
 	text-align:left;
 }
 
-
-/* Табы  */
-table.adminform {
-	border: none;
-	margin: 5px 10px 0 5px;
-	padding: 0 2px 0px 0;
-	width: 90%;
-}
-.dynamic-tab-pane-control .tab-row .tab {
-	background-color: #E2E2E2;
-	background-image: none;
-	border: 1px solid white;
-	cursor: pointer;
-	display: inline;
-	float: left;
-	font: normal 11px Tahoma, Arial, Verdana, sans-serif;
-	height: 16px;
-	margin: 4px -1px 0 4px;
-	overflow: hidden;
-	padding: 2px 6px 4px 6px;
-	position: relative;
-	top: 0;
-	white-space: nowrap;
-	width: auto;
-	z-index: 1;
-}
-#userInfo.dynamic-tab-pane-control .tab-page {
-	background: #fcfcfe;
-	border-top: 2px solid #e7e7e7;
-	float: left;
-	margin-left: 1px;
-	padding: 20px;
-	position: relative;
-	text-align: left;
-	top: 0;
-	z-index: 0;
-}
 table#toolbar a.toolbar, table#toolbar a.toolbar img {
 	border: none;
 }
