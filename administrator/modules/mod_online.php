@@ -19,4 +19,9 @@ $query = "SELECT COUNT( session_id ) FROM #__session WHERE session_id != ".$data
 $database->setQuery($query);
 $online_num = intval($database->loadResult());
 
-echo $online_num." <img src=\"".$cur_file_icons_path."/users.png\" align=\"middle\" alt=\""._ONLINE_USERS."\" />";
+?>
+
+<span class="mod_online">
+	<img src="<?php echo $cur_file_icons_path;?>/users.png" alt="<?php echo _MOD_ONLINE_USERS;?>" />
+	<strong><?php echo $online_num; ?></strong>
+</span>

@@ -1189,11 +1189,11 @@ class mosMainFrame {
 				$query = 'SELECT template FROM #__templates_menu WHERE client_id = 1 AND menuid = 0';
 				$this->_db->setQuery($query);
 				$cur_template = $this->_db->loadResult();
-				$path = $config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY.DS.'templates'.DS.$cur_template.DS.'index.php';
-				if(!file_exists($path)) {
+				$path = $config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY.DS.'templates'.DS.$cur_template.DS.'index.php';				
+				if(!is_file($path)) {
 					$cur_template = 'joostfree';
 				}
-			}else{
+			}else{ 
 				$cur_template = 'joostfree';
 			}
 		} else {
@@ -4414,7 +4414,14 @@ class mosTabs {
 			$css_f = 'tabpane.css';
 			$js_f = 'tabpane_mini.js';
 		}
-		$css = '<link rel="stylesheet" type="text/css" media="all" href="'.$config->config_live_site.'/includes/js/tabs/'.$css_f.'" id="luna-tab-style-sheet" />';
+		
+		$r_dir = ''; if($mainframe->_isAdmin==1){$r_dir = '/'.ADMINISTRATOR_DIRECTORY;}
+		$css_dir = $r_dir.'/templates/'.$mainframe->getTemplate().'/css';
+		if(!is_file($config->config_absolute_path.'/'.$css_dir.'/'.$css_f)){
+			$css_dir = 	'/includes/js/tabs';
+		}	
+		
+		$css = '<link rel="stylesheet" type="text/css" media="all" href="'.$config->config_live_site.'/'.$css_dir.'/'.$css_f.'" id="luna-tab-style-sheet" />';
 		$js = '<script type="text/javascript" src="'.$config->config_live_site.'/includes/js/tabs/'.$js_f.'"></script>';
 		/* boston, хак, запрет повторного включения css и js файлов в документ*/
 		if(!defined('_MTABS_LOADED')) {

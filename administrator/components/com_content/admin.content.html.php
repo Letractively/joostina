@@ -743,14 +743,14 @@ function editContent(&$row,$section,&$lists,&$sectioncategories,&$images,&$param
 					<tr>
 							<td><?php echo _DESCRIPTION?>:
 							<br />
-							<textarea class="text_area" cols="60" rows="8" style="width:98%" name="metadesc"><?php echo str_replace('&','&amp;',$row->metadesc); ?></textarea>
+							<textarea class="text_area" cols="60" rows="2" style="width:98%" name="metadesc"><?php echo str_replace('&','&amp;',$row->metadesc); ?></textarea>
 						</td>
 					</tr>
 					<tr>
 						<td>
 							<?php echo _E_M_KEY?>
 							<br />
-							<textarea class="text_area" cols="60" rows="8" style="width:98%" name="metakey" id="metakey"><?php echo str_replace('&','&amp;',$row->metakey); ?></textarea>
+							<textarea class="text_area" cols="60" rows="2" style="width:98%" name="metakey" id="metakey"><?php echo str_replace('&','&amp;',$row->metakey); ?></textarea>
 						</td>
 					</tr>
 					<tr>

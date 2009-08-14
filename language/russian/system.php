@@ -485,7 +485,7 @@ DEFINE('_PLEASE_ENTER_CAPTCHA','Введите код проверки с кар
 DEFINE('_IN_NEW_WINDOW','Открыть в новом окне');
 DEFINE('_NO_CAPTCHA_CODE','Не введён код проверки');
 
-DEFINE('_PREVIEW_SITE','Предпросмотр сайта');
+DEFINE('_PREVIEW_SITE','перейти на сайт');
 
 DEFINE('_JWMM_FILESIZE','Размер');
 DEFINE('_JWMM_BYTES','байт');
