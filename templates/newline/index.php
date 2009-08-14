@@ -2,7 +2,6 @@
 
 defined('_VALID_MOS') or die();
 global $task,$my,$mosConfig_live_site, $mosConfig_mailfrom;
-
 $iso = explode('=',_ISO); echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'."\n";
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -13,12 +12,13 @@ $iso = explode('=',_ISO); echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'
 <script type="text/javascript">
     var _live_site = '<?php echo $mosConfig_live_site;?>';
     var _option = '<?php echo mosGetParam( $_REQUEST, 'option', '' );?>';
+    var _cur_template = '<?php echo $mainframe->getTemplate();?>';
     var _js_defines = new Array();
 </script>
 
 
 <?php 
-	// загружаемверхнюю часть страницы со всеми js и css файлами, и обязательным использованием jquery
+	// загружаем верхнюю часть страницы со всеми js и css файлами, и обязательным использованием jquery
 	mosShowHead(array('js'=>1,'css'=>1,'jquery'=>1));	
 
 	if ($my->id && $mainframe->allow_wysiwyg) { initEditor(); }
@@ -165,20 +165,15 @@ $iso = explode('=',_ISO); echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'
 
 // подключаем в футер плагин Jquery
 mosCommonHTML::loadJqueryPlugins('jquery.corner', false, false, 'js');
+//подключаем js-файл шаблона
+$mainframe->addJS($mainframe->getCfg('live_site').'/templates/'.$mainframe->getTemplate().'/js/template.js', 'custom');
 
 // выводим js футера (первая ступень - в основном jQuery-плагины и вспомагательные скрипты)
 mosShowFooter(array('js'=>1));
 // выводим js футера (вторая ступень - js компонентов, инициализации для плагинов и т.п. - 
 //всё, что должно быть загружено после всех основных скриптов)
 mosShowFooter(array('custom'=>1));
-
 ?>
-<script type="text/javascript">
-$(document).ready(function(){
-	$('div.moduletable-round').corner();
-	$('div.block2 h3').corner();
-});
-</script>
 <!--body:end-->
 </body>
 </html>

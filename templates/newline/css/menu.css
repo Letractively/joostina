@@ -116,21 +116,3 @@ ul#mainlevel-nav li a#active_menu-nav {
 /* -----Нижнее меню: END------  */
 
 
-/* -----Сервисные ссылки: BEGIN------  */
-a.navbar {
-	display: block;
-	float: left;
-	height: 60px;
-	text-decoration: none;
-	width: 48px;
-}
-a.navbar#home {
-	background: url(../images/home.jpg) no-repeat center;
-}
-a.navbar#mail {
-	background: url(../images/mail.jpg) no-repeat center;
-}
-a.navbar#map {
-	background: url(../images/map.jpg) no-repeat center;
-}
-/* -----Сервисные ссылки: END------  */

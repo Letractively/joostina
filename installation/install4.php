@@ -178,6 +178,8 @@ if($siteUrl) {
 	$config .= "\$mosConfig_showAuthor = '1';\n";
 	$config .= "\$mosConfig_showCreateDate = '1';\n";
 	$config .= "\$mosConfig_showModifyDate = '0';\n";
+	$config .= "\$mosConfig_tags = '0';\n";
+	$config .= "\$mosConfig_global_templates = '0';\n";
 	$config .= "\$mosConfig_showPrint = '1';\n";
 	$config .= "\$mosConfig_showEmail = '1';\n";
 	$config .= "\$mosConfig_enable_log_items = '0';\n";
@@ -241,7 +243,7 @@ if($siteUrl) {
 	// boston, счетчик просмотров содержимого
 	$config .= "\$mosConfig_content_hits = '1';\n";
 	// формат даты
-	$config .= "\$mosConfig_form_date = '%d:%m:%Y г.';\n";
+	$config .= "\$mosConfig_form_date = '%d.%m.%Y г.';\n";
 	// формат даты и времени
 	$config .= "\$mosConfig_form_date_full = '%d.%m.%Y г. %H:%M';\n";
 	// разделитель для заголовка страницы
@@ -262,10 +264,6 @@ if($siteUrl) {
 	$config .= "\$mosConfig_disable_button_help = '1';\n";
 	// авторизовать пользователя после подтверждения регистрации
 	$config .= "\$mosConfig_auto_activ_login = '1';\n";
-	// обрамлять заголовки тегом h1
-	$config .= "\$mosConfig_title_h1 = '0';\n";
-	// обрамлять заголовки тегом h1 только в режиме полного просмотра содержимого
-	$config .= "\$mosConfig_title_h1_only_view = '0';\n";
 	// отключение условия публикации с учетом дат
 	$config .= "\$mosConfig_disable_date_state = '0';\n";
 	// отключение контроля уровня доступа к содержимому

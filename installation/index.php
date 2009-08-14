@@ -360,7 +360,7 @@ $dirs = array(
 	'cache',
 	'components',
 	'images',
-	'images/banners',
+	'images/show',
 	'images/stories',
 	'language',
 	'mambots',

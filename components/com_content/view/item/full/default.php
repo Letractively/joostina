@@ -10,12 +10,13 @@
 defined('_VALID_MOS') or die(); ?>
 <?php if($params->get('item_title', 1)) { ?>
 	<div <?php echo $news_uid_css_title; ?>class="item_title">
-		<div class="contentheading"><?php echo $row->title; ?></div>
+		<div class="contentheading"><h1><?php echo $row->title; ?></h1></div>
 	</div>
-<?php }
-$loadbot_onAfterDisplayTitle;
-$loadbot_onBeforeDisplayContent;
-?>
+<?php } ?>
+
+<?php $loadbot_onAfterDisplayTitle; $loadbot_onBeforeDisplayContent; ?>
+
+
 	<div class="buttons_wrap">
 		<table width="100%" cellpadding="0" cellspacing="0">
 			<tr>
@@ -41,6 +42,9 @@ $loadbot_onBeforeDisplayContent;
 			</tr>
 		</table>
 	</div>
+	
+<?php echo $row->rating; ?>
+	
 	<div <?php echo $news_uid_css_body; ?>class="item_body">
 <?php if($params->get('section') || $params->get('category')) { ?>
 		<div class="section_cat">
@@ -63,7 +67,7 @@ $loadbot_onBeforeDisplayContent;
 <?php if($params->get('view_introtext', 1)) { ?>
 		<div class="item_text"><?php echo ampReplace($row->text); ?></div>
 <?php } ?>
-<?php if($params->get('tags', 1)) { ?>
+<?php if($params->get('tags')) { ?>
 		<div class="tags">
 			<span class="tags"><strong><?php echo _TAGS; ?></strong> <?php echo isset($row->tags)?$row->tags : _TAGS_NOT_DEFINED; ?></span>
 		</div>
@@ -79,7 +83,7 @@ $loadbot_onBeforeDisplayContent;
 	</div>
 <?php echo $loadbot_onAfterDisplayContent; ?>
 	<div class="edit_item"><?php echo $edit; ?></div>
-<?php echo $row->rating; ?>
+<br />
 <?php HTML_content::Navigation($row, $params); ?>
 <?php mosHTML::CloseButton($params, $hide_js); ?>
 <?php mosHTML::BackButton($params, $hide_js); ?>

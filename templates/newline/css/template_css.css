@@ -10,10 +10,7 @@
 @import "base.css";
 @import "modules.css";
 @import "menu.css";
-@import "com_users.css";
-@import "com_content.css";
-@import "com_poll.css";
-
+@import "components.css";
 
 html {
 	height: 100%;
@@ -104,6 +101,24 @@ a#rss {
 	padding: 12px 0 12px 0;
 	width: 1004px;
 }
+/* -----Сервисные ссылки: BEGIN------  */
+a.navbar {
+	display: block;
+	float: left;
+	height: 60px;
+	text-decoration: none;
+	width: 48px;
+}
+a.navbar#home {
+	background: url(../images/home.jpg) no-repeat center;
+}
+a.navbar#mail {
+	background: url(../images/mail.jpg) no-repeat center;
+}
+a.navbar#map {
+	background: url(../images/map.jpg) no-repeat center;
+}
+/* -----Сервисные ссылки: END------  */
 .valid {
 	float: right;
 	width: 180px;
@@ -214,16 +229,3 @@ ul.bigred li {
 	margin: 0 0 6px 0;
 	padding: 0 0 0 40px;
 }
-
-.table_of_items span.button, .table_of_items a.button{
-    display: block; float: left; line-height: 22px; height: 22px;
-}
-.table_of_items span.button {
-    margin: 0 5px 0 0;
-}
-.table_of_items span.button img {
-    margin: 2px 0 0 0;
-}
-
-
-

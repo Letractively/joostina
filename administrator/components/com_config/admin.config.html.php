@@ -265,21 +265,6 @@ class HTML_config {
 				</td>
 			</tr>
 			<tr>
-				<td><?php echo _USE_H1_FOR_HEADERS?>:</td>
-				<td><?php echo $lists['config_title_h1_only_view'];
-		$tip = _USE_H1_FOR_HEADERS2;
-		echo mosToolTip($tip);
-?>
-				</td>
-			</tr>
-			<tr>
-				<td><?php echo _USE_H1_HEADERS_ALWAYS?>:</td>
-				<td><?php echo $lists['config_title_h1'];
-		echo mosToolTip(_USE_H1_HEADERS_ALWAYS2);
-?>
-				</td>
-			</tr>
-			<tr>
 				<td><?php echo _DISABLE_RSS?>:</td>
 				<td><?php echo $lists['syndicate_off'];
 		$tip = _DISABLE_RSS2;
@@ -605,10 +590,12 @@ class HTML_config {
 						<tr>
 						<td><?php echo _VIEW_COUNT?>:</td>
 								<td><?php echo $lists['hits']; ?></td>
-								<td><?php
-		$tip = _VIEW_COUNT2;
-		echo mosToolTip($tip);
-?></td>
+								<td><?php $tip = _VIEW_COUNT2; echo mosToolTip($tip); ?></td>
+						</tr>
+						<tr>
+						<td><?php echo _COM_CONFIG_TAGS?>:</td>
+								<td><?php echo $lists['tags']; ?></td>
+								<td><?php $tip = _COM_CONFIG_TAGS2; echo mosToolTip($tip); ?></td>
 						</tr>
 						<tr>
 						<td><?php echo _LINK_PRINT?>:</td>

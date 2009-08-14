@@ -116,7 +116,7 @@ class HTML_user {
 
 		$user_extra = $user->user_extra;
 		$bday_date = mosFormatDate($user_extra->birthdate, '%d', '0') ;
-		$bday_month = mosFormatDate($user_extra->birthdate, '%m', '0') ;
+		$bday_month = mosFormatDate($user_extra->birthdate, '%m') ;
 		$bday_year = mosFormatDate($user_extra->birthdate, '%Y', '0') ;
 
 		//Шаблон

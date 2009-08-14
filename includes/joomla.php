@@ -2237,6 +2237,8 @@ class JConfig {
 	var $config_count_for_user_block = 10;
 	/** @var int директория шаблонов содержимого по-умолчанию */
 	var $config_global_templates = 0;
+	/** @var int включение/выключение отображения тэгов содержимого */
+	var $config_tags = 0;
 
 
 
