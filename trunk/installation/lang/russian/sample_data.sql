@@ -147,7 +147,7 @@ INSERT INTO `#__weblinks` VALUES (9, 13, 0, 'Joomlaforum.ru', 'http://www.joomla
 INSERT INTO `#__weblinks` VALUES (10, 13, 0, 'Joomla.ru', 'http://www.joomla.ru/', 'О Joostina и Joomla в России.', '2007-10-28 23:21:39', 0, 1, 0, '0000-00-00 00:00:00', 2, 0, 1, 'target=0');
 
 # Базовая карта для Xmap
-INSERT INTO `#__xmap_sitemap` VALUES (1, 'Карта сайта', 0, 0, 0, 1, 1, 'img_grey.gif', 'mainmenu,0,1,1,0.5,daily\ntopmenu,1,1,1,0.5,daily', '', 1, 0, 900, 'sitemap', 0, 43, 0, 39, 0, 1233415318);
+INSERT INTO `#__xmap_sitemap` VALUES (1, 'Карта сайта', 0, 0, 0, 1, 1, 'img_grey.gif', 'mainmenu,0,1,1,0.5,daily\ntopmenu,1,1,1,0.5,daily', '', 1, 1, 1800, 'sitemap', 0, 43, 0, 39, 0, 1233415318);
 
 # предустанровленные модули
 INSERT INTO `#__modules` VALUES (38, 'Спасибо за выбор Joostina!', 'Теперь мы вместе, и это очень радует ). Если вас интересует вопрос &quot;А почему именно Joostina?&quot;, мы хотели бы обратить ваше внимание на некоторые примечательные особенности этой CMS:\r\n<div class="marker_round">\r\n<b>1</b> Удачное сочетание мощности, скорости работы и нетребовательности к ресурсам сервера. Да, бывает и такое.<br />\r\n<b>2</b> Расширяемость за счет использования сторонних компонентов и модулей. А также простота разработки расширений для Joostina CMS. <br />\r\n<b>3</b> Данный продукт разрабатывается с большой любовью к коду и огромным  вниманием к пользователям. И наоборот. <br />\r\n</div>\r\n', 1, 'user2', 0, '0000-00-00 00:00:00', 1, '', 0, 0, 1, 'moduleclass_sfx=\ncache=1\nfirebots=1\nrssurl=\nrsstitle=1\nrssdesc=1\nrssimage=1\nrssitems=3\nrssitemdesc=1\nword_count=0\nrsscache=3600', 0, 0);

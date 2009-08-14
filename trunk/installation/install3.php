@@ -387,14 +387,5 @@ if($dirPerms != '') {
   </form>
  </div>
  <div class="clr"></div>
-<script type="text/javascript" src="../includes/js/jquery/jquery.js"></script>
-<script type="text/javascript" src="../includes/js/jquery/plugins/jquery.dpassword.js"></script>
-<script type="text/javascript">
-	$(document).ready( function() {
-		$('#adminPassword').dPassword({
-			showIcon: false
-		});
-	});
-</script>
 </body>
 </html>

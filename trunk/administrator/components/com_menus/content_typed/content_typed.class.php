@@ -16,12 +16,9 @@ defined('_VALID_MOS') or die();
 */
 class content_typed_menu {
 
-	function edit(&$uid,$menutype,$option) {
+	function edit(&$uid,$menutype,$option,$menu) {
 		global $database,$my,$mainframe;
 		global $mosConfig_absolute_path;
-
-		$menu = new mosMenu($database);
-		$menu->load((int)$uid);
 
 		// fail if checked out not by 'me'
 		if($menu->checked_out && $menu->checked_out != $my->id) {
@@ -82,8 +79,7 @@ class content_typed_menu {
 		$lists['link'] = mosAdminMenus::Link($menu,$uid);
 
 		// get params definitions
-		$params = new mosParameters($menu->params,$mainframe->getPath('menu_xml',$menu->type),
-			'menu');
+		$params = new mosParameters($menu->params,$mainframe->getPath('menu_xml',$menu->type),'menu');
 
 		content_menu_html::edit($menu,$lists,$params,$option,$contents);
 	}
@@ -102,4 +98,3 @@ class content_typed_menu {
 		mosRedirect('index2.php?option=com_typedcontent&task=edit&id='.$id);
 	}
 }
-?>

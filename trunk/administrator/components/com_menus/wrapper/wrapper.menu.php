@@ -15,11 +15,11 @@ mosAdminMenus::menuItem($type);
 switch($task) {
 	case 'wrapper':
 		// this is the new item, ie, the same name as the menu `type`
-		wrapper_menu::edit(0,$menutype,$option);
+		wrapper_menu::edit(0,$menutype,$option,$menu);
 		break;
 
 	case 'edit':
-		wrapper_menu::edit($cid[0],$menutype,$option);
+		wrapper_menu::edit($cid[0],$menutype,$option,$menu);
 		break;
 
 	case 'save':
@@ -28,4 +28,3 @@ switch($task) {
 		wrapper_menu::saveMenu($option,$task);
 		break;
 }
-?>

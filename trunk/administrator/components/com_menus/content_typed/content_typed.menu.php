@@ -17,11 +17,11 @@ $scid = mosGetParam($_POST,'scid','');
 switch($task) {
 	case 'content_typed':
 		// this is the new item, ie, the same name as the menu `type`
-		content_typed_menu::edit(0,$menutype,$option);
+		content_typed_menu::edit(0,$menutype,$option,$menu);
 		break;
 
 	case 'edit':
-		content_typed_menu::edit($cid[0],$menutype,$option);
+		content_typed_menu::edit($cid[0],$menutype,$option,$menu);
 		break;
 
 	case 'save':
@@ -34,4 +34,3 @@ switch($task) {
 		content_typed_menu::redirect($scid);
 		break;
 }
-?>

@@ -15,11 +15,11 @@ mosAdminMenus::menuItem($type);
 switch($task) {
 	case 'contact_category_table':
 		// this is the new item, ie, the same name as the menu `type`
-		contact_category_table_menu::editCategory(0,$menutype,$option);
+		contact_category_table_menu::editCategory(0,$menutype,$option,$menu);
 		break;
 
 	case 'edit':
-		contact_category_table_menu::editCategory($cid[0],$menutype,$option);
+		contact_category_table_menu::editCategory($cid[0],$menutype,$option,$menu);
 		break;
 
 	case 'save':
@@ -28,4 +28,3 @@ switch($task) {
 		saveMenu($option,$task);
 		break;
 }
-?>

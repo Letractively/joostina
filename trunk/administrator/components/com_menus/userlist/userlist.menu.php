@@ -15,11 +15,11 @@ mosAdminMenus::menuItem($type);
 switch($task) {
 	case 'userlist':
 		// this is the new item, ie, the same name as the menu `type`
-		userlist_menu::edit(0,$menutype,$option);
+		userlist_menu::edit(0,$menutype,$option,$menu);
 		break;
 
 	case 'edit':
-		userlist_menu::edit($cid[0],$menutype,$option);
+		userlist_menu::edit($cid[0],$menutype,$option,$menu);
 		break;
 
 	case 'save':
@@ -28,4 +28,3 @@ switch($task) {
 		userlist_menu::saveMenu($option,$task);
 		break;
 }
-?>

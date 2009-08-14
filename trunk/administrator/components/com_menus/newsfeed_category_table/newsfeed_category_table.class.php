@@ -20,12 +20,9 @@ class newsfeed_category_table_menu {
 	* @param database A database connector object
 	* @param integer The unique id of the category to edit (0 if new)
 	*/
-	function editCategory($uid,$menutype,$option) {
+	function editCategory($uid,$menutype,$option,$menu) {
 		global $database,$my,$mainframe;
 		global $mosConfig_absolute_path;
-
-		$menu = new mosMenu($database);
-		$menu->load((int)$uid);
 
 		// fail if checked out not by 'me'
 		if($menu->checked_out && $menu->checked_out != $my->id) {

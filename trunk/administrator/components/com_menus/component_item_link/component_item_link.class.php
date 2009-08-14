@@ -17,11 +17,8 @@ defined('_VALID_MOS') or die();
 */
 class component_item_link_menu {
 
-	function edit(&$uid,$menutype,$option) {
+	function edit(&$uid,$menutype,$option,$menu) {
 		global $database,$my,$mainframe;
-
-		$menu = new mosMenu($database);
-		$menu->load((int)$uid);
 
 		// fail if checked out not by 'me'
 		if($menu->checked_out && $menu->checked_out != $my->id) {
@@ -46,8 +43,7 @@ class component_item_link_menu {
 			$database->setQuery($query);
 			$components = $database->loadResult();
 			$lists['components'] = $components;
-			$lists['components'] .= '<input type="hidden" name="link" value="'.$menu->link.
-				'" />';
+			$lists['components'] .= '<input type="hidden" name="link" value="'.$menu->link.'" />';
 		} else {
 			$query = "SELECT CONCAT( a.link, '&amp;Itemid=', a.id ) AS value, a.name AS text".
 				"\n FROM #__menu AS a"."\n WHERE a.published = 1"."\n AND a.type = 'components'".

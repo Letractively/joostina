@@ -7,7 +7,6 @@
 
 function jadd(elID,value){
 	SRAX.get(elID).value=value;
-	SRAX.debug('Установка '+ value + ' в ' + elID);
 	return;
 }
 
@@ -43,14 +42,12 @@ function mess_bad(mess){
 
 // смена статуса публикации, elID - идентификатор объекта у которого меняется статус публикации
 function ch_publ(elID,option){
-	log('Смена статуса публикации элемента: '+elID+' для компонента '+option);
 	SRAX.get('img-pub-'+elID).src = 'images/aload.gif';
 	dax({
 		url: 'ajax.index.php?option='+option+'&utf=0&task=publish&id='+elID,
 		id:'publ-'+elID,
 		callback:
 			function(resp, idTread, status, ops){
-				log('Получен ответ: ' + resp.responseText);
 				SRAX.get('img-pub-'+elID).src = 'images/'+resp.responseText;
 			}
 	});
@@ -58,19 +55,15 @@ function ch_publ(elID,option){
 }
 // смена группы доступа, elID - идентификатор элемента у котогоменяется доступ, aCC - группа доступа
 function ch_access(elID,aCC,option){
-	SRAX.debug('Смена группы доступа: '+elID+' элемента на '+aCC+' для компонента '+option);
 	SRAX.replaceHtml('acc-id-'+elID,'<img src="images/aload.gif" />');
 	dax({
 		url: 'ajax.index.php?option='+option+'&utf=1&task=access&id='+elID+'&chaccess='+aCC,
 		id:'acc-id-'+elID,
 		callback:
 			function(resp, idTread, status, ops){
-				SRAX.debug('Получен ответ: ' + resp.responseText);
 				if(SRAX.debug.responseText!=2) {
-					log('Смена группы доступа успешно: ' + elID);
 					SRAX.replaceHtml('acc-id-'+elID,resp.responseText);
 				}else{
-					SRAX.debug('Ошибка смены группы доступа: ' + elID);
 					SRAX.replaceHtml('acc-id'+elID,'<img src="images/error.png" />');
 				}
 			}
@@ -79,7 +72,6 @@ function ch_access(elID,aCC,option){
 }
 
 function jtoggle_editor(){
-	SRAX.debug('Изменение состояния редактора');
 	jeimage = SRAX.get('jtoggle_editor');
 	jeimage.src = 'images/aload.gif';
 	dax({
@@ -87,7 +79,6 @@ function jtoggle_editor(){
 		id:'jte',
 		callback:
 			function(resp, idTread, status, ops){
-				SRAX.debug('Получен ответ: ' + resp.responseText);
 				jeimage.src = resp.responseText;
 			}
 	});

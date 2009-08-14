@@ -36,7 +36,7 @@ switch($task) {
 
 		if($menu->type) {
 			$type = $menu->type;
-			require_once ($path.$menu->type.'/'.$menu->type.'.menu.php');
+			require_once ($path.$menu->type.DS.$menu->type.'.menu.php');
 		}
 		break;
 

@@ -15,11 +15,11 @@ mosAdminMenus::menuItem($type);
 switch($task) {
 	case 'components':
 		// this is the new item, ie, the same name as the menu `type`
-		components_menu::edit(0,$menutype,$option);
+		components_menu::edit(0,$menutype,$option,$menu);
 		break;
 
 	case 'edit':
-		components_menu::edit($cid[0],$menutype,$option);
+		components_menu::edit($cid[0],$menutype,$option,$menu);
 		break;
 
 
@@ -29,4 +29,3 @@ switch($task) {
 		saveMenu($option,$task);
 		break;
 }
-?>

@@ -95,7 +95,7 @@ global $xmap;
 
 $xmapCache = XmapCache::getCache($xSitemap);
 if ($xSitemap->usecache) {
-	$xmapCache->call('xmapCallShowSitemap',$view,$xSitemap->id,$title,$config->config_locale,$config->config_sef,$menu->name);	// call plugin's handler function
+	$xmapCache->call('xmapCallShowSitemap',$view,$xSitemap->id,$config->config_locale,$config->config_sef,$menu->name);	// call plugin's handler function
 } else {
 	xmapCallShowSitemap($view,$xSitemap->id,null,null,$menu->name);
 }
@@ -142,9 +142,9 @@ function xmapCallShowSitemap($view,$sitemapid,$locale='',$sef='',$title='') {
 		default:	// Html output
 			$mainframe = &mosMainFrame::getInstance();
 			require_once( $mainframe->getPath('front_html') );
-			if (!$xConfig->exclude_css) {
+			/*if (!$xConfig->exclude_css) {
 				$mainframe->addCustomHeadTag( '<link rel="stylesheet" type="text/css" media="all" href="' . $config->config_live_site . '/components/com_xmap/css/xmap.css" />' );
-			}
+			}*/
 			$xmap = new XmapHtml( $xConfig, $xSitemap );
 			$xmap->generateSitemap($view,$xConfig,$xmapCache,$title);
 			$xSitemap->count_html = $xmap->count;

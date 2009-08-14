@@ -15,11 +15,11 @@ mosAdminMenus::menuItem($type);
 switch($task) {
 	case 'content_blog_category':
 		// this is the new item, ie, the same name as the menu `type`
-		content_blog_category::edit(0,$menutype,$option);
+		content_blog_category::edit(0,$menutype,$option,$menu);
 		break;
 
 	case 'edit':
-		content_blog_category::edit($cid[0],$menutype,$option);
+		content_blog_category::edit($cid[0],$menutype,$option,$menu);
 		break;
 
 	case 'save':
@@ -28,4 +28,3 @@ switch($task) {
 		content_blog_category::saveMenu($option,$task);
 		break;
 }
-?>
