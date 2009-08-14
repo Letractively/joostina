@@ -155,14 +155,14 @@ defined('_VALID_MOS') or die(); ?>
 				<td align="left"><?php echo _E_START_PUB; ?></td>
 				<td>
 				<input class="inputbox" type="text" name="publish_up" id="publish_up" size="25" maxlength="19" value="<?php echo $row->publish_up; ?>" />
-				<input type="reset" class="button" value="..." onclick="return showCalendar('publish_up', 'y-mm-dd');" />
+				<span class="button"><input type="reset" class="button" value="..." onclick="return showCalendar('publish_up', 'y-mm-dd');" /></span>
 				</td>
 			</tr>
 			<tr>
 				<td align="left"><?php echo _E_FINISH_PUB; ?></td>
 				<td>
 				<input class="inputbox" type="text" name="publish_down" id="publish_down" size="25" maxlength="19" value="<?php echo $row->publish_down; ?>" />
-				<input type="reset" class="button" value="..." onclick="return showCalendar('publish_down', 'y-mm-dd');" />
+				<span class="button"><input type="reset" class="button" value="..." onclick="return showCalendar('publish_down', 'y-mm-dd');" /></span>
 				</td>
 			</tr>
 		</table>
