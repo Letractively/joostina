@@ -1565,7 +1565,6 @@ class mosMainFrame {
 						."\n LEFT JOIN #__categories AS c ON i.catid = c.id"
 						."\n LEFT JOIN #__menu AS mc ON mc.componentid = c.id "
 						."\n WHERE ( ms.type IN ( 'content_section', 'content_blog_section' ) OR mc.type IN ( 'content_blog_category', 'content_category' ) )"
-						//."\n AND i.id = ".(int)$id."\n ORDER BY ms.type DESC, mc.type DESC, ms.id, mc.id";
 						."\n ORDER BY ms.type DESC, mc.type DESC, ms.id, mc.id";
 					$this->_db->setQuery($query);
 					$links = $bbad = $this->_db->loadObjectList();
@@ -1575,7 +1574,8 @@ class mosMainFrame {
 					}
 					unset($bbad,$bad);
 				}
-				$links = $_links[$id];
+
+				$links = isset($_links[$id]) ? $_links[$id] : null;
 
 				if(count($links)) {
 					foreach($links as $link) {
@@ -1853,7 +1853,8 @@ class mosMainFrame {
 		$msg = Jstring::trim($msg);
 
 		if($this->_isAdmin){
-			if(session_name()!=md5($this->getCfg('live_site'))) {
+			$_s = session_id();
+			if( !isset($_s)) {
 				session_name(md5($this->getCfg('live_site')));
 				session_start();
 			}
@@ -4749,13 +4750,14 @@ class mosAdminMenus {
 	/**
 	* build the select list to choose a component
 	*/
-	function Component(&$menu,$id) {
+	function Component(&$menu,$id,$rows=null) {
 		$database = &database::getInstance();
 
-		$query = "SELECT c.id AS value, c.name AS text, c.link FROM #__components AS c WHERE c.link != '' ORDER BY c.name";
-		$database->setQuery($query);
-		$rows = $database->loadObjectList();
-
+		if(!$rows){
+			$query = "SELECT c.id AS value, c.name AS text, c.link FROM #__components AS c WHERE c.link != '' ORDER BY c.name";
+			$database->setQuery($query);
+			$rows = $database->loadObjectList();
+		}
 		if($id) {
 			// existing component, just show name
 			foreach($rows as $row) {
@@ -4776,15 +4778,14 @@ class mosAdminMenus {
 	/**
 	* build the select list to choose a component
 	*/
-	function ComponentName(&$menu) {
+	function ComponentName(&$menu,$rows=null) {
 		$database = &database::getInstance();
 
-		$query = "SELECT c.id AS value, c.name AS text, c.link"
-				."\n FROM #__components AS c"
-				."\n WHERE c.link != ''"
-				."\n ORDER BY c.name";
-		$database->setQuery($query);
-		$rows = $database->loadObjectList();
+		if(!$rows){
+			$query = "SELECT c.id AS value, c.name AS text, c.link FROM #__components AS c WHERE c.link != '' ORDER BY c.name";
+			$database->setQuery($query);
+			$rows = $database->loadObjectList();
+		}
 
 		$component = 'Component';
 		foreach($rows as $row) {

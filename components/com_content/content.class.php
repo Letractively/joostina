@@ -981,13 +981,12 @@ class mosContent extends mosDBTable{
 			return;
 		}
 
-		mosCommonHTML::loadJqueryPlugins('tooltip/jquery.tooltip', false, true);
-
-		static $_js_load;
+		//mosCommonHTML::loadJqueryPlugins('tooltip/jquery.tooltip', false, true);
+/*		static $_js_load;
 		if(!isset($_js_load)){
 			?><script language="JavaScript" type="text/javascript">_comcontent_defines.push('load_tooltip');</script><?php
 		}
-
+*/
 		$link = 'index.php?option=com_content&amp;task=edit&amp;id=' . $row->id . $row->Itemid_link . '&amp;Returnid=' . $row->_Itemid;
 		$image = mosCommonHTML::get_element('edit.png');
 		$image = Jconfig::getInstance()->config_live_site.'/'.$image;

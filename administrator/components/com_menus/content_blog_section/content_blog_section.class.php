@@ -20,13 +20,10 @@ class content_blog_section {
 	* @param database A database connector object
 	* @param integer The unique id of the section to edit (0 if new)
 	*/
-	function edit($uid,$menutype,$option) {
+	function edit($uid,$menutype,$option,$menu) {
 		global $my,$mainframe;
 
 		$database = &database::getInstance();
-
-		$menu = new mosMenu($database);
-		$menu->load((int)$uid);
 
 		// fail if checked out not by 'me'
 		if($menu->checked_out && $menu->checked_out != $my->id) {

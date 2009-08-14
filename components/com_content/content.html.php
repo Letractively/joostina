@@ -494,7 +494,7 @@ class HTML_content {
 			return;
 		}
 
-		mosCommonHTML::loadJqueryPlugins('tooltip/jquery.tooltip', false, true, 'js');
+		//mosCommonHTML::loadJqueryPlugins('tooltip/jquery.tooltip', false, true, 'js');
 
 		$link = 'index.php?option=com_content&amp;task=edit&amp;id='.$row->id;
 		$image = mosAdminMenus::ImageCheck('edit.png', '/images/M_images/', null, null, _EDIT, _EDIT);

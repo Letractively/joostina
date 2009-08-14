@@ -7,7 +7,6 @@
 
 function jadd(elID,value){
 document.getElementById(elID).value=value;
-SRAX.debug('Установка '+ value + ' в ' + elID);
 return;
 }
 
@@ -37,20 +36,18 @@ document.getElementById('status-info').style.display = 'block';
 // прорисовка информации о неудавно выполненной операции
 function mess_bad(mess){
 SRAX.replaceHtml('status-info',mess);
-document.getElementById('status-info').className = 'jwarning';
-document.getElementById('status-info').style.display = 'block';
+$('#status-info').className = 'jwarning';
+$('#status-info').style.display = 'block';
 }
 // смена статуса публикации, elID - идентификатор объекта у которого меняется статус публикации
 function ch_publ(elID,option,extra){
-	log('Смена статуса публикации элемента: '+elID+' для компонента '+option);
 	if (extra == null) extra = ''
-	document.getElementById('img-pub-'+elID).src = _live_site+'/administrator/templates/'+_cur_template+'/images/aload.gif';
+	$('#img-pub-'+elID).attr('src',_live_site+'/administrator/templates/'+_cur_template+'/images/aload.gif');
 	dax({
 		url: 'ajax.index.php?option='+option+'&utf=0&task=publish&id='+elID,
 		id:'publ-'+elID,
 		callback:
 			function(resp, idTread, status, ops){
-				log('Получен ответ: ' + resp.responseText);
 				document.getElementById('img-pub-'+elID).src = _live_site+'/administrator/templates/'+_cur_template+'/images/ico/'+resp.responseText;
 			}
 	});
@@ -60,21 +57,16 @@ function ch_publ(elID,option,extra){
 
 // смена группы доступа, elID - идентификатор элемента у котогоменяется доступ, aCC - группа доступа
 function ch_access(elID,aCC,option){
-SRAX.debug('Смена группы доступа: '+elID+' элемента на '+aCC+' для компонента '+option);
 SRAX.replaceHtml('acc-id-'+elID,'<img src="'+_live_site+'/administrator/templates/'+_cur_template+'/images/aload.gif" />');
 dax({
 url: 'ajax.index.php?option='+option+'&utf=1&task=access&id='+elID+'&chaccess='+aCC,
 id:'acc-id-'+elID,
 cb:
 function(resp, idTread, status, ops){
-SRAX.debug('Получен ответ: ' + resp.responseText);
 if(SRAX.debug.responseText!=2) {
-log('Смена группы доступа успешно: ' + elID);
 SRAX.replaceHtml('acc-id-'+elID,resp.responseText);
 }else{
-SRAX.debug('Ошибка смены группы доступа: ' + elID);
 SRAX.replaceHtml('acc-id'+elID,'<img src="'+_live_site+'/administrator/templates/'+_cur_template+'/images/ico/error.png" />');
-
 }
 }
 });
@@ -82,7 +74,6 @@ return false;
 }
 
 function jtoggle_editor(){
-SRAX.debug('Изменение состояния редактора');
 jeimage = document.getElementById('jtoggle_editor');
 jeimage.src = _live_site+'/administrator/templates/'+_cur_template+'/images/aload.gif';
 dax({
@@ -90,7 +81,6 @@ url: 'ajax.index.php?option=com_admin&utf=0&task=toggle_editor',
 id:'jte',
 cb:
 function(resp, idTread, status, ops){
-SRAX.debug('Получен ответ: ' + resp.responseText);
 jeimage.src = resp.responseText;
 }
 });

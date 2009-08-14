@@ -75,7 +75,7 @@ function botUserContent(&$user) {
 		<tr class="sectiontableentry<?php echo ($k+1);?>">
 <?php if($access->canPublish){?>
 			<td align="center" <?php echo ($access->canPublish) ? 'onclick="ch_publ('.$row->id.');" class="td-state"' : null ;?>>
-				<img class="img-mini-state" src="<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="Публикация" />
+				<img class="img-mini-state" src="<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?php echo _PUBLISHING?>" />
 			</td>
 <?php }?>
 <?php if($access->canEdit){?>

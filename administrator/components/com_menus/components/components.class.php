@@ -19,11 +19,8 @@ class components_menu {
 	* @param database A database connector object
 	* @param integer The unique id of the category to edit (0 if new)
 	*/
-	function edit($uid,$menutype,$option) {
+	function edit($uid,$menutype,$option,$menu) {
 		global $database,$my,$mainframe;
-
-		$menu = new mosMenu($database);
-		$menu->load((int)$uid);
 
 		$row = new mosComponent($database);
 		// load the row from the db table
@@ -52,10 +49,10 @@ class components_menu {
 		$components = $database->loadObjectList();
 
 		// build the html select list for section
-		$lists['componentid'] = mosAdminMenus::Component($menu,$uid);
+		$lists['componentid'] = mosAdminMenus::Component($menu,$uid,$components);
 
 		// componentname
-		$lists['componentname'] = mosAdminMenus::ComponentName($menu,$uid);
+		$lists['componentname'] = mosAdminMenus::ComponentName($menu,$components);
 		// build the html select list for ordering
 		$lists['ordering'] = mosAdminMenus::Ordering($menu,$uid);
 		// build the html select list for the group access
@@ -73,4 +70,3 @@ class components_menu {
 		components_menu_html::edit($menu,$components,$lists,$params,$option);
 	}
 }
-?>

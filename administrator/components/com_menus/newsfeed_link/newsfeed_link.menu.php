@@ -15,11 +15,11 @@ mosAdminMenus::menuItem($type);
 switch($task) {
 	case 'newsfeed_link':
 		// this is the new item, ie, the same name as the menu `type`
-		newsfeed_link_menu::edit(0,$menutype,$option);
+		newsfeed_link_menu::edit(0,$menutype,$option,$menu);
 		break;
 
 	case 'edit':
-		newsfeed_link_menu::edit($cid[0],$menutype,$option);
+		newsfeed_link_menu::edit($cid[0],$menutype,$option,$menu);
 		break;
 
 	case 'save':
@@ -28,4 +28,3 @@ switch($task) {
 		saveMenu($option,$task);
 		break;
 }
-?>
