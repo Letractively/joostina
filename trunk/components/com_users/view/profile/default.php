@@ -38,14 +38,13 @@ $(document).ready(function() {
 		$id = isset($tab['id']) ? ' id="'.$tab['id'].'"' : '';
 		$class = isset($tab['class']) ? ' class="'.$tab['class'].'"' : '';
 		$title = isset($tab['title']) ? $tab['title'] : $tab['name'];
-		?>		<li><a title="<?php echo $title?>" href="<?php echo sefRelToAbs($tab['href']) ?>" <?php echo $id.$class?>><?php echo $tab['name'] ?></a></li><?php
+		?><li><a title="<?php echo $title?>" href="<?php echo sefRelToAbs($tab['href']) ?>" <?php echo $id.$class?>><?php echo $tab['name'] ?></a></li><?php
 	}
 ?>
 		</ul>
 	</div>
 	<div class="plugins_area">
 <?php
-
 	//Вывод плагинов
 	$_MAMBOTS->call_mambot('userProfile', $plugin_page, $user);
 ?>

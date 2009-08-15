@@ -145,23 +145,11 @@ function x_to_trash($id){
 * сохраняется ТОЛЬКО текст редакторов
 */
 function x_save_old($id) {
-	global $database,$my,$mosConfig_one_editor;
+	global $database,$my;
 
 	$introtext	= mosGetParam($_POST,'introtext','',_MOS_ALLOWRAW);
 	$fulltext	= mosGetParam($_POST,'fulltext','',_MOS_ALLOWRAW);
 	$notetext	= mosGetParam($_POST,'notetext','',_MOS_ALLOWRAW);
-
-	// инициализация использования одного редактора
-	if($mosConfig_one_editor){
-		$alltext	= mosGetParam($_POST,'introtext','',_MOS_ALLOWHTML);
-		$tagPos		= strpos( $alltext, '<!-- pagebreak -->' );
-		if ( $tagPos === false ){
-			$_POST['introtext']	= $alltext;
-		} else {
-			$_POST['introtext']	= substr($alltext, 0, $tagPos);
-			$_POST['fulltext']	= substr($alltext, $tagPos + 18 );
-		}
-	}
 
 	// конвертируем из юникода в cp1251
 	$introtext	= joostina_api::convert($introtext);
@@ -189,7 +177,7 @@ function x_save_old($id) {
 * boston, добавил параметр -  возврат в редактирование содержимого после сохранения для добавления нового
 */
 function x_save() {
-	global $my,$mainframe,$mosConfig_offset,$mosConfig_one_editor;
+	global $my,$mainframe,$mosConfig_offset;
 
 	$database = &database::getInstance();
 
@@ -201,18 +189,7 @@ function x_save() {
 	foreach($_POST as $key => $val) {
 		$_POST[$key] = joostina_api::convert($val);
 	}
-	
-	// инициализация использования одного редактора
-	if($mosConfig_one_editor){
-		$alltext	= mosGetParam($_POST,'introtext','',_MOS_ALLOWHTML);
-		$tagPos		= strpos( $alltext, '<!-- pagebreak -->' );
-		if ( $tagPos === false ){
-			$_POST['introtext']	= $alltext;
-		} else {
-			$_POST['introtext']	= substr($alltext, 0, $tagPos);
-			$_POST['fulltext']	= substr($alltext, $tagPos + 18 );
-		}
-	}
+
 	$row = new mosContent($database);
 	if(!$row->bind($_POST)) {
 		echo $row->getError();

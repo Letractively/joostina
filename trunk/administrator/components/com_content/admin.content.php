@@ -711,7 +711,7 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 	// get params definitions
 	$params = new mosParameters($row->attribs,$mainframe->getPath('com_xml','com_content'),'component');
 	// при активировании параметра одного редактора - сделаем новый объект содержащий соединённый текст
-	if($mainframe->getCfg('one_editor') & strlen($row->fulltext) > 1) $row->introtext = $row->introtext.'<!-- pagebreak -->'.$row->fulltext;
+
 	# Added the robots tag for the content!
 	$robots[] = mosHTML::makeOption('-1',_ROBOTS_HIDE);
 	$robots[] = mosHTML::makeOption('0','Index, Follow');
@@ -757,17 +757,7 @@ function saveContent($sectionid,$task) {
 	$menu		= strval(mosGetParam($_POST,'menu','mainmenu'));
 	$menuid		= intval(mosGetParam($_POST,'menuid',0));
 	$nullDate	= $database->getNullDate();
-	// инициализация использования одного редактора
-	if($mainframe->getCfg('one_editor')){
-		$alltext	= mosGetParam($_POST,'introtext','',_MOS_ALLOWHTML);
-		$tagPos		= strpos( $alltext, '<!-- pagebreak -->' );
-		if ( $tagPos === false ){
-			$_POST['introtext']	= $alltext;
-		} else {
-			$_POST['introtext']	= substr($alltext, 0, $tagPos);
-			$_POST['fulltext']		= substr($alltext, $tagPos + 18 );
-		}
-	}
+
 	$row = new mosContent($database);
 	if(!$row->bind($_POST)) {
 		echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";

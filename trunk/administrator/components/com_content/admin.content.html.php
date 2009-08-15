@@ -399,7 +399,7 @@ class HTML_content {
 	* @param string The html for the groups select list
 	*/
 function editContent(&$row,$section,&$lists,&$sectioncategories,&$images,&$params,$option,$redirect,&$menus) {
-		global $database,$mosConfig_disable_image_tab,$mosConfig_one_editor;
+		global $database,$mosConfig_disable_image_tab;
 		
 		$mainframe = &mosMainFrame::getInstance();
 		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images';
@@ -485,7 +485,7 @@ function editContent(&$row,$section,&$lists,&$sectioncategories,&$images,&$param
 				alert( "<?php echo _PLEASE_CHOOSE_CATEGORY?>" );
 			} else {
 				<?php getEditorContents('editor1','introtext'); ?>
-				<?php if(!$mosConfig_one_editor) getEditorContents('editor2','fulltext'); ?>
+				<?php getEditorContents('editor2','fulltext'); ?>
 				<?php getEditorContents('editor3','notetext'); ?>
 				submitform( pressbutton );
 			}
@@ -494,7 +494,7 @@ function editContent(&$row,$section,&$lists,&$sectioncategories,&$images,&$param
 			var form = document.adminForm;
 			SRAX.get('tb-apply').className='tb-load';
 			<?php getEditorContents('editor1','introtext'); ?>
-			<?php if(!$mosConfig_one_editor) getEditorContents('editor2','fulltext'); ?>
+			<?php getEditorContents('editor2','fulltext'); ?>
 			<?php getEditorContents('editor3','notetext'); ?>
 <?php
 	// отключение вкладки "Изображения"
@@ -520,7 +520,7 @@ function editContent(&$row,$section,&$lists,&$sectioncategories,&$images,&$param
 		}
 		function ch_metakey(){
 			<?php getEditorContents('editor1','introtext'); ?>
-			<?php if(!$mosConfig_one_editor){?><?php getEditorContents('editor2','fulltext'); ?> <?php };?>
+			<?php getEditorContents('editor2','fulltext'); ?>
 			<?php getEditorContents('editor3','notetext'); ?>
 			dax({
 				url: 'ajax.index.php?option=com_content&task=metakey',
@@ -616,20 +616,18 @@ function editContent(&$row,$section,&$lists,&$sectioncategories,&$images,&$param
 
 				<tr>
 					<td colspan="4" width="100%">
-						<?php echo $mosConfig_one_editor ? '': _INTROTEXT_M ; ?>
+						<?php echo _INTROTEXT_M ; ?>
 						<div id="intro_text"><?php editorArea('editor1',$row->introtext,'introtext','99%;','350','75','30'); ?></div>
 					</td>
 				</tr>
-				<?php if(!$mosConfig_one_editor){?>
 				<tr>
-					<td  colspan="4"  width="100%">
+					<td colspan="4"  width="100%">
 						<?php echo _MAINTEXT_M?>
 						<div id="full_text"><?php editorArea('editor2',$row->fulltext,'fulltext','99%;','400','75','30'); ?></div>
 					</td>
 				</tr>
-				<?php };?>
 				<tr>
-					<td  colspan="4"  width="100%">
+					<td colspan="4"  width="100%">
 						<?php echo _NOTETEXT_M?>
 						<div id="note_text"><?php editorArea('editor3',$row->notetext,'notetext','99%;','150','75','10'); ?></div>
 					</td>

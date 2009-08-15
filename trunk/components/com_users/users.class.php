@@ -354,13 +354,18 @@ class mosUser extends mosDBTable {
 
 		switch($user->user_extra->gender){
 			case 'female':
-			default:
 				$gender = _USERS_FEMALE_S;
 				break;
 
 			case 'male':
 				$gender = _USERS_MALE_S;
 				break;
+
+			case 'no_gender':
+			default:
+				$gender = _GENDER_NONE;
+				break;
+
 		}
 
 		if($params->get('gender')==1 || !$params){
@@ -379,12 +384,10 @@ class mosUser extends mosDBTable {
 
 		if($params->get('show_birthdate')==1){
 			return mosFormatDate($user->user_extra->birthdate, '%d-%m-%Y', 0);
-		}
-
-		else{
+		}else{
 			$delta = DateAndTime::getDelta(DateAndTime::mysql_to_unix($user->user_extra->birthdate), DateAndTime::mysql_to_unix(_CURRENT_SERVER_TIME));
 			$age = $delta['year'];
-			return 	 $age.' '.Text::_declension($age ,array(_YEAR, _YEAR_, _YEARS));
+			return $age.' '.Text::_declension($age ,array(_YEAR, _YEAR_, _YEARS));
 		}
 
 	}
@@ -416,7 +419,7 @@ class mosUser extends mosDBTable {
 				WHERE u.block = '0'"
 				.$and;
 		$this->_db->setQuery($query, $limitstart, $limit);
-		return  $this->_db->loadObjectList();
+		return $this->_db->loadObjectList();
 
 	}
 	

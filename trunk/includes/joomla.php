@@ -2179,8 +2179,6 @@ class JConfig {
 	var $config_db_cache_handler = 'none';
 	/** @var int время жизни кэша запросов базы данных */
 	var $config_db_cache_time = 0;
-	/** * @var int использование одного редактора при создании содержимого */
-	var $config_one_editor = 0;
 	/** @var int переадресация с не WWW адресов */
 	var $config_www_redir = 0;
 	/** @var int автоматическая очистка кэша */
