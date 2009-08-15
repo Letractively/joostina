@@ -279,7 +279,7 @@ if (!defined( '_MOS_MAINMENU_MODULE' )) {
 		global $my;
 
 		$all_menu = &mosMenu::getInstance();
-		$menus =$all_menu->_menu[$params->get( 'menutype' )];
+		$menus = isset($all_menu->_menu[$params->get( 'menutype' )]) ? $all_menu->_menu[$params->get( 'menutype' )] : array() ;
 
 		$rows = array();
 		foreach ($menus as $menu){
