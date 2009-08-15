@@ -334,7 +334,7 @@ var onImgArray = new Array();
 	function mosJoostinaGetmenu(&$params,$gid){
 
 		$all_menu = &mosMenu::getInstance();
-		$menus =$all_menu->_menu[$params->get( 'menutype' )];
+		$menus = isset($all_menu->_menu[$params->get( 'menutype' )]) ? $all_menu->_menu[$params->get( 'menutype' )] : array() ;
 
 		$return = array();
 		foreach ($menus as $menu){
