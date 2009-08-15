@@ -144,13 +144,11 @@ function mosLoadModules($position = 'left',$style = 0,$noindex = 0) {
 
 	$tp = intval(mosGetParam($_GET,'tp',0));
 
+	$config = &Jconfig::getInstance();
 	if($tp && !$config->config_disable_tpreview ) {
 		echo '<div style="height:50px;background-color:#eee;margin:2px;padding:10px;border:1px solid #f00;color:#700;">'.$position.'</div>';
 		return;
 	}
-
-	$database = &database::getInstance();
-	$config = &Jconfig::getInstance();
 
 	$style = intval($style);
 
@@ -281,7 +279,6 @@ function mosLoadModule($name = '', $title = '', $style = 0, $noindex = 0) {
 function mosShowHead($params=array('js'=>1,'css'=>1)) {
 	global $option,$my,$_VERSION,$task,$id;
 
-	$database = &database::getInstance();
 	$mainframe = &mosMainFrame::getInstance();
 
 	$description = '';

@@ -58,4 +58,3 @@ function quickiconButton($link,$image,$text) {
 	</span>
 	<?php
 }
-?>

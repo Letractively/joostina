@@ -13,6 +13,8 @@ defined('_VALID_MOS') or die();
 global $database;
 global $mosConfig_live_site,$mosConfig_lang;
 
+include_once ($mosConfig_absolute_path.DS.'language'.DS.$mosConfig_lang.DS.'system.php');
+
 $adminOffline = false;
 
 if(!defined('_INSTALL_CHECK')) {
@@ -143,4 +145,3 @@ if(!defined('_ADMIN_OFFLINE') || defined('_INSTALL_CHECK')) {
 <?php
 	exit(0);
 }
-?>

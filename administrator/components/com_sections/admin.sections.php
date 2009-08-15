@@ -252,7 +252,7 @@ function showSections($scope,$option) {
 		$sects_ids[]=$row->id;
 		unset($row);
 	}
-	$new_rows = array();
+	$rows_new = array();
 	if( count($sects_ids)>0 ){
 		$query = "SELECT COUNT( a.id ) as count,a.section FROM #__categories AS a WHERE a.section IN (".implode(',',$sects_ids).") AND a.published != -2 GROUP BY a.section";
 		$database->setQuery($query);

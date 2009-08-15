@@ -37,7 +37,7 @@ class JCE_languages {
 
 		<table class="adminlist">
 		<tr>
-			<th width="20">¹</th>
+			<th width="20">#</th>
 			<th width="30">&nbsp;</th>
 			<th width="25%" class="title"><?php echo _JCE_LANG_LANG; ?></th>
 			<th width="5%"><?php echo _JCE_PUBLISHED; ?></th>

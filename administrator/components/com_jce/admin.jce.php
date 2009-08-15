@@ -120,8 +120,7 @@ switch($task) {
 		break;
 	case 'installplugin':
 		global $client;
-		mosRedirect('index2.php?option=com_jce&client='.$client.
-			'&task=install&element=plugins');
+		mosRedirect('index2.php?option=com_jce&client='.$client.'&task=install&element=plugins');
 		break;
 	case 'install':
 		global $client,$eid;
