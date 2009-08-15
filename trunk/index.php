@@ -80,9 +80,9 @@ if(file_exists($mosConfig_absolute_path.DS.'components'.DS.'com_sef'.DS.'sef.php
 $mainframe = &mosMainFrame::getInstance();
 
 //Межсайтовая интеграция
-if(is_file($mosConfig_absolute_path.DS.'multisite.config.php')){
-	include_once($mosConfig_absolute_path.DS.'multisite.config.php');	
-}
+//if(is_file($mosConfig_absolute_path.DS.'multisite.config.php')){
+//	include_once($mosConfig_absolute_path.DS.'multisite.config.php');
+//}
 
 // поиск некоторых аргументов url (или form)
 $option = strval(strtolower(mosGetParam($_REQUEST,'option')));

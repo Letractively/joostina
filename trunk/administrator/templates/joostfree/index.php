@@ -21,15 +21,15 @@ echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'."\n";
 		<meta http-equiv="Content-Type" content="text/html; <?php echo _ISO; ?>" />
 		
 		<script type="text/javascript">
-    		var _live_site = '<?php echo $mosConfig_live_site;?>';
-    		var _option = '<?php echo mosGetParam( $_REQUEST, 'option', '' );?>';
-    		var _cur_template = '<?php echo $mainframe->getTemplate();?>';
-    		var _js_defines = new Array();
+			var _live_site = '<?php echo $mosConfig_live_site;?>';
+			var _option = '<?php echo mosGetParam( $_REQUEST, 'option', '' );?>';
+			var _cur_template = '<?php echo $mainframe->getTemplate();?>';
+			var _js_defines = new Array();
 		</script>
 <?php
 /* подключаем fullajax */
 mosCommonHTML::loadFullajax();
-
+mosCommonHTML::loadJquery();
 if($mosConfig_gz_js_css) { // работа со сжатыми css и js файлами
 	$mainframe->addCSS($mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/templates/joostfree/css/joostfree_css.php');
 	$mainframe->addJS($mosConfig_live_site.'/includes/js/joostina.admin.php');

@@ -259,7 +259,6 @@ class mosMainFrame {
 	function getLangFile($name = ''){
 		$absolute_path = $this->getCfg('absolute_path');
 		if(!$name){
-			$file = 'system';
 			return $absolute_path.DS.'language'.DS.$this->lang.DS.'system.php';
 		}else{
 			$file = $name;
