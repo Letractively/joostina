@@ -207,8 +207,6 @@ DEFINE('_O_SEARCH','поиск');
 DEFINE('_O_WRITE','запись');
 DEFINE('_OLD_MYSQL_SUPPORT','Поддержка младших версий MySQL');
 DEFINE('_OLD_MYSQL_SUPPORT2','Параметр позволяет отключить автоматический перевод работы БД в режим совместимости с кириллицей');
-DEFINE('_ONE_EDITOR','Использовать единое поле редактора');
-DEFINE('_ONE_EDITOR2','Использовать одно поле для Вводного и Основного текста.');
 DEFINE('_OWNER','Владелец');
 DEFINE('_PHP_MAIL_FUNCTION','Функцию PHP mail');
 DEFINE('_PRINT_EMAIL_ICONS','Значки Печать и E-mail');

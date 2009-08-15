@@ -646,11 +646,6 @@ class HTML_config {
 							<td><?php echo $lists['itemid_compat']; ?></td>
 						</tr>
 						<tr>
-							<td><?php echo _ONE_EDITOR?>:</td>
-							<td><?php echo $lists['one_editor']; ?></td>
-							<td><?php echo mosToolTip(_ONE_EDITOR2); ?></td>
-						</tr>
-						<tr>
 							<td><?php echo _GLOBAL_TEMPLATES?>:</td>
 							<td><?php echo $lists['global_templates']; ?></td>
 							<td><?php echo mosToolTip(_GLOBAL_TEMPLATES_TIP); ?></td>
