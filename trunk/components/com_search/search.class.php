@@ -9,9 +9,8 @@
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
-global $mosConfig_absolute_path;
-require_once($mosConfig_absolute_path.'/includes/libraries/dbconfig/dbconfig.php');
 
+mosMainFrame::addLib('dbconfig');
 /**
 * Category database table class
 * @package Joostina
@@ -23,7 +22,7 @@ require_once($mosConfig_absolute_path.'/includes/libraries/dbconfig/dbconfig.php
     	/**
     	 * Заголовок страницы
     	 */
-        var $title = 'Все записи с тэгом';
+        var $title = _SEARCH_ALL_ITEM_W_TAG;
 
 
         function jstContentUserpageConfig(&$db, $group = 'com_search', $subgroup = 'search_by_tag') {
