@@ -15,6 +15,18 @@ defined('_VALID_MOS') or die(); ?>
 
 <?php $loadbot_onAfterDisplayTitle; $loadbot_onBeforeDisplayContent; ?>
 
+<?php if($params->get('print') || $params->get('email')) : ?>
+	<div class="buttons_wrap">
+		<?php if($params->get('print')) : ?>
+			<?php mosHTML::PrintIcon($row, $params, $hide_js, $print_link); ?>
+		<?php endif; ?>
+					
+		<?php if($params->get('email')) : ?>
+			<?php HTML_content::EmailIcon($row, $params, $hide_js); ?>
+		<?php endif; ?>		
+	</div>
+<?php endif; ?>	
+
 <?php if($params->get('createdate', 0)) : ?>
 	<span class="date"><?php echo $create_date; ?></span>
 <?php endif; ?>
@@ -38,26 +50,6 @@ defined('_VALID_MOS') or die(); ?>
 <?php endif; ?>
 
 
-<?php if($params->get('print') || $params->get('email')) : ?>
-	<div class="buttons_wrap">
-		<table width="100%" cellpadding="0" cellspacing="0">
-			<tr>
-				<td width="60" align="right">
-					<div class="icons_c">
-					<?php if($params->get('print')) : ?>
-						<?php mosHTML::PrintIcon($row, $params, $hide_js, $print_link); ?>
-					<?php endif; ?>
-
-					<?php if($params->get('email')) : ?>
-						<?php HTML_content::EmailIcon($row, $params, $hide_js); ?>
-					<?php endif; ?>
-					</div>
-				</td>
-			</tr>
-		</table>
-	</div>
-<?php endif; ?>	
-	
 	<div <?php echo $news_uid_css_body; ?>class="item_body">
 		
 		<?php if($params->get('url') && $row->urls) : ?>
