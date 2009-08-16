@@ -13,6 +13,11 @@ a.contentpagetitle:hover {
 	font: normal 18px/26px "Lucida Sans Unicode", "Lucida Grande", "Myriad Pro", sans-serif;
 	margin: 5px 0 4px 0;
 }
+.buttons_wrap{
+    float: right; text-align: right;
+}
+
+
 /*------Описания------*/
 .contentdescription {
 	background: #F0F2E4;
@@ -37,11 +42,11 @@ a.contentpagetitle:hover {
     overflow: hidden;
     margin: 4px 0 18px 0;
 }
-.blog .contentpaneopen td {
-	padding-right: 10px;
+.blog .intro_table td {
+	padding-right: 15px;
 }
 .leading_block {
-	border-bottom: 1px dashed #CCC; 
+	border-bottom: 1px dashed #CCC;
 	margin: 5px 0 15px 0;
 	padding: 15px;
 }

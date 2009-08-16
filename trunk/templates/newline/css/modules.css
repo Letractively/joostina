@@ -175,3 +175,9 @@ ul.users_online li a img {
 	padding: 0 5px 0 0;
 	vertical-align: middle;
 }
+
+.mod_newsflash a.contentpagetitle{
+  font: normal 13px/19px "Trebuchet MS";
+  color: #616161; text-decoration: underline;
+}
+

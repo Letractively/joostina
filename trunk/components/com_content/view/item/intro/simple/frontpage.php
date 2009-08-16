@@ -15,6 +15,18 @@ defined('_VALID_MOS') or die(); ?>
 
 <?php $loadbot_onAfterDisplayTitle; $loadbot_onBeforeDisplayContent; ?>
 
+<?php if($params->get('print') || $params->get('email')) : ?>
+	<div class="buttons_wrap">
+		<?php if($params->get('print')) : ?>
+			<?php mosHTML::PrintIcon($row, $params, $hide_js, $print_link); ?>
+		<?php endif; ?>
+					
+		<?php if($params->get('email')) : ?>
+			<?php HTML_content::EmailIcon($row, $params, $hide_js); ?>
+		<?php endif; ?>		
+	</div>
+<?php endif; ?>	
+
 <?php if($params->get('createdate', 0)) : ?>
 	<span class="date"><?php echo $create_date; ?></span>
 <?php endif; ?>
@@ -24,39 +36,20 @@ defined('_VALID_MOS') or die(); ?>
 <?php endif; ?>
 
 <?php if($params->get('section') || $params->get('category')) : ?>
-	<div class="section_cat">	
+	<div class="section_cat">
+	
 		<?php if($params->get('section')) : ?>
 		<span class="section_name"><?php echo $row->section; ?></span>
 		<?php endif; ?>
 		
 		<?php if($params->get('category')) : ?>
 		<span class="cat_name">&rarr; <?php echo $row->category; ?></span>
-		<?php endif; ?>		
+		<?php endif; ?>
+		
 	</div>
 <?php endif; ?>
 
 
-<?php if($params->get('print') || $params->get('email')) : ?>
-	<div class="buttons_wrap">
-		<table width="100%" cellpadding="0" cellspacing="0">
-			<tr>
-				<td width="60" align="right">
-					<div class="icons_c">
-					<?php if($params->get('print')) : ?>
-						<?php mosHTML::PrintIcon($row, $params, $hide_js, $print_link); ?>
-					<?php endif; ?>
-
-					<?php if($params->get('email')) : ?>
-						<?php HTML_content::EmailIcon($row, $params, $hide_js); ?>
-					<?php endif; ?>
-					</div>
-				</td>
-			</tr>
-		</table>
-	</div>
-<?php endif; ?>	
-	
-	
 	<div <?php echo $news_uid_css_body; ?>class="item_body">
 		
 		<?php if($params->get('url') && $row->urls) : ?>
@@ -82,7 +75,7 @@ defined('_VALID_MOS') or die(); ?>
 			<?php endif; ?>
 		<?php endif; ?>
 		
-			
+				
 		<?php if($params->get('rating')) : ?>		
 		<div class="item_rating"><?php echo $row->rating; ?></div>
 		<?php endif; ?>
@@ -94,7 +87,7 @@ defined('_VALID_MOS') or die(); ?>
 		<?php endif; ?>
 		
 		
-		<?php if($params->get('readmore') && $readmore) : ?>
+		<?php if($params->get('readmore')) : ?>
 		<span class="readmore"><?php echo $readmore; ?></span>
 		<?php endif; ?>
 		
