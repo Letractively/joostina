@@ -32,3 +32,4 @@ DEFINE('_SEARCH_SECLIST','Список раздела');
 DEFINE('_SEARCH_SECBLOG','Блог раздела');
 DEFINE('_SEARCH_RESULTS','Результаты поиска');
 DEFINE('_SEARCH_NONE_W_TAG','Хм... С этим тэгом ничего не связано');
+DEFINE('_SEARCH_ALL_ITEM_W_TAG','Все записи с тэгом');
