@@ -196,7 +196,12 @@ textarea {
 	background-color: #F9F9F9;
 	border-color: #999999;
 }
-
+input[type=checkbox]{
+    padding: 1px; border: none;
+}
+input[type=radio]{
+    padding: 1px; border: none;
+}
 
 
 #break {

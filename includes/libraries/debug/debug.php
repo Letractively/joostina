@@ -45,13 +45,16 @@ class jdebug {
 		echo '<pre>';
 		/* счетчики */
 		foreach($this->_inc as $key => $value) {
-			$this->text .= '<small>COUNTER:</small> <b>'.htmlentities($key).'</b>: '.$value.'<br />';
+			$this->text .= '<small class="debug_counter">COUNTER:</small> <b>'.htmlentities($key).'</b>: '.$value.'<br />';
 		}
-		$this->text.= '<b>'._INCLUDED_FILES.':</b> '.count(get_included_files()).'<br />';
+		$this->text.= '<div class="debug_files"><b>'._INCLUDED_FILES.':</b> '.count(get_included_files()).'</div>';
+		
 		/* лог */
+		$this->text .= '<ul class="debug_log">';
 		foreach($this->_log as $key => $value) {
-			$this->text .= '<small>LOG:</small> '.$value.'<br />';
+			$this->text .= '<li><small>LOG:</small> '.$value.'</li>';
 		}
+		$this->text .= '</ul>';
 
 		/* подключенные файлы */
 		$files = get_included_files();

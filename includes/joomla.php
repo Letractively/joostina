@@ -5111,7 +5111,7 @@ class mosAdminMenus {
 		$align	= $align ? ' align="'.$align.'"':'';
 		// change directory path from frontend or backend
 		if($admin) {
-			$path = DS.ADMINISTRATOR_DIRECTORY.'/templates/'.$cur_template.'/images/ico/';
+			$path = '/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$cur_template.'/images/ico/';
 		} else {
 			$path = '/templates/'.$cur_template.'/images/ico/';
 		}

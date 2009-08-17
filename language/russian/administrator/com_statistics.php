@@ -26,4 +26,3 @@ DEFINE('_SEARCH_QUERY_TEXT','Текст поиска');
 DEFINE('_SEARCH_QUERY_COUNT','Запросов');
 DEFINE('_SHOW_RESULTS','Выдано результатов');
 DEFINE('_OS','Операционные системы');
-DEFINE('_BROWSER','Браузер');
