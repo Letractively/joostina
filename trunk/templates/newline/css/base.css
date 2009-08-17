@@ -210,7 +210,7 @@ span.edit{
 }
 .inprogress {
  	background: url(../images/elements/loader.gif) no-repeat  left;
- 	padding: 0 0 0 22px;  	
+ 	padding: 0 0 0 22px;
 }
 .info{
 	padding: 10px;
@@ -224,6 +224,21 @@ span.edit{
 #jdebug{
 	padding: 10px;
 	text-align:left;
+    background: #EBEBEB;
+}
+#jdebug .debug_counter{
+    background: url(../images/elements/publish.png) no-repeat  left;
+ 	padding: 0 0 0 22px;
+}
+#jdebug .debug_files{
+    background: url(../images/elements/information.png) no-repeat  left;
+ 	padding: 0 0 0 22px;
+}
+#jdebug .debug_log li{
+    padding: 5px 10px 5px 5px;
+}
+#jdebug .debug_log li small{
+    font-weight:bold;
 }
 
 table#toolbar a.toolbar, table#toolbar a.toolbar img {

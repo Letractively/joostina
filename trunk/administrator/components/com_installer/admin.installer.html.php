@@ -130,7 +130,7 @@ class HTML_installer {
 <?php
 
 		$link = 'index2.php?option=com_installer&amp;element=installer';
-		HTML_installer::quickiconButton($link,'down.png', _INSTALLATION);
+		HTML_installer::quickiconButton($link,'install.png', _INSTALLATION);
 
 		$link = 'index2.php?option=com_installer&amp;element=component';
 		HTML_installer::quickiconButton($link,'db.png', _COMPONENTS);

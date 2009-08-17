@@ -11,6 +11,37 @@
 defined('_VALID_MOS') or die();
 
 /**
+* вывод подключения js и css
+*/
+function adminHead(){
+	$mainframe = &mosMainFrame::getInstance();
+	if(isset($mainframe->_head['custom'])) {
+		$head = array();
+		foreach($mainframe->_head['custom'] as $html) {
+			$head[] = $html;
+		}
+		echo implode("\n",$head)."\n";
+	};
+	if(isset($mainframe->_head['js'])) {
+		$head = array();
+		foreach($mainframe->_head['js'] as $html) {
+			$head[] = $html;
+		}
+		echo implode("\n",$head)."\n";
+	};
+	if(isset($mainframe->_head['css'])) {
+		$head = array();
+		foreach($mainframe->_head['css'] as $html) {
+			$head[] = $html;
+		}
+		echo implode("\n",$head)."\n";
+	};
+	// отправим пользователю шапку - пусть браузер работает пока будет формироваться дальнейший код страницы
+	flush();
+}
+
+
+/**
 * @param string THe template position
 */
 function mosCountAdminModules($position = 'left') {

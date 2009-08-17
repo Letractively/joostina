@@ -646,7 +646,7 @@ function editContent(&$row,$section,&$lists,&$sectioncategories,&$images,&$param
 			<!--правая колонка:BEGIN-->
 			<td valign="top" id="ncontent">
 
-				<table width="100%"><tr><th>Информация</th></tr></table>
+				<table width="100%"><tr><th><?php echo _INFO?></th></tr></table>
 
 
 				<table class="params" width="100%">
@@ -686,7 +686,7 @@ function editContent(&$row,$section,&$lists,&$sectioncategories,&$images,&$param
 ?>
 			<table width="100%"><tr><th><?php echo _SETTINGS?></th></tr></table>
 			<table class="params" width="100%">
-				<tr><th>Публикация</th><th></th></tr>
+				<tr><th><?php echo _PUBLISHING?></th><th></th></tr>
 					<tr>
 						<td valign="top" align="right"><?php echo _ACCESS?>:</td>
 						<td><?php echo $lists['access']; ?></td>

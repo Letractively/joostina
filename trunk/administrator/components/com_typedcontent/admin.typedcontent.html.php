@@ -284,6 +284,13 @@ class HTML_typedcontent {
 					<td align="left"><?php echo _ALIAS?>:</td>
 					<td width="90%"><input class="inputbox" type="text" name="title_alias" size="30" maxlength="150" style="width:98%" value="<?php echo $row->title_alias; ?>" /></td>
 				</tr>
+		<tr>
+			<td valign="top"><?php echo _AUTHOR?>:</td>
+			<td><?php echo $lists['created_by']; ?>
+			&nbsp;<?php echo _E_AUTHOR_ALIAS?>:
+			<input type="text" name="created_by_alias" size="30" maxlength="100" value="<?php echo $row->created_by_alias; ?>" class="inputbox" />
+			</td>
+		</tr>
 				<tr>
 					<td valign="top" align="left" colspan="2">
 					<?php echo _MAINTEXT_M?><br />
@@ -314,14 +321,7 @@ class HTML_typedcontent {
 			<td valign="top" align="right"><?php echo _ACCESS?>:</td>
 			<td><?php echo $lists['access']; ?></td>
 		</tr>
-		<tr>
-			<td valign="top" align="right"><?php echo _E_AUTHOR_ALIAS?>:</td>
-			<td><input type="text" name="created_by_alias" size="30" maxlength="100" value="<?php echo $row->created_by_alias; ?>" class="inputbox" /></td>
-		</tr>
-		<tr>
-			<td valign="top" align="right"><?php echo _CHANGE_AUTHOR?>:</td>
-			<td><?php echo $lists['created_by']; ?></td>
-		</tr>
+
 		<tr>
 			<td valign="top" align="right"><?php echo _CREATED?>:</td>
 			<td>

@@ -10,4 +10,4 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-DEFINE('_CHANGE_QUICK_BUTTONS','Изменить кнопки быстрого доступа');
+DEFINE('_CHANGE_QUICK_BUTTONS','Изменить кнопки');
