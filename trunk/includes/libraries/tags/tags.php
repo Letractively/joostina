@@ -150,7 +150,7 @@ class contentTags extends mosDBTable{
 	}
 
 	function get_tag_url($tag){
-		return sefRelToAbs('index.php?option=com_search&tag='.$tag);
+		return sefRelToAbs('index.php?option=com_search&tag='.urlencode($tag));
 	}
 
 	function arr_to_links($tags, $ds = ', '){
