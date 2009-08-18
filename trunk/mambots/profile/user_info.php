@@ -67,5 +67,5 @@ function botUserInfo(&$user) {
 	<?php }?>
 <?php } ?>
 	</div>
-	<?php
+<?php
 }

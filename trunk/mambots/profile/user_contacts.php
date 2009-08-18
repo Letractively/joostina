@@ -62,7 +62,7 @@ function UserContacts_output($user){
 	}
 /** Вывод данных о мессенджерах */
 function UserContacts_messengers($user){
-	$img_url = Jconfig::getInstance()->config_live_site.'/images/system_images';
+	$img_url = Jconfig::getInstance()->config_live_site.'/images/system';
 
 	if (isset($user->user_extra->icq)){?>
 		<span class="icq">
@@ -75,7 +75,7 @@ function UserContacts_messengers($user){
 <?php } if (isset($user->user_extra->skype)){ ?>
 		<span class="skype">
 			<a href="skype:<?php echo $user->user_extra->skype;?>?call">
-				<img name="Skypestatus" src="$img_url/skype.gif" align="absmiddle" border="0" alt="Skype" title="Skype">
+				<img name="Skypestatus" src="<?php echo $img_url?>/skype.png" align="absmiddle" border="0" alt="Skype" title="Skype">
 			</a>
 			<?php echo $user->user_extra->skype;?>
 		</span>

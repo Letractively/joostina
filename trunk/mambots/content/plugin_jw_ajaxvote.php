@@ -58,7 +58,7 @@ $return .='
 	<div id="jwajaxvote'.$id.'" class="jwajaxvote-box">';
 
 	if($rating_count != 1) {
-		  $return .='('.$rating_count.' '._AV_VOTES.')';
+			$return .='('.$rating_count.' '._AV_VOTES.')';
 		} else {
 			 $return .='('.$rating_count.' '._AV_VOTE.')';
 		}
@@ -72,4 +72,3 @@ $return .='
 $row->rating=$return;
 	}
 }
-?>

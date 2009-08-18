@@ -54,7 +54,10 @@ function recordVote() {
 				$database->setQuery( $query );
 				$database->query() or die( $database->stderr() );
 			} else {
-				return 0;
+				$query = "SELECT rating_count FROM #__content_rating"
+				. "\n WHERE content_id = " . (int) $cid;
+				$database->setQuery( $query );
+				echo $database->loadResult();
 			}
 		}
 		return 1;

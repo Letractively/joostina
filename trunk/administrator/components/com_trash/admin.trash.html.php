@@ -139,7 +139,7 @@ class HTML_trash {
 	function showDelete($option,$cid,$items,$type) {
 		
 		$mainframe = &mosMainFrame::getInstance();
-		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
+		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/file_ico';
 ?>
 		<form action="index2.php" method="post" name="adminForm">
 		<table class="adminheading">
@@ -151,7 +151,7 @@ class HTML_trash {
 		<tr>
 			<td width="3%"></td>
 			<td align="left" valign="top" width="20%">
-			<strong><?php echo _OBJECT_COUNT?>:</strong>
+			<strong><?php echo _COM_TRASH_OBJECT_COUNT?>:</strong>
 			<br />
 			<font color="#000066"><strong><?php echo count($cid); ?></strong></font>
 			<br /><br />

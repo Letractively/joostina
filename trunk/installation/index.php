@@ -60,8 +60,7 @@ echo '<?xml version="1.0" encoding="utf-8"?'.'>';?>
 			<div class="buttons">
 				<input type="button" class="button small" value="Проверить снова" onclick="window.location=window.location" />
 				<input name="Button2" type="submit" class="button" value="Далее >>" onclick="window.location='install.php';" />
-			</div>		
-			
+			</div>
 
 				<div id="wrap">
 
@@ -69,7 +68,7 @@ echo '<?xml version="1.0" encoding="utf-8"?'.'>';?>
 					<div class="install-text">
 						Если на сервере имеются настройки, способные привести к ошибкам во время установки или работы Joostina, то на этой странице они будут отмечены <b>
 						<font color="red">красным цветом</font></b>.
-						Для полноценной и без проблемной работы системы рекомендуем исправить все необходимые настройки.
+						Для полноценной и беспроблемной работы системы рекомендуем исправить все необходимые настройки.
 						<div class="ctr"></div>
 					</div>
 					<div class="install-form">
