@@ -308,7 +308,7 @@ CREATE TABLE `#__mambots` (
   `checked_out` int(11) unsigned NOT NULL default '0',
   `checked_out_time` datetime NOT NULL default '0000-00-00 00:00:00',
   `params` text NOT NULL,
-  PRIMARY KEY  (`id`),
+  PRIMARY KEY (`id`),
   KEY `idx_folder` (`published`,`client_id`,`access`,`folder`)
 ) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
 
@@ -334,7 +334,7 @@ INSERT INTO `#__mambots` VALUES (19, 'Первый обработчик соде
 INSERT INTO `#__mambots` VALUES (20, 'Модуль на главной странице', 'frontpagemodule', 'content', 0, 0, 0, 0, 0, 0, '0000-00-00 00:00:00', 'mod_position=banner\nmod_type=1\nmod_after=1');
 INSERT INTO `#__mambots` VALUES (21, 'Контактные данные пользователя', 'user_contacts', 'profile', 0, 2, 1, 0, 0, 0, '0000-00-00 00:00:00', '');
 INSERT INTO `#__mambots` VALUES (22, 'Материалы пользователя', 'user_content', 'profile', 0, 3, 1, 0, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__mambots` VALUES (23, 'Информация ', 'user_info', 'profile', 0, 1, 1, 0, 0, 0, '0000-00-00 00:00:00', 'header=Инфа\nshow_header=1\nshow_location=1\ngender=1');
+INSERT INTO `#__mambots` VALUES (23, 'Информация ', 'user_info', 'profile', 0, 1, 1, 0, 0, 0, '0000-00-00 00:00:00', 'header=Информация\nshow_header=1\nshow_location=1\ngender=1');
 
 
 # --------------------------------------------------------

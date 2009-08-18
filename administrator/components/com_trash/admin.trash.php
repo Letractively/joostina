@@ -244,7 +244,7 @@ function clearTrash() {
 		$obj->delete($id);
 	}
 	//собираем итоговое сообщение
-	$msg = _SUCCESS_DELETION.': '.$total_content.', '.$total_menu;
+	$msg = _SUCCESS_DELETION.': content: '.$total_content.', menu: '.$total_menu;
 	mosRedirect('index2.php?option='.$option,$msg);
 }
 /**

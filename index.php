@@ -136,11 +136,11 @@ $message	= intval(mosGetParam($_POST,'message',0));
 /** получение информации о текущих пользователях из таблицы сессий*/
 // $my - важный параметр, в нём содержатся вс еданные по текущему пользователю
 if($mainframe->get('_multisite')=='2' && $cookie_exist ){
-	$mainframe->set('_multisite_params', $m_s);	
+	$mainframe->set('_multisite_params', $m_s);
 	$my = $mainframe->getUser_from_sess($_COOKIE[mosMainFrame::sessionCookieName($m_s->main_site)]);
 }
 else{
-	$my = $mainframe->getUser();	
+	$my = $mainframe->getUser();
 }
 
 $gid = intval($my->gid);

@@ -74,19 +74,13 @@ if($mainframe->get('_multisite')=='2' && $cookie_exist ){
 	$my = $mainframe->getUser_from_sess($_COOKIE[mosMainFrame::sessionCookieName($m_s->main_site)]);
 }
 else{
-	$my = $mainframe->getUser();	
+	$my = $mainframe->getUser();
 }
 $gid = intval($my->gid);
 // patch to lessen the impact on templates
 if($option == 'search') {
 	$option = 'com_search';
 }
-
-// загрузка файла русского языка по умолчанию
-//if($mosConfig_lang == '') {
-	//$mosConfig_lang = 'russian';
-//}
-//include_once ($mosConfig_absolute_path.'/language/'.$mosConfig_lang.'.php');
 
 // загрузка файла русского языка по умолчанию
 $mosConfig_lang = ($mosConfig_lang == '') ? 'russian' : $mosConfig_lang;
@@ -161,7 +155,7 @@ if($my->id || $mainframe->get('joomlaJavascript')) {
 }
 
 initGzip();
-
+header('Content-type: text/html; charset=UTF-8');
 /*
 // при активном кэшировании отправим браузеру более "правильные" заголовки
 if(!$mosConfig_caching) { // не кэшируется
