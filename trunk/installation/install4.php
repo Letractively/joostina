@@ -302,6 +302,7 @@ if($siteUrl) {
 	$config .= "\$mosConfig_admin_secure_code = 'admin';\n";
 	$config .= "\$mosConfig_admin_bad_auth = '5';\n";
 	$config .= "\$mosConfig_cache_handler = 'file';\n";
+	$config .= "\$mosConfig_cache_key = '" . time() . "';\n";
 	$config .= "\$mosConfig_enable_admin_secure_code = '0';\n";
     $config .= "\$mosConfig_author_name = '4';\n";
 
