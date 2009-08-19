@@ -148,7 +148,8 @@ class JCacheStorageApc extends JCacheStorage
 	 */
 	function _getCacheId($id, $group)
 	{
-		$name	= md5($this->_application.'-'.$id.'-'.$this->_hash.'-'.$this->_language);
+		global $mosConfig_cache_key;
+		$name	= md5($mosConfig_cache_key . "-" . $this->_application.'-'.$id.'-'.$this->_hash.'-'.$this->_language);
 		return 'cache_'.$group.'-'.$name;
 	}
 }
