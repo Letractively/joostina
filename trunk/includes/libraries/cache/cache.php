@@ -433,6 +433,37 @@ class JCacheStorage{
 	 * @since	1.3
 	 */
 	function clean($group, $mode){
+		
+		global $mosConfig_absolute_path, $mosConfig_cache_key;
+		$fname = $mosConfig_absolute_path.'/configuration.php';
+
+		$enable_write = intval(mosGetParam($_POST,'enable_write',0));
+		$oldperms = fileperms($fname);
+		if($enable_write) {
+			@chmod($fname,$oldperms | 0222);
+		}
+
+		if($fp = fopen($fname,'r')) 
+		{
+			$data = fread($fp, filesize($fname));
+			fclose($fp);
+			if($fp = fopen($fname,'w')) 
+			{
+				$pattern = '$mosConfig_cache_key = \'' . $mosConfig_cache_key . '\';';
+				$replacement = '$mosConfig_cache_key = \'' . time() . '\';';
+				$data = str_replace($pattern, $replacement, $data);
+				fwrite($fp,$data);
+				fclose($fp);
+				if($enable_write) 
+				{
+					@chmod($fname,$oldperms);
+				}
+				else
+				{
+					if(mosGetParam($_POST,'disable_write',0)) @chmod($fname,$oldperms & 0777555);
+				} // if
+			}
+		}
 		return true;
 	}
 
