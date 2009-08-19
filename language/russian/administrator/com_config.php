@@ -340,3 +340,5 @@ DEFINE('_MEMORY_CACHE_COMPRESSION', 'Компрессия кеш памяти');
 DEFINE('_MEMCACHE_SERVER', 'Memcache Сервер');
 DEFINE('_HOST', 'Хост');
 DEFINE('_PORT', 'Порт');
+DEFINE('_CACHE_KEY_TOOLTIP','Этот ключ предназначен для генерации кеш файлов. Используется системой и не может быть изменен вручную');
+DEFINE('_CACHE_KEY_TEXT','Кеш-ключ');
