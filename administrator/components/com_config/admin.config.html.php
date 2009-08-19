@@ -1156,6 +1156,11 @@ class HTML_config {
 		}
 ?>
 		<tr>
+			<td><?php echo _CACHE_KEY_TEXT?>:</td>
+			<td><input type="text" READONLY name="config_cache_key" size="50" value="<?php echo $row->config_cache_key; ?>"/>
+			<?php echo mosToolTip(_CACHE_KEY_TOOLTIP);?>
+		</tr>
+		<tr>
 			<td><?php echo _CACHE_DIR?>:</td>
 			<td><input class="text_area" type="text" name="config_cachepath" size="50" value="<?php echo $row->config_cachepath; ?>"/>
 <?php
