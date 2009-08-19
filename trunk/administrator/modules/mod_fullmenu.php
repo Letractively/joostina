@@ -284,11 +284,12 @@ _cmSplit,
 ['<img src="<?php echo $cur_file_icons_patch ?>db.png" />','<?php echo _MOD_FULLMENU_JP_DB_MANAGEMENT?>','index2.php?option=com_joomlapack&act=db',null,'<?php echo _MOD_FULLMENU_JP_DB_MANAGEMENT?>'],
 ['<img src="<?php echo $cur_file_icons_patch ?>config.png" />','<?php echo _MOD_FULLMENU_BACKUP_CONFIG?>','index2.php?option=com_joomlapack&act=config',null,'<?php echo _MOD_FULLMENU_BACKUP_CONFIG?>']],
 <?php } ?>
-<?php if($config->config_caching && $config->config_cache_handler == 'file') { ?>
+<?php if($config->config_cache_handler == 'file') { ?>
 	['<img src="<?php echo $cur_file_icons_patch ?>config.png" />','<?php echo _MOD_FULLMENU_CACHE_MANAGEMENT?>','index2.php?option=com_cache',null,'<?php echo _MOD_FULLMENU_CACHE_MANAGEMENT?>'],
+<?php }?>
 	['<img src="<?php echo $cur_file_icons_patch ?>config.png" />','<?php echo _MOD_FULLMENU_CLEAR_CONTENT_CACHE?>','index2.php?option=com_admin&task=clean_cache',null,'<?php echo _MOD_FULLMENU_CLEAR_CONTENT_CACHE?>'],
 	['<img src="<?php echo $cur_file_icons_patch ?>config.png" />','<?php echo _MOD_FULLMENU_CLEAR_ALL_CACHE?>','index2.php?option=com_admin&task=clean_all_cache',null,'<?php echo _MOD_FULLMENU_CLEAR_ALL_CACHE?>'],
-<?php }?>
+
 <?php
 if($canConfig) {?>
 ['<img src="<?php echo $cur_file_icons_patch ?>sysinfo.png" />', '<?php echo _MOD_FULLMENU_SYSTEM_INFO?>', 'index2.php?option=com_admin&task=sysinfo', null,'<?php echo _MOD_FULLMENU_SYSTEM_INFO?>'],
