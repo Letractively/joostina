@@ -2205,6 +2205,8 @@ class JConfig {
 	var $config_admin_bad_auth = 5;
 	/** @var int обработчик кэширования */
 	var $config_cache_handler = 'none';
+	/** @var int ключ для кэш файлов */
+	var $config_cache_key = '';
 	/** @var array настройки memCached */
 	var $config_memcache_persistent = 0;
 	/** @var array настройки memCached */
@@ -2237,9 +2239,6 @@ class JConfig {
 	var $config_global_templates = 0;
 	/** @var int включение/выключение отображения тэгов содержимого */
 	var $config_tags = 0;
-
-
-
 	// инициализация класса конфигурации - собираем переменные конфигурации
 	function JConfig(){
 		$this->bindGlobals();
