@@ -489,7 +489,7 @@ function saveSection($option,$scope,$task) {
 
 			/* boston, после сохранения возвращаемся в окно добавления нового раздела*/
 		case 'save_and_new':
-			$msg = $row->title.' - saved.';
+			$msg = $row->title.' - '._E_ITEM_SAVED;
 			mosRedirect('index2.php?option='.$option.'&scope='.$scope.'&task=new',$msg);
 			break;
 

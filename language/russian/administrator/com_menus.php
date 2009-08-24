@@ -79,4 +79,5 @@ DEFINE('_COM_MENUS_ORDER_DROPDOWN','Порядок');
 DEFINE('_ALL_SECTIONS','Все разделы');
 
 DEFINE('_COM_MENUS_SUBMIT_CONTENT','Пункт меню :: Добавить содержимое');
-
+DEFINE('_MENU_ITEMS_TO_COPY','Копируемые пункты меню');
+DEFINE('_MOVE_MENUS','перемещено');

@@ -553,3 +553,6 @@ DEFINE('_MASS_RESULTS','Результаты массового добавлен
 DEFINE('_CANNOT_MOVE_TO_MEDIA','Не могу переместить скачанный файл в каталог <code>/media</code>');
 DEFINE('_CLOAKING','Этот e-mail защищен от спам-ботов. Для его просмотра в вашем браузере должна быть включена поддержка Java-script');
 DEFINE('_SITE_OFFLINE','Сайт выключен');
+
+DEFINE('_MOVED_TO_TRASH','Отправлено в корзину');
+DEFINE('_CATS_TO_COPY','Копируемые категории');

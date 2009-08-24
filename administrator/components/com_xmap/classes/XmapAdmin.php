@@ -42,7 +42,6 @@ class XmapAdmin {
 
 			case 'ajax_request':
 				include($xmapComponentPath . '/admin.xmap.ajax.php');
-				exit; 
 				break;
 			default:
 				$success = mosGetParam($_REQUEST,'success','');
@@ -87,11 +86,6 @@ class XmapAdmin {
 	function saveOptions( &$config ) {
 		global $mosConfig_absolute_path;
 
-		// save css
-		$csscontent	= mosGetParam( $_POST, 'csscontent', '', _MOS_ALLOWHTML );	// CSS
-		$file 		= $mosConfig_absolute_path .'/components/com_xmap/css/xmap.css';
-		$enable_write	= mosGetParam( $_POST, 'enable_write', 0 );
-		$oldperms	= fileperms($file);
 		$success	= 1;
 
 		$exclude_css	= mosGetParam( $_POST, 'exclude_css', 0 );
@@ -101,30 +95,6 @@ class XmapAdmin {
 		$config->exclude_xsl = $exclude_xsl;
 		$config->save();
 
-		if ( $enable_write ) {
-			@chmod( $file, $oldperms | 0222 );
-		}
-	
-		clearstatcache();
-		
-		if( $fp = @fopen( $file, 'w' )) {
-			fputs( $fp, stripslashes( $csscontent ) );
-			fclose( $fp );
-			if( $enable_write ) {
-				@chmod( $file, $oldperms );
-			}else{
-				if( mosGetParam( $_POST, 'disable_write', 0 )){
-					@chmod($file, $oldperms & 0777555);
-				}
-			}
-		} else {
-			if( $enable_write ){
-				@chmod( $file, $oldperms );
-			}
-		}
-		// end CSS
-	
-		
 		mosRedirect('index2.php?option=com_xmap&success='.$success);
 		exit;
 	}

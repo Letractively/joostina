@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
-* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
-* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
-* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
+* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
 */
 
-// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+// запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 /**
@@ -34,22 +34,22 @@ class HTML_content {
 		mosCommonHTML::loadDtree();
 	?>
 	<script type="text/javascript">
-		// СЃРјРµРЅР° СЃС‚Р°С‚СѓСЃР° РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РЅР° РіР»Р°РІРЅРѕР№ СЃС‚СЂР°РЅРёС†Рµ
+		// смена статуса отображения на главной странице
 		function ch_fpage(elID){
-			log('РЎРјРµРЅР° РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РЅР° РіР»Р°РІРЅРѕР№: '+elID);
+			log('Смена отображения на главной: '+elID);
 			SRAX.get('img-fpage-'+elID).src = 'images/aload.gif';
 			dax({
 				url: 'ajax.index.php?option=com_content&utf=0&task=frontpage&id='+elID,
 				id:'fpage-'+elID,
 				callback:
 					function(resp, idTread, status, ops){
-						log('РџРѕР»СѓС‡РµРЅ РѕС‚РІРµС‚: ' + resp.responseText);
+						log('Получен ответ: ' + resp.responseText);
 						SRAX.get('img-fpage-' + elID).src = '<?php echo $cur_file_icons_path;?>/'+resp.responseText;
 			}});
 		}
-		// РїРµСЂРµРјРµС‰РµРЅРёРµ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ РІ РєРѕСЂР·РёРЅСѓ
+		// перемещение содержимого в корзину
 		function ch_trash(elID){
-			log('РЈРґР°Р»РµРЅРёРµ РІ РєРѕСЂР·РёРЅСѓ: '+elID);
+			log('Удаление в корзину: '+elID);
 			if(SRAX.get('img-trash-'+elID).src == '<?php echo $cur_file_icons_path;?>/trash_mini.png'){
 				SRAX.get('img-trash-'+elID).src = '<?php echo $cur_file_icons_path;?>/help.png';
 				return null;
@@ -61,17 +61,17 @@ class HTML_content {
 				id:'trash-'+elID,
 				callback:
 					function(resp, idTread, status, ops){
-						log('РџРѕР»СѓС‡РµРЅ РѕС‚РІРµС‚: ' + resp.responseText);
+						log('Получен ответ: ' + resp.responseText);
 						if(resp.responseText=='1') {
-							log('РџРµСЂРµРјРµС‰РµРЅРёРµ РІ РєРѕСЂР·РёРЅСѓ СѓСЃРїРµС€РЅРѕ: ' + elID);
+							log('Перемещение в корзину успешно: ' + elID);
 							SRAX.remove('tr-el-'+elID);
 						}else{
-							log('РћС€РёР±РєР° РїРµСЂРµРјРµС‰РµРЅРёСЏ РІ РєРѕСЂР·РёРЅСѓ: ' + elID);
+							log('Ошибка перемещения в корзину: ' + elID);
 							SRAX.get('tr-el-'+elID).style.background='red';
 						}
 			}});
 		}
-		/* СЃРєСЂС‹С‚РёРµ РґРµСЂРµРІР° РЅР°РІРёРіР°С†РёРё РїРѕ СЃС‚СЂСѓРєС‚СѓСЂРµ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ */
+		/* скрытие дерева навигации по структуре содержимого */
 		function ntreetoggle(){
 			if(SRAX.get('ntdree').style.display =='none'){
 				SRAX.get('ntdree').style.display ='block';
@@ -141,25 +141,25 @@ class HTML_content {
 			$row->cat_link = 'index2.php?option=com_categories&task=editA&hidemainmenu=1&id='.$row->catid;
 
 			if($now <= $row->publish_up && $row->state == 1) {
-				// РѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ
+				// опубликовано
 				$img = 'publish_y.png';
-				//$alt = 'РћРїСѓР±Р»РёРєРѕРІР°РЅРѕ';
+				//$alt = 'Опубликовано';
 			} else if(($now <= $row->publish_down || $row->publish_down == $nullDate) && $row->state ==1) {
-				// Р”РѕСЃС‚СѓРїРЅРѕ
+				// Доступно
 				$img = 'publish_g.png';
-				//$alt = 'РћРїСѓР±Р»РёРєРѕРІР°РЅРѕ';
+				//$alt = 'Опубликовано';
 			} else if($now > $row->publish_down && $row->state == 1) {
-				// РСЃС‚РµРєР»Рѕ
+				// Истекло
 				$img = 'publish_r.png';
-				//$alt = 'РџСЂРѕСЃСЂРѕС‡РµРЅРѕ';
+				//$alt = 'Просрочено';
 			} elseif($row->state == 0) {
-				// РќРµ РѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ
+				// Не опубликовано
 				$img = 'publish_x.png';
-				//$alt = 'РќРµ РѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ';
+				//$alt = 'Не опубликовано';
 			}elseif($row->state == -1){
 				$img = 'publish_x.png';
 			}
-			// РєРѕСЂСЂРµРєС‚РёСЂРѕРІРєР° Рё РїСЂРѕРІРµСЂРєР° РІСЂРµРјРµРЅРё
+			// корректировка и проверка времени
 			$row->publish_up = mosFormatDate($row->publish_up,_CURRENT_SERVER_TIME_FORMAT);
 			if(trim($row->publish_down) == $nullDate || trim($row->publish_down) == '' || trim($row->publish_down) == '-') {
 				$row->publish_down = _NEVER;
@@ -193,7 +193,7 @@ class HTML_content {
 
 			$access		= mosCommonHTML::AccessProcessing($row,$i,1);
 			$checked	= mosCommonHTML::CheckedOutProcessing($row,$i);
-			// Р·РЅР°С‡РѕРє РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РЅР° РіР»Р°РІРЅРѕР№ СЃС‚СЂР°РЅРёС†Рµ
+			// значок отображения на главной странице
 			$front_img = $row->frontpage ? 'tick.png' : 'publish_x.png';
 ?>
 			<tr class="row<?php echo $k; ?>" id="tr-el-<?php echo $row->id;?>">
@@ -344,7 +344,7 @@ class HTML_content {
 					$author = $row->created_by_alias;
 				} else {
 					$linkA = 'index2.php?option=com_users&task=editA&hidemainmenu=1&id='.$row->created_by;
-					$author = '<a href="'.$linkA.'" title="РР·РјРµРЅРёС‚СЊ РґР°РЅРЅС‹Рµ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ">'.$row->author.'</a>';
+					$author = '<a href="'.$linkA.'" title="Изменить данные пользователя">'.$row->author.'</a>';
 				}
 			} else {
 				if($row->created_by_alias) {
@@ -371,7 +371,7 @@ class HTML_content {
 				<td><?php echo $author; ?></td>
 				<td><?php echo $date; ?></td>
 			</tr>
-			<?php
+<?php
 			$k = 1 - $k;
 		}
 ?>
@@ -391,21 +391,20 @@ class HTML_content {
 
 
 	/**
-	* РћС‚РѕР±СЂР°Р¶РµРЅРёРµ С„РѕСЂРјС‹ СЃРѕР·РґР°РЅРёСЏ / СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ
+	* Отображение формы создания / редактирования содержимого
 	*
-	* РќРѕРІР°СЏ Р·Р°РїРёСЃСЊ С…Р°СЂР°РєС‚РµСЂРёР·СѓРµС‚СЃСЏ Р·РЅР°С‡РµРЅРёСЏРјРё <var>$row</var> Рё  <var>id</var>
-	* СЂР°РІРЅС‹РјРё 0.
+	* Новая запись характеризуется значениями <var>$row</var> и  <var>id</var>
+	* равными 0.
 	* @param mosContent The category object
 	* @param string The html for the groups select list
 	*/
 function editContent(&$row,$section,&$lists,&$sectioncategories,&$images,&$params,$option,$redirect,&$menus) {
-		global $database,$mosConfig_disable_image_tab;
-		
+
 		$mainframe = &mosMainFrame::getInstance();
 		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images';
 		
 		mosMakeHtmlSafe($row);
-		$nullDate = $database->getNullDate();
+		$nullDate = database::getInstance()->getNullDate();
 		$create_date = null;
 		if($row->created != $nullDate) {
 			$create_date = mosFormatDate($row->created,'%d %B %Y %H:%M','0');
@@ -436,8 +435,8 @@ function editContent(&$row,$section,&$lists,&$sectioncategories,&$images,&$param
 		}
 ?>
 <?php
-		// РѕС‚РєР»СЋС‡РµРЅРёРµ РІРєР»Р°РґРєРё "РР·РѕР±СЂР°Р¶РµРЅРёСЏ"
-		if(!$mosConfig_disable_image_tab) { ?>
+		// отключение вкладки "Изображения"
+		if(!$mainframe->getCfg('disable_image_tab')) { ?>
 			var folderimages = new Array;
 <?php
 			$i = 0;
@@ -465,8 +464,8 @@ function editContent(&$row,$section,&$lists,&$sectioncategories,&$images,&$param
 				return;
 			}
 <?php
-	// РѕС‚РєР»СЋС‡РµРЅРёРµ РІРєР»Р°РґРєРё "РР·РѕР±СЂР°Р¶РµРЅРёСЏ"
-	if(!$mosConfig_disable_image_tab) {
+	// отключение вкладки "Изображения"
+	if(!$mainframe->getCfg('disable_image_tab')) {
 ?>
 			var temp = new Array;
 				for (var i=0, n=form.imagelist.options.length; i < n; i++) {
@@ -497,8 +496,8 @@ function editContent(&$row,$section,&$lists,&$sectioncategories,&$images,&$param
 			<?php getEditorContents('editor2','fulltext'); ?>
 			<?php getEditorContents('editor3','notetext'); ?>
 <?php
-	// РѕС‚РєР»СЋС‡РµРЅРёРµ РІРєР»Р°РґРєРё "РР·РѕР±СЂР°Р¶РµРЅРёСЏ"
-	if(!$mosConfig_disable_image_tab) {
+	// отключение вкладки "Изображения"
+	if(!$mainframe->getCfg('disable_image_tab')) {
 ?>
 			var temp = new Array;
 				for (var i=0, n=form.imagelist.options.length; i < n; i++) {
@@ -513,7 +512,7 @@ function editContent(&$row,$section,&$lists,&$sectioncategories,&$images,&$param
 				form: 'adminForm',
 				callback:
 					function(resp){
-						log('РџРѕР»СѓС‡РµРЅ РѕС‚РІРµС‚: ' + resp.responseText);
+						log('Получен ответ: ' + resp.responseText);
 						mess_cool(resp.responseText);
 						SRAX.get('tb-apply').className='tb-apply';
 			}});
@@ -529,19 +528,12 @@ function editContent(&$row,$section,&$lists,&$sectioncategories,&$images,&$param
 				form: 'adminForm',
 				callback:
 					function(resp){
-						log('РџРѕР»СѓС‡РµРЅ РѕС‚РІРµС‚: ' + resp.responseText);
+						log('Получен ответ: ' + resp.responseText);
 						SRAX.get('metakey').value = (resp.responseText);
 			}});
 		}
 		function ntreetoggle(){
-			if(SRAX.get('ncontent').style.display =='none'){
-				SRAX.get('ncontent').style.display ='block';
-				SRAX.get('ncontent').style.width ='410px';
-				SRAX.get('tdtoogle').className='tdtoogleon';
-			}else{
-				SRAX.get('ncontent').style.display ='none';
-				SRAX.get('tdtoogle').className='tdtoogleoff';
-			}
+			$('#ncontent').toggle();
 		}
 		function x_resethits(){
 			id = SRAX.get('id').value;
@@ -551,7 +543,7 @@ function editContent(&$row,$section,&$lists,&$sectioncategories,&$images,&$param
 				method:'post',
 				callback:
 					function(resp){
-						log('РџРѕР»СѓС‡РµРЅ РѕС‚РІРµС‚: ' + resp.responseText);
+						log('Получен ответ: ' + resp.responseText);
 						mess_cool(resp.responseText);
 						SRAX.get('count_hits').innerHTML='0';
 			}});
@@ -559,14 +551,13 @@ function editContent(&$row,$section,&$lists,&$sectioncategories,&$images,&$param
 		//-->
 		</script>
 		<table class="adminheading">
-		<tr><th class="edit"><?php echo _CONTENT?>: <small><?php echo $row->id ? _EDITING: _CREATION; ?></small></th></tr>
+			<tr><th class="edit"><?php echo _CONTENT?>: <small><?php echo $row->id ? _EDITING: _CREATION; ?></small></th></tr>
 		</table>
 
 		<form action="index2.php" method="post" name="adminForm" id="adminForm">
-
 			<table class="adminform" cellspacing="0" cellpadding="0" width="100%"><tr>
 
-				<!--РћСЃРЅРѕРІРЅР°СЏ РѕР±Р»Р°СЃС‚СЊ СЃ СЂРµРґР°РєС‚РѕСЂРѕРј:BEGIN-->
+				<!--Основная область с редактором:BEGIN-->
 				<td class="main_area" width="100%" valign="top">
 
 					<table width="100%">
@@ -596,27 +587,9 @@ function editContent(&$row,$section,&$lists,&$sectioncategories,&$images,&$param
 							<td><?php echo $lists['catid']; ?></td>
 						</tr>
 
-						<tr>
-							<td><?php echo _TAGS?></td>
-							<td>
-								<input type="text" name="tags" style="width:99%" size="30" maxlength="255" value="<?php echo $row->tags; ?>" class="text_area" />
-							</td>
-							<td><?php echo _AUTHOR_BY?>:</td>
-							<td><?php echo $lists['created_by']; ?></td>
-						</tr>
-
-						<tr>
-							<td></td>
-							<td></td>
-						<td><?php echo _E_AUTHOR_ALIAS?></td>
-						<td>
-							<input type="text" name="created_by_alias" style="width:99%" size="30" maxlength="100" value="<?php echo $row->created_by_alias; ?>" class="text_area" />
-						</td>
-						</tr>
-
 				<tr>
 					<td colspan="4" width="100%">
-						<?php echo _INTROTEXT_M ; ?>
+						<?php echo _INTROTEXT_M?>
 						<div id="intro_text"><?php editorArea('editor1',$row->introtext,'introtext','99%;','350','75','30'); ?></div>
 					</td>
 				</tr>
@@ -635,58 +608,60 @@ function editContent(&$row,$section,&$lists,&$sectioncategories,&$images,&$param
 				</table>
 
 			</td>
-			<!--РћСЃРЅРѕРІРЅР°СЏ РѕР±Р»Р°СЃС‚СЊ СЃ СЂРµРґР°РєС‚РѕСЂРѕРј:END-->
+			<!--Основная область с редактором:END-->
 
-			<!--РєРЅРѕРїРєР° СЃРєСЂС‹С‚РёСЏ РїСЂР°РІРѕР№ РєРѕР»РѕРЅРєРё:BEGIN-->
+			<!--кнопка скрытия правой колонки:BEGIN-->
 			<td onclick="ntreetoggle();" width="1" id="tdtoogle" class="tdtoogleon">
 				<img border="0" alt="<?php echo _HIDE_PARAMS_PANEL?>" src="<?php echo $cur_file_icons_path;?>/tgl.gif" />
 			</td>
-			<!--РєРЅРѕРїРєР° СЃРєСЂС‹С‚РёСЏ РїСЂР°РІРѕР№ РєРѕР»РѕРЅРєРё:END-->
+			<!--кнопка скрытия правой колонки:END-->
 
-			<!--РїСЂР°РІР°СЏ РєРѕР»РѕРЅРєР°:BEGIN-->
+			<!--правая колонка:BEGIN-->
 			<td valign="top" id="ncontent">
 
 				<table width="100%"><tr><th><?php echo _INFO?></th></tr></table>
 
-
 				<table class="params" width="100%">
 				<tr>
-					<td><strong><?php echo _E_STATE?></strong></td>
+					<td><?php echo _E_STATE?></td>
 					<td><?php echo $row->state > 0? _PUBLISHED :($row->state < 0? _IN_ARCHIVE : _DRAFT_NOT_PUBLISHED); ?></td>
 				</tr>
 				<tr <?php echo $visibility; ?>>
-					<td><strong><?php echo _HEADER_HITS?>:</strong></td>
+					<td><?php echo _HEADER_HITS?>:</td>
 					<td id="count_hits">
 						<?php echo $row->hits; ?>&nbsp;&nbsp;&nbsp;<input name="reset_hits" type="button" class="button" value="<?php echo _RESET?>" onclick="return x_resethits();" />
 					</td>
 				</tr>
 				<tr>
-					<td><strong><?php echo _CHANGED?>:</strong> </td>
+					<td><?php echo _CHANGED?>:</td>
 					<td><?php echo $row->version; ?> <?php echo _TIMES?></td>
 				</tr>
 				<tr>
-					<td><strong><?php echo _CREATED?>:</strong> </td>
+					<td><?php echo _CREATED?>:</td>
 					<td><?php echo $create_date ? $create_date : _NEW_DOCUMENT;?></td>
 				</tr>
 				<tr>
-					<td><strong><?php echo _LAST_CHANGE?>:</strong> </td>
+					<td><?php echo _LAST_CHANGE?>:</td>
 					<td><?php echo $mod_date ? $mod_date.$row->modifier : _NOT_CHANGED;?></td>
+				</tr>
+				<tr>
+					<td><?php echo _AUTHOR_BY?>:</td>
+					<td><?php echo $lists['created_by'];?></td>
+				</tr>
+				<tr>
+					<td><?php echo _E_AUTHOR_ALIAS?></td>
+					<td><input type="text" name="created_by_alias" style="width:99%" size="30" maxlength="100" value="<?php echo $row->created_by_alias; ?>" class="text_area" /></td>
 				</tr>
 				<?php if($row->id) {?>
 					<tr>
-						<td><strong><?php echo _OBJECT_ID?>:</strong></td>
+						<td><?php echo _OBJECT_ID?>:</td>
 						<td><?php echo $row->id; ?></td>
 					</tr>
 				<?php } ?>
-
 			</table>
-<?php
 
-
-?>
-			<table width="100%"><tr><th><?php echo _SETTINGS?></th></tr></table>
 			<table class="params" width="100%">
-				<tr><th><?php echo _PUBLISHING?></th><th></th></tr>
+				<tr><th colspan="2"><?php echo _PUBLISHING?></th></tr>
 					<tr>
 						<td valign="top" align="right"><?php echo _ACCESS?>:</td>
 						<td><?php echo $lists['access']; ?></td>
@@ -718,37 +693,27 @@ function editContent(&$row,$section,&$lists,&$sectioncategories,&$images,&$param
 						</td>
 					</tr>
 				</table>
-				
-				<br />
-								<table class="params" width="100%">
-					<tr><th><?php echo _TEMPLATES?></th><th></th></tr>
-					<?php
-					$templates = new ContentTemplate;
-					$curr_templates = $templates->parse_curr_templates($row->templates);
-					?>
-					<tr>
-						<td><?php echo _CC_PAGE_TEMPLATE?>: </td>
-						<td><?php echo $templates->templates_select_list('item_full', $curr_templates); ?> </td>
-					</tr>
-				</table>
-				<br />
-				
-		
-				
-				
+
 				<table class="params" width="100%">
-				<tr><th><?php echo _METADATA?></th><th></th></tr>
+					<tr><th colspan="2"><?php echo _METADATA?></th></tr>
+					<tr>
+							<td><?php echo _TAGS?>
+							<br />
+							<textarea class="text_area" cols="60" rows="2" style="width:98%" name="tags"><?php echo str_replace('&','&amp;',$row->tags); ?></textarea>
+						</td>
+					</tr>
+
 					<tr>
 							<td><?php echo _DESCRIPTION?>:
 							<br />
-							<textarea class="text_area" cols="60" rows="2" style="width:98%" name="metadesc"><?php echo str_replace('&','&amp;',$row->metadesc); ?></textarea>
+							<textarea class="text_area" cols="60" rows="3" style="width:98%" name="metadesc"><?php echo str_replace('&','&amp;',$row->metadesc); ?></textarea>
 						</td>
 					</tr>
 					<tr>
 						<td>
 							<?php echo _E_M_KEY?>
 							<br />
-							<textarea class="text_area" cols="60" rows="2" style="width:98%" name="metakey" id="metakey"><?php echo str_replace('&','&amp;',$row->metakey); ?></textarea>
+							<textarea class="text_area" cols="60" rows="3" style="width:98%" name="metakey" id="metakey"><?php echo str_replace('&','&amp;',$row->metakey); ?></textarea>
 						</td>
 					</tr>
 					<tr>
@@ -765,12 +730,10 @@ function editContent(&$row,$section,&$lists,&$sectioncategories,&$images,&$param
 				<br />
 				
 				<table class="params" width="100%">
-					<tr><th>Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅРѕ</th><th></th></tr>
+					<tr><th colspan="2"><?php echo _ADVANCED?></th></tr>
 				</table>
-
-				<?php $tabs->startPane("content-pane"); ?>
-				
-					<?php $tabs->startTab(_MENU_LINK,"link-page"); ?>
+<?php $tabs->startPane("content-pane"); ?>
+<?php $tabs->startTab(_MENU_LINK,"link-page"); ?>
 						<table class="adminform">
 							<tr>
 								<td colspan="2"><?php echo _MENU_LINK2?></td>
@@ -790,25 +753,36 @@ function editContent(&$row,$section,&$lists,&$sectioncategories,&$images,&$param
 							<tr>
 								<th colspan="2"><?php echo _EXISTED_MENUITEMS?></th>
 							</tr>
-							<?php if($menus == null) { ?>
+<?php if($menus == null) { ?>
 							<tr>
 								<td colspan="2"><?php echo _NOT_EXISTS?></td>
 							</tr>
-							<?php } else {
+<?php } else {
 								mosCommonHTML::menuLinksContent($menus);
-							}?>
+}?>
 							<tr>
 								<td colspan="2">&nbsp;</td>
 							</tr>
 						</table>
-					<?php $tabs->endTab(); ?>
-					
-					
-					<?php		
-					// РѕС‚РєР»СЋС‡РµРЅРёРµ РІРєР»Р°РґРєРё "РР·РѕР±СЂР°Р¶РµРЅРёСЏ"
-					if(!$mosConfig_disable_image_tab) {
+<?php $tabs->endTab(); ?>
+<?php $tabs->startTab(_PARAMETERS,"params-page");?>
+						<table class="adminform">
+						<tr>
+							<td>
+							<?php echo _PARAMS_IN_VIEW?>
+							<br />
+							</td>
+						</tr>
+						<tr>
+							<td><?php echo $params->render(); ?></td>
+						</tr>
+						</table>
+<?php $tabs->endTab(); ?>
+<?php
+					// отключение вкладки "Изображения"
+					if(!$mainframe->getCfg('disable_image_tab')) {
 						$tabs->startTab(_IMAGES,"images-page");
-					?>
+?>
 						<table class="adminform" width="100%">
 							<tr>
 								<td colspan="2">
@@ -822,9 +796,9 @@ function editContent(&$row,$section,&$lists,&$sectioncategories,&$images,&$param
 											</div>
 										</td>
 										<td width="2%">
-											<input class="button" type="button" value=">>" onclick="addSelectedToList('adminForm','imagefiles','imagelist')" title="Р”РѕР±Р°РІРёС‚СЊ" />
+											<input class="button" type="button" value=">>" onclick="addSelectedToList('adminForm','imagefiles','imagelist')" title="Добавить" />
 											<br />
-											<input class="button" type="button" value="<<" onclick="delSelectedFromList('adminForm','imagelist')" title="РЈРґР°Р»РёС‚СЊ" />
+											<input class="button" type="button" value="<<" onclick="delSelectedFromList('adminForm','imagelist')" title="Удалить" />
 										</td>
 										<td width="48%">
 											<div align="center">
@@ -851,7 +825,7 @@ function editContent(&$row,$section,&$lists,&$sectioncategories,&$images,&$param
 								<td valign="top">
 									<div align="center">
 										<?php echo _ACTIVE_IMAGE?>:<br />
-										<img name="view_imagelist" src="../images/M_images/blank.png" alt="РђРєС‚РёРІРЅРѕРµ РёР·РѕР±СЂР°Р¶РµРЅРёРµ" width="100" />
+										<img name="view_imagelist" src="../images/M_images/blank.png" alt="Активное изображение" width="100" />
 									</div>
 								</td>
 							</tr>
@@ -898,31 +872,28 @@ function editContent(&$row,$section,&$lists,&$sectioncategories,&$images,&$param
 								</td>
 							</tr>
 						</table>
-					<?php $tabs->endTab(); } else echo '<input type="hidden" name="images" id="images" value="" />'; ?>
-					
-					<?php $tabs->startTab(_PARAMETERS,"params-page");?>
-						<table class="adminform">
-						<tr>
-							<td>
-							<?php echo _PARAMS_IN_VIEW?>
-							<br />
-							</td>
-						</tr>
-						<tr>
-							<td><?php echo $params->render(); ?></td>
-						</tr>
-						</table>
-					<?php $tabs->endTab(); ?>
-					
-					
-			<?php $tabs->endPane(); ?>
+<?php $tabs->endTab(); ?>
+<?php }else{ ?>
+	<input type="hidden" name="images" id="images" value="" />'; ?>
+<?php } ?>
+<?php $tabs->endPane(); ?>
 
+				<table class="params" width="100%">
+					<tr><th colspan="2"><?php echo _TEMPLATES?></th></tr>
+<?php
+					$templates = new ContentTemplate;
+					$curr_templates = $templates->parse_curr_templates($row->templates);
+?>
+					<tr>
+						<td><?php echo _CC_PAGE_TEMPLATE?>: </td>
+						<td><?php echo $templates->templates_select_list('item_full', $curr_templates); ?> </td>
+					</tr>
+				</table>
 
 		</td>
-		<!--РїСЂР°РІР°СЏ РєРѕР»РѕРЅРєР°:END-->
+		<!--правая колонка:END-->
 
 		</tr></table>
-
 
 		<input type="hidden" name="id" id="id" value="<?php echo $row->id; ?>" />
 		<input type="hidden" name="version" value="<?php echo $row->version; ?>" />
@@ -1096,13 +1067,13 @@ function editContent(&$row,$section,&$lists,&$sectioncategories,&$images,&$param
 
 		}
 		</script>
-        <h1>РљРѕРЅС„РёРіСѓСЂР°С†РёСЏ com_content</h1>
-        <h2>РќР°СЃС‚СЂРѕР№РєРё СЃС‚СЂР°РЅРёС†С‹ СЃ СЃРѕРґРµСЂР¶РёРјС‹Рј РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ</h2>
+        <h1>Конфигурация com_content</h1>
+        <h2>Настройки страницы с содержимым пользователя</h2>
         <form action="index2.php" method="post" name="adminForm">
 
             <table class="adminform">
                 <tr>
-                    <td>Р—Р°РіРѕР»РѕРІРѕРє СЃС‚СЂР°РЅРёС†С‹</td>
+                    <td>Заголовок страницы</td>
                     <td><input class="inputbox" type="text" name="title" value="<?php echo $u_page->title;?>" /></td>
                 </tr>
             </table>

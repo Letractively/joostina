@@ -28,14 +28,17 @@ if(!defined('_JOS_POLL_MODULE')) {
 		$database->setQuery($query);
 		$polls = $database->loadObjectList();
 
-		$def_itemid	= $params->get( 'def_itemid', $Itemid );
+		$def_itemid = $params->get( 'def_itemid', $Itemid );
 
 		if($def_itemid<1){
 			$query = "SELECT id FROM #__menu WHERE type = 'components' AND published = 1 AND link = 'index.php?option=com_poll'";
 			$database->setQuery($query);
-			$Itemid = $database->loadResult();
+			$_Itemid = $database->loadResult();
+		}else{
+			$_Itemid = $def_itemid;
 		}
-		if($Itemid) {
+		
+		if($_Itemid) {
 			$_Itemid = '&amp;Itemid=' . $Itemid;
 		}
 
