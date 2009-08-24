@@ -21,18 +21,18 @@
 		<param name="cache_time" type="text" size="8" default="3600" label="Время обновления кэша" description="Файл кэша будет обновляться через x секунд" />
 		<param name="@spacer" type="spacer" default="" label="" description="" />
 		<param name="count" type="text" size="4" default="5" label="Число объектов" description="Количество объектов для экспорта" />
-		<param name="title" type="text" size="40" default="Создано Joostina! 1.0" label="Заголовок" description="Заголовок экспортируемой ленты" />
+		<param name="title" type="text" size="40" default="Создано Joostina CMS!" label="Заголовок" description="Заголовок экспортируемой ленты" />
 		<param name="description" type="textarea" rows="5" cols="30" default="Экспорт с сайта Joostina!" label="Описание" description="Описание ленты" />
 		<param name="@spacer" type="spacer" default="" label="" description="" />
 		<param name="image_file" type="imagelist" directory="/images/M_images" default="" label="Изображение" description="Изображение в ленте новостей" />
-		<param name="image_alt" type="text" size="30" default="Создано Joostina! 1.0" label="Альтернативный текст для изображения" description="Альтернативный текст для изображения" />
+		<param name="image_alt" type="text" size="30" default="Создано Joostina CMS!" label="Альтернативный текст для изображения" description="Альтернативный текст для изображения" />
 		<param name="@spacer" type="spacer" default="" label="" description="" />
 		<param name="limit_text" type="radio" default="1" label="Ограничение текста" description="Ограничить объем текста статей значением, указанным ниже">
 			<option value="0">Нет</option>
 			<option value="1">Да</option>
 		</param>
 		<param name="text_length" type="text" size="4" default="20" label="Длина текста" description="Длина текста в экспортируемых статьях. При 0 текст показываться не будет" />
-		<param name="@spacer" type="spacer" default="" label="" description="" />	
+		<param name="@spacer" type="spacer" default="" label="" description="" />
 		<param name="yandex" type="radio" default="1" label="Yandex" description="Разрешить/Запретить экспорт ленты новостей в формате Yandex">
 			<option value="0">Запретить</option>
 			<option value="1">Разрешить</option>

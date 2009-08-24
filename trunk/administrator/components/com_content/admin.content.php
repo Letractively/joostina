@@ -638,9 +638,13 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 	$lists['ordering'] = mosAdminMenus::SpecificOrdering($row,$uid,$query,1);
 
 	// pull param column from category info
-	$query = 'SELECT params FROM #__categories WHERE id = '.(int)$row->catid;
-	$database->setQuery($query);
-	$categoryParam = $database->loadResult();
+	if($row->catid>0){
+		$query = 'SELECT params FROM #__categories WHERE id = '.(int)$row->catid;
+		$database->setQuery($query);
+		$categoryParam = $database->loadResult();
+	}else{
+		$categoryParam = '';
+	}
 
 	$paramsCat = new mosParameters($categoryParam,$mainframe->getPath('com_xml','com_categories'),'component');
 	$selected_folders = $paramsCat->get('imagefolders','');
@@ -653,10 +657,13 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 	if(strpos($selected_folders,'*2*') !== false) {
 		unset($selected_folders);
 		// load param column from section info
-		$query = 'SELECT params FROM #__sections WHERE id = '.(int)$row->sectionid;
-		$database->setQuery($query);
-		$sectionParam = $database->loadResult();
-
+		if($row->sectionid>0){
+			$query = 'SELECT params FROM #__sections WHERE id = '.(int)$row->sectionid;
+			$database->setQuery($query);
+			$sectionParam = $database->loadResult();
+		}else{
+			$sectionParam = '';
+		}
 		$paramsSec = new mosParameters($sectionParam,$mainframe->getPath('com_xml','com_sections'),'component');
 		$selected_folders = $paramsSec->get('imagefolders','');
 	}

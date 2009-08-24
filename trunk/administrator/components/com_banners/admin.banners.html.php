@@ -13,11 +13,11 @@ defined('_VALID_MOS') or die();
 class HTML_banners {
 	
 	function showBanners(&$rows, &$clist, &$clientlist, $myid, &$pageNav, $option) {
-		mosCommonHTML::loadOverlib();		
+		mosCommonHTML::loadOverlib();
 		$mainframe = &mosMainFrame::getInstance();
 		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
-		
-		?>
+
+?>
 		<table border="0" class="adminheading">
 			<tbody>
 				<tr>
@@ -847,9 +847,6 @@ class HTML_banners {
 
 	$link = 'index2.php?option=com_banners&amp;task=clients';
 	HTML_banners::quickiconButton($link,'users.png', _ABP_BANNER_CLIENT_MANAGER);
-
-	$link = 'index2.php?option=com_banners&amp;task=importbanners';
-	HTML_banners::quickiconButton($link,'joostina.png', _ABP_IMPORT_JOOMLA_BANNER);
 
 	$link = 'index2.php?option=com_banners&amp;task=backup';
 	HTML_banners::quickiconButton($link,'db.png', _ABP_ARCHIVE_BANNERS);

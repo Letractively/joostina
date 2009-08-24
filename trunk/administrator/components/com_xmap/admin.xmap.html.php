@@ -19,8 +19,8 @@ class XmapAdminHtml {
 		// загрузка скриптов mootols
 		mosCommonHTML::loadMootools();
 
-		$mainframe->addCustomHeadTag("<script type=\"text/javascript\" src=\"$xmapComponentURL/js/admin.js\"></script>");
-		$mainframe->addCustomHeadTag("<link type=\"text/css\" rel=\"stylesheet\" href=\"$xmapComponentURL/css/admin.css\" />");
+		$mainframe->addCustomHeadTag("<script type=\"text/javascript\" src=\"$xmapComponentURL/js/xmap.js\"></script>");
+		$mainframe->addCustomHeadTag("<link type=\"text/css\" rel=\"stylesheet\" href=\"$xmapComponentURL/css/xmap.css\" />");
 
 		mosCommonHTML::loadOverlib();
 ?>
@@ -67,91 +67,7 @@ class XmapAdminHtml {
 		</div>
 <?php
 		$pane->endTab();
-		$pane->startTab( 'CSS', 'css-tab' );
-?>
-		<form action="index2.php" method="post" name="adminForm" class="adminForm">
-		<?php
-			/**********************************************************************************************
-			 * Style Editor Tab
-			 **********************************************************************************************/
-
-			$template_path = $GLOBALS['mosConfig_absolute_path'] . '/components/com_xmap/css/xmap.css';
-
-			if ( $fp = @fopen( $template_path, 'r' )) {
-				$csscontent = @fread( $fp, @filesize( $template_path ));
-				$csscontent = htmlspecialchars( $csscontent );
-			}
-		?>
-		<table cellpadding="1" cellspacing="1" border="0" width="100%">
-			<tr>
-				<td width="290">
-					<table class="adminheading">
-						<tr>
-							<th class="templates"><?php echo _XMAP_CSS_EDIT; ?></th>
-						</tr>
-					</table>
-				</td>
-			</tr>
-			<tr>
-				<td width="220">
-					<span class="componentheading"><?php echo _XMAP_CSS; ?>:
-						<?php
-							echo is_writable($template_path) ?
-							'<strong style="color:green;">'._XMAP_CFG_WRITEABLE.'</strong>' :
-							'<strong style="color:red;">'._XMAP_CFG_UNWRITEABLE.'</strong>';
-						?>
-					</span>
-				</td>
-			</tr>
-			<tr>
-			<td>
-				<input type="checkbox" id="exclude_css" name="exclude_css" value="1"<?php echo ($config->exclude_css ? ' checked="checked"':''); ?> />
-				<label for="exclude_css"><?php echo _XMAP_MSG_EXCLUDE_CSS_SITEMAP; ?></label>
-			</td>
-			</tr>
-			<tr>
-			<td>
-				<input type="checkbox" id="exclude_xsl" name="exclude_xsl" value="1"<?php echo ($config->exclude_xsl ? ' checked="checked"':''); ?> />
-				<label for="exclude_xsl"><?php echo _XMAP_MSG_EXCLUDE_XSL_SITEMAP; ?></label>
-			</td>
-			</tr>
-			<tr>
-				<?php if ( mosIsChmodable($template_path) && is_writable($template_path) ) { ?>
-				<td>
-					<input type="checkbox" id="disable_write" name="disable_write" value="1" />
-					<label for="disable_write"><?php echo _XMAP_MSG_MAKE_UNWRITEABLE; ?></label>
-				</td>
-				<?php } else { ?>
-				<td>
-					<input type="checkbox" id="enable_write" name="enable_write" value="1" />
-					<label for="enable_write"><?php echo _XMAP_MSG_OVERRIDE_WRITE_PROTECTION; ?></label>
-				</td>
-				<?php } ?>
-			</tr>
-		</table>
-
-		<table class="adminform">
-			<tr>
-				<th><?php echo $template_path; ?></th>
-			</tr>
-			<tr>
-				<td>
-					<textarea style="width:100%;height:500px" cols="80" rows="25" name="csscontent" class="inputbox"><?php echo $csscontent; ?></textarea>
-				</td>
-			</tr>
-		</table>
-
-		<input type="hidden" name="option" value="com_xmap" />
-		<input type="hidden" name="task" value="" />
-		<input type="hidden" name="boxchecked" value="0" />
-		<input type="hidden" name="hidemainmenu" value="0" />
-		</form>
-<?php
-		$pane->endTab();
 		$pane->startTab(_XMAP_TAB_EXTENSIONS,'ext-tab');
-        /*********************************************************
-		*                       Plugins section                  *
-        *********************************************************/
 ?>
 		<div id="pluginstoolbar"><?php
 			XmapAdminHtml::showInstallForm( _XMAP_INSTALL_NEW_PLUGIN, dirname(__FILE__) );

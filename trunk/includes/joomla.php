@@ -1923,7 +1923,7 @@ class mosMainFrame {
 			// получение пурвого элемента главного меню
 			$menu = $this->get('all_menu');
 			$menu = $menu['mainmenu'];
-			$items = array_values($menu);
+			$items = isset($menu) ? array_values($menu) : array();
 			$menu = $items[0];
 		}
 

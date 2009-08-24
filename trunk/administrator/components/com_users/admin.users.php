@@ -306,6 +306,7 @@ function saveUser($task) {
 
 	$database = &database::getInstance();
 	$mainframe = mosMainFrame::getInstance(true);
+	$acl = &gacl::getInstance();
 
 	$userIdPosted = mosGetParam($_POST,'id');
 	if($userIdPosted) {

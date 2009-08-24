@@ -148,7 +148,7 @@ switch ($action) {
 
 		if ( $sitemap->load($id) ) {
 			$_POST['menus']	= $sitemap->menus;
-			$_POST['name']	= joostina_api::convert($database->getEscaped($_POST['name']));
+			$_POST['name']	= $database->getEscaped(mosGetParam($_POST ,'name',''));
 			$sitemap->bind($_POST);
 			if ( $sitemap->save() ) {
 				if ( $sitemap->usecache ) {

@@ -34,7 +34,6 @@ DEFINE('_MENU_COPYING','Копирование меню');
 DEFINE('_NEW_MENU_NAME','Имя нового меню');
 DEFINE('_NEW_MODULE_NAME','Имя нового модуля');
 DEFINE('_MENU_TO_COPY','Копируемое меню');
-DEFINE('_MENU_ITEMS_TO_COPY','Копируемые пункты меню');
 DEFINE('_CANNOT_RENAME_MAINMENU','Вы не можете переименовать меню \\\'mainmenu\\\', т.к.  это нарушит правильное функционирование Joostina');
 DEFINE('_MENU_ALREADY_EXISTS','Меню с таким именем уже существует. Вы должны ввести уникальное имя меню');
 DEFINE('_NEW_MENU_CREATED','Создано новое меню');

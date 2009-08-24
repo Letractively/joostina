@@ -199,8 +199,6 @@ DEFINE('_ABP_DATE', 'Дата');
 DEFINE('_ABP_ALLCLI', '- Все клиенты -');
 
 DEFINE('_ABP_CONTROL_PANEL', 'Панель управления');
-DEFINE('_ABP_IMPORT_ARTBANNER', 'Импорт ArtBanner');
-DEFINE('_ABP_IMPORT_JOOMLA_BANNER', 'Импорт баннеров Joostina');
 
 DEFINE('_ABP_LOAD_FILE', 'Загрузить файл');
 DEFINE('_ABP_LOAD', 'Загрузить');
