@@ -31,22 +31,26 @@ defined('_VALID_MOS') or die(); ?>
 	<span class="date"><?php echo $create_date; ?></span>
 <?php endif; ?>
 
+<?php if($params->get('modifydate') && $mod_date != '') : ?>
+<span class="modified_date">
+	(<strong><?php echo _LAST_UPDATED; ?> </strong> <?php echo $mod_date; ?>)
+</span>
+<?php endif; ?>
+
 <?php if($params->get('author', 0)) : ?>
 	<span class="author"><?php echo $author; ?></span>
 <?php endif; ?>
 
 <?php if($params->get('section') || $params->get('category')) : ?>
-	<div class="section_cat">
-	
+	<span class="section_cat">	
 		<?php if($params->get('section')) : ?>
 		<span class="section_name"><?php echo $row->section; ?></span>
 		<?php endif; ?>
 		
 		<?php if($params->get('category')) : ?>
-		<span class="cat_name">&rarr; <?php echo $row->category; ?></span>
-		<?php endif; ?>
-		
-	</div>
+		<span class="cat_name"><?php echo $row->category; ?></span>
+		<?php endif; ?>		
+	</span>
 <?php endif; ?>
 
 
@@ -64,26 +68,10 @@ defined('_VALID_MOS') or die(); ?>
 		
 		<?php if($params->get('view_introtext', 1)) : ?>
 		<div class="item_text"><?php echo ampReplace($row->text); ?></div>
-		<?php endif; ?>
-		
-		
-		<?php if($params->get('view_tags')) : ?>
-			<?php if(isset($row->tags)) : ?>
-				<span class="tags"><?php echo _TAGS ?> <?php echo $row->tags; ?></span>
-			<?php else: ?>
-				<span class="tags"><?php echo _TAGS_NOT_DEFINED ?></span>
-			<?php endif; ?>
-		<?php endif; ?>
-		
+		<?php endif; ?>		
 				
 		<?php if($params->get('rating')) : ?>		
 		<div class="item_rating"><?php echo $row->rating; ?></div>
-		<?php endif; ?>
-		
-		<?php if($params->get('modifydate')) : ?>
-		<div class="modified_date">
-			<strong><?php echo _LAST_UPDATED; ?> </strong> <?php echo $mod_date; ?>
-		</div>
 		<?php endif; ?>
 		
 		
@@ -91,10 +79,23 @@ defined('_VALID_MOS') or die(); ?>
 		<span class="readmore"><?php echo $readmore; ?></span>
 		<?php endif; ?>
 		
+		<?php if($access->canEdit) : ?>	
+		<span class="edit_item"><?php echo $edit; ?></span>
+		<?php endif; ?>
+		
 	</div>
 	
-	<?php echo $loadbot_onAfterDisplayContent; ?>
-	
-	<?php if($access->canEdit) : ?>	
-	<div class="edit_item"><?php echo $edit; ?></div>
+	<?php if($params->get('hits')) : ?>
+		<span class="hits"><strong><?php echo _HITS; ?></strong> <?php echo $row->hits?$row->hits : _HITS_NOT_FOUND; ?></span>
 	<?php endif; ?>
+	
+	<?php if($params->get('view_tags')) : ?>
+		<?php if(isset($row->tags)) : ?>
+			<span class="tags"><?php echo _TAGS ?> <?php echo $row->tags; ?></span>
+		<?php else: ?>
+			<span class="tags"><?php echo _TAGS_NOT_DEFINED ?></span>
+		<?php endif; ?>
+	<?php endif; ?>
+	
+	<?php echo $loadbot_onAfterDisplayContent; ?>
+

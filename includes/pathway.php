@@ -96,7 +96,7 @@ function showPathway($Itemid) {
 				$mitems[$id] = $mitem2;
 				$Itemid = $id;
 
-				$home = '<a href="'.sefRelToAbs($mosConfig_live_site).'" class="pathway" title="'.$home.'">'.$home.'</a>';
+				$home = '<li><a href="'.sefRelToAbs($mosConfig_live_site).'" class="pathway" title="'.$home.'">'.$home.'</a></li>';
 				break;
 		}
 	}
@@ -252,24 +252,24 @@ function showPathway($Itemid) {
 		// if it is the current page, then display a non hyperlink
 		if(($item->id == $Itemid && !$mainframe->getCustomPathWay()) || empty($mid) ||
 			empty($item->link)) {
-			$newlink = $itemname;
+			$newlink = '<li>'.$itemname.'</li>';
 		} else
 			if(isset($item->type) && $item->type == 'url') {
 				$correctLink = eregi('http://',$item->link);
 				if($correctLink == 1) {
-					$newlink = '<a href="'.$item->link.'" target="_window" class="pathway" title="'.$itemname.'">'.$itemname.'</a>';
+					$newlink = '<li><a href="'.$item->link.'" target="_window" class="pathway" title="'.$itemname.'">'.$itemname.'</a></li>';
 				} else {
-					$newlink = $itemname;
+					$newlink = '<li>'.$itemname.'</li>';
 				}
 			} else {
-				$newlink = '<a href="'.sefRelToAbs($item->link.'&Itemid='.$item->id).'" class="pathway" title="'.$itemname.'">'.$itemname.'</a>';
+				$newlink = '<li><a href="'.sefRelToAbs($item->link.'&Itemid='.$item->id).'" class="pathway" title="'.$itemname.'">'.$itemname.'</a></li>';
 			}
 
 			// converts & to &amp; for xtml compliance
 			$newlink = ampReplace($newlink);
 
 		if(trim($newlink) != "") {
-			$path = $img.' '.$newlink.' '.$path;
+			$path = '<li class="pathway_arrow">'.$img.'</li> '.$newlink.' '.$path;
 		} else {
 			$path = '';
 		}
@@ -278,16 +278,16 @@ function showPathway($Itemid) {
 	}
 
 	if(eregi('option',$optionstring) && trim($path)) {
-		$home = '<a href="'.sefRelToAbs($mosConfig_live_site).'" class="pathway" title="'.$home.'">'.$home.'</a>';
+		$home = '<li class="pahway_home"><a href="'.sefRelToAbs($mosConfig_live_site).'" class="pathway" title="'.$home.'">'.$home.'</a></li>';
 	}
 
 	if($mainframe->getCustomPathWay()) {
 		$path .= $img.' ';
-		$path .= implode("$img ",$mainframe->getCustomPathWay());
+		$path .= implode('<li class="pathway_arrow">'.$img.'</li>',$mainframe->getCustomPathWay());
 	}
 
 	if($Itemid && $Itemid != 99999999 && $path != '') {
-		echo '<span class="pathway">'.$home.' '.$path.'</span>';
+		echo '<span class="pathway"><ul>'.$home.' '.$path.'</ul></span>';
 	} else
 		echo '&nbsp;';
 }

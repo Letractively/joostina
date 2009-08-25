@@ -85,4 +85,7 @@ DEFINE('_C_USERS_PROFILE_SETTINGS','Пользователи: настройки
 DEFINE('_C_USERS_PROFILE_ONE_TEMPLATE','Использовать единый шаблон профиля для всех групп пользователей');
 DEFINE('_C_USERS_PROFILE_ONE_TEMPLATE_EDIT','Использовать единый шаблон редактирования данных для всех групп пользователей');
 
+DEFINE('_PROMPT_PASSWORD','Забыли пароль?');
+DEFINE('_C_USERS_LOSTPASS_SETTINGS','Настройки восстановления пароля');
+
 

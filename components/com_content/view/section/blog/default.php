@@ -10,7 +10,7 @@
 defined('_VALID_MOS') or die(); ?>
 	<div class="page_sectionblog<?php echo $sfx; ?>">
 <?php if($params->get('page_title')) { ?>
-			<div class="componentheading"><?php echo $header; ?></div>
+			<div class="componentheading"><h1><?php echo $header; ?></h1></div>
 <?php } ?>
 <?php if($total) { ?>
 			<div class="blog">

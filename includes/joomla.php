@@ -2479,6 +2479,7 @@ class mosModule extends mosDBTable {
 				return true;
 			}
 		}
+		
 		return false;
 	}
 
@@ -2491,7 +2492,7 @@ class mosModule extends mosDBTable {
 		if (is_file($template_file)) {
 			$this->template = $template_file;
 			return true;
-		}
+		} 
 		return false;
 	}
 

@@ -252,3 +252,83 @@ class configUser_profile extends dbConfig {
 		}
 	}
 }
+
+class configUser_lostpass extends dbConfig {
+	/**
+	 * «аголовок страницы
+	 */
+	var $title = _PROMPT_PASSWORD;
+
+	/**
+	 * Ўаблон страницы восстановлени€ парол€
+	 */
+	var $template = 'default.php';
+
+
+	/**
+	 * ƒиректори€ шаблона
+	 * системна€ - шаблоны расположены в `components/com_users/view/lostpass`
+	 * папка шаблона - шаблоны расположены в `templates/шаблон_сайта/html/com_users/lostpass`
+	 */
+	var $template_dir = '';
+
+	function configUser_profile(&$db, $group = 'com_users', $subgroup = 'lostpass') {
+		$this->dbConfig($db, $group, $subgroup);
+	}
+
+	function display_config($option) {
+
+	?>
+		<script language="javascript" type="text/javascript">
+			function submitbutton(pressbutton) {
+				var form = document.adminForm;
+				if (pressbutton == 'cancel') {
+					submitform( pressbutton );
+					return;
+				}
+				submitform( pressbutton );
+			}
+		</script>
+		<table class="adminheading">
+			<tr><th class="config"><?php echo _C_USERS_LOSTPASS_SETTINGS?></th></tr>
+		</table>
+
+		<form action="index2.php" method="post" name="adminForm">
+
+			<table class="paramlist">
+				<tr>
+					<th class="key"><?php echo _PAGE_TITLE?></th>
+					<td><input size="100" class="inputbox" type="text" name="title" value="<?php echo $this->title; ?>" /></td>
+				</tr>
+
+				<tr>
+					<th class="key"><?php echo _TEMPLATE?></th>
+					<td><input size="100" class="inputbox" type="text" name="title" value="<?php echo $this->template; ?>" /></td>
+				</tr>
+
+				<tr>
+					<th class="key"><?php echo _TEMPLATE_DIR?></th>
+					<td><?php echo mosHTML::yesnoRadioList('template_dir', '', $this->template_dir?1 : 0, _TEMPLATE_DIR_DEF, _TEMPLATE_DIR_SYSTEM); ?></td>
+				</tr>
+
+			</table>
+
+			<input type="hidden" name="option" value="<?php echo $option; ?>" />
+			<input type="hidden" name="act" value="lostpass" />
+			<input type="hidden" name="task" value="save_config" />
+			<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
+		</form><?php
+	}
+
+	function save_config() {
+		if(!$this->bindConfig($_REQUEST)) {
+			echo "<script> alert('".$this->_error."'); window.history.go(-1); </script>";
+			exit();
+		}
+
+		if(!$this->storeConfig()) {
+			echo "<script> alert('".$this->_error."'); window.history.go(-1); </script>";
+			exit();
+		}
+	}
+}

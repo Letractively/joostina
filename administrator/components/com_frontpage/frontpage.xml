@@ -116,10 +116,6 @@
 			<option value="1">Показать</option>
 		</param>
 		<param name="introtext_limit" size="4" default="" type="text" label="Лимит интротекста" description="Лимит слов для интротекста. Если текст не нуждается в обрезке - оставьте поле пустым" />
-		<param name="view_tags" type="radio" default="1" label="Тэги" description="Показать/Скрыть тэги материалов">
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
-		</param>
 		<param name="readmore" type="radio" default="" label="Подробнее..." description="Показать/Скрыть ссылку [Подробнее...]">
 			<option value="">Использовать глобальные</option>
 			<option value="0">Скрыть</option>
@@ -149,6 +145,16 @@
 		</param>
 		<param name="modifydate" type="radio" default="" label="Дата и время изменения" description="Показать/Скрыть дату изменения объекта. Применяется только для этой страницы">
 			<option value="">Использовать глобальные</option>
+			<option value="0">Скрыть</option>
+			<option value="1">Показать</option>
+		</param>
+		<param name="view_tags" type="list" default="" label="Тэги" description="Показать/Спрятать тэги публикации">
+			<option value="">Использовать глобальные настройки</option>
+			<option value="0">Скрыть</option>
+			<option value="1">Показать</option>
+		</param>
+		<param name="hits" type="list" default="" label="Просмотры" description="Показать/Спрятать количество просмотров">
+			<option value="">Использовать глобальные настройки</option>
 			<option value="0">Скрыть</option>
 			<option value="1">Показать</option>
 		</param>

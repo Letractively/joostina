@@ -85,6 +85,5 @@ if ( $set_Itemid ) {
 
 //Подключаем шаблон
 if($module->set_template($params)){
-	$module->template;
 	require($module->template);
 }

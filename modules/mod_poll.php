@@ -116,8 +116,8 @@ if(!defined('_JOS_POLL_MODULE')) {
 			</tr><?php $tabcnt= ($tabcnt == 1) ? 0 : 1; } ?>
 			</table>
 			<div class="poll_buttons">
-				<input type="button" onclick="submitbutton_Poll<?php echo $z; ?>();" name="task_button" class="button" value="<?php echo _BUTTON_VOTE; ?>" />
-				<input type="button" name="option" class="button" value="<?php echo _BUTTON_RESULTS; ?>" onclick="document.location.href='<?php echo sefRelToAbs("index.php?option=com_poll&amp;task=results&amp;id=$poll->id$_Itemid"); ?>';" />
+				<span class="button"><input type="button" onclick="submitbutton_Poll<?php echo $z; ?>();" name="task_button" class="button" value="<?php echo _BUTTON_VOTE; ?>" /></span>
+				<span class="button"><input type="button" name="option" class="button" value="<?php echo _BUTTON_RESULTS; ?>" onclick="document.location.href='<?php echo sefRelToAbs("index.php?option=com_poll&amp;task=results&amp;id=$poll->id$_Itemid"); ?>';" /></span>
 			</div>
 		</div>
 		<input type="hidden" name="id" value="<?php echo $poll->id; ?>" />

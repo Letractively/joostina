@@ -164,7 +164,13 @@
 			<option value="0">Скрыть</option>
 			<option value="1">Показать</option>
 		</param>
-				<param name="view_tags" type="radio" default="1" label="Тэги" description="Показать/Скрыть тэги материалов">
+		<param name="view_tags" type="list" default="" label="Тэги" description="Показать/Спрятать тэги публикации">
+			<option value="">Использовать глобальные настройки</option>
+			<option value="0">Скрыть</option>
+			<option value="1">Показать</option>
+		</param>
+		<param name="hits" type="list" default="" label="Просмотры" description="Показать/Спрятать количество просмотров">
+			<option value="">Использовать глобальные настройки</option>
 			<option value="0">Скрыть</option>
 			<option value="1">Показать</option>
 		</param>
