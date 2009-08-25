@@ -71,6 +71,5 @@ $module->get_helper();
 
 //Подключаем шаблон
 if($module->set_template($params)){
-	$module->template;
 	require($module->template);
 }

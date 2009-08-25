@@ -1051,7 +1051,7 @@ class mosContent extends mosDBTable{
 		$query = 'SELECT  a.id, a.attribs , a.title, a.title_alias, a.introtext, a.sectionid,
 				a.state, a.catid, a.created, a.created_by, a.created_by_alias, a.modified, a.modified_by,
 				a.checked_out, a.checked_out_time, a.publish_up, a.publish_down, a.images, a.urls, a.ordering,
-				a.fulltext, a.notetext,
+				a.fulltext, a.notetext, a.hits,
 				a.metakey, a.metadesc, a.access, CHAR_LENGTH( a.fulltext ) AS readmore,
 				u.name AS author, u.usertype, u.username,
 				s.name AS section,
@@ -1113,7 +1113,7 @@ class mosContent extends mosDBTable{
 				a.sectionid, a.state, a.catid, a.created, a.created_by, a.created_by_alias,
 				a.modified, a.modified_by, a.checked_out, a.checked_out_time,
 				a.publish_up, a.publish_down, a.images, a.urls, a.ordering, a.metakey, a.metadesc, a.access,
-				CHAR_LENGTH( a.fulltext ) AS readmore,
+				CHAR_LENGTH( a.fulltext ) AS readmore, a.hits,
 				s.published AS sec_pub, s.name AS section,
 				cc.published AS sec_pub, cc.name AS category,
 				u.name AS author, u.usertype, u.username,g.name AS groups
@@ -1192,7 +1192,7 @@ class mosContent extends mosDBTable{
 		$query = "SELECT a.id, a.title, a.title_alias, a.introtext, a.sectionid,a.state, a.catid, a.created, a.created_by, a.created_by_alias,
 				a.modified, a.modified_by, a.checked_out, a.checked_out_time, a.publish_up, a.publish_down, a.images, a.urls, a.ordering,
 				a.metakey, a.metadesc, a.access, a.attribs,
-				CHAR_LENGTH( a.fulltext ) AS readmore,
+				CHAR_LENGTH( a.fulltext ) AS readmore, a.hits,
 				u.name AS author, u.usertype,
 				s.name AS section,
 				cc.name AS category,
@@ -1253,7 +1253,7 @@ class mosContent extends mosDBTable{
 				a.created, a.created_by, a.created_by_alias, a.modified, a.modified_by,
 				a.checked_out, a.checked_out_time, a.publish_up, a.publish_down, a.images,
 				a.urls, a.ordering, a.metakey, a.metadesc, a.access, a.attribs,
-				CHAR_LENGTH( a.fulltext ) AS readmore,
+				CHAR_LENGTH( a.fulltext ) AS readmore, a.hits,
 				u.name AS author, u.usertype, u.username,
 				s.name AS section,
 				cc.name AS category,
@@ -2102,6 +2102,10 @@ class contentPageConfig{
 		$params->def('icons', $mainframe->getCfg('icons'));
 		//Ключевая ссылка. Текст ключа, по которому можно ссылаться на этот объект (например, в системе справки)
 		$params->def('keyref', '');
+		//Принудительное включение изображений
+		$params->def('image', 1);
+		//Показать/спрятать количество просмотров
+		$params->def('hits', $mainframe->getCfg('hits'));
 		$params->set('page_name', $row->title);
 		
 		$params->def('tags', $mainframe->getCfg('tags'));
@@ -2434,7 +2438,9 @@ class contentPageConfig{
 		$params->def('unpublished', 0);
 
 		//Показать/Скрыть тэги материалов
-		$params->def('view_tags', 1);
+		$params->def('view_tags', $mainframe->getCfg('tags'));
+		//Показать/спрятать количество просмотров
+		$params->def('hits', $mainframe->getCfg('hits'));
 
 		$params->def('pop', 0);
 		$params->def('limitstart', '0');
@@ -2482,6 +2488,8 @@ class contentPageConfig{
 		$params->def('url', 1);
 		
 		$params->def('view_tags', $mainframe->getCfg('tags'));
+		//Показать/спрятать количество просмотров
+		$params->def('hits', $mainframe->getCfg('hits'));
 
 		$params->set('intro_only', 1);
 

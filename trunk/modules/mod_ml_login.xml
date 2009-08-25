@@ -24,16 +24,13 @@
 	</files>
 	<params>
         <param name="@spacer" type="spacer" default="&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt; &lt;div class=&quot;tab-page&quot; id=&quot;moduledgm&quot;&gt;&lt;script type=&quot;text/javascript&quot;&gt;var tabPane1 = new WebFXTabPane( document.getElementById( &quot;moduledgm&quot; ), 1 )&lt;/script&gt; &lt;div class=&quot;tab-page&quot;id=&quot;module32&quot;&gt;&lt;h2 class=&quot;tab&quot;&gt;Основные настройки&lt;/h2&gt;&lt;script type=&quot;text/javascript&quot;&gt;tabPane1.addTabPage(document.getElementById(&quot;module32&quot;));&lt;/script&gt;&lt;table width=&quot;100%&quot; class=&quot;paramlist-m&quot;&gt;&lt;tr&gt;&lt;td&gt;" label="" description="" />
-		<param name="moduleclass_sfx" type="text" default="" label="Суффикс класса модуля" description="Суффикс, который будет использован в описании класса (table.moduletable) таблицы стилей (CSS) модуля. Это позволяет использовать индивидуальный стиль модуля." />
-		<param name="ml_visibility" type="radio" default="0" label="Тип модуля" description="Отображать форму авторизации сразу или только после нажатия на кнопку авторизации">
-			<option value="0">Обычный</option>
-			<option value="1">Всплывающее окно</option>
+		<param name="moduleclass_sfx" type="text" default="" label="Суффикс класса модуля" description="Суффикс, который будет использован в описании класса (table.moduletable) таблицы стилей (CSS) модуля. Это позволяет использовать индивидуальный стиль модуля." />		
+		<param name="template" type="radio" default="1" label="Шаблон" description="Выберите шаблон, с помощью которого будет отображаться модуль">
+			<option value="vertical.php">Вертикальный</option>
+			<option value="horizontal.php">Горизонтальный</option>
+            <option value="popup.php">Кнопка + всплывающее окно</option>
 		</param>
         <param name="dr_login_text" type="text" default="Авторизация" label="Текст кнопки раскрытия модуля" description="Текст кнопки авторизации (только для выпадающей формы меню)" />
-		<param name="orientation" type="radio" default="0" label="Ориентация модуля" description="">
-			<option value="0">Вертикально</option>
-			<option value="1">Горизонтально</option>
-		</param>
 		<param name="ml_avatar" type="radio" default="1" label="Отображать аватар" description="Выводить в модуле аватар пользователя">
 			<option value="1">Да</option>
 			<option value="0">Нет</option>

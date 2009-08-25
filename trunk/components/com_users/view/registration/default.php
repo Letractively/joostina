@@ -52,31 +52,31 @@ defined('_VALID_MOS') or die();
 <?php } ?>
 		<table cellpadding="0" cellspacing="0" border="0" width="100%" class="contentpane">
 		<tr>
-			<td width="30%"><?php echo _REGISTER_NAME; ?>*</td>
+			<td width="30%" align="right"><?php echo _REGISTER_NAME; ?>*</td>
 			<td>
 				<input type="text" name="name" size="40" value="" class="inputbox" maxlength="50" />
 			</td>
 		</tr>
 		<tr>
-			<td><?php echo _REGISTER_UNAME; ?>*</td>
+			<td align="right"><?php echo _REGISTER_UNAME; ?>*</td>
 			<td>
 				<input type="text" name="username" size="40" value="" class="inputbox" maxlength="25" />
 			</td>
 		</tr>
 		<tr>
-			<td><?php echo _REGISTER_EMAIL; ?>*</td>
+			<td align="right"><?php echo _REGISTER_EMAIL; ?>*</td>
 			<td>
 				<input type="text" name="email" size="40" value="" class="inputbox" maxlength="100" />
 			</td>
 		</tr>
 		<tr>
-			<td><?php echo _REGISTER_PASS; ?>*</td>
+			<td align="right"><?php echo _REGISTER_PASS; ?>*</td>
 			<td>
 				<input class="inputbox" type="password" name="password" size="40" value="" />
 			</td>
 		</tr>
 		<tr>
-			<td>
+			<td align="right">
 				<?php echo _REGISTER_VPASS; ?>*
 			</td>
 			<td>
@@ -103,7 +103,7 @@ defined('_VALID_MOS') or die();
 				<?php echo $params->get('post_text'); ?>
 			</div>
 <?php }?>
-		<span class="button"><input type="button" value="<?php echo _BUTTON_SEND_REG; ?>" class="button" onclick="submitbutton_reg()" /></span>
+		<br /><span class="button"><input type="button" value="<?php echo _BUTTON_SEND_REG; ?>" class="button" onclick="submitbutton_reg()" /></span>
 		<input type="hidden" name="option" value="<?php echo $option; ?>" />
 		<input type="hidden" name="task" value="saveRegistration" />
 		<input type="hidden" name="gid" value="<?php echo $gid; ?>" />

@@ -64,23 +64,20 @@ if($params->get('navigation')) {
 		<table class="filters" cellpadding="0" cellspacing="0" width="100%">
 			<tr>
 <?php if($display_filter) { ?>
-				<td align="right" width="100%" class="jtd_nowrap">
-					<?php echo _FILTER.'&nbsp;'; ?>
-					<br />
-					<input type="text" name="filter" value="<?php echo $lists['filter']; ?>" class="inputbox" onchange="document.adminForm.submit();" />
+				<td align="left" width="100%" class="jtd_nowrap">
+					<?php echo _FILTER.'&nbsp;'; ?>: 
+					<input type="text" name="filter" value="<?php echo $lists['filter']; ?>" class="inputbox content_search" onchange="document.adminForm.submit();" />
 				</td>
 <?php } ?>
 <?php if($display_order) { ?>
 				<td align="right" width="100%" class="jtd_nowrap">
-					<?php echo _ORDER_DROPDOWN; ?>
-					<br />
+					<!--<?php echo _ORDER_DROPDOWN; ?>-->
 					<?php echo $lists['order']; ?>
 				</td>
 <?php } ?>
 <?php if($display_num_of_items) { ?>
 				<td align="right" width="100%" class="jtd_nowrap">
-					<?php echo _PN_DISPLAY_NR; ?>
-					<br />
+					<!--<?php echo _PN_DISPLAY_NR; ?>-->
 					<?php echo $pageNav->getLimitBox($link); ?>
 				</td>
 <?php } ?>

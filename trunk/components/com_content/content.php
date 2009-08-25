@@ -1293,7 +1293,7 @@ function _showItem($row, $params, $gid, &$access, $pop, $template = '') {
 
 	// needed for caching purposes to stop different cachefiles being created for same item
 	// does not affect anything else as hits data not outputted
-	$row->hits = 0;
+	//$row->hits = 0;
 
 	HTML_content::show($row, $params, $access, $page, $template);
 }

@@ -428,9 +428,27 @@ function CheckIn($userid,$access) {
 
 /* форма восстановления пароля */
 function lostPassForm($option) {
+	
 	$mainframe = &mosMainFrame::getInstance();
-	$mainframe->SetPageTitle(_PROMPT_PASSWORD);
-	HTML_registration::lostPassForm($option);
+	$mainframe->SetPageTitle(_PROMPT_PASSWORD);	
+	
+	$config = &JConfig::getInstance();
+	$database = &database::getInstance();
+	
+	$user_config = new configUser_lostpass($database);	
+	
+	//Шаблон
+	$template = $user_config->get('template');
+	$template_dir = 'components/com_users/view/lostpass';
+		
+	if($user_config->get('template_dir')){
+		$template_dir = 'templates'.DS. $mainframe->getTemplate() . '/html/com_users/lostpass';
+	}
+	$template_file = $mainframe->getCfg('absolute_path').DS.$template_dir.DS.$template;
+	
+	if(is_file($template_file)){
+		include_once ($template_file);	
+	}
 }
 
 function sendNewPass() {

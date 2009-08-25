@@ -214,7 +214,7 @@ function mosLoadModules($position = 'left',$style = 0,$noindex = 0) {
 * @param string The position
 * @param int The style.  0=normal, 1=horiz, -1=no wrapper
 */
-function mosLoadModule($name = '', $title = '', $style = 0, $noindex = 0) {
+function mosLoadModule($name = '', $title = '', $style = 0, $noindex = 0, $inc_params = null) {
 	global $my,$Itemid;
 
 	$database = &database::getInstance();
@@ -242,6 +242,11 @@ function mosLoadModule($name = '', $title = '', $style = 0, $noindex = 0) {
 	$count = 1;
 
 	$params = new mosParameters($module->params);
+	if($inc_params){
+		foreach($inc_params as $key=>$val){	
+				$params->set($key, $val);
+		}
+	}
 	echo $prepend;
 
 	if((substr($module->module,0,4)) == 'mod_') {

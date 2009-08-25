@@ -14,9 +14,10 @@ defined('_VALID_MOS') or die(); ?>
 <?php if($page_title) { ?>
 	<div class="componentheading"><h1><?php echo $page_title; ?></h1></div>
 <?php } ?>
-	<!--Страница разделе:END-->
+
 	<!--Основное содержимое страницы:BEGIN-->
 	<div class="contentpane<?php echo $sfx; ?>">
+	
 	<!--Описание:BEGIN-->
 <?php if($title_description || $title_image) { ?>
 		<div class="contentdescription">
