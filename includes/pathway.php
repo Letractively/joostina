@@ -287,7 +287,7 @@ function showPathway($Itemid) {
 	}
 
 	if($Itemid && $Itemid != 99999999 && $path != '') {
-		echo '<span class="pathway"><ul>'.$home.' '.$path.'</ul></span>';
+		echo '<div class="pathway"><ul>'.$home.' '.$path.'</ul></div>';
 	} else
 		echo '&nbsp;';
 }
