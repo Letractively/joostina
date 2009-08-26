@@ -491,7 +491,7 @@ class userHelper{
 				//Индикатор выполнения
 				$('#indicate_<?php echo $form_params->img_field;?>').fadeIn(1000, function () {
 					$("#indicate_<?php echo $form_params->img_field;?>").addClass("inprogress");
-					$("#indicate_<?php echo $form_params->img_field;?>").html("Удаляем...");
+					$("#indicate_<?php echo $form_params->img_field;?>").html("<?php echo _INPROGRESS; ?>");
 				});
 
 				//отправляем ajax-запрос
@@ -580,8 +580,8 @@ class userHelper{
 						$('#<?php echo $form_params->img_field;?>_uploadOutput').html('<?php echo _C_USERS_AVATARS_SHOISE_IMAGE?>');
 						return false;
 					}
-					$(".upload_area_<?php echo $form_params->img_field;?>").fadeOut(900);
 					$('#current_<?php echo $form_params->img_field;?>').fadeIn(1000);
+
 				},
 				success: function(data) {
 					var $out = $('#<?php echo $form_params->img_field;?>_uploadOutput');
@@ -591,6 +591,9 @@ class userHelper{
 						data = elementToString(data.documentElement, true);
 						else if (typeof data == 'object')
 						data = objToString(data);
+						
+						$(".upload_area_<?php echo $form_params->img_field;?>").fadeOut(900);
+						
 						$(".buttons_<?php echo $form_params->img_field;?>").fadeOut(1000);
 						$('#current_<?php echo $form_params->img_field;?>_img').fadeOut(1000);
 						$('#current_<?php echo $form_params->img_field;?>_img').fadeOut(1000, function(){
