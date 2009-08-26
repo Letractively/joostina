@@ -12,22 +12,21 @@ defined('_VALID_MOS') or die();
 
 //Подключение плагина валидации форм
 mosCommonHTML::loadJqueryPlugins('jquery.validate', false, false, 'js');
+//Подключение скрипта всплывающих подсказок
+mosCommonHTML::loadOverlib();
 
 $tabs = new mosTabs(1);
 
-?><div class="page_edit_profile">
+?><div class="edit_profile_page">
 	<div class="componentheading"><h1><?php echo $user->name; ?>&nbsp;(<?php echo $user->username; ?>)</h1></div>
 <?php $tabs->startPane("userInfo"); ?>
 	<form action="<?php echo sefRelToAbs('index.php');  ?>" method="post" name="mosUserForm" id="mosUserForm">
-		<div style="float: right;height: 100%;">
-			<span class="button"><button type="submit" class="button submit" name="submit" id="save"><?php echo _SAVE?></button></span>
-			<span class="button"><button type="submit" class="button cancel" name="cancel" id="cancel"><?php echo _CANCEL?></button></span>
-		</div>
-<?php $tabs->startTab(_GENERAL,"general"); ?>
+
+		<?php $tabs->startTab(_GENERAL,"general"); ?>
 		<h3><?php echo _USER_PROFILE_INFO?></h3>
 		<table width="100%">
 			<tr>
-				<td><label for="username"><?php echo _UNAME; ?></label></td>
+				<td class="td_l"><label for="username"><?php echo _UNAME; ?></label></td>
 				<td><input class="inputbox required" type="text" name="username" id="username" value="<?php echo $user->username; ?>"/></td>
 			</tr>
 			<tr>
@@ -47,19 +46,17 @@ $tabs = new mosTabs(1);
 				<td><input class="inputbox" type="password" name="verifyPass" id="verifyPass"/></td>
 			</tr>
 		</table>
-<?php if($config->config_frontend_userparams == '1' || $config->config_frontend_userparams == 1 ||$config->csonfig_frontend_userparams == null) {?>
-		<h3><?php echo _USER_SITE_SETTINGS?></h3>
-		<table cellpadding="5" cellspacing="0" border="0" width="100%">
-			<tr>
-				<td colspan="2"><?php echo $params->render('params'); ?></td>
-			</tr>
-		</table>
-<?php } ?>
+		
+		<?php if($config->config_frontend_userparams == '1' || $config->config_frontend_userparams == 1 ||$config->csonfig_frontend_userparams == null) {?>
+			<h3><?php echo _USER_SITE_SETTINGS?></h3>
+			<?php echo $params->render('params'); ?>
+		<?php } ?>
+		
 		<br />
 		<h3><?php echo _USER_PERSONAL_DATA?></h3>
 		<table width="100%">
 			<tr>
-				<td><label for="gender"><?php echo _C_USERS_GENDER?></label></td>
+				<td class="td_l"><label for="gender"><?php echo _C_USERS_GENDER?></label></td>
 				<td><?php echo mosHTML::genderSelectList('gender','class="inputbox"', $user_extra->gender);?> </td>
 			</tr>
 			<tr>
@@ -88,7 +85,7 @@ $tabs = new mosTabs(1);
 		<h3><?php echo _COM_USERS_CONTACT_INFO?></h3>
 		<table width="100%">
 			<tr>
-				<td><label><?php echo _C_USERS_CONTACT_SITE?></label></td>
+				<td  class="td_l"><label><?php echo _C_USERS_CONTACT_SITE?></label></td>
 				<td><input class="inputbox" type="text" name="url" id="url" value="<?php echo $user->user_extra->url ?>"/></td>
 			</tr>
 			<tr>
@@ -146,5 +143,9 @@ $tabs = new mosTabs(1);
 		userHelper::_build_img_upload_area($user, $form_params, 'reupload');
 	} ?>
 <?php $tabs->endTab(); ?>
+		<div class="buttons">
+			<span class="button"><button type="submit" class="button submit" name="submit" id="save"><?php echo _SAVE?></button></span>
+			<span class="button"><button type="submit" class="button cancel" name="cancel" id="cancel"><?php echo _CANCEL?></button></span>
+		</div>
 <?php $tabs->endPane(); ?>
 </div>

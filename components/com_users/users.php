@@ -271,8 +271,10 @@ function userSave($option,$uid) {
 		$database->setQuery($query);
 		$database->query();
 	}
+	
+	mosRedirect('index.php?option=com_users&task=UserDetails', 'Усё пучком');
 
-	userEdit($option,$my->id,_UPDATE);
+	//userEdit($option,$my->id,_UPDATE);
 }
 
 function userList($gid,$limit,$limitstart=0){
