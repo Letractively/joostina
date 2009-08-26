@@ -14,17 +14,22 @@ defined('_VALID_MOS') or die();
 $validate = josSpoofValue();
 
 ?>
+	<div class="lostpass_page">
 		<form action="index.php" method="post" name="mosForm" id="mosForm">
 		
 			<div class="componentheading"><h1><?php echo $user_config->get('title');?></h1></div>
 			
 			<div class="info"><?php echo _NEW_PASS_DESC; ?></div>
 			
-			<label for="checkusername"><?php echo _PROMPT_UNAME; ?></label>
-			<input type="text" name="checkusername" class="inputbox" size="40" maxlength="25" />
+			<div class="row">
+				<label for="checkusername"><?php echo _PROMPT_UNAME; ?></label>
+				<input type="text" name="checkusername" class="inputbox" size="40" maxlength="25" />
+			</div>
 
-			<label for="confirmEmail"><?php echo _PROMPT_EMAIL; ?></label>
-			<input type="text" name="confirmEmail" class="inputbox" size="40" />
+			<div class="row">
+				<label for="confirmEmail"><?php echo _PROMPT_EMAIL; ?></label>
+				<input type="text" name="confirmEmail" class="inputbox" size="40" />
+			</div>
 			
 
 			<?php if($config->config_captcha_reg) { session_start(); ?>
@@ -43,3 +48,4 @@ $validate = josSpoofValue();
 			<input type="hidden" name="<?php echo $validate; ?>" value="1" />
 		
 		</form>
+	</div>

@@ -43,13 +43,17 @@ defined('_VALID_MOS') or die();
 		}
 	}
 	</script>
+	<div class="registration_page">
+	
 	<form action="<?php echo sefRelToAbs('index.php') ?>" method="post" name="mosForm" id="mosForm">
 		<div class="componentheading"><h1><?php echo $params->get('title'); ?></h1></div>
-<?php if($params->get('pre_text')){?>
+		
+		<?php if($params->get('pre_text')){?>
 		<div class="info">
 			<?php echo $params->get('pre_text'); ?>
 		</div>
-<?php } ?>
+		<?php } ?>
+		
 		<table cellpadding="0" cellspacing="0" border="0" width="100%" class="contentpane">
 		<tr>
 			<td width="30%" align="right"><?php echo _REGISTER_NAME; ?>*</td>
@@ -83,7 +87,8 @@ defined('_VALID_MOS') or die();
 				<input class="inputbox" type="password" name="password2" size="40" value="" />
 			</td>
 		</tr>
-<?php if($mainframe->getCfg('captcha_reg')) { ?>
+		
+		<?php if($mainframe->getCfg('captcha_reg')) { ?>
 		<tr>
 			<td>&nbsp;</td>
 			<td>
@@ -96,13 +101,16 @@ defined('_VALID_MOS') or die();
 				<input type="text" name="captcha" class="inputbox" size="40" value=""/>
 			</td>
 		</tr>
-<?php } ?>
+		<?php } ?>
+		
 		</table>
-<?php if($params->get('post_text')){ ?>
+		
+		<?php if($params->get('post_text')){ ?>
 			<div class="info">
 				<?php echo $params->get('post_text'); ?>
 			</div>
-<?php }?>
+		<?php }?>
+		
 		<br /><span class="button"><input type="button" value="<?php echo _BUTTON_SEND_REG; ?>" class="button" onclick="submitbutton_reg()" /></span>
 		<input type="hidden" name="option" value="<?php echo $option; ?>" />
 		<input type="hidden" name="task" value="saveRegistration" />
@@ -110,3 +118,5 @@ defined('_VALID_MOS') or die();
 		<input type="hidden" name="gid_check" value="<?php echo $gid_check; ?>" />
 		<input type="hidden" name="<?php echo $validate; ?>" value="1" />
 	</form>
+	
+	</div>
