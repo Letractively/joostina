@@ -101,10 +101,9 @@ var myMenu =[
 	['<img src="<?php echo $cur_file_icons_patch ?>install.png" />','<?php echo _MOD_FULLMENU_NEW_SITE_TEMPLATE?>','index2.php?option=com_installer&element=template&client=admin',null,'<?php echo _MOD_FULLMENU_NEW_SITE_TEMPLATE?>']
 	],
 <?php }
-
 		// Menu Sub-Menu
 ?>],
-<?php	if($canManageUsers || $canMassMail) {
+<?php if($canManageUsers || $canMassMail) {
 ?>[null,'<?php echo _USERS?>',null,null,'<?php echo _USERS?>',
 	['<img src="<?php echo $cur_file_icons_patch ?>user.png" />','<?php echo _MOD_FULLMENU_ALL_USERS?>','index2.php?option=com_users&task=view',null,'<?php echo _MOD_FULLMENU_ALL_USERS?>'],
 	['<img src="<?php echo $cur_file_icons_patch ?>template.png" />','<?php echo _MOD_FULLMENU_ADD_USER?>','index2.php?option=com_users&task=edit',null,'<?php echo _MOD_FULLMENU_ADD_USER?>'],
@@ -137,7 +136,7 @@ _cmSplit,['<img src="<?php echo $cur_file_icons_patch ?>trash.png" />','<?php ec
 ?>  ['<img src="<?php echo $cur_file_icons_patch ?>edit.png" />','<?php echo _MOD_FULLMENU_CONTENT_IN_SECTIONS?>',null,null,'<?php echo _MOD_FULLMENU_CONTENT_IN_SECTIONS?>',
 <?php
 	foreach($sections as $section) {
-		$txt = addslashes($section->title?$section->title:$section->name);
+		$txt = addslashes($section->title ? $section->title:$section->name);
 ?>['<img src="<?php echo $cur_file_icons_patch ?>document.png" />','<?php echo $txt; ?>', null, null,'<?php echo _SECTION?>: <?php echo $txt; ?>',
 	['<img src="<?php echo $cur_file_icons_patch ?>edit.png" />', '<?php echo _MOD_FULLMENU_CONTENT_IN_SECTION?>: <?php echo $txt; ?>', 'index2.php?option=com_content&sectionid=<?php echo $section->id; ?>',null,null],
 	['<img src="<?php echo $cur_file_icons_patch ?>backup.png" />', '<?php echo _MOD_FULLMENU_SECTION_ARCHIVE?>: <?php echo $txt; ?>', 'index2.php?option=com_content&task=showarchive&sectionid=<?php echo $section->id; ?>',null,null],
@@ -330,11 +329,10 @@ cmDraw ('myMenuID', myMenu, 'hbr', cmThemeOffice, 'ThemeOffice');
   <script language="JavaScript" type="text/javascript">
   var myMenu =
   [
-   [null,'<?php echo _SITE; ?>',null,null,'<?php echo $text; ?>'
-   ],
+   [null,'<?php echo _SITE; ?>',null,null,'<?php echo $text; ?>'],
    _cmSplit,
-   [null,'<?php echo _MOD_FULLMENU_MENU; ?>',null,null,'<?php echo $text; ?>'
-   ],
+   [null,'<?php echo _USERS?>',null,null,'<?php echo _USERS?>'],
+   [null,'<?php echo _MOD_FULLMENU_MENU; ?>',null,null,'<?php echo $text; ?>'],
    _cmSplit,
   <?php
 			/* Content Sub-Menu*/

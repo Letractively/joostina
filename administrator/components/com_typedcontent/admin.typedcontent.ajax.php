@@ -64,7 +64,7 @@ function x_access($id){
 	} else {
 		$color_access = 'style="color: black;"';
 		$task_access = 'accesspublic';
-		$text_href = _CONTENT_CATEGORIES;
+		$text_href = _USER_GROUP_SPECIAL;
 	}
 	// чистим кэш
 	mosCache::cleanCache('com_content');

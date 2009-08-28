@@ -13,7 +13,7 @@ defined( '_VALID_MOS' ) or die();
 $mainframe = &mosMainFrame::getInstance();
 
 $type = intval($params->get('type', 1));
-$def_itemid	= $params->get('def_itemid', false);
+$def_itemid = $params->get('def_itemid', false);
 $params->def('item_title', 1); $params->def('link_titles', 1);
 $params->def('template', 'default.php');
 
@@ -29,7 +29,7 @@ switch ($type) {
 		break;
 
 	case 3: 
-		//ќба типа		
+		//ќба типа
 		$rows = $module->helper->get_items_both($params);
 		break;
 
