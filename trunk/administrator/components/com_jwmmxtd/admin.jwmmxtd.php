@@ -543,11 +543,11 @@ function viewMediaManager($curdirectory = "",$mosmsg = "",$selectedfile = "") {
 	</table>
 	<table style="width:100%;" cellpadding="0" cellspacing="0">
 		<tr>
-			<td><?php echo _JWMM_IMAGE_LINK ?></td><td><input type="text" id="file_link" name="file_link" class="inputbox" size="100"/></td>
+			<td><?php echo _JWMM_IMAGE_LINK ?></td><td><input onfocus="this.select()" type="text" id="file_link" name="file_link" class="inputbox" size="100"/></td>
 			<td rowspan="3" width="50%"><?php echo _JWMM_FILE_PATH?>:<a href="index2.php?option=com_jwmmxtd&amp;curdirectory=<?php echo $upcategory; ?>"><img src="<?php echo $cur_file_icons_path;?>/uparrow.png" alt="<?php echo _JWMM_UP_TO_DIRECTORY?>" /></a><br /><?php echo $dirPath; ?></td>
 		</tr>
-		<tr><td><?php echo _JWMM_IMAGE_HREF ?></td><td><input type="text" id="file_href" name="file_href" class="inputbox" size="100"/></td></tr>
-		<tr><td><?php echo _JWMM_IMAGE_TAG ?></td><td><input type="text" id="file_url" name="file_url" class="inputbox" size="100"/></td></tr>
+		<tr><td><?php echo _JWMM_IMAGE_HREF ?></td><td><input onfocus="this.select()" type="text" id="file_href" name="file_href" class="inputbox" size="100"/></td></tr>
+		<tr><td><?php echo _JWMM_IMAGE_TAG ?></td><td><input onfocus="this.select()" type="text" id="file_url" name="file_url" class="inputbox" size="100"/></td></tr>
 	</table>
 	<div id="actions">
 <?php if($selectedfile != "" && $subtask == "renamefile") { ?>

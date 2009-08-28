@@ -141,8 +141,7 @@ function viewMenuItems($menutype,$option) {
 	// select the records
 	// note, since this is a tree we have to do the limits code-side
 	if($search) {
-		$query = "SELECT m.id FROM #__menu AS m WHERE menutype = ".$database->Quote($menutype)."\n AND LOWER( m.name ) LIKE '%".
-			$database->getEscaped(trim(strtolower($search)))."%'";
+		$query = "SELECT m.id FROM #__menu AS m WHERE menutype = ".$database->Quote($menutype)."\n AND LOWER( m.name ) LIKE '%".$database->getEscaped(trim(strtolower($search)))."%'";
 		$database->setQuery($query);
 		$search_rows = $database->loadResultArray();
 	}
@@ -648,8 +647,8 @@ function moveMenuSave($option,$cid,$menu,$menutype) {
 	// clean any existing cache files
 	mosCache::cleanCache('com_content');
 
-	$msg = count($cid).' moved to '.$menu;
-	mosRedirect('index2.php?option='.$option.'&menutype='.$menutype.'&mosmsg='.$msg);
+	$msg = count($cid).' ' . _MOVE_MENUS_TO.' '.$menu;
+	mosRedirect('index2.php?option='.$option.'&menutype='.$menutype,$msg);
 } // moveMenuSave
 
 /**
@@ -723,7 +722,7 @@ function copyMenuSave($option,$cid,$menu,$menutype) {
 	mosCache::cleanCache('com_content');
 
 	$msg = count($cid).' moved to '.$menu;
-	mosRedirect('index2.php?option='.$option.'&menutype='.$menutype.'&mosmsg='.$msg);
+	mosRedirect('index2.php?option='.$option.'&menutype='.$menutype,$msg);
 }
 
 function ReadMenuXML($type,$component = -1) {

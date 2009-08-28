@@ -50,7 +50,7 @@ class HTML_menumanager {
 			<th width="15%"><?php echo _IN_TRASH?></th>
 			<th width="15%"><?php echo _MENU_MUDULES?></th>
 		</tr>
-		<?php
+<?php
 		$k = 0;
 		$i = 0;
 		$start = 0;
@@ -122,6 +122,7 @@ class HTML_menumanager {
 	function edit(&$row,$option) {
 		global $mosConfig_live_site;
 		$new = $row->menutype?0:1;
+		mosCommonHTML::loadOverlib();
 		$row->menutype = htmlspecialchars($row->menutype);
 ?>
 		<script language="javascript" type="text/javascript">
@@ -173,8 +174,7 @@ class HTML_menumanager {
 			<td>
 			<input class="inputbox" type="text" name="menutype" size="30" maxlength="25" value="<?php echo isset($row->menutype)?$row->menutype:''; ?>" />
 <?php
-		$tip = _MENU_NAME_TIP;
-		echo mosToolTip($tip);
+		echo mosToolTip(_MENU_NAME_TIP);
 ?>
 			</td>
 		</tr>

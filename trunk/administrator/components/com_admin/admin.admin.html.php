@@ -309,7 +309,7 @@ class HTML_admin_misc {
 			<table class="adminform">
 			<tr>
 				<td>
-					<strong><?php echo _DIRS_WITH_RIGHTS?>:</strong><br />   <br />
+					<strong><?php echo _DIRS_WITH_RIGHTS?>:</strong><br />
 <?php
 		$sp = ini_get('session.save_path');
 
@@ -319,7 +319,7 @@ class HTML_admin_misc {
 		mosHTML::writableCell(ADMINISTRATOR_DIRECTORY.'/templates');
 		mosHTML::writableCell('components');
 		mosHTML::writableCell('images');
-		mosHTML::writableCell('images/banners');
+		mosHTML::writableCell('images/show');
 		mosHTML::writableCell('images/stories');
 		mosHTML::writableCell('language');
 		mosHTML::writableCell('mambots');

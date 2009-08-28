@@ -142,17 +142,19 @@ function view($option) {
 	}
 	unset($row);
 
-	$query = "SELECT COUNT( id ) as count,componentid FROM #__menu WHERE componentid IN(".implode(',',$contents_ids).") AND type = 'content_typed' AND published != -2 GROUP BY componentid";
-	$database->setQuery($query);
-	$links = $database->loadObjectList('componentid');
+	if(count($contents_ids)>0){
+		$query = "SELECT COUNT( id ) as count,componentid FROM #__menu WHERE componentid IN(".implode(',',$contents_ids).") AND type = 'content_typed' AND published != -2 GROUP BY componentid";
+		$database->setQuery($query);
+		$links = $database->loadObjectList('componentid');
 
-	foreach ($rows as $row){
-		if(isset($links[$row->id])){
-			$rows[$links[$row->id]->componentid]->links = $links[$row->id]->count ? $links[$row->id]->count : 0;
+		foreach ($rows as $row){
+			if(isset($links[$row->id])){
+				$rows[$links[$row->id]->componentid]->links = $links[$row->id]->count ? $links[$row->id]->count : 0;
+			}
+			$new_rows[] = $rows[$row->id];
 		}
-		$new_rows[] = $rows[$row->id];
+		unset($rows,$links,$contents_ids);
 	}
-	unset($rows,$links,$contents_ids);
 
 	$ordering[] = mosHTML::makeOption('c.ordering ASC',_ORDER_BY_ASC);
 	$ordering[] = mosHTML::makeOption('c.ordering DESC',_ORDER_BY_DESC);

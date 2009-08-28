@@ -48,9 +48,8 @@ $database = &database::getInstance();
 // mainframe - основная рабочая среда API, осуществляет взаимодействие с 'ядром'
 $mainframe = mosMainFrame::getInstance(true);
 $mainframe->set('lang', $mosConfig_lang);
-//include_once ($mosConfig_absolute_path .DS.'language' .DS. $mosConfig_lang . '.php');
-include_once($mainframe->getLangFile());
 
+include_once($mainframe->getLangFile());
 require_once ($mosConfig_absolute_path.DS.ADMINISTRATOR_DIRECTORY.DS.'includes'.DS.'admin.php');
 
 
@@ -66,7 +65,6 @@ $mainframe->set('loadOverlib',false);
 if($option == '') {
 	$option = 'com_admin';
 }
-
 
 // инициализация редактора
 $mainframe->set( 'allow_wysiwyg', 1 );  
@@ -93,12 +91,12 @@ header('Content-type: text/html; charset=UTF-8');
 // начало вывода html
 if($no_html == 0) {
 	// загрузка файла шаблона
-	if(!file_exists($mosConfig_absolute_path . '/'.ADMINISTRATOR_DIRECTORY.'/templates/' . $cur_template .'/index.php')) {
+	if(!file_exists($mosConfig_absolute_path .DS.ADMINISTRATOR_DIRECTORY.DS.'templates'.DS. $cur_template .DS.'index.php')) {
 		echo _TEMPLATE_NOT_FOUND.': ',$cur_template;
 	} else {
 		//Подключаем язык шаблона
 		if($mainframe->getLangFile('tmpl_'.$cur_template)){include_once($mainframe->getLangFile('tmpl_'.$cur_template));}
-		require_once ($mosConfig_absolute_path . '/'.ADMINISTRATOR_DIRECTORY.'/templates/' . $cur_template .'/index.php');
+		require_once ($mosConfig_absolute_path . DS.ADMINISTRATOR_DIRECTORY.DS.'templates' .DS. $cur_template .DS.'index.php');
 	}
 } else {
 	mosMainBody_Admin();
