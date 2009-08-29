@@ -432,7 +432,7 @@ class JCacheStorage{
 	 * @return	boolean	True on success, false otherwise
 	 * @since	1.3
 	 */
-	function clean($group, $mode){
+	function clean($group = 'default', $mode = ''){
 		
 		global $mosConfig_absolute_path, $mosConfig_cache_key;
 		$fname = $mosConfig_absolute_path.'/configuration.php';

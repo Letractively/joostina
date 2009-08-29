@@ -105,7 +105,7 @@ class JCacheStorageXCache extends JCacheStorage
 	 * @return	boolean	True on success, false otherwise
 	 * @since	1.3
 	 */
-	function clean($group, $mode)
+	function clean($group = 'default', $mode = '')
 	{
 		return parent::clean();
 	}
