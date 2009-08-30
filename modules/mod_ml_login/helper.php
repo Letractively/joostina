@@ -49,10 +49,10 @@ class mod_ml_login_Helper{
 		$params->def('ml_login_text', _USER);
 		$params->def('ml_pass_text', _PASSWORD);
 		
-		$login_label_def = '<label for="username" id="login_lbl">'.$params->get('ml_login_text').'</label>';
+		$login_label_def = '<label for="mod_login_USER" id="login_lbl">'.$params->get('ml_login_text').'</label>';
     	$login_input_def = '<input type="text" name="username" id="mod_login_USER" class="inputbox" alt="username" value="" />';
 
-    	$pass_label_def='<label for="password" id="pass_lbl">'.$params->get('ml_pass_text').'</label>';
+    	$pass_label_def='<label for="mod_login_password" id="pass_lbl">'.$params->get('ml_pass_text').'</label>';
     	$pass_input_def='<input type="password" id="mod_login_password" name="passwd" class="inputbox" alt="password" value="" />';
 
     	switch($params->get('show_login_text',1)){
