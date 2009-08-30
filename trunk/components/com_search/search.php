@@ -195,7 +195,7 @@ function viewSearch() {
 	$ordering = mosGetParam($_REQUEST,'ordering','newest');
 	$ordering = preg_replace('/[^a-z]/','',strtolower($ordering));
 	$lists = array();
-	$lists['ordering'] = mosHTML::selectList($orders,'ordering','id="search_ordering" class="inputbox"','value','text',$ordering);
+	$lists['ordering'] = mosHTML::selectList($orders,'ordering','id="search_ordering" class="inputbox" onchange="this.form.submit()"','value','text',$ordering);
 
 	$searchphrases = array();
 

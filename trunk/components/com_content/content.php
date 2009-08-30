@@ -406,9 +406,9 @@ function _showTableCategory($id,$gid,$limit,$limitstart,$sectionid,$selected,$fi
 		$orderby = $params->get('orderby', 'rdate');
 		$selected = $orderby;
 	}
-	$params->def('orderby', $orderby);
-	$params->def('cur_filter', $filter);
-	$params->def('selected', $selected);
+	$params->set('orderby', $orderby);
+	$params->set('cur_filter', $filter);
+	$params->set('selected', $selected);
 
 	if($sectionid == 0) {
 		$sectionid = $category->section;

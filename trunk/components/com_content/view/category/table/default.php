@@ -31,14 +31,11 @@ defined('_VALID_MOS') or die(); ?>
 <?php } ?>
 	<!--Описание:END-->
 	<!--Таблица с содержимым при просмотре категории:BEGIN-->
-<?php if($items) {
-	//Подключаем шаблон вывода таблицы с записями
+
+	<?php //Подключаем шаблон вывода таблицы с записями
 	include_once (Jconfig::getInstance()->config_absolute_path.'/components/com_content/view/item/table_of_items/default.php');
-} elseif($catid) { ?>
-	<br />
-	<?php echo _EMPTY_CATEGORY; ?>
-	<br /><br />
-<?php } ?>
+	?>
+
 	<!--Таблица с содержимым при просмотре категории:END-->
 	<!--Кнопка добавления содержимого-->
 <?php if($add_button) { ?>

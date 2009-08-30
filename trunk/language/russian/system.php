@@ -192,6 +192,7 @@ DEFINE('_NEVER','Никогда');
 DEFINE('_NEW','Новый');
 DEFINE('_NO','Нет');
 DEFINE('_NO_ACCOUNT','Ещё не зарегистрированы?');
+DEFINE('_NO_ITEMS','Записи не найдены');
 DEFINE('_NONE','Нет');
 DEFINE('_NOT_CHOOSED','Не выбрано');
 DEFINE('_NOT_PUBLISHED','Не опубликовано');

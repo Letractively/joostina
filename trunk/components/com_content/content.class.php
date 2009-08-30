@@ -1308,7 +1308,8 @@ class mosContent extends mosDBTable{
  		if($my_func->check_user_function()){
  			return $my_func->start_user_function();
    		};
-
+   		
+   		
 		$xwhere = contentSqlHelper::construct_where_table_category($category, $access, $params);
 		$and = contentSqlHelper::construct_filter_table_category($category, $access, $params);
 
@@ -1653,21 +1654,23 @@ class contentSqlHelper{
 		// filter functionality
 		$and = null;
 		if ($params->get('filter')){
-			if ($params->get('cur_filter')){
+			if ($params->get('cur_filter')){				
+				
 				// clean filter variable
 				$filter = strtolower($params->get('cur_filter'));
+				//$filter = Jstring::to_utf8($filter);
 
 				switch ($params->get('filter_type')){
 					case 'title':
-						$and = "\n AND LOWER( a.title ) LIKE '%" . $database->getEscaped($filter, true) . "%'";
+						$and = " AND LOWER( a.title ) LIKE '%" . $database->getEscaped($filter, true) . "%'";
 						break;
 
 					case 'author':
-						$and = "\n AND ( ( LOWER( u.name ) LIKE '%" . $database->getEscaped($filter, true) ."%' ) OR ( LOWER( a.created_by_alias ) LIKE '%" . $database->getEscaped($filter, true) . "%' ) )";
+						$and = " AND ( ( LOWER( u.name ) LIKE '%" . $database->getEscaped($filter, true) ."%' ) OR ( LOWER( a.created_by_alias ) LIKE '%" . $database->getEscaped($filter, true) . "%' ) )";
 						break;
 
 					case 'hits':
-						$and = "\n AND a.hits LIKE '%" . $database->getEscaped($filter, true) . "%'";
+						$and = " AND a.hits LIKE '%" . $database->getEscaped($filter, true) . "%'";
 						break;
 				}
 			}
@@ -2268,6 +2271,7 @@ class contentPageConfig{
 		if ($params->get('page_title', 1) && $menu){
 			$header = $params->def('header', $menu->name);
 		}
+		
 
 		return $params;
 	}
@@ -2297,6 +2301,11 @@ class contentPageConfig{
 
 		$params->menu = $menu;
 		$params->set('type', 'category');
+		
+		//Показать/Спрятать имя автора
+		$params->def('author', $mainframe->getCfg('showAuthor'));
+		//Показать/Спрятать дату создания
+		$params->def('date', $mainframe->getCfg('showCreateDate'));
 
 		return $params;
 

@@ -89,6 +89,8 @@ if($params->get('navigation')) {
 		<input type="hidden" name="task" value="<?php echo $lists['task']; ?>" />
 		<input type="hidden" name="option" value="com_content" />
 	</form>
+
+<?php if(count($items)){?>
 	<table class="table_of_items" width="100%" border="0" cellspacing="0" cellpadding="0">
 <?php if($params->get('headings')) { ?>
 			<tr>
@@ -137,6 +139,9 @@ if($params->get('navigation')) {
 		<?php $k = 1 - $k;
 } ?>
 	</table>
+	<?php } else {?>
+	<?php echo _NO_ITEMS; ?>
+	<?php } ?>
 <?php if($navigation) { ?>
 	<div class="pagenav">
 		<?php echo $pageNav->writePagesLinks($link); ?>
