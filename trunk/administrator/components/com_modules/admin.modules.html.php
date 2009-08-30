@@ -289,6 +289,10 @@ class HTML_modules {
 					<td><?php echo $row->id; ?></td>
 				</tr>
 				<tr>
+					<td valign="top"  class="key"><?php echo _NAME?></td>
+					<td><?php echo $row->module; ?></td>
+				</tr>
+				<tr>
 					<td valign="top" class="key"><?php echo _DESCRIPTION?>:</td>
 					<td><?php echo $row->description; ?></td>
 				</tr>

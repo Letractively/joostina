@@ -24,32 +24,26 @@ mosCommonHTML::loadJquery(1); ?>
 	</a>
   	<?php echo '</div>'; return; } ?>
 
-
 	<script type="text/javascript">
-		jQuery(document).ready(function(){
-		jQuery('.login_button').click (function() {
-		jQuery('.loginform_area').toggle(200);
-		jQuery('body').addClass("tb");
-		    return false;
-		});
-		 jQuery('.closewin').click(function(){
-		  jQuery('.loginform_area').toggle(400);
-		  jQuery('.closewin').removeClass("tb");
-		 });
+		$(document).ready(function(){
+			$('#log_in').click (function() {
+				$('.loginform_area').toggle(200);
+				$('body').addClass("tb");
+		    	return false;
+			});
+		 	$('.closewin').click(function(){
+		  		$('.loginform_area').toggle(400);
+		  		$('.closewin').removeClass("tb");
+		 	});
 		});
 	</script>
-      
- 	<div class="login_button" id="log_in">
-		<?php echo $params->get( 'dr_login_text', _LOGIN_TEXT);?>
-	</div>
-	
+    
+	<div class="button"><button type="button" class="button" id="log_in"><?php echo $params->get( 'dr_login_text', _LOGIN_TEXT);?></button></div>
 	
  	<div id="box1"> 
 	 	<div class="loginform_area">
             <div class="loginform_area_inside">
-            
-                <h3><?php echo _SITE_AUTH ?></h3>
-                
+               
 				 <div class="form_pretext">
 					 	<?php echo $params->get('pretext' ,'')?>
 					</div>	

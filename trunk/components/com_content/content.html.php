@@ -468,7 +468,13 @@ class HTML_content {
 					break;
 
 				default:
-					$row->title = $row->title;
+					if(mosGetParam($_REQUEST, 'option', '') == 'com_frontpage'){
+						$row->title = '<h2>'.$row->title.'</h2>';	
+					}
+					else{
+						$row->title = $row->title;	
+					}
+					
 					break;
 			}
 
