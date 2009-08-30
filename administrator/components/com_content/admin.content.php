@@ -700,7 +700,7 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 
 	// build list of users
 	$active = (intval($row->created_by)?intval($row->created_by):$my->id);
-	$lists['created_by'] = mosAdminMenus::UserSelect('created_by',$active);
+	$lists['created_by'] = mosAdminMenus::UserSelect('created_by',$active, 0, null, 'name', 0);
 	// build the select list for the image position alignment
 	$lists['_align'] = mosAdminMenus::Positions('_align');
 	// build the select list for the image caption alignment
