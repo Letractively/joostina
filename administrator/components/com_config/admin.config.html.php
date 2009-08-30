@@ -163,7 +163,7 @@ class HTML_config {
 						<td><input class="text_area" style="width:500px;" type="text" name="config_sitename" size="50" value="<?php echo $row->config_sitename; ?>"/></td>
 					</tr>
 					<tr>
-						<td width="185"><?php echo _SITE_OFFLINE?>:</td>
+						<td width="250"><?php echo _SITE_OFFLINE?>:</td>
 						<td><?php echo $lists['offline']; ?></td>
 					</tr>
 					<tr>
