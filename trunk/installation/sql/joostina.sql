@@ -645,7 +645,7 @@ CREATE TABLE `#__templates_menu` (
 
 # Данные таблицы `#__templates_menu`
 
-INSERT INTO `#__templates_menu` VALUES ('newline', '0', '0');
+INSERT INTO `#__templates_menu` VALUES ('newline2', '0', '0');
 INSERT INTO `#__templates_menu` VALUES ('joostfree', '0', '1');
 
 # --------------------------------------------------------
