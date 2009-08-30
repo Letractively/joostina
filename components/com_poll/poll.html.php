@@ -20,38 +20,47 @@ class poll_html {
 
 	function showResults(&$poll, &$votes, $first_vote, $last_vote, $pollist, $params) {
 		mosMainFrame::getInstance()->addCSS(JConfig::getInstance()->config_live_site.'/components/com_poll/css/poll.css');
-?>
-		<div class="componentheading"><h1><?php echo _POLLS ?></h1></div>
-		<form action="index.php" method="post" name="poll" id="poll">
-<?php
-		if($params->get('page_title')) {
-?>
-			<div class="componentheading<?php echo $params->get('pageclass_sfx'); ?>"><?php echo $params->get('header'); ?></div>
-<?php
-		}
-?>
-		<div class="contentpane<?php echo $params->get('pageclass_sfx'); ?>">
-		<?php echo _SEL_POLL; ?>&nbsp;<?php echo $pollist; ?><br />
-<?php
-		if($votes) {
-			$j = 0;
-			$data_arr["text"] = null;
-			$data_arr["hits"] = null;
-			$data_arr['voters'] = null;
-			foreach($votes as $vote) {
-				$data_arr["text"][$j] = trim($vote->text);
-				$data_arr["hits"][$j] = $vote->hits;
-				$data_arr["voters"][$j] = $vote->voters;
-				$j++;
-			}
-			poll_html::graphit($data_arr, $poll->title, $first_vote, $last_vote);
-		}
-?>
+		
+		?>
+		<div class="polls <?php echo $params->get('pageclass_sfx'); ?>">		
+		
+			<div class="componentheading">
+				<h1>
+				<?php if($params->get('page_title', '')) {?>
+					<?php echo $params->get('header'); ?>
+				<?php } else{ ?>
+					<?php echo _POLLS ?>	
+				<?php }?>
+				</h1>
+			</div>
+
+			<form action="index.php" method="post" name="poll" id="poll">
+		
+				<div class="contentpane<?php echo $params->get('pageclass_sfx'); ?>">
+					<?php echo _SEL_POLL; ?>&nbsp;<?php echo $pollist; ?><br />
+					
+					<?php
+					if($votes) {
+						$j = 0;
+						$data_arr["text"] = null;
+						$data_arr["hits"] = null;
+						$data_arr['voters'] = null;
+						foreach($votes as $vote) {
+							$data_arr["text"][$j] = trim($vote->text);
+							$data_arr["hits"][$j] = $vote->hits;
+							$data_arr["voters"][$j] = $vote->voters;
+							$j++;
+						}
+						poll_html::graphit($data_arr, $poll->title, $first_vote, $last_vote);
+					}
+					?>
+				</div>
+			</form>
+		
+		<?php mosHTML::BackButton($params); ?>
+		
 		</div>
-		</form>
-<?php
-		mosHTML::BackButton($params);
-	}
+	<?php }
 
 
 	function graphit($data_arr, $graphtitle, $first_vote, $last_vote) {

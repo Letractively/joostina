@@ -18,60 +18,46 @@ class HTML_weblinks {
 
 	function displaylist(&$categories,&$rows,$catid,$currentcat = null,&$params,$tabclass) {
 		global $hide_js;
-		if($params->get('page_title')) {
-?>
-			<div class="componentheading<?php echo $params->get('pageclass_sfx'); ?>"><?php echo $currentcat->header; ?></div>
-<?php
-		}
-?>
-		<form action="index.php" method="post" name="adminForm">
-
-		<table width="100%" cellpadding="4" cellspacing="0" border="0" align="center" class="contentpane<?php echo $params->get('pageclass_sfx'); ?>">
-		<tr>
-			<td width="60%" valign="top" class="contentdescription<?php echo $params->get('pageclass_sfx'); ?>" colspan="2">
-<?php
-		// show image
-		if($currentcat->img) {
-?>
-				<img src="<?php echo $currentcat->img; ?>" align="<?php echo $currentcat->align; ?>" hspace="6" alt="<?php echo _WEBLINKS; ?>" />
-<?php
-		}
-		echo $currentcat->descrip;
-?>
-			</td>
-		</tr>
-		<tr>
-			<td>
-<?php
-		if(count($rows)) {
-			HTML_weblinks::showTable($params,$rows,$catid,$tabclass);
-		}
-?>
-			</td>
-		</tr>
-		<tr>
-			<td>&nbsp;
-
-			</td>
-		</tr>
-		<tr>
-			<td>
-			<?php
-		// Displays listing of Categories
-		if(($params->get('type') == 'category') && $params->get('other_cat')) {
-			HTML_weblinks::showCategories($params,$categories,$catid);
-		} else
-			if(($params->get('type') == 'section') && $params->get('other_cat_section')) {
-				HTML_weblinks::showCategories($params,$categories,$catid);
-			}
-?>
-			</td>
-		</tr>
-		</table>
-		</form>
+		
+		?>
+		
+		<div class="weblinks_page <?php echo $params->get('pageclass_sfx'); ?>">
+		
+			<form action="index.php" method="post" name="adminForm">
+				<?php if($params->get('page_title')) { ?>
+					<div class="componentheading"><h1><?php echo $currentcat->header; ?></h1></div>
+				<?php } ?>
+				
+				<?php if ($currentcat->descrip || $currentcat->img){?>
+					<div class="contentdescription"> 
+						<?php if($currentcat->img) { ?>
+						<img src="<?php echo $currentcat->img; ?>" align="<?php echo $currentcat->align; ?>" hspace="6" alt="<?php echo _WEBLINKS; ?>" />
+						<?php } ?>
+						
+						<?php echo $currentcat->descrip; ?>			
+					</div>
+				<?php } ?>
+				
+				<?php if(count($rows)) { ?>		
+					<div class="weblinks_list">
+						<?php HTML_weblinks::showTable($params,$rows,$catid,$tabclass); ?>
+					</div>
+				<?php } ?> 
+				
+				<div class="weblinks_cats">		
+				<?php if(($params->get('type') == 'category') && $params->get('other_cat')) {
+					HTML_weblinks::showCategories($params,$categories,$catid);
+				} else
+					if(($params->get('type') == 'section') && $params->get('other_cat_section')) {
+						HTML_weblinks::showCategories($params,$categories,$catid);
+					}
+				?>
+				</div>	
+			</form>
+		
+			<?php mosHTML::BackButton($params,$hide_js); ?>
+		</div>
 		<?php
-		// displays back button
-		mosHTML::BackButton($params,$hide_js);
 	}
 
 	/**
@@ -81,94 +67,86 @@ class HTML_weblinks {
 		global $cwl_i;
 		if(!isset($cwl_i)) $cwl_i = '';
 
-?>
+		?>
+		
 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
-		<?php
-		if($params->get('headings')) {
-?>
+			
+			<?php if($params->get('headings')) { ?>
 			<tr>
-<?php
-			if($params->get('weblink_icons') != -1) {
-?>
-					<td class="sectiontableheader<?php echo $params->get('pageclass_sfx'); ?>">&nbsp;</td>
-<?php
-			}
-?>
-				<td width="90%" height="20" class="sectiontableheader<?php echo $params->get('pageclass_sfx'); ?>"><?php echo _WEBLINK; ?></td>
-<?php
-			if($params->get('hits')) {
-?>
-					<td width="30" height="20" class="sectiontableheader<?php echo $params->get('pageclass_sfx'); ?>" align="right"><?php echo _COM_WEBLINKS_HEADER_HITS; ?></td>
-<?php
-			}
-?>
+			
+				<?php if($params->get('weblink_icons') != -1) { ?>
+				<th>&nbsp;</th>
+				<?php } ?>
+				
+				<th width="90%"><?php echo _WEBLINK; ?></th>
+				
+				<?php if($params->get('hits')) { ?>
+				<th width="30"><?php echo _COM_WEBLINKS_HEADER_HITS; ?></th>
+				<?php } ?>
+				
 			</tr>
-<?php
-		}
-
-		$k = 0;
-		foreach($rows as $row) {
-			// icon in table display
-			if($params->get('weblink_icons') != -1) {
-				$img = mosAdminMenus::ImageCheck('weblink.png','/images/M_images/',$params->get
-					('weblink_icons'),'/images/M_images/','Link','Link'.$cwl_i);
-				$cwl_i++;
-			} else {
-				$img = null;
-			}
-			$iparams = new mosParameters($row->params);
-
-			$link = sefRelToAbs('index.php?option=com_weblinks&task=view&catid='.$catid.'&id='.$row->id);
-			$link = ampReplace($link);
-
-			$menuclass = 'category'.$params->get('pageclass_sfx');
-
-			switch($iparams->get('target')) {
-					// cases are slightly different
-				case 1:
-					// open in a new window
-					$txt = '<a href="'.$link.'" target="_blank" class="'.$menuclass.'">'.$row->title.'</a>';
-					break;
-
-				case 2:
-					// open in a popup window
-					$txt = "<a href=\"#\" onclick=\"javascript: window.open('".$link."', '', 'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=780,height=550'); return false\" class=\"$menuclass\">".$row->title."</a>\n";
-					break;
-
-				default: // formerly case 2
-					// open in parent window
-					$txt = '<a href="'.$link.'" class="'.$menuclass.'">'.$row->title.'</a>';
-					break;
-			}
-?>
+			<?php } ?>
+			
+			<?php 
+			$k = 0;
+			foreach($rows as $row) {
+				// icon in table display
+				if($params->get('weblink_icons') != -1) {
+					$img = mosAdminMenus::ImageCheck('weblink.png','/images/M_images/',$params->get
+						('weblink_icons'),'/images/M_images/','Link','Link'.$cwl_i);
+					$cwl_i++;
+				} else {
+					$img = null;
+				}
+				$iparams = new mosParameters($row->params);
+	
+				$link = sefRelToAbs('index.php?option=com_weblinks&task=view&catid='.$catid.'&id='.$row->id);
+				$link = ampReplace($link);
+	
+				$menuclass = 'category'.$params->get('pageclass_sfx');
+	
+				switch($iparams->get('target')) {
+						// cases are slightly different
+					case 1:
+						// open in a new window
+						$txt = '<a href="'.$link.'" target="_blank" class="'.$menuclass.'">'.$row->title.'</a>';
+						break;
+	
+					case 2:
+						// open in a popup window
+						$txt = "<a href=\"#\" onclick=\"javascript: window.open('".$link."', '', 'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=780,height=550'); return false\" class=\"$menuclass\">".$row->title."</a>\n";
+						break;
+	
+					default: // formerly case 2
+						// open in parent window
+						$txt = '<a href="'.$link.'" class="'.$menuclass.'">'.$row->title.'</a>';
+						break;
+				}
+			?>
+			
+			
 			<tr class="<?php echo $tabclass[$k]; ?>">
-<?php
-			if($img) {
-?>
-					<td width="100" height="20" align="center">&nbsp;&nbsp;<?php echo $img; ?>&nbsp;&nbsp;</td>
-<?php
-			}
-?>
-				<td height="20"><?php echo $txt;
-			if($params->get('item_description')) {
-?>
+			
+				<?php if($img) { ?>
+				<td width="100" height="20" align="center">&nbsp;&nbsp;<?php echo $img; ?>&nbsp;&nbsp;</td>
+				<?php } ?>
+				
+				<td height="20">
+					<?php echo $txt; if($params->get('item_description')) { ?>
 					<br />
-				<?php echo $row->description;
-			}
-?>
+					<?php echo $row->description; } ?>
 				</td>
-<?php
-			if($params->get('hits')) {
-?>
-					<td align="center"><?php echo $row->hits; ?></td>
-<?php
-			}
-?>
+				
+				<?php if($params->get('hits')) { ?>
+				<td align="center"><?php echo $row->hits; ?></td>
+				<?php } ?>
+				
 			</tr>
-<?php
-			$k = 1 - $k;
+			
+			<?php $k = 1 - $k;
 		}
-?>
+		?>
+		
 		</table>
 		<?php
 	}
@@ -221,7 +199,6 @@ class HTML_weblinks {
 	* @param string The html for the categories select list
 	*/
 	function editWeblink($option,&$row,&$lists) {
-		require_once ($GLOBALS['mosConfig_absolute_path'].'/includes/HTML_toolbar.php');
 
 		$Returnid = intval(mosGetParam($_REQUEST,'Returnid',0));
 
@@ -249,56 +226,58 @@ class HTML_weblinks {
 		}
 		</script>
 
-		<form action="<?php echo sefRelToAbs("index.php"); ?>" method="post" name="adminForm" id="adminForm">
-		<table cellpadding="0" cellspacing="0" border="0" width="100%">
-		<tr>
-			<td class="contentheading"><?php echo _SUBMIT_LINK; ?></td>
-			<td width="10%">
-<?php
-		mosToolBar::startTable();
-		mosToolBar::spacer();
-		mosToolBar::save();
-		mosToolBar::cancel();
-		mosToolBar::endtable();
-?>
-			</td>
-		</tr>
-		</table>
+		<div class="weblinks_add">
+		
+			<div class="componentheading"><h1><?php echo _SUBMIT_LINK; ?></h1></div>
 
-		<table cellpadding="4" cellspacing="1" border="0" width="100%">
-		<tr>
-			<td width="20%" align="right"><?php echo _NAME; ?></td>
-			<td width="80%">
-			<input class="inputbox" type="text" name="title" size="50" maxlength="250" value="<?php echo htmlspecialchars($row->title,ENT_QUOTES); ?>" />
-			</td>
-		</tr>
-		<tr>
-			<td valign="top" align="right"><?php echo _SECTION; ?></td>
-			<td><?php echo $lists['catid']; ?></td>
-		</tr>
-		<tr>
-			<td valign="top" align="right"><?php echo _URL; ?></td>
-			<td>
-			<input class="inputbox" type="text" name="url" value="<?php echo $row->url; ?>" size="50" maxlength="250" />
-			</td>
-		</tr>
-		<tr>
-			<td valign="top" align="right"><?php echo _URL_DESC; ?></td>
-			<td>
-			<textarea class="inputbox" cols="30" rows="6" name="description" style="width:300px" width="300"><?php echo htmlspecialchars($row->description,ENT_QUOTES); ?></textarea>
-			</td>
-		</tr>
-		</table>
-
-		<input type="hidden" name="id" value="<?php echo $row->id; ?>" />
-		<input type="hidden" name="option" value="<?php echo $option; ?>" />
-		<input type="hidden" name="task" value="" />
-		<input type="hidden" name="ordering" value="<?php echo $row->ordering; ?>" />
-		<input type="hidden" name="approved" value="<?php echo $row->approved; ?>" />
-		<input type="hidden" name="Returnid" value="<?php echo $Returnid; ?>" />
-		<input type="hidden" name="referer" value="<?php echo $_SERVER['HTTP_REFERER']; ?>" />
-		<input type="hidden" name="<?php echo $validate; ?>" value="1" />
-		</form>
+			<br />
+			<form action="<?php echo sefRelToAbs("index.php"); ?>" method="post" name="adminForm" id="adminForm">
+	
+				<table cellpadding="4" cellspacing="1" border="0" width="100%">
+				<tr>
+					<td width="20%" align="right"><?php echo _NAME; ?></td>
+					<td width="80%">
+					<input class="inputbox" type="text" name="title" size="50" maxlength="250" value="<?php echo htmlspecialchars($row->title,ENT_QUOTES); ?>" />
+					</td>
+				</tr>
+				<tr>
+					<td valign="top" align="right"><?php echo _SECTION; ?></td>
+					<td><?php echo $lists['catid']; ?></td>
+				</tr>
+				<tr>
+					<td valign="top" align="right"><?php echo _URL; ?></td>
+					<td>
+					<input class="inputbox" type="text" name="url" value="<?php echo $row->url; ?>" size="50" maxlength="250" />
+					</td>
+				</tr>
+				<tr>
+					<td valign="top" align="right"><?php echo _URL_DESC; ?></td>
+					<td>
+					<textarea class="inputbox" cols="30" rows="6" name="description" style="width:300px" width="300"><?php echo htmlspecialchars($row->description,ENT_QUOTES); ?></textarea>
+					</td>
+				</tr>
+				</table>
+				
+				<div class="buttons">
+					<span class="button">
+						<a class="button" href="javascript:submitbutton('save');" ><?php echo _SAVE?></a>
+					</span>					
+					<span class="button">
+						<a class="button" href="javascript:submitbutton('cancel');" ><?php echo _CANCEL?></a>
+					</span>	
+				</div>
+		
+				<input type="hidden" name="id" value="<?php echo $row->id; ?>" />
+				<input type="hidden" name="option" value="<?php echo $option; ?>" />
+				<input type="hidden" name="task" value="" />
+				<input type="hidden" name="ordering" value="<?php echo $row->ordering; ?>" />
+				<input type="hidden" name="approved" value="<?php echo $row->approved; ?>" />
+				<input type="hidden" name="Returnid" value="<?php echo $Returnid; ?>" />
+				<input type="hidden" name="referer" value="<?php echo $_SERVER['HTTP_REFERER']; ?>" />
+				<input type="hidden" name="<?php echo $validate; ?>" value="1" />
+			</form>
+		
+		</div>
 		<?php
 	}
 }

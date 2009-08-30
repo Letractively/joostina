@@ -118,7 +118,7 @@ class XmapHtml extends Xmap {
 			$this->_width	= (100 / $columns) - 1;
 		}
 		echo '<div class="'. $sitemap->classname .'">';
-		echo '<div class="componentheading">'.$title.'</div>';
+		echo '<div class="componentheading"><h1>'.$title.'</h1></div>';
 		echo '<div class="contentpaneopen"'. ($sitemap->columns > 1 ? ' style="float:left;width:100%;"' : '') .'>';
 
 
