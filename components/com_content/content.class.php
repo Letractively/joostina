@@ -710,15 +710,16 @@ class mosContent extends mosDBTable{
 		$orderby = contentSqlHelper::_orderby_sec($orderby);
 
 		// filter functionality
-		$and = ''; $filter = '';
-		if ( $params->get( 'filter' ) ) {
+		$and = '';
+		$filter = '';
+		if ( $params->get( 'filter',0 ) ) {
 			$filter = stripslashes(strval(mosGetParam( $_POST, 'filter', '' )));
 
 			if ( $filter ) {
 				// clean filter variable
-				$filter = strtolower( $filter );
+				$filter = Jstring::strtolower( $filter );
 
-				switch ( $params->get( 'filter_type' ) ) {
+				switch ( $params->get( 'filter_type',0 ) ) {
 					
 					case 'title':
 						$and = "\n AND LOWER( a.title ) LIKE '%$filter%'";
@@ -760,21 +761,21 @@ class mosContent extends mosDBTable{
 
 		// filter functionality
 		$and = '';
-		if ( $params->get( 'filter' ) ) {
+		if ( $params->get( 'filter',0 ) ) {
 			$filter = stripslashes(strval(mosGetParam( $_POST, 'filter', '' )));
 
 			if ( $filter ) {
 				// clean filter variable
-				$filter = strtolower( $filter );
+				$filter = Jstring::strtolower( $filter );
 
-				switch ( $params->get( 'filter_type' ) ) {
+				switch ( $params->get( 'filter_type',0 ) ) {
 					
 					case 'title':
-						$and = "\n AND LOWER( a.title ) LIKE '%$filter%'";
+						$and = " AND LOWER( a.title ) LIKE '%$filter%'";
 						break;
 
 					case 'hits':
-						$and = "\n AND a.hits LIKE '%$filter%'";
+						$and = " AND a.hits LIKE '%$filter%'";
 						break;
 				}
 			}
@@ -815,7 +816,7 @@ class mosContent extends mosDBTable{
 
 	function ReadMore(&$row, &$params, $template = ''){
 		$return = '';
-		if ($params->get('readmore') && $params->get('intro_only') && $row->link_text){
+		if ($params->get('readmore',0) && $params->get('intro_only',0) && $row->link_text){
 			$return = '<a href="' . $row->link_on . '" title="' . $row->title . '" class="readon">' . $row->link_text . '</a>';
 		}
 		return $return;
@@ -851,7 +852,7 @@ class mosContent extends mosDBTable{
 
 	function get_prev_next($row, $where, $access, $params){
 		global $gid;
-		
+
 		$my_func = new myFunctions('get_prev_next', array('row'=>$row, 'where'=>$where, 'params'=>$params, 'access'=>$access));
 		if($my_func->check_user_function()){
 			return $my_func->start_user_function();
