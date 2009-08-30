@@ -175,6 +175,7 @@ function pollresult($uid) {
 	$params->def('pageclass_sfx','');
 	$params->def('back_button',$mainframe->getCfg('back_button'));
 	$params->def('header',$menu->name);
+	$params->get('page_title', _POLLS);
 
 	$mainframe->SetPageTitle($poll->title);
 
