@@ -712,7 +712,7 @@ class mosContent extends mosDBTable{
 		// filter functionality
 		$and = ''; $filter = '';
 		if ( $params->get( 'filter' ) ) {
-			$filter = mosGetParam( $_POST, 'filter', '' );
+			$filter = stripslashes(strval(mosGetParam( $_POST, 'filter', '' )));
 
 			if ( $filter ) {
 				// clean filter variable
@@ -761,7 +761,7 @@ class mosContent extends mosDBTable{
 		// filter functionality
 		$and = '';
 		if ( $params->get( 'filter' ) ) {
-			$filter = mosGetParam( $_POST, 'filter', '' );
+			$filter = stripslashes(strval(mosGetParam( $_POST, 'filter', '' )));
 
 			if ( $filter ) {
 				// clean filter variable
@@ -1654,11 +1654,10 @@ class contentSqlHelper{
 		// filter functionality
 		$and = null;
 		if ($params->get('filter')){
-			if ($params->get('cur_filter')){				
+			if ($params->get('cur_filter')){
 				
 				// clean filter variable
-				$filter = strtolower($params->get('cur_filter'));
-				//$filter = Jstring::to_utf8($filter);
+				$filter = Jstring::strtolower($params->get('cur_filter'));
 
 				switch ($params->get('filter_type')){
 					case 'title':

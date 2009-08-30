@@ -337,7 +337,7 @@ function _showSectionCatlist($id) {
 	return array('content' => $content_boby, 'params' => $params);
 }
 
-function showTableCategory($id,$cache){
+function showTableCategory($id){
 	global $my;
 
 	$limit = intval(mosGetParam($_REQUEST, 'limit', 0));
@@ -346,8 +346,14 @@ function showTableCategory($id,$cache){
 	$selected = strval(mosGetParam($_REQUEST, 'order', ''));
 	$filter = stripslashes(strval(mosGetParam($_REQUEST, 'filter', '')));
 
-	$r = $cache->call('_showTableCategory', $id,$my->gid,$limit,$limitstart,$sectionid,$selected,$filter);
-	from_cache($r);
+	if(Jconfig::getInstance()->config_caching==1){
+		$cache = &mosCache::getCache('com_content');
+		$r = $cache->call('_showTableCategory', $id,$my->gid,$limit,$limitstart,$sectionid,$selected,$filter);
+	}else{
+		$r = _showTableCategory($id,$my->gid,$limit,$limitstart,$sectionid,$selected,$filter);
+	}
+
+	echo from_cache($r);
 }
 
 /**
