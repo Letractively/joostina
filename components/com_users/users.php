@@ -598,7 +598,7 @@ function saveRegistration() {
 	$gid_md5 = $_POST['gid_check'];
 	
 	if($gid_md5 != md5($GLOBALS['mosConfig_secret'].md5($row->gid))){ 
-		mosErrorAlert('Go home, stuppid hacker!');
+		mosErrorAlert('Ooops!');
 	}
 		
 	$row->usertype = $acl->get_group_name($row->gid,'ARO');

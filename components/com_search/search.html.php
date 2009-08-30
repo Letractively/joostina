@@ -28,14 +28,15 @@ class search_html {
 		global $Itemid, $mainframe;
 ?>
 <br />
-		<form action="<?php echo $mainframe->getCfg('live_site');?>/index.php" method="get">
+
+		<form action="index.php" method="get" name="searchForm" id="searchForm">
 	<input type="hidden" name="option" value="com_search" />
 	<input type="hidden" name="Itemid" value="<?php echo $Itemid; ?>" />
 	<div class="contentpaneopen<?php echo $params->get('pageclass_sfx'); ?>">
 		<label for="search_searchword"><?php echo _PROMPT_KEYWORD; ?>:</label>
 		<br />
 		<input type="text" name="searchword" id="search_searchword" size="30" maxlength="20" value="<?php echo stripslashes($searchword);?>" class="inputbox" />
-		<span class="button"><input type="submit" name="submit" value="<?php echo _SEARCH; ?>" class="button" /></span>
+		<span class="button"><input type="submit" name="submit2" value="<?php echo _SEARCH; ?>" class="button" /></span>
 		<br />
 		<?php echo $lists['searchphrase']; ?>
 		<br />

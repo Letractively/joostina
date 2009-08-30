@@ -13,10 +13,10 @@ defined('_VALID_MOS') or die();
 ?><script language="javascript" type="text/javascript">
 	function submitbutton_reg() {
 		var form = document.mosForm;
-		var r = new RegExp("[\<|\>|\"|\'|\%|\;|\(|\)|\&|\+|\-]", "i");
+		var r = new RegExp("[\<|\>|\"|\'|\%|\;|\(|\)|\&|\+]", "i");
 
 		// do field validation
-		if (form.name.value == "") {
+		if (form.name.value == "" || r.exec(form.name.value)) {
 			alert( "<?php echo addslashes(html_entity_decode(_REGWARN_NAME)); ?>" );
 		} else if (form.username.value == "") {
 			alert( "<?php echo addslashes(html_entity_decode(_REGWARN_UNAME)); ?>" );
