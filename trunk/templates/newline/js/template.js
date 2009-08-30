@@ -1,6 +1,5 @@
 $(document).ready(function(){
 	$(".content table tr:odd").addClass("tr-second");
-    $('div.moduletable-round').corner();
 });
 DD_roundies.addRule('.inputbox', '4px', true);
 DD_roundies.addRule('.dynamic-tab-pane-control', '5px', true);
