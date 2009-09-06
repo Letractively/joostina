@@ -60,7 +60,6 @@ if(file_exists('installation/index.php') && $_VERSION->SVN == 0) {
 // отображение страницы выключенного сайта
 if($mosConfig_offline == 1) {
 	require ($mosConfig_absolute_path.DS.'templates'.DS.'system'.DS.'offline.php');
-	exit();
 }
 
 // проверяем, разрешено ли использование системных мамботов
@@ -207,8 +206,7 @@ if($option == 'login') {
 // получение шаблона страницы
 $cur_template = $mainframe->getTemplate();
 
-/**
-** * @global - Места для хранения информации обработки компонента*/
+/*** * @global - Места для хранения информации обработки компонента*/
 $_MOS_OPTION = array();
 
 // подключение функций редактора, т.к. сессии(авторизация ) на фронте отключены - это тоже запрещаем
@@ -237,7 +235,6 @@ if($path = $mainframe->getPath('front')) {
 }
 $_MOS_OPTION['buffer'] = ob_get_contents(); // главное содержимое - стек вывода компонента - mainbody
 ob_end_clean();
-
 
 initGzip();
 

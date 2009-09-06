@@ -1,13 +1,13 @@
 /**
- * componentss.css. Описание стилей компонентов.
+ * componentss.css. РћРїРёСЃР°РЅРёРµ СЃС‚РёР»РµР№ РєРѕРјРїРѕРЅРµРЅС‚РѕРІ.
  *
  * @package     Joostina
  * @subpackage  templates/NewLine2
  * @version     $Id: components.css 29-09-2009 12:17 ZaiSL $;
  */
 
-/*--------------------------------------------------- com_content - Содержимое*/
-/*Заголовки*/
+/*--------------------------------------------------- com_content - РЎРѕРґРµСЂР¶РёРјРѕРµ*/
+/*Р—Р°РіРѕР»РѕРІРєРё*/
 a.contentpagetitle, .contentheading, .contentheading h2 {
     color: #5B5B5B;
 }
@@ -15,7 +15,7 @@ a.contentpagetitle:hover {
 	text-decoration: none;
 }
 
-/*Страница полного просмотра материала*/
+/*РЎС‚СЂР°РЅРёС†Р° РїРѕР»РЅРѕРіРѕ РїСЂРѕСЃРјРѕС‚СЂР° РјР°С‚РµСЂРёР°Р»Р°*/
 .item_full .item_info {
     border-bottom: 1px solid #DDDDDD;
     border-top: 1px solid #DDDDDD;
@@ -36,7 +36,7 @@ a.contentpagetitle:hover {
     float: right; margin: 12px 0 0 0;
 }
 
-/*Ссылки на предыдущую и следующую статью*/
+/*РЎСЃС‹Р»РєРё РЅР° РїСЂРµРґС‹РґСѓС‰СѓСЋ Рё СЃР»РµРґСѓСЋС‰СѓСЋ СЃС‚Р°С‚СЊСЋ*/
 .page_navigation{
     width: 100%;
 }
@@ -50,7 +50,7 @@ a.contentpagetitle:hover {
     text-align: right;
 }
 
-/*Режим БЛОГА*/
+/*Р РµР¶РёРј Р‘Р›РћР“Рђ*/
 .intro{
     margin: 4px 0 18px 0;
 }
@@ -81,7 +81,7 @@ a.contentpagetitle:hover {
     float: right; text-align: right;
 }
 
-/*Описания*/
+/*РћРїРёСЃР°РЅРёСЏ*/
 .contentdescription {
 	background: #F4F5ED;
 	border-top: 1px solid #DDDDDD;  border-bottom: 1px solid #DDDDDD;
@@ -110,7 +110,7 @@ a.contentpagetitle:hover {
 }
 
 
-/*Ссылка "Подробнее" */
+/*РЎСЃС‹Р»РєР° "РџРѕРґСЂРѕР±РЅРµРµ" */
 .readmore{
     float: right;
 }
@@ -133,7 +133,7 @@ a.readon:hover {
 .article_seperator {
 	height: 1px;
 }
-/*Редактирование содержимого*/
+/*Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ*/
 table.cedit_misc {
 	margin: 5px 0 20px 0;
 }
@@ -164,7 +164,7 @@ table.cedit_main {
 }
 
 
-/*----------------------------------------------------- com_contact - Контакты*/
+/*----------------------------------------------------- com_contact - РљРѕРЅС‚Р°РєС‚С‹*/
 .contact_page img#print{
     float: right;
 }
@@ -195,12 +195,12 @@ table.cedit_main {
    margin: 10px 0 0 100px;
 }
 
-/*-------------------------------------------------- com_users - Пользователи*/
-/*Регистрация*/
+/*-------------------------------------------------- com_users - РџРѕР»СЊР·РѕРІР°С‚РµР»Рё*/
+/*Р РµРіРёСЃС‚СЂР°С†РёСЏ*/
 .registration_page .button{
     margin: 0 0 0 110px;
 }
-/*Восстановление пароля*/
+/*Р’РѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёРµ РїР°СЂРѕР»СЏ*/
 .lostpass_page {
     float: left;
 }
@@ -222,7 +222,7 @@ table.cedit_main {
 .lostpass_page .button{
     margin: 0 0 0 66px;
 }
-/*Редактирование профиля*/
+/*Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ РїСЂРѕС„РёР»СЏ*/
 .edit_profile_page .buttons{
     text-align: right;
     padding: 0 42px 0 0;
@@ -247,7 +247,7 @@ table.cedit_main {
     width: 90%;
 }
 
-/*Меню профиля*/
+/*РњРµРЅСЋ РїСЂРѕС„РёР»СЏ*/
 .jstProfile_menu{
     height: 30px;
     background: #F2F3E9;
@@ -309,9 +309,9 @@ table.cedit_main {
 
 }
 
-/* ----------------------------------------------------- com_poll - "Опросы" */
+/* ----------------------------------------------------- com_poll - "РћРїСЂРѕСЃС‹" */
 .poll_quest {
-/* Текст вопроса   */
+/* РўРµРєСЃС‚ РІРѕРїСЂРѕСЃР°   */
 	background: url(../images/elements/arrow2.png) no-repeat left;
 	padding: 2px 0 2px 20px;
 	vertical-align: middle;

@@ -255,8 +255,9 @@ DEFINE('_TO_TOP','Вверх');
 DEFINE('_TOP','Вверху');
 DEFINE('_TYPE','Тип');
 DEFINE('_VERSION','Версия:');
-DEFINE('_VIEW_COUNT','Кол-во просмотров');   
+DEFINE('_VIEW_COUNT','Кол-во просмотров');
 DEFINE('_UNAME','Имя пользователя');
+DEFINE('_USERNAME','Имя пользователя');
 DEFINE('_UNKNOWN','Неизвестно');
 DEFINE('_UNPUBLISH_ON_FRONTPAGE','Скрыть (Не показывать на сайте)');
 DEFINE('_UNPUBLISHED','Не опубликовано');
@@ -560,3 +561,6 @@ DEFINE('_SITE_OFFLINE','Сайт выключен');
 
 DEFINE('_MOVED_TO_TRASH','Отправлено в корзину');
 DEFINE('_CATS_TO_COPY','Копируемые категории');
+
+DEFINE('_PROMPT_CLOSE','Закрыть окно');
+DEFINE('_REMEMBER_ME','Запомнить');

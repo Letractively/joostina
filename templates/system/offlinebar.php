@@ -1,30 +1,30 @@
 <?php
 /**
 * @package Joostina
-* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
-* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
-* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
-* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
+* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
 */
 
-/** РїСЂРѕРІРµСЂРєР° РІРєР»СЋС‡РµРЅРёСЏ СЌС‚РѕРіРѕ С„Р°Р№Р»Р° С„Р°Р№Р»РѕРј-РёСЃС‚РѕС‡РЅРёРєРѕРј*/
+/** проверка включения этого файла файлом-источником*/
 defined('_VALID_MOS') or die();
 
 require_once ('includes/joomla.php');
-include_once ('language/'.$mosConfig_lang.'.php');
+include_once ($mosConfig_absolute_path.DS.'language'.DS.$mosConfig_lang.DS.'system.php');
 
 global $option,$database;
 global $mosConfig_live_site;
 
-// РїРѕР»СѓС‡РµРЅРёРµ С€Р°Р±Р»РѕРЅР° СЃС‚СЂР°РЅРёС†С‹
+// получение шаблона страницы
 $cur_template = @$mainframe->getTemplate();
 if(!$cur_template) {
-	$cur_template = 'rhuk_solarflare_ii';
+	$cur_template = 'newline2';
 }
 
-// Р’С‹РІРѕРґ HTML
+// Вывод HTML
 
-// С‚СЂРµР±СѓРµС‚СЃСЏ РґР»СЏ СЂР°Р·РґРµР»РµРЅРёСЏ РЅРѕРјРµСЂР° ISO РёР· РєРѕРЅСЃС‚Р°РЅС‚С‹ СЏР·С‹РєРѕРІРѕРіРѕ С„Р°Р№Р»Р° _ISO
+// требуется для разделения номера ISO из константы языкового файла _ISO
 $iso = split('=',_ISO);
 // xml prolog
 echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>';
@@ -49,9 +49,8 @@ table.moswarning h2 {
 
 </style>
 <meta http-equiv="Content-Type" content="text/html; <?php echo _ISO; ?>" />
-<title><?php echo $mosConfig_sitename; ?> - РЎР°Р№С‚ РІС‹РєР»СЋС‡РµРЅ</title>
-<link rel="stylesheet" href="<?php echo $mosConfig_live_site; ?>/templates/<?php echo
-$cur_template; ?>/css/template_css.css" type="text/css" />
+<title><?php echo $mosConfig_sitename; ?> - <?php echo _SITE_OFFLINE?></title>
+<link rel="stylesheet" href="<?php echo $mosConfig_live_site; ?>/templates/<?php echo $cur_template; ?>/css/template_css.css" type="text/css" />
 </head>
 <body style="margin: 0px; padding: 0px;">
 
@@ -62,7 +61,7 @@ if($mosConfig_offline == 1) {
 	<tr>
 		<td>
 			<h2>
-			<?php
+<?php
 	echo $mosConfig_sitename;
 	echo ' - ';
 	echo $mosConfig_offline_message;
@@ -89,7 +88,7 @@ if($mosConfig_offline == 1) {
 	<tr>
 		<td>
 			<h2>
-			<?php echo 'INSTALL_WARN'; ?>
+			<?php echo INSTALL_WARN; ?>
 			</h2>
 		</td>
 	</tr>

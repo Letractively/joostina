@@ -20,8 +20,8 @@ class TOOLBAR_languages {
 		mosMenuBar::publishList();
 		mosMenuBar::spacer();
 		mosMenuBar::deleteList();
-		mosMenuBar::spacer();
-		mosMenuBar::editListX('edit_source');
+		//mosMenuBar::spacer();
+		//mosMenuBar::editListX('edit_source');
 		mosMenuBar::spacer();
 		mosMenuBar::addNew();
 		mosMenuBar::spacer();
