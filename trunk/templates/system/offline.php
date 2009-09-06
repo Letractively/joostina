@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
-* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
-* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
-* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
+* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
 */
 
-// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+// запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 global $database;
@@ -18,12 +18,15 @@ include_once ($mosConfig_absolute_path.DS.'language'.DS.$mosConfig_lang.DS.'syst
 $adminOffline = false;
 
 if(!defined('_INSTALL_CHECK')) {
-	// СЌС‚РѕС‚ РјРµС‚РѕРґ РѕС‚Р»РёС‡Р°РµС‚СЃСЏ РѕС‚ РїРѕРґРѕР±РЅРѕРіРѕ РІ 1.1, С‚.Рє. РѕС‚Р»РёС‡Р°РµС‚СЃСЏ РѕР±СЂР°Р±РѕС‚РєР° СЃРµСЃСЃРёР№
-	session_name(md5($mosConfig_live_site));
-	session_start();
-
-	if(class_exists('mosUser')) {
-		// РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёРµ РЅРµРєРѕС‚РѕСЂС‹С… РїРµСЂРµРјРµРЅРЅС‹С… СЃРµСЃСЃРёРё
+	// этот метод отличается от подобного в 1.1, т.к. отличается обработка сессий
+	$_s = session_id();
+	if( !isset($_s)) {
+		session_name(md5($mosConfig_live_site));
+		session_start();
+	}
+	require_once(Jconfig::getInstance()->config_absolute_path.'/components/com_users/users.class.php');
+	if(class_exists('mosUser') && $database != null ) {
+		// восстановление некоторых переменных сессии
 		$admin = new mosUser($database);
 		$admin->id = intval(mosGetParam($_SESSION,'session_user_id',''));
 		$admin->username = strval(mosGetParam($_SESSION,'session_USER',''));
@@ -31,10 +34,9 @@ if(!defined('_INSTALL_CHECK')) {
 		$session_id = mosGetParam($_SESSION,'session_id','');
 		$logintime = mosGetParam($_SESSION,'session_logintime','');
 
-		// РїСЂРѕРІРµСЂРєР° РЅР°Р»РёС‡РёСЏ СЃС‚СЂРѕРєРё СЃРµСЃСЃРёРё РІ Р±Р°Р·Рµ РґР°РЅРЅС‹С…
+		// проверка наличия строки сессии в базе данных
 		if($session_id == md5($admin->id.$admin->username.$admin->usertype.$logintime)) {
-			$query = "SELECT* FROM #__session WHERE session_id = ".$database->Quote($session_id)."\n AND username = ".$database->Quote($admin->username)."\n AND userid = ".
-				intval($admin->id);
+			$query = "SELECT* FROM #__session WHERE session_id = ".$database->Quote($session_id)."\n AND username = ".$database->Quote($admin->username)."\n AND userid = ".intval($admin->id);
 			$database->setQuery($query);
 			if(!$result = $database->query()) {
 				echo $database->stderr();
@@ -47,22 +49,26 @@ if(!defined('_INSTALL_CHECK')) {
 }
 
 if(!defined('_ADMIN_OFFLINE') || defined('_INSTALL_CHECK')) {
-	@include_once ('language/'.$mosConfig_lang.'.php');
+	include_once ($mosConfig_absolute_path.DS.'language'.DS.$mosConfig_lang.DS.'system.php');
+	require_once ($mosConfig_absolute_path.DS.'includes'.DS.'version.php');
+
+	$_VERSION	= new joomlaVersion();
+	$version	= $_VERSION->CMS.' '.$_VERSION->CMS_ver.' '.$_VERSION->DEV_STATUS.' [ '.$_VERSION->CODENAME.' ] '.$_VERSION->RELDATE.' '.$_VERSION->RELTIME.' '.$_VERSION->RELTZ;
 
 	if($database != null) {
-		// РїРѕР»СѓС‡РµРЅРёРµ РЅР°Р·РІР°РЅРёСЏ С€Р°Р±Р»РѕРЅР° СЃР°Р№С‚Р° РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
+		// получение названия шаблона сайта по умолчанию
 		$query = "SELECT template FROM #__templates_menu WHERE client_id = 0 AND menuid = 0";
 		$database->setQuery($query);
 		$cur_template = $database->loadResult();
 		$path = "$mosConfig_absolute_path/templates/$cur_template/index.php";
 		if(!file_exists($path)) {
-			$cur_template = 'jooway';
+			$cur_template = 'newline2';
 		}
 	} else {
-		$cur_template = 'jooway';
+		$cur_template = 'newline2';
 	}
 
-	// С‚СЂРµР±СѓРµС‚СЃСЏ РґР»СЏ СЂР°Р·РґРµР»РµРЅРёСЏ РЅРѕРјРµСЂР° ISO РёР· РєРѕРЅСЃС‚Р°РЅС‚С‹ СЏР·С‹РєРѕРІРѕРіРѕ С„Р°Р№Р»Р° _ISO
+	// требуется для разделения номера ISO из константы языкового файла _ISO
 	$iso = split('=',_ISO);
 	// xml prolog
 	echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>';
@@ -76,7 +82,7 @@ if(!defined('_ADMIN_OFFLINE') || defined('_INSTALL_CHECK')) {
 		</style>
 		<link rel="stylesheet" href="<?php echo $mosConfig_live_site; ?>/templates/css/offline.css" type="text/css" />
 <?php
-	// Р·РЅР°С‡РѕРє РёР·Р±СЂР°РЅРЅРѕРіРѕ (favicon)
+	// значок избранного (favicon)
 	if(!$mosConfig_favicon) {
 		$mosConfig_favicon = 'favicon.ico';
 	}
@@ -100,7 +106,7 @@ if(!defined('_ADMIN_OFFLINE') || defined('_INSTALL_CHECK')) {
 		<table width="550" align="center" class="outline">
 		<tr>
 			<td width="60%" height="50" align="center">
-			<img src="<?php echo $mosConfig_live_site; ?>/images/system/syte_off.png" alt="РЎР°Р№С‚ РІС‹РєР»СЋС‡РµРЅ!" align="middle" />
+				<img src="<?php echo $mosConfig_live_site; ?>/images/system/syte_off.png" alt="<?php echo _SITE_OFFLINE?>" align="middle" />
 			</td>
 		</tr>
 		<tr>
@@ -117,29 +123,28 @@ if(!defined('_ADMIN_OFFLINE') || defined('_INSTALL_CHECK')) {
 			</td>
 		</tr>
 <?php
-	} else
-		if(@$mosSystemError) {
+	} elseif($mosSystemError) {
 ?>
 		<tr>
 			<td width="39%" align="center">
 				<b><?php echo $mosConfig_error_message; ?></b>
 				<br />
-				<span class="err"><?php echo defined('_SYSERR'.$mosSystemError)?constant('_SYSERR'.$mosSystemError):$mosSystemError; ?></span>
+				<span class="err"><?php echo defined('_SYSERR'.$mosSystemError) ? constant('_SYSERR'.$mosSystemError) : $mosSystemError; ?></span>
 			</td>
 		</tr>
 <?php
-		} else {
+	} else {
 ?>
 		<tr>
 			<td width="39%" align="center"><b><?php echo _INSTALL_WARN; ?></b></td>
 		</tr>
 <?php
-		}
+	}
 ?>
 	</table>
 	</div>
 	<div id="break"></div>
-	<div id="footer_off" align="center"><div align="center"><?php echo @$_VERSION->URL; ?></div></div>
+	<div id="footer_off" align="center"><div align="center"><?php echo $version; ?></div></div>
 	</body>
 </html>
 <?php

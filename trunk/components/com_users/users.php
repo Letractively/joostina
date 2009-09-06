@@ -32,7 +32,8 @@ require_once ($mainframe->getPath('class'));
 
 $config = &Jconfig::getInstance();
 
-$uid = intval(mosGetParam( $_REQUEST, 'user', 0 ));
+$id = intval(mosGetParam( $_REQUEST, 'id', 0 ));
+$uid = intval(mosGetParam( $_REQUEST, 'user', $id ));
 
 switch($task) {
 	case 'edit';

@@ -1,5 +1,5 @@
 /**
- * menu.css. Описание стилей меню
+ * menu.css. РћРїРёСЃР°РЅРёРµ СЃС‚РёР»РµР№ РјРµРЅСЋ
  *
  * @package     Joostina
  * @subpackage  templates/NewLine2
@@ -12,7 +12,7 @@ ul#mainlevel, ul#mainlevel li, ul#mainlevel-nav, ul#mainlevel-nav li {
 	padding: 0;
 }
 
-/* --------------------------------------------------------------Верхнее меню */
+/* --------------------------------------------------------------Р’РµСЂС…РЅРµРµ РјРµРЅСЋ */
 ul#mainlevel-nav, ul#mainlevel-nav li {
 	display: inline;
 	list-style: none;
@@ -50,7 +50,7 @@ ul#mainlevel-nav li a#active_menu-nav {
 	text-decoration: none;
 }
 
-/* -----------------------------------------------------------------Левое меню*/
+/* -----------------------------------------------------------------Р›РµРІРѕРµ РјРµРЅСЋ*/
 .moduletable-round {
 	padding: 15px 2px 15px 2px;
 }
@@ -72,7 +72,7 @@ ul#mainlevel-nav li a#active_menu-nav {
 	padding: 0;
 }
 
-/* --------------------------------------------------------Дополнительное меню*/
+/* --------------------------------------------------------Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅРѕРµ РјРµРЅСЋ*/
 .moduletable-help {
 	background: url(../images/layout/help.jpg) no-repeat top left;
 	margin: 15px 0;
@@ -98,7 +98,7 @@ ul#mainlevel-nav li a#active_menu-nav {
 	color: #498FC3;
 }
 
-/* ---------------------------------------------------------------Нижнее меню*/
+/* ---------------------------------------------------------------РќРёР¶РЅРµРµ РјРµРЅСЋ*/
 .footer ul.menulist-bottom {
 	float: left;
 	margin: 0 0 0 20%;

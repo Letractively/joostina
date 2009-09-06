@@ -18,4 +18,3 @@ DEFINE('_LOGOUT_SUCCESS','Вы успешно закончили работу с
 DEFINE('_LOGIN_DESCRIPTION','Вы должны войти на сайт как пользователь, для доступа к закрытым разделам');
 DEFINE('_LOGOUT_DESCRIPTION','Вы действительно хотите покинуть профиль?');
 DEFINE('_PASSWORD','Пароль');
-DEFINE('_REMEMBER_ME','Запомнить');

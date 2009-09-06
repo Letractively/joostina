@@ -731,11 +731,11 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 	$row->tags = null;
 		if($row->id){
 		$tags = new contentTags($database);
-	    
-	    $load_tags = $tags->load_by($row);
-	    if(count($load_tags)){
-	    	$row->tags = implode(',', $load_tags);	
-	    }
+
+		$load_tags = $tags->load_by($row);
+		if(count($load_tags)){
+			$row->tags = implode(',', $load_tags);
+		}
 	}
 
 	if($mainframe->getCfg('use_content_edit_mambots')){

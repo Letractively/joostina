@@ -3220,7 +3220,7 @@ class mosHTML {
 ?>
 
 <?php if(!Jconfig::getInstance()->config_index_print) { ?>
-			<noindex><a href="#" target="_blank" onclick="window.open('<?php echo $link; ?>','win2','<?php echo $status; ?>'); return false;" title="<?php echo _PRINT; ?>"><?php echo $image; ?></a></noindex>
+			<del><![CDATA[<noindex>]]></del><a href="#" target="_blank" onclick="window.open('<?php echo $link; ?>','win2','<?php echo $status; ?>'); return false;" title="<?php echo _PRINT; ?>"><?php echo $image; ?></a><del><![CDATA[</noindex>]]></del>
 <?php } else { ?>
 			<a href="<?php echo $link; ?>" target="_blank" title="<?php echo _PRINT; ?>"><?php echo $image; ?></a>
 <?php } ; ?>
