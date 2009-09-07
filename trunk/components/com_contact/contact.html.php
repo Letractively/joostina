@@ -370,9 +370,11 @@ class HTML_contact {
 		
 		?>
 		
+		<?php if($params->get('email_description', '')) : ?>
 		<div class="info description">
 			<?php echo $params->get('email_description') ?>
 		</div>
+		<?php endif; ?>
 
 		<form action="<?php echo sefRelToAbs('index.php?option=com_contact&amp;Itemid='.$Itemid); ?>" method="post" name="emailForm" target="_top" id="emailForm">
 		
