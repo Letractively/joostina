@@ -12,7 +12,7 @@ defined('_VALID_MOS') or die(); ?>
 <div class="item_full">
 	<?php if($params->get('item_title', 1)) : ?>
 		<div <?php echo $news_uid_css_title; ?>class="item_title">
-			<div class="contentheading"><h1><?php echo $row->title; ?></h1></div>
+			<div class="contentheading"><?php echo $row->title; ?></div>
 		</div>
 	<?php endif; ?>
 	
@@ -68,7 +68,7 @@ defined('_VALID_MOS') or die(); ?>
 		<?php endif; ?>	
 	</div>
 
-	<span class="edit_item"><?php echo $edit; ?></span>
+	<?php if($access->canEdit) : ?>	<span class="edit_item"><?php echo $edit; ?></span><?php endif; ?>
 
 	<div class="item_info_bottom">	
 		<?php if($params->get('tags')) : ?>
