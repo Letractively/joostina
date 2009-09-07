@@ -10,7 +10,6 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-DEFINE('_ENQUIRY','Контакт');
 DEFINE('_ENQUIRY_TEXT','Это сообщение отправлено с сайта %s. Автор сообщения:');
 DEFINE('_COPY_TEXT','Это копия сообщения, которое Вы отправили для %s с сайта %s ');
 DEFINE('_COPY_SUBJECT','Копия: ');

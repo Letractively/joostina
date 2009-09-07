@@ -97,9 +97,8 @@ $k = 1 - $k;
 }
 unset($rows,$row);
 
-$text = '';
-$text .= '<a style="color: red; font-weight: bold;">' . _BAD_AUTH_NUMBER .': <b>'. $my->bad_auth_count. '</b></a><br />';
-$text .= $show_logged	? _NOW_ON_SITE.': <b>'.$show_logged. '</b><br />':null;
+$text = ($my->bad_auth_count>0) ? '<a style="color: red; font-weight: bold;">' . _BAD_AUTH_NUMBER .': <b>'. $my->bad_auth_count. '</b></a><br />' : '';
+$text .= $show_logged ? _NOW_ON_SITE.': <b>'.$show_logged. '</b><br />':null;
 if($show_total or $show_today or $show_week or $show_month ){
 	$text .= _REGISTERED_USERS_COUNT.' ';
 };
