@@ -27,10 +27,9 @@ if(!class_exists('mosMenuBar')) {
 		* Ñîçäàíèå ïğîèçâîëüíûõ êíîïîê òóëáàğà ñ ïàğàìåòğîì â âèäå ññûëêè è ğàñøèğåííûì ïàğàìåòğîì extra
 		*/
 		function ext($alt = _BUTTON,$href = '',$class = '',$extra = '') {
-		?>
-			<li>
-				<a class="tb-ext<?php echo $class; ?>" href="<?php echo $href; ?>" <?php echo $extra; ?>><span><?php echo $alt; ?></span></a>
-			</li>
+		?><li>
+			<a class="tb-ext<?php echo $class; ?>" href="<?php echo $href; ?>" <?php echo $extra; ?>><span><?php echo $alt; ?></span></a>
+		</li>
 <?php
 		}
 
@@ -48,10 +47,8 @@ if(!class_exists('mosMenuBar')) {
 			} else {
 				$href = "javascript:submitbutton('$task')";
 			}
-?>
-			<li>
-				<a class="tb-custom<?php echo $icon; ?>" href="<?php echo $href; ?>"><span><?php echo
-			$alt; ?></span></a>
+			?><li>
+				<a class="tb-custom<?php echo $icon; ?>" href="<?php echo $href; ?>"><span><?php echo $alt; ?></span></a>
 			</li>
 <?php
 		}
@@ -87,8 +84,7 @@ if(!class_exists('mosMenuBar')) {
 		function addNew($task = 'new',$alt = _NEW) {
 ?>
 			<li>
-				<a class="tb-add-new" href="javascript:submitbutton('<?php echo $task; ?>');"><span><?php echo
-			$alt; ?></span></a></li>
+				<a class="tb-add-new" href="javascript:submitbutton('<?php echo $task; ?>');"><span><?php echo $alt; ?></span></a></li>
 <?php
 		}
 
@@ -99,12 +95,7 @@ if(!class_exists('mosMenuBar')) {
 		* @param string An override for the alt text
 		*/
 		function addNewX($task = 'new',$alt = _NEW) {
-?>
-			<li>
-				<a class="tb-add-new-x" href="javascript:hideMainMenu();submitbutton('<?php echo
-			$task; ?>');"><span><?php echo $alt; ?></span></a>
-			</li>
-<?php
+			?><li><a class="tb-add-new-x" href="javascript:hideMainMenu();submitbutton('<?php echo $task; ?>');"><span><?php echo $alt; ?></span></a></li><?php
 		}
 
 		/**
@@ -113,11 +104,7 @@ if(!class_exists('mosMenuBar')) {
 		* @param string An override for the alt text
 		*/
 		function publish($task = 'publish',$alt = _SHOW) {
-?>
-			<li>
-				<a class="tb-publish" href="javascript:submitbutton('<?php echo $task; ?>');"><span><?php echo
-			$alt; ?></span></a></li>
-<?php
+			?><li><a class="tb-publish" href="javascript:submitbutton('<?php echo $task; ?>');"><span><?php echo $alt; ?></span></a></li><?php
 		}
 
 		/**

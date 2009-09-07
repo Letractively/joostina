@@ -189,7 +189,7 @@ DEFINE('_MORE','Далее...');
 DEFINE('_MOVE','Перенести');
 DEFINE('_NAME','Название:');  
 DEFINE('_NEVER','Никогда');
-DEFINE('_NEW','Новый');
+DEFINE('_NEW','Создать');
 DEFINE('_NO','Нет');
 DEFINE('_NO_ACCOUNT','Ещё не зарегистрированы?');
 DEFINE('_NO_ITEMS','Записи не найдены');
@@ -564,3 +564,5 @@ DEFINE('_CATS_TO_COPY','Копируемые категории');
 
 DEFINE('_PROMPT_CLOSE','Закрыть окно');
 DEFINE('_REMEMBER_ME','Запомнить');
+
+DEFINE('_ENQUIRY','Контакт');

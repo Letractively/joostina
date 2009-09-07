@@ -27,6 +27,5 @@ DEFINE('_ADDITIONAL_INFO','Дополнительная информация');
 DEFINE('_PUBLISH_INFO','Информация о публикации');
 DEFINE('_IMAGES_INFO','Информация об изображении');
 DEFINE('_CONTACT_PARAMS','* Эти параметры управляют отображением только при просмотре информации о контакте*');
-DEFINE('_ENQUIRY','Контакт');
 DEFINE('_CONTACT_HEADER_PHONE','Телефон');
 DEFINE('_CONTACT_HEADER_FAX','Факс');
