@@ -85,6 +85,7 @@ DEFINE('_MOD_FULLMENU_C_TABLE_BLOG','Таблица категории');
 DEFINE('_MOD_FULLMENU_C_ARH_SECTION','Архив раздела');
 DEFINE('_MOD_FULLMENU_C_ARH_CAT','Архив категории');
 DEFINE('_MOD_FULLMENU_USER_CONTENT','Материалы пользователя');
+DEFINE('_MOD_FULLMENU_LOSTPASS_SETUP','Восстановление пароля');
 //DEFINE('_MOD_FULLMENU_','');
 //DEFINE('_MOD_FULLMENU_','');
 

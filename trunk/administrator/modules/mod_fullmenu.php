@@ -109,7 +109,8 @@ var myMenu =[
 	['<img src="<?php echo $cur_file_icons_patch ?>template.png" />','<?php echo _MOD_FULLMENU_ADD_USER?>','index2.php?option=com_users&task=edit',null,'<?php echo _MOD_FULLMENU_ADD_USER?>'],
 	_cmSplit,
 	['<img src="<?php echo $cur_file_icons_patch ?>config.png" />','<?php echo _MOD_FULLMENU_REGISTER_SETUP?>','index2.php?option=com_users&task=config&act=registration',null,'<?php echo _MOD_FULLMENU_REGISTER_SETUP?>'],
-	['<img src="<?php echo $cur_file_icons_patch ?>config.png" />','<?php echo _MOD_FULLMENU_PROFILE_SETUP?>','index2.php?option=com_users&task=config&act=profile',null,'<?php echo _MOD_FULLMENU_PROFILE_SETUP?>']
+	['<img src="<?php echo $cur_file_icons_patch ?>config.png" />','<?php echo _MOD_FULLMENU_PROFILE_SETUP?>','index2.php?option=com_users&task=config&act=profile',null,'<?php echo _MOD_FULLMENU_PROFILE_SETUP?>'],
+		['<img src="<?php echo $cur_file_icons_patch ?>config.png" />','<?php echo _MOD_FULLMENU_LOSTPASS_SETUP?>','index2.php?option=com_users&task=config&act=lostpass',null,'<?php echo _MOD_FULLMENU_LOSTPASS_SETUP?>']
 ],
 <?php } ?>
 
