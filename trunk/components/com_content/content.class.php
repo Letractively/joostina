@@ -2109,11 +2109,8 @@ class contentPageConfig{
 		$params->def('image', 1);
 		//ѕоказать/спр€тать количество просмотров
 		$params->def('hits', $mainframe->getCfg('hits'));
-		$params->set('page_name', $row->title);
 		
 		$params->def('tags', $mainframe->getCfg('tags'));
-
-		//echo $params->get('category');
 
 		return $params;
 	}
