@@ -35,8 +35,9 @@ function display_form(){
 	global $my;
 
 	$database = &database::getInstance();
-
-	$ajax_handler = 'ajax.index.php?option=com_users&task=request_from_plugin&plugin=user_contacts';
+	$mainframe = &mosMainFrame::getInstance();
+	
+	$ajax_handler = $mainframe->getCfg('live_site').'/ajax.index.php?option=com_users&task=request_from_plugin&plugin=user_contacts';
 	$user_id = intval(mosGetParam( $_REQUEST, 'user_id', 0 ));
 
 	//Подключение плагина валидации форм
