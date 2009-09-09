@@ -17,7 +17,7 @@ DEFINE('BOT_USER_CONTACTS_MESSAGE','Текст сообщения');
 DEFINE('BOT_USER_CONTACTS_SEND','Отправить');
 DEFINE('BOT_USER_CONTACTS_MESSAGE_SEND','Сообщение успешно отправлено');
 DEFINE('BOT_USER_CONTACTS_MESSAGE_NOT_SEND','Не удалось отправить сообщение');
-DEFINE('BOT_USER_CONTACTS_MESSAGE_FROM','Сообщение от пользователя сайта');
+DEFINE('BOT_USER_CONTACTS_MESSAGE_FROM','Сообщение от пользователя сайта ');
 DEFINE('BOT_USER_CONTACTS_CHECK_NAME','Проверьте правильность введенного имени');
 DEFINE('BOT_USER_CONTACTS_CHECK_EMAIL','Проверьте правильность введенного email');
 DEFINE('BOT_USER_CONTACTS_SYSTEM_ERROR','Ошибка работы почтового сервиса');

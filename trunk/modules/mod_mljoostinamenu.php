@@ -34,7 +34,6 @@ var onImgArray = new Array();
 		$mainframe = &mosMainFrame::getInstance();
 
 		$txt = '';
-
 		$mitem->params = (isset($mitem->params)) ? $mitem->params : '';
 
 		$menuparams = new mosParameters( $mitem->params );

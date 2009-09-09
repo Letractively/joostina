@@ -156,7 +156,7 @@ function mosLoadModules($position = 'left',$style = 0,$noindex = 0) {
 
 	$modules = (isset($allModules[$position])) ? $modules = $allModules[$position]:array();
 
-	echo ($noindex == 1) ? '<del><![CDATA[<noindex>]]></del>' : null;
+	echo ($noindex == 1) ? '<span class="hide"><![CDATA[<noindex>]]></span>' : null;
 
 	if(count($modules) < 1) {
 		$style = 0;
@@ -205,7 +205,7 @@ function mosLoadModules($position = 'left',$style = 0,$noindex = 0) {
 		echo "</tr>\n</table>\n";
 	}
 
-	if($noindex == 1) echo '<del><![CDATA[</noindex>]]></del>';
+	if($noindex == 1) echo '<span class="hide"><![CDATA[</noindex>]]></span>';
 
 	return;
 }
