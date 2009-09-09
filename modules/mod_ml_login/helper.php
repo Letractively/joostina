@@ -39,10 +39,10 @@ class mod_ml_login_Helper{
 		
 		$params->_returnUrl = self::get_return($params);
 		
-		return $params;		
+		return $params;
 	}
 	
-	function prepare_login_form($params){		
+	function prepare_login_form($params){
 		global $my;
 		$mainframe = &mosMainFrame::getInstance();
 		
@@ -66,7 +66,7 @@ class mod_ml_login_Helper{
 	        	break;
 	
 	        case '2':
-	        	$params->_input_login = '<input type="text" name="username" id="mod_login_USER"  class="inputbox" alt="username" value="'. $params->get('ml_login_text') .'" onblur="if(this.value==\'\') this.value=\''. $params->get('ml_login_text') .'\';" onfocus="if(this.value==\''. $params->get('ml_login_text') .'\') this.value=\'\';" />';
+	        	$params->_input_login = '<input type="text" name="username" id="mod_login_USER" class="inputbox" alt="username" value="'. $params->get('ml_login_text') .'" onblur="if(this.value==\'\') this.value=\''. $params->get('ml_login_text') .'\';" onfocus="if(this.value==\''. $params->get('ml_login_text') .'\') this.value=\'\';" />';
 	        	break;
 	
 	        case '3':

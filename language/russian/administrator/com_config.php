@@ -331,10 +331,10 @@ DEFINE('_VIEW_COUNT2','Если установлено -Показать-, то 
 DEFINE('_VOTING_ENABLE','Рейтинг/Голосование');
 DEFINE('_VOTING_ENABLE2','Если выбран параметр Показать, система --Рейтинг/Голосование-- будет включена');
 DEFINE('_C_CONFIG_HTACCESS_RENAME','Необходимо переименовать htaccess.txt в .htaccess');
-DEFINE('_GLOBAL_TEMPLATES', 'Директория шаблонов по-умолчанию');
+DEFINE('_GLOBAL_TEMPLATES', 'Шаблоны ядра');
 DEFINE('_GLOBAL_TEMPLATES_TIP', '');
-DEFINE('_GLOBAL_TEMPLATES_CURTEMPLATE', 'Папка текущего шаблона');
-DEFINE('_GLOBAL_TEMPLATES_SYSTEMDIR', 'Папка компонента (системная)');
+DEFINE('_GLOBAL_TEMPLATES_CURTEMPLATE', 'Из текущего шаблона');
+DEFINE('_GLOBAL_TEMPLATES_SYSTEMDIR', 'Стандартные');
 DEFINE('_MEMCACHE_PERSISTENT', 'Постоянная кеш память');
 DEFINE('_MEMORY_CACHE_COMPRESSION', 'Компрессия кеш памяти');
 DEFINE('_MEMCACHE_SERVER', 'Memcache Сервер');
