@@ -2076,7 +2076,7 @@ class contentPageConfig{
 		//Показать/Скрыть кнопку Назад (Вернуться), возвращающую на предыдущую просмотренную страницу
 		$params->def('back_button', $mainframe->getCfg('back_button'));
 		//Показать/Спрятать заголовок объекта
-		$params->def('item_title', '');
+		$params->def('item_title', 1);
 		//Сделать заголовок объекта в виде ссылки на него
 		$params->def('link_titles', $mainframe->getCfg('link_titles'));
 		//Показать/Спрятать вводный текст
