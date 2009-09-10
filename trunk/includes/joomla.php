@@ -3828,7 +3828,7 @@ function mosToolTip($tooltip,$title = '',$width = '',$image = 'tooltip.png',$tex
 function mosWarning($warning,$title = _MOS_WARNING) {
 	$mouseover = 'return overlib(\''.$warning.'\', CAPTION, \''.$title.'\', BELOW, RIGHT);';
 	$tip = '<a href="javascript: void(0)" onmouseover="'.$mouseover.'" onmouseout="return nd();">';
-	$tip .= '<img src="'.Jconfig::getInstance()->config_live_site.'/includes/js/ThemeOffice/warning.png" border="0" alt="предупреждение"/></a>';
+	$tip .= '<img src="'.Jconfig::getInstance()->config_live_site.'/includes/js/ThemeOffice/warning.png" border="0" alt="'._WARNING.'"/></a>';
 	return $tip;
 }
 
