@@ -149,7 +149,7 @@ class database {
 		// you are running
 		if (version_compare(phpversion(), '4.3.0', '<')) {
 			$string = mysql_escape_string($text);
-		} else 	{
+		} else {
 			$string = mysql_real_escape_string($text, $this->_resource);
 		}
 		if ($extra) {
@@ -206,6 +206,7 @@ class database {
 	* @param string The common table prefix
 	*/
 	function setQuery($sql,$offset = 0,$limit = 0,$prefix = '#__') {
+		$sql = trim($sql);
 		$this->_sql = $this->replacePrefix($sql,$prefix);
 		$this->_limit = intval($limit);
 		$this->_offset = intval($offset);

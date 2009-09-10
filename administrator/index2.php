@@ -35,6 +35,8 @@ require_once ($mosConfig_absolute_path .DIRECTORY_SEPARATOR. 'includes'.DIRECTOR
 session_name(md5($mosConfig_live_site));
 session_start();
 
+header('Content-type: text/html; charset=UTF-8');
+
 // получение основных параметров
 $option		= strval(strtolower(mosGetParam($_REQUEST,'option','')));
 $task		= strval(mosGetParam($_REQUEST,'task',''));
@@ -87,7 +89,7 @@ $_MOS_OPTION['buffer'] = ob_get_contents();
 ob_end_clean();
 
 initGzip();
-header('Content-type: text/html; charset=UTF-8');
+
 // начало вывода html
 if($no_html == 0) {
 	// загрузка файла шаблона

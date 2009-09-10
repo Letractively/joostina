@@ -262,7 +262,7 @@ function editUser($uid = '0',$option = 'users') {
 	if($my_group == 'super administrator' && $my->gid != 25) {
 		$lists['gid'] = '<input type="hidden" name="gid" value="'.$my->gid.'" /><strong>'._SUPER_ADMINISTRATOR.'</strong>';
 	} elseif($my->gid == 24 && $row->gid == 24) {
-			$lists['gid'] = '<input type="hidden" name="gid" value="'.$my->gid.'" /><strong>'._ADMINISTRATOR.'</strong>';
+		$lists['gid'] = '<input type="hidden" name="gid" value="'.$my->gid.'" /><strong>'._ADMINISTRATOR.'</strong>';
 	} else {
 		// ensure user can't add group higher than themselves
 		$my_groups = $acl->get_object_groups('users',$my->id,'ARO');
@@ -284,8 +284,8 @@ function editUser($uid = '0',$option = 'users') {
 		$lists['gid'] = mosHTML::selectList($gtree,'gid','size="10"','value','text',$row->gid);
 	}
 
-		// build the html select list
-		$lists['block'] = mosHTML::yesnoRadioList('block','class="inputbox" size="1"',$row->block);
+	// build the html select list
+	$lists['block'] = mosHTML::yesnoRadioList('block','class="inputbox" size="1"',$row->block);
 	// build the html select list
 	$lists['sendEmail'] = mosHTML::yesnoRadioList('sendEmail','class="inputbox" size="1"',$row->sendEmail);
 
@@ -302,6 +302,7 @@ function editUser($uid = '0',$option = 'users') {
 function saveUser($task) {
 	global $my;
 	global $mosConfig_live_site,$mosConfig_mailfrom,$mosConfig_fromname,$mosConfig_sitename;
+
 	josSpoofCheck();
 
 	$database = &database::getInstance();

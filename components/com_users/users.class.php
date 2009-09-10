@@ -275,7 +275,7 @@ class mosUser extends mosDBTable {
 		if($mainframe->get('_multisite') == 2){
 			$url = $mainframe->_multisite_params->main_site.'/'.$url;
 		}
-		return sefRelToAbs($url);	
+		return sefRelToAbs($url);
 	}
 
 	/**
@@ -615,7 +615,7 @@ class userHelper{
 
 		});
 		</script>
-		<form name="<?php echo $form_params->img_field;?>_uploadForm" class="ajaxForm" enctype="multipart/form-data" method="post" action="<?php echo sefRelToAbs('ajax.index.php'); ?>" id="<?php echo $form_params->img_field;?>_uploadForm">
+		<form name="<?php echo $form_params->img_field;?>_uploadForm" class="ajaxForm" enctype="multipart/form-data" method="post" action="ajax.index.php" id="<?php echo $form_params->img_field;?>_uploadForm">
 			<input name="<?php echo $form_params->img_field;?>"  id="upload_<?php echo $form_params->img_field;?>"  type="file" />
 			<span class="button"><button type="button" id="<?php echo $form_params->img_field;?>_upload_button" class="button" ><?php echo _TASK_UPLOAD?></button></span>
 			<input type="hidden" name="task" value="upload_<?php echo $form_params->img_field;?>" />
