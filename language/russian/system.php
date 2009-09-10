@@ -566,3 +566,4 @@ DEFINE('_PROMPT_CLOSE','Закрыть окно');
 DEFINE('_REMEMBER_ME','Запомнить');
 
 DEFINE('_ENQUIRY','Контакт');
+DEFINE('_WARNING','Предупреждение');
