@@ -3166,6 +3166,31 @@ class mosHTML {
 		 	return false;
 		 }
 	}
+	
+	function get_image($file, $directory = 'system', $front = 0) {
+		
+		$mainframe = &MosMainFrame::getInstance();
+		$cur_template = $mainframe->getTemplate();
+
+		if(!$front) {
+			$path = '/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$cur_template.'/images/'.$directory.'/';
+		} else {
+			$path = '/templates/'.$cur_template.'/images/elements/';
+		}
+
+		$image = '';
+		if(is_file($mainframe->getCfg('absolute_path').$path.$file)) {
+			$image = $mainframe->getCfg('live_site').$path.$file;
+		} elseif(is_file($mainframe->getCfg('absolute_path').'/'.$directory.'/'.$file)) {
+			$image = $mainframe->getCfg('live_site').'/'.$directory.'/'.$file;
+		}
+		if($image) {
+			$image = '<img src="'.$image.'" alt="" border="0" />';
+			return $image;
+		}
+		return false;
+			
+	}
 
 	/**
 	* Cleans text of all formating and scripting code
@@ -4254,10 +4279,11 @@ class mosMambotHandler {
 		}
 
 		// load bots found by queries
-		$n = count($bots);
+		$n = count($bots);		
 		for($i = 0; $i < $n; $i++) {
 			$this->loadBot($bots[$i]->folder,$bots[$i]->element,$bots[$i]->published,$bots[$i]->params);
-		}
+		}		
+
 		if(!$load){
 			return true;
 		}else{
