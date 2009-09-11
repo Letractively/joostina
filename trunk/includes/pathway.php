@@ -269,7 +269,7 @@ function showPathway($Itemid) {
 			$newlink = ampReplace($newlink);
 
 		if(trim($newlink) != "") {
-			$path = '<li class="pathway_arrow">'.$img.'</li> '.$newlink.' '.$path;
+			$path = '<li class="pathway_arrow">&nbsp;</li> '.$newlink.' '.$path;
 		} else {
 			$path = '';
 		}
@@ -282,8 +282,9 @@ function showPathway($Itemid) {
 	}
 
 	if($mainframe->getCustomPathWay()) {
-		$path .= $img.' ';
-		$path .= implode('<li class="pathway_arrow">'.$img.'</li>',$mainframe->getCustomPathWay());
+		$path .= '<li class="pathway_arrow">&nbsp;</li><li>';
+		$path .= implode('</li><li class="pathway_arrow"></li><li>',$mainframe->getCustomPathWay());
+		$path .='</li>';
 	}
 
 	if($Itemid && $Itemid != 99999999 && $path != '') {
