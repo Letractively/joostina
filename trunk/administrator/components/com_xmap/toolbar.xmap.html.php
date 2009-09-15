@@ -18,9 +18,6 @@ class TOOLBAR_xmap {
 	function _DEFAULT() {
 		mosMenuBar::startTable();
 		mosMenuBar::ext(_XMAP_ADD_SITEMAP,'#','-new','onclick="addSitemap();return false;"');
-		mosMenuBar::save('save', _XMAP_TOOLBAR_SAVE);
-		mosMenuBar::spacer();
-		mosMenuBar::cancel('cancel', _XMAP_TOOLBAR_CANCEL);
 		mosMenuBar::endTable();
 	}
 }

@@ -567,3 +567,7 @@ DEFINE('_REMEMBER_ME','Запомнить');
 
 DEFINE('_ENQUIRY','Контакт');
 DEFINE('_WARNING','Предупреждение');
+
+DEFINE('_BROWSER','Браузер (User Agent)');
+DEFINE('_MENU_NEXT','Далее');
+DEFINE('_MENU_BACK','Назад');
