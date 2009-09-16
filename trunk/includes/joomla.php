@@ -106,8 +106,8 @@ class mosMainFrame {
 	@var массив данных выводящися в нижней части страницы */
 	var $_footer = null;
 	/**
-    * системное сообщение
-    */ 
+	* системное сообщение
+	*/
 	var $mosmsg = '';	
 	/**
 	 * текущий язык
@@ -1851,18 +1851,18 @@ class mosMainFrame {
 	function set_mosmsg($msg=''){
 		$msg = Jstring::trim($msg);
 
-		if($this->_isAdmin){
-			$_s = session_id();
-			if( !isset($_s)) {
-				session_name(md5($this->getCfg('live_site')));
+		if($msg!=''){
+			if($this->_isAdmin){
+				$_s = session_id();
+				if( !isset($_s)) {
+					session_name(md5($this->getCfg('live_site')));
+					session_start();
+				}
+			}else{
+				session_name(mosMainFrame::sessionCookieName());
 				session_start();
 			}
-		}else{
-			session_name($this->_session->session_id);
-			session_start();
-		}
 
-		if($msg!=''){
 			$_SESSION['joostina.mosmsg'] = $msg;
 		}
 		return;
@@ -1870,15 +1870,15 @@ class mosMainFrame {
 	// получение системного сообщения
 	function get_mosmsg(){
 
-		if(!$this->_isAdmin && !$this->_session->session_id){
-			session_name($this->_session->session_id);
+		if(!$this->_isAdmin){
+			session_name(mosMainFrame::sessionCookieName());
 			session_start();
 		}
 
 		$mosmsg_ss = trim(stripslashes(strval(mosGetParam($_SESSION,'joostina.mosmsg',''))));
 		$mosmsg_rq = stripslashes(strval(mosGetParam($_REQUEST,'mosmsg','')));
 
-		if(!$this->_isAdmin && !$this->_session->session_id){
+		if(!$this->_isAdmin){
 			session_destroy();
 		}
 
