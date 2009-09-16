@@ -11,7 +11,7 @@
 defined('_VALID_MOS') or die();
 
 // очистка кода работы компонентов
-$_MAMBOTS->registerFunction('onMainbody','body_clear');
+//$_MAMBOTS->registerFunction('onMainbody','body_clear');
 // очистка кода всего шаблона
 $_MAMBOTS->registerFunction('onTemplate','body_clear');
 
