@@ -61,9 +61,9 @@ if($config->config_enable_admin_secure_code){
 						<input name="pass" type="password" class="inputbox" size="15" />
 <?php if($config->config_captcha) { ?>
 						<div>
-							<img id="captchaimg" alt="<?php echo _PRESS_HERE_TO_RELOAD_CAPTCHA?>" onclick="document.loginForm.captchaimg.src='<?php echo $mainframe->getCfg('live_site'); ?>/includes/libraries/kcaptcha/index.php?<?php echo session_name()?>=<?php echo session_id() ?>&' + new String(Math.random())" src="<?php echo $mainframe->getCfg('live_site'); ?>/includes/libraries/kcaptcha/index.php?<?php echo session_name()?>=<?php echo session_id() ?>" />
+							<img id="captchaimg" alt="<?php echo _PRESS_HERE_TO_RELOAD_CAPTCHA?>" onclick="document.loginForm.captchaimg.src='<?php echo $mainframe->getCfg('live_site'); ?>/includes/libraries/kcaptcha/index.php?session=<?php echo md5($mainframe->getCfg('live_site')) ?>&' + new String(Math.random())" src="<?php echo $mainframe->getCfg('live_site'); ?>/includes/libraries/kcaptcha/index.php?session=<?php echo md5($mainframe->getCfg('live_site')) ?>" />
 						</div>
-						<span class="captcha" onclick="document.loginForm.loginCaptcha.src='<?php echo $config->config_live_site; ?>/includes/libraries/kcaptcha/index.php?' + new String(Math.random())"><?php echo _SHOW_CAPTCHA?></span>
+						<span class="captcha" onclick="document.loginForm.loginCaptcha.src='<?php echo $config->config_live_site; ?>/includes/libraries/kcaptcha/index.php?session=<?php echo md5($mainframe->getCfg('live_site')) ?>' + new String(Math.random())"><?php echo _SHOW_CAPTCHA?></span>
 						<div><?php echo _PLEASE_ENTER_CAPTCHA?>:</div>
 						<div><input name="captcha" type="text" class="inputbox" size="15" /></div>
 <?php };?>
