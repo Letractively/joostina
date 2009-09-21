@@ -429,6 +429,7 @@ function sendmail($con_id,$option) {
 		$sessionCheck = $mparams->get('sessionCheck',1);
 
 		if($config->config_captcha_cont) {
+			session_name(mosMainFrame::sessionCookieName());
 			session_start();
 			$captcha = strval(mosGetParam($_POST, 'captcha', null));
 			$captcha_keystring =mosGetParam($_SESSION,'captcha_keystring');

@@ -464,6 +464,7 @@ function sendNewPass() {
 	$confirmEmail = stripslashes(mosGetParam($_POST,'confirmEmail',''));
 
 	if($config->config_captcha_reg) {
+		session_name(mosMainFrame::sessionCookieName());
 		session_start();
 		$captcha = strval(mosGetParam($_POST, 'captcha', null));
 		$captcha_keystring =mosGetParam($_SESSION,'captcha_keystring');
@@ -513,19 +514,17 @@ function registerForm($option,$useractivation) {
 		return;
 	}
 
-	session_start();
-
 	$params = new configUser_registration($database);
 	
 	$type = mosGetParam( $_REQUEST, 'type', '' );
-	$gid = $params->get('gid');	
+	$gid = $params->get('gid');
 
 	$mainframe->SetPageTitle($params->get('title'));
 
 	//Определяем шаблон для вывода регистрационной формы
 	$template = 'default.php';
 	
-	if(!$params->get('template')){		
+	if(!$params->get('template')){
 		if($type){
 			if(is_file($mainframe->getCfg('absolute_path').DS.'components'.DS.'com_users'.DS.'view'.DS.'registration'.DS.$type.'.php')){
 				$template = $type.'.php';
@@ -558,6 +557,7 @@ function saveRegistration() {
 	$params = new configUser_registration($database);
 
 	if($mainframe->getCfg('captcha_reg')) {
+		session_name(mosMainFrame::sessionCookieName());
 		session_start();
 		$captcha = strval(mosGetParam($_POST, 'captcha', null));
 		$captcha_keystring =mosGetParam($_SESSION,'captcha_keystring');
@@ -590,10 +590,10 @@ function saveRegistration() {
 	//регистрационной формы
 	//Если используется единый шаблон - группу берем из натроек регистрации.
 	if(!$params->get('template')){
-		$row->gid = $_POST['gid'];			
+		$row->gid = $_POST['gid'];
 	}
 	else{
-		$row->gid = $params->get('gid');	
+		$row->gid = $params->get('gid');
 	}
 	//Проверяем, не подменена ли группа "на лету"
 	$gid_md5 = $_POST['gid_check'];

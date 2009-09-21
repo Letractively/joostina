@@ -32,12 +32,12 @@ $validate = josSpoofValue();
 			</div>
 			
 
-			<?php if($config->config_captcha_reg) { session_start(); ?>
+			<?php if($config->config_captcha_reg) {?>
 			<div class="captcha">
-				<img id="captchaimg" alt="<?php echo _PRESS_HERE_TO_RELOAD_CAPTCHA?>" onclick="document.mosForm.captchaimg.src='<?php echo $config->config_live_site; ?>/includes/libraries/kcaptcha/index.php?<?php echo session_name()?>=<?php echo session_id() ?>&' + new String(Math.random())" src="<?php echo $config->config_live_site; ?>/includes/libraries/kcaptcha/index.php?<?php echo session_name()?>=<?php echo session_id() ?>" />
+				<img id="captchaimg" alt="<?php echo _PRESS_HERE_TO_RELOAD_CAPTCHA?>" onclick="document.mosForm.captchaimg.src='<?php echo $config->config_live_site; ?>/includes/libraries/kcaptcha/index.php?session=<?php echo mosMainFrame::sessionCookieName() ?>&' + new String(Math.random())" src="<?php echo $config->config_live_site; ?>/includes/libraries/kcaptcha/index.php?session=<?php echo mosMainFrame::sessionCookieName() ?>" />
 				
 				<label for="captcha"><?php echo _REG_CAPTCHA; ?></label>
-				<input type="text" name="captcha" class="inputbox" size="40" value=""/>				
+				<input type="text" name="captcha" class="inputbox" size="40" value=""/>
 			</div>			
 			<?php } ?>
 			

@@ -396,9 +396,9 @@ class HTML_contact {
 			<label id="lbl_contact_email_copy" for="contact_email_copy"><?php echo (_EMAIL_A_COPY); ?></label>
 			<?php } ?>
 	
-			<?php if($mosConfig_captcha_cont) { session_start(); ?>
+			<?php if($mosConfig_captcha_cont) { ?>
 			<div class="captcha">
-				<img id="captchaimg" alt="<?php echo _PRESS_HERE_TO_RELOAD_CAPTCHA?>" onclick="document.emailForm.captchaimg.src='<?php echo $mosConfig_live_site; ?>/includes/libraries/kcaptcha/index.php?<?php echo session_name()?>=<?php echo session_id() ?>&' + new String(Math.random())" src="<?php echo $mosConfig_live_site; ?>/includes/libraries/kcaptcha/index.php?<?php echo session_name()?>=<?php echo session_id() ?>" />
+				<img id="captchaimg" alt="<?php echo _PRESS_HERE_TO_RELOAD_CAPTCHA?>" onclick="document.emailForm.captchaimg.src='<?php echo $mosConfig_live_site; ?>/includes/libraries/kcaptcha/index.php?session=<?php echo mosMainFrame::sessionCookieName() ?>&' + new String(Math.random())" src="<?php echo $mosConfig_live_site; ?>/includes/libraries/kcaptcha/index.php?session=<?php echo mosMainFrame::sessionCookieName() ?>" />
 				<label for="captcha" id="lbl_captcha"><?php echo _PLEASE_ENTER_CAPTCHA; ?></label>
 				<input name="captcha" type="text" class="inputbox" size="30" />
 			</div>
@@ -422,7 +422,7 @@ class HTML_contact {
 	?>
 	<div class="com_contact contact_page no_contact">
 		<div class="info"><?php echo _CONTACT_NONE; ?></div>
-		<?php mosHTML::BackButton($params); ?>		
+		<?php mosHTML::BackButton($params); ?>
 	</div>
 	<?php }
 }
