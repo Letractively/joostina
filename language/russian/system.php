@@ -489,6 +489,7 @@ DEFINE('_SHOW_CAPTCHA','Обновить изображение');
 DEFINE('_PLEASE_ENTER_CAPTCHA','Введите код проверки с картинки выше');
 DEFINE('_IN_NEW_WINDOW','Открыть в новом окне');
 DEFINE('_NO_CAPTCHA_CODE','Не введён код проверки');
+DEFINE('_USER_BLOKED','Пользователь заблокирован');
 
 DEFINE('_PREVIEW_SITE','перейти на сайт');
 

@@ -56,6 +56,7 @@ if(file_exists('../installation/index.php') && $_VERSION->SVN == 0) {
 
 $option = strtolower(strval(mosGetParam($_REQUEST,'option',null)));
 
+session_name(md5($mosConfig_live_site));
 session_start();
 
 $bad_auth_count =intval(mosGetParam($_SESSION,'bad_auth',0));
@@ -69,7 +70,7 @@ if(isset($_POST['submit'])) {
 		exit();
 	}
 
-	if($config->config_admin_bad_auth <= $bad_auth_count && (int) $config->config_admin_bad_auth >= 0) {
+	if($config->config_captcha OR ((int) $config->config_admin_bad_auth >= 0 && $config->config_admin_bad_auth <= $bad_auth_count) ) {
 		$captcha = mosGetParam($_POST,'captcha','');
 		$captcha_keystring = mosGetParam($_SESSION,'captcha_keystring','');
 		if($captcha_keystring!=$captcha) {
@@ -78,7 +79,13 @@ if(isset($_POST['submit'])) {
 			exit;
 		}
 	}
-
+/*
+	if((int) $config->config_admin_bad_auth >= 0 && $config->config_admin_bad_auth <= $bad_auth_count) {
+		mosRedirect($config->config_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/',_USER_BLOKED);
+		unset($_SESSION['captcha_keystring']);
+		exit;
+	}
+*/
 	$my = null;
 	$query = 'SELECT * FROM #__users WHERE username ='.$database->Quote($usrname).' AND block = 0';
 	$database->setQuery($query);
