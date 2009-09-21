@@ -1875,7 +1875,7 @@ class mosMainFrame {
 		$mosmsg_rq = stripslashes(strval(mosGetParam($_REQUEST,'mosmsg','')));
 
 		if(!$this->_isAdmin){
-			session_destroy();
+			//session_destroy();
 		}
 
 		$mosmsg = ($mosmsg_ss!='') ? $mosmsg_ss : $mosmsg_rq;

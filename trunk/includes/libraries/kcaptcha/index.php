@@ -9,7 +9,8 @@
 
 error_reporting(E_ALL);
 
-if(isset($_REQUEST[session_name()])){
+if(isset($_REQUEST['session'])){
+	session_name($_REQUEST['session']);
 	session_start();
 }
 
