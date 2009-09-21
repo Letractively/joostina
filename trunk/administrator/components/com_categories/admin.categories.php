@@ -651,10 +651,10 @@ function removeCategories($section,$cid) {
 	if(count($err)) {
 		$cids = implode("\', \'",$err);
 		$msg = str_replace("#CIDS#",$cids,_CANNOT_REMOVE_CATEGORY);
- 		mosRedirect('index2.php?option=com_categories&section='.$section.'&mosmsg='.$msg);
+		mosRedirect('index2.php?option=com_categories&section='.$section.'&mosmsg='.$msg);
 	}
-
-	mosRedirect('index2.php?option=com_categories&section='.$section);
+	$msg = _CONTENT_CATEGORIES.': '.$names.' - '._OBJECTS_DELETED;
+	mosRedirect('index2.php?option=com_categories&section='.$section,$msg);
 }
 
 /**

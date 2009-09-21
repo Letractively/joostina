@@ -572,3 +572,15 @@ DEFINE('_WARNING','Предупреждение');
 DEFINE('_BROWSER','Браузер (User Agent)');
 DEFINE('_MENU_NEXT','Далее');
 DEFINE('_MENU_BACK','Назад');
+
+DEFINE('_ITEM_PREVIOUS','&laquo; ');
+DEFINE('_ITEM_NEXT',' &raquo;');
+
+DEFINE('_CONTENT_ITEMS_TO_COPY','Копируемое содержимое');
+
+DEFINE('_USER_POSITION','Положение (должность)');
+DEFINE('_CONTACT_HEADER_PHONE','Телефон');
+DEFINE('_CONTACT_HEADER_FAX','Факс');
+DEFINE('_OBJECTS_DELETED','Объект(ы) успешно удален(ы)');
+
+DEFINE('_PASSWORD','Пароль');

@@ -56,8 +56,6 @@ DEFINE('_E_EXPIRES','Дата истечения:');
 DEFINE('_E_ABOUT','Об объекте:');
 DEFINE('_E_LAST_MOD','Последнее изменение:');
 DEFINE('_E_REGISTERED','Только для зарегистрированных пользователей');
-DEFINE('_ITEM_PREVIOUS','&laquo; ');
-DEFINE('_ITEM_NEXT',' &raquo;');
 DEFINE('_KEY_NOT_FOUND','Ключ не найден');
 DEFINE('_SECTION_ARCHIVE_EMPTY','В этом разделе архива сейчас нет объектов. Пожалуйста, зайдите позже');
 DEFINE('_CATEGORY_ARCHIVE_EMPTY','В этой категории архива сейчас нет объектов. Пожалуйста, зайдите позже');

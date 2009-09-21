@@ -20,7 +20,6 @@ DEFINE('_THIS_ACTION_WILL_RESTORE_O_FOREVER','* Это действие <strong>
 DEFINE('_REALLY_RESTORE_OBJECTS','Вы действительно хотите восстановить перечисленные объекты?');
 DEFINE('_RESTORE','Восстановить');
 DEFINE('_CONTENT_ITEMS','Объекты содержимого');
-DEFINE('_OBJECTS_DELETED','Объект(ы) успешно удален(ы)');
 DEFINE('_SUCCESS_DELETION','Успешно удалено');
 DEFINE('_OBJECTS_RESTORED','Объект(ов) успешно восстановлен(о)');
 DEFINE('_CLEAR_TRASH','Очистить корзину');
