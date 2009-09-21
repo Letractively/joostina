@@ -517,12 +517,10 @@ function removeSections($cid,$scope,$option) {
 	mosArrayToInts($cid);
 	$cids = 's.id='.implode(' OR s.id=',$cid);
 
-	$query = "SELECT s.id, s.name, COUNT(c.id) AS numcat"."\n FROM #__sections AS s".
-		"\n LEFT JOIN #__categories AS c ON c.section=s.id"."\n WHERE ( $cids )"."\n GROUP BY s.id";
+	$query = "SELECT s.id, s.name, COUNT(c.id) AS numcat FROM #__sections AS s LEFT JOIN #__categories AS c ON c.section=s.id WHERE ( $cids ) GROUP BY s.id";
 	$database->setQuery($query);
 	if(!($rows = $database->loadObjectList())) {
-		echo "<script> alert('".$database->getErrorMsg().
-			"'); window.history.go(-1); </script>\n";
+		echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
 	}
 
 	$err = array();
@@ -539,11 +537,10 @@ function removeSections($cid,$scope,$option) {
 	if(count($cid)) {
 		mosArrayToInts($cid);
 		$cids = 'id='.implode(' OR id=',$cid);
-		$query = "DELETE FROM #__sections"."\n WHERE ( $cids )";
+		$query = "DELETE FROM #__sections WHERE ( $cids )";
 		$database->setQuery($query);
 		if(!$database->query()) {
-			echo "<script> alert('".$database->getErrorMsg().
-				"'); window.history.go(-1); </script>\n";
+			echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
 		}
 	}
 
@@ -557,7 +554,7 @@ function removeSections($cid,$scope,$option) {
 	mosCache::cleanCache('com_content');
 
 	$names = implode(', ',$name);
-	$msg = 'Раздел(ы): '.$names.' - '._OBJECTS_DELETED;
+	$msg = _CONTENT_SECTIONS.': '.$names.' - '._OBJECTS_DELETED;
 	mosRedirect('index2.php?option='.$option.'&scope='.$scope,$msg);
 }
 

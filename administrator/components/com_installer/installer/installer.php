@@ -166,7 +166,7 @@ class mosGeneralInstaller {
 			}
 			
 		} else {
-			HTML_installer::showInstallMessage($msg,$element.' - '._UNKNOWN_EXTENSION_TYPE,$installer->returnTo($option,$element,$client));
+			HTML_installer::showInstallMessage(_UPLOADING_ERROR,$element.' - '._UPLOADING_ERROR,'/');
 		}
 	}
 
@@ -191,21 +191,17 @@ class mosGeneralInstaller {
 		if(!is_dir($path)) {
 			mosRedirect("index2.php?option=com_installer&element=installer",_CHOOSE_DIRECTORY_NOT_ARCHIVE);
 		}
-		
+
 		$pre_installer->preInstallSetting($path);
-		
+
 		$installType = $pre_installer->getInstallType();		
 		if ($installType != "" && array_key_exists($installType,$classMap)) {
-			
 			require ($config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY."/components/com_installer/$installType/$installType.class.php");
-				
 			$installer = new $classMap[$installType]($pre_installer);
-				
 			$ret = $installer->install($path);
-			
 			HTML_installer::showInstallMessage($installer->getError(),_UPLOAD_OF_EXT.': '.$element.' - '.($ret?_SUCCESS:_UNSUCCESS),$installer->returnTo($option,$element,$client));
 		} else {
-			HTML_installer::showInstallMessage($msg,$element.' - '._UNKNOWN_EXTENSION_TYPE,$pre_installer->returnTo($option,$element,$client));
+			HTML_installer::showInstallMessage(_UPLOADING_ERROR,$element.' - '._UNKNOWN_EXTENSION_TYPE,$pre_installer->returnTo($option,$element,$client));
 		}
 	}
 }
