@@ -119,13 +119,13 @@ switch($task) {
 		saveOrder($cid);
 		break;
 
-    case 'config':
-        config($option);
-        break;
+	case 'config':
+		config($option);
+		break;
 
-    case 'save_config':
-        save_config();
-        break;
+	case 'save_config':
+		save_config();
+		break;
 
 	default:
 		viewContent($sectionid,$option);
@@ -136,12 +136,12 @@ function config($option){
 	$database = &database::getInstance();
 	$mainframe = &mosMainFrame::getInstance(true);
 
-    mosCommonHTML::loadOverlib();
-    
-    $act = mosGetParam($_REQUEST,'act','');
-    $config_class = 'configContent_'.$act;
-    $config = new $config_class($database);
-    $config->display_config($option);
+	mosCommonHTML::loadOverlib();
+
+	$act = mosGetParam($_REQUEST,'act','');
+	$config_class = 'configContent_'.$act;
+	$config = new $config_class($database);
+	$config->display_config($option);
 
 /*    $info_array = array();
     $info_array['page_title']['title'] = 'Заголовок страницы';
@@ -293,7 +293,7 @@ function viewContent($sectionid,$option) {
 		$where[] = "LOWER( c.title ) LIKE '%".$database->getEscaped(trim(strtolower($search)))."%'";
 	}
 	// отображение архивного содержимого
-	$where[]= $showarchive ? 'c.state=-1' : 'state<>-1';
+	$where[]= $showarchive ? 'c.state=-1' : 'state>=0';
 
 	$order = $sql_order.$order_sort_sql; // подставляем свой параметр сортировки
 	// get the total number of records
@@ -819,8 +819,8 @@ function saveContent($sectionid,$task) {
 	$row->fulltext = str_replace('<br>','<br />',$row->fulltext);
 
 	// remove <br /> take being automatically added to empty fulltext
-	$length = strlen($row->fulltext) < 9;
-	$search = strstr($row->fulltext,'<br />');
+	$length = Jstring::strlen($row->fulltext) < 9;
+	$search = Jstring::stristr($row->fulltext,'<br />');
 	if($length && $search) {
 		$row->fulltext = null;
 	}
@@ -1530,11 +1530,13 @@ function seccatli($act = 0,$filter_authorid=0){
 	$query = "SELECT s.id, s.title, c.section"
 			."\n FROM #__sections AS s"
 			."\n LEFT JOIN #__categories AS c ON c.section = s.id"
-			."\n INNER JOIN #__content AS con ON con.catid = c.id"
+			."\n LEFT JOIN #__content AS con ON con.catid = c.id"
+			."\n WHERE con.state>=0"
 			."\n GROUP BY c.section"
 			."\n ORDER BY s.title, s.ordering ASC";
 	$database->setQuery($query);
 	$rows = $database->loadObjectList();
+
 	foreach($rows as $row) {
 		$sectli .= "\n c.add($row->id,0,'$row->title');";
 	}
@@ -1568,7 +1570,7 @@ function _cat_d($act){
 	$query = "SELECT cat.id, cat.title, cat.section, COUNT(con.catid) AS countcon"
 			."\n FROM #__categories AS cat"
 			."\n LEFT JOIN #__content AS con ON con.catid = cat.id"
-			."\n WHERE con.state<>'-1'" // все кроме архивных
+			."\n WHERE cat.section NOT LIKE 'com_%' AND con.state>=0" // все кроме архивных
 			."\n GROUP BY cat.id"
 			."\n ORDER BY cat.section ASC";
 	$database->setQuery($query);
@@ -1578,7 +1580,7 @@ function _cat_d($act){
 	$n=0;
 	foreach($rows as $row) {
 		$n++;
-		if(strlen($row->title)>30){
+		if(Jstring::strlen($row->title)>30){
 			$row->title = Jstring::substr($row->title,0,30).'...';
 		}
 		if($act!=$row->id){
