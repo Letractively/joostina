@@ -13,6 +13,8 @@ defined('_VALID_MOS') or die();
 
 $iso = explode('=',_ISO);
 echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'."\n";
+$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
+$securitycheck = intval($params->get('securitycheck',1));
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -89,25 +91,27 @@ flush();
 					<td width="85%">
 						<?php mosLoadAdminModule('fullmenu'); ?>
 					</td>
-					<td align="right" class="header_info">
+					<td width="5%" align="right" class="header_info">
 						<?php mosLoadAdminModules('header',-2); ?>
 					</td>
-					<td align="right">
-						<input type="image" name="jtoggle_editor" id="jtoggle_editor" title="<?php echo _TOGGLE_WYSIWYG_EDITOR?>" onclick="jtoggle_editor();" src="templates/joostfree/images/toolbar_ico/<?php echo (intval(mosGetParam($_SESSION,'user_editor_off',''))) ? 'editor_off.png':'editor_on.png'?>" alt="<?php echo _DISABLE_WYSIWYG_EDITOR?>" />
+					<td width="35" align="center">
+				<input type="image" name="jtoggle_editor" id="jtoggle_editor" title="<?php echo _TOGGLE_WYSIWYG_EDITOR?>" onclick="jtoggle_editor();" src="<?php echo $cur_file_icons_path;?>/<?php echo (intval(mosGetParam($_SESSION,'user_editor_off',''))) ? 'editor_off.png':'editor_on.png'?>" alt="<?php echo _DISABLE_WYSIWYG_EDITOR?>" />
 					</td>
-					<td align="right">
+					<td style="padding-left: 12px;" width="35" align="right">
 						<a href="<?php echo $mosConfig_live_site; ?>/" target="_blank" title="<?php echo _PREVIEW_SITE?>">
 							<img src="../includes/js/ThemeOffice/preview.png" border="0" alt="<?php echo _PREVIEW_SITE?>"/>
 						</a>
 					</td>
-					<td align="right" class="jtd_nowrap">
+					<td style="padding-left: 7px;" align="right" class="jtd_nowrap">
 						<a href="index2.php?option=logout" class="logoff"><?PHP echo _BUTTON_LOGOUT?> <?php echo $my->username; ?></a>&nbsp;
 					</td>
 				</tr>
 			</table>
 		</div>
 		<div id="top-toolbar"><?php mosLoadAdminModule('toolbar'); ?></div>
+		<?php if(!empty($securitycheck)) { josSecurityCheck('100%'); } ?>
 		<?php mosLoadAdminModule('mosmsg'); ?>
+		
 		<?php //mosLoadAdminModule('component_menu'); ?>
 		<div id="status-info" style="display: none;">&nbsp;</div>
 		<table width="100%" class="menubar" cellpadding="0" cellspacing="0" border="0">
@@ -115,10 +119,11 @@ flush();
 				<td align="center">
 					<div id="main_body">
 						<?php mosMainBody_Admin(); ?>
-					</div>
+					</div>					
 				</td>
 			</tr>
 		</table>
+		
 		<div id="footer_cleaner">&nbsp;</div>
 	</div>
 		<div id="footer" align="center" class="smallgrey"><?php echo $jostina_ru; ?></div>

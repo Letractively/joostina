@@ -11,9 +11,8 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-// загрузка модулей панели управления позиции icon без использования деления модулей по вкладкам
-mosLoadAdminModules('icon',0);
 ?>
+<?php mosLoadAdminModules('icon',0); ?>
 <form action="index2.php" method="post" name="adminForm" id="adminForm">
 <table width="100%">
 	<tr>

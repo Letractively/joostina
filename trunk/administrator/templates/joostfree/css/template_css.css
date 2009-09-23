@@ -129,35 +129,35 @@ a.abig{
 /*.cpicons-baaad {
 	position: relative;
 }*/
+.cpicons{
+    padding: 10px 10px; clear: both; overflow: hidden;
+}
+
+
 .cpicons span {
 	margin: 2px 2px 0px 0px;
 	padding: 2px 2px 2px 2px;
-	width: 150px;
-	vertical-align: middle;
+	width: 160px;
 	text-align: left;
 	float: left;
-	vertical-align: middle;
+	vertical-align: middle; overflow: hidden; display: block;
 }
 .cpicons span a {
 	display: block;
-	padding: 3px 0;
+	padding: 6px 5px;
 	color: #333333;
-	width: 150px;
-	height: 36px;
+	height: 36px;    border: 1px solid #A6D0E7; overflow: hidden;
 	vertical-align: middle;
+    background: url(../images/cp.png) bottom left repeat-x;
+    font-size: 11px;
 }
 .cpicons  span a:link, .cpicons span a:visited {
 	text-decoration: none;
-	border: 1px solid #f0f0f0;
+
 }
 .cpicons  span a:hover {
 	text-decoration: none;
-	border-left: 1px solid #eee;
-	border-top: 1px solid #eee;
-	border-right: 1px solid #ccc;
-	border-bottom: 1px solid #ccc;
-	background: #f9f9f9;
-	color: #0B55C4;
+	 background: #F8F8F8; border: 1px solid #CCC;
 }
 div.cpicons div  {
 	display: block;
@@ -166,7 +166,7 @@ div.cpicons div  {
 .cpicons img {
 	float: left;
 	margin: 0 5px 0 2px;
-	padding: 1px;
+	padding: 1px; border: none;
 }
 .cpicons  div div img.shortcut {
 	border: 0px;
@@ -335,10 +335,15 @@ div.cpicons div  {
 	padding: 5px;
 	text-align: center;
 }
+input#jtoggle_editor{
+	background: none;
+	border: none;
+	width: 16px !important;
+}
 /* слой для вывода тулбара */
 #top-toolbar {
-	border-bottom: 1px solid #cccccc;
-	background-color: #F1F3F5;
+	border-bottom: 1px solid #EAEAEA;
+	background-color: #F2F2F2;
 	height: 25px;
 }
 /* тулбар */
@@ -442,11 +447,10 @@ div.cpicons div  {
 }
 
 #footer {
-	margin-top: 0px;
-	padding: 0px;
-	width: auto;
-	height: 34px;
-	background: url(../images/bg.png) repeat-x;
+	margin-top: 10px;
+	padding: 5px 0 0 0;
+	width: auto; height: 34px;
+	background: url(../images/bg.png) repeat-x #EFF4F9;
 	overflow: hidden;
 	position: relative;
 }
@@ -483,11 +487,11 @@ BODY {
 	font-size: 12px;
 }
 a:link {
-	color: #0B55C4;
+	color: #2D6B9D;
 	text-decoration: none;
 }
 a:visited {
-	color: #0B55C4;
+	color: #3187AA;
 	text-decoration: none;
 }
 a:hover {
@@ -517,8 +521,8 @@ a.pagenav:active {
 }
 input, select {
 	font-size: 10px;
-	border: 1px solid silver;
-	background-color: #F1F1F1;
+	border: 1px solid #CECECE;
+	background-color: #F3F3F3; padding: 4px 0;
 }
 textarea {
 	font-size: 11px;
@@ -545,7 +549,7 @@ input.button {
 	text-decoration: none;
 }
 .smallgrey {
-	color: #999;
+	color: #3D3D3D;
 	font-size: 10px;
 }
 .error {
@@ -578,7 +582,7 @@ table.adminheading {
 	border-collapse: collapse;
 	text-align: left;
 	font-size: 20px;
-	color: #0B55C4;
+	color: #4583B5;
 }
 table.adminheading th {
 	height: 32px;
@@ -586,110 +590,110 @@ table.adminheading th {
 	width: 98%;
 }
 table.adminheading th.filemanager {
-	background: url(../images/header_ico/folder.gif) no-repeat left;
+	background: url(../images/system_ico/folder.png) no-repeat left;
 }
 table.adminheading th.edit {
-	background: url(../images/header_ico/edit.gif) no-repeat left;
+	background: url(../images/system_ico/edit.png) no-repeat left;
 }
 /* пользователя */
 table.adminheading th.user {
-	background: url(../images/header_ico/user.gif) no-repeat left;
+	background: url(../images/system_ico/user.png) no-repeat left;
 }
 /* конфигурация */
 table.adminheading th.config {
-	background: url(../images/header_ico/config.gif) no-repeat left;
+	background: url(../images/system_ico/config.png) no-repeat left;
 }
 /* RSS */
 table.adminheading th.rss {
-	background: url(../images/header_ico/rss.gif) no-repeat left;
+	background: url(../images/system_ico/rss.png) no-repeat left;
 }
 /* установка */
 table.adminheading th.install {
-	background: url(../images/header_ico/install.gif) no-repeat left;
+	background: url(../images/system_ico/install.png) no-repeat left;
 }
 /* личные сообщения */
 table.adminheading th.inbox {
-	background: url(../images/header_ico/inbox.gif) no-repeat left;
+	background: url(../images/system_ico/inbox.png) no-repeat left;
 }
 /* медиа-менеджер */
 table.adminheading th.media {
-	background: url(../images/header_ico/media.gif) no-repeat left;
+	background: url(../images/system_ico/media.png) no-repeat left;
 }
 /* разблокировка */
 table.adminheading th.checkin {
-	background: url(../images/header_ico/checkin.gif) no-repeat left;
+	background: url(../images/system_ico/checkin.png) no-repeat left;
 }
 /* корзина */
 table.adminheading th.trash {
-	background: url(../images/header_ico/trash.gif) no-repeat left;
+	background: url(../images/system_ico/trash.png) no-repeat left;
 }
 /* языки */
 table.adminheading th.langmanager {
-	background: url(../images/header_ico/langmanager.gif) no-repeat left;
+	background: url(../images/system_ico/langmanager.png) no-repeat left;
 }
 /* поисковые запросы */
 table.adminheading th.searchtext {
-	background: url(../images/header_ico/searchtext.gif) no-repeat left;
+	background: url(../images/system_ico/searchtext.png) no-repeat left;
 }
 /* статистика посещения страниц */
 table.adminheading th.impressions {
-	background: url(../images/header_ico/impressions.gif) no-repeat left;
+	background: url(../images/system_ico/impressions.png) no-repeat left;
 }
 /* шаблоны */
 table.adminheading th.templates {
-	background: url(../images/header_ico/templates.gif) no-repeat left;
+	background: url(../images/system_ico/templates.png) no-repeat left;
 }
 /* информация */
 table.adminheading th.info {
-	background: url(../images/header_ico/info.gif) no-repeat left;
+	background: url(../images/system_ico/info.png) no-repeat left;
 }
 /* меню */
 table.adminheading th.menus {
-	background: url(../images/header_ico/menus.gif) no-repeat left;
+	background: url(../images/system_ico/menus.png) no-repeat left;
 }
 /* содержимое главной */
 table.adminheading th.frontpage {
-	background: url(../images/header_ico/frontpage.gif) no-repeat left;
+	background: url(../images/system_ico/frontpage.png) no-repeat left;
 }
 /* массовое добавление */
 table.adminheading th.massadd {
-	background: url(../images/header_ico/massadd.gif) no-repeat left;
+	background: url(../images/system_ico/massadd.png) no-repeat left;
 }
 /* категории */
 table.adminheading th.categories {
-	background: url(../images/header_ico/categories.gif) no-repeat left;
+	background: url(../images/system_ico/categories.png) no-repeat left;
 }
 /* разделы */
 table.adminheading th.sections {
-	background: url(../images/header_ico/sections.gif) no-repeat left;
+	background: url(../images/system_ico/sections.png) no-repeat left;
 }
 /* рассылка почты */
 table.adminheading th.massemail {
-	background: url(../images/header_ico/massemail.gif) no-repeat left;
+	background: url(../images/system_ico/massemail.png) no-repeat left;
 }
 /* модули */
 table.adminheading th.modules {
-	background: url(../images/header_ico/modules.gif) no-repeat left;
+	background: url(../images/system_ico/modules.png) no-repeat left;
 }
 /* мамботы */
 table.adminheading th.mambots {
-	background: url(../images/header_ico/modules.gif) no-repeat left;
+	background: url(../images/system_ico/modules.png) no-repeat left;
 }
 /* резервное копирование */
 table.adminheading th.cpanel {
-	background: url(../images/header_ico/cpanel.gif) no-repeat left;
+	background: url(../images/system_ico/cpanel.png) no-repeat left;
 }
 /* работа с базой данных */
 table.adminheading th.db {
-	background: url(../images/header_ico/db.gif) no-repeat left;
+	background: url(../images/system_ico/db.png) no-repeat left;
 }
 /* кнопки быстрого доступа */
 table.adminheading th.quickicons {
-	background: url(../images/header_ico/menus.gif) no-repeat left;
+	background: url(../images/system_ico/menus.png) no-repeat left;
 }
 /* меню компонентов панели управления */
 table.adminheading th.linkeditor {
-	background: url(../images/header_ico/menus.gif) no-repeat left;
+	background: url(../images/system_ico/menus.png) no-repeat left;
 }
 
 
@@ -698,16 +702,21 @@ table.adminheading td {
 }
 /* standard list style table */
 table.adminlist {
-	background-color: #e7e7e7;
 	color: #666;
 	width: 100%;
 }
+table.adminlist tr {
+    border-bottom: 1px solid #CCC;
+
+}
+
+
 /* заголовки таблиц в админке */
 table.adminlist th {
-	padding: 2px;
+	padding: 5px 2px;
 	text-align: center;
 	background: #f0f0f0;
-	color: #666;
+	color: #585858;
 	border-bottom: 1px solid #999;
 	border-left: 1px solid #fff;
 	font-size: 11px;
@@ -716,11 +725,10 @@ table.adminlist th.title {
 	text-align: left;
 }
 table.adminlist tr.row0 {
-	background-color: #F5F5F5;
+	background-color: #F8F8F8;
 }
 table.adminlist tr.row0 td:hover, table.adminlist tr.row1 td:hover{
-	border-bottom: 1px solid #B9B9B9;
-	border-right: 1px solid #B9B9B9;
+	border-bottom: 1px solid #B9B9B9; background: #F1F1F1;
 }
 
 table.adminlist tr.row1 {
@@ -731,14 +739,14 @@ table.adminlisttop{
 }
 table.adminlist td {
 	height: 25px;
-	border: 1px solid #fff;
+	border-bottom: 1px solid #CCC;
 	padding: 2px;
 }
 table.adminlist tr.row0:hover {
-	background-color: #f1f1f1;
+	background-color: #F1F1F1;
 }
 table.adminlist tr.row1:hover {
-	background-color: #f1f1f1;
+	background-color: #F1F1F1;
 }
 table.adminlist td.options {
 	background-color: #ffffff;
@@ -767,12 +775,12 @@ table.adminform tr.row1 {
 	background-color: #eeeeee;
 }
 table.adminform th {
-	background: url(../images/menu-bg.png);
+	background: url(../images/th.png);
 	font-size: 12px;
 	padding-left: 4px;
 	text-align: left;
-	height: 20px;
-	color: #336699;
+	height: 24px;
+	color: #000;
 }
 table.adminform td {
 	padding: 3px;
@@ -805,6 +813,11 @@ form {
 	text-align: center;
 	font-weight: normal;
 }
+.tab-page table.adminform tr{
+    border-bottom: 1px solid #EAEAEA;
+}
+
+
 .tabpadding {
 	/*border-bottom: solid 1px #D5D5D5;
 */
@@ -838,20 +851,20 @@ form {
 /* предупреждение */
 .jwarning {
 	margin-top: 5px;
-	border-top: 2px solid rgb(181, 212, 254);
-	border-bottom: 2px solid rgb(181, 212, 254);
-	padding: 5px 20px 5px 45px;
+	border-top: 1px solid #EAA6B5;
+	border-bottom: 1px solid #EAA6B5;
+	padding: 5px 0 5px 0;
 	background: #FBEEF1 url(../images/ico/error.png) no-repeat scroll 15px 50%;
 	/** -moz-background-clip: -moz-initial;
 	-moz-background-origin: -moz-initial;
 	-moz-background-inline-policy: -moz-initial; **/
-	text-align: center;
+	text-align: center; clear: both; margin: 10px 0 10px 0;
 }
 /* сообщение */
 .message {
 	margin-top: 5px;
-	border-top: 2px solid rgb(181, 212, 254);
-	border-bottom: 2px solid rgb(181, 212, 254);
+	border-top: 1px solid #70A1C8;
+	border-bottom: 1px solid #70A1C8;
 	padding: 5px 20px 5px 45px;
 	background: #e4eef6 url(../images/ico/info.png) no-repeat scroll 15px 50%;
 	/** -moz-background-clip: -moz-initial;
@@ -883,196 +896,110 @@ span.editlinktip {
 	text-decoration: none;
 	border-bottom: 1px dashed #aaa;
 }
-/* ThemeOfficeMenu Style Sheet */
-.inactive .ThemeOfficeMainItemHover, .inactive .ThemeOfficeMainItem, .inactive .ThemeOfficeMainItemActive {
-	background-image: none;
-	border: 0;
-	color: #808080;
+/*---------------------------------------------------------------Верхнее меню */
+#myMenuID {
+	padding: 0 0 0 0;
+}
+#myMenuID span {
+	cursor: pointer;
+	font-size: 11px;
+	margin: 3px 2px 0 2px;
 	padding: 0;
 }
-/* общие стили меню */
 .ThemeOfficeMenu, .ThemeOfficeSubMenuTable {
-	font-family: arial, verdana, sans-serif;
-	font-size: 13px;
+	cursor: default;
+	font: 11px arial, verdana, sans-serif;
+	height: 26px;
 	padding: 0;
 	white-space: nowrap;
-	cursor: default;
-	height: 25px;
+}
+.ThemeOfficeMenuItem .seq2,
+.ThemeOfficeMenuItemHover .seq1,
+.ThemeOfficeMenuItemActive .seq1{
+	display: none;
 }
 /* слой с отображением дочерних пунктов меню */
 .ThemeOfficeSubMenu {
+	border: 0;
+	border: 1px solid #CCC;
+	border-top: none !important;
+	margin: 0 1px 0 0;
+	overflow: visible;
+	padding: 0;
 	position: absolute;
 	visibility: hidden;
 	z-index: 100;
-	border: 0;
-	padding: 0;
-	overflow: visible;
-	border: 1px solid #cfd3e8;
 }
 .ThemeOfficeSubMenuTable {
 	overflow: visible;
 }
-.ThemeOfficeMainItem, .ThemeOfficeMainItemHover, .ThemeOfficeMainItemActive, .ThemeOfficeMenuItem, .ThemeOfficeMenuItemHover, .ThemeOfficeMenuItemActive {
+.ThemeOfficeMenuItemLeft,
+.ThemeOfficeMenuItemText,
+.ThemeOfficeMenuItemRight,
+.ThemeOfficeMenuFolderLeft,
+.ThemeOfficeMenuFolderText,
+.ThemeOfficeMenuFolderRight {
+	padding:3px 3px 3px 3px !important;
+}
+.ThemeOfficeMainItem,
+.ThemeOfficeMainItemHover,
+.ThemeOfficeMainItemActive,
+.ThemeOfficeMenuItem,
+.ThemeOfficeMenuItemHover,
+.ThemeOfficeMenuItemActive {
+	cursor: pointer;
 	white-space: nowrap;
 }
 /* пункты главного меню */
 td.ThemeOfficeMainItem {
-width:1px;
-}
-/* стиль подпункта меню при наведении курсора */
-.ThemeOfficeMainItemHover, .ThemeOfficeMainItemActive {
-	background: url(../images/menu-bg.png);
+	color: #000;
+	padding: 4px 0 4px 0;
 }
 /* элемент справа и разделитель */
-.ThemeOfficeMenuItem {
-	background-color: #f0f0f0;
+.ThemeOfficeMenuItemHover,
+.ThemeOfficeMenuItemActive {
+	background: #E6E6E6;
 }
-.ThemeOfficeMenuItemHover, .ThemeOfficeMenuItemActive {
-	background: url(../images/menu-bg.png);
+.ThemeOfficeMenuItem,
+.ThemeOfficeMenuItem .ThemeOfficeMenuFolderText,
+.ThemeOfficeMenuItem .ThemeOfficeMenuItemText {
+	background-color: #F0F0F0;
 }
 /* horizontal main menu */
 .themeofficemainitem {
+	border: 0;
 	padding: 4px 1px 4px 1px;
-	border: 0;
-/* ??? */
 }
-td.ThemeOfficeMainItemHover, td.ThemeOfficeMainItemActive {
+td.ThemeOfficeMainItemHover,
+td.ThemeOfficeMainItemActive {
+	background: #E1E1E1;
+	color: #000;
 	padding: 0px;
-	border: 1px solid white;
-	background: url(../images/menu-bg-hover.png);
+
 }
-.ThemeOfficeMainFolderLeft, .ThemeOfficeMainItemLeft, .ThemeOfficeMainFolderText, .ThemeOfficeMainItemText, .ThemeOfficeMainFolderRight, .ThemeOfficeMainItemRight {
+.ThemeOfficeMainFolderLeft, .ThemeOfficeMainItemLeft, .ThemeOfficeMainFolderText,
+.ThemeOfficeMainItemText, .ThemeOfficeMainFolderRight, .ThemeOfficeMainItemRight,
+.ThemeOfficeMenuItem .ThemeOfficeMenuFolderRight,
+.ThemeOfficeMenuItem .ThemeOfficeMenuItemRight {
 	background-color: inherit;
 }
-/* vertical main menu sub components */
-td.ThemeOfficeMainFolderLeft, td.ThemeOfficeMainItemLeft {
-	padding-top: 2px;
-	padding-bottom: 2px;
-	padding-left: 0px;
-	padding-right: 2px;
-	background-color: inherit;
-	background: url(../images/menu-bg.png);
-}
-td.ThemeOfficeMainFolderText, td.ThemeOfficeMainItemText {
-	padding-top: 2px;
-	padding-bottom: 2px;
-	padding-left: 5px;
-	padding-right: 5px;
-	background-color: inherit;
-	white-space: nowrap;
-}
-td.ThemeOfficeMainFolderRight, td.ThemeOfficeMainItemRight {
-	padding-top: 2px;
-	padding-bottom: 2px;
-	padding-left: 0px;
-	padding-right: 0px;
-	background-color: inherit;
-}
-tr.ThemeOfficeMainItem td.ThemeOfficeMainFolderLeft, tr.ThemeOfficeMainItem td.ThemeOfficeMainItemLeft {
-	padding-top: 3px;
-	padding-bottom: 3px;
-	padding-left: 1px;
-	padding-right: 2px;
-	white-space: nowrap;
-	border: 0;
-	background-color: inherit;
-}
-tr.ThemeOfficeMainItem td.ThemeOfficeMainFolderText, tr.ThemeOfficeMainItem td.ThemeOfficeMainItemText {
-	padding-top: 3px;
-	padding-bottom: 3px;
-	padding-left: 5px;
-	padding-right: 5px;
-	border: 0;
-	background-color: inherit;
-}
-.ThemeOfficeMainFolderText{
-	padding-left: 3px;
-	padding-right: 3px;
-}
-tr.ThemeOfficeMainItem td.ThemeOfficeMainItemRight, tr.ThemeOfficeMainItem td.ThemeOfficeMainFolderRight {
-	padding-top: 3px;
-	padding-bottom: 3px;
-	padding-left: 0px;
-	padding-right: 1px;
-	border: 0;
-	background-color: inherit;
-}
-/* sub menu sub components */
-.ThemeOfficeMenuFolderLeft, .ThemeOfficeMenuItemLeft {
-	padding-top: 2px;
-	padding-bottom: 2px;
-	padding-left: 1px;
-	padding-right: 3px;
-	border-top: 1px solid white;
-	border-bottom: 1px solid white;
-	border-left: 1px solid white;
-	background-color: inherit;
-	white-space: nowrap;
-}
-.ThemeOfficeMenuFolderText, .ThemeOfficeMenuItemText {
-	padding-top: 2px;
-	padding-bottom: 2px;
-	padding-left: 5px;
-	padding-right: 5px;
-	border-top: 1px solid white;
-	border-bottom: 1px solid white;
-	background-color: inherit;
-	white-space: nowrap;
-}
-.ThemeOfficeMenuFolderRight, .ThemeOfficeMenuItemRight {
-	padding-top: 2px;
-	padding-bottom: 2px;
-	padding-left: 0px;
-	padding-right: 0px;
-	border-top: 1px solid white;
-	border-bottom: 1px solid white;
-	border-right: 1px solid white;
-	background-color: inherit;
-	white-space: nowrap;
-}
-.ThemeOfficeMenuItem .ThemeOfficeMenuFolderLeft, .ThemeOfficeMenuItem .ThemeOfficeMenuItemLeft {
-	padding-top: 3px;
-	padding-bottom: 3px;
-	padding-left: 2px;
-	padding-right: 3px;
-	white-space: nowrap;
-	border: 0;
-	border-right: 1px solid #DBDBDB;
+.ThemeOfficeMenuItem .ThemeOfficeMenuFolderLeft,
+.ThemeOfficeMenuItem .ThemeOfficeMenuItemLeft {
 	background-color: #EFEFEF;
 }
-.ThemeOfficeMenuItem .ThemeOfficeMenuFolderText, .ThemeOfficeMenuItem .ThemeOfficeMenuItemText {
-	padding-top: 3px;
-	padding-bottom: 3px;
-	padding-left: 5px;
-	padding-right: 5px;
-	border: 0px;
-	background-color: #f0f0f0;
-}
-.ThemeOfficeMenuItem .ThemeOfficeMenuFolderRight, .ThemeOfficeMenuItem .ThemeOfficeMenuItemRight {
-	padding-top: 3px;
-	padding-bottom: 3px;
-	padding-left: 0px;
-	padding-right: 1px;
-	border: 0;
-	background-color: inherit;
-}
-/* menu splits */
 .ThemeOfficeMenuSplit {
-	margin: 2px;
-	height: 1px;
-	overflow: hidden;
 	background-color: inherit;
 	border-top: 1px solid #C6C3BD;
+	height: 1px;
+	margin: 2px;
+	overflow: hidden;
 }
-.ThemeOfficeMenuItem img.seq1 {
+.ThemeOfficeMenuItem img.seq1,
+.ThemeOfficeMenuItemHover seq2,
+.ThemeOfficeMenuItemActive seq2 {
 	display: inline;
 }
-.ThemeOfficeMenuItemHover seq2, .ThemeOfficeMenuItemActive seq2 {
-	display: inline;
-}
-.ThemeOfficeMenuItem .seq2, .ThemeOfficeMenuItemHover .seq1, .ThemeOfficeMenuItemActive .seq1 {
-	display: none;
-}
+
 /* строка таблицы с полным выделением */
 #adminlist td:hover {
 	color: #000000;
@@ -1121,3 +1048,10 @@ td.header_info img{
 	display: inline;
 	float:left;
 }
+
+a.logoff{
+    margin: 0 12px 0  0;
+     background: url(../images/menu_ico/logout.png) left no-repeat;
+     padding: 0 0 0 20px;
+}
+
