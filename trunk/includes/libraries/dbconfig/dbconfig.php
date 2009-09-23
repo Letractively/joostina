@@ -43,7 +43,10 @@ class DBconfig{
 		}
 		
 		// получаем все значение из базы данных
-		$this->bindConfig($this->_formatArray($this->getBatchValues()));
+		if($this->bindConfig($this->_formatArray($this->getBatchValues()))){
+			return true;
+		};
+		return false;
 	}
 
 	function bindConfig($array, $prefix = '') {
