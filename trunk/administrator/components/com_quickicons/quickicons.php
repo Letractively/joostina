@@ -29,13 +29,6 @@ function quickiconButton($row,$newWindow) {
 <?php
 }
 ?>
-
-<?php
-$securitycheck = intval($params->get('securitycheck',1));
-if(!empty($securitycheck)) {
-	josSecurityCheck('100%');
-} ?>
-
 <div class="cpicons"><?php
 		$query = 'SELECT* FROM #__quickicons WHERE published = 1 AND gid <= '.$my->gid.' ORDER BY ordering';
 		$database->setQuery($query);
@@ -45,7 +38,7 @@ if(!empty($securitycheck)) {
 			quickiconButton($row,$newWindow);
 		}
 		unset($query,$rows);
-?></div>
+?>
 <div style="display: block; clear: both; text-align:left; padding-top:10px;">
 <?php if($my->usertype == 'Super Administrator') { ?>
 	<a href="index2.php?option=com_quickicons">
@@ -53,4 +46,5 @@ if(!empty($securitycheck)) {
 		<?php echo _CHANGE_QUICK_BUTTONS?>
 	</a>
 <?php } ?>
+</div>
 </div>

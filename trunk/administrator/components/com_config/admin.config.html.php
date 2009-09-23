@@ -983,7 +983,7 @@ class HTML_config {
 	<table class="adminform">
 		<tr>
 			<td width="200" valign="top"><?php echo _SITE_DESC?>:</td>
-			<td>
+			<td width="580">
 				<textarea class="text_area" cols="50" rows="3" style="width:500px; height:50px" name="config_MetaDesc"><?php echo $row->config_MetaDesc; ?></textarea><?php echo mosToolTip(_SITE_DESC2); ?>
 			</td>
 		</tr>
@@ -1045,7 +1045,7 @@ class HTML_config {
 						<table class="adminform">
 						<tr>
 						<td width="185"><?php echo _MAIL_METHOD?>:</td>
-								<td><?php echo $lists['mailer']; ?></td>
+								<td width="250"><?php echo $lists['mailer']; ?></td>
 						</tr>
 						<tr>
 						<td><?php echo _MAIL_FROM_ADR?>:</td>
@@ -1086,7 +1086,7 @@ class HTML_config {
 ?>
 				<tr>
 					<td width="350"><?php echo _ENABLE_CACHE?>:</td>
-					<td><?php echo $lists['caching']; ?><?php echo mosToolTip(_ENABLE_CACHE2); ?></td>
+					<td width="300"><?php echo $lists['caching']; ?><?php echo mosToolTip(_ENABLE_CACHE2); ?></td>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
@@ -1272,24 +1272,23 @@ class HTML_config {
 	<table class="adminform">
 		<tr>
 			<td width="300"><?php echo _ADMIN_LOGIN_COUNTER?>:</td>
-			<td><input class="text_area" style="width:60px;" type="text" name="config_admin_bad_auth" size="60" value="<?php echo $row->config_admin_bad_auth;?>"/>
+			<td width="300"><input class="text_area" style="width:60px;" type="text" name="config_admin_bad_auth" size="60" value="<?php echo $row->config_admin_bad_auth;?>"/>
 			<?php echo mosToolTip(_ADMIN_LOGIN_COUNTER2); ?>
 			</td>
 		</tr>
 		<tr>
-			<td width="300"><?php echo _ADMIN_CAPTCHA?>:</td>
-			<td><?php echo $lists['captcha'];
-					echo mosToolTip(_ADMIN_CAPTCHA2); ?>
+			<td><?php echo _ADMIN_CAPTCHA?>:</td>
+			<td><?php echo $lists['captcha'];echo mosToolTip(_ADMIN_CAPTCHA2); ?>
 			</td>
 		</tr>
 		<tr>
-			<td width="300"><?php echo _REGISTRATION_CAPTCHA?>:</td>
+			<td><?php echo _REGISTRATION_CAPTCHA?>:</td>
 			<td><?php echo $lists['config_captcha_reg'];
 		echo mosToolTip(_REGISTRATION_CAPTCHA2); ?>
 			</td>
 		</tr>
 		<tr>
-			<td width="300"><?php echo _CONTACTS_CAPTCHA?>:</td>
+			<td><?php echo _CONTACTS_CAPTCHA?>:</td>
 			<td><?php echo $lists['config_captcha_cont'];
 		echo mosToolTip(_CONTACTS_CAPTCHA2); ?>
 			</td>
@@ -1298,8 +1297,6 @@ class HTML_config {
 <?php
 		$tabs->endTab();
 		$tabs->endPane();
-		// show security setting check
-		josSecurityCheck();
 ?>
 
 		<input type="hidden" name="option" value="<?php echo $option; ?>"/>
