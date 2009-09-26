@@ -223,7 +223,7 @@ function mosLoadModule($name = '', $title = '', $style = 0, $noindex = 0, $inc_p
 	$tp = intval(mosGetParam($_GET,'tp',0));
 
 	if($tp && !$config->config_disable_tpreview ) {
-		echo '<div style="height:50px;background-color:#eee;margin:2px;padding:10px;border:1px solid #f00;color:#700;">'.$position.'</div>';
+		echo '<div style="height:50px;background-color:#eee;margin:2px;padding:10px;border:1px solid #f00;color:#700;">'.$name.'</div>';
 		return;
 	}
 	$style = intval($style);
