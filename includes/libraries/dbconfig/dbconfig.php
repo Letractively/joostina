@@ -19,6 +19,7 @@ class DBconfig{
 	var $_subgroup = '';
 	var $_db = null;
 	var $_error = '';
+	var $_loaded = null;
 	/**
 	 * 
 	 */
@@ -123,7 +124,8 @@ class DBconfig{
 		$this->_db->setQuery("SELECT c.name, c.value FROM #__config AS c WHERE c.group='$this->_group'".$where);
 
 		$return = $this->_db->loadObjectList();
-		if (is_array($return)) {
+		if (count($return) && is_array($return)) {
+			$this->_loaded = 1;
 			return $return;
 		} else {
 			return null;
