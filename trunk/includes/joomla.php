@@ -5588,17 +5588,6 @@ if(window.attachEvent){
 		}
 	}
 
-	/* подключение jwondow*/
-	function loadJWin() {
-		if(!defined('_JWIN_LOADED')) {
-			define('_JWIN_LOADED',1);
-			$mainframe = &MosMainFrame::getInstance();
-			$config = &Jconfig::getInstance();
-			$mainframe->addCSS($config->config_live_site.'/includes/js/jwindow/jwindow.css');
-			$mainframe->addJS($config->config_live_site.'/includes/js/jwindow/jwindow.js');
-		}
-	}
-
 	function AccessProcessing(&$row,$i,$ajax=null) {
 		$option = strval(mosGetParam($_REQUEST,'option',''));
 		if(!$row->access) {

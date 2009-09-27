@@ -107,7 +107,7 @@ class HTML_content {
 <table class="adminlisttop adminlist">
 	<tr class="row0">
 	<td valign="top" align="left" id="ntdree"><?php echo $lists['sectree'];?></td>
-	<td onclick="ntreetoggle();" width="1" id="tdtoogle" <?php echo $lists['sectreetoggle'];?>><img border="0" alt="<?php echo _HIDE_NAV_TREE?>" src="<?php echo $cur_file_icons_path2;?>/tgl.gif" /></td>
+	<td onclick="ntreetoggle();" width="1" id="tdtoogle" <?php echo $lists['sectreetoggle'];?>><img border="0" alt="<?php echo _HIDE_NAV_TREE?>" src="<?php echo $cur_file_icons_path2;?>/tgl.png" /></td>
 	<td valign="top" width="100%">
 	<table class="adminlist" width="100%">
 		<thead>
@@ -612,7 +612,7 @@ function editContent(&$row,$section,&$lists,&$sectioncategories,&$images,&$param
 
 			<!--кнопка скрытия правой колонки:BEGIN-->
 			<td onclick="ntreetoggle();" width="1" id="tdtoogle" class="tdtoogleon">
-				<img border="0" alt="<?php echo _HIDE_PARAMS_PANEL?>" src="<?php echo $cur_file_icons_path;?>/tgl.gif" />
+				<img border="0" alt="<?php echo _HIDE_PARAMS_PANEL?>" src="<?php echo $cur_file_icons_path;?>/tgl.png" />
 			</td>
 			<!--кнопка скрытия правой колонки:END-->
 

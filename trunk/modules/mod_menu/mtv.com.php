@@ -64,9 +64,10 @@ function _add_tab($count){
 <link href="<?php echo $config->config_live_site ?>/modules/mod_menu/css/dropdown.css" media="screen" rel="stylesheet" type="text/css" />
 <link href="<?php echo $config->config_live_site ?>/modules/mod_menu/mtv.com/default.ultimate.css" media="screen" rel="stylesheet" type="text/css" />
 <!--[if lt IE 7]>
-	<script type="text/javascript" src="<?php echo $config->config_live_site ?>/modules/mod_menu/js/jquery/jquery.js"></script>
-	<script type="text/javascript" src="<?php echo $config->config_live_site ?>/modules/mod_menu/js/jquery/jquery.dropdown.js"></script>
-<![endif]-->
+<?php
+	mosCommonHTML::loadJquery();
+	mosCommonHTML::loadJqueryPlugins('jquery.dropdown');
+?><![endif]-->
 <ul id="nav" class="dropdown dropdown-horizontal">
 	<?php menu_recurse( 0, 0, $children ); ?>
 </ul>

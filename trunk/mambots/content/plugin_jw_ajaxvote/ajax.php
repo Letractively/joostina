@@ -38,17 +38,17 @@ function recordVote() {
 	if (($user_rating >= 1) and ($user_rating <= 5)) {
 		$currip = ( phpversion() <= '4.2.1' ? @getenv( 'REMOTE_ADDR' ) : $_SERVER['REMOTE_ADDR'] );
 
-		$query = "SELECT * FROM #__content_rating WHERE content_id = " . (int) $cid;
+		$query = "SELECT * FROM #__content_rating WHERE content_id = " . $cid;
 		$database->setQuery( $query );
 		$votesdb = NULL;
 		if ( !( $database->loadObject( $votesdb ) ) ) {
-			$query = "INSERT INTO #__content_rating ( content_id, lastip, rating_sum, rating_count ) VALUES ( " . (int) $cid . ", " . $database->Quote( $currip ) . ", " . (int) $user_rating . ", 1 )";
+			$query = "INSERT INTO #__content_rating ( content_id, lastip, rating_sum, rating_count ) VALUES ( " . $cid . ", " . $database->Quote( $currip ) . ", " . $user_rating . ", 1 )";
 			$database->setQuery( $query );
 			$database->query() or die( $database->stderr() );;
 		} else {
 			if ($currip != ($votesdb->lastip)) {
 				$query = "UPDATE #__content_rating"
-				. "\n SET rating_count = rating_count + 1, rating_sum = rating_sum + " . (int) $user_rating . ", lastip = " . $database->Quote( $currip )
+				. "\n SET rating_count = rating_count + 1, rating_sum = rating_sum + " . $user_rating . ", lastip = " . $database->Quote( $currip )
 				. "\n WHERE content_id = " . (int) $cid
 				;
 				$database->setQuery( $query );
@@ -71,7 +71,7 @@ function getPercentage (){
 
 	$id = intval( $_GET['cid'] );
 
-	$database->setQuery('SELECT * FROM #__content_rating WHERE content_id='. (int) $id);
+	$database->setQuery('SELECT * FROM #__content_rating WHERE content_id='.$id);
 	$database->loadObject($vote);
 
 	if($vote->rating_count!=0){

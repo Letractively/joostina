@@ -19,9 +19,9 @@ $config = &Jconfig::getInstance();
 // собираем всех детей
 $parent_array = array();
 foreach ($menus as $menu){
-    if($menu->parent>0){
-        $parent_array[$menu->parent][] = $menu;
-    }
+	if($menu->parent>0){
+		$parent_array[$menu->parent][] = $menu;
+	}
 }
 
 ob_start();
@@ -29,11 +29,11 @@ ob_start();
 d.add(0,-1,'');<?php
 $n = 1;
 foreach ( $menus as $menu ){
-    if( !isset($parent_array[$menu->id])){
-        $menu->id = '1010101'.$n;
-    }
-    ?>d.add(<?php echo $menu->id ?>,<?php echo $menu->parent ?>,'<?php echo htmlspecialchars($menu->name) ?>','<?php echo sefRelToAbs($menu->link) ?>');<?php
-    $n++;
+	if( !isset($parent_array[$menu->id])){
+		$menu->id = '1010101'.$n;
+	}
+	?>d.add(<?php echo $menu->id ?>,<?php echo $menu->parent ?>,'<?php echo htmlspecialchars($menu->name) ?>','<?php echo sefRelToAbs($menu->link) ?>');<?php
+	$n++;
 }
 ?>
 document.write(d);
@@ -43,25 +43,22 @@ ob_end_clean();
 
 
 function get_menu_links($menutype){
-    global $database;
-    $sql = 'SELECT id,name,link,parent FROM #__menu'
-    . ' WHERE menutype = ' . $database->Quote( $menutype )
-    . ' AND published = 1 ORDER BY parent, ordering' ;
-    $database->setQuery( $sql );
-    $menus = $database->loadObjectList();
-    unset($menus[0]); // убираем первый пункт меню
+	$database = &database::getInstance();
+	$sql = 'SELECT id,name,link,parent FROM #__menu'
+	. ' WHERE menutype = ' . $database->Quote( $menutype )
+	. ' AND published = 1 ORDER BY parent, ordering' ;
+	$database->setQuery( $sql );
+	$menus = $database->loadObjectList();
+	unset($menus[0]); // убираем первый пункт меню
 
-    return $menus;
-
-
-    $children = array();
-    foreach($menus as $v) {
-        $pt = $v->parent;
-        $list = @$children[$pt]?$children[$pt]:array();
-        array_push($list,$v);
-        $children[$pt] = $list;
-    }
-    return mosTreeRecurse(0,'',array(),$children,max(0,5 - 1));
+	$children = array();
+	foreach($menus as $v) {
+		$pt = $v->parent;
+		$list = @$children[$pt]?$children[$pt]:array();
+		array_push($list,$v);
+		$children[$pt] = $list;
+	}
+	return mosTreeRecurse(0,'',array(),$children,max(0,5 - 1));
 }
 
 
