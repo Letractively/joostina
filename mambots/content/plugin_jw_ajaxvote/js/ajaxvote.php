@@ -17,4 +17,3 @@ time() + $offset) . " GMT";
 header($ExpStr);
 include("ajaxvote.js");
 ob_flush();
-?>

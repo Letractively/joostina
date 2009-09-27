@@ -35,12 +35,13 @@ foreach ($rows as $v ) {
 }
 
 ?>
-<link href="http://localhost/joostina-extensions/modules/mod_menu/modules/mod_menu/style/dropdown.css" media="screen" rel="stylesheet" type="text/css" />
-<link href="http://localhost/joostina-extensions/modules/mod_menu/modules/mod_menu/style/flickr/default.ultimate.css" media="screen" rel="stylesheet" type="text/css" />
+<link href="<?php echo $config->config_live_site ?>/modules/mod_menu/style/dropdown.css" media="screen" rel="stylesheet" type="text/css" />
+<link href="<?php echo $config->config_live_site ?>/modules/mod_menu/style/flickr/default.ultimate.css" media="screen" rel="stylesheet" type="text/css" />
 <!--[if lt IE 7]>
-<script type="text/javascript" src="js/jquery/jquery.js"></script>
-<script type="text/javascript" src="js/jquery/jquery.dropdown.js"></script>
-<![endif]-->
+<?php
+	mosCommonHTML::loadJquery();
+	mosCommonHTML::loadJqueryPlugins('jquery.dropdown');
+?><![endif]-->
 <?php
 
 

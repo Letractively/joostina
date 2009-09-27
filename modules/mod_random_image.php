@@ -144,7 +144,7 @@ if (is_dir($abspath_folder)) {
 <?php
 				}else{
 					$pics_str = implode(',', $pics);
-					mosCommonHTML::loadJqueryPlugins('simplegallery',1);
+					mosCommonHTML::loadJqueryPlugins('jquery.simplegallery',1);
 					include (Jconfig::getInstance()->config_absolute_path.'/modules/mod_random_image/slide_show.php');
 ?>
 					<div id="<?php echo $slideshow_name;?>"></div>

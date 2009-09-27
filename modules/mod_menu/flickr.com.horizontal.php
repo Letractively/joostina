@@ -74,8 +74,10 @@ function _add_tab($count){
 <link href="<?php echo $config->config_live_site ?>/modules/mod_menu/flickr.com.horizontal/default.ultimate.css" media="screen" rel="stylesheet" type="text/css" />
 <?php endif ?>
 <!--[if lt IE 7]>
-	<script type="text/javascript" src="<?php echo $config->config_live_site ?>/modules/mod_menu/js/jquery/jquery.js"></script>
-	<script type="text/javascript" src="<?php echo $config->config_live_site ?>/modules/mod_menu/js/jquery/jquery.dropdown.js"></script>
+<?php
+	mosCommonHTML::loadJquery();
+	mosCommonHTML::loadJqueryPlugins('jquery.dropdown');
+?>
 <![endif]-->
 <ul class="dropdown">
 	<?php menu_recurse( 0, 0, $children ); ?>

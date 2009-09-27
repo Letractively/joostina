@@ -83,14 +83,12 @@ class Image {
 									}
 									if(!Thumbnail::output($dir_name.'/'.$name, $dir_name.'/thumb/'.$name, $resize_options)){
 										echo "<script> alert('Ошибка при добавлении файла. Возможно, файл поврежден');  </script>\n";
-										exit();  	return false;
+										exit();
 									}
 								}else{
 									if(!Thumbnail::output($dir_name.'/'.$name, $dir_name.'/'.$name, $resize_options)){
-
 										echo "<script> alert('Ошибка при добавлении файла. Возможно, файл поврежден2');  </script>\n";
-										exit();  	return false;
-
+										exit();
 									}
 								}
 							}
@@ -176,13 +174,12 @@ class Image {
 
 		if($image){
 			return '/images/stories/'.$image;
-		}
-		else if($default_image){
+		}elseif($default_image){
 			return '/images/noimage.jpg';
-		 }
-		 else{
-			 return false;
-		 }
+		}
+		else{
+			return false;
+		}
 
 	}
 
@@ -190,18 +187,15 @@ class Image {
 
 		$matches=array();
 		$regex = '#<img[^>]*src=(["\'])([^"\']*)\1[^>]*>#is';
-		 if(preg_match($regex, $text, $matches)){
-			 $img =  $matches[2];
-			 $img = self::check_href($img);
-			 return $img;
-		 }
-		 else if($default_image){
+		if(preg_match($regex, $text, $matches)){
+			$img =  $matches[2];
+			$img = self::check_href($img);
+			return $img;
+		}elseif($default_image){
 			return '/images/noimage.jpg';
-		 }
-		 else{
-			 return false;
-		 }
-
+		}else{
+			return false;
+		}
 	}
 
 	function check_href($href){

@@ -96,10 +96,10 @@ a.abig{
 	margin: 0;
 }
 .tdtoogleoff{
-	background: url(../images/tgl.gif) no-repeat;
+	background: url(../images/tgl.png) no-repeat;
 }
 .tdtoogleon{
-	background: url(../images/tgr.gif) no-repeat;
+	background: url(../images/tgr.png) no-repeat;
 }
 .tdtoogleoff:hover, .tdtoogleon:hover{
 	background-color: #FFFFCC;

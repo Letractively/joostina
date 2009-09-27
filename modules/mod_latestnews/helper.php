@@ -12,78 +12,78 @@ defined( '_VALID_MOS' ) or die();
 
 
 class mod_latestnews_Helper{
-	
+
 	function get_static_items($params){
 		global $my;
 		$database = &database::getInstance();
 		$mainframe = &mosMainFrame::getInstance();
-				
+
 		$now = _CURRENT_SERVER_TIME;
 		$access	= !$mainframe->getCfg( 'shownoauth' );
 		$nullDate = $database->getNullDate();  
-		
+
 		$query = 'SELECT a.id, a.title, a.introtext, a.images, a.created, a.created_by, a.created_by_alias, 
-		u.name AS author, u.usertype, u.username
-		FROM #__content AS a
-		LEFT JOIN #__users AS u ON u.id = a.created_by
-		WHERE (a.state = 1 AND a.sectionid = 0)
-		AND (a.publish_up = '.$database->Quote($nullDate).' OR a.publish_up <= '.$database->Quote($now).' )
-		AND (a.publish_down = '.$database->Quote( $nullDate ).' OR a.publish_down >= '.$database->Quote($now).' )
-		'.( $access ? 'AND a.access <= ' . (int) $my->gid : '' ).'
-		ORDER BY a.created DESC';
-		
+			u.name AS author, u.usertype, u.username
+			FROM #__content AS a
+			LEFT JOIN #__users AS u ON u.id = a.created_by
+			WHERE (a.state = 1 AND a.sectionid = 0)
+			AND (a.publish_up = '.$database->Quote($nullDate).' OR a.publish_up <= '.$database->Quote($now).' )
+			AND (a.publish_down = '.$database->Quote( $nullDate ).' OR a.publish_down >= '.$database->Quote($now).' )
+			'.( $access ? 'AND a.access <= ' . (int) $my->gid : '' ).'
+			ORDER BY a.created DESC';
+
 		$database->setQuery($query, 0, intval($params->get('count',5)));
 		$rows = $database->loadObjectList();
-		
+
 		return $rows;
 	}
-	
+
 	function get_items_both($params){
 		global $my;
 		$database = &database::getInstance();
 		$mainframe = &mosMainFrame::getInstance();
-				
+
 		$now = _CURRENT_SERVER_TIME;
 		$access	= !$mainframe->getCfg( 'shownoauth' );
 		$nullDate = $database->getNullDate(); 
-		
+
 		$count = intval($params->get('count',5));
 		$catid = trim($params->get('catid'));
 		$secid = trim($params->get('secid', 1));
 		$show_front	= $params->get('show_front', 1); 
-		
-		$whereCatid = '';		
+
+		$whereCatid = '';
 		if ($catid) {
 			$catids = explode( ',', $catid );
 			mosArrayToInts( $catids );
 			$whereCatid = " AND ( a.catid=" . implode( " OR a.catid=", $catids ) . " )";
 		}
-		
+
 		$whereSecid = '';
 		if ($secid) {
 			$secids = explode( ',', $secid );
 			mosArrayToInts( $secids );
 			$whereSecid = " AND (a.sectionid=" . implode(" OR a.sectionid=", $secids ) . ")";
 		}
-		
+
 		$query = "SELECT a.id, a.title, a.sectionid, a.catid, 
-		a.introtext, a.images, a.created, a.created_by, a.created_by_alias, 
-		u.name AS author, u.usertype, u.username,
-		cc.access AS cat_access, s.access AS sec_access, cc.published AS cat_state, s.published AS sec_state
-		FROM #__content AS a
-		LEFT JOIN #__content_frontpage AS f ON f.content_id = a.id
-		LEFT JOIN #__categories AS cc ON cc.id = a.catid
-		LEFT JOIN #__sections AS s ON s.id = a.sectionid
-		LEFT JOIN #__users AS u ON u.id = a.created_by
-		WHERE a.state = 1
-		AND ( a.publish_up = " . $database->Quote( $nullDate ) . " OR a.publish_up <= " . $database->Quote( $now ) . " )
-		AND ( a.publish_down = " . $database->Quote( $nullDate ) . " OR a.publish_down >= " . $database->Quote( $now ) . " )
-		". ( $access ? " AND a.access <= " . (int) $my->gid : '' )
-		. $whereCatid
-		. $whereSecid
-		. ( $show_front == '0' ? " AND f.content_id IS NULL" : '' )
-		. " ORDER BY a.created DESC";
-		
+			a.introtext, a.images, a.created, a.created_by, a.created_by_alias,
+			u.name AS author, u.usertype, u.username,
+			cc.access AS cat_access, s.access AS sec_access, cc.published AS cat_state, s.published AS sec_state
+			FROM #__content AS a
+			LEFT JOIN #__content_frontpage AS f ON f.content_id = a.id
+			LEFT JOIN #__categories AS cc ON cc.id = a.catid
+			LEFT JOIN #__sections AS s ON s.id = a.sectionid
+			LEFT JOIN #__users AS u ON u.id = a.created_by
+			WHERE a.state = 1
+			AND ( a.publish_up = " . $database->Quote( $nullDate ) . " OR a.publish_up <= " . $database->Quote( $now ) . " )
+			AND ( a.publish_down = " . $database->Quote( $nullDate ) . " OR a.publish_down >= " . $database->Quote( $now ) . " )
+			". ( $access ? " AND a.access <= " . (int) $my->gid : '' )
+			. $whereCatid
+			. $whereSecid
+			. ( $show_front == '0' ? " AND f.content_id IS NULL" : '' )
+			. " ORDER BY a.created DESC";
+
 		$database->setQuery( $query, 0, $count );
 		$temp = $database->loadObjectList();
 
@@ -96,7 +96,7 @@ class mod_latestnews_Helper{
 			}
 		}
 		unset($temp);
-		
+
 		return $rows;
 	}
 	
@@ -104,62 +104,62 @@ class mod_latestnews_Helper{
 		global $my;
 		$database = &database::getInstance();
 		$mainframe = &mosMainFrame::getInstance();
-				
+
 		$now = _CURRENT_SERVER_TIME;
 		$access	= !$mainframe->getCfg( 'shownoauth' );
 		$nullDate = $database->getNullDate(); 
-		
+
 		$count = intval($params->get('count',5));
 		$catid = trim($params->get('catid'));
 		$secid = trim($params->get('secid'));
 		$show_front	= $params->get('show_front', 1); 
-		
+
 		$whereCatid = '';
 		if ($catid) {
 			$catids = explode( ',', $catid );
 			mosArrayToInts( $catids );
 			$whereCatid = " AND ( a.catid=" . implode( " OR a.catid=", $catids ) . " )";
 		}
-		
+
 		$whereSecid = '';
 		if ($secid) {
 			$secids = explode( ',', $secid );
 			mosArrayToInts( $secids );
 			$whereSecid = " AND ( a.sectionid=" . implode( " OR a.sectionid=", $secids ) . " )";
 		}
-		
+
 		$query = "SELECT a.id, a.title, a.sectionid, a.catid, a.introtext, 
-		a.images, a.created, a.created_by, a.created_by_alias, 
-		u.name AS author, u.usertype, u.username
-		FROM #__content AS a
-		LEFT JOIN #__content_frontpage AS f ON f.content_id = a.id
-		INNER JOIN #__categories AS cc ON cc.id = a.catid
-		INNER JOIN #__sections AS s ON s.id = a.sectionid
-		LEFT JOIN #__users AS u ON u.id = a.created_by
-		WHERE ( a.state = 1 AND a.sectionid > 0 )
-		AND ( a.publish_up = " . $database->Quote( $nullDate ) . " OR a.publish_up <= " . $database->Quote( $now ) . " )
-		AND ( a.publish_down = " . $database->Quote( $nullDate ) . " OR a.publish_down >= " . $database->Quote( $now ) . " )"
-		. ( $access ? " AND a.access <= " . (int) $my->gid . " AND cc.access <= " . (int) $my->gid . " AND s.access <= " . (int) $my->gid : '' )
-		. $whereCatid
-		. $whereSecid
-		. ($show_front == '0' ? " AND f.content_id IS NULL" : ''). " 
-		AND s.published = 1
-		AND cc.published = 1
-		ORDER BY a.created DESC";
-		
+			a.images, a.created, a.created_by, a.created_by_alias,
+			u.name AS author, u.usertype, u.username
+			FROM #__content AS a
+			LEFT JOIN #__content_frontpage AS f ON f.content_id = a.id
+			INNER JOIN #__categories AS cc ON cc.id = a.catid
+			INNER JOIN #__sections AS s ON s.id = a.sectionid
+			LEFT JOIN #__users AS u ON u.id = a.created_by
+			WHERE ( a.state = 1 AND a.sectionid > 0 )
+			AND ( a.publish_up = " . $database->Quote( $nullDate ) . " OR a.publish_up <= " . $database->Quote( $now ) . " )
+			AND ( a.publish_down = " . $database->Quote( $nullDate ) . " OR a.publish_down >= " . $database->Quote( $now ) . " )"
+			. ( $access ? " AND a.access <= " . (int) $my->gid . " AND cc.access <= " . (int) $my->gid . " AND s.access <= " . (int) $my->gid : '' )
+			. $whereCatid
+			. $whereSecid
+			. ($show_front == '0' ? " AND f.content_id IS NULL" : ''). "
+			AND s.published = 1
+			AND cc.published = 1
+			ORDER BY a.created DESC";
+
 		$database->setQuery( $query, 0, $count );
 		$rows = $database->loadObjectList();
-		
+
 		return $rows;
 	}
-	
+
 	function get_itemid($row, $params){
 		$mainframe = &mosMainFrame::getInstance();
 		$database = &database::getInstance();
-		
+
 		$type = intval($params->get('type', 1));
-		
-		switch ($type) {			
+
+		switch ($type) {
 			case 2:
 				$query = "SELECT id	FROM #__menu WHERE type = 'content_typed' AND componentid = ".(int) $row->id;
 				$database->setQuery($query);
@@ -182,65 +182,65 @@ class mod_latestnews_Helper{
 				break;
 		}
 		
-		return $Itemid;		
+		return $Itemid;
 	}
 
-    function prepare_row($row, $params){    	
-    	
+	function prepare_row($row, $params){
+
 		$row->Itemid_link = '';
-        if($params->get('def_itemid', '')){
-            $row->Itemid_link = '&amp;Itemid='.$params->get('def_itemid');
-        }
-        else{
-        	$_itemid = self::get_itemid($row, $params);
+		if($params->get('def_itemid', '')){
+			$row->Itemid_link = '&amp;Itemid='.$params->get('def_itemid');
+		}
+		else{
+			$_itemid = self::get_itemid($row, $params);
 			if($_itemid){
-				$row->Itemid_link = '&amp;Itemid='.$_itemid;	
-			}            
-        }
+				$row->Itemid_link = '&amp;Itemid='.$_itemid;
+			}
+		}
 
-        $row->link_on = sefRelToAbs('index.php?option=com_content&amp;task=view&amp;id='.$row->id.$row->Itemid_link);
-        $row->link_text = $params->get('link_text', _READ_MORE);
-        $readmore = mosContent::ReadMore($row,$params);
+		$row->link_on = sefRelToAbs('index.php?option=com_content&amp;task=view&amp;id='.$row->id.$row->Itemid_link);
+		$row->link_text = $params->get('link_text', _READ_MORE);
+		$readmore = mosContent::ReadMore($row,$params);
 
-        $text = $row->introtext;
-        $text = mosHTML::cleanText($text);
-        if($params->get('crop_text', 1)){
-            mosMainFrame::getInstance()->addLib('text');
-            switch ($params->get('crop_text', 1)) {
-                case 'simbol':
-                default:
-                    $text = Text::character_limiter($text, $params->get('text_limit', 250), '');
-                    break;
+		$text = $row->introtext;
+		$text = mosHTML::cleanText($text);
+		if($params->get('crop_text', 1)){
+			mosMainFrame::getInstance()->addLib('text');
+			switch ($params->get('crop_text', 1)) {
+				case 'simbol':
+				default:
+					$text = Text::character_limiter($text, $params->get('text_limit', 250), '');
+					break;
 
-                case 'word':
-                    $text = Text::word_limiter($text, $params->get('text_limit', 25), '');
-                    break;
-            }
-        }
-        if($params->get('text', 0)==2){
-            $text = '<a href="'.$row->link_on.'">'.$text.'</a>';
-        }
+				case 'word':
+					$text = Text::word_limiter($text, $params->get('text_limit', 25), '');
+					break;
+			}
+		}
+		if($params->get('text', 0)==2){
+			$text = '<a href="'.$row->link_on.'">'.$text.'</a>';
+		}
 
-        $row->image = '';
-        if($params->get('image', 'mosimage')){
-            mosMainFrame::getInstance()->addLib('images');
-            $text_with_image = $row->introtext;
-            if($params->get('image', 'mosimage')=='mosimage'){
-                $text_with_image = $row->images;
-            }
-            $img = Image::get_image_from_text($text_with_image, $params->get('image', 'mosimage'), $params->get('image_default',1));
-            $row->image = '<img title="'.$row->title.'" alt="" src="'.$img.'" />';
+		$row->image = '';
+		if($params->get('image', 'mosimage')){
+			mosMainFrame::getInstance()->addLib('images');
+			$text_with_image = $row->introtext;
+			if($params->get('image', 'mosimage')=='mosimage'){
+				$text_with_image = $row->images;
+			}
+			$img = Image::get_image_from_text($text_with_image, $params->get('image', 'mosimage'), $params->get('image_default',1));
+			$row->image = '<img title="'.$row->title.'" alt="" src="'.Jconfig::getInstance()->config_live_site.$img.'" />';
 
-            if($params->get('image_link',1) && $row->image){
-                $row->image =  '<a class="thumb" href="'.$row->link_on.'">'.$row->image.'</a>';
-            }
-        }
+			if($params->get('image_link',1) && $row->image){
+				$row->image =  '<a class="thumb" href="'.$row->link_on.'">'.$row->image.'</a>';
+			}
+		}
 
-        $row->author =  mosContent::Author($row,$params);
-        $row->title = HTML_content::Title($row,$params);
-        $row->text = $text;
-        $row->readmore = $readmore;
+		$row->author =  mosContent::Author($row,$params);
+		$row->title = HTML_content::Title($row,$params);
+		$row->text = $text;
+		$row->readmore = $readmore;
 
-        return $row;
-    }
+		return $row;
+	}
 }

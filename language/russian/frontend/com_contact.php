@@ -17,8 +17,6 @@ DEFINE('_THANK_MESSAGE','Спасибо! Сообщение успешно от�
 DEFINE('_CONTACT_HEADER_NAME','Имя');
 DEFINE('_CONTACT_HEADER_POS','Положение');
 DEFINE('_CONTACT_HEADER_EMAIL','E-mail');
-DEFINE('_CONTACT_HEADER_PHONE','Телефон');
-DEFINE('_CONTACT_HEADER_FAX','Факс');
 DEFINE('_CONTACTS_DESC','Список контактов этого сайта.');
 DEFINE('_CONTACT_MORE_THAN','Вы не можете вводить более одного адреса e-mail.');
 DEFINE('_CONTACT_TITLE','Обратная связь');

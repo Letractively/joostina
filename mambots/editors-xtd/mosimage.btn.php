@@ -28,7 +28,7 @@ function botMosImageButton() {
 			break;
 
 		default:
-			$button = array('mosimage.gif','{mosimage}');
+			$button = array('mosimage.png','{mosimage}');
 			break;
 	}
 	return $button;
