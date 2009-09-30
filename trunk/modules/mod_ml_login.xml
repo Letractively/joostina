@@ -30,6 +30,10 @@
 			<option value="horizontal.php">Горизонтальный</option>
             <option value="popup.php">Кнопка + всплывающее окно</option>
 		</param>
+		<param name="template_dir" type="radio" default="0" label="Директория шаблона" description="Системная - шаблон находится в modules/название_модуля/view. Папка шаблона сайта - шаблон находится в templates/текущий_шаблон_сайта/html/название_модуля ">
+			<option value="0">Системная</option>
+			<option value="1">Папка шаблона сайта</option>
+		</param>
         <param name="dr_login_text" type="text" default="Авторизация" label="Текст кнопки раскрытия модуля" description="Текст кнопки авторизации (только для выпадающей формы меню)" />
 		<param name="ml_avatar" type="radio" default="1" label="Отображать аватар" description="Выводить в модуле аватар пользователя">
 			<option value="1">Да</option>
