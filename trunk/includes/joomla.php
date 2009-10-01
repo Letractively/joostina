@@ -170,6 +170,23 @@ class mosMainFrame {
 		return $instance;
 	}
 
+	function adminView($target){
+		global $option;
+		
+		$default = 'administrator'.DS.'components'.DS.$option.DS.'view'.DS.$target.'.php';
+		$from_template = 'administrator'.DS.'templates'.DS.$this->getTemplate().DS.'html'.DS.$option.DS.$target.'.php';
+
+		if(is_file($return = $this->getCfg('absolute_path').DS.$from_template)){
+			return $return;
+		}
+		else if(is_file($return = $this->getCfg('absolute_path').DS.$default)){
+			return $return;	
+		}
+		else{
+			return false;
+		}
+	}
+
 	/**
 	* Gets the id number for a client
 	* @param mixed A client identifier
@@ -471,14 +488,13 @@ class mosMainFrame {
 	* 	'js' - скрипт будет добавлен в $mainfrane->_footer['js'] (первый этап вывода футера)
 	* 	'custom' - скрипт будет добавлен в $mainfrane->_footer['custom'] (второй этап вывода футера)
 	*/
-	function addJS($path, $footer = ''){
+	function addJS($path, $footer = '', &$def = ''){
 		if($footer){
 			$this->_footer[$footer][] = '<script language="JavaScript" src="'. $path .'" type="text/javascript"></script>';
 		}
 		else{
 			$this->_head['js'][] = '<script language="JavaScript" src="'. $path .'" type="text/javascript"></script>';
-				}
-				
+		}				
 	}
 	/**
 	* добавление css файлов в шапку страницы
@@ -4295,7 +4311,7 @@ class mosMambotHandler {
 	*/
 	function loadBot($folder,$element,$published,$params = '') {
 		global $_MAMBOTS;
-
+		$mainframe = &mosMainFrame::getInstance();
 		$path = Jconfig::getInstance()->config_absolute_path.DS.'mambots'.DS.$folder.DS.$element.'.php';
 		if(file_exists($path)) {
 			$this->_loading = count($this->_bots);
@@ -4307,7 +4323,7 @@ class mosMambotHandler {
 			$bot->params = $params;
 			$this->_bots[] = $bot;
 			$this->_mambot_params[$element] = $params;
-			$lang = mosMainFrame::getInstance()->getLangFile('bot_'.$element);
+			$lang = $mainframe->getLangFile('bot_'.$element);
 			if($lang){
 				include_once($lang);
 			}
@@ -6455,9 +6471,16 @@ class myFunctions{
 	}
 
 	function check_user_function(){
-		return false; // опционально, до начала использования библиотеки в системе
-		mosMainFrame::addLib('myLib');
-		$methods = get_class_methods('myLib');
+		$mainframe = &mosMainFrame::getInstance();
+		if(!defined('_MYLIB')){
+			return false;
+		} 
+		if($mainframe->isAdmin()){ 
+			$methods = get_class_methods('myLibAdmin');	
+		}
+		else{
+			$methods = get_class_methods('myLib');	
+		}		
 		if(in_array($this->func, $methods)){
 			return true;
 		}
@@ -6465,7 +6488,14 @@ class myFunctions{
 	}
 
 	function start_user_function(){
-		return call_user_func(array('myLib', $this->func), $this->obj);	
+		$mainframe = &mosMainFrame::getInstance();
+		if($mainframe->isAdmin()){ 
+			$class = 'myLibAdmin';	
+		}
+		else{
+			$class = 'myLib';	
+		}
+		return call_user_func(array($class, $this->func), $this->obj);	
 	}
 	
 }
