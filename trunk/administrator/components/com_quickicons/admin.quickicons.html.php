@@ -326,7 +326,7 @@ class HTML_QuickIcons {
 <?php
 	}
 
-	function quickiconButton($image) {
+	function quickiButton($image) {
 		global $mosConfig_absolute_path,$mosConfig_live_site;
 
 		$image = str_replace($mosConfig_absolute_path,$mosConfig_live_site,$image);
@@ -361,7 +361,7 @@ class HTML_QuickIcons {
 				<td style="padding:20px">
 					<div id="cpanel"><?php
 							for($i = 0; $i < count($imgs); $i++) {
-								HTML_QuickIcons::quickiconButton($imgs[$i]);
+								HTML_QuickIcons::quickiButton($imgs[$i]);
 							}
 					?></div>
 				</td>

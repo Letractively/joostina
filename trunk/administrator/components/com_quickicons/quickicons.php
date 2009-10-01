@@ -10,7 +10,7 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-function quickiconButton($row,$newWindow) {
+function quickiButton($row,$newWindow) {
 	global $mosConfig_live_site;
 	$title = $row->title ? $row->title : $row->text;
 	?>
@@ -35,7 +35,7 @@ function quickiconButton($row,$newWindow) {
 		$rows = $database->loadObjectList();
 		foreach($rows as $row) {
 			$newWindow = $row->new_window ? ' target="_blank"':'';
-			quickiconButton($row,$newWindow);
+			quickiButton($row,$newWindow);
 		}
 		unset($query,$rows);
 ?>
