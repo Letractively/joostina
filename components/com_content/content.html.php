@@ -440,45 +440,11 @@ class HTML_content {
 
 		if($params->get('item_title')) {
 
-			//наводим порядок с выводом заголовков
 			// Проверяем, нужно ли делать заголовки ссылками
 			if($params->get('link_titles') && $row->link_on != '') {
 				$row->title = '<a href="'.$row->link_on.'" title="'.$row->title.'" class="contentpagetitle">'.$row->title.'</a>';
 			}
 
-			switch ($task) {
-				case 'blogsection':
-					$group_cat = $params->get('group_cat', 0);
-					if(!$group_cat) {
-						$row->title = '<h2>'.$row->title.'</h2>';
-					} else {
-						//Если включена группировка по категориям -
-						// в тэге <h2> выводятся названия категорий
-						// поэтому заключаем заголовки материалов в <h3>
-						$row->title = '<h3>'.$row->title.'</h3>';
-					}
-					break;
-
-				case 'blogcategory':
-					$row->title = '<h2>'.$row->title.'</h2>';
-					break;
-
-				case 'view':
-					$row->title = '<h1>'.$row->title.'</h1>';
-					break;
-
-				default:
-					if(mosGetParam($_REQUEST, 'option', '') == 'com_frontpage'){
-						$row->title = '<h2>'.$row->title.'</h2>';	
-					}
-					else{
-						$row->title = $row->title;	
-					}
-					
-					break;
-			}
-
-			//Выводим заголовок
 			return $row->title;
 		}
 		return $row->title;
