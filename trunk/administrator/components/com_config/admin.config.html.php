@@ -534,6 +534,14 @@ class HTML_config {
 						<tr>
 						<td colspan="3"><?php echo _THIS_PARAMS_CONTROL_CONTENT?><br /><br /></td>
 						</tr>
+<tr>
+						<td width="250"><?php echo _COM_CONFIG_CONTENT_USE_SAVE_MAMBOT?>:</td>
+						<td width="150"><?php echo $lists['config_use_content_save_mambots']; ?></td>
+								<td><?php
+		$tip = _COM_CONFIG_CONTENT_USE_SAVE_MAMBOT;
+		echo mosToolTip($tip);
+?></td>
+						</tr>
 						<tr>
 						<td width="250"><?php echo _LINK_TITLES?>:</td>
 						<td width="150"><?php echo $lists['link_titles']; ?></td>
