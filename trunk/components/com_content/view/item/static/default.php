@@ -10,7 +10,7 @@
 defined('_VALID_MOS') or die(); ?>
 <?php if($params->get('item_title')) { ?>
 	<div <?php echo $news_uid_css_title; ?>class="item_title">
-		<div class="contentheading"><?php echo $row->title; ?></div>
+		<div class="contentheading"><h1><?php echo $row->title; ?></h1></div>
 	</div>
 <?php }
 $loadbot_onAfterDisplayTitle;
