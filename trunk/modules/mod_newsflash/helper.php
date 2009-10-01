@@ -14,8 +14,10 @@ defined( '_VALID_MOS' ) or die();
 class mod_newsflash_Helper{
 
     function prepare_row($row, $params){
+    	
+		mosMainFrame::getInstance()->addLib('text');
 
-        if($params->get('Itemid')){
+        if($params->get('Itemid', '29')){
             $row->Itemid_link = '&amp;Itemid='.$params->get('Itemid');
         }
         else{
@@ -27,9 +29,14 @@ class mod_newsflash_Helper{
         $readmore = mosContent::ReadMore($row,$params);
 
         $text = $row->introtext;
-        $text = mosHTML::cleanText($text);
-        if($params->get('crop_text')){
-            mosMainFrame::getInstance()->addLib('text');
+        
+        //Очищаем текст
+        $allowable_tags = array();
+        $pair_tags = array('script', 'style', 'map', 'iframe', 'frameset', 'object', 'applet', 'comment', 'button', 'textarea', 'select', 'img');
+        $para_tags = array('p', 'td', 'th', 'li','div', 'form', 'title', 'pre');
+        $text = Text::strip_tags_smart($text, $allowable_tags, true, $pair_tags, $para_tags);
+        
+        if($params->get('crop_text')){            
             switch ($params->get('crop_text')) {
                 case 'simbol':
                 default:
