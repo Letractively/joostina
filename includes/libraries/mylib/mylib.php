@@ -1,14 +1,25 @@
 <?php
 /**
  * Файл предназначен для размещения в нем любого пользовательского кода,
- * например, подключение дополнительных библиотек, хранения классов и т.п.
+ * например, подключение дополнительных библиотек, хранения классов, функций и т.п.
  *
  */
 
 defined('_VALID_MOS') or die();
-
-//$mainframe = &mosMainFrame::getInstance();
+DEFINE('_MYLIB', '1');
 
 class myLib {
-	function myLib(){}
+
+	function myLib(){
+		
+	}	
+
+}
+
+class myLibAdmin{
+	
+	function myLibAdmin(){
+		
+	}	
+
 }
