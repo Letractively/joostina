@@ -30,7 +30,7 @@ if ($params->get('numrows',0)) {
                         <?php endif; ?>
 
                         <?php if($params->get('item_title',1)): ?>
-                            <?php echo $row->title;?>
+                            <h4><?php echo $row->title;?></h4>
                         <?php endif; ?>
 
                         <?php if($params->get('text',1)): ?>
