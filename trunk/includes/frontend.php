@@ -151,7 +151,7 @@ function mosLoadModules($position = 'left',$style = 0,$noindex = 0) {
 	}
 
 	$style = intval($style);
-
+	require_once ($config->config_absolute_path.'/includes/frontend.html.php');
 	$allModules = &initModules();
 
 	$modules = (isset($allModules[$position])) ? $modules = $allModules[$position]:array();
@@ -227,7 +227,7 @@ function mosLoadModule($name = '', $title = '', $style = 0, $noindex = 0, $inc_p
 		return;
 	}
 	$style = intval($style);
-
+	require_once ($config->config_absolute_path.'/includes/frontend.html.php');
 	$module = new mosModule($database);
 	$module->load_module($name, $title);
 
