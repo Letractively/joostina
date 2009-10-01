@@ -47,6 +47,7 @@ $id			= intval(mosGetParam($_REQUEST,'id',0));
 
 // объект работы с базой данных
 $database = &database::getInstance();
+
 // mainframe - основная рабочая среда API, осуществляет взаимодействие с 'ядром'
 $mainframe = mosMainFrame::getInstance(true);
 $mainframe->set('lang', $mosConfig_lang);
@@ -66,6 +67,11 @@ $mainframe->set('loadOverlib',false);
 // страница панели управления по умолчанию
 if($option == '') {
 	$option = 'com_admin';
+}
+
+if($mosConfig_mmb_system_off == 0) {
+	$_MAMBOTS->loadBotGroup('system');
+	$_MAMBOTS->trigger('onAfterAdminStart');
 }
 
 // инициализация редактора
