@@ -35,6 +35,11 @@ $task		= strval(mosGetParam($_REQUEST,'task',''));
 
 $commponent = str_replace('com_','',$option);
 
+if($mosConfig_mmb_system_off == 0) {
+	$_MAMBOTS->loadBotGroup('system');
+	$_MAMBOTS->trigger('onAjaxStart');
+}
+
 // mainframe - основная рабочая среда API, осуществляет взаимодействие с 'ядром'
 $mainframe = &mosMainFrame::getInstance();
 //Межсайтовая интеграция
@@ -61,6 +66,10 @@ else{
 	$my = $mainframe->getUser();
 }
 $gid = intval($my->gid);
+
+if($mosConfig_mmb_system_off == 0) {
+	$_MAMBOTS->trigger('onAfterAjaxStart');
+}
 
 header("Content-type: text/html; charset=utf-8");
 header ("Cache-Control: no-cache, must-revalidate ");

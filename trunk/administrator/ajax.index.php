@@ -33,6 +33,7 @@ require_once ($mosConfig_absolute_path.'/includes/joomla.php');
 session_name(md5($mosConfig_live_site));
 session_start();
 
+
 $option		= strval(strtolower(mosGetParam($_REQUEST,'option','')));
 $task		= strval(mosGetParam($_REQUEST,'task',''));
 
@@ -44,6 +45,11 @@ include_once($mainframe->getLangFile());
 require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/includes/admin.php');
 
 $my = $mainframe->initSessionAdmin($option,$task);
+
+if($mosConfig_mmb_system_off == 0) {
+	$_MAMBOTS->loadBotGroup('system');
+	$_MAMBOTS->trigger('onAfterAdminAjaxStart');
+}
 
 if(!$my->id){
 	die('error-my');
