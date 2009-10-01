@@ -835,9 +835,8 @@ function saveContent($sectionid,$task) {
 		exit();
 	}
 
-
 	$row->version++;
-
+	
 	if($mainframe->getCfg('use_content_save_mambots')){
 		global $_MAMBOTS;
 		$_MAMBOTS->loadBotGroup('content');
@@ -847,6 +846,10 @@ function saveContent($sectionid,$task) {
 	if(!$row->store()) {
 		echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
 		exit();
+	}
+	
+	if($mainframe->getCfg('use_content_save_mambots')){
+		$_MAMBOTS->trigger('onAfterSaveContent',array($row));
 	}
 
     //Подготовка тэгов
