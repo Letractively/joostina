@@ -30,11 +30,11 @@ class joomlaVersion {
 	/** @var int Номер сборки*/
 	var $BUILD = '$: 478';
 	/** @var string Кодовое имя*/
-	var $CODENAME = 'RC';
+	var $CODENAME = 'RC2';
 	/** @var string Дата*/
-	var $RELDATE = '10:09:2009';
+	var $RELDATE = '03:10:2009';
 	/** @var string Время*/
-	var $RELTIME = '4:44';
+	var $RELTIME = '4:33';
 	/** @var string Временная зона*/
 	var $RELTZ = '+5 GMT';
 	/** @var string Текст авторских прав*/
