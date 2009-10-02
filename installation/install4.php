@@ -203,7 +203,7 @@ if($siteUrl) {
 	$config .= "\$mosConfig_smtpauth = '0';\n";
 	$config .= "\$mosConfig_smtpuser = '';\n";
 	// boston, отключение ведения сессий на фронте
-	$config .= "\$mosConfig_session_front = '0';\n";
+	$config .= "\$mosConfig_no_session_front = '0';\n";
 	// boston, отключение RSS
 	$config .= "\$mosConfig_syndicate_off = '0';\n";
 	// boston, отключение тега Generetor

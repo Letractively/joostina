@@ -163,6 +163,8 @@ class mosMainFrame {
 	function &getInstance($isAdmin = false){
 		static $instance;
 
+		jd_inc('mosMainFrame::getInstance()');
+
 		if (!is_object( $instance )) {
 			$instance = new mosMainFrame(null,null,null,$isAdmin);
 		}
@@ -172,17 +174,16 @@ class mosMainFrame {
 
 	function adminView($target){
 		global $option;
-		
+
 		$default = 'administrator'.DS.'components'.DS.$option.DS.'view'.DS.$target.'.php';
 		$from_template = 'administrator'.DS.'templates'.DS.$this->getTemplate().DS.'html'.DS.$option.DS.$target.'.php';
 
-		if(is_file($return = $this->getCfg('absolute_path').DS.$from_template)){
+		$absolute_path = $this->getCfg('absolute_path');
+		if(is_file($return = $absolute_path.DS.$from_template)){
 			return $return;
-		}
-		else if(is_file($return = $this->getCfg('absolute_path').DS.$default)){
+		}else if(is_file($return = $absolute_path.DS.$default)){
 			return $return;	
-		}
-		else{
+		}else{
 			return false;
 		}
 	}
@@ -240,13 +241,13 @@ class mosMainFrame {
 
 			case '2':
 			case 'installation':
-				return mosPathName(Jconfig::getInstance()->config_absolute_path.'/installation',$addTrailingSlash);
+				return mosPathName(Jconfig::getInstance()->config_absolute_path.DS.'installation',$addTrailingSlash);
 				break;
 
 			case '1':
 			case 'admin':
 			case 'administrator':
-				return mosPathName(Jconfig::getInstance()->config_absolute_path.'/'.ADMINISTRATOR_DIRECTORY,$addTrailingSlash);
+				return mosPathName(Jconfig::getInstance()->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY,$addTrailingSlash);
 				break;
 		}
 	}
@@ -257,19 +258,29 @@ class mosMainFrame {
 	* @param string $dir Директория библиотеки. Необязательный параметр. По умолчанию, поиск файла осуществляется в 'includes/libraries' 
 	*/
 	function addLib($lib, $dir = ''){
-		
-		if(!$dir){
-			$dir = 'includes/libraries';
+		$dir = (!$dir) ? 'includes/libraries' : $dir;
+
+		static $absolute_path,$lib_array;
+
+		if(isset($lib_array[$dir][$lib])){
+			return $lib_array[$dir][$lib];
 		}
-		$config = &Jconfig::getInstance();
-		if(is_file($config->config_absolute_path.DS.$dir.DS.$lib)){
-			$lib = $config->config_absolute_path.DS.$dir.DS.$lib;
-		}else if(is_file($config->config_absolute_path.DS.$dir.DS.$lib.DS.$lib.'.php')){
-			$lib = $config->config_absolute_path.DS.$dir.DS.$lib.DS.$lib.'.php';
+
+		if(!isset($absolute_path)){
+			$config = &Jconfig::getInstance();
+			$absolute_path = $config->config_absolute_path;
+		}
+
+		if(is_file($absolute_path.DS.$dir.DS.$lib)){
+			$file_lib = $absolute_path.DS.$dir.DS.$lib;
+		}else if(is_file($absolute_path.DS.$dir.DS.$lib.DS.$lib.'.php')){
+			$file_lib = $absolute_path.DS.$dir.DS.$lib.DS.$lib.'.php';
 		}else{
-			return false;
+			$file_lib = false;
 		}
-		require_once($lib);
+
+		$lib_array[$dir][$lib] = $file_lib;
+		require_once($file_lib);
 	}
 
 	
@@ -333,7 +344,7 @@ class mosMainFrame {
 		}
 
 		// название страницы, не title!
-		$this->_head['pagename'] = $pageownname ? $pageownname : $title;
+		$this->_head['pagename'] = isset($pageownname) ? $pageownname : $title;
 
 		switch($this->getCfg('pagetitles_first')) {
 			case '0':
@@ -574,7 +585,7 @@ class mosMainFrame {
 	* the jos_sessions table.
 	*/
 	function initSession() {
-		if($this->getCfg('session_front')) return;
+		if($this->getCfg('no_session_front')) return;
 
 		// initailize session variables
 		$session = &$this->_session;
@@ -802,11 +813,10 @@ class mosMainFrame {
 	* Deperciated 1.1
 	*/
 	function sessionCookieName($site_name = '') {
-		$_config = &Jconfig::getInstance();
-		$mainframe = &mosMainFrame::getInstance();
-		
+		$config = &Jconfig::getInstance();
+
 		if(!$site_name){
-			$site_name = $_config->config_live_site;
+			$site_name = $config->config_live_site;
 		}
 
 		if(substr($site_name,0,7) == 'http://') {
@@ -826,8 +836,8 @@ class mosMainFrame {
 	* Deperciated 1.1
 	*/
 	function sessionCookieValue($id = null) {
-		$mainframe	= &mosMainFrame::getInstance();
-		$type		= $mainframe->getCfg('session_type');
+		$config = &Jconfig::getInstance();
+		$type		= $config->config_session_type;
 		$browser	= @$_SERVER['HTTP_USER_AGENT'];
 
 		switch($type) {
@@ -909,7 +919,7 @@ class mosMainFrame {
 		global $_VERSION;
 
 		// если сесии на фронте отключены - прекращаем выполнение процедуры
-		if($this->getCfg('session_front')) return;
+		if($this->getCfg('no_session_front')) return;
 
 		$acl = &gacl::getInstance();
 
@@ -1094,11 +1104,9 @@ class mosMainFrame {
 			}
 		}
 
-		$database = &database::getInstance();
+		$user = new mosUser($this->_db);
 
-		$user = new mosUser($database);
-
-		if(Jconfig::getInstance()->config_session_front == 1) {
+		if($this->get('config')->config_no_session_front == 1) {
 			// параметры id и gid при инициализации объявляются как null - это вредит некоторым компонентам, проинициализируем их в нули
 			$user->id = 0;
 			$user->gid = 0;
@@ -1127,13 +1135,12 @@ class mosMainFrame {
 		unset($user->_db);
 		return $user;
 	}
-	
-	
+
+
 	function getUser_from_sess($sess_id) {
-		
 		$mainframe = &mosMainFrame::getInstance();
-		$sess_id = mosMainFrame::sessionCookieValue($sess_id);
-		
+		$sess_id = $mainframe->sessionCookieValue($sess_id);
+
 		$m_s = new stdClass();
 		$m_s = $mainframe->get('_multisite_params');
 
@@ -1170,43 +1177,52 @@ class mosMainFrame {
 			
 		}
 		/* чистка памяти */
-		unset($user->_db);	
+		unset($user->_db);
 		return $user;
 	}
-	
+
 	/**
 	* @param string The name of the variable (from configuration.php)
 	* @return mixed The value of the configuration variable or null if not found
 	*/
 	function getCfg($varname) {
-		$config = &Jconfig::getInstance();
+		static $varname_array,$config;
 		$varname = 'config_'.$varname;
-		if(isset($config->$varname)) {
-			return $config->$varname;
-		} else {
-			return null;
+
+		if( isset($varname_array[$varname]) ){
+			return $varname_array[$varname];
 		}
+
+		if(!isset($varname_array)){
+			$config =&Jconfig::getInstance();
+			$this->set('config',$config);
+
+			$varname_array = array();
+		};
+		$config = $this->get('config');
+		$varname_saved = (isset($config->$varname)) ? $config->$varname : null;
+
+		$varname_array[$varname] = $varname_saved;
+
+		return $varname_saved;
 	}
+
 	/**  функция определения шаблона, если в панели управления указано что использовать один шаблон - сразу возвращаем его название, функцию не проводим до конца*/
 	function _setTemplate($isAdmin = false) {
-		global $Itemid;
-
 		$Itemid = intval(mosGetParam($_REQUEST,'Itemid',null));
 
-		$config = &Jconfig::getInstance();
-
 		// если у нас в настройках указан шаблон и определение идёт не для панели управления - возвращаем название шаблона из глобальной конфигурации
-		if(!$isAdmin and $config->config_one_template != '...') {
-			$this->_template = $config->config_one_template;
+		if(!$isAdmin and $this->getCfg('one_template') != '...') {
+			$this->_template = $this->getCfg('one_template');
 			return;
 		}
 
 		if($isAdmin) {
-			if($config->config_admin_template=='...'){
+			if($this->getCfg('admin_template')=='...'){
 				$query = 'SELECT template FROM #__templates_menu WHERE client_id = 1 AND menuid = 0';
 				$this->_db->setQuery($query);
 				$cur_template = $this->_db->loadResult();
-				$path = $config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY.DS.'templates'.DS.$cur_template.DS.'index.php';
+				$path = $this->getCfg('absolute_path').DS.ADMINISTRATOR_DIRECTORY.DS.'templates'.DS.$cur_template.DS.'index.php';
 				if(!is_file($path)) {
 					$cur_template = 'joostfree';
 				}
@@ -1232,7 +1248,7 @@ class mosMainFrame {
 				}
 
 				// check that template exists in case it was deleted
-				if(file_exists($config->config_absolute_path.DS.'templates'.DS.$jos_change_template.DS.'index.php')) {
+				if(file_exists($this->getCfg('absolute_path').DS.'templates'.DS.$jos_change_template.DS.'index.php')) {
 					$lifetime = 60* 10;
 					$cur_template = $jos_change_template;
 					setcookie('jos_user_template',$jos_change_template,time() + $lifetime);
@@ -1324,8 +1340,7 @@ class mosMainFrame {
 	*
 	*/
 	function getPath($varname,$option = '') {
-		$config = Jconfig::getInstance();
-
+		$config = $this->get('config');
 
 		if($option) {
 			$temp = $this->_path;
@@ -1416,8 +1431,7 @@ class mosMainFrame {
 	* A cookie is set to mark the first visit.
 	*/
 	function detect() {
-
-		if(Jconfig::getInstance()->config_enable_stats == 1) {
+		if($this->getCfg('enable_stats') == 1) {
 			if(mosGetParam($_COOKIE,'mosvisitor',0)) {
 				return;
 			}
@@ -2104,7 +2118,7 @@ class JConfig {
 	/** Режим работы с itemid, 0 - прежний режим*/
 	var $config_itemid_compat = 0;
 	/** @var int отключение ведения сессий на фронте*/
-	var $config_session_front = 0;
+	var $config_no_session_front = 0;
 	/** @var int отключение syndicate*/
 	var $config_syndicate_off = 0;
 	/** @var int отключение тега Generator*/
@@ -2453,13 +2467,13 @@ class mosModule extends mosDBTable {
 	
 	function convert_to_object($module){
 		$database = &database::getInstance();
-		
+
 		$module_obj = new mosModule($database);
 		$rows = get_object_vars($module_obj);
 		foreach($rows as $key => $value){
-				if (isset($module->$key)) {
-					$module_obj->$key = $module->$key;	
-				}		
+			if (isset($module->$key)) {
+				$module_obj->$key = $module->$key;
+			}
 		}
 
 		return $module_obj;
@@ -2467,7 +2481,6 @@ class mosModule extends mosDBTable {
 	
 	function set_template($params){
 		$mainframe = &mosMainFrame::getInstance();
-		$config = &Jconfig::getInstance();
 
 		if($params->get('template', '') == ''){
 			return false;
@@ -2477,17 +2490,18 @@ class mosModule extends mosDBTable {
 
 		if($params->get('template_dir',0) == 0){
 			$template_dir = 'modules'.DS.$this->module.'/view';
-		}
-		else{
+		}else{
 			$template_dir = 'templates'.DS. $mainframe->getTemplate() .DS.'html/modules'.DS.$this->module;
 		}
-		
+
+		$absolute_path = $mainframe->getCfg('absolute_path');
+
 		if($params->get('template')){
-			if (is_file($config->config_absolute_path . DS . $template_dir . DS . $params->get('template'))){
-				$this->template = $config->config_absolute_path . DS . $template_dir . DS . $params->get('template');
+			if (is_file($absolute_path . DS . $template_dir . DS . $params->get('template'))){
+				$this->template = $absolute_path . DS . $template_dir . DS . $params->get('template');
 				return true;
-			}else if (is_file($config->config_absolute_path . DS . $default_template)){
-				$this->template = $config->config_absolute_path . DS . $default_template;
+			}else if (is_file($absolute_path . DS . $default_template)){
+				$this->template = $absolute_path . DS . $default_template;
 				return true;
 			}
 		}
@@ -2497,9 +2511,8 @@ class mosModule extends mosDBTable {
 
 	function set_template_custom($template){
 		$mainframe = &mosMainFrame::getInstance();
-		$config = &Jconfig::getInstance();
 
-		$template_file = $config->config_absolute_path .DS.'templates'.DS. $mainframe->getTemplate() .DS.'html/user_modules'.DS.$template;
+		$template_file = $mainframe->getCfg('absolute_path').DS.'templates'.DS. $mainframe->getTemplate() .DS.'html/user_modules'.DS.$template;
 
 		if (is_file($template_file)) {
 			$this->template = $template_file;
@@ -2510,10 +2523,12 @@ class mosModule extends mosDBTable {
 
 	function get_helper(){
 		$config = &Jconfig::getInstance();
-		$help_file = 'modules'.DS.$this->module.DS.'helper.php';
 
-		if (is_file($config->config_absolute_path . DS . $help_file)) {
-			require_once($config->config_absolute_path . DS . $help_file);
+		$help_file = 'modules'.DS.$this->module.DS.'helper.php';
+		$file = $config->config_absolute_path . DS . $help_file;
+
+		if (is_file($file)) {
+			require_once($file);
 			$helper_class = $this->module.'_Helper';
 			$this->helper = new $helper_class();
 			return true;
@@ -2789,7 +2804,7 @@ class mosCache {
 
 		$options = array(
 			'defaultgroup' 	=> $group,
-			'cachebase' 	=> $config->config_cachepath.'/',
+			'cachebase' 	=> $config->config_cachepath.DS,
 			'lifetime' 		=> $def_cachetime,// minutes to seconds
 			'language' 		=> $config->config_lang,
 			'storage'		=> $storage
@@ -3146,13 +3161,13 @@ class mosHTML {
 		// displays close button in Pop-up window
 		if($params->get('popup') && !$hide_js) {
 ?>
-			<script language="javascript" type="text/javascript">
+		<script language="javascript" type="text/javascript">
 			<!--
 			document.write('<div align="center" style="margin-top: 30px; margin-bottom: 30px;">');
 			document.write('<a class="print_button" href="#" onclick="javascript:window.close();"><span class="small"><?php echo _PROMPT_CLOSE; ?></span></a>');
 			document.write('</div>');
 			//-->
-			</script>
+		</script>
 <?php
 		}
 	}
@@ -3170,17 +3185,14 @@ class mosHTML {
 	function BackButton(&$params = null,$hide_js = null) {
 		$config = &Jconfig::getInstance();
 
-		if( !$params ||  ($params->get('back_button')==1 && !$params->get('popup') && !$hide_js) || ($params->get('back_button') == -1 && $config->config_back_button == 1 ) ) 
-		{
+		if( !$params ||  ($params->get('back_button')==1 && !$params->get('popup') && !$hide_js) || ($params->get('back_button') == -1 && $config->config_back_button == 1 ) ){
 			include_once($config->config_absolute_path.'/templates/system/back_button.php');
-		 }
-		 else{
-		 	return false;
-		 }
+		}else{
+			return false;
+		}
 	}
 	
 	function get_image($file, $directory = 'system', $front = 0) {
-		
 		$mainframe = &MosMainFrame::getInstance();
 		$cur_template = $mainframe->getTemplate();
 
@@ -3217,7 +3229,6 @@ class mosHTML {
 		$text = preg_replace('/&quot;/',' ',$text);
 		$text = strip_tags($text);
 		$text = htmlspecialchars($text);
-
 		return $text;
 	}
 
@@ -4085,9 +4096,9 @@ function JosIsValidName($string) {
 */
 function initGzip() {
 	global $do_gzip_compress;
-	
+
 	$do_gzip_compress = false;
-	
+
 	if(Jconfig::getInstance()->config_gzip == 1) {
 		$phpver = phpversion();
 		$useragent = mosGetParam($_SERVER,'HTTP_USER_AGENT','');
@@ -4230,8 +4241,8 @@ class mosMambotHandler {
 	function loadBotGroup($group, $load = 0) {
 		global $my;
 
-		$database = &database::getInstance();
-		$config = &Jconfig::getInstance();
+		$mainframe = &mosMainFrame::getInstance();
+		$database = $mainframe->_db;
 
 		if(is_object($my)) {
 			$gid = $my->gid;
@@ -4239,15 +4250,15 @@ class mosMambotHandler {
 			$gid = 0;
 		}
 		$group = trim($group);
-		
-		$where_ac = ($config->config_disable_access_control==0) ? ' AND access <= '.(int)$gid : '';
+
+		$where_ac = ($mainframe->getCfg('disable_access_control')==0) ? ' AND access <= '.(int)$gid : '';
 
 		switch($group) {
 			case 'content':
 				if(!defined('_JOS_CONTENT_MAMBOTS')) {
 					/** ensure that query is only called once*/
 					define('_JOS_CONTENT_MAMBOTS',1);
-					$where_ac .= ($config->config_use_unpublished_mambots==1) ? '' : ' AND published=1';
+					$where_ac .= ($mainframe->getCfg('use_unpublished_mambots')==1) ? '' : ' AND published=1';
 					$query = 'SELECT folder, element, published, params FROM #__mambots WHERE folder = \'content\''.$where_ac.' ORDER BY ordering';
 					$database->setQuery($query);
 					// load query into class variable _content_mambots
@@ -4291,10 +4302,10 @@ class mosMambotHandler {
 		}
 
 		// load bots found by queries
-		$n = count($bots);		
+		$n = count($bots);
 		for($i = 0; $i < $n; $i++) {
 			$this->loadBot($bots[$i]->folder,$bots[$i]->element,$bots[$i]->published,$bots[$i]->params);
-		}		
+		}
 
 		if(!$load){
 			return true;
@@ -4311,8 +4322,14 @@ class mosMambotHandler {
 	*/
 	function loadBot($folder,$element,$published,$params = '') {
 		global $_MAMBOTS;
-		$mainframe = &mosMainFrame::getInstance();
-		$path = Jconfig::getInstance()->config_absolute_path.DS.'mambots'.DS.$folder.DS.$element.'.php';
+
+		static $mainframe,$path_bot;
+		if(!isset($mainframe)){
+			$mainframe = &mosMainFrame::getInstance();
+			$path_bot = $mainframe->getCfg('absolute_path').DS.'mambots';
+		}
+
+		$path = $path_bot.DS.$folder.DS.$element.'.php';
 		if(file_exists($path)) {
 			$this->_loading = count($this->_bots);
 			$bot = new stdClass;
@@ -5243,7 +5260,7 @@ class mosAdminMenus {
 	* loads files required for menu items
 	*/
 	function menuItem($item) {
-		//global $mosConfig_absolute_path;
+
 		$path = Jconfig::getInstance()->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY.'/components/com_menus/'.$item.'/';
 		include_once ($path.$item.'.class.php');
 		include_once ($path.$item.'.menu.html.php');
@@ -5314,21 +5331,15 @@ class mosCommonHTML {
 								</td>
 						</tr>
 						<tr>
-								<td width="90px" valign="top">
-								<?php echo _LINK_NAME?>
-								</td>
-								<td>
+							<td width="90px" valign="top"><?php echo _LINK_NAME?></td>
+							<td>
 								<strong>
-								<a href="javascript:go2( 'go2menuitem', '<?php echo $menu->menutype; ?>', '<?php echo $menu->id; ?>' );" >
-								<?php echo $menu->name; ?>
-								</a>
+								<a href="javascript:go2( 'go2menuitem', '<?php echo $menu->menutype; ?>', '<?php echo $menu->id; ?>' );" ><?php echo $menu->name; ?></a>
 								</strong>
-								</td>
+							</td>
 						</tr>
 						<tr>
-							<td width="90px" valign="top">
-								<?php echo _O_STATE?>
-							</td>
+							<td width="90px" valign="top"><?php echo _O_STATE?></td>
 							<td>
 <?php
 			switch($menu->published) {
@@ -5448,12 +5459,12 @@ class mosCommonHTML {
 	function loadOverlib($ret = false) {
 		$mainframe = &MosMainFrame::getInstance();
 		if(!$mainframe->get('loadOverlib') &&!$ret ) {
-			$mainframe->addJS(Jconfig::getInstance()->config_live_site.'/includes/js/overlib_full.js');
+			$mainframe->addJS($mainframe->getCfg('live_site').'/includes/js/overlib_full.js');
 			// установка флага о загруженной библиотеке всплывающих подсказок
 			$mainframe->set('loadOverlib',true);
 		}
 		if(!$mainframe->get('loadOverlib') && $ret==true){?>
-			<script language="javascript" type="text/javascript" src="<?php echo Jconfig::getInstance()->config_live_site;?>/includes/js/overlib_full.js"></script>
+			<script language="javascript" type="text/javascript" src="<?php echo $mainframe->getCfg('live_site');?>/includes/js/overlib_full.js"></script>
 <?php
 		}
 		
@@ -5465,13 +5476,12 @@ class mosCommonHTML {
 	*/
 	function loadCalendar() {
 		if(!defined('_CALLENDAR_LOADED')) {
-			$config = &Jconfig::getInstance();
 			define('_CALLENDAR_LOADED',1);
 			$mainframe = MosMainFrame::getInstance();
-			$mainframe->addCSS($config->config_live_site.'/includes/js/calendar/calendar-mos.css');
-			$mainframe->addJS($config->config_live_site.'/includes/js/calendar/calendar_mini.js');
-			$_lang_file = $config->config_absolute_path.'/includes/js/calendar/lang/calendar-'._LANGUAGE.'.js';
-			$_lang_file = (is_file($_lang_file)) ? $config->config_live_site.'/includes/js/calendar/lang/calendar-'._LANGUAGE.'.js' : $config->config_live_site.'/includes/js/calendar/lang/calendar-ru.js';
+			$mainframe->addCSS($mainframe->getCfg('live_site').'/includes/js/calendar/calendar-mos.css');
+			$mainframe->addJS($mainframe->getCfg('live_site').'/includes/js/calendar/calendar_mini.js');
+			$_lang_file = $mainframe->getCfg('absolute_path').'/includes/js/calendar/lang/calendar-'._LANGUAGE.'.js';
+			$_lang_file = (is_file($_lang_file)) ? $mainframe->getCfg('live_site').'/includes/js/calendar/lang/calendar-'._LANGUAGE.'.js' : $mainframe->getCfg('live_site').'/includes/js/calendar/lang/calendar-ru.js';
 			$mainframe->addJS($_lang_file);
 		}
 	}
@@ -5479,8 +5489,8 @@ class mosCommonHTML {
 	function loadMootools($ret = false) {
 		if(!defined('_MOO_LOADED')) {
 			define('_MOO_LOADED',1);
-			$config = &Jconfig::getInstance();
-			MosMainFrame::getInstance()->addJS($config->config_live_site.'/includes/js/mootools/mootools.js');
+			$mainframe = MosMainFrame::getInstance();
+			$mainframe->addJS($mainframe->getCfg('live_site').'/includes/js/mootools/mootools.js');
 		}
 		if($ret==true)?>
 			<script language="javascript" type="text/javascript" src="<?php echo $config->config_live_site;?>/includes/js/mootools/mootools.js"></script>
@@ -5490,18 +5500,20 @@ class mosCommonHTML {
 	function loadPrettyTable() {
 		if(!defined('_PRT_LOADED')) {
 			define('_PRT_LOADED',1);
-			MosMainFrame::getInstance()->addJS(Jconfig::getInstance()->config_live_site.'/includes/js/jsfunction/jrow.js');
+			$mainframe = MosMainFrame::getInstance();
+			$mainframe->addJS($mainframe->getCfg('live_site').'/includes/js/jsfunction/jrow.js');
 		}
 	}
 	/* подключение Fullajax*/
 	function loadFullajax($ret = false) {
 		if(!defined('_FAX_LOADED')) {
 			define('_FAX_LOADED',1);
+			$mainframe = MosMainFrame::getInstance();
 			if($ret){?>
-				<script language="javascript" type="text/javascript" src="<?php echo Jconfig::getInstance()->config_live_site;?>/includes/js/fullajax/fullajax.js"></script>
+				<script language="javascript" type="text/javascript" src="<?php echo $mainframe->getCfg('live_site');?>/includes/js/fullajax/fullajax.js"></script>
 <?php
 			}else{
-				MosMainFrame::getInstance()->addJS(Jconfig::getInstance()->config_live_site.'/includes/js/fullajax/fullajax.js');
+			$mainframe->addJS($mainframe->getCfg('live_site').'/includes/js/fullajax/fullajax.js');
 			}
 		}
 	}
@@ -5511,20 +5523,19 @@ class mosCommonHTML {
 	function loadJquery($ret = false,$all = false) {
 		if(!defined('_JQUERY_LOADED')) {
 			define('_JQUERY_LOADED',1);
+			$mainframe = MosMainFrame::getInstance();
 			if($ret){
-				return '<script language="javascript" type="text/javascript" src="'.Jconfig::getInstance()->config_live_site.'/includes/js/jquery/jquery.js"></script>';
+				return '<script language="javascript" type="text/javascript" src="'.$mainframe->getCfg('live_site').'/includes/js/jquery/jquery.js"></script>';
 			}else{
-				MosMainFrame::getInstance()->addJS(Jconfig::getInstance()->config_live_site.'/includes/js/jquery/jquery.js');
+				$mainframe->addJS($mainframe->getCfg('live_site').'/includes/js/jquery/jquery.js');
 				return true;
 			}
 		}
 	}
 	/* подключение расширений Jquery*/
 	function loadJqueryPlugins($name,$ret = false, $css = false, $footer = '') {
-		$mainframe = &MosMainFrame::getInstance();
-		$config = &Jconfig::getInstance();
-
 		$name = trim($name);
+		$mainframe = &MosMainFrame::getInstance();
 
 		// если само ядро Jquery не загружено - сначала грузим его
 		if(!defined('_JQUERY_LOADED')) {
@@ -5539,14 +5550,14 @@ class mosCommonHTML {
 			<script language="JavaScript" type="text/javascript">_js_defines.push('<?php echo $name; ?>');</script>
 <?php
 		if($css){
-			?><link type="text/css" rel="stylesheet" href="<?php echo $config->config_live_site;?>/includes/js/jquery/plugins/<?php echo $name; ?>.css" />
+			?><link type="text/css" rel="stylesheet" href="<?php echo $mainframe->getCfg('live_site');?>/includes/js/jquery/plugins/<?php echo $name; ?>.css" />
 <?php
 			}?>
 			<?php }else{
-				$mainframe->addJS($config->config_live_site.'/includes/js/jquery/plugins/'.$name.'.js', $footer);
+				$mainframe->addJS($mainframe->getCfg('live_site').'/includes/js/jquery/plugins/'.$name.'.js', $footer);
 				$mainframe->addCustomHeadTag('<script language="JavaScript" type="text/javascript">_js_defines.push("'.$name.'");</script>');
 				if($css){
-					$mainframe->addCSS($config->config_live_site.'/includes/js/jquery/plugins/'.$name.'.css');
+					$mainframe->addCSS($mainframe->getCfg('live_site').'/includes/js/jquery/plugins/'.$name.'.css');
 				}
 			}
 		}
@@ -5556,10 +5567,11 @@ class mosCommonHTML {
 	function loadJqueryUI($ret = false) {
 		if(!defined('_JQUERY_UI_LOADED')) {
 			define('_JQUERY_UI_LOADED',1);
+			$mainframe = &MosMainFrame::getInstance();
 			if($ret){?>
-				<script language="javascript" type="text/javascript" src="<?php echo Jconfig::getInstance()->config_live_site;?>/includes/js/jquery/ui.js"></script>
+				<script language="javascript" type="text/javascript" src="<?php echo $mainframe->getCfg('live_site')?>/includes/js/jquery/ui.js"></script>
 			<?php }else{
-				MosMainFrame::getInstance()->addJS(Jconfig::getInstance()->config_live_site.'/includes/js/jquery/ui.js');
+				$mainframe->addCSS($mainframe->getCfg('live_site').'/includes/js/jquery/ui.js');
 			}
 		}
 		return true;
@@ -5569,11 +5581,11 @@ class mosCommonHTML {
 	function loadCodepress() {
 		if(!defined('_CODEPRESS_LOADED')) {
 			define('_CODEPRESS_LOADED',1);
-			$config = &Jconfig::getInstance();
-			MosMainFrame::getInstance()->addJS($config->config_live_site.'/includes/js/codepress/codepress.js');
+			$mainframe = &MosMainFrame::getInstance();
+			$mainframe->addJS($mainframe->getCfg('live_site').'/includes/js/codepress/codepress.js');
 ?><script language="JavaScript">
 CodePress.run = function() {
-	CodePress.path = '<?php echo $config->config_live_site; ?>/includes/js/codepress/';
+	CodePress.path = '<?php echo $mainframe->getCfg('live_site') ?>/includes/js/codepress/';
 	t = document.getElementsByTagName('textarea');
 	for(var i=0,n=t.length;i<n;i++) {
 		if(t[i].className.match('codepress')) {
@@ -5598,9 +5610,8 @@ if(window.attachEvent){
 		if(!defined('_DTR_LOADED')) {
 			define('_DTR_LOADED',1);
 			$mainframe = &MosMainFrame::getInstance();
-			$config = &Jconfig::getInstance();
-			$mainframe->addCSS($config->config_live_site.'/includes/js/dtree/dtree.css');
-			$mainframe->addJS($config->config_live_site.'/includes/js/dtree/dtree.js');
+			$mainframe->addCSS($mainframe->getCfg('live_site').'/includes/js/dtree/dtree.css');
+			$mainframe->addJS($mainframe->getCfg('live_site').'/includes/js/dtree/dtree.js');
 		}
 	}
 
@@ -5741,12 +5752,12 @@ if(window.attachEvent){
 	
 	function get_element($file){
 		$mainframe = &mosMainFrame::getInstance();
-		
+
 		$file_templ = 'templates/'.$mainframe->getTemplate().'/images/elements/'.$file;
 		$file_system = 'M_images/'.$file;
-		
+
 		$return = $file_templ;
-		if(!is_file(Jconfig::getInstance()->config_absolute_path.'/'.$file_templ)){
+		if(!is_file($mainframe->getCfg('absolute_path').DS.$file_templ)){
 			$return = $file_system;	
 		}
 		

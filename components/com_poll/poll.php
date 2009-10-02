@@ -33,6 +33,7 @@ switch($task) {
 
 function pollAddVote($uid) {
 	$database = &database::getInstance();
+	$Itemid = mosGetParam($_POST,'Itemid','');
 
 	// simple spoof check security
 	josSpoofCheck(0,'poll');
@@ -89,11 +90,11 @@ function pollAddVote($uid) {
 	$database->query();
 
 	if($redirect) {
-		mosRedirect(sefRelToAbs('index.php?option=com_poll&task=results&id='.$uid),_THANKS);
+		mosRedirect(sefRelToAbs('index.php?option=com_poll&task=results&id='.$uid.'&Itemid='.$Itemid),_THANKS);
 	} else {
 		echo '<h3>'._THANKS.'</h3>';
 		echo '<form action="" method="GET">';
-		echo '<input class="button" type="button" value="'._BUTTON_RESULTS.'" onClick="window.location=\''.sefRelToAbs('index.php?option=com_poll&task=results&id='.$uid).'\'">';
+		echo '<input class="button" type="button" value="'._BUTTON_RESULTS.'" onClick="window.location=\''.sefRelToAbs('index.php?option=com_poll&task=results&id='.$uid.'&Itemid='.$Itemid).'\'">';
 		echo '</form>';
 	}
 }
@@ -101,8 +102,8 @@ function pollAddVote($uid) {
 function pollresult($uid) {
 	global $Itemid;
 
-	$database = &database::getInstance();
 	$mainframe = &mosMainFrame::getInstance();
+	$database = &$mainframe->_db;
 
 	$poll = new mosPoll($database);
 	$poll->load((int)$uid);

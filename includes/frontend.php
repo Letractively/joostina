@@ -27,7 +27,7 @@ function mosMainBody() {
 	// Session Check
 	$sessionCheck = 0;
 	// Session Cookie `name`
-	$sessionCookieName = mosMainFrame::sessionCookieName();
+	$sessionCookieName = $mainframe->sessionCookieName();
 	// Get Session Cookie `value`
 	$sessioncookie = mosGetParam($_COOKIE,$sessionCookieName,null);
 	if((strlen($sessioncookie) == 32 || $sessioncookie == '-')) {
@@ -65,7 +65,7 @@ function mosLoadComponent($name) {
 	global $my,$acl,$task,$Itemid,$id,$option,$gid;
 
 	$mainframe = &mosMainFrame::getInstance();
-	$database = &database::getInstance();
+	$database = &$mainframe->_db;
 	include ($mainframe->getCfg('absolute_path').DS."components/com_$name/$name.php");
 }
 /**
@@ -80,7 +80,7 @@ function &initModules() {
 	if(!isset($all_modules)) {
 		$database = &database::getInstance();
 		$config = &Jconfig::getInstance();
-		
+
 		$all_modules = array();
 
 		$Itemid = intval($Itemid);
@@ -121,10 +121,7 @@ function &initModules() {
 function mosCountModules($position = 'left') {
 	global $my,$Itemid;
 
-	$database = &database::getInstance();
-
-	$tp = intval(mosGetParam($_GET,'tp',0));
-	if($tp) {
+	if(intval(mosGetParam($_GET,'tp',0))) {
 		return 1;
 	}
 
@@ -143,15 +140,25 @@ function mosLoadModules($position = 'left',$style = 0,$noindex = 0) {
 	global $my,$Itemid;
 
 	$tp = intval(mosGetParam($_GET,'tp',0));
+	$style = intval($style);
 
-	$config = &Jconfig::getInstance();
-	if($tp && !$config->config_disable_tpreview ) {
+	static $config_absolute_path,$config_caching,$config_disable_tpreview;
+
+	if(!isset($config_absolute_path)){
+		$config = &Jconfig::getInstance();
+		$config_absolute_path = $config->config_absolute_path;
+		$config_caching = $config->config_caching;
+		$config_disable_tpreview = $config->config_disable_tpreview;
+		unset($config);
+
+		require_once ($config_absolute_path.'/includes/frontend.html.php');
+	}
+
+	if($tp && !$config_disable_tpreview ) {
 		echo '<div style="height:50px;background-color:#eee;margin:2px;padding:10px;border:1px solid #f00;color:#700;">'.$position.'</div>';
 		return;
 	}
 
-	$style = intval($style);
-	require_once ($config->config_absolute_path.'/includes/frontend.html.php');
 	$allModules = &initModules();
 
 	$modules = (isset($allModules[$position])) ? $modules = $allModules[$position]:array();
@@ -164,8 +171,8 @@ function mosLoadModules($position = 'left',$style = 0,$noindex = 0) {
 	if($style == 1) {
 		echo '<table cellspacing="1" cellpadding="0" border="0" width="100%"><tr>';
 	}
-	$prepend = ($style == 1) ? '<td valign="top">' : '';
-	$postpend = ($style == 1) ? '</td>' : '';
+	$prepend = ($style == 1)  ? '<td valign="top">' : '';
+	$postpend = ($style == 1) ? '</td>'             : '';
 
 	$count = 1;
 
@@ -178,7 +185,7 @@ function mosLoadModules($position = 'left',$style = 0,$noindex = 0) {
 
 		if((substr($module->module,0,4)) == 'mod_') {
 			// normal modules
-			if(($params->get('cache',0) == 1 OR $def_cachetime>0) && $config->config_caching == 1) {
+			if(($params->get('cache',0) == 1 OR $def_cachetime>0) && $config_caching == 1) {
 				// module caching
 				$cache = &mosCache::getCache($module->module.'_'.$module->id,'function',null,$def_cachetime);
 				$cache->call('modules_html::module2',$module,$params,$Itemid,$style,$my->gid);
@@ -187,7 +194,7 @@ function mosLoadModules($position = 'left',$style = 0,$noindex = 0) {
 			}
 		} else {
 			// custom or new modules
-			if($params->get('cache') == 1 && $config->config_caching == 1) {
+			if($params->get('cache') == 1 && $config_caching == 1) {
 				// module caching
 				$cache = &mosCache::getCache('mod_user_'.$module->id,'function',null,$def_cachetime);
 				$cache->call('modules_html::module',$module,$params,$Itemid,$style,0,$my->gid);
@@ -201,10 +208,9 @@ function mosLoadModules($position = 'left',$style = 0,$noindex = 0) {
 		$count++;
 		unset($cache);
 	}
-	if($style == 1) {
-		echo "</tr>\n</table>\n";
-	}
 
+
+	if($style==1) echo "</tr>\n</table>\n";
 	if($noindex == 1) echo '<span class="hide"><![CDATA[</noindex>]]></span>';
 
 	return;
@@ -423,21 +429,17 @@ function set_robot_metatag($robots) {
 
 // выводк лент RSS
 function syndicate_header(){
-	$mainframe =  &mosMainFrame::getInstance();
-	$database = &database::getInstance();
-	$config = &Jconfig::getInstance();
+	$mainframe = &mosMainFrame::getInstance();
 
 	$row = new mosComponent();
 	$query = "SELECT a.params, a.option FROM #__components AS a WHERE ( a.admin_menu_link = 'option=com_syndicate' OR a.admin_menu_link = 'option=com_syndicate&hidemainmenu=1' ) AND a.option = 'com_syndicate'";
-	$database->setQuery($query);
-	$database->loadObject($row);
+	$mainframe->_db->setQuery($query);
+	$mainframe->_db->loadObject($row);
 
 	// get params definitions
 	$syndicateParams = new mosParameters($row->params,$mainframe->getPath('com_xml',$row->option),'component');
 
-	// needed to reduce query
-	//$GLOBALS['syndicateParams'] = $syndicateParams;
-
+	$GLOBALS['syndicateParams'] = $syndicateParams;
 	$live_bookmark = $syndicateParams->get('live_bookmark',0);
 
 	// and to allow disabling/enabling of selected feed types
@@ -471,7 +473,7 @@ function syndicate_header(){
 	if($live_bookmark) {
 		$show = 1;
 
-		$link_file = $config->config_live_site.'/index2.php?option=com_rss&feed='.$live_bookmark.'&no_html=1';
+		$link_file = $mainframe->getCfg('live_site').'/index2.php?option=com_rss&feed='.$live_bookmark.'&no_html=1';
 
 		// xhtml check
 		$link_file = ampReplace($link_file);
@@ -488,7 +490,7 @@ function syndicate_header(){
 			}
 		}
 		if($show) {
-			?><link rel="alternate" type="application/rss+xml" title="<?php echo $config->config_sitename; ?>" href="<?php echo $link_file; ?>" /><?php
+			?><link rel="alternate" type="application/rss+xml" title="<?php echo $mainframe->getCfg('sitename'); ?>" href="<?php echo $link_file; ?>" /><?php
 		}
 	}
 }
