@@ -25,7 +25,7 @@ $darray = array();
 
 if ($templatefolder) {
 	while ($templatefile = $templatefolder->read()) {
-		if ($templatefile != "." && $templatefile != ".." && $templatefile != ".svn" && $templatefile != "css" && is_dir( $template_path.'/'.$templatefile )  ) {
+		if ($templatefile != "." && $templatefile != ".." $templatefile != "system" && $templatefile != ".svn" && $templatefile != "css" && is_dir( $template_path.'/'.$templatefile )  ) {
 			if(strlen($templatefile) > $titlelength) {
 				$templatename = substr( $templatefile, 0, $titlelength-3 );
 				$templatename .= "...";
@@ -70,8 +70,6 @@ if ($show_preview) {
 }
 ?>
 <form action="index.php" name="templateform" method="post">
-<?php
-	echo mosHTML::selectList( $darray, 'jos_change_template', "id=\"mod_templatechooser_jos_change_template\" class=\"button\" onchange=\"$onchange\"",'value', 'text', $cur_template );
-?>
+	<?php echo mosHTML::selectList( $darray, 'jos_change_template', "id=\"mod_templatechooser_jos_change_template\" class=\"button\" onchange=\"$onchange\"",'value', 'text', $cur_template ); ?>
 	<input class="button" type="submit" value="<?php echo _SELECT;?>" />
 </form>

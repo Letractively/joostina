@@ -14,7 +14,7 @@ defined('_VALID_MOS') or die();
 $iso = explode('=',_ISO);
 echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'."\n";
 $cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
-$securitycheck = intval($params->get('securitycheck',1));
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -109,9 +109,8 @@ flush();
 			</table>
 		</div>
 		<div id="top-toolbar"><?php mosLoadAdminModule('toolbar'); ?></div>
-		<?php if(!empty($securitycheck)) { josSecurityCheck('100%'); } ?>
+		<?php josSecurityCheck('100%');?>
 		<?php mosLoadAdminModule('mosmsg'); ?>
-		
 		<?php //mosLoadAdminModule('component_menu'); ?>
 		<div id="status-info" style="display: none;">&nbsp;</div>
 		<table width="100%" class="menubar" cellpadding="0" cellspacing="0" border="0">
@@ -119,7 +118,7 @@ flush();
 				<td align="center">
 					<div id="main_body">
 						<?php mosMainBody_Admin(); ?>
-					</div>					
+					</div>
 				</td>
 			</tr>
 		</table>
@@ -127,9 +126,6 @@ flush();
 		<div id="footer_cleaner">&nbsp;</div>
 	</div>
 		<div id="footer" align="center" class="smallgrey"><?php echo $jostina_ru; ?></div>
-<?php if ( mosLoadAdminModule('debug',2) > 0 ) {?>
-		<div id="debug"><?php mosLoadAdminModule('debug',2); ?></div>
-<?php }?>
 		<script type="text/javascript" language="JavaScript">function jf_hideLoading() {SRAX.get('ajax_status').style.display='none';};if (window.addEventListener) {window.addEventListener('load', jf_hideLoading, false);} else if (window.attachEvent) {var r=window.attachEvent("onload", jf_hideLoading);}else{jf_hideLoading();}</script>
 	</body>
 </html>
