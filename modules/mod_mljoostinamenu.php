@@ -141,16 +141,16 @@ var onImgArray = new Array();
 		if( $params->get( 'ml_imaged' ) == 1 ) {
 			$ml_alt = $mitem->name;
 			$ml_img_title = ' title="'.$pg_title.'"';
-			$mitem->name = '<img src="'.$mosConfig_live_site.'/modules/mod_mljoostinamenu/menuimages/zaglushka.gif" border="0" alt="'.$ml_alt.'" />';
+			$mitem->name = '<img src="'.$mainframe->getCfg('live_site').'/modules/mod_mljoostinamenu/menuimages/zaglushka.gif" border="0" alt="'.$ml_alt.'" />';
 		}
 			elseif  (($params->get( 'ml_imaged' ) == 2) && ($params->get('ml_aligner') == 'left')) {
 			$ml_alt = $mitem->name;
 			$ml_img_title = ' title="'.$pg_title.'"';
-			$mitem->name = '<img src="'.$mosConfig_live_site.'/modules/mod_mljoostinamenu/menuimages/zaglushka.gif" border="0" alt="'.$ml_alt.'" /><em>'.$mitem->name.'</em>';
+			$mitem->name = '<img src="'.$mainframe->getCfg('live_site').'/modules/mod_mljoostinamenu/menuimages/zaglushka.gif" border="0" alt="'.$ml_alt.'" /><em>'.$mitem->name.'</em>';
 		}elseif  (($params->get( 'ml_imaged' ) == 2) && ($params->get('ml_aligner') == 'right')) {
 			$ml_alt = $mitem->name;
 			$ml_img_title = ' title="'.$pg_title.'"';
-			$mitem->name = '<em>'.$mitem->name.'</em><img src="'.$mosConfig_live_site.'/modules/mod_mljoostinamenu/menuimages/zaglushka.gif" border="0" alt="'.$ml_alt.'" />';
+			$mitem->name = '<em>'.$mitem->name.'</em><img src="'.$mainframe->getCfg('live_site').'/modules/mod_mljoostinamenu/menuimages/zaglushka.gif" border="0" alt="'.$ml_alt.'" />';
 		}else{
 			$ml_alt = ' title="'.$pg_title.'"';
 			$ml_img_title = ' title="'.$pg_title.'"';

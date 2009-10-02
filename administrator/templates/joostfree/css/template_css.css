@@ -2,118 +2,112 @@ html {
 	height: 100%;
 	margin-bottom: 0px;
 }
-
 body {
 	margin: 0px 0px 0px 0px;
 	height: 100%;
 	font-size: 12px;
 }
-
-#ntree{
-text-align: left;
-}
-#Init{
+#ntree {
 	text-align: left;
 }
-#pack_step{
+#Init {
+	text-align: left;
+}
+#pack_step {
 	margin: 2px;
 	padding: 2px;
 	text-align: left;
 }
-#pack_step span div{
+#pack_step span div {
 	padding: 2px 10px 2px 30px;
 }
-.pack_step{
+.pack_step {
 	margin-top: 5px;
 	padding: 2px 20px 2px 40px;
 	background: url(../images/ico/info.png) no-repeat scroll 15px 50%;
 	text-align: left;
 }
-.pack_step_activ{
+.pack_step_activ {
 	margin-top: 5px;
 	padding: 2px 20px 2px 45px;
 	background: url(../images/aload.gif) no-repeat scroll 15px 50%;
 	text-align: left;
 }
-.pack_step_done{
+.pack_step_done {
 	margin-top: 5px;
 	padding: 2px 20px 2px 45px;
 	background: url(../images/ico/tick.png) no-repeat scroll 15px 50%;
 	text-align: left;
 }
 /* ключи параметров и настроек */
-.pkey, .key{
+.pkey, .key {
 	background-color: #F1F1F1;
-	border-bottom:1px solid #E9E9E9;
-	border-right:1px solid #E9E9E9;
-	color:#666666;
-	font-weight:bold;
-	text-align:right;
-	width:200px;
+	border-bottom: 1px solid #E9E9E9;
+	border-right: 1px solid #E9E9E9;
+	color: #666666;
+	font-weight: bold;
+	text-align: right;
+	width: 200px;
 	vertical-align: top;
 }
 /* слой в котором выводится изображение аватара пользователя */
-#user_avatar{
+#user_avatar {
 	text-align: center;
 }
-#user_avatar div{
+#user_avatar div {
 	width: 100%;
 	height: 220px;
 	text-align: center;
 }
-#user_avatar img{
+#user_avatar img {
 	margin: 2px;
 	padding: 2px;
 	border: 1px solid rgb(171, 171, 173);
 	background-color: rgb(245, 245, 245);
 }
-
 /* маленькое изображение аватара */
-.miniavatar{
+.miniavatar {
 	border: none;
 }
-label{
+label {
 	color: #3C3C3C;
 }
-label:hover{
+label:hover {
 	cursor: pointer;
 	color: black;
 }
-
 /* ссылки на редактирование содержимого */
-a.abig{
+a.abig {
 	border-bottom: 1px    dashed #aaa;
 	font-size: 12px;
 }
 /* слой с деревом разделов / категорий */
-#ntdree{
-
+#ntdree {
 }
 /* разделитель ячеек */
-#tdtoogle{
+#tdtoogle {
 	width: 5px;
-	padding:0;
+	padding: 0;
 	margin: 0;
 }
-.tdtoogleoff{
+.tdtoogleoff {
 	background: url(../images/tgl.png) no-repeat;
 }
-.tdtoogleon{
+.tdtoogleon {
 	background: url(../images/tgr.png) no-repeat;
 }
-.tdtoogleoff:hover, .tdtoogleon:hover{
+.tdtoogleoff:hover, .tdtoogleon:hover {
 	background-color: #FFFFCC;
 	cursor: pointer;
 }
-
-.jpstatus{
+.jpstatus {
 	text-align: center;
 	background-color: #FFFFCC;
 	border: thin dotted gray;
 	padding: 1em;
 	width: auto;
 }
-.c_sql{
+.c_sql {
 	padding: 10px;
 	text-align: left;
 	background-color: #ccc;
@@ -128,45 +122,51 @@ a.abig{
 /* boston, вероятно от этого падает осёл IE */
 /*.cpicons-baaad {
 	position: relative;
-}*/
-.cpicons{
-    padding: 10px 10px; clear: both; overflow: hidden;
 }
-
-
+*/
+.cpicons {
+	padding: 10px 10px;
+	clear: both;
+	overflow: hidden;
+}
 .cpicons span {
 	margin: 2px 2px 0px 0px;
 	padding: 2px 2px 2px 2px;
 	width: 160px;
 	text-align: left;
 	float: left;
-	vertical-align: middle; overflow: hidden; display: block;
+	vertical-align: middle;
+	overflow: hidden;
+	display: block;
 }
 .cpicons span a {
 	display: block;
 	padding: 6px 5px;
 	color: #333333;
-	height: 36px;    border: 1px solid #A6D0E7; overflow: hidden;
+	height: 36px;
+	border: 1px solid #A6D0E7;
+	overflow: hidden;
 	vertical-align: middle;
-    background: url(../images/cp.png) bottom left repeat-x;
-    font-size: 11px;
+	background: url(../images/cp.png) bottom left repeat-x;
+	font-size: 11px;
 }
 .cpicons  span a:link, .cpicons span a:visited {
 	text-decoration: none;
-
 }
 .cpicons  span a:hover {
 	text-decoration: none;
-	 background: #F8F8F8; border: 1px solid #CCC;
+	background: #F8F8F8;
+	border: 1px solid #CCC;
 }
-div.cpicons div  {
+div.cpicons div {
 	display: block;
-	float:left;
+	float: left;
 }
 .cpicons img {
 	float: left;
 	margin: 0 5px 0 2px;
-	padding: 1px; border: none;
+	padding: 1px;
+	border: none;
 }
 .cpicons  div div img.shortcut {
 	border: 0px;
@@ -233,8 +233,9 @@ div.cpicons div  {
 	background: url(../images/toolbar_ico/apply.png);
 }
 /* создать */
-.tb-add-new-x, .tb-add-new, .tb-custom-new,.tb-ext-new {
-	background: url(../images/toolbar_ico/new.png) no-repeat top left;;
+.tb-add-new-x, .tb-add-new, .tb-custom-new, .tb-ext-new {
+	background: url(../images/toolbar_ico/new.png) no-repeat top left;
+	;
 	background-position: 0 -50px;
 }
 /* показать/опубликовать */
@@ -325,7 +326,7 @@ div.cpicons div  {
 .tb-assign {
 	background: url(../images/toolbar_ico/assign.png);
 }
-.tb-unarchive-list{
+.tb-unarchive-list {
 	background: url(../images/toolbar_ico/unarch.png);
 }
 #qsett {
@@ -335,7 +336,7 @@ div.cpicons div  {
 	padding: 5px;
 	text-align: center;
 }
-input#jtoggle_editor{
+input#jtoggle_editor {
 	background: none;
 	border: none;
 	width: 16px !important;
@@ -385,11 +386,9 @@ input#jtoggle_editor{
 	text-decoration: underline;
 }
 /* для заглушки стандартного вывода тулбара */
-#toolbar img,#toolbar br{
+#toolbar img, #toolbar br {
 	display: none;
 }
-
-
 /* заголовки таблиц без переноса */
 .jtd_nowrap {
 	white-space: nowrap
@@ -440,21 +439,19 @@ input#jtoggle_editor{
 	padding-top: 10px;
 	width: auto;
 }
-
 #footer_cleaner {
- 	height: 34px;
-  	clear: both;
+	height: 34px;
+	clear: both;
 }
-
 #footer {
 	margin-top: 10px;
 	padding: 5px 0 0 0;
-	width: auto; height: 34px;
+	width: auto;
+	height: 34px;
 	background: url(../images/bg.png) repeat-x #EFF4F9;
 	overflow: hidden;
 	position: relative;
 }
-
 #wrapper {
 	border: 0px;
 	margin: 0px;
@@ -502,7 +499,7 @@ a:hover {
 	padding: 2px;
 }
 a.pagenav {
-	text-decoration:none;
+	text-decoration: none;
 	color: #336699;
 }
 a.pagenav:hover {
@@ -512,7 +509,6 @@ a.pagenav:hover {
 a.pagenav:active {
 	color: #333;
 }
-
 .sectionname {
 	color: #FF9900;
 	font-family: Arial, Helvetica, sans-serif;
@@ -522,7 +518,8 @@ a.pagenav:active {
 input, select {
 	font-size: 10px;
 	border: 1px solid #CECECE;
-	background-color: #F3F3F3; padding: 4px 0;
+	background-color: #F3F3F3;
+	padding: 4px 0;
 }
 textarea {
 	font-size: 11px;
@@ -557,14 +554,14 @@ input.button {
 	font-size: 11px;
 	font-weight: bold;
 }
-.content{
+.content {
 	width: 98%;
 }
 .contentheading, .componentheading, .moduleheading {
 	font-size: 14px;
 	font-weight: bold;
 }
-#topper{
+#topper {
 	width: 100%;
 }
 table.menubar {
@@ -695,8 +692,6 @@ table.adminheading th.quickicons {
 table.adminheading th.linkeditor {
 	background: url(../images/system_ico/menus.png) no-repeat left;
 }
-
-
 table.adminheading td {
 	color: #000;
 }
@@ -706,11 +701,8 @@ table.adminlist {
 	width: 100%;
 }
 table.adminlist tr {
-    border-bottom: 1px solid #CCC;
-
+	border-bottom: 1px solid #CCC;
 }
-
-
 /* заголовки таблиц в админке */
 table.adminlist th {
 	padding: 5px 2px;
@@ -727,14 +719,14 @@ table.adminlist th.title {
 table.adminlist tr.row0 {
 	background-color: #F8F8F8;
 }
-table.adminlist tr.row0 td:hover, table.adminlist tr.row1 td:hover{
-	border-bottom: 1px solid #B9B9B9; background: #F1F1F1;
+table.adminlist tr.row0 td:hover, table.adminlist tr.row1 td:hover {
+	border-bottom: 1px solid #B9B9B9;
+	background: #F1F1F1;
 }
-
 table.adminlist tr.row1 {
 	background-color: #FFF;
 }
-table.adminlisttop{
+table.adminlisttop {
 	vertical-align: top;
 }
 table.adminlist td {
@@ -783,8 +775,9 @@ table.adminform th {
 	color: #000;
 }
 table.adminform td {
-	padding: 3px;
-	/*text-align: left;*/
+	padding: 1px;
+	/*text-align: left;
+*/
 }
 table.adminform td.editor {
 	font-size: 9px;
@@ -813,11 +806,9 @@ form {
 	text-align: center;
 	font-weight: normal;
 }
-.tab-page table.adminform tr{
-    border-bottom: 1px solid #EAEAEA;
+.tab-page table.adminform tr {
+	border-bottom: 1px solid #EAEAEA;
 }
-
-
 .tabpadding {
 	/*border-bottom: solid 1px #D5D5D5;
 */
@@ -857,8 +848,11 @@ form {
 	background: #FBEEF1 url(../images/ico/error.png) no-repeat scroll 15px 50%;
 	/** -moz-background-clip: -moz-initial;
 	-moz-background-origin: -moz-initial;
-	-moz-background-inline-policy: -moz-initial; **/
-	text-align: center; clear: both; margin: 10px 0 10px 0;
+	-moz-background-inline-policy: -moz-initial;
+**/
+	text-align: center;
+	clear: both;
+	margin: 10px 0 10px 0;
 }
 /* сообщение */
 .message {
@@ -869,7 +863,8 @@ form {
 	background: #e4eef6 url(../images/ico/info.png) no-repeat scroll 15px 50%;
 	/** -moz-background-clip: -moz-initial;
 	-moz-background-origin: -moz-initial;
-	-moz-background-inline-policy: -moz-initial; **/
+	-moz-background-inline-policy: -moz-initial;
+**/
 	text-align: center;
 }
 #main_body {
@@ -878,12 +873,10 @@ form {
 	padding: 0px;
 	text-align: left;
 }
-
 div.page {
 	min-height: 100%;
 	margin: 0 0 -34px 0;
 }
-
 .quote {
 	margin: 4px;
 	border: 1px solid #cccccc;
@@ -913,9 +906,7 @@ span.editlinktip {
 	padding: 0;
 	white-space: nowrap;
 }
-.ThemeOfficeMenuItem .seq2,
-.ThemeOfficeMenuItemHover .seq1,
-.ThemeOfficeMenuItemActive .seq1{
+.ThemeOfficeMenuItem .seq2, .ThemeOfficeMenuItemHover .seq1, .ThemeOfficeMenuItemActive .seq1 {
 	display: none;
 }
 /* слой с отображением дочерних пунктов меню */
@@ -933,20 +924,10 @@ span.editlinktip {
 .ThemeOfficeSubMenuTable {
 	overflow: visible;
 }
-.ThemeOfficeMenuItemLeft,
-.ThemeOfficeMenuItemText,
-.ThemeOfficeMenuItemRight,
-.ThemeOfficeMenuFolderLeft,
-.ThemeOfficeMenuFolderText,
-.ThemeOfficeMenuFolderRight {
-	padding:3px 3px 3px 3px !important;
+.ThemeOfficeMenuItemLeft, .ThemeOfficeMenuItemText, .ThemeOfficeMenuItemRight, .ThemeOfficeMenuFolderLeft, .ThemeOfficeMenuFolderText, .ThemeOfficeMenuFolderRight {
+	padding: 3px 3px 3px 3px !important;
 }
-.ThemeOfficeMainItem,
-.ThemeOfficeMainItemHover,
-.ThemeOfficeMainItemActive,
-.ThemeOfficeMenuItem,
-.ThemeOfficeMenuItemHover,
-.ThemeOfficeMenuItemActive {
+.ThemeOfficeMainItem, .ThemeOfficeMainItemHover, .ThemeOfficeMainItemActive, .ThemeOfficeMenuItem, .ThemeOfficeMenuItemHover, .ThemeOfficeMenuItemActive {
 	cursor: pointer;
 	white-space: nowrap;
 }
@@ -956,13 +937,10 @@ td.ThemeOfficeMainItem {
 	padding: 4px 0 4px 0;
 }
 /* элемент справа и разделитель */
-.ThemeOfficeMenuItemHover,
-.ThemeOfficeMenuItemActive {
+.ThemeOfficeMenuItemHover, .ThemeOfficeMenuItemActive {
 	background: #E6E6E6;
 }
-.ThemeOfficeMenuItem,
-.ThemeOfficeMenuItem .ThemeOfficeMenuFolderText,
-.ThemeOfficeMenuItem .ThemeOfficeMenuItemText {
+.ThemeOfficeMenuItem, .ThemeOfficeMenuItem .ThemeOfficeMenuFolderText, .ThemeOfficeMenuItem .ThemeOfficeMenuItemText {
 	background-color: #F0F0F0;
 }
 /* horizontal main menu */
@@ -970,21 +948,16 @@ td.ThemeOfficeMainItem {
 	border: 0;
 	padding: 4px 1px 4px 1px;
 }
-td.ThemeOfficeMainItemHover,
-td.ThemeOfficeMainItemActive {
+td.ThemeOfficeMainItemHover, td.ThemeOfficeMainItemActive {
 	background: #E1E1E1;
 	color: #000;
 	padding: 0px;
-
+	background: url(../images/menu-bg-hover.png);
 }
-.ThemeOfficeMainFolderLeft, .ThemeOfficeMainItemLeft, .ThemeOfficeMainFolderText,
-.ThemeOfficeMainItemText, .ThemeOfficeMainFolderRight, .ThemeOfficeMainItemRight,
-.ThemeOfficeMenuItem .ThemeOfficeMenuFolderRight,
-.ThemeOfficeMenuItem .ThemeOfficeMenuItemRight {
+.ThemeOfficeMainFolderLeft, .ThemeOfficeMainItemLeft, .ThemeOfficeMainFolderText, .ThemeOfficeMainItemText, .ThemeOfficeMainFolderRight, .ThemeOfficeMainItemRight, .ThemeOfficeMenuItem .ThemeOfficeMenuFolderRight, .ThemeOfficeMenuItem .ThemeOfficeMenuItemRight {
 	background-color: inherit;
 }
-.ThemeOfficeMenuItem .ThemeOfficeMenuFolderLeft,
-.ThemeOfficeMenuItem .ThemeOfficeMenuItemLeft {
+.ThemeOfficeMenuItem .ThemeOfficeMenuFolderLeft, .ThemeOfficeMenuItem .ThemeOfficeMenuItemLeft {
 	background-color: #EFEFEF;
 }
 .ThemeOfficeMenuSplit {
@@ -994,12 +967,9 @@ td.ThemeOfficeMainItemActive {
 	margin: 2px;
 	overflow: hidden;
 }
-.ThemeOfficeMenuItem img.seq1,
-.ThemeOfficeMenuItemHover seq2,
-.ThemeOfficeMenuItemActive seq2 {
+.ThemeOfficeMenuItem img.seq1, .ThemeOfficeMenuItemHover seq2, .ThemeOfficeMenuItemActive seq2 {
 	display: inline;
 }
-
 /* строка таблицы с полным выделением */
 #adminlist td:hover {
 	color: #000000;
@@ -1010,48 +980,45 @@ td.ThemeOfficeMainItemActive {
 }
 /* стили хедер позиции*/
 td.header_info, td.header_info a {
-	margin:0;
-	padding:0 5px;
+	margin: 0;
+	padding: 0 5px;
 	display: inline;
-	width:80px;
+	width: 80px;
 	height: 24px;
 	line-height: 24px;
-	white-space:nowrap;
-	}
-td.header_info img{
-	width:22px;
-	height:22px;
+	white-space: nowrap;
+}
+td.header_info img {
+	width: 22px;
+	height: 22px;
 	vertical-align: middle;
 }
-
 /* строка подпунктов меню компонента */
-#component_menu{
+#component_menu {
 	list-style: none;
-	background-color:#F1F3F5;
-	border-bottom:1px solid #CCCCCC;
-	height:25px;
+	background-color: #F1F3F5;
+	border-bottom: 1px solid #CCCCCC;
+	height: 25px;
 	margin: 0;
 	padding: 0 0 0 10px;
 }
-#component_menu li{
+#component_menu li {
 	float: left;
 	list-style: none;
 	padding-left: 5px;
 	padding-right: 5px;
 	padding-top: 2px;
 	border-right: 2px dotted #CCCCCC;
-	height:25px;
-	vertical-align:middle;
+	height: 25px;
+	vertical-align: middle;
 }
-#component_menu li img{
+#component_menu li img {
 	padding: 2px;
 	display: inline;
-	float:left;
+	float: left;
 }
-
-a.logoff{
-    margin: 0 12px 0  0;
-     background: url(../images/menu_ico/logout.png) left no-repeat;
-     padding: 0 0 0 20px;
+a.logoff {
+	margin: 0 12px 0  0;
+	background: url(../images/menu_ico/logout.png) left no-repeat;
+	padding: 0 0 0 20px;
 }
-

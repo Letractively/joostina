@@ -29,16 +29,17 @@ switch($task) {
 // включение / отключение визуального редактора
 function x_toggle_editor(){
 	$mainframe = mosMainFrame::getInstance(true);
-	$cur_file_icons_patch = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/toolbar_ico/';
+
+	$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
 
 	if(!intval(mosGetParam($_SESSION,'user_editor_off',''))){
 		// отключаем редактор
 		$_SESSION['user_editor_off'] = 1;
-		return $cur_file_icons_patch.'editor_off.png';
+		return $cur_file_icons_path.'/editor_off.png';
 	}else{
 		// включаем редактор
 		$_SESSION['user_editor_off'] = 0;
-		return $cur_file_icons_patch.'editor_on.png';
+		return $cur_file_icons_path.'/editor_on.png';
 	}
 }
 
@@ -65,5 +66,3 @@ function x_upload(){
 </form>
 <?php
 }
-
-?>
