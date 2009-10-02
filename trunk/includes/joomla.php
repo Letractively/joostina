@@ -1095,6 +1095,7 @@ class mosMainFrame {
 	* + хак для отключения ведения сессий на фронте
 	*/
 	function getUser() {
+		$database = &database::getInstance();
 
 		if($this->_multisite == 2){
 			$m_s = new stdClass();

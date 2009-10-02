@@ -93,7 +93,7 @@ if(!$Itemid) {
 }
 
 // отключение ведения сессий на фронте
-if($mosConfig_session_front == 0) {
+if($mosConfig_no_session_front == 0) {
 	$mainframe->initSession();
 }
 
