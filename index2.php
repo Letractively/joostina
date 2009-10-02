@@ -62,7 +62,7 @@ if(is_file($mosConfig_absolute_path.DS.'multisite.config.php')){
 	include_once($mosConfig_absolute_path.DS.'multisite.config.php');	
 }
 
-if($mosConfig_session_front == 0) {
+if($mosConfig_no_session_front == 0) {
 	$mainframe->initSession();
 }
 

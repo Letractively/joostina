@@ -80,3 +80,5 @@ DEFINE('_COM_MENUS_SUBMIT_CONTENT','Пункт меню :: Добавить со
 DEFINE('_MENU_ITEMS_TO_COPY','Копируемые пункты меню');
 DEFINE('_MOVE_MENUS','перемещено');
 DEFINE('_MOVE_MENUS_TO','перемещено в');
+
+DEFINE('_EDIT_CONTENT_TYPED','Изменить статичное содержимое');

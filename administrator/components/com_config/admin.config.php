@@ -100,7 +100,7 @@ function showconfig($option) {
 	$lists['frontend_login']= mosHTML::yesnoRadioList('config_frontend_login','class="inputbox"',$row->config_frontend_login);
 
 	// boston, отключение ведения сессий подсчета числа пользователей на сайте
-	$lists['session_front']= mosHTML::yesnoRadioList('config_session_front','class="inputbox"',$row->config_session_front);
+	$lists['session_front']= mosHTML::yesnoRadioList('config_no_session_front','class="inputbox"',$row->config_no_session_front);
 	// boston, отключение syndicate
 	$lists['syndicate_off']= mosHTML::yesnoRadioList('config_syndicate_off','class="inputbox"',$row->config_syndicate_off);
 	// boston, отключение тега Generator

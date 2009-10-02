@@ -14,10 +14,9 @@ defined('_VALID_MOS') or die();
 require_once ($mainframe->getPath('front_html'));
 
 global $database,$my,$mainframe;
-global $mosConfig_live_site,$mosConfig_frontend_login,$mosConfig_db,$mosConfig_session_front;
+global $mosConfig_live_site,$mosConfig_frontend_login,$mosConfig_db,$mosConfig_no_session_front;
 
-if($mosConfig_frontend_login != null && ($mosConfig_frontend_login === 0 || $mosConfig_frontend_login
-	=== '0' || $mosConfig_session_front != 0)) {
+if($mosConfig_frontend_login != null && ($mosConfig_frontend_login === 0 || $mosConfig_frontend_login === '0' || $mosConfig_no_session_front != 0)) {
 	header("HTTP/1.0 403 Forbidden");
 	echo _NOT_AUTH;
 	return;

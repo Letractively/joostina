@@ -445,7 +445,7 @@ function sendmail($con_id,$option) {
 
 		// check for session cookie
 
-		if(!$config->config_session_front && $sessionCheck) {
+		if(!$config->config_no_session_front && $sessionCheck) {
 			// Session Cookie `name`
 			$sessionCookieName = mosMainFrame::sessionCookieName();
 			// Get Session Cookie `value`
