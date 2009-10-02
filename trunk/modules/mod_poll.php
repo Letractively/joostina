@@ -21,7 +21,8 @@ if(!defined('_JOS_POLL_MODULE')) {
 	 * @param string CSS suffix
 	 */
 	function show_poll_vote_form($Itemid, &$params) {
-		$database = &database::getInstance();
+		$mainframe = &mosMainFrame::getInstance();
+		$database = &$mainframe->_db;
 
 		$query = "SELECT p.id, p.title FROM #__polls AS p INNER JOIN #__poll_menu AS pm ON  pm.pollid = p.id WHERE ( pm.menuid = " . (int)$Itemid . " OR pm.menuid = 0 ) AND p.published = 1";
 
@@ -30,17 +31,12 @@ if(!defined('_JOS_POLL_MODULE')) {
 
 		$def_itemid = $params->get( 'def_itemid', 0 );
 
+		$all_menu_links = $mainframe->get('all_menu_links');
 		$_Itemid = $Itemid;
-		if($def_itemid<1){
-			$query = "SELECT id FROM #__menu WHERE type = 'components' AND published = 1 AND link = 'index.php?option=com_poll'";
-			$database->setQuery($query);
-			$_Itemid = $database->loadResult();
+		if($def_itemid==0 && isset($all_menu_links['index.php?option=com_poll']) ){
+			$_Itemid = $all_menu_links['index.php?option=com_poll']['id'];
 		}else{
 			$_Itemid = $def_itemid;
-		}
-		
-		if($_Itemid) {
-			$_Itemid = '&amp;Itemid=' . $_Itemid;
 		}
 
 		$z = 1;
@@ -55,9 +51,7 @@ if(!defined('_JOS_POLL_MODULE')) {
 					echo $database->stderr(true);
 					return;
 				}
-
 				poll_vote_form_html($poll, $options, $_Itemid, $params, $z);
-
 				$z++;
 			}
 		}
@@ -104,7 +98,7 @@ if(!defined('_JOS_POLL_MODULE')) {
 		}
 		//-->
 		</script>
-		<form name="pollxtd<?php echo $z; ?>" method="post" action="<?php echo sefRelToAbs("index.php?option=com_poll$_Itemid"); ?>">
+		<form name="pollxtd<?php echo $z; ?>" method="post" action="<?php echo sefRelToAbs("index.php?option=com_poll"); ?>">
 		<div class="poll<?php echo $moduleclass_sfx; ?>">
 			<h4><?php echo $poll->title; ?></h4>
 			<table class="pollstableborder<?php echo $moduleclass_sfx; ?>" cellspacing="0" cellpadding="0" border="0"><?php for($i = 0, $n = count($options); $i < $n; $i++) { ?>
@@ -119,11 +113,12 @@ if(!defined('_JOS_POLL_MODULE')) {
 			</table>
 			<div class="poll_buttons">
 				<span class="button"><input type="button" onclick="submitbutton_Poll<?php echo $z; ?>();" name="task_button" class="button" value="<?php echo _BUTTON_VOTE; ?>" /></span>
-				<span class="button"><input type="button" name="option" class="button" value="<?php echo _BUTTON_RESULTS; ?>" onclick="document.location.href='<?php echo sefRelToAbs("index.php?option=com_poll&amp;task=results&amp;id=$poll->id$_Itemid"); ?>';" /></span>
+				<span class="button"><input type="button" name="option" class="button" value="<?php echo _BUTTON_RESULTS; ?>" onclick="document.location.href='<?php echo sefRelToAbs("index.php?option=com_poll&amp;task=results&amp;id=".$poll->id. '&amp;Itemid=' . $_Itemid); ?>';" /></span>
 			</div>
 		</div>
 		<input type="hidden" name="id" value="<?php echo $poll->id; ?>" />
 		<input type="hidden" name="task" value="vote" />
+		<input type="hidden" name="Itemid" value="<?php echo $_Itemid ?>" />
 		<input type="hidden" name="<?php echo $validate; ?>" value="1" />
 	</form>
 	<?php

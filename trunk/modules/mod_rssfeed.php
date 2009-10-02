@@ -13,11 +13,10 @@ defined( '_VALID_MOS' ) or die();
 if (!defined( '_JOS_RSSFEED_MODULE' )) {
 	/** ensure that functions are declared only once*/
 	define( '_JOS_RSSFEED_MODULE', 1 );
-	
+
 	function output_rssfeed( $link, $img_default, $img_file, $img_alt, $img_name  ) {
 		$img = mosAdminMenus::ImageCheck( $img_default, '/images/M_images/', $img_file, '/images/M_images/', $img_alt, $img_name );?>
 		<a class="<?php echo $img_name;?>" href="<?php echo sefRelToAbs( $link ); ?>" title="<?php echo $img_alt;?>"><?php echo $img ?></a>
-	   
 <?php
 	}
 }
@@ -51,11 +50,10 @@ if ( isset( $GLOBALS['syndicateParams'] ) ) {
 	$query = "SELECT a.*"
 	. "\n FROM #__components AS a"
 	. "\n WHERE ( a.admin_menu_link = 'option=com_syndicate' OR a.admin_menu_link = 'option=com_syndicate&hidemainmenu=1' )"
-	. "\n AND a.option = 'com_syndicate'"
-	;
+	. "\n AND a.option = 'com_syndicate'";
 	$database->setQuery( $query );
 	$database->loadObject( $row );
-	
+
 	// get params definitions
 	$syndicateParams = new mosParameters( $row->params, $mainframe->getPath( 'com_xml', $row->option ), 'component' );
 }
@@ -81,12 +79,10 @@ if ( !$syndicateParams->get( 'yandex', 1 ) ) {
 }
 ?>
 <div class="syndicate<?php echo $moduleclass_sfx;?>">
-	<?php
+<?php
 	// текст
 	if ( $text ) {
-		?>
-		<div align="center" class="syndicate_text<?php echo $moduleclass_sfx;?>"><?php echo $text;?></div>
-		<?php
+		?><div align="center" class="syndicate_text<?php echo $moduleclass_sfx;?>"><?php echo $text;?></div><?php
 	}
 	// ссылка стандарта Yandex
 	if ( $yandex ) {
@@ -118,5 +114,5 @@ if ( !$syndicateParams->get( 'yandex', 1 ) ) {
 		$link = 'index.php?option=com_rss&amp;feed=OPML&amp;no_html=1';
 		output_rssfeed( $link, 'opml.png', $opml_image, 'OPML', 'OPML'  );
 	}
-	?>
+?>
 </div>

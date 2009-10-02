@@ -314,7 +314,7 @@ CREATE TABLE `#__mambots` (
 
 INSERT INTO `#__mambots` VALUES (1,'Изображение MOS','mosimage','content',0,-10000,1,1,0,0,'0000-00-00 00:00:00','');
 INSERT INTO `#__mambots` VALUES (2,'Разбиение на страницы MOS','mospaging','content',0,10000,1,1,0,0,'0000-00-00 00:00:00','');
-INSERT INTO `#__mambots` VALUES (3,'Включение наследования мамботов','legacybots','content',0,1,0,1,0,0,'0000-00-00 00:00:00','');
+#INSERT INTO `#__mambots` VALUES (3,'Включение наследования мамботов','legacybots','content',0,1,0,1,0,0,'0000-00-00 00:00:00','');
 INSERT INTO `#__mambots` VALUES (4,'SEF','mossef','content',0,3,1,0,0,0,'0000-00-00 00:00:00','');
 INSERT INTO `#__mambots` VALUES (5,'Рейтинг статей','plugin_jw_ajaxvote','content',0,4,1,1,0,0,'0000-00-00 00:00:00','');
 INSERT INTO `#__mambots` VALUES (6,'Поиск содержимого','content.searchbot','search',0,1,1,1,0,0,'0000-00-00 00:00:00','');
