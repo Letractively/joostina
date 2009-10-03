@@ -150,613 +150,409 @@ class HTML_config {
 			</tr>
 		</table>
 		<div class="message"><?php echo _CONFIG_SAVING?>:
-			<?php echo is_writable('../configuration.php')?'<b><font color="green">'._AVAILABLE_CHECK_RIGHTS.'</font></b>':'<b><font color="red">'._NOT_AVAILABLE_CHECK_RIGHTS.'</font></b>' ?>
+			<?php echo is_writable('../configuration.php')?' <b><font color="green">'._AVAILABLE_CHECK_RIGHTS.'</font></b>':' <b><font color="red">'._NOT_AVAILABLE_CHECK_RIGHTS.'</font></b>' ?>
 		</div
 		<br />
 <?php
 	$tabs->startPane("configPane");
 	$tabs->startTab(_SITE,"site-page");
 ?>
-				<table class="adminform">
-					<tr>
-						<td><?php echo _SITE_NAME?>:</td>
-						<td><input class="text_area" style="width:500px;" type="text" name="config_sitename" size="50" value="<?php echo $row->config_sitename; ?>"/></td>
-					</tr>
-					<tr>
-						<td width="250"><?php echo _SITE_OFFLINE?>:</td>
-						<td><?php echo $lists['offline']; ?></td>
-					</tr>
-					<tr>
-						<td valign="top"><?php echo _SITE_OFFLINE_MESSAGE?>:</td>
-						<td>
-							<textarea class="text_area" cols="60" rows="2" style="width:500px; height:40px" name="config_offline_message"><?php echo $row->config_offline_message; ?></textarea>
-<?php
-	echo mosToolTip(_SITE_OFFLINE_MESSAGE2);
-?>
-						</td>
-					</tr>
-					<tr>
-						<td valign="top"><?php echo _SYSTEM_ERROR_MESSAGE?>:</td>
-						<td><textarea class="text_area" cols="60" rows="2" style="width:500px; height:40px" name="config_error_message"><?php echo $row->config_error_message; ?></textarea>
-<?php
-	echo mosToolTip(_SYSTEM_ERROR_MESSAGE2);
-?>
-						</td>
-					</tr>
-					<tr>
-						<td><?php echo _SHOW_READMORE_TO_AUTH?>:</td>
-						<td><?php echo $lists['shownoauth']; ?><?php echo mosToolTip(_SHOW_READMORE_TO_AUTH2); ?></td>
-						</tr>
-						<tr>
-						<td><?php echo _ENABLE_USER_REGISTRATION?>:</td>
-						<td><?php echo $lists['allowUserRegistration']; ?><?php echo mosToolTip(_ENABLE_USER_REGISTRATION2); ?></td>
-						</tr>
-						<tr>
-						<td><?php echo _ACCOUNT_ACTIVATION?>:</td>
-								<td><?php echo $lists['useractivation']; ?>
-								<?php echo mosToolTip(_ACCOUNT_ACTIVATION2); ?></td>
-						</tr>
-						<tr>
-						<td><?php echo _UNIQUE_EMAIL?>:</td>
-								<td><?php echo $lists['uniquemail']; ?><?php
-		$tip = _UNIQUE_EMAIL2;
-		echo mosToolTip($tip);
-?></td>
-						</tr>
+<table width="100%">
+	<tr>
+		<td>
+		<table class="sub_adminform">
 			<tr>
-				<td><?php echo _USER_PARAMS?>:</td>
-				<td>
-					<?php echo $lists['frontend_userparams']; ?>
-					<?php
-		$tip = _USER_PARAMS2;
-		echo mosToolTip($tip);
-?>
-				</td>
+				<td><?php echo _SITE_NAME?>:</td>
+				<td><input class="text_area" style="width:98%;" type="text" name="config_sitename" size="50" value="<?php echo $row->config_sitename; ?>"/></td>
 			</tr>
-						<tr>
-						<td><?php echo _DEFAULT_EDITOR?>:</td>
-								<td><?php echo $lists['editor']; ?></td>
-						</tr>
-						<tr>
-						<td><?php echo _LIST_LIMIT?>:</td>
-								<td>
+			<tr>
+				<td width="250"><?php echo _SITE_OFFLINE?>:</td>
+				<td><?php echo $lists['offline']; ?></td>
+			</tr>
+			<tr>
+				<td valign="top"><?php echo mosToolTip(_SITE_OFFLINE_MESSAGE2,'','','',_SITE_OFFLINE_MESSAGE);?>:</td>
+				<td><textarea class="text_area" cols="60" rows="2" style="width:98%; height:50px" name="config_offline_message"><?php echo $row->config_offline_message; ?></textarea></td>
+			</tr>
+			<tr>
+				<td valign="top"><?php echo mosToolTip(_SYSTEM_ERROR_MESSAGE2,'','','',_SYSTEM_ERROR_MESSAGE); ?>:</td>
+				<td><textarea class="text_area" cols="60" rows="2" style="width:98%; height:50px" name="config_error_message"><?php echo $row->config_error_message; ?></textarea></td>
+			</tr>
+		</table>
+		</td>
+		<td valign="top">
+		<table class="sub_adminform">
+			<tr>
+				<td><?php echo mosToolTip(_SHOW_READMORE_TO_AUTH2,'','','',_SHOW_READMORE_TO_AUTH )?>:</td>
+				<td><?php echo $lists['shownoauth']; ?></td>
+			</tr>
+			<tr>
+				<td><?php echo mosToolTip(_ENABLE_USER_REGISTRATION2,'','','',_ENABLE_USER_REGISTRATION)?>:</td>
+				<td><?php echo $lists['allowUserRegistration']; ?></td>
+			</tr>
+			<tr>
+				<td><?php echo mosToolTip(_ACCOUNT_ACTIVATION2,'','','',_ACCOUNT_ACTIVATION)?>:</td>
+				<td><?php echo $lists['useractivation']; ?></td>
+			</tr>
+			<tr>
+				<td><?php echo mosToolTip(_UNIQUE_EMAIL2,'','','',_UNIQUE_EMAIL)?>:</td>
+				<td><?php echo $lists['uniquemail']; ?></td>
+			</tr>
+			<tr>
+				<td><?php echo mosToolTip(_USER_PARAMS2,'','','',_USER_PARAMS)?>:</td>
+				<td><?php echo $lists['frontend_userparams']; ?></td>
+			</tr>
+			<tr>
+				<td><?php echo _DEFAULT_EDITOR?>:</td>
+				<td><?php echo $lists['editor']; ?></td>
+			</tr>
+			<tr>
+				<td><?php echo mosToolTip(_LIST_LIMIT2,'','','',_LIST_LIMIT)?>:</td>
+				<td><?php echo $lists['list_limit'];?></td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+</table>
+
 <?php
-		echo $lists['list_limit'];
-		$tip = _LIST_LIMIT2;
-		echo mosToolTip($tip);
+	$tabs->endTab();
+	$tabs->startTab(_FRONTPAGE,"front-page");
 ?>
-				</td>
-						</tr>
-						</table>
-						<?php
-		$tabs->endTab();
-		$tabs->startTab(_FRONTPAGE,"front-page"); ?>
-		<table class="adminform">
+<table width="100%">
+	<tr>
+		<td>
+		<table class="sub_adminform">
 			<tr>
 				<td width="300"><?php echo _COM_CONFIG_SITE_LANG?>:</td>
 				<td><?php echo $lists['lang']; ?></td>
 			</tr>
-				<td><?php echo _CUSTOM_PRINT?>:</td>
-				<td>
-<?php
-		echo $lists['config_custom_print'];
-		$tip = _CUSTOM_PRINT2;
-		echo mosToolTip($tip);
-?>
-				</td>
+				<td><?php echo mosToolTip(_LIST_LIMIT2,'','','',_CUSTOM_PRINT)?>:</td>
+				<td><?php echo $lists['config_custom_print'];?></td>
 			</tr>
 			<tr>
-				<td><?php echo _DATE_FORMAT_TXT?>:</td>
-				<td><input class="text_area" type="text" name="config_form_date" size="35" value="<?php echo $row->config_form_date; ?>"/>
-<?php
-	echo $lists['form_date_help'];
-	$tip = _DATE_FORMAT2;
-	echo mosToolTip($tip);
-?>
-				</td>
+				<td><?php echo mosToolTip(_DATE_FORMAT2,'','','',_DATE_FORMAT_TXT)?>:</td>
+				<td><input class="text_area" type="text" name="config_form_date" size="20" value="<?php echo $row->config_form_date; ?>"/><?php echo $lists['form_date_help'];?></td>
 			</tr>
 			<tr>
-				<td><?php echo _DATE_FORMAT_FULL?>:</td>
-				<td><input class="text_area" type="text" name="config_form_date_full" size="35" value="<?php echo $row->config_form_date_full; ?>"/>
-<?php echo $lists['form_date_full_help'];
-	$tip = _DATE_FORMAT_FULL2;
-	echo mosToolTip($tip);
-?>
-				</td>
+				<td><?php echo mosToolTip(_DATE_FORMAT_FULL2,'','','',_DATE_FORMAT_FULL)?>:</td>
+				<td><input class="text_area" type="text" name="config_form_date_full" size="20" value="<?php echo $row->config_form_date_full; ?>"/><?php echo $lists['form_date_full_help'];?></td>
 			</tr>
 			<tr>
-				<td><?php echo _DISABLE_RSS?>:</td>
-				<td><?php echo $lists['syndicate_off'];
-		$tip = _DISABLE_RSS2;
-		echo mosToolTip($tip);
-?>
-				</td>
+				<td><?php echo mosToolTip(_DISABLE_RSS2,'','','',_DISABLE_RSS)?>:</td>
+				<td><?php echo $lists['syndicate_off'];?></td>
 			</tr>
 			<tr>
-				<td><?php echo _USE_TEMPLATE?>:</td>
-				<td><?php echo $lists['one_template'];
-		$tip = _USE_TEMPLATE2;
-		echo mosToolTip($tip);
-?>
-				</td>
+				<td><?php echo mosToolTip(_USE_TEMPLATE2,'','','',_USE_TEMPLATE)?>:</td>
+				<td><?php echo $lists['one_template'];?></td>
 			</tr>
 			<tr>
-				<td><?php echo _FAVICON_IMAGE?>:</td>
-				<td><input class="text_area" type="text" name="config_favicon" size="20" value="<?php echo $row->config_favicon; ?>"/>
-					<?php $tip = _FAVICON_IMAGE2;
-		echo mosToolTip($tip,_FAVICON_IMAGE3);
-?>
-				</td>
+				<td><?php echo mosToolTip(_FAVICON_IMAGE2,'','','',_FAVICON_IMAGE)?>:</td>
+				<td><input class="text_area" type="text" name="config_favicon" size="20" value="<?php echo $row->config_favicon; ?>"/></td>
 			</tr>
 			<tr>
-				<td><?php echo _DISABLE_FAVICON?>:</td>
-				<td><?php echo $lists['config_disable_favicon'];
-		$tip = _DISABLE_FAVICON2;
-		echo mosToolTip($tip);
-?>
-				</td>
+				<td><?php echo mosToolTip(_DISABLE_FAVICON2,'','','',_DISABLE_FAVICON)?>:</td>
+				<td><?php echo $lists['config_disable_favicon'];?></td>
 			</tr>
 			<tr>
-				<td><?php echo _DISABLE_SYSTEM_MAMBOTS?>:</td>
-				<td><?php echo $lists['mmb_system_off'];
-		$tip = _DISABLE_SYSTEM_MAMBOTS2;
-		echo mosToolTip($tip);
-?>
-				</td>
+				<td><?php echo mosToolTip(_DISABLE_SYSTEM_MAMBOTS2,'','','',_DISABLE_SYSTEM_MAMBOTS)?>:</td>
+				<td><?php echo $lists['mmb_system_off'];?></td>
 			</tr>
 			<tr>
-				<td><?php echo _DISABLE_CONTENT_MAMBOTS?>:</td>
-				<td><?php echo $lists['mmb_content_off'];
-		$tip = _DISABLE_CONTENT_MAMBOTS2;
-		echo mosToolTip($tip);
-?>
-				</td>
+				<td><?php echo mosToolTip(_DISABLE_CONTENT_MAMBOTS2,'','','',_DISABLE_CONTENT_MAMBOTS)?>:</td>
+				<td><?php echo $lists['mmb_content_off'];?></td>
 			</tr>
 			<tr>
-				<td><?php echo _DISABLE_MAINBODY_MAMBOTS?>:</td>
-				<td><?php echo $lists['config_mmb_mainbody_off'];
-		$tip = _DISABLE_MAINBODY_MAMBOTS2;
-		echo mosToolTip($tip);
-?>
-				</td>
+				<td><?php echo mosToolTip(_DISABLE_MAINBODY_MAMBOTS2,'','','',_DISABLE_MAINBODY_MAMBOTS)?>:</td>
+				<td><?php echo $lists['config_mmb_mainbody_off'];?></td>
 			</tr>
 			<tr>
-				<td><?php echo _ENABLE_UNPUBLISHED_MAMBOTS?>:</td>
-				<td><?php
-		echo $lists['config_use_unpublished_mambots'];
-		echo mosToolTip(_ENABLE_UNPUBLISHED_MAMBOTS_HELP);
-?>
-				</td>
+				<td><?php echo mosToolTip(_COM_CONFIG_CONTENT_USE_SAVE_MAMBOT,'','','',_COM_CONFIG_CONTENT_USE_SAVE_MAMBOT)?>:</td>
+				<td><?php echo $lists['config_use_content_save_mambots']; ?></td>
 			</tr>
 			<tr>
-				<td><?php echo _SITE_AUTH?>:</td>
-				<td><?php echo $lists['frontend_login'];
-		$tip = _SITE_AUTH2;
-		echo mosToolTip($tip); ?>
-				</td>
+				<td><?php echo mosToolTip(_ENABLE_UNPUBLISHED_MAMBOTS_HELP,'','','',_ENABLE_UNPUBLISHED_MAMBOTS)?>:</td>
+				<td><?php echo $lists['config_use_unpublished_mambots'];?></td>
 			</tr>
-			<tr>
-				<td><?php echo _FRONT_SESSION_TIME?>:</td>
-				<td>
-					<input class="text_area" type="text" name="config_lifetime" size="10" value="<?php echo $row->config_lifetime; ?>"/> <?php echo _SECONDS?>
-						<?php echo mosWarning(_FRONT_SESSION_TIME2); ?>
-					</td>
-			</tr>
-			<tr>
-				<td><?php echo _DISABLE_FRONT_SESSIONS?></td>
-				<td><?php echo $lists['session_front'];
-		$tip = _DISABLE_FRONT_SESSIONS2;
-		echo mosToolTip($tip);
-?>
-				</td>
-			</tr>
-			<tr>
-				<td><?php echo _DISABLE_ACCESS_CHECK_TO_CONTENT?></td>
-				<td><?php echo $lists['config_disable_access_control'];
-		$tip = _DISABLE_ACCESS_CHECK_TO_CONTENT2;
-		echo mosToolTip($tip);
-?>
-				</td>
-			</tr>
-			<tr>
-				<td><?php echo _COUNT_CONTENT_HITS?>:</td>
-				<td><?php echo $lists['config_content_hits'];
-		echo mosToolTip(_COUNT_CONTENT_HITS2); ?></td>
-			</tr>
-			<tr>
-				<td><?php echo _DISABLE_CHECK_CONTENT_DATE?>:</td>
-				<td><?php echo $lists['config_disable_date_state'];
-		echo mosToolTip(_DISABLE_CHECK_CONTENT_DATE2); ?></td>
-			</tr>
-			<tr>
-				<td><?php echo _DISABLE_MODULES_WHEN_EDIT?>:</td>
-				<td><?php echo $lists['module_on_edit_off'];
-		$tip = _DISABLE_MODULES_WHEN_EDIT2;
-		echo mosToolTip($tip);
-?>
-				</td>
-			</tr>
-			<tr>
-				<td><?php echo _COUNT_GENERATION_TIME?>:</td>
-				<td><?php echo $lists['time_gen'];
-		$tip = _COUNT_GENERATION_TIME2;
-		echo mosToolTip($tip); ?>
-			</td>
-			</tr>
-			<tr>
-				<td><?php echo _ENABLE_GZIP?>:</td>
-				<td><?php echo $lists['gzip'];
-		echo mosToolTip(_ENABLE_GZIP2); ?>
-				</td>
-			</tr>
-			<tr>
-				<td><?php echo _IS_SITE_DEBUG?>:</td>
-				<td><?php echo $lists['debug'];
-		echo mosToolTip(_IS_SITE_DEBUG2);
-?></td>
-				</tr>
-			<tr>
-				<td><?php echo _EXTENDED_DEBUG?>:</td>
-				<td><?php echo $lists['config_front_debug'];
-							echo mosToolTip(_EXTENDED_DEBUG2); ?>
-				</td>
-			</tr>
-			<tr>
-				<td><?php echo _DISABLE_TPREVIEW?>:</td>
-				<td><?php echo $lists['tpreview'];
-							echo mosToolTip(_DISABLE_TPREVIEW_INFO); ?>
-				</td>
-			</tr>
-			
 		</table>
+		</td><td valign="top">
+		<table class="sub_adminform">
+			<tr>
+				<td><?php echo mosToolTip(_SITE_AUTH2,'','','',_SITE_AUTH)?>:</td>
+				<td><?php echo $lists['frontend_login'];?></td>
+			</tr>
+			<tr>
+				<td><?php echo mosToolTip(_FRONT_SESSION_TIME2,'','','',_FRONT_SESSION_TIME)?>:</td>
+				<td><input class="text_area" type="text" name="config_lifetime" size="10" value="<?php echo $row->config_lifetime; ?>"/> <?php echo _SECONDS?></td>
+			</tr>
+			<tr>
+				<td><?php echo mosToolTip(_DISABLE_FRONT_SESSIONS2,'','','',_DISABLE_FRONT_SESSIONS)?></td>
+				<td><?php echo $lists['session_front'];?>
+				</td>
+			</tr>
+			<tr>
+				<td><?php echo mosToolTip(_DISABLE_ACCESS_CHECK_TO_CONTENT2,'','','',_DISABLE_ACCESS_CHECK_TO_CONTENT)?></td>
+				<td><?php echo $lists['config_disable_access_control'];?>
+				</td>
+			</tr>
+			<tr>
+				<td><?php echo mosToolTip(_COUNT_CONTENT_HITS2,'','','',_COUNT_CONTENT_HITS)?>:</td>
+				<td><?php echo $lists['config_content_hits']; ?></td>
+			</tr>
+			<tr>
+				<td><?php echo mosToolTip(_DISABLE_CHECK_CONTENT_DATE2,'','','',_DISABLE_CHECK_CONTENT_DATE)?>:</td>
+				<td><?php echo $lists['config_disable_date_state'];  ?></td>
+			</tr>
+			<tr>
+				<td><?php echo mosToolTip(_DISABLE_MODULES_WHEN_EDIT2,'','','',_DISABLE_MODULES_WHEN_EDIT)?>:</td>
+				<td><?php echo $lists['module_on_edit_off']; ?></td>
+			</tr>
+			<tr>
+				<td><?php echo mosToolTip(_COUNT_GENERATION_TIME2,'','','',_COUNT_GENERATION_TIME)?>:</td>
+				<td><?php echo $lists['time_gen'];?></td>
+			</tr>
+			<tr>
+				<td><?php echo mosToolTip(_ENABLE_GZIP2,'','','',_ENABLE_GZIP)?>:</td>
+				<td><?php echo $lists['gzip'];?></td>
+			</tr>
+			<tr>
+				<td><?php echo mosToolTip(_IS_SITE_DEBUG2,'','','',_IS_SITE_DEBUG)?>:</td>
+				<td><?php echo $lists['debug']; ?></td>
+			</tr>
+			<tr>
+				<td><?php echo mosToolTip(_EXTENDED_DEBUG2,'','','',_EXTENDED_DEBUG)?>:</td>
+				<td><?php echo $lists['config_front_debug'];  ?></td>
+			</tr>
+			<tr>
+				<td><?php echo mosToolTip(_DISABLE_TPREVIEW_INFO,'','','',_DISABLE_TPREVIEW)?>:</td>
+				<td><?php echo $lists['tpreview']; ?></td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+</table>
 <?php
 	$tabs->endTab();
 	$tabs->startTab(_CONTROL_PANEL,"back-page");
 ?>
-		<table class="adminform">
-			<tr>
-				<td width="300"><?php echo _DISABLE_ADMIN_SESS_DEL?>:</td>
-				<td><?php echo $lists['config_admin_autologout'];
-						echo mosToolTip(_DISABLE_ADMIN_SESS_DEL2); ?>
-				</td>
-			</tr>
-			<tr>
-				<td width="300"><?php echo _ENABLE_ADMIN_SECURE_CODE?>:</td>
-				<td><?php echo $lists['config_enable_admin_secure_code'];
-						echo mosToolTip(_ADMIN_SECURE_CODE_HELP); ?>
-				</td>
-			</tr>
+<table width="100%">
+	<tr>
+		<td width="300"><?php echo mosToolTip(_DISABLE_ADMIN_SESS_DEL2,'','','',_DISABLE_ADMIN_SESS_DEL)?>:</td>
+		<td><?php echo $lists['config_admin_autologout']; ?></td>
+	</tr>
+	<tr>
+		<td width="300"><?php echo mosToolTip(_ADMIN_SECURE_CODE_HELP,'','','',_ENABLE_ADMIN_SECURE_CODE)?>:</td>
+		<td><?php echo $lists['config_enable_admin_secure_code'];?></td>
+	</tr>
 
-			<tr>
-				<td><?php echo _ADMIN_SECURE_CODE?>:</td>
-				<td>
-					<input class="text_area" type="text" name="config_admin_secure_code" size="60" value="<?php echo $row->config_admin_secure_code; ?>"/>
-				</td>
-			</tr>
+	<tr>
+		<td><?php echo _ADMIN_SECURE_CODE?>:</td>
+		<td><input class="text_area" type="text" name="config_admin_secure_code" size="60" value="<?php echo $row->config_admin_secure_code; ?>"/></td>
+	</tr>
 
-			<tr>
-				<td width="300"><?php echo _ADMIN_SECURE_CODE_REDIRECT_OPTIONS?>:</td>
-				<td><?php echo $lists['config_admin_redirect_options'];
-						echo mosToolTip(_ADMIN_SECURE_CODE_OPTION); ?>
-				</td>
-			</tr>
-			<tr>
-				<td><?php echo _ADMIN_SECURE_CODE_REDIRECT_PATH?>:</td>
-				<td>
-				<input class="text_area" type="text" name="config_admin_redirect_path" size="60" value="<?php echo $row->config_admin_redirect_path; ?>"/>
-				<?php echo mosToolTip(_ADMIN_SECURE_CODE_REDIRECT_PATH); ?>
-				</td>
-			</tr>
+	<tr>
+		<td width="300"><?php echo mosToolTip(_ADMIN_SECURE_CODE_OPTION,'','','',_ADMIN_SECURE_CODE_REDIRECT_OPTIONS)?>:</td>
+		<td><?php echo $lists['config_admin_redirect_options'];?></td>
+	</tr>
+	<tr>
+		<td><?php echo mosToolTip(_ADMIN_SECURE_CODE_REDIRECT_PATH,'','','',_ADMIN_SECURE_CODE_REDIRECT_PATH)?>:</td>
+		<td><input class="text_area" type="text" name="config_admin_redirect_path" size="60" value="<?php echo $row->config_admin_redirect_path; ?>"/></td>
+	</tr>
 
-			<tr>
-				<td><?php echo _COM_CONFIG_COUNT_FOR_USER_BLOCK?>:</td>
-				<td>
-					<input class="text_area" type="text" name="config_count_for_user_block" size="10" value="<?php echo $row->config_count_for_user_block; ?>"/>
-				</td>
-			</tr>
+	<tr>
+		<td><?php echo _COM_CONFIG_COUNT_FOR_USER_BLOCK?>:</td>
+		<td><input class="text_area" type="text" name="config_count_for_user_block" size="10" value="<?php echo $row->config_count_for_user_block; ?>"/></td>
+	</tr>
 
-			<tr>
-				<td><?php echo _DISABLE_HELP_BUTTON?>:</td>
-				<td><?php echo $lists['config_disable_button_help'];
-							echo mosToolTip(_DISABLE_HELP_BUTTON2); ?>
-				</td>
-			</tr>
-			<tr>
-				<td width="300"><?php echo _USE_OLD_TOOLBAR?>:</td>
-				<td><?php echo $lists['config_old_toolbar'];
-					echo mosToolTip(_USE_OLD_TOOLBAR2); ?>
-				</td>
-			</tr>
-			<tr>
-				<td><?php echo _DISABLE_IMAGES_TAB?>:</td>
-				<td><?php echo $lists['config_disable_image_tab'];
-					echo mosToolTip(_DISABLE_IMAGES_TAB2); ?>
-				</td>
-			</tr>
-			<tr>
-				<td><?php echo _ADMIN_SESS_TIME?>:</td>
-				<td>
-				<input class="text_area" type="text" name="config_session_life_admin" size="10" value="<?php echo $row->config_session_life_admin; ?>"/>&nbsp;<?php echo _SECONDS?>&nbsp;
-				<?php echo mosWarning(_ADMIN_SESS_TIME2); ?>
-				</td>
-			</tr>
-			<tr>
-				<td><?php echo _SAVE_LAST_PAGE?>:</td>
-				<td><?php echo $lists['admin_expired'];
-						echo mosToolTip(_SAVE_LAST_PAGE2); ?>
-				</td>
-			</tr>
-			<tr>
-				<td><?php echo _HTML_CSS_EDITOR?>:</td>
-				<td><?php echo $lists['config_codepress'];
-						echo mosToolTip(_HTML_CSS_EDITOR2); ?>
-				</td>
-			</tr>
-			<tr>
-				<td><?php echo _USE_TEMPLATE?>:</td>
-				<td><?php
-					echo $lists['config_admin_template'];
-					echo mosToolTip(_USE_TEMPLATE2);
-				?>
-				</td>
-			</tr>
-			<tr>
-				<td><?php echo _COM_CONFIG_CONTENT_ORDER_BY?>:</td>
-				<td><?php
-					echo $lists['admin_content_order_by'];
-					echo mosToolTip(_COM_CONFIG_CONTENT_ORDER_BY_HELP);
-				?>
-				</td>
-			</tr>
-			<tr>
-				<td><?php echo _COM_CONFIG_CONTENT_ORDER_SORT?>:</td>
-				<td><?php
-					echo $lists['admin_content_order_sort'];
-					echo mosToolTip(_COM_CONFIG_CONTENT_ORDER_SORT_HELP);
-				?>
-				</td>
-			</tr>
-			<tr>
-				<td><?php echo _COM_CONFIG_COMPONENTS_ACCESS?>:</td>
-				<td><?php
-					echo $lists['components_access'];
-					echo mosToolTip(_COM_CONFIG_COMPONENTS_ACCESS_HELP);
-				?>
-				</td>
-			</tr>
-
-		</table>
+	<tr>
+		<td><?php echo mosToolTip(_DISABLE_HELP_BUTTON2,'','','',_DISABLE_HELP_BUTTON)?>:</td>
+		<td><?php echo $lists['config_disable_button_help']; ?></td>
+	</tr>
+	<tr>
+		<td width="300"><?php echo mosToolTip(_USE_OLD_TOOLBAR2,'','','',_USE_OLD_TOOLBAR)?>:</td>
+		<td><?php echo $lists['config_old_toolbar']; ?></td>
+	</tr>
+	<tr>
+		<td><?php echo mosToolTip(_DISABLE_IMAGES_TAB2,'','','',_DISABLE_IMAGES_TAB)?>:</td>
+		<td><?php echo $lists['config_disable_image_tab'];?></td>
+	</tr>
+	<tr>
+		<td><?php echo mosToolTip(_ADMIN_SESS_TIME2,'','','',_ADMIN_SESS_TIME)?>:</td>
+		<td>
+		<input class="text_area" type="text" name="config_session_life_admin" size="10" value="<?php echo $row->config_session_life_admin; ?>"/>&nbsp;<?php echo _SECONDS?>&nbsp;
+		<?php echo mosWarning(_ADMIN_SESS_TIME2); ?>
+		</td>
+	</tr>
+	<tr>
+		<td><?php echo mosToolTip(_DISABLE_TPREVIEW_INFO,'','','',_SAVE_LAST_PAGE)?>:</td>
+		<td><?php echo $lists['admin_expired'];?></td>
+	</tr>
+	<tr>
+		<td><?php echo mosToolTip(_HTML_CSS_EDITOR2,'','','',_HTML_CSS_EDITOR)?>:</td>
+		<td><?php echo $lists['config_codepress'];?></td>
+	</tr>
+	<tr>
+		<td><?php echo mosToolTip(_USE_TEMPLATE2,'','','',_USE_TEMPLATE)?>:</td>
+		<td><?php echo $lists['config_admin_template']; ?></td>
+	</tr>
+	<tr>
+		<td><?php echo mosToolTip(_COM_CONFIG_CONTENT_ORDER_BY_HELP,'','','',_COM_CONFIG_CONTENT_ORDER_BY)?>:</td>
+		<td><?php echo $lists['admin_content_order_by']; ?></td>
+	</tr>
+	<tr>
+		<td><?php echo mosToolTip(_COM_CONFIG_CONTENT_ORDER_SORT_HELP,'','','',_COM_CONFIG_CONTENT_ORDER_SORT)?>:</td>
+		<td><?php echo $lists['admin_content_order_sort']; ?></td>
+	</tr>
+	<tr>
+		<td><?php echo mosToolTip(_COM_CONFIG_COMPONENTS_ACCESS_HELP,'','','',_COM_CONFIG_COMPONENTS_ACCESS)?>:</td>
+		<td><?php echo $lists['components_access']; ?></td>
+	</tr>
+</table>
 <?php
-		$tabs->endTab();
-		$tabs->startTab(_CONTENT,"content-page");
+	$tabs->endTab();
+	$tabs->startTab(_CONTENT,"content-page");
 ?>
-						<table class="adminform">
-						<tr>
-						<td colspan="3"><?php echo _THIS_PARAMS_CONTROL_CONTENT?><br /><br /></td>
-						</tr>
-<tr>
-						<td width="250"><?php echo _COM_CONFIG_CONTENT_USE_SAVE_MAMBOT?>:</td>
-						<td width="150"><?php echo $lists['config_use_content_save_mambots']; ?></td>
-								<td><?php
-		$tip = _COM_CONFIG_CONTENT_USE_SAVE_MAMBOT;
-		echo mosToolTip($tip);
-?></td>
-						</tr>
-						<tr>
-						<td width="250"><?php echo _LINK_TITLES?>:</td>
-						<td width="150"><?php echo $lists['link_titles']; ?></td>
-								<td><?php
-		$tip = _LINK_TITLES2;
-		echo mosToolTip($tip);
-?></td>
-						</tr>
-						<tr>
-						<td width="250"><?php echo _READMORE_LINK?>:</td>
-						<td width="150"><?php echo $lists['readmore']; ?></td>
-								<td><?php
-		$tip = _READMORE_LINK2;
-		echo mosToolTip($tip);
-?></td>
-						</tr>
-						<tr>
-						<td><?php echo _VOTING_ENABLE?>:</td>
-								<td><?php echo $lists['vote']; ?></td>
-								<td><?php
-		$tip = _VOTING_ENABLE2;
-		echo mosToolTip($tip);
-?></td>
-						</tr>
-						<tr>
-						<td><?php echo _AUTHOR_NAMES?>:</td>
-								<td><?php echo $lists['showAuthor']; ?></td>
-								<td><?php
-		$tip = _AUTHOR_NAMES2;
-		echo mosToolTip($tip);
-?></td>
-						</tr>
-<tr>
-						<td><?php echo _COM_CONFIG_CC_TYPE_USER?>:</td>
-								<td><?php echo $lists['authorName']; ?></td>
-								<td><?php echo mosToolTip(_COM_CONFIG_CC_TYPE_USER_HELP);?></td>
-						</tr>
-						<tr>
-						<td><?php echo _DATE_TIME_CREATION?>:</td>
-								<td><?php echo $lists['showCreateDate']; ?></td>
-								<td><?php
-		$tip = _DATE_TIME_CREATION2;
-		echo mosToolTip($tip);
-?></td>
-						</tr>
-						<tr>
-						<td><?php echo _DATE_TIME_MODIFICATION?>:</td>
-								<td><?php echo $lists['showModifyDate']; ?></td>
-								<td><?php
-		$tip = _DATE_TIME_MODIFICATION2;
-		echo mosToolTip($tip);
-?></td>
-						</tr>
-						<tr>
-						<td><?php echo _VIEW_COUNT?>:</td>
-								<td><?php echo $lists['hits']; ?></td>
-								<td><?php $tip = _VIEW_COUNT2; echo mosToolTip($tip); ?></td>
-						</tr>
-						<tr>
-						<td><?php echo _COM_CONFIG_TAGS?>:</td>
-								<td><?php echo $lists['tags']; ?></td>
-								<td><?php $tip = _COM_CONFIG_TAGS2; echo mosToolTip($tip); ?></td>
-						</tr>
-						<tr>
-						<td><?php echo _LINK_PRINT?>:</td>
-								<td><?php echo $lists['showPrint']; ?></td>
-								<td>&nbsp;</td>
-						</tr>
-						<tr>
-						<td><?php echo _LINK_EMAIL?>:</td>
-								<td><?php echo $lists['showEmail']; ?></td>
-								<td>&nbsp;</td>
-						</tr>
-						<tr>
-						<td><?php echo _PRINT_EMAIL_ICONS?>:</td>
-								<td><?php echo $lists['icons']; ?></td>
-						<td><?php echo mosToolTip(_PRINT_EMAIL_ICONS2); ?></td>
-						</tr>
-						<tr>
-						<td><?php echo _ENABLE_TOC?>:</td>
-								<td><?php echo $lists['multipage_toc']; ?></td>
-								<td>&nbsp;</td>
-						</tr>
-						<tr>
-						<td><?php echo _BACK_BUTTON?>:</td>
-								<td><?php echo $lists['back_button']; ?></td>
-								<td>&nbsp;</td>
-						</tr>
-						<tr>
-						<td><?php echo _CONTENT_NAV?>:</td>
-								<td><?php echo $lists['item_navigation']; ?></td>
-						</tr>
-						<tr>
-							<td><?php echo _UNIQ_ITEMS_IDS?>:</td>
-							<td><?php echo $lists['config_uid_news']; ?></td>
-							<td><?php echo mosToolTip(_UNIQ_ITEMS_IDS2); ?></td>
-						</tr>
-						<tr>
-							<td><?php echo _AUTO_PUBLICATION_FRONT?>:</td>
-							<td><?php echo $lists['auto_frontpage']; ?></td>
-							<td><?php echo mosToolTip(_AUTO_PUBLICATION_FRONT2); ?></td>
-						</tr>
-						<tr>
-							<td><?php echo _DISABLE_BLOCK?>:</td>
-							<td><?php echo $lists['config_disable_checked_out']; ?></td>
-							<td><?php echo mosToolTip(_DISABLE_BLOCK2); ?></td>
-						</tr>
-						<tr>
-							<td><?php echo _ITEMID_COMPAT?>:</td>
-							<td><?php echo $lists['itemid_compat']; ?></td>
-						</tr>
-						<tr>
-							<td><?php echo _GLOBAL_TEMPLATES?>:</td>
-							<td><?php echo $lists['global_templates']; ?></td>
-							<td><?php //echo mosToolTip(_GLOBAL_TEMPLATES_TIP); ?></td>
-						</tr>
-				</table>
-				<input type="hidden" name="config_multilingual_support" value="<?php echo $row->config_multilingual_support ?>" />
+<table width="100%">
+	<tr>
+		<td width="250"><?php echo mosToolTip(_LINK_TITLES2,'','','',_LINK_TITLES)?>:</td>
+		<td width="150"><?php echo $lists['link_titles']; ?></td>
+	</tr>
+		<tr>
+		<td width="250"><?php echo mosToolTip(_READMORE_LINK2,'','','',_READMORE_LINK)?>:</td>
+		<td width="150"><?php echo $lists['readmore']; ?></td>
+	</tr>
+	<tr>
+		<td><?php echo mosToolTip(_VOTING_ENABLE2,'','','',_VOTING_ENABLE)?>:</td>
+		<td><?php echo $lists['vote']; ?></td>
+	</tr>
+	<tr>
+		<td><?php echo mosToolTip(_AUTHOR_NAMES2,'','','',_AUTHOR_NAMES)?>:</td>
+		<td><?php echo $lists['showAuthor']; ?></td>
+	</tr>
+	<tr>
+		<td><?php echo mosToolTip(_COM_CONFIG_CC_TYPE_USER_HELP,'','','',_COM_CONFIG_CC_TYPE_USER)?>:</td>
+		<td><?php echo $lists['authorName']; ?></td>
+	</tr>
+	<tr>
+		<td><?php echo mosToolTip(_DATE_TIME_CREATION2,'','','',_DATE_TIME_CREATION)?>:</td>
+		<td><?php echo $lists['showCreateDate']; ?></td>
+	</tr>
+	<tr>
+		<td><?php echo mosToolTip(_DATE_TIME_MODIFICATION2,'','','',_DATE_TIME_MODIFICATION)?>:</td>
+		<td><?php echo $lists['showModifyDate']; ?></td>
+	</tr>
+	<tr>
+		<td><?php echo mosToolTip(_VIEW_COUNT2,'','','',_VIEW_COUNT)?>:</td>
+		<td><?php echo $lists['hits']; ?></td>
+	</tr>
+	<tr>
+		<td><?php echo mosToolTip(_COM_CONFIG_TAGS2,'','','',_COM_CONFIG_TAGS)?>:</td>
+		<td><?php echo $lists['tags']; ?></td>
+	</tr>
+	<tr>
+		<td><?php echo _LINK_PRINT?>:</td>
+		<td><?php echo $lists['showPrint']; ?></td>
+	</tr>
+	<tr>
+		<td><?php echo _LINK_EMAIL?>:</td>
+		<td><?php echo $lists['showEmail']; ?></td>
+	</tr>
+	<tr>
+		<td><?php echo mosToolTip(_PRINT_EMAIL_ICONS2,'','','',_PRINT_EMAIL_ICONS)?>:</td>
+		<td><?php echo $lists['icons']; ?></td>
+	</tr>
+	<tr>
+		<td><?php echo _ENABLE_TOC?>:</td>
+		<td><?php echo $lists['multipage_toc']; ?></td>
+	</tr>
+	<tr>
+		<td><?php echo _BACK_BUTTON?>:</td>
+		<td><?php echo $lists['back_button']; ?></td>
+	</tr>
+	<tr>
+		<td><?php echo _CONTENT_NAV?>:</td>
+		<td><?php echo $lists['item_navigation']; ?></td>
+	</tr>
+	<tr>
+		<td><?php echo mosToolTip(_UNIQ_ITEMS_IDS2,'','','',_UNIQ_ITEMS_IDS)?>:</td>
+		<td><?php echo $lists['config_uid_news']; ?></td>
+	</tr>
+	<tr>
+		<td><?php echo mosToolTip(_AUTO_PUBLICATION_FRONT2,'','','',_AUTO_PUBLICATION_FRONT)?>:</td>
+		<td><?php echo $lists['auto_frontpage']; ?></td>
+	</tr>
+	<tr>
+		<td><?php echo mosToolTip(_DISABLE_BLOCK2,'','','',_DISABLE_BLOCK)?>:</td>
+		<td><?php echo $lists['config_disable_checked_out']; ?></td>
+	</tr>
+	<tr>
+		<td><?php echo mosToolTip(_LINK_TITLES2,'','','',_ITEMID_COMPAT)?>:</td>
+		<td><?php echo $lists['itemid_compat']; ?></td>
+	</tr>
+	<tr>
+		<td><?php echo _GLOBAL_TEMPLATES?>:</td>
+		<td><?php echo $lists['global_templates']; ?></td>
+	</tr>
+</table>
 <?php
-		$tabs->endTab();
-		$tabs->startTab(_LOCALE,"Locale-page");
+	$tabs->endTab();
+	$tabs->startTab(_LOCALE,"Locale-page");
 ?>
-				<table class="adminform">
-					<tr>
-							<td width="185"><?php echo _TIME_OFFSET?>:</td>
-							<td><?php echo $lists['offset'];
-		$tip = _TIME_OFFSET2." ".mosCurrentDate(_DATE_FORMAT_LC2);
-		echo mosToolTip($tip);
-?>
-					</td>
-					<td>&nbsp;</td>
-						</tr>
-						<tr>
-							   <td width="185"><?php echo _TIME_DIFF?>:</td>
-							   <td>
-								<input class="text_area" type="text" name="config_offset" size="15" value="<?php echo $row->config_offset; ?>" disabled="disabled"/>
-							   </td>
-					 <td>&nbsp;</td>
-						</tr>
-						<tr>
-							<td width="185"><?php echo _TIME_DIFF2?>:</td>
-							  <td>
-								<?php echo $lists['feed_timeoffset']; ?>
+<table width="100%">
+	<tr>
+		<td width="185"><?php echo mosToolTip(_TIME_OFFSET2." ".mosCurrentDate(_DATE_FORMAT_LC2),'','','',_TIME_OFFSET)?>:</td>
+		<td><?php echo $lists['offset'];?></td>
+	</tr>
+	<tr>
+		<td width="185"><?php echo mosToolTip(_LINK_TITLES2,'','','',_TIME_DIFF)?>:</td>
+		<td><input class="text_area" type="text" name="config_offset" size="15" value="<?php echo $row->config_offset; ?>" disabled="disabled"/></td>
+	</tr>
+	<tr>
+		<td width="185"><?php echo mosToolTip(_CURR_DATE_TIME_RSS.": ".mosCurrentDate(_DATE_FORMAT_LC2),'','','',_TIME_DIFF2)?>:</td>
+		<td><?php echo $lists['feed_timeoffset']; ?></td>
+	</tr>
+	<tr>
+		<td width="185"><?php echo mosToolTip(_COUNTRY_LOCALE2,'','','',_COUNTRY_LOCALE)?>:</td>
+		<td><?php echo $lists['locale']; ?></td>
+	</tr>
+</table>
 <?php
-		$tip = _CURR_DATE_TIME_RSS.": ".mosCurrentDate(_DATE_FORMAT_LC2);
-		echo mosToolTip($tip);
+	$tabs->endTab();
+	$tabs->startTab(_DATABASE,"db-page");
 ?>
-					</td>
-					<td>&nbsp;</td>
-						</tr>
-						<tr valign="top">
-							<td width="185"><?php echo _COUNTRY_LOCALE?>:</td>
-							<td><?php echo $lists['locale']; ?>
+<table width="100%">
+	<tr>
+		<td width="185"><?php echo _DB_HOST?>:</td>
+		<td><input class="text_area" type="text" name="config_host" size="25" value="<?php echo $row->config_host; ?>"/></td>
+	</tr>
+	<tr>
+		<td><?php echo _DB_USER?>:</td>
+		<td><input class="text_area" type="text" name="config_user" size="25" value="<?php echo $row->config_user; ?>"/></td>
+	</tr>
+	<tr>
+		<td><?php echo _DB_NAME?>:</td>
+		<td><input class="text_area" type="text" name="config_db" size="25" value="<?php echo $row->config_db; ?>"/></td>
+	</tr>
+	<tr>
+		<td><?php echo _DB_PREFIX?>:</td>
+		<td><input class="text_area" type="text" name="config_dbprefix" size="10" value="<?php echo $row->config_dbprefix; ?>"/>&nbsp;<?php echo mosWarning(_DB_PREFIX2); ?></td>
+	</tr>
+	<tr>
+		<td><?php echo  mosToolTip(_EVERYDAY_OPTIMIZATION2,'','','',_EVERYDAY_OPTIMIZATION)?>:</td>
+		<td><?php echo $lists['optimizetables'];?></td>
+	</tr>
+</table>
 <?php
-		$tip = _COUNTRY_LOCALE2;
-		echo mosToolTip($tip);
+	$tabs->endTab();
+	$tabs->startTab(_SERVER,"server-page");
 ?>
-					</td>
-							  <td>&nbsp;</td>
-				</tr>
-				<tr valign="top">
-							<td width="185">&nbsp;</td>
-							  <td><?php echo _LOCALE_WINDOWS?>
-	 			</td>
-				<td>&nbsp;</td>
-			</tr>
-		</table>
-<?php
-		$tabs->endTab();
-		$tabs->startTab(_DATABASE,"db-page");
-?>
-		<table class="adminform">
-			<tr>
-				<td width="185"><?php echo _DB_HOST?>:</td>
-				<td><input class="text_area" type="text" name="config_host" size="25" value="<?php echo $row->config_host; ?>"/></td>
-			</tr>
-			<tr>
-				<td><?php echo _DB_USER?>:</td>
-				<td><input class="text_area" type="text" name="config_user" size="25" value="<?php echo $row->config_user; ?>"/></td>
-			</tr>
-			<tr>
-				<td><?php echo _DB_NAME?>:</td>
-				<td><input class="text_area" type="text" name="config_db" size="25" value="<?php echo $row->config_db; ?>"/></td>
-			</tr>
-			<tr>
-				<td><?php echo _DB_PREFIX?>:</td>
-				<td>
-					<input class="text_area" type="text" name="config_dbprefix" size="10" value="<?php echo $row->config_dbprefix; ?>"/>
-					&nbsp;<?php echo mosWarning(_DB_PREFIX2); ?>
-				</td>
-			</tr>
-			<tr>
-				<td><?php echo _EVERYDAY_OPTIMIZATION?>:</td>
-				<td>
-<?php echo $lists['optimizetables'];
-		$tip = _EVERYDAY_OPTIMIZATION2;
-		echo mosToolTip($tip);
-?>
-				</td>
-			</tr>
-		</table>
-<?php
-		$tabs->endTab();
-		$tabs->startTab(_SERVER,"server-page");
-?>
-		<table class="adminform">
+<table width="100%">
 			<tr>
 				<td><?php echo _COM_CONFIG_SYTE_URL?>:</td>
 				<td><strong><?php echo $row->config_live_site; ?></strong></td>
-				<td>&nbsp;</td>
 			</tr>
-				<tr>
+			<tr>
 				<td width="185"><?php echo _ABS_PATH?>:</td>
 				<td width="450"><strong><?php echo $row->config_absolute_path; ?></strong></td>
-				<td>&nbsp;</td>
 			</tr>
 			<tr>
 				<td><?php echo _MEDIA_ROOT?>:</td>
@@ -771,17 +567,14 @@ class HTML_config {
 					<input class="text_area" type="text" name="config_joomlaxplorer_dir" size="50" value="<?php echo $row->config_joomlaxplorer_dir; ?>"/>
 					<?php echo mosToolTip(_FILE_ROOT2); ?>
 				</td>
-				<td>&nbsp;</td>
 			</tr>
 			<tr>
 				<td><?php echo _SECRET_WORD?>:</td>
 				<td><strong><?php echo $row->config_secret; ?></strong></td>
-				<td>&nbsp;</td>
 			</tr>
 			<tr>
 				<td><?php echo _GZ_CSS_JS?>:</td>
 				<td><?php echo $lists['config_gz_js_css']; ?></td>
-				<td>&nbsp;</td>
 			</tr>
 			<tr>
 				<td><?php echo _SESSION_TYPE?>:</td>
@@ -790,18 +583,15 @@ class HTML_config {
 				&nbsp;
 				<?php echo mosWarning(_SESSION_TYPE2); ?>
 				</td>
-				<td>&nbsp;</td>
 			</tr>
 			<tr>
 				<td><?php echo _ERROR_REPORTING?>:</td>
 				<td><?php echo $lists['error_reporting']; ?></td>
-				<td>&nbsp;</td>
 			</tr>
 			<tr>
 				<td><?php echo _HELP_SERVER?>:</td>
 				<td><input class="text_area" type="text" name="config_helpurl" size="50" value="<?php echo $row->config_helpurl; ?>"/>
 				<?php echo mosToolTip(_HELP_SERVER2); ?></td>
-				<td>&nbsp;</td>
 			</tr>
 			<tr>
 <?php
@@ -880,7 +670,6 @@ class HTML_config {
 												</table>
 										</fieldset>
 								</td>
-								<td>&nbsp;</td>
 						</tr>
 						<tr>
 <?php
@@ -957,38 +746,13 @@ class HTML_config {
 												</table>
 										</fieldset>
 								</td>
-								<td>&nbsp;</td>
 						  </tr>
-						 	<tr>
-<?php
-		$rgmode = 0;
-		if(defined('RG_EMULATION')) {
-			$rgmode = RG_EMULATION;
-		}
-?>
-				<td valign="top">Register Globals Emulation:</td>
-				<td>
-					<fieldset><legend><?php echo _RG_EMULATION_TXT?></legend>
-						<table cellpadding="1" cellspacing="1" border="0">
-							<tr>
-								<td><input type="radio" id="rgemulation" name="rgemulation" value="0"<?php if(!$rgmode) echo ' checked="checked"'; ?>/></td>
-								<td><label for="rgemulation"><?php echo _RG_DISABLE?></label></td>
-							</tr>
-							<tr>
-								<td><input type="radio" id="rgemulation" name="rgemulation" value="1"<?php if($rgmode) echo ' checked="checked"'; ?>/></td>
-								<td><label for="rgemulation"><?php echo _RG_ENABLE?></label></td>
-							</tr>
-						</table>
-					</fieldset>
-			</td>
-			<td>&nbsp;</td>
-		</tr>
 	</table>
 <?php
 		$tabs->endTab();
 		$tabs->startTab(_METADATA,"metadata-page");
 ?>
-	<table class="adminform">
+<table width="100%">
 		<tr>
 			<td width="200" valign="top"><?php echo _SITE_DESC?>:</td>
 			<td width="580">
@@ -1050,7 +814,7 @@ class HTML_config {
 		$tabs->endTab();
 		$tabs->startTab(_MAIL,"mail-page");
 ?>
-						<table class="adminform">
+<table width="100%">
 						<tr>
 						<td width="185"><?php echo _MAIL_METHOD?>:</td>
 								<td width="250"><?php echo $lists['mailer']; ?></td>
@@ -1084,11 +848,11 @@ class HTML_config {
 								<td><input class="text_area" type="text" name="config_smtphost" size="50" value="<?php echo $row->config_smtphost; ?>"/></td>
 						</tr>
 						</table>
-						<?php
-		$tabs->endTab();
-		$tabs->startTab(_CACHE,"cache-page");
+<?php
+	$tabs->endTab();
+	$tabs->startTab(_CACHE,"cache-page");
 ?>
-			<table class="adminform" >
+<table width="100%">
 <?php
 		if(is_writeable($row->config_cachepath)) {
 ?>
@@ -1188,10 +952,10 @@ class HTML_config {
 				</tr>
 			</table>
 <?php
-		$tabs->endTab();
-		$tabs->startTab(_STATICTICS,"stats-page");
+	$tabs->endTab();
+	$tabs->startTab(_STATICTICS,"stats-page");
 ?>
-			<table class="adminform">
+<table width="100%">
 				<tr>
 					<td width="185"><?php echo _ENABLE_STATS?>:</td>
 					<td width="100"><?php echo $lists['enable_stats']; ?></td>
@@ -1209,10 +973,10 @@ class HTML_config {
 				</tr>
 			</table>
 <?php
-		$tabs->endTab();
-		$tabs->startTab("SEO","seo-page");
+	$tabs->endTab();
+	$tabs->startTab("SEO","seo-page");
 ?>
-						<table class="adminform">
+<table width="100%">
 						<tr>
 						<td><?php echo _SEF_URLS?>:</td>
 							<td><?php
@@ -1274,10 +1038,10 @@ class HTML_config {
 			</tr>
 		</table>
 <?php
-		$tabs->endTab();
-		$tabs->startTab("CAPTCHA","captcha-page");
+	$tabs->endTab();
+	$tabs->startTab("CAPTCHA","captcha-page");
 ?>
-	<table class="adminform">
+<table width="100%">
 		<tr>
 			<td width="300"><?php echo _ADMIN_LOGIN_COUNTER?>:</td>
 			<td width="300"><input class="text_area" style="width:60px;" type="text" name="config_admin_bad_auth" size="60" value="<?php echo $row->config_admin_bad_auth;?>"/>
@@ -1312,6 +1076,7 @@ class HTML_config {
 		<input type="hidden" name="config_live_site" value="<?php echo $row->config_live_site; ?>"/>
 		<input type="hidden" name="config_secret" value="<?php echo $row->config_secret; ?>"/>
 		<input type="hidden" name="config_auto_activ_login" value="0"/>
+		<input type="hidden" name="config_multilingual_support" value="<?php echo $row->config_multilingual_support ?>" />
 		<input type="hidden" name="task" value=""/>
 		<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
 	</form>

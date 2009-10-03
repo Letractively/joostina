@@ -8,7 +8,6 @@ body {
 	height: 100%;
 	margin: 0;
 }
-
 /*-------------------------------------------------------------------Заголовки*/
 h1 {
 	color: #000;
@@ -161,31 +160,31 @@ table.adminheading th.quickicons {
 table.adminheading th.linkeditor {
 	background: url(../images/system_ico/menus.png) no-repeat left;
 }
-
 /*---------------------------------------------------------------Элементы форм*/
 form {
 	margin: 0;
 }
 input, textarea, select {
 	background: #fff url(../images/round.png) repeat-x 0 1px;
-    border: 1px solid #D1D1D1;
+	border: 1px solid #D1D1D1;
 	color: #000;
 	font: 11px/18px Verdana, Sans-Serif;
 	max-width: 98% !important;
-	padding: 6px 2px;
+	padding: 4px 2px;
 }
-input.inputbox{
-	margin:1px 5px 1px 0 !important;
+input.inputbox {
+	margin: 1px 5px 1px 0 !important;
 }
-input[type=checkbox]{
-    padding: 1px; border: none;
+input[type=checkbox] {
+	padding: 1px;
+	border: none;
 }
-input[type=radio]{
-    padding: 1px; border: none;
+input[type=radio] {
+	padding: 1px;
+	border: none;
 }
-
 select {
-	padding: 5px 2px;
+	padding: 4px 2px;
 }
 textarea {
 	background: url(../images/input_bg.png) top left repeat-x #FEFEFE;
@@ -196,17 +195,14 @@ textarea {
 button {
 	font-size: 10px;
 }
-
 input.button {
 	background: url(../images/button_bg.png) top left repeat-x #FEFEFE;
 	cursor: pointer;
 }
-
 .text_area:focus, input:focus, select:focus, textarea:focus {
 	border-color: #999999;
 }
-
-input.button:focus, table.adminlist tr.row1{
+input.button:focus, table.adminlist tr.row1 {
 	background-color: #FFF;
 }
 select.options, input.options {
@@ -217,14 +213,13 @@ select.options, input.options {
 input.disabled {
 	background-color: #F0F0F0;
 }
-label{
+label {
 	color: #3C3C3C;
 }
-label:hover{
+label:hover {
 	color: black;
 	cursor: pointer;
 }
-
 /*---------------------------------------------------------------------Ссылки*/
 a:link {
 	color: #2D6B9D;
@@ -241,7 +236,6 @@ a.abig {
 	border-bottom: 1px    dashed #aaa;
 	font-size: 12px;
 }
-
 /*------------------------------------------------------Постраничная навигация*/
 .pagenav {
 	font-size: 10px;
@@ -258,7 +252,6 @@ a.pagenav:hover {
 a.pagenav:active {
 	color: #333;
 }
-
 /*--------------------------------------------------------------Декоративности*/
 /* предупреждение */
 .jwarning {
@@ -298,14 +291,12 @@ a.pagenav:active {
 	width: 12px;
 	height: 12px;
 }
-
 .sectionname {
 	color: #FF9900;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 18px;
 	font-weight: bold;
 }
-
 .small {
 	color: #FF9900;
 	font-family: Arial, Helvetica, sans-serif;
@@ -342,7 +333,6 @@ span.editlinktip {
 	padding: 1em;
 	width: auto;
 }
-
 #qsett {
 	height: 20px;
 	margin: 5px;
@@ -350,18 +340,16 @@ span.editlinktip {
 	padding: 5px;
 	text-align: center;
 }
-
 /*---------------------------------------------------------------------Таблицы*/
 table {
-    border-collapse: collapse;
+	border-collapse: collapse;
 }
-
-
 td {
 	font-size: 11px;
 }
 .jtd_nowrap {
-	white-space: nowrap; border: none
+	white-space: nowrap;
+	border: none
 }
 /* standard list style table */
 table.adminlist {
@@ -385,11 +373,10 @@ table.adminlist th.title {
 	text-align: left;
 }
 table.adminlist tr.row0 {
-    background-color: #FFF;
+	background-color: #FFF;
 }
-
 table.adminlist tr.row1 {
-    background-color: #F5F5F5;
+	background-color: #F5F5F5;
 }
 table.adminlisttop {
 	vertical-align: top;
@@ -440,7 +427,7 @@ table.adminform th {
 	color: #666666;
 }
 table.adminform td {
-	padding: 3px;
+	padding: 2px;
 	/*text-align: left;
 */
 }
@@ -476,35 +463,33 @@ td.header_info img {
 .td-state {
 	cursor: pointer;
 }
-
 /*-------------------------------------------------------Скрывающаяся колонка */
-#ntree, #Init, .item, table.adminlist th.title{
+#ntree, #Init, .item, table.adminlist th.title {
 	text-align: left;
 }
-#ntdree{
+#ntdree {
 	padding: 10px 20px 0 10px;
 	vertical-align: top;
 }
-#ntdree:hover{
+#ntdree:hover {
 	background: transparent !important;
 }
-#tdtoogle{
+#tdtoogle {
 	background: #CCC;
 	margin: 0;
 	padding: 0;
 	width: 5px;
 }
-.tdtoogleoff{
+.tdtoogleoff {
 	background: url(../images/tgl.gif) no-repeat;
 }
-.tdtoogleon{
+.tdtoogleon {
 	background: url(../images/tgr.gif) no-repeat #E2E2E2;
 }
-.tdtoogleoff:hover, .tdtoogleon:hover{
+.tdtoogleoff:hover, .tdtoogleon:hover {
 	background-color: #FFFFCC;
 	cursor: pointer;
 }
-
 /*------------------------------------------------ Основная раскладка страницы*/
 .joopage {
 	display: block;
@@ -531,7 +516,6 @@ td.header_info img {
 	width: 49%;
 	float: left;
 }
-
 #ajax_status {
 	position: absolute;
 	top: 5px;
@@ -547,13 +531,11 @@ td.header_info img {
 	padding-top: 10px;
 	width: auto;
 }
-.page{
-    padding: 0 0 0 0;
+.page {
+	padding: 0 0 0 0;
 }
-
-
 #footer {
-    clear: both;
+	clear: both;
 	padding: 0 0 0 0;
 	width: auto;
 	height: 34px;
@@ -568,9 +550,12 @@ td.header_info img {
 	margin-right: auto;
 	padding: 0px;
 }
-.logo{
-     position: absolute; top:9px; left: 10px;
-     width: 64px; height: 64px;
+.logo {
+	position: absolute;
+	top: 9px;
+	left: 10px;
+	width: 64px;
+	height: 64px;
 }
 #joo {
 	background: url(../images/bg.png) repeat-x;
@@ -578,11 +563,14 @@ td.header_info img {
 	padding: 0 0 0 65px;
 	height: 32px;
 }
-#joo a{
-    padding: 7px 0 0 15px;
-    font-size: 12px; font-weight: bold;  text-decoration: none; display: block; color: #000;
+#joo a {
+	padding: 7px 0 0 15px;
+	font-size: 12px;
+	font-weight: bold;
+	text-decoration: none;
+	display: block;
+	color: #000;
 }
-
 #wrapper1 div {
 	border: 0px;
 	margin: 0px;
@@ -591,7 +579,6 @@ td.header_info img {
 	padding: 0px 5px 0px 5px;
 	display: inline;
 }
-
 #topper {
 	width: 100%;
 }
@@ -784,13 +771,10 @@ a.logoff {
 .tb-unarchive-list {
 	background: url(../images/toolbar_ico/unarch.png);
 }
-
-
 /*---------------------------------------------------------------Верхнее меню */
 .menubackgr {
 	background: url(../images/menu-bg.png)  bottom repeat-x #F1F1F1;
 }
-
 #myMenuID {
 	padding: 0 0 0 0;
 }
@@ -825,20 +809,10 @@ a.logoff {
 .ThemeOfficeSubMenuTable {
 	overflow: visible;
 }
-.ThemeOfficeMenuItemLeft,
-.ThemeOfficeMenuItemText,
-.ThemeOfficeMenuItemRight,
-.ThemeOfficeMenuFolderLeft,
-.ThemeOfficeMenuFolderText,
-.ThemeOfficeMenuFolderRight {
+.ThemeOfficeMenuItemLeft, .ThemeOfficeMenuItemText, .ThemeOfficeMenuItemRight, .ThemeOfficeMenuFolderLeft, .ThemeOfficeMenuFolderText, .ThemeOfficeMenuFolderRight {
 	padding: 3px 3px 3px 3px !important;
 }
-.ThemeOfficeMainItem,
-.ThemeOfficeMainItemHover,
-.ThemeOfficeMainItemActive,
-.ThemeOfficeMenuItem,
-.ThemeOfficeMenuItemHover,
-.ThemeOfficeMenuItemActive {
+.ThemeOfficeMainItem, .ThemeOfficeMainItemHover, .ThemeOfficeMainItemActive, .ThemeOfficeMenuItem, .ThemeOfficeMenuItemHover, .ThemeOfficeMenuItemActive {
 	cursor: pointer;
 	white-space: nowrap;
 }
@@ -851,9 +825,7 @@ td.ThemeOfficeMainItem {
 .ThemeOfficeMenuItemHover, .ThemeOfficeMenuItemActive {
 	background: #E6E6E6;
 }
-.ThemeOfficeMenuItem,
-.ThemeOfficeMenuItem .ThemeOfficeMenuFolderText,
-.ThemeOfficeMenuItem .ThemeOfficeMenuItemText {
+.ThemeOfficeMenuItem, .ThemeOfficeMenuItem .ThemeOfficeMenuFolderText, .ThemeOfficeMenuItem .ThemeOfficeMenuItemText {
 	background-color: #F0F0F0;
 }
 /* horizontal main menu */
@@ -861,8 +833,7 @@ td.ThemeOfficeMainItem {
 	border: 0;
 	padding: 4px 1px 4px 1px;
 }
-td.ThemeOfficeMainItemHover,
-td.ThemeOfficeMainItemActive {
+td.ThemeOfficeMainItemHover, td.ThemeOfficeMainItemActive {
 	background: #E1E1E1;
 	color: #000;
 	padding: 0px;
@@ -884,9 +855,6 @@ td.ThemeOfficeMainItemActive {
 .ThemeOfficeMenuItem img.seq1, .ThemeOfficeMenuItemHover seq2, .ThemeOfficeMenuItemActive seq2 {
 	display: inline;
 }
-
-
-
 /*----------------------------------------- строка подпунктов меню компонента */
 #component_menu {
 	list-style: none;
@@ -911,68 +879,62 @@ td.ThemeOfficeMainItemActive {
 	display: inline;
 	float: left;
 }
-
 /*----------------------------------------------------Компоненты->Пользователи*/
-#user_avatar{
+#user_avatar {
 	text-align: center;
 }
-#user_avatar div{
+#user_avatar div {
 	height: 220px;
 	text-align: center;
 	width: 100%;
 }
-#user_avatar img{
+#user_avatar img {
 	background-color: rgb(245, 245, 245);
 	border: 1px solid rgb(171, 171, 173);
 	margin: 2px;
 	padding: 2px;
 }
 /* маленькое изображение аватара */
-.miniavatar, table .adminform table.adminform{
+.miniavatar, table .adminform table.adminform {
 	border: none;
 }
-
 /*------------------------------------------Инструменты->резервное копирование*/
-#pack_step{
+#pack_step {
 	margin: 2px;
 	padding: 2px;
 	text-align: left;
 }
-#pack_step span div{
+#pack_step span div {
 	padding: 2px 10px 2px 30px;
 }
-.pack_step{
+.pack_step {
 	background: url(../images/ico/info.png) no-repeat scroll 15px 50%;
 	margin-top: 5px;
 	padding: 2px 20px 2px 40px;
 	text-align: left;
 }
-.pack_step_activ{
+.pack_step_activ {
 	background: url(../images/aload.gif) no-repeat scroll 15px 50%;
 	margin-top: 5px;
 	padding: 2px 20px 2px 45px;
 	text-align: left;
 }
-.pack_step_done{
+.pack_step_done {
 	background: url(../images/ico/tick.png) no-repeat scroll 15px 50%;
 	margin-top: 5px;
 	padding: 2px 20px 2px 45px;
 	text-align: left;
 }
-
-
 /*----------------------------------------------------Инструменты->SQL-консоль*/
-.c_sql{
+.c_sql {
 	background-color: #ccc;
 	padding: 10px;
 	text-align: left;
 }
-
 /*----------------------------------------------Расширения->Установка/Удаление*/
-.content{
+.content {
 	width: 98%;
 }
-
 /*------------------------------------------------------------------- cpanel- */
 #ico-page {
 	padding: 5px;
@@ -980,7 +942,6 @@ td.ThemeOfficeMainItemActive {
 table.cpanel td {
 	text-align: center;
 }
-
 .cpicons {
 	padding: 10px 10px;
 	clear: both;
@@ -1072,10 +1033,6 @@ div.cpicons div {
 	display: block;
 	padding-top: 3px;
 }
-
-
-
-
-
-
-
+.sub_adminform {
+	width: 98%;
+}

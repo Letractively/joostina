@@ -394,9 +394,13 @@ function showconfig($option) {
 	$lists['icons']				= mosHTML::yesnoRadioList('config_icons', 'class="inputbox"', $row->config_icons );
 	$lists['www_redir']			= mosHTML::yesnoRadioList( 'config_www_redir', 'class="inputbox"', $row->config_www_redir );
 	$lists['mtage_base']		= mosHTML::yesnoRadioList( 'config_mtage_base', 'class="inputbox"', $row->config_mtage_base );
-	$lists['config_custom_print']		= mosHTML::yesnoRadioList( 'config_custom_print', 'class="inputbox"', $row->config_custom_print );
-	$lists['config_old_toolbar']		= mosHTML::yesnoRadioList( 'config_old_toolbar', 'class="inputbox"', $row->config_old_toolbar );
-	$lists['global_templates']		= mosHTML::yesnoRadioList( 'config_global_templates', 'class="inputbox"', $row->config_global_templates, _GLOBAL_TEMPLATES_CURTEMPLATE, _GLOBAL_TEMPLATES_SYSTEMDIR );
+	$lists['config_custom_print']	= mosHTML::yesnoRadioList( 'config_custom_print', 'class="inputbox"', $row->config_custom_print );
+	$lists['config_old_toolbar']	= mosHTML::yesnoRadioList( 'config_old_toolbar', 'class="inputbox"', $row->config_old_toolbar );
+	$global_templates = array(
+		mosHTML::makeOption( 0, _GLOBAL_TEMPLATES_SYSTEMDIR ),
+		mosHTML::makeOption( 1, _GLOBAL_TEMPLATES_CURTEMPLATE ),
+	);
+	$lists['global_templates']	= mosHTML::selectList( $global_templates, 'config_global_templates', 'class="inputbox" size="1"', 'value', 'text', $row->config_global_templates );
 
 	$itemid_compat = array(
 		mosHTML::makeOption( '11', '< Joomla! 1.0.11' ),
@@ -405,7 +409,6 @@ function showconfig($option) {
 	$lists['itemid_compat']	= mosHTML::selectList( $itemid_compat, 'config_itemid_compat', 'class="inputbox" size="1"', 'value', 'text', $row->config_itemid_compat );
 
 	$lists['tpreview']= mosHTML::yesnoRadioList('config_disable_tpreview','class="inputbox"',$row->config_disable_tpreview);
-
 
 	$locales = array(
 		mosHTML::makeOption( 'ru_RU.utf8', 'ru_RU.utf8'),
@@ -618,11 +621,9 @@ function saveconfig($task) {
 
 	if($row->config_joomlaxplorer_dir == $row->config_absolute_path) $row->config_joomlaxplorer_dir = 0;
 
-
 	$config = "<?php \n";
 
-	$RGEmulation = intval(mosGetParam($_POST,'rgemulation',0));
-	$config .= "if(!defined('RG_EMULATION')) { define( 'RG_EMULATION', $RGEmulation ); }\n";
+	$config .= "if(!defined('RG_EMULATION')) { define( 'RG_EMULATION', 0 ); }\n";
 
 
 	$config .= $row->getVarText();
