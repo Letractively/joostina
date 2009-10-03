@@ -89,16 +89,25 @@ function showMenu($option) {
 	$i = 0;
 	foreach($menuTypes as $a) {
 		$menus[$i]->type = $a;
+		//$count = strlen($a);
+		
+		$menus[$i]->modules = 0;
 
 		// query to get number of modules for menutype
-		$query = "SELECT count( id ) FROM #__modules WHERE module = 'mod_mainmenu' OR module = 'mod_mljoostinamenu' AND params LIKE '%".$database->getEscaped($a)."%'";
+		$query = "SELECT id, params  FROM #__modules WHERE module = 'mod_mainmenu' OR module = 'mod_mljoostinamenu' AND params LIKE '%".$a."%'";
 		$database->setQuery($query);
-		$modules = $database->loadResult();
+		$modules = $database->loadObjectList();
 
-		if(!$modules) {
-			$modules = '-';
+		foreach($modules as $mod){
+			if(stripos($mod->params, $a)!==false){
+				$menus[$i]->modules = $menus[$i]->modules + 1;
+			}
 		}
-		$menus[$i]->modules = $modules;
+		
+		if(!$modules){
+			$menus[$i]->modules = '-';	
+		}
+		
 		unset($modules);
 		$i++;
 	}
@@ -415,7 +424,7 @@ function copyConfirm($option,$type) {
 	global $database;
 
 	// Content Items query
-	$query = "SELECT a.name, a.id FROM #__menu AS a WHERE a.menutype = $database->Quote($type) ORDER BY a.name";
+	$query = 'SELECT a.name, a.id FROM #__menu AS a WHERE a.menutype ='. $database->Quote($type).' ORDER BY a.name';
 	$database->setQuery($query);
 	$items = $database->loadObjectList();
 
@@ -502,7 +511,7 @@ function copyMenu($option,$cid,$type) {
 	// clean any existing cache files
 	mosCache::cleanCache('com_content');
 
-	$msg = 'Создана копия меню `'.$type.'`, состоящая из '.$total.' пунктов';
+	$msg = _MENU_COPY_FINISHED.' `'.$type.'`'. _MENU_COPY_FINISHED_ITEMS . $total;
 	mosRedirect('index2.php?option='.$option,$msg);
 }
 

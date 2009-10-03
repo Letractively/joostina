@@ -561,17 +561,12 @@ function moveMenu($option,$cid,$menutype) {
 	$database->setQuery($query);
 	$items = $database->loadObjectList();
 
-	## query to choose menu
-	$query = "SELECT a.params FROM #__modules AS a WHERE a.module = 'mod_mainmenu' OR a.module = 'mod_mljoostinamenu' ORDER BY a.title";
-	$database->setQuery($query);
-	$modules = $database->loadObjectList();
-
-	foreach($modules as $module) {
-		$params = mosParseParams($module->params);
-		// adds menutype to array
-		$type = trim(@$params->menutype);
-		$menu[] = mosHTML::makeOption($type,$type);
+	$menuTypes = mosAdminMenus::menutypes();
+	
+	foreach($menuTypes as $menuType) {
+		$menu[] = mosHTML::makeOption($menuType,$menuType);
 	}
+
 	// build the html select list
 	$MenuList = mosHTML::selectList($menu,'menu','class="inputbox" size="10"','value','text',null);
 

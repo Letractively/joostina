@@ -39,5 +39,8 @@ DEFINE('_MENU_ALREADY_EXISTS','Меню с таким именем уже сущ
 DEFINE('_NEW_MENU_CREATED','Создано новое меню');
 DEFINE('_MENU_ITEMS_AND_MODULES_UPDATED','Пункты меню и модули обновлены');
 DEFINE('_MENU_DELETED','Меню удалено');
+DEFINE('_MENU_ITEMS_TO_COPY','Будут скопированы следующие пункты');
 DEFINE('_NEW_MENU','Новое меню');
 DEFINE('_NEW_MENU_MODULE','Новый модуль меню');
+DEFINE('_MENU_COPY_FINISHED','Создана копия меню');
+DEFINE('_MENU_COPY_FINISHED_ITEMS','Скопировано пунктов: ');
