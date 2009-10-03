@@ -75,18 +75,24 @@ flush();
 	<body>
 	<div class="page">
 		<div id="topper">
-			<div id="wrapper">
-				<div id="joo">
-					<a href="index2.php" title="<?php echo _GO_TO_MAIN_ADMIN_PAGE?>">
-						<img border="0" alt="<?php echo _GO_TO_MAIN_ADMIN_PAGE?>" src="templates/joostfree/images/logo.png" />
-					</a>
-				</div>
+		
+			<div class="logo">
+				<a href="index2.php" title="<?php echo _GO_TO_MAIN_ADMIN_PAGE?>">
+					<img border="0" alt="J!" src="templates/joostfree/images/logo.png" />
+				</a>
+			</div>			
+			<div id="joo">
+				<a href="index2.php" title="<?php echo _GO_TO_MAIN_ADMIN_PAGE?>">
+					<?php echo $mosConfig_sitename;?>
+				</a>
 			</div>
+			
 			<div id="ajax_status"><?php echo _PLEASE_WAIT?></div>
+			
 			<table width="100%" class="menubar" cellpadding="0" cellspacing="0" border="0">
 				<tr class="menubackgr">
-					<td style="padding-left: 7px;width: 25px;">
-						<a href="<?php echo $mosConfig_live_site; ?>/<?php echo ADMINISTRATOR_DIRECTORY?>/index2.php" title="<?php echo _GO_TO_MAIN_ADMIN_PAGE?>"><img border="0" alt="J!" src="templates/joostfree/images/m-logo.png" /></a>
+					<td style="padding-left: 50px;width: 25px;">
+						<a href="<?php echo $mosConfig_live_site; ?>/<?php echo ADMINISTRATOR_DIRECTORY?>/index2.php" title="<?php echo _GO_TO_MAIN_ADMIN_PAGE?>"></a>
 					</td>
 					<td width="85%">
 						<?php mosLoadAdminModule('fullmenu'); ?>
@@ -113,17 +119,11 @@ flush();
 		<?php mosLoadAdminModule('mosmsg'); ?>
 		<?php //mosLoadAdminModule('component_menu'); ?>
 		<div id="status-info" style="display: none;">&nbsp;</div>
-		<table width="100%" class="menubar" cellpadding="0" cellspacing="0" border="0">
-			<tr>
-				<td align="center">
+
 					<div id="main_body">
 						<?php mosMainBody_Admin(); ?>
 					</div>
-				</td>
-			</tr>
-		</table>
-		
-		<div id="footer_cleaner">&nbsp;</div>
+
 	</div>
 		<div id="footer" align="center" class="smallgrey"><?php echo $jostina_ru; ?></div>
 		<script type="text/javascript" language="JavaScript">function jf_hideLoading() {SRAX.get('ajax_status').style.display='none';};if (window.addEventListener) {window.addEventListener('load', jf_hideLoading, false);} else if (window.attachEvent) {var r=window.attachEvent("onload", jf_hideLoading);}else{jf_hideLoading();}</script>

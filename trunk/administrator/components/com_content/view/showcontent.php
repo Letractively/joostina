@@ -83,10 +83,10 @@ defined( '_VALID_MOS' ) or die();
 	</table>
 
 <table class="adminlisttop adminlist">
-	<tr class="row0">
-	<td valign="top" align="left" id="ntdree"><?php echo $lists['sectree'];?></td>
+	<tr>
+	<td valign="top" class="jtd_nowrap" align="left" id="ntdree"><?php echo $lists['sectree'];?></td>
 	<td onclick="ntreetoggle();" width="1" id="tdtoogle" <?php echo $lists['sectreetoggle'];?>><img border="0" alt="<?php echo _HIDE_NAV_TREE?>" src="<?php echo $cur_file_icons_path2;?>/tgl.png" /></td>
-	<td valign="top" width="100%">
+	<td valign="top" width="100%"> 
 	<table class="adminlist" width="100%">
 		<thead>
 		<tr>

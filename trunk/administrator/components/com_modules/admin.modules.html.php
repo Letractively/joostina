@@ -65,13 +65,12 @@ class HTML_modules {
 			</th>
 			<td width="right"><?php echo $lists['position']; ?></td>
 			<td width="right"><?php echo $lists['type']; ?></td>
-		</tr>
-		<tr>
 			<td align="right"><?php echo _FILTER?>:</td>
 			<td>
 				<input type="text" name="search" value="<?php echo htmlspecialchars($search); ?>" class="text_area" onChange="document.adminForm.submit();" />
 			</td>
 		</tr>
+
 		</table>
 		<table class="adminlist">
 		<tr>
