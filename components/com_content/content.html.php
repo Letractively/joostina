@@ -845,5 +845,6 @@ class HTML_content {
 
 	function _after_create_content($row) { ?>
 		Усё пучкомм
-	<?php }
-} ?>
+	<?php
+	}
+}
