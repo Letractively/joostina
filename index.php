@@ -45,6 +45,12 @@ if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset
 
 // подключение главного файла - €дра системы
 require_once ($mosConfig_absolute_path.DIRECTORY_SEPARATOR.'includes'.DIRECTORY_SEPARATOR.'joomla.php');
+
+if(file_exists($mosConfig_absolute_path.DS.'components'.DS.'com_sef'.DS.'sef.php')) {
+	require_once ($mosConfig_absolute_path.DS.'components'.DS.'com_sef'.DS.'sef.php');
+} else {
+	require_once ($mosConfig_absolute_path.DS.'includes'.DS.'sef.php');
+}
 require_once ($mosConfig_absolute_path.DS.'includes'.DS.'frontend.php');
 
 // проверка и переадресаци€ с не WWW адреса
@@ -69,11 +75,7 @@ if($mosConfig_mmb_system_off == 0) {
 	$_MAMBOTS->trigger('onStart');
 }
 
-if(file_exists($mosConfig_absolute_path.DS.'components'.DS.'com_sef'.DS.'sef.php')) {
-	require_once ($mosConfig_absolute_path.DS.'components'.DS.'com_sef'.DS.'sef.php');
-} else {
-	require_once ($mosConfig_absolute_path.DS.'includes'.DS.'sef.php');
-}
+
 
 // mainframe - основна€ рабоча€ среда API, осуществл€ет взаимодействие с '€дром'
 $mainframe = &mosMainFrame::getInstance();
@@ -84,8 +86,8 @@ $mainframe = &mosMainFrame::getInstance();
 //}
 
 // поиск некоторых аргументов url (или form)
-$option = strval(strtolower(mosGetParam($_REQUEST,'option')));
-$Itemid = intval(mosGetParam($_REQUEST,'Itemid',null));
+$option = strval(strtolower(mosGetParam($_REQUEST,'option'))); 
+$Itemid = intval(mosGetParam($_REQUEST,'Itemid',null)); 
 
 if(!$Itemid) {
 	// когда не найден Itemid, то ему присваиваетс€ значение по умолчанию
@@ -217,19 +219,19 @@ if($mosConfig_frontend_login == 1) {
 
 ob_start();
 if($path = $mainframe->getPath('front')) {
-	$task = strval(mosGetParam($_REQUEST,'task',''));
+	$task = strval(mosGetParam($_REQUEST,'task','')); 
 	$ret = mosMenuCheck($Itemid,$option,$task,$gid);
 	if($ret) {
 		//ѕодключаем €зык компонента
 		if($mainframe->getLangFile($option)){
 			require_once($mainframe->getLangFile($option));
-		}
+		} 
 		require_once ($path);
 		
-	} else {
+	} else { 
 		mosNotAuth();
 	}
-} else {
+} else { 
 	header('HTTP/1.0 404 Not Found');
 	echo _NOT_EXIST;
 }
