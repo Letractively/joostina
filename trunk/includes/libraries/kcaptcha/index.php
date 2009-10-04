@@ -12,14 +12,16 @@ error_reporting(E_ALL);
 if(isset($_REQUEST['session'])){
 	session_name($_REQUEST['session']);
 	session_start();
+	$captcha = new KCAPTCHA();
+	$_SESSION['captcha_keystring'] = $captcha->getKeyString();
 }
-
+/*
 $captcha = new KCAPTCHA();
 
 if($_REQUEST[session_name()]){
 	$_SESSION['captcha_keystring'] = $captcha->getKeyString();
 }
-
+*/
 
 # KCAPTCHA PROJECT VERSION 1.2.4
 
@@ -105,9 +107,7 @@ class KCAPTCHA {
 			// draw text
 			$x = 1;
 			for($i = 0; $i < $length; $i++) {
-				$m = $font_metrics[$this->keystring {
-					$i}
-				];
+				$m = $font_metrics[$this->keystring{$i}];
 
 				$y = mt_rand(-$fluctuation_amplitude,$fluctuation_amplitude) + ($height - $fontfile_height) / 2 + 2;
 
