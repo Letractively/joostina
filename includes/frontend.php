@@ -483,8 +483,8 @@ function syndicate_header(){
 		if($check) {
 			// проверяем, не опубликован ли уже модуль с RSS
 			$query = "SELECT m.id FROM #__modules AS m WHERE m.module = 'mod_rssfeed' AND m.published = 1 LIMIT 1";
-			$mainframe->_db->->setQuery($query);
-			$check = $mainframe->_db->->loadResult();
+			$mainframe->_db->setQuery($query);
+			$check = $mainframe->_db->loadResult();
 			if($check>0) {
 				$show = 0;
 			}
