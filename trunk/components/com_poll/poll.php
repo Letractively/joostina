@@ -45,14 +45,14 @@ function pollAddVote($uid) {
 
 	if(!$sessioncookie) {
 		echo '<h3>'._ALERT_ENABLED.'</h3>';
-		echo '<input class="button" type="button" value="'._CONTINUE.'" onClick="window.history.go(-1);">';
+		echo '<span class="button"><input class="button" type="button" value="'._CONTINUE.'" onClick="window.history.go(-1);"></span>';
 		return;
 	}
 
 	$poll = new mosPoll($database);
 	if(!$poll->load((int)$uid)) {
 		echo '<h3>'._NOT_AUTH.'</h3>';
-		echo '<input class="button" type="button" value="'._CONTINUE.'" onClick="window.history.go(-1);">';
+		echo '<span class="button"><input class="button" type="button" value="'._CONTINUE.'" onClick="window.history.go(-1);"></span>';
 		return;
 	}
 
@@ -61,14 +61,14 @@ function pollAddVote($uid) {
 
 	if($voted) {
 		echo "<h3>"._ALREADY_VOTE."</h3>";
-		echo "<input class=\"button\" type=\"button\" value=\""._CONTINUE."\" onClick=\"window.history.go(-1);\">";
+		echo "<span class=\"button\"><input class=\"button\" type=\"button\" value=\""._CONTINUE."\" onClick=\"window.history.go(-1);\"></span>";
 		return;
 	}
 
 	$voteid = intval(mosGetParam($_POST,'voteid',0));
 	if(!$voteid) {
 		echo "<h3>"._NO_SELECTION."</h3>";
-		echo '<input class="button" type="button" value="'._CONTINUE.'" onClick="window.history.go(-1);">';
+		echo '<span class="button"><input class="button" type="button" value="'._CONTINUE.'" onClick="window.history.go(-1);"></span>';
 		return;
 	}
 
@@ -94,7 +94,7 @@ function pollAddVote($uid) {
 	} else {
 		echo '<h3>'._THANKS.'</h3>';
 		echo '<form action="" method="GET">';
-		echo '<input class="button" type="button" value="'._BUTTON_RESULTS.'" onClick="window.location=\''.sefRelToAbs('index.php?option=com_poll&task=results&id='.$uid.'&Itemid='.$Itemid).'\'">';
+		echo '<span class="button"><input class="button" type="button" value="'._BUTTON_RESULTS.'" onClick="window.location=\''.sefRelToAbs('index.php?option=com_poll&task=results&id='.$uid.'&Itemid='.$Itemid).'\'"></span>';
 		echo '</form>';
 	}
 }
