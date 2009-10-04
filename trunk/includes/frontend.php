@@ -481,10 +481,10 @@ function syndicate_header(){
 		// security chcek
 		$check = $syndicateParams->def('check',1);
 		if($check) {
-			// проверяем, не опубликован ли уже модель с RSS
+			// проверяем, не опубликован ли уже модуль с RSS
 			$query = "SELECT m.id FROM #__modules AS m WHERE m.module = 'mod_rssfeed' AND m.published = 1 LIMIT 1";
-			$database->setQuery($query);
-			$check = $database->loadResult();
+			$mainframe->_db->->setQuery($query);
+			$check = $mainframe->_db->->loadResult();
 			if($check>0) {
 				$show = 0;
 			}
