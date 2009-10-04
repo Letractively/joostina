@@ -11,21 +11,28 @@
 defined( '_VALID_MOS' ) or die();
 
 # получаем объект конфигурации системы
-$config = Jconfig::getInstance();
+$config = Jconfig::getInstance(); 
+$mainframe = &mosMainFrame::getInstance();
 
 // используемое меню
 $use_menu = $params->get( 'menutype', 'mainmenu' );
 
-// тип вывода меню
-$type_menu = $params->get( 'type_menu', 'standart' );
-
 // разделитель пунктов меню
 $spacer = $params->get( 'spacer', ' ');
 
-# файл вывода меню
-$file = $config->config_absolute_path.'/modules/mod_menu/'.$type_menu.'.php';
+// тип вывода меню
+$type_menu = $params->get( 'type_menu', 'tree' );
 
-if(file_exists($file)){
-	require_once $file;
+//путь к шаблонам
+$params->def('template', 'default.php');
+$params->def('template_dir', 0);
+
+$params->set('template', $type_menu.DS.$params->get('template'));
+$module->get_helper();
+
+//Подключаем шаблон
+if($module->set_template($params)){
+	require_once($module->template);
 }
+
 unset($config,$params,$type_menu,$file,$use_menu);
