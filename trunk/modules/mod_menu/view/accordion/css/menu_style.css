@@ -1,0 +1,49 @@
+.acc {
+	margin:0px;
+	padding:0px;
+	text-indent:0px;
+	width:200px;
+}
+.acc a{
+    cursor:pointer;
+	color:#000;
+	display:block;
+	margin:0px;
+	padding: 0 0 0 5px;
+	text-indent:14px;
+	text-decoration: none;
+    border-bottom: 1px dotted #CCC;
+}
+
+
+.acc a.acc_head {
+	background:url(../images/collapsed.gif) no-repeat scroll 3px 4px;
+
+}
+.acc a.acc_head:hover {
+	color:#D43015;
+}
+.acc a.selected {
+	background-image: url(../images/expanded.gif);
+}
+.acc a.current {
+	background-color:#F9FCEB;
+}
+.acc ul {
+	border-width:0px;
+	margin:0 0 0 15px;
+	padding:0px;
+	text-indent:0px;
+}
+.acc li {
+	list-style:none outside none; display:inline;
+}
+.acc li li a {
+	color:#000000;
+	display:block;
+	text-indent:10px;
+	text-decoration: none;
+}
+.acc li li a:hover {
+	color:#FF0000;
+}
