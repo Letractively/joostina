@@ -2502,4 +2502,3 @@ class contentPageConfig{
 		return $params;
 	}
 }
-?>

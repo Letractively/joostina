@@ -989,4 +989,4 @@ class configContent_sectionlist extends dbConfig {
 			exit();
 		}
 	}
-} ?>
+}
