@@ -12,18 +12,17 @@ defined( '_VALID_MOS' ) or die();
 
 
 class mod_menu_Helper{
-	
+
 	function load_css($params){
 		$mainframe = &mosMainFrame::getInstance();
 		if($params->get('css',1)){?>
 			<link href="<?php echo $mainframe->getCfg('live_site'); ?>/modules/mod_menu/view/<?php echo $params->get( 'type_menu', 'tree' ) ;?>/css/menu_style.css" rel="stylesheet" type="text/css" />
-		<?php		
+		<?php
 		}
 	}
-	
+
 	function load_js($js = array(), $params){
 		$mainframe = &mosMainFrame::getInstance();
-		
 		foreach($js as $file){
 			?>
 			<script type="text/javascript" src="<?php echo $mainframe->getCfg('live_site'); ?>/modules/mod_menu/view/<?php echo $params->get( 'type_menu', 'tree' ) ;?>/js/<?php echo $file;?>"></script>
@@ -31,20 +30,20 @@ class mod_menu_Helper{
 		}
 	}
 
-    function get_menu_tree($params){
-    	$menutype = $params->get('menutype','mainmenu');
-    	
+	function get_menu_tree($params){
+		$menutype = $params->get('menutype','mainmenu');
+
 		$database = &database::getInstance();
 		$sql = 'SELECT id,name,link,parent, type FROM #__menu'
-		. ' WHERE menutype = ' . $database->Quote( $menutype )
-		. ' AND published = 1 ORDER BY parent, ordering' ;
+			. ' WHERE menutype = ' . $database->Quote( $menutype )
+			. ' AND published = 1 ORDER BY parent, ordering' ;
 		$database->setQuery( $sql );
 		$menus = $database->loadObjectList();
-		
+
 		if($params->get('first_item', 1)){
-			unset($menus[0]); 	
-		}		
-	
+			unset($menus[0]);
+		}
+
 		$children = array();
 		foreach($menus as $v) {
 			$pt = $v->parent;
@@ -52,13 +51,12 @@ class mod_menu_Helper{
 			array_push($list,$v);
 			$children[$pt] = $list;
 		}
-		return $children;	
-		
-    }
-    
-    function get_menu_single($params){
-    	$menutype = $params->get('menutype','mainmenu');
-    	
+		return $children;
+	}
+
+	function get_menu_single($params){
+		$menutype = $params->get('menutype','mainmenu');
+
 		$database = &database::getInstance();
 		$sql = 'SELECT id,name,link, type FROM #__menu'
 		. ' WHERE menutype = ' . $database->Quote( $menutype )
@@ -67,10 +65,9 @@ class mod_menu_Helper{
 		$menus = $database->loadObjectList();
 		
 		if($params->get('first_item', 1)){
-			unset($menus[0]); 	
-		}		
+			unset($menus[0]);
+		}
 
-		return $menus;	
-		
-    }
+		return $menus;
+	}
 }
