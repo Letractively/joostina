@@ -70,7 +70,7 @@ if($option == '') {
 }
 
 if($mosConfig_mmb_system_off == 0) {
-	$_MAMBOTS->loadBotGroup('system');
+	$_MAMBOTS->loadBotGroup('admin');
 	$_MAMBOTS->trigger('onAfterAdminStart');
 }
 

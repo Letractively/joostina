@@ -47,7 +47,7 @@ require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/includes/ad
 $my = $mainframe->initSessionAdmin($option,$task);
 
 if($mosConfig_mmb_system_off == 0) {
-	$_MAMBOTS->loadBotGroup('system');
+	$_MAMBOTS->loadBotGroup('admin');
 	$_MAMBOTS->trigger('onAfterAdminAjaxStart');
 }
 
