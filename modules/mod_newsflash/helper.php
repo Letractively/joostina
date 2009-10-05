@@ -28,13 +28,7 @@ class mod_newsflash_Helper{
         $row->link_text = $params->get('link_text', _READ_MORE);
         $readmore = mosContent::ReadMore($row,$params);
 
-        $text = $row->introtext;
-        
-        //Очищаем текст
-        $allowable_tags = array();
-        $pair_tags = array('script', 'style', 'map', 'iframe', 'frameset', 'object', 'applet', 'comment', 'button', 'textarea', 'select', 'img');
-        $para_tags = array('p', 'td', 'th', 'li','div', 'form', 'title', 'pre');
-        $text = Text::strip_tags_smart($text, $allowable_tags, true, $pair_tags, $para_tags);
+        $text = Text::simple_clean($row->introtext); 		
         
         if($params->get('crop_text')){            
             switch ($params->get('crop_text')) {
@@ -56,7 +50,7 @@ class mod_newsflash_Helper{
         $row->image = '';
         if($params->get('image')){
             mosMainFrame::getInstance()->addLib('images');
-            $text_with_image = $row->introtext;
+            $text_with_image = $row->introtext.$row->fulltext;
             if($params->get('image')=='mosimage'){
                 $text_with_image = $row->images;
             }
