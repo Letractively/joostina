@@ -285,25 +285,29 @@ class mosMainFrame {
 
 	
 	function getLangFile($name = ''){
-		$absolute_path = $this->getCfg('absolute_path');
+
+		// это ќ„≈Ќ№ надо переделать
+		global $mosConfig_lang;
+		//$lang = $this->lang = $mosConfig_lang;
+		$lang = $mosConfig_lang;
+
+		$absolute_path = Jconfig::getInstance()->config_absolute_path;
 		if(!$name){
-			return $absolute_path.DS.'language'.DS.$this->lang.DS.'system.php';
+			return $absolute_path.DS.'language'.DS.$lang.DS.'system.php';
 		}else{
 			$file = $name;
 		}
-		if($this->_isAdmin){
-			if(is_file($absolute_path.DS.'language'.DS.$this->lang.DS.'administrator'.DS.$file.'.php')){
-				return $absolute_path.DS.'language'.DS.$this->lang.DS.'administrator'.DS.$file.'.php';
-			}
-			else{
-				if(is_file($absolute_path.DS.'language'.DS.$this->lang.DS.'frontend'.DS.$file.'.php')){
-					return $absolute_path.DS.'language'.DS.$this->lang.DS.'frontend'.DS.$file.'.php';
+		if( isset($this->_isAdmin) && $this->_isAdmin==true ){
+			if(is_file($absolute_path.DS.'language'.DS.$lang.DS.'administrator'.DS.$file.'.php')){
+				return $absolute_path.DS.'language'.DS.$lang.DS.'administrator'.DS.$file.'.php';
+			}else{
+				if(is_file($absolute_path.DS.'language'.DS.$lang.DS.'frontend'.DS.$file.'.php')){
+					return $absolute_path.DS.'language'.DS.$lang.DS.'frontend'.DS.$file.'.php';
 				}
 			}
-		}
-		else{
-			if(is_file($absolute_path.DS.'language'.DS.$this->lang.DS.'frontend'.DS.$file.'.php')){
-				return $absolute_path.DS.'language'.DS.$this->lang.DS.'frontend'.DS.$file.'.php';
+		}else{
+			if(is_file($absolute_path.DS.'language'.DS.$lang.DS.'frontend'.DS.$file.'.php')){
+				return $absolute_path.DS.'language'.DS.$lang.DS.'frontend'.DS.$file.'.php';
 			}
 		}
 
@@ -1341,12 +1345,12 @@ class mosMainFrame {
 	*
 	*/
 	function getPath($varname,$option = '') {
-		$config = $this->get('config');
 
 		if($option) {
 			$temp = $this->_path;
 			$this->_setAdminPaths($option,$this->getCfg('absolute_path'));
 		}
+
 		$result = null;
 		if(isset($this->_path->$varname)) {
 			$result = $this->_path->$varname;
@@ -1354,11 +1358,11 @@ class mosMainFrame {
 			switch($varname) {
 				case 'com_xml':
 					$name = substr($option,4);
-					$path = $config->config_absolute_path.'/'.ADMINISTRATOR_DIRECTORY."/components/$option/$name.xml";
+					$path = $this->getCfg('absolute_path').DS.ADMINISTRATOR_DIRECTORY."/components/$option/$name.xml";
 					if(file_exists($path)) {
 						$result = $path;
 					} else {
-						$path = $config->config_absolute_path."/components/$option/$name.xml";
+						$path = $this->getCfg('absolute_path')."/components/$option/$name.xml";
 						if(file_exists($path)) {
 							$result = $path;
 						}
@@ -1368,9 +1372,9 @@ class mosMainFrame {
 				case 'mod0_xml':
 					// Site modules
 					if($option == '') {
-						$path = $config->config_absolute_path.'/modules/custom.xml';
+						$path = $this->getCfg('absolute_path').'/modules/custom.xml';
 					} else {
-						$path = $config->config_absolute_path."/modules/$option.xml";
+						$path = $this->getCfg('absolute_path')."/modules/$option.xml";
 					}
 					if(file_exists($path)) {
 						$result = $path;
@@ -1380,9 +1384,9 @@ class mosMainFrame {
 				case 'mod1_xml':
 					// admin modules
 					if($option == '') {
-						$path = $config.DS.ADMINISTRATOR_DIRECTORY.'/modules/custom.xml';
+						$path = $this->getCfg('absolute_path').DS.ADMINISTRATOR_DIRECTORY.'/modules/custom.xml';
 					} else {
-						$path = $config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY."/modules/$option.xml";
+						$path = $this->getCfg('absolute_path').DS.ADMINISTRATOR_DIRECTORY."/modules/$option.xml";
 					}
 					if(file_exists($path)) {
 						$result = $path;
@@ -1391,28 +1395,28 @@ class mosMainFrame {
 
 				case 'bot_xml':
 					// Site mambots
-					$path = $config->config_absolute_path.DS.'mambots'.DS.$option.'.xml';
+					$path = $this->getCfg('absolute_path').DS.'mambots'.DS.$option.'.xml';
 					if(file_exists($path)) {
 						$result = $path;
 					}
 					break;
 
 				case 'menu_xml':
-					$path = $config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY."/components/com_menus/$option/$option.xml";
+					$path = $this->getCfg('absolute_path').DS.ADMINISTRATOR_DIRECTORY."/components/com_menus/$option/$option.xml";
 					if(file_exists($path)) {
 						$result = $path;
 					}
 					break;
 
 				case 'installer_html':
-					$path = $config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY."/components/com_installer/$option/$option.html.php";
+					$path = $this->getCfg('absolute_path').DS.ADMINISTRATOR_DIRECTORY."/components/com_installer/$option/$option.html.php";
 					if(file_exists($path)) {
 						$result = $path;
 					}
 					break;
 
 				case 'installer_class':
-					$path = $config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY."/components/com_installer/$option/$option.class.php";
+					$path = $this->getCfg('absolute_path').DS.ADMINISTRATOR_DIRECTORY."/components/com_installer/$option/$option.class.php";
 					if(file_exists($path)) {
 						$result = $path;
 					}
@@ -4242,8 +4246,8 @@ class mosMambotHandler {
 	function loadBotGroup($group, $load = 0) {
 		global $my;
 
-		$mainframe = &mosMainFrame::getInstance();
-		$database = $mainframe->_db;
+		$config = &Jconfig::getInstance();
+		$database = &database::getInstance();
 
 		if(is_object($my)) {
 			$gid = $my->gid;
@@ -4252,14 +4256,14 @@ class mosMambotHandler {
 		}
 		$group = trim($group);
 
-		$where_ac = ($mainframe->getCfg('disable_access_control')==0) ? ' AND access <= '.(int)$gid : '';
+		$where_ac = ($config->config_disable_access_control==0) ? ' AND access <= '.(int)$gid : '';
 
 		switch($group) {
 			case 'content':
 				if(!defined('_JOS_CONTENT_MAMBOTS')) {
 					/** ensure that query is only called once*/
 					define('_JOS_CONTENT_MAMBOTS',1);
-					$where_ac .= ($mainframe->getCfg('use_unpublished_mambots')==1) ? '' : ' AND published=1';
+					$where_ac .= ($config->config_use_unpublished_mambots==1) ? '' : ' AND published=1';
 					$query = 'SELECT folder, element, published, params FROM #__mambots WHERE folder = \'content\''.$where_ac.' ORDER BY ordering';
 					$database->setQuery($query);
 					// load query into class variable _content_mambots
@@ -4324,11 +4328,7 @@ class mosMambotHandler {
 	function loadBot($folder,$element,$published,$params = '') {
 		global $_MAMBOTS;
 
-		static $mainframe,$path_bot;
-		if(!isset($mainframe)){
-			$mainframe = &mosMainFrame::getInstance();
-			$path_bot = $mainframe->getCfg('absolute_path').DS.'mambots';
-		}
+		$path_bot = Jconfig::getInstance()->config_absolute_path.DS.'mambots';
 
 		$path = $path_bot.DS.$folder.DS.$element.'.php';
 		if(file_exists($path)) {
@@ -4341,7 +4341,7 @@ class mosMambotHandler {
 			$bot->params = $params;
 			$this->_bots[] = $bot;
 			$this->_mambot_params[$element] = $params;
-			$lang = $mainframe->getLangFile('bot_'.$element);
+			$lang = mosMainFrame::getLangFile('bot_'.$element);
 			if($lang){
 				include_once($lang);
 			}

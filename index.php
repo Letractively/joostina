@@ -46,16 +46,6 @@ if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset
 // подключение главного файла - ядра системы
 require_once ($mosConfig_absolute_path.DIRECTORY_SEPARATOR.'includes'.DIRECTORY_SEPARATOR.'joomla.php');
 
-if(file_exists($mosConfig_absolute_path.DS.'components'.DS.'com_sef'.DS.'sef.php')) {
-	require_once ($mosConfig_absolute_path.DS.'components'.DS.'com_sef'.DS.'sef.php');
-} else {
-	require_once ($mosConfig_absolute_path.DS.'includes'.DS.'sef.php');
-}
-require_once ($mosConfig_absolute_path.DS.'includes'.DS.'frontend.php');
-
-// проверка и переадресация с не WWW адреса
-joostina_api::check_host();
-
 //Проверка подпапки установки, удалена при работе с SVN
 if(file_exists('installation/index.php') && $_VERSION->SVN == 0) {
 	define('_INSTALL_CHECK',1);
@@ -75,7 +65,25 @@ if($mosConfig_mmb_system_off == 0) {
 	$_MAMBOTS->trigger('onStart');
 }
 
+if(file_exists($mosConfig_absolute_path.DS.'components'.DS.'com_sef'.DS.'sef.php')) {
+	require_once ($mosConfig_absolute_path.DS.'components'.DS.'com_sef'.DS.'sef.php');
+} else {
+	require_once ($mosConfig_absolute_path.DS.'includes'.DS.'sef.php');
+}
 
+require_once ($mosConfig_absolute_path.DS.'includes'.DS.'frontend.php');
+
+// проверка и переадресация с не WWW адреса
+joostina_api::check_host();
+
+// поиск некоторых аргументов url (или form)
+$option = strval(strtolower(mosGetParam($_REQUEST,'option')));
+$Itemid = intval(mosGetParam($_REQUEST,'Itemid',null)); 
+
+if(!$Itemid) {
+	// когда не найден Itemid, то ему присваивается значение по умолчанию
+	$Itemid = 99999999;
+}
 
 // mainframe - основная рабочая среда API, осуществляет взаимодействие с 'ядром'
 $mainframe = &mosMainFrame::getInstance();
@@ -84,15 +92,6 @@ $mainframe = &mosMainFrame::getInstance();
 //if(is_file($mosConfig_absolute_path.DS.'multisite.config.php')){
 //	include_once($mosConfig_absolute_path.DS.'multisite.config.php');
 //}
-
-// поиск некоторых аргументов url (или form)
-$option = strval(strtolower(mosGetParam($_REQUEST,'option'))); 
-$Itemid = intval(mosGetParam($_REQUEST,'Itemid',null)); 
-
-if(!$Itemid) {
-	// когда не найден Itemid, то ему присваивается значение по умолчанию
-	$Itemid = 99999999;
-}
 
 // отключение ведения сессий на фронте
 if($mosConfig_no_session_front == 0) {
@@ -139,8 +138,7 @@ $message	= intval(mosGetParam($_POST,'message',0));
 if($mainframe->get('_multisite')=='2' && $cookie_exist ){
 	$mainframe->set('_multisite_params', $m_s);
 	$my = $mainframe->getUser_from_sess($_COOKIE[mosMainFrame::sessionCookieName($m_s->main_site)]);
-}
-else{
+}else{
 	$my = $mainframe->getUser();
 }
 
@@ -218,6 +216,7 @@ if($mosConfig_frontend_login == 1) {
 // начало буферизации основного содержимого
 
 ob_start();
+
 if($path = $mainframe->getPath('front')) {
 	$task = strval(mosGetParam($_REQUEST,'task','')); 
 	$ret = mosMenuCheck($Itemid,$option,$task,$gid);
