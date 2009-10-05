@@ -365,4 +365,10 @@ class Text{
 	    $text = str_replace("<br>","<br />",$text);
 	    return $text;
 	}
+	
+	function simple_clean($text){
+		$text = html_entity_decode ($text, ENT_QUOTES, 'utf-8') ;
+        $text = mosHTML::cleanText($text);    
+		return $text;    	
+	}
 }
