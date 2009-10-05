@@ -78,11 +78,13 @@ class HTML_admin_misc {
 ?>
 		<table class="adminform">
 			<tr>
-				<td><pre>
+				<td>
+				<pre>
 <?php
 		include($mosConfig_absolute_path.'/help/copyright.php');
 ?>
-				</pre</td>
+				</pre>
+				</td>
 			</tr>
 		</table>
 <?php

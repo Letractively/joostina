@@ -17,5 +17,5 @@
 			<option value="1">Да</option>
 			<option value="0">Нет</option>
 		</param>
-	<params/>
+	</params>
 </mosinstall>

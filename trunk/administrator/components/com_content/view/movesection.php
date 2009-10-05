@@ -28,13 +28,11 @@ defined( '_VALID_MOS' ) or die();
 		}
 		</script>
 
-		<form action="index2.php" method="post" name="adminForm">
+	<form action="index2.php" method="post" name="adminForm">
 		<br />
 		<table class="adminheading">
 		<tr>
-			<th class="edit">
-			<?php echo _OBJECT_MOVING?>
-			</th>
+			<th class="edit"><?php echo _OBJECT_MOVING?></th>
 		</tr>
 		</table>
 
@@ -50,7 +48,7 @@ defined( '_VALID_MOS' ) or die();
 			<td align="left" valign="top">
 			<strong><?php echo _OBJECTS_TO_MOVE?>:</strong>
 			<br />
-			<?php
+<?php
 		echo "<ol>";
 		foreach($items as $item) {
 			echo "<li>".$item->title."</li>";
@@ -65,11 +63,11 @@ defined( '_VALID_MOS' ) or die();
 		<input type="hidden" name="option" value="<?php echo $option; ?>" />
 		<input type="hidden" name="sectionid" value="<?php echo $sectionid; ?>" />
 		<input type="hidden" name="task" value="" />
-		<?php
+<?php
 		foreach($cid as $id) {
 			echo "\n<input type=\"hidden\" name=\"cid[]\" value=\"$id\" />";
 		}
 ?>
 		<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
-		</form>
-		<?php
+	</form>
+<?php

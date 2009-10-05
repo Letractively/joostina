@@ -100,30 +100,8 @@ function registerGlobals() {
 		}
 	}
 }
-// у нас выше объявлена константаудаления глобальных переменный, проверкасобсвтенно ни к чем
-//if(RG_EMULATION == 0) {
-	// force register_globals = off
-	unregisterGlobals();
-/*
-	if(file_exists(dirname(__file__).'/configuration.php')) {
-		require (dirname(__file__).'/configuration.php');
-	}
-} else{
-	if(ini_get('register_globals') == 0) {
-		// php.ini has register_globals = off and emulate = on
-		registerGlobals();
-	} else {
-		// php.ini has register_globals = on and emulate = on
-		// just check for spoofing
-		checkInputArray($_FILES);
-		checkInputArray($_ENV);
-		checkInputArray($_GET);
-		checkInputArray($_POST);
-		checkInputArray($_COOKIE);
-		checkInputArray($_SERVER);
 
-		if(isset($_SESSION)) {
-			checkInputArray($_SESSION);
-		}
-	}
-}*/
+// удаляем зарегистрированные глобальные переменные если они разрешены
+if(ini_get('register_globals') == 1) {
+	unregisterGlobals();
+}
