@@ -8,7 +8,7 @@
 	<authorEmail>joostinacms@gmail.com</authorEmail>
 	<authorUrl>www.joostina.ru</authorUrl>
 	<version>1.0.0 RE</version>
-	<description>Добавляет функцию создания оглавления содержимого. Синтаксис: {mospagebreak} или {mospagebreak title=Название страницы} или {mospagebreak heading=Первая страница} или {mospagebreak title=Название страницы&heading=Первая страница} или {mospagebreak heading=Первая страница&title=Название страницы}</description>
+	<description>Добавляет функцию создания оглавления содержимого. Синтаксис: {mospagebreak} или {mospagebreak title=Название страницы} или {mospagebreak heading=Первая страница} или {mospagebreak title=Название страницы&amp;heading=Первая страница} или {mospagebreak heading=Первая страница&amp;title=Название страницы}</description>
 	<files>
 		<filename mambot="mospaging">mospaging.php</filename>
 	</files>
