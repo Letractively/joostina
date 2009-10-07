@@ -1,22 +1,22 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined('_VALID_MOS') or die();
 
-$params_aray = array( //-------------------------------Основные настройки
-	'moduleclass_sfx' => $params->get('moduleclass_sfx'), //Суффикс класса модуля
-	'all_user' => $params->get('all_user'), //Показывать количество зарегистрированных пользователей
-	'online_user_count' => $params->get('online_user_count'), //Пользователи online
-	'online_users' => $params->get('online_users'), //Кто online
-	'user_avatar' => $params->get('user_avatar'), //аватары пользователей
-	'module_orientation' => $params->get('module_orientation'), //Ориентация модуля
+$params_aray = array( //-------------------------------РћСЃРЅРѕРІРЅС‹Рµ РЅР°СЃС‚СЂРѕР№РєРё
+	'moduleclass_sfx' => $params->get('moduleclass_sfx'), //РЎСѓС„С„РёРєСЃ РєР»Р°СЃСЃР° РјРѕРґСѓР»СЏ
+	'all_user' => $params->get('all_user'), //РџРѕРєР°Р·С‹РІР°С‚СЊ РєРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅРЅС‹С… РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№
+	'online_user_count' => $params->get('online_user_count'), //РџРѕР»СЊР·РѕРІР°С‚РµР»Рё online
+	'online_users' => $params->get('online_users'), //РљС‚Рѕ online
+	'user_avatar' => $params->get('user_avatar'), //Р°РІР°С‚Р°СЂС‹ РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№
+	'module_orientation' => $params->get('module_orientation'), //РћСЂРёРµРЅС‚Р°С†РёСЏ РјРѕРґСѓР»СЏ
 );
 
 $output = '';
@@ -46,7 +46,7 @@ function display_module($params_aray) {
 		$online_users = '';
 	}
 
-	if($params_aray['module_orientation'] == '0') { //горизонтальный вывод
+	if($params_aray['module_orientation'] == '0') { //РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅС‹Р№ РІС‹РІРѕРґ
 		echo '<div class="mod_who_online_info">';
 		echo $all_user;
 		echo '&nbsp;&nbsp;';
@@ -54,7 +54,7 @@ function display_module($params_aray) {
 		echo '</div>';
 		echo $online_users;
 
-	} else { //вертикальный вывод
+	} else { //РІРµСЂС‚РёРєР°Р»СЊРЅС‹Р№ РІС‹РІРѕРґ
 		echo $all_user;
 		echo '<br />';
 		echo $count_online;

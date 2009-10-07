@@ -10,7 +10,7 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-global $mosConfig_absolute_path,$mosConfig_live_site,$my;
+global $mosConfig_live_site,$my;
 
 $task	= mosGetParam($_GET,'task','publish');
 $id		= intval(mosGetParam($_REQUEST,'id',0));

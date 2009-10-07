@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined('_VALID_MOS') or die();
 
 if(!$acl->acl_check('administration','manage','users',$GLOBALS['my']->usertype,'components','com_templates')) {
@@ -32,7 +32,6 @@ switch($task){
 }
 
 function saveTemplateSource(){
-	global $mosConfig_absolute_path;
 	josSpoofCheck();
 
 	$template		= strval(mosGetParam($_POST,'template',''));
@@ -49,10 +48,10 @@ function saveTemplateSource(){
 	}
 
 	if($client == 'admin'){
-		$file = $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$template.'/index.php';
+		$file = JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$template.'/index.php';
 	}
 	else{
-		$file = $mosConfig_absolute_path.'/templates/'.$template.'/index.php';
+		$file = JPATH_BASE.'/templates/'.$template.'/index.php';
 	}
 
 	$enable_write = mosGetParam($_POST,'enable_write',0);
@@ -81,12 +80,11 @@ function saveTemplateSource(){
 		echo _UNSUCCES_OPERAION.': '._CANNOT_OPEN_FILE_DOR_WRITE;
 		return;
 	}
-	echo 'Изменения сохранены.';
+	echo 'РР·РјРµРЅРµРЅРёСЏ СЃРѕС…СЂР°РЅРµРЅС‹.';
 	return;
 }
 
 function saveTemplateCSS(){
-	global $mosConfig_absolute_path;
 	josSpoofCheck();
 	$template = strval(mosGetParam($_POST,'template',''));
 	$client = strval(mosGetParam($_REQUEST,'client',''));
@@ -102,9 +100,9 @@ function saveTemplateCSS(){
 	}
 
 	if($client == 'admin'){
-		$file = $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$template.'/css/template_css.css';
+		$file = JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$template.'/css/template_css.css';
 	}else{
-		$file = $mosConfig_absolute_path.'/templates/'.$template.'/css/template_css.css';
+		$file = JPATH_BASE.'/templates/'.$template.'/css/template_css.css';
 	}
 
 	$enable_write = mosGetParam($_POST,'enable_write',0);

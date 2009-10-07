@@ -1,18 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright ¿‚ÚÓÒÍËÂ Ô‡‚‡ (C) 2008-2009 Joostina team. ¬ÒÂ Ô‡‚‡ Á‡˘Ë˘ÂÌ˚.
-* @license ÀËˆÂÌÁËˇ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, ËÎË help/license.php
-* Joostina! - Ò‚Ó·Ó‰ÌÓÂ ÔÓ„‡ÏÏÌÓÂ Ó·ÂÒÔÂ˜ÂÌËÂ ‡ÒÔÓÒÚ‡ÌˇÂÏÓÂ ÔÓ ÛÒÎÓ‚ËˇÏ ÎËˆÂÌÁËË GNU/GPL
-* ƒÎˇ ÔÓÎÛ˜ÂÌËˇ ËÌÙÓÏ‡ˆËË Ó ËÒÔÓÎ¸ÁÛÂÏ˚ı ‡Ò¯ËÂÌËˇı Ë Á‡ÏÂ˜‡ÌËÈ Ó· ‡‚ÚÓÒÍÓÏ Ô‡‚Â, ÒÏÓÚËÚÂ Ù‡ÈÎ help/copyright.php.
+* @copyright –ê–≤—Ç–æ—Ä—Å–∫–∏–µ –ø—Ä–∞–≤–∞ (C) 2008-2009 Joostina team. –í—Å–µ –ø—Ä–∞–≤–∞ –∑–∞—â–∏—â–µ–Ω—ã.
+* @license –õ–∏—Ü–µ–Ω–∑–∏—è http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, –∏–ª–∏ help/license.php
+* Joostina! - —Å–≤–æ–±–æ–¥–Ω–æ–µ –ø—Ä–æ–≥—Ä–∞–º–º–Ω–æ–µ –æ–±–µ—Å–ø–µ—á–µ–Ω–∏–µ —Ä–∞—Å–ø—Ä–æ—Å—Ç—Ä–∞–Ω—è–µ–º–æ–µ –ø–æ —É—Å–ª–æ–≤–∏—è–º –ª–∏—Ü–µ–Ω–∑–∏–∏ GNU/GPL
+* –î–ª—è –ø–æ–ª—É—á–µ–Ω–∏—è –∏–Ω—Ñ–æ—Ä–º–∞—Ü–∏–∏ –æ –∏—Å–ø–æ–ª—å–∑—É–µ–º—ã—Ö —Ä–∞—Å—à–∏—Ä–µ–Ω–∏—è—Ö –∏ –∑–∞–º–µ—á–∞–Ω–∏–π –æ–± –∞–≤—Ç–æ—Ä—Å–∫–æ–º –ø—Ä–∞–≤–µ, —Å–º–æ—Ç—Ä–∏—Ç–µ —Ñ–∞–π–ª help/copyright.php.
 */
 
 defined('_VALID_MOS') or die();
 
-global $mosConfig_absolute_path;
-
-require_once ($mosConfig_absolute_path.'/includes/libraries/phpInputFilter/class.inputfilter.php');
-
-/*  ¬Õ»Ã¿Õ»≈, Ù‡ÈÎ ÓÒÚ‡‚ÎÂÌ ‰Îˇ ÒÓ‚ÏÂÒÚËÏÓÒÚË, ÓË„ËÌ‡Î¸ÌÓÂ ÏÂÒÚÓÌ‡ıÓÊ‰ÂÌËÂ ÔÓÔËÒ‡ÌÓ ‚˚¯Â */
-
-?>
+require_once (JPATH_BASE.'/includes/libraries/phpInputFilter/class.inputfilter.php');
+/*  –í–ù–ò–ú–ê–ù–ò–ï, —Ñ–∞–π–ª –æ—Å—Ç–∞–≤–ª–µ–Ω –¥–ª—è —Å–æ–≤–º–µ—Å—Ç–∏–º–æ—Å—Ç–∏, –æ—Ä–∏–≥–∏–Ω–∞–ª—å–Ω–æ–µ –º–µ—Å—Ç–æ–Ω–∞—Ö–æ–∂–¥–µ–Ω–∏–µ –ø—Ä–æ–ø–∏—Å–∞–Ω–æ –≤—ã—à–µ */

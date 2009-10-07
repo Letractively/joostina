@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined('_VALID_MOS') or die();
 
 if(!defined('_JOS_FULLMENU_MODULE')) {
@@ -28,18 +28,18 @@ if(!defined('_JOS_FULLMENU_MODULE')) {
 			$database = &database::getInstance();
 			$config = &Jconfig::getInstance();
 
-			echo '<div id="myMenuID"></div>'; // в этот слой выводится содержимое меню
-			if($config->config_adm_menu_cache) { // проверяем, активировано ли кэширование в панели управления
+			echo '<div id="myMenuID"></div>'; // РІ СЌС‚РѕС‚ СЃР»РѕР№ РІС‹РІРѕРґРёС‚СЃСЏ СЃРѕРґРµСЂР¶РёРјРѕРµ РјРµРЅСЋ
+			if($config->config_adm_menu_cache) { // РїСЂРѕРІРµСЂСЏРµРј, Р°РєС‚РёРІРёСЂРѕРІР°РЅРѕ Р»Рё РєСЌС€РёСЂРѕРІР°РЅРёРµ РІ РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ
 				$usertype = $my->usertype;
 				$usertype_menu = str_replace(' ','_',$usertype);
-				// название файла меню получим из md5 хеша типа пользователя и секретного слова конкретной установки
+				// РЅР°Р·РІР°РЅРёРµ С„Р°Р№Р»Р° РјРµРЅСЋ РїРѕР»СѓС‡РёРј РёР· md5 С…РµС€Р° С‚РёРїР° РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ Рё СЃРµРєСЂРµС‚РЅРѕРіРѕ СЃР»РѕРІР° РєРѕРЅРєСЂРµС‚РЅРѕР№ СѓСЃС‚Р°РЅРѕРІРєРё
 				$menuname = md5($usertype_menu.$config->config_secret);
 				echo '<script type="text/javascript" src="'.$config->config_live_site.'/cache/adm_menu_'.$menuname.'.js"></script>';
-				if(js_menu_cache('',$usertype_menu,1) == 'true') { // файл есть, выводим ссылку на него и прекращаем работу
-					return; // дальнейшую обработку меню не ведём
-				} // файла не было - генерируем его, создаём и всё равно возвращаем ссылку
+				if(js_menu_cache('',$usertype_menu,1) == 'true') { // С„Р°Р№Р» РµСЃС‚СЊ, РІС‹РІРѕРґРёРј СЃСЃС‹Р»РєСѓ РЅР° РЅРµРіРѕ Рё РїСЂРµРєСЂР°С‰Р°РµРј СЂР°Р±РѕС‚Сѓ
+					return; // РґР°Р»СЊРЅРµР№С€СѓСЋ РѕР±СЂР°Р±РѕС‚РєСѓ РјРµРЅСЋ РЅРµ РІРµРґС‘Рј
+				} // С„Р°Р№Р»Р° РЅРµ Р±С‹Р»Рѕ - РіРµРЅРµСЂРёСЂСѓРµРј РµРіРѕ, СЃРѕР·РґР°С‘Рј Рё РІСЃС‘ СЂР°РІРЅРѕ РІРѕР·РІСЂР°С‰Р°РµРј СЃСЃС‹Р»РєСѓ
 			}
-			// получение данных о правах пользователя
+			// РїРѕР»СѓС‡РµРЅРёРµ РґР°РЅРЅС‹С… Рѕ РїСЂР°РІР°С… РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
 			$canConfig = $acl->acl_check('administration','config','users',$usertype);
 			$manageTemplates = $acl->acl_check('administration','manage','users',$usertype,'components','com_templates');
 			$manageTrash = $acl->acl_check('administration','manage','users',$usertype,'components','com_trash');
@@ -58,11 +58,11 @@ if(!defined('_JOS_FULLMENU_MODULE')) {
 			$database->setQuery($query);
 			$sections = $database->loadObjectList();
 
-			// получеполучаем каталог с графикой верхнего меню
+			// РїРѕР»СѓС‡РµРїРѕР»СѓС‡Р°РµРј РєР°С‚Р°Р»РѕРі СЃ РіСЂР°С„РёРєРѕР№ РІРµСЂС…РЅРµРіРѕ РјРµРЅСЋ
 			$mainframe = mosMainFrame::getInstance(true);
 			$cur_file_icons_patch = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/menu_ico/';
 
-			ob_start(); // складываем всё выдаваемое меню в буфер
+			ob_start(); // СЃРєР»Р°РґС‹РІР°РµРј РІСЃС‘ РІС‹РґР°РІР°РµРјРѕРµ РјРµРЅСЋ РІ Р±СѓС„РµСЂ
 ?>
 var myMenu =[
 [null,'<?php echo _SITE?>',null,null,'<?php echo _MOD_FULLMENU_CMS_FEATURES?>',
@@ -300,7 +300,7 @@ if($canConfig) {?>
 _cmSplit];
 cmDraw ('myMenuID', myMenu, 'hbr', cmThemeOffice, 'ThemeOffice');
 <?php
-			// boston, складываем меню в кэш, и записываем в файл
+			// boston, СЃРєР»Р°РґС‹РІР°РµРј РјРµРЅСЋ РІ РєСЌС€, Рё Р·Р°РїРёСЃС‹РІР°РµРј РІ С„Р°Р№Р»
 			$cur_menu = ob_get_contents();
 			ob_end_clean();
 			if($config->config_adm_menu_cache){

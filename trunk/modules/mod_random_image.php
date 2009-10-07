@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
 //http://www.dynamicdrive.com/dynamicindex4/simplegallery.htm
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined( '_VALID_MOS' ) or die();
 
-global $mosConfig_absolute_path, $mosConfig_live_site;
+global $mosConfig_live_site;
 
 $rotate_type		= $params->get( 'rotate_type', 0 );
 $img_pref			= $params->get( 'img_pref', '' );
@@ -47,15 +47,15 @@ if ( strpos($folder, $mosConfig_live_site) === 0 ) {
 	$folder = str_replace( $mosConfig_live_site, '', $folder );
 }
 // if folder includes absolute path, remove
-if ( strpos($folder, $mosConfig_absolute_path) === 0 ) {
-	$folder= str_replace( $mosConfig_absolute_path, '', $folder );
+if ( strpos($folder, JPATH_BASE) === 0 ) {
+	$folder= str_replace( JPATH_BASE, '', $folder );
 }
 // if folder doesnt contain slash to start, add
 if ( strpos($folder, '/') !== 0 ) {
 	$folder = '/'. $folder;
 }
 // construct absolute path to directory
-$abspath_folder = $mosConfig_absolute_path . $folder;
+$abspath_folder = JPATH_BASE . $folder;
 // check if directory exists
 if (is_dir($abspath_folder)) {
 	if ($handle = opendir($abspath_folder)) {
@@ -140,7 +140,7 @@ if (is_dir($abspath_folder)) {
             case '1':
                 if(!count($pics)){
 ?>
-				<div id="<?php echo $slideshow_name;?>" class="error">Проверьте настройки модуля mod_random_image и наличие изображений в указанной в настройках папке</div>
+				<div id="<?php echo $slideshow_name;?>" class="error">РџСЂРѕРІРµСЂСЊС‚Рµ РЅР°СЃС‚СЂРѕР№РєРё РјРѕРґСѓР»СЏ mod_random_image Рё РЅР°Р»РёС‡РёРµ РёР·РѕР±СЂР°Р¶РµРЅРёР№ РІ СѓРєР°Р·Р°РЅРЅРѕР№ РІ РЅР°СЃС‚СЂРѕР№РєР°С… РїР°РїРєРµ</div>
 <?php
 				}else{
 					$pics_str = implode(',', $pics);

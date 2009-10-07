@@ -1,43 +1,49 @@
 <?php
 /**
 * @package Joostina
-* @copyright Àâòîðñêèå ïðàâà (C) 2008-2009 Joostina team. Âñå ïðàâà çàùèùåíû.
-* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
-* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
-* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+* @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2009 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
+* @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
+* Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
+* Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
 */
 
-// Óñòàíîâêà ôëàãà, ÷òî ýòîò ôàéë - ðîäèòåëüñêèé
+// Ð£ÑÑ‚Ð°Ð½Ð¾Ð²ÐºÐ° Ñ„Ð»Ð°Ð³Ð°, Ñ‡Ñ‚Ð¾ ÑÑ‚Ð¾Ñ‚ Ñ„Ð°Ð¹Ð» - Ñ€Ð¾Ð´Ð¸Ñ‚ÐµÐ»ÑŒÑÐºÐ¸Ð¹
 define('_VALID_MOS',1);
+// ÐºÐ¾Ñ€ÐµÐ½ÑŒ Ñ„Ð°Ð¹Ð»Ð¾Ð²
+define('JPATH_BASE', dirname(__FILE__) );
+// Ñ€Ð°Ð·Ð´ÐµÐ»Ð¸Ñ‚ÐµÐ»ÑŒ ÐºÐ°Ñ‚Ð°Ð»Ð¾Ð³Ð¾Ð²
+define('DS', DIRECTORY_SEPARATOR );
 
 if(!file_exists('../configuration.php')) {
 	header('Location: ../installation/index.php');
 	exit();
 }
 
-// êîðåíü àäìèíêè
+// ÐºÐ¾Ñ€ÐµÐ½ÑŒ Ð°Ð´Ð¼Ð¸Ð½ÐºÐ¸
 $root = dirname(dirname(__FILE__));
 define('ADMIN_ROOT',$root);
 
-require_once (ADMIN_ROOT.DIRECTORY_SEPARATOR.'includes'.DIRECTORY_SEPARATOR.'globals.php');
-require_once (ADMIN_ROOT.DIRECTORY_SEPARATOR.'configuration.php');
+require_once (ADMIN_ROOT.DS.'includes'.DS.'globals.php');
+require_once (ADMIN_ROOT.DS.'configuration.php');
 
+// Ð´Ð»Ñ ÑÐ¾Ð²Ð¼ÐµÑÑ‚Ð¸Ð¼Ð¾ÑÑ‚Ð¸
+$mosConfig_absolute_path = JPATH_BASE;
 
-// SSL ïðîâåðêà  - $http_host returns <live site url>:<port number if it is 443>
+// SSL Ð¿Ñ€Ð¾Ð²ÐµÑ€ÐºÐ°  - $http_host returns <live site url>:<port number if it is 443>
 $http_host = explode(':',$_SERVER['HTTP_HOST']);
 if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset($http_host[1]) && $http_host[1] == 443) && substr($mosConfig_live_site,0,8) !='https://') {
 	$mosConfig_live_site = 'https://' . substr($mosConfig_live_site,7);
 }
 
-require_once ($mosConfig_absolute_path .DIRECTORY_SEPARATOR. 'includes'.DIRECTORY_SEPARATOR.'joomla.php');
+require_once (JPATH_BASE .DS. 'includes'.DS.'joomla.php');
 
-// ðàáîòà ñ ñåññèÿìè íà÷èíàåòñÿ äî ñîçäàíèÿ ãëàâíîãî îáúåêòà âçàèìîäåéñòâèÿ ñ ÿäðîì
+// Ñ€Ð°Ð±Ð¾Ñ‚Ð° Ñ ÑÐµÑÑÐ¸ÑÐ¼Ð¸ Ð½Ð°Ñ‡Ð¸Ð½Ð°ÐµÑ‚ÑÑ Ð´Ð¾ ÑÐ¾Ð·Ð´Ð°Ð½Ð¸Ñ Ð³Ð»Ð°Ð²Ð½Ð¾Ð³Ð¾ Ð¾Ð±ÑŠÐµÐºÑ‚Ð° Ð²Ð·Ð°Ð¸Ð¼Ð¾Ð´ÐµÐ¹ÑÑ‚Ð²Ð¸Ñ Ñ ÑÐ´Ñ€Ð¾Ð¼
 session_name(md5($mosConfig_live_site));
 session_start();
 
 header('Content-type: text/html; charset=UTF-8');
 
-// ïîëó÷åíèå îñíîâíûõ ïàðàìåòðîâ
+// Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ðµ Ð¾ÑÐ½Ð¾Ð²Ð½Ñ‹Ñ… Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ð¾Ð²
 $option		= strval(strtolower(mosGetParam($_REQUEST,'option','')));
 $task		= strval(mosGetParam($_REQUEST,'task',''));
 $act		= strtolower(mosGetParam($_REQUEST,'act',''));
@@ -45,26 +51,26 @@ $section	= mosGetParam($_REQUEST,'section','');
 $no_html	= intval(mosGetParam($_REQUEST,'no_html',0));
 $id			= intval(mosGetParam($_REQUEST,'id',0));
 
-// îáúåêò ðàáîòû ñ áàçîé äàííûõ
+// Ð¾Ð±ÑŠÐµÐºÑ‚ Ñ€Ð°Ð±Ð¾Ñ‚Ñ‹ Ñ Ð±Ð°Ð·Ð¾Ð¹ Ð´Ð°Ð½Ð½Ñ‹Ñ…
 $database = &database::getInstance();
 
-// mainframe - îñíîâíàÿ ðàáî÷àÿ ñðåäà API, îñóùåñòâëÿåò âçàèìîäåéñòâèå ñ 'ÿäðîì'
+// mainframe - Ð¾ÑÐ½Ð¾Ð²Ð½Ð°Ñ Ñ€Ð°Ð±Ð¾Ñ‡Ð°Ñ ÑÑ€ÐµÐ´Ð° API, Ð¾ÑÑƒÑ‰ÐµÑÑ‚Ð²Ð»ÑÐµÑ‚ Ð²Ð·Ð°Ð¸Ð¼Ð¾Ð´ÐµÐ¹ÑÑ‚Ð²Ð¸Ðµ Ñ 'ÑÐ´Ñ€Ð¾Ð¼'
 $mainframe = mosMainFrame::getInstance(true);
 $mainframe->set('lang', $mosConfig_lang);
 
 include_once($mainframe->getLangFile());
-require_once ($mosConfig_absolute_path.DS.ADMINISTRATOR_DIRECTORY.DS.'includes'.DS.'admin.php');
+require_once (JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY.DS.'includes'.DS.'admin.php');
 
 
-// çàïóñê ñåññèé ïàíåëè óïðàâëåíèÿ
+// Ð·Ð°Ð¿ÑƒÑÐº ÑÐµÑÑÐ¸Ð¹ Ð¿Ð°Ð½ÐµÐ»Ð¸ ÑƒÐ¿Ñ€Ð°Ð²Ð»ÐµÐ½Ð¸Ñ
 $my = $mainframe->initSessionAdmin($option,$task);
 
-// ïîëó÷àåì íàçâàíèå øàáëîíà äëÿ ïàíåëè óïðàâëåíèÿ
+// Ð¿Ð¾Ð»ÑƒÑ‡Ð°ÐµÐ¼ Ð½Ð°Ð·Ð²Ð°Ð½Ð¸Ðµ ÑˆÐ°Ð±Ð»Ð¾Ð½Ð° Ð´Ð»Ñ Ð¿Ð°Ð½ÐµÐ»Ð¸ ÑƒÐ¿Ñ€Ð°Ð²Ð»ÐµÐ½Ð¸Ñ
 $cur_template = $mainframe->getTemplate();
-// óñòàíîâêà ïàðàìåòðà overlib
+// ÑƒÑÑ‚Ð°Ð½Ð¾Ð²ÐºÐ° Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ð° overlib
 $mainframe->set('loadOverlib',false);
 
-// ñòðàíèöà ïàíåëè óïðàâëåíèÿ ïî óìîë÷àíèþ
+// ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ð° Ð¿Ð°Ð½ÐµÐ»Ð¸ ÑƒÐ¿Ñ€Ð°Ð²Ð»ÐµÐ½Ð¸Ñ Ð¿Ð¾ ÑƒÐ¼Ð¾Ð»Ñ‡Ð°Ð½Ð¸ÑŽ
 if($option == '') {
 	$option = 'com_admin';
 }
@@ -74,13 +80,13 @@ if($mosConfig_mmb_system_off == 0) {
 	$_MAMBOTS->trigger('onAfterAdminStart');
 }
 
-// èíèöèàëèçàöèÿ ðåäàêòîðà
+// Ð¸Ð½Ð¸Ñ†Ð¸Ð°Ð»Ð¸Ð·Ð°Ñ†Ð¸Ñ Ñ€ÐµÐ´Ð°ÐºÑ‚Ð¾Ñ€Ð°
 $mainframe->set( 'allow_wysiwyg', 1 );  
-require_once ($mosConfig_absolute_path . '/includes/editor.php');
+require_once (JPATH_BASE . '/includes/editor.php');
 
 ob_start();
 if($path = $mainframe->getPath('admin')) {
-	//Ïîäêëþ÷àåì ÿçûê êîìïîíåíòà
+	//ÐŸÐ¾Ð´ÐºÐ»ÑŽÑ‡Ð°ÐµÐ¼ ÑÐ·Ñ‹Ðº ÐºÐ¾Ð¼Ð¿Ð¾Ð½ÐµÐ½Ñ‚Ð°
 	if($mainframe->getLangFile($option)){
 		include_once($mainframe->getLangFile($option));
 	}
@@ -96,26 +102,26 @@ ob_end_clean();
 
 initGzip();
 
-// íà÷àëî âûâîäà html
+// Ð½Ð°Ñ‡Ð°Ð»Ð¾ Ð²Ñ‹Ð²Ð¾Ð´Ð° html
 if($no_html == 0) {
-	// çàãðóçêà ôàéëà øàáëîíà
-	if(!file_exists($mosConfig_absolute_path .DS.ADMINISTRATOR_DIRECTORY.DS.'templates'.DS. $cur_template .DS.'index.php')) {
+	// Ð·Ð°Ð³Ñ€ÑƒÐ·ÐºÐ° Ñ„Ð°Ð¹Ð»Ð° ÑˆÐ°Ð±Ð»Ð¾Ð½Ð°
+	if(!file_exists(JPATH_BASE .DS.ADMINISTRATOR_DIRECTORY.DS.'templates'.DS. $cur_template .DS.'index.php')) {
 		echo _TEMPLATE_NOT_FOUND.': ',$cur_template;
 	} else {
-		//Ïîäêëþ÷àåì ÿçûê øàáëîíà
+		//ÐŸÐ¾Ð´ÐºÐ»ÑŽÑ‡Ð°ÐµÐ¼ ÑÐ·Ñ‹Ðº ÑˆÐ°Ð±Ð»Ð¾Ð½Ð°
 		if($mainframe->getLangFile('tmpl_'.$cur_template)){include_once($mainframe->getLangFile('tmpl_'.$cur_template));}
-		require_once ($mosConfig_absolute_path . DS.ADMINISTRATOR_DIRECTORY.DS.'templates' .DS. $cur_template .DS.'index.php');
+		require_once (JPATH_BASE . DS.ADMINISTRATOR_DIRECTORY.DS.'templates' .DS. $cur_template .DS.'index.php');
 	}
 } else {
 	mosMainBody_Admin();
 }
 
-// èíôîðìàöèÿ îòëàäêè, ÷èñëî çàïðîñîâ â ÁÄ
+// Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ñ Ð¾Ñ‚Ð»Ð°Ð´ÐºÐ¸, Ñ‡Ð¸ÑÐ»Ð¾ Ð·Ð°Ð¿Ñ€Ð¾ÑÐ¾Ð² Ð² Ð‘Ð”
 if($mosConfig_debug) {
 	jd_get();
 }
 
-// âîññòàíîâëåíèå ñåññèé
+// Ð²Ð¾ÑÑÑ‚Ð°Ð½Ð¾Ð²Ð»ÐµÐ½Ð¸Ðµ ÑÐµÑÑÐ¸Ð¹
 if($task == 'save' || $task == 'apply' || $task == 'save_and_new' ) {
 	$mainframe->initSessionAdmin($option,'');
 }

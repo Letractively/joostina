@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined('_VALID_MOS') or die();
 
 /**
@@ -248,7 +248,7 @@ class mosUser extends mosDBTable {
 		}
 	}
 	/**
-	* функция получения аватара пользователя, возвращает путь к изображения аватара от корня сайта
+	* С„СѓРЅРєС†РёСЏ РїРѕР»СѓС‡РµРЅРёСЏ Р°РІР°С‚Р°СЂР° РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ, РІРѕР·РІСЂР°С‰Р°РµС‚ РїСѓС‚СЊ Рє РёР·РѕР±СЂР°Р¶РµРЅРёСЏ Р°РІР°С‚Р°СЂР° РѕС‚ РєРѕСЂРЅСЏ СЃР°Р№С‚Р°
 	*/
 	function get_avatar($user){
 		
@@ -279,7 +279,7 @@ class mosUser extends mosDBTable {
 	}
 
 	/**
-	* Получение статуса пользователя
+	* РџРѕР»СѓС‡РµРЅРёРµ СЃС‚Р°С‚СѓСЃР° РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
 	*/
 	function get_user_status($uid){
 
@@ -293,7 +293,7 @@ class mosUser extends mosDBTable {
 	}
 
 	/**
-	* Получение дополнительных данных пользователя
+	* РџРѕР»СѓС‡РµРЅРёРµ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹С… РґР°РЅРЅС‹С… РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
 	*/
 	function get_user_extra($uid=null){
 		$uid = ($uid) ? $uid : $this->id;
@@ -306,7 +306,7 @@ class mosUser extends mosDBTable {
 	}
 
 	/**
-	* Смена аватара
+	* РЎРјРµРЅР° Р°РІР°С‚Р°СЂР°
 	*/
 
 	function update_avatar($id = null, $img, $del=null){
@@ -431,7 +431,7 @@ class mosUser extends mosDBTable {
 
 }
 
-/* расширенная информация о пользователе */
+/* СЂР°СЃС€РёСЂРµРЅРЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ Рѕ РїРѕР»СЊР·РѕРІР°С‚РµР»Рµ */
 class userUsersExtra extends mosDBTable{
 
 	var $user_id = null;
@@ -475,46 +475,46 @@ class userHelper{
 
 
 	function _build_img_upload_area($obj, $form_params, $state){
-		global $mosConfig_live_site,$mosConfig_absolute_path;
+		global $mosConfig_live_site;
 		$field = $form_params->img_field;
 	?><script type="text/javascript">
 		$(document).ready(function() {
 
-			//---Кнопка "Сменить"
+			//---РљРЅРѕРїРєР° "РЎРјРµРЅРёС‚СЊ"
 			$("a#reupload_<?php echo $form_params->img_field;?>").live('click', function () {
 				$(".upload_area_<?php echo $form_params->img_field;?>").fadeIn(1000);
 				$("#<?php echo $form_params->img_field;?>").addClass("required");
 				return false;
 			});
-			//---Кнопка "Удалить"
+			//---РљРЅРѕРїРєР° "РЈРґР°Р»РёС‚СЊ"
 			$('a#del_<?php echo $form_params->img_field;?>').live('click', function(){
-				//Индикатор выполнения
+				//РРЅРґРёРєР°С‚РѕСЂ РІС‹РїРѕР»РЅРµРЅРёСЏ
 				$('#indicate_<?php echo $form_params->img_field;?>').fadeIn(1000, function () {
 					$("#indicate_<?php echo $form_params->img_field;?>").addClass("inprogress");
 					$("#indicate_<?php echo $form_params->img_field;?>").html("<?php echo _INPROGRESS; ?>");
 				});
 
-				//отправляем ajax-запрос
+				//РѕС‚РїСЂР°РІР»СЏРµРј ajax-Р·Р°РїСЂРѕСЃ
 				$.post( //---post:begin
 					'<?php echo $form_params->ajax_handler; ?>',
 					{
 						task: "del_<?php echo $form_params->img_field;?>",
 						file_name: $("#curr_<?php echo $form_params->img_field;?>").val()
 					} ,
-					//пришёл ответ
+					//РїСЂРёС€С‘Р» РѕС‚РІРµС‚
 					function onAjaxSuccess(data){
-						//Плавная смена изображения
+						//РџР»Р°РІРЅР°СЏ СЃРјРµРЅР° РёР·РѕР±СЂР°Р¶РµРЅРёСЏ
 						$('#current_<?php echo $form_params->img_field;?>_img').fadeOut(1000);
 						$('#current_<?php echo $form_params->img_field;?>_img').fadeOut(1000, function(){
 						$('#current_<?php echo $form_params->img_field;?>_img').html('<img class="avatar" src="<?php echo $mosConfig_live_site;?>/<?php echo $form_params->img_path;?>/'+data+'" />');
-							//Скрываем индикатор
+							//РЎРєСЂС‹РІР°РµРј РёРЅРґРёРєР°С‚РѕСЂ
 							$("#indicate_<?php echo $form_params->img_field;?>").removeClass("inprogress");
 							$("#indicate_<?php echo $form_params->img_field;?>").html("");
 						});
 						$('#current_<?php echo $form_params->img_field;?>_img').fadeIn(1000, function () {
 							$('#current_<?php echo $form_params->img_field;?>_img').show('slow');
 						});
-						//Скрываем кнопку "Удалить"
+						//РЎРєСЂС‹РІР°РµРј РєРЅРѕРїРєСѓ "РЈРґР°Р»РёС‚СЊ"
 						$('a#del_<?php echo $form_params->img_field;?>').parent().fadeOut("slow");
 					}
 				); //---post:end

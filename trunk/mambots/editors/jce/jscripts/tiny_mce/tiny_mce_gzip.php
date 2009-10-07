@@ -3,7 +3,7 @@
  * $Id: tiny_mce_gzip.php 198 2007-02-12 14:10:07Z spocke $
  *
  * @author Moxiecode
- * @copyright Copyright © 2005-2006, Moxiecode Systems AB, All rights reserved.
+ * @copyright Copyright Ð¹ 2005-2006, Moxiecode Systems AB, All rights reserved.
  *
  * This file compresses the TinyMCE JavaScript using GZip and
  * enables the browser to do two requests instead of one for each .js file.

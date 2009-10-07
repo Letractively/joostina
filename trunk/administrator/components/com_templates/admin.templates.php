@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright а«аВбІаОбЂб±аКаИаЕ аПбЂаАаВаА (C) 2008-2009 Joostina team. аҐб±аЕ аПбЂаАаВаА аЗаАбЃаИбЃаЕаНб‚.
+* @license а‹аИб†аЕаНаЗаИбЅ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, аИаЛаИ help/license.php
+* Joostina! - б±аВаОаБаОаДаНаОаЕ аПбЂаОаГбЂаАаМаМаНаОаЕ аОаБаЕб±аПаЕбµаЕаНаИаЕ бЂаАб±аПбЂаОб±бІбЂаАаНбЅаЕаМаОаЕ аПаО біб±аЛаОаВаИбЅаМ аЛаИб†аЕаНаЗаИаИ GNU/GPL
+* аѕаЛбЅ аПаОаЛбібµаЕаНаИбЅ аИаНбґаОбЂаМаАб†аИаИ аО аИб±аПаОаЛб аЗбіаЕаМб‚б… бЂаАб±б¶аИбЂаЕаНаИбЅб… аИ аЗаАаМаЕбµаАаНаИаЙ аОаБ аАаВбІаОбЂб±аКаОаМ аПбЂаАаВаЕ, б±аМаОбІбЂаИбІаЕ бґаАаЙаЛ help/copyright.php.
 */
 
-// запрет прямого доступа
+// аЗаАаПбЂаЕбІ аПбЂбЅаМаОаГаО аДаОб±бІбіаПаА
 defined('_VALID_MOS') or die();
 
 // ensure user has access to this function
@@ -18,9 +18,9 @@ if(!$acl->acl_check('administration','manage','users',$GLOBALS['my']->usertype,'
 global $mosConfig_one_template;
 
 require_once ($mainframe->getPath('admin_html'));
-require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_templates/admin.templates.class.php');
+require_once (JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_templates/admin.templates.class.php');
 // XML library
-require_once ($mosConfig_absolute_path.'/includes/domit/xml_domit_lite_include.php');
+require_once (JPATH_BASE.'/includes/domit/xml_domit_lite_include.php');
 
 $client = strval(mosGetParam($_REQUEST,'client',''));
 $cid = mosGetParam($_REQUEST,'cid',array(0));
@@ -104,15 +104,15 @@ switch($task) {
 */
 function viewTemplates($option,$client) {
 	global $database,$mainframe;
-	global $mosConfig_absolute_path,$mosConfig_list_limit;
+	global $mosConfig_list_limit;
 
 	$limit = $mainframe->getUserStateFromRequest('viewlistlimit','limit',$mosConfig_list_limit);
 	$limitstart = $mainframe->getUserStateFromRequest("view{$option}limitstart",'limitstart',0);
 
 	if($client == 'admin') {
-		$templateBaseDir = mosPathName($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/templates');
+		$templateBaseDir = mosPathName(JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/templates');
 	} else {
-		$templateBaseDir = mosPathName($mosConfig_absolute_path.'/templates');
+		$templateBaseDir = mosPathName(JPATH_BASE.'/templates');
 	}
 
 	$rows = array();
@@ -268,12 +268,11 @@ function removeTemplate($cid,$option,$client) {
 }
 
 function editTemplateSource($p_tname,$option,$client) {
-	global $mosConfig_absolute_path;
 
 	if($client == 'admin') {
-		$file = $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$p_tname.'/index.php';
+		$file = JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$p_tname.'/index.php';
 	} else {
-		$file = $mosConfig_absolute_path.'/templates/'.$p_tname.'/index.php';
+		$file = JPATH_BASE.'/templates/'.$p_tname.'/index.php';
 	}
 
 	if($fp = fopen($file,'r')) {
@@ -287,7 +286,6 @@ function editTemplateSource($p_tname,$option,$client) {
 
 
 function saveTemplateSource($option,$client,$task) {
-	global $mosConfig_absolute_path;
 	josSpoofCheck();
 	$template = strval(mosGetParam($_POST,'template',''));
 	$filecontent = mosGetParam($_POST,'filecontent','',_MOS_ALLOWHTML);
@@ -300,9 +298,9 @@ function saveTemplateSource($option,$client,$task) {
 	}
 
 	if($client == 'admin') {
-		$file = $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$template.	'/index.php';
+		$file = JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$template.	'/index.php';
 	} else {
-		$file = $mosConfig_absolute_path.'/templates/'.$template.'/index.php';
+		$file = JPATH_BASE.'/templates/'.$template.'/index.php';
 	}
 
 	$enable_write = mosGetParam($_POST,'enable_write',0);
@@ -331,12 +329,11 @@ function saveTemplateSource($option,$client,$task) {
 }
 
 function editTemplateCSS($p_tname,$option,$client) {
-	global $mosConfig_absolute_path;
 	josSpoofCheck();
 	if($client == 'admin') {
-		$file = $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$p_tname.'/css/template_css.css';
+		$file = JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$p_tname.'/css/template_css.css';
 	} else {
-		$file = $mosConfig_absolute_path.'/templates/'.$p_tname.'/css/template_css.css';
+		$file = JPATH_BASE.'/templates/'.$p_tname.'/css/template_css.css';
 	}
 
 	if($fp = fopen($file,'r')) {
@@ -350,8 +347,6 @@ function editTemplateCSS($p_tname,$option,$client) {
 
 
 function saveTemplateCSS($option,$client) {
-	global $mosConfig_absolute_path;
-
 	$template = strval(mosGetParam($_POST,'template',''));
 	$filecontent = mosGetParam($_POST,'filecontent','',_MOS_ALLOWHTML);
 
@@ -364,9 +359,9 @@ function saveTemplateCSS($option,$client) {
 	}
 
 	if($client == 'admin') {
-		$file = $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$template.'/css/template_css.css';
+		$file = JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$template.'/css/template_css.css';
 	} else {
-		$file = $mosConfig_absolute_path.'/templates/'.$template.'/css/template_css.css';
+		$file = JPATH_BASE.'/templates/'.$template.'/css/template_css.css';
 	}
 
 	$enable_write = mosGetParam($_POST,'enable_write',0);

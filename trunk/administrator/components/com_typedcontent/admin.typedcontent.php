@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined('_VALID_MOS') or die();
 
 require_once ($mainframe->getPath('admin_html'));
@@ -197,7 +197,7 @@ function view($option) {
 */
 function edit($uid,$option) {
 	global $database,$my,$mainframe;
-	global $mosConfig_absolute_path,$mosConfig_live_site,$mosConfig_offset;
+	global $mosConfig_live_site,$mosConfig_offset;
 
 	$row = new mosContent($database);
 	$row->load((int)$uid);
@@ -261,7 +261,7 @@ function edit($uid,$option) {
 	}
 
 	// calls function to read image from directory
-	$pathA = $mosConfig_absolute_path.'/images/stories';
+	$pathA = JPATH_BASE.'/images/stories';
 	$pathL = $mosConfig_live_site.'/images/stories';
 	$images = array();
 	$folders = array();
@@ -290,7 +290,7 @@ function edit($uid,$option) {
 	$pos[] = mosHTML::makeOption('top',_TOP);
 	$lists['_caption_position'] = mosHTML::selectList($pos,'_caption_position','class="inputbox" size="1"','value','text');
 
-	//Тэги
+	//РўСЌРіРё
 	$row->tags = null;
 		if($row->id){
 		$tags = new contentTags($database);
@@ -383,11 +383,11 @@ function save($option,$task) {
 	}
 	$row->checkin();
 	
- 	//Подготовка тэгов
+ 	//РџРѕРґРіРѕС‚РѕРІРєР° С‚СЌРіРѕРІ
     $tags = explode(',', $_POST['tags']);
     $tag = new contentTags($database);
     $tags = $tag->clear_tags($tags);
-    //Запись тэгов
+    //Р—Р°РїРёСЃСЊ С‚СЌРіРѕРІ
     $row->obj_type = 'com_content';
     $tag->update($tags, $row);
     //$row->metakey = implode(',', $tags);
@@ -525,7 +525,7 @@ function changeAccess($id,$access,$option) {
 		return $row->getError();
 	}
 
-	// очистка кэша связанного с компонентом контента
+	// РѕС‡РёСЃС‚РєР° РєСЌС€Р° СЃРІСЏР·Р°РЅРЅРѕРіРѕ СЃ РєРѕРјРїРѕРЅРµРЅС‚РѕРј РєРѕРЅС‚РµРЅС‚Р°
 	mosCache::cleanCache('com_content');
 
 	mosRedirect('index2.php?option='.$option);

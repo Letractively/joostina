@@ -1,21 +1,21 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined('_VALID_MOS') or die();
 
 class jdebug {
-	/* стек сообщений лога*/
+	/* СЃС‚РµРє СЃРѕРѕР±С‰РµРЅРёР№ Р»РѕРіР°*/
 	var $_log = array();
-	/* буфер сообщений лога*/
+	/* Р±СѓС„РµСЂ СЃРѕРѕР±С‰РµРЅРёР№ Р»РѕРіР°*/
 	var $text = null;
-	/* счетчики */
+	/* СЃС‡РµС‚С‡РёРєРё */
 	var $_inc = array();
 
 	function getInstance(){
@@ -26,12 +26,12 @@ class jdebug {
 		return $instance;
 	}
 
-	/* добавление сообщения в лог*/
+	/* РґРѕР±Р°РІР»РµРЅРёРµ СЃРѕРѕР±С‰РµРЅРёСЏ РІ Р»РѕРі*/
 	function add($text,$top=0) {
 		$top ? array_unshift($this->_log,$text) : $this->_log[] = $text;
 	}
 
-	/* добавление сообщения в лог*/
+	/* РґРѕР±Р°РІР»РµРЅРёРµ СЃРѕРѕР±С‰РµРЅРёСЏ РІ Р»РѕРі*/
 	function inc($key) {
 		if(!isset($this->_inc[$key])){
 			$this->_inc[$key] = 0;
@@ -40,23 +40,23 @@ class jdebug {
 	}
 
 	
-	/* вывод сообщений из лога*/
+	/* РІС‹РІРѕРґ СЃРѕРѕР±С‰РµРЅРёР№ РёР· Р»РѕРіР°*/
 	function get() {
 		echo '<del><![CDATA[<noindex>]]></del><pre>';
-		/* счетчики */
+		/* СЃС‡РµС‚С‡РёРєРё */
 		foreach($this->_inc as $key => $value) {
 			$this->text .= '<small class="debug_counter">COUNTER:</small> <b>'.htmlentities($key).'</b>: '.$value.'<br />';
 		}
 		$this->text.= '<div class="debug_files"><b>'._INCLUDED_FILES.':</b> '.count(get_included_files()).'</div>';
 		
-		/* лог */
+		/* Р»РѕРі */
 		$this->text .= '<ul class="debug_log">';
 		foreach($this->_log as $key => $value) {
 			$this->text .= '<li><small>LOG:</small> '.$value.'</li>';
 		}
 		$this->text .= '</ul>';
 
-		/* подключенные файлы */
+		/* РїРѕРґРєР»СЋС‡РµРЅРЅС‹Рµ С„Р°Р№Р»С‹ */
 		$files = get_included_files();
 		foreach($files as $key => $value) {
 			$this->text .= '<small>FILE:</small> '.$value.'<br />';
@@ -67,18 +67,18 @@ class jdebug {
 	}
 }
 ;
-/* упрощенная процедура добавления сообщения в лог */
+/* СѓРїСЂРѕС‰РµРЅРЅР°СЏ РїСЂРѕС†РµРґСѓСЂР° РґРѕР±Р°РІР»РµРЅРёСЏ СЃРѕРѕР±С‰РµРЅРёСЏ РІ Р»РѕРі */
 function jd_log($text) {
 	$debug = &jdebug::getInstance();
 	$debug->add($text);
 }
-/* упрощенная процедура добавления сообщения в начало лога */
+/* СѓРїСЂРѕС‰РµРЅРЅР°СЏ РїСЂРѕС†РµРґСѓСЂР° РґРѕР±Р°РІР»РµРЅРёСЏ СЃРѕРѕР±С‰РµРЅРёСЏ РІ РЅР°С‡Р°Р»Рѕ Р»РѕРіР° */
 function jd_log_top($text) {
 	$debug = &jdebug::getInstance();
 	$debug->add($text,1);
 }
 
-/* счетчики вызывов */
+/* СЃС‡РµС‚С‡РёРєРё РІС‹Р·С‹РІРѕРІ */
 function jd_inc($name='counter'){
 	$debug = &jdebug::getInstance();
 	$debug->inc($name);

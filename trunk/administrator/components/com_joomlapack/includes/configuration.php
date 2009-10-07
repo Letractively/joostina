@@ -1,16 +1,16 @@
 <?php
 /**
 * @package Joostina
-* @copyright Àâòîðñêèå ïðàâà (C) 2008-2009 Joostina team. Âñå ïðàâà çàùèùåíû.
-* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
-* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
-* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+* @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2009 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
+* @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
+* Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
+* Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
 */
 
-// çàïðåò ïðÿìîãî äîñòóïà
+// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
 defined('_VALID_MOS') or die();
 
-global $option,$mosConfig_absolute_path;
+global $option;
 
 /**
 * CConfiguration is responsible for loading and saving configuration options
@@ -91,14 +91,14 @@ class CConfiguration {
 	*/
 	var $logLevel;
 	/**
-	 * Ðåæèì àðõèâèðîâàíèÿ áàçû äàííûõ
-	 * 0 - íå àðõèâèðîâàòü
+	 * Ð ÐµÐ¶Ð¸Ð¼ Ð°Ñ€Ñ…Ð¸Ð²Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ñ Ð±Ð°Ð·Ñ‹ Ð´Ð°Ð½Ð½Ñ‹Ñ…
+	 * 0 - Ð½Ðµ Ð°Ñ€Ñ…Ð¸Ð²Ð¸Ñ€Ð¾Ð²Ð°Ñ‚ÑŒ
 	 * 1 - tar.gz
 	 * 2 - zip
 	 **/
 	var $sql_pack = 1;
 	/**
-	 * èñïîëüçîâàíèå ïðåôôèêñà ïðè äàìïå òàáëèö
+	 * Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ð½Ð¸Ðµ Ð¿Ñ€ÐµÑ„Ñ„Ð¸ÐºÑÐ° Ð¿Ñ€Ð¸ Ð´Ð°Ð¼Ð¿Ðµ Ñ‚Ð°Ð±Ð»Ð¸Ñ†
 	 **/
 	var $sql_pref = 1;
 	 
@@ -107,10 +107,10 @@ class CConfiguration {
 	* for most users.
 	*/
 	function CConfiguration() {
-		global $mosConfig_absolute_path,$option;
+		global $option;
 
 		// Private initializers
-		$this->_InstallationRoot	= $mosConfig_absolute_path."/".ADMINISTRATOR_DIRECTORY."/";
+		$this->_InstallationRoot	= JPATH_BASE."/".ADMINISTRATOR_DIRECTORY."/";
 		$this->_configurationFile	= $this->_InstallationRoot."/components/com_joomlapack/jpack.config.php";
 
 		// Default configuration
@@ -126,16 +126,15 @@ class CConfiguration {
 		//$this->AltInstaller = new CAltInstaller();
 		//$this->AltInstaller->loadDefinition($this->InstallerPackage);
 		$this->logLevel			= _JP_LOG_WARNING;
-		$this->sql_pack			= 1; // ïî óìîë÷àíèþ ñæèìàòü â tar.gz
-		$this->sql_pref			= 1; // ïî óìîë÷àíèþ elfkznm ghtaabrc nf,kbw
+		$this->sql_pack			= 1; // Ð¿Ð¾ ÑƒÐ¼Ð¾Ð»Ñ‡Ð°Ð½Ð¸ÑŽ ÑÐ¶Ð¸Ð¼Ð°Ñ‚ÑŒ Ð² tar.gz
+		$this->sql_pref			= 1; // Ð¿Ð¾ ÑƒÐ¼Ð¾Ð»Ñ‡Ð°Ð½Ð¸ÑŽ elfkznm ghtaabrc nf,kbw
 	}
 
 	/**
-	* ïîëó÷åíèå êîíôèãóðàöèè
+	* Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ðµ ÐºÐ¾Ð½Ñ„Ð¸Ð³ÑƒÑ€Ð°Ñ†Ð¸Ð¸
 	* @return boolean
 	*/
 	function LoadConfiguration() {
-		global $mosConfig_absolute_path;
 		$fp = @fopen($this->_configurationFile,"r");
 		if($fp === false) {
 			return false;
@@ -279,7 +278,7 @@ class CConfiguration {
 		$database->setQuery($sql);
 		$database->query();
 	}
-	// ðàáîòà ñ Windows ñèñòåìàìè
+	// Ñ€Ð°Ð±Ð¾Ñ‚Ð° Ñ Windows ÑÐ¸ÑÑ‚ÐµÐ¼Ð°Ð¼Ð¸
 	function TranslateWinPath($p_path) {
 		if(stristr(php_uname(),'windows')) {
 			if((strpos($p_path,'\\') > 0) || (substr($p_path,0,1) == '\\')) {
@@ -316,11 +315,11 @@ class CJPLogger {
 	* @param string $message The message to write to the log
 	*/
 	function WriteLog($level,$message) {
-		global $JPConfiguration,$mosConfig_absolute_path;
+		global $JPConfiguration;
 
 		if($JPConfiguration->logLevel >= $level) {
 			$logName = CJPLogger::logName();
-			$message = str_replace($mosConfig_absolute_path,'<root>',$message);
+			$message = str_replace(JPATH_BASE,'<root>',$message);
 			switch($level) {
 				case _JP_LOG_ERROR:
 					$string = 'ERROR   |';
@@ -426,12 +425,12 @@ class CAltInstaller {
 	* @return boolean True if loaded successful the file
 	*/
 	function loadDefinition($file) {
-		global $mosConfig_absolute_path,$option;
-		require_once ($mosConfig_absolute_path.'/includes/domit/xml_domit_lite_include.php');
+		global $option;
+		require_once (JPATH_BASE.'/includes/domit/xml_domit_lite_include.php');
 		// Instanciate new parser object
 		$xmlDoc = new DOMIT_Lite_Document();
 		$xmlDoc->resolveErrors(true);
-		if(!$xmlDoc->loadXML($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_joomlapack/installers/'.$file,false,true)) {
+		if(!$xmlDoc->loadXML(JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_joomlapack/installers/'.$file,false,true)) {
 			return false;
 		}
 		$root = &$xmlDoc->documentElement;
@@ -487,11 +486,11 @@ class CAltInstaller {
 	* @return array An array of the installer names and packages
 	*/
 	function loadAllDefinitions() {
-		global $mosConfig_absolute_path,$option;
+		global $option;
 		require_once 'engine.abstraction.php';
 		$FS = new CFSAbstraction;
 		$defs = array();
-		$fileList = $FS->getDirContents($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_joomlapack/installers/','*.xml');
+		$fileList = $FS->getDirContents(JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_joomlapack/installers/','*.xml');
 		foreach($fileList as $fileDef) {
 			$file = $fileDef['name'];
 			$baseName = basename($file);
@@ -511,4 +510,3 @@ $JPConfiguration = new CConfiguration;
 if($JPConfiguration->hasConfiguration()) {
 	$JPConfiguration->LoadConfiguration();
 }
-?>

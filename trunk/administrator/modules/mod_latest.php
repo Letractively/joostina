@@ -1,20 +1,20 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined('_VALID_MOS') or die();
 
 global $my;
 $mainframe = &mosMainFrame::getInstance();
 $cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
 
-// число объектов содержимого для вывода
+// С‡РёСЃР»Рѕ РѕР±СЉРµРєС‚РѕРІ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ РґР»СЏ РІС‹РІРѕРґР°
 $limit = $params->get('num',10);
 $type = $params->get('type',0);
 $ext = $params->get('ext',1);
@@ -24,14 +24,14 @@ $where = $ext ? "\n LEFT JOIN #__categories AS c ON c.id = a.catid LEFT JOIN #__
 
 switch ($type) {
 	case 2:
-		$where .= "\n WHERE a.state = 0"; // Только не опубликованное
+		$where .= "\n WHERE a.state = 0"; // РўРѕР»СЊРєРѕ РЅРµ РѕРїСѓР±Р»РёРєРѕРІР°РЅРЅРѕРµ
 		break;
 	case 1:
-		$where .= "\n WHERE a.state = 1"; // Только опубликованное
+		$where .= "\n WHERE a.state = 1"; // РўРѕР»СЊРєРѕ РѕРїСѓР±Р»РёРєРѕРІР°РЅРЅРѕРµ
 		break;
 	case 0:
 	default:
-		$where .= "\n WHERE a.state != -2"; // Все элементы
+		$where .= "\n WHERE a.state != -2"; // Р’СЃРµ СЌР»РµРјРµРЅС‚С‹
 		break;
 }
 
@@ -40,7 +40,7 @@ $query = "SELECT a.id, a.sectionid, a.title, a.created, $select u.name, a.create
 	."\n FROM #__content AS a"
 	."\n LEFT JOIN #__users AS u ON u.id = a.created_by"
 	.$where
-	."\n ORDER BY created DESC"; // сортировка по времени создания, новые первыми
+	."\n ORDER BY created DESC"; // СЃРѕСЂС‚РёСЂРѕРІРєР° РїРѕ РІСЂРµРјРµРЅРё СЃРѕР·РґР°РЅРёСЏ, РЅРѕРІС‹Рµ РїРµСЂРІС‹РјРё
 $database->setQuery($query,0,$limit);
 $rows = $database->loadObjectList();
 ?>
@@ -55,25 +55,25 @@ $nullDate = $database->getNullDate();
 $now = _CURRENT_SERVER_TIME;
 $k = 0;
 foreach($rows as $row) {
-	// получение значка статуса содержимого
+	// РїРѕР»СѓС‡РµРЅРёРµ Р·РЅР°С‡РєР° СЃС‚Р°С‚СѓСЃР° СЃРѕРґРµСЂР¶РёРјРѕРіРѕ
 	if($now <= $row->publish_up && $row->state == 1) {
-		// опубликовано
+		// РѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ
 		$img = 'publish_y.png';
 	} else if(($now <= $row->publish_down || $row->publish_down == $nullDate) && $row->state ==1) {
-		// Доступно
+		// Р”РѕСЃС‚СѓРїРЅРѕ
 		$img = 'publish_g.png';
 	} else if($now > $row->publish_down && $row->state == 1) {
-		// Истекло
+		// РСЃС‚РµРєР»Рѕ
 		$img = 'publish_r.png';
 	} else if($row->state == 0) {
-		// Не опубликовано
+		// РќРµ РѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ
 		$img = 'publish_x.png';
 	}
 	if($row->sectionid == 0) {
-		// статичное содержимое
+		// СЃС‚Р°С‚РёС‡РЅРѕРµ СЃРѕРґРµСЂР¶РёРјРѕРµ
 		$link = 'index2.php?option=com_typedcontent&amp;task=edit&amp;hidemainmenu=1&amp;id='.$row->id;
 	} else {
-		// обычное содержимое
+		// РѕР±С‹С‡РЅРѕРµ СЃРѕРґРµСЂР¶РёРјРѕРµ
 		$link = 'index2.php?option=com_content&amp;task=edit&amp;hidemainmenu=1&amp;id='.$row->id;
 	}
 	if($acl->acl_check('administration','manage','users',$my->usertype,'components','com_users')) {
@@ -98,9 +98,9 @@ foreach($rows as $row) {
 <?php
 if($ext){
 	if($row->sectionid!=0)
-		echo $row->secname.' / '.$row->catname; // раздел / категория
+		echo $row->secname.' / '.$row->catname; // СЂР°Р·РґРµР» / РєР°С‚РµРіРѕСЂРёСЏ
 	else
-		echo _STATIC_CONTENT; // тип добавленного содержимого - статичное содержимое
+		echo _STATIC_CONTENT; // С‚РёРї РґРѕР±Р°РІР»РµРЅРЅРѕРіРѕ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ - СЃС‚Р°С‚РёС‡РЅРѕРµ СЃРѕРґРµСЂР¶РёРјРѕРµ
 }
 ?>
 		</td>

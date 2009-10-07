@@ -1,10 +1,10 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright а«аВбІаОбЂб±аКаИаЕ аПбЂаАаВаА (C) 2008-2009 Joostina team. аҐб±аЕ аПбЂаАаВаА аЗаАбЃаИбЃаЕаНб‚.
+* @license а‹аИб†аЕаНаЗаИбЅ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, аИаЛаИ help/license.php
+* Joostina! - б±аВаОаБаОаДаНаОаЕ аПбЂаОаГбЂаАаМаМаНаОаЕ аОаБаЕб±аПаЕбµаЕаНаИаЕ бЂаАб±аПбЂаОб±бІбЂаАаНбЅаЕаМаОаЕ аПаО біб±аЛаОаВаИбЅаМ аЛаИб†аЕаНаЗаИаИ GNU/GPL
+* аѕаЛбЅ аПаОаЛбібµаЕаНаИбЅ аИаНбґаОбЂаМаАб†аИаИ аО аИб±аПаОаЛб аЗбіаЕаМб‚б… бЂаАб±б¶аИбЂаЕаНаИбЅб… аИ аЗаАаМаЕбµаАаНаИаЙ аОаБ аАаВбІаОбЂб±аКаОаМ аПбЂаАаВаЕ, б±аМаОбІбЂаИбІаЕ бґаАаЙаЛ help/copyright.php.
 * License GNU/GPL - Vincent Blavet - Janvier 2001
 * http://www.phpconcept.net & http://phpconcept.free.fr
 **/

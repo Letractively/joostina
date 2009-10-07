@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined( '_VALID_MOS' ) or die();
 
 ?>
@@ -23,7 +23,7 @@ defined( '_VALID_MOS' ) or die();
 		}
 ?>
 <?php
-		// отключение вкладки "Изображения"
+		// РѕС‚РєР»СЋС‡РµРЅРёРµ РІРєР»Р°РґРєРё "РР·РѕР±СЂР°Р¶РµРЅРёСЏ"
 		if(!$mainframe->getCfg('disable_image_tab')) { ?>
 			var folderimages = new Array;
 <?php
@@ -52,7 +52,7 @@ defined( '_VALID_MOS' ) or die();
 				return;
 			}
 <?php
-	// отключение вкладки "Изображения"
+	// РѕС‚РєР»СЋС‡РµРЅРёРµ РІРєР»Р°РґРєРё "РР·РѕР±СЂР°Р¶РµРЅРёСЏ"
 	if(!$mainframe->getCfg('disable_image_tab')) {
 ?>
 			var temp = new Array;
@@ -84,7 +84,7 @@ defined( '_VALID_MOS' ) or die();
 			<?php getEditorContents('editor2','fulltext'); ?>
 			<?php getEditorContents('editor3','notetext'); ?>
 <?php
-	// отключение вкладки "Изображения"
+	// РѕС‚РєР»СЋС‡РµРЅРёРµ РІРєР»Р°РґРєРё "РР·РѕР±СЂР°Р¶РµРЅРёСЏ"
 	if(!$mainframe->getCfg('disable_image_tab')) {
 ?>
 			var temp = new Array;
@@ -100,7 +100,7 @@ defined( '_VALID_MOS' ) or die();
 				form: 'adminForm',
 				callback:
 					function(resp){
-						log('Получен ответ: ' + resp.responseText);
+						log('РџРѕР»СѓС‡РµРЅ РѕС‚РІРµС‚: ' + resp.responseText);
 						mess_cool(resp.responseText);
 						SRAX.get('tb-apply').className='tb-apply';
 			}});
@@ -116,7 +116,7 @@ defined( '_VALID_MOS' ) or die();
 				form: 'adminForm',
 				callback:
 					function(resp){
-						log('Получен ответ: ' + resp.responseText);
+						log('РџРѕР»СѓС‡РµРЅ РѕС‚РІРµС‚: ' + resp.responseText);
 						SRAX.get('metakey').value = (resp.responseText);
 			}});
 		}
@@ -131,7 +131,7 @@ defined( '_VALID_MOS' ) or die();
 				method:'post',
 				callback:
 					function(resp){
-						log('Получен ответ: ' + resp.responseText);
+						log('РџРѕР»СѓС‡РµРЅ РѕС‚РІРµС‚: ' + resp.responseText);
 						mess_cool(resp.responseText);
 						SRAX.get('count_hits').innerHTML='0';
 			}});
@@ -145,7 +145,7 @@ defined( '_VALID_MOS' ) or die();
 		<form action="index2.php" method="post" name="adminForm" id="adminForm">
 			<table class="adminform" cellspacing="0" cellpadding="0" width="100%"><tr>
 
-				<!--Основная область с редактором:BEGIN-->
+				<!--РћСЃРЅРѕРІРЅР°СЏ РѕР±Р»Р°СЃС‚СЊ СЃ СЂРµРґР°РєС‚РѕСЂРѕРј:BEGIN-->
 				<td class="main_area" width="100%" valign="top">
 
 					<table width="100%">
@@ -196,15 +196,15 @@ defined( '_VALID_MOS' ) or die();
 				</table>
 
 			</td>
-			<!--Основная область с редактором:END-->
+			<!--РћСЃРЅРѕРІРЅР°СЏ РѕР±Р»Р°СЃС‚СЊ СЃ СЂРµРґР°РєС‚РѕСЂРѕРј:END-->
 
-			<!--кнопка скрытия правой колонки:BEGIN-->
+			<!--РєРЅРѕРїРєР° СЃРєСЂС‹С‚РёСЏ РїСЂР°РІРѕР№ РєРѕР»РѕРЅРєРё:BEGIN-->
 			<td onclick="ntreetoggle();" width="1" id="tdtoogle" class="tdtoogleon">
 				<img border="0" alt="<?php echo _HIDE_PARAMS_PANEL?>" src="<?php echo $cur_file_icons_path;?>/tgl.png" />
 			</td>
-			<!--кнопка скрытия правой колонки:END-->
+			<!--РєРЅРѕРїРєР° СЃРєСЂС‹С‚РёСЏ РїСЂР°РІРѕР№ РєРѕР»РѕРЅРєРё:END-->
 
-			<!--правая колонка:BEGIN-->
+			<!--РїСЂР°РІР°СЏ РєРѕР»РѕРЅРєР°:BEGIN-->
 			<td valign="top" id="ncontent">
 
 				<table width="100%"><tr><th><?php echo _INFO?></th></tr></table>
@@ -367,7 +367,7 @@ defined( '_VALID_MOS' ) or die();
 						</table>
 <?php $tabs->endTab(); ?>
 <?php
-					// отключение вкладки "Изображения"
+					// РѕС‚РєР»СЋС‡РµРЅРёРµ РІРєР»Р°РґРєРё "РР·РѕР±СЂР°Р¶РµРЅРёСЏ"
 					if(!$mainframe->getCfg('disable_image_tab')) {
 						$tabs->startTab(_IMAGES,"images-page");
 ?>
@@ -384,9 +384,9 @@ defined( '_VALID_MOS' ) or die();
 											</div>
 										</td>
 										<td width="2%">
-											<input class="button" type="button" value=">>" onclick="addSelectedToList('adminForm','imagefiles','imagelist')" title="Добавить" />
+											<input class="button" type="button" value=">>" onclick="addSelectedToList('adminForm','imagefiles','imagelist')" title="Р”РѕР±Р°РІРёС‚СЊ" />
 											<br />
-											<input class="button" type="button" value="<<" onclick="delSelectedFromList('adminForm','imagelist')" title="Удалить" />
+											<input class="button" type="button" value="<<" onclick="delSelectedFromList('adminForm','imagelist')" title="РЈРґР°Р»РёС‚СЊ" />
 										</td>
 										<td width="48%">
 											<div align="center">
@@ -413,7 +413,7 @@ defined( '_VALID_MOS' ) or die();
 								<td valign="top">
 									<div align="center">
 										<?php echo _ACTIVE_IMAGE?>:<br />
-										<img name="view_imagelist" src="../images/M_images/blank.png" alt="Активное изображение" width="100" />
+										<img name="view_imagelist" src="../images/M_images/blank.png" alt="РђРєС‚РёРІРЅРѕРµ РёР·РѕР±СЂР°Р¶РµРЅРёРµ" width="100" />
 									</div>
 								</td>
 							</tr>
@@ -479,7 +479,7 @@ defined( '_VALID_MOS' ) or die();
 				</table>
 
 		</td>
-		<!--правая колонка:END-->
+		<!--РїСЂР°РІР°СЏ РєРѕР»РѕРЅРєР°:END-->
 
 		</tr></table>
 

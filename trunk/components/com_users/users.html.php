@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright Àâòîðñêèå ïðàâà (C) 2008-2009 Joostina team. Âñå ïðàâà çàùèùåíû.
-* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
-* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
-* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+* @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2009 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
+* @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
+* Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
+* Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
 */
 
-// çàïðåò ïðÿìîãî äîñòóïà
+// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
 defined('_VALID_MOS') or die();
 
 /**
@@ -48,7 +48,7 @@ class HTML_user {
 			$avatar_edit='';
 		}
 
-		//Ïåðåìåííûå äëÿ øàáëîíà
+		//ÐŸÐµÑ€ÐµÐ¼ÐµÐ½Ð½Ñ‹Ðµ Ð´Ð»Ñ ÑˆÐ°Ð±Ð»Ð¾Ð½Ð°
 		$avatar_pic = '<img class="avatar" src="'.$mainframe->getCfg('live_site').'/'.$user->get_avatar($user).'" />';
 		$user_id= $user->id;
 		$user_real_name = $user->name;
@@ -67,11 +67,11 @@ class HTML_user {
 
 		$user_content_href=sefRelToAbs('index.php?option=com_content&task=mycontent&user='.$user_id.'&Itemid='.$Itemid);
 
-		//Øàáëîí
+		//Ð¨Ð°Ð±Ð»Ð¾Ð½
 		$template = 'default.php';
 		$template_dir = 'components/com_users/view/profile';
 
-		//Åñëè èñïîëüçóþòñÿ ðàçíûå øàáëîíû äëÿ ðàçíûõ ãðóïï ïîëüçîâàòåëåé
+		//Ð•ÑÐ»Ð¸ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÑŽÑ‚ÑÑ Ñ€Ð°Ð·Ð½Ñ‹Ðµ ÑˆÐ°Ð±Ð»Ð¾Ð½Ñ‹ Ð´Ð»Ñ Ñ€Ð°Ð·Ð½Ñ‹Ñ… Ð³Ñ€ÑƒÐ¿Ð¿ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»ÐµÐ¹
 		if(!$config->get('template')){
 			$template=strtolower(str_replace(' ', '', $user->usertype )).'.php';
 		}
@@ -81,26 +81,26 @@ class HTML_user {
 		}
 		$template_file = $mainframe->getCfg('absolute_path').DS.$template_dir.DS.$template;
 
-		//Íàõîäèì ïëàãèíû ïðîôèëÿ ïîëüçîâàòåëÿ
+		//ÐÐ°Ñ…Ð¾Ð´Ð¸Ð¼ Ð¿Ð»Ð°Ð³Ð¸Ð½Ñ‹ Ð¿Ñ€Ð¾Ñ„Ð¸Ð»Ñ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»Ñ
 		$plugins = new userPlugins();
 		$profile_plugins = $plugins->get_plugins('profile');
 
 		$plugin_page = '';
 		$cur_plugin = mosGetParam( $_REQUEST, 'view', '' );
-		//Åñëè ïëàãèíû óñòàíîâëåíû 
+		//Ð•ÑÐ»Ð¸ Ð¿Ð»Ð°Ð³Ð¸Ð½Ñ‹ ÑƒÑÑ‚Ð°Ð½Ð¾Ð²Ð»ÐµÐ½Ñ‹ 
 		if($profile_plugins){
-			//âûöåïëÿåì ïåðâûé ïëàãèí â ãðóïïå êàê ïëàãèí ïî-óìîë÷àíèþ
+			//Ð²Ñ‹Ñ†ÐµÐ¿Ð»ÑÐµÐ¼ Ð¿ÐµÑ€Ð²Ñ‹Ð¹ Ð¿Ð»Ð°Ð³Ð¸Ð½ Ð² Ð³Ñ€ÑƒÐ¿Ð¿Ðµ ÐºÐ°Ðº Ð¿Ð»Ð°Ð³Ð¸Ð½ Ð¿Ð¾-ÑƒÐ¼Ð¾Ð»Ñ‡Ð°Ð½Ð¸ÑŽ
 			$plugin_page = $profile_plugins[0]->element;
-			//Îáðàùåíèå ê ñòðàíèöå ïëàãèíà
+			//ÐžÐ±Ñ€Ð°Ñ‰ÐµÐ½Ð¸Ðµ Ðº ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ðµ Ð¿Ð»Ð°Ð³Ð¸Ð½Ð°
 			if($cur_plugin){
-				//Ïðîâåðÿåì çàïðàøèâàåìûé ïëàãèí íà äîñòóïíîñòü
+				//ÐŸÑ€Ð¾Ð²ÐµÑ€ÑÐµÐ¼ Ð·Ð°Ð¿Ñ€Ð°ÑˆÐ¸Ð²Ð°ÐµÐ¼Ñ‹Ð¹ Ð¿Ð»Ð°Ð³Ð¸Ð½ Ð½Ð° Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð½Ð¾ÑÑ‚ÑŒ
 				if($plugins->allow_plugin($cur_plugin)){
 					$plugin_page = $cur_plugin;
 				}
 			}else{
 				$cur_plugin = $plugin_page;
 			}
-			//ïîäêëþ÷àåì ïëàãèí
+			//Ð¿Ð¾Ð´ÐºÐ»ÑŽÑ‡Ð°ÐµÐ¼ Ð¿Ð»Ð°Ð³Ð¸Ð½
 			$_MAMBOTS->loadBot('profile',$plugin_page,1);
 		
 		}
@@ -119,7 +119,7 @@ class HTML_user {
 		$bday_month = mosFormatDate($user_extra->birthdate, '%m') ;
 		$bday_year = mosFormatDate($user_extra->birthdate, '%Y', '0') ;
 
-		//Øàáëîí
+		//Ð¨Ð°Ð±Ð»Ð¾Ð½
 		$template_file='default.php';
 		if(!$user_config->get('template_edit')){
 			if(is_file($config->config_absolute_path.DS.'components'.DS.'com_users'.DS.'view'.DS.'edit'.DS.strtolower(str_replace(' ', '', $user->usertype )).'.php')){

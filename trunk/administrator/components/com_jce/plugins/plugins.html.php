@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined('_VALID_MOS') or die();
 
 /**
@@ -34,11 +34,11 @@ class JCE_plugins {
 	* @param array An array of category objects
 	*/
 	function showPlugins(&$rows,$client,&$pageNav,$option,&$lists,$search) {
-		global $my,$mosConfig_live_site,$mosConfig_absolute_path,$database;
+		global $my,$mosConfig_live_site,$database;
 
 		$database->setQuery("SELECT lang FROM #__jce_langs WHERE published= '1'");
 		$lang = $database->loadResult();
-		require_once ($mosConfig_absolute_path."/administrator/components/com_jce/language/".$lang.".php");
+		require_once (JPATH_BASE."/administrator/components/com_jce/language/".$lang.".php");
 
 		mosCommonHTML::loadOverlib();
 		$access = JCE_plugins::AccessList();
@@ -310,7 +310,7 @@ class JCE_plugins {
 		if($row->id) {
 			echo $params->render();
 		} else {
-			echo '<i>Нет параметров</i>';
+			echo '<i>РќРµС‚ РїР°СЂР°РјРµС‚СЂРѕРІ</i>';
 		}
 ?>
 					</td>

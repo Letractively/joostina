@@ -1,29 +1,29 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined('_VALID_MOS') or die();
 
 $_MAMBOTS->registerFunction('onPrepareContent','botMosPaging');
 
 /**
-* Мамбот разрыва страницы
+* РњР°РјР±РѕС‚ СЂР°Р·СЂС‹РІР° СЃС‚СЂР°РЅРёС†С‹
 *
-* <b>Использование:</b>
+* <b>РСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ:</b>
 * <code>{mospagebreak}</code>
-* <code>{mospagebreak title=Заголовок страницы}</code>
-* или
-* <code>{mospagebreak heading=Первая страница}</code>
-* или
-* <code>{mospagebreak title=Заголовок страницы&heading=Первая страница}</code>
-* или
-* <code>{mospagebreak heading=Первая страница&title=Заголовок страницы}</code>
+* <code>{mospagebreak title=Р—Р°РіРѕР»РѕРІРѕРє СЃС‚СЂР°РЅРёС†С‹}</code>
+* РёР»Рё
+* <code>{mospagebreak heading=РџРµСЂРІР°СЏ СЃС‚СЂР°РЅРёС†Р°}</code>
+* РёР»Рё
+* <code>{mospagebreak title=Р—Р°РіРѕР»РѕРІРѕРє СЃС‚СЂР°РЅРёС†С‹&heading=РџРµСЂРІР°СЏ СЃС‚СЂР°РЅРёС†Р°}</code>
+* РёР»Рё
+* <code>{mospagebreak heading=РџРµСЂРІР°СЏ СЃС‚СЂР°РЅРёС†Р°&title=Р—Р°РіРѕР»РѕРІРѕРє СЃС‚СЂР°РЅРёС†С‹}</code>
 *
 */
 function botMosPaging($published,&$row,&$params,$page = 0) {
@@ -43,17 +43,17 @@ function botMosPaging($published,&$row,&$params,$page = 0) {
 		return;
 	}
 
-	// найти все образцы мамбота и вставить в $matches
+	// РЅР°Р№С‚Рё РІСЃРµ РѕР±СЂР°Р·С†С‹ РјР°РјР±РѕС‚Р° Рё РІСЃС‚Р°РІРёС‚СЊ РІ $matches
 	$matches = array();
 	preg_match_all($regex,$row->text,$matches,PREG_SET_ORDER);
 
-	// мамбот разрыва текста
+	// РјР°РјР±РѕС‚ СЂР°Р·СЂС‹РІР° С‚РµРєСЃС‚Р°
 	$text = preg_split($regex,$row->text);
 
-	// подсчет числа страниц
+	// РїРѕРґСЃС‡РµС‚ С‡РёСЃР»Р° СЃС‚СЂР°РЅРёС†
 	$n = count($text);
 
-	// если найден хоть еще один мамбот, то как минимум 2 страницы
+	// РµСЃР»Рё РЅР°Р№РґРµРЅ С…РѕС‚СЊ РµС‰Рµ РѕРґРёРЅ РјР°РјР±РѕС‚, С‚Рѕ РєР°Рє РјРёРЅРёРјСѓРј 2 СЃС‚СЂР°РЅРёС†С‹
 	if($n > 1) {
 		// check if param query has previously been processed
 		if(!isset($_MAMBOTS->_content_mambot_params['mospaging'])) {
@@ -73,12 +73,12 @@ function botMosPaging($published,&$row,&$params,$page = 0) {
 
 		$title = $botParams->def('title',1);
 
-		// добавление заголовка или названия в  название <site>
+		// РґРѕР±Р°РІР»РµРЅРёРµ Р·Р°РіРѕР»РѕРІРєР° РёР»Рё РЅР°Р·РІР°РЅРёСЏ РІ  РЅР°Р·РІР°РЅРёРµ <site>
 		if($title) {
 			$page_text = $page + 1;
 			$row->page_title = _PN_PAGE.' '.$page_text;
 			if(!$page) {
-				// обработка первой страницы
+				// РѕР±СЂР°Р±РѕС‚РєР° РїРµСЂРІРѕР№ СЃС‚СЂР°РЅРёС†С‹
 				parse_str(html_entity_decode($matches[0][2]),$args);
 
 				if(@$args['heading']) {
@@ -97,37 +97,37 @@ function botMosPaging($published,&$row,&$params,$page = 0) {
 				}
 		}
 
-		// сброс текста, удержание его в массиве $text
+		// СЃР±СЂРѕСЃ С‚РµРєСЃС‚Р°, СѓРґРµСЂР¶Р°РЅРёРµ РµРіРѕ РІ РјР°СЃСЃРёРІРµ $text
 		$row->text = '';
 
 		$hasToc = $mainframe->getCfg('multipage_toc');
 
 		if($hasToc) {
-			// отображение содержания
+			// РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ СЃРѕРґРµСЂР¶Р°РЅРёСЏ
 			createTOC($row,$matches,$page);
 		} else {
 			$row->toc = '';
 		}
 
-		// обычная навигация по страницам
+		// РѕР±С‹С‡РЅР°СЏ РЅР°РІРёРіР°С†РёСЏ РїРѕ СЃС‚СЂР°РЅРёС†Р°Рј
 		mosMainFrame::addLib('pageNavigation');
 		$pageNav = new mosPageNav($n,$page,1);
 
-		// счетчик страниц
+		// СЃС‡РµС‚С‡РёРє СЃС‚СЂР°РЅРёС†
 		$row->text .= '<div class="pagenavcounter">'.$pageNav->writeLeafsCounter().'</div>';
 
-		// текст страницы
+		// С‚РµРєСЃС‚ СЃС‚СЂР°РЅРёС†С‹
 		$row->text .= $text[$page];
 
 		$row->text .= '<br />';
 		$row->text .= '<div class="pagenavbar">';
 
-		// добавление навигации между страницами в конце текста
+		// РґРѕР±Р°РІР»РµРЅРёРµ РЅР°РІРёРіР°С†РёРё РјРµР¶РґСѓ СЃС‚СЂР°РЅРёС†Р°РјРё РІ РєРѕРЅС†Рµ С‚РµРєСЃС‚Р°
 		if($hasToc) {
 			createNavigation($row,$page,$n);
 		}
 
-		// отображение ссылок на страницы, если запрещено содержание
+		// РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ СЃСЃС‹Р»РѕРє РЅР° СЃС‚СЂР°РЅРёС†С‹, РµСЃР»Рё Р·Р°РїСЂРµС‰РµРЅРѕ СЃРѕРґРµСЂР¶Р°РЅРёРµ
 		if(!$hasToc) {
 			$row->text .= $pageNav->writePagesLinks('index.php?option=com_content&amp;task=view&amp;id='.$row->id.'&amp;Itemid='.$Itemid);
 		}
@@ -146,18 +146,18 @@ function createTOC(&$row,&$matches) {
 	$link = sefRelToAbs($link);
 
 	$heading = $row->title;
-	// позволяет настройку названия первой страницы, проверяя атрибут `heading` в первом боте
+	// РїРѕР·РІРѕР»СЏРµС‚ РЅР°СЃС‚СЂРѕР№РєСѓ РЅР°Р·РІР°РЅРёСЏ РїРµСЂРІРѕР№ СЃС‚СЂР°РЅРёС†С‹, РїСЂРѕРІРµСЂСЏСЏ Р°С‚СЂРёР±СѓС‚ `heading` РІ РїРµСЂРІРѕРј Р±РѕС‚Рµ
 	if(@$matches[0][2]) {
 		parse_str(html_entity_decode($matches[0][2]),$args);
 
 		if(@$args['heading']) {
 			$heading = $args['heading'];
-			// сделано по совету Hammer  http://joomlaforum.ru/index.php/topic,32255.msg187840.html#msg187840
+			// СЃРґРµР»Р°РЅРѕ РїРѕ СЃРѕРІРµС‚Сѓ Hammer  http://joomlaforum.ru/index.php/topic,32255.msg187840.html#msg187840
 			//$row->title .= ' - '.$heading;
 		}
 	}
 
-	// Заголовок содержания
+	// Р—Р°РіРѕР»РѕРІРѕРє СЃРѕРґРµСЂР¶Р°РЅРёСЏ
 	$row->toc = '
 	<table cellpadding="0" cellspacing="0" class="contenttoc" align="right">
 	<tr>
@@ -165,7 +165,7 @@ function createTOC(&$row,&$matches) {
 	</tr>
 	';
 
-	// Содержание связи первой страницы
+	// РЎРѕРґРµСЂР¶Р°РЅРёРµ СЃРІСЏР·Рё РїРµСЂРІРѕР№ СЃС‚СЂР°РЅРёС†С‹
 	$row->toc .= '
 	<tr>
 		<td>

@@ -1,19 +1,19 @@
 <?php
 /**
 * @package Joostina
-* @copyright Àâòîðñêèå ïðàâà (C) 2008-2009 Joostina team. Âñå ïðàâà çàùèùåíû.
-* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
-* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
-* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+* @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2009 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
+* @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
+* Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
+* Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
 */
 
-// çàïðåò ïðÿìîãî äîñòóïà
+// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
 defined('_VALID_MOS') or die();
 
 $_MAMBOTS->registerFunction('userProfile','botUserContacts');
 $_MAMBOTS->registerFunction('userProfileTab','botUserContacts_tab');
 
-/* äîáàâëÿåì âêëàäêó ïðîôèëÿ */
+/* Ð´Ð¾Ð±Ð°Ð²Ð»ÑÐµÐ¼ Ð²ÐºÐ»Ð°Ð´ÐºÑƒ Ð¿Ñ€Ð¾Ñ„Ð¸Ð»Ñ */
 function botUserContacts_tab(&$user){
 	return array(
 		'name'=>_USER_CONTACTS,
@@ -31,28 +31,28 @@ function botUserContacts($user) {
 
 	$database = &database::getInstance();
 
-	//Ïîäêëþ÷åíèå ïëàãèíà âñïëûâàþùåãî îêíà
+	//ÐŸÐ¾Ð´ÐºÐ»ÑŽÑ‡ÐµÐ½Ð¸Ðµ Ð¿Ð»Ð°Ð³Ð¸Ð½Ð° Ð²ÑÐ¿Ð»Ñ‹Ð²Ð°ÑŽÑ‰ÐµÐ³Ð¾ Ð¾ÐºÐ½Ð°
 	mosCommonHTML::loadJqueryPlugins('fancybox/jquery.fancybox', false, true);
-	//îñíîâíîé âûâîä
+	//Ð¾ÑÐ½Ð¾Ð²Ð½Ð¾Ð¹ Ð²Ñ‹Ð²Ð¾Ð´
 	UserContacts_output($user);
 	unset($user,$database);
 }
 
-/** Ôóíêöèÿ - îáîëî÷êà âûâîäà */
+/** Ð¤ÑƒÐ½ÐºÑ†Ð¸Ñ - Ð¾Ð±Ð¾Ð»Ð¾Ñ‡ÐºÐ° Ð²Ñ‹Ð²Ð¾Ð´Ð° */
 function UserContacts_output($user){
 	$mainframe = &mosMainFrame::getInstance();
 	$ajax_handler = 'ajax.index.php?option=com_users&task=request_from_plugin&plugin=user_contacts';
-?><!-- Âñïëûâàþùåå îêíî ñ ôîðìîé îòïðàâêè ñîîáùåíèÿ-->
+?><!-- Ð’ÑÐ¿Ð»Ñ‹Ð²Ð°ÑŽÑ‰ÐµÐµ Ð¾ÐºÐ½Ð¾ Ñ Ñ„Ð¾Ñ€Ð¼Ð¾Ð¹ Ð¾Ñ‚Ð¿Ñ€Ð°Ð²ÐºÐ¸ ÑÐ¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ñ-->
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$(".fancy_inline").fancybox({'hideOnContentClick': false});
 		});
 	</script>
-	<!--Çíà÷êè ICQ, Skype-->
+	<!--Ð—Ð½Ð°Ñ‡ÐºÐ¸ ICQ, Skype-->
 	<div class="messengers">
 		<?php UserContacts_messengers($user);?>
 	</div>
-	<!--Ñûûëêà, ïî íàæàòèþ íà êîòîðóþ, ïîÿâëÿåòñÿ âñïëûâàþùåå îêíî ñ ôîðìîé îòïðàâêè ñîîáùåíèÿ -->
+	<!--Ð¡Ñ‹Ñ‹Ð»ÐºÐ°, Ð¿Ð¾ Ð½Ð°Ð¶Ð°Ñ‚Ð¸ÑŽ Ð½Ð° ÐºÐ¾Ñ‚Ð¾Ñ€ÑƒÑŽ, Ð¿Ð¾ÑÐ²Ð»ÑÐµÑ‚ÑÑ Ð²ÑÐ¿Ð»Ñ‹Ð²Ð°ÑŽÑ‰ÐµÐµ Ð¾ÐºÐ½Ð¾ Ñ Ñ„Ð¾Ñ€Ð¼Ð¾Ð¹ Ð¾Ñ‚Ð¿Ñ€Ð°Ð²ÐºÐ¸ ÑÐ¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ñ -->
 	<span class="email">
 		<a class="fancy_inline email" href="<?php echo $mainframe->getCfg('live_site');?>/<?php echo $ajax_handler;?>&act=display_form&user_id=<?php echo $user->id;?>">
 			<?php echo BOT_USER_CONTACTS_SEND_MESSAGE?>
@@ -60,7 +60,7 @@ function UserContacts_output($user){
 	</span>
 <?php
 	}
-/** Âûâîä äàííûõ î ìåññåíäæåðàõ */
+/** Ð’Ñ‹Ð²Ð¾Ð´ Ð´Ð°Ð½Ð½Ñ‹Ñ… Ð¾ Ð¼ÐµÑÑÐµÐ½Ð´Ð¶ÐµÑ€Ð°Ñ… */
 function UserContacts_messengers($user){
 	$img_url = Jconfig::getInstance()->config_live_site.'/images/system';
 

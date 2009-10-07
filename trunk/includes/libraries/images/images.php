@@ -21,15 +21,13 @@ class Image {
 	function Image(){
 	}
 
-
-
 	function upload($resize_options=0){
-		global $mosConfig_absolute_path, $_FILES;
+		global $_FILES;
 
 		$name_file=$this->field_name;
 		$up = 0;
 
-		$dir_name = $mosConfig_absolute_path."/".$this->directory;
+		$dir_name = JPATH_BASE."/".$this->directory;
 		if(!is_dir($dir_name)){
 			mkdir($dir_name, 0700);
 		}
@@ -122,9 +120,8 @@ class Image {
 
 
 	function isFileIsset($file){
-		global $mosConfig_absolute_path;
 
-		$file_name = $mosConfig_absolute_path. '/' .$file;
+		$file_name = JPATH_BASE. DS .$file;
 
 		if(file_exists($file_name)){
 			return true;
@@ -136,18 +133,16 @@ class Image {
 
 
 	function delFile(&$file){
-		global $mosConfig_absolute_path;
-		$file_name = $file->directory.'/'.$file->name;
+		$file_name = $file->directory.DS.$file->name;
 
 		if(self::isFileIsset($file_name)){
-			unlink($mosConfig_absolute_path. '/' .$file_name);
+			unlink(JPATH_BASE.DS.$file_name);
 			return true;
 		}
 		return false;
 	}
 
 	function get_image_from_text($text, $type = 'img', $default_image = null){
-
 		if($type=='mosimage'){
 			$image = self::get_mosimage($text, $default_image);
 		}

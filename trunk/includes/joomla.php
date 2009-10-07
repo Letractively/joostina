@@ -12,8 +12,6 @@ defined('_VALID_MOS') or die();
 
 // флаг использования ядра
 DEFINE('_MOS_MAMBO_INCLUDED',1);
-// разделитель каталогов
-DEFINE('DS',DIRECTORY_SEPARATOR );
 // каталог администратора
 DEFINE('ADMINISTRATOR_DIRECTORY','administrator');
 // формат даты
@@ -37,9 +35,9 @@ mosMainFrame::addLib('debug');
 /* ядро для работы с юникодом */
 mosMainFrame::addLib('utf8');
 /* файл данных версии */
-require_once ($mosConfig_absolute_path.'/includes/version.php');
+require_once (JPATH_BASE.'/includes/version.php');
 /* ядро работы с XML */
-require_once ($mosConfig_absolute_path.'/includes/joomla.xml.php');
+require_once (JPATH_BASE.'/includes/joomla.xml.php');
 /* класс фильтрации данных */
 mosMainFrame::addLib('inputfilter');
 /* класс работы с базой данных */
@@ -139,7 +137,7 @@ class mosMainFrame {
 		}
 
 		$this->_setTemplate($isAdmin);
-		$this->_setAdminPaths($option,$this->getCfg('absolute_path'));
+		$this->_setAdminPaths($option,JPATH_BASE);
 		$this->_isAdmin = (boolean)$isAdmin;
 		$this->set('now',date('Y-m-d H:i:s',time()));
 
@@ -178,10 +176,9 @@ class mosMainFrame {
 		$default = 'administrator'.DS.'components'.DS.$option.DS.'view'.DS.$target.'.php';
 		$from_template = 'administrator'.DS.'templates'.DS.$this->getTemplate().DS.'html'.DS.$option.DS.$target.'.php';
 
-		$absolute_path = $this->getCfg('absolute_path');
-		if(is_file($return = $absolute_path.DS.$from_template)){
+		if(is_file($return = JPATH_BASE.DS.$from_template)){
 			return $return;
-		}else if(is_file($return = $absolute_path.DS.$default)){
+		}else if(is_file($return = JPATH_BASE.DS.$default)){
 			return $return;	
 		}else{
 			return false;
@@ -236,18 +233,18 @@ class mosMainFrame {
 			case 'site':
 			case 'front':
 			default:
-				return mosPathName(Jconfig::getInstance()->config_absolute_path,$addTrailingSlash);
+				return mosPathName(JPATH_BASE,$addTrailingSlash);
 				break;
 
 			case '2':
 			case 'installation':
-				return mosPathName(Jconfig::getInstance()->config_absolute_path.DS.'installation',$addTrailingSlash);
+				return mosPathName(JPATH_BASE.DS.'installation',$addTrailingSlash);
 				break;
 
 			case '1':
 			case 'admin':
 			case 'administrator':
-				return mosPathName(Jconfig::getInstance()->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY,$addTrailingSlash);
+				return mosPathName(JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY,$addTrailingSlash);
 				break;
 		}
 	}
@@ -260,21 +257,16 @@ class mosMainFrame {
 	function addLib($lib, $dir = ''){
 		$dir = (!$dir) ? 'includes/libraries' : $dir;
 
-		static $absolute_path,$lib_array;
+		static $lib_array;
 
 		if(isset($lib_array[$dir][$lib])){
 			return $lib_array[$dir][$lib];
 		}
 
-		if(!isset($absolute_path)){
-			$config = &Jconfig::getInstance();
-			$absolute_path = $config->config_absolute_path;
-		}
-
-		if(is_file($absolute_path.DS.$dir.DS.$lib)){
-			$file_lib = $absolute_path.DS.$dir.DS.$lib;
-		}else if(is_file($absolute_path.DS.$dir.DS.$lib.DS.$lib.'.php')){
-			$file_lib = $absolute_path.DS.$dir.DS.$lib.DS.$lib.'.php';
+		if(is_file(JPATH_BASE.DS.$dir.DS.$lib)){
+			$file_lib = JPATH_BASE.DS.$dir.DS.$lib;
+		}else if(is_file(JPATH_BASE.DS.$dir.DS.$lib.DS.$lib.'.php')){
+			$file_lib = JPATH_BASE.DS.$dir.DS.$lib.DS.$lib.'.php';
 		}else{
 			$file_lib = false;
 		}
@@ -291,23 +283,22 @@ class mosMainFrame {
 		//$lang = $this->lang = $mosConfig_lang;
 		$lang = $mosConfig_lang;
 
-		$absolute_path = Jconfig::getInstance()->config_absolute_path;
 		if(!$name){
-			return $absolute_path.DS.'language'.DS.$lang.DS.'system.php';
+			return JPATH_BASE.DS.'language'.DS.$lang.DS.'system.php';
 		}else{
 			$file = $name;
 		}
 		if( isset($this->_isAdmin) && $this->_isAdmin==true ){
-			if(is_file($absolute_path.DS.'language'.DS.$lang.DS.'administrator'.DS.$file.'.php')){
-				return $absolute_path.DS.'language'.DS.$lang.DS.'administrator'.DS.$file.'.php';
+			if(is_file(JPATH_BASE.DS.'language'.DS.$lang.DS.'administrator'.DS.$file.'.php')){
+				return JPATH_BASE.DS.'language'.DS.$lang.DS.'administrator'.DS.$file.'.php';
 			}else{
-				if(is_file($absolute_path.DS.'language'.DS.$lang.DS.'frontend'.DS.$file.'.php')){
-					return $absolute_path.DS.'language'.DS.$lang.DS.'frontend'.DS.$file.'.php';
+				if(is_file(JPATH_BASE.DS.'language'.DS.$lang.DS.'frontend'.DS.$file.'.php')){
+					return JPATH_BASE.DS.'language'.DS.$lang.DS.'frontend'.DS.$file.'.php';
 				}
 			}
 		}else{
-			if(is_file($absolute_path.DS.'language'.DS.$lang.DS.'frontend'.DS.$file.'.php')){
-				return $absolute_path.DS.'language'.DS.$lang.DS.'frontend'.DS.$file.'.php';
+			if(is_file(JPATH_BASE.DS.'language'.DS.$lang.DS.'frontend'.DS.$file.'.php')){
+				return JPATH_BASE.DS.'language'.DS.$lang.DS.'frontend'.DS.$file.'.php';
 			}
 		}
 
@@ -670,7 +661,7 @@ class mosMainFrame {
 
 		// logout check
 		if($option == 'logout') {
-			require $_config->config_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/logout.php';
+			require JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY.DS.'logout.php';
 			exit();
 		}
 
@@ -1227,7 +1218,7 @@ class mosMainFrame {
 				$query = 'SELECT template FROM #__templates_menu WHERE client_id = 1 AND menuid = 0';
 				$this->_db->setQuery($query);
 				$cur_template = $this->_db->loadResult();
-				$path = $this->getCfg('absolute_path').DS.ADMINISTRATOR_DIRECTORY.DS.'templates'.DS.$cur_template.DS.'index.php';
+				$path = JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY.DS.'templates'.DS.$cur_template.DS.'index.php';
 				if(!is_file($path)) {
 					$cur_template = 'joostfree';
 				}
@@ -1253,7 +1244,7 @@ class mosMainFrame {
 				}
 
 				// check that template exists in case it was deleted
-				if(file_exists($this->getCfg('absolute_path').DS.'templates'.DS.$jos_change_template.DS.'index.php')) {
+				if(file_exists(JPATH_BASE.DS.'templates'.DS.$jos_change_template.DS.'index.php')) {
 					$lifetime = 60* 10;
 					$cur_template = $jos_change_template;
 					setcookie('jos_user_template',$jos_change_template,time() + $lifetime);
@@ -1348,7 +1339,7 @@ class mosMainFrame {
 
 		if($option) {
 			$temp = $this->_path;
-			$this->_setAdminPaths($option,$this->getCfg('absolute_path'));
+			$this->_setAdminPaths($option,JPATH_BASE);
 		}
 
 		$result = null;
@@ -1358,11 +1349,11 @@ class mosMainFrame {
 			switch($varname) {
 				case 'com_xml':
 					$name = substr($option,4);
-					$path = $this->getCfg('absolute_path').DS.ADMINISTRATOR_DIRECTORY."/components/$option/$name.xml";
+					$path = JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY."/components/$option/$name.xml";
 					if(file_exists($path)) {
 						$result = $path;
 					} else {
-						$path = $this->getCfg('absolute_path')."/components/$option/$name.xml";
+						$path = JPATH_BASE."/components/$option/$name.xml";
 						if(file_exists($path)) {
 							$result = $path;
 						}
@@ -1372,9 +1363,9 @@ class mosMainFrame {
 				case 'mod0_xml':
 					// Site modules
 					if($option == '') {
-						$path = $this->getCfg('absolute_path').'/modules/custom.xml';
+						$path = JPATH_BASE.'/modules/custom.xml';
 					} else {
-						$path = $this->getCfg('absolute_path')."/modules/$option.xml";
+						$path = JPATH_BASE."/modules/$option.xml";
 					}
 					if(file_exists($path)) {
 						$result = $path;
@@ -1384,9 +1375,9 @@ class mosMainFrame {
 				case 'mod1_xml':
 					// admin modules
 					if($option == '') {
-						$path = $this->getCfg('absolute_path').DS.ADMINISTRATOR_DIRECTORY.'/modules/custom.xml';
+						$path = JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY.'/modules/custom.xml';
 					} else {
-						$path = $this->getCfg('absolute_path').DS.ADMINISTRATOR_DIRECTORY."/modules/$option.xml";
+						$path = JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY."/modules/$option.xml";
 					}
 					if(file_exists($path)) {
 						$result = $path;
@@ -1395,28 +1386,28 @@ class mosMainFrame {
 
 				case 'bot_xml':
 					// Site mambots
-					$path = $this->getCfg('absolute_path').DS.'mambots'.DS.$option.'.xml';
+					$path = JPATH_BASE.DS.'mambots'.DS.$option.'.xml';
 					if(file_exists($path)) {
 						$result = $path;
 					}
 					break;
 
 				case 'menu_xml':
-					$path = $this->getCfg('absolute_path').DS.ADMINISTRATOR_DIRECTORY."/components/com_menus/$option/$option.xml";
+					$path = JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY."/components/com_menus/$option/$option.xml";
 					if(file_exists($path)) {
 						$result = $path;
 					}
 					break;
 
 				case 'installer_html':
-					$path = $this->getCfg('absolute_path').DS.ADMINISTRATOR_DIRECTORY."/components/com_installer/$option/$option.html.php";
+					$path = JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY."/components/com_installer/$option/$option.html.php";
 					if(file_exists($path)) {
 						$result = $path;
 					}
 					break;
 
 				case 'installer_class':
-					$path = $this->getCfg('absolute_path').DS.ADMINISTRATOR_DIRECTORY."/components/com_installer/$option/$option.class.php";
+					$path = JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY."/components/com_installer/$option/$option.class.php";
 					if(file_exists($path)) {
 						$result = $path;
 					}
@@ -2499,14 +2490,12 @@ class mosModule extends mosDBTable {
 			$template_dir = 'templates'.DS. $mainframe->getTemplate() .DS.'html/modules'.DS.$this->module;
 		}
 
-		$absolute_path = $mainframe->getCfg('absolute_path');
-
 		if($params->get('template')){
-			if (is_file($absolute_path . DS . $template_dir . DS . $params->get('template'))){
-				$this->template = $absolute_path . DS . $template_dir . DS . $params->get('template');
+			if (is_file(JPATH_BASE . DS . $template_dir . DS . $params->get('template'))){
+				$this->template = JPATH_BASE . DS . $template_dir . DS . $params->get('template');
 				return true;
-			}else if (is_file($absolute_path . DS . $default_template)){
-				$this->template = $absolute_path . DS . $default_template;
+			}else if (is_file(JPATH_BASE . DS . $default_template)){
+				$this->template = JPATH_BASE . DS . $default_template;
 				return true;
 			}
 		}
@@ -2517,7 +2506,7 @@ class mosModule extends mosDBTable {
 	function set_template_custom($template){
 		$mainframe = &mosMainFrame::getInstance();
 
-		$template_file = $mainframe->getCfg('absolute_path').DS.'templates'.DS. $mainframe->getTemplate() .DS.'html/user_modules'.DS.$template;
+		$template_file = JPATH_BASE.DS.'templates'.DS. $mainframe->getTemplate() .DS.'html/user_modules'.DS.$template;
 
 		if (is_file($template_file)) {
 			$this->template = $template_file;
@@ -2527,10 +2516,9 @@ class mosModule extends mosDBTable {
 	}
 
 	function get_helper(){
-		$config = &Jconfig::getInstance();
 
 		$help_file = 'modules'.DS.$this->module.DS.'helper.php';
-		$file = $config->config_absolute_path . DS . $help_file;
+		$file = JPATH_BASE. DS . $help_file;
 
 		if (is_file($file)) {
 			require_once($file);
@@ -3191,7 +3179,7 @@ class mosHTML {
 		$config = &Jconfig::getInstance();
 
 		if( !$params ||  ($params->get('back_button')==1 && !$params->get('popup') && !$hide_js) || ($params->get('back_button') == -1 && $config->config_back_button == 1 ) ){
-			include_once($config->config_absolute_path.'/templates/system/back_button.php');
+			include_once(JPATH_BASE.'/templates/system/back_button.php');
 		}else{
 			return false;
 		}
@@ -3208,9 +3196,9 @@ class mosHTML {
 		}
 
 		$image = '';
-		if(is_file($mainframe->getCfg('absolute_path').$path.$file)) {
+		if(is_file(JPATH_BASE.$path.$file)) {
 			$image = $mainframe->getCfg('live_site').$path.$file;
-		} elseif(is_file($mainframe->getCfg('absolute_path').'/'.$directory.'/'.$file)) {
+		} elseif(is_file(JPATH_BASE.DS.$directory.DS.$file)) {
 			$image = $mainframe->getCfg('live_site').'/'.$directory.'/'.$file;
 		}
 		if($image) {
@@ -3361,10 +3349,10 @@ class mosHTML {
 }
 
 // класс работы с контентом
-require_once(Jconfig::getInstance()->config_absolute_path.'/components/com_content/content.class.php');
+require_once(JPATH_BASE.'/components/com_content/content.class.php');
 
 // класс работы с пользователями
-require_once(Jconfig::getInstance()->config_absolute_path.'/components/com_users/users.class.php');
+require_once(JPATH_BASE.'/components/com_users/users.class.php');
 
 /**
 * Utility function to return a value from a named array or a specified default
@@ -3916,8 +3904,8 @@ function mosCreateMail($from = '',$fromname = '',$subject,$body) {
 
 	$config = &Jconfig::getInstance();
 
-	$mail->PluginDir = $config->config_absolute_path.DS.'includes/libraries/phpmailer/';
-	$mail->SetLanguage(_LANGUAGE,$config->config_absolute_path.DS.'includes/libraries/phpmailer/language/');
+	$mail->PluginDir = JPATH_BASE.DS.'includes/libraries/phpmailer/';
+	$mail->SetLanguage(_LANGUAGE,JPATH_BASE.DS.'includes/libraries/phpmailer/language/');
 	$mail->CharSet = substr_replace(_ISO,'',0,8);
 	$mail->IsMail();
 	$mail->From = $from?$from:$config->config_mailfrom;
@@ -4328,7 +4316,7 @@ class mosMambotHandler {
 	function loadBot($folder,$element,$published,$params = '') {
 		global $_MAMBOTS;
 
-		$path_bot = Jconfig::getInstance()->config_absolute_path.DS.'mambots';
+		$path_bot = JPATH_BASE.DS.'mambots';
 
 		$path = $path_bot.DS.$folder.DS.$element.'.php';
 		if(file_exists($path)) {
@@ -4471,15 +4459,18 @@ class mosTabs {
 			$js_f = 'tabpane_mini.js';
 		}
 		
-		$r_dir = ''; if($mainframe->_isAdmin==1){$r_dir = '/'.ADMINISTRATOR_DIRECTORY;}
+		$r_dir = '';
+		if($mainframe->_isAdmin==1){
+			$r_dir = '/'.ADMINISTRATOR_DIRECTORY;
+		}
 		$css_dir = $r_dir.'/templates/'.$mainframe->getTemplate().'/css';
-		if(!is_file($config->config_absolute_path.'/'.$css_dir.'/'.$css_f)){
-			$css_dir = 	'/includes/js/tabs';
+		if(!is_file(JPATH_BASE.DS.$css_dir.DS.$css_f)){
+			$css_dir = '/includes/js/tabs';
 		}	
 		
 		$css = '<link rel="stylesheet" type="text/css" media="all" href="'.$config->config_live_site.'/'.$css_dir.'/'.$css_f.'" id="luna-tab-style-sheet" />';
 		$js = '<script type="text/javascript" src="'.$config->config_live_site.'/includes/js/tabs/'.$js_f.'"></script>';
-		/* boston, хак, запрет повторного включения css и js файлов в документ*/
+		/* запрет повторного включения css и js файлов в документ*/
 		if(!defined('_MTABS_LOADED')) {
 			define('_MTABS_LOADED',1);
 
@@ -4863,7 +4854,7 @@ class mosAdminMenus {
 			$javascript = "onchange=\"javascript:if (document.forms[0].image.options[selectedIndex].value!='') {document.imagelib.src='..$directory/' + document.forms[0].image.options[selectedIndex].value} else {document.imagelib.src='../images/blank.png'}\"";
 		}
 
-		$imageFiles = mosReadDirectory(Jconfig::getInstance()->config_absolute_path.$directory);
+		$imageFiles = mosReadDirectory(JPATH_BASE.$directory);
 		$images = array(mosHTML::makeOption('','- '._CHOOSE_IMAGE.' -'));
 		foreach($imageFiles as $file) {
 			if(eregi("bmp|gif|jpg|png",$file)) {
@@ -5069,7 +5060,7 @@ class mosAdminMenus {
 
 		if($folders[0]->value != '*0*') {
 			foreach($folders as $folder) {
-				$imagePath = Jconfig::getInstance()->config_absolute_path.'/images/stories'.$folder->value;
+				$imagePath = JPATH_BASE.'/images/stories'.$folder->value;
 				$imgFiles = mosReadDirectory($imagePath);
 				$folderPath = $folder->value.'/';
 
@@ -5180,7 +5171,7 @@ class mosAdminMenus {
 			if($param == -1) {
 				$image = '';
 			} else {
-				if(file_exists($config->config_absolute_path.$path.$file)) {
+				if(file_exists(JPATH_BASE.$path.$file)) {
 					$image = $config->config_live_site.$path.$file;
 				} else {
 					$image = $config->config_live_site.$directory.$file;
@@ -5262,7 +5253,7 @@ class mosAdminMenus {
 	*/
 	function menuItem($item) {
 
-		$path = Jconfig::getInstance()->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY.'/components/com_menus/'.$item.'/';
+		$path = JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY.'/components/com_menus/'.$item.'/';
 		include_once ($path.$item.'.class.php');
 		include_once ($path.$item.'.menu.html.php');
 	}
@@ -5481,7 +5472,7 @@ class mosCommonHTML {
 			$mainframe = MosMainFrame::getInstance();
 			$mainframe->addCSS($mainframe->getCfg('live_site').'/includes/js/calendar/calendar-mos.css');
 			$mainframe->addJS($mainframe->getCfg('live_site').'/includes/js/calendar/calendar_mini.js');
-			$_lang_file = $mainframe->getCfg('absolute_path').'/includes/js/calendar/lang/calendar-'._LANGUAGE.'.js';
+			$_lang_file = JPATH_BASE.'/includes/js/calendar/lang/calendar-'._LANGUAGE.'.js';
 			$_lang_file = (is_file($_lang_file)) ? $mainframe->getCfg('live_site').'/includes/js/calendar/lang/calendar-'._LANGUAGE.'.js' : $mainframe->getCfg('live_site').'/includes/js/calendar/lang/calendar-ru.js';
 			$mainframe->addJS($_lang_file);
 		}
@@ -5758,8 +5749,8 @@ if(window.attachEvent){
 		$file_system = 'M_images/'.$file;
 
 		$return = $file_templ;
-		if(!is_file($mainframe->getCfg('absolute_path').DS.$file_templ)){
-			$return = $file_system;	
+		if(!is_file(JPATH_BASE.DS.$file_templ)){
+			$return = $file_system;
 		}
 		
 		return $return;
@@ -5805,7 +5796,7 @@ function mosSendAdminMail($adminName,$adminEmail,$email,$type,$title='',$author=
 * Includes pathway file
 */
 function mosPathWay() {
-	require_once (Jconfig::getInstance()->config_absolute_path.'/includes/pathway.php');
+	require_once (JPATH_BASE.'/includes/pathway.php');
 }
 
 /**
@@ -5970,79 +5961,6 @@ function josGetArrayInts($name,$type = null) {
 }
 
 /**
-* Utility class for helping with patTemplate
-*/
-class patHTML {
-	/**
-	* Converts a named array to an array or named rows suitable to option lists
-	* @param array The source array[key] = value
-	* @param mixed A value or array of selected values
-	* @param string The name for the value field
-	* @param string The name for selected attribute (use 'checked' for radio of box lists)
-	*/
-	function selectArray(&$source,$selected = null,$valueName = 'value',$selectedAttr ='selected') {
-		if(!is_array($selected)) {
-			$selected = array($selected);
-		}
-		foreach($source as $i => $row) {
-			if(is_object($row)) {
-				$source[$i]->selected = in_array($row->$valueName,$selected)?$selectedAttr.'="true"':'';
-			} else {
-				$source[$i]['selected'] = in_array($row[$valueName],$selected)?$selectedAttr.'="true"':'';
-			}
-		}
-	}
-	/**
-	* Converts a named array to an array or named rows suitable to checkbox or radio lists
-	* @param array The source array[key] = value
-	* @param mixed A value or array of selected values
-	* @param string The name for the value field
-	*/
-	function checkArray(&$source,$selected = null,$valueName = 'value') {
-		patHTML::selectArray($source,$selected,$valueName,'checked');
-	}
-	/**
-	* @param mixed The value for the option
-	* @param string The text for the option
-	* @param string The name of the value parameter (default is value)
-	* @param string The name of the text parameter (default is text)
-	*/
-	function makeOption($value,$text,$valueName = 'value',$textName = 'text') {
-		return array($valueName => $value,$textName => $text);
-	}
-	/**
-	* Writes a radio pair
-	* @param object Template object
-	* @param string The template name
-	* @param string The field name
-	* @param int The value of the field
-	* @param array Array of options
-	* @param string Optional template variable name
-	*/
-	function radioSet(&$tmpl,$template,$name,$value,$a,$varname = null) {
-		patHTML::checkArray($a,$value);
-		$tmpl->addVar('radio-set','name',$name);
-		$tmpl->addRows('radio-set',$a);
-		$tmpl->parseIntoVar('radio-set',$template,is_null($varname)?$name:$varname);
-	}
-	/**
-	* Writes a radio pair
-	* @param object Template object
-	* @param string The template name
-	* @param string The field name
-	* @param int The value of the field
-	* @param string Optional template variable name
-	*/
-	function yesNoRadio(&$tmpl,$template,$name,$value,$varname = null) {
-		$a = array(
-			patHTML::makeOption(0,'Нет'),
-			patHTML::makeOption(1,'Да')
-		);
-		patHTML::radioSet($tmpl,$template,$name,$value,$a,$varname);
-	}
-}
-
-/**
 * Provides a secure hash based on a seed
 * @param string Seed string
 * @return string
@@ -6059,8 +5977,8 @@ function mosBackTrace() {
 	if(function_exists('debug_backtrace')) {
 		echo '<div align="left">';
 		foreach(debug_backtrace() as $back) {
-			if(@$back['file']) {
-				echo '<br />'.str_replace($GLOBALS['mosConfig_absolute_path'],'',$back['file']).':'.$back['line'];
+			if(isset($back['file'])) {
+				echo '<br />'.str_replace(JPATH_BASE,'',$back['file']).':'.$back['line'];
 			}
 		}
 		echo '</div>';
@@ -6502,10 +6420,9 @@ class myFunctions{
 	function start_user_function(){
 		$mainframe = &mosMainFrame::getInstance();
 		if($mainframe->isAdmin()){ 
-			$class = 'myLibAdmin';	
-		}
-		else{
-			$class = 'myLib';	
+			$class = 'myLibAdmin';
+		}else{
+			$class = 'myLib';
 		}
 		return call_user_func(array($class, $this->func), $this->obj);	
 	}
@@ -6615,7 +6532,7 @@ function _optimizetables() {
 	$database->setQuery('SHOW TABLES FROM `'.$config->config_db.'`');
 	$tables = $database->loadResultArray();
 	foreach($tables as $table) {
-		$database->setQuery('OPTIMIZE TABLE `$table`;');
+		$database->setQuery("OPTIMIZE TABLE `$table`;");
 		$database->query();
 	}
 	return;

@@ -1,12 +1,12 @@
 <?php /**
  * @package Joostina
- * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
- * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
- * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
- * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ * @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+ * @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+ * Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+ * Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
  */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined('_VALID_MOS') or die(); ?>
 <script type="text/javascript">
 	var _com_content_url = '<?php echo Jconfig::getInstance()->config_live_site; ?>/components/com_content';
@@ -181,11 +181,11 @@ class HTML_content {
 		if(!$items) {
 			$page_type = 'section_catlist';
 			$templates = $params->section_data->templates;
-			//include_once($mosConfig_absolute_path.'/components/com_content/view/section/catlist/default.php');
+			//include_once(JPATH_BASE.'/components/com_content/view/section/catlist/default.php');
 		} else {
 			$page_type = 'category_table';
 			$templates = $params->category_data->templates;
-			//include_once($mosConfig_absolute_path.'/components/com_content/view/category/table/default.php');
+			//include_once(JPATH_BASE.'/components/com_content/view/category/table/default.php');
 		}
 
 
@@ -202,14 +202,14 @@ class HTML_content {
 	 * Display links to categories
 	 */
 	function showCategories(&$params, &$items, $gid, &$other_categories, $catid, $id, $Itemid) {
-		//подключается шаблон
+		//РїРѕРґРєР»СЋС‡Р°РµС‚СЃСЏ С€Р°Р±Р»РѕРЅ
 	}
 
 	/**
 	 * Display Table of items
 	 */
 	function showTable(&$params, &$items, &$gid, $catid, $id, &$pageNav, &$access, &$sectionid, &$lists, $order) {
-		//подключается шаблон /components/com_content/view/table_of_items/default.php
+		//РїРѕРґРєР»СЋС‡Р°РµС‚СЃСЏ С€Р°Р±Р»РѕРЅ /components/com_content/view/table_of_items/default.php
 	}
 
 	/**
@@ -257,10 +257,10 @@ class HTML_content {
 	<?php }
 
 	/**
-	 * Отображение содержимого
+	 * РћС‚РѕР±СЂР°Р¶РµРЅРёРµ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ
 	 * @param object An object with the record
 	 * @param boolean If <code>false</code>, the print button links to a popup window.  If <code>true</code> then the print button invokes the browser print method.
-	 * boston + хак отключения мамботов группы content
+	 * boston + С…Р°Рє РѕС‚РєР»СЋС‡РµРЅРёСЏ РјР°РјР±РѕС‚РѕРІ РіСЂСѓРїРїС‹ content
 	 */
 	function show(&$row, &$params, &$access, $page = 0, $_template = '') {
 		global $hide_js, $_MAMBOTS;
@@ -268,7 +268,7 @@ class HTML_content {
 
 		$mainframe = &mosMainFrame::getInstance();
 
-		// уникальные идентификаторы новостей
+		// СѓРЅРёРєР°Р»СЊРЅС‹Рµ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂС‹ РЅРѕРІРѕСЃС‚РµР№
 		$news_uid_css_title = '';
 		$news_uid_css_body = '';
 		if($mainframe->getCfg('uid_news')) {
@@ -277,7 +277,7 @@ class HTML_content {
 			$news_uid_css_body = 'id="body-news-uid-'.$news_uid.'" ';
 		}
 
-		// получение параметров текущего содержимого
+		// РїРѕР»СѓС‡РµРЅРёРµ РїР°СЂР°РјРµС‚СЂРѕРІ С‚РµРєСѓС‰РµРіРѕ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ
 		$cur_params = new mosParameters($row->attribs);
 		$news_uid_css_page = $cur_params->get('pageclass_uids');
 		if($cur_params->get('pageclass_uids_full') && trim($news_uid_css_page) != '') {
@@ -285,7 +285,7 @@ class HTML_content {
 			$news_uid_css_body = 'id="body-news-'.$news_uid_css_page.'" ';
 		}
 
-		// расчет Itemid
+		// СЂР°СЃС‡РµС‚ Itemid
 		HTML_content::_Itemid($row);
 		// determines the link and `link text` of the readmore button & linked title
 		HTML_content::_linkInfo($row, $params);
@@ -296,13 +296,13 @@ class HTML_content {
 
 		$row->title = HTML_content::Title($row, $params, $access);
 
-		// обработка контента ботами, если в глобальной конфигурации они отключены - то мамботы не используем
+		// РѕР±СЂР°Р±РѕС‚РєР° РєРѕРЅС‚РµРЅС‚Р° Р±РѕС‚Р°РјРё, РµСЃР»Рё РІ РіР»РѕР±Р°Р»СЊРЅРѕР№ РєРѕРЅС„РёРіСѓСЂР°С†РёРё РѕРЅРё РѕС‚РєР»СЋС‡РµРЅС‹ - С‚Рѕ РјР°РјР±РѕС‚С‹ РЅРµ РёСЃРїРѕР»СЊР·СѓРµРј
 		if($mainframe->getCfg('mmb_content_off') != 1) {
 			$_MAMBOTS->loadBotGroup('content');
 			$results = $_MAMBOTS->trigger('onPrepareContent', array(&$row, &$params, $page), true);
 		}
 
-		//зануляем
+		//Р·Р°РЅСѓР»СЏРµРј
 		$loadbot_onAfterDisplayTitle = '';
 		$loadbot_onBeforeDisplayContent = '';
 
@@ -334,9 +334,9 @@ class HTML_content {
 		$results_onAfterDisplayContent = $_MAMBOTS->trigger('onAfterDisplayContent', array(&$row, &$params, $page));
 		$loadbot_onAfterDisplayContent = trim(implode("\n", $results_onAfterDisplayContent));
 
-		//если 'template' задано - значит выводится интро записи в блоге,
-		//поэтому никаких дополнительных манипуляций не требуется,
-		// так как имя шаблона задается непосредственно в шаблоне блога раздела или категории
+		//РµСЃР»Рё 'template' Р·Р°РґР°РЅРѕ - Р·РЅР°С‡РёС‚ РІС‹РІРѕРґРёС‚СЃСЏ РёРЅС‚СЂРѕ Р·Р°РїРёСЃРё РІ Р±Р»РѕРіРµ,
+		//РїРѕСЌС‚РѕРјСѓ РЅРёРєР°РєРёС… РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹С… РјР°РЅРёРїСѓР»СЏС†РёР№ РЅРµ С‚СЂРµР±СѓРµС‚СЃСЏ,
+		// С‚Р°Рє РєР°Рє РёРјСЏ С€Р°Р±Р»РѕРЅР° Р·Р°РґР°РµС‚СЃСЏ РЅРµРїРѕСЃСЂРµРґСЃС‚РІРµРЅРЅРѕ РІ С€Р°Р±Р»РѕРЅРµ Р±Р»РѕРіР° СЂР°Р·РґРµР»Р° РёР»Рё РєР°С‚РµРіРѕСЂРёРё
 		if($params->get('page_type')=='item_intro_simple' || $params->get('page_type')=='item_intro_leading') {
 			
 			$template = new ContentTemplate();
@@ -345,22 +345,22 @@ class HTML_content {
 			include ($template->template_file);
 			//include ($mainframe->getCfg('absolute_path').'/components/com_content/view/item/'.$template);
 		}
-		//иначе - это страница записи и нужно определить, какой шаблон  использовать для вывода
+		//РёРЅР°С‡Рµ - СЌС‚Рѕ СЃС‚СЂР°РЅРёС†Р° Р·Р°РїРёСЃРё Рё РЅСѓР¶РЅРѕ РѕРїСЂРµРґРµР»РёС‚СЊ, РєР°РєРѕР№ С€Р°Р±Р»РѕРЅ  РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РґР»СЏ РІС‹РІРѕРґР°
 		else {
 			$template = new ContentTemplate();
 			$templates = null;
 
-			//если это статичное содержимое или у записи задан шаблон
+			//РµСЃР»Рё СЌС‚Рѕ СЃС‚Р°С‚РёС‡РЅРѕРµ СЃРѕРґРµСЂР¶РёРјРѕРµ РёР»Рё Сѓ Р·Р°РїРёСЃРё Р·Р°РґР°РЅ С€Р°Р±Р»РѕРЅ
 			if(!$row->sectionid || $row->templates) {
 				if($row->templates) {
 					$templates = $row->templates;
 				}
 			}
-			//иначе - проверяем настройки категории, возможно, шаблон задан там
+			//РёРЅР°С‡Рµ - РїСЂРѕРІРµСЂСЏРµРј РЅР°СЃС‚СЂРѕР№РєРё РєР°С‚РµРіРѕСЂРёРё, РІРѕР·РјРѕР¶РЅРѕ, С€Р°Р±Р»РѕРЅ Р·Р°РґР°РЅ С‚Р°Рј
 			elseif($template->isset_settings($params->page_type, $params->category_data->templates)) {
 				$templates = $params->category_data->templates;
 			}
-			//иначе - проверяем настройки раздела
+			//РёРЅР°С‡Рµ - РїСЂРѕРІРµСЂСЏРµРј РЅР°СЃС‚СЂРѕР№РєРё СЂР°Р·РґРµР»Р°
 			elseif($template->isset_settings($params->page_type, $params->section_data->templates)) {
 				$templates = $params->section_data->templates;
 			}
@@ -428,7 +428,7 @@ class HTML_content {
 	}
 
 	/**
-	 * Вывод заголовка
+	 * Р’С‹РІРѕРґ Р·Р°РіРѕР»РѕРІРєР°
 	 */
 	function Title(&$row, &$params, &$access = null) {
 		global $task;
@@ -440,7 +440,7 @@ class HTML_content {
 
 		if($params->get('item_title')) {
 
-			// Проверяем, нужно ли делать заголовки ссылками
+			// РџСЂРѕРІРµСЂСЏРµРј, РЅСѓР¶РЅРѕ Р»Рё РґРµР»Р°С‚СЊ Р·Р°РіРѕР»РѕРІРєРё СЃСЃС‹Р»РєР°РјРё
 			if($params->get('link_titles') && $row->link_on != '') {
 				$row->title = '<a href="'.$row->link_on.'" title="'.$row->title.'" class="contentpagetitle">'.$row->title.'</a>';
 			}
@@ -687,7 +687,7 @@ class HTML_content {
 
 		mosMakeHtmlSafe($row);
 
-		//Загрузка скрипта ajax-валидации
+		//Р—Р°РіСЂСѓР·РєР° СЃРєСЂРёРїС‚Р° ajax-РІР°Р»РёРґР°С†РёРё
 		mosCommonHTML::loadJqueryPlugins('jquery.validate');
 		mosCommonHTML::loadCalendar();
 
@@ -702,21 +702,21 @@ class HTML_content {
 			$section_id = $s_id;
 		}
 
-		// параметры полученные из настроек ссылки в меню
+		// РїР°СЂР°РјРµС‚СЂС‹ РїРѕР»СѓС‡РµРЅРЅС‹Рµ РёР· РЅР°СЃС‚СЂРѕРµРє СЃСЃС‹Р»РєРё РІ РјРµРЅСЋ
 		$params = $page->params;
 
-		$p_wwig = $params->get('wwig', 1); // использование визуального редактора
-		$wwig_buttons = $params->get('wwig_buttons', 0); // отображение кнопок под визуальным редактором
-		$content_type = $params->get('content_type', 1); // тип контента
-		$p_fulltext = $params->get('fulltext', 1); // отображать поле полного основного текста
-		$allow_alias = $params->get('allow_alias', 0); // отображать поле "Псевдоним заголовка"
-		$allow_info = $params->get('allow_info', 1); // отображать информацию о записе
-		$allow_params = $params->get('allow_params', 1); // отображать вкладку "параметры"
-		$allow_desc = $params->get('allow_desc', 1); // отображать поле "Описание"
-		$allow_tags = $params->get('allow_tags', 1); // отображать поле "Ключевые слова"
-		$auto_publish = $params->get('auto_publish', 0); // настройки автопубликации
-		$allow_frontpage = $params->get('allow_frontpage', 0); // переключатель "На главной"
-		$front_label = $params->get('front_label', _E_SHOW_FP); // подпись переключателя "На главной"
+		$p_wwig = $params->get('wwig', 1); // РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РІРёР·СѓР°Р»СЊРЅРѕРіРѕ СЂРµРґР°РєС‚РѕСЂР°
+		$wwig_buttons = $params->get('wwig_buttons', 0); // РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ РєРЅРѕРїРѕРє РїРѕРґ РІРёР·СѓР°Р»СЊРЅС‹Рј СЂРµРґР°РєС‚РѕСЂРѕРј
+		$content_type = $params->get('content_type', 1); // С‚РёРї РєРѕРЅС‚РµРЅС‚Р°
+		$p_fulltext = $params->get('fulltext', 1); // РѕС‚РѕР±СЂР°Р¶Р°С‚СЊ РїРѕР»Рµ РїРѕР»РЅРѕРіРѕ РѕСЃРЅРѕРІРЅРѕРіРѕ С‚РµРєСЃС‚Р°
+		$allow_alias = $params->get('allow_alias', 0); // РѕС‚РѕР±СЂР°Р¶Р°С‚СЊ РїРѕР»Рµ "РџСЃРµРІРґРѕРЅРёРј Р·Р°РіРѕР»РѕРІРєР°"
+		$allow_info = $params->get('allow_info', 1); // РѕС‚РѕР±СЂР°Р¶Р°С‚СЊ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ Р·Р°РїРёСЃРµ
+		$allow_params = $params->get('allow_params', 1); // РѕС‚РѕР±СЂР°Р¶Р°С‚СЊ РІРєР»Р°РґРєСѓ "РїР°СЂР°РјРµС‚СЂС‹"
+		$allow_desc = $params->get('allow_desc', 1); // РѕС‚РѕР±СЂР°Р¶Р°С‚СЊ РїРѕР»Рµ "РћРїРёСЃР°РЅРёРµ"
+		$allow_tags = $params->get('allow_tags', 1); // РѕС‚РѕР±СЂР°Р¶Р°С‚СЊ РїРѕР»Рµ "РљР»СЋС‡РµРІС‹Рµ СЃР»РѕРІР°"
+		$auto_publish = $params->get('auto_publish', 0); // РЅР°СЃС‚СЂРѕР№РєРё Р°РІС‚РѕРїСѓР±Р»РёРєР°С†РёРё
+		$allow_frontpage = $params->get('allow_frontpage', 0); // РїРµСЂРµРєР»СЋС‡Р°С‚РµР»СЊ "РќР° РіР»Р°РІРЅРѕР№"
+		$front_label = $params->get('front_label', _E_SHOW_FP); // РїРѕРґРїРёСЃСЊ РїРµСЂРµРєР»СЋС‡Р°С‚РµР»СЏ "РќР° РіР»Р°РІРЅРѕР№"
 
 		if($p_wwig) {
 			$mainframe->set('allow_wysiwyg', 1);
@@ -739,11 +739,11 @@ class HTML_content {
 		}
 		$good_exit_link = sefRelToAbs($good_exit_link);
 
-		//Если это редактирование статичного содержимого - подключаем шаблон item/edit/static.php
+		//Р•СЃР»Рё СЌС‚Рѕ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ СЃС‚Р°С‚РёС‡РЅРѕРіРѕ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ - РїРѕРґРєР»СЋС‡Р°РµРј С€Р°Р±Р»РѕРЅ item/edit/static.php
 		if($task == 'edit' && $row->sectionid == 0) {
 			include ($mainframe->getCfg('absolute_path').DS.'components/com_content/view/item/edit/static.php');
 			return;
-		}else { //иначе - проверяем, задан ли шаблон в настройках раздела
+		}else { //РёРЅР°С‡Рµ - РїСЂРѕРІРµСЂСЏРµРј, Р·Р°РґР°РЅ Р»Рё С€Р°Р±Р»РѕРЅ РІ РЅР°СЃС‚СЂРѕР№РєР°С… СЂР°Р·РґРµР»Р°
 			$template = new ContentTemplate();
 			$templates = null;
 
@@ -755,7 +755,7 @@ class HTML_content {
 			include_once ($template->template_file);
 		}
 
-		//include($mosConfig_absolute_path.'/components/com_content/view/item/edit_form/'.$template);
+		//include(JPATH_BASE.'/components/com_content/view/item/edit_form/'.$template);
 	}
 
 	/**
@@ -844,7 +844,7 @@ class HTML_content {
 	}
 
 	function _after_create_content($row) { ?>
-		Усё пучкомм
+		РЈСЃС‘ РїСѓС‡РєРѕРјРј
 	<?php
 	}
 }

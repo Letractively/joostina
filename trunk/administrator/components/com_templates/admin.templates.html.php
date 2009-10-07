@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright а«аВбІаОбЂб±аКаИаЕ аПбЂаАаВаА (C) 2008-2009 Joostina team. аҐб±аЕ аПбЂаАаВаА аЗаАбЃаИбЃаЕаНб‚.
+* @license а‹аИб†аЕаНаЗаИбЅ http://www.gnu.org/copyleft/gpl.html GNU/GPL, аИаЛаИ help/license.php
+* Joostina! - б±аВаОаБаОаДаНаОаЕ аПбЂаОаГбЂаАаМаМаНаОаЕ аОаБаЕб±аПаЕбµаЕаНаИаЕ бЂаАб±аПбЂаОб±бІбЂаАаНбЅаЕаМаОаЕ аПаО біб±аЛаОаВаИбЅаМ аЛаИб†аЕаНаЗаИаИ GNU/GPL
+* аѕаЛбЅ аПаОаЛбібµаЕаНаИбЅ аИаНбґаОбЂаМаАб†аИаИ аО аИб±аПаОаЛб аЗбіаЕаМб‚б… бЂаАб±б¶аИбЂаЕаНаИбЅб… аИ аЗаАаМаЕбµаАаНаИаЙ аОаБ аАаВбІаОбЂб±аКаОаМ аПбЂаАаВаЕ, б±аМаОбІбЂаИбІаЕ бґаАаЙаЛ help/copyright.php.
 */
 
-// запрет прямого доступа
+// аЗаАаПбЂаЕбІ аПбЂбЅаМаОаГаО аДаОб±бІбіаПаА
 defined('_VALID_MOS') or die();
 
 /**
@@ -148,9 +148,9 @@ class HTML_templates {
 	* @param string The option
 	*/
 	function editTemplateSource($template,&$content,$option,$client) {
-		global $mosConfig_absolute_path,$mosConfig_codepress;
-		$template_path = $mosConfig_absolute_path.($client == 'admin'?'/'.ADMINISTRATOR_DIRECTORY:'').'/templates/'.$template.'/index.php';
-		/* подключение js файла codepress*/
+		global $mosConfig_codepress;
+		$template_path = JPATH_BASE.($client == 'admin'?'/'.ADMINISTRATOR_DIRECTORY:'').'/templates/'.$template.'/index.php';
+		/* аПаОаДаКаЛбѓбµаЕаНаИаЕ js бґаАаЙаЛаА codepress*/
 		if($mosConfig_codepress) mosCommonHTML::loadCodepress();
 ?>
 		<script language="javascript" type="text/javascript">
@@ -165,7 +165,7 @@ class HTML_templates {
 				form: 'adminForm',
 				callback:
 					function(resp){
-						log('Получен ответ: ' + resp.responseText);
+						log('аЌаОаЛбібµаЕаН аОбІаВаЕбІ: ' + resp.responseText);
 						mess_cool(resp.responseText);
 						SRAX.get('tb-apply').className='tb-apply';
 			}});
@@ -231,9 +231,9 @@ class HTML_templates {
 	* @param string The option
 	*/
 	function editCSSSource($template,&$content,$option,$client) {
-		global $mosConfig_absolute_path,$mosConfig_codepress;
-		$css_path = $mosConfig_absolute_path.($client == 'admin'?'/'.ADMINISTRATOR_DIRECTORY:'').'/templates/'.$template.'/css/template_css.css';
-		/* подключение js файла codepress*/
+		global $mosConfig_codepress;
+		$css_path = JPATH_BASE.($client == 'admin'?'/'.ADMINISTRATOR_DIRECTORY:'').'/templates/'.$template.'/css/template_css.css';
+		/* аПаОаДаКаЛбѓбµаЕаНаИаЕ js бґаАаЙаЛаА codepress*/
 		if($mosConfig_codepress) mosCommonHTML::loadCodepress();
 ?>
 		<script language="javascript" type="text/javascript">
@@ -248,7 +248,7 @@ class HTML_templates {
 				form: 'adminForm',
 				callback:
 					function(resp){
-						log('Получен ответ: ' + resp.responseText);
+						log('аЌаОаЛбібµаЕаН аОбІаВаЕбІ: ' + resp.responseText);
 						mess_cool(resp.responseText);
 						SRAX.get('tb-apply').className='tb-apply';
 			}});

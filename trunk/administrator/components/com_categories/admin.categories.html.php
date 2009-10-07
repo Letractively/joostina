@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined('_VALID_MOS') or die();
 /**
 * @package Joostina
@@ -27,29 +27,29 @@ class categories_html {
 		mosCommonHTML::loadOverlib();
 ?>
 	<script type="text/javascript">
-	// получение списка разделов
+	// РїРѕР»СѓС‡РµРЅРёРµ СЃРїРёСЃРєР° СЂР°Р·РґРµР»РѕРІ
 	function ch_get_sec(elID,curSEC){
-		log('Получение списка разделов для категории: '+elID+' текущий раздел: '+curSEC);
+		log('РџРѕР»СѓС‡РµРЅРёРµ СЃРїРёСЃРєР° СЂР°Р·РґРµР»РѕРІ РґР»СЏ РєР°С‚РµРіРѕСЂРёРё: '+elID+' С‚РµРєСѓС‰РёР№ СЂР°Р·РґРµР»: '+curSEC);
 		SRAX.replaceHtml('cat-id-'+elID,'<div style="text-align:center;"><img src="images/aload.gif" /></div>');
 		dax({
 			url: 'ajax.index.php?option=com_categories&utf=1&task=get_sec&id='+elID+'&cur_sec='+curSEC,
 			id:'publ-'+elID,
 			callback:
 				function(resp, idTread, status, ops){
-					log('Получен ответ: ' + resp.responseText);
+					log('РџРѕР»СѓС‡РµРЅ РѕС‚РІРµС‚: ' + resp.responseText);
 					SRAX.replaceHtml('cat-id-'+elID,resp.responseText);
 		}});
 	};
-	// смена раздела категории
+	// СЃРјРµРЅР° СЂР°Р·РґРµР»Р° РєР°С‚РµРіРѕСЂРёРё
 	function ch_save_sec(elID,newSEC){
-		log('Смена раздела категории: '+elID+' на '+newSEC);
+		log('РЎРјРµРЅР° СЂР°Р·РґРµР»Р° РєР°С‚РµРіРѕСЂРёРё: '+elID+' РЅР° '+newSEC);
 		SRAX.replaceHtml('cat-id-'+elID,'<div style="text-align:center;"><img src="images/aload.gif" /></div>');
 		dax({
 			url: 'ajax.index.php?option=com_categories&utf=1&task=save_sec&id='+elID+'&new_sec='+newSEC,
 			id:'publ-'+elID,
 			callback:
 				function(resp, idTread, status, ops){
-					log('Получен ответ: ' + resp.responseText);
+					log('РџРѕР»СѓС‡РµРЅ РѕС‚РІРµС‚: ' + resp.responseText);
 					if(resp.responseText==2)
 						SRAX.replaceHtml('cat-id-'+elID,'<div style="text-align:center;"><img src="<?php echo $cur_file_icons_path;?>/error.png" /></div>');
 					else
@@ -91,7 +91,7 @@ class categories_html {
 ?>
 			<th width="2%"><?php echo _ORDER_DROPDOWN?></th>
 			<th width="1%">
-				<a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="<?php echo $cur_file_icons_path;?>/filesave.png" border="0" width="16" height="16" alt="Сохранить порядок" /></a>
+				<a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="<?php echo $cur_file_icons_path;?>/filesave.png" border="0" width="16" height="16" alt="РЎРѕС…СЂР°РЅРёС‚СЊ РїРѕСЂСЏРґРѕРє" /></a>
 			</th>
 			<th width="8%"><?php echo _ACCESS?></th>
 <?php
@@ -233,7 +233,7 @@ class categories_html {
 				form: 'adminForm',
 				callback:
 					function(resp){
-						log('Получен ответ: ' + resp.responseText);
+						log('РџРѕР»СѓС‡РµРЅ РѕС‚РІРµС‚: ' + resp.responseText);
 						mess_cool(resp.responseText);
 						SRAX.get('tb-apply').className='tb-apply';
 			}});

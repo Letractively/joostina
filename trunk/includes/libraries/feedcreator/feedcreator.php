@@ -1,10 +1,10 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright а«аВбІаОбЂб±аКаИаЕ аПбЂаАаВаА (C) 2008-2009 Joostina team. аҐб±аЕ аПбЂаАаВаА аЗаАбЃаИбЃаЕаНб‚.
+* @license а‹аИб†аЕаНаЗаИбЅ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, аИаЛаИ help/license.php
+* Joostina! - б±аВаОаБаОаДаНаОаЕ аПбЂаОаГбЂаАаМаМаНаОаЕ аОаБаЕб±аПаЕбµаЕаНаИаЕ бЂаАб±аПбЂаОб±бІбЂаАаНбЅаЕаМаОаЕ аПаО біб±аЛаОаВаИбЅаМ аЛаИб†аЕаНаЗаИаИ GNU/GPL
+* аѕаЛбЅ аПаОаЛбібµаЕаНаИбЅ аИаНбґаОбЂаМаАб†аИаИ аО аИб±аПаОаЛб аЗбіаЕаМб‚б… бЂаАб±б¶аИбЂаЕаНаИбЅб… аИ аЗаАаМаЕбµаАаНаИаЙ аОаБ аАаВбІаОбЂб±аКаОаМ аПбЂаАаВаЕ, б±аМаОбІбЂаИбІаЕ бґаАаЙаЛ help/copyright.php.
 * FeedCreator class v1.7.2
 * originally (c) Kai Blankenhorn
 * www.bitfolge.de
@@ -769,7 +769,7 @@ class GoogleSiteMapIndex extends FeedCreator {
 }
 class Yandex extends FeedCreator {
 	function createFeed() {
-		global $mosConfig_live_site,$mosConfig_absolute_path,$mosConfig_sef;
+		global $mosConfig_live_site,$mosConfig_sef;
 		$feed = "<?xml version=\"1.0\" encoding=\"".$this->encoding."\"?>\n";
 		$feed .= "<rss version=\"2.0\"\n";
 		$feed .= "xmlns=\"http://backend.userland.com/rss2\"\n";
@@ -797,7 +797,7 @@ class Yandex extends FeedCreator {
 		for($i = 0; $i < count($this->items); $i++) {
 			$feed .= "<item>\n";
 			$feed .= "<title>".FeedCreator::iTrunc(htmlspecialchars(strip_tags($this->items[$i]->title)),100)."</title>\n";
-			// при отключенном SEF допишем к адресу ленты полный путь от корня
+			// аПбЂаИ аОбІаКаЛбѓбµаЕаНаНаОаМ SEF аДаОаПаИб¶аЕаМ аК аАаДбЂаЕб±бі аЛаЕаНбІб‚ аПаОаЛаНб‚аЙ аПбібІб  аОбІ аКаОбЂаНбЅ
 			//if(!$mosConfig_sef) $this->items[$i]->link = $mosConfig_live_site.'/'.$this->items[$i]->link;
 			$feed .= "<link>".htmlspecialchars($this->items[$i]->link)."</link>\n";
 			$feed .= "<description>".$this->items[$i]->getDescription()."</description>\n";
@@ -810,7 +810,7 @@ class Yandex extends FeedCreator {
 			if(is_array(@$this->items[$i]->images)) {
 				foreach($this->items[$i]->images as $image) {
 					if(function_exists('getimagesize')) {
-						$type = @getimagesize($mosConfig_absolute_path.$image);
+						$type = @getimagesize(JPATH_BASE.$image);
 					} else {
 						$type = array();
 					}

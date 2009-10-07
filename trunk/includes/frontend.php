@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright Àâòîðñêèå ïðàâà (C) 2008-2009 Joostina team. Âñå ïðàâà çàùèùåíû.
-* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
-* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
-* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+* @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2009 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
+* @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
+* Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
+* Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
 */
 
-// çàïðåò ïðÿìîãî äîñòóïà
+// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
 defined('_VALID_MOS') or die();
 /**
 * Displays the capture output of the main element
@@ -41,7 +41,7 @@ function mosMainBody() {
 
 	$_body = $GLOBALS['_MOS_OPTION']['buffer'];
 
-	// àêòèâàöèÿ ìàìáîòîâ ãðóïïû mainbody
+	// Ð°ÐºÑ‚Ð¸Ð²Ð°Ñ†Ð¸Ñ Ð¼Ð°Ð¼Ð±Ð¾Ñ‚Ð¾Ð² Ð³Ñ€ÑƒÐ¿Ð¿Ñ‹ mainbody
 	if($mainframe->getCfg('mmb_mainbody_off') == 0) {
 		global $_MAMBOTS;
 		$_MAMBOTS->loadBotGroup('mainbody');
@@ -285,7 +285,7 @@ function mosLoadModule($name = '', $title = '', $style = 0, $noindex = 0, $inc_p
 }
 
 /**
-* Øàïêà ñòðàíèöû
+* Ð¨Ð°Ð¿ÐºÐ° ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñ‹
 */
 function mosShowHead($params=array('js'=>1,'css'=>1)) {
 	global $option,$my,$_VERSION,$task,$id;
@@ -318,7 +318,7 @@ function mosShowHead($params=array('js'=>1,'css'=>1)) {
 	if(!$keywords) {
 		$mainframe->appendMetaTag('keywords',$mainframe->getCfg('MetaKeys'));
 	}
-/* ýòîò ó÷àñòîê äåëàåò ÷òî-òî ñòðàííîå ñ ìåòà-òýãîì keywords, îí óáåðàåò äóáëè ñëîâ, î÷åíü òîëñòî...
+/* ÑÑ‚Ð¾Ñ‚ ÑƒÑ‡Ð°ÑÑ‚Ð¾Ðº Ð´ÐµÐ»Ð°ÐµÑ‚ Ñ‡Ñ‚Ð¾-Ñ‚Ð¾ ÑÑ‚Ñ€Ð°Ð½Ð½Ð¾Ðµ Ñ Ð¼ÐµÑ‚Ð°-Ñ‚ÑÐ³Ð¾Ð¼ keywords, Ð¾Ð½ ÑƒÐ±ÐµÑ€Ð°ÐµÑ‚ Ð´ÑƒÐ±Ð»Ð¸ ÑÐ»Ð¾Ð², Ð¾Ñ‡ÐµÐ½ÑŒ Ñ‚Ð¾Ð»ÑÑ‚Ð¾...
 	if($_meta_keys_index != -1) {
 		$keys = $mainframe->_head['meta'][$_meta_keys_index][1];
 		$keys = preg_replace("/\,+/is",", ",$keys);
@@ -328,7 +328,7 @@ function mosShowHead($params=array('js'=>1,'css'=>1)) {
 		$mainframe->_head['meta'][$_meta_keys_index][1] = $keys;
 	}
 */
-	// îòêëþ÷åíèå òåãà Generator
+	// Ð¾Ñ‚ÐºÐ»ÑŽÑ‡ÐµÐ½Ð¸Ðµ Ñ‚ÐµÐ³Ð° Generator
 	if($mainframe->getCfg('generator_off') == 0) {
 		$mainframe->addMetaTag('Generator',$_VERSION->CMS.' - '.$_VERSION->COPYRIGHT);
 	}
@@ -348,9 +348,9 @@ function mosShowHead($params=array('js'=>1,'css'=>1)) {
 
 	echo $mainframe->getHead($params);
 
-	// î÷èñòêà ññûëêè íà ãëàâíóþ ñòðàíèöó äàæå ïðè îòêëþ÷åííîì sef
+	// Ð¾Ñ‡Ð¸ÑÑ‚ÐºÐ° ÑÑÑ‹Ð»ÐºÐ¸ Ð½Ð° Ð³Ð»Ð°Ð²Ð½ÑƒÑŽ ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñƒ Ð´Ð°Ð¶Ðµ Ð¿Ñ€Ð¸ Ð¾Ñ‚ÐºÐ»ÑŽÑ‡ÐµÐ½Ð½Ð¾Ð¼ sef
 	if ( $mainframe->getCfg('mtage_base') == 1) {
-		// âû÷èñëåíèå òêóùåãî àäðåñà ñòðàíèöû. Êîä âçÿò èç Joomla 1.5.x
+		// Ð²Ñ‹Ñ‡Ð¸ÑÐ»ÐµÐ½Ð¸Ðµ Ñ‚ÐºÑƒÑ‰ÐµÐ³Ð¾ Ð°Ð´Ñ€ÐµÑÐ° ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñ‹. ÐšÐ¾Ð´ Ð²Ð·ÑÑ‚ Ð¸Ð· Joomla 1.5.x
 		if (isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) && (strtolower($_SERVER['HTTPS']) != 'off')) {
 			$https = 's://';
 		} else {
@@ -375,7 +375,7 @@ function mosShowHead($params=array('js'=>1,'css'=>1)) {
 		<?php
 	}
 
-	// îòêëþ÷åíèå RSS âûâîäà â øàïêó
+	// Ð¾Ñ‚ÐºÐ»ÑŽÑ‡ÐµÐ½Ð¸Ðµ RSS Ð²Ñ‹Ð²Ð¾Ð´Ð° Ð² ÑˆÐ°Ð¿ÐºÑƒ
 
 	if($mainframe->getCfg('syndicate_off')==0) {
 		if($mainframe->getCfg('caching')==1){
@@ -409,7 +409,7 @@ function mosShowFooter($params=array('fromheader'=>1,'js'=>1)) {
 	echo $mainframe->getFooter($params);
 }
 
-// óñòàíîâêà ìåòà-òýãîâ äëÿ ïîèñêîâèêà
+// ÑƒÑÑ‚Ð°Ð½Ð¾Ð²ÐºÐ° Ð¼ÐµÑ‚Ð°-Ñ‚ÑÐ³Ð¾Ð² Ð´Ð»Ñ Ð¿Ð¾Ð¸ÑÐºÐ¾Ð²Ð¸ÐºÐ°
 function set_robot_metatag($robots) {
 	$mainframe = &mosMainFrame::getInstance();
 
@@ -427,7 +427,7 @@ function set_robot_metatag($robots) {
 	}
 }
 
-// âûâîäê ëåíò RSS
+// Ð²Ñ‹Ð²Ð¾Ð´Ðº Ð»ÐµÐ½Ñ‚ RSS
 function syndicate_header(){
 	$mainframe = &mosMainFrame::getInstance();
 
@@ -481,7 +481,7 @@ function syndicate_header(){
 		// security chcek
 		$check = $syndicateParams->def('check',1);
 		if($check) {
-			// ïðîâåðÿåì, íå îïóáëèêîâàí ëè óæå ìîäóëü ñ RSS
+			// Ð¿Ñ€Ð¾Ð²ÐµÑ€ÑÐµÐ¼, Ð½Ðµ Ð¾Ð¿ÑƒÐ±Ð»Ð¸ÐºÐ¾Ð²Ð°Ð½ Ð»Ð¸ ÑƒÐ¶Ðµ Ð¼Ð¾Ð´ÑƒÐ»ÑŒ Ñ RSS
 			$query = "SELECT m.id FROM #__modules AS m WHERE m.module = 'mod_rssfeed' AND m.published = 1 LIMIT 1";
 			$mainframe->_db->setQuery($query);
 			$check = $mainframe->_db->loadResult();

@@ -1,20 +1,20 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined('_VALID_MOS') or die();
 
-// корень Медиа - менеджера из глобальной конфигурации
+// РєРѕСЂРµРЅСЊ РњРµРґРёР° - РјРµРЅРµРґР¶РµСЂР° РёР· РіР»РѕР±Р°Р»СЊРЅРѕР№ РєРѕРЅС„РёРіСѓСЂР°С†РёРё
 global $mosConfig_media_dir,$mosConfig_cachepath,$mosConfig_live_site;
 $jwmmxtd_browsepath = $mosConfig_media_dir;
 
-define('JWMMXTD_STARTABSPATH',$mosConfig_absolute_path.DS.$jwmmxtd_browsepath);
+define('JWMMXTD_STARTABSPATH',JPATH_BASE.DS.$jwmmxtd_browsepath);
 define('JWMMXTD_STARTURLPATH',$mosConfig_live_site.'/'.$jwmmxtd_browsepath);
 
 require_once ($mainframe->getPath('admin_html'));
@@ -40,7 +40,7 @@ if(is_int(strpos($curdirectory,".."))) {
 	mosRedirect('index2.php',_JWMM_HACK_ATTEMPT);
 }
 
-// очистка каталога кэша
+// РѕС‡РёСЃС‚РєР° РєР°С‚Р°Р»РѕРіР° РєСЌС€Р°
 $tmpimage = mosGetParam($_REQUEST,'tmpimage','');
 if($tmpimage != "") {
 	@unlink($mosConfig_cachepath.DS.$tmpimage);
@@ -183,13 +183,12 @@ switch($task) {
 		break;
 }
 
-// распаковка ZIP архивов
+// СЂР°СЃРїР°РєРѕРІРєР° ZIP Р°СЂС…РёРІРѕРІ
 function unzipzipfile($curdirpath,$curfile,$destindir) {
-	global $mosConfig_absolute_path;
-	include_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/includes/pcl/pclzip.lib.php');
+	include_once (JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY.'/includes/pcl/pclzip.lib.php');
 
-	$path = JWMMXTD_STARTABSPATH.$curdirpath.DIRECTORY_SEPARATOR.$curfile;// файл для распаковки
-	$path2 = JWMMXTD_STARTABSPATH.$destindir.DIRECTORY_SEPARATOR; // каталог для распаковки
+	$path = JWMMXTD_STARTABSPATH.$curdirpath.DS.$curfile;// С„Р°Р№Р» РґР»СЏ СЂР°СЃРїР°РєРѕРІРєРё
+	$path2 = JWMMXTD_STARTABSPATH.$destindir.DS; // РєР°С‚Р°Р»РѕРі РґР»СЏ СЂР°СЃРїР°РєРѕРІРєРё
 
 	if(is_file($path)) {
 		if(eregi(".zip",$path)) {
@@ -207,12 +206,11 @@ function unzipzipfile($curdirpath,$curfile,$destindir) {
 	return $msg;
 }
 
-// загрузка изображения
+// Р·Р°РіСЂСѓР·РєР° РёР·РѕР±СЂР°Р¶РµРЅРёСЏ
 function saveImage($cur) {
 	require_once ('class.upload.php');
-	global $mosConfig_absolute_path;
 
-	$cur = JWMMXTD_STARTABSPATH.$cur.DIRECTORY_SEPARATOR;
+	$cur = JWMMXTD_STARTABSPATH.$cur.DS;
 
 	$primage = mosGetParam($_REQUEST,'primage','');
 	$orimage = mosGetParam($_REQUEST,'originalimage','');
@@ -222,11 +220,11 @@ function saveImage($cur) {
 	$orname = str_replace(substr($ornamewithext,-4),"",$ornamewithext);
 
 	if($orname) {
-		$pic = new upload($mosConfig_absolute_path.DIRECTORY_SEPARATOR.'media'.DIRECTORY_SEPARATOR.$primage);
+		$pic = new upload(JPATH_BASE.DS.'media'.DS.$primage);
 		if($pic->uploaded) {
 			$pic->file_src_name_body = $orname."_edit".rand(100,999);
 			$pic->Process($cur);
-			@unlink($mosConfig_absolute_path.DIRECTORY_SEPARATOR.'media'.DIRECTORY_SEPARATOR.$primage);
+			@unlink(JPATH_BASE.DS.'media'.DS.$primage);
 			$ok = true;
 		} else $ok = false;
 	} else $ok = false;
@@ -239,14 +237,12 @@ function saveImage($cur) {
 
 function returnFromEdit() {
 	require_once ('class.upload.php');
-	global $mosConfig_absolute_path;
 	$primage = mosGetParam($_REQUEST,'primage','');
-	@unlink($mosConfig_absolute_path.DIRECTORY_SEPARATOR.'media'.DIRECTORY_SEPARATOR.$primage);
+	@unlink(JPATH_BASE.DS.'media'.DS.$primage);
 }
 
 function emptyTmp() {
-	global $mosConfig_absolute_path;
-	$dir = $mosConfig_absolute_path.DIRECTORY_SEPARATOR.'media';
+	$dir = JPATH_BASE.DS.'media';
 	if(is_dir($dir)) {
 		$d = dir($dir);
 		while(false !== ($entry = $d->read())) {
@@ -273,8 +269,8 @@ function emptyTmp() {
 
 function newFileName($curdirectory,$curfile,$newfile) {
 	if($curfile == "" || $newfile == "") return false;
-	$path = JWMMXTD_STARTABSPATH.$curdirectory.DIRECTORY_SEPARATOR.$curfile;
-	$path2 = JWMMXTD_STARTABSPATH.$curdirectory.DIRECTORY_SEPARATOR.$newfile;
+	$path = JWMMXTD_STARTABSPATH.$curdirectory.DS.$curfile;
+	$path2 = JWMMXTD_STARTABSPATH.$curdirectory.DS.$newfile;
 	if(file_exists($path2)) return false;
 	if(rename($path,$path2))
 		$ok = true;
@@ -285,8 +281,8 @@ function newFileName($curdirectory,$curfile,$newfile) {
 
 function copyFile($curdirectory,$curfile,$dirtocopy) {
 	if($curfile == "") return false;
-	$path = JWMMXTD_STARTABSPATH.$curdirectory.DIRECTORY_SEPARATOR.$curfile;
-	$path2 = JWMMXTD_STARTABSPATH.$dirtocopy.DIRECTORY_SEPARATOR.$curfile;
+	$path = JWMMXTD_STARTABSPATH.$curdirectory.DS.$curfile;
+	$path2 = JWMMXTD_STARTABSPATH.$dirtocopy.DS.$curfile;
 	if(file_exists($path2)) return false;
 	if(!copy($path,$path2))
 		$ok = false;
@@ -297,8 +293,8 @@ function copyFile($curdirectory,$curfile,$dirtocopy) {
 
 function moveFile($curdirectory,$curfile,$dirtomove) {
 	if($curfile == "") return false;
-	$path = JWMMXTD_STARTABSPATH.$curdirectory.DIRECTORY_SEPARATOR.$curfile;
-	$path2 = JWMMXTD_STARTABSPATH.$dirtomove.DIRECTORY_SEPARATOR.$curfile;
+	$path = JWMMXTD_STARTABSPATH.$curdirectory.DS.$curfile;
+	$path2 = JWMMXTD_STARTABSPATH.$dirtomove.DS.$curfile;
 	if(file_exists($path2)) return false;
 	if(!rename($path,$path2))
 		$ok = false;
@@ -320,7 +316,7 @@ function uploadImages($curdirectory) {
 	foreach($files as $file) {
 		$handle = new Upload($file);
 		if($handle->uploaded) {
-			$updirectory = JWMMXTD_STARTABSPATH.$curdirectory.DIRECTORY_SEPARATOR;
+			$updirectory = JWMMXTD_STARTABSPATH.$curdirectory.DS;
 			$handle->Process($updirectory);
 			if($handle->processed) {
 				$mosmsg = _FILES_UPLOADED;
@@ -328,15 +324,15 @@ function uploadImages($curdirectory) {
 				$mosmsg = _FILES_NOT_UPLOADED;
 			}
 		} else {
-			//$mosmsg = 'Файлы не загружены на сервер!';
+			//$mosmsg = 'Р¤Р°Р№Р»С‹ РЅРµ Р·Р°РіСЂСѓР¶РµРЅС‹ РЅР° СЃРµСЂРІРµСЂ!';
 		}
 	}
 	return $mosmsg;
 }
 
 function delete_folder($listdir,$delFolder) {
-	$del_html = JWMMXTD_STARTABSPATH.$listdir.DIRECTORY_SEPARATOR.$delFolder.DIRECTORY_SEPARATOR.'index.html';
-	$del_folder = JWMMXTD_STARTABSPATH.$listdir.DIRECTORY_SEPARATOR.$delFolder;
+	$del_html = JWMMXTD_STARTABSPATH.$listdir.DS.$delFolder.DS.'index.html';
+	$del_folder = JWMMXTD_STARTABSPATH.$listdir.DS.$delFolder;
 	$entry_count = 0;
 	$dir = opendir($del_folder);
 	while($entry = readdir($dir)) {
@@ -356,7 +352,7 @@ function delete_folder($listdir,$delFolder) {
 }
 
 function delete_file($listdir,$delFile) {
-	$fullPath = JWMMXTD_STARTABSPATH.$listdir.DIRECTORY_SEPARATOR.stripslashes($delFile);
+	$fullPath = JWMMXTD_STARTABSPATH.$listdir.DS.stripslashes($delFile);
 	if(file_exists($fullPath)) {
 		if(unlink($fullPath)) return true;
 	}
@@ -371,7 +367,7 @@ function listofImages($listdir) {
 		$images = array();
 		$folders = array();
 		$docs = array();
-		// к изображениям относятся только файлы перечисленного типа
+		// Рє РёР·РѕР±СЂР°Р¶РµРЅРёСЏРј РѕС‚РЅРѕСЃСЏС‚СЃСЏ С‚РѕР»СЊРєРѕ С„Р°Р№Р»С‹ РїРµСЂРµС‡РёСЃР»РµРЅРЅРѕРіРѕ С‚РёРїР°
 		$allowable = 'xcf|odg|gif|jpg|png|bmp';
 		while(false !== ($entry = $d->read())) {
 			$img_file = $entry;
@@ -395,12 +391,12 @@ function listofImages($listdir) {
 		}
 		$d->close();
 		if(count($images) > 0 || count($folders) > 0 || count($docs) > 0) {
-			// сортировка файлов и каталогов по имени
+			// СЃРѕСЂС‚РёСЂРѕРІРєР° С„Р°Р№Р»РѕРІ Рё РєР°С‚Р°Р»РѕРіРѕРІ РїРѕ РёРјРµРЅРё
 			ksort($images);
 			ksort($folders);
 			ksort($docs);
 
-			// подкаталоги
+			// РїРѕРґРєР°С‚Р°Р»РѕРіРё
 			if(count($folders) > 0) {
 				echo '<fieldset><legend>'._DIRECTORIES.'</legend>';
 				for($i = 0; $i < count($folders); $i++) {
@@ -411,7 +407,7 @@ function listofImages($listdir) {
 				echo '</fieldset>';
 			}
 
-			// изображения
+			// РёР·РѕР±СЂР°Р¶РµРЅРёСЏ
 			if(count($images) > 0) {
 				echo '<fieldset><legend>'._IMAGES.'</legend>';
 				for($i = 0; $i < count($images); $i++) {
@@ -421,7 +417,7 @@ function listofImages($listdir) {
 				}
 				echo "</fieldset>";
 			}
-			// разные файлы
+			// СЂР°Р·РЅС‹Рµ С„Р°Р№Р»С‹
 			if(count($docs) > 0) {
 				echo '<fieldset><legend>'._JWMM_FILE.'</legend>';
 				for($i = 0; $i < count($docs); $i++) {
@@ -451,14 +447,14 @@ function listofImages($listdir) {
 function listImagesBak($dirname = '.') {
 	return glob($dirname.'*.{jpg,png,jpeg,gif}',GLOB_BRACE);
 }
-// создание каталога
+// СЃРѕР·РґР°РЅРёРµ РєР°С‚Р°Р»РѕРіР°
 function create_folder($curdirectory,$folder_name) {
 	$folder_name = str_replace(" ","_",$folder_name);
 	if(strlen($folder_name) > 0) {
 		if(eregi("[^0-9a-zA-Z_]",$folder_name)) {
 			mosRedirect("index2.php?option=com_jwmmxtdcurdirectory=".$curdirectory,_JWMM_FILE_NAME_WARNING);
 		}
-		$folder = JWMMXTD_STARTABSPATH.$curdirectory.DIRECTORY_SEPARATOR.$folder_name;
+		$folder = JWMMXTD_STARTABSPATH.$curdirectory.DS.$folder_name;
 		if(!is_dir($folder) && !is_file($folder)) {
 			$suc = mosMakePath($folder);
 			$fp = fopen($folder."/index.html","w");
@@ -469,7 +465,7 @@ function create_folder($curdirectory,$folder_name) {
 		}
 	}
 }
-// список подкаталогов
+// СЃРїРёСЃРѕРє РїРѕРґРєР°С‚Р°Р»РѕРіРѕРІ
 function listofdirectories($base) {
 	static $filelist = array();
 	static $dirlist = array();
@@ -487,9 +483,9 @@ function listofdirectories($base) {
 	return $dirlist;
 }
 
-// отображение медиа-менеджера
+// РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ РјРµРґРёР°-РјРµРЅРµРґР¶РµСЂР°
 function viewMediaManager($curdirectory = "",$mosmsg = "",$selectedfile = "") {
-	global $my,$mosConfig_absolute_path,$subtask;
+	global $my,$subtask;
 	
 	$mainframe = &mosMainFrame::getInstance();
 	$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/file_ico';
@@ -513,7 +509,7 @@ function viewMediaManager($curdirectory = "",$mosmsg = "",$selectedfile = "") {
 		unset($tmp[key($tmp)]);
 		$upcategory = implode('/',$tmp);
 	}
-	// сообщения о ошибках, уведомления
+	// СЃРѕРѕР±С‰РµРЅРёСЏ Рѕ РѕС€РёР±РєР°С…, СѓРІРµРґРѕРјР»РµРЅРёСЏ
 	if($mosmsg) {
 		echo '<div class="message">'.$mosmsg.'</div>';
 	}
@@ -594,7 +590,7 @@ function viewMediaManager($curdirectory = "",$mosmsg = "",$selectedfile = "") {
 	<div id="jwmmxtd_tmp">
 	<?php if($my->gid == 25 || $my->gid == 24) {
 		echo _NUMBER_OF_IMAGES_IN_TMP_DIR.': ';
-		$dir = $mosConfig_absolute_path.'/media/';
+		$dir = JPATH_BASE.'/media/';
 		$total_file = 0;
 		if(is_dir($dir)) {
 			$d = dir($dir);
@@ -613,14 +609,13 @@ function viewMediaManager($curdirectory = "",$mosmsg = "",$selectedfile = "") {
 </div>
 <?php
 }
-// отмена всех действий по редактированию изображения
+// РѕС‚РјРµРЅР° РІСЃРµС… РґРµР№СЃС‚РІРёР№ РїРѕ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЋ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ
 function OriginalImage($aFormValues) {
 	require_once ('class.upload.php');
-	global $mosConfig_absolute_path;
 	$primage		= $aFormValues['primage'];
 	$orimage		= $aFormValues['originalimage'];
 	$curdirectory	= $aFormValues['curdirectory'];
-	@unlink($mosConfig_absolute_path.DIRECTORY_SEPARATOR.'media'.DIRECTORY_SEPARATOR.$primage);
+	@unlink(JPATH_BASE.DS.'media'.DS.$primage);
 	$objResponse	= new xajaxResponse();
 	$objResponse->addAssign("mmxtd","innerHTML","<img name=\"mainimage\" id=\"mainimage\" src='".JWMMXTD_STARTURLPATH.$curdirectory."/".$orimage."'>");
 	$objResponse->addAssign("imagepath","value",JWMMXTD_STARTURLPATH.$curdirectory."/".$orimage);
@@ -629,7 +624,7 @@ function OriginalImage($aFormValues) {
 
 function UpdateImage($aFormValues) {
 	require_once ('class.upload.php');
-	global $mosConfig_absolute_path,$mosConfig_live_site;
+	global $mosConfig_live_site;
 
 	$imagepath	= $aFormValues['imagepath'];
 	$imagepath	= str_replace(JWMMXTD_STARTURLPATH,JWMMXTD_STARTABSPATH,$imagepath);
@@ -794,22 +789,22 @@ function UpdateImage($aFormValues) {
 				$pic->image_text_y = $textabsolutey;
 			}
 		}
-		$pic->Process($mosConfig_absolute_path.'/media/');
+		$pic->Process(JPATH_BASE.'/media/');
 		if($pic->processed) {
 			$img2out = '<img name="mainimage" id="mainimage" src="'.$mosConfig_live_site.'/media/'.$pic->file_dst_name.'" />';
-			@unlink($mosConfig_absolute_path.'/media/'.$primage);
+			@unlink(JPATH_BASE.'/media/'.$primage);
 			$primage = $pic->file_dst_name;
 		}
 	} else $img2out = _JWMM_ERROR_EDIT_FILE." ".$imagepath;
 
 	$objResponse = new xajaxResponse();
 	//$objResponse->addAssign("mymsg","innerHTML",$imagepath."--".$primage);
-	$objResponse->addAssign("tb-apply","className",'tb-apply'); // скрываем слой с индикатором выполнения процесса
+	$objResponse->addAssign("tb-apply","className",'tb-apply'); // СЃРєСЂС‹РІР°РµРј СЃР»РѕР№ СЃ РёРЅРґРёРєР°С‚РѕСЂРѕРј РІС‹РїРѕР»РЅРµРЅРёСЏ РїСЂРѕС†РµСЃСЃР°
 	$objResponse->addClear("mainimage","src");
 	$objResponse->addAssign("loading_placeholder","innerHTML",'');
 	$objResponse->addAssign("mmxtd","innerHTML",$img2out);
 	$objResponse->addAssign("primage","innerHTML","<input type=\"hidden\" name=\"primage\" id=\"primage\" value=\"".$primage."\">");
-	$objResponse->addAssign("imagepath","value",$mosConfig_absolute_path.'/media/'.$primage);
+	$objResponse->addAssign("imagepath","value",JPATH_BASE.'/media/'.$primage);
 	$objResponse->addAssign("width","value","");
 	$objResponse->addAssign("height","value","");
 	$objResponse->addAssign("rotation","value","0");
@@ -849,8 +844,8 @@ function UpdateImage($aFormValues) {
 }
 
 function editImage($img,$cur) {
-	global $mosConfig_live_site,$option,$mosConfig_absolute_path;
-	require_once ($mosConfig_absolute_path.'/includes/libraries/xajax/xajax.inc.php');
+	global $mosConfig_live_site,$option;
+	require_once (JPATH_BASE.'/includes/libraries/xajax/xajax.inc.php');
 	$path = JWMMXTD_STARTURLPATH.$cur.'/'.$img;
 	$xajax = new xajax();
 	//$xajax->debugOn();

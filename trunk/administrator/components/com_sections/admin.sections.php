@@ -1,19 +1,19 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined('_VALID_MOS') or die();
 
 require_once ($mainframe->getPath('admin_html'));
 require_once (Jconfig::getInstance()->config_absolute_path.'/components/com_content/content.class.php');
 
-define('COM_IMAGE_BASE',$mosConfig_absolute_path.DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'stories');
+define('COM_IMAGE_BASE',JPATH_BASE.DS.'images'.DS.'stories');
 
 // get parameters from the URL or submitted form
 $scope		= stripslashes(mosGetParam($_REQUEST,'scope',''));
@@ -51,37 +51,37 @@ switch($task) {
 	case 'save':
 	case 'apply':
 	case 'save_and_new':
-		//чистим кэш меню панели управления
+		//С‡РёСЃС‚РёРј РєСЌС€ РјРµРЅСЋ РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ
 		js_menu_cache_clear();
 		saveSection($option,$scope,$task);
 		break;
 
 	case 'remove':
-		// чистим кэш меню панели управления
+		// С‡РёСЃС‚РёРј РєСЌС€ РјРµРЅСЋ РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ
 		js_menu_cache_clear();
 		removeSections($cid,$scope,$option);
 		break;
 
 	case 'copyselect':
-		// чистим кэш меню панели управления
+		// С‡РёСЃС‚РёРј РєСЌС€ РјРµРЅСЋ РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ
 		js_menu_cache_clear();
 		copySectionSelect($option,$cid,$section);
 		break;
 
 	case 'copysave':
-		// чистим кэш меню панели управления
+		// С‡РёСЃС‚РёРј РєСЌС€ РјРµРЅСЋ РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ
 		js_menu_cache_clear();
 		copySectionSave($cid);
 		break;
 
 	case 'publish':
-		// чистим кэш меню панели управления
+		// С‡РёСЃС‚РёРј РєСЌС€ РјРµРЅСЋ РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ
 		js_menu_cache_clear();
 		publishSections($scope,$cid,1,$option);
 		break;
 
 	case 'unpublish':
-		// чистим кэш меню панели управления
+		// С‡РёСЃС‚РёРј РєСЌС€ РјРµРЅСЋ РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ
 		js_menu_cache_clear();
 		publishSections($scope,$cid,0,$option);
 		break;
@@ -121,7 +121,7 @@ switch($task) {
 
 function mass_add($option){
 	$database = &database::getInstance();
-	// получение списка существующих разделов
+	// РїРѕР»СѓС‡РµРЅРёРµ СЃРїРёСЃРєР° СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёС… СЂР°Р·РґРµР»РѕРІ
 	$query = "SELECT id AS value, title AS text FROM #__sections ORDER BY title ASC";
 	$database->setQuery($query);
 	$sections = $database->loadObjectList();
@@ -160,19 +160,19 @@ function mass_save(){
 
 	foreach($parsed as $parse){
 		if($type==0){
-			// добавляем разделы
+			// РґРѕР±Р°РІР»СЏРµРј СЂР°Р·РґРµР»С‹
 			$row = new mosSection($database);
-			// ссылка на редактирование раздела
+			// СЃСЃС‹Р»РєР° РЅР° СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ СЂР°Р·РґРµР»Р°
 			$link = '<a href="index2.php?option=com_sections&scope=content&task=editA&hidemainmenu=1&id=';
 			$text = _ADD_SECTIONS_RESULT;
 		}elseif($type==1){
-			// добавляем категории
+			// РґРѕР±Р°РІР»СЏРµРј РєР°С‚РµРіРѕСЂРёРё
 			$row = new mosCategory($database);
-			// ссылка на редактирование категории
+			// СЃСЃС‹Р»РєР° РЅР° СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ РєР°С‚РµРіРѕСЂРёРё
 			$link = '<a href="index2.php?option=com_categories&section=content&task=editA&hidemainmenu=1&id=';
 			$text = _ADD_CATEGORIES_RESULT;
 		}else{
-			// добавляем содержимое
+			// РґРѕР±Р°РІР»СЏРµРј СЃРѕРґРµСЂР¶РёРјРѕРµ
 			$row = new mosContent($database);
 			$link = '<a href="index2.php?option=com_content&sectionid=0&task=edit&hidemainmenu=1&id=';
 			$text = _ADD_CONTENT_RESULT;
@@ -278,7 +278,7 @@ function showSections($scope,$option) {
 			$rows_new[]=$rows[$content_info->sectionid];
 		}
 	}
-	//Добавляем в $new_rows разделы без категорий
+	//Р”РѕР±Р°РІР»СЏРµРј РІ $new_rows СЂР°Р·РґРµР»С‹ Р±РµР· РєР°С‚РµРіРѕСЂРёР№
 	foreach($sects_ids as $v){
 		if (!in_array($rows[$v], $rows_new)){
 			$rows[$v]->trash = 0;
@@ -487,7 +487,7 @@ function saveSection($option,$scope,$task) {
 				'&task=editA&hidemainmenu=1&id='.$row->id,$msg);
 			break;
 
-			/* boston, после сохранения возвращаемся в окно добавления нового раздела*/
+			/* boston, РїРѕСЃР»Рµ СЃРѕС…СЂР°РЅРµРЅРёСЏ РІРѕР·РІСЂР°С‰Р°РµРјСЃСЏ РІ РѕРєРЅРѕ РґРѕР±Р°РІР»РµРЅРёСЏ РЅРѕРІРѕРіРѕ СЂР°Р·РґРµР»Р°*/
 		case 'save_and_new':
 			$msg = $row->title.' - '._E_ITEM_SAVED;
 			mosRedirect('index2.php?option='.$option.'&scope='.$scope.'&task=new',$msg);

@@ -1,17 +1,17 @@
 <?php /**
  * @package Joostina
- * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
- * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
- * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
- * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ * @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+ * @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+ * Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+ * Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
  */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined('_VALID_MOS') or die(); ?>
 
 <?php
 	if(!$user_items) {
-	//Случай, если содержимое пользователя не найдено
+	//РЎР»СѓС‡Р°Р№, РµСЃР»Рё СЃРѕРґРµСЂР¶РёРјРѕРµ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РЅРµ РЅР°Р№РґРµРЅРѕ
 ?>
 	<div class="page_user_items<?php echo $params->get('pageclass_sfx'); ?>">
 <?php if($params->get('title')) { ?>
@@ -25,7 +25,7 @@ defined('_VALID_MOS') or die(); ?>
 ?>
 <?php mosCommonHTML::loadFullajax(); ?>
 	<script type="text/javascript">
-		// смена статуса публикации, elID - идентификатор объекта у которого меняется статус публикации
+		// СЃРјРµРЅР° СЃС‚Р°С‚СѓСЃР° РїСѓР±Р»РёРєР°С†РёРё, elID - РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ РѕР±СЉРµРєС‚Р° Сѓ РєРѕС‚РѕСЂРѕРіРѕ РјРµРЅСЏРµС‚СЃСЏ СЃС‚Р°С‚СѓСЃ РїСѓР±Р»РёРєР°С†РёРё
 		function ch_publ(elID){
 			id('img-pub-'+elID).src = '<?php echo $config->config_live_site ?>/images/system/aload.gif';
 			dax({
@@ -48,18 +48,18 @@ defined('_VALID_MOS') or die(); ?>
 	return;
 } ?>
 	<form action="<?php echo sefRelToAbs($page_link); ?>" method="post" name="adminForm" id="adminForm">
-		<!--Таблица с полем фильтра, выбора сортировки и количества отображаемых записей :BEGIN-->
+		<!--РўР°Р±Р»РёС†Р° СЃ РїРѕР»РµРј С„РёР»СЊС‚СЂР°, РІС‹Р±РѕСЂР° СЃРѕСЂС‚РёСЂРѕРІРєРё Рё РєРѕР»РёС‡РµСЃС‚РІР° РѕС‚РѕР±СЂР°Р¶Р°РµРјС‹С… Р·Р°РїРёСЃРµР№ :BEGIN-->
 <?php if($params->get('filter') || $params->get('order_select') || $params->get('display')) { ?>
 		<table cellpadding="0" cellspacing="0" width="100%">
 		<tr>
-			<!--Фильтр-->
+			<!--Р¤РёР»СЊС‚СЂ-->
 <?php if($params->get('filter')) { ?>
 			<td align="right" width="80%"><?php echo _FILTER; ?>
 				<br />
 				<input type="text" name="filter" size="50" value="<?php echo $lists['filter']; ?>" class="inputbox" onchange="document.adminForm.submit();" />
 			</td>
 			<?php } ?>
-			<!--Сортировка-->
+			<!--РЎРѕСЂС‚РёСЂРѕРІРєР°-->
 <?php if($params->get('order_select')) { ?>
 			<td align="right" width="20%">
 				<?php echo _ORDER_DROPDOWN; ?>
@@ -67,7 +67,7 @@ defined('_VALID_MOS') or die(); ?>
 				<?php echo $lists['order']; ?>
 			</td>
 <?php } ?>
-			<!--Количество отображаемых записей-->
+			<!--РљРѕР»РёС‡РµСЃС‚РІРѕ РѕС‚РѕР±СЂР°Р¶Р°РµРјС‹С… Р·Р°РїРёСЃРµР№-->
 <?php if($params->get('display')) { ?>
 			<td align="right" width="80%">
 				<?php echo _PN_DISPLAY_NR; ?>
@@ -77,11 +77,11 @@ defined('_VALID_MOS') or die(); ?>
 			<?php } ?>
 		</tr>
 		</table>
-		<!--Таблица с полем фильтра, выбора сортировки и количества отображаемых записей :END-->
+		<!--РўР°Р±Р»РёС†Р° СЃ РїРѕР»РµРј С„РёР»СЊС‚СЂР°, РІС‹Р±РѕСЂР° СЃРѕСЂС‚РёСЂРѕРІРєРё Рё РєРѕР»РёС‡РµСЃС‚РІР° РѕС‚РѕР±СЂР°Р¶Р°РµРјС‹С… Р·Р°РїРёСЃРµР№ :END-->
 <?php } ?>
-		<!--Таблица с записями :BEGIN-->
+		<!--РўР°Р±Р»РёС†Р° СЃ Р·Р°РїРёСЃСЏРјРё :BEGIN-->
 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
-			<!--Заголовок таблицы-->
+			<!--Р—Р°РіРѕР»РѕРІРѕРє С‚Р°Р±Р»РёС†С‹-->
 <?php if($params->get('headings')) { ?>
 			<tr>
 				<th class="sectiontableheader">&nbsp;</th>
@@ -104,7 +104,7 @@ foreach ($items as $row) {
 	$img = $row->published?'publish_g.png' : 'publish_x.png';
 	$img = $config->config_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/images/'.$img;
 
-	// раздел / категория
+	// СЂР°Р·РґРµР» / РєР°С‚РµРіРѕСЂРёСЏ
 	$section_cat = $row->section.' / '.$row->category;
 	if($row->sectionid == 0) {
 		$section_cat = _CONTENT_TYPED;
@@ -133,8 +133,8 @@ foreach ($items as $row) {
 			<?php $k = 1 - $k; ?>
 <?php } //foreach:end ?>
 		</table>
-		<!--Таблица с записями :END-->
-		<!--Постраничная навигация-->
+		<!--РўР°Р±Р»РёС†Р° СЃ Р·Р°РїРёСЃСЏРјРё :END-->
+		<!--РџРѕСЃС‚СЂР°РЅРёС‡РЅР°СЏ РЅР°РІРёРіР°С†РёСЏ-->
 <?php if($params->get('navigation')) { ?>
 		<?php echo $pageNav->writePagesLinks($page_link); ?>
 <?php } ?>

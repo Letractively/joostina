@@ -1,17 +1,17 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined('_VALID_MOS') or die();
 
 /**
-* вывод подключения js и css
+* РІС‹РІРѕРґ РїРѕРґРєР»СЋС‡РµРЅРёСЏ js Рё css
 */
 function adminHead(){
 	$mainframe = &mosMainFrame::getInstance();
@@ -36,7 +36,7 @@ function adminHead(){
 		}
 		echo implode("\n",$head)."\n";
 	};
-	// отправим пользователю шапку - пусть браузер работает пока будет формироваться дальнейший код страницы
+	// РѕС‚РїСЂР°РІРёРј РїРѕР»СЊР·РѕРІР°С‚РµР»СЋ С€Р°РїРєСѓ - РїСѓСЃС‚СЊ Р±СЂР°СѓР·РµСЂ СЂР°Р±РѕС‚Р°РµС‚ РїРѕРєР° Р±СѓРґРµС‚ С„РѕСЂРјРёСЂРѕРІР°С‚СЊСЃСЏ РґР°Р»СЊРЅРµР№С€РёР№ РєРѕРґ СЃС‚СЂР°РЅРёС†С‹
 	flush();
 }
 
@@ -134,7 +134,7 @@ function mosLoadAdminModules($position = 'left',$style = 0) {
 * Loads an admin module
 */
 function mosLoadAdminModule($name,$params = null) {
-	global $mosConfig_absolute_path,$mosConfig_live_site,$task;
+	global $mosConfig_live_site,$task;
 	global $database,$acl,$my,$mainframe,$option;
 	
 	// legacy support for $act
@@ -142,7 +142,7 @@ function mosLoadAdminModule($name,$params = null) {
 
 	$name = str_replace('/','',$name);
 	$name = str_replace('\\','',$name);
-	$path = "$mosConfig_absolute_path/".ADMINISTRATOR_DIRECTORY."/modules/mod_$name.php";
+	$path = "JPATH_BASE/".ADMINISTRATOR_DIRECTORY."/modules/mod_$name.php";
 	if(file_exists($path)) { 
  		if($mainframe->getLangFile('mod_'.$name)){ 
   			include($mainframe->getLangFile('mod_'.$name));        	
@@ -152,7 +152,7 @@ function mosLoadAdminModule($name,$params = null) {
 }
 
 function mosLoadCustomModule(&$module,&$params) {
-	global $mosConfig_absolute_path,$mosConfig_cachepath;
+	global $mosConfig_cachepath;
 
 	$rssurl = $params->get('rssurl','');
 	$rssitems = $params->get('rssitems','');
@@ -172,8 +172,8 @@ function mosLoadCustomModule(&$module,&$params) {
 		if(!is_writable($cachePath)) {
 			echo '<tr><td>'._CACHE_DIR_IS_NOT_WRITEABLE.'</td></tr>';
 		} else {
-			$LitePath = $mosConfig_absolute_path.'/includes/Cache/Lite.php';
-			require_once ($mosConfig_absolute_path.'/includes/domit/xml_domit_rss_lite.php');
+			$LitePath = JPATH_BASE.'/includes/Cache/Lite.php';
+			require_once (JPATH_BASE.'/includes/domit/xml_domit_rss_lite.php');
 			$rssDoc = new xml_domit_rss_document_lite();
 			$rssDoc->setRSSTimeout(5);
 			$rssDoc->useHTTPClient(true);
@@ -241,7 +241,7 @@ function mosShowSource($filename,$withLineNums = false) {
 	ini_set('highlight.comment','#008000');
 
 	if(!($source = @highlight_file($filename,true))) {
-		return 'Операция невозможна';
+		return 'РћРїРµСЂР°С†РёСЏ РЅРµРІРѕР·РјРѕР¶РЅР°';
 	}
 	$source = explode("<br />",$source);
 
@@ -260,7 +260,7 @@ function mosShowSource($filename,$withLineNums = false) {
 	}
 	return $txt;
 }
-// проверка на доступность смены прав
+// РїСЂРѕРІРµСЂРєР° РЅР° РґРѕСЃС‚СѓРїРЅРѕСЃС‚СЊ СЃРјРµРЅС‹ РїСЂР°РІ
 function mosIsChmodable($file) {
 	$perms = fileperms($file);
 	if($perms !== false) {
@@ -340,7 +340,7 @@ function mosMainBody_Admin() {
 	echo $GLOBALS['_MOS_OPTION']['buffer'];
 }
 
-// boston, кэширование меню администратора
+// boston, РєСЌС€РёСЂРѕРІР°РЅРёРµ РјРµРЅСЋ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР°
 function js_menu_cache($data,$usertype,$state = 0) {
 	global $mosConfig_secret,$mosConfig_cachepath,$mosConfig_adm_menu_cache;
 	if(!is_writeable($mosConfig_cachepath) && $mosConfig_adm_menu_cache) {
@@ -349,30 +349,30 @@ function js_menu_cache($data,$usertype,$state = 0) {
 	}
 	$menuname = md5($usertype.$mosConfig_secret);
 	$file = $mosConfig_cachepath.'/adm_menu_'.$menuname.'.js';
-	if(!file_exists($file)) { // файла нету
-		if($state == 1) return false; // файла у нас не было и получен сигнал 0 - продолжаем вызывающую функцию, а отсюда выходим
+	if(!file_exists($file)) { // С„Р°Р№Р»Р° РЅРµС‚Сѓ
+		if($state == 1) return false; // С„Р°Р№Р»Р° Сѓ РЅР°СЃ РЅРµ Р±С‹Р»Рѕ Рё РїРѕР»СѓС‡РµРЅ СЃРёРіРЅР°Р» 0 - РїСЂРѕРґРѕР»Р¶Р°РµРј РІС‹Р·С‹РІР°СЋС‰СѓСЋ С„СѓРЅРєС†РёСЋ, Р° РѕС‚СЃСЋРґР° РІС‹С…РѕРґРёРј
 		touch($file);
 		$handle = fopen($file,'w');
 		fwrite($handle,$data);
 		fclose($handle);
-		return true; // файла не было - но был создан заново
+		return true; // С„Р°Р№Р»Р° РЅРµ Р±С‹Р»Рѕ - РЅРѕ Р±С‹Р» СЃРѕР·РґР°РЅ Р·Р°РЅРѕРІРѕ
 	} else {
-		return true; // файл уже был, просто завершаем функцию
+		return true; // С„Р°Р№Р» СѓР¶Рµ Р±С‹Р», РїСЂРѕСЃС‚Рѕ Р·Р°РІРµСЂС€Р°РµРј С„СѓРЅРєС†РёСЋ
 	}
 }
 /*
-* Добавлено в версии 1.0.11
+* Р”РѕР±Р°РІР»РµРЅРѕ РІ РІРµСЂСЃРёРё 1.0.11
 */
 function josSecurityCheck($width = '95%') {
 	global $mosConfig_cachepath,$mosConfig_caching;
 	$wrongSettingsTexts = array();
-	// проверка на запись  в каталог кэша
+	// РїСЂРѕРІРµСЂРєР° РЅР° Р·Р°РїРёСЃСЊ  РІ РєР°С‚Р°Р»РѕРі РєСЌС€Р°
 	if(!is_writeable($mosConfig_cachepath) && $mosConfig_caching) $wrongSettingsTexts[] = _CACHE_DIR_IS_NOT_WRITEABLE2;
-	// проверка magic_quotes_gpc
+	// РїСЂРѕРІРµСЂРєР° magic_quotes_gpc
 	if(ini_get('magic_quotes_gpc') != '1') $wrongSettingsTexts[] = _PHP_MAGIC_QUOTES_ON_OFF;
-	// проверка регистрации глобальных переменных
+	// РїСЂРѕРІРµСЂРєР° СЂРµРіРёСЃС‚СЂР°С†РёРё РіР»РѕР±Р°Р»СЊРЅС‹С… РїРµСЂРµРјРµРЅРЅС‹С…
 	if(ini_get('register_globals') == '1')$wrongSettingsTexts[] = _PHP_REGISTER_GLOBALS_ON_OFF;
-	// проверка активированности внутренней системы защиты
+	// РїСЂРѕРІРµСЂРєР° Р°РєС‚РёРІРёСЂРѕРІР°РЅРЅРѕСЃС‚Рё РІРЅСѓС‚СЂРµРЅРЅРµР№ СЃРёСЃС‚РµРјС‹ Р·Р°С‰РёС‚С‹
 	if(RG_EMULATION != 0) $wrongSettingsTexts[] = _RG_EMULATION_ON_OFF;
 
 	if(count($wrongSettingsTexts)) {
@@ -393,13 +393,13 @@ function josSecurityCheck($width = '95%') {
 	}
 }
 
-//boston, удаление кэша меню панели управления
+//boston, СѓРґР°Р»РµРЅРёРµ РєСЌС€Р° РјРµРЅСЋ РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ
 function js_menu_cache_clear() {
-	global $mosConfig_absolute_path,$my,$mosConfig_secret,$mosConfig_adm_menu_cache;
+	global $my,$mosConfig_secret,$mosConfig_adm_menu_cache;
 	if(!$mosConfig_adm_menu_cache) return;
 	$usertype = str_replace(' ','_',$my->usertype);
 	$menuname = md5($usertype.$mosConfig_secret);
-	$file = $mosConfig_absolute_path.'/cache/adm_menu_'.$menuname.'.js';
+	$file = JPATH_BASE.'/cache/adm_menu_'.$menuname.'.js';
 	if(file_exists($file)) {
 		if(unlink($file))
 			echo joost_info(_MENU_CACHE_CLEANED);
@@ -411,8 +411,7 @@ function js_menu_cache_clear() {
 }
 
 
-/* joostina+, вывод информационного поля*/
+/* joostina+, РІС‹РІРѕРґ РёРЅС„РѕСЂРјР°С†РёРѕРЅРЅРѕРіРѕ РїРѕР»СЏ*/
 function joost_info($msg) {
 	return '<div class="message">'.$msg.'</div>';
 }
-?>

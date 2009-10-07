@@ -1,24 +1,24 @@
 <?php /**
  * @package Joostina
- * @copyright Àâòîðñêèå ïðàâà (C) 2008-2009 Joostina team. Âñå ïðàâà çàùèùåíû.
- * @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
- * Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
- * Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+ * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2009 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
+ * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
+ * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
+ * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
  */
 
-// çàïðåò ïðÿìîãî äîñòóïà
+// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
 defined('_VALID_MOS') or die(); ?>
-<!--Ñòðàíèöà êàòåãîðèè:BEGIN-->
+<!--Ð¡Ñ‚Ñ€Ð°Ð½Ð¸Ñ†Ð° ÐºÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸Ð¸:BEGIN-->
 <div class="category_page<?php echo $sfx; ?>">
-	<!--Çàãîëîâîê ñòðàíèöû:BEGIN-->
+	<!--Ð—Ð°Ð³Ð¾Ð»Ð¾Ð²Ð¾Ðº ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñ‹:BEGIN-->
 <?php if($page_title) { ?>
 	<div class="componentheading"><h1><?php echo $page_title; ?></h1></div>
 <?php } ?>
 
-	<!--Îñíîâíîå ñîäåðæèìîå ñòðàíèöû:BEGIN-->
+	<!--ÐžÑÐ½Ð¾Ð²Ð½Ð¾Ðµ ÑÐ¾Ð´ÐµÑ€Ð¶Ð¸Ð¼Ð¾Ðµ ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñ‹:BEGIN-->
 	<div class="contentpane<?php echo $sfx; ?>">
 	
-	<!--Îïèñàíèå:BEGIN-->
+	<!--ÐžÐ¿Ð¸ÑÐ°Ð½Ð¸Ðµ:BEGIN-->
 <?php if($title_description || $title_image) { ?>
 		<div class="contentdescription">
 <?php if($title_image) { ?>
@@ -29,26 +29,26 @@ defined('_VALID_MOS') or die(); ?>
 <?php } ?>
 		</div>
 <?php } ?>
-	<!--Îïèñàíèå:END-->
-	<!--Òàáëèöà ñ ñîäåðæèìûì ïðè ïðîñìîòðå êàòåãîðèè:BEGIN-->
+	<!--ÐžÐ¿Ð¸ÑÐ°Ð½Ð¸Ðµ:END-->
+	<!--Ð¢Ð°Ð±Ð»Ð¸Ñ†Ð° Ñ ÑÐ¾Ð´ÐµÑ€Ð¶Ð¸Ð¼Ñ‹Ð¼ Ð¿Ñ€Ð¸ Ð¿Ñ€Ð¾ÑÐ¼Ð¾Ñ‚Ñ€Ðµ ÐºÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸Ð¸:BEGIN-->
 
-	<?php //Ïîäêëþ÷àåì øàáëîí âûâîäà òàáëèöû ñ çàïèñÿìè
+	<?php //ÐŸÐ¾Ð´ÐºÐ»ÑŽÑ‡Ð°ÐµÐ¼ ÑˆÐ°Ð±Ð»Ð¾Ð½ Ð²Ñ‹Ð²Ð¾Ð´Ð° Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñ‹ Ñ Ð·Ð°Ð¿Ð¸ÑÑÐ¼Ð¸
 	include_once (Jconfig::getInstance()->config_absolute_path.'/components/com_content/view/item/table_of_items/default.php');
 	?>
 
-	<!--Òàáëèöà ñ ñîäåðæèìûì ïðè ïðîñìîòðå êàòåãîðèè:END-->
-	<!--Êíîïêà äîáàâëåíèÿ ñîäåðæèìîãî-->
+	<!--Ð¢Ð°Ð±Ð»Ð¸Ñ†Ð° Ñ ÑÐ¾Ð´ÐµÑ€Ð¶Ð¸Ð¼Ñ‹Ð¼ Ð¿Ñ€Ð¸ Ð¿Ñ€Ð¾ÑÐ¼Ð¾Ñ‚Ñ€Ðµ ÐºÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸Ð¸:END-->
+	<!--ÐšÐ½Ð¾Ð¿ÐºÐ° Ð´Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð¸Ñ ÑÐ¾Ð´ÐµÑ€Ð¶Ð¸Ð¼Ð¾Ð³Ð¾-->
 <?php if($add_button) { ?>
 	<div class="add_button"><?php echo $add_button; ?></div>
 <?php } ?>
-	<!--Ñïèñîê êàòåãîðèé ðàçäåëà:BEGIN-->
+	<!--Ð¡Ð¿Ð¸ÑÐ¾Ðº ÐºÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸Ð¹ Ñ€Ð°Ð·Ð´ÐµÐ»Ð°:BEGIN-->
 <?php if($show_categories) {
 	include_once (Jconfig::getInstance()->config_absolute_path.'/components/com_content/view/category/show_categories/default.php');
 	//HTML_content :: showCategories($params, $items, $gid, $other_categories, $catid, $id, $Itemid);
 } ?>
-	<!--Ñïèñîê êàòåãîðèé ðàçäåëà:END-->
+	<!--Ð¡Ð¿Ð¸ÑÐ¾Ðº ÐºÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸Ð¹ Ñ€Ð°Ð·Ð´ÐµÐ»Ð°:END-->
 	<?php mosHTML::BackButton($params); ?>
-	<!--Îñíîâíîå ñîäåðæèìîå ñòðàíèöû:END-->
+	<!--ÐžÑÐ½Ð¾Ð²Ð½Ð¾Ðµ ÑÐ¾Ð´ÐµÑ€Ð¶Ð¸Ð¼Ð¾Ðµ ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñ‹:END-->
 	</div>
-<!--Ñòðàíèöà êàòåãîðèè:END-->
+<!--Ð¡Ñ‚Ñ€Ð°Ð½Ð¸Ñ†Ð° ÐºÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸Ð¸:END-->
 </div>

@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined('_VALID_MOS') or die();
 
 global $JPConfiguration,$option;
@@ -73,7 +73,7 @@ $act	= mosGetParam($_REQUEST,'act','default');
 </form>
 <?php
 
-// доступность сохранения настроек
+// РґРѕСЃС‚СѓРїРЅРѕСЃС‚СЊ СЃРѕС…СЂР°РЅРµРЅРёСЏ РЅР°СЃС‚СЂРѕРµРє
 function colorizeWriteStatus($status) {
 	if($status) {
 		return _JP_AVAILABLE;
@@ -81,7 +81,7 @@ function colorizeWriteStatus($status) {
 		return _JP_NOT_AVAILABLE;
 	}
 }
-// тип экспорта базы данных
+// С‚РёРї СЌРєСЃРїРѕСЂС‚Р° Р±Р°Р·С‹ РґР°РЅРЅС‹С…
 function outputSQLCompat($sqlcompat) {
 	$options = array(array(
 		"value" => "compat","desc" =>_JP_MYSQL4_COMPAT),
@@ -94,7 +94,7 @@ function outputSQLCompat($sqlcompat) {
 	}
 	echo '</select>';
 }
-// типы сжатия
+// С‚РёРїС‹ СЃР¶Р°С‚РёСЏ
 function outputBoolChooser($boolOption) {
 	echo '<select class="inputbox" name="sql_pack">';
 		$selected = ($boolOption == "0")?"selected":"";
@@ -105,7 +105,7 @@ function outputBoolChooser($boolOption) {
 		echo "<option value=\"2\" $selected>"._JP_GZIP_ZIP."</option>";
 	echo '</select>';
 }
-// резервирования
+// СЂРµР·РµСЂРІРёСЂРѕРІР°РЅРёСЏ
 function AlgorithmChooser($strOption,$strName) {
 	echo "<select class=\"inputbox\" name=\"$strName\">";
 	$selected = ($strOption == "single")?"selected":"";
@@ -116,7 +116,7 @@ function AlgorithmChooser($strOption,$strName) {
 	echo "<option value=\"multi\" $selected>"._JP_SLOW_METHOD."</option>";
 	echo '</select>';
 }
-// список уровней регистрации лога
+// СЃРїРёСЃРѕРє СѓСЂРѕРІРЅРµР№ СЂРµРіРёСЃС‚СЂР°С†РёРё Р»РѕРіР°
 function outputLogLevel($strOption) {
 	echo '<select class="inputbox" name="logLevel">';
 		$selected = ($strOption == "1")?"selected":"";

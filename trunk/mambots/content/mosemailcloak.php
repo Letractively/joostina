@@ -1,19 +1,19 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined('_VALID_MOS') or die();
 
 $_MAMBOTS->registerFunction('onPrepareContent','botMosEmailCloak');
 
 /**
-* Сокрытие от спамботов адресов электронной почты в содержимом, используя javascript
+* РЎРѕРєСЂС‹С‚РёРµ РѕС‚ СЃРїР°РјР±РѕС‚РѕРІ Р°РґСЂРµСЃРѕРІ СЌР»РµРєС‚СЂРѕРЅРЅРѕР№ РїРѕС‡С‚С‹ РІ СЃРѕРґРµСЂР¶РёРјРѕРј, РёСЃРїРѕР»СЊР·СѓСЏ javascript
 */
 function botMosEmailCloak($published,&$row) {
 	global $database,$_MAMBOTS;
@@ -37,7 +37,7 @@ function botMosEmailCloak($published,&$row) {
 
 	// check if param query has previously been processed
 	if(!isset($_MAMBOTS->_content_mambot_params['mosemailcloak'])) {
-		// загрузка информации о параметрах мамбота
+		// Р·Р°РіСЂСѓР·РєР° РёРЅС„РѕСЂРјР°С†РёРё Рѕ РїР°СЂР°РјРµС‚СЂР°С… РјР°РјР±РѕС‚Р°
 		$query = "SELECT params"."\n FROM #__mambots"."\n WHERE element = 'mosemailcloak'".
 			"\n AND folder = 'content'";
 		$database->setQuery($query);
@@ -60,20 +60,20 @@ function botMosEmailCloak($published,&$row) {
 	// anyText
 	$search_text = "([[:alnum:][:space:][:punct:]][^<>]+)";
 
-	// поиск кода ссылок вида <a href="mailto:email@amail.com">email@amail.com</a>
+	// РїРѕРёСЃРє РєРѕРґР° СЃСЃС‹Р»РѕРє РІРёРґР° <a href="mailto:email@amail.com">email@amail.com</a>
 	$pattern = botMosEmailCloak_searchPattern($search_email,$search_email);
 	while(eregi($pattern,$row->text,$regs)) {
 		$mail = $regs[2].$regs[3].$regs[4];
 		$mail_text = $regs[5].$regs[6].$regs[7];
 
-		// проверка, отличается ли адрес почты от адреса почты в текстовом виде
+		// РїСЂРѕРІРµСЂРєР°, РѕС‚Р»РёС‡Р°РµС‚СЃСЏ Р»Рё Р°РґСЂРµСЃ РїРѕС‡С‚С‹ РѕС‚ Р°РґСЂРµСЃР° РїРѕС‡С‚С‹ РІ С‚РµРєСЃС‚РѕРІРѕРј РІРёРґРµ
 		if($mail_text) {
 			$replacement = mosHTML::emailCloaking($mail,$mode,$mail_text);
 		} else {
 			$replacement = mosHTML::emailCloaking($mail,$mode);
 		}
 
-		// заменить найденный адрес e-mail замаскированным адресом
+		// Р·Р°РјРµРЅРёС‚СЊ РЅР°Р№РґРµРЅРЅС‹Р№ Р°РґСЂРµСЃ e-mail Р·Р°РјР°СЃРєРёСЂРѕРІР°РЅРЅС‹Рј Р°РґСЂРµСЃРѕРј
 		$row->text = str_replace($regs[0],$replacement,$row->text);
 	}
 
@@ -85,7 +85,7 @@ function botMosEmailCloak($published,&$row) {
 
 		$replacement = mosHTML::emailCloaking($mail,$mode,$mail_text,0);
 
-		// заменить найденный адрес e-mail замаскированным адресом
+		// Р·Р°РјРµРЅРёС‚СЊ РЅР°Р№РґРµРЅРЅС‹Р№ Р°РґСЂРµСЃ e-mail Р·Р°РјР°СЃРєРёСЂРѕРІР°РЅРЅС‹Рј Р°РґСЂРµСЃРѕРј
 		$row->text = str_replace($regs[0],$replacement,$row->text);
 	}
 

@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/copyleft/gpl.html GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined('_VALID_MOS') or die();
 
 /**
@@ -146,9 +146,9 @@ class HTML_templates {
 	* @param string The option
 	*/
 	function editTemplateSource($template,&$content,$option,$client) {
-		global $mosConfig_absolute_path,$mosConfig_codepress;
-		$template_path = $mosConfig_absolute_path.($client == 'admin'?'/'.ADMINISTRATOR_DIRECTORY:'').'/templates/'.$template.'/index.php';
-		/* подключение js файла codepress*/
+		global $mosConfig_codepress;
+		$template_path = JPATH_BASE.($client == 'admin'?'/'.ADMINISTRATOR_DIRECTORY:'').'/templates/'.$template.'/index.php';
+		/* РїРѕРґРєР»СЋС‡РµРЅРёРµ js С„Р°Р№Р»Р° codepress*/
 		if($mosConfig_codepress) mosCommonHTML::loadCodepress();
 ?>
 		<script language="javascript" type="text/javascript">
@@ -163,7 +163,7 @@ class HTML_templates {
 				form: 'adminForm',
 				callback:
 					function(resp){
-						log('Получен ответ: ' + resp.responseText);
+						log('РџРѕР»СѓС‡РµРЅ РѕС‚РІРµС‚: ' + resp.responseText);
 						mess_cool(resp.responseText);
 						SRAX.get('tb-apply').className='tb-apply';
 			}});
@@ -174,7 +174,7 @@ class HTML_templates {
 	<form action="index2.php" method="post" name="adminForm" id="adminForm" <?php if($mosConfig_codepress) echo 'onsubmit="document.adminForm.filecontent.value=codearea.getCode();document.adminForm.submit();"';?>>
 		<table cellpadding="1" cellspacing="1" border="0" width="100%">
 		<tr>
-			<td width="290"><table class="adminheading"><tr><th class="templates">HTML-редактор шаблона</th></tr></table></td>
+			<td width="290"><table class="adminheading"><tr><th class="templates">HTML-СЂРµРґР°РєС‚РѕСЂ С€Р°Р±Р»РѕРЅР°</th></tr></table></td>
 			<td width="220" class="jtd_nowrap">
 				<span class="componentheading">index.php:<b><?php echo is_writable($template_path)?'<font color="green">'._WRITEABLE.'</font>':'<font color="red">'._UNWRITEABLE.'</font>' ?></b></span>
 			</td>
@@ -229,9 +229,9 @@ class HTML_templates {
 	* @param string The option
 	*/
 	function editCSSSource($template,&$content,$option,$client) {
-		global $mosConfig_absolute_path,$mosConfig_codepress;
-		$css_path = $mosConfig_absolute_path.($client == 'admin'?'/'.ADMINISTRATOR_DIRECTORY:'').'/templates/'.$template.'/css/template_css.css';
-		/* подключение js файла codepress*/
+		global $mosConfig_codepress;
+		$css_path = JPATH_BASE.($client == 'admin'?'/'.ADMINISTRATOR_DIRECTORY:'').'/templates/'.$template.'/css/template_css.css';
+		/* РїРѕРґРєР»СЋС‡РµРЅРёРµ js С„Р°Р№Р»Р° codepress*/
 		if($mosConfig_codepress) mosCommonHTML::loadCodepress();
 ?>
 		<script language="javascript" type="text/javascript">
@@ -246,7 +246,7 @@ class HTML_templates {
 				form: 'adminForm',
 				callback:
 					function(resp){
-						log('Получен ответ: ' + resp.responseText);
+						log('РџРѕР»СѓС‡РµРЅ РѕС‚РІРµС‚: ' + resp.responseText);
 						mess_cool(resp.responseText);
 						SRAX.get('tb-apply').className='tb-apply';
 			}});

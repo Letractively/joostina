@@ -1,46 +1,46 @@
 <?php
 /**
 * @package Joostina
-* @copyright Àâòîðñêèå ïðàâà (C) 2008-2009 Joostina team. Âñå ïðàâà çàùèùåíû.
-* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
-* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
-* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+* @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2009 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
+* @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
+* Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
+* Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
 */
 
-// çàïðåò ïðÿìîãî äîñòóïà
+// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
 defined('_VALID_MOS') or die();
 
-global $mosConfig_sef,$mosConfig_absolute_path,$mosConfig_live_site;
+global $mosConfig_sef,$mosConfig_live_site;
 
 
 if($mosConfig_sef) {
-	// ïåðåáðàñûâàåì íà êîððåêòíûé àäðåñ
-	if (ltrim(strpos($_SERVER['REQUEST_URI'], 'index.php'),'/')==1 && $_SERVER['REQUEST_METHOD']=='GET') { //Ïðîâåðêà SEF ëè óðë, ò.å. âíà÷àëå ñòîèò index.php
-		$bSefGoto = true; //Ôëàã ïåðåõîäà
-		//Ïðîâåðêà êîìïîíåíòîâ
-		$sSef_option	= mosGetParam($_GET,'option',''); // Ïîëó÷åíèå îïöèè (êîìïîíåíòà)
-		$sSef_task		= mosGetParam($_GET,'task','');   // Ïîëó÷åíèå çàäà÷è
-		$sSef_tp		= mosGetParam($_GET,'tp',0);   // Ïðåäïðîñìîòð
+	// Ð¿ÐµÑ€ÐµÐ±Ñ€Ð°ÑÑ‹Ð²Ð°ÐµÐ¼ Ð½Ð° ÐºÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð½Ñ‹Ð¹ Ð°Ð´Ñ€ÐµÑ
+	if (ltrim(strpos($_SERVER['REQUEST_URI'], 'index.php'),'/')==1 && $_SERVER['REQUEST_METHOD']=='GET') { //ÐŸÑ€Ð¾Ð²ÐµÑ€ÐºÐ° SEF Ð»Ð¸ ÑƒÑ€Ð», Ñ‚.Ðµ. Ð²Ð½Ð°Ñ‡Ð°Ð»Ðµ ÑÑ‚Ð¾Ð¸Ñ‚ index.php
+		$bSefGoto = true; //Ð¤Ð»Ð°Ð³ Ð¿ÐµÑ€ÐµÑ…Ð¾Ð´Ð°
+		//ÐŸÑ€Ð¾Ð²ÐµÑ€ÐºÐ° ÐºÐ¾Ð¼Ð¿Ð¾Ð½ÐµÐ½Ñ‚Ð¾Ð²
+		$sSef_option	= mosGetParam($_GET,'option',''); // ÐŸÐ¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ðµ Ð¾Ð¿Ñ†Ð¸Ð¸ (ÐºÐ¾Ð¼Ð¿Ð¾Ð½ÐµÐ½Ñ‚Ð°)
+		$sSef_task		= mosGetParam($_GET,'task','');   // ÐŸÐ¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ðµ Ð·Ð°Ð´Ð°Ñ‡Ð¸
+		$sSef_tp		= mosGetParam($_GET,'tp',0);   // ÐŸÑ€ÐµÐ´Ð¿Ñ€Ð¾ÑÐ¼Ð¾Ñ‚Ñ€
 
-		//Ðåæèì ïðåäïðîñìîòðà
+		//Ð ÐµÐ¶Ð¸Ð¼ Ð¿Ñ€ÐµÐ´Ð¿Ñ€Ð¾ÑÐ¼Ð¾Ñ‚Ñ€Ð°
 		if ($sSef_tp=='1') {
 			$bSefGoto = false;
 		}
-		//Êîìïîíåíò ïîèñêà
+		//ÐšÐ¾Ð¼Ð¿Ð¾Ð½ÐµÐ½Ñ‚ Ð¿Ð¾Ð¸ÑÐºÐ°
 		if ($sSef_option == 'com_search') {
 			$bSefGoto = false;
 		}
-		//Êîìïîíåíò êîíòåêñòà (ñòàòüè, íîâîñòè)
+		//ÐšÐ¾Ð¼Ð¿Ð¾Ð½ÐµÐ½Ñ‚ ÐºÐ¾Ð½Ñ‚ÐµÐºÑÑ‚Ð° (ÑÑ‚Ð°Ñ‚ÑŒÐ¸, Ð½Ð¾Ð²Ð¾ÑÑ‚Ð¸)
 		if ($sSef_option == 'com_content') {
-			$aConTask = array('edit','new','mycontent'); //Çàäà÷è êîìïîíåíòà, åñëè íàäî äîáàâèòü ñâîþ çàäà÷ó, äîáàâüòå â ìàññèâ
-			if(in_array($sSef_task,$aConTask)) { //Åñëè òåêóùàÿ çàäà÷à â ñïèñêå çàïðåùåííûõ, òî ïðîïóñêàåì åå
+			$aConTask = array('edit','new','mycontent'); //Ð—Ð°Ð´Ð°Ñ‡Ð¸ ÐºÐ¾Ð¼Ð¿Ð¾Ð½ÐµÐ½Ñ‚Ð°, ÐµÑÐ»Ð¸ Ð½Ð°Ð´Ð¾ Ð´Ð¾Ð±Ð°Ð²Ð¸Ñ‚ÑŒ ÑÐ²Ð¾ÑŽ Ð·Ð°Ð´Ð°Ñ‡Ñƒ, Ð´Ð¾Ð±Ð°Ð²ÑŒÑ‚Ðµ Ð² Ð¼Ð°ÑÑÐ¸Ð²
+			if(in_array($sSef_task,$aConTask)) { //Ð•ÑÐ»Ð¸ Ñ‚ÐµÐºÑƒÑ‰Ð°Ñ Ð·Ð°Ð´Ð°Ñ‡Ð° Ð² ÑÐ¿Ð¸ÑÐºÐµ Ð·Ð°Ð¿Ñ€ÐµÑ‰ÐµÐ½Ð½Ñ‹Ñ…, Ñ‚Ð¾ Ð¿Ñ€Ð¾Ð¿ÑƒÑÐºÐ°ÐµÐ¼ ÐµÐµ
 				$bSefGoto = false;
 			}
 		}
-		if ($bSefGoto==true) { //Ïåðåõîä
-			$url = sefRelToAbs('index.php?'.$_SERVER['QUERY_STRING']); //Ïðåîáðàçîâàíèå óðë
-			header("Location: ".$url,TRUE,301); //Ôîðìèðîâàíèå çàãîëîâêà ñ ïåðåíàïðàâëåíèåì
-			exit(301); //Çàâåðøåíèå ðàáîòû, ñ îòäà÷åé êîäà çàâåðøåíèÿ
+		if ($bSefGoto==true) { //ÐŸÐµÑ€ÐµÑ…Ð¾Ð´
+			$url = sefRelToAbs('index.php?'.$_SERVER['QUERY_STRING']); //ÐŸÑ€ÐµÐ¾Ð±Ñ€Ð°Ð·Ð¾Ð²Ð°Ð½Ð¸Ðµ ÑƒÑ€Ð»
+			header("Location: ".$url,TRUE,301); //Ð¤Ð¾Ñ€Ð¼Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ Ð·Ð°Ð³Ð¾Ð»Ð¾Ð²ÐºÐ° Ñ Ð¿ÐµÑ€ÐµÐ½Ð°Ð¿Ñ€Ð°Ð²Ð»ÐµÐ½Ð¸ÐµÐ¼
+			exit(301); //Ð—Ð°Ð²ÐµÑ€ÑˆÐµÐ½Ð¸Ðµ Ñ€Ð°Ð±Ð¾Ñ‚Ñ‹, Ñ Ð¾Ñ‚Ð´Ð°Ñ‡ÐµÐ¹ ÐºÐ¾Ð´Ð° Ð·Ð°Ð²ÐµÑ€ÑˆÐµÐ½Ð¸Ñ
 		}
 	}
 
@@ -48,7 +48,7 @@ if($mosConfig_sef) {
 
 	$url_array = explode('/',$_SERVER['REQUEST_URI']);
 
-	// äåëàåì êðàñèâûå ññûëêè íà òýãè
+	// Ð´ÐµÐ»Ð°ÐµÐ¼ ÐºÑ€Ð°ÑÐ¸Ð²Ñ‹Ðµ ÑÑÑ‹Ð»ÐºÐ¸ Ð½Ð° Ñ‚ÑÐ³Ð¸
 	if(in_array('tag',$url_array)) {
 		$QUERY_STRING = 'option=com_search&tag=';
 		$_GET['option'] = 'com_search';
@@ -368,11 +368,11 @@ if($mosConfig_sef) {
 					$_GET[$temp[0]] = $temp[1];
 					$_REQUEST[$temp[0]] = $temp[1];
 
-					// ïðîâåðêà íà ñóùåñòðîâàíèå êàòàëîãà çàïðàøèâàåìîãî êîìïîíåíòà
+					// Ð¿Ñ€Ð¾Ð²ÐµÑ€ÐºÐ° Ð½Ð° ÑÑƒÑ‰ÐµÑÑ‚Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ ÐºÐ°Ñ‚Ð°Ð»Ð¾Ð³Ð° Ð·Ð°Ð¿Ñ€Ð°ÑˆÐ¸Ð²Ð°ÐµÐ¼Ð¾Ð³Ð¾ ÐºÐ¾Ð¼Ð¿Ð¾Ð½ÐµÐ½Ñ‚Ð°
 					if($temp[0] == 'option') {
-						if(!is_dir($mosConfig_absolute_path.'/components/'.$temp[1])){
+						if(!is_dir(JPATH_BASE.'/components/'.$temp[1])){
 							header('HTTP/1.0 404 Not Found');
-							require_once ($mosConfig_absolute_path.'/templates/system/404.php');
+							require_once (JPATH_BASE.'/templates/system/404.php');
 							exit(404);
 						}
 					}
@@ -416,7 +416,7 @@ if($mosConfig_sef) {
 
 			if($juri != '' && $juri != '/' && !eregi("index\.php",$_SERVER['REQUEST_URI']) && !eregi("index2\.php",$_SERVER['REQUEST_URI']) && !eregi("/\?",$_SERVER['REQUEST_URI']) && $_SERVER['QUERY_STRING'] == '') {
 				header('HTTP/1.0 404 Not Found');
-				require_once ($mosConfig_absolute_path.'/templates/system/404.php');
+				require_once (JPATH_BASE.'/templates/system/404.php');
 				exit(404);
 			}
 		}
@@ -436,7 +436,7 @@ function sefRelToAbs($string) {
 		$string .= '&amp;lang='.$iso_client_lang;
 	}
 
-	// åñëè ññûëêà èä¸ò íà êîìïîíåíò ãëàâíîé ñòðàíèöû - î÷èñòèì å¸
+	// ÐµÑÐ»Ð¸ ÑÑÑ‹Ð»ÐºÐ° Ð¸Ð´Ñ‘Ñ‚ Ð½Ð° ÐºÐ¾Ð¼Ð¿Ð¾Ð½ÐµÐ½Ñ‚ Ð³Ð»Ð°Ð²Ð½Ð¾Ð¹ ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñ‹ - Ð¾Ñ‡Ð¸ÑÑ‚Ð¸Ð¼ ÐµÑ‘
 	if((strpos($string,'option=com_frontpage')>0) & $mosConfig_com_frontpage_clear & !(strpos($string,'limit'))) {
 		$string = '';
 	}

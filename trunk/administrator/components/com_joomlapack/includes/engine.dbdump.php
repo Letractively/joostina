@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined('_VALID_MOS') or die();
 
 // Constants
@@ -16,7 +16,7 @@ define('_DBPACKER_TABLES_SAMPLE_DATA',2);
 
 global $DBPACKER_CORE_TABLES,$DBPACKER_OMIT_DATA;
 
-// таблицы ядра, помещаются в главный файл
+// С‚Р°Р±Р»РёС†С‹ СЏРґСЂР°, РїРѕРјРµС‰Р°СЋС‚СЃСЏ РІ РіР»Р°РІРЅС‹Р№ С„Р°Р№Р»
 $DBPACKER_CORE_TABLES = array(
 	'#__groups',
 	'#__mambots',
@@ -30,7 +30,7 @@ $DBPACKER_CORE_TABLES = array(
 	'#__core_acl_aro_sections'
 );
 
-// таблицы которые не надо архивировать
+// С‚Р°Р±Р»РёС†С‹ РєРѕС‚РѕСЂС‹Рµ РЅРµ РЅР°РґРѕ Р°СЂС…РёРІРёСЂРѕРІР°С‚СЊ
 $DBPACKER_OMIT_DATA = array('#__jp_packvars');
 
 class CDBBackupEngine {
@@ -106,17 +106,17 @@ class CDBBackupEngine {
 	* @param boolean $onlyDBDumpMode If true, notifies the engine that we are backing up only the database and not the entire site.
 	*/
 	function CDBBackupEngine($onlyDBDumpMode = false) {
-		global $mosConfig_absolute_path,$mosConfig_dbprefix;
+		global $mosConfig_dbprefix;
 		global $JPConfiguration,$database;
 
 		// SECTION 1.
 		// Populate basic global variables
-		CJPLogger::WriteLog(_JP_LOG_DEBUG,'CDBBackupEngine :: Начали');
+		CJPLogger::WriteLog(_JP_LOG_DEBUG,'CDBBackupEngine :: РќР°С‡Р°Р»Рё');
 		// Initialize private variables
 		$this->_onlyDBDumpMode = $onlyDBDumpMode;
 		$this->_dbprefix = $mosConfig_dbprefix;
 		// Detect JoomFish
-		if(file_exists($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_joomfish/config.joomfish.php')) {
+		if(file_exists(JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_joomfish/config.joomfish.php')) {
 			$this->_hasJoomFish = true;
 		} else {
 			$this->_hasJoomFish = false;
@@ -168,7 +168,7 @@ class CDBBackupEngine {
 	}
 
 	function tick() {
-		global $database,$JPConfiguration,$mosConfig_absolute_path;
+		global $database,$JPConfiguration;
 		$out = ''; // joostina pach
 		if($this->_isFinished) {
 			// Indicate we're done
@@ -242,17 +242,17 @@ class CDBBackupEngine {
 
 							CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_NEW_FRAGMENT_ADDED);
 						}
-						// файл в который складывается дамп базы
+						// С„Р°Р№Р» РІ РєРѕС‚РѕСЂС‹Р№ СЃРєР»Р°РґС‹РІР°РµС‚СЃСЏ РґР°РјРї Р±Р°Р·С‹
 						$filename = $this->_filenameCore;
-						// выбор типа архивирования дампа базы данных
+						// РІС‹Р±РѕСЂ С‚РёРїР° Р°СЂС…РёРІРёСЂРѕРІР°РЅРёСЏ РґР°РјРїР° Р±Р°Р·С‹ РґР°РЅРЅС‹С…
 						if($this->_onlyDBDumpMode){
 							switch($JPConfiguration->sql_pack) {
 								case 0:
 								default:
 									break;
 								case 1:
-								// архивирование в tar.gz
-									require_once ($mosConfig_absolute_path.'/includes/Archive/Tar.php');
+								// Р°СЂС…РёРІРёСЂРѕРІР°РЅРёРµ РІ tar.gz
+									require_once (JPATH_BASE.'/includes/Archive/Tar.php');
 									$filename = $filename.'.tar.gz';
 									$tar = new Archive_Tar($filename);
 									$tar->setErrorHandling(PEAR_ERROR_PRINT);
@@ -261,8 +261,8 @@ class CDBBackupEngine {
 									unset($tar);
 									break;
 								case 2:
-									// архивирование в zip
-									include_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/includes/pcl/pclzip.lib.php');
+									// Р°СЂС…РёРІРёСЂРѕРІР°РЅРёРµ РІ zip
+									include_once (JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/includes/pcl/pclzip.lib.php');
 									$filename = $filename.'.zip';
 									$zip = new PclZip($filename);
 									$zip->add($this->_filenameCore,'',PclZipUtilTranslateWinPath(dirname($this->_filenameCore)));
@@ -270,7 +270,7 @@ class CDBBackupEngine {
 									unset($zip);
 									break;
 							}
-							// всё успешно завершено
+							// РІСЃС‘ СѓСЃРїРµС€РЅРѕ Р·Р°РІРµСЂС€РµРЅРѕ
 							$returnArray = array();
 							$returnArray['HasRun'] = 0;
 							$returnArray['Domain'] = 'finale';

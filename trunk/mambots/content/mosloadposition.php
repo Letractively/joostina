@@ -1,19 +1,19 @@
 <?php
 /**
 * @package Joostina
-* @copyright Àâòîðñêèå ïðàâà (C) 2008-2009 Joostina team. Âñå ïðàâà çàùèùåíû.
-* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
-* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
-* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+* @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2009 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
+* @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
+* Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
+* Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
 */
 
-// çàïðåò ïðÿìîãî äîñòóïà
+// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
 defined('_VALID_MOS') or die();
 
 $_MAMBOTS->registerFunction('onPrepareContent','botMosLoadPosition');
 
 /**
-* Ìàìáîò, çàãðóæàþùèé ìîäóëè â ïðåäåëàõ ñîäåðæèìîãî
+* ÐœÐ°Ð¼Ð±Ð¾Ñ‚, Ð·Ð°Ð³Ñ€ÑƒÐ¶Ð°ÑŽÑ‰Ð¸Ð¹ Ð¼Ð¾Ð´ÑƒÐ»Ð¸ Ð² Ð¿Ñ€ÐµÐ´ÐµÐ»Ð°Ñ… ÑÐ¾Ð´ÐµÑ€Ð¶Ð¸Ð¼Ð¾Ð³Ð¾
 */
 function botMosLoadPosition($published,&$row) {
 	global $database,$_MAMBOTS;
@@ -32,13 +32,13 @@ function botMosLoadPosition($published,&$row) {
 		return true;
 	}
 
-	// íàéòè âñå îáðàçöû ìàìáîòà è âñòàâèòü â $matches
+	// Ð½Ð°Ð¹Ñ‚Ð¸ Ð²ÑÐµ Ð¾Ð±Ñ€Ð°Ð·Ñ†Ñ‹ Ð¼Ð°Ð¼Ð±Ð¾Ñ‚Ð° Ð¸ Ð²ÑÑ‚Ð°Ð²Ð¸Ñ‚ÑŒ Ð² $matches
 	preg_match_all($regex,$row->text,$matches);
 
-	// Êîëè÷åñòâî ìàìáîòîâ
+	// ÐšÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ð¼Ð°Ð¼Ð±Ð¾Ñ‚Ð¾Ð²
 	$count = count($matches[0]);
 
-	// ìàìáîò ïðîèçâîäèò îáðàáîòêó åñëè íàõîäèò â òåêñòå îáðàçöû ìàìáîòà
+	// Ð¼Ð°Ð¼Ð±Ð¾Ñ‚ Ð¿Ñ€Ð¾Ð¸Ð·Ð²Ð¾Ð´Ð¸Ñ‚ Ð¾Ð±Ñ€Ð°Ð±Ð¾Ñ‚ÐºÑƒ ÐµÑÐ»Ð¸ Ð½Ð°Ñ…Ð¾Ð´Ð¸Ñ‚ Ð² Ñ‚ÐµÐºÑÑ‚Ðµ Ð¾Ð±Ñ€Ð°Ð·Ñ†Ñ‹ Ð¼Ð°Ð¼Ð±Ð¾Ñ‚Ð°
 	if($count) {
 		// check if param query has previously been processed
 		if(!isset($_MAMBOTS->_content_mambot_params['mosloadposition'])) {
@@ -84,7 +84,7 @@ function processPositions(&$row,&$matches,$count,$regex,$style) {
 		}
 	}
 
-	// óäàëåíèå òýãîâ, íå ñîîòâåòñòâóþùèõ ïîçèöèè ìîäóëÿ
+	// ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ðµ Ñ‚ÑÐ³Ð¾Ð², Ð½Ðµ ÑÐ¾Ð¾Ñ‚Ð²ÐµÑ‚ÑÑ‚Ð²ÑƒÑŽÑ‰Ð¸Ñ… Ð¿Ð¾Ð·Ð¸Ñ†Ð¸Ð¸ Ð¼Ð¾Ð´ÑƒÐ»Ñ
 	$row->text = preg_replace($regex,'',$row->text);
 }
 

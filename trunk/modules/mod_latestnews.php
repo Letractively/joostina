@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright Àâòîðñêèå ïðàâà (C) 2008-2009 Joostina team. Âñå ïðàâà çàùèùåíû.
-* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
-* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
-* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+* @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2009 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
+* @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
+* Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
+* Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
 */
 
-// çàïðåò ïðÿìîãî äîñòóïà
+// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
 defined( '_VALID_MOS' ) or die();
 
 $mainframe = &mosMainFrame::getInstance();
@@ -17,25 +17,25 @@ $def_itemid = $params->get('def_itemid', false);
 $params->def('item_title', 1); $params->def('link_titles', 1);
 $params->def('template', 'default.php');
 
-//Ïîäêëþ÷àåì âñïîìîãàòåëüíûé êëàññ
+//ÐŸÐ¾Ð´ÐºÐ»ÑŽÑ‡Ð°ÐµÐ¼ Ð²ÑÐ¿Ð¾Ð¼Ð¾Ð³Ð°Ñ‚ÐµÐ»ÑŒÐ½Ñ‹Ð¹ ÐºÐ»Ð°ÑÑ
 $module->get_helper();
 
-// Âûáîð ìåæäó âûâîäîì ñîäåðæèìîãî îáúåêòîâ, 
-//ñòàòè÷åñêîãî ñîäåðæèìîãî èëè ñðàçó îáîèõ
+// Ð’Ñ‹Ð±Ð¾Ñ€ Ð¼ÐµÐ¶Ð´Ñƒ Ð²Ñ‹Ð²Ð¾Ð´Ð¾Ð¼ ÑÐ¾Ð´ÐµÑ€Ð¶Ð¸Ð¼Ð¾Ð³Ð¾ Ð¾Ð±ÑŠÐµÐºÑ‚Ð¾Ð², 
+//ÑÑ‚Ð°Ñ‚Ð¸Ñ‡ÐµÑÐºÐ¾Ð³Ð¾ ÑÐ¾Ð´ÐµÑ€Ð¶Ð¸Ð¼Ð¾Ð³Ð¾ Ð¸Ð»Ð¸ ÑÑ€Ð°Ð·Ñƒ Ð¾Ð±Ð¾Ð¸Ñ…
 switch ($type) {
 	case 2: 
-		//Òîëüêî ñòàòè÷åñêîå ñîäåðæèìîå
+		//Ð¢Ð¾Ð»ÑŒÐºÐ¾ ÑÑ‚Ð°Ñ‚Ð¸Ñ‡ÐµÑÐºÐ¾Ðµ ÑÐ¾Ð´ÐµÑ€Ð¶Ð¸Ð¼Ð¾Ðµ
 		$rows = $module->helper->get_static_items($params);
 		break;
 
 	case 3: 
-		//Îáà òèïà
+		//ÐžÐ±Ð° Ñ‚Ð¸Ð¿Ð°
 		$rows = $module->helper->get_items_both($params);
 		break;
 
 	case 1:
 	default: 
-		//Òîëüêî ñîäåðæèìîå êàòåãîðèé
+		//Ð¢Ð¾Ð»ÑŒÐºÐ¾ ÑÐ¾Ð´ÐµÑ€Ð¶Ð¸Ð¼Ð¾Ðµ ÐºÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸Ð¹
 		$rows = $module->helper->get_category_items($params); 	
 		break;
 }
@@ -44,7 +44,7 @@ $params->def('numrows', count($rows));
 $params->set('intro_only',1);
 
 if(!$def_itemid>0){
-	// òðåáîâàíèå óìåíüøèòü çàïðîñû, èñïîëüçóåìûå getItemid äëÿ îáúåêòîâ ñîäåðæèìîãî
+	// Ñ‚Ñ€ÐµÐ±Ð¾Ð²Ð°Ð½Ð¸Ðµ ÑƒÐ¼ÐµÐ½ÑŒÑˆÐ¸Ñ‚ÑŒ Ð·Ð°Ð¿Ñ€Ð¾ÑÑ‹, Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ðµ getItemid Ð´Ð»Ñ Ð¾Ð±ÑŠÐµÐºÑ‚Ð¾Ð² ÑÐ¾Ð´ÐµÑ€Ð¶Ð¸Ð¼Ð¾Ð³Ð¾
 	if (($type == 1) || ($type == 3)) {
 		$params->def('bs', $mainframe->getBlogSectionCount());
 		$params->def('bc', $mainframe->getBlogCategoryCount());
@@ -52,7 +52,7 @@ if(!$def_itemid>0){
 	}
 }
 
-//Ïîäêëþ÷àåì øàáëîí
+//ÐŸÐ¾Ð´ÐºÐ»ÑŽÑ‡Ð°ÐµÐ¼ ÑˆÐ°Ð±Ð»Ð¾Ð½
 if($module->set_template($params)){
 	require($module->template);
 }

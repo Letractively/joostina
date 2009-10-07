@@ -1,19 +1,19 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined('_VALID_MOS') or die();
 
-// параметр выполняемого действия
+// РїР°СЂР°РјРµС‚СЂ РІС‹РїРѕР»РЅСЏРµРјРѕРіРѕ РґРµР№СЃС‚РІРёСЏ
 $task	= mosGetParam($_GET,'task','publish');
 
-// обрабатываем полученный параметр task
+// РѕР±СЂР°Р±Р°С‚С‹РІР°РµРј РїРѕР»СѓС‡РµРЅРЅС‹Р№ РїР°СЂР°РјРµС‚СЂ task
 switch($task) {
 	case 'toggle_editor':
 		echo x_toggle_editor();
@@ -26,18 +26,18 @@ switch($task) {
 		return;
 }
 
-// включение / отключение визуального редактора
+// РІРєР»СЋС‡РµРЅРёРµ / РѕС‚РєР»СЋС‡РµРЅРёРµ РІРёР·СѓР°Р»СЊРЅРѕРіРѕ СЂРµРґР°РєС‚РѕСЂР°
 function x_toggle_editor(){
 	$mainframe = mosMainFrame::getInstance(true);
 
 	$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
 
 	if(!intval(mosGetParam($_SESSION,'user_editor_off',''))){
-		// отключаем редактор
+		// РѕС‚РєР»СЋС‡Р°РµРј СЂРµРґР°РєС‚РѕСЂ
 		$_SESSION['user_editor_off'] = 1;
 		return $cur_file_icons_path.'/editor_off.png';
 	}else{
-		// включаем редактор
+		// РІРєР»СЋС‡Р°РµРј СЂРµРґР°РєС‚РѕСЂ
 		$_SESSION['user_editor_off'] = 0;
 		return $cur_file_icons_path.'/editor_on.png';
 	}
@@ -54,7 +54,7 @@ function x_upload(){
 		</tr>
 		<tr>
 			<td align="center">
-				<input class="inputbox" name="userfile" type="file" /><input class="button" type="submit" value="Загрузить" name="fileupload" />
+				<input class="inputbox" name="userfile" type="file" /><input class="button" type="submit" value="Р—Р°РіСЂСѓР·РёС‚СЊ" name="fileupload" />
 			</td>
 		</tr>
 		<tr>

@@ -1,18 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Àâòîðñêèå ïðàâà (C) 2008-2009 Joostina team. Âñå ïðàâà çàùèùåíû.
-* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
-* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
-* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+* @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2009 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
+* @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
+* Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
+* Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
 */
 
-// çàïðåò ïðÿìîãî äîñòóïà
+// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
 defined('_VALID_MOS') or die();
 
 require_once ($mainframe->getPath('admin_html'));
 require_once (Jconfig::getInstance()->config_absolute_path.DS.'components'.DS.'com_content'.DS.'content.class.php');
-define('COM_IMAGE_BASE',$mosConfig_absolute_path.DS.'images'.DS.'stories');
+define('COM_IMAGE_BASE',JPATH_BASE.DS.'images'.DS.'stories');
 
 // get parameters from the URL or submitted form
 $section = stripslashes(strval(mosGetParam($_REQUEST,'section','content')));
@@ -119,7 +119,7 @@ switch($task) {
 * @param string The name of the category section
 */
 function showCategories($section,$option) {
-	global $database,$mainframe,$mosConfig_list_limit,$mosConfig_absolute_path,$mosConfig_dbprefix;
+	global $database,$mainframe,$mosConfig_list_limit,$mosConfig_dbprefix;
 
 	$sectionid = intval($mainframe->getUserStateFromRequest("sectionid{$option}{$section}",'sectionid',0));
 	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mosConfig_list_limit));
@@ -189,7 +189,7 @@ function showCategories($section,$option) {
 		$filter = '';
 	}
 
-	require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
+	require_once (JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
 	$tablesAllowed = $database->getTableList();
@@ -242,8 +242,8 @@ function showCategories($section,$option) {
 		}
 	}
 
-	//À òåïåðü äîáàâèì â $new_rows êàòåãîðèè áåç êîíòåíòà,
-	// à òî íå ïî ôåí-øóþ êàê-òî ïîëó÷àåòñÿ
+	//Ð Ñ‚ÐµÐ¿ÐµÑ€ÑŒ Ð´Ð¾Ð±Ð°Ð²Ð¸Ð¼ Ð² $new_rows ÐºÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸Ð¸ Ð±ÐµÐ· ÐºÐ¾Ð½Ñ‚ÐµÐ½Ñ‚Ð°,
+	// Ð° Ñ‚Ð¾ Ð½Ðµ Ð¿Ð¾ Ñ„ÐµÐ½-ÑˆÑƒÑŽ ÐºÐ°Ðº-Ñ‚Ð¾ Ð¿Ð¾Ð»ÑƒÑ‡Ð°ÐµÑ‚ÑÑ
 	
 	foreach($cat_ids as $v){
 		if (!in_array($rows[$v], $new_rows)){
@@ -575,7 +575,7 @@ function saveCategory($task) {
 			mosRedirect('index2.php?option=com_categories&section='.$redirect.'&task=editA&hidemainmenu=1&id='.$row->id,_COM_CATEGORIES_SAVE_MOD);
 			break;
 
-			/* boston, ïîñëå ñîõðàíåíèÿ âîçâðàùàåìñÿ â îêíî äîáàâëåíèÿ íîâîé êàòåãîðèè*/
+			/* boston, Ð¿Ð¾ÑÐ»Ðµ ÑÐ¾Ñ…Ñ€Ð°Ð½ÐµÐ½Ð¸Ñ Ð²Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°ÐµÐ¼ÑÑ Ð² Ð¾ÐºÐ½Ð¾ Ð´Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð¸Ñ Ð½Ð¾Ð²Ð¾Ð¹ ÐºÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸Ð¸*/
 		case 'save_and_new':
 			$msg = $row->title._COM_CATEGORIES_SAVED_2;
 			mosRedirect('index2.php?option=com_categories&task=new',$msg);

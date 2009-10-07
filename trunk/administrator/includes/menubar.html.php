@@ -2,12 +2,12 @@
 /**
 * @JoostFREE
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined('_VALID_MOS') or die();
 
 if(!class_exists('mosMenuBar')) {
@@ -24,7 +24,7 @@ if(!class_exists('mosMenuBar')) {
 
 
 		/**
-		* Создание произвольных кнопок тулбара с параметром в виде ссылки и расширенным параметром extra
+		* РЎРѕР·РґР°РЅРёРµ РїСЂРѕРёР·РІРѕР»СЊРЅС‹С… РєРЅРѕРїРѕРє С‚СѓР»Р±Р°СЂР° СЃ РїР°СЂР°РјРµС‚СЂРѕРј РІ РІРёРґРµ СЃСЃС‹Р»РєРё Рё СЂР°СЃС€РёСЂРµРЅРЅС‹Рј РїР°СЂР°РјРµС‚СЂРѕРј extra
 		*/
 		function ext($alt = _BUTTON,$href = '',$class = '',$extra = '') {
 		?><li>
@@ -360,7 +360,7 @@ if(!class_exists('mosMenuBar')) {
 		*/
 		function help($ref,$com = false) {
 			global $mosConfig_disable_button_help;
-			if($mosConfig_disable_button_help) return; // при активном отключении кнопки "Помощь" функция прерывается в самом начале
+			if($mosConfig_disable_button_help) return; // РїСЂРё Р°РєС‚РёРІРЅРѕРј РѕС‚РєР»СЋС‡РµРЅРёРё РєРЅРѕРїРєРё "РџРѕРјРѕС‰СЊ" С„СѓРЅРєС†РёСЏ РїСЂРµСЂС‹РІР°РµС‚СЃСЏ РІ СЃР°РјРѕРј РЅР°С‡Р°Р»Рµ
 			global $mosConfig_live_site;
 			$helpUrl = mosGetParam($GLOBALS,'mosConfig_helpurl','');
 			if($helpUrl == 'http://help.mamboserver.com') {

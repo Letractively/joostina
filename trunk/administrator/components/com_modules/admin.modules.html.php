@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined('_VALID_MOS') or die();
 
 /**
@@ -29,27 +29,27 @@ class HTML_modules {
 ?>
 	<script type="text/javascript">
 	function ch_get_positon(elID){
-		log('Получение списка позиций модуля: '+elID);
+		log('РџРѕР»СѓС‡РµРЅРёРµ СЃРїРёСЃРєР° РїРѕР·РёС†РёР№ РјРѕРґСѓР»СЏ: '+elID);
 		SRAX.replaceHtml('mod-id-'+elID,'<img src="images/aload.gif" />');
 		dax({
 			url: 'ajax.index.php?option=com_modules&utf=1&task=position&id='+elID,
 			id:'publ-'+elID,
 			callback:
 				function(resp, idTread, status, ops){
-					log('Получен ответ: ' + resp.responseText);
+					log('РџРѕР»СѓС‡РµРЅ РѕС‚РІРµС‚: ' + resp.responseText);
 					SRAX.replaceHtml('mod-id-'+elID,resp.responseText);
 		}});
 	}
-	// смена позиции модуля
+	// СЃРјРµРЅР° РїРѕР·РёС†РёРё РјРѕРґСѓР»СЏ
 	function ch_sav_pos(elID,newPOS){
-		log('Смена позиции модуля: '+elID+' на '+newPOS);
+		log('РЎРјРµРЅР° РїРѕР·РёС†РёРё РјРѕРґСѓР»СЏ: '+elID+' РЅР° '+newPOS);
 		SRAX.replaceHtml('mod-id-'+elID,'<img src="images/aload.gif" />');
 		dax({
 			url: 'ajax.index.php?option=com_modules&task=save_position&id='+elID+'&new_pos='+newPOS,
 			id:'publ-'+elID,
 			callback:
 				function(resp, idTread, status, ops){
-					log('Получен ответ: ' + resp.responseText);
+					log('РџРѕР»СѓС‡РµРЅ РѕС‚РІРµС‚: ' + resp.responseText);
 					if(resp.responseText==1)
 						SRAX.replaceHtml('mod-id-'+elID,'<a href="#" onclick="ch_get_positon(\''+elID+'\');" >'+newPOS+'</a>');
 					else
@@ -209,7 +209,7 @@ class HTML_modules {
 				form: 'adminForm',
 				callback:
 					function(resp){
-						log('Получен ответ: ' + resp.responseText);
+						log('РџРѕР»СѓС‡РµРЅ РѕС‚РІРµС‚: ' + resp.responseText);
 						mess_cool(resp.responseText);
 						SRAX.get('tb-apply').className='tb-apply';
 			}});

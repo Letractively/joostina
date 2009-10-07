@@ -1,15 +1,15 @@
 <?php
 /**
 * @package Joostina
-* @copyright Àâòîðñêèå ïðàâà (C) 2008-2009 Joostina team. Âñå ïðàâà çàùèùåíû.
-* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
-* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
-* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+* @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2009 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
+* @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
+* Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
+* Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
 */
 
 define("_VALID_MOS",1);
 
-/** ïðîâåðêà áåçîïàñíîñòè*/
+/** Ð¿Ñ€Ð¾Ð²ÐµÑ€ÐºÐ° Ð±ÐµÐ·Ð¾Ð¿Ð°ÑÐ½Ð¾ÑÑ‚Ð¸*/
 require ('../includes/auth.php');
 
 $mainframe = &mosMainFrame::getInstance(true);
@@ -60,11 +60,11 @@ switch($option) {
 		break;
 }
 // mainframe is an API workhorse, lots of 'core' interaction routines
-$mainframe = new mosMainFrame( $database, $option, $mosConfig_absolute_path, true );
+$mainframe = new mosMainFrame( $database, $option, JPATH_BASE, true );
 $directory = mosGetParam($_REQUEST,'directory','');
 $css = mosGetParam($_REQUEST,'t','');
 
-$media_path = $mosConfig_absolute_path.'/media/';
+$media_path = JPATH_BASE.'/media/';
 
 $userfile2 = (isset($_FILES['userfile']['tmp_name'])?$_FILES['userfile']['tmp_name']:"");
 $userfile_name = (isset($_FILES['userfile']['name'])?$_FILES['userfile']['name']:"");
@@ -72,7 +72,7 @@ $userfile_name = (isset($_FILES['userfile']['name'])?$_FILES['userfile']['name']
 limitDirectory($directory);
 
 // check to see if directory exists
-if($directory != 'banners' && $directory != '' && !is_dir($mosConfig_absolute_path.'/images/stories/'.$directory)) {
+if($directory != 'banners' && $directory != '' && !is_dir(JPATH_BASE.'/images/stories/'.$directory)) {
 	$directory = '';
 }
 
@@ -85,7 +85,7 @@ if(isset($_FILES['userfile'])) {
 		if($directory != '') {
 			$base_Dir = '../../images/stories/'.$directory;
 
-			if(!is_dir($mosConfig_absolute_path.'/images/stories/'.$directory)) {
+			if(!is_dir(JPATH_BASE.'/images/stories/'.$directory)) {
 				$base_Dir = '../../images/stories/';
 				$directory = '';
 			}
@@ -128,7 +128,7 @@ if(isset($_FILES['userfile'])) {
 
 // css file handling
 // check to see if template exists
-if($css != '' && !is_dir($mosConfig_absolute_path.DS.ADMINISTRATOR_DIRECTORY.'/templates/'.$css.'/css/template_css.css')) {
+if($css != '' && !is_dir(JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY.'/templates/'.$css.'/css/template_css.css')) {
 	$css = 'joostfree';
 } else
 	if($css == '') {

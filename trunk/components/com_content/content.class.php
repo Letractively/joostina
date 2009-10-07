@@ -2,13 +2,13 @@
 
 /**
  * @package Joostina
- * @copyright Àâòîðñêèå ïðàâà (C) 2008-2009 Joostina team. Âñå ïðàâà çàùèùåíû.
- * @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
- * Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
- * Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+ * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2009 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
+ * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
+ * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
+ * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
  */
 
-// çàïðåò ïðÿìîãî äîñòóïà
+// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
 defined('_VALID_MOS') or die();
 
 mosMainFrame::addLib('dbconfig');
@@ -189,8 +189,8 @@ class mosCategory extends mosDBTable{
 				$_Itemid = '&amp;Itemid='.$mainframe->get('secID_'.$row->sectionid,-1);
 		}
 		
-		//Ýòà øòóêîâèíà áîëüøå íå íóæíà, ïîñêîëüêó òåïåðü ìû ïðåäîñòàâëÿåì àäìèíó
-		//ïðàâî âðó÷íóþ âûñòàâëÿòü òèï ññûëêè â íàñòðîéêàõ ïóíêòà
+		//Ð­Ñ‚Ð° ÑˆÑ‚ÑƒÐºÐ¾Ð²Ð¸Ð½Ð° Ð±Ð¾Ð»ÑŒÑˆÐµ Ð½Ðµ Ð½ÑƒÐ¶Ð½Ð°, Ð¿Ð¾ÑÐºÐ¾Ð»ÑŒÐºÑƒ Ñ‚ÐµÐ¿ÐµÑ€ÑŒ Ð¼Ñ‹ Ð¿Ñ€ÐµÐ´Ð¾ÑÑ‚Ð°Ð²Ð»ÑÐµÐ¼ Ð°Ð´Ð¼Ð¸Ð½Ñƒ
+		//Ð¿Ñ€Ð°Ð²Ð¾ Ð²Ñ€ÑƒÑ‡Ð½ÑƒÑŽ Ð²Ñ‹ÑÑ‚Ð°Ð²Ð»ÑÑ‚ÑŒ Ñ‚Ð¸Ð¿ ÑÑÑ‹Ð»ÐºÐ¸ Ð² Ð½Ð°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ°Ñ… Ð¿ÑƒÐ½ÐºÑ‚Ð°
 		
 		//	if($catLinkURL) {
 		//		$link = sefRelToAbs($catLinkURL.$_Itemid);
@@ -375,11 +375,11 @@ class mosSection extends mosDBTable{
 		$access_check = '';
 		$access_check_content = '';
 
-		//Ïàðàìåòðû ñîðòèðîâêè
+		//ÐŸÐ°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ñ‹ ÑÐ¾Ñ€Ñ‚Ð¸Ñ€Ð¾Ð²ÐºÐ¸
 		// Ordering control
 		$orderby = contentSqlHelper::_orderby_sec($params->get('orderby'));
 		
-		//Äîïîëíèòåëüíûå óñëîâèÿ
+		//Ð”Ð¾Ð¿Ð¾Ð»Ð½Ð¸Ñ‚ÐµÐ»ÑŒÐ½Ñ‹Ðµ ÑƒÑÐ»Ð¾Ð²Ð¸Ñ
 		if($access->canEdit) {
 			if($params->get('unpublished')) {
 				// shows unpublished items for publishers and above
@@ -1035,11 +1035,11 @@ class mosContent extends mosDBTable{
 		$voting = new contentVoiting($params);
 		$voting = $voting->_construct_sql();
 
-		//Äîïîëíèòåëüíûå óñëîâèÿ
+		//Ð”Ð¾Ð¿Ð¾Ð»Ð½Ð¸Ñ‚ÐµÐ»ÑŒÐ½Ñ‹Ðµ ÑƒÑÐ»Ð¾Ð²Ð¸Ñ
 		$where = contentSqlHelper::construct_where_blog(1, $section, $access, $params);
 		$where = (count($where) ? "\n WHERE " . implode("\n AND ", $where) : '');
 
-		//Ïàðàìåòðû ñîðòèðîâêè
+		//ÐŸÐ°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ñ‹ ÑÐ¾Ñ€Ñ‚Ð¸Ñ€Ð¾Ð²ÐºÐ¸
 		$order_sec = contentSqlHelper::_orderby_sec($params->get('orderby_sec'));
 		$order_pri = contentSqlHelper::_orderby_pri($params->get('orderby_pri'));
 		
@@ -1048,7 +1048,7 @@ class mosContent extends mosDBTable{
 			$params->set('limit', 0);	
 		}
 
-		//Îñíîâíîé çàïðîñ
+		//ÐžÑÐ½Ð¾Ð²Ð½Ð¾Ð¹ Ð·Ð°Ð¿Ñ€Ð¾Ñ
 		$query = 'SELECT  a.id, a.attribs , a.title, a.title_alias, a.introtext, a.sectionid,
 				a.state, a.catid, a.created, a.created_by, a.created_by_alias, a.modified, a.modified_by,
 				a.checked_out, a.checked_out_time, a.publish_up, a.publish_down, a.images, a.urls, a.ordering,
@@ -1101,15 +1101,15 @@ class mosContent extends mosDBTable{
 		$voting = new contentVoiting($params);
 		$voting = $voting->_construct_sql();
 
-		//Äîïîëíèòåëüíûå óñëîâèÿ
+		//Ð”Ð¾Ð¿Ð¾Ð»Ð½Ð¸Ñ‚ÐµÐ»ÑŒÐ½Ñ‹Ðµ ÑƒÑÐ»Ð¾Ð²Ð¸Ñ
 		$where = contentSqlHelper::construct_where_blog(2, $category, $access, $params);
 		$where = (count($where) ? " WHERE " . implode("\n AND ", $where) : '');
 
-		//Ïàðàìåòðû ñîðòèðîâêè
+		//ÐŸÐ°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ñ‹ ÑÐ¾Ñ€Ñ‚Ð¸Ñ€Ð¾Ð²ÐºÐ¸
 		$order_sec = contentSqlHelper::_orderby_sec($params->get('orderby_sec'));
 		$order_pri = contentSqlHelper::_orderby_pri($params->get('orderby_pri'));
 
-		//Îñíîâíîé çàïðîñ
+		//ÐžÑÐ½Ð¾Ð²Ð½Ð¾Ð¹ Ð·Ð°Ð¿Ñ€Ð¾Ñ
 		$query = 'SELECT a.id, a.notetext,a.attribs, a.title, a.title_alias, a.introtext,
 				a.sectionid, a.state, a.catid, a.created, a.created_by, a.created_by_alias,
 				a.modified, a.modified_by, a.checked_out, a.checked_out_time,
@@ -1180,15 +1180,15 @@ class mosContent extends mosDBTable{
 		$voting = new contentVoiting($params);
 		$voting = $voting->_construct_sql();
 
-		//Äîïîëíèòåëüíûå óñëîâèÿ
+		//Ð”Ð¾Ð¿Ð¾Ð»Ð½Ð¸Ñ‚ÐµÐ»ÑŒÐ½Ñ‹Ðµ ÑƒÑÐ»Ð¾Ð²Ð¸Ñ
 		$where = contentSqlHelper::construct_where_blog(-1, $section, $access, $params);
 		$where = (count($where) ? " WHERE " . implode(" AND ", $where) : '');
 
-		//Ïàðàìåòðû ñîðòèðîâêè
+		//ÐŸÐ°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ñ‹ ÑÐ¾Ñ€Ñ‚Ð¸Ñ€Ð¾Ð²ÐºÐ¸
 		$order_sec = contentSqlHelper::_orderby_sec($params->get('orderby_sec'));
 		$order_pri = contentSqlHelper::_orderby_pri($params->get('orderby_pri'));
 
-		//Îñíîâíîé çàïðîñ
+		//ÐžÑÐ½Ð¾Ð²Ð½Ð¾Ð¹ Ð·Ð°Ð¿Ñ€Ð¾Ñ
 	   	// Main Query
 		$query = "SELECT a.id, a.title, a.title_alias, a.introtext, a.sectionid,a.state, a.catid, a.created, a.created_by, a.created_by_alias,
 				a.modified, a.modified_by, a.checked_out, a.checked_out_time, a.publish_up, a.publish_down, a.images, a.urls, a.ordering,
@@ -1241,14 +1241,14 @@ class mosContent extends mosDBTable{
 		$voting = new contentVoiting($params);
 		$voting = $voting->_construct_sql();
 
-		//Äîïîëíèòåëüíûå óñëîâèÿ
+		//Ð”Ð¾Ð¿Ð¾Ð»Ð½Ð¸Ñ‚ÐµÐ»ÑŒÐ½Ñ‹Ðµ ÑƒÑÐ»Ð¾Ð²Ð¸Ñ
 		$where = contentSqlHelper::construct_where_blog(-2, $category, $access, $params);
 		$where = (count($where) ? " WHERE " . implode("\n AND ", $where) : '');
 
-		//Ïàðàìåòðû ñîðòèðîâêè
+		//ÐŸÐ°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ñ‹ ÑÐ¾Ñ€Ñ‚Ð¸Ñ€Ð¾Ð²ÐºÐ¸
 		$order_sec = contentSqlHelper::_orderby_sec($params->get('orderby'));
 
-		//Îñíîâíîé çàïðîñ
+		//ÐžÑÐ½Ð¾Ð²Ð½Ð¾Ð¹ Ð·Ð°Ð¿Ñ€Ð¾Ñ
 		// main query
 		$query = "SELECT a.id, a.title, a.title_alias, a.introtext, a.sectionid, a.state, a.catid,
 				a.created, a.created_by, a.created_by_alias, a.modified, a.modified_by,
@@ -1280,15 +1280,15 @@ class mosContent extends mosDBTable{
  			return $my_func->start_user_function();
    		};
 
-		//Äîïîëíèòåëüíûå óñëîâèÿ
+		//Ð”Ð¾Ð¿Ð¾Ð»Ð½Ð¸Ñ‚ÐµÐ»ÑŒÐ½Ñ‹Ðµ ÑƒÑÐ»Ð¾Ð²Ð¸Ñ
 		$xwhere = contentSqlHelper::construct_where_table_category($category, $access, $params);
 		$and = contentSqlHelper::construct_filter_table_category($category, $access, $params);
 
-		//Ïàðàìåòðû ñîðòèðîâêè
+		//ÐŸÐ°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ñ‹ ÑÐ¾Ñ€Ñ‚Ð¸Ñ€Ð¾Ð²ÐºÐ¸
 		// Ordering control
 		$orderby = contentSqlHelper::_orderby_sec($params->get('orderby'));
 
-		//Îñíîâíîé çàïðîñ
+		//ÐžÑÐ½Ð¾Ð²Ð½Ð¾Ð¹ Ð·Ð°Ð¿Ñ€Ð¾Ñ
 		// get the list of items for this category
 		$query = 'SELECT a.id, a.title, a.hits, a.created_by, a.created_by_alias,a.created AS created, a.access, a.state,
 				u.name AS author, u.username,
@@ -1336,15 +1336,15 @@ class mosContent extends mosDBTable{
 		$voting = new contentVoiting($params);
 		$voting = $voting->_construct_sql();
 
-		//Äîïîëíèòåëüíûå óñëîâèÿ
+		//Ð”Ð¾Ð¿Ð¾Ð»Ð½Ð¸Ñ‚ÐµÐ»ÑŒÐ½Ñ‹Ðµ ÑƒÑÐ»Ð¾Ð²Ð¸Ñ
 		$where = contentSqlHelper::construct_where_blog(1, null, $access, $params);
 		$where = (count($where) ? "\n WHERE " . implode("\n AND ", $where) : '');
 
-		//Ïàðàìåòðû ñîðòèðîâêè
+		//ÐŸÐ°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ñ‹ ÑÐ¾Ñ€Ñ‚Ð¸Ñ€Ð¾Ð²ÐºÐ¸
 		$order_sec = contentSqlHelper::_orderby_sec($params->get('orderby_sec'));
 		$order_pri = contentSqlHelper::_orderby_pri($params->get('orderby_pri'));
 
-		//Îñíîâíîé çàïðîñ
+		//ÐžÑÐ½Ð¾Ð²Ð½Ð¾Ð¹ Ð·Ð°Ð¿Ñ€Ð¾Ñ
 		$query = 'SELECT a.attribs, a.notetext, a.id, a.title, a.title_alias,a.introtext, a.sectionid, a.state, a.catid, a.created,
 				a.created_by, a.created_by_alias, a.modified, a.modified_by,a.checked_out, a.checked_out_time, a.publish_up, a.publish_down,
 				a.images, a.urls, a.ordering, a.metakey, a.metadesc, a.access, a.hits,
@@ -1600,7 +1600,7 @@ class contentSqlHelper{
 
 		$where[] = "s.published = 1";
 		$where[] = "cc.published = 1";
-		/* åñëè ñåññèè íà ôðîíòå îòêëþ÷åíû - òî çíà÷èò àâòîðèçàöèÿ íå âîçìîæíà, è ïðîâåðÿòü äîñòóï ïî àâòîðèçàöèè áåñïîëåçíî*/
+		/* ÐµÑÐ»Ð¸ ÑÐµÑÑÐ¸Ð¸ Ð½Ð° Ñ„Ñ€Ð¾Ð½Ñ‚Ðµ Ð¾Ñ‚ÐºÐ»ÑŽÑ‡ÐµÐ½Ñ‹ - Ñ‚Ð¾ Ð·Ð½Ð°Ñ‡Ð¸Ñ‚ Ð°Ð²Ñ‚Ð¾Ñ€Ð¸Ð·Ð°Ñ†Ð¸Ñ Ð½Ðµ Ð²Ð¾Ð·Ð¼Ð¾Ð¶Ð½Ð°, Ð¸ Ð¿Ñ€Ð¾Ð²ÐµÑ€ÑÑ‚ÑŒ Ð´Ð¾ÑÑ‚ÑƒÐ¿ Ð¿Ð¾ Ð°Ð²Ñ‚Ð¾Ñ€Ð¸Ð·Ð°Ñ†Ð¸Ð¸ Ð±ÐµÑÐ¿Ð¾Ð»ÐµÐ·Ð½Ð¾*/
 		if ($noauth and !$config->config_disable_access_control){
 			$where[] = "a.access <= " . (int)$gid;
 			$where[] = "s.access <= " . (int)$gid;
@@ -1872,7 +1872,7 @@ class ContentTemplate{
 		$this->template_dir = self::get_system_path($this->page_type);		
 		$this->template_file = 'default.php';
 	
-		//åñëè íàéäåíû çàïèñè î øàáëîíàõ
+		//ÐµÑÐ»Ð¸ Ð½Ð°Ð¹Ð´ÐµÐ½Ñ‹ Ð·Ð°Ð¿Ð¸ÑÐ¸ Ð¾ ÑˆÐ°Ð±Ð»Ð¾Ð½Ð°Ñ…
 		if ($templates){
 			$tpl_arr = self::parse_curr_templates($templates);
 			$template_file = $tpl_arr[$page_type];
@@ -1896,7 +1896,7 @@ class ContentTemplate{
 			
 			
 		}
-		//ñìîòðèì, ÷òî ó íàñ â ãëîáàëüíîé êîíôèãóðàöèè ñêàçàíî ïî ïîâîäó ðàçìåùåíèÿ øàáëîíîâ ïî-óìîë÷àíèþ 
+		//ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ð¼, Ñ‡Ñ‚Ð¾ Ñƒ Ð½Ð°Ñ Ð² Ð³Ð»Ð¾Ð±Ð°Ð»ÑŒÐ½Ð¾Ð¹ ÐºÐ¾Ð½Ñ„Ð¸Ð³ÑƒÑ€Ð°Ñ†Ð¸Ð¸ ÑÐºÐ°Ð·Ð°Ð½Ð¾ Ð¿Ð¾ Ð¿Ð¾Ð²Ð¾Ð´Ñƒ Ñ€Ð°Ð·Ð¼ÐµÑ‰ÐµÐ½Ð¸Ñ ÑˆÐ°Ð±Ð»Ð¾Ð½Ð¾Ð² Ð¿Ð¾-ÑƒÐ¼Ð¾Ð»Ñ‡Ð°Ð½Ð¸ÑŽ 
 		else if($config->config_global_templates==1){ 
 			
 			if (is_file($absolute_path . DS . self::get_currtemplate_path($page_type) . DS . $this->template_file)){
@@ -1908,7 +1908,7 @@ class ContentTemplate{
 			
 				
 		}
-		//øàáëîí ìû òàê è íå íàøëè, òàê ÷òî öåïëÿåì ÷òî-íèáóäü ïî-óìîë÷àíèþ
+		//ÑˆÐ°Ð±Ð»Ð¾Ð½ Ð¼Ñ‹ Ñ‚Ð°Ðº Ð¸ Ð½Ðµ Ð½Ð°ÑˆÐ»Ð¸, Ñ‚Ð°Ðº Ñ‡Ñ‚Ð¾ Ñ†ÐµÐ¿Ð»ÑÐµÐ¼ Ñ‡Ñ‚Ð¾-Ð½Ð¸Ð±ÑƒÐ´ÑŒ Ð¿Ð¾-ÑƒÐ¼Ð¾Ð»Ñ‡Ð°Ð½Ð¸ÑŽ
 		else{
 			$this->template_file = $absolute_path . DS . $this->template_dir . DS . $this->template_file;				
 		}
@@ -2030,8 +2030,8 @@ class contentPageConfig{
 	/**
 	 * contentPageConfig::setup_full_item_page()
 	 *
-	 * Óñòàíîâêà äåôîëòíûõ ïàðàìåòðîâ äëÿ âûâîäà ñòðàíèöû ïîëíîãî òåêñòà çàïèñè
-	 * xml-ôàéë äëÿ ãåíåðàöèè ôîðìû óñòàíîâêè ïàðàìåòðîâ: administrator/components/com_content/content.xml
+	 * Ð£ÑÑ‚Ð°Ð½Ð¾Ð²ÐºÐ° Ð´ÐµÑ„Ð¾Ð»Ñ‚Ð½Ñ‹Ñ… Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ð¾Ð² Ð´Ð»Ñ Ð²Ñ‹Ð²Ð¾Ð´Ð° ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñ‹ Ð¿Ð¾Ð»Ð½Ð¾Ð³Ð¾ Ñ‚ÐµÐºÑÑ‚Ð° Ð·Ð°Ð¿Ð¸ÑÐ¸
+	 * xml-Ñ„Ð°Ð¹Ð» Ð´Ð»Ñ Ð³ÐµÐ½ÐµÑ€Ð°Ñ†Ð¸Ð¸ Ñ„Ð¾Ñ€Ð¼Ñ‹ ÑƒÑÑ‚Ð°Ð½Ð¾Ð²ÐºÐ¸ Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ð¾Ð²: administrator/components/com_content/content.xml
 	 *
 	 * @return object $params
 	 */
@@ -2063,51 +2063,51 @@ class contentPageConfig{
 
 		$params->set('intro_only', 0);
 
-		//Íàçâàíèå ñòðàíèöû, îòîáðàæàåìîå â çàãîëîâêå áðàóçåðà (òåã title): string
+		//ÐÐ°Ð·Ð²Ð°Ð½Ð¸Ðµ ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñ‹, Ð¾Ñ‚Ð¾Ð±Ñ€Ð°Ð¶Ð°ÐµÐ¼Ð¾Ðµ Ð² Ð·Ð°Ð³Ð¾Ð»Ð¾Ð²ÐºÐµ Ð±Ñ€Ð°ÑƒÐ·ÐµÑ€Ð° (Ñ‚ÐµÐ³ title): string
 		$params->def('page_name', '');
-		//Ïîêàçàòü/ñêðûòü íàçâàíèå ñàéòà â title ñòðàíèöû (çàãîëîâêå áðàóçåðà): bool
+		//ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ/ÑÐºÑ€Ñ‹Ñ‚ÑŒ Ð½Ð°Ð·Ð²Ð°Ð½Ð¸Ðµ ÑÐ°Ð¹Ñ‚Ð° Ð² title ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñ‹ (Ð·Ð°Ð³Ð¾Ð»Ð¾Ð²ÐºÐµ Ð±Ñ€Ð°ÑƒÐ·ÐµÑ€Ð°): bool
 		$params->def('no_site_name', 0);
-		//Ñóôôèêñ CSS-êëàññà ñòðàíèöû
+		//Ð¡ÑƒÑ„Ñ„Ð¸ÐºÑ CSS-ÐºÐ»Ð°ÑÑÐ° ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñ‹
 		$params->def('pageclass_sfx', '');
-		//Óíèêàëüíûé èäåíòèôèêàòîð CSS ñòèëÿ èñïîëüçóåìûé äëÿ îôîðìëåíèÿ òîëüêî ýòîãî ìàòåðèàëà. Ïîëíûé èäåíòèôèêàòîð áóäåò '#pageclass_uid_{ââåä¸ííîå çíà÷åíèå}'
+		//Ð£Ð½Ð¸ÐºÐ°Ð»ÑŒÐ½Ñ‹Ð¹ Ð¸Ð´ÐµÐ½Ñ‚Ð¸Ñ„Ð¸ÐºÐ°Ñ‚Ð¾Ñ€ CSS ÑÑ‚Ð¸Ð»Ñ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ð¹ Ð´Ð»Ñ Ð¾Ñ„Ð¾Ñ€Ð¼Ð»ÐµÐ½Ð¸Ñ Ñ‚Ð¾Ð»ÑŒÐºÐ¾ ÑÑ‚Ð¾Ð³Ð¾ Ð¼Ð°Ñ‚ÐµÑ€Ð¸Ð°Ð»Ð°. ÐŸÐ¾Ð»Ð½Ñ‹Ð¹ Ð¸Ð´ÐµÐ½Ñ‚Ð¸Ñ„Ð¸ÐºÐ°Ñ‚Ð¾Ñ€ Ð±ÑƒÐ´ÐµÑ‚ '#pageclass_uid_{Ð²Ð²ÐµÐ´Ñ‘Ð½Ð½Ð¾Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ}'
 		$params->def('pageclass_uids', '');
-		//Ïðåèìóùåñòâà. Èñïîëüçîâàòü ââåä¸ííûé èäåíòèôèêàòîð, äàæå åñëè àêòèâèðîâàíû àâòîìàòè÷åñêèå óíèêàëüíûå èäåíòèôèêàòîðû ñòèëåé íîâîñòåé
+		//ÐŸÑ€ÐµÐ¸Ð¼ÑƒÑ‰ÐµÑÑ‚Ð²Ð°. Ð˜ÑÐ¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÑŒ Ð²Ð²ÐµÐ´Ñ‘Ð½Ð½Ñ‹Ð¹ Ð¸Ð´ÐµÐ½Ñ‚Ð¸Ñ„Ð¸ÐºÐ°Ñ‚Ð¾Ñ€, Ð´Ð°Ð¶Ðµ ÐµÑÐ»Ð¸ Ð°ÐºÑ‚Ð¸Ð²Ð¸Ñ€Ð¾Ð²Ð°Ð½Ñ‹ Ð°Ð²Ñ‚Ð¾Ð¼Ð°Ñ‚Ð¸Ñ‡ÐµÑÐºÐ¸Ðµ ÑƒÐ½Ð¸ÐºÐ°Ð»ÑŒÐ½Ñ‹Ðµ Ð¸Ð´ÐµÐ½Ñ‚Ð¸Ñ„Ð¸ÐºÐ°Ñ‚Ð¾Ñ€Ñ‹ ÑÑ‚Ð¸Ð»ÐµÐ¹ Ð½Ð¾Ð²Ð¾ÑÑ‚ÐµÐ¹
 		$params->def('pageclass_uids_full', 1);
-		//Ïîêàçàòü/Ñêðûòü êíîïêó Íàçàä (Âåðíóòüñÿ), âîçâðàùàþùóþ íà ïðåäûäóùóþ ïðîñìîòðåííóþ ñòðàíèöó
+		//ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ/Ð¡ÐºÑ€Ñ‹Ñ‚ÑŒ ÐºÐ½Ð¾Ð¿ÐºÑƒ ÐÐ°Ð·Ð°Ð´ (Ð’ÐµÑ€Ð½ÑƒÑ‚ÑŒÑÑ), Ð²Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°ÑŽÑ‰ÑƒÑŽ Ð½Ð° Ð¿Ñ€ÐµÐ´Ñ‹Ð´ÑƒÑ‰ÑƒÑŽ Ð¿Ñ€Ð¾ÑÐ¼Ð¾Ñ‚Ñ€ÐµÐ½Ð½ÑƒÑŽ ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñƒ
 		$params->def('back_button', $mainframe->getCfg('back_button'));
-		//Ïîêàçàòü/Ñïðÿòàòü çàãîëîâîê îáúåêòà
+		//ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ/Ð¡Ð¿Ñ€ÑÑ‚Ð°Ñ‚ÑŒ Ð·Ð°Ð³Ð¾Ð»Ð¾Ð²Ð¾Ðº Ð¾Ð±ÑŠÐµÐºÑ‚Ð°
 		$params->def('item_title', 1);
-		//Ñäåëàòü çàãîëîâîê îáúåêòà â âèäå ññûëêè íà íåãî
+		//Ð¡Ð´ÐµÐ»Ð°Ñ‚ÑŒ Ð·Ð°Ð³Ð¾Ð»Ð¾Ð²Ð¾Ðº Ð¾Ð±ÑŠÐµÐºÑ‚Ð° Ð² Ð²Ð¸Ð´Ðµ ÑÑÑ‹Ð»ÐºÐ¸ Ð½Ð° Ð½ÐµÐ³Ð¾
 		$params->def('link_titles', $mainframe->getCfg('link_titles'));
-		//Ïîêàçàòü/Ñïðÿòàòü ââîäíûé òåêñò
+		//ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ/Ð¡Ð¿Ñ€ÑÑ‚Ð°Ñ‚ÑŒ Ð²Ð²Ð¾Ð´Ð½Ñ‹Ð¹ Ñ‚ÐµÐºÑÑ‚
 		$params->def('introtext', 1);
-		//Ïîêàçàòü/Ñïðÿòàòü íàçâàíèå ðàçäåëà, ê êîòîðîìó îòíîñèòñÿ îáúåêò
+		//ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ/Ð¡Ð¿Ñ€ÑÑ‚Ð°Ñ‚ÑŒ Ð½Ð°Ð·Ð²Ð°Ð½Ð¸Ðµ Ñ€Ð°Ð·Ð´ÐµÐ»Ð°, Ðº ÐºÐ¾Ñ‚Ð¾Ñ€Ð¾Ð¼Ñƒ Ð¾Ñ‚Ð½Ð¾ÑÐ¸Ñ‚ÑÑ Ð¾Ð±ÑŠÐµÐºÑ‚
 		$params->def('section', 1);
-		//Ñäåëàòü íàçâàíèÿ ðàçäåëîâ ññûëêàìè
+		//Ð¡Ð´ÐµÐ»Ð°Ñ‚ÑŒ Ð½Ð°Ð·Ð²Ð°Ð½Ð¸Ñ Ñ€Ð°Ð·Ð´ÐµÐ»Ð¾Ð² ÑÑÑ‹Ð»ÐºÐ°Ð¼Ð¸
 		$params->def('section_link', 1);
-		//Ïîêàçàòü/Ñïðÿòàòü íàçâàíèå êàòåãîðèè, ê êîòîðîé îòíîñèòñÿ îáúåêò
+		//ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ/Ð¡Ð¿Ñ€ÑÑ‚Ð°Ñ‚ÑŒ Ð½Ð°Ð·Ð²Ð°Ð½Ð¸Ðµ ÐºÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸Ð¸, Ðº ÐºÐ¾Ñ‚Ð¾Ñ€Ð¾Ð¹ Ð¾Ñ‚Ð½Ð¾ÑÐ¸Ñ‚ÑÑ Ð¾Ð±ÑŠÐµÐºÑ‚
 		$params->def('category', 1);
-		//Ñäåëàòü íàçâàíèÿ êàòåãîðèé ññûëêàìè
+		//Ð¡Ð´ÐµÐ»Ð°Ñ‚ÑŒ Ð½Ð°Ð·Ð²Ð°Ð½Ð¸Ñ ÐºÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸Ð¹ ÑÑÑ‹Ð»ÐºÐ°Ð¼Ð¸
 		$params->def('category_link', 1);
-		//Ïîêàçàòü/Ñïðÿòàòü ðåéòèíã
+		//ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ/Ð¡Ð¿Ñ€ÑÑ‚Ð°Ñ‚ÑŒ Ñ€ÐµÐ¹Ñ‚Ð¸Ð½Ð³
 		$params->def('rating', $mainframe->getCfg('vote'));
-		//Ïîêàçàòü/Ñïðÿòàòü èìÿ àâòîðà
+		//ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ/Ð¡Ð¿Ñ€ÑÑ‚Ð°Ñ‚ÑŒ Ð¸Ð¼Ñ Ð°Ð²Ñ‚Ð¾Ñ€Ð°
 		$params->def('author', $mainframe->getCfg('showAuthor'));
-		//Ïîêàçàòü/Ñïðÿòàòü äàòó ñîçäàíèÿ
+		//ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ/Ð¡Ð¿Ñ€ÑÑ‚Ð°Ñ‚ÑŒ Ð´Ð°Ñ‚Ñƒ ÑÐ¾Ð·Ð´Ð°Ð½Ð¸Ñ
 		$params->def('createdate', $mainframe->getCfg('showCreateDate'));
-		//Ïîêàçàòü/Ñïðÿòàòü äàòó èçìåíåíèÿ
+		//ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ/Ð¡Ð¿Ñ€ÑÑ‚Ð°Ñ‚ÑŒ Ð´Ð°Ñ‚Ñƒ Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð¸Ñ
 		$params->def('modifydate', $mainframe->getCfg('showModifyDate'));
-		//Ïîêàçàòü/Ñêðûòü êíîïêó ïå÷àòè
+		//ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ/Ð¡ÐºÑ€Ñ‹Ñ‚ÑŒ ÐºÐ½Ð¾Ð¿ÐºÑƒ Ð¿ÐµÑ‡Ð°Ñ‚Ð¸
 		$params->def('print', $mainframe->getCfg('showPrint'));
-		//Ïîêàçàòü/Ñïðÿòàòü êíîïêó e-mail
+		//ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ/Ð¡Ð¿Ñ€ÑÑ‚Ð°Ñ‚ÑŒ ÐºÐ½Ð¾Ð¿ÐºÑƒ e-mail
 		$params->def('email', $mainframe->getCfg('showEmail'));
-		//Îòîáðàæàòü ññûëêè "Ïå÷àòü" è "Email" èêîíêàìè
+		//ÐžÑ‚Ð¾Ð±Ñ€Ð°Ð¶Ð°Ñ‚ÑŒ ÑÑÑ‹Ð»ÐºÐ¸ "ÐŸÐµÑ‡Ð°Ñ‚ÑŒ" Ð¸ "Email" Ð¸ÐºÐ¾Ð½ÐºÐ°Ð¼Ð¸
 		$params->def('icons', $mainframe->getCfg('icons'));
-		//Êëþ÷åâàÿ ññûëêà. Òåêñò êëþ÷à, ïî êîòîðîìó ìîæíî ññûëàòüñÿ íà ýòîò îáúåêò (íàïðèìåð, â ñèñòåìå ñïðàâêè)
+		//ÐšÐ»ÑŽÑ‡ÐµÐ²Ð°Ñ ÑÑÑ‹Ð»ÐºÐ°. Ð¢ÐµÐºÑÑ‚ ÐºÐ»ÑŽÑ‡Ð°, Ð¿Ð¾ ÐºÐ¾Ñ‚Ð¾Ñ€Ð¾Ð¼Ñƒ Ð¼Ð¾Ð¶Ð½Ð¾ ÑÑÑ‹Ð»Ð°Ñ‚ÑŒÑÑ Ð½Ð° ÑÑ‚Ð¾Ñ‚ Ð¾Ð±ÑŠÐµÐºÑ‚ (Ð½Ð°Ð¿Ñ€Ð¸Ð¼ÐµÑ€, Ð² ÑÐ¸ÑÑ‚ÐµÐ¼Ðµ ÑÐ¿Ñ€Ð°Ð²ÐºÐ¸)
 		$params->def('keyref', '');
-		//Ïðèíóäèòåëüíîå âêëþ÷åíèå èçîáðàæåíèé
+		//ÐŸÑ€Ð¸Ð½ÑƒÐ´Ð¸Ñ‚ÐµÐ»ÑŒÐ½Ð¾Ðµ Ð²ÐºÐ»ÑŽÑ‡ÐµÐ½Ð¸Ðµ Ð¸Ð·Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ð¸Ð¹
 		$params->def('image', 1);
-		//Ïîêàçàòü/ñïðÿòàòü êîëè÷åñòâî ïðîñìîòðîâ
+		//ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ/ÑÐ¿Ñ€ÑÑ‚Ð°Ñ‚ÑŒ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ð¿Ñ€Ð¾ÑÐ¼Ð¾Ñ‚Ñ€Ð¾Ð²
 		$params->def('hits', $mainframe->getCfg('hits'));
 		
 		$params->def('tags', $mainframe->getCfg('tags'));
@@ -2118,8 +2118,8 @@ class contentPageConfig{
 	/**
 	 * contentPageConfig::setup_blog_section_page()
 	 *
-	 * Óñòàíîâêà äåôîëòíûõ ïàðàìåòðîâ äëÿ âûâîäà ñòðàíèöû áëîãà ðàçäåëà
-	 * xml-ôàéë äëÿ ãåíåðàöèè ôîðìû óñòàíîâêè ïàðàìåòðîâ:
+	 * Ð£ÑÑ‚Ð°Ð½Ð¾Ð²ÐºÐ° Ð´ÐµÑ„Ð¾Ð»Ñ‚Ð½Ñ‹Ñ… Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ð¾Ð² Ð´Ð»Ñ Ð²Ñ‹Ð²Ð¾Ð´Ð° ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñ‹ Ð±Ð»Ð¾Ð³Ð° Ñ€Ð°Ð·Ð´ÐµÐ»Ð°
+	 * xml-Ñ„Ð°Ð¹Ð» Ð´Ð»Ñ Ð³ÐµÐ½ÐµÑ€Ð°Ñ†Ð¸Ð¸ Ñ„Ð¾Ñ€Ð¼Ñ‹ ÑƒÑÑ‚Ð°Ð½Ð¾Ð²ÐºÐ¸ Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ð¾Ð²:
 	 * administrator/components/com_menus/content_blog_section/content_blog_section.xml
 	 *
 	 * @return object $params
@@ -2131,10 +2131,10 @@ class contentPageConfig{
 		$mainframe = &mosMainFrame::getInstance();
 		$database = &database::getInstance();
 
-		//Îòó÷àåì com_content áðàòü ïàðàìåòðû èç ïåðâîãî ïîïàâøåãîñÿ ïóíêòà ìåíþ
-		//Ìûñëü - åñëè ïóíêò ìåíþ äëÿ òåêóùåãî ðàçäåëà íå ñîçäàí,
-		// çíà÷èò, - òàê íàäî, è íåò íåîáõîäèìîñòè ïðèïèñûâàòü ðàçäåëó íåíóæíûå åìó ïàðàìåòðû ))
-		//åñòü ïàðàìåòðû ïî óìîë÷àíèþ - âîò èõ è áóäåì èñïîëüçîâàòü
+		//ÐžÑ‚ÑƒÑ‡Ð°ÐµÐ¼ com_content Ð±Ñ€Ð°Ñ‚ÑŒ Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ñ‹ Ð¸Ð· Ð¿ÐµÑ€Ð²Ð¾Ð³Ð¾ Ð¿Ð¾Ð¿Ð°Ð²ÑˆÐµÐ³Ð¾ÑÑ Ð¿ÑƒÐ½ÐºÑ‚Ð° Ð¼ÐµÐ½ÑŽ
+		//ÐœÑ‹ÑÐ»ÑŒ - ÐµÑÐ»Ð¸ Ð¿ÑƒÐ½ÐºÑ‚ Ð¼ÐµÐ½ÑŽ Ð´Ð»Ñ Ñ‚ÐµÐºÑƒÑ‰ÐµÐ³Ð¾ Ñ€Ð°Ð·Ð´ÐµÐ»Ð° Ð½Ðµ ÑÐ¾Ð·Ð´Ð°Ð½,
+		// Ð·Ð½Ð°Ñ‡Ð¸Ñ‚, - Ñ‚Ð°Ðº Ð½Ð°Ð´Ð¾, Ð¸ Ð½ÐµÑ‚ Ð½ÐµÐ¾Ð±Ñ…Ð¾Ð´Ð¸Ð¼Ð¾ÑÑ‚Ð¸ Ð¿Ñ€Ð¸Ð¿Ð¸ÑÑ‹Ð²Ð°Ñ‚ÑŒ Ñ€Ð°Ð·Ð´ÐµÐ»Ñƒ Ð½ÐµÐ½ÑƒÐ¶Ð½Ñ‹Ðµ ÐµÐ¼Ñƒ Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ñ‹ ))
+		//ÐµÑÑ‚ÑŒ Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ñ‹ Ð¿Ð¾ ÑƒÐ¼Ð¾Ð»Ñ‡Ð°Ð½Ð¸ÑŽ - Ð²Ð¾Ñ‚ Ð¸Ñ… Ð¸ Ð±ÑƒÐ´ÐµÐ¼ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÑŒ
 		$menu = $mainframe->get('menu');
 
 		if ($menu && strpos($menu->link, 'task=blogsection&id=' . $id) !== false){
@@ -2163,8 +2163,8 @@ class contentPageConfig{
 	/**
 	 * contentPageConfig::setup_blog_category_page()
 	 *
-	 * Óñòàíîâêà äåôîëòíûõ ïàðàìåòðîâ äëÿ âûâîäà ñòðàíèöû áëîãà êàòåãîðèè
-	 * xml-ôàéë äëÿ ãåíåðàöèè ôîðìû óñòàíîâêè ïàðàìåòðîâ:
+	 * Ð£ÑÑ‚Ð°Ð½Ð¾Ð²ÐºÐ° Ð´ÐµÑ„Ð¾Ð»Ñ‚Ð½Ñ‹Ñ… Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ð¾Ð² Ð´Ð»Ñ Ð²Ñ‹Ð²Ð¾Ð´Ð° ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñ‹ Ð±Ð»Ð¾Ð³Ð° ÐºÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸Ð¸
+	 * xml-Ñ„Ð°Ð¹Ð» Ð´Ð»Ñ Ð³ÐµÐ½ÐµÑ€Ð°Ñ†Ð¸Ð¸ Ñ„Ð¾Ñ€Ð¼Ñ‹ ÑƒÑÑ‚Ð°Ð½Ð¾Ð²ÐºÐ¸ Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ð¾Ð²:
 	 * administrator/components/com_menus/content_blog_category/content_blog_category.xml
 	 *
 	 * @return object $params
@@ -2201,8 +2201,8 @@ class contentPageConfig{
 	/**
 	 * contentPageConfig::setup_blog_archive_section_page()
 	 *
-	 * Óñòàíîâêà äåôîëòíûõ ïàðàìåòðîâ äëÿ âûâîäà ñòðàíèöû àðõèâà ðàçäåëà
-	 * xml-ôàéë äëÿ ãåíåðàöèè ôîðìû óñòàíîâêè ïàðàìåòðîâ:
+	 * Ð£ÑÑ‚Ð°Ð½Ð¾Ð²ÐºÐ° Ð´ÐµÑ„Ð¾Ð»Ñ‚Ð½Ñ‹Ñ… Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ð¾Ð² Ð´Ð»Ñ Ð²Ñ‹Ð²Ð¾Ð´Ð° ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñ‹ Ð°Ñ€Ñ…Ð¸Ð²Ð° Ñ€Ð°Ð·Ð´ÐµÐ»Ð°
+	 * xml-Ñ„Ð°Ð¹Ð» Ð´Ð»Ñ Ð³ÐµÐ½ÐµÑ€Ð°Ñ†Ð¸Ð¸ Ñ„Ð¾Ñ€Ð¼Ñ‹ ÑƒÑÑ‚Ð°Ð½Ð¾Ð²ÐºÐ¸ Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ð¾Ð²:
 	 * administrator/components/com_menus/content_archive_section/content_archive_section.xml
 	 *
 	 * @return object $params
@@ -2240,8 +2240,8 @@ class contentPageConfig{
 	/**
 	 * contentPageConfig::setup_blog_archive_category_page()
 	 *
-	 * Óñòàíîâêà äåôîëòíûõ ïàðàìåòðîâ äëÿ âûâîäà ñòðàíèöû àðõèâà êàòåãîðèè
-	 * xml-ôàéë äëÿ ãåíåðàöèè ôîðìû óñòàíîâêè ïàðàìåòðîâ:
+	 * Ð£ÑÑ‚Ð°Ð½Ð¾Ð²ÐºÐ° Ð´ÐµÑ„Ð¾Ð»Ñ‚Ð½Ñ‹Ñ… Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ð¾Ð² Ð´Ð»Ñ Ð²Ñ‹Ð²Ð¾Ð´Ð° ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñ‹ Ð°Ñ€Ñ…Ð¸Ð²Ð° ÐºÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸Ð¸
+	 * xml-Ñ„Ð°Ð¹Ð» Ð´Ð»Ñ Ð³ÐµÐ½ÐµÑ€Ð°Ñ†Ð¸Ð¸ Ñ„Ð¾Ñ€Ð¼Ñ‹ ÑƒÑÑ‚Ð°Ð½Ð¾Ð²ÐºÐ¸ Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ð¾Ð²:
 	 * administrator/components/com_menus/content_archive_category/content_archive_category.xml
 	 *
 	 * @return object $params
@@ -2276,8 +2276,8 @@ class contentPageConfig{
 	/**
 	 * contentPageConfig::setup_table_category_page()
 	 *
-	 * Óñòàíîâêà äåôîëòíûõ ïàðàìåòðîâ äëÿ âûâîäà ñòðàíèöû ñ òàáëèöåé ìàòåðèàëîâ êàòåãîðèè
-	 * xml-ôàéë äëÿ ãåíåðàöèè ôîðìû óñòàíîâêè ïàðàìåòðîâ:
+	 * Ð£ÑÑ‚Ð°Ð½Ð¾Ð²ÐºÐ° Ð´ÐµÑ„Ð¾Ð»Ñ‚Ð½Ñ‹Ñ… Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ð¾Ð² Ð´Ð»Ñ Ð²Ñ‹Ð²Ð¾Ð´Ð° ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñ‹ Ñ Ñ‚Ð°Ð±Ð»Ð¸Ñ†ÐµÐ¹ Ð¼Ð°Ñ‚ÐµÑ€Ð¸Ð°Ð»Ð¾Ð² ÐºÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸Ð¸
+	 * xml-Ñ„Ð°Ð¹Ð» Ð´Ð»Ñ Ð³ÐµÐ½ÐµÑ€Ð°Ñ†Ð¸Ð¸ Ñ„Ð¾Ñ€Ð¼Ñ‹ ÑƒÑÑ‚Ð°Ð½Ð¾Ð²ÐºÐ¸ Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ð¾Ð²:
 	 * administrator/components/com_menus/content_category/content_category.xml
 	 *
 	 * @return object $params
@@ -2299,9 +2299,9 @@ class contentPageConfig{
 		$params->menu = $menu;
 		$params->set('type', 'category');
 		
-		//Ïîêàçàòü/Ñïðÿòàòü èìÿ àâòîðà
+		//ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ/Ð¡Ð¿Ñ€ÑÑ‚Ð°Ñ‚ÑŒ Ð¸Ð¼Ñ Ð°Ð²Ñ‚Ð¾Ñ€Ð°
 		$params->def('author', $mainframe->getCfg('showAuthor'));
-		//Ïîêàçàòü/Ñïðÿòàòü äàòó ñîçäàíèÿ
+		//ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ/Ð¡Ð¿Ñ€ÑÑ‚Ð°Ñ‚ÑŒ Ð´Ð°Ñ‚Ñƒ ÑÐ¾Ð·Ð´Ð°Ð½Ð¸Ñ
 		$params->def('date', $mainframe->getCfg('showCreateDate'));
 
 		return $params;
@@ -2311,8 +2311,8 @@ class contentPageConfig{
 	/**
 	 * contentPageConfig::setup_section_catlist_page()
 	 *
-	 * Óñòàíîâêà äåôîëòíûõ ïàðàìåòðîâ äëÿ âûâîäà ñòðàíèöû ñ ïåðå÷íåì êàòåãîðèé äàííîãî ðàçäåëà
-	 * xml-ôàéë äëÿ ãåíåðàöèè ôîðìû óñòàíîâêè ïàðàìåòðîâ:
+	 * Ð£ÑÑ‚Ð°Ð½Ð¾Ð²ÐºÐ° Ð´ÐµÑ„Ð¾Ð»Ñ‚Ð½Ñ‹Ñ… Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ð¾Ð² Ð´Ð»Ñ Ð²Ñ‹Ð²Ð¾Ð´Ð° ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñ‹ Ñ Ð¿ÐµÑ€ÐµÑ‡Ð½ÐµÐ¼ ÐºÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸Ð¹ Ð´Ð°Ð½Ð½Ð¾Ð³Ð¾ Ñ€Ð°Ð·Ð´ÐµÐ»Ð°
+	 * xml-Ñ„Ð°Ð¹Ð» Ð´Ð»Ñ Ð³ÐµÐ½ÐµÑ€Ð°Ñ†Ð¸Ð¸ Ñ„Ð¾Ñ€Ð¼Ñ‹ ÑƒÑÑ‚Ð°Ð½Ð¾Ð²ÐºÐ¸ Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ð¾Ð²:
 	 * administrator/components/com_menus/content_section/content_section.xml
 	 *
 	 * @return object $params
@@ -2340,8 +2340,8 @@ class contentPageConfig{
 	/**
 	 * contentPageConfig::setup_frontpage()
 	 *
-	 * Óñòàíîâêà äåôîëòíûõ ïàðàìåòðîâ äëÿ âûâîäà ñòðàíèöû êîìïîíåíòà "com_frontpage"
-	 * xml-ôàéë äëÿ ãåíåðàöèè ôîðìû óñòàíîâêè ïàðàìåòðîâ: administrator/components/com_frontpage/frontpage.xml
+	 * Ð£ÑÑ‚Ð°Ð½Ð¾Ð²ÐºÐ° Ð´ÐµÑ„Ð¾Ð»Ñ‚Ð½Ñ‹Ñ… Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ð¾Ð² Ð´Ð»Ñ Ð²Ñ‹Ð²Ð¾Ð´Ð° ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñ‹ ÐºÐ¾Ð¼Ð¿Ð¾Ð½ÐµÐ½Ñ‚Ð° "com_frontpage"
+	 * xml-Ñ„Ð°Ð¹Ð» Ð´Ð»Ñ Ð³ÐµÐ½ÐµÑ€Ð°Ñ†Ð¸Ð¸ Ñ„Ð¾Ñ€Ð¼Ñ‹ ÑƒÑÑ‚Ð°Ð½Ð¾Ð²ÐºÐ¸ Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ð¾Ð²: administrator/components/com_frontpage/frontpage.xml
 	 *
 	 * @return object $params
 	 */
@@ -2361,91 +2361,91 @@ class contentPageConfig{
 		$params->menu = $menu;
 
 		$params->def('title', '');
-		//Íàçâàíèå ñòðàíèöû, îòîáðàæàåìîå â çàãîëîâêå áðàóçåðà (òåã title): string
+		//ÐÐ°Ð·Ð²Ð°Ð½Ð¸Ðµ ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñ‹, Ð¾Ñ‚Ð¾Ð±Ñ€Ð°Ð¶Ð°ÐµÐ¼Ð¾Ðµ Ð² Ð·Ð°Ð³Ð¾Ð»Ð¾Ð²ÐºÐµ Ð±Ñ€Ð°ÑƒÐ·ÐµÑ€Ð° (Ñ‚ÐµÐ³ title): string
 		$params->def('page_name', '');
-		//Ïîêàçàòü/ñêðûòü íàçâàíèå ñàéòà â title ñòðàíèöû (çàãîëîâêå áðàóçåðà): bool
+		//ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ/ÑÐºÑ€Ñ‹Ñ‚ÑŒ Ð½Ð°Ð·Ð²Ð°Ð½Ð¸Ðµ ÑÐ°Ð¹Ñ‚Ð° Ð² title ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñ‹ (Ð·Ð°Ð³Ð¾Ð»Ð¾Ð²ÐºÐµ Ð±Ñ€Ð°ÑƒÐ·ÐµÑ€Ð°): bool
 		$params->def('no_site_name', 0);
-		//Ìåòà-òåã robots, èñïîëüçóåìûé íà ñòðàíèöå:
-		//int [-1,0,1,2,3]=['Íå îòîáðàæàòü', 'Index, follow', 'Index, NoFollow', 'NoIndex, Follow', 'NoIndex, NoFollow']
+		//ÐœÐµÑ‚Ð°-Ñ‚ÐµÐ³ robots, Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ð¹ Ð½Ð° ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ðµ:
+		//int [-1,0,1,2,3]=['ÐÐµ Ð¾Ñ‚Ð¾Ð±Ñ€Ð°Ð¶Ð°Ñ‚ÑŒ', 'Index, follow', 'Index, NoFollow', 'NoIndex, Follow', 'NoIndex, NoFollow']
 		$params->def('robots', -1);
-		//META-òåã: Description: string
+		//META-Ñ‚ÐµÐ³: Description: string
 		$params->def('meta_description', '');
-		//ETA-òåã keywords: string
+		//ETA-Ñ‚ÐµÐ³ keywords: string
 		$params->def('meta_keywords', '');
-		//META-òåã author: string
+		//META-Ñ‚ÐµÐ³ author: string
 		$params->def('meta_author', '');
-		//Èçîáðàæåíèå ìåíþ
+		//Ð˜Ð·Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ð¸Ðµ Ð¼ÐµÐ½ÑŽ
 		$params->def('menu_image', '');
-		//Ñóôôèêñ CSS-êëàññà ñòðàíèöû
+		//Ð¡ÑƒÑ„Ñ„Ð¸ÐºÑ CSS-ÐºÐ»Ð°ÑÑÐ° ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñ‹
 		$params->def('pageclass_sfx', '');
-		//Çàãîëîâîê ñòðàíèöû (êîíòåíòíîé îáëàñòè)
+		//Ð—Ð°Ð³Ð¾Ð»Ð¾Ð²Ð¾Ðº ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñ‹ (ÐºÐ¾Ð½Ñ‚ÐµÐ½Ñ‚Ð½Ð¾Ð¹ Ð¾Ð±Ð»Ð°ÑÑ‚Ð¸)
 		$params->def('header', '');
-		//Ïîêàçàòü/Ñêðûòü çàãîëîâîê ñòðàíèöû
+		//ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ/Ð¡ÐºÑ€Ñ‹Ñ‚ÑŒ Ð·Ð°Ð³Ð¾Ð»Ð¾Ð²Ð¾Ðº ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñ‹
 		$params->def('page_title', '');
-		//Ïîêàçàòü/Ñêðûòü êíîïêó Íàçàä (Âåðíóòüñÿ), âîçâðàùàþùóþ íà ïðåäûäóùóþ ïðîñìîòðåííóþ ñòðàíèöó
+		//ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ/Ð¡ÐºÑ€Ñ‹Ñ‚ÑŒ ÐºÐ½Ð¾Ð¿ÐºÑƒ ÐÐ°Ð·Ð°Ð´ (Ð’ÐµÑ€Ð½ÑƒÑ‚ÑŒÑÑ), Ð²Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°ÑŽÑ‰ÑƒÑŽ Ð½Ð° Ð¿Ñ€ÐµÐ´Ñ‹Ð´ÑƒÑ‰ÑƒÑŽ Ð¿Ñ€Ð¾ÑÐ¼Ð¾Ñ‚Ñ€ÐµÐ½Ð½ÑƒÑŽ ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñƒ
 		$params->def('back_button', 0);
-		//Êîëè÷åñòâî ãëàâíûõ îáúåêòîâ (íà âñþ øèðèíó). Ïðè 0 ãëàâíûå îáúåêòû îòîáðàæàòüñÿ íå áóäóò.
+		//ÐšÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ð³Ð»Ð°Ð²Ð½Ñ‹Ñ… Ð¾Ð±ÑŠÐµÐºÑ‚Ð¾Ð² (Ð½Ð° Ð²ÑÑŽ ÑˆÐ¸Ñ€Ð¸Ð½Ñƒ). ÐŸÑ€Ð¸ 0 Ð³Ð»Ð°Ð²Ð½Ñ‹Ðµ Ð¾Ð±ÑŠÐµÐºÑ‚Ñ‹ Ð¾Ñ‚Ð¾Ð±Ñ€Ð°Ð¶Ð°Ñ‚ÑŒÑÑ Ð½Ðµ Ð±ÑƒÐ´ÑƒÑ‚.
 		$params->def('leading', 1);
-		//Êîëè÷åñòâî îáúåêòîâ, ó êîòîðûõ ïîêàçûâàåòñÿ âñòóïèòåëüíûé (intro) òåêñò
+		//ÐšÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ð¾Ð±ÑŠÐµÐºÑ‚Ð¾Ð², Ñƒ ÐºÐ¾Ñ‚Ð¾Ñ€Ñ‹Ñ… Ð¿Ð¾ÐºÐ°Ð·Ñ‹Ð²Ð°ÐµÑ‚ÑÑ Ð²ÑÑ‚ÑƒÐ¿Ð¸Ñ‚ÐµÐ»ÑŒÐ½Ñ‹Ð¹ (intro) Ñ‚ÐµÐºÑÑ‚
 		$params->def('intro', 4);
-		//Ñêîëüêî êîëîíîê â ñòðîêå èñïîëüçîâàòü ïðè îòîáðàæåíèè ââîäíîãî òåêñòà
+		//Ð¡ÐºÐ¾Ð»ÑŒÐºÐ¾ ÐºÐ¾Ð»Ð¾Ð½Ð¾Ðº Ð² ÑÑ‚Ñ€Ð¾ÐºÐµ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÑŒ Ð¿Ñ€Ð¸ Ð¾Ñ‚Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ð¸Ð¸ Ð²Ð²Ð¾Ð´Ð½Ð¾Ð³Ð¾ Ñ‚ÐµÐºÑÑ‚Ð°
 		$params->def('columns', 2);
-		//Êîëè÷åñòâî îáúåêòîâ, îòîáðàæàåìûõ â âèäå ññûëî
+		//ÐšÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ð¾Ð±ÑŠÐµÐºÑ‚Ð¾Ð², Ð¾Ñ‚Ð¾Ð±Ñ€Ð°Ð¶Ð°ÐµÐ¼Ñ‹Ñ… Ð² Ð²Ð¸Ð´Ðµ ÑÑÑ‹Ð»Ð¾
 		$params->def('link', 4);
-		//Ñîðòèðîâêà îáúåêòîâ â êàòåãîðèè
+		//Ð¡Ð¾Ñ€Ñ‚Ð¸Ñ€Ð¾Ð²ÐºÐ° Ð¾Ð±ÑŠÐµÐºÑ‚Ð¾Ð² Ð² ÐºÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸Ð¸
 		$params->def('orderby_pri', '');
-		//Ïîðÿäîê, â êîòîðîì áóäóò îòîáðàæàòüñÿ îáúåêòû
+		//ÐŸÐ¾Ñ€ÑÐ´Ð¾Ðº, Ð² ÐºÐ¾Ñ‚Ð¾Ñ€Ð¾Ð¼ Ð±ÑƒÐ´ÑƒÑ‚ Ð¾Ñ‚Ð¾Ð±Ñ€Ð°Ð¶Ð°Ñ‚ÑŒÑÑ Ð¾Ð±ÑŠÐµÐºÑ‚Ñ‹
 		$params->def('orderby_sec', '');
-		//Ïîêàçàòü/Ñêðûòü ïîñòðàíè÷íóþ íàâèãàöèþ
+		//ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ/Ð¡ÐºÑ€Ñ‹Ñ‚ÑŒ Ð¿Ð¾ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ‡Ð½ÑƒÑŽ Ð½Ð°Ð²Ð¸Ð³Ð°Ñ†Ð¸ÑŽ
 		$params->def('pagination', 2);
-		//Ïîêàçàòü/Ñêðûòü èíôîðìàöèþ î ðåçóëüòàòàõ ðàçáèåíèÿ íà ñòðàíèöû ( íàïðèìåð, 1-4 èç 4 )
+		//ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ/Ð¡ÐºÑ€Ñ‹Ñ‚ÑŒ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸ÑŽ Ð¾ Ñ€ÐµÐ·ÑƒÐ»ÑŒÑ‚Ð°Ñ‚Ð°Ñ… Ñ€Ð°Ð·Ð±Ð¸ÐµÐ½Ð¸Ñ Ð½Ð° ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñ‹ ( Ð½Ð°Ð¿Ñ€Ð¸Ð¼ÐµÑ€, 1-4 Ð¸Ð· 4 )
 		$params->def('pagination_results', 1);
-		//Ïîêàçûâàòü {mosimages}
+		//ÐŸÐ¾ÐºÐ°Ð·Ñ‹Ð²Ð°Ñ‚ÑŒ {mosimages}
 		$params->def('image', 1);
-		//Ïîêàçàòü/Ñêðûòü íàçâàíèÿ ðàçäåëîâ, ê êîòîðûì ïðèíàäëåæàò îáúåêòû
+		//ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ/Ð¡ÐºÑ€Ñ‹Ñ‚ÑŒ Ð½Ð°Ð·Ð²Ð°Ð½Ð¸Ñ Ñ€Ð°Ð·Ð´ÐµÐ»Ð¾Ð², Ðº ÐºÐ¾Ñ‚Ð¾Ñ€Ñ‹Ð¼ Ð¿Ñ€Ð¸Ð½Ð°Ð´Ð»ÐµÐ¶Ð°Ñ‚ Ð¾Ð±ÑŠÐµÐºÑ‚Ñ‹
 		$params->def('section', 0);
-		//Ñäåëàòü íàçâàíèÿ ðàçäåëîâ ññûëêàìè íà ñòðàíèöó òåêóùåãî ðàçäåëà
+		//Ð¡Ð´ÐµÐ»Ð°Ñ‚ÑŒ Ð½Ð°Ð·Ð²Ð°Ð½Ð¸Ñ Ñ€Ð°Ð·Ð´ÐµÐ»Ð¾Ð² ÑÑÑ‹Ð»ÐºÐ°Ð¼Ð¸ Ð½Ð° ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñƒ Ñ‚ÐµÐºÑƒÑ‰ÐµÐ³Ð¾ Ñ€Ð°Ð·Ð´ÐµÐ»Ð°
 		$params->def('section_link', 0);
-		//Òèï ññûëêè íà ðàçäåë: 'blog' / 'list'
+		//Ð¢Ð¸Ð¿ ÑÑÑ‹Ð»ÐºÐ¸ Ð½Ð° Ñ€Ð°Ð·Ð´ÐµÐ»: 'blog' / 'list'
 		$params->def('section_link_type', 'blog');
-		//Ïîêàçàòü/Ñêðûòü íàçâàíèÿ êàòåãîðèé, êîòîðûì ïðèíàäëåæàò îáúåêòû
+		//ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ/Ð¡ÐºÑ€Ñ‹Ñ‚ÑŒ Ð½Ð°Ð·Ð²Ð°Ð½Ð¸Ñ ÐºÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸Ð¹, ÐºÐ¾Ñ‚Ð¾Ñ€Ñ‹Ð¼ Ð¿Ñ€Ð¸Ð½Ð°Ð´Ð»ÐµÐ¶Ð°Ñ‚ Ð¾Ð±ÑŠÐµÐºÑ‚Ñ‹
 		$params->def('category', 0);
-		//Ñäåëàòü íàçâàíèÿ êàòåãîðèé ññûëêàìè íà ñòðàíèöó òåêóùåé êàòåãîðèè
+		//Ð¡Ð´ÐµÐ»Ð°Ñ‚ÑŒ Ð½Ð°Ð·Ð²Ð°Ð½Ð¸Ñ ÐºÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸Ð¹ ÑÑÑ‹Ð»ÐºÐ°Ð¼Ð¸ Ð½Ð° ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñƒ Ñ‚ÐµÐºÑƒÑ‰ÐµÐ¹ ÐºÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸Ð¸
 		$params->def('category_link', 0);
-		//Òèï ññûëêè íà êàòåãîðèþ: 'blog' / 'table'
+		//Ð¢Ð¸Ð¿ ÑÑÑ‹Ð»ÐºÐ¸ Ð½Ð° ÐºÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸ÑŽ: 'blog' / 'table'
 		$params->def('cat_link_type', 'blog');
-		//Ïîêàçàòü/Ñêðûòü çàãîëîâêè îáúåêòîâ
+		//ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ/Ð¡ÐºÑ€Ñ‹Ñ‚ÑŒ Ð·Ð°Ð³Ð¾Ð»Ð¾Ð²ÐºÐ¸ Ð¾Ð±ÑŠÐµÐºÑ‚Ð¾Ð²
 		$params->def('item_title', 1);
-		//Ñäåëàòü çàãîëîâêè îáúåêòîâ â âèäå ññûëîê íà îáúåêòû
+		//Ð¡Ð´ÐµÐ»Ð°Ñ‚ÑŒ Ð·Ð°Ð³Ð¾Ð»Ð¾Ð²ÐºÐ¸ Ð¾Ð±ÑŠÐµÐºÑ‚Ð¾Ð² Ð² Ð²Ð¸Ð´Ðµ ÑÑÑ‹Ð»Ð¾Ðº Ð½Ð° Ð¾Ð±ÑŠÐµÐºÑ‚Ñ‹
 		$params->def('link_titles', '');
-		//Ïîêàçàòü/Ñêðûòü ââîäíûé òåêñò
+		//ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ/Ð¡ÐºÑ€Ñ‹Ñ‚ÑŒ Ð²Ð²Ð¾Ð´Ð½Ñ‹Ð¹ Ñ‚ÐµÐºÑÑ‚
 		$params->def('view_introtext',1);
-		 //Ëèìèò ñëîâ äëÿ èíòðîòåêñòà. Åñëè òåêñò íå íóæäàåòñÿ â îáðåçêå - îñòàâüòå ïîëå ïóñòûì
+		 //Ð›Ð¸Ð¼Ð¸Ñ‚ ÑÐ»Ð¾Ð² Ð´Ð»Ñ Ð¸Ð½Ñ‚Ñ€Ð¾Ñ‚ÐµÐºÑÑ‚Ð°. Ð•ÑÐ»Ð¸ Ñ‚ÐµÐºÑÑ‚ Ð½Ðµ Ð½ÑƒÐ¶Ð´Ð°ÐµÑ‚ÑÑ Ð² Ð¾Ð±Ñ€ÐµÐ·ÐºÐµ - Ð¾ÑÑ‚Ð°Ð²ÑŒÑ‚Ðµ Ð¿Ð¾Ð»Ðµ Ð¿ÑƒÑÑ‚Ñ‹Ð¼
 		$params->def('introtext_limit', '');
-		//Òîëüêî èíòðîòåêñò
-		$params->def('intro_only', 1); //TODO: íå ðàáîòàåò
-		//Ïîêàçàòü/Ñêðûòü ññûëêó [Ïîäðîáíåå...]
+		//Ð¢Ð¾Ð»ÑŒÐºÐ¾ Ð¸Ð½Ñ‚Ñ€Ð¾Ñ‚ÐµÐºÑÑ‚
+		$params->def('intro_only', 1); //TODO: Ð½Ðµ Ñ€Ð°Ð±Ð¾Ñ‚Ð°ÐµÑ‚
+		//ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ/Ð¡ÐºÑ€Ñ‹Ñ‚ÑŒ ÑÑÑ‹Ð»ÐºÑƒ [ÐŸÐ¾Ð´Ñ€Ð¾Ð±Ð½ÐµÐµ...]
 		$params->def('readmore', '');
-		//Ïîêàçàòü/Ñêðûòü âîçìîæíîñòü îöåíêè îáúåêòîâ
+		//ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ/Ð¡ÐºÑ€Ñ‹Ñ‚ÑŒ Ð²Ð¾Ð·Ð¼Ð¾Ð¶Ð½Ð¾ÑÑ‚ÑŒ Ð¾Ñ†ÐµÐ½ÐºÐ¸ Ð¾Ð±ÑŠÐµÐºÑ‚Ð¾Ð²
 		$params->def('rating', $mainframe->getCfg('vote'));
-		//Ïîêàçàòü/Ñêðûòü èìåíà àâòîðîâ îáúåêòîâ
+		//ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ/Ð¡ÐºÑ€Ñ‹Ñ‚ÑŒ Ð¸Ð¼ÐµÐ½Ð° Ð°Ð²Ñ‚Ð¾Ñ€Ð¾Ð² Ð¾Ð±ÑŠÐµÐºÑ‚Ð¾Ð²
 		$params->def('author', $mainframe->getCfg('showAuthor'));
-		//Òèï îòîáðàæåíèÿ èìåí àâòîðîâ
+		//Ð¢Ð¸Ð¿ Ð¾Ñ‚Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ð¸Ñ Ð¸Ð¼ÐµÐ½ Ð°Ð²Ñ‚Ð¾Ñ€Ð¾Ð²
 		$params->def('author_name', 0);
-		//Ïîêàçàòü/Ñêðûòü äàòó ñîçäàíèÿ îáúåêòà
+		//ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ/Ð¡ÐºÑ€Ñ‹Ñ‚ÑŒ Ð´Ð°Ñ‚Ñƒ ÑÐ¾Ð·Ð´Ð°Ð½Ð¸Ñ Ð¾Ð±ÑŠÐµÐºÑ‚Ð°
 		$params->def('createdate', $mainframe->getCfg('showCreateDate'));
-		//îêàçàòü/Ñêðûòü äàòó èçìåíåíèÿ îáúåêòà
+		//Ð¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ/Ð¡ÐºÑ€Ñ‹Ñ‚ÑŒ Ð´Ð°Ñ‚Ñƒ Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð¸Ñ Ð¾Ð±ÑŠÐµÐºÑ‚Ð°
 		$params->def('modifydate', $mainframe->getCfg('showModifyDate'));
-		//Ïîêàçàòü/Ñêðûòü êíîïêó ïå÷àòè îáúåêòà
+		//ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ/Ð¡ÐºÑ€Ñ‹Ñ‚ÑŒ ÐºÐ½Ð¾Ð¿ÐºÑƒ Ð¿ÐµÑ‡Ð°Ñ‚Ð¸ Ð¾Ð±ÑŠÐµÐºÑ‚Ð°
 		$params->def('print', $mainframe->getCfg('showPrint'));
-		//Ïîêàçàòü/Ñêðûòü êíîïêó îòïðàâêè îáúåêòà íà e-mail
+		//ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ/Ð¡ÐºÑ€Ñ‹Ñ‚ÑŒ ÐºÐ½Ð¾Ð¿ÐºÑƒ Ð¾Ñ‚Ð¿Ñ€Ð°Ð²ÐºÐ¸ Ð¾Ð±ÑŠÐµÐºÑ‚Ð° Ð½Ð° e-mail
 		$params->def('email', $mainframe->getCfg('showEmail'));
-		//Ïîêàçàòü/Ñêðûòü íåîïóáëèêîâàííûå îáúåêòû äëÿ ãðóïïû ïîëüçîâàòåëåé `Publisher` è âûøå
+		//ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ/Ð¡ÐºÑ€Ñ‹Ñ‚ÑŒ Ð½ÐµÐ¾Ð¿ÑƒÐ±Ð»Ð¸ÐºÐ¾Ð²Ð°Ð½Ð½Ñ‹Ðµ Ð¾Ð±ÑŠÐµÐºÑ‚Ñ‹ Ð´Ð»Ñ Ð³Ñ€ÑƒÐ¿Ð¿Ñ‹ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»ÐµÐ¹ `Publisher` Ð¸ Ð²Ñ‹ÑˆÐµ
 		$params->def('unpublished', 0);
 
-		//Ïîêàçàòü/Ñêðûòü òýãè ìàòåðèàëîâ
+		//ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ/Ð¡ÐºÑ€Ñ‹Ñ‚ÑŒ Ñ‚ÑÐ³Ð¸ Ð¼Ð°Ñ‚ÐµÑ€Ð¸Ð°Ð»Ð¾Ð²
 		$params->def('view_tags', $mainframe->getCfg('tags'));
-		//Ïîêàçàòü/ñïðÿòàòü êîëè÷åñòâî ïðîñìîòðîâ
+		//ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ/ÑÐ¿Ñ€ÑÑ‚Ð°Ñ‚ÑŒ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ð¿Ñ€Ð¾ÑÐ¼Ð¾Ñ‚Ñ€Ð¾Ð²
 		$params->def('hits', $mainframe->getCfg('hits'));
 
 		$params->def('pop', 0);
@@ -2456,7 +2456,7 @@ class contentPageConfig{
 		$params->def('back_button', $mainframe->getCfg('back_button'));
 
 
-		//Òèï ññûëêè íà êàòåãîðèþ
+		//Ð¢Ð¸Ð¿ ÑÑÑ‹Ð»ÐºÐ¸ Ð½Ð° ÐºÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸ÑŽ
 		$params->def('cat_link_type', 'table');
 
 		if ($params->get('page_title', 1) && $menu){
@@ -2494,7 +2494,7 @@ class contentPageConfig{
 		$params->def('url', 1);
 		
 		$params->def('view_tags', $mainframe->getCfg('tags'));
-		//Ïîêàçàòü/ñïðÿòàòü êîëè÷åñòâî ïðîñìîòðîâ
+		//ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ/ÑÐ¿Ñ€ÑÑ‚Ð°Ñ‚ÑŒ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ð¿Ñ€Ð¾ÑÐ¼Ð¾Ñ‚Ñ€Ð¾Ð²
 		$params->def('hits', $mainframe->getCfg('hits'));
 
 		$params->set('intro_only', 1);

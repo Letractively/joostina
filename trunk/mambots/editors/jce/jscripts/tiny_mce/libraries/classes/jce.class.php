@@ -67,7 +67,7 @@ class JCE{
 		}
 		return implode( ',', $plugins );
 	}
-	// получение списка установленных языков
+	// РїРѕР»СѓС‡РµРЅРёРµ СЃРїРёСЃРєР° СѓСЃС‚Р°РЅРѕРІР»РµРЅРЅС‹С… СЏР·С‹РєРѕРІ
 	function getLangs(){
 		return '';
 	}
@@ -174,7 +174,7 @@ class JCE{
 	}
 	//Boolean - is a plugin loaded?
 	function isLoaded( $plugin ){
-		// интересное место, boston тут сделал большииие глаза и запретил фукнцию :)
+		// РёРЅС‚РµСЂРµСЃРЅРѕРµ РјРµСЃС‚Рѕ, boston С‚СѓС‚ СЃРґРµР»Р°Р» Р±РѕР»СЊС€РёРёРёРµ РіР»Р°Р·Р° Рё Р·Р°РїСЂРµС‚РёР» С„СѓРєРЅС†РёСЋ :)
 		return true;
 		$database = &database::getInstance();
 		$query = "SELECT id FROM #__jce_plugins WHERE plugin = '" . $plugin . "' AND published = 1 LIMIT 1";
