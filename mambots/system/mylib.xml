@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mosinstall version="1.0.0" type="mambot" group="system">
-	<name>Библиотека MyLib</name>
+	<name>Р‘РёР±Р»РёРѕС‚РµРєР° MyLib</name>
 	<author>Joostina! Project</author>
 	<creationDate>01.10.2009</creationDate>
 	<copyright>(C) 2008-2009 Joostina team.</copyright>
@@ -8,9 +8,8 @@
 	<authorEmail>info@joostina.ru</authorEmail>
 	<authorUrl>www.joostina.ru</authorUrl>
 	<version>1.0</version>
-	<description>Подкючение библиотеки MyLib, использующейся для размещения в ней пользовательского кода</description>
+	<description>РџРѕРґРєСЋС‡РµРЅРёРµ Р±РёР±Р»РёРѕС‚РµРєРё MyLib, РёСЃРїРѕР»СЊР·СѓСЋС‰РµР№СЃСЏ РґР»СЏ СЂР°Р·РјРµС‰РµРЅРёСЏ РІ РЅРµР№ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРѕРіРѕ РєРѕРґР°</description>
 	<files>
 		<filename mambot="mylib">mylib.php</filename>
 	</files>
-
 </mosinstall>

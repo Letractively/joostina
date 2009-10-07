@@ -17,8 +17,6 @@ global $JPConfiguration;
 		<th class="cpanel" nowrap rowspan="2"><?php echo _JP_ACTIONS_LOG?></th>
 	</tr>
 </table>
-<div style="text-align: left; padding: 0.5em; background-color: #EEEEFE; border: thin solid black; margin: 0.5em;"
-<?php
-	CJPLogger::VisualizeLogDirect();
-?>
+<div style="text-align: left; padding: 0.5em; background-color: #EEEEFE; border: thin solid black; margin: 0.5em;">
+<?php CJPLogger::VisualizeLogDirect(); ?>
 </div>

@@ -151,7 +151,7 @@ class HTML_config {
 		</table>
 		<div class="message"><?php echo _CONFIG_SAVING?>:
 			<?php echo is_writable('../configuration.php')?' <b><font color="green">'._AVAILABLE_CHECK_RIGHTS.'</font></b>':' <b><font color="red">'._NOT_AVAILABLE_CHECK_RIGHTS.'</font></b>' ?>
-		</div
+		</div>
 		<br />
 <?php
 	$tabs->startPane("configPane");
