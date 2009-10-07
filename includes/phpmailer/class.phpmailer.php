@@ -1,18 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright ¿‚ÚÓÒÍËÂ Ô‡‚‡ (C) 2007 Joostina team. ¬ÒÂ Ô‡‚‡ Á‡˘Ë˘ÂÌ˚.
-* @license ÀËˆÂÌÁËˇ http://www.gnu.org/copyleft/gpl.html GNU/GPL, ËÎË LICENSE.php
-* Joostina! - Ò‚Ó·Ó‰ÌÓÂ ÔÓ„‡ÏÏÌÓÂ Ó·ÂÒÔÂ˜ÂÌËÂ ‡ÒÔÓÒÚ‡ÌˇÂÏÓÂ ÔÓ ÛÒÎÓ‚ËˇÏ ÎËˆÂÌÁËË GNU/GPL
-* ƒÎˇ ÔÓÒÏÓÚ‡ ÔÓ‰Ó·ÌÓÒÚÂÈ Ë Á‡ÏÂ˜‡ÌËÈ Ó· ‡‚ÚÓÒÍÓÏ Ô‡‚Â, ÒÏÓÚËÚÂ Ù‡ÈÎ COPYRIGHT.php.
+* @copyright –ê–≤—Ç–æ—Ä—Å–∫–∏–µ –ø—Ä–∞–≤–∞ (C) 2007 Joostina team. –í—Å–µ –ø—Ä–∞–≤–∞ –∑–∞—â–∏—â–µ–Ω—ã.
+* @license –õ–∏—Ü–µ–Ω–∑–∏—è http://www.gnu.org/copyleft/gpl.html GNU/GPL, –∏–ª–∏ LICENSE.php
+* Joostina! - —Å–≤–æ–±–æ–¥–Ω–æ–µ –ø—Ä–æ–≥—Ä–∞–º–º–Ω–æ–µ –æ–±–µ—Å–ø–µ—á–µ–Ω–∏–µ —Ä–∞—Å–ø—Ä–æ—Å—Ç—Ä–∞–Ω—è–µ–º–æ–µ –ø–æ —É—Å–ª–æ–≤–∏—è–º –ª–∏—Ü–µ–Ω–∑–∏–∏ GNU/GPL
+* –î–ª—è –ø—Ä–æ—Å–º–æ—Ç—Ä–∞ –ø–æ–¥—Ä–æ–±–Ω–æ—Å—Ç–µ–π –∏ –∑–∞–º–µ—á–∞–Ω–∏–π –æ–± –∞–≤—Ç–æ—Ä—Å–∫–æ–º –ø—Ä–∞–≤–µ, —Å–º–æ—Ç—Ä–∏—Ç–µ —Ñ–∞–π–ª COPYRIGHT.php.
 */
 
 defined('_VALID_MOS') or die();
 
-global $mosConfig_absolute_path;
-
-require_once ($mosConfig_absolute_path.'/includes/libraries/phpmailer/class.phpmailer.php');
-
-/*  ¬Õ»Ã¿Õ»≈, Ù‡ÈÎ ÓÒÚ‡‚ÎÂÌ ‰Îˇ ÒÓ‚ÏÂÒÚËÏÓÒÚË, ÓË„ËÌ‡Î¸ÌÓÂ ÏÂÒÚÓÌ‡ıÓÊ‰ÂÌËÂ ÔÓÔËÒ‡ÌÓ ‚˚¯Â */
-
-?>
+require_once (JPATH_BASE.'/includes/libraries/phpmailer/class.phpmailer.php');
+/*  –í–ù–ò–ú–ê–ù–ò–ï, —Ñ–∞–π–ª –æ—Å—Ç–∞–≤–ª–µ–Ω –¥–ª—è —Å–æ–≤–º–µ—Å—Ç–∏–º–æ—Å—Ç–∏, –æ—Ä–∏–≥–∏–Ω–∞–ª—å–Ω–æ–µ –º–µ—Å—Ç–æ–Ω–∞—Ö–æ–∂–¥–µ–Ω–∏–µ –ø—Ä–æ–ø–∏—Å–∞–Ω–æ –≤—ã—à–µ */

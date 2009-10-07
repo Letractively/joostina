@@ -17,14 +17,9 @@ define('JPATH_ISWIN', (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN'));
 /** boolean True if a Mac based host */
 define('JPATH_ISMAC', (strtoupper(substr(PHP_OS, 0, 3)) === 'MAC'));
 
-if (!defined('DS')) {
-	/** string Shortcut for the DIRECTORY_SEPARATOR define */
-	define('DS', '/');
-}
-global $mosConfig_absolute_path;
 if (!defined('JPATH_ROOT')) {
 	/** string The root directory of the file system in native format */
-	define('JPATH_ROOT', $mosConfig_absolute_path);
+	define('JPATH_ROOT', JPATH_BASE);
 }
 
 /**

@@ -1,14 +1,14 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
-defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+defined( '_VALID_MOS' ) or die( 'РџСЂСЏРјРѕР№ РІС‹Р·РѕРІ С„Р°Р№Р»Р° Р·Р°РїСЂРµС‰РµРЅ' );
 /*------------------------------------------------------------------------------
      The contents of this file are subject to the Mozilla Public License
      Version 1.1 (the "License"); you may not use this file except in
@@ -76,7 +76,7 @@ function ftp_authentication( $ftp_login='', $ftp_pass='') {
 				echo $GLOBALS['messages']['ftp_login_failed'].'<br />['.$res->getMessage().']';
 				exit;
 			}
-			echo jx_alertBox('Вход выполнен успешно!');
+			echo jx_alertBox('Р’С…РѕРґ РІС‹РїРѕР»РЅРµРЅ СѓСЃРїРµС€РЅРѕ!');
 			$_SESSION['ftp_login'] = $ftp_login;
 			$_SESSION['ftp_pass'] = $ftp_pass;
 			$_SESSION['ftp_host'] = $_POST['ftp_host'];
@@ -96,7 +96,7 @@ function ftp_authentication( $ftp_login='', $ftp_pass='') {
 		function showLoadingIndicator( el, replaceContent ) {
 			if( !el ) return;
 			var loadingimg = 'components/com_joomlaxplorer/images/indicator.gif';
-			var imgtag = '<img src="'+ loadingimg + '" alt="Загрузка..." border="0" name="Loading" align="absmiddle" />';
+			var imgtag = '<img src="'+ loadingimg + '" alt="Р—Р°РіСЂСѓР·РєР°..." border="0" name="Loading" align="absmiddle" />';
 
 			if( replaceContent ) {
 				el.innerHTML = imgtag;

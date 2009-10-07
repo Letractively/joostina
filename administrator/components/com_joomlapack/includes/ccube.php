@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright Àâòîğñêèå ïğàâà (C) 2008-2009 Joostina team. Âñå ïğàâà çàùèùåíû.
-* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
-* Joostina! - ñâîáîäíîå ïğîãğàììíîå îáåñïå÷åíèå ğàñïğîñòğàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
-* Äëÿ ïîëó÷åíèÿ èíôîğìàöèè î èñïîëüçóåìûõ ğàñøèğåíèÿõ è çàìå÷àíèé îá àâòîğñêîì ïğàâå, ñìîòğèòå ôàéë help/copyright.php.
+* @copyright ĞĞ²Ñ‚Ğ¾Ñ€ÑĞºĞ¸Ğµ Ğ¿Ñ€Ğ°Ğ²Ğ° (C) 2008-2009 Joostina team. Ğ’ÑĞµ Ğ¿Ñ€Ğ°Ğ²Ğ° Ğ·Ğ°Ñ‰Ğ¸Ñ‰ĞµĞ½Ñ‹.
+* @license Ğ›Ğ¸Ñ†ĞµĞ½Ğ·Ğ¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ğ¸Ğ»Ğ¸ help/license.php
+* Joostina! - ÑĞ²Ğ¾Ğ±Ğ¾Ğ´Ğ½Ğ¾Ğµ Ğ¿Ñ€Ğ¾Ğ³Ñ€Ğ°Ğ¼Ğ¼Ğ½Ğ¾Ğµ Ğ¾Ğ±ĞµÑĞ¿ĞµÑ‡ĞµĞ½Ğ¸Ğµ Ñ€Ğ°ÑĞ¿Ñ€Ğ¾ÑÑ‚Ñ€Ğ°Ğ½ÑĞµĞ¼Ğ¾Ğµ Ğ¿Ğ¾ ÑƒÑĞ»Ğ¾Ğ²Ğ¸ÑĞ¼ Ğ»Ğ¸Ñ†ĞµĞ½Ğ·Ğ¸Ğ¸ GNU/GPL
+* Ğ”Ğ»Ñ Ğ¿Ğ¾Ğ»ÑƒÑ‡ĞµĞ½Ğ¸Ñ Ğ¸Ğ½Ñ„Ğ¾Ñ€Ğ¼Ğ°Ñ†Ğ¸Ğ¸ Ğ¾ Ğ¸ÑĞ¿Ğ¾Ğ»ÑŒĞ·ÑƒĞµĞ¼Ñ‹Ñ… Ñ€Ğ°ÑÑˆĞ¸Ñ€ĞµĞ½Ğ¸ÑÑ… Ğ¸ Ğ·Ğ°Ğ¼ĞµÑ‡Ğ°Ğ½Ğ¸Ğ¹ Ğ¾Ğ± Ğ°Ğ²Ñ‚Ğ¾Ñ€ÑĞºĞ¾Ğ¼ Ğ¿Ñ€Ğ°Ğ²Ğµ, ÑĞ¼Ğ¾Ñ‚Ñ€Ğ¸Ñ‚Ğµ Ñ„Ğ°Ğ¹Ğ» help/copyright.php.
 */
 
-// çàïğåò ïğÿìîãî äîñòóïà
+// Ğ·Ğ°Ğ¿Ñ€ĞµÑ‚ Ğ¿Ñ€ÑĞ¼Ğ¾Ğ³Ğ¾ Ğ´Ğ¾ÑÑ‚ÑƒĞ¿Ğ°
 defined('_VALID_MOS') or die();
 
 global $CUBE; // The CUBE object instance
@@ -159,10 +159,10 @@ class CCUBE {
 			CJPLogger::WriteLog(_JP_LOG_DEBUG,$dirName.' - '._JP_NOT_FILE);
 			unlink($dirName);
 		} elseif(is_dir($dirName)) {
-			// ïîëó÷åíèå ñîäåğæèìîãî êàòàëîãà
+			// Ğ¿Ğ¾Ğ»ÑƒÑ‡ĞµĞ½Ğ¸Ğµ ÑĞ¾Ğ´ĞµÑ€Ğ¶Ğ¸Ğ¼Ğ¾Ğ³Ğ¾ ĞºĞ°Ñ‚Ğ°Ğ»Ğ¾Ğ³Ğ°
 			$fileList = $FS->getDirContents($dirName);
 			if($fileList === false) {
-				// îøèáêà ïîëó÷åíèÿ ñîäåğæèìîãî êàòàëîãà
+				// Ğ¾ÑˆĞ¸Ğ±ĞºĞ° Ğ¿Ğ¾Ğ»ÑƒÑ‡ĞµĞ½Ğ¸Ñ ÑĞ¾Ğ´ĞµÑ€Ğ¶Ğ¸Ğ¼Ğ¾Ğ³Ğ¾ ĞºĞ°Ñ‚Ğ°Ğ»Ğ¾Ğ³Ğ°
 				CJPLogger::WriteLog(_JP_LOG_WARNING,$dirName.' - '._JP_ERROR_DEL_DIRECTORY);
 			} else {
 				foreach($fileList as $fileDescriptor) {
@@ -186,7 +186,7 @@ class CCUBE {
 	* until it finishes or produces an error, then returns the result array.
 	* @return integer 1 if we finished correctly, 2 if error occured.
 	*/
-	// áûñòğûé ğåæèì
+	// Ğ±Ñ‹ÑÑ‚Ñ€Ñ‹Ğ¹ Ñ€ĞµĞ¶Ğ¸Ğ¼
 	function _algoSingleStep() {
 		CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_QUICK_MODE);
 		$finished = false;
@@ -220,7 +220,7 @@ class CCUBE {
 	* @return integer 0 if more work is to be done, 1 if we finished correctly,
 	* 2 if error eccured.
 	*/
-	// ìåäëåííûé ğåæèì
+	// Ğ¼ĞµĞ´Ğ»ĞµĞ½Ğ½Ñ‹Ğ¹ Ñ€ĞµĞ¶Ğ¸Ğ¼
 	function _algoMultiStep() {
 		CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_MULTISTEP_MODE);
 		$error = false;
@@ -256,12 +256,12 @@ class CCUBE {
 	function _algoSmartStep() {
 		CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_SMART_MODE);
 
-		// ïîëó÷åíèå ìàêñèìàëüíîãî âğåìåíè âûïîëíåíèÿ ñêğèïòà
+		// Ğ¿Ğ¾Ğ»ÑƒÑ‡ĞµĞ½Ğ¸Ğµ Ğ¼Ğ°ĞºÑĞ¸Ğ¼Ğ°Ğ»ÑŒĞ½Ğ¾Ğ³Ğ¾ Ğ²Ñ€ĞµĞ¼ĞµĞ½Ğ¸ Ğ²Ñ‹Ğ¿Ğ¾Ğ»Ğ½ĞµĞ½Ğ¸Ñ ÑĞºÑ€Ğ¸Ğ¿Ñ‚Ğ°
 		$maxExecTime = ini_get('maximum_execution_time');
 		$startTime = $this->_microtime_float();
-		// äëÿ îòëàäêè
+		// Ğ´Ğ»Ñ Ğ¾Ñ‚Ğ»Ğ°Ğ´ĞºĞ¸
 		//$maxExecTime = 1;
-		// åñëè ìàêñèìàëüíîå âğåìÿ âûïîëíåíèÿ ñêğèïòà íå ïîëó÷åíî, èëè ğàâíî íóëş - ïğîïèøåì æåñòêîå çíà÷åíèå - 30 ñåêóíä
+		// ĞµÑĞ»Ğ¸ Ğ¼Ğ°ĞºÑĞ¸Ğ¼Ğ°Ğ»ÑŒĞ½Ğ¾Ğµ Ğ²Ñ€ĞµĞ¼Ñ Ğ²Ñ‹Ğ¿Ğ¾Ğ»Ğ½ĞµĞ½Ğ¸Ñ ÑĞºÑ€Ğ¸Ğ¿Ñ‚Ğ° Ğ½Ğµ Ğ¿Ğ¾Ğ»ÑƒÑ‡ĞµĞ½Ğ¾, Ğ¸Ğ»Ğ¸ Ñ€Ğ°Ğ²Ğ½Ğ¾ Ğ½ÑƒĞ»Ñ - Ğ¿Ñ€Ğ¾Ğ¿Ğ¸ÑˆĞµĞ¼ Ğ¶ĞµÑÑ‚ĞºĞ¾Ğµ Ğ·Ğ½Ğ°Ñ‡ĞµĞ½Ğ¸Ğµ - 30 ÑĞµĞºÑƒĞ½Ğ´
 		if(($maxExecTime == '') || ($maxExecTime == 0)) {
 			// If we have no time limit, set a hard limit of 30 secs (safe for Apache and IIS timeouts)
 			$maxExecTime = 30;
@@ -369,7 +369,7 @@ class CCUBE {
 
 	/**
 	* Creates the next engine object based on the current execution domain
-	* @return integer 0 = âûïîëíÿåòñÿ, 1 = âñ¸ âûïîëíåíî, 2 = îøèáêà
+	* @return integer 0 = Ğ²Ñ‹Ğ¿Ğ¾Ğ»Ğ½ÑĞµÑ‚ÑÑ, 1 = Ğ²ÑÑ‘ Ğ²Ñ‹Ğ¿Ğ¾Ğ»Ğ½ĞµĞ½Ğ¾, 2 = Ğ¾ÑˆĞ¸Ğ±ĞºĞ°
 	*/
 	function _getNextObject() {
 		// Kill existing object
@@ -377,10 +377,10 @@ class CCUBE {
 		// Try to figure out what object to spawn next
 		switch($this->_currentDomain) {
 			case 'init':
-				// ØÀÃ - ñîçäàíèå ñïèñêà ôàéëîâ
+				// Ğ¨ĞĞ“ - ÑĞ¾Ğ·Ğ´Ğ°Ğ½Ğ¸Ğµ ÑĞ¿Ğ¸ÑĞºĞ° Ñ„Ğ°Ğ¹Ğ»Ğ¾Ğ²
 				if($this->_OnlyDBMode) {
 					CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_NEXT_STEP_BACKUP_DB);
-					// ğåæèì àğõèâèğîâàíèÿ òîëüêî áàçû äàííûõ
+					// Ñ€ĞµĞ¶Ğ¸Ğ¼ Ğ°Ñ€Ñ…Ğ¸Ğ²Ğ¸Ñ€Ğ¾Ğ²Ğ°Ğ½Ğ¸Ñ Ñ‚Ğ¾Ğ»ÑŒĞºĞ¾ Ğ±Ğ°Ğ·Ñ‹ Ğ´Ğ°Ğ½Ğ½Ñ‹Ñ…
 					require_once ('engine.dbdump.php');
 					$this->_currentObject = new CDBBackupEngine($this->_OnlyDBMode);
 					$this->_currentDomain = 'PackDB';
@@ -394,7 +394,7 @@ class CCUBE {
 				break;
 			case 'FileList':
 				CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_NEXT_STEP_BACKUP_DB);
-				// ØÀÃ àğõèâèğîâàíèå áàçû
+				// Ğ¨ĞĞ“ Ğ°Ñ€Ñ…Ğ¸Ğ²Ğ¸Ñ€Ğ¾Ğ²Ğ°Ğ½Ğ¸Ğµ Ğ±Ğ°Ğ·Ñ‹
 				require_once ('engine.dbdump.php');
 				$this->_currentObject = new CDBBackupEngine();
 				$this->_currentDomain = 'PackDB';
@@ -403,7 +403,7 @@ class CCUBE {
 			case 'PackDB':
 				if($this->_OnlyDBMode) {
 					CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_NEXT_STEP_FINISHING);
-					// ØÀÃ - âñå âûïîëíåíî
+					// Ğ¨ĞĞ“ - Ğ²ÑĞµ Ğ²Ñ‹Ğ¿Ğ¾Ğ»Ğ½ĞµĞ½Ğ¾
 					$this->_currentDomain = 'finale';
 					return 1;
 				} else {
@@ -417,7 +417,7 @@ class CCUBE {
 				break;
 			case 'Packing':
 				CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_NEXT_STEP_FINISHED);
-				// ØÀÃ - âñ¸ âûïîëíåíî
+				// Ğ¨ĞĞ“ - Ğ²ÑÑ‘ Ğ²Ñ‹Ğ¿Ğ¾Ğ»Ğ½ĞµĞ½Ğ¾
 				$this->_currentDomain = 'finale';
 				return 1;
 				break;
@@ -440,7 +440,7 @@ class CCUBE {
 		$ret['Substep']	= htmlentities($this->_currentSubstep);
 		$ret['Error']	= htmlentities($this->_Error);
 		$ret['Timestamp'] = $this->_microtime_float();
-		// ññûëêà íà ôàéë ïîëó÷åííîé ğåçåğâíîé êîïèè
+		// ÑÑÑ‹Ğ»ĞºĞ° Ğ½Ğ° Ñ„Ğ°Ğ¹Ğ» Ğ¿Ğ¾Ğ»ÑƒÑ‡ĞµĞ½Ğ½Ğ¾Ğ¹ Ñ€ĞµĞ·ĞµÑ€Ğ²Ğ½Ğ¾Ğ¹ ĞºĞ¾Ğ¿Ğ¸Ğ¸
 		$ret['backfile']	= $this->backfile;
 		return $ret;
 	}

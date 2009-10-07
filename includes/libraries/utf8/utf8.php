@@ -12,7 +12,7 @@ defined('_VALID_MOS') or die();
 
 define('EXT','.php');
 
-$_c = JConfig::getInstance()->config_absolute_path.'/includes/libraries/utf8/';
+$_c = JPATH_BASE.'/includes/libraries/utf8/';
 define('SYSPATH',$_c);
 
 

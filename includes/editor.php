@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined('_VALID_MOS') or die();
 
 if(!defined('_JOS_EDITOR_INCLUDED')) {
@@ -16,10 +16,10 @@ if(!defined('_JOS_EDITOR_INCLUDED')) {
 		$mosConfig_editor = 'none';
 	}
 
-	// проверка сессии на параметр отключения редактора, если такой имеется - то вместо выбранного или прописанного по умолчанию редактора используется параметр 'none' - отсутствующий визуальный редактор
+	// РїСЂРѕРІРµСЂРєР° СЃРµСЃСЃРёРё РЅР° РїР°СЂР°РјРµС‚СЂ РѕС‚РєР»СЋС‡РµРЅРёСЏ СЂРµРґР°РєС‚РѕСЂР°, РµСЃР»Рё С‚Р°РєРѕР№ РёРјРµРµС‚СЃСЏ - С‚Рѕ РІРјРµСЃС‚Рѕ РІС‹Р±СЂР°РЅРЅРѕРіРѕ РёР»Рё РїСЂРѕРїРёСЃР°РЅРЅРѕРіРѕ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ СЂРµРґР°РєС‚РѕСЂР° РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РїР°СЂР°РјРµС‚СЂ 'none' - РѕС‚СЃСѓС‚СЃС‚РІСѓСЋС‰РёР№ РІРёР·СѓР°Р»СЊРЅС‹Р№ СЂРµРґР°РєС‚РѕСЂ
 	if(intval(mosGetParam($_SESSION,'user_editor_off',0))) {
 		$editor = 'none';
-	} else { // получение параметров редактора из настоек пользователя
+	} else { // РїРѕР»СѓС‡РµРЅРёРµ РїР°СЂР°РјРµС‚СЂРѕРІ СЂРµРґР°РєС‚РѕСЂР° РёР· РЅР°СЃС‚РѕРµРє РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
 		$params = new mosParameters($my->params);
 		$editor = $params->get('editor','');
 		if(!$editor) {
@@ -30,8 +30,8 @@ if(!defined('_JOS_EDITOR_INCLUDED')) {
 	$_MAMBOTS->loadBot('editors',$editor,1);
 
 	/**
-	* Инициализация редактора
-	* При вызове функции происходит загрузка мамботов группы редакторов и выводятся данные их настройки
+	* РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЂРµРґР°РєС‚РѕСЂР°
+	* РџСЂРё РІС‹Р·РѕРІРµ С„СѓРЅРєС†РёРё РїСЂРѕРёСЃС…РѕРґРёС‚ Р·Р°РіСЂСѓР·РєР° РјР°РјР±РѕС‚РѕРІ РіСЂСѓРїРїС‹ СЂРµРґР°РєС‚РѕСЂРѕРІ Рё РІС‹РІРѕРґСЏС‚СЃСЏ РґР°РЅРЅС‹Рµ РёС… РЅР°СЃС‚СЂРѕР№РєРё
 	*/
 	function initEditor() {
 		global $mainframe,$_MAMBOTS;
@@ -45,8 +45,8 @@ if(!defined('_JOS_EDITOR_INCLUDED')) {
 		}
 	}
 	/**
-	* Получение содержимого редактора
-	* Проверяется функция соответствующая триггеру onGetEditorContents
+	* РџРѕР»СѓС‡РµРЅРёРµ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ СЂРµРґР°РєС‚РѕСЂР°
+	* РџСЂРѕРІРµСЂСЏРµС‚СЃСЏ С„СѓРЅРєС†РёСЏ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰Р°СЏ С‚СЂРёРіРіРµСЂСѓ onGetEditorContents
 	*/
 	function getEditorContents($editorArea,$hiddenField) {
 		global $mainframe,$_MAMBOTS;
@@ -61,7 +61,7 @@ if(!defined('_JOS_EDITOR_INCLUDED')) {
 	// just present a textarea
 	function editorArea($name,$content,$hiddenField,$width,$height,$col,$row, $params=null) {
 		global $mainframe,$_MAMBOTS,$my;
-		// загрузка ботов раздела editor-xtd, константа _JOS_EDITORXTD_INCLUDED сигнализирует что мамботы загружены
+		// Р·Р°РіСЂСѓР·РєР° Р±РѕС‚РѕРІ СЂР°Р·РґРµР»Р° editor-xtd, РєРѕРЅСЃС‚Р°РЅС‚Р° _JOS_EDITORXTD_INCLUDED СЃРёРіРЅР°Р»РёР·РёСЂСѓРµС‚ С‡С‚Рѕ РјР°РјР±РѕС‚С‹ Р·Р°РіСЂСѓР¶РµРЅС‹
 		if(!defined('_JOS_EDITORXTD_INCLUDED')) {
 			define('_JOS_EDITORXTD_INCLUDED',1);
 			$_MAMBOTS->loadBotGroup('editors-xtd');
@@ -76,7 +76,7 @@ if(!defined('_JOS_EDITOR_INCLUDED')) {
 	}
 	function editorBox($name,$content,$hiddenField,$width,$height,$col,$row) {
 		global $mainframe,$_MAMBOTS,$my;
-		// загрузка ботов раздела editor-xtd, константа _JOS_EDITORXTD_INCLUDED сигнализирует что мамботы загружены
+		// Р·Р°РіСЂСѓР·РєР° Р±РѕС‚РѕРІ СЂР°Р·РґРµР»Р° editor-xtd, РєРѕРЅСЃС‚Р°РЅС‚Р° _JOS_EDITORXTD_INCLUDED СЃРёРіРЅР°Р»РёР·РёСЂСѓРµС‚ С‡С‚Рѕ РјР°РјР±РѕС‚С‹ Р·Р°РіСЂСѓР¶РµРЅС‹
 		if(!defined('_JOS_EDITORXTD_INCLUDED')) {
 			define('_JOS_EDITORXTD_INCLUDED',1);
 			$_MAMBOTS->loadBotGroup('editors-xtd');
@@ -89,6 +89,6 @@ if(!defined('_JOS_EDITOR_INCLUDED')) {
 			}
 		}
 	}
-	// установка константы - флага, что редактор подключен
+	// СѓСЃС‚Р°РЅРѕРІРєР° РєРѕРЅСЃС‚Р°РЅС‚С‹ - С„Р»Р°РіР°, С‡С‚Рѕ СЂРµРґР°РєС‚РѕСЂ РїРѕРґРєР»СЋС‡РµРЅ
 	define('_JOS_EDITOR_INCLUDED',1);
 }

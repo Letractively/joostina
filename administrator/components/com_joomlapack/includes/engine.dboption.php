@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined('_VALID_MOS') or die();
 
 require_once ($mainframe->getPath('admin_html'));
@@ -40,7 +40,7 @@ switch($task) {
 		break;
 }
 
-// отображение списка таблиц
+// РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ СЃРїРёСЃРєР° С‚Р°Р±Р»РёС†
 function viewTables($option) {
 	global $database,$mosConfig_db;
 	$sql = 'SHOW TABLE STATUS FROM `'.$mosConfig_db.'`';
@@ -80,7 +80,7 @@ function viewTables($option) {
 	HTML_joomlapack::showTables($option,$lists,$table_lists,$stats_list);
 }
 
-// работа с базой, оптимизация, восстановление и т.д.
+// СЂР°Р±РѕС‚Р° СЃ Р±Р°Р·РѕР№, РѕРїС‚РёРјРёР·Р°С†РёСЏ, РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёРµ Рё С‚.Рґ.
 function checkDatabase($option,$func) {
 	global $tables,$database;
 	$i = 0;
@@ -133,7 +133,7 @@ function checkDatabase($option,$func) {
 		}
 	}
 }
-// отображение занимаемого размера файла
+// РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ Р·Р°РЅРёРјР°РµРјРѕРіРѕ СЂР°Р·РјРµСЂР° С„Р°Р№Р»Р°
 function mosGetSizes($size) {
 	if($size < 1024)$size = number_format(Round($size,3),0,',','.')." B";
 	elseif($size < 1048576) $size = number_format(Round($size / 1024,3),2,',','.')." KB";

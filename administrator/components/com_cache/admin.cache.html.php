@@ -12,7 +12,7 @@
  * See COPYRIGHT.php for copyright notices and details.
  */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined('_VALID_MOS') or die();
 
 /**

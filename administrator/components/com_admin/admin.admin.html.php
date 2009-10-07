@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright Àâòîðñêèå ïðàâà (C) 2008-2009 Joostina team. Âñå ïðàâà çàùèùåíû.
-* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
-* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
-* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+* @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2009 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
+* @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
+* Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
+* Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
 */
 
-// çàïðåò ïðÿìîãî äîñòóïà
+// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
 defined('_VALID_MOS') or die();
 
 /**
@@ -20,8 +20,8 @@ class HTML_admin_misc {
 	* Control panel
 	*/
 	function controlPanel() {
-		global $mosConfig_absolute_path,$mainframe;
-		$path = $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/html/cpanel.php';
+		global $mainframe;
+		$path = JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/html/cpanel.php';
 		if(file_exists($path)) {
 			require $path;
 		} else {
@@ -58,7 +58,7 @@ class HTML_admin_misc {
 	}
 
 	function system_info($version) {
-		global $mosConfig_absolute_path,$database,$mosConfig_cachepath,$mainframe,$mosConfig_live_site;
+		global $database,$mosConfig_cachepath,$mosConfig_live_site;
 		
 		$mainframe = &mosMainFrame::getInstance();
 		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
@@ -81,7 +81,7 @@ class HTML_admin_misc {
 				<td>
 				<pre>
 <?php
-		include($mosConfig_absolute_path.'/help/copyright.php');
+		include(JPATH_BASE.'/help/copyright.php');
 ?>
 				</pre>
 				</td>
@@ -257,7 +257,7 @@ class HTML_admin_misc {
 				<td valign="top"><strong><?php echo _CONFIGURATION_FILE?>:</strong></td>
 				<td>
 <?php
-		$cf = file($mosConfig_absolute_path.'/configuration.php');
+		$cf = file(JPATH_BASE.'/configuration.php');
 		foreach($cf as $k => $v) {
 			if(eregi('mosConfig_host',$v)) {
 				$cf[$k] = '$mosConfig_host = \'xxxxxx\'';
@@ -367,7 +367,7 @@ class HTML_admin_misc {
 ?>
 		<?php
 	}
-	// ïîëó÷åíèå èíôîðìàöèè î áàçå äàííûõ
+	// Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ðµ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð±Ð°Ð·Ðµ Ð´Ð°Ð½Ð½Ñ‹Ñ…
 	function db_info() {
 		global $database,$mosConfig_db;
 		$sql = 'SHOW TABLE STATUS FROM '.$mosConfig_db;
@@ -559,16 +559,14 @@ class HTML_admin_misc {
 * @param string A specific keyword on which to filter the resulting list
 */
 function getHelpTOC($helpsearch) {
-	global $mosConfig_absolute_path;
 	$helpurl = strval(mosGetParam($GLOBALS,'mosConfig_helpurl',''));
+	$files = mosReadDirectory(JPATH_BASE.'/help/','\.xml$|\.html$');
 
-	$files = mosReadDirectory($mosConfig_absolute_path.'/help/','\.xml$|\.html$');
-
-	require_once ($mosConfig_absolute_path.'/includes/domit/xml_domit_lite_include.php');
+	require_once (JPATH_BASE.'/includes/domit/xml_domit_lite_include.php');
 
 	$toc = array();
 	foreach($files as $file) {
-		$buffer = file_get_contents($mosConfig_absolute_path.'/help/'.$file);
+		$buffer = file_get_contents(JPATH_BASE.'/help/'.$file);
 		if(preg_match('#<title>(.*?)</title>#',$buffer,$m)) {
 			$title = trim($m[1]);
 			if($title) {

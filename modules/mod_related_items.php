@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined( '_VALID_MOS' ) or die();
 
 global $mosConfig_offset, $option, $task,$my;
@@ -19,15 +19,15 @@ $now		= _CURRENT_SERVER_TIME;
 $nullDate = $database->getNullDate();
 
 if ($option == 'com_content' && $task == 'view' && $id) {
-	// выборка ключевых слов из объекта
+	// РІС‹Р±РѕСЂРєР° РєР»СЋС‡РµРІС‹С… СЃР»РѕРІ РёР· РѕР±СЉРµРєС‚Р°
 	$query = 'SELECT metakey FROM #__content WHERE id = '.(int) $id;
 	$database->setQuery( $query );
 	if ($metakey = trim( $database->loadResult() )) {
-		// разделить ключевые слова запятыми
+		// СЂР°Р·РґРµР»РёС‚СЊ РєР»СЋС‡РµРІС‹Рµ СЃР»РѕРІР° Р·Р°РїСЏС‚С‹РјРё
 		$keys = explode( ',', $metakey );
 		$likes = array();
 
-		// собирание любых непустых слов
+		// СЃРѕР±РёСЂР°РЅРёРµ Р»СЋР±С‹С… РЅРµРїСѓСЃС‚С‹С… СЃР»РѕРІ
 		foreach ($keys as $key) {
 			$key = trim( $key );
 			if ($key) {

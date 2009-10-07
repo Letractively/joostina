@@ -2,10 +2,10 @@
 /**
 * @package Joostina
  * @subpackage Cache handler
-* @copyright Авторские права (C) 2007-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
 // Check to ensure this file is within the rest of the framework
@@ -433,9 +433,8 @@ class JCacheStorage{
 	 * @since	1.3
 	 */
 	function clean($group = 'default', $mode = ''){
-		
-		global $mosConfig_absolute_path, $mosConfig_cache_key;
-		$fname = $mosConfig_absolute_path.'/configuration.php';
+		global $mosConfig_cache_key;
+		$fname = JPATH_BASE.'/configuration.php';
 
 		$enable_write = intval(mosGetParam($_POST,'enable_write',0));
 		$oldperms = fileperms($fname);
@@ -443,12 +442,10 @@ class JCacheStorage{
 			@chmod($fname,$oldperms | 0222);
 		}
 
-		if($fp = fopen($fname,'r')) 
-		{
+		if($fp = fopen($fname,'r')){
 			$data = fread($fp, filesize($fname));
 			fclose($fp);
-			if($fp = fopen($fname,'w')) 
-			{
+			if($fp = fopen($fname,'w')){
 				$pattern = '$mosConfig_cache_key = \'' . $mosConfig_cache_key . '\';';
 				$replacement = '$mosConfig_cache_key = \'' . time() . '\';';
 				$data = str_replace($pattern, $replacement, $data);

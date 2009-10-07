@@ -1,15 +1,14 @@
 <?php
 /**
 * @package Joostina
-* @copyright Àâòîðñêèå ïðàâà (C) 2008-2009 Joostina team. Âñå ïðàâà çàùèùåíû.
-* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
-* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
-* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+* @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2009 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
+* @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
+* Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
+* Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
 */
 
-// çàïðåò ïðÿìîãî äîñòóïà
+// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
 defined('_VALID_MOS') or die();
-global $mosConfig_absolute_path;
 global $JPConfiguration;
 define('PCLZIP_TEMPORARY_DIR',$JPConfiguration->OutputDirectory.'/');
 
@@ -159,12 +158,12 @@ class CPackerEngine {
 	* Returns the path to trim and the path to add to the fragment's files
 	*/
 	function _getPaths($fragmentType) {
-		global $JPConfiguration,$mosConfig_absolute_path;
+		global $JPConfiguration;
 
 		$retArray = array();
 		switch($fragmentType) {
 			case 'site':
-				$retArray['remove'] = $JPConfiguration->TranslateWinPath($mosConfig_absolute_path);
+				$retArray['remove'] = $JPConfiguration->TranslateWinPath(JPATH_BASE);
 				$retArray['add'] = '';
 				break;
 			case 'installation':
@@ -190,9 +189,9 @@ class CPackerEngine {
 	* Performs the actual archiving of the current file list
 	*/
 	function _archiveFileList() {
-		global $mosConfig_absolute_path,$JPConfiguration,$database;
+		global $JPConfiguration,$database;
 
-		include_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/includes/pcl/pclzip.lib.php');
+		include_once (JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY.'/includes/pcl/pclzip.lib.php');
 
 		// Check for existing instance of the object stored in db
 		$sql = "SELECT COUNT(*) FROM #__jp_packvars WHERE `key`='zipobject'";
@@ -201,7 +200,7 @@ class CPackerEngine {
 
 		if($numRows == 0) {
 			CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_SAVING_ARCHIVE_INFO);
-			// ñîçäàíèå ôàéëà àðõèâà
+			// ÑÐ¾Ð·Ð´Ð°Ð½Ð¸Ðµ Ñ„Ð°Ð¹Ð»Ð° Ð°Ñ€Ñ…Ð¸Ð²Ð°
 			$zip = new PclZip($this->_archiveFile);
 		} else {
 			// Load from db
@@ -214,13 +213,13 @@ class CPackerEngine {
 		}
 		// Get paths to add / remove
 		$pathsAddRemove = $this->_getPaths($this->_fileListDescriptor['type']);
-		// óäàëÿåì âñ¸ ëèøíåå èç ïóòåé ê ôàéëàì âíóòðè àðõèâà
+		// ÑƒÐ´Ð°Ð»ÑÐµÐ¼ Ð²ÑÑ‘ Ð»Ð¸ÑˆÐ½ÐµÐµ Ð¸Ð· Ð¿ÑƒÑ‚ÐµÐ¹ Ðº Ñ„Ð°Ð¹Ð»Ð°Ð¼ Ð²Ð½ÑƒÑ‚Ñ€Ð¸ Ð°Ñ€Ñ…Ð¸Ð²Ð°
 		$pathsAddRemove['remove'] = PclZipUtilTranslateWinPath($pathsAddRemove['remove']);
-		// äîáàâëåíèå ôàéëîâ â àðõèâ, èëè çàâåðøåíèå àðõèâèðîâàíèÿ
+		// Ð´Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ Ñ„Ð°Ð¹Ð»Ð¾Ð² Ð² Ð°Ñ€Ñ…Ð¸Ð², Ð¸Ð»Ð¸ Ð·Ð°Ð²ÐµÑ€ÑˆÐµÐ½Ð¸Ðµ Ð°Ñ€Ñ…Ð¸Ð²Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ñ
 		if(is_array($this->_fileListDescriptor['files'])) {
 			CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_ADDING_FILE_TO_ARCHIVE);
 
-			// äîáàâëåíèå ôàéëîâ â àðõèâ
+			// Ð´Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ Ñ„Ð°Ð¹Ð»Ð¾Ð² Ð² Ð°Ñ€Ñ…Ð¸Ð²
 			$zip = new PclZip($this->_archiveFile);
 			$zip->add($this->_fileListDescriptor['files'],'',$pathsAddRemove['remove']);
 
@@ -230,9 +229,9 @@ class CPackerEngine {
 			$JPConfiguration->WriteDebugVar('zipobject',$serialized,true);
 			unset($serialized);
 		} else {
-			// çàâåðøåíèå àðõèâèðîâàíèÿ
+			// Ð·Ð°Ð²ÐµÑ€ÑˆÐµÐ½Ð¸Ðµ Ð°Ñ€Ñ…Ð¸Ð²Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ñ
 			$zip = new PclZip($this->_archiveFile);
-			$to_file = PclZipUtilTranslateWinPath($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/backups/installation/');
+			$to_file = PclZipUtilTranslateWinPath(JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/backups/installation/');
 			$zip->add( $to_file,'',$pathsAddRemove['remove']);
 			CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_ARCHIVE_COMPLETED);
 		}

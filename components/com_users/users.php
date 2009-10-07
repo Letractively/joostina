@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined('_VALID_MOS') or die();
 
 global $my, $task, $option;
@@ -126,7 +126,7 @@ function profile($uid){
 
 	$row = new mosUser($database);
 	if($row->load($uid)){
-		//Дополнительная информация о пользователе
+		//Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ Рѕ РїРѕР»СЊР·РѕРІР°С‚РµР»Рµ
 		$row->user_extra = $row->get_user_extra();
 
 		$file = $mainframe->getPath('com_xml','com_users');
@@ -138,7 +138,7 @@ function profile($uid){
 
 		ob_start();
 			HTML_user::profile($row,'com_users', $params, $config);
-			$content_boby = ob_get_contents(); // главное содержимое - стек вывода компонента - mainbody
+			$content_boby = ob_get_contents(); // РіР»Р°РІРЅРѕРµ СЃРѕРґРµСЂР¶РёРјРѕРµ - СЃС‚РµРє РІС‹РІРѕРґР° РєРѕРјРїРѕРЅРµРЅС‚Р° - mainbody
 		ob_end_clean();
 		return array('content' => $content_boby, 'title' => $title);
 	}else{
@@ -273,7 +273,7 @@ function userSave($option,$uid) {
 		$database->query();
 	}
 	
-	mosRedirect('index.php?option=com_users&task=UserDetails', 'Усё пучком');
+	mosRedirect('index.php?option=com_users&task=UserDetails', 'РЈСЃС‘ РїСѓС‡РєРѕРј');
 
 	//userEdit($option,$my->id,_UPDATE);
 }
@@ -316,7 +316,7 @@ function userList($gid,$limit,$limitstart=0){
 
 	$users = new mosUser($database);
 	
-	//Подключаем шаблон
+	//РџРѕРґРєР»СЋС‡Р°РµРј С€Р°Р±Р»РѕРЅ
 	if(is_file($template_file)){
 		include_once($template_file);
 	}
@@ -429,7 +429,7 @@ function CheckIn($userid,$access) {
 <?php
 }
 
-/* форма восстановления пароля */
+/* С„РѕСЂРјР° РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёСЏ РїР°СЂРѕР»СЏ */
 function lostPassForm($option) {
 	
 	$mainframe = &mosMainFrame::getInstance();
@@ -440,7 +440,7 @@ function lostPassForm($option) {
 	
 	$user_config = new configUser_lostpass($database);	
 	
-	//Шаблон
+	//РЁР°Р±Р»РѕРЅ
 	$template = $user_config->get('template');
 	$template_dir = 'components/com_users/view/lostpass';
 		
@@ -521,7 +521,7 @@ function registerForm($option,$useractivation) {
 
 	$mainframe->SetPageTitle($params->get('title'));
 
-	//Определяем шаблон для вывода регистрационной формы
+	//РћРїСЂРµРґРµР»СЏРµРј С€Р°Р±Р»РѕРЅ РґР»СЏ РІС‹РІРѕРґР° СЂРµРіРёСЃС‚СЂР°С†РёРѕРЅРЅРѕР№ С„РѕСЂРјС‹
 	$template = 'default.php';
 	
 	if(!$params->get('template')){
@@ -585,17 +585,17 @@ function saveRegistration() {
 
 	$row->id = 0;
 	
-	//Определяем группу пользователя
-	//Если в настройках регистрации выбрано использование разных шаблонов - будем брать группу из скрытого поля
-	//регистрационной формы
-	//Если используется единый шаблон - группу берем из натроек регистрации.
+	//РћРїСЂРµРґРµР»СЏРµРј РіСЂСѓРїРїСѓ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
+	//Р•СЃР»Рё РІ РЅР°СЃС‚СЂРѕР№РєР°С… СЂРµРіРёСЃС‚СЂР°С†РёРё РІС‹Р±СЂР°РЅРѕ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ СЂР°Р·РЅС‹С… С€Р°Р±Р»РѕРЅРѕРІ - Р±СѓРґРµРј Р±СЂР°С‚СЊ РіСЂСѓРїРїСѓ РёР· СЃРєСЂС‹С‚РѕРіРѕ РїРѕР»СЏ
+	//СЂРµРіРёСЃС‚СЂР°С†РёРѕРЅРЅРѕР№ С„РѕСЂРјС‹
+	//Р•СЃР»Рё РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РµРґРёРЅС‹Р№ С€Р°Р±Р»РѕРЅ - РіСЂСѓРїРїСѓ Р±РµСЂРµРј РёР· РЅР°С‚СЂРѕРµРє СЂРµРіРёСЃС‚СЂР°С†РёРё.
 	if(!$params->get('template')){
 		$row->gid = $_POST['gid'];
 	}
 	else{
 		$row->gid = $params->get('gid');
 	}
-	//Проверяем, не подменена ли группа "на лету"
+	//РџСЂРѕРІРµСЂСЏРµРј, РЅРµ РїРѕРґРјРµРЅРµРЅР° Р»Рё РіСЂСѓРїРїР° "РЅР° Р»РµС‚Сѓ"
 	$gid_md5 = $_POST['gid_check'];
 	
 	if($gid_md5 != md5($GLOBALS['mosConfig_secret'].md5($row->gid))){ 
@@ -634,7 +634,7 @@ function saveRegistration() {
 	$email_info['email']	= trim($row->email);
 	$email_info['username']	= trim($row->username);
 
-	//Подготавливаем письмо пользователю
+	//РџРѕРґРіРѕС‚Р°РІР»РёРІР°РµРј РїРёСЃСЊРјРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЋ
 	$email_info['subject'] = sprintf(_SEND_SUB, $email_info['name'], $mainframe->getCfg('sitename'));
 	$email_info['subject'] = html_entity_decode($email_info['subject'], ENT_QUOTES);
 
@@ -662,18 +662,18 @@ function saveRegistration() {
 		$email_info['adminEmail'] = $row2->email;
 	}
 
-	// Отсылаем пользователю письмо только в случае, если не включено "Активация администратором"
+	// РћС‚СЃС‹Р»Р°РµРј РїРѕР»СЊР·РѕРІР°С‚РµР»СЋ РїРёСЃСЊРјРѕ С‚РѕР»СЊРєРѕ РІ СЃР»СѓС‡Р°Рµ, РµСЃР»Рё РЅРµ РІРєР»СЋС‡РµРЅРѕ "РђРєС‚РёРІР°С†РёСЏ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂРѕРј"
 	if(!$params->get('admin_activation')){
 		$row->send_mail_to_user($email_info);
 	}
 
 
-	// Подготавливаем письмо администраторам сайта
+	// РџРѕРґРіРѕС‚Р°РІР»РёРІР°РµРј РїРёСЃСЊРјРѕ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР°Рј СЃР°Р№С‚Р°
 	$email_info['subject'] = sprintf(_SEND_SUB, $email_info['name'],$mainframe->getCfg('sitename'));
 	$email_info['message'] = sprintf(_ASEND_MSG, $email_info['adminName'],$mainframe->getCfg('sitename'), $row->name, $email_info['email'],$email_info['username']);
 	$email_info['subject'] = html_entity_decode($email_info['subject'],ENT_QUOTES);
 	$email_info['message'] = html_entity_decode($email_info['message'],ENT_QUOTES);
-	//отправляем письма
+	//РѕС‚РїСЂР°РІР»СЏРµРј РїРёСЃСЊРјР°
 	$row->send_mail_to_admins($email_info);
 
 
@@ -689,13 +689,13 @@ function saveRegistration() {
 			mosRedirect($params->get('redirect_url'), $msg);
 		}
 
-		//Определяем шаблон
+		//РћРїСЂРµРґРµР»СЏРµРј С€Р°Р±Р»РѕРЅ
 		$template = 'default.php';
 
-		//Если в параметрах настройки регистрации задано использование
-		//разных шаблонов для разных групп пользователей -
-		//даём возможность выводить сообщения также с помощью разных шаблонов
-		//Если шаблон для группы не найден - используем стандартный шаблон
+		//Р•СЃР»Рё РІ РїР°СЂР°РјРµС‚СЂР°С… РЅР°СЃС‚СЂРѕР№РєРё СЂРµРіРёСЃС‚СЂР°С†РёРё Р·Р°РґР°РЅРѕ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ
+		//СЂР°Р·РЅС‹С… С€Р°Р±Р»РѕРЅРѕРІ РґР»СЏ СЂР°Р·РЅС‹С… РіСЂСѓРїРї РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№ -
+		//РґР°С‘Рј РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ РІС‹РІРѕРґРёС‚СЊ СЃРѕРѕР±С‰РµРЅРёСЏ С‚Р°РєР¶Рµ СЃ РїРѕРјРѕС‰СЊСЋ СЂР°Р·РЅС‹С… С€Р°Р±Р»РѕРЅРѕРІ
+		//Р•СЃР»Рё С€Р°Р±Р»РѕРЅ РґР»СЏ РіСЂСѓРїРїС‹ РЅРµ РЅР°Р№РґРµРЅ - РёСЃРїРѕР»СЊР·СѓРµРј СЃС‚Р°РЅРґР°СЂС‚РЅС‹Р№ С€Р°Р±Р»РѕРЅ
 		if(!$params->get('template')){
 			$group_name = $acl->get_group_name($row->gid,'ARO');
 			if($group_name){

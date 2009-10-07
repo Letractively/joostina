@@ -167,7 +167,7 @@ function noFiles(){
 <title>Image List</title>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo $jce->translate('iso');?>" />
 <?php 
-	// çàãðóçêà ñêðèïòîâ mootols
+	// Ð·Ð°Ð³Ñ€ÑƒÐ·ÐºÐ° ÑÐºÑ€Ð¸Ð¿Ñ‚Ð¾Ð² mootols
 	mosCommonHTML::loadMootools(1);
 
 	echo $jce->printLibJs('files');

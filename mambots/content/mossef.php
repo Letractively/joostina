@@ -1,22 +1,22 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined('_VALID_MOS') or die();
 
 $_MAMBOTS->registerFunction('onPrepareContent','botMosSef');
 
 /**
-* Конвертирование внутренних относительных ссылок в URL-адреса SEF
+* РљРѕРЅРІРµСЂС‚РёСЂРѕРІР°РЅРёРµ РІРЅСѓС‚СЂРµРЅРЅРёС… РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅС‹С… СЃСЃС‹Р»РѕРє РІ URL-Р°РґСЂРµСЃР° SEF
 *
-* <b>Использование:</b>
-* <code><a href="...относительная ссылка..."></code>
+* <b>РСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ:</b>
+* <code><a href="...РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅР°СЏ СЃСЃС‹Р»РєР°..."></code>
 */
 function botMosSef($published,&$row,&$params,$page = 0) {
 	global $mosConfig_sef;
@@ -39,15 +39,15 @@ function botMosSef($published,&$row,&$params,$page = 0) {
 	// define the regular expression for the bot
 	$regex = "#href=\"(.*?)\"#s";
 
-	// выполнение замены
+	// РІС‹РїРѕР»РЅРµРЅРёРµ Р·Р°РјРµРЅС‹
 	$row->text = preg_replace_callback($regex,'botMosSef_replacer',$row->text);
 
 	return true;
 }
 
 /**
-* Замена совпадающих тэгов
-* @param array - Массив соответствий (см. - preg_match_all)
+* Р—Р°РјРµРЅР° СЃРѕРІРїР°РґР°СЋС‰РёС… С‚СЌРіРѕРІ
+* @param array - РњР°СЃСЃРёРІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёР№ (СЃРј. - preg_match_all)
 * @return string
 */
 function botMosSef_replacer(&$matches) {

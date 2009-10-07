@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright Àâòîðñêèå ïðàâà (C) 2008-2009 Joostina team. Âñå ïðàâà çàùèùåíû.
-* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
-* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
-* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+* @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2009 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
+* @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
+* Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
+* Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
 */
 
-// çàïðåò ïðÿìîãî äîñòóïà
+// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
 defined( '_VALID_MOS' ) or die();
 
 if (!defined( '_JOS_RSSFEED_MODULE' )) {
@@ -21,7 +21,7 @@ if (!defined( '_JOS_RSSFEED_MODULE' )) {
 	}
 }
 
-global $mosConfig_live_site, $mosConfig_absolute_path, $cur_template;
+global $mosConfig_live_site, $cur_template;
 
 $text				= $params->get( 'text','');
 $moduleclass_sfx	= $params->get( 'moduleclass_sfx', '' );
@@ -80,36 +80,36 @@ if ( !$syndicateParams->get( 'yandex', 1 ) ) {
 ?>
 <div class="syndicate<?php echo $moduleclass_sfx;?>">
 <?php
-	// òåêñò
+	// Ñ‚ÐµÐºÑÑ‚
 	if ( $text ) {
 		?><div align="center" class="syndicate_text<?php echo $moduleclass_sfx;?>"><?php echo $text;?></div><?php
 	}
-	// ññûëêà ñòàíäàðòà Yandex
+	// ÑÑÑ‹Ð»ÐºÐ° ÑÑ‚Ð°Ð½Ð´Ð°Ñ€Ñ‚Ð° Yandex
 	if ( $yandex ) {
 		$link = 'index.php?option=com_rss&amp;feed=Yandex&amp;no_html=1';
 		output_rssfeed( $link, 'yandex_rss.png', $yandex_image, 'Yandex RSS', 'Yandex' );
 	}
-	// ññûëêà ñòàíäàðòà rss091
+	// ÑÑÑ‹Ð»ÐºÐ° ÑÑ‚Ð°Ð½Ð´Ð°Ñ€Ñ‚Ð° rss091
 	if ( $rss091 ) {
 		$link = 'index.php?option=com_rss&amp;feed=RSS0.91&amp;no_html=1';
 		output_rssfeed( $link, 'rss091.gif', $rss091_image, 'RSS 0.91', 'RSS091' );
 	}
-	// ññûëêà ñòàíäàðòà rss10
+	// ÑÑÑ‹Ð»ÐºÐ° ÑÑ‚Ð°Ð½Ð´Ð°Ñ€Ñ‚Ð° rss10
 	if ( $rss10 ) {
 		$link = 'index.php?option=com_rss&amp;feed=RSS1.0&amp;no_html=1';
 		output_rssfeed( $link, 'rss10.gif', $rss10_image, 'RSS 1.0', 'RSS10' );
 	}
-	// ññûëêà ñòàíäàðòà rss20
+	// ÑÑÑ‹Ð»ÐºÐ° ÑÑ‚Ð°Ð½Ð´Ð°Ñ€Ñ‚Ð° rss20
 	if ( $rss20 ) {
 		$link = 'index.php?option=com_rss&amp;feed=RSS2.0&amp;no_html=1';
 		output_rssfeed( $link, 'rss20.gif', $rss20_image, 'RSS 2.0', 'RSS20' );
 	}
-	// ññûëêà ñòàíäàðòà atom
+	// ÑÑÑ‹Ð»ÐºÐ° ÑÑ‚Ð°Ð½Ð´Ð°Ñ€Ñ‚Ð° atom
 	if ( $atom03 ) {
 		$link = 'index.php?option=com_rss&amp;feed=ATOM0.3&amp;no_html=1';
 		output_rssfeed( $link, 'atom03.gif', $atom_image, 'ATOM 0.3', 'ATOM03' );
 	}
-	// ññûëêà opml
+	// ÑÑÑ‹Ð»ÐºÐ° opml
 	if ( $opml ) {
 		$link = 'index.php?option=com_rss&amp;feed=OPML&amp;no_html=1';
 		output_rssfeed( $link, 'opml.png', $opml_image, 'OPML', 'OPML'  );

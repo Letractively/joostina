@@ -1,21 +1,21 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined( '_VALID_MOS' ) or die();
 
 if (!defined( '_MOS_MAINMENU_MODULE' )) {
-	/** обеспечивает запуск функции только один раз*/
+	/** РѕР±РµСЃРїРµС‡РёРІР°РµС‚ Р·Р°РїСѓСЃРє С„СѓРЅРєС†РёРё С‚РѕР»СЊРєРѕ РѕРґРёРЅ СЂР°Р·*/
 	define( '_MOS_MAINMENU_MODULE', 1 );
 
 	/**
-	* Сервисная функция записи ссылки на меню
+	* РЎРµСЂРІРёСЃРЅР°СЏ С„СѓРЅРєС†РёСЏ Р·Р°РїРёСЃРё СЃСЃС‹Р»РєРё РЅР° РјРµРЅСЋ
 	*/
 	function mosGetMenuLink( $mitem, $level=0, &$params, $open=null ) {
 		global $Itemid, $mosConfig_live_site, $mainframe;
@@ -60,7 +60,7 @@ if (!defined( '_MOS_MAINMENU_MODULE' )) {
 			break;
 		}
 
-		// Подсветка активного меню
+		// РџРѕРґСЃРІРµС‚РєР° Р°РєС‚РёРІРЅРѕРіРѕ РјРµРЅСЋ
 		$current_itemid = $Itemid;
 		if ( !$current_itemid ) {
 			$id = '';
@@ -108,24 +108,24 @@ if (!defined( '_MOS_MAINMENU_MODULE' )) {
 		$mitem->name = stripslashes( ampReplace($mitem->name) );
 
 		switch ($mitem->browserNav) {
-			// различные события
+			// СЂР°Р·Р»РёС‡РЅС‹Рµ СЃРѕР±С‹С‚РёСЏ
 			case 1:
-			// открыть в новом окне
+			// РѕС‚РєСЂС‹С‚СЊ РІ РЅРѕРІРѕРј РѕРєРЅРµ
 			$txt = '<a href="'. $mitem->link .'" title="'.$mitem->name.'" target="_blank" class="'. $menuclass .'" '. $id .'>'. $mitem->name .'</a>';
 			break;
 
 			case 2:
-			// открытие во всплывающем окне
+			// РѕС‚РєСЂС‹С‚РёРµ РІРѕ РІСЃРїР»С‹РІР°СЋС‰РµРј РѕРєРЅРµ
 			$txt = "<a href=\"#\" onclick=\"javascript: window.open('". $mitem->link ."', '', 'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=780,height=550'); return false\" class=\"$menuclass\" ". $id .">". $mitem->name ."</a>\n";
 			break;
 
 			case 3:
-			// это не ссылка
+			// СЌС‚Рѕ РЅРµ СЃСЃС‹Р»РєР°
 			$txt = '<span class="'. $menuclass .'" '. $id .'>'. $mitem->name .'</span>';
 			break;
 
 			default:	
-			// открытие в текущем окне
+			// РѕС‚РєСЂС‹С‚РёРµ РІ С‚РµРєСѓС‰РµРј РѕРєРЅРµ
 			$txt = '<a href="'. $mitem->link .'" class="'. $menuclass .'" '. $id .' title="'.$mitem->name.'">'. $mitem->name .'</a>';
 			break;
 		}
@@ -148,7 +148,7 @@ if (!defined( '_MOS_MAINMENU_MODULE' )) {
 	}
 
 	/**
-	* Вертикальный отступ меню
+	* Р’РµСЂС‚РёРєР°Р»СЊРЅС‹Р№ РѕС‚СЃС‚СѓРї РјРµРЅСЋ
 	*/
 	function mosShowVIMenu(  &$params ) {
 		global $database, $my, $cur_template, $Itemid;
@@ -167,10 +167,10 @@ if (!defined( '_MOS_MAINMENU_MODULE' )) {
 		$database->setQuery( $sql );
 		$rows = $database->loadObjectList( 'id' );
 
-		// значки отступа
+		// Р·РЅР°С‡РєРё РѕС‚СЃС‚СѓРїР°
 		switch ( $params->get( 'indent_image' ) ) {
 			case '1':
-			// Изображения по умолчанию
+			// РР·РѕР±СЂР°Р¶РµРЅРёСЏ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
 			$imgpath = $mosConfig_live_site .'/images/M_images';
 			for ( $i = 1; $i < 7; $i++ ) {
 				$img[$i] = '<img src="'. $imgpath .'/indent'. $i .'.png" alt="" />';
@@ -178,7 +178,7 @@ if (!defined( '_MOS_MAINMENU_MODULE' )) {
 			break;
 				
 			case '2':
-			// Использование параметров
+			// РСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РїР°СЂР°РјРµС‚СЂРѕРІ
 			$imgpath = $mosConfig_live_site .'/images/M_images';
 			for ( $i = 1; $i < 7; $i++ ) {
 				if ( $params->get( 'indent_image'. $i ) == '-1' ) {
@@ -190,14 +190,14 @@ if (!defined( '_MOS_MAINMENU_MODULE' )) {
 			break;
 				
 			case '3':
-			// Нет параметров
+			// РќРµС‚ РїР°СЂР°РјРµС‚СЂРѕРІ
 			for ( $i = 1; $i < 7; $i++ ) {
 				$img[$i] = NULL;
 			}
 			break;
 								
 			default:
-			// Шаблон
+			// РЁР°Р±Р»РѕРЅ
 			$imgpath = $mosConfig_live_site .'/templates/'. $cur_template .'/images';
 			for ( $i = 1; $i < 7; $i++ ) {
 				$img[$i] = '<img src="'. $imgpath .'/indent'. $i .'.png" alt="" />';
@@ -206,7 +206,7 @@ if (!defined( '_MOS_MAINMENU_MODULE' )) {
 		}
 
 		$indents = array(
-		// префикс блока / префикс объекта / суффикс объекта / суффикс блока
+		// РїСЂРµС„РёРєСЃ Р±Р»РѕРєР° / РїСЂРµС„РёРєСЃ РѕР±СЉРµРєС‚Р° / СЃСѓС„С„РёРєСЃ РѕР±СЉРµРєС‚Р° / СЃСѓС„С„РёРєСЃ Р±Р»РѕРєР°
 		array( '<table width="100%" border="0" cellpadding="0" cellspacing="0">', '<tr align="left"><td>' , '</td></tr>', '</table>' ),
 		array( '', '<div style="padding-left: 4px">'. $img[1] , '</div>', '' ),
 		array( '', '<div style="padding-left: 8px">'. $img[2] , '</div>', '' ),
@@ -216,7 +216,7 @@ if (!defined( '_MOS_MAINMENU_MODULE' )) {
 		array( '', '<div style="padding-left: 24px">'. $img[6] , '</div>', '' ),
 		);
 
-		// создание иерархии меню
+		// СЃРѕР·РґР°РЅРёРµ РёРµСЂР°СЂС…РёРё РјРµРЅСЋ
 		$children = array();
 		// first pass - collect children
 		foreach ($rows as $v ) {
@@ -226,9 +226,9 @@ if (!defined( '_MOS_MAINMENU_MODULE' )) {
 			$children[$pt] = $list;
 		}
 
-		// первый проход - сбор открытых меню
+		// РїРµСЂРІС‹Р№ РїСЂРѕС…РѕРґ - СЃР±РѕСЂ РѕС‚РєСЂС‹С‚С‹С… РјРµРЅСЋ
 		$open = array( $Itemid );
-		$count = 20; // максимум уровней - предотвращает зацикливание
+		$count = 20; // РјР°РєСЃРёРјСѓРј СѓСЂРѕРІРЅРµР№ - РїСЂРµРґРѕС‚РІСЂР°С‰Р°РµС‚ Р·Р°С†РёРєР»РёРІР°РЅРёРµ
 		$id = $Itemid;
 							
 		while (--$count) {
@@ -244,8 +244,8 @@ if (!defined( '_MOS_MAINMENU_MODULE' )) {
 	}
 
 	/**
-	* Сервисная рекурсивная функция для вертикального отступа
-	* иерархического меню
+	* РЎРµСЂРІРёСЃРЅР°СЏ СЂРµРєСѓСЂСЃРёРІРЅР°СЏ С„СѓРЅРєС†РёСЏ РґР»СЏ РІРµСЂС‚РёРєР°Р»СЊРЅРѕРіРѕ РѕС‚СЃС‚СѓРїР°
+	* РёРµСЂР°СЂС…РёС‡РµСЃРєРѕРіРѕ РјРµРЅСЋ
 	*/
 	function mosRecurseVIMenu( $id, $level, &$children, &$open, &$indents, &$params ) {
 		if (@$children[$id]) {
@@ -258,7 +258,7 @@ if (!defined( '_MOS_MAINMENU_MODULE' )) {
 
 				echo mosGetMenuLink( $row, $level, $params, $open );
 
-				// показывается расширенное меню с видимым подменю
+				// РїРѕРєР°Р·С‹РІР°РµС‚СЃСЏ СЂР°СЃС€РёСЂРµРЅРЅРѕРµ РјРµРЅСЋ СЃ РІРёРґРёРјС‹Рј РїРѕРґРјРµРЅСЋ
 				if ( !$params->get( 'expand_menu' ) ) {
 					if ( in_array( $row->id, $open )) {
 						mosRecurseVIMenu( $row->id, $level+1, $children, $open, $indents, $params );
@@ -273,7 +273,7 @@ if (!defined( '_MOS_MAINMENU_MODULE' )) {
 	}
 
 	/**
-	* Прорисовка горизонтального 'плоского' стиля меню (выбираемого очень просто)
+	* РџСЂРѕСЂРёСЃРѕРІРєР° РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅРѕРіРѕ 'РїР»РѕСЃРєРѕРіРѕ' СЃС‚РёР»СЏ РјРµРЅСЋ (РІС‹Р±РёСЂР°РµРјРѕРіРѕ РѕС‡РµРЅСЊ РїСЂРѕСЃС‚Рѕ)
 	*/
 	function mosShowHFMenu(  &$params, $style=0 ) {
 		global $my;

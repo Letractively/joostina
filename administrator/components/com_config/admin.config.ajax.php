@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright Àâòîðñêèå ïðàâà (C) 2008-2009 Joostina team. Âñå ïðàâà çàùèùåíû.
-* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
-* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
-* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+* @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2009 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
+* @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
+* Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
+* Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
 */
 
-// çàïðåò ïðÿìîãî äîñòóïà
+// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
 defined('_VALID_MOS') or die();
 
 if(!$acl->acl_check('administration','config','users',$my->usertype)) {
@@ -27,15 +27,11 @@ switch($task) {
 }
 
 /**
-* Ñîõðàíåíèå êîíôèãóðàöèè
+* Ð¡Ð¾Ñ…Ñ€Ð°Ð½ÐµÐ½Ð¸Ðµ ÐºÐ¾Ð½Ñ„Ð¸Ð³ÑƒÑ€Ð°Ñ†Ð¸Ð¸
 */
 function x_saveconfig($task) {
-	global $database,$mosConfig_absolute_path,$mosConfig_password,$mosConfig_session_type;
+	global $database,$mosConfig_password,$mosConfig_session_type;
 	josSpoofCheck();
-
-	foreach($_POST as $key => $val) {
-		$_POST[$key] = joostina_api::convert($val);
-	}
 
 	$row = new JConfig();
 	if(!$row->bind($_POST,'config_tseparator')) {
@@ -78,7 +74,7 @@ if($row->config_joomlaxplorer_dir == $row->config_absolute_path) $row->config_jo
 	$config .= $row->getVarText();
 	$config .= "setlocale (LC_TIME, \$mosConfig_locale);\n";
 	$config .= '?>';
-	$fname = $mosConfig_absolute_path.'/configuration.php';
+	$fname = JPATH_BASE.'/configuration.php';
 
 	$enable_write = intval(mosGetParam($_POST,'enable_write',0));
 	$oldperms = fileperms($fname);
@@ -111,7 +107,7 @@ if($row->config_joomlaxplorer_dir == $row->config_absolute_path) $row->config_jo
 				$dirmode = octdec($row->config_dirperms);
 			}
 			foreach($mosrootfiles as $file) {
-				mosChmodRecursive($mosConfig_absolute_path.'/'.$file,$filemode,$dirmode);
+				mosChmodRecursive(JPATH_BASE.'/'.$file,$filemode,$dirmode);
 			}
 		} // if
 		mosCache::cleanCache('com_content');

@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright Àâòîðñêèå ïðàâà (C) 2008-2009 Joostina team. Âñå ïðàâà çàùèùåíû.
-* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
-* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
-* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+* @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2009 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
+* @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
+* Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
+* Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
 */
 
-// çàïðåò ïðÿìîãî äîñòóïà
+// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
 defined('_VALID_MOS') or die();
 
 // including classes
@@ -55,7 +55,7 @@ function showStatistics($id) {
 
 		// verifico password
 		if($password == mosHash($banner->password)) {
-			global $mosConfig_live_site, $mosConfig_absolute_path;
+			global $mosConfig_live_site;
 
 			echo '<br>';
 			echo '<b>', _ABP_CLICKS, '</b>', '&nbsp;:&nbsp;', $banner->complete_clicks, ' / ', $banner->clicks, ' ( dal ', $banner->dta_mod_clicks, ' )<br><br>';
@@ -67,7 +67,7 @@ function showStatistics($id) {
 			} else
 				if(eregi("(\.bmp|\.gif|\.jpg|\.jpeg|\.png)$", $banner->image_url)) {
 					$image_url = "$mosConfig_live_site/images/show/$banner->image_url";
-					$imginfo = @getimagesize("$mosConfig_absolute_path/images/show/" . $banner->image_url);
+					$imginfo = @getimagesize("JPATH_BASE/images/show/" . $banner->image_url);
 					$border_value = $banner->border_value;
 					$border_style = $banner->border_style;
 					$border_color = $banner->border_color;
@@ -77,7 +77,7 @@ function showStatistics($id) {
 				} else
 					if(eregi(".swf", $banner->image_url)) {
 						$image_url = "$mosConfig_live_site/images/show/" . $banner->image_url;
-						$swfinfo = @getimagesize("$mosConfig_absolute_path/images/show/" . $banner->image_url);
+						$swfinfo = @getimagesize("JPATH_BASE/images/show/" . $banner->image_url);
 						$width = $swfinfo[0] / 1.23;
 						$height = $swfinfo[1] / 1.23;
 						echo "<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=4,0,2,0\" border=\"0\" width=\"$width\" height=\"$height\" vspace=\"0\"><param name=\"SRC\" value=\"$image_url\"><embed src=\"$image_url\" loop=\"false\" pluginspage=\"http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash\" type=\"application/x-shockwave-flash\" width=\"$width\" height=\"$height\"></object>";

@@ -1,24 +1,24 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined('_VALID_MOS') or die();
 
 global $database;
 global $mosConfig_live_site,$mosConfig_lang;
 
-include_once ($mosConfig_absolute_path.DS.'language'.DS.$mosConfig_lang.DS.'system.php');
+include_once (JPATH_BASE.DS.'language'.DS.$mosConfig_lang.DS.'system.php');
 
 $adminOffline = false;
 
 if(!defined('_INSTALL_CHECK')) {
-	// этот метод отличается от подобного в 1.1, т.к. отличается обработка сессий
+	// СЌС‚РѕС‚ РјРµС‚РѕРґ РѕС‚Р»РёС‡Р°РµС‚СЃСЏ РѕС‚ РїРѕРґРѕР±РЅРѕРіРѕ РІ 1.1, С‚.Рє. РѕС‚Р»РёС‡Р°РµС‚СЃСЏ РѕР±СЂР°Р±РѕС‚РєР° СЃРµСЃСЃРёР№
 	$_s = session_id();
 	if( !isset($_s)) {
 		session_name(md5($mosConfig_live_site));
@@ -26,7 +26,7 @@ if(!defined('_INSTALL_CHECK')) {
 	}
 	require_once(Jconfig::getInstance()->config_absolute_path.'/components/com_users/users.class.php');
 	if(class_exists('mosUser') && $database != null ) {
-		// восстановление некоторых переменных сессии
+		// РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёРµ РЅРµРєРѕС‚РѕСЂС‹С… РїРµСЂРµРјРµРЅРЅС‹С… СЃРµСЃСЃРёРё
 		$admin = new mosUser($database);
 		$admin->id = intval(mosGetParam($_SESSION,'session_user_id',''));
 		$admin->username = strval(mosGetParam($_SESSION,'session_USER',''));
@@ -34,7 +34,7 @@ if(!defined('_INSTALL_CHECK')) {
 		$session_id = mosGetParam($_SESSION,'session_id','');
 		$logintime = mosGetParam($_SESSION,'session_logintime','');
 
-		// проверка наличия строки сессии в базе данных
+		// РїСЂРѕРІРµСЂРєР° РЅР°Р»РёС‡РёСЏ СЃС‚СЂРѕРєРё СЃРµСЃСЃРёРё РІ Р±Р°Р·Рµ РґР°РЅРЅС‹С…
 		if($session_id == md5($admin->id.$admin->username.$admin->usertype.$logintime)) {
 			$query = "SELECT* FROM #__session WHERE session_id = ".$database->Quote($session_id)."\n AND username = ".$database->Quote($admin->username)."\n AND userid = ".intval($admin->id);
 			$database->setQuery($query);
@@ -49,18 +49,18 @@ if(!defined('_INSTALL_CHECK')) {
 }
 
 if(!defined('_ADMIN_OFFLINE') || defined('_INSTALL_CHECK')) {
-	include_once ($mosConfig_absolute_path.DS.'language'.DS.$mosConfig_lang.DS.'system.php');
-	require_once ($mosConfig_absolute_path.DS.'includes'.DS.'version.php');
+	include_once (JPATH_BASE.DS.'language'.DS.$mosConfig_lang.DS.'system.php');
+	require_once (JPATH_BASE.DS.'includes'.DS.'version.php');
 
 	$_VERSION	= new joomlaVersion();
 	$version	= $_VERSION->CMS.' '.$_VERSION->CMS_ver.' '.$_VERSION->DEV_STATUS.' [ '.$_VERSION->CODENAME.' ] '.$_VERSION->RELDATE.' '.$_VERSION->RELTIME.' '.$_VERSION->RELTZ;
 
 	if($database != null) {
-		// получение названия шаблона сайта по умолчанию
+		// РїРѕР»СѓС‡РµРЅРёРµ РЅР°Р·РІР°РЅРёСЏ С€Р°Р±Р»РѕРЅР° СЃР°Р№С‚Р° РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
 		$query = "SELECT template FROM #__templates_menu WHERE client_id = 0 AND menuid = 0";
 		$database->setQuery($query);
 		$cur_template = $database->loadResult();
-		$path = "$mosConfig_absolute_path/templates/$cur_template/index.php";
+		$path = "JPATH_BASE/templates/$cur_template/index.php";
 		if(!file_exists($path)) {
 			$cur_template = 'newline2';
 		}
@@ -68,7 +68,7 @@ if(!defined('_ADMIN_OFFLINE') || defined('_INSTALL_CHECK')) {
 		$cur_template = 'newline2';
 	}
 
-	// требуется для разделения номера ISO из константы языкового файла _ISO
+	// С‚СЂРµР±СѓРµС‚СЃСЏ РґР»СЏ СЂР°Р·РґРµР»РµРЅРёСЏ РЅРѕРјРµСЂР° ISO РёР· РєРѕРЅСЃС‚Р°РЅС‚С‹ СЏР·С‹РєРѕРІРѕРіРѕ С„Р°Р№Р»Р° _ISO
 	$iso = split('=',_ISO);
 	// xml prolog
 	echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>';
@@ -82,11 +82,11 @@ if(!defined('_ADMIN_OFFLINE') || defined('_INSTALL_CHECK')) {
 		</style>
 		<link rel="stylesheet" href="<?php echo $mosConfig_live_site; ?>/templates/css/offline.css" type="text/css" />
 <?php
-	// значок избранного (favicon)
+	// Р·РЅР°С‡РѕРє РёР·Р±СЂР°РЅРЅРѕРіРѕ (favicon)
 	if(!$mosConfig_favicon) {
 		$mosConfig_favicon = 'favicon.ico';
 	}
-	$icon = $mosConfig_absolute_path.'/images/'.$mosConfig_favicon;
+	$icon = JPATH_BASE.'/images/'.$mosConfig_favicon;
 	// checks to see if file exists
 	if(!file_exists($icon)) {
 		$icon = $mosConfig_live_site.'/images/favicon.ico';

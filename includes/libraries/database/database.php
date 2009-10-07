@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined('_VALID_MOS') or die();
 
 /**
@@ -222,7 +222,7 @@ class database {
 	*/
 	function replacePrefix($sql,$prefix = '#__') {
 
-		// ЭКСПЕРИМЕНТАЛЬНО
+		// Р­РљРЎРџР•Р РРњР•РќРўРђР›Р¬РќРћ
 		return str_replace('#__',$this->_table_prefix,$sql);
 
 		$sql = trim($sql);
@@ -311,7 +311,7 @@ class database {
 				$this->_sql .= "\nLIMIT $this->_offset, $this->_limit";
 			}
 		if($this->_debug) {
-			// что бы не приклеивать к каждому объекту простыню из всез запросов - будем писать их в общесистемный лог
+			// С‡С‚Рѕ Р±С‹ РЅРµ РїСЂРёРєР»РµРёРІР°С‚СЊ Рє РєР°Р¶РґРѕРјСѓ РѕР±СЉРµРєС‚Сѓ РїСЂРѕСЃС‚С‹РЅСЋ РёР· РІСЃРµР· Р·Р°РїСЂРѕСЃРѕРІ - Р±СѓРґРµРј РїРёСЃР°С‚СЊ РёС… РІ РѕР±С‰РµСЃРёСЃС‚РµРјРЅС‹Р№ Р»РѕРі
 			jd_log($this->_ticker++.'-> '.$this->_sql);
 			jd_inc('database->query->count');
 			//$this->_ticker++;
@@ -320,7 +320,7 @@ class database {
 		$this->_errorNum = 0;
 		$this->_errorMsg = '';
 		$this->_cursor = mysql_query($this->_sql,$this->_resource);
-		// для оптимизации расхода памяти можно раскомментировать следующие строки, но некоторые особенно кривые расширения сразу же отвалятся
+		// РґР»СЏ РѕРїС‚РёРјРёР·Р°С†РёРё СЂР°СЃС…РѕРґР° РїР°РјСЏС‚Рё РјРѕР¶РЅРѕ СЂР°СЃРєРѕРјРјРµРЅС‚РёСЂРѕРІР°С‚СЊ СЃР»РµРґСѓСЋС‰РёРµ СЃС‚СЂРѕРєРё, РЅРѕ РЅРµРєРѕС‚РѕСЂС‹Рµ РѕСЃРѕР±РµРЅРЅРѕ РєСЂРёРІС‹Рµ СЂР°СЃС€РёСЂРµРЅРёСЏ СЃСЂР°Р·Сѓ Р¶Рµ РѕС‚РІР°Р»СЏС‚СЃСЏ
 		//unset($this->_sql);
 		//return $this->_cursor;
 		// /*
@@ -333,7 +333,7 @@ class database {
 			return false;
 		}
 		
-		// тут тоже раскомментировать, что бу верхнее условие оказалось в комментариях, или еще лучше его вообще удалить
+		// С‚СѓС‚ С‚РѕР¶Рµ СЂР°СЃРєРѕРјРјРµРЅС‚РёСЂРѕРІР°С‚СЊ, С‡С‚Рѕ Р±Сѓ РІРµСЂС…РЅРµРµ СѓСЃР»РѕРІРёРµ РѕРєР°Р·Р°Р»РѕСЃСЊ РІ РєРѕРјРјРµРЅС‚Р°СЂРёСЏС…, РёР»Рё РµС‰Рµ Р»СѓС‡С€Рµ РµРіРѕ РІРѕРѕР±С‰Рµ СѓРґР°Р»РёС‚СЊ
 		//*/
 		return $this->_cursor;
 	}
@@ -832,7 +832,7 @@ class mosDBTable {
 	*/
 	function bind($array,$ignore = '') {
 		if(!is_array($array)) {
-			$this->_error = strtolower(get_class($this)).'::ошибка выполнения bind.';
+			$this->_error = strtolower(get_class($this)).'::РѕС€РёР±РєР° РІС‹РїРѕР»РЅРµРЅРёСЏ bind.';
 			return false;
 		} else {
 			return mosBindArrayToObject($array,$this,$ignore);
@@ -899,7 +899,7 @@ class mosDBTable {
 		}
 
 		if(!$ret) {
-			$this->_error = strtolower(get_class($this))."::ошибка выполнения store<br />".
+			$this->_error = strtolower(get_class($this))."::РѕС€РёР±РєР° РІС‹РїРѕР»РЅРµРЅРёСЏ store<br />".
 				$this->_db->getErrorMsg();
 			return false;
 		} else {
@@ -976,8 +976,8 @@ class mosDBTable {
 		$k = $this->_tbl_key;
 
 		if(!array_key_exists('ordering',get_class_vars(strtolower(get_class($this))))) {
-			$this->_error = "ВНИМАНИЕ: ".strtolower(get_class($this)).
-				" не поддерживает сортировку.";
+			$this->_error = "Р’РќРРњРђРќРР•: ".strtolower(get_class($this)).
+				" РЅРµ РїРѕРґРґРµСЂР¶РёРІР°РµС‚ СЃРѕСЂС‚РёСЂРѕРІРєСѓ.";
 			return false;
 		}
 
@@ -1129,10 +1129,10 @@ class mosDBTable {
 	*/
 	function checkout($user_id,$oid = null) {
 		global $mosConfig_disable_checked_out;
-		// отключение блокировок
+		// РѕС‚РєР»СЋС‡РµРЅРёРµ Р±Р»РѕРєРёСЂРѕРІРѕРє
 		if($mosConfig_disable_checked_out) return true;
 		if(!array_key_exists('checked_out',get_class_vars(strtolower(get_class($this))))) {
-			$this->_error = "ВНИМАНИЕ: ".strtolower(get_class($this))." не поддерживает проверку.";
+			$this->_error = "Р’РќРРњРђРќРР•: ".strtolower(get_class($this))." РЅРµ РїРѕРґРґРµСЂР¶РёРІР°РµС‚ РїСЂРѕРІРµСЂРєСѓ.";
 			return false;
 		}
 		$k = $this->_tbl_key;
@@ -1169,7 +1169,7 @@ class mosDBTable {
 	*/
 	function checkin($oid = null) {
 		global $mosConfig_disable_checked_out;
-		// отключение блокировок
+		// РѕС‚РєР»СЋС‡РµРЅРёРµ Р±Р»РѕРєРёСЂРѕРІРѕРє
 		if($mosConfig_disable_checked_out) return true;
 		if(!array_key_exists('checked_out',get_class_vars(strtolower(get_class($this))))) {
 			$this->_error = "WARNING: ".strtolower(get_class($this))." does not support checkin.";

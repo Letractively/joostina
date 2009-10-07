@@ -1,13 +1,13 @@
 <?php
 /**
  * @package Joostina
- * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
- * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
- * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
- * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ * @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+ * @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+ * Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+ * Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
  */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined('_VALID_MOS') or die();
 
 /** Handles standard Joomla Content */
@@ -43,7 +43,7 @@ class xmap_com_content {
 		$show_unauth = ($show_unauth == 1 || ($show_unauth == 2 && $xmap->view == 'xml') || ($show_unauth == 3 && $xmap->view == 'html'));
 		$params['show_unauth'] = $show_unauth;
 
-		//----- разделение на подстраницы
+		//----- СЂР°Р·РґРµР»РµРЅРёРµ РЅР° РїРѕРґСЃС‚СЂР°РЅРёС†С‹
 		$params['use_mospagebreak'] = mosGetParam($params, 'use_mospagebreak', 1);
 
 
@@ -397,15 +397,15 @@ function to_page($text,$id,$Itemid){
 		return;
 	}
 
-	// найти все образцы мамбота и вставить в $matches
+	// РЅР°Р№С‚Рё РІСЃРµ РѕР±СЂР°Р·С†С‹ РјР°РјР±РѕС‚Р° Рё РІСЃС‚Р°РІРёС‚СЊ РІ $matches
 	$matches = array();
 	$regex = '/{(mospagebreak)\s*(.*?)}/i';
 	preg_match_all($regex,$text,$matches,PREG_SET_ORDER);
 
-	// мамбот разрыва текста
+	// РјР°РјР±РѕС‚ СЂР°Р·СЂС‹РІР° С‚РµРєСЃС‚Р°
 	$text = preg_split($regex,$text);
 
-	// подсчет числа страниц
+	// РїРѕРґСЃС‡РµС‚ С‡РёСЃР»Р° СЃС‚СЂР°РЅРёС†
 	$n = count($text)-1;
 	$ret = '';
 	for ($i = 1; $i <= $n; $i++) {

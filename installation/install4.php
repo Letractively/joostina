@@ -156,7 +156,7 @@ if($siteUrl) {
 	$config .= "\$mosConfig_db = '{$configArray['DBname']}';\n";
 	$config .= "\$mosConfig_dbprefix = '{$configArray['DBPrefix']}';\n";
 	$config .= "\$mosConfig_lang = 'russian';\n";
-	$config .= "\$mosConfig_absolute_path = '{$configArray['absolutePath']}';\n";
+	$config .= "\JPATH_BASE = '{$configArray['absolutePath']}';\n";
 	$config .= "\$mosConfig_live_site = '{$configArray['siteUrl']}';\n";
 	$config .= "\$mosConfig_sitename = '{$configArray['sitename']}';\n";
 	$config .= "\$mosConfig_shownoauth = '0';\n";

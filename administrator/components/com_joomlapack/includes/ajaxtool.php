@@ -1,17 +1,17 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined('_VALID_MOS') or die();
 
 
-// экспорт функций для использования в Ajax
+// СЌРєСЃРїРѕСЂС‚ С„СѓРЅРєС†РёР№ РґР»СЏ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ РІ Ajax
 sajax_export('tick','getCUBEArray','ping','dirSelectionHTML','toggleDirFilter','errorTrapReport');
 sajax_handle_client_request();
 
@@ -79,7 +79,6 @@ function JPRestoreErrorReporing() {
 }
 
 function dirSelectionHTML($root) {
-	global $mosConfig_absolute_path;
 	global $option;
 	require_once ('engine.exdirs.php');
 
@@ -110,7 +109,7 @@ END;
 		if($excluded) {
 			$out .= htmlentities($dir);
 		} else {
-			$out .= "<a href=\"javascript:dirSelectionHTML('".$def->ReplaceSlashes($root.DIRECTORY_SEPARATOR.$dir)."');\">".htmlentities($dir)."</a>";
+			$out .= "<a href=\"javascript:dirSelectionHTML('".$def->ReplaceSlashes($root.DS.$dir)."');\">".htmlentities($dir)."</a>";
 		}
 		$out .= '</td></tr>';
 	}
@@ -122,7 +121,7 @@ END;
 }
 
 function toggleDirFilter($root,$dir,$checked) {
-	global $mosConfig_absolute_path,$option;
+	global $option;
 	require_once ('engine.exdirs.php');
 	JPSetErrorReporting();
 	$def = new CDirExclusionFilter();
@@ -135,7 +134,7 @@ function errorTrapReport($badData) {
 	global $JPConfiguration;
 	JPSetErrorReporting();
 	$JPConfiguration->WriteDebugVar('BadData', $badData, true);
-	CJPLogger::WriteLog(_JP_LOG_ERROR,'Ошибка во время выполнения, сервер вернул ответ:');
+	CJPLogger::WriteLog(_JP_LOG_ERROR,'РћС€РёР±РєР° РІРѕ РІСЂРµРјСЏ РІС‹РїРѕР»РЅРµРЅРёСЏ, СЃРµСЂРІРµСЂ РІРµСЂРЅСѓР» РѕС‚РІРµС‚:');
 	CJPLogger::WriteLog(_JP_LOG_ERROR,htmlspecialchars($badData));
 	JPRestoreErrorReporing();
 	return 1;

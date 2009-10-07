@@ -1,12 +1,12 @@
 <?php
 /**
- * Êëàññ ðàáîòû ñ ìàññèâàìè
- * 
  * @package Joostina
- * @copyright (C) 2009 Extention Team. Joostina Team. Âñå ïðàâà çàùèùåíû.
- * @license GNU/GPL, ïîäðîáíåå â help/lisense.php
+ * @copyright (C) 2009 Extention Team. Joostina Team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
+ * @license GNU/GPL, Ð¿Ð¾Ð´Ñ€Ð¾Ð±Ð½ÐµÐµ Ð² help/lisense.php
  * @version $Id: array.php 05.07.2009 12:07:48 megazaisl $;
  * @since Version 1.3 
+ * ÐšÐ»Ð°ÑÑ Ñ€Ð°Ð±Ð¾Ñ‚Ñ‹ Ñ Ð¼Ð°ÑÑÐ¸Ð²Ð°Ð¼Ð¸
+ *
  */
 defined('_VALID_MOS') or die();
 

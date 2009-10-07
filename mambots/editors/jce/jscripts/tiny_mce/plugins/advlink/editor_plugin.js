@@ -4,7 +4,7 @@
  * $Date: 2006/02/10 16:29:38 $
  *
  * @author Moxiecode
- * @copyright Copyright © 2004-2006, Moxiecode Systems AB, All rights reserved.
+ * @copyright Copyright Т– 2004-2006, Moxiecode Systems AB, All rights reserved.
  */
 
 //Modified and enhanced for JCE 1.1 - Ryan Demmer

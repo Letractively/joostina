@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined( '_VALID_MOS' ) or die();
 
 $use_to = intval($params->get( 'use_to', 0 ));
@@ -18,7 +18,7 @@ if(!defined('_SECATOR_INCLUDE')){
 
 	class mod_secator{
 
-		# используем для разделов
+		# РёСЃРїРѕР»СЊР·СѓРµРј РґР»СЏ СЂР°Р·РґРµР»РѕРІ
 		function use_sections(&$params){
 
 			$view_sections	= strval($params->get( 'view_section', 'section_defaults.php' ));
@@ -30,7 +30,7 @@ if(!defined('_SECATOR_INCLUDE')){
 			require is_file($file) ? $file : $file_defaults;
 		}
 
-		# используем для категорий
+		# РёСЃРїРѕР»СЊР·СѓРµРј РґР»СЏ РєР°С‚РµРіРѕСЂРёР№
 		function use_category(&$params){
 
 			$view_category	= strval($params->get( 'view_category', 'category_defaults.php' ));
@@ -43,7 +43,7 @@ if(!defined('_SECATOR_INCLUDE')){
 		}
 
 
-		/* получение типа публикации */
+		/* РїРѕР»СѓС‡РµРЅРёРµ С‚РёРїР° РїСѓР±Р»РёРєР°С†РёРё */
 		function get_where_published($show_published=null,$name='published'){
 
 			if($show_published==0){
@@ -68,7 +68,7 @@ if(!defined('_SECATOR_INCLUDE')){
 			}
 
 			if($use_to==1){
-				// используем категроии
+				// РёСЃРїРѕР»СЊР·СѓРµРј РєР°С‚РµРіСЂРѕРёРё
 				$task = $params->get( 'task_category', 'blogcategory' );
 			}else{
 				$task = $params->get( 'task_category', 'blogsection' );
@@ -79,7 +79,7 @@ if(!defined('_SECATOR_INCLUDE')){
 			return sefRelToAbs($link);
 		}
 
-		/* подсчет числа содержимого в категории */
+		/* РїРѕРґСЃС‡РµС‚ С‡РёСЃР»Р° СЃРѕРґРµСЂР¶РёРјРѕРіРѕ РІ РєР°С‚РµРіРѕСЂРёРё */
 		function get_count_content(){
 			static $return;
 
@@ -100,7 +100,7 @@ if(!defined('_SECATOR_INCLUDE')){
 }
 
 if($use_to==1){
-	mod_secator::use_category($params); // используем категроии
+	mod_secator::use_category($params); // РёСЃРїРѕР»СЊР·СѓРµРј РєР°С‚РµРіСЂРѕРёРё
 }else{
-	mod_secator::use_sections($params); // используем разделы
+	mod_secator::use_sections($params); // РёСЃРїРѕР»СЊР·СѓРµРј СЂР°Р·РґРµР»С‹
 }

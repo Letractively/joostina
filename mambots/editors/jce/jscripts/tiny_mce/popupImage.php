@@ -5,7 +5,7 @@ define( '_VALID_MOS', 1 );
 
 global $mosConfig_live_site;
 
-$base = str_replace( 'mambots/editors/jce/jscripts/tiny_mce', '', str_replace( DIRECTORY_SEPARATOR, '/', dirname(__FILE__) ) );
+$base = str_replace( 'mambots/editors/jce/jscripts/tiny_mce', '', str_replace( DS, '/', dirname(__FILE__) ) );
 
 include ( $base . "/configuration.php" );
 include ( $base . "/includes/joomla.php" );

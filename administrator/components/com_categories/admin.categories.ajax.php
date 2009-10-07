@@ -1,16 +1,16 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined('_VALID_MOS') or die();
 
-global $mosConfig_absolute_path,$mosConfig_live_site,$my;
+global $mosConfig_live_site,$my;
 
 $task = mosGetParam($_GET,'task','publish');
 $id = intval(mosGetParam($_GET,'id','0'));
@@ -126,10 +126,10 @@ function x_save_sections($id){
 		$row->load((int)$new_section);
 		return '<a href="javascript: ch_get_sec('.$id.','.$new_section.');" onclick="ch_get_sec('.$id.','.$new_section.');">'.$row->title.'</a>';
 	} else {
-		return 'error-db'; // ошибка
+		return 'error-db'; // РѕС€РёР±РєР°
 	}
 }
-// обновление идентификаторов разделов
+// РѕР±РЅРѕРІР»РµРЅРёРµ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРІ СЂР°Р·РґРµР»РѕРІ
 function _update_content($id,$new_section){
 	global $database;
 	$query = "UPDATE #__content SET sectionid = '".$new_section."' WHERE catid = ".$id." ";
@@ -191,7 +191,7 @@ function x_access($id){
 		$task_access	= 'accesspublic';
 		$text_href		= _USER_GROUP_SPECIAL;
 	}
-	// чистим кэш
+	// С‡РёСЃС‚РёРј РєСЌС€
 	mosCache::cleanCache('com_content');
 	return '<a href="#" onclick="ch_access('.$row->id.',\''.$task_access.'\',\''.$option.'\')" '.$color_access.'>'.$text_href.'</a>';
 }

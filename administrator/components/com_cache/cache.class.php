@@ -12,10 +12,10 @@
  * See COPYRIGHT.php for copyright notices and details.
  */
 
-// çàïğåò ïğÿìîãî äîñòóïà
-//defined('_VALID_MOS') or die();
-global $mosConfig_absolute_path;
-//require_once($mosConfig_absolute_path . '/includes/libraries/cache/object.php');
+// Ğ·Ğ°Ğ¿Ñ€ĞµÑ‚ Ğ¿Ñ€ÑĞ¼Ğ¾Ğ³Ğ¾ Ğ´Ğ¾ÑÑ‚ÑƒĞ¿Ğ°
+defined('_VALID_MOS') or die();
+
+//require_once(JPATH_BASE . '/includes/libraries/cache/object.php');
 //error_reporting(E_ALL);
 /**
  * Class used to hold Cache data
@@ -64,9 +64,8 @@ class CacheData
 	function _parse()
 	{
 		//echo $this->_path;
-		global $mosConfig_absolute_path;
-		require_once($mosConfig_absolute_path . '/includes/libraries/filesystem/folder.php');
-		require_once($mosConfig_absolute_path . '/includes/libraries/filesystem/file.php');
+		require_once(JPATH_BASE . '/includes/libraries/filesystem/folder.php');
+		require_once(JPATH_BASE . '/includes/libraries/filesystem/file.php');
 		
 		$folders = JFolder::folders($this->_path);
 		

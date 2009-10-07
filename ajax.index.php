@@ -1,34 +1,41 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// Установка флага, что это - родительский файл
+// РЈСЃС‚Р°РЅРѕРІРєР° С„Р»Р°РіР°, С‡С‚Рѕ СЌС‚Рѕ - СЂРѕРґРёС‚РµР»СЊСЃРєРёР№ С„Р°Р№Р»
 define('_VALID_MOS',1);
+// РєРѕСЂРµРЅСЊ С„Р°Р№Р»РѕРІ
+define('JPATH_BASE', dirname(__FILE__) );
+// СЂР°Р·РґРµР»РёС‚РµР»СЊ РєР°С‚Р°Р»РѕРіРѕРІ
+define('DS', DIRECTORY_SEPARATOR );
 
-$mosConfig_absolute_path = dirname( __FILE__ );
-require ($mosConfig_absolute_path.'/includes/globals.php');
+JPATH_BASE = dirname( __FILE__ );
+require (JPATH_BASE.'/includes/globals.php');
 require_once ('./configuration.php');
+
+// РґР»СЏ СЃРѕРІРјРµСЃС‚РёРјРѕСЃС‚Рё
+$mosConfig_absolute_path = JPATH_BASE;
 
 require_once ('includes/joomla.php');
 
-// отображение состояния выключенного сайта
+// РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ СЃРѕСЃС‚РѕСЏРЅРёСЏ РІС‹РєР»СЋС‡РµРЅРЅРѕРіРѕ СЃР°Р№С‚Р°
 if($mosConfig_offline == 1) {
 	echo 'syte-offline';
 	exit();
 }
 
-if(file_exists($mosConfig_absolute_path.'/components/com_sef/sef.php')) {
-	require_once ($mosConfig_absolute_path.'/components/com_sef/sef.php');
+if(file_exists(JPATH_BASE.'/components/com_sef/sef.php')) {
+	require_once (JPATH_BASE.'/components/com_sef/sef.php');
 } else {
-	require_once ($mosConfig_absolute_path.'/includes/sef.php');
+	require_once (JPATH_BASE.'/includes/sef.php');
 }
 
-// автоматическая перекодировка в юникод, по умолчанию актвино
+// Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєР°СЏ РїРµСЂРµРєРѕРґРёСЂРѕРІРєР° РІ СЋРЅРёРєРѕРґ, РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ Р°РєС‚РІРёРЅРѕ
 $utf_conv	= intval(mosGetParam($_REQUEST,'utf',1));
 $option		= strval(strtolower(mosGetParam($_REQUEST,'option','')));
 $task		= strval(mosGetParam($_REQUEST,'task',''));
@@ -40,17 +47,17 @@ if($mosConfig_mmb_system_off == 0) {
 	$_MAMBOTS->trigger('onAjaxStart');
 }
 
-// mainframe - основная рабочая среда API, осуществляет взаимодействие с 'ядром'
+// mainframe - РѕСЃРЅРѕРІРЅР°СЏ СЂР°Р±РѕС‡Р°СЏ СЃСЂРµРґР° API, РѕСЃСѓС‰РµСЃС‚РІР»СЏРµС‚ РІР·Р°РёРјРѕРґРµР№СЃС‚РІРёРµ СЃ 'СЏРґСЂРѕРј'
 $mainframe = &mosMainFrame::getInstance();
-//Межсайтовая интеграция
-if(is_file($mosConfig_absolute_path.DS.'multisite.config.php')){
-	include_once($mosConfig_absolute_path.DS.'multisite.config.php');
+//РњРµР¶СЃР°Р№С‚РѕРІР°СЏ РёРЅС‚РµРіСЂР°С†РёСЏ
+if(is_file(JPATH_BASE.DS.'multisite.config.php')){
+	include_once(JPATH_BASE.DS.'multisite.config.php');
 }
 
 $mainframe->initSession();
 
 
-// загрузка файла русского языка по умолчанию
+// Р·Р°РіСЂСѓР·РєР° С„Р°Р№Р»Р° СЂСѓСЃСЃРєРѕРіРѕ СЏР·С‹РєР° РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
 if($mosConfig_lang == '') {
 	$mosConfig_lang = 'russian';
 }
@@ -74,9 +81,9 @@ if($mosConfig_mmb_system_off == 0) {
 header("Content-type: text/html; charset=utf-8");
 header ("Cache-Control: no-cache, must-revalidate ");
 
-// проверяем, какой файл необходимо подключить, данные берутся из пришедшего GET запроса
-if(file_exists($mosConfig_absolute_path . "/components/$option/$commponent.ajax.php")) {
-	include_once ($mosConfig_absolute_path . "/components/$option/$commponent.ajax.php");
+// РїСЂРѕРІРµСЂСЏРµРј, РєР°РєРѕР№ С„Р°Р№Р» РЅРµРѕР±С…РѕРґРёРјРѕ РїРѕРґРєР»СЋС‡РёС‚СЊ, РґР°РЅРЅС‹Рµ Р±РµСЂСѓС‚СЃСЏ РёР· РїСЂРёС€РµРґС€РµРіРѕ GET Р·Р°РїСЂРѕСЃР°
+if(file_exists(JPATH_BASE . "/components/$option/$commponent.ajax.php")) {
+	include_once (JPATH_BASE . "/components/$option/$commponent.ajax.php");
 } else {
 	die('error-1');
 }

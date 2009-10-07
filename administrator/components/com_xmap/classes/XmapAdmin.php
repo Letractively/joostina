@@ -1,18 +1,16 @@
 <?php
 /**
 * @package Joostina
-* @copyright Àâòîðñêèå ïðàâà (C) 2008-2009 Joostina team. Âñå ïðàâà çàùèùåíû.
-* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
-* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
-* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+* @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2009 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
+* @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
+* Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
+* Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
 */
 
-// çàïðåò ïðÿìîãî äîñòóïà
+// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
 defined('_VALID_MOS') or die();
 
-global $mosConfig_absolute_path;
-
-require_once ($mosConfig_absolute_path .'/'.ADMINISTRATOR_DIRECTORY.'/components/com_installer/installer/installer.class.php');
+require_once (JPATH_BASE .DS.ADMINISTRATOR_DIRECTORY.'/components/com_installer/installer/installer.class.php');
 
 class XmapAdmin {
 	
@@ -84,7 +82,7 @@ class XmapAdmin {
 
 	/** Save settings handed via POST */
 	function saveOptions( &$config ) {
-		global $mosConfig_absolute_path;
+		global JPATH_BASE;
 
 		$success	= 1;
 
@@ -146,9 +144,9 @@ class XmapAdmin {
 }
 
 function loadInstalledPlugins( &$rows,&$xmlfile ) {
-	global $database, $mosConfig_absolute_path;
+	global $database;
 
-	require_once ($mosConfig_absolute_path .'/includes/domit/xml_domit_lite_parser.php');
+	require_once (JPATH_BASE .'/includes/domit/xml_domit_lite_parser.php');
 
 	$query = "SELECT id, extension, published"
 	. "\n FROM #__xmap_ext"
@@ -163,7 +161,7 @@ function loadInstalledPlugins( &$rows,&$xmlfile ) {
 		$row =& $rows[$i];
 
 		// path to module directory
-		$extensionBaseDir	= mosPathName( mosPathName( $mosConfig_absolute_path ) . '/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/extensions/' );
+		$extensionBaseDir	= mosPathName( mosPathName( JPATH_BASE ) . '/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/extensions/' );
 
 		// xml file for module
 		$xmlfile = $extensionBaseDir. "/" .$row->extension. ".xml";
@@ -223,11 +221,11 @@ function showInstalledPlugins( $_option ) {
 */
 
 function xmapUploadPlugin( ) {
-	global $mosConfig_absolute_path;
+	global JPATH_BASE;
 	$option ='com_xmap'; 
 	$element = 'plugin';
 	$client = '';
-	require_once($mosConfig_absolute_path. '/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/classes/XmapPluginInstaller.php');
+	require_once(JPATH_BASE. '/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/classes/XmapPluginInstaller.php');
 	$installer = new XmapPluginInstaller();
 
 	// Check if file uploads are enabled
@@ -278,12 +276,12 @@ function xmapUploadPlugin( ) {
 * Install a extension from a directory
 */
 function xmapInstallPluginFromDirectory() {
-	global $mosConfig_absolute_path;
+	global JPATH_BASE;
 	$userfile = mosGetParam( $_REQUEST, 'userfile', '' );
 	$option ='com_xmap'; 
 	$element = 'plugin';
 	$client = '';
-	require_once($mosConfig_absolute_path. '/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/classes/XmapPluginInstaller.php');
+	require_once(JPATH_BASE. '/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/classes/XmapPluginInstaller.php');
 	$installer = new XmapPluginInstaller();
 
 	if (!$userfile) {
@@ -308,8 +306,8 @@ function xmapInstallPluginFromDirectory() {
 * @param
 */
 function xmapUninstallPlugin( $extensionid ) {
-	global $mosConfig_absolute_path;
-	require_once($mosConfig_absolute_path. '/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/classes/XmapPluginInstaller.php');
+	global JPATH_BASE;
+	require_once(JPATH_BASE. '/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/classes/XmapPluginInstaller.php');
 	$installer = new XmapPluginInstaller();
 	$result = false;
 	if ($extensionid) {
@@ -328,8 +326,8 @@ function xmapUninstallPlugin( $extensionid ) {
 * @param string The message to return
 */
 function xmapUploadFile( $filename, $userfile_name, &$msg ) {
-	global $mosConfig_absolute_path;
-	$baseDir = mosPathName( $mosConfig_absolute_path . '/media' );
+	global JPATH_BASE;
+	$baseDir = mosPathName( JPATH_BASE . '/media' );
 
 	if (file_exists( $baseDir )) {
 		if (is_writable( $baseDir )) {

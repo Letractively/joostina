@@ -1,19 +1,19 @@
 <?php
 /**
 * @package Joostina
-* @copyright Àâòîðñêèå ïðàâà (C) 2008-2009 Joostina team. Âñå ïðàâà çàùèùåíû.
-* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
-* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
-* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+* @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2009 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
+* @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
+* Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
+* Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
 */
 
-// çàïðåò ïðÿìîãî äîñòóïà
+// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
 defined('_VALID_MOS') or die();
 
 global $mosConfig_live_site,$mainframe,$task;
 
 class HTML_mmxtd {
-// îòîáðàæåíèÿ ïîäêàòàëîãà òåêóùåãî êàòàëîãà
+// Ð¾Ñ‚Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ð¸Ñ Ð¿Ð¾Ð´ÐºÐ°Ñ‚Ð°Ð»Ð¾Ð³Ð° Ñ‚ÐµÐºÑƒÑ‰ÐµÐ³Ð¾ ÐºÐ°Ñ‚Ð°Ð»Ð¾Ð³Ð°
 	function show_dir($path,$dir,$listdir) {
 		if($listdir) {
 			$link = 'index2.php?option=com_jwmmxtd&amp;curdirectory='.$listdir."/".$path;
@@ -53,7 +53,7 @@ class HTML_mmxtd {
 </div>
 <?php
 	}
-// ïîäñ÷åò ðàçìåðà
+// Ð¿Ð¾Ð´ÑÑ‡ÐµÑ‚ Ñ€Ð°Ð·Ð¼ÐµÑ€Ð°
 	function parse_size($size) {
 		if($size < 1024) {
 			return $size.' '._JWMM_BYTES;
@@ -64,7 +64,7 @@ class HTML_mmxtd {
 				return sprintf('%01.2f',$size / (1024.0* 1024)).' '._JWMM_MBYTES;
 			}
 	}
-// âûâîä èçîáðàæåíèÿ
+// Ð²Ñ‹Ð²Ð¾Ð´ Ð¸Ð·Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ð¸Ñ
 	function show_image($img,$file,$info,$size,$listdir) {
 		$img_file = basename($img);
 		$img_url_link = JWMMXTD_STARTURLPATH.$listdir.'/'.rawurlencode($img_file);
@@ -110,7 +110,7 @@ class HTML_mmxtd {
 </div>
 <?php
 	}
-// ïîäñ÷åò ÷èñëà ôàéëîâ
+// Ð¿Ð¾Ð´ÑÑ‡ÐµÑ‚ Ñ‡Ð¸ÑÐ»Ð° Ñ„Ð°Ð¹Ð»Ð¾Ð²
 	function num_files($dir) {
 		$total_file = 0;
 		$total_dir = 0;
@@ -130,7 +130,7 @@ class HTML_mmxtd {
 
 		return array($total_file,$total_dir);
 	}
-// îòîáðàæåíèå äîêóìåíòîâ
+// Ð¾Ñ‚Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ð¸Ðµ Ð´Ð¾ÐºÑƒÐ¼ÐµÐ½Ñ‚Ð¾Ð²
 	function show_doc($doc,$size,$listdir,$icon) {
 		$size = HTML_mmxtd::parse_size($size);
 		$doc_url_link = JWMMXTD_STARTURLPATH.$listdir.'/'.rawurlencode($doc);
@@ -148,7 +148,7 @@ class HTML_mmxtd {
 		<td class="fileinfo"><?php echo $size; ?></td>
 		<td class="fileactions">
 <?php
-// àðõèâ
+// Ð°Ñ€Ñ…Ð¸Ð²
 if($icon == $cur_file_icons_patch.'zip.png') { ?>
 		<a href="#" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $doc ?>';document.adminForm.subtask.value='unzipfile';document.adminForm.submit( );" title="<?php echo _UNPACK?>">
 		<img src="<?php echo $cur_file_icons_patch ?>compress.png" alt="<?php echo _UNPACK?>" title="<?php echo _UNPACK?>" /></a>
@@ -166,13 +166,13 @@ if($icon == $cur_file_icons_patch.'zip.png') { ?>
 </table>
 <div class="fileimage" onclick="get_file('<?php echo $doc_url_link; ?>','<?php echo $doc?>');">
 <?php
-	// ôëåø - ôàéë flv
+	// Ñ„Ð»ÐµÑˆ - Ñ„Ð°Ð¹Ð» flv
 	if($icon == $cur_file_icons_patch.'flv.png') {
 ?>
 	<a href="components/com_jwmmxtd/js/flvplayer.swf?file=<?php echo $doc_url_link; ?>&amp;autostart=true&amp;allowfullscreen=true" target="_blank" title="<?php echo _JWMM_VIDEO_FILE?>:<br /><?php echo $doc; ?>" alt="<?php echo _CLICK_TO_PREVIEW?>">
 	<img src="<?php echo $icon ?>" alt="<?php echo $doc; ?>" title="<?php echo _CLICK_TO_PREVIEW?>" /></a>
 <?php
-	// ôëåø - ôàéë swf
+	// Ñ„Ð»ÐµÑˆ - Ñ„Ð°Ð¹Ð» swf
 	} elseif($icon == $cur_file_icons_patch.'swf.png') {
 		$swfinfo = @getimagesize($doc_url_link);
 ?>
@@ -190,7 +190,7 @@ if($icon == $cur_file_icons_patch.'zip.png') { ?>
 <?php
 }
 
-// ðàñ÷åò è îòîáðàæåíèå ðàçìåðà èçîáðàæåíèÿ
+// Ñ€Ð°ÑÑ‡ÐµÑ‚ Ð¸ Ð¾Ñ‚Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ð¸Ðµ Ñ€Ð°Ð·Ð¼ÐµÑ€Ð° Ð¸Ð·Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ð¸Ñ
 	function imageResize($width,$height,$target) {
 		if($width > $height) {
 			$percentage = ($target / $width);

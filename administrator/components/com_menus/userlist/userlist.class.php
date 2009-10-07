@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright Àâòîğñêèå ïğàâà (C) 2008-2009 Joostina team. Âñå ïğàâà çàùèùåíû.
-* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
-* Joostina! - ñâîáîäíîå ïğîãğàììíîå îáåñïå÷åíèå ğàñïğîñòğàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
-* Äëÿ ïîëó÷åíèÿ èíôîğìàöèè î èñïîëüçóåìûõ ğàñøèğåíèÿõ è çàìå÷àíèé îá àâòîğñêîì ïğàâå, ñìîòğèòå ôàéë help/copyright.php.
+* @copyright ĞĞ²Ñ‚Ğ¾Ñ€ÑĞºĞ¸Ğµ Ğ¿Ñ€Ğ°Ğ²Ğ° (C) 2008-2009 Joostina team. Ğ’ÑĞµ Ğ¿Ñ€Ğ°Ğ²Ğ° Ğ·Ğ°Ñ‰Ğ¸Ñ‰ĞµĞ½Ñ‹.
+* @license Ğ›Ğ¸Ñ†ĞµĞ½Ğ·Ğ¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ğ¸Ğ»Ğ¸ help/license.php
+* Joostina! - ÑĞ²Ğ¾Ğ±Ğ¾Ğ´Ğ½Ğ¾Ğµ Ğ¿Ñ€Ğ¾Ğ³Ñ€Ğ°Ğ¼Ğ¼Ğ½Ğ¾Ğµ Ğ¾Ğ±ĞµÑĞ¿ĞµÑ‡ĞµĞ½Ğ¸Ğµ Ñ€Ğ°ÑĞ¿Ñ€Ğ¾ÑÑ‚Ñ€Ğ°Ğ½ÑĞµĞ¼Ğ¾Ğµ Ğ¿Ğ¾ ÑƒÑĞ»Ğ¾Ğ²Ğ¸ÑĞ¼ Ğ»Ğ¸Ñ†ĞµĞ½Ğ·Ğ¸Ğ¸ GNU/GPL
+* Ğ”Ğ»Ñ Ğ¿Ğ¾Ğ»ÑƒÑ‡ĞµĞ½Ğ¸Ñ Ğ¸Ğ½Ñ„Ğ¾Ñ€Ğ¼Ğ°Ñ†Ğ¸Ğ¸ Ğ¾ Ğ¸ÑĞ¿Ğ¾Ğ»ÑŒĞ·ÑƒĞµĞ¼Ñ‹Ñ… Ñ€Ğ°ÑÑˆĞ¸Ñ€ĞµĞ½Ğ¸ÑÑ… Ğ¸ Ğ·Ğ°Ğ¼ĞµÑ‡Ğ°Ğ½Ğ¸Ğ¹ Ğ¾Ğ± Ğ°Ğ²Ñ‚Ğ¾Ñ€ÑĞºĞ¾Ğ¼ Ğ¿Ñ€Ğ°Ğ²Ğµ, ÑĞ¼Ğ¾Ñ‚Ñ€Ğ¸Ñ‚Ğµ Ñ„Ğ°Ğ¹Ğ» help/copyright.php.
 */
 
-// çàïğåò ïğÿìîãî äîñòóïà
+// Ğ·Ğ°Ğ¿Ñ€ĞµÑ‚ Ğ¿Ñ€ÑĞ¼Ğ¾Ğ³Ğ¾ Ğ´Ğ¾ÑÑ‚ÑƒĞ¿Ğ°
 defined('_VALID_MOS') or die();
 
 /**
@@ -22,7 +22,6 @@ class userlist_menu {
 	*/
 	function edit(&$uid,$menutype,$option,$menu) {
 		global $database,$my,$mainframe;
-		global $mosConfig_absolute_path;
 
 		// fail if checked out not by 'me'
 		if($menu->checked_out && $menu->checked_out != $my->id) {

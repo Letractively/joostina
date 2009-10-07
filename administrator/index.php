@@ -1,14 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Àâòîðñêèå ïðàâà (C) 2008-2009 Joostina team. Âñå ïðàâà çàùèùåíû.
-* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
-* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
-* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+* @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2009 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
+* @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
+* Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
+* Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
 */
 
-// Óñòàíîâêà ôëàãà ðîäèòåëüñêîãî ôàéëà
+// Ð£ÑÑ‚Ð°Ð½Ð¾Ð²ÐºÐ° Ñ„Ð»Ð°Ð³Ð° Ñ€Ð¾Ð´Ð¸Ñ‚ÐµÐ»ÑŒÑÐºÐ¾Ð³Ð¾ Ñ„Ð°Ð¹Ð»Ð°
 define('_VALID_MOS',1);
+// ÐºÐ¾Ñ€ÐµÐ½ÑŒ Ñ„Ð°Ð¹Ð»Ð¾Ð²
+define('JPATH_BASE', dirname(__FILE__) );
+// Ñ€Ð°Ð·Ð´ÐµÐ»Ð¸Ñ‚ÐµÐ»ÑŒ ÐºÐ°Ñ‚Ð°Ð»Ð¾Ð³Ð¾Ð²
+define('DS', DIRECTORY_SEPARATOR );
 
 if(!file_exists('../configuration.php')) {
 	header('Location: ../installation/index.php');
@@ -17,9 +21,12 @@ if(!file_exists('../configuration.php')) {
 
 require ('../includes/globals.php');
 require_once ('../configuration.php');
-require_once ($mosConfig_absolute_path.'/includes/joomla.php');
+require_once (JPATH_BASE.'/includes/joomla.php');
 
-$config		= &Jconfig::getInstance();
+// Ð´Ð»Ñ ÑÐ¾Ð²Ð¼ÐµÑÑ‚Ð¸Ð¼Ð¾ÑÑ‚Ð¸
+$mosConfig_absolute_path = JPATH_BASE;
+
+$config = &Jconfig::getInstance();
 
 // SSL check - $http_host returns <live site url>:<port number if it is 443>
 $http_host = explode(':',$_SERVER['HTTP_HOST']);
@@ -30,15 +37,15 @@ if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset
 $database	= &database::getInstance();
 $mainframe = &mosMainFrame::getInstance(true);
 
-// Ïðîâåðÿåì ip àäðåñ: åñëè îí íàõîäèòñÿ â ñòîï-ëèñòå è âûáðàíà îïöèÿ áëîêèðîâêè äîñòóòïà â àäìèíêó, òî áëîêèðóåì äîñòóï
+// ÐŸÑ€Ð¾Ð²ÐµÑ€ÑÐµÐ¼ ip Ð°Ð´Ñ€ÐµÑ: ÐµÑÐ»Ð¸ Ð¾Ð½ Ð½Ð°Ñ…Ð¾Ð´Ð¸Ñ‚ÑÑ Ð² ÑÑ‚Ð¾Ð¿-Ð»Ð¸ÑÑ‚Ðµ Ð¸ Ð²Ñ‹Ð±Ñ€Ð°Ð½Ð° Ð¾Ð¿Ñ†Ð¸Ñ Ð±Ð»Ð¾ÐºÐ¸Ñ€Ð¾Ð²ÐºÐ¸ Ð´Ð¾ÑÑ‚ÑƒÑ‚Ð¿Ð° Ð² Ð°Ð´Ð¼Ð¸Ð½ÐºÑƒ, Ñ‚Ð¾ Ð±Ð»Ð¾ÐºÐ¸Ñ€ÑƒÐµÐ¼ Ð´Ð¾ÑÑ‚ÑƒÐ¿
 if(file_exists('./components/com_security/block_access.php')) {
 	require_once ('./components/com_security/block_access.php');
 	block_access(1);
 }
-// Òàêîãî ip àäðåñà íåò â ñòîï-ëèñòå. Ïðîäîëæàåì çàãðóçêó.
+// Ð¢Ð°ÐºÐ¾Ð³Ð¾ ip Ð°Ð´Ñ€ÐµÑÐ° Ð½ÐµÑ‚ Ð² ÑÑ‚Ð¾Ð¿-Ð»Ð¸ÑÑ‚Ðµ. ÐŸÑ€Ð¾Ð´Ð¾Ð»Ð¶Ð°ÐµÐ¼ Ð·Ð°Ð³Ñ€ÑƒÐ·ÐºÑƒ.
 
 
-// çàãðóçêà ôàéëà ðóññêîãî ÿçûêà ïî óìîë÷àíèþ
+// Ð·Ð°Ð³Ñ€ÑƒÐ·ÐºÐ° Ñ„Ð°Ð¹Ð»Ð° Ñ€ÑƒÑÑÐºÐ¾Ð³Ð¾ ÑÐ·Ñ‹ÐºÐ° Ð¿Ð¾ ÑƒÐ¼Ð¾Ð»Ñ‡Ð°Ð½Ð¸ÑŽ
 if($config->config_lang == '') {
 	$config->config_lang = 'russian';
 	$mosConfig_lang = 'russian';
@@ -114,7 +121,7 @@ if(isset($_POST['submit'])) {
 		$cryptpass = md5($pass . $salt);
 
 		if(strcmp($hash,$cryptpass) || !$acl->acl_check('administration','login','users',$my->usertype)) {
-			// îøèáêà àâòîðèçàöèè
+			// Ð¾ÑˆÐ¸Ð±ÐºÐ° Ð°Ð²Ñ‚Ð¾Ñ€Ð¸Ð·Ð°Ñ†Ð¸Ð¸
 			$query = 'UPDATE #__users SET bad_auth_count = bad_auth_count + 1 WHERE id = ' . (int)$my->id;
 			$database->setQuery($query);
 			$database->query();
@@ -214,7 +221,7 @@ if(isset($_POST['submit'])) {
 			$database->setQuery($query);
 			$database->query();
 
-			// ñêèäûâàåì ñ÷åò÷èê íåóäà÷íûõ àâòîðçàöèé â àäìèíêå
+			// ÑÐºÐ¸Ð´Ñ‹Ð²Ð°ÐµÐ¼ ÑÑ‡ÐµÑ‚Ñ‡Ð¸Ðº Ð½ÐµÑƒÐ´Ð°Ñ‡Ð½Ñ‹Ñ… Ð°Ð²Ñ‚Ð¾Ñ€Ð·Ð°Ñ†Ð¸Ð¹ Ð² Ð°Ð´Ð¼Ð¸Ð½ÐºÐµ
 			$query = 'UPDATE #__users SET bad_auth_count = 0 WHERE id = ' . $my->id;
 			$database->setQuery($query);
 			$database->query();

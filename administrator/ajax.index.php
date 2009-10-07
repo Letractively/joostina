@@ -9,6 +9,10 @@
 
 // устанавливаем родительский флаг
 define('_VALID_MOS',1);
+// корень файлов
+define('JPATH_BASE', dirname(__FILE__) );
+// разделитель каталогов
+define('DS', DIRECTORY_SEPARATOR );
 // проверка файла конфигурации
 if(!file_exists('../configuration.php')) {
 	die('error-config-file');
@@ -18,6 +22,10 @@ if(!file_exists('../configuration.php')) {
 require ('../includes/globals.php');
 require_once ('../configuration.php');
 
+// для совместимости
+$mosConfig_absolute_path = JPATH_BASE;
+
+
 // обработка безопасного режима
 $http_host = explode(':',$_SERVER['HTTP_HOST']);
 if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset($http_host[1]) && $http_host[1] == 443) && substr($mosConfig_live_site,0,8) !='https://') {
@@ -25,8 +33,8 @@ if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset
 }
 
 // подключаем ядро
-require_once ($mosConfig_absolute_path.'/includes/joomla.php');
-//include_once ($mosConfig_absolute_path.'/language/'.$mosConfig_lang.'.php');
+require_once (JPATH_BASE.'/includes/joomla.php');
+//include_once (JPATH_BASE.'/language/'.$mosConfig_lang.'.php');
 
 
 // создаём сессии
@@ -42,7 +50,7 @@ $mainframe = mosMainFrame::getInstance(true);
 $mainframe->set('lang', $mosConfig_lang);
 include_once($mainframe->getLangFile());
 
-require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/includes/admin.php');
+require_once (JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/includes/admin.php');
 
 $my = $mainframe->initSessionAdmin($option,$task);
 
@@ -62,12 +70,12 @@ header ("Cache-Control: no-cache, must-revalidate ");
 //ob_start();
 initGzip();
 // проверяем, какой файл необходимо подключить, данные берутся из пришедшего GET запроса
-if(file_exists($mosConfig_absolute_path . "/".ADMINISTRATOR_DIRECTORY."/components/$option/admin.$commponent.ajax.php")) {
+if(file_exists(JPATH_BASE . "/".ADMINISTRATOR_DIRECTORY."/components/$option/admin.$commponent.ajax.php")) {
 	//Подключаем язык компонента
  	if($mainframe->getLangFile($option)){ 
  		include($mainframe->getLangFile($option));        	
 	}
-	include_once ($mosConfig_absolute_path . "/".ADMINISTRATOR_DIRECTORY."/components/$option/admin.$commponent.ajax.php");
+	include_once (JPATH_BASE . "/".ADMINISTRATOR_DIRECTORY."/components/$option/admin.$commponent.ajax.php");
 } else {
 	die('error-inc-component');
 }

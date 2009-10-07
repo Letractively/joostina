@@ -38,7 +38,7 @@ $jce->processAjax();
 	<title><?php echo $jce->translate('title');?> : <?php echo $version;?></title>
 	<?php 
 	echo $jce->printLibJs( 'tiny_mce_utils' );
-	// çàãðóçêà ñêðèïòîâ mootols
+	// Ð·Ð°Ð³Ñ€ÑƒÐ·ÐºÐ° ÑÐºÑ€Ð¸Ð¿Ñ‚Ð¾Ð² mootols
 	mosCommonHTML::loadMootools(1);
 	echo $jce->printLibJs( 'utils' );
 	echo $jce->printPluginJs( 'functions' );

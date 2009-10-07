@@ -1,30 +1,30 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-/** проверка включения этого файла файлом-источником*/
+/** РїСЂРѕРІРµСЂРєР° РІРєР»СЋС‡РµРЅРёСЏ СЌС‚РѕРіРѕ С„Р°Р№Р»Р° С„Р°Р№Р»РѕРј-РёСЃС‚РѕС‡РЅРёРєРѕРј*/
 defined('_VALID_MOS') or die();
 
 require_once ('includes/joomla.php');
-include_once ($mosConfig_absolute_path.DS.'language'.DS.$mosConfig_lang.DS.'system.php');
+include_once (JPATH_BASE.DS.'language'.DS.$mosConfig_lang.DS.'system.php');
 
 global $option,$database;
 global $mosConfig_live_site;
 
-// получение шаблона страницы
+// РїРѕР»СѓС‡РµРЅРёРµ С€Р°Р±Р»РѕРЅР° СЃС‚СЂР°РЅРёС†С‹
 $cur_template = @$mainframe->getTemplate();
 if(!$cur_template) {
 	$cur_template = 'newline2';
 }
 
-// Вывод HTML
+// Р’С‹РІРѕРґ HTML
 
-// требуется для разделения номера ISO из константы языкового файла _ISO
+// С‚СЂРµР±СѓРµС‚СЃСЏ РґР»СЏ СЂР°Р·РґРµР»РµРЅРёСЏ РЅРѕРјРµСЂР° ISO РёР· РєРѕРЅСЃС‚Р°РЅС‚С‹ СЏР·С‹РєРѕРІРѕРіРѕ С„Р°Р№Р»Р° _ISO
 $iso = split('=',_ISO);
 // xml prolog
 echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>';

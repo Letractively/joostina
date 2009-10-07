@@ -31,7 +31,7 @@ class JFolder
 		$path = trim($path);
 
 		if (empty($path)) {
-			$path = JFolder::clean( $mosConfig_absolute_path );
+			$path = JFolder::clean( JPATH_BASE );
 		} else {
 			// Remove double slashes and backslahses and convert all slashes and backslashes to DS
 			$path = preg_replace('#[/\\\\]+#', $ds, $path);

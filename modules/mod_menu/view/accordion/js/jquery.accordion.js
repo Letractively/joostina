@@ -1,7 +1,7 @@
 /*
  * jQuery UI Accordion 1.6
  * 
- * Copyright (c) 2007 Jörn Zaefferer
+ * Copyright (c) 2007 JУЖrn Zaefferer
  *
  * http://docs.jquery.com/UI/Accordion
  *

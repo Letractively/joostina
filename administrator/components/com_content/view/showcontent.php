@@ -1,33 +1,33 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined( '_VALID_MOS' ) or die();
 
 	?>
 	<script type="text/javascript">
-		// смена статуса отображения на главной странице
+		// СЃРјРµРЅР° СЃС‚Р°С‚СѓСЃР° РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РЅР° РіР»Р°РІРЅРѕР№ СЃС‚СЂР°РЅРёС†Рµ
 		function ch_fpage(elID){
-			log('Смена отображения на главной: '+elID);
+			log('РЎРјРµРЅР° РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РЅР° РіР»Р°РІРЅРѕР№: '+elID);
 			SRAX.get('img-fpage-'+elID).src = 'images/aload.gif';
 			dax({
 				url: 'ajax.index.php?option=com_content&utf=0&task=frontpage&id='+elID,
 				id:'fpage-'+elID,
 				callback:
 					function(resp, idTread, status, ops){
-						log('Получен ответ: ' + resp.responseText);
+						log('РџРѕР»СѓС‡РµРЅ РѕС‚РІРµС‚: ' + resp.responseText);
 						SRAX.get('img-fpage-' + elID).src = '<?php echo $cur_file_icons_path;?>/'+resp.responseText;
 			}});
 		}
-		// перемещение содержимого в корзину
+		// РїРµСЂРµРјРµС‰РµРЅРёРµ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ РІ РєРѕСЂР·РёРЅСѓ
 		function ch_trash(elID){
-			log('Удаление в корзину: '+elID);
+			log('РЈРґР°Р»РµРЅРёРµ РІ РєРѕСЂР·РёРЅСѓ: '+elID);
 			if(SRAX.get('img-trash-'+elID).src == '<?php echo $cur_file_icons_path;?>/trash_mini.png'){
 				SRAX.get('img-trash-'+elID).src = '<?php echo $cur_file_icons_path;?>/help.png';
 				return null;
@@ -39,17 +39,17 @@ defined( '_VALID_MOS' ) or die();
 				id:'trash-'+elID,
 				callback:
 					function(resp, idTread, status, ops){
-						log('Получен ответ: ' + resp.responseText);
+						log('РџРѕР»СѓС‡РµРЅ РѕС‚РІРµС‚: ' + resp.responseText);
 						if(resp.responseText=='1') {
-							log('Перемещение в корзину успешно: ' + elID);
+							log('РџРµСЂРµРјРµС‰РµРЅРёРµ РІ РєРѕСЂР·РёРЅСѓ СѓСЃРїРµС€РЅРѕ: ' + elID);
 							SRAX.remove('tr-el-'+elID);
 						}else{
-							log('Ошибка перемещения в корзину: ' + elID);
+							log('РћС€РёР±РєР° РїРµСЂРµРјРµС‰РµРЅРёСЏ РІ РєРѕСЂР·РёРЅСѓ: ' + elID);
 							SRAX.get('tr-el-'+elID).style.background='red';
 						}
 			}});
 		}
-		/* скрытие дерева навигации по структуре содержимого */
+		/* СЃРєСЂС‹С‚РёРµ РґРµСЂРµРІР° РЅР°РІРёРіР°С†РёРё РїРѕ СЃС‚СЂСѓРєС‚СѓСЂРµ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ */
 		function ntreetoggle(){
 			if(SRAX.get('ntdree').style.display =='none'){
 				SRAX.get('ntdree').style.display ='block';
@@ -119,25 +119,25 @@ defined( '_VALID_MOS' ) or die();
 			$row->cat_link = 'index2.php?option=com_categories&task=editA&hidemainmenu=1&id='.$row->catid;
 
 			if($now <= $row->publish_up && $row->state == 1) {
-				// опубликовано
+				// РѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ
 				$img = 'publish_y.png';
-				//$alt = 'Опубликовано';
+				//$alt = 'РћРїСѓР±Р»РёРєРѕРІР°РЅРѕ';
 			} else if(($now <= $row->publish_down || $row->publish_down == $nullDate) && $row->state ==1) {
-				// Доступно
+				// Р”РѕСЃС‚СѓРїРЅРѕ
 				$img = 'publish_g.png';
-				//$alt = 'Опубликовано';
+				//$alt = 'РћРїСѓР±Р»РёРєРѕРІР°РЅРѕ';
 			} else if($now > $row->publish_down && $row->state == 1) {
-				// Истекло
+				// РСЃС‚РµРєР»Рѕ
 				$img = 'publish_r.png';
-				//$alt = 'Просрочено';
+				//$alt = 'РџСЂРѕСЃСЂРѕС‡РµРЅРѕ';
 			} elseif($row->state == 0) {
-				// Не опубликовано
+				// РќРµ РѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ
 				$img = 'publish_x.png';
-				//$alt = 'Не опубликовано';
+				//$alt = 'РќРµ РѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ';
 			}elseif($row->state == -1){
 				$img = 'publish_x.png';
 			}
-			// корректировка и проверка времени
+			// РєРѕСЂСЂРµРєС‚РёСЂРѕРІРєР° Рё РїСЂРѕРІРµСЂРєР° РІСЂРµРјРµРЅРё
 			$row->publish_up = mosFormatDate($row->publish_up,_CURRENT_SERVER_TIME_FORMAT);
 			if(trim($row->publish_down) == $nullDate || trim($row->publish_down) == '' || trim($row->publish_down) == '-') {
 				$row->publish_down = _NEVER;
@@ -171,7 +171,7 @@ defined( '_VALID_MOS' ) or die();
 
 			$access		= mosCommonHTML::AccessProcessing($row,$i,1);
 			$checked	= mosCommonHTML::CheckedOutProcessing($row,$i);
-			// значок отображения на главной странице
+			// Р·РЅР°С‡РѕРє РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РЅР° РіР»Р°РІРЅРѕР№ СЃС‚СЂР°РЅРёС†Рµ
 			$front_img = $row->frontpage ? 'tick.png' : 'publish_x.png';
 ?>
 			<tr class="row<?php echo $k; ?>" id="tr-el-<?php echo $row->id;?>">

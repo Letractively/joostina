@@ -1,25 +1,25 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined( '_VALID_MOS' ) or die();
 
-global $cur_template,$mosConfig_absolute_path;
+global $cur_template;
 
-// длина заголовка, установленная в параметрах модуля
+// РґР»РёРЅР° Р·Р°РіРѕР»РѕРІРєР°, СѓСЃС‚Р°РЅРѕРІР»РµРЅРЅР°СЏ РІ РїР°СЂР°РјРµС‚СЂР°С… РјРѕРґСѓР»СЏ
 $titlelength	= $params->get( 'title_length', 20 );
 $preview_height = $params->get( 'preview_height', 90 );
 $preview_width	= $params->get( 'preview_width', 140 );
 $show_preview	= $params->get( 'show_preview', 0 );
 
-// Чтение файлов из каталога шаблона
-$template_path	= $mosConfig_absolute_path.'/templates';
+// Р§С‚РµРЅРёРµ С„Р°Р№Р»РѕРІ РёР· РєР°С‚Р°Р»РѕРіР° С€Р°Р±Р»РѕРЅР°
+$template_path	= JPATH_BASE.'/templates';
 $templatefolder = @dir( $template_path );
 $darray = array();
 
@@ -40,8 +40,8 @@ if ($templatefolder) {
 
 sort( $darray );
 
-// Показ изображения предпросмотра
-// Установки JavaScript для текущего предпросмотра
+// РџРѕРєР°Р· РёР·РѕР±СЂР°Р¶РµРЅРёСЏ РїСЂРµРґРїСЂРѕСЃРјРѕС‚СЂР°
+// РЈСЃС‚Р°РЅРѕРІРєРё JavaScript РґР»СЏ С‚РµРєСѓС‰РµРіРѕ РїСЂРµРґРїСЂРѕСЃРјРѕС‚СЂР°
 $onchange = '';
 if ($show_preview) {
 	$onchange = "showimage()";

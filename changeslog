@@ -1031,7 +1031,7 @@ Joostina v 1.3.0
 	6. Изменён адрес лицензии GNU. Использован актульальный для версии 2.0 ( www.gnu.org/licenses/gpl-2.0.htm )
 	7. Обновлены SQL параметры компонента управления кнопками быстрого доступа. Структура таблицы #__custom_quickicons подверглась изменению, но это никак не отразится на совместимости с прежними установками Joostina.
 	8. Добалвены проверки доступности записи в каталог кэша. Идея: smart (http://joomlaforum.ru/index.php/topic,26502.msg156414.html#msg156414), сообщил: vershov ( http://joomlaforum.ru/index.php/topic,26502.msg155916.html#msg155916 )
-	9. Прописано dirname( __FILE__ ) в качестве $mosConfig_absolute_path. Идея: smart ( joomlaportal.ru ), petr999 ( http://joomlaforum.ru/index.php/topic,26657.msg156875.html#msg156875 )
+	9. Прописано dirname( __FILE__ ) в качестве JPATH_BASE. Идея: smart ( joomlaportal.ru ), petr999 ( http://joomlaforum.ru/index.php/topic,26657.msg156875.html#msg156875 )
 	10. Добавлена возможность отключать редактор с подсветкой синтаксиса при редактировани файлов шаблона. Идея: VP ( http://joomlaforum.ru/index.php/topic,26777.msg157529.html#msg157529 )
 	11. Исправлены орфоографические ошибки. Сообщил: canislc ( http://joomlaforum.ru/index.php/topic,19709.msg160180.html#msg160180 )
 	12. Обновлён jQuery до версии 1.2.3

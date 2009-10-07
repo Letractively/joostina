@@ -1,14 +1,18 @@
 <?php
 /**
 * @package Joostina
-* @copyright Àâòîðñêèå ïðàâà (C) 2008-2009 Joostina team. Âñå ïðàâà çàùèùåíû.
-* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
-* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
-* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+* @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2009 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
+* @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
+* Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
+* Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
 */
 
-// Óñòàíîâêà ðîäèòåëüñêîãî ôëàãà
+// Ð£ÑÑ‚Ð°Ð½Ð¾Ð²ÐºÐ° Ñ€Ð¾Ð´Ð¸Ñ‚ÐµÐ»ÑŒÑÐºÐ¾Ð³Ð¾ Ñ„Ð»Ð°Ð³Ð°
 define('_VALID_MOS',1);
+// ÐºÐ¾Ñ€ÐµÐ½ÑŒ Ñ„Ð°Ð¹Ð»Ð¾Ð²
+define('JPATH_BASE', dirname(__FILE__) );
+// Ñ€Ð°Ð·Ð´ÐµÐ»Ð¸Ñ‚ÐµÐ»ÑŒ ÐºÐ°Ñ‚Ð°Ð»Ð¾Ð³Ð¾Ð²
+define('DS', DIRECTORY_SEPARATOR );
 
 if(!file_exists('../configuration.php')) {
 	header('Location: ../installation/index.php');
@@ -24,20 +28,22 @@ if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset
 	$mosConfig_live_site = 'https://' . substr($mosConfig_live_site,7);
 }
 
-require_once ($mosConfig_absolute_path . '/includes/joomla.php');
-//include_once ($mosConfig_absolute_path . '/language/' . $mosConfig_lang . '.php');
+// Ð´Ð»Ñ ÑÐ¾Ð²Ð¼ÐµÑÑ‚Ð¸Ð¼Ð¾ÑÑ‚Ð¸
+$mosConfig_absolute_path = JPATH_BASE;
+
+require_once (JPATH_BASE . '/includes/joomla.php');
 
 
 // must start the session before we create the mainframe object
 session_name(md5($mosConfig_live_site));
 session_start();
 
-// mainframe - îñíîâíàÿ ðàáî÷àÿ ñðåäà API, îñóùåñòâëÿåò âçàèìîäåéñòâèå ñ 'ÿäðîì'
+// mainframe - Ð¾ÑÐ½Ð¾Ð²Ð½Ð°Ñ Ñ€Ð°Ð±Ð¾Ñ‡Ð°Ñ ÑÑ€ÐµÐ´Ð° API, Ð¾ÑÑƒÑ‰ÐµÑÑ‚Ð²Ð»ÑÐµÑ‚ Ð²Ð·Ð°Ð¸Ð¼Ð¾Ð´ÐµÐ¹ÑÑ‚Ð²Ð¸Ðµ Ñ 'ÑÐ´Ñ€Ð¾Ð¼'
 $mainframe = mosMainFrame::getInstance(true);
 $mainframe->set('lang', $mosConfig_lang);
 include_once($mainframe->getLangFile());
 
-require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/includes/admin.php');
+require_once (JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/includes/admin.php');
 
 $act		= strtolower(mosGetParam($_REQUEST,'act',''));
 $section	= mosGetParam($_REQUEST,'section','');
@@ -55,7 +61,7 @@ $my = $mainframe->initSessionAdmin($option,$task);
 // start the html output
 if($no_html) {
 	if($path = $mainframe->getPath('admin')) {
-		//Ïîäêëþ÷àåì ÿçûê êîìïîíåíòà
+		//ÐŸÐ¾Ð´ÐºÐ»ÑŽÑ‡Ð°ÐµÐ¼ ÑÐ·Ñ‹Ðº ÐºÐ¾Ð¼Ð¿Ð¾Ð½ÐµÐ½Ñ‚Ð°
  		if($mainframe->getLangFile($option)){ 
  			include($mainframe->getLangFile($option));        	
 		}
@@ -80,7 +86,7 @@ initGzip();
 <meta http-equiv="Content-Type" content="text/html; <?php echo _ISO; ?>" />
 <?php
 $mainframe->set('loadEditor',true);
-include_once ($mosConfig_absolute_path . '/includes/editor.php');
+include_once (JPATH_BASE . '/includes/editor.php');
 initEditor();
 ?>
 </head>

@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined('_VALID_MOS') or die();
 
 // ensure user has access to this function
@@ -139,7 +139,7 @@ function editNewsFeed($id,$option) {
 	$lists['category'] = mosAdminMenus::ComponentCategory('catid',$option,intval($row->catid));
 	// build the html select list
 	$lists['published'] = mosHTML::yesnoRadioList('published','class="inputbox"',$row->published);
-	// кодировка ленты
+	// РєРѕРґРёСЂРѕРІРєР° Р»РµРЅС‚С‹
 	$lists['code'] = mosHTML::yesnoRadioList('code','class="inputbox"',$row->code);
 	HTML_newsfeeds::editNewsFeed($row,$lists,$option);
 }
@@ -186,8 +186,8 @@ function publishNewsFeeds($cid,$publish,$option) {
 	josSpoofCheck();
 
 	if(count($cid) < 1) {
-		$action = $publish?'публикации':'сокрытия';
-		echo "<script> alert('Выберите модуль для $action'); window.history.go(-1);</script>\n";
+		$action = $publish?'РїСѓР±Р»РёРєР°С†РёРё':'СЃРѕРєСЂС‹С‚РёСЏ';
+		echo "<script> alert('Р’С‹Р±РµСЂРёС‚Рµ РјРѕРґСѓР»СЊ РґР»СЏ $action'); window.history.go(-1);</script>\n";
 		exit;
 	}
 

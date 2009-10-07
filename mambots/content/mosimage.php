@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
+* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
+* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
+* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
 */
 
-// запрет прямого доступа
+// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
 defined('_VALID_MOS') or die();
 
 $_MAMBOTS->registerFunction('onPrepareContent','botMosImage');
@@ -39,13 +39,13 @@ function botMosImage($published,&$row,&$params) {
 		$introCount = count($matches[0]);
 	}
 
-	// найти все образцы мамбота и вставить в $matches
+	// РЅР°Р№С‚Рё РІСЃРµ РѕР±СЂР°Р·С†С‹ РјР°РјР±РѕС‚Р° Рё РІСЃС‚Р°РІРёС‚СЊ РІ $matches
 	preg_match_all($regex,$row->text,$matches);
 
-	// Количество мамботов
+	// РљРѕР»РёС‡РµСЃС‚РІРѕ РјР°РјР±РѕС‚РѕРІ
 	$count = count($matches[0]);
 
-	// мамбот производит обработку, если находит в тексте образцы мамбота
+	// РјР°РјР±РѕС‚ РїСЂРѕРёР·РІРѕРґРёС‚ РѕР±СЂР°Р±РѕС‚РєСѓ, РµСЃР»Рё РЅР°С…РѕРґРёС‚ РІ С‚РµРєСЃС‚Рµ РѕР±СЂР°Р·С†С‹ РјР°РјР±РѕС‚Р°
 	if($count) {
 		// check if param query has previously been processed
 		if(!isset($_MAMBOTS->_content_mambot_params['mosimage'])) {
@@ -66,16 +66,16 @@ function botMosImage($published,&$row,&$params) {
 
 		$images = processImages($row,$botParams,$introCount);
 
-		// сохранение в глобальных переменных некоторых переменных для доступа из программы замены
+		// СЃРѕС…СЂР°РЅРµРЅРёРµ РІ РіР»РѕР±Р°Р»СЊРЅС‹С… РїРµСЂРµРјРµРЅРЅС‹С… РЅРµРєРѕС‚РѕСЂС‹С… РїРµСЂРµРјРµРЅРЅС‹С… РґР»СЏ РґРѕСЃС‚СѓРїР° РёР· РїСЂРѕРіСЂР°РјРјС‹ Р·Р°РјРµРЅС‹
 		$GLOBALS['botMosImageCount'] = 0;
 		$GLOBALS['botMosImageParams'] = &$botParams;
 		$GLOBALS['botMosImageArray'] = &$images;
 		//$GLOBALS['botMosImageArray']	=& $combine;
 
-		// выполнение замены
+		// РІС‹РїРѕР»РЅРµРЅРёРµ Р·Р°РјРµРЅС‹
 		$row->text = preg_replace_callback($regex,'botMosImage_replacer',$row->text);
 
-		// приведение в порядок глобальных значений
+		// РїСЂРёРІРµРґРµРЅРёРµ РІ РїРѕСЂСЏРґРѕРє РіР»РѕР±Р°Р»СЊРЅС‹С… Р·РЅР°С‡РµРЅРёР№
 		unset($GLOBALS['botMosImageCount']);
 		unset($GLOBALS['botMosImageMask']);
 		unset($GLOBALS['botMosImageArray']);
@@ -86,11 +86,11 @@ function botMosImage($published,&$row,&$params) {
 }
 
 function processImages(&$row,&$params,&$introCount) {
-	global $mosConfig_absolute_path,$mosConfig_live_site,$mainframe;
+	global $mosConfig_live_site,$mainframe;
 
 	$images = array();
-    $div_style ='';
-	// выдача  \n образов полей как массив
+	$div_style ='';
+	// РІС‹РґР°С‡Р°  \n РѕР±СЂР°Р·РѕРІ РїРѕР»РµР№ РєР°Рє РјР°СЃСЃРёРІ
 	$row->images = explode("\n",$row->images);
 	$total = count($row->images);
 
@@ -98,29 +98,29 @@ function processImages(&$row,&$params,&$introCount) {
 	for($i = $start; $i < $total; $i++) {
 		$img = trim($row->images[$i]);
 
-		// разбиение атрибутов изображения
+		// СЂР°Р·Р±РёРµРЅРёРµ Р°С‚СЂРёР±СѓС‚РѕРІ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ
 		if($img) {
 			$attrib = explode('|',trim($img));
-			// $attrib[0] - название изображения и путь до /images/stories
+			// $attrib[0] - РЅР°Р·РІР°РЅРёРµ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ Рё РїСѓС‚СЊ РґРѕ /images/stories
 
-			// $attrib[1] выравнивание
+			// $attrib[1] РІС‹СЂР°РІРЅРёРІР°РЅРёРµ
 			if(!isset($attrib[1]) || !$attrib[1]) {
 				$attrib[1] = '';
 			}
 
-			// $attrib[2] альтернативный текст и заголовок
+			// $attrib[2] Р°Р»СЊС‚РµСЂРЅР°С‚РёРІРЅС‹Р№ С‚РµРєСЃС‚ Рё Р·Р°РіРѕР»РѕРІРѕРє
 			if(!isset($attrib[2]) || !$attrib[2]) {
 				$attrib[2] = $mainframe->getPageTitle().' #'.$i;
 			} else {
 				$attrib[2] = htmlspecialchars($attrib[2]);
 			}
 
-			// $attrib[3] рамка
+			// $attrib[3] СЂР°РјРєР°
 			if(!isset($attrib[3]) || !$attrib[3]) {
 				$attrib[3] = 0;
 			}
 
-			// $attrib[4] заголовок
+			// $attrib[4] Р·Р°РіРѕР»РѕРІРѕРє
 			if(!isset($attrib[4]) || !$attrib[4]) {
 				$attrib[4] = '';
 				$border = $attrib[3];
@@ -128,17 +128,17 @@ function processImages(&$row,&$params,&$introCount) {
 				$border = 0;
 			}
 
-			// $attrib[5] позиция заголовка
+			// $attrib[5] РїРѕР·РёС†РёСЏ Р·Р°РіРѕР»РѕРІРєР°
 			if(!isset($attrib[5]) || !$attrib[5]) {
 				$attrib[5] = '';
 			}
 
-			// $attrib[6] выравнивание заголовка
+			// $attrib[6] РІС‹СЂР°РІРЅРёРІР°РЅРёРµ Р·Р°РіРѕР»РѕРІРєР°
 			if(!isset($attrib[6]) || !$attrib[6]) {
 				$attrib[6] = '';
 			}
 
-			// $attrib[7] ширина
+			// $attrib[7] С€РёСЂРёРЅР°
 			if(!isset($attrib[7]) || !$attrib[7]) {
 				$attrib[7] = '';
 				$width = '';
@@ -146,18 +146,18 @@ function processImages(&$row,&$params,&$introCount) {
 				$width = ' width: '.$attrib[7].'px;';
 			}
 
-			// атрибуты размера изображения
+			// Р°С‚СЂРёР±СѓС‚С‹ СЂР°Р·РјРµСЂР° РёР·РѕР±СЂР°Р¶РµРЅРёСЏ
 			$size = '';
 			if(function_exists('getimagesize')) {
-				$size = @getimagesize($mosConfig_absolute_path.'/images/stories/'.$attrib[0]);
+				$size = @getimagesize(JPATH_BASE.'/images/stories/'.$attrib[0]);
 				if(is_array($size)) {
 					$size = ' width="'.$size[0].'" height="'.$size[1].'"';
 				}
 			}
 
-			// составление тэга <image>
+			// СЃРѕСЃС‚Р°РІР»РµРЅРёРµ С‚СЌРіР° <image>
 			$image = '<img src="'.$mosConfig_live_site.'/images/stories/'.$attrib[0].'"'.$size;
-			// если обнаружен заголовок, то выравнивание не меняется
+			// РµСЃР»Рё РѕР±РЅР°СЂСѓР¶РµРЅ Р·Р°РіРѕР»РѕРІРѕРє, С‚Рѕ РІС‹СЂР°РІРЅРёРІР°РЅРёРµ РЅРµ РјРµРЅСЏРµС‚СЃСЏ
 			if(!$attrib[4]) {
 				if($attrib[1] == 'left' or $attrib[1] == 'right') {
 					$image .= ' style="float: '.$attrib[1].';"';
@@ -168,7 +168,7 @@ function processImages(&$row,&$params,&$introCount) {
 			}
 			$image .= ' alt="'.$attrib[2].'" title="'.$attrib[2].'" border="'.$border.'" />';
 
-			// создание заголовка если он обнаружен
+			// СЃРѕР·РґР°РЅРёРµ Р·Р°РіРѕР»РѕРІРєР° РµСЃР»Рё РѕРЅ РѕР±РЅР°СЂСѓР¶РµРЅ
 			$caption = '';
 			if($attrib[4]) {
 				$caption = '<div class="mosimage_caption"';
@@ -181,7 +181,7 @@ function processImages(&$row,&$params,&$introCount) {
 				$caption .= '</div>';
 			}
 
-			// заключительный вывод
+			// Р·Р°РєР»СЋС‡РёС‚РµР»СЊРЅС‹Р№ РІС‹РІРѕРґ
 			if($attrib[4]) {
 				// initialize variables
 				$margin = '';
@@ -215,7 +215,7 @@ function processImages(&$row,&$params,&$introCount) {
 
 				$img .= $image;
 
-				// отображение заголовка в нижней позиции
+				// РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ Р·Р°РіРѕР»РѕРІРєР° РІ РЅРёР¶РЅРµР№ РїРѕР·РёС†РёРё
 				if($attrib[5] == 'bottom' && $caption) {
 					$img .= $caption;
 				}
@@ -232,8 +232,8 @@ function processImages(&$row,&$params,&$introCount) {
 }
 
 /**
-* Замена совпадающих тэгов an image
-* @param array - Массив соответствий (см. - preg_match_all)
+* Р—Р°РјРµРЅР° СЃРѕРІРїР°РґР°СЋС‰РёС… С‚СЌРіРѕРІ an image
+* @param array - РњР°СЃСЃРёРІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёР№ (СЃРј. - preg_match_all)
 * @return string
 */
 function botMosImage_replacer(&$matches) {
