@@ -310,16 +310,6 @@ class mosInstallerComponent extends mosInstaller {
 			exit();
 		}
 
-		// Try to find the uninstall file
-		$filesindir = mosReadDirectory($config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY.DS.'components'.DS.$row->option,'uninstall');
-		if(count($filesindir) > 0) {
-			$uninstall_file = $filesindir[0];
-			if(file_exists($mosConfig_absolute_path.DS.ADMINISTRATOR_DIRECTORY.DS.'components'.DS.$row->option.DS.$uninstall_file)) {
-				require_once ($mosConfig_absolute_path.DS.ADMINISTRATOR_DIRECTORY.DS.'components'.DS.$row->option.DS.$uninstall_file);
-				$uninstallret = com_uninstall();
-			}
-		}
-
 		// Try to find the XML file
 		$filesindir = mosReadDirectory(mosPathName($config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY.DS.'components'.DS.$row->option),'.xml$');
 		if(count($filesindir) > 0) {
@@ -337,6 +327,14 @@ class mosInstallerComponent extends mosInstaller {
 					continue;
 				}
 				$found = 1;
+
+				// Is there an uninstallfile
+				$uninstallfile_elemet = &$root->getElementsByPath('uninstallfile',1);
+				$uninstall_file = $uninstallfile_elemet->getText();
+				if(!is_null($uninstall_file) && file_exists($config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY.DS.'components'.DS.$row->option.DS.$uninstall_file)) {
+					require_once ($config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY.DS.'components'.DS.$row->option.DS.$uninstall_file);
+					$uninstallret = com_uninstall();
+				}
 
 				$query_element = &$root->getElementsbyPath('uninstall/queries',1);
 				if(!is_null($query_element)) {
