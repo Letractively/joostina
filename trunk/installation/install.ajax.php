@@ -17,7 +17,7 @@ if(!file_exists('../configuration.php')) {
 
 require_once ('../configuration.php');
 // попытка удаления каталогу установки
-if(!deldir(JPATH_BASE.'/installation/')) echo 'Error!';
+if(!deldir('../installation/')) echo 'Error!';
 	else
 echo 'www.joostina.ru';
 
