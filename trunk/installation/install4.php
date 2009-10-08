@@ -156,7 +156,7 @@ if($siteUrl) {
 	$config .= "\$mosConfig_db = '{$configArray['DBname']}';\n";
 	$config .= "\$mosConfig_dbprefix = '{$configArray['DBPrefix']}';\n";
 	$config .= "\$mosConfig_lang = 'russian';\n";
-	$config .= "\JPATH_BASE = '{$configArray['absolutePath']}';\n";
+	$config .= "DEFINE('JPATH_BASE' ,'{$configArray['absolutePath']}');\n";
 	$config .= "\$mosConfig_live_site = '{$configArray['siteUrl']}';\n";
 	$config .= "\$mosConfig_sitename = '{$configArray['sitename']}';\n";
 	$config .= "\$mosConfig_shownoauth = '0';\n";
@@ -439,7 +439,7 @@ if($siteUrl) {
 ?>/>
 <?php
 $url = $siteUrl.'/installation/install.ajax.php?task=rminstalldir';
-$clk = 'onclick=\'$.ajax({url: "'.$url.'/installation/install.ajax.php", beforeSend: function(response){$("#status").show("normal")}, success: function(response){$("#delbutton").val(response);$("#alert_mess").hide("fast")}, dataType: "html"}); return false;\'';
+$clk = 'onclick=\'$.ajax({url: "'.$url.'", beforeSend: function(response){$("#status").show("normal")}, success: function(response){$("#delbutton").val(response); $("#delbutton").click(function(){if(response == "www.joostina.ru") window.location.href="http://www.joostina.ru"}); $("#alert_mess").hide("fast")}, dataType: "html"}); return false;\'';
 $delbutton = '&nbsp;<input class="button small" '.$clk.' type="button" id="delbutton" name="delbutton" value="Удалить installation" />';
 echo $delbutton;
 ?>
