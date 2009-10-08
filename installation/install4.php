@@ -445,7 +445,7 @@ echo $delbutton;
 ?>
 <div id="status" style="display:none;"></div>
 <h2>Данные для авторизации Главного Администратора сайта:</h2>
-                       <b><?php echo $adminLogin;?></b> Пароль: <b><?php echo $adminPassword; ?></b>
+                       Логин: <b><?php echo $adminLogin;?></b> Пароль: <b><?php echo $adminPassword; ?></b>
        <?php if(!$canWrite) { ?>
        <div class="install-text">
          Ваш конфигурационный файл или нужный каталог недоступны для записи,

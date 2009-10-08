@@ -223,10 +223,10 @@ foreach($wrongSettingsTexts as $txt) {
 ?>
 	<tr>
 		<td class="item">
-			<?php echo $phprec[0]; ?>:
+			<?php echo $phprec[0]; ?>
 		</td>
 		<td class="toggle">
-			<?php echo $phprec[2]; ?>:
+			<?php echo $phprec[2]; ?>
 		</td>
 		<td>
 			<b>
@@ -250,33 +250,35 @@ foreach($wrongSettingsTexts as $txt) {
 	}
 ?>
 	<tr>
-		<td class="item">Эмуляция Register Globals:</td>
-		<td class="toggle">OFF:</td>
+		<td class="item">Эмуляция Register Globals</td>
+		<td class="toggle">OFF</td>
 		<td>
+		<b>
 <?php
 	if(RG_EMULATION) {
 ?>
-		<font color="red"><b>
+		<font color="red">
 <?php
 	} else {
 ?>
-		<font color="green"><b>
+		<font color="green">
 <?php
 	}
 	echo ((RG_EMULATION)?'ON':'OFF');
 ?>
-		</b>
 		</font>
+		</b>
 		<td>
 	</tr>
 <tr>
-<td>PCRE UTF-8</td>
+<td class="item">PCRE UTF-8</td>
+<td class="toggle">ON</td>
 <?php if ( ! @preg_match('/^.$/u', 'ñ')): $failed = TRUE ?>
 <td colspan="2"><b><font color="red"><a href="http://php.net/pcre">PCRE</a> не поддерживает работу с UTF-8.</font></b></td>
 <?php elseif ( ! @preg_match('/^\pL$/u', 'ñ')): $failed = TRUE ?>
 <td colspan="2"><b><font color="red"><a href="http://php.net/pcre">PCRE</a> не поддерживает работу с Юникодом.</font></b></td>
 <?php else: ?>
-<td>&nbsp;</td><td><b><font color="green">ON</font></b></td>
+<td><b><font color="green">ON</font></b></td>
 <?php endif ?>
 </tr>
 
@@ -286,7 +288,7 @@ foreach($wrongSettingsTexts as $txt) {
 <div class="clr"></div>
 		<div class="clr"></div>
 		<h1>Расширенные характеристики сервера</h1>
-		<div class="install-text">Указанные параметры севера не являются критичными для работы, но соответствие указанным значениям придадут работе с Joostina максимальное удобство и безопасность.
+		<div class="install-text">Указанные параметры сервера не являются критичными для работы, но соответствие указанным значениям придадут работе с Joostina максимальное удобство и безопасность.
 			<div class="clr">&nbsp;&nbsp;</div>
 			<div class="ctr"></div>
 		</div>

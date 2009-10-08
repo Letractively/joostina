@@ -66,14 +66,14 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\"?".">"; ?>
 			
 				<div class="buttons">
 					
-						<input class="button" type="submit" name="next" value="Далее &gt;&gt;"/>
+						<input class="button" type="submit" name="next" value="Согласен &gt;&gt;"/>
 				
 				</div>
 
 				<div id="wrap">
 					<div class="clr"></div>
 					<div class="install-text">
-						Joostina- свободное программное обеспечение, распространяемое по лицензии GNU/GPL, для использования системы Вы должны полностью согласиться с предоставленной лицензией.
+						Joostina - свободное программное обеспечение, распространяемое по лицензии GNU/GPL, для использования системы Вы должны полностью согласиться с предоставленной лицензией.
 					</div>
 					<div class="clr"></div>
 					<div class="license-form">
