@@ -10,7 +10,7 @@
 // устанавливаем родительский флаг
 define('_VALID_MOS',1);
 // корень файлов
-define('JPATH_BASE', dirname(__FILE__) );
+define('JPATH_BASE',$_SERVER['DOCUMENT_ROOT'] );
 // разделитель каталогов
 define('DS', DIRECTORY_SEPARATOR );
 // проверка файла конфигурации

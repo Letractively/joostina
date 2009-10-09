@@ -10,7 +10,7 @@
 // Установка флага, что этот файл - родительский
 define('_VALID_MOS',1);
 // корень файлов
-define('JPATH_BASE', dirname(__FILE__) );
+define('JPATH_BASE', $_SERVER['DOCUMENT_ROOT']);
 // разделитель каталогов
 define('DS', DIRECTORY_SEPARATOR );
 
@@ -119,6 +119,7 @@ if($no_html == 0) {
 // информация отладки, число запросов в БД
 if($mosConfig_debug) {
 	jd_get();
+	//var_dump();
 }
 
 // восстановление сессий
