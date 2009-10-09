@@ -72,6 +72,7 @@ function mosLoadAdminModules($position = 'left',$style = 0) {
 		$database->setQuery($query);
 		$_all_modules = $database->loadObjectList();
 
+
 		$all_modules = array();
 		foreach($_all_modules as $__all_modules){
 			$all_modules[$__all_modules->position][]=$__all_modules;
@@ -142,7 +143,7 @@ function mosLoadAdminModule($name,$params = null) {
 
 	$name = str_replace('/','',$name);
 	$name = str_replace('\\','',$name);
-	$path = "JPATH_BASE/".ADMINISTRATOR_DIRECTORY."/modules/mod_$name.php";
+	$path = JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY."/modules/mod_$name.php";
 	if(file_exists($path)) { 
  		if($mainframe->getLangFile('mod_'.$name)){ 
   			include($mainframe->getLangFile('mod_'.$name));        	

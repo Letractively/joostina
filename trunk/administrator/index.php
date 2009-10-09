@@ -9,8 +9,6 @@
 
 // Установка флага родительского файла
 define('_VALID_MOS',1);
-// корень файлов
-define('JPATH_BASE', dirname(__FILE__) );
 // разделитель каталогов
 define('DS', DIRECTORY_SEPARATOR );
 
@@ -21,12 +19,16 @@ if(!file_exists('../configuration.php')) {
 
 require ('../includes/globals.php');
 require_once ('../configuration.php');
-require_once (JPATH_BASE.'/includes/joomla.php');
+
+// корень файлов
+define('JPATH_BASE', $_SERVER['DOCUMENT_ROOT']);
+require_once ('../includes/joomla.php');
 
 // для совместимости
 $mosConfig_absolute_path = JPATH_BASE;
 
 $config = &Jconfig::getInstance();
+$config->config_absolute_path = JPATH_BASE;
 
 // SSL check - $http_host returns <live site url>:<port number if it is 443>
 $http_host = explode(':',$_SERVER['HTTP_HOST']);
@@ -242,7 +244,7 @@ if(isset($_POST['submit'])) {
 	if($config->config_admin_bad_auth <= $bad_auth_count && (int)$config->config_admin_bad_auth >= 0) {
 		$config->config_captcha = 1;
 	}
-	$path = $config->config_absolute_path .DS.ADMINISTRATOR_DIRECTORY.DS.'templates'.DS. $mainframe->getTemplate() .DS. 'login.php';
+	$path = JPATH_BASE .DS.ADMINISTRATOR_DIRECTORY.DS.'templates'.DS. $mainframe->getTemplate() .DS. 'login.php';
 	require_once ($path);
 	doGzip();
 }
