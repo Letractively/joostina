@@ -7,20 +7,20 @@
 * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
 */
 
-// Установка родительского флага
+// Установка флага родительского файла
 define('_VALID_MOS',1);
-// корень файлов
-define('JPATH_BASE', dirname(__FILE__) );
 // разделитель каталогов
 define('DS', DIRECTORY_SEPARATOR );
+// корень файлов
+define('JPATH_BASE', dirname(dirname(__FILE__)) );
+// корень файлов админкиы
+define('JPATH_BASE_ADMIN', dirname(__FILE__) );
 
-if(!file_exists('../configuration.php')) {
-	header('Location: ../installation/index.php');
-	exit();
-}
+require_once (JPATH_BASE.DS.'includes'.DS.'globals.php');
+require_once (JPATH_BASE.DS.'configuration.php');
 
-require ('../includes/globals.php');
-require_once ('../configuration.php');
+// для совместимости
+$mosConfig_absolute_path = JPATH_BASE;
 
 // SSL check - $http_host returns <live site url>:<port number if it is 443>
 $http_host = explode(':',$_SERVER['HTTP_HOST']);
@@ -30,20 +30,22 @@ if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset
 
 // для совместимости
 $mosConfig_absolute_path = JPATH_BASE;
-
-require_once (JPATH_BASE . '/includes/joomla.php');
+// ядро
+require_once (JPATH_BASE .DS. 'includes'.DS.'joomla.php');
 
 
 // must start the session before we create the mainframe object
 session_name(md5($mosConfig_live_site));
 session_start();
+// заголовки
+header('Content-type: text/html; charset=UTF-8');
 
 // mainframe - основная рабочая среда API, осуществляет взаимодействие с 'ядром'
 $mainframe = mosMainFrame::getInstance(true);
 $mainframe->set('lang', $mosConfig_lang);
 include_once($mainframe->getLangFile());
 
-require_once (JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/includes/admin.php');
+require_once (JPATH_BASE_ADMIN.DS.'includes'.DS.'admin.php');
 
 $act		= strtolower(mosGetParam($_REQUEST,'act',''));
 $section	= mosGetParam($_REQUEST,'section','');
@@ -53,8 +55,6 @@ $mosmsg		= strval(strip_tags(mosGetParam($_REQUEST,'mosmsg','')));
 $option		= strval(strtolower(mosGetParam($_REQUEST,'option','')));
 $task		= strval(mosGetParam($_REQUEST,'task',''));
 
-
-
 // admin session handling
 $my = $mainframe->initSessionAdmin($option,$task);
 
@@ -62,8 +62,8 @@ $my = $mainframe->initSessionAdmin($option,$task);
 if($no_html) {
 	if($path = $mainframe->getPath('admin')) {
 		//Подключаем язык компонента
- 		if($mainframe->getLangFile($option)){ 
- 			include($mainframe->getLangFile($option));        	
+		if($mainframe->getLangFile($option)){
+			include($mainframe->getLangFile($option));
 		}
 		require $path;
 	}
@@ -71,7 +71,6 @@ if($no_html) {
 }
 
 initGzip();
-
 ?>
 <?php echo "<?xml version=\"1.0\"?>"; ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -102,15 +101,11 @@ if($mosmsg) {
 // Show list of items to edit or delete or create new
 if($path = $mainframe->getPath('admin')) {
 	require $path;
-} else {
-?>
+} else { ?>
 	<img src="<?php echo $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate();?>/images/ico/error.png" border="0" alt="Joostina!" />
 	<br />
-	<?php
-}
-?>
+<?php } ?>
 </body>
 </html>
 <?php
 doGzip();
-?>

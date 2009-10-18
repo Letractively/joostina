@@ -14,11 +14,14 @@ define('JPATH_BASE', dirname(__FILE__) );
 // разделитель каталогов
 define('DS', DIRECTORY_SEPARATOR );
 
-require (JPATH_BASE.'/includes/globals.php');
-require_once ('./configuration.php');
-
 // для совместимости
 $mosConfig_absolute_path = JPATH_BASE;
+
+// подключение файла эмуляции отключения регистрации глобальных переменных
+require_once (JPATH_BASE.DS.'includes'.DS.'globals.php');
+
+// подключение файла конфигурации
+require_once (JPATH_BASE.DS.'configuration.php');
 
 // SSL check - $http_host returns <live site url>:<port number if it is 443>
 $http_host = explode(':',$_SERVER['HTTP_HOST']);
@@ -26,25 +29,29 @@ if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset
 	$mosConfig_live_site = 'https://'.substr($mosConfig_live_site,7);
 }
 
-require_once (JPATH_BASE.'/includes/joomla.php');
+// подключение главного файла - ядра системы
+require_once (JPATH_BASE.DS.'includes'.DS.'joomla.php');
+
 
 // отображение состояния выключенного сайта
 if($mosConfig_offline == 1) {
 	require (JPATH_BASE.'/templates/system/offline.php');
 }
 
-// загрузка группы системного бота
-$_MAMBOTS->loadBotGroup('system');
-
-// переключение событий onStart
-$_MAMBOTS->trigger('onStart');
-
-if(file_exists(JPATH_BASE.'/components/com_sef/sef.php')) {
-	require_once (JPATH_BASE.'/components/com_sef/sef.php');
-} else {
-	require_once (JPATH_BASE.'/includes/sef.php');
+// проверяем, разрешено ли использование системных мамботов
+if($mosConfig_mmb_system_off == 0) {
+	$_MAMBOTS->loadBotGroup('system');
+	// триггер событий onStart
+	$_MAMBOTS->trigger('onStart');
 }
-require_once (JPATH_BASE.'/includes/frontend.php');
+
+if(file_exists(JPATH_BASE.DS.'components'.DS.'com_sef'.DS.'sef.php')) {
+	require_once (JPATH_BASE.DS.'components'.DS.'com_sef'.DS.'sef.php');
+} else {
+	require_once (JPATH_BASE.DS.'includes'.DS.'sef.php');
+}
+
+require_once (JPATH_BASE.DS.'includes'.DS.'frontend.php');
 
 // запрос ожидаемых аргументов url (или формы)
 $option		= strtolower(strval(mosGetParam($_REQUEST,'option')));
@@ -62,16 +69,18 @@ if($pop=='1' && $page==0) $print = true;
 $mainframe = &mosMainFrame::getInstance();
 
 //Межсайтовая интеграция
-if(is_file(JPATH_BASE.DS.'multisite.config.php')){
-	include_once(JPATH_BASE.DS.'multisite.config.php');
-}
+//if(is_file(JPATH_BASE.DS.'multisite.config.php')){
+//	include_once(JPATH_BASE.DS.'multisite.config.php');
+//}
 
 if($mosConfig_no_session_front == 0) {
 	$mainframe->initSession();
 }
 
-// trigger the onAfterStart events
-$_MAMBOTS->trigger('onAfterStart');
+// триггер событий onAfterStart
+if($mosConfig_mmb_system_off == 0) {
+	$_MAMBOTS->trigger('onAfterStart');
+}
 
 if($mainframe->get('_multisite')=='2' && $cookie_exist ){
 	$mainframe->set('_multisite_params', $m_s);	
