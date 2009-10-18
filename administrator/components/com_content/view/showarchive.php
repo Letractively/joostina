@@ -85,7 +85,7 @@ defined( '_VALID_MOS' ) or die();
 					$author = $row->created_by_alias;
 				} else {
 					$linkA = 'index2.php?option=com_users&task=editA&hidemainmenu=1&id='.$row->created_by;
-					$author = '<a href="'.$linkA.'" title="Изменить данные пользователя">'.$row->author.'</a>';
+					$author = '<a href="'.$linkA.'" title="'._CHANGE_USER_DATA.'">'.$row->author.'</a>';
 				}
 			} else {
 				if($row->created_by_alias) {
@@ -126,4 +126,4 @@ defined( '_VALID_MOS' ) or die();
 		<input type="hidden" name="hidemainmenu" value="0" />
 		<input type="hidden" name="redirect" value="<?php echo $redirect; ?>" />
 		<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
-		</form>
+	</form>

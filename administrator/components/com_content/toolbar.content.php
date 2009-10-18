@@ -34,12 +34,11 @@ switch($task) {
 		TOOLBAR_content::_COPY();
 		break;
 
-    case 'config':
-        TOOLBAR_content::_CONFIG();
-        break;
+	case 'config':
+		TOOLBAR_content::_CONFIG();
+		break;
 
 	default:
 		TOOLBAR_content::_DEFAULT();
 		break;
 }
-?>

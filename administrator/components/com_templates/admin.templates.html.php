@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright а«аВбІаОбЂб±аКаИаЕ аПбЂаАаВаА (C) 2008-2009 Joostina team. аҐб±аЕ аПбЂаАаВаА аЗаАбЃаИбЃаЕаНб‚.
-* @license а‹аИб†аЕаНаЗаИбЅ http://www.gnu.org/copyleft/gpl.html GNU/GPL, аИаЛаИ help/license.php
-* Joostina! - б±аВаОаБаОаДаНаОаЕ аПбЂаОаГбЂаАаМаМаНаОаЕ аОаБаЕб±аПаЕбµаЕаНаИаЕ бЂаАб±аПбЂаОб±бІбЂаАаНбЅаЕаМаОаЕ аПаО біб±аЛаОаВаИбЅаМ аЛаИб†аЕаНаЗаИаИ GNU/GPL
-* аѕаЛбЅ аПаОаЛбібµаЕаНаИбЅ аИаНбґаОбЂаМаАб†аИаИ аО аИб±аПаОаЛб аЗбіаЕаМб‚б… бЂаАб±б¶аИбЂаЕаНаИбЅб… аИ аЗаАаМаЕбµаАаНаИаЙ аОаБ аАаВбІаОбЂб±аКаОаМ аПбЂаАаВаЕ, б±аМаОбІбЂаИбІаЕ бґаАаЙаЛ help/copyright.php.
+* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/copyleft/gpl.html GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
 */
 
-// аЗаАаПбЂаЕбІ аПбЂбЅаМаОаГаО аДаОб±бІбіаПаА
+// запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 /**
@@ -150,7 +150,7 @@ class HTML_templates {
 	function editTemplateSource($template,&$content,$option,$client) {
 		global $mosConfig_codepress;
 		$template_path = JPATH_BASE.($client == 'admin'?'/'.ADMINISTRATOR_DIRECTORY:'').'/templates/'.$template.'/index.php';
-		/* аПаОаДаКаЛбѓбµаЕаНаИаЕ js бґаАаЙаЛаА codepress*/
+		/* подключение js файла codepress*/
 		if($mosConfig_codepress) mosCommonHTML::loadCodepress();
 ?>
 		<script language="javascript" type="text/javascript">

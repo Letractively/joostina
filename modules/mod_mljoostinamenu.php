@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright а«аВбІаОбЂб±аКаИаЕ аПбЂаАаВаА (C) 2008-2009 Joostina team. аҐб±аЕ аПбЂаАаВаА аЗаАбЃаИбЃаЕаНб‚.
-* @license а‹аИб†аЕаНаЗаИбЅ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, аИаЛаИ help/license.php
-* Joostina! - б±аВаОаБаОаДаНаОаЕ аПбЂаОаГбЂаАаМаМаНаОаЕ аОаБаЕб±аПаЕбµаЕаНаИаЕ бЂаАб±аПбЂаОб±бІбЂаАаНбЅаЕаМаОаЕ аПаО біб±аЛаОаВаИбЅаМ аЛаИб†аЕаНаЗаИаИ GNU/GPL
-* аѕаЛбЅ аПаОаЛбібµаЕаНаИбЅ аИаНбґаОбЂаМаАб†аИаИ аО аИб±аПаОаЛб аЗбіаЕаМб‚б… бЂаАб±б¶аИбЂаЕаНаИбЅб… аИ аЗаАаМаЕбµаАаНаИаЙ аОаБ аАаВбІаОбЂб±аКаОаМ аПбЂаАаВаЕ, б±аМаОбІбЂаИбІаЕ бґаАаЙаЛ help/copyright.php.
+* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
 */
 
-// аЗаАаПбЂаЕбІ аПбЂбЅаМаОаГаО аДаОб±бІбіаПаА
+// запрет прямого доступа
 defined( '_VALID_MOS' ) or die();
 
 if (!defined( '_MOS_MLJOOSTINAMENU_MODULE' )) {
@@ -62,7 +62,7 @@ var onImgArray = new Array();
 				} else {
 					$temp = split('&task=view&id=', $mitem->link);
 					if ( $mitem->type == 'content_typed' ) {
-						// аЕбЃаЕ аОаДаИаН аНаЕаБаОаЛб б¶аОаЙ бЈаКб±аПаЕбЂаИаМаЕаНбІ, аВаМаЕб±бІаЕ аЛаИб¶аНаЕаГаО аЗаАаПбЂаОб±аА аВ аБаАаЗбі - аВаОаЗб аМб¦аМ аИаДаЕаНбІаИбґаИаКаАбІаОбЂ б±б±б‚аЛаКаИ аНаА б±бІаАбІаИбµаНаОаЕ б±аОаДаЕбЂаЖаИаМаОаЕ аИаЗ аГаЛаОаБаАаЛб аНаОаГаО аОаБбЉаЕаКбІаА
+						// еще один небольшой эксперимент, вместе лишнего запроса в базу - возьмём идентификатор ссылки на статичное содержимое из глобального объекта
 						//$mitem->link .= '&Itemid='. $mainframe->getItemid($temp[1], 1, 0);
 						$mitem->link .= '&Itemid='. ( (isset($mainframe->all_menu_links[$mitem->link]['id']) ? $mainframe->all_menu_links[$mitem->link]['id']:$mitem->id));
 					} else {
@@ -156,7 +156,7 @@ var onImgArray = new Array();
 			$ml_img_title = ' title="'.$pg_title.'"';
 		}
 
-		// аПаОаНбЅаЛаИ б±аКбЂб‚аВаАаЕаМ аАаКбІаИаВаНб‚аЕ б±б±б‚аЛаКаИ аИаЛаИ аВб‚аВаОаДаИаМ аПбЂаОб±бІаО бІаЕаКб±бІаОаМ аИ аДаАаЛб б¶аЕ бІбЅаГаАаЕаМ бЈбІбі аПаЕбЂаЕаМаЕаНаНбібѓ
+		// поняли скрываем активные ссылки или выводим просто текстом и дальше тягаем эту переменную
 		$ml_hide_active = $params->get('ml_hide_active');
 
 		//$mitem->name = '';
@@ -187,9 +187,9 @@ var onImgArray = new Array();
 				break;
 
 			default:
-				// аОбІаКбЂб‚аВаАаЕаМ аВ бІаЕаКбібЃаЕаМ аОаКаНаЕ
+				// открываем в текущем окне
 				if ($ml_hide_active == 1 && $current_itemid == $mitem->id )  {
-					// аЕб±аЛаИ аВ аПаАбЂаАаМаЕбІбЂаАб… біаКаАаЗаАаНаО бµбІаО аАаКбІаИаВаНб‚аЙ аПбіаНаКбІ аМаЕаНбѓ аНаЕ аДаОаЛаЖаЕаН аБб‚бІб  б±б±б‚аЛаКаОаЙ
+					// если в параметрах указано что активный пункт меню не должен быть ссылкой
 					$txt = $mitem->name;
 				}else {
 					$txt = '<a href="'. $mitem->link .'"'.$ml_img_title.' class="'. $menuclass .'" '. $id .'>'.$mitem->name.'</a>';
@@ -235,7 +235,7 @@ var onImgArray = new Array();
 		if ($params->get('ml_imaged') == 1 || $params->get('ml_imaged') == 2){
 			$ml_rollover_use = $params->get('ml_rollover_use');
 			$ml_module_number = $params->get('ml_module_number');
-			//аА аВаОбІ бІбібІ аМб‚ аНаАбµаАаЛаИ аДаОаГаОаНбЅбІб  аЕб±бІб  аЛаИ бі аНаАб± rollover аКаАбЂбІаИаНаКаА аИаЛаИ аМб‚ аДаАаЛб б¶аЕ аПбЂаОб±бІаО бІаАаК аПаОаЕаДаЕаМ
+			//а вот тут мы начали догонять есть ли у нас rollover картинка или мы дальше просто так поедем
 			if ($ml_rollover_use == 1 && $params->get('ml_image_roll_'.$count_link) != -1 && $params->get('ml_image'.$count_link) != -1 ){
 				$link = str_replace('zaglushka.gif',$params->get('ml_image'.$count_link).'" name="ml_img_'.$count_link.'_'.$ml_module_number,$link);
 				$link = str_replace('<a','<a onmouseover="MlImageOn(\'ml_img_'.$count_link.'_'.$ml_module_number.'\')" onmouseout="MlImageOff(\'ml_img_'.$count_link.'_'.$ml_module_number.'\')"',$link);
@@ -348,7 +348,7 @@ var onImgArray = new Array();
 		return $return;
 	}
 
-	// аПаОаДаГаОбІаОаВаКаА б±б±б‚аЛаОаК ,аЗаАаМаЕаНаА б±бІаИаЛаЕаЙ аВ б±б±б‚аЛаКаАб…
+	// подготовка ссылок ,замена стилей в ссылках
 	function mosJoostinaPrepareLink (&$params, $style=0) {
 		global $my,$mosConfig_shownoauth,$mosConfig_disable_access_control;
 
@@ -367,11 +367,11 @@ var onImgArray = new Array();
 			$count_link = 1;
 			$full_count = count($links);
 
-		// аДаЛбЅ аМаЕаНбѓ аВ аНаЕб±аКаОаЛб аКаО б±бІаОаЛаБб†аОаВ
+		// для меню в несколько столбцов
 		$nrow = intval($params->get('numrow',0));
 		$ii=-1;
 		foreach ($links as $link) {
-			// аНаАбµаИаНаАаЕаМ аИаЗаДаЕаВаАбІаЕаЛб б±бІаВаО аНаАаД аЛаИаНаКаАаМаИ аДаЛбЅ аПбЂаИаВаЕаДаЕаНаИбЅ аИб… аК аБаОаЖб аЕаМбі аВаИаДбі
+			// начинаем издевательство над линками для приведения их к божьему виду
 			if ($params->get('ml_separated_link') == 1) {
 				if ($params->get('ml_linked_sep') != 1 ) {$link_replacer = 'class="mainlevel-'.$count_link;} else {$link_replacer = 'class="mainlevel';}
 				$link = str_replace( 'class="mainlevel',$link_replacer,$link);
@@ -411,7 +411,7 @@ var onImgArray = new Array();
 			$link = str_replace('active_menu',$last_replacer_id,$link);
 			}
 			if($params->get('menu_style')=='ulli'){
-				// аДаЛбЅ аМаЕаНбѓ аВ аНаЕб±аКаОаЛб аКаО б±бІаОаЛаБб†аОаВ
+				// для меню в несколько столбцов
 				$ii++;
 				if($nrow>0){
 					if($ii==$nrow) {
@@ -423,7 +423,7 @@ var onImgArray = new Array();
 			mosJoostinaLinkReplacer ($count_link,$link,$style,$params,$full_count);
 			$count_link = $count_link + 1;
 	}
-	//аКаОаНаЕб† аГаЕаНаЕбЂаАб†аИаИ аВб‚аВаОаДаА
+	//конец генерации вывода
 	}
 
 	}
@@ -628,26 +628,26 @@ onImgArray["ml_img_11_<?php echo $ml_module_number; ?>"].src = "<?php echo $mosC
 	}
 			switch ($style) {
 
-				// аВб‚аВаОаД аГаОбЂаИаЗаОаНбІаАаЛб аНаОаЙ бІаАаБаЛаИб†аЕаЙ
+				// вывод горизонтальной таблицей
 				case 1:
 					echo '<table class="menutable'.$params->get('moduleclass_sfx').'" cellspacing="0" cellpadding="0" border="0"><tr>';
 					mosJoostinaPrepareLink($params,1);
 					echo '</tr></table>';
 				break;
 
-				// аВб‚аВаОаД б±аПаИб±аКаОаМ
+				// вывод списком
 				case 2:
 					echo '<ul class="menulist'.$params->get('moduleclass_sfx').'">';
 					mosJoostinaPrepareLink($params,2);
 					echo '</ul>';
 				break;
 
-				// аВб‚аВаОаД бµаИб±бІб‚б… б±б±б‚аЛаОаК
+				// вывод чистых ссылок
 				case 3:
 					mosJoostinaPrepareLink($params,3);
 					break;
 
-				// аВб‚аВаОаД аВ 100% б¶аИбЂаИаНб‚
+				// вывод в 100% ширины
 				case 4:
 					echo '<table class="menutable'.$params->get('moduleclass_sfx').'" cellspacing="0" cellpadding="0" border="0" width="100%"><tr>';
 					mosJoostinaPrepareLink($params,4);
@@ -680,7 +680,7 @@ onImgArray["ml_img_11_<?php echo $ml_module_number; ?>"].src = "<?php echo $mosC
 	if($config->config_caching){
 		$menu_cache = &mosCache::getCache('mod_mljoostinamenu');
 	}
-	// біаБаИбЂаАаЕаМ аЛаИб¶аНаИаЙ бЈаЛаЕаМаЕаНбІ
+	// убираем лишний элемент
 	unset($params->_raw);
 
 	switch ($params->get( 'menu_style' ) ) {

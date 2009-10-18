@@ -9,5 +9,5 @@
 
 defined('_VALID_MOS') or die();
 
-require_once (JPATH_BASE.'/includes/libraries/phpmailer/class.phpmailer.php');
+require_once (JPATH_BASE.'/includes/libraries/phpmailer/phpmailer.php');
 /*  ВНИМАНИЕ, файл оставлен для совместимости, оригинальное местонахождение прописано выше */
