@@ -179,7 +179,7 @@ function submitContent(){
 	$database->setQuery($query);
 	$rowp = $database->loadResult();
 
-	$file = $mainframe->getCfg('absolute_path').'/'.ADMINISTRATOR_DIRECTORY.'/components/com_content/submit_content.xml';
+	$file = JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_content/submit_content.xml';
 	$params = new mosParameters($rowp,$file,'component');
 	ContentView::submit($params);
 }
@@ -403,7 +403,7 @@ function viewArchive($sectionid,$option) {
 	$database->setQuery($query);
 	$total = $database->loadResult();
 
-	require_once ($mainframe->getCfg('absolute_path').'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
+	require_once (JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
 	$query = "SELECT c.*, g.name AS groupname, cc.name, v.name AS author"
@@ -679,8 +679,8 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 	}
 
 	// calls function to read image from directory
-	$pathA = $mainframe->getCfg('absolute_path').'/images/stories';
-	$pathL = $mainframe->getCfg('live_site').'/images/stories';
+	$pathA = JPATH_BASE.'/images/stories';
+	$pathL = JPATH_SITE.'/images/stories';
 	$images = array();
 
 	if($folders[0]->value == '*1*') {
@@ -1523,7 +1523,7 @@ function seccatli($act = 0,$filter_authorid=0){
 	$showarchive = intval( mosGetParam($_REQUEST,'showarchive',0));
 
 	$mainframe = mosMainFrame::getInstance(true);
-	$cur_file_icons_patch = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/dtree_ico/';
+	$cur_file_icons_patch = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/dtree_ico/';
 
 
 	$sectli = '<div id="ntree" class="dtree"><script type="text/javascript"><!--';
@@ -1604,7 +1604,7 @@ function _user_d(){
 	$rows = $database->loadObjectList();
 	$ret = '';
 	foreach($rows as $row) {
-		$ret .= "\n u.add($row->group_id,0,'$row->name','','','','','{$mainframe->getCfg('live_site')}/".ADMINISTRATOR_DIRECTORY."/images/dtree/folder_user.gif');";
+		$ret .= "\n u.add($row->group_id,0,'$row->name','','','','','{JPATH_SITE}/".ADMINISTRATOR_DIRECTORY."/images/dtree/folder_user.gif');";
 	}
 	unset($rows,$row);
 	return $ret;

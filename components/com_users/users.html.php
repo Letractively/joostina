@@ -30,7 +30,7 @@ class HTML_user {
 		global $my, $_MAMBOTS,$Itemid;
 
 		$mainframe = &mosMainFrame::getInstance();
-		$database = &database::getInstance();
+		$database = $mainframe->_db;
 
 		$owner=0;
 		$admin = 0;
@@ -49,7 +49,7 @@ class HTML_user {
 		}
 
 		//Переменные для шаблона
-		$avatar_pic = '<img class="avatar" src="'.$mainframe->getCfg('live_site').'/'.$user->get_avatar($user).'" />';
+		$avatar_pic = '<img class="avatar" src="'.JPATH_SITE.'/'.$user->get_avatar($user).'" />';
 		$user_id= $user->id;
 		$user_real_name = $user->name;
 		$user_nickname = $user->username;
@@ -77,9 +77,9 @@ class HTML_user {
 		}
 		
 		if($config->get('template_dir')){
-			$template_dir = 'templates'.DS. $mainframe->getTemplate() . '/html/com_users/profile';
+			$template_dir = 'templates'.DS. JTEMPLATE . '/html/com_users/profile';
 		}
-		$template_file = $mainframe->getCfg('absolute_path').DS.$template_dir.DS.$template;
+		$template_file = JPATH_BASE.DS.$template_dir.DS.$template;
 
 		//Находим плагины профиля пользователя
 		$plugins = new userPlugins();

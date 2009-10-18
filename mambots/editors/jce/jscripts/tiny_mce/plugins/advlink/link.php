@@ -15,7 +15,7 @@ $version = "1.1.3";
 
 global $database;
 
-require_once( $mainframe->getCfg('absolute_path') . '/mambots/editors/jce/jscripts/tiny_mce/libraries/classes/jce.class.php' );
+require_once( JPATH_BASE . '/mambots/editors/jce/jscripts/tiny_mce/libraries/classes/jce.class.php' );
 
 $jce = new JCE();
 $jce->setPlugin('advlink');

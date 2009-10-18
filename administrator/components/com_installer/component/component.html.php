@@ -22,7 +22,7 @@ class HTML_component {
 	*/
 	function showInstalledComponents($rows,$option) {
 		$mainframe = &mosMainFrame::getInstance();
-		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
+		$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
 		if(count($rows)) {
 		// подключение скрипта чудесных таблиц
 		mosCommonHTML::loadPrettyTable();

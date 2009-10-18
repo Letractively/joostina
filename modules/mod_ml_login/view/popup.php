@@ -10,7 +10,6 @@
 defined( '_VALID_MOS' ) or die();
 global $my;
 
-$mainframe = &mosMainFrame::getInstance();
 
 $module->helper->prepare_login_form($params);
 $validate = josSpoofValue(1);

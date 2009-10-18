@@ -35,6 +35,9 @@ require_once (JPATH_BASE.DS.'includes'.DS.'globals.php');
 // подключение файла конфигурации
 require_once (JPATH_BASE.DS.'configuration.php');
 
+// live_site
+define('JPATH_SITE', $mosConfig_live_site );
+
 // считаем время за которое сгенерирована страница
 if($mosConfig_time_gen) {
 	list($usec,$sec) = explode(' ',microtime());
@@ -209,6 +212,7 @@ if($option == 'login') {
 
 // получение шаблона страницы
 $cur_template = $mainframe->getTemplate();
+define('JTEMPLATE', $cur_template );
 
 /*** * @global - Места для хранения информации обработки компонента*/
 $_MOS_OPTION = array();

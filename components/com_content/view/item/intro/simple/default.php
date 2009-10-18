@@ -22,7 +22,7 @@ defined('_VALID_MOS') or die(); ?>
 		<?php endif; ?>
 					
 		<?php if($params->get('email')) : ?>
-			<?php HTML_content::EmailIcon($row, $params, $hide_js); ?>
+			<?php ContentView::EmailIcon($row, $params, $hide_js); ?>
 		<?php endif; ?>		
 	</div>
 <?php endif; ?>	

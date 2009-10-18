@@ -12,11 +12,21 @@ defined( '_VALID_MOS' ) or die();
 
 
 class mod_latestnews_Helper{
+	
+	var $_mainframe = null;
+	
+	function mod_latestnews_Helper($mainframe){
+		
+		$this->_mainframe = $mainframe;	
+		$this->_mainframe->addLib('text');
+		$this->_mainframe->addLib('images');
+	}
 
 	function get_static_items($params){
 		global $my;
-		$database = &database::getInstance();
-		$mainframe = &mosMainFrame::getInstance();
+		
+		$mainframe = $this->_mainframe;
+		$database = $this->_mainframe->_db;
 
 		$now = _CURRENT_SERVER_TIME;
 		$access	= !$mainframe->getCfg( 'shownoauth' );
@@ -40,8 +50,9 @@ class mod_latestnews_Helper{
 
 	function get_items_both($params){
 		global $my;
-		$database = &database::getInstance();
-		$mainframe = &mosMainFrame::getInstance();
+		
+		$mainframe = $this->_mainframe;
+		$database = $this->_mainframe->_db;
 
 		$now = _CURRENT_SERVER_TIME;
 		$access	= !$mainframe->getCfg( 'shownoauth' );
@@ -102,8 +113,9 @@ class mod_latestnews_Helper{
 	
 	function get_category_items($params){
 		global $my;
-		$database = &database::getInstance();
-		$mainframe = &mosMainFrame::getInstance();
+		
+		$mainframe = $this->_mainframe;
+		$database = $this->_mainframe->_db;
 
 		$now = _CURRENT_SERVER_TIME;
 		$access	= !$mainframe->getCfg( 'shownoauth' );
@@ -154,8 +166,8 @@ class mod_latestnews_Helper{
 	}
 
 	function get_itemid($row, $params){
-		$mainframe = &mosMainFrame::getInstance();
-		$database = &database::getInstance();
+		$mainframe = $this->_mainframe;
+		$database = $this->_mainframe->_db;
 
 		$type = intval($params->get('type', 1));
 
@@ -192,7 +204,7 @@ class mod_latestnews_Helper{
 			$row->Itemid_link = '&amp;Itemid='.$params->get('def_itemid');
 		}
 		else{
-			$_itemid = self::get_itemid($row, $params);
+			$_itemid = $this->get_itemid($row, $params);
 			if($_itemid){
 				$row->Itemid_link = '&amp;Itemid='.$_itemid;
 			}
@@ -200,12 +212,12 @@ class mod_latestnews_Helper{
 
 		$row->link_on = sefRelToAbs('index.php?option=com_content&amp;task=view&amp;id='.$row->id.$row->Itemid_link);
 		$row->link_text = $params->get('link_text', _READ_MORE);
-		$readmore = mosContent::ReadMore($row,$params);
+		$readmore = ContentView::ReadMore($row,$params);
 
 		$text = $row->introtext;
 		$text = mosHTML::cleanText($text);
 		if($params->get('crop_text', 1)){
-			mosMainFrame::getInstance()->addLib('text');
+			
 			switch ($params->get('crop_text', 1)) {
 				case 'simbol':
 				default:
@@ -223,13 +235,13 @@ class mod_latestnews_Helper{
 
 		$row->image = '';
 		if($params->get('image', 'mosimage')){
-			mosMainFrame::getInstance()->addLib('images');
+			
 			$text_with_image = $row->introtext;
 			if($params->get('image', 'mosimage')=='mosimage'){
 				$text_with_image = $row->images;
 			}
 			$img = Image::get_image_from_text($text_with_image, $params->get('image', 'mosimage'), $params->get('image_default',1));
-			$row->image = '<img title="'.$row->title.'" alt="" src="'.Jconfig::getInstance()->config_live_site.$img.'" />';
+			$row->image = '<img title="'.$row->title.'" alt="" src="'.JPATH_SITE.$img.'" />';
 
 			if($params->get('image_link',1) && $row->image){
 				$row->image =  '<a class="thumb" href="'.$row->link_on.'">'.$row->image.'</a>';
@@ -237,7 +249,7 @@ class mod_latestnews_Helper{
 		}
 
 		$row->author =  mosContent::Author($row,$params);
-		$row->title = HTML_content::Title($row,$params);
+		$row->title = ContentView::Title($row,$params);
 		$row->text = $text;
 		$row->readmore = $readmore;
 

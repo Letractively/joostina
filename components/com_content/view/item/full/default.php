@@ -33,7 +33,7 @@ defined('_VALID_MOS') or die(); ?>
 				<?php mosHTML::PrintIcon($row, $params, $hide_js, $print_link); ?>
 			<?php endif; ?>
 			<?php if($params->get('email')) : ?>
-				<?php HTML_content::EmailIcon($row, $params, $hide_js); ?>
+				<?php ContentView::EmailIcon($row, $params, $hide_js); ?>
 			<?php endif; ?>
 		</div>
 		
@@ -91,7 +91,7 @@ defined('_VALID_MOS') or die(); ?>
 	
 	<br />
 	
-	<?php HTML_content::Navigation($row, $params); ?>
+	<?php ContentView::Navigation($row, $params); ?>
 	<?php mosHTML::CloseButton($params, $hide_js); ?>
 	<?php mosHTML::BackButton($params, $hide_js); ?>
 </div>

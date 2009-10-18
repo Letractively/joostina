@@ -375,7 +375,7 @@ class XmapAdminHtml {
 	function printPluginInfo (&$row,$k) {
 		global $mosConfig_live_site;
 		$mainframe = &mosMainFrame::getInstance();
-		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
+		$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
 ?>
 		<tr id="plugin<?php echo $row->id; ?>" class="row<?php echo $k; ?>">
 			<td><a href="javascript:settingsPlugin(<?php echo $row->id; ?>);"><?php echo $row->name; ?></a></td>

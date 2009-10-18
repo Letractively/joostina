@@ -13,9 +13,16 @@ defined( '_VALID_MOS' ) or die();
 
 class mod_ml_login_Helper{
 	
+	var $_mainframe = null;
+	
+	function mod_ml_login_Helper($mainframe){
+		
+		$this->_mainframe = $mainframe;	
+	}
+	
 	function prepare_logout_form($params){		
 		global $my;
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = $this->_mainframe;
 		
 		//Отображаемое имя пользователя  
 		if ($params->get('user_name',1)) {
@@ -44,7 +51,7 @@ class mod_ml_login_Helper{
 	
 	function prepare_login_form($params){
 		global $my;
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = $this->_mainframe;
 		
 		$params->def('ml_login_text', _USER);
 		$params->def('ml_pass_text', _PASSWORD);

@@ -425,12 +425,12 @@ function listofImages($listdir) {
 					//$iconfile = $GLOBALS['mosConfig_absolute_path'].'/images/icons/'.substr($doc_name,-3).'.png';
 
 					$mainframe = mosMainFrame::getInstance(true);
-					$iconfile = $mainframe->getCfg('absolute_path').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/file_ico/'.substr($doc_name,-3).'.png';
+					$iconfile = JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/file_ico/'.substr($doc_name,-3).'.png';
 
 					if(file_exists($iconfile)) {
-						$icon = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/file_ico/'.substr($doc_name,-3).'.png';
+						$icon = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/file_ico/'.substr($doc_name,-3).'.png';
 					} else {
-						$icon = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/file_ico/file.png';
+						$icon = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/file_ico/file.png';
 					}
 					$icon = strtolower($icon);
 					HTML_mmxtd::show_doc($doc_name,$docs[$doc_name]['size'],str_replace(JWMMXTD_STARTABSPATH,'',$listdir),$icon);
@@ -488,7 +488,7 @@ function viewMediaManager($curdirectory = "",$mosmsg = "",$selectedfile = "") {
 	global $my,$subtask;
 	
 	$mainframe = &mosMainFrame::getInstance();
-	$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/file_ico';
+	$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/file_ico';
 	
 	$imgFiles = listofdirectories(JWMMXTD_STARTABSPATH);
 	$folders = array();

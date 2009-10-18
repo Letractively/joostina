@@ -33,7 +33,7 @@ defined('_VALID_MOS') or die(); ?>
 	<!--Таблица с содержимым при просмотре категории:BEGIN-->
 
 	<?php //Подключаем шаблон вывода таблицы с записями
-	include_once (Jconfig::getInstance()->config_absolute_path.'/components/com_content/view/item/table_of_items/default.php');
+	include_once (JPATH_BASE.'/components/com_content/view/item/table_of_items/default.php');
 	?>
 
 	<!--Таблица с содержимым при просмотре категории:END-->
@@ -43,8 +43,8 @@ defined('_VALID_MOS') or die(); ?>
 <?php } ?>
 	<!--Список категорий раздела:BEGIN-->
 <?php if($show_categories) {
-	include_once (Jconfig::getInstance()->config_absolute_path.'/components/com_content/view/category/show_categories/default.php');
-	//HTML_content :: showCategories($params, $items, $gid, $other_categories, $catid, $id, $Itemid);
+	include_once (JPATH_BASE.'/components/com_content/view/category/show_categories/default.php');
+	//ContentView :: showCategories($params, $items, $gid, $other_categories, $catid, $id, $Itemid);
 } ?>
 	<!--Список категорий раздела:END-->
 	<?php mosHTML::BackButton($params); ?>

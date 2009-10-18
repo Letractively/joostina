@@ -32,7 +32,7 @@ $content_params->set('orderby_pri', '');
 $content_params->set('orderby_sec', $date_type);
 
 
-$content_items = new mosContent(database::getInstance());
+$content_items = new mosContent($mainframe->_db);
 $items = $content_items->_load_blog_category($category, $content_params, $access);
 $params->def('numrows', count($items));
 $params->set('intro_only',1);

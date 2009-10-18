@@ -60,7 +60,7 @@ if(!defined('_JOS_FULLMENU_MODULE')) {
 
 			// получеполучаем каталог с графикой верхнего меню
 			$mainframe = mosMainFrame::getInstance(true);
-			$cur_file_icons_patch = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/menu_ico/';
+			$cur_file_icons_patch = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/menu_ico/';
 
 			ob_start(); // складываем всё выдаваемое меню в буфер
 ?>

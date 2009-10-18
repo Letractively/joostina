@@ -27,7 +27,7 @@ function pluginJWAjaxVote(&$row,&$params) {
 		$thmess = $mosConfig_caching ? _AV_THANKS_CACHE : _AV_THANKS;
 		$script = '
 <script type="text/javascript">
-	var live_site = \''.$mainframe->getCfg('live_site').'\';
+	var live_site = \''.JPATH_SITE.'\';
 	var jwajaxvote_lang = new Array();
 	jwajaxvote_lang[\'UPDATING\'] = \''._AV_UPDATING.'\';
 	jwajaxvote_lang[\'THANKS\'] = \''.$thmess.'\';
@@ -35,7 +35,7 @@ function pluginJWAjaxVote(&$row,&$params) {
 	jwajaxvote_lang[\'VOTES\'] = \''._AV_VOTES.'\';
 	jwajaxvote_lang[\'VOTE\'] = \''._AV_VOTE.'\';
 </script>
-<script type="text/javascript" src="'.$mainframe->getCfg('live_site').'/mambots/content/plugin_jw_ajaxvote/js/ajaxvote.js"></script>';
+<script type="text/javascript" src="'.JPATH_SITE.'/mambots/content/plugin_jw_ajaxvote/js/ajaxvote.js"></script>';
 		if(!$addScriptJWAjaxVote) {
 			$addScriptJWAjaxVote = 1;
 			/* при включенном кэшировании выведем подключение js кода вместе с первым выводом кнопок голосования*/

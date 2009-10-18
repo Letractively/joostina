@@ -36,7 +36,7 @@ defined('_VALID_MOS') or die(); ?>
 		<div class="add_button"><?php echo $add_button; ?></div>
 <?php } ?>
 	<!--Список категорий раздела:BEGIN-->
-<?php include_once (Jconfig::getInstance()->config_absolute_path.'/components/com_content/view/section/catlist_list/default.php'); ?>
+<?php include_once (JPATH_BASE.'/components/com_content/view/section/catlist_list/default.php'); ?>
 	<!--Список категорий раздела:END-->
 	<?php mosHTML::BackButton($params); ?>
 	<!--Основное содержимое страницы:END-->

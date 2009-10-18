@@ -48,9 +48,6 @@ $database = &database::getInstance();
 mosMainFrame::addLib('gacl');
 $acl = &gacl::getInstance();
 
-/* вспомогательная библиотека работы с массивами */
-mosMainFrame::addLib('array');
-
 // корректировка работы с данными полученными от сервера
 if(isset($_SERVER['REQUEST_URI'])) {
 	$request_uri = $_SERVER['REQUEST_URI'];
@@ -124,6 +121,9 @@ class mosMainFrame {
 	function mosMainFrame($db,$option,$basePath=null,$isAdmin = false) {
 		unset($db,$option);
 
+		$config =&Jconfig::getInstance();
+		$this->set('config',$config);
+
 		$this->_db = &database::getInstance();
 
 		if(!$isAdmin){ // работаем с меню в один запрос
@@ -174,7 +174,7 @@ class mosMainFrame {
 		global $option;
 
 		$default = 'administrator'.DS.'components'.DS.$option.DS.'view'.DS.$target.'.php';
-		$from_template = 'administrator'.DS.'templates'.DS.$this->getTemplate().DS.'html'.DS.$option.DS.$target.'.php';
+		$from_template = 'administrator'.DS.'templates'.DS.JTEMPLATE.DS.'html'.DS.$option.DS.$target.'.php';
 
 		if(is_file($return = JPATH_BASE.DS.$from_template)){
 			return $return;
@@ -257,22 +257,10 @@ class mosMainFrame {
 	function addLib($lib, $dir = ''){
 		$dir = (!$dir) ? 'includes/libraries' : $dir;
 
-		static $lib_array;
-
-		if(isset($lib_array[$dir][$lib])){
-			return $lib_array[$dir][$lib];
+		$file_lib = JPATH_BASE.DS.$dir.DS.$lib.DS.$lib.'.php';
+		if(is_file($file_lib)){
+			require_once($file_lib);
 		}
-
-		if(is_file(JPATH_BASE.DS.$dir.DS.$lib)){
-			$file_lib = JPATH_BASE.DS.$dir.DS.$lib;
-		}else if(is_file(JPATH_BASE.DS.$dir.DS.$lib.DS.$lib.'.php')){
-			$file_lib = JPATH_BASE.DS.$dir.DS.$lib.DS.$lib.'.php';
-		}else{
-			$file_lib = false;
-		}
-
-		$lib_array[$dir][$lib] = $file_lib;
-		require_once($file_lib);
 	}
 
 	
@@ -405,12 +393,36 @@ class mosMainFrame {
 		}
 		$this->addMetaTag($name,$content);
 	}
+
+	// расширенные мета-тэги для улучшенного SEO
+	function set_robot_metatag($robots) {
+
+		if($robots == 0) {
+			$this->addMetaTag('robots','index, follow');
+		}
+		if($robots == 1) {
+			$this->addMetaTag('robots','index, nofollow');
+		}
+		if($robots == 2) {
+			$this->addMetaTag('robots','noindex, follow');
+		}
+		if($robots == 3) {
+			$this->addMetaTag('robots','noindex, nofollow');
+		}
+	}
 	/**
 	* Adds a custom html string to the head block
 	* @param string The html to add to the head
 	*/
 	function addCustomHeadTag($html) {
 		$this->_head['custom'][] = trim($html);
+	}
+	/**
+	* Adds a custom html string to the footer block
+	* @param string The html to add to the footer
+	*/
+	function addCustomFooterTag($html) {
+		$this->_footer['custom'][] = trim($html);
 	}
 	/**
 	* @return string
@@ -657,18 +669,16 @@ class mosMainFrame {
 	function initSessionAdmin($option,$task) {
 		global $_VERSION;
 
-		$_config = &Jconfig::getInstance();
+		$_config = $this->get('config');
 
 		// logout check
 		if($option == 'logout') {
-			require JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY.DS.'logout.php';
+			require JPATH_BASE_ADMIN.DS.'logout.php';
 			exit();
 		}
 
-		$site = $_config->config_live_site;
-
 		// check if session name corresponds to correct format
-		if(session_name() != md5($site)) {
+		if(session_name() != md5(JPATH_SITE)) {
 			echo "<script>document.location.href='index.php'</script>\n";
 			exit();
 		}
@@ -687,7 +697,7 @@ class mosMainFrame {
 
 		if($session_id != session_id()) {
 			// session id does not correspond to required session format
-			mosRedirect($_config->config_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/',_YOU_NEED_TO_AUTH);
+			mosRedirect(JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/',_YOU_NEED_TO_AUTH);
 			exit();
 		}
 
@@ -760,7 +770,7 @@ class mosMainFrame {
 						$this->_db->query();
 					}
 
-					mosRedirect($_config->config_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/',_ADMIN_SESSION_ENDED);
+					mosRedirect(JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/',_ADMIN_SESSION_ENDED);
 
 				} else {
 					// load variables into session, used to help secure /popups/ functionality
@@ -808,18 +818,13 @@ class mosMainFrame {
 	* Deperciated 1.1
 	*/
 	function sessionCookieName($site_name = '') {
-		$config = &Jconfig::getInstance();
 
-		if(!$site_name){
-			$site_name = $config->config_live_site;
-		}
-
-		if(substr($site_name,0,7) == 'http://') {
-			$hash = md5('site'.substr($site_name,7));
-		} elseif(substr($site_name,0,8) == 'https://') {
-			$hash = md5('site'.substr($site_name,8));
+		if(substr(JPATH_SITE,0,7) == 'http://') {
+			$hash = md5('site'.substr(JPATH_SITE,7));
+		} elseif(substr(JPATH_SITE,0,8) == 'https://') {
+			$hash = md5('site'.substr(JPATH_SITE,8));
 		} else {
-			$hash = md5('site'.$site_name);
+			$hash = md5('site'.JPATH_SITE);
 		}
 
 		return $hash;
@@ -1182,23 +1187,10 @@ class mosMainFrame {
 	* @return mixed The value of the configuration variable or null if not found
 	*/
 	function getCfg($varname) {
-		static $varname_array,$config;
 		$varname = 'config_'.$varname;
 
-		if( isset($varname_array[$varname]) ){
-			return $varname_array[$varname];
-		}
-
-		if(!isset($varname_array)){
-			$config =&Jconfig::getInstance();
-			$this->set('config',$config);
-
-			$varname_array = array();
-		};
 		$config = $this->get('config');
 		$varname_saved = (isset($config->$varname)) ? $config->$varname : null;
-
-		$varname_array[$varname] = $varname_saved;
 
 		return $varname_saved;
 	}
@@ -1258,6 +1250,7 @@ class mosMainFrame {
 	}
 
 	function getTemplate() {
+		jd_inc('getTemplate');
 		return $this->_template;
 	}
 
@@ -1877,7 +1870,7 @@ class mosMainFrame {
 			if($this->_isAdmin){
 				$_s = session_id();
 				if( !isset($_s)) {
-					session_name(md5($this->getCfg('live_site')));
+					session_name(md5(JPATH_SITE));
 					session_start();
 				}
 			}else{
@@ -1919,7 +1912,7 @@ class mosMainFrame {
 		if($option=='com_content') return true;
 		$sql = 'SELECT menuid FROM #__components WHERE #__components.option=\''.$option.'\' AND parent=0';
 		$this->_db->setQuery($sql);
-		($this->_db->loadResult()==0) ? null : mosRedirect($this->getCfg('live_site'));
+		($this->_db->loadResult()==0) ? null : mosRedirect(JPATH_SITE);
 		return true;
 	}
 
@@ -2269,6 +2262,8 @@ class JConfig {
 	function &getInstance(){
 		static $instance;
 
+		jd_inc('Jconfig::getInstance()');
+
 		if (!is_object( $instance )) {
 			$instance = new JConfig();
 		}
@@ -2383,224 +2378,6 @@ class mosMambot extends mosDBTable {
 
 	function mosMambot(&$db) {
 		$this->mosDBTable('#__mambots','id',$db);
-	}
-}
-
-/**
-* Module database table class
-* @package Joostina
-*/
-class mosModule extends mosDBTable {
-	/**
-	@var int Primary key*/
-	var $id = null;
-	/**
-	@var string*/
-	var $title = null;
-	/**
-	@var string*/
-	var $showtitle = null;
-	/**
-	@var int*/
-	var $content = null;
-	/**
-	@var int*/
-	var $ordering = null;
-	/**
-	@var string*/
-	var $position = null;
-	/**
-	@var boolean*/
-	var $checked_out = null;
-	/**
-	@var time*/
-	var $checked_out_time = null;
-	/**
-	@var boolean*/
-	var $published = null;
-	/**
-	@var string*/
-	var $module = null;
-	/**
-	@var int*/
-	var $numnews = null;
-	/**
-	@var int*/
-	var $access = null;
-	/**
-	@var string*/
-	var $params = null;
-	/**
-	@var string*/
-	var $iscore = null;
-	/**
-	@var string*/
-	var $client_id = null;
-	/**
-	@var string*/
-	var $template = null;
-	/**
-	@var string*/
-	var $helper = null;
-
-
-	/**
-	* @param database A database connector object
-	*/
-	function mosModule(&$db) {
-		$this->mosDBTable('#__modules','id',$db);
-	}
-	// overloaded check function
-	function check() {
-		// check for valid name
-		if(trim($this->title) == '') {
-			$this->_error = _PLEASE_ENTER_MODULE_NAME;
-			return false;
-		}
-
-		return true;
-	}
-	
-	function convert_to_object($module){
-		$database = &database::getInstance();
-
-		$module_obj = new mosModule($database);
-		$rows = get_object_vars($module_obj);
-		foreach($rows as $key => $value){
-			if (isset($module->$key)) {
-				$module_obj->$key = $module->$key;
-			}
-		}
-
-		return $module_obj;
-	}
-	
-	function set_template($params){
-		$mainframe = &mosMainFrame::getInstance();
-
-		if($params->get('template', '') == ''){
-			return false;
-		}
-
-		$default_template = 'modules'.DS.$this->module.'/view/default.php';
-
-		if($params->get('template_dir',0) == 0){
-			$template_dir = 'modules'.DS.$this->module.'/view';
-		}else{
-			$template_dir = 'templates'.DS. $mainframe->getTemplate() .DS.'html/modules'.DS.$this->module;
-		}
-
-		if($params->get('template')){
-			if (is_file(JPATH_BASE . DS . $template_dir . DS . $params->get('template'))){
-				$this->template = JPATH_BASE . DS . $template_dir . DS . $params->get('template');
-				return true;
-			}else if (is_file(JPATH_BASE . DS . $default_template)){
-				$this->template = JPATH_BASE . DS . $default_template;
-				return true;
-			}
-		}
-		
-		return false;
-	}
-
-	function set_template_custom($template){
-		$mainframe = &mosMainFrame::getInstance();
-
-		$template_file = JPATH_BASE.DS.'templates'.DS. $mainframe->getTemplate() .DS.'html/user_modules'.DS.$template;
-
-		if (is_file($template_file)) {
-			$this->template = $template_file;
-			return true;
-		} 
-		return false;
-	}
-
-	function get_helper(){
-
-		$help_file = 'modules'.DS.$this->module.DS.'helper.php';
-		$file = JPATH_BASE. DS . $help_file;
-
-		if (is_file($file)) {
-			require_once($file);
-			$helper_class = $this->module.'_Helper';
-			$this->helper = new $helper_class();
-			return true;
-		}
-		return false;
-	}
-
-	function load_module($name = '', $title = ''){
-		$where = " m.module = '".$name."'";
-		if(!$name || $title){
-			$where = " m.title = '".$title."'";
-		}
-
-		$query = "SELECT * FROM #__modules AS m WHERE ".$where;
-		$row = null;	
-		$this->_db->setQuery($query);
-		$this->_db->loadObject($row);
-
-		$rows = get_object_vars($this);
-
-		foreach ($rows as $key => $value) {
-			if (isset($row->$key)) {
-				$this->$key = $row->$key;
-			}
-		}
-		return true;
-	}
-
-}
-
-/**
-* Component database table class
-* @package Joostina
-*/
-class mosComponent extends mosDBTable {
-	/**
-	@var int Primary key*/
-	var $id = null;
-	/**
-	@var string*/
-	var $name = null;
-	/**
-	@var string*/
-	var $link = null;
-	/**
-	@var int*/
-	var $menuid = null;
-	/**
-	@var int*/
-	var $parent = null;
-	/**
-	@var string*/
-	var $admin_menu_link = null;
-	/**
-	@var string*/
-	var $admin_menu_alt = null;
-	/**
-	@var string*/
-	var $option = null;
-	/**
-	@var string*/
-	var $ordering = null;
-	/**
-	@var string*/
-	var $admin_menu_img = null;
-	/**
-	@var int*/
-	var $iscore = null;
-	/**
-	@var string*/
-	var $params = null;
-	/*@var int права доступа к компоненту */
-	#var $access = null;
-
-	/**
-	* @param database A database connector object
-	*/
-	function mosComponent(&$db=null) {
-		$this->mosDBTable('#__components','id',$db);
 	}
 }
 
@@ -2726,7 +2503,6 @@ class mosMenu extends mosDBTable {
 	}
 	
 	function getMenu($id = null, $type = '', $link = ''){
-		$mainframe = &mosMainFrame::getInstance();
 
 		$where = ''; $and = array();
 		if($id || $type || $link){
@@ -2771,6 +2547,385 @@ class mosMenu extends mosDBTable {
 
 }
 
+
+/**
+* Module database table class
+* @package Joostina
+*/
+class mosModule extends mosDBTable {
+	/**
+	@var int Primary key*/
+	var $id = null;
+	/**
+	@var string*/
+	var $title = null;
+	/**
+	@var string*/
+	var $showtitle = null;
+	/**
+	@var int*/
+	var $content = null;
+	/**
+	@var int*/
+	var $ordering = null;
+	/**
+	@var string*/
+	var $position = null;
+	/**
+	@var boolean*/
+	var $checked_out = null;
+	/**
+	@var time*/
+	var $checked_out_time = null;
+	/**
+	@var boolean*/
+	var $published = null;
+	/**
+	@var string*/
+	var $module = null;
+	/**
+	@var int*/
+	var $numnews = null;
+	/**
+	@var int*/
+	var $access = null;
+	/**
+	@var string*/
+	var $params = null;
+	/**
+	@var string*/
+	var $iscore = null;
+	/**
+	@var string*/
+	var $client_id = null;
+	/**
+	@var string*/
+	var $template = null;
+	/**
+	@var string*/
+	var $helper = null;
+
+	var $_all_modules = null;
+
+	var $_view = null;
+
+	var $_mainframe = null;
+
+
+	/**
+	* @param database A database connector object
+	*/
+	function mosModule(&$db, $mainframe = null) {
+		$this->mosDBTable('#__modules','id',$db);
+		if($mainframe){
+			$this->_mainframe = $mainframe;
+		}
+	}
+	// overloaded check function
+	function check() {
+		// check for valid name
+		if(trim($this->title) == '') {
+			$this->_error = _PLEASE_ENTER_MODULE_NAME;
+			return false;
+		}
+
+		return true;
+	}
+
+	function convert_to_object($module, $mainframe){
+		$database = $mainframe->_db;
+
+		$module_obj = new mosModule($database, $mainframe);
+		$rows = get_object_vars($module_obj);
+		foreach($rows as $key => $value){
+			if (isset($module->$key)) {
+				$module_obj->$key = $module->$key;
+			}
+		}
+
+		return $module_obj;
+	}
+
+	function set_template($params){
+
+		if($params->get('template', '') == ''){
+			return false;
+		}
+
+		$default_template = 'modules'.DS.$this->module.'/view/default.php';
+
+		if($params->get('template_dir',0) == 0){
+			$template_dir = 'modules'.DS.$this->module.'/view';
+		}else{
+			$template_dir = 'templates'.DS.JTEMPLATE.DS.'html/modules'.DS.$this->module;
+		}
+
+		if($params->get('template')){
+			$file = JPATH_BASE . DS . $template_dir . DS . $params->get('template');
+			if (is_file($file)){
+				$this->template = $file;
+				return true;
+			}else if (is_file(JPATH_BASE . DS . $default_template)){
+				$this->template = JPATH_BASE . DS . $default_template;
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	function set_template_custom($template){
+
+		$template_file = JPATH_BASE.DS.'templates'.DS. JTEMPLATE .DS.'html'.DS.'user_modules'.DS.$template;
+
+		if (is_file($template_file)) {
+			$this->template = $template_file;
+			return true;
+		}
+		return false;
+	}
+
+	function get_helper(){
+
+		$help_file = 'modules'.DS.$this->module.DS.'helper.php';
+		$file = JPATH_BASE. DS . $help_file;
+
+		if (is_file($file)) {
+			require_once($file);
+			$helper_class = $this->module.'_Helper';
+			$this->helper = new $helper_class($this->_mainframe);
+			return true;
+		}
+		return false;
+	}
+
+	function load_module($name = '', $title = ''){
+		$where = " m.module = '".$name."'";
+		if(!$name || $title){
+			$where = " m.title = '".$title."'";
+		}
+
+		$query = "SELECT * FROM #__modules AS m WHERE ".$where;
+		$row = null;
+		$this->_db->setQuery($query);
+		$this->_db->loadObject($row);
+
+		$rows = get_object_vars($this);
+
+		foreach ($rows as $key => $value) {
+			if (isset($row->$key)) {
+				$this->$key = $row->$key;
+			}
+		}
+		return true;
+	}
+
+	/**
+	* Cache some modules information
+	* @return array
+	*/
+	function &initModules() {
+		global $my,$Itemid;
+
+		if(!($this->_all_modules)) {
+			$database = $this->_mainframe->_db;
+			$config = $this->_mainframe->get('config');
+
+			$all_modules = array();
+
+			$Itemid = intval($Itemid);
+			$check_Itemid = '';
+			if($Itemid) {
+				$check_Itemid = "OR mm.menuid = ".(int)$Itemid;
+			}
+
+			$where_ac = $config->config_disable_access_control ? '' : "\n AND (m.access=3 OR m.access <= ".(int)$my->gid.') ';
+
+			$query = "SELECT id, title, module, position, content, showtitle, params,access FROM #__modules AS m"
+					."\n INNER JOIN #__modules_menu AS mm ON mm.moduleid = m.id"
+					."\n WHERE m.published = 1"
+					.$where_ac
+					."\n AND m.client_id != 1 AND ( mm.menuid = 0 $check_Itemid )"
+					."\n ORDER BY ordering";
+
+			$database->setQuery($query);
+			$modules = $database->loadObjectList();
+
+			foreach($modules as $module) {
+				if($module->access==3){
+					$my->gid==0 ? $GLOBALS['_MOS_MODULES'][$module->position][] = $module : null;
+				}else{
+					$GLOBALS['_MOS_MODULES'][$module->position][] = $module;
+					$all_modules[$module->position][] = $module;
+				}
+			}
+			unset($modules,$module);
+		}
+		$this->_all_modules = $all_modules;
+
+		require_once (JPATH_BASE.'/includes/frontend.html.php');
+		$this->_view = new modules_html($this->_mainframe);
+
+		return $all_modules;
+	}
+
+	/**
+	* @param string the template position
+	*/
+	function mosCountModules($position = 'left') {
+		if(intval(mosGetParam($_GET,'tp',0))) {
+			return 1;
+		}
+
+		$allModules = $this->_all_modules;
+
+		if(isset($allModules[$position])) {
+			return count($allModules[$position]);
+		} else {
+			return 0;
+		}
+	}
+
+	/**
+	* @param string The position
+	* @param int The style.  0=normal, 1=horiz, -1=no wrapper
+	*/
+	function mosLoadModules($position = 'left',$style = 0,$noindex = 0) {
+		global $my,$Itemid;
+
+		$tp = intval(mosGetParam($_GET,'tp',0));
+		$style = intval($style);
+
+		$config_absolute_path = JPATH_BASE;
+		$config_caching = $this->_mainframe->getCfg('caching');
+		$config_disable_tpreview = $this->_mainframe->getCfg('disable_tpreview');
+
+
+		if($tp && !$config_disable_tpreview ) {
+			echo '<div style="height:50px;background-color:#eee;margin:2px;padding:10px;border:1px solid #f00;color:#700;">'.$position.'</div>';
+			return;
+		}
+
+		$allModules = $this->_all_modules;
+
+		$modules = (isset($allModules[$position])) ? $modules = $allModules[$position]:array();
+
+		echo ($noindex == 1) ? '<span class="hide"><![CDATA[<noindex>]]></span>' : null;
+
+		if(count($modules) < 1) {
+			$style = 0;
+		}
+
+		echo ($style == 1) ? '<table cellspacing="1" cellpadding="0" border="0" width="100%"><tr>' : null;
+
+		$prepend = ($style == 1)  ? '<td valign="top">' : '';
+		$postpend = ($style == 1) ? '</td>'             : '';
+
+		$count = 1;
+
+		foreach($modules as $module) {
+
+			$params = new mosParameters($module->params);
+			$def_cachetime = ($params->get('cache_time',0)>0) ? $params->get('cache_time') : null;
+
+			echo $prepend;
+
+			if((substr($module->module,0,4)) == 'mod_') {
+				// normal modules
+				if(($params->get('cache',0) == 1 OR $def_cachetime>0) && $config_caching == 1) {
+					// module caching
+					$cache = &mosCache::getCache($module->module.'_'.$module->id,'function',null,$def_cachetime, $this->_view);
+					$cache->call('module2',$module,$params,$Itemid,$style,$my->gid);
+				} else {
+					$this->_view->module2($module,$params,$Itemid,$style,$count);
+				}
+			} else {
+				// custom or new modules
+				if($params->get('cache') == 1 && $config_caching == 1) {
+					// module caching
+					$cache = &mosCache::getCache('mod_user_'.$module->id,'function',null,$def_cachetime, $this->_view);
+					$cache->call('module',$module,$params,$Itemid,$style,0,$my->gid);
+				} else {
+					$this->_view->module($module,$params,$Itemid,$style);
+				}
+			}
+
+			echo $postpend;
+
+			$count++;
+			unset($cache);
+		}
+
+		echo ($style==1) ? "</tr>\n</table>\n" : null;
+		echo ($noindex == 1) ? '<span class="hide"><![CDATA[</noindex>]]></span>' : null;
+
+		return;
+	}
+
+	/**
+	* @param string The position
+	* @param int The style.  0=normal, 1=horiz, -1=no wrapper
+	*/
+	function mosLoadModule($name = '', $title = '', $style = 0, $noindex = 0, $inc_params = null) {
+		global $my,$Itemid;
+
+		$database = $this->_mainframe->_db;
+		$config = $this->_mainframe->get('config');
+
+		$tp = intval(mosGetParam($_GET,'tp',0));
+
+		if($tp && !$config->config_disable_tpreview ) {
+			echo '<div style="height:50px;background-color:#eee;margin:2px;padding:10px;border:1px solid #f00;color:#700;">'.$name.'</div>';
+			return;
+		}
+		$style = intval($style);
+		$module = $this;
+		$module->load_module($name, $title);
+
+		echo ($noindex == 1) ? '<del><![CDATA[<noindex>]]></del>' : null;
+
+		echo ($style == 1) ? '<table cellspacing="1" cellpadding="0" border="0" width="100%"><tr>' : null;
+
+		$prepend = ($style == 1) ? "<td valign=\"top\">\n":'';
+		$postpend = ($style == 1) ? "</td>\n":'';
+
+		$count = 1;
+
+		$params = new mosParameters($module->params);
+		if($inc_params){
+			foreach($inc_params as $key=>$val){
+				$params->set($key, $val);
+			}
+		}
+		echo $prepend;
+
+		if((substr($module->module,0,4)) == 'mod_') {
+			// normal modules
+			if($params->get('cache') == 1 && $config->config_caching == 1) {
+				// module caching
+				$cache = &mosCache::getCache('modules', '', null, null, $this->_view);
+				$cache->call('module2',$module,$params,$Itemid,$style,$my->gid);
+			} else {
+				$this->_view->module2($module,$params,$Itemid,$style,$count);
+			}
+		} else {
+			// custom or new modules
+			if($params->get('cache') == 1 && $config->config_caching == 1) {
+				// module caching
+				$cache->call('module',$module,$params,$Itemid,$style,0,$my->gid);
+			} else {
+				$this->_view->module($module,$params,$Itemid,$style);
+			}
+		}
+
+		echo $postpend;
+		$count++;
+
+		echo ($style == 1) ? "</tr>\n</table>\n" : null;
+		echo ($noindex == 1) ? '<del><![CDATA[</noindex>]]></del>' : null;
+		return;
+	}
+}
 
 /**
 * Class to support function caching
@@ -3143,7 +3298,7 @@ class mosHTML {
 				$next_state = 'none';
 			}
 
-		$html = '<a href="'.$base_href.'&field='.$field.'&order='.$next_state.'"><img src="'.Jconfig::getInstance()->config_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/images/sort_'.$state.'.png" width="12" height="12" border="0" alt="'.$alts[$next_state].'" /></a>';
+		$html = '<a href="'.$base_href.'&field='.$field.'&order='.$next_state.'"><img src="'.JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/images/sort_'.$state.'.png" width="12" height="12" border="0" alt="'.$alts[$next_state].'" /></a>';
 		return $html;
 	}
 
@@ -3186,20 +3341,18 @@ class mosHTML {
 	}
 	
 	function get_image($file, $directory = 'system', $front = 0) {
-		$mainframe = &MosMainFrame::getInstance();
-		$cur_template = $mainframe->getTemplate();
 
 		if(!$front) {
-			$path = '/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$cur_template.'/images/'.$directory.'/';
+			$path = '/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/'.$directory.'/';
 		} else {
-			$path = '/templates/'.$cur_template.'/images/elements/';
+			$path = '/templates/'.JTEMPLATE.'/images/elements/';
 		}
 
 		$image = '';
 		if(is_file(JPATH_BASE.$path.$file)) {
-			$image = $mainframe->getCfg('live_site').$path.$file;
+			$image = JPATH_SITE.$path.$file;
 		} elseif(is_file(JPATH_BASE.DS.$directory.DS.$file)) {
-			$image = $mainframe->getCfg('live_site').'/'.$directory.'/'.$file;
+			$image = JPATH_SITE.'/'.$directory.'/'.$file;
 		}
 		if($image) {
 			$image = '<img src="'.$image.'" alt="" border="0" />';
@@ -3519,7 +3672,7 @@ function mosRedirect($url,$msg = '') {
 	$url = preg_split("/[\r\n]/",$url);
 	$url = $url[0];
 	if($iFilter->badAttributeValue(array('href',$url))) {
-		$url = $GLOBALS['mosConfig_live_site'];
+		$url = JPATH_SITE;
 	}
 
 	if(headers_sent()) {
@@ -3838,7 +3991,7 @@ function mosToolTip($tooltip,$title = '',$width = '',$image = 'tooltip.png',$tex
 		$title = ', CAPTION, \''.$title.'\'';
 	}
 	if(!$text) {
-		$image = Jconfig::getInstance()->config_live_site.'/includes/js/ThemeOffice/'.$image;
+		$image = JPATH_SITE.'/includes/js/ThemeOffice/'.$image;
 		$text = '<img src="'.$image.'" border="0" alt="tooltip"/>';
 	}
 	$style = 'style="text-decoration: none; color: #333;"';
@@ -3869,7 +4022,7 @@ function mosToolTip($tooltip,$title = '',$width = '',$image = 'tooltip.png',$tex
 function mosWarning($warning,$title = _MOS_WARNING) {
 	$mouseover = 'return overlib(\''.$warning.'\', CAPTION, \''.$title.'\', BELOW, RIGHT);';
 	$tip = '<a href="javascript: void(0)" onmouseover="'.$mouseover.'" onmouseout="return nd();">';
-	$tip .= '<img src="'.Jconfig::getInstance()->config_live_site.'/includes/js/ThemeOffice/warning.png" border="0" alt="'._WARNING.'"/></a>';
+	$tip .= '<img src="'.JPATH_SITE.'/includes/js/ThemeOffice/warning.png" border="0" alt="'._WARNING.'"/></a>';
 	return $tip;
 }
 
@@ -4220,10 +4373,16 @@ class mosMambotHandler {
 	* @var array An array of the  mambot params
 	*/
 	var $_mambot_params = array();
+
+	var $_config = null;
+	var $_db = null;
 	/**
 	* Constructor
 	*/
 	function mosMambotHandler() {
+		$this->_db = &database::getInstance();
+		$this->_config = &Jconfig::getInstance();
+
 		$this->_events = array();
 	}
 
@@ -4234,8 +4393,8 @@ class mosMambotHandler {
 	function loadBotGroup($group, $load = 0) {
 		global $my;
 
-		$config = &Jconfig::getInstance();
-		$database = &database::getInstance();
+		$config = $this->_config;
+		$database = $this->_db;
 
 		if(is_object($my)) {
 			$gid = $my->gid;
@@ -4447,8 +4606,8 @@ class mosTabs {
 	* @param int useCookies, if set to 1 cookie will hold last used tab between page refreshes
 	*/
 	function mosTabs($useCookies,$xhtml = 0) {
-		$config = &Jconfig::getInstance();
 		$mainframe = &MosMainFrame::getInstance();
+		$config=$mainframe->get('config');
 
 		// активация gzip сжатия css и js файлов
 		if($config->config_gz_js_css) {
@@ -4463,13 +4622,13 @@ class mosTabs {
 		if($mainframe->_isAdmin==1){
 			$r_dir = '/'.ADMINISTRATOR_DIRECTORY;
 		}
-		$css_dir = $r_dir.'/templates/'.$mainframe->getTemplate().'/css';
+		$css_dir = $r_dir.'/templates/'.JTEMPLATE.'/css';
 		if(!is_file(JPATH_BASE.DS.$css_dir.DS.$css_f)){
 			$css_dir = '/includes/js/tabs';
 		}	
 		
-		$css = '<link rel="stylesheet" type="text/css" media="all" href="'.$config->config_live_site.'/'.$css_dir.'/'.$css_f.'" id="luna-tab-style-sheet" />';
-		$js = '<script type="text/javascript" src="'.$config->config_live_site.'/includes/js/tabs/'.$js_f.'"></script>';
+		$css = '<link rel="stylesheet" type="text/css" media="all" href="'.JPATH_SITE.'/'.$css_dir.'/'.$css_f.'" id="luna-tab-style-sheet" />';
+		$js = '<script type="text/javascript" src="'.JPATH_SITE.'/includes/js/tabs/'.$js_f.'"></script>';
 		/* запрет повторного включения css и js файлов в документ*/
 		if(!defined('_MTABS_LOADED')) {
 			define('_MTABS_LOADED',1);
@@ -5147,10 +5306,7 @@ class mosAdminMenus {
 	* load the default or use no image
 	*/
 	function ImageCheck($file,$directory = '/images/M_images/',$param = null,$param_directory ='/images/M_images/',$alt = null,$name = null,$type = 1,$align = 'middle',$title = null,$admin = null) {
-		$mainframe = &MosMainFrame::getInstance();
-		$config = &Jconfig::getInstance();
 
-		$cur_template = $mainframe->getTemplate();
 		$id		= $name ? ' id="'.$name.'"':'';
 		$name	= $name ? ' name="'.$name.'"':'';
 		$title	= $title ? ' title="'.$title.'"':'';
@@ -5158,12 +5314,12 @@ class mosAdminMenus {
 		$align	= $align ? ' align="'.$align.'"':'';
 		// change directory path from frontend or backend
 		if($admin) {
-			$path = '/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$cur_template.'/images/ico/';
+			$path = '/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico/';
 		} else {
-			$path = '/templates/'.$cur_template.'/images/ico/';
+			$path = '/templates/'.JTEMPLATE.'/images/ico/';
 		}
 		if($param) {
-			$image = $config->config_live_site.$param_directory.$param;
+			$image = JPATH_SITE.$param_directory.$param;
 			if($type) {
 				$image = '<img src="'.$image.'" '.$alt.$id.$name.$align.' border="0" />';
 			}
@@ -5172,9 +5328,9 @@ class mosAdminMenus {
 				$image = '';
 			} else {
 				if(file_exists(JPATH_BASE.$path.$file)) {
-					$image = $config->config_live_site.$path.$file;
+					$image = JPATH_SITE.$path.$file;
 				} else {
-					$image = $config->config_live_site.$directory.$file;
+					$image = JPATH_SITE.$directory.$file;
 				}
 				if($type) {
 					$image = '<img src="'.$image.'" '.$alt.$id.$name.$title.$align.' border="0" />';
@@ -5262,8 +5418,7 @@ class mosAdminMenus {
 
 class mosCommonHTML {
 	function ContentLegend() {
-		$mainframe = &mosMainFrame::getInstance();
-		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
+		$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
 ?>
 		<table cellspacing="0" cellpadding="4" border="0" align="center">
 			<tr align="center">
@@ -5429,8 +5584,7 @@ class mosCommonHTML {
 	}
 
 	function checkedOut(&$row,$overlib = 1) {
-		$mainframe = &mosMainFrame::getInstance();
-		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
+		$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
 		$hover = '';
 		if($overlib) {
 			$date = mosFormatDate($row->checked_out_time,'%A, %d %B %Y');
@@ -5451,12 +5605,12 @@ class mosCommonHTML {
 	function loadOverlib($ret = false) {
 		$mainframe = &MosMainFrame::getInstance();
 		if(!$mainframe->get('loadOverlib') &&!$ret ) {
-			$mainframe->addJS($mainframe->getCfg('live_site').'/includes/js/overlib_full.js');
+			$mainframe->addJS(JPATH_SITE.'/includes/js/overlib_full.js');
 			// установка флага о загруженной библиотеке всплывающих подсказок
 			$mainframe->set('loadOverlib',true);
 		}
 		if(!$mainframe->get('loadOverlib') && $ret==true){?>
-			<script language="javascript" type="text/javascript" src="<?php echo $mainframe->getCfg('live_site');?>/includes/js/overlib_full.js"></script>
+			<script language="javascript" type="text/javascript" src="<?php echo JPATH_SITE;?>/includes/js/overlib_full.js"></script>
 <?php
 		}
 		
@@ -5470,10 +5624,10 @@ class mosCommonHTML {
 		if(!defined('_CALLENDAR_LOADED')) {
 			define('_CALLENDAR_LOADED',1);
 			$mainframe = MosMainFrame::getInstance();
-			$mainframe->addCSS($mainframe->getCfg('live_site').'/includes/js/calendar/calendar-mos.css');
-			$mainframe->addJS($mainframe->getCfg('live_site').'/includes/js/calendar/calendar_mini.js');
+			$mainframe->addCSS(JPATH_SITE.'/includes/js/calendar/calendar-mos.css');
+			$mainframe->addJS(JPATH_SITE.'/includes/js/calendar/calendar_mini.js');
 			$_lang_file = JPATH_BASE.'/includes/js/calendar/lang/calendar-'._LANGUAGE.'.js';
-			$_lang_file = (is_file($_lang_file)) ? $mainframe->getCfg('live_site').'/includes/js/calendar/lang/calendar-'._LANGUAGE.'.js' : $mainframe->getCfg('live_site').'/includes/js/calendar/lang/calendar-ru.js';
+			$_lang_file = (is_file($_lang_file)) ? JPATH_SITE.'/includes/js/calendar/lang/calendar-'._LANGUAGE.'.js' : JPATH_SITE.'/includes/js/calendar/lang/calendar-ru.js';
 			$mainframe->addJS($_lang_file);
 		}
 	}
@@ -5482,10 +5636,10 @@ class mosCommonHTML {
 		if(!defined('_MOO_LOADED')) {
 			define('_MOO_LOADED',1);
 			$mainframe = MosMainFrame::getInstance();
-			$mainframe->addJS($mainframe->getCfg('live_site').'/includes/js/mootools/mootools.js');
+			$mainframe->addJS(JPATH_SITE.'/includes/js/mootools/mootools.js');
 		}
 		if($ret==true)?>
-			<script language="javascript" type="text/javascript" src="<?php echo $config->config_live_site;?>/includes/js/mootools/mootools.js"></script>
+			<script language="javascript" type="text/javascript" src="<?php echo JPATH_SITE?>/includes/js/mootools/mootools.js"></script>
 <?php
 	}
 	/* подключение prettyTable*/
@@ -5493,7 +5647,7 @@ class mosCommonHTML {
 		if(!defined('_PRT_LOADED')) {
 			define('_PRT_LOADED',1);
 			$mainframe = MosMainFrame::getInstance();
-			$mainframe->addJS($mainframe->getCfg('live_site').'/includes/js/jsfunction/jrow.js');
+			$mainframe->addJS(JPATH_SITE.'/includes/js/jsfunction/jrow.js');
 		}
 	}
 	/* подключение Fullajax*/
@@ -5502,10 +5656,10 @@ class mosCommonHTML {
 			define('_FAX_LOADED',1);
 			$mainframe = MosMainFrame::getInstance();
 			if($ret){?>
-				<script language="javascript" type="text/javascript" src="<?php echo $mainframe->getCfg('live_site');?>/includes/js/fullajax/fullajax.js"></script>
+				<script language="javascript" type="text/javascript" src="<?php echo JPATH_SITE;?>/includes/js/fullajax/fullajax.js"></script>
 <?php
 			}else{
-			$mainframe->addJS($mainframe->getCfg('live_site').'/includes/js/fullajax/fullajax.js');
+			$mainframe->addJS(JPATH_SITE.'/includes/js/fullajax/fullajax.js');
 			}
 		}
 	}
@@ -5517,9 +5671,9 @@ class mosCommonHTML {
 			define('_JQUERY_LOADED',1);
 			$mainframe = MosMainFrame::getInstance();
 			if($ret){
-				return '<script language="javascript" type="text/javascript" src="'.$mainframe->getCfg('live_site').'/includes/js/jquery/jquery.js"></script>';
+				return '<script language="javascript" type="text/javascript" src="'.JPATH_SITE.'/includes/js/jquery/jquery.js"></script>';
 			}else{
-				$mainframe->addJS($mainframe->getCfg('live_site').'/includes/js/jquery/jquery.js');
+				$mainframe->addJS(JPATH_SITE.'/includes/js/jquery/jquery.js');
 				return true;
 			}
 		}
@@ -5538,18 +5692,18 @@ class mosCommonHTML {
 		if(!defined($const)) {
 			define($const,1);
 			if($ret){
-			?><script language="javascript" type="text/javascript" src="<?php echo Jconfig::getInstance()->config_live_site;?>/includes/js/jquery/plugins/<?php echo $name; ?>.js"></script>
+			?><script language="javascript" type="text/javascript" src="<?php echo JPATH_SITE;?>/includes/js/jquery/plugins/<?php echo $name; ?>.js"></script>
 			<script language="JavaScript" type="text/javascript">_js_defines.push('<?php echo $name; ?>');</script>
 <?php
 		if($css){
-			?><link type="text/css" rel="stylesheet" href="<?php echo $mainframe->getCfg('live_site');?>/includes/js/jquery/plugins/<?php echo $name; ?>.css" />
+			?><link type="text/css" rel="stylesheet" href="<?php echo JPATH_SITE;?>/includes/js/jquery/plugins/<?php echo $name; ?>.css" />
 <?php
 			}?>
 			<?php }else{
-				$mainframe->addJS($mainframe->getCfg('live_site').'/includes/js/jquery/plugins/'.$name.'.js', $footer);
+				$mainframe->addJS(JPATH_SITE.'/includes/js/jquery/plugins/'.$name.'.js', $footer);
 				$mainframe->addCustomHeadTag('<script language="JavaScript" type="text/javascript">_js_defines.push("'.$name.'");</script>');
 				if($css){
-					$mainframe->addCSS($mainframe->getCfg('live_site').'/includes/js/jquery/plugins/'.$name.'.css');
+					$mainframe->addCSS(JPATH_SITE.'/includes/js/jquery/plugins/'.$name.'.css');
 				}
 			}
 		}
@@ -5561,9 +5715,9 @@ class mosCommonHTML {
 			define('_JQUERY_UI_LOADED',1);
 			$mainframe = &MosMainFrame::getInstance();
 			if($ret){?>
-				<script language="javascript" type="text/javascript" src="<?php echo $mainframe->getCfg('live_site')?>/includes/js/jquery/ui.js"></script>
+				<script language="javascript" type="text/javascript" src="<?php echo JPATH_SITE?>/includes/js/jquery/ui.js"></script>
 			<?php }else{
-				$mainframe->addCSS($mainframe->getCfg('live_site').'/includes/js/jquery/ui.js');
+				$mainframe->addCSS(JPATH_SITE.'/includes/js/jquery/ui.js');
 			}
 		}
 		return true;
@@ -5574,10 +5728,10 @@ class mosCommonHTML {
 		if(!defined('_CODEPRESS_LOADED')) {
 			define('_CODEPRESS_LOADED',1);
 			$mainframe = &MosMainFrame::getInstance();
-			$mainframe->addJS($mainframe->getCfg('live_site').'/includes/js/codepress/codepress.js');
+			$mainframe->addJS(JPATH_SITE.'/includes/js/codepress/codepress.js');
 ?><script language="JavaScript">
 CodePress.run = function() {
-	CodePress.path = '<?php echo $mainframe->getCfg('live_site') ?>/includes/js/codepress/';
+	CodePress.path = '<?php echo JPATH_SITE ?>/includes/js/codepress/';
 	t = document.getElementsByTagName('textarea');
 	for(var i=0,n=t.length;i<n;i++) {
 		if(t[i].className.match('codepress')) {
@@ -5602,8 +5756,8 @@ if(window.attachEvent){
 		if(!defined('_DTR_LOADED')) {
 			define('_DTR_LOADED',1);
 			$mainframe = &MosMainFrame::getInstance();
-			$mainframe->addCSS($mainframe->getCfg('live_site').'/includes/js/dtree/dtree.css');
-			$mainframe->addJS($mainframe->getCfg('live_site').'/includes/js/dtree/dtree.js');
+			$mainframe->addCSS(JPATH_SITE.'/includes/js/dtree/dtree.css');
+			$mainframe->addJS(JPATH_SITE.'/includes/js/dtree/dtree.js');
 		}
 	}
 
@@ -5641,8 +5795,7 @@ if(window.attachEvent){
 	}
 
 	function PublishedProcessing(&$row,$i) {
-		$mainframe = &mosMainFrame::getInstance();
-		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
+		$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
 		$img = $row->published?'publish_g.png':'publish_x.png';
 		$task = $row->published?'unpublish':'publish';
 		$alt = $row->published?_PUBLISHED:_UNPUBLISHED;
@@ -5743,9 +5896,8 @@ if(window.attachEvent){
 	}
 	
 	function get_element($file){
-		$mainframe = &mosMainFrame::getInstance();
 
-		$file_templ = 'templates/'.$mainframe->getTemplate().'/images/elements/'.$file;
+		$file_templ = 'templates/'.JTEMPLATE.'/images/elements/'.$file;
 		$file_system = 'M_images/'.$file;
 
 		$return = $file_templ;
@@ -6483,9 +6635,9 @@ function _check_host() {
 	if (strpos($uri,'/') === 0) {
 		$uri = substr($uri,1);
 	}
-	$realhost = mosgetparam($_SERVER,'SERVER_NAME',$config->config_live_site);
+	$realhost = mosgetparam($_SERVER,'SERVER_NAME',JPATH_SITE);
 
-	preg_match("/^(http:\/\/)?([^\/]+)/i", $config->config_live_site, $matches);
+	preg_match("/^(http:\/\/)?([^\/]+)/i", JPATH_SITE, $matches);
 	$confhost = $matches[2];
 	if (preg_match ("'^www.'si",$confhost) && !preg_match ("'^www.'si",$realhost)){
 		mosredirect(sefRelToAbs($uri));

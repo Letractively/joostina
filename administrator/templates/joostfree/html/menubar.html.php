@@ -505,7 +505,7 @@ if(!class_exists('mosMenuBar')) {
 		*/
 		function media_manager($directory = '',$alt = _TASK_UPLOAD) {
 			global $mainframe;
-			$cur_template = $mainframe->getTemplate();
+			$cur_template = JTEMPLATE;
 ?>
 			<li>
 				<a class="tb-media-manager" href="#" onclick="popupWindow('popups/uploadimage.php?directory=<?php echo $directory; ?>&amp;t=<?php echo $cur_template; ?>','win1',250,100,'no');"><span><?php echo $alt; ?></span></a>

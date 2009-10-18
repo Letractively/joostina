@@ -13,11 +13,16 @@ define('_VALID_MOS',1);
 define('DS', DIRECTORY_SEPARATOR );
 // корень файлов
 define('JPATH_BASE', dirname(dirname(__FILE__)) );
+// корень файлов админкиы
+define('JPATH_BASE_ADMIN', dirname(__FILE__) );
 
 if(!file_exists(JPATH_BASE.DS.'configuration.php')) {
 	header('Location: ../installation/index.php');
 	exit();
 }
+
+// live_site
+define('JPATH_SITE', $mosConfig_live_site );
 
 require_once (JPATH_BASE.DS.'includes/globals.php');
 require_once (JPATH_BASE.DS.'configuration.php');
@@ -27,7 +32,7 @@ require_once (JPATH_BASE.DS.'includes/joomla.php');
 $mosConfig_absolute_path = JPATH_BASE;
 
 $config = &Jconfig::getInstance();
-$config->config_absolute_path = JPATH_BASE;
+
 
 // SSL check - $http_host returns <live site url>:<port number if it is 443>
 $http_host = explode(':',$_SERVER['HTTP_HOST']);
@@ -37,6 +42,10 @@ if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset
 
 $database	= &database::getInstance();
 $mainframe	= &mosMainFrame::getInstance(true);
+
+// получение шаблона страницы
+$cur_template = $mainframe->getTemplate();
+define('JTEMPLATE', $cur_template );
 
 // Проверяем ip адрес: если он находится в стоп-листе и выбрана опция блокировки достутпа в админку, то блокируем доступ
 if(file_exists('./components/com_security/block_access.php')) {
@@ -245,7 +254,7 @@ if(isset($_POST['submit'])) {
 	if($config->config_admin_bad_auth <= $bad_auth_count && (int)$config->config_admin_bad_auth >= 0) {
 		$config->config_captcha = 1;
 	}
-	$path = JPATH_BASE .DS.ADMINISTRATOR_DIRECTORY.DS.'templates'.DS. $mainframe->getTemplate() .DS. 'login.php';
+	$path = JPATH_BASE .DS.ADMINISTRATOR_DIRECTORY.DS.'templates'.DS. JTEMPLATE .DS. 'login.php';
 	require_once ($path);
 	doGzip();
 }

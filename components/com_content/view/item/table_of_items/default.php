@@ -108,7 +108,7 @@ if($params->get('navigation')) {
 <?php } ?>
 <?php foreach ($items as $row) {
 	$row->created = mosFormatDate($row->created, $params->get('date_format'));
-	HTML_content::_Itemid($row); ?>
+	ContentView::_Itemid($row); ?>
 			<tr class="sectiontableentry<?php echo ($k + 1); ?>">
 <?php if($params->get('date')) { ?>
 				<td><?php echo $row->created; ?></td>

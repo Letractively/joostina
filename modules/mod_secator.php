@@ -23,9 +23,8 @@ if(!defined('_SECATOR_INCLUDE')){
 
 			$view_sections	= strval($params->get( 'view_section', 'section_defaults.php' ));
 
-			$config			= &Jconfig::getInstance();
-			$file			= $config->config_absolute_path.DS.'modules'.DS.'mod_secator'.DS.'section'.DS.$view_sections;
-			$file_defaults	= $config->config_absolute_path.DS.'modules'.DS.'mod_secator'.DS.'section'.DS.'section_defaults.php';
+			$file			= JPATH_BASE.DS.'modules'.DS.'mod_secator'.DS.'section'.DS.$view_sections;
+			$file_defaults	= JPATH_BASE.DS.'modules'.DS.'mod_secator'.DS.'section'.DS.'section_defaults.php';
 
 			require is_file($file) ? $file : $file_defaults;
 		}
@@ -35,9 +34,8 @@ if(!defined('_SECATOR_INCLUDE')){
 
 			$view_category	= strval($params->get( 'view_category', 'category_defaults.php' ));
 
-			$config			= &Jconfig::getInstance();
-			$file			= $config->config_absolute_path.DS.'modules'.DS.'mod_secator'.DS.'category'.DS.$view_category;
-			$file_defaults	= $config->config_absolute_path.DS.'modules'.DS.'mod_secator'.DS.'category'.DS.'category_defaults.php';
+			$file			= JPATH_BASE.DS.'modules'.DS.'mod_secator'.DS.'category'.DS.$view_category;
+			$file_defaults	= JPATH_BASE.DS.'modules'.DS.'mod_secator'.DS.'category'.DS.'category_defaults.php';
 
 			require is_file($file) ? $file : $file_defaults;
 		}

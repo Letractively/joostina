@@ -185,7 +185,7 @@ class HTML_contact {
 		global $mosConfig_live_site;
 		global $mainframe,$Itemid;
 
-		$template = $mainframe->getTemplate();
+		$template = JTEMPLATE;
 		$sitename = $mainframe->getCfg('sitename');
 		$hide_js = intval(mosGetParam($_REQUEST,'hide_js',0));
 		

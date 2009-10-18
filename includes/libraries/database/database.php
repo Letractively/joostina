@@ -105,6 +105,8 @@ class database {
 	function &getInstance(){
 		static $instance;
 
+		jd_inc('database::getInstance()');
+
 		if (!is_object( $instance )) {
 			$config = JConfig::getInstance();
 			$instance = new database($config->config_host,$config->config_user,$config->config_password,$config->config_db,$config->config_dbprefix);
@@ -314,8 +316,6 @@ class database {
 			// что бы не приклеивать к каждому объекту простыню из всез запросов - будем писать их в общесистемный лог
 			jd_log($this->_ticker++.'-> '.$this->_sql);
 			jd_inc('database->query->count');
-			//$this->_ticker++;
-			//$this->_log[] = $this->_sql;
 		}
 		$this->_errorNum = 0;
 		$this->_errorMsg = '';

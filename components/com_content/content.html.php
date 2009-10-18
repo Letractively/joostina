@@ -9,7 +9,7 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die(); ?>
 <script type="text/javascript">
-	var _com_content_url = '<?php echo Jconfig::getInstance()->config_live_site; ?>/components/com_content';
+	var _com_content_url = '<?php echo JPATH_SITE; ?>/components/com_content';
 	var _comcontent_ajax_handler = 'ajax.index.php?option=com_content';
 	var _comcontent_defines = new Array();
 </script>
@@ -18,7 +18,7 @@ defined('_VALID_MOS') or die(); ?>
  * @package Joostina
  * @subpackage Content
  */
-class HTML_content {
+class ContentView {
 	/**
 	 * Draws a Content List
 	 * Used by Content Category & Content Section
@@ -27,10 +27,9 @@ class HTML_content {
 		global $Itemid;
 
 		$database = &database::getInstance();
-		$config = &Jconfig::getInstance();
 
 		if(!$user_items) {
-			include_once ($config->config_absolute_path.'/components/com_content/view/user/items/default.php');
+			include_once (JPATH_BASE.'/components/com_content/view/user/items/default.php');
 			return;
 		}
 
@@ -53,7 +52,7 @@ class HTML_content {
 			$page_link = 'index.php?option=com_content&amp;task=user_content&amp;id='.$user_id.'&amp;Itemid='.$Itemid.'&amp;order='.$order;
 		}
 
-		include_once ($config->config_absolute_path.'/components/com_content/view/user/items/default.php');
+		include_once (JPATH_BASE.'/components/com_content/view/user/items/default.php');
 
 	}
 
@@ -63,8 +62,6 @@ class HTML_content {
 		$id = $section->id;
 		$categories_exist = $section->categories_exist;
 		$categories = $section->content;
-
-		$config = &Jconfig::getInstance();
 
 		$items = $section->content;
 		$gid = $my->gid;
@@ -91,7 +88,7 @@ class HTML_content {
 		}
 
 		if($params->get('description_sec_image') && $section->image) {
-			$link = $config->config_live_site.'/images/stories/'.$section->image;
+			$link = JPATH_SITE.'/images/stories/'.$section->image;
 			$title_image = '<img class="desc_img" src="'.$link.'" align="'.$section->image_position.'"  alt="'.$section->image.'" />';
 		}
 
@@ -135,10 +132,10 @@ class HTML_content {
 		$order = $params->get('selected');
 		$sfx = $params->get('pageclass_sfx');
 
-		if($params->get('date') == '' && JConfig::getInstance()->config_showCreateDate == 1) {
+		if($params->get('date') == '' && $config->config_showCreateDate == 1) {
 			$params->set('date', 1);
 		}
-		if($params->get('author') == '' && JConfig::getInstance()->config_showAuthor == 1) {
+		if($params->get('author') == '' && $config->config_showAuthor == 1) {
 			$params->set('author', 1);
 		}
 
@@ -163,7 +160,7 @@ class HTML_content {
 		}
 
 		if($params->get('description_image') && $title->image) {
-			$link = $config->config_live_site.'/images/stories/'.$title->image;
+			$link = JPATH_SITE.'/images/stories/'.$title->image;
 			$title_image = '<img class="desc_img" src="'.$link.'" align="'.$title->image_position.'"  alt="'.$title->image.'" />';
 		}
 
@@ -187,7 +184,6 @@ class HTML_content {
 			$templates = $params->category_data->templates;
 			//include_once(JPATH_BASE.'/components/com_content/view/category/table/default.php');
 		}
-
 
 		mosMainFrame::addLib('pageNavigation');
 		$pageNav = new mosPageNav($obj->total, $params->get('limitstart'), $params->get('limit'));
@@ -223,7 +219,7 @@ class HTML_content {
 
 		if($show && isset($rows[$i])) { ?>
 			<div class="more_items">
-				<strong><?php echo _MORE; ?></strong>		
+				<strong><?php echo _MORE; ?></strong>
 		<ul class="more_items">
 		<?php for ($z = 0; $z < $links; $z++) {
 			if(!isset($rows[$i])) {
@@ -286,15 +282,15 @@ class HTML_content {
 		}
 
 		// расчет Itemid
-		HTML_content::_Itemid($row);
+		ContentView::_Itemid($row);
 		// determines the link and `link text` of the readmore button & linked title
-		HTML_content::_linkInfo($row, $params);
+		ContentView::_linkInfo($row, $params);
 
 		// link used by print button
-		$print_link = $mainframe->getCfg('live_site').'/index2.php?option=com_content&amp;task=view&amp;id='.$row->id.'&amp;pop=1&amp;page='.$page.$row->Itemid_link;
-		$readmore = mosContent::ReadMore($row, $params);
+		$print_link = JPATH_SITE.'/index2.php?option=com_content&amp;task=view&amp;id='.$row->id.'&amp;pop=1&amp;page='.$page.$row->Itemid_link;
+		$readmore = ContentView::ReadMore($row, $params);
 
-		$row->title = HTML_content::Title($row, $params, $access);
+		$row->title = ContentView::Title($row, $params, $access);
 
 		// обработка контента ботами, если в глобальной конфигурации они отключены - то мамботы не используем
 		if($mainframe->getCfg('mmb_content_off') != 1) {
@@ -343,7 +339,7 @@ class HTML_content {
 			$_template = $params->get('page_type').'='.$_template; 
 			$template->set_template($params->get('page_type'), $_template);
 			include ($template->template_file);
-			//include ($mainframe->getCfg('absolute_path').'/components/com_content/view/item/'.$template);
+			//include (JPATH_BASE.'/components/com_content/view/item/'.$template);
 		}
 		//иначе - это страница записи и нужно определить, какой шаблон  использовать для вывода
 		else {
@@ -432,11 +428,6 @@ class HTML_content {
 	 */
 	function Title(&$row, &$params, &$access = null) {
 		global $task;
-		
-		$my_func = new myFunctions('Title', array('row'=>$row, 'params'=>$params, 'access'=>$access));
-		if($my_func->check_user_function()){
-			return $my_func->start_user_function();
-		};
 
 		if($params->get('item_title')) {
 
@@ -505,7 +496,7 @@ class HTML_content {
 				$_Itemid = '';
 			}
 
-			$link = Jconfig::getInstance()->config_live_site.'/index2.php?option=com_content&amp;task=emailform&amp;id='.$row->id.$_Itemid;
+			$link = JPATH_SITE.'/index2.php?option=com_content&amp;task=emailform&amp;id='.$row->id.$_Itemid;
 
 			if($params->get('icons')) {
 				$image = mosAdminMenus::ImageCheck('emailButton.png', '/images/M_images/', null, null, _EMAIL, 'email'.$cne_i);
@@ -527,10 +518,10 @@ class HTML_content {
 <?php }
 
 		// displays Section Name
-		HTML_content::Section($row, $params);
+		ContentView::Section($row, $params);
 
 		// displays Section Name
-		HTML_content::Category($row, $params);
+		ContentView::Category($row, $params);
 
 		if($params->get('section') || $params->get('category')) { ?>
 				</td>
@@ -616,12 +607,12 @@ class HTML_content {
 	/**
 	 * Writes Readmore Button
 	 */
-	function ReadMore(&$row, &$params) {
-		if($params->get('readmore')) {
-			if($params->get('intro_only') && $row->link_text) {
-				?><a href="<?php echo $row->link_on; ?>" title="<?php echo $row->title; ?>" class="readon"><?php echo $row->link_text; ?></a><?php
-			}
+	function ReadMore(&$row, &$params, $template = ''){
+		$return = '';
+		if ($params->get('readmore',0) && $params->get('intro_only',0) && $row->link_text){
+			$return = '<a href="' . $row->link_on . '" title="' . $row->title . '" class="readon">' . $row->link_text . '</a>';
 		}
+		return $return;
 	}
 
 	/**
@@ -691,7 +682,7 @@ class HTML_content {
 		mosCommonHTML::loadJqueryPlugins('jquery.validate');
 		mosCommonHTML::loadCalendar();
 
-		require_once ($mainframe->getCfg('absolute_path').DS.'includes/HTML_toolbar.php');
+		require_once (JPATH_BASE.DS.'includes/HTML_toolbar.php');
 		$s_id = mosGetParam($_REQUEST, 'section', 0);
 		// used for spoof hardening
 		$validate = josSpoofValue();
@@ -741,7 +732,7 @@ class HTML_content {
 
 		//Если это редактирование статичного содержимого - подключаем шаблон item/edit/static.php
 		if($task == 'edit' && $row->sectionid == 0) {
-			include ($mainframe->getCfg('absolute_path').DS.'components/com_content/view/item/edit/static.php');
+			include (JPATH_BASE.DS.'components/com_content/view/item/edit/static.php');
 			return;
 		}else { //иначе - проверяем, задан ли шаблон в настройках раздела
 			$template = new ContentTemplate();

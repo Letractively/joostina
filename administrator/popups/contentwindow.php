@@ -38,7 +38,7 @@ $css = mosGetParam($_REQUEST,'t','');
 
 // css file handling
 // check to see if template exists
-if($css != '' && is_file($mainframe->getCfg('absolute_path').DS.'templates'.DS.$css.'/css/template_css.css')) {
+if($css != '' && is_file(JPATH_BASE.DS.'templates'.DS.$css.'/css/template_css.css')) {
 	$css = $css;
 } else{
 	if($css == '') {

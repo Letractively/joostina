@@ -78,7 +78,7 @@ function JP_GetFileList() {
 	global $JPConfiguration;
 	
 	$mainframe = &mosMainFrame::getInstance();
-	$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
+	$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
 
 	require_once 'engine.abstraction.php';
 	$FS = new CFSAbstraction();

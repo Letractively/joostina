@@ -12,8 +12,6 @@
 // запрет прямого доступа
 defined( '_VALID_MOS' ) or die();
 
-global $mosConfig_live_site;
-
 $rotate_type		= $params->get( 'rotate_type', 0 );
 $img_pref			= $params->get( 'img_pref', '' );
 $type			    = $params->get( 'type', 'jpg' );
@@ -43,8 +41,8 @@ if($s_autoplay){
 
 
 // if folder includes livesite info, remove
-if ( strpos($folder, $mosConfig_live_site) === 0 ) {
-	$folder = str_replace( $mosConfig_live_site, '', $folder );
+if ( strpos($folder,JPATH_SITE) === 0 ) {
+	$folder = str_replace( JPATH_SITE, '', $folder );
 }
 // if folder includes absolute path, remove
 if ( strpos($folder, JPATH_BASE) === 0 ) {
@@ -105,7 +103,7 @@ if (is_dir($abspath_folder)) {
     		    $height = (int) ($width/$coeff);
     	    }
 
-            $image = $mosConfig_live_site . $folder . '/' . $v;
+            $image = JPATH_SITE . $folder . '/' . $v;
 
             if(!$rotate_type){
                 break;
@@ -145,7 +143,7 @@ if (is_dir($abspath_folder)) {
 				}else{
 					$pics_str = implode(',', $pics);
 					mosCommonHTML::loadJqueryPlugins('jquery.simplegallery',1);
-					include (Jconfig::getInstance()->config_absolute_path.'/modules/mod_random_image/slide_show.php');
+					include (JPATH_BASE.'/modules/mod_random_image/slide_show.php');
 ?>
 					<div id="<?php echo $slideshow_name;?>"></div>
 <?php

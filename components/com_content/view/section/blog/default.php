@@ -17,7 +17,7 @@ defined('_VALID_MOS') or die(); ?>
 <?php if($display_desc) { ?>
 				<div class="contentdescription">
 <?php if($display_desc_img) { ?>
-					<img src="<?php echo $mainframe->getCfg('live_site'); ?>/images/stories/<?php echo $obj->image; ?>" align="<?php echo $obj->image_position; ?>"  alt="" />
+					<img src="<?php echo JPATH_SITE; ?>/images/stories/<?php echo $obj->image; ?>" align="<?php echo $obj->image_position; ?>"  alt="" />
 <?php } ?>
 <?php if($display_desc_text) { ?>
 					<p> <?php echo $obj->description; ?> </p>
@@ -75,7 +75,7 @@ defined('_VALID_MOS') or die(); ?>
 <?php } ?>
 <?php if($display_blog_more) { ?>
 			<div class="blog_more">
-				<?php HTML_content::showLinks($rows, $links, $total, $i, $showmore); ?>
+				<?php ContentView::showLinks($rows, $links, $total, $i, $showmore); ?>
 			</div>
 <?php } ?>
 <?php if($display_pagination) {

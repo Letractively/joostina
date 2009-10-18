@@ -13,8 +13,8 @@ defined( '_VALID_MOS' ) or die( 'Restricted Access.' );
 
 $version = "1.1.3";
 
-require_once( $mainframe->getCfg('absolute_path') . '/mambots/editors/jce/jscripts/tiny_mce/libraries/classes/jce.class.php' );
-require_once( $mainframe->getCfg('absolute_path') . '/mambots/editors/jce/jscripts/tiny_mce/libraries/classes/jce.utils.class.php' );
+require_once( JPATH_BASE . '/mambots/editors/jce/jscripts/tiny_mce/libraries/classes/jce.class.php' );
+require_once( JPATH_BASE . '/mambots/editors/jce/jscripts/tiny_mce/libraries/classes/jce.utils.class.php' );
 
 $jce = new JCE();
 $jce->setPlugin('imgmanager');

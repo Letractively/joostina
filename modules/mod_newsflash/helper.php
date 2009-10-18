@@ -12,10 +12,17 @@ defined( '_VALID_MOS' ) or die();
 
 
 class mod_newsflash_Helper{
+	
+	var $_mainframe = null;
+	
+	function mod_newsflash_Helper($mainframe){
+		
+		$this->_mainframe = $mainframe;	
+		$this->_mainframe->addLib('text');
+		$this->_mainframe->addLib('images');
+	}
 
     function prepare_row($row, $params){
-    	
-		mosMainFrame::getInstance()->addLib('text');
 
         if($params->get('Itemid', '29')){
             $row->Itemid_link = '&amp;Itemid='.$params->get('Itemid');
@@ -26,7 +33,7 @@ class mod_newsflash_Helper{
 
         $row->link_on = sefRelToAbs('index.php?option=com_content&amp;task=view&amp;id='.$row->id.$row->Itemid_link);
         $row->link_text = $params->get('link_text', _READ_MORE);
-        $readmore = mosContent::ReadMore($row,$params);
+        $readmore = ContentView::ReadMore($row,$params);
 
         $text = Text::simple_clean($row->introtext); 		
         
@@ -49,8 +56,7 @@ class mod_newsflash_Helper{
 
         $row->image = '';
         if($params->get('image')){
-            mosMainFrame::getInstance()->addLib('images');
-            $text_with_image = $row->introtext.$row->fulltext;
+            $text_with_image = $row->introtext;
             if($params->get('image')=='mosimage'){
                 $text_with_image = $row->images;
             }
@@ -63,10 +69,12 @@ class mod_newsflash_Helper{
         }
 
         $row->author =  mosContent::Author($row,$params);
-        $row->title = HTML_content::Title($row,$params);
+        $row->title = ContentView::Title($row,$params);
         $row->text = $text;
         $row->readmore = $readmore;
 
         return $row;
+        
+        unset($row);
     }
 }

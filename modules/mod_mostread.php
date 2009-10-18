@@ -10,7 +10,7 @@
 // запрет прямого доступа
 defined( '_VALID_MOS' ) or die();
 
-global $mosConfig_offset, $mosConfig_live_site,$my,$moduleclass_sfx;
+global $mosConfig_offset,$my,$moduleclass_sfx;
 
 $type		= intval( $params->get( 'type', 1 ) );
 $count		= intval( $params->get( 'count', 5 ) );

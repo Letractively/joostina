@@ -54,7 +54,7 @@ function UserContacts_output($user){
 	</div>
 	<!--Сыылка, по нажатию на которую, появляется всплывающее окно с формой отправки сообщения -->
 	<span class="email">
-		<a class="fancy_inline email" href="<?php echo $mainframe->getCfg('live_site');?>/<?php echo $ajax_handler;?>&act=display_form&user_id=<?php echo $user->id;?>">
+		<a class="fancy_inline email" href="<?php echo JPATH_SITE;?>/<?php echo $ajax_handler;?>&act=display_form&user_id=<?php echo $user->id;?>">
 			<?php echo BOT_USER_CONTACTS_SEND_MESSAGE?>
 		</a>
 	</span>

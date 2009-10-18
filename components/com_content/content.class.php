@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @package Joostina
  * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
@@ -672,11 +671,6 @@ class mosContent extends mosDBTable{
 	}
 
 	function get_item($id){
-		
-		$my_func = new myFunctions('get_item', array('id'=>$id));
- 		if($my_func->check_user_function()){
- 			return $my_func->start_user_function();
-   		};
 
 		$sql = 'SELECT item.*,
 				s.name AS section_name, s.params AS section_params, s.templates as s_templates,
@@ -696,11 +690,6 @@ class mosContent extends mosDBTable{
 	}
 
 	function _load_user_items($user_id, $params){
-		
-		$my_func = new myFunctions('_load_user_items', array('user_id'=>$user_id, 'params'=>$params));
-		if($my_func->check_user_function()){
-			return $my_func->start_user_function();
-		};
 
 		$orderby = strval(mosGetParam($_REQUEST,'order',''));
 		if (!$orderby) {
@@ -753,11 +742,6 @@ class mosContent extends mosDBTable{
 	}
 
 	function _get_count_user_items($user_id, $params){
-		
-		$my_func = new myFunctions('_get_count_user_items', array('user_id'=>$user_id, 'params'=>$params));
-		if($my_func->check_user_function()){
-			return $my_func->start_user_function();
-		};
 
 		// filter functionality
 		$and = '';
@@ -853,13 +837,8 @@ class mosContent extends mosDBTable{
 	function get_prev_next($row, $where, $access, $params){
 		global $gid;
 
-		$my_func = new myFunctions('get_prev_next', array('row'=>$row, 'where'=>$where, 'params'=>$params, 'access'=>$access));
-		if($my_func->check_user_function()){
-			return $my_func->start_user_function();
-		};
-
 		$mainframe = &mosMainFrame::getInstance();
-		$database = &database::getInstance();
+		$database = &$mainframe->_db;
 
 		// Paramters for menu item as determined by controlling Itemid
 
@@ -870,7 +849,7 @@ class mosContent extends mosDBTable{
 		}
 		
 		$menu = $mainframe->get('menu');
- 		$mparams = new mosParameters($menu->params);
+		$mparams = new mosParameters($menu->params);
 		// the following is needed as different menu items types utilise a different param to control ordering
 		// for Blogs the `orderby_sec` param is the order controlling param
 		// for Table and List views it is the `orderby` param
@@ -990,7 +969,7 @@ class mosContent extends mosDBTable{
 */
 		$link = 'index.php?option=com_content&amp;task=edit&amp;id=' . $row->id . $row->Itemid_link . '&amp;Returnid=' . $row->_Itemid;
 		$image = mosCommonHTML::get_element('edit.png');
-		$image = Jconfig::getInstance()->config_live_site.'/'.$image;
+		$image = JPATH_SITE.'/'.$image;
 
 		if ($row->state == 0){
 			$info = _UNPUBLISHED;
@@ -1025,11 +1004,6 @@ class mosContent extends mosDBTable{
 	}
 
 	function _load_blog_section($section, $params, $access){
-		
-		$my_func = new myFunctions('_load_blog_section', array('category'=>$section, 'params'=>$params, 'access'=>$access));
-		if($my_func->check_user_function()){
-			return $my_func->start_user_function();
-		};
 
 		// voting control
 		$voting = new contentVoiting($params);
@@ -1072,11 +1046,6 @@ class mosContent extends mosDBTable{
 	}
 
 	function _get_result_blog_section($section, $params, $access){
-		
-		$my_func = new myFunctions('_get_result_blog_section', array('section'=>$section, 'params'=>$params, 'access'=>$access));
-		if($my_func->check_user_function()){
-			return $my_func->start_user_function();
-		};
 
 		$where = contentSqlHelper::construct_where_blog(1, $section, $access, $params);
 		$where = (count($where) ? "\n WHERE " . implode("\n AND ", $where) : '');
@@ -1091,11 +1060,6 @@ class mosContent extends mosDBTable{
 	}
 
 	function _load_blog_category($category, $params, $access){
-		
-		$my_func = new myFunctions('_load_blog_category', array('category'=>$category, 'params'=>$params, 'access'=>$access));
- 		if($my_func->check_user_function()){
- 			return $my_func->start_user_function();
-   		};
 
 		// voting control
 		$voting = new contentVoiting($params);
@@ -1132,11 +1096,6 @@ class mosContent extends mosDBTable{
 	}
 
 	function _get_result_blog_category($category, $params, $access){
-		
-		$my_func = new myFunctions('_get_result_blog_category', array('category'=>$category, 'params'=>$params, 'access'=>$access));
-		if($my_func->check_user_function()){
-			return $my_func->start_user_function();
-		};
 
 		$where = contentSqlHelper::construct_where_blog(2, $category, $access, $params);
 		$where = (count($where) ? "\n WHERE " . implode("\n AND ", $where) : '');
@@ -1152,12 +1111,7 @@ class mosContent extends mosDBTable{
 	}
 
 	function _get_result_archive_section($section, $params, $access){
-		
-		$my_func = new myFunctions('_get_result_archive_section', array('section'=>$section, 'params'=>$params, 'access'=>$access));
-		if($my_func->check_user_function()){
-			return $my_func->start_user_function();
-		};
-		
+
 		$where = contentSqlHelper::construct_where_blog(-1, $section, $access, $params);
 		$where = (count($where) ? " WHERE " . implode(" AND ", $where) : '');
 
@@ -1170,11 +1124,6 @@ class mosContent extends mosDBTable{
 	}
 
 	function _load_archive_section($section, $params, $access){
-		
-		$my_func = new myFunctions('_load_archive_section', array('section'=>$section, 'params'=>$params, 'access'=>$access));
-		if($my_func->check_user_function()){
-			return $my_func->start_user_function();
-		};
 
 		// voting control
 		$voting = new contentVoiting($params);
@@ -1212,11 +1161,6 @@ class mosContent extends mosDBTable{
 	}
 
 	function _get_result_blog_archive_category($category, $params, $access){
-		
-		$my_func = new myFunctions('_get_result_blog_archive_category', array('category'=>$category, 'params'=>$params, 'access'=>$access));
- 		if($my_func->check_user_function()){
- 			return $my_func->start_user_function();
-   		};
 
 		$where = contentSqlHelper::construct_where_blog(-2, $category, $access, $params);
 		$where = (count($where) ? "\n WHERE " . implode("\n AND ", $where) : '');
@@ -1231,11 +1175,6 @@ class mosContent extends mosDBTable{
 	}
 
 	function _load_blog_archive_category($category, $params, $access){
-		
-		$my_func = new myFunctions('_load_blog_archive_category', array('category'=>$category, 'params'=>$params, 'access'=>$access));
- 		if($my_func->check_user_function()){
- 			return $my_func->start_user_function();
-   		};
 
 		// voting control
 		$voting = new contentVoiting($params);
@@ -1274,11 +1213,6 @@ class mosContent extends mosDBTable{
 
 	function _load_table_category($category, $params, $access){
 		global $my;
-		
-		$my_func = new myFunctions('_load_table_category', array('category'=>$category, 'params'=>$params, 'access'=>$access));
- 		if($my_func->check_user_function()){
- 			return $my_func->start_user_function();
-   		};
 
 		//Дополнительные условия
 		$xwhere = contentSqlHelper::construct_where_table_category($category, $access, $params);
@@ -1304,13 +1238,7 @@ class mosContent extends mosDBTable{
 	}
 
 	function _get_result_table_category($category, $params, $access){
-		
-		$my_func = new myFunctions('_get_result_table_category', array('category'=>$category, 'params'=>$params, 'access'=>$access));
- 		if($my_func->check_user_function()){
- 			return $my_func->start_user_function();
-   		};
-   		
-   		
+
 		$xwhere = contentSqlHelper::construct_where_table_category($category, $access, $params);
 		$and = contentSqlHelper::construct_filter_table_category($category, $access, $params);
 
@@ -1326,11 +1254,6 @@ class mosContent extends mosDBTable{
 
 
 	function _load_frontpage($params, $access){
-		
-		$my_func = new myFunctions('_load_frontpage', array('params'=>$params, 'access'=>$access));
- 		if($my_func->check_user_function()){
- 			return $my_func->start_user_function();
-   		};
 
 		// voting control
 		$voting = new contentVoiting($params);
@@ -1368,11 +1291,6 @@ class mosContent extends mosDBTable{
 	}
 
 	function _get_result_frontpage($params, $access){
-		
-		$my_func = new myFunctions('_get_result_frontpage', array('params'=>$params, 'access'=>$access));
-		if($my_func->check_user_function()){
-			return $my_func->start_user_function();
-		};
 
 		$where = contentSqlHelper::construct_where_blog(1, null, $access, $params);
 		$where = (count($where) ? "\n WHERE " . implode("\n AND ", $where) : '');
@@ -1514,7 +1432,7 @@ class contentVoiting{
 
 class contentHelper{
 	function _load_core_js(){
-		mosMainFrame::getInstance()->addJS(Jconfig::getInstance()->config_live_site.'/components/com_content/js/com_content.js','custom');
+		mosMainFrame::getInstance()->addJS(JPATH_SITE.'/components/com_content/js/com_content.js','custom');
 	}
 }
 
@@ -1865,11 +1783,9 @@ class ContentTemplate{
 	}
 
 	function set_template($page_type, $templates = null){
-		$config = &Jconfig::getInstance();
-		$absolute_path = Jconfig::getInstance()->config_absolute_path;
 
 		$this->page_type = $page_type;
-		$this->template_dir = self::get_system_path($this->page_type);		
+		$this->template_dir = self::get_system_path($this->page_type);
 		$this->template_file = 'default.php';
 	
 		//если найдены записи о шаблонах
@@ -1889,32 +1805,29 @@ class ContentTemplate{
 					default:
 						break;
 				}
-				if (is_file($absolute_path . DS . $this->template_dir . DS . $template_file)){
-					$this->template_file = $absolute_path . DS . $this->template_dir . DS . $template_file;
+				if (is_file(JPATH_BASE . DS . $this->template_dir . DS . $template_file)){
+					$this->template_file = JPATH_BASE . DS . $this->template_dir . DS . $template_file;
 				}
 			}
 			
 			
 		}
 		//смотрим, что у нас в глобальной конфигурации сказано по поводу размещения шаблонов по-умолчанию 
-		else if($config->config_global_templates==1){ 
-			
-			if (is_file($absolute_path . DS . self::get_currtemplate_path($page_type) . DS . $this->template_file)){
-				$this->template_file = $absolute_path . DS . self::get_currtemplate_path($page_type) . DS . $this->template_file;
+		else if(Jconfig::getInstance()->config_global_templates==1){
+			if (is_file(JPATH_BASE . DS . self::get_currtemplate_path($page_type) . DS . $this->template_file)){
+				$this->template_file = JPATH_BASE . DS . self::get_currtemplate_path($page_type) . DS . $this->template_file;
 			}
 			else{
-				$this->template_file = $absolute_path . DS . $this->template_dir . DS . $this->template_file;	
+				$this->template_file = JPATH_BASE . DS . $this->template_dir . DS . $this->template_file;
 			}
 			
 				
 		}
 		//шаблон мы так и не нашли, так что цепляем что-нибудь по-умолчанию
 		else{
-			$this->template_file = $absolute_path . DS . $this->template_dir . DS . $this->template_file;				
+			$this->template_file = JPATH_BASE . DS . $this->template_dir . DS . $this->template_file;
 		}
-	
 	}
-
 
 	function get_system_path($page_type){
 		$template_dir = self::get_template_dir($page_type);
@@ -1923,10 +1836,9 @@ class ContentTemplate{
 	}
 
 	function get_currtemplate_path($page_type){
-		$mainframe = new mosMainFrame(null, null, null, false);
 
 		$template_dir = self::get_template_dir($page_type);
-		$currtemplate_path = 'templates'.DS.$mainframe->getTemplate().DS.'html'.DS.'com_content'.DS.$template_dir;
+		$currtemplate_path = 'templates'.DS.JTEMPLATE.DS.'html'.DS.'com_content'.DS.$template_dir;
 		return $currtemplate_path;
 	}
 
@@ -1935,10 +1847,9 @@ class ContentTemplate{
 
 		$system_path = self::get_system_path($page_type);
 		$currtemplate_path = self::get_currtemplate_path($page_type);
-		$absolute_path = Jconfig::getInstance()->config_absolute_path;
 
-		$files_system = mosReadDirectory($absolute_path . DS . $system_path, '\.php$');
-		$files_from_currtemplate = mosReadDirectory($absolute_path. DS . $currtemplate_path, '\.php$');
+		$files_system = mosReadDirectory(JPATH_BASE . DS . $system_path, '\.php$');
+		$files_from_currtemplate = mosReadDirectory(JPATH_BASE. DS . $currtemplate_path, '\.php$');
 
 		$options = array();
 		$options[] = mosHTML::makeOption('0', _DEFAULT);

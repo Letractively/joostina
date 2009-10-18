@@ -21,27 +21,27 @@ $params_aray = array( //-------------------------------Основные наст
 
 $output = '';
 
-display_module($params_aray);
+display_module($params_aray,$database);
 
 unset($params_aray);
 
-function display_module($params_aray) {
+function display_module($params_aray,$database) {
 	echo '<div class="mod_who_online">';
 
 	if($params_aray['all_user']) {
-		$all_user = '<span>'._REGISTERED_USERS_COUNT.':</span> ' . all_user();
+		$all_user = '<span>'._REGISTERED_USERS_COUNT.':</span> ' . all_user($database);
 	} else {
 		$all_user = '';
 	}
 
 	if($params_aray['online_user_count'] !== '2') {
-		$count_online = '<span>Online:</span> ' . online_users($params_aray);
+		$count_online = '<span>Online:</span> ' . online_users($params_aray,$database);
 	} else {
 		$count_online = '';
 	}
 
 	if($params_aray['online_users']) {
-		$online_users = who_online($params_aray);
+		$online_users = who_online($params_aray,$database);
 	} else {
 		$online_users = '';
 	}
@@ -66,8 +66,7 @@ function display_module($params_aray) {
 
 }
 
-function online_users($params_aray) {
-	$database = &database::getInstance();
+function online_users($params_aray,$database) {
 
 	$output = '';
 	$query = "SELECT guest, usertype FROM #__session";
@@ -126,10 +125,7 @@ function online_users($params_aray) {
 }
 
 
-function who_online($params_aray) {
-	global $mosConfig_live_site;
-
-	$database = &database::getInstance();
+function who_online($params_aray,$database) {
 
 	$output = '';
 	$query = "SELECT a.username, a.userid, b.name, b.id FROM #__session AS a, #__users AS b WHERE a.guest = 0 AND a.userid=b.id";
@@ -155,7 +151,7 @@ function who_online($params_aray) {
 			}
 			$user_link = 'index.php?option=com_users&amp;task=Profile&amp;user=' . $row->userid;
 			$user_seflink = '<a href="' . sefRelToAbs($user_link) . '">' . $user_name . '</a>';
-			$avatar = '<img id="user_avatar_img" src="' . $mosConfig_live_site . mosUser::avatar($row->userid, 'mini') . '" alt="' . $user_name . '"/>';
+			$avatar = '<img id="user_avatar_img" src="' . JPATH_SITE . mosUser::avatar($row->userid, 'mini') . '" alt="' . $user_name . '"/>';
 			$avatar_link = '<a href="' . sefRelToAbs($user_link) . '">' . $avatar . '</a>';
 			if($params_aray['user_avatar'] == '1') {
 				$user_item = $avatar_link . $user_seflink;
@@ -176,8 +172,7 @@ function who_online($params_aray) {
 }
 
 
-function all_user() {
-	$database = &database::getInstance();
+function all_user($database) {
 
 	$q = "SELECT COUNT(id) FROM #__users WHERE block = '0' ";
 	$database->setQuery($q);

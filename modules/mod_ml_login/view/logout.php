@@ -9,15 +9,12 @@
 
 // запрет прямого доступа
 defined( '_VALID_MOS' ) or die();
-$mainframe = &mosMainFrame::getInstance(); global $my;
 $module->helper->prepare_logout_form($params); ?>
-    
-    
 	<form action="<?php echo $params->_action; ?>" method="post" name="logout">
 		<div class="mod_ml_login logout">
 	
 			<?php if($params->get('ml_avatar',1)){ ?>
-			<img class="avatar" src="<?php echo $mainframe->getCfg('live_site');?>/<?php echo mosUser::get_avatar($my);?>" alt="<?php echo $params->_user_name;?>"/>
+			<img class="avatar" src="<?php echo JPATH_SITE;?>/<?php echo mosUser::get_avatar($my);?>" alt="<?php echo $params->_user_name;?>"/>
 			<?php } ?>
 			
 			<?php if ($params->get('greeting', 1)) { ?>
@@ -36,5 +33,4 @@ $module->helper->prepare_logout_form($params); ?>
 		<input type="hidden" name="lang" value="<?php echo $mainframe->getCfg('lang'); ?>" />
 		<input type="hidden" name="return" value="<?php echo sefRelToAbs($params->get('logout',$params->_returnUrl)); ?>" />
 		<input type="hidden" name="message" value="<?php echo $params->get('logout_message',''); ?>" />
-	
 	</form>

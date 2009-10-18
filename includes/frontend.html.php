@@ -1,6 +1,6 @@
 <?php
 /**
-* @version $Id: frontend.html.php 5132 2006-09-22 15:59:38Z friesengeist $
+* @version $Id: module.php 5132 2006-09-22 15:59:38Z friesengeist $
 * @package Joostina
 * @localized Авторские права (C) 2005 Joom.Ru - Русский дом Joomla!
 * @copyright Авторские права (C) 2005 Open Source Matters. Все права защищены.
@@ -8,11 +8,9 @@
 * Joomla! - свободное программное обеспечение. Эта версия может быть изменена
 * в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
 * её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных 
+* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
 * программ или программ с открытым исходным кодом.
 * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-* 
-* @translator Oleg A. Myasnikov aka Sourpuss (sourpuss@mail.ru)
 */
 
 // запрет прямого доступа
@@ -23,13 +21,19 @@ defined('_VALID_MOS') or die();
 */
 class modules_html {
 
+	var $_mainframe = null;
+
+	function modules_html($mainframe){
+		$this->_mainframe = $mainframe;
+	}
+
 	/*
 	* Output Handling for Custom modules
 	*/
 	function module(&$module,&$params,$Itemid,$style = 0) {
 		global $_MAMBOTS;
 
-		$database = &database::getInstance();
+		$database = $this->_mainframe->_db;
 
 		// custom module params
 		$moduleclass_sfx = $params->get('moduleclass_sfx');
@@ -52,9 +56,9 @@ class modules_html {
 			$results = $_MAMBOTS->trigger('onPrepareContent',array(&$row,&$params,0),true);
 
 			$module->content = $row->text;
-		}		
+		}
 
-		$module = mosModule::convert_to_object($module);
+		$module = mosModule::convert_to_object($module, $this->_mainframe);
 		switch($style) {
 			case - 3:
 				// allows for rounded corners
@@ -86,7 +90,7 @@ class modules_html {
 	* @param int -1=show without wrapper and title, -2=xhtml style
 	*/
 	function module2(&$module,&$params,$Itemid,$style = 0,$count = 0) {
-		$config = &Jconfig::getInstance();
+		$config = $this->_mainframe->get('config');
 
 		$moduleclass_sfx = $params->get('moduleclass_sfx');
 
@@ -100,7 +104,7 @@ class modules_html {
 			$number = '<span>'.$count.'</span> ';
 		}
 
-		$module = mosModule::convert_to_object($module);
+		$module = mosModule::convert_to_object($module, $this->_mainframe);
 
 		switch($style) {
 			case - 3:
@@ -127,7 +131,7 @@ class modules_html {
 
 	// feed output
 	function modoutput_feed(&$module,&$params,$moduleclass_sfx) {
-		$config = &Jconfig::getInstance();
+		$config = $this->_mainframe->get('config');
 
 		// check if cache directory is writeable
 		$cacheDir = $config->config_cachepath.DS;
@@ -289,8 +293,9 @@ class modules_html {
 	*/
 	function modoutput_table($module,$params,$Itemid,$moduleclass_sfx,$type = 0) {
 		global $my;
-		$database = &database::getInstance();
-		$mainframe = &mosMainFrame::getInstance();
+
+		$mainframe = $this->_mainframe;
+		$database = $this->_mainframe->_db;
 
 ?>
 		<table cellpadding="0" cellspacing="0" class="moduletable<?php echo $moduleclass_sfx; ?>">
@@ -309,7 +314,7 @@ class modules_html {
 		if($type) {
 			modules_html::CustomContent($module,$params);
 		} else {
-			include ($mainframe->getCfg('absolute_path').DS.'modules'.DS.$module->module.'.php');
+			include (JPATH_BASE.DS.'modules'.DS.$module->module.'.php');
 
 			if(isset($content)) {
 				echo $content;
@@ -328,13 +333,13 @@ class modules_html {
 	function modoutput_naked($module,$params,$Itemid,$moduleclass_sfx,$type = 0) {
 		global $my;
 
-		$database = &database::getInstance();
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = $this->_mainframe;
+		$database = $this->_mainframe->_db;
 
 		if($type) {
 			modules_html::CustomContent($module,$params);
 		} else {
-			include ($mainframe->getCfg('absolute_path').DS.'modules'.DS.$module->module.'.php');
+			include (JPATH_BASE.DS.'modules'.DS.$module->module.'.php');
 
 			if(isset($content)) {
 				echo $content;
@@ -348,8 +353,8 @@ class modules_html {
 	function modoutput_xhtml($module,$params,$Itemid,$moduleclass_sfx,$type = 0) {
 		global $my;
 
-		$database = &database::getInstance();
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = $this->_mainframe;
+		$database = $this->_mainframe->_db;
 
 ?>
 		<div class="moduletable<?php echo $moduleclass_sfx; ?>">
@@ -361,7 +366,7 @@ class modules_html {
 		if($type) {
 			modules_html::CustomContent($module,$params);
 		} else {
-			include ($mainframe->getCfg('absolute_path').DS.'modules'.DS.$module->module.'.php');
+			include (JPATH_BASE.DS.'modules'.DS.$module->module.'.php');
 			if(isset($content)) {
 				echo $content;
 			}
@@ -377,9 +382,9 @@ class modules_html {
 	function modoutput_rounded($module,$params,$Itemid,$moduleclass_sfx,$type = 0) {
 		global $my;
 
-		$database = &database::getInstance();
-		$mainframe = &mosMainFrame::getInstance();
-		$config = &Jconfig::getInstance();
+		$mainframe = $this->_mainframe;
+		$database = $this->_mainframe->_db;
+		$config = $this->_mainframe->get('config');
 
 ?>
 		<div class="module<?php echo $moduleclass_sfx; ?>">
@@ -427,7 +432,7 @@ class modules_html {
 		else{
 			echo $module->content;
 		}
-		
+
 		if($firebots) {
 			$results = $_MAMBOTS->trigger('onAfterDisplayContent',array(&$row,&$params,0));
 			echo trim(implode("\n",$results));

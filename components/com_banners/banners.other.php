@@ -11,10 +11,10 @@
 defined('_VALID_MOS') or die();
 
 // function that selecting one or more banner/s
-function showBanners(&$params) {
+function showBanners(&$params, $mainframe) {
 	global $my;
 
-	$database = &database::getInstance();
+	$database = $database = $mainframe->_db;
 
 	$random = $params->get('random', 0);
 	$count = $params->get('count', 1);
@@ -92,7 +92,7 @@ function showBanners(&$params) {
 		//'0' -> Vertical
 		//'1' -> Horizontal
 		if($orientation == '0') {
-			$result .= '<tr><td>' . showSingleBanner($row) . '</td></tr>';
+			$result .= '<tr><td>' . showSingleBanner($row, $mainframe) . '</td></tr>';
 		} else {
 
 			if($first == false) {
@@ -100,7 +100,7 @@ function showBanners(&$params) {
 				$first = true;
 			}
 
-			$result .= '<td>' . showSingleBanner($row) . '</td>';
+			$result .= '<td>' . showSingleBanner($row, $mainframe) . '</td>';
 		}
 
 		$showed++;
@@ -119,8 +119,7 @@ function showBanners(&$params) {
 }
 
 // function that showing one banner
-function showSingleBanner(&$banner) {
-	$mainframe = &mosMainFrame::getInstance();
+function showSingleBanner(&$banner, $mainframe) {
 	$database = &$mainframe->_db;
 
 	$result = '';
@@ -138,7 +137,7 @@ function showSingleBanner(&$banner) {
 	if($banner->custom_banner_code != "") {
 		$result .= $banner->custom_banner_code;
 	} elseif(eregi("(\.bmp|\.gif|\.jpg|\.jpeg|\.png)$", $banner->image_url)) {
-		$image_url = $mainframe->getCfg('live_site').'/images/show/'.$banner->image_url;
+		$image_url = JPATH_SITE.'/images/show/'.$banner->image_url;
 		#$imginfo = @getimagesize($config->config_absolute_path.'/images/banners/'. $banner->image_url);
 		$target = $banner->target;
 		$border_value = $banner->border_value;

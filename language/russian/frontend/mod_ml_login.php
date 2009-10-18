@@ -9,6 +9,5 @@
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
-$mainframe = &mosMainFrame::getInstance();
-include_once($mainframe->getLangFile('com_login'));
-DEFINE('_SITE_AUTH','Авторизация на сайте'); 
+DEFINE('_LOGIN_TEXT','Вход');
+DEFINE('_SITE_AUTH','Авторизация на сайте');

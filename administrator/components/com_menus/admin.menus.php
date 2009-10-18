@@ -185,7 +185,7 @@ function viewMenuItems($menutype,$option) {
 
 	$total = count($list);
 
-	require_once ($mainframe->getCfg('absolute_path').DS.ADMINISTRATOR_DIRECTORY.DS.'includes/pageNavigation.php');
+	require_once (JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY.DS.'includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
 	$levellist = mosHTML::integerSelectList(1,20,1,'levellimit','class="inputbox" size="1" onchange="document.adminForm.submit();"',$levellimit);

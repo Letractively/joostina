@@ -17,7 +17,7 @@ global $option,$database;
 global $mosConfig_live_site;
 
 // получение шаблона страницы
-$cur_template = @$mainframe->getTemplate();
+$cur_template = @JTEMPLATE;
 if(!$cur_template) {
 	$cur_template = 'newline2';
 }

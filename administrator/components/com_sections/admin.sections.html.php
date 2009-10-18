@@ -23,7 +23,7 @@ class sections_html {
 	function show(&$rows,$scope,$myid,&$pageNav,$option) {
 		global $my;
 		$mainframe = &mosMainFrame::getInstance();
-		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
+		$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
 		mosCommonHTML::loadOverlib();
 ?>
 	<form action="index2.php" method="post" name="adminForm">

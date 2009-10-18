@@ -26,7 +26,7 @@ switch($task) {
 		$plugin = cleanInput(mosGetParam($_REQUEST,'plugin'));
 		if(in_array($plugin,$plugins)) {
 			$file = cleanInput(basename(mosGetParam($_REQUEST,'file')));
-			$path = $mainframe->getCfg('absolute_path').'/mambots/editors/jce/jscripts/tiny_mce/plugins/'.$plugin;
+			$path = JPATH_BASE.'/mambots/editors/jce/jscripts/tiny_mce/plugins/'.$plugin;
 			if(is_dir($path) && file_exists($path.'/'.$file)) {
 				include_once $path.'/'.$file;
 			} else {
@@ -38,7 +38,7 @@ switch($task) {
 		break;
 	case 'help':
 		$file = cleanInput(basename(mosGetParam($_REQUEST,'file')));
-		$path = $mainframe->getCfg('absolute_path').'/mambots/editors/jce/jscripts/tiny_mce/libraries/help/'.$file;
+		$path = JPATH_BASE.'/mambots/editors/jce/jscripts/tiny_mce/libraries/help/'.$file;
 		if(file_exists($path)) {
 			include_once $path;
 		} else {
@@ -60,7 +60,7 @@ function showPopup() {
 	$w = getInput('w');
 	$h = getInput('h');
 
-	$img = str_replace($mainframe->getCfg('live_site').'/','',$img);
+	$img = str_replace(JPATH_SITE.'/','',$img);
 ?>
     <style type="text/css">
         body{
@@ -113,7 +113,7 @@ function showPopup() {
                     <td align="left" class="contentheading" style="width:<?php echo $w - 18; ?>px; margin-left: 5px;"><?php echo $title; ?></td>
                     <td align="right" style="width:18px;" class="buttonheading">
 				        <?php if($print) { ?>
-                            <a href="javascript:;" onClick="window.print(); return false"><img src="<?php echo $mainframe->getCfg('live_site'); ?>/images/M_images/printButton.png" width="16" height="16" alt="<?php echo _PRINT; ?>" title="<?php echo _PRINT; ?>" border="0" style="vertical-align:middle;"/></a>
+                            <a href="javascript:;" onClick="window.print(); return false"><img src="<?php echo JPATH_SITE; ?>/images/M_images/printButton.png" width="16" height="16" alt="<?php echo _PRINT; ?>" title="<?php echo _PRINT; ?>" border="0" style="vertical-align:middle;"/></a>
                         <?php } ?>
                     </td>
                 </tr>

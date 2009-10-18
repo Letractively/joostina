@@ -170,7 +170,7 @@ class JCE_plugins {
 
 		$database->setQuery("SELECT lang FROM #__jce_langs WHERE published= '1'");
 		$lang = $database->loadResult();
-		require_once ($mainframe->getCfg('absolute_path')."/administrator/components/com_jce/language/".$lang.".php");
+		require_once (JPATH_BASE."/administrator/components/com_jce/language/".$lang.".php");
 
 		$row->nameA = '';
 		if($row->id) {
@@ -325,7 +325,7 @@ class JCE_plugins {
 		<input type="hidden" name="client" value="<?php echo $row->client_id; ?>" />
 		<input type="hidden" name="task" value="" />
 		</form>
-		<script language="Javascript" src="<?php echo $mainframe->getCfg('live_site'); ?>/includes/js/overlib_mini.js"></script>
+		<script language="Javascript" src="<?php echo JPATH_SITE; ?>/includes/js/overlib_mini.js"></script>
 		<?php
 	}
 }

@@ -310,9 +310,9 @@ function userList($gid,$limit,$limitstart=0){
 	}
 
 	if($params->get('template_dir')){
-		$template_dir = 'templates'.DS. $mainframe->getTemplate() .DS.'html'.DS.'com_users'.DS.'userlist';
+		$template_dir = 'templates'.DS. JTEMPLATE .DS.'html'.DS.'com_users'.DS.'userlist';
 	}
-	$template_file = $mainframe->getCfg('absolute_path').DS.$template_dir.DS.$template;
+	$template_file = JPATH_BASE.DS.$template_dir.DS.$template;
 
 	$users = new mosUser($database);
 	
@@ -445,12 +445,12 @@ function lostPassForm($option) {
 	$template_dir = 'components/com_users/view/lostpass';
 		
 	if($user_config->get('template_dir')){
-		$template_dir = 'templates'.DS. $mainframe->getTemplate() . '/html/com_users/lostpass';
+		$template_dir = 'templates'.DS. JTEMPLATE . '/html/com_users/lostpass';
 	}
-	$template_file = $mainframe->getCfg('absolute_path').DS.$template_dir.DS.$template;
+	$template_file = JPATH_BASE.DS.$template_dir.DS.$template;
 	
 	if(is_file($template_file)){
-		include_once ($template_file);	
+		include_once ($template_file);
 	}
 }
 
@@ -526,7 +526,7 @@ function registerForm($option,$useractivation) {
 	
 	if(!$params->get('template')){
 		if($type){
-			if(is_file($mainframe->getCfg('absolute_path').DS.'components'.DS.'com_users'.DS.'view'.DS.'registration'.DS.$type.'.php')){
+			if(is_file(JPATH_BASE.DS.'components'.DS.'com_users'.DS.'view'.DS.'registration'.DS.$type.'.php')){
 				$template = $type.'.php';
 			}
 			$gid = $acl->get_group_id($type,'ARO');
@@ -537,7 +537,7 @@ function registerForm($option,$useractivation) {
 	// used for spoof hardening
 	$validate = josSpoofValue();
 
-	include ($mainframe->getCfg('absolute_path').DS.'components'.DS.'com_users'.DS.'view'.DS.'registration'.DS.$template);
+	include (JPATH_BASE.DS.'components'.DS.'com_users'.DS.'view'.DS.'registration'.DS.$template);
 
 }
 
@@ -641,11 +641,11 @@ function saveRegistration() {
 	if($mainframe->getCfg('useractivation') == 1 ) {
 		$email_info['message'] = sprintf(_USEND_MSG_ACTIVATE, $email_info['name'],
 							$mainframe->getCfg('sitename'),
-							$mainframe->getCfg('live_site')."/index.php?option=com_users&task=activate&activation=".$row->activation,
-							$mainframe->getCfg('live_site'),
+							JPATH_SITE."/index.php?option=com_users&task=activate&activation=".$row->activation,
+							JPATH_SITE,
 							$email_info['username'], $pwd);
 	} else {
-		$email_info['message'] = sprintf(_USEND_MSG,$email_info['name'],$mainframe->getCfg('sitename'),$mainframe->getCfg('live_site'));
+		$email_info['message'] = sprintf(_USEND_MSG,$email_info['name'],$mainframe->getCfg('sitename'),JPATH_SITE);
 	}
 	$email_info['message'] = html_entity_decode($email_info['message'],ENT_QUOTES);
 
@@ -699,13 +699,13 @@ function saveRegistration() {
 		if(!$params->get('template')){
 			$group_name = $acl->get_group_name($row->gid,'ARO');
 			if($group_name){
-				if(!is_file($mainframe->getCfg('absolute_path').DS.'components'.DS.'com_users'.DS.'view'.DS.'after_registration'.DS.$group_name.'.php')){
+				if(!is_file(JPATH_BASE.DS.'components'.DS.'com_users'.DS.'view'.DS.'after_registration'.DS.$group_name.'.php')){
 					$template = $group_name.'.php';
 				}
 			}
 		}
 
-		include ($mainframe->getCfg('absolute_path').DS.'components'.DS.'com_users'.DS.'view'.DS.'after_registration'.DS.$template);
+		include (JPATH_BASE.DS.'components'.DS.'com_users'.DS.'view'.DS.'after_registration'.DS.$template);
 		return;
 
 	}

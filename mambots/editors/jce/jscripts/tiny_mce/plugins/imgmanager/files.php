@@ -9,8 +9,8 @@ defined( '_VALID_MOS' ) or die( 'Restricted Access.' );
 
 $version = "1.1.3";
 
-require_once( $mainframe->getCfg('absolute_path') . '/mambots/editors/jce/jscripts/tiny_mce/libraries/classes/jce.class.php' );
-require_once( $mainframe->getCfg('absolute_path') . '/mambots/editors/jce/jscripts/tiny_mce/libraries/classes/jce.utils.class.php' );
+require_once( JPATH_BASE . '/mambots/editors/jce/jscripts/tiny_mce/libraries/classes/jce.class.php' );
+require_once( JPATH_BASE . '/mambots/editors/jce/jscripts/tiny_mce/libraries/classes/jce.utils.class.php' );
 
 $jce = new JCE();
 $jce->setPlugin('imgmanager');
@@ -41,7 +41,7 @@ $base_dir = $jce->getBaseDir( false );
 $base_url = $base_dir;
 
 //Check to see if the returned file is within the users allowed directory tree
-if( !JFolder::exists( JPath::makePath( JPath::makePath( $mainframe->getCfg('absolute_path'), $base_dir ), $curr_dir ) ) && $ret_file ){
+if( !JFolder::exists( JPath::makePath( JPath::makePath( JPATH_BASE, $base_dir ), $curr_dir ) ) && $ret_file ){
 	//If not, set $ret_file to false (even if there is one) and reset $curr_dir.
      $ret_file = false;
      $curr_dir = '/';

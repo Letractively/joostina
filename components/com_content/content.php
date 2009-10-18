@@ -133,7 +133,7 @@ function showUserItems($user_id) {
 	global $Itemid, $my;
 
 	$mainframe = &mosMainFrame::getInstance();
-	$database = &database::getInstance();
+	$database = &$mainframe->_db;
 	$acl = &gacl::getInstance();
 
 	$limit = intval(mosGetParam($_REQUEST, 'limit', 0));
@@ -216,7 +216,7 @@ function showUserItems($user_id) {
 	// Dynamic Page Title
 	$mainframe->SetPageTitle($pagetitle);
 
-	HTML_content::showUserContent($user_items, $access, $params, $pageNav, $lists, $params->get('orderby'));
+	ContentView::showUserContent($user_items, $access, $params, $pageNav, $lists, $params->get('orderby'));
 }
 
 /**
@@ -227,7 +227,7 @@ function frontpage($gid,$limit,$limitstart,$pop) {
 	global $my;
 
 	$mainframe = &mosMainFrame::getInstance();
-	$database = &database::getInstance();
+	$database = &$mainframe->_db;
 
 	//права доступа
 	$access = new contentAccess();
@@ -267,7 +267,6 @@ function frontpage($gid,$limit,$limitstart,$pop) {
 function showSectionCatlist($id,$cache){
 	global $Itemid, $my;
 
-	$config = &Jconfig::getInstance();
 	$r = $cache->call('_showSectionCatlist', $id,$my->gid);
 	from_cache($r);
 }
@@ -282,7 +281,7 @@ function _showSectionCatlist($id) {
 	global $Itemid, $my;
 
 	$mainframe = &mosMainFrame::getInstance();
-	$database = &database::getInstance();
+	$database = &$mainframe->_db;
 
 	if(!$id) {
 		$error = new errorCase(1);
@@ -328,7 +327,7 @@ function _showSectionCatlist($id) {
 	}
 
 	ob_start();
-		HTML_content::showSectionCatlist($section, $access, $params);
+		ContentView::showSectionCatlist($section, $access, $params);
 		$content_boby = ob_get_contents(); // главное содержимое - стек вывода компонента - mainbody
 	ob_end_clean();
 
@@ -365,7 +364,7 @@ function _showTableCategory($id,$gid,$limit,$limitstart,$sectionid,$selected,$fi
 	global $Itemid, $my;
 
 	$mainframe = &mosMainFrame::getInstance();
-	$database = &database::getInstance();
+	$database = &$mainframe->_db;
 
 	$selected = preg_replace('/[^a-z]/i', '', $selected);
 
@@ -452,7 +451,7 @@ function _showTableCategory($id,$gid,$limit,$limitstart,$sectionid,$selected,$fi
 	}
 
 	ob_start();
-		HTML_content::showContentList($category, $access, $params);
+		ContentView::showContentList($category, $access, $params);
 		$content_boby = ob_get_contents(); // главное содержимое - стек вывода компонента - mainbody
 	ob_end_clean();
 
@@ -485,7 +484,7 @@ function _showBlogSection($id,$gid,$pop,$limit,$limitstart) {
 	global $Itemid, $my;
 
 	$mainframe = &mosMainFrame::getInstance();
-	$database  = &database::getInstance();
+	$database = &$mainframe->_db;
 	
 	$section = new mosSection($database);
 	//Если ID найден - получаем данные о конкретном разделе
@@ -575,7 +574,7 @@ function _showBlogCategory($id = 0,$gid,$pop,$limit,$limitstart) {
 	global $Itemid, $my;
 
 	$mainframe = &mosMainFrame::getInstance();
-	$database = &database::getInstance();
+	$database = &$mainframe->_db;
 
 	//права доступа
 	$access = new contentAccess();
@@ -652,7 +651,7 @@ function showArchiveSection($id = null) {
 	global $Itemid, $my;
 
 	$mainframe = &mosMainFrame::getInstance();
-	$database = &database::getInstance();
+	$database = &$mainframe->_db;
 
 	$year = intval(mosGetParam($_REQUEST, 'year', date('Y')));
 	$month = intval(mosGetParam($_REQUEST, 'month', date('m')));
@@ -733,7 +732,7 @@ function showArchiveCategory($id = 0) {
 	global $Itemid, $my;
 
 	$mainframe = &mosMainFrame::getInstance();
-	$database = &database::getInstance();
+	$database = &$mainframe->_db;
 
 	$year = intval(mosGetParam($_REQUEST, 'year', date('Y')));
 	$month = intval(mosGetParam($_REQUEST, 'month', date('m')));
@@ -827,7 +826,7 @@ function BlogOutput(&$obj, $params, &$access) {
 	global $Itemid, $task, $id, $option, $my;
 
 	$mainframe = &mosMainFrame::getInstance();
-	$database = &database::getInstance();
+	$database = &$mainframe->_db;
 
 	$rows = $obj->content;
 	$total = $obj->total;
@@ -1011,7 +1010,7 @@ function BlogOutput(&$obj, $params, &$access) {
 				$page_type = 'category_archive';
 
 				if($params->get('module')) {
-					include_once ($mainframe->getCfg('absolute_path').'/components/com_content/view/category/archive_by_month/default.php');
+					include_once (JPATH_BASE.'/components/com_content/view/category/archive_by_month/default.php');
 					return;
 				}
 
@@ -1028,7 +1027,7 @@ function BlogOutput(&$obj, $params, &$access) {
 	else{
 		if($_REQUEST['option'] == 'com_frontpage') {
 			$page_type = 'frontpage_blog'; $templates = null;
-			//include_once ($mainframe->getCfg('absolute_path').'/components/com_content/view/frontpage/default.php');
+			//include_once (JPATH_BASE.'/components/com_content/view/frontpage/default.php');
 			$template->set_template($page_type, $templates); 
 			include_once ($template->template_file);
 			
@@ -1103,7 +1102,7 @@ function _showFullItem($id) {
 	global $my;
 
 	$mainframe = &mosMainFrame::getInstance();
-	$database = &database::getInstance();
+	$database = &$mainframe->_db;
 
 	$pop = intval(mosGetParam($_REQUEST, 'pop', 0));
 	$task = strval(mosGetParam($_REQUEST, 'task', ''));
@@ -1218,7 +1217,7 @@ function _showFullItem($id) {
  */
 function _showItem($row, $params, $gid, &$access, $pop, $template = '') {
 	$mainframe = &mosMainFrame::getInstance();
-	$database = &database::getInstance();
+	$database = &$mainframe->_db;
 
 	$noauth = !$mainframe->getCfg('shownoauth');
 
@@ -1301,7 +1300,7 @@ function _showItem($row, $params, $gid, &$access, $pop, $template = '') {
 	// does not affect anything else as hits data not outputted
 	//$row->hits = 0;
 
-	HTML_content::show($row, $params, $access, $page, $template);
+	ContentView::show($row, $params, $access, $page, $template);
 }
 
 /**
@@ -1311,7 +1310,7 @@ function editItem($task) {
 	global $my, $gid;
 
 	$mainframe = &mosMainFrame::getInstance();
-	$database = &database::getInstance();
+	$database = &$mainframe->_db;
 	$acl = &gacl::getInstance();
 
 	if($mainframe->getCfg('module_on_edit_off') == 1) {
@@ -1345,7 +1344,7 @@ function editItem($task) {
 		$row = $content;
 		//запрещаем доступ тем, кому низя - у кого нет прав ни на редактирование вообще, ни на редактирование своего контента
 		if(!($access->canEdit || $access->canEditOwn)) {
-			HTML_content::_no_access();
+			ContentView::_no_access();
 			return;
 		}
 
@@ -1611,7 +1610,7 @@ function editItem($task) {
 		$_MAMBOTS->trigger('onEditContent', array($row));
 	}
 
-	HTML_content::editContent($row, $page, $task);
+	ContentView::editContent($row, $page, $task);
 }
 
 /**
@@ -1621,7 +1620,7 @@ function saveContent($task) {
 	global $my,$Itemid;
 
 	$mainframe = &mosMainFrame::getInstance();
-	$database = &database::getInstance();
+	$database = &$mainframe->_db;
 
 	// simple spoof check security
 	josSpoofCheck();
@@ -1791,7 +1790,7 @@ function _after_create_content($row, $page) {
 	$category = stripslashes($category);
 
 	// Отправка сообщения админам о новой записе
-	require_once (Jconfig::getInstance()->config_absolute_path.'/components/com_messages/messages.class.php');
+	require_once (JPATH_BASE.'/components/com_messages/messages.class.php');
 	$query = "SELECT id FROM #__users WHERE sendEmail = 1";
 	$database->setQuery($query);
 	$users = $database->loadResultArray();
@@ -1969,7 +1968,7 @@ function emailContentForm($uid, $gid) {
 		$database->setQuery($query);
 		$template = $database->loadResult();
 
-		HTML_content::emailForm($row->id, $row->title, $template, $itemid);
+		ContentView::emailForm($row->id, $row->title, $template, $itemid);
 	} else {
 		mosNotAuth();
 		return;
@@ -1982,7 +1981,7 @@ function emailContentForm($uid, $gid) {
 function emailContentSend($uid, $gid) {
 
 	$mainframe = &mosMainFrame::getInstance();
-	$database = &database::getInstance();
+	$database = &$mainframe->_db;
 
 	$id = intval(mosGetParam($_REQUEST, 'id', 0));
 	if($id) {
@@ -2095,7 +2094,7 @@ function emailContentSend($uid, $gid) {
 			mosErrorAlert(_EMAIL_ERR_NOINFO);
 		}
 
-		HTML_content::emailSent($email, $template);
+		ContentView::emailSent($email, $template);
 	} else {
 		mosNotAuth();
 		return;

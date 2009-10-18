@@ -10,8 +10,8 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-require_once ($mainframe->getCfg('absolute_path').'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jce/plugins/plugins.html.php');
-require_once ($mainframe->getCfg('absolute_path').'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jce/plugins/plugins.class.php');
+require_once (JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jce/plugins/plugins.html.php');
+require_once (JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jce/plugins/plugins.class.php');
 
 $client = mosGetParam($_REQUEST,'client','');
 $cid = mosGetParam($_POST,'cid',array(0));
@@ -66,7 +66,7 @@ function viewPlugins($option,$client) {
 	$database->setQuery($query);
 	$total = $database->loadResult();
 
-	require_once ($mainframe->getCfg('absolute_path').	'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
+	require_once (JPATH_BASE.	'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
 	$query = "SELECT m.*, u.name AS editor"
@@ -195,9 +195,9 @@ function editPlugins($option,$uid,$client) {
 			'" />'.$row->plugin;
 
 		// XML library
-		require_once ($mainframe->getCfg('absolute_path').'/includes/domit/xml_domit_lite_include.php');
+		require_once (JPATH_BASE.'/includes/domit/xml_domit_lite_include.php');
 		// xml file for module
-		$xmlfile = $mainframe->getCfg('absolute_path').
+		$xmlfile = JPATH_BASE.
 			'/mambots/editors/jce/jscripts/tiny_mce/plugins/'.$row->plugin.'/'.$row->plugin.'.xml';
 		$xmlDoc = new DOMIT_Lite_Document();
 		$xmlDoc->resolveErrors(true);
@@ -217,16 +217,16 @@ function editPlugins($option,$uid,$client) {
 		$row->access = 18;
 		$row->editable = 1;
 
-		$folders = mosReadDirectory($mainframe->getCfg('absolute_path').'/mambots/editors/jce/jscripts/tiny_mce/plugins/');
+		$folders = mosReadDirectory(JPATH_BASE.'/mambots/editors/jce/jscripts/tiny_mce/plugins/');
 		$folders2 = array();
 		foreach($folders as $folder) {
-			if(is_dir($mainframe->getCfg('absolute_path').'/mambots/editors/jce/jscripts/tiny_mce/plugins/'.$folder) && ($folder <> 'CVS')) {
+			if(is_dir(JPATH_BASE.'/mambots/editors/jce/jscripts/tiny_mce/plugins/'.$folder) && ($folder <> 'CVS')) {
 				$folders2[] = mosHTML::makeOption($folder);
 			}
 		}
 		$lists['folder'] = mosHTML::selectList($folders2,'folder',
 			'class="inputbox" size="1"','value','text',null);
-		$xmlfile = $mainframe->getCfg('absolute_path').'/mambots/editors/jce/jscripts/tiny_mce/plugins/'.$row->plugin.'/'.$row->plugin.'.xml';
+		$xmlfile = JPATH_BASE.'/mambots/editors/jce/jscripts/tiny_mce/plugins/'.$row->plugin.'/'.$row->plugin.'.xml';
 	}
 
 	$lists['published'] = mosHTML::yesnoRadioList('published','class="inputbox"',$row->published);

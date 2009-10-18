@@ -25,13 +25,13 @@ defined( '_VALID_MOS' ) or die();
 <?php
 
 function menu_recurse_vert_img( $id, $level, &$children) {
-	$mainframe = &mosMainFrame::getInstance();
+
 	if ( isset( $children[$id] ) ) {
 		$i = 1;
 		foreach ($children[$id] as $row) {
 			$img = '';
 			if($level == 0){
-				$img = '<img src="'.$mainframe->getCfg('live_site').'/modules/mod_menu/view/vert_img/ico/'.$i.'.png" />';
+				$img = '<img src="'.JSITE.'/modules/mod_menu/view/vert_img/ico/'.$i.'.png" />';
 			}
 			
 			if($row->type == 'separator'){

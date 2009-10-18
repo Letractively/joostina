@@ -10,7 +10,7 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-require_once (JPATH_BASE .DS.ADMINISTRATOR_DIRECTORY.'/components/com_installer/installer/installer.class.php');
+require_once (JPATH_BASE_ADMIN.'/components/com_installer/installer/installer.class.php');
 
 class XmapAdmin {
 	
@@ -82,8 +82,6 @@ class XmapAdmin {
 
 	/** Save settings handed via POST */
 	function saveOptions( &$config ) {
-		global JPATH_BASE;
-
 		$success	= 1;
 
 		$exclude_css	= mosGetParam( $_POST, 'exclude_css', 0 );
@@ -103,42 +101,20 @@ class XmapAdmin {
 	*/
 	function &getMenus() {
 		$config = &$this->config;
-		
-		if (defined('JPATH_ADMINISTRATOR')) {
-			require_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_menus'.DS.'helpers'.DS.'helper.php' );
-			$menutypes  = MenusHelper::getMenuTypeList();
+		$menutypes  = mosAdminMenus::menutypes();
 
-			$allmenus = array();
-			$i=0;
-			foreach( $menutypes as $menu ) {
-				$menutype = $menu->menutype;
-				$allmenus[$menutype] = new stdclass;
-				$allmenus[$menutype]->ordering = $i;
-				$allmenus[$menutype]->show = false;
-				$allmenus[$menutype]->showSitemap = false;
-				$allmenus[$menutype]->priority = '0.5';
-				$allmenus[$menutype]->changefreq = 'weekly';
-				$allmenus[$menutype]->id = $i;
-				$allmenus[$menutype]->type = $menutype;
-				$i++;
-			}
-			
-		} else {
-			$menutypes  = mosAdminMenus::menutypes();
-
-			$allmenus = array();
-			foreach( $menutypes as $index => $menutype ) {
-				$allmenus[$menutype] = new stdclass;
-				$allmenus[$menutype]->ordering = $index;
-				$allmenus[$menutype]->show = false;
-				$allmenus[$menutype]->showSitemap = false;
-				$allmenus[$menutype]->priority = '0.5';
-				$allmenus[$menutype]->changefreq = 'weekly';
-				$allmenus[$menutype]->id = $index;
-				$allmenus[$menutype]->type = $menutype;
-			}
+		$allmenus = array();
+		foreach( $menutypes as $index => $menutype ) {
+			$allmenus[$menutype] = new stdclass;
+			$allmenus[$menutype]->ordering = $index;
+			$allmenus[$menutype]->show = false;
+			$allmenus[$menutype]->showSitemap = false;
+			$allmenus[$menutype]->priority = '0.5';
+			$allmenus[$menutype]->changefreq = 'weekly';
+			$allmenus[$menutype]->id = $index;
+			$allmenus[$menutype]->type = $menutype;
 		}
-	
+
 		return $allmenus;
 	}
 }
@@ -164,7 +140,7 @@ function loadInstalledPlugins( &$rows,&$xmlfile ) {
 		$extensionBaseDir	= mosPathName( mosPathName( JPATH_BASE ) . '/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/extensions/' );
 
 		// xml file for module
-		$xmlfile = $extensionBaseDir. "/" .$row->extension. ".xml";
+		$xmlfile = $extensionBaseDir.DS.$row->extension. ".xml";
 
 		if (file_exists( $xmlfile )) {
 			$xmlDoc = new DOMIT_Lite_Document();
@@ -221,8 +197,7 @@ function showInstalledPlugins( $_option ) {
 */
 
 function xmapUploadPlugin( ) {
-	global JPATH_BASE;
-	$option ='com_xmap'; 
+	$option ='com_xmap';
 	$element = 'plugin';
 	$client = '';
 	require_once(JPATH_BASE. '/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/classes/XmapPluginInstaller.php');
@@ -230,23 +205,20 @@ function xmapUploadPlugin( ) {
 
 	// Check if file uploads are enabled
 	if (!(bool)ini_get('file_uploads')) {
-		XmapAdminHtml::showInstallMessage( "The installer can't continue before file uploads are enabled. Please use the install from directory method.",
-			'Installer - Error', $installer->returnTo( $option, $element, $client ) );
+		XmapAdminHtml::showInstallMessage( "The installer can't continue before file uploads are enabled. Please use the install from directory method.",'Installer - Error', $installer->returnTo( $option, $element, $client ) );
 		exit();
 	}
 
 	// Check that the zlib is available
 	if(!extension_loaded('zlib')) {
-		XmapAdminHtml::showInstallMessage( "The installer can't continue before zlib is installed",
-			'Installer - Error', $installer->returnTo( $option, $element, $client ) );
+		XmapAdminHtml::showInstallMessage( "The installer can't continue before zlib is installed",'Installer - Error', $installer->returnTo( $option, $element, $client ) );
 		exit();
 	}
 
 	$userfile = mosGetParam( $_FILES, 'install_package', null );
 
 	if (!$userfile) {
-		XmapAdminHtml::showInstallMessage( 'No file selected', 'Upload new module - error',
-			$installer->returnTo( $option, $element, $client ));
+		XmapAdminHtml::showInstallMessage( 'No file selected', 'Upload new module - error',$installer->returnTo( $option, $element, $client ));
 		exit();
 	}
 
@@ -276,7 +248,6 @@ function xmapUploadPlugin( ) {
 * Install a extension from a directory
 */
 function xmapInstallPluginFromDirectory() {
-	global JPATH_BASE;
 	$userfile = mosGetParam( $_REQUEST, 'userfile', '' );
 	$option ='com_xmap'; 
 	$element = 'plugin';
@@ -306,8 +277,7 @@ function xmapInstallPluginFromDirectory() {
 * @param
 */
 function xmapUninstallPlugin( $extensionid ) {
-	global JPATH_BASE;
-	require_once(JPATH_BASE. '/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/classes/XmapPluginInstaller.php');
+	require_once(JPATH_BASE_ADMIN.'/components/com_xmap/classes/XmapPluginInstaller.php');
 	$installer = new XmapPluginInstaller();
 	$result = false;
 	if ($extensionid) {
@@ -326,7 +296,6 @@ function xmapUninstallPlugin( $extensionid ) {
 * @param string The message to return
 */
 function xmapUploadFile( $filename, $userfile_name, &$msg ) {
-	global JPATH_BASE;
 	$baseDir = mosPathName( JPATH_BASE . '/media' );
 
 	if (file_exists( $baseDir )) {

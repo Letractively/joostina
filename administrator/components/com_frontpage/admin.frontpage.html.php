@@ -25,7 +25,7 @@ class ContentView {
 		$nullDate = $database->getNullDate();
 		
 		$mainframe = &mosMainFrame::getInstance();
-		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
+		$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
 ?>
 		<script type="text/javascript">
 		// удаление содержимого с публикации на главной

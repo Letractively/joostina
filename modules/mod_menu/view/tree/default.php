@@ -27,11 +27,13 @@ defined( '_VALID_MOS' ) or die();
 	
 	ob_start(); ?>
 	
-	d = new dTree('d','<?php echo $config->config_live_site ?>/modules/mod_menu/view/tree/images/');
+	d = new dTree('d','<?php echo JPATH_SITE ?>/modules/mod_menu/view/tree/images/');
 	d.add(0,-1,'');
 	
 	<?php $n = 1; foreach ($menus as $menu){
-		if( !isset($parent_array[$menu->id])){	$menu->id = '1010101'.$n;}?>
+		if( !isset($parent_array[$menu->id])){
+			$menu->id = '1010101'.$n;
+		}?>
 		
 		d.add(<?php echo $menu->id ?>,<?php echo $menu->parent ?>,'<?php echo htmlspecialchars($menu->name) ?>','<?php echo sefRelToAbs($menu->link) ?>');
 	<?php $n++; }?>
@@ -41,6 +43,6 @@ defined( '_VALID_MOS' ) or die();
 	
 	
 	<div class="dtree">
-		<script type="text/javascript" src="<?php echo $config->config_live_site ?>/modules/mod_menu/view/tree/js/tree.js"></script>
+		<script type="text/javascript" src="<?php echo JPATH_SITE ?>/modules/mod_menu/view/tree/js/tree.js"></script>
 	</div>
 	<script type="text/javascript"><?php echo $cur_menu; ?></script>

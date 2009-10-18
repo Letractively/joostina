@@ -70,7 +70,7 @@ defined('_VALID_MOS') or die(); ?>
 <?php } ?>
 <?php if($display_blog_more) { ?>
 		<div class="blog_more">
-			<?php HTML_content::showLinks($rows, $links, $total, $i, $showmore);?>
+			<?php ContentView::showLinks($rows, $links, $total, $i, $showmore);?>
 		</div>
 <?php } ?>
 <?php if($display_pagination) {
