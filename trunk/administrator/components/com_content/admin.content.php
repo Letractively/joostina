@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright а«аВбІаОбЂб±аКаИаЕ аПбЂаАаВаА (C) 2008-2009 Joostina team. аҐб±аЕ аПбЂаАаВаА аЗаАбЃаИбЃаЕаНб‚.
-* @license а‹аИб†аЕаНаЗаИбЅ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, аИаЛаИ help/license.php
-* Joostina! - б±аВаОаБаОаДаНаОаЕ аПбЂаОаГбЂаАаМаМаНаОаЕ аОаБаЕб±аПаЕбµаЕаНаИаЕ бЂаАб±аПбЂаОб±бІбЂаАаНбЅаЕаМаОаЕ аПаО біб±аЛаОаВаИбЅаМ аЛаИб†аЕаНаЗаИаИ GNU/GPL
-* аѕаЛбЅ аПаОаЛбібµаЕаНаИбЅ аИаНбґаОбЂаМаАб†аИаИ аО аИб±аПаОаЛб аЗбіаЕаМб‚б… бЂаАб±б¶аИбЂаЕаНаИбЅб… аИ аЗаАаМаЕбµаАаНаИаЙ аОаБ аАаВбІаОбЂб±аКаОаМ аПбЂаАаВаЕ, б±аМаОбІбЂаИбІаЕ бґаАаЙаЛ help/copyright.php.
+* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
 */
 
-// аЗаАаПбЂаЕбІ аПбЂбЅаМаОаГаО аДаОб±бІбіаПаА
+// запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 require_once ($mainframe->getPath('admin_html'));
@@ -144,8 +144,8 @@ function config($option){
 	$config->display_config($option);
 
 /*    $info_array = array();
-    $info_array['page_title']['title'] = 'а‡аАаГаОаЛаОаВаОаК б±бІбЂаАаНаИб†б‚';
-    $info_array['page_title']['info'] = 'а‡аАаГаОаЛаОаВаОаК б±бІбЂаАаНаИб†б‚, аНаА аКаОбІаОбЂаОаЙ аВб‚аВаОаДбЅбІб±бЅ аВб±аЕ аЗаАаПаИб±аИ аПаОаЛб аЗаОаВаАбІаЕаЛбЅ';
+    $info_array['page_title']['title'] = 'Заголовок страницы';
+    $info_array['page_title']['info'] = 'Заголовок страницы, на которой выводятся все записи пользователя';
     $config = new jstContentUserpageConfig($database);
     $config->storeConfig($info_array);*/
     
@@ -154,7 +154,7 @@ function config($option){
 
     //$u_page =  new jstContentUserpageConfig($database);
     //$config->u_page = $u_page;
-    //HTML_content::config($config,$option);
+    //ContentView::config($config,$option);
 
 }
 
@@ -181,7 +181,7 @@ function submitContent(){
 
 	$file = $mainframe->getCfg('absolute_path').'/'.ADMINISTRATOR_DIRECTORY.'/components/com_content/submit_content.xml';
 	$params = new mosParameters($rowp,$file,'component');
-	HTML_content::submit($params);
+	ContentView::submit($params);
 }
 
 /**
@@ -215,36 +215,36 @@ function viewContent($sectionid,$option) {
 	}
 	$redirect = $sectionid.$link;
 
-	// б±аОбЂбІаИбЂаОаВаКаА
+	// сортировка
 	$order_sort_sql = ($order_sort==0) ? ' DESC':' ASC';
 
 
 	$sql_order = ' ORDER BY ';
 	switch($order_by) {
 
-		case '0': // аВаНбібІбЂаЕаНаНаИаЙ аПаОбЂбЅаДаОаК
+		case '0': // внутренний порядок
 			$sql_order .= 'cc.ordering, cc.title, c.ordering';
 			break;
 
-		case '1': // аЗаАаГаОаЛаОаВаКаИ
+		case '1': // заголовки
 			$sql_order .= 'c.title';
 			break;
 
 		default:
-		case '2': // аДаАбІаА б±аОаЗаДаАаНаИбЅ
+		case '2': // дата создания
 			$sql_order .= 'c.created';
 			break;
 
-		case '3': // аДаАбІаА аПаОб±аЛаЕаДаНаЕаЙ аМаОаДаИбґаИаКаАб†аИаИ
+		case '3': // дата последней модификации
 			$sql_order .= 'c.modified';
 			break;
 
 
-		case '4': // аИаДаЕаНбІаИбґаИаКаАбІаОбЂб‚
+		case '4': // идентификаторы
 			$sql_order .= 'c.id';
 			break;
 
-		case '5': // аПбЂаОб±аМаОбІбЂб‚
+		case '5': // просмотры
 			$sql_order .= 'c.hits';
 			break;
 	}
@@ -257,7 +257,7 @@ function viewContent($sectionid,$option) {
 	if($sectionid == 0 && $catid==0) {
 		// used to show All content items
 		$where = array($where_arh,"c.catid = cc.id","cc.section = s.id","s.scope = 'content'",);
-		$order = $sql_order.$order_sort_sql; // аПаОаДб±бІаАаВаЛбЅаЕаМ б±аВаОаЙ аПаАбЂаАаМаЕбІбЂ б±аОбЂбІаИбЂаОаВаКаИ
+		$order = $sql_order.$order_sort_sql; // подставляем свой параметр сортировки
 		$all = 1;
 		$section->title = _ALL_CONTENT;
 		$section->id = 0;
@@ -292,10 +292,10 @@ function viewContent($sectionid,$option) {
 	if($search) {
 		$where[] = "LOWER( c.title ) LIKE '%".$database->getEscaped(trim(strtolower($search)))."%'";
 	}
-	// аОбІаОаБбЂаАаЖаЕаНаИаЕ аАбЂб…аИаВаНаОаГаО б±аОаДаЕбЂаЖаИаМаОаГаО
+	// отображение архивного содержимого
 	$where[]= $showarchive ? 'c.state=-1' : 'state>=0';
 
-	$order = $sql_order.$order_sort_sql; // аПаОаДб±бІаАаВаЛбЅаЕаМ б±аВаОаЙ аПаАбЂаАаМаЕбІбЂ б±аОбЂбІаИбЂаОаВаКаИ
+	$order = $sql_order.$order_sort_sql; // подставляем свой параметр сортировки
 	// get the total number of records
 	$query = "SELECT COUNT(*)"
 			."\n FROM #__content AS c"
@@ -326,14 +326,14 @@ function viewContent($sectionid,$option) {
 		return false;
 	}
 
-	// аПаОаЛбібµаЕаНаИаЕ б±аПаИб±аКаА бЂаАаЗаДаЕаЛаОаВ / аКаАбІаЕаГаОбЂаИаЙ аИ бґаОбЂаМаИбЂаОаВаАаНаИаЕ аДаЕбЂаЕаВаА
+	// получение списка разделов / категорий и формирование дерева
 	$lists['sectree'] = seccatli($catid,$filter_authorid);
 
 	$treeexp = intval(mosGetParam($_COOKIE,'j-ntree-hide',null));
 	$lists['sectreeact'] =  $treeexp ? 'style="display: none;"':'';
 	$lists['sectreetoggle'] =  $treeexp ? 'class="tdtoogleon"':'class="tdtoogleoff"';
 
-	/* аПаАбЂаАаМаЕбІбЂб‚ аДаЛбЅ б±аОбЂбІаИбЂаОаВаКаИ бЈаЛаЕаМаЕаНбІаОаВ б±аОаДаЕбЂаЖаИаМаОаГаО*/
+	/* параметры для сортировки элементов содержимого*/
 	$order_list = array();
 	$order_list[] = mosHTML::makeOption('0',_ORDER_BY_NAME,'order_by','name');
 	$order_list[] = mosHTML::makeOption('1',_ORDER_BY_HEADERS,'order_by','name');
@@ -348,7 +348,7 @@ function viewContent($sectionid,$option) {
 	$order_sort_list[] = mosHTML::makeOption('0',_SORT_DESC,'order_sort','name');
 	$lists['order_sort'] = mosHTML::selectList($order_sort_list,'order_sort','class="inputbox" size="1" style="width:99%" onchange="document.adminForm.submit( );"','order_sort','name',$order_sort);
 
-	HTML_content::showContent($rows,$section,$lists,$search,$pageNav,$all,$redirect);
+	ContentView::showContent($rows,$section,$lists,$search,$pageNav,$all,$redirect);
 }
 
 /**
@@ -443,7 +443,7 @@ function viewArchive($sectionid,$option) {
 	$authors = array_merge($authors,$database->loadObjectList());
 	$lists['authorid'] = mosHTML::selectList($authors,'filter_authorid','class="inputbox" size="1" onchange="document.adminForm.submit( );"','created_by','name',$filter_authorid);
 
-	HTML_content::showArchive($rows,$section,$lists,$search,$pageNav,$option,$all,$redirect);
+	ContentView::showArchive($rows,$section,$lists,$search,$pageNav,$option,$all,$redirect);
 }
 
 /**
@@ -505,7 +505,7 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 		$row->publish_up = mosFormatDate($row->publish_up,_CURRENT_SERVER_TIME_FORMAT);
 
 		if(trim($row->publish_down) == $nullDate || trim($row->publish_down) == '' || trim($row->publish_down) == '-') {
-			$row->publish_down = 'аЏаИаКаОаГаДаА';
+			$row->publish_down = _NEVER;
 		}
 		$row->publish_down = mosFormatDate($row->publish_down,_CURRENT_SERVER_TIME_FORMAT);
 
@@ -717,7 +717,7 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 
 	// get params definitions
 	$params = new mosParameters($row->attribs,$mainframe->getPath('com_xml','com_content'),'component');
-	// аПбЂаИ аАаКбІаИаВаИбЂаОаВаАаНаИаИ аПаАбЂаАаМаЕбІбЂаА аОаДаНаОаГаО бЂаЕаДаАаКбІаОбЂаА - б±аДаЕаЛаАаЕаМ аНаОаВб‚аЙ аОаБбЉаЕаКбІ б±аОаДаЕбЂаЖаАбЃаИаЙ б±аОаЕаДаИаНб¦аНаНб‚аЙ бІаЕаКб±бІ
+	// при активировании параметра одного редактора - сделаем новый объект содержащий соединённый текст
 
 	# Added the robots tag for the content!
 	$robots[] = mosHTML::makeOption('-1',_ROBOTS_HIDE);
@@ -727,7 +727,7 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 	$robots[] = mosHTML::makeOption('3','NoIndex, NoFollow');
 	$lists['robots'] = mosHTML::selectList($robots,'params[robots]','class="inputbox" style="width: 356px;" size="1"','value','text',$params->get('robots'));
 
-	//а‘бЈаГаИ
+	//Тэги
 	$row->tags = null;
 		if($row->id){
 		$tags = new contentTags($database);
@@ -745,13 +745,13 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 	}
 
 
-	HTML_content::editContent($row,$contentSection,$lists,$sectioncategories,$images,$params,$option,$redirect,$menus);
+	ContentView::editContent($row,$contentSection,$lists,$sectioncategories,$images,$params,$option,$redirect,$menus);
 }
 
 /**
 * Saves the content item an edit form submit
 * @param database A database connector object
-* boston, аДаОаБаАаВаИаЛ аПаАбЂаАаМаЕбІбЂ -  аВаОаЗаВбЂаАбІ аВ бЂаЕаДаАаКбІаИбЂаОаВаАаНаИаЕ б±аОаДаЕбЂаЖаИаМаОаГаО аПаОб±аЛаЕ б±аОб…бЂаАаНаЕаНаИбЅ аДаЛбЅ аДаОаБаАаВаЛаЕаНаИбЅ аНаОаВаОаГаО
+* boston, добавил параметр -  возврат в редактирование содержимого после сохранения для добавления нового
 */
 function saveContent($sectionid,$task) {
 	global $my;
@@ -791,7 +791,7 @@ function saveContent($sectionid,$task) {
 	}
 	$row->publish_up = mosFormatDate($row->publish_up,_CURRENT_SERVER_TIME_FORMAT,- $mainframe->getCfg('offset'));
 
-	if(trim($row->publish_down) == 'аЏаИаКаОаГаДаА' || trim($row->publish_down) == '') {
+	if(trim($row->publish_down) == _NEVER || trim($row->publish_down) == '') {
 		$row->publish_down = $nullDate;
 	} else {
 		if(strlen(trim($row->publish_down)) <= 10) {
@@ -852,11 +852,11 @@ function saveContent($sectionid,$task) {
 		$_MAMBOTS->trigger('onAfterSaveContent',array($row));
 	}
 
-    //аЌаОаДаГаОбІаОаВаКаА бІбЈаГаОаВ
+    //Подготовка тэгов
     $tags = explode(',', $_POST['tags']);
     $tag = new contentTags($database);
     $tags = $tag->clear_tags($tags);
-    //а‡аАаПаИб±б  бІбЈаГаОаВ
+    //Запись тэгов
     $row->obj_type = 'com_content';
     $tag->update($tags, $row);
     //$row->metakey = implode(',', $tags);
@@ -918,7 +918,7 @@ function saveContent($sectionid,$task) {
 			mosRedirect('index2.php?option=com_content&sectionid='.$redirect.'&task=edit&hidemainmenu=1&id='.$row->id,$msg);
 			break;
 
-			/* boston, аПаОб±аЛаЕ б±аОб…бЂаАаНаЕаНаИбЅ аВаОаЗаВбЂаАбЃаАаЕаМб±бЅ аВ аОаКаНаО аДаОаБаАаВаЛаЕаНаИбЅ аНаОаВаОаГаО б±аОаДаЕбЂаЖаИаМаОаГаО*/
+			/* boston, после сохранения возвращаемся в окно добавления нового содержимого*/
 		case 'save_and_new':
 			$msg = $row->title.' - '._E_ITEM_SAVED;
 			mosRedirect('index2.php?option=com_content&sectionid=0&task=new&sectionid='.$row->sectionid.'&catid='.$row->catid,$msg);
@@ -1164,7 +1164,7 @@ function moveSection($cid,$sectionid,$option) {
 	// build the html select list
 	$sectCatList = mosHTML::selectList($rows,'sectcat','class="inputbox" size="8"','value','text',null);
 
-	HTML_content::moveSection($cid,$sectCatList,$option,$sectionid,$items);
+	ContentView::moveSection($cid,$sectCatList,$option,$sectionid,$items);
 }
 
 /**
@@ -1263,7 +1263,7 @@ function copyItem($cid,$sectionid,$option) {
 	// build the html select list
 	$sectCatList = mosHTML::selectList($rows,'sectcat','class="inputbox" size="10"','value','text',null);
 
-	HTML_content::copySection($option,$cid,$sectCatList,$sectionid,$items);
+	ContentView::copySection($option,$cid,$sectCatList,$sectionid,$items);
 }
 
 
@@ -1443,7 +1443,7 @@ function menuLink($redirect,$id) {
 	// clean any existing cache files
 	mosCache::cleanCache('com_content');
 
-	$msg = $link.' (аЁб±б‚аЛаКаА - аЊаБбЉаЕаКбІ б±аОаДаЕбЂаЖаИаМаОаГаО) аВ аМаЕаНбѓ: '.$menu.' біб±аПаЕб¶аНаО б±аОаЗаДаАаНб‚';
+	$msg = $link.' (Ссылка - Объект содержимого) в меню: '.$menu.' успешно созданы';
 	mosRedirect('index2.php?option=com_content&sectionid='.$redirect.'&task=edit&hidemainmenu=1&id='.$id,$msg);
 }
 
@@ -1573,7 +1573,7 @@ function _cat_d($act){
 	$query = "SELECT cat.id, cat.title, cat.section, COUNT(con.catid) AS countcon"
 			."\n FROM #__categories AS cat"
 			."\n LEFT JOIN #__content AS con ON con.catid = cat.id"
-			."\n WHERE cat.section NOT LIKE 'com_%' AND con.state>=0" // аВб±аЕ аКбЂаОаМаЕ аАбЂб…аИаВаНб‚б…
+			."\n WHERE cat.section NOT LIKE 'com_%' AND con.state>=0" // все кроме архивных
 			."\n GROUP BY cat.id"
 			."\n ORDER BY cat.section ASC";
 	$database->setQuery($query);
@@ -1609,6 +1609,3 @@ function _user_d(){
 	unset($rows,$row);
 	return $ret;
 }
-
-
-?>

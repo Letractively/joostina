@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright а«аВбІаОбЂб±аКаИаЕ аПбЂаАаВаА (C) 2008-2009 Joostina team. аҐб±аЕ аПбЂаАаВаА аЗаАбЃаИбЃаЕаНб‚.
-* @license а‹аИб†аЕаНаЗаИбЅ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, аИаЛаИ help/license.php
-* Joostina! - б±аВаОаБаОаДаНаОаЕ аПбЂаОаГбЂаАаМаМаНаОаЕ аОаБаЕб±аПаЕбµаЕаНаИаЕ бЂаАб±аПбЂаОб±бІбЂаАаНбЅаЕаМаОаЕ аПаО біб±аЛаОаВаИбЅаМ аЛаИб†аЕаНаЗаИаИ GNU/GPL
-* аѕаЛбЅ аПаОаЛбібµаЕаНаИбЅ аИаНбґаОбЂаМаАб†аИаИ аО аИб±аПаОаЛб аЗбіаЕаМб‚б… бЂаАб±б¶аИбЂаЕаНаИбЅб… аИ аЗаАаМаЕбµаАаНаИаЙ аОаБ аАаВбІаОбЂб±аКаОаМ аПбЂаАаВаЕ, б±аМаОбІбЂаИбІаЕ бґаАаЙаЛ help/copyright.php.
+* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
 */
 
-// аЗаАаПбЂаЕбІ аПбЂбЅаМаОаГаО аДаОб±бІбіаПаА
+// запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 class HTML_banners {
@@ -634,9 +634,9 @@ class HTML_banners {
 			<td><?php echo _ABP_BORDER_STYLE; ?></td>
 			<td colspan="2">
 				<select name="border_style" id="border_style">
-					<option value="solid" <?php echo ($row->border_style == 'solid') ? 'selected' : ''; ?>>аЁаПаЛаОб¶аНаАбЅ</option>
-					<option value="dotted" <?php echo ($row->border_style == 'dotted') ? 'selected' : ''; ?>>аЌбіаНаКбІаИбЂаНаАбЅ</option>
-					<option value="double" <?php echo ($row->border_style == 'double') ? 'selected' : ''; ?>>аѕаВаОаЙаНаАбЅ</option>
+					<option value="solid" <?php echo ($row->border_style == 'solid') ? 'selected' : ''; ?>>Сплошная</option>
+					<option value="dotted" <?php echo ($row->border_style == 'dotted') ? 'selected' : ''; ?>>Пунктирная</option>
+					<option value="double" <?php echo ($row->border_style == 'double') ? 'selected' : ''; ?>>Двойная</option>
 				</select>
 			</td>
 		</tr>
@@ -741,7 +741,7 @@ class HTML_banners {
 		</tr>
 		<tr >
 			<td valign="top" align="right" colspan="2">
-			<?php echo _ABP_TOT_IMP_CLIC; ?> ађбіаБ. <?php echo $row->click_value * $row->complete_clicks + $row->imp_value * $row->imp_made; ?>
+			<?php echo _ABP_TOT_IMP_CLIC; ?> Руб. <?php echo $row->click_value * $row->complete_clicks + $row->imp_value * $row->imp_made; ?>
 			</td>
 		</tr>
 		</table>
@@ -896,7 +896,7 @@ class HTML_banners {
 <?php
 	}
 
-	// аПбЂаОбЂаИб±аОаВаКаА аКаНаОаПаОаК біаПбЂаАаВаЛаЕаНаИбЅ
+	// прорисовка кнопок управления
 	function quickiconButton($link,$image,$text) {
 	?>
 		<span>

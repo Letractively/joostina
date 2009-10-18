@@ -68,4 +68,4 @@ defined( '_VALID_MOS' ) or die();
 		}
 ?>
 		<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
-		</form>
+	</form>

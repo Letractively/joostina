@@ -1,20 +1,20 @@
 <?php
 /**
 * @package Joostina
-* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2009 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
-* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
-* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
-* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
+* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
 */
 
-// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+// запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 /**
 * @package Joostina
 * @subpackage Content
 */
-class HTML_content {
+class ContentView {
 
 	/**
 	* Writes a list of the content items
@@ -22,11 +22,11 @@ class HTML_content {
 	*/
 	function showContent(&$rows,$section,&$lists,$search,$pageNav,$all = null,$redirect='') {
 		global $my,$acl,$database,$mosConfig_live_site;
-		
+
 		$mainframe = &mosMainFrame::getInstance();
 		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
 		$cur_file_icons_path2 = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images';
-		
+
 		$selected_cat = intval( mosGetParam($_REQUEST,'catid',0));
 		$showarchive = intval( mosGetParam($_REQUEST,'showarchive',0));
 
@@ -52,10 +52,10 @@ class HTML_content {
 
 
 	/**
-	* РћС‚РѕР±СЂР°Р¶РµРЅРёРµ С„РѕСЂРјС‹ СЃРѕР·РґР°РЅРёСЏ / СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ
+	* Отображение формы создания / редактирования содержимого
 	*
-	* РќРѕРІР°СЏ Р·Р°РїРёСЃСЊ С…Р°СЂР°РєС‚РµСЂРёР·СѓРµС‚СЃСЏ Р·РЅР°С‡РµРЅРёСЏРјРё <var>$row</var> Рё  <var>id</var>
-	* СЂР°РІРЅС‹РјРё 0.
+	* Новая запись характеризуется значениями <var>$row</var> и  <var>id</var>
+	* равными 0.
 	* @param mosContent The category object
 	* @param string The html for the groups select list
 	*/
@@ -103,7 +103,7 @@ class HTML_content {
 	/**
 	* Form to select Section/Category to copys item(s) to
 	*/
-	function copySection($option,$cid,$sectCatList,$sectionid,$items) {		
+	function copySection($option,$cid,$sectCatList,$sectionid,$items) {
 		include_once($mainframe->adminView('copysection'));
 	}
 	function submit($params){
@@ -112,4 +112,3 @@ class HTML_content {
 	}
 
 }
-?>

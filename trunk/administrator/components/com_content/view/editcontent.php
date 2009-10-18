@@ -492,5 +492,4 @@ defined( '_VALID_MOS' ) or die();
 		<input type="hidden" name="images" value="" />
 		<input type="hidden" name="hidemainmenu" value="0" />
 		<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
-		</form>
-		
+	</form>
