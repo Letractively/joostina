@@ -7,24 +7,20 @@
 * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
 */
 
-// устанавливаем родительский флаг
+// Установка флага родительского файла
 define('_VALID_MOS',1);
-// корень файлов
-define('JPATH_BASE',$_SERVER['DOCUMENT_ROOT'] );
 // разделитель каталогов
 define('DS', DIRECTORY_SEPARATOR );
-// проверка файла конфигурации
-if(!file_exists('../configuration.php')) {
-	die('error-config-file');
-}
+// корень файлов
+define('JPATH_BASE', dirname(dirname(__FILE__)) );
+// корень файлов админкиы
+define('JPATH_BASE_ADMIN', dirname(__FILE__) );
 
-// подключаем файл регистрации глобальных переменных и конфигурацию
-require ('../includes/globals.php');
-require_once ('../configuration.php');
+require_once (JPATH_BASE.DS.'includes'.DS.'globals.php');
+require_once (JPATH_BASE.DS.'configuration.php');
 
 // для совместимости
 $mosConfig_absolute_path = JPATH_BASE;
-
 
 // обработка безопасного режима
 $http_host = explode(':',$_SERVER['HTTP_HOST']);
@@ -33,14 +29,14 @@ if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset
 }
 
 // подключаем ядро
-require_once (JPATH_BASE.'/includes/joomla.php');
-//include_once (JPATH_BASE.'/language/'.$mosConfig_lang.'.php');
-
+require_once (JPATH_BASE .DS. 'includes'.DS.'joomla.php');
 
 // создаём сессии
 session_name(md5($mosConfig_live_site));
 session_start();
 
+header("Content-type: text/html; charset=utf-8");
+header ("Cache-Control: no-cache, must-revalidate ");
 
 $option		= strval(strtolower(mosGetParam($_REQUEST,'option','')));
 $task		= strval(mosGetParam($_REQUEST,'task',''));
@@ -48,44 +44,36 @@ $task		= strval(mosGetParam($_REQUEST,'task',''));
 // mainframe - основная рабочая среда API, осуществляет взаимодействие с 'ядром'
 $mainframe = mosMainFrame::getInstance(true);
 $mainframe->set('lang', $mosConfig_lang);
-include_once($mainframe->getLangFile());
+require_once($mainframe->getLangFile());
 
-require_once (JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/includes/admin.php');
+require_once (JPATH_BASE_ADMIN.DS.'includes'.DS.'admin.php');
 
 $my = $mainframe->initSessionAdmin($option,$task);
-
-if($mosConfig_mmb_system_off == 0) {
-	$_MAMBOTS->loadBotGroup('admin');
-	$_MAMBOTS->trigger('onAfterAdminAjaxStart');
-}
 
 if(!$my->id){
 	die('error-my');
 }
 
+// запускаем мамботты событий onAfterAdminAjaxStart
+if($mosConfig_mmb_system_off == 0) {
+	$_MAMBOTS->loadBotGroup('admin');
+	$_MAMBOTS->trigger('onAfterAdminAjaxStart');
+}
+
 $commponent = str_replace('com_','',$option);
 
-header("Content-type: text/html; charset=utf-8");
-header ("Cache-Control: no-cache, must-revalidate ");
-//ob_start();
 initGzip();
+// файл обработки Ajax запрсоов конкртеного компонента
+$file_com = JPATH_BASE_ADMIN.DS.'components'.DS.$option.DS.'admin.'.$commponent.'.ajax.php';
 // проверяем, какой файл необходимо подключить, данные берутся из пришедшего GET запроса
-if(file_exists(JPATH_BASE . "/".ADMINISTRATOR_DIRECTORY."/components/$option/admin.$commponent.ajax.php")) {
+if(file_exists($file_com)) {
 	//Подключаем язык компонента
- 	if($mainframe->getLangFile($option)){ 
- 		include($mainframe->getLangFile($option));        	
+	if($mainframe->getLangFile($option)){
+		include($mainframe->getLangFile($option));
 	}
-	include_once (JPATH_BASE . "/".ADMINISTRATOR_DIRECTORY."/components/$option/admin.$commponent.ajax.php");
+	include_once ($file_com);
 } else {
 	die('error-inc-component');
 }
 
-//$_ajax_body = ob_get_contents();
-//ob_end_clean();
-
-//echo $_ajax_body;
 doGzip();
-
-flush();
-exit();
-?>

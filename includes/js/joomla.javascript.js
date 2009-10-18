@@ -42,13 +42,13 @@ function mess_bad(mess){
 
 // смена статуса публикации, elID - идентификатор объекта у которого меняется статус публикации
 function ch_publ(elID,option){
-	SRAX.get('img-pub-'+elID).src = 'images/aload.gif';
+	$('#img-pub-'+elID).attr('src','images/aload.gif');
 	dax({
 		url: 'ajax.index.php?option='+option+'&utf=0&task=publish&id='+elID,
 		id:'publ-'+elID,
 		callback:
 			function(resp, idTread, status, ops){
-				SRAX.get('img-pub-'+elID).src = 'images/'+resp.responseText;
+				$('#img-pub-'+elID).attr('src','images/'+resp.responseText);
 			}
 	});
 	return false;

@@ -7,24 +7,17 @@
 * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
 */
 
-// Установка флага, что этот файл - родительский
+// Установка флага родительского файла
 define('_VALID_MOS',1);
-// корень файлов
-define('JPATH_BASE', $_SERVER['DOCUMENT_ROOT']);
 // разделитель каталогов
 define('DS', DIRECTORY_SEPARATOR );
+// корень файлов
+define('JPATH_BASE', dirname(dirname(__FILE__)) );
+// корень файлов админкиы
+define('JPATH_BASE_ADMIN', dirname(__FILE__) );
 
-if(!file_exists('../configuration.php')) {
-	header('Location: ../installation/index.php');
-	exit();
-}
-
-// корень админки
-$root = dirname(dirname(__FILE__));
-define('ADMIN_ROOT',$root);
-
-require_once (ADMIN_ROOT.DS.'includes'.DS.'globals.php');
-require_once (ADMIN_ROOT.DS.'configuration.php');
+require_once (JPATH_BASE.DS.'includes'.DS.'globals.php');
+require_once (JPATH_BASE.DS.'configuration.php');
 
 // для совместимости
 $mosConfig_absolute_path = JPATH_BASE;
@@ -35,6 +28,7 @@ if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset
 	$mosConfig_live_site = 'https://' . substr($mosConfig_live_site,7);
 }
 
+// подключаем ядро
 require_once (JPATH_BASE .DS. 'includes'.DS.'joomla.php');
 
 // работа с сессиями начинается до создания главного объекта взаимодействия с ядром
@@ -58,8 +52,8 @@ $database = &database::getInstance();
 $mainframe = mosMainFrame::getInstance(true);
 $mainframe->set('lang', $mosConfig_lang);
 
-include_once($mainframe->getLangFile());
-require_once (JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY.DS.'includes'.DS.'admin.php');
+require_once($mainframe->getLangFile());
+require_once (JPATH_BASE_ADMIN.DS.'includes'.DS.'admin.php');
 
 
 // запуск сессий панели управления

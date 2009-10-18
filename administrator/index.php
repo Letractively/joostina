@@ -11,18 +11,17 @@
 define('_VALID_MOS',1);
 // разделитель каталогов
 define('DS', DIRECTORY_SEPARATOR );
+// корень файлов
+define('JPATH_BASE', dirname(dirname(__FILE__)) );
 
-if(!file_exists('../configuration.php')) {
+if(!file_exists(JPATH_BASE.DS.'configuration.php')) {
 	header('Location: ../installation/index.php');
 	exit();
 }
 
-require ('../includes/globals.php');
-require_once ('../configuration.php');
-
-// корень файлов
-define('JPATH_BASE', $_SERVER['DOCUMENT_ROOT']);
-require_once ('../includes/joomla.php');
+require_once (JPATH_BASE.DS.'includes/globals.php');
+require_once (JPATH_BASE.DS.'configuration.php');
+require_once (JPATH_BASE.DS.'includes/joomla.php');
 
 // для совместимости
 $mosConfig_absolute_path = JPATH_BASE;
@@ -37,7 +36,7 @@ if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset
 }
 
 $database	= &database::getInstance();
-$mainframe = &mosMainFrame::getInstance(true);
+$mainframe	= &mosMainFrame::getInstance(true);
 
 // Проверяем ip адрес: если он находится в стоп-листе и выбрана опция блокировки достутпа в админку, то блокируем доступ
 if(file_exists('./components/com_security/block_access.php')) {
@@ -67,6 +66,8 @@ $option = strtolower(strval(mosGetParam($_REQUEST,'option',null)));
 
 session_name(md5($mosConfig_live_site));
 session_start();
+
+header('Content-type: text/html; charset=UTF-8');
 
 $bad_auth_count =intval(mosGetParam($_SESSION,'bad_auth',0));
 
@@ -248,4 +249,3 @@ if(isset($_POST['submit'])) {
 	require_once ($path);
 	doGzip();
 }
-?>

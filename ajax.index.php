@@ -14,7 +14,6 @@ define('JPATH_BASE', dirname(__FILE__) );
 // разделитель каталогов
 define('DS', DIRECTORY_SEPARATOR );
 
-JPATH_BASE = dirname( __FILE__ );
 require (JPATH_BASE.'/includes/globals.php');
 require_once ('./configuration.php');
 

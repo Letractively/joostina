@@ -30,10 +30,10 @@ if(!file_exists('configuration.php') || filesize('configuration.php') < 10) {
 $mosConfig_absolute_path = JPATH_BASE;
 
 // подключение файла эмуляции отключения регистрации глобальных переменных
-require (JPATH_BASE.DS.'includes'.DS.'globals.php');
+require_once (JPATH_BASE.DS.'includes'.DS.'globals.php');
 
 // подключение файла конфигурации
-require_once ('./configuration.php');
+require_once (JPATH_BASE.DS.'configuration.php');
 
 // считаем время за которое сгенерирована страница
 if($mosConfig_time_gen) {
@@ -309,4 +309,3 @@ if($mosConfig_optimizetables == 1) {
 }
 
 joostina_api::clear_cache();
-?>
