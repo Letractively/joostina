@@ -429,8 +429,8 @@ function chooseIcon($option) {
 
 	$icons = 0;
 	$imgs = array();
-	$folder[] = JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/images/';
-	$folder[] = JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$cur_template.'/images/cpanel_ico/';
+	$folder[] = JPATH_BASE_ADMIN.'/images/';
+	$folder[] = JPATH_BASE_ADMIN.'/templates/'.$cur_template.'/images/cpanel_ico/';
 
 	foreach($folder as $fold) {
 		if(file_exists($fold)) {

@@ -110,7 +110,7 @@ class CConfiguration {
 		global $option;
 
 		// Private initializers
-		$this->_InstallationRoot	= JPATH_BASE."/".ADMINISTRATOR_DIRECTORY."/";
+		$this->_InstallationRoot	= JPATH_BASE_ADMIN."/";
 		$this->_configurationFile	= $this->_InstallationRoot."/components/com_joomlapack/jpack.config.php";
 
 		// Default configuration
@@ -430,7 +430,7 @@ class CAltInstaller {
 		// Instanciate new parser object
 		$xmlDoc = new DOMIT_Lite_Document();
 		$xmlDoc->resolveErrors(true);
-		if(!$xmlDoc->loadXML(JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_joomlapack/installers/'.$file,false,true)) {
+		if(!$xmlDoc->loadXML(JPATH_BASE_ADMIN.'/components/com_joomlapack/installers/'.$file,false,true)) {
 			return false;
 		}
 		$root = &$xmlDoc->documentElement;
@@ -490,7 +490,7 @@ class CAltInstaller {
 		require_once 'engine.abstraction.php';
 		$FS = new CFSAbstraction;
 		$defs = array();
-		$fileList = $FS->getDirContents(JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_joomlapack/installers/','*.xml');
+		$fileList = $FS->getDirContents(JPATH_BASE_ADMIN.'/components/com_joomlapack/installers/','*.xml');
 		foreach($fileList as $fileDef) {
 			$file = $fileDef['name'];
 			$baseName = basename($file);

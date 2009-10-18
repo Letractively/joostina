@@ -157,7 +157,7 @@ function showMenu($option) {
 		}
 	}
 
-	require_once ($config->config_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
+	require_once (JPATH_BASE_ADMIN.DS.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
 	HTML_menumanager::show($option,$menus,$pageNav);
@@ -522,4 +522,3 @@ function copyMenu($option,$cid,$type) {
 function cancelMenu($option) {
 	mosRedirect('index2.php?option='.$option.'&task=view');
 }
-?>

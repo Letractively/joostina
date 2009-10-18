@@ -11,8 +11,8 @@
 defined('_VALID_MOS') or die();
 
 global $mosConfig_live_site,$option;
-require_once (JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY.'/components/com_joomlapack/includes/sajax.php');
-require_once (JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY.'/components/com_joomlapack/includes/ajaxtool.php');
+require_once (JPATH_BASE_ADMIN.'/components/com_joomlapack/includes/sajax.php');
+require_once (JPATH_BASE_ADMIN.'/components/com_joomlapack/includes/ajaxtool.php');
 ?>
 <script language="JavaScript" type="text/javascript">
 <?php

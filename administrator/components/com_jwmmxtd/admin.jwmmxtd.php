@@ -185,7 +185,7 @@ switch($task) {
 
 // распаковка ZIP архивов
 function unzipzipfile($curdirpath,$curfile,$destindir) {
-	include_once (JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY.'/includes/pcl/pclzip.lib.php');
+	include_once (JPATH_BASE_ADMIN.'/includes/pcl/pclzip.lib.php');
 
 	$path = JWMMXTD_STARTABSPATH.$curdirpath.DS.$curfile;// файл для распаковки
 	$path2 = JWMMXTD_STARTABSPATH.$destindir.DS; // каталог для распаковки

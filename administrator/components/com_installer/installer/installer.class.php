@@ -79,7 +79,7 @@ class mosInstaller {
 	 * @since 1.3
 	 */
 	function downloadPackage($url, $target = false){
-		$base_Dir = mosPathName(Jconfig::getInstance()->config_absolute_path.'/media');
+		$base_Dir = mosPathName(JPATH_BASE.DS.'media');
 
 		// Capture PHP errors
 		$php_errormsg = 'Error Unknown';
@@ -164,7 +164,7 @@ class mosInstaller {
 	 */
 	function extractArchive() {
 
-		$base_Dir = mosPathName(Jconfig::getInstance()->config_absolute_path.'/media');
+		$base_Dir = mosPathName(JPATH_BASE.DS.'media');
 
 		$archivename = $base_Dir.$this->installArchive();
 		$tmpdir = uniqid('install_');
@@ -176,8 +176,8 @@ class mosInstaller {
 
 		if(eregi('.zip$',$archivename)) {
 			// Extract functions
-			require_once (Jconfig::getInstance()->config_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/includes/pcl/pclzip.lib.php');
-			require_once (Jconfig::getInstance()->config_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/includes/pcl/pclerror.lib.php');
+			require_once (JPATH_BASE_ADMIN.'/includes/pcl/pclzip.lib.php');
+			require_once (JPATH_BASE_ADMIN.'/includes/pcl/pclerror.lib.php');
 			$zipfile = new PclZip($archivename);
 			if($this->isWindows()) {
 				define('OS_WINDOWS',1);
@@ -191,7 +191,7 @@ class mosInstaller {
 				return false;
 			}
 		} else {
-			require_once (Jconfig::getInstance()->config_absolute_path.'/includes/Archive/Tar.php');
+			require_once (JPATH_BASE.'/includes/Archive/Tar.php');
 			$archive = new Archive_Tar($archivename);
 			$archive->setErrorHandling(PEAR_ERROR_PRINT);
 
@@ -673,4 +673,3 @@ function deldir($dir) {
 	closedir($current_dir);
 	return rmdir($dir);
 }
-?>

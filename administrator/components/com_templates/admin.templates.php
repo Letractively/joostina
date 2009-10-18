@@ -18,7 +18,7 @@ if(!$acl->acl_check('administration','manage','users',$GLOBALS['my']->usertype,'
 global $mosConfig_one_template;
 
 require_once ($mainframe->getPath('admin_html'));
-require_once (JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_templates/admin.templates.class.php');
+require_once (JPATH_BASE_ADMIN.'/components/com_templates/admin.templates.class.php');
 // XML library
 require_once (JPATH_BASE.'/includes/domit/xml_domit_lite_include.php');
 
@@ -110,7 +110,7 @@ function viewTemplates($option,$client) {
 	$limitstart = $mainframe->getUserStateFromRequest("view{$option}limitstart",'limitstart',0);
 
 	if($client == 'admin') {
-		$templateBaseDir = mosPathName(JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/templates');
+		$templateBaseDir = mosPathName(JPATH_BASE_ADMIN.'/templates');
 	} else {
 		$templateBaseDir = mosPathName(JPATH_BASE.'/templates');
 	}
@@ -270,7 +270,7 @@ function removeTemplate($cid,$option,$client) {
 function editTemplateSource($p_tname,$option,$client) {
 
 	if($client == 'admin') {
-		$file = JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$p_tname.'/index.php';
+		$file = JPATH_BASE_ADMIN.'/templates/'.$p_tname.'/index.php';
 	} else {
 		$file = JPATH_BASE.'/templates/'.$p_tname.'/index.php';
 	}
@@ -298,7 +298,7 @@ function saveTemplateSource($option,$client,$task) {
 	}
 
 	if($client == 'admin') {
-		$file = JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$template.	'/index.php';
+		$file = JPATH_BASE_ADMIN.'/templates/'.$template.	'/index.php';
 	} else {
 		$file = JPATH_BASE.'/templates/'.$template.'/index.php';
 	}
@@ -331,7 +331,7 @@ function saveTemplateSource($option,$client,$task) {
 function editTemplateCSS($p_tname,$option,$client) {
 	josSpoofCheck();
 	if($client == 'admin') {
-		$file = JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$p_tname.'/css/template_css.css';
+		$file = JPATH_BASE_ADMIN.'/templates/'.$p_tname.'/css/template_css.css';
 	} else {
 		$file = JPATH_BASE.'/templates/'.$p_tname.'/css/template_css.css';
 	}
@@ -359,7 +359,7 @@ function saveTemplateCSS($option,$client) {
 	}
 
 	if($client == 'admin') {
-		$file = JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$template.'/css/template_css.css';
+		$file = JPATH_BASE_ADMIN.'/templates/'.$template.'/css/template_css.css';
 	} else {
 		$file = JPATH_BASE.'/templates/'.$template.'/css/template_css.css';
 	}

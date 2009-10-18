@@ -105,7 +105,7 @@ class XmapPlugin extends mosDBTable {
 	}
 
 	function getXmlPath () {
-		return JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/extensions/'.$this->extension.'.xml';
+		return JPATH_BASE_ADMIN.'/components/com_xmap/extensions/'.$this->extension.'.xml';
 	}
 
 	function store() {

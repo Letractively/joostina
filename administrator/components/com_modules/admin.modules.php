@@ -126,7 +126,7 @@ function viewModules($option,$client) {
 	$database->setQuery($query);
 	$total = $database->loadResult();
 
-	require_once (JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
+	require_once (JPATH_BASE_ADMIN.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
 	$query = "SELECT m.*, u.name AS editor, g.name AS groupname, MIN(mm.menuid) AS pages"

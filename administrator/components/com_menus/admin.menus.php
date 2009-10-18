@@ -12,7 +12,7 @@ defined('_VALID_MOS') or die();
 
 require_once ($mainframe->getPath('admin_html'));
 
-$path = JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY.DS.'components'.DS.'com_menus'.DS;
+$path = JPATH_BASE_ADMIN.DS.'components'.DS.'com_menus'.DS;
 
 $menutype = stripslashes(strval(mosGetParam($_REQUEST,'menutype','mainmenu')));
 $type = stripslashes(strval(mosGetParam($_REQUEST,'type',false)));
@@ -254,19 +254,16 @@ function viewMenuItems($menutype,$option) {
 * Displays a selection list for menu item types
 */
 function addMenuItem(&$cid,$menutype,$option,$task) {
-
 	$types = array();
 
-	JPATH_BASE = Jconfig::getInstance()->config_absolute_path;
-
 	// list of directories
-	$dirs = mosReadDirectory(JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY.DS.'components/com_menus');
+	$dirs = mosReadDirectory(JPATH_BASE_ADMIN.DS.'components/com_menus');
 
 	// load files for menu types
 	foreach($dirs as $dir) {
 		// needed within menu type .php files
 		$type = $dir;
-		$dir = JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY.DS.'components/com_menus/'.$dir;
+		$dir = JPATH_BASE_ADMIN.DS.'components/com_menus/'.$dir;
 		if(is_dir($dir)) {
 			$files = mosReadDirectory($dir,".\.menu\.php$");
 			foreach($files as $file) {
@@ -428,7 +425,7 @@ function publishMenuSection($cid = null,$publish = 1,$menutype) {
 			$task = $publish?'publish':'unpublish';
 			// $type value is used in*.menu.php
 			$type = $menu->type;
-			require_once (Jconfig::getInstance()->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY.DS.'components/com_menus'.DS.$type.DS.$type.'.menu.php');
+			require_once (JPATH_BASE_ADMIN.DS.'components/com_menus'.DS.$type.DS.$type.'.menu.php');
 		}
 	}
 
@@ -722,12 +719,10 @@ function copyMenuSave($option,$cid,$menu,$menutype) {
 
 function ReadMenuXML($type,$component = -1) {
 
-	JPATH_BASE = Jconfig::getInstance()->config_absolute_path;
-
 	// XML library
 	require_once (JPATH_BASE.'/includes/domit/xml_domit_lite_include.php');
 	// xml file for module
-	$xmlfile = JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY.'/components/com_menus/'.$type.DS.$type.'.xml';
+	$xmlfile = JPATH_BASE_ADMIN.'/components/com_menus/'.$type.DS.$type.'.xml';
 	$xmlDoc = new DOMIT_Lite_Document();
 
 	$xmlDoc->resolveErrors(true);

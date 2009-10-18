@@ -11,7 +11,7 @@
 defined('_VALID_MOS') or die();
 
 require_once ($mainframe->getPath('admin_html'));
-require_once (Jconfig::getInstance()->config_absolute_path.'/components/com_content/content.class.php');
+require_once (JPATH_BASE.'/components/com_content/content.class.php');
 
 define('COM_IMAGE_BASE',JPATH_BASE.DS.'images'.DS.'stories');
 
@@ -217,9 +217,8 @@ function _gedsid($cid){
 function showSections($scope,$option) {
 	global $my;
 
-	$database = &database::getInstance();
-	$mainframe = &mosMainFrame::getInstance(true);
-	$config = &Jconfig::getInstance();
+	$mainframe	= &mosMainFrame::getInstance(true);
+	$database	= $mainframe->_db;
 
 	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit",'limit',$config->config_list_limit));
 	$limitstart = intval($mainframe->getUserStateFromRequest("view{$option}limitstart",'limitstart',0));
@@ -229,7 +228,7 @@ function showSections($scope,$option) {
 	$database->setQuery($query);
 	$total = $database->loadResult();
 
-	require_once ($config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY.DS.'includes'.DS.'pageNavigation.php');
+	require_once (JPATH_BASE_ADMIN.DS.'includes'.DS.'pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
 	$query = "SELECT c.*, g.name AS groupname, u.name AS editor"

@@ -53,7 +53,7 @@ $title = eregi_replace($pat2,$replace2,$row->title);
 
 // css file handling
 // check to see if template exists
-if($css != '' && !is_dir(JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY.DS.'templates'.DS.$css.DS.'css/template_css.css')) {
+if($css != '' && !is_dir(JPATH_BASE_ADMIN.DS.'templates'.DS.$css.DS.'css/template_css.css')) {
 	$css = 'newline';
 } else
 	if($css == '') {

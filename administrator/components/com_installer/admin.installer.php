@@ -27,11 +27,10 @@ if(!$acl->acl_check('administration','install','users',$my->usertype,$element.'s
 	mosRedirect('index2.php',_NOT_AUTH);
 }
 
-$path = JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY."/components/com_installer/$element/$element.php";
+$path = JPATH_BASE_ADMIN."/components/com_installer/$element/$element.php";
 
 if(file_exists($path)) {
 	require $path;
 } else {
 	echo "[$element] - "._NO_INSTALLER;
 }
-?>
