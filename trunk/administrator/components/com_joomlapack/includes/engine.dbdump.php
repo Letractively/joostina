@@ -116,7 +116,7 @@ class CDBBackupEngine {
 		$this->_onlyDBDumpMode = $onlyDBDumpMode;
 		$this->_dbprefix = $mosConfig_dbprefix;
 		// Detect JoomFish
-		if(file_exists(JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_joomfish/config.joomfish.php')) {
+		if(file_exists(JPATH_BASE_ADMIN.'/components/com_joomfish/config.joomfish.php')) {
 			$this->_hasJoomFish = true;
 		} else {
 			$this->_hasJoomFish = false;
@@ -262,7 +262,7 @@ class CDBBackupEngine {
 									break;
 								case 2:
 									// архивирование в zip
-									include_once (JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/includes/pcl/pclzip.lib.php');
+									include_once (JPATH_BASE_ADMIN.'/includes/pcl/pclzip.lib.php');
 									$filename = $filename.'.zip';
 									$zip = new PclZip($filename);
 									$zip->add($this->_filenameCore,'',PclZipUtilTranslateWinPath(dirname($this->_filenameCore)));

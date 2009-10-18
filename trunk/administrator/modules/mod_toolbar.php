@@ -17,10 +17,10 @@ if(!defined('_TOOLBAR_MODULE')) {
 
 	$file = $mosConfig_old_toolbar ? 'menubar.html.old.php' : 'menubar.html.php';
 
-	if(file_exists(JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY.'/templates/'.$cur_template.'/html/'.$file)) {
-		require_once (JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY.'/templates/'.$cur_template.'/html/'.$file);
+	if(file_exists(JPATH_BASE_ADMIN.'/templates/'.$cur_template.'/html/'.$file)) {
+		require_once (JPATH_BASE_ADMIN.'/templates/'.$cur_template.'/html/'.$file);
 	} else {
-		require_once (JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY.'/includes/'.$file);
+		require_once (JPATH_BASE_ADMIN.'/includes/'.$file);
 	}
 }
 

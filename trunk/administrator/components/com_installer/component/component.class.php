@@ -92,8 +92,8 @@ class mosInstallerComponent extends mosInstaller {
 		// Set some vars
 		$e = &$mosinstall->getElementsByPath('name',1);
 		$this->elementName($e->getText());
-		$this->elementDir(mosPathName($config->config_absolute_path.DS.'components'.DS.strtolower("com_".str_replace(" ","",$this->elementName())).DS));
-		$this->componentAdminDir(mosPathName($config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY.DS.'components'.DS.strtolower('com_'.str_replace(' ','',$this->elementName()))));
+		$this->elementDir(mosPathName(JPATH_BASE.DS.'components'.DS.strtolower("com_".str_replace(" ","",$this->elementName())).DS));
+		$this->componentAdminDir(mosPathName(JPATH_BASE_ADMIN.DS.'components'.DS.strtolower('com_'.str_replace(' ','',$this->elementName()))));
 
 		if(file_exists($this->elementDir())) {
 			$this->setError(1,_OTHER_COMPONENT_USE_DIR.': "'.$this->elementDir().'"');
@@ -311,14 +311,14 @@ class mosInstallerComponent extends mosInstaller {
 		}
 
 		// Try to find the XML file
-		$filesindir = mosReadDirectory(mosPathName($config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY.DS.'components'.DS.$row->option),'.xml$');
+		$filesindir = mosReadDirectory(mosPathName(JPATH_BASE_ADMIN.DS.'components'.DS.$row->option),'.xml$');
 		if(count($filesindir) > 0) {
 			$ismosinstall = false;
 			$found = 0;
 			foreach($filesindir as $file) {
 				$xmlDoc = new DOMIT_Lite_Document();
 				$xmlDoc->resolveErrors(true);
-				if(!$xmlDoc->loadXML($config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY.DS.'components'.DS.$row->option.DS.$file,false,true)) {
+				if(!$xmlDoc->loadXML(JPATH_BASE_ADMIN.DS.'components'.DS.$row->option.DS.$file,false,true)) {
 					return false;
 				}
 				$root = &$xmlDoc->documentElement;
@@ -331,8 +331,8 @@ class mosInstallerComponent extends mosInstaller {
 				// Is there an uninstallfile
 				$uninstallfile_elemet = &$root->getElementsByPath('uninstallfile',1);
 				$uninstall_file = $uninstallfile_elemet->getText();
-				if(!is_null($uninstall_file) && file_exists($config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY.DS.'components'.DS.$row->option.DS.$uninstall_file)) {
-					require_once ($config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY.DS.'components'.DS.$row->option.DS.$uninstall_file);
+				if(!is_null($uninstall_file) && file_exists(JPATH_BASE_ADMIN.DS.'components'.DS.$row->option.DS.$uninstall_file)) {
+					require_once (JPATH_BASE_ADMIN.DS.'components'.DS.$row->option.DS.$uninstall_file);
 					$uninstallret = com_uninstall();
 				}
 
@@ -358,11 +358,11 @@ class mosInstallerComponent extends mosInstaller {
 		// Delete directories
 		if(trim($row->option)) {
 			$result = 0;
-			$path = mosPathName($config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY.DS.'components'.DS.$row->option);
+			$path = mosPathName(JPATH_BASE_ADMIN.DS.'components'.DS.$row->option);
 			if(is_dir($path)) {
 				$result |= deldir($path);
 			}
-			$path = mosPathName($config->config_absolute_path.DS.'components'.DS.$row->option);
+			$path = mosPathName(JPATH_BASE.DS.'components'.DS.$row->option);
 			if(is_dir($path)) {
 				$result |= deldir($path);
 			}
@@ -381,8 +381,8 @@ class mosInstallerComponent extends mosInstaller {
 		$config =&Jconfig::getInstance();
 
 		josSpoofCheck();
-		$basepath = mosPathName($config->config_absolute_path.DS.'components'.DS.strtolower("com_".str_replace(" ","",$this->elementName())));
-		$adminpath = mosPathName($config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY.DS.'components'.DS.strtolower("com_".str_replace(" ","",$this->elementName())));;
+		$basepath = mosPathName(JPATH_BASE.DS.'components'.DS.strtolower("com_".str_replace(" ","",$this->elementName())));
+		$adminpath = mosPathName(JPATH_BASE_ADMIN.DS.'components'.DS.strtolower("com_".str_replace(" ","",$this->elementName())));;
 		
 		if(file_exists($adminpath)){
 			deldir($adminpath);
@@ -413,12 +413,12 @@ class mosInstallerComponent extends mosInstaller {
 				if(count($files) != 0) {
 					foreach($files as $file) {
 						if($adminFiles == 1){
-							if(file_exists($config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY . DS . $file->getText())){
-								unlink($config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY . DS . $file->getText());
+							if(file_exists(JPATH_BASE_ADMIN . DS . $file->getText())){
+								unlink(JPATH_BASE_ADMIN . DS . $file->getText());
 							}
 						}else{
-							if(file_exists($config->config_absolute_path .DS. $file->getText())){
-								unlink($config->config_absolute_path .DS. $file->getText());
+							if(file_exists(JPATH_BASE .DS. $file->getText())){
+								unlink(JPATH_BASE .DS. $file->getText());
 							}
 						}
 					}

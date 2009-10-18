@@ -41,7 +41,6 @@ class mosInstallerModule extends mosInstaller {
 	*/
 	function install($p_fromdir = null) {
 		$database = &database::getInstance();
-		$config = &Jconfig::getInstance();
 
 		josSpoofCheck();
 		if(!$this->preInstallCheck($p_fromdir,'module')) {
@@ -64,7 +63,7 @@ class mosInstallerModule extends mosInstaller {
 		// Set some vars
 		$e = &$mosinstall->getElementsByPath('name',1);
 		$this->elementName($e->getText());
-		$this->elementDir(mosPathName($config->config_absolute_path.($client == 'admin'?'/'.ADMINISTRATOR_DIRECTORY:'').'/modules/'));
+		$this->elementDir(mosPathName(JPATH_BASE.($client == 'admin'?'/'.ADMINISTRATOR_DIRECTORY:'').'/modules/'));
 
 		$e = &$mosinstall->getElementsByPath('position',1);
 		if(!is_null($e)) {
@@ -173,7 +172,7 @@ class mosInstallerModule extends mosInstaller {
 			if(!$row->client_id) {
 				$basepath = JPATH_BASE.'/modules/';
 			} else {
-				$basepath = JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/modules/';
+				$basepath = JPATH_BASE_ADMIN.'/modules/';
 			}
 
 			$xmlfile = $basepath.$row->module.'.xml';
@@ -227,7 +226,7 @@ class mosInstallerModule extends mosInstaller {
 		
 		if($client == 'administrator')
 		{
-			$basepath = JPATH_BASE."/".ADMINISTRATOR_DIRECTORY."/modules/";
+			$basepath = JPATH_BASE_ADMIN."/modules/";
 		}
 		else
 		{

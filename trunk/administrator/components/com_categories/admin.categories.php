@@ -11,7 +11,8 @@
 defined('_VALID_MOS') or die();
 
 require_once ($mainframe->getPath('admin_html'));
-require_once (Jconfig::getInstance()->config_absolute_path.DS.'components'.DS.'com_content'.DS.'content.class.php');
+require_once (JPATH_BASE.DS.'components'.DS.'com_content'.DS.'content.class.php');
+
 define('COM_IMAGE_BASE',JPATH_BASE.DS.'images'.DS.'stories');
 
 // get parameters from the URL or submitted form
@@ -189,7 +190,7 @@ function showCategories($section,$option) {
 		$filter = '';
 	}
 
-	require_once (JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
+	require_once (JPATH_BASE_ADMIN.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
 	$tablesAllowed = $database->getTableList();

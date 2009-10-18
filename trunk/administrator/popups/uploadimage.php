@@ -128,7 +128,7 @@ if(isset($_FILES['userfile'])) {
 
 // css file handling
 // check to see if template exists
-if($css != '' && !is_dir(JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY.'/templates/'.$css.'/css/template_css.css')) {
+if($css != '' && !is_dir(JPATH_BASE_ADMIN.'/templates/'.$css.'/css/template_css.css')) {
 	$css = 'joostfree';
 } else
 	if($css == '') {

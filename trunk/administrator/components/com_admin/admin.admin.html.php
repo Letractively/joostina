@@ -21,7 +21,7 @@ class HTML_admin_misc {
 	*/
 	function controlPanel() {
 		global $mainframe;
-		$path = JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/html/cpanel.php';
+		$path = JPATH_BASE_ADMIN.'/templates/'.$mainframe->getTemplate().'/html/cpanel.php';
 		if(file_exists($path)) {
 			require $path;
 		} else {
@@ -587,4 +587,3 @@ function getHelpTOC($helpsearch) {
 	asort($toc);
 	return $toc;
 }
-?>

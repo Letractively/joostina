@@ -72,9 +72,7 @@ class mosInstaller {
 	* @return boolean True on success, False on error
 	*/
 	function extractArchive() {
-		$config = &Jconfig::getInstance();
-
-		$base_Dir = mosPathName($config->config_absolute_path.'/media');
+		$base_Dir = mosPathName(JPATH_BASE.'/media');
 
 		$archivename = $base_Dir.$this->installArchive();
 		$tmpdir = uniqid('install_');
@@ -86,8 +84,8 @@ class mosInstaller {
 
 		if(eregi('.zip$',$archivename)) {
 			// Extract functions
-			require_once ($config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY.'/includes/pcl/pclzip.lib.php');
-			require_once ($config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY.'/includes/pcl/pclerror.lib.php');
+			require_once (JPATH_BASE_ADMIN.'/includes/pcl/pclzip.lib.php');
+			require_once (JPATH_BASE_ADMIN.'/includes/pcl/pclerror.lib.php');
 
 			$zipfile = new PclZip($archivename);
 			if($this->isWindows()) {
@@ -102,7 +100,7 @@ class mosInstaller {
 				return false;
 			}
 		} else {
-			require_once ($config->config_absolute_path.'/includes/Archive/Tar.php');
+			require_once (JPATH_BASE.'/includes/Archive/Tar.php');
 			$archive = new Archive_Tar($archivename);
 			$archive->setErrorHandling(PEAR_ERROR_PRINT);
 
@@ -322,7 +320,7 @@ class mosInstaller {
 
 		if($tagName == 'media') {
 			// media is a special tag
-			$installTo = mosPathName($config->config_absolute_path.'/images/stories');
+			$installTo = mosPathName(JPATH_BASE.'/images/stories');
 		} else
 			if($adminFiles) {
 				$installTo = $this->componentAdminDir();
@@ -481,11 +479,10 @@ class mosInstaller {
 }
 
 function cleanupInstall($userfile_name,$resultdir) {
-	$config = &Jconfig::getInstance();
 
 	if(file_exists($resultdir)) {
 		deldir($resultdir);
-		unlink(mosPathName($config->config_absolute_path.DS.'media'.DS.$userfile_name,false));
+		unlink(mosPathName(JPATH_BASE.DS.'media'.DS.$userfile_name,false));
 	}
 }
 
@@ -506,4 +503,3 @@ function deldir($dir) {
 	closedir($current_dir);
 	return rmdir($dir);
 }
-?>

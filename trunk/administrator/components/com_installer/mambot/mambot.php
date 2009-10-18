@@ -55,14 +55,13 @@ function removeElement($client) {
 
 function showInstalledMambots($_option) {
 	$database = &database::getInstance();
-	$config = &Jconfig::getInstance();
 
 	$query = "SELECT id, name, folder, element, client_id FROM #__mambots WHERE iscore = 0 ORDER BY folder, name";
 	$database->setQuery($query);
 	$rows = $database->loadObjectList();
 
 	// path to mambot directory
-	$mambotBaseDir = mosPathName(mosPathName($config->config_absolute_path)."mambots");
+	$mambotBaseDir = mosPathName(mosPathName(JPATH_BASE)."mambots");
 
 	$id = 0;
 	$n = count($rows);
@@ -109,4 +108,3 @@ function showInstalledMambots($_option) {
 
 	HTML_mambot::showInstalledMambots($rows,$_option,$id,$xmlfile);
 }
-?>

@@ -15,9 +15,9 @@ if(!$acl->acl_check('administration','config','users',$my->usertype)) {
 }
 
 // подключение класса конфигурации
-require_once (JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY."/components/com_joomlapack/includes/configuration.php");
+require_once (JPATH_BASE_ADMIN."/components/com_joomlapack/includes/configuration.php");
 
-require_once (JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY."/components/com_joomlapack/includes/sajax.php");
+require_once (JPATH_BASE_ADMIN."/components/com_joomlapack/includes/sajax.php");
 
-require_once (JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY."/components/com_joomlapack/includes/ajaxtool.php");
+require_once (JPATH_BASE_ADMIN."/components/com_joomlapack/includes/ajaxtool.php");
 ?>

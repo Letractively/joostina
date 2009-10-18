@@ -22,7 +22,6 @@ class mosInstallerLanguage extends mosInstaller {
 	*/
 	function install($p_fromdir = null) {
 		$database = &database::getInstance();
-		$config = &Jconfig::getIntance();
 
 		josSpoofCheck();
 		if(!$this->preInstallCheck($p_fromdir,'language')) {
@@ -35,7 +34,7 @@ class mosInstallerLanguage extends mosInstaller {
 		// Set some vars
 		$e = &$root->getElementsByPath('name',1);
 		$this->elementName($e->getText());
-		$this->elementDir(mosPathName($config->config_absolute_path.DS.'language'.DS));
+		$this->elementDir(mosPathName(JPATH_BASE.DS.'language'.DS));
 
 		// Find files to copy
 		if($this->parseFiles('files','language') === false) {
@@ -54,11 +53,10 @@ class mosInstallerLanguage extends mosInstaller {
 	* @param int The client id
 	*/
 	function uninstall($id,$option,$client = 0) {
-		$config = &Jconfig::getInstance();
 
 		josSpoofCheck(null, null, 'request');
 		$id = str_replace(array('\\','/'),'',$id);
-		$basepath = $config->config_absolute_path.DS.'language'.DS;
+		$basepath = JPATH_BASE.DS.'language'.DS;
 		$xmlfile = $basepath.$id.'.xml';
 
 		// see if there is an xml install file, must be same name as element
@@ -103,4 +101,3 @@ class mosInstallerLanguage extends mosInstaller {
 	}
 
 }
-?>

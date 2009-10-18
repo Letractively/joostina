@@ -34,7 +34,7 @@ class XmapCache {
 
 
 
-		require_once ($config->config_absolute_path.'/includes/libraries/cache/cache.php');
+		require_once (JPATH_BASE.'/includes/libraries/cache/cache.php');
 		$cache =&JCache::getInstance( $handler, $options );
 		if($cache != NULL){
 			$cache->setCaching($sitemap->usecache);

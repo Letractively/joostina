@@ -48,12 +48,12 @@ js_menu_cache_clear();
 class mosGeneralInstaller {
 
 	function showInstallForm() {
-		HTML_installer_core::showInstallForm(_INSTALL_MANAGER,'com_installer', 'installer','',Jconfig::getInstance()->config_absolute_path . '/media');
+		HTML_installer_core::showInstallForm(_INSTALL_MANAGER,'com_installer', 'installer','',JPATH_BASE.'/media');
 	}
 
 	function uploadFile($filename,$userfile_name,&$msg) {
 		josSpoofCheck();
-		$baseDir = mosPathName(Jconfig::getInstance()->config_absolute_path.'/media');
+		$baseDir = mosPathName(JPATH_BASE.'/media');
 
 		if(file_exists($baseDir)) {
 			if(is_writable($baseDir)) {
@@ -104,7 +104,7 @@ class mosGeneralInstaller {
 			$installType = $pre_installer->getInstallType();
 			if ($installType != "" && array_key_exists($installType,$classMap)) {
 				
-				require ( Jconfig::getInstance()->config_absolute_path.'/'.ADMINISTRATOR_DIRECTORY."/components/com_installer/$installType/$installType.class.php");
+				require ( JPATH_BASE_ADMIN."/components/com_installer/$installType/$installType.class.php");
 				
 				$installer = new $classMap[$installType]($pre_installer);
 				
@@ -153,7 +153,7 @@ class mosGeneralInstaller {
 			$installType = $pre_installer->getInstallType();
 			if ($installType != "" && array_key_exists($installType,$classMap)) {
 
-				require ($config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY.DS.'components'.DS.'com_installer'.DS.$installType.DS.$installType.'.class.php');
+				require (JPATH_BASE_ADMIN.DS.'components'.DS.'com_installer'.DS.$installType.DS.$installType.'.class.php');
 
 				$installer = new $classMap[$installType]($pre_installer);
 
@@ -196,7 +196,7 @@ class mosGeneralInstaller {
 
 		$installType = $pre_installer->getInstallType();		
 		if ($installType != "" && array_key_exists($installType,$classMap)) {
-			require ($config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY."/components/com_installer/$installType/$installType.class.php");
+			require (JPATH_BASE_ADMIN."/components/com_installer/$installType/$installType.class.php");
 			$installer = new $classMap[$installType]($pre_installer);
 			$ret = $installer->install($path);
 			HTML_installer::showInstallMessage($installer->getError(),_UPLOAD_OF_EXT.': '.$element.' - '.($ret?_SUCCESS:_UNSUCCESS),$installer->returnTo($option,$element,$client));
@@ -205,4 +205,3 @@ class mosGeneralInstaller {
 		}
 	}
 }
-?>

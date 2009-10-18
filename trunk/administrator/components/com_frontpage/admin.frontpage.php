@@ -159,7 +159,7 @@ function viewFrontPage($option) {
 	$authors = array_merge($authors,$database->loadObjectList());
 	$lists['authorid'] = mosHTML::selectList($authors,'filter_authorid','class="inputbox" size="1" onchange="document.adminForm.submit( );"','created_by','name',$filter_authorid);
 
-	HTML_content::showList($rows,$search,$pageNav,$option,$lists);
+	ContentView::showList($rows,$search,$pageNav,$option,$lists);
 }
 
 /**

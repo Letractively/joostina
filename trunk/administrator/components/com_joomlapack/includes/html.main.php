@@ -53,7 +53,7 @@ echo colorizeAppStatus($appStatusGood);
 		</td>
 		<td valign="top">
 <?php
-	require_once (JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_joomlapack/includes/html.files.php');
+	require_once (JPATH_BASE_ADMIN.'/components/com_joomlapack/includes/html.files.php');
 ?>
 		</td>
 	</tr>

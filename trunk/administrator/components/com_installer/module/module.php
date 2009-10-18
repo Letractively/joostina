@@ -50,7 +50,6 @@ function removeElement($client) {
 
 function showInstalledModules($_option) {
 	$database = &database::getInstance();
-	$config = &Jconfig::getInstance();
 
 	$filter = mosGetParam($_POST,'filter','');
 	$select[] = mosHTML::makeOption('',_ALL);
@@ -77,9 +76,9 @@ function showInstalledModules($_option) {
 
 		// path to module directory
 		if($row->client_id == "1") {
-			$moduleBaseDir = mosPathName(mosPathName($config->config_absolute_path).ADMINISTRATOR_DIRECTORY.DS.'modules');
+			$moduleBaseDir = mosPathName(mosPathName(JPATH_BASE).ADMINISTRATOR_DIRECTORY.DS.'modules');
 		} else {
-			$moduleBaseDir = mosPathName(mosPathName($config->config_absolute_path).'modules');
+			$moduleBaseDir = mosPathName(mosPathName(JPATH_BASE).'modules');
 		}
 
 		// xml file for module
@@ -124,4 +123,3 @@ function showInstalledModules($_option) {
 
 	HTML_module::showInstalledModules($rows,$_option,$xmlfile,$lists);
 }
-?>

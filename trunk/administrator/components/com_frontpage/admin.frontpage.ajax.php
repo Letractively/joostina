@@ -160,5 +160,3 @@ function x_remfront($id) {
 		echo 'error-load';
 	}
 }
-
-?>

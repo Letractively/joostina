@@ -28,7 +28,7 @@ switch($task) {
 
 	case 'edit':
 		$cid = josGetArrayInts('cid');
-		$path = JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_menus/';
+		$path = JPATH_BASE_ADMIN.'/components/com_menus/';
 
 		if($cid[0]) {
 			$query = "SELECT type FROM #__menu WHERE id = ".(int)$cid[0];

@@ -48,7 +48,7 @@ function saveTemplateSource(){
 	}
 
 	if($client == 'admin'){
-		$file = JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$template.'/index.php';
+		$file = JPATH_BASE_ADMIN.'/templates/'.$template.'/index.php';
 	}
 	else{
 		$file = JPATH_BASE.'/templates/'.$template.'/index.php';
@@ -100,7 +100,7 @@ function saveTemplateCSS(){
 	}
 
 	if($client == 'admin'){
-		$file = JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$template.'/css/template_css.css';
+		$file = JPATH_BASE_ADMIN.'/templates/'.$template.'/css/template_css.css';
 	}else{
 		$file = JPATH_BASE.'/templates/'.$template.'/css/template_css.css';
 	}

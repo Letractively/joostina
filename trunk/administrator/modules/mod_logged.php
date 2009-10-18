@@ -14,7 +14,7 @@ global $mosConfig_list_limit,$my,$option;
 $mainframe = &mosMainFrame::getInstance();
 $cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
 
-require_once (JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
+require_once (JPATH_BASE_ADMIN.'/includes/pageNavigation.php');
 
 $limit = $mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mosConfig_list_limit);
 $limitstart = $mainframe->getUserStateFromRequest("view{$option}",'limitstart',0);

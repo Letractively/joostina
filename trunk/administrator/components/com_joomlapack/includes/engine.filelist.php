@@ -225,7 +225,7 @@ class CFilelistEngine {
 	*/
 	function _createExcludeDirs() {
 		global $option;
-		require_once (JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY.'/components/com_joomlapack/includes/engine.exdirs.php');
+		require_once (JPATH_BASE_ADMIN.'/components/com_joomlapack/includes/engine.exdirs.php');
 
 		$def = new CDirExclusionFilter();
 		$this->_ExcludeDirs = $def->getFilters();

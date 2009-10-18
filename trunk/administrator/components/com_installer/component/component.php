@@ -63,7 +63,7 @@ function showInstalledComponents($option) {
 	$rows = $database->loadObjectList();
 
 	// Read the component dir to find components
-	$componentBaseDir = mosPathName(Jconfig::getInstance()->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY.DS.'components');
+	$componentBaseDir = mosPathName(JPATH_BASE_ADMIN.DS.'components');
 	$componentDirs = mosReadDirectory($componentBaseDir);
 
 	$n = count($rows);

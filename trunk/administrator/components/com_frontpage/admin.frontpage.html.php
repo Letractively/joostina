@@ -14,7 +14,7 @@ defined('_VALID_MOS') or die();
 * @package Joostina
 * @subpackage Content
 */
-class HTML_content {
+class ContentView {
 	/**
 	* Writes a list of the content items
 	* @param array An array of content objects
@@ -204,4 +204,3 @@ class HTML_content {
 		<?php
 	}
 }
-?>

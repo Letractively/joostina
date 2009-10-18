@@ -143,7 +143,7 @@ function mosLoadAdminModule($name,$params = null) {
 
 	$name = str_replace('/','',$name);
 	$name = str_replace('\\','',$name);
-	$path = JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY."/modules/mod_$name.php";
+	$path = JPATH_BASE_ADMIN."/modules/mod_$name.php";
 	if(file_exists($path)) { 
  		if($mainframe->getLangFile('mod_'.$name)){ 
   			include($mainframe->getLangFile('mod_'.$name));        	

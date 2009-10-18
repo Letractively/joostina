@@ -163,7 +163,7 @@ function editContact($id,$option) {
 	$lists['default_con'] = mosHTML::yesnoradioList('default_con','',$row->default_con);
 
 	// get params definitions
-	$file = JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_contact/contact_items.xml';
+	$file = JPATH_BASE_ADMIN.'/components/com_contact/contact_items.xml';
 	$params = new mosParameters($row->params,$file,'component');
 
 	HTML_contact::editcontact($row,$lists,$option,$params);

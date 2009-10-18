@@ -12,13 +12,13 @@ defined('_VALID_MOS') or die();
 
 // XML library
 require_once (JPATH_BASE.DS.'includes/domit/xml_domit_lite_include.php');
-require_once (JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY."/components/com_jce/installer/installer.html.php");
-require_once (JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY."/components/com_jce/installer/installer.class.php");
+require_once (JPATH_BASE_ADMIN."/components/com_jce/installer/installer.html.php");
+require_once (JPATH_BASE_ADMIN."/components/com_jce/installer/installer.class.php");
 
 function jceInstaller($option,$client,$opt) {
 	$element = mosGetParam($_REQUEST,'element','');
 
-	$path = JPATH_BASE."/".ADMINISTRATOR_DIRECTORY."/components/com_jce/installer/$element/$element.php";
+	$path = JPATH_BASE_ADMIN."/components/com_jce/installer/$element/$element.php";
 
 	// map the element to the required derived class
 	$classMap = array('plugins' => 'JCEPluginInstaller','language' =>
@@ -43,7 +43,7 @@ function jceInstaller($option,$client,$opt) {
 				break;
 
 			case 'show':
-				$path = JPATH_BASE."/".ADMINISTRATOR_DIRECTORY."/components/com_jce/installer/$element/$element.php";
+				$path = JPATH_BASE_ADMIN."/components/com_jce/installer/$element/$element.php";
 
 				if(file_exists($path)) {
 					require $path;

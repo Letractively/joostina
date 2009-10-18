@@ -42,7 +42,6 @@ class mosInstallerMambot extends mosInstaller {
 	*/
 	function install($p_fromdir = null) {
 		$database = &database::getInstance();
-		$config = &Jconfig::getInstance();
 
 		if(!$this->preInstallCheck($p_fromdir,'mambot')) {
 			return false;
@@ -56,7 +55,7 @@ class mosInstallerMambot extends mosInstaller {
 		$this->elementName($e->getText());
 
 		$folder = $mosinstall->getAttribute('group');
-		$this->elementDir(mosPathName($config->config_absolute_path.'/mambots/'.$folder));
+		$this->elementDir(mosPathName(JPATH_BASE.DS.'mambots'.DS.$folder));
 
 		if(!file_exists($this->elementDir()) && !mosMakePath($this->elementDir())) {
 			$this->setError(1,_CANNOT_CREATE_DIR.' "'.$this->elementDir().'"');
@@ -142,7 +141,6 @@ class mosInstallerMambot extends mosInstaller {
 	*/
 	function uninstall($id,$option,$client = 0) {
 		$database = &database::getInstance();
-		$config = &Jconfig::getInstance();
 
 		$id = intval($id);
 		$query = "SELECT name, folder, element, iscore FROM #__mambots WHERE id = ".(int)
@@ -165,7 +163,7 @@ class mosInstallerMambot extends mosInstaller {
 			exit();
 		}
 
-		$basepath = $config->config_absolute_path.DS.'mambots'.DS.$row->folder.DS;
+		$basepath = JPATH_BASE.DS.'mambots'.DS.$row->folder.DS;
 		$xmlfile = $basepath.$row->element.'.xml';
 
 		// see if there is an xml install file, must be same name as element
@@ -289,4 +287,3 @@ class mosInstallerMambot extends mosInstaller {
 		}
 	}
 }
-?>
