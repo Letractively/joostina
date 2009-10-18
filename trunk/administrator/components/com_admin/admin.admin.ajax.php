@@ -30,7 +30,7 @@ switch($task) {
 function x_toggle_editor(){
 	$mainframe = mosMainFrame::getInstance(true);
 
-	$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
+	$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
 
 	if(!intval(mosGetParam($_SESSION,'user_editor_off',''))){
 		// отключаем редактор

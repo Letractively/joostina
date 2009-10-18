@@ -64,7 +64,7 @@ function viewLanguages($option) {
 
 	$rows = array();
 	// Read the template dir to find templates
-	$languageBaseDir = mosPathName(mosPathName($mainframe->getCfg('absolute_path')).'language');
+	$languageBaseDir = mosPathName(mosPathName(JPATH_BASE).'language');
 
 	$rowid = 0;
 
@@ -125,7 +125,7 @@ function viewLanguages($option) {
 		$rowid++;
 	}
 
-	require_once ($mainframe->getCfg('absolute_path').DS.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
+	require_once (JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav(count($rows),$limitstart,$limit);
 
 	$rows = array_slice($rows,$pageNav->limitstart,$pageNav->limit);

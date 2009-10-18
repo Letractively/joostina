@@ -29,9 +29,11 @@ if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset
 	$mosConfig_live_site = 'https://'.substr($mosConfig_live_site,7);
 }
 
+// live_site
+define('JPATH_SITE', $mosConfig_live_site );
+
 // подключение главного файла - ядра системы
 require_once (JPATH_BASE.DS.'includes'.DS.'joomla.php');
-
 
 // отображение состояния выключенного сайта
 if($mosConfig_offline == 1) {
@@ -191,7 +193,7 @@ if(defined('_ADMIN_OFFLINE')) {
 
 // старт основного HTML
 if($no_html == 0) {
-	$customIndex2 = 'templates/'.$mainframe->getTemplate().'/index2.php';
+	$customIndex2 = 'templates/'.JTEMPLATE.'/index2.php';
 	if(file_exists($customIndex2)) {
 		require ($customIndex2);
 	} else {

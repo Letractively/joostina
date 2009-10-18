@@ -12,7 +12,7 @@ defined('_VALID_MOS') or die();
 
 global $mosConfig_list_limit,$my,$option;
 $mainframe = &mosMainFrame::getInstance();
-$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
+$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
 
 require_once (JPATH_BASE_ADMIN.'/includes/pageNavigation.php');
 

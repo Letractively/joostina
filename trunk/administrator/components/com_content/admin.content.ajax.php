@@ -266,6 +266,8 @@ function x_save() {
 	//Подготовка тэгов
 	$tags = explode(',', trim($_POST['tags']));
 	if($tags[0]!=''){
+		/* вспомогательная библиотека работы с массивами */
+		mosMainFrame::addLib('array');
 		$tags = ArrayHelper::clear($tags);
 		$tag = new contentTags($database);
 		$tags = $tag->clear_tags($tags);

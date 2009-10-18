@@ -19,6 +19,9 @@ define('JPATH_BASE_ADMIN', dirname(__FILE__) );
 require_once (JPATH_BASE.DS.'includes'.DS.'globals.php');
 require_once (JPATH_BASE.DS.'configuration.php');
 
+// live_site
+define('JPATH_SITE', $mosConfig_live_site );
+
 // для совместимости
 $mosConfig_absolute_path = JPATH_BASE;
 
@@ -44,6 +47,10 @@ header('Content-type: text/html; charset=UTF-8');
 $mainframe = mosMainFrame::getInstance(true);
 $mainframe->set('lang', $mosConfig_lang);
 include_once($mainframe->getLangFile());
+
+// получение шаблона страницы
+$cur_template = $mainframe->getTemplate();
+define('JTEMPLATE', $cur_template );
 
 require_once (JPATH_BASE_ADMIN.DS.'includes'.DS.'admin.php');
 
@@ -77,8 +84,8 @@ initGzip();
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title><?php echo $mosConfig_sitename; ?> - Joostina</title>
-<link rel="stylesheet" href="templates/<?php echo $mainframe->getTemplate(); ?>/css/template_css.css" type="text/css" />
-<link rel="stylesheet" href="templates/<?php echo $mainframe->getTemplate(); ?>/css/theme.css" type="text/css" />
+<link rel="stylesheet" href="templates/<?php echo JTEMPLATE; ?>/css/template_css.css" type="text/css" />
+<link rel="stylesheet" href="templates/<?php echo JTEMPLATE; ?>/css/theme.css" type="text/css" />
 <script language="JavaScript" src="../includes/js/JSCookMenu.js" type="text/javascript"></script>
 <script language="JavaScript" src="includes/js/ThemeOffice/theme.js" type="text/javascript"></script>
 <script language="JavaScript" src="../includes/js/joomla.javascript.js" type="text/javascript"></script>
@@ -102,7 +109,7 @@ if($mosmsg) {
 if($path = $mainframe->getPath('admin')) {
 	require $path;
 } else { ?>
-	<img src="<?php echo $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate();?>/images/ico/error.png" border="0" alt="Joostina!" />
+	<img src="<?php echo JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE;?>/images/ico/error.png" border="0" alt="Joostina!" />
 	<br />
 <?php } ?>
 </body>

@@ -27,13 +27,13 @@ defined('_VALID_MOS') or die(); ?>
 	<script type="text/javascript">
 		// смена статуса публикации, elID - идентификатор объекта у которого меняется статус публикации
 		function ch_publ(elID){
-			id('img-pub-'+elID).src = '<?php echo $config->config_live_site ?>/images/system/aload.gif';
+			id('img-pub-'+elID).src = '<?php echo JPATH_SITE ?>/images/system/aload.gif';
 			dax({
-				url: '<?php echo $config->config_live_site ?>/ajax.index.php?option=com_content&task=publish&id='+elID,
+				url: '<?php echo JPATH_SITE ?>/ajax.index.php?option=com_content&task=publish&id='+elID,
 				id:'publ-'+elID,
 				callback:
 					function(resp, idTread, status, ops){
-						id('img-pub-'+elID).src = '<?php echo $config->config_live_site.'/'.ADMINISTRATOR_DIRECTORY ?>/images/'+resp.responseText;
+						id('img-pub-'+elID).src = '<?php echo JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY ?>/images/'+resp.responseText;
 					}
 			});
 		}
@@ -102,7 +102,7 @@ foreach ($items as $row) {
 	$row->created = mosFormatDate($row->created, $config->config_form_date_full, '0');
 	$link = sefRelToAbs('index.php?option=com_content&amp;task=view&amp;id='.$row->id.'&amp;Itemid='.$Itemid);
 	$img = $row->published?'publish_g.png' : 'publish_x.png';
-	$img = $config->config_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/images/'.$img;
+	$img = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/images/'.$img;
 
 	// раздел / категория
 	$section_cat = $row->section.' / '.$row->category;
@@ -111,7 +111,7 @@ foreach ($items as $row) {
 	} ?>
 			<tr class="sectiontableentry<?php echo ($k + 1); ?>">
 				<td>
-					<?php HTML_content::EditIcon($row, $params, $access); ?>
+					<?php ContentView::EditIcon($row, $params, $access); ?>
 				</td>
 				<td>
 					<a href="<?php echo $link; ?>"><?php echo $row->title; ?></a>

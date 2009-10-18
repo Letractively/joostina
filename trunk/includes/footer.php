@@ -11,5 +11,4 @@
 defined('_VALID_MOS') or die();
 
 global $_VERSION;
-?>
-<div align="center">&copy; <?php echo mosCurrentDate('%Y').' <a href="'.$GLOBALS['mosConfig_live_site'].'" title="'.$GLOBALS['mosConfig_sitename'].'" target="_self">'.$GLOBALS['mosConfig_sitename'].'</a>'; ?></div>
+?><div align="center">&copy; <?php echo mosCurrentDate('%Y').' <a href="'.$GLOBALS['mosConfig_live_site'].'" title="'.$GLOBALS['mosConfig_sitename'].'" target="_self">'.$GLOBALS['mosConfig_sitename'].'</a>'; ?></div>

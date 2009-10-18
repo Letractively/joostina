@@ -114,7 +114,7 @@ function make_tables($dir, &$dir_list, &$file_list, &$tot_file_size, &$num_items
 function print_table($dir, $list, $allow) {
 	global $dir_up;
 	$mainframe = mosMainFrame::getInstance(true);
-	$cur_file_icons_patch = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/file_ico/';
+	$cur_file_icons_patch = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/file_ico/';
 	if(!is_array($list))
 		return;
 	if($dir != "" || strstr($dir, _QUIXPLORER_PATH)) {
@@ -304,7 +304,7 @@ function list_dir($dir) {
 	global $dir_up, $mosConfig_live_site, $_VERSION,$mainframe;
 	mosCommonHTML::loadOverlib();
 	$mainframe->addJS($mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_joomlaxplorer/scripts/joomlaxplorer.js');
-	$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
+	$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
 ?>
 	<div id="overDiv" style="position:absolute; visibility:hidden; z-index:10000;"></div>
 <?php

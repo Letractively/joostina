@@ -466,7 +466,7 @@ class userHelper{
 
 	function _load_core_js(){
 		$mainframe = &mosMainFrame::getInstance();
-		$mainframe->addJS($mainframe->getCfg('live_site').'/components/com_users/js/com_users.js','custom');
+		$mainframe->addJS(JPATH_SITE.'/components/com_users/js/com_users.js','custom');
 	}
 
 	function _load_jquery_form(){

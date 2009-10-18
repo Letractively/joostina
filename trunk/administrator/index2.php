@@ -19,6 +19,9 @@ define('JPATH_BASE_ADMIN', dirname(__FILE__) );
 require_once (JPATH_BASE.DS.'includes'.DS.'globals.php');
 require_once (JPATH_BASE.DS.'configuration.php');
 
+// live_site
+define('JPATH_SITE', $mosConfig_live_site );
+
 // для совместимости
 $mosConfig_absolute_path = JPATH_BASE;
 
@@ -51,6 +54,10 @@ $database = &database::getInstance();
 // mainframe - основная рабочая среда API, осуществляет взаимодействие с 'ядром'
 $mainframe = mosMainFrame::getInstance(true);
 $mainframe->set('lang', $mosConfig_lang);
+
+// получение шаблона страницы
+$cur_template = $mainframe->getTemplate();
+define('JTEMPLATE', $cur_template );
 
 require_once($mainframe->getLangFile());
 require_once (JPATH_BASE_ADMIN.DS.'includes'.DS.'admin.php');
@@ -87,7 +94,7 @@ if($path = $mainframe->getPath('admin')) {
 	require_once ($path);
 } else {
 ?>
-	<img src="<?php echo $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate();?>/images/ico/error.png" border="0" alt="Joostina!" />
+	<img src="<?php echo JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE;?>/images/ico/error.png" border="0" alt="Joostina!" />
 <?php
 }
 

@@ -1,11 +1,18 @@
-<?php #
+<?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * Menu module
+ *
+ * Меню: горизонтальное (многоуровневое, табы)
+ *
+ * @version 1.0 alpha 1
+ * @package JoiEditor
+ * @subpackage	JoiEditor
+ * @filename joieditor.class.php
+ * @author JoostinaTeam
+ * @copyright (C) 2008-2009 Joostina Team
+ * @license see license.txt
+ *
+ **/
 
 // запрет прямого доступа
 defined( '_VALID_MOS' ) or die();

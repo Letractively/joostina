@@ -23,7 +23,7 @@ function jceEditorInit() {
     if(!$mainframe->allow_wysiwyg){
         return false;
     }
-	require_once( $mainframe->getCfg('absolute_path').'/mambots/editors/jce/jscripts/tiny_mce/libraries/classes/jce.class.php' );
+	require_once( JPATH_BASE.'/mambots/editors/jce/jscripts/tiny_mce/libraries/classes/jce.class.php' );
 	$jce = new JCE();
 	$params = $jce->getParams();
 
@@ -63,7 +63,7 @@ function jceEditorInit() {
 	}
 	$template = $database->loadResult();
 
-	$template_path = $mainframe->getCfg('live_site') . '/templates/' . $template . '/css';
+	$template_path = JPATH_SITE . '/templates/' . $template . '/css';
 	$css_template = $template_path . '/template_css.css';
 
 	if( $params->get( 'content_css', 1 ) == 0 ){
@@ -131,7 +131,7 @@ function jceEditorInit() {
 
 	$font_size_type = ( $font_size_type == 'length' ) ? '8pt,10pt,12pt,14pt,18pt,24pt,36pt' : 'xx-small,x-small,small,medium,large,x-large,xx-large';
 
-	$base_url = $mainframe->getCfg('live_site');
+	$base_url = JPATH_SITE;
 	$tiny_url = $jce->getTinyUrl();
 
 	if( $params->get('compression', '0') ){
@@ -247,7 +247,7 @@ function jceEditorArea( $name, $content, $hiddenField, $width, $height, $col, $r
 
         foreach( $results as $result ){
 		    if($result[0]) {
-			$buttons[] = '<img src="'.$mainframe->getCfg('live_site').'/mambots/editors-xtd/'.$result[0].'" onclick="tinyMCE.execCommand(\'mceInsertContent\',false,\''.$result[1].'\')" />';
+			$buttons[] = '<img src="'.JPATH_SITE.'/mambots/editors-xtd/'.$result[0].'" onclick="tinyMCE.execCommand(\'mceInsertContent\',false,\''.$result[1].'\')" />';
 		}
 	    }
 	    $buttons = implode( '', $buttons );

@@ -23,7 +23,7 @@ class HTML_templates {
 	function showTemplates(&$rows,&$pageNav,$option,$client) {
 		global $my,$mosConfig_live_site,$mosConfig_one_template;
 		$mainframe = &mosMainFrame::getInstance();
-		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
+		$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
 		if(isset($row->authorUrl) && $row->authorUrl != '') {
 			$row->authorUrl = str_replace('http://','',$row->authorUrl);
 		}

@@ -13,7 +13,7 @@ defined('_VALID_MOS') or die();
 
 $iso = explode('=',_ISO);
 echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'."\n";
-$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
+$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -25,7 +25,7 @@ $cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTO
 		<script type="text/javascript">
 			var _live_site = '<?php echo $mosConfig_live_site;?>';
 			var _option = '<?php echo mosGetParam( $_REQUEST, 'option', '' );?>';
-			var _cur_template = '<?php echo $mainframe->getTemplate();?>';
+			var _cur_template = '<?php echo JTEMPLATE;?>';
 			var _js_defines = new Array();
 		</script>
 <?php

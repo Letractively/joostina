@@ -28,7 +28,7 @@ switch($task) {
 			$database->setQuery($query);
 			$published = $database->loadResult();
 		}
-		$cur_template = $mainframe->getTemplate();
+		$cur_template = JTEMPLATE;
 		TOOLBAR_modules::_EDIT($cur_template,$published);
 		break;
 

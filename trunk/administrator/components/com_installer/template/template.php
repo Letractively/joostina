@@ -60,9 +60,9 @@ function viewTemplates($option,$client) {
 	$limitstart = $mainframe->getUserStateFromRequest("view{$option}limitstart",'limitstart',0);
 
 	if($client == 'admin') {
-		$templateBaseDir = mosPathName($mainframe->getCfg('absolute_path').DS.ADMINISTRATOR_DIRECTORY.DS.'templates');
+		$templateBaseDir = mosPathName(JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY.DS.'templates');
 	} else {
-		$templateBaseDir = mosPathName($mainframe->getCfg('absolute_path').DS.'templates');
+		$templateBaseDir = mosPathName(JPATH_BASE.DS.'templates');
 	}
 
 	$rows = array();
@@ -152,7 +152,7 @@ function viewTemplates($option,$client) {
 		}
 	}
 
-	require_once ($mainframe->getCfg('absolute_path').DS.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
+	require_once (JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav(count($rows),$limitstart,$limit);
 
 	$rows = array_slice($rows,$pageNav->limitstart,$pageNav->limit);

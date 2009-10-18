@@ -19,7 +19,7 @@ class HTML_contact {
 	function showContacts(&$rows,&$pageNav,$search,$option,&$lists) {
 		global $my;
 		$mainframe = &mosMainFrame::getInstance();
-		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
+		$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
 
 		mosCommonHTML::loadOverlib();
 ?>

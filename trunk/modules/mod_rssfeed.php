@@ -21,8 +21,6 @@ if (!defined( '_JOS_RSSFEED_MODULE' )) {
 	}
 }
 
-global $mosConfig_live_site, $cur_template;
-
 $text				= $params->get( 'text','');
 $moduleclass_sfx	= $params->get( 'moduleclass_sfx', '' );
 $rss091				= $params->get( 'rss091', 1 );
@@ -37,9 +35,8 @@ $rss20_image		= $params->get( 'rss20_image', '' );
 $atom_image			= $params->get( 'atom_image', '' );
 $opml_image			= $params->get( 'opml_image', '' );
 $yandex_image		= $params->get( 'yandex_image', '' );
-$cur_template		= $mainframe->getTemplate();
-$t_path				= $mosConfig_live_site .'/templates/'. $cur_template .'/images/';
-$d_path				= $mosConfig_live_site .'/images/M_images/';
+$t_path				= JPATH_SITE .'/templates/'. JTEMPLATE .'/images/';
+$d_path				= JPATH_SITE .'/images/M_images/';
 
 // needed to reduce query
 if ( isset( $GLOBALS['syndicateParams'] ) ) {

@@ -10,7 +10,6 @@
 // запрет прямого доступа
 defined( '_VALID_MOS' ) or die();
 
-$mainframe = &mosMainFrame::getInstance();
 
 $type = intval($params->get('type', 1));
 $def_itemid = $params->get('def_itemid', false);

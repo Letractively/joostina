@@ -27,7 +27,7 @@ switch ($task) {
 		$plugin = cleanInput(mosGetParam($_REQUEST, 'plugin'));
 		if(in_array($plugin, $plugins)) {
 			$file = cleanInput(basename(mosGetParam($_REQUEST, 'file')));
-			$path = $mainframe->getCfg('absolute_path') . '/mambots/editors/jce/jscripts/tiny_mce/plugins/' . $plugin;
+			$path = JPATH_BASE . '/mambots/editors/jce/jscripts/tiny_mce/plugins/' . $plugin;
 			if(is_dir($path) && file_exists($path . '/' . $file)) {
 				include_once $path . '/' . $file;
 			} else {
@@ -39,7 +39,7 @@ switch ($task) {
 		break;
 	case 'help':
 		$file = cleanInput(basename(mosGetParam($_REQUEST, 'file')));
-		$path = $mainframe->getCfg('absolute_path') . '/mambots/editors/jce/jscripts/tiny_mce/libraries/help/' . $file;
+		$path = JPATH_BASE . '/mambots/editors/jce/jscripts/tiny_mce/libraries/help/' . $file;
 		if(file_exists($path)) {
 			include_once $path;
 		} else {
@@ -61,8 +61,8 @@ function showPopup() {
 	$w = getInput('w');
 	$h = getInput('h');
 
-	if(strpos($mainframe->getCfg('live_site'), $img) === false)
-		$img = $mainframe->getCfg('live_site') . '/' . $img;
+	if(strpos(JPATH_SITE, $img) === false)
+		$img = JPATH_SITE . '/' . $img;
 ?>
 	<style type="text/css">
 		body{

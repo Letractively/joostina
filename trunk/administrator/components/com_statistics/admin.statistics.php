@@ -123,7 +123,7 @@ function showPageImpressions($option,$task) {
 	$limit = $mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mainframe->getCfg('list_limit'));
 	$limitstart = $mainframe->getUserStateFromRequest("view{$option}{$task}limitstart",'limitstart',0);
 
-	require_once ($mainframe->getCfg('absolute_path').'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
+	require_once (JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
 	$query = "SELECT id, title, created, hits FROM #__content ORDER BY hits DESC";
@@ -148,7 +148,7 @@ function showSearches($option,$task,$showResults = null) {
 	$database->setQuery($query);
 	$total = $database->loadResult();
 
-	require_once ($mainframe->getCfg('absolute_path').'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
+	require_once (JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
 	$query = "SELECT* FROM #__core_log_searches ORDER BY hits DESC";

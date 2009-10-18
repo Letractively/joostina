@@ -43,7 +43,7 @@ switch($task) {
 		$plugin = cleanInput(mosGetParam($_REQUEST,'plugin'));
 		if(in_array($plugin,$plugins)) {
 			$file = cleanInput(basename(mosGetParam($_REQUEST,'file')));
-			$path = $mainframe->getCfg('absolute_path').'/mambots/editors/jce/jscripts/tiny_mce/plugins/'.$plugin;
+			$path = JPATH_BASE.'/mambots/editors/jce/jscripts/tiny_mce/plugins/'.$plugin;
 			if(is_dir($path) && file_exists($path.DS.$file)) {
 				include_once $path.DS.$file;
 			} else {
@@ -56,7 +56,7 @@ switch($task) {
 		break;
 	case 'help':
 		$file = cleanInput(basename(mosGetParam($_REQUEST,'file')));
-		$path = $mainframe->getCfg('absolute_path').'/mambots/editors/jce/jscripts/tiny_mce/libraries/help/'.$file;
+		$path = JPATH_BASE.'/mambots/editors/jce/jscripts/tiny_mce/libraries/help/'.$file;
 		if(file_exists($path)) {
 			include_once $path;
 		} else {

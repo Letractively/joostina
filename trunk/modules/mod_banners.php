@@ -10,7 +10,7 @@
 // запрет прямого доступа
 defined( '_VALID_MOS' ) or die();
 
-include_once( Jconfig::getInstance()->config_absolute_path.'/components/com_banners/banners.other.php' );
+include_once( JPATH_BASE.'/components/com_banners/banners.other.php' );
 $params = & new mosParameters($module->params);
-$content = showBanners( $params );
-unset($params);
+$content = showBanners( $params, $mainframe );
+unset($params, $mainframe);

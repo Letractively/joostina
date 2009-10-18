@@ -20,10 +20,9 @@ $_where = 'WHERE ';
 $_where_published = mod_secator::get_where_published($params->get( 'show_published', 1 ),'#__categories.published');
 
 $sql = 'SELECT #__categories.id,#__categories.title,#__categories.name,#__categories.image,#__categories.image_position,#__categories.description from #__categories
-		INNER JOIN #__sections ON #__sections.id = #__categories.section
-		'.$_where.$_where_published.' ORDER BY #__categories.'.$order_category.' '.$order_asc_desc.' ';
+	INNER JOIN #__sections ON #__sections.id = #__categories.section
+	'.$_where.$_where_published.' ORDER BY #__categories.'.$order_category.' '.$order_asc_desc.' ';
 $database->setQuery( $sql,0,$count );
-$database->getQuery( );
 $rows = $database->loadObjectList();
 
 ?>

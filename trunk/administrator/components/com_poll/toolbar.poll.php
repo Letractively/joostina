@@ -24,7 +24,7 @@ switch($task) {
 		$database->setQuery($query);
 		$published = $database->loadResult();
 
-		$cur_template = $mainframe->getTemplate();
+		$cur_template = JTEMPLATE;
 
 		TOOLBAR_poll::_EDIT($cid[0],$cur_template);
 		break;
@@ -36,7 +36,7 @@ switch($task) {
 		$database->setQuery($query);
 		$published = $database->loadResult();
 
-		$cur_template = $mainframe->getTemplate();
+		$cur_template = JTEMPLATE;
 
 		TOOLBAR_poll::_EDIT($id,$cur_template);
 		break;

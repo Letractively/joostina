@@ -171,7 +171,7 @@ function listContacts($option,$catid) {
 
 		// page image
 		$currentcat->img = '';
-		$path = $mainframe->getCfg('live_site').'/images/stories/';
+		$path = JPATH_SITE.'/images/stories/';
 		if(isset($currentcat->image) && ($currentcat->image != '')) {
 			$currentcat->img = $path.$currentcat->image;
 			$currentcat->align = $currentcat->image_position;

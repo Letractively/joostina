@@ -22,6 +22,9 @@ require_once (JPATH_BASE.DS.'configuration.php');
 // для совместимости
 $mosConfig_absolute_path = JPATH_BASE;
 
+// live_site
+define('JPATH_SITE', $mosConfig_live_site );
+
 // обработка безопасного режима
 $http_host = explode(':',$_SERVER['HTTP_HOST']);
 if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset($http_host[1]) && $http_host[1] == 443) && substr($mosConfig_live_site,0,8) !='https://') {

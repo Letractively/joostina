@@ -154,7 +154,7 @@ class mosPageNav {
 	*/
 	function orderUpIcon($i,$condition = true,$task = 'orderup',$alt = _PN_MOVE_TOP) {
 		$mainframe = &mosMainFrame::getInstance();
-		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
+		$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
 		if(($i > 0 || ($i + $this->limitstart > 0)) && $condition) {
 			return '<a href="#reorder" onClick="return listItemTask(\'cb'.$i.'\',\''.$task.'\')" title="'.$alt.'"><img src="'.$cur_file_icons_path.'/uparrow.png" width="12" height="12" border="0" alt="'.$alt.'" /></a>';
 		} else {
@@ -170,7 +170,7 @@ class mosPageNav {
 	*/
 	function orderDownIcon($i,$n,$condition = true,$task = 'orderdown',$alt =_PN_MOVE_DOWN) {
 		$mainframe = &mosMainFrame::getInstance();
-		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
+		$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
 		if(($i < $n - 1 || $i + $this->limitstart < $this->total - 1) && $condition) {
 			return '<a href="#reorder" onClick="return listItemTask(\'cb'.$i.'\',\''.$task.'\')" title="'.$alt.'"><img src="'.$cur_file_icons_path.'/downarrow.png" width="12" height="12" border="0" alt="'.$alt.'" /></a>';
 		} else {
@@ -186,7 +186,7 @@ class mosPageNav {
 	*/
 	function orderUpIcon2($id,$order) {
 	$mainframe = &mosMainFrame::getInstance();
-	$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
+	$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
 		if($order == 0) {
 			$img = 'uparrow.png';
 			$show = true;
@@ -219,7 +219,7 @@ class mosPageNav {
 	function orderDownIcon2($id,$order) {
 		
 		$mainframe = &mosMainFrame::getInstance();
-		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
+		$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
 
 		if($order == 0) {
 			$img = 'downarrow.png';

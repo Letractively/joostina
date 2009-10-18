@@ -10,10 +10,10 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-require_once ($mainframe->getCfg('absolute_path').
+require_once (JPATH_BASE.
 	'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jce/languages/languages.html.php');
 // XML library
-require_once ($mainframe->getCfg('absolute_path').
+require_once (JPATH_BASE.
 	'/includes/domit/xml_domit_lite_include.php');
 
 $cid = mosGetParam($_REQUEST,'cid',array(0));
@@ -41,7 +41,7 @@ function viewLanguages($option) {
 
 	$rows = array();
 	// Read the template dir to find templates
-	$languageBaseDir = mosPathName(mosPathName($mainframe->getCfg('absolute_path')).
+	$languageBaseDir = mosPathName(mosPathName(JPATH_BASE).
 		"/".ADMINISTRATOR_DIRECTORY."/components/com_jce/language/");
 
 	$rowid = 0;
@@ -103,7 +103,7 @@ function viewLanguages($option) {
 		$rowid++;
 	}
 
-	require_once ($mainframe->getCfg('absolute_path').
+	require_once (JPATH_BASE.
 		'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav(count($rows),$limitstart,$limit);
 

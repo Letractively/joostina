@@ -33,7 +33,7 @@ $loadbot_onBeforeDisplayContent;
 						<?php mosHTML::PrintIcon($row, $params, $hide_js, $print_link); ?>
 <?php } ?>
 <?php if($params->get('email')) { ?>
-						<?php HTML_content::EmailIcon($row, $params, $hide_js); ?>
+						<?php ContentView::EmailIcon($row, $params, $hide_js); ?>
 <?php } ?>
 					</div>
 				</td>
@@ -69,6 +69,6 @@ $loadbot_onBeforeDisplayContent;
 <?php echo $loadbot_onAfterDisplayContent; ?>
 	<div class="edit_item"><?php echo $edit; ?></div>
 <?php echo $row->rating; ?>
-<?php HTML_content::Navigation($row, $params); ?>
+<?php ContentView::Navigation($row, $params); ?>
 <?php mosHTML::CloseButton($params, $hide_js); ?>
 <?php mosHTML::BackButton($params, $hide_js); ?>

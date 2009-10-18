@@ -24,7 +24,7 @@ class HTML_language {
 	function showLanguages($cur_lang,&$rows,&$pageNav,$option) {
 		global $my;
 		$mainframe = &mosMainFrame::getInstance();
-		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
+		$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
 ?><form action="index2.php" method="post" name="adminForm">
 		<table class="adminheading">
 		<tr>

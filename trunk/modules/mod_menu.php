@@ -10,10 +10,6 @@
 // запрет прямого доступа
 defined( '_VALID_MOS' ) or die();
 
-# получаем объект конфигурации системы
-$config = Jconfig::getInstance(); 
-$mainframe = &mosMainFrame::getInstance();
-
 // используемое меню
 $use_menu = $params->get( 'menutype', 'mainmenu' );
 
@@ -35,4 +31,4 @@ if($module->set_template($params)){
 	require_once($module->template);
 }
 
-unset($config,$params,$type_menu,$file,$use_menu);
+unset($params,$type_menu,$file,$use_menu);

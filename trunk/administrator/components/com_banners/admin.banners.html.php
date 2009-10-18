@@ -15,7 +15,7 @@ class HTML_banners {
 	function showBanners(&$rows, &$clist, &$clientlist, $myid, &$pageNav, $option) {
 		mosCommonHTML::loadOverlib();
 		$mainframe = &mosMainFrame::getInstance();
-		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
+		$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
 
 ?>
 		<table border="0" class="adminheading">
@@ -222,7 +222,7 @@ class HTML_banners {
 		global $mosConfig_live_site;
 		
 		$mainframe = &mosMainFrame::getInstance();
-		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
+		$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
 		
 		mosMakeHtmlSafe($row, ENT_QUOTES, 'custombannercode');
 		mosCommonHTML::loadOverlib();
@@ -919,7 +919,7 @@ class HTML_bannerClient {
 	function showClients(&$rows, &$info_banner, $myid, &$pageNav, $option, $stateslist) {
 		
 		$mainframe = &mosMainFrame::getInstance();
-		$cur_file_icons_patch = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
+		$cur_file_icons_patch = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
 		?>
 <table class="adminheading">
 	<tbody>
@@ -1058,7 +1058,7 @@ class HTML_bannerCategory {
 	 */
 	function showCategories(&$rows, $myid, &$pageNav, $option, $stateslist) {
 		$mainframe = &mosMainFrame::getInstance();
-		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
+		$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
 		?>
 	<form action="index2.php" method="POST" name="adminForm">
 	<table border="0" class="adminheading">

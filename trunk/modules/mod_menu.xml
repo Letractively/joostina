@@ -18,9 +18,11 @@
 		<param name="type_menu" type="list" default="tree" label="Тип вывода меню" description="">
 			<option value="tree">Дерево</option>
 			<option value="jquery_tree">JQuery Дерево</option>
+			<option value="vert_single">Вертикальное одноуровневое</option>
 			<option value="vert1">Вертикальное (выпадающее)</option>
 			<option value="vert_img">Вертикальное (выпадающее с картинками)</option>
 			<option value="accordion">Аккордеон</option>
+			<option value="hor_single">Горизонтальное (одноуровневое, список)</option>
 			<option value="hor_simple_tabs">Горизонтальное (одноуровневое, табы)</option>
 			<option value="hor_dropdown">Горизонтальное (выпадающее)</option>
 			<option value="hor_tabs">Горизонтальное (табы + выпадающее)</option>

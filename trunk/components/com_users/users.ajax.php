@@ -95,11 +95,11 @@ function  request_from_plugin(){
 	$act	= mosGetParam($_REQUEST,'act','');
 
 	// проверяем, какой файл необходимо подключить, данные берутся из пришедшего GET запроса
-	if(is_file($mainframe->getCfg('absolute_path').DS. 'mambots'.DS.'profile'.DS.$plugin.DS.$plugin.'.ajax.php')) {
+	if(is_file(JPATH_BASE.DS. 'mambots'.DS.'profile'.DS.$plugin.DS.$plugin.'.ajax.php')) {
 		if(is_file($mainframe->getLangFile('bot_'.$plugin))){
 			include_once ($mainframe->getLangFile('bot_'.$plugin));
 		}
-		include_once ($mainframe->getCfg('absolute_path').DS. 'mambots'.DS.'profile'.DS.$plugin.DS.$plugin.'.ajax.php');
+		include_once (JPATH_BASE.DS. 'mambots'.DS.'profile'.DS.$plugin.DS.$plugin.'.ajax.php');
 	} else {
 		die('error-1');
 	}

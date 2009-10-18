@@ -9,7 +9,7 @@
 
 // запрет прямого доступа
 defined( '_VALID_MOS' ) or die();
-$mainframe = &mosMainFrame::getInstance(); global $my;
+
 $module->helper->prepare_login_form($params); 
 
 $validate = josSpoofValue(1); ?>

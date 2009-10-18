@@ -17,10 +17,9 @@
 */
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
-global  $mosConfig_live_site;
 ?>
 <script type="text/javascript">
-    var site_url = "<?php echo $mosConfig_live_site . '/';?>";
+    var site_url = "<?php echo JPATH_SITE . '/';?>";
 	var simpleGallery_navpanel={
     	panel: {
     	            height:'<?php echo $panel_height;?>',

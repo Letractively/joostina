@@ -249,13 +249,13 @@ class JCE{
 	function getTinyUrl(){
 		global $mainframe;
 		if( !$this->tiny_url ){
-			$this->tiny_url =  $mainframe->getCfg('live_site') . "/mambots/editors/jce/jscripts/tiny_mce";
+			$this->tiny_url =  JPATH_SITE . "/mambots/editors/jce/jscripts/tiny_mce";
 		}	
 		return $this->tiny_url;
 	}
 	function getTinyPath(){
 		global $mainframe;
-		$this->tiny_path = $mainframe->getCfg('absolute_path') . "/mambots/editors/jce/jscripts/tiny_mce";
+		$this->tiny_path = JPATH_BASE . "/mambots/editors/jce/jscripts/tiny_mce";
 		return $this->tiny_path;
 	}
 	function getLibUrl(){
@@ -279,7 +279,7 @@ class JCE{
 	}
 	function getParamsPath(){
 		global $mainframe;
-		return $mainframe->getCfg('absolute_path') . '/'.ADMINISTRATOR_DIRECTORY.'/components/com_jce/plugins';
+		return JPATH_BASE . '/'.ADMINISTRATOR_DIRECTORY.'/components/com_jce/plugins';
 	}
 	function printTinyJs( $file ){
 		$url = $this->getTinyUrl() . "/" . $file . ".js";
@@ -475,7 +475,7 @@ class Manager{
 		 */
 		function getBaseDir(){
 			global $mainframe;
-			return JPath::makePath( $mainframe->getCfg('absolute_path'), $this->base_dir );
+			return JPath::makePath( JPATH_BASE, $this->base_dir );
 		}
 		/**
 		 * Get the base URL.
@@ -483,7 +483,7 @@ class Manager{
 		 */
 		function getBaseURL(){
 			global $mainframe;
-			return JPath::makePath( $mainframe->getCfg('live_site'), $this->base_url );
+			return JPath::makePath( JPATH_SITE, $this->base_url );
 		}
 		/**
 		 * Get a list of dirs in the base dir

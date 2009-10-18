@@ -21,7 +21,7 @@ class HTML_admin_misc {
 	*/
 	function controlPanel() {
 		global $mainframe;
-		$path = JPATH_BASE_ADMIN.'/templates/'.$mainframe->getTemplate().'/html/cpanel.php';
+		$path = JPATH_BASE_ADMIN.'/templates/'.JTEMPLATE.'/html/cpanel.php';
 		if(file_exists($path)) {
 			require $path;
 		} else {
@@ -61,7 +61,7 @@ class HTML_admin_misc {
 		global $database,$mosConfig_cachepath,$mosConfig_live_site;
 		
 		$mainframe = &mosMainFrame::getInstance();
-		$cur_file_icons_path = $mainframe->getCfg('live_site').'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/images/ico';
+		$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
 
 		$width = 400; // width of 100%
 		$tabs = new mosTabs(0);

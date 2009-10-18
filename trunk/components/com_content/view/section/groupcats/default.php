@@ -18,7 +18,7 @@ defined('_VALID_MOS') or die(); ?>
 <?php if($display_desc) { ?>
 				<div class="contentdescription">
 <?php if($display_desc_img) { ?>
-					<img src="<?php echo $mainframe->getCfg('live_site'); ?>/images/stories/<?php echo $description->image; ?>" align="<?php echo $description->image_position; ?>"  alt="" />
+					<img src="<?php echo JPATH_SITE; ?>/images/stories/<?php echo $description->image; ?>" align="<?php echo $description->image_position; ?>"  alt="" />
 <?php } ?>
 <?php if($display_desc_text) { ?>
 					<p> <?php echo $description->description; ?> </p>
@@ -32,9 +32,8 @@ defined('_VALID_MOS') or die(); ?>
 		echo '<tr>';
 		foreach ($v['obj'] as $row) {
 			echo '<td>';
-									 $params->set('page_type', 'item_intro_simple'); 
-								_showItem($row, $params, $gid, $access, $pop, '[s]default.php'); 
-					
+				$params->set('page_type', 'item_intro_simple');
+				_showItem($row, $params, $gid, $access, $pop, '[s]default.php');
 			echo '</td>';
 			$kk++;
 			if($kk % $columns == 0 && (isset($cats_arr[$row->catid]['obj'][$kk]) && $cats_arr[$row->catid]['obj'][$kk]->catid == $row->catid)) {
@@ -50,4 +49,4 @@ defined('_VALID_MOS') or die(); ?>
 	echo _EMPTY_BLOG;
 }
 mosHTML::BackButton($params); ?>
-	</div>
+</div>

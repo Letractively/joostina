@@ -209,10 +209,7 @@ function showPathway($Itemid) {
 					if($id) {
 						// load the content item name and category
 
-						$query = "SELECT title, catid, id"
-								."\n FROM #__content"
-								."\n WHERE id = ".(int)$id
-								."\n AND access <= ".(int)$my->id;
+						$query = 'SELECT title, catid, id FROM #__content WHERE id ='.(int)$id.' AND access <= '.(int)$my->id;
 						$database->setQuery($query);
 						$row = null;
 						$database->loadObject($row);
@@ -231,13 +228,13 @@ function showPathway($Itemid) {
 	$i = count($mitems);
 	$mid = $Itemid;
 
-	$imgPath = 'templates/'.$mainframe->getTemplate().'/images/arrow.png';
-	if(file_exists("JPATH_BASE/$imgPath")) {
-		$img = '<img src="'.$mosConfig_live_site.'/'.$imgPath.'" border="0" alt=">>" />';
+	$imgPath = 'templates/'.JTEMPLATE.'/images/arrow.png';
+	if(file_exists(JPATH_BASE.DS.$imgPath)) {
+		$img = '<img src="'.JPATH_SITE.'/'.$imgPath.'" border="0" alt=">>" />';
 	} else {
 		$imgPath = '/images/M_images/arrow.png';
 		if(file_exists(JPATH_BASE.$imgPath)) {
-			$img = '<img src="'.$mosConfig_live_site.'/images/M_images/arrow.png" alt=">>" />';
+			$img = '<img src="'.JPATH_SITE.'/images/M_images/arrow.png" alt=">>" />';
 		} else {
 			$img = '&gt;';
 		}
