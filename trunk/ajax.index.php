@@ -16,7 +16,8 @@ define('DS', DIRECTORY_SEPARATOR );
 
 require (JPATH_BASE.'/includes/globals.php');
 require_once ('./configuration.php');
-
+// live_site
+define('JPATH_SITE', $mosConfig_live_site );
 // для совместимости
 $mosConfig_absolute_path = JPATH_BASE;
 
