@@ -335,7 +335,7 @@ INSERT INTO `#__mambots` VALUES (20, 'Модуль на главной стра�
 INSERT INTO `#__mambots` VALUES (21, 'Контактные данные пользователя', 'user_contacts', 'profile', 0, 2, 1, 0, 0, 0, '0000-00-00 00:00:00', '');
 INSERT INTO `#__mambots` VALUES (22, 'Материалы пользователя', 'user_content', 'profile', 0, 3, 1, 0, 0, 0, '0000-00-00 00:00:00', '');
 INSERT INTO `#__mambots` VALUES (23, 'Информация ', 'user_info', 'profile', 0, 1, 1, 0, 0, 0, '0000-00-00 00:00:00', 'header=Информация\nshow_header=1\nshow_location=1\ngender=1');
-INSERT INTO `#__mambots` VALUES (24, 'Библиотека MyLib', 'mylib', 'system', 0, 0, 1, 0, 0, 0, '0000-00-00 00:00:00', '');
+INSERT INTO `#__mambots` VALUES (24, 'Библиотека MyLib', 'mylib', 'system', 0, 0, 0, 0, 0, 0, '0000-00-00 00:00:00', '');
 
 
 # --------------------------------------------------------

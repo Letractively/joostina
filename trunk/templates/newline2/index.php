@@ -15,17 +15,12 @@ $iso = explode('=',_ISO); echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'
     var _cur_template = '<?php echo JTEMPLATE;?>';
     var _js_defines = new Array();
 </script>
-<?php
 
-	//MainBody
-	$page = new PageModel($mainframe);
 
-	//Модули
-	$modules = new mosModule($database, $mainframe);
-	$modules->initModules();
+<?php 
 
 	// загружаем верхнюю часть страницы со всеми js и css файлами, и обязательным использованием jquery
-	$page->_header(array('js'=>1,'css'=>1,'jquery'=>1));
+	mosShowHead(array('js'=>1,'css'=>1,'jquery'=>1));	
 
 	//Инициализация визуального редактора
 	if ($my->id && $mainframe->allow_wysiwyg) { initEditor(); }
@@ -34,12 +29,11 @@ $iso = explode('=',_ISO); echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'
 	$login_params = new stdClass();
 	$login_params->template = 'popup.php'; 
 	$login_params->show_login_text = 3; 
-	$login_params->show_pass_text = 3;
-	
+	$login_params->show_pass_text = 3; 
 
-	$block1_count = $modules->mosCountModules('user1');
-	$block2_count = $modules->mosCountModules('user5');
-	$block3_count = $modules->mosCountModules('user7');
+	$block1_count = (mosCountModules('user1')>0) + (mosCountModules('user2')>0) + (mosCountModules('user3')>0);
+	$block2_count = (mosCountModules('user4')>0) + (mosCountModules('user5')>0) + (mosCountModules('user6')>0);
+	$block3_count = (mosCountModules('user7')>0) + (mosCountModules('user8')>0) + (mosCountModules('user9')>0);
 	
 	$body_class = 'inside';
 	if($block1_count){$body_class = 'mainpage';}
@@ -63,7 +57,7 @@ $iso = explode('=',_ISO); echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'
             <div class="header">
                 <a href="<?php echo $mosConfig_live_site;?>" id="logo">&nbsp;</a>
                 
-                <div class="header_center"><?php $modules->mosLoadModules('header',-1); ?></div> 
+                <div class="header_center"><?php mosLoadModules('header',-1); ?></div> 
   
                 <div class="header_right">
                     <a title="Обратная связь" href="mailto:<?php echo $mosConfig_mailfrom;?>" id="mail" class="navbar">&nbsp;</a>
@@ -71,8 +65,8 @@ $iso = explode('=',_ISO); echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'
 				</div>               
                
                	<div class="top_menu_l"><div class="top_menu_r"><div class="top_menu_mid">
-					<?php $modules->mosLoadModules('top',-1); ?>
-					<?php $modules->mosLoadModule('mod_ml_login', '', -1, 0, $login_params); ?>
+					<?php mosLoadModules('top',-1); ?>
+					<?php mosLoadModule('mod_ml_login', '', -1, 0, $login_params); ?>
 					<?php //mosLoadModules('toolbar',-2); ?>                        
        			</div></div></div>
             
@@ -82,23 +76,49 @@ $iso = explode('=',_ISO); echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'
             	$block1_width = 'w' .$block1_count;
             ?>
             <div class="block1" id="block_round">
+  					<?php if(mosCountModules('user1')) { ?>
                     <div class="block_<?php echo $block1_width ?>">
-        	            <?php $modules->mosLoadModules('user1', -2); ?>
+        	            <?php mosLoadModules('user1', -2); ?>
         	        </div>
+                    <?php } ?>
+
+                    <?php if(mosCountModules('user2')) { ?>
+                    <div class="block_<?php echo $block1_width ?>">
+        	            <?php mosLoadModules('user2', -2); ?>
+        	        </div>
+                    <?php } ?>
+                    <?php if(mosCountModules('user3')) { ?>
+                    <div class="block_<?php echo $block1_width ?>">
+        	            <?php mosLoadModules('user3', -2); ?>
+        	        </div>
+                    <?php } ?> 
             </div><!--block1:end-->
             <?php } ?>
             
 
             <div class="content">
-                <?php $page->_body(); ?> <br />
-                
+                <?php mosMainbody(); ?> <br />
                 <?php if($block2_count) {
                     $block2_width = 'w' .$block2_count;
                 ?>
+
                     <div class="block2">
+                        <?php if(mosCountModules('user4')) { ?>
                             <div class="block_<?php echo $block2_width ?>">
-        	                    <?php $modules->mosLoadModules('user5', -2); ?>
-        	                </div>        
+        	                    <?php mosLoadModules('user4', -2); ?>
+        	                </div>
+                        <?php } ?>
+                        <?php if(mosCountModules('user5')) { ?>
+                            <div class="block_<?php echo $block2_width ?>">
+        	                    <?php mosLoadModules('user5', -2); ?>
+        	                </div>
+                        <?php } ?>
+                        <?php if(mosCountModules('user6')) { ?>
+                            <div class="block_<?php echo $block2_width ?>">
+                              <?php mosLoadModules('user6', -2); ?>
+                           </div>
+                        <?php } ?>
+                    
                     </div><!--block2:end-->
                 <?php } ?>                
             
@@ -106,8 +126,8 @@ $iso = explode('=',_ISO); echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'
             
             
             <div class="col">
-                <?php $modules->mosLoadModules('left',-2); ?>
-                <?php $modules->mosLoadModules('banner',-2); ?>            
+                <?php mosLoadModules('left',-2); ?>
+                <?php mosLoadModules('banner',-2); ?>            
             </div><!--col:end-->
             
             
@@ -116,9 +136,21 @@ $iso = explode('=',_ISO); echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'
             ?>
                 <div class="block3">
                     <div class="block3_bottom">
-                            <div class="block_<?php echo $block3_width ?>">
-        	                    <?php $modules->mosLoadModules('user7', -2); ?>
+                        <?php if(mosCountModules('user7')) { ?>
+                            <div class="block_<?php echo $block3_width ?> w25">
+        	                    <?php mosLoadModules('user7', -2); ?>
         	                </div>
+                        <?php } ?>
+                        <?php if(mosCountModules('user8')) { ?>
+                            <div class="block_<?php echo $block3_width ?> w35">
+        	                    <?php mosLoadModules('user8', -2); ?>
+        	                </div>
+                        <?php } ?>
+                        <?php if(mosCountModules('user9')) { ?>
+                            <div class="block_<?php echo $block3_width ?> w35" >
+        	                    <?php mosLoadModules('user9', -2); ?>
+        	                </div>
+                        <?php } ?>
                     </div>               
                 </div><!--block3:end-->
             <?php } ?>            
@@ -132,7 +164,7 @@ $iso = explode('=',_ISO); echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'
     <div class="footer">
         <div class="bottom">
             <a title="Работает на системе управления сайтами Joostina CMS" href="http://www.joostina.ru" target="_blank" id="about" class="bottom_bar">Работает на Joostina CMS</a>
-            <?php $modules->mosLoadModules('bottom',-1); ?>
+            <?php mosLoadModules('bottom',-1); ?>
         </div>    
     </div><!--footer:end-->
     
@@ -145,10 +177,10 @@ $mainframe->addJS(JPATH_SITE.'/templates/'.JTEMPLATE.'/js/corners.js', 'js');
 $mainframe->addJS(JPATH_SITE.'/templates/'.JTEMPLATE.'/js/template.js', 'custom');
 
 // выводим js футера (первая ступень - в основном jQuery-плагины и вспомагательные скрипты)
-$page->_footer(array('js'=>1));
+mosShowFooter(array('js'=>1));
 // выводим js футера (вторая ступень - js компонентов, инициализации для плагинов и т.п. - 
 //всё, что должно быть загружено после всех основных скриптов)
-$page->_footer(array('custom'=>1));
+mosShowFooter(array('custom'=>1));
 ?>
 
 </body>

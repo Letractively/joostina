@@ -112,13 +112,12 @@ class database {
 			$instance = new database($config->config_host,$config->config_user,$config->config_password,$config->config_db,$config->config_dbprefix);
 			if($instance->getErrorNum()) {
 				$mosSystemError = $database->getErrorNum();
-				$basePath = dirname(__file__);
-				include $basePath.'/../configuration.php';
-				include $basePath.'/../templates/system/offline.php';
+				include JPATH_BASE.DS.'configuration.php';
+				include JPATH_BASE.DS.'templates/system/offline.php';
 				exit();
 			}
 			$instance->debug($config->config_debug);
-
+			unset($config);
 		}
 
 		return $instance;

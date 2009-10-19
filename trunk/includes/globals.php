@@ -8,10 +8,6 @@
 */
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
-
-// отключение регистрации глобальных перменных
-define('RG_EMULATION',0);
-
 /**
 * Adds an array to the GLOBALS array and checks that the GLOBALS variable is
 * not being attacked
@@ -75,30 +71,6 @@ function unregisterGlobals() {
 	$_FILES = $FILES;
 	$_ENV = $ENV;
 	$_SERVER = $SERVER;
-}
-
-/**
-* Emulates register globals = on
-*/
-function registerGlobals() {
-	checkInputArray($_FILES,true);
-	checkInputArray($_ENV,true);
-	checkInputArray($_GET,true);
-	checkInputArray($_POST,true);
-	checkInputArray($_COOKIE,true);
-	checkInputArray($_SERVER,true);
-
-	if(isset($_SESSION)) {
-		checkInputArray($_SESSION,true);
-	}
-
-	foreach($_FILES as $key => $value) {
-		$GLOBALS[$key] = $_FILES[$key]['tmp_name'];
-		foreach($value as $ext => $value2) {
-			$key2 = $key.'_'.$ext;
-			$GLOBALS[$key2] = $value2;
-		}
-	}
 }
 
 // удаляем зарегистрированные глобальные переменные если они разрешены
