@@ -16,21 +16,21 @@ class mod_latestnews_Helper{
 	var $_mainframe = null;
 	
 	function mod_latestnews_Helper($mainframe){
-		
-		$this->_mainframe = $mainframe;	
-		$this->_mainframe->addLib('text');
-		$this->_mainframe->addLib('images');
+
+		$this->_mainframe = $mainframe;
+		mosMainFrame::addLib('text');
+		mosMainFrame::addLib('images');
 	}
 
 	function get_static_items($params){
 		global $my;
-		
-		$mainframe = $this->_mainframe;
-		$database = $this->_mainframe->_db;
 
-		$now = _CURRENT_SERVER_TIME;
-		$access	= !$mainframe->getCfg( 'shownoauth' );
-		$nullDate = $database->getNullDate();  
+		$mainframe	= $this->_mainframe;
+		$database	= $this->_mainframe->_db;
+
+		$now		= _CURRENT_SERVER_TIME;
+		$access		= !$mainframe->getCfg( 'shownoauth' );
+		$nullDate	= $database->getNullDate();
 
 		$query = 'SELECT a.id, a.title, a.introtext, a.images, a.created, a.created_by, a.created_by_alias, 
 			u.name AS author, u.usertype, u.username
@@ -113,7 +113,7 @@ class mod_latestnews_Helper{
 	
 	function get_category_items($params){
 		global $my;
-		
+
 		$mainframe = $this->_mainframe;
 		$database = $this->_mainframe->_db;
 

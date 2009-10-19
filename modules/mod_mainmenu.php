@@ -278,8 +278,9 @@ if (!defined( '_MOS_MAINMENU_MODULE' )) {
 	function mosShowHFMenu(  &$params, $style=0 ) {
 		global $my;
 
-		$all_menu = &mosMenu::getInstance();
-		$menus = isset($all_menu->_menu[$params->get( 'menutype' )]) ? $all_menu->_menu[$params->get( 'menutype' )] : array() ;
+		$all_menu = &mosMenu::get_all();
+
+		$menus = isset($all_menu[$params->get( 'menutype' )]) ? $all_menu[$params->get( 'menutype' )] : array() ;
 
 		$rows = array();
 		foreach ($menus as $menu){

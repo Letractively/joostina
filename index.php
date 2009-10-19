@@ -83,17 +83,11 @@ require_once (JPATH_BASE.DS.'includes'.DS.'frontend.php');
 // проверка и переадресация с не WWW адреса
 joostina_api::check_host();
 
-// поиск некоторых аргументов url (или form)
-$option = strval(strtolower(mosGetParam($_REQUEST,'option')));
-$Itemid = intval(mosGetParam($_REQUEST,'Itemid',null)); 
-
-if(!$Itemid) {
-	// когда не найден Itemid, то ему присваивается значение по умолчанию
-	$Itemid = 99999999;
-}
-
 // mainframe - основная рабочая среда API, осуществляет взаимодействие с 'ядром'
 $mainframe = &mosMainFrame::getInstance();
+
+$option = $mainframe->option;
+$Itemid = $mainframe->Itemid;
 
 //Межсайтовая интеграция
 //if(is_file(JPATH_BASE.DS.'multisite.config.php')){
@@ -113,18 +107,6 @@ if($mosConfig_mmb_system_off == 0) {
 if($option == 'com_content' && $Itemid === 0) {
 	$id = intval(mosGetParam($_REQUEST,'id',0));
 	$Itemid = $mainframe->getItemid($id);
-}
-
-/** до сих пор не правильный Itemid??*/
-if($Itemid === 0) {
-	/** Нет, используется именно главная страница.*/
-	$query = "SELECT id"
-	."\n FROM #__menu"
-	."\n WHERE menutype = 'mainmenu'"
-	."\n AND published = 1"
-	."\n ORDER BY parent, ordering";
-	$database->setQuery($query,0,1);
-	$Itemid = $database->loadResult();
 }
 
 // путь уменьшения воздействия на шаблоны

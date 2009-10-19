@@ -94,8 +94,8 @@ class modules_html {
 
 		$moduleclass_sfx = $params->get('moduleclass_sfx');
 
-		$path = $config->config_absolute_path.DS.'language'.DS.$config->config_lang.DS.'frontend'.DS.$module->module.'.php';
-		$path_def = $config->config_absolute_path.DS.'language/russian/frontend'.DS.$module->module.'.php';
+		$path = JPATH_BASE.DS.'language'.DS.$config->config_lang.DS.'frontend'.DS.$module->module.'.php';
+		$path_def = JPATH_BASE.DS.'language/russian/frontend'.DS.$module->module.'.php';
 
 		file_exists($path) ? include_once ($path) : (file_exists($path_def) ? include_once ($path_def):null);
 
@@ -399,7 +399,7 @@ class modules_html {
 		if($type) {
 			modules_html::CustomContent($module,$params);
 		} else {
-			include ($config->config_absolute_path.'/modules/'.$module->module.'.php');
+			include (JPATH_BASE.DS.'modules'.DS.$module->module.'.php');
 
 			if(isset($content)) {
 				echo $content;

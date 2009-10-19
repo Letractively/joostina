@@ -26,7 +26,7 @@ else {
 }
 
 //Подключаем вспомогательный класс
-$module->get_helper();
+$module->get_helper($mainframe);
 
 //Подключаем шаблон
 if($module->set_template($params)){

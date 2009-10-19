@@ -21,6 +21,8 @@ DEFINE('_CURRENT_SERVER_TIME',date('Y-m-d H:i',time()));
 // схемы не http/https протоколов
 DEFINE('_URL_SCHEMES','data:, file:, ftp:, gopher:, imap:, ldap:, mailto:, news:, nntp:, telnet:, javascript:, irc:, mms:');
 
+DEFINE('RG_EMULATION',0);
+
 // пробуем устанавить более удобный режим работы
 @set_magic_quotes_runtime(0);
 
@@ -112,6 +114,7 @@ class mosMainFrame {
 	var $_multisite = 0;
 	var $_multisite_params = null;
 
+
 	/**
 	* Class constructor
 	* @param database A database connection object
@@ -119,22 +122,27 @@ class mosMainFrame {
 	* @param string The path of the mos directory
 	*/
 	function mosMainFrame($db,$option,$basePath=null,$isAdmin = false) {
-		unset($db,$option);
+		unset($db,$option,$basePath);
 
-		$config =&Jconfig::getInstance();
-		$this->set('config',$config);
+		$this->config = &Jconfig::getInstance();
 
 		$this->_db = &database::getInstance();
 
 		if(!$isAdmin){ // работаем с меню в один запрос
-			$menu = &mosMenu::getInstance();
-			$this->set('all_menu',$menu->get_menu());
-			$this->set('all_menu_links',$menu->get_menu_links());
-			$option = $this->get_option();
-			unset($menu);
+			$menu = new mosMenu($this->_db);
+
+			$this->all_menu_links = $menu->get_menu_links();
+
+			$current = $this->get_option();
+			$this->option = $option = $current['option'];
+			$this->Itemid = $current['Itemid'];
+
+			unset($menu,$current);
 		}else{// для панели управления работаем с меню напрямую
 			$option = strval(strtolower(mosGetParam($_REQUEST,'option')));
 		}
+
+
 
 		$this->_setTemplate($isAdmin);
 		$this->_setAdminPaths($option,JPATH_BASE);
@@ -153,8 +161,8 @@ class mosMainFrame {
 			$this->_head['title'] = $this->getCfg('sitename');
 			$this->_head['meta'] = array();
 			$this->_head['custom'] = array();
+			$this->loadOverlib = false;
 			$this->detect();
-			$this->set('loadOverlib',false);
 		}
 	}
 
@@ -1250,7 +1258,6 @@ class mosMainFrame {
 	}
 
 	function getTemplate() {
-		jd_inc('getTemplate');
 		return $this->_template;
 	}
 
@@ -1568,28 +1575,16 @@ class mosMainFrame {
 			}
 			// if id hasnt been checked before initaite query
 			if(!$exists) {
-
-				// пытаемся исправить недоработки Joomla...
-				static $_links;
-				if(!isset($_links)){
-					$query = "SELECT ms.id AS sid, ms.type AS stype, mc.id AS cid, mc.type AS ctype, i.id as sectionid, i.id As catid, ms.published AS spub, mc.published AS cpub"
-						."\n FROM #__content AS i"
-						."\n LEFT JOIN #__sections AS s ON i.sectionid = s.id"
-						."\n LEFT JOIN #__menu AS ms ON ms.componentid = s.id "
-						."\n LEFT JOIN #__categories AS c ON i.catid = c.id"
-						."\n LEFT JOIN #__menu AS mc ON mc.componentid = c.id "
-						."\n WHERE ( ms.type IN ( 'content_section', 'content_blog_section' ) OR mc.type IN ( 'content_blog_category', 'content_category' ) )"
-						."\n ORDER BY ms.type DESC, mc.type DESC, ms.id, mc.id";
-					$this->_db->setQuery($query);
-					$links = $bbad = $this->_db->loadObjectList();
-					$_links = array();
-					foreach($bbad as $bad){
-						$_links[$bad->sectionid][]=$bad;
-					}
-					unset($bbad,$bad);
-				}
-
-				$links = isset($_links[$id]) ? $_links[$id] : null;
+				$query = "SELECT ms.id AS sid, ms.type AS stype, mc.id AS cid, mc.type AS ctype, i.id as sectionid, i.id As catid, ms.published AS spub, mc.published AS cpub"
+					."\n FROM #__content AS i"
+					."\n LEFT JOIN #__sections AS s ON i.sectionid = s.id"
+					."\n LEFT JOIN #__menu AS ms ON ms.componentid = s.id "
+					."\n LEFT JOIN #__categories AS c ON i.catid = c.id"
+					."\n LEFT JOIN #__menu AS mc ON mc.componentid = c.id "
+					."\n WHERE ( ms.type IN ( 'content_section', 'content_blog_section' ) OR mc.type IN ( 'content_blog_category', 'content_category' ) )"
+					."\n AND i.id = ".(int)$id."\n ORDER BY ms.type DESC, mc.type DESC, ms.id, mc.id";
+				$this->_db->setQuery($query);
+				$links = $this->_db->loadObjectList();
 
 				if(count($links)) {
 					foreach($links as $link) {
@@ -1918,11 +1913,11 @@ class mosMainFrame {
 
 	function get_option(){
 
-		$Itemid = intval(strtolower(mosGetParam($_REQUEST,'Itemid',null)));
-		$option = trim(strval(strtolower(mosGetParam($_REQUEST,'option',null))));
+		$Itemid = intval(strtolower(mosGetParam($_REQUEST,'Itemid','')));
+		$option = trim(strval(strtolower(mosGetParam($_REQUEST,'option',''))));
 
-		if(isset($option) && $option!='') {
-			return $option;
+		if($option!='' && $Itemid!='') {
+			return array('option'=>$option,'Itemid'=>$Itemid);
 		}
 
 		if($Itemid) {
@@ -1936,7 +1931,7 @@ class mosMainFrame {
 			$this->_db->loadObject($menu);
 		} else {
 			// получение пурвого элемента главного меню
-			$menu = $this->get('all_menu');
+			$menu = &mosMenu::get_all();
 			$menu = $menu['mainmenu'];
 			$items = isset($menu) ? array_values($menu) : array();
 			$menu = $items[0];
@@ -1957,9 +1952,12 @@ class mosMainFrame {
 			if($k == 'option') {
 				$option = $v;
 			}
+			if($k == 'Itemid') {
+				$Itemid = $v;
+			}
 		}
 
-		return $option;
+		return array('option'=>$option,'Itemid'=>$Itemid);
 	}
 
 }
@@ -2471,27 +2469,38 @@ class mosMenu extends mosDBTable {
 		$this->_menu = array();
 	}
 
-	function &getInstance(){
-		static $instance;
+	function get_all(){
+		static $all_menus;
 
-		if (!is_object( $instance )) {
-			$db = &database::getInstance();
-			$instance = new mosMenu($db);
-
+		if(!is_array( $all_menus )){
+			$database = &database::getInstance();
 			// ведёргиваем из базы все пункты меню, они еще пригодяться несколько раз
-			$sql = 'SELECT* FROM #__menu WHERE published=1 ORDER BY parent, ordering ASC';
-			$this->_db->setQuery($sql);
-			$menus = $this->_db->loadObjectList();
+			$sql = 'SELECT id,menutype,name,link,type,parent,params,access,browserNav FROM #__menu WHERE published=1 ORDER BY parent, ordering ASC';
+			$database->setQuery($sql);
+			$menus = $database->loadObjectList();
 
-			$m = array();
+			$all_menus = array();
 			foreach($menus as $menu){
-				$m[$menu->menutype][$menu->id]=$menu;
+				$all_menus[$menu->menutype][$menu->id]=$menu;
 			}
-			$instance->_menu = $m;
-			unset($m,$sql,$menus,$menu);
 		}
 
-		return $instance;
+		return $all_menus;
+	}
+
+	function all_menu(){
+
+		// ведёргиваем из базы все пункты меню, они еще пригодяться несколько раз
+		$sql = 'SELECT* FROM #__menu WHERE published=1 ORDER BY parent, ordering ASC';
+		$this->_db->setQuery($sql);
+		$menus = $this->_db->loadObjectList();
+
+		$m = array();
+		foreach($menus as $menu){
+			$m[$menu->menutype][$menu->id]=$menu;
+		}
+
+		return $m;
 	}
 
 	function check() {
@@ -2518,7 +2527,7 @@ class mosMenu extends mosDBTable {
 			$and[] = "menu.link LIKE '%$link'";	
 		}
 		$and = implode(' AND ', $and);
-		
+
 		$query = 'SELECT menu.* FROM #__menu AS menu '.$where.$and;
 		$r=null;
 		$this->_db->setQuery($query);
@@ -2621,6 +2630,21 @@ class mosModule extends mosDBTable {
 			$this->_mainframe = $mainframe;
 		}
 	}
+
+	function getInstance(){
+		static $modules;
+		if(!is_object($modules) ){
+			$mainframe = &mosMainFrame::getInstance();
+			unset($mainframe->_session,$mainframe->_head,$mainframe->_footer);
+
+			$modules = new mosModule($mainframe->_db, $mainframe);
+			$modules->initModules();
+			unset($modules->_mainframe,$modules->_db,$modules->_view->all_menu,$modules->_view->_mainframe->_session,$modules->_view->_mainframe->_head,$modules->_view->_mainframe->_footer,$modules->_view->_mainframe->all_menu_links,$modules->_view->_mainframe->menu);
+		}
+
+		return $modules;
+	}
+
 	// overloaded check function
 	function check() {
 		// check for valid name
@@ -2633,7 +2657,7 @@ class mosModule extends mosDBTable {
 	}
 
 	function convert_to_object($module, $mainframe){
-		$database = $mainframe->_db;
+		$database = &$mainframe->_db;
 
 		$module_obj = new mosModule($database, $mainframe);
 		$rows = get_object_vars($module_obj);
@@ -2642,6 +2666,7 @@ class mosModule extends mosDBTable {
 				$module_obj->$key = $module->$key;
 			}
 		}
+		unset($module_obj->_mainframe,$module_obj->_db);
 
 		return $module_obj;
 	}
@@ -2665,7 +2690,7 @@ class mosModule extends mosDBTable {
 			if (is_file($file)){
 				$this->template = $file;
 				return true;
-			}else if (is_file(JPATH_BASE . DS . $default_template)){
+			}elseif (is_file(JPATH_BASE . DS . $default_template)){
 				$this->template = JPATH_BASE . DS . $default_template;
 				return true;
 			}
@@ -2685,15 +2710,14 @@ class mosModule extends mosDBTable {
 		return false;
 	}
 
-	function get_helper(){
+	function get_helper($mainframe){
 
-		$help_file = 'modules'.DS.$this->module.DS.'helper.php';
-		$file = JPATH_BASE. DS . $help_file;
+		$file = JPATH_BASE. DS .'modules'.DS.$this->module.DS.'helper.php';
 
 		if (is_file($file)) {
 			require_once($file);
 			$helper_class = $this->module.'_Helper';
-			$this->helper = new $helper_class($this->_mainframe);
+			$this->helper = new $helper_class($mainframe);
 			return true;
 		}
 		return false;
@@ -2707,8 +2731,9 @@ class mosModule extends mosDBTable {
 
 		$query = "SELECT * FROM #__modules AS m WHERE ".$where;
 		$row = null;
-		$this->_db->setQuery($query);
-		$this->_db->loadObject($row);
+
+		$this->_view->_mainframe->_db->setQuery($query);
+		$this->_view->_mainframe->_db->loadObject($row);
 
 		$rows = get_object_vars($this);
 
@@ -2734,10 +2759,7 @@ class mosModule extends mosDBTable {
 			$all_modules = array();
 
 			$Itemid = intval($Itemid);
-			$check_Itemid = '';
-			if($Itemid) {
-				$check_Itemid = "OR mm.menuid = ".(int)$Itemid;
-			}
+			$check_Itemid = ($Itemid) ? "OR mm.menuid = ".(int)$Itemid:'';
 
 			$where_ac = $config->config_disable_access_control ? '' : "\n AND (m.access=3 OR m.access <= ".(int)$my->gid.') ';
 
@@ -2760,13 +2782,13 @@ class mosModule extends mosDBTable {
 				}
 			}
 			unset($modules,$module);
+			$this->_all_modules = $all_modules;
+
+			require_once (JPATH_BASE.'/includes/frontend.html.php');
+			$this->_view = new modules_html($this->_mainframe);
 		}
-		$this->_all_modules = $all_modules;
 
-		require_once (JPATH_BASE.'/includes/frontend.html.php');
-		$this->_view = new modules_html($this->_mainframe);
-
-		return $all_modules;
+		return $this->_all_modules;
 	}
 
 	/**
@@ -2797,8 +2819,8 @@ class mosModule extends mosDBTable {
 		$style = intval($style);
 
 		$config_absolute_path = JPATH_BASE;
-		$config_caching = $this->_mainframe->getCfg('caching');
-		$config_disable_tpreview = $this->_mainframe->getCfg('disable_tpreview');
+		$config_caching = $this->_view->_mainframe->getCfg('caching');
+		$config_disable_tpreview = $this->_view->_mainframe->getCfg('disable_tpreview');
 
 
 		if($tp && !$config_disable_tpreview ) {
@@ -2869,8 +2891,8 @@ class mosModule extends mosDBTable {
 	function mosLoadModule($name = '', $title = '', $style = 0, $noindex = 0, $inc_params = null) {
 		global $my,$Itemid;
 
-		$database = $this->_mainframe->_db;
-		$config = $this->_mainframe->get('config');
+		$database = $this->_view->_mainframe->_db;
+		$config = $this->_view->_mainframe->get('config');
 
 		$tp = intval(mosGetParam($_GET,'tp',0));
 
@@ -3899,21 +3921,22 @@ function mosMakeHtmlSafe(&$mixed,$quote_style = ENT_QUOTES,$exclude_keys = '') {
 */
 
 function mosMenuCheck($Itemid,$menu_option,$task,$gid) {
-	$database = &database::getInstance();
 	$mainframe = &mosMainFrame::getInstance();
+	$database = &$mainframe->_db;
 
 	$results = array();
 	$access = 0;
 
 	if($Itemid != '' && $Itemid != 0 && $Itemid != 99999999) {
 		$query = "SELECT* FROM #__menu WHERE id = ".(int)$Itemid;
-		$all_menus = $mainframe->get('all_menu');
+		$all_menus = &mosMenu::get_all();
 		foreach($all_menus as $menu){
 			if(isset($menu[$Itemid])){
 				$results[0]=$menu[$Itemid];
 				$access = $results[0]->access;
 			}
 		}
+		unset($all_menus);
 	} else {
 		$dblink = "index.php?option=".$database->getEscaped($menu_option, true);
 		if($task != '') {
@@ -4381,8 +4404,8 @@ class mosMambotHandler {
 	*/
 	function mosMambotHandler() {
 		$this->_db = &database::getInstance();
-		$this->_config = &Jconfig::getInstance();
-
+		$config = &Jconfig::getInstance();
+		$this->_config = array('config_disable_access_control'=>$config->config_disable_access_control,'config_use_unpublished_mambots'=>$config->config_use_unpublished_mambots);
 		$this->_events = array();
 	}
 
@@ -4403,14 +4426,14 @@ class mosMambotHandler {
 		}
 		$group = trim($group);
 
-		$where_ac = ($config->config_disable_access_control==0) ? ' AND access <= '.(int)$gid : '';
+		$where_ac = ($config['config_disable_access_control']==0) ? ' AND access <= '.(int)$gid : '';
 
 		switch($group) {
 			case 'content':
 				if(!defined('_JOS_CONTENT_MAMBOTS')) {
 					/** ensure that query is only called once*/
 					define('_JOS_CONTENT_MAMBOTS',1);
-					$where_ac .= ($config->config_use_unpublished_mambots==1) ? '' : ' AND published=1';
+					$where_ac .= ($config['config_use_unpublished_mambots']==1) ? '' : ' AND published=1';
 					$query = 'SELECT folder, element, published, params FROM #__mambots WHERE folder = \'content\''.$where_ac.' ORDER BY ordering';
 					$database->setQuery($query);
 					// load query into class variable _content_mambots
@@ -4607,7 +4630,7 @@ class mosTabs {
 	*/
 	function mosTabs($useCookies,$xhtml = 0) {
 		$mainframe = &MosMainFrame::getInstance();
-		$config=$mainframe->get('config');
+		$config = $mainframe->get('config');
 
 		// активация gzip сжатия css и js файлов
 		if($config->config_gz_js_css) {

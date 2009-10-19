@@ -24,7 +24,7 @@ $params->def('template', 'default.php');
 $params->def('template_dir', 0);
 
 $params->set('template', $type_menu.DS.$params->get('template'));
-$module->get_helper();
+$module->get_helper($mainframe);
 
 //Подключаем шаблон
 if($module->set_template($params)){

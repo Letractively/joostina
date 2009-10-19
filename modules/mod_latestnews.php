@@ -17,7 +17,7 @@ $params->def('item_title', 1); $params->def('link_titles', 1);
 $params->def('template', 'default.php');
 
 //Подключаем вспомогательный класс
-$module->get_helper();
+$module->get_helper($mainframe);
 
 // Выбор между выводом содержимого объектов, 
 //статического содержимого или сразу обоих

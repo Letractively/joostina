@@ -14,9 +14,8 @@ defined('_VALID_MOS') or die();
 * Displays the capture output of the main element
 */
 function mosMainBody() {
-	$mainframe = &mosMainFrame::getInstance();
-	$page = new PageModel($mainframe);
-	$page->_body();
+	$page = &PageModel::getInstance();
+	echo $page->MainBody();
 }
 /**
 * Utility functions and classes
@@ -43,7 +42,8 @@ function &initModules() {
 * @param string the template position
 */
 function mosCountModules($position = 'left') {
-
+	$modules =& mosModule::getInstance();
+	return $modules->mosCountModules($position);
 }
 /**
 * @param string The position
@@ -51,7 +51,8 @@ function mosCountModules($position = 'left') {
 */
 //Скопировано в класс
 function mosLoadModules($position = 'left',$style = 0,$noindex = 0) {
-
+	$modules =& mosModule::getInstance();
+	return $modules->mosLoadModules($position,$style,$noindex);
 }
 
 /**
@@ -59,18 +60,23 @@ function mosLoadModules($position = 'left',$style = 0,$noindex = 0) {
 * @param int The style.  0=normal, 1=horiz, -1=no wrapper
 */
 function mosLoadModule($name = '', $title = '', $style = 0, $noindex = 0, $inc_params = null) {
-
+	$modules =& mosModule::getInstance();
+	return $modules->mosLoadModule($name,$title,$style,$noindex,$inc_params);
 }
 
 /**
 * Шапка страницы
 */
 function mosShowHead($params=array('js'=>1,'css'=>1)) {
-
+	$page = &PageModel::getInstance();
+	// загружаем верхнюю часть страницы со всеми js и css файлами, и обязательным использованием jquery
+	$page->ShowHead($params);
 }
 
 function mosShowFooter($params=array('fromheader'=>1,'js'=>1)) {
-
+	$page = &PageModel::getInstance();
+	// загружаем верхнюю часть страницы со всеми js и css файлами, и обязательным использованием jquery
+	$page->ShowFooter($params);
 }
 
 // установка мета-тэгов для поисковика
@@ -95,6 +101,17 @@ class PageModel{
 		$this->_mainframe = $mainframe;
 	}
 
+	function getInstance(){
+		static $page_model;
+		if(!is_object($page_model) ){
+			$mainframe = &mosMainFrame::getInstance();
+			unset($mainframe->menu,$mainframe->_session ,$mainframe->all_menu,$mainframe->all_menu_links);
+			$page_model = new PageModel($mainframe);
+		}
+
+		return $page_model;
+	}
+
 	function _body(){
 		$this->MainBody();
 	}
@@ -109,13 +126,12 @@ class PageModel{
 
 	function MainBody() {
 		$mainframe = $this->_mainframe;
-		$mosConfig_live_site = JPATH_SITE;
 
 		$popMessages = false;
 
 		// Browser Check
 		$browserCheck = 0;
-		if(isset($_SERVER['HTTP_USER_AGENT']) && isset($_SERVER['HTTP_REFERER']) &&strpos($_SERVER['HTTP_REFERER'],$mosConfig_live_site) !== false) {
+		if(isset($_SERVER['HTTP_USER_AGENT']) && isset($_SERVER['HTTP_REFERER']) &&strpos($_SERVER['HTTP_REFERER'],JPATH_SITE) !== false) {
 			$browserCheck = 1;
 		}
 
@@ -224,8 +240,6 @@ class PageModel{
 			$theURI = str_replace(JPATH_SITE.'/','',$theURI);
 			echo '<base href="'.sefRelToAbs($theURI).'" />'."\r\n";
 		}
-
-
 
 		if($my->id || $mainframe->get('joomlaJavascript')) {
 			?><script src="<?php echo JPATH_SITE; ?>/includes/js/joomla.javascript.js" type="text/javascript"></script>
