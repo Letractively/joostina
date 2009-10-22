@@ -203,8 +203,8 @@ class CFilelistEngine {
 		unset($fragmentDescriptor);
 
 		$sql = "INSERT INTO #__jp_packvars (`key`, value2) VALUES (\""
-				.mysql_escape_string("fragment".$this->_currentNode)."\", \""
-				.mysql_escape_string($serializedDescriptor)."\")";
+				.mysql_real_escape_string("fragment".$this->_currentNode)."\", \""
+				.mysql_real_escape_string($serializedDescriptor)."\")";
 		$database->setQuery($sql);
 		$database->query();
 

@@ -10,14 +10,12 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-// очистка кода работы компонентов
-//$_MAMBOTS->registerFunction('onMainbody','body_clear');
 // очистка кода всего шаблона
 $_MAMBOTS->registerFunction('onTemplate','body_clear');
 
 /* функция производит очистку от спецсимволов*/
 function body_clear(&$body) {
-	require_once (Jconfig::getInstance()->config_absolute_path.DS.'includes'.DS.'libraries'.DS.'html_optimize'.DS.'html_optimize.php');
+	mosMainFrame::addLib('html_optimize');
 	$body = html_optimize($body);
 	return true;
 }

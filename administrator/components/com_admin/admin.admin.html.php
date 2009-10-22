@@ -138,16 +138,6 @@ class HTML_admin_misc {
 				<td>
 					<table cellspacing="1" cellpadding="1" border="0">
 					<tr>
-						<td width="250"><?php echo _RG_EMULATION?>!:</td>
-						<td style="font-weight: bold;" width="50">
-							<?php echo ((RG_EMULATION)?'<span style="color: red;">ON</span>':'<span style="color: green;">OFF</span>'); ?>
-						</td>
-						<td>
-							<?php $img = ((RG_EMULATION)?'publish_x.png':'tick.png'); ?>
-							<img src="<?php echo $cur_file_icons_path;?>/<?php echo $img; ?>" />
-						</td>
-					</tr>
-					<tr>
 						<td><?php echo _REGISTER_GLOBALS?>:</td>
 						<td style="font-weight: bold;"><?php echo HTML_admin_misc::get_php_setting('register_globals',1,0); ?></td>
 						<td>

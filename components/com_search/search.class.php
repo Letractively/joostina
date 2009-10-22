@@ -17,7 +17,7 @@ mosMainFrame::addLib('dbconfig');
 */
 
 
-    class searchByTagConfig extends dbConfig{
+class searchByTagConfig extends dbConfig{
 
     	/**
     	 * Заголовок страницы
@@ -31,7 +31,7 @@ mosMainFrame::addLib('dbconfig');
 
     }
 
-    class searchByTag{
+class searchByTag{
 
         function construct_url($item, $group){
 
@@ -58,8 +58,4 @@ mosMainFrame::addLib('dbconfig');
 
             return $view_link;
         }
-    }
-
-
-
-?>
+}

@@ -68,18 +68,13 @@ function botMosImage($published,&$row,&$params) {
 
 		// сохранение в глобальных переменных некоторых переменных для доступа из программы замены
 		$GLOBALS['botMosImageCount'] = 0;
-		$GLOBALS['botMosImageParams'] = &$botParams;
 		$GLOBALS['botMosImageArray'] = &$images;
-		//$GLOBALS['botMosImageArray']	=& $combine;
 
 		// выполнение замены
 		$row->text = preg_replace_callback($regex,'botMosImage_replacer',$row->text);
 
 		// приведение в порядок глобальных значений
-		unset($GLOBALS['botMosImageCount']);
-		unset($GLOBALS['botMosImageMask']);
-		unset($GLOBALS['botMosImageArray']);
-		unset($GLOBALS['botJosIntroCount']);
+		unset($GLOBALS['botMosImageCount'],$GLOBALS['botMosImageArray']);
 		return true;
 	}
 	return true;
@@ -240,4 +235,3 @@ function botMosImage_replacer(&$matches) {
 	$i = $GLOBALS['botMosImageCount']++;
 	return @$GLOBALS['botMosImageArray'][$i];
 }
-?>

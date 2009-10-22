@@ -121,7 +121,7 @@ class XmapPlugin extends mosDBTable {
 	}
 
 	function restore() {
-		global $database;
+		$database = &database::getInstance();
 		$query = "select * from #__xmap_ext where extension='".$this->extension.".bak'";
 		$database->setQuery($query);
 		if ($database->loadObject($row)) {

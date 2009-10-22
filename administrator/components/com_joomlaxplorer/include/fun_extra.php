@@ -504,7 +504,7 @@ function jx_scriptTag($src = '', $script = '') {
 	}
 }
 function jx_alertBox($msg) {
-	return jx_scriptTag('', 'alert( \''.@mysql_escape_string($msg).'\' );');
+	return jx_scriptTag('', 'alert( \''.mysql_real_escape_string($msg).'\' );');
 }
 function jx_docLocation($url) {
 	return jx_scriptTag('', 'document.location=\''.$url.'\';');

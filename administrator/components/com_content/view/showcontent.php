@@ -17,7 +17,7 @@ defined( '_VALID_MOS' ) or die();
 			log('Смена отображения на главной: '+elID);
 			SRAX.get('img-fpage-'+elID).src = 'images/aload.gif';
 			dax({
-				url: 'ajax.index.php?option=com_content&utf=0&task=frontpage&id='+elID,
+				url: 'ajax.index.php?option=com_content&task=frontpage&id='+elID,
 				id:'fpage-'+elID,
 				callback:
 					function(resp, idTread, status, ops){
@@ -35,7 +35,7 @@ defined( '_VALID_MOS' ) or die();
 
 			SRAX.get('img-trash-'+elID).src = 'images/aload.gif';
 			dax({
-				url: 'ajax.index.php?option=com_content&utf=0&task=to_trash&id='+elID,
+				url: 'ajax.index.php?option=com_content&task=to_trash&id='+elID,
 				id:'trash-'+elID,
 				callback:
 					function(resp, idTread, status, ops){

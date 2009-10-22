@@ -301,7 +301,7 @@ function print_table($dir, $list, $allow) {
 	}
 }
 function list_dir($dir) {
-	global $dir_up, $mosConfig_live_site, $_VERSION,$mainframe;
+	global $dir_up, $mosConfig_live_site, $mainframe;
 	mosCommonHTML::loadOverlib();
 	$mainframe->addJS($mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_joomlaxplorer/scripts/joomlaxplorer.js');
 	$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
@@ -349,7 +349,7 @@ function list_dir($dir) {
 			$my_user_info = posix_getpwuid(posix_geteuid());
 			$my_group_info = posix_getgrgid(posix_getegid());
 		}
-		$owner_info .= mosTooltip(mysql_escape_string(sprintf($GLOBALS['messages']['miscownerdesc'],$my_user_info['name'], $my_user_info['uid'], $my_group_info['name'], $my_group_info['gid'])));
+		$owner_info .= mosTooltip(mysql_real_escape_string(sprintf($GLOBALS['messages']['miscownerdesc'],$my_user_info['name'], $my_user_info['uid'], $my_group_info['name'], $my_group_info['gid'])));
 		$owner_info .= "</th>\n";
 		$colspan = 8;
 	} else {

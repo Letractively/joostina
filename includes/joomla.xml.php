@@ -218,7 +218,7 @@ class mosParameters {
 
 		if($this->_path) {
 			if(!is_object($this->_xmlElem)) {
-				require_once (Jconfig::getInstance()->config_absolute_path.'/includes/domit/xml_domit_lite_include.php');
+				require_once (JPATH_BASE.'/includes/domit/xml_domit_lite_include.php');
 				$xmlDoc = new DOMIT_Lite_Document();
 				$xmlDoc->resolveErrors(true);
 				if($xmlDoc->loadXML($this->_path,false,true)) {
@@ -433,7 +433,7 @@ class mosParameters {
 	function _form_filelist($name,$value,&$node,$control_name) {
 
 		// path to images directory
-		$path = Jconfig::getInstance()->config_absolute_path.$node->getAttribute('directory');
+		$path = JPATH_BASE.$node->getAttribute('directory');
 		$filter = $node->getAttribute('filter');
 		$files = mosReadDirectory($path,$filter);
 

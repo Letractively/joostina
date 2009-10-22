@@ -1089,19 +1089,18 @@ class gacl_api extends gacl {
 		return $this->_getGroup('aro', $value);
 	}
 	function _getGroup($type, $value) {
-		global $database;
-		$database->setQuery("SELECT g.* FROM #__core_acl_{$type}_groups AS g"."\nINNER JOIN #__core_acl_groups_{$type}_map AS gm ON gm.group_id = g.group_id".
-			"\nINNER JOIN #__core_acl_{$type} AS ao ON ao.{$type}_id = gm.{$type}_id"."\nWHERE ao.value=".
-			$this->db->Quote($value));
+		$database = &database::getInstance();
+
+		$database->setQuery("SELECT g.* FROM #__core_acl_{$type}_groups AS g"."\nINNER JOIN #__core_acl_groups_{$type}_map AS gm ON gm.group_id = g.group_id"."\nINNER JOIN #__core_acl_{$type} AS ao ON ao.{$type}_id = gm.{$type}_id"."\nWHERE ao.value=".$this->db->Quote($value));
 		$obj = null;
 		$database->loadObject($obj);
 		return $obj;
 	}
 	function _getAbove() {
 	}
-	function _getBelow($table, $fields, $groupby = null, $root_id = null, $root_name = null,
-		$inclusive = true) {
-		global $database;
+	function _getBelow($table, $fields, $groupby = null, $root_id = null, $root_name = null,$inclusive = true) {
+		$database = &database::getInstance();
+
 		$root = new stdClass();
 		$root->lft = 0;
 		$root->rgt = 0;

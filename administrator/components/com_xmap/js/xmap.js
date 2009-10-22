@@ -65,7 +65,7 @@ function saveProperty(sitemapid,property,value) {
 	ajaxURL,
 	{
 		method: 'post', 
-		postBody: 'ajax.index.php?utf=1&option=com_xmap&task=ajax_request&action=save_property&sitemap='+sitemapid+'&property='+property+'&value='+value,
+		postBody: 'ajax.index.php?option=com_xmap&task=ajax_request&action=save_property&sitemap='+sitemapid+'&property='+property+'&value='+value,
 		onComplete: checkResultSave.bindAsEventListener(this,[sitemapid])
 	}).request();
 }
@@ -77,7 +77,7 @@ function setAsDefault() {
 	ajaxURL,
 	{
 		method: 'post', 
-		postBody: 'ajax.index.php?utf=0&option=com_xmap&task=ajax_request&action=set_default&sitemap='+sitemapid,
+		postBody: 'ajax.index.php?option=com_xmap&task=ajax_request&action=set_default&sitemap='+sitemapid,
 		onComplete: checkResultSetDefault.bindAsEventListener(this,[sitemapid])
 	}).request();
 }
@@ -89,7 +89,7 @@ function changePluginState(pluginid) {
 	ajaxURL,
 	{
 		method: 'post', 
-		postBody: 'ajax.index.php?utf=0&option=com_xmap&task=ajax_request&action=change_plugin_state&plugin='+pluginid,
+		postBody: 'ajax.index.php?option=com_xmap&task=ajax_request&action=change_plugin_state&plugin='+pluginid,
 		onComplete: checkResultChangePluginState.bindAsEventListener(this,[pluginid])
 	}).request();
 }
@@ -121,7 +121,7 @@ function deleteSitemap() {
 		ajaxURL,
 		{
 			method: 'post', 
-			postBody: 'ajax.index.php?utf=0&option=com_xmap&task=ajax_request&action=delete_sitemap&sitemap='+sitemapid,
+			postBody: 'ajax.index.php?option=com_xmap&task=ajax_request&action=delete_sitemap&sitemap='+sitemapid,
 			onComplete: checkResultDelete.bindAsEventListener(this,[sitemapid])
 		}).request();
 	}
@@ -134,7 +134,7 @@ function uninstallPlugin(pluginid) {
 		ajaxURL,
 		{
 			method: 'post', 
-			postBody: 'ajax.index.php?utf=0&option=com_xmap&task=ajax_request&action=uninstallplugin&plugin='+pluginid,
+			postBody: 'ajax.index.php?option=com_xmap&task=ajax_request&action=uninstallplugin&plugin='+pluginid,
 			onComplete: checkResultUninstallPlugin.bindAsEventListener(this,[pluginid])
 		}).request();
 	}
@@ -147,7 +147,7 @@ function clearCacheSitemap() {
 	ajaxURL,
 	{
 		method: 'post', 
-		postBody: 'ajax.index.php?utf=0&option=com_xmap&task=ajax_request&action=clean_cache_sitemap&sitemap='+sitemapid,
+		postBody: 'ajax.index.php?option=com_xmap&task=ajax_request&action=clean_cache_sitemap&sitemap='+sitemapid,
 		onComplete: function (ajaxResponse) {hideLoading();alert(ajaxResponse);}
 	}).request();
 }
@@ -159,7 +159,7 @@ function copySitemap() {
 	ajaxURL,
 	{
 		method: 'post', 
-		postBody: 'ajax.index.php?utf=0&option=com_xmap&task=ajax_request&action=copy_sitemap&sitemap='+sitemapid,
+		postBody: 'ajax.index.php?option=com_xmap&task=ajax_request&action=copy_sitemap&sitemap='+sitemapid,
 		onComplete: showSitemap
 	}).request();
 }
@@ -189,7 +189,7 @@ function settingsSitemap() {
 	ajaxURL,
 	{
 		method: 'post', 
-		postBody: 'ajax.index.php?utf=0&option=com_xmap&task=ajax_request&action=edit_sitemap_settings&sitemap='+sitemapid,
+		postBody: 'ajax.index.php?option=com_xmap&task=ajax_request&action=edit_sitemap_settings&sitemap='+sitemapid,
 		onComplete: showSitemapSettings
 	}).request();
 }
@@ -219,7 +219,7 @@ function settingsPlugin(pluginid) {
 	ajaxURL,
 	{
 		method: 'post', 
-		postBody: 'ajax.index.php?utf=0&option=com_xmap&task=ajax_request&action=edit_plugin_settings&plugin='+pluginid,
+		postBody: 'ajax.index.php?option=com_xmap&task=ajax_request&action=edit_plugin_settings&plugin='+pluginid,
 		onComplete: showPluginSettings
 	}).request();
 }
@@ -250,7 +250,7 @@ function optionsMenuSettings(sitemapid,menutype,menu) {
 		ajaxURL,
 		{
 			method: 'post', 
-			postBody: 'ajax.index.php?utf=0&option=com_xmap&task=ajax_request&action=menu_options&sitemap='+sitemapid+'&menutype='+menutype,
+			postBody: 'ajax.index.php?option=com_xmap&task=ajax_request&action=menu_options&sitemap='+sitemapid+'&menutype='+menutype,
 			onComplete: showOptionsMenuSettings
 		}).request();
 }
@@ -258,7 +258,7 @@ function optionsMenuSettings(sitemapid,menutype,menu) {
 function saveSettings(id,action,container) {
 	showLoading();
 	var theForm = $('frmSettings'+id);
-	var postVars = 'ajax.index.php?utf=0&option=com_xmap&task=ajax_request&action='+action+'&' + theForm.toQueryString();
+	var postVars = 'ajax.index.php?option=com_xmap&task=ajax_request&action='+action+'&' + theForm.toQueryString();
 	var myAjax = new Ajax(
 		ajaxURL,
 		{
@@ -271,7 +271,7 @@ function saveSettings(id,action,container) {
 function saveMenuOptions() {
 	showLoading();
 	var theForm = $('frmMenuOptions');
-	var postVars = 'ajax.index.php?utf=0&option=com_xmap&task=ajax_request&action=save_menu_options&' + theForm.toQueryString();
+	var postVars = 'ajax.index.php?option=com_xmap&task=ajax_request&action=save_menu_options&' + theForm.toQueryString();
 	var myAjax = new Ajax(
 		ajaxURL,
 		{
@@ -589,7 +589,7 @@ function addMenusToSitemap (sitemap) {
 	showMenusList(sitemap,null);
 	showLoading();
 	var theform = $('frmmenulist');
-	var postVars= 'ajax.index.php?utf=0&option=com_xmap&task=ajax_request&action=add_menu_sitemap&sitemap='+sitemap+'&'+theform.toQueryString();
+	var postVars= 'ajax.index.php?option=com_xmap&task=ajax_request&action=add_menu_sitemap&sitemap='+sitemap+'&'+theform.toQueryString();
 				var myAjax = new Ajax(
 	ajaxURL,
 				{
@@ -602,7 +602,7 @@ function addMenusToSitemap (sitemap) {
 function removeMenuFromSitemap (sitemap,menuname,menu) {
 	showLoading();
 	closeMenu(menu);
-	var postVars= 'ajax.index.php?utf=0&option=com_xmap&task=ajax_request&action=remove_menu_sitemap&sitemap='+sitemap+'&menu='+menuname;
+	var postVars= 'ajax.index.php?option=com_xmap&task=ajax_request&action=remove_menu_sitemap&sitemap='+sitemap+'&menu='+menuname;
 	var myAjax = new Ajax(
 	ajaxURL,
 				{

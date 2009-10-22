@@ -781,13 +781,13 @@ a.logoff {
 #myMenuID span {
 	cursor: pointer;
 	font-size: 11px;
-	margin: 3px 2px 0 2px;
+	margin: 2px 1px 0 1px;
 	padding: 0;
 }
 .ThemeOfficeMenu, .ThemeOfficeSubMenuTable {
 	cursor: default;
 	font: 11px arial, verdana, sans-serif;
-	height: 32px;
+	height: 25px;
 	padding: 0;
 	white-space: nowrap;
 }

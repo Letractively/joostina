@@ -21,8 +21,6 @@ DEFINE('_CURRENT_SERVER_TIME',date('Y-m-d H:i',time()));
 // схемы не http/https протоколов
 DEFINE('_URL_SCHEMES','data:, file:, ftp:, gopher:, imap:, ldap:, mailto:, news:, nntp:, telnet:, javascript:, irc:, mms:');
 
-DEFINE('RG_EMULATION',0);
-
 // пробуем устанавить более удобный режим работы
 @set_magic_quotes_runtime(0);
 
@@ -44,10 +42,12 @@ require_once (JPATH_BASE.'/includes/joomla.xml.php');
 mosMainFrame::addLib('inputfilter');
 /* класс работы с базой данных */
 mosMainFrame::addLib('database');
+// TODO запретить к релизу!!!
 $database = &database::getInstance();
 
 /* класс работы с правами пользователей */
 mosMainFrame::addLib('gacl');
+// TODO запретить к релизу!!!
 $acl = &gacl::getInstance();
 
 // корректировка работы с данными полученными от сервера
@@ -60,6 +60,7 @@ if(isset($_SERVER['REQUEST_URI'])) {
 	}
 }
 $_SERVER['REQUEST_URI'] = $request_uri;
+unset($request_uri);
 
 /**
 * Joostina! Mainframe class
@@ -129,9 +130,9 @@ class mosMainFrame {
 		$this->_db = &database::getInstance();
 
 		if(!$isAdmin){ // работаем с меню в один запрос
-			$menu = new mosMenu($this->_db);
+			//$menu = new mosMenu($this->_db);
 
-			$this->all_menu_links = $menu->get_menu_links();
+			//$this->all_menu_links = $menu->get_menu_links();
 
 			$current = $this->get_option();
 			$this->option = $option = $current['option'];
@@ -272,11 +273,11 @@ class mosMainFrame {
 	}
 
 	
-	function getLangFile($name = ''){
+	function getLangFile($name = '',$mosConfig_lang=''){
+		if(empty($mosConfig_lang)){
+			global $mosConfig_lang;
+		}
 
-		// это ОЧЕНЬ надо переделать
-		global $mosConfig_lang;
-		//$lang = $this->lang = $mosConfig_lang;
 		$lang = $mosConfig_lang;
 
 		if(!$name){
@@ -675,7 +676,6 @@ class mosMainFrame {
 	* Deperciated 1.1
 	*/
 	function initSessionAdmin($option,$task) {
-		global $_VERSION;
 
 		$_config = $this->get('config');
 
@@ -754,7 +754,7 @@ class mosMainFrame {
 					// check if site designated as a production site
 					// for a demo site disallow expired page functionality
 					// link must also be a Joomla link to stop malicious redirection
-					if($link && strpos($link,'index2.php?option=com_') === 0 && $_VERSION->SITE == 1) {
+					if($link && strpos($link,'index2.php?option=com_') === 0 && joomlaVersion::get('SITE') == 1) {
 						$now = time();
 
 						$file = $this->getPath('com_xml','com_users');
@@ -924,7 +924,6 @@ class mosMainFrame {
 	* the users details.
 	*/
 	function login($username = null,$passwd = null,$remember = 0,$userid = null) {
-		global $_VERSION;
 
 		// если сесии на фронте отключены - прекращаем выполнение процедуры
 		if($this->getCfg('no_session_front')) return;
@@ -1037,7 +1036,7 @@ class mosMainFrame {
 
 				// check to see if site is a production site
 				// allows multiple logins with same user for a demo site
-				if($_VERSION->SITE) {
+				if(joomlaVersion::get('SITE')) {
 					// delete any old front sessions to stop duplicate sessions
 					$query = "DELETE FROM #__session WHERE session_id != ".$this->_db->Quote($session->session_id)." AND username = ".$this->_db->Quote($row->username)." AND userid = ".(int)$row->id." AND gid = ".(int)$row->gid." AND guest = 0";
 					$this->_db->setQuery($query);
@@ -1082,8 +1081,6 @@ class mosMainFrame {
 	* Reverts the current session record back to 'anonymous' parameters
 	*/
 	function logout() {
-		// тоже странный момент, при при разлогинивании пользователя - чистить ВЕСЬ кэш...
-		//mosCache::cleanCache();
 		$session = &$this->_session;
 		$session->guest = 1;
 		$session->username = '';
@@ -1520,8 +1517,10 @@ class mosMainFrame {
 			if(!$exists) {
 				$ContentTyped = $this->get('_ContentTyped',array());
 
-				if(isset($this->all_menu_links['index.php?option=com_content&task=view&id='.$id]) && $this->all_menu_links['index.php?option=com_content&task=view&id='.$id]['type']=='content_typed'){
-					$ContentTyped[$id] =$this->all_menu_links['index.php?option=com_content&task=view&id='.$id]['id'];
+				$all_menu_links = mosMenu::get_menu_links;
+
+				if(isset($all_menu_links['index.php?option=com_content&task=view&id='.$id]) && $all_menu_links['index.php?option=com_content&task=view&id='.$id]['type']=='content_typed'){
+					$ContentTyped[$id] =$all_menu_links['index.php?option=com_content&task=view&id='.$id]['id'];
 				}else{
 					// Search for typed link
 					$query = "SELECT id FROM #__menu WHERE type = 'content_typed' AND published = 1 AND link = 'index.php?option=com_content&task=view&id=".(int)$id."'";
@@ -1864,7 +1863,7 @@ class mosMainFrame {
 		if($msg!=''){
 			if($this->_isAdmin){
 				$_s = session_id();
-				if( !isset($_s)) {
+				if( empty($_s)) {
 					session_name(md5(JPATH_SITE));
 					session_start();
 				}
@@ -1880,17 +1879,15 @@ class mosMainFrame {
 	// получение системного сообщения
 	function get_mosmsg(){
 
-		if(!$this->_isAdmin){
+		$_s = session_id();
+
+		if(!$this->_isAdmin &&empty($_s) ){
 			session_name(mosMainFrame::sessionCookieName());
 			session_start();
 		}
 
 		$mosmsg_ss = trim(stripslashes(strval(mosGetParam($_SESSION,'joostina.mosmsg',''))));
 		$mosmsg_rq = stripslashes(strval(mosGetParam($_REQUEST,'mosmsg','')));
-
-		if(!$this->_isAdmin){
-			//session_destroy();
-		}
 
 		$mosmsg = ($mosmsg_ss!='') ? $mosmsg_ss : $mosmsg_rq;
 
@@ -1918,6 +1915,10 @@ class mosMainFrame {
 
 		if($option!='' && $Itemid!='') {
 			return array('option'=>$option,'Itemid'=>$Itemid);
+		}
+
+		if($option!='') {
+			return array('option'=>$option,'Itemid'=>99999999);
 		}
 
 		if($Itemid) {
@@ -2120,8 +2121,6 @@ class JConfig {
 	var $config_index_print = 0;
 	/** @var int расширенные теги индексации*/
 	var $config_index_tag = 0;
-	/** @var int отключение модулей на странице редактирования с фронта*/
-	var $config_module_on_edit_off = 0;
 	/** @var int использование ежесуточной оптимизации таблиц базы данных*/
 	var $config_optimizetables = 1;
 	/** @var int отключение мамботов группы content*/
@@ -2315,7 +2314,10 @@ class JConfig {
 	* заполнение данных класса данными из глобальных перменных
 	*/
 	function bindGlobals() {
-		$vars = $this->getPublicVars();
+		// странное место с двойным проходом по массиву переменных
+		//$vars = $this->getPublicVars();
+		$vars = array_keys(get_class_vars('JConfig'));
+		sort($vars);
 		foreach($vars as $v) {
 			$k = str_replace('config_','mosConfig_',$v);
 			if(isset($GLOBALS[$k])) $this->$v = $GLOBALS[$k];
@@ -2323,8 +2325,7 @@ class JConfig {
 		/*
 		* для корректной работы https://
 		*/
-		$_patch = dirname(dirname( __FILE__ ));
-		require ($_patch.'/configuration.php');
+		require (JPATH_BASE.DS.'configuration.php');
 		if($mosConfig_live_site != $this->config_live_site){
 			$this->config_live_site = $mosConfig_live_site;
 		}
@@ -2489,7 +2490,6 @@ class mosMenu extends mosDBTable {
 	}
 
 	function all_menu(){
-
 		// ведёргиваем из базы все пункты меню, они еще пригодяться несколько раз
 		$sql = 'SELECT* FROM #__menu WHERE published=1 ORDER BY parent, ordering ASC';
 		$this->_db->setQuery($sql);
@@ -2541,7 +2541,7 @@ class mosMenu extends mosDBTable {
 	}
 
 	function get_menu_links(){
-		$_all = $this->_menu;
+		$_all = mosMenu::get_all();
 		$return = array();
 		foreach($_all as $menus){
 			foreach($menus as $menu){
@@ -2639,7 +2639,7 @@ class mosModule extends mosDBTable {
 
 			$modules = new mosModule($mainframe->_db, $mainframe);
 			$modules->initModules();
-			unset($modules->_mainframe,$modules->_db,$modules->_view->all_menu,$modules->_view->_mainframe->_session,$modules->_view->_mainframe->_head,$modules->_view->_mainframe->_footer,$modules->_view->_mainframe->all_menu_links,$modules->_view->_mainframe->menu);
+			unset($modules->_mainframe,$modules->_db,$modules->_view->all_menu,$modules->_view->_mainframe->_session,$modules->_view->_mainframe->_head,$modules->_view->_mainframe->_footer,$modules->_view->_mainframe->menu);
 		}
 
 		return $modules;
@@ -2775,9 +2775,8 @@ class mosModule extends mosDBTable {
 
 			foreach($modules as $module) {
 				if($module->access==3){
-					$my->gid==0 ? $GLOBALS['_MOS_MODULES'][$module->position][] = $module : null;
+					$my->gid==0 ? $all_modules[$module->position][] = $module : null;
 				}else{
-					$GLOBALS['_MOS_MODULES'][$module->position][] = $module;
 					$all_modules[$module->position][] = $module;
 				}
 			}
@@ -3928,7 +3927,6 @@ function mosMenuCheck($Itemid,$menu_option,$task,$gid) {
 	$access = 0;
 
 	if($Itemid != '' && $Itemid != 0 && $Itemid != 99999999) {
-		$query = "SELECT* FROM #__menu WHERE id = ".(int)$Itemid;
 		$all_menus = &mosMenu::get_all();
 		foreach($all_menus as $menu){
 			if(isset($menu[$Itemid])){
@@ -3969,6 +3967,11 @@ function mosMenuCheck($Itemid,$menu_option,$task,$gid) {
 * @returns formated date
 */
 function mosFormatDate($date,$format = "",$offset = null) {
+	static $config_offset;
+
+	if(!isset($config_offset)){
+		$config_offset = Jconfig::getInstance()->config_offset;
+	}
 
 	if ($date == '0000-00-00 00:00:00') return $date;//database::$_nullDate - при ошибках парсера
 
@@ -3977,7 +3980,7 @@ function mosFormatDate($date,$format = "",$offset = null) {
 		$format = _DATE_FORMAT_LC;
 	}
 	if(is_null($offset)) {
-		$offset = Jconfig::getInstance()->config_offset;
+		$offset = $config_offset;
 	}
 	if($date && ereg("([0-9]{4})-([0-9]{2})-([0-9]{2})[ ]([0-9]{2}):([0-9]{2}):([0-9]{2})",$date,$regs)) {
 		$date = mktime($regs[4],$regs[5],$regs[6],$regs[2],$regs[3],$regs[1]);
@@ -3992,10 +3995,17 @@ function mosFormatDate($date,$format = "",$offset = null) {
 * @returns current date
 */
 function mosCurrentDate($format = "") {
+	static $config_offset;
+
+	if(!isset($config_offset)){
+		$config_offset = Jconfig::getInstance()->config_offset;
+	}
+
 	if($format == '') {
 		$format = _DATE_FORMAT_LC;
 	}
-	$date = strftime($format,time() + (Jconfig::getInstance()->config_offset* 60* 60));
+
+	$date = strftime($format,time() + ($config_offset* 60* 60));
 	return $date;
 }
 
@@ -4407,6 +4417,7 @@ class mosMambotHandler {
 		$config = &Jconfig::getInstance();
 		$this->_config = array('config_disable_access_control'=>$config->config_disable_access_control,'config_use_unpublished_mambots'=>$config->config_use_unpublished_mambots);
 		$this->_events = array();
+		unset($config);
 	}
 
 	/**
@@ -6629,66 +6640,8 @@ class joostina_api {
 			register_shutdown_function('_optimizetables');
 		}
 	}
-	/**
-	* Редирект с не WWW адреса
-	* Основано на мамботе seo_bot_redir - Alecfyz (C) Gorsk.net Studio Dec 2006
-	*/
-	function check_host() {
-		register_shutdown_function('_check_host');
-	}
-	/**
-	* Очистка кэша
-	* Основано на мамботе botClearCache - (C) 2008 Denis Ryabov ( http://physicist.phpnet.us/ )
-	*/
-	function clear_cache(){
-		if(mt_rand(1,100)==1) {
-			register_shutdown_function('_clear_cache');
-		}
-	}
 }
 
-
-function _check_host() {
-	$config = &Jconfig::getInstance();
-
-	if(!$config->config_www_redir) {
-		return;
-	}
-	$uri = mosgetparam($_SERVER,'REQUEST_URI','');
-	if (strpos($uri,'/') === 0) {
-		$uri = substr($uri,1);
-	}
-	$realhost = mosgetparam($_SERVER,'SERVER_NAME',JPATH_SITE);
-
-	preg_match("/^(http:\/\/)?([^\/]+)/i", JPATH_SITE, $matches);
-	$confhost = $matches[2];
-	if (preg_match ("'^www.'si",$confhost) && !preg_match ("'^www.'si",$realhost)){
-		mosredirect(sefRelToAbs($uri));
-	}
-	if (!preg_match ("'^www.'si",$confhost) && preg_match ("'^www.'si",$realhost)){
-		mosredirect(sefRelToAbs($uri));
-	}
-}
-
-// очистка каталога кэша
-function _clear_cache(){
-	flush();
-	$config = &Jconfig::getInstance();
-
-	$cacheDir = $config->config_cachepath.'/';
-	$refreshTime=time() - $config->config_cachetime;
-	if(!($dh=opendir($cacheDir))){
-		return false;
-	}
-	while($file=readdir($dh)){
-		if(strpos($file,'cache_',0)===0){
-			$file=$cacheDir.$file;
-			if(is_file($file)&&(@filemtime($file)<$refreshTime)){
-				@unlink($file);
-			}
-		}
-	}
-}
 
 function _optimizetables() {
 	$database = &database::getInstance();

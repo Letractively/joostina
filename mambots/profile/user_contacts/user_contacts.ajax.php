@@ -10,7 +10,7 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-require_once (Jconfig::getInstance()->config_absolute_path.DS.'mambots'.DS.'profile'.DS.'user_contacts'.DS.'user_contacts.class.php');
+require_once (JPATH_BASE.DS.'mambots'.DS.'profile'.DS.'user_contacts'.DS.'user_contacts.class.php');
 
 $act = mosGetParam( $_REQUEST, 'act', '' );
 

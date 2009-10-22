@@ -44,7 +44,7 @@ function mess_bad(mess){
 function ch_publ(elID,option){
 	$('#img-pub-'+elID).attr('src','images/aload.gif');
 	dax({
-		url: 'ajax.index.php?option='+option+'&utf=0&task=publish&id='+elID,
+		url: 'ajax.index.php?option='+option+'&task=publish&id='+elID,
 		id:'publ-'+elID,
 		callback:
 			function(resp, idTread, status, ops){
@@ -57,7 +57,7 @@ function ch_publ(elID,option){
 function ch_access(elID,aCC,option){
 	SRAX.replaceHtml('acc-id-'+elID,'<img src="images/aload.gif" />');
 	dax({
-		url: 'ajax.index.php?option='+option+'&utf=1&task=access&id='+elID+'&chaccess='+aCC,
+		url: 'ajax.index.php?option='+option+'&task=access&id='+elID+'&chaccess='+aCC,
 		id:'acc-id-'+elID,
 		callback:
 			function(resp, idTread, status, ops){
@@ -75,7 +75,7 @@ function jtoggle_editor(){
 	jeimage = SRAX.get('jtoggle_editor');
 	jeimage.src = 'images/aload.gif';
 	dax({
-		url: 'ajax.index.php?option=com_admin&utf=0&task=toggle_editor',
+		url: 'ajax.index.php?option=com_admin&task=toggle_editor',
 		id:'jte',
 		callback:
 			function(resp, idTread, status, ops){

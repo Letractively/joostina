@@ -146,13 +146,8 @@ class database {
 	* @return string
 	*/
 	function getEscaped( $text, $extra = false ) {
-		// Use the appropriate escape string depending upon which version of php
-		// you are running
-		if (version_compare(phpversion(), '4.3.0', '<')) {
-			$string = mysql_escape_string($text);
-		} else {
-			$string = mysql_real_escape_string($text, $this->_resource);
-		}
+		$string = mysql_real_escape_string($text, $this->_resource);
+
 		if ($extra) {
 			$string = addcslashes( $string, '%_' );
 		}

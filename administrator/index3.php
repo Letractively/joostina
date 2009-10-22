@@ -36,6 +36,7 @@ $mosConfig_absolute_path = JPATH_BASE;
 // ядро
 require_once (JPATH_BASE .DS. 'includes'.DS.'joomla.php');
 
+$acl = &gacl::getInstance();
 
 // must start the session before we create the mainframe object
 session_name(md5($mosConfig_live_site));

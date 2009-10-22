@@ -97,7 +97,7 @@ class xmap_com_content {
 				}
 				break;
 			case 'content_typed':
-				global $database;
+				$database = &database::getInstance();
 				$database->setQuery("SELECT modified, created FROM #__content WHERE id=" . $id);
 				$database->loadObject($item);
 				if((isset($item->modified))&&$item->modified == '0000-00-00 00:00:00'){
@@ -112,7 +112,8 @@ class xmap_com_content {
 	/** Get all content items within a content category.
 	 * Returns an array of all contained content items. */
 	function getContentCategory(&$xmap, &$parent, $catid, &$params, &$menuparams) {
-		global $database;
+		$database = &database::getInstance();
+
 		$orderby = !empty($menuparams['orderby']) ? $menuparams['orderby'] : (!empty($menuparams['orderby_sec']) ? $menuparams['orderby_sec'] : 'rdate');
 		$orderby = xmap_com_content::orderby_sec($orderby);
 
@@ -159,7 +160,7 @@ class xmap_com_content {
 	/** Get all Categories within a Section.
 	 * Also call getCategory() for each Category to include it's items */
 	function getContentSection(&$xmap, &$parent, $secid, &$params, &$menuparams) {
-		global $database;
+		$database = &database::getInstance();
 
 		$orderby = isset($menuparams['orderby']) ? $menuparams['orderby'] : '';
 		$orderby = xmap_com_content::orderby_sec($orderby);
@@ -199,8 +200,7 @@ class xmap_com_content {
 
 	/** Return an array with all Items in a Section */
 	function getContentBlogSection(&$xmap, &$parent, $secid, &$params, &$menuparams) {
-		global $database;
-
+		$database = &database::getInstance();
 
 		$order_pri = isset($menuparams['orderby_pri']) ? $menuparams['orderby_pri'] : '';
 		$order_sec = isset($menuparams['orderby_sec']) && !empty($menuparams['orderby_sec']) ? $menuparams['orderby_sec'] : 'rdate';
@@ -339,9 +339,9 @@ class xmap_com_content {
 		return $orderby;
 	}
 	/**
- 	@param int 0 = Archives, 1 = Section, 2 = Category */
+	@param int 0 = Archives, 1 = Section, 2 = Category */
 	function where($type = 1, &$access, &$noauth, $gid, $id, $now = null, $year = null, $month = null) {
-		global $database;
+		$database = &database::getInstance();
 
 		$nullDate = $database->getNullDate();
 		$where = array();

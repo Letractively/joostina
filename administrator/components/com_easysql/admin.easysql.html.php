@@ -385,7 +385,7 @@ function DeleteRecord($table,$id) {
 // Get html field for table type
 ////////////////////////////////////////////////////////////////
 function GetHtmlForType($name,$type,$value) {
-	$type = trim(eregi_replace('unsigned','',$type));
+	$type = trim(preg_replace('/unsigned/iu','',$type));
 	switch(strtolower($type)) {
 			//text
 		case 'hidden':

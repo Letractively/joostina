@@ -25,17 +25,20 @@ $limit = intval(mosGetParam($_REQUEST, 'limit', 0));
 $limitstart = intval(mosGetParam($_REQUEST, 'limitstart', 0));
 
 
+
 // loads function for frontpage component
 if($option == 'com_frontpage') {
-	if(Jconfig::getInstance()->config_caching==1){
+	if($mainframe->getCfg('caching')==1){
 		$cache = &mosCache::getCache('com_content');
 		$r = $cache->call('frontpage', $my->gid,$limit,$limitstart,$pop);
 	}else{
 		$r = frontpage($my->gid,$limit,$limitstart,$pop);
 	}
 	from_cache($r);
+	unset($r);
 	return;
 }
+
 
 switch ($task) {
 
@@ -70,7 +73,7 @@ switch ($task) {
 
 	// архив раздела
 	case 'archivesection':
-		if(Jconfig::getInstance()->config_caching==1){
+		if($mainframe->getCfg('caching')==1){
 			$cache = &mosCache::getCache('com_content');
 			$cache->call('showArchiveSection', $id);
 		}else{
@@ -80,7 +83,7 @@ switch ($task) {
 
 	// архив категории
 	case 'archivecategory':
-		if(Jconfig::getInstance()->config_caching==1){
+		if($mainframe->getCfg('caching')==1){
 			$cache = &mosCache::getCache('com_content');
 			$cache->call('showArchiveCategory', $id);
 		}else{
@@ -1313,10 +1316,6 @@ function editItem($task) {
 	$database = &$mainframe->_db;
 	$acl = &gacl::getInstance();
 
-	if($mainframe->getCfg('module_on_edit_off') == 1) {
-		$GLOBALS['_MOS_MODULES'] = '';
-	}
-
 	$nullDate = $database->getNullDate();
 	$lists = array();
 
@@ -2105,6 +2104,5 @@ function from_cache($cache){
 	$meta = new contentMeta($cache['params']);
 	$meta->set_meta();
 	echo $cache['content'];
-	unset($cache);
 	return false;
 }

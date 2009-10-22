@@ -11,12 +11,11 @@
 defined('_VALID_MOS') or die();
 
 function quickiButton($row,$newWindow) {
-	global $mosConfig_live_site;
 	$title = $row->title ? $row->title : $row->text;
 	?>
 	<span>
 		<a href="<?php echo htmlentities($row->target); ?>" title="<?php echo $title; ?>"<?php echo $newWindow; ?>><?php
-			$icon = '<img src="'.$mosConfig_live_site.$row->icon.'" alt="'.$title.'" border="0" />';
+			$icon = '<img src="'.JPATH_SITE.$row->icon.'" alt="'.$title.'" border="0" />';
 			if($row->display == 1) {
 				?><p><?php echo $row->text; ?></p><?php
 			} elseif($row->display == 2) {

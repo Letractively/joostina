@@ -12,7 +12,7 @@ defined( '_VALID_MOS' ) or die();
 
 require_once( $mainframe->getPath( 'class', 'com_content') );
 require_once( $mainframe->getPath( 'front_html', 'com_content') );
-global $my, $mosConfig_shownoauth, $mosConfig_offset, $mosConfig_link_titles, $acl;
+global $my, $mosConfig_link_titles;
 
 $category = new stdClass();
 $category->id = intval($params->get('catid'));
@@ -41,21 +41,21 @@ $catid	= intval( $params->get('catid') );
 $link_titles = $params->get('link_titles', $mosConfig_link_titles);
 
 if(!$params->get('template', '')){
-    switch ($params->get('style', 'vert')) {
-    	case 'horiz':
-            $params->set('template', 'gorizontal.php');
-    		break;
-    	case 'vert':
-            $params->set('template', 'vertical.php');
-    		break;
-    	case 'random':
-    	default:
-        	srand ((double) microtime()* 1000000);
-	        $flashnum = rand( 0, $params->get('numrows') - 1 );
-	        $row = $items[$flashnum];
-            $params->set('template', 'flash.php');
-    		break;
-    }
+	switch ($params->get('style', 'vert')) {
+		case 'horiz':
+			$params->set('template', 'gorizontal.php');
+			break;
+		case 'vert':
+			$params->set('template', 'vertical.php');
+			break;
+		case 'random':
+		default:
+			srand ((double) microtime()* 1000000);
+			$flashnum = rand( 0, $params->get('numrows') - 1 );
+			$row = $items[$flashnum];
+			$params->set('template', 'flash.php');
+			break;
+	}
 }
 else{
 

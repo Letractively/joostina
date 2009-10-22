@@ -44,7 +44,7 @@ function ch_publ(elID,option,extra){
 	if (extra == null) extra = ''
 	$('#img-pub-'+elID).attr('src',_live_site+'/administrator/templates/'+_cur_template+'/images/aload.gif');
 	dax({
-		url: 'ajax.index.php?option='+option+'&utf=0&task=publish&id='+elID,
+		url: 'ajax.index.php?option='+option+'&task=publish&id='+elID,
 		id:'publ-'+elID,
 		callback:
 			function(resp, idTread, status, ops){
@@ -59,7 +59,7 @@ function ch_publ(elID,option,extra){
 function ch_access(elID,aCC,option){
 SRAX.replaceHtml('acc-id-'+elID,'<img src="'+_live_site+'/administrator/templates/'+_cur_template+'/images/aload.gif" />');
 dax({
-url: 'ajax.index.php?option='+option+'&utf=1&task=access&id='+elID+'&chaccess='+aCC,
+url: 'ajax.index.php?option='+option+'&task=access&id='+elID+'&chaccess='+aCC,
 id:'acc-id-'+elID,
 cb:
 function(resp, idTread, status, ops){
@@ -77,7 +77,7 @@ function jtoggle_editor(){
 jeimage = document.getElementById('jtoggle_editor');
 jeimage.src = _live_site+'/administrator/templates/'+_cur_template+'/images/aload.gif';
 dax({
-url: 'ajax.index.php?option=com_admin&utf=0&task=toggle_editor',
+url: 'ajax.index.php?option=com_admin&task=toggle_editor',
 id:'jte',
 cb:
 function(resp, idTread, status, ops){

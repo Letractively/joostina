@@ -63,14 +63,14 @@ if($config->config_enable_admin_secure_code){
 						<div>
 							<img id="captchaimg" alt="<?php echo _PRESS_HERE_TO_RELOAD_CAPTCHA?>" onclick="document.loginForm.captchaimg.src='<?php echo JPATH_SITE; ?>/includes/libraries/kcaptcha/index.php?session=<?php echo md5(JPATH_SITE) ?>&' + new String(Math.random())" src="<?php echo JPATH_SITE; ?>/includes/libraries/kcaptcha/index.php?session=<?php echo md5(JPATH_SITE) ?>" />
 						</div>
-						<span class="captcha" onclick="document.loginForm.loginCaptcha.src='<?php echo $config->config_live_site; ?>/includes/libraries/kcaptcha/index.php?session=<?php echo md5(JPATH_SITE) ?>' + new String(Math.random())"><?php echo _SHOW_CAPTCHA?></span>
+						<span class="captcha" onclick="document.loginForm.loginCaptcha.src='<?php echo JPATH_SITE; ?>/includes/libraries/kcaptcha/index.php?session=<?php echo md5(JPATH_SITE) ?>' + new String(Math.random())"><?php echo _SHOW_CAPTCHA?></span>
 						<div><?php echo _PLEASE_ENTER_CAPTCHA?>:</div>
 						<div><input name="captcha" type="text" class="inputbox" size="15" /></div>
 <?php };?>
 						<div align="center">
 							<input type="submit" name="submit" class="button" value="Войти" />
 							<br />
-							<input type="button" name="submit" onClick="document.location.href='<?php echo $config->config_live_site; ?>'" class="button" value="Перейти на сайт" />
+							<input type="button" name="submit" onClick="document.location.href='<?php echo JPATH_SITE; ?>'" class="button" value="Перейти на сайт" />
 						</div>
 					</div>
 				</form>
@@ -85,7 +85,7 @@ if($config->config_enable_admin_secure_code){
 	</noscript>
 	</div>
 		<div id="footer" align="center">
-			<div align="center"><?php echo $_VERSION->URL; ?></div>
+			<div align="center"><?php echo joomlaVersion::get('URL'); ?></div>
 		</div>
 </body>
 </html>

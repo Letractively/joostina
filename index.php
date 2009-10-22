@@ -39,22 +39,20 @@ require_once (JPATH_BASE.DS.'configuration.php');
 define('JPATH_SITE', $mosConfig_live_site );
 
 // считаем время за которое сгенерирована страница
-if($mosConfig_time_gen) {
-	list($usec,$sec) = explode(' ',microtime());
-	$sysstart = ((float)$usec + (float)$sec);
-}
+$mosConfig_time_gen ? $sysstart = microtime(true) : null;
 
 // Проверка SSL - $http_host возвращает <url_сайта>:<номер_порта, если он 443>
 $http_host = explode(':',$_SERVER['HTTP_HOST']);
 if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset($http_host[1]) && $http_host[1] == 443) && substr($mosConfig_live_site,0,8) !='https://') {
 	$mosConfig_live_site = 'https://'.substr($mosConfig_live_site,7);
 }
+unset($http_host);
 
 // подключение главного файла - ядра системы
 require_once (JPATH_BASE.DS.'includes'.DS.'joomla.php');
 
 //Проверка подпапки установки, удалена при работе с SVN
-if(file_exists('installation/index.php') && $_VERSION->SVN == 0) {
+if(file_exists('installation/index.php') && joomlaVersion::get('SVN') == 0) {
 	define('_INSTALL_CHECK',1);
 	include (JPATH_BASE.DS.'templates'.DS.'system'.DS.'offline.php');
 	exit();
@@ -80,9 +78,6 @@ if(file_exists(JPATH_BASE.DS.'components'.DS.'com_sef'.DS.'sef.php')) {
 
 require_once (JPATH_BASE.DS.'includes'.DS.'frontend.php');
 
-// проверка и переадресация с не WWW адреса
-joostina_api::check_host();
-
 // mainframe - основная рабочая среда API, осуществляет взаимодействие с 'ядром'
 $mainframe = &mosMainFrame::getInstance();
 
@@ -95,14 +90,13 @@ $Itemid = $mainframe->Itemid;
 //}
 
 // отключение ведения сессий на фронте
-if($mosConfig_no_session_front == 0) {
-	$mainframe->initSession();
-}
+($mosConfig_no_session_front == 0) ? $mainframe->initSession() : null;
+
 
 // триггер событий onAfterStart
-if($mosConfig_mmb_system_off == 0) {
-	$_MAMBOTS->trigger('onAfterStart');
-}
+($mosConfig_mmb_system_off == 0) ? $_MAMBOTS->trigger('onAfterStart') : null;
+
+
 // проверка, если мы можем найти Itemid в содержимом
 if($option == 'com_content' && $Itemid === 0) {
 	$id = intval(mosGetParam($_REQUEST,'id',0));
@@ -115,8 +109,7 @@ $option = ($option == 'search') ? 'com_search' : $option;
 // загрузка файла русского языка по умолчанию
 $mosConfig_lang = ($mosConfig_lang == '') ? 'russian' : $mosConfig_lang;
 $mainframe->set('lang', $mosConfig_lang);
-include_once($mainframe->getLangFile());
-//include_once (JPATH_BASE.'/language/'.$mosConfig_lang.'/system.php');
+include_once($mainframe->getLangFile('',$mosConfig_lang));
 
 // контроль входа и выхода в фронт-энд
 $return		= strval(mosGetParam($_REQUEST,'return',null));
@@ -124,12 +117,12 @@ $message	= intval(mosGetParam($_POST,'message',0));
 
 /** получение информации о текущих пользователях из таблицы сессий*/
 // $my - важный параметр, в нём содержатся вс еданные по текущему пользователю
-if($mainframe->get('_multisite')=='2' && $cookie_exist ){
-	$mainframe->set('_multisite_params', $m_s);
-	$my = $mainframe->getUser_from_sess($_COOKIE[mosMainFrame::sessionCookieName($m_s->main_site)]);
-}else{
+//if($mainframe->get('_multisite')=='2' && $cookie_exist ){
+//	$mainframe->set('_multisite_params', $m_s);
+//	$my = $mainframe->getUser_from_sess($_COOKIE[mosMainFrame::sessionCookieName($m_s->main_site)]);
+//}else{
 	$my = $mainframe->getUser();
-}
+//}
 
 $gid = intval($my->gid);
 
@@ -162,7 +155,6 @@ if($option == 'login') {
 			mosRedirect($mosConfig_live_site.'/index.php?option=cookiecheck&return='.urlencode($mosConfig_live_site.'/index.php'));
 		}
 	}
-
 } elseif($option == 'logout') {
 	$mainframe->logout();
 
@@ -191,6 +183,9 @@ if($option == 'login') {
 		mosErrorAlert(_ALERT_ENABLED);
 	}
 }
+
+//_xdump($GLOBALS);
+//exit();
 
 // получение шаблона страницы
 $cur_template = $mainframe->getTemplate();
@@ -244,7 +239,7 @@ if(!$mosConfig_caching) { // не кэшируется
 	header('Cache-Control: max-age=3600');
 }
 */
-//echo $_COOKIE[mosMainFrame::sessionCookieName('www.joostina_local.ru')];
+
 
 // отображение предупреждения о выключенном сайте, при входе админа
 if(defined('_ADMIN_OFFLINE')) {
@@ -267,17 +262,17 @@ if($mosConfig_mmb_mainbody_off == 0) {
 	$_MAMBOTS->trigger('onTemplate',array(&$_template_body));
 }
 // уменьшает расход памяти, но момент всё-таки спорный
-unset($_MAMBOTS,$mainframe,$my);
+unset($_MAMBOTS,$mainframe,$my,$_MOS_OPTION);
+
+//_xdump($GLOBALS);
+//exit();
 
 // вывод стека всего тела страницы, уже после обработки мамботами группы onTemplate
 echo $_template_body;
 
 // подсчет времени генерации страницы
-if($mosConfig_time_gen) {
-	list($usec,$sec) = explode(' ',microtime());
-	$sysstop = ((float)$usec + (float)$sec);
-	echo '<div id="time_gen">'.round($sysstop - $sysstart,4).'</div>';
-}
+echo $mosConfig_time_gen ? '<div id="time_gen">'.(microtime(true) - $sysstart).'</div>' : null;
+
 
 // вывод лога отладки
 if($mosConfig_debug) {
@@ -293,5 +288,3 @@ doGzip();
 if($mosConfig_optimizetables == 1) {
 	joostina_api::optimizetables();
 }
-
-joostina_api::clear_cache();

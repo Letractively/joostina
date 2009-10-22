@@ -212,11 +212,7 @@ class InputFilter {
 		return $source;
 	}
 	function escapeString($string) {
-		if(version_compare(phpversion(),'4.3.0','<')) {
-			$string = mysql_escape_string($string);
-		} else {
-			$string = mysql_real_escape_string($string);
-		}
+		$string = mysql_real_escape_string($string);
 		return $string;
 	}
 }

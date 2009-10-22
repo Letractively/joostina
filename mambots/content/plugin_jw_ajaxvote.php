@@ -13,10 +13,11 @@ defined('_VALID_MOS') or die();
 $_MAMBOTS->registerFunction('onBeforeDisplayContent','pluginJWAjaxVote');
 
 function pluginJWAjaxVote(&$row,&$params) {
-	global $mainframe,$addScriptJWAjaxVote,$mosConfig_caching;
+	global $mainframe,$mosConfig_caching;
 
 	$id = $row->id;
-	$result = 0;  $return='';
+	$result = 0;
+	$return='';
 	if($params->get('rating') && !$params->get('popup')) {
 		$vote = new stdClass;
 		$vote->rating_count	= $row->rating_count;
@@ -36,8 +37,8 @@ function pluginJWAjaxVote(&$row,&$params) {
 	jwajaxvote_lang[\'VOTE\'] = \''._AV_VOTE.'\';
 </script>
 <script type="text/javascript" src="'.JPATH_SITE.'/mambots/content/plugin_jw_ajaxvote/js/ajaxvote.js"></script>';
-		if(!$addScriptJWAjaxVote) {
-			$addScriptJWAjaxVote = 1;
+		if(defined('_ADD_SCRIPT_AJAXVOTE')) {
+			define('_ADD_SCRIPT_AJAXVOTE', 1 );
 			/* при включенном кэшировании выведем подключение js кода вместе с первым выводом кнопок голосования*/
 			if($mosConfig_caching)
 				$return .=$script;

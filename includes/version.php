@@ -65,9 +65,10 @@ class joomlaVersion {
 			return '';
 		}
 	}
+	// получение переменных окружения информации осистеме
+	function get($name){
+		$v = new joomlaVersion();
+		return $v->$name;
+	}
+
 }
-
-$_VERSION = new joomlaVersion();
-
-$version	= $_VERSION->CMS.' '.$_VERSION->CMS_ver.' '.$_VERSION->DEV_STATUS.' [ '.$_VERSION->CODENAME.' ] '.$_VERSION->RELDATE.' '.$_VERSION->RELTIME.' '.$_VERSION->RELTZ;
-$jostina_ru	= $_VERSION->CMS.' '.$_VERSION->CMS_ver.'.'.$_VERSION->DEV_STATUS.' [ '.$_VERSION->CODENAME.' ] '.$_VERSION->RELDATE.' '.$_VERSION->RELTIME.' '.$_VERSION->RELTZ.'<br />'.$_VERSION->SUPPORT;

@@ -16,6 +16,5 @@ $_MAMBOTS->registerFunction('onAfterAjaxStart','mylib');
 $_MAMBOTS->registerFunction('onAfterAdminAjaxStart','mylib');
 
 function mylib(){
-	$mainframe = &mosMainFrame::getInstance();
-	$mainframe->addLib('mylib');
+	mosMainFrame::addLib('mylib');
 }

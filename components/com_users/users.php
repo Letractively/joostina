@@ -30,8 +30,6 @@ require_once ($mainframe->getPath('front_html'));
 require_once ($mainframe->getPath('config','com_users'));
 require_once ($mainframe->getPath('class'));
 
-$config = &Jconfig::getInstance();
-
 $id = intval(mosGetParam( $_REQUEST, 'id', 0 ));
 $uid = intval(mosGetParam( $_REQUEST, 'user', $id ));
 
@@ -43,7 +41,7 @@ switch($task) {
 
 	case 'saveUserEdit':
 		// check to see if functionality restricted for use as demo site
-		if($_VERSION->RESTRICT == 1) {
+		if(joomlaVersion::get('RESTRICT') == 1) {
 			mosRedirect('index.php?mosmsg='._RESTRICT_FUNCTION);
 		} else {
 			userSave($option,$my->id);
@@ -67,6 +65,7 @@ switch($task) {
 		break;
 
 	case 'lostPassword':
+		$config = &Jconfig::getInstance();
 		if($config->config_frontend_login != null && ($config->config_frontend_login === 0 || $config->config_frontend_login=== '0')) {
 			echo _NOT_AUTH;
 			return;
@@ -75,6 +74,7 @@ switch($task) {
 		break;
 
 	case 'sendNewPass':
+		$config = &Jconfig::getInstance();
 		if($config->config_frontend_login != null && ($config->config_frontend_login === 0 || $config->config_frontend_login=== '0')) {
 			echo _NOT_AUTH;
 			return;
@@ -83,6 +83,7 @@ switch($task) {
 		break;
 
 	case 'register':
+		$config = &Jconfig::getInstance();
 		if($config->config_frontend_login != null && ($config->config_frontend_login === 0 || $config->config_frontend_login=== '0')) {
 			echo _NOT_AUTH;
 			return;
@@ -91,6 +92,7 @@ switch($task) {
 		break;
 
 	case 'saveRegistration':
+		$config = &Jconfig::getInstance();
 		if($config->config_frontend_login != null && ($config->config_frontend_login === 0 || $config->config_frontend_login=== '0')) {
 			echo _NOT_AUTH;
 			return;
@@ -99,6 +101,7 @@ switch($task) {
 		break;
 
 	case 'activate':
+		$config = &Jconfig::getInstance();
 		if($config->config_frontend_login != null && ($config->config_frontend_login === 0 || $config->config_frontend_login=== '0')) {
 			echo _NOT_AUTH;
 			return;
@@ -273,7 +276,7 @@ function userSave($option,$uid) {
 		$database->query();
 	}
 	
-	mosRedirect('index.php?option=com_users&task=UserDetails', 'Усё пучком');
+	mosRedirect('index.php?option=com_users&task=UserDetails', _USER_DETAILS_SAVE);
 
 	//userEdit($option,$my->id,_UPDATE);
 }
@@ -431,19 +434,19 @@ function CheckIn($userid,$access) {
 
 /* форма восстановления пароля */
 function lostPassForm($option) {
-	
+
 	$mainframe = &mosMainFrame::getInstance();
 	$mainframe->SetPageTitle(_PROMPT_PASSWORD);	
-	
+
 	$config = &JConfig::getInstance();
 	$database = &database::getInstance();
-	
+
 	$user_config = new configUser_lostpass($database);	
-	
+
 	//Шаблон
 	$template = $user_config->get('template');
 	$template_dir = 'components/com_users/view/lostpass';
-		
+
 	if($user_config->get('template_dir')){
 		$template_dir = 'templates'.DS. JTEMPLATE . '/html/com_users/lostpass';
 	}
@@ -640,10 +643,9 @@ function saveRegistration() {
 
 	if($mainframe->getCfg('useractivation') == 1 ) {
 		$email_info['message'] = sprintf(_USEND_MSG_ACTIVATE, $email_info['name'],
-							$mainframe->getCfg('sitename'),
-							JPATH_SITE."/index.php?option=com_users&task=activate&activation=".$row->activation,
-							JPATH_SITE,
-							$email_info['username'], $pwd);
+			$mainframe->getCfg('sitename'),
+			JPATH_SITE."/index.php?option=com_users&task=activate&activation=".$row->activation,
+			JPATH_SITE,$email_info['username'], $pwd);
 	} else {
 		$email_info['message'] = sprintf(_USEND_MSG,$email_info['name'],$mainframe->getCfg('sitename'),JPATH_SITE);
 	}
@@ -667,7 +669,6 @@ function saveRegistration() {
 		$row->send_mail_to_user($email_info);
 	}
 
-
 	// Подготавливаем письмо администраторам сайта
 	$email_info['subject'] = sprintf(_SEND_SUB, $email_info['name'],$mainframe->getCfg('sitename'));
 	$email_info['message'] = sprintf(_ASEND_MSG, $email_info['adminName'],$mainframe->getCfg('sitename'), $row->name, $email_info['email'],$email_info['username']);
@@ -675,8 +676,6 @@ function saveRegistration() {
 	$email_info['message'] = html_entity_decode($email_info['message'],ENT_QUOTES);
 	//отправляем письма
 	$row->send_mail_to_admins($email_info);
-
-
 
 	if($mainframe->getCfg('useractivation') == 1) {
 
@@ -708,8 +707,7 @@ function saveRegistration() {
 		include (JPATH_BASE.DS.'components'.DS.'com_users'.DS.'view'.DS.'after_registration'.DS.$template);
 		return;
 
-	}
-	else {
+	} else {
 		$msg = _REG_COMPLETE;
 		//$mainframe->login($row->username,$row->password,0,$row->id);
 		mosRedirect('index.php?option=com_users&task=profile&user='.$row->id, $msg);

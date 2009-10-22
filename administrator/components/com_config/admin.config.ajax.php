@@ -18,7 +18,7 @@ $task	= mosGetParam($_GET,'task','publish');
 
 switch($task) {
 	case 'apply':
-		js_menu_cache_clear();
+		js_menu_cache_clear(false);
 		x_saveconfig($task);
 		break;
 	default:
@@ -64,13 +64,12 @@ function x_saveconfig($task) {
 	$row->config_error_message = str_replace('"','&quot;',$row->config_error_message);
 	$row->config_error_message = str_replace("'",'&#039;',$row->config_error_message);
 
-//	if(($row->config_joomlaxplorer_dir == $row->config_absolute_path) OR $row->config_joomlaxplorer_dir='' ) $row->config_joomlaxplorer_dir = '';
-if($row->config_joomlaxplorer_dir == $row->config_absolute_path) $row->config_joomlaxplorer_dir = 0;
+	if($row->config_joomlaxplorer_dir == $row->config_absolute_path) $row->config_joomlaxplorer_dir = 0;
 
-	$RGEmulation = intval(mosGetParam($_POST,'rgemulation',0));
+	// ключ кэша
+	$row->config_cache_key = time();
 
 	$config = "<?php \n";
-	$config .= "if(!defined('RG_EMULATION')) { define( 'RG_EMULATION', $RGEmulation ); }\n";
 	$config .= $row->getVarText();
 	$config .= "setlocale (LC_TIME, \$mosConfig_locale);\n";
 	$config .= '?>';
@@ -107,7 +106,7 @@ if($row->config_joomlaxplorer_dir == $row->config_absolute_path) $row->config_jo
 				$dirmode = octdec($row->config_dirperms);
 			}
 			foreach($mosrootfiles as $file) {
-				mosChmodRecursive(JPATH_BASE.'/'.$file,$filemode,$dirmode);
+				mosChmodRecursive(JPATH_BASE.DS.$file,$filemode,$dirmode);
 			}
 		} // if
 		mosCache::cleanCache('com_content');
@@ -119,4 +118,3 @@ if($row->config_joomlaxplorer_dir == $row->config_absolute_path) $row->config_jo
 		echo _CANNOT_OPEN_CONF_FILE;
 	}
 }
-?>

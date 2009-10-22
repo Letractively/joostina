@@ -17,7 +17,7 @@ if(!count($categories)){
 <?php foreach ($categories as $row) {
 	$params->set('catid', $row->id);
 	$params->set('sectionid', $row->section);
-	$params->set('Itemid', '&Itemid='.$Itemid);
+	$params->set('Itemid', '&amp;Itemid='.$Itemid);
 	$row->name = htmlspecialchars(stripslashes(ampReplace($row->name)), ENT_QUOTES);
 	if($catid != $row->id) { ?>
 	<li>

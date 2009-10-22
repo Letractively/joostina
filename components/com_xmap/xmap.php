@@ -173,7 +173,11 @@ class Xmap {
 
 	/** Default constructor, requires the config as parameter. */
 	function Xmap( &$config, &$sitemap ) {
-		global $acl, $my;
+		global $my;
+
+		/* класс работы с правами пользователей */
+		mosMainFrame::addLib('gacl');
+		$acl = &gacl::getInstance();
 
 		$access = new stdClass();
 		$access->canEdit	 = $acl->acl_check( 'action', 'edit', 'users', $my->usertype, 'content', 'all' );
