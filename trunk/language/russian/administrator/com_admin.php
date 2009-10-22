@@ -19,7 +19,6 @@ DEFINE('_APACHE_VERSION','Веб-сервер');
 DEFINE('_PHP_APACHE_INTERFACE','Интерфейс между веб-сервером и PHP');
 DEFINE('_JOOSTINA_VERSION','Версия Joostina!');
 DEFINE('_PHP_SETTINGS','Важные настройки PHP');
-DEFINE('_RG_EMULATION','Эмуляция Register Globals');
 DEFINE('_REGISTER_GLOBALS','Register Globals - регистрация глобальных переменных');
 DEFINE('_MAGIC_QUOTES','Параметр Magic Quotes');
 DEFINE('_SAFE_MODE','Безопасный режим - Safe Mode');

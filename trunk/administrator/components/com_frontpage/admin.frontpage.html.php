@@ -32,7 +32,7 @@ class ContentView {
 		function ch_front(elID){
 			id('img-trash-'+elID).src = 'images/aload.gif';
 			dax({
-				url: 'ajax.index.php?option=com_frontpage&utf=0&task=rem_front&id='+elID,
+				url: 'ajax.index.php?option=com_frontpage&task=rem_front&id='+elID,
 				id:'trash-'+elID,
 				callback:
 					function(resp, idTread, status, ops){

@@ -91,7 +91,7 @@ flush();
 			
 			<table width="100%" class="menubar" cellpadding="0" cellspacing="0" border="0">
 				<tr class="menubackgr">
-					<td style="padding-left: 50px;width: 25px;">
+					<td style="padding-left: 55px;width: 25px;">
 						<a href="<?php echo $mosConfig_live_site; ?>/<?php echo ADMINISTRATOR_DIRECTORY?>/index2.php" title="<?php echo _GO_TO_MAIN_ADMIN_PAGE?>"></a>
 					</td>
 					<td width="85%">
@@ -125,6 +125,11 @@ flush();
 					</div>
 
 	</div>
+<?php
+// копирайты
+$_VERSION = new joomlaVersion();
+$jostina_ru	= $_VERSION->CMS.' '.$_VERSION->CMS_ver.'.'.$_VERSION->DEV_STATUS.' [ '.$_VERSION->CODENAME.' ] '.$_VERSION->RELDATE.' '.$_VERSION->RELTIME.' '.$_VERSION->RELTZ.'<br />'.$_VERSION->SUPPORT;
+?>
 		<div id="footer" align="center" class="smallgrey"><?php echo $jostina_ru; ?></div>
 		<script type="text/javascript" language="JavaScript">function jf_hideLoading() {SRAX.get('ajax_status').style.display='none';};if (window.addEventListener) {window.addEventListener('load', jf_hideLoading, false);} else if (window.attachEvent) {var r=window.attachEvent("onload", jf_hideLoading);}else{jf_hideLoading();}</script>
 	</body>

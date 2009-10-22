@@ -22,8 +22,7 @@ function mosMainBody() {
 * not used?
 */
 function mosLoadComponent($name) {
-	// set up some global variables for use by frontend components
-	global $my,$acl,$task,$Itemid,$id,$option,$gid;
+	global $my,$task,$Itemid,$id,$option,$gid;
 
 	$mainframe = &mosMainFrame::getInstance();
 	$database = &$mainframe->_db;
@@ -105,7 +104,7 @@ class PageModel{
 		static $page_model;
 		if(!is_object($page_model) ){
 			$mainframe = &mosMainFrame::getInstance();
-			unset($mainframe->menu,$mainframe->_session ,$mainframe->all_menu,$mainframe->all_menu_links);
+			unset($mainframe->menu,$mainframe->_session);
 			$page_model = new PageModel($mainframe);
 		}
 
@@ -147,7 +146,7 @@ class PageModel{
 
 		$mosmsg = $mainframe->get_mosmsg();
 		if($mosmsg && !$popMessages && $browserCheck && $sessionCheck) {
-			echo '<div class="message">'.$mosmsg.'</div>';
+			echo '<div class="message info">'.$mosmsg.'</div>';
 		}
 
 		$_body = $GLOBALS['_MOS_OPTION']['buffer'];
@@ -170,7 +169,7 @@ class PageModel{
 	}
 
 	function ShowHead($params=array('js'=>1,'css'=>1)) {
-		global $option,$my,$_VERSION,$task,$id;
+		global $option,$my,$task,$id;
 
 		$mainframe = $this->_mainframe;
 
@@ -203,7 +202,7 @@ class PageModel{
 
 		// отключение тега Generator
 		if($mainframe->getCfg('generator_off') == 0) {
-			$mainframe->addMetaTag('Generator',$_VERSION->CMS.' - '.$_VERSION->COPYRIGHT);
+			$mainframe->addMetaTag('Generator',joomlaVersion::get('CMS').' - '.joomlaVersion::get('COPYRIGHT'));
 		}
 
 
@@ -293,7 +292,7 @@ class PageModel{
 		// get params definitions
 		$syndicateParams = new mosParameters($row->params,$mainframe->getPath('com_xml',$row->option),'component');
 
-		$GLOBALS['syndicateParams'] = $syndicateParams;
+		//$GLOBALS['syndicateParams'] = $syndicateParams;
 		$live_bookmark = $syndicateParams->get('live_bookmark',0);
 
 		// and to allow disabling/enabling of selected feed types

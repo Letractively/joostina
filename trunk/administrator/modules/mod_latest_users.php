@@ -11,29 +11,25 @@
 defined('_VALID_MOS') or die();
 global $my;
 
-$mainframe = &mosMainFrame::getInstance();
-$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
+$cur_file_icons_path = JPATH_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 
 // число пользователей для вывода
 $limit		= $params->get('num',10);
 // зарегистрированны сегодня
 $show_today	= $params->get('show_today', 1);
 // зарегистрированны за неделю
-$show_week	= $params->get('show_week', 1);
+$show_week	= $params->get('show_week', 0);
 // зарегистрированны за месяц
-$show_month	= $params->get('show_month', 1);
+$show_month	= $params->get('show_month', 0);
 // зарегистрированных всего
 $show_total	= $params->get('show_total', 1);
 // числос авторизованных
 $show_logged	= $params->get('show_logged', 1);
 
-
-
 // запрос из базы параметров пользователей
 $query = "SELECT id, name, username, registerDate, usertype, block, bad_auth_count FROM #__users ORDER BY registerDate DESC";
 $database->setQuery($query,0,$limit);
 $rows = $database->loadObjectList();
-
 
 if($show_today==1) {
 	$query = "SELECT count(id) FROM #__users WHERE to_days(registerDate) = to_days(curdate()) AND usertype <> 'administrator' AND usertype <> 'superadministrator'";

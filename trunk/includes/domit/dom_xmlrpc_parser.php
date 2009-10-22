@@ -53,7 +53,7 @@ class dom_xmlrpc_parser {
 		xml_parser_set_option($parser,XML_OPTION_SKIP_WHITE,1);
 
 
-		$xmlText = eregi_replace('>'."[[:space:]]+".'<','><',$xmlText);
+		$xmlText = preg_replace('/>'."[[:space:]]+".'</iu','><',$xmlText);
 		$success = xml_parse($parser,$xmlText);
 		xml_parser_free($parser);
 		return $success;
@@ -63,8 +63,7 @@ class dom_xmlrpc_parser {
 
 		require_once (DOM_XMLRPC_INCLUDE_PATH.'xml_saxy_parser.php');
 		$parser = new SAXY_Lite_Parser();
-		$parser->xml_set_element_handler(array(&$this,'startElement'),array(&$this,
-			'endElement'));
+		$parser->xml_set_element_handler(array(&$this,'startElement'),array(&$this,'endElement'));
 		$parser->xml_set_character_data_handler(array(&$this,'dataElement'));
 		$success = $parser->parse($xmlText);
 		return $success;

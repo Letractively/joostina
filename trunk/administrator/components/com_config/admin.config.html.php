@@ -303,10 +303,6 @@ class HTML_config {
 				<td><?php echo $lists['config_disable_date_state'];  ?></td>
 			</tr>
 			<tr>
-				<td><?php echo mosToolTip(_DISABLE_MODULES_WHEN_EDIT2,'','','',_DISABLE_MODULES_WHEN_EDIT)?>:</td>
-				<td><?php echo $lists['module_on_edit_off']; ?></td>
-			</tr>
-			<tr>
 				<td><?php echo mosToolTip(_COUNT_GENERATION_TIME2,'','','',_COUNT_GENERATION_TIME)?>:</td>
 				<td><?php echo $lists['time_gen'];?></td>
 			</tr>
@@ -929,12 +925,14 @@ class HTML_config {
 ?>
 		<tr>
 			<td><?php echo _CACHE_KEY_TEXT?>:</td>
-			<td><input type="text" READONLY name="config_cache_key" size="50" value="<?php echo $row->config_cache_key; ?>"/>
-			<?php echo mosToolTip(_CACHE_KEY_TOOLTIP);?>
+			<td><input type="text" READONLY name="config_cache_key_false" size="50" disable="true" value="<?php echo $row->config_cache_key; ?>"/>
+			<td><?php echo mosToolTip(_CACHE_KEY_TOOLTIP);?></td>
 		</tr>
 		<tr>
 			<td><?php echo _CACHE_DIR?>:</td>
 			<td><input class="text_area" type="text" name="config_cachepath" size="50" value="<?php echo $row->config_cachepath; ?>"/>
+					</td>
+					<td>
 <?php
 		if(is_writeable($row->config_cachepath)) {
 			echo mosToolTip(_CACHE_DIR2);
@@ -943,7 +941,6 @@ class HTML_config {
 		}
 ?>
 					</td>
-					<td>&nbsp;</td>
 				</tr>
 				<tr>
 					<td><?php echo _CACHE_TIME?>:</td>

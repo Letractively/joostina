@@ -53,7 +53,7 @@ function showconfig($option) {
 	if($handle = opendir(JPATH_BASE.'/language/')) {
 		$i = 0;
 		while(false !== ($file = readdir($handle))) {
-			if(!strcasecmp(substr($file,-4),".xml") && $file != "." && $file != ".." && strcasecmp(substr($file,-11),".ignore.php")) {
+			if(!strcasecmp(substr($file,-4),".xml") && $file != "." && $file != "..") {
 				$langs[]= mosHTML::makeOption(substr($file,0,-4));
 			}
 		}
@@ -135,8 +135,6 @@ function showconfig($option) {
 	$lists['index_print']= mosHTML::yesnoRadioList('config_index_print','class="inputbox"',$row->config_index_print);
 	// boston, расширенные теги индексации
 	$lists['index_tag']= mosHTML::yesnoRadioList('config_index_tag','class="inputbox"',$row->config_index_tag);
-	// boston, отключать модули на странице редактирования на фронте
-	$lists['module_on_edit_off']= mosHTML::yesnoRadioList('config_module_on_edit_off','class="inputbox"',$row->config_module_on_edit_off);
 	// boston, ежесуточная оптимизация таблиц бд
 	$lists['optimizetables']= mosHTML::yesnoRadioList('config_optimizetables','class="inputbox"',$row->config_optimizetables);
 	// boston, отключение мамботов группы content
@@ -619,12 +617,12 @@ function saveconfig($task) {
 	$row->config_error_message = str_replace('"','&quot;',$row->config_error_message);
 	$row->config_error_message = str_replace("'",'&#039;',$row->config_error_message);
 
+	// ключ кэша
+	$row->config_cache_key = time();
+
 	if($row->config_joomlaxplorer_dir == $row->config_absolute_path) $row->config_joomlaxplorer_dir = 0;
 
 	$config = "<?php \n";
-
-	$config .= "if(!defined('RG_EMULATION')) { define( 'RG_EMULATION', 0 ); }\n";
-
 
 	$config .= $row->getVarText();
 	$config .= "setlocale (LC_TIME, \$mosConfig_locale);\n";

@@ -21,12 +21,12 @@ if(!file_exists(JPATH_BASE.DS.'configuration.php')) {
 	exit();
 }
 
-// live_site
-define('JPATH_SITE', $mosConfig_live_site );
-
 require_once (JPATH_BASE.DS.'includes/globals.php');
 require_once (JPATH_BASE.DS.'configuration.php');
 require_once (JPATH_BASE.DS.'includes/joomla.php');
+
+// live_site
+define('JPATH_SITE', $mosConfig_live_site );
 
 // для совместимости
 $mosConfig_absolute_path = JPATH_BASE;
@@ -48,10 +48,10 @@ $cur_template = $mainframe->getTemplate();
 define('JTEMPLATE', $cur_template );
 
 // Проверяем ip адрес: если он находится в стоп-листе и выбрана опция блокировки достутпа в админку, то блокируем доступ
-if(file_exists('./components/com_security/block_access.php')) {
-	require_once ('./components/com_security/block_access.php');
-	block_access(1);
-}
+//if(file_exists('./components/com_security/block_access.php')) {
+//	require_once ('./components/com_security/block_access.php');
+//	block_access(1);
+//}
 // Такого ip адреса нет в стоп-листе. Продолжаем загрузку.
 
 
@@ -65,7 +65,7 @@ $mainframe->set('lang', $mosConfig_lang);
 include_once($mainframe->getLangFile());
 
 //Installation sub folder check, removed for work with SVN
-if(file_exists('../installation/index.php') && $_VERSION->SVN == 0) {
+if(file_exists('../installation/index.php') && joomlaVersion::get('SVN') == 0) {
 	define('_INSTALL_CHECK',1);
 	include ($config->config_absolute_path .DS.'templates'.DS.'system'.DS.'offline.php');
 	exit();
@@ -112,6 +112,8 @@ if(isset($_POST['submit'])) {
 
 	/** find the user group (or groups in the future)*/
 	if(isset($my->id)) {
+		$acl = &gacl::getInstance();
+
 		$grp = $acl->getAroGroup($my->id);
 		$my->gid = $grp->group_id;
 		$my->usertype = $grp->name;
@@ -170,7 +172,7 @@ if(isset($_POST['submit'])) {
 
 		// check if site designated as a production site
 		// for a demo site allow multiple logins with same user account
-		if($_VERSION->SITE == 1) {
+		if(joomlaVersion::get('SITE') == 1) {
 			// delete other open admin sessions for same account
 			$query = "DELETE FROM #__session WHERE userid = " . (int)$my->id . " AND username = " .$database->Quote($my->username) . "\n AND usertype = " . $database->Quote($my->usertype) . "\n AND session_id != " . $database->Quote($session_id). "\n AND guest = 1" . "\n AND gid = 0";
 			$database->setQuery($query);
@@ -195,7 +197,7 @@ if(isset($_POST['submit'])) {
 
 		// check if site designated as a production site
 		// for a demo site disallow expired page functionality
-		if($_VERSION->SITE == 1 && $mosConfig_admin_expired === '1') {
+		if(joomlaVersion::get('SITE') == 1 && $mosConfig_admin_expired === '1') {
 			$file = $mainframe->getPath('com_xml','com_users');
 			$params = &new mosParameters($my->params,$file,'component');
 

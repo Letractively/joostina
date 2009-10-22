@@ -10,7 +10,7 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-require_once (JPATH_BASE .DS.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/classes/XmapSitemap.php');
+require_once (JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/classes/XmapSitemap.php');
 
 class XmapConfig {
 	var $version 			= '1.1';
@@ -46,7 +46,7 @@ class XmapConfig {
 
 	/** Return $menus as an associative array */
 	function &getSitemaps() {
-		global $database;
+		$database = &database::getInstance();
 
 		$query = "SELECT id FROM #__xmap_sitemap";
 		$database->setQuery($query);
@@ -63,12 +63,11 @@ class XmapConfig {
 
 	/** Create the settings table for Xmap and add initial default values */
 	function create() {
-		global $database;
+		$database = &database::getInstance();
 
 		$fields = array();
 		$fields[] = "`name` varchar(30) not null primary key";
 		$fields[] = "`value` varchar(100)";
-
 
 		$query = "CREATE TABLE #__xmap (". implode(', ', $fields) .")";
 		$database->setQuery( $query );
@@ -166,7 +165,8 @@ class XmapConfig {
 
 	/** Create a backup of the settings */
 	function backup() {
-		global $database;
+		$database = &database::getInstance();
+
 		$query = "DROP TABLE IF EXISTS #__xmap_backup";				// remove old backup
 		$database->setQuery( $query );
 		if( $database->query() === FALSE ) {
@@ -208,8 +208,9 @@ class XmapConfig {
 
 	/** Restore backup settings */
 	function restore() {
-		global $database,$mosConfig_dbprefix;
+		global $mosConfig_dbprefix;
 
+		$database = &database::getInstance();
 
 		$query = "show table status like '".$mosConfig_dbprefix."xmap_backup'";
 		$database->setQuery($query);
@@ -294,7 +295,7 @@ class XmapConfig {
 
 	/** Remove the settings table */
 	function remove() {
-		global $database;
+		$database = &database::getInstance();
 		$querys[] = "DROP TABLE IF EXISTS #__xmap";
 		$querys[] = "DROP TABLE IF EXISTS #__xmap_sitemap";
 		$querys[] = "DROP TABLE IF EXISTS #__xmap_ext";
@@ -312,7 +313,7 @@ class XmapConfig {
 
 	/** Load settings from the database into this instance */
 	function load() {
-		global $database;
+		$database = &database::getInstance();
 
 		$query = "SELECT * FROM #__xmap";
 		$database->setQuery( $query );
@@ -328,7 +329,7 @@ class XmapConfig {
 
 	/** Save current settings to the database */
 	function save() {
-		global $database;
+		$database = &database::getInstance();
 
 		$vars = get_object_vars( $this );
 		$query = "DELETE FROM `#__xmap`";

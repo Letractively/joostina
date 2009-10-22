@@ -19,12 +19,12 @@ $adminOffline = false;
 
 if(!defined('_INSTALL_CHECK')) {
 	// этот метод отличается от подобного в 1.1, т.к. отличается обработка сессий
-	$_s = session_id();
-	if( !isset($_s)) {
+	//$_s = session_id();
+	//if( !isset($_s)) {
 		session_name(md5($mosConfig_live_site));
 		session_start();
-	}
-	require_once(Jconfig::getInstance()->config_absolute_path.'/components/com_users/users.class.php');
+	//}
+	require_once(JPATH_BASE.'/components/com_users/users.class.php');
 	if(class_exists('mosUser') && $database != null ) {
 		// восстановление некоторых переменных сессии
 		$admin = new mosUser($database);
@@ -36,11 +36,12 @@ if(!defined('_INSTALL_CHECK')) {
 
 		// проверка наличия строки сессии в базе данных
 		if($session_id == md5($admin->id.$admin->username.$admin->usertype.$logintime)) {
-			$query = "SELECT* FROM #__session WHERE session_id = ".$database->Quote($session_id)."\n AND username = ".$database->Quote($admin->username)."\n AND userid = ".intval($admin->id);
+			$query = "SELECT* FROM #__session WHERE session_id = ".$database->Quote($session_id)." AND username = ".$database->Quote($admin->username)."\n AND userid = ".intval($admin->id);
 			$database->setQuery($query);
 			if(!$result = $database->query()) {
 				echo $database->stderr();
 			}
+
 			if($database->getNumRows($result) == 1) {
 				define('_ADMIN_OFFLINE',1);
 			}

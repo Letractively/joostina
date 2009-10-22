@@ -12,8 +12,11 @@ defined('_VALID_MOS') or die();
 
 class xmap_com_weblinks{
 	function &getTree( &$xmap, &$parent ){
-		global $database, $my, $Itemid;
+		global $my, $Itemid;
 		$list = array();
+
+		$database = &database::getInstance();
+
 
 		// include popular bloggers by default
 		$sql = 'SELECT id, title FROM #__categories WHERE section=\'com_weblinks\' and published=1';

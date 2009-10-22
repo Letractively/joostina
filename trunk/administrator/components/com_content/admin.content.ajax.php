@@ -56,7 +56,9 @@ function x_resethits($id) {
 }
 
 function x_metakey($count = 25,$minlench = 4){
-	global $bad_text;
+	// подключаем файл стоп-слов
+	include JPATH_BASE.DS.'language'.DS.$mosConfig_lang.DS.'ignore.php';
+
 	$introtext	= mosGetParam($_POST,'introtext','',_MOS_ALLOWRAW);
 	$fulltext	= mosGetParam($_POST,'fulltext','',_MOS_ALLOWRAW);
 	$notetext	= mosGetParam($_POST,'notetext','',_MOS_ALLOWRAW);

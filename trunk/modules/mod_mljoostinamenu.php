@@ -13,7 +13,6 @@ defined( '_VALID_MOS' ) or die();
 if (!defined( '_MOS_MLJOOSTINAMENU_MODULE' )) {
 	/** ensure that functions are declared only once*/
 	define( '_MOS_MLJOOSTINAMENU_MODULE', 1 );
-	global $mosConfig_live_site;
 	$ml_rollover_use = $params->get('ml_rollover_use');
 	if ($ml_rollover_use == 1) {
 ?>
@@ -31,7 +30,6 @@ var onImgArray = new Array();
 	}
 	function mosGetJoostinaLink( $mitem, $level=0, &$params, $open=null ) {
 		global $Itemid;
-		$mainframe = &mosMainFrame::getInstance();
 
 		$txt = '';
 		$mitem->params = (isset($mitem->params)) ? $mitem->params : '';
@@ -54,6 +52,7 @@ var onImgArray = new Array();
 			case 'content_item_link':
 			case 'content_typed':
 				// load menu params
+				$mainframe = &mosMainFrame::getInstance();
 				$menuparams = new mosParameters( $mitem->params, $mainframe->getPath( 'menu_xml', $mitem->type ), 'menu' );
 				$unique_itemid = $menuparams->get( 'unique_itemid', 1 );
 
@@ -64,7 +63,8 @@ var onImgArray = new Array();
 					if ( $mitem->type == 'content_typed' ) {
 						// еще один небольшой эксперимент, вместе лишнего запроса в базу - возьмём идентификатор ссылки на статичное содержимое из глобального объекта
 						//$mitem->link .= '&Itemid='. $mainframe->getItemid($temp[1], 1, 0);
-						$mitem->link .= '&Itemid='. ( (isset($mainframe->all_menu_links[$mitem->link]['id']) ? $mainframe->all_menu_links[$mitem->link]['id']:$mitem->id));
+						$all_menu_links = mosMenu::get_menu_links();
+						$mitem->link .= '&Itemid='. ( (isset($all_menu_links[$mitem->link]['id']) ? $all_menu_links[$mitem->link]['id']:$mitem->id));
 					} else {
 						$mitem->link .= '&Itemid='. $mainframe->getItemid($temp[1], 0, 1);
 					}
@@ -141,16 +141,16 @@ var onImgArray = new Array();
 		if( $params->get( 'ml_imaged' ) == 1 ) {
 			$ml_alt = $mitem->name;
 			$ml_img_title = ' title="'.$pg_title.'"';
-			$mitem->name = '<img src="'.$mainframe->getCfg('live_site').'/modules/mod_mljoostinamenu/menuimages/zaglushka.gif" border="0" alt="'.$ml_alt.'" />';
+			$mitem->name = '<img src="'.JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/zaglushka.gif" border="0" alt="'.$ml_alt.'" />';
 		}
 			elseif  (($params->get( 'ml_imaged' ) == 2) && ($params->get('ml_aligner') == 'left')) {
 			$ml_alt = $mitem->name;
 			$ml_img_title = ' title="'.$pg_title.'"';
-			$mitem->name = '<img src="'.$mainframe->getCfg('live_site').'/modules/mod_mljoostinamenu/menuimages/zaglushka.gif" border="0" alt="'.$ml_alt.'" /><em>'.$mitem->name.'</em>';
+			$mitem->name = '<img src="'.JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/zaglushka.gif" border="0" alt="'.$ml_alt.'" /><em>'.$mitem->name.'</em>';
 		}elseif  (($params->get( 'ml_imaged' ) == 2) && ($params->get('ml_aligner') == 'right')) {
 			$ml_alt = $mitem->name;
 			$ml_img_title = ' title="'.$pg_title.'"';
-			$mitem->name = '<em>'.$mitem->name.'</em><img src="'.$mainframe->getCfg('live_site').'/modules/mod_mljoostinamenu/menuimages/zaglushka.gif" border="0" alt="'.$ml_alt.'" />';
+			$mitem->name = '<em>'.$mitem->name.'</em><img src="'.JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/zaglushka.gif" border="0" alt="'.$ml_alt.'" />';
 		}else{
 			$ml_alt = ' title="'.$pg_title.'"';
 			$ml_img_title = ' title="'.$pg_title.'"';
@@ -334,11 +334,6 @@ var onImgArray = new Array();
 	}
 
 	function mosJoostinaGetmenu(&$params,$gid){
-/*
-		$mainframe = &mosMainFrame::getInstance();
-		$all_menu = $mainframe->all_menu;
-		unset($mainframe);
-*/
 
 		$all_menu = &mosMenu::get_all();
 
@@ -358,7 +353,6 @@ var onImgArray = new Array();
 	function mosJoostinaPrepareLink (&$params, $style=0) {
 		global $my,$mosConfig_shownoauth,$mosConfig_disable_access_control;
 
-		$database = &database::getInstance();
 
 		$rows = mosJoostinaGetmenu($params,$my->gid);
 
@@ -437,8 +431,10 @@ var onImgArray = new Array();
 
 if ( ! function_exists( 'mosShowVIMenuMLZ' ) ) {
 	function mosShowVIMenuMLZ(  &$params ) {
-		global $database, $my, $cur_template, $Itemid,$mosConfig_disable_access_control;
-		global $mosConfig_live_site, $mosConfig_shownoauth;
+		global $my, $cur_template, $Itemid,$mosConfig_disable_access_control;
+		global $mosConfig_shownoauth;
+
+		$database = &database::getInstance();
 
 		$and = '';
 		if ( !$mosConfig_shownoauth AND !$mosConfig_disable_access_control ) {
@@ -457,7 +453,7 @@ if ( ! function_exists( 'mosShowVIMenuMLZ' ) ) {
 		switch ( $params->get( 'indent_image' ) ) {
 			case '1':
 				// Default images
-				$imgpath = $mosConfig_live_site .'/images/M_images';
+				$imgpath = JPATH_SITE .'/images/M_images';
 				for ( $i = 1; $i < 7; $i++ ) {
 					$img[$i] = '<img src="'. $imgpath .'/indent'. $i .'.png" alt="" />';
 				}
@@ -465,7 +461,7 @@ if ( ! function_exists( 'mosShowVIMenuMLZ' ) ) {
 
 			case '2':
 				// Use Params
-				$imgpath = $mosConfig_live_site .'/images/M_images';
+				$imgpath = JPATH_SITE .'/images/M_images';
 				for ( $i = 1; $i < 7; $i++ ) {
 					if ( $params->get( 'indent_image'. $i ) == '-1' ) {
 						$img[$i] = NULL;
@@ -484,7 +480,7 @@ if ( ! function_exists( 'mosShowVIMenuMLZ' ) ) {
 
 			default:
 				// Template
-				$imgpath = $mosConfig_live_site .'/templates/'. $cur_template .'/images';
+				$imgpath = JPATH_SITE .'/templates/'. $cur_template .'/images';
 				for ( $i = 1; $i < 7; $i++ ) {
 					$img[$i] = '<img src="'. $imgpath .'/indent'. $i .'.png" alt="" />';
 				}
@@ -554,7 +550,6 @@ if ( ! function_exists( 'mosShowVIMenuMLZ' ) ) {
 
 	if (!function_exists('mosJoostinaShowLink')) {
 	function mosJoostinaShowLink (&$params, $style=0) {
-		global $mosConfig_live_site;
 
 		$ml_module_number = $params->get('ml_module_number');
 		$ml_rollover_use = $params->get('ml_rollover_use');
@@ -595,17 +590,17 @@ offImgArray["ml_img_8_<?php echo $ml_module_number; ?>"] = new Image ();
 offImgArray["ml_img_9_<?php echo $ml_module_number; ?>"] = new Image ();
 offImgArray["ml_img_10_<?php echo $ml_module_number; ?>"] = new Image ();
 offImgArray["ml_img_11_<?php echo $ml_module_number; ?>"] = new Image ();
-offImgArray["ml_img_1_<?php echo $ml_module_number; ?>"].src = "<?php echo $mosConfig_live_site.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image1; ?>";
-offImgArray["ml_img_2_<?php echo $ml_module_number; ?>"].src = "<?php echo $mosConfig_live_site.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image2; ?>";
-offImgArray["ml_img_3_<?php echo $ml_module_number; ?>"].src = "<?php echo $mosConfig_live_site.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image3; ?>";
-offImgArray["ml_img_4_<?php echo $ml_module_number; ?>"].src = "<?php echo $mosConfig_live_site.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image4; ?>";
-offImgArray["ml_img_5_<?php echo $ml_module_number; ?>"].src = "<?php echo $mosConfig_live_site.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image5; ?>";
-offImgArray["ml_img_6_<?php echo $ml_module_number; ?>"].src = "<?php echo $mosConfig_live_site.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image6; ?>";
-offImgArray["ml_img_7_<?php echo $ml_module_number; ?>"].src = "<?php echo $mosConfig_live_site.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image7; ?>";
-offImgArray["ml_img_8_<?php echo $ml_module_number; ?>"].src = "<?php echo $mosConfig_live_site.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image8; ?>";
-offImgArray["ml_img_9_<?php echo $ml_module_number; ?>"].src = "<?php echo $mosConfig_live_site.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image9; ?>";
-offImgArray["ml_img_10_<?php echo $ml_module_number; ?>"].src = "<?php echo $mosConfig_live_site.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image10; ?>";
-offImgArray["ml_img_11_<?php echo $ml_module_number; ?>"].src = "<?php echo $mosConfig_live_site.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image11; ?>";
+offImgArray["ml_img_1_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image1; ?>";
+offImgArray["ml_img_2_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image2; ?>";
+offImgArray["ml_img_3_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image3; ?>";
+offImgArray["ml_img_4_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image4; ?>";
+offImgArray["ml_img_5_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image5; ?>";
+offImgArray["ml_img_6_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image6; ?>";
+offImgArray["ml_img_7_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image7; ?>";
+offImgArray["ml_img_8_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image8; ?>";
+offImgArray["ml_img_9_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image9; ?>";
+offImgArray["ml_img_10_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image10; ?>";
+offImgArray["ml_img_11_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image11; ?>";
 
 onImgArray["ml_img_1_<?php echo $ml_module_number; ?>"] = new Image ();
 onImgArray["ml_img_2_<?php echo $ml_module_number; ?>"] = new Image ();
@@ -618,17 +613,17 @@ onImgArray["ml_img_8_<?php echo $ml_module_number; ?>"] = new Image ();
 onImgArray["ml_img_9_<?php echo $ml_module_number; ?>"] = new Image ();
 onImgArray["ml_img_10_<?php echo $ml_module_number; ?>"] = new Image ();
 onImgArray["ml_img_11_<?php echo $ml_module_number; ?>"] = new Image ();
-onImgArray["ml_img_1_<?php echo $ml_module_number; ?>"].src = "<?php echo $mosConfig_live_site.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_1; ?>";
-onImgArray["ml_img_2_<?php echo $ml_module_number; ?>"].src = "<?php echo $mosConfig_live_site.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_2; ?>";
-onImgArray["ml_img_3_<?php echo $ml_module_number; ?>"].src = "<?php echo $mosConfig_live_site.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_3; ?>";
-onImgArray["ml_img_4_<?php echo $ml_module_number; ?>"].src = "<?php echo $mosConfig_live_site.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_4; ?>";
-onImgArray["ml_img_5_<?php echo $ml_module_number; ?>"].src = "<?php echo $mosConfig_live_site.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_5; ?>";
-onImgArray["ml_img_6_<?php echo $ml_module_number; ?>"].src = "<?php echo $mosConfig_live_site.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_6; ?>";
-onImgArray["ml_img_7_<?php echo $ml_module_number; ?>"].src = "<?php echo $mosConfig_live_site.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_7; ?>";
-onImgArray["ml_img_8_<?php echo $ml_module_number; ?>"].src = "<?php echo $mosConfig_live_site.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_8; ?>";
-onImgArray["ml_img_9_<?php echo $ml_module_number; ?>"].src = "<?php echo $mosConfig_live_site.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_9; ?>";
-onImgArray["ml_img_10_<?php echo $ml_module_number; ?>"].src = "<?php echo $mosConfig_live_site.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_10; ?>";
-onImgArray["ml_img_11_<?php echo $ml_module_number; ?>"].src = "<?php echo $mosConfig_live_site.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_11; ?>";
+onImgArray["ml_img_1_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_1; ?>";
+onImgArray["ml_img_2_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_2; ?>";
+onImgArray["ml_img_3_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_3; ?>";
+onImgArray["ml_img_4_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_4; ?>";
+onImgArray["ml_img_5_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_5; ?>";
+onImgArray["ml_img_6_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_6; ?>";
+onImgArray["ml_img_7_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_7; ?>";
+onImgArray["ml_img_8_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_8; ?>";
+onImgArray["ml_img_9_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_9; ?>";
+onImgArray["ml_img_10_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_10; ?>";
+onImgArray["ml_img_11_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_11; ?>";
 </script>
 <?php
 	}
@@ -681,9 +676,9 @@ onImgArray["ml_img_11_<?php echo $ml_module_number; ?>"].src = "<?php echo $mosC
 
 	$params->def('menutype', 'mainmenu');
 
-	$config = &Jconfig::getInstance();
+	$config_caching = $mainframe->getCfg('caching');
 
-	if($config->config_caching){
+	if($config_caching){
 		$menu_cache = &mosCache::getCache('mod_mljoostinamenu');
 	}
 	// убираем лишний элемент
@@ -692,31 +687,31 @@ onImgArray["ml_img_11_<?php echo $ml_module_number; ?>"].src = "<?php echo $mosC
 	switch ($params->get( 'menu_style' ) ) {
 
 		case 'horizontal':
-			echo $config->config_caching ? $menu_cache->call('mosJoostinaShowLink',$params,1,$Itemid) : mosJoostinaShowLink($params,1,$Itemid);
+			echo $config_caching ? $menu_cache->call('mosJoostinaShowLink',$params,1,$Itemid) : mosJoostinaShowLink($params,1,$Itemid);
 		break;
 
 		case 'ulli':
-			echo $config->config_caching ?  $menu_cache->call('mosJoostinaShowLink',$params,2,$Itemid) : mosJoostinaShowLink($params,2,$Itemid);
+			echo $config_caching ?  $menu_cache->call('mosJoostinaShowLink',$params,2,$Itemid) : mosJoostinaShowLink($params,2,$Itemid);
 		break;
 
 		case 'linksonly':
-			echo $config->config_caching ?  $menu_cache->call('mosJoostinaShowLink',$params,3,$Itemid) : mosJoostinaShowLink($params,3,$Itemid);
+			echo $config_caching ?  $menu_cache->call('mosJoostinaShowLink',$params,3,$Itemid) : mosJoostinaShowLink($params,3,$Itemid);
 		break;
 
 		case 'horiz_tab':
-			echo $config->config_caching ?  $menu_cache->call('mosJoostinaShowLink',$params,4,$Itemid) : mosJoostinaShowLink($params,4,$Itemid);
+			echo $config_caching ?  $menu_cache->call('mosJoostinaShowLink',$params,4,$Itemid) : mosJoostinaShowLink($params,4,$Itemid);
 		break;
 
 		case 'divs':
-			echo $config->config_caching ?  $menu_cache->call('mosJoostinaShowLink',$params,5,$Itemid) : mosJoostinaShowLink($params,5,$Itemid);
+			echo $config_caching ?  $menu_cache->call('mosJoostinaShowLink',$params,5,$Itemid) : mosJoostinaShowLink($params,5,$Itemid);
 		break;
 
 		case 'ml_vertical':
-			echo $config->config_caching ?  $menu_cache->call('mosJoostinaShowLink',$params,6,$Itemid) : mosJoostinaShowLink($params,6,$Itemid);
+			echo $config_caching ?  $menu_cache->call('mosJoostinaShowLink',$params,6,$Itemid) : mosJoostinaShowLink($params,6,$Itemid);
 		break;
 
 		default:
-			echo $config->config_caching ?  $menu_cache->call('mosShowVIMenuMLZ',$params,$Itemid) : mosShowVIMenuMLZ($params,$Itemid);;
+			echo $config_caching ?  $menu_cache->call('mosShowVIMenuMLZ',$params,$Itemid) : mosShowVIMenuMLZ($params,$Itemid);;
 		break ;
 	}
-unset($menu_cache,$params,$config);
+unset($menu_cache,$params,$config,$config_caching);

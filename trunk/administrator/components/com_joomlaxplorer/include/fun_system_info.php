@@ -34,8 +34,8 @@ function get_server_software() {
 		}
 }
 function system_info($version, $option) {
-	global  $database, $_VERSION;
-	$version = $_VERSION->CMS.' <strong style="color: red;">'.$_VERSION->RELEASE.'.'.$_VERSION->DEV_LEVEL.'</strong> '.$_VERSION->DEV_STATUS.' [ '.$_VERSION->CODENAME.' ] '.$_VERSION->RELDATE.' '.$_VERSION->RELTIME.' '.$_VERSION->RELTZ;
+	global  $database;
+	$version = joomlaVersion::get('CMS').' <strong style="color: red;">'.joomlaVersion::get('RELEASE').'.'.joomlaVersion::get('DEV_LEVEL').'</strong> '.joomlaVersion::get('DEV_STATUS').' [ '.joomlaVersion::get('CODENAME').' ] '.joomlaVersion::get('RELDATE').' '.joomlaVersion::get('RELTIME').' '.joomlaVersion::get('RELTZ');
 	$width = 400;
 	$tabs = new mosTabs(0);
 ?>

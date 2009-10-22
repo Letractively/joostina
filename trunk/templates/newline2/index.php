@@ -62,12 +62,12 @@ $iso = explode('=',_ISO); echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'
                 <div class="header_right">
                     <a title="Обратная связь" href="mailto:<?php echo $mosConfig_mailfrom;?>" id="mail" class="navbar">&nbsp;</a>
                     <a title="Карта сайта" href="<?php echo sefRelToAbs('index.php?option=com_xmap&amp;Itemid=27'); ?>" id="map" class="navbar">&nbsp;</a>      
-				</div>               
+				</div>
                
                	<div class="top_menu_l"><div class="top_menu_r"><div class="top_menu_mid">
 					<?php mosLoadModules('top',-1); ?>
 					<?php mosLoadModule('mod_ml_login', '', -1, 0, $login_params); ?>
-					<?php //mosLoadModules('toolbar',-2); ?>                        
+					<?php //mosLoadModules('toolbar',-2); ?>
        			</div></div></div>
             
             </div><!--header:end-->

@@ -221,3 +221,7 @@ ul.bigred li {
 }
 
 .hide {display: none}
+
+.highlight{
+	color: red;
+}

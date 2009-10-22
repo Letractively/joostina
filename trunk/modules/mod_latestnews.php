@@ -10,7 +10,6 @@
 // запрет прямого доступа
 defined( '_VALID_MOS' ) or die();
 
-
 $type = intval($params->get('type', 1));
 $def_itemid = $params->get('def_itemid', false);
 $params->def('item_title', 1); $params->def('link_titles', 1);

@@ -156,7 +156,6 @@ if($siteUrl) {
 	$config .= "\$mosConfig_db = '{$configArray['DBname']}';\n";
 	$config .= "\$mosConfig_dbprefix = '{$configArray['DBPrefix']}';\n";
 	$config .= "\$mosConfig_lang = 'russian';\n";
-	//$config .= "if(!defined('JPATH_BASE')) define('JPATH_BASE', '{$configArray['absolutePath']}');\n";
 	$config .= "\$mosConfig_live_site = '{$configArray['siteUrl']}';\n";
 	$config .= "\$mosConfig_sitename = '{$configArray['sitename']}';\n";
 	$config .= "\$mosConfig_shownoauth = '0';\n";
@@ -218,8 +217,6 @@ if($siteUrl) {
 	$config .= "\$mosConfig_index_print = '0';\n";
 	//boston, расширенные теги индексации
 	$config .= "\$mosConfig_index_tag = '0';\n";
-	//boston, отключение модулей при редактировании содержимого на фронте
-	$config .= "\$mosConfig_module_on_edit_off = '0';\n";
 	// boston, оптимизация таблиц бд
 	$config .= "\$mosConfig_optimizetables = '0';\n";
 	// boston, отключение мамботов группы content

@@ -59,7 +59,7 @@ if(!isset($SAJAX_INCLUDED)) {
 		return $myURI;
 	}
 
-	$sajax_remote_uri = sajax_get_my_uri()."?option=$option&utf=0&act=ajax";
+	$sajax_remote_uri = sajax_get_my_uri()."?option=$option&act=ajax";
 
 	//
 	// Helper function to return an eval()-usable representation

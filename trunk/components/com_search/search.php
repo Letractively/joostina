@@ -184,7 +184,7 @@ function viewSearch() {
 			$restriction = 1;
 		}
 	}
-	@include "JPATH_BASE/language/$mosConfig_lang/ignore.php";
+	include JPATH_BASE.DS.'language'.DS.$mosConfig_lang.DS.'ignore.php';
 
 	$orders = array();
 	$orders[] = mosHTML::makeOption('newest',_SEARCH_NEWEST);
@@ -275,7 +275,7 @@ function viewSearch() {
 					$searchwords[$k] = htmlspecialchars( stripslashes( $hlword ) );
 				}
 				$searchRegex = implode( '|', $searchwords );
-				$text = eregi_replace( '('.$searchRegex.')', '<span class="highlight">\0</span>', $text );
+				$text = preg_replace( '/'.$searchRegex.'/iu', '<span class="highlight">\0</span>', $text );
 
 				if(strpos($rows[$i]->href,'http') == false) {
 					$url = parse_url($rows[$i]->href);

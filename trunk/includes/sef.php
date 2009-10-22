@@ -10,7 +10,7 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-global $mosConfig_sef,$mosConfig_live_site;
+global $mosConfig_sef;
 
 
 if($mosConfig_sef) {
@@ -387,7 +387,7 @@ if($mosConfig_sef) {
 			$_SERVER['QUERY_STRING'] = $QUERY_STRING;
 			$REQUEST_URI = $uri[0].'index.php?'.$QUERY_STRING;
 			$_SERVER['REQUEST_URI'] = $REQUEST_URI;
-
+/*
 			if(defined('RG_EMULATION') && RG_EMULATION == 1) {
 				// Extract to globals
 				while(list($key,$value) = each($_GET)) {
@@ -404,7 +404,7 @@ if($mosConfig_sef) {
 					$mosConfig_live_site = 'https://'.substr($mosConfig_live_site,7);
 				}
 			}
-
+*/
 		} else {
 
 			/*
@@ -422,13 +422,15 @@ if($mosConfig_sef) {
 		}
 }
 
+unset($url_array,$jdir,$juri);
+
 /**
 * Converts an absolute URL to SEF format
 * @param string The URL
 * @return string
 */
 function sefRelToAbs($string) {
-	global $mosConfig_live_site,$mosConfig_sef,$mosConfig_multilingual_support;
+	global $mosConfig_sef,$mosConfig_multilingual_support;
 	global $iso_client_lang,$mosConfig_com_frontpage_clear;
 
 	//multilingual code url support
@@ -575,7 +577,7 @@ function sefRelToAbs($string) {
 
 		// allows SEF without mod_rewrite
 		// comment line below if you dont have mod_rewrite
-		return $mosConfig_live_site.'/'.$string.$fragment;
+		return JPATH_SITE.'/'.$string.$fragment;
 
 		// allows SEF without mod_rewrite
 		// uncomment Line 512 and comment out Line 514
@@ -587,12 +589,12 @@ function sefRelToAbs($string) {
 	} else {
 		// Handling for when SEF is not activated
 		// Relative link handling
-		if((strpos($string,$mosConfig_live_site) !== 0)) {
+		if((strpos($string,JPATH_SITE) !== 0)) {
 			// if URI starts with a "/", means URL is at the root of the host...
 			if(strncmp($string,'/',1) == 0) {
 				// splits http(s)://xx.xx/yy/zz..." into [1]="http(s)://xx.xx" and [2]="/yy/zz...":
 				$live_site_parts = array();
-				eregi("^(https?:[\/]+[^\/]+)(.*$)",$mosConfig_live_site,$live_site_parts);
+				eregi("^(https?:[\/]+[^\/]+)(.*$)",JPATH_SITE,$live_site_parts);
 
 				$string = $live_site_parts[1].$string;
 			} else {
@@ -610,7 +612,7 @@ function sefRelToAbs($string) {
 				}
 
 				if($check) {
-					$string = $mosConfig_live_site.'/'.$string;
+					$string = JPATH_SITE.'/'.$string;
 				}
 			}
 		}

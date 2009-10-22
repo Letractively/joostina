@@ -30,7 +30,7 @@ if(!defined('_JOS_POLL_MODULE')) {
 
 		$def_itemid = $params->get( 'def_itemid', 0 );
 
-		$all_menu_links = $mainframe->get('all_menu_links');
+		$all_menu_links = mosMenu::get_menu_links();;
 		$_Itemid = $Itemid;
 		if($def_itemid==0 && isset($all_menu_links['index.php?option=com_poll']) ){
 			$_Itemid = $all_menu_links['index.php?option=com_poll']['id'];

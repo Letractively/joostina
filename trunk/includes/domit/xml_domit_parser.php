@@ -1949,7 +1949,7 @@ class DOMIT_Parser {
 
 
 		if(!$this->xmlDoc->preserveWhitespace) {
-			$xmlText = eregi_replace('>'."[[:space:]]+".'<','><',$xmlText);
+			$xmlText = preg_replace('/>'."[[:space:]]+".'</iu','><',$xmlText);
 		}
 		$success = xml_parse($parser,$xmlText);
 		$this->xmlDoc->errorCode = xml_get_error_code($parser);

@@ -24,7 +24,7 @@ class dom_xmlrpc_domxml_document {
 	var $xmldoc = null;
 	function parseXML($xmlText) {
 
-		$xmlText = eregi_replace('>'."[[:space:]]+".'<','><',$xmlText);
+		$xmlText = preg_replace('/>'."[[:space:]]+".'</iu','><',$xmlText);
 
 		$this->xmldoc = domxml_open_mem($xmlText);
 		if(is_object($this->xmldoc))

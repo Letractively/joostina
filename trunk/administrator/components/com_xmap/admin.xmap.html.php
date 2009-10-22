@@ -25,7 +25,7 @@ class XmapAdminHtml {
 		mosCommonHTML::loadOverlib();
 ?>
 		<script type="text/javascript">
-			var ajaxURL = '<?php echo preg_replace('#http.?://[^/]+/+#','/',$xmapAdministratorURL) . '/ajax.index.php?utf=1&option=com_xmap&task=ajax_request&no_html=1' ?>';
+			var ajaxURL = '<?php echo preg_replace('#http.?://[^/]+/+#','/',$xmapAdministratorURL) . '/ajax.index.php?option=com_xmap&task=ajax_request&no_html=1' ?>';
 			var loadingMessage = '<?php echo str_replace("''","\\",_XMAP_MSG_LOADING_SETTINGS); ?>';
 			var mosConfigLiveSite = '<?php echo $xmapSiteURL; ?>';
 			var sitemapdefault = <?php echo ($config->sitemap_default? $config->sitemap_default: 0);?>;

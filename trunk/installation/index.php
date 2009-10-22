@@ -54,7 +54,7 @@ echo '<?xml version="1.0" encoding="utf-8"?'.'>';?>
 					<li class="step"><strong>5</strong><span>Конфигурация сайта</span></li>
 					<li class="arrow">&nbsp;</li>
 					<li class="step"><strong>6</strong><span>Завершение установки</span></li>
-				</ul>				
+				</ul>
 			</div>
 			
 			<div class="buttons">
@@ -75,9 +75,9 @@ echo '<?xml version="1.0" encoding="utf-8"?'.'>';?>
 						<div class="form-block">
 							<table class="content">
 								<tr>
-									<td class="item">Версия PHP >= 4.1.0</td>
+									<td class="item">Версия PHP >= 5.0.0</td>
 									<td align="left">
-										<?php echo phpversion() < '4.1'?'<b><font color="red">Нет</font></b>':'<b><font color="green">Да</font></b>'; ?>
+										<?php echo phpversion() < '5.0'?'<b><font color="red">Нет</font></b>':'<b><font color="green">Да</font></b>'; ?>
 									</td>
 								</tr>
 								<tr>
@@ -131,10 +131,6 @@ echo '<?xml version="1.0" encoding="utf-8"?'.'>';?>
 	}
 	if(ini_get('register_globals') == '1') {
 		$wrongSettingsTexts[] = 'Параметр PHP register_globals - `ON` вместо `OFF`';
-	}
-	if(RG_EMULATION != 0) {
-		$wrongSettingsTexts[] =
-			'Параметр RG_EMULATION в файле globals.php -<br />`ON` вместо `OFF`<br /><span style="font-weight: normal; font-style: italic; color: #666;">`ON` - по умолчанию - для совместимости</span>';
 	}
 
 	if(count($wrongSettingsTexts)) {
@@ -249,27 +245,6 @@ foreach($wrongSettingsTexts as $txt) {
 <?php
 	}
 ?>
-	<tr>
-		<td class="item">Эмуляция Register Globals</td>
-		<td class="toggle">OFF</td>
-		<td>
-		<b>
-<?php
-	if(RG_EMULATION) {
-?>
-		<font color="red">
-<?php
-	} else {
-?>
-		<font color="green">
-<?php
-	}
-	echo ((RG_EMULATION)?'ON':'OFF');
-?>
-		</font>
-		</b>
-		<td>
-	</tr>
 <tr>
 <td class="item">PCRE UTF-8</td>
 <td class="toggle">ON</td>

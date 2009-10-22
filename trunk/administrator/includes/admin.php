@@ -373,8 +373,6 @@ function josSecurityCheck($width = '95%') {
 	if(ini_get('magic_quotes_gpc') != '1') $wrongSettingsTexts[] = _PHP_MAGIC_QUOTES_ON_OFF;
 	// проверка регистрации глобальных переменных
 	if(ini_get('register_globals') == '1')$wrongSettingsTexts[] = _PHP_REGISTER_GLOBALS_ON_OFF;
-	// проверка активированности внутренней системы защиты
-	if(RG_EMULATION != 0) $wrongSettingsTexts[] = _RG_EMULATION_ON_OFF;
 
 	if(count($wrongSettingsTexts)) {
 ?>
@@ -382,11 +380,11 @@ function josSecurityCheck($width = '95%') {
 			<h3 style="color:#484848"><?php echo _PHP_SETTINGS_WARNING?>:</h3>
 			<ul style="margin: 0px; padding: 0px; padding-left: 15px; list-style: none;" >
 <?php
-				foreach($wrongSettingsTexts as $txt) {
+	foreach($wrongSettingsTexts as $txt) {
 ?>	
 				<li style="font-size: 12px; color: red;"><b><?php echo $txt;?></b></li>
 <?php
-		}
+	}
 ?>
 			</ul>
 		</div>
@@ -395,7 +393,7 @@ function josSecurityCheck($width = '95%') {
 }
 
 //boston, удаление кэша меню панели управления
-function js_menu_cache_clear() {
+function js_menu_cache_clear($echo = true) {
 	global $my,$mosConfig_secret,$mosConfig_adm_menu_cache;
 	if(!$mosConfig_adm_menu_cache) return;
 	$usertype = str_replace(' ','_',$my->usertype);
@@ -403,16 +401,15 @@ function js_menu_cache_clear() {
 	$file = JPATH_BASE.'/cache/adm_menu_'.$menuname.'.js';
 	if(file_exists($file)) {
 		if(unlink($file))
-			echo joost_info(_MENU_CACHE_CLEANED);
+			echo $echo ? joost_info(_MENU_CACHE_CLEANED):null;
 		else
-			echo joost_info(_CLEANING_ADMIN_MENU_CACHE);
+			echo $echo ? joost_info(_CLEANING_ADMIN_MENU_CACHE):null;
 	} else {
-		echo joost_info(_NO_MENU_ADMIN_CACHE);
+		echo $echo ? joost_info(_NO_MENU_ADMIN_CACHE):null;
 	}
 }
 
-
-/* joostina+, вывод информационного поля*/
+/* вывод информационного поля*/
 function joost_info($msg) {
 	return '<div class="message">'.$msg.'</div>';
 }

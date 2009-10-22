@@ -32,7 +32,7 @@ class HTML_modules {
 		log('Получение списка позиций модуля: '+elID);
 		SRAX.replaceHtml('mod-id-'+elID,'<img src="images/aload.gif" />');
 		dax({
-			url: 'ajax.index.php?option=com_modules&utf=1&task=position&id='+elID,
+			url: 'ajax.index.php?option=com_modules&task=position&id='+elID,
 			id:'publ-'+elID,
 			callback:
 				function(resp, idTread, status, ops){
