@@ -58,7 +58,7 @@ class modules_html {
 			$module->content = $row->text;
 		}
 
-		$module = mosModule::convert_to_object($module, $this->_mainframe);
+		//$module = mosModule::convert_to_object($module, $this->_mainframe);
 		switch($style) {
 			case - 3:
 				// allows for rounded corners
