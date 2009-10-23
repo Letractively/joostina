@@ -961,6 +961,7 @@ class mosMainFrame {
 
 				$query = "SELECT id, name, username, password, usertype, block, gid FROM #__users WHERE id = ".(int)$userid;
 				$this->_db->setQuery($query);
+				$user = null;
 				$this->_db->loadObject($user);
 
 				list($hash,$salt) = explode(':',$user->password);
