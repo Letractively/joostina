@@ -129,21 +129,14 @@ class mosMainFrame {
 
 		$this->_db = &database::getInstance();
 
-		if(!$isAdmin){ // работаем с меню в один запрос
-			//$menu = new mosMenu($this->_db);
-
-			//$this->all_menu_links = $menu->get_menu_links();
-
+		if(!$isAdmin){
 			$current = $this->get_option();
 			$this->option = $option = $current['option'];
 			$this->Itemid = $current['Itemid'];
-
-			unset($menu,$current);
+			unset($current);
 		}else{// для панели управления работаем с меню напрямую
 			$option = strval(strtolower(mosGetParam($_REQUEST,'option')));
 		}
-
-
 
 		$this->_setTemplate($isAdmin);
 		$this->_setAdminPaths($option,JPATH_BASE);
@@ -187,7 +180,7 @@ class mosMainFrame {
 
 		if(is_file($return = JPATH_BASE.DS.$from_template)){
 			return $return;
-		}else if(is_file($return = JPATH_BASE.DS.$default)){
+		}elseif(is_file($return = JPATH_BASE.DS.$default)){
 			return $return;	
 		}else{
 			return false;
