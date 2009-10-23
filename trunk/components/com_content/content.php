@@ -858,7 +858,7 @@ function BlogOutput(&$obj, $params, &$access) {
 	$tpl = '';
 
 	$header = $params->get('header');
-	if(!$header) {
+	if(!$header && !empty($obj->name) ) {
 		$header = $obj->name;
 	}
 

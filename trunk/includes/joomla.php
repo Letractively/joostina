@@ -3433,9 +3433,8 @@ class mosHTML {
 <?php
 			} else {
 ?>
-
 <?php if(!Jconfig::getInstance()->config_index_print) { ?>
-			<span class="hide"><![CDATA[<noindex>]]></span><a href="#" rel="nofollow" target="_blank" onclick="window.open('<?php echo $link; ?>','win2','<?php echo $status; ?>'); return false;" title="<?php echo _PRINT; ?>"><?php echo $image; ?></a><span class="hide"><![CDATA[</noindex>]]></span>
+			<span style="display:none"><![CDATA[<noindex>]]></span><a href="#" rel="nofollow" target="_blank" onclick="window.open('<?php echo $link; ?>','win2','<?php echo $status; ?>'); return false;" title="<?php echo _PRINT; ?>"><?php echo $image; ?></a><span style="display:none"><![CDATA[</noindex>]]></span>
 <?php } else { ?>
 			<a href="<?php echo $link; ?>" target="_blank" title="<?php echo _PRINT; ?>"><?php echo $image; ?></a>
 <?php } ; ?>

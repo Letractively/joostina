@@ -13,7 +13,7 @@ defined( '_VALID_MOS' ) or die();
 
 if ($params->get('numrows',0)) { ?>
 
-        <div class="mod_newsflash <?php echo $params->get('moduleclass_sfx', '');?>">
+        <div class="mod_newsflash<?php echo $params->get('moduleclass_sfx', '');?>">
             <table>
                 <tr>
                 <?php foreach ($items as $row): ?>
