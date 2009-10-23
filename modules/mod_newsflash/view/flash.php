@@ -15,7 +15,7 @@ if ($params->get('numrows',0)) { ?>
      <?php $module->helper->prepare_row($row, $params);?>
 
 
-    <div class="mod_newsflash <?php echo $params->get('moduleclass_sfx', '');?>">
+    <div class="mod_newsflash<?php echo $params->get('moduleclass_sfx', '');?>">
         <?php if($params->get('image',0)): ?>
             <?php echo $row->image;?>
         <?php endif; ?>

@@ -32,7 +32,7 @@ class ContentView {
 
 		mosCommonHTML::loadOverlib();
 		mosCommonHTML::loadDtree();
-		
+
 		include_once($mainframe->adminView('showcontent'));
 	}
 
@@ -43,10 +43,8 @@ class ContentView {
 	*/
 	function showArchive(&$rows,$section,&$lists,$search,$pageNav,$option,$all = null,$redirect) {
 		global $my,$acl;
-		
 		$mainframe = &mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
-		
 		include_once($mainframe->adminView('showarchive'));
 	}
 
@@ -96,7 +94,7 @@ class ContentView {
 	* @param array The list of sections and categories to move to
 	*/
 	function moveSection($cid,$sectCatList,$option,$sectionid,$items) {
-		
+		$mainframe = &mosMainFrame::getInstance();
 		include_once($mainframe->adminView('movesection'));
 	}
 
@@ -104,11 +102,11 @@ class ContentView {
 	* Form to select Section/Category to copys item(s) to
 	*/
 	function copySection($option,$cid,$sectCatList,$sectionid,$items) {
+		$mainframe = &mosMainFrame::getInstance();
 		include_once($mainframe->adminView('copysection'));
 	}
 	function submit($params){
 		mosCommonHTML::loadOverlib();
 		echo $params->render(null);
 	}
-
 }

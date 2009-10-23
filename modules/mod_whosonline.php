@@ -128,7 +128,7 @@ function online_users($params_aray,$database) {
 function who_online($params_aray,$database) {
 
 	$output = '';
-	$query = "SELECT a.username, a.userid, b.name, b.id FROM #__session AS a, #__users AS b WHERE a.guest = 0 AND a.userid=b.id";
+	$query = "SELECT a.username, a.userid, b.name, b.id,b.avatar FROM #__session AS a, #__users AS b WHERE a.guest = 0 AND a.userid=b.id";
 	$database->setQuery($query);
 	$rows = $database->loadObjectList();
 
@@ -151,7 +151,7 @@ function who_online($params_aray,$database) {
 			}
 			$user_link = 'index.php?option=com_users&amp;task=Profile&amp;user=' . $row->userid;
 			$user_seflink = '<a href="' . sefRelToAbs($user_link) . '">' . $user_name . '</a>';
-			$avatar = '<img id="user_avatar_img" src="' . JPATH_SITE . mosUser::avatar($row->userid, 'mini') . '" alt="' . $user_name . '"/>';
+			$avatar = '<img id="user_avatar_img" src="' . JPATH_SITE .'/'. mosUser::get_avatar($row) . '" style="width:30px" alt="' . $user_name . '"/>';
 			$avatar_link = '<a href="' . sefRelToAbs($user_link) . '">' . $avatar . '</a>';
 			if($params_aray['user_avatar'] == '1') {
 				$user_item = $avatar_link . $user_seflink;

@@ -12,7 +12,7 @@ defined( '_VALID_MOS' ) or die();
 
 
 if ($params->get('numrows',0)) { ?>
-    <div class="mod_newsflash <?php echo $params->get('moduleclass_sfx', '');?>">
+    <div class="mod_newsflash<?php echo $params->get('moduleclass_sfx', '');?>">
         <ul>
             <?php foreach ($items as $row): ?>
                 <?php $module->helper->prepare_row($row, $params);?>

@@ -251,15 +251,15 @@ class mosUser extends mosDBTable {
 	* функция получения аватара пользователя, возвращает путь к изображения аватара от корня сайта
 	*/
 	function get_avatar($user){
-		
+
 		$mainframe = &mosMainFrame::getInstance();
-		$config = &Jconfig::getInstance();
-		
+		$config = &$mainframe->config;
+
 		$avatar_file = $config->config_absolute_path.'/images/avatars/'.$user->avatar;
 		if($mainframe->get('_multisite')==2){
 			$avatar_file = $mainframe->_multisite_params->main_site.'/images/avatars/'.$user->avatar; 
-		}		
-		
+		}
+
 		if(is_file($avatar_file)){
 			$img = 'images/avatars/'.$user->avatar;
 		}else{
