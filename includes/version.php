@@ -70,5 +70,4 @@ class joomlaVersion {
 		$v = new joomlaVersion();
 		return $v->$name;
 	}
-
 }

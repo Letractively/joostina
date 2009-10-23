@@ -21,7 +21,6 @@ class HTML_component {
 	* @param string The URL option
 	*/
 	function showInstalledComponents($rows,$option) {
-		$mainframe = &mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
 		if(count($rows)) {
 		// подключение скрипта чудесных таблиц
@@ -54,9 +53,8 @@ class HTML_component {
 			$n = count($rows);
 			for($i = 0,$n =$n ; $i < $n; $i++) {
 				$row = &$rows[$i];
-?>
-				<tr class="row<?php echo $rc?>">
-					<td align="left"><input type="radio" id="cb<?php echo $i; ?>" name="cid[]" value="<?php echo $row->id; ?>" onclick="alert(\"123\"); isChecked(this.checked);"><span class="bold"><?php echo $row->name; ?></span></td>
+?>				<tr class="row<?php echo $rc?>">
+					<td align="left"><input type="radio" id="cb<?php echo $i; ?>" name="cid[]" value="<?php echo $row->id; ?>" onclick="isChecked(this.checked);"><span class="bold"><?php echo $row->name; ?></span></td>
 					<td align="center" onclick="ch_publ(<?php echo $row->id?>,'com_installer');" class="td-state">
 						<img class="img-mini-state" src="<?php echo $cur_file_icons_path;?>/<?php echo $row->img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?php echo _PUBLISHING?>" />
 					</td>
@@ -67,8 +65,7 @@ class HTML_component {
 					<td align="center"><?php echo isset($row->authorEmail) ? $row->authorEmail:"&nbsp;"; ?></td>
 					<td align="center"><?php echo isset($row->authorUrl) ? '<a href="'.(substr($row->authorUrl,0,7) =='http://'?$row->authorUrl:'http://'.$row->authorUrl)."\" target=\"_blank\">$row->authorUrl</a>":"&nbsp;"; ?></td>
 				</tr>
-<?php
-				$rc = 1 - $rc;
+<?php				$rc = 1 - $rc;
 			}
 		?></table>
 <?php
@@ -89,4 +86,3 @@ class HTML_component {
 		
 	}
 }
-?>

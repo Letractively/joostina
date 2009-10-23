@@ -27,8 +27,6 @@ if ( $params->get( 'add' ) ) {
 		$url = 'http://'. $_SERVER['HTTP_HOST'] . $url;
 	} elseif ( !strstr( $url, 'http' ) && !strstr( $url, 'https' ) ) {
 		$url = 'http://'. $url;
-	} else {
-		$url = $url;
 	}
 }
  
