@@ -4433,7 +4433,7 @@ class mosMambotHandler {
 				if(!defined('_JOS_CONTENT_MAMBOTS')) {
 					/** ensure that query is only called once*/
 					define('_JOS_CONTENT_MAMBOTS',1);
-					$where_ac_2 = $where_ac_2.($config['config_use_unpublished_mambots']==1) ? ' published=1 AND':'';
+					$where_ac_2 = $where_ac.($config['config_use_unpublished_mambots']==1) ? ' published=1 AND':'';
 					$query = 'SELECT folder, element, published, params FROM #__mambots WHERE '.$where_ac_2.' folder = \'content\' AND client_id=0 ORDER BY ordering DESC';
 					$database->setQuery($query);
 					// load query into class variable _content_mambots
