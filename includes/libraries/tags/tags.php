@@ -51,7 +51,7 @@ class contentTags extends mosDBTable{
 	}
 
 	function load_by_type($type){
-		$sql = 'SELECT tag.* FROM #__content_tags AS tag WHERE tag.obj_type =\''.$type.'\'';
+		$sql = 'SELECT * FROM #__content_tags WHERE obj_type =\''.$type.'\'';
 		$this->_db->setQuery($sql);
 		return $this->_db->loadObjectList();
 	}
