@@ -362,75 +362,73 @@ var onImgArray = new Array();
 		foreach ($rows as $row) {
 			$links[] = mosGetJoostinaLink( $row, 0, $params );
 		}
+		$full_count = count($links);
 
-		if (count( $links )) {
+		if ($full_count) {
 			$count_link = 1;
-			$full_count = count($links);
 
-		// для меню в несколько столбцов
-		$nrow = intval($params->get('numrow',0));
-		$ii=-1;
-		foreach ($links as $link) {
-			// начинаем издевательство над линками для приведения их к божьему виду
-			if ($params->get('ml_separated_link') == 1) {
-				if ($params->get('ml_linked_sep') != 1 ) {$link_replacer = 'class="mainlevel-'.$count_link;} else {$link_replacer = 'class="mainlevel';}
-				$link = str_replace( 'class="mainlevel',$link_replacer,$link);
-			}
-
-			if ($params->get('ml_separated_active') == 1) {
-				if ($params->get('ml_linked_sep_active') != 1 ) {$link_replacer_id = 'id="active_menu-'.$count_link;}  else   {$link_replacer_id = 'id="active_menu';}
-				$link = str_replace( 'id="active_menu',$link_replacer_id,$link);
-			}
-
-			if (($params->get('ml_separated_link_first') == 1) && ($params->get('ml_separated_link') != 1) ) {
-				if (($count_link == 1) || (($count_link == 2) && ($params->get('ml_first_hidden') == 1))){
-					$first_replacer = 'mainlevel-first';
-				}else{
-					$first_replacer = 'mainlevel';
+			// для меню в несколько столбцов
+			$nrow = intval($params->get('numrow',0));
+			$ii=-1;
+			foreach ($links as $link) {
+				// начинаем издевательство над линками для приведения их к божьему виду
+				if ($params->get('ml_separated_link') == 1) {
+					if ($params->get('ml_linked_sep') != 1 ) {$link_replacer = 'class="mainlevel-'.$count_link;} else {$link_replacer = 'class="mainlevel';}
+					$link = str_replace( 'class="mainlevel',$link_replacer,$link);
 				}
-				$link = str_replace('mainlevel',$first_replacer,$link);
-			}
-			if (($params->get('ml_separated_link_last') == 1) && ($params->get('ml_separated_link') != 1) ) {
-				if ($count_link == $full_count) {$last_replacer = 'mainlevel-last';} else { $last_replacer = 'mainlevel';}
-					$link = str_replace('mainlevel',$last_replacer,$link);
+
+				if ($params->get('ml_separated_active') == 1) {
+					if ($params->get('ml_linked_sep_active') != 1 ) {$link_replacer_id = 'id="active_menu-'.$count_link;}  else   {$link_replacer_id = 'id="active_menu';}
+					$link = str_replace( 'id="active_menu',$link_replacer_id,$link);
 				}
-				if (($params->get('ml_separated_active_first') == 1) && ($params->get('ml_separated_active') != 1)) {
-					if ($count_link == 1) {
-						$first_replacer_id = 'active_menu-first';
+
+				if (($params->get('ml_separated_link_first') == 1) && ($params->get('ml_separated_link') != 1) ) {
+					if (($count_link == 1) || (($count_link == 2) && ($params->get('ml_first_hidden') == 1))){
+						$first_replacer = 'mainlevel-first';
+					}else{
+						$first_replacer = 'mainlevel';
+					}
+					$link = str_replace('mainlevel',$first_replacer,$link);
+				}
+				if (($params->get('ml_separated_link_last') == 1) && ($params->get('ml_separated_link') != 1) ) {
+					if ($count_link == $full_count) {$last_replacer = 'mainlevel-last';} else { $last_replacer = 'mainlevel';}
+						$link = str_replace('mainlevel',$last_replacer,$link);
+					}
+					if (($params->get('ml_separated_active_first') == 1) && ($params->get('ml_separated_active') != 1)) {
+						if ($count_link == 1) {
+							$first_replacer_id = 'active_menu-first';
+						} else {
+							$first_replacer_id = 'active_menu';
+						}
+						$link = str_replace('active_menu',$first_replacer_id,$link);
+					}
+				if (($params->get('ml_separated_active_last') == 1) && ($params->get('ml_separated_active') != 1)) {
+					if ($count_link == $full_count) {
+						$last_replacer_id = 'active_menu-last';
 					} else {
-						$first_replacer_id = 'active_menu';
+						$last_replacer_id = 'active_menu';
 					}
-					$link = str_replace('active_menu',$first_replacer_id,$link);
+				$link = str_replace('active_menu',$last_replacer_id,$link);
 				}
-			if (($params->get('ml_separated_active_last') == 1) && ($params->get('ml_separated_active') != 1)) {
-				if ($count_link == $full_count) {
-					$last_replacer_id = 'active_menu-last';
-				} else {
-					$last_replacer_id = 'active_menu';
-				}
-			$link = str_replace('active_menu',$last_replacer_id,$link);
-			}
-			if($params->get('menu_style')=='ulli'){
-				// для меню в несколько столбцов
-				$ii++;
-				if($nrow>0){
-					if($ii==$nrow) {
-						$ii=0;
-						echo '</ul><ul class="menulist'.$params->get('moduleclass_sfx').'">';
+				if($params->get('menu_style')=='ulli'){
+					// для меню в несколько столбцов
+					$ii++;
+					if($nrow>0){
+						if($ii==$nrow) {
+							$ii=0;
+							echo '</ul><ul class="menulist'.$params->get('moduleclass_sfx').'">';
+						}
 					}
 				}
-			}
-			mosJoostinaLinkReplacer ($count_link,$link,$style,$params,$full_count);
-			$count_link = $count_link + 1;
-	}
-	//конец генерации вывода
-	}
+				mosJoostinaLinkReplacer ($count_link,$link,$style,$params,$full_count);
+				$count_link = $count_link + 1;
+		}
+		//конец генерации вывода
+		}
 
 	}
-}
 
-if ( ! function_exists( 'mosShowVIMenuMLZ' ) ) {
-	function mosShowVIMenuMLZ(  &$params ) {
+	function mosShowVIMenuMLZ( &$params ) {
 		global $my, $cur_template, $Itemid,$mosConfig_disable_access_control;
 		global $mosConfig_shownoauth;
 
@@ -520,12 +518,12 @@ if ( ! function_exists( 'mosShowVIMenuMLZ' ) ) {
 		}
 		mosRecurseVIMenuMLZ( 0, 0, $children, $open, $indents, $params );
 	}
- }
+
 	/**
 	* Utility function to recursively work through a vertically indented
 	* hierarchial menu
 	*/
-	if (!function_exists('mosRecurseVIMenuMLZ')) {
+
 	function mosRecurseVIMenuMLZ( $id, $level, &$children, &$open, &$indents, &$params ) {
 		if (@$children[$id]) {
 			$n = min( $level, count( $indents )-1 );
@@ -546,9 +544,9 @@ if ( ! function_exists( 'mosShowVIMenuMLZ' ) ) {
 			echo "\n".$indents[$n][3];
 		}
 	}
-}
 
-	if (!function_exists('mosJoostinaShowLink')) {
+
+
 	function mosJoostinaShowLink (&$params, $style=0) {
 
 		$ml_module_number = $params->get('ml_module_number');
@@ -627,52 +625,52 @@ onImgArray["ml_img_11_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH
 </script>
 <?php
 	}
-			switch ($style) {
+		switch ($style) {
 
-				// вывод горизонтальной таблицей
-				case 1:
-					echo '<table class="menutable'.$params->get('moduleclass_sfx').'" cellspacing="0" cellpadding="0" border="0"><tr>';
-					mosJoostinaPrepareLink($params,1);
-					echo '</tr></table>';
+			// вывод горизонтальной таблицей
+			case 1:
+				echo '<table class="menutable'.$params->get('moduleclass_sfx').'" cellspacing="0" cellpadding="0" border="0"><tr>';
+				mosJoostinaPrepareLink($params,1);
+				echo '</tr></table>';
+			break;
+
+			// вывод списком
+			case 2:
+				echo '<ul class="menulist'.$params->get('moduleclass_sfx').'">';
+				mosJoostinaPrepareLink($params,2);
+				echo '</ul>';
+			break;
+
+			// вывод чистых ссылок
+			case 3:
+				mosJoostinaPrepareLink($params,3);
 				break;
 
-				// вывод списком
-				case 2:
-					echo '<ul class="menulist'.$params->get('moduleclass_sfx').'">';
-					mosJoostinaPrepareLink($params,2);
-					echo '</ul>';
-				break;
+			// вывод в 100% ширины
+			case 4:
+				echo '<table class="menutable'.$params->get('moduleclass_sfx').'" cellspacing="0" cellpadding="0" border="0" width="100%"><tr>';
+				mosJoostinaPrepareLink($params,4);
+				echo '</tr></table>';
+			break;
 
-				// вывод чистых ссылок
-				case 3:
-					mosJoostinaPrepareLink($params,3);
-					break;
+			case 5:
+				echo '<div class="maindiv">';
+				mosJoostinaPrepareLink($params,5);
+				echo '</div>';
+			break;
 
-				// вывод в 100% ширины
-				case 4:
-					echo '<table class="menutable'.$params->get('moduleclass_sfx').'" cellspacing="0" cellpadding="0" border="0" width="100%"><tr>';
-					mosJoostinaPrepareLink($params,4);
-					echo '</tr></table>';
-				break;
+			case 6:
+				echo '<table class="menutable'.$params->get('moduleclass_sfx').'" cellspacing="0" cellpadding="0" border="0" >';
+				mosJoostinaPrepareLink($params,6);
+				echo '</table>';
+			break;
 
-				case 5:
-					echo '<div class="maindiv">';
-					mosJoostinaPrepareLink($params,5);
-					echo '</div>';
-				break;
-
-				case 6:
-					echo '<table class="menutable'.$params->get('moduleclass_sfx').'" cellspacing="0" cellpadding="0" border="0" >';
-					mosJoostinaPrepareLink($params,6);
-					echo '</table>';
-				break;
-
-				default:
-					echo 'empty';
-				break;
-			}
+			default:
+				echo 'empty';
+			break;
 		}
 	}
+}
 
 	$params->def('menutype', 'mainmenu');
 

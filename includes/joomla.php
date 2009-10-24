@@ -600,7 +600,7 @@ class mosMainFrame {
 		$session = &$this->_session;
 		$session = new mosSession($this->_db);
 		// purge expired sessions
-		(rand(0,1)==1) ? $session->purge('core') : null;
+		(rand(0,2)==1) ? $session->purge('core') : null;
 		// Session Cookie `name`
 		$sessionCookieName = mosMainFrame::sessionCookieName();
 		// Get Session Cookie `value`
@@ -1119,7 +1119,7 @@ class mosMainFrame {
 		$user->gid = intval($this->_session->gid);
 		if($user->id) {
 			$query = "SELECT id, name, email, avatar, block, sendEmail, registerDate, lastvisitDate, activation, params FROM #__users WHERE id = ".(int)$user->id;
-			$database->setQuery($query);
+			$database->setQuery($query,0,1);
 			$database->loadObject($my);
 			$user->params = $my->params;
 			$user->name = $my->name;
@@ -1152,7 +1152,7 @@ class mosMainFrame {
 		$sql = "SELECT * FROM #__session WHERE session_id = '".$sess_id."' AND guest = 0";
 		
 		$row = null;
-		$database->setQuery($sql);
+		$database->setQuery($sql,0,1);
 		$database->loadObject($row);
 		
 		if($row){
@@ -1161,7 +1161,7 @@ class mosMainFrame {
 			$query = "SELECT id, name, username, usertype, email, avatar, block, sendEmail, registerDate, lastvisitDate, activation, params
 			FROM #__users WHERE id = ".(int)$user->id;
 
-			$database->setQuery($query);
+			$database->setQuery($query,0,1);
 			$database->loadObject($my);
 			$user->params = $my->params;
 			$user->name = $my->name;
@@ -1272,7 +1272,7 @@ class mosMainFrame {
 		if($prefix != 'com_' && $prefix != 'mod_') {
 			// ensure backward compatibility with existing links
 			$name = $option;
-			$option = "com_$option";
+			$option = 'com_'.$option;
 		} else {
 			$name = substr($option,4);
 		}
@@ -1511,7 +1511,7 @@ class mosMainFrame {
 			if(!$exists) {
 				$ContentTyped = $this->get('_ContentTyped',array());
 
-				$all_menu_links = mosMenu::get_menu_links;
+				$all_menu_links = &mosMenu::get_menu_links();
 
 				if(isset($all_menu_links['index.php?option=com_content&task=view&id='.$id]) && $all_menu_links['index.php?option=com_content&task=view&id='.$id]['type']=='content_typed'){
 					$ContentTyped[$id] =$all_menu_links['index.php?option=com_content&task=view&id='.$id]['id'];
@@ -1885,7 +1885,7 @@ class mosMainFrame {
 
 		$mosmsg = ($mosmsg_ss!='') ? $mosmsg_ss : $mosmsg_rq;
 
-		if(Jstring::strlen($mosmsg) > 300) { // выводим сообщения не длинее 300 символов
+		if($mosmsg!='' && Jstring::strlen($mosmsg) > 300) { // выводим сообщения не длинее 300 символов
 			$mosmsg = Jstring::substr($mosmsg,0,300);
 		}
 
@@ -2723,7 +2723,7 @@ class mosModule extends mosDBTable {
 			$where = " m.title = '".$title."'";
 		}
 
-		$query = "SELECT * FROM #__modules AS m WHERE ".$where;
+		$query = 'SELECT * FROM #__modules AS m WHERE '.$where.' AND published=1';
 		$row = null;
 
 		$this->_view->_mainframe->_db->setQuery($query);
@@ -2812,11 +2812,9 @@ class mosModule extends mosDBTable {
 		$style = intval($style);
 
 		$config_absolute_path = JPATH_BASE;
-		$config_caching = $this->_view->_mainframe->getCfg('caching');
-		$config_disable_tpreview = $this->_view->_mainframe->getCfg('disable_tpreview');
+		$config_caching = $this->_view->_mainframe->config->config_caching;
 
-
-		if($tp && !$config_disable_tpreview ) {
+		if($tp && !$this->_view->_mainframe->config->config_disable_tpreview ) {
 			echo '<div style="height:50px;background-color:#eee;margin:2px;padding:10px;border:1px solid #f00;color:#700;">'.$position.'</div>';
 			return;
 		}
@@ -2825,7 +2823,7 @@ class mosModule extends mosDBTable {
 
 		$modules = (isset($allModules[$position])) ? $modules = $allModules[$position]:array();
 
-		echo ($noindex == 1) ? '<span class="hide"><![CDATA[<noindex>]]></span>' : null;
+		echo ($noindex == 1) ? '<span style="display:none"><![CDATA[<noindex>]]></span>' : null;
 
 		if(count($modules) < 1) {
 			$style = 0;
@@ -2871,8 +2869,8 @@ class mosModule extends mosDBTable {
 			unset($cache);
 		}
 
-		echo ($style==1) ? "</tr>\n</table>\n" : null;
-		echo ($noindex == 1) ? '<span class="hide"><![CDATA[</noindex>]]></span>' : null;
+		echo ($style   ==1 ) ? "</tr>\n</table>\n" : null;
+		echo ($noindex == 1) ? '<span style="display:none"><![CDATA[</noindex>]]></span>' : null;
 
 		return;
 	}
@@ -3618,8 +3616,7 @@ function mosBindArrayToObject($array,&$obj,$ignore = '',$prefix = null,$checkSla
 					$ak = $k;
 				}
 				if(isset($array[$ak])) {
-					$obj->$k = ($checkSlashes && get_magic_quotes_gpc()) ? mosStripslashes($array[$ak]):
-						$array[$ak];
+					$obj->$k = ($checkSlashes && get_magic_quotes_gpc()) ? mosStripslashes($array[$ak]): $array[$ak];
 				}
 			}
 		}
@@ -3912,9 +3909,7 @@ function mosMakeHtmlSafe(&$mixed,$quote_style = ENT_QUOTES,$exclude_keys = '') {
 * @return boolean True if the visitor's group at least equal to the menu access
 */
 
-function mosMenuCheck($Itemid,$menu_option,$task,$gid) {
-	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->_db;
+function mosMenuCheck($Itemid,$menu_option,$task,$gid,$mainframe) {
 
 	$results = array();
 	$access = 0;
@@ -3929,6 +3924,7 @@ function mosMenuCheck($Itemid,$menu_option,$task,$gid) {
 		}
 		unset($all_menus);
 	} else {
+		$database = &$mainframe->_db;
 		$dblink = "index.php?option=".$database->getEscaped($menu_option, true);
 		if($task != '') {
 			$dblink .= "&task=".$database->getEscaped($task, true);
@@ -4437,8 +4433,8 @@ class mosMambotHandler {
 				if(!defined('_JOS_CONTENT_MAMBOTS')) {
 					/** ensure that query is only called once*/
 					define('_JOS_CONTENT_MAMBOTS',1);
-					$where_ac .= ($config['config_use_unpublished_mambots']==1) ? '' : ' AND published=1';
-					$query = 'SELECT folder, element, published, params FROM #__mambots WHERE folder = \'content\''.$where_ac.' ORDER BY ordering';
+					$where_ac_2 = $where_ac_2.($config['config_use_unpublished_mambots']==1) ? ' published=1 AND':'';
+					$query = 'SELECT folder, element, published, params FROM #__mambots WHERE '.$where_ac_2.' folder = \'content\' AND client_id=0 ORDER BY ordering DESC';
 					$database->setQuery($query);
 					// load query into class variable _content_mambots
 					if(!($this->_content_mambots = $database->loadObjectList())) {
@@ -4456,7 +4452,7 @@ class mosMambotHandler {
 				if(!defined('_JOS_SEARCH_MAMBOTS')) {
 					define('_JOS_SEARCH_MAMBOTS',1);
 
-					$query = 'SELECT folder, element, published, params FROM #__mambots WHERE published = 1'.$where_ac.' AND folder = \'search\' ORDER BY ordering, id DESC';
+					$query = 'SELECT folder, element, published, params FROM #__mambots WHERE published = 1'.$where_ac.' AND folder = \'search\' ORDER BY ordering DESC';
 					$database->setQuery($query);
 					if(!($this->_search_mambot = $database->loadObjectList())) {
 						return false;
@@ -4472,7 +4468,7 @@ class mosMambotHandler {
 				break;
 
 			default:
-				$query = 'SELECT folder, element, published, params FROM #__mambots WHERE published = 1'.$where_ac.' AND folder = '.$database->Quote($group).' ORDER BY ordering, id DESC';
+				$query = 'SELECT folder, element, published, params FROM #__mambots WHERE published = 1'.$where_ac.' AND folder = '.$database->Quote($group).' AND client_id=0 ORDER BY ordering DESC';
 				$database->setQuery($query);
 				if(!($bots = $database->loadObjectList())) {
 					return false;

@@ -71,8 +71,7 @@ class mosMessage extends mosDBTable {
 			$message = $message?$message:$this->message;
 		}
 
-		$query = "SELECT cfg_name, cfg_value FROM #__messages_cfg WHERE user_id = ".(int)
-			$to_id;
+		$query = "SELECT cfg_name, cfg_value FROM #__messages_cfg WHERE user_id = ".(int)$to_id;
 		$database->setQuery($query);
 		$config = $database->loadObjectList('cfg_name');
 		$locked = @$config['lock']->cfg_value;
@@ -106,4 +105,3 @@ class mosMessage extends mosDBTable {
 		return false;
 	}
 }
-?>

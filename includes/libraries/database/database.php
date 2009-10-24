@@ -64,7 +64,7 @@ class database {
 	* @param string Common prefix for all tables
 	* @param boolean If true and there is an error, go offline
 	*/
-	function database($host = 'localhost',$user,$pass,$db = '',$table_prefix = '',$goOffline = true) {
+	function database($host = 'localhost',$user,$pass,$db = '',$table_prefix = '',$goOffline = true,$debug=0) {
 		// perform a number of fatality checks, then die gracefully
 		if(!function_exists('mysql_connect')) {
 			$mosSystemError = 1;
@@ -96,7 +96,13 @@ class database {
 		}
 		$this->_table_prefix = $table_prefix;
 
-		@mysql_query("SET NAMES 'utf8'",$this->_resource);
+		mysql_query("SET NAMES 'utf8'",$this->_resource);
+
+		if($debug==1){
+			mysql_query('set profiling=1',$this->_resource);
+			mysql_query('set profiling_history_size=100',$this->_resource);
+		};
+
 
 		$this->_ticker = 0;
 		$this->_log = array();
@@ -109,14 +115,13 @@ class database {
 
 		if (!is_object( $instance )) {
 			$config = &JConfig::getInstance();
-			$instance = new database($config->config_host,$config->config_user,$config->config_password,$config->config_db,$config->config_dbprefix);
+			$instance = new database($config->config_host,$config->config_user,$config->config_password,$config->config_db,$config->config_dbprefix,true,$config->config_debug);
 			if($instance->getErrorNum()) {
 				$mosSystemError = $database->getErrorNum();
 				include JPATH_BASE.DS.'configuration.php';
 				include JPATH_BASE.DS.'templates/system/offline.php';
 				exit();
 			}
-			$instance->debug($config->config_debug);
 			unset($config);
 		}
 
@@ -306,11 +311,11 @@ class database {
 			if($this->_limit > 0 || $this->_offset > 0) {
 				$this->_sql .= "\nLIMIT $this->_offset, $this->_limit";
 			}
-		if($this->_debug) {
-			// что бы не приклеивать к каждому объекту простыню из всез запросов - будем писать их в общесистемный лог
-			jd_log($this->_ticker++.'-> '.$this->_sql);
-			jd_inc('database->query->count');
-		}
+		//if($this->_debug) {
+		//	// что бы не приклеивать к каждому объекту простыню из всез запросов - будем писать их в общесистемный лог
+		//	jd_log($this->_ticker++.'-> '.$this->_sql);
+		//	jd_inc('database->query->count');
+		//}
 		$this->_errorNum = 0;
 		$this->_errorMsg = '';
 		$this->_cursor = mysql_query($this->_sql,$this->_resource);

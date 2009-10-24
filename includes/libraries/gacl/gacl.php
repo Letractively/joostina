@@ -89,7 +89,8 @@ class gacl {
 
 	function _mos_add_acl($aco_section_value, $aco_value, $aro_section_value, $aro_value, $axo_section_value = null, $axo_value = null) {
 		$this->acl[] = array($aco_section_value, $aco_value, $aro_section_value, $aro_value, $axo_section_value, $axo_value);
-		$this->acl_count = count($this->acl);
+// 		// TODO, отключить при ошибках ACL переменная вызывается каждый раз после добавления ACL правил в _mos_add_acl, но на 79 строке всё равно значение берётся после результата
+		//$this->acl_count = count($this->acl);
 	}
 	function debug_text($text) {
 		if($this->_debug) {
@@ -103,9 +104,9 @@ class gacl {
 		}
 		return $this->debug_text($function_name.'database error: '.$this->db->getErrorMsg().' ('.$this->db->getErrorNum().')');
 	}
-	function acl_check($aco_section_value, $aco_value, $aro_section_value, $aro_value,
-		$axo_section_value = null, $axo_value = null) {
+	function acl_check($aco_section_value, $aco_value, $aro_section_value, $aro_value,$axo_section_value = null, $axo_value = null) {
 		$acl_result = 0;
+
 		for($i = 0; $i < $this->acl_count; $i++) {
 			if(strcasecmp($aco_section_value, $this->acl[$i][0]) == 0) {
 				if(strcasecmp($aco_value, $this->acl[$i][1]) == 0) {
@@ -130,9 +131,7 @@ class gacl_api extends gacl {
 	var $_max_select_box_items = 100;
 	var $_max_search_return_items = 100;
 	function showarray($array) {
-		echo "<br><pre>\n";
-		var_dump($array);
-		echo "</pre><br>\n";
+		_xdump($array);
 	}
 	function return_page($url = "") {
 		global $_SERVER, $debug;
@@ -262,8 +261,7 @@ class gacl_api extends gacl {
 		$this->db->setQuery($query);
 		return $this->db->loadResultArray();
 	}
-	function get_group_parents($group_id, $group_type = 'ARO', $recurse =
-		'NO_RECURSE') {
+	function get_group_parents($group_id, $group_type = 'ARO', $recurse ='NO_RECURSE') {
 		$this->debug_text("get_group_parents(): Group_ID: $group_id Group Type: $group_type Recurse: $recurse");
 		switch(strtolower(trim($group_type))) {
 			case 'axo':
@@ -1069,19 +1067,15 @@ class gacl_api extends gacl {
 				break;
 		}
 		if(is_int($grp_src) && is_int($grp_tgt)) {
-			$this->db->setQuery("SELECT COUNT(*)"."\nFROM $table AS g1"."\nLEFT JOIN $table AS g2 ON g1.lft > g2.lft AND g1.lft < g2.rgt".
-				"\nWHERE g1.group_id=".(int)$grp_src." AND g2.group_id=".(int)$grp_tgt);
+			$this->db->setQuery("SELECT COUNT(*)"."\nFROM $table AS g1"."\nLEFT JOIN $table AS g2 ON g1.lft > g2.lft AND g1.lft < g2.rgt"."\nWHERE g1.group_id=".(int)$grp_src." AND g2.group_id=".(int)$grp_tgt);
 		} else
 			if(is_string($grp_src) && is_string($grp_tgt)) {
-				$this->db->setQuery("SELECT COUNT(*)"."\nFROM $table AS g1"."\nLEFT JOIN $table AS g2 ON g1.lft > g2.lft AND g1.lft < g2.rgt".
-					"\nWHERE g1.name=".$this->db->Quote($grp_src)." AND g2.name=".$this->db->Quote($grp_tgt));
+				$this->db->setQuery("SELECT COUNT(*)"."\nFROM $table AS g1"."\nLEFT JOIN $table AS g2 ON g1.lft > g2.lft AND g1.lft < g2.rgt"."\nWHERE g1.name=".$this->db->Quote($grp_src)." AND g2.name=".$this->db->Quote($grp_tgt));
 			} else
 				if(is_int($grp_src) && is_string($grp_tgt)) {
-					$this->db->setQuery("SELECT COUNT(*)"."\nFROM $table AS g1"."\nLEFT JOIN $table AS g2 ON g1.lft > g2.lft AND g1.lft < g2.rgt".
-						"\nWHERE g1.group_id=".(int)$grp_src." AND g2.name=".$this->db->Quote($grp_tgt));
+					$this->db->setQuery("SELECT COUNT(*)"."\nFROM $table AS g1"."\nLEFT JOIN $table AS g2 ON g1.lft > g2.lft AND g1.lft < g2.rgt"."\nWHERE g1.group_id=".(int)$grp_src." AND g2.name=".$this->db->Quote($grp_tgt));
 				} else {
-					$this->db->setQuery("SELECT COUNT(*)"."\nFROM $table AS g1"."\nLEFT JOIN $table AS g2 ON g1.lft > g2.lft AND g1.lft < g2.rgt".
-						"\nWHERE g1.name=".$this->db->Quote($grp_src)." AND g2.group_id=".(int)$grp_tgt);
+					$this->db->setQuery("SELECT COUNT(*)"."\nFROM $table AS g1"."\nLEFT JOIN $table AS g2 ON g1.lft > g2.lft AND g1.lft < g2.rgt"."\nWHERE g1.name=".$this->db->Quote($grp_src)." AND g2.group_id=".(int)$grp_tgt);
 				}
 				return $this->db->loadResult();
 	}
@@ -1089,9 +1083,9 @@ class gacl_api extends gacl {
 		return $this->_getGroup('aro', $value);
 	}
 	function _getGroup($type, $value) {
-		$database = &database::getInstance();
+		$database = &$this->db;
 
-		$database->setQuery("SELECT g.* FROM #__core_acl_{$type}_groups AS g"."\nINNER JOIN #__core_acl_groups_{$type}_map AS gm ON gm.group_id = g.group_id"."\nINNER JOIN #__core_acl_{$type} AS ao ON ao.{$type}_id = gm.{$type}_id"."\nWHERE ao.value=".$this->db->Quote($value));
+		$database->setQuery("SELECT g.* FROM #__core_acl_{$type}_groups AS g INNER JOIN #__core_acl_groups_{$type}_map AS gm ON gm.group_id = g.group_id INNER JOIN #__core_acl_{$type} AS ao ON ao.{$type}_id = gm.{$type}_id"."\nWHERE ao.value=".$database->Quote($value));
 		$obj = null;
 		$database->loadObject($obj);
 		return $obj;
@@ -1099,7 +1093,7 @@ class gacl_api extends gacl {
 	function _getAbove() {
 	}
 	function _getBelow($table, $fields, $groupby = null, $root_id = null, $root_name = null,$inclusive = true) {
-		$database = &database::getInstance();
+		$database = &$this->db;
 
 		$root = new stdClass();
 		$root->lft = 0;
@@ -1118,11 +1112,10 @@ class gacl_api extends gacl {
 				$where = "WHERE g1.lft BETWEEN ".(int)($root->lft + 1)." AND ".(int)($root->rgt -1);
 			}
 		}
-		$database->setQuery("SELECT $fields"."\nFROM $table AS g1"."\nINNER JOIN $table AS g2 ON g1.lft BETWEEN g2.lft AND g2.rgt"."\n$where".($groupby?"\nGROUP BY $groupby":"")."\nORDER BY g1.lft");
+		$database->setQuery("SELECT $fields FROM $table AS g1 INNER JOIN $table AS g2 ON g1.lft BETWEEN g2.lft AND g2.rgt"."\n$where".($groupby?"\nGROUP BY $groupby":"")."\nORDER BY g1.lft");
 		return $database->loadObjectList();
 	}
 	function get_group_children_tree($root_id = null, $root_name = null, $inclusive = true) {
-//		global $database;
 		$tree = gacl_api::_getBelow('#__core_acl_aro_groups','g1.group_id, g1.name, COUNT(g2.name) AS level', 'g1.name', $root_id, $root_name,$inclusive);
 		$n = count($tree);
 		$min = $tree[0]->level;

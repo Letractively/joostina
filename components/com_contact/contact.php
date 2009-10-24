@@ -46,9 +46,9 @@ switch($task) {
 function listContacts($option,$catid) {
 	global $my,$Itemid;
 
-	$database = &database::getInstance();
 	$mainframe = &mosMainFrame::getInstance();
-	$config = &Jconfig::getInstance();
+	$config = &$mainframe->config;
+	$database = &$mainframe->_db;
 
 	/* Query to retrieve all categories that belong under the contacts section and that are published.*/
 	$query = "SELECT*, COUNT( a.id ) AS numlinks FROM #__categories AS cc"
@@ -202,9 +202,9 @@ function listContacts($option,$catid) {
 function contactpage($contact_id) {
 	global $my,$Itemid;
 
-	$database = &database::getInstance();
 	$mainframe = &mosMainFrame::getInstance();
-	$config = &Jconfig::getInstance();
+	$config = &$mainframe->config;
+	$database = &$mainframe->_db;
 
 	$query = "SELECT a.id AS value, CONCAT_WS( ' - ', a.name, a.con_position ) AS text, a.catid, cc.access AS cat_access"
 		."\n FROM #__contact_details AS a"
@@ -405,9 +405,9 @@ function sendmail($con_id,$option) {
 	// simple spoof check security
 	josSpoofCheck(1);
 
-	$database = &database::getInstance();
 	$mainframe = &mosMainFrame::getInstance();
-	$config = &Jconfig::getInstance();
+	$config = &$mainframe->config;
+	$database = &$mainframe->_db;
 
 	$query = "SELECT* FROM #__contact_details WHERE id = ".(int)$con_id;
 	$database->setQuery($query);
@@ -601,4 +601,3 @@ function vCard($id) {
 		return;
 	}
 }
-?>
