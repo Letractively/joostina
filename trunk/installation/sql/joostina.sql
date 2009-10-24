@@ -1045,7 +1045,6 @@ CREATE TABLE IF NOT EXISTS `#__config` (
 
 
 # расширенные поля профиля пользователя
-
 CREATE TABLE IF NOT EXISTS `#__users_extra` (
   `user_id` int(11) NOT NULL,
   `gender` varchar(10) NOT NULL,
@@ -1078,3 +1077,6 @@ CREATE TABLE `#__content_tags` (
 ALTER TABLE `#__sections` ADD `templates` TEXT NOT NULL ;
 ALTER TABLE `#__categories` ADD `templates` TEXT NOT NULL ;
 ALTER TABLE `#__content` ADD `templates` VARCHAR( 255 ) NOT NULL ;
+# RC3
+ALTER TABLE `#__content_tags` ADD INDEX ( `obj_type` );
+ALTER TABLE `#__core_acl_aro_groups` DROP INDEX  `parent_id_aro_groups`;

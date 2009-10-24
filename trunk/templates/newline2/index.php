@@ -127,7 +127,7 @@ $iso = explode('=',_ISO); echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'
             
             <div class="col">
                 <?php mosLoadModules('left',-2); ?>
-                <?php mosLoadModules('banner',-2); ?>            
+                <?php mosLoadModules('banner',-2); ?>
             </div><!--col:end-->
             
             

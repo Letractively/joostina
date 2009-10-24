@@ -122,7 +122,7 @@ class HTML_admin_misc {
 			</tr>
 			<tr>
 				<td><strong><?php echo _JOOSTINA_VERSION?>:</strong></td>
-				<td><?php echo $version; ?></td>
+				<td><?php echo $version->CMS.' '.$version->CMS_ver.'.'.$version->DEV_STATUS.' [ '.$version->CODENAME.' ] '.$version->RELDATE.' '.$version->RELTIME.' '.$version->RELTZ.'<br />'.$version->SUPPORT; ?></td>
 			</tr>
 			<tr>
 				<td><strong><?php echo _BROWSER?>:</strong></td>
@@ -249,18 +249,15 @@ class HTML_admin_misc {
 <?php
 		$cf = file(JPATH_BASE.'/configuration.php');
 		foreach($cf as $k => $v) {
-			if(eregi('mosConfig_host',$v)) {
+			if(preg_match('/mosConfig_host/i',$v)) {
 				$cf[$k] = '$mosConfig_host = \'xxxxxx\'';
-			} else
-				if(eregi('mosConfig_user ',$v)) {
-					$cf[$k] = '$mosConfig_user = \'xxxxxx\'';
-				} else
-					if(eregi('mosConfig_password',$v)) {
-						$cf[$k] = '$mosConfig_password = \'xxxxxx\'';
-					} else
-						if(eregi('mosConfig_db ',$v)) {
-							$cf[$k] = '$mosConfig_db = \'xxxxxx\'';
-						}
+			} elseif(preg_match('/mosConfig_user/i',$v)) {
+				$cf[$k] = '$mosConfig_user = \'xxxxxx\'';
+			} elseif(preg_match('/mosConfig_password/i',$v)) {
+				$cf[$k] = '$mosConfig_password = \'xxxxxx\'';
+			} elseif(preg_match('/mosConfig_db /i',$v)) {
+				$cf[$k] = '$mosConfig_db = \'xxxxxx\'';
+			}
 		}
 		foreach($cf as $k => $v) {
 			$k = htmlspecialchars($k);

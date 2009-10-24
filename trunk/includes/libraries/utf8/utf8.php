@@ -12,8 +12,7 @@ defined('_VALID_MOS') or die();
 
 define('EXT','.php');
 
-$_c = JPATH_BASE.'/includes/libraries/utf8/';
-define('SYSPATH',$_c);
+define('SYSPATH',JPATH_BASE.'/includes/libraries/utf8/');
 
 
 /**
@@ -79,21 +78,18 @@ define('PCRE_UNICODE_PROPERTIES', (bool) preg_match('/^\pL$/u', 'ñ'));
 error_reporting($ER);
 
 // SERVER_UTF8 ? use mb_* functions : use non-native functions
-if (extension_loaded('mbstring'))
-{
+if (extension_loaded('mbstring')){
 	mb_internal_encoding('UTF-8');
 	define('SERVER_UTF8', TRUE);
-}
-else
-{
+}else{
 	define('SERVER_UTF8', FALSE);
 }
 
 // Convert all global variables to UTF-8.
-$_GET    = utf8::clean($_GET);
-$_POST   = utf8::clean($_POST);
-$_COOKIE = utf8::clean($_COOKIE);
-$_SERVER = utf8::clean($_SERVER);
+//$_GET    = utf8::clean($_GET);
+//$_POST   = utf8::clean($_POST);
+//$_COOKIE = utf8::clean($_COOKIE);
+//$_SERVER = utf8::clean($_SERVER);
 
 if (PHP_SAPI == 'cli')
 {
@@ -124,7 +120,7 @@ class utf8 {
 			// Remove control characters
 			$str = self::strip_ascii_ctrl($str);
 
-			if ( ! self::is_ascii($str)){
+			if ( !self::is_ascii($str)){
 
 				// Disable notices
 				$ER = error_reporting(~E_NOTICE);

@@ -406,15 +406,15 @@ if($mosConfig_sef) {
 			}
 */
 		} else {
-
 			/*
 			* Unknown content
 			* http://www.domain.com/unknown
 			*/
 			$jdir = str_replace('index.php','',$_SERVER['PHP_SELF']);
 			$juri = str_replace($jdir,'',$_SERVER['REQUEST_URI']);
-
-			if($juri != '' && $juri != '/' && !eregi("index\.php",$_SERVER['REQUEST_URI']) && !eregi("index2\.php",$_SERVER['REQUEST_URI']) && !eregi("/\?",$_SERVER['REQUEST_URI']) && $_SERVER['QUERY_STRING'] == '') {
+//  TODO раскомментировать при ошибках с SEF
+//			if($juri != '' && $juri != '/' && !eregi("index\.php",$_SERVER['REQUEST_URI']) && !eregi("index2\.php",$_SERVER['REQUEST_URI']) && !eregi("/\?",$_SERVER['REQUEST_URI']) && $_SERVER['QUERY_STRING'] == '') {
+			if($juri != '' && $juri != '/' && !preg_match("/index.php/i",$_SERVER['REQUEST_URI']) && !preg_match("/index2.php/i",$_SERVER['REQUEST_URI']) && !preg_match("/\?/i",$_SERVER['REQUEST_URI']) && $_SERVER['QUERY_STRING'] == '') {
 				header('HTTP/1.0 404 Not Found');
 				require_once (JPATH_BASE.'/templates/system/404.php');
 				exit(404);
@@ -434,16 +434,20 @@ function sefRelToAbs($string) {
 	global $iso_client_lang,$mosConfig_com_frontpage_clear;
 
 	//multilingual code url support
-	if($mosConfig_sef && $mosConfig_multilingual_support && $string != 'index.php' &&!eregi("^(([^:/?#]+):)",$string) && !strcasecmp(substr($string,0,9),'index.php') && !eregi('lang=',$string)) {
+	if($mosConfig_sef && $mosConfig_multilingual_support && $string != 'index.php' &&!preg_match("/^(([^:\/\?#]+):)/i",$string) && !strcasecmp(substr($string,0,9),'index.php') && !preg_match('/lang=/',$string)) {
+//  TODO раскомментировать при ошибках с SEF
+//	if($mosConfig_sef && $mosConfig_multilingual_support && $string != 'index.php' &&!eregi("^(([^:/?#]+):)",$string) && !strcasecmp(substr($string,0,9),'index.php') && !eregi('lang=',$string)) {
 		$string .= '&amp;lang='.$iso_client_lang;
 	}
 
 	// если ссылка идёт на компонент главной страницы - очистим её
-	if((strpos($string,'option=com_frontpage')>0) & $mosConfig_com_frontpage_clear & !(strpos($string,'limit'))) {
+	if($mosConfig_sef && $mosConfig_com_frontpage_clear && strpos($string,'option=com_frontpage')>0 && !(strpos($string,'limit'))) {
 		$string = '';
 	}
 	// SEF URL Handling
-	if($mosConfig_sef && !eregi("^(([^:/?#]+):)",$string) && !strcasecmp(substr($string,0,9),'index.php')) {
+	if($mosConfig_sef && !preg_match("/^(([^:\/\?#]+):)/i",$string) && !strcasecmp(substr($string,0,9),'index.php')) {
+//  TODO раскомментировать при ошибках с SEF
+//	if($mosConfig_sef && !eregi("^(([^:/?#]+):)",$string) && !strcasecmp(substr($string,0,9),'index.php')) {
 		// Replace all &amp; with &
 		$string = str_replace('&amp;','&',$string);
 
@@ -480,7 +484,7 @@ function sefRelToAbs($string) {
 					$parts[$key] = stripslashes(str_replace('%2b','+',$value));
 				}
 			}
-//			var_dump($parts);
+
 			$sefstring = '';
 
 			// Component com_content urls
@@ -594,7 +598,9 @@ function sefRelToAbs($string) {
 			if(strncmp($string,'/',1) == 0) {
 				// splits http(s)://xx.xx/yy/zz..." into [1]="http(s)://xx.xx" and [2]="/yy/zz...":
 				$live_site_parts = array();
-				eregi("^(https?:[\/]+[^\/]+)(.*$)",JPATH_SITE,$live_site_parts);
+//  TODO раскомментировать при ошибках с SEF
+//				eregi("^(https?:[\/]+[^\/]+)(.*$)",JPATH_SITE,$live_site_parts);
+				preg_match("/^(https?:[\/]+[^\/]+)(.*$)/i",JPATH_SITE,$live_site_parts);
 
 				$string = $live_site_parts[1].$string;
 			} else {

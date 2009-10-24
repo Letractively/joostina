@@ -204,7 +204,7 @@ ob_start();
 
 if($path = $mainframe->getPath('front')) {
 	$task = strval(mosGetParam($_REQUEST,'task','')); 
-	$ret = mosMenuCheck($Itemid,$option,$task,$gid);
+	$ret = mosMenuCheck($Itemid,$option,$task,$gid,$mainframe);
 	if($ret) {
 		//Подключаем язык компонента
 		if($mainframe->getLangFile($option)){
