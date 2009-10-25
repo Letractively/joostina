@@ -269,8 +269,6 @@ if($siteUrl) {
 	$config .= "\$mosConfig_gz_js_css = '0';\n";
 	// визуальный редактор для css и html
 	$config .= "\$mosConfig_codepress = '0';\n";
-	// автоматическая очистка каталога кэша
-	$config .= "\$mosConfig_clearCache = '0';\n";
 	// использование страницы печати из каталога текущего шаблона
 	$config .= "\$mosConfig_custom_print = '0';\n";
 

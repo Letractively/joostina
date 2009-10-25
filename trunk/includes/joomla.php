@@ -2185,10 +2185,6 @@ class JConfig {
 	var $config_db_cache_handler = 'none';
 	/** @var int время жизни кэша запросов базы данных */
 	var $config_db_cache_time = 0;
-	/** @var int переадресация с не WWW адресов */
-	var $config_www_redir = 0;
-	/** @var int автоматическая очистка кэша */
-	var $config_clearCache = 0;
 	/** @var int вывод мета-тега baser */
 	var $config_mtage_base = 1;
 	/** @var int вывод мета-тега revisit в днях */

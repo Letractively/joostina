@@ -199,9 +199,6 @@ function showconfig($option) {
 	$lists['config_disable_access_control']= mosHTML::yesnoRadioList('config_disable_access_control','class="inputbox"',$row->config_disable_access_control);
 	// оптимизация функции кэширования
 	$lists['config_cache_opt']= mosHTML::yesnoRadioList('config_cache_opt','class="inputbox"',$row->config_cache_opt);
-	// оптимизация функции кэширования
-	$lists['config_clearCache']= mosHTML::yesnoRadioList('config_clearCache','class="inputbox"',$row->config_clearCache);
-
 	// включение сжатия css и js файлов
 	$lists['config_gz_js_css']= mosHTML::yesnoRadioList('config_gz_js_css','class="inputbox"',$row->config_gz_js_css);
 	// captcha для регистрации
@@ -390,7 +387,6 @@ function showconfig($option) {
 	$lists['showPrint']			= mosHTML::yesnoRadioList('config_showPrint', 'class="inputbox"', $row->config_showPrint );
 	$lists['showEmail']			= mosHTML::yesnoRadioList('config_showEmail', 'class="inputbox"', $row->config_showEmail );
 	$lists['icons']				= mosHTML::yesnoRadioList('config_icons', 'class="inputbox"', $row->config_icons );
-	$lists['www_redir']			= mosHTML::yesnoRadioList( 'config_www_redir', 'class="inputbox"', $row->config_www_redir );
 	$lists['mtage_base']		= mosHTML::yesnoRadioList( 'config_mtage_base', 'class="inputbox"', $row->config_mtage_base );
 	$lists['config_custom_print']	= mosHTML::yesnoRadioList( 'config_custom_print', 'class="inputbox"', $row->config_custom_print );
 	$lists['config_old_toolbar']	= mosHTML::yesnoRadioList( 'config_old_toolbar', 'class="inputbox"', $row->config_old_toolbar );

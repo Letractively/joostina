@@ -29,19 +29,13 @@ function ExecSQL($task = 'execsql') {
 		$cCurrentSQL	= stripslashes($cCurrentSQL);
 	}
 
-	// Get table list
-	$database->setQuery('SHOW TABLES');
-	$tables = $database->loadAssocList();
+	$tables = $database->getTableList();
 
 	if(!empty($tables)) {
-		$key = 'Tables_in_'.$mosConfig_db;
 		$htmTablesList = '';
 		foreach($tables as $val) {
-			if($val[$key] == $cCurrentTable)
-				$_sel = 'selected';
-			else
-				$_sel = '';
-			$htmTablesList .= '<option '.$_sel.' value="'.$val[$key].'">'.$val[$key].'</option>';
+			$_sel = ($val == $cCurrentTable) ? 'selected' : '';
+			$htmTablesList .= '<option '.$_sel.' value="'.$val.'">'.$val.'</option>'."\n";
 		}
 	}
 
@@ -68,8 +62,6 @@ function ExecSQL($task = 'execsql') {
 	function changeQuery() {
 		limit = 'LIMIT ' + SRAX.get('easysql_records').value;
 		sel = SRAX.get('easysql_sel').value;
-		//alert(sel);
-		//return;
 		if (sel!='SELECT* FROM ') limit='';
 			table = '';
 		if (sel=='SELECT* FROM ' ||
@@ -160,7 +152,7 @@ function record_html($query) {
 	global $database;
 
 	$mainframe = &mosMainFrame::getInstance();
-	$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
+	$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images';
 
 	// exec query
 	$database->setQuery($query);
@@ -198,12 +190,11 @@ function record_html($query) {
 				.base64_encode($table)
 				.'&key='.$key.'&id='.$row[$key].'&prm2='
 				.base64_encode($query)
-				.'"><img border=0 src="'.$cur_file_icons_path.'/edit.png" alt="'._EDIT.'" /></a>&nbsp;
-				<a href="index2.php?option=com_easysql&task=delete&prm1='
+				.'"><img border=0 src="'.$cur_file_icons_path.'/file_ico/edit.png" alt="'._EDIT.'" /></a>&nbsp;<a href="index2.php?option=com_easysql&task=delete&prm1='
 				.base64_encode($table)
 				.'&key='.$key.'&id='.$row[$key].'&prm2='
 				.base64_encode($query)
-				.'"><img border=0 src="'.$cur_file_icons_path.'/publish_x.png" alt="'._DELETE.'" /></a></td>';
+				.'"><img border=0 src="'.$cur_file_icons_path.'/ico/publish_x.png" alt="'._DELETE.'" /></a></td>';
 			foreach($row as $var => $val) {
 				if(ereg("[a-zA-Z]+",$var,$array)) $body .= '<td>&nbsp;'.prepare(substr($val,0,50))."</td>\n";
 			}
@@ -443,4 +434,3 @@ function GetHtmlForType($name,$type,$value) {
 	}
 	return $ret;
 }
-?>
