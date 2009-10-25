@@ -45,5 +45,3 @@ switch($task) {
 		ExecSQL($task);
 		break;
 }
-
-?>
