@@ -438,7 +438,7 @@ function lostPassForm($option) {
 	$mainframe = &mosMainFrame::getInstance();
 	$mainframe->SetPageTitle(_PROMPT_PASSWORD);	
 
-	$config = &JConfig::getInstance();
+	$config = &Jconfig::getInstance();
 	$database = &database::getInstance();
 
 	$user_config = new configUser_lostpass($database);	

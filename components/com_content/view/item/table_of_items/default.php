@@ -7,8 +7,7 @@
  */
 
 // запрет прямого доступа
-defined('_VALID_MOS') or die(); ?>
-<?php
+defined('_VALID_MOS') or die();
 
 global $Itemid;
 $k = 0;
@@ -108,7 +107,8 @@ if($params->get('navigation')) {
 <?php } ?>
 <?php foreach ($items as $row) {
 	$row->created = mosFormatDate($row->created, $params->get('date_format'));
-	ContentView::_Itemid($row); ?>
+	ContentView::_Itemid($row,$mainframe);
+?>
 			<tr class="sectiontableentry<?php echo ($k + 1); ?>">
 <?php if($params->get('date')) { ?>
 				<td><?php echo $row->created; ?></td>

@@ -494,7 +494,7 @@ class mosParameters {
 
 	function _form_tabs($name,$value,$param,$control_name, $label) {
 
-		$config = &JConfig::getInstance();
+		$config = &Jconfig::getInstance();
 		$css_f = 'tabpane.css';
 		$js_f = 'tabpane_mini.js';
 		$css = '<link rel="stylesheet" type="text/css" media="all" href="'.$config->config_live_site.'/includes/js/tabs/'.$css_f.'" id="luna-tab-style-sheet" />';

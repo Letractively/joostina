@@ -114,7 +114,7 @@ class database {
 		jd_inc('database::getInstance()');
 
 		if (!is_object( $instance )) {
-			$config = &JConfig::getInstance();
+			$config = &Jconfig::getInstance();
 			$instance = new database($config->config_host,$config->config_user,$config->config_password,$config->config_db,$config->config_dbprefix,true,$config->config_debug);
 			if($instance->getErrorNum()) {
 				$mosSystemError = $database->getErrorNum();

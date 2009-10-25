@@ -600,7 +600,7 @@ class mosMainFrame {
 		$session = &$this->_session;
 		$session = new mosSession($this->_db);
 		// purge expired sessions
-		(rand(0,2)==1) ? $session->purge('core') : null;
+		(rand(0,2)==1) ? $session->purge('core','',$this->config->config_lifetime) : null;
 		// Session Cookie `name`
 		$sessionCookieName = mosMainFrame::sessionCookieName();
 		// Get Session Cookie `value`
@@ -3955,7 +3955,7 @@ function mosMenuCheck($Itemid,$menu_option,$task,$gid,$mainframe) {
 * @param offset time offset if different than global one
 * @returns formated date
 */
-function mosFormatDate($date,$format = "",$offset = null) {
+function mosFormatDate($date,$format = '',$offset = null) {
 	static $config_offset;
 
 	if(!isset($config_offset)){
@@ -3973,7 +3973,7 @@ function mosFormatDate($date,$format = "",$offset = null) {
 	}
 	if($date && ereg("([0-9]{4})-([0-9]{2})-([0-9]{2})[ ]([0-9]{2}):([0-9]{2}):([0-9]{2})",$date,$regs)) {
 		$date = mktime($regs[4],$regs[5],$regs[6],$regs[2],$regs[3],$regs[1]);
-		$date = $date > -1?strftime($format,$date + ($offset* 60* 60)):'-';
+		$date = $date > -1 ? strftime($format,$date + ($offset* 60* 60)):'-';
 	}
 	return $date;
 }

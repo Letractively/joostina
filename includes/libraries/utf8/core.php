@@ -43,7 +43,7 @@ class Jstring{
 			}
 
 			if (! function_exists('cp1259_to_utf8')){ // конвертируем собственнвми средствами
-				$config =& JConfig::getInstance();
+				$config =& Jconfig::getInstance();
 				include_once $config->config_absolute_path.'/includes/libraries/utf8/to_utf8.php';
 			}
 			return cp1259_to_utf8($text);
@@ -101,7 +101,7 @@ class Jstring{
 			return strrpos($str, $search, $offset);
 		}
 
-		$config = &JConfig::getInstance();
+		$config = &Jconfig::getInstance();
 		include_once $config->config_absolute_path.'/includes/libraries/utf8/strrpos.php';
 		return _strrpos($str, $search, $offset);
 	}
@@ -117,7 +117,7 @@ class Jstring{
 			return strpos($str, $search, $offset);
 		}
 
-		$config = &JConfig::getInstance();
+		$config = &Jconfig::getInstance();
 		include_once $config->config_absolute_path.'/includes/libraries/utf8/strpos.php';
 		return _strpos($str, $search, $offset);
 	}
@@ -133,7 +133,7 @@ class Jstring{
 			return strtolower($str);
 		}
 
-		$config = &JConfig::getInstance();
+		$config = &Jconfig::getInstance();
 		include_once $config->config_absolute_path.'/includes/libraries/utf8/strtolower.php';
 		return _strtolower($str);
 	}
@@ -150,7 +150,7 @@ class Jstring{
 			return substr($str, $offset, $length);
 		}
 
-		$config = &JConfig::getInstance();
+		$config = &Jconfig::getInstance();
 		include_once $config->config_absolute_path.'/includes/libraries/utf8/substr.php';
 		return _substr($str, $offset, $length);
 	}

@@ -17,7 +17,7 @@ include_once ($mainframe->getLangFile('com_content'));
 global $task, $Itemid, $option, $my;
 
 //Подключаем js com_content-а
-contentHelper::_load_core_js();
+contentHelper::_load_core_js($mainframe);
 
 $id = intval(mosGetParam($_REQUEST, 'id', 0));
 $pop = intval(mosGetParam($_REQUEST, 'pop', 0));
@@ -57,8 +57,7 @@ switch ($task) {
 		break;
 
 	case 'category':
-		$cache = &mosCache::getCache('com_content');
-		showTableCategory($id,$cache);
+		showTableCategory($id);
 		break;
 
 	case 'blogsection':
@@ -236,7 +235,7 @@ function frontpage($gid,$limit,$limitstart,$pop) {
 	$access = new contentAccess();
 
 	//Установка параметров страницы блога раздела
-	$params = contentPageConfig::setup_frontpage();
+	$params = contentPageConfig::setup_frontpage($mainframe);
 	$limit = $params->get('intro') + $params->get('leading') + $params->get('link');
 
 	$frontpage = new mosContent($database);
@@ -260,7 +259,7 @@ function frontpage($gid,$limit,$limitstart,$pop) {
 	$params->page_type = 'frontpage';
 
 	ob_start();
-		BlogOutput($frontpage, $params, $access);
+		BlogOutput($frontpage, $params, $access,$mainframe);
 		$content_boby = ob_get_contents(); // главное содержимое - стек вывода компонента - mainbody
 	ob_end_clean();
 
@@ -268,7 +267,7 @@ function frontpage($gid,$limit,$limitstart,$pop) {
 }
 
 function showSectionCatlist($id,$cache){
-	global $Itemid, $my;
+	global $my;
 
 	$r = $cache->call('_showSectionCatlist', $id,$my->gid);
 	from_cache($r);
@@ -454,7 +453,7 @@ function _showTableCategory($id,$gid,$limit,$limitstart,$sectionid,$selected,$fi
 	}
 
 	ob_start();
-		ContentView::showContentList($category, $access, $params);
+		ContentView::showContentList($category, $access, $params,$mainframe);
 		$content_boby = ob_get_contents(); // главное содержимое - стек вывода компонента - mainbody
 	ob_end_clean();
 
@@ -545,7 +544,7 @@ function _showBlogSection($id,$gid,$pop,$limit,$limitstart) {
 	}
 
 	ob_start();
-		BlogOutput($section, $params, $access);
+		BlogOutput($section, $params, $access,$mainframe);
 		$content_boby = ob_get_contents(); // главное содержимое - стек вывода компонента - mainbody
 	ob_end_clean();
 
@@ -637,7 +636,7 @@ function _showBlogCategory($id = 0,$gid,$pop,$limit,$limitstart) {
 	$params->page_type = 'category_blog';
 
 	ob_start();
-		BlogOutput($category, $params, $access);
+		BlogOutput($category, $params, $access,$mainframe);
 		$content_boby = ob_get_contents(); // главное содержимое - стек вывода компонента - mainbody
 	ob_end_clean();
 
@@ -722,7 +721,7 @@ function showArchiveSection($id = null) {
 	$meta = new contentMeta($params);
 	$meta->set_meta();
 
-	BlogOutput($section, $params, $access);
+	BlogOutput($section, $params, $access,$mainframe);
 
 }
 
@@ -822,13 +821,16 @@ function showArchiveCategory($id = 0) {
 	$meta = new contentMeta($params);
 	$meta->set_meta();
 
-	BlogOutput($category, $params, $access);
+	BlogOutput($category, $params, $access,$mainframe);
 }
 
-function BlogOutput(&$obj, $params, &$access) {
+function BlogOutput(&$obj, $params, &$access,$mainframe=null) {
 	global $Itemid, $task, $id, $option, $my;
 
-	$mainframe = &mosMainFrame::getInstance();
+	if(!$mainframe){
+		$mainframe = &mosMainFrame::getInstance();
+	}
+
 	$database = &$mainframe->_db;
 
 	$rows = $obj->content;
@@ -884,7 +886,7 @@ function BlogOutput(&$obj, $params, &$access) {
 	$sfx = $params->get('pageclass_sfx');
 
 	//Установка параметров записей в блоге
-	$params = contentPageConfig::setup_blog_item($params);
+	$params = contentPageConfig::setup_blog_item($params,$mainframe);
 
 	// used to display section/catagory description text and images
 	// currently not supported in Archives
@@ -1205,7 +1207,7 @@ function _showFullItem($id) {
 
 		// собираем содержимое страницы в буфер - для кэширования
 		ob_start();
-			_showItem($row, $params, $my->gid, $access, $pop);
+			_showItem($row, $params, $my->gid, $access, $pop,'',$mainframe);
 			$content_boby = ob_get_contents(); // главное содержимое - стек вывода компонента - mainbody
 		ob_end_clean();
 
@@ -1218,9 +1220,12 @@ function _showFullItem($id) {
 /**
  * Вывод материала в блоге
  */
-function _showItem($row, $params, $gid, &$access, $pop, $template = '') {
-	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->_db;
+function _showItem($row, $params, $gid, &$access, $pop, $template = '',$mainframe=null) {
+
+	if(!isset($mainframe)){
+		$mainframe = &mosMainFrame::getInstance();
+jd_inc('_showItem');
+	}
 
 	$noauth = !$mainframe->getCfg('shownoauth');
 
@@ -1295,6 +1300,7 @@ function _showItem($row, $params, $gid, &$access, $pop, $template = '') {
 
 	// запись счетчика прочтения
 	if(!$params->get('intro_only') && ($page == 0) && ($mainframe->getCfg('content_hits'))) {
+		$database = &$mainframe->_db;
 		$obj = new mosContent($database);
 		$obj->hit($row->id);
 	}
@@ -1303,7 +1309,7 @@ function _showItem($row, $params, $gid, &$access, $pop, $template = '') {
 	// does not affect anything else as hits data not outputted
 	//$row->hits = 0;
 
-	ContentView::show($row, $params, $access, $page, $template);
+	ContentView::show($row, $params, $access, $page, $template,$mainframe);
 }
 
 /**
