@@ -90,7 +90,7 @@ class modules_html {
 	* @param int -1=show without wrapper and title, -2=xhtml style
 	*/
 	function module2(&$module,&$params,$Itemid,$style = 0,$count = 0) {
-		$config = $this->_mainframe->get('config');
+		$config = $this->_mainframe->config;
 
 		$moduleclass_sfx = $params->get('moduleclass_sfx');
 

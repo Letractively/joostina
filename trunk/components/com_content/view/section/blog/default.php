@@ -34,9 +34,9 @@ defined('_VALID_MOS') or die(); ?>
 				$rows[$i]->tags = $tags_arr[$rows[$i]->id];
 			} ?>
 			<div class="intro leading" id="leading_<?php echo $i; ?>">
-				<?php $params->set('page_type', 'item_intro_leading');  
-					_showItem($rows[$i], $params, $gid, $access, $pop, '[s]default.php'); 
-				?>
+<?php $params->set('page_type', 'item_intro_leading');
+				_showItem($rows[$i], $params, $gid, $access, $pop, '[s]default.php',$mainframe);
+?>
 			</div>
 <?php $i++;
 		} ?>
@@ -57,9 +57,9 @@ defined('_VALID_MOS') or die(); ?>
 					<td valign="top" <?php echo $width; ?>>
 <?php if($z < $intro) { ?>
 					<div class="intro" id="intro_<?php echo $i; ?>">
-						<?php $params->set('page_type', 'item_intro_simple'); 
-								_showItem($rows[$i], $params, $gid, $access, $pop, '[s]default.php'); 
-						?>
+<?php $params->set('page_type', 'item_intro_simple'); 
+						_showItem($rows[$i], $params, $gid, $access, $pop, '[s]default.php',$mainframe);
+?>
 					</div>
 						<?php } else {
 				echo '</td></tr>';

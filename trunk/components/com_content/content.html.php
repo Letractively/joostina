@@ -110,10 +110,14 @@ class ContentView {
 	 * Draws a Content List
 	 * Used by Content Category & Content Section
 	 */
-	function showContentList($obj, &$access, &$params) {
+	function showContentList($obj, &$access, &$params,&$mainframe=null) {
 		global $Itemid, $my;
 
-		$config = &Jconfig::getInstance();
+		if(!isset($mainframe)){
+			$mainframe = &mosMainFrame::getInstance();
+		}
+
+		$config = $mainframe->config;
 
 		if($params->page_type == 'section_table') {
 			$id = $obj->id;
@@ -190,6 +194,7 @@ class ContentView {
 
 		$template = new ContentTemplate();
 		$template->set_template($params->page_type, $templates);
+
 		include_once ($template->template_file);
 
 	}
@@ -256,18 +261,20 @@ class ContentView {
 	 * Отображение содержимого
 	 * @param object An object with the record
 	 * @param boolean If <code>false</code>, the print button links to a popup window.  If <code>true</code> then the print button invokes the browser print method.
-	 * boston + хак отключения мамботов группы content
 	 */
-	function show(&$row, &$params, &$access, $page = 0, $_template = '') {
+	function show(&$row, &$params, &$access, $page = 0, $_template = '',$mainframe=null) {
 		global $hide_js, $_MAMBOTS;
 		global $news_uid, $task;
 
-		$mainframe = &mosMainFrame::getInstance();
+		if(!isset($mainframe)){
+jd_inc(':(--show');
+			$mainframe = &mosMainFrame::getInstance();
+		}
 
 		// уникальные идентификаторы новостей
 		$news_uid_css_title = '';
 		$news_uid_css_body = '';
-		if($mainframe->getCfg('uid_news')) {
+		if($mainframe->config->config_uid_news) {
 			$news_uid++;
 			$news_uid_css_title = 'id="title-news-uid-'.$news_uid.'" ';
 			$news_uid_css_body = 'id="body-news-uid-'.$news_uid.'" ';
@@ -282,7 +289,7 @@ class ContentView {
 		}
 
 		// расчет Itemid
-		ContentView::_Itemid($row);
+		ContentView::_Itemid($row,$mainframe);
 		// determines the link and `link text` of the readmore button & linked title
 		ContentView::_linkInfo($row, $params);
 
@@ -320,7 +327,7 @@ class ContentView {
 			$mod_date = mosFormatDate($row->modified);
 		}
 
-		$author = mosContent::Author($row, $params);
+		$author = mosContent::Author($row, $params,$mainframe->config->config_author_name);
 
 		$edit = '';
 		if($access->canEdit) {
@@ -369,10 +376,13 @@ class ContentView {
 	/**
 	 * calculate Itemid
 	 */
-	function _Itemid(&$row) {
+	function _Itemid(&$row,&$mainframe) {
 		global $task, $Itemid;
 
-		$mainframe = &mosMainFrame::getInstance();
+		if(!isset($mainframe)){
+			$mainframe = &mosMainFrame::getInstance();
+			jd_inc('_Itemid');
+		}
 
 		// getItemid compatibility mode, holds maintenance version number
 		$compat = (int)$mainframe->getCfg('itemid_compat');

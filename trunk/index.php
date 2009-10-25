@@ -16,8 +16,6 @@ define('DS', DIRECTORY_SEPARATOR );
 // рассчет памяти
 if(function_exists('memory_get_usage')){
 	define('_MEM_USAGE_START', memory_get_usage());
-}else{
-	define('_MEM_USAGE_START',null);
 }
 
 // проверка конфигурационного файла, если не обнаружен, то загружается страница установки
@@ -276,7 +274,7 @@ echo $mosConfig_time_gen ? '<div id="time_gen">'.(microtime(true) - $sysstart).'
 
 // вывод лога отладки
 if($mosConfig_debug) {
-	if(function_exists('memory_get_usage')) {
+	if(defined('_MEM_USAGE_START')) {
 		$mem_usage = (memory_get_usage() - _MEM_USAGE_START);
 		jd_log_top('<b>'._SCRIPT_MEMORY_USING.':</b> '.sprintf('%0.2f',$mem_usage / 1048576).' MB');
 	}

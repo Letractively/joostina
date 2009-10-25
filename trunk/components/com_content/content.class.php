@@ -364,7 +364,7 @@ class mosSection extends mosDBTable{
 
 		$gid = $my->gid;
 		$noauth = !$mainframe->getCfg('shownoauth');
-		$nullDate = database::getInstance()->getNullDate();
+		$nullDate = $mainframe->_db->getNullDate();
 		$now = _CURRENT_SERVER_TIME;
 
 		$xwhere = '';
@@ -480,14 +480,13 @@ class mosSection extends mosDBTable{
 
 		}
 
-		$query = "SELECT id, link
-					FROM #__menu 
-					WHERE published = 1
-					".$and_type."
-					AND componentid = ".(int)$section_id."
-					ORDER BY type DESC, ordering";
+		$query = 'SELECT id, link FROM #__menu'
+				.' WHERE published = 1'
+				.$and_type
+				.' AND componentid = '.(int)$section_id
+				.' ORDER BY type DESC, ordering';
 		$database->setQuery($query);
-		$result = $database->loadRow();	
+		$result = $database->loadRow();
 		return $result;
 	}
 
@@ -904,7 +903,7 @@ class mosContent extends mosDBTable{
 		return $row;
 	}
 
-	function Author(&$row, &$params = ''){
+	function Author(&$row, &$params = '',$config_author_name=4){
 
 		$author_name = '';
 		if (!$params){
@@ -917,7 +916,7 @@ class mosContent extends mosDBTable{
 				if ($params->get('author_name', 0)){
 					$switcher = $params->get('author_name');
 				} else{
-					$switcher = Jconfig::getInstance()->config_author_name;
+					$switcher = $config_author_name;
 				}
 
 				switch ($switcher){
@@ -1010,7 +1009,7 @@ class mosContent extends mosDBTable{
 		$voting = $voting->_construct_sql();
 
 		//Дополнительные условия
-		$where = contentSqlHelper::construct_where_blog(1, $section, $access, $params);
+		$where = contentSqlHelper::construct_where_blog(1, $section, $access, $params,$this->_db);
 		$where = (count($where) ? "\n WHERE " . implode("\n AND ", $where) : '');
 
 		//Параметры сортировки
@@ -1047,7 +1046,7 @@ class mosContent extends mosDBTable{
 
 	function _get_result_blog_section($section, $params, $access){
 
-		$where = contentSqlHelper::construct_where_blog(1, $section, $access, $params);
+		$where = contentSqlHelper::construct_where_blog(1, $section, $access, $params,$this->_db);
 		$where = (count($where) ? "\n WHERE " . implode("\n AND ", $where) : '');
 
 		$query = "SELECT COUNT(a.id)
@@ -1066,7 +1065,7 @@ class mosContent extends mosDBTable{
 		$voting = $voting->_construct_sql();
 
 		//Дополнительные условия
-		$where = contentSqlHelper::construct_where_blog(2, $category, $access, $params);
+		$where = contentSqlHelper::construct_where_blog(2, $category, $access, $params,$this->_db);
 		$where = (count($where) ? " WHERE " . implode("\n AND ", $where) : '');
 
 		//Параметры сортировки
@@ -1097,7 +1096,7 @@ class mosContent extends mosDBTable{
 
 	function _get_result_blog_category($category, $params, $access){
 
-		$where = contentSqlHelper::construct_where_blog(2, $category, $access, $params);
+		$where = contentSqlHelper::construct_where_blog(2, $category, $access, $params,$this->_db);
 		$where = (count($where) ? "\n WHERE " . implode("\n AND ", $where) : '');
 
 		$query = 'SELECT COUNT(a.id)
@@ -1112,7 +1111,7 @@ class mosContent extends mosDBTable{
 
 	function _get_result_archive_section($section, $params, $access){
 
-		$where = contentSqlHelper::construct_where_blog(-1, $section, $access, $params);
+		$where = contentSqlHelper::construct_where_blog(-1, $section, $access, $params,$this->_db);
 		$where = (count($where) ? " WHERE " . implode(" AND ", $where) : '');
 
 		// query to determine total number of records
@@ -1130,7 +1129,7 @@ class mosContent extends mosDBTable{
 		$voting = $voting->_construct_sql();
 
 		//Дополнительные условия
-		$where = contentSqlHelper::construct_where_blog(-1, $section, $access, $params);
+		$where = contentSqlHelper::construct_where_blog(-1, $section, $access, $params,$this->_db);
 		$where = (count($where) ? " WHERE " . implode(" AND ", $where) : '');
 
 		//Параметры сортировки
@@ -1162,7 +1161,7 @@ class mosContent extends mosDBTable{
 
 	function _get_result_blog_archive_category($category, $params, $access){
 
-		$where = contentSqlHelper::construct_where_blog(-2, $category, $access, $params);
+		$where = contentSqlHelper::construct_where_blog(-2, $category, $access, $params,$this->_db);
 		$where = (count($where) ? "\n WHERE " . implode("\n AND ", $where) : '');
 
 		// query to determine total number of records
@@ -1181,7 +1180,7 @@ class mosContent extends mosDBTable{
 		$voting = $voting->_construct_sql();
 
 		//Дополнительные условия
-		$where = contentSqlHelper::construct_where_blog(-2, $category, $access, $params);
+		$where = contentSqlHelper::construct_where_blog(-2, $category, $access, $params,$this->_db);
 		$where = (count($where) ? " WHERE " . implode("\n AND ", $where) : '');
 
 		//Параметры сортировки
@@ -1260,7 +1259,7 @@ class mosContent extends mosDBTable{
 		$voting = $voting->_construct_sql();
 
 		//Дополнительные условия
-		$where = contentSqlHelper::construct_where_blog(1, null, $access, $params);
+		$where = contentSqlHelper::construct_where_blog(1, null, $access, $params,$this->_db);
 		$where = (count($where) ? "\n WHERE " . implode("\n AND ", $where) : '');
 
 		//Параметры сортировки
@@ -1292,7 +1291,7 @@ class mosContent extends mosDBTable{
 
 	function _get_result_frontpage($params, $access){
 
-		$where = contentSqlHelper::construct_where_blog(1, null, $access, $params);
+		$where = contentSqlHelper::construct_where_blog(1, null, $access, $params,$this->_db);
 		$where = (count($where) ? "\n WHERE " . implode("\n AND ", $where) : '');
 
 		$query = 'SELECT COUNT(a.id)
@@ -1431,8 +1430,8 @@ class contentVoiting{
 }
 
 class contentHelper{
-	function _load_core_js(){
-		mosMainFrame::getInstance()->addJS(JPATH_SITE.'/components/com_content/js/com_content.js','custom');
+	function _load_core_js(&$mainframe){
+		$mainframe->addJS(JPATH_SITE.'/components/com_content/js/com_content.js','custom');
 	}
 }
 
@@ -1441,11 +1440,23 @@ class contentSqlHelper{
 	/*
 	* @param int 0 = Archives, 1 = Section, 2 = Category
 	*/
-	function construct_where_blog($type = 1, $obj = null, $access, $params = null){
+	function construct_where_blog($type = 1, $obj = null, $access, $params = null,$database=null){
 		global $my;
 
-		$database = &database::getInstance();
-		$config = &Jconfig::getInstance();
+		static $config;
+
+		if(!is_array($config)){
+			$config_ = &Jconfig::getInstance();
+			$config['config_shownoauth'] = $config_->config_shownoauth;
+			$config['config_disable_date_state'] = $config_->config_disable_date_state;
+			$config['config_disable_access_control'] = $config_->config_disable_access_control;
+			unset($config_);
+		}
+
+		if(!isset($database)){
+			$database = &database::getInstance();
+		}
+
 
 		$id = 0;
 		if ($obj && isset($obj->id)){
@@ -1453,7 +1464,7 @@ class contentSqlHelper{
 		}
 
 		$gid = $my->gid;
-		$noauth = !$config->config_shownoauth;
+		$noauth = !$config['config_shownoauth'];
 		$nullDate = $database->getNullDate();
 		$now = _CURRENT_SERVER_TIME;
 		$where = array();
@@ -1472,7 +1483,7 @@ class contentSqlHelper{
 					$where[] = "a.state >= 0";
 				} else{
 					$where[] = "a.state = 1";
-					if (!$config->config_disable_date_state){
+					if (!$config['config_disable_date_state']){
 						$where[] = "( a.publish_up = " . $database->Quote($nullDate) . " OR a.publish_up <= " . $database->Quote($now) . " )";
 						$where[] = "( a.publish_down = " . $database->Quote($nullDate) . " OR a.publish_down >= " . $database->Quote($now) . " )";
 					}
@@ -1480,7 +1491,7 @@ class contentSqlHelper{
 			} else{
 				// unpublished items NOT shown for publishers and above
 				$where[] = "a.state = 1";
-				if (!$config->config_disable_date_state){
+				if (!$config['config_disable_date_state']){
 					$where[] = "( a.publish_up = " . $database->Quote($nullDate) . " OR a.publish_up <= " . $database->Quote($now) . " )";
 					$where[] = "( a.publish_down = " . $database->Quote($nullDate) . " OR a.publish_down >= " . $database->Quote($now) . " )";
 				}
@@ -1519,7 +1530,7 @@ class contentSqlHelper{
 		$where[] = "s.published = 1";
 		$where[] = "cc.published = 1";
 		/* если сессии на фронте отключены - то значит авторизация не возможна, и проверять доступ по авторизации бесполезно*/
-		if ($noauth and !$config->config_disable_access_control){
+		if ($noauth and !$config['config_disable_access_control']){
 			$where[] = "a.access <= " . (int)$gid;
 			$where[] = "s.access <= " . (int)$gid;
 			$where[] = "cc.access <= " . (int)$gid;
@@ -1532,7 +1543,7 @@ class contentSqlHelper{
 		global $my;
 
 		$mainframe = &mosMainFrame::getInstance();
-		$database = &database::getInstance();
+		$database = &$mainframe->_db;
 
 		$gid = $my->gid;
 		$noauth = !$mainframe->getCfg('shownoauth');
@@ -1568,16 +1579,16 @@ class contentSqlHelper{
 	}
 
 	function construct_filter_table_category($category, $access, $params){
-		$database = &database::getInstance();
 
 		// filter functionality
 		$and = null;
 		if ($params->get('filter')){
 			if ($params->get('cur_filter')){
-				
+
 				// clean filter variable
 				$filter = Jstring::strtolower($params->get('cur_filter'));
 
+				$database = &database::getInstance();
 				switch ($params->get('filter_type')){
 					case 'title':
 						$and = " AND LOWER( a.title ) LIKE '%" . $database->getEscaped($filter, true) . "%'";
@@ -1601,7 +1612,7 @@ class contentSqlHelper{
 		global $my;
 
 		$mainframe = &mosMainFrame::getInstance();
-		$database = &database::getInstance();
+		$database = &$mainframe->_db;
 
 		$gid = $my->gid;
 		$noauth = !$mainframe->getCfg('shownoauth');
@@ -1949,7 +1960,6 @@ class contentPageConfig{
 	function setup_full_item_page($row, $params){
 
 		$mainframe = &mosMainFrame::getInstance();
-		$database = &database::getInstance();
 
 		if ($row->sectionid == 0){
 			$params->set('item_navigation', 0);
@@ -1962,6 +1972,7 @@ class contentPageConfig{
 		if (!$row->sectionid){
 			$params->page_type = 'item_static';
 		}else{
+			$database = &$mainframe->_db;
 			$section = new mosSection($database);
 			$section->load((int)$row->sectionid);
 			$category = new mosCategory($database);
@@ -2020,7 +2031,7 @@ class contentPageConfig{
 		$params->def('image', 1);
 		//Показать/спрятать количество просмотров
 		$params->def('hits', $mainframe->getCfg('hits'));
-		
+
 		$params->def('tags', $mainframe->getCfg('tags'));
 
 		return $params;
@@ -2040,7 +2051,6 @@ class contentPageConfig{
 		global $Itemid;
 
 		$mainframe = &mosMainFrame::getInstance();
-		$database = &database::getInstance();
 
 		//Отучаем com_content брать параметры из первого попавшегося пункта меню
 		//Мысль - если пункт меню для текущего раздела не создан,
@@ -2053,6 +2063,7 @@ class contentPageConfig{
 		}else{
 			$menu = '';
 			//$params = new mosParameters('');
+			$database = &$mainframe->_db;
 			$params = new configContent_sectionblog($database);
 		}
 
@@ -2084,7 +2095,6 @@ class contentPageConfig{
 		global $Itemid;
 
 		$mainframe = &mosMainFrame::getInstance();
-		$database = &database::getInstance();
 
 		$menu = $mainframe->get('menu');
 
@@ -2092,6 +2102,7 @@ class contentPageConfig{
 			$params = new mosParameters($menu->params);
 		} else{
 			$menu = '';
+			$database = &$mainframe->_db;
 			$params = new configContent_categoryblog($database);
 		}
 
@@ -2123,7 +2134,6 @@ class contentPageConfig{
 		global $Itemid;
 
 		$mainframe = &mosMainFrame::getInstance();
-		$database = &database::getInstance();
 
 		$menu = $mainframe->get('menu');
 
@@ -2131,6 +2141,7 @@ class contentPageConfig{
 			$params = new mosParameters($menu->params);
 		} else{
 			$menu = '';
+			$database = &$mainframe->_db;
 			$params = new configContent_sectionarchive($database);
 		}
 
@@ -2161,7 +2172,6 @@ class contentPageConfig{
 		global $Itemid;
 
 		$mainframe = &mosMainFrame::getInstance();
-		$database = &database::getInstance();
 
 		$menu = $mainframe->get('menu');
 
@@ -2169,6 +2179,7 @@ class contentPageConfig{
 			$params = new mosParameters($menu->params);
 		} else{
 			$menu = '';
+			$database = &$mainframe->_db;
 			$params = new configContent_categoryarchive($database);
 		}
 
@@ -2256,16 +2267,14 @@ class contentPageConfig{
 	 *
 	 * @return object $params
 	 */
-	function setup_frontpage(){
-		global $Itemid;
+	function setup_frontpage(&$mainframe){
 
-		$mainframe = &mosMainFrame::getInstance();
-
-		if(!isset($mainframe->menu->id)){
-			$menu = $mainframe->get('menu');
-		}else{
+		// странно делать одно и тоже разными путями
+		//if(!isset($mainframe->menu->id)){
+		//	$menu = $mainframe->get('menu');
+		//}else{
 			$menu = $mainframe->menu;
-		}
+		//}
 
 		$params = new mosParameters($menu->params);
 
@@ -2338,33 +2347,33 @@ class contentPageConfig{
 		//Показать/Скрыть ссылку [Подробнее...]
 		$params->def('readmore', '');
 		//Показать/Скрыть возможность оценки объектов
-		$params->def('rating', $mainframe->getCfg('vote'));
+		$params->def('rating', $mainframe->config->config_vote);
 		//Показать/Скрыть имена авторов объектов
-		$params->def('author', $mainframe->getCfg('showAuthor'));
+		$params->def('author', $mainframe->config->config_showAuthor);
 		//Тип отображения имен авторов
 		$params->def('author_name', 0);
 		//Показать/Скрыть дату создания объекта
-		$params->def('createdate', $mainframe->getCfg('showCreateDate'));
+		$params->def('createdate', $mainframe->config->config_showCreateDate);
 		//оказать/Скрыть дату изменения объекта
-		$params->def('modifydate', $mainframe->getCfg('showModifyDate'));
+		$params->def('modifydate', $mainframe->config->config_showModifyDate);
 		//Показать/Скрыть кнопку печати объекта
-		$params->def('print', $mainframe->getCfg('showPrint'));
+		$params->def('print', $mainframe->config->config_showPrint);
 		//Показать/Скрыть кнопку отправки объекта на e-mail
-		$params->def('email', $mainframe->getCfg('showEmail'));
+		$params->def('email', $mainframe->config->config_showEmail);
 		//Показать/Скрыть неопубликованные объекты для группы пользователей `Publisher` и выше
 		$params->def('unpublished', 0);
 
 		//Показать/Скрыть тэги материалов
-		$params->def('view_tags', $mainframe->getCfg('tags'));
+		$params->def('view_tags', $mainframe->config->config_tags);
 		//Показать/спрятать количество просмотров
-		$params->def('hits', $mainframe->getCfg('hits'));
+		$params->def('hits', $mainframe->config->config_hits);
 
 		$params->def('pop', 0);
 		$params->def('limitstart', '0');
 		$params->def('limit', '10');
 		$params->def('description', 0);
 		$params->def('description_image', 0);
-		$params->def('back_button', $mainframe->getCfg('back_button'));
+		$params->def('back_button', $mainframe->config->config_back_button);
 
 
 		//Тип ссылки на категорию
@@ -2378,20 +2387,17 @@ class contentPageConfig{
 
 	}
 
-	function setup_blog_item($params){
-		global $Itemid;
+	function setup_blog_item(&$params,&$mainframe){
 
-		$mainframe = &mosMainFrame::getInstance();
-
-		$params->def('link_titles', $mainframe->getCfg('link_titles'));
-		$params->def('author', $mainframe->getCfg('showAuthor'));
-		$params->def('createdate', $mainframe->getCfg('showCreateDate'));
-		$params->def('modifydate', $mainframe->getCfg('showModifyDate'));
-		$params->def('print', $mainframe->getCfg('showPrint'));
-		$params->def('email', $mainframe->getCfg('showEmail'));
-		$params->def('rating', $mainframe->getCfg('vote'));
-		$params->def('icons', $mainframe->getCfg('icons'));
-		$params->def('readmore', $mainframe->getCfg('readmore'));
+		$params->def('link_titles', $mainframe->config->config_link_titles);
+		$params->def('author', $mainframe->config->config_showAuthor);
+		$params->def('createdate', $mainframe->config->config_showCreateDate);
+		$params->def('modifydate', $mainframe->config->config_showModifyDate);
+		$params->def('print', $mainframe->config->config_showPrint);
+		$params->def('email', $mainframe->config->config_showEmail);
+		$params->def('rating', $mainframe->config->config_vote);
+		$params->def('icons', $mainframe->config->config_icons);
+		$params->def('readmore', $mainframe->config->config_readmore);
 		$params->def('image', 1);
 		$params->def('section', 0);
 		$params->def('section_link', 0);
@@ -2404,9 +2410,9 @@ class contentPageConfig{
 		$params->def('intro_only', 1);
 		$params->def('url', 1);
 		
-		$params->def('view_tags', $mainframe->getCfg('tags'));
+		$params->def('view_tags', $mainframe->config->config_tags);
 		//Показать/спрятать количество просмотров
-		$params->def('hits', $mainframe->getCfg('hits'));
+		$params->def('hits', $mainframe->config->config_hits);
 
 		$params->set('intro_only', 1);
 

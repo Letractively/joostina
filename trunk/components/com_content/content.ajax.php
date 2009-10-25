@@ -45,8 +45,8 @@ function x_jsave($id){
 
 	$database = &database::getInstance();
 
-	$introtext	= trim(joostina_api::convert(mosGetParam($_POST,'introtext','',_MOS_ALLOWRAW)));
-	$fulltext	= trim(joostina_api::convert(mosGetParam($_POST,'fulltext',null,_MOS_ALLOWRAW)));
+	$introtext	= trim(mosGetParam($_POST,'introtext','',_MOS_ALLOWRAW));
+	$fulltext	= trim(mosGetParam($_POST,'fulltext',null,_MOS_ALLOWRAW));
 
 	if($fulltext) $fulltext = ', `fulltext` = \''.$fulltext.'=\'';
 
@@ -96,33 +96,23 @@ function x_publish($id = null) {
 		// снимаем с публикации, не опубликовано, и еще не доступно  - возвращаем значок "Не активно"
 		$ret_img = 'publish_y.png';
 		$state = '1';
-		/* не было опубликовано - публикуем*/
-	} else
-		if(($now <= $row->publish_down || $row->publish_down == $nullDate) && $row->state ==
-			1) {
-			// доступно и опубликовано, снимаем с публикации и возвращаем значок "Не опубликовано"
-			$ret_img = 'publish_x.png';
-			$state = '0'; // было опубликовано - снимаем с публикации
-		} else
-			if(($now <= $row->publish_down || $row->publish_down == $nullDate) && $row->state ==
-				0) {
-				// доступно и опубликовано, снимаем с публикации и возвращаем значок "Не опубликовано"
-				$ret_img = 'publish_g.png';
-				$state = '1';
-				/* не было опубликовано - публикуем*/
-			} else
-				if($now > $row->publish_down && $row->state == 1) {
-					// опубликовано, но срок публикации истёк, снимаем с публикации и возвращаем значок "Не опубликовано"
-					$ret_img = 'publish_x.png';
-					$state = '0';
-					/* не было опубликовано - публикуем*/
-				} else
-					if($now > $row->publish_down && $row->state == 0) {
-						// опубликовано, но срок публикации истёк, снимаем с публикации и возвращаем значок "Не опубликовано"
-						$ret_img = 'publish_r.png';
-						$state = '1';
-						/* не было опубликовано - публикуем*/
-					}
+	} elseif(($now <= $row->publish_down || $row->publish_down == $nullDate) && $row->state ==1) {
+		// доступно и опубликовано, снимаем с публикации и возвращаем значок "Не опубликовано"
+		$ret_img = 'publish_x.png';
+		$state = '0'; // было опубликовано - снимаем с публикации
+	} elseif(($now <= $row->publish_down || $row->publish_down == $nullDate) && $row->state ==0) {
+		// доступно и опубликовано, снимаем с публикации и возвращаем значок "Не опубликовано"
+		$ret_img = 'publish_g.png';
+		$state = '1';
+	} elseif($now > $row->publish_down && $row->state == 1) {
+		// опубликовано, но срок публикации истёк, снимаем с публикации и возвращаем значок "Не опубликовано"
+		$ret_img = 'publish_x.png';
+		$state = '0';
+	} elseif($now > $row->publish_down && $row->state == 0) {
+		// опубликовано, но срок публикации истёк, снимаем с публикации и возвращаем значок "Не опубликовано"
+		$ret_img = 'publish_r.png';
+		$state = '1';
+	}
 
 	$query = "UPDATE #__content"
 			."\n SET state = ".(int)$state.", modified = ".$database->Quote(date('Y-m-d H:i:s'))
@@ -135,4 +125,3 @@ function x_publish($id = null) {
 		return $ret_img;
 	}
 }
-?>

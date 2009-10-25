@@ -764,18 +764,18 @@ class mosSession extends mosDBTable {
 	* Purge lapsed sessions
 	* @return boolean
 	*/
-	function purge($inc = 1800,$and = '') {
-		$config = &Jconfig::getInstance();
+	function purge($inc = 1800,$and = '',$lifetime='') {
 
 		if($inc == 'core') {
-			$past_logged = time() - $config->config_lifetime;
-			$past_guest = time() - 900;
-
-			$query = "DELETE FROM $this->_tbl WHERE ("
+			$past_logged = time() - $lifetime;
+			//$past_guest = time() - 900;
+			//$query = "DELETE FROM $this->_tbl WHERE ("
 				// purging expired logged sessions
-				."\n ( time < '".(int)$past_logged."' ) AND guest = 0 AND gid > 0 ) OR (" 
+			//	."\n ( time < '".(int)$past_logged."' ) AND guest = 0 AND gid > 0 ) OR ("
 				// purging expired guest sessions
-				."\n ( time < '".(int)$past_guest."' ) AND guest = 1 AND userid = 0)";
+			//	."\n ( time < '".(int)$past_guest."' ) AND guest = 1 AND userid = 0)";
+			// TODO, при неполадках с сессиями использовать SQL запрос выше
+			$query = "DELETE FROM $this->_tbl WHERE time < '".(int)$past_logged."'";
 		} else {
 			// kept for backward compatability
 			$past = time() - $inc;
