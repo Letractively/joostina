@@ -57,11 +57,6 @@ define('_QUIXPLORER_PATH',JPATH_BASE_ADMIN.'/components/com_joomlaxplorer');
 define('_QUIXPLORER_FTPTMP_PATH',JPATH_BASE_ADMIN.'/components/com_joomlaxplorer/ftp_tmp');
 define('_QUIXPLORER_URL',$mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_joomlaxplorer');
 
-//------------------------------------------------------------------------------
-if(defined('E_STRICT')) { // Suppress Strict Standards Warnings
-	$errorlevel = error_reporting();
-	error_reporting($errorlevel & ~ E_STRICT);
-}
 
 umask(0002); // Added to make created files/dirs group writable
 
@@ -214,7 +209,3 @@ if(jx_isXHR()) {
 	jx_exit();
 }
 //------------------------------------------------------------------------------
-
-
-
-?>

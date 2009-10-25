@@ -18,10 +18,8 @@ class HTML_newsfeed {
 
 	function displaylist(&$categories,&$rows,$catid,$currentcat = null,&$params,$tabclass) {
 		global $Itemid,$mosConfig_live_site,$hide_js;
-		
 		?>
 		<div class="newsfeeds <?php echo $params->get('pageclass_sfx'); ?>">
-		
 			<?php if($params->get('page_title')) { ?>
 				<div class="componentheading"><h1><?php echo $currentcat->header; ?></h1></div>
 			<?php } ?>
@@ -34,11 +32,11 @@ class HTML_newsfeed {
 						<img src="<?php echo $currentcat->img; ?>" align="<?php echo $currentcat->align; ?>" hspace="6" alt="<?php echo _WEBLINKS; ?>" />
 						<?php } ?>
 						
-						<?php echo $currentcat->descrip; ?>			
+						<?php echo $currentcat->descrip; ?>
 					</div>
 				<?php } ?>
 				
-				<?php if(count($rows)) { ?>		
+				<?php if(count($rows)) { ?>
 					<div class="newsfeeds_list">
 						<?php HTML_newsfeed::showTable($params,$rows,$catid,$tabclass); ?>
 					</div>
@@ -73,24 +71,23 @@ class HTML_newsfeed {
 		<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
 		
 		<?php if($params->get('headings')) { ?>
-			<tr>				
+			<tr>
 				<?php if($params->get('name')) { ?>
 					<th><?php echo _FEED_NAME; ?></th>
 				<?php } ?>
-				
+
 				<?php if($params->get('articles')) { ?>
 					<th><?php echo _FEED_ARTICLES; ?></th>
 				<?php } ?>
-				
+
 				<?php if($params->get('link')) { ?>
 					<th><?php echo _FEED_LINK; ?></th>
 				<?php } ?>
 			</tr>
-		<?php } ?>		
-		
+		<?php } ?>
 		<?php
 		$k = 0;
-		
+
 		foreach($rows as $row) {
 			$link = 'index.php?option=com_newsfeeds&amp;task=view&amp;feedid='.$row->id.'&amp;Itemid='.$Itemid;
 			?>
@@ -177,16 +174,11 @@ class HTML_newsfeed {
 
 	//TODO:бардак в выводе - переделать в 1.3.1 
 	function showNewsfeeds(&$newsfeed,$LitePath,$cacheDir,&$params) {
-		
 		?>
-		
 		<div class="newsfeeds_show">
-		
 		<?php if($params->get('header')) { ?>
 		<div class="componentheading"><h1><?php echo $params->get('header'); ?></h1></div>
 		<?php } ?>
-		
-
 		<?php
 		// full RSS parser used to access image information
 		$rssDoc = new xml_domit_rss_document();
@@ -194,6 +186,7 @@ class HTML_newsfeed {
 
 		$rssDoc->useCacheLite(false,$LitePath,$cacheDir,$newsfeed->cache_time);
 		$success = $rssDoc->loadRSS($newsfeed->link);
+
 		$utf8enc = $newsfeed->code;
 		if($success) {
 			$totalChannels = $rssDoc->getChannelCount();
@@ -221,8 +214,7 @@ class HTML_newsfeed {
 				}
 				$feed_title = $currChannel->getTitle();
 				$feed_title = mosCommonHTML::newsfeedEncoding($rssDoc,$feed_title,$utf8enc);
-				?>	
-				
+				?>
 				<div class="contentdescription">
 					<h2><a href="<?php echo ampReplace($currChannel->getLink()); ?>" target="_blank"><?php echo $feed_title; ?></a></h2>					
 					<?php if($descrip && $params->get('feed_descr')) {
@@ -232,12 +224,9 @@ class HTML_newsfeed {
 						<?php if($iUrl && $params->get('feed_image')) { ?>
 						<img src="<?php echo $iUrl; ?>" alt="<?php echo mosCommonHTML::newsfeedEncoding($rssDoc,$iTitle,$utf8enc); ?>" />
 						<?php } ?>
-					
 						<?php echo $feed_descrip; ?>
-					
 				<?php } ?>
 				</div>
-
 				<?php
 					$actualItems = $currChannel->getItemCount();
 					$setItems = $newsfeed->numarticles;

@@ -18,7 +18,6 @@
 **/
 
 defined('_VALID_MOS') or die();
-error_reporting(E_ALL | E_STRICT);
 define('FTP_ASCII',0);
 define('FTP_TEXT',0);
 define('FTP_BINARY',1);

@@ -5829,6 +5829,7 @@ if(window.attachEvent){
 	* Static Function
 	*/
 	function newsfeedEncoding($rssDoc,$text,$utf8enc=null) {
+
 		if(!defined('_JOS_FEED_ENCODING')) {
 			// determine encoding of feed
 			$feed = $rssDoc->toNormalizedString(true);

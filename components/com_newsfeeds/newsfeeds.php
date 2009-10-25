@@ -30,9 +30,9 @@ switch($task) {
 function listFeeds($catid) {
 	global $my,$Itemid;
 
-	$database = &database::getInstance();
 	$mainframe = &mosMainFrame::getInstance();
-	$config = &Jconfig::getInstance();
+	$database = &$mainframe->_db;
+	$config = &$mainframe->config;
 
 	/* Query to retrieve all categories that belong under the contacts section and that are published.*/
 	$query = "SELECT cc.*, a.catid, COUNT(a.id) AS numlinks FROM #__categories AS cc"
@@ -139,14 +139,14 @@ function listFeeds($catid) {
 function showFeed($feedid) {
 	global $Itemid,$my;
 
-	$database = &database::getInstance();
 	$mainframe = &mosMainFrame::getInstance();
-	$config = &Jconfig::getInstance();
+	$database = &$mainframe->_db;
+	$config = &$mainframe->config;
 
 	// check if cache directory is writeable
 	$cacheDir = $config->config_cachepath.'/';
 	if(!is_writable($cacheDir)) {
-		echo 'Каталог кэша недоступен для записи';
+		echo _CACHE_DIR_IS_NOT_WRITEABLE2;
 		return;
 	}
 
@@ -182,8 +182,8 @@ function showFeed($feedid) {
 	}
 
 	// full RSS parser used to access image information
-	require_once ($config->config_absolute_path.'/includes/domit/xml_domit_rss.php');
-	$LitePath = $config->config_absolute_path.'/includes/includes/libraries/cache/cache.php';
+	require_once (JPATH_BASE.'/includes/domit/xml_domit_rss.php');
+	$LitePath = JPATH_BASE.'/includes/includes/libraries/cache/cache.php';
 
 	// Adds parameter handling
 	$menu = $mainframe->get('menu');
@@ -213,4 +213,3 @@ function showFeed($feedid) {
 
 	HTML_newsfeed::showNewsfeeds($newsfeed,$LitePath,$cacheDir,$params);
 }
-?>
