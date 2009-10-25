@@ -128,11 +128,11 @@ function editNewsFeed($id,$option) {
 		$row->numarticles = 5;
 		$row->cache_time = 3600;
 		$row->published = 1;
+		$row->code = 0;
 	}
 
 	// build the html select list for ordering
-	$query = "SELECT a.ordering AS value, a.name AS text"."\n FROM #__newsfeeds AS a".
-		"\n ORDER BY a.ordering";
+	$query = "SELECT a.ordering AS value, a.name AS text FROM #__newsfeeds AS a ORDER BY a.ordering";
 	$lists['ordering'] = mosAdminMenus::SpecificOrdering($row,$id,$query,1);
 
 	// build list of categories
