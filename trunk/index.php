@@ -24,14 +24,15 @@ if(!file_exists('configuration.php') || filesize('configuration.php') < 10) {
 	header('Location: http://'.$_SERVER['HTTP_HOST'].$self.'installation/index.php');
 	exit();
 }
-// для совместимости
-$mosConfig_absolute_path = JPATH_BASE;
 
 // подключение файла эмуляции отключения регистрации глобальных переменных
 (ini_get('register_globals') == 1) ? require_once (JPATH_BASE.DS.'includes'.DS.'globals.php') : null;
 
 // подключение файла конфигурации
 require_once (JPATH_BASE.DS.'configuration.php');
+
+// для совместимости
+$mosConfig_absolute_path = JPATH_BASE;
 
 // live_site
 define('JPATH_SITE', $mosConfig_live_site );

@@ -51,9 +51,9 @@ function showBanners(&$params, $mainframe) {
 		$where = '';
 
 	$query ="SELECT b.* FROM #__banners AS b
-	INNER JOIN #__banners_categories AS cat ON b.tid = cat.id
-	INNER JOIN #__banners_clients AS cl ON b.cid = cl.cid
-	WHERE cat.published =1 AND cl.published =1 AND b.access <= '$my->gid' AND b.state = '1'
+	INNER JOIN #__banners_categories AS cat ON ( cat.published =1 AND cat.id = b.tid )
+	INNER JOIN #__banners_clients AS cl ON ( cl.published =1 AND cl.cid = b.cid )
+	WHERE b.access <= '$my->gid' AND b.state = '1'
 	AND $where (
 		('$date' <= b.publish_down_date OR b.publish_down_date = '0000-00-00')
 		AND '$date' >= b.publish_up_date
@@ -65,6 +65,8 @@ function showBanners(&$params, $mainframe) {
 
 	$database->setQuery($query);
 	$rows = $database->loadObjectList();
+
+echo $database->getQuery($query);
 
 	$numrows = count($rows);
 	if(!$numrows){
