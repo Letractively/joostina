@@ -21,12 +21,10 @@ function jceInstaller($option,$client,$opt) {
 	$path = JPATH_BASE_ADMIN."/components/com_jce/installer/$element/$element.php";
 
 	// map the element to the required derived class
-	$classMap = array('plugins' => 'JCEPluginInstaller','language' =>
-		'JCELanguageInstaller');
+	$classMap = array('plugins' => 'JCEPluginInstaller','language' =>'JCELanguageInstaller');
 
 	if(array_key_exists($element,$classMap)) {
-		require_once (JPATH_BASE.
-			"/".ADMINISTRATOR_DIRECTORY."/components/com_jce/installer/$element/$element.class.php");
+		require_once (JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY."/components/com_jce/installer/$element/$element.class.php");
 
 		switch($opt) {
 

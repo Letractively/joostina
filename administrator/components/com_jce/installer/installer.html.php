@@ -14,9 +14,9 @@ function writableCell($folder) {
 	echo '<tr>';
 	echo '<td class="item">'.$folder.'/</td>';
 	echo '<td align="left">';
-	echo is_writable($GLOBALS['mosConfig_absolute_path'].'/'.$folder)?
-		'<b><font color="green">Writeable</font></b>':
-		'<b><font color="red">Unwriteable</font></b>'.'</td>';
+	echo is_writable(JPATH_BASE.DS.$folder)?
+		'<b><font color="green">'._WRITEABLE.'</font></b>':
+		'<b><font color="red">'._UNWRITEABLE.'</font></b>'.'</td>';
 	echo '</tr>';
 }
 

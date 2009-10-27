@@ -6241,8 +6241,7 @@ function _josSpoofCheck($array,$badStrings) {
 * @return	string	Hashed var name
 * @static
 */
-function josSpoofValue($alt=NULL)
-{
+function josSpoofValue($alt=NULL){
 	global $mainframe, $my;
 
 	if ($alt) {
@@ -6383,228 +6382,77 @@ class errorCase{
 	}
 }
 
+
 /**
-* Task routing class
+* Component database table class
 * @package Joostina
-* @abstract
 */
-class mosAbstractTasker {
+class mosComponent extends mosDBTable {
 	/**
-	@var array An array of the class methods to call for a task*/
-	var $_taskMap = null;
+	@var int Primary key*/
+	var $id = null;
 	/**
-	@var string The name of the current task*/
-	var $_task = null;
+	@var string*/
+	var $name = null;
 	/**
-	@var array An array of the class methods*/
-	var $_methods = null;
+	@var string*/
+	var $link = null;
 	/**
-	@var string A url to redirect to*/
-	var $_redirect = null;
+	@var int*/
+	var $menuid = null;
 	/**
-	@var string A message about the operation of the task*/
-	var $_message = null;
+	@var int*/
+	var $parent = null;
 	/**
-	@var string The ACO Section*/
-	var $_acoSection = null;
+	@var string*/
+	var $admin_menu_link = null;
 	/**
-	@var string The ACO Section value*/
-	var $_acoSectionValue = null;
+	@var string*/
+	var $admin_menu_alt = null;
 	/**
-	* Constructor
-	* @param string Set the default task
-	*/
-	function mosAbstractTasker($default = '') {
-		$this->_taskMap = array();
-		$this->_methods = array();
-		foreach(get_class_methods(get_class($this)) as $method) {
-			if(substr($method,0,1) != '_') {
-				$this->_methods[] = strtolower($method);
-				// auto register public methods as tasks
-				$this->_taskMap[strtolower($method)] = $method;
-			}
-		}
-		$this->_redirect = '';
-		$this->_message = '';
-		if($default) {
-			$this->registerDefaultTask($default);
-		}
-	}
+	@var string*/
+	var $option = null;
 	/**
-	* Sets the access control levels
-	* @param string The ACO section (eg, the component)
-	* @param string The ACO section value (if using a constant value)
-	*/
-	function setAccessControl($section,$value = null) {
-		$this->_acoSection = $section;
-		$this->_acoSectionValue = $value;
-	}
+	@var string*/
+	var $ordering = null;
 	/**
-	* Access control check
-	*/
-	function accessCheck($task) {
-		global $my;
-
-		$acl = &gacl::getInstance();
-
-		// only check if the derived class has set these values
-		if($this->_acoSection) {
-			// ensure user has access to this function
-			if($this->_acoSectionValue) {
-				// use a 'constant' task for this task handler
-				$task = $this->_acoSectionValue;
-			}
-			return $acl->acl_check($this->_acoSection,$task,'users',$my->usertype);
-		} else {
-			return true;
-		}
-	}
-
+	@var string*/
+	var $admin_menu_img = null;
 	/**
-	* Set a URL to redirect the browser to
-	* @param string A URL
-	*/
-	function setRedirect($url,$msg = null) {
-		$this->_redirect = $url;
-		if($msg !== null) {
-			$this->_message = $msg;
-		}
-	}
+	@var int*/
+	var $iscore = null;
 	/**
-	* Redirects the browser
-	*/
-	function redirect() {
-		if($this->_redirect) {
-			mosRedirect($this->_redirect,$this->_message);
-		}
-	}
-	/**
-	* Register (map) a task to a method in the class
-	* @param string The task
-	* @param string The name of the method in the derived class to perform for this task
-	*/
-	function registerTask($task,$method) {
-		if(in_array(strtolower($method),$this->_methods)) {
-			$this->_taskMap[strtolower($task)] = $method;
-		} else {
-			$this->methodNotFound($method);
-		}
-	}
-	/**
-	* Register the default task to perfrom if a mapping is not found
-	* @param string The name of the method in the derived class to perform if the task is not found
-	*/
-	function registerDefaultTask($method) {
-		$this->registerTask('__default',$method);
-	}
-	/**
-	* Perform a task by triggering a method in the derived class
-	* @param string The task to perform
-	* @return mixed The value returned by the function
-	*/
-	function performTask($task) {
-		$this->_task = $task;
-
-		$task = strtolower($task);
-		if(isset($this->_taskMap[$task])) {
-			$doTask = $this->_taskMap[$task];
-		} else
-			if(isset($this->_taskMap['__default'])) {
-				$doTask = $this->_taskMap['__default'];
-			} else {
-				return $this->taskNotFound($this->_task);
-			}
-
-			if($this->accessCheck($doTask)) {
-				return call_user_func(array(&$this,$doTask));
-			} else {
-				return $this->notAllowed($task);
-			}
-	}
-	/**
-	* Get the last task that was to be performed
-	* @return string The task that was or is being performed
-	*/
-	function getTask() {
-		return $this->_task;
-	}
-	/**
-	* Basic method if the task is not found
-	* @param string The task
-	* @return null
-	*/
-	function taskNotFound($task) {
-		echo 'Задача '.$task.' не найдена';
-		return null;
-	}
-	/**
-	* Basic method if the registered method is not found
-	* @param string The name of the method in the derived class
-	* @return null
-	*/
-	function methodNotFound($name) {
-		echo 'Метод '.$name.' не обнаружен';
-		return null;
-	}
-	/**
-	* Basic method if access is not permitted to the task
-	* @param string The name of the method in the derived class
-	* @return null
-	*/
-	function notAllowed() {
-		echo _NOT_AUTH;
-		return null;
-	}
-}
-
-class myFunctions{
-
-	var $func = null;
+	@var string*/
 	var $params = null;
-	var $obj = null;
+	/*@var int права доступа к компоненту */
+	#var $access = null;
+	var $_model = null;
+	var $_controller = null;
+	var $_view = null;
+	var $_mainframe = null;
 
-	function myFunctions($func, $params){
-		$this->func = $func;
-		$this->params = $params;
-		$this->bind();
+	/**
+	* @param database A database connector object
+	*/
+	function mosComponent(&$db=null) {
+		$this->mosDBTable('#__components','id',$db);
 	}
 
-	function bind(){
-		
-		$obj = new stdClass();
-		foreach($this->params as $key=>$val){
-			$obj->$key = $val;
-		}
-		$this->obj = $obj;
-	}
+	function _init($option, $mainframe){
 
-	function check_user_function(){
-		$mainframe = &mosMainFrame::getInstance();
-		if(!defined('_MYLIB')){
-			return false;
-		} 
-		if($mainframe->isAdmin()){ 
-			$methods = get_class_methods('myLibAdmin');	
-		}
-		else{
-			$methods = get_class_methods('myLib');	
-		}		
-		if(in_array($this->func, $methods)){
-			return true;
-		}
-		return false;
-	}
+		$this->option = $option;
+		$this->_mainframe = $mainframe;
 
-	function start_user_function(){
-		$mainframe = &mosMainFrame::getInstance();
-		if($mainframe->isAdmin()){ 
-			$class = 'myLibAdmin';
-		}else{
-			$class = 'myLib';
+		$component = str_replace('com_', '', $this->option);
+
+		$controller = $component.'Controller';
+		$view = $component.'View';
+
+		if(class_exists($view)){
+			$this->_view = 	new $view($this->_mainframe) ;
 		}
-		return call_user_func(array($class, $this->func), $this->obj);	
+
 	}
-	
 }
 
 /**
