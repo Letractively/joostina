@@ -99,15 +99,15 @@ function showconfig($option) {
 
 	$lists['frontend_login']= mosHTML::yesnoRadioList('config_frontend_login','class="inputbox"',$row->config_frontend_login);
 
-	// boston, отключение ведения сессий подсчета числа пользователей на сайте
+	// отключение ведения сессий подсчета числа пользователей на сайте
 	$lists['session_front']= mosHTML::yesnoRadioList('config_no_session_front','class="inputbox"',$row->config_no_session_front);
-	// boston, отключение syndicate
+	// отключение syndicate
 	$lists['syndicate_off']= mosHTML::yesnoRadioList('config_syndicate_off','class="inputbox"',$row->config_syndicate_off);
-	// boston, отключение тега Generator
+	// отключение тега Generator
 	$lists['generator_off']= mosHTML::yesnoRadioList('config_generator_off','class="inputbox"',$row->config_generator_off);
-	// boston, отключение мамботов группы system
+	// отключение мамботов группы system
 	$lists['mmb_system_off']= mosHTML::yesnoRadioList('config_mmb_system_off','class="inputbox"',$row->config_mmb_system_off);
-	// boston, получаем список шаблонов. Код получен из модуля выбора шаблона
+	// получаем список шаблонов. Код получен из модуля выбора шаблона
 	$titlelength = 20;
 	$template_path = "JPATH_BASE/templates";
 	$templatefolder = @dir($template_path);
@@ -129,17 +129,17 @@ function showconfig($option) {
 	}
 	sort($darray);
 	$lists['one_template']= mosHTML::selectList($darray,'config_one_template',"class=\"inputbox\" ",'value','text',$row->config_one_template);
-	// boston, время генерации страницы
-	$lists['time_gen']= mosHTML::yesnoRadioList('config_time_gen','class="inputbox"',$row->config_time_gen);
-	//boston, индексация страницы печати
+	// время генерации страницы
+	$lists['config_time_generate']= mosHTML::yesnoRadioList('config_time_generate','class="inputbox"',$row->config_time_generate);
+	//индексация страницы печати
 	$lists['index_print']= mosHTML::yesnoRadioList('config_index_print','class="inputbox"',$row->config_index_print);
-	// boston, расширенные теги индексации
+	// расширенные теги индексации
 	$lists['index_tag']= mosHTML::yesnoRadioList('config_index_tag','class="inputbox"',$row->config_index_tag);
-	// boston, ежесуточная оптимизация таблиц бд
+	// ежесуточная оптимизация таблиц бд
 	$lists['optimizetables']= mosHTML::yesnoRadioList('config_optimizetables','class="inputbox"',$row->config_optimizetables);
-	// boston, отключение мамботов группы content
+	// отключение мамботов группы content
 	$lists['mmb_content_off']= mosHTML::yesnoRadioList('config_mmb_content_off','class="inputbox"',$row->config_mmb_content_off);
-	// boston, кэширование меню панели управления
+	// кэширование меню панели управления
 	$lists['adm_menu_cache']= mosHTML::yesnoRadioList('config_adm_menu_cache','class="inputbox"',$row->config_adm_menu_cache);
 	// управление captcha
 	$lists['captcha']= mosHTML::yesnoRadioList('config_captcha','class="inputbox"',$row->config_captcha);

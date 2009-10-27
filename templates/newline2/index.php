@@ -1,30 +1,21 @@
 <?php
 
 defined('_VALID_MOS') or die();
-global $task,$my,$mosConfig_live_site, $mosConfig_mailfrom;
+global $task,$my, $mosConfig_mailfrom;
 $iso = explode('=',_ISO); echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'."\n";
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo $iso[1];?>" />
-
-<script type="text/javascript">
-    var _live_site = '<?php echo $mosConfig_live_site;?>';
-    var _option = '<?php echo mosGetParam( $_REQUEST, 'option', '' );?>';
-    var _cur_template = '<?php echo JTEMPLATE;?>';
-    var _js_defines = new Array();
-</script>
-
-
-<?php 
+<?php
 
 	// загружаем верхнюю часть страницы со всеми js и css файлами, и обязательным использованием jquery
-	mosShowHead(array('js'=>1,'css'=>1,'jquery'=>1));	
+	mosShowHead(array('js'=>1,'css'=>1,'jquery'=>1));
 
 	//Инициализация визуального редактора
 	if ($my->id && $mainframe->allow_wysiwyg) { initEditor(); }
-	
+
 	//Принудительно настраиваем модуль авторизации
 	$login_params = new stdClass();
 	$login_params->template = 'popup.php'; 
@@ -34,47 +25,36 @@ $iso = explode('=',_ISO); echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'
 	$block1_count = (mosCountModules('user1')>0) + (mosCountModules('user2')>0) + (mosCountModules('user3')>0);
 	$block2_count = (mosCountModules('user4')>0) + (mosCountModules('user5')>0) + (mosCountModules('user6')>0);
 	$block3_count = (mosCountModules('user7')>0) + (mosCountModules('user8')>0) + (mosCountModules('user9')>0);
-	
+
 	$body_class = 'inside';
 	if($block1_count){$body_class = 'mainpage';}
-
 ?>
-<link href="<?php echo $mosConfig_live_site;?>/templates/<?php echo JTEMPLATE; ?>/css/template_css.css" rel="stylesheet" type="text/css" />
-<!--[if lte IE 7]>
-    <link href="<?php echo $mosConfig_live_site;?>/templates/<?php echo JTEMPLATE; ?>/css/fix/ie7.css" rel="stylesheet" type="text/css" />
-<![endif]-->
-
-<!--[if IE 8]><link href="<?php echo $mosConfig_live_site;?>/templates/<?php echo JTEMPLATE; ?>/css/fix/ie8.css" rel="stylesheet" type="text/css"/><![endif]-->
+<script type="text/javascript">
+	var _live_site = '<?php echo JPATH_SITE;?>';
+	var _option = '<?php echo mosGetParam( $_REQUEST, 'option', '' );?>';
+	var _cur_template = '<?php echo JTEMPLATE;?>';
+	var _js_defines = new Array();
+</script>
+<link href="<?php echo JPATH_SITE;?>/templates/<?php echo JTEMPLATE; ?>/css/template_css.css" rel="stylesheet" type="text/css" />
+<!--[if lte IE 7]><link href="<?php echo JPATH_SITE;?>/templates/<?php echo JTEMPLATE; ?>/css/fix/ie7.css" rel="stylesheet" type="text/css" /><![endif]-->
+<!--[if IE 8]><link href="<?php echo JPATH_SITE;?>/templates/<?php echo JTEMPLATE; ?>/css/fix/ie8.css" rel="stylesheet" type="text/css"/><![endif]-->
 </head>
-
-
 <body class="<?php echo $body_class;?>">
-    
     <div class="main_wrap">
-    
         <div class="wrapper">
-
             <div class="header">
-                <a href="<?php echo $mosConfig_live_site;?>" id="logo">&nbsp;</a>
-                
-                <div class="header_center"><?php mosLoadModules('header',-1); ?></div> 
-  
+                <a href="<?php echo JPATH_SITE;?>" id="logo">&nbsp;</a>
+                <div class="header_center"><?php mosLoadModules('header',-1); ?></div>
                 <div class="header_right">
                     <a title="Обратная связь" href="mailto:<?php echo $mosConfig_mailfrom;?>" id="mail" class="navbar">&nbsp;</a>
                     <a title="Карта сайта" href="<?php echo sefRelToAbs('index.php?option=com_xmap&amp;Itemid=27'); ?>" id="map" class="navbar">&nbsp;</a>      
 				</div>
-               
                	<div class="top_menu_l"><div class="top_menu_r"><div class="top_menu_mid">
 					<?php mosLoadModules('top',-1); ?>
 					<?php mosLoadModule('mod_ml_login', '', -1, 0, $login_params); ?>
-					<?php //mosLoadModules('toolbar',-2); ?>
        			</div></div></div>
-            
             </div><!--header:end-->
-            
-            <?php if($block1_count) {
-            	$block1_width = 'w' .$block1_count;
-            ?>
+            <?php if($block1_count) { $block1_width = 'w' .$block1_count; ?>
             <div class="block1" id="block_round">
   					<?php if(mosCountModules('user1')) { ?>
                     <div class="block_<?php echo $block1_width ?>">
@@ -94,14 +74,9 @@ $iso = explode('=',_ISO); echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'
                     <?php } ?> 
             </div><!--block1:end-->
             <?php } ?>
-            
-
             <div class="content">
                 <?php mosMainbody(); ?> <br />
-                <?php if($block2_count) {
-                    $block2_width = 'w' .$block2_count;
-                ?>
-
+                <?php if($block2_count) { $block2_width = 'w' .$block2_count; ?>
                     <div class="block2">
                         <?php if(mosCountModules('user4')) { ?>
                             <div class="block_<?php echo $block2_width ?>">
@@ -118,22 +93,14 @@ $iso = explode('=',_ISO); echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'
                               <?php mosLoadModules('user6', -2); ?>
                            </div>
                         <?php } ?>
-                    
                     </div><!--block2:end-->
                 <?php } ?>                
-            
             </div><!--content:end-->
-            
-            
             <div class="col">
                 <?php mosLoadModules('left',-2); ?>
                 <?php mosLoadModules('banner',-2); ?>
             </div><!--col:end-->
-            
-            
-            <?php if($block3_count) {
-                $block3_width = 'w' .$block3_count;
-            ?>
+            <?php if($block3_count) { $block3_width = 'w' .$block3_count;?>
                 <div class="block3">
                     <div class="block3_bottom">
                         <?php if(mosCountModules('user7')) { ?>
@@ -154,18 +121,13 @@ $iso = explode('=',_ISO); echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'
                     </div>               
                 </div><!--block3:end-->
             <?php } ?>            
-        
         </div><!--wrapper:end-->
-        
-   
     </div> <!--main_wrap:end-->
-    
-
     <div class="footer">
         <div class="bottom">
             <a title="Работает на системе управления сайтами Joostina CMS" href="http://www.joostina.ru" target="_blank" id="about" class="bottom_bar">Работает на Joostina CMS</a>
             <?php mosLoadModules('bottom',-1); ?>
-        </div>    
+        </div>
     </div><!--footer:end-->
     
     

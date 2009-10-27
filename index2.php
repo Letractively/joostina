@@ -18,7 +18,7 @@ define('DS', DIRECTORY_SEPARATOR );
 $mosConfig_absolute_path = JPATH_BASE;
 
 // подключение файла эмуляции отключения регистрации глобальных переменных
-require_once (JPATH_BASE.DS.'includes'.DS.'globals.php');
+(ini_get('register_globals') == 1) ? require_once (JPATH_BASE.DS.'includes'.DS.'globals.php') : null;
 
 // подключение файла конфигурации
 require_once (JPATH_BASE.DS.'configuration.php');
@@ -111,6 +111,8 @@ if($option == 'login') {
 }
 
 $cur_template = $mainframe->getTemplate();
+define('JTEMPLATE', $cur_template );
+
 // подключаем визуальный редактор
 require_once (JPATH_BASE . '/includes/editor.php');
 

@@ -10,12 +10,18 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-$basePath = dirname(__file__);
-require ($basePath.'/../../includes/globals.php');
+// разделитель каталогов
+define('DS', DIRECTORY_SEPARATOR );
+// корень файлов
+define('JPATH_BASE', dirname(dirname(dirname(__FILE__))) );
+// корень файлов админкиы
+define('JPATH_BASE_ADMIN', dirname(dirname(__FILE__)) );
 
-// $basepath reintialization required as globals.php will kill initial when RGs Emulation `Off`
+(ini_get('register_globals') == 1) ? require_once (JPATH_BASE.DS.'includes'.DS.'globals.php') : null;
+
+require_once (JPATH_BASE.DS.'configuration.php');
+
 $basePath = dirname(__file__);
-require ($basePath.'/../../configuration.php');
 
 // SSL check - $http_host returns <live site url>:<port number if it is 443>
 $http_host = explode(':',$_SERVER['HTTP_HOST']);
@@ -25,16 +31,17 @@ if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset
 }
 
 if(!defined('_MOS_MAMBO_INCLUDED')) {
-	$path = $basePath.'/../../includes/joomla.php';
-	require ($path);
+	require(JPATH_BASE.DS.'includes/joomla.php');
 }
 
-global $database,$my;
+global $my;
 
 session_name(md5($mosConfig_live_site));
 session_start();
 
 header('Content-type: text/html; charset=UTF-8');
+
+$database = &database::getInstance();
 
 // restore some session variables
 if(!isset($my)) {

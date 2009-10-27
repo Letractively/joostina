@@ -10,6 +10,7 @@
 define("_VALID_MOS",1);
 
 require_once ('../includes/auth.php');
+
 $mainframe = &mosMainFrame::getInstance(true);
 $mainframe->set('lang', $mosConfig_lang);
 include_once($mainframe->getLangFile());
@@ -33,7 +34,7 @@ switch($option) {
 }
 
 $title = stripslashes(mosGetParam($_REQUEST,'title',''));
-$css = mosGetParam($_REQUEST,'t','');
+$css = mosGetParam($_REQUEST,'t',$mainframe->getTemplate());
 $row = null;
 
 $database = &database::getInstance();
@@ -53,12 +54,9 @@ $title = preg_replace('/'.$pat2.'/iu',$replace2,$row->title);
 
 // css file handling
 // check to see if template exists
-if($css != '' && !is_dir(JPATH_BASE_ADMIN.DS.'templates'.DS.$css.DS.'css/template_css.css')) {
-	$css = 'newline';
-} else
-	if($css == '') {
-		$css = 'newline';
-	}
+if($css == '' || !is_file(JPATH_BASE.DS.'templates'.DS.$css.DS.'css/template_css.css')) {
+	$css = 'newline2';
+}
 
 $iso = split('=',_ISO);
 // xml prolog
@@ -88,15 +86,15 @@ echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>';
 
 <body style="background-color:#FFFFFF">
 <table align="center" width="160" cellspacing="2" cellpadding="2" border="0" height="100%">
-<tr>
-	<td class="moduleheading"><script>document.write(title);</script></td>
-</tr>
-<tr>
-	<td valign="top" height="90%"><script>document.write(content);</script></td>
-</tr>
-<tr>
-	<td align="center"><a href="#" onClick="window.close()"><?php echo _CLOSE?></a></td>
-</tr>
+	<tr>
+		<td class="moduleheading"><script>document.write(title);</script></td>
+	</tr>
+	<tr>
+		<td valign="top" height="90%"><script>document.write(content);</script></td>
+	</tr>
+	<tr>
+		<td align="center"><a href="#" onClick="window.close()"><?php echo _CLOSE?></a></td>
+	</tr>
 </table>
 </body>
 </html>

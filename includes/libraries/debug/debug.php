@@ -42,7 +42,7 @@ class jdebug {
 	
 	/* вывод сообщений из лога*/
 	function get() {
-		echo '<del><![CDATA[<noindex>]]></del><pre>';
+		echo '<span style="display:none"><![CDATA[<noindex>]]></span><pre>';
 		/* счетчики */
 		foreach($this->_inc as $key => $value) {
 			$this->text .= '<small class="debug_counter">COUNTER:</small> <b>'.htmlentities($key).'</b>: '.$value.'<br />';
@@ -70,7 +70,7 @@ class jdebug {
 		$this->text .=implode('',$f);
 		unset($f);
 		echo '<div id="jdebug">'.$this->text.'</div>';
-		echo '</pre><del><![CDATA[</noindex>]]></del>';
+		echo '</pre><span style="display:none"><![CDATA[</noindex>]]></span>';
 	}
 
 	function db_debug(){

@@ -23,10 +23,8 @@ class ContentView {
 	 * Draws a Content List
 	 * Used by Content Category & Content Section
 	 */
-	function showUserContent($user_items, &$access, &$params, &$pageNav = null, &$lists = null, $order = null) {
+	function showUserContent($user_items, &$access, &$params, &$pageNav = null, &$lists = null, $order = null,$config=null) {
 		global $Itemid;
-
-		$database = &database::getInstance();
 
 		if(!$user_items) {
 			include_once (JPATH_BASE.'/components/com_content/view/user/items/default.php');
@@ -41,6 +39,7 @@ class ContentView {
 		if($params->get('page_title')) {
 			$title = $params->get('my_page_title');
 			if(!$title) {
+				$database = &database::getInstance();
 				$menu = new mosMenu($database);
 				$menu->load($Itemid);
 				$title = $menu->name;

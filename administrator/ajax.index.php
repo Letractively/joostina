@@ -51,6 +51,10 @@ $mainframe = mosMainFrame::getInstance(true);
 $mainframe->set('lang', $mosConfig_lang);
 require_once($mainframe->getLangFile());
 
+// получение шаблона страницы
+$cur_template = $mainframe->getTemplate();
+define('JTEMPLATE', $cur_template );
+
 require_once (JPATH_BASE_ADMIN.DS.'includes'.DS.'admin.php');
 
 $my = $mainframe->initSessionAdmin($option,$task);

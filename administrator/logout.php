@@ -29,8 +29,7 @@ if(joomlaVersion::get('SITE') == 1) {
 
 	// delete db session record corresponding to currently logged in user
 	if(isset($_SESSION['session_id']) && $_SESSION['session_id'] != '') {
-		$query = "DELETE FROM #__session"
-				."\n WHERE session_id = " . $database->Quote($_SESSION['session_id']);
+		$query = "DELETE FROM #__session WHERE session_id = " . $database->Quote($_SESSION['session_id']);
 		$database->setQuery($query);
 
 		if(!$database->query()) {
