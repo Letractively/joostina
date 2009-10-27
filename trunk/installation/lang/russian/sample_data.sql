@@ -69,7 +69,7 @@ INSERT INTO `#__content_frontpage` VALUES (14, 2);
 # Данные для таблицы `#__menu`
 #
 INSERT INTO `#__menu` VALUES (2, 'mainmenu', 'Новости', 'index.php?option=com_content&task=section&id=1', 'content_section', 0, 0, 1, 0, 4, 0, '0000-00-00 00:00:00', 0, 0, 0, 3, '');
-INSERT INTO `#__menu` VALUES (3, 'mainmenu', 'Контакты', 'index.php?option=com_contact', 'components', -2, 0, 7, 0, 1, 0, '0000-00-00 00:00:00', 0, 0, 0, 3, '');
+INSERT INTO `#__menu` VALUES (3, 'mainmenu', 'Контакты', 'index.php?option=com_contact', 'components', 0, 0, 7, 0, 1, 0, '0000-00-00 00:00:00', 0, 0, 0, 3, '');
 INSERT INTO `#__menu` VALUES (4, 'mainmenu', 'Ссылки', 'index.php?option=com_weblinks', 'components', 1, 0, 4, 0, 6, 0, '0000-00-00 00:00:00', 0, 0, 0, 0, 'menu_image=web_links.jpg\npageclass_sfx=\nback_button=\npage_title=1\nheader=\nheadings=1\nhits=\nitem_description=1\nother_cat=1\ndescription=1\ndescription_text=\nimage=-1\nimage_align=right\nweblink_icons=');
 INSERT INTO `#__menu` VALUES (5, 'mainmenu', 'Поиск', 'index.php?option=com_search', 'components', 1, 0, 16, 0, 7, 0, '0000-00-00 00:00:00', 0, 0, 0, 3, '');
 INSERT INTO `#__menu` VALUES (6, 'mainmenu', 'Лицензия Joostina', 'index.php?option=com_content&task=view&id=5', 'content_typed', 1, 0, 5, 0, 3, 0, '0000-00-00 00:00:00', 0, 0, 0, 0, 'title=Условия использования Joostina CMS\nmenu_image=-1\nunique_itemid=0');
