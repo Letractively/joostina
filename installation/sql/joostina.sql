@@ -616,7 +616,7 @@ CREATE TABLE `#__session` (
   `userid` int(11) default '0',
   `usertype` varchar(50) default '',
   `gid` tinyint(3) unsigned NOT NULL default '0',
-  PRIMARY KEY  (`session_id`),
+  PRIMARY KEY (`session_id`),
   KEY `whosonline` (`guest`,`usertype`),
   KEY `userid` (`userid`)
 ) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
@@ -1079,4 +1079,10 @@ ALTER TABLE `#__categories` ADD `templates` TEXT NOT NULL ;
 ALTER TABLE `#__content` ADD `templates` VARCHAR( 255 ) NOT NULL ;
 # RC3
 ALTER TABLE `#__content_tags` ADD INDEX ( `obj_type` );
-ALTER TABLE `#__core_acl_aro_groups` DROP INDEX  `parent_id_aro_groups`;
+ALTER TABLE `#__core_acl_aro_groups` DROP INDEX `parent_id_aro_groups`;
+ALTER TABLE `#__session` ADD INDEX ( `time` );
+ALTER TABLE `#__session` DROP PRIMARY KEY, ADD PRIMARY KEY ( `session_id` ( 64 ) );
+# com_banners
+ALTER TABLE `#__banners_categories` ADD INDEX ( `published` );
+ALTER TABLE `#__banners_clients` ADD INDEX ( `published` );
+ALTER TABLE `#__banners` ADD INDEX `ibx_select` (`state` ,`last_show` ,`msec` ,`publish_up_date` ,`publish_up_time` ,`publish_down_date` ,`publish_down_time` ,`reccurtype` ,`reccurweekdays` ( 2 ) ,`access`);
