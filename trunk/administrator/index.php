@@ -21,7 +21,7 @@ if(!file_exists(JPATH_BASE.DS.'configuration.php')) {
 	exit();
 }
 
-require_once (JPATH_BASE.DS.'includes/globals.php');
+(ini_get('register_globals') == 1) ? require_once (JPATH_BASE.DS.'includes'.DS.'globals.php') : null;
 require_once (JPATH_BASE.DS.'configuration.php');
 require_once (JPATH_BASE.DS.'includes/joomla.php');
 

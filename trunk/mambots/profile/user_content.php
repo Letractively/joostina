@@ -30,8 +30,8 @@ function botUserContent(&$user) {
 	global $_MAMBOTS,$Itemid;
 
 	$mainframe = &mosMainFrame::getInstance();
-	$database = &database::getInstance();
-	$config = &Jconfig::getInstance();
+	$database = &$mainframe->_db;
+	$config = &$mainframe->config;
 
 	require_once ($mainframe->getPath('class','com_content'));
 	require_once ($config->config_absolute_path.'/components/com_content/content.html.php');

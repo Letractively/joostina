@@ -17,7 +17,7 @@ if(!$acl->acl_check('administration','config','users',$my->usertype)) {
 
 require_once ($mainframe->getPath('admin_html'));
 // XML library
-require_once ("JPATH_BASE/includes/domit/xml_domit_lite_include.php");
+require_once (JPATH_BASE.'/includes/domit/xml_domit_lite_include.php');
 
 $cid = mosGetParam($_REQUEST,'cid',array(0));
 if(!is_array($cid)) {

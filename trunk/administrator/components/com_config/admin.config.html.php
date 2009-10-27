@@ -304,7 +304,7 @@ class HTML_config {
 			</tr>
 			<tr>
 				<td><?php echo mosToolTip(_COUNT_GENERATION_TIME2,'','','',_COUNT_GENERATION_TIME)?>:</td>
-				<td><?php echo $lists['time_gen'];?></td>
+				<td><?php echo $lists['config_time_generate'];?></td>
 			</tr>
 			<tr>
 				<td><?php echo mosToolTip(_ENABLE_GZIP2,'','','',_ENABLE_GZIP)?>:</td>

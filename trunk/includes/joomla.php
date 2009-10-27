@@ -511,10 +511,9 @@ class mosMainFrame {
 	function addJS($path, $footer = '', &$def = ''){
 		if($footer){
 			$this->_footer[$footer][] = '<script language="JavaScript" src="'. $path .'" type="text/javascript"></script>';
-		}
-		else{
+		}else{
 			$this->_head['js'][] = '<script language="JavaScript" src="'. $path .'" type="text/javascript"></script>';
-		}				
+		}
 	}
 	/**
 	* добавление css файлов в шапку страницы
@@ -2110,7 +2109,7 @@ class JConfig {
 	/** @var str использование одного шаблона на весь сайт*/
 	var $config_one_template = '...';
 	/** @var int подсчет времени генерации страницы*/
-	var $config_time_gen = 0;
+	var $config_time_generate = 0;
 	/** @var int индексация страницы печати*/
 	var $config_index_print = 0;
 	/** @var int расширенные теги индексации*/
@@ -2621,15 +2620,15 @@ class mosModule extends mosDBTable {
 		}
 	}
 
-	function getInstance(){
+	function &getInstance(){
 		static $modules;
 		if(!is_object($modules) ){
 			$mainframe = &mosMainFrame::getInstance();
-			unset($mainframe->_session,$mainframe->_head,$mainframe->_footer);
+			unset($mainframe->_session);
 
 			$modules = new mosModule($mainframe->_db, $mainframe);
 			$modules->initModules();
-			unset($modules->_mainframe,$modules->_db,$modules->_view->all_menu,$modules->_view->_mainframe->_session,$modules->_view->_mainframe->_head,$modules->_view->_mainframe->_footer,$modules->_view->_mainframe->menu);
+			unset($modules->_mainframe,$modules->_db,$modules->_view->all_menu,$modules->_view->_mainframe->_session,$modules->_view->_mainframe->menu);
 		}
 
 		return $modules;
@@ -2790,11 +2789,7 @@ class mosModule extends mosDBTable {
 
 		$allModules = $this->_all_modules;
 
-		if(isset($allModules[$position])) {
-			return count($allModules[$position]);
-		} else {
-			return 0;
-		}
+		return (isset($allModules[$position])) ? count($allModules[$position]) : 0;
 	}
 
 	/**
@@ -2944,34 +2939,45 @@ class mosCache {
 	/**
 	* @return object A function cache object
 	*/
-	function &getCache($group = 'default', $handler = 'callback', $storage = null,$cachetime = null){
+	function &getCache($group = 'default', $handler = 'callback', $storage = null,$cachetime = null, $object = null){
+		static $config;
+
+		if(!is_array($config)){
+			$config_ = &Jconfig::getInstance();
+			$config['config_caching'] = $config_->config_caching;
+			$config['config_cachetime'] = $config_->config_cachetime;
+			$config['config_cache_handler'] = $config_->config_cache_handler;
+			$config['config_cachepath'] = $config_->config_cachepath;
+			$config['config_lang'] = $config_->config_lang;
+			unset($config_);
+			// подключаем библиотеку кэширования
+			mosMainFrame::addLib('cache');
+		}
 
 		jd_inc('getCache');
 		jd_log($group);
 
 		$handler = ($handler == 'function') ? 'callback' : $handler;
 
-		$config = &Jconfig::getInstance();
 
-		$def_cachetime = (isset($cachetime)) ? $cachetime : $config->config_cachetime;
+		$def_cachetime = (isset($cachetime)) ? $cachetime : $config['config_cachetime'];
 
 		if(!isset($storage)) {
-			$storage =($config->config_cache_handler != '')? $config->config_cache_handler : 'file';
+			$storage =($config['config_cache_handler'] != '')? $config['config_cache_handler'] : 'file';
 		}
 
 		$options = array(
 			'defaultgroup' 	=> $group,
-			'cachebase' 	=> $config->config_cachepath.DS,
-			'lifetime' 		=> $def_cachetime,// minutes to seconds
-			'language' 		=> $config->config_lang,
+			'cachebase' 	=> $config['config_cachepath'].DS,
+			'lifetime' 		=> $def_cachetime,
+			'language' 		=> $config['config_lang'],
 			'storage'		=> $storage
 		);
 
-		mosMainFrame::addLib('cache');
-		$cache =&JCache::getInstance( $handler, $options );
+		$cache =&JCache::getInstance( $handler, $options, $object );
 
 		if($cache != NULL){
-			$cache->setCaching($config->config_caching);
+			$cache->setCaching($config['config_caching']);
 		}
 		return $cache;
 	}
@@ -5642,7 +5648,7 @@ class mosCommonHTML {
 	function loadCalendar() {
 		if(!defined('_CALLENDAR_LOADED')) {
 			define('_CALLENDAR_LOADED',1);
-			$mainframe = MosMainFrame::getInstance();
+			$mainframe = &MosMainFrame::getInstance();
 			$mainframe->addCSS(JPATH_SITE.'/includes/js/calendar/calendar-mos.css');
 			$mainframe->addJS(JPATH_SITE.'/includes/js/calendar/calendar_mini.js');
 			$_lang_file = JPATH_BASE.'/includes/js/calendar/lang/calendar-'._LANGUAGE.'.js';
@@ -5654,7 +5660,7 @@ class mosCommonHTML {
 	function loadMootools($ret = false) {
 		if(!defined('_MOO_LOADED')) {
 			define('_MOO_LOADED',1);
-			$mainframe = MosMainFrame::getInstance();
+			$mainframe = &MosMainFrame::getInstance();
 			$mainframe->addJS(JPATH_SITE.'/includes/js/mootools/mootools.js');
 		}
 		if($ret==true)?>
@@ -5665,7 +5671,7 @@ class mosCommonHTML {
 	function loadPrettyTable() {
 		if(!defined('_PRT_LOADED')) {
 			define('_PRT_LOADED',1);
-			$mainframe = MosMainFrame::getInstance();
+			$mainframe = &MosMainFrame::getInstance();
 			$mainframe->addJS(JPATH_SITE.'/includes/js/jsfunction/jrow.js');
 		}
 	}
@@ -5673,12 +5679,12 @@ class mosCommonHTML {
 	function loadFullajax($ret = false) {
 		if(!defined('_FAX_LOADED')) {
 			define('_FAX_LOADED',1);
-			$mainframe = MosMainFrame::getInstance();
 			if($ret){?>
 				<script language="javascript" type="text/javascript" src="<?php echo JPATH_SITE;?>/includes/js/fullajax/fullajax.js"></script>
 <?php
 			}else{
-			$mainframe->addJS(JPATH_SITE.'/includes/js/fullajax/fullajax.js');
+				$mainframe = &MosMainFrame::getInstance();
+				$mainframe->addJS(JPATH_SITE.'/includes/js/fullajax/fullajax.js');
 			}
 		}
 	}
@@ -5688,10 +5694,10 @@ class mosCommonHTML {
 	function loadJquery($ret = false,$all = false) {
 		if(!defined('_JQUERY_LOADED')) {
 			define('_JQUERY_LOADED',1);
-			$mainframe = MosMainFrame::getInstance();
 			if($ret){
 				return '<script language="javascript" type="text/javascript" src="'.JPATH_SITE.'/includes/js/jquery/jquery.js"></script>';
 			}else{
+				$mainframe = &MosMainFrame::getInstance();
 				$mainframe->addJS(JPATH_SITE.'/includes/js/jquery/jquery.js');
 				return true;
 			}
@@ -5700,7 +5706,6 @@ class mosCommonHTML {
 	/* подключение расширений Jquery*/
 	function loadJqueryPlugins($name,$ret = false, $css = false, $footer = '') {
 		$name = trim($name);
-		$mainframe = &MosMainFrame::getInstance();
 
 		// если само ядро Jquery не загружено - сначала грузим его
 		if(!defined('_JQUERY_LOADED')) {
@@ -5719,6 +5724,7 @@ class mosCommonHTML {
 <?php
 			}?>
 			<?php }else{
+				$mainframe = &MosMainFrame::getInstance();
 				$mainframe->addJS(JPATH_SITE.'/includes/js/jquery/plugins/'.$name.'.js', $footer);
 				$mainframe->addCustomHeadTag('<script language="JavaScript" type="text/javascript">_js_defines.push("'.$name.'");</script>');
 				if($css){
@@ -5732,10 +5738,10 @@ class mosCommonHTML {
 	function loadJqueryUI($ret = false) {
 		if(!defined('_JQUERY_UI_LOADED')) {
 			define('_JQUERY_UI_LOADED',1);
-			$mainframe = &MosMainFrame::getInstance();
 			if($ret){?>
 				<script language="javascript" type="text/javascript" src="<?php echo JPATH_SITE?>/includes/js/jquery/ui.js"></script>
 			<?php }else{
+				$mainframe = &MosMainFrame::getInstance();
 				$mainframe->addCSS(JPATH_SITE.'/includes/js/jquery/ui.js');
 			}
 		}

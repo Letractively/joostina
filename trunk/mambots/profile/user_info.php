@@ -18,7 +18,7 @@ function botUserInfo_tab(&$user){
 	return array(
 		'name'=>_USER_PERSONAL_DATA,
 		'title'=>_USER_PERSONAL_DATA,
-		'href'=>'index.php?option=com_users&task=profile&user='.$user->id,
+		'href'=>'index.php?option=com_users&task=profile&view=user_info&user='.$user->id,
 		'id'=>'user_user_info_link',
 		'class'=>''
 	);

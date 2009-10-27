@@ -28,7 +28,7 @@ if(!file_exists('configuration.php') || filesize('configuration.php') < 10) {
 $mosConfig_absolute_path = JPATH_BASE;
 
 // подключение файла эмуляции отключения регистрации глобальных переменных
-require_once (JPATH_BASE.DS.'includes'.DS.'globals.php');
+(ini_get('register_globals') == 1) ? require_once (JPATH_BASE.DS.'includes'.DS.'globals.php') : null;
 
 // подключение файла конфигурации
 require_once (JPATH_BASE.DS.'configuration.php');
@@ -37,7 +37,7 @@ require_once (JPATH_BASE.DS.'configuration.php');
 define('JPATH_SITE', $mosConfig_live_site );
 
 // считаем время за которое сгенерирована страница
-$mosConfig_time_gen ? $sysstart = microtime(true) : null;
+$mosConfig_time_generate ? $sysstart = microtime(true) : null;
 
 // Проверка SSL - $http_host возвращает <url_сайта>:<номер_порта, если он 443>
 $http_host = explode(':',$_SERVER['HTTP_HOST']);
@@ -182,9 +182,6 @@ if($option == 'login') {
 	}
 }
 
-//_xdump($GLOBALS);
-//exit();
-
 // получение шаблона страницы
 $cur_template = $mainframe->getTemplate();
 define('JTEMPLATE', $cur_template );
@@ -259,17 +256,13 @@ if($mosConfig_mmb_mainbody_off == 0) {
 	$_MAMBOTS->loadBotGroup('mainbody');
 	$_MAMBOTS->trigger('onTemplate',array(&$_template_body));
 }
-// уменьшает расход памяти, но момент всё-таки спорный
 unset($_MAMBOTS,$mainframe,$my,$_MOS_OPTION);
-
-//_xdump($GLOBALS);
-//exit();
 
 // вывод стека всего тела страницы, уже после обработки мамботами группы onTemplate
 echo $_template_body;
 
 // подсчет времени генерации страницы
-echo $mosConfig_time_gen ? '<div id="time_gen">'.(microtime(true) - $sysstart).'</div>' : null;
+echo $mosConfig_time_generate ? '<div id="time_gen">'.round((microtime(true) - $sysstart),5).'</div>' : null;
 
 
 // вывод лога отладки
@@ -282,7 +275,6 @@ if($mosConfig_debug) {
 }
 
 doGzip();
+
 // запускаем встроенный оптимизатор таблиц
-if($mosConfig_optimizetables == 1) {
-	joostina_api::optimizetables();
-}
+($mosConfig_optimizetables == 1) ? joostina_api::optimizetables():null;

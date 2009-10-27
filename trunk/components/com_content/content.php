@@ -218,7 +218,7 @@ function showUserItems($user_id) {
 	// Dynamic Page Title
 	$mainframe->SetPageTitle($pagetitle);
 
-	ContentView::showUserContent($user_items, $access, $params, $pageNav, $lists, $params->get('orderby'));
+	ContentView::showUserContent($user_items, $access, $params, $pageNav, $lists, $params->get('orderby'),$mainframe->config);
 }
 
 /**

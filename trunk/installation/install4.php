@@ -212,7 +212,7 @@ if($siteUrl) {
 	// boston, использование одного шаблона на весь сайт
 	$config .= "\$mosConfig_one_template = '...';\n";
 	// boston, отображение времени генерации страницы
-	$config .= "\$mosConfig_time_gen = '1';\n";
+	$config .= "\$mosConfig_time_generate = '1';\n";
 	// boston, индексация печатной версии
 	$config .= "\$mosConfig_index_print = '0';\n";
 	//boston, расширенные теги индексации

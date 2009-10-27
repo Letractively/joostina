@@ -8,6 +8,8 @@
 */
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
+// удаляем зарегистрированные глобальные переменные если они разрешены
+
 /**
 * Adds an array to the GLOBALS array and checks that the GLOBALS variable is
 * not being attacked
@@ -23,7 +25,7 @@ function checkInputArray(&$array,$globalise = false) {
 		// PHP Zend_Hash_Del_Key_Or_Index bug
 		$failed |= is_numeric($key);
 		if($failed) {
-			die('Запрещенная переменная <b>'.implode('</b> или <b>',$banned).'</b> в скрипте.');
+			die('error <b>'.implode('</b> & <b>',$banned).'</b>');
 		}
 		if($globalise) {
 			$GLOBALS[$key] = $value;
@@ -72,8 +74,4 @@ function unregisterGlobals() {
 	$_ENV = $ENV;
 	$_SERVER = $SERVER;
 }
-
-// удаляем зарегистрированные глобальные переменные если они разрешены
-if(ini_get('register_globals') == 1) {
-	unregisterGlobals();
-}
+unregisterGlobals();

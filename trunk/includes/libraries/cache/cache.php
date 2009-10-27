@@ -11,10 +11,6 @@
 // Check to ensure this file is within the rest of the framework
 defined('_VALID_MOS') or die();
 
-//Register the session storage class with the loader
-
-//require_once(dirname(__FILE__).DS.'storage.php');
-
 /**
  * Joostina! Cache base object
  *
@@ -39,15 +35,16 @@ class JCache{
 	 */
 	var $_options;
 
+	var $_object = null;
 	/**
 	 * Constructor
 	 *
 	 * @access	protected
 	 * @param	array	$options	options
 	 */
-	function __construct($options){
+	function __construct($options, $object = null){
 		$this->_options =& $options;
-		
+ 		$this->_object = $object;
 		// Get the default group and caching
 		if(isset($options['language'])) {
 			$this->_options['language'] = $options['language'];
@@ -91,7 +88,7 @@ class JCache{
 	 * @since	1.3
 	 */
 	 
-	function &getInstance($type = 'output', $options = array())
+	function &getInstance($type = 'output', $options = array(), $object = null)
 	{
 		$type = strtolower(preg_replace('/[^A-Z0-9_\.-]/i', '', $type));
 
@@ -107,7 +104,7 @@ class JCache{
 				return NULL;
 			}
 		}
-		$instance = new $class($options);
+		$instance = new $class($options,$object);
 		return $instance;
 	}
 

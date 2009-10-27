@@ -37,7 +37,7 @@ class JCacheCallback extends JCache{
 	 */
 	function call(){
 		// Get callback and arguments
-		$args		= func_get_args();
+		$args = func_get_args();
 		jd_inc('cache::call->'.$args[0]);
 		$callback	= array_shift($args);
 		return $this->get( $callback, $args );
@@ -91,7 +91,12 @@ class JCacheCallback extends JCache{
 			ob_start();
 			ob_implicit_flush( false );
 
-			$result = call_user_func_array($callback, $args);
+			if(!$this->_object){
+				$result = call_user_func_array($callback, $args);
+			}else{
+				$result = call_user_method_array($callback, $this->_object, $args);
+			}
+
 			$output = ob_get_contents();
 
 			ob_end_clean();
