@@ -66,8 +66,6 @@ function showBanners(&$params, $mainframe) {
 	$database->setQuery($query);
 	$rows = $database->loadObjectList();
 
-echo $database->getQuery($query);
-
 	$numrows = count($rows);
 	if(!$numrows){
 		return '&nbsp;';
