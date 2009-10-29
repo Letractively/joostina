@@ -199,7 +199,7 @@ if($mosConfig_frontend_login == 1) {
 ob_start();
 
 if($path = $mainframe->getPath('front')) {
-	$task = strval(mosGetParam($_REQUEST,'task','')); 
+	$task = strval(mosGetParam($_REQUEST,'task',''));
 	$ret = mosMenuCheck($Itemid,$option,$task,$gid,$mainframe);
 	if($ret) {
 		//Подключаем язык компонента
