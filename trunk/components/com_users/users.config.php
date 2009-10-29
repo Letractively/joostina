@@ -9,6 +9,8 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
+mosMainFrame::addLib('dbconfig');
+
 class configUser_registration extends dbConfig {
 	/**
 	 * Заголовок страницы

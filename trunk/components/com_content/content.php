@@ -11,7 +11,6 @@
 defined('_VALID_MOS') or die();
 
 require_once ($mainframe->getPath('front_html', 'com_content'));
-require_once ($mainframe->getPath('config', 'com_content'));
 include_once ($mainframe->getLangFile('com_content'));
 
 global $task, $Itemid, $option, $my;
@@ -23,7 +22,6 @@ $id = intval(mosGetParam($_REQUEST, 'id', 0));
 $pop = intval(mosGetParam($_REQUEST, 'pop', 0));
 $limit = intval(mosGetParam($_REQUEST, 'limit', 0));
 $limitstart = intval(mosGetParam($_REQUEST, 'limitstart', 0));
-
 
 
 // loads function for frontpage component
@@ -137,6 +135,9 @@ function showUserItems($user_id) {
 	$mainframe = &mosMainFrame::getInstance();
 	$database = &$mainframe->_db;
 	$acl = &gacl::getInstance();
+
+	mosMainFrame::addLib('dbconfig');
+	require_once ($mainframe->getPath('config', 'com_content'));
 
 	$limit = intval(mosGetParam($_REQUEST, 'limit', 0));
 	$limitstart = intval(mosGetParam($_REQUEST, 'limitstart', 0));

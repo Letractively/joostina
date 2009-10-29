@@ -10,7 +10,6 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-mosMainFrame::addLib('dbconfig');
 mosMainFrame::addLib('tags');
 
 /**
@@ -2064,6 +2063,7 @@ class contentPageConfig{
 			$menu = '';
 			//$params = new mosParameters('');
 			$database = &$mainframe->_db;
+			require_once ($mainframe->getPath('config', 'com_content'));
 			$params = new configContent_sectionblog($database);
 		}
 
@@ -2103,6 +2103,7 @@ class contentPageConfig{
 		} else{
 			$menu = '';
 			$database = &$mainframe->_db;
+			require_once ($mainframe->getPath('config', 'com_content'));
 			$params = new configContent_categoryblog($database);
 		}
 
@@ -2142,6 +2143,7 @@ class contentPageConfig{
 		} else{
 			$menu = '';
 			$database = &$mainframe->_db;
+			require_once ($mainframe->getPath('config', 'com_content'));
 			$params = new configContent_sectionarchive($database);
 		}
 
@@ -2180,6 +2182,7 @@ class contentPageConfig{
 		} else{
 			$menu = '';
 			$database = &$mainframe->_db;
+			require_once ($mainframe->getPath('config', 'com_content'));
 			$params = new configContent_categoryarchive($database);
 		}
 
@@ -2215,6 +2218,7 @@ class contentPageConfig{
 			$params = new mosParameters($menu->params);
 		}else{
 			$menu = '';
+			require_once ($mainframe->getPath('config', 'com_content'));
 			$params = new configContent_categorytable($database);
 		}
 
@@ -2250,6 +2254,7 @@ class contentPageConfig{
 			$params = new mosParameters($menu->params);
 		} else{
 			$menu = '';
+			require_once ($mainframe->getPath('config', 'com_content'));
 			$params = new configContent_sectionlist($database);
 		}
 
