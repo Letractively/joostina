@@ -10,6 +10,7 @@
 // запрет прямого доступа
 defined( '_VALID_MOS' ) or die();
 
+require_once ($mainframe->getPath('front_html', 'com_content'));
 
 class mod_latestnews_Helper{
 	
