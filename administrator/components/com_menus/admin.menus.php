@@ -267,7 +267,7 @@ function addMenuItem(&$cid,$menutype,$option,$task) {
 		if(is_dir($dir)) {
 			$files = mosReadDirectory($dir,".\.menu\.php$");
 			foreach($files as $file) {
-				require_once ("$dir/$file");
+				//require_once ("$dir/$file");
 				// type of menu type
 				$types[]->type = $type;
 			}
