@@ -552,10 +552,6 @@ td.header_info img {
 }
 .logo {
 	position: absolute;
-	top: 9px;
-	left: 10px;
-	width: 64px;
-	height: 64px;
 }
 #joo {
 	background: url(../images/bg.png) repeat-x;
@@ -564,7 +560,7 @@ td.header_info img {
 	height: 32px;
 }
 #joo a {
-	padding: 7px 0 0 15px;
+	padding: 7px 0 0 5px;
 	font-size: 12px;
 	font-weight: bold;
 	text-decoration: none;

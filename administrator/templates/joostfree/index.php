@@ -75,25 +75,19 @@ flush();
 	<body>
 	<div class="page">
 		<div id="topper">
-		
 			<div class="logo">
 				<a href="index2.php" title="<?php echo _GO_TO_MAIN_ADMIN_PAGE?>">
-					<img border="0" alt="J!" src="templates/joostfree/images/logo.png" />
+					<img border="0" alt="J!" src="templates/joostfree/images/logo_130.png" />
 				</a>
-			</div>			
+			</div>
 			<div id="joo">
 				<a href="index2.php" title="<?php echo _GO_TO_MAIN_ADMIN_PAGE?>">
 					<?php echo $mosConfig_sitename;?>
 				</a>
 			</div>
-			
 			<div id="ajax_status"><?php echo _PLEASE_WAIT?></div>
-			
 			<table width="100%" class="menubar" cellpadding="0" cellspacing="0" border="0">
 				<tr class="menubackgr">
-					<td style="padding-left: 55px;width: 25px;">
-						<a href="<?php echo $mosConfig_live_site; ?>/<?php echo ADMINISTRATOR_DIRECTORY?>/index2.php" title="<?php echo _GO_TO_MAIN_ADMIN_PAGE?>"></a>
-					</td>
 					<td width="85%">
 						<?php mosLoadAdminModule('fullmenu'); ?>
 					</td>

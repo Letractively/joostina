@@ -86,7 +86,7 @@ class HTML_banners {
 						<td width="17" align="center"><?php echo $pageNav->rowNumber($i); ?></td>
 						<td width="20">
 							<?php 	if($row->checked_out && $row->checked_out != $myid) {
-										echo '<img src="'.$cur_file_icons_patch.'/checked_out.png" border="0" alt="', _ABP_BANNER_IN_USE, '">';
+										echo '<img src="'.$cur_file_icons_path.'/checked_out.png" border="0" alt="', _ABP_BANNER_IN_USE, '">';
 									} else {
 										echo '<input type="checkbox" id="cb', $i, '" name="cid[]" value="', $row->id, '" onClick="isChecked(this.checked);" />';
 									}
@@ -171,11 +171,11 @@ class HTML_banners {
 						}
 			
 						if($row->cat_pub == 0) {
-							$times .= "<tr><td align=center><img src=".$cur_file_icons_patch."/checked_out.png width=12 height=12 border=0>" . _ABP_CATEGORY_UNPUBLISH . "</td></tr>";
+							$times .= "<tr><td align=center><img src=".$cur_file_icons_path."/checked_out.png width=12 height=12 border=0>" . _ABP_CATEGORY_UNPUBLISH . "</td></tr>";
 						}
 			
 						if($row->cl_pub == 0) {
-							$times .= "<tr><td align=center><img src=".$cur_file_icons_patch."/checked_out.png width=12 height=12 border=0>" . _ABP_CLIENT_UNPUBLISH . "</td></tr>";
+							$times .= "<tr><td align=center><img src=".$cur_file_icons_path."/checked_out.png width=12 height=12 border=0>" . _ABP_CLIENT_UNPUBLISH . "</td></tr>";
 						}
 			
 						$now = mosCurrentDate("%Y-%m-%d");
@@ -919,7 +919,7 @@ class HTML_bannerClient {
 	function showClients(&$rows, &$info_banner, $myid, &$pageNav, $option, $stateslist) {
 		
 		$mainframe = &mosMainFrame::getInstance();
-		$cur_file_icons_patch = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
+		$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
 		?>
 <table class="adminheading">
 	<tbody>
@@ -955,7 +955,7 @@ class HTML_bannerClient {
 		<td width="20">
 <?php
 			if($row->checked_out && $row->checked_out != $myid) {
-				echo '<img src="'.$cur_file_icons_patch.'/checked_out.png" width="12" height="12" border="0" alt="', _ABP_CICBEBAA, '">';
+				echo '<img src="'.$cur_file_icons_path.'/checked_out.png" width="12" height="12" border="0" alt="', _ABP_CICBEBAA, '">';
 			} else {
 				echo '<input type="checkbox" id="cb', $i, '" name="cid[]" value="', $row->cid, '" onClick="isChecked(this.checked);" />';
 			}
@@ -971,7 +971,7 @@ class HTML_bannerClient {
 		<td width="100" align="center"><?php echo $info_banner[$i]['non_publ']; ?></td>
 		<td width="100" align="center"><?php echo $info_banner[$i]['in_attiv']; ?></td>
 		<td align="center" onclick="ch_publ(<?php echo $row->cid; ?>,'com_banners','&act=client_publish');" class="td-state" >
-			<img class="img-mini-state" src="<?php echo $cur_file_icons_patch;?>/<?php echo $img;?>" id="img-pub-<?php echo $row->cid;?>" alt="<?php echo _PUBLISHING?>" />
+			<img class="img-mini-state" src="<?php echo $cur_file_icons_path;?>/<?php echo $img;?>" id="img-pub-<?php echo $row->cid;?>" alt="<?php echo _PUBLISHING?>" />
 		</td>
 	</tr>
 <?php

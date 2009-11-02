@@ -218,6 +218,7 @@ function showSections($scope,$option) {
 	global $my;
 
 	$mainframe	= &mosMainFrame::getInstance(true);
+	$config = &$mainframe->config;
 	$database	= $mainframe->_db;
 
 	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit",'limit',$config->config_list_limit));

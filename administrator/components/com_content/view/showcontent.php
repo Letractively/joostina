@@ -114,6 +114,7 @@ defined( '_VALID_MOS' ) or die();
 		for($i = 0,$n = $_c; $i < $n; $i++) {
 			$row = &$rows[$i];
 			mosMakeHtmlSafe($row);
+
 			$link = 'index2.php?option=com_content&sectionid='.$redirect.'&task=edit&hidemainmenu=1&id='.$row->id;
 			$row->sect_link = 'index2.php?option=com_sections&task=editA&hidemainmenu=1&id='.$row->sectionid;
 			$row->cat_link = 'index2.php?option=com_categories&task=editA&hidemainmenu=1&id='.$row->catid;
@@ -139,6 +140,7 @@ defined( '_VALID_MOS' ) or die();
 			}
 			// корректировка и проверка времени
 			$row->publish_up = mosFormatDate($row->publish_up,_CURRENT_SERVER_TIME_FORMAT);
+
 			if(trim($row->publish_down) == $nullDate || trim($row->publish_down) == '' || trim($row->publish_down) == '-') {
 				$row->publish_down = _NEVER;
 			}
@@ -173,6 +175,7 @@ defined( '_VALID_MOS' ) or die();
 			$checked	= mosCommonHTML::CheckedOutProcessing($row,$i);
 			// значок отображения на главной странице
 			$front_img = $row->frontpage ? 'tick.png' : 'publish_x.png';
+
 ?>
 			<tr class="row<?php echo $k; ?>" id="tr-el-<?php echo $row->id;?>">
 				<td align="center"><?php echo $checked; ?></td>
@@ -213,6 +216,7 @@ defined( '_VALID_MOS' ) or die();
 				<td align="center"><?php echo $row->id; ?></td>
 			</tr>
 <?php
+
 			$k = 1 - $k;
 		}
 ?>
