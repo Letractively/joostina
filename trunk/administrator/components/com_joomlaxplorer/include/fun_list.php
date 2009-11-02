@@ -114,7 +114,7 @@ function make_tables($dir, &$dir_list, &$file_list, &$tot_file_size, &$num_items
 function print_table($dir, $list, $allow) {
 	global $dir_up;
 	$mainframe = mosMainFrame::getInstance(true);
-	$cur_file_icons_patch = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/file_ico/';
+	$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/file_ico/';
 	if(!is_array($list))
 		return;
 	if($dir != "" || strstr($dir, _QUIXPLORER_PATH)) {
@@ -122,7 +122,7 @@ function print_table($dir, $list, $allow) {
 	 			<td>&nbsp;</td>
 	 			<td valign=\"baseline\">
 	 				<a href=\"".make_link("list", $dir_up, null)."\">
-	 				<img border=\"0\" align=\"absmiddle\" src=\"".$cur_file_icons_patch."/uparrow.png\" alt=\"".$GLOBALS["messages"]["uplink"]."\" title=\"".$GLOBALS["messages"]["uplink"]."\"/>&nbsp;&nbsp;..</a>
+	 				<img border=\"0\" align=\"absmiddle\" src=\"".$cur_file_icons_path."/uparrow.png\" alt=\"".$GLOBALS["messages"]["uplink"]."\" title=\"".$GLOBALS["messages"]["uplink"]."\"/>&nbsp;&nbsp;..</a>
 	 			</td>
 	 			<td>&nbsp;</td>
 	 			<td>&nbsp;</td>
@@ -189,7 +189,7 @@ function print_table($dir, $list, $allow) {
 			echo "<a href=\"".$link."\" target=\"".$target."\">";
 		}
 		echo "<img border=\"0\" ";
-		echo "align=\"absmiddle\" src=\"{$cur_file_icons_patch}".get_mime_type($abs_item,"img")."\" alt=\"\" />&nbsp;";
+		echo "align=\"absmiddle\" src=\"{$cur_file_icons_path}".get_mime_type($abs_item,"img")."\" alt=\"\" />&nbsp;";
 		$s_item = $item;
 		if(strlen($s_item) > 50)
 			$s_item = substr($s_item, 0, 47)."...";
@@ -228,22 +228,22 @@ function print_table($dir, $list, $allow) {
 		if($allow && $is_deletable) {
 			echo "<a href=\"".make_link("rename", $dir, $item)."\">";
 			echo "<img border=\"0\" ";
-			echo "src=\"{$cur_file_icons_patch}rename.png\" alt=\"".$GLOBALS["messages"]["renamelink"]."\" title=\"";
+			echo "src=\"{$cur_file_icons_path}rename.png\" alt=\"".$GLOBALS["messages"]["renamelink"]."\" title=\"";
 			echo $GLOBALS["messages"]["renamelink"]."\" /></a>\n";
 		} else {
 			echo "<img border=\"0\" ";
-			echo "src=\"{$cur_file_icons_patch}rename.png\" alt=\"".$GLOBALS["messages"]["renamelink"]."\" title=\"";
+			echo "src=\"{$cur_file_icons_path}rename.png\" alt=\"".$GLOBALS["messages"]["renamelink"]."\" title=\"";
 			echo $GLOBALS["messages"]["renamelink"]."\" />\n";
 		}
 		if(get_is_editable($abs_item)) {
 			if($allow && $is_writable) {
 				echo "<a href=\"".make_link("edit", $dir, $item)."\">";
 				echo "<img border=\"0\" ";
-				echo "src=\"{$cur_file_icons_patch}edit.png\" alt=\"".$GLOBALS["messages"]["editlink"]."\" title=\"";
+				echo "src=\"{$cur_file_icons_path}edit.png\" alt=\"".$GLOBALS["messages"]["editlink"]."\" title=\"";
 				echo $GLOBALS["messages"]["editlink"]."\" /></a>\n";
 			} else {
 				echo "<img border=\"0\" ";
-				echo "src=\"{$cur_file_icons_patch}edit.png\" alt=\"".$GLOBALS["messages"]["editlink"]."\" title=\"";
+				echo "src=\"{$cur_file_icons_path}edit.png\" alt=\"".$GLOBALS["messages"]["editlink"]."\" title=\"";
 				echo $GLOBALS["messages"]["editlink"]."\" />\n";
 			}
 		} else {
@@ -252,10 +252,10 @@ function print_table($dir, $list, $allow) {
 				echo "onclick=\"javascript: ClearAll(); getElementById('item_$i').checked = true; if( confirm('".($GLOBALS["messages"]["extract_warning"])."') ) { document.selform.do_action.value='extract'; document.selform.submit(); } else { getElementById('item_$i').checked = false; return false;}\" ";
 				echo "href=\"".make_link("extract", $dir, $item)."\" title=\"".$GLOBALS["messages"]["extractlink"]."\">";
 				echo "<img border=\"0\" width=\"22\" height=\"20\" ";
-				echo "src=\"{$cur_file_icons_patch}compress.png\" alt=\"".$GLOBALS["messages"]["extractlink"];
+				echo "src=\"{$cur_file_icons_path}compress.png\" alt=\"".$GLOBALS["messages"]["extractlink"];
 				echo "\" title=\"".$GLOBALS["messages"]["extractlink"]."\" /></a>\n";
 			} else {
-				echo "<img border=\"0\" src=\"{$cur_file_icons_patch}none.gif\" alt=\"\" />\n";
+				echo "<img border=\"0\" src=\"{$cur_file_icons_path}none.gif\" alt=\"\" />\n";
 			}
 		}
 		if(get_is_editable($abs_item) && $GLOBALS['jx_File']->is_readable($abs_item) &&
@@ -265,36 +265,36 @@ function print_table($dir, $list, $allow) {
 			echo "<a href=\"".$link."\" onclick=\"window.open('$link','win2','$status'); return false;\" title=\"".
 				$GLOBALS["messages"]["viewlink"]."\">";
 			echo "<img border=\"0\" ";
-			echo "src=\"{$cur_file_icons_patch}view.png\" alt=\"".$GLOBALS["messages"]["viewlink"].
+			echo "src=\"{$cur_file_icons_path}view.png\" alt=\"".$GLOBALS["messages"]["viewlink"].
 				"\" /></a>\n";
 		}
 		if(get_is_file($abs_item)) {
 			if($allow) {
 				echo "<a href=\"".make_link("download", $dir, $item)."\" title=\"".$GLOBALS["messages"]["downlink"]."\">";
 				echo "<img border=\"0\" ";
-				echo "src=\"{$cur_file_icons_patch}down.png\" alt=\"".$GLOBALS["messages"]["downlink"];
+				echo "src=\"{$cur_file_icons_path}down.png\" alt=\"".$GLOBALS["messages"]["downlink"];
 				echo "\" title=\"".$GLOBALS["messages"]["downlink"]."\" /></a>\n";
 			} else
 				if(!$allow) {
 					echo "<td><img border=\"0\" ";
-					echo "src=\"/{$cur_file_icons_patch}down.png\" alt=\"".$GLOBALS["messages"]["downlink"];
+					echo "src=\"/{$cur_file_icons_path}down.png\" alt=\"".$GLOBALS["messages"]["downlink"];
 					echo "\" title=\"".$GLOBALS["messages"]["downlink"]."\" />\n";
 				}
 		} else {
-			echo "<img border=\"0\" src=\"{$cur_file_icons_patch}none.gif\" alt=\"\" />\n";
+			echo "<img border=\"0\" src=\"{$cur_file_icons_path}none.gif\" alt=\"\" />\n";
 		}
 		if(get_is_file($abs_item)) {
 			if($allow && $GLOBALS['jx_File']->is_deletable($abs_item)) {
 				$confirm_msg = sprintf($GLOBALS["messages"]["confirm_delete_file"], $item);
 				echo "<a name=\"link_item_$i\" href=\"#link_item_$i\" title=\"".$GLOBALS["messages"]["dellink"]."\" onclick=\"javascript: ClearAll(); getElementById('item_$i').checked = true; if( confirm('".
 					$confirm_msg."') ) { document.selform.do_action.value='delete'; document.selform.submit(); } else { getElementById('item_$i').checked = false; return false;}\">";
-				echo "<img border=\"0\" src=\"{$cur_file_icons_patch}delete.png\" alt=\"".$GLOBALS["messages"]["dellink"]."\" title=\"".$GLOBALS["messages"]["dellink"]."\" /></a>\n";
+				echo "<img border=\"0\" src=\"{$cur_file_icons_path}delete.png\" alt=\"".$GLOBALS["messages"]["dellink"]."\" title=\"".$GLOBALS["messages"]["dellink"]."\" /></a>\n";
 			} else {
-				echo "<img border=\"0\" src=\"/{$cur_file_icons_patch}delete.png\" alt=\"".$GLOBALS["messages"]["dellink"];
+				echo "<img border=\"0\" src=\"/{$cur_file_icons_path}delete.png\" alt=\"".$GLOBALS["messages"]["dellink"];
 				echo "\" title=\"".$GLOBALS["messages"]["dellink"]."\" />\n";
 			}
 		} else {
-			echo "<img border=\"0\" src=\"{$cur_file_icons_patch}none.gif\" alt=\"\" />\n";
+			echo "<img border=\"0\" src=\"{$cur_file_icons_path}none.gif\" alt=\"\" />\n";
 		}
 		echo "</td></tr>\n";
 		$i++;
@@ -327,7 +327,7 @@ function list_dir($dir) {
 			$dir_links .= "<a href=\"".make_link("list", $implode, null)."\">$directory</a>/";
 		}
 	}
-	$images = "&nbsp;<img width=\"10\" height=\"10\" border=\"0\" align=\"absmiddle\" src=\"/".$cur_file_icons_path."/";
+	$images = "&nbsp;<img width=\"10\" height=\"10\" border=\"0\" align=\"absmiddle\" src=\"".$cur_file_icons_path."/";
 	if($GLOBALS["srt"] == "yes") {
 		$_srt = "no";
 		$images .= "uparrow.png\" alt=\"^\">";

@@ -25,7 +25,7 @@ class HTML_mmxtd {
 		$num_files = $count[0];
 		$num_dir = $count[1];
 		$mainframe = mosMainFrame::getInstance(true);
-		$cur_file_icons_patch = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/file_ico/';
+		$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/file_ico/';
 ?>
 <div class="folder_style">
 <table cellpadding="0" cellspacing="0">
@@ -39,13 +39,13 @@ class HTML_mmxtd {
 		</td>
 		<td class="fileactions">
 			<a href="javascript:void(null)" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $path ?>';document.adminForm.subtask.value='renamefile';document.adminForm.submit( );" title="<?php echo _RENAME?>">
-			<img src="<?php echo $cur_file_icons_patch?>rename.png" alt="<?php echo _RENAME?>" title="<?php echo _RENAME?>" /></a>
+			<img src="<?php echo $cur_file_icons_path?>rename.png" alt="<?php echo _RENAME?>" title="<?php echo _RENAME?>" /></a>
 			<a href="javascript:void(null)" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $path ?>';document.adminForm.subtask.value='copyfile';document.adminForm.submit( );" title="<?php echo _COPY?>">
-			<img src="<?php echo $cur_file_icons_patch?>copy.png" alt="<?php echo _COPY?>" title="<?php echo _COPY?>" /></a>
+			<img src="<?php echo $cur_file_icons_path?>copy.png" alt="<?php echo _COPY?>" title="<?php echo _COPY?>" /></a>
 			<a href="javascript:void(null)" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $path ?>';document.adminForm.subtask.value='movefile';document.adminForm.submit( );" title="<?php echo _JWMM_MOVE?>">
-			<img src="<?php echo $cur_file_icons_patch?>cut.png" alt="<?php echo _JWMM_MOVE?>" title="<?php echo _JWMM_MOVE?>" /></a>
+			<img src="<?php echo $cur_file_icons_path?>cut.png" alt="<?php echo _JWMM_MOVE?>" title="<?php echo _JWMM_MOVE?>" /></a>
 			<a href="index2.php?option=com_jwmmxtd&amp;task=deletefolder&amp;delFolder=<?php echo $path; ?>&amp;curdirectory=<?php echo $listdir; ?>" onclick="return deleteFolder('<?php echo $dir; ?>', <?php echo $num_files; ?>);" title="<?php echo _DELETE?>">
-			<img src="<?php echo $cur_file_icons_patch?>delete.png" alt="<?php echo _DELETE?>" title="<?php echo _DELETE?>" /></a>
+			<img src="<?php echo $cur_file_icons_path?>delete.png" alt="<?php echo _DELETE?>" title="<?php echo _DELETE?>" /></a>
 		</td>
 	</tr>
 </table>
@@ -77,7 +77,7 @@ class HTML_mmxtd {
 		}
 
 		$mainframe = mosMainFrame::getInstance(true);
-		$cur_file_icons_patch = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/file_ico/';
+		$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/file_ico/';
 ?>
 <div class="image_style">
 <table cellpadding="0" cellspacing="0">
@@ -90,15 +90,15 @@ class HTML_mmxtd {
 		<tr>
 			<td class="fileactions">
 				<a href="index2.php?option=com_jwmmxtd&task=edit&curdirectory=<?php echo $cur; ?>&img=<?php echo $img_file; ?>" title="<?php echo _EDIT?>">
-				<img src="<?php echo $cur_file_icons_patch ?>picture_edit.png" alt="<?php echo _EDIT?>" title="<?php echo _EDIT?>" /></a>
+				<img src="<?php echo $cur_file_icons_path ?>picture_edit.png" alt="<?php echo _EDIT?>" title="<?php echo _EDIT?>" /></a>
 				<a href="#" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $file ?>';document.adminForm.subtask.value='renamefile';document.adminForm.submit( );" title="<?php echo _RENAME?>">
-				<img src="<?php echo $cur_file_icons_patch ?>rename.png" alt="<?php echo _RENAME?>" title="<?php echo _RENAME?>" /></a>
+				<img src="<?php echo $cur_file_icons_path ?>rename.png" alt="<?php echo _RENAME?>" title="<?php echo _RENAME?>" /></a>
 				<a href="#" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $file ?>';document.adminForm.subtask.value='copyfile';document.adminForm.submit( );" title="<?php echo _COPY?>">
-				<img src="<?php echo $cur_file_icons_patch ?>copy.png" alt="<?php echo _COPY?>" title="<?php echo _COPY?>" /></a>
+				<img src="<?php echo $cur_file_icons_path ?>copy.png" alt="<?php echo _COPY?>" title="<?php echo _COPY?>" /></a>
 				<a href="#" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $file ?>';document.adminForm.subtask.value='movefile';document.adminForm.submit( );" title="<?php echo _JWMM_MOVE?>">
-				<img src="<?php echo $cur_file_icons_patch ?>cut.png" alt="<?php echo _JWMM_MOVE?>" title="<?php echo _JWMM_MOVE?>" /></a>
+				<img src="<?php echo $cur_file_icons_path ?>cut.png" alt="<?php echo _JWMM_MOVE?>" title="<?php echo _JWMM_MOVE?>" /></a>
 				<a href="index2.php?option=com_jwmmxtd&amp;task=delete&amp;delFile=<?php echo $file; ?>&amp;curdirectory=<?php echo $cur; ?>" onclick="javascript:if(confirm('<?php echo _JWMM_DELETE_FILE_CONFIRM?>:<?php echo $file; ?>')) return true; return false;" title="<?php echo _DELETE?>">
-				<img src="<?php echo $cur_file_icons_patch ?>delete.png" alt="<?php echo _DELETE?>" title="<?php echo _DELETE?>" /></a>
+				<img src="<?php echo $cur_file_icons_path ?>delete.png" alt="<?php echo _DELETE?>" title="<?php echo _DELETE?>" /></a>
 			</td>
 		</tr>
 </table>
@@ -136,7 +136,7 @@ class HTML_mmxtd {
 		$doc_url_link = JWMMXTD_STARTURLPATH.$listdir.'/'.rawurlencode($doc);
 		$cur = $listdir;
 		$mainframe = mosMainFrame::getInstance(true);
-		$cur_file_icons_patch = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/file_ico/';
+		$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/file_ico/';
 
 ?>
 <div class="file_style">
@@ -149,31 +149,31 @@ class HTML_mmxtd {
 		<td class="fileactions">
 <?php
 // архив
-if($icon == $cur_file_icons_patch.'zip.png') { ?>
+if($icon == $cur_file_icons_path.'zip.png') { ?>
 		<a href="#" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $doc ?>';document.adminForm.subtask.value='unzipfile';document.adminForm.submit( );" title="<?php echo _UNPACK?>">
-		<img src="<?php echo $cur_file_icons_patch ?>compress.png" alt="<?php echo _UNPACK?>" title="<?php echo _UNPACK?>" /></a>
+		<img src="<?php echo $cur_file_icons_path ?>compress.png" alt="<?php echo _UNPACK?>" title="<?php echo _UNPACK?>" /></a>
 <?php } ?>
 			<a href="#" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $doc ?>';document.adminForm.subtask.value='renamefile';document.adminForm.submit( );" title="<?php echo _RENAME?>">
-			<img src="<?php echo $cur_file_icons_patch ?>rename.png" alt="<?php echo _RENAME?>" title="<?php echo _RENAME?>" /></a>
+			<img src="<?php echo $cur_file_icons_path ?>rename.png" alt="<?php echo _RENAME?>" title="<?php echo _RENAME?>" /></a>
 			<a href="#" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $doc ?>';document.adminForm.subtask.value='copyfile';document.adminForm.submit( );" title="<?php echo _COPY?>">
-			<img src="<?php echo $cur_file_icons_patch ?>copy.png" alt="<?php echo _COPY?>" title="<?php echo _COPY?>" /></a>
+			<img src="<?php echo $cur_file_icons_path ?>copy.png" alt="<?php echo _COPY?>" title="<?php echo _COPY?>" /></a>
 			<a href="#" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $doc ?>';document.adminForm.subtask.value='movefile';document.adminForm.submit( );" title="<?php echo _JWMM_MOVE?>">
-			<img src="<?php echo $cur_file_icons_patch ?>cut.png" alt="<?php echo _JWMM_MOVE?>" title="<?php echo _JWMM_MOVE?>" /></a>
+			<img src="<?php echo $cur_file_icons_path ?>cut.png" alt="<?php echo _JWMM_MOVE?>" title="<?php echo _JWMM_MOVE?>" /></a>
 			<a href="index2.php?option=com_jwmmxtd&amp;task=delete&amp;delFile=<?php echo $doc; ?>&amp;curdirectory=<?php echo $cur; ?>" onclick="javascript:if(confirm('<?php echo _JWMM_DELETE_FILE_CONFIRM?>: <?php echo $doc; ?>')) return true; return false;" title="<?php echo _DELETE?>">
-			<img src="<?php echo $cur_file_icons_patch ?>delete.png" alt="<?php echo _DELETE?>" title="<?php echo _DELETE?>" /></a>
+			<img src="<?php echo $cur_file_icons_path ?>delete.png" alt="<?php echo _DELETE?>" title="<?php echo _DELETE?>" /></a>
 		</td>
 	</tr>
 </table>
 <div class="fileimage" onclick="get_file('<?php echo $doc_url_link; ?>','<?php echo $doc?>');">
 <?php
 	// флеш - файл flv
-	if($icon == $cur_file_icons_patch.'flv.png') {
+	if($icon == $cur_file_icons_path.'flv.png') {
 ?>
 	<a href="components/com_jwmmxtd/js/flvplayer.swf?file=<?php echo $doc_url_link; ?>&amp;autostart=true&amp;allowfullscreen=true" target="_blank" title="<?php echo _JWMM_VIDEO_FILE?>:<br /><?php echo $doc; ?>" alt="<?php echo _CLICK_TO_PREVIEW?>">
 	<img src="<?php echo $icon ?>" alt="<?php echo $doc; ?>" title="<?php echo _CLICK_TO_PREVIEW?>" /></a>
 <?php
 	// флеш - файл swf
-	} elseif($icon == $cur_file_icons_patch.'swf.png') {
+	} elseif($icon == $cur_file_icons_path.'swf.png') {
 		$swfinfo = @getimagesize($doc_url_link);
 ?>
 	<a href="<?php echo $doc_url_link; ?>" rel="vidbox <?php echo $swfinfo[0]; ?> <?php echo $swfinfo[1]; ?>" title="<?php echo _FILE?>:</b><br /><?php echo $doc; ?>" alt="<?php echo _CLICK_TO_PREVIEW?>">

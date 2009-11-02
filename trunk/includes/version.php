@@ -40,7 +40,7 @@ class joomlaVersion {
 	/** @var string Текст авторских прав*/
 	var $COPYRIGHT = 'Авторские права &copy; 2008-2009 Joostina Team. Все права защищены.';
 	/** @var string URL*/
-	var $URL = '<a href="http://www.joostina.ru" target="_blank" title="Система создания и управления сайтами Joostina CMS">Joostina!</a> - свободное программное обеспечение, распространяемое по лицензии GNU/GPL.';
+	var $URL = '<a href="http://www.joostina.ru" target="_blank" title="Система создания и управления сайтами Joostina CMS">Joostina!</a> - бесплатное и свободное программное обеспечение для создания сайтов, распространяемое по лицензии GNU/GPL.';
 	/** @var string для реального использования сайта установите = 1 для демонстраций = 0: 1 используется по умолчанию*/
 	var $SITE = 1;
 	/** @var string Whether site has restricted functionality mostly used for demo sites: 0 is default*/

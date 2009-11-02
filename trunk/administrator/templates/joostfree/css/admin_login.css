@@ -26,7 +26,7 @@ body {
 	padding: 0px;
 	font-size: 11px;
 	font-family: Arial, Helvetica, sans-serif;
-	background: url(../images/fon.png) center no-repeat #EBEBEB;
+	background-color: #EBEBEB;
 }
 #joo {
 	width: auto;
@@ -34,8 +34,8 @@ body {
 	background-color: #dedede;
 	margin: 0px;
 	padding: 0px;
-	height: 32px;
-	height: 32px !important;
+	height: 34px;
+	height: 34px !important;
 }
 #break {
 	clear: both;

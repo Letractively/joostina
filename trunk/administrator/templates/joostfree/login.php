@@ -45,7 +45,7 @@ if($config->config_enable_admin_secure_code){
 </head>
 <body onload="setFocus();">
 	<div id="joo">
-		<img src="templates/joostfree/images/logo.png" alt="Joostina!" />
+		<img src="templates/joostfree/images/logo_130.png" alt="Joostina!" />
 	</div>
 <?php
 	include_once (JPATH_BASE_ADMIN.DS.'modules'.DS.'mod_mosmsg.php');
