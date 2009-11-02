@@ -13,11 +13,13 @@ defined('_VALID_MOS') or die();
 require_once ($mainframe->getPath('admin_html'));
 
 switch($task) {
+
 	// очистка кэша содержимого
 	case 'clean_cache':
 		mosCache::cleanCache('com_content');
 		mosRedirect('index2.php',_CACHE_CLEAR_CONTENT);
 		break;
+
 	// очистка всего кэша
 	case 'clean_all_cache':
 		mosCache::cleanCache();
@@ -69,6 +71,4 @@ switch($task) {
 	default:
 		HTML_admin_misc::controlPanel();
 		break;
-
 }
-?>

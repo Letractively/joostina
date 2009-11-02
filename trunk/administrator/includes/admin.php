@@ -13,8 +13,8 @@ defined('_VALID_MOS') or die();
 /**
 * вывод подключения js и css
 */
-function adminHead(){
-	$mainframe = &mosMainFrame::getInstance();
+function adminHead($mainframe){
+
 	if(isset($mainframe->_head['custom'])) {
 		$head = array();
 		foreach($mainframe->_head['custom'] as $html) {
@@ -45,7 +45,7 @@ function adminHead(){
 * @param string THe template position
 */
 function mosCountAdminModules($position = 'left') {
-	global $database;
+	$database = &database::getInstance();
 
 	$query = "SELECT COUNT( m.id )"
 			."\n FROM #__modules AS m"
@@ -135,9 +135,11 @@ function mosLoadAdminModules($position = 'left',$style = 0) {
 * Loads an admin module
 */
 function mosLoadAdminModule($name,$params = null) {
-	global $mosConfig_live_site,$task;
-	global $database,$acl,$my,$mainframe,$option;
-	
+	global $task,$acl,$my,$option;
+
+	$mainframe = mosMainFrame::getInstance(true);
+	$database = &$mainframe->_db;
+
 	// legacy support for $act
 	$act = mosGetParam($_REQUEST,'act','');
 
@@ -145,8 +147,8 @@ function mosLoadAdminModule($name,$params = null) {
 	$name = str_replace('\\','',$name);
 	$path = JPATH_BASE_ADMIN."/modules/mod_$name.php";
 	if(file_exists($path)) { 
- 		if($mainframe->getLangFile('mod_'.$name)){ 
-  			include($mainframe->getLangFile('mod_'.$name));        	
+		if($mainframe->getLangFile('mod_'.$name)){
+			include($mainframe->getLangFile('mod_'.$name));
 		}
 		require $path;
 	}
@@ -337,7 +339,6 @@ function mosMakePath($base,$path = '',$mode = null) {
 }
 
 function mosMainBody_Admin() {
-
 	echo $GLOBALS['_MOS_OPTION']['buffer'];
 }
 
@@ -395,7 +396,9 @@ function josSecurityCheck($width = '95%') {
 //boston, удаление кэша меню панели управления
 function js_menu_cache_clear($echo = true) {
 	global $my,$mosConfig_secret,$mosConfig_adm_menu_cache;
+
 	if(!$mosConfig_adm_menu_cache) return;
+
 	$usertype = str_replace(' ','_',$my->usertype);
 	$menuname = md5($usertype.$mosConfig_secret);
 	$file = JPATH_BASE.'/cache/adm_menu_'.$menuname.'.js';

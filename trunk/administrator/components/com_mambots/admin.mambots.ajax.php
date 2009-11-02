@@ -11,6 +11,8 @@
 defined('_VALID_MOS') or die();
 global $mosConfig_live_site,$my;
 
+$acl = &gacl::getInstance();
+
 if(!($acl->acl_check('administration','edit','users',$my->usertype,'modules','all') | $acl->acl_check('administration','install','users',$my->usertype,'modules','all'))) {
 	die('error-acl');
 }
