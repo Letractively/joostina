@@ -31,28 +31,20 @@ define('JPATH_SITE', $mosConfig_live_site );
 // для совместимости
 $mosConfig_absolute_path = JPATH_BASE;
 
-$config = &Jconfig::getInstance();
-
-
-// SSL check - $http_host returns <live site url>:<port number if it is 443>
+// Проверка SSL - $http_host возвращает <url_сайта>:<номер_порта, если он 443>
 $http_host = explode(':',$_SERVER['HTTP_HOST']);
-if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset($http_host[1]) && $http_host[1] == 443) && substr($config->config_live_site,0,8) !='https://') {
-	$config->config_live_site = 'https://' . substr($config->config_live_site,7);
+if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset($http_host[1]) && $http_host[1] == 443) && substr($mosConfig_live_site,0,8) !='https://') {
+	$mosConfig_live_site = 'https://'.substr($mosConfig_live_site,7);
 }
+unset($http_host);
 
-$database	= &database::getInstance();
 $mainframe	= &mosMainFrame::getInstance(true);
+$database	= &$mainframe->_db;
+$config		= &$mainframe->config;
 
 // получение шаблона страницы
 $cur_template = $mainframe->getTemplate();
 define('JTEMPLATE', $cur_template );
-
-// Проверяем ip адрес: если он находится в стоп-листе и выбрана опция блокировки достутпа в админку, то блокируем доступ
-//if(file_exists('./components/com_security/block_access.php')) {
-//	require_once ('./components/com_security/block_access.php');
-//	block_access(1);
-//}
-// Такого ip адреса нет в стоп-листе. Продолжаем загрузку.
 
 
 // загрузка файла русского языка по умолчанию

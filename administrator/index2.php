@@ -34,7 +34,6 @@ if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset
 // подключаем ядро
 require_once (JPATH_BASE .DS. 'includes'.DS.'joomla.php');
 
-$acl = &gacl::getInstance();
 
 // работа с сессиями начинается до создания главного объекта взаимодействия с ядром
 session_name(md5($mosConfig_live_site));
@@ -50,26 +49,28 @@ $section	= mosGetParam($_REQUEST,'section','');
 $no_html	= intval(mosGetParam($_REQUEST,'no_html',0));
 $id			= intval(mosGetParam($_REQUEST,'id',0));
 
-// объект работы с базой данных
-$database = &database::getInstance();
-
 // mainframe - основная рабочая среда API, осуществляет взаимодействие с 'ядром'
 $mainframe = mosMainFrame::getInstance(true);
+
+// объект работы с базой данных
+$database = &$mainframe->_db;
+
+// класс работы с правами пользователей
+$acl = &gacl::getInstance();
+
+// установка языка систему
 $mainframe->set('lang', $mosConfig_lang);
 
-// получение шаблона страницы
+// получаем название шаблона для панели управления
 $cur_template = $mainframe->getTemplate();
 define('JTEMPLATE', $cur_template );
 
 require_once($mainframe->getLangFile());
 require_once (JPATH_BASE_ADMIN.DS.'includes'.DS.'admin.php');
 
-
 // запуск сессий панели управления
 $my = $mainframe->initSessionAdmin($option,$task);
 
-// получаем название шаблона для панели управления
-$cur_template = $mainframe->getTemplate();
 // установка параметра overlib
 $mainframe->set('loadOverlib',false);
 
@@ -108,12 +109,12 @@ initGzip();
 // начало вывода html
 if($no_html == 0) {
 	// загрузка файла шаблона
-	if(!file_exists(JPATH_BASE .DS.ADMINISTRATOR_DIRECTORY.DS.'templates'.DS. $cur_template .DS.'index.php')) {
-		echo _TEMPLATE_NOT_FOUND.': ',$cur_template;
+	if(!file_exists(JPATH_BASE .DS.ADMINISTRATOR_DIRECTORY.DS.'templates'.DS. JTEMPLATE .DS.'index.php')) {
+		echo _TEMPLATE_NOT_FOUND.': '.JTEMPLATE;
 	} else {
 		//Подключаем язык шаблона
-		if($mainframe->getLangFile('tmpl_'.$cur_template)){include_once($mainframe->getLangFile('tmpl_'.$cur_template));}
-		require_once (JPATH_BASE . DS.ADMINISTRATOR_DIRECTORY.DS.'templates' .DS. $cur_template .DS.'index.php');
+		if($mainframe->getLangFile('tmpl_'.JTEMPLATE)){include_once($mainframe->getLangFile('tmpl_'.JTEMPLATE));}
+		require_once (JPATH_BASE . DS.ADMINISTRATOR_DIRECTORY.DS.'templates' .DS. JTEMPLATE .DS.'index.php');
 	}
 } else {
 	mosMainBody_Admin();
@@ -122,7 +123,6 @@ if($no_html == 0) {
 // информация отладки, число запросов в БД
 if($mosConfig_debug) {
 	jd_get();
-	//var_dump();
 }
 
 // восстановление сессий

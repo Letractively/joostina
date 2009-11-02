@@ -34,8 +34,6 @@ if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset
 // подключаем ядро
 require_once (JPATH_BASE .DS. 'includes'.DS.'joomla.php');
 
-$acl = &gacl::getInstance();
-
 // создаём сессии
 session_name(md5($mosConfig_live_site));
 session_start();

@@ -14,17 +14,16 @@ defined('_VALID_MOS') or die();
 $iso = explode('=',_ISO);
 echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'."\n";
 $cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
-
+$option = mosGetParam( $_REQUEST, 'option', '' );
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<title><?php echo $mosConfig_sitename; ?> - <?php echo _JOOSTINA_CONTROL_PANEL?></title>
 		<meta http-equiv="Content-Type" content="text/html; <?php echo _ISO; ?>" />
-		
 		<script type="text/javascript">
 			var _live_site = '<?php echo $mosConfig_live_site;?>';
-			var _option = '<?php echo mosGetParam( $_REQUEST, 'option', '' );?>';
+			var _option = '<?php echo $option;?>';
 			var _cur_template = '<?php echo JTEMPLATE;?>';
 			var _js_defines = new Array();
 		</script>
@@ -44,31 +43,7 @@ initEditor();
 /**
 * вывод подключения js и css
 */
-
-if(isset($mainframe->_head['custom'])) {
-	$head = array();
-	foreach($mainframe->_head['custom'] as $html) {
-		$head[] = $html;
-	}
-	echo implode("\n",$head)."\n";
-};
-if(isset($mainframe->_head['js'])) {
-	$head = array();
-	foreach($mainframe->_head['js'] as $html) {
-		$head[] = $html;
-	}
-	echo implode("\n",$head)."\n";
-};
-if(isset($mainframe->_head['css'])) {
-	$head = array();
-	foreach($mainframe->_head['css'] as $html) {
-		$head[] = $html;
-	}
-	echo implode("\n",$head)."\n";
-};
-
-// отправим пользователю шапку - пусть браузер работает пока будет формироваться дальнейший код страницы
-flush();
+adminHead($mainframe);
 ?>
 <link rel="shortcut icon" href="<?php echo $mosConfig_live_site; ?>/images/favicon.ico" />
 	</head>
@@ -108,20 +83,17 @@ flush();
 				</tr>
 			</table>
 		</div>
-		<div id="top-toolbar"><?php mosLoadAdminModule('toolbar'); ?></div>
-		<?php josSecurityCheck('100%');?>
+		<?php if($option!='' ){ ?>
+			<div id="top-toolbar"><?php mosLoadAdminModule('toolbar'); ?></div>
+		<?php }; ?>
 		<?php mosLoadAdminModule('mosmsg'); ?>
-		<?php //mosLoadAdminModule('component_menu'); ?>
+		<?php josSecurityCheck('100%');?>
 		<div id="status-info" style="display: none;">&nbsp;</div>
-
-					<div id="main_body">
-						<?php mosMainBody_Admin(); ?>
-					</div>
-
+		<div id="main_body"><?php mosMainBody_Admin(); ?></div>
 	</div>
 <?php
-// копирайты
-$_VERSION = new joomlaVersion();
+// копирайты, не удалять )))
+$_VERSION	= new joomlaVersion();
 $jostina_ru	= $_VERSION->CMS.' '.$_VERSION->CMS_ver.'.'.$_VERSION->DEV_STATUS.' [ '.$_VERSION->CODENAME.' ] '.$_VERSION->RELDATE.' '.$_VERSION->RELTIME.' '.$_VERSION->RELTZ.'<br />'.$_VERSION->SUPPORT;
 ?>
 		<div id="footer" align="center" class="smallgrey"><?php echo $jostina_ru; ?></div>

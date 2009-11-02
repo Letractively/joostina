@@ -28,8 +28,6 @@ switch($task) {
 
 // включение / отключение визуального редактора
 function x_toggle_editor(){
-	$mainframe = mosMainFrame::getInstance(true);
-
 	$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
 
 	if(!intval(mosGetParam($_SESSION,'user_editor_off',''))){
@@ -48,9 +46,7 @@ function x_upload(){
 <form method="post" action="uploadimage.php" enctype="multipart/form-data" name="filename" id="filename">
 	<table class="adminform" style="width:100%;">
 		<tr>
-		<th class="title">
-			<?php echo _FILE_UPLOAD?>:
-		</th>
+		<th class="title"><?php echo _FILE_UPLOAD?>:</th>
 		</tr>
 		<tr>
 			<td align="center">

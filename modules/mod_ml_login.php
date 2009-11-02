@@ -6,7 +6,6 @@
 * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
 * Для просмотра подробностей и замечаний об авторском праве, смотрите файл help/COPYRIGHT.php.
 *
-* Данный файл изменен Mitrich http://mitrichlab.ru
 */
 
 // запрет прямого доступа
@@ -14,14 +13,13 @@ defined( '_VALID_MOS' ) or die();
 
 global $my;
 
-if ( $mainframe->getCfg('frontend_login') != NULL && ($mainframe->getCfg('frontend_login') === 0 || $mainframe->getCfg('frontend_login') === '0')) {	
-	return; 
+if ( $mainframe->getCfg('frontend_login') != NULL && ($mainframe->getCfg('frontend_login') === 0 || $mainframe->getCfg('frontend_login') === '0')) {
+	return;
 }
 
 if ($my->id) {
 	$params->set('template', 'logout.php');
-} 
-else {
+} else {
 	$params->def('template', 'vertical.php');
 }
 

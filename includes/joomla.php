@@ -5691,7 +5691,7 @@ class mosCommonHTML {
 
 
 	/* подключение Jquery*/
-	function loadJquery($ret = false,$all = false) {
+	function loadJquery($ret = false) {
 		if(!defined('_JQUERY_LOADED')) {
 			define('_JQUERY_LOADED',1);
 			if($ret){
@@ -5709,7 +5709,7 @@ class mosCommonHTML {
 
 		// если само ядро Jquery не загружено - сначала грузим его
 		if(!defined('_JQUERY_LOADED')) {
-			mosCommonHTML::loadJquery();
+			mosCommonHTML::loadJquery($ret);
 		}
 		// формируем константу-флаг для исключения повтороной загрузки
 		$const = '_JQUERY_PL_'.strtoupper($name).'_LOADED';

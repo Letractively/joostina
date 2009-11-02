@@ -44,7 +44,9 @@ class mosInstallerComponent extends mosInstaller {
 	@var object A DOMIT XML document*/
 	var $i_xmldoc = null;
 	
-	function __construct($pre_installer){
+	function __construct($pre_installer=null){
+		if(!isset($pre_installer)) return;
+
 		// Copy data  from the base class
 		$this->i_installfilename = $pre_installer->i_installfilename;
 		$this->i_installarchive = $pre_installer->i_installarchive;
@@ -330,12 +332,13 @@ class mosInstallerComponent extends mosInstaller {
 
 				// Is there an uninstallfile
 				$uninstallfile_elemet = &$root->getElementsByPath('uninstallfile',1);
-				$uninstall_file = $uninstallfile_elemet->getText();
-				if(!is_null($uninstall_file) && file_exists(JPATH_BASE_ADMIN.DS.'components'.DS.$row->option.DS.$uninstall_file)) {
-					require_once (JPATH_BASE_ADMIN.DS.'components'.DS.$row->option.DS.$uninstall_file);
-					$uninstallret = com_uninstall();
+				if(!is_null($uninstallfile_elemet)) {
+					$uninstall_file = $uninstallfile_elemet->getText();
+					if(!is_null($uninstall_file) && file_exists(JPATH_BASE_ADMIN.DS.'components'.DS.$row->option.DS.$uninstall_file)) {
+						require_once (JPATH_BASE_ADMIN.DS.'components'.DS.$row->option.DS.$uninstall_file);
+						$uninstallret = com_uninstall();
+					}
 				}
-
 				$query_element = &$root->getElementsbyPath('uninstall/queries',1);
 				if(!is_null($query_element)) {
 					$queries = $query_element->childNodes;

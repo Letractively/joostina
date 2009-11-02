@@ -133,8 +133,8 @@ switch($task) {
 }
 
 function config($option){
-	$database = &database::getInstance();
 	$mainframe = &mosMainFrame::getInstance(true);
+	$database = &$mainframe->_db;
 
 	mosCommonHTML::loadOverlib();
 
@@ -172,8 +172,8 @@ function save_config(){
 }
 
 function submitContent(){
-	$database = &database::getInstance();
 	$mainframe = &mosMainFrame::getInstance(true);
+	$database = &$mainframe->_db;
 
 	$query = 'SELECT params from #__components WHERE id=25';
 	$database->setQuery($query);
@@ -190,9 +190,9 @@ function submitContent(){
 */
 function viewContent($sectionid,$option) {
 
-	$database = &database::getInstance();
 	$mainframe = &mosMainFrame::getInstance();
-	$config = &Jconfig::getInstance();
+	$config = &$mainframe->config;
+	$database = &$mainframe->_db;
 
 	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit",'limit',$config->config_list_limit));
 	$limitstart = intval($mainframe->getUserStateFromRequest("view{$option}{$sectionid}limitstart",'limitstart',0));
@@ -357,8 +357,8 @@ function viewContent($sectionid,$option) {
 */
 function viewArchive($sectionid,$option) {
 
-	$database = &database::getInstance();
 	$mainframe = &mosMainFrame::getInstance();
+	$database = &$mainframe->_db;
 
 	$catid = intval($mainframe->getUserStateFromRequest("catidarc{$option}{$sectionid}",'catid',0));
 	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mainframe->getCfg('list_limit')));
@@ -455,8 +455,8 @@ function viewArchive($sectionid,$option) {
 function editContent($uid = 0,$sectionid = 0,$option) {
 	global $my;
 
-	$database = &database::getInstance();
 	$mainframe = &mosMainFrame::getInstance(true);
+	$database = &$mainframe->_db;
 
 	$catid = intval( mosGetParam($_REQUEST,'catid',0));
 
@@ -758,8 +758,8 @@ function saveContent($sectionid,$task) {
 
 	josSpoofCheck();
 
-	$database = &database::getInstance();
 	$mainframe = &mosMainFrame::getInstance();
+	$database = &$mainframe->_db;
 
 	$menu		= strval(mosGetParam($_POST,'menu','mainmenu'));
 	$menuid		= intval(mosGetParam($_POST,'menuid',0));
@@ -945,8 +945,8 @@ function changeContent($cid = null,$state = 0,$option) {
 
 	josSpoofCheck();
 
-	$database = &database::getInstance();
 	$mainframe = &mosMainFrame::getInstance();
+	$database = &$mainframe->_db;
 
 	if(count($cid) < 1) {
 		$action = $state == 1?'publish':($state == -1?'archive':'unpublish');
@@ -1019,8 +1019,8 @@ function toggleFrontPage($cid,$section,$option) {
 
 	josSpoofCheck();
 
-	$database = &database::getInstance();
 	$mainframe = &mosMainFrame::getInstance();
+	$database = &$mainframe->_db;
 
 	if(count($cid) < 1) {
 		echo "<script> alert('"._CHOOSE_OBJ_TOGGLE."'); window.history.go(-1);</script>\n";
@@ -1517,12 +1517,11 @@ function saveOrder(&$cid) {
 } // saveOrder
 
 function seccatli($act = 0,$filter_authorid=0){
+
 	$database = &database::getInstance();
-	$mainframe = &mosMainFrame::getInstance();
 
 	$showarchive = intval( mosGetParam($_REQUEST,'showarchive',0));
 
-	$mainframe = mosMainFrame::getInstance(true);
 	$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/dtree_ico/';
 
 
