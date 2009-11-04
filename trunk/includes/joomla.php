@@ -2240,6 +2240,9 @@ class JConfig {
 	var $config_global_templates = 0;
 	/** @var int включение/выключение отображения тэгов содержимого */
 	var $config_tags = 0;
+	/** @var int включение/выключение мамботов группы onAjaxStart */
+	var $config_mmb_ajax_starts_off = 1;
+
 	// инициализация класса конфигурации - собираем переменные конфигурации
 	function JConfig(){
 		$this->bindGlobals();

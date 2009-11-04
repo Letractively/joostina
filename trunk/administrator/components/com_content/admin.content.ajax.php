@@ -45,7 +45,8 @@ switch($task) {
 }
 
 function x_resethits($id) {
-	global $database;
+	$database = &database::getInstance();
+
 	$row = new mosContent($database);
 	$row->load((int)$id);
 	$row->hits = 0;
@@ -56,16 +57,19 @@ function x_resethits($id) {
 }
 
 function x_metakey($count = 25,$minlench = 4){
+	$mainframe	= &mosMainFrame::getInstance(true);
+
 	// подключаем файл стоп-слов
-	include JPATH_BASE.DS.'language'.DS.$mosConfig_lang.DS.'ignore.php';
+	include JPATH_BASE.DS.'language'.DS.$mainframe->lang.DS.'ignore.php';
 
 	$introtext	= mosGetParam($_POST,'introtext','',_MOS_ALLOWRAW);
 	$fulltext	= mosGetParam($_POST,'fulltext','',_MOS_ALLOWRAW);
 	$notetext	= mosGetParam($_POST,'notetext','',_MOS_ALLOWRAW);
+
 	$text	= $introtext .' '. $fulltext .' '. $notetext;
 	$text	= Jstring::trim(strip_tags ($text)); // чистим от тегов
-	$remove	= array("rdquo","laquo","raquo","quota","quot","ndash","mdash","«","»", "\t",'\n','\r', "\n","\r", '\\', "'",",",".","/","¬","#",";",":","@","~","[","]","{","}","=","-","+",")","(","*","&","^","%","$","<",">","?","!", '"' );
-	$text	= str_replace($remove, '', $text ); // чистим от спецсимволов
+	$remove	= array('nbsp',"rdquo","laquo","raquo","quota","quot","ndash","mdash","«","»", "\t",'\n','\r', "\n","\r", '\\', "'",",",".","/","¬","#",";",":","@","~","[","]","{","}","=","-","+",")","(","*","&","^","%","$","<",">","?","!", '"' );
+	$text	= str_replace($remove, ' ', $text ); // чистим от спецсимволов
 	$arr	= explode(' ', $text); // делим текст на массив из слов
 	$arr	= str_replace($bad_text, '', $arr ); // чистим от стоп-слов
 	$ret	= array();
@@ -81,7 +85,8 @@ function x_metakey($count = 25,$minlench = 4){
 }
 
 function x_access($id){
-	global $database;
+	$database = &database::getInstance();
+
 	$access = mosGetParam($_GET,'chaccess','accessregistered');
 	$option = strval(mosGetParam($_REQUEST,'option',''));
 	switch($access) {
@@ -125,7 +130,7 @@ function x_access($id){
 
 
 function x_to_trash($id){
-	global $database;
+	$database = &database::getInstance();
 
 	$state = '-2';
 	$ordering = '0';
@@ -147,7 +152,8 @@ function x_to_trash($id){
 * сохраняется ТОЛЬКО текст редакторов
 */
 function x_save_old($id) {
-	global $database,$my;
+	global $my;
+	$database = &database::getInstance();
 
 	$introtext	= mosGetParam($_POST,'introtext','',_MOS_ALLOWRAW);
 	$fulltext	= mosGetParam($_POST,'fulltext','',_MOS_ALLOWRAW);
@@ -164,7 +170,7 @@ function x_save_old($id) {
 			." WHERE id = ".(int)$id." AND ( checked_out = 0 OR (checked_out = ".(int)$my->id.") )";
 	$database->setQuery($query);
 
-	$text = 'Быстрое сохранение: '.gmdate('H:i:s ( d.m.y )');
+	$text = _C_CONTENT_AJAX_SAVE.': '.gmdate('H:i:s ( d.m.y )');
 	if(!$database->query()) {
 		$text = 'error-'.$database->getErrorMsg();
 		mosCache::cleanCache('com_content');
@@ -179,9 +185,10 @@ function x_save_old($id) {
 * boston, добавил параметр -  возврат в редактирование содержимого после сохранения для добавления нового
 */
 function x_save() {
-	global $my,$mainframe,$mosConfig_offset;
+	global $my;
 
-	$database = &database::getInstance();
+	$mainframe	= &mosMainFrame::getInstance(true);
+	$database	= &$mainframe->_db;
 
 	$menu		= strval(mosGetParam($_POST,'menu','mainmenu'));
 	$menuid		= intval(mosGetParam($_POST,'menuid',0));
@@ -206,17 +213,17 @@ function x_save() {
 		$row->modified_by = $my->id;
 	}
 
-	$row->created_by = $row->created_by?$row->created_by:$my->id;
+	$row->created_by = $row->created_by ? $row->created_by:$my->id;
 
 	if($row->created && strlen(trim($row->created)) <= 10) {
 		$row->created .= ' 00:00:00';
 	}
-	$row->created = $row->created?mosFormatDate($row->created,'%Y-%m-%d %H:%M:%S',-$mosConfig_offset):date('Y-m-d H:i:s');
+	$row->created = $row->created?mosFormatDate($row->created,'%Y-%m-%d %H:%M:%S',-$mainframe->config->config_offset):date('Y-m-d H:i:s');
 
 	if(strlen(trim($row->publish_up)) <= 10) {
 		$row->publish_up .= ' 00:00:00';
 	}
-	$row->publish_up = mosFormatDate($row->publish_up,_CURRENT_SERVER_TIME_FORMAT,- $mosConfig_offset);
+	$row->publish_up = mosFormatDate($row->publish_up,_CURRENT_SERVER_TIME_FORMAT,- $mainframe->config->config_offset);
 
 	if(trim($row->publish_down) == 'Никогда' || trim($row->publish_down) == '') {
 		$row->publish_down = $nullDate;
@@ -224,7 +231,7 @@ function x_save() {
 		if(strlen(trim($row->publish_down)) <= 10) {
 			$row->publish_down .= ' 00:00:00';
 		}
-		$row->publish_down = mosFormatDate($row->publish_down,_CURRENT_SERVER_TIME_FORMAT,-$mosConfig_offset);
+		$row->publish_down = mosFormatDate($row->publish_down,_CURRENT_SERVER_TIME_FORMAT,-$mainframe->config->config_offset);
 	}
 
 	$row->state = intval(mosGetParam($_REQUEST,'published',0));
@@ -308,7 +315,7 @@ function x_save() {
 
 	mosCache::cleanCache('com_content');
 
-	echo 'Быстрое сохранение: '.gmdate('H:i:s ( d.m.y )');
+	echo _C_CONTENT_AJAX_SAVE.': '.gmdate('H:i:s ( d.m.y )');
 
 }
 
@@ -317,7 +324,10 @@ function x_save() {
 * $id - идентификатор объекта
 */
 function x_publish($id = null) {
-	global $database,$my;
+	global $my;
+
+	$database = &database::getInstance();
+
 	// id содержимого для обработки не получен - выдаём ошибку
 	if(!$id) return 'error-id';
 
@@ -381,7 +391,9 @@ function x_publish($id = null) {
 * $id - идентификатор содержимого
 */
 function x_frontpage($id) {
-	global $mainframe,$database;
+	$mainframe	= &mosMainFrame::getInstance(true);
+	$database	= &$mainframe->_db;
+
 	require_once ($mainframe->getPath('class','com_frontpage'));
 
 	$fp = new mosFrontPage($database);
@@ -404,5 +416,3 @@ function x_frontpage($id) {
 	mosCache::cleanCache('com_content'); // почистим кэш контент
 	return $ret_img;
 }
-
-?>

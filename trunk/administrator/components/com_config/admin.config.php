@@ -109,7 +109,7 @@ function showconfig($option) {
 	$lists['mmb_system_off']= mosHTML::yesnoRadioList('config_mmb_system_off','class="inputbox"',$row->config_mmb_system_off);
 	// получаем список шаблонов. Код получен из модуля выбора шаблона
 	$titlelength = 20;
-	$template_path = "JPATH_BASE/templates";
+	$template_path = JPATH_BASE.DS.'templates';
 	$templatefolder = @dir($template_path);
 	$darray = array();
 	$darray[]= mosHTML::makeOption('...',_O_OTHER); // параметр по умолчанию - позволяет использовать стандартный способ определения шаблона
