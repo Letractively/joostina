@@ -42,7 +42,7 @@ $task		= strval(mosGetParam($_REQUEST,'task',''));
 
 $commponent = str_replace('com_','',$option);
 
-if($mosConfig_mmb_system_off == 0) {
+if($mosConfig_mmb_ajax_starts_off == 0) {
 	$_MAMBOTS->loadBotGroup('system');
 	$_MAMBOTS->trigger('onAjaxStart');
 }
@@ -74,7 +74,7 @@ else{
 }
 $gid = intval($my->gid);
 
-if($mosConfig_mmb_system_off == 0) {
+if($mosConfig_mmb_ajax_starts_off == 0) {
 	$_MAMBOTS->trigger('onAfterAjaxStart');
 }
 

@@ -142,20 +142,6 @@ function config($option){
 	$config_class = 'configContent_'.$act;
 	$config = new $config_class($database);
 	$config->display_config($option);
-
-/*    $info_array = array();
-    $info_array['page_title']['title'] = 'Заголовок страницы';
-    $info_array['page_title']['info'] = 'Заголовок страницы, на которой выводятся все записи пользователя';
-    $config = new jstContentUserpageConfig($database);
-    $config->storeConfig($info_array);*/
-    
-	
-	//$config = new StdClass();
-
-    //$u_page =  new jstContentUserpageConfig($database);
-    //$config->u_page = $u_page;
-    //ContentView::config($config,$option);
-
 }
 
 function save_config(){
