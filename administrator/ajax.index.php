@@ -62,7 +62,7 @@ if(!$my->id){
 }
 
 // запускаем мамботты событий onAfterAdminAjaxStart
-if($mosConfig_mmb_system_off == 0) {
+if($mosConfig_mmb_ajax_starts_off == 0) {
 	$_MAMBOTS->loadBotGroup('admin');
 	$_MAMBOTS->trigger('onAfterAdminAjaxStart');
 }
