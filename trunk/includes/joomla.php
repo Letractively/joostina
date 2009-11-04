@@ -1567,6 +1567,7 @@ class mosMainFrame {
 			}
 			// if id hasnt been checked before initaite query
 			if(!$exists) {
+
 				$query = "SELECT ms.id AS sid, ms.type AS stype, mc.id AS cid, mc.type AS ctype, i.id as sectionid, i.id As catid, ms.published AS spub, mc.published AS cpub"
 					."\n FROM #__content AS i"
 					."\n LEFT JOIN #__sections AS s ON i.sectionid = s.id"
@@ -1597,6 +1598,52 @@ class mosMainFrame {
 						}
 					}
 				}
+
+/* TODO : определиться что лучше
+				static $_links;
+				if(!isset($_links)){
+					$query = "SELECT ms.id AS sid, ms.type AS stype, mc.id AS cid, mc.type AS ctype, i.id as sectionid, i.id As catid, ms.published AS spub, mc.published AS cpub"
+						."\n FROM #__content AS i"
+						."\n LEFT JOIN #__sections AS s ON i.sectionid = s.id"
+						."\n LEFT JOIN #__menu AS ms ON ms.componentid = s.id "
+						."\n LEFT JOIN #__categories AS c ON i.catid = c.id"
+						."\n LEFT JOIN #__menu AS mc ON mc.componentid = c.id "
+						."\n WHERE ( ms.type IN ( 'content_section', 'content_blog_section' ) OR mc.type IN ( 'content_blog_category', 'content_category' ) )"
+						."\n ORDER BY ms.type DESC, mc.type DESC, ms.id, mc.id";
+					$this->_db->setQuery($query);
+					$bbad = $this->_db->loadObjectList();
+					$_links = array();
+					foreach($bbad as $bad){
+						$_links[$bad->sectionid][]=(array)$bad;
+					}
+					unset($bbad,$bad);
+				}
+
+				$links = isset($_links[$id]) ? $_links[$id] : null;
+
+				if(count($links)) {
+					foreach($links as $link) {
+						if($link['stype'] == 'content_section' && $link['sectionid'] == $id && $link['spub'] == 1) {
+							$content_section = $link['sid'];
+						}
+
+						if($link['stype'] == 'content_blog_section' && $link['sectionid'] == $id && $link['spub'] == 1) {
+							$content_blog_section = $link['sid'];
+						}
+
+						if($link['ctype'] == 'content_blog_category' && $link['catid'] == $id && $link['cpub'] == 1) {
+							$content_blog_category = $link['cid'];
+						}
+
+						if($link['ctype'] == 'content_category' && $link['catid'] == $id && $link['cpub'] == 1) {
+							$content_category = $link['cid'];
+						}
+					}
+				}
+
+*/
+
+				unset($links);
 
 				if(!isset($content_section)) {
 					$content_section = null;
