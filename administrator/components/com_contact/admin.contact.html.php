@@ -107,7 +107,6 @@ class HTML_contact {
 
 
 	function editContact(&$row,&$lists,$option,&$params) {
-		global $mosConfig_live_site;
 		mosCommonHTML::loadOverlib();
 		if($row->image == '') {
 			$row->image = 'blank.png';
@@ -151,7 +150,7 @@ class HTML_contact {
 				<table width="100%" class="adminform">
 				<tr>
 					<th colspan="2"><?php echo _CONTACT_DETAILS?></th>
-				<tr>
+				</tr>
 				<tr>
 					<td width="30%" align="right"><?php echo _CATEGORY?>:</td>
 					<td width="40%"><?php echo $lists['catid']; ?></td>

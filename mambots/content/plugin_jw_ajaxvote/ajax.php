@@ -13,10 +13,10 @@ $basePath = dirname( __FILE__ );
 require( $basePath . '/../../../includes/globals.php' );
 
 // $basepath reintialization required as globals.php will kill initial when RGs Emulation `Off`
-$basePath = dirname( __FILE__ );
-require( $basePath . '/../../../configuration.php' );
+$basePath = dirname(dirname(dirname(dirname( __FILE__ ))));
+require( $basePath . '/configuration.php' );
 
-require_once($GLOBALS['mosConfig_absolute_path'].'/includes/libraries/database/database.php');
+require_once($basePath.'/includes/libraries/database/database.php');
 
 if ( $GLOBALS['mosConfig_db'] != "") {
 	$database = new database( $GLOBALS['mosConfig_host'], $GLOBALS['mosConfig_user'], $GLOBALS['mosConfig_password'], $GLOBALS['mosConfig_db'], $GLOBALS['mosConfig_dbprefix'] );
@@ -36,7 +36,7 @@ function recordVote() {
 	$cid 			= intval( $_GET['cid'] );
 
 	if (($user_rating >= 1) and ($user_rating <= 5)) {
-		$currip = ( phpversion() <= '4.2.1' ? @getenv( 'REMOTE_ADDR' ) : $_SERVER['REMOTE_ADDR'] );
+		$currip = $_SERVER['REMOTE_ADDR'];
 
 		$query = "SELECT * FROM #__content_rating WHERE content_id = " . $cid;
 		$database->setQuery( $query );
@@ -49,13 +49,11 @@ function recordVote() {
 			if ($currip != ($votesdb->lastip)) {
 				$query = "UPDATE #__content_rating"
 				. "\n SET rating_count = rating_count + 1, rating_sum = rating_sum + " . $user_rating . ", lastip = " . $database->Quote( $currip )
-				. "\n WHERE content_id = " . (int) $cid
-				;
+				. "\n WHERE content_id = " . (int) $cid;
 				$database->setQuery( $query );
 				$database->query() or die( $database->stderr() );
 			} else {
-				$query = "SELECT rating_count FROM #__content_rating"
-				. "\n WHERE content_id = " . (int) $cid;
+				$query = "SELECT rating_count FROM #__content_rating WHERE content_id = " . (int) $cid;
 				$database->setQuery( $query );
 				echo $database->loadResult();
 			}
