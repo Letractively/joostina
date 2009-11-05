@@ -16,7 +16,7 @@ defined('_VALID_MOS') or die();
 class HTML_users {
 
 	function showUsers(&$rows, $pageNav, $search, $option, $lists) {
-		global $my, $mosConfig_live_site; 
+		global $my;
 		$mainframe = &mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
 		?>
@@ -35,9 +35,7 @@ class HTML_users {
 		<table class="adminlist">
 		<tr>
 			<th width="1%" class="title">#</th>
-			<th width="1%" class="title">
-				<input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo count($rows); ?>);" />
-			</th>
+			<th width="1%" class="title"><input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo count($rows); ?>);" /></th>
 			<th class="title" colspan="2"><?php echo _NAME ?></th>
 			<th width="22%"><?php echo _USER_LOGIN_TXT ?></th>
 			<th width="5%"><?php echo _LOGGED_IN ?></th>
@@ -59,7 +57,7 @@ class HTML_users {
 		<tr class="row<?php echo $k; ?>">
 			<td><?php echo $i + 1 + $pageNav->limitstart; ?></td>
 			<td><?php echo mosHTML::idBox($i, $row->id); ?></td>
-			<td width="1%"><img width="25" class="miniavatar" id="userav" src="<?php echo $mosConfig_live_site.'/'.mosUser::get_avatar($row); ?>" /></td>
+			<td width="1%"><img width="25" class="miniavatar" src="<?php echo JPATH_SITE.'/'.mosUser::get_avatar($row); ?>" /></td>
 			<td align="left"><a href="<?php echo $link; ?>">
 			<?php echo $row->name; ?></a></td>
 			<td align="left"><?php echo $row->username; ?></td>
@@ -86,8 +84,9 @@ class HTML_users {
 	<?php }
 	/* редактирование пользователя */
 	function edituser(&$row, &$contact, &$lists, $option, $uid, &$params) {
-		global $my, $acl;
-		global $mosConfig_live_site;
+		global $my;
+
+		$acl = &gacl::getInstance();
 
 		mosMakeHtmlSafe($row);
 
@@ -104,16 +103,15 @@ class HTML_users {
 		$bday_year = mosFormatDate($row->user_extra->birthdate, '%Y', '0'); ?>
 		<script language="javascript" type="text/javascript">
 		$(document).ready(function() {
-		$("#save").click(function () {
-			$("input#task").val('saveUserEdit');
-			$("#mosUserForm").submit();
+			$("#save").click(function () {
+				$("input#task").val('saveUserEdit');
+				$("#mosUserForm").submit();
+			});
+			$("#cancel").click(function () {
+				$("input#task").val('cancel');
+				$("#mosUserForm").submit();
+			});
 		});
-		$("#cancel").click(function () {
-			$("input#task").val('cancel');
-			$("#mosUserForm").submit();
-		});
-
-  });
 
 		function submitbutton(pressbutton) {
 			var form = document.adminForm;
@@ -326,7 +324,7 @@ class HTML_users {
 				<tr>
 					<td></td>
 					<td valign="top">
-						<img src="<?php echo $mosConfig_live_site; ?>/images/stories/<?php echo $contact[0]->image; ?>" align="middle" alt="" />
+						<img src="<?php echo JPATH_SITE; ?>/images/stories/<?php echo $contact[0]->image; ?>" align="middle" alt="" />
 					</td>
 				</tr>
 <?php } ?>
