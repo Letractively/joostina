@@ -29,7 +29,6 @@ DEFINE('_MENU_ITEMS_TO_REMOVE','Удаляемые пункты меню');
 DEFINE('_THIS_OP_REMOVES_MENU','* Эта операция <strong><font color="#FF0000">удаляет</font></strong> это меню, <br />ВСЕ его пункты и модуль(и), назначенный ему*');
 DEFINE('_REALLY_DELETE_MENU','Вы уверены, что хотите удалить это меню? \nПроизойдет удаление меню, его пунктов и модулей.');
 DEFINE('_PLEASE_ENTER_MENY_COPY_NAME','Пожалуйста, введите имя для копии меню');
-DEFINE('_PLEASE_ENTER_MODULE_NAME','Пожалуйста, введите имя для нового модуля');
 DEFINE('_MENU_COPYING','Копирование меню');
 DEFINE('_NEW_MENU_NAME','Имя нового меню');
 DEFINE('_NEW_MODULE_NAME','Имя нового модуля');
@@ -39,7 +38,6 @@ DEFINE('_MENU_ALREADY_EXISTS','Меню с таким именем уже сущ
 DEFINE('_NEW_MENU_CREATED','Создано новое меню');
 DEFINE('_MENU_ITEMS_AND_MODULES_UPDATED','Пункты меню и модули обновлены');
 DEFINE('_MENU_DELETED','Меню удалено');
-DEFINE('_MENU_ITEMS_TO_COPY','Будут скопированы следующие пункты');
 DEFINE('_NEW_MENU','Новое меню');
 DEFINE('_NEW_MENU_MODULE','Новый модуль меню');
 DEFINE('_MENU_COPY_FINISHED','Создана копия меню');

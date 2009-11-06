@@ -11,7 +11,7 @@
 defined('_VALID_MOS') or die();
 
 DEFINE('_JP_BACKUPPING','Резервирование');
-DEFINE('_JP_PHPINFO','--- Информация о PHP ---');
+DEFINE('_JP_PHPINFO','- Информация о PHP -');
 DEFINE('_JP_FREEMEMORY','Свободно памяти');
 DEFINE('_JP_GZIP_ENABLED','GZIP сжатие   : доступно (это хорошо)');
 DEFINE('_JP_GZIP_NOT_ENABLED','GZIP сжатие   : недоступно (это плохо)');

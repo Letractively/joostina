@@ -375,7 +375,7 @@ class XmapAdminHtml {
 	function printPluginInfo (&$row,$k) {
 		global $mosConfig_live_site;
 		$mainframe = &mosMainFrame::getInstance();
-		$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
+		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 ?>
 		<tr id="plugin<?php echo $row->id; ?>" class="row<?php echo $k; ?>">
 			<td><a href="javascript:settingsPlugin(<?php echo $row->id; ?>);"><?php echo $row->name; ?></a></td>
@@ -452,7 +452,7 @@ class XmapAdminHtml {
 				</td>
 			</tr>
 		</table>
-		<table class="adminlist"><?php mosHTML::writableCell( '/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/extensions' );?></table>
+		<table class="adminlist"><?php mosHTML::writableCell( '/'.JADMIN_BASE.'/components/com_xmap/extensions' );?></table>
 		<input type="hidden" name="task" value="installfromdir" />
 		<input type="hidden" name="installtype" value="folder" />
 		<input type="hidden" name="option" value="com_xmap"/>

@@ -170,7 +170,7 @@ function showMessages($option) {
 	$database->setQuery($query);
 	$total = $database->loadResult();
 
-	require_once ($GLOBALS['mosConfig_absolute_path'].DS.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
+	require_once (JPATH_BASE.DS.JADMIN_BASE.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
 	$query = "SELECT a.*, u.name AS user_from FROM #__messages AS a INNER JOIN #__users AS u ON u.id = a.user_id_from".($wheres?"\n WHERE ".implode(" AND ",$wheres):"")."\n ORDER BY date_time DESC";

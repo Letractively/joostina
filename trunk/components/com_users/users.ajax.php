@@ -11,7 +11,6 @@
 defined('_VALID_MOS') or die();
 
 $task	= mosGetParam($_REQUEST,'task','');
-$id		= $my->id;
 
 switch($task) {
 	case 'upload_avatar':
@@ -88,7 +87,7 @@ function x_delavatar(){
 }
 
 
-function  request_from_plugin(){
+function request_from_plugin(){
 	$mainframe = &mosMainFrame::getInstance();
 
 	$plugin	= mosGetParam($_REQUEST,'plugin','');

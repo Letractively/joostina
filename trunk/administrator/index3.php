@@ -110,7 +110,7 @@ if($mosmsg) {
 if($path = $mainframe->getPath('admin')) {
 	require $path;
 } else { ?>
-	<img src="<?php echo JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE;?>/images/ico/error.png" border="0" alt="Joostina!" />
+	<img src="<?php echo JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE;?>/images/ico/error.png" border="0" alt="Joostina!" />
 	<br />
 <?php } ?>
 </body>

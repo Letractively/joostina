@@ -131,7 +131,7 @@ class HTML_installer_core {
 		<table class="adminlist">
 <?php
 		writableCell('media');
-		writableCell(ADMINISTRATOR_DIRECTORY.'/components');
+		writableCell(JADMIN_BASE.'/components');
 		writableCell('components');
 		writableCell('images/stories');
 ?>

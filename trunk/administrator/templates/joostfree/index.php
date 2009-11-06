@@ -13,7 +13,7 @@ defined('_VALID_MOS') or die();
 
 $iso = explode('=',_ISO);
 echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'."\n";
-$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
+$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 $option = mosGetParam( $_REQUEST, 'option', '' );
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -32,11 +32,13 @@ $option = mosGetParam( $_REQUEST, 'option', '' );
 mosCommonHTML::loadFullajax();
 mosCommonHTML::loadJquery();
 if($mosConfig_gz_js_css) { // работа со сжатыми css и js файлами
-	$mainframe->addCSS($mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/templates/joostfree/css/joostfree_css.php');
+	$mainframe->addCSS($mosConfig_live_site.'/'.JADMIN_BASE.'/templates/joostfree/css/joostfree_css.php');
 	$mainframe->addJS($mosConfig_live_site.'/includes/js/joostina.admin.php');
 } else { // использовать стандартные - не сжатые файлы
-	$mainframe->addCSS($mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/templates/joostfree/css/template_css.css');
-	$mainframe->addJS($mosConfig_live_site.'/includes/js/joomla.javascript.full.js');
+	$mainframe->addCSS($mosConfig_live_site.'/'.JADMIN_BASE.'/templates/joostfree/css/template_css.css');
+	$mainframe->addJS($mosConfig_live_site.'/includes/js/JSCookMenu.js');
+	$mainframe->addJS($mosConfig_live_site.'/includes/js/ThemeOffice/theme.js');
+	$mainframe->addJS($mosConfig_live_site.'/includes/js/joomla.javascript.js');
 };
 include_once (JPATH_BASE.DS.'includes/editor.php');
 initEditor();

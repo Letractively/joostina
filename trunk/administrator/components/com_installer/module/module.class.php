@@ -63,7 +63,7 @@ class mosInstallerModule extends mosInstaller {
 		// Set some vars
 		$e = &$mosinstall->getElementsByPath('name',1);
 		$this->elementName($e->getText());
-		$this->elementDir(mosPathName(JPATH_BASE.($client == 'admin'?'/'.ADMINISTRATOR_DIRECTORY:'').'/modules/'));
+		$this->elementDir(mosPathName(JPATH_BASE.($client == 'admin'?'/'.JADMIN_BASE:'').'/modules/'));
 
 		$e = &$mosinstall->getElementsByPath('position',1);
 		if(!is_null($e)) {

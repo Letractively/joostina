@@ -22,7 +22,6 @@ DEFINE('_AUTO_PURGE_MESSAGES2','старше');
 DEFINE('_AUTO_PURGE_MESSAGES3','дней');
 DEFINE('_VIEW_PRIVATE_MESSAGES','Просмотр персональных сообщений');
 DEFINE('_MESSAGE_SEND_DATE','Отправлено');
-DEFINE('_PLEASE_ENTER_SUBJECT','Вы должны ввести название темы');
 DEFINE('_PLEASE_ENTER_MESSAGE_BODY','Вы должны ввести текст сообщения');
 DEFINE('_PLEASE_ENTER_USER','Вы должны выбрать получателя');
 DEFINE('_NEW_PERSONAL_MESSAGE','Новое персональное сообщение');

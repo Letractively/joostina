@@ -647,7 +647,7 @@ function saveconfig($task) {
 		$applyFilePerms	= mosGetParam($_POST,'applyFilePerms',0) && $row->config_fileperms !='';
 		$applyDirPerms	= mosGetParam($_POST,'applyDirPerms',0) && $row->config_dirperms !='';
 		if($applyFilePerms || $applyDirPerms) {
-			$mosrootfiles = array(ADMINISTRATOR_DIRECTORY,'cache','components','images','language','mambots','media','modules','templates','configuration.php');
+			$mosrootfiles = array(JADMIN_BASE,'cache','components','images','language','mambots','media','modules','templates','configuration.php');
 			$filemode = null;
 			if($applyFilePerms) {
 				$filemode = octdec($row->config_fileperms);

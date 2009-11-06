@@ -46,11 +46,11 @@ if($tmpimage != "") {
 	@unlink($mosConfig_cachepath.DS.$tmpimage);
 }
 
-$mainframe->addCSS($mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jwmmxtd/css/jw_mmxtd.css');
+$mainframe->addCSS($mosConfig_live_site.'/'.JADMIN_BASE.'/components/com_jwmmxtd/css/jw_mmxtd.css');
 
 
 if($task == 'edit') {
-	$mainframe->addJS($mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jwmmxtd/js/jw_mmxtd_edit.php');
+	$mainframe->addJS($mosConfig_live_site.'/'.JADMIN_BASE.'/components/com_jwmmxtd/js/jw_mmxtd_edit.php');
 } else {
 	$jw_mmxtd_head = '
 	<script type="text/javascript">
@@ -422,15 +422,15 @@ function listofImages($listdir) {
 				echo '<fieldset><legend>'._JWMM_FILE.'</legend>';
 				for($i = 0; $i < count($docs); $i++) {
 					$doc_name = key($docs);
-					//$iconfile = $GLOBALS['mosConfig_absolute_path'].'/images/icons/'.substr($doc_name,-3).'.png';
+					//$iconfile = JPATH_BASE.'/images/icons/'.substr($doc_name,-3).'.png';
 
 					$mainframe = mosMainFrame::getInstance(true);
-					$iconfile = JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/file_ico/'.substr($doc_name,-3).'.png';
+					$iconfile = JPATH_BASE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/file_ico/'.substr($doc_name,-3).'.png';
 
 					if(file_exists($iconfile)) {
-						$icon = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/file_ico/'.substr($doc_name,-3).'.png';
+						$icon = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/file_ico/'.substr($doc_name,-3).'.png';
 					} else {
-						$icon = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/file_ico/file.png';
+						$icon = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/file_ico/file.png';
 					}
 					$icon = strtolower($icon);
 					HTML_mmxtd::show_doc($doc_name,$docs[$doc_name]['size'],str_replace(JWMMXTD_STARTABSPATH,'',$listdir),$icon);
@@ -488,7 +488,7 @@ function viewMediaManager($curdirectory = "",$mosmsg = "",$selectedfile = "") {
 	global $my,$subtask;
 	
 	$mainframe = &mosMainFrame::getInstance();
-	$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/file_ico';
+	$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/file_ico';
 	
 	$imgFiles = listofdirectories(JWMMXTD_STARTABSPATH);
 	$folders = array();
@@ -955,14 +955,14 @@ function editImage($img,$cur) {
 				<td><?php echo _JWMM_TOP_LEFT?></td>
 				<td><input id="beveltl" name="beveltl" type="text" />
 				<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.beveltl)">
-					<img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo $mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jwmmxtd/images/color_wheel.png'; ?>">
+					<img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo $mosConfig_live_site.'/'.JADMIN_BASE.'/components/com_jwmmxtd/images/color_wheel.png'; ?>">
 				</a>
 				</td>
 			</tr>
 			<tr>
 				<td><?php echo _JWMM_BOTTOM_RIGHT?></td>
 				<td><input id="bevelrb" name="bevelrb" type="text" />
-				<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.bevelrb)"><img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo $mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jwmmxtd/images/color_wheel.png'; ?>"></a></td>
+				<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.bevelrb)"><img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo $mosConfig_live_site.'/'.JADMIN_BASE.'/components/com_jwmmxtd/images/color_wheel.png'; ?>"></a></td>
 			</tr>
 		</table>
 		</fieldset>
@@ -978,7 +978,7 @@ function editImage($img,$cur) {
 			<tr>
 				<td><?php echo _COLOR?></td>
 				<td><input id="borderc" name="borderc" type="text" />
-				<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.borderc)"><img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo $mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jwmmxtd/images/color_wheel.png'; ?>"> </a></td>
+				<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.borderc)"><img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo $mosConfig_live_site.'/'.JADMIN_BASE.'/components/com_jwmmxtd/images/color_wheel.png'; ?>"> </a></td>
 			</tr>
 		</table>
 		</fieldset>
@@ -999,7 +999,7 @@ function editImage($img,$cur) {
 				<?php echo _JWMM_BOTTOM?><br />
 				<?php echo _COLOR?>
 				<input id="borderc2" name="borderc2" type="text" />
-				<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.borderc2)"><img width="16" height="16" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo $mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jwmmxtd/images/color_wheel.png'; ?>"></a> </td>
+				<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.borderc2)"><img width="16" height="16" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo $mosConfig_live_site.'/'.JADMIN_BASE.'/components/com_jwmmxtd/images/color_wheel.png'; ?>"></a> </td>
 			</tr>
 		</table>
 		</fieldset>
@@ -1008,7 +1008,7 @@ function editImage($img,$cur) {
 		<legend>Tint Color</legend>
 		<?php echo _COLOR?>
 		<input id="tint" name="tint" type="text" />
-		<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.tint)"> <img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo $mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jwmmxtd/images/color_wheel.png'; ?>"> </a>
+		<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.tint)"> <img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo $mosConfig_live_site.'/'.JADMIN_BASE.'/components/com_jwmmxtd/images/color_wheel.png'; ?>"> </a>
 		</fieldset>
 		<fieldset>
 		<legend>Overlay</legend>
@@ -1020,7 +1020,7 @@ function editImage($img,$cur) {
 			<tr>
 			<td><?php echo _COLOR?></td>
 			<td><input id="overlayc" name="overlayc" type="text" />
-				<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.overlayc)"> <img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo $mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jwmmxtd/images/color_wheel.png'; ?>"> </a></td>
+				<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.overlayc)"> <img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo $mosConfig_live_site.'/'.JADMIN_BASE.'/components/com_jwmmxtd/images/color_wheel.png'; ?>"> </a></td>
 			</tr>
 		</table>
 		</fieldset>
@@ -1052,7 +1052,7 @@ function editImage($img,$cur) {
 			<tr>
 			<td><?php echo _JWMM_TEXT_COLOR?></td>
 			<td><input type="text" name="textcolor" id="textcolor">
-				<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.textcolor)"> <img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo $mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jwmmxtd/images/color_wheel.png'; ?>"> </a> </td>
+				<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.textcolor)"> <img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo $mosConfig_live_site.'/'.JADMIN_BASE.'/components/com_jwmmxtd/images/color_wheel.png'; ?>"> </a> </td>
 			</tr>
 			<tr>
 			<td><?php echo _JWMM_TEXT_FONT?></td>
@@ -1096,7 +1096,7 @@ function editImage($img,$cur) {
 			<td><?php echo _JWMM_BG_COLOR?></td>
 			<td><input type="text" name="bgcolor" id="bgcolor">
 				<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.bgcolor)">
-			<img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo $mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jwmmxtd/images/color_wheel.png'; ?>"> </a> </td>
+			<img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo $mosConfig_live_site.'/'.JADMIN_BASE.'/components/com_jwmmxtd/images/color_wheel.png'; ?>"> </a> </td>
 			</tr>
 			<tr>
 				<td><?php echo _JWMM_XY_POSITION?></td>

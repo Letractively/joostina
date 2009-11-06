@@ -31,7 +31,7 @@ class HTML_installer {
 		$database->setQuery("SELECT lang FROM #__jce_langs WHERE published= '1'");
 		$lang = $database->loadResult();
 		require_once (JPATH_BASE.
-			"/".ADMINISTRATOR_DIRECTORY."/components/com_jce/language/".$lang.".php");
+			"/".JADMIN_BASE."/components/com_jce/language/".$lang.".php");
 ?>
 		<script language="javascript" type="text/javascript">
 		function submitbutton3(pressbutton) {

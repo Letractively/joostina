@@ -307,7 +307,7 @@ function viewBanners($option) {
 		return false;
 	}
 
-	require_once ($GLOBALS['mosConfig_absolute_path'] . '/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
+	require_once (JPATH_BASE . '/'.JADMIN_BASE.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total, $limitstart, $limit);
 
 	$where = '';
@@ -721,7 +721,7 @@ function viewBannerClients($option) {
 	$date = mosCurrentDate("%Y-%m-%d");
 	$time = mosCurrentDate("%H:%M:%S");
 
-	require_once ($GLOBALS['mosConfig_absolute_path'] . '/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
+	require_once (JPATH_BASE . '/'.JADMIN_BASE.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total, $limitstart, $limit);
 
 	$where = '';
@@ -944,7 +944,7 @@ function viewCategories($option) {
 		return false;
 	}
 
-	require_once ($GLOBALS['mosConfig_absolute_path'] . '/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
+	require_once (JPATH_BASE . '/'.JADMIN_BASE.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total, $limitstart, $limit);
 
 	$where = '';

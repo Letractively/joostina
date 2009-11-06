@@ -21,7 +21,7 @@ class HTML_component {
 	* @param string The URL option
 	*/
 	function showInstalledComponents($rows,$option) {
-		$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
+		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 		if(count($rows)) {
 		// подключение скрипта чудесных таблиц
 		mosCommonHTML::loadPrettyTable();
@@ -43,7 +43,7 @@ class HTML_component {
 				<th width="5%" align="center"><?php echo _COM_INSTALLER_ACTIVE?></th>
 				<th width="5%" align="center"><?php echo _VERSION?></th>
 				<th width="20%" class="title"><?php echo _COMPONENT_LINK?></th>
-				<th width="10%" align="left"><?php echo _AUTHOR_BY?></th>
+				<th width="10%" align="left"><?php echo _AUTHOR?></th>
 				<th width="10%" align="center"><?php echo _DATE?></th>
 				<th width="15%" align="left"><?php echo _EMAIL?></th>
 				<th width="15%" align="left"><?php echo _COMPONENT_AUTHOR_URL?></th>

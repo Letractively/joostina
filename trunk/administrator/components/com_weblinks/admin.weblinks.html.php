@@ -19,7 +19,7 @@ class HTML_weblinks {
 	function showWeblinks($option,&$rows,&$lists,&$search,&$pageNav) {
 		global $my;
 		$mainframe = &mosMainFrame::getInstance();
-		$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
+		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 
 		mosCommonHTML::loadOverlib();
 ?>

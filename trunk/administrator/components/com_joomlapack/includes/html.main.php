@@ -77,7 +77,7 @@ function quickiconButton($link,$image,$text) {
 	<span>
 		<a href="<?php echo $link; ?>" title="<?php echo $text; ?>">
 <?php
-			echo mosAdminMenus::imageCheckAdmin($image,'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.mosMainFrame::getInstance(true)->getTemplate().'/images/system_ico/',null,null,$text);
+			echo mosAdminMenus::imageCheckAdmin($image,'/'.JADMIN_BASE.'/templates/'.mosMainFrame::getInstance(true)->getTemplate().'/images/system_ico/',null,null,$text);
 			echo $text;
 ?>
 		</a>

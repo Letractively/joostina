@@ -24,7 +24,7 @@ function jceInstaller($option,$client,$opt) {
 	$classMap = array('plugins' => 'JCEPluginInstaller','language' =>'JCELanguageInstaller');
 
 	if(array_key_exists($element,$classMap)) {
-		require_once (JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY."/components/com_jce/installer/$element/$element.class.php");
+		require_once (JPATH_BASE.DS.JADMIN_BASE."/components/com_jce/installer/$element/$element.class.php");
 
 		switch($opt) {
 

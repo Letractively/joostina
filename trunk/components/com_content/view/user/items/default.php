@@ -33,7 +33,7 @@ defined('_VALID_MOS') or die(); ?>
 				id:'publ-'+elID,
 				callback:
 					function(resp, idTread, status, ops){
-						id('img-pub-'+elID).src = '<?php echo JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY ?>/images/'+resp.responseText;
+						id('img-pub-'+elID).src = '<?php echo JPATH_SITE.'/'.JADMIN_BASE ?>/images/'+resp.responseText;
 					}
 			});
 		}
@@ -102,7 +102,7 @@ foreach ($items as $row) {
 	$row->created = mosFormatDate($row->created, $config->config_form_date_full, '0');
 	$link = sefRelToAbs('index.php?option=com_content&amp;task=view&amp;id='.$row->id.'&amp;Itemid='.$Itemid);
 	$img = $row->published?'publish_g.png' : 'publish_x.png';
-	$img = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/images/'.$img;
+	$img = JPATH_SITE.'/'.JADMIN_BASE.'/images/'.$img;
 
 	// раздел / категория
 	$section_cat = $row->section.' / '.$row->category;

@@ -76,7 +76,7 @@ DEFINE('_JWMM_CROP_LEFT','Слева');
 DEFINE('_JWMM_CROP_RIGHT','Справа');
 DEFINE('_JWMM_CROP_BOTTOM','Снизу');
 DEFINE('_JWMM_ROTATION','Поворот');
-DEFINE('_JWMM_CHOOSE','-- выбор --');
+DEFINE('_JWMM_CHOOSE','- выбор -');
 DEFINE('_JWMM_MIRROR','Отражение');
 DEFINE('_JWMM_VERICAL','вертикали');
 DEFINE('_JWMM_HORIZONTAL','горизонтали');

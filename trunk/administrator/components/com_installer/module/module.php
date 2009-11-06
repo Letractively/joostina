@@ -76,7 +76,7 @@ function showInstalledModules($_option) {
 
 		// path to module directory
 		if($row->client_id == "1") {
-			$moduleBaseDir = mosPathName(mosPathName(JPATH_BASE).ADMINISTRATOR_DIRECTORY.DS.'modules');
+			$moduleBaseDir = mosPathName(mosPathName(JPATH_BASE).JADMIN_BASE.DS.'modules');
 		} else {
 			$moduleBaseDir = mosPathName(mosPathName(JPATH_BASE).'modules');
 		}

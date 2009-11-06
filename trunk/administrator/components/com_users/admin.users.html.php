@@ -18,7 +18,7 @@ class HTML_users {
 	function showUsers(&$rows, $pageNav, $search, $option, $lists) {
 		global $my;
 		$mainframe = &mosMainFrame::getInstance();
-		$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
+		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 		?>
 		<form action="index2.php" method="post" name="adminForm" id="adminForm">
 		<table class="adminheading">

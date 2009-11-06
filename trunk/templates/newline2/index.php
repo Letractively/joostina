@@ -8,8 +8,13 @@ $iso = explode('=',_ISO); echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo $iso[1];?>" />
+<script type="text/javascript">
+	var _live_site = '<?php echo JPATH_SITE;?>';
+	var _option = '<?php echo mosGetParam( $_REQUEST, 'option', '' );?>';
+	var _cur_template = '<?php echo JTEMPLATE;?>';
+	var _js_defines = new Array();
+</script>
 <?php
-
 	// загружаем верхнюю часть страницы со всеми js и css файлами, и обязательным использованием jquery
 	mosShowHead(array('js'=>1,'css'=>1,'jquery'=>1));
 
@@ -29,12 +34,6 @@ $iso = explode('=',_ISO); echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'
 	$body_class = 'inside';
 	if($block1_count){$body_class = 'mainpage';}
 ?>
-<script type="text/javascript">
-	var _live_site = '<?php echo JPATH_SITE;?>';
-	var _option = '<?php echo mosGetParam( $_REQUEST, 'option', '' );?>';
-	var _cur_template = '<?php echo JTEMPLATE;?>';
-	var _js_defines = new Array();
-</script>
 <link href="<?php echo JPATH_SITE;?>/templates/<?php echo JTEMPLATE; ?>/css/template_css.css" rel="stylesheet" type="text/css" />
 <!--[if lte IE 7]><link href="<?php echo JPATH_SITE;?>/templates/<?php echo JTEMPLATE; ?>/css/fix/ie7.css" rel="stylesheet" type="text/css" /><![endif]-->
 <!--[if IE 8]><link href="<?php echo JPATH_SITE;?>/templates/<?php echo JTEMPLATE; ?>/css/fix/ie8.css" rel="stylesheet" type="text/css"/><![endif]-->
@@ -61,7 +60,6 @@ $iso = explode('=',_ISO); echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'
         	            <?php mosLoadModules('user1', -2); ?>
         	        </div>
                     <?php } ?>
-
                     <?php if(mosCountModules('user2')) { ?>
                     <div class="block_<?php echo $block1_width ?>">
         	            <?php mosLoadModules('user2', -2); ?>
@@ -118,9 +116,9 @@ $iso = explode('=',_ISO); echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'
         	                    <?php mosLoadModules('user9', -2); ?>
         	                </div>
                         <?php } ?>
-                    </div>               
+                    </div>
                 </div><!--block3:end-->
-            <?php } ?>            
+            <?php } ?>
         </div><!--wrapper:end-->
     </div> <!--main_wrap:end-->
     <div class="footer">
@@ -129,8 +127,6 @@ $iso = explode('=',_ISO); echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'
             <?php mosLoadModules('bottom',-1); ?>
         </div>
     </div><!--footer:end-->
-    
-    
 <?php
 
 //подключаем js-скрипт
@@ -144,6 +140,5 @@ mosShowFooter(array('js'=>1));
 //всё, что должно быть загружено после всех основных скриптов)
 mosShowFooter(array('custom'=>1));
 ?>
-
 </body>
 </html>

@@ -15,7 +15,7 @@ class HTML_linkeditor {
 	function viewall(&$rows,$pageNav) {
 		global $mosConfig_live_site;
 		$mainframe = &mosMainFrame::getInstance();
-		$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
+		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 		mosCommonHTML::loadOverlib();
 ?>
 <form action="index2.php" method="post" name="adminForm">

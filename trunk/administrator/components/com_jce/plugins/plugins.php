@@ -10,8 +10,8 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-require_once (JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jce/plugins/plugins.html.php');
-require_once (JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jce/plugins/plugins.class.php');
+require_once (JPATH_BASE.'/'.JADMIN_BASE.'/components/com_jce/plugins/plugins.html.php');
+require_once (JPATH_BASE.'/'.JADMIN_BASE.'/components/com_jce/plugins/plugins.class.php');
 
 $client = mosGetParam($_REQUEST,'client','');
 $cid = mosGetParam($_POST,'cid',array(0));
@@ -23,7 +23,7 @@ function access_list($row) {
 	$access_list = array(
 		mosHTML::makeOption('0',_GUEST),
 		mosHTML::makeOption('18','-'._USER_GROUP_REGISTERED),
-		mosHTML::makeOption('19','--'._AUTHOR_BY),
+		mosHTML::makeOption('19','--'._AUTHOR),
 		mosHTML::makeOption('20','---'._EDITOR),
 		mosHTML::makeOption('21','----'._PUBLISHER),
 		mosHTML::makeOption('23','-----'._MANAGER),
@@ -66,7 +66,7 @@ function viewPlugins($option,$client) {
 	$database->setQuery($query);
 	$total = $database->loadResult();
 
-	require_once (JPATH_BASE.	'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
+	require_once (JPATH_BASE.	'/'.JADMIN_BASE.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
 	$query = "SELECT m.*, u.name AS editor"

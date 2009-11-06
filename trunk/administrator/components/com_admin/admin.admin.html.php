@@ -61,7 +61,7 @@ class HTML_admin_misc {
 		global $database,$mosConfig_cachepath,$mosConfig_live_site;
 		
 		$mainframe = &mosMainFrame::getInstance();
-		$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
+		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 
 		$width = 400; // width of 100%
 		$tabs = new mosTabs(0);
@@ -302,10 +302,10 @@ class HTML_admin_misc {
 <?php
 		$sp = ini_get('session.save_path');
 
-		mosHTML::writableCell(ADMINISTRATOR_DIRECTORY.'/backups');
-		mosHTML::writableCell(ADMINISTRATOR_DIRECTORY.'/components');
-		mosHTML::writableCell(ADMINISTRATOR_DIRECTORY.'/modules');
-		mosHTML::writableCell(ADMINISTRATOR_DIRECTORY.'/templates');
+		mosHTML::writableCell(JADMIN_BASE.'/backups');
+		mosHTML::writableCell(JADMIN_BASE.'/components');
+		mosHTML::writableCell(JADMIN_BASE.'/modules');
+		mosHTML::writableCell(JADMIN_BASE.'/templates');
 		mosHTML::writableCell('components');
 		mosHTML::writableCell('images');
 		mosHTML::writableCell('images/show');
@@ -458,9 +458,9 @@ class HTML_admin_misc {
 							|
 							<a href="http://Joom.Ru" target="_blank">Joom.Ru</a>
 							<br />
-							<a href="<?php echo $mosConfig_live_site; ?>/<?php echo ADMINISTRATOR_DIRECTORY?>/index3.php?option=com_admin&task=changelog" target="helpFrame"><?php echo _CHANGELOG?></a>
+							<a href="<?php echo $mosConfig_live_site; ?>/<?php echo JADMIN_BASE?>/index3.php?option=com_admin&task=changelog" target="helpFrame"><?php echo _CHANGELOG?></a>
 							|
-							<a href="<?php echo $mosConfig_live_site; ?>/<?php echo ADMINISTRATOR_DIRECTORY?>/index3.php?option=com_admin&task=sysinfo" target="helpFrame"><?php echo _ABOUT_SYSTEM?></a>
+							<a href="<?php echo $mosConfig_live_site; ?>/<?php echo JADMIN_BASE?>/index3.php?option=com_admin&task=sysinfo" target="helpFrame"><?php echo _ABOUT_SYSTEM?></a>
 							|
 							<a href="http://www.joostina.ru/" target="_blank"><?php echo _CHECK_VERSION ?></a>
 						</td>
@@ -534,7 +534,7 @@ class HTML_admin_misc {
 ?>
 		<pre>
 <?php
-		readfile($GLOBALS['mosConfig_absolute_path'].'/changeslog');
+		readfile(JPATH_BASE.'/changeslog');
 ?>
 		</pre>
 		<?php

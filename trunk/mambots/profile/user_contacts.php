@@ -28,14 +28,10 @@ function botUserContacts_tab(&$user){
 */
 function botUserContacts($user) {
 	global $_MAMBOTS;
-
-	$database = &database::getInstance();
-
 	//Подключение плагина всплывающего окна
 	mosCommonHTML::loadJqueryPlugins('fancybox/jquery.fancybox', false, true);
 	//основной вывод
 	UserContacts_output($user);
-	unset($user,$database);
 }
 
 /** Функция - оболочка вывода */
@@ -62,7 +58,7 @@ function UserContacts_output($user){
 	}
 /** Вывод данных о мессенджерах */
 function UserContacts_messengers($user){
-	$img_url = Jconfig::getInstance()->config_live_site.'/images/system';
+	$img_url = JPATH_SITE.'/images/system';
 
 	if (isset($user->user_extra->icq) && trim($user->user_extra->icq)!='' ){?>
 		<span class="icq">

@@ -85,9 +85,9 @@ class mosInstaller {
 		if(eregi('.zip$',$archivename)) {
 			// Extract functions
 			require_once (JPATH_BASE.
-				'/'.ADMINISTRATOR_DIRECTORY.'/includes/pcl/pclzip.lib.php');
+				'/'.JADMIN_BASE.'/includes/pcl/pclzip.lib.php');
 			require_once (JPATH_BASE.
-				'/'.ADMINISTRATOR_DIRECTORY.'/includes/pcl/pclerror.lib.php');
+				'/'.JADMIN_BASE.'/includes/pcl/pclerror.lib.php');
 			//require_once( JPATH_BASE . '/administrator/includes/pcl/pcltrace.lib.php' );
 			//require_once( JPATH_BASE . '/administrator/includes/pcl/pcltar.lib.php' );
 			$zipfile = new PclZip($archivename);

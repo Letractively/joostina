@@ -41,7 +41,7 @@ function quickiButton($row,$newWindow) {
 <div style="display: block; clear: both; text-align:left; padding-top:10px;">
 <?php if($my->usertype == 'Super Administrator') { ?>
 	<a href="index2.php?option=com_quickicons">
-		<img border="0" src="<?php echo JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE;?>/images/file_ico/shortcut.png" />
+		<img border="0" src="<?php echo JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE;?>/images/file_ico/shortcut.png" />
 		<?php echo _CHANGE_QUICK_BUTTONS?>
 	</a>
 <?php } ?>

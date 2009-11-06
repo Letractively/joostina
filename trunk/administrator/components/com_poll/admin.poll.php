@@ -68,7 +68,7 @@ function showPolls($option) {
 	$database->setQuery($query);
 	$total = $database->loadResult();
 
-	require_once ($GLOBALS['mosConfig_absolute_path'].'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
+	require_once (JPATH_BASE.'/'.JADMIN_BASE.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
 	$query = "SELECT m.*, u.name AS editor, COUNT(d.id) AS numoptions FROM #__polls AS m LEFT JOIN #__users AS u ON u.id = m.checked_out LEFT JOIN #__poll_data AS d ON d.pollid = m.id AND d.text != ''"."\n GROUP BY m.id";

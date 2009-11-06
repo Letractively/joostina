@@ -111,7 +111,7 @@ function view($option) {
 	$query = "SELECT count(*) FROM #__content AS c WHERE c.sectionid = 0 AND c.catid = 0 AND c.state != -2".$search_query.$filter;
 	$database->setQuery($query);
 	$total = $database->loadResult();
-	require_once ($GLOBALS['mosConfig_absolute_path'].'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
+	require_once (JPATH_BASE.'/'.JADMIN_BASE.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
 	$query = "SELECT c.*, g.name AS groupname, u.name AS editor, z.name AS creator, 0 as links"

@@ -59,7 +59,7 @@ if(!defined('_JOS_FULLMENU_MODULE')) {
 			$sections = $database->loadObjectList();
 
 			// получеполучаем каталог с графикой верхнего меню
-			$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/menu_ico/';
+			$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/menu_ico/';
 
 			ob_start(); // складываем всё выдаваемое меню в буфер
 ?>

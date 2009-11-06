@@ -24,7 +24,7 @@ class HTML_language {
 	function showLanguages($cur_lang,&$rows,&$pageNav,$option) {
 		global $my;
 		$mainframe = &mosMainFrame::getInstance();
-		$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
+		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 ?><form action="index2.php" method="post" name="adminForm">
 		<table class="adminheading">
 		<tr>
@@ -45,7 +45,7 @@ class HTML_language {
 			<th width="5%"><?php echo _USED_ON?></th>
 			<th width="10%"><?php echo _VERSION?></th>
 			<th width="10%"><?php echo _DATE?></th>
-			<th width="20%"><?php echo _AUTHOR_BY?></th>
+			<th width="20%"><?php echo _AUTHOR?></th>
 			<th width="25%">E-mail</th>
 		</tr>
 <?php

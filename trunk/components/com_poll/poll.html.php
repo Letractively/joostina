@@ -19,7 +19,7 @@ class poll_html {
 
 
 	function showResults(&$poll, &$votes, $first_vote, $last_vote, $pollist, $params) {
-		mosMainFrame::getInstance()->addCSS(Jconfig::getInstance()->config_live_site.'/components/com_poll/css/poll.css');
+		mosMainFrame::getInstance()->addCSS(JPATH_SITE.'/components/com_poll/css/poll.css');
 		?>
 		<div class="polls <?php echo $params->get('pageclass_sfx'); ?>">
 		

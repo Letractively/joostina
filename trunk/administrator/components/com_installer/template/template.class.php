@@ -64,7 +64,7 @@ class mosInstallerTemplate extends mosInstaller {
 		// Set some vars
 		$e = &$mosinstall->getElementsByPath('name',1);
 		$this->elementName($e->getText());
-		$this->elementDir(mosPathName(JPATH_BASE.($client == 'admin'?'/'.ADMINISTRATOR_DIRECTORY:'').'/templates/'.strtolower(str_replace(" ","_",$this->elementName()))));
+		$this->elementDir(mosPathName(JPATH_BASE.($client == 'admin'?'/'.JADMIN_BASE:'').'/templates/'.strtolower(str_replace(" ","_",$this->elementName()))));
 
 		if(!file_exists($this->elementDir()) && !mosMakePath($this->elementDir())) {
 			$this->setError(1,_CANNOT_CREATE_DIR.' "'.$this->elementDir().'"');
@@ -103,7 +103,7 @@ class mosInstallerTemplate extends mosInstaller {
 		global $database;
 		josSpoofCheck(null, null, 'request');
 		// Delete directories
-		$path = JPATH_BASE.($client == 'admin' ? '/'.ADMINISTRATOR_DIRECTORY:'').'/templates/'.$id;
+		$path = JPATH_BASE.($client == 'admin' ? '/'.JADMIN_BASE:'').'/templates/'.$id;
 
 		$id = str_replace('..','',$id);
 		if(trim($id)) {
@@ -127,7 +127,7 @@ class mosInstallerTemplate extends mosInstaller {
 		global $database,$client;
 		josSpoofCheck(null, null, 'request');
 		// Delete directories
-		$path = JPATH_BASE.($client == 'admin' ? '/'.ADMINISTRATOR_DIRECTORY:'').'/templates/'.$this->elementName();
+		$path = JPATH_BASE.($client == 'admin' ? '/'.JADMIN_BASE:'').'/templates/'.$this->elementName();
 		// get the files element
 		if(is_dir($path)) {
 			return deldir(mosPathName($path));

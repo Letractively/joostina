@@ -27,9 +27,11 @@ switch($task) {
 	case 'publish':
 		echo x_publish($id);
 		return;
+
 	case 'jsave':
 		echo x_jsave($id);
 		return;
+
 	default:
 		echo 'error-task';
 		return;

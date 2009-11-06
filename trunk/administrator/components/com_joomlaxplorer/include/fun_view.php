@@ -25,10 +25,10 @@ function jx_show_file($dir, $item) {
 	if(@eregi($GLOBALS["images_ext"], $item)) {
 		echo '<img src="'.$GLOBALS['home_url'].'/'.$dir.'/'.$item.'" alt="'.$GLOBALS["messages"]["actview"].": ".$item.'" /><br /><br />';
 	} else {
-		if(file_exists($GLOBALS['mosConfig_absolute_path'].'/includes/domit/xml_saxy_shared.php')) {
-			require_once ($GLOBALS['mosConfig_absolute_path'].'/includes/domit/xml_saxy_shared.php');
-		} elseif(file_exists($GLOBALS['mosConfig_absolute_path'].'/libraries/domit/xml_saxy_shared.php')) {
-			require_once ($GLOBALS['mosConfig_absolute_path'].'/libraries/domit/xml_saxy_shared.php');
+		if(file_exists(JPATH_BASE.'/includes/domit/xml_saxy_shared.php')) {
+			require_once (JPATH_BASE.'/includes/domit/xml_saxy_shared.php');
+		} elseif(file_exists(JPATH_BASE.'/libraries/domit/xml_saxy_shared.php')) {
+			require_once (JPATH_BASE.'/libraries/domit/xml_saxy_shared.php');
 		} else {
 			return;
 		}

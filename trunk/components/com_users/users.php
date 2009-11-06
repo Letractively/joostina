@@ -57,15 +57,19 @@ switch($task) {
 		break;
 
 	case 'profile':
-		$cache = &mosCache::getCache('user_profile');
 		$_view = strval(mosGetParam( $_REQUEST, 'view', '' ));
-		$r = $cache->call('profile',$uid,$_view);
+		if($mainframe->getCfg('caching')==1){
+			$cache = &mosCache::getCache('user_profile');
+			$r = $cache->call('profile',$uid,$_view);
+		}else{
+			$r = profile($uid,$_view);
+		}
 		echo $r['content'];
-		mosMainFrame::getInstance()->SetPageTitle($r['title']);
+		$mainframe->SetPageTitle($r['title']);
 		break;
 
 	case 'lostPassword':
-		$config = &Jconfig::getInstance();
+		$config = &$mainframe->config;
 		if($config->config_frontend_login != null && ($config->config_frontend_login === 0 || $config->config_frontend_login=== '0')) {
 			echo _NOT_AUTH;
 			return;
@@ -74,7 +78,7 @@ switch($task) {
 		break;
 
 	case 'sendNewPass':
-		$config = &Jconfig::getInstance();
+		$config = &$mainframe->config;
 		if($config->config_frontend_login != null && ($config->config_frontend_login === 0 || $config->config_frontend_login=== '0')) {
 			echo _NOT_AUTH;
 			return;
@@ -83,7 +87,7 @@ switch($task) {
 		break;
 
 	case 'register':
-		$config = &Jconfig::getInstance();
+		$config = &$mainframe->config;
 		if($config->config_frontend_login != null && ($config->config_frontend_login === 0 || $config->config_frontend_login=== '0')) {
 			echo _NOT_AUTH;
 			return;
@@ -92,7 +96,7 @@ switch($task) {
 		break;
 
 	case 'saveRegistration':
-		$config = &Jconfig::getInstance();
+		$config = &$mainframe->config;
 		if($config->config_frontend_login != null && ($config->config_frontend_login === 0 || $config->config_frontend_login=== '0')) {
 			echo _NOT_AUTH;
 			return;
@@ -101,7 +105,7 @@ switch($task) {
 		break;
 
 	case 'activate':
-		$config = &Jconfig::getInstance();
+		$config = &$mainframe->config;
 		if($config->config_frontend_login != null && ($config->config_frontend_login === 0 || $config->config_frontend_login=== '0')) {
 			echo _NOT_AUTH;
 			return;
@@ -602,7 +606,7 @@ function saveRegistration() {
 	//Проверяем, не подменена ли группа "на лету"
 	$gid_md5 = $_POST['gid_check'];
 	
-	if($gid_md5 != md5($GLOBALS['mosConfig_secret'].md5($row->gid))){ 
+	if($gid_md5 != md5($mainframe->getCfg('secret').md5($row->gid))){
 		mosErrorAlert('Ooops!');
 	}
 		

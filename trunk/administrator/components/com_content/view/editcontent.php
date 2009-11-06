@@ -233,7 +233,7 @@ defined( '_VALID_MOS' ) or die();
 					<td><?php echo $mod_date ? $mod_date.$row->modifier : _NOT_CHANGED;?></td>
 				</tr>
 				<tr>
-					<td><?php echo _AUTHOR_BY?>:</td>
+					<td><?php echo _AUTHOR?>:</td>
 					<td><?php echo $lists['created_by'];?></td>
 				</tr>
 				<tr>

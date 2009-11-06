@@ -97,7 +97,7 @@ if($path = $mainframe->getPath('admin')) {
 	require_once ($path);
 } else {
 ?>
-	<img src="<?php echo JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE;?>/images/ico/error.png" border="0" alt="Joostina!" />
+	<img src="<?php echo JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE;?>/images/ico/error.png" border="0" alt="Joostina!" />
 <?php
 }
 
@@ -109,12 +109,12 @@ initGzip();
 // начало вывода html
 if($no_html == 0) {
 	// загрузка файла шаблона
-	if(!file_exists(JPATH_BASE .DS.ADMINISTRATOR_DIRECTORY.DS.'templates'.DS. JTEMPLATE .DS.'index.php')) {
+	if(!file_exists(JPATH_BASE .DS.JADMIN_BASE.DS.'templates'.DS. JTEMPLATE .DS.'index.php')) {
 		echo _TEMPLATE_NOT_FOUND.': '.JTEMPLATE;
 	} else {
 		//Подключаем язык шаблона
 		if($mainframe->getLangFile('tmpl_'.JTEMPLATE)){include_once($mainframe->getLangFile('tmpl_'.JTEMPLATE));}
-		require_once (JPATH_BASE . DS.ADMINISTRATOR_DIRECTORY.DS.'templates' .DS. JTEMPLATE .DS.'index.php');
+		require_once (JPATH_BASE . DS.JADMIN_BASE.DS.'templates' .DS. JTEMPLATE .DS.'index.php');
 	}
 } else {
 	mosMainBody_Admin();

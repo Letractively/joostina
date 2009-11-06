@@ -279,7 +279,7 @@ class JCE{
 	}
 	function getParamsPath(){
 		global $mainframe;
-		return JPATH_BASE . '/'.ADMINISTRATOR_DIRECTORY.'/components/com_jce/plugins';
+		return JPATH_BASE . '/'.JADMIN_BASE.'/components/com_jce/plugins';
 	}
 	function printTinyJs( $file ){
 		$url = $this->getTinyUrl() . "/" . $file . ".js";
