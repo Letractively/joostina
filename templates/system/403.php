@@ -22,7 +22,7 @@ The requested URL was not found on this server.
 If you entered the URL manually please check your spelling and try again.
 </p>
 <p>
-If you think this is a server error, please contact <?php echo Jconfig::getInstance()->config_live_site; ?>.
+If you think this is a server error, please contact <?php echo JPATH_SITE; ?>.
 </p>
 <div class="version">
 <?php echo date('Y-m-d H:i:s',time()) ?>

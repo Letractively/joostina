@@ -55,7 +55,7 @@ $GLOBALS['jx_home'] = 'http://joomlacode.org/gf/project/joomlaxplorer/';
 
 define('_QUIXPLORER_PATH',JPATH_BASE_ADMIN.'/components/com_joomlaxplorer');
 define('_QUIXPLORER_FTPTMP_PATH',JPATH_BASE_ADMIN.'/components/com_joomlaxplorer/ftp_tmp');
-define('_QUIXPLORER_URL',$mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_joomlaxplorer');
+define('_QUIXPLORER_URL',$mosConfig_live_site.'/'.JADMIN_BASE.'/components/com_joomlaxplorer');
 
 
 umask(0002); // Added to make created files/dirs group writable

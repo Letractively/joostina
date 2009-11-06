@@ -12,7 +12,7 @@ defined('_VALID_MOS') or die();
 
 function writableCell($folder) {
 	echo '<tr><td class="item">'.$folder.'/</td><td align="left">';
-	echo is_writable($GLOBALS['mosConfig_absolute_path'].'/'.$folder)?'<b><font color="green">'._WRITEABLE.'</font></b>':'<b><font color="red">'._UNWRITEABLE.'</font></b></td>';
+	echo is_writable(JPATH_BASE.'/'.$folder)?'<b><font color="green">'._WRITEABLE.'</font></b>':'<b><font color="red">'._UNWRITEABLE.'</font></b></td>';
 	echo '</tr>';
 }
 
@@ -117,7 +117,7 @@ class HTML_installer {
 		?>
 		<span><a href="<?php echo $link; ?>" title="<?php echo $text; ?>">
 <?php
-		echo mosAdminMenus::imageCheckAdmin($image,'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.mosMainFrame::getInstance(true)->getTemplate().'/images/system_ico/',null,null,$text);
+		echo mosAdminMenus::imageCheckAdmin($image,'/'.JADMIN_BASE.'/templates/'.mosMainFrame::getInstance(true)->getTemplate().'/images/system_ico/',null,null,$text);
 		echo $text;
 ?>
 		</a></span>

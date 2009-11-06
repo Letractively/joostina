@@ -165,7 +165,7 @@ function submitContent(){
 	$database->setQuery($query);
 	$rowp = $database->loadResult();
 
-	$file = JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_content/submit_content.xml';
+	$file = JPATH_BASE.'/'.JADMIN_BASE.'/components/com_content/submit_content.xml';
 	$params = new mosParameters($rowp,$file,'component');
 	ContentView::submit($params);
 }
@@ -291,7 +291,7 @@ function viewContent($sectionid,$option) {
 	$database->setQuery($query);
 	$total = $database->loadResult();
 
-	require_once ($GLOBALS['mosConfig_absolute_path'].'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
+	require_once (JPATH_BASE.'/'.JADMIN_BASE.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
 	$query = "SELECT c.*, g.name AS groupname, cc.name, u.name AS editor, f.content_id AS frontpage, s.title AS section_name, v.name AS author"
@@ -389,7 +389,7 @@ function viewArchive($sectionid,$option) {
 	$database->setQuery($query);
 	$total = $database->loadResult();
 
-	require_once (JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
+	require_once (JPATH_BASE.'/'.JADMIN_BASE.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
 	$query = "SELECT c.*, g.name AS groupname, cc.name, v.name AS author"
@@ -1508,7 +1508,7 @@ function seccatli($act = 0,$filter_authorid=0){
 
 	$showarchive = intval( mosGetParam($_REQUEST,'showarchive',0));
 
-	$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/dtree_ico/';
+	$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/dtree_ico/';
 
 
 	$sectli = '<div id="ntree" class="dtree"><script type="text/javascript"><!--';
@@ -1583,7 +1583,7 @@ function _cat_d($act){
 function _user_d(){
 	$database = &database::getInstance();
 
-	$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/dtree_ico/';
+	$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/dtree_ico/';
 
 	$query = "SELECT a.group_id,a.name FROM #__core_acl_aro_groups AS a INNER JOIN #__users AS u ON u.gid = a.group_id GROUP BY u.gid";
 	$database->setQuery($query);

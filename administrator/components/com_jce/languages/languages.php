@@ -11,7 +11,7 @@
 defined('_VALID_MOS') or die();
 
 require_once (JPATH_BASE.
-	'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jce/languages/languages.html.php');
+	'/'.JADMIN_BASE.'/components/com_jce/languages/languages.html.php');
 // XML library
 require_once (JPATH_BASE.
 	'/includes/domit/xml_domit_lite_include.php');
@@ -42,7 +42,7 @@ function viewLanguages($option) {
 	$rows = array();
 	// Read the template dir to find templates
 	$languageBaseDir = mosPathName(mosPathName(JPATH_BASE).
-		"/".ADMINISTRATOR_DIRECTORY."/components/com_jce/language/");
+		"/".JADMIN_BASE."/components/com_jce/language/");
 
 	$rowid = 0;
 
@@ -104,7 +104,7 @@ function viewLanguages($option) {
 	}
 
 	require_once (JPATH_BASE.
-		'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
+		'/'.JADMIN_BASE.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav(count($rows),$limitstart,$limit);
 
 	$rows = array_slice($rows,$pageNav->limitstart,$pageNav->limit);

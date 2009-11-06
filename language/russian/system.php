@@ -545,8 +545,8 @@ DEFINE('_LOST_PASSWORD','Забыли пароль?');
 
 DEFINE('_MAIL_SUB','Новый материал от пользователя');
 DEFINE('_MAIL_MSG','Здравствуйте $adminName,\n\nПользователь $author предлагает новый материал в раздел $type с названием $title'.
-	' для сайта Jconfig::getInstance()->config_live_site.\n\n\n'.
-	'Пожалуйста, зайдите в панель администратора по адресу Jconfig::getInstance()->config_live_site/administrator для просмотра и добавления его в $type.\n\n'.
+	' для сайта JPATH_SITE.\n\n\n'.
+	'Пожалуйста, зайдите в панель администратора по адресу JPATH_SITE/administrator для просмотра и добавления его в $type.\n\n'.
 	'На это письмо не надо отвечать, так как оно создано автоматически и предназначено только для уведомления\n');
 DEFINE('_THANK_SUB','Спасибо за Ваш материал. Он будет просмотрен администратором перед размещением на сайте.');
 DEFINE('_MASS_RESULTS','Результаты массового добавления');
@@ -578,3 +578,17 @@ DEFINE('_CONTACT_HEADER_FAX','Факс');
 DEFINE('_OBJECTS_DELETED','Объект(ы) успешно удален(ы)');
 
 DEFINE('_PASSWORD','Пароль');
+
+/* langeditor */
+DEFINE('_ALL_SECTIONS','Все разделы');
+DEFINE('_MENU_ITEMS_TO_COPY','Будут скопированы следующие пункты');
+DEFINE('_PLEASE_ENTER_SUBJECT','Пожалуйста, впишите тему');
+DEFINE('_PLEASE_ENTER_MODULE_NAME','Пожалуйста, введите название для нового модуля');
+DEFINE('_CONTENT_IMAGES','Изображения содержимого');
+DEFINE('_ACTIVE_IMAGE','Активное изображение');
+DEFINE('_ALIGN','Выравнивание');
+DEFINE('_CANNOT_EDIT_ARCHIVED_ITEM','Вы не можете отредактировать объект архива');
+DEFINE('_CAPTION_ALIGN','Выравнивание подписи');
+DEFINE('_CAPTION_POSITION','Положение подписи');
+DEFINE('_CAPTION_WIDTH','Ширина подписи');
+

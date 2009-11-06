@@ -84,7 +84,7 @@ class CacheController
 		//jimport('joomla.html.pagination');
 		//$pageNav = new JPagination( $cmData->getGroupCount(), $limitstart, $limit );
 
-		require_once ($GLOBALS['mosConfig_absolute_path'] . '/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
+		require_once (JPATH_BASE . '/'.JADMIN_BASE.'/includes/pageNavigation.php');
 		$pageNav = new mosPageNav($cmData->getGroupCount(), $limitstart, $limit);
 		//echo "sdsd " . $cmData->getGroupCount();
 		//exit;
@@ -98,7 +98,7 @@ class CacheController
 		//JRequest::checkToken() or jexit( 'Invalid Token' );
 		$client = intval(mosGetParam($_REQUEST,'client',0));
 
-		$cmData = new CacheData($GLOBALS['mosConfig_absolute_path'] . '/cache');
+		$cmData = new CacheData(JPATH_BASE . '/cache');
 		$cmData->cleanCacheList( $cid );
 	}
 	//function showPurgeCache()

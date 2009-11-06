@@ -8,7 +8,7 @@
 **/
 
 defined('_VALID_MOS') or die();
-require_once $GLOBALS['mosConfig_absolute_path'].'/includes/PEAR/PEAR.php';
+require_once JPATH_BASE.'/includes/PEAR/PEAR.php';
 define('ARCHIVE_TAR_ATT_SEPARATOR',90001);
 define('ARCHIVE_TAR_END_BLOCK',pack("a512",''));
 class Archive_Tar extends PEAR {

@@ -10,7 +10,6 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-DEFINE('_PLEASE_ENTER_SUBJECT','Пожалуйста, впишите тему');
 DEFINE('_PLEASE_CHOOSE_GROUP','Пожалуйста, выберите группу');
 DEFINE('_PLEASE_ENTER_MESSAGE','Пожалуйста, заполните сообщение');
 DEFINE('_MASSMAIL_TTILE','Рассылка почты');

@@ -19,7 +19,7 @@ class JCE_plugins {
 		$access_list = array(
 			mosHTML::makeOption('0',_GUEST),
 			mosHTML::makeOption('18','-'._USER_GROUP_REGISTERED),
-			mosHTML::makeOption('19','--'._AUTHOR_BY),
+			mosHTML::makeOption('19','--'._AUTHOR),
 			mosHTML::makeOption('20','---'._EDITOR),
 			mosHTML::makeOption('21','----'._PUBLISHER),
 			mosHTML::makeOption('23','-----'._MANAGER),
@@ -85,7 +85,7 @@ class JCE_plugins {
 					$access_value = _USER_GROUP_REGISTERED;
 					break;
 				case '19':
-					$access_value = _AUTHOR_BY;
+					$access_value = _AUTHOR;
 					break;
 				case '20':
 					$access_value = _EDITOR;
@@ -167,6 +167,8 @@ class JCE_plugins {
 	*/
 	function editPlugins(&$row,&$lists,&$params,$option) {
 		global $mainframe,$database;
+
+		mosCommonHTML::loadOverlib();
 
 		$database->setQuery("SELECT lang FROM #__jce_langs WHERE published= '1'");
 		$lang = $database->loadResult();
@@ -309,8 +311,6 @@ class JCE_plugins {
 <?php
 		if($row->id) {
 			echo $params->render();
-		} else {
-			echo '<i>Нет параметров</i>';
 		}
 ?>
 					</td>
@@ -325,7 +325,6 @@ class JCE_plugins {
 		<input type="hidden" name="client" value="<?php echo $row->client_id; ?>" />
 		<input type="hidden" name="task" value="" />
 		</form>
-		<script language="Javascript" src="<?php echo JPATH_SITE; ?>/includes/js/overlib_mini.js"></script>
 		<?php
 	}
 }

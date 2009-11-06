@@ -307,10 +307,10 @@ function system_info($version, $option) {
 	  <tr>
 	 	<td width="50%">
 		<?php
-	mosHTML::writableCell(ADMINISTRATOR_DIRECTORY.'/backups');
-	mosHTML::writableCell(ADMINISTRATOR_DIRECTORY.'/components');
-	mosHTML::writableCell(ADMINISTRATOR_DIRECTORY.'/modules');
-	mosHTML::writableCell(ADMINISTRATOR_DIRECTORY.'/templates');
+	mosHTML::writableCell(JADMIN_BASE.'/backups');
+	mosHTML::writableCell(JADMIN_BASE.'/components');
+	mosHTML::writableCell(JADMIN_BASE.'/modules');
+	mosHTML::writableCell(JADMIN_BASE.'/templates');
 	mosHTML::writableCell('cache');
 	mosHTML::writableCell('components');
 	mosHTML::writableCell('images');

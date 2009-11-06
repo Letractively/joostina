@@ -97,8 +97,8 @@ DEFINE('_ABP_BANNER_CATEGORY_MANAGER', 'Управление категория�
 DEFINE('_ABP_C_CATEGORY_NAME', 'Название категории');
 DEFINE('_ABP_C_NUM_OF_RECORDS', '# кол-во&nbsp;баннеров');
 DEFINE('_ABP_CATEGORY_MUST_HAVE_A_NAME', 'Введите название категории');
-DEFINE('_ABP_EDIT_CATEGORY', '  Изменить категорию');
-DEFINE('_ABP_ADD_CATEGORY', '  Добавить категорию');
+DEFINE('_ABP_EDIT_CATEGORY', 'Изменить категорию');
+DEFINE('_ABP_ADD_CATEGORY', 'Добавить категорию');
 DEFINE('_ABP_CATEGORY_NAME', 'Название категории:');
 DEFINE('_ABP_E_DESCRITION', 'Описание:');
 DEFINE('_ABP_UNLIMITED', 'Неограниченно');

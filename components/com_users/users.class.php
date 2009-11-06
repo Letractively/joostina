@@ -597,7 +597,7 @@ class userHelper{
 						$(".buttons_<?php echo $form_params->img_field;?>").fadeOut(1000);
 						$('#current_<?php echo $form_params->img_field;?>_img').fadeOut(1000);
 						$('#current_<?php echo $form_params->img_field;?>_img').fadeOut(1000, function(){
-							$('#current_<?php echo $form_params->img_field;?>_img').html('<img class="avatar" src="<?php echo Jconfig::getInstance()->config_live_site;?>/<?php echo $form_params->img_path;?>/'+data+'" />');
+							$('#current_<?php echo $form_params->img_field;?>_img').html('<img class="avatar" src="<?php echo JPATH_SITE;?>/<?php echo $form_params->img_path;?>/'+data+'" />');
 						});
 						$('#current_<?php echo $form_params->img_field;?>_img').fadeIn(1000, function () {
 							$('#current_<?php echo $form_params->img_field;?>_img').show('slow', function () {

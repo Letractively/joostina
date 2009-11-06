@@ -27,8 +27,8 @@ define('_XMAP_MAMBO',0);
 $xmapLang = strtolower($mosConfig_lang);
 $xmapComponentPath = JPATH_BASE_ADMIN.'/components/com_xmap';
 $xmapAdministratorPath = JPATH_BASE_ADMIN;
-$xmapComponentURL = $mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap';
-$xmapAdministratorURL = $mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY;
+$xmapComponentURL = $mosConfig_live_site.'/'.JADMIN_BASE.'/components/com_xmap';
+$xmapAdministratorURL = $mosConfig_live_site.'/'.JADMIN_BASE;
 $xmapSiteURL = $mosConfig_live_site;
 
 require_once( $xmapComponentPath.'/classes/XmapAdmin.php' );

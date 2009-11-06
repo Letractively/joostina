@@ -125,7 +125,7 @@ function viewLanguages($option) {
 		$rowid++;
 	}
 
-	require_once (JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
+	require_once (JPATH_BASE.DS.JADMIN_BASE.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav(count($rows),$limitstart,$limit);
 
 	$rows = array_slice($rows,$pageNav->limitstart,$pageNav->limit);

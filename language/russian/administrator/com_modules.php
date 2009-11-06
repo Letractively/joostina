@@ -37,7 +37,6 @@ DEFINE('_MOD_NEW','Новый');
 DEFINE('_USER_MODULES', 'Пользовательские');
 DEFINE('_MODULES_COPY', 'Копия ');
 DEFINE('_COM_MODULES_GUEST','Гостевой');
-DEFINE('_PLEASE_ENTER_MODULE_NAME','Пожалуйста, введите имя для нового модуля');
 DEFINE('_M_CACHE_0','не кэшировать');
 DEFINE('_M_CACHE_60','1 минута');
 DEFINE('_M_CACHE_300','5 минут');

@@ -46,7 +46,7 @@ function checkall(){
 	global $database,$mosConfig_dbprefix;
 	$nullDate = $database->getNullDate();
 	$mainframe = &mosMainFrame::getInstance();
-	$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
+	$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 	?>
 	<table class="adminheading">
 		<tr>
@@ -243,7 +243,7 @@ function checkin($pkey,$checkid,$component,$editor) {
 	global $database;
 	
 	$mainframe = &mosMainFrame::getInstance();
-	$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
+	$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 
 	if($editor == "Y") {
 		$database->setQuery("UPDATE $component SET checked_out=0, checked_out_time='00:00:00', editor=NULL WHERE $pkey = $checkid AND checked_out > 0");

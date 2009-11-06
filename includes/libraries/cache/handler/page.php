@@ -25,10 +25,9 @@ class JCachePage extends JCache
 /*bool*/	//var $_compressed = false;
 /*string*/	var $_hash = null;
 
-	function __construct($options)
-	{
+	function __construct($options){
 		parent::__construct($options);
-		
+
 		if(isset($options['URI'])) {
 			$URI = $options['URI'];
 		}

@@ -152,7 +152,7 @@ function record_html($query) {
 	global $database;
 
 	$mainframe = &mosMainFrame::getInstance();
-	$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images';
+	$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images';
 
 	// exec query
 	$database->setQuery($query);

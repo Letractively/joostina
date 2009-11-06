@@ -30,7 +30,7 @@ function show_header($allow,$dir=false) {
 			echo "	<option value=\"symlink\">".$GLOBALS["mimes"]["symlink"]."</option>\n";
 		}
 		echo "</select>
-					<input name=\"symlink_target\" type=\"hidden\" size=\"25\" title=\"{$GLOBALS['messages']['symlink_target']}\" value=\"{$GLOBALS['mosConfig_absolute_path']}\" />
+					<input name=\"symlink_target\" type=\"hidden\" size=\"25\" title=\"{$GLOBALS['messages']['symlink_target']}\" value=\"{JPATH_BASE}\" />
 					<input class=\"text_area\" name=\"mkname\" type=\"text\" size=\"15\" title=\"{$GLOBALS['messages']['nameheader']}\" />
 					<input class=\"text_area\" type=\"submit\" value=\"".$GLOBALS["messages"]["btncreate"]."\" />
 				</form>

@@ -23,7 +23,7 @@ class HTML_templates {
 	function showTemplates(&$rows,&$pageNav,$option,$client) {
 		global $my,$mosConfig_live_site;
 		$mainframe = &mosMainFrame::getInstance();
-		$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
+		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 		if(isset($row->authorUrl) && $row->authorUrl != '') {
 			$row->authorUrl = str_replace('http://','',$row->authorUrl);
 		}
@@ -36,7 +36,7 @@ class HTML_templates {
 			name = name.replace(pattern,'_');
 			name = name.toLowerCase();
 			if (document.adminForm.doPreview.checked) {
-				var src = '<?php echo $mosConfig_live_site.($client == 'admin'?'/'.ADMINISTRATOR_DIRECTORY:''); ?>/templates/'+dir+'/template_thumbnail.png';
+				var src = '<?php echo $mosConfig_live_site.($client == 'admin'?'/'.JADMIN_BASE:''); ?>/templates/'+dir+'/template_thumbnail.png';
 				var html=name;
 				html = '<br /><img border="1" src="'+src+'" name="imagelib" alt="<?php echo _COM_INSTALLER_NO_PREVIEW?>" width="206" height="145" />';
 				return overlib(html, CAPTION, name)
@@ -77,7 +77,7 @@ class HTML_templates {
 <?php
 		}
 ?>
-			<th width="20%" align="left"><?php echo _AUTHOR_BY?></th>
+			<th width="20%" align="left"><?php echo _AUTHOR?></th>
 			<th width="5%" align="center"><?php echo _VERSION?></th>
 			<th width="10%" align="center"><?php echo _CREATED?></th>
 			<th width="20%" align="left">URL</th>
@@ -147,7 +147,7 @@ class HTML_templates {
 	*/
 	function editTemplateSource($template,&$content,$option,$client) {
 		global $mosConfig_codepress;
-		$template_path = JPATH_BASE.($client == 'admin'?'/'.ADMINISTRATOR_DIRECTORY:'').'/templates/'.$template.'/index.php';
+		$template_path = JPATH_BASE.($client == 'admin'?'/'.JADMIN_BASE:'').'/templates/'.$template.'/index.php';
 		/* подключение js файла codepress*/
 		if($mosConfig_codepress) mosCommonHTML::loadCodepress();
 ?>
@@ -230,7 +230,7 @@ class HTML_templates {
 	*/
 	function editCSSSource($template,&$content,$option,$client) {
 		global $mosConfig_codepress;
-		$css_path = JPATH_BASE.($client == 'admin'?'/'.ADMINISTRATOR_DIRECTORY:'').'/templates/'.$template.'/css/template_css.css';
+		$css_path = JPATH_BASE.($client == 'admin'?'/'.JADMIN_BASE:'').'/templates/'.$template.'/css/template_css.css';
 		/* подключение js файла codepress*/
 		if($mosConfig_codepress) mosCommonHTML::loadCodepress();
 ?>

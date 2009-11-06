@@ -17,7 +17,7 @@ $lang = $database->loadResult();
 $database->setQuery("SELECT id as id, plugin as plugin FROM #__jce_plugins WHERE type = 'plugin'");
 $plugins = $database->loadObjectList();
 
-require_once (JPATH_BASE.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jce/language/'.$lang.'.php');
+require_once (JPATH_BASE.'/'.JADMIN_BASE.'/components/com_jce/language/'.$lang.'.php');
 
 $backlink = '<a href="index2.php?option=com_jce&task=lang">'._JCE_LANG_BACK.'</a>';
 HTML_installer::showInstallForm(_JCE_LANG_HEADING_INSTALL,$option,'language','',
@@ -25,7 +25,7 @@ HTML_installer::showInstallForm(_JCE_LANG_HEADING_INSTALL,$option,'language','',
 ?>
 <table class="content">
 <?php
-writableCell(ADMINISTRATOR_DIRECTORY.'/components/com_jce/language');
+writableCell(JADMIN_BASE.'/components/com_jce/language');
 writableCell('mambots/editors/jce/jscripts/tiny_mce/langs');
 writableCell('mambots/editors/jce/jscripts/tiny_mce/themes/advanced/langs');
 foreach($plugins as $plugin) {

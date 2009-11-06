@@ -21,7 +21,7 @@ if ($view == 'xslfile') {
 }
 
 /**
- * $LangPath = $config->config_absolute_path .DS.ADMINISTRATOR_DIRECTORY.DS.'components'.DS.'com_xmap'.DS.'language'.DS;
+ * $LangPath = $config->config_absolute_path .DS.JADMIN_BASE.DS.'components'.DS.'com_xmap'.DS.'language'.DS;
  * if( file_exists( $LangPath . $config->config_lang . '.php') ) {
  * 	require_once( $LangPath . $config->config_lang. '.php' );
  * } else {
@@ -29,10 +29,10 @@ if ($view == 'xslfile') {
  * }
  */
 
-require_once( $config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY.DS.'components'.DS.'com_xmap'.DS.'classes'.DS.'XmapConfig.php' );
-require_once( $config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY.DS.'components'.DS.'com_xmap'.DS.'classes'.DS.'XmapSitemap.php' );
-require_once( $config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY.DS.'components'.DS.'com_xmap'.DS.'classes'.DS.'XmapPlugins.php' );
-require_once( $config->config_absolute_path.DS.ADMINISTRATOR_DIRECTORY.DS.'components'.DS.'com_xmap'.DS.'classes'.DS.'XmapCache.php' );
+require_once( $config->config_absolute_path.DS.JADMIN_BASE.DS.'components'.DS.'com_xmap'.DS.'classes'.DS.'XmapConfig.php' );
+require_once( $config->config_absolute_path.DS.JADMIN_BASE.DS.'components'.DS.'com_xmap'.DS.'classes'.DS.'XmapSitemap.php' );
+require_once( $config->config_absolute_path.DS.JADMIN_BASE.DS.'components'.DS.'com_xmap'.DS.'classes'.DS.'XmapPlugins.php' );
+require_once( $config->config_absolute_path.DS.JADMIN_BASE.DS.'components'.DS.'com_xmap'.DS.'classes'.DS.'XmapCache.php' );
 
 $mainframe = &mosMainFrame::getInstance();
 

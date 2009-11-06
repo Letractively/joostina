@@ -139,7 +139,7 @@ function loadInstalledPlugins( &$rows,&$xmlfile ) {
 		$row =& $rows[$i];
 
 		// path to module directory
-		$extensionBaseDir	= mosPathName( mosPathName( JPATH_BASE ) . '/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/extensions/' );
+		$extensionBaseDir	= mosPathName( mosPathName( JPATH_BASE ) . '/'.JADMIN_BASE.'/components/com_xmap/extensions/' );
 
 		// xml file for module
 		$xmlfile = $extensionBaseDir.DS.$row->extension. ".xml";
@@ -202,7 +202,7 @@ function xmapUploadPlugin( ) {
 	$option ='com_xmap';
 	$element = 'plugin';
 	$client = '';
-	require_once(JPATH_BASE. '/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/classes/XmapPluginInstaller.php');
+	require_once(JPATH_BASE. '/'.JADMIN_BASE.'/components/com_xmap/classes/XmapPluginInstaller.php');
 	$installer = new XmapPluginInstaller();
 
 	// Check if file uploads are enabled
@@ -254,7 +254,7 @@ function xmapInstallPluginFromDirectory() {
 	$option ='com_xmap'; 
 	$element = 'plugin';
 	$client = '';
-	require_once(JPATH_BASE. '/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/classes/XmapPluginInstaller.php');
+	require_once(JPATH_BASE. '/'.JADMIN_BASE.'/components/com_xmap/classes/XmapPluginInstaller.php');
 	$installer = new XmapPluginInstaller();
 
 	if (!$userfile) {

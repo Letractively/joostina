@@ -10,7 +10,7 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-require_once (JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/classes/XmapSitemap.php');
+require_once (JPATH_BASE.DS.JADMIN_BASE.'/components/com_xmap/classes/XmapSitemap.php');
 
 class XmapConfig {
 	var $version 			= '1.1';
@@ -93,7 +93,7 @@ class XmapConfig {
 			return false;
 		}
 
-		require_once(JPATH_BASE . '/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/classes/XmapPlugin.php');
+		require_once(JPATH_BASE . '/'.JADMIN_BASE.'/components/com_xmap/classes/XmapPlugin.php');
 		$extensions = array (
 			//	name			published
 			array(	'com_content',		1)

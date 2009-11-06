@@ -77,7 +77,7 @@ if(isset($_POST['submit'])) {
 	$pass		= stripslashes(mosGetParam($_POST,'pass',null));
 
 	if($pass == null) {
-		mosRedirect($config->config_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/',_PLEASE_ENTER_PASSWORD);
+		mosRedirect($config->config_live_site.'/'.JADMIN_BASE.'/',_PLEASE_ENTER_PASSWORD);
 		exit();
 	}
 
@@ -85,14 +85,14 @@ if(isset($_POST['submit'])) {
 		$captcha = mosGetParam($_POST,'captcha','');
 		$captcha_keystring = mosGetParam($_SESSION,'captcha_keystring','');
 		if($captcha_keystring!=$captcha) {
-			mosRedirect($config->config_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/',_BAD_CAPTCHA_STRING);
+			mosRedirect($config->config_live_site.'/'.JADMIN_BASE.'/',_BAD_CAPTCHA_STRING);
 			unset($_SESSION['captcha_keystring']);
 			exit;
 		}
 	}
 /*
 	if((int) $config->config_admin_bad_auth >= 0 && $config->config_admin_bad_auth <= $bad_auth_count) {
-		mosRedirect($config->config_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/',_USER_BLOKED);
+		mosRedirect($config->config_live_site.'/'.JADMIN_BASE.'/',_USER_BLOKED);
 		unset($_SESSION['captcha_keystring']);
 		exit;
 	}
@@ -139,7 +139,7 @@ if(isset($_POST['submit'])) {
 				$database->query();
 			}
 
-			mosRedirect($config->config_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/index.php?'.$config->config_admin_secure_code,_BAD_USERNAME_OR_PASSWORD);
+			mosRedirect($config->config_live_site.'/'.JADMIN_BASE.'/index.php?'.$config->config_admin_secure_code,_BAD_USERNAME_OR_PASSWORD);
 			exit();
 		}
 
@@ -239,7 +239,7 @@ if(isset($_POST['submit'])) {
 		echo "<script>document.location.href='$expired';</script>\n";
 		exit();
 	} else {
-		mosRedirect($config->config_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/index.php?'.$config->config_admin_secure_code,_BAD_USERNAME_OR_PASSWORD);
+		mosRedirect($config->config_live_site.'/'.JADMIN_BASE.'/index.php?'.$config->config_admin_secure_code,_BAD_USERNAME_OR_PASSWORD);
 		exit();
 	}
 } else {
@@ -248,7 +248,7 @@ if(isset($_POST['submit'])) {
 	if($config->config_admin_bad_auth <= $bad_auth_count && (int)$config->config_admin_bad_auth >= 0) {
 		$config->config_captcha = 1;
 	}
-	$path = JPATH_BASE .DS.ADMINISTRATOR_DIRECTORY.DS.'templates'.DS. JTEMPLATE .DS. 'login.php';
+	$path = JPATH_BASE .DS.JADMIN_BASE.DS.'templates'.DS. JTEMPLATE .DS. 'login.php';
 	require_once ($path);
 	doGzip();
 }

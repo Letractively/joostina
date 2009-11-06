@@ -24,7 +24,6 @@ class wrapper_menu_html {
 
 ?>
 		<div id="overDiv" style="position:absolute; visibility:hidden; z-index:10000;"></div>
-		<script language="Javascript" src="<?php echo $mosConfig_live_site; ?>/includes/js/overlib_mini.js"></script>
 		<script language="javascript" type="text/javascript">
 		function submitbutton(pressbutton) {
 			if ( pressbutton == 'cancel' ) {
@@ -39,7 +38,7 @@ class wrapper_menu_html {
 		if(!$menu->id) {
 ?>
 					if ( form.url.value == "" ){
-						alert( "Вы должны ввести url." );
+						alert( "url." );
 					} else {
 						submitform( pressbutton );
 					}
@@ -72,17 +71,13 @@ class wrapper_menu_html {
 					</th>
 				</tr>
 				<tr>
-					<td width="10%" align="right" valign="top">
-					<?php echo _NAME?>:
-					</td>
+					<td width="10%" align="right" valign="top"><?php echo _NAME?>:</td>
 					<td width="200px">
 					<input type="text" name="name" size="30" maxlength="100" class="inputbox" value="<?php echo htmlspecialchars($menu->name,ENT_QUOTES); ?>"/>
 					</td>
 				</tr>
 				<tr>
-					<td width="10%" align="right" valign="top">
-					<?php echo _LINK_TITLE?>:
-					</td>
+					<td width="10%" align="right" valign="top"><?php echo _LINK_TITLE?>:</td>
 					<td width="80%">
 						<input class="inputbox" type="text" name="params[title]" size="50" maxlength="100" value="<?php echo htmlspecialchars($params->get('title',''),ENT_QUOTES); ?>" />
 					</td>

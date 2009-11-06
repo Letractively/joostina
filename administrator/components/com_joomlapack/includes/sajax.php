@@ -55,7 +55,7 @@ if(!isset($SAJAX_INCLUDED)) {
 	//
 	function sajax_get_my_uri() {
 		global $mosConfig_live_site; //joostina pach
-		$myURI = $mosConfig_live_site."/".ADMINISTRATOR_DIRECTORY."/ajax.index.php";
+		$myURI = $mosConfig_live_site."/".JADMIN_BASE."/ajax.index.php";
 		return $myURI;
 	}
 

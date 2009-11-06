@@ -43,12 +43,12 @@ function botUserContent(&$user) {
 	$params->set('limitstart', 0);
 	$params->set('limit', 5);
 	$params->def('show_link', 1);
-	
+
 	$user_items = new mosContent($database);
 	$user_items = $user_items->_load_user_items($user->id, $params);
-	
+
 	$access = new contentAccess();
-	
+
 	if(!$user_items){?>
 		<div id="userContent_area">
 			<div class="error"><?php echo USER_CONTENT_NO_USER_CONTENTS?></div>
@@ -63,7 +63,7 @@ function botUserContent(&$user) {
 		$row->created = mosFormatDate ($row->created,$config->config_form_date_full,'0');
 		$link	= sefRelToAbs( 'index.php?option=com_content&amp;task=view&amp;id='. $row->id);
 		$img	= $row->published ? 'publish_g.png' : 'publish_x.png';
-		$img	= $config->config_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/images/'.$img;
+		$img	= $config->config_live_site.'/'.JADMIN_BASE.'/images/'.$img;
 		$row->Itemid_link = '&amp;Itemid='.$Itemid;
 		$row->_Itemid = $Itemid;
 		// раздел / категория
@@ -73,15 +73,8 @@ function botUserContent(&$user) {
 		}
 ?>
 		<tr class="sectiontableentry<?php echo ($k+1);?>">
-<?php if($access->canPublish){?>
-			<td align="center" <?php echo ($access->canPublish) ? 'onclick="ch_publ('.$row->id.');" class="td-state"' : null ;?>>
-				<img class="img-mini-state" src="<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?php echo _PUBLISHING?>" />
-			</td>
-<?php }?>
 <?php if($access->canEdit){?>
-			<td>
-				<?php mosContent::EditIcon2($row, $params, $access);?>
-			</td>
+			<td><?php mosContent::EditIcon2($row, $params, $access);?></td>
 <?php }?>
 			<td>
 				<a href="<?php echo $link; ?>"><?php echo $row->title; ?></a>

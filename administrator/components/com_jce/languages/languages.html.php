@@ -19,12 +19,12 @@ class JCE_languages {
 		global $my,$database,$mainframe;
 		
 		$mainframe = &mosMainFrame::getInstance();
-		$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
+		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 
 		$database->setQuery("SELECT lang FROM #__jce_langs WHERE published= '1'");
 		$lang = $database->loadResult();
 
-		require_once (JPATH_BASE.DS.ADMINISTRATOR_DIRECTORY."/components/com_jce/language/".$lang.".php");
+		require_once (JPATH_BASE.DS.JADMIN_BASE."/components/com_jce/language/".$lang.".php");
 ?>
 		<form action="index2.php" method="post" name="adminForm">
 		<table class="adminheading">

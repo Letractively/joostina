@@ -31,8 +31,8 @@ define('_XMAP_MAMBO',0);
 $xmapLang = strtolower($mosConfig_lang);
 $xmapComponentPath = JPATH_BASE_ADMIN.'/components/com_xmap';
 $xmapAdministratorPath = JPATH_BASE_ADMIN;
-$xmapComponentURL = $mosConfig_live_site.DS.ADMINISTRATOR_DIRECTORY.'/components/com_xmap';
-$xmapAdministratorURL = $mosConfig_live_site.DS.ADMINISTRATOR_DIRECTORY;
+$xmapComponentURL = $mosConfig_live_site.DS.JADMIN_BASE.'/components/com_xmap';
+$xmapAdministratorURL = $mosConfig_live_site.DS.JADMIN_BASE;
 $xmapSiteURL = $mosConfig_live_site;
 
 require_once( $xmapComponentPath.'/classes/XmapAdmin.php' );
@@ -41,8 +41,8 @@ require_once( $xmapComponentPath.'/classes/XmapAdmin.php' );
 require_once( $xmapComponentPath.'/classes/XmapConfig.php' );
 require_once( $xmapComponentPath.'/admin.xmap.html.php' );
 
-require_once( JPATH_BASE . DS.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/classes/XmapCache.php' );
-require_once( JPATH_BASE . DS.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/classes/XmapPlugin.php' );
+require_once( JPATH_BASE . DS.JADMIN_BASE.'/components/com_xmap/classes/XmapCache.php' );
+require_once( JPATH_BASE . DS.JADMIN_BASE.'/components/com_xmap/classes/XmapPlugin.php' );
 
 switch ($action) {
 	case 'add_sitemap':

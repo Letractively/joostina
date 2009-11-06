@@ -16,10 +16,9 @@ defined('_VALID_MOS') or die();
 class HTML_QuickIcons {
 
 	function show(&$rows,$option,$search,&$pageNav) {
-		global $mosConfig_live_site;
-		
+
 		$mainframe = &mosMainFrame::getInstance();
-		$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/ico';
+		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 		mosCommonHTML::loadOverlib();
 ?>
 		<form action="index2.php" method="post" name="adminForm">
@@ -80,7 +79,7 @@ class HTML_QuickIcons {
 				<tr class="row<?php echo $k; ?>">
 					<td><?php echo $row->id; ?></td>
 					<td><?php echo $checked; ?></td>
-					<td align="center"><img src="<?php echo $mosConfig_live_site.$row->icon ;?>" alt="" border="0" /></td>
+					<td align="center"><img src="<?php echo JPATH_SITE.$row->icon ;?>" alt="" border="0" /></td>
 					<td align="left">
 						<a href="<?php echo $editLink; ?>" title="<?php echo _PRESS_TO_EDIT_ELEMENT?>"><?php echo $row->text; ?></a><br />
 						<?php
@@ -98,12 +97,12 @@ class HTML_QuickIcons {
 					</td>
 					<td align="center">
 						<?php if($i!=0){?>
-							<a href="<?php echo $link.'orderUp&amp;id='.$row->id; ?>" title="<?php echo _E_UP?>"><img src="<?php echo $cur_file_icons_path;?>/uparrow.png" border="0" alt="<?php echo _E_UP; ?>" /></a>
+							<a href="<?php echo $link.'orderUp&amp;id='.$row->id; ?>" title="<?php echo _NAV_ORDER_UP?>"><img src="<?php echo $cur_file_icons_path;?>/uparrow.png" border="0" alt="<?php echo _NAV_ORDER_UP; ?>" /></a>
 						<?php };?>
 					</td>
 					<td align="center">
 						<?php if($i!=(count($rows)-1)){?>
-							<a href="<?php echo $link.'orderDown&amp;id='.$row->id; ?>" title="<?php echo _E_DOWN?>"><img src="<?php echo $cur_file_icons_path;?>/downarrow.png" border="0" alt="<?php echo _E_DOWN; ?>" /></a>
+							<a href="<?php echo $link.'orderDown&amp;id='.$row->id; ?>" title="<?php echo _NAV_ORDER_DOWN?>"><img src="<?php echo $cur_file_icons_path;?>/downarrow.png" border="0" alt="<?php echo _NAV_ORDER_DOWN; ?>" /></a>
 						<?php };?>
 					</td>
 					<td align="center" colspan="2">
@@ -125,7 +124,6 @@ class HTML_QuickIcons {
 	}
 
 	function edit(&$row,$lists,$option) {
-		global $mosConfig_live_site;
 
 		mosMakeHtmlSafe($row,ENT_QUOTES);
 		mosCommonHTML::loadOverlib();
@@ -164,9 +162,9 @@ class HTML_QuickIcons {
 
 			function changeIcon( icon ) {
 				if (document.all) {
-					document.all.iconImg.src = '<?php echo $GLOBALS['mosConfig_live_site']; ?>' + icon;
+					document.all.iconImg.src = '<?php echo JPATH_SITE; ?>' + icon;
 				}else{
-					SRAX.get('iconImg').src = '<?php echo $GLOBALS['mosConfig_live_site']; ?>' + icon;
+					SRAX.get('iconImg').src = '<?php echo JPATH_SITE; ?>' + icon;
 				}
 			};
 
@@ -290,7 +288,7 @@ class HTML_QuickIcons {
 						<tr>
 							<td align="right"><?php echo _ICON?>:</td>
 							<td align="left">
-								<input class="inputbox" type="text" name="icon" size="100" maxlength="100" value="<?php echo $mosConfig_live_site.$row->icon; ?>" onblur="changeIcon(this.value)" />
+								<input class="inputbox" type="text" name="icon" size="100" maxlength="100" value="<?php echo JPATH_SITE.$row->icon; ?>" onblur="changeIcon(this.value)" />
 								<a href="index2.php?option=<?php echo $option; ?>&amp;task=chooseIcon" target="_blank" title="<?php echo _PRESS_TO_CHOOSE_ICON?>"><?php echo _CHOOSE_ICON?></a>
 <?php
 									$tip = _CHOOSE_ICON_TIP;
@@ -308,7 +306,7 @@ class HTML_QuickIcons {
 										$iconLink = $row->icon;
 									}
 ?>
-								<img id="iconImg" src="<?php echo $mosConfig_live_site.$iconLink; ?>" alt="" />
+								<img id="iconImg" src="<?php echo JPATH_SITE.$iconLink; ?>" alt="" />
 							</td>
 						</tr>
 					</table>
@@ -327,9 +325,9 @@ class HTML_QuickIcons {
 	}
 
 	function quickiButton($image) {
-		global $mosConfig_live_site;
 
-		$image = str_replace(JPATH_BASE,$mosConfig_live_site,$image);
+		$image = str_replace(JPATH_BASE,JPATH_SITE,$image);
+		$image = str_replace('\\','/',$image);
 		$js_action = "window.opener.document.adminForm.icon.value='$image'; window.opener.changeIcon('$image'); window.close()"; ?>
 		<div style="float:left;">
 			<div class="cpicons">
@@ -369,6 +367,5 @@ class HTML_QuickIcons {
 		</table>
 <?php
 	}
-
 }
 ?>

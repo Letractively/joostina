@@ -149,7 +149,7 @@ class XmapPlugins {
 		foreach ($rows as $row) {
 			$extension = new XmapPlugin($database);
 			$extension->bind($row);
-			require_once(JPATH_BASE . '/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/extensions/'. $extension->extension.'.php');
+			require_once(JPATH_BASE . '/'.JADMIN_BASE.'/components/com_xmap/extensions/'. $extension->extension.'.php');
 			$list[$extension->extension] = $extension;
 		}
 		return $list;

@@ -10,13 +10,6 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-DEFINE('_ACTIVE_IMAGE','Активное изображение');
-DEFINE('_ALIGN','Выравнивание');
-DEFINE('_ALL_SECTIONS','Все разделы');
-DEFINE('_CANNOT_EDIT_ARCHIVED_ITEM','Вы не можете отредактировать архивный объект');
-DEFINE('_CAPTION_ALIGN','Выравнивание подписи');
-DEFINE('_CAPTION_POSITION','Положение подписи');
-DEFINE('_CAPTION_WIDTH','Ширина подписи');
 DEFINE('_CC_ADD_S_C_T','Добавить (Раздел, Категорию, Заголовок)');
 DEFINE('_CC_AUTO','Автоматически');
 DEFINE('_CC_LINK_TO_MENU','Связать с меню');
@@ -28,7 +21,6 @@ DEFINE('_CHOOSE_OBJ_TOGGLE','Выберите объект для переклю
 DEFINE('_CHOOSE_OBJECTS_TO_TRASH','Пожалуйста, выберите из списка объекты, которые Вы хотите отправить в корзину');
 DEFINE('_COM_CONTENT_ARCHIVE_CONTENT','Содержимое в архиве');
 DEFINE('_COM_CONTENT_TYPES','Типы содержимого');
-DEFINE('_CONTENT_IMAGES','Изображения к тексту');
 DEFINE('_CONTENT_IS_BEING_EDITED_BY_OTHER_PEOPLE','Содержимое сейчас редактируется другим человеком');
 DEFINE('_CONTENT_ITEM_SAVED','Изменения успешно сохранены в');
 DEFINE('_COPY_INTO_CAT_SECT','Копировать в раздел/категорию');
@@ -42,7 +34,6 @@ DEFINE('_E_ALT','Альтернативный текст:');
 DEFINE('_E_APPLY','Применить');
 DEFINE('_E_AUTHOR_ALIAS','Псевдоним автора:');
 DEFINE('_E_BORDER','Рамка:');
-DEFINE('_E_DOWN','Ниже');
 DEFINE('_E_EXPIRES','Дата истечения:');
 DEFINE('_E_FINISH_PUB','Дата окончания публикации:');
 DEFINE('_E_GALLERY_IMAGES','Галерея изображений');
@@ -64,7 +55,6 @@ DEFINE('_E_START_PUB','Дата начала публикации:');
 DEFINE('_E_STATE','Состояние:');
 DEFINE('_E_SUBJECT','Тема:');
 DEFINE('_E_TITLE','Заголовок:');
-DEFINE('_E_UP','Выше');
 DEFINE('_EDIT_IMAGE','Параметры изображения');
 DEFINE('_EMPTY_CATEGORY','Данная категория не содержит объектов.');
 DEFINE('_END_PUBLICATION','Окончание публикации');

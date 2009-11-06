@@ -25,7 +25,7 @@ class HTML_mmxtd {
 		$num_files = $count[0];
 		$num_dir = $count[1];
 		$mainframe = mosMainFrame::getInstance(true);
-		$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/file_ico/';
+		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/file_ico/';
 ?>
 <div class="folder_style">
 <table cellpadding="0" cellspacing="0">
@@ -77,7 +77,7 @@ class HTML_mmxtd {
 		}
 
 		$mainframe = mosMainFrame::getInstance(true);
-		$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/file_ico/';
+		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/file_ico/';
 ?>
 <div class="image_style">
 <table cellpadding="0" cellspacing="0">
@@ -136,7 +136,7 @@ class HTML_mmxtd {
 		$doc_url_link = JWMMXTD_STARTURLPATH.$listdir.'/'.rawurlencode($doc);
 		$cur = $listdir;
 		$mainframe = mosMainFrame::getInstance(true);
-		$cur_file_icons_path = JPATH_SITE.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.JTEMPLATE.'/images/file_ico/';
+		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/file_ico/';
 
 ?>
 <div class="file_style">

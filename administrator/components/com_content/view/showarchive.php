@@ -70,7 +70,7 @@ defined( '_VALID_MOS' ) or die();
 				<a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="<?php echo $cur_file_icons_path;?>/filesave.png" border="0" width="16" height="16" alt="<?php echo _SAVE_ORDER?>" /></a>
 			</th>
 			<th width="15%" align="left"><?php echo _CATEGORY?></th>
-			<th width="15%" align="left"><?php echo _AUTHOR_BY?></th>
+			<th width="15%" align="left"><?php echo _AUTHOR?></th>
 			<th align="center" width="10"><?php echo _DATE?></th>
 		</tr>
 		<?php

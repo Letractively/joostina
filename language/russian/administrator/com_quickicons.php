@@ -37,5 +37,3 @@ DEFINE('_BUTTON_ERROR_UNPUBLISHING','Ошибка скрытия');
 DEFINE('_BUTTONS_DELETED','Кнопки успешно удалены');
 DEFINE('_CHANGE_QUICK_BUTTONS','Изменить кнопки быстрого доступа');
 DEFINE('_QI_REFERENCE_NOT_SELECTED','Ссылка не выбрана');
-DEFINE('_E_DOWN','Вниз');
-DEFINE('_E_UP','Вверх');
