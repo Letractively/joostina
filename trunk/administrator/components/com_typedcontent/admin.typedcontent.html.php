@@ -451,7 +451,7 @@ class HTML_typedcontent {
 					<td><?php echo $lists['_align']; ?></td>
 				</tr>
 				<tr>
-					<td align="right"><?php echo _ALTERNATIVE_TEXT?></td>
+					<td align="right"><?php echo _E_ALT?></td>
 					<td><input class="text_area" type="text" name="_alt" value="" /></td>
 				</tr>
 				<tr>

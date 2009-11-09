@@ -168,7 +168,7 @@ _cmSplit,
 	['<img src="<?php echo $cur_file_icons_path ?>config.png" />','<?php echo _MOD_FULLMENU_C_LIST_BLOG?>','index2.php?option=com_content&task=config&act=sectionlist',null,'<?php echo _MOD_FULLMENU_C_LIST_BLOG?>'],
 	['<img src="<?php echo $cur_file_icons_path ?>config.png" />','<?php echo _MOD_FULLMENU_C_TABLE_BLOG?>','index2.php?option=com_content&task=config&act=categorytable',null,'<?php echo _MOD_FULLMENU_C_TABLE_BLOG?>'],
 	['<img src="<?php echo $cur_file_icons_path ?>config.png" />','<?php echo _MOD_FULLMENU_C_ARH_SECTION?>','index2.php?option=com_content&task=config&act=sectionarchive',null,'<?php echo _MOD_FULLMENU_C_ARH_SECTION?>'],
-	['<img src="<?php echo $cur_file_icons_path ?>config.png" />','<?php echo _MOD_FULLMENU_C_ARH_CAT?>','index2.php?option=com_content&task=config&act=categoryarchive',null,'<?php echo _MOD_FULLMENU_C_ARH_CAT?>'],
+	['<img src="<?php echo $cur_file_icons_path ?>config.png" />','<?php echo _CATEGORIES_ARHIVE?>','index2.php?option=com_content&task=config&act=categoryarchive',null,'<?php echo _CATEGORIES_ARHIVE?>'],
 	['<img src="<?php echo $cur_file_icons_path ?>config.png" />','<?php echo _MOD_FULLMENU_USER_CONTENT?>','index2.php?option=com_content&task=config&act=ucontent',null,'<?php echo _MOD_FULLMENU_USER_CONTENT?>']
 ],
 ['<img src="<?php echo $cur_file_icons_path ?>globe3.png" />', '<?php echo _MOD_FULLMENU_PAGES_HITS?>', 'index2.php?option=com_statistics&task=pageimp', null, '<?php echo _MOD_FULLMENU_PAGES_HITS?>'],

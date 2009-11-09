@@ -110,6 +110,32 @@ class mosParameters {
 			$lines = array();
 		}
 
+		if( (false==$process_sections) &&
+			(false==$asArray) &&
+			(is_string($txt)) &&
+			(false===strpos($txt,'[')) &&
+			(false===strpos($txt,'\\')) &&
+			(false===strpos($txt,'"')) &&
+			(false===strpos($txt,';')) ){
+			$obj = new stdClass();
+			foreach($lines as $line){
+				$vars=explode('=',$line,2);
+				if(count($vars)==2){
+					$property = trim($vars[0]);
+					$value = trim($vars[1]);
+					if($value){
+						if($value == 'false'){
+							$value = false;
+						}elseif($value == 'true'){
+							$value = true;
+						}
+					}
+					$obj->$property = $value;
+				}
+			}
+			return $obj;
+		}
+
 		$obj = $asArray ? array():new stdClass();
 
 		$sec_name = '';
@@ -375,7 +401,7 @@ class mosParameters {
 		$query = "SELECT id, title FROM #__sections WHERE published = 1 AND scope = 'content' ORDER BY title";
 		$database->setQuery($query);
 		$options = $database->loadObjectList();
-		array_unshift($options,mosHTML::makeOption('0',_ET_SECTION,'id','title'));
+		array_unshift($options,mosHTML::makeOption('0',_SEL_SECTION,'id','title'));
 
 		return mosHTML::selectList($options,''.$control_name.'['.$name.']','class="inputbox" id="mossection"','id','title',$value);
 	}
