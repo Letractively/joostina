@@ -786,7 +786,7 @@ class HTML_banners {
 			</td>
 		</tr>
 		<tr>
-			<td><?php echo _ABP_BANNER_STATE; ?></td>
+			<td><?php echo _ACTIVE; ?></td>
 			<td colspan="2">
 				<select name="state" id="state" <?php echo ($row->imp_made == $row->imp_total) ? 'readonly' : ''; ?>>
 					<option value="1" <?php echo ($row->state == '1') ? 'selected' : ''; ?>><?php echo _ABP_YES; ?></option>

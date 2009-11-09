@@ -19,7 +19,6 @@ DEFINE('_CONTENT_INFO','Информация о содержимом');
 DEFINE('_CHANGE_AUTHOR','Изменить автора');
 DEFINE('_GALLERY_IMAGES','Изображения галереи');
 DEFINE('_EDITING_SELECTED_IMAGE','Редактирование выбранного изображения');
-DEFINE('_ALTERNATIVE_TEXT','Альтернативный текст');
 DEFINE('_MENU_LINK_3','Здесь создается пункт меню типа \'Ссылка - Статичное содержимое\', который вставляется в выбранное из списка меню');
 DEFINE('_EXISTED_MENU_LINKS','Существующие связи с меню');
 DEFINE('_CONTENT_SAVED','Содержимое сохранено');

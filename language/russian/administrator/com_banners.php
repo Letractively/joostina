@@ -180,7 +180,6 @@ DEFINE('_ABP_ALERT_BANNER_FLASH', 'Вы выбрали флеш-баннер.\\n
 
 DEFINE('_ABP_BANNER_IN_USE', 'Баннер %s в настоящее время изменяется другим администратором');
 
-DEFINE('_ABP_BANNER_STATE', 'Активный');
 DEFINE('_ABP_BANNER_STATE_TOOL_TIP', 'Да: <u>активный</u> баннер<br>Нет: <u>не активный</u> баннер.');
 
 DEFINE('_ABP_TOT', 'Всего&nbsp;Руб.');
