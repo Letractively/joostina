@@ -16,5 +16,5 @@ DEFINE('_GUEST_COUNT','%s гость');
 DEFINE('_GUESTS_COUNT','%s гостей');
 DEFINE('_MEMBER_COUNT','%s пользователь');
 DEFINE('_MEMBERS_COUNT','%s пользователей');
-DEFINE('_ONLINE','');
+DEFINE('_ONLINE','На сайте');
 DEFINE('_NON_USER_ONLINE','Нет посетителей в онлайн');

@@ -330,7 +330,6 @@ DEFINE('_VOTING_ENABLE','Рейтинг/Голосование');
 DEFINE('_VOTING_ENABLE2','Если выбран параметр Показать, система --Рейтинг/Голосование-- будет включена');
 DEFINE('_C_CONFIG_HTACCESS_RENAME','Необходимо переименовать htaccess.txt в .htaccess');
 DEFINE('_GLOBAL_TEMPLATES', 'Шаблоны ядра');
-DEFINE('_GLOBAL_TEMPLATES_TIP', '');
 DEFINE('_GLOBAL_TEMPLATES_CURTEMPLATE', 'Из текущего шаблона');
 DEFINE('_GLOBAL_TEMPLATES_SYSTEMDIR', 'Стандартные');
 DEFINE('_MEMCACHE_PERSISTENT', 'Постоянная кеш память');
