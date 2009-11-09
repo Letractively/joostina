@@ -13,7 +13,6 @@ defined('_VALID_MOS') or die();
 
 
 DEFINE('_LAST_UPDATED','Последнее обновление');
-DEFINE('_CHECKED_IN_ITEMS','');  
 DEFINE('_LEGEND','История');
 DEFINE('_HEADER_AUTHOR','Автор');
 DEFINE('_HEADER_SUBMITTED','Написан');

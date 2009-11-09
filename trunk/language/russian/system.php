@@ -590,4 +590,4 @@ DEFINE('_CANNOT_EDIT_ARCHIVED_ITEM','Вы не можете отредактир
 DEFINE('_CAPTION_ALIGN','Выравнивание подписи');
 DEFINE('_CAPTION_POSITION','Положение подписи');
 DEFINE('_CAPTION_WIDTH','Ширина подписи');
-
+DEFINE('_CHECKED_IN_ITEMS','Проверка');

@@ -101,7 +101,6 @@ DEFINE('_WELCOME_DESC','Добро пожаловать в раздел поль
 DEFINE('_CONF_CHECKED_IN',"Все 'заблокированные' Вами элементы теперь 'разблокированы'.");
 DEFINE('_CHECK_TABLE','Проверка таблицы');
 DEFINE('_CHECKED_IN','Проверено ');
-DEFINE('_CHECKED_IN_ITEMS','');
 DEFINE('_PASS_MATCH','Пароли не совпадают');
 DEFINE('_PROFILE_SITE_SETTINGS','Настройки сайта');
 DEFINE('_SELECT_EDITOR','- Выберите редактор -');
