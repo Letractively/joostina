@@ -35,7 +35,7 @@ class XmapAdminHtml {
 			var deleteMenuMessage = '<?php echo str_replace("'","\\'",_XMAP_DELETE_MENU); ?>';
 			var moveDMenuMessage = '<?php echo str_replace("'","\\'",_XMAP_MOVEDOWN_MENU); ?>';
 			var moveUMenuMessage = '<?php echo str_replace("'","\\'",_XMAP_MOVEUP_MENU); ?>';
-			var addMessage='<?php echo str_replace("'","\\'",_XMAP_ADD); ?>';
+			var addMessage='<?php echo str_replace("'","\\'",_SAVE); ?>';
 			var cancelMessage='<?php echo str_replace("'","\\'",_XMAP_CANCEL); ?>';
 			var menus = [<?php $coma=''; foreach ($menus as $menutype => $menu) { echo "$coma'$menutype'";$coma=',';} ?>];
 			var joomla = '<?php echo (defined('JPATH_ADMINISTRATOR')? '1.5':'1.0'); ?>';
@@ -111,7 +111,7 @@ class XmapAdminHtml {
 			<div class="mr"><div class="mm">
 			<div class="menulistouter">
 				<div id="menulist<?php echo $sitemap->id; ?>" class="menulist"><?php XmapAdminHtml::printMenusList($sitemap);?></div>
-				<div class="add_menu_link" onClick="showMenusList(<?php echo $sitemap->id ?>,this);" /><span class="plussign">+</span><?php echo _XMAP_ADD_MENU; ?></div></div>
+				<div class="add_menu_link" onClick="showMenusList(<?php echo $sitemap->id ?>,this);" /><span class="plussign">+</span><?php echo _SAVE_MENU; ?></div></div>
 				<div class="sitemapinfo">
 				<div><?php echo _XMAP_SITEMAP_ID .': '. $sitemap->id; ?></div>
 					<div><table cellspacing="2" cellpadding="2" class="sitemapstats">
@@ -280,7 +280,7 @@ class XmapAdminHtml {
 	</tr>
 		<tr>
 			<td align="center">
-				<input type="button" name="savesettings" value="<?php echo _XMAP_TOOLBAR_SAVE; ?>"  onclick="saveSettings(<?php echo $sitemap->id; ?>,'save_sitemap_settings','sitemapsettings');" />
+				<input type="button" name="savesettings" value="<?php echo _SAVE; ?>"  onclick="saveSettings(<?php echo $sitemap->id; ?>,'save_sitemap_settings','sitemapsettings');" />
 				<input type="button" name="cancelsettings" value="<?php echo _XMAP_TOOLBAR_CANCEL; ?>"  onclick="closeSettings('sitemapsettings');" />
 				<input type="hidden" name="id" value="<?php echo $sitemap->id; ?>" />
 				<input type="hidden" name="name" value="<?php echo $sitemap->name; ?>" />
@@ -330,7 +330,7 @@ class XmapAdminHtml {
 			</tr>
 			<tr>
 				<td colspan="2">
-					<input type="button" value="<?php echo _XMAP_TOOLBAR_SAVE; ?>" onclick="saveMenuOptions();" />&nbsp;&nbsp;&nbsp;
+					<input type="button" value="<?php echo _SAVE; ?>" onclick="saveMenuOptions();" />&nbsp;&nbsp;&nbsp;
 					<input type="button" value="<?php echo _XMAP_TOOLBAR_CANCEL; ?>" onclick="closeSettings('menuoptions');" />
 				</td>
 			</tr>
@@ -346,7 +346,7 @@ class XmapAdminHtml {
 				<th><?php echo _EXTENSION_NAME;?></th>
 				<th><?php echo _PUBLICATION;?></th>
 				<th><?php echo _VERSION;?></th>
-				<th><?php echo _XMAP_AUTHOR;?></th>
+				<th><?php echo _HEADER_AUTHOR;?></th>
 				<th><?php echo _REMOVAL;?></th>
 				<th><?php echo _DATE;?></th>
 <?php
@@ -379,7 +379,7 @@ class XmapAdminHtml {
 ?>
 		<tr id="plugin<?php echo $row->id; ?>" class="row<?php echo $k; ?>">
 			<td><a href="javascript:settingsPlugin(<?php echo $row->id; ?>);"><?php echo $row->name; ?></a></td>
-			<td align="center"><a href="javascript:changePluginState(<?php echo $row->id; ?>)"><img id="pluginstate<?php echo $row->id; ?>" src="<?php echo $cur_file_icons_path;?>/<?php echo $row->published?'publish_g.png" title="'._XMAP_EXT_PUBLISHED.'"':'publish_x.png" title="'._XMAP_EXT_UNPUBLISHED.'"'; ?>" border="0" /></a></td>
+			<td align="center"><a href="javascript:changePluginState(<?php echo $row->id; ?>)"><img id="pluginstate<?php echo $row->id; ?>" src="<?php echo $cur_file_icons_path;?>/<?php echo $row->published?'publish_g.png" title="'._XMAP_EXT_PUBLISHED.'"':'publish_x.png" title="'._HIDE.'"'; ?>" border="0" /></a></td>
 			<td align="center"><?php echo @$row->version != "" ? $row->version : "&nbsp;"; ?></td>
 			<td align="center"><?php echo (@$row->author != "" ? $row->author : _XMAP_UNKNOWN_AUTHOR) . (@$row->authorEmail != "" ? ' &lt;'.$row->authorEmail.'&gt;' : "&nbsp;"); ?>
 				<?php echo @$row->authorUrl != "" ? "<a href=\"" .(substr( $row->authorUrl, 0, 7) == 'http://' ? $row->authorUrl : 'http://'.$row->authorUrl) ."\" target=\"_blank\">$row->authorUrl</a>" : "&nbsp;"; ?></div>
@@ -500,7 +500,7 @@ class XmapAdminHtml {
 			<input type="hidden" name="boston" value="boston" />
 			<?php echo $params->render(); ?>
 			<div style="text-align: center;padding: 5px;">
-				<input type="button" name="save" onclick="saveSettings(<?php echo $extension->id; ?>,'save_plugin_settings','pluginsettings');" value="<?php echo _XMAP_TOOLBAR_SAVE; ?>" />
+				<input type="button" name="save" onclick="saveSettings(<?php echo $extension->id; ?>,'save_plugin_settings','pluginsettings');" value="<?php echo _SAVE; ?>" />
 				<input type="button" name="cancel" onclick="closeSettings('pluginsettings');" value="<?php echo _XMAP_TOOLBAR_CANCEL; ?>" />&nbsp;&nbsp;&nbsp;
 			</div>
 		</form>

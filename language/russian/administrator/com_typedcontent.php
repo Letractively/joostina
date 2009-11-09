@@ -83,7 +83,6 @@ DEFINE('_E_REGISTERED','Только для зарегистрированных
 DEFINE('_E_SHOW_FP','Показывать на главной странице:');
 DEFINE('_E_SOURCE','Название файла:');
 DEFINE('_E_START_PUB','Дата начала публикации:');
-DEFINE('_E_STATE','Состояние:');
 DEFINE('_E_SUBJECT','Тема:');
 DEFINE('_E_TITLE','Заголовок:');
 DEFINE('_EDIT_IMAGE','Параметры изображения');

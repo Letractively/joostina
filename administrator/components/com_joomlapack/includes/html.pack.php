@@ -212,7 +212,7 @@ sajax_show_javascript();
 </div>
 <span id="Init" style="display:none">
 	<div><?php echo _JP_PROGRESS?>: <b><span id="JPStep"></span></b></div>
-	<div><?php echo _O_STATE?>: <b><span id="JPSubstep">0</span></b></div>
+	<div><?php echo _E_STATE?>: <b><span id="JPSubstep">0</span></b></div>
 </div>
 <?php
 ?>

@@ -147,7 +147,7 @@ function submitbutton(pressbutton) {
                         <td bgcolor="#ffffff"><?php echo htmlspecialchars($row->subject,ENT_QUOTES); ?></td>
                 </tr>
                 <tr>
-                        <td valign="top"><?php echo _C_MESSAGE_MESSAGE?>:</td>
+                        <td valign="top"><?php echo _MESSAGE?>:</td>
                         <td width="100%" bgcolor="#ffffff"><?php echo htmlspecialchars($row->message,ENT_QUOTES); ?></td>
                 </tr>
         </table>
@@ -208,7 +208,7 @@ function submitbutton(pressbutton) {
                         </td>
                 </tr>
                 <tr>
-                        <td valign="top"><?php echo _C_MESSAGE_MESSAGE?>:</td>
+                        <td valign="top"><?php echo _MESSAGE?>:</td>
                         <td width="100%">
                                 <textarea name="message" style="width:100%" rows="30" class="inputbox"></textarea>
                         </td>

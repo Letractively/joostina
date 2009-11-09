@@ -752,10 +752,10 @@ class HTML_banners {
 
 		<table width="100%" class="adminlist">
 		<tr>
-			<th colspan="3"><?php echo _ABP_STATE; ?> / <?php echo _ABP_EVENT_ACCESSLEVEL; ?></th>
+			<th colspan="3"><?php echo _E_STATE; ?> / <?php echo _ABP_EVENT_ACCESSLEVEL; ?></th>
 		</tr>
 		<tr>
-			<td valign="top" width='100' align="left"><?php echo _ABP_EVENT_STATE; ?></td>
+			<td valign="top" width='100' align="left"><?php echo _E_STATE; ?></td>
 			<td colspan="2" align="left">
 <?php
 			switch(getStato($row)) {

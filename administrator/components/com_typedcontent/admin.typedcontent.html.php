@@ -310,7 +310,7 @@ class HTML_typedcontent {
 ?>
 	<table class="adminform">
 		<tr>
-			<td valign="top" align="right" width="120"><?php echo _O_STATE?>:</td>
+			<td valign="top" align="right" width="120"><?php echo _E_STATE?>:</td>
 			<td><?php echo $row->state > 0? _PUBLISHED : _DRAFT_NOT_PUBLISHED; ?></td>
 		</tr>
 		<tr>
@@ -361,7 +361,7 @@ class HTML_typedcontent {
 	}
 ?>
 		<tr>
-			<td width="120" valign="top" align="right"><?php echo _O_STATE?>:</td>
+			<td width="120" valign="top" align="right"><?php echo _E_STATE?>:</td>
 			<td><?php echo $row->state > 0? _PUBLISHED :($row->state < 0? _IN_ARCHIVE :_DRAFT_NOT_PUBLISHED); ?></td>
 		</tr>
 		<tr>

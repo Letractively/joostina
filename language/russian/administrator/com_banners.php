@@ -30,7 +30,6 @@ DEFINE('_ABP_SELECT_ITEM_TO', 'Выберите объект для %s');
 DEFINE('_ABP_CICBEBAA', 'Клиент %s в текущее время редактируется другим администратором');
 DEFINE('_ABP_CDCATTATHABSR', 'Не могу удалить клиента %s, т.к. в настоящие время у него запущены баннеры.');
 DEFINE('_ABP_L_PUBLISH', 'Допустить');
-DEFINE('_ABP_L_UNPUBLISH', 'Скрыть');
 DEFINE('_ABP_BANNER_MANAGER', 'Управление баннерами');
 DEFINE('_ABP_BANNER_NAME', 'Название баннера');
 DEFINE('_ABP_CATEGORY', 'Категория');
@@ -147,7 +146,6 @@ DEFINE('_ABP_EVENT_STARTHOURS', 'Начальное время');
 DEFINE('_ABP_EVENT_ENDHOURS', 'Конечное время');
 DEFINE('_ABP_EVENT_REPEATTYPE', 'Тип показа');
 DEFINE('_ABP_EVENT_CHOOSE_WEEKDAYS', 'Дни недели');
-DEFINE('_ABP_EVENT_STATE', 'Состояние');
 DEFINE('_ABP_EVENT_ACCESSLEVEL', 'Уровень доступа');
 
 DEFINE('_ABP_INFORMATION', 'Информация');
@@ -186,8 +184,6 @@ DEFINE('_ABP_TOT', 'Всего&nbsp;Руб.');
 DEFINE('_ABP_TOT_IMP_CLIC', 'Всего ( показов + нажатий )');
 DEFINE('_ABP_PARZ_DAL', '( Кол-во ');
 DEFINE('_ABP_RESET_CLIC_PARZ', 'Сбросить количество нажатий');
-
-DEFINE('_ABP_STATE', 'Состояние');
 
 DEFINE('_ABP_SUBJECT_MAIL', 'Поместить / изменить баннер');
 DEFINE('_ABP_BODY_MAIL', 'Для информации нажмите здесь: ');
