@@ -428,7 +428,7 @@ class mosParameters {
 		}
 		$database->setQuery($query);
 		$options = $database->loadObjectList();
-		array_unshift($options,mosHTML::makeOption('0',_ET_CATEGORY,'id','title'));
+		array_unshift($options,mosHTML::makeOption('0',_SEL_CATEGORY,'id','title'));
 
 		return mosHTML::selectList($options,''.$control_name.'['.$name.']','class="inputbox"','id','title',$value);
 	}

@@ -33,7 +33,6 @@ DEFINE('_E_ALIGN','Расположение:');
 DEFINE('_E_ALT','Альтернативный текст:');
 DEFINE('_E_BORDER','Рамка:');
 DEFINE('_E_APPLY','Применить');
-DEFINE('_E_STATE','Состояние:');
 DEFINE('_E_AUTHOR_ALIAS','Псевдоним автора:');
 DEFINE('_E_ACCESS_LEVEL','Уровень доступа:');
 DEFINE('_E_ORDERING','Порядок:');

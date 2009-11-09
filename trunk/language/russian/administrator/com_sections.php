@@ -14,8 +14,8 @@ DEFINE('_SECTION_CHANGES_SAVED','Изменения раздела сохран�
 DEFINE('_CONTENT_SECTIONS','Разделы содержимого');
 DEFINE('_SECTION_NAME','Название раздела');
 DEFINE('_SECTION_CATEGORIES','Категорий');
-DEFINE('_SECTION_CONTENT_ITEMS','Активных');
-DEFINE('_SECTION_CONTENT_ITEMS_IN_TRASH','В корзине');
+DEFINE('_ACTIVE','Активных');
+DEFINE('_ACTIVE_IN_TRASH','В корзине');
 DEFINE('_VIEW_SECTION_CATEGORIES','Просмотр категорий раздела');
 DEFINE('_VIEW_SECTION_CONTENT','Просмотр содержимого раздела');
 DEFINE('_NEW_SECTION_MASK','Новый раздел');
@@ -58,6 +58,5 @@ DEFINE('_MENU_MASS_ADD','Добавить еще');
 DEFINE('_CONTENT_STATIC','- Статичное содержимое -');
 DEFINE('_CREATE_CATEGORY', 'Создать категорию');
 DEFINE('_SECTION_TYPE', 'Тип раздела');
-DEFINE('_SECTION_LIST', 'Список раздела');
 DEFINE('_SECTION_CAT_CONTENT_LIST', 'Записи по группам категорий');
 DEFINE('_SECTION_CATEGORIES_LIST', 'Список категорий');

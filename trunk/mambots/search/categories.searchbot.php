@@ -78,7 +78,7 @@ function botSearchCategories($text,$phrase = '',$ordering = '') {
 	for($i = 0; $i < $count; $i++) {
 		if($rows[$i]->menutype == 'content_blog_category') {
 			$rows[$i]->href = 'index.php?option=com_content&task=blogcategory&id='.$rows[$i]->catid.'&Itemid='.$rows[$i]->menuid;
-			$rows[$i]->section = _SEARCH_CATBLOG;
+			$rows[$i]->section = _CATEGORIES_BLOG;
 		} else {
 			$rows[$i]->href = 'index.php?option=com_content&task=category&sectionid='.$rows[$i]->secid.'&id='.$rows[$i]->catid.'&Itemid='.$rows[$i]->menuid;
 			$rows[$i]->section = _SEARCH_CATLIST;

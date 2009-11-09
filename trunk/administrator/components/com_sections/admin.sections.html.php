@@ -47,8 +47,8 @@ class sections_html {
 			</th>
 			<th width="10%"><?php echo _ACCESS?></th>
 			<th width="10%" class="jtd_nowrap"><?php echo _SECTION_CATEGORIES?></th>
-			<th width="10%" class="jtd_nowrap"><?php echo _SECTION_CONTENT_ITEMS?></th>
-			<th width="10%" class="jtd_nowrap"><?php echo _SECTION_CONTENT_ITEMS_IN_TRASH?></th>
+			<th width="10%" class="jtd_nowrap"><?php echo _ACTIVE?></th>
+			<th width="10%" class="jtd_nowrap"><?php echo _ACTIVE_IN_TRASH?></th>
 			<th width="5%" class="jtd_nowrap">ID</th>
 		</tr>
 		<?php

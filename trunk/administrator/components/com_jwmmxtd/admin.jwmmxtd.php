@@ -911,15 +911,15 @@ function editImage($img,$cur) {
 			</tr>
 			<tr>
 				<td>
-					<?php echo _JWMM_CROP_LEFT?><input id="cropl" name="cropl" type="text" size="4" />
+					<?php echo _LEFT?><input id="cropl" name="cropl" type="text" size="4" />
 					&nbsp;
 					<input id="cropr" name="cropr" type="text" size="4" />
-					<?php echo _JWMM_CROP_RIGHT?>
+					<?php echo _RIGHT?>
 				</td>
 			</tr>
 			<tr>
 				<td><input id="cropb" name="cropb" type="text" size="4" />
-					<br /><?php echo _JWMM_CROP_BOTTOM?>
+					<br /><?php echo _JWMM_BOTTOM?>
 				</td>
 			</tr>
 		</table>
@@ -991,7 +991,7 @@ function editImage($img,$cur) {
 			<tr>
 			<td><?php echo _JWMM_LEFT?><input id="borderl" name="borderl" type="text" size="4" />&nbsp;
 				<input id="borderr" name="borderr" type="text" size="4" />
-				<?php echo _JWMM_RIGHT?></td>
+				<?php echo _RIGHT?></td>
 			</tr>
 			<tr>
 			<td><input id="borderb" name="borderb" type="text" size="4" />

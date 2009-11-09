@@ -36,7 +36,6 @@ DEFINE('_MOD_FULLMENU_MENU','Меню');
 DEFINE('_MOD_FULLMENU_MENU_TRASH','Корзина меню');
 DEFINE('_MOD_FULLMENU_CONTENT_IN_SECTIONS','Содержимое по разделам');
 DEFINE('_MOD_FULLMENU_CONTENT_IN_SECTION','Содержимое в разделе');
-DEFINE('_MOD_FULLMENU_SECTION_ARCHIVE','Архив раздела');
 DEFINE('_MOD_FULLMENU_SECTION_CATEGORIES2','Категории раздела');
 DEFINE('_MOD_FULLMENU_ADD_CONTENT_ITEM','Добавить новость / статью');
 DEFINE('_MOD_FULLMENU_ADD_STATIC_CONTENT','Добавить статичное содержимое');
@@ -62,7 +61,7 @@ DEFINE('_MOD_FULLMENU_ADMIN_MODULES','Модули панели управлен
 DEFINE('_MOD_FULLMENU_EXTENSION_MANAGEMENT','Управление расширениями');
 DEFINE('_MOD_FULLMENU_PRIVATE_MESSAGES','Личные сообщения');
 DEFINE('_MOD_FULLMENU_JWMM_MEDIA_MANAGER','Медиа менеджер');
-DEFINE('_MOD_FULLMENU_SQL_CONSOLE','SQL консоль');
+DEFINE('_SQL_CONSOLE','SQL консоль');
 DEFINE('_MOD_FULLMENU_GLOBAL_CHECKIN','Глобальная разблокировка');
 DEFINE('_MOD_FULLMENU_BLOCKED_OBJECTS','Заблокированные объекты');
 DEFINE('_MOD_FULLMENU_JP_BACKUP_MANAGEMENT','Резервное копирование');
@@ -79,9 +78,7 @@ DEFINE('_MOD_FULLMENU_REGISTER_SETUP','Настройки регистрации
 DEFINE('_MOD_FULLMENU_PROFILE_SETUP','Настройки профиля');
 DEFINE('_MOD_FULLMENU_C_DEF_SETUP','Настройки по умолчанию');
 DEFINE('_MOD_FULLMENU_C_SECTION_BLOG','Блог раздела');
-DEFINE('_MOD_FULLMENU_C_CAT_BLOG','Блог категории');
-DEFINE('_MOD_FULLMENU_C_LIST_BLOG','Список раздела');
 DEFINE('_MOD_FULLMENU_C_TABLE_BLOG','Таблица категории');
-DEFINE('_MOD_FULLMENU_C_ARH_SECTION','Архив раздела');
+DEFINE('_MOD_FULLMENU_SECTION_ARCHIVE','Архив раздела');
 DEFINE('_MOD_FULLMENU_USER_CONTENT','Материалы пользователя');
 DEFINE('_MOD_FULLMENU_LOSTPASS_SETUP','Восстановление пароля');

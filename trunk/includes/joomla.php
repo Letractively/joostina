@@ -5561,7 +5561,7 @@ class mosCommonHTML {
 							</td>
 						</tr>
 						<tr>
-							<td width="90px" valign="top"><?php echo _O_STATE?></td>
+							<td width="90px" valign="top"><?php echo _E_STATE?></td>
 							<td>
 <?php
 			switch($menu->published) {
@@ -5632,7 +5632,7 @@ class mosCommonHTML {
 							</td>
 						</tr>
 						<tr>
-							<td width="90px" valign="top"><?php echo _O_STATE?></td>
+							<td width="90px" valign="top"><?php echo _E_STATE?></td>
 							<td>
 <?php
 			switch($menu->published) {
@@ -5874,7 +5874,7 @@ if(window.attachEvent){
 		$img = $row->published?'publish_g.png':'publish_x.png';
 		$task = $row->published?'unpublish':'publish';
 		$alt = $row->published?_PUBLISHED:_UNPUBLISHED;
-		$action = $row->published?_UNPUBLISH_ON_FRONTPAGE:_PUBLISH_ON_FRONTPAGE;
+		$action = $row->published?_HIDE:_PUBLISH_ON_FRONTPAGE;
 		$href = '<a href="javascript: void(0);" onclick="return listItemTask(\'cb'.$i.'\',\''.$task.'\')" title="'.$action.'"><img src="'.$cur_file_icons_path.'/'.$img.'" border="0" alt="'.$alt.'" /></a>';
 		return $href;
 	}

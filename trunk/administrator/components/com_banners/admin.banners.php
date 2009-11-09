@@ -633,7 +633,7 @@ function publishBanner($cid, $publish = 1, $option) {
 	$database = &database::getInstance();
 
 	if(!is_array($cid) || count($cid) == 0) {
-		$action = $publish ? _ABP_L_PUBLISH : _ABP_L_UNPUBLISH;
+		$action = $publish ? _ABP_L_PUBLISH : _HIDE;
 		echo "<script> alert('" . sprintf(_ABP_SELECT_ITEM_TO, $action) . "'); window.history.go(-1);</script>\n";
 		exit;
 	}
