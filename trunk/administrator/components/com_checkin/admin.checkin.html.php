@@ -16,7 +16,6 @@ defined('_VALID_MOS') or die();
 class HTML_checkin {
 
 	function showlist($option,&$itemlist,$itemcnt) {
-		global $mosConfig_live_site;
 ?>
 	<table class="adminheading">
 		<tr> 
@@ -43,7 +42,7 @@ class HTML_checkin {
 			echo "</td>\n<td>\n";
 			echo $itemlist[$i]["cotime"];
 			echo "</td>\n<td>\n";
-			echo "<a href=\"$mosConfig_live_site/".JADMIN_BASE."/index2.php?option=$option&task=checkin&component="
+			echo "<a href=\"".$mosConfig_live_site."/".JADMIN_BASE."/index2.php?option=$option&task=checkin&component="
 					.$itemlist[$i]["component"]."&pkey="
 					.$itemlist[$i]["PKEY"]."&checkid="
 					.$itemlist[$i]["id"]."&editor="

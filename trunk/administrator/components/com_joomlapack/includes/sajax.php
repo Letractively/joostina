@@ -54,8 +54,7 @@ if(!isset($SAJAX_INCLUDED)) {
 	// Helper function to return the script's own URI.
 	//
 	function sajax_get_my_uri() {
-		global $mosConfig_live_site; //joostina pach
-		$myURI = $mosConfig_live_site."/".JADMIN_BASE."/ajax.index.php";
+		$myURI = JPATH_SITE."/".JADMIN_BASE."/ajax.index.php";
 		return $myURI;
 	}
 

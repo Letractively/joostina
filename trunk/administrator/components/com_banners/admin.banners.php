@@ -590,8 +590,8 @@ function saveBanner($option, $task) {
 		$client = new mosArtBannerClient($database);
 		$client->load($banner->cid);
 
-		global $mosConfig_mailfrom, $mosConfig_fromname, $mosConfig_live_site;
-		$link = $mosConfig_live_site . '/index.php?option=com_banners&task=statistics&id=' . $banner->id . '&password=' . mosHash($banner->password);
+		global $mosConfig_mailfrom, $mosConfig_fromname;
+		$link = JPATH_SITE . '/index.php?option=com_banners&task=statistics&id=' . $banner->id . '&password=' . mosHash($banner->password);
 		$result = mosMail($mosConfig_mailfrom, $mosConfig_fromname, $client->email, _ABP_SUBJECT_MAIL, _ABP_BODY_MAIL . $link);
 
 		if($result === false)

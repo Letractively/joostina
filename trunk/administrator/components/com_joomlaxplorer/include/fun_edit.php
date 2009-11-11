@@ -27,7 +27,7 @@ function savefile($file_name) {
 	}
 }
 function edit_file($dir, $item) {
-	global $mainframe, $mosConfig_live_site;
+	global $mainframe;
 	if(($GLOBALS["permissions"] & 01) != 01)
 		show_error($GLOBALS["error_msg"]["accessfunc"]);
 	$fname = get_abs_item($dir, $item);

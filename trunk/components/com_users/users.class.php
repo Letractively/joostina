@@ -253,9 +253,8 @@ class mosUser extends mosDBTable {
 	function get_avatar($user){
 
 		$mainframe = &mosMainFrame::getInstance();
-		$config = &$mainframe->config;
 
-		$avatar_file = $config->config_absolute_path.'/images/avatars/'.$user->avatar;
+		$avatar_file = JPATH_BASE.'/images/avatars/'.$user->avatar;
 		if($mainframe->get('_multisite')==2){
 			$avatar_file = $mainframe->_multisite_params->main_site.'/images/avatars/'.$user->avatar; 
 		}

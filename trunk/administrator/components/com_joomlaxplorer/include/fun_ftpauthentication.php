@@ -43,7 +43,7 @@ defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещ
 */
 
 function ftp_authentication( $ftp_login='', $ftp_pass='') {
-	global $dir, $mosConfig_live_site;
+	global $dir;
 	
 	if( $ftp_login != '' || $ftp_pass != '' ) {
 		while( @ob_end_clean() );
@@ -123,7 +123,7 @@ function ftp_authentication( $ftp_login='', $ftp_pass='') {
 	show_header(null);
 	?><br />
 	
-	<form name="ftp_auth_form" method="post" action="<?php echo $mosConfig_live_site ?>/<?php echo JADMIN_BASE?>/index3.php" onsubmit="return checkFTPAuth('<?php echo $mosConfig_live_site ?>/<?php echo JADMIN_BASE?>/index3.php');" id="adminform">
+	<form name="ftp_auth_form" method="post" action="<?php echo JPATH_SITE ?>/<?php echo JADMIN_BASE?>/index3.php" onsubmit="return checkFTPAuth('<?php echo JPATH_SITE ?>/<?php echo JADMIN_BASE?>/index3.php');" id="adminform">
 	
 	<input type="hidden" name="no_html" value="1" />
 	<table class="adminform" style="width:400px;">

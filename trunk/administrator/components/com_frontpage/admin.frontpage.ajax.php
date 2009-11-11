@@ -11,7 +11,7 @@
 defined('_VALID_MOS') or die();
 
 
-global $mosConfig_live_site,$my;
+global $my;
 
 $task = mosGetParam($_GET,'task','rem_front');
 $id = intval(mosGetParam($_GET,'id','0'));

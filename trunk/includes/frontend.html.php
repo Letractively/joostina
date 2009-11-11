@@ -151,8 +151,8 @@ class modules_html {
 
 		$contentBuffer = '';
 
-		$LitePath = $config->onfig_absolute_path.'/includes/Cache/Lite.php';
-		require_once ($config->config_absolute_path.'/includes/domit/xml_domit_rss.php');
+		$LitePath = JPATH_BASE.'/includes/Cache/Lite.php';
+		require_once (JPATH_BASE.'/includes/domit/xml_domit_rss.php');
 
 		$rssDoc = new xml_domit_rss_document();
 		$rssDoc->setRSSTimeout(2);

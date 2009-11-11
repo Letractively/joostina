@@ -58,9 +58,11 @@ class HTML_admin_misc {
 	}
 
 	function system_info($version) {
-		global $database,$mosConfig_cachepath,$mosConfig_live_site;
-		
+		global $mosConfig_cachepath;
+
 		$mainframe = &mosMainFrame::getInstance();
+		$database = &$mainframe->_db;
+
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 
 		$width = 400; // width of 100%
@@ -377,7 +379,6 @@ class HTML_admin_misc {
 	* Display Help Page
 	*/
 	function help() {
-		global $mosConfig_live_site;
 		$helpurl = strval(mosGetParam($GLOBALS,'mosConfig_helpurl',''));
 
 		if($helpurl == 'http://help.mamboserver.com') {
@@ -443,11 +444,11 @@ class HTML_admin_misc {
 <?php
 		} else {
 ?>
-							<a href="<?php echo $mosConfig_live_site; ?>/help/joomla.glossary.html" target="helpFrame"><?php echo _GLOSSARY?></a>
+							<a href="<?php echo JPATH_SITE; ?>/help/joomla.glossary.html" target="helpFrame"><?php echo _GLOSSARY?></a>
 							|
-							<a href="<?php echo $mosConfig_live_site; ?>/help/joomla.credits.html" target="helpFrame"><?php echo _DEVELOPERS?></a>
+							<a href="<?php echo JPATH_SITE; ?>/help/joomla.credits.html" target="helpFrame"><?php echo _DEVELOPERS?></a>
 							|
-							<a href="<?php echo $mosConfig_live_site; ?>/help/joomla.support.html" target="helpFrame"><?php echo _SUPPORT?></a>
+							<a href="<?php echo JPATH_SITE; ?>/help/joomla.support.html" target="helpFrame"><?php echo _SUPPORT?></a>
 <?php
 		}
 ?>
@@ -458,9 +459,9 @@ class HTML_admin_misc {
 							|
 							<a href="http://Joom.Ru" target="_blank">Joom.Ru</a>
 							<br />
-							<a href="<?php echo $mosConfig_live_site; ?>/<?php echo JADMIN_BASE?>/index3.php?option=com_admin&task=changelog" target="helpFrame"><?php echo _CHANGELOG?></a>
+							<a href="<?php echo JPATH_SITE; ?>/<?php echo JADMIN_BASE?>/index3.php?option=com_admin&task=changelog" target="helpFrame"><?php echo _CHANGELOG?></a>
 							|
-							<a href="<?php echo $mosConfig_live_site; ?>/<?php echo JADMIN_BASE?>/index3.php?option=com_admin&task=sysinfo" target="helpFrame"><?php echo _ABOUT_SYSTEM?></a>
+							<a href="<?php echo JPATH_SITE; ?>/<?php echo JADMIN_BASE?>/index3.php?option=com_admin&task=sysinfo" target="helpFrame"><?php echo _ABOUT_SYSTEM?></a>
 							|
 							<a href="http://www.joostina.ru/" target="_blank"><?php echo _CHECK_VERSION ?></a>
 						</td>
@@ -478,7 +479,7 @@ class HTML_admin_misc {
 				echo '<br /><a href="'.$fullhelpurl.urlencode($k).'" target="helpFrame">'.$v.
 					'</a>';
 			} else {
-				echo '<br /><a href="'.$mosConfig_live_site.'/help/'.$k.'" target="helpFrame">'.
+				echo '<br /><a href="'.JPATH_SITE.'/help/'.$k.'" target="helpFrame">'.
 					$v.'</a>';
 			}
 		}
@@ -486,7 +487,7 @@ class HTML_admin_misc {
 				</div>
 			</td>
 			<td valign="top">
-				<iframe name="helpFrame" src="<?php echo $mosConfig_live_site.'/help/'.$page; ?>" class="helpFrame" frameborder="0" /></iframe>
+				<iframe name="helpFrame" src="<?php echo JPATH_SITE.'/help/'.$page; ?>" class="helpFrame" frameborder="0" /></iframe>
 			</td>
 		</tr>
 		</table>
@@ -500,7 +501,6 @@ class HTML_admin_misc {
 	* Preview site
 	*/
 	function preview($tp = 0) {
-		global $mosConfig_live_site;
 		$tp = intval($tp);
 ?>
 		<style type="text/css">
@@ -515,12 +515,12 @@ class HTML_admin_misc {
 		<tr>
 			<th width="50%" class="title"><?php echo _PREVIEW_SITE?></th>
 			<th width="50%" style="text-align:right">
-			<a href="<?php echo $mosConfig_live_site.'/index.php?tp='.$tp; ?>" target="_blank"><?php echo _IN_NEW_WINDOW?></a>
+			<a href="<?php echo JPATH_SITE.'/index.php?tp='.$tp; ?>" target="_blank"><?php echo _IN_NEW_WINDOW?></a>
 			</th>
 		</tr>
 		<tr>
 			<td width="100%" valign="top" colspan="2">
-				<iframe name="previewFrame" src="<?php echo $mosConfig_live_site.'/index.php?tp='.$tp; ?>" class="previewFrame" /></iframe>
+				<iframe name="previewFrame" src="<?php echo JPATH_SITE.'/index.php?tp='.$tp; ?>" class="previewFrame" /></iframe>
 			</td>
 		</tr>
 		</table>

@@ -10,7 +10,7 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-global $JPConfiguration,$option,$mosConfig_live_site;
+global $JPConfiguration,$option;
 
 $WSOutdir = $JPConfiguration->isOutputWriteable();
 

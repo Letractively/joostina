@@ -34,7 +34,7 @@ function botUserContent(&$user) {
 	$config = &$mainframe->config;
 
 	require_once ($mainframe->getPath('class','com_content'));
-	require_once ($config->config_absolute_path.'/components/com_content/content.html.php');
+	require_once (JPATH_BASE.'/components/com_content/content.html.php');
 	require_once ($mainframe->getPath('config','com_content'));
 
 	$k = 0;
@@ -62,8 +62,6 @@ function botUserContent(&$user) {
 	foreach ($user_items as $row) {
 		$row->created = mosFormatDate ($row->created,$config->config_form_date_full,'0');
 		$link	= sefRelToAbs( 'index.php?option=com_content&amp;task=view&amp;id='. $row->id);
-		$img	= $row->published ? 'publish_g.png' : 'publish_x.png';
-		$img	= $config->config_live_site.'/'.JADMIN_BASE.'/images/'.$img;
 		$row->Itemid_link = '&amp;Itemid='.$Itemid;
 		$row->_Itemid = $Itemid;
 		// раздел / категория

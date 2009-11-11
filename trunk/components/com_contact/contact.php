@@ -499,7 +499,7 @@ function sendmail($con_id,$option) {
 			$link = sefRelToAbs('index.php?option=com_contact&task=view&contact_id='.$contact[0]->id.'&Itemid='.$Itemid);
 			mosRedirect($link,_CONTACT_FORM_NC);
 		}
-		$prefix = sprintf(_ENQUIRY_TEXT,$config->config_live_site);
+		$prefix = sprintf(_ENQUIRY_TEXT,JPATH_SITE);
 		$text = $prefix."\n".$name.' <'.$email.'>'."\n\n".stripslashes($text);
 
 		$success = mosMail($email,$name,$contact[0]->email_to,$config->config_fromname.': '.$subject,$text);
@@ -577,7 +577,7 @@ function vCard($id) {
 		$v->setAddress('','',$contact->address,$contact->suburb,$contact->state,$contact->postcode,$contact->country,'WORK;POSTAL');
 		$v->setEmail($contact->email_to);
 		$v->setNote($contact->misc);
-		$v->setURL($config->config_live_site,'WORK');
+		$v->setURL(JPATH_SITE,'WORK');
 		$v->setTitle($contact->con_position);
 		$v->setOrg($config->config_sitename);
 

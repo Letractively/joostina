@@ -34,7 +34,7 @@ class JCE_plugins {
 	* @param array An array of category objects
 	*/
 	function showPlugins(&$rows,$client,&$pageNav,$option,&$lists,$search) {
-		global $my,$mosConfig_live_site,$database;
+		global $my,$database;
 
 		$database->setQuery("SELECT lang FROM #__jce_langs WHERE published= '1'");
 		$lang = $database->loadResult();
@@ -127,9 +127,9 @@ class JCE_plugins {
 				<td align="center">
 <?php if( !empty( $row->layout_icon )  ){
 					if( $row->type == 'plugin' ){
-						$icon_path = $mosConfig_live_site."/mambots/editors/jce/jscripts/tiny_mce/plugins/".$row->plugin."/images/".$row->layout_icon.".gif";
+						$icon_path = JPATH_SITE."/mambots/editors/jce/jscripts/tiny_mce/plugins/".$row->plugin."/images/".$row->layout_icon.".gif";
 					}else{
-						$icon_path = $mosConfig_live_site."/mambots/editors/jce/jscripts/tiny_mce/themes/advanced/images/".$row->layout_icon.".gif";
+						$icon_path = JPATH_SITE."/mambots/editors/jce/jscripts/tiny_mce/themes/advanced/images/".$row->layout_icon.".gif";
 					}
 ?>
 					<img src="<?php echo $icon_path;?>" alt="<?php echo $row->name;?>" title="<?php echo $row->name;?>" height="20" />

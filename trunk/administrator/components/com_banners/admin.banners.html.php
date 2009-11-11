@@ -219,8 +219,6 @@ class HTML_banners {
 } // end showBanners
 
 	function editBanner(&$row, &$clientlist, &$categorylist, &$imagelist, $glist, $option, &$dimension) {
-		global $mosConfig_live_site;
-		
 		$mainframe = &mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 		
@@ -285,7 +283,7 @@ class HTML_banners {
 
 			bid = <?php echo ($row->id) ? $row->id : '\'idbannernew\''; ?>;
 
-			document.getElementById("flashDivText").innerHTML='<br><?php echo $mosConfig_live_site; ?>/index.php?option=com_banners&task=clk&id='+bid;
+			document.getElementById("flashDivText").innerHTML='<br><?php echo JPATH_SITE; ?>/index.php?option=com_banners&task=clk&id='+bid;
 			if (msg == 1) {
 			  alert("<?php echo _ABP_ALERT_BANNER_FLASH; ?>"+bid);
 			}

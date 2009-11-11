@@ -10,29 +10,18 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-
 $view = mosGetParam( $_REQUEST, 'view', 'html' );
-$config = &Jconfig::getInstance();
 
 if ($view == 'xslfile') {
 	header('Content-Type: text/xml');
-	@readfile($config->config_absolute_path.'/components/com_xmap/gss.xsl');
+	@readfile(JPATH_BASE.'/components/com_xmap/gss.xsl');
 	exit;
 }
 
-/**
- * $LangPath = $config->config_absolute_path .DS.JADMIN_BASE.DS.'components'.DS.'com_xmap'.DS.'language'.DS;
- * if( file_exists( $LangPath . $config->config_lang . '.php') ) {
- * 	require_once( $LangPath . $config->config_lang. '.php' );
- * } else {
- * 	require_once( $LangPath . 'russian.php' );
- * }
- */
-
-require_once( $config->config_absolute_path.DS.JADMIN_BASE.DS.'components'.DS.'com_xmap'.DS.'classes'.DS.'XmapConfig.php' );
-require_once( $config->config_absolute_path.DS.JADMIN_BASE.DS.'components'.DS.'com_xmap'.DS.'classes'.DS.'XmapSitemap.php' );
-require_once( $config->config_absolute_path.DS.JADMIN_BASE.DS.'components'.DS.'com_xmap'.DS.'classes'.DS.'XmapPlugins.php' );
-require_once( $config->config_absolute_path.DS.JADMIN_BASE.DS.'components'.DS.'com_xmap'.DS.'classes'.DS.'XmapCache.php' );
+require_once( JPATH_BASE.DS.JADMIN_BASE.DS.'components'.DS.'com_xmap'.DS.'classes'.DS.'XmapConfig.php' );
+require_once( JPATH_BASE.DS.JADMIN_BASE.DS.'components'.DS.'com_xmap'.DS.'classes'.DS.'XmapSitemap.php' );
+require_once( JPATH_BASE.DS.JADMIN_BASE.DS.'components'.DS.'com_xmap'.DS.'classes'.DS.'XmapPlugins.php' );
+require_once( JPATH_BASE.DS.JADMIN_BASE.DS.'components'.DS.'com_xmap'.DS.'classes'.DS.'XmapCache.php' );
 
 $mainframe = &mosMainFrame::getInstance();
 
@@ -95,6 +84,7 @@ global $xmap;
 
 $xmapCache = XmapCache::getCache($xSitemap);
 if ($xSitemap->usecache) {
+	$config = &$mainframe->config;
 	$xmapCache->call('xmapCallShowSitemap',$view,$xSitemap->id,$config->config_locale,$config->config_sef,$menu->name);	// call plugin's handler function
 } else {
 	xmapCallShowSitemap($view,$xSitemap->id,null,null,$menu->name);
@@ -130,11 +120,10 @@ switch ($view) {
 function xmapCallShowSitemap($view,$sitemapid,$locale='',$sef='',$title='') {
 	global $xmapCache,$xSitemap,$xConfig;
 
-	$config = &Jconfig::getInstance();
 
 	switch( $view ) {
 		case 'xml': 	// XML Sitemaps output
-			require_once( $config->config_absolute_path .DS.'components'.DS.'com_xmap'.DS.'xmap.xml.php' );
+			require_once( JPATH_BASE .DS.'components'.DS.'com_xmap'.DS.'xmap.xml.php' );
 			$xmap = new XmapXML( $xConfig, $xSitemap );
 			$xmap->generateSitemap($view,$xConfig,$xmapCache,$title);
 			$xSitemap->count_xml = $xmap->count;
@@ -142,9 +131,6 @@ function xmapCallShowSitemap($view,$sitemapid,$locale='',$sef='',$title='') {
 		default:	// Html output
 			$mainframe = &mosMainFrame::getInstance();
 			require_once( $mainframe->getPath('front_html') );
-			/*if (!$xConfig->exclude_css) {
-				$mainframe->addCustomHeadTag( '<link rel="stylesheet" type="text/css" media="all" href="' . $config->config_live_site . '/components/com_xmap/css/xmap.css" />' );
-			}*/
 			$xmap = new XmapHtml( $xConfig, $xSitemap );
 			$xmap->generateSitemap($view,$xConfig,$xmapCache,$title);
 			$xSitemap->count_html = $xmap->count;
@@ -322,10 +308,10 @@ class Xmap {
 			if (strcasecmp( substr( $link, 0, 9), 'index.php' ) === 0 ){
 				$link = sefRelToAbs($link);             // apply SEF transformation
 				if( strcasecmp( substr($link,0,4), 'http' ) ) {       // fix broken sefRelToAbs()
-					$link = $config->config_live_site. (substr($link,0,1) == '/'? '' : '/').$link;
+					$link = JPATH_SITE. (substr($link,0,1) == '/'? '' : '/').$link;
 				}
 			} else { // Case for internal links not starting with index.php
-				$link = $config->config_live_site. '/' .$link;
+				$link = JPATH_SITE. '/' .$link;
 			}
 		}
 

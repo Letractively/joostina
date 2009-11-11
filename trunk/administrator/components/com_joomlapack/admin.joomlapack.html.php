@@ -46,7 +46,6 @@ class jpackScreens {
 
 class HTML_joomlapack {
 	function showTables($option,$list,&$table_lists,$stats_list) {
-		global $mosConfig_live_site;
 		// подключение скрипта чудесных таблиц
 		mosCommonHTML::loadPrettyTable();
 		$content = "<form action=\"index2.php?option=com_joomlapack\" method=\"post\" name=\"adminForm\" id=\"adminForm\">\n"
@@ -85,7 +84,6 @@ class HTML_joomlapack {
 	}
 
 	function showCheckResults($list,$title) {
-		global $mosConfig_live_site;
 		$content =
 				"<table class=\"adminheading\">\n"
 					."<tr>\n"
