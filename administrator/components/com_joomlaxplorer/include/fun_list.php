@@ -301,9 +301,9 @@ function print_table($dir, $list, $allow) {
 	}
 }
 function list_dir($dir) {
-	global $dir_up, $mosConfig_live_site, $mainframe;
+	global $dir_up, $mainframe;
 	mosCommonHTML::loadOverlib();
-	$mainframe->addJS($mosConfig_live_site.'/'.JADMIN_BASE.'/components/com_joomlaxplorer/scripts/joomlaxplorer.js');
+	$mainframe->addJS(JPATH_SITE.'/'.JADMIN_BASE.'/components/com_joomlaxplorer/scripts/joomlaxplorer.js');
 	$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 ?>
 	<div id="overDiv" style="position:absolute; visibility:hidden; z-index:10000;"></div>

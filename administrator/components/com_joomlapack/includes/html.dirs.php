@@ -10,7 +10,7 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-global $mosConfig_live_site,$option;
+global $option;
 require_once (JPATH_BASE_ADMIN.'/components/com_joomlapack/includes/sajax.php');
 require_once (JPATH_BASE_ADMIN.'/components/com_joomlapack/includes/ajaxtool.php');
 ?>

@@ -110,9 +110,8 @@ class HTML_user {
 	function userEdit($user,$option,$submitvalue,&$params, $user_config) {
 		// used for spoof hardening
 		$validate = josSpoofValue();
-		$config = &Jconfig::getInstance();
 
-		require_once ($config->config_absolute_path.'/includes/HTML_toolbar.php');
+		require_once (JPATH_BASE.'/includes/HTML_toolbar.php');
 
 		$user_extra = $user->user_extra;
 		$bday_date = mosFormatDate($user_extra->birthdate, '%d', '0') ;
@@ -122,12 +121,12 @@ class HTML_user {
 		//Шаблон
 		$template_file='default.php';
 		if(!$user_config->get('template_edit')){
-			if(is_file($config->config_absolute_path.DS.'components'.DS.'com_users'.DS.'view'.DS.'edit'.DS.strtolower(str_replace(' ', '', $user->usertype )).'.php')){
+			if(is_file(JPATH_BASE.DS.'components'.DS.'com_users'.DS.'view'.DS.'edit'.DS.strtolower(str_replace(' ', '', $user->usertype )).'.php')){
 				$template_file=strtolower(str_replace(' ', '', $user->usertype )).'.php';
 			}
 		}
 
-		include ($config->config_absolute_path.DS.'components'.DS.'com_users'.DS.'view'.DS.'edit'.DS.$template_file);
+		include (JPATH_BASE.DS.'components'.DS.'com_users'.DS.'view'.DS.'edit'.DS.$template_file);
 
 	}
 

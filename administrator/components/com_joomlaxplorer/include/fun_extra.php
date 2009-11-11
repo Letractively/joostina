@@ -440,7 +440,6 @@ function jx_isIE() {
 if(!function_exists('mosToolTip')) {
 	function mosToolTip($tooltip, $title = '', $width = '', $image = 'tooltip.png',
 		$text = '', $href = '#', $link = 1) {
-		global $mosConfig_live_site;
 		if($width) {
 			$width = ', WIDTH, \''.$width.'\'';
 		}
@@ -448,7 +447,7 @@ if(!function_exists('mosToolTip')) {
 			$title = ', CAPTION, \''.$title.'\'';
 		}
 		if(!$text) {
-			$image = $mosConfig_live_site.'/includes/js/ThemeOffice/'.$image;
+			$image = JPATH_SITE.'/includes/js/ThemeOffice/'.$image;
 			$text = '<img src="'.$image.'" border="0" />';
 		}
 		$style = 'style="text-decoration: none; color: #333;"';

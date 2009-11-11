@@ -14,7 +14,6 @@ $task	= mosGetParam($_REQUEST,'task','');
 $act	= mosGetParam($_REQUEST,'act','default');
 
 global $JPConfiguration,$option;
-global $mosConfig_live_site;
 
 $siteRoot = JPATH_BASE;
 

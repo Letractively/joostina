@@ -12,7 +12,7 @@ defined('_VALID_MOS') or die();
 
 //------------------------------------------------------------------------------
 // Configuration Variables
-global $mosConfig_live_site,$mosConfig_joomlaxplorer_dir;
+global $mosConfig_joomlaxplorer_dir;
 // login to use joomlaXplorer: (true/false)
 $GLOBALS["require_login"] = false;
 
@@ -49,7 +49,7 @@ if(!@is_readable($dir_above)) {
 */
 	$GLOBALS["home_dir"] = JPATH_BASE;
 	// the url corresponding with the home directory: (no trailing '/')
-	$GLOBALS["home_url"] = $mosConfig_live_site;
+	$GLOBALS["home_url"] = JPATH_SITE;
 	/*
 } else {
 	$GLOBALS["home_dir"] = $mosConfig_joomlaxplorer_dir;

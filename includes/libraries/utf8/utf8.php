@@ -765,8 +765,7 @@ class Jstring extends utf8{
 			}
 
 			if (! function_exists('cp1259_to_utf8')){ // конвертируем собственнвми средствами
-				$config = Jconfig::getInstance();
-				include_once $config->config_absolute_path.'/includes/libraries/utf8/to_utf8.php';
+				include_once JPATH_BASE.'/includes/libraries/utf8/to_utf8.php';
 			}
 			return cp1259_to_utf8($text);
 		}

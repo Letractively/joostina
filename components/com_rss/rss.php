@@ -69,7 +69,7 @@ function feedFrontpage($showFeed) {
 	$info['date'] = date('r');
 	$info['year'] = date('Y');
 	$info['encoding'] = $iso[1];
-	$info['link'] = htmlspecialchars($config->config_live_site);
+	$info['link'] = htmlspecialchars(JPATH_SITE);
 	$info['cache'] = $params->def('cache',1);
 	$info['cache_time'] = $params->def('cache_time',3600);
 	$info['count'] = $params->def('count',5);
@@ -80,7 +80,7 @@ function feedFrontpage($showFeed) {
 	if($info['image_file'] == -1) {
 		$info['image'] = null;
 	} else {
-		$info['image'] = $config->config_live_site.'/images/M_images/'.$info['image_file'];
+		$info['image'] = JPATH_SITE.'/images/M_images/'.$info['image_file'];
 	}
 	$info['image_alt'] = $params->def('image_alt','Joostina CMS!');
 	$info['limit_text'] = $params->def('limit_text',0);

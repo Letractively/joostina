@@ -235,7 +235,7 @@ class mosInstallerComponent extends mosInstaller {
 
 		if($this->hasInstallfile()) {
 			if(is_file($this->componentAdminDir().DS.$this->installFile())) {
-				$mosConfig_live_site = $config->config_live_site;
+				$mosConfig_live_site = JPATH_SITE;
 				require_once ($this->componentAdminDir().DS.$this->installFile());
 				$ret = com_install();
 				if($ret != '') {

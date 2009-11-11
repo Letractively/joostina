@@ -59,7 +59,7 @@ include_once($mainframe->getLangFile());
 //Installation sub folder check, removed for work with SVN
 if(file_exists('../installation/index.php') && joomlaVersion::get('SVN') == 0) {
 	define('_INSTALL_CHECK',1);
-	include ($config->config_absolute_path .DS.'templates'.DS.'system'.DS.'offline.php');
+	include (JPATH_BASE.DS.'templates'.DS.'system'.DS.'offline.php');
 	exit();
 }
 
@@ -77,7 +77,7 @@ if(isset($_POST['submit'])) {
 	$pass		= stripslashes(mosGetParam($_POST,'pass',null));
 
 	if($pass == null) {
-		mosRedirect($config->config_live_site.'/'.JADMIN_BASE.'/',_PLEASE_ENTER_PASSWORD);
+		mosRedirect(JPATH_SITE.'/'.JADMIN_BASE.'/',_PLEASE_ENTER_PASSWORD);
 		exit();
 	}
 
@@ -85,7 +85,7 @@ if(isset($_POST['submit'])) {
 		$captcha = mosGetParam($_POST,'captcha','');
 		$captcha_keystring = mosGetParam($_SESSION,'captcha_keystring','');
 		if($captcha_keystring!=$captcha) {
-			mosRedirect($config->config_live_site.'/'.JADMIN_BASE.'/',_BAD_CAPTCHA_STRING);
+			mosRedirect(JPATH_SITE.'/'.JADMIN_BASE.'/',_BAD_CAPTCHA_STRING);
 			unset($_SESSION['captcha_keystring']);
 			exit;
 		}
@@ -139,7 +139,7 @@ if(isset($_POST['submit'])) {
 				$database->query();
 			}
 
-			mosRedirect($config->config_live_site.'/'.JADMIN_BASE.'/index.php?'.$config->config_admin_secure_code,_BAD_USERNAME_OR_PASSWORD);
+			mosRedirect(JPATH_SITE.'/'.JADMIN_BASE.'/index.php?'.$config->config_admin_secure_code,_BAD_USERNAME_OR_PASSWORD);
 			exit();
 		}
 
@@ -239,7 +239,7 @@ if(isset($_POST['submit'])) {
 		echo "<script>document.location.href='$expired';</script>\n";
 		exit();
 	} else {
-		mosRedirect($config->config_live_site.'/'.JADMIN_BASE.'/index.php?'.$config->config_admin_secure_code,_BAD_USERNAME_OR_PASSWORD);
+		mosRedirect(JPATH_SITE.'/'.JADMIN_BASE.'/index.php?'.$config->config_admin_secure_code,_BAD_USERNAME_OR_PASSWORD);
 		exit();
 	}
 } else {

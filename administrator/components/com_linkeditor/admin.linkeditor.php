@@ -105,7 +105,6 @@ function saveOrder(&$cid) {
 } // saveOrder
 
 function editLink($id = 0) {
-	global $mosConfig_live_site;
 
 	$database = &database::getInstance();
 
@@ -113,7 +112,7 @@ function editLink($id = 0) {
 	$row->load($id);
 
 	$pathA = JPATH_BASE.'/includes/js/ThemeOffice';
-	$pathL = $mosConfig_live_site.'/includes/js/ThemeOffice';
+	$pathL = JPATH_SITE.'/includes/js/ThemeOffice';
 	$images = array();
 	$folders = array();
 	$folders[] = mosHTML::makeOption('/');

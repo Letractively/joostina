@@ -21,7 +21,7 @@ if($mainframe->getLangFile('tmpl_joostfree')){
 // проверка на ключевую строке в адресе админки
 if($config->config_enable_admin_secure_code){
 	if($config->config_admin_secure_code != $_SERVER['QUERY_STRING']){
-		$path  = $config->config_live_site;
+		$path  = JPATH_SITE;
 		$path .= $config->config_admin_redirect_options == 1 ? '/'.$config->config_admin_redirect_path : '';
 		mosRedirect ($path);
 	}

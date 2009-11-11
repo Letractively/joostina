@@ -34,7 +34,7 @@ if(!defined('_JOS_FULLMENU_MODULE')) {
 				$usertype_menu = str_replace(' ','_',$usertype);
 				// название файла меню получим из md5 хеша типа пользователя и секретного слова конкретной установки
 				$menuname = md5($usertype_menu.$config->config_secret);
-				echo '<script type="text/javascript" src="'.$config->config_live_site.'/cache/adm_menu_'.$menuname.'.js?r='.$config->config_cache_key.'"></script>';
+				echo '<script type="text/javascript" src="'.JPATH_SITE.'/cache/adm_menu_'.$menuname.'.js?r='.$config->config_cache_key.'"></script>';
 				if(js_menu_cache('',$usertype_menu,1) == 'true') { // файл есть, выводим ссылку на него и прекращаем работу
 					return; // дальнейшую обработку меню не ведём
 				} // файла не было - генерируем его, создаём и всё равно возвращаем ссылку
@@ -77,9 +77,9 @@ var myMenu =[
 <?php
 	}
 ?>['<img src="<?php echo $cur_file_icons_path ?>preview.png" />', '<?php echo _MOD_FULLMENU_SITE_PREVIEW?>', null, null, '<?php echo _MOD_FULLMENU_SITE_PREVIEW?>',
-['<img src="<?php echo $cur_file_icons_path ?>preview.png" />','<?php echo _MOD_FULLMENU_SITE_PREVIEW_IN_NEW_WINDOW?>','<?php echo $config->config_live_site; ?>/index.php','_blank','<?php echo $config->config_live_site; ?>'],
-['<img src="<?php echo $cur_file_icons_path ?>preview.png" />','<?php echo _MOD_FULLMENU_SITE_PREVIEW_IN_THIS_WINDOW?>','index2.php?option=com_admin&task=preview',null,'<?php echo $config->config_live_site; ?>'],
-['<img src="<?php echo $cur_file_icons_path ?>preview.png" />','<?php echo _MOD_FULLMENU_SITE_PREVIEW_WITH_MODULE_POSITIONS?>','index2.php?option=com_admin&task=preview2',null,'<?php echo $config->config_live_site; ?>'],
+['<img src="<?php echo $cur_file_icons_path ?>preview.png" />','<?php echo _MOD_FULLMENU_SITE_PREVIEW_IN_NEW_WINDOW?>','<?php echo JPATH_SITE; ?>/index.php','_blank','<?php echo JPATH_SITE; ?>'],
+['<img src="<?php echo $cur_file_icons_path ?>preview.png" />','<?php echo _MOD_FULLMENU_SITE_PREVIEW_IN_THIS_WINDOW?>','index2.php?option=com_admin&task=preview',null,'<?php echo JPATH_SITE; ?>'],
+['<img src="<?php echo $cur_file_icons_path ?>preview.png" />','<?php echo _MOD_FULLMENU_SITE_PREVIEW_WITH_MODULE_POSITIONS?>','index2.php?option=com_admin&task=preview2',null,'<?php echo JPATH_SITE; ?>'],
 ],
  ['<img src="<?php echo $cur_file_icons_path ?>globe1.png" />', '<?php echo _MOD_FULLMENU_SITE_STATS?>', null, null, '<?php echo _MOD_FULLMENU_SITE_STATS_TIP?>',
 <?php

@@ -10,7 +10,7 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-global $mosConfig_live_site,$mainframe,$task;
+global $mainframe,$task;
 
 class HTML_mmxtd {
 // отображения подкаталога текущего каталога

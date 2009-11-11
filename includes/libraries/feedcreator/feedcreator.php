@@ -769,7 +769,7 @@ class GoogleSiteMapIndex extends FeedCreator {
 }
 class Yandex extends FeedCreator {
 	function createFeed() {
-		global $mosConfig_live_site,$mosConfig_absolute_path,$mosConfig_sef;
+		global $mosConfig_live_site,$mosConfig_sef;
 		$feed = "<?xml version=\"1.0\" encoding=\"".$this->encoding."\"?>\n";
 		$feed .= "<rss version=\"2.0\"\n";
 		$feed .= "xmlns=\"http://backend.userland.com/rss2\"\n";
@@ -810,7 +810,7 @@ class Yandex extends FeedCreator {
 			if(is_array(@$this->items[$i]->images)) {
 				foreach($this->items[$i]->images as $image) {
 					if(function_exists('getimagesize')) {
-						$type = @getimagesize($mosConfig_absolute_path.$image);
+						$type = @getimagesize(JPATH_BASE.$image);
 					} else {
 						$type = array();
 					}
