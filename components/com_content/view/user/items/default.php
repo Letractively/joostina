@@ -10,14 +10,15 @@
 defined('_VALID_MOS') or die(); ?>
 
 <?php
-	if(!$user_items) {
+	if(!$user_items || !$user_items->items) {
 	//Случай, если содержимое пользователя не найдено
 ?>
 	<div class="page_user_items<?php echo $params->get('pageclass_sfx'); ?>">
 <?php if($params->get('title')) { ?>
 		<div class="componentheading"><h1><?php echo $params->title; ?></h1></div>
 <?php } ?>
-		<div class="error"><?php echo _COM_CONTENT_USER_NOT_FOUND ?></div>
+		<div class="error"><?php echo _COM_CONTENT_USERCONTENT_NOT_FOUND ?></div>
+        <?php mosHTML::BackButton($params); ?>
 	</div>
 <?php
 	return;
