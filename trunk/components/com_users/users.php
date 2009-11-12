@@ -289,45 +289,34 @@ function userList($gid,$limit,$limitstart=0){
 
 	$mainframe = &mosMainFrame::getInstance();
 	$database = &$mainframe->_db;
-
 	$acl = &gacl::getInstance();
+    
+    $menu = null;
 
-	if(isset($mainframe->menu)){
+	if(isset($mainframe->menu->params)){
 		$menu = $mainframe->menu;
-	}else{
-		$link = 'index.php?option=com_users&task=userlist';
-		if($gid){
-			$link = 'index.php?option=com_users&task=userlist&group='.$gid;
-		}
-		$menu = new mosMenu($database);
-		$menu = $menu->getMenu(false, 'userlist', $link);
 	}
-
+    
+    $users = new mosUser($database);
+    
 	$params = new mosParameters($mainframe->menu->params);
 
 	$usertype = $acl->get_group_name($params->get('group', 0));
 	$limit = $limit ? $limit : $params->get('limit',20);
 
-	$template = 'default.php';
+	$template = $params->get('template', 'default.php');
 	$template_dir = 'components'.DS.'com_users'.DS.'view'.DS.'userlist';
-
-	if($params->get('template')){
-		$template = $params->get('template');
-	}elseif($params->get('group', 0)){
-		$template = strtolower(str_replace(' ', '', $usertype )).'.php';
-	}
 
 	if($params->get('template_dir')){
 		$template_dir = 'templates'.DS. JTEMPLATE .DS.'html'.DS.'com_users'.DS.'userlist';
 	}
-	$template_file = JPATH_BASE.DS.$template_dir.DS.$template;
+    if(is_file($template_file = JPATH_BASE.DS.$template_dir.DS.$template)){
+        include_once($template_file);    
+    }
+    else{
+        include_once(JPATH_BASE.DS.$template_dir.DS.'default.php');      
+    }
 
-	$users = new mosUser($database);
-	
-	//Подключаем шаблон
-	if(is_file($template_file)){
-		include_once($template_file);
-	}
 }
 
 function CheckIn($userid,$access) {
