@@ -70,6 +70,7 @@ DEFINE('_YOU_HAVE_NO_CONTENT','Нет добавленного Вами соде
 DEFINE('_CONTENT_IS_BEING_EDITED_BY_OTHER_PEOPLE','Содержимое сейчас редактируется другим человеком');
 DEFINE('_EMPTY_BLOG','Нет объектов для отображения!');
 DEFINE('_COM_CONTENT_USER_NOT_FOUND','Извините, пользователь не найден');
+DEFINE('_COM_CONTENT_USERCONTENT_NOT_FOUND','Извините, материалы не найдены');
 DEFINE('_COM_CONTENT_NEW_ITEM','Новый объект');
 DEFINE('_COM_CONTENT_ITEM_SAVED','Изменения сохранены. Здесь (ссылка) страница для предпросмотра');
 DEFINE('_COM_CONTENT_ITEM_ADDED','Материал был успешно добавлен и будет доступен для общего просмотра после проверки модератором. А пока повпечатляйтесь версией для предпросмотра.');
