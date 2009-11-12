@@ -10,7 +10,7 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-if(!$menu || $menu->published <= 0){
+if(!$menu){
 	echo _PAGE_ACCESS_DENIED;
 	return;
 }
@@ -23,12 +23,12 @@ if(!$menu || $menu->published <= 0){
 //пагинация
 if($users->total>0){
 	mosMainFrame::addLib('pageNavigation');
-	$link = sefRelToAbs($menu->link.'&amp;Itemid='.$menu->id);
+	$link = $menu->link.'&amp;Itemid='.$menu->id;
 	$paginate = new mosPageNav( $users->total, $limitstart, $limit );
 }
 ?><div class="userlist">
-<?php if( $params->get('header', '')) : ?>
-	<div class="componentheading"><h1><?php echo $params->get('header', ''); ?></h1></div>
+<?php if( $params->get('header', $menu->name)) : ?>
+	<div class="componentheading"><h1><?php echo $params->get('header', $menu->name); ?></h1></div>
 <?php endif;?>
 	<ul>
 <?php foreach($users->user_list as $user){
