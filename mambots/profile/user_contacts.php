@@ -62,7 +62,7 @@ function UserContacts_messengers($user){
 
 	if (isset($user->user_extra->icq) && trim($user->user_extra->icq)!='' ){?>
 		<span class="icq">
-			<img src="http://web.icq.com/whitepages/online?icq=<?php echo $user->user_extra->icq;?>&img=5" align="absmiddle" border="0" alt="ICQ" title="ICQ">
+			<img src="http://status.icq.com/online.gif?img=5&icq=<?php echo $user->user_extra->icq;?>" align="absmiddle" border="0" alt="ICQ" title="ICQ" />
 			<a href="javascript:void(window.open('http://www.icq.com/people/webmsg.php?to=<?php echo $user->user_extra->icq;?>','newWin','resizable=1,status=1,menubar=1,toolbar=1,scrollbars=1,location=1,directories=1,width=500,height=600,top=60,left=60'))">
 				<?php echo $user->user_extra->icq;?>
 			</a>
@@ -70,7 +70,7 @@ function UserContacts_messengers($user){
 		<br />
 <?php } if (isset($user->user_extra->skype) && trim($user->user_extra->skype)!='' ){ ?>
 		<span class="skype">
-			<img src="http://mystatus.skype.com/smallclassic/<?php echo $user->user_extra->skype;?>" align="absmiddle" border="0" alt="Skype" title="Skype">
+			<img src="http://mystatus.skype.com/smallclassic/<?php echo $user->user_extra->skype;?>" align="absmiddle" border="0" alt="Skype" title="Skype" />
 			<a href="skype:<?php echo $user->user_extra->skype;?>?call">
 				<?php echo $user->user_extra->skype;?>
 			</a>
