@@ -174,7 +174,7 @@ DEFINE('_ICON_SEP','|');
 DEFINE('_IMAGE','Изображение'); 
 DEFINE('_IMAGES','Изображения');  
 DEFINE('_INFO','Информация');
-DEFINE('_INPROGRESS','Выполнятеся...');
+DEFINE('_INPROGRESS','Выполняется...');
 DEFINE('_INSTALL','Установить');
 DEFINE('_INSTALLATION','Установка');
 DEFINE('_LAST','Последний');
