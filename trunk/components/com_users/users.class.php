@@ -318,9 +318,15 @@ class mosUser extends mosDBTable {
 		}else{
 			$sql = 'UPDATE #__users SET avatar = \''.$val.'\' WHERE id='.$id;
 		}
-
+        
 		$this->_db->setQuery($sql);
 		$this->_db->query();
+        
+        if($del){
+            if(file_exists($file_name = JPATH_BASE.DS.'images'.DS.'avatars'.DS.$img)){
+                unlink($file_name);   
+            }
+        }
 	}
 
 	function send_mail_to_user($email_info){
@@ -497,7 +503,7 @@ class userHelper{
 				$.post( //---post:begin
 					'<?php echo $form_params->ajax_handler; ?>',
 					{
-						task: "del_<?php echo $form_params->img_field;?>",
+						task: "del_avatar",
 						file_name: $("#curr_<?php echo $form_params->img_field;?>").val()
 					} ,
 					//пришёл ответ
@@ -574,7 +580,7 @@ class userHelper{
 					$('#<?php echo $form_params->img_field;?>_uploadOutput').fadeIn(1000, function () {
 						$('#<?php echo $form_params->img_field;?>_uploadOutput').addClass("inprogress");
 					});
-					$('#current_<?php echo $form_params->img_field;?>').fadeOut(1000);
+					//$('#current_<?php echo $form_params->img_field;?>').fadeOut(1000);
 					if(!$('#upload_<?php echo $form_params->img_field;?>').val()){
 						$('#<?php echo $form_params->img_field;?>_uploadOutput').html('<?php echo _C_USERS_AVATARS_SHOISE_IMAGE?>');
 						return false;
@@ -594,13 +600,14 @@ class userHelper{
 						$(".upload_area_<?php echo $form_params->img_field;?>").fadeOut(900);
 						
 						$(".buttons_<?php echo $form_params->img_field;?>").fadeOut(1000);
-						$('#current_<?php echo $form_params->img_field;?>_img').fadeOut(1000);
+						//$('#current_<?php echo $form_params->img_field;?>_img').fadeOut(1000);
+                                                
 						$('#current_<?php echo $form_params->img_field;?>_img').fadeOut(1000, function(){
 							$('#current_<?php echo $form_params->img_field;?>_img').html('<img class="avatar" src="<?php echo JPATH_SITE;?>/<?php echo $form_params->img_path;?>/'+data+'" />');
 						});
 						$('#current_<?php echo $form_params->img_field;?>_img').fadeIn(1000, function () {
 							$('#current_<?php echo $form_params->img_field;?>_img').show('slow', function () {
-								$('#current_<?php echo $form_params->img_field;?>_img').fadeIn(1000);
+								//$('#current_<?php echo $form_params->img_field;?>_img').fadeIn(1000);
 							});
 						});
 						$(".buttons_<?php echo $form_params->img_field;?>").fadeIn(1000);
@@ -614,7 +621,7 @@ class userHelper{
 
 		});
 		</script>
-		<form name="<?php echo $form_params->img_field;?>_uploadForm" class="ajaxForm" enctype="multipart/form-data" method="post" action="ajax.index.php" id="<?php echo $form_params->img_field;?>_uploadForm">
+		<form name="<?php echo $form_params->img_field;?>_uploadForm" class="ajaxForm" enctype="multipart/form-data" method="post" action="<?php echo sefRelToAbs('ajax.index.php'); ?>" id="<?php echo $form_params->img_field;?>_uploadForm">
 			<input name="<?php echo $form_params->img_field;?>"  id="upload_<?php echo $form_params->img_field;?>"  type="file" />
 			<span class="button"><button type="button" id="<?php echo $form_params->img_field;?>_upload_button" class="button" ><?php echo _TASK_UPLOAD?></button></span>
 			<input type="hidden" name="task" value="upload_<?php echo $form_params->img_field;?>" />
