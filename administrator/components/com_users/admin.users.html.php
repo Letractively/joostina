@@ -91,7 +91,11 @@ class HTML_users {
 		mosMakeHtmlSafe($row);
 
 		$tabs = new mosTabs(1, 1);
-
+        $mainframe = mosMainFrame::getInstance(true);
+		if(!defined('_JQUERY_LOADED')) {
+			define('_JQUERY_LOADED',1);
+			$mainframe->addJS($mainframe->getCfg('live_site').'/includes/js/jquery/jquery.js');				
+		}
 		mosCommonHTML::loadOverlib();
 		mosCommonHTML::loadJqueryPlugins('jquery.form', true, false);
 
