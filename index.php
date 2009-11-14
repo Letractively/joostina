@@ -33,7 +33,6 @@ require_once (JPATH_BASE.DS.'configuration.php');
 
 // для совместимости
 $mosConfig_absolute_path = JPATH_BASE;
-
 // live_site
 define('JPATH_SITE', $mosConfig_live_site );
 
