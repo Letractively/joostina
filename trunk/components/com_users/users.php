@@ -188,9 +188,9 @@ function userSave($option,$uid) {
 
 	// simple spoof check security
 	josSpoofCheck();
-    $mainframe = &mosMainFrame::getInstance();
-	$config = &Jconfig::getInstance();
-	$database = $mainframe->_db;
+	$mainframe = &mosMainFrame::getInstance();
+	$config = &$mainframe->config;
+	$database = &$mainframe->_db;
 
 	$user_id = intval(mosGetParam($_POST,'id',0));
 
