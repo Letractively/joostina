@@ -23,9 +23,6 @@ DEFINE('_DATE_FORMAT','Сегодня: d.m.Y г.'); //Используйте ф�
 
 DEFINE('_LANGUAGE','ru');
 
-DEFINE('_ISO2','utf8');
-DEFINE('_ISO','charset=UTF-8');
-
 DEFINE('_JAN','Январь');
 DEFINE('_FEB','Февраль');
 DEFINE('_MAR','Март');
@@ -590,3 +587,5 @@ DEFINE('_CAPTION_POSITION','Положение подписи');
 DEFINE('_CAPTION_WIDTH','Ширина подписи');
 DEFINE('_CHECKED_IN_ITEMS','Проверка');
 DEFINE('_SECTION_LIST', 'Список раздела');
+
+DEFINE('_E_EDIT', 'Редактировать');
