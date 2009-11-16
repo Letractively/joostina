@@ -136,7 +136,7 @@ function botSearchContent($text,$phrase = '',$ordering = '') {
 
 	// поиск архивного содержимого
 	$query = "SELECT a.title AS title,"."\n a.created AS created,"."\n a.introtext AS text,".
-		"\n CONCAT_WS( '/', ".$database->Quote(_SEARCH_ARCHIVED).
+		"\n CONCAT_WS( '/', ".$database->Quote(_IN_ARCHIVE).
 		", u.title, b.title ) AS section,"."\n CONCAT('index.php?option=com_content&task=view&id=',a.id) AS href,".
 		"\n '2' AS browsernav,"."\n 'content' AS type"."\n FROM #__content AS a"."\n INNER JOIN #__categories AS b ON b.id=a.catid".
 		"\n INNER JOIN #__sections AS u ON u.id = a.sectionid"."\n WHERE ( $where )"."\n AND a.state = -1".

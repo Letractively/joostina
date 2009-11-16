@@ -10,9 +10,7 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-DEFINE('_CATEGORY_CHANGES_SAVED','Изменения в категории сохранены');
 DEFINE('_CONTENT_CATEGORIES','Категории содержимого');
-DEFINE('_ACTIVE','Активных');
 DEFINE('_VIEW_CATEGORY_CONTENT','Просмотр содержимого категории');
 DEFINE('_CATEGORY_NAME_IS_BLANK','Категория должна иметь название');
 DEFINE('_ENTER_CATEGORY_NAME','Введите имя категории');
@@ -35,7 +33,7 @@ DEFINE('_COPY_TO_SECTION','Копировать в раздел');
 DEFINE('_IN_SELECTED_SECTION_WILL_BE_COPIED_ALL','В выбранный раздел будут скопированы все <br /> перечисленные категории и всё <br /> перечисленное содержимое этих категорий.');
 DEFINE('_BEFORE_CREATION_CAT_CREATE_SECTION','Перед созданием категории Вы должны создать хотя бы один раздел');
 DEFINE('_CATEGORY_IS_EDITING_NOW','Категория #CATNAME# в настоящее время редактируется другим администратором');
-DEFINE('_TABLE_WEBLINKS_CATEGORY','Таблица - Веб-ссылки категории');
+DEFINE('_TABLE_LINKS_CATEGORY','Таблица - Веб-ссылки категории');
 DEFINE('_TABLE_NEWSFEEDS_CATEGORY','Таблица - Ленты новостей категории');
 DEFINE('_TABLE_CATEGORY_CONTACTS','Таблица - Контакты категории');
 DEFINE('_TABLE_CATEGORY_CONTENT','Таблица - Содержимое категории');
@@ -51,6 +49,6 @@ DEFINE('_CATEGORY_MOVED_TO','Категории перемещены в ');
 DEFINE('_CATEGORIES_COPIED_TO','Категории скопированы в ');
 DEFINE('_CATEGORY_COPIED_TO','Категория скопирована в ');
 DEFINE('_CREATE_CONTENT','Создать содержимое');
-DEFINE('_COM_CATEGORIES_SAVE_MOD','Изменения в категории сохранены');
+DEFINE('_CATEGORY_CHANGES_SAVED','Изменения в категории сохранены');
 DEFINE('_COM_CATEGORIES_SAVED','Категория сохранена');
 DEFINE('_COM_CATEGORIES_SAVED_2','- сохранено');

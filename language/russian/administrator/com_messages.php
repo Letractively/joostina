@@ -10,7 +10,6 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-DEFINE('_PRIVATE_MESSAGES','Личные сообщения');
 DEFINE('_MAIL_FROM','От');
 DEFINE('_MAIL_READED','Прочитано');
 DEFINE('_MAIL_NOT_READED','Не прочитано');
@@ -19,7 +18,7 @@ DEFINE('_BLOCK_INCOMING_MAIL','Заблокировать входящую по�
 DEFINE('_SEND_NEW_MESSAGES','Посылать мне новые сообщения');
 DEFINE('_AUTO_PURGE_MESSAGES','Автоматическая очистка сообщений');
 DEFINE('_AUTO_PURGE_MESSAGES2','старше');
-DEFINE('_AUTO_PURGE_MESSAGES3','дней');
+DEFINE('_DAYS','дней');
 DEFINE('_VIEW_PRIVATE_MESSAGES','Просмотр персональных сообщений');
 DEFINE('_MESSAGE_SEND_DATE','Отправлено');
 DEFINE('_PLEASE_ENTER_MESSAGE_BODY','Вы должны ввести текст сообщения');

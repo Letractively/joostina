@@ -91,7 +91,7 @@ defined('_VALID_MOS') or die(); ?>
 <?php } ?>
 <?php if($allow_desc) { ?>
 			<tr>
-				<td align="left" valign="top"><strong><?php echo _E_M_DESC; ?></strong></td>
+				<td align="left" valign="top"><strong><?php echo _DESC; ?></strong></td>
 				<td><textarea class="inputbox" style="width:99%"  rows="2" name="metadesc"><?php echo str_replace('&', '&amp;', $row->metadesc); ?></textarea></td>
 			</tr>
 <?php } ?>

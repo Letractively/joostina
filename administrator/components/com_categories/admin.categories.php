@@ -307,7 +307,7 @@ function editCategory($uid = 0,$section = '') {
 		switch($row->section) {
 			case 'com_weblinks':
 				$and = "\n AND type = 'weblink_category_table'";
-				$link = _TABLE_WEBLINKS_CATEGORY;
+				$link = _TABLE_LINKS_CATEGORY;
 				break;
 
 			case 'com_newsfeeds':
@@ -422,7 +422,7 @@ function editCategory($uid = 0,$section = '') {
 			$types[] = mosHTML::makeOption('newsfeed_category_table',_TABLE_NEWSFEEDS_CATEGORY);
 		} else
 			if($row->section == 'com_weblinks') {
-				$types[] = mosHTML::makeOption('weblink_category_table',_TABLE_WEBLINKS_CATEGORY);
+				$types[] = mosHTML::makeOption('weblink_category_table',_TABLE_LINKS_CATEGORY);
 			} else {
 				$types[] = mosHTML::makeOption('content_category',_TABLE_CATEGORY_CONTENT);
 				$types[] = mosHTML::makeOption('content_blog_category',_BLOG_CATEGORY_CONTENT);
@@ -573,7 +573,7 @@ function saveCategory($task) {
 			break;
 
 		case 'apply':
-			mosRedirect('index2.php?option=com_categories&section='.$redirect.'&task=editA&hidemainmenu=1&id='.$row->id,_COM_CATEGORIES_SAVE_MOD);
+			mosRedirect('index2.php?option=com_categories&section='.$redirect.'&task=editA&hidemainmenu=1&id='.$row->id,_CATEGORY_CHANGES_SAVED);
 			break;
 
 			/* boston, после сохранения возвращаемся в окно добавления новой категории*/
@@ -1011,7 +1011,7 @@ function menuLink($id) {
 
 		case 'weblink_category_table':
 			$link = 'index.php?option=com_weblinks&catid='.$id;
-			$menutype = _TABLE_WEBLINKS_CATEGORY;
+			$menutype = _TABLE_LINKS_CATEGORY;
 			break;
 	}
 

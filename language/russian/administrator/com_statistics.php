@@ -14,7 +14,6 @@ DEFINE('_STAT_BROWSERS_AND_OSES','Статистика по браузерам, 
 DEFINE('_BROWSERS','Браузеры');
 DEFINE('_DOMAINS','Домены');
 DEFINE('_DOMAIN','Домен');
-DEFINE('_PAGES_HITS','Статистика посещения страниц');
 DEFINE('_CONTENT_TITLE','Заголовок содержимого');
 DEFINE('_SEARCH_QUERIES','Поисковые запросы');
 DEFINE('_LOG_SEARCH_QUERIES','сбор данных');

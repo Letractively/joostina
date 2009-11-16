@@ -40,7 +40,7 @@ if ($siteinfo) {
 
 	$query="SELECT COUNT( id ) AS count_links FROM #__weblinks WHERE published = 1";
 	$database->setQuery($query);
-	echo "<strong>"._LINKS_STAT.":</strong> ".$database->loadResult() . "<br />\n";
+	echo "<strong>"._LINKS_COUNT.":</strong> ".$database->loadResult() . "<br />\n";
 }
 
 if ($mosConfig_enable_stats) {

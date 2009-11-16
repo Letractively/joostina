@@ -202,7 +202,7 @@ function unzipzipfile($curdirpath,$curfile,$destindir) {
 			$msg = $curfile.' '._FILE_IS_NOT_A_ZIP;
 			return $msg;
 		}
-	} else $msg = $curfile.' '._FILE_NOT_EXIST;
+	} else $msg = $curfile.' '._FILE_NOT_EXISTS;
 	return $msg;
 }
 
@@ -518,7 +518,7 @@ function viewMediaManager($curdirectory = "",$mosmsg = "",$selectedfile = "") {
 	<form action="index2.php" name="adminForm" method="POST" enctype="multipart/form-data">
 	<table cellpadding="0" cellspacing="0" style="width:100%;" id="upper" class="adminheading">
 		<tr>
-		<th class="media"><?php echo _JWMM_MEDIA_MANAGER?></th>
+		<th class="media"><?php echo _MEDIA_MANAGER?></th>
 		<td id="browse"><table cellpadding="0" cellspacing="4" align="right">
 			<tr>
 				<td><?php echo _JWMM_CREATE_DIRECTORY?>:</td>
@@ -540,7 +540,7 @@ function viewMediaManager($curdirectory = "",$mosmsg = "",$selectedfile = "") {
 	<table style="width:100%;" cellpadding="0" cellspacing="0">
 		<tr>
 			<td><?php echo _JWMM_IMAGE_LINK ?></td><td><input onfocus="this.select()" type="text" id="file_link" name="file_link" class="inputbox" size="100"/></td>
-			<td rowspan="3" width="50%"><?php echo _JWMM_FILE_PATH?>:<a href="index2.php?option=com_jwmmxtd&amp;curdirectory=<?php echo $upcategory; ?>"><img src="<?php echo $cur_file_icons_path;?>/uparrow.png" alt="<?php echo _JWMM_UP_TO_DIRECTORY?>" /></a><br /><?php echo $dirPath; ?></td>
+			<td rowspan="3" width="50%"><?php echo _FILE_PATH?>:<a href="index2.php?option=com_jwmmxtd&amp;curdirectory=<?php echo $upcategory; ?>"><img src="<?php echo $cur_file_icons_path;?>/uparrow.png" alt="<?php echo _JWMM_UP_TO_DIRECTORY?>" /></a><br /><?php echo $dirPath; ?></td>
 		</tr>
 		<tr><td><?php echo _JWMM_IMAGE_HREF ?></td><td><input onfocus="this.select()" type="text" id="file_href" name="file_href" class="inputbox" size="100"/></td></tr>
 		<tr><td><?php echo _JWMM_IMAGE_TAG ?></td><td><input onfocus="this.select()" type="text" id="file_url" name="file_url" class="inputbox" size="100"/></td></tr>
@@ -566,8 +566,8 @@ function viewMediaManager($curdirectory = "",$mosmsg = "",$selectedfile = "") {
 		<fieldset class="block">
 		<legend><?php echo _CHOOSE_DIR_TO_MOVE?>:<span><?php echo $selectedfile; ?></span></legend>
 		<input type="hidden" name="curfile" value="<?php echo $selectedfile; ?>">
-		<?php echo _JWMM_MOVE_TO?>: <?php echo mosHTML::selectList($folders,'dirtomove','class="inputbox" size="1" ','value','text',$curdirectory); ?>
-		<input type="button" onclick="javascript:document.adminForm.task.value='movefile';document.adminForm.submit( );" class="button" value="<?php echo _JWMM_MOVE?>" />
+		<?php echo _MOVE_TO?>: <?php echo mosHTML::selectList($folders,'dirtomove','class="inputbox" size="1" ','value','text',$curdirectory); ?>
+		<input type="button" onclick="javascript:document.adminForm.task.value='movefile';document.adminForm.submit( );" class="button" value="<?php echo _MOVE?>" />
 		</fieldset>
 <?php }if($selectedfile != "" && $subtask == "unzipfile") {?>
 	<fieldset class="block">
@@ -897,8 +897,8 @@ function editImage($img,$cur) {
 		</fieldset>
 		<fieldset>
 		<legend><?php echo _JWMM_X_Y_POSITION?></legend>
-			<?php echo _JWMM_BY_HEIGHT?>:<input id="cropv" name="cropv" type="text" size="4" />
-			<?php echo _JWMM_BY_WIDTH?>:<input id="cropo" name="cropo" type="text" size="4" />
+			<?php echo _VERICAL?>:<input id="cropv" name="cropv" type="text" size="4" />
+			<?php echo _HORIZONTAL?>:<input id="cropo" name="cropo" type="text" size="4" />
 		</fieldset>
 		<fieldset>
 		<legend><?php echo _JWMM_IMAGE_CROP?></legend>
@@ -939,8 +939,8 @@ function editImage($img,$cur) {
 		<?php echo _JWMM_MIRROR?>
 		<select id="flip" name="flip">
 			<option value="none"><?php echo _JWMM_CHOOSE?></option>
-			<option value="H"><?php echo _JWMM_VERICAL?></option>
-			<option value="V"><?php echo _JWMM_HORIZONTAL?></option>
+			<option value="H"><?php echo _VERICAL?></option>
+			<option value="V"><?php echo _HORIZONTAL?></option>
 		</select>
 		</fieldset>
 		<fieldset>
@@ -1066,8 +1066,8 @@ function editImage($img,$cur) {
 			<td><?php echo _JWMM_ORIENTATION?></td>
 			<td><select name="textdirection" id="textdirection">
 				<option value="none"><?php echo _JWMM_CHOOSE?></option>
-				<option value="h"><?php echo _JWMM_BY_WIDTH?></option>
-				<option value="v"><?php echo _JWMM_BY_HEIGHT?></option>
+				<option value="h"><?php echo _HORIZONTAL?></option>
+				<option value="v"><?php echo _VERICAL?></option>
 				</select>
 			</td>
 			</tr>
@@ -1123,7 +1123,7 @@ function editImage($img,$cur) {
 	</div>
 	<div class="jwmmxtd_clr"></div>
 <script type="text/javascript">
-	initFloatingWindowWithTabs('editor_panel',Array(_JWMM_FIRST,_JWMM_SECOND,_JWMM_THIRDTH),100,450,80,60,true,false,false,true);
+	initFloatingWindowWithTabs('editor_panel',Array(_PN_START,_JWMM_SECOND,_JWMM_THIRDTH),100,450,80,60,true,false,false,true);
 </script>
 	</div>
 </div>

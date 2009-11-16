@@ -35,7 +35,7 @@ class TOOLBAR_jpack {
 	}
 	function _DB_MENU(){
 		mosMenuBar::startTable();
-		mosMenuBar::back(_JP_DB_MANAGEMENT,'index2.php?option=com_joomlapack&act=db');
+		mosMenuBar::back(_DB_MANAGEMENT,'index2.php?option=com_joomlapack&act=db');
 		mosMenuBar::spacer();
 		mosMenuBar::back(_JP_BACKUP_PANEL,'index2.php?option=com_joomlapack');
 		mosMenuBar::endTable();
@@ -52,7 +52,7 @@ class TOOLBAR_jpack {
 		mosMenuBar::custom('doRepair','-help','',_JP_REPAIR);
 		if($act!='db'){
 			mosMenuBar::spacer();
-			mosMenuBar::back(_JP_DB_MANAGEMENT,'index2.php?option=com_joomlapack&ack=db');
+			mosMenuBar::back(_DB_MANAGEMENT,'index2.php?option=com_joomlapack&ack=db');
 		}
 		mosMenuBar::spacer();
 		mosMenuBar::back(_JP_BACKUP_PANEL,'index2.php?option=com_joomlapack');

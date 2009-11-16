@@ -93,7 +93,7 @@ class HTML_modules {
 		}
 ?>
 			<th class="jtd_nowrap" width="7%"><?php echo _MODULE_POSITION?></th>
-			<th class="jtd_nowrap" width="5%"><?php echo _MODULE_PAGES?></th>
+			<th class="jtd_nowrap" width="5%"><?php echo _PAGES?></th>
 			<th class="jtd_nowrap" width="5%">ID</th>
 			<th class="jtd_nowrap" width="10%" align="left"><?php echo _TYPE?></th>
 		</tr>
@@ -151,7 +151,7 @@ class HTML_modules {
 				echo _NO;
 			} else
 				if($row->pages > 0) {
-					echo _MODULE_PAGES_SOME;
+					echo _PAGES_SOME;
 				} else {
 					echo _ALL;
 				}
@@ -240,7 +240,7 @@ class HTML_modules {
 		<table class="adminheading">
 		<tr>
 			<th class="modules"><?php echo _MODULE?> -&nbsp;<?php echo $lists['client_id']?_CONTROL_PANEL:_SITE; ?> :
-			<small><?php echo $row->id ? _MOD_EDIT : _MOD_NEW ; ?></small><?php echo $row->titleA; ?></th>
+			<small><?php echo $row->id ? _EDITING : _NEW ; ?></small><?php echo $row->titleA; ?></th>
 		</tr>
 		</table>
 		<form action="index2.php" method="post" name="adminForm" id="adminForm">
@@ -252,7 +252,7 @@ class HTML_modules {
 					<th colspan="2"><?php echo _DETAILS?></th>
 				</tr>
 				<tr>
-					<td width="100" class="key"><?php echo _HEADER_TITLE?>:</td>
+					<td width="100" class="key"><?php echo _CAPTION?>:</td>
 					<td>
 						<input class="text_area" type="text" name="title" size="35" value="<?php echo $row->title; ?>" />
 					</td>
@@ -317,7 +317,7 @@ class HTML_modules {
 			if($my->gid == 25) {
 				$visible = 1;
 			}
-			mosHTML::writableCell($mosConfig_cachepath,0,'<strong>'._CACHE_DIRECTORY.'</strong> ',$visible);
+			mosHTML::writableCell($mosConfig_cachepath,0,'<strong>'._CACHE_DIR.'</strong> ',$visible);
 ?>
 							</table>
 			</td>

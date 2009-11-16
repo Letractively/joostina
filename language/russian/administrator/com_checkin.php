@@ -10,12 +10,10 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-DEFINE('_BLOCKED_OBJECTS','Заблокированные объекты');
 DEFINE('_OBJECT','Объект');
 DEFINE('_WHO_BLOCK','Заблокировал');
 DEFINE('_BLOCK_TIME','Время блокировки');
 DEFINE('_ACTION','Действие');
-DEFINE('_GLOBAL_CHECKIN','Глобальная разблокировка');
 DEFINE('_TABLE_IN_DB','Таблица базы данных');
 DEFINE('_OBJECT_COUNT','Кол-во объектов');
 DEFINE('_UNBLOCKED','Разблокировано');

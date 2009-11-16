@@ -96,7 +96,7 @@ if($params->get('navigation')) {
 <?php if($params->get('date')) { ?>
 				<th class="sectiontableheader" width="15%"><?php echo _DATE; ?></th>
 <?php } ?>
-				<th class="sectiontableheader"><?php echo _HEADER_TITLE; ?></th>
+				<th class="sectiontableheader"><?php echo _CAPTION; ?></th>
 <?php if($params->get('author')) { ?>
 				<th class="sectiontableheader" align="left"><?php echo _HEADER_AUTHOR; ?></th>
 <?php } ?>

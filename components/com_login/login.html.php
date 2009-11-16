@@ -61,7 +61,7 @@ $params->get('pageclass_sfx'); ?>">
 					<br />
 					</td>
 					<td align="center">
-					<?php echo _PASSWORD; ?>
+					<?php echo _PASSWORDWORD; ?>
 					<br />
 					</td>
 				</tr>
@@ -80,7 +80,7 @@ $params->get('pageclass_sfx'); ?>">
 					<input type="checkbox" name="remember" class="inputbox" value="yes" />
 					<br/>
 					<a href="<?php echo sefRelToAbs('index.php?option=com_registration&amp;task=lostPassword'); ?>">
-					<?php echo _LOST_PASSWORD; ?>
+					<?php echo _LOST_PASSWORDWORD; ?>
 					</a>
 					<?php
 		if($params->get('registration')) {

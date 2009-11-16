@@ -35,7 +35,7 @@ class XmapSitemap {
 
 	function XmapSitemap() {
 		global $mosConfig_cachetime,$mosConfig_caching;
-		$this->name= _XMAP_NAME_NEW_SITEMAP;
+		$this->name= '';
 		$this->usecache	= $mosConfig_caching;
 		$this->cachelifetime= $mosConfig_cachetime;
 	}

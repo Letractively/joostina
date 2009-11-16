@@ -45,7 +45,7 @@ $validate = josSpoofValue(1); ?>
   				
 	  		<?php if ($params->get('show_lost_pass', 1)) { ?>
 				<a href="<?php echo sefRelToAbs( 'index.php?option=com_users&amp;task=lostPassword' );?>">
-					<?php echo $params->get('ml_rem_pass_text', _LOST_PASSWORD) ;?>
+					<?php echo $params->get('ml_rem_pass_text', _LOST_PASSWORDWORD) ;?>
 				</a>
 			<?php }	?>
 				

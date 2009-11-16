@@ -112,7 +112,7 @@ function submitbutton(pressbutton) {
           </tr>
 		<tr>
 			<td><?php echo _AUTO_PURGE_MESSAGES?>:</td>
-			<td><?php echo _AUTO_PURGE_MESSAGES2?> <input type="text" name="vars[auto_purge]" size="5" value="<?php echo $vars['auto_purge']; ?>" class="inputbox" /> <?php echo _AUTO_PURGE_MESSAGES3?></td>
+			<td><?php echo _AUTO_PURGE_MESSAGES2?> <input type="text" name="vars[auto_purge]" size="5" value="<?php echo $vars['auto_purge']; ?>" class="inputbox" /> <?php echo _DAYS?></td>
 		</tr>
 		</table>
 		<input type="hidden" name="option" value="<?php echo $option; ?>">

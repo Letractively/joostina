@@ -26,7 +26,7 @@ $tabs = new mosTabs(1);
 		<h3><?php echo _USER_PROFILE_INFO?></h3>
 		<table width="100%">
 			<tr>
-				<td class="td_l"><label for="username"><?php echo _UNAME; ?></label></td>
+				<td class="td_l"><label for="username"><?php echo _USERNAME; ?></label></td>
 				<td><input class="inputbox required" type="text" name="username" id="username" value="<?php echo $user->username; ?>"/></td>
 			</tr>
 			<tr>
@@ -38,7 +38,7 @@ $tabs = new mosTabs(1);
 				<td><input class="inputbox required" type="text" name="email" id="email" value="<?php echo $user->email; ?>"/></td>
 			</tr>
 			<tr>
-				<td><label for="password"><?php echo _PASS; ?></label></td>
+				<td><label for="password"><?php echo _PASSWORD; ?></label></td>
 				<td><input class="inputbox" type="password" name="password" id="password" value=""/></td>
 			</tr>
 			<tr>
@@ -48,7 +48,7 @@ $tabs = new mosTabs(1);
 		</table>
 		
 		<?php if($config->config_frontend_userparams == '1' || $config->config_frontend_userparams == 1 ||$config->csonfig_frontend_userparams == null) {?>
-			<h3><?php echo _USER_SITE_SETTINGS?></h3>
+			<h3><?php echo _SITE_SETTINGS?></h3>
 			<?php echo $params->render('params'); ?>
 		<?php } ?>
 		
@@ -74,14 +74,14 @@ $tabs = new mosTabs(1);
 				</td>
 			</tr>
 			<tr>
-				<td><label><?php echo _C_USERS_LOCATION?></label></td>
+				<td><label><?php echo _USERS_LOCATION?></label></td>
 				<td>
 					<input class="inputbox" type="text" name="location" id="location" value="<?php echo $user->user_extra->location ?>"/>
 				</td>
 			</tr>
 		</table>
 <?php $tabs->endTab(); ?>
-<?php $tabs->startTab(_C_USERS_CONTACTS,"cantacts"); ?>
+<?php $tabs->startTab(_USER_CONTACTS,"cantacts"); ?>
 		<h3><?php echo _COM_USERS_CONTACT_INFO?></h3>
 		<table width="100%">
 			<tr>

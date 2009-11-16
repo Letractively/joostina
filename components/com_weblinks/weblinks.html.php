@@ -31,7 +31,7 @@ class HTML_weblinks {
 				<?php if ($currentcat->descrip || $currentcat->img){?>
 					<div class="contentdescription"> 
 						<?php if($currentcat->img) { ?>
-						<img src="<?php echo $currentcat->img; ?>" align="<?php echo $currentcat->align; ?>" hspace="6" alt="<?php echo _WEBLINKS; ?>" />
+						<img src="<?php echo $currentcat->img; ?>" align="<?php echo $currentcat->align; ?>" hspace="6" alt="<?php echo _LINKS; ?>" />
 						<?php } ?>
 						
 						<?php echo $currentcat->descrip; ?>			
@@ -81,7 +81,7 @@ class HTML_weblinks {
 				<th width="90%"><?php echo _WEBLINK; ?></th>
 				
 				<?php if($params->get('hits')) { ?>
-				<th width="30"><?php echo _COM_WEBLINKS_HEADER_HITS; ?></th>
+				<th width="30"><?php echo _COM_LINKS_HEADER_HITS; ?></th>
 				<?php } ?>
 				
 			</tr>
@@ -215,11 +215,11 @@ class HTML_weblinks {
 
 			// do field validation
 			if (form.title.value == ""){
-				alert( "<?php echo _COM_WEBLINKS_NONE_TITLE?>" );
+				alert( "<?php echo _COM_LINKS_NONE_TITLE?>" );
 			} else if (getSelectedValue('adminForm','catid') < 1) {
-				alert( "<?php echo _COM_WEBLINKS_NONE_CAT?>" );
+				alert( "<?php echo _COM_LINKS_NONE_CAT?>" );
 			} else if (form.url.value == ""){
-				alert( "<?php echo _COM_WEBLINKS_NONE_URL?>" );
+				alert( "<?php echo _COM_LINKS_NONE_URL?>" );
 			} else {
 				submitform( pressbutton );
 			}
@@ -251,7 +251,7 @@ class HTML_weblinks {
 					</td>
 				</tr>
 				<tr>
-					<td valign="top" align="right"><?php echo _URL_DESC; ?></td>
+					<td valign="top" align="right"><?php echo _DESC; ?></td>
 					<td>
 					<textarea class="inputbox" cols="30" rows="6" name="description" style="width:300px" width="300"><?php echo htmlspecialchars($row->description,ENT_QUOTES); ?></textarea>
 					</td>

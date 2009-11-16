@@ -47,5 +47,3 @@ function frontpagemodule($row,&$params) {
 		}
 	}
 }
-
-?>

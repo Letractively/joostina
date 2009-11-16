@@ -42,8 +42,8 @@ class HTML_mmxtd {
 			<img src="<?php echo $cur_file_icons_path?>rename.png" alt="<?php echo _RENAME?>" title="<?php echo _RENAME?>" /></a>
 			<a href="javascript:void(null)" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $path ?>';document.adminForm.subtask.value='copyfile';document.adminForm.submit( );" title="<?php echo _COPY?>">
 			<img src="<?php echo $cur_file_icons_path?>copy.png" alt="<?php echo _COPY?>" title="<?php echo _COPY?>" /></a>
-			<a href="javascript:void(null)" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $path ?>';document.adminForm.subtask.value='movefile';document.adminForm.submit( );" title="<?php echo _JWMM_MOVE?>">
-			<img src="<?php echo $cur_file_icons_path?>cut.png" alt="<?php echo _JWMM_MOVE?>" title="<?php echo _JWMM_MOVE?>" /></a>
+			<a href="javascript:void(null)" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $path ?>';document.adminForm.subtask.value='movefile';document.adminForm.submit( );" title="<?php echo _MOVE?>">
+			<img src="<?php echo $cur_file_icons_path?>cut.png" alt="<?php echo _MOVE?>" title="<?php echo _MOVE?>" /></a>
 			<a href="index2.php?option=com_jwmmxtd&amp;task=deletefolder&amp;delFolder=<?php echo $path; ?>&amp;curdirectory=<?php echo $listdir; ?>" onclick="return deleteFolder('<?php echo $dir; ?>', <?php echo $num_files; ?>);" title="<?php echo _DELETE?>">
 			<img src="<?php echo $cur_file_icons_path?>delete.png" alt="<?php echo _DELETE?>" title="<?php echo _DELETE?>" /></a>
 		</td>
@@ -95,8 +95,8 @@ class HTML_mmxtd {
 				<img src="<?php echo $cur_file_icons_path ?>rename.png" alt="<?php echo _RENAME?>" title="<?php echo _RENAME?>" /></a>
 				<a href="#" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $file ?>';document.adminForm.subtask.value='copyfile';document.adminForm.submit( );" title="<?php echo _COPY?>">
 				<img src="<?php echo $cur_file_icons_path ?>copy.png" alt="<?php echo _COPY?>" title="<?php echo _COPY?>" /></a>
-				<a href="#" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $file ?>';document.adminForm.subtask.value='movefile';document.adminForm.submit( );" title="<?php echo _JWMM_MOVE?>">
-				<img src="<?php echo $cur_file_icons_path ?>cut.png" alt="<?php echo _JWMM_MOVE?>" title="<?php echo _JWMM_MOVE?>" /></a>
+				<a href="#" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $file ?>';document.adminForm.subtask.value='movefile';document.adminForm.submit( );" title="<?php echo _MOVE?>">
+				<img src="<?php echo $cur_file_icons_path ?>cut.png" alt="<?php echo _MOVE?>" title="<?php echo _MOVE?>" /></a>
 				<a href="index2.php?option=com_jwmmxtd&amp;task=delete&amp;delFile=<?php echo $file; ?>&amp;curdirectory=<?php echo $cur; ?>" onclick="javascript:if(confirm('<?php echo _JWMM_DELETE_FILE_CONFIRM?>:<?php echo $file; ?>')) return true; return false;" title="<?php echo _DELETE?>">
 				<img src="<?php echo $cur_file_icons_path ?>delete.png" alt="<?php echo _DELETE?>" title="<?php echo _DELETE?>" /></a>
 			</td>
@@ -157,8 +157,8 @@ if($icon == $cur_file_icons_path.'zip.png') { ?>
 			<img src="<?php echo $cur_file_icons_path ?>rename.png" alt="<?php echo _RENAME?>" title="<?php echo _RENAME?>" /></a>
 			<a href="#" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $doc ?>';document.adminForm.subtask.value='copyfile';document.adminForm.submit( );" title="<?php echo _COPY?>">
 			<img src="<?php echo $cur_file_icons_path ?>copy.png" alt="<?php echo _COPY?>" title="<?php echo _COPY?>" /></a>
-			<a href="#" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $doc ?>';document.adminForm.subtask.value='movefile';document.adminForm.submit( );" title="<?php echo _JWMM_MOVE?>">
-			<img src="<?php echo $cur_file_icons_path ?>cut.png" alt="<?php echo _JWMM_MOVE?>" title="<?php echo _JWMM_MOVE?>" /></a>
+			<a href="#" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $doc ?>';document.adminForm.subtask.value='movefile';document.adminForm.submit( );" title="<?php echo _MOVE?>">
+			<img src="<?php echo $cur_file_icons_path ?>cut.png" alt="<?php echo _MOVE?>" title="<?php echo _MOVE?>" /></a>
 			<a href="index2.php?option=com_jwmmxtd&amp;task=delete&amp;delFile=<?php echo $doc; ?>&amp;curdirectory=<?php echo $cur; ?>" onclick="javascript:if(confirm('<?php echo _JWMM_DELETE_FILE_CONFIRM?>: <?php echo $doc; ?>')) return true; return false;" title="<?php echo _DELETE?>">
 			<img src="<?php echo $cur_file_icons_path ?>delete.png" alt="<?php echo _DELETE?>" title="<?php echo _DELETE?>" /></a>
 		</td>

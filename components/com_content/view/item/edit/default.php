@@ -85,7 +85,7 @@ defined('_VALID_MOS') or die(); ?>
 		</table>
 		<table class="cedit_main" cellspacing="0" cellpadding="0" border="0" width="100%">
 			<tr>
-				<td width="25"><strong><?php echo _HEADER_TITLE ?>:</strong></td>
+				<td width="25"><strong><?php echo _CAPTION ?>:</strong></td>
 				<td><input class="inputbox required title" type="text" name="title" size="30" maxlength="255" style="width:99%" value="<?php echo $row->title; ?>" /></td>
 			</tr>
 			<?php if($allow_alias) { ?>
@@ -107,7 +107,7 @@ defined('_VALID_MOS') or die(); ?>
 			</tr>
 			<?php } ?>
 			<?php if($allow_desc) { ?>   <tr>
-				<td align="left" valign="top"><strong><?php echo _E_M_DESC; ?></strong></td>
+				<td align="left" valign="top"><strong><?php echo _DESC; ?></strong></td>
 				<td><textarea class="inputbox" style="width:99%"  rows="2" name="metadesc"><?php echo str_replace('&', '&amp;', $row->metadesc); ?></textarea></td>
 			</tr>
 			<?php } ?>

@@ -37,7 +37,7 @@ echo colorizeAppStatus($appStatusGood);
 	quickiconButton($link,'pack.png', _JP_CREATE_BACKUP);
 
 	$link = 'index2.php?option=com_joomlapack&act=db';
-	quickiconButton($link,'db.png',_JP_DB_MANAGEMENT);
+	quickiconButton($link,'db.png',_DB_MANAGEMENT);
 
 	$link = "index2.php?option=com_joomlapack&act=def";
 	quickiconButton($link,'stopfolder.png', _JP_DONT_SAVE_DIRECTORIES);

@@ -137,7 +137,7 @@ class HTML_users {
 			} else if (form.gid.value == "") {
 				alert( "<?php echo _ENTER_GROUP_PLEASE ?>" );
 			} else if (trim(form.password.value) != "" && form.password.value != form.password2.value){
-				alert( "<?php echo _BAD_PASSWORD ?>" );
+				alert( "<?php echo _BAD_PASSWORDWORD ?>" );
 			} else if (form.gid.value == "29") {
 				alert( "<?php echo _BAD_GROUP_1 ?>" );
 			} else if (form.gid.value == "30") {
@@ -174,11 +174,11 @@ class HTML_users {
 					<td><input class="inputbox" type="text" name="email" size="40" value="<?php echo $row->email; ?>" /></td>
 				</tr>
 				<tr>
-					<td class="key"><?php echo _NEW_PASSWORD ?>:</td>
+					<td class="key"><?php echo _NEW_PASSWORDWORD ?>:</td>
 					<td><input class="inputbox" type="password" name="password" size="40" value="" /></td>
 				</tr>
 				<tr>
-					<td class="key"><?php echo _REPEAT_PASSWORD ?>:</td>
+					<td class="key"><?php echo _REPEAT_PASSWORDWORD ?>:</td>
 					<td><input class="inputbox" type="password" name="password2" size="40" value="" /></td>
 				</tr>
 				<tr>
@@ -223,7 +223,7 @@ class HTML_users {
 			</table>
 <?php $tabs->endTab(); ?>
 
-<?php $tabs->startTab(_C_USERS_EXTRA_INFO, "user_info_extra"); ?>
+<?php $tabs->startTab(_ADDITIONAL_INFO, "user_info_extra"); ?>
 			<table width="100%">
 				<tr>
 					<td width="400" class="key"><label for="gender"><?php echo _C_USERS_GENDER ?></label></td>
@@ -244,7 +244,7 @@ class HTML_users {
 					</td>
 				</tr>
 				<tr>
-					<td class="key"><label><?php echo _C_USERS_LOCATION ?></label></td>
+					<td class="key"><label><?php echo _USERS_LOCATION ?></label></td>
 					<td>
 						<input size="100" class="inputbox" type="text" name="location" id="location" value="<?php echo $row->user_extra->location ?>"/>
 					</td>
@@ -313,11 +313,11 @@ class HTML_users {
 					<td><strong><?php echo $contact[0]->con_position; ?></strong></td>
 				</tr>
 				<tr>
-					<td class="key"><?php echo _CONTACT_HEADER_PHONE ?>:</td>
+					<td class="key"><?php echo _C_USERS_CONTACT_PHONE ?>:</td>
 					<td><strong><?php echo $contact[0]->telephone; ?></strong></td>
 				</tr>
 				<tr>
-					<td class="key"><?php echo _CONTACT_HEADER_FAX ?>:</td>
+					<td class="key"><?php echo _C_USERS_CONTACT_FAX ?>:</td>
 					<td><strong><?php echo $contact[0]->fax; ?></strong></td>
 				</tr>
 				<tr>

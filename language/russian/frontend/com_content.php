@@ -41,7 +41,7 @@ DEFINE('_E_FINISH_PUB','Дата окончания публикации:');
 DEFINE('_E_SHOW_FP','Показывать на главной странице:');
 DEFINE('_E_HIDE_TITLE','Скрыть заголовок:');
 DEFINE('_E_METADATA','Мета-тэги');
-DEFINE('_E_M_DESC','Описание:');
+DEFINE('_DESC','Описание:');
 DEFINE('_E_M_KEY','Ключевые слова:');
 DEFINE('_E_SUBJECT','Тема:');
 DEFINE('_E_EXPIRES','Дата истечения:');
@@ -69,7 +69,7 @@ DEFINE('_ORDER_DROPDOWN_S_C_DESC','Раздел / Категория по убы
 DEFINE('_YOU_HAVE_NO_CONTENT','Нет добавленного Вами содержимого');
 DEFINE('_CONTENT_IS_BEING_EDITED_BY_OTHER_PEOPLE','Содержимое сейчас редактируется другим человеком');
 DEFINE('_EMPTY_BLOG','Нет объектов для отображения!');
-DEFINE('_COM_CONTENT_USER_NOT_FOUND','Извините, пользователь не найден');
+DEFINE('_USER_NOT_FOUND','Извините, пользователь не найден');
 DEFINE('_COM_CONTENT_USERCONTENT_NOT_FOUND','Извините, материалы не найдены');
 DEFINE('_COM_CONTENT_NEW_ITEM','Новый объект');
 DEFINE('_COM_CONTENT_ITEM_SAVED','Изменения сохранены. Здесь (ссылка) страница для предпросмотра');
@@ -86,7 +86,6 @@ DEFINE('_EMAIL_YOUR_NAME','Ваше имя:');
 DEFINE('_EMAIL_YOUR_MAIL','Ваш e-mail:');
 DEFINE('_SUBJECT_PROMPT',' Тема сообщения:');
 DEFINE('_BUTTON_SUBMIT_MAIL','Отправить');
-DEFINE('_BUTTON_CANCEL','Отмена');
 DEFINE('_EMAIL_ERR_NOINFO','Вы должны правильно ввести свой e-mail и e-mail получателя этого письма.');
 DEFINE('_EMAIL_MSG',' Здравствуйте! Следующую ссылку на страницу сайта "%s" отправил Вам %s ( %s ).
 
@@ -96,3 +95,4 @@ DEFINE('_THANK_SUB_PUB','Спасибо за Ваш материал.');
 DEFINE('_EMAIL_INFO','Письмо отправил');
 DEFINE('_EMAIL_SENT','Ссылка на эту страницу отправлена для');
 DEFINE('_ON_NEW_CONTENT',"Пользователь [ %s ] добавил новый объект [ %s ]. Раздел: [ %s ]. Категория: [ %s ]");
+DEFINE('_TOC_JUMPTO','Оглавление');

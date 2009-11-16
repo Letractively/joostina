@@ -153,7 +153,7 @@ defined( '_VALID_MOS' ) or die();
 							<th colspan="4"><?php echo _OBJECT_DETAILS?></th>
 						</tr>
 						<tr>
-							<td width="15"><?php echo _HEADER_TITLE?>:</td>
+							<td width="15"><?php echo _CAPTION?>:</td>
 							<td width="50%">
 								<input class="text_area" type="text" name="title" size="30" maxlength="255" style="width:99%" value="<?php echo $row->title; ?>" />
 							</td>
@@ -212,7 +212,7 @@ defined( '_VALID_MOS' ) or die();
 				<table class="params" width="100%">
 				<tr>
 					<td><?php echo _E_STATE?></td>
-					<td><?php echo $row->state > 0? _PUBLISHED :($row->state < 0? _IN_ARCHIVE : _DRAFT_NOT_PUBLISHED); ?></td>
+					<td><?php echo $row->state > 0? _PUBLISHED :($row->state < 0? _IN_ARCHIVE : _DRAFT_UNPUBLISHED); ?></td>
 				</tr>
 				<tr <?php echo $visibility; ?>>
 					<td><?php echo _HEADER_HITS?>:</td>
@@ -473,7 +473,7 @@ defined( '_VALID_MOS' ) or die();
 					$curr_templates = $templates->parse_curr_templates($row->templates);
 ?>
 					<tr>
-						<td><?php echo _CC_PAGE_TEMPLATE?>: </td>
+						<td><?php echo _TEMPLATE_ITEM_SHOW?>: </td>
 						<td><?php echo $templates->templates_select_list('item_full', $curr_templates); ?> </td>
 					</tr>
 				</table>

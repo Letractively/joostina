@@ -25,9 +25,7 @@ if(!count($categories)){
 	$link = mosCategory::get_category_url($params); ?>
 		<a href="<?php echo $link; ?>" class="category" title="<?php echo $row->name; ?>"><?php echo $row->name; ?></a>
 <?php if($params->get('cat_items')) { ?>
-	&nbsp;<i>( <?php
-				echo $row->numitems;
-				echo _CHECKED_IN_ITEMS; ?> )</i>
+	&nbsp;<i>( <?php echo $row->numitems;?> )</i>
 <?php } ?>
 <?php if($params->get('cat_description') && $row->description) { ?>
 			<br />

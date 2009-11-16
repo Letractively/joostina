@@ -54,7 +54,7 @@ class mod_ml_login_Helper{
 		$mainframe = $this->_mainframe;
 		
 		$params->def('ml_login_text', _USER);
-		$params->def('ml_pass_text', _PASSWORD);
+		$params->def('ml_pass_text', _PASSWORDWORD);
 		
 		$login_label_def = '<label for="mod_login_USER" id="login_lbl">'.$params->get('ml_login_text').'</label>';
 		$login_input_def = '<input type="text" name="username" id="mod_login_USER" class="inputbox" alt="username" value="" />';

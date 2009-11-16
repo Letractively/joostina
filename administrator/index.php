@@ -77,7 +77,7 @@ if(isset($_POST['submit'])) {
 	$pass		= stripslashes(mosGetParam($_POST,'pass',null));
 
 	if($pass == null) {
-		mosRedirect(JPATH_SITE.'/'.JADMIN_BASE.'/',_PLEASE_ENTER_PASSWORD);
+		mosRedirect(JPATH_SITE.'/'.JADMIN_BASE.'/',_PLEASE_ENTER_PASSWORDWORD);
 		exit();
 	}
 
@@ -139,7 +139,7 @@ if(isset($_POST['submit'])) {
 				$database->query();
 			}
 
-			mosRedirect(JPATH_SITE.'/'.JADMIN_BASE.'/index.php?'.$config->config_admin_secure_code,_BAD_USERNAME_OR_PASSWORD);
+			mosRedirect(JPATH_SITE.'/'.JADMIN_BASE.'/index.php?'.$config->config_admin_secure_code,_BAD_USERNAME_OR_PASSWORDWORD);
 			exit();
 		}
 
@@ -239,7 +239,7 @@ if(isset($_POST['submit'])) {
 		echo "<script>document.location.href='$expired';</script>\n";
 		exit();
 	} else {
-		mosRedirect(JPATH_SITE.'/'.JADMIN_BASE.'/index.php?'.$config->config_admin_secure_code,_BAD_USERNAME_OR_PASSWORD);
+		mosRedirect(JPATH_SITE.'/'.JADMIN_BASE.'/index.php?'.$config->config_admin_secure_code,_BAD_USERNAME_OR_PASSWORDWORD);
 		exit();
 	}
 } else {

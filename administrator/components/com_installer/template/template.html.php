@@ -63,7 +63,7 @@ class HTML_templates {
 		<tr>
 			<th width="2%">#</th>
 			<th width="2%">&nbsp;</th>
-			<th class="title"><?php echo _HEADER_TITLE?></th>
+			<th class="title"><?php echo _CAPTION?></th>
 <?php
 		if($client == 'admin') {
 ?>

@@ -65,7 +65,7 @@ class HTML_trash {
 			</th>
 			<th width="20px">&nbsp;</th>
 			<th class="title">
-			<?php echo _HEADER_TITLE?>
+			<?php echo _CAPTION?>
 			</th>
 			<th>
 			<?php echo _SECTION?>

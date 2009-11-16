@@ -322,7 +322,7 @@ class HTML_admin_misc {
 		mosHTML::writableCell('media');
 		mosHTML::writableCell('modules');
 		mosHTML::writableCell('templates');
-		mosHTML::writableCell($mosConfig_cachepath,0,'<strong>'._CACHE_DIRECTORY.'</strong> ');
+		mosHTML::writableCell($mosConfig_cachepath,0,'<strong>'._CACHE_DIR.'</strong> ');
 		mosHTML::writableCell($sp,0,'<strong>'._SESSION_DIRECTORY.'</strong> ');
 ?>
 				</td>

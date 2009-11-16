@@ -45,8 +45,6 @@ DEFINE('_DELETING_XML_FILE','Удаление XML файла');
 DEFINE('_INSTALL_MODULE','Установленные модули');
 DEFINE('_NO_OTHER_MODULES','Сторонние модули не установлены');
 DEFINE('_MODULE_INSTALL','Установка модуля');
-DEFINE('_SITE_MODULES','Модули сайта');
-DEFINE('_ADMIN_MODULES','Модули панели управления');
 DEFINE('_CANNOT_DEL_FILE_NO_DIR','Невозможно удалить файл, т.к. каталог не существует');
 DEFINE('_CHOOSE_DIRECTORY_PLEASE','Пожалуйста, выберите каталог');
 DEFINE('_ZIP_UPLOAD_AND_INSTALL','Загрузка архива расширения с последующей установкой');
@@ -77,7 +75,7 @@ DEFINE('_CANNOT_RUN_INSTALL_METHOD','Метод "install" не может быт
 DEFINE('_CANNOT_RUN_UNINSTALL_METHOD','Метод "uninstall" не может быть вызван классом');
 DEFINE('_CANNOT_FIND_INSTALL_FILE','Установочный файл не найден');
 DEFINE('_XML_NOT_FOR','Установочный XML-файл - не для');
-DEFINE('_FILE_NOT_EXISTS','Файл не существует');
+DEFINE('_FILE_NOT_EXISTSS','Файл не существует');
 DEFINE('_INSTALL_TWICE','Вы пытаетесь дважды установить одно и то же расширение');
 DEFINE('_ERROR_COPYING_FILE','Ошибка копирования файла');
 DEFINE('_INSTALL_MANAGER','Менеджер расширений');
@@ -92,6 +90,3 @@ DEFINE('_COM_INSTALLER_MAMBOT_EXIST','Мамбот %s уже существуе�
 DEFINE('_COM_INSTALLER_ACTIVE','Разрешен');
 DEFINE('_COM_INSTALLER_NO_PREVIEW','Предпросмотр недоступен');
 DEFINE('_COM_INSTALLER_TEMPLATE_PREVIEW','Предпросмотр шаблона');
-DEFINE('_COM_INSTALLER_SITE_TEMPLATES','Шаблоны сайта');
-DEFINE('_COM_INSTALLER_ADMIN_TEMPLATES','Шаблоны админцентра');
-DEFINE('_COM_INSTALLER_SITE_LANGUAGES','Языки сайта');

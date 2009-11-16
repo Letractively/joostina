@@ -25,7 +25,7 @@ class HTML_checkin {
 	<table class="adminlist">
 		<tr>
 			<th class="title"><?php echo _OBJECT?></th>
-			<th class="title"><?php echo _HEADER_TITLE?></th>
+			<th class="title"><?php echo _CAPTION?></th>
 			<th><?php echo _WHO_BLOCK?></th>
 			<th><?php echo _BLOCK_TIME?></th>
 			<th><?php echo _ACTION?></th>

@@ -24,7 +24,7 @@ DEFINE('_BUTTON_LINK_TIP','Ссылка для вызова сайта или к
 DEFINE('_BUTTON_LINK_IN_NEW_WINDOW','В новом окне');
 DEFINE('_BUTTON_LINK_IN_NEW_WINDOW_TIP','Ссылка будет открыта в новом окне');
 DEFINE('_BUTTON_ORDER','Расположить после');
-DEFINE('_BUTTONS_TAB_GENERAL','Общее');
+DEFINE('_GENERAL','Общее');
 DEFINE('_BUTTONS_TAB_DISPLAY','Отображение');
 DEFINE('_DISPLAY_BUTTON','Отображать');
 DEFINE('_PRESS_TO_CHOOSE_ICON','Нажмите для выбора картинки (откроется в новом окне)');

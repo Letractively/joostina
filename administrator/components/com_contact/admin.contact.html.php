@@ -140,7 +140,7 @@ class HTML_contact {
 		<tr>
 			<th>
 			<?php echo _ENQUIRY; ?>:
-			<small><?php echo $row->id? _EDIT_CATEGORY : _NEW_CONTACT; ?></small>
+			<small><?php echo $row->id? _EDIT_CATEGORY : _NEW; ?></small>
 			</th>
 		</tr>
 		</table>
@@ -208,13 +208,13 @@ class HTML_contact {
 					</td>
 				</tr>
 				<tr>
-					<td align="right"><?php echo _CONTACT_HEADER_PHONE?>:</td>
+					<td align="right"><?php echo _C_USERS_CONTACT_PHONE?>:</td>
 					<td>
 						<input class="inputbox" type="text" name="telephone" size="100" maxlength="100" value="<?php echo $row->telephone; ?>" />
 					</td>
 				</tr>
 				<tr>
-					<td align="right"><?php echo _CONTACT_HEADER_FAX?>:</td>
+					<td align="right"><?php echo _C_USERS_CONTACT_FAX?>:</td>
 					<td>
 						<input class="inputbox" type="text" name="fax" size="100" maxlength="100" value="<?php echo $row->fax; ?>" />
 					</td>

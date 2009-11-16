@@ -56,9 +56,9 @@ if($config->config_enable_admin_secure_code){
 			<div class="login-form">
 				<form action="index.php" method="post" name="loginForm" id="loginForm">
 					<div class="form-block">
-						<?php echo _UNAME ?>
+						<?php echo _USERNAME ?>
 						<input name="usrname" id="usrname" type="text" class="inputbox" size="15" />
-						<?php echo _PASS ?>
+						<?php echo _PASSWORD ?>
 						<input name="pass" type="password" class="inputbox" size="15" />
 <?php if($config->config_captcha) { ?>
 						<div>

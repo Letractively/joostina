@@ -505,7 +505,7 @@ class mosInstaller {
 				$filedest = mosPathName(mosPathName($p_destdir).$_file,false);
 
 				if(!file_exists($filesource)) {
-					$this->setError(1,_FILE_NOT_EXISTS." $filesource");
+					$this->setError(1,_FILE_NOT_EXISTSS." $filesource");
 					return false;
 				} else
 					if(file_exists($filedest) && !$overwrite) {

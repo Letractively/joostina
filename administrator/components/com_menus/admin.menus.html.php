@@ -26,7 +26,7 @@ class HTML_menusections {
 		<form action="index2.php" method="post" name="adminForm">
 		<table class="adminheading">
 		<tr>
-			<th class="menus"><?php echo _COM_MENUS_MENU_MANAGER?> <small>[ <?php echo $menutype; ?> ]</small></th>
+			<th class="menus"><?php echo _MENU_MANAGER?> <small>[ <?php echo $menutype; ?> ]</small></th>
 			<td class="jtd_nowrap"><?php echo _MAXIMUM_LEVELS?></td>
 			<td><?php echo $levellist; ?></td>
 			<td><?php echo _FILTER?>:</td>

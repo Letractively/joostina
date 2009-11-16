@@ -77,13 +77,13 @@ if (is_dir($abspath_folder)) {
 		echo _NO_IMAGES;
 	}else {
 
-	$count = count($the_image);
-	$i=0;
-	$k=1;
+		$count = count($the_image);
+		$i=0;
+		$k=1;
 
-	$pics = array();
+		$pics = array();
 
-	foreach ($the_image as $v) {
+		foreach ($the_image as $v) {
 
 			if(!$rotate_type){
 				$random = mt_rand(0, $count - 1);

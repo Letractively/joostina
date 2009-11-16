@@ -86,7 +86,7 @@ defined('_VALID_MOS') or die(); ?>
 <?php if($params->get('headings')) { ?>
 			<tr>
 				<th class="sectiontableheader">&nbsp;</th>
-				<th class="sectiontableheader" width="60%"><?php echo _HEADER_TITLE; ?></th>
+				<th class="sectiontableheader" width="60%"><?php echo _CAPTION; ?></th>
 				<th class="sectiontableheader"><?php echo _PUBLISHING; ?></th>
 <?php if($params->get('date')) { ?>
 				<th class="sectiontableheader" width="20%"><?php echo _DATE; ?></th>

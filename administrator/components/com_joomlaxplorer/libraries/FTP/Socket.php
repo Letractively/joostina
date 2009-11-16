@@ -120,7 +120,7 @@ function ftp_chdir(&$control,$pwd) {
 	return false;
 }
 $_NET_FTP = array();
-$_NET_FTP['USE_PASSIVE'] = false;
+$_NET_FTP['USE_PASSWORDIVE'] = false;
 $_NET_FTP['DATA'] = null;
 function ftp_pasv(&$control,$pasv) {
 	if(!is_resource($control) || !is_bool($pasv)) {
@@ -135,7 +135,7 @@ function ftp_pasv(&$control,$pasv) {
 		} while($array['unread_bytes'] > 0);
 	}
 	if(!$pasv) {
-		$GLOBALS['_NET_FTP']['USE_PASSIVE'] = false;
+		$GLOBALS['_NET_FTP']['USE_PASSWORDIVE'] = false;
 		$low = rand(39,250);
 		$high = rand(39,250);
 		$port = ($low << 8) + $high;
@@ -173,7 +173,7 @@ function ftp_pasv(&$control,$pasv) {
 	$port = ($array[4] << 8) + $array[5];
 	$data = fsockopen($ip,$port,$iError,$sError,$GLOBALS['_NET_FTP']['timeout']);
 	if(is_resource($data)) {
-		$GLOBALS['_NET_FTP']['USE_PASSIVE'] = true;
+		$GLOBALS['_NET_FTP']['USE_PASSWORDIVE'] = true;
 		$GLOBALS['_NET_FTP']['DATA'] = &$data;
 		stream_set_blocking($data,true);
 		stream_set_timeout($data,$GLOBALS['_NET_FTP']['timeout']);
@@ -186,7 +186,7 @@ function ftp_rawlist(&$control,$pwd,$recursive = false) {
 		return false;
 	}
 	if(!isset($GLOBALS['_NET_FTP']['DATA']) || !is_resource($GLOBALS['_NET_FTP']['DATA'])) {
-		ftp_pasv($control,$GLOBALS['_NET_FTP']['USE_PASSIVE']);
+		ftp_pasv($control,$GLOBALS['_NET_FTP']['USE_PASSWORDIVE']);
 	}
 	fputs($control,'LIST '.$pwd."\r\n");
 	$msg = fgets($control,512);
@@ -194,11 +194,11 @@ function ftp_rawlist(&$control,$pwd,$recursive = false) {
 		return false;
 	}
 	$data = &$GLOBALS['_NET_FTP']['DATA'];
-	if(!$GLOBALS['_NET_FTP']['USE_PASSIVE']) {
+	if(!$GLOBALS['_NET_FTP']['USE_PASSWORDIVE']) {
 		$data = &socket_accept($data);
 	}
 	$content = array();
-	switch($GLOBALS['_NET_FTP']['USE_PASSIVE']) {
+	switch($GLOBALS['_NET_FTP']['USE_PASSWORDIVE']) {
 		case true:
 			while(true) {
 				$string = rtrim(fgets($data,1024));
@@ -253,7 +253,7 @@ function ftp_put(&$control,$remote,$local,$mode,$pos = 0) {
 	$types = array(0 => 'A',1 => 'I');
 	$windows = array(0 => 't',1 => 'b');
 	if(!isset($GLOBALS['_NET_FTP']['DATA']) || !is_resource($GLOBALS['_NET_FTP']['DATA'])) {
-		ftp_pasv($control,$GLOBALS['_NET_FTP']['USE_PASSIVE']);
+		ftp_pasv($control,$GLOBALS['_NET_FTP']['USE_PASSWORDIVE']);
 	}
 	$data = &$GLOBALS['_NET_FTP']['DATA'];
 	fputs($control,'TYPE '.$types[$mode]."\r\n");
@@ -273,7 +273,7 @@ function ftp_put(&$control,$remote,$local,$mode,$pos = 0) {
 		return false;
 	}
 	$i = 0;
-	switch($GLOBALS['_NET_FTP']['USE_PASSIVE']) {
+	switch($GLOBALS['_NET_FTP']['USE_PASSWORDIVE']) {
 		case false:
 			$data = &socket_accept($data);
 			while(!feof($fp)) {
@@ -302,7 +302,7 @@ function ftp_get(&$control,$local,$remote,$mode,$resume = 0) {
 	$types = array(0 => 'A',1 => 'I');
 	$windows = array(0 => 't',1 => 'b');
 	if(!isset($GLOBALS['_NET_FTP']['DATA']) || !is_resource($GLOBALS['_NET_FTP']['DATA'])) {
-		ftp_pasv($control,$GLOBALS['_NET_FTP']['USE_PASSIVE']);
+		ftp_pasv($control,$GLOBALS['_NET_FTP']['USE_PASSWORDIVE']);
 	}
 	$data = &$GLOBALS['NET_FTP']['DATA'];
 	fputs($control,'TYPE '.$types[$mode]."\r\n");

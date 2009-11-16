@@ -10,11 +10,11 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-DEFINE('_WEBLINKS_MANAGEMENT','Управление web-ссылками');
-DEFINE('_WEBLINKS_HITS','Переходов');
+DEFINE('_LINKS_MANAGEMENT','Управление web-ссылками');
+DEFINE('_LINKS_HITS','Переходов');
 DEFINE('_SUBMIT_LINK','Добавить ссылку');
 DEFINE('_URL','URL:');
-DEFINE('_URL_DESC','Описание:');
+DEFINE('_DESC','Описание:');
 DEFINE('_WEBLINK_EXIST','Ссылка с таким именем уже существует. Измените имя и попробуйте ещё раз.');
 DEFINE('_WEBLINK_TITLE','Ссылка должна иметь название.');
 DEFINE('_ENTER_CORRECT_URL','Введите правильный URL');

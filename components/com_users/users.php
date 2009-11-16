@@ -224,7 +224,7 @@ function userSave($option,$uid) {
 			$crypt = md5($row->password.$salt);
 			$row->password = $crypt.':'.$salt;
 		} else {
-			echo "<script> alert(\"".addslashes(_PASS_MATCH)."\"); window.history.go(-1); </script>\n";
+			echo "<script> alert(\"".addslashes(_PASSWORD_MATCH)."\"); window.history.go(-1); </script>\n";
 			exit();
 		}
 	} else {
@@ -430,7 +430,7 @@ function CheckIn($userid,$access) {
 function lostPassForm($option) {
 
 	$mainframe = &mosMainFrame::getInstance();
-	$mainframe->SetPageTitle(_PROMPT_PASSWORD);	
+	$mainframe->SetPageTitle(_LOST_PASSWORDWORD);	
 
 	$config = &Jconfig::getInstance();
 	$database = &$mainframe->_db;
@@ -477,7 +477,7 @@ function sendNewPass() {
 	$query = "SELECT id FROM #__users WHERE username = ".$database->Quote($checkusername)." AND email = ".$database->Quote($confirmEmail);
 	$database->setQuery($query);
 	if(!($user_id = $database->loadResult()) || !$checkusername || !$confirmEmail) {
-		mosRedirect("index.php?option=com_users&task=lostPassword",_ERROR_PASS);
+		mosRedirect("index.php?option=com_users&task=lostPassword",_ERROR_PASSWORD);
 	}
 
 	echo $newpass = mosMakePassword();

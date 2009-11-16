@@ -66,7 +66,7 @@ class ContentView {
 			<th width="20">
 				<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count($rows); ?>);" />
 			</th>
-			<th class="title"><?php echo _HEADER_TITLE?></th>
+			<th class="title"><?php echo _CAPTION?></th>
 			<th align="center"><?php echo _REMOVE_FROM_FRONT?></th>
 			<th width="10%" class="jtd_nowrap"><?php echo _PUBLISHED?></th>
 			<th colspan="2" class="jtd_nowrap" width="5%"><?php echo _ORDERING?></th>
