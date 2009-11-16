@@ -21,6 +21,10 @@ DEFINE('_CURRENT_SERVER_TIME',date('Y-m-d H:i',time()));
 // схемы не http/https протоколов
 DEFINE('_URL_SCHEMES','data:, file:, ftp:, gopher:, imap:, ldap:, mailto:, news:, nntp:, telnet:, javascript:, irc:, mms:');
 
+// языковые константы
+DEFINE('_ISO2','utf-8');
+DEFINE('_ISO','charset=UTF-8');
+
 // пробуем устанавить более удобный режим работы
 @set_magic_quotes_runtime(0);
 
