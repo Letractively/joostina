@@ -259,7 +259,7 @@ class configUser_lostpass extends dbConfig {
 	/**
 	 * Заголовок страницы
 	 */
-	var $title = _PROMPT_PASSWORD;
+	var $title = _LOST_PASSWORDWORD;
 
 	/**
 	 * Шаблон страницы восстановления пароля

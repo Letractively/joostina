@@ -15,7 +15,6 @@ DEFINE('_RELATED_WITH_USER','Связано с пользователем');
 DEFINE('_CHANGE_CONTACT','Изменить контакт');
 DEFINE('_CHANGE_USER','Изменить пользователя');
 DEFINE('_ENTER_NAME_PLEASE','Вы должны ввести имя');
-DEFINE('_NEW_CONTACT','Новый');
 DEFINE('_CONTACT_DETAILS','Детали контакта');
 DEFINE('_ADRESS_STREET_HOUSE','Адрес (улица, дом)');
 DEFINE('_CITY','Город');

@@ -15,7 +15,7 @@ class TOOLBAR_jx {
 		$dir = mosGetParam($_SESSION, 'jx_'.$GLOBALS['file_mode'].'dir', '');
 		mosMenuBar::startTable();
 		mosMenuBar::ext(_COPY,'#','-copy','id="tb-copy" onclick="javascript:Copy();"');
-		mosMenuBar::ext(_MENU_MOVE,'#','-move','id="tb-move" onclick="javascript:Move();"');
+		mosMenuBar::ext(_MOVE,'#','-move','id="tb-move" onclick="javascript:Move();"');
 		mosMenuBar::ext(_DELETE,'#','-delete','id="tb-delete" onclick="javascript:Delete();"');
 		mosMenuBar::ext(_MENU_CHMOD,'#','-chmod','id="tb-chmod" onclick="javascript:Chmod();"');
 		if(ini_get("file_uploads")) {

@@ -10,7 +10,6 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-DEFINE('_LANGUAGE_PACKS','Языковые пакеты');
 DEFINE('_E_LANGUAGE','Язык');
 DEFINE('_LANGUAGE_EDITOR','Редактор языка');
 DEFINE('_LANGUAGE_SAVED','Язык успешно изменен');

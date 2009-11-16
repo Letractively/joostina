@@ -27,7 +27,7 @@ class HTML_weblinks {
 		<table class="adminheading">
 		<tr>
 			<th>
-			<?php echo _WEBLINKS_MANAGEMENT?>
+			<?php echo _LINKS_MANAGEMENT?>
 			</th>
 			<td>
 			<?php echo _FILTER?>:
@@ -62,7 +62,7 @@ class HTML_weblinks {
 			<?php echo _CATEGORY?>
 			</th>
 			<th width="5%">
-			<?php echo _WEBLINKS_HITS?>
+			<?php echo _LINKS_HITS?>
 			</th>
 		</tr>
 		<?php

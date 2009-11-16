@@ -328,7 +328,7 @@ switch ($action) {
 		$changefreq[] = mosHTML::makeOption( 'weekly', _XMAP_CFG_CHANGEFREQ_WEEKLY);
 		$changefreq[] = mosHTML::makeOption( 'monthly', _XMAP_CFG_CHANGEFREQ_MONTHLY);
 		$changefreq[] = mosHTML::makeOption( 'yearly', _XMAP_CFG_CHANGEFREQ_YEARLY);
-		$changefreq[] = mosHTML::makeOption( 'never', _XMAP_CFG_CHANGEFREQ_NEVER);
+		$changefreq[] = mosHTML::makeOption( 'never', _ALWAYS);
 		$lists['changefreq'] = mosHTML::selectList( $changefreq, 'changefreq', 'class="inputbox" size="1"', 'value', 'text', $menu->changefreq );
 		$priority = array();
 		for ($i=0;$i<=9;$i++) {

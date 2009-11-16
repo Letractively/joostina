@@ -846,7 +846,7 @@ class HTML_config {
 			<td><input class="text_area" type="text" name="config_smtpuser" size="50" value="<?php echo $row->config_smtpuser; ?>"/></td>
 		</tr>
 		<tr>
-			<td><?php echo mosToolTip(_SMTP_PASS2,'','','',_SMTP_PASS)?>:</td>
+			<td><?php echo mosToolTip(_SMTP_PASSWORD2,'','','',_SMTP_PASSWORD)?>:</td>
 			<td><input class="text_area" type="text" name="config_smtppass" size="50" value="<?php echo $row->config_smtppass; ?>"/></td>
 		</tr>
 		<tr>

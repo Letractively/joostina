@@ -110,7 +110,7 @@ class HTML_newsfeeds {
 		if($my->gid == 25) {
 			$visible = 1;
 		}
-		mosHTML::writableCell($mosConfig_cachepath,0,'<strong>'._CACHE_DIRECTORY.'</strong> ',$visible);
+		mosHTML::writableCell($mosConfig_cachepath,0,'<strong>'._CACHE_DIR.'</strong> ',$visible);
 ?>
 				</table>
 			</td>

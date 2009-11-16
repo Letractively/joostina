@@ -23,5 +23,4 @@ DEFINE('_PARENT_MENU_ITEM2','Родительский пункт меню. До�
 DEFINE('_THIS_FILEDS_REQUIRED','<font color="red">*</font> пункты обязательны для заполнения');
 DEFINE('_MENU_ITEM_DELETED','Пункт меню удалён');
 DEFINE('_FIRST_LEVEL','Первый уровень');
-DEFINE('_C_LINKEDITOR_TITLE','Заголовок');
 DEFINE('_C_LINKEDITOR_LINK','Ссылка');

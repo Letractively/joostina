@@ -30,7 +30,7 @@ class mosArtBannerClient extends mosDBTable {
 	function check() {
 		// check for valid client name
 		if(trim($this->name == "")) {
-			$this->_error = _ABP_CL_MSNF;
+			$this->_error = _BNR_CLIENT_NAME;
 			return false;
 		}
 

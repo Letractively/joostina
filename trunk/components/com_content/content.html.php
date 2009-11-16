@@ -811,7 +811,7 @@ jd_inc(':(--show');
 		<tr>
 			<td colspan="2">
 			<span class="button"><input type="submit" name="submit" value="<?php echo _BUTTON_SUBMIT_MAIL; ?>" /></span>
-			<span class="button"><input type="button" name="cancel" value="<?php echo _BUTTON_CANCEL; ?>" onclick="window.close();" /></span>
+			<span class="button"><input type="button" name="cancel" value="<?php echo _CANCEL; ?>" onclick="window.close();" /></span>
 			</td>
 		</tr>
 	</table>

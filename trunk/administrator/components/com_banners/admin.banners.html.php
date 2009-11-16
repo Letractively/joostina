@@ -41,7 +41,7 @@ class HTML_banners {
 					<th width="90"><?php echo _ABP_CLICKS; ?></th>
 					<th width="90"><?php echo _ABP_PRCLICKS; ?></th>
 					<th width="90"><?php echo _ABP_REPEAT_TYPE; ?></th>
-					<th width="47"><?php echo _ABP_PUBLISHED; ?></th>
+					<th width="47"><?php echo _PUBLISHED; ?></th>
 				</tr>
 <?php
 				$k = 0;
@@ -119,7 +119,7 @@ class HTML_banners {
 							?>
 						</td>
 <?php
-						$times = "<tr><td>" . _ABP_FROM . " : " . $row->publish_up_date . "</td></tr>";
+						$times = "<tr><td>" . _MAIL_FROM . " : " . $row->publish_up_date . "</td></tr>";
 						$times .= "<tr><td>" . _ABP_TO . " : ";
 			
 						if(isset($row->publish_down_date)) {
@@ -196,7 +196,7 @@ class HTML_banners {
 						?>
 						
 						<td align="center">
-							<a href="javascript: void(0);" onMouseOver="return overlib('<table border=0 width=100% height=100%><?php echo $times; ?></table>', CAPTION, '<?php echo _ABP_PUBLISH_INFORMATION; ?>', BELOW, RIGHT);" onMouseOut="return nd();" <?php echo $onclick; ?>><img src="<?php echo $cur_file_icons_path; ?>/<?php echo $img; ?>" border=0 alt="" /></a>
+							<a href="javascript: void(0);" onMouseOver="return overlib('<table border=0 width=100% height=100%><?php echo $times; ?></table>', CAPTION, '<?php echo _PUBLISH_INFO; ?>', BELOW, RIGHT);" onMouseOut="return nd();" <?php echo $onclick; ?>><img src="<?php echo $cur_file_icons_path; ?>/<?php echo $img; ?>" border=0 alt="" /></a>
 						</td>
 					</tr>
 					
@@ -505,7 +505,7 @@ class HTML_banners {
 		</td>
 	</tr>
 	<tr class="row0">
-		<td align="right"><?php echo _ABP_PASS; ?></td>
+		<td align="right"><?php echo _PASSWORDWORD; ?></td>
 		<td colspan="2" align="left">
 			<input class="inputbox" type="text" name="password" size="30" maxlength="60" value="<?php echo $row->password; ?>">
 			&nbsp;&nbsp;&nbsp;&nbsp;<?php echo _ABP_FORM_SEND_CLIENT; ?>&nbsp;
@@ -646,11 +646,11 @@ class HTML_banners {
 		</table>
 <?php
 	$tabs->endTab();
-	$tabs->startTab(_ABP_DATE, "date-page");
+	$tabs->startTab(_DATE, "date-page");
 ?>
 	<table width="100%" class="adminlist">
 	<tr>
-		<th colspan="3"><?php echo _ABP_DATE_PUB; ?></th>
+		<th colspan="3"><?php echo _DATE_PUB; ?></th>
 	</tr>
 	<tr>
 		<td width='130' align="left"><?php echo _ABP_EVENT_STARTDATE; ?></td>
@@ -699,7 +699,7 @@ class HTML_banners {
 		</td>
 	</tr>
 	<tr onmouseover="checkPublish();">
-		<td align="left"><?php echo _ABP_EVENT_REPEATTYPE; ?></td>
+		<td align="left"><?php echo _ABP_REPEAT_TYPE; ?></td>
 		<td colspan="2" align="left">
 <?php
 	buildReccurTypeSelect($row->reccurtype, 'onmouseover="checkPublish();" onChange="checkDisable();"');
@@ -787,8 +787,8 @@ class HTML_banners {
 			<td><?php echo _ACTIVE; ?></td>
 			<td colspan="2">
 				<select name="state" id="state" <?php echo ($row->imp_made == $row->imp_total) ? 'readonly' : ''; ?>>
-					<option value="1" <?php echo ($row->state == '1') ? 'selected' : ''; ?>><?php echo _ABP_YES; ?></option>
-					<option value="0" <?php echo ($row->state == '0') ? 'selected' : ''; ?>><?php echo _ABP_NO; ?></option>
+					<option value="1" <?php echo ($row->state == '1') ? 'selected' : ''; ?>><?php echo _YES; ?></option>
+					<option value="0" <?php echo ($row->state == '0') ? 'selected' : ''; ?>><?php echo _NONE; ?></option>
 				</select>&nbsp;&nbsp;
 				<?php echo mosToolTip(_ABP_BANNER_STATE_TOOL_TIP); ?>
 			</td>
@@ -838,7 +838,7 @@ class HTML_banners {
 <?php
 
 	$link = 'index2.php?option=com_banners&amp;task=banners';
-	HTML_banners::quickiconButton($link,'pack.png', _ABP_BANNER_MANAGER);
+	HTML_banners::quickiconButton($link,'pack.png', _BANNERS_MANAGEMENT);
 
 	$link = 'index2.php?option=com_banners&amp;task=categories';
 	HTML_banners::quickiconButton($link,'stopfolder.png', _ABP_BANNER_CATEGORY_MANAGER);
@@ -882,7 +882,7 @@ class HTML_banners {
 					<td align="center"><?php echo $info_clients['non_publ']; ?></td>
 				</tr>
 				<tr>
-					<th class="title" colspan="3"><?php echo _ABP_FOLDER_CATEGORIES;?></th>
+					<th class="title" colspan="3"><?php echo _CATEGORIES;?></th>
 					<td align="center"><?php echo $info_categories['attivi'] + $info_categories['non_publ']; ?></td>
 					<td align="center"><?php echo $info_categories['attivi']; ?></td>
 					<td align="center"><?php echo $info_categories['non_publ']; ?></td>
@@ -935,12 +935,12 @@ class HTML_bannerClient {
 		<th align="left"><?php echo _ABP_CLIENT_NAME; ?></th>
 		<th width="177" align="left"><?php echo _ABP_CONTACT; ?></th>
 		<th width="177" align="left"><?php echo _ABP_E_EMAIL; ?></th>
-		<th align="center"><?php echo _ABP_NO_OF_BANNERS; ?></th>
+		<th align="center"><?php echo _NONE_OF_BANNERS; ?></th>
 		<th align="center"><?php echo _ABP_BANNERS_ATT; ?></th>
 		<th align="center"><?php echo _ABP_BANNERS_TER; ?></th>
 		<th align="center"><?php echo _ABP_BANNERS_NO_PUB; ?></th>
 		<th align="center"><?php echo _ABP_BANNERS_IN_ATT; ?></th>
-		<th width="10%"><?php echo _ABP_PUBLISHED; ?></th>
+		<th width="10%"><?php echo _PUBLISHED; ?></th>
 	</tr>
 <?php
 		$k = 0;
@@ -1072,7 +1072,7 @@ class HTML_bannerCategory {
 			<th width="20"><b>ID</b></th>
 			<th class="title" width="75%"><?php echo _ABP_C_CATEGORY_NAME; ?></th>
 			<th width="15%"><?php echo _ABP_C_NUM_OF_RECORDS; ?></th>
-			<th width="10%"><?php echo _ABP_PUBLISHED; ?></th>
+			<th width="10%"><?php echo _PUBLISHED; ?></th>
 		</tr>
 <?php
 			$k = 0;
@@ -1142,7 +1142,7 @@ function submitbutton(pressbutton, section) {
 <form action="index2.php" method="post" name="adminForm">
 <table border="0" class="adminheading">
 		<tbody><tr>
-			<th class="categories"><?php echo $row->id ? _ABP_EDIT_CATEGORY : _ABP_ADD_CATEGORY; ?></th>
+			<th class="categories"><?php echo $row->id ? _CHANGE_CATEGORY : _ABP_ADD_CATEGORY; ?></th>
 		</tr>
 	</tbody>
 </table>
@@ -1152,7 +1152,7 @@ function submitbutton(pressbutton, section) {
 		<td><input class="inputbox" type="text" name="name" value="<?php echo $row->name; ?>" size="70" maxlength="255" /></td>
 	</tr>
 	<tr class="row1">
-		<td valign="top"><?php echo _ABP_E_DESCRITION; ?></td>
+		<td valign="top"><?php echo _DESCRIPTION; ?></td>
 		<td><textarea class="inputbox" name="description" rows="5" cols="50"><?php echo $row->description; ?></textarea></td>
 	</tr>
 	<input type="hidden" name="option" value="com_banners" />
@@ -1170,13 +1170,13 @@ class HTML_bannersOther {
 	<table class="adminform">
 	<tr>
 		<th class="title">
-			<?php echo _ABP_LOAD_FILE; ?> :
+			<?php echo _TASK_UPLOAD_FILE; ?> :
 		</th>
 	</tr>
 	<tr>
 		<td align="center">
 			<input class="inputbox" name="userfile" type="file" />
-		<input class="button" type="submit" value="<?php echo _ABP_LOAD; ?>" name="fileupload" />
+		<input class="button" type="submit" value="<?php echo _TASK_UPLOAD; ?>" name="fileupload" />
 		</td>
 	</tr>
 	</table>

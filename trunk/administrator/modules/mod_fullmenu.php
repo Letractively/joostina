@@ -67,17 +67,17 @@ var myMenu =[
 [null,'<?php echo _SITE?>',null,null,'<?php echo _MOD_FULLMENU_CMS_FEATURES?>',
 <?php
 	if($canConfig) {
-?>['<img src="<?php echo $cur_file_icons_path ?>config.png" />','<?php echo _MOD_FULLMENU_GLOBAL_CONFIG?>','index2.php?option=com_config&hidemainmenu=1',null,'<?php echo _MOD_FULLMENU_GLOBAL_CONFIG_TIP?>'],
+?>['<img src="<?php echo $cur_file_icons_path ?>config.png" />','<?php echo _GLOBAL_CONFIG?>','index2.php?option=com_config&hidemainmenu=1',null,'<?php echo _GLOBAL_CONFIG_TIP?>'],
 <?php
 	}
 	if($manageLanguages) {
-?>['<img src="<?php echo $cur_file_icons_path ?>language.png" />','<?php echo _MOD_FULLMENU_LANGUAGES?>','index2.php?option=com_languages',null,'<?php echo _MOD_FULLMENU_LANGUAGES_TIP?>',
+?>['<img src="<?php echo $cur_file_icons_path ?>language.png" />','<?php echo _LANGUAGE_PACKS?>','index2.php?option=com_languages',null,'<?php echo _LANGUAGE_PACKS_TIP?>',
 
 ],
 <?php
 	}
 ?>['<img src="<?php echo $cur_file_icons_path ?>preview.png" />', '<?php echo _MOD_FULLMENU_SITE_PREVIEW?>', null, null, '<?php echo _MOD_FULLMENU_SITE_PREVIEW?>',
-['<img src="<?php echo $cur_file_icons_path ?>preview.png" />','<?php echo _MOD_FULLMENU_SITE_PREVIEW_IN_NEW_WINDOW?>','<?php echo JPATH_SITE; ?>/index.php','_blank','<?php echo JPATH_SITE; ?>'],
+['<img src="<?php echo $cur_file_icons_path ?>preview.png" />','<?php echo _BUTTON_LINK_IN_NEW_WINDOW?>','<?php echo JPATH_SITE; ?>/index.php','_blank','<?php echo JPATH_SITE; ?>'],
 ['<img src="<?php echo $cur_file_icons_path ?>preview.png" />','<?php echo _MOD_FULLMENU_SITE_PREVIEW_IN_THIS_WINDOW?>','index2.php?option=com_admin&task=preview',null,'<?php echo JPATH_SITE; ?>'],
 ['<img src="<?php echo $cur_file_icons_path ?>preview.png" />','<?php echo _MOD_FULLMENU_SITE_PREVIEW_WITH_MODULE_POSITIONS?>','index2.php?option=com_admin&task=preview2',null,'<?php echo JPATH_SITE; ?>'],
 ],
@@ -88,13 +88,13 @@ var myMenu =[
 <?php
 	}
 ?>['<img src="<?php echo $cur_file_icons_path ?>search_text.png" />', '<?php echo _MOD_FULLMENU_SEARCHES?>', 'index2.php?option=com_statistics&task=searches', null, '<?php echo _MOD_FULLMENU_SEARCHES_TIP?>'],
-['<img src="<?php echo $cur_file_icons_path ?>globe3.png" />', '<?php echo _MOD_FULLMENU_PAGE_STATS?>', 'index2.php?option=com_statistics&task=pageimp', null, '<?php echo _MOD_FULLMENU_PAGE_STATS?>']
+['<img src="<?php echo $cur_file_icons_path ?>globe3.png" />', '<?php echo _PAGES_HITS?>', 'index2.php?option=com_statistics&task=pageimp', null, '<?php echo _PAGES_HITS?>']
 ],
 <?php
 	if($manageTemplates) {
-?>['<img src="<?php echo $cur_file_icons_path ?>template.png" />','<?php echo _TEMPLATES?>',null,null,'<?php echo _MOD_FULLMENU_TEMPLATES_TIP?>',
-	['<img src="<?php echo $cur_file_icons_path ?>template.png" />','<?php echo _MOD_FULLMENU_SITE_TEMPLATES?>','index2.php?option=com_templates',null,'<?php echo _MOD_FULLMENU_SITE_TEMPLATES?>'],
-	['<img src="<?php echo $cur_file_icons_path ?>template.png" />','<?php echo _MOD_FULLMENU_ADMIN_TEMPLATES?>','index2.php?option=com_templates&client=admin',null,'<?php echo _MOD_FULLMENU_ADMIN_TEMPLATES?>'],
+?>['<img src="<?php echo $cur_file_icons_path ?>template.png" />','<?php echo _TEMPLATES?>',null,null,'<?php echo _MOD_FULLMENU_NEW_SITE_TEMPLATE?>',
+	['<img src="<?php echo $cur_file_icons_path ?>template.png" />','<?php echo _COM_INSTALLER_SITE_TEMPLATES?>','index2.php?option=com_templates',null,'<?php echo _COM_INSTALLER_SITE_TEMPLATES?>'],
+	['<img src="<?php echo $cur_file_icons_path ?>template.png" />','<?php echo _COM_INSTALLER_ADMIN_TEMPLATES?>','index2.php?option=com_templates&client=admin',null,'<?php echo _COM_INSTALLER_ADMIN_TEMPLATES?>'],
 	_cmSplit,
 	['<img src="<?php echo $cur_file_icons_path ?>template.png" />','<?php echo _MOD_FULLMENU_MODULES_POSITION?>','index2.php?option=com_templates&task=positions',null,'<?php echo _MOD_FULLMENU_MODULES_POSITION?>'],
 	['<img src="<?php echo $cur_file_icons_path ?>install.png" />','<?php echo _MOD_FULLMENU_NEW_SITE_TEMPLATE?>','index2.php?option=com_installer&element=template&client=admin',null,'<?php echo _MOD_FULLMENU_NEW_SITE_TEMPLATE?>']
@@ -113,10 +113,10 @@ var myMenu =[
 ],
 <?php } ?>
 
-[null,'<?php echo _MOD_FULLMENU_MENU?>',null,null,'<?php echo _MOD_FULLMENU_MENU?>',
+[null,'<?php echo _MENU?>',null,null,'<?php echo _MENU?>',
 <?php
 	if($manageMenuMan) {
-?>['<img src="<?php echo $cur_file_icons_path ?>menus.png" />','<?php echo _MOD_FULLMENU_MENU?>','index2.php?option=com_menumanager',null,'<?php echo _MOD_FULLMENU_MENU?>'],
+?>['<img src="<?php echo $cur_file_icons_path ?>menus.png" />','<?php echo _MENU?>','index2.php?option=com_menumanager',null,'<?php echo _MENU?>'],
 _cmSplit,
 <?php
 	}
@@ -157,13 +157,13 @@ _cmSplit,
 _cmSplit,
 ['<img src="<?php echo $cur_file_icons_path ?>add_section.png" />','<?php echo _SECTIONS?>','index2.php?option=com_sections&scope=content',null,'<?php echo _SECTIONS?>'],
 ['<img src="<?php echo $cur_file_icons_path ?>sections.png" />','<?php echo _CATEGORIES?>','index2.php?option=com_categories&section=content',null,'<?php echo _CATEGORIES?>'],
-['<img src="<?php echo $cur_file_icons_path ?>masadd.png" />','<?php echo _MOD_FULLMENU_MASS_CONTENT_ADD?>','index2.php?option=com_sections&task=masadd',null,'<?php echo _MOD_FULLMENU_MASS_CONTENT_ADD?>'],
+['<img src="<?php echo $cur_file_icons_path ?>masadd.png" />','<?php echo _MASS_CONTENT_ADD?>','index2.php?option=com_sections&task=masadd',null,'<?php echo _MASS_CONTENT_ADD?>'],
 _cmSplit,
 ['<img src="<?php echo $cur_file_icons_path ?>home.png" />','<?php echo _MOD_FULLMENU_CONTENT_ON_FRONTPAGE?>','index2.php?option=com_frontpage',null,'<?php echo _MOD_FULLMENU_CONTENT_ON_FRONTPAGE?>'],
 ['<img src="<?php echo $cur_file_icons_path ?>edit.png" />','<?php echo _ARCHIVE?>','index2.php?option=com_content&task=showarchive&sectionid=0',null,'<?php echo _ARCHIVE?>'],
 _cmSplit,
 ['<img src="<?php echo $cur_file_icons_path ?>config.png" />','<?php echo _MOD_FULLMENU_C_DEF_SETUP?>',null,null,'<?php echo _MOD_FULLMENU_C_DEF_SETUP?>',
-	['<img src="<?php echo $cur_file_icons_path ?>config.png" />','<?php echo _MOD_FULLMENU_C_SECTION_BLOG?>','index2.php?option=com_content&task=config&act=sectionblog',null,'<?php echo _MOD_FULLMENU_C_SECTION_BLOG?>'],
+	['<img src="<?php echo $cur_file_icons_path ?>config.png" />','<?php echo _SECTION_BLOG?>','index2.php?option=com_content&task=config&act=sectionblog',null,'<?php echo _SECTION_BLOG?>'],
 	['<img src="<?php echo $cur_file_icons_path ?>config.png" />','<?php echo _CATEGORIES_BLOG?>','index2.php?option=com_content&task=config&act=categoryblog',null,'<?php echo _CATEGORIES_BLOG?>'],
 	['<img src="<?php echo $cur_file_icons_path ?>config.png" />','<?php echo _SECTION_LIST?>','index2.php?option=com_content&task=config&act=sectionlist',null,'<?php echo _SECTION_LIST?>'],
 	['<img src="<?php echo $cur_file_icons_path ?>config.png" />','<?php echo _MOD_FULLMENU_C_TABLE_BLOG?>','index2.php?option=com_content&task=config&act=categorytable',null,'<?php echo _MOD_FULLMENU_C_TABLE_BLOG?>'],
@@ -171,7 +171,7 @@ _cmSplit,
 	['<img src="<?php echo $cur_file_icons_path ?>config.png" />','<?php echo _CATEGORIES_ARHIVE?>','index2.php?option=com_content&task=config&act=categoryarchive',null,'<?php echo _CATEGORIES_ARHIVE?>'],
 	['<img src="<?php echo $cur_file_icons_path ?>config.png" />','<?php echo _MOD_FULLMENU_USER_CONTENT?>','index2.php?option=com_content&task=config&act=ucontent',null,'<?php echo _MOD_FULLMENU_USER_CONTENT?>']
 ],
-['<img src="<?php echo $cur_file_icons_path ?>globe3.png" />', '<?php echo _MOD_FULLMENU_PAGES_HITS?>', 'index2.php?option=com_statistics&task=pageimp', null, '<?php echo _MOD_FULLMENU_PAGES_HITS?>'],
+['<img src="<?php echo $cur_file_icons_path ?>globe3.png" />', '<?php echo _PAGES_HITS?>', 'index2.php?option=com_statistics&task=pageimp', null, '<?php echo _PAGES_HITS?>'],
 ['<img src="<?php echo $cur_file_icons_path ?>trash.png" />','<?php echo _MOD_FULLMENU_CONTENT_TRASH?>','index2.php?option=com_trash&catid=content',null,'<?php echo _MOD_FULLMENU_CONTENT_TRASH?>'],
 ],
 <?php
@@ -237,10 +237,10 @@ _cmSplit,
 <?php
 	if($editAllModules) {
 ?>
-	['<img src="<?php echo $cur_file_icons_path ?>module.png" />', '<?php echo _MOD_FULLMENU_SITE_MODULES?>', "index2.php?option=com_modules", null, '<?php echo _MOD_FULLMENU_SITE_MODULES?>'],
-	['<img src="<?php echo $cur_file_icons_path ?>module.png" />', '<?php echo _MOD_FULLMENU_ADMIN_MODULES?>', "index2.php?option=com_modules&client=admin", null, '<?php echo _MOD_FULLMENU_ADMIN_MODULES?>'],
+	['<img src="<?php echo $cur_file_icons_path ?>module.png" />', '<?php echo _SITE_MODULES?>', "index2.php?option=com_modules", null, '<?php echo _SITE_MODULES?>'],
+	['<img src="<?php echo $cur_file_icons_path ?>module.png" />', '<?php echo _ADMIN_MODULES?>', "index2.php?option=com_modules&client=admin", null, '<?php echo _ADMIN_MODULES?>'],
 	_cmSplit,
-	['<img src="<?php echo $cur_file_icons_path ?>install.png" />', '<?php echo _MOD_FULLMENU_MODULES_INSTALL_DEINSTALL?>', 'index2.php?option=com_installer&element=module', null, '<?php echo _MOD_FULLMENU_MODULES_INSTALL_DEINSTALL?>'],
+	['<img src="<?php echo $cur_file_icons_path ?>install.png" />', '<?php echo _MOD_FULLMENU_MODULES_SETUP?>', 'index2.php?option=com_installer&element=module', null, '<?php echo _MOD_FULLMENU_MODULES_SETUP?>'],
 	<?php
 	}
 ?>],
@@ -255,37 +255,37 @@ _cmSplit,
 <?php } ?>
 ],
 <?php } if($installModules) { ?>
-[null,'<?php echo _EXTENSIONS?>',null,null,'<?php echo _MOD_FULLMENU_EXTENSION_MANAGEMENT?>',
+[null,'<?php echo _EXTENSIONS?>',null,null,'<?php echo _EXTENSION_MANAGEMENT?>',
 ['<img src="<?php echo $cur_file_icons_path ?>install.png" />', '<?php echo _INSTALLATION . " / " . _DELETING?>','index2.php?option=com_installer&element=installer',null,'<?php echo _INSTALLATION . " / " . _DELETING?>'],
 <?php if($manageLanguages) { ?>
-_cmSplit,['<img src="<?php echo $cur_file_icons_path ?>install.png" />','<?php echo _MOD_FULLMENU_SITE_LANGUAGES?>','index2.php?option=com_installer&element=language',null,'<?php echo _MOD_FULLMENU_SITE_LANGUAGES?>'],
+_cmSplit,['<img src="<?php echo $cur_file_icons_path ?>install.png" />','<?php echo _COM_INSTALLER_SITE_LANGUAGES?>','index2.php?option=com_installer&element=language',null,'<?php echo _COM_INSTALLER_SITE_LANGUAGES?>'],
 <?php } if($manageTemplates) {?>
 _cmSplit,
-['<img src="<?php echo $cur_file_icons_path ?>install.png" />','<?php echo _MOD_FULLMENU_SITE_TEMPLATES?>','index2.php?option=com_installer&element=template&client=',null,'<?php echo _MOD_FULLMENU_SITE_TEMPLATES?>'],
-['<img src="<?php echo $cur_file_icons_path ?>install.png" />','<?php echo _MOD_FULLMENU_ADMIN_TEMPLATES?>','index2.php?option=com_installer&element=template&client=admin',null,'<?php echo _MOD_FULLMENU_ADMIN_TEMPLATES?>'],
+['<img src="<?php echo $cur_file_icons_path ?>install.png" />','<?php echo _COM_INSTALLER_SITE_TEMPLATES?>','index2.php?option=com_installer&element=template&client=',null,'<?php echo _COM_INSTALLER_SITE_TEMPLATES?>'],
+['<img src="<?php echo $cur_file_icons_path ?>install.png" />','<?php echo _COM_INSTALLER_ADMIN_TEMPLATES?>','index2.php?option=com_installer&element=template&client=admin',null,'<?php echo _COM_INSTALLER_ADMIN_TEMPLATES?>'],
 <?php } ?>
 ],
 <?php }?>
 [null,'<?php echo _MOD_FULLMENU_JOOMLA_TOOLS?>',null,null,'<?php echo _MOD_FULLMENU_JOOMLA_TOOLS?>',
-['<img src="<?php echo $cur_file_icons_path ?>messaging_inbox.png" />','<?php echo _MOD_FULLMENU_PRIVATE_MESSAGES?>','index2.php?option=com_messages',null,'<?php echo _MOD_FULLMENU_PRIVATE_MESSAGES?>'],
-['<img src="<?php echo $cur_file_icons_path ?>messaging_config.png" />','<?php echo _MOD_FULLMENU_PRIVATE_MESSAGES_CONFIG?>','index2.php?option=com_messages&task=config&hidemainmenu=1',null,'<?php echo _MOD_FULLMENU_PRIVATE_MESSAGES_CONFIG?>'],
+['<img src="<?php echo $cur_file_icons_path ?>messaging_inbox.png" />','<?php echo _PRIVATE_MESSAGES?>','index2.php?option=com_messages',null,'<?php echo _PRIVATE_MESSAGES?>'],
+['<img src="<?php echo $cur_file_icons_path ?>messaging_config.png" />','<?php echo _PRIVATE_MESSAGES_CONFIG?>','index2.php?option=com_messages&task=config&hidemainmenu=1',null,'<?php echo _PRIVATE_MESSAGES_CONFIG?>'],
 _cmSplit,
-['<img src="<?php echo $cur_file_icons_path ?>media.png" />','<?php echo _MOD_FULLMENU_JWMM_MEDIA_MANAGER?>','index2.php?option=com_jwmmxtd',null,'<?php echo _MOD_FULLMENU_JWMM_MEDIA_MANAGER?>'],
+['<img src="<?php echo $cur_file_icons_path ?>media.png" />','<?php echo _MOD_FULLMENU_MEDIA_MANAGER?>','index2.php?option=com_jwmmxtd',null,'<?php echo _MOD_FULLMENU_MEDIA_MANAGER?>'],
 <?php if($canConfig) { ?>
 ['<img src="<?php echo $cur_file_icons_path ?>jfmanager.png" />','<?php echo _MOD_FULLMENU_FILE_MANAGER?>','index2.php?option=com_joomlaxplorer',null,'<?php echo _MOD_FULLMENU_FILE_MANAGER?>'],
 ['<img src="<?php echo $cur_file_icons_path ?>license.png" />','<?php echo _SQL_CONSOLE?>','index2.php?option=com_easysql',null,'<?php echo _SQL_CONSOLE?>'],
 _cmSplit,
-['<img src="<?php echo $cur_file_icons_path ?>checkin.png" />', '<?php echo _MOD_FULLMENU_GLOBAL_CHECKIN?>', 'index2.php?option=com_checkin', null,'<?php echo _MOD_FULLMENU_GLOBAL_CHECKIN?>'],
-['<img src="<?php echo $cur_file_icons_path ?>checkin.png" />', '<?php echo _MOD_FULLMENU_BLOCKED_OBJECTS?>', 'index2.php?option=com_checkin&task=mycheckin', null,'<?php echo _MOD_FULLMENU_BLOCKED_OBJECTS?>'],
+['<img src="<?php echo $cur_file_icons_path ?>checkin.png" />', '<?php echo _GLOBAL_CHECKIN?>', 'index2.php?option=com_checkin', null,'<?php echo _GLOBAL_CHECKIN?>'],
+['<img src="<?php echo $cur_file_icons_path ?>checkin.png" />', '<?php echo _BLOCKED_OBJECTS?>', 'index2.php?option=com_checkin&task=mycheckin', null,'<?php echo _BLOCKED_OBJECTS?>'],
  _cmSplit,
 ['<img src="<?php echo $cur_file_icons_path ?>jbackup.png" />','<?php echo _MOD_FULLMENU_JP_BACKUP_MANAGEMENT?>','index2.php?option=com_joomlapack',null,'<?php echo _MOD_FULLMENU_JP_BACKUP_MANAGEMENT?>',
 ['<img src="<?php echo $cur_file_icons_path ?>jbackup.png" />','<?php echo _MOD_FULLMENU_JP_CREATE_BACKUP?>','index2.php?option=com_joomlapack&act=pack&hidemainmenu=1',null,'<?php echo _MOD_FULLMENU_JP_CREATE_BACKUP?>'],
-['<img src="<?php echo $cur_file_icons_path ?>db.png" />','<?php echo _MOD_FULLMENU_JP_DB_MANAGEMENT?>','index2.php?option=com_joomlapack&act=db',null,'<?php echo _MOD_FULLMENU_JP_DB_MANAGEMENT?>'],
+['<img src="<?php echo $cur_file_icons_path ?>db.png" />','<?php echo _MOD_FULLMENU_DB_MANAGEMENT?>','index2.php?option=com_joomlapack&act=db',null,'<?php echo _MOD_FULLMENU_DB_MANAGEMENT?>'],
 ['<img src="<?php echo $cur_file_icons_path ?>config.png" />','<?php echo _MOD_FULLMENU_BACKUP_CONFIG?>','index2.php?option=com_joomlapack&act=config',null,'<?php echo _MOD_FULLMENU_BACKUP_CONFIG?>']],
 <?php } ?>
 <?php if($config->config_caching == 1) { ?>
 	<?php if($config->config_cache_handler == 'file') { ?>
-		['<img src="<?php echo $cur_file_icons_path ?>config.png" />','<?php echo _MOD_FULLMENU_CACHE_MANAGEMENT?>','index2.php?option=com_cache',null,'<?php echo _MOD_FULLMENU_CACHE_MANAGEMENT?>'],
+		['<img src="<?php echo $cur_file_icons_path ?>config.png" />','<?php echo _CACHE_MANAGEMENT?>','index2.php?option=com_cache',null,'<?php echo _CACHE_MANAGEMENT?>'],
 	<?php }?>
 	['<img src="<?php echo $cur_file_icons_path ?>config.png" />','<?php echo _MOD_FULLMENU_CLEAR_CONTENT_CACHE?>','index2.php?option=com_admin&task=clean_cache',null,'<?php echo _MOD_FULLMENU_CLEAR_CONTENT_CACHE?>'],
 	['<img src="<?php echo $cur_file_icons_path ?>config.png" />','<?php echo _MOD_FULLMENU_CLEAR_ALL_CACHE?>','index2.php?option=com_admin&task=clean_all_cache',null,'<?php echo _MOD_FULLMENU_CLEAR_ALL_CACHE?>'],
@@ -333,7 +333,7 @@ cmDraw ('myMenuID', myMenu, 'hbr', cmThemeOffice, 'ThemeOffice');
    [null,'<?php echo _SITE; ?>',null,null,'<?php echo $text; ?>'],
    _cmSplit,
    [null,'<?php echo _USERS?>',null,null,'<?php echo _USERS?>'],
-   [null,'<?php echo _MOD_FULLMENU_MENU; ?>',null,null,'<?php echo $text; ?>'],
+   [null,'<?php echo _MENU; ?>',null,null,'<?php echo $text; ?>'],
    _cmSplit,
   <?php
 			/* Content Sub-Menu*/

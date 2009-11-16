@@ -4964,7 +4964,7 @@ class mosAdminMenus {
 		$pages = array(
 			mosHTML::makeOption(0,'----'),
 			mosHTML::makeOption(0,_PAGES.' : '._CREATE_ACCOUNT),
-			mosHTML::makeOption(0,_PAGES.' : '._LOST_PASSWORD),
+			mosHTML::makeOption(0,_PAGES.' : '._LOST_PASSWORDWORD),
 		);
 		$mitems = array_merge($mitems,$pages);
 */
@@ -5508,7 +5508,7 @@ class mosCommonHTML {
 				<td><img src="<?php echo $cur_file_icons_path;?>/publish_r.png" border="0" /></td>
 				<td><?php echo _PUBLISHED_BUT_DATE_EXPIRED?> |</td>
 				<td><img src="<?php echo $cur_file_icons_path;?>/publish_x.png" border="0" /></td>
-				<td><?php echo _NOT_PUBLISHED?></td>
+				<td><?php echo _UNPUBLISHED?></td>
 			</tr>
 		</table>
 <?php

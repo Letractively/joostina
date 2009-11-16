@@ -1037,7 +1037,7 @@ function removeCategories($cid, $option) {
 	$database = &database::getInstance();
 
 	if(!is_array($cid) || count($cid) == 0) {
-		echo "<script> alert('" . _ABP_SACTD . "'); window.history.go(-1);</script>\n";
+		echo "<script> alert('" . _CHOOSE_CATEGORY_TO_REMOVE . "'); window.history.go(-1);</script>\n";
 		exit;
 	}
 
@@ -1260,7 +1260,7 @@ function doRestore($option) {
 
 	//verifico se ha figli
 	if(!$xmldoc->documentElement->hasChildNodes()) {
-		mosErrorAlert(_ABP_NOT_EXIST_BANNER_RESTORE);
+		mosErrorAlert(_NONET_EXIST_BANNER_RESTORE);
 		mosRedirect("index2.php?option=$option&task=restore");
 	}
 
@@ -1269,13 +1269,13 @@ function doRestore($option) {
 	*/
 	$bannersNodes = &$root->getElementsByPath('#__banners', 1);
 	if(is_null($bannersNodes) || !$bannersNodes->hasChildNodes()) {
-		mosErrorAlert(_ABP_NOT_EXIST_BANNER_RESTORE);
+		mosErrorAlert(_NONET_EXIST_BANNER_RESTORE);
 		mosRedirect("index2.php?option=$option&task=restore");
 	}
 
 	$banners = $bannersNodes->childNodes;
 	if(count($banners) == 0) {
-		mosErrorAlert(_ABP_NOT_EXIST_BANNER_RESTORE);
+		mosErrorAlert(_NONET_EXIST_BANNER_RESTORE);
 		mosRedirect("index2.php?option=$option&task=restore");
 	}
 

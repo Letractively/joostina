@@ -54,7 +54,7 @@ define('NET_FTP_ERR_RAWDIRLIST_FAILED',-30);
 define('NET_FTP_ERR_DIRLIST_UNSUPPORTED',-31);
 define('NET_FTP_ERR_DISCONNECT_FAILED',-32);
 define('NET_FTP_ERR_USERNOSTRING',-33);
-define('NET_FTP_ERR_PASSWORDNOSTRING',-33);
+define('NET_FTP_ERR_PASSWORDWORDNOSTRING',-33);
 class Net_FTP extends PEAR {
 var $_hostname;
 var $_port = 21;
@@ -568,7 +568,7 @@ $this->_USER = $user;
 }
 function setPassword($password) {
 if(empty($password) || !is_string($password)) {
-return PEAR::raiseError('Password xxx invalid.',NET_FTP_ERR_PASSWORDNOSTRING);
+return PEAR::raiseError('Password xxx invalid.',NET_FTP_ERR_PASSWORDWORDNOSTRING);
 }
 $this->_password = $password;
 }

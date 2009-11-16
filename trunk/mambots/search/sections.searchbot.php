@@ -79,7 +79,7 @@ function botSearchSections($text,$phrase = '',$ordering = '') {
 		}
 		if($rows[$i]->menutype == 'content_blog_section') {
 			$rows[$i]->href = 'index.php?option=com_content&task=blogsection&id='.$rows[$i]->secid.'&Itemid='.$rows[$i]->menuid;
-			$rows[$i]->section = _SEARCH_SECBLOG;
+			$rows[$i]->section = _SECTION_BLOG;
 		}
 	}
 

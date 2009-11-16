@@ -95,7 +95,7 @@ class mosUser extends mosDBTable {
 		}
 
 		if(trim($this->username) == '') {
-			$this->_error = addslashes(_REGWARN_UNAME);
+			$this->_error = addslashes(_REGWARN_USERNAME);
 			return false;
 		}
 
@@ -112,7 +112,7 @@ class mosUser extends mosDBTable {
 		}
 
 		if(eregi("[\<|\>|\"|\'|\%|\;|\(|\)|\&|\+|\-]",$this->username) || strlen($this->username) <3) {
-			$this->_error = sprintf(addslashes(_VALID_AZ09),addslashes(_PROMPT_UNAME),2);
+			$this->_error = sprintf(addslashes(_VALID_AZ09),addslashes(_PROMPT_USERNAME),2);
 			return false;
 		}
 
@@ -591,7 +591,7 @@ class userHelper{
 					});
 					//$('#current_<?php echo $form_params->img_field;?>').fadeOut(1000);
 					if(!$('#upload_<?php echo $form_params->img_field;?>').val()){
-						$('#<?php echo $form_params->img_field;?>_uploadOutput').html('<?php echo _C_USERS_AVATARS_SHOISE_IMAGE?>');
+						$('#<?php echo $form_params->img_field;?>_uploadOutput').html('<?php echo _CHOOSE_IMAGE?>');
 						return false;
 					}
 					$('#current_<?php echo $form_params->img_field;?>').fadeIn(1000);
@@ -637,7 +637,7 @@ class userHelper{
 			<input type="hidden" name="id" value="<?php echo $obj->id;?>" />
 			<input type="hidden" name="option" value="com_users" />
 		</form>
-		<div id="<?php echo $form_params->img_field;?>_uploadOutput" style="display:none;"><?php echo _C_USERS_AVATARS_UPLOAD?></div>
+		<div id="<?php echo $form_params->img_field;?>_uploadOutput" style="display:none;"><?php echo _UPLOADING?></div>
 <?php
 	}
 }

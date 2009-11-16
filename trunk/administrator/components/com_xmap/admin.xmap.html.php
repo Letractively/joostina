@@ -29,14 +29,14 @@ class XmapAdminHtml {
 			var loadingMessage = '<?php echo str_replace("''","\\",_XMAP_MSG_LOADING_SETTINGS); ?>';
 			var mosConfigLiveSite = '<?php echo $xmapSiteURL; ?>';
 			var sitemapdefault = <?php echo ($config->sitemap_default? $config->sitemap_default: 0);?>;
-			var editMenuOptionsMessage = '<?php echo str_replace("'","\\'",_XMAP_EDIT_MENU); ?>';
+			var editMenuOptionsMessage = '<?php echo str_replace("'","\\'",_SETTINGS); ?>';
 			var deleteSitemapConfirmMessage = '<?php echo str_replace("'","\\'",_XMAP_CONFIRM_DELETE_SITEMAP); ?>';
 			var unistallPluginConfirmMessage = '<?php echo str_replace("'","\\'",_XMAP_CONFIRM_UNINSTALL_PLUGIN); ?>';
-			var deleteMenuMessage = '<?php echo str_replace("'","\\'",_XMAP_DELETE_MENU); ?>';
+			var deleteMenuMessage = '<?php echo str_replace("'","\\'",_REMOVE); ?>';
 			var moveDMenuMessage = '<?php echo str_replace("'","\\'",_XMAP_MOVEDOWN_MENU); ?>';
 			var moveUMenuMessage = '<?php echo str_replace("'","\\'",_XMAP_MOVEUP_MENU); ?>';
 			var addMessage='<?php echo str_replace("'","\\'",_SAVE); ?>';
-			var cancelMessage='<?php echo str_replace("'","\\'",_XMAP_CANCEL); ?>';
+			var cancelMessage='<?php echo str_replace("'","\\'",_CLOSE); ?>';
 			var menus = [<?php $coma=''; foreach ($menus as $menutype => $menu) { echo "$coma'$menutype'";$coma=',';} ?>];
 			var joomla = '<?php echo (defined('JPATH_ADMINISTRATOR')? '1.5':'1.0'); ?>';
 		</script>
@@ -70,7 +70,7 @@ class XmapAdminHtml {
 		$pane->startTab(_XMAP_TAB_EXTENSIONS,'ext-tab');
 ?>
 		<div id="pluginstoolbar"><?php
-			XmapAdminHtml::showInstallForm( _XMAP_INSTALL_NEW_PLUGIN, dirname(__FILE__) );
+			XmapAdminHtml::showInstallForm( _INSTALL_NEW_PLUGIN, dirname(__FILE__) );
 ?>
 		<table class="adminheading">
 			<tbody>
@@ -91,10 +91,10 @@ class XmapAdminHtml {
 		<div id="divoptions"></div>
 		<div id="divbg" style="display:none;"></div>
 		<div id="optionsmenu" style="display:none;">
-			<div onclick="settingsSitemap();"><?php echo _XMAP_SETTINGS_SITEMAP; ?></div>
+			<div onclick="settingsSitemap();"><?php echo _SETTINGS; ?></div>
 			<div onclick="setAsDefault();"><?php echo _XMAP_SITEMAP_SET_DEFAULT; ?></div>
-			<div onclick="copySitemap();"><?php echo _XMAP_COPY_SITEMAP; ?></div>
-			<div onclick="deleteSitemap();"><?php echo _XMAP_DELETE_SITEMAP; ?></div>
+			<div onclick="copySitemap();"><?php echo _COPY; ?></div>
+			<div onclick="deleteSitemap();"><?php echo _REMOVE; ?></div>
 			<div onclick="clearCacheSitemap();"><?php echo _XMAP_CLEAR_CACHE; ?></div>
 		</div>
 <?php
@@ -106,7 +106,7 @@ class XmapAdminHtml {
 		<form name="sitemapform<?php echo $sitemap->id; ?>" onsubmit="return false;">
 		<div id="sitemap<?php echo $sitemap->id; ?>" class="sitemap">
 			<div class="sitemaptop">
-				<div class="tl"><div class="tr"><div class="tm"><div class="smname" id="sitemapname<?php echo $sitemap->id; ?>" onClick="editTextField(this,<?php echo $sitemap->id; ?>,'name');"><?php echo $sitemap->name; ?></div><div class="divimgdefault"><?php echo '<img src="',$xmapComponentURL,'/images/',($default? 'default.gif':'no_default.gif'),'" id="imgdefault',$sitemap->id,'" />'; ?></div><div class="optionsbut" id="optionsbut<?php echo $sitemap->id; ?>" onClick="optionsMenu(<?php echo $sitemap->id; ?>);"><span><?php echo _XMAP_EDIT_MENU;?></span></div></div></div></div>
+				<div class="tl"><div class="tr"><div class="tm"><div class="smname" id="sitemapname<?php echo $sitemap->id; ?>" onClick="editTextField(this,<?php echo $sitemap->id; ?>,'name');"><?php echo $sitemap->name; ?></div><div class="divimgdefault"><?php echo '<img src="',$xmapComponentURL,'/images/',($default? 'default.gif':'no_default.gif'),'" id="imgdefault',$sitemap->id,'" />'; ?></div><div class="optionsbut" id="optionsbut<?php echo $sitemap->id; ?>" onClick="optionsMenu(<?php echo $sitemap->id; ?>);"><span><?php echo _SETTINGS;?></span></div></div></div></div>
 			</div>
 			<div class="mr"><div class="mm">
 			<div class="menulistouter">
@@ -122,8 +122,8 @@ class XmapAdminHtml {
 						</tr>
 						<tr>
 							<td><?php echo _XMAP_INFO_LAST_VISIT; ?></td>
-							<td><?php echo $sitemap->lastvisit_html? strftime("%b/%d/%Y",$sitemap->lastvisit_html) : _XMAP_NEVER_VISITED; ?></td>
-							<td><?php echo $sitemap->lastvisit_xml? strftime("%b/%d/%Y",$sitemap->lastvisit_xml) : _XMAP_NEVER_VISITED; ?></td>
+							<td><?php echo $sitemap->lastvisit_html? strftime("%b/%d/%Y",$sitemap->lastvisit_html) : _NONE; ?></td>
+							<td><?php echo $sitemap->lastvisit_xml? strftime("%b/%d/%Y",$sitemap->lastvisit_xml) : _NONE; ?></td>
 						</tr>
 						<tr>
 							<td><?php echo _XMAP_INFO_COUNT_VIEWS; ?></td>
@@ -269,7 +269,7 @@ class XmapAdminHtml {
 				<td>
 					<input type="checkbox" name="usecache" id="usecache" value="1" <?php echo ($sitemap->usecache == 1? 'checked="checked" ': ''); ?> />
 				</td>
-				<td><?php echo _XMAP_CACHE_LIFE_TIME; ?>:</td>
+				<td><?php echo _CACHE_TIME; ?>:</td>
 				<td>
 					<input type="text" size="10" name="cachelifetime" id="cachelifetime" value="<?php echo $sitemap->cachelifetime; ?>" />
 				</td>
@@ -347,7 +347,7 @@ class XmapAdminHtml {
 				<th><?php echo _PUBLICATION;?></th>
 				<th><?php echo _VERSION;?></th>
 				<th><?php echo _HEADER_AUTHOR;?></th>
-				<th><?php echo _REMOVAL;?></th>
+				<th><?php echo _DELETING;?></th>
 				<th><?php echo _DATE;?></th>
 <?php
 			$rc = 0;
@@ -384,7 +384,7 @@ class XmapAdminHtml {
 			<td align="center"><?php echo (@$row->author != "" ? $row->author : _XMAP_UNKNOWN_AUTHOR) . (@$row->authorEmail != "" ? ' &lt;'.$row->authorEmail.'&gt;' : "&nbsp;"); ?>
 				<?php echo @$row->authorUrl != "" ? "<a href=\"" .(substr( $row->authorUrl, 0, 7) == 'http://' ? $row->authorUrl : 'http://'.$row->authorUrl) ."\" target=\"_blank\">$row->authorUrl</a>" : "&nbsp;"; ?></div>
 			</td>
-			<td align="center"><a href="javascript:uninstallPlugin(<?php echo $row->id; ?>);"><?php echo _XMAP_UNINSTALL; ?></a></td>
+			<td align="center"><a href="javascript:uninstallPlugin(<?php echo $row->id; ?>);"><?php echo _REMOVE; ?></a></td>
 			<td align="center"><?php echo @$row->creationdate != "" ? $row->creationdate : "&nbsp;"; ?></td>
 		</tr>
 <?php
@@ -426,7 +426,7 @@ class XmapAdminHtml {
 							<td align="left" colspan="2">
 								Package File:
 								<input class="text_area" name="install_package" type="file" size="40"/>
-								<input class="button" type="submit" value="<?php echo _XMAP_UPLOAD_AND_INSTALL; ?>" />
+								<input class="button" type="submit" value="<?php echo _UPLOAD_AND_INSTALL; ?>" />
 							</td>
 						</tr>
 					</table>
@@ -439,13 +439,13 @@ class XmapAdminHtml {
 					<form enctype="multipart/form-data" action="index2.php" method="post" name="adminForm_dir">
 					<table class="adminform">
 						<tr>
-							<th><?php echo _XMAP_INSTALL_F_DIRECTORY; ?></th>
+							<th><?php echo _INSTALL_F_DIRECTORY; ?></th>
 						</tr>
 						<tr>
 							<td align="left">
-							<?php echo _XMAP_INSTALL_DIRECTORY; ?>:&nbsp;
+							<?php echo _INSTALLATION_DIRECTORY; ?>:&nbsp;
 							<input type="text" name="install_directory" class="text_area" size="60" value="<?php echo $p_startdir; ?>"/>&nbsp;
-							<input type="button" class="button" value="<?php echo _XMAP_INSTALL; ?>" onclick="submitbutton3()" />
+							<input type="button" class="button" value="<?php echo _INSTALL; ?>" onclick="submitbutton3()" />
 							</td>
 						</tr>
 					</table>

@@ -67,7 +67,7 @@ function botUserContent(&$user) {
 		// раздел / категория
 		$section_cat = $row->section.' / '.$row->category;
 		if($row->sectionid==0){
-			$section_cat = USER_CONTENT_TYPED_CONTENT;
+			$section_cat = _CONTENT_TYPED;
 		}
 ?>
 		<tr class="sectiontableentry<?php echo ($k+1);?>">

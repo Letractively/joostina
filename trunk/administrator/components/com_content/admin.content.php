@@ -1128,7 +1128,7 @@ function moveSection($cid,$sectionid,$option) {
 	$database = &database::getInstance();
 
 	if(!is_array($cid) || count($cid) < 1) {
-		echo "<script> alert('"._CHOOSE_OBJ_MOVE."'); window.history.go(-1);</script>\n";
+		echo "<script> alert('"._CHOOSE_OBJECT_TO_MOVE."'); window.history.go(-1);</script>\n";
 		exit;
 	}
 
@@ -1351,7 +1351,7 @@ function resethits($redirect,$id) {
 	$row->store();
 	$row->checkin();
 
-	$msg = _HITCOUNT_RESETTED;
+	$msg = _COUNTER_RESET;
 	mosRedirect('index2.php?option=com_content&sectionid='.$redirect.'&task=edit&hidemainmenu=1&id='.$id,$msg);
 }
 

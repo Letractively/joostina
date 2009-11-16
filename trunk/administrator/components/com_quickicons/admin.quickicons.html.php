@@ -38,7 +38,7 @@ class HTML_QuickIcons {
 					<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count($rows); ?>);" />
 				</th>
 				<th width="5%" class="jtd_nowrap"><?php echo _ICON?></th>
-				<th width="53%" class="title"><?php echo _HEADER_TITLE?></th>
+				<th width="53%" class="title"><?php echo _CAPTION?></th>
 				<th width="10%" class="jtd_nowrap"><?php echo _DISPLAY_METHOD?></th>
 				<th width="7%" class="jtd_nowrap"><?php echo _ACCESS?></th>
 				<th width="7%" class="jtd_nowrap"><?php echo _PUBLISHED?></th>
@@ -213,7 +213,7 @@ class HTML_QuickIcons {
 					<td>
 <?php
 						$tabs->startPane('qicons');
-						$tabs->startTab(_BUTTONS_TAB_GENERAL,'general');
+						$tabs->startTab(_GENERAL,'general');
 ?>
 					<table width="100%" border="0" cellpadding="2" cellspacing="0" class="adminform">
 						<tr>

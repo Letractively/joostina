@@ -33,7 +33,7 @@ class HTML_contact {
 				<?php if($currentcat->descrip){ ?>
 				<div class="description info">
 					<?php if($currentcat->img) {?>
-					<img src="<?php echo $currentcat->img; ?>" align="<?php echo $currentcat->align; ?>" hspace="6" alt="<?php echo _WEBLINKS; ?>" />
+					<img src="<?php echo $currentcat->img; ?>" align="<?php echo $currentcat->align; ?>" hspace="6" alt="<?php echo _LINKS; ?>" />
 					<?php }?>
 				
 					<?php echo $currentcat->descrip; ?>			
@@ -82,11 +82,11 @@ class HTML_contact {
 				<?php } ?>
 
 				<?php if($params->get('telephone')) { ?>
-					<th> <?php echo _CONTACT_HEADER_PHONE; ?> </th>
+					<th> <?php echo _C_USERS_CONTACT_PHONE; ?> </th>
 				<?php } ?>
 
 				<?php if($params->get('fax')) { ?>
-					<th> <?php echo _CONTACT_HEADER_FAX; ?> </th>
+					<th> <?php echo _C_USERS_CONTACT_FAX; ?> </th>
 				<?php } ?>
 			</tr>
 		<?php } ?>
@@ -378,10 +378,10 @@ class HTML_contact {
 
 		<form action="<?php echo sefRelToAbs('index.php?option=com_contact&amp;Itemid='.$Itemid); ?>" method="post" name="emailForm" target="_top" id="emailForm">
 		
-			<label id="lbl_contact_name" for="contact_name"><?php echo (_NAME_PROMPT); ?></label>
+			<label id="lbl_contact_name" for="contact_name"><?php echo (_EMAIL_YOUR_NAME); ?></label>
 			<input type="text" name="name" id="contact_name" size="30" class="inputbox" value="" />
 	
-			<label id="lbl_contact_email" for="contact_email"><?php echo (_EMAIL_PROMPT); ?></label>
+			<label id="lbl_contact_email" for="contact_email"><?php echo (_EMAIL_YOUR_MAIL); ?></label>
 			<input type="text" name="email" id="contact_email" size="30" class="inputbox" value="" />
 	
 			<label id="lbl_contact_subject" for="contact_subject"><?php echo (_SUBJECT); ?>:</label>

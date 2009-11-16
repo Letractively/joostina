@@ -19,19 +19,19 @@ defined('_VALID_MOS') or die();
 		if (form.name.value == "" || r.exec(form.name.value)) {
 			alert( "<?php echo addslashes(html_entity_decode(_REGWARN_NAME)); ?>" );
 		} else if (form.username.value == "") {
-			alert( "<?php echo addslashes(html_entity_decode(_REGWARN_UNAME)); ?>" );
+			alert( "<?php echo addslashes(html_entity_decode(_REGWARN_USERNAME)); ?>" );
 		} else if (r.exec(form.username.value) || form.username.value.length < 3) {
-			alert( "<?php printf(addslashes(html_entity_decode(_VALID_AZ09_USER)),addslashes(html_entity_decode(_PROMPT_UNAME)),2); ?>" );
+			alert( "<?php printf(addslashes(html_entity_decode(_VALID_AZ09_USER)),addslashes(html_entity_decode(_PROMPT_USERNAME)),2); ?>" );
 		} else if (form.email.value == "") {
 			alert( "<?php echo addslashes(html_entity_decode(_REGWARN_MAIL)); ?>" );
 		} else if (form.password.value.length < 6) {
-			alert( "<?php echo addslashes(html_entity_decode(_REGWARN_PASS)); ?>" );
+			alert( "<?php echo addslashes(html_entity_decode(_REGWARN_PASSWORD)); ?>" );
 		} else if (form.password2.value == "") {
 			alert( "<?php echo addslashes(html_entity_decode(_REGWARN_VPASS1)); ?>" );
 		} else if ((form.password.value != "") && (form.password.value != form.password2.value)){
 			alert( "<?php echo addslashes(html_entity_decode(_REGWARN_VPASS2)); ?>" );
 		} else if (r.exec(form.password.value)) {
-			alert( "<?php printf(addslashes(html_entity_decode(_VALID_AZ09)),addslashes(html_entity_decode(_REGISTER_PASS)),6); ?>" );
+			alert( "<?php printf(addslashes(html_entity_decode(_VALID_AZ09)),addslashes(html_entity_decode(_REGISTER_PASSWORD)),6); ?>" );
 		}
 		<?php if($mainframe->getCfg('captcha_reg')){?>
 			else if (form.captcha.value == "") {
@@ -62,7 +62,7 @@ defined('_VALID_MOS') or die();
 			</td>
 		</tr>
 		<tr>
-			<td align="right"><?php echo _REGISTER_UNAME; ?>*</td>
+			<td align="right"><?php echo _REGISTER_USERNAME; ?>*</td>
 			<td>
 				<input type="text" name="username" size="40" value="" class="inputbox" maxlength="25" />
 			</td>
@@ -74,7 +74,7 @@ defined('_VALID_MOS') or die();
 			</td>
 		</tr>
 		<tr>
-			<td align="right"><?php echo _REGISTER_PASS; ?>*</td>
+			<td align="right"><?php echo _REGISTER_PASSWORD; ?>*</td>
 			<td>
 				<input class="inputbox" type="password" name="password" size="40" value="" />
 			</td>

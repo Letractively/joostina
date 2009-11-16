@@ -31,7 +31,7 @@ class HTML_linkeditor {
 			<input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo count($rows); ?>);" />
 		</th>
 		<th width="30"><?php echo _ICON?></th>
-		<th width="20%"><?php echo _HEADER_TITLE?></th>
+		<th width="20%"><?php echo _CAPTION?></th>
 		<th width="60%"><?php echo _DESCRIPTION?></th>
 		<th width="30"><?php echo _KERNEL?></th>
 		<th width="30" class="jtd_nowrap"><?php echo _ORDER_DROPDOWN?></th>
@@ -88,7 +88,7 @@ class HTML_linkeditor {
 		<table class="adminform">
 		<tr>
 			<td width="20%" align="right" >
-				<?php echo _C_LINKEDITOR_TITLE?><font color="red">*</font>:
+				<?php echo _CAPTION?><font color="red">*</font>:
 			</td>
 			<td width="25%">
 			<input class="inputbox" type="text" name="name" size="45" value="<?php echo $row->name; ?>" />

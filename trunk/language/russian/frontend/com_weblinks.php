@@ -10,14 +10,14 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-DEFINE('_WEBLINKS_DESC','В данном разделе собраны наиболее интересные и полезные ссылки в сети. <br />Выберите из списка один из разделов, а затем выберите нужную ссылку.');
+DEFINE('_LINKS_DESC','В данном разделе собраны наиболее интересные и полезные ссылки в сети. <br />Выберите из списка один из разделов, а затем выберите нужную ссылку.');
 DEFINE('_SUBMIT_LINK','Добавить ссылку');
 DEFINE('_URL','URL:');
-DEFINE('_URL_DESC','Описание:');
+DEFINE('_DESC','Описание:');
 DEFINE('_WEBLINK_EXIST','Ссылка с таким именем уже существует. Измените имя и попробуйте ещё раз.');
 DEFINE('_WEBLINK_TITLE','Ссылка должна иметь название.');
 DEFINE('_ENTER_CORRECT_URL','Введите правильный URL');
-DEFINE('_COM_WEBLINKS_HEADER_HITS','Просмотров'); 
-DEFINE('_COM_WEBLINKS_NONE_TITLE','Необходимо указать название ссылки');
-DEFINE('_COM_WEBLINKS_NONE_CAT','Необходимо указать категорию ссылки');
-DEFINE('_COM_WEBLINKS_NONE_URL','Необходимо указать саму ссылку');
+DEFINE('_COM_LINKS_HEADER_HITS','Просмотров'); 
+DEFINE('_COM_LINKS_NONE_TITLE','Необходимо указать название ссылки');
+DEFINE('_COM_LINKS_NONE_CAT','Необходимо указать категорию ссылки');
+DEFINE('_COM_LINKS_NONE_URL','Необходимо указать саму ссылку');

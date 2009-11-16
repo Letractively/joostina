@@ -56,7 +56,7 @@ mosCommonHTML::loadJquery(1);
 						</span>
 						<br />
 						<?php if ($params->get('show_lost_pass', 1)) { ?>
-							&nbsp;<a href="<?php echo sefRelToAbs( 'index.php?option=com_users&amp;task=lostPassword' );?>"><?php echo $params->get('ml_rem_pass_text', _LOST_PASSWORD) ;?></a>
+							&nbsp;<a href="<?php echo sefRelToAbs( 'index.php?option=com_users&amp;task=lostPassword' );?>"><?php echo $params->get('ml_rem_pass_text', _LOST_PASSWORDWORD) ;?></a>
 						<?php } ?>
 						<?php if($params->get('show_register', 1)) {?>
 							&nbsp;<a href="<?php echo sefRelToAbs( 'index.php?option=com_users&amp;task=register' );?>"><?php echo $params->get('ml_reg_text', _CREATE_ACCOUNT)?></a>

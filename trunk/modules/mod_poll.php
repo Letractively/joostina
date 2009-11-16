@@ -43,6 +43,10 @@ if(!defined('_JOS_POLL_MODULE')) {
 		foreach($polls as $poll) {
 			if($poll->id && $poll->title) {
 
+				// подключаем файл локализации
+				include_once($mainframe->getLangFile('com_poll'));
+
+
 				$query = "SELECT id, text FROM #__poll_data WHERE pollid = " . (int)$poll->id . " AND text != '' ORDER BY id";
 				$database->setQuery($query);
 

@@ -29,7 +29,7 @@ class HTML_newsfeed {
 				<?php if ($currentcat->descrip || $currentcat->img){?>
 					<div class="contentdescription"> 
 						<?php if($currentcat->img) { ?>
-						<img src="<?php echo $currentcat->img; ?>" align="<?php echo $currentcat->align; ?>" hspace="6" alt="<?php echo _WEBLINKS; ?>" />
+						<img src="<?php echo $currentcat->img; ?>" align="<?php echo $currentcat->align; ?>" hspace="6" alt="<?php echo _LINKS; ?>" />
 						<?php } ?>
 						
 						<?php echo $currentcat->descrip; ?>

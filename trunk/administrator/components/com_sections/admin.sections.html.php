@@ -48,7 +48,7 @@ class sections_html {
 			<th width="10%"><?php echo _ACCESS?></th>
 			<th width="10%" class="jtd_nowrap"><?php echo _SECTION_CATEGORIES?></th>
 			<th width="10%" class="jtd_nowrap"><?php echo _ACTIVE?></th>
-			<th width="10%" class="jtd_nowrap"><?php echo _ACTIVE_IN_TRASH?></th>
+			<th width="10%" class="jtd_nowrap"><?php echo _IN_TRASH?></th>
 			<th width="5%" class="jtd_nowrap">ID</th>
 		</tr>
 		<?php
@@ -218,7 +218,7 @@ class sections_html {
 					<td width="85%" colspan="2"><strong><?php echo $row->scope; ?></strong></td>
 				</tr>
 				<tr>
-					<td><?php echo _HEADER_TITLE?>:</td>
+					<td><?php echo _CAPTION?>:</td>
 					<td colspan="2">
 					<input class="text_area" type="text" name="title" value="<?php echo $row->title; ?>" size="50" maxlength="50" title="<?php echo _MENU_SHORT_NAME?>" />
 					</td>

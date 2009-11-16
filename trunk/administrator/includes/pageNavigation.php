@@ -76,7 +76,7 @@ class mosPageNav {
 		if($this->total > 0) {
 			$html .= "\n"._NAV_SHOW." ".$from_result." - ".$to_result." "._NAV_SHOW_FROM." ".$this->total;
 		} else {
-			$html .= "\n"._NAV_NO_RECORDS;
+			$html .= "\n"._NO_ITEMS;
 		}
 		return $html;
 	}

@@ -52,7 +52,7 @@ class CacheView
 					<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $rows );?>);" />
 				</th>
 				<th class="title" nowrap="nowrap">
-					<?php echo _CACHE_GROUP; ?>
+					<?php echo _GROUP; ?>
 				</th>
 				<th width="5%" align="center" nowrap="nowrap">
 					<?php echo _CACHE_FILE_NUMBER; ?>

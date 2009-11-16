@@ -174,7 +174,7 @@ class HTML_modules {
 					<th colspan="2"><?php echo _MAMBOT_DETAILS?></th>
 				<tr>
 				<tr>
-					<td width="100" class="key"><?php echo _HEADER_TITLE?>:</td>
+					<td width="100" class="key"><?php echo _CAPTION?>:</td>
 					<td><input class="text_area" type="text" name="name" size="35" value="<?php echo $row->name; ?>" /></td>
 				</tr>
 				<tr>

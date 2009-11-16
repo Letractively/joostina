@@ -97,7 +97,7 @@ function listWeblinks($catid) {
 	$params->def('other_cat_section',1);
 	$params->def('other_cat',1);
 	$params->def('description',1);
-	$params->def('description_text',_WEBLINKS_DESC);
+	$params->def('description_text',_LINKS_DESC);
 	$params->def('image','-1');
 	$params->def('weblink_icons','');
 	$params->def('image_align','right');

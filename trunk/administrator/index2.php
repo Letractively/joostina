@@ -66,6 +66,7 @@ $cur_template = $mainframe->getTemplate();
 define('JTEMPLATE', $cur_template );
 
 require_once($mainframe->getLangFile());
+require_once($mainframe->getLangFile('administrator'));
 require_once (JPATH_BASE_ADMIN.DS.'includes'.DS.'admin.php');
 
 // запуск сессий панели управления

@@ -62,7 +62,7 @@ class weblink_category_table_menu_html {
 		<form action="index2.php" method="post" name="adminForm">
 		<table class="adminheading">
 		<tr>
-			<th class="menus"><?php echo $menu->id?_EDITING.' -':_CREATION.' -'; ?> <?php echo _MENU_ITEM_WEBLINKS_CATEGORY?></th>
+			<th class="menus"><?php echo $menu->id?_EDITING.' -':_CREATION.' -'; ?> <?php echo _MENU_ITEM_LINKS_CATEGORY?></th>
 		</tr>
 		</table>
 

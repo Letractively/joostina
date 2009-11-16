@@ -93,7 +93,7 @@ defined( '_VALID_MOS' ) or die();
 			<th width="5">
 				<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count($rows); ?>);" />
 			</th>
-			<th class="title"><?php echo _HEADER_TITLE?></th>
+			<th class="title"><?php echo _CAPTION?></th>
 			<th><?php echo _PUBLISHED?></th>
 			<th class="jtd_nowrap"><?php echo _ON_FRONTPAGE?></th>
 			<th width="2%"><?php echo _ORDER_DROPDOWN?></th>

@@ -41,7 +41,7 @@ class HTML_typedcontent {
 	<tr>
 		<th width="5">#</th>
 		<th width="5px"><input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo count($rows); ?>);" /></th>
-		<th class="title"><?php echo _HEADER_TITLE?></th>
+		<th class="title"><?php echo _CAPTION?></th>
 		<th width="5%"><?php echo _PUBLISHED?></th>
 		<th width="2%"><?php echo _ORDERING?></th>
 		<th width="1%"><a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="<?php echo $cur_file_icons_path;?>/filesave.png" border="0" width="16" height="16" alt="<?php echo _SAVE_ORDER?>" /></a></th>
@@ -138,7 +138,7 @@ class HTML_typedcontent {
 		}
 		} else {
 ?>
-		<a href="<?php echo $link; ?>" class="abig" title="<?php echo _CHANGE_STATIC_CONTENT?>">
+		<a href="<?php echo $link; ?>" class="abig" title="<?php echo _EDIT_CONTENT_TYPED?>">
 <?php
 		echo $row->title;
 		if($row->title_alias) {
@@ -275,7 +275,7 @@ class HTML_typedcontent {
 					<th colspan="3"><?php echo _CONTENT_INFO?></th>
 				</tr>
 				<tr>
-					<td align="left"><?php echo _HEADER_TITLE?>:</td>
+					<td align="left"><?php echo _CAPTION?>:</td>
 					<td width="90%">
 					<input class="inputbox" type="text" name="title" size="30" maxlength="150" style="width:98%" value="<?php echo $row->title; ?>" />
 					</td>
@@ -311,7 +311,7 @@ class HTML_typedcontent {
 	<table class="adminform">
 		<tr>
 			<td valign="top" align="right" width="120"><?php echo _E_STATE?>:</td>
-			<td><?php echo $row->state > 0? _PUBLISHED : _DRAFT_NOT_PUBLISHED; ?></td>
+			<td><?php echo $row->state > 0? _PUBLISHED : _DRAFT_UNPUBLISHED; ?></td>
 		</tr>
 		<tr>
 			<td valign="top" align="right"><?php echo _PUBLISHED?>:</td>
@@ -362,7 +362,7 @@ class HTML_typedcontent {
 ?>
 		<tr>
 			<td width="120" valign="top" align="right"><?php echo _E_STATE?>:</td>
-			<td><?php echo $row->state > 0? _PUBLISHED :($row->state < 0? _IN_ARCHIVE :_DRAFT_NOT_PUBLISHED); ?></td>
+			<td><?php echo $row->state > 0? _PUBLISHED :($row->state < 0? _IN_ARCHIVE :_DRAFT_UNPUBLISHED); ?></td>
 		</tr>
 		<tr>
 			<td valign="top" align="right"><?php echo _VIEW_COUNT?>:</td>
@@ -556,7 +556,7 @@ class HTML_typedcontent {
 	$curr_templates = $templates->parse_curr_templates($row->templates);
 ?>
 	<tr>
-		<td><?php echo _CC_PAGE_TEMPLATE?>: </td>
+		<td><?php echo _TEMPLATE_ITEM_SHOW?>: </td>
 		<td><?php echo $templates->templates_select_list('item_static', $curr_templates); ?> </td>
 	</tr>
 </table>

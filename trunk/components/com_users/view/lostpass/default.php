@@ -19,10 +19,10 @@ $validate = josSpoofValue();
 		
 			<div class="componentheading"><h1><?php echo $user_config->get('title');?></h1></div>
 			
-			<div class="info"><?php echo _NEW_PASS_DESC; ?></div>
+			<div class="info"><?php echo _NEW_PASSWORD_DESC; ?></div>
 			
 			<div class="row">
-				<label for="checkusername"><?php echo _PROMPT_UNAME; ?></label>
+				<label for="checkusername"><?php echo _PROMPT_USERNAME; ?></label>
 				<input type="text" name="checkusername" class="inputbox" size="40" maxlength="25" />
 			</div>
 
@@ -41,7 +41,7 @@ $validate = josSpoofValue();
 			</div>			
 			<?php } ?>
 			
-			<span class="button"><input type="submit" class="button" value="<?php echo _BUTTON_SEND_PASS; ?>" /></span>
+			<span class="button"><input type="submit" class="button" value="<?php echo _BUTTON_SEND_PASSWORD; ?>" /></span>
 
 			<input type="hidden" name="option" value="<?php echo $option; ?>" />
 			<input type="hidden" name="task" value="sendNewPass" /> 

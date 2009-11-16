@@ -13,163 +13,121 @@
 
 // запрет прямого доступа
 defined( '_VALID_MOS' ) or die( 'Прямой вызов файла запрещен' );
-/* @package xmap
- * @author: Daniel Grothe, http://www.ko-ca.com/
- * @локализация: boston http://www.joom.ru. В рамках проекта Joostina.
- */
 
-
-// -- General ------------------------------------------------------------------
-define('_XMAP_CFG_COM_TITLE',		'Карты сайта');
-define('_XMAP_CFG_OPTIONS',			'Отображение');
-define('_XMAP_CFG_CSS_CLASSNAME',	'Стили CSS');
-define('_XMAP_CFG_EXPAND_CATEGORIES','Расширять категории содержимого');
-define('_XMAP_CFG_EXPAND_SECTIONS',	'Расширять разделы содержимого');
-define('_XMAP_CFG_SHOW_MENU_TITLES','Показывать названия меню');
-define('_XMAP_CFG_NUMBER_COLUMNS',	'Число столбцов');
-define('_XMAP_EX_LINK',				'Отмечать внешние ссылки');
-define('_XMAP_CFG_CLICK_HERE', 		'Нажмите сюда');
-define('_XMAP_CFG_GOOGLE_MAP',		'Google Sitemap');
-define('_XMAP_EXCLUDE_MENU',		'Исключать ID меню');
-define('_XMAP_TAB_DISPLAY',			'Отображение');
-define('_XMAP_TAB_MENUS',			'Меню');
-define('_XMAP_CFG_WRITEABLE',		'доступен');
-define('_XMAP_CFG_UNWRITEABLE',		'не доступен');
-define('_XMAP_MSG_MAKE_UNWRITEABLE','Запретить редактирование после сохранения');
-define('_XMAP_MSG_OVERRIDE_WRITE_PROTECTION', 'Игнорировать защиту при записи');
-define('_XMAP_CFG_INCLUDE_LINK',	'Скрывать ссылку на автора');
-
-// -- Tips ---------------------------------------------------------------------
-define('_XMAP_EXCLUDE_MENU_TIP',	'Идентификаторы меню исключаемые из карты.<br /><strong>ВНИМАНИЕ</strong><br />Идентификаторы разделять запятыми!');
-
-// -- Menus --------------------------------------------------------------------
-define('_XMAP_CFG_SET_ORDER',		'Сортировка меню');
-define('_XMAP_CFG_MENU_SHOW',		'Показать');
-define('_XMAP_CFG_MENU_REORDER',	'Пересортировать');
-define('_XMAP_CFG_MENU_ORDER',		'Положение');
-define('_XMAP_CFG_MENU_NAME',		'Название меню');
-define('_XMAP_CFG_DISABLE',			'Отключить');
-define('_XMAP_CFG_ENABLE',			'Включить');
-define('_XMAP_SHOW',				'Показать');
-define('_XMAP_NO_SHOW',				'Не показывать');
-
-// -- Toolbar ------------------------------------------------------------------
-define('_XMAP_TOOLBAR_CANCEL', 		'Выход');
-
-// -- Errors -------------------------------------------------------------------
-define('_XMAP_ERR_NO_LANG',			'Языковой файл [ %s ] не найден, используется язык по умолчанию<br />');
-define('_XMAP_ERR_CONF_SAVE',		 'ОШИБКА: Невозможно сохранить конфигурацию.');
-define('_XMAP_ERR_NO_CREATE',		 'ОШИБКА: Отсутствует таблица настроек');
-define('_XMAP_ERR_NO_DEFAULT_SET',	'ОШИБКА: Отсутствует таблица базовых данных');
-define('_XMAP_ERR_NO_PREV_BU',		'ПРЕДУПРЕЖДЕНИЕ: Невозможно удалить копию');
-define('_XMAP_ERR_NO_BACKUP',		 'ОШИБКА: Невозможно создать копию');
-define('_XMAP_ERR_NO_DROP_DB',		'ОШИБКА: Невозможно удалить настройки');
-define('_XMAP_ERR_NO_SETTINGS',		'ОШИБКА: Невозможно загрузить настройки: <a href="%s">Создать таблицу настроек</a>');
-
-// -- Config -------------------------------------------------------------------
-define('_XMAP_MSG_SET_RESTORED',	'Настройки восстановлены');
-define('_XMAP_MSG_SET_BACKEDUP',	'Настройки сохранены');
-define('_XMAP_MSG_SET_DB_CREATED',	'Таблица настроек создана');
-define('_XMAP_MSG_SET_DEF_INSERT',	'Базовые данные внесены');
-define('_XMAP_MSG_SET_DB_DROPPED',	'Таблицы Xmap\'s сохранены!');
-
-// -- CSS ----------------------------------------------------------------------
-define('_XMAP_CSS',		'Xmap CSS');
-define('_XMAP_CSS_EDIT','Редактирование CSS карт'); // Edit template
-
-// -- Sitemap (Frontend) -------------------------------------------------------
-define('_XMAP_SHOW_AS_EXTERN_ALT',	'Ссылка откроется в новом окне');
-
-// -- Added for Xmap
-define('_XMAP_CFG_MENU_SHOW_HTML',		'Показывать на сайте');
-define('_XMAP_CFG_MENU_SHOW_XML',		'Показывать в XML карте');
-define('_XMAP_CFG_MENU_PRIORITY',		'Приоритет');
-define('_XMAP_CFG_MENU_CHANGEFREQ',		'Создавать');
-define('_XMAP_CFG_CHANGEFREQ_ALWAYS',	'Постоянно');
-define('_XMAP_CFG_CHANGEFREQ_HOURLY',	'Ежечасно');
-define('_XMAP_CFG_CHANGEFREQ_DAILY',	'Ежедневно');
-define('_XMAP_CFG_CHANGEFREQ_WEEKLY',	'Еженедельно');
-define('_XMAP_CFG_CHANGEFREQ_MONTHLY',	'Ежемесячно');
-define('_XMAP_CFG_CHANGEFREQ_YEARLY',	'Ежегодно');
-define('_XMAP_CFG_CHANGEFREQ_NEVER',	'Всегда');
-
-define('_XMAP_TIT_SETTINGS_OF',			'Настройки %s');
-define('_XMAP_TAB_SITEMAPS',			'Карта');
-define('_XMAP_MSG_NO_SITEMAPS',			'Нет созданных карт');
-define('_XMAP_MSG_NO_SITEMAP',			'Данная карта недоступна');
-define('_XMAP_MSG_LOADING_SETTINGS',	'Загрузка настроек...');
-define('_XMAP_MSG_ERROR_LOADING_SITEMAP','Ошибка. Невозможно загрузить карту');
-define('_XMAP_MSG_ERROR_SAVE_PROPERTY',	'Ошибка. Невозможно сохранить приоритет.');
-define('_XMAP_MSG_ERROR_CLEAN_CACHE',	'Ошибка. Невозможно очистить кэш карты.');
-define('_XMAP_ERROR_DELETE_DEFAULT',	'Невозможно удалить карту, используемую по умолчанию!');
-define('_XMAP_MSG_CACHE_CLEANED',		'Кэш карты очищен!');
-define('_XMAP_CHARSET',					'utf-8');
-define('_XMAP_SITEMAP_ID',				'Идентификатор карты');
-define('_SAVE_SITEMAP',				'Создать новую карту сайта');
-define('_XMAP_NAME_NEW_SITEMAP',		'Новая карта');
-define('_XMAP_DELETE_SITEMAP',			'Удалить');
-define('_XMAP_SETTINGS_SITEMAP',		'Настройки');
-define('_XMAP_COPY_SITEMAP',			'Копировать');
-define('_XMAP_SITEMAP_SET_DEFAULT',		'По умолчанию');
-define('_XMAP_EDIT_MENU',				'Настройки');
-define('_XMAP_DELETE_MENU',				'Удалить');
-define('_XMAP_CLEAR_CACHE',				'Очистить кэш');
-define('_XMAP_MOVEUP_MENU',		'Выше');
-define('_XMAP_MOVEDOWN_MENU',	'Ниже');
-define('_SAVE_MENU',		'Добавить меню');
-define('_XMAP_COPY_OF',			'Копия %s');
-define('_XMAP_INFO_LAST_VISIT',	'Последнее посещение');
-define('_XMAP_INFO_COUNT_VIEWS','Число посещений');
-define('_XMAP_INFO_TOTAL_LINKS','Число ссылок');
-define('_XMAP_CFG_URLS',		'URL карты');
-define('_XMAP_XML_LINK_TIP',	'Скопируйте эту ссылку для использования в Google и Yahoo');
-define('_XMAP_HTML_LINK_TIP',	'Это полный адрес карты.');
-define('_XMAP_CFG_XML_MAP',		'XML  карта');
-define('_XMAP_CFG_HTML_MAP',	'HTML карта');
-define('_XMAP_XML_LINK',		'Googlelink');
-define('_XMAP_CFG_XML_MAP_TIP',	'XML файл создаётся для поисковых систем');
-define('_XMAP_CANCEL', 'Закрыть');
-define('_XMAP_LOADING', 'Загрузка...');
-define('_XMAP_CACHE', 'Кэширование');
-define('_XMAP_USE_CACHE', 'Использовать');
-define('_XMAP_CACHE_LIFE_TIME', 'Время жизни кэша');
-define('_XMAP_NEVER_VISITED', 'Нет');
-
-// New on Xmap 1.1 beta 1
-define('_XMAP_PLUGINS','Расширения');
-define('_XMAP_INSTALL_3PD_WARN', 'ВНИМАНИЕ: Установка сторонних расширений может негативно сказаться на безопасности сервера и сайта.' );
-define('_XMAP_INSTALL_NEW_PLUGIN', 'Установить новое расширение');
-define('_XMAP_UNKNOWN_AUTHOR','Автор неизвестен');
-define('_XMAP_PLUGIN_VERSION','Версия %s');
-define('_XMAP_TAB_INSTALL_PLUGIN','Установить');
-define('_XMAP_TAB_EXTENSIONS','Расширения');
-define('_XMAP_TAB_INSTALLED_EXTENSIONS','Установленные расширения');
-define('_XMAP_NO_PLUGINS_INSTALLED','Расширения не установлены');
-define('_HEADER_AUTHOR','Автор');
-define('_XMAP_CONFIRM_DELETE_SITEMAP','Вы уверены что хотите удалить эту карту?');
-define('_XMAP_CONFIRM_UNINSTALL_PLUGIN','Вы уверены что хотите удалить это расширение?');
-define('_XMAP_UNINSTALL','Удалить');
-define('_XMAP_EXT_PUBLISHED','Опубликовать');
-define('_XMAP_PLUGIN_OPTIONS','Options');
-define('_XMAP_EXT_INSTALLED_MSG','Расширение установлено, пожалуйста проверьте его параметры и опубликуйте.');
-define('_XMAP_CONTINUE','Продолжить...');
-define('_XMAP_MSG_EXCLUDE_CSS_SITEMAP','Не использовать CSS в карте');
-define('_XMAP_MSG_EXCLUDE_XSL_SITEMAP','Использовать классическую XML карту');
-
-// New on Xmap 1.1
-define('_XMAP_MSG_SELECT_FOLDER','Пожалуйста, выберите каталог');
-define('_XMAP_UPLOAD_PKG_FILE','Загрузка пакета расширения');
-define('_XMAP_UPLOAD_AND_INSTALL','Загрузить и установить');
-define('_XMAP_INSTALL_F_DIRECTORY','Установка из каталога');
-define('_XMAP_INSTALL_DIRECTORY','Каталог установки');
-define('_XMAP_INSTALL','Установить');
-define('_XMAP_WRITEABLE','Доступен');
-define('_XMAP_UNWRITEABLE','Не доступен');
-
-// joostina edition
-define('_XMAP_INVALID_SID','Ошибка идентификатора карты');
-define('_EXTENSION_NAME', 'Название расширения');
-define('_PUBLICATION', 'Публикация');
-define('_REMOVAL', 'Удаление');
+DEFINE('_XMAP_CFG_COM_TITLE',		'Карты сайта');
+DEFINE('_XMAP_CFG_OPTIONS',			'Отображение');
+DEFINE('_XMAP_CFG_CSS_CLASSNAME',	'Стили CSS');
+DEFINE('_XMAP_CFG_EXPAND_CATEGORIES','Расширять категории содержимого');
+DEFINE('_XMAP_CFG_EXPAND_SECTIONS',	'Расширять разделы содержимого');
+DEFINE('_XMAP_CFG_SHOW_MENU_TITLES','Показывать названия меню');
+DEFINE('_XMAP_CFG_NUMBER_COLUMNS',	'Число столбцов');
+DEFINE('_XMAP_EX_LINK',				'Отмечать внешние ссылки');
+DEFINE('_XMAP_CFG_CLICK_HERE', 		'Нажмите сюда');
+DEFINE('_XMAP_CFG_GOOGLE_MAP',		'Google Sitemap');
+DEFINE('_XMAP_EXCLUDE_MENU',		'Исключать ID меню');
+DEFINE('_XMAP_TAB_DISPLAY',			'Отображение');
+DEFINE('_XMAP_CFG_WRITEABLE',		'доступен');
+DEFINE('_XMAP_CFG_UNWRITEABLE',		'не доступен');
+DEFINE('_XMAP_MSG_MAKE_UNWRITEABLE','Запретить редактирование после сохранения');
+DEFINE('_XMAP_MSG_OVERRIDE_WRITE_PROTECTION', 'Игнорировать защиту при записи');
+DEFINE('_XMAP_CFG_INCLUDE_LINK',	'Скрывать ссылку на автора');
+DEFINE('_XMAP_EXCLUDE_MENU_TIP',	'Идентификаторы меню исключаемые из карты.<br /><strong>ВНИМАНИЕ</strong><br />Идентификаторы разделять запятыми!');
+DEFINE('_XMAP_CFG_SET_ORDER',		'Сортировка меню');
+DEFINE('_XMAP_CFG_MENU_SHOW',		'Показать');
+DEFINE('_XMAP_CFG_MENU_REORDER',	'Пересортировать');
+DEFINE('_XMAP_CFG_MENU_ORDER',		'Положение');
+DEFINE('_XMAP_CFG_MENU_NAME',		'Название меню');
+DEFINE('_DISABLE',			'Отключить');
+DEFINE('_XMAP_CFG_ENABLE',			'Включить');
+DEFINE('_XMAP_SHOW',				'Показать');
+DEFINE('_XMAP_NO_SHOW',				'Не показывать');
+DEFINE('_XMAP_TOOLBAR_CANCEL', 		'Выход');
+DEFINE('_XMAP_ERR_NO_LANG',			'Языковой файл [ %s ] не найден, используется язык по умолчанию<br />');
+DEFINE('_XMAP_ERR_CONF_SAVE',		 'ОШИБКА: Невозможно сохранить конфигурацию.');
+DEFINE('_XMAP_ERR_NO_CREATE',		 'ОШИБКА: Отсутствует таблица настроек');
+DEFINE('_XMAP_ERR_NO_DEFAULT_SET',	'ОШИБКА: Отсутствует таблица базовых данных');
+DEFINE('_XMAP_ERR_NO_PREV_BU',		'ПРЕДУПРЕЖДЕНИЕ: Невозможно удалить копию');
+DEFINE('_XMAP_ERR_NO_BACKUP',		 'ОШИБКА: Невозможно создать копию');
+DEFINE('_XMAP_ERR_NO_DROP_DB',		'ОШИБКА: Невозможно удалить настройки');
+DEFINE('_XMAP_ERR_NO_SETTINGS',		'ОШИБКА: Невозможно загрузить настройки: <a href="%s">Создать таблицу настроек</a>');
+DEFINE('_XMAP_MSG_SET_RESTORED',	'Настройки восстановлены');
+DEFINE('_XMAP_MSG_SET_BACKEDUP',	'Настройки сохранены');
+DEFINE('_XMAP_MSG_SET_DB_CREATED',	'Таблица настроек создана');
+DEFINE('_XMAP_MSG_SET_DEF_INSERT',	'Базовые данные внесены');
+DEFINE('_XMAP_MSG_SET_DB_DROPPED',	'Таблицы Xmap\'s сохранены!');
+DEFINE('_XMAP_CSS',		'Xmap CSS');
+DEFINE('_XMAP_CSS_EDIT','Редактирование CSS карт'); // Edit template
+DEFINE('_XMAP_SHOW_AS_EXTERN_ALT',	'Ссылка откроется в новом окне');
+DEFINE('_XMAP_CFG_MENU_SHOW_HTML',		'Показывать на сайте');
+DEFINE('_XMAP_CFG_MENU_SHOW_XML',		'Показывать в XML карте');
+DEFINE('_XMAP_CFG_MENU_PRIORITY',		'Приоритет');
+DEFINE('_XMAP_CFG_MENU_CHANGEFREQ',		'Создавать');
+DEFINE('_XMAP_CFG_CHANGEFREQ_ALWAYS',	'Постоянно');
+DEFINE('_XMAP_CFG_CHANGEFREQ_HOURLY',	'Ежечасно');
+DEFINE('_XMAP_CFG_CHANGEFREQ_DAILY',	'Ежедневно');
+DEFINE('_XMAP_CFG_CHANGEFREQ_WEEKLY',	'Еженедельно');
+DEFINE('_XMAP_CFG_CHANGEFREQ_MONTHLY',	'Ежемесячно');
+DEFINE('_XMAP_CFG_CHANGEFREQ_YEARLY',	'Ежегодно');
+DEFINE('_XMAP_TIT_SETTINGS_OF',			'Настройки %s');
+DEFINE('_XMAP_TAB_SITEMAPS',			'Карта');
+DEFINE('_XMAP_MSG_NO_SITEMAPS',			'Нет созданных карт');
+DEFINE('_XMAP_MSG_NO_SITEMAP',			'Данная карта недоступна');
+DEFINE('_XMAP_MSG_LOADING_SETTINGS',	'Загрузка настроек...');
+DEFINE('_XMAP_MSG_ERROR_LOADING_SITEMAP','Ошибка. Невозможно загрузить карту');
+DEFINE('_XMAP_MSG_ERROR_SAVE_PROPERTY',	'Ошибка. Невозможно сохранить приоритет.');
+DEFINE('_XMAP_MSG_ERROR_CLEAN_CACHE',	'Ошибка. Невозможно очистить кэш карты.');
+DEFINE('_XMAP_ERROR_DELETE_DEFAULT',	'Невозможно удалить карту, используемую по умолчанию!');
+DEFINE('_XMAP_MSG_CACHE_CLEANED',		'Кэш карты очищен!');
+DEFINE('_XMAP_CHARSET',					'utf-8');
+DEFINE('_XMAP_SITEMAP_ID',				'Идентификатор карты');
+DEFINE('_SAVE_SITEMAP',				'Создать новую карту сайта');
+DEFINE('_XMAP_NAME_NEW_SITEMAP',		'Новая карта');
+DEFINE('_XMAP_SITEMAP_SET_DEFAULT',		'По умолчанию');
+DEFINE('_SETTINGS',				'Настройки');
+DEFINE('_XMAP_CLEAR_CACHE',				'Очистить кэш');
+DEFINE('_XMAP_MOVEUP_MENU',		'Выше');
+DEFINE('_XMAP_MOVEDOWN_MENU',	'Ниже');
+DEFINE('_SAVE_MENU',		'Добавить меню');
+DEFINE('_XMAP_COPY_OF',			'Копия %s');
+DEFINE('_XMAP_INFO_LAST_VISIT',	'Последнее посещение');
+DEFINE('_XMAP_INFO_COUNT_VIEWS','Число посещений');
+DEFINE('_XMAP_INFO_TOTAL_LINKS','Число ссылок');
+DEFINE('_XMAP_CFG_URLS',		'URL карты');
+DEFINE('_XMAP_XML_LINK_TIP',	'Скопируйте эту ссылку для использования в Google и Yahoo');
+DEFINE('_XMAP_HTML_LINK_TIP',	'Это полный адрес карты.');
+DEFINE('_XMAP_CFG_XML_MAP',		'XML  карта');
+DEFINE('_XMAP_CFG_HTML_MAP',	'HTML карта');
+DEFINE('_XMAP_XML_LINK',		'Googlelink');
+DEFINE('_XMAP_CFG_XML_MAP_TIP',	'XML файл создаётся для поисковых систем');
+DEFINE('_XMAP_LOADING', 'Загрузка...');
+DEFINE('_XMAP_CACHE', 'Кэширование');
+DEFINE('_XMAP_USE_CACHE', 'Использовать');
+DEFINE('_CACHE_TIME', 'Время жизни кэша');
+DEFINE('_XMAP_PLUGINS','Расширения');
+DEFINE('_INSTALL_NEW_PLUGIN', 'Установить новое расширение');
+DEFINE('_XMAP_UNKNOWN_AUTHOR','Автор неизвестен');
+DEFINE('_XMAP_PLUGIN_VERSION','Версия %s');
+DEFINE('_XMAP_TAB_EXTENSIONS','Расширения');
+DEFINE('_XMAP_TAB_INSTALLED_EXTENSIONS','Установленные расширения');
+DEFINE('_XMAP_NO_PLUGINS_INSTALLED','Расширения не установлены');
+DEFINE('_HEADER_AUTHOR','Автор');
+DEFINE('_XMAP_CONFIRM_DELETE_SITEMAP','Вы уверены что хотите удалить эту карту?');
+DEFINE('_XMAP_CONFIRM_UNINSTALL_PLUGIN','Вы уверены что хотите удалить это расширение?');
+DEFINE('_XMAP_EXT_PUBLISHED','Опубликовать');
+DEFINE('_XMAP_PLUGIN_OPTIONS','Options');
+DEFINE('_XMAP_EXT_INSTALLED_MSG','Расширение установлено, пожалуйста проверьте его параметры и опубликуйте.');
+DEFINE('_XMAP_CONTINUE','Продолжить...');
+DEFINE('_XMAP_MSG_EXCLUDE_CSS_SITEMAP','Не использовать CSS в карте');
+DEFINE('_XMAP_MSG_EXCLUDE_XSL_SITEMAP','Использовать классическую XML карту');
+DEFINE('_XMAP_MSG_SELECT_FOLDER','Пожалуйста, выберите каталог');
+DEFINE('_XMAP_UPLOAD_PKG_FILE','Загрузка пакета расширения');
+DEFINE('_UPLOAD_AND_INSTALL','Загрузить и установить');
+DEFINE('_INSTALL_F_DIRECTORY','Установка из каталога');
+DEFINE('_INSTALLATION_DIRECTORY','Каталог установки');
+DEFINE('_XMAP_WRITEABLE','Доступен');
+DEFINE('_XMAP_UNWRITEABLE','Не доступен');
+DEFINE('_XMAP_INVALID_SID','Ошибка идентификатора карты');
+DEFINE('_EXTENSION_NAME', 'Название расширения');
+DEFINE('_PUBLICATION', 'Публикация');
 DEFINE('_XMAP_PAGE',' страница');
 DEFINE('_XMAP_PLUGIN_SET','Настройки расширения: ');
