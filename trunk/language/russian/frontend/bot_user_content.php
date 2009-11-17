@@ -11,5 +11,4 @@
 defined('_VALID_MOS') or die();
 
 DEFINE('USER_CONTENT_NO_USER_CONTENTS','Пользователь еще ничего не опубликовал');
-DEFINE('_CONTENT_TYPED','Статичное содержимое');
 DEFINE('USER_CONTENT_ALL_USER_CONTENTS','Все материалы пользователя');

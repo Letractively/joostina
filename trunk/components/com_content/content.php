@@ -146,9 +146,10 @@ function showUserItems($user_id) {
 	$access = new contentAccess();
 	// Paramters
 	$params = new configContent_ucontent($database);
+
 	$limit = $limit ? $limit : $params->get('display_num');
-	$params->set('limitstart', $limitstart);
 	$params->set('limit', $limit);
+	$params->set('limitstart', $limitstart);
 
 	$user_items = new mosContent($database);
 	//Получаем количество записей пользователя
@@ -204,6 +205,8 @@ function showUserItems($user_id) {
 		}
 
 		$lists['task'] = 'category';
+//		echo $filter = strval(mosGetParam($_REQUEST, 'filter', ''));
+//		$lists['filter'] = $filter;
 		$lists['filter'] = $params->get('filter_value');
 		$lists['limit'] = $limit;
 		$lists['limitstart'] = $limitstart;

@@ -700,7 +700,7 @@ class mosContent extends mosDBTable{
 		$and = '';
 		$filter = '';
 		if ( $params->get( 'filter',0 ) ) {
-			$filter = stripslashes(strval(mosGetParam( $_POST, 'filter', '' )));
+			$filter = Jstring::clean(urldecode(stripslashes(strval(mosGetParam( $_REQUEST, 'filter', '' )))));
 
 			if ( $filter ) {
 				// clean filter variable
@@ -717,8 +717,9 @@ class mosContent extends mosDBTable{
 						break;
 				}
 			}
+			$params->set('filter_value', $filter);
 		}
-		$params->set('filter_value', $filter);
+
 
 		$query = "SELECT  a.sectionid, a.checked_out, a.id, a.state AS published,
 				a.title, a.hits, a.created_by, a.created_by_alias,
@@ -744,7 +745,7 @@ class mosContent extends mosDBTable{
 		// filter functionality
 		$and = '';
 		if ( $params->get( 'filter',0 ) ) {
-			$filter = stripslashes(strval(mosGetParam( $_POST, 'filter', '' )));
+			$filter = Jstring::clean(urldecode(stripslashes(strval(mosGetParam( $_REQUEST, 'filter', '' )))));
 
 			if ( $filter ) {
 				// clean filter variable

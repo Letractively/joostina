@@ -51,6 +51,10 @@ class ContentView {
 			$page_link = 'index.php?option=com_content&amp;task=user_content&amp;id='.$user_id.'&amp;Itemid='.$Itemid.'&amp;order='.$order;
 		}
 
+		if( trim($lists['filter']!='')){
+			$page_link .= '&amp;filter='.urlencode($lists['filter']);
+		}
+
 		include_once (JPATH_BASE.'/components/com_content/view/user/items/default.php');
 
 	}

@@ -18,7 +18,7 @@ defined('_VALID_MOS') or die(); ?>
 		<div class="componentheading"><h1><?php echo $params->title; ?></h1></div>
 <?php } ?>
 		<div class="error"><?php echo _COM_CONTENT_USERCONTENT_NOT_FOUND ?></div>
-        <?php mosHTML::BackButton($params); ?>
+		<?php mosHTML::BackButton($params); ?>
 	</div>
 <?php
 	return;
