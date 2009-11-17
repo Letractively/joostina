@@ -14,7 +14,7 @@ require_once ($mainframe->getPath('class','com_search'));
 require_once ($mainframe->getPath('front_html'));
 $mainframe->addLib('text');
 
-$tag = Jstring::to_utf8(urldecode(mosGetParam( $_GET, 'tag', '' )));
+$tag = Jstring::clean(urldecode(mosGetParam( $_GET, 'tag', '' )));
 
 if($tag){
 	search_by_tag($tag);
