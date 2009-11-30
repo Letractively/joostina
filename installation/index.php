@@ -144,7 +144,7 @@ echo '<?xml version="1.0" encoding="utf-8"?'.'>';?>
 							Следующие параметры PHP являются неоптимальными для <strong>Безопасности</strong> и их рекомендуется изменить:
 						</p>
 						<p>
-							Пожалуйста, за дополнительной информацией обращайтесь на <a href="http://forum.joomla.org/index.php/topic,81058.0.html" target="_blank">официальный форум Joomla! - темы о Безопасности</a>.
+							Пожалуйста, за дополнительной информацией обращайтесь на <a href="http://www.joostina.ru" target="_blank">официальный сайт Joostina</a>.
 						</p>
 						<div class="ctr"></div>
 					</div>

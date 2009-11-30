@@ -5095,7 +5095,7 @@ class mosAdminMenus {
 		$imageFiles = mosReadDirectory(JPATH_BASE.$directory);
 		$images = array(mosHTML::makeOption('','- '._CHOOSE_IMAGE.' -'));
 		foreach($imageFiles as $file) {
-			if(eregi("bmp|gif|jpg|png",$file)) {
+			if(preg_match("/bmp|gif|jpg|png/i",$file)) {
 				$images[] = mosHTML::makeOption($file);
 			}
 		}
@@ -5279,7 +5279,7 @@ class mosAdminMenus {
 				$folders[] = mosHTML::makeOption($ff_);
 				mosAdminMenus::ReadImages($i_f,$ff_,$folders,$images);
 			} else
-				if(eregi("bmp|gif|jpg|png",$file) && is_file($i_f)) {
+				if(preg_match("/bmp|gif|jpg|png/",$file) && is_file($i_f)) {
 					// leading / we don't need
 					$imageFile = substr($ff,1);
 					$images[$folderPath][] = mosHTML::makeOption($imageFile,$file);
@@ -5306,7 +5306,7 @@ class mosAdminMenus {
 					$ff = $folderPath.$file;
 					$i_f = $imagePath.'/'.$file;
 
-					if(eregi("bmp|gif|jpg|png",$file) && is_file($i_f)) {
+					if(preg_match("/bmp|gif|jpg|png/i",$file) && is_file($i_f)) {
 						// leading / we don't need
 						$imageFile = substr($ff,1);
 						$images[$folderPath][] = mosHTML::makeOption($imageFile,$file);
