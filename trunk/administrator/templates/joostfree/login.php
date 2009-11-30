@@ -88,13 +88,5 @@ if($config->config_enable_admin_secure_code){
 		<div id="footer" align="center">
 			<div align="center"><?php echo joomlaVersion::get('URL'); ?></div>
 		</div>
-<?php
-echo mosCommonHTML::loadJquery(true);
-mosCommonHTML::loadJqueryPlugins('jquery.corner',1);
-?>
-<script type="text/javascript">
-$('.login').corner() ;
-$('.form-block').corner() ;
-</script>
 </body>
 </html>
