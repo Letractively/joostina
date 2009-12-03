@@ -22,7 +22,7 @@ if(!count($other_categories)){
 		$link = sefRelToAbs('index.php?option=com_content&amp;task=category&amp;sectionid='.$row->section.'&amp;id='.$row->id.'&amp;Itemid='.$Itemid); ?>
 		<a href="<?php echo $link; ?>" class="category" title="<?php echo $row->name; ?>"><?php echo $row->name; ?></a>
 <?php if($params->get('cat_items')) { ?>
-			&nbsp;<i>( <?php echo $row->numitems._CHECKED_IN_ITEMS; ?> )</i>
+			&nbsp;<i>( <?php echo $row->numitems; ?> )</i>
 <?php } ?>
 <?php if($params->get('cat_description') && $row->description) { ?>
 	<br />

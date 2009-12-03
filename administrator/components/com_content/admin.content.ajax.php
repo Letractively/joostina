@@ -147,38 +147,6 @@ function x_to_trash($id){
 }
 
 
-/* быстрое сохранение содержимого редакторов
-* $id - идентификатор содержимого
-* сохраняется ТОЛЬКО текст редакторов
-*/
-function x_save_old($id) {
-	global $my;
-	$database = &database::getInstance();
-
-	$introtext	= mosGetParam($_POST,'introtext','',_MOS_ALLOWRAW);
-	$fulltext	= mosGetParam($_POST,'fulltext','',_MOS_ALLOWRAW);
-	$notetext	= mosGetParam($_POST,'notetext','',_MOS_ALLOWRAW);
-
-	// конвертируем из юникода в cp1251
-	$introtext	= joostina_api::convert($introtext);
-	$fulltext	= joostina_api::convert($fulltext);
-	$notetext	= joostina_api::convert($notetext);
-	$query = "UPDATE #__content"
-			." SET `introtext` = '$introtext',"
-			." `fulltext` = '$fulltext',"
-			." `notetext` = '$notetext'"
-			." WHERE id = ".(int)$id." AND ( checked_out = 0 OR (checked_out = ".(int)$my->id.") )";
-	$database->setQuery($query);
-
-	$text = _C_CONTENT_AJAX_SAVE.': '.gmdate('H:i:s ( d.m.y )');
-	if(!$database->query()) {
-		$text = 'error-'.$database->getErrorMsg();
-		mosCache::cleanCache('com_content');
-	}
-	return $text;
-}
-
-
 /**
 * Saves the content item an edit form submit
 * @param database A database connector object
@@ -194,7 +162,7 @@ function x_save() {
 	$menuid		= intval(mosGetParam($_POST,'menuid',0));
 	$nullDate	= $database->getNullDate();
 	$sectionid	=intval(mosGetParam($_POST,'sectionid',0));
-	
+
 	foreach($_POST as $key => $val) {
 		$_POST[$key] = joostina_api::convert($val);
 	}
