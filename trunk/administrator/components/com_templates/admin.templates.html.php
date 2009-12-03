@@ -36,7 +36,7 @@ class HTML_templates {
 			name = name.replace(pattern,'_');
 			name = name.toLowerCase();
 			if (document.adminForm.doPreview.checked) {
-				var src = '<?php echo $mosConfig_live_site.($client == 'admin'?'/'.JADMIN_BASE:''); ?>/templates/'+dir+'/template_thumbnail.png';
+				var src = '<?php echo JPATH_SITE.($client == 'admin'?'/'.JADMIN_BASE:''); ?>/templates/'+dir+'/template_thumbnail.png';
 				var html=name;
 				html = '<br /><img border="1" src="'+src+'" name="imagelib" alt="<?php echo _NO_PREVIEW?>" width="206" height="145" />';
 				return overlib(html, CAPTION, name)

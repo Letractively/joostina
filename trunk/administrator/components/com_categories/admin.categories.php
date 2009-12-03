@@ -198,7 +198,7 @@ function showCategories($section,$option) {
 		$table = 'content';
 	}
 
-	$query = "SELECT  c.*, c.checked_out as checked_out_contact_category, g.name AS groupname, u.name AS editor,"
+	$query = "SELECT  c.*, c.checked_out as checked_out_contact_category, g.name AS groupname, u.name AS editor, '0' AS active, '0' AS trash,"
 		."COUNT( DISTINCT s2.checked_out ) AS checked_out"
 		.$content_add
 		."\n FROM #__categories AS c"
@@ -213,7 +213,9 @@ function showCategories($section,$option) {
 		.$order;
 
 	$database->setQuery($query,$pageNav->limitstart,$pageNav->limit);
+
 	$rows = $database->loadObjectList('id');
+
 	if($database->getErrorNum()) {
 		echo $database->stderr();
 		return;
@@ -230,7 +232,7 @@ function showCategories($section,$option) {
 		$query = "SELECT COUNT( a.id ) as count,a.state,a.catid FROM #__content AS a WHERE a.catid IN(".implode(',',$cat_ids).") GROUP BY a.catid";
 		$database->setQuery($query);
 		$cats_info = $database->loadObjectList();
-
+		// заполняем данные о числе активных и удалённых материалах в категории
 		foreach ($cats_info as $cat_info){
 			if($cat_info->state=='-2'){
 				$rows[$cat_info->catid]->trash = $cat_info->count;
@@ -239,24 +241,14 @@ function showCategories($section,$option) {
 				$rows[$cat_info->catid]->active = $cat_info->count;
 				$rows[$cat_info->catid]->trash = 0;
 			}
-			$new_rows[] = $rows[$cat_info->catid];
 		}
 	}
 
-	//А теперь добавим в $new_rows категории без контента,
-	// а то не по фен-шую как-то получается
-	
-	foreach($cat_ids as $v){
-		if (!in_array($rows[$v], $new_rows)){
-			$rows[$v]->trash = 0;
-			$rows[$v]->active = 0; 
-			$new_rows[] = $rows[$v];
-		}
+	foreach($rows as $v){
+		$new_rows[] = $v;
 	}
 
 	$rows = $new_rows;
-	
-	
 	unset($new_rows);
 
 	// get list of sections for dropdown filter

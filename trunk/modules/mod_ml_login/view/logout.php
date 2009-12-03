@@ -14,18 +14,17 @@ $module->helper->prepare_logout_form($params); ?>
 		<div class="mod_ml_login logout">
 	
 			<?php if($params->get('ml_avatar',1)){ ?>
-			<img class="avatar" src="<?php echo JPATH_SITE;?>/<?php echo mosUser::get_avatar($my);?>" alt="<?php echo $params->_user_name;?>"/>
+				<img class="avatar" src="<?php echo JPATH_SITE;?>/<?php echo mosUser::get_avatar($my);?>" alt="<?php echo $params->_raw_user_name;?>" />
 			<?php } ?>
-			
+
 			<?php if ($params->get('greeting', 1)) { ?>
 				<?php echo _HI; ?>
 				<?php echo $params->_user_name; ?>
 			<?php } ?>
-			
+
 			<?php echo $params->_profile_link; ?>	
-			
+
 			<span class="button"><input type="submit" name="Submit" id="logout_button" class="button" value="<?php echo _BUTTON_LOGOUT; ?>" /></span>
-			
 		</div>
 
 		<input type="hidden" name="option" value="logout" />

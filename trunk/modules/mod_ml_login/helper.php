@@ -30,7 +30,9 @@ class mod_ml_login_Helper{
 		} else {
 			$params->_user_name = $my->username;
 		}
-	
+
+		$params->_raw_user_name = $params->_user_name;
+
 		//Ссылка на профиль пользователя
 		$params->_profile_link = '';
 		if ($params->get('profile_link',0) == 0) {

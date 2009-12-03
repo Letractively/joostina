@@ -82,8 +82,7 @@ class mosCategory extends mosDBTable{
 		$ignoreList = array('description');
 		$this->filter($ignoreList);
 		// check for existing name
-		$query = "SELECT id FROM #__categories WHERE name = " . $this->_db->Quote($this->name) . " AND section = " . $this->
-			_db->Quote($this->section);
+		$query = "SELECT id FROM #__categories WHERE name = " . $this->_db->Quote($this->name) . " AND section = " . $this->_db->Quote($this->section);
 		$this->_db->setQuery($query);
 
 		$xid = intval($this->_db->loadResult());
@@ -186,15 +185,7 @@ class mosCategory extends mosDBTable{
 				// use Itemid for section found in query
 				$_Itemid = '&amp;Itemid='.$mainframe->get('secID_'.$row->sectionid,-1);
 		}
-		
-		//Эта штуковина больше не нужна, поскольку теперь мы предоставляем админу
-		//право вручную выставлять тип ссылки в настройках пункта
-		
-		//	if($catLinkURL) {
-		//		$link = sefRelToAbs($catLinkURL.$_Itemid);
-		//	} 
-		
-		
+
 		$params->set('catid', $row->catid);
 		$params->set('sectionid', $row->sectionid);
 		$params->set('Itemid', $_Itemid);
@@ -650,19 +641,10 @@ class mosContent extends mosDBTable{
 	 */
 	function check(){
 		// filter malicious code
-		$ignoreList = array('introtext', 'fulltext');
+		$ignoreList = array('introtext', 'fulltext','notetext');
 		$this->filter($ignoreList);
 
-		/*
-		* TODO: This filter is too rigorous,
-		* need to implement more configurable solution
-		* // specific filters
-		* $iFilter = new InputFilter( null, null, 1, 1 );
-		* $this->introtext = trim( $iFilter->process( $this->introtext ) );
-		* $this->fulltext =  trim( $iFilter->process( $this->fulltext ) );
-		*/
-		if (trim(str_replace('&nbsp;', '', $this->fulltext)) == '')
-		{
+		if (trim(str_replace('&nbsp;', '', $this->fulltext)) == ''){
 			$this->fulltext = '';
 		}
 		return true;
@@ -1847,9 +1829,11 @@ class ContentTemplate{
 	}
 
 	function get_currtemplate_path($page_type){
-
+		$mainframe = &mosMainFrame::getInstance();
+		$mainframe->_setTemplate();
+		$template = $mainframe->getTemplate();
 		$template_dir = self::get_template_dir($page_type);
-		$currtemplate_path = 'templates'.DS.JTEMPLATE.DS.'html'.DS.'com_content'.DS.$template_dir;
+		$currtemplate_path = 'templates'.DS.$template.DS.'html'.DS.'com_content'.DS.$template_dir;
 		return $currtemplate_path;
 	}
 

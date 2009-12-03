@@ -103,10 +103,10 @@ switch($task) {
 * is ignored
 */
 function viewTemplates($option,$client) {
-	global $database,$mainframe;
-	global $mosConfig_list_limit;
+	$mainframe = &mosMainFrame::getInstance();
+	$database = &$mainframe->_db;
 
-	$limit = $mainframe->getUserStateFromRequest('viewlistlimit','limit',$mosConfig_list_limit);
+	$limit = $mainframe->getUserStateFromRequest('viewlistlimit','limit',$mainframe->config->config_list_limit);
 	$limitstart = $mainframe->getUserStateFromRequest("view{$option}limitstart",'limitstart',0);
 
 	if($client == 'admin') {
