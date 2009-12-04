@@ -5771,16 +5771,15 @@ class mosCommonHTML {
 			define($const,1);
 			if($ret){
 			?><script language="javascript" type="text/javascript" src="<?php echo JPATH_SITE;?>/includes/js/jquery/plugins/<?php echo $name; ?>.js"></script>
-			<script language="JavaScript" type="text/javascript">_js_defines.push('<?php echo $name; ?>');</script>
+			<script language="JavaScript" type="text/javascript">if(_js_defines) {_js_defines.push('<?php echo $name; ?>')} else {var _js_defines = ['<?php echo $name; ?>']}</script>
 <?php
-		if($css){
-			?><link type="text/css" rel="stylesheet" href="<?php echo JPATH_SITE;?>/includes/js/jquery/plugins/<?php echo $name; ?>.css" />
-<?php
+			if($css){
+				?><link type="text/css" rel="stylesheet" href="<?php echo JPATH_SITE;?>/includes/js/jquery/plugins/<?php echo $name; ?>.css" /><?php
 			}?>
 			<?php }else{
 				$mainframe = &MosMainFrame::getInstance();
 				$mainframe->addJS(JPATH_SITE.'/includes/js/jquery/plugins/'.$name.'.js', $footer);
-				$mainframe->addCustomHeadTag('<script language="JavaScript" type="text/javascript">_js_defines.push("'.$name.'");</script>');
+				$mainframe->addCustomHeadTag('<script language="JavaScript" type="text/javascript">if(_js_defines) {_js_defines.push('.$name.')} else {var _js_defines = ['.$name.']}</script>');
 				if($css){
 					$mainframe->addCSS(JPATH_SITE.'/includes/js/jquery/plugins/'.$name.'.css');
 				}

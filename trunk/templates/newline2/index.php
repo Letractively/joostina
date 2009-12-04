@@ -12,7 +12,7 @@ $iso = explode('=',_ISO); echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'
 	var _live_site = '<?php echo JPATH_SITE;?>';
 	var _option = '<?php echo mosGetParam( $_REQUEST, 'option', '' );?>';
 	var _cur_template = '<?php echo JTEMPLATE;?>';
-	var _js_defines = new Array();
+	var _js_defines = [];
 </script>
 <?php
 	// загружаем верхнюю часть страницы со всеми js и css файлами, и обязательным использованием jquery
@@ -47,31 +47,31 @@ $iso = explode('=',_ISO); echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'
                 <div class="header_right">
                     <a title="Обратная связь" href="mailto:<?php echo $mosConfig_mailfrom;?>" id="mail" class="navbar">&nbsp;</a>
                     <a title="Карта сайта" href="<?php echo sefRelToAbs('index.php?option=com_xmap&amp;Itemid=27'); ?>" id="map" class="navbar">&nbsp;</a>      
-				</div>
-               	<div class="top_menu_l"><div class="top_menu_r"><div class="top_menu_mid">
-					<?php mosLoadModules('top',-1); ?>
-					<?php mosLoadModule('mod_ml_login', '', -1, 0, $login_params); ?>
-       			</div></div></div>
+                </div>
+               <div class="top_menu_l"><div class="top_menu_r"><div class="top_menu_mid">
+                <?php mosLoadModules('top',-1); ?>
+                <?php mosLoadModule('mod_ml_login', '', -1, 0, $login_params); ?>
+                </div></div></div>
             </div><!--header:end-->
-            <?php if($block1_count) { $block1_width = 'w' .$block1_count; ?>
+<?php if($block1_count) { $block1_width = 'w' .$block1_count; ?>
             <div class="block1" id="block_round">
-  					<?php if(mosCountModules('user1')) { ?>
+<?php if(mosCountModules('user1')) { ?>
                     <div class="block_<?php echo $block1_width ?>">
         	            <?php mosLoadModules('user1', -2); ?>
         	        </div>
-                    <?php } ?>
-                    <?php if(mosCountModules('user2')) { ?>
+<?php } ?>
+<?php if(mosCountModules('user2')) { ?>
                     <div class="block_<?php echo $block1_width ?>">
-        	            <?php mosLoadModules('user2', -2); ?>
-        	        </div>
-                    <?php } ?>
+                        <?php mosLoadModules('user2', -2); ?>
+                   </div>
+<?php } ?>
                     <?php if(mosCountModules('user3')) { ?>
                     <div class="block_<?php echo $block1_width ?>">
-        	            <?php mosLoadModules('user3', -2); ?>
-        	        </div>
-                    <?php } ?> 
+                    <?php mosLoadModules('user3', -2); ?>
+                </div>
+<?php } ?> 
             </div><!--block1:end-->
-            <?php } ?>
+<?php } ?>
             <div class="content">
                 <?php mosMainbody(); ?> <br />
                 <?php if($block2_count) { $block2_width = 'w' .$block2_count; ?>

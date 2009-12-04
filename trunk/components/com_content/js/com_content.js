@@ -1,4 +1,5 @@
 $(document).ready(function() {
+	var _js_defines = _js_defines || [];
 	if((jQuery.inArray("load_tooltip", _js_defines)>-1)){
 		$("a.edit_button").tooltip({ 
 			track: true,
