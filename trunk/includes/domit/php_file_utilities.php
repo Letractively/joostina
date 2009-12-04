@@ -26,18 +26,22 @@ class php_file_utilities {
 		if($fileHandle) {
 			do {
 				$data = fread($fileHandle,$readSize);
-				if(strlen($data) == 0) {
+				if(Jstring::strlen($data) == 0) {
 					break;
 				}
 				$fileContents .= $data;
 			} while(true);
 			fclose($fileHandle);
 		}
+		$fileContents = Jstring::to_utf8($fileContents);
 		return $fileContents;
 	}
 
 	function putDataToFile($fileName,&$data,$writeAttributes) {
 		$fileHandle = @fopen($fileName,$writeAttributes);
+		/* нехорошо так делать, но работает */
+		$data = str_ireplace(' encoding="windows-1251"',' encoding="utf-8"',$data);
+		$data = Jstring::to_utf8($data);
 		if($fileHandle) {
 			fwrite($fileHandle,$data);
 			fclose($fileHandle);
