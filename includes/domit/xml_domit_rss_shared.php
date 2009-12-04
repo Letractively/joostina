@@ -450,6 +450,7 @@ class xml_domit_rss_base_document extends xml_domit_rss_elementindexer {
 				}
 			}
 		}
+		$fileContents = Jstring::to_utf8($fileContents);
 		return $fileContents;
 	}
 
