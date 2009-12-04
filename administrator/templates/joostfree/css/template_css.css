@@ -4,7 +4,7 @@ html {
 	margin: 0;
 }
 body {
-	font: 12px Arial, Helvetica, sans-serif;
+	font: normal normal 12px Arial, Helvetica, sans-serif;
 	height: 100%;
 	margin: 0;
 }
@@ -1031,4 +1031,11 @@ div.cpicons div {
 }
 .sub_adminform {
 	width: 98%;
+}
+.inactive .ThemeOfficeMainItemHover, .inactive .ThemeOfficeMainItem, .inactive .ThemeOfficeMainItemActive {
+	background-image: none;
+	border: 0;
+	color: #808080;
+	padding: 0;
+	cursor: default;
 }
