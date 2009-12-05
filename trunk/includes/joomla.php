@@ -604,12 +604,21 @@ class mosMainFrame {
 		$session = new mosSession($this->_db);
 		// purge expired sessions
 		(rand(0,2)==1) ? $session->purge('core','',$this->config->config_lifetime) : null;
-		// Session Cookie `name`
-		$sessionCookieName = mosMainFrame::sessionCookieName();
+        
+		if($this->get('_multisite')){
+			// Session Cookie `name`
+			$sessionCookieName = mosMainFrame::sessionCookieName($this->_multisite_params->main_site);
+		}
+		else{
+			// Session Cookie `name`
+			$sessionCookieName = mosMainFrame::sessionCookieName();
+		}        
+
 		// Get Session Cookie `value`
 		$sessioncookie = strval(mosGetParam($_COOKIE,$sessionCookieName,null));
 		// Session ID / `value`
-		$sessionValueCheck = mosMainFrame::sessionCookieValue($sessioncookie);
+		$sessionValueCheck = mosMainFrame::sessionCookieValue($sessioncookie);        
+        
 		// Check if existing session exists in db corresponding to Session cookie `value`
 		// extra check added in 1.0.8 to test sessioncookie value is of correct length
 		if($sessioncookie && strlen($sessioncookie) == 32 && $sessioncookie != '-' && $session->load($sessionValueCheck)) {
@@ -629,7 +638,12 @@ class mosMainFrame {
 			// check if neither remembermecookie or sessioncookie found
 			if(!$cookie_found) {
 				// create sessioncookie and set it to a test value set to expire on session end
-				setcookie($sessionCookieName,'-',false,'/');
+				if($this->get('_multisite')){
+					setcookie($sessionCookieName,'-',false,'/', $this->_multisite_params->cookie_domen);	
+				}
+				else{
+                    setcookie($sessionCookieName,'-',false,'/');
+				}
 			} else {
 				// otherwise, sessioncookie was found, but set to test val or the session expired, prepare for session registration and register the session
 				$url = strval(mosGetParam($_SERVER,'REQUEST_URI',null));
@@ -645,7 +659,12 @@ class mosMainFrame {
 						die($session->getError());
 					}
 					// create Session Tracking Cookie set to expire on session end
-					setcookie($sessionCookieName,$session->getCookie(),false,'/');
+					if($this->get('_multisite')){
+						setcookie($sessionCookieName,$session->getCookie(),false,'/', $this->_multisite_params->cookie_domen);	
+					}
+					else{
+						setcookie($sessionCookieName,$session->getCookie(),false,'/');	
+					}
 				}
 			}
 			// Cookie used by Remember me functionality
@@ -1147,7 +1166,7 @@ class mosMainFrame {
 		$m_s = new stdClass();
 		$m_s = $mainframe->get('_multisite_params');
 
-		$database = new database($m_s->db_host,$m_s->db_user,$m_s->db_pass,$m_s->db_name,$m_s->table_preffix);
+		$database = &database::getInstance();
 		$user = new mosUser($database);
 		$user->id = 0; $user->gid = 0;
 		

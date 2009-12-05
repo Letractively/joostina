@@ -55,6 +55,9 @@ class database {
 	/**
 	@var string Quote for named objects*/
 	var $_nameQuote = '`';
+	var $_remote_tbl = null;
+	var $_ms_params = null;
+	/**
 	/**
 	* Database object constructor
 	* @param string Database host
@@ -224,7 +227,39 @@ class database {
 	function replacePrefix($sql,$prefix = '#__') {
 
 		// ЭКСПЕРИМЕНТАЛЬНО
-		return str_replace('#__',$this->_table_prefix,$sql);
+        //++еще более экспериментально - поддержка мультисайтовости
+		//если включена мультисайтовая игтеграция, заменяем текущий преффикс на преффикс таблиц главного сайта
+		if(DEFINED('_MULTISITE')){
+			
+			global $m_s;
+			
+			if($m_s->flag == 2){
+				$sql = str_replace('#__',$this->_table_prefix,$sql);
+	 			
+	 			if(!isset($m_s->isAdmin)){
+		 			foreach($m_s->remote_tables as $tbl){
+						$sql = str_replace($this->_table_prefix.$tbl, $m_s->table_preffix.$tbl,$sql);	
+		 			}	 				
+	 			}
+	 			else{
+		 			foreach($m_s->remote_tables_admin as $tbl){
+						$sql = str_replace($this->_table_prefix.$tbl, $m_s->table_preffix.$tbl,$sql);	
+		 			}	 				
+	 			}
+
+	 			
+	 			return $sql;				
+			}
+			else{
+				return str_replace('#__',$this->_table_prefix,$sql);	
+			}
+	
+  		}
+  		else{
+ 			return str_replace('#__',$this->_table_prefix,$sql);	
+		}
+
+		//return str_replace('#__',$this->_table_prefix,$sql);
 
 		$sql = trim($sql);
 
