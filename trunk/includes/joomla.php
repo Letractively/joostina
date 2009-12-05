@@ -605,7 +605,7 @@ class mosMainFrame {
 		// purge expired sessions
 		(rand(0,2)==1) ? $session->purge('core','',$this->config->config_lifetime) : null;
         
-		if($this->get('_multisite')){
+		if($this->get('_multisite')){ 
 			// Session Cookie `name`
 			$sessionCookieName = mosMainFrame::sessionCookieName($this->_multisite_params->main_site);
 		}
@@ -638,8 +638,11 @@ class mosMainFrame {
 			// check if neither remembermecookie or sessioncookie found
 			if(!$cookie_found) {
 				// create sessioncookie and set it to a test value set to expire on session end
-				if($this->get('_multisite')){
+				if($this->get('_multisite') && $this->get('_multisite')!='2'){
 					setcookie($sessionCookieName,'-',false,'/', $this->_multisite_params->cookie_domen);	
+				}
+				elseif($this->get('_multisite') && $this->get('_multisite')=='2'){ 
+					//	
 				}
 				else{
                     setcookie($sessionCookieName,'-',false,'/');
@@ -659,8 +662,11 @@ class mosMainFrame {
 						die($session->getError());
 					}
 					// create Session Tracking Cookie set to expire on session end
-					if($this->get('_multisite')){
+					if($this->get('_multisite') && $this->get('_multisite')!='2' ){ 
 						setcookie($sessionCookieName,$session->getCookie(),false,'/', $this->_multisite_params->cookie_domen);	
+					}
+					elseif($this->get('_multisite') && $this->get('_multisite')=='2' ){  
+						//setcookie($sessionCookieName,$session->getCookie(),false,'/', $this->_multisite_params->cookie_domen);	
 					}
 					else{
 						setcookie($sessionCookieName,$session->getCookie(),false,'/');	
@@ -841,13 +847,17 @@ class mosMainFrame {
 	* Deperciated 1.1
 	*/
 	function sessionCookieName($site_name = '') {
+	   
+		if(!$site_name){
+			$site_name = JPATH_SITE;
+		}
 
-		if(substr(JPATH_SITE,0,7) == 'http://') {
-			$hash = md5('site'.substr(JPATH_SITE,7));
-		} elseif(substr(JPATH_SITE,0,8) == 'https://') {
-			$hash = md5('site'.substr(JPATH_SITE,8));
+		if(substr($site_name,0,7) == 'http://') {
+			$hash = md5('site'.substr($site_name,7));
+		} elseif(substr($site_name,0,8) == 'https://') {
+			$hash = md5('site'.substr($site_name,8));
 		} else {
-			$hash = md5('site'.JPATH_SITE);
+			$hash = md5('site'.$site_name);
 		}
 
 		return $hash;
@@ -1159,7 +1169,7 @@ class mosMainFrame {
 	}
 
 
-	function getUser_from_sess($sess_id) {
+function getUser_from_sess($sess_id) {
 		$mainframe = &mosMainFrame::getInstance();
 		$sess_id = $mainframe->sessionCookieValue($sess_id);
 
@@ -1170,14 +1180,18 @@ class mosMainFrame {
 		$user = new mosUser($database);
 		$user->id = 0; $user->gid = 0;
 		
-		// и кто это у нас тут такой, залогиненныыый
-		$sql = "SELECT * FROM #__session WHERE session_id = '".$sess_id."' AND guest = 0";
-		
 		$row = null;
-		$database->setQuery($sql,0,1);
-		$database->loadObject($row);
+        
+		if($mainframe->_session && $mainframe->_session->userid){
+			$row = $mainframe->_session;
+		}
+		else{
+			$sql = "SELECT * FROM #__session WHERE session_id = '".$sess_id."' AND guest = 0";
+			$database->setQuery($sql);
+			$database->loadObject($row);			
+		}        
 		
-		if($row){
+		if($row && $row->userid){
 			$user->id = $row->userid;
 			
 			$query = "SELECT id, name, username, usertype, email, avatar, block, sendEmail, registerDate, lastvisitDate, activation, params
@@ -1196,7 +1210,7 @@ class mosMainFrame {
 			$user->lastvisitDate = $my->lastvisitDate;
 			$user->activation = $my->activation;
 			$user->usertype = $my->usertype; 
-			
+			//$user->gid = $row->gid;
 		}
 		/* чистка памяти */
 		unset($user->_db);
