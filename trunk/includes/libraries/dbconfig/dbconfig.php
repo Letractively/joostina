@@ -44,8 +44,8 @@ class DBconfig{
 		}
 		
 		// получаем все значение из базы данных
-		if($this->bindConfig($this->_formatArray($this->getBatchValues()))){
-			return true;
+		if($this->bindConfig($this->_formatArray($values = $this->getBatchValues()))){
+			return $values;
 		};
 		return false;
 	}
@@ -121,7 +121,7 @@ class DBconfig{
 			$where = " AND c.subgroup = '".$this->_subgroup."'";
 		}
 
-		$this->_db->setQuery("SELECT c.name, c.value FROM #__config AS c WHERE c.group='$this->_group'".$where);
+		$this->_db->setQuery("SELECT c.name, c.value, c.subgroup FROM #__config AS c WHERE c.group='$this->_group'".$where);
 
 		$return = $this->_db->loadObjectList();
 		if (count($return) && is_array($return)) {
