@@ -88,17 +88,20 @@ $mainframe = &mosMainFrame::getInstance();
 $option = $mainframe->option;
 $Itemid = $mainframe->Itemid;
 
+//Межсайтовая интеграция
+if(DEFINED('_MULTISITE')){ 
+	$mainframe->set('_multisite', $m_s->flag);
+	$mainframe->set('_multisite_params', $m_s);
+}
+
 // отключение ведения сессий на фронте
 ($mosConfig_no_session_front == 0) ? $mainframe->initSession() : null;
 
 //Межсайтовая интеграция
-if(DEFINED('_MULTISITE')){
-	$mainframe->set('_multisite', $m_s->flag);
-	$mainframe->set('_multisite_params', $m_s);
-	
+if(DEFINED('_MULTISITE')){ 
 	$cookie_exist = 0;	
 	if(isset($_COOKIE[mosMainFrame::sessionCookieName($m_s->main_site)])){
-		$cookie_exist = 1;
+		$cookie_exist = 1; 
 	}
 }
 
@@ -124,7 +127,7 @@ include_once($mainframe->getLangFile('',$mosConfig_lang));
 $return		= strval(mosGetParam($_REQUEST,'return',null));
 $message	= intval(mosGetParam($_POST,'message',0));
 
-if($mainframe->get('_multisite')=='2' && $cookie_exist ){	
+if($mainframe->get('_multisite')=='2' && $cookie_exist ){
 	$my = $mainframe->getUser_from_sess($_COOKIE[mosMainFrame::sessionCookieName($m_s->main_site)]);
 }else{
 	$my = $mainframe->getUser();
