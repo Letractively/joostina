@@ -21,6 +21,11 @@ define('JPATH_SITE', $mosConfig_live_site );
 // для совместимости
 $mosConfig_absolute_path = JPATH_BASE;
 
+//Межсайтовая интеграция
+if(is_file($mosConfig_absolute_path.DIRECTORY_SEPARATOR.'multisite.config.php')){
+	include_once($mosConfig_absolute_path.DIRECTORY_SEPARATOR.'multisite.config.php');
+}
+
 require_once ('includes/joomla.php');
 
 // отображение состояния выключенного сайта
@@ -49,13 +54,18 @@ if($mosConfig_mmb_ajax_starts_off == 0) {
 
 // mainframe - основная рабочая среда API, осуществляет взаимодействие с 'ядром'
 $mainframe = &mosMainFrame::getInstance();
-//Межсайтовая интеграция
-if(is_file(JPATH_BASE.DS.'multisite.config.php')){
-	include_once(JPATH_BASE.DS.'multisite.config.php');
-}
 
 $mainframe->initSession();
 
+//Межсайтовая интеграция
+if(DEFINED('_MULTISITE')){
+	$mainframe->set('_multisite', $m_s->flag);
+	$mainframe->set('_multisite_params', $m_s);
+	$cookie_exist = 0;	
+	if(isset($_COOKIE[mosMainFrame::sessionCookieName($m_s->main_site)])){
+		$cookie_exist = 1; 
+	}
+}
 
 // загрузка файла русского языка по умолчанию
 if($mosConfig_lang == '') {

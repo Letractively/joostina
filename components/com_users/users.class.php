@@ -77,7 +77,7 @@ class mosUser extends mosDBTable {
 	
 	function mosUser_multi($mainframe){
 		$m_s = $mainframe->get('_multisite_params');
-		$database =  new database($m_s->db_host,$m_s->db_user,$m_s->db_pass,$m_s->db_name,$m_s->table_preffix);
+		$database = &database::getInstance();
 		mosUser::mosDBTable('#__users','id',$database);
 		return;
 	}

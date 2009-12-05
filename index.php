@@ -46,6 +46,12 @@ if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset
 }
 unset($http_host);
 
+
+//Межсайтовая интеграция
+if(is_file($mosConfig_absolute_path.DIRECTORY_SEPARATOR.'multisite.config.php')){
+	include_once($mosConfig_absolute_path.DIRECTORY_SEPARATOR.'multisite.config.php');
+}
+
 // подключение главного файла - ядра системы
 require_once (JPATH_BASE.DS.'includes'.DS.'joomla.php');
 
@@ -82,14 +88,19 @@ $mainframe = &mosMainFrame::getInstance();
 $option = $mainframe->option;
 $Itemid = $mainframe->Itemid;
 
-//Межсайтовая интеграция
-//if(is_file(JPATH_BASE.DS.'multisite.config.php')){
-//	include_once(JPATH_BASE.DS.'multisite.config.php');
-//}
-
 // отключение ведения сессий на фронте
 ($mosConfig_no_session_front == 0) ? $mainframe->initSession() : null;
 
+//Межсайтовая интеграция
+if(DEFINED('_MULTISITE')){
+	$mainframe->set('_multisite', $m_s->flag);
+	$mainframe->set('_multisite_params', $m_s);
+	
+	$cookie_exist = 0;	
+	if(isset($_COOKIE[mosMainFrame::sessionCookieName($m_s->main_site)])){
+		$cookie_exist = 1;
+	}
+}
 
 // триггер событий onAfterStart
 ($mosConfig_mmb_system_off == 0) ? $_MAMBOTS->trigger('onAfterStart') : null;
@@ -113,14 +124,11 @@ include_once($mainframe->getLangFile('',$mosConfig_lang));
 $return		= strval(mosGetParam($_REQUEST,'return',null));
 $message	= intval(mosGetParam($_POST,'message',0));
 
-/** получение информации о текущих пользователях из таблицы сессий*/
-// $my - важный параметр, в нём содержатся вс еданные по текущему пользователю
-//if($mainframe->get('_multisite')=='2' && $cookie_exist ){
-//	$mainframe->set('_multisite_params', $m_s);
-//	$my = $mainframe->getUser_from_sess($_COOKIE[mosMainFrame::sessionCookieName($m_s->main_site)]);
-//}else{
+if($mainframe->get('_multisite')=='2' && $cookie_exist ){	
+	$my = $mainframe->getUser_from_sess($_COOKIE[mosMainFrame::sessionCookieName($m_s->main_site)]);
+}else{
 	$my = $mainframe->getUser();
-//}
+}
 
 $gid = intval($my->gid);
 

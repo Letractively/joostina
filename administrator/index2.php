@@ -31,6 +31,11 @@ if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset
 	$mosConfig_live_site = 'https://' . substr($mosConfig_live_site,7);
 }
 
+//Межсайтовая интеграция
+if(is_file($mosConfig_absolute_path.DIRECTORY_SEPARATOR.'multisite.config.php')){
+	include_once($mosConfig_absolute_path.DIRECTORY_SEPARATOR.'multisite.config.php');
+}
+
 // подключаем ядро
 require_once (JPATH_BASE .DS. 'includes'.DS.'joomla.php');
 
@@ -51,6 +56,13 @@ $id			= intval(mosGetParam($_REQUEST,'id',0));
 
 // mainframe - основная рабочая среда API, осуществляет взаимодействие с 'ядром'
 $mainframe = mosMainFrame::getInstance(true);
+
+//Межсайтовая интеграция
+if(DEFINED('_MULTISITE')){
+	$mainframe->set('_multisite', $m_s->flag);
+	$m_s->isAdmin = 1;
+	$mainframe->set('_multisite_params', $m_s);
+}
 
 // объект работы с базой данных
 $database = &$mainframe->_db;
