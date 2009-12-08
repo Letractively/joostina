@@ -375,10 +375,8 @@ if(!class_exists('mosMenuBar')) {
 			global $mosConfig_disable_button_help;
 			if($mosConfig_disable_button_help) return; // при активном отключении кнопки "Помощь" функция прерывается в самом начале
 			global $mosConfig_live_site;
-			$helpUrl = mosGetParam($GLOBALS,'mosConfig_helpurl','');
-			if($helpUrl == 'http://help.mamboserver.com') {
-				$helpUrl = 'http://help.joomla.org';
-			}
+			$helpUrl = mosGetParam($GLOBALS,'mosConfig_helpurl','http://help.joostina.ru');
+
 
 			if($com) {
 				// help file for 3PD Components
@@ -390,9 +388,9 @@ if(!class_exists('mosMenuBar')) {
 			} else
 				if($helpUrl) {
 					// Online help site as defined in GC
-					$ref .= $GLOBALS['_VERSION']->getHelpVersion();
-					$url = $helpUrl.'/index2.php?option=com_content&amp;task=findkey&amp;pop=1&amp;keyref='.
-						urlencode($ref);
+					$_VERSION	= new joomlaVersion();
+					$ref .= $_VERSION->getHelpVersion();
+					$url = $helpUrl.'/index2.php?option=com_content&amp;task=findkey&amp;pop=1&amp;keyref='.urlencode($ref);
 				} else {
 					// Included html help files
 					$url = $mosConfig_live_site.'/help/';

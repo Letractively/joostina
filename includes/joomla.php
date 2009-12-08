@@ -3243,7 +3243,7 @@ class mosHTML {
 		return mosHTML::selectList($arr,$tag_name,$tag_attribs,'value','text',$selected);
 	}
 
-	function yearSelectList($tag_name,$tag_attribs,$selected, $min=1930, $max=2009) {
+	function yearSelectList($tag_name,$tag_attribs,$selected, $min=1970, $max=2009) {
 		$arr = array();
 		for($i = $min; $i <= $max; $i++){
 			$arr[] = mosHTML::makeOption($i,$i);
