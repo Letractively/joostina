@@ -550,3 +550,5 @@ DEFINE('_SEARCH_BOX','Поиск...');
 DEFINE('_GLOBAL_CONFIG','Глобальная конфигурация');
 DEFINE('_LANGUAGE_PACKS','Языковые пакеты');
 DEFINE('_PAGES_HITS','Статистика посещения страниц');
+DEFINE('_BUTTON_LINK_IN_NEW_WINDOW','В новом окне');
+DEFINE('_SQL_CONSOLE','SQL консоль');

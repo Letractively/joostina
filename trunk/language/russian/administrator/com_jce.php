@@ -28,7 +28,6 @@ DEFINE('_INSTALLER_NOT_FIND_ELEMENT','Инсталлятор не обнаруж
 DEFINE('_NO_INSTALLER_FOR_COMPONENT','Инсталлятор недоступен для элемента');
 DEFINE('_NO_CHOOSED_FILES','Файлы не выбраны');
 DEFINE('_ERROR_OF_UPLOAD','Ошибка загрузки');
-DEFINE('_UPLOADING','Загрузка');
 DEFINE('_IS_SUCCESS','успешна');
 DEFINE('_HAS_ERROR','завершилась ошибкой');
 DEFINE('_CANNOT_DELETE_LANG_FILE','Нельзя удалять используемый языковой пакет');
@@ -46,7 +45,6 @@ DEFINE('_CHOOSE_PLUGIN_FOR_ACCESS_MANAGEMENT','Для назначения пр�
 DEFINE('_CHOOSE_PLUGIN_FOR','Выберите плагин для');
 DEFINE('_JCE_CONFIG','Конфигурация JCE');
 DEFINE('_EDITOR_CONFIG','Конфигурация редактора');
-DEFINE('_EXTENSION_MANAGEMENT','Управление расширениями');
 DEFINE('_ICONS_POSITIONS','Расположение значков');
 DEFINE('_LANG_MANAGER','Менеджер локализаций');
 DEFINE('_FILE_NOT_FOUND','Файл не найде');

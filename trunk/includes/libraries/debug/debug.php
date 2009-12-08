@@ -80,9 +80,10 @@ class jdebug {
 		$r = array();
 		$r[]='<div onclick="$(\'#_sql_debug_log\').toggle();" style="cursor: pointer;border-bottom:1px solid #CCCCCC;border-top:1px solid #CCCCCC;">SQL: '.count($profs).'</div>';
 		$r[]='<table id="_sql_debug_log" style="display:none"><tr><th colspan="3"></th></tr>';
-
-		foreach($profs as $prof){
-			$r[]='<tr valign="top"><td>#'.$prof->Query_ID.' </td><td> '.$prof->Duration.' </td><td> '.$prof->Query.' </td></tr>';
+		if( isset($profs[0]) ){
+			foreach($profs as $prof){
+				$r[]='<tr valign="top"><td>#'.$prof->Query_ID.' </td><td> '.$prof->Duration.' </td><td> '.$prof->Query.' </td></tr>';
+			}
 		}
 		$r[]='</table>';
 		return implode('',$r);

@@ -14,7 +14,6 @@ DEFINE('_SQL_COMMAND','Команда');
 DEFINE('_MANAGEMENT','Управление');
 DEFINE('_FIELDS','Поля');
 DEFINE('_EXEC_SQL','Выполнить SQL');
-DEFINE('_SQL_CONSOLE','SQL консоль');
 DEFINE('_SQL_ASSEMBLE_SQL','Собрать SQL');
 DEFINE('_SQL_OUT_LINES','Вывести строк');
 DEFINE('_SQL_TABLE','Таблица');

@@ -15,7 +15,6 @@ DEFINE('_MOD_FULLMENU_CMS_FEATURES','Управление основными в�
 DEFINE('_GLOBAL_CONFIG_TIP','Настройка основных параметров конфигурации системы');
 DEFINE('_LANGUAGE_PACKS_TIP','Управление языковыми файлами');
 DEFINE('_MOD_FULLMENU_SITE_PREVIEW','Предпросмотр сайта');
-DEFINE('_BUTTON_LINK_IN_NEW_WINDOW','В новом окне');
 DEFINE('_MOD_FULLMENU_SITE_PREVIEW_IN_THIS_WINDOW','Внутри');
 DEFINE('_MOD_FULLMENU_SITE_PREVIEW_WITH_MODULE_POSITIONS','Внутри с позициями');
 DEFINE('_MOD_FULLMENU_SITE_STATS','Статистика сайта');
@@ -48,7 +47,6 @@ DEFINE('_MOD_FULLMENU_SYSTEM_INFO','Информация о системе');
 DEFINE('_MOD_FULLMENU_NO_ACTIVE_MENU_ON_THIS_PAGE','На этой странице меню не активно');
 DEFINE('_EXTENSION_MANAGEMENT','Управление расширениями');
 DEFINE('_MOD_FULLMENU_MEDIA_MANAGER','Медиа менеджер');
-DEFINE('_SQL_CONSOLE','SQL консоль');
 DEFINE('_MOD_FULLMENU_JP_BACKUP_MANAGEMENT','Резервное копирование');
 DEFINE('_MOD_FULLMENU_JP_CREATE_BACKUP','Создать архив данных');
 DEFINE('_MOD_FULLMENU_DB_MANAGEMENT','Управление базой данных');
