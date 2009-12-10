@@ -15,7 +15,7 @@ global $my, $task, $option;
 userHelper::_load_core_js();
 ?>
 <script type="text/javascript">
-	var _comuser_url = '<?php echo $mosConfig_live_site;?>/components/com_users';
+	var _comuser_url = '<?php echo JPATH_SITE;?>/components/com_users';
 	var _comuser_ajax_handler = 'ajax.index.php?option=com_users';
 	var _comuser_defines = new Array();
 </script>

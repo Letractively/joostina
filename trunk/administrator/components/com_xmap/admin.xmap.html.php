@@ -373,7 +373,6 @@ class XmapAdminHtml {
 	}
 	
 	function printPluginInfo (&$row,$k) {
-		global $mosConfig_live_site;
 		$mainframe = &mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 ?>

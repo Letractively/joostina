@@ -36,7 +36,7 @@ include_once ('language/'.$mosConfig_lang.'/system.php');
 	<h2><?php echo $mosConfig_sitename; ?></h2>
 	<h2><?php echo _404; ?></h2>
 	<h3>
-		<a href="<?php echo $mosConfig_live_site; ?>"><?php echo _404_RTS; ?></a>
+		<a href="<?php echo JPATH_SITE; ?>"><?php echo _404_RTS; ?></a>
 	</h3>
 	<br />
 	404

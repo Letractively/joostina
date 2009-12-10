@@ -28,7 +28,7 @@ class XmapHtml extends Xmap {
 	 * Print one node of the sitemap
 	 */
 	function printNode( &$node ) {
-		global $Itemid,$mosConfig_live_site;
+		global $Itemid;
 
 		$out = '';
 	
@@ -51,7 +51,7 @@ class XmapHtml extends Xmap {
 			case 1:		// open url in new window
 				$ext_image = '';
 				if ( $this->sitemap->exlinks ) {
-					$ext_image = '&nbsp;<img src="'. $mosConfig_live_site .'/components/com_xmap/images/'. $this->sitemap->ext_image .'" alt="' . _XMAP_SHOW_AS_EXTERN_ALT . '" title="' . _XMAP_SHOW_AS_EXTERN_ALT . '" border="0" />';
+					$ext_image = '&nbsp;<img src="'. JPATH_SITE .'/components/com_xmap/images/'. $this->sitemap->ext_image .'" alt="' . _XMAP_SHOW_AS_EXTERN_ALT . '" title="' . _XMAP_SHOW_AS_EXTERN_ALT . '" border="0" />';
 				}
 				$out .= '<a href="'. $link .'" title="'. $node->name .'" target="_blank">'. $node->name . $ext_image .'</a>';
 				break;
@@ -59,7 +59,7 @@ class XmapHtml extends Xmap {
 			case 2:		// open url in javascript popup window
 				$ext_image = '';
 				if( $this->sitemap->exlinks ) {
-					$ext_image = '&nbsp;<img src="'. $mosConfig_live_site .'/components/com_xmap/images/'. $this->sitemap->ext_image .'" alt="' . _XMAP_SHOW_AS_EXTERN_ALT . '" title="' . _XMAP_SHOW_AS_EXTERN_ALT . '" border="0" />';
+					$ext_image = '&nbsp;<img src="'. JPATH_SITE .'/components/com_xmap/images/'. $this->sitemap->ext_image .'" alt="' . _XMAP_SHOW_AS_EXTERN_ALT . '" title="' . _XMAP_SHOW_AS_EXTERN_ALT . '" border="0" />';
 				}
 				$out .= '<a href="'. $link .'" title="'. $node->name .'" target="_blank" '. "onClick=\"javascript: window.open('". $link ."', '', 'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=780,height=550'); return false;\">". $node->name . $ext_image."</a>";
 				break;

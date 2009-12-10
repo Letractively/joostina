@@ -19,7 +19,6 @@ class wrapper_menu_html {
 
 
 	function edit(&$menu,&$lists,&$params,$option) {
-		global $mosConfig_live_site;
 		mosCommonHTML::loadOverlib();
 
 ?>

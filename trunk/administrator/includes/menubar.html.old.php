@@ -347,14 +347,14 @@ if(!class_exists('mosMenuBar')) {
 		* @param string The name of the popup file (excluding the file extension)
 		*/
 		function preview() {
-			global $mosConfig_live_site,$task;
+			global $task;
 ?>
 				<td><script language="javascript" type="text/javascript">
 				<!--
 				function popup() {
 					document.adminForm.target='_blank';
 					var action=document.adminForm.action;
-					document.adminForm.action='<?php echo $mosConfig_live_site; ?>/<?php echo JADMIN_BASE?>/popups/contentwindow.php';
+					document.adminForm.action='<?php echo JPATH_SITE; ?>/<?php echo JADMIN_BASE?>/popups/contentwindow.php';
 					submitbutton('<?php echo $task; ?>');
 					document.adminForm.target='_self';
 					document.adminForm.action=action;
@@ -374,7 +374,6 @@ if(!class_exists('mosMenuBar')) {
 		function help($ref,$com = false) {
 			global $mosConfig_disable_button_help;
 			if($mosConfig_disable_button_help) return; // при активном отключении кнопки "Помощь" функция прерывается в самом начале
-			global $mosConfig_live_site;
 			$helpUrl = mosGetParam($GLOBALS,'mosConfig_helpurl','');
 			if($helpUrl == 'http://help.mamboserver.com') {
 				$helpUrl = 'http://help.joomla.org';
@@ -382,7 +381,7 @@ if(!class_exists('mosMenuBar')) {
 
 			if($com) {
 				// help file for 3PD Components
-				$url = $mosConfig_live_site.'/'.JADMIN_BASE.'/components/'.$GLOBALS['option'].'/help/';
+				$url = JPATH_SITE.'/'.JADMIN_BASE.'/components/'.$GLOBALS['option'].'/help/';
 				if(!eregi('\.html$',$ref) && !eregi('\.xml$',$ref)) {
 					$ref = $ref.'.html';
 				}
@@ -395,7 +394,7 @@ if(!class_exists('mosMenuBar')) {
 						urlencode($ref);
 				} else {
 					// Included html help files
-					$url = $mosConfig_live_site.'/help/';
+					$url = JPATH_SITE.'/help/';
 					if(!eregi('\.html$',$ref) && !eregi('\.xml$',$ref)) {
 						$ref = $ref.'.html';
 					}

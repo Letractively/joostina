@@ -21,7 +21,6 @@ defined('_VALID_MOS') or die();
 class content_archive_section_menu_html {
 
 	function editSection(&$menu,&$lists,&$params,$option) {
-		global $mosConfig_live_site;
 		mosCommonHTML::loadOverlib();
 ?>
 		<div id="overDiv" style="position:absolute; visibility:hidden; z-index:10000;"></div>

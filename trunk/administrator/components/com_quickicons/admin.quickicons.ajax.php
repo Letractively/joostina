@@ -11,7 +11,7 @@
 defined('_VALID_MOS') or die();
 
 
-global $mosConfig_live_site,$my;
+global $my;
 /* всех не авторизованных игнорируем*/
 if(!$my->id) exit;
 

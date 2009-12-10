@@ -9,7 +9,7 @@
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
-global $mosConfig_live_site,$my;
+global $my;
 
 $acl = &gacl::getInstance();
 

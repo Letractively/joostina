@@ -31,13 +31,14 @@ DEFINE('_ISO','charset=UTF-8');
 // установка режима отображения ошибок
 if($mosConfig_error_reporting == 0) {
 	error_reporting(0);
-}elseif($mosConfig_error_reporting > 0) {
+}elseif($mosConfig_error_reporting != 0) {
 	error_reporting($mosConfig_error_reporting);
 }
 /* ядро отладчика */
 mosMainFrame::addLib('debug');
 /* ядро для работы с юникодом */
 mosMainFrame::addLib('utf8');
+
 /* файл данных версии */
 require_once (JPATH_BASE.'/includes/version.php');
 /* ядро работы с XML */
@@ -3243,7 +3244,7 @@ class mosHTML {
 		return mosHTML::selectList($arr,$tag_name,$tag_attribs,'value','text',$selected);
 	}
 
-	function yearSelectList($tag_name,$tag_attribs,$selected, $min=1970, $max=2009) {
+	function yearSelectList($tag_name,$tag_attribs,$selected, $min=1900, $max=2010) {
 		$arr = array();
 		for($i = $min; $i <= $max; $i++){
 			$arr[] = mosHTML::makeOption($i,$i);
@@ -4051,7 +4052,7 @@ function mosFormatDate($date,$format = '',$offset = null) {
 		$config_offset = Jconfig::getInstance()->config_offset;
 	}
 
-	if ($date == '0000-00-00 00:00:00') return $date;//database::$_nullDate - при ошибках парсера
+	if($date == '0000-00-00 00:00:00') return $date;//database::$_nullDate - при ошибках парсера
 
 	if($format == '') {
 		// %Y-%m-%d %H:%M:%S
@@ -4062,8 +4063,9 @@ function mosFormatDate($date,$format = '',$offset = null) {
 	}
 	if($date && ereg("([0-9]{4})-([0-9]{2})-([0-9]{2})[ ]([0-9]{2}):([0-9]{2}):([0-9]{2})",$date,$regs)) {
 		$date = mktime($regs[4],$regs[5],$regs[6],$regs[2],$regs[3],$regs[1]);
-		$date = $date > -1 ? strftime($format,$date + ($offset* 60* 60)):'-';
+		$date = strftime($format,$date + ($offset* 60* 60));
 	}
+
 	return $date;
 }
 
@@ -5812,7 +5814,7 @@ class mosCommonHTML {
 			<?php }else{
 				$mainframe = &MosMainFrame::getInstance();
 				$mainframe->addJS(JPATH_SITE.'/includes/js/jquery/plugins/'.$name.'.js', $footer);
-				$mainframe->addCustomHeadTag('<script language="JavaScript" type="text/javascript">if(_js_defines) {_js_defines.push('.$name.')} else {var _js_defines = ['.$name.']}</script>');
+				$mainframe->addCustomHeadTag('<script language="JavaScript" type="text/javascript">if(_js_defines) {_js_defines.push(\''.$name.'\')} else {var _js_defines = [\''.$name.'\']}</script>');
 				if($css){
 					$mainframe->addCSS(JPATH_SITE.'/includes/js/jquery/plugins/'.$name.'.css');
 				}

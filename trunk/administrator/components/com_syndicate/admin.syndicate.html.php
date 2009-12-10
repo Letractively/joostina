@@ -17,7 +17,7 @@ defined('_VALID_MOS') or die();
 class HTML_syndicate {
 
 	function settings($option,&$params,$id) {
-		global $mosConfig_live_site,$mosConfig_cachepath,$my;
+		global $mosConfig_cachepath,$my;
 		mosCommonHTML::loadOverlib();
 ?>
 		<div id="overDiv" style="position:absolute; visibility:hidden; z-index:10000;"></div>

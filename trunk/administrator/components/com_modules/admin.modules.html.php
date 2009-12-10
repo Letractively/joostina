@@ -21,7 +21,7 @@ class HTML_modules {
 	* @param array An array of category objects
 	*/
 	function showModules(&$rows,$myid,$client,&$pageNav,$option,&$lists,$search) {
-		global $my,$mosConfig_live_site;
+		global $my;
 		$mainframe = &mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 		
@@ -191,7 +191,7 @@ class HTML_modules {
 	* @param object Parameters
 	*/
 	function editModule(&$row,&$orders2,&$lists,&$params,$option) {
-		global $mosConfig_live_site,$mosConfig_cachepath,$my;
+		global $mosConfig_cachepath,$my;
 		$row->title = htmlspecialchars($row->title);
 		$row->titleA = '';
 		if($row->id) {

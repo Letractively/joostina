@@ -197,7 +197,7 @@ function view($option) {
 */
 function edit($uid,$option) {
 	global $database,$my,$mainframe;
-	global $mosConfig_live_site,$mosConfig_offset;
+	global $mosConfig_offset;
 
 	$row = new mosContent($database);
 	$row->load((int)$uid);
@@ -262,7 +262,7 @@ function edit($uid,$option) {
 
 	// calls function to read image from directory
 	$pathA = JPATH_BASE.'/images/stories';
-	$pathL = $mosConfig_live_site.'/images/stories';
+	$pathL = JPATH_SITE.'/images/stories';
 	$images = array();
 	$folders = array();
 	$folders[] = mosHTML::makeOption('/');

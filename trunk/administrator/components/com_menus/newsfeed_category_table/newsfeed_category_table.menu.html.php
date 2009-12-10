@@ -21,7 +21,6 @@ defined('_VALID_MOS') or die();
 class newsfeed_category_table_menu_html {
 
 	function editCategory(&$menu,&$lists,&$params,$option) {
-		global $mosConfig_live_site;
 		mosCommonHTML::loadOverlib();
 
 ?>

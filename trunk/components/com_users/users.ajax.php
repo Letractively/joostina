@@ -10,7 +10,7 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-$task	= mosGetParam($_REQUEST,'task','');
+$task = mosGetParam($_REQUEST,'task','');
 
 switch($task) {
 	case 'upload_avatar':
@@ -34,7 +34,6 @@ function upload_avatar(){
 	global $my;
 
 	$database = &database::getInstance();
-	$id = intval(mosGetParam($_REQUEST,'id',0));
 
 	mosMainFrame::addLib('images');
 
@@ -56,9 +55,9 @@ function upload_avatar(){
 	$foto_name = $file->upload($resize_options);
 
 	if($foto_name){
-		if($id){
+		if($my->id){
 			$user = new mosUser($database);
-			$user->load((int)$id);
+			$user->load((int)$my->id);
 			$user_id = $user->id;
 			if($user->avatar!=''){
 				$foto = new Image();
@@ -66,7 +65,7 @@ function upload_avatar(){
 				$foto->name = $user->avatar;
 				$foto->delFile($foto);
 			}
-			$user->update_avatar($id, $foto_name);
+			$user->update_avatar($my->id, $foto_name);
 		}
 			echo $foto_name;
 	}else{
@@ -76,12 +75,12 @@ function upload_avatar(){
 
 
 function x_delavatar(){
+	global $my;
+
 	$database = &database::getInstance();
 
-	$file_name = mosGetParam($_REQUEST,'file_name','');
-
 	$user = new mosUser($database);
-	$user->update_avatar(null, $file_name, 1);
+	$user->update_avatar(null, $my->avatar, 1);
 
 	return 'none.jpg';
 }
@@ -100,6 +99,6 @@ function request_from_plugin(){
 		}
 		include_once (JPATH_BASE.DS. 'mambots'.DS.'profile'.DS.$plugin.DS.$plugin.'.ajax.php');
 	} else {
-		die('error-1');
+		die('error-1:1');
 	}
 }

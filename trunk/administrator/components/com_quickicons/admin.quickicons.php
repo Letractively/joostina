@@ -279,8 +279,6 @@ function changeIcon($cid,$action,$option) {
 * @since v.2.0.7	deleting common path
 */
 function saveIcon($redirect,$option) {
-	global $mosConfig_live_site;
-
 	$row = new CustomQuickIcons();
 
 	if(!$row->bind($_POST)) {
@@ -289,7 +287,7 @@ function saveIcon($redirect,$option) {
 	}
 
 	// удаление пути
-	$row->icon = str_replace($mosConfig_live_site,'',$row->icon);
+	$row->icon = str_replace(JPATH_SITE,'',$row->icon);
 
 	// pre-save checks
 	if(!$row->check()) {

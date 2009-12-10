@@ -14,7 +14,7 @@ defined('_VALID_MOS') or die();
 require_once ($mainframe->getPath('front_html'));
 
 global $database,$my,$mainframe;
-global $mosConfig_live_site,$mosConfig_frontend_login,$mosConfig_db,$mosConfig_no_session_front;
+global $mosConfig_frontend_login,$mosConfig_db,$mosConfig_no_session_front;
 
 if($mosConfig_frontend_login != null && ($mosConfig_frontend_login === 0 || $mosConfig_frontend_login === '0' || $mosConfig_no_session_front != 0)) {
 	header("HTTP/1.0 403 Forbidden");
@@ -30,8 +30,8 @@ $params->def('header_login',$menu->name);
 $params->def('header_logout',$menu->name);
 $params->def('pageclass_sfx','');
 $params->def('back_button',$mainframe->getCfg('back_button'));
-$params->def('login',$mosConfig_live_site);
-$params->def('logout',$mosConfig_live_site);
+$params->def('login',JPATH_SITE);
+$params->def('logout',JPATH_SITE);
 $params->def('login_message',0);
 $params->def('logout_message',0);
 $params->def('description_login',1);
@@ -51,14 +51,12 @@ if($mainframe->get('_multisite')==1){
 $image_login = '';
 $image_logout = '';
 if($params->get('image_login') != -1) {
-	$image = $mosConfig_live_site.'/images/stories/'.$params->get('image_login');
-	$image_login = '<img src="'.$image.'" align="'.$params->get('image_login_align').
-		'" hspace="10" alt="" />';
+	$image = JPATH_SITE.'/images/stories/'.$params->get('image_login');
+	$image_login = '<img src="'.$image.'" align="'.$params->get('image_login_align').'" hspace="10" alt="" />';
 }
 if($params->get('image_logout') != -1) {
-	$image = $mosConfig_live_site.'/images/stories/'.$params->get('image_logout');
-	$image_logout = '<img src="'.$image.'" align="'.$params->get('image_logout_align').
-		'" hspace="10" alt="" />';
+	$image = JPATH_SITE.'/images/stories/'.$params->get('image_logout');
+	$image_logout = '<img src="'.$image.'" align="'.$params->get('image_logout_align').'" hspace="10" alt="" />';
 }
 
 if($my->id) {
@@ -66,4 +64,3 @@ if($my->id) {
 } else {
 	loginHTML::loginpage($params,$image_login);
 }
-?>

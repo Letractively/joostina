@@ -11,7 +11,7 @@
 defined('_VALID_MOS') or die();
 
 global $database;
-global $mosConfig_live_site,$mosConfig_lang;
+global $mosConfig_lang;
 
 include_once (JPATH_BASE.DS.'language'.DS.$mosConfig_lang.DS.'system.php');
 
@@ -21,7 +21,7 @@ if(!defined('_INSTALL_CHECK')) {
 	// этот метод отличается от подобного в 1.1, т.к. отличается обработка сессий
 	//$_s = session_id();
 	//if( !isset($_s)) {
-		session_name(md5($mosConfig_live_site));
+		session_name(md5(JPATH_SITE));
 		session_start();
 	//}
 	require_once(JPATH_BASE.'/components/com_users/users.class.php');
@@ -79,9 +79,9 @@ if(!defined('_ADMIN_OFFLINE') || defined('_INSTALL_CHECK')) {
 	<head>
 		<title><?php echo $mosConfig_sitename; ?> - <?php echo _SITE_OFFLINE; ?></title>
 		<style type="text/css">
-			@import url(<?php echo $mosConfig_live_site; ?>/administrator/templates/joostfree/css/admin_login.css);
+			@import url(<?php echo JPATH_SITE; ?>/administrator/templates/joostfree/css/admin_login.css);
 		</style>
-		<link rel="stylesheet" href="<?php echo $mosConfig_live_site; ?>/templates/css/offline.css" type="text/css" />
+		<link rel="stylesheet" href="<?php echo JPATH_SITE; ?>/templates/css/offline.css" type="text/css" />
 <?php
 	// значок избранного (favicon)
 	if(!$mosConfig_favicon) {
@@ -90,9 +90,9 @@ if(!defined('_ADMIN_OFFLINE') || defined('_INSTALL_CHECK')) {
 	$icon = JPATH_BASE.'/images/'.$mosConfig_favicon;
 	// checks to see if file exists
 	if(!file_exists($icon)) {
-		$icon = $mosConfig_live_site.'/images/favicon.ico';
+		$icon = JPATH_SITE.'/images/favicon.ico';
 	} else {
-		$icon = $mosConfig_live_site.'/images/'.$mosConfig_favicon;
+		$icon = JPATH_SITE.'/images/'.$mosConfig_favicon;
 	}
 ?>
 		<link rel="shortcut icon" href="<?php echo $icon; ?>" />
@@ -100,14 +100,14 @@ if(!defined('_ADMIN_OFFLINE') || defined('_INSTALL_CHECK')) {
 	</head>
 	<body>
 		<div id="joo">
-			<img src="<?php echo $mosConfig_live_site;?>/administrator/templates/joostfree/images/logo.png" alt="Joostina!" />
+			<img src="<?php echo JPATH_SITE;?>/administrator/templates/joostfree/images/logo.png" alt="Joostina!" />
 		</div>
 	<div id="ctr1" align="center">
 		<p>&nbsp;</p><p>&nbsp;</p>
 		<table width="550" align="center" class="outline">
 		<tr>
 			<td width="60%" height="50" align="center">
-				<img src="<?php echo $mosConfig_live_site; ?>/images/system/syte_off.png" alt="<?php echo _SITE_OFFLINE?>" align="middle" />
+				<img src="<?php echo JPATH_SITE; ?>/images/system/syte_off.png" alt="<?php echo _SITE_OFFLINE?>" align="middle" />
 			</td>
 		</tr>
 		<tr>

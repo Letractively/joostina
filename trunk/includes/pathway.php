@@ -28,7 +28,7 @@ function pathwayMakeLink($id,$name,$link,$parent) {
 * @param int The db id field value of the current menu item
 */
 function showPathway($Itemid) {
-	global $database,$option,$task,$mainframe,$mosConfig_live_site,$my,$mosConfig_pathway_clean,$mosConfig_disable_access_control;
+	global $database,$option,$task,$mainframe,$my,$mosConfig_pathway_clean,$mosConfig_disable_access_control;
 	if($_SERVER['QUERY_STRING'] == '' & $mosConfig_pathway_clean) {
 		echo '&nbsp;';
 		return;
@@ -99,7 +99,7 @@ function showPathway($Itemid) {
 				$mitems[$id] = $mitem2;
 				$Itemid = $id;
 
-				$home = '<li><a href="'.sefRelToAbs($mosConfig_live_site).'" class="pathway" title="'.$home.'">'.$home.'</a></li>';
+				$home = '<li><a href="'.sefRelToAbs(JPATH_SITE).'" class="pathway" title="'.$home.'">'.$home.'</a></li>';
 				break;
 		}
 	}
@@ -278,7 +278,7 @@ function showPathway($Itemid) {
 	}
 
 	if(eregi('option',$optionstring) && trim($path)) {
-		$home = '<li class="pahway_home"><a href="'.sefRelToAbs($mosConfig_live_site).'" class="pathway" title="'.$home.'">'.$home.'</a></li>';
+		$home = '<li class="pahway_home"><a href="'.sefRelToAbs(JPATH_SITE).'" class="pathway" title="'.$home.'">'.$home.'</a></li>';
 	}
 
 	if($mainframe->getCustomPathWay()) {

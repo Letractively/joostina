@@ -21,7 +21,6 @@ defined('_VALID_MOS') or die();
 class contact_category_table_menu_html {
 
 	function editCategory(&$menu,&$lists,&$params,$option) {
-		global $mosConfig_live_site;
 		mosCommonHTML::loadOverlib();
 ?>
 		<div id="overDiv" style="position:absolute; visibility:hidden; z-index:10000;"></div>

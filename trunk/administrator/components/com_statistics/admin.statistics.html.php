@@ -16,8 +16,6 @@ defined('_VALID_MOS') or die();
 */
 class HTML_statistics {
 	function show(&$browsers,&$platforms,$tldomains,$bstats,$pstats,$dstats,$sorts,$option) {
-		global $mosConfig_live_site;
-
 		$tab = mosGetParam($_REQUEST,'tab','tab1');
 		$width = 400; // width of 100%
 		$tabs = new mosTabs(1);
@@ -57,7 +55,7 @@ class HTML_statistics {
 			<tr class="row<?php echo $k; ?>">
 				<td width="200" align="left">&nbsp;<?php echo $b->agent; ?>&nbsp;</td>
 				<td align="left" width="<?php echo $width + 10; ?>">
-					<div align="left">&nbsp;<img src="<?php echo $mosConfig_live_site; ?>/components/com_poll/images/blank.png" class="bar_<?php echo $c; ?>" height="6" width="<?php echo $w; ?>"></div>
+					<div align="left">&nbsp;<img src="<?php echo JPATH_SITE; ?>/components/com_poll/images/blank.png" class="bar_<?php echo $c; ?>" height="6" width="<?php echo $w; ?>"></div>
 				</td>
 				<td align="left"><?php printf("%.2f%%",$f* 100); ?></td>
 				<td align="left"><?php echo $b->hits; ?></td>
@@ -94,7 +92,7 @@ class HTML_statistics {
 				<tr class="row<?php echo $k; ?>">
 					<td width="200" align="left">&nbsp;<?php echo $p->agent; ?>&nbsp;</td>
 					<td align="left" width="<?php echo $width + 10; ?>">
-						<div align="left">&nbsp;<img src="<?php echo $mosConfig_live_site; ?>/components/com_poll/images/blank.png" class="bar_<?php echo $c; ?>" height="6" width="<?php echo $w; ?>"></div>
+						<div align="left">&nbsp;<img src="<?php echo JPATH_SITE; ?>/components/com_poll/images/blank.png" class="bar_<?php echo $c; ?>" height="6" width="<?php echo $w; ?>"></div>
 					</td>
 					<td align="left"><?php printf("%.2f%%",$f* 100); ?></td>
 					<td align="left"><?php echo $p->hits; ?></td>
@@ -133,7 +131,7 @@ class HTML_statistics {
 						&nbsp;<?php echo $b->agent; ?>&nbsp;
 					</td>
 					<td align="left" width="<?php echo $width + 10; ?>">
-						<div align="left">&nbsp;<img src="<?php echo $mosConfig_live_site; ?>/components/com_poll/images/blank.png" class="bar_<?php echo $c; ?>" height="6" width="<?php echo $w; ?>"></div>
+						<div align="left">&nbsp;<img src="<?php echo JPATH_SITE; ?>/components/com_poll/images/blank.png" class="bar_<?php echo $c; ?>" height="6" width="<?php echo $w; ?>"></div>
 					</td>
 					<td align="left"><?php printf("%.2f%%",$f* 100); ?></td>
 					<td align="left"><?php echo $b->hits; ?></td>

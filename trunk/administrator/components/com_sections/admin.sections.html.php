@@ -135,8 +135,6 @@ class sections_html {
 	* @param string The html for the groups select list
 	*/
 	function edit(&$row,$option,&$lists,&$menus) {
-		global $mosConfig_live_site;
-
 		$s_templates = new ContentTemplate;
 
 		if($row->name != '') {
@@ -238,7 +236,7 @@ class sections_html {
 					<td><?php echo $lists['image']; ?></td>
 					<td rowspan="5" width="50%">
 <?php
-		$path = $mosConfig_live_site."/images/";
+		$path = JPATH_SITE."/images/";
 		if($row->image != "blank.png") {
 			$path .= "stories/";
 		}

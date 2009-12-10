@@ -21,7 +21,7 @@ class HTML_typedcontent {
 	 * @param array An array of content objects
 	 */
 	function showContent(&$rows,&$pageNav,$option,$search,&$lists) {
-	global $my,$acl,$database,$mosConfig_live_site;
+	global $my,$acl,$database;
 	$mainframe = &mosMainFrame::getInstance();
 	$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 	mosCommonHTML::loadOverlib();
@@ -183,7 +183,6 @@ class HTML_typedcontent {
 	}
 
 	function edit(&$row,&$images,&$lists,&$params,$option,&$menus,$nullDate) {
-		global $mosConfig_live_site;
 
 		mosMakeHtmlSafe($row);
 		$create_date = null;

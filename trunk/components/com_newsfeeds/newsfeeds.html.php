@@ -17,7 +17,7 @@ defined('_VALID_MOS') or die();
 class HTML_newsfeed {
 
 	function displaylist(&$categories,&$rows,$catid,$currentcat = null,&$params,$tabclass) {
-		global $Itemid,$mosConfig_live_site,$hide_js;
+		global $Itemid,$hide_js;
 		?>
 		<div class="newsfeeds <?php echo $params->get('pageclass_sfx'); ?>">
 			<?php if($params->get('page_title')) { ?>
@@ -63,7 +63,7 @@ class HTML_newsfeed {
 	* Display Table of items
 	*/
 	function showTable(&$params,&$rows,$catid,$tabclass) {
-		global $mosConfig_live_site,$Itemid;
+		global $Itemid;
 		// icon in table display
 		$img = mosAdminMenus::ImageCheck('con_info.png','/images/M_images/',$params->get('icon'));
 		
@@ -123,25 +123,21 @@ class HTML_newsfeed {
 	* Display links to categories
 	*/
 	function showCategories(&$params,&$categories,$catid) {
-		global $mosConfig_live_site,$Itemid;
+		global $Itemid;
 		?>
 		
 		<ul>
-		<?php
+<?php
 		foreach($categories as $cat) {
-			
+
 			if($catid == $cat->catid) { ?>
 				<li>
-					<b>
-					<?php echo $cat->title; ?>
-					</b>
+					<b><?php echo $cat->title; ?></b>
 					&nbsp;
-					<span class="small">
-					(<?php echo $cat->numlinks; ?>)
-					</span>
+					<span class="small">(<?php echo $cat->numlinks; ?>)</span>
 				</li>
 				
-				<?php
+<?php
 			} else {
 				$link = 'index.php?option=com_newsfeeds&amp;catid='.$cat->catid.'&amp;Itemid='.
 					$Itemid;

@@ -55,8 +55,6 @@ function showStatistics($id) {
 
 		// verifico password
 		if($password == mosHash($banner->password)) {
-			global $mosConfig_live_site;
-
 			echo '<br>';
 			echo '<b>', _ABP_CLICKS, '</b>', '&nbsp;:&nbsp;', $banner->complete_clicks, ' / ', $banner->clicks, ' ( dal ', $banner->dta_mod_clicks, ' )<br><br>';
 			echo '<b>', _ABP_IMPMADE, '</b>', '&nbsp;:&nbsp;', $banner->imp_made, '<br><br>';
@@ -66,7 +64,7 @@ function showStatistics($id) {
 				echo $banner->custom_banner_code;
 			} else
 				if(eregi("(\.bmp|\.gif|\.jpg|\.jpeg|\.png)$", $banner->image_url)) {
-					$image_url = "$mosConfig_live_site/images/show/$banner->image_url";
+					$image_url = JPATH_SITE."/images/show/$banner->image_url";
 					$imginfo = @getimagesize("JPATH_BASE/images/show/" . $banner->image_url);
 					$border_value = $banner->border_value;
 					$border_style = $banner->border_style;
@@ -76,7 +74,7 @@ function showStatistics($id) {
 					echo "<img src=\"" . $image_url . "\" style=\"border:" . $border_value . "px " . $border_style . " " . $border_color . "\" vspace=\"0\" alt=\"$banner->name\" width=\"$width\" height=\"$height\" />";
 				} else
 					if(eregi(".swf", $banner->image_url)) {
-						$image_url = "$mosConfig_live_site/images/show/" . $banner->image_url;
+						$image_url = JPATH_SITE."/images/show/" . $banner->image_url;
 						$swfinfo = @getimagesize("JPATH_BASE/images/show/" . $banner->image_url);
 						$width = $swfinfo[0] / 1.23;
 						$height = $swfinfo[1] / 1.23;

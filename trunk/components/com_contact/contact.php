@@ -400,7 +400,7 @@ function contactpage($contact_id) {
 
 
 function sendmail($con_id,$option) {
-	global $Itemid,$mosConfig_live_site;
+	global $Itemid;
 
 	// simple spoof check security
 	josSpoofCheck(1);

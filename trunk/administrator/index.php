@@ -25,9 +25,6 @@ if(!file_exists(JPATH_BASE.DS.'configuration.php')) {
 require_once (JPATH_BASE.DS.'configuration.php');
 require_once (JPATH_BASE.DS.'includes/joomla.php');
 
-// live_site
-define('JPATH_SITE', $mosConfig_live_site );
-
 // для совместимости
 $mosConfig_absolute_path = JPATH_BASE;
 
@@ -37,6 +34,9 @@ if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset
 	$mosConfig_live_site = 'https://'.substr($mosConfig_live_site,7);
 }
 unset($http_host);
+
+// live_site
+define('JPATH_SITE', $mosConfig_live_site );
 
 $mainframe	= &mosMainFrame::getInstance(true);
 $database	= &$mainframe->_db;
@@ -151,7 +151,7 @@ if(isset($_POST['submit'])) {
 		$logintime = time();
 		$session_id = md5($my->id . $my->username . $my->usertype . $logintime);
 
-		session_name( md5( $mosConfig_live_site ) );
+		session_name( md5( JPATH_SITE ) );
 		session_id( $session_id );
 		session_start();
 

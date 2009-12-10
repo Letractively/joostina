@@ -59,7 +59,7 @@ class poll_html {
 
 
 	function graphit($data_arr, $graphtitle, $first_vote, $last_vote) {
-		global $mosConfig_live_site, $polls_maxcolors, $tabclass, $polls_barheight, $polls_graphwidth, $polls_barcolor;
+		global  $polls_maxcolors, $tabclass, $polls_barheight, $polls_graphwidth, $polls_barcolor;
 
 		$tabclass_arr = explode(",", $tabclass);
 		$tabcnt = 1;
@@ -114,7 +114,7 @@ class poll_html {
 			}
 ?>
 			<td class="poll_graph">&nbsp;
-				<img src="<?php echo $mosConfig_live_site; ?>/components/com_poll/images/blank.png" class="<?php echo $tdclass; ?>" height="<?php echo $polls_barheight; ?>" width="<?php echo $width; ?>" alt="" />
+				<img src="<?php echo JPATH_SITE; ?>/components/com_poll/images/blank.png" class="<?php echo $tdclass; ?>" height="<?php echo $polls_barheight; ?>" width="<?php echo $width; ?>" alt="" />
 			</td>
 		</tr>
 <?php

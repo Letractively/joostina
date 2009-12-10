@@ -20,7 +20,6 @@ class HTML_menumanager {
 	* Writes a list of the menumanager items
 	*/
 	function show($option,$menus,$pageNav) {
-		global $mosConfig_live_site;
 ?>
 		<script language="javascript" type="text/javascript">
 		function menu_listItemTask( id, task, option ) {
@@ -74,7 +73,7 @@ class HTML_menumanager {
 				</td>
 				<td align="center">
 					<a href="<?php echo $linkA; ?>" title="<?php echo _CHANGE_MENU_ITEMS?>">
-						<img src="<?php echo $mosConfig_live_site; ?>/includes/js/ThemeOffice/mainmenu.png" border="0"/>
+						<img src="<?php echo JPATH_SITE; ?>/includes/js/ThemeOffice/mainmenu.png" border="0"/>
 					</a>
 				</td>
 				<td align="center">
@@ -120,8 +119,7 @@ class HTML_menumanager {
 	* @param option	display options for the form
 	*/
 	function edit(&$row,$option) {
-		global $mosConfig_live_site;
-		$new = $row->menutype?0:1;
+		$new = $row->menutype ? 0:1;
 		mosCommonHTML::loadOverlib();
 		$row->menutype = htmlspecialchars($row->menutype);
 ?>

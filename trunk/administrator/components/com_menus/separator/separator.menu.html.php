@@ -21,7 +21,6 @@ defined('_VALID_MOS') or die();
 class separator_menu_html {
 
 	function edit($menu,$lists,$params,$option) {
-		global $mosConfig_live_site;
 		mosCommonHTML::loadOverlib();
 
 ?>

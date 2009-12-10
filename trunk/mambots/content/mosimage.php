@@ -81,7 +81,7 @@ function botMosImage($published,&$row,&$params) {
 }
 
 function processImages(&$row,&$params,&$introCount) {
-	global $mosConfig_live_site,$mainframe;
+	global $mainframe;
 
 	$images = array();
 	$div_style ='';
@@ -151,12 +151,12 @@ function processImages(&$row,&$params,&$introCount) {
 			}
 
 			// составление тэга <image>
-			$image = '<img src="'.$mosConfig_live_site.'/images/stories/'.$attrib[0].'"'.$size;
+			$image = '<img src="'.JPATH_SITE.'/images/stories/'.$attrib[0].'"'.$size;
 			// если обнаружен заголовок, то выравнивание не меняется
 			if(!$attrib[4]) {
 				if($attrib[1] == 'left' or $attrib[1] == 'right') {
 					$image .= ' style="float: '.$attrib[1].';"';
-                    $div_style = ' style="float: '.$attrib[1].';"';
+					$div_style = ' style="float: '.$attrib[1].';"';
 				} else {
 					$image .= $attrib[1]?' align="middle"':'';
 				}

@@ -21,7 +21,7 @@ class HTML_modules {
 	* @param array An array of category objects
 	*/
 	function showMambots(&$rows,$client,&$pageNav,$option,&$lists,$search) {
-		global $my,$mosConfig_live_site;
+		global $my;
 		
 		$mainframe = &mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
@@ -121,7 +121,6 @@ class HTML_modules {
 	* @param object Parameters
 	*/
 	function editMambot(&$row,&$lists,&$params,$option) {
-		global $mosConfig_live_site;
 		mosCommonHTML::loadOverlib();
 		$row->nameA = '';
 		if($row->id) {
