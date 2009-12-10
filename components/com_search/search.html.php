@@ -66,7 +66,7 @@ class search_html {
 
 	function display(&$rows, $params, $pageNav, $limitstart, $limit, $total, $totalRows, $searchword) {
 		global $mosConfig_showCreateDate;
-		global $mosConfig_live_site, $option, $Itemid;
+		global $option, $Itemid;
 		$image = mosAdminMenus::ImageCheck('google.png', '/components/com_search/images/', null, null, 'Google', 'Google', 1);
 		$image1 = mosAdminMenus::ImageCheck('yandex.gif', '/components/com_search/images/', null, null, 'Yandex', 'Yandex', 1);
 		$image2 = mosAdminMenus::ImageCheck('rambler.gif', '/components/com_search/images/', null, null, 'Rambler', 'Rambler', 1);
@@ -84,7 +84,7 @@ class search_html {
 		$searchphrase = strtolower(strval(mosGetParam($_REQUEST, 'searchphrase', 'any')));
 		$searchphrase = htmlspecialchars($searchphrase);
 		$cleanWord = htmlspecialchars($searchword);
-		$link = $mosConfig_live_site . "/index.php?option=$option&amp;Itemid=$Itemid&amp;searchword=$cleanWord&amp;searchphrase=$searchphrase&amp;ordering=$ordering";
+		$link = JPATH_SITE . "/index.php?option=$option&amp;Itemid=$Itemid&amp;searchword=$cleanWord&amp;searchphrase=$searchphrase&amp;ordering=$ordering";
 		//if($total>0){
 			echo $pageNav->getLimitBox($link);
 		//}
@@ -165,11 +165,11 @@ class search_html {
 	}
 
 	function conclusion($searchword, $pageNav) {
-		global $mosConfig_live_site, $option, $Itemid;
+		global $option, $Itemid;
 		$ordering = strtolower(strval(mosGetParam($_REQUEST, 'ordering', 'newest')));
 		$searchphrase = strtolower(strval(mosGetParam($_REQUEST, 'searchphrase', 'any')));
 		$searchphrase = htmlspecialchars($searchphrase);
-		$link = $mosConfig_live_site . "/index.php?option=$option&amp;Itemid=$Itemid&amp;searchword=$searchword&amp;searchphrase=$searchphrase&amp;ordering=$ordering";
+		$link = JPATH_SITE . "/index.php?option=$option&amp;Itemid=$Itemid&amp;searchword=$searchword&amp;searchphrase=$searchphrase&amp;ordering=$ordering";
 		echo $pageNav->writePagesLinks($link);
 	}
 }

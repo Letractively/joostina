@@ -33,8 +33,6 @@ require_once (JPATH_BASE.DS.'configuration.php');
 
 // для совместимости
 $mosConfig_absolute_path = JPATH_BASE;
-// live_site
-define('JPATH_SITE', $mosConfig_live_site );
 
 // считаем время за которое сгенерирована страница
 $mosConfig_time_generate ? $sysstart = microtime(true) : null;
@@ -46,6 +44,8 @@ if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset
 }
 unset($http_host);
 
+// live_site
+define('JPATH_SITE', $mosConfig_live_site );
 
 //Межсайтовая интеграция
 if(is_file($mosConfig_absolute_path.DIRECTORY_SEPARATOR.'multisite.config.php')){

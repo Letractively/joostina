@@ -18,7 +18,6 @@ defined('_VALID_MOS') or die();
 class newsfeed_link_menu_html {
 
 	function edit(&$menu,&$lists,&$params,$option,$newsfeed) {
-		global $mosConfig_live_site;
 		mosCommonHTML::loadOverlib();
 
 ?>

@@ -21,7 +21,7 @@ class HTML_templates {
 	* @param string The option
 	*/
 	function showTemplates(&$rows,&$pageNav,$option,$client) {
-		global $my,$mosConfig_live_site,$mosConfig_one_template;
+		global $my,$mosConfig_one_template;
 		$mainframe = &mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 		if(isset($row->authorUrl) && $row->authorUrl != '') {

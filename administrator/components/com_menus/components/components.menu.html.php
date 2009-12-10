@@ -22,7 +22,6 @@ class components_menu_html {
 
 
 	function edit(&$menu,&$components,&$lists,&$params,$option) {
-		global $mosConfig_live_site;
 		mosCommonHTML::loadOverlib();
 		if($menu->id) {
 			$title = '[ '.$lists['componentname'].' ]';

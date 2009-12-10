@@ -22,13 +22,13 @@ class XmapXML extends Xmap {
 
 	/** Convert sitemap tree to a XML Sitemap list */
 	function printNode( &$node ) {
-		global $Itemid, $mosConfig_live_site;
+		global $Itemid;
 		$out = '';
 
-		$len_live_site = strlen( $mosConfig_live_site );
+		$len_live_site = strlen( JPATH_SITE );
 		$link = Xmap::getItemLink($node);
 
-		$is_extern = ( 0 != strcasecmp( substr($link, 0, $len_live_site), $mosConfig_live_site ) );
+		$is_extern = ( 0 != strcasecmp( substr($link, 0, $len_live_site), JPATH_SITE ) );
 
 		if( !isset($node->browserNav) )
 			$node->browserNav = 0;
@@ -79,12 +79,11 @@ class XmapXML extends Xmap {
 	}
 
 	function startOutput( &$menus, &$config ) {
-		global  $mosConfig_live_site;
 		@ob_end_clean();
 		header('Content-type: text/xml; charset=utf-8');
 		echo '<?xml version="1.0" encoding="UTF-8"?>'."\n";
 		if (!$config->exclude_xsl) {
-			echo '<?xml-stylesheet type="text/xsl" href="'. $mosConfig_live_site.'/index2.php?option=com_xmap&amp;view=xslfile"?>'."\n";
+			echo '<?xml-stylesheet type="text/xsl" href="'. JPATH_SITE.'/index2.php?option=com_xmap&amp;view=xslfile"?>'."\n";
 		}
 		echo '<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'."\n";
 	}

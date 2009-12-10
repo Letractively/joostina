@@ -19,7 +19,7 @@ class HTML_contact {
 
 
 	function displaylist(&$categories,&$rows,$catid,$currentcat = null,&$params,$tabclass) {
-		global $Itemid,$mosConfig_live_site,$hide_js;
+		global $Itemid,$hide_js;
 
 		?>
 		<div class="com_contact contacts_main_page <?php echo $params->get('pageclass_sfx'); ?>">
@@ -64,7 +64,7 @@ class HTML_contact {
 	* Display Table of items
 	*/
 	function showTable(&$params,&$rows,$catid,$tabclass) {
-		global $mosConfig_live_site,$Itemid;
+		global $Itemid;
 		
 		?>
 		<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
@@ -144,7 +144,7 @@ class HTML_contact {
 	* Display links to categories
 	*/
 	function showCategories(&$params,&$categories,$catid) {
-		global $mosConfig_live_site,$Itemid;
+		global $Itemid;
 		
 		?>
 		<ul>
@@ -182,14 +182,13 @@ class HTML_contact {
 
 
 	function viewcontact(&$contact,&$params,$count,&$list,&$menu_params) {
-		global $mosConfig_live_site;
 		global $mainframe,$Itemid;
 
 		$template = JTEMPLATE;
 		$sitename = $mainframe->getCfg('sitename');
 		$hide_js = intval(mosGetParam($_REQUEST,'hide_js',0));
 		
-		$print_link = $mosConfig_live_site.'/index2.php?option=com_contact&amp;task=view&amp;contact_id='.$contact->id.'&amp;Itemid='.$Itemid.'&amp;pop=1';
+		$print_link = JPATH_SITE.'/index2.php?option=com_contact&amp;task=view&amp;contact_id='.$contact->id.'&amp;Itemid='.$Itemid.'&amp;pop=1';
 		
 		?>
 		<script language="JavaScript" type="text/javascript">
@@ -281,7 +280,7 @@ class HTML_contact {
 			
 			<?php if($contact->image && $params->get('image')) { ?>
 				<div class="thumb">
-					<img src="<?php echo $mosConfig_live_site; ?>/images/stories/<?php echo $contact->image; ?>" align="middle" alt="<?php echo _CONTACT_TITLE; ?>" />
+					<img src="<?php echo JPATH_SITE; ?>/images/stories/<?php echo $contact->image; ?>" align="middle" alt="<?php echo _CONTACT_TITLE; ?>" />
 				</div>
 			<?php } ?>	
 			
@@ -363,7 +362,7 @@ class HTML_contact {
 	* Writes Email form
 	*/
 	function _writeEmailForm(&$contact,&$params,$sitename,&$menu_params) {
-		global $Itemid,$mosConfig_captcha_cont,$mosConfig_live_site;
+		global $Itemid,$mosConfig_captcha_cont;
 		
 		// used for spoof hardening
 		$validate = josSpoofValue();
@@ -398,7 +397,7 @@ class HTML_contact {
 	
 			<?php if($mosConfig_captcha_cont) { ?>
 			<div class="captcha">
-				<img id="captchaimg" alt="<?php echo _PRESS_HERE_TO_RELOAD_CAPTCHA?>" onclick="document.emailForm.captchaimg.src='<?php echo $mosConfig_live_site; ?>/includes/libraries/kcaptcha/index.php?session=<?php echo mosMainFrame::sessionCookieName() ?>&' + new String(Math.random())" src="<?php echo $mosConfig_live_site; ?>/includes/libraries/kcaptcha/index.php?session=<?php echo mosMainFrame::sessionCookieName() ?>" />
+				<img id="captchaimg" alt="<?php echo _PRESS_HERE_TO_RELOAD_CAPTCHA?>" onclick="document.emailForm.captchaimg.src='<?php echo JPATH_SITE; ?>/includes/libraries/kcaptcha/index.php?session=<?php echo mosMainFrame::sessionCookieName() ?>&' + new String(Math.random())" src="<?php echo JPATH_SITE; ?>/includes/libraries/kcaptcha/index.php?session=<?php echo mosMainFrame::sessionCookieName() ?>" />
 				<label for="captcha" id="lbl_captcha"><?php echo _PLEASE_ENTER_CAPTCHA; ?></label>
 				<input name="captcha" type="text" class="inputbox" size="30" />
 			</div>

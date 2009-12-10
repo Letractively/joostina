@@ -17,7 +17,7 @@ defined('_VALID_MOS') or die();
 class HTML_menusections {
 
 	function showMenusections($rows,$pageNav,$search,$levellist,$menutype,$option) {
-		global $my,$mosConfig_live_site;
+		global $my;
 		$mainframe = &mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 		

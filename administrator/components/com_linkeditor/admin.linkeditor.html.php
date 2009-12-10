@@ -13,7 +13,6 @@ defined('_VALID_MOS') or die();
 class HTML_linkeditor {
 
 	function viewall(&$rows,$pageNav) {
-		global $mosConfig_live_site;
 		$mainframe = &mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 		mosCommonHTML::loadOverlib();
@@ -49,7 +48,7 @@ class HTML_linkeditor {
 		<td><?php echo $pageNav->rowNumber($i); ?></td>
 		<td><?php echo $checked; ?></td>
 		<td align="center">
-			<img src="<?php echo $mosConfig_live_site; ?>/includes/<?php echo $img; ?>" />
+			<img src="<?php echo JPATH_SITE; ?>/includes/<?php echo $img; ?>" />
 		</td>
 		<td align="left"><a href="<?php echo $link; ?>"><?php echo stripslashes($row->treename); ?></a></td>
 		<td align="left"><?php echo $row->admin_menu_alt; ?></td>
@@ -74,7 +73,6 @@ class HTML_linkeditor {
 	}
 
 	function edit($row,$lists) {
-		global $mosConfig_live_site;
 		mosCommonHTML::loadOverlib();
 ?>
 
@@ -98,7 +96,7 @@ class HTML_linkeditor {
 			?>
 			</td>
 			<td colspan="1" rowspan="4">
-			<img name="view_imagefiles" src="<?php echo $mosConfig_live_site; ?>/includes/<?php echo ($row->admin_menu_img !='js/ThemeOffice/')?$row->admin_menu_img:'js/ThemeOffice/spacer.png'; ?>" width="16" />
+			<img name="view_imagefiles" src="<?php echo JPATH_SITE; ?>/includes/<?php echo ($row->admin_menu_img !='js/ThemeOffice/')?$row->admin_menu_img:'js/ThemeOffice/spacer.png'; ?>" width="16" />
 				<?php echo _MENU_ITEM_ICON?>
 				<?php echo $lists['image']; ?>
 			</td>

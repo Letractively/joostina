@@ -22,12 +22,11 @@ include_once(mosMainFrame::getInstance()->getLangFile('com_users'));
 class userlist_menu_html {
 
 	function edit($menu,$lists,$params,$option) {
-		global $mosConfig_live_site, $acl;
- 		mosCommonHTML::loadOverlib();
- 		
- 		
- 		$gtree = $acl->get_group_children_tree(null,'USERS',false); 
-	 	$gtree[0] = mosHTML::makeOption(0, 'All');
+		global $acl;
+		mosCommonHTML::loadOverlib();
+
+		$gtree = $acl->get_group_children_tree(null,'USERS',false);
+		$gtree[0] = mosHTML::makeOption(0, 'All');
 
 ?>
 		<div id="overDiv" style="position:absolute; visibility:hidden; z-index:10000;"></div>

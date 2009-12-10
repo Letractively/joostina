@@ -112,12 +112,11 @@ class HTML_user {
 		$validate = josSpoofValue();
 
 		require_once (JPATH_BASE.'/includes/HTML_toolbar.php');
-        
-        $config = &Jconfig::getInstance();
+		$config = &Jconfig::getInstance();
 
 		$user_extra = $user->user_extra;
 		$bday_date = mosFormatDate($user_extra->birthdate, '%d', '0') ;
-		$bday_month = mosFormatDate($user_extra->birthdate, '%m') ;
+		$bday_month = mosFormatDate($user_extra->birthdate, '%m','0') ;
 		$bday_year = mosFormatDate($user_extra->birthdate, '%Y', '0') ;
 
 		//Шаблон

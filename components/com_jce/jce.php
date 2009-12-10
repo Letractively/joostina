@@ -51,7 +51,7 @@ function getInput($item, $def = null) {
 	return htmlspecialchars(mosGetParam($_REQUEST, $item, $def));
 }
 function showPopup() {
-	global $mainframe, $mosConfig_live_site;
+	global $mainframe;
 
 	$img = getInput('img');
 	$title = str_replace('_', ' ', getInput('title', 'Image'));
@@ -115,16 +115,15 @@ function showPopup() {
 					<td align="left" class="contentheading" style="width:<?php echo $w - 18; ?>px; margin-left: 5px;"><?php echo $title; ?></td>
 					<td align="right" style="width:18px;" class="buttonheading">
 						<?php if($print) { ?>
-							<a href="javascript:;" onClick="window.print(); return false"><img src="<?php echo $mosConfig_live_site; ?>/images/M_images/printButton.png" width="16" height="16" alt="<?php echo _PRINT; ?>" title="<?php echo _PRINT; ?>" border="0" style="vertical-align:middle;"/></a>
+							<a href="javascript:;" onClick="window.print(); return false"><img src="<?php echo JPATH_SITE; ?>/images/M_images/printButton.png" width="16" height="16" alt="<?php echo _PRINT; ?>" title="<?php echo _PRINT; ?>" border="0" style="vertical-align:middle;"/></a>
 						<?php } ?>
 					</td>
 				</tr>
 				<tr>
 					<td colspan="2"><img src="<?php echo $img; ?>" width="<?php echo $w; ?>" height="<?php echo $h; ?>" title="<?php echo $title; ?>" alt="<?php echo $title; ?>" style="cursor:pointer;" onclick="window.close();" /></td>
-			   </tr>
+				</tr>
 			</table>
 	<?php
-			break;
+		break;
 	}
 }
-?>

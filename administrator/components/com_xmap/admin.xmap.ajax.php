@@ -23,7 +23,7 @@ $action = mosGetParam($_REQUEST ,'action','');
 
 global $database;
 
-global $mosConfig_live_site, $mosConfig_lang,$xmapComponentURL,$xmapSiteURL,$xmapComponentPath,$xmapAdministratorURL,$xmapLang,$xmapAdministratorPath;
+global $mosConfig_lang,$xmapComponentURL,$xmapSiteURL,$xmapComponentPath,$xmapAdministratorURL,$xmapLang,$xmapAdministratorPath;
 
 define ('_XMAP_JOOMLA15',0);
 define('_XMAP_MAMBO',0);
@@ -31,9 +31,9 @@ define('_XMAP_MAMBO',0);
 $xmapLang = strtolower($mosConfig_lang);
 $xmapComponentPath = JPATH_BASE_ADMIN.'/components/com_xmap';
 $xmapAdministratorPath = JPATH_BASE_ADMIN;
-$xmapComponentURL = $mosConfig_live_site.DS.JADMIN_BASE.'/components/com_xmap';
-$xmapAdministratorURL = $mosConfig_live_site.DS.JADMIN_BASE;
-$xmapSiteURL = $mosConfig_live_site;
+$xmapComponentURL = JPATH_SITE.DS.JADMIN_BASE.'/components/com_xmap';
+$xmapAdministratorURL = JPATH_SITE.DS.JADMIN_BASE;
+$xmapSiteURL = JPATH_SITE;
 
 require_once( $xmapComponentPath.'/classes/XmapAdmin.php' );
 

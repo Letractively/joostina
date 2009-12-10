@@ -52,7 +52,7 @@ echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>';
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<base href="<?php echo ($mosConfig_live_site); ?>/" />
+<base href="<?php echo (JPATH_SITE); ?>/" />
 <head>
 <title><?php echo _CONTENT_PREVIEW?></title>
 <link rel="stylesheet" href="templates/<?php echo $css; ?>/css/template_css.css" type="text/css" />

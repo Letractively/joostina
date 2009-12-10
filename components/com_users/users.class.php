@@ -480,10 +480,8 @@ class userHelper{
 
 
 	function _build_img_upload_area($obj, $form_params, $state){
-	   
-		global $mosConfig_live_site;
 		$field = $form_params->img_field;
-        
+
 	?><script type="text/javascript">
 		$(document).ready(function() {
 
@@ -503,17 +501,15 @@ class userHelper{
 
 				//отправляем ajax-запрос
 				$.post( //---post:begin
-					'<?php echo $form_params->ajax_handler; ?>',
-					{
+					'<?php echo $form_params->ajax_handler; ?>',{
 						task: "del_avatar",
-						file_name: $("#curr_<?php echo $form_params->img_field;?>").val()
 					} ,
 					//пришёл ответ
 					function onAjaxSuccess(data){
 						//Плавная смена изображения
-						$('#current_<?php echo $form_params->img_field;?>_img').fadeOut(1000);
+						//$('#current_<?php echo $form_params->img_field;?>_img').fadeOut(1000);
 						$('#current_<?php echo $form_params->img_field;?>_img').fadeOut(1000, function(){
-						$('#current_<?php echo $form_params->img_field;?>_img').html('<img class="avatar" src="<?php echo $mosConfig_live_site;?>/<?php echo $form_params->img_path;?>/'+data+'" />');
+						$('#current_<?php echo $form_params->img_field;?>_img').html('<img class="avatar" src="<?php echo JPATH_SITE;?>/<?php echo $form_params->img_path;?>/'+data+'" />');
 							//Скрываем индикатор
 							$("#indicate_<?php echo $form_params->img_field;?>").removeClass("inprogress");
 							$("#indicate_<?php echo $form_params->img_field;?>").html("");
@@ -532,7 +528,7 @@ class userHelper{
 <?php if($state!='upload'){?>
 					<div id="current_<?php echo $form_params->img_field;?>">
 						<div class="current_img" id="current_<?php echo $form_params->img_field;?>_img">
-							<img class="avatar" src="<?php echo $mosConfig_live_site;?>/<?php echo $form_params->img_path;?>/<?php echo $obj->$field;?>" />
+							<img class="avatar" src="<?php echo JPATH_SITE;?>/<?php echo $form_params->img_path;?>/<?php echo $obj->$field;?>" />
 							<input type="hidden" name="curr_<?php echo $form_params->img_field;?>" id="curr_<?php echo $form_params->img_field;?>" value="<?php echo $obj->$field;?>" />
 						</div>
 						<div class="indicator" id="indicate_<?php echo $form_params->img_field;?>">&nbsp;</div>
@@ -551,7 +547,7 @@ class userHelper{
 <?php } else { ?>
 			<div id="current_<?php echo $form_params->img_field;?>">
 					<div class="current_img" id="current_<?php echo $form_params->img_field;?>_img">
-						<img class="avatar" src="<?php echo $mosConfig_live_site;?>/<?php echo $form_params->default_img;?>" />
+						<img class="avatar" src="<?php echo JPATH_SITE;?>/<?php echo $form_params->default_img;?>" />
 					</div>
 					<div class="indicator" id="indicate_<?php echo $form_params->img_field;?>">&nbsp;</div>
 					<div class="user_buttons buttons_<?php echo $form_params->img_field;?>" style="display:none;">
@@ -572,12 +568,12 @@ class userHelper{
 
 	function _build_img_upload_form(&$obj, $form_params){
 		self::_load_jquery_form();
-        
-                
+
+
         $mainframe = &mosMainFrame::getInstance();
         $action = 'ajax.index.php';
         if(!$mainframe->isAdmin()){
-             $action = sefRelToAbs($action);    
+             $action = sefRelToAbs($action);
         }
 
 ?><script type="text/javascript">
@@ -605,14 +601,11 @@ class userHelper{
 						data = elementToString(data.documentElement, true);
 						else if (typeof data == 'object')
 						data = objToString(data);
-						
 						$(".upload_area_<?php echo $form_params->img_field;?>").fadeOut(900);
-						
 						$(".buttons_<?php echo $form_params->img_field;?>").fadeOut(1000);
 						//$('#current_<?php echo $form_params->img_field;?>_img').fadeOut(1000);
-                                                
 						$('#current_<?php echo $form_params->img_field;?>_img').fadeOut(1000, function(){
-							$('#current_<?php echo $form_params->img_field;?>_img').html('<img class="avatar" src="<?php echo JPATH_SITE;?>/<?php echo $form_params->img_path;?>/'+data+'" />');
+							$('#current_<?php echo $form_params->img_field;?>_img').html('<img class="avatar" src="<?php echo JPATH_SITE;?>/<?php echo $form_params->img_path;?>/'+data+'?r=' + Math.random()+'" />');
 						});
 						$('#current_<?php echo $form_params->img_field;?>_img').fadeIn(1000, function () {
 							$('#current_<?php echo $form_params->img_field;?>_img').show('slow', function () {

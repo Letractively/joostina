@@ -14,7 +14,6 @@ require_once ('includes/joomla.php');
 include_once (JPATH_BASE.DS.'language'.DS.$mosConfig_lang.DS.'system.php');
 
 global $option,$database;
-global $mosConfig_live_site;
 
 // получение шаблона страницы
 $cur_template = @JTEMPLATE;
@@ -50,7 +49,7 @@ table.moswarning h2 {
 </style>
 <meta http-equiv="Content-Type" content="text/html; <?php echo _ISO; ?>" />
 <title><?php echo $mosConfig_sitename; ?> - <?php echo _SITE_OFFLINE?></title>
-<link rel="stylesheet" href="<?php echo $mosConfig_live_site; ?>/templates/<?php echo $cur_template; ?>/css/template_css.css" type="text/css" />
+<link rel="stylesheet" href="<?php echo JPATH_SITE; ?>/templates/<?php echo $cur_template; ?>/css/template_css.css" type="text/css" />
 </head>
 <body style="margin: 0px; padding: 0px;">
 

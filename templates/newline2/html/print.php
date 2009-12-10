@@ -13,8 +13,8 @@ defined('_VALID_MOS') or die();
 в $_MOS_OPTION['buffer'] содержится текст страницы
 */
 
-$mainframe->addCSS($mosConfig_live_site.'/templates/css/print.css');
-$mainframe->addJS($mosConfig_live_site.'/includes/js/print/print.js');
+$mainframe->addCSS(JPATH_SITE.'/templates/css/print.css');
+$mainframe->addJS(JPATH_SITE.'/includes/js/print/print.js');
 
 $pg_link = str_replace(array('&pop=1','&page=0'),'',$_SERVER['REQUEST_URI']);
 $pg_link = str_replace('index2.php','index.php',$pg_link);
@@ -30,4 +30,3 @@ $pg_link = str_replace('index2.php','index.php',$pg_link);
 	<br />
 	&copy;<?php echo $mosConfig_sitename; ?>,&nbsp;'<?php echo date('Y'); ?>
 </div>
-
