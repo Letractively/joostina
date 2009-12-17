@@ -27,7 +27,10 @@ $_MAMBOTS->registerFunction('onPrepareContent','botMosPaging');
 *
 */
 function botMosPaging($published,&$row,&$params,$page = 0) {
-	global $mainframe,$Itemid,$database,$_MAMBOTS;
+	global $Itemid,$_MAMBOTS;
+
+	$mainframe = &mosMainFrame::getInstance();
+	$database = &$mainframe->_db;
 
 	// simple performance check to determine whether bot should process further
 	if(strpos($row->text,'mospagebreak') === false) {
@@ -35,7 +38,7 @@ function botMosPaging($published,&$row,&$params,$page = 0) {
 	}
 
 	// expression to search for
-	$regex = '/{(mospagebreak)\s*(.*?)}/i';
+	$regex = '/{(mospagebreak)\s*(.*?)}/iu';
 
 	// check whether mambot has been unpublished
 	if(!$published || $params->get('intro_only') || $params->get('popup')) {
@@ -79,7 +82,7 @@ function botMosPaging($published,&$row,&$params,$page = 0) {
 			$row->page_title = _PN_PAGE.' '.$page_text;
 			if(!$page) {
 				// обработка первой страницы
-				parse_str(html_entity_decode($matches[0][2]),$args);
+				parse_str(html_entity_decode($matches[0][2],ENT_QUOTES,'UTF-8'),$args);
 
 				if(@$args['heading']) {
 					//$row->page_title = $args['heading'];
@@ -89,7 +92,7 @@ function botMosPaging($published,&$row,&$params,$page = 0) {
 				}
 			} else
 				if($matches[$page - 1][2]) {
-					parse_str(html_entity_decode($matches[$page - 1][2]),$args);
+					parse_str(html_entity_decode($matches[$page - 1][2],ENT_QUOTES,'UTF-8'),$args);
 
 					if(@$args['title']) {
 						$row->page_title = ': '.stripslashes($args['title']);
@@ -148,7 +151,7 @@ function createTOC(&$row,&$matches) {
 	$heading = $row->title;
 	// позволяет настройку названия первой страницы, проверяя атрибут `heading` в первом боте
 	if(@$matches[0][2]) {
-		parse_str(html_entity_decode($matches[0][2]),$args);
+		parse_str(html_entity_decode($matches[0][2],ENT_QUOTES,'UTF-8'),$args);
 
 		if(@$args['heading']) {
 			$heading = $args['heading'];
@@ -182,7 +185,7 @@ function createTOC(&$row,&$matches) {
 		$link = sefRelToAbs($link);
 
 		if(@$bot[2]) {
-			parse_str(html_entity_decode($bot[2]),$args2);
+			parse_str(html_entity_decode($bot[2],ENT_QUOTES,'UTF-8'),$args2);
 
 			if(@$args2['title']) {
 				$row->toc .= '

@@ -1035,19 +1035,21 @@ function BlogOutput(&$obj, $params, &$access,$mainframe=null) {
 	//Если это главная страница - компонент 'com_frontpage'
 	else{
 		if($_REQUEST['option'] == 'com_frontpage') {
+
 			$page_type = 'frontpage_blog'; $templates = null;
-			//include_once (JPATH_BASE.'/components/com_content/view/frontpage/default.php');
+
 			$template->set_template($page_type, $templates); 
 			include_once ($template->template_file);
-			
-			return;	
-		}
-		else { 
+
+			return;
+		}else {
+
 			//Не главная страница и не архив - обычный блог раздела или категории
 			switch ($task) {
 				case 'blogcategory':
 				default:
 					$page_type = 'category_blog';
+
 					//проверяем настройки категории на предмет  заданного шаблона
 					if($template->isset_settings($page_type, $params->category_data->templates)) {
 						$templates = $params->category_data->templates;

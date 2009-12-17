@@ -10,7 +10,7 @@
 /** проверка включения этого файла файлом-источником*/
 defined('_VALID_MOS') or die();
 
-require_once ('includes/joomla.php');
+require_once (JPATH_BASE.'/includes/joomla.php');
 include_once (JPATH_BASE.DS.'language'.DS.$mosConfig_lang.DS.'system.php');
 
 global $option,$database;
@@ -69,8 +69,7 @@ if($mosConfig_offline == 1) {
 		</td>
 	</tr>
 	<?php
-} else
-	if(@$mosSystemError) {
+} elseif(@$mosSystemError) {
 
 ?>
 	<tr>

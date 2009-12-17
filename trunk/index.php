@@ -62,11 +62,6 @@ if(file_exists('installation/index.php') && joomlaVersion::get('SVN') == 0) {
 	exit();
 }
 
-// отображение страницы выключенного сайта
-if($mosConfig_offline == 1) {
-	require (JPATH_BASE.DS.'templates'.DS.'system'.DS.'offline.php');
-}
-
 // проверяем, разрешено ли использование системных мамботов
 if($mosConfig_mmb_system_off == 0) {
 	$_MAMBOTS->loadBotGroup('system');
@@ -87,6 +82,11 @@ $mainframe = &mosMainFrame::getInstance();
 
 $option = $mainframe->option;
 $Itemid = $mainframe->Itemid;
+
+// отображение страницы выключенного сайта
+if($mosConfig_offline == 1) {
+	require (JPATH_BASE.DS.'templates'.DS.'system'.DS.'offline.php');
+}
 
 //Межсайтовая интеграция
 if(DEFINED('_MULTISITE')){ 

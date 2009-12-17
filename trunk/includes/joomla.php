@@ -7,6 +7,8 @@
 * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
 */
 
+
+
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
@@ -3244,7 +3246,10 @@ class mosHTML {
 		return mosHTML::selectList($arr,$tag_name,$tag_attribs,'value','text',$selected);
 	}
 
-	function yearSelectList($tag_name,$tag_attribs,$selected, $min=1900, $max=2010) {
+	function yearSelectList($tag_name,$tag_attribs,$selected, $min = 1900, $max=null ) {
+
+		$max = ( $max == null) ? date('Y',time()) : $max;
+
 		$arr = array();
 		for($i = $min; $i <= $max; $i++){
 			$arr[] = mosHTML::makeOption($i,$i);
