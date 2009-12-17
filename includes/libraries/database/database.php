@@ -1,75 +1,75 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 /**
-* Database connector class
-* @subpackage Database
-* @package Joostina
-*/
+ * Database connector class
+ * @subpackage Database
+ * @package Joostina
+ */
 class database {
 	/**
-	@var string Internal variable to hold the query sql*/
+	 @var string Internal variable to hold the query sql*/
 	var $_sql = '';
 	/**
-	@var int Internal variable to hold the database error number*/
+	 @var int Internal variable to hold the database error number*/
 	var $_errorNum = 0;
 	/**
-	@var string Internal variable to hold the database error message*/
+	 @var string Internal variable to hold the database error message*/
 	var $_errorMsg = '';
 	/**
-	@var string Internal variable to hold the prefix used on all database tables*/
+	 @var string Internal variable to hold the prefix used on all database tables*/
 	var $_table_prefix = '';
 	/**
-	@var Internal variable to hold the connector resource*/
+	 @var Internal variable to hold the connector resource*/
 	var $_resource = '';
 	/**
-	@var Internal variable to hold the last query cursor*/
+	 @var Internal variable to hold the last query cursor*/
 	var $_cursor = null;
 	/**
-	@var boolean Debug option*/
+	 @var boolean Debug option*/
 	var $_debug = 0;
 	/**
-	@var int The limit for the query*/
+	 @var int The limit for the query*/
 	var $_limit = 0;
 	/**
-	@var int The for offset for the limit*/
+	 @var int The for offset for the limit*/
 	var $_offset = 0;
 	/**
-	@var int A counter for the number of queries performed by the object instance*/
+	 @var int A counter for the number of queries performed by the object instance*/
 	var $_ticker = 0;
 	/**
-	@var array A log of queries*/
+	 @var array A log of queries*/
 	var $_log = null;
 	/**
-	@var string The null/zero date string*/
+	 @var string The null/zero date string*/
 	var $_nullDate = '0000-00-00 00:00:00';
 	/**
-	@var string Quote for named objects*/
+	 @var string Quote for named objects*/
 	var $_nameQuote = '`';
 	var $_remote_tbl = null;
 	var $_ms_params = null;
 	/**
-	/**
-	* Database object constructor
-	* @param string Database host
-	* @param string Database user name
-	* @param string Database user password
-	* @param string Database name
-	* @param string Common prefix for all tables
-	* @param boolean If true and there is an error, go offline
-	*/
+	 /**
+	 * Database object constructor
+	 * @param string Database host
+	 * @param string Database user name
+	 * @param string Database user password
+	 * @param string Database name
+	 * @param string Common prefix for all tables
+	 * @param boolean If true and there is an error, go offline
+	 */
 	function database($host = 'localhost',$user,$pass,$db = '',$table_prefix = '',$goOffline = true,$debug=0) {
 		// perform a number of fatality checks, then die gracefully
-		if(!function_exists('mysql_connect')) {
+		if( !function_exists('mysql_connect')) {
 			$mosSystemError = 1;
 			if($goOffline) {
 				$basePath = dirname(__file__);
@@ -78,7 +78,7 @@ class database {
 				exit();
 			}
 		}
-		if(!($this->_resource = @mysql_connect($host,$user,$pass,true))) {
+		if( !($this->_resource = @mysql_connect($host,$user,$pass,true))) {
 			$mosSystemError = 2;
 			if($goOffline) {
 				$basePath = dirname(__file__);
@@ -101,7 +101,7 @@ class database {
 
 		mysql_query("SET NAMES 'utf8'",$this->_resource);
 
-		if($debug==1){
+		if($debug==1) {
 			mysql_query('set profiling=1',$this->_resource);
 			mysql_query('set profiling_history_size=100',$this->_resource);
 		};
@@ -111,7 +111,7 @@ class database {
 		$this->_log = array();
 	}
 
-	function &getInstance(){
+	function &getInstance() {
 		static $instance;
 
 		jd_inc('database::getInstance()');
@@ -132,27 +132,27 @@ class database {
 	}
 
 	/**
-	* @param int
-	*/
+	 * @param int
+	 */
 	function debug($level) {
 		$this->_debug = intval($level);
 	}
 	/**
-	* @return int The error number for the most recent query
-	*/
+	 * @return int The error number for the most recent query
+	 */
 	function getErrorNum() {
 		return $this->_errorNum;
 	}
 	/**
-	* @return string The error message for the most recent query
-	*/
+	 * @return string The error message for the most recent query
+	 */
 	function getErrorMsg() {
 		return str_replace(array("\n","'"),array('\n',"\'"),$this->_errorMsg);
 	}
 	/**
-	* Get a database escaped string
-	* @return string
-	*/
+	 * Get a database escaped string
+	 * @return string
+	 */
 	function getEscaped( $text, $extra = false ) {
 		$string = mysql_real_escape_string($text, $this->_resource);
 
@@ -170,14 +170,14 @@ class database {
 	 * @return	string
 	 * @access public
 	 */
-	function Quote( $text, $escaped = true ){
+	function Quote( $text, $escaped = true ) {
 		return '\''.($escaped ? $this->getEscaped( $text ) : $text).'\'';
 	}
 	/**
-	* Quote an identifier name (field, table, etc)
-	* @param string The name
-	* @return string The quoted name
-	*/
+	 * Quote an identifier name (field, table, etc)
+	 * @param string The name
+	 * @return string The quoted name
+	 */
 	function NameQuote($s) {
 		$q = $this->_nameQuote;
 		if(strlen($q) == 1) {
@@ -187,28 +187,28 @@ class database {
 		}
 	}
 	/**
-	* @return string The database prefix
-	*/
+	 * @return string The database prefix
+	 */
 	function getPrefix() {
 		return $this->_table_prefix;
 	}
 	/**
-	* @return string Quoted null/zero date string
-	*/
+	 * @return string Quoted null/zero date string
+	 */
 	function getNullDate() {
 		return $this->_nullDate;
 	}
 	/**
-	* Sets the SQL query string for later execution.
-	*
-	* This function replaces a string identifier <var>$prefix</var> with the
-	* string held is the <var>_table_prefix</var> class variable.
-	*
-	* @param string The SQL query
-	* @param string The offset to start selection
-	* @param string The number of results to return
-	* @param string The common table prefix
-	*/
+	 * Sets the SQL query string for later execution.
+	 *
+	 * This function replaces a string identifier <var>$prefix</var> with the
+	 * string held is the <var>_table_prefix</var> class variable.
+	 *
+	 * @param string The SQL query
+	 * @param string The offset to start selection
+	 * @param string The number of results to return
+	 * @param string The common table prefix
+	 */
 	function setQuery($sql,$offset = 0,$limit = 0,$prefix = '#__') {
 		$sql = trim($sql);
 		$this->_sql = $this->replacePrefix($sql,$prefix);
@@ -217,46 +217,46 @@ class database {
 	}
 
 	/**
-	* This function replaces a string identifier <var>$prefix</var> with the
-	* string held is the <var>_table_prefix</var> class variable.
-	*
-	* @param string The SQL query
-	* @param string The common table prefix
-	* @author thede, David McKinnis
-	*/
+	 * This function replaces a string identifier <var>$prefix</var> with the
+	 * string held is the <var>_table_prefix</var> class variable.
+	 *
+	 * @param string The SQL query
+	 * @param string The common table prefix
+	 * @author thede, David McKinnis
+	 */
 	function replacePrefix($sql,$prefix = '#__') {
 
 		// ЭКСПЕРИМЕНТАЛЬНО
-        //++еще более экспериментально - поддержка мультисайтовости
+		//++еще более экспериментально - поддержка мультисайтовости
 		//если включена мультисайтовая игтеграция, заменяем текущий преффикс на преффикс таблиц главного сайта
-		if(DEFINED('_MULTISITE')){
-			
-			global $m_s;
-			
-			if($m_s->flag == 2){
-				$sql = str_replace('#__',$this->_table_prefix,$sql);
-	 			
-	 			if(!isset($m_s->isAdmin)){
-		 			foreach($m_s->remote_tables as $tbl){
-						$sql = str_replace($this->_table_prefix.$tbl, $m_s->table_preffix.$tbl,$sql);	
-		 			}	 				
-	 			}
-	 			else{
-		 			foreach($m_s->remote_tables_admin as $tbl){
-						$sql = str_replace($this->_table_prefix.$tbl, $m_s->table_preffix.$tbl,$sql);	
-		 			}	 				
-	 			}
+		if(DEFINED('_MULTISITE')) {
 
-	 			
-	 			return $sql;				
+			global $m_s;
+
+			if($m_s->flag == 2) {
+				$sql = str_replace('#__',$this->_table_prefix,$sql);
+
+				if(!isset($m_s->isAdmin)) {
+					foreach($m_s->remote_tables as $tbl) {
+						$sql = str_replace($this->_table_prefix.$tbl, $m_s->table_preffix.$tbl,$sql);
+					}
+				}
+				else {
+					foreach($m_s->remote_tables_admin as $tbl) {
+						$sql = str_replace($this->_table_prefix.$tbl, $m_s->table_preffix.$tbl,$sql);
+					}
+				}
+
+
+				return $sql;
 			}
-			else{
-				return str_replace('#__',$this->_table_prefix,$sql);	
+			else {
+				return str_replace('#__',$this->_table_prefix,$sql);
 			}
-	
-  		}
-  		else{
- 			return str_replace('#__',$this->_table_prefix,$sql);	
+
+		}
+		else {
+			return str_replace('#__',$this->_table_prefix,$sql);
 		}
 
 		//return str_replace('#__',$this->_table_prefix,$sql);
@@ -330,22 +330,22 @@ class database {
 		return $literal;
 	}
 	/**
-	* @return string The current value of the internal SQL vairable
-	*/
+	 * @return string The current value of the internal SQL vairable
+	 */
 	function getQuery() {
 		return '<pre>'.htmlspecialchars($this->_sql).'</pre>';
 	}
 	/**
-	* Execute the query
-	* @return mixed A database resource if successful, FALSE if not.
-	*/
+	 * Execute the query
+	 * @return mixed A database resource if successful, FALSE if not.
+	 */
 	function query() {
 		if($this->_limit > 0 && $this->_offset == 0) {
 			$this->_sql .= "\nLIMIT $this->_limit";
 		} else
-			if($this->_limit > 0 || $this->_offset > 0) {
-				$this->_sql .= "\nLIMIT $this->_offset, $this->_limit";
-			}
+		if($this->_limit > 0 || $this->_offset > 0) {
+			$this->_sql .= "\nLIMIT $this->_offset, $this->_limit";
+		}
 		//if($this->_debug) {
 		//	// что бы не приклеивать к каждому объекту простыню из всез запросов - будем писать их в общесистемный лог
 		//	jd_log($this->_ticker++.'-> '.$this->_sql);
@@ -366,15 +366,15 @@ class database {
 			}
 			return false;
 		}
-		
+
 		// тут тоже раскомментировать, что бу верхнее условие оказалось в комментариях, или еще лучше его вообще удалить
 		//*/
 		return $this->_cursor;
 	}
 
 	/**
-	* @return int The number of affected rows in the previous operation
-	*/
+	 * @return int The number of affected rows in the previous operation
+	 */
 	function getAffectedRows() {
 		return mysql_affected_rows($this->_resource);
 	}
@@ -388,12 +388,12 @@ class database {
 			if($m[1] >= 4) {
 				$this->_sql = 'START TRANSACTION;'.$this->_sql.'; COMMIT;';
 			} else
-				if($m[2] >= 23 && $m[3] >= 19) {
-					$this->_sql = 'BEGIN WORK;'.$this->_sql.'; COMMIT;';
-				} else
-					if($m[2] >= 23 && $m[3] >= 17) {
-						$this->_sql = 'BEGIN;'.$this->_sql.'; COMMIT;';
-					}
+			if($m[2] >= 23 && $m[3] >= 19) {
+				$this->_sql = 'BEGIN WORK;'.$this->_sql.'; COMMIT;';
+			} else
+			if($m[2] >= 23 && $m[3] >= 17) {
+				$this->_sql = 'BEGIN;'.$this->_sql.'; COMMIT;';
+			}
 		}
 		$query_split = preg_split("/[;]+/",$this->_sql);
 		$error = 0;
@@ -415,8 +415,8 @@ class database {
 	}
 
 	/**
-	* Diagnostic function
-	*/
+	 * Diagnostic function
+	 */
 	function explain() {
 		$temp = $this->_sql;
 		$this->_sql = 'EXPLAIN '.$this->_sql;
@@ -452,17 +452,17 @@ class database {
 		return '<div style="background-color:#FFFFCC" align="left">'.$buf.'</div>';
 	}
 	/**
-	* @return int The number of rows returned from the most recent query.
-	*/
+	 * @return int The number of rows returned from the most recent query.
+	 */
 	function getNumRows($cur = null) {
 		return mysql_num_rows($cur?$cur:$this->_cursor);
 	}
 
 	/**
-	* This method loads the first field of the first row returned by the query.
-	*
-	* @return The value returned in the query or null if the query failed.
-	*/
+	 * This method loads the first field of the first row returned by the query.
+	 *
+	 * @return The value returned in the query or null if the query failed.
+	 */
 	function loadResult() {
 		if(!($cur = $this->query())) {
 			return null;
@@ -475,8 +475,8 @@ class database {
 		return $ret;
 	}
 	/**
-	* Load an array of single field results into an array
-	*/
+	 * Load an array of single field results into an array
+	 */
 	function loadResultArray($numinarray = 0) {
 		if(!($cur = $this->query())) {
 			return null;
@@ -489,10 +489,10 @@ class database {
 		return $array;
 	}
 	/**
-	* Load a assoc list of database rows
-	* @param string The field name of a primary key
-	* @return array If <var>key</var> is empty as sequential list of returned records.
-	*/
+	 * Load a assoc list of database rows
+	 * @param string The field name of a primary key
+	 * @return array If <var>key</var> is empty as sequential list of returned records.
+	 */
 	function loadAssocList($key = '') {
 		if(!($cur = $this->query())) {
 			return null;
@@ -509,13 +509,13 @@ class database {
 		return $array;
 	}
 	/**
-	* This global function loads the first row of a query into an object
-	*
-	* If an object is passed to this function, the returned row is bound to the existing elements of <var>object</var>.
-	* If <var>object</var> has a value of null, then all of the returned query fields returned in the object.
-	* @param string The SQL query
-	* @param object The address of variable
-	*/
+	 * This global function loads the first row of a query into an object
+	 *
+	 * If an object is passed to this function, the returned row is bound to the existing elements of <var>object</var>.
+	 * If <var>object</var> has a value of null, then all of the returned query fields returned in the object.
+	 * @param string The SQL query
+	 * @param object The address of variable
+	 */
 	function loadObject(&$object) {
 		if($object != null) {
 			if(!($cur = $this->query())) {
@@ -543,12 +543,12 @@ class database {
 		}
 	}
 	/**
-	* Load a list of database objects
-	* @param string The field name of a primary key
-	* @return array If <var>key</var> is empty as sequential list of returned records.
-	* If <var>key</var> is not empty then the returned array is indexed by the value
-	* the database key.  Returns <var>null</var> if the query fails.
-	*/
+	 * Load a list of database objects
+	 * @param string The field name of a primary key
+	 * @return array If <var>key</var> is empty as sequential list of returned records.
+	 * If <var>key</var> is not empty then the returned array is indexed by the value
+	 * the database key.  Returns <var>null</var> if the query fails.
+	 */
 	function loadObjectList($key = '') {
 		if(!($cur = $this->query())) {
 			return null;
@@ -565,8 +565,8 @@ class database {
 		return $array;
 	}
 	/**
-	* @return The first row of the query.
-	*/
+	 * @return The first row of the query.
+	 */
 	function loadRow() {
 		if(!($cur = $this->query())) {
 			return null;
@@ -579,12 +579,12 @@ class database {
 		return $ret;
 	}
 	/**
-	* Load a list of database rows (numeric column indexing)
-	* @param int Value of the primary key
-	* @return array If <var>key</var> is empty as sequential list of returned records.
-	* If <var>key</var> is not empty then the returned array is indexed by the value
-	* the database key.  Returns <var>null</var> if the query fails.
-	*/
+	 * Load a list of database rows (numeric column indexing)
+	 * @param int Value of the primary key
+	 * @return array If <var>key</var> is empty as sequential list of returned records.
+	 * If <var>key</var> is not empty then the returned array is indexed by the value
+	 * the database key.  Returns <var>null</var> if the query fails.
+	 */
 	function loadRowList($key = null) {
 		if(!($cur = $this->query())) {
 			return null;
@@ -601,14 +601,14 @@ class database {
 		return $array;
 	}
 	/**
-	* Document::db_insertObject()
-	*
-	* { Description }
-	*
-	* @param string $table This is expected to be a valid (and safe!) table name
-	* @param [type] $keyName
-	* @param [type] $verbose
-	*/
+	 * Document::db_insertObject()
+	 *
+	 * { Description }
+	 *
+	 * @param string $table This is expected to be a valid (and safe!) table name
+	 * @param [type] $keyName
+	 * @param [type] $verbose
+	 */
 	function insertObject($table,&$object,$keyName = null,$verbose = false) {
 		$fmtsql = "INSERT INTO $table ( %s ) VALUES ( %s ) ";
 		$fields = array();
@@ -636,13 +636,13 @@ class database {
 	}
 
 	/**
-	* Document::db_updateObject()
-	*
-	* { Description }
-	*
-	* @param string $table This is expected to be a valid (and safe!) table name
-	* @param [type] $updateNulls
-	*/
+	 * Document::db_updateObject()
+	 *
+	 * { Description }
+	 *
+	 * @param string $table This is expected to be a valid (and safe!) table name
+	 * @param [type] $updateNulls
+	 */
 	function updateObject($table,&$object,$keyName,$updateNulls = true) {
 		$fmtsql = "UPDATE $table SET %s  WHERE %s";
 		$tmp = array();
@@ -670,9 +670,9 @@ class database {
 	}
 
 	/**
-	* @param boolean If TRUE, displays the last SQL statement sent to the database
-	* @return string A standised error message
-	*/
+	 * @param boolean If TRUE, displays the last SQL statement sent to the database
+	 * @return string A standised error message
+	 */
 	function stderr($showSQL = false) {
 		return "DB function failed with error number $this->_errorNum <br /><font color=\"red\">$this->_errorMsg</font>".($showSQL ? "<br />SQL = <pre>$this->_sql</pre>":'');
 	}
@@ -686,16 +686,16 @@ class database {
 	}
 
 	/**
-	* @return array A list of all the tables in the database
-	*/
+	 * @return array A list of all the tables in the database
+	 */
 	function getTableList() {
 		$this->setQuery('SHOW TABLES');
 		return $this->loadResultArray();
 	}
 	/**
-	* @param array A list of valid (and safe!) table names
-	* @return array A list the create SQL for the tables
-	*/
+	 * @param array A list of valid (and safe!) table names
+	 * @return array A list the create SQL for the tables
+	 */
 	function getTableCreate($tables) {
 		$result = array();
 
@@ -710,9 +710,9 @@ class database {
 		return $result;
 	}
 	/**
-	* @param array A list of valid (and safe!) table names
-	* @return array An array of fields by table
-	*/
+	 * @param array A list of valid (and safe!) table names
+	 * @return array An array of fields by table
+	 */
 	function getTableFields($tables) {
 		$result = array();
 
@@ -728,13 +728,13 @@ class database {
 	}
 
 	/**
-	* Fudge method for ADOdb compatibility
-	*/
+	 * Fudge method for ADOdb compatibility
+	 */
 	function GenID() {
 		return 0;
 	}
-	
-	function show_db_error($message,$sql=null){
+
+	function show_db_error($message,$sql=null) {
 		echo '<div style="display:block;width:100%;"><b>DB::error:</b> ';
 		echo $message;
 		echo $sql ? '<pre>'.$sql.'</pre><b>UseFiles</b>::' : '';
@@ -747,40 +747,40 @@ class database {
 		}
 		echo '</div>';
 	}
-	
+
 }
 
 /**
-* mosDBTable Abstract Class.
-* @abstract
-* @package Joostina
-* @subpackage Database
-*
-* Parent classes to all database derived objects.  Customisation will generally
-* not involve tampering with this object.
-* @author Andrew Eddie <eddieajau@users.sourceforge.net
-*/
+ * mosDBTable Abstract Class.
+ * @abstract
+ * @package Joostina
+ * @subpackage Database
+ *
+ * Parent classes to all database derived objects.  Customisation will generally
+ * not involve tampering with this object.
+ * @author Andrew Eddie <eddieajau@users.sourceforge.net
+ */
 class mosDBTable {
 	/**
-	@var string Name of the table in the db schema relating to child class*/
+	 @var string Name of the table in the db schema relating to child class*/
 	var $_tbl = '';
 	/**
-	@var string Name of the primary key field in the table*/
+	 @var string Name of the primary key field in the table*/
 	var $_tbl_key = '';
 	/**
-	@var string Error message*/
+	 @var string Error message*/
 	var $_error = '';
 	/**
-	@var mosDatabase Database connector*/
+	 @var mosDatabase Database connector*/
 	var $_db = null;
 
 	/**
-	*	Object constructor to set table and key field
-	*
-	*	Can be overloaded/supplemented by the child class
-	*	@param string $table name of the table in the db schema relating to child class
-	*	@param string $key name of the primary key field in the table
-	*/
+	 *	Object constructor to set table and key field
+	 *
+	 *	Can be overloaded/supplemented by the child class
+	 *	@param string $table name of the table in the db schema relating to child class
+	 *	@param string $key name of the primary key field in the table
+	 */
 	function mosDBTable($table,$key,&$db) {
 		$this->_tbl = $table;
 		$this->_tbl_key = $key;
@@ -788,9 +788,9 @@ class mosDBTable {
 	}
 
 	/**
-	* Returns an array of public properties
-	* @return array
-	*/
+	 * Returns an array of public properties
+	 * @return array
+	 */
 	function getPublicProperties() {
 		static $cache = null;
 		if(is_null($cache)) {
@@ -804,10 +804,10 @@ class mosDBTable {
 		return $cache;
 	}
 	/**
-	* Filters public properties
-	* @access protected
-	* @param array List of fields to ignore
-	*/
+	 * Filters public properties
+	 * @access protected
+	 * @param array List of fields to ignore
+	 */
 	function filter($ignoreList = null) {
 		$ignore = is_array($ignoreList);
 
@@ -820,16 +820,16 @@ class mosDBTable {
 		}
 	}
 	/**
-	*	@return string Returns the error message
-	*/
+	 *	@return string Returns the error message
+	 */
 	function getError() {
 		return $this->_error;
 	}
 	/**
-	* Gets the value of the class variable
-	* @param string The name of the class variable
-	* @return mixed The value of the class var (or null if no var of that name exists)
-	*/
+	 * Gets the value of the class variable
+	 * @param string The name of the class variable
+	 * @return mixed The value of the class var (or null if no var of that name exists)
+	 */
 	function get($_property) {
 		if(isset($this->$_property)) {
 			return $this->$_property;
@@ -839,18 +839,18 @@ class mosDBTable {
 	}
 
 	/**
-	* Set the value of the class variable
-	* @param string The name of the class variable
-	* @param mixed The value to assign to the variable
-	*/
+	 * Set the value of the class variable
+	 * @param string The name of the class variable
+	 * @param mixed The value to assign to the variable
+	 */
 	function set($_property,$_value) {
 		$this->$_property = $_value;
 	}
 
 	/**
-	* Resets public properties
-	* @param mixed The value to set all properties to, default is null
-	*/
+	 * Resets public properties
+	 * @param mixed The value to set all properties to, default is null
+	 */
 	function reset($value = null) {
 		$keys = $this->getPublicProperties();
 		foreach($keys as $k) {
@@ -858,12 +858,12 @@ class mosDBTable {
 		}
 	}
 	/**
-	*	binds a named array/hash to this object
-	*
-	*	can be overloaded/supplemented by the child class
-	*	@param array $hash named array
-	*	@return null|string	null is operation was satisfactory, otherwise returns an error
-	*/
+	 *	binds a named array/hash to this object
+	 *
+	 *	can be overloaded/supplemented by the child class
+	 *	@param array $hash named array
+	 *	@return null|string	null is operation was satisfactory, otherwise returns an error
+	 */
 	function bind($array,$ignore = '') {
 		if(!is_array($array)) {
 			$this->_error = strtolower(get_class($this)).'::ошибка выполнения bind.';
@@ -874,10 +874,10 @@ class mosDBTable {
 	}
 
 	/**
-	*	binds an array/hash to this object
-	*	@param int $oid optional argument, if not specifed then the value of current key is used
-	*	@return any result from the database operation
-	*/
+	 *	binds an array/hash to this object
+	 *	@param int $oid optional argument, if not specifed then the value of current key is used
+	 *	@return any result from the database operation
+	 */
 	function load($oid = null) {
 		$k = $this->_tbl_key;
 
@@ -907,22 +907,22 @@ class mosDBTable {
 	}
 
 	/**
-	*	generic check method
-	*
-	*	can be overloaded/supplemented by the child class
-	*	@return boolean True if the object is ok
-	*/
+	 *	generic check method
+	 *
+	 *	can be overloaded/supplemented by the child class
+	 *	@return boolean True if the object is ok
+	 */
 	function check() {
 		return true;
 	}
 
 	/**
-	* Inserts a new row if id is zero or updates an existing row in the database table
-	*
-	* Can be overloaded/supplemented by the child class
-	* @param boolean If false, null object variables are not updated
-	* @return null|string null if successful otherwise returns and error message
-	*/
+	 * Inserts a new row if id is zero or updates an existing row in the database table
+	 *
+	 * Can be overloaded/supplemented by the child class
+	 * @param boolean If false, null object variables are not updated
+	 * @return null|string null if successful otherwise returns and error message
+	 */
 	function store($updateNulls = false) {
 		$k = $this->_tbl_key;
 
@@ -934,15 +934,15 @@ class mosDBTable {
 
 		if(!$ret) {
 			$this->_error = strtolower(get_class($this))."::ошибка выполнения store<br />".
-				$this->_db->getErrorMsg();
+					$this->_db->getErrorMsg();
 			return false;
 		} else {
 			return true;
 		}
 	}
 	/**
-	* @param string $where This is expected to be a valid (and safe!) SQL expression
-	*/
+	 * @param string $where This is expected to be a valid (and safe!) SQL expression
+	 */
 	function move($dirn,$where = '') {
 		$k = $this->_tbl_key;
 
@@ -954,24 +954,24 @@ class mosDBTable {
 			$sql .= "\n ORDER BY ordering DESC";
 			$sql .= "\n LIMIT 1";
 		} else
-			if($dirn > 0) {
-				$sql .= "\n WHERE ordering > ".(int)$this->ordering;
-				$sql .= ($where?"\n AND $where":'');
-				$sql .= "\n ORDER BY ordering";
-				$sql .= "\n LIMIT 1";
-			} else {
-				$sql .= "\nWHERE ordering = ".(int)$this->ordering;
-				$sql .= ($where?"\n AND $where":'');
-				$sql .= "\n ORDER BY ordering";
-				$sql .= "\n LIMIT 1";
-			}
+		if($dirn > 0) {
+			$sql .= "\n WHERE ordering > ".(int)$this->ordering;
+			$sql .= ($where?"\n AND $where":'');
+			$sql .= "\n ORDER BY ordering";
+			$sql .= "\n LIMIT 1";
+		} else {
+			$sql .= "\nWHERE ordering = ".(int)$this->ordering;
+			$sql .= ($where?"\n AND $where":'');
+			$sql .= "\n ORDER BY ordering";
+			$sql .= "\n LIMIT 1";
+		}
 
-			$this->_db->setQuery($sql);
+		$this->_db->setQuery($sql);
 
 		$row = null;
 		if($this->_db->loadObject($row)) {
 			$query = "UPDATE $this->_tbl"."\n SET ordering = ".(int)$row->ordering."\n WHERE $this->_tbl_key = ".
-				$this->_db->Quote($this->$k);
+					$this->_db->Quote($this->$k);
 			$this->_db->setQuery($query);
 
 			if(!$this->_db->query()) {
@@ -980,7 +980,7 @@ class mosDBTable {
 			}
 
 			$query = "UPDATE $this->_tbl"."\n SET ordering = ".(int)$this->ordering."\n WHERE $this->_tbl_key = ".
-				$this->_db->Quote($row->$k);
+					$this->_db->Quote($row->$k);
 			$this->_db->setQuery($query);
 
 			if(!$this->_db->query()) {
@@ -991,7 +991,7 @@ class mosDBTable {
 			$this->ordering = $row->ordering;
 		} else {
 			$query = "UPDATE $this->_tbl"."\n SET ordering = ".(int)$this->ordering."\n WHERE $this->_tbl_key = ".
-				$this->_db->Quote($this->$k);
+					$this->_db->Quote($this->$k);
 			$this->_db->setQuery($query);
 			//echo 'D: ' . $this->_db->getQuery();
 
@@ -1003,15 +1003,15 @@ class mosDBTable {
 		}
 	}
 	/**
-	* Compacts the ordering sequence of the selected records
-	* @param string Additional where query to limit ordering to a particular subset of records. This is expected to be a valid (and safe!) SQL expression
-	*/
+	 * Compacts the ordering sequence of the selected records
+	 * @param string Additional where query to limit ordering to a particular subset of records. This is expected to be a valid (and safe!) SQL expression
+	 */
 	function updateOrder($where = '') {
 		$k = $this->_tbl_key;
 
 		if(!array_key_exists('ordering',get_class_vars(strtolower(get_class($this))))) {
 			$this->_error = "ВНИМАНИЕ: ".strtolower(get_class($this)).
-				" не поддерживает сортировку.";
+					" не поддерживает сортировку.";
 			return false;
 		}
 
@@ -1022,7 +1022,7 @@ class mosDBTable {
 		}
 
 		$query = "SELECT $this->_tbl_key, ordering"."\n FROM $this->_tbl".($where?"\n WHERE $where":
-			'')."\n ORDER BY ordering$order2 ";
+				'')."\n ORDER BY ordering$order2 ";
 		$this->_db->setQuery($query);
 		if(!($orders = $this->_db->loadObjectList())) {
 			$this->_error = $this->_db->getErrorMsg();
@@ -1044,9 +1044,9 @@ class mosDBTable {
 				$orders[$i]->ordering = min($this->ordering,$n);
 				$shift = 1;
 			} else
-				if($orders[$i]->ordering >= $this->ordering && $this->ordering > 0) {
-					$orders[$i]->ordering++;
-				}
+			if($orders[$i]->ordering >= $this->ordering && $this->ordering > 0) {
+				$orders[$i]->ordering++;
+			}
 		}
 		//echo '<pre>';print_r($orders);echo '</pre>';
 		// compact once more until I can find a better algorithm
@@ -1054,7 +1054,7 @@ class mosDBTable {
 			if($orders[$i]->ordering >= 0) {
 				$orders[$i]->ordering = $i + 1;
 				$query = "UPDATE $this->_tbl"."\n SET ordering = ".(int)$orders[$i]->ordering."\n WHERE $k = ".
-					$this->_db->Quote($orders[$i]->$k);
+						$this->_db->Quote($orders[$i]->$k);
 				$this->_db->setQuery($query);
 				$this->_db->query();
 				//echo '<br />'.$this->_db->getQuery();
@@ -1065,7 +1065,7 @@ class mosDBTable {
 		if($shift == 0) {
 			$order = $n + 1;
 			$query = "UPDATE $this->_tbl"."\n SET ordering = ".(int)$order."\n WHERE $k = ".
-				$this->_db->Quote($this->$k);
+					$this->_db->Quote($this->$k);
 			$this->_db->setQuery($query);
 			$this->_db->query();
 			//echo '<br />'.$this->_db->getQuery();
@@ -1073,14 +1073,14 @@ class mosDBTable {
 		return true;
 	}
 	/**
-	*	Generic check for whether dependancies exist for this object in the db schema
-	*
-	*	can be overloaded/supplemented by the child class
-	*	@param string $msg Error message returned
-	*	@param int Optional key index
-	*	@param array Optional array to compiles standard joins: format [label=>'Label',name=>'table name',idfield=>'field',joinfield=>'field']. This is expected to hold only valid (and safe!) SQL expressions
-	*	@return true|false
-	*/
+	 *	Generic check for whether dependancies exist for this object in the db schema
+	 *
+	 *	can be overloaded/supplemented by the child class
+	 *	@param string $msg Error message returned
+	 *	@param int Optional key index
+	 *	@param array Optional array to compiles standard joins: format [label=>'Label',name=>'table name',idfield=>'field',joinfield=>'field']. This is expected to hold only valid (and safe!) SQL expressions
+	 *	@return true|false
+	 */
 	function canDelete($oid = null,$joins = null) {
 		$k = $this->_tbl_key;
 		if($oid) {
@@ -1094,12 +1094,12 @@ class mosDBTable {
 				$idField = $this->getEscaped($table['idfield']);
 				$jnField = $this->getEscaped($table['joinfield']);
 				$select .= ",\n COUNT(DISTINCT `$tblName`.`$idField`) AS `count_".substr($tblName,
-					3)."_$idField`";
+						3)."_$idField`";
 				$join .= "\n LEFT JOIN `$tblName` ON `$tblName`.`$jnField` = `$this->_tbl`.`$k`";
 			}
 
 			$query = "SELECT $select"."\n FROM `$this->_tbl`".$join."\n WHERE `$this->_tbl`.`$k` = ".(int)
-				$this->$k."\n GROUP BY `$this->_tbl`.`$k`";
+					$this->$k."\n GROUP BY `$this->_tbl`.`$k`";
 			$this->_db->setQuery($query);
 
 			$obj = null;
@@ -1129,11 +1129,11 @@ class mosDBTable {
 	}
 
 	/**
-	*	Default delete method
-	*
-	*	can be overloaded/supplemented by the child class
-	*	@return true if successful otherwise returns and error message
-	*/
+	 *	Default delete method
+	 *
+	 *	can be overloaded/supplemented by the child class
+	 *	@return true if successful otherwise returns and error message
+	 */
 	function delete($oid = null) {
 		//if (!$this->canDelete( $msg )) {
 		//	return $msg;
@@ -1145,7 +1145,7 @@ class mosDBTable {
 		}
 
 		$query = "DELETE FROM $this->_tbl"."\n WHERE $this->_tbl_key = ".$this->_db->Quote($this->
-			$k);
+				$k);
 		$this->_db->setQuery($query);
 
 		if($this->_db->query()) {
@@ -1157,10 +1157,10 @@ class mosDBTable {
 	}
 
 	/**
-	* Checks out an object
-	* @param int User id
-	* @param int Object id
-	*/
+	 * Checks out an object
+	 * @param int User id
+	 * @param int Object id
+	 */
 	function checkout($user_id,$oid = null) {
 		global $mosConfig_disable_checked_out;
 		// отключение блокировок
@@ -1198,9 +1198,9 @@ class mosDBTable {
 	}
 
 	/**
-	* Checks in an object
-	* @param int Object id
-	*/
+	 * Checks in an object
+	 * @param int Object id
+	 */
 	function checkin($oid = null) {
 		global $mosConfig_disable_checked_out;
 		// отключение блокировок
@@ -1230,9 +1230,9 @@ class mosDBTable {
 	}
 
 	/**
-	* Increments the hit counter for an object
-	* @param int Object id
-	*/
+	 * Increments the hit counter for an object
+	 * @param int Object id
+	 */
 	function hit($oid = null) {
 		global $mosConfig_enable_log_items,$mosConfig_content_hits;
 		if(!$mosConfig_content_hits) return false;
@@ -1252,7 +1252,7 @@ class mosDBTable {
 			$hits = intval($this->_db->loadResult());
 			if($hits) {
 				$query = "UPDATE #__core_log_items SET hits = ( hits + 1 ) WHERE time_stamp = ".$this->_db->Quote($now)." AND item_table = ".$this->_db->Quote($this->_tbl)." AND item_id = ".
-					$this->_db->Quote($this->$k);
+						$this->_db->Quote($this->$k);
 				$this->_db->setQuery($query);
 				$this->_db->query();
 			} else {
@@ -1264,10 +1264,10 @@ class mosDBTable {
 	}
 
 	/**
-	* Tests if item is checked out
-	* @param int A user id
-	* @return boolean
-	*/
+	 * Tests if item is checked out
+	 * @param int A user id
+	 * @return boolean
+	 */
 	function isCheckedOut($user_id = 0) {
 		if($user_id) {
 			return ($this->checked_out && $this->checked_out != $user_id);
@@ -1277,12 +1277,12 @@ class mosDBTable {
 	}
 
 	/**
-	* Generic save function
-	* @param array Source array for binding to class vars
-	* @param string Filter for the order updating. This is expected to be a valid (and safe!) SQL expression
-	* @returns TRUE if completely successful, FALSE if partially or not succesful
-	* NOTE: Filter will be deprecated in verion 1.1
-	*/
+	 * Generic save function
+	 * @param array Source array for binding to class vars
+	 * @param string Filter for the order updating. This is expected to be a valid (and safe!) SQL expression
+	 * @returns TRUE if completely successful, FALSE if partially or not succesful
+	 * NOTE: Filter will be deprecated in verion 1.1
+	 */
 	function save($source,$order_filter = '') {
 		if(!$this->bind($source)) {
 			return false;
@@ -1306,19 +1306,19 @@ class mosDBTable {
 	}
 
 	/**
-	* @deprecated As of 1.0.3, replaced by publish
-	*/
+	 * @deprecated As of 1.0.3, replaced by publish
+	 */
 	function publish_array($cid = null,$publish = 1,$user_id = 0) {
 		$this->publish($cid,$publish,$user_id);
 	}
 
 	/**
-	* Generic Publish/Unpublish function
-	* @param array An array of id numbers
-	* @param integer 0 if unpublishing, 1 if publishing
-	* @param integer The id of the user performnig the operation
-	* @since 1.0.4
-	*/
+	 * Generic Publish/Unpublish function
+	 * @param array An array of id numbers
+	 * @param integer 0 if unpublishing, 1 if publishing
+	 * @param integer The id of the user performnig the operation
+	 * @since 1.0.4
+	 */
 	function publish($cid = null,$publish = 1,$user_id = 0) {
 		mosArrayToInts($cid,array());
 		$user_id = (int)$user_id;
@@ -1345,9 +1345,9 @@ class mosDBTable {
 	}
 
 	/**
-	* Export item list to xml
-	* @param boolean Map foreign keys to text values
-	*/
+	 * Export item list to xml
+	 * @param boolean Map foreign keys to text values
+	 */
 	function toXML($mapKeysToText = false) {
 		$xml = '<record table="'.$this->_tbl.'"';
 

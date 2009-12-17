@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // Установка флага родительского файла
 define('_VALID_MOS',1);
@@ -14,7 +14,7 @@ define('JPATH_BASE', dirname(__FILE__) );
 // разделитель каталогов
 define('DS', DIRECTORY_SEPARATOR );
 // рассчет памяти
-if(function_exists('memory_get_usage')){
+if(function_exists('memory_get_usage')) {
 	define('_MEM_USAGE_START', memory_get_usage());
 }
 
@@ -48,7 +48,7 @@ unset($http_host);
 define('JPATH_SITE', $mosConfig_live_site );
 
 //Межсайтовая интеграция
-if(is_file($mosConfig_absolute_path.DIRECTORY_SEPARATOR.'multisite.config.php')){
+if(is_file($mosConfig_absolute_path.DIRECTORY_SEPARATOR.'multisite.config.php')) {
 	include_once($mosConfig_absolute_path.DIRECTORY_SEPARATOR.'multisite.config.php');
 }
 
@@ -89,7 +89,7 @@ if($mosConfig_offline == 1) {
 }
 
 //Межсайтовая интеграция
-if(DEFINED('_MULTISITE')){ 
+if(DEFINED('_MULTISITE')) {
 	$mainframe->set('_multisite', $m_s->flag);
 	$mainframe->set('_multisite_params', $m_s);
 }
@@ -98,10 +98,10 @@ if(DEFINED('_MULTISITE')){
 ($mosConfig_no_session_front == 0) ? $mainframe->initSession() : null;
 
 //Межсайтовая интеграция
-if(DEFINED('_MULTISITE')){ 
-	$cookie_exist = 0;	
-	if(isset($_COOKIE[mosMainFrame::sessionCookieName($m_s->main_site)])){
-		$cookie_exist = 1; 
+if(DEFINED('_MULTISITE')) {
+	$cookie_exist = 0;
+	if(isset($_COOKIE[mosMainFrame::sessionCookieName($m_s->main_site)])) {
+		$cookie_exist = 1;
 	}
 }
 
@@ -127,9 +127,9 @@ include_once($mainframe->getLangFile('',$mosConfig_lang));
 $return		= strval(mosGetParam($_REQUEST,'return',null));
 $message	= intval(mosGetParam($_POST,'message',0));
 
-if($mainframe->get('_multisite')=='2' && $cookie_exist ){
+if($mainframe->get('_multisite')=='2' && $cookie_exist ) {
 	$my = $mainframe->getUser_from_sess($_COOKIE[mosMainFrame::sessionCookieName($m_s->main_site)]);
-}else{
+}else {
 	$my = $mainframe->getUser();
 }
 
@@ -139,12 +139,12 @@ if($option == 'login') {
 	$mainframe->login();
 	// Всплывающее сообщение JS
 	if($message) {?>
-		<script language="javascript" type="text/javascript">
-		<!--//
-		alert( "<?php echo addslashes(_LOGIN_SUCCESS); ?>" );
-		//-->
-		</script>
-<?php
+<script language="javascript" type="text/javascript">
+	<!--//
+	alert( "<?php echo addslashes(_LOGIN_SUCCESS); ?>" );
+	//-->
+</script>
+		<?php
 	}
 
 	if($return && !(strpos($return,'com_registration') || strpos($return,'com_login'))) {
@@ -169,12 +169,12 @@ if($option == 'login') {
 
 	// Всплывающее сообщение JS
 	if($message) {?>
-		<script language="javascript" type="text/javascript">
-		<!--//
-		alert( "<?php echo addslashes(_LOGOUT_SUCCESS); ?>" );
-		//-->
-		</script>
-<?php
+<script language="javascript" type="text/javascript">
+	<!--//
+	alert( "<?php echo addslashes(_LOGOUT_SUCCESS); ?>" );
+	//-->
+</script>
+		<?php
 	}
 
 	if($return && !(strpos($return,'com_registration') || strpos($return,'com_login'))) {
@@ -213,15 +213,15 @@ if($path = $mainframe->getPath('front')) {
 	$ret = mosMenuCheck($Itemid,$option,$task,$gid,$mainframe);
 	if($ret) {
 		//Подключаем язык компонента
-		if($mainframe->getLangFile($option)){
+		if($mainframe->getLangFile($option)) {
 			require_once($mainframe->getLangFile($option));
-		} 
+		}
 		require_once ($path);
-		
-	} else { 
+
+	} else {
 		mosNotAuth();
 	}
-} else { 
+} else {
 	header('HTTP/1.0 404 Not Found');
 	echo _NOT_EXIST;
 }
