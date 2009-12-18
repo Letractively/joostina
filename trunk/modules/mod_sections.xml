@@ -10,7 +10,7 @@
 	<version>1.0.0</version>
 	<description>Модуль "Разделы" отображает список всех разделов из базы данных. Разделы связаны только с объектами Разделов. Если выбрано 'Показывать ссылки неавторизованным', то пользователям будет виден только список разрешенных для просмотра разделов.</description>
 	<files>
-	<filename module="mod_sections">mod_sections.php</filename>
+		<filename module="mod_sections">mod_sections.php</filename>
 	</files>
 	<params>
 		<param name="count" type="text" default="5" label="Число объектов" description="Количество отображаемых объектов (по умолчанию - 5)" />

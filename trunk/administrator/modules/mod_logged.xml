@@ -12,5 +12,4 @@
 	<files>
 		<filename module="mod_logged">mod_logged.php</filename>
 	</files>
-	<params/>
 </mosinstall>

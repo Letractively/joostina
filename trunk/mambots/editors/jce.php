@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -15,14 +15,15 @@ $_MAMBOTS->registerFunction( 'onGetEditorContents', 'jceEditorGetContents' );
 $_MAMBOTS->registerFunction( 'onEditorArea', 'jceEditorArea' );
 
 /**
-* javascript initialisation
-*/
+ * javascript initialisation
+ */
 function jceEditorInit() {
 	global $my, $database, $mainframe;
 
-    if(!$mainframe->allow_wysiwyg){
-        return false;
-    }
+	if(!$mainframe->allow_wysiwyg) {
+		return false;
+	}
+	
 	require_once( JPATH_BASE.'/mambots/editors/jce/jscripts/tiny_mce/libraries/classes/jce.class.php' );
 	$jce = new JCE();
 	$params = $jce->getParams();
@@ -48,7 +49,7 @@ function jceEditorInit() {
 	$entity_encoding	= $params->get( 'entity_encoding', 'named' );
 
 	// получение шаблона страницы, только для режима работы с фронта сайта
-	if($mainframe->_isAdmin!=1){
+	if($mainframe->_isAdmin!=1) {
 		$query = "SELECT template"
 				."\n FROM #__templates_menu"
 				."\n WHERE client_id = 1"
@@ -66,15 +67,15 @@ function jceEditorInit() {
 	$template_path = JPATH_SITE . '/templates/' . $template . '/css';
 	$css_template = $template_path . '/template_css.css';
 
-	if( $params->get( 'content_css', 1 ) == 0 ){
+	if( $params->get( 'content_css', 1 ) == 0 ) {
 		$css_template = $template_path . '/' . $params->get( 'content_css_custom', '' );
 	}
 	$invalid_elements[] = $invalid_elms;
 	$elements = $jce->getElements();
 
-	if( !$jce->getAuthOption( 'allow_script', '0' ) ){
+	if( !$jce->getAuthOption( 'allow_script', '0' ) ) {
 		$invalid_elements[] = 'script';
-	} else{
+	} else {
 		$elements = $jce->addKey( $elements, 'script[*]', ',' );
 		$jce->removeKey( $invalid_elements, 'script' );
 	}
@@ -82,7 +83,7 @@ function jceEditorInit() {
 	$me_plugins = array('imgmanager', 'advlink');
 
 	$paste_values = "";
-	if( $jce->isLoaded( 'paste' ) ){
+	if( $jce->isLoaded( 'paste' ) ) {
 		$paste_params = $jce->getPluginParams( 'paste' );
 		$paste_values = "	paste_create_paragraphs : " . $jce->getBool( $paste_params->get( 'paste_create_paragraphs', 'false' ) ) . ",\n";
 		$paste_values .= "	paste_create_linebreaks : " . $jce->getBool( $paste_params->get( 'paste_create_linebreaks', 'false' ) ) . ",\n";
@@ -93,17 +94,17 @@ function jceEditorInit() {
 		$paste_values .= "	paste_remove_styles : " . $jce->getBool( $paste_params->get( 'paste_remove_styles', 'true' ) ) . ",";
 	}
 	$media_values = "";
-	if( $jce->isLoaded( 'mediamanager' ) ){
+	if( $jce->isLoaded( 'mediamanager' ) ) {
 		$mm_params = $jce->getPluginParams( 'mediamanager' );
 		$mm_use_script = $jce->getBool( $mm_params->get( 'media_use_script', '0' ) );
 		$media_values = "	media_use_script : " . $mm_use_script . ",";
-		if( $mm_use_script && !$jce->getAuthOption( 'allow_script', '0' ) ){
-		$elements = $jce->addKey( $elements, 'script[*]', ',' );
-		$jce->removeKey( $invalid_elements, 'script' );
+		if( $mm_use_script && !$jce->getAuthOption( 'allow_script', '0' ) ) {
+			$elements = $jce->addKey( $elements, 'script[*]', ',' );
+			$jce->removeKey( $invalid_elements, 'script' );
 		}
 	}
 	$template_values = "";
-	if( $jce->isLoaded( 'templatemanager' ) ){
+	if( $jce->isLoaded( 'templatemanager' ) ) {
 		$tpl_params = $jce->getPluginParams( 'templatemanager' );
 		$rv = $jce->cleanParam( $tpl_params->get( 'replace_values', '' ) );
 		if( strpos( $rv, ',' ) == strlen( $rv ) ) $rv = substr( $rv, 0, -1 );
@@ -134,7 +135,7 @@ function jceEditorInit() {
 	$base_url = JPATH_SITE;
 	$tiny_url = $jce->getTinyUrl();
 
-	if( $params->get('compression', '0') ){
+	if( $params->get('compression', '0') ) {
 		$tiny_file = 'tiny_mce_gzip.js';
 		$gzip_init = "<script type=\"text/javascript\">\n";
 		$gzip_init .= "tinyMCE_GZ.init({\n";
@@ -145,12 +146,12 @@ function jceEditorInit() {
 		$gzip_init .= "debug : false\n";
 		$gzip_init .= "});\n";
 		$gzip_init .= "</script>\n";
-	}else{
+	}else {
 		$tiny_file = 'tiny_mce.js';
 		$gzip_init = '';
 	}
 	$site_url = ( $mainframe->isAdmin() ) ? $base_url . '/'.JADMIN_BASE : $base_url;
-	
+
 	$return = "jceFunctions.relative = $relative;
 	jceFunctions.mambotMode = " . $mambot_mode . ";
 	jceFunctions.state = \"" . $editor_state . "\";
@@ -178,16 +179,16 @@ function jceEditorInit() {
 		oninit: \"jceOninit\",
 		content_css : \"" . $css_template . "\",
 		template_colors : \"" . $template_colors . "\",\n";
-		if( $paste_values ){
+	if( $paste_values ) {
 		$return .= "" . $paste_values . "\n";
-		}
-		if( $media_values ){
+	}
+	if( $media_values ) {
 		$return .= "" . $media_values . "\n";
-		}
-		if( $template_values ){
+	}
+	if( $template_values ) {
 		$return .= "" . $template_values . "\n";
-		}
-		$return .= "font_size_style_values : \"" . $font_size_type . "\",
+	}
+	$return .= "font_size_style_values : \"" . $font_size_type . "\",
 		table_inline_editing : " . $table_inline . ",
 		invalid_elements : \"" . $invalid_elements . "\",
 		force_br_newlines : " . $br_newlines . ",
@@ -208,60 +209,60 @@ function jceEditorInit() {
 		plugins : \"" . $plugins . "\",
 		extended_valid_elements : \"" . $elements . "\"
 	});\n";
-?>
+	?>
 <script type="text/javascript" src="<?php echo $tiny_url;?>/<?php echo $tiny_file;?>"></script>
 <script type="text/javascript" src="<?php echo $tiny_url;?>/functions.js"></script>
-<?php echo $gzip_init;?>
+	<?php echo $gzip_init;?>
 <script type="text/javascript">
 	<?php echo $return;?>
-	function jceSave(element_id, html, body){
-		return jceFunctions.save(html);
-	};
+		function jceSave(element_id, html, body){
+			return jceFunctions.save(html);
+		};
 </script>
-<?php }
+	<?php }
 /**
-* TinyMCE WYSIWYG Editor - copy editor contents to form field
-* @param string The name of the editor area
-* @param string The name of the form field
-*/
-function jceEditorGetContents( ){?>
+ * TinyMCE WYSIWYG Editor - copy editor contents to form field
+ * @param string The name of the editor area
+ * @param string The name of the form field
+ */
+function jceEditorGetContents( ) {?>
 	tinyMCE.triggerSave();
-<?php
+	<?php
 }
 /**
-* mosce WYSIWYG Editor - display the editor
-* @param string The name of the editor area
-* @param string The content of the field
-* @param string The name of the form field
-* @param string The width of the editor area
-* @param string The height of the editor area
-* @param int The number of columns for the editor area
-* @param int The number of rows for the editor area
-*/
+ * mosce WYSIWYG Editor - display the editor
+ * @param string The name of the editor area
+ * @param string The content of the field
+ * @param string The name of the form field
+ * @param string The width of the editor area
+ * @param string The height of the editor area
+ * @param int The number of columns for the editor area
+ * @param int The number of rows for the editor area
+ */
 function jceEditorArea( $name, $content, $hiddenField, $width, $height, $col, $row, $params=null ) {
 	global $_MAMBOTS, $mainframe;
-    $buttons='';
-    if(!$params || $params['m_buttons']){
-        $results = $_MAMBOTS->trigger( 'onCustomEditorButton' );
-        $buttons = array();
+	$buttons='';
+	if(!$params || $params['m_buttons']) {
+		$results = $_MAMBOTS->trigger( 'onCustomEditorButton' );
+		$buttons = array();
 
-        foreach( $results as $result ){
-		    if($result[0]) {
-			$buttons[] = '<img src="'.JPATH_SITE.'/mambots/editors-xtd/'.$result[0].'" onclick="tinyMCE.execCommand(\'mceInsertContent\',false,\''.$result[1].'\')" />';
+		foreach( $results as $result ) {
+			if($result[0]) {
+				$buttons[] = '<img src="'.JPATH_SITE.'/mambots/editors-xtd/'.$result[0].'" onclick="tinyMCE.execCommand(\'mceInsertContent\',false,\''.$result[1].'\')" />';
+			}
 		}
-	    }
-	    $buttons = implode( '', $buttons );
-    }
+		$buttons = implode( '', $buttons );
+	}
 
 
 
-?>
-	<textarea id="<?php echo $hiddenField;?>" name="<?php echo $hiddenField;?>" cols="<?php echo $col;?>" rows="<?php echo $row;?>" style="width:<?php echo $width;?>px; height:<?php echo $height;?>px;" mce_editable="true" class="mceEditor"><?php echo $content;?></textarea>
-	<script type="text/javascript">
-		function jceOninit(){
-			jceFunctions.initEditorMode('<?php echo $hiddenField;?>');
-		}
-	</script>
-	<br />
+	?>
+<textarea id="<?php echo $hiddenField;?>" name="<?php echo $hiddenField;?>" cols="<?php echo $col;?>" rows="<?php echo $row;?>" style="width:<?php echo $width;?>px; height:<?php echo $height;?>px;" mce_editable="true" class="mceEditor"><?php echo $content;?></textarea>
+<script type="text/javascript">
+	function jceOninit(){
+		jceFunctions.initEditorMode('<?php echo $hiddenField;?>');
+	}
+</script>
+<br />
 	<?php echo $buttons;?>
-<?php }?>
+	<?php }?>

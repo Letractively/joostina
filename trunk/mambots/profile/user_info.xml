@@ -13,7 +13,7 @@
 		<filename mambot="user_info">user_info.php</filename>
 	</files>
 	<params>
-	<param name="header" type="text" default="О себе" label="Заголовок плагина" description="" />
+		<param name="header" type="text" default="О себе" label="Заголовок плагина" description="" />
 		<param name="show_header" type="radio" default="0" label="Показывать заголовок" description="">
 			<option value="0">Нет</option>
 			<option value="1">Да</option>

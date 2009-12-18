@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined( '_VALID_MOS' ) or die();
@@ -21,7 +21,7 @@ $set_Itemid		= intval( $params->get( 'set_itemid', 0 ) );
 
 $params->set('template',$params->get('template','default.php'));
 
-switch ($text_pos){
+switch ($text_pos) {
 	case 'iside':
 	default:
 		$output = '<input name="searchword" id="mod_search_searchword" maxlength="100" alt="search" class="inputbox'. $moduleclass_sfx .'" type="text" size="'. $width .'" value="'. $text .'"  onblur="if(this.value==\'\') this.value=\''. $text .'\';" onfocus="if(this.value==\''. $text .'\') this.value=\'\';" />';
@@ -29,15 +29,15 @@ switch ($text_pos){
 
 	case 'left':
 		$output = '<strong>'.$text.'</strong>&nbsp;<input name="searchword" id="mod_search_searchword" maxlength="100" alt="search" class="inputbox'. $moduleclass_sfx .'" type="text" size="'. $width .'" value=""  />';
-	break;
+		break;
 
 	case 'top':
 		$output = '<strong>'.$text.'</strong><br /><input name="searchword" id="mod_search_searchword" maxlength="100" alt="search" class="inputbox'. $moduleclass_sfx .'" type="text" size="'. $width .'" value=""  />';
-	break;
+		break;
 
 	case 'hidden':
 		$output = '<input name="searchword" id="mod_search_searchword" maxlength="100" alt="search" class="inputbox'. $moduleclass_sfx .'" type="text" size="'. $width .'" value=""  />';
-	break;
+		break;
 }
 
 $button = $button_vis ? '<input type="submit" value="'. $button_text .'" class="button'. $moduleclass_sfx .'"/>' : '';
@@ -77,13 +77,13 @@ if ( $set_Itemid ) {
 		$_Itemid	= $s_itemid;
 		$link		= JPATH_SITE . '/index.php?Itemid='. $_Itemid;
 	} else {
-	// Assign no Itemid
-	$_Itemid	= '';
-	$link		= 'index.php';
+		// Assign no Itemid
+		$_Itemid	= '';
+		$link		= 'index.php';
 	}
 }
 
 //Подключаем шаблон
-if($module->set_template($params)){
+if($module->set_template($params)) {
 	require($module->template);
 }

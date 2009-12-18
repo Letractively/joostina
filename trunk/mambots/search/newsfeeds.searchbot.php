@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -13,14 +13,14 @@ defined('_VALID_MOS') or die();
 $_MAMBOTS->registerFunction('onSearch','botSearchNewsfeedslinks');
 
 /**
-* Метод поиска контактов
-*
-* запрос sql должен возвратить поля, используются в обычной операции 
-* отображения: href, title, section, created, text, browsernav
-* @param определяет цель поиска
-* @param сопоставляет параметры: exact|any|all
-* @param определяет параметр сортировки: newest|oldest|popular|alpha|category
-*/
+ * Метод поиска контактов
+ *
+ * запрос sql должен возвратить поля, используются в обычной операции
+ * отображения: href, title, section, created, text, browsernav
+ * @param определяет цель поиска
+ * @param сопоставляет параметры: exact|any|all
+ * @param определяет параметр сортировки: newest|oldest|popular|alpha|category
+ */
 function botSearchNewsfeedslinks($text,$phrase = '',$ordering = '') {
 	global $my,$_MAMBOTS;
 
@@ -91,10 +91,10 @@ function botSearchNewsfeedslinks($text,$phrase = '',$ordering = '') {
 	}
 
 	$query = "SELECT a.name AS title,"."\n '' AS created,"."\n a.link AS text,"."\n CONCAT_WS( ' / ',".
-		$database->Quote(_SEARCH_NEWSFEEDS).", b.title )AS section,"."\n CONCAT( 'index.php?option=com_newsfeeds&task=view&feedid=', a.id ) AS href,".
-		"\n '1' AS browsernav"."\n FROM #__newsfeeds AS a"."\n INNER JOIN #__categories AS b ON b.id = a.catid".
-		"\n WHERE ( $where )"."\n AND a.published = 1"."\n AND b.published = 1"."\n AND b.access <= ".(int)
-		$my->gid."\n ORDER BY $order";
+			$database->Quote(_SEARCH_NEWSFEEDS).", b.title )AS section,"."\n CONCAT( 'index.php?option=com_newsfeeds&task=view&feedid=', a.id ) AS href,".
+			"\n '1' AS browsernav"."\n FROM #__newsfeeds AS a"."\n INNER JOIN #__categories AS b ON b.id = a.catid".
+			"\n WHERE ( $where )"."\n AND a.published = 1"."\n AND b.published = 1"."\n AND b.access <= ".(int)
+			$my->gid."\n ORDER BY $order";
 	$database->setQuery($query,0,$limit);
 	$rows = $database->loadObjectList();
 

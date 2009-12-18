@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -40,7 +40,7 @@ switch($task) {
 		break;
 
 	case 'saveUserEdit':
-		// check to see if functionality restricted for use as demo site
+	// check to see if functionality restricted for use as demo site
 		if(joomlaVersion::get('RESTRICT') == 1) {
 			mosRedirect('index.php',_RESTRICT_FUNCTION);
 		} else {
@@ -58,10 +58,10 @@ switch($task) {
 
 	case 'profile':
 		$_view = strval(mosGetParam( $_REQUEST, 'view', '' ));
-		if($mainframe->getCfg('caching')==1){
+		if($mainframe->getCfg('caching')==1) {
 			$cache = &mosCache::getCache('user_profile');
 			$r = $cache->call('profile',$uid,$_view);
-		}else{
+		}else {
 			$r = profile($uid,$_view);
 		}
 		echo $r['content'];
@@ -112,7 +112,7 @@ switch($task) {
 		}
 		activate($option);
 		break;
-		
+
 	case 'userlist':
 		$cache = &mosCache::getCache('user_lists');
 		$gid = intval(mosGetParam($_GET,'group',0));
@@ -126,13 +126,13 @@ switch($task) {
 		break;
 }
 
-function profile($uid){
+function profile($uid) {
 
 	$mainframe = &mosMainFrame::getInstance();
 	$database = &$mainframe->_db;
 
 	$row = new mosUser($database);
-	if($row->load($uid)){
+	if($row->load($uid)) {
 		//Дополнительная информация о пользователе
 		$row->user_extra = $row->get_user_extra();
 
@@ -144,11 +144,11 @@ function profile($uid){
 		$title = $config->get('title');
 
 		ob_start();
-			HTML_user::profile($row,'com_users', $params, $config);
-			$content_boby = ob_get_contents(); // главное содержимое - стек вывода компонента - mainbody
+		HTML_user::profile($row,'com_users', $params, $config);
+		$content_boby = ob_get_contents(); // главное содержимое - стек вывода компонента - mainbody
 		ob_end_clean();
 		return array('content' => $content_boby, 'title' => $title);
-	}else{
+	}else {
 		return _USER_NOT_FOUND;
 	}
 
@@ -261,7 +261,7 @@ function userSave($option,$uid) {
 	}
 	$user_extra->birthdate  = $_POST['birthdate_year'].'-'.$_POST['birthdate_month'].'-'.$_POST['birthdate_day'].' 00:00:00';
 
-	if(!$ret){
+	if(!$ret) {
 		$user_extra->insert($user_id);
 	}
 
@@ -279,26 +279,26 @@ function userSave($option,$uid) {
 		$database->setQuery($query);
 		$database->query();
 	}
-	
+
 	mosRedirect('index.php?option=com_users&task=UserDetails', _USER_DETAILS_SAVE);
 
 	//userEdit($option,$my->id,_UPDATE);
 }
 
-function userList($gid,$limit,$limitstart=0){
+function userList($gid,$limit,$limitstart=0) {
 
 	$mainframe = &mosMainFrame::getInstance();
 	$database = &$mainframe->_db;
 	$acl = &gacl::getInstance();
-    
-    $menu = null;
 
-	if(isset($mainframe->menu->params)){
+	$menu = null;
+
+	if(isset($mainframe->menu->params)) {
 		$menu = $mainframe->menu;
 	}
-    
-    $users = new mosUser($database);
-    
+
+	$users = new mosUser($database);
+
 	$params = new mosParameters($mainframe->menu->params);
 
 	$usertype = $acl->get_group_name($params->get('group', 0));
@@ -307,15 +307,15 @@ function userList($gid,$limit,$limitstart=0){
 	$template = $params->get('template', 'default.php');
 	$template_dir = 'components'.DS.'com_users'.DS.'view'.DS.'userlist';
 
-	if($params->get('template_dir')){
+	if($params->get('template_dir')) {
 		$template_dir = 'templates'.DS. JTEMPLATE .DS.'html'.DS.'com_users'.DS.'userlist';
 	}
-    if(is_file($template_file = JPATH_BASE.DS.$template_dir.DS.$template)){
-        include_once($template_file);    
-    }
-    else{
-        include_once(JPATH_BASE.DS.$template_dir.DS.'default.php');      
-    }
+	if(is_file($template_file = JPATH_BASE.DS.$template_dir.DS.$template)) {
+		include_once($template_file);
+	}
+	else {
+		include_once(JPATH_BASE.DS.$template_dir.DS.'default.php');
+	}
 
 }
 
@@ -362,9 +362,9 @@ function CheckIn($userid,$access) {
 			if($fname == "checked_out") {
 				$checked_out = true;
 			} else
-				if($fname == "editor") {
-					$editor = true;
-				}
+			if($fname == "editor") {
+				$editor = true;
+			}
 		}
 
 		if($checked_out) {
@@ -416,37 +416,37 @@ function CheckIn($userid,$access) {
 			}
 		}
 	}
-?>
-	<tr>
-		<td colspan="2">
-			<b><?php echo _CONF_CHECKED_IN; ?></b>
-		</td>
-	</tr>
-	</table>
-<?php
+	?>
+<tr>
+	<td colspan="2">
+		<b><?php echo _CONF_CHECKED_IN; ?></b>
+	</td>
+</tr>
+</table>
+	<?php
 }
 
 /* форма восстановления пароля */
 function lostPassForm($option) {
 
 	$mainframe = &mosMainFrame::getInstance();
-	$mainframe->SetPageTitle(_LOST_PASSWORDWORD);	
+	$mainframe->SetPageTitle(_LOST_PASSWORDWORD);
 
 	$config = &Jconfig::getInstance();
 	$database = &$mainframe->_db;
 
-	$user_config = new configUser_lostpass($database);	
+	$user_config = new configUser_lostpass($database);
 
 	//Шаблон
 	$template = $user_config->get('template');
 	$template_dir = 'components/com_users/view/lostpass';
 
-	if($user_config->get('template_dir')){
+	if($user_config->get('template_dir')) {
 		$template_dir = 'templates'.DS. JTEMPLATE . '/html/com_users/lostpass';
 	}
 	$template_file = JPATH_BASE.DS.$template_dir.DS.$template;
-	
-	if(is_file($template_file)){
+
+	if(is_file($template_file)) {
 		include_once ($template_file);
 	}
 }
@@ -505,14 +505,14 @@ function registerForm($option,$useractivation) {
 	$mainframe = &mosMainFrame::getInstance();
 	$database = &$mainframe->_db;
 	$acl = &gacl::getInstance();
-	
+
 	if(!$mainframe->getCfg('allowUserRegistration')) {
 		mosNotAuth();
 		return;
 	}
 
 	$params = new configUser_registration($database);
-	
+
 	$type = mosGetParam( $_REQUEST, 'type', '' );
 	$gid = $params->get('gid');
 
@@ -520,10 +520,10 @@ function registerForm($option,$useractivation) {
 
 	//Определяем шаблон для вывода регистрационной формы
 	$template = 'default.php';
-	
-	if(!$params->get('template')){
-		if($type){
-			if(is_file(JPATH_BASE.DS.'components'.DS.'com_users'.DS.'view'.DS.'registration'.DS.$type.'.php')){
+
+	if(!$params->get('template')) {
+		if($type) {
+			if(is_file(JPATH_BASE.DS.'components'.DS.'com_users'.DS.'view'.DS.'registration'.DS.$type.'.php')) {
 				$template = $type.'.php';
 			}
 			$gid = $acl->get_group_id($type,'ARO');
@@ -581,24 +581,24 @@ function saveRegistration() {
 	mosMakeHtmlSafe($row);
 
 	$row->id = 0;
-	
+
 	//Определяем группу пользователя
 	//Если в настройках регистрации выбрано использование разных шаблонов - будем брать группу из скрытого поля
 	//регистрационной формы
 	//Если используется единый шаблон - группу берем из натроек регистрации.
-	if(!$params->get('template')){
+	if(!$params->get('template')) {
 		$row->gid = $_POST['gid'];
 	}
-	else{
+	else {
 		$row->gid = $params->get('gid');
 	}
 	//Проверяем, не подменена ли группа "на лету"
 	$gid_md5 = $_POST['gid_check'];
-	
-	if($gid_md5 != md5($mainframe->getCfg('secret').md5($row->gid))){
+
+	if($gid_md5 != md5($mainframe->getCfg('secret').md5($row->gid))) {
 		mosErrorAlert('Ooops!');
 	}
-		
+
 	$row->usertype = $acl->get_group_name($row->gid,'ARO');
 
 	if($mainframe->getCfg('useractivation') == 1) {
@@ -616,7 +616,7 @@ function saveRegistration() {
 	$salt = mosMakePassword(16);
 	$crypt = md5($row->password.$salt);
 	$row->password = $crypt.':'.$salt;
-	
+
 	$row->registerDate = date('Y-m-d H:i:s');
 
 	if(!$row->store()) {
@@ -637,9 +637,9 @@ function saveRegistration() {
 
 	if($mainframe->getCfg('useractivation') == 1 ) {
 		$email_info['message'] = sprintf(_USEND_MSG_ACTIVATE, $email_info['name'],
-			$mainframe->getCfg('sitename'),
-			JPATH_SITE."/index.php?option=com_users&task=activate&activation=".$row->activation,
-			JPATH_SITE,$email_info['username'], $pwd);
+				$mainframe->getCfg('sitename'),
+				JPATH_SITE."/index.php?option=com_users&task=activate&activation=".$row->activation,
+				JPATH_SITE,$email_info['username'], $pwd);
 	} else {
 		$email_info['message'] = sprintf(_USEND_MSG,$email_info['name'],$mainframe->getCfg('sitename'),JPATH_SITE);
 	}
@@ -659,7 +659,7 @@ function saveRegistration() {
 	}
 
 	// Отсылаем пользователю письмо только в случае, если не включено "Активация администратором"
-	if(!$params->get('admin_activation')){
+	if(!$params->get('admin_activation')) {
 		$row->send_mail_to_user($email_info);
 	}
 
@@ -674,11 +674,11 @@ function saveRegistration() {
 	if($mainframe->getCfg('useractivation') == 1) {
 
 		$msg = _REG_COMPLETE_ACTIVATE;
-		if($params->get('admin_activation')){
+		if($params->get('admin_activation')) {
 			$msg = _WAIT_ACTIVATION;
 		}
 
-		if($params->get('redirect_url')){
+		if($params->get('redirect_url')) {
 			mosRedirect($params->get('redirect_url'), $msg);
 		}
 
@@ -689,10 +689,10 @@ function saveRegistration() {
 		//разных шаблонов для разных групп пользователей -
 		//даём возможность выводить сообщения также с помощью разных шаблонов
 		//Если шаблон для группы не найден - используем стандартный шаблон
-		if(!$params->get('template')){
+		if(!$params->get('template')) {
 			$group_name = $acl->get_group_name($row->gid,'ARO');
-			if($group_name){
-				if(!is_file(JPATH_BASE.DS.'components'.DS.'com_users'.DS.'view'.DS.'after_registration'.DS.$group_name.'.php')){
+			if($group_name) {
+				if(!is_file(JPATH_BASE.DS.'components'.DS.'com_users'.DS.'view'.DS.'after_registration'.DS.$group_name.'.php')) {
 					$template = $group_name.'.php';
 				}
 			}

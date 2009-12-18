@@ -10,7 +10,7 @@
 	<version>1.0.0</version>
 	<description>Модуль выбора шаблона позволяет пользователям (посетителям) быстро изменять шаблон сайта, используя раскрывающийся список.</description>
 	<files>
-	<filename module="mod_templatechooser">mod_templatechooser.php</filename>
+		<filename module="mod_templatechooser">mod_templatechooser.php</filename>
 	</files>
 	<params>
 		<param type="cache_list" name="cache_time" label="Кэшировать" description="Выберите время на которое необходимо кэшировать данный модуль. По умолчанию используется время, указанное в глобальной конфигураци." />

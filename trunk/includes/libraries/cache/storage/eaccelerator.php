@@ -1,12 +1,12 @@
 <?php
 /**
-* @package Joostina
+ * @package Joostina
  * @subpackage Cache handler
-* @copyright Авторские права (C) 2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @copyright Авторские права (C) 2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // Check to ensure this file is within the rest of the framework
 defined('_VALID_MOS') or die();
@@ -14,24 +14,22 @@ defined('_VALID_MOS') or die();
 /**
  * eAccelerator cache storage handler
  *
- * @author		
+ * @author
  * @package		Joostina
  * @subpackage	Cache
  * @since		1.3
  */
-class JCacheStorageEaccelerator extends JCacheStorage
-{
+class JCacheStorageEaccelerator extends JCacheStorage {
 	/**
-	* Constructor
-	*
-	* @access protected
-	* @param array $options optional parameters
-	*/
-	function __construct( $options = array() )
-	{
+	 * Constructor
+	 *
+	 * @access protected
+	 * @param array $options optional parameters
+	 */
+	function __construct( $options = array() ) {
 		global $mosConfig_secret;
 		parent::__construct($options);
-		
+
 		$this->_hash	= $mosConfig_secret;
 	}
 
@@ -45,13 +43,11 @@ class JCacheStorageEaccelerator extends JCacheStorage
 	 * @return	mixed	Boolean false on failure or a cached data string
 	 * @since	1.3
 	 */
-	function get($id, $group, $checkTime)
-	{
+	function get($id, $group, $checkTime) {
 		$cache_id = $this->_getCacheId($id, $group);
 		$this->_setExpire($cache_id);
 		$cache_content = eaccelerator_get($cache_id);
-		if($cache_content === null) 
-		{
+		if($cache_content === null) {
 			return false;
 		}
 		return $cache_content;
@@ -67,8 +63,7 @@ class JCacheStorageEaccelerator extends JCacheStorage
 	 * @return	boolean	True on success, false otherwise
 	 * @since	1.3
 	 */
-	function store($id, $group, $data)
-	{
+	function store($id, $group, $data) {
 		$cache_id = $this->_getCacheId($id, $group);
 		eaccelerator_put($cache_id.'_expire', time());
 		return eaccelerator_put($cache_id, $data, $this->_lifetime);
@@ -83,8 +78,7 @@ class JCacheStorageEaccelerator extends JCacheStorage
 	 * @return	boolean	True on success, false otherwise
 	 * @since	1.3
 	 */
-	function remove($id, $group)
-	{
+	function remove($id, $group) {
 		$cache_id = $this->_getCacheId($id, $group);
 		eaccelerator_rm($cache_id.'_expire');
 		return eaccelerator_rm($cache_id);
@@ -102,8 +96,7 @@ class JCacheStorageEaccelerator extends JCacheStorage
 	 * @return	boolean	True on success, false otherwise
 	 * @since	1.3
 	 */
-	function clean($group, $mode)
-	{
+	function clean($group, $mode) {
 		return parent::clean();
 	}
 
@@ -113,8 +106,7 @@ class JCacheStorageEaccelerator extends JCacheStorage
 	 * @access public
 	 * @return boolean  True on success, false otherwise.
 	 */
-	function gc()
-	{
+	function gc() {
 		return eaccelerator_gc();
 	}
 
@@ -125,8 +117,7 @@ class JCacheStorageEaccelerator extends JCacheStorage
 	 * @access public
 	 * @return boolean  True on success, false otherwise.
 	 */
-	function test()
-	{
+	function test() {
 		return (extension_loaded('eaccelerator') && function_exists('eaccelerator_get'));
 	}
 
@@ -138,8 +129,7 @@ class JCacheStorageEaccelerator extends JCacheStorage
 	 * @param string  $key   Cache key to expire.
 	 * @param integer $lifetime  Lifetime of the data in seconds.
 	 */
-	function _setExpire($key)
-	{
+	function _setExpire($key) {
 		$lifetime	= $this->_lifetime;
 		$expire		= eaccelerator_get($key.'_expire');
 
@@ -161,8 +151,7 @@ class JCacheStorageEaccelerator extends JCacheStorage
 	 * @return	string	The cache_id string
 	 * @since	1.3
 	 */
-	function _getCacheId($id, $group)
-	{
+	function _getCacheId($id, $group) {
 		global $mosConfig_cache_key;
 		$name	= md5($mosConfig_cache_key . "-" . $this->_application.'-'.$id.'-'.$this->_hash.'-'.$this->_language);
 		return 'cache_'.$group.'-'.$name;

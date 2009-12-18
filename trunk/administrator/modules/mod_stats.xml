@@ -12,5 +12,4 @@
 	<files>
 		<filename module="mod_stats">mod_stats.php</filename>
 	</files>
-	<params/>
 </mosinstall>

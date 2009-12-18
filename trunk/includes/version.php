@@ -5,15 +5,15 @@
 * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
 * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
 * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 /**
-* Информация о версии
-* @package Joostina
-*/
+ * Информация о версии
+ * @package Joostina
+ */
 class joomlaVersion {
 	/** @var строка Продукт*/
 	var $PRODUCT = 'Joomla!';
@@ -66,7 +66,7 @@ class joomlaVersion {
 		}
 	}
 	// получение переменных окружения информации осистеме
-	function get($name){
+	function get($name) {
 		$v = new joomlaVersion();
 		return $v->$name;
 	}

@@ -8,7 +8,7 @@ body {
 	height: 100%;
 	margin: 0;
 }
-/*-------------------------------------------------------------------Заголовки*/
+/*-------------------------------------------------------------------пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ*/
 h1 {
 	color: #000;
 	font: normal 18px "Lucida Sans Unicode";
@@ -60,11 +60,11 @@ table.adminheading th.filemanager {
 table.adminheading th.edit {
 	background: url(../images/system_ico/edit.png) no-repeat left;
 }
-/* пользователя */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 table.adminheading th.user {
 	background: url(../images/system_ico/user.png) no-repeat left;
 }
-/* конфигурация */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 table.adminheading th.config {
 	background: url(../images/system_ico/config.png) no-repeat left;
 }
@@ -72,95 +72,95 @@ table.adminheading th.config {
 table.adminheading th.rss {
 	background: url(../images/system_ico/rss.png) no-repeat left;
 }
-/* установка */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 table.adminheading th.install {
 	background: url(../images/system_ico/install.png) no-repeat left;
 }
-/* личные сообщения */
+/* пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 table.adminheading th.inbox {
 	background: url(../images/system_ico/inbox.png) no-repeat left;
 }
-/* медиа-менеджер */
+/* пїЅпїЅпїЅпїЅпїЅ-пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 table.adminheading th.media {
 	background: url(../images/system_ico/media.png) no-repeat left;
 }
-/* разблокировка */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 table.adminheading th.checkin {
 	background: url(../images/system_ico/checkin.png) no-repeat left;
 }
-/* корзина */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 table.adminheading th.trash {
 	background: url(../images/system_ico/trash.png) no-repeat left;
 }
-/* языки */
+/* пїЅпїЅпїЅпїЅпїЅ */
 table.adminheading th.langmanager {
 	background: url(../images/system_ico/langmanager.png) no-repeat left;
 }
-/* поисковые запросы */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 table.adminheading th.searchtext {
 	background: url(../images/system_ico/searchtext.png) no-repeat left;
 }
-/* статистика посещения страниц */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 table.adminheading th.impressions {
 	background: url(../images/system_ico/impressions.png) no-repeat left;
 }
-/* шаблоны */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 table.adminheading th.templates {
 	background: url(../images/system_ico/templates.png) no-repeat left;
 }
-/* информация */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 table.adminheading th.info {
 	background: url(../images/system_ico/info.png) no-repeat left;
 }
-/* меню */
+/* пїЅпїЅпїЅпїЅ */
 table.adminheading th.menus {
 	background: url(../images/system_ico/menus.png) no-repeat left;
 }
-/* содержимое главной */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 table.adminheading th.frontpage {
 	background: url(../images/system_ico/frontpage.png) no-repeat left;
 }
-/* массовое добавление */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 table.adminheading th.massadd {
 	background: url(../images/system_ico/massadd.png) no-repeat left;
 }
-/* категории */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 table.adminheading th.categories {
 	background: url(../images/system_ico/categories.png) no-repeat left;
 }
-/* разделы */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 table.adminheading th.sections {
 	background: url(../images/system_ico/sections.png) no-repeat left;
 }
-/* рассылка почты */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ */
 table.adminheading th.massemail {
 	background: url(../images/system_ico/massemail.png) no-repeat left;
 }
-/* модули */
+/* пїЅпїЅпїЅпїЅпїЅпїЅ */
 table.adminheading th.modules {
 	background: url(../images/system_ico/modules.png) no-repeat left;
 }
-/* мамботы */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 table.adminheading th.mambots {
 	background: url(../images/system_ico/modules.png) no-repeat left;
 }
-/* резервное копирование */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 table.adminheading th.cpanel {
 	background: url(../images/system_ico/cpanel.png) no-repeat left;
 }
-/* работа с базой данных */
+/* пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ */
 table.adminheading th.db {
 	background: url(../images/system_ico/db.png) no-repeat left;
 }
-/* кнопки быстрого доступа */
+/* пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 table.adminheading th.quickicons {
 	background: url(../images/system_ico/menus.png) no-repeat left;
 }
-/* меню компонентов панели управления */
+/* пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 table.adminheading th.linkeditor {
 	background: url(../images/system_ico/menus.png) no-repeat left;
 }
-/*---------------------------------------------------------------Элементы форм*/
+/*---------------------------------------------------------------пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ*/
 form {
 	margin: 0;
 }
@@ -220,7 +220,7 @@ label:hover {
 	color: black;
 	cursor: pointer;
 }
-/*---------------------------------------------------------------------Ссылки*/
+/*---------------------------------------------------------------------пїЅпїЅпїЅпїЅпїЅпїЅ*/
 a:link {
 	color: #2D6B9D;
 	text-decoration: none;
@@ -236,7 +236,7 @@ a.abig {
 	border-bottom: 1px    dashed #aaa;
 	font-size: 12px;
 }
-/*------------------------------------------------------Постраничная навигация*/
+/*------------------------------------------------------пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ*/
 .pagenav {
 	font-size: 10px;
 	padding: 2px;
@@ -252,8 +252,8 @@ a.pagenav:hover {
 a.pagenav:active {
 	color: #333;
 }
-/*--------------------------------------------------------------Декоративности*/
-/* предупреждение */
+/*--------------------------------------------------------------пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ*/
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 .jwarning {
 	margin-top: 5px;
 	border-top: 1px solid #EAA6B5;
@@ -268,7 +268,7 @@ a.pagenav:active {
 	clear: both;
 	margin: 10px 0 10px 0;
 }
-/* сообщение */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 .message {
 	margin: 5px 0 5px 0;
 	border-top: 1px solid #70A1C8;
@@ -286,7 +286,7 @@ a.pagenav:active {
 	font-size: 11px;
 	font-weight: bold;
 }
-/* слой для иконок опубликовано/скрыто и т.д. при просмотре списком */
+/* пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ/пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅ.пїЅ. пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 .mini_ico {
 	width: 12px;
 	height: 12px;
@@ -340,7 +340,7 @@ span.editlinktip {
 	padding: 5px;
 	text-align: center;
 }
-/*---------------------------------------------------------------------Таблицы*/
+/*---------------------------------------------------------------------пїЅпїЅпїЅпїЅпїЅпїЅпїЅ*/
 table {
 	border-collapse: collapse;
 }
@@ -359,7 +359,7 @@ table.adminlist {
 table.adminlist tr {
 	border-bottom: 1px solid #CCC;
 }
-/* заголовки таблиц в админке */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 table.adminlist th {
 	padding: 5px 2px;
 	text-align: center;
@@ -429,12 +429,12 @@ table.adminform th {
 table.adminform td {
 	padding: 2px;
 	/*text-align: left;
-*/
+	*/
 }
 table.adminform td.editor {
 	font-size: 9px;
 }
-/* ключи параметров и настроек */
+/* пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 .pkey, .key {
 	background-color: #F1F1F1;
 	border-bottom: 1px solid #E9E9E9;
@@ -445,7 +445,7 @@ table.adminform td.editor {
 	width: 200px;
 	vertical-align: top;
 }
-/* стили хедер позиции*/
+/* пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ*/
 td.header_info, td.header_info a {
 	margin: 0;
 	padding: 0 5px;
@@ -463,7 +463,7 @@ td.header_info img {
 .td-state {
 	cursor: pointer;
 }
-/*-------------------------------------------------------Скрывающаяся колонка */
+/*-------------------------------------------------------пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 #ntree, #Init, .item, table.adminlist th.title {
 	text-align: left;
 }
@@ -490,7 +490,7 @@ td.header_info img {
 	background-color: #FFFFCC;
 	cursor: pointer;
 }
-/*------------------------------------------------ Основная раскладка страницы*/
+/*------------------------------------------------ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ*/
 .joopage {
 	display: block;
 	height: 14px;
@@ -507,7 +507,7 @@ td.header_info img {
 .item {
 	text-align: left;
 }
-/* div с изображением скрытия/показа списка подкатегорий раздела */
+/* div пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ/пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 .dimc_d {
 	float: left;
 	margin: 3px 6px;
@@ -606,13 +606,13 @@ a.logoff {
 	background: url(../images/menu_ico/logout.png) left no-repeat;
 	padding: 0 0 0 20px;
 }
-/*------------------------------------------------------------------- тулбар */
+/*------------------------------------------------------------------- пїЅпїЅпїЅпїЅпїЅпїЅ */
 #top-toolbar {
 	border-bottom: 1px solid #D5E4F0;
 	background-color: #F2F7FB;
 	height: 25px;
 }
-/* тулбар */
+/* пїЅпїЅпїЅпїЅпїЅпїЅ */
 #toolbar {
 	text-align: right;
 	float: right;
@@ -650,93 +650,93 @@ a.logoff {
 	background-color: white;
 	text-decoration: underline;
 }
-/* для заглушки стандартного вывода тулбара */
+/* пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 #toolbar img, #toolbar br {
 	display: none;
 }
-/* индикатор выполнения */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 .tb-load {
 	background: url(../images/aload.gif);
 }
-/* закрыть / выйти */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅ / пїЅпїЅпїЅпїЅпїЅ */
 .tb-cancel, .tb-custom-cancel, .tb-ext-cancel {
 	background: url(../images/toolbar_ico/cancel.png);
 }
-/* сохранить */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 .tb-save, .tb-save-new, .tb-save-edit, .tb-custom-save, .tb-ext-save {
 	background: url(../images/toolbar_ico/save.png);
 }
-/* применить */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 .tb-apply, .tb-makedefault, .tb-ext-apply {
 	background: url(../images/toolbar_ico/apply.png);
 }
-/* создать */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 .tb-add-new-x, .tb-add-new, .tb-custom-new, .tb-ext-new {
 	background: url(../images/toolbar_ico/new.png) no-repeat top left;
 	;
 	background-position: 0 -50px;
 }
-/* показать/опубликовать */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ/пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 .tb-publish, .tb-publish-list, .tb-custom-publish {
 	background: url(../images/toolbar_ico/publish.png);
 }
-/* скрыть */
+/* пїЅпїЅпїЅпїЅпїЅпїЅ */
 .tb-unpublish, .tb-unpublish-list, .tb-ext-unpublis {
 	background: url(../images/toolbar_ico/unpublish.png);
 }
-/* настраиваемая кнопка */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ */
 .tb-custom-x {
 	background: url(../images/toolbar_ico/custom.png);
 }
-/* переместить */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 .tb-custom-x-move, .tb-ext-move, .tb-move, .tb-x-move {
 	background: url(../images/toolbar_ico/move.png);
 }
-/* копировать */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 .tb-custom-x-copy, .tb-custom-copy, .tb-ext-copy {
 	background: url(../images/toolbar_ico/copy.png);
 }
-/* сохранить и добавить */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 .tb-custom-save-and-new {
 	background: url(../images/toolbar_ico/save_and_new.png);
 }
-/* в архив */
+/* пїЅ пїЅпїЅпїЅпїЅпїЅ */
 .tb-archive-list {
 	background: url(../images/toolbar_ico/archive.png);
 }
-/* упаковать */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 .tb-ext-zip {
 	background: url(../images/toolbar_ico/zip.png);
 }
-/* в корзину */
+/* пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 .tb-trash {
 	background: url(../images/toolbar_ico/trash.png);
 }
-/* изменить/редактировать */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ/пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 .tb-edit-list-x, .tb-edit-list {
 	background: url(../images/toolbar_ico/edit.png);
 }
-/* предпросмотр */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 .tb-preview, .tb-custom-preview, .tb-ext-preview {
 	background: url(../images/toolbar_ico/preview.png);
 }
-/* медиа-менеджер */
+/* пїЅпїЅпїЅпїЅпїЅ-пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 .tb-media-manager, .tb-ext-media-manager {
 	background: url(../images/toolbar_ico/manager.png);
 }
-/* загрузить */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 .tb-ext-upload {
 	background: url(../images/toolbar_ico/upload.png);
 }
-/* удалить */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 .tb-delete-list, .tb-delete-list-x, .tb-custom-delete, .tb-custom-x-delete, .tb-ext-delete {
 	background: url(../images/toolbar_ico/delete.png);
 }
-/* оптимизировать */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 .tb-custom-optimize {
 	background: url(../images/toolbar_ico/optimize.png);
 }
-/* смена прав */
+/* пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ */
 .tb-ext-chmod {
 	background: url(../images/toolbar_ico/chmod.png);
 }
@@ -767,7 +767,7 @@ a.logoff {
 .tb-unarchive-list {
 	background: url(../images/toolbar_ico/unarch.png);
 }
-/*---------------------------------------------------------------Верхнее меню */
+/*---------------------------------------------------------------пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ */
 .menubackgr {
 	background: url(../images/menu-bg.png)  bottom repeat-x #F1F1F1;
 }
@@ -790,7 +790,7 @@ a.logoff {
 .ThemeOfficeMenuItem .seq2, .ThemeOfficeMenuItemHover .seq1, .ThemeOfficeMenuItemActive .seq1 {
 	display: none;
 }
-/* слой с отображением дочерних пунктов меню */
+/* пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ */
 .ThemeOfficeSubMenu {
 	border: 0;
 	border: 1px solid #CCC;
@@ -812,12 +812,12 @@ a.logoff {
 	cursor: pointer;
 	white-space: nowrap;
 }
-/* пункты главного меню */
+/* пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ */
 td.ThemeOfficeMainItem {
 	color: #000;
 	padding: 4px 0 4px 0;
 }
-/* элемент справа и разделитель */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 .ThemeOfficeMenuItemHover, .ThemeOfficeMenuItemActive {
 	background: #E6E6E6;
 }
@@ -851,7 +851,7 @@ td.ThemeOfficeMainItemHover, td.ThemeOfficeMainItemActive {
 .ThemeOfficeMenuItem img.seq1, .ThemeOfficeMenuItemHover seq2, .ThemeOfficeMenuItemActive seq2 {
 	display: inline;
 }
-/*----------------------------------------- строка подпунктов меню компонента */
+/*----------------------------------------- пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 #component_menu {
 	list-style: none;
 	background-color: #F1F3F5;
@@ -875,7 +875,7 @@ td.ThemeOfficeMainItemHover, td.ThemeOfficeMainItemActive {
 	display: inline;
 	float: left;
 }
-/*----------------------------------------------------Компоненты->Пользователи*/
+/*----------------------------------------------------пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ->пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ*/
 #user_avatar {
 	text-align: center;
 }
@@ -890,11 +890,11 @@ td.ThemeOfficeMainItemHover, td.ThemeOfficeMainItemActive {
 	margin: 2px;
 	padding: 2px;
 }
-/* маленькое изображение аватара */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 .miniavatar, table .adminform table.adminform {
 	border: none;
 }
-/*------------------------------------------Инструменты->резервное копирование*/
+/*------------------------------------------пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ->пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ*/
 #pack_step {
 	margin: 2px;
 	padding: 2px;
@@ -921,13 +921,13 @@ td.ThemeOfficeMainItemHover, td.ThemeOfficeMainItemActive {
 	padding: 2px 20px 2px 45px;
 	text-align: left;
 }
-/*----------------------------------------------------Инструменты->SQL-консоль*/
+/*----------------------------------------------------пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ->SQL-пїЅпїЅпїЅпїЅпїЅпїЅпїЅ*/
 .c_sql {
 	background-color: #ccc;
 	padding: 10px;
 	text-align: left;
 }
-/*----------------------------------------------Расширения->Установка/Удаление*/
+/*----------------------------------------------пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ->пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ/пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ*/
 .content {
 	width: 98%;
 }

@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 define("_VALID_MOS",1);
 
@@ -82,20 +82,20 @@ if(isset($_FILES['userfile'])) {
 	if($directory == 'banners') {
 		$base_Dir = "../../images/banners/";
 	} else
-		if($directory != '') {
-			$base_Dir = '../../images/stories/'.$directory;
+	if($directory != '') {
+		$base_Dir = '../../images/stories/'.$directory;
 
-			if(!is_dir(JPATH_BASE.'/images/stories/'.$directory)) {
-				$base_Dir = '../../images/stories/';
-				$directory = '';
-			}
-		} else {
+		if(!is_dir(JPATH_BASE.'/images/stories/'.$directory)) {
 			$base_Dir = '../../images/stories/';
+			$directory = '';
 		}
+	} else {
+		$base_Dir = '../../images/stories/';
+	}
 
-		if(empty($userfile_name)) {
-			mosErrorAlert(_CHOOSE_IMAGE_FOR_UPLOAD,$action);
-		}
+	if(empty($userfile_name)) {
+		mosErrorAlert(_CHOOSE_IMAGE_FOR_UPLOAD,$action);
+	}
 
 	$filename = split("\.",$userfile_name);
 
@@ -131,9 +131,9 @@ if(isset($_FILES['userfile'])) {
 if($css != '' && !is_dir(JPATH_BASE_ADMIN.'/templates/'.$css.'/css/template_css.css')) {
 	$css = 'joostfree';
 } else
-	if($css == '') {
-		$css = 'joostfree';
-	}
+if($css == '') {
+	$css = 'joostfree';
+}
 
 $iso = split('=',_ISO);
 // xml prolog
@@ -141,31 +141,31 @@ echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>';
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<title><?php echo _FILE_UPLOAD?></title>
-<meta http-equiv="Content-Type" content="text/html; <?php echo _ISO; ?>" />
-</head>
-<body>
+	<head>
+		<title><?php echo _FILE_UPLOAD?></title>
+		<meta http-equiv="Content-Type" content="text/html; <?php echo _ISO; ?>" />
+	</head>
+	<body>
 
-<link rel="stylesheet" href="../templates/<?php echo $css; ?>/css/template_css.css" type="text/css" />
-<form method="post" action="uploadimage.php" enctype="multipart/form-data" name="filename" id="filename">
-	<table class="adminform">
-		<tr>
-		<th class="title">
-			<?php echo _FILE_UPLOAD?>: <?php echo $directory; ?>
-		</th>
-		</tr>
-		<tr>
-			<td align="center">
-				<input class="inputbox" name="userfile" type="file" /><input class="button" type="submit" value="<?php echo _TASK_UPLOAD?>" name="fileupload" />
-			</td>
-		</tr>
-		<tr>
-			<td><?php echo _MAX_SIZE?> = <?php echo ini_get('post_max_size'); ?></td>
-	</tr>
-	</table>
-	<input type="hidden" name="directory" value="<?php echo $directory; ?>" />
-	<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
-</form>
-</body>
+		<link rel="stylesheet" href="../templates/<?php echo $css; ?>/css/template_css.css" type="text/css" />
+		<form method="post" action="uploadimage.php" enctype="multipart/form-data" name="filename" id="filename">
+			<table class="adminform">
+				<tr>
+					<th class="title">
+						<?php echo _FILE_UPLOAD?>: <?php echo $directory; ?>
+					</th>
+				</tr>
+				<tr>
+					<td align="center">
+						<input class="inputbox" name="userfile" type="file" /><input class="button" type="submit" value="<?php echo _TASK_UPLOAD?>" name="fileupload" />
+					</td>
+				</tr>
+				<tr>
+					<td><?php echo _MAX_SIZE?> = <?php echo ini_get('post_max_size'); ?></td>
+				</tr>
+			</table>
+			<input type="hidden" name="directory" value="<?php echo $directory; ?>" />
+			<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
+		</form>
+	</body>
 </html>

@@ -8,7 +8,7 @@ $base = str_replace( 'mambots/editors/jce/jscripts/tiny_mce', '', str_replace( D
 include ( $base . "/configuration.php" );
 include ( $base . "/includes/joomla.php" );
 
-function getInput( $item, $def=null ){
+function getInput( $item, $def=null ) {
 	return htmlspecialchars( mosGetParam( $_REQUEST, $item, $def ) );
 }
 

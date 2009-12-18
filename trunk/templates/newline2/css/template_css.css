@@ -1,10 +1,10 @@
-	/* * template_css.css. Используется для описания * элементов раскладки шаблона, уникальных стилей * * @package     Joostina * @subpackage  templates/NewLine2 * @version     $Id: template_css.css 29-09-2009 12:17 ZaiSL $;
+/* * template_css.css. Используется для описания * элементов раскладки шаблона, уникальных стилей * * @package     Joostina * @subpackage  templates/NewLine2 * @version     $Id: template_css.css 29-09-2009 12:17 ZaiSL $;
 */
-	@import "reset.css";
-	@import "base.css";
-	@import "modules.css";
-	@import "menu.css";
-	@import "components.css";
+@import "reset.css";
+@import "base.css";
+@import "modules.css";
+@import "menu.css";
+@import "components.css";
 html {
 	height: 100%;
 	width: 100%;

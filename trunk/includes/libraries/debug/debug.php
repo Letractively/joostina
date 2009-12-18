@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -18,7 +18,7 @@ class jdebug {
 	/* счетчики */
 	var $_inc = array();
 
-	function getInstance(){
+	function getInstance() {
 		static $instance;
 		if (!is_object( $instance )) {
 			$instance = new jdebug();
@@ -33,13 +33,13 @@ class jdebug {
 
 	/* добавление сообщения в лог*/
 	function inc($key) {
-		if(!isset($this->_inc[$key])){
+		if(!isset($this->_inc[$key])) {
 			$this->_inc[$key] = 0;
 		}
 		$this->_inc[$key] ++;
 	}
 
-	
+
 	/* вывод сообщений из лога*/
 	function get() {
 		echo '<span style="display:none"><![CDATA[<noindex>]]></span><pre>';
@@ -73,15 +73,15 @@ class jdebug {
 		echo '</pre><span style="display:none"><![CDATA[</noindex>]]></span>';
 	}
 
-	function db_debug(){
+	function db_debug() {
 		$database = &database::getInstance();
 		$database->setQuery('show profiles;');
 		$profs = $database->loadObjectList();
 		$r = array();
 		$r[]='<div onclick="$(\'#_sql_debug_log\').toggle();" style="cursor: pointer;border-bottom:1px solid #CCCCCC;border-top:1px solid #CCCCCC;">SQL: '.count($profs).'</div>';
 		$r[]='<table id="_sql_debug_log" style="display:none"><tr><th colspan="3"></th></tr>';
-		if( isset($profs[0]) ){
-			foreach($profs as $prof){
+		if( isset($profs[0]) ) {
+			foreach($profs as $prof) {
 				$r[]='<tr valign="top"><td>#'.$prof->Query_ID.' </td><td> '.$prof->Duration.' </td><td> '.$prof->Query.' </td></tr>';
 			}
 		}
@@ -103,12 +103,12 @@ function jd_log_top($text) {
 }
 
 /* счетчики вызывов */
-function jd_inc($name='counter'){
+function jd_inc($name='counter') {
 	$debug = &jdebug::getInstance();
 	$debug->inc($name);
 }
 
-function jd_get(){
+function jd_get() {
 	$debug = &jdebug::getInstance();
 	echo $debug->get();
 }

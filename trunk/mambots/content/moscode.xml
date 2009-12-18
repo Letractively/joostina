@@ -12,5 +12,4 @@
 	<files>
 		<filename mambot="moscode">moscode.php</filename>
 	</files>
-	<params/>
 </mosinstall>

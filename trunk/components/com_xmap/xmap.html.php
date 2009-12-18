@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -24,14 +24,14 @@ class XmapHtml extends Xmap {
 		Xmap::Xmap($config, $sitemap);
 	}
 
-	/** 
+	/**
 	 * Print one node of the sitemap
 	 */
 	function printNode( &$node ) {
 		global $Itemid;
 
 		$out = '';
-	
+
 		$out .= $this->_closeItem;
 		$out .= $this->_openList;
 		$this->_openList = "";
@@ -41,7 +41,8 @@ class XmapHtml extends Xmap {
 		else
 			$out .= '<li>';
 
-		$link = Xmap::getItemLink($node);;
+		$link = Xmap::getItemLink($node);
+		;
 
 		if( !isset($node->browserNav) )
 			$node->browserNav = 0;
@@ -72,9 +73,9 @@ class XmapHtml extends Xmap {
 				$out .= '<a href="'. $link .'" title="'. $node->name .'">'. $node->name .'</a>';
 				break;
 		}
-		if(isset($node->end_line)){
+		if(isset($node->end_line)) {
 			$this->_closeItem =$node->end_line."</li>\n";
-		}else{
+		}else {
 			$this->_closeItem = "</li>\n";
 		}
 
@@ -84,17 +85,17 @@ class XmapHtml extends Xmap {
 	}
 
 	/**
-	* Moves sitemap level up or down
-	*/
+	 * Moves sitemap level up or down
+	 */
 	function changeLevel( $level ) {
 		if ( $level > 0 ) {
 			# We do not print start ul here to avoid empty list, it's printed at the first child
 			$this->level += $level;
 			$this->_childs[$this->level]=0;
-				$this->_openList = "\n<ul class=\"level_".$this->level."\">\n";
+			$this->_openList = "\n<ul class=\"level_".$this->level."\">\n";
 			$this->_closeItem = '';
 		} else {
-			if ($this->_childs[$this->level]){
+			if ($this->_childs[$this->level]) {
 				echo $this->_closeItem."</ul>\n";
 			}
 			$this->_closeItem ='</li>';

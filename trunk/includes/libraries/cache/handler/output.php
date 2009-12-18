@@ -1,12 +1,12 @@
 <?php
 /**
-* @package Joostina
- * @subpackage Cache 
-* @copyright Авторские права (C) 2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @subpackage Cache
+ * @copyright Авторские права (C) 2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // Check to ensure this file is within the rest of the framework
 defined('_VALID_MOS') or die();
@@ -14,13 +14,12 @@ defined('_VALID_MOS') or die();
 /**
  * Joomla! Cache output type object
  *
- * @author		
+ * @author
  * @package		Joostina
  * @subpackage	Cache
  * @since		1.3
  */
-class JCacheOutput extends JCache
-{
+class JCacheOutput extends JCache {
 	/**
 	 * Start the cache
 	 *
@@ -30,8 +29,7 @@ class JCacheOutput extends JCache
 	 * @return	boolean	True if the cache is hit (false else)
 	 * @since	1.3
 	 */
-	function start( $id, $group=null)
-	{
+	function start( $id, $group=null) {
 		// If we have data in cache use that...
 		$data = $this->get($id, $group);
 		if ($data !== false) {
@@ -55,8 +53,7 @@ class JCacheOutput extends JCache
 	 * @return	boolean	True if cache stored
 	 * @since	1.3
 	 */
-	function end()
-	{
+	function end() {
 		// Get data from output buffer and echo it
 		$data = ob_get_contents();
 		ob_end_clean();

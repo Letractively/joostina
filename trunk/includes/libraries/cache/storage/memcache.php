@@ -1,12 +1,12 @@
 <?php
 /**
-* @package Joostina
+ * @package Joostina
  * @subpackage Cache handler
-* @copyright Авторские права (C) 2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @copyright Авторские права (C) 2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // Check to ensure this file is within the rest of the framework
 defined('_VALID_MOS') or die();
@@ -14,14 +14,13 @@ defined('_VALID_MOS') or die();
 /**
  * Memcache cache storage handler
  *
- * @author		
- * @author		
+ * @author
+ * @author
  * @package		Joostina
  * @subpackage	Cache
  * @since		1.3
  */
-class JCacheStorageMemcache extends JCacheStorage
-{
+class JCacheStorageMemcache extends JCacheStorage {
 	/**
 	 * Resource for the current memcached connection.
 	 * @var resource
@@ -46,8 +45,7 @@ class JCacheStorageMemcache extends JCacheStorage
 	 * @access protected
 	 * @param array $options optional parameters
 	 */
-	function __construct( $options = array() )
-	{
+	function __construct( $options = array() ) {
 		if (!$this->test()) {
 			return NULL;
 		}
@@ -96,7 +94,7 @@ class JCacheStorageMemcache extends JCacheStorage
 		static $params = null;
 		if(is_null($params)) {
 			$config		= Jconfig::getInstance();
-			
+
 			$params['persistent'] = $config->config_memcache_persistent;
 			$params['servers'] = array("0" => array("host" => $config->config_memcache_host, "port" => $config->config_memcache_port));
 			$params['compression'] = $config->config_memcache_compression;
@@ -122,8 +120,7 @@ class JCacheStorageMemcache extends JCacheStorage
 	 * @return	mixed	Boolean false on failure or a cached data string
 	 * @since	1.3
 	 */
-	function get($id, $group, $checkTime)
-	{
+	function get($id, $group, $checkTime) {
 		$cache_id = $this->_getCacheId($id, $group);
 		return $this->_db->get($cache_id);
 	}
@@ -138,8 +135,7 @@ class JCacheStorageMemcache extends JCacheStorage
 	 * @return	boolean	True on success, false otherwise
 	 * @since	1.3
 	 */
-	function store($id, $group, $data)
-	{
+	function store($id, $group, $data) {
 		$cache_id = $this->_getCacheId($id, $group);
 		return $this->_db->set($cache_id, $data, $this->_compress, $this->_lifetime);
 	}
@@ -153,8 +149,7 @@ class JCacheStorageMemcache extends JCacheStorage
 	 * @return	boolean	True on success, false otherwise
 	 * @since	1.3
 	 */
-	function remove($id, $group)
-	{
+	function remove($id, $group) {
 		$cache_id = $this->_getCacheId($id, $group);
 		return $this->_db->delete($cache_id);
 	}
@@ -171,8 +166,7 @@ class JCacheStorageMemcache extends JCacheStorage
 	 * @return	boolean	True on success, false otherwise
 	 * @since	1.3
 	 */
-	function clean($group, $mode)
-	{
+	function clean($group, $mode) {
 		return parent::clean();
 	}
 
@@ -182,8 +176,7 @@ class JCacheStorageMemcache extends JCacheStorage
 	 * @access public
 	 * @return boolean  True on success, false otherwise.
 	 */
-	function gc()
-	{
+	function gc() {
 		return true;
 	}
 
@@ -194,8 +187,7 @@ class JCacheStorageMemcache extends JCacheStorage
 	 * @access public
 	 * @return boolean  True on success, false otherwise.
 	 */
-	function test()
-	{
+	function test() {
 		return (extension_loaded('memcache') && class_exists('Memcache'));
 	}
 
@@ -208,8 +200,7 @@ class JCacheStorageMemcache extends JCacheStorage
 	 * @return	string	The cache_id string
 	 * @since	1.3
 	 */
-	function _getCacheId($id, $group)
-	{
+	function _getCacheId($id, $group) {
 		global $mosConfig_cache_key;
 		$name	= md5($mosConfig_cache_key . "-" . $this->_application.'-'.$id.'-'.$this->_hash.'-'.$this->_language);
 		return 'cache_'.$group.'-'.$name;

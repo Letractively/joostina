@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // Установка флага родительского файла
 define('_VALID_MOS',1);
@@ -60,7 +60,7 @@ require_once (JPATH_BASE_ADMIN.DS.'includes'.DS.'admin.php');
 
 $my = $mainframe->initSessionAdmin($option,$task);
 
-if(!$my->id){
+if(!$my->id) {
 	die('error-my');
 }
 
@@ -78,7 +78,7 @@ $file_com = JPATH_BASE_ADMIN.DS.'components'.DS.$option.DS.'admin.'.$commponent.
 // проверяем, какой файл необходимо подключить, данные берутся из пришедшего GET запроса
 if(file_exists($file_com)) {
 	//Подключаем язык компонента
-	if($mainframe->getLangFile($option)){
+	if($mainframe->getLangFile($option)) {
 		include($mainframe->getLangFile($option));
 	}
 	include_once ($file_com);

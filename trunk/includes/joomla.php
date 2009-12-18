@@ -7,8 +7,6 @@
  * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
  */
 
-
-
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
@@ -3522,9 +3520,9 @@ class mosHTML {
 				<?php
 			} else {
 				?>
-					<?php if(!Jconfig::getInstance()->config_index_print) { ?>
+				<?php if(!Jconfig::getInstance()->config_index_print) { ?>
 <span style="display:none"><![CDATA[<noindex>]]></span><a href="#" rel="nofollow" target="_blank" onclick="window.open('<?php echo $link; ?>','win2','<?php echo $status; ?>'); return false;" title="<?php echo _PRINT; ?>"><?php echo $image; ?></a><span style="display:none"><![CDATA[</noindex>]]></span>
-					<?php } else { ?>
+						<?php } else { ?>
 <a href="<?php echo $link; ?>" target="_blank" title="<?php echo _PRINT; ?>"><?php echo $image; ?></a>
 					<?php } ; ?>
 
@@ -4170,7 +4168,7 @@ function mosExpandID($ID) {
  * @param string Message body
  * @return object Mail object
  */
-function mosCreateMail($from = '',$fromname = '',$subject,$body) {
+function mosCreateMail($from = '',$fromname = '',$subject='',$body='') {
 
 	mosMainFrame::addLib('phpmailer');
 	$mail = new mosPHPMailer();
@@ -5543,13 +5541,13 @@ class mosCommonHTML {
 		?>
 <table cellspacing="0" cellpadding="4" border="0" align="center">
 	<tr align="center">
-		<td><img src="<?php echo $cur_file_icons_path;?>/publish_y.png" border="0" /></td>
+		<td><img src="<?php echo $cur_file_icons_path;?>/publish_y.png" alt="<?php echo _PUBLISHED_VUT_NOT_ACTIVE?>" border="0" /></td>
 		<td><?php echo _PUBLISHED_VUT_NOT_ACTIVE?> |</td>
-		<td><img src="<?php echo $cur_file_icons_path;?>/publish_g.png" border="0" /></td>
+		<td><img src="<?php echo $cur_file_icons_path;?>/publish_g.png" alt="<?php echo _PUBLISHED_AND_ACTIVE?>" border="0" /></td>
 		<td><?php echo _PUBLISHED_AND_ACTIVE?> |</td>
-		<td><img src="<?php echo $cur_file_icons_path;?>/publish_r.png" border="0" /></td>
+		<td><img src="<?php echo $cur_file_icons_path;?>/publish_r.png" alt="<?php echo _PUBLISHED_BUT_DATE_EXPIRED?>" border="0" /></td>
 		<td><?php echo _PUBLISHED_BUT_DATE_EXPIRED?> |</td>
-		<td><img src="<?php echo $cur_file_icons_path;?>/publish_x.png" border="0" /></td>
+		<td><img src="<?php echo $cur_file_icons_path;?>/publish_x.png" alt="<?php echo _UNPUBLISHED?>" border="0" /></td>
 		<td><?php echo _UNPUBLISHED?></td>
 	</tr>
 </table>
@@ -5592,7 +5590,7 @@ class mosCommonHTML {
 </tr>
 <tr>
 	<td width="90px" valign="top">
-			<?php echo _MENU?>
+					<?php echo _MENU?>
 	</td>
 	<td>
 		<a href="javascript:go2( 'go2menu', '<?php echo $menu->menutype; ?>' );"><?php echo $menu->menutype; ?></a>
@@ -5621,8 +5619,8 @@ class mosCommonHTML {
 						default:
 							echo '<font color="green">'._PUBLISHED.'</font>';
 							break;
-			}
-			?>
+					}
+					?>
 	</td>
 </tr>
 			<?php
@@ -5692,8 +5690,8 @@ class mosCommonHTML {
 						default:
 							echo '<font color="green">'._PUBLISHED.'</font>';
 							break;
-			}
-			?>
+					}
+					?>
 	</td>
 </tr>
 			<?php
@@ -5849,24 +5847,24 @@ class mosCommonHTML {
 			define('_CODEPRESS_LOADED',1);
 			$mainframe = &MosMainFrame::getInstance();
 			$mainframe->addJS(JPATH_SITE.'/includes/js/codepress/codepress.js');
-			?><script language="JavaScript">
-	CodePress.run = function() {
-		CodePress.path = '<?php echo JPATH_SITE ?>/includes/js/codepress/';
-		t = document.getElementsByTagName('textarea');
-		for(var i=0,n=t.length;i<n;i++) {
-			if(t[i].className.match('codepress')) {
-				id = t[i].id;
-				t[i].id = id+'_cp';
-				eval(id+' = new CodePress(t[i])');
-				t[i].parentNode.insertBefore(eval(id), t[i]);
-			}
-		}
-	}
-	if(window.attachEvent){
-		window.attachEvent('onload',CodePress.run);
-	}else{
-		window.addEventListener('DOMContentLoaded',CodePress.run,false);
-	}</script>
+			?><script language="JavaScript" type="text/javascript">
+				CodePress.run = function() {
+					CodePress.path = '<?php echo JPATH_SITE ?>/includes/js/codepress/';
+					t = document.getElementsByTagName('textarea');
+					for(var i=0,n=t.length;i<n;i++) {
+						if(t[i].className.match('codepress')) {
+							id = t[i].id;
+							t[i].id = id+'_cp';
+							eval(id+' = new CodePress(t[i])');
+							t[i].parentNode.insertBefore(eval(id), t[i]);
+						}
+					}
+				}
+				if(window.attachEvent){
+					window.attachEvent('onload',CodePress.run);
+				}else{
+					window.addEventListener('DOMContentLoaded',CodePress.run,false);
+				}</script>
 			<?php
 		}
 	}
@@ -6106,7 +6104,7 @@ function ampReplace($text) {
  * @param string The searchword to select around
  * @return string
  */
-function mosPrepareSearchContent($text,$length = 200,$searchword) {
+function mosPrepareSearchContent($text,$length = 200,$searchword='') {
 	// strips tags won't remove the actual jscript
 	$text = preg_replace("'<script[^>]*>.*?</script>'si","",$text);
 	$text = preg_replace('/{.+?}/','',$text);
@@ -6124,7 +6122,7 @@ function mosPrepareSearchContent($text,$length = 200,$searchword) {
  * @param string The searchword to select around
  * @return string
  */
-function mosSmartSubstr($text,$length = 200,$searchword) {
+function mosSmartSubstr($text,$length = 200,$searchword='') {
 	$wordpos = Jstring::strpos(Jstring::strtolower($text),Jstring::strtolower($searchword));
 	$halfside = intval($wordpos - $length / 2 - Jstring::strlen($searchword));
 	if($wordpos && $halfside > 0) {

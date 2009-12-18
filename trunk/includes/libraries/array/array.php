@@ -4,13 +4,13 @@
  * @copyright (C) 2009 Extention Team. Joostina Team. Все права защищены.
  * @license GNU/GPL, подробнее в help/lisense.php
  * @version $Id: array.php 05.07.2009 12:07:48 megazaisl $;
- * @since Version 1.3 
+ * @since Version 1.3
  * Класс работы с массивами
  *
  */
 defined('_VALID_MOS') or die();
 
-class ArrayHelper{
+class ArrayHelper {
 	/**
 	 * clear
 	 *
@@ -20,9 +20,9 @@ class ArrayHelper{
 	 * @param   type	 $param  param_descr
 	 * @return  Array
 	 */
-	function clear($array){
+	function clear($array) {
 		$res = array();
-		foreach ($array as $key => $val)  {
+		foreach ($array as $key => $val) {
 			if (!empty($val)) {
 				if (is_numeric($key)) {
 					array_push($res, $val);
@@ -34,8 +34,8 @@ class ArrayHelper{
 		$array = $res;
 		return $array;
 	}
-	
-	
+
+
 	/**
 	 * first
 	 *
@@ -44,7 +44,7 @@ class ArrayHelper{
 	 * @access  public
 	 * @return  mixed
 	 */
-	function first($array){
+	function first($array) {
 		$first = array_shift($array);
 		array_unshift($array, $first);
 
@@ -59,7 +59,7 @@ class ArrayHelper{
 	 * @access  public
 	 * @return  mixed
 	 */
-	function last($array){
+	function last($array) {
 		$lastt = array_pop($array);
 		array_push($array, $last);
 

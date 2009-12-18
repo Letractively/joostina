@@ -1,41 +1,41 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 /**
-* Parameters handler
-* @package Joostina
-*/
+ * Parameters handler
+ * @package Joostina
+ */
 class mosParameters {
 	/**
-	@var object*/
+	 @var object*/
 	var $_params = null;
 	/**
-	@var string The raw params string*/
+	 @var string The raw params string*/
 	var $_raw = null;
 	/**
-	@var string Path to the xml setup file*/
+	 @var string Path to the xml setup file*/
 	var $_path = null;
 	/**
-	@var string The type of setup file*/
+	 @var string The type of setup file*/
 	var $_type = null;
 	/**
-	@var object The xml params element*/
+	 @var object The xml params element*/
 	var $_xmlElem = null;
 	/**
-	* Constructor
-	* @param string The raw parms text
-	* @param string Path to the xml setup file
-	* @var string The type of setup file
-	*/
+	 * Constructor
+	 * @param string The raw parms text
+	 * @param string Path to the xml setup file
+	 * @var string The type of setup file
+	 */
 	function mosParameters($text,$path = '',$type = 'component') {
 		jd_inc('mosParameters');
 		$this->_params = $this->parse($text);
@@ -45,44 +45,44 @@ class mosParameters {
 	}
 
 	/**
-	* Returns the params array
-	* @return object
-	*/
+	 * Returns the params array
+	 * @return object
+	 */
 	function toObject() {
 		return $this->_params;
 	}
 
 	/**
-	* Returns a named array of the parameters
-	* @return object
-	*/
+	 * Returns a named array of the parameters
+	 * @return object
+	 */
 	function toArray() {
 		return mosObjectToArray($this->_params);
 	}
 
 	/**
-	* @param string The name of the param
-	* @param string The value of the parameter
-	* @return string The set value
-	*/
+	 * @param string The name of the param
+	 * @param string The value of the parameter
+	 * @return string The set value
+	 */
 	function set($key,$value = '') {
 		$this->_params->$key = $value;
 		return $value;
 	}
 	/**
-	* Sets a default value if not alreay assigned
-	* @param string The name of the param
-	* @param string The value of the parameter
-	* @return string The set value
-	*/
+	 * Sets a default value if not alreay assigned
+	 * @param string The name of the param
+	 * @param string The value of the parameter
+	 * @return string The set value
+	 */
 	function def($key,$value = '') {
 		return $this->set($key,$this->get($key,$value));
 	}
 	/**
-	* @param string The name of the param
-	* @param mixed The default value if not found
-	* @return string
-	*/
+	 * @param string The name of the param
+	 * @param mixed The default value if not found
+	 * @return string
+	 */
 	function get($key,$default = '') {
 		if(isset($this->_params->$key)) {
 			return $this->_params->$key === '' ? $default:$this->_params->$key;
@@ -91,14 +91,14 @@ class mosParameters {
 		}
 	}
 	/**
-	* Parse an .ini string, based on phpDocumentor phpDocumentor_parse_ini_file function
-	* @param mixed The ini string or array of lines
-	* @param boolean add an associative index for each section [in brackets]
-	* @return object
-	*/
+	 * Parse an .ini string, based on phpDocumentor phpDocumentor_parse_ini_file function
+	 * @param mixed The ini string or array of lines
+	 * @param boolean add an associative index for each section [in brackets]
+	 * @return object
+	 */
 	function parse($txt,$process_sections = false,$asArray = false) {
 		// если в параметрах ничего нет - не будем дальшепытаться его распатсить
-		if(trim($txt)==''){
+		if(trim($txt)=='') {
 			return $asArray ? array():new stdClass();
 		};
 
@@ -111,22 +111,22 @@ class mosParameters {
 		}
 
 		if( (false==$process_sections) &&
-			(false==$asArray) &&
-			(is_string($txt)) &&
-			(false===strpos($txt,'[')) &&
-			(false===strpos($txt,'\\')) &&
-			(false===strpos($txt,'"')) &&
-			(false===strpos($txt,';')) ){
+				(false==$asArray) &&
+				(is_string($txt)) &&
+				(false===strpos($txt,'[')) &&
+				(false===strpos($txt,'\\')) &&
+				(false===strpos($txt,'"')) &&
+				(false===strpos($txt,';')) ) {
 			$obj = new stdClass();
-			foreach($lines as $line){
+			foreach($lines as $line) {
 				$vars=explode('=',$line,2);
-				if(count($vars)==2){
+				if(count($vars)==2) {
 					$property = trim($vars[0]);
 					$value = trim($vars[1]);
-					if($value){
-						if($value == 'false'){
+					if($value) {
+						if($value == 'false') {
 							$value = false;
-						}elseif($value == 'true'){
+						}elseif($value == 'true') {
 							$value = true;
 						}
 					}
@@ -237,9 +237,9 @@ class mosParameters {
 		return $obj;
 	}
 	/**
-	* @param string The name of the control, or the default text area if a setup file is not found
-	* @return string HTML
-	*/
+	 * @param string The name of the control, or the default text area if a setup file is not found
+	 * @return string HTML
+	 */
 	function render($name = 'params') {
 
 		if($this->_path) {
@@ -262,7 +262,7 @@ class mosParameters {
 		if(is_object($this->_xmlElem)) {
 			$html = array();
 			$element = &$this->_xmlElem;
- 			$html[] = '<table width="100%" class="paramlist">';
+			$html[] = '<table width="100%" class="paramlist">';
 
 			if($description = $element->getAttribute('description')) {
 				$html[] = '<tr><td colspan="2">'.$description.'</td></tr>';
@@ -272,22 +272,22 @@ class mosParameters {
 			foreach($element->childNodes as $param) {
 				$result = $this->renderParam($param,$name);
 
-				switch ($result[5]){
+				switch ($result[5]) {
 					case 'newtable':
 						$html[] = '</table>';
 						$html[] = '<table width="100%" class="paramlist">';
-					break;
+						break;
 
 					case 'tabs':
 						$html[] = $result[1];
-					break;
+						break;
 
 					default:
 						$html[] = '<tr>';
 						$html[] = '<td width="40%" align="right" valign="top" class="pkey"><span class="editlinktip">'.$result[0].'</span></td>';
 						$html[] = '<td>'.$result[1].'</td>';
 						$html[] = '</tr>';
-					break;
+						break;
 				}
 
 			}
@@ -302,10 +302,10 @@ class mosParameters {
 		}
 	}
 	/**
-	* @param object A param tag node
-	* @param string The control name
-	* @return array Any array of the label, the form element and the tooltip
-	*/
+	 * @param object A param tag node
+	 * @param string The control name
+	 * @return array Any array of the label, the form element and the tooltip
+	 */
 	function renderParam(&$param,$control_name = 'params') {
 		$result = array();
 
@@ -341,24 +341,24 @@ class mosParameters {
 		return $result;
 	}
 	/**
-	* @param string The name of the form element
-	* @param string The value of the element
-	* @param object The xml element for the parameter
-	* @param string The control name
-	* @return string The html for the element
-	*/
+	 * @param string The name of the form element
+	 * @param string The value of the element
+	 * @param object The xml element for the parameter
+	 * @param string The control name
+	 * @return string The html for the element
+	 */
 	function _form_text($name,$value,&$node,$control_name) {
 		$size = $node->getAttribute('size');
 
 		return '<input type="text" name="'.$control_name.'['.$name.']" value="'.htmlspecialchars($value).'" class="text_area" size="'.$size.'" />';
 	}
 	/**
-	* @param string The name of the form element
-	* @param string The value of the element
-	* @param object The xml element for the parameter
-	* @param string The control name
-	* @return string The html for the element
-	*/
+	 * @param string The name of the form element
+	 * @param string The value of the element
+	 * @param object The xml element for the parameter
+	 * @param string The control name
+	 * @return string The html for the element
+	 */
 	function _form_list($name,$value,&$node,$control_name) {
 		//$size = $node->getAttribute('size');
 
@@ -372,12 +372,12 @@ class mosParameters {
 		return mosHTML::selectList($options,''.$control_name.'['.$name.']','class="inputbox"','value','text',$value);
 	}
 	/**
-	* @param string The name of the form element
-	* @param string The value of the element
-	* @param object The xml element for the parameter
-	* @param string The control name
-	* @return string The html for the element
-	*/
+	 * @param string The name of the form element
+	 * @param string The value of the element
+	 * @param object The xml element for the parameter
+	 * @param string The control name
+	 * @return string The html for the element
+	 */
 	function _form_radio($name,$value,&$node,$control_name) {
 		$options = array();
 		foreach($node->childNodes as $option) {
@@ -389,12 +389,12 @@ class mosParameters {
 		return mosHTML::radioList($options,''.$control_name.'['.$name.']','',$value);
 	}
 	/**
-	* @param string The name of the form element
-	* @param string The value of the element
-	* @param object The xml element for the parameter
-	* @param string The control name
-	* @return string The html for the element
-	*/
+	 * @param string The name of the form element
+	 * @param string The value of the element
+	 * @param object The xml element for the parameter
+	 * @param string The control name
+	 * @return string The html for the element
+	 */
 	function _form_mos_section($name,$value,&$node,$control_name) {
 		$database = &database::getInstance();
 
@@ -406,12 +406,12 @@ class mosParameters {
 		return mosHTML::selectList($options,''.$control_name.'['.$name.']','class="inputbox" id="mossection"','id','title',$value);
 	}
 	/**
-	* @param string The name of the form element
-	* @param string The value of the element
-	* @param object The xml element for the parameter
-	* @param string The control name
-	* @return string The html for the element
-	*/
+	 * @param string The name of the form element
+	 * @param string The value of the element
+	 * @param object The xml element for the parameter
+	 * @param string The control name
+	 * @return string The html for the element
+	 */
 	function _form_mos_category($name,$value,&$node,$control_name) {
 		$database = &database::getInstance();
 
@@ -433,12 +433,12 @@ class mosParameters {
 		return mosHTML::selectList($options,''.$control_name.'['.$name.']','class="inputbox"','id','title',$value);
 	}
 	/**
-	* @param string The name of the form element
-	* @param string The value of the element
-	* @param object The xml element for the parameter
-	* @param string The control name
-	* @return string The html for the element
-	*/
+	 * @param string The name of the form element
+	 * @param string The value of the element
+	 * @param object The xml element for the parameter
+	 * @param string The control name
+	 * @return string The html for the element
+	 */
 	function _form_mos_menu($name,$value,$node,$control_name) {
 		$menuTypes = mosAdminMenus::menutypes();
 
@@ -450,12 +450,12 @@ class mosParameters {
 		return mosHTML::selectList($options,''.$control_name.'['.$name.']','class="inputbox"','value','text',$value);
 	}
 	/**
-	* @param string The name of the form element
-	* @param string The value of the element
-	* @param object The xml element for the parameter
-	* @param string The control name
-	* @return string The html for the element
-	*/
+	 * @param string The name of the form element
+	 * @param string The value of the element
+	 * @param object The xml element for the parameter
+	 * @param string The control name
+	 * @return string The html for the element
+	 */
 	function _form_filelist($name,$value,&$node,$control_name) {
 
 		// path to images directory
@@ -477,23 +477,23 @@ class mosParameters {
 		return mosHTML::selectList($options,''.$control_name.'['.$name.']','class="inputbox"','value','text',$value,"param$name");
 	}
 	/**
-	* @param string The name of the form element
-	* @param string The value of the element
-	* @param object The xml element for the parameter
-	* @param string The control name
-	* @return string The html for the element
-	*/
+	 * @param string The name of the form element
+	 * @param string The value of the element
+	 * @param object The xml element for the parameter
+	 * @param string The control name
+	 * @return string The html for the element
+	 */
 	function _form_imagelist($name,$value,&$node,$control_name) {
 		$node->setAttribute('filter','\.png$|\.gif$|\.jpg$|\.bmp$|\.ico$');
 		return $this->_form_filelist($name,$value,$node,$control_name);
 	}
 	/**
-	* @param string The name of the form element
-	* @param string The value of the element
-	* @param object The xml element for the parameter
-	* @param string The control name
-	* @return string The html for the element
-	*/
+	 * @param string The name of the form element
+	 * @param string The value of the element
+	 * @param object The xml element for the parameter
+	 * @param string The control name
+	 * @return string The html for the element
+	 */
 	function _form_textarea($name,$value,&$node,$control_name) {
 		$rows = $node->getAttribute('rows');
 		$cols = $node->getAttribute('cols');
@@ -504,12 +504,12 @@ class mosParameters {
 	}
 
 	/**
-	* @param string The name of the form element
-	* @param string The value of the element
-	* @param object The xml element for the parameter
-	* @param string The control name
-	* @return string The html for the element
-	*/
+	 * @param string The name of the form element
+	 * @param string The value of the element
+	 * @param object The xml element for the parameter
+	 * @param string The control name
+	 * @return string The html for the element
+	 */
 	function _form_spacer($name,$value) {
 		if($value) {
 			return $value;
@@ -526,40 +526,40 @@ class mosParameters {
 
 		$return = '';
 
-		switch ($value){
+		switch ($value) {
 			case 'startPane':
 				$return .= '<tr><td></td></tr></table>';
 				$return .= $css;
 				$return .= $js;
 				$return .= '<div class="tab-page" id="'.$name.'">';
 				$return .= '<script type="text/javascript">var tabPane1 = new WebFXTabPane( document.getElementById( "'.$name.'" ),0)</script>';
-			break;
+				break;
 
 			case 'endPane':
 				$return .= '</div><table>';
-			break;
+				break;
 
 			case 'startTab':
 				$return .= '<div class="tab-page" id="'.$name.'">';
 				$return .= '<h2 class="tab">'.$label.'</h2>';
 				$return .= '<script type="text/javascript">tabPane1.addTabPage( document.getElementById( "'.$name.'" ) );</script>';
 				$return .= '<table width="100%" class="paramlist">';
-			break;
+				break;
 
 			case 'endTab':
 				$return .= '</table></div>';
-			break;
+				break;
 
 			default:
-			break;
+				break;
 		}
 
-	return $return;
+		return $return;
 	}
 
 	/**
-	* special handling for textarea param
-	*/
+	 * special handling for textarea param
+	 */
 	function textareaHandling(&$txt) {
 		$total = count($txt);
 		for($i = 0; $i < $total; $i++) {
@@ -599,9 +599,9 @@ class mosParameters {
 }
 
 /**
-* @param string
-* @return string
-*/
+ * @param string
+ * @return string
+ */
 
 
 function mosParseParams($txt) {

@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -45,40 +45,40 @@ $database->setQuery($query,$pageNav->limitstart,$pageNav->limit);
 $rows = $database->loadObjectList();
 ?>
 <table class="adminlist">
-<tr>
-	<th colspan="4" class="title"><?php echo _NOW_ON_SITE_REGISTERED?></th>
-</tr>
-<?php
-$i = 0;
-$k = 0;
-foreach($rows as $row) {
-	if($acl->acl_check('administration','manage','users',$my->usertype,'components','com_users')) {
-		$link = 'index2.php?option=com_users&task=editA&hidemainmenu=1&id='.$row->userid;
-		$name = '<a href="'.$link.'" title="'._CHANGE_USER_DATA.'">'.$row->username.'</a>';
-	} else {
-		$name = $row->username;
-	}
-?>
+	<tr>
+		<th colspan="4" class="title"><?php echo _NOW_ON_SITE_REGISTERED?></th>
+	</tr>
+	<?php
+	$i = 0;
+	$k = 0;
+	foreach($rows as $row) {
+		if($acl->acl_check('administration','manage','users',$my->usertype,'components','com_users')) {
+			$link = 'index2.php?option=com_users&task=editA&hidemainmenu=1&id='.$row->userid;
+			$name = '<a href="'.$link.'" title="'._CHANGE_USER_DATA.'">'.$row->username.'</a>';
+		} else {
+			$name = $row->username;
+		}
+		?>
 	<tr class="row<?php echo $k; ?>">
 		<td width="5%"><?php echo $pageNav->rowNumber($i); ?></td>
 		<td width="60%"><?php echo $name; ?></td>
 		<td><?php echo $row->usertype; ?></td>
-<?php
-	if($acl->acl_check('administration','manage','users',$my->usertype,'components','com_users')) {
-?>
+			<?php
+			if($acl->acl_check('administration','manage','users',$my->usertype,'components','com_users')) {
+				?>
 		<td>
 			<a href="index2.php?option=com_users&task=flogout&id=<?php echo $row->userid; ?>&<?php echo josSpoofValue(); ?>=1">
 				<img src="<?php echo $cur_file_icons_path;?>/publish_x.png" width="12" height="12" border="0" alt="<?php echo _DISABLE?>" title="<?php echo _DISABLE?>" />
 			</a>
 		</td>
-<?php
-	}
-?>
+				<?php
+			}
+			?>
 	</tr>
-<?php
-	$i++;
-}
-?>
+		<?php
+		$i++;
+	}
+	?>
 </table>
 <?php echo $pageNav->getListFooter(); ?>
 <input type="hidden" name="option" value="" />

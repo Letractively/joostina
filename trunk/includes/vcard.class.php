@@ -1,18 +1,18 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 /**
-* @version $Id: vcard.class.php 732 2005-10-31 02:53:15Z stingrey $
-* Modified PHP vCard class v2.0
-*/
+ * @version $Id: vcard.class.php 732 2005-10-31 02:53:15Z stingrey $
+ * Modified PHP vCard class v2.0
+ */
 
 /***************************************************************************
 * PHP vCard class v2.0
@@ -108,7 +108,7 @@ class vCard {
 	}
 
 	function setName($family = '',$first = '',$additional = '',$prefix = '',$suffix =
-		'') {
+			'') {
 		$this->properties['N'] = "$family;$first;$additional;$prefix;$suffix";
 		$this->filename = "$first%20$family.vcf";
 		if($this->properties['FN'] == '') {
@@ -135,7 +135,7 @@ class vCard {
 	}
 
 	function setLabel($postoffice = '',$extended = '',$street = '',$city = '',$region =
-		'',$zip = '',$country = '',$type = 'HOME;POSTAL') {
+			'',$zip = '',$country = '',$type = 'HOME;POSTAL') {
 		$label = '';
 		if($postoffice != '') {
 			$label .= $postoffice;
@@ -172,7 +172,7 @@ class vCard {
 		}
 
 		$this->properties["LABEL;$type;ENCODING=QUOTED-PRINTABLE"] =
-			quoted_printable_encode($label);
+				quoted_printable_encode($label);
 	}
 
 	function setEmail($address) {

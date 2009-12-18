@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // Установка флага, что это - родительский файл
 define('_VALID_MOS',1);
@@ -22,7 +22,7 @@ define('JPATH_SITE', $mosConfig_live_site );
 $mosConfig_absolute_path = JPATH_BASE;
 
 //Межсайтовая интеграция
-if(is_file($mosConfig_absolute_path.DIRECTORY_SEPARATOR.'multisite.config.php')){
+if(is_file($mosConfig_absolute_path.DIRECTORY_SEPARATOR.'multisite.config.php')) {
 	include_once($mosConfig_absolute_path.DIRECTORY_SEPARATOR.'multisite.config.php');
 }
 
@@ -58,12 +58,12 @@ $mainframe = &mosMainFrame::getInstance();
 $mainframe->initSession();
 
 //Межсайтовая интеграция
-if(DEFINED('_MULTISITE')){
+if(DEFINED('_MULTISITE')) {
 	$mainframe->set('_multisite', $m_s->flag);
 	$mainframe->set('_multisite_params', $m_s);
-	$cookie_exist = 0;	
-	if(isset($_COOKIE[mosMainFrame::sessionCookieName($m_s->main_site)])){
-		$cookie_exist = 1; 
+	$cookie_exist = 0;
+	if(isset($_COOKIE[mosMainFrame::sessionCookieName($m_s->main_site)])) {
+		$cookie_exist = 1;
 	}
 }
 
@@ -75,11 +75,11 @@ $mainframe->set('lang', $mosConfig_lang);
 include_once($mainframe->getLangFile());
 
 // get the information about the current user from the sessions table
-if($mainframe->get('_multisite')=='2' && $cookie_exist ){
+if($mainframe->get('_multisite')=='2' && $cookie_exist ) {
 	$mainframe->set('_multisite_params', $m_s);
 	$my = $mainframe->getUser_from_sess($_COOKIE[mosMainFrame::sessionCookieName($m_s->main_site)]);
 }
-else{
+else {
 	$my = $mainframe->getUser();
 }
 $gid = intval($my->gid);

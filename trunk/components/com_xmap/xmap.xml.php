@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -36,7 +36,7 @@ class XmapXML extends Xmap {
 		if( !isset($node->priority) )
 			$node->priority = "0.5";
 
-		if(!isset($node->uid)){
+		if(!isset($node->uid)) {
 			$node->uid = 0;
 		}
 
@@ -44,11 +44,11 @@ class XmapXML extends Xmap {
 			$node->changefreq = 'daily';
 
 		if ( $node->browserNav != 3			// ignore "no link"
-		 && !$is_extern					// ignore external links
-		 && empty($this->_uids[$node->uid]) ) {	// ignore links that have been added already
+				&& !$is_extern					// ignore external links
+				&& empty($this->_uids[$node->uid]) ) {	// ignore links that have been added already
 
 			$this->count++;
-		 	$this->_uids[$node->uid] = 1;
+			$this->_uids[$node->uid] = 1;
 
 			echo '<url>';
 			echo '<loc>', $this->escapeURL($link) ,'</loc>';
@@ -68,8 +68,8 @@ class XmapXML extends Xmap {
 			$xTrans = get_html_translation_table(HTML_ENTITIES, ENT_QUOTES);
 			foreach ($xTrans as $key => $value)
 				$xTrans[$key] = '&#'.ord($key).';';
-				// dont translate the '&' in case it is part of &xxx;
-				$xTrans[chr(38)] = '&';
+			// dont translate the '&' in case it is part of &xxx;
+			$xTrans[chr(38)] = '&';
 		}
 		return preg_replace("/&(?![A-Za-z]{0,4}\w{2,3};|#[0-9]{2,4};)/","&amp;" , strtr($str, $xTrans));
 	}
@@ -99,5 +99,4 @@ class XmapXML extends Xmap {
 	function endMenu(&$menu) {
 		return true;
 	}
-
 }

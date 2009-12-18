@@ -1,22 +1,22 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 $params_aray = array( //-------------------------------Основные настройки
-	'moduleclass_sfx' => $params->get('moduleclass_sfx'), //Суффикс класса модуля
-	'all_user' => $params->get('all_user'), //Показывать количество зарегистрированных пользователей
-	'online_user_count' => $params->get('online_user_count'), //Пользователи online
-	'online_users' => $params->get('online_users'), //Кто online
-	'user_avatar' => $params->get('user_avatar'), //аватары пользователей
-	'module_orientation' => $params->get('module_orientation'), //Ориентация модуля
+		'moduleclass_sfx' => $params->get('moduleclass_sfx'), //Суффикс класса модуля
+		'all_user' => $params->get('all_user'), //Показывать количество зарегистрированных пользователей
+		'online_user_count' => $params->get('online_user_count'), //Пользователи online
+		'online_users' => $params->get('online_users'), //Кто online
+		'user_avatar' => $params->get('user_avatar'), //аватары пользователей
+		'module_orientation' => $params->get('module_orientation'), //Ориентация модуля
 );
 
 $output = '';
@@ -97,10 +97,10 @@ function online_users($params_aray,$database) {
 			// 1 guest only
 			$output .= sprintf(_GUEST_COUNT, $guest_array);
 		} else
-			if($guest_array > 1) {
-				// more than 1 guest
-				$output .= sprintf(_GUESTS_COUNT, $guest_array);
-			}
+		if($guest_array > 1) {
+			// more than 1 guest
+			$output .= sprintf(_GUESTS_COUNT, $guest_array);
+		}
 
 		// if there are guests and members online
 
@@ -113,10 +113,10 @@ function online_users($params_aray,$database) {
 			// 1 member only
 			$output .= sprintf(_MEMBER_COUNT, $user_array);
 		} else
-			if($user_array > 1) {
-				// more than 1 member
-				$output .= sprintf(_MEMBERS_COUNT, $user_array);
-			}
+		if($user_array > 1) {
+			// more than 1 member
+			$output .= sprintf(_MEMBERS_COUNT, $user_array);
+		}
 
 		$output .= _ONLINE;
 	}
@@ -156,13 +156,13 @@ function who_online($params_aray,$database) {
 			if($params_aray['user_avatar'] == '1') {
 				$user_item = $avatar_link . $user_seflink;
 			} else
-				if($params_aray['user_avatar'] == '2') {
-					$user_item = $avatar_link;
-				} else {
-					$user_item = $user_seflink;
-				}
+			if($params_aray['user_avatar'] == '2') {
+				$user_item = $avatar_link;
+			} else {
+				$user_item = $user_seflink;
+			}
 
-				$output .= '<li>';
+			$output .= '<li>';
 			$output .= $user_item;
 			$output .= '</li>';
 		}
@@ -170,10 +170,8 @@ function who_online($params_aray,$database) {
 	}
 	return $output;
 }
-
-
+// получение числа всех незаблокированных пользователей
 function all_user($database) {
-
 	$q = "SELECT COUNT(id) FROM #__users WHERE block = '0' ";
 	$database->setQuery($q);
 	$row = $database->loadResult();

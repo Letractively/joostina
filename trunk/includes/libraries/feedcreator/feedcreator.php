@@ -1,29 +1,31 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-* FeedCreator class v1.7.2
-* originally (c) Kai Blankenhorn
-* www.bitfolge.de
-* kaib@bitfolge.de
-* v1.3 work by Scott Reynen (scott@randomchaos.com) and Kai Blankenhorn
-* v1.5 OPML support by Dirk Clemens
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ * FeedCreator class v1.7.2
+ * originally (c) Kai Blankenhorn
+ * www.bitfolge.de
+ * kaib@bitfolge.de
+ * v1.3 work by Scott Reynen (scott@randomchaos.com) and Kai Blankenhorn
+ * v1.5 OPML support by Dirk Clemens
+ */
 
 defined('_VALID_MOS') or die();
 global $mosConfig_feed_timeoffset;
 define("TIME_ZONE",$mosConfig_feed_timeoffset);
+
 define("FEEDCREATOR_VERSION","Joostina CMS");
+
 class FeedItem extends HtmlDescribable {
 	var $title,$description,$link;
 	var $author,$authorEmail,$image,$category,$comments,$guid,$source,$creator;
 	var $date;
 	var $additionalElements = array();
 	var $enclosures = array();
-	function addEnclosure($url,$length = 0,$type) {
+	function addEnclosure($url,$length = 0,$type='') {
 		$this->enclosures[] = array("url" => $url,"length" => $length,"type" => $type);
 	}
 }
@@ -227,10 +229,10 @@ class FeedDate {
 			return;
 		}
 		if(preg_match("~(?:(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun),\\s+)?(\\d{1,2})\\s+([a-zA-Z]{3})\\s+(\\d{4})\\s+(\\d{2}):(\\d{2}):(\\d{2})\\s+(.*)~",
-			$dateString,$matches)) {
+		$dateString,$matches)) {
 			$months = array("Jan" => 1,"Feb" => 2,"Mar" => 3,"Apr" => 4,"May" => 5,"Jun" =>6,"Jul" => 7,"Aug" => 8,"Sep" => 9,"Oct" => 10,"Nov" => 11,"Dec" => 12);
 			$this->unix = mktime($matches[4],$matches[5],$matches[6],$months[$matches[2]],$matches[1],
-				$matches[3]);
+					$matches[3]);
 			if(substr($matches[7],0,1) == '+' or substr($matches[7],0,1) == '-') {
 				$tzOffset = (substr($matches[7],0,3) * 60 + substr($matches[7],-2)) * 60;
 			} else {
@@ -255,9 +257,9 @@ class FeedDate {
 			return;
 		}
 		if(preg_match("~(\\d{4})-(\\d{2})-(\\d{2})T(\\d{2}):(\\d{2}):(\\d{2})(.*)~",$dateString,
-			$matches)) {
+		$matches)) {
 			$this->unix = mktime($matches[4],$matches[5],$matches[6],$matches[2],$matches[3],
-				$matches[1]);
+					$matches[1]);
 			if(substr($matches[7],0,1) == '+' or substr($matches[7],0,1) == '-') {
 				$tzOffset = (substr($matches[7],0,3) * 60 + substr($matches[7],-2)) * 60;
 			} else {
@@ -338,9 +340,9 @@ class RSSCreator10 extends FeedCreator {
 			$feed .= "		<title>".htmlspecialchars(strip_tags(strtr($this->items[$i]->title,"\n\r","  ")))."</title>\n";
 			$feed .= "		<link>".htmlspecialchars($this->items[$i]->link)."</link>\n";
 			$feed .= "		<description>".htmlspecialchars($this->items[$i]->description).
-				"</description>\n";
+					"</description>\n";
 			$feed .= $this->_createAdditionalElements($this->items[$i]->additionalElements,
-				"		");
+					"		");
 			$feed .= "	</item>\n";
 		}
 		$feed .= "</rdf:RDF>\n";
@@ -443,7 +445,7 @@ class RSSCreator091 extends FeedCreator {
 				$feed .= "			<guid>".htmlspecialchars($this->items[$i]->guid)."</guid>\n";
 			}
 			$feed .= $this->_createAdditionalElements($this->items[$i]->additionalElements,
-				"		");
+					"		");
 			$feed .= "		</item>\n";
 		}
 		$feed .= "	</channel>\n";
@@ -487,7 +489,7 @@ class PIECreator01 extends FeedCreator {
 			}
 			$feed .= "        <content type=\"text/html\" xml:lang=\"ru-Ru\">\n";
 			$feed .= "			<div xmlns=\"http://www.w3.org/1999/xhtml\">".$this->items[$i]->getDescription().
-				"</div>\n";
+					"</div>\n";
 			$feed .= "		</content>\n";
 			$feed .= "	</entry>\n";
 		}
@@ -512,7 +514,7 @@ class AtomCreator03 extends FeedCreator {
 		$feed .= "	<title>".htmlspecialchars($this->title)."</title>\n";
 		$feed .= "	<tagline>".htmlspecialchars($this->description)."</tagline>\n";
 		$feed .= "	<link rel=\"alternate\" type=\"text/html\" href=\"".htmlspecialchars($this->link).
-			"\"/>\n";
+				"\"/>\n";
 		$feed .= "	<id>".htmlspecialchars($this->link)."</id>\n";
 		$now = new FeedDate();
 		$feed .= "	<modified>".htmlspecialchars($now->iso8601())."</modified>\n";
@@ -529,9 +531,9 @@ class AtomCreator03 extends FeedCreator {
 		for($i = 0; $i < count($this->items); $i++) {
 			$feed .= "	<entry>\n";
 			$feed .= "		<title>".htmlspecialchars(strip_tags($this->items[$i]->title)).
-				"</title>\n";
+					"</title>\n";
 			$feed .= "		<link rel=\"alternate\" type=\"text/html\" href=\"".
-				htmlspecialchars($this->items[$i]->link)."\"/>\n";
+					htmlspecialchars($this->items[$i]->link)."\"/>\n";
 			if($this->items[$i]->date == "") {
 				$this->items[$i]->date = time();
 			}
@@ -541,7 +543,7 @@ class AtomCreator03 extends FeedCreator {
 			$feed .= "		<modified>".htmlspecialchars($itemDate->iso8601())."</modified>\n";
 			$feed .= "		<id>".htmlspecialchars($this->items[$i]->link)."</id>\n";
 			$feed .= $this->_createAdditionalElements($this->items[$i]->additionalElements,
-				"		");
+					"		");
 			if($this->items[$i]->author != "") {
 				$feed .= "		<author>\n";
 				$feed .= "			<name>".htmlspecialchars($this->items[$i]->author)."</name>\n";
@@ -549,7 +551,7 @@ class AtomCreator03 extends FeedCreator {
 			}
 			if($this->items[$i]->description != "") {
 				$feed .= "		<summary>".htmlspecialchars($this->items[$i]->description).
-					"</summary>\n";
+						"</summary>\n";
 			}
 			$feed .= "	</entry>\n";
 		}
@@ -600,7 +602,7 @@ class MBOXCreator extends FeedCreator {
 			}
 			$itemDate = new FeedDate($this->items[$i]->date);
 			$feed .= "From ".strtr(MBOXCreator::qp_enc($from)," ","_")." ".date("D M d H:i:s Y",
-				$itemDate->unix())."\n";
+					$itemDate->unix())."\n";
 			$feed .= "Content-Type: text/plain;\n";
 			$feed .= "	charset=\"".$this->encoding."\"\n";
 			$feed .= "Content-Transfer-Encoding: quoted-printable\n";
@@ -608,7 +610,7 @@ class MBOXCreator extends FeedCreator {
 			$feed .= "From: \"".MBOXCreator::qp_enc($from)."\"\n";
 			$feed .= "Date: ".$itemDate->rfc822()."\n";
 			$feed .= "Subject: ".MBOXCreator::qp_enc(FeedCreator::iTrunc($this->items[$i]->title,
-				100))."\n";
+					100))."\n";
 			$feed .= "\n";
 			$body = chunk_split(MBOXCreator::qp_enc($this->items[$i]->description));
 			$feed .= preg_replace("~\nFrom ([^\n]*)(\n?)~","\n>From $1$2\n",$body);
@@ -620,7 +622,7 @@ class MBOXCreator extends FeedCreator {
 	function _generateFilename() {
 		$fileInfo = pathinfo($_SERVER["PHP_SELF"]);
 		return substr($fileInfo["basename"],0,-(strlen($fileInfo["extension"]) + 1)).
-			".mbox";
+				".mbox";
 	}
 }
 class OPMLCreator extends FeedCreator {
@@ -727,7 +729,7 @@ class HTMLCreator extends FeedCreator {
 	function _generateFilename() {
 		$fileInfo = pathinfo($_SERVER["PHP_SELF"]);
 		return substr($fileInfo["basename"],0,-(strlen($fileInfo["extension"]) + 1)).
-			".html";
+				".html";
 	}
 }
 class JSCreator extends HTMLCreator {

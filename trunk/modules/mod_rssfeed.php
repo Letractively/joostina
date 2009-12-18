@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined( '_VALID_MOS' ) or die();
@@ -44,9 +44,9 @@ if ( isset( $GLOBALS['syndicateParams'] ) ) {
 } else {
 // query to oull syndication component params
 	$query = "SELECT a.*"
-	. "\n FROM #__components AS a"
-	. "\n WHERE ( a.admin_menu_link = 'option=com_syndicate' OR a.admin_menu_link = 'option=com_syndicate&hidemainmenu=1' )"
-	. "\n AND a.option = 'com_syndicate'";
+			. "\n FROM #__components AS a"
+			. "\n WHERE ( a.admin_menu_link = 'option=com_syndicate' OR a.admin_menu_link = 'option=com_syndicate&hidemainmenu=1' )"
+			. "\n AND a.option = 'com_syndicate'";
 	$database->setQuery( $query );
 	$database->loadObject( $row );
 
@@ -75,7 +75,7 @@ if ( !$syndicateParams->get( 'yandex', 1 ) ) {
 }
 ?>
 <div class="syndicate<?php echo $moduleclass_sfx;?>">
-<?php
+	<?php
 	// текст
 	if ( $text ) {
 		?><div align="center" class="syndicate_text<?php echo $moduleclass_sfx;?>"><?php echo $text;?></div><?php
@@ -110,5 +110,5 @@ if ( !$syndicateParams->get( 'yandex', 1 ) ) {
 		$link = 'index.php?option=com_rss&amp;feed=OPML&amp;no_html=1';
 		output_rssfeed( $link, 'opml.png', $opml_image, 'OPML', 'OPML'  );
 	}
-?>
+	?>
 </div>

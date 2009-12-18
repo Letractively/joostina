@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -13,14 +13,14 @@ defined('_VALID_MOS') or die();
 $_MAMBOTS->registerFunction('onSearch','botSearchWeblinks');
 
 /**
-* Метод поиска интернет-ссылок
-*
-* запрос sql должен возвратить поля, используются в обычной операции 
-* отображения: href, title, section, created, text, browsernav
-* @param определяет цель поиска
-* @param сопоставляет параметры: exact|any|all
-* @param определяет параметр сортировки: newest|oldest|popular|alpha|category
-*/
+ * Метод поиска интернет-ссылок
+ *
+ * запрос sql должен возвратить поля, используются в обычной операции
+ * отображения: href, title, section, created, text, browsernav
+ * @param определяет цель поиска
+ * @param сопоставляет параметры: exact|any|all
+ * @param определяет параметр сортировки: newest|oldest|popular|alpha|category
+ */
 function botSearchWeblinks($text,$phrase = '',$ordering = '') {
 	global $my,$_MAMBOTS;
 
@@ -100,10 +100,10 @@ function botSearchWeblinks($text,$phrase = '',$ordering = '') {
 	}
 
 	$query = "SELECT a.title AS title,"."\n a.description AS text,"."\n a.date AS created,".
-		"\n CONCAT_WS( ' / ', ".$database->Quote($section).", b.title ) AS section,"."\n '1' AS browsernav,".
-		"\n a.url AS href"."\n FROM #__weblinks AS a"."\n INNER JOIN #__categories AS b ON b.id = a.catid".
-		"\n WHERE ($where)"."\n AND a.published = 1"."\n AND b.published = 1"."\n AND b.access <= ".(int)
-		$my->gid."\n ORDER BY $order";
+			"\n CONCAT_WS( ' / ', ".$database->Quote($section).", b.title ) AS section,"."\n '1' AS browsernav,".
+			"\n a.url AS href"."\n FROM #__weblinks AS a"."\n INNER JOIN #__categories AS b ON b.id = a.catid".
+			"\n WHERE ($where)"."\n AND a.published = 1"."\n AND b.published = 1"."\n AND b.access <= ".(int)
+			$my->gid."\n ORDER BY $order";
 	$database->setQuery($query,0,$limit);
 	$rows = $database->loadObjectList();
 

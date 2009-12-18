@@ -7,6 +7,6 @@
 	<license>http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL</license>
 	<authorEmail>joostinacms@gmail.com</authorEmail>
 	<authorUrl>www.joostina.ru</authorUrl>
-	<version>1.1 JE</version>
+	<version>1.2 JE</version>
 	<description><![CDATA[ Расширение позволяет выставлять статьям рейтинг. ]]></description>
 </mosinstall>

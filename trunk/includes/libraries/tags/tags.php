@@ -1,48 +1,48 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 
-class contentTags extends mosDBTable{
+class contentTags extends mosDBTable {
 	var $id = null;
 	var $obj_id = null;
 	var $obj_type = null;
 	var $tag = '';
 
 
-	function contentTags(&$_db){
+	function contentTags(&$_db) {
 		$this->mosDBTable('#__content_tags','id',$_db);
 	}
 
 	function check() {
 		return true;
 	}
-		function classname(){
+	function classname() {
 		return __CLASS__;
 	}
 
-	function load_all(){
+	function load_all() {
 		$sql = 'SELECT tag FROM #__content_tags ORDER BY tag ASC';
 		$this->_db->setQuery($sql);
 		return $this->_db->loadResultArray();
 	}
 
 
-	function load_by($obj){
+	function load_by($obj) {
 		$sql = 'SELECT tag FROM #__content_tags WHERE obj_id = '.$obj->id;
 		$this->_db->setQuery($sql);
 		return $this->_db->loadResultArray();
 	}
 
-	function load_by_tag($tag){
+	function load_by_tag($tag) {
 		$sql = 'SELECT tag.obj_id, tag.obj_type, content.*  FROM #__content_tags AS tag
 				INNER JOIN #__content AS content ON content.id = tag.obj_id
 				WHERE tag.tag =\''.$tag.'\'';
@@ -50,25 +50,25 @@ class contentTags extends mosDBTable{
 		return $this->_db->loadObjectList();
 	}
 
-	function load_by_type($type){
+	function load_by_type($type) {
 		$sql = 'SELECT * FROM #__content_tags WHERE obj_type =\''.$type.'\'';
 		$this->_db->setQuery($sql);
 		return $this->_db->loadObjectList();
 	}
 
-	function load_by_type_tag($group, $tag){
+	function load_by_type_tag($group, $tag) {
 
 		$select = '';
 		$where = '';
 		$order = 'item.id DESC';
 
-		if($group["select"]){
+		if($group["select"]) {
 			$select = ', '.$group["select"];
 		}
-		if($group["where"]){
+		if($group["where"]) {
 			$where = 'AND '.$group["where"];
 		}
-		if($group["order"]){
+		if($group["order"]) {
 			$order = 'item.'.$group["order"];
 		}
 
@@ -84,15 +84,15 @@ class contentTags extends mosDBTable{
 		return $this->_db->loadObjectList();
 	}
 
-	function add($tags,$obj){
+	function add($tags,$obj) {
 		$sql_temp = '';
 		$max = count($tags);
 		$n = 1;
-		foreach($tags as $title){
-				$sql_temp .= '('.$obj->id.', \''.$obj->obj_type.'\',   \''.$title.'\')';
-				if($n<$max){
-					$sql_temp .= ',';
-				}
+		foreach($tags as $title) {
+			$sql_temp .= '('.$obj->id.', \''.$obj->obj_type.'\',   \''.$title.'\')';
+			if($n<$max) {
+				$sql_temp .= ',';
+			}
 			$n++;
 		}
 		$sql = 'INSERT  #__content_tags (obj_id, obj_type, tag) VALUES  '. $sql_temp;
@@ -101,18 +101,18 @@ class contentTags extends mosDBTable{
 
 	}
 
-	function update($tags,$obj){
+	function update($tags,$obj) {
 		$sql = 'DELETE FROM #__content_tags WHERE obj_id = '.$obj->id;
 		$this->_db->setQuery($sql);
 		$this->_db->Query();
 		$sql_temp = '';
 		$max = count($tags);
 		$n = 1;
-		foreach($tags as $title){
-				$sql_temp .= '('.$obj->id.', \''.$obj->obj_type.'\',   \''.$title.'\')';
-				if($n<$max){
-					$sql_temp .= ',';
-				}
+		foreach($tags as $title) {
+			$sql_temp .= '('.$obj->id.', \''.$obj->obj_type.'\',   \''.$title.'\')';
+			if($n<$max) {
+				$sql_temp .= ',';
+			}
 			$n++;
 		}
 
@@ -122,11 +122,11 @@ class contentTags extends mosDBTable{
 
 	}
 
-	function clear_tags($tags){
+	function clear_tags($tags) {
 		$return=array();
-		foreach($tags as $tag){
+		foreach($tags as $tag) {
 			$tag = self::good_tag($tag);
-			if($tag){
+			if($tag) {
 				$return[] = $tag;
 			}
 		}
@@ -134,14 +134,14 @@ class contentTags extends mosDBTable{
 		return $return;
 	}
 
-	function good_tag($tag){
+	function good_tag($tag) {
 		$bad_tag = array('я', ' ');
 
-		if(in_array($tag, $bad_tag)){
+		if(in_array($tag, $bad_tag)) {
 			return false;
 		}
 
-		if($tag==''){
+		if($tag=='') {
 			return false;
 		}
 
@@ -149,17 +149,17 @@ class contentTags extends mosDBTable{
 		return trim($tag);
 	}
 
-	function get_tag_url($tag){
+	function get_tag_url($tag) {
 		return sefRelToAbs('index.php?option=com_search&tag='.urlencode($tag));
 	}
 
-	function arr_to_links($tags, $ds = ', '){
-		if(!$tags){
+	function arr_to_links($tags, $ds = ', ') {
+		if(!$tags) {
 			return;
 		}
 
 		$return=array();
-		foreach($tags as $tag){
+		foreach($tags as $tag) {
 			$return[] = '<a class="tag" href="'.self::get_tag_url($tag).'">'.$tag.'</a>';
 		}
 
@@ -168,7 +168,7 @@ class contentTags extends mosDBTable{
 	}
 }
 
-class TagsCloud{
+class TagsCloud {
 	var $tags;
 	var $font_size_min = 14;
 	var $font_size_step = 5;

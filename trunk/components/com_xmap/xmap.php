@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -97,7 +97,7 @@ switch ($view) {
 		$xSitemap->views_html++;
 		$xSitemap->lastvisit_html = time();
 		$xSitemap->save();
-	break;
+		break;
 
 	case 'xml':
 		$xSitemap->views_xml++;
@@ -109,14 +109,14 @@ switch ($view) {
 		if ($view=='xml' && $scriptname != 'index2.php' || $no_html != 1) {
 			die();
 		}
-	break;
+		break;
 }
 
 /**
-* Function called to generate and generate the tree. Created specially to
-* use with the cache call method
-* The params locale and sef are only for cache purppses
-*/
+ * Function called to generate and generate the tree. Created specially to
+ * use with the cache call method
+ * The params locale and sef are only for cache purppses
+ */
 function xmapCallShowSitemap($view,$sitemapid,$locale='',$sef='',$title='') {
 	global $xmapCache,$xSitemap,$xConfig;
 
@@ -271,7 +271,7 @@ class Xmap {
 
 		$query = "SELECT title FROM #__modules WHERE published='1' AND (module='mod_mainmenu' OR module='mod_mljoostinamenu') AND params LIKE '%menutype=". $menutype ."%' LIMIT 1";
 		$database->setQuery( $query );
-		if( !$database->loadObject($row) ){
+		if( !$database->loadObject($row) ) {
 			return '';
 		}
 		return $row->title;
@@ -304,8 +304,8 @@ class Xmap {
 					break;
 			}
 		}
-		if( strcasecmp( substr( $link, 0, 4), 'http' ) ){
-			if (strcasecmp( substr( $link, 0, 9), 'index.php' ) === 0 ){
+		if( strcasecmp( substr( $link, 0, 4), 'http' ) ) {
+			if (strcasecmp( substr( $link, 0, 9), 'index.php' ) === 0 ) {
 				$link = sefRelToAbs($link);             // apply SEF transformation
 				if( strcasecmp( substr($link,0,4), 'http' ) ) {       // fix broken sefRelToAbs()
 					$link = JPATH_SITE. (substr($link,0,1) == '/'? '' : '/').$link;
@@ -328,35 +328,35 @@ class Xmap {
 
 	/** called with usort to sort menus */
 	function sort_ordering( &$a, &$b) {
-		if( $a->ordering == $b->ordering ){
+		if( $a->ordering == $b->ordering ) {
 			return 0;
 		}
 		return $a->ordering < $b->ordering ? -1 : 1;
 	}
 
-	function _getmenuTree($menu){
+	function _getmenuTree($menu) {
 		static $instance;
 
 		if (!is_array( $instance ) OR !isset($instance[$menu->menutype]) ) {
 			$database = database::getInstance();
 			$sql = "SELECT m.id, m.name, m.parent, m.link, m.type, m.browserNav, m.menutype, m.ordering, m.params, m.componentid, c.name AS component"
-				. "\n FROM #__menu AS m"
-				. "\n LEFT JOIN #__components AS c ON m.type='components' AND c.id=m.componentid"
-				. "\n WHERE m.published='1' AND m.menutype = '".$menu->menutype."'"
-				. ( $this->noauth ? '' : "\n AND m.access <= '". $this->gid ."'" )
-				. "\n ORDER BY m.menutype,m.parent,m.ordering";
+					. "\n FROM #__menu AS m"
+					. "\n LEFT JOIN #__components AS c ON m.type='components' AND c.id=m.componentid"
+					. "\n WHERE m.published='1' AND m.menutype = '".$menu->menutype."'"
+					. ( $this->noauth ? '' : "\n AND m.access <= '". $this->gid ."'" )
+					. "\n ORDER BY m.menutype,m.parent,m.ordering";
 
 			$database->setQuery( $sql );
 			$items = $database->loadObjectList();
 			$instance = array();
-			foreach ($items as $item){
+			foreach ($items as $item) {
 				$instance[$menu->menutype][$item->parent][]=$item;
 			}
 			unset($items,$item);
 		}
 
 		return (isset($instance[$menu->menutype][$menu->id])) ? $instance[$menu->menutype][$menu->id]:null;
-	
+
 
 	}
 

@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -52,13 +52,13 @@ function listContacts($option,$catid) {
 
 	/* Query to retrieve all categories that belong under the contacts section and that are published.*/
 	$query = "SELECT*, COUNT( a.id ) AS numlinks FROM #__categories AS cc"
-		."\n LEFT JOIN #__contact_details AS a ON a.catid = cc.id"
-		."\n WHERE a.published = 1 AND cc.section = 'com_contact_details'"
-		."\n AND cc.published = 1"
-		."\n AND a.access <= "
-		.(int)$my->gid."\n AND cc.access <= ".(int)$my->gid
-		."\n GROUP BY cc.id"
-		."\n ORDER BY cc.ordering";
+			."\n LEFT JOIN #__contact_details AS a ON a.catid = cc.id"
+			."\n WHERE a.published = 1 AND cc.section = 'com_contact_details'"
+			."\n AND cc.published = 1"
+			."\n AND a.access <= "
+			.(int)$my->gid."\n AND cc.access <= ".(int)$my->gid
+			."\n GROUP BY cc.id"
+			."\n ORDER BY cc.ordering";
 	$database->setQuery($query);
 	$categories = $database->loadObjectList();
 
@@ -162,12 +162,12 @@ function listContacts($option,$catid) {
 		if(isset($currentcat->description) && ($currentcat->description != '')) {
 			$currentcat->descrip = $currentcat->description;
 		} else
-			if(!$catid) {
-				// show description
-				if($params->get('description')) {
-					$currentcat->descrip = $params->get('description_text');
-				}
+		if(!$catid) {
+			// show description
+			if($params->get('description')) {
+				$currentcat->descrip = $params->get('description_text');
 			}
+		}
 
 		// page image
 		$currentcat->img = '';
@@ -176,12 +176,12 @@ function listContacts($option,$catid) {
 			$currentcat->img = $path.$currentcat->image;
 			$currentcat->align = $currentcat->image_position;
 		} else
-			if(!$catid) {
-				if($params->get('image') != -1) {
-					$currentcat->img = $path.$params->get('image');
-					$currentcat->align = $params->get('image_align');
-				}
+		if(!$catid) {
+			if($params->get('image') != -1) {
+				$currentcat->img = $path.$params->get('image');
+				$currentcat->align = $params->get('image_align');
 			}
+		}
 
 		// page header
 		$currentcat->header = '';
@@ -207,12 +207,12 @@ function contactpage($contact_id) {
 	$database = &$mainframe->_db;
 
 	$query = "SELECT a.id AS value, CONCAT_WS( ' - ', a.name, a.con_position ) AS text, a.catid, cc.access AS cat_access"
-		."\n FROM #__contact_details AS a"
-		."\n LEFT JOIN #__categories AS cc ON cc.id = a.catid WHERE a.published = 1"
-		."\n AND cc.published = 1"
-		."\n AND a.access <= "
-		.(int)$my->gid
-		."\n ORDER BY a.default_con DESC, a.ordering ASC";
+			."\n FROM #__contact_details AS a"
+			."\n LEFT JOIN #__categories AS cc ON cc.id = a.catid WHERE a.published = 1"
+			."\n AND cc.published = 1"
+			."\n AND a.access <= "
+			.(int)$my->gid
+			."\n ORDER BY a.default_con DESC, a.ordering ASC";
 	$database->setQuery($query);
 	$checks = $database->loadObjectList();
 
@@ -223,11 +223,11 @@ function contactpage($contact_id) {
 		}
 
 		$query = "SELECT a.*, cc.access AS cat_access"
-			."\n FROM #__contact_details AS a"
-			."\n LEFT JOIN #__categories AS cc ON cc.id = a.catid"
-			."\n WHERE a.published = 1"
-			."\n AND a.id = ".(int)$contact_id
-			."\n AND a.access <= ".(int)$my->gid;
+				."\n FROM #__contact_details AS a"
+				."\n LEFT JOIN #__categories AS cc ON cc.id = a.catid"
+				."\n WHERE a.published = 1"
+				."\n AND a.id = ".(int)$contact_id
+				."\n AND a.access <= ".(int)$my->gid;
 		$database->SetQuery($query);
 		$contacts = $database->LoadObjectList();
 
@@ -343,13 +343,13 @@ function contactpage($contact_id) {
 
 		// needed to control the display of the Address marker
 		$temp = $params->get('street_address').$params->get('suburb').$params->get('state').
-			$params->get('country').$params->get('postcode');
+				$params->get('country').$params->get('postcode');
 		$params->set('address_check',$temp);
 
 		// determines whether to use Text, Images or nothing to highlight the different info groups
 		switch($params->get('contact_icons')) {
 			case 1:
-				// text
+			// text
 				$params->set('marker_address',_CONTACT_ADDRESS);
 				$params->set('marker_email',_EMAIL);
 				$params->set('marker_telephone',_CONTACT_TELEPHONE);
@@ -358,7 +358,7 @@ function contactpage($contact_id) {
 				$params->set('column_width','100');
 				break;
 			case 2:
-				// none
+			// none
 				$params->set('marker_address','');
 				$params->set('marker_email','');
 				$params->set('marker_telephone','');
@@ -367,7 +367,7 @@ function contactpage($contact_id) {
 				$params->set('column_width','0');
 				break;
 			default:
-				// icons
+			// icons
 				$image1 = mosAdminMenus::ImageCheck('con_address.png','/images/M_images/',$params->get('icon_address'),'/images/M_images/',_CONTACT_ADDRESS,'adress');
 				$image2 = mosAdminMenus::ImageCheck('emailButton.png','/images/M_images/',$params->get('icon_email'),'/images/M_images/',_EMAIL,'email');
 				$image3 = mosAdminMenus::ImageCheck('con_tel.png','/images/M_images/',$params->get('icon_telephone'),'/images/M_images/',_CONTACT_TELEPHONE,'phone');

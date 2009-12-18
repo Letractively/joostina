@@ -4,7 +4,7 @@
  * @package     Joostina
  * @subpackage  templates/NewLine2
  * @version     $Id: menu.css 29-09-2009 12:17 ZaiSL $;
- */
+*/
 
 ul#mainlevel, ul#mainlevel li, ul#mainlevel-nav, ul#mainlevel-nav li {
 	list-style: none;
@@ -29,8 +29,8 @@ ul#mainlevel-nav, ul#mainlevel-nav li {
 	padding: 0 24px 0 0;
 }
 .top_menu_mid {
-   background: url(../images/layout/topmenu_bg.png) repeat-x center;
-   height: 51px;
+	background: url(../images/layout/topmenu_bg.png) repeat-x center;
+	height: 51px;
 }
 ul#mainlevel-nav {
 	display: block; float: left;

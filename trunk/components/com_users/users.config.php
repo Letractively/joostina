@@ -72,71 +72,71 @@ class configUser_registration extends dbConfig {
 		$acl = &gacl::getInstance();
 
 		$gtree = $acl->get_group_children_tree(null, 'USERS', false); ?>
-		<script language="javascript" type="text/javascript">
-			function submitbutton(pressbutton) {
-				var form = document.adminForm;
-				if (pressbutton == 'cancel') {
-					submitform( pressbutton );
-					return;
-				}
+<script language="javascript" type="text/javascript">
+	function submitbutton(pressbutton) {
+		var form = document.adminForm;
+		if (pressbutton == 'cancel') {
+			submitform( pressbutton );
+			return;
+		}
 
-				// do field validation
-				if  (form.gid.value == "") {
-					alert( "<?php echo _ENTER_GROUP_PLEASE ?>" );
-				}
-				else if (form.gid.value == "29") {
-					alert( "<?php echo _BAD_GROUP_1 ?>" );
-				}
-				else if (form.gid.value == "30") {
-					alert( "<?php echo _BAD_GROUP_2 ?>" );
-				} else {
-					submitform( pressbutton );
-				}
+		// do field validation
+		if  (form.gid.value == "") {
+			alert( "<?php echo _ENTER_GROUP_PLEASE ?>" );
+		}
+		else if (form.gid.value == "29") {
+			alert( "<?php echo _BAD_GROUP_1 ?>" );
+		}
+		else if (form.gid.value == "30") {
+			alert( "<?php echo _BAD_GROUP_2 ?>" );
+		} else {
+			submitform( pressbutton );
+		}
 
-			}
-		</script>
-		<table class="adminheading">
-			<tr><th class="config"><?php echo _C_USERS_REG_SETTINGS?></th></tr>
-		</table>
+	}
+</script>
+<table class="adminheading">
+	<tr><th class="config"><?php echo _C_USERS_REG_SETTINGS?></th></tr>
+</table>
 
-		<form action="index2.php" method="post" name="adminForm">
+<form action="index2.php" method="post" name="adminForm">
 
-			<table class="paramlist">
-				<tr>
-					<th class="key"><?php echo _PAGE_TITLE?></th>
-					<td><input size="100" class="inputbox" type="text" name="title" value="<?php echo $this->title; ?>" /></td>
-				</tr>
-				<tr>
-					<th class="key"><?php echo _C_USERS_REG_FORM_BEFORE?></th>
-					<td><textarea cols="56" rows="7" class="inputbox" name="pre_text"><?php echo $this->pre_text; ?></textarea></td>
-				</tr>
-				<tr>
-					<th class="key"><?php echo _C_USERS_REG_FORM_AFTER?></th>
-					<td><textarea cols="56" rows="7" class="inputbox" name="post_text"><?php echo $this->post_text; ?></textarea></td>
-				</tr>
-				<tr>
-					<th class="key"><?php echo _C_USERS_REG_AFTER_LINK?></th>
-					<td><input size="100" class="inputbox" type="text" name="redirect_url" value="<?php echo $this->redirect_url; ?>" /></td>
-				</tr>
-				<tr>
-					<th class="key"><?php echo _C_USERS_REG_ONE_GROOP_TEMPLATE?></th>
-					<td><?php echo mosHTML::yesnoRadioList('template', '', $this->template?1 : 0); ?></td>
-				</tr>
-				<tr>
-					<th class="key"><?php echo _C_USERS_REG_DEFAULT_GROOPS?></th>
-					<td><?php echo mosHTML::selectList($gtree, 'gid', 'size="1"', 'value', 'text', $this->gid); ?></td>
-				</tr>
-				<tr>
-					<th class="key"><?php echo _C_USERS_REG_PROFILE_ACTIVATE?></th>
-					<td><?php echo mosHTML::yesnoRadioList('admin_activation', '', $this->admin_activation?1 : 0); ?></td>
-				</tr>
-			</table>
+	<table class="paramlist">
+		<tr>
+			<th class="key"><?php echo _PAGE_TITLE?></th>
+			<td><input size="100" class="inputbox" type="text" name="title" value="<?php echo $this->title; ?>" /></td>
+		</tr>
+		<tr>
+			<th class="key"><?php echo _C_USERS_REG_FORM_BEFORE?></th>
+			<td><textarea cols="56" rows="7" class="inputbox" name="pre_text"><?php echo $this->pre_text; ?></textarea></td>
+		</tr>
+		<tr>
+			<th class="key"><?php echo _C_USERS_REG_FORM_AFTER?></th>
+			<td><textarea cols="56" rows="7" class="inputbox" name="post_text"><?php echo $this->post_text; ?></textarea></td>
+		</tr>
+		<tr>
+			<th class="key"><?php echo _C_USERS_REG_AFTER_LINK?></th>
+			<td><input size="100" class="inputbox" type="text" name="redirect_url" value="<?php echo $this->redirect_url; ?>" /></td>
+		</tr>
+		<tr>
+			<th class="key"><?php echo _C_USERS_REG_ONE_GROOP_TEMPLATE?></th>
+			<td><?php echo mosHTML::yesnoRadioList('template', '', $this->template?1 : 0); ?></td>
+		</tr>
+		<tr>
+			<th class="key"><?php echo _C_USERS_REG_DEFAULT_GROOPS?></th>
+			<td><?php echo mosHTML::selectList($gtree, 'gid', 'size="1"', 'value', 'text', $this->gid); ?></td>
+		</tr>
+		<tr>
+			<th class="key"><?php echo _C_USERS_REG_PROFILE_ACTIVATE?></th>
+			<td><?php echo mosHTML::yesnoRadioList('admin_activation', '', $this->admin_activation?1 : 0); ?></td>
+		</tr>
+	</table>
 
-			<input type="hidden" name="option" value="<?php echo $option; ?>" />
-			<input type="hidden" name="act" value="registration" />
-			<input type="hidden" name="task" value="save_config" />
-			<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
-		</form><?php
+	<input type="hidden" name="option" value="<?php echo $option; ?>" />
+	<input type="hidden" name="act" value="registration" />
+	<input type="hidden" name="task" value="save_config" />
+	<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
+</form><?php
 	}
 
 	function save_config() {
@@ -196,50 +196,50 @@ class configUser_profile extends dbConfig {
 		$acl = &gacl::getInstance();
 
 		$gtree = $acl->get_group_children_tree(null, 'USERS', false); ?>
-		<script language="javascript" type="text/javascript">
-			function submitbutton(pressbutton) {
-				var form = document.adminForm;
-				if (pressbutton == 'cancel') {
-					submitform( pressbutton );
-					return;
-				}
-				submitform( pressbutton );
-			}
-		</script>
-		<table class="adminheading">
-			<tr><th class="config"><?php echo _C_USERS_PROFILE_SETTINGS?></th></tr>
-		</table>
+<script language="javascript" type="text/javascript">
+	function submitbutton(pressbutton) {
+		var form = document.adminForm;
+		if (pressbutton == 'cancel') {
+			submitform( pressbutton );
+			return;
+		}
+		submitform( pressbutton );
+	}
+</script>
+<table class="adminheading">
+	<tr><th class="config"><?php echo _C_USERS_PROFILE_SETTINGS?></th></tr>
+</table>
 
-		<form action="index2.php" method="post" name="adminForm">
+<form action="index2.php" method="post" name="adminForm">
 
-			<table class="paramlist">
-				<tr>
-					<th class="key"><?php echo _PAGE_TITLE?></th>
-					<td><input size="100" class="inputbox" type="text" name="title" value="<?php echo $this->title; ?>" /></td>
-				</tr>
+	<table class="paramlist">
+		<tr>
+			<th class="key"><?php echo _PAGE_TITLE?></th>
+			<td><input size="100" class="inputbox" type="text" name="title" value="<?php echo $this->title; ?>" /></td>
+		</tr>
 
-				<tr>
-					<th class="key"><?php echo _C_USERS_PROFILE_ONE_TEMPLATE?></th>
-					<td><?php echo mosHTML::yesnoRadioList('template', '', $this->template ? 1 : 0); ?></td>
-				</tr>
+		<tr>
+			<th class="key"><?php echo _C_USERS_PROFILE_ONE_TEMPLATE?></th>
+			<td><?php echo mosHTML::yesnoRadioList('template', '', $this->template ? 1 : 0); ?></td>
+		</tr>
 
-				<tr>
-					<th class="key"><?php echo _C_USERS_PROFILE_ONE_TEMPLATE_EDIT?></th>
-					<td><?php echo mosHTML::yesnoRadioList('template_edit', '', $this->template_edit?1 : 0); ?></td>
-				</tr>
+		<tr>
+			<th class="key"><?php echo _C_USERS_PROFILE_ONE_TEMPLATE_EDIT?></th>
+			<td><?php echo mosHTML::yesnoRadioList('template_edit', '', $this->template_edit?1 : 0); ?></td>
+		</tr>
 
-				<tr>
-					<th class="key"><?php echo _TEMPLATE_DIR?></th>
-					<td><?php echo mosHTML::yesnoRadioList('template_dir', '', $this->template_dir?1 : 0, _TEMPLATE_DIR_DEF, _TEMPLATE_DIR_SYSTEM); ?></td>
-				</tr>
+		<tr>
+			<th class="key"><?php echo _TEMPLATE_DIR?></th>
+			<td><?php echo mosHTML::yesnoRadioList('template_dir', '', $this->template_dir?1 : 0, _TEMPLATE_DIR_DEF, _TEMPLATE_DIR_SYSTEM); ?></td>
+		</tr>
 
-			</table>
+	</table>
 
-			<input type="hidden" name="option" value="<?php echo $option; ?>" />
-			<input type="hidden" name="act" value="profile" />
-			<input type="hidden" name="task" value="save_config" />
-			<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
-		</form><?php
+	<input type="hidden" name="option" value="<?php echo $option; ?>" />
+	<input type="hidden" name="act" value="profile" />
+	<input type="hidden" name="task" value="save_config" />
+	<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
+</form><?php
 	}
 
 	function save_config() {
@@ -280,46 +280,46 @@ class configUser_lostpass extends dbConfig {
 
 	function display_config($option) {
 
-	?>
-		<script language="javascript" type="text/javascript">
-			function submitbutton(pressbutton) {
-				var form = document.adminForm;
-				if (pressbutton == 'cancel') {
-					submitform( pressbutton );
-					return;
-				}
-				submitform( pressbutton );
-			}
-		</script>
-		<table class="adminheading">
-			<tr><th class="config"><?php echo _C_USERS_LOSTPASS_SETTINGS?></th></tr>
-		</table>
+		?>
+<script language="javascript" type="text/javascript">
+	function submitbutton(pressbutton) {
+		var form = document.adminForm;
+		if (pressbutton == 'cancel') {
+			submitform( pressbutton );
+			return;
+		}
+		submitform( pressbutton );
+	}
+</script>
+<table class="adminheading">
+	<tr><th class="config"><?php echo _C_USERS_LOSTPASS_SETTINGS?></th></tr>
+</table>
 
-		<form action="index2.php" method="post" name="adminForm">
+<form action="index2.php" method="post" name="adminForm">
 
-			<table class="paramlist">
-				<tr>
-					<th class="key"><?php echo _PAGE_TITLE?></th>
-					<td><input size="100" class="inputbox" type="text" name="title" value="<?php echo $this->title; ?>" /></td>
-				</tr>
+	<table class="paramlist">
+		<tr>
+			<th class="key"><?php echo _PAGE_TITLE?></th>
+			<td><input size="100" class="inputbox" type="text" name="title" value="<?php echo $this->title; ?>" /></td>
+		</tr>
 
-				<tr>
-					<th class="key"><?php echo _TEMPLATE?></th>
-					<td><input size="100" class="inputbox" type="text" name="title" value="<?php echo $this->template; ?>" /></td>
-				</tr>
+		<tr>
+			<th class="key"><?php echo _TEMPLATE?></th>
+			<td><input size="100" class="inputbox" type="text" name="title" value="<?php echo $this->template; ?>" /></td>
+		</tr>
 
-				<tr>
-					<th class="key"><?php echo _TEMPLATE_DIR?></th>
-					<td><?php echo mosHTML::yesnoRadioList('template_dir', '', $this->template_dir?1 : 0, _TEMPLATE_DIR_DEF, _TEMPLATE_DIR_SYSTEM); ?></td>
-				</tr>
+		<tr>
+			<th class="key"><?php echo _TEMPLATE_DIR?></th>
+			<td><?php echo mosHTML::yesnoRadioList('template_dir', '', $this->template_dir?1 : 0, _TEMPLATE_DIR_DEF, _TEMPLATE_DIR_SYSTEM); ?></td>
+		</tr>
 
-			</table>
+	</table>
 
-			<input type="hidden" name="option" value="<?php echo $option; ?>" />
-			<input type="hidden" name="act" value="lostpass" />
-			<input type="hidden" name="task" value="save_config" />
-			<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
-		</form><?php
+	<input type="hidden" name="option" value="<?php echo $option; ?>" />
+	<input type="hidden" name="act" value="lostpass" />
+	<input type="hidden" name="task" value="save_config" />
+	<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
+</form><?php
 	}
 
 	function save_config() {

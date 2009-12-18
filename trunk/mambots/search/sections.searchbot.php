@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -13,14 +13,14 @@ defined('_VALID_MOS') or die();
 $_MAMBOTS->registerFunction('onSearch','botSearchSections');
 
 /**
-* Метод поиска секций
-*
-* запрос sql должен возвратить поля, используются в обычной операции 
-* отображения: href, title, section, created, text, browsernav
-* @param определяет цель поиска
-* @param сопоставляет параметры: exact|any|all
-* @param определяет параметр сортировки: newest|oldest|popular|alpha|category
-*/
+ * Метод поиска секций
+ *
+ * запрос sql должен возвратить поля, используются в обычной операции
+ * отображения: href, title, section, created, text, browsernav
+ * @param определяет цель поиска
+ * @param сопоставляет параметры: exact|any|all
+ * @param определяет параметр сортировки: newest|oldest|popular|alpha|category
+ */
 function botSearchSections($text,$phrase = '',$ordering = '') {
 	global $my,$_MAMBOTS;
 
@@ -63,11 +63,11 @@ function botSearchSections($text,$phrase = '',$ordering = '') {
 	}
 
 	$query = "SELECT a.name AS title,"."\n a.description AS text,"."\n '' AS created,".
-		"\n '2' AS browsernav,"."\n a.id AS secid, m.id AS menuid, m.type AS menutype".
-		"\n FROM #__sections AS a"."\n LEFT JOIN #__menu AS m ON m.componentid = a.id".
-		"\n WHERE ( a.name LIKE '%$text%'"."\n OR a.title LIKE '%$text%'"."\n OR a.description LIKE '%$text%' )".
-		"\n AND a.published = 1"."\n AND a.access <= ".(int)$my->gid."\n AND ( m.type = 'content_section' OR m.type = 'content_blog_section' )".
-		"\n GROUP BY a.id"."\n ORDER BY $order";
+			"\n '2' AS browsernav,"."\n a.id AS secid, m.id AS menuid, m.type AS menutype".
+			"\n FROM #__sections AS a"."\n LEFT JOIN #__menu AS m ON m.componentid = a.id".
+			"\n WHERE ( a.name LIKE '%$text%'"."\n OR a.title LIKE '%$text%'"."\n OR a.description LIKE '%$text%' )".
+			"\n AND a.published = 1"."\n AND a.access <= ".(int)$my->gid."\n AND ( m.type = 'content_section' OR m.type = 'content_blog_section' )".
+			"\n GROUP BY a.id"."\n ORDER BY $order";
 	$database->setQuery($query,0,$limit);
 	$rows = $database->loadObjectList();
 

@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -30,22 +30,21 @@ if(!defined('_JOS_POLL_MODULE')) {
 
 		$def_itemid = $params->get( 'def_itemid', 0 );
 
-		$all_menu_links = mosMenu::get_menu_links();;
+		$all_menu_links = mosMenu::get_menu_links();
 		$_Itemid = $Itemid;
-		if($def_itemid==0 && isset($all_menu_links['index.php?option=com_poll']) ){
+		if($def_itemid==0 && isset($all_menu_links['index.php?option=com_poll']) ) {
 			$_Itemid = $all_menu_links['index.php?option=com_poll']['id'];
-		}else{
+		}else {
 			$_Itemid = $def_itemid;
 		}
-
+		
 		$z = 1;
+
+		// подключаем файл локализации
+		include_once($mainframe->getLangFile('com_poll'));
 
 		foreach($polls as $poll) {
 			if($poll->id && $poll->title) {
-
-				// подключаем файл локализации
-				include_once($mainframe->getLangFile('com_poll'));
-
 
 				$query = "SELECT id, text FROM #__poll_data WHERE pollid = " . (int)$poll->id . " AND text != '' ORDER BY id";
 				$database->setQuery($query);
@@ -76,35 +75,35 @@ if(!defined('_JOS_POLL_MODULE')) {
 
 		// used for spoof hardening
 		$validate = josSpoofValue('poll');
-?>
-		<script language="javascript" type="text/javascript">
-		<!--
-		function submitbutton_Poll<?php echo $z; ?>() {
-			var form		= document.pollxtd<?php echo $z; ?>;
-			var radio		= form.voteid;
-			var radioLength = radio.length;
-			var check		= 0;
+		?>
+<script language="javascript" type="text/javascript">
+	<!--
+	function submitbutton_Poll<?php echo $z; ?>() {
+		var form		= document.pollxtd<?php echo $z; ?>;
+		var radio		= form.voteid;
+		var radioLength = radio.length;
+		var check		= 0;
 
-			if ( '<?php echo $voted; ?>' != 'z' ) {
-				alert('<?php echo addslashes(_ALREADY_VOTE); ?>');
-				return;
-			}
-			for(var i = 0; i < radioLength; i++) {
-				if(radio[i].checked) {
-					form.submit();
-					check = 1;
-				}
-			}
-			if (check == 0) {
-				alert('<?php echo addslashes(_NO_SELECTION); ?>');
+		if ( '<?php echo $voted; ?>' != 'z' ) {
+			alert('<?php echo addslashes(_ALREADY_VOTE); ?>');
+			return;
+		}
+		for(var i = 0; i < radioLength; i++) {
+			if(radio[i].checked) {
+				form.submit();
+				check = 1;
 			}
 		}
-		//-->
-		</script>
-		<form name="pollxtd<?php echo $z; ?>" method="post" action="<?php echo sefRelToAbs("index.php?option=com_poll"); ?>">
-		<div class="poll<?php echo $moduleclass_sfx; ?>">
-			<h4><?php echo $poll->title; ?></h4>
-			<table class="pollstableborder<?php echo $moduleclass_sfx; ?>" cellspacing="0" cellpadding="0" border="0"><?php for($i = 0, $n = count($options); $i < $n; $i++) { ?>
+		if (check == 0) {
+			alert('<?php echo addslashes(_NO_SELECTION); ?>');
+		}
+	}
+	//-->
+</script>
+<form name="pollxtd<?php echo $z; ?>" method="post" action="<?php echo sefRelToAbs("index.php?option=com_poll"); ?>">
+	<div class="poll<?php echo $moduleclass_sfx; ?>">
+		<h4><?php echo $poll->title; ?></h4>
+		<table class="pollstableborder<?php echo $moduleclass_sfx; ?>" cellspacing="0" cellpadding="0" border="0"><?php for($i = 0, $n = count($options); $i < $n; $i++) { ?>
 			<tr>
 				<td valign="top" class="<?php echo $tabclass_arr[$tabcnt]; ?><?php echo $moduleclass_sfx; ?>">
 					<input type="radio" name="voteid" id="voteid<?php echo $options[$i]->id; ?>" value="<?php echo $options[$i]->id; ?>" alt="<?php echo $options[$i]->id; ?>" />
@@ -112,19 +111,20 @@ if(!defined('_JOS_POLL_MODULE')) {
 				<td valign="top" class="<?php echo $tabclass_arr[$tabcnt]; ?><?php echo $moduleclass_sfx; ?>">
 					<label for="voteid<?php echo $options[$i]->id; ?>"><?php echo stripslashes($options[$i]->text); ?></label>
 				</td>
-			</tr><?php $tabcnt= ($tabcnt == 1) ? 0 : 1; } ?>
-			</table>
-			<div class="poll_buttons">
-				<span class="button"><input type="button" onclick="submitbutton_Poll<?php echo $z; ?>();" name="task_button" class="button" value="<?php echo _BUTTON_VOTE; ?>" /></span>
-				<span class="button"><input type="button" name="option" class="button" value="<?php echo _BUTTON_RESULTS; ?>" onclick="document.location.href='<?php echo sefRelToAbs("index.php?option=com_poll&amp;task=results&amp;id=".$poll->id. '&amp;Itemid=' . $_Itemid); ?>';" /></span>
-			</div>
+			</tr><?php $tabcnt= ($tabcnt == 1) ? 0 : 1;
+					} ?>
+		</table>
+		<div class="poll_buttons">
+			<span class="button"><input type="button" onclick="submitbutton_Poll<?php echo $z; ?>();" name="task_button" class="button" value="<?php echo _BUTTON_VOTE; ?>" /></span>
+			<span class="button"><input type="button" name="option" class="button" value="<?php echo _BUTTON_RESULTS; ?>" onclick="document.location.href='<?php echo sefRelToAbs("index.php?option=com_poll&amp;task=results&amp;id=".$poll->id. '&amp;Itemid=' . $_Itemid); ?>';" /></span>
 		</div>
-		<input type="hidden" name="id" value="<?php echo $poll->id; ?>" />
-		<input type="hidden" name="task" value="vote" />
-		<input type="hidden" name="Itemid" value="<?php echo $_Itemid ?>" />
-		<input type="hidden" name="<?php echo $validate; ?>" value="1" />
-	</form>
-	<?php
+	</div>
+	<input type="hidden" name="id" value="<?php echo $poll->id; ?>" />
+	<input type="hidden" name="task" value="vote" />
+	<input type="hidden" name="Itemid" value="<?php echo $_Itemid ?>" />
+	<input type="hidden" name="<?php echo $validate; ?>" value="1" />
+</form>
+		<?php
 	}
 }
 show_poll_vote_form($Itemid, $params, $mainframe);

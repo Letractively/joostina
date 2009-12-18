@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -34,9 +34,9 @@ function pluginJWAjaxVote(&$row,&$params) {
 		if(!defined('_ADD_SCRIPT_AJAXVOTE')) {
 			define('_ADD_SCRIPT_AJAXVOTE', 1 );
 			/* при включенном кэшировании выведем подключение js кода вместе с первым выводом кнопок голосования*/
-			if($mainframe->config->config_caching){
+			if($mainframe->config->config_caching) {
 				$return .=$script;
-			}else{ // если кэширование не активно - добавим js код в заголовок страницы - так правильнее
+			}else { // если кэширование не активно - добавим js код в заголовок страницы - так правильнее
 				$mainframe->addCustomHeadTag($script);
 			}
 		}
@@ -51,15 +51,15 @@ function pluginJWAjaxVote(&$row,&$params) {
 				<li><a href="javascript:void(null)" onclick="javascript:jwAjaxVote('.$id.',5,'.$rating_sum.','.$rating_count.');" title="5 баллов из 5" class="five-stars">&nbsp;</a></li>
 			</ul>
 			<div id="jwajaxvote'.$id.'" class="jwajaxvote-box">';
-			if($rating_count != 1) {
-					$return .='('.$rating_count.' '._POLL_VOTES.')';
-				} else {
-					 $return .='('.$rating_count.' '._AV_VOTE.')';
-				}
+		if($rating_count != 1) {
+			$return .='('.$rating_count.' '._POLL_VOTES.')';
+		} else {
+			$return .='('.$rating_count.' '._AV_VOTE.')';
+		}
 		$return .='
 			</div>
 		</div>
 		<div class="jwajaxvote-clr"></div>';
-$row->rating=$return;
+		$row->rating=$return;
 	}
 }

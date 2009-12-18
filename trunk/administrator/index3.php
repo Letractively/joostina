@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // Установка флага родительского файла
 define('_VALID_MOS',1);
@@ -70,7 +70,7 @@ $my = $mainframe->initSessionAdmin($option,$task);
 if($no_html) {
 	if($path = $mainframe->getPath('admin')) {
 		//Подключаем язык компонента
-		if($mainframe->getLangFile($option)){
+		if($mainframe->getLangFile($option)) {
 			include($mainframe->getLangFile($option));
 		}
 		require $path;
@@ -83,37 +83,37 @@ initGzip();
 <?php echo "<?xml version=\"1.0\"?>"; ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<title><?php echo $mosConfig_sitename; ?> - Joostina</title>
-<link rel="stylesheet" href="templates/<?php echo JTEMPLATE; ?>/css/template_css.css" type="text/css" />
-<link rel="stylesheet" href="templates/<?php echo JTEMPLATE; ?>/css/theme.css" type="text/css" />
-<script language="JavaScript" src="../includes/js/JSCookMenu.js" type="text/javascript"></script>
-<script language="JavaScript" src="includes/js/ThemeOffice/theme.js" type="text/javascript"></script>
-<script language="JavaScript" src="../includes/js/joomla.javascript.js" type="text/javascript"></script>
-<meta http-equiv="Content-Type" content="text/html; <?php echo _ISO; ?>" />
-<?php
-$mainframe->set('loadEditor',true);
-include_once (JPATH_BASE . '/includes/editor.php');
-initEditor();
-?>
-</head>
-<body>
-<?php
-if($mosmsg) {
-	if(!get_magic_quotes_gpc()) {
-		$mosmsg = addslashes($mosmsg);
-	}
-	echo "\n<script language=\"javascript\" type=\"text/javascript\">alert('$mosmsg');</script>";
-}
+	<head>
+		<title><?php echo $mosConfig_sitename; ?> - Joostina</title>
+		<link rel="stylesheet" href="templates/<?php echo JTEMPLATE; ?>/css/template_css.css" type="text/css" />
+		<link rel="stylesheet" href="templates/<?php echo JTEMPLATE; ?>/css/theme.css" type="text/css" />
+		<script language="JavaScript" src="../includes/js/JSCookMenu.js" type="text/javascript"></script>
+		<script language="JavaScript" src="includes/js/ThemeOffice/theme.js" type="text/javascript"></script>
+		<script language="JavaScript" src="../includes/js/joomla.javascript.js" type="text/javascript"></script>
+		<meta http-equiv="Content-Type" content="text/html; <?php echo _ISO; ?>" />
+		<?php
+		$mainframe->set('loadEditor',true);
+		include_once (JPATH_BASE . '/includes/editor.php');
+		initEditor();
+		?>
+	</head>
+	<body>
+		<?php
+		if($mosmsg) {
+			if(!get_magic_quotes_gpc()) {
+				$mosmsg = addslashes($mosmsg);
+			}
+			echo "\n<script language=\"javascript\" type=\"text/javascript\">alert('$mosmsg');</script>";
+		}
 
 // Show list of items to edit or delete or create new
-if($path = $mainframe->getPath('admin')) {
-	require $path;
-} else { ?>
-	<img src="<?php echo JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE;?>/images/ico/error.png" border="0" alt="Joostina!" />
-	<br />
-<?php } ?>
-</body>
+		if($path = $mainframe->getPath('admin')) {
+			require $path;
+		} else { ?>
+		<img src="<?php echo JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE;?>/images/ico/error.png" border="0" alt="Joostina!" />
+		<br />
+			<?php } ?>
+	</body>
 </html>
 <?php
 doGzip();

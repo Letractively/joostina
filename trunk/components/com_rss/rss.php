@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -229,12 +229,12 @@ function feedFrontpage($showFeed) {
 
 	// query of frontpage content items
 	$query = "SELECT a.*, u.name AS author, u.usertype, UNIX_TIMESTAMP( a.created ) AS created_ts, cat.title AS cat_title, sec.title AS section_title".
-		"\n FROM #__content AS a INNER JOIN #__content_frontpage AS f ON f.content_id = a.id".
-		"\n LEFT JOIN #__users AS u ON u.id = a.created_by LEFT JOIN #__categories AS cat ON cat.id = a.catid".
-		"\n LEFT JOIN #__sections AS sec ON sec.id = a.sectionid WHERE a.state = 1".
-		"\n AND cat.published = 1 AND sec.published = 1 AND a.access = 0 AND cat.access = 0".
-		"\n AND sec.access = 0 AND ( a.publish_up = ".$database->Quote($nullDate).
-		" OR a.publish_up <= ".$database->Quote($now)." ) AND ( a.publish_down = ".$database->Quote($nullDate)." OR a.publish_down >= ".$database->Quote($now)." ) ORDER BY $orderby";
+			"\n FROM #__content AS a INNER JOIN #__content_frontpage AS f ON f.content_id = a.id".
+			"\n LEFT JOIN #__users AS u ON u.id = a.created_by LEFT JOIN #__categories AS cat ON cat.id = a.catid".
+			"\n LEFT JOIN #__sections AS sec ON sec.id = a.sectionid WHERE a.state = 1".
+			"\n AND cat.published = 1 AND sec.published = 1 AND a.access = 0 AND cat.access = 0".
+			"\n AND sec.access = 0 AND ( a.publish_up = ".$database->Quote($nullDate).
+			" OR a.publish_up <= ".$database->Quote($now)." ) AND ( a.publish_down = ".$database->Quote($nullDate)." OR a.publish_down >= ".$database->Quote($now)." ) ORDER BY $orderby";
 	$database->setQuery($query,0,$info['count']);
 	$rows = $database->loadObjectList();
 

@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -13,11 +13,11 @@ defined('_VALID_MOS') or die();
 $_MAMBOTS->registerFunction('onPrepareContent','botMosSef');
 
 /**
-* Конвертирование внутренних относительных ссылок в URL-адреса SEF
-*
-* <b>Использование:</b>
-* <code><a href="...относительная ссылка..."></code>
-*/
+ * Конвертирование внутренних относительных ссылок в URL-адреса SEF
+ *
+ * <b>Использование:</b>
+ * <code><a href="...относительная ссылка..."></code>
+ */
 function botMosSef($published,&$row,&$params,$page = 0) {
 	global $mosConfig_sef;
 
@@ -46,10 +46,10 @@ function botMosSef($published,&$row,&$params,$page = 0) {
 }
 
 /**
-* Замена совпадающих тэгов
-* @param array - Массив соответствий (см. - preg_match_all)
-* @return string
-*/
+ * Замена совпадающих тэгов
+ * @param array - Массив соответствий (см. - preg_match_all)
+ * @return string
+ */
 function botMosSef_replacer(&$matches) {
 	// original text that might be replaced
 	$original = 'href="'.$matches[1].'"';
@@ -73,25 +73,25 @@ function botMosSef_replacer(&$matches) {
 
 		return $replace;
 	} else
-		if(strpos($matches[1],'#') === 0) {
-			// special handling for anchor only links
-			$url = $_SERVER['REQUEST_URI'];
-			$url = explode('?option',$url);
+	if(strpos($matches[1],'#') === 0) {
+		// special handling for anchor only links
+		$url = $_SERVER['REQUEST_URI'];
+		$url = explode('?option',$url);
 
-			if(is_array($url) && isset($url[1])) {
-				$link = 'index.php?option'.$url[1];
-				// convert url to SEF link
-				$link = sefRelToAbs($link).$matches[1];
-			} else {
-				$link = $matches[1];
-				// convert url to SEF link
-				$link = sefRelToAbs($link);
-			}
-			// reconstruct html output
-			$replace = 'href="'.$link.'"';
-
-			return $replace;
+		if(is_array($url) && isset($url[1])) {
+			$link = 'index.php?option'.$url[1];
+			// convert url to SEF link
+			$link = sefRelToAbs($link).$matches[1];
 		} else {
-			return $original;
+			$link = $matches[1];
+			// convert url to SEF link
+			$link = sefRelToAbs($link);
 		}
+		// reconstruct html output
+		$replace = 'href="'.$link.'"';
+
+		return $replace;
+	} else {
+		return $original;
+	}
 }
