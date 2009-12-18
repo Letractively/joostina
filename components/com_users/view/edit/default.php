@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -19,7 +19,7 @@ $tabs = new mosTabs(1);
 
 ?><div class="edit_profile_page">
 	<div class="componentheading"><h1><?php echo $user->name; ?>&nbsp;(<?php echo $user->username; ?>)</h1></div>
-<?php $tabs->startPane("userInfo"); ?>
+	<?php $tabs->startPane("userInfo"); ?>
 	<form action="<?php echo sefRelToAbs('index.php');  ?>" method="post" name="mosUserForm" id="mosUserForm">
 
 		<?php $tabs->startTab(_GENERAL,"general"); ?>
@@ -46,12 +46,12 @@ $tabs = new mosTabs(1);
 				<td><input class="inputbox" type="password" name="verifyPass" id="verifyPass"/></td>
 			</tr>
 		</table>
-		
+
 		<?php if($config->config_frontend_userparams == '1' || $config->config_frontend_userparams == 1 ||$config->csonfig_frontend_userparams == null) {?>
-			<h3><?php echo _SITE_SETTINGS?></h3>
+		<h3><?php echo _SITE_SETTINGS?></h3>
 			<?php echo $params->render('params'); ?>
-		<?php } ?>
-		
+			<?php } ?>
+
 		<br />
 		<h3><?php echo _USER_PERSONAL_DATA?></h3>
 		<table width="100%">
@@ -80,8 +80,8 @@ $tabs = new mosTabs(1);
 				</td>
 			</tr>
 		</table>
-<?php $tabs->endTab(); ?>
-<?php $tabs->startTab(_USER_CONTACTS,"cantacts"); ?>
+		<?php $tabs->endTab(); ?>
+		<?php $tabs->startTab(_USER_CONTACTS,"cantacts"); ?>
 		<h3><?php echo _COM_USERS_CONTACT_INFO?></h3>
 		<table width="100%">
 			<tr>
@@ -121,15 +121,15 @@ $tabs = new mosTabs(1);
 				<td><input class="inputbox" type="text" name="mobil" id="mobil" value="<?php echo $user->user_extra->mobil ?>"/></td>
 			</tr>
 		</table>
-<?php $tabs->endTab(); ?>
-	<input type="hidden" name="id" value="<?php echo $user->id; ?>" />
-	<input type="hidden" name="option" value="<?php echo $option; ?>" />
-	<input type="hidden" name="task" id="task" value="saveUserEdit" />
-	<input type="hidden" name="<?php echo $validate; ?>" value="1" />
+		<?php $tabs->endTab(); ?>
+		<input type="hidden" name="id" value="<?php echo $user->id; ?>" />
+		<input type="hidden" name="option" value="<?php echo $option; ?>" />
+		<input type="hidden" name="task" id="task" value="saveUserEdit" />
+		<input type="hidden" name="<?php echo $validate; ?>" value="1" />
 	</form>
-<?php $tabs->startTab(_C_USERS_AVATARS,"avatar"); ?>
-<h3><?php echo _C_USERS_AVATARS?></h3>
-<?php
+	<?php $tabs->startTab(_C_USERS_AVATARS,"avatar"); ?>
+	<h3><?php echo _C_USERS_AVATARS?></h3>
+	<?php
 	$form_params = new stdClass();
 	$form_params->id = 'avatar_uploadForm';
 	$form_params->img_field = 'avatar';
@@ -137,15 +137,15 @@ $tabs = new mosTabs(1);
 	$form_params->default_img = 'images/avatars/none.jpg';
 	$form_params->img_class = 'user_avatar';
 	$form_params->ajax_handler = JPATH_SITE.'/ajax.index.php?option=com_users';
-	if(!$user->avatar){
+	if(!$user->avatar) {
 		userHelper::_build_img_upload_area($user, $form_params, 'upload');
 	} else {
 		userHelper::_build_img_upload_area($user, $form_params, 'reupload');
 	} ?>
-<?php $tabs->endTab(); ?>
-		<div class="buttons">
-			<span class="button"><button type="submit" class="button submit" name="submit" id="save"><?php echo _SAVE?></button></span>
-			<span class="button"><button type="submit" class="button cancel" name="cancel" id="cancel"><?php echo _CANCEL?></button></span>
-		</div>
-<?php $tabs->endPane(); ?>
+	<?php $tabs->endTab(); ?>
+	<div class="buttons">
+		<span class="button"><button type="submit" class="button submit" name="submit" id="save"><?php echo _SAVE?></button></span>
+		<span class="button"><button type="submit" class="button cancel" name="cancel" id="cancel"><?php echo _CANCEL?></button></span>
+	</div>
+	<?php $tabs->endPane(); ?>
 </div>

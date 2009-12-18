@@ -16,6 +16,5 @@
 		<param name="mod_position" type="text" default="banner" label="Позиция модуля" description="Название позиции для вывода модулей, например banner или left" />
 		<param name="mod_type" type="text" default="-2" label="Параметр загрузки модуля" description="Параметр загрузки модуля, mosLoadModules('позиция','параметр')" />
 		<param name="mod_after" type="text" default="1" label="После новости №" description="Вы водить позицию модуля после новости с указанным здесь номером" />
-
 	</params>
 </mosinstall>

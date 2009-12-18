@@ -1,12 +1,12 @@
 <?php
 /**
-* @package Joostina
+ * @package Joostina
  * @subpackage Cache handler
-* @copyright Авторские права (C) 2007-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @copyright Авторские права (C) 2007-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // Check to ensure this file is within the rest of the framework
 defined('_VALID_MOS') or die();
@@ -15,12 +15,12 @@ defined('_VALID_MOS') or die();
  * Joostina! Cache base object
  *
  * @abstract
- * @author		
+ * @author
  * @package		Joostina
  * @subpackage	Cache handler
  * @since		1.3
  */
-class JCache{
+class JCache {
 	/**
 	 * Storage Handler
 	 * @access	private
@@ -42,9 +42,9 @@ class JCache{
 	 * @access	protected
 	 * @param	array	$options	options
 	 */
-	function __construct($options, $object = null){
+	function __construct($options, $object = null) {
 		$this->_options =& $options;
- 		$this->_object = $object;
+		$this->_object = $object;
 		// Get the default group and caching
 		if(isset($options['language'])) {
 			$this->_options['language'] = $options['language'];
@@ -76,9 +76,9 @@ class JCache{
 			$this->_options['storage'] = 'file';
 		}
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Returns a reference to a cache adapter object, always creating it
 	 *
@@ -87,15 +87,13 @@ class JCache{
 	 * @return	object	A JCache object
 	 * @since	1.3
 	 */
-	 
-	function &getInstance($type = 'output', $options = array(), $object = null)
-	{
+
+	function &getInstance($type = 'output', $options = array(), $object = null) {
 		$type = strtolower(preg_replace('/[^A-Z0-9_\.-]/i', '', $type));
 
 		$class = 'JCache'.ucfirst($type);
 
-		if(!class_exists($class))
-		{
+		if(!class_exists($class)) {
 			$path = dirname(__FILE__).DS.'handler'.DS.$type.'.php';
 
 			if (file_exists($path)) {
@@ -114,12 +112,12 @@ class JCache{
 	 * @access public
 	 * @return array An array of available storage handlers
 	 */
-	function getStores(){
+	function getStores() {
 		require_once(dirname(__FILE__).DS.'../filesystem/folder.php');
 		$handlers = JFolder::files(dirname(__FILE__).DS.'storage', '.php');
 
 		$names = array();
-		foreach($handlers as $handler){
+		foreach($handlers as $handler) {
 			$name = substr($handler, 0, strrpos($handler, '.'));
 			$class = 'JCacheStorage'.$name;
 
@@ -143,7 +141,7 @@ class JCache{
 	 * @return	void
 	 * @since	1.3
 	 */
-	function setCaching($enabled){
+	function setCaching($enabled) {
 		$this->_options['caching'] = $enabled;
 	}
 
@@ -155,7 +153,7 @@ class JCache{
 	 * @return	void
 	 * @since	1.3
 	 */
-	function setLifeTime($lt){
+	function setLifeTime($lt) {
 		$this->_options['lifetime'] = $lt;
 	}
 
@@ -166,7 +164,7 @@ class JCache{
 	 * @return	void
 	 * @since	1.3
 	 */
-	function setCacheValidation(){
+	function setCacheValidation() {
 		// Deprecated
 	}
 
@@ -180,7 +178,7 @@ class JCache{
 	 * @return	mixed	Boolean false on failure or a cached data string
 	 * @since	1.3
 	 */
-	function get($id, $group=null){
+	function get($id, $group=null) {
 		// Get the default group
 		$group = ($group) ? $group : $this->_options['defaultgroup'];
 
@@ -202,7 +200,7 @@ class JCache{
 	 * @return	boolean	True if cache stored
 	 * @since	1.3
 	 */
-	function store($data, $id, $group=null){
+	function store($data, $id, $group=null) {
 		// Get the default group
 		$group = ($group) ? $group : $this->_options['defaultgroup'];
 
@@ -224,7 +222,7 @@ class JCache{
 	 * @return	boolean	True on success, false otherwise
 	 * @since	1.3
 	 */
-	function remove($id, $group=null){
+	function remove($id, $group=null) {
 		// Get the default group
 		$group = ($group) ? $group : $this->_options['defaultgroup'];
 
@@ -248,10 +246,10 @@ class JCache{
 	 * @return	boolean	True on success, false otherwise
 	 * @since	1.3
 	 */
-	function clean($group=null, $mode='group'){
+	function clean($group=null, $mode='group') {
 		// Get the default group
 		$group = ($group) ? $group : $this->_options['defaultgroup'];
-		
+
 		// Get the storage handler
 		$handler =& $this->_getStorage();
 		if ($handler != NULL) {
@@ -268,7 +266,7 @@ class JCache{
 	 * @return boolean  True on success, false otherwise.
 	 * @since	1.3
 	 */
-	function gc(){
+	function gc() {
 		// Get the storage handler
 		$handler =& $this->_getStorage();
 		if ($handler != NULL) {
@@ -284,26 +282,22 @@ class JCache{
 	 * @return object A JCacheStorage object
 	 * @since	1.3
 	 */
-	function &_getStorage(){
+	function &_getStorage() {
 		if (is_a($this->_handler, 'JCacheStorage')) {
 			return $this->_handler;
 		}
 
 		$this->_handler =& JCacheStorage::getInstance($this->_options['storage'], $this->_options);
-		if($this->_handler != NULL)
-		{				
-			if($this->_handler->test())
-			{
+		if($this->_handler != NULL) {
+			if($this->_handler->test()) {
 				return $this->_handler;
 			}
-			else
-			{
+			else {
 				$this->_handler =& JCacheStorage::getInstance('file', $this->_options);
 				return $this->_handler;
 			}
 		}
-		else
-		{
+		else {
 			return NULL;
 		}
 	}
@@ -318,14 +312,14 @@ class JCache{
  * @subpackage	Cache
  * @since		1.3
  */
-class JCacheStorage{
+class JCacheStorage {
 	/**
-	* Constructor
-	*
-	* @access protected
-	* @param array $options optional parameters
-	*/
-	function __construct( $options = array() ){
+	 * Constructor
+	 *
+	 * @access protected
+	 * @param array $options optional parameters
+	 */
+	function __construct( $options = array() ) {
 		$this->_application	= (isset($options['application'])) ? $options['application'] : null;
 		$this->_language	= (isset($options['language'])) ? $options['language'] : 'en-GB';
 		$this->_locking		= (isset($options['locking'])) ? $options['locking'] : true;
@@ -351,7 +345,7 @@ class JCacheStorage{
 	 * @return	object	A JCacheStorageHandler object
 	 * @since	1.3
 	 */
-	function &getInstance($handler = 'file', $options = array()){
+	function &getInstance($handler = 'file', $options = array()) {
 		static $now = null;
 		if(is_null($now)) {
 			$now = time();
@@ -360,7 +354,7 @@ class JCacheStorage{
 		//We can't cache this since options may change...
 		$handler = strtolower(preg_replace('/[^A-Z0-9_\.-]/i', '', $handler));
 		$class   = 'JCacheStorage'.ucfirst($handler);
-		if(!class_exists($class)){
+		if(!class_exists($class)) {
 			$path = dirname(__FILE__).DS.'storage'.DS.$handler.'.php';
 			if (file_exists($path) ) {
 				require_once($path);
@@ -383,7 +377,7 @@ class JCacheStorage{
 	 * @return	mixed	Boolean false on failure or a cached data string
 	 * @since	1.3
 	 */
-	function get($id, $group, $checkTime){
+	function get($id, $group, $checkTime) {
 		return;
 	}
 
@@ -398,7 +392,7 @@ class JCacheStorage{
 	 * @return	boolean	True on success, false otherwise
 	 * @since	1.3
 	 */
-	function store($id, $group, $data){
+	function store($id, $group, $data) {
 		return true;
 	}
 
@@ -412,7 +406,7 @@ class JCacheStorage{
 	 * @return	boolean	True on success, false otherwise
 	 * @since	1.3
 	 */
-	function remove($id, $group){
+	function remove($id, $group) {
 		return true;
 	}
 
@@ -429,7 +423,7 @@ class JCacheStorage{
 	 * @return	boolean	True on success, false otherwise
 	 * @since	1.3
 	 */
-	function clean($group = 'default', $mode = ''){
+	function clean($group = 'default', $mode = '') {
 		global $mosConfig_cache_key;
 		$fname = JPATH_BASE.'/configuration.php';
 
@@ -439,21 +433,19 @@ class JCacheStorage{
 			@chmod($fname,$oldperms | 0222);
 		}
 
-		if($fp = fopen($fname,'r')){
+		if($fp = fopen($fname,'r')) {
 			$data = fread($fp, filesize($fname));
 			fclose($fp);
-			if($fp = fopen($fname,'w')){
+			if($fp = fopen($fname,'w')) {
 				$pattern = '$mosConfig_cache_key = \'' . $mosConfig_cache_key . '\';';
 				$replacement = '$mosConfig_cache_key = \'' . time() . '\';';
 				$data = str_replace($pattern, $replacement, $data);
 				fwrite($fp,$data);
 				fclose($fp);
-				if($enable_write) 
-				{
+				if($enable_write) {
 					@chmod($fname,$oldperms);
 				}
-				else
-				{
+				else {
 					if(mosGetParam($_POST,'disable_write',0)) @chmod($fname,$oldperms & 0777555);
 				} // if
 			}
@@ -468,7 +460,7 @@ class JCacheStorage{
 	 * @access public
 	 * @return boolean  True on success, false otherwise.
 	 */
-	function gc(){
+	function gc() {
 		return true;
 	}
 
@@ -480,7 +472,7 @@ class JCacheStorage{
 	 * @access public
 	 * @return boolean  True on success, false otherwise.
 	 */
-	function test(){
+	function test() {
 		return true;
 	}
 }

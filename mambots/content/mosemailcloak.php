@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -13,8 +13,8 @@ defined('_VALID_MOS') or die();
 $_MAMBOTS->registerFunction('onPrepareContent','botMosEmailCloak');
 
 /**
-* Сокрытие от спамботов адресов электронной почты в содержимом, используя javascript
-*/
+ * Сокрытие от спамботов адресов электронной почты в содержимом, используя javascript
+ */
 function botMosEmailCloak($published,&$row) {
 	global $database,$_MAMBOTS;
 
@@ -39,7 +39,7 @@ function botMosEmailCloak($published,&$row) {
 	if(!isset($_MAMBOTS->_content_mambot_params['mosemailcloak'])) {
 		// загрузка информации о параметрах мамбота
 		$query = "SELECT params"."\n FROM #__mambots"."\n WHERE element = 'mosemailcloak'".
-			"\n AND folder = 'content'";
+				"\n AND folder = 'content'";
 		$database->setQuery($query);
 		$database->loadObject($mambot);
 
@@ -136,8 +136,7 @@ function botMosEmailCloak($published,&$row) {
 function botMosEmailCloak_searchPattern($link,$text) {
 	// <a href="mailto:anyLink">anyText</a>
 	$pattern = "(<a [[:alnum:] _\"\'=\@\.\-]*href=[\"\']mailto:".$link."[\"\'][[:alnum:] _\"\'=\@\.\-]*)>".
-		$text."</a>";
+			$text."</a>";
 
 	return $pattern;
 }
-?>

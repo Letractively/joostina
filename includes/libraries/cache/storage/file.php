@@ -1,12 +1,12 @@
 <?php
 /**
-* @package Joostina
+ * @package Joostina
  * @subpackage Cache handler
-* @copyright Авторские права (C) 2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @copyright Авторские права (C) 2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // Check to ensure this file is within the rest of the framework
 defined('_VALID_MOS') or die();
@@ -21,14 +21,14 @@ define('CACHE_LITE_ERROR_DIE',8);
  * @subpackage	Cache
  * @since		1.3
  */
-class JCacheStorageFile extends JCacheStorage{
+class JCacheStorageFile extends JCacheStorage {
 	/**
-	* Constructor
-	*
-	* @access protected
-	* @param array $options optional parameters
-	*/
-	function __construct( $options = array() ){
+	 * Constructor
+	 *
+	 * @access protected
+	 * @param array $options optional parameters
+	 */
+	function __construct( $options = array() ) {
 		global $mosConfig_secret;
 		parent::__construct($options);
 
@@ -46,11 +46,11 @@ class JCacheStorageFile extends JCacheStorage{
 	 * @return	mixed	Boolean false on failure or a cached data string
 	 * @since	1.3
 	 */
-	function get($id, $group, $checkTime){
+	function get($id, $group, $checkTime) {
 		$data = false;
 		$path = $this->_getFilePath($id, $group);
 		$this->_setExpire($id, $group);
-		
+
 		if (file_exists($path)) {
 			$data = file_get_contents($path);
 			if($data) {
@@ -71,12 +71,12 @@ class JCacheStorageFile extends JCacheStorage{
 	 * @return	boolean	True on success, false otherwise
 	 * @since	1.3
 	 */
-	function store($id, $group, $data){
+	function store($id, $group, $data) {
 		$written	= false;
 		$path		= $this->_getFilePath($id, $group);
 		$expirePath	= $path . '_expire';
 		$die		= '<?php die(); ?>'."\n";
-		
+
 		$data		= $die.$data;
 
 		$fp = @fopen($path, "wb");
@@ -110,7 +110,7 @@ class JCacheStorageFile extends JCacheStorage{
 	 * @return	boolean	True on success, false otherwise
 	 * @since	1.3
 	 */
-	function remove($id, $group){
+	function remove($id, $group) {
 		$path = $this->_getFilePath($id, $group);
 		@unlink($path.'_expire');
 		if (!@unlink($path)) {
@@ -131,9 +131,9 @@ class JCacheStorageFile extends JCacheStorage{
 	 * @return	boolean	True on success, false otherwise
 	 * @since	1.3
 	 */
-	function clean($group, $mode){
+	function clean($group, $mode) {
 		require_once(dirname(__FILE__).DS.'../../filesystem/folder.php');
-		
+
 		$return = true;
 		$folder	= $group;
 
@@ -141,12 +141,10 @@ class JCacheStorageFile extends JCacheStorage{
 			$mode = 'notgroup';
 		}
 
-		switch ($mode)
-		{
+		switch ($mode) {
 			case 'notgroup':
 				$folders = JFolder::folders($this->_root);
-				for ($i=0,$n=count($folders);$i<$n;$i++)
-				{
+				for ($i=0,$n=count($folders);$i<$n;$i++) {
 					if ($folders[$i] != $folder) {
 						$return |= JFolder::delete($this->_root.DS.$folders[$i]);
 					}
@@ -167,7 +165,7 @@ class JCacheStorageFile extends JCacheStorage{
 	 * @access public
 	 * @return boolean  True on success, false otherwise.
 	 */
-	function gc(){
+	function gc() {
 		$result = true;
 		// files older than lifeTime get deleted from cache
 		$files = JFolder::files($this->_root, '_expire', true, true);
@@ -188,7 +186,7 @@ class JCacheStorageFile extends JCacheStorage{
 	 * @access public
 	 * @return boolean  True on success, false otherwise.
 	 */
-	function test(){
+	function test() {
 		global $mosConfig_cachepath;
 		$root	= $mosConfig_cachepath;
 		return is_writable($root);
@@ -201,7 +199,7 @@ class JCacheStorageFile extends JCacheStorage{
 	 * @param string  $id   Cache key to expire.
 	 * @param string  $group The cache data group.
 	 */
-	function _setExpire($id, $group){
+	function _setExpire($id, $group) {
 		$path = $this->_getFilePath($id, $group);
 
 		// set prune period
@@ -225,7 +223,7 @@ class JCacheStorageFile extends JCacheStorage{
 	 * @return	string	The cache file path
 	 * @since	1.3
 	 */
-	function _getFilePath($id, $group){
+	function _getFilePath($id, $group) {
 		$folder	= $group;
 		$name	= md5($this->_application.'-'.$id.'-'.$this->_hash.'-'.$this->_language).'.php';
 		$dir	= $this->_root . $folder;

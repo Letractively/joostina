@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined( '_VALID_MOS' ) or die();
@@ -15,20 +15,20 @@ if (!defined( '_MOS_MLJOOSTINAMENU_MODULE' )) {
 	define( '_MOS_MLJOOSTINAMENU_MODULE', 1 );
 	$ml_rollover_use = $params->get('ml_rollover_use');
 	if ($ml_rollover_use == 1) {
-?>
+		?>
 <script type="text/javascript">
-function MlImageOn (imgname) {
-	document.images[imgname].src = onImgArray[imgname].src;
-}
-function MlImageOff (imgname) {
-	document.images[imgname].src = offImgArray[imgname].src;
-}
-var offImgArray = new Array();
-var onImgArray = new Array();
-</script>
-<?php
+	function MlImageOn (imgname) {
+		document.images[imgname].src = onImgArray[imgname].src;
 	}
-	function mosGetJoostinaLink( $mitem, $level=0, &$params, $open=null ) {
+	function MlImageOff (imgname) {
+		document.images[imgname].src = offImgArray[imgname].src;
+	}
+	var offImgArray = new Array();
+	var onImgArray = new Array();
+</script>
+		<?php
+	}
+	function mosGetJoostinaLink( $mitem, $level=0, $params, $open=null ) {
 		global $Itemid;
 
 		$txt = '';
@@ -51,7 +51,7 @@ var onImgArray = new Array();
 				break;
 			case 'content_item_link':
 			case 'content_typed':
-				// load menu params
+			// load menu params
 				$mainframe = &mosMainFrame::getInstance();
 				$menuparams = new mosParameters( $mitem->params, $mainframe->getPath( 'menu_xml', $mitem->type ), 'menu' );
 				$unique_itemid = $menuparams->get( 'unique_itemid', 1 );
@@ -82,7 +82,7 @@ var onImgArray = new Array();
 			$id = '';
 		} else if ( $current_itemid == $mitem->id ) {
 			$id = 'id="active_menu'. $params->get( 'class_sfx' ) .'"';
-		} else if( $params->get( 'activate_parent' ) && isset( $open ) && in_array( $mitem->id, $open ) )  {
+		} else if( $params->get( 'activate_parent' ) && isset( $open ) && in_array( $mitem->id, $open ) ) {
 			$id = 'id="active_menu'. $params->get( 'class_sfx' ) .'"';
 		} else {
 			$id = '';
@@ -125,9 +125,13 @@ var onImgArray = new Array();
 
 		$menuclass = 'mainlevel'. $params->get( 'class_sfx' );
 		if ($params->get('ml_separated_link') == 1) {
-			if ($params->get('ml_linked_sep') == 1 ) {$link_replacer = 'mainlevel-'.$mitem->id;} else {$link_replacer = 'mainlevel';}
-				$menuclass = str_replace( 'mainlevel',$link_replacer,$menuclass);
+			if ($params->get('ml_linked_sep') == 1 ) {
+				$link_replacer = 'mainlevel-'.$mitem->id;
+			} else {
+				$link_replacer = 'mainlevel';
 			}
+			$menuclass = str_replace( 'mainlevel',$link_replacer,$menuclass);
+		}
 
 		if ($level > 0) {
 			$menuclass = 'sublevel'. $params->get( 'class_sfx');
@@ -143,7 +147,7 @@ var onImgArray = new Array();
 			$ml_img_title = ' title="'.$pg_title.'"';
 			$mitem->name = '<img src="'.JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/zaglushka.gif" border="0" alt="'.$ml_alt.'" />';
 		}
-			elseif  (($params->get( 'ml_imaged' ) == 2) && ($params->get('ml_aligner') == 'left')) {
+		elseif  (($params->get( 'ml_imaged' ) == 2) && ($params->get('ml_aligner') == 'left')) {
 			$ml_alt = $mitem->name;
 			$ml_img_title = ' title="'.$pg_title.'"';
 			$mitem->name = '<img src="'.JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/zaglushka.gif" border="0" alt="'.$ml_alt.'" /><em>'.$mitem->name.'</em>';
@@ -151,7 +155,7 @@ var onImgArray = new Array();
 			$ml_alt = $mitem->name;
 			$ml_img_title = ' title="'.$pg_title.'"';
 			$mitem->name = '<em>'.$mitem->name.'</em><img src="'.JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/zaglushka.gif" border="0" alt="'.$ml_alt.'" />';
-		}else{
+		}else {
 			$ml_alt = ' title="'.$pg_title.'"';
 			$ml_img_title = ' title="'.$pg_title.'"';
 		}
@@ -164,8 +168,8 @@ var onImgArray = new Array();
 		switch ($mitem->browserNav) {
 			// cases are slightly different
 			case 1:
-				// open in a new window
-				if ($ml_hide_active == 1 && $current_itemid == $mitem->id )  {
+			// open in a new window
+				if ($ml_hide_active == 1 && $current_itemid == $mitem->id ) {
 					$txt = $mitem->name;
 				}else {
 					$txt = '<a href="'. $mitem->link .'"'.$ml_img_title.' target="_blank" class="'. $menuclass .'" '. $id .'>'. $mitem->name .'</a>';
@@ -173,8 +177,8 @@ var onImgArray = new Array();
 				break;
 
 			case 2:
-				// open in a popup window
-				if ($ml_hide_active == 1 && $current_itemid == $mitem->id ){
+			// open in a popup window
+				if ($ml_hide_active == 1 && $current_itemid == $mitem->id ) {
 					$txt = $mitem->name;
 				}else {
 					$txt = '<a href="#"'.$ml_img_title.' onclick="javascript: window.open(\''. $mitem->link ."', '', 'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=780,height=550'); return false\" class=\"$menuclass\" ". $id .'>'. $mitem->name ."</a>\n";
@@ -182,13 +186,13 @@ var onImgArray = new Array();
 				break;
 
 			case 3:
-				// don't link it
+			// don't link it
 				$txt = '<span class="'. $menuclass .'" '. $id .'>'. $mitem->name .'</span>';
 				break;
 
 			default:
-				// открываем в текущем окне
-				if ($ml_hide_active == 1 && $current_itemid == $mitem->id )  {
+			// открываем в текущем окне
+				if ($ml_hide_active == 1 && $current_itemid == $mitem->id ) {
 					// если в параметрах указано что активный пункт меню не должен быть ссылкой
 					$txt = $mitem->name;
 				}else {
@@ -199,149 +203,154 @@ var onImgArray = new Array();
 
 		return $txt;
 	}
-	function mosJoostinaLinkReplacer ($count_link,$link,$style,$params,$full_count){
+	function mosJoostinaLinkReplacer ($count_link,$link,$style,$params,$full_count) {
 		global $my;
 		$moduleclass_sfx		= $params->get('moduleclass_sfx') ;
 		$ml_separated_element	= $params->get('ml_separated_element') ;
 		// joostina patch
 		$hide_logged = $params->get('ml_hide_logged'.$count_link,1);
-		if (( $hide_logged== 1) || !$my->id){
-			if ($ml_separated_element == 1){
+		if (( $hide_logged== 1) || !$my->id) {
+			if ($ml_separated_element == 1) {
 				$ml_elementer = ' class="element-'.$count_link.$moduleclass_sfx.'"';
-			}else{
+			}else {
 				$ml_elementer = '';
 			}
-		if (($params->get('ml_separated_element_first') == 1) && ($ml_separated_element != 1)){
-			if ($count_link == 1){
-				$ml_elementer = ' class="element-first'.$moduleclass_sfx.'"';
-			}elseif (($count_link == 2) && ($params->get('ml_first_hidden') == 1)){
-			$ml_elementer = ' class="element-first'.$moduleclass_sfx.'"';
-			} else {
-				$ml_elementer = ' class="element'.$moduleclass_sfx.'"';
+			if (($params->get('ml_separated_element_first') == 1) && ($ml_separated_element != 1)) {
+				if ($count_link == 1) {
+					$ml_elementer = ' class="element-first'.$moduleclass_sfx.'"';
+				}elseif (($count_link == 2) && ($params->get('ml_first_hidden') == 1)) {
+					$ml_elementer = ' class="element-first'.$moduleclass_sfx.'"';
+				} else {
+					$ml_elementer = ' class="element'.$moduleclass_sfx.'"';
+				}
 			}
-		}
-		if (($params->get('ml_separated_element_last') == 1) && ($ml_separated_element != 1)){
-			if ($count_link == $full_count)
-			{$ml_elementer = ' class="element-last'.$moduleclass_sfx.'"';}
-		}
-		if ($params->get('ml_div') == 2){
-			$prelink = '<div class="ml-div"><div>'; $postlink = '</div></div>';}
-		elseif ($params->get('ml_div') == 1) {
-			$prelink = '<div class="ml-div">'; $postlink = '</div>';
-		}else{
-			$prelink = ''; $postlink = '';
-		}
-
-		if ($params->get('ml_imaged') == 1 || $params->get('ml_imaged') == 2){
-			$ml_rollover_use = $params->get('ml_rollover_use');
-			$ml_module_number = $params->get('ml_module_number');
-			//а вот тут мы начали догонять есть ли у нас rollover картинка или мы дальше просто так поедем
-			if ($ml_rollover_use == 1 && $params->get('ml_image_roll_'.$count_link) != -1 && $params->get('ml_image'.$count_link) != -1 ){
-				$link = str_replace('zaglushka.gif',$params->get('ml_image'.$count_link).'" name="ml_img_'.$count_link.'_'.$ml_module_number,$link);
-				$link = str_replace('<a','<a onmouseover="MlImageOn(\'ml_img_'.$count_link.'_'.$ml_module_number.'\')" onmouseout="MlImageOff(\'ml_img_'.$count_link.'_'.$ml_module_number.'\')"',$link);
-			}elseif ($params->get('ml_image'.$count_link) != -1) {
-				$link = str_replace('zaglushka.gif',$params->get('ml_image'.$count_link).'" name="ml_img_'.$count_link.'_'.$ml_module_number,$link);
+			if (($params->get('ml_separated_element_last') == 1) && ($ml_separated_element != 1)) {
+				if ($count_link == $full_count) {
+					$ml_elementer = ' class="element-last'.$moduleclass_sfx.'"';
+				}
 			}
-		}
+			if ($params->get('ml_div') == 2) {
+				$prelink = '<div class="ml-div"><div>';
+				$postlink = '</div></div>';
+			}
+			elseif ($params->get('ml_div') == 1) {
+				$prelink = '<div class="ml-div">';
+				$postlink = '</div>';
+			}else {
+				$prelink = '';
+				$postlink = '';
+			}
 
-		$ml_first_hide = $params->get('ml_first_hidden');
+			if ($params->get('ml_imaged') == 1 || $params->get('ml_imaged') == 2) {
+				$ml_rollover_use = $params->get('ml_rollover_use');
+				$ml_module_number = $params->get('ml_module_number');
+				//а вот тут мы начали догонять есть ли у нас rollover картинка или мы дальше просто так поедем
+				if ($ml_rollover_use == 1 && $params->get('ml_image_roll_'.$count_link) != -1 && $params->get('ml_image'.$count_link) != -1 ) {
+					$link = str_replace('zaglushka.gif',$params->get('ml_image'.$count_link).'" name="ml_img_'.$count_link.'_'.$ml_module_number,$link);
+					$link = str_replace('<a','<a onmouseover="MlImageOn(\'ml_img_'.$count_link.'_'.$ml_module_number.'\')" onmouseout="MlImageOff(\'ml_img_'.$count_link.'_'.$ml_module_number.'\')"',$link);
+				}elseif ($params->get('ml_image'.$count_link) != -1) {
+					$link = str_replace('zaglushka.gif',$params->get('ml_image'.$count_link).'" name="ml_img_'.$count_link.'_'.$ml_module_number,$link);
+				}
+			}
 
-		switch ($style){
-			case 1:
-				if ($ml_first_hide == 1 && $count_link == 1) {
-					echo '<td style="display:none;" '.$ml_elementer.'>';
-					echo $prelink.$link.$postlink;
-					echo '</td>';
-				} else {
-					echo '<td'.$ml_elementer.'>';
-					echo $prelink.$link.$postlink;
-					echo '</td>';
-				}
-			break;
-			case 2:
-				if ($ml_first_hide == 1 && $count_link == 1) {
-					echo '<li style="display:none;" '.$ml_elementer.'>';
-					echo $prelink.$link.$postlink;
-					echo '</li>';
-				} else {
-					echo '<li'.$ml_elementer.'>';
-					echo $prelink.$link.$postlink;
-					echo '</li>';
-				}
-			break;
+			$ml_first_hide = $params->get('ml_first_hidden');
 
-			case 3:
-				if ($ml_first_hide == 1 && $count_link == 1) {
-					echo '<div style="display:none">';
-					echo $prelink.$link.$postlink;
-					echo '</div>';
-				} else {
-					echo $prelink.$link.$postlink;
-				}
-			break;
-			case 4:
-				if ($ml_first_hide == 1 && $count_link == 1) {
-					if ($params->get('ml_td_width') == 1){
-						$ml_td_width = 'width="';
-						$ml_td_width .= round(100/$full_count);
-						$ml_td_width .= '%"';
-					}else{
-						$ml_td_width = '';
+			switch ($style) {
+				case 1:
+					if ($ml_first_hide == 1 && $count_link == 1) {
+						echo '<td style="display:none;" '.$ml_elementer.'>';
+						echo $prelink.$link.$postlink;
+						echo '</td>';
+					} else {
+						echo '<td'.$ml_elementer.'>';
+						echo $prelink.$link.$postlink;
+						echo '</td>';
 					}
-					echo '<td style="display:none;" '.$ml_elementer.' '.$ml_td_width.'>';
-					echo $prelink.$link.$postlink;
-					echo '</td>';
-				} else {
-					if ($params->get('ml_td_width') == 1){
-						$ml_td_width = 'width="';
-						$ml_td_width .= round(100/$full_count);
-						$ml_td_width .= '%"';
-					}else{
-						$ml_td_width = '';
+					break;
+				case 2:
+					if ($ml_first_hide == 1 && $count_link == 1) {
+						echo '<li style="display:none;" '.$ml_elementer.'>';
+						echo $prelink.$link.$postlink;
+						echo '</li>';
+					} else {
+						echo '<li'.$ml_elementer.'>';
+						echo $prelink.$link.$postlink;
+						echo '</li>';
 					}
-					echo '<td'.$ml_elementer.' '.$ml_td_width.'>';
-					echo $prelink.$link.$postlink;
-					echo '</td>';
+					break;
 
-				}
-			break;
+				case 3:
+					if ($ml_first_hide == 1 && $count_link == 1) {
+						echo '<div style="display:none">';
+						echo $prelink.$link.$postlink;
+						echo '</div>';
+					} else {
+						echo $prelink.$link.$postlink;
+					}
+					break;
+				case 4:
+					if ($ml_first_hide == 1 && $count_link == 1) {
+						if ($params->get('ml_td_width') == 1) {
+							$ml_td_width = 'width="';
+							$ml_td_width .= round(100/$full_count);
+							$ml_td_width .= '%"';
+						}else {
+							$ml_td_width = '';
+						}
+						echo '<td style="display:none;" '.$ml_elementer.' '.$ml_td_width.'>';
+						echo $prelink.$link.$postlink;
+						echo '</td>';
+					} else {
+						if ($params->get('ml_td_width') == 1) {
+							$ml_td_width = 'width="';
+							$ml_td_width .= round(100/$full_count);
+							$ml_td_width .= '%"';
+						}else {
+							$ml_td_width = '';
+						}
+						echo '<td'.$ml_elementer.' '.$ml_td_width.'>';
+						echo $prelink.$link.$postlink;
+						echo '</td>';
 
-			case 5:
-				if ($ml_first_hide == 1 && $count_link == 1) {
-					echo '<div style="display:none;" '.$ml_elementer.'>';
-					echo $prelink.$link.$postlink;
-					echo '</div>';
-				} else {
-					echo '<div '.$ml_elementer.'>';
-					echo $prelink.$link.$postlink;
-					echo '</div>';
-				}
-			break;
+					}
+					break;
 
-			case 6:
-				if (($ml_first_hide == 1) && ($count_link == 1)) {
-					echo '<tr style="display:none;"><td '.$ml_elementer.'>';
-					echo $prelink.$link.$postlink;
-					echo '</td></tr>';
-				} else {
-					echo '<tr><td '.$ml_elementer.'>';
-					echo $prelink.$link.$postlink;
-					echo '</td></tr>';
-				}
-			break;
+				case 5:
+					if ($ml_first_hide == 1 && $count_link == 1) {
+						echo '<div style="display:none;" '.$ml_elementer.'>';
+						echo $prelink.$link.$postlink;
+						echo '</div>';
+					} else {
+						echo '<div '.$ml_elementer.'>';
+						echo $prelink.$link.$postlink;
+						echo '</div>';
+					}
+					break;
+
+				case 6:
+					if (($ml_first_hide == 1) && ($count_link == 1)) {
+						echo '<tr style="display:none;"><td '.$ml_elementer.'>';
+						echo $prelink.$link.$postlink;
+						echo '</td></tr>';
+					} else {
+						echo '<tr><td '.$ml_elementer.'>';
+						echo $prelink.$link.$postlink;
+						echo '</td></tr>';
+					}
+					break;
 			}
 		}
 	}
 
-	function mosJoostinaGetmenu(&$params,$gid){
+	function mosJoostinaGetmenu(&$params,$gid) {
 
 		$all_menu = &mosMenu::get_all();
 
 		$menus = isset($all_menu[$params->get( 'menutype' )]) ? $all_menu[$params->get( 'menutype' )] : array() ;
 
 		$return = array();
-		foreach ($menus as $menu){
-			if($menu->parent==0 && $menu->access<=(int) $gid){
+		foreach ($menus as $menu) {
+			if($menu->parent==0 && $menu->access<=(int) $gid) {
 				$return[$menu->id]=$menu;
 			}
 		}
@@ -373,47 +382,59 @@ var onImgArray = new Array();
 			foreach ($links as $link) {
 				// начинаем издевательство над линками для приведения их к божьему виду
 				if ($params->get('ml_separated_link') == 1) {
-					if ($params->get('ml_linked_sep') != 1 ) {$link_replacer = 'class="mainlevel-'.$count_link;} else {$link_replacer = 'class="mainlevel';}
+					if ($params->get('ml_linked_sep') != 1 ) {
+						$link_replacer = 'class="mainlevel-'.$count_link;
+					} else {
+						$link_replacer = 'class="mainlevel';
+					}
 					$link = str_replace( 'class="mainlevel',$link_replacer,$link);
 				}
 
 				if ($params->get('ml_separated_active') == 1) {
-					if ($params->get('ml_linked_sep_active') != 1 ) {$link_replacer_id = 'id="active_menu-'.$count_link;}  else   {$link_replacer_id = 'id="active_menu';}
+					if ($params->get('ml_linked_sep_active') != 1 ) {
+						$link_replacer_id = 'id="active_menu-'.$count_link;
+					}  else {
+						$link_replacer_id = 'id="active_menu';
+					}
 					$link = str_replace( 'id="active_menu',$link_replacer_id,$link);
 				}
 
 				if (($params->get('ml_separated_link_first') == 1) && ($params->get('ml_separated_link') != 1) ) {
-					if (($count_link == 1) || (($count_link == 2) && ($params->get('ml_first_hidden') == 1))){
+					if (($count_link == 1) || (($count_link == 2) && ($params->get('ml_first_hidden') == 1))) {
 						$first_replacer = 'mainlevel-first';
-					}else{
+					}else {
 						$first_replacer = 'mainlevel';
 					}
 					$link = str_replace('mainlevel',$first_replacer,$link);
 				}
 				if (($params->get('ml_separated_link_last') == 1) && ($params->get('ml_separated_link') != 1) ) {
-					if ($count_link == $full_count) {$last_replacer = 'mainlevel-last';} else { $last_replacer = 'mainlevel';}
-						$link = str_replace('mainlevel',$last_replacer,$link);
+					if ($count_link == $full_count) {
+						$last_replacer = 'mainlevel-last';
+					} else {
+						$last_replacer = 'mainlevel';
 					}
-					if (($params->get('ml_separated_active_first') == 1) && ($params->get('ml_separated_active') != 1)) {
-						if ($count_link == 1) {
-							$first_replacer_id = 'active_menu-first';
-						} else {
-							$first_replacer_id = 'active_menu';
-						}
-						$link = str_replace('active_menu',$first_replacer_id,$link);
+					$link = str_replace('mainlevel',$last_replacer,$link);
+				}
+				if (($params->get('ml_separated_active_first') == 1) && ($params->get('ml_separated_active') != 1)) {
+					if ($count_link == 1) {
+						$first_replacer_id = 'active_menu-first';
+					} else {
+						$first_replacer_id = 'active_menu';
 					}
+					$link = str_replace('active_menu',$first_replacer_id,$link);
+				}
 				if (($params->get('ml_separated_active_last') == 1) && ($params->get('ml_separated_active') != 1)) {
 					if ($count_link == $full_count) {
 						$last_replacer_id = 'active_menu-last';
 					} else {
 						$last_replacer_id = 'active_menu';
 					}
-				$link = str_replace('active_menu',$last_replacer_id,$link);
+					$link = str_replace('active_menu',$last_replacer_id,$link);
 				}
-				if($params->get('menu_style')=='ulli'){
+				if($params->get('menu_style')=='ulli') {
 					// для меню в несколько столбцов
 					$ii++;
-					if($nrow>0){
+					if($nrow>0) {
 						if($ii==$nrow) {
 							$ii=0;
 							echo '</ul><ul class="menulist'.$params->get('moduleclass_sfx').'">';
@@ -422,8 +443,8 @@ var onImgArray = new Array();
 				}
 				mosJoostinaLinkReplacer ($count_link,$link,$style,$params,$full_count);
 				$count_link = $count_link + 1;
-		}
-		//конец генерации вывода
+			}
+			//конец генерации вывода
 		}
 
 	}
@@ -439,18 +460,18 @@ var onImgArray = new Array();
 			$and = "\n AND access <= " . (int) $my->gid;
 		}
 		$sql = "SELECT m.*"
-		. "\n FROM #__menu AS m"
-		. "\n WHERE menutype = " . $database->Quote( $params->get( 'menutype' ) )
-		. "\n AND published = 1"
-		. $and
-		. "\n ORDER BY parent, ordering";
+				. "\n FROM #__menu AS m"
+				. "\n WHERE menutype = " . $database->Quote( $params->get( 'menutype' ) )
+				. "\n AND published = 1"
+				. $and
+				. "\n ORDER BY parent, ordering";
 		$database->setQuery( $sql );
 		$rows = $database->loadObjectList( 'id' );
 
 		// indent icons
 		switch ( $params->get( 'indent_image' ) ) {
 			case '1':
-				// Default images
+			// Default images
 				$imgpath = JPATH_SITE .'/images/M_images';
 				for ( $i = 1; $i < 7; $i++ ) {
 					$img[$i] = '<img src="'. $imgpath .'/indent'. $i .'.png" alt="" />';
@@ -458,7 +479,7 @@ var onImgArray = new Array();
 				break;
 
 			case '2':
-				// Use Params
+			// Use Params
 				$imgpath = JPATH_SITE .'/images/M_images';
 				for ( $i = 1; $i < 7; $i++ ) {
 					if ( $params->get( 'indent_image'. $i ) == '-1' ) {
@@ -470,14 +491,14 @@ var onImgArray = new Array();
 				break;
 
 			case '3':
-				// None
+			// None
 				for ( $i = 1; $i < 7; $i++ ) {
 					$img[$i] = NULL;
 				}
 				break;
 
 			default:
-				// Template
+			// Template
 				$imgpath = JPATH_SITE .'/templates/'. $cur_template .'/images';
 				for ( $i = 1; $i < 7; $i++ ) {
 					$img[$i] = '<img src="'. $imgpath .'/indent'. $i .'.png" alt="" />';
@@ -486,11 +507,11 @@ var onImgArray = new Array();
 		}
 
 		$indents = array(
-			// block prefix / item prefix / item suffix / block suffix
-			array( '<table width="100%" border="0" cellpadding="0" cellspacing="0">', '<tr align="left"><td>' , '</td></tr>', '</table>' ),
-			array( '', '<div class="first-level">'. $img[1] , '</div>', '' ),
-			array( '', '<div class="second-level">'. $img[2] , '</div>', '' ),
-			array( '', '<div class="third-level">'. $img[3] , '</div>', '' ),
+				// block prefix / item prefix / item suffix / block suffix
+				array( '<table width="100%" border="0" cellpadding="0" cellspacing="0">', '<tr align="left"><td>' , '</td></tr>', '</table>' ),
+				array( '', '<div class="first-level">'. $img[1] , '</div>', '' ),
+				array( '', '<div class="second-level">'. $img[2] , '</div>', '' ),
+				array( '', '<div class="third-level">'. $img[3] , '</div>', '' ),
 		);
 
 		// establish the hierarchy of the menu
@@ -520,9 +541,9 @@ var onImgArray = new Array();
 	}
 
 	/**
-	* Utility function to recursively work through a vertically indented
-	* hierarchial menu
-	*/
+	 * Utility function to recursively work through a vertically indented
+	 * hierarchial menu
+	 */
 
 	function mosRecurseVIMenuMLZ( $id, $level, &$children, &$open, &$indents, &$params ) {
 		if (@$children[$id]) {
@@ -575,56 +596,56 @@ var onImgArray = new Array();
 			$ml_image_roll_10 = $params->get('ml_image_roll_10');
 			$ml_image_roll_11 = $params->get('ml_image_roll_11');
 
-		?>
+			?>
 <script type="text/javascript">
-offImgArray["ml_img_1_<?php echo $ml_module_number; ?>"] = new Image ();
-offImgArray["ml_img_2_<?php echo $ml_module_number; ?>"] = new Image ();
-offImgArray["ml_img_3_<?php echo $ml_module_number; ?>"] = new Image ();
-offImgArray["ml_img_4_<?php echo $ml_module_number; ?>"] = new Image ();
-offImgArray["ml_img_5_<?php echo $ml_module_number; ?>"] = new Image ();
-offImgArray["ml_img_6_<?php echo $ml_module_number; ?>"] = new Image ();
-offImgArray["ml_img_7_<?php echo $ml_module_number; ?>"] = new Image ();
-offImgArray["ml_img_8_<?php echo $ml_module_number; ?>"] = new Image ();
-offImgArray["ml_img_9_<?php echo $ml_module_number; ?>"] = new Image ();
-offImgArray["ml_img_10_<?php echo $ml_module_number; ?>"] = new Image ();
-offImgArray["ml_img_11_<?php echo $ml_module_number; ?>"] = new Image ();
-offImgArray["ml_img_1_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image1; ?>";
-offImgArray["ml_img_2_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image2; ?>";
-offImgArray["ml_img_3_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image3; ?>";
-offImgArray["ml_img_4_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image4; ?>";
-offImgArray["ml_img_5_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image5; ?>";
-offImgArray["ml_img_6_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image6; ?>";
-offImgArray["ml_img_7_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image7; ?>";
-offImgArray["ml_img_8_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image8; ?>";
-offImgArray["ml_img_9_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image9; ?>";
-offImgArray["ml_img_10_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image10; ?>";
-offImgArray["ml_img_11_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image11; ?>";
+	offImgArray["ml_img_1_<?php echo $ml_module_number; ?>"] = new Image ();
+	offImgArray["ml_img_2_<?php echo $ml_module_number; ?>"] = new Image ();
+	offImgArray["ml_img_3_<?php echo $ml_module_number; ?>"] = new Image ();
+	offImgArray["ml_img_4_<?php echo $ml_module_number; ?>"] = new Image ();
+	offImgArray["ml_img_5_<?php echo $ml_module_number; ?>"] = new Image ();
+	offImgArray["ml_img_6_<?php echo $ml_module_number; ?>"] = new Image ();
+	offImgArray["ml_img_7_<?php echo $ml_module_number; ?>"] = new Image ();
+	offImgArray["ml_img_8_<?php echo $ml_module_number; ?>"] = new Image ();
+	offImgArray["ml_img_9_<?php echo $ml_module_number; ?>"] = new Image ();
+	offImgArray["ml_img_10_<?php echo $ml_module_number; ?>"] = new Image ();
+	offImgArray["ml_img_11_<?php echo $ml_module_number; ?>"] = new Image ();
+	offImgArray["ml_img_1_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image1; ?>";
+	offImgArray["ml_img_2_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image2; ?>";
+	offImgArray["ml_img_3_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image3; ?>";
+	offImgArray["ml_img_4_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image4; ?>";
+	offImgArray["ml_img_5_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image5; ?>";
+	offImgArray["ml_img_6_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image6; ?>";
+	offImgArray["ml_img_7_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image7; ?>";
+	offImgArray["ml_img_8_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image8; ?>";
+	offImgArray["ml_img_9_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image9; ?>";
+	offImgArray["ml_img_10_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image10; ?>";
+	offImgArray["ml_img_11_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image11; ?>";
 
-onImgArray["ml_img_1_<?php echo $ml_module_number; ?>"] = new Image ();
-onImgArray["ml_img_2_<?php echo $ml_module_number; ?>"] = new Image ();
-onImgArray["ml_img_3_<?php echo $ml_module_number; ?>"] = new Image ();
-onImgArray["ml_img_4_<?php echo $ml_module_number; ?>"] = new Image ();
-onImgArray["ml_img_5_<?php echo $ml_module_number; ?>"] = new Image ();
-onImgArray["ml_img_6_<?php echo $ml_module_number; ?>"] = new Image ();
-onImgArray["ml_img_7_<?php echo $ml_module_number; ?>"] = new Image ();
-onImgArray["ml_img_8_<?php echo $ml_module_number; ?>"] = new Image ();
-onImgArray["ml_img_9_<?php echo $ml_module_number; ?>"] = new Image ();
-onImgArray["ml_img_10_<?php echo $ml_module_number; ?>"] = new Image ();
-onImgArray["ml_img_11_<?php echo $ml_module_number; ?>"] = new Image ();
-onImgArray["ml_img_1_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_1; ?>";
-onImgArray["ml_img_2_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_2; ?>";
-onImgArray["ml_img_3_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_3; ?>";
-onImgArray["ml_img_4_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_4; ?>";
-onImgArray["ml_img_5_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_5; ?>";
-onImgArray["ml_img_6_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_6; ?>";
-onImgArray["ml_img_7_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_7; ?>";
-onImgArray["ml_img_8_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_8; ?>";
-onImgArray["ml_img_9_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_9; ?>";
-onImgArray["ml_img_10_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_10; ?>";
-onImgArray["ml_img_11_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_11; ?>";
+	onImgArray["ml_img_1_<?php echo $ml_module_number; ?>"] = new Image ();
+	onImgArray["ml_img_2_<?php echo $ml_module_number; ?>"] = new Image ();
+	onImgArray["ml_img_3_<?php echo $ml_module_number; ?>"] = new Image ();
+	onImgArray["ml_img_4_<?php echo $ml_module_number; ?>"] = new Image ();
+	onImgArray["ml_img_5_<?php echo $ml_module_number; ?>"] = new Image ();
+	onImgArray["ml_img_6_<?php echo $ml_module_number; ?>"] = new Image ();
+	onImgArray["ml_img_7_<?php echo $ml_module_number; ?>"] = new Image ();
+	onImgArray["ml_img_8_<?php echo $ml_module_number; ?>"] = new Image ();
+	onImgArray["ml_img_9_<?php echo $ml_module_number; ?>"] = new Image ();
+	onImgArray["ml_img_10_<?php echo $ml_module_number; ?>"] = new Image ();
+	onImgArray["ml_img_11_<?php echo $ml_module_number; ?>"] = new Image ();
+	onImgArray["ml_img_1_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_1; ?>";
+	onImgArray["ml_img_2_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_2; ?>";
+	onImgArray["ml_img_3_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_3; ?>";
+	onImgArray["ml_img_4_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_4; ?>";
+	onImgArray["ml_img_5_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_5; ?>";
+	onImgArray["ml_img_6_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_6; ?>";
+	onImgArray["ml_img_7_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_7; ?>";
+	onImgArray["ml_img_8_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_8; ?>";
+	onImgArray["ml_img_9_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_9; ?>";
+	onImgArray["ml_img_10_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_10; ?>";
+	onImgArray["ml_img_11_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH_SITE.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_11; ?>";
 </script>
-<?php
-	}
+			<?php
+		}
 		switch ($style) {
 
 			// вывод горизонтальной таблицей
@@ -632,14 +653,14 @@ onImgArray["ml_img_11_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH
 				echo '<table class="menutable'.$params->get('moduleclass_sfx').'" cellspacing="0" cellpadding="0" border="0"><tr>';
 				mosJoostinaPrepareLink($params,1);
 				echo '</tr></table>';
-			break;
+				break;
 
 			// вывод списком
 			case 2:
 				echo '<ul class="menulist'.$params->get('moduleclass_sfx').'">';
 				mosJoostinaPrepareLink($params,2);
 				echo '</ul>';
-			break;
+				break;
 
 			// вывод чистых ссылок
 			case 3:
@@ -651,65 +672,65 @@ onImgArray["ml_img_11_<?php echo $ml_module_number; ?>"].src = "<?php echo JPATH
 				echo '<table class="menutable'.$params->get('moduleclass_sfx').'" cellspacing="0" cellpadding="0" border="0" width="100%"><tr>';
 				mosJoostinaPrepareLink($params,4);
 				echo '</tr></table>';
-			break;
+				break;
 
 			case 5:
 				echo '<div class="maindiv">';
 				mosJoostinaPrepareLink($params,5);
 				echo '</div>';
-			break;
+				break;
 
 			case 6:
 				echo '<table class="menutable'.$params->get('moduleclass_sfx').'" cellspacing="0" cellpadding="0" border="0" >';
 				mosJoostinaPrepareLink($params,6);
 				echo '</table>';
-			break;
+				break;
 
 			default:
 				echo 'empty';
-			break;
+				break;
 		}
 	}
 }
 
-	$params->def('menutype', 'mainmenu');
+$params->def('menutype', 'mainmenu');
 
-	$config_caching = $mainframe->getCfg('caching');
+$config_caching = $mainframe->getCfg('caching');
 
-	if($config_caching){
-		$menu_cache = &mosCache::getCache('mod_mljoostinamenu');
-	}
-	// убираем лишний элемент
-	unset($params->_raw);
+if($config_caching) {
+	$menu_cache = &mosCache::getCache('mod_mljoostinamenu');
+}
+// убираем лишний элемент
+unset($params->_raw);
 
-	switch ($params->get( 'menu_style' ) ) {
+switch ($params->get( 'menu_style' ) ) {
 
-		case 'horizontal':
-			echo $config_caching ? $menu_cache->call('mosJoostinaShowLink',$params,1,$Itemid) : mosJoostinaShowLink($params,1,$Itemid);
+	case 'horizontal':
+		echo $config_caching ? $menu_cache->call('mosJoostinaShowLink',$params,1,$Itemid) : mosJoostinaShowLink($params,1,$Itemid);
 		break;
 
-		case 'ulli':
-			echo $config_caching ?  $menu_cache->call('mosJoostinaShowLink',$params,2,$Itemid) : mosJoostinaShowLink($params,2,$Itemid);
+	case 'ulli':
+		echo $config_caching ?  $menu_cache->call('mosJoostinaShowLink',$params,2,$Itemid) : mosJoostinaShowLink($params,2,$Itemid);
 		break;
 
-		case 'linksonly':
-			echo $config_caching ?  $menu_cache->call('mosJoostinaShowLink',$params,3,$Itemid) : mosJoostinaShowLink($params,3,$Itemid);
+	case 'linksonly':
+		echo $config_caching ?  $menu_cache->call('mosJoostinaShowLink',$params,3,$Itemid) : mosJoostinaShowLink($params,3,$Itemid);
 		break;
 
-		case 'horiz_tab':
-			echo $config_caching ?  $menu_cache->call('mosJoostinaShowLink',$params,4,$Itemid) : mosJoostinaShowLink($params,4,$Itemid);
+	case 'horiz_tab':
+		echo $config_caching ?  $menu_cache->call('mosJoostinaShowLink',$params,4,$Itemid) : mosJoostinaShowLink($params,4,$Itemid);
 		break;
 
-		case 'divs':
-			echo $config_caching ?  $menu_cache->call('mosJoostinaShowLink',$params,5,$Itemid) : mosJoostinaShowLink($params,5,$Itemid);
+	case 'divs':
+		echo $config_caching ?  $menu_cache->call('mosJoostinaShowLink',$params,5,$Itemid) : mosJoostinaShowLink($params,5,$Itemid);
 		break;
 
-		case 'ml_vertical':
-			echo $config_caching ?  $menu_cache->call('mosJoostinaShowLink',$params,6,$Itemid) : mosJoostinaShowLink($params,6,$Itemid);
+	case 'ml_vertical':
+		echo $config_caching ?  $menu_cache->call('mosJoostinaShowLink',$params,6,$Itemid) : mosJoostinaShowLink($params,6,$Itemid);
 		break;
 
-		default:
-			echo $config_caching ?  $menu_cache->call('mosShowVIMenuMLZ',$params,$Itemid) : mosShowVIMenuMLZ($params,$Itemid);;
+	default:
+		echo $config_caching ?  $menu_cache->call('mosShowVIMenuMLZ',$params,$Itemid) : mosShowVIMenuMLZ($params,$Itemid);
 		break ;
-	}
+}
 unset($menu_cache,$params,$config,$config_caching);

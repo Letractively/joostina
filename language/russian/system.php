@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -13,10 +13,10 @@ defined('_VALID_MOS') or die();
 global $mosConfig_form_date,$mosConfig_form_date_full;
 
 /**
-* Измените строчку ниже, для изменения вывода даты на сайте
-* Например: DEFINE("_DATE_FORMAT_LC"," %d %B %Y г. %H:%M"); 
-* Используйте формат PHP-функции strftime
-*/
+ * Измените строчку ниже, для изменения вывода даты на сайте
+ * Например: DEFINE("_DATE_FORMAT_LC"," %d %B %Y г. %H:%M");
+ * Используйте формат PHP-функции strftime
+ */
 DEFINE('_DATE_FORMAT_LC',$mosConfig_form_date); //Используйте формат PHP-функции strftime
 DEFINE('_DATE_FORMAT_LC2',$mosConfig_form_date_full); // Полный формат времени
 DEFINE('_DATE_FORMAT','Сегодня: d.m.Y г.'); //Используйте формат PHP-функции DATE
@@ -37,8 +37,8 @@ DEFINE('_NOV','Ноябрь');
 DEFINE('_DEC','Декабрь');
 
 /**
-  * даты со склонением
-*/ 
+ * даты со склонением
+ */
 DEFINE('_JAN_2','Января');
 DEFINE('_FEB_2','Февраля');
 DEFINE('_MAR_2','Марта');
@@ -507,9 +507,9 @@ DEFINE('_PAGES','Страницы');
 DEFINE('_LOST_PASSWORDWORD','Забыли пароль?');
 DEFINE('_MAIL_SUB','Новый материал от пользователя');
 DEFINE('_MAIL_MSG','Здравствуйте $adminName,\n\nПользователь $author предлагает новый материал в раздел $type с названием $title'.
-	' для сайта JPATH_SITE.\n\n\n'.
-	'Пожалуйста, зайдите в панель администратора по адресу JPATH_SITE/administrator для просмотра и добавления его в $type.\n\n'.
-	'На это письмо не надо отвечать, так как оно создано автоматически и предназначено только для уведомления\n');
+		' для сайта JPATH_SITE.\n\n\n'.
+		'Пожалуйста, зайдите в панель администратора по адресу JPATH_SITE/administrator для просмотра и добавления его в $type.\n\n'.
+		'На это письмо не надо отвечать, так как оно создано автоматически и предназначено только для уведомления\n');
 DEFINE('_THANK_SUB','Спасибо за Ваш материал. Он будет просмотрен администратором перед размещением на сайте.');
 DEFINE('_MASS_RESULTS','Результаты массового добавления');
 DEFINE('_CANNOT_MOVE_TO_MEDIA','Не могу переместить скачанный файл в каталог <code>/media</code>');

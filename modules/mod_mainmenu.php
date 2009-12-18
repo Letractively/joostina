@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined( '_VALID_MOS' ) or die();
@@ -15,38 +15,38 @@ if (!defined( '_MOS_MAINMENU_MODULE' )) {
 	define( '_MOS_MAINMENU_MODULE', 1 );
 
 	/**
-	* Сервисная функция записи ссылки на меню
-	*/
+	 * Сервисная функция записи ссылки на меню
+	 */
 	function mosGetMenuLink( $mitem, $level=0, &$params, $open=null ) {
 		global $Itemid, $mainframe;
-		
+
 		$txt = '';
 
 		switch ($mitem->type) {
 			case 'separator':
 			case 'component_item_link':
-			break;
-				
+				break;
+
 			case 'url':
 				if ( eregi( 'index.php\?', $mitem->link ) && !eregi( 'http', $mitem->link ) && !eregi( 'https', $mitem->link ) ) {
-				if ( !eregi( 'Itemid=', $mitem->link ) ) {
-					$mitem->link .= '&Itemid='. $mitem->id;
+					if ( !eregi( 'Itemid=', $mitem->link ) ) {
+						$mitem->link .= '&Itemid='. $mitem->id;
+					}
 				}
-			}
-			break;
-				
+				break;
+
 			case 'content_item_link':
 			case 'content_typed':
-				// load menu params
+			// load menu params
 				$menuparams = new mosParameters( $mitem->params, $mainframe->getPath( 'menu_xml', $mitem->type ), 'menu' );
-				
+
 				$unique_itemid = $menuparams->get( 'unique_itemid', 1 );
-				
+
 				if ( $unique_itemid ) {
 					$mitem->link .= '&Itemid='. $mitem->id;
 				} else {
 					$temp = split('&task=view&id=', $mitem->link);
-					
+
 					if ( $mitem->type == 'content_typed' ) {
 						$mitem->link .= '&Itemid='. $mainframe->getItemid($temp[1], 1, 0);
 					} else {
@@ -56,8 +56,8 @@ if (!defined( '_MOS_MAINMENU_MODULE' )) {
 				break;
 
 			default:
-			$mitem->link .= '&Itemid='. $mitem->id;
-			break;
+				$mitem->link .= '&Itemid='. $mitem->id;
+				break;
 		}
 
 		// Подсветка активного меню
@@ -66,21 +66,21 @@ if (!defined( '_MOS_MAINMENU_MODULE' )) {
 			$id = '';
 		} else if ( $current_itemid == $mitem->id ) {
 			$id = 'id="active_menu'. $params->get( 'class_sfx' ) .'"';
-		} else if( $params->get( 'activate_parent' ) && isset( $open ) && in_array( $mitem->id, $open ) )  {
+		} else if( $params->get( 'activate_parent' ) && isset( $open ) && in_array( $mitem->id, $open ) ) {
 			$id = 'id="active_menu'. $params->get( 'class_sfx' ) .'"';
 		} else {
 			$id = '';
 		}
 
 		if ( $params->get( 'full_active_id' ) ) {
-			// support for `active_menu` of 'Link - Component Item'	
+			// support for `active_menu` of 'Link - Component Item'
 			if ( $id == '' && $mitem->type == 'component_item_link' ) {
 				parse_str( $mitem->link, $url );
 				if ( $url['Itemid'] == $current_itemid ) {
 					$id = 'id="active_menu'. $params->get( 'class_sfx' ) .'"';
 				}
 			}
-			
+
 			// support for `active_menu` of 'Link - Url' if link is relative
 			if ( $id == '' && $mitem->type == 'url' && strpos( 'http', $mitem->link ) === false) {
 				parse_str( $mitem->link, $url );
@@ -96,7 +96,7 @@ if (!defined( '_MOS_MAINMENU_MODULE' )) {
 		$mitem->link = ampReplace( $mitem->link );
 
 		// run through SEF convertor
-			$mitem->link = sefRelToAbs( $mitem->link );
+		$mitem->link = sefRelToAbs( $mitem->link );
 
 		$menuclass = 'mainlevel'. $params->get( 'class_sfx' );
 		if ($level > 0) {
@@ -111,23 +111,23 @@ if (!defined( '_MOS_MAINMENU_MODULE' )) {
 			// различные события
 			case 1:
 			// открыть в новом окне
-			$txt = '<a href="'. $mitem->link .'" title="'.$mitem->name.'" target="_blank" class="'. $menuclass .'" '. $id .'>'. $mitem->name .'</a>';
-			break;
+				$txt = '<a href="'. $mitem->link .'" title="'.$mitem->name.'" target="_blank" class="'. $menuclass .'" '. $id .'>'. $mitem->name .'</a>';
+				break;
 
 			case 2:
 			// открытие во всплывающем окне
-			$txt = "<a href=\"#\" onclick=\"javascript: window.open('". $mitem->link ."', '', 'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=780,height=550'); return false\" class=\"$menuclass\" ". $id .">". $mitem->name ."</a>\n";
-			break;
+				$txt = "<a href=\"#\" onclick=\"javascript: window.open('". $mitem->link ."', '', 'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=780,height=550'); return false\" class=\"$menuclass\" ". $id .">". $mitem->name ."</a>\n";
+				break;
 
 			case 3:
 			// это не ссылка
-			$txt = '<span class="'. $menuclass .'" '. $id .'>'. $mitem->name .'</span>';
-			break;
+				$txt = '<span class="'. $menuclass .'" '. $id .'>'. $mitem->name .'</span>';
+				break;
 
-			default:	
+			default:
 			// открытие в текущем окне
-			$txt = '<a href="'. $mitem->link .'" class="'. $menuclass .'" '. $id .' title="'.$mitem->name.'">'. $mitem->name .'</a>';
-			break;
+				$txt = '<a href="'. $mitem->link .'" class="'. $menuclass .'" '. $id .' title="'.$mitem->name.'">'. $mitem->name .'</a>';
+				break;
 		}
 
 		if ( $params->get( 'menu_images' ) ) {
@@ -148,8 +148,8 @@ if (!defined( '_MOS_MAINMENU_MODULE' )) {
 	}
 
 	/**
-	* Вертикальный отступ меню
-	*/
+	 * Вертикальный отступ меню
+	 */
 	function mosShowVIMenu(  &$params ) {
 		global $database, $my, $cur_template, $Itemid;
 		global $mosConfig_shownoauth;
@@ -159,11 +159,11 @@ if (!defined( '_MOS_MAINMENU_MODULE' )) {
 			$and = "\n AND access <= " . (int) $my->gid;
 		}
 		$sql = "SELECT m.*"
-		. "\n FROM #__menu AS m"
-		. "\n WHERE menutype = " . $database->Quote( $params->get( 'menutype' ) )
-		. "\n AND published = 1"
-		. $and
-		. "\n ORDER BY parent, ordering";
+				. "\n FROM #__menu AS m"
+				. "\n WHERE menutype = " . $database->Quote( $params->get( 'menutype' ) )
+				. "\n AND published = 1"
+				. $and
+				. "\n ORDER BY parent, ordering";
 		$database->setQuery( $sql );
 		$rows = $database->loadObjectList( 'id' );
 
@@ -171,49 +171,49 @@ if (!defined( '_MOS_MAINMENU_MODULE' )) {
 		switch ( $params->get( 'indent_image' ) ) {
 			case '1':
 			// Изображения по умолчанию
-			$imgpath = JPATH_SITE.'/images/M_images';
-			for ( $i = 1; $i < 7; $i++ ) {
-				$img[$i] = '<img src="'. $imgpath .'/indent'. $i .'.png" alt="" />';
-			}
-			break;
-				
+				$imgpath = JPATH_SITE.'/images/M_images';
+				for ( $i = 1; $i < 7; $i++ ) {
+					$img[$i] = '<img src="'. $imgpath .'/indent'. $i .'.png" alt="" />';
+				}
+				break;
+
 			case '2':
 			// Использование параметров
-			$imgpath = JPATH_SITE .'/images/M_images';
-			for ( $i = 1; $i < 7; $i++ ) {
-				if ( $params->get( 'indent_image'. $i ) == '-1' ) {
-					$img[$i] = NULL;
-				} else {
-					$img[$i] = '<img src="'. $imgpath .'/'. $params->get( 'indent_image'. $i ) .'" alt="" />';
+				$imgpath = JPATH_SITE .'/images/M_images';
+				for ( $i = 1; $i < 7; $i++ ) {
+					if ( $params->get( 'indent_image'. $i ) == '-1' ) {
+						$img[$i] = NULL;
+					} else {
+						$img[$i] = '<img src="'. $imgpath .'/'. $params->get( 'indent_image'. $i ) .'" alt="" />';
+					}
 				}
-			}
-			break;
-				
+				break;
+
 			case '3':
 			// Нет параметров
-			for ( $i = 1; $i < 7; $i++ ) {
-				$img[$i] = NULL;
-			}
-			break;
-								
+				for ( $i = 1; $i < 7; $i++ ) {
+					$img[$i] = NULL;
+				}
+				break;
+
 			default:
 			// Шаблон
-			$imgpath = JPATH_SITE .'/templates/'. $cur_template .'/images';
-			for ( $i = 1; $i < 7; $i++ ) {
-				$img[$i] = '<img src="'. $imgpath .'/indent'. $i .'.png" alt="" />';
-			}
-			break;
+				$imgpath = JPATH_SITE .'/templates/'. $cur_template .'/images';
+				for ( $i = 1; $i < 7; $i++ ) {
+					$img[$i] = '<img src="'. $imgpath .'/indent'. $i .'.png" alt="" />';
+				}
+				break;
 		}
 
 		$indents = array(
-		// префикс блока / префикс объекта / суффикс объекта / суффикс блока
-		array( '<table width="100%" border="0" cellpadding="0" cellspacing="0">', '<tr align="left"><td>' , '</td></tr>', '</table>' ),
-		array( '', '<div style="padding-left: 4px">'. $img[1] , '</div>', '' ),
-		array( '', '<div style="padding-left: 8px">'. $img[2] , '</div>', '' ),
-		array( '', '<div style="padding-left: 12px">'. $img[3] , '</div>', '' ),
-		array( '', '<div style="padding-left: 16px">'. $img[4] , '</div>', '' ),
-		array( '', '<div style="padding-left: 20px">'. $img[5] , '</div>', '' ),
-		array( '', '<div style="padding-left: 24px">'. $img[6] , '</div>', '' ),
+				// префикс блока / префикс объекта / суффикс объекта / суффикс блока
+				array( '<table width="100%" border="0" cellpadding="0" cellspacing="0">', '<tr align="left"><td>' , '</td></tr>', '</table>' ),
+				array( '', '<div style="padding-left: 4px">'. $img[1] , '</div>', '' ),
+				array( '', '<div style="padding-left: 8px">'. $img[2] , '</div>', '' ),
+				array( '', '<div style="padding-left: 12px">'. $img[3] , '</div>', '' ),
+				array( '', '<div style="padding-left: 16px">'. $img[4] , '</div>', '' ),
+				array( '', '<div style="padding-left: 20px">'. $img[5] , '</div>', '' ),
+				array( '', '<div style="padding-left: 24px">'. $img[6] , '</div>', '' ),
 		);
 
 		// создание иерархии меню
@@ -230,7 +230,7 @@ if (!defined( '_MOS_MAINMENU_MODULE' )) {
 		$open = array( $Itemid );
 		$count = 20; // максимум уровней - предотвращает зацикливание
 		$id = $Itemid;
-							
+
 		while (--$count) {
 			if (isset($rows[$id]) && $rows[$id]->parent > 0) {
 				$id = $rows[$id]->parent;
@@ -244,9 +244,9 @@ if (!defined( '_MOS_MAINMENU_MODULE' )) {
 	}
 
 	/**
-	* Сервисная рекурсивная функция для вертикального отступа
-	* иерархического меню
-	*/
+	 * Сервисная рекурсивная функция для вертикального отступа
+	 * иерархического меню
+	 */
 	function mosRecurseVIMenu( $id, $level, &$children, &$open, &$indents, &$params ) {
 		if (@$children[$id]) {
 			$n = min( $level, count( $indents )-1 );
@@ -273,8 +273,8 @@ if (!defined( '_MOS_MAINMENU_MODULE' )) {
 	}
 
 	/**
-	* Прорисовка горизонтального 'плоского' стиля меню (выбираемого очень просто)
-	*/
+	 * Прорисовка горизонтального 'плоского' стиля меню (выбираемого очень просто)
+	 */
 	function mosShowHFMenu(  &$params, $style=0 ) {
 		global $my;
 
@@ -283,8 +283,8 @@ if (!defined( '_MOS_MAINMENU_MODULE' )) {
 		$menus = isset($all_menu[$params->get( 'menutype' )]) ? $all_menu[$params->get( 'menutype' )] : array() ;
 
 		$rows = array();
-		foreach ($menus as $menu){
-			if($menu->parent==0 && $menu->access<=(int) $my->gid){
+		foreach ($menus as $menu) {
+			if($menu->parent==0 && $menu->access<=(int) $my->gid) {
 				$rows[$menu->id]=$menu;
 			}
 		}
@@ -298,40 +298,40 @@ if (!defined( '_MOS_MAINMENU_MODULE' )) {
 		if (count( $links )) {
 			switch ($style) {
 				case 1:
-				echo '<ul id="'. $menuclass .'">';
-				foreach ($links as $link) {
-					echo '<li>' . $link . '</li>';
-				}
-				echo '</ul>';
-				break;
-				
+					echo '<ul id="'. $menuclass .'">';
+					foreach ($links as $link) {
+						echo '<li>' . $link . '</li>';
+					}
+					echo '</ul>';
+					break;
+
 				default:
 					$spacer_start	= $params->get( 'spacer' );
 					$spacer_end		= $params->get( 'end_spacer' );
-					
-				echo '<table width="100%" border="0" cellpadding="0" cellspacing="1">';
-				echo '<tr>';
-				echo '<td class="jtd_nowrap">';
-						
-							if ( $spacer_end ) {
-								echo '<span class="'. $menuclass .'"> '. $spacer_end .' </span>';
-							}
-							
-							if ( $spacer_start ) {
-								$html = '<span class="'. $menuclass .'"> '. $spacer_start .' </span>';
-								echo implode( $html, $links );
-							} else {
-								echo implode( '', $links );
-							}
-							
-							if ( $spacer_end ) {
-								echo '<span class="'. $menuclass .'"> '. $spacer_end .' </span>';
-							}
-						
-						echo '</td>';
+
+					echo '<table width="100%" border="0" cellpadding="0" cellspacing="1">';
+					echo '<tr>';
+					echo '<td class="jtd_nowrap">';
+
+					if ( $spacer_end ) {
+						echo '<span class="'. $menuclass .'"> '. $spacer_end .' </span>';
+					}
+
+					if ( $spacer_start ) {
+						$html = '<span class="'. $menuclass .'"> '. $spacer_start .' </span>';
+						echo implode( $html, $links );
+					} else {
+						echo implode( '', $links );
+					}
+
+					if ( $spacer_end ) {
+						echo '<span class="'. $menuclass .'"> '. $spacer_end .' </span>';
+					}
+
+					echo '</td>';
 					echo '</tr>';
-				echo '</table>';
-				break;
+					echo '</table>';
+					break;
 			}
 		}
 	}

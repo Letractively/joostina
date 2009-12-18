@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -67,7 +67,7 @@ if($mosConfig_sef) {
 		$_REQUEST['option'] = 'com_users';
 		$_GET['task'] = 'lostPassword';
 		$_REQUEST['task'] = 'lostPassword';
-	}elseif(strpos($_SERVER['REQUEST_URI'], 'sitemap.xml')){
+	}elseif(strpos($_SERVER['REQUEST_URI'], 'sitemap.xml')) {
 		$QUERY_STRING = 'option=com_xmap&sitemap=1&view=xml&no_html=1';
 		$_GET['option'] = 'com_xmap';
 		$_REQUEST['option'] = 'com_xmap';
@@ -80,9 +80,9 @@ if($mosConfig_sef) {
 	}elseif(in_array('content',$url_array)) {
 
 		/**
-		* Content
-		* http://www.domain.com/$option/$task/$sectionid/$id/$Itemid/$limit/$limitstart
-		*/
+		 * Content
+		 * http://www.domain.com/$option/$task/$sectionid/$id/$Itemid/$limit/$limitstart
+		 */
 
 		$uri = explode('content/',$_SERVER['REQUEST_URI']);
 		$option = 'com_content';
@@ -135,214 +135,214 @@ if($mosConfig_sef) {
 
 			$QUERY_STRING = "option=com_content&task=$task&sectionid=$sectionid&id=$id&Itemid=$Itemid&order=$order&filter=$filter&limit=$limit&limitstart=$limitstart";
 		} else
-			if(isset($url_array[$pos + 7]) && $url_array[$pos + 7] != '' && $url_array[$pos +5] > 1000 && (in_array('archivecategory',$url_array) || in_array('archivesection',
-				$url_array))) {
-				// $option/$task/$id/$limit/$limitstart/year/month/module
-				$task = $url_array[$pos + 1];
-				$id = $url_array[$pos + 2];
-				$limit = $url_array[$pos + 3];
-				$limitstart = $url_array[$pos + 4];
-				$year = $url_array[$pos + 5];
-				$month = $url_array[$pos + 6];
-				$module = $url_array[$pos + 7];
+		if(isset($url_array[$pos + 7]) && $url_array[$pos + 7] != '' && $url_array[$pos +5] > 1000 && (in_array('archivecategory',$url_array) || in_array('archivesection',
+						$url_array))) {
+			// $option/$task/$id/$limit/$limitstart/year/month/module
+			$task = $url_array[$pos + 1];
+			$id = $url_array[$pos + 2];
+			$limit = $url_array[$pos + 3];
+			$limitstart = $url_array[$pos + 4];
+			$year = $url_array[$pos + 5];
+			$month = $url_array[$pos + 6];
+			$module = $url_array[$pos + 7];
 
-				// pass data onto global variables
-				$_GET['task'] = $task;
-				$_REQUEST['task'] = $task;
-				$_GET['id'] = $id;
-				$_REQUEST['id'] = $id;
-				$_GET['limit'] = $limit;
-				$_REQUEST['limit'] = $limit;
-				$_GET['limitstart'] = $limitstart;
-				$_REQUEST['limitstart'] = $limitstart;
-				$_GET['year'] = $year;
-				$_REQUEST['year'] = $year;
-				$_GET['month'] = $month;
-				$_REQUEST['month'] = $month;
-				$_GET['module'] = $module;
-				$_REQUEST['module'] = $module;
+			// pass data onto global variables
+			$_GET['task'] = $task;
+			$_REQUEST['task'] = $task;
+			$_GET['id'] = $id;
+			$_REQUEST['id'] = $id;
+			$_GET['limit'] = $limit;
+			$_REQUEST['limit'] = $limit;
+			$_GET['limitstart'] = $limitstart;
+			$_REQUEST['limitstart'] = $limitstart;
+			$_GET['year'] = $year;
+			$_REQUEST['year'] = $year;
+			$_GET['month'] = $month;
+			$_REQUEST['month'] = $month;
+			$_GET['module'] = $module;
+			$_REQUEST['module'] = $module;
 
-				$QUERY_STRING = "option=com_content&task=$task&id=$id&limit=$limit&limitstart=$limitstart&year=$year&month=$month&module=$module";
-			} else
-				if(isset($url_array[$pos + 7]) && $url_array[$pos + 7] != '' && $url_array[$pos +6] > 1000 && (in_array('archivecategory',$url_array) || in_array('archivesection',$url_array))) {
-					// $option/$task/$id/$Itemid/$limit/$limitstart/year/month
-					$task = $url_array[$pos + 1];
-					$id = $url_array[$pos + 2];
-					$Itemid = $url_array[$pos + 3];
-					$limit = $url_array[$pos + 4];
-					$limitstart = $url_array[$pos + 5];
-					$year = $url_array[$pos + 6];
-					$month = $url_array[$pos + 7];
+			$QUERY_STRING = "option=com_content&task=$task&id=$id&limit=$limit&limitstart=$limitstart&year=$year&month=$month&module=$module";
+		} else
+		if(isset($url_array[$pos + 7]) && $url_array[$pos + 7] != '' && $url_array[$pos +6] > 1000 && (in_array('archivecategory',$url_array) || in_array('archivesection',$url_array))) {
+			// $option/$task/$id/$Itemid/$limit/$limitstart/year/month
+			$task = $url_array[$pos + 1];
+			$id = $url_array[$pos + 2];
+			$Itemid = $url_array[$pos + 3];
+			$limit = $url_array[$pos + 4];
+			$limitstart = $url_array[$pos + 5];
+			$year = $url_array[$pos + 6];
+			$month = $url_array[$pos + 7];
 
-					// pass data onto global variables
-					$_GET['task'] = $task;
-					$_REQUEST['task'] = $task;
-					$_GET['id'] = $id;
-					$_REQUEST['id'] = $id;
-					$_GET['Itemid'] = $Itemid;
-					$_REQUEST['Itemid'] = $Itemid;
-					$_GET['limit'] = $limit;
-					$_REQUEST['limit'] = $limit;
-					$_GET['limitstart'] = $limitstart;
-					$_REQUEST['limitstart'] = $limitstart;
-					$_GET['year'] = $year;
-					$_REQUEST['year'] = $year;
-					$_GET['month'] = $month;
-					$_REQUEST['month'] = $month;
+			// pass data onto global variables
+			$_GET['task'] = $task;
+			$_REQUEST['task'] = $task;
+			$_GET['id'] = $id;
+			$_REQUEST['id'] = $id;
+			$_GET['Itemid'] = $Itemid;
+			$_REQUEST['Itemid'] = $Itemid;
+			$_GET['limit'] = $limit;
+			$_REQUEST['limit'] = $limit;
+			$_GET['limitstart'] = $limitstart;
+			$_REQUEST['limitstart'] = $limitstart;
+			$_GET['year'] = $year;
+			$_REQUEST['year'] = $year;
+			$_GET['month'] = $month;
+			$_REQUEST['month'] = $month;
 
-					$QUERY_STRING = "option=com_content&task=$task&id=$id&Itemid=$Itemid&limit=$limit&limitstart=$limitstart&year=$year&month=$month";
-				} else
-					if(isset($url_array[$pos + 7]) && $url_array[$pos + 7] != '' && in_array('category',$url_array) && (strpos($url_array[$pos + 5],'order,') !== false)) {
-						// $option/$task/$sectionid/$id/$Itemid/$order/$limit/$limitstart
-						$task = $url_array[$pos + 1];
-						$sectionid = $url_array[$pos + 2];
-						$id = $url_array[$pos + 3];
-						$Itemid = $url_array[$pos + 4];
-						$order = str_replace('order,','',$url_array[$pos + 5]);
-						$limit = $url_array[$pos + 6];
-						$limitstart = $url_array[$pos + 7];
+			$QUERY_STRING = "option=com_content&task=$task&id=$id&Itemid=$Itemid&limit=$limit&limitstart=$limitstart&year=$year&month=$month";
+		} else
+		if(isset($url_array[$pos + 7]) && $url_array[$pos + 7] != '' && in_array('category',$url_array) && (strpos($url_array[$pos + 5],'order,') !== false)) {
+			// $option/$task/$sectionid/$id/$Itemid/$order/$limit/$limitstart
+			$task = $url_array[$pos + 1];
+			$sectionid = $url_array[$pos + 2];
+			$id = $url_array[$pos + 3];
+			$Itemid = $url_array[$pos + 4];
+			$order = str_replace('order,','',$url_array[$pos + 5]);
+			$limit = $url_array[$pos + 6];
+			$limitstart = $url_array[$pos + 7];
 
-						// pass data onto global variables
-						$_GET['task'] = $task;
-						$_REQUEST['task'] = $task;
-						$_GET['sectionid'] = $sectionid;
-						$_REQUEST['sectionid'] = $sectionid;
-						$_GET['id'] = $id;
-						$_REQUEST['id'] = $id;
-						$_GET['Itemid'] = $Itemid;
-						$_REQUEST['Itemid'] = $Itemid;
-						$_GET['order'] = $order;
-						$_REQUEST['order'] = $order;
-						$_GET['limit'] = $limit;
-						$_REQUEST['limit'] = $limit;
-						$_GET['limitstart'] = $limitstart;
-						$_REQUEST['limitstart'] = $limitstart;
+			// pass data onto global variables
+			$_GET['task'] = $task;
+			$_REQUEST['task'] = $task;
+			$_GET['sectionid'] = $sectionid;
+			$_REQUEST['sectionid'] = $sectionid;
+			$_GET['id'] = $id;
+			$_REQUEST['id'] = $id;
+			$_GET['Itemid'] = $Itemid;
+			$_REQUEST['Itemid'] = $Itemid;
+			$_GET['order'] = $order;
+			$_REQUEST['order'] = $order;
+			$_GET['limit'] = $limit;
+			$_REQUEST['limit'] = $limit;
+			$_GET['limitstart'] = $limitstart;
+			$_REQUEST['limitstart'] = $limitstart;
 
-						$QUERY_STRING = "option=com_content&task=$task&sectionid=$sectionid&id=$id&Itemid=$Itemid&order=$order&limit=$limit&limitstart=$limitstart";
-					} else
-						if(isset($url_array[$pos + 6]) && $url_array[$pos + 6] != '') {
-							// $option/$task/$sectionid/$id/$Itemid/$limit/$limitstart
-							$task = $url_array[$pos + 1];
-							$sectionid = $url_array[$pos + 2];
-							$id = $url_array[$pos + 3];
-							$Itemid = $url_array[$pos + 4];
-							$limit = $url_array[$pos + 5];
-							$limitstart = $url_array[$pos + 6];
+			$QUERY_STRING = "option=com_content&task=$task&sectionid=$sectionid&id=$id&Itemid=$Itemid&order=$order&limit=$limit&limitstart=$limitstart";
+		} else
+		if(isset($url_array[$pos + 6]) && $url_array[$pos + 6] != '') {
+			// $option/$task/$sectionid/$id/$Itemid/$limit/$limitstart
+			$task = $url_array[$pos + 1];
+			$sectionid = $url_array[$pos + 2];
+			$id = $url_array[$pos + 3];
+			$Itemid = $url_array[$pos + 4];
+			$limit = $url_array[$pos + 5];
+			$limitstart = $url_array[$pos + 6];
 
-							// pass data onto global variables
-							$_GET['task'] = $task;
-							$_REQUEST['task'] = $task;
-							$_GET['sectionid'] = $sectionid;
-							$_REQUEST['sectionid'] = $sectionid;
-							$_GET['id'] = $id;
-							$_REQUEST['id'] = $id;
-							$_GET['Itemid'] = $Itemid;
-							$_REQUEST['Itemid'] = $Itemid;
-							$_GET['limit'] = $limit;
-							$_REQUEST['limit'] = $limit;
-							$_GET['limitstart'] = $limitstart;
-							$_REQUEST['limitstart'] = $limitstart;
+			// pass data onto global variables
+			$_GET['task'] = $task;
+			$_REQUEST['task'] = $task;
+			$_GET['sectionid'] = $sectionid;
+			$_REQUEST['sectionid'] = $sectionid;
+			$_GET['id'] = $id;
+			$_REQUEST['id'] = $id;
+			$_GET['Itemid'] = $Itemid;
+			$_REQUEST['Itemid'] = $Itemid;
+			$_GET['limit'] = $limit;
+			$_REQUEST['limit'] = $limit;
+			$_GET['limitstart'] = $limitstart;
+			$_REQUEST['limitstart'] = $limitstart;
 
-							$QUERY_STRING = "option=com_content&task=$task&sectionid=$sectionid&id=$id&Itemid=$Itemid&limit=$limit&limitstart=$limitstart";
-						} else
-							if(isset($url_array[$pos + 5]) && $url_array[$pos + 5] != '') {
-								// $option/$task/$id/$Itemid/$limit/$limitstart
-								$task = $url_array[$pos + 1];
-								$id = $url_array[$pos + 2];
-								$Itemid = $url_array[$pos + 3];
-								$limit = $url_array[$pos + 4];
-								$limitstart = $url_array[$pos + 5];
+			$QUERY_STRING = "option=com_content&task=$task&sectionid=$sectionid&id=$id&Itemid=$Itemid&limit=$limit&limitstart=$limitstart";
+		} else
+		if(isset($url_array[$pos + 5]) && $url_array[$pos + 5] != '') {
+			// $option/$task/$id/$Itemid/$limit/$limitstart
+			$task = $url_array[$pos + 1];
+			$id = $url_array[$pos + 2];
+			$Itemid = $url_array[$pos + 3];
+			$limit = $url_array[$pos + 4];
+			$limitstart = $url_array[$pos + 5];
 
-								// pass data onto global variables
-								$_GET['task'] = $task;
-								$_REQUEST['task'] = $task;
-								$_GET['id'] = $id;
-								$_REQUEST['id'] = $id;
-								$_GET['Itemid'] = $Itemid;
-								$_REQUEST['Itemid'] = $Itemid;
-								$_GET['limit'] = $limit;
-								$_REQUEST['limit'] = $limit;
-								$_GET['limitstart'] = $limitstart;
-								$_REQUEST['limitstart'] = $limitstart;
+			// pass data onto global variables
+			$_GET['task'] = $task;
+			$_REQUEST['task'] = $task;
+			$_GET['id'] = $id;
+			$_REQUEST['id'] = $id;
+			$_GET['Itemid'] = $Itemid;
+			$_REQUEST['Itemid'] = $Itemid;
+			$_GET['limit'] = $limit;
+			$_REQUEST['limit'] = $limit;
+			$_GET['limitstart'] = $limitstart;
+			$_REQUEST['limitstart'] = $limitstart;
 
-								$QUERY_STRING = "option=com_content&task=$task&id=$id&Itemid=$Itemid&limit=$limit&limitstart=$limitstart";
-							} else
-								if(isset($url_array[$pos + 4]) && $url_array[$pos + 4] != '' && (in_array('archivecategory',$url_array) || in_array('archivesection',$url_array))) {
-									// $option/$task/$year/$month/$module
-									$task = $url_array[$pos + 1];
-									$year = $url_array[$pos + 2];
-									$month = $url_array[$pos + 3];
-									$module = $url_array[$pos + 4];
+			$QUERY_STRING = "option=com_content&task=$task&id=$id&Itemid=$Itemid&limit=$limit&limitstart=$limitstart";
+		} else
+		if(isset($url_array[$pos + 4]) && $url_array[$pos + 4] != '' && (in_array('archivecategory',$url_array) || in_array('archivesection',$url_array))) {
+			// $option/$task/$year/$month/$module
+			$task = $url_array[$pos + 1];
+			$year = $url_array[$pos + 2];
+			$month = $url_array[$pos + 3];
+			$module = $url_array[$pos + 4];
 
-									// pass data onto global variables
-									$_GET['task'] = $task;
-									$_REQUEST['task'] = $task;
-									$_GET['year'] = $year;
-									$_REQUEST['year'] = $year;
-									$_GET['month'] = $month;
-									$_REQUEST['month'] = $month;
-									$_GET['module'] = $module;
-									$_REQUEST['module'] = $module;
+			// pass data onto global variables
+			$_GET['task'] = $task;
+			$_REQUEST['task'] = $task;
+			$_GET['year'] = $year;
+			$_REQUEST['year'] = $year;
+			$_GET['month'] = $month;
+			$_REQUEST['month'] = $month;
+			$_GET['module'] = $module;
+			$_REQUEST['module'] = $module;
 
-									$QUERY_STRING = "option=com_content&task=$task&year=$year&month=$month&module=$module";
-								} else
-									if(!(isset($url_array[$pos + 5]) && $url_array[$pos + 5] != '') && isset($url_array[$pos +4]) && $url_array[$pos + 4] != '') {
-										// $option/$task/$sectionid/$id/$Itemid
-										$task = $url_array[$pos + 1];
-										$sectionid = $url_array[$pos + 2];
-										$id = $url_array[$pos + 3];
-										$Itemid = $url_array[$pos + 4];
+			$QUERY_STRING = "option=com_content&task=$task&year=$year&month=$month&module=$module";
+		} else
+		if(!(isset($url_array[$pos + 5]) && $url_array[$pos + 5] != '') && isset($url_array[$pos +4]) && $url_array[$pos + 4] != '') {
+			// $option/$task/$sectionid/$id/$Itemid
+			$task = $url_array[$pos + 1];
+			$sectionid = $url_array[$pos + 2];
+			$id = $url_array[$pos + 3];
+			$Itemid = $url_array[$pos + 4];
 
-										// pass data onto global variables
-										$_GET['task'] = $task;
-										$_REQUEST['task'] = $task;
-										$_GET['sectionid'] = $sectionid;
-										$_REQUEST['sectionid'] = $sectionid;
-										$_GET['id'] = $id;
-										$_REQUEST['id'] = $id;
-										$_GET['Itemid'] = $Itemid;
-										$_REQUEST['Itemid'] = $Itemid;
+			// pass data onto global variables
+			$_GET['task'] = $task;
+			$_REQUEST['task'] = $task;
+			$_GET['sectionid'] = $sectionid;
+			$_REQUEST['sectionid'] = $sectionid;
+			$_GET['id'] = $id;
+			$_REQUEST['id'] = $id;
+			$_GET['Itemid'] = $Itemid;
+			$_REQUEST['Itemid'] = $Itemid;
 
-										$QUERY_STRING = "option=com_content&task=$task&sectionid=$sectionid&id=$id&Itemid=$Itemid";
-									} else
-										if(!(isset($url_array[$pos + 4]) && $url_array[$pos + 4] != '') && (isset($url_array[$pos +3]) && $url_array[$pos + 3] != '')) {
-											// $option/$task/$id/$Itemid
-											$task = $url_array[$pos + 1];
-											$id = $url_array[$pos + 2];
-											$Itemid = $url_array[$pos + 3];
+			$QUERY_STRING = "option=com_content&task=$task&sectionid=$sectionid&id=$id&Itemid=$Itemid";
+		} else
+		if(!(isset($url_array[$pos + 4]) && $url_array[$pos + 4] != '') && (isset($url_array[$pos +3]) && $url_array[$pos + 3] != '')) {
+			// $option/$task/$id/$Itemid
+			$task = $url_array[$pos + 1];
+			$id = $url_array[$pos + 2];
+			$Itemid = $url_array[$pos + 3];
 
-											// pass data onto global variables
-											$_GET['task'] = $task;
-											$_REQUEST['task'] = $task;
-											$_GET['id'] = $id;
-											$_REQUEST['id'] = $id;
-											$_GET['Itemid'] = $Itemid;
-											$_REQUEST['Itemid'] = $Itemid;
+			// pass data onto global variables
+			$_GET['task'] = $task;
+			$_REQUEST['task'] = $task;
+			$_GET['id'] = $id;
+			$_REQUEST['id'] = $id;
+			$_GET['Itemid'] = $Itemid;
+			$_REQUEST['Itemid'] = $Itemid;
 
-											$QUERY_STRING = "option=com_content&task=$task&id=$id&Itemid=$Itemid";
-										} else
-											if(!(isset($url_array[$pos + 3]) && $url_array[$pos + 3] != '') && (isset($url_array[$pos +2]) && $url_array[$pos + 2] != '')) {
-												// $option/$task/$id
-												$task = $url_array[$pos + 1];
-												$id = $url_array[$pos + 2];
+			$QUERY_STRING = "option=com_content&task=$task&id=$id&Itemid=$Itemid";
+		} else
+		if(!(isset($url_array[$pos + 3]) && $url_array[$pos + 3] != '') && (isset($url_array[$pos +2]) && $url_array[$pos + 2] != '')) {
+			// $option/$task/$id
+			$task = $url_array[$pos + 1];
+			$id = $url_array[$pos + 2];
 
-												// pass data onto global variables
-												$_GET['task'] = $task;
-												$_REQUEST['task'] = $task;
-												$_GET['id'] = $id;
-												$_REQUEST['id'] = $id;
+			// pass data onto global variables
+			$_GET['task'] = $task;
+			$_REQUEST['task'] = $task;
+			$_GET['id'] = $id;
+			$_REQUEST['id'] = $id;
 
-												$QUERY_STRING = "option=com_content&task=$task&id=$id";
-											} else
-												if(!(isset($url_array[$pos + 2]) && $url_array[$pos + 2] != '') && (isset($url_array[$pos +1]) && $url_array[$pos + 1] != '')) {
-													// $option/$task
-													$task = $url_array[$pos + 1];
+			$QUERY_STRING = "option=com_content&task=$task&id=$id";
+		} else
+		if(!(isset($url_array[$pos + 2]) && $url_array[$pos + 2] != '') && (isset($url_array[$pos +1]) && $url_array[$pos + 1] != '')) {
+			// $option/$task
+			$task = $url_array[$pos + 1];
 
-													$_GET['task'] = $task;
-													$_REQUEST['task'] = $task;
+			$_GET['task'] = $task;
+			$_REQUEST['task'] = $task;
 
-													$QUERY_STRING = 'option=com_content&task='.$task;
-												}
+			$QUERY_STRING = 'option=com_content&task='.$task;
+		}
 
 		if($lang != '') {
 			$QUERY_STRING .= '&amp;lang='.$lang;
@@ -354,40 +354,40 @@ if($mosConfig_sef) {
 
 	} elseif(in_array('component',$url_array)) {
 
-			/*
+		/*
 			* Components
 			* http://www.domain.com/component/$name,$value
-			*/
-			$uri = explode('component/',$_SERVER['REQUEST_URI']);
-			$uri_array = explode('/',$uri[1]);
-			$QUERY_STRING = '';
+		*/
+		$uri = explode('component/',$_SERVER['REQUEST_URI']);
+		$uri_array = explode('/',$uri[1]);
+		$QUERY_STRING = '';
 
-			foreach($uri_array as $value) {
-				$temp = explode(',',$value);
-				if(isset($temp[0]) && $temp[0] != '' && isset($temp[1]) && $temp[1] != '') {
-					$_GET[$temp[0]] = $temp[1];
-					$_REQUEST[$temp[0]] = $temp[1];
+		foreach($uri_array as $value) {
+			$temp = explode(',',$value);
+			if(isset($temp[0]) && $temp[0] != '' && isset($temp[1]) && $temp[1] != '') {
+				$_GET[$temp[0]] = $temp[1];
+				$_REQUEST[$temp[0]] = $temp[1];
 
-					// проверка на сущестрование каталога запрашиваемого компонента
-					if($temp[0] == 'option') {
-						if(!is_dir(JPATH_BASE.'/components/'.$temp[1])){
-							header('HTTP/1.0 404 Not Found');
-							require_once (JPATH_BASE.'/templates/system/404.php');
-							exit(404);
-						}
-					}
-
-					if($QUERY_STRING == '') {
-						$QUERY_STRING .= "$temp[0]=$temp[1]";
-					} else {
-						$QUERY_STRING .= "&$temp[0]=$temp[1]";
+				// проверка на сущестрование каталога запрашиваемого компонента
+				if($temp[0] == 'option') {
+					if(!is_dir(JPATH_BASE.'/components/'.$temp[1])) {
+						header('HTTP/1.0 404 Not Found');
+						require_once (JPATH_BASE.'/templates/system/404.php');
+						exit(404);
 					}
 				}
+
+				if($QUERY_STRING == '') {
+					$QUERY_STRING .= "$temp[0]=$temp[1]";
+				} else {
+					$QUERY_STRING .= "&$temp[0]=$temp[1]";
+				}
 			}
-			$_SERVER['QUERY_STRING'] = $QUERY_STRING;
-			$REQUEST_URI = $uri[0].'index.php?'.$QUERY_STRING;
-			$_SERVER['REQUEST_URI'] = $REQUEST_URI;
-/*
+		}
+		$_SERVER['QUERY_STRING'] = $QUERY_STRING;
+		$REQUEST_URI = $uri[0].'index.php?'.$QUERY_STRING;
+		$_SERVER['REQUEST_URI'] = $REQUEST_URI;
+		/*
 			if(defined('RG_EMULATION') && RG_EMULATION == 1) {
 				// Extract to globals
 				while(list($key,$value) = each($_GET)) {
@@ -404,31 +404,31 @@ if($mosConfig_sef) {
 					$mosConfig_live_site = 'https://'.substr($mosConfig_live_site,7);
 				}
 			}
-*/
-		} else {
-			/*
+		*/
+	} else {
+		/*
 			* Unknown content
 			* http://www.domain.com/unknown
-			*/
-			$jdir = str_replace('index.php','',$_SERVER['PHP_SELF']);
-			$juri = str_replace($jdir,'',$_SERVER['REQUEST_URI']);
+		*/
+		$jdir = str_replace('index.php','',$_SERVER['PHP_SELF']);
+		$juri = str_replace($jdir,'',$_SERVER['REQUEST_URI']);
 //  TODO раскомментировать при ошибках с SEF
 //			if($juri != '' && $juri != '/' && !eregi("index\.php",$_SERVER['REQUEST_URI']) && !eregi("index2\.php",$_SERVER['REQUEST_URI']) && !eregi("/\?",$_SERVER['REQUEST_URI']) && $_SERVER['QUERY_STRING'] == '') {
-			if($juri != '' && $juri != '/' && !preg_match("/index.php/i",$_SERVER['REQUEST_URI']) && !preg_match("/index2.php/i",$_SERVER['REQUEST_URI']) && !preg_match("/\?/i",$_SERVER['REQUEST_URI']) && $_SERVER['QUERY_STRING'] == '') {
-				header('HTTP/1.0 404 Not Found');
-				require_once (JPATH_BASE.'/templates/system/404.php');
-				exit(404);
-			}
+		if($juri != '' && $juri != '/' && !preg_match("/index.php/i",$_SERVER['REQUEST_URI']) && !preg_match("/index2.php/i",$_SERVER['REQUEST_URI']) && !preg_match("/\?/i",$_SERVER['REQUEST_URI']) && $_SERVER['QUERY_STRING'] == '') {
+			header('HTTP/1.0 404 Not Found');
+			require_once (JPATH_BASE.'/templates/system/404.php');
+			exit(404);
 		}
+	}
 }
 
 unset($url_array,$jdir,$juri);
 
 /**
-* Converts an absolute URL to SEF format
-* @param string The URL
-* @return string
-*/
+ * Converts an absolute URL to SEF format
+ * @param string The URL
+ * @return string
+ */
 function sefRelToAbs($string) {
 	global $mosConfig_sef,$mosConfig_multilingual_support;
 	global $iso_client_lang,$mosConfig_com_frontpage_clear;
@@ -552,27 +552,27 @@ function sefRelToAbs($string) {
 
 				// all other components
 				// index.php?option=com_xxxx &...
-			}elseif(isset($parts['option']) && $parts['option']=='com_search' && isset($parts['tag'])){
+			}elseif(isset($parts['option']) && $parts['option']=='com_search' && isset($parts['tag'])) {
 				$string = 'tag/'.$parts['tag'];
-			}elseif(isset($parts['option']) && $parts['option']=='com_users' && isset($parts['task']) && $parts['task']=='register'){
+			}elseif(isset($parts['option']) && $parts['option']=='com_users' && isset($parts['task']) && $parts['task']=='register') {
 				$string = 'register/';
-			}elseif(isset($parts['option']) && $parts['option']=='com_users' && isset($parts['task']) && $parts['task']=='lostPassword'){
+			}elseif(isset($parts['option']) && $parts['option']=='com_users' && isset($parts['task']) && $parts['task']=='lostPassword') {
 				$string = 'lostpassword/';
 			} elseif(isset($parts['option']) && (strpos($parts['option'],'com_') !== false)) {
-					// do not SEF where com_content - `edit` or `new` task link
-					if(!(($parts['option'] == 'com_content') && ((isset($parts['task']) == 'new') ||
-						(isset($parts['task']) == 'edit')))) {
-						$sefstring = 'component/';
+				// do not SEF where com_content - `edit` or `new` task link
+				if(!(($parts['option'] == 'com_content') && ((isset($parts['task']) == 'new') ||
+								(isset($parts['task']) == 'edit')))) {
+					$sefstring = 'component/';
 
-						foreach($parts as $key => $value) {
-							// remove slashes automatically added by parse_str
-							$value = stripslashes($value);
-							$sefstring .= $key.','.$value.'/';
-						}
-
-						$string = str_replace('=',',',$sefstring);
+					foreach($parts as $key => $value) {
+						// remove slashes automatically added by parse_str
+						$value = stripslashes($value);
+						$sefstring .= $key.','.$value.'/';
 					}
+
+					$string = str_replace('=',',',$sefstring);
 				}
+			}
 			// no query given. Empty $string to get only the fragment
 			// index.php#anchor or index.php?#anchor
 		} else {

@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -14,18 +14,18 @@ $_MAMBOTS->registerFunction('userProfile','botUserContent');
 $_MAMBOTS->registerFunction('userProfileTab','botUserContent_tab');
 
 /* добавляем вкладку профиля */
-function botUserContent_tab(&$user){
+function botUserContent_tab(&$user) {
 	return array(
-		'name'=>_USER_CONTENTS,
-		'title'=>_USER_CONTENTS,
-		'href'=>'index.php?option=com_users&task=profile&view=user_content&user='.$user->id,
-		'id'=>'user_user_content_link',
-		'class'=>''
+			'name'=>_USER_CONTENTS,
+			'title'=>_USER_CONTENTS,
+			'href'=>'index.php?option=com_users&task=profile&view=user_content&user='.$user->id,
+			'id'=>'user_user_content_link',
+			'class'=>''
 	);
 }
 
 /**
-*/
+ */
 function botUserContent(&$user) {
 	global $_MAMBOTS,$Itemid;
 
@@ -49,31 +49,31 @@ function botUserContent(&$user) {
 
 	$access = new contentAccess();
 
-	if(!$user_items){?>
-		<div id="userContent_area">
-			<div class="error"><?php echo USER_CONTENT_NO_USER_CONTENTS?></div>
-		</div><?php
+	if(!$user_items) {?>
+<div id="userContent_area">
+	<div class="error"><?php echo USER_CONTENT_NO_USER_CONTENTS?></div>
+</div><?php
 		return;
 	}
 	?><div id="userContent_area">
 	<br />
 	<table width="100%" border="0" cellspacing="0" cellpadding="0">
-<?php
-	foreach ($user_items as $row) {
-		$row->created = mosFormatDate ($row->created,$config->config_form_date_full,'0');
-		$link	= sefRelToAbs( 'index.php?option=com_content&amp;task=view&amp;id='. $row->id);
-		$row->Itemid_link = '&amp;Itemid='.$Itemid;
-		$row->_Itemid = $Itemid;
-		// раздел / категория
-		$section_cat = $row->section.' / '.$row->category;
-		if($row->sectionid==0){
-			$section_cat = _CONTENT_TYPED;
-		}
-?>
+			<?php
+			foreach ($user_items as $row) {
+				$row->created = mosFormatDate ($row->created,$config->config_form_date_full,'0');
+				$link	= sefRelToAbs( 'index.php?option=com_content&amp;task=view&amp;id='. $row->id);
+				$row->Itemid_link = '&amp;Itemid='.$Itemid;
+				$row->_Itemid = $Itemid;
+				// раздел / категория
+				$section_cat = $row->section.' / '.$row->category;
+				if($row->sectionid==0) {
+					$section_cat = _CONTENT_TYPED;
+				}
+				?>
 		<tr class="sectiontableentry<?php echo ($k+1);?>">
-<?php if($access->canEdit){?>
+					<?php if($access->canEdit) {?>
 			<td><?php mosContent::EditIcon2($row, $params, $access);?></td>
-<?php }?>
+						<?php }?>
 			<td>
 				<a href="<?php echo $link; ?>"><?php echo $row->title; ?></a>
 				<br />
@@ -82,14 +82,14 @@ function botUserContent(&$user) {
 			<td><?php echo $row->created; ?></td>
 			<td align="center"><?php echo $row->hits ? $row->hits : 0; ?></td>
 		</tr>
-		<?php $k = 1 - $k; ?>
-<?php } ?>
+				<?php $k = 1 - $k; ?>
+				<?php } ?>
 	</table>
-<?php if ( $params->get( 'show_link' ) ) {
-	$user_content_link = sefRelToAbs( 'index.php?option=com_content&amp;task=user_content&amp;id='. $user->id);
-?>
-		<a class="readon" href="<?php echo $user_content_link; ?>"><?php echo USER_CONTENT_ALL_USER_CONTENTS ?></a>
-<?php }?>
-	</div>
-<?php
+		<?php if ( $params->get( 'show_link' ) ) {
+			$user_content_link = sefRelToAbs( 'index.php?option=com_content&amp;task=user_content&amp;id='. $user->id);
+			?>
+	<a class="readon" href="<?php echo $user_content_link; ?>"><?php echo USER_CONTENT_ALL_USER_CONTENTS ?></a>
+			<?php }?>
+</div>
+	<?php
 }

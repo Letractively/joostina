@@ -12,6 +12,4 @@
 	<files>
 		<filename mambot="user_content">user_content.php</filename>
 	</files>
-	<params>
-	</params>
 </mosinstall>

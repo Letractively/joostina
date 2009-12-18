@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined( '_VALID_MOS' ) or die();
@@ -40,14 +40,17 @@ $params->set('intro_only',1);
 $catid	= intval( $params->get('catid') );
 $link_titles = $params->get('link_titles', $mosConfig_link_titles);
 
-if(!$params->get('template', '')){
+if(!$params->get('template', '')) {
 	switch ($params->get('style', 'vert')) {
+		
 		case 'horiz':
 			$params->set('template', 'gorizontal.php');
 			break;
+
 		case 'vert':
 			$params->set('template', 'vertical.php');
 			break;
+
 		case 'random':
 		default:
 			srand ((double) microtime()* 1000000);
@@ -57,9 +60,9 @@ if(!$params->get('template', '')){
 			break;
 	}
 }
-else{
+else {
 
-	if($params->get('style')=='random'){
+	if($params->get('style')=='random') {
 		srand ((double) microtime()* 1000000);
 		$flashnum = rand( 0, $params->get('numrows') - 1 );
 		$row = $items[$flashnum];
@@ -70,6 +73,6 @@ else{
 $module->get_helper($mainframe);
 
 //Подключаем шаблон
-if($module->set_template($params)){
+if($module->set_template($params)) {
 	require($module->template);
 }

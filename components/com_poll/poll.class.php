@@ -1,45 +1,45 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 /**
-* @package Joostina
-* @subpackage Polls
-*/
+ * @package Joostina
+ * @subpackage Polls
+ */
 class mosPoll extends mosDBTable {
 	/**
-	@var int Primary key*/
+	 @var int Primary key*/
 	var $id = null;
 	/**
-	@var string*/
+	 @var string*/
 	var $title = null;
 	/**
-	@var string*/
+	 @var string*/
 	var $checked_out = null;
 	/**
-	@var time*/
+	 @var time*/
 	var $checked_out_time = null;
 	/**
-	@var boolean*/
+	 @var boolean*/
 	var $published = null;
 	/**
-	@var int*/
+	 @var int*/
 	var $access = null;
 	/**
-	@var int*/
+	 @var int*/
 	var $lag = null;
 
 	/**
-	* @param database A database connector object
-	*/
+	 * @param database A database connector object
+	 */
 	function mosPoll(&$db) {
 		$this->mosDBTable('#__polls','id',$db);
 	}

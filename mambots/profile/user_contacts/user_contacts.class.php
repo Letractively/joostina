@@ -1,16 +1,16 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-class UserContactsEmail{
+class UserContactsEmail {
 
 	var $pretext = '';
 	var $posttext = '';
@@ -23,11 +23,11 @@ class UserContactsEmail{
 
 	var $_error = '';
 
-	function UserContactsEmail(){
+	function UserContactsEmail() {
 		$this->subject = BOT_USER_CONTACTS_MESSAGE_FROM.Jconfig::getInstance()->config_sitename;
 	}
 
-	function clean_message($text){
+	function clean_message($text) {
 		$text = preg_replace( "'<script[^>]*>.*?</script>'si", "", $text );
 		$text = preg_replace( "'<?php*.*?>'", "", $text );
 		$text = preg_replace( '/<a\s+.*?href="([^"]+)"[^>]*>([^<]+)<\/a>/is','\2 (\1)', $text );
@@ -37,7 +37,7 @@ class UserContactsEmail{
 		return $text;
 	}
 
-	function send_message(){
+	function send_message() {
 
 		if(eregi("[\<|\>|\"|\'|\%|\;|\(|\)|\&|\+|\-]",$this->fromname) || strlen($this->fromname) <3) {
 			$this->_error = BOT_USER_CONTACTS_CHECK_NAME;
@@ -52,9 +52,9 @@ class UserContactsEmail{
 		if(strlen($this->fromname) > 35) {
 			$this->fromname = substr($this->fromname,0,35);
 		}
-		if(mosMail($this->from,$this->fromname,$this->recipient,$this->subject,$this->message)){
+		if(mosMail($this->from,$this->fromname,$this->recipient,$this->subject,$this->message)) {
 			return true;
-		}else{
+		}else {
 			$this->_error = BOT_USER_CONTACTS_SYSTEM_ERROR;
 			return false;
 		}

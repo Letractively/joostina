@@ -1,28 +1,28 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или LICENSE.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или LICENSE.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл COPYRIGHT.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 /**
-* Page navigation support class
-* @package Joostina
-*/
+ * Page navigation support class
+ * @package Joostina
+ */
 class mosPageNav {
 	/**
-	@var int The record number to start dislpaying from*/
+	 @var int The record number to start dislpaying from*/
 	var $limitstart = null;
 	/**
-	@var int Number of rows to display per page*/
+	 @var int Number of rows to display per page*/
 	var $limit = null;
 	/**
-	@var int Total number of rows*/
+	 @var int Total number of rows*/
 	var $total = null;
 
 	var $prev_exist = 0;
@@ -34,10 +34,10 @@ class mosPageNav {
 		$this->limit = (int)max($limit,0);
 	}
 	/**
-	* Returns the html limit # input box
-	* @param string The basic link to include in the href
-	* @return string
-	*/
+	 * Returns the html limit # input box
+	 * @param string The basic link to include in the href
+	 * @return string
+	 */
 	function getLimitBox($link) {
 		$limits = array();
 		for($i = 5; $i <= 30; $i += 5) {
@@ -53,15 +53,15 @@ class mosPageNav {
 		return mosHTML::selectList($limits,'limit','class="inputbox" size="1" onchange="document.location.href=\''.$link.'\';"','value','text',$this->limit);
 	}
 	/**
-	* Writes the html limit # input box
-	* @param string The basic link to include in the href
-	*/
+	 * Writes the html limit # input box
+	 * @param string The basic link to include in the href
+	 */
 	function writeLimitBox($link) {
 		echo mosPageNav::getLimitBox($link);
 	}
 	/**
-	* Writes the html for the pages counter, eg, Results 1-10 of x
-	*/
+	 * Writes the html for the pages counter, eg, Results 1-10 of x
+	 */
 	function writePagesCounter() {
 		$txt = '';
 		$from_result = $this->limitstart + 1;
@@ -77,8 +77,8 @@ class mosPageNav {
 	}
 
 	/**
-	* Writes the html for the leafs counter, eg, Page 1 of x
-	*/
+	 * Writes the html for the leafs counter, eg, Page 1 of x
+	 */
 	function writeLeafsCounter() {
 		$txt = '';
 		$page = ceil(($this->limitstart + 1) / $this->limit);
@@ -90,9 +90,9 @@ class mosPageNav {
 	}
 
 	/**
-	* Writes the html links for pages, eg, previous, next, 1 2 3 ... x
-	* @param string The basic link to include in the href
-	*/
+	 * Writes the html links for pages, eg, previous, next, 1 2 3 ... x
+	 * @param string The basic link to include in the href
+	 */
 	function writePagesLinks($link) {
 
 		global $mainframe;
@@ -125,7 +125,7 @@ class mosPageNav {
 
 			$page = ($this_page - 2)* $this->limit;
 
-			if (!$this->prev_exist){
+			if (!$this->prev_exist) {
 				$mainframe->addCustomHeadTag('<link rel="prev" href="'.sefRelToAbs($link.'&amp;limitstart='.$page).'" />');
 				$this->prev_exist = 1;
 			}
@@ -151,7 +151,7 @@ class mosPageNav {
 			$page = $this_page* $this->limit;
 			$end_page = ($total_pages - 1)* $this->limit;
 
-			if (!$this->next_exist){
+			if (!$this->next_exist) {
 				$mainframe->addCustomHeadTag("<link rel='next' href='".sefRelToAbs($link.'&amp;limitstart='.$page)."' />");
 				$this->next_exist = 1;
 			}
@@ -162,14 +162,14 @@ class mosPageNav {
 			$txt .= '<li class="next"><span class="pagenav">'._PN_NEXT.$pnSpace._PN_RT.'</span></li> ';
 			$txt .= '<li class="last_page"><span class="pagenav">'._PN_END.$pnSpace._PN_RT.'</span></li>';
 		}
-		 return $txt.'</ul></div>';
+		return $txt.'</ul></div>';
 	}
 	/**
-	* Sets the vars {PAGE_LINKS}, {PAGE_LIST_OPTIONS} and {PAGE_COUNTER} for the page navigation template
-	* @param object The patTemplate object
-	* @param string The full link to be used in the nav link, eg index.php?option=com_content
-	* @param string The name of the template to add the variables
-	*/
+	 * Sets the vars {PAGE_LINKS}, {PAGE_LIST_OPTIONS} and {PAGE_COUNTER} for the page navigation template
+	 * @param object The patTemplate object
+	 * @param string The full link to be used in the nav link, eg index.php?option=com_content
+	 * @param string The name of the template to add the variables
+	 */
 	function setTemplateVars(&$tmpl,$link = '',$name = 'admin-list-footer') {
 		$tmpl->addVar($name,'PAGE_LINKS',$this->writePagesLinks($link));
 		$tmpl->addVar($name,'PAGE_LIST_OPTIONS',$this->getLimitBox($link));

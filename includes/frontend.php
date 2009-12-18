@@ -1,26 +1,26 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 /**
-* Displays the capture output of the main element
-*/
+ * Displays the capture output of the main element
+ */
 function mosMainBody() {
 	$page = &PageModel::getInstance();
 	echo $page->MainBody();
 }
 /**
-* Utility functions and classes
-* not used?
-*/
+ * Utility functions and classes
+ * not used?
+ */
 function mosLoadComponent($name) {
 	global $my,$task,$Itemid,$id,$option,$gid;
 
@@ -29,25 +29,25 @@ function mosLoadComponent($name) {
 	include (JPATH_BASE.DS."components/com_$name/$name.php");
 }
 /**
-* Cache some modules information
-* @return array
-*/
+ * Cache some modules information
+ * @return array
+ */
 
 //Добавлено в класс mosModules
 function &initModules() {
-	
+
 }
 /**
-* @param string the template position
-*/
+ * @param string the template position
+ */
 function mosCountModules($position = 'left') {
 	$modules =& mosModule::getInstance();
 	return $modules->mosCountModules($position);
 }
 /**
-* @param string The position
-* @param int The style.  0=normal, 1=horiz, -1=no wrapper
-*/
+ * @param string The position
+ * @param int The style.  0=normal, 1=horiz, -1=no wrapper
+ */
 //Скопировано в класс
 function mosLoadModules($position = 'left',$style = 0,$noindex = 0) {
 	$modules =& mosModule::getInstance();
@@ -55,17 +55,17 @@ function mosLoadModules($position = 'left',$style = 0,$noindex = 0) {
 }
 
 /**
-* @param string The position
-* @param int The style.  0=normal, 1=horiz, -1=no wrapper
-*/
+ * @param string The position
+ * @param int The style.  0=normal, 1=horiz, -1=no wrapper
+ */
 function mosLoadModule($name = '', $title = '', $style = 0, $noindex = 0, $inc_params = null) {
 	$modules =& mosModule::getInstance();
 	return $modules->mosLoadModule($name,$title,$style,$noindex,$inc_params);
 }
 
 /**
-* Шапка страницы
-*/
+ * Шапка страницы
+ */
 function mosShowHead($params=array('js'=>1,'css'=>1)) {
 	$page = &PageModel::getInstance();
 	// загружаем верхнюю часть страницы со всеми js и css файлами, и обязательным использованием jquery
@@ -84,25 +84,27 @@ function set_robot_metatag($robots) {
 }
 
 // выводк лент RSS
-function syndicate_header(){}
+function syndicate_header() {
+
+}
 
 
 /**
-* @package Joostina
-*/
+ * @package Joostina
+ */
 
-class PageModel{
+class PageModel {
 
 	var $_mainframe = null;
 	var $_view = null;
 
-	function PageModel($mainframe){
+	function PageModel($mainframe) {
 		$this->_mainframe = $mainframe;
 	}
 
-	function getInstance(){
+	function getInstance() {
 		static $page_model;
-		if(!is_object($page_model) ){
+		if(!is_object($page_model) ) {
 			$mainframe = &mosMainFrame::getInstance();
 			unset($mainframe->menu,$mainframe->_session);
 			$page_model = new PageModel($mainframe);
@@ -111,15 +113,15 @@ class PageModel{
 		return $page_model;
 	}
 
-	function _body(){
+	function _body() {
 		$this->MainBody();
 	}
 
-	function _header($params){
+	function _header($params) {
 		$this->ShowHead($params);
 	}
 
-	function _footer($params){
+	function _footer($params) {
 		$this->ShowFooter($params);
 	}
 
@@ -184,7 +186,7 @@ class PageModel{
 			if($mainframe->_head['meta'][$i][0] == 'keywords') {
 				$_meta_keys_index = $i;
 				$keywords = $mainframe->_head['meta'][$i][1];
-			} else{
+			} else {
 				if($mainframe->_head['meta'][$i][0] == 'description') {
 					$_meta_desc_index = $i;
 					$description = $mainframe->_head['meta'][$i][1];
@@ -248,10 +250,10 @@ class PageModel{
 		// отключение RSS вывода в шапку
 
 		if($mainframe->getCfg('syndicate_off')==0) {
-			if($mainframe->getCfg('caching')==1){
+			if($mainframe->getCfg('caching')==1) {
 				$cache = &mosCache::getCache('header');
 				echo $cache->call('syndicate_header');
-			}else{
+			}else {
 				echo $this->syndicate_header();
 			}
 			echo "\r\n";
@@ -261,7 +263,7 @@ class PageModel{
 		if(!$mainframe->getCfg('disable_favicon')) {
 			if(!$mainframe->getCfg('favicon')) {
 				$favicon = 'favicon.ico';
-			}else{
+			}else {
 				$favicon = $mainframe->getCfg('favicon');
 			}
 			$icon = JPATH_BASE.'/images/'.$favicon;
@@ -281,7 +283,7 @@ class PageModel{
 
 
 	// выводк лент RSS
-	function syndicate_header(){
+	function syndicate_header() {
 		$mainframe = $this->_mainframe;
 
 		$row = new mosComponent();

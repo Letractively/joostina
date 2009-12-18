@@ -5,7 +5,7 @@
  * @package     Joostina
  * @subpackage  templates/iOi
  * @version     $Id: base.css 29-09-2009 12:17 ZaiSL $;
- */
+*/
 
 body{
     font: normal 12px/20px "Arial";
@@ -100,7 +100,7 @@ a.edit:hover{
 
 /*---------------------------------------------------------------------Таблицы*/
 .content table td{
-     padding: 4px 2px;
+	padding: 4px 2px;
 }
 .content table tr th {
 	background:  #F2F3E9;
@@ -158,9 +158,9 @@ input[type=radio]{
 	display:inline-block;
 	line-height:25px;
 	padding:0 9px 0 0;
-	background:url(../images/buttons/bg-button-r.png) right 0 no-repeat;
+	background: url(../images/buttons/bg-button-r.png) right 0 no-repeat;
 	cursor:pointer; font-family: "Arial";
- }
+}
 .button a, .button b, .button input, .button button {
 	display:inline-block;
 	padding:0 0 0 9px;
@@ -231,8 +231,8 @@ span.edit{
 	height:20px;
 }
 .inprogress {
- 	background: url(../images/elements/loader.gif) no-repeat  left;
- 	padding: 0 0 0 22px;
+	background: url(../images/elements/loader.gif) no-repeat  left;
+	padding: 0 0 0 22px;
 }
 .info{
 	padding: 10px 10px 10px 30px;
@@ -252,11 +252,11 @@ img#email, img#print {
 }
 #jdebug .debug_counter{
     background: url(../images/elements/publish.png) no-repeat  left;
- 	padding: 0 0 0 22px;
+	padding: 0 0 0 22px;
 }
 #jdebug .debug_files{
     background: url(../images/elements/information.png) no-repeat  left;
- 	padding: 0 0 0 22px;
+	padding: 0 0 0 22px;
 }
 #jdebug .debug_log li{
     padding: 5px 10px 5px 5px;
@@ -291,7 +291,7 @@ div.pathway ul li  {
     padding: 0 2px 0 5px;
 }
 div.pathway li.pathway_arrow  {
-   display: none;
+	display: none;
 }
 div.pathway li a  {
     height:30px;
@@ -449,7 +449,7 @@ li.first_page span, li.first_page a, li.last_page span,  li.last_page a, .back s
 	opacity: 0.85;
 }
 #tooltip h3, #tooltip div { 
-	margin: 0; 
+	margin: 0;
 }
 #tooltip h3{
     font-size: 14px; font-weight: bold;

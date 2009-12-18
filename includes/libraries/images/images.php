@@ -1,9 +1,11 @@
 <?php
 /**
- * (c) boston, 2008 Joostina.Team
- *
- */
-
+* @package Joostina
+* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+*/
 defined('_VALID_MOS') or die();
 
 class Image {
@@ -18,23 +20,23 @@ class Image {
 	var $max_size = 1048576;
 	var $url ='';
 
-	function Image(){
+	function Image() {
 	}
 
-	function upload($resize_options=0){
+	function upload($resize_options=0) {
 		global $_FILES;
 
 		$name_file=$this->field_name;
 		$up = 0;
 
 		$dir_name = JPATH_BASE."/".$this->directory;
-		if(!is_dir($dir_name)){
+		if(!is_dir($dir_name)) {
 			mkdir($dir_name, 0700);
 		}
 
 		$filename_new = mktime();
 		$filename_pref='file_';
-		if($this->file_prefix){
+		if($this->file_prefix) {
 			$filename_pref=$this->file_prefix;
 		}
 
@@ -48,12 +50,12 @@ class Image {
 				$ext = substr($_FILES[$name_file]['name'], 1 + strrpos($_FILES[$name_file]['name'], "."));
 				$file_params['ext']=$ext;
 
-				if ($_FILES[$name_file]['size']>$this->max_size){
+				if ($_FILES[$name_file]['size']>$this->max_size) {
 					echo "<script> alert('Ошибка при добавлении файла. Проверьте размер документа.');  </script>\n";
 					exit();
 				}
 
-				else if (!in_array($ext, $this->valid_types)){
+				else if (!in_array($ext, $this->valid_types)) {
 					echo "<script> alert('Ошибка при добавлении файла. Проверьте  тип документа.');  </script>\n";
 					exit();
 				}
@@ -68,23 +70,23 @@ class Image {
 							$name = $filename_pref.$filename_new.'.'.$ext;
 							$file_params['name']=$name;
 							$return = $name;
-							if ($this->return_params=='array'){
+							if ($this->return_params=='array') {
 								$return=$file_params;
 							}
 
 							//Ресайз фото
-							 if($resize_options){
+							if($resize_options) {
 
-								if($resize_options['output_file']=='thumb'){
-									if(!is_dir($dir_name.'/thumb')){
+								if($resize_options['output_file']=='thumb') {
+									if(!is_dir($dir_name.'/thumb')) {
 										mkdir($dir_name.'/thumb', 0700);
 									}
-									if(!Thumbnail::output($dir_name.'/'.$name, $dir_name.'/thumb/'.$name, $resize_options)){
+									if(!Thumbnail::output($dir_name.'/'.$name, $dir_name.'/thumb/'.$name, $resize_options)) {
 										echo "<script> alert('Ошибка при добавлении файла. Возможно, файл поврежден');  </script>\n";
 										exit();
 									}
-								}else{
-									if(!Thumbnail::output($dir_name.'/'.$name, $dir_name.'/'.$name, $resize_options)){
+								}else {
+									if(!Thumbnail::output($dir_name.'/'.$name, $dir_name.'/'.$name, $resize_options)) {
 										echo "<script> alert('Ошибка при добавлении файла. Возможно, файл поврежден2');  </script>\n";
 										exit();
 									}
@@ -93,60 +95,60 @@ class Image {
 
 							return $return;
 						}
-						else{
+						else {
 							echo "<script> alert('Файл не может быть перемещен в директорию назначения. Попробуйте еще раз, при повторении ошибки сообщите администратору сайта');  </script>\n";
 							exit();
 						}
 					}
-					else{
+					else {
 						echo "<script> alert('Ошибка при добавлении файла. Возможно, файл поврежден');  </script>\n";
 						exit();
 					}
 				}
 			}
-			else{
+			else {
 				echo "<script> alert('Файл не может быть загружен. Попробуйте еще раз, при повторении ошибки сообщите администратору сайта');  </script>\n";
 				exit();
 			}
 		}
-		else{
+		else {
 			echo "<script> alert('Ошибка при добавлении файла. Файл не существует или поврежден'); window.history.go(-1); </script>\n";
 			exit();
 		}
 
 
-			return false;
+		return false;
 	}
 
 
-	function isFileIsset($file){
+	function isFileIsset($file) {
 
 		$file_name = JPATH_BASE. DS .$file;
 
-		if(file_exists($file_name)){
+		if(file_exists($file_name)) {
 			return true;
 		}
-		else{
+		else {
 			return false;
 		}
 	}
 
 
-	function delFile(&$file){
+	function delFile(&$file) {
 		$file_name = $file->directory.DS.$file->name;
 
-		if(self::isFileIsset($file_name)){
+		if(self::isFileIsset($file_name)) {
 			unlink(JPATH_BASE.DS.$file_name);
 			return true;
 		}
 		return false;
 	}
 
-	function get_image_from_text($text, $type = 'img', $default_image = null){
-		if($type=='mosimage'){
+	function get_image_from_text($text, $type = 'img', $default_image = null) {
+		if($type=='mosimage') {
 			$image = self::get_mosimage($text, $default_image);
 		}
-		else{
+		else {
 			$image = self::get_image($text, $default_image);
 		}
 
@@ -154,7 +156,7 @@ class Image {
 	}
 
 
-	function get_mosimage($images, $default_image = null){
+	function get_mosimage($images, $default_image = null) {
 		$images = explode("\n", $images);
 		$total = count($images);
 		$image = '';
@@ -167,34 +169,34 @@ class Image {
 			}
 		}
 
-		if($image){
+		if($image) {
 			return '/images/stories/'.$image;
-		}elseif($default_image){
+		}elseif($default_image) {
 			return '/images/noimage.jpg';
 		}
-		else{
+		else {
 			return false;
 		}
 
 	}
 
-	function get_image($text, $default_image = null){
+	function get_image($text, $default_image = null) {
 
 		$matches=array();
 		$regex = '#<img[^>]*src=(["\'])([^"\']*)\1[^>]*>#is';
-		if(preg_match($regex, $text, $matches)){
+		if(preg_match($regex, $text, $matches)) {
 			$img =  $matches[2];
 			$img = self::check_href($img);
 			return $img;
-		}elseif($default_image){
+		}elseif($default_image) {
 			return '/images/noimage.jpg';
-		}else{
+		}else {
 			return false;
 		}
 	}
 
-	function check_href($href){
-		if(!(substr($href, 0, 4)=='http') && !(substr($href, 0, 1)=='/')){
+	function check_href($href) {
+		if(!(substr($href, 0, 4)=='http') && !(substr($href, 0, 1)=='/')) {
 			$href = '/'.$href;
 		}
 
@@ -259,8 +261,7 @@ define('THUMBNAIL_ALIGN_BOTTOM', +1);
 // }}}
 // {{{
 
-class Thumbnail
-{
+class Thumbnail {
 
 	// {{{
 
@@ -279,8 +280,7 @@ class Thumbnail
 	 * @static
 	 * @see	Thumbnail::imageCreateFromFile(), Thumbnail::imageCreateFromString()
 	 */
-	function imageCreate($input)
-	{
+	function imageCreate($input) {
 		if ( is_file($input) ) {
 			return Thumbnail::imageCreateFromFile($input);
 		} else if ( is_string($input) ) {
@@ -302,8 +302,7 @@ class Thumbnail
 	 * @access public
 	 * @static
 	 */
-	function imageCreateFromFile($filename)
-	{
+	function imageCreateFromFile($filename) {
 		if ( ! is_file($filename) || ! is_readable($filename) ) {
 			user_error('Unable to open file "' . $filename . '"', E_USER_NOTICE);
 			return false;
@@ -313,12 +312,12 @@ class Thumbnail
 		list( , , $type) = getimagesize($filename);
 
 		switch ($type) {
-		case IMAGETYPE_JPEG:
-			return imagecreatefromjpeg($filename);
-			break;
-		case IMAGETYPE_PNG:
-			return imagecreatefrompng($filename);
-			break;
+			case IMAGETYPE_JPEG:
+				return imagecreatefromjpeg($filename);
+				break;
+			case IMAGETYPE_PNG:
+				return imagecreatefrompng($filename);
+				break;
 		}
 		user_error('Unsupport image type', E_USER_NOTICE);
 		return false;
@@ -336,8 +335,7 @@ class Thumbnail
 	 * @access public
 	 * @static
 	 */
-	function imageCreateFromString($string)
-	{
+	function imageCreateFromString($string) {
 		if ( ! is_string($string) || empty($string) ) {
 			user_error('Invalid image value in string', E_USER_NOTICE);
 			return false;
@@ -369,8 +367,7 @@ class Thumbnail
 	 * @return boolean		  TRUE on success or FALSE on failure.
 	 * @access public
 	 */
-	function output($input, $output=null, $options=array())
-	{
+	function output($input, $output=null, $options=array()) {
 		// Load source file and render image
 		$renderImage = Thumbnail::render($input, $options);
 		if ( ! $renderImage ) {
@@ -395,15 +392,15 @@ class Thumbnail
 
 		// Define outputing function
 		switch ($type) {
-		case IMAGETYPE_PNG:
-			$result = empty($output) ? imagepng($renderImage) : imagepng($renderImage, $output);
-			break;
-		case IMAGETYPE_JPEG:
-			$result = empty($output) ? imagejpeg($renderImage) : imagejpeg($renderImage, $output);
-			break;
-		default:
-			user_error('Image type ' . $content_type . ' not supported by PHP', E_USER_NOTICE);
-			return false;
+			case IMAGETYPE_PNG:
+				$result = empty($output) ? imagepng($renderImage) : imagepng($renderImage, $output);
+				break;
+			case IMAGETYPE_JPEG:
+				$result = empty($output) ? imagejpeg($renderImage) : imagejpeg($renderImage, $output);
+				break;
+			default:
+				user_error('Image type ' . $content_type . ' not supported by PHP', E_USER_NOTICE);
+				return false;
 		}
 
 		// Output image (to browser or to file)
@@ -431,8 +428,7 @@ class Thumbnail
 	 * @access public
 	 * @see	Thumbnail::output()
 	 */
-	function render($input, $options=array())
-	{
+	function render($input, $options=array()) {
 		// Create the source image
 		$sourceImage = Thumbnail::imageCreate($input);
 		if ( ! is_resource($sourceImage) ) {
@@ -444,12 +440,12 @@ class Thumbnail
 
 		// Set default options
 		static $defOptions = array(
-			'width'   => 150,
-			'height'  => 150,
-			'method'  => THUMBNAIL_METHOD_SCALE_MAX,
-			'percent' => 0,
-			'halign'  => THUMBNAIL_ALIGN_CENTER,
-			'valign'  => THUMBNAIL_ALIGN_CENTER,
+		'width'   => 150,
+		'height'  => 150,
+		'method'  => THUMBNAIL_METHOD_SCALE_MAX,
+		'percent' => 0,
+		'halign'  => THUMBNAIL_ALIGN_CENTER,
+		'valign'  => THUMBNAIL_ALIGN_CENTER,
 		);
 		foreach ($defOptions as $k => $v) {
 			if ( ! isset($options[$k]) ) {
@@ -540,7 +536,7 @@ class Thumbnail
 	// }}}
 	// {{{ _coord()
 
-	function _coord($align, $param, $src){
+	function _coord($align, $param, $src) {
 		if ( $align < THUMBNAIL_ALIGN_CENTER ) {
 			$result = 0;
 		} elseif ( $align > THUMBNAIL_ALIGN_CENTER ) {

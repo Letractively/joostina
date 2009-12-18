@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -23,17 +23,17 @@ function pathwayMakeLink($id,$name,$link,$parent) {
 }
 
 /**
-* Outputs the pathway breadcrumbs
-* @param database A database connector object
-* @param int The db id field value of the current menu item
-*/
+ * Outputs the pathway breadcrumbs
+ * @param database A database connector object
+ * @param int The db id field value of the current menu item
+ */
 function showPathway($Itemid) {
 	global $database,$option,$task,$mainframe,$my,$mosConfig_pathway_clean,$mosConfig_disable_access_control;
 	if($_SERVER['QUERY_STRING'] == '' & $mosConfig_pathway_clean) {
 		echo '&nbsp;';
 		return;
 	}
-	if(!$mosConfig_disable_access_control){
+	if(!$mosConfig_disable_access_control) {
 		$where_ac = "\n AND access <= ".(int)$my->gid;
 	}else {
 		$where_ac = '';
@@ -59,9 +59,9 @@ function showPathway($Itemid) {
 	if(isset($_SERVER['REQUEST_URI'])) {
 		$optionstring = $_SERVER['REQUEST_URI'];
 	} else
-		if(isset($_SERVER['QUERY_STRING'])) {
-			$optionstring = $_SERVER['QUERY_STRING'];
-		}
+	if(isset($_SERVER['QUERY_STRING'])) {
+		$optionstring = $_SERVER['QUERY_STRING'];
+	}
 
 	// are we at the home page or not
 	$home = @$mitems[$home_menu->id]->name;
@@ -78,16 +78,16 @@ function showPathway($Itemid) {
 							."\n FROM #__sections"
 							."\n WHERE id = ".(int)$id;
 				} else
-					if($task == 'blogcategory') {
-						$query = "SELECT title, id"
-								."\n FROM #__categories"
-								."\n WHERE id = ".(int)$id;
-					} else {
-						$query = "SELECT title, catid, id"
-								."\n FROM #__content"
-								."\n WHERE id = ".(int)$id;
-					}
-					$database->setQuery($query);
+				if($task == 'blogcategory') {
+					$query = "SELECT title, id"
+							."\n FROM #__categories"
+							."\n WHERE id = ".(int)$id;
+				} else {
+					$query = "SELECT title, catid, id"
+							."\n FROM #__content"
+							."\n WHERE id = ".(int)$id;
+				}
+				$database->setQuery($query);
 
 				$row = null;
 				$database->loadObject($row);
@@ -106,7 +106,7 @@ function showPathway($Itemid) {
 
 	// breadcrumbs for content items
 	switch(@$mitems[$Itemid]->type) {
-			// menu item = List - Content Section
+		// menu item = List - Content Section
 		case 'content_section':
 			$id = intval(mosGetParam($_REQUEST,'id',0));
 
@@ -117,7 +117,7 @@ function showPathway($Itemid) {
 								."\n FROM #__categories"
 								."\n WHERE id = ".(int)$id
 								."\n AND access <= ".(int)
-							$my->id;
+								$my->id;
 						$database->setQuery($query);
 						$title = $database->loadResult();
 
@@ -139,7 +139,7 @@ function showPathway($Itemid) {
 						$row = null;
 						$database->loadObject($row);
 
-						if($row->catid>0){
+						if( $row->catid > 0) {
 							// load and add the category
 							$query = "SELECT c.title AS title, s.id AS sectionid, c.id AS id, c.access AS cat_access"
 									."\n FROM #__categories AS c"
@@ -171,7 +171,7 @@ function showPathway($Itemid) {
 			}
 			break;
 
-			// menu item = Table - Content Category
+		// menu item = Table - Content Category
 		case 'content_category':
 			$id = intval(mosGetParam($_REQUEST,'id',0));
 
@@ -199,8 +199,8 @@ function showPathway($Itemid) {
 			}
 			break;
 
-			// menu item = Blog - Content Category
-			// menu item = Blog - Content Section
+		// menu item = Blog - Content Category
+		// menu item = Blog - Content Section
 		case 'content_blog_category':
 		case 'content_blog_section':
 			switch($task) {
@@ -242,7 +242,7 @@ function showPathway($Itemid) {
 
 	while($i--) {
 		if(!$mid || empty($mitems[$mid]) || $Itemid == $home_menu->id || !eregi("option",
-			$optionstring)) {
+				$optionstring)) {
 			break;
 		}
 		$item = &$mitems[$mid];
@@ -251,22 +251,22 @@ function showPathway($Itemid) {
 
 		// if it is the current page, then display a non hyperlink
 		if(($item->id == $Itemid && !$mainframe->getCustomPathWay()) || empty($mid) ||
-			empty($item->link)) {
+				empty($item->link)) {
 			$newlink = '<li>'.$itemname.'</li>';
 		} else
-			if(isset($item->type) && $item->type == 'url') {
-				$correctLink = eregi('http://',$item->link);
-				if($correctLink == 1) {
-					$newlink = '<li><a href="'.$item->link.'" target="_window" class="pathway" title="'.$itemname.'">'.$itemname.'</a></li>';
-				} else {
-					$newlink = '<li>'.$itemname.'</li>';
-				}
+		if(isset($item->type) && $item->type == 'url') {
+			$correctLink = eregi('http://',$item->link);
+			if($correctLink == 1) {
+				$newlink = '<li><a href="'.$item->link.'" target="_window" class="pathway" title="'.$itemname.'">'.$itemname.'</a></li>';
 			} else {
-				$newlink = '<li><a href="'.sefRelToAbs($item->link.'&Itemid='.$item->id).'" class="pathway" title="'.$itemname.'">'.$itemname.'</a></li>';
+				$newlink = '<li>'.$itemname.'</li>';
 			}
+		} else {
+			$newlink = '<li><a href="'.sefRelToAbs($item->link.'&Itemid='.$item->id).'" class="pathway" title="'.$itemname.'">'.$itemname.'</a></li>';
+		}
 
-			// converts & to &amp; for xtml compliance
-			$newlink = ampReplace($newlink);
+		// converts & to &amp; for xtml compliance
+		$newlink = ampReplace($newlink);
 
 		if(trim($newlink) != "") {
 			$path = '<li class="pathway_arrow">&nbsp;</li> '.$newlink.' '.$path;

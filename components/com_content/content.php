@@ -26,10 +26,10 @@ $limitstart = intval(mosGetParam($_REQUEST, 'limitstart', 0));
 
 // loads function for frontpage component
 if($option == 'com_frontpage') {
-	if($mainframe->getCfg('caching')==1){
+	if($mainframe->getCfg('caching')==1) {
 		$cache = &mosCache::getCache('com_content');
 		$r = $cache->call('frontpage', $my->gid,$limit,$limitstart,$pop);
-	}else{
+	}else {
 		$r = frontpage($my->gid,$limit,$limitstart,$pop);
 	}
 	from_cache($r);
@@ -64,26 +64,26 @@ switch ($task) {
 
 	case 'blogcategorymulti':
 	case 'blogcategory':
-		// блог категории
+	// блог категории
 		showBlogCategory($id,$my->gid);
 		break;
 
 	// архив раздела
 	case 'archivesection':
-		if($mainframe->getCfg('caching')==1){
+		if($mainframe->getCfg('caching')==1) {
 			$cache = &mosCache::getCache('com_content');
 			$cache->call('showArchiveSection', $id);
-		}else{
+		}else {
 			showArchiveSection($id);
 		}
 		break;
 
 	// архив категории
 	case 'archivecategory':
-		if($mainframe->getCfg('caching')==1){
+		if($mainframe->getCfg('caching')==1) {
 			$cache = &mosCache::getCache('com_content');
 			$cache->call('showArchiveCategory', $id);
-		}else{
+		}else {
 			showArchiveCategory($id);
 		}
 
@@ -169,7 +169,7 @@ function showUserItems($user_id) {
 	if($user_items) {
 
 		//Постраничная навигация
-		if($user_items->total <= $limit){
+		if($user_items->total <= $limit) {
 			$limitstart = 0;
 		}
 
@@ -252,10 +252,10 @@ function frontpage($gid,$limit,$limitstart,$pop) {
 	$params->set('limitstart', $limitstart);
 	$params->set('limit', $limit);
 
-	if($frontpage->total>0){
+	if($frontpage->total>0) {
 		//Выбираем все нужные записи
 		$frontpage->content = $frontpage->_load_frontpage($params, $access);
-	}else{
+	}else {
 		$frontpage->content = new stdClass();
 	}
 
@@ -263,14 +263,14 @@ function frontpage($gid,$limit,$limitstart,$pop) {
 	$params->page_type = 'frontpage';
 
 	ob_start();
-		BlogOutput($frontpage, $params, $access,$mainframe);
-		$content_boby = ob_get_contents(); // главное содержимое - стек вывода компонента - mainbody
+	BlogOutput($frontpage, $params, $access,$mainframe);
+	$content_boby = ob_get_contents(); // главное содержимое - стек вывода компонента - mainbody
 	ob_end_clean();
 
 	return array('content' => $content_boby, 'params' => $params);
 }
 
-function showSectionCatlist($id,$cache){
+function showSectionCatlist($id,$cache) {
 	global $my;
 
 	$r = $cache->call('_showSectionCatlist', $id,$my->gid);
@@ -333,8 +333,8 @@ function _showSectionCatlist($id) {
 	}
 
 	ob_start();
-		ContentView::showSectionCatlist($section, $access, $params);
-		$content_boby = ob_get_contents(); // главное содержимое - стек вывода компонента - mainbody
+	ContentView::showSectionCatlist($section, $access, $params);
+	$content_boby = ob_get_contents(); // главное содержимое - стек вывода компонента - mainbody
 	ob_end_clean();
 
 	unset($params->_raw,$params->section_data,$params->menu->params);
@@ -342,7 +342,7 @@ function _showSectionCatlist($id) {
 	return array('content' => $content_boby, 'params' => $params);
 }
 
-function showTableCategory($id){
+function showTableCategory($id) {
 	global $my;
 
 	$limit = intval(mosGetParam($_REQUEST, 'limit', 0));
@@ -351,10 +351,10 @@ function showTableCategory($id){
 	$selected = strval(mosGetParam($_REQUEST, 'order', ''));
 	$filter = stripslashes(strval(mosGetParam($_REQUEST, 'filter', '')));
 
-	if(Jconfig::getInstance()->config_caching==1){
+	if(Jconfig::getInstance()->config_caching==1) {
 		$cache = &mosCache::getCache('com_content');
 		$r = $cache->call('_showTableCategory', $id,$my->gid,$limit,$limitstart,$sectionid,$selected,$filter);
-	}else{
+	}else {
 		$r = _showTableCategory($id,$my->gid,$limit,$limitstart,$sectionid,$selected,$filter);
 	}
 
@@ -457,8 +457,8 @@ function _showTableCategory($id,$gid,$limit,$limitstart,$sectionid,$selected,$fi
 	}
 
 	ob_start();
-		ContentView::showContentList($category, $access, $params,$mainframe);
-		$content_boby = ob_get_contents(); // главное содержимое - стек вывода компонента - mainbody
+	ContentView::showContentList($category, $access, $params,$mainframe);
+	$content_boby = ob_get_contents(); // главное содержимое - стек вывода компонента - mainbody
 	ob_end_clean();
 
 	unset($params->category_data,$params->_db,$params->section_data);
@@ -472,10 +472,10 @@ function showBlogSection($id = 0,$gid=0) {
 	$limit = intval(mosGetParam($_REQUEST, 'limit', 0));
 	$limitstart = intval(mosGetParam($_REQUEST, 'limitstart', 0));
 
-	if(Jconfig::getInstance()->config_caching==1){
+	if(Jconfig::getInstance()->config_caching==1) {
 		$cache = &mosCache::getCache('com_content');
 		$r = $cache->call('_showBlogSection', $id,$gid,$pop,$limit,$limitstart);
-	}else{
+	}else {
 		$r = _showBlogSection($id,$gid,$pop,$limit,$limitstart);
 	}
 	from_cache($r);
@@ -491,17 +491,17 @@ function _showBlogSection($id,$gid,$pop,$limit,$limitstart) {
 
 	$mainframe = &mosMainFrame::getInstance();
 	$database = &$mainframe->_db;
-	
+
 	$section = new mosSection($database);
 	//Если ID найден - получаем данные о конкретном разделе
-	if($id){
+	if($id) {
 		//ID передано, но раздела с таким ID не существует
 		//вернем ошибку
 		if(!($section->load((int)$id))) {
 			$error = new errorCase(1);
-			return; 
+			return;
 		}
-		
+
 		//Проверяем права доступа к разделу
 		//Если раздел не опубликован или группа пользователя ниже группы доступа
 		//- выдаём сообщение о невозможности доступа
@@ -512,7 +512,7 @@ function _showBlogSection($id,$gid,$pop,$limit,$limitstart) {
 		if($section->access > $my->gid) {
 			$error = new errorCase(2);
 			return;
-		}		
+		}
 	}
 
 	//права доступа
@@ -548,8 +548,8 @@ function _showBlogSection($id,$gid,$pop,$limit,$limitstart) {
 	}
 
 	ob_start();
-		BlogOutput($section, $params, $access,$mainframe);
-		$content_boby = ob_get_contents(); // главное содержимое - стек вывода компонента - mainbody
+	BlogOutput($section, $params, $access,$mainframe);
+	$content_boby = ob_get_contents(); // главное содержимое - стек вывода компонента - mainbody
 	ob_end_clean();
 
 	unset($params->_db,$params->section_data->_db,$params->section_data->_db,$params->section_data->content);
@@ -567,10 +567,10 @@ function showBlogCategory($id = 0,$gid=0) {
 	$limit = intval(mosGetParam($_REQUEST, 'limit', 0));
 	$limitstart = intval(mosGetParam($_REQUEST, 'limitstart', 0));
 
-	if(Jconfig::getInstance()->config_caching==1){
+	if(Jconfig::getInstance()->config_caching==1) {
 		$cache = &mosCache::getCache('com_content');
 		$r = $cache->call('_showBlogCategory', $id,$gid,$pop,$limit,$limitstart);
-	}else{
+	}else {
 		$r = _showBlogCategory($id,$gid,$pop,$limit,$limitstart);
 	}
 	from_cache($r);
@@ -594,18 +594,18 @@ function _showBlogCategory($id = 0,$gid,$pop,$limit,$limitstart) {
 
 	$category = new mosCategory($database);
 	$section = new mosSection($database);
-	
-	if($id){
+
+	if($id) {
 		if(!($category->load((int)$id))) {
 			$error = new errorCase(1);
 			return;
 		}
-		//Грузим данные раздела	
+		//Грузим данные раздела
 		if(!($section->load((int)$category->section))) {
 			$error = new errorCase(1);
 			return;
 		}
-		
+
 		//Проверяем права доступа к разделу и категории
 		//Если раздел/категория не опубликованы или группа пользователя ниже группы доступа
 		//- выдаём сообщение о невозможности доступа
@@ -640,8 +640,8 @@ function _showBlogCategory($id = 0,$gid,$pop,$limit,$limitstart) {
 	$params->page_type = 'category_blog';
 
 	ob_start();
-		BlogOutput($category, $params, $access,$mainframe);
-		$content_boby = ob_get_contents(); // главное содержимое - стек вывода компонента - mainbody
+	BlogOutput($category, $params, $access,$mainframe);
+	$content_boby = ob_get_contents(); // главное содержимое - стек вывода компонента - mainbody
 	ob_end_clean();
 
 	unset($params->_db,$params->section_data->_db,$params->section_data->_db,$params->section_data->content);
@@ -831,7 +831,7 @@ function showArchiveCategory($id = 0) {
 function BlogOutput(&$obj, $params, &$access,$mainframe=null) {
 	global $Itemid, $task, $id, $option, $my;
 
-	if(!$mainframe){
+	if(!$mainframe) {
 		$mainframe = &mosMainFrame::getInstance();
 	}
 
@@ -958,34 +958,34 @@ function BlogOutput(&$obj, $params, &$access,$mainframe=null) {
 				if($option == 'com_frontpage') {
 					$link = 'index.php?option=com_frontpage'.$Itemid_link;
 				} else
-					if($archive_page) {
-						$year = $params->get('year');
-						$month = $params->get('month');
+				if($archive_page) {
+					$year = $params->get('year');
+					$month = $params->get('month');
 
-						if(!$archive) {
-							// used when access via archive module
-							$pid = '&amp;id=0';
-							$module = '&amp;module=1';
-						} else {
-							// used when access via menu item
-							$pid = '&amp;id='.$id;
-							$module = '';
-						}
-
-						$link = 'index.php?option=com_content&amp;task='.$task.$pid.$Itemid_link.'&amp;year='.$year.'&amp;month='.$month.$module;
+					if(!$archive) {
+						// used when access via archive module
+						$pid = '&amp;id=0';
+						$module = '&amp;module=1';
 					} else {
-						$link = 'index.php?option=com_content&amp;task='.$task.'&amp;id='.$id.$Itemid_link;
+						// used when access via menu item
+						$pid = '&amp;id='.$id;
+						$module = '';
 					}
 
-					if($pagination_results) {
-						$display_pagination_results = 1;
-					}
+					$link = 'index.php?option=com_content&amp;task='.$task.$pid.$Itemid_link.'&amp;year='.$year.'&amp;month='.$month.$module;
+				} else {
+					$link = 'index.php?option=com_content&amp;task='.$task.'&amp;id='.$id.$Itemid_link;
+				}
+
+				if($pagination_results) {
+					$display_pagination_results = 1;
+				}
 			}
 		}
 	} else
-		if($archive && !$total) {
-			$msg = sprintf(_ARCHIVE_SEARCH_FAILURE, $params->get('month'), $params->get('year'));
-		}
+	if($archive && !$total) {
+		$msg = sprintf(_ARCHIVE_SEARCH_FAILURE, $params->get('month'), $params->get('year'));
+	}
 
 	//Тэги
 	$tags = new contentTags($database);
@@ -1007,14 +1007,14 @@ function BlogOutput(&$obj, $params, &$access,$mainframe=null) {
 	//Если это архив
 	if($archive) {
 		switch ($task) {
-				//Архив раздела
+			//Архив раздела
 			case 'archivesection':
 			default:
 				$page_type = 'section_archive';
 				$templates = $params->section_data->templates;
 				break;
 
-				//Архив категории
+			//Архив категории
 			case 'archivecategory':
 				$page_type = 'category_archive';
 
@@ -1033,12 +1033,13 @@ function BlogOutput(&$obj, $params, &$access,$mainframe=null) {
 	}
 
 	//Если это главная страница - компонент 'com_frontpage'
-	else{
+	else {
 		if($_REQUEST['option'] == 'com_frontpage') {
 
-			$page_type = 'frontpage_blog'; $templates = null;
+			$page_type = 'frontpage_blog';
+			$templates = null;
 
-			$template->set_template($page_type, $templates); 
+			$template->set_template($page_type, $templates);
 			include_once ($template->template_file);
 
 			return;
@@ -1053,7 +1054,7 @@ function BlogOutput(&$obj, $params, &$access,$mainframe=null) {
 					//проверяем настройки категории на предмет  заданного шаблона
 					if($template->isset_settings($page_type, $params->category_data->templates)) {
 						$templates = $params->category_data->templates;
-					//иначе - проверяем настройки раздела
+						//иначе - проверяем настройки раздела
 					}elseif($template->isset_settings($page_type, $params->section_data->templates)) {
 						$templates = $params->section_data->templates;
 					}
@@ -1061,10 +1062,10 @@ function BlogOutput(&$obj, $params, &$access,$mainframe=null) {
 					break;
 
 				case 'blogsection':
-					//Если группировка по категориям отключена - оставляем вывод как и был прежде
+				//Если группировка по категориям отключена - оставляем вывод как и был прежде
 					if(!$group_cat) {
 						$page_type = 'section_blog';
-					//Если включена группировка по категориям
+						//Если включена группировка по категориям
 					}else {
 						$page_type = 'section_groupcats';
 						$counts = array();
@@ -1086,19 +1087,19 @@ function BlogOutput(&$obj, $params, &$access,$mainframe=null) {
 			}
 		}
 	}
-	$template->set_template($page_type, $templates); 
+	$template->set_template($page_type, $templates);
 	include_once ($template->template_file);
 }
 
 // кэширование с сохранением мета-тэгов
-function showFullItem($id,$gid=0){
+function showFullItem($id,$gid=0) {
 	$config = &Jconfig::getInstance();
 	if($config->config_enable_stats) {
 		$r =_showFullItem($id);
-	} elseif($config->config_caching==1){
+	} elseif($config->config_caching==1) {
 		$cache = &mosCache::getCache('com_content');
 		$r = $cache->call('_showFullItem', $id,$gid);
-	}else{
+	}else {
 		$r =_showFullItem($id);
 	}
 	from_cache($r);
@@ -1213,8 +1214,8 @@ function _showFullItem($id) {
 
 		// собираем содержимое страницы в буфер - для кэширования
 		ob_start();
-			_showItem($row, $params, $my->gid, $access, $pop,'',$mainframe);
-			$content_boby = ob_get_contents(); // главное содержимое - стек вывода компонента - mainbody
+		_showItem($row, $params, $my->gid, $access, $pop,'',$mainframe);
+		$content_boby = ob_get_contents(); // главное содержимое - стек вывода компонента - mainbody
 		ob_end_clean();
 
 		return array('content' => $content_boby, 'params' => $meta_params);
@@ -1228,9 +1229,9 @@ function _showFullItem($id) {
  */
 function _showItem($row, $params, $gid, &$access, $pop, $template = '',$mainframe=null) {
 
-	if(!isset($mainframe)){
+	if(!isset($mainframe)) {
 		$mainframe = &mosMainFrame::getInstance();
-jd_inc('_showItem');
+		jd_inc('_showItem');
 	}
 
 	$noauth = !$mainframe->getCfg('shownoauth');
@@ -1376,33 +1377,33 @@ function editItem($task) {
 
 	//Если это редактирование записи
 	else
-		if($task == 'edit') {
-			$row = $content->get_item((int)$id);
+	if($task == 'edit') {
+		$row = $content->get_item((int)$id);
 
-			$section = $row->sectionid;
-			// запрещаем доступ
-			if(!($access->canEdit || ($access->canEditOwn && $row->created_by == $my->id))) {
-				mosNotAuth();
-				return;
-			}
+		$section = $row->sectionid;
+		// запрещаем доступ
+		if(!($access->canEdit || ($access->canEditOwn && $row->created_by == $my->id))) {
+			mosNotAuth();
+			return;
+		}
 
-			// выводим сообщение, если данная запись сейчас редактируется кем-то другим
-			if($content->isCheckedOut($my->id)) {
-				mosErrorAlert("[ ".$row->title." ] "._CONTENT_IS_BEING_EDITED_BY_OTHER_PEOPLE);
-			}
+		// выводим сообщение, если данная запись сейчас редактируется кем-то другим
+		if($content->isCheckedOut($my->id)) {
+			mosErrorAlert("[ ".$row->title." ] "._CONTENT_IS_BEING_EDITED_BY_OTHER_PEOPLE);
+		}
 
-			//два варианта, в которых могут существовать ссылки на добавление/редактирование
-			$link1 = 'index.php?option=com_content&task=new&section='.(int)$section;
-			$link2 = 'index.php?option=com_content&task=new';
+		//два варианта, в которых могут существовать ссылки на добавление/редактирование
+		$link1 = 'index.php?option=com_content&task=new&section='.(int)$section;
+		$link2 = 'index.php?option=com_content&task=new';
 
-			//запрос на данные о пункте меню
-			$query = "SELECT a.id AS menu_id2, a.params AS menu_params2 , b.id AS menu_id1, b.params AS menu_params1
+		//запрос на данные о пункте меню
+		$query = "SELECT a.id AS menu_id2, a.params AS menu_params2 , b.id AS menu_id1, b.params AS menu_params1
 				FROM #__menu AS a
 				LEFT JOIN  #__menu AS b  ON  b.link LIKE '%$link1' AND b.published = 1
 				WHERE  a.link LIKE '%$link2' AND a.published = 1";
-			$database->setQuery($query);
-			$exists = $database->loadObjectList();
-		}
+		$database->setQuery($query);
+		$exists = $database->loadObjectList();
+	}
 
 	if(!$exists) {
 		mosNotAuth();
@@ -1423,14 +1424,14 @@ function editItem($task) {
 		}
 		//иначе проверим, существуют ли настройки по-умолчанию
 		else
-			if(isset($exists[0]->menu_id2)) {
-				$params = new mosParameters($exists[0]->menu_params2);
-			}
+		if(isset($exists[0]->menu_id2)) {
+			$params = new mosParameters($exists[0]->menu_params2);
+		}
 		//ну и так, на всякий случай. А вдруг!
-			else {
-				$menu = $mainframe->get('menu');
-				$params = new mosParameters($menu->params);
-			}
+		else {
+			$menu = $mainframe->get('menu');
+			$params = new mosParameters($menu->params);
+		}
 	}
 
 	// параметры полученные из настроек ссылки в меню
@@ -1725,7 +1726,7 @@ function saveContent($task) {
 		echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
 		exit();
 	}
-	
+
 	if($mainframe->getCfg('use_content_save_mambots')) {
 		$_MAMBOTS->trigger('onAfterSaveContent', array($row));
 	}
@@ -1812,17 +1813,17 @@ function _after_create_content($row, $page) {
 
 	switch ($page->task) {
 
-			//если "Применить"
+		//если "Применить"
 		case 'apply':
-			//возвращаемся на страницу редактирования
+		//возвращаемся на страницу редактирования
 			$msg = _COM_CONTENT_ITEM_SAVED;
 			$link = $_SERVER['HTTP_REFERER'];
 			break;
 
-			//если "Сохранить"
+		//если "Сохранить"
 		case 'save':
 		default:
-			//если запись опубликована, даем ссылку на просмотр в обычном режиме
+		//если запись опубликована, даем ссылку на просмотр в обычном режиме
 			if($row->state == 1) {
 				$msg = _COM_CONTENT_ITEM_ADDED_THANK;
 				$link = 'index.php?option=com_content&task=view&id='.$row->id;
@@ -1851,7 +1852,7 @@ function _after_update_content($row, $page) {
 
 		case 'save':
 		default:
-			//если запись опубликована, даем ссылку на просмотр в обычном режиме
+		//если запись опубликована, даем ссылку на просмотр в обычном режиме
 			if($row->state == 1) {
 				$msg = _COM_CONTENT_ITEM_ALL_CHANGES_SAVED;
 				$link = 'index.php?option=com_content&task=view&id='.$row->id;
@@ -1933,15 +1934,15 @@ function emailContentForm($uid, $gid) {
 
 	// query to check for state and access levels
 	$query = "SELECT a.*, cc.name AS category, s.name AS section, s.published AS sec_pub, cc.published AS cat_pub,"
-		."\n s.access AS sec_access, cc.access AS cat_access, s.id AS sec_id, cc.id as cat_id"
-		."\n FROM #__content AS a"
-		."\n LEFT JOIN #__categories AS cc ON cc.id = a.catid"
-		."\n LEFT JOIN #__sections AS s ON s.id = cc.section AND s.scope = 'content'"
-		."\n WHERE a.id = ".(int)$uid."\n AND a.state = 1 OR a.state = -1"
-		."\n AND a.access <= ".(int)$gid."\n AND ( a.publish_up = ".$database->Quote($nullDate)
-		." OR a.publish_up <= ".$database->Quote($now)." )"
-		."\n AND ( a.publish_down = ".$database->Quote($nullDate)
-		." OR a.publish_down >= ".$database->Quote($now)." )";
+			."\n s.access AS sec_access, cc.access AS cat_access, s.id AS sec_id, cc.id as cat_id"
+			."\n FROM #__content AS a"
+			."\n LEFT JOIN #__categories AS cc ON cc.id = a.catid"
+			."\n LEFT JOIN #__sections AS s ON s.id = cc.section AND s.scope = 'content'"
+			."\n WHERE a.id = ".(int)$uid."\n AND a.state = 1 OR a.state = -1"
+			."\n AND a.access <= ".(int)$gid."\n AND ( a.publish_up = ".$database->Quote($nullDate)
+			." OR a.publish_up <= ".$database->Quote($now)." )"
+			."\n AND ( a.publish_down = ".$database->Quote($nullDate)
+			." OR a.publish_down >= ".$database->Quote($now)." )";
 	$database->setQuery($query);
 	$row = null;
 
@@ -2112,7 +2113,7 @@ function emailContentSend($uid, $gid) {
 	}
 }
 
-function from_cache($cache){
+function from_cache($cache) {
 	$meta = new contentMeta($cache['params']);
 	$meta->set_meta();
 	echo $cache['content'];

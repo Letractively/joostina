@@ -1,16 +1,17 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-* phpGACL - Generic Access Control List
-* Copyright (C) 2002,2003 Mike Benoit
-**/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ * phpGACL - Generic Access Control List
+ * Copyright (C) 2002,2003 Mike Benoit
+ **/
 
 defined('_VALID_MOS') or die();
 class gacl {
+
 	var $_debug = false;
 	var $db = null;
 	var $_db_table_prefix = '#__core_acl_';
@@ -18,6 +19,7 @@ class gacl {
 	var $_force_cache_expire = true;
 	var $acl = null;
 	var $acl_count = 0;
+
 	function gacl($db = null) {
 
 		$database = &database::getInstance();
@@ -79,7 +81,7 @@ class gacl {
 		$this->acl_count = count($this->acl);
 	}
 
-	function &getInstance(){
+	function &getInstance() {
 		static $instance;
 		if (!is_object( $instance )) {
 			$instance = new gacl_api();
@@ -339,7 +341,7 @@ class gacl_api extends gacl {
 				return false;
 			}
 			$this->db->setQuery('SELECT group_id, lft, rgt FROM '.$table.' WHERE group_id='.
-				(int)$parent_id);
+					(int)$parent_id);
 			$rows = $this->db->loadRowList();
 			if(!is_array($rows) or $this->db->getErrorNum() > 0) {
 				$this->debug_db('add_group');
@@ -366,9 +368,9 @@ class gacl_api extends gacl {
 			}
 		}
 		$this->db->setQuery('INSERT INTO '.$table.
-			' (group_id,parent_id,name,lft,rgt) VALUES ('.(int)$insert_id.','.(int)$parent_id.
-			',\''.$this->db->getEscaped($name).'\','.(int)$parent_rgt.','.(int)($parent_rgt +
-			1).')');
+				' (group_id,parent_id,name,lft,rgt) VALUES ('.(int)$insert_id.','.(int)$parent_id.
+				',\''.$this->db->getEscaped($name).'\','.(int)$parent_rgt.','.(int)($parent_rgt +
+						1).')');
 		$rs = $this->db->query();
 		if(!$rs) {
 			$this->debug_db('add_group: insert record');
@@ -378,7 +380,7 @@ class gacl_api extends gacl {
 		return $insert_id;
 	}
 	function get_group_objects($group_id, $group_type = 'ARO', $option =
-		'NO_RECURSE') {
+			'NO_RECURSE') {
 		switch(strtolower(trim($group_type))) {
 			case 'axo':
 				$group_type = 'axo';
@@ -427,7 +429,7 @@ class gacl_api extends gacl {
 		return $retarr;
 	}
 	function add_group_object($group_id, $object_section_value, $object_value, $group_type =
-		'ARO') {
+			'ARO') {
 		switch(strtolower(trim($group_type))) {
 			case 'axo':
 				$group_type = 'axo';
@@ -454,9 +456,9 @@ class gacl_api extends gacl {
 			FROM		'.$object_table.' o
 			LEFT JOIN	'.$group_table.' g ON g.group_id='.(int)$group_id.'
 			LEFT JOIN	'.$table.' gm ON (gm.group_id=g.group_id AND gm.'.$group_type.
-			'_id=o.'.$group_type.'_id)
+				'_id=o.'.$group_type.'_id)
 			WHERE		(o.section_value=\''.$this->db->getEscaped($object_section_value).'\' AND o.value=\''.
-			$this->db->getEscaped($object_value).'\')');
+				$this->db->getEscaped($object_value).'\')');
 		$rows = $this->db->loadRowList();
 		if($this->db->getErrorNum()) {
 			$this->debug_db('add_group_object');
@@ -473,20 +475,20 @@ class gacl_api extends gacl {
 		}
 		$object_id = $row[1];
 		$this->db->setQuery('INSERT INTO '.$table.' (group_id,'.$group_type.
-			'_id) VALUES ('.(int)$group_id.','.(int)$object_id.')');
+				'_id) VALUES ('.(int)$group_id.','.(int)$object_id.')');
 		if(!$this->db->query()) {
 			$this->debug_db('add_group_object');
 			return false;
 		}
 		$this->debug_text('add_group_object(): Added Object: '.$object_id.
-			' to Group ID: '.$group_id);
+				' to Group ID: '.$group_id);
 		if($this->_caching == true and $this->_force_cache_expire == true) {
 			$this->Cache_Lite->clean('default');
 		}
 		return true;
 	}
 	function del_group_object($group_id, $object_section_value, $object_value, $group_type =
-		'ARO') {
+			'ARO') {
 		switch(strtolower(trim($group_type))) {
 			case 'axo':
 				$group_type = 'axo';
@@ -509,7 +511,7 @@ class gacl_api extends gacl {
 			return false;
 		}
 		$this->db->setQuery('DELETE FROM '.$table.' WHERE group_id='.(int)$group_id.
-			' AND '.$group_type.'_id='.(int)$object_id);
+				' AND '.$group_type.'_id='.(int)$object_id);
 		$this->db->query();
 		if($this->db->getErrorNum()) {
 			$this->debug_db('del_group_object');
@@ -542,7 +544,7 @@ class gacl_api extends gacl {
 			return false;
 		}
 		$this->db->setQuery('SELECT group_id, parent_id, name, lft, rgt FROM '.$table.
-			' WHERE group_id='.(int)$group_id);
+				' WHERE group_id='.(int)$group_id);
 		$group_details = $this->db->loadRow();
 		if(!is_array($group_details)) {
 			$this->debug_db('del_group: get group details');
@@ -565,7 +567,7 @@ class gacl_api extends gacl {
 			case !is_array($children_ids):
 			case count($children_ids) == 0:
 				$this->db->setQuery('DELETE FROM '.$groups_object_map_table.' WHERE group_id='.
-					(int)$group_id);
+						(int)$group_id);
 				$rs = $this->db->query();
 				if(!$rs) {
 					break;
@@ -576,13 +578,13 @@ class gacl_api extends gacl {
 					break;
 				}
 				$this->db->setQuery('UPDATE '.$table.' SET lft=lft-'.(int)($right - $left + 1).
-					' WHERE lft>'.(int)$right);
+						' WHERE lft>'.(int)$right);
 				$rs = $this->db->query();
 				if(!$rs) {
 					break;
 				}
 				$this->db->setQuery('UPDATE '.$table.' SET rgt=rgt-'.(int)($right - $left + 1).
-					' WHERE rgt>'.(int)$right);
+						' WHERE rgt>'.(int)$right);
 				$rs = $this->db->query();
 				if(!$rs) {
 					break;
@@ -591,7 +593,7 @@ class gacl_api extends gacl {
 				break;
 			case $reparent_children == true:
 				$this->db->setQuery('DELETE FROM '.$groups_object_map_table.' WHERE group_id='.
-					(int)$group_id);
+						(int)$group_id);
 				$rs = $this->db->query();
 				if(!$rs) {
 					break;
@@ -602,13 +604,13 @@ class gacl_api extends gacl {
 					break;
 				}
 				$this->db->setQuery('UPDATE '.$table.' SET parent_id='.(int)$parent_id.
-					' WHERE parent_id='.(int)$group_id);
+						' WHERE parent_id='.(int)$group_id);
 				$rs = $this->db->query();
 				if(!$rs) {
 					break;
 				}
 				$this->db->setQuery('UPDATE '.$table.' SET lft=lft-1, rgt=rgt-1 WHERE lft>'.(int)
-					$left.' AND rgt<'.(int)$right);
+						$left.' AND rgt<'.(int)$right);
 				$rs = $this->db->query();
 				if(!$rs) {
 					break;
@@ -630,25 +632,25 @@ class gacl_api extends gacl {
 				$group_ids[] = $group_id;
 				mosArrayToInts($group_ids);
 				$this->db->setQuery('DELETE FROM '.$groups_object_map_table.
-					' WHERE group_id IN ('.implode(',', $group_ids).')');
+						' WHERE group_id IN ('.implode(',', $group_ids).')');
 				$rs = $this->db->query();
 				if(!$rs) {
 					break;
 				}
 				$this->db->setQuery('DELETE FROM '.$table.' WHERE group_id IN ('.implode(',', $group_ids).
-					')');
+						')');
 				$rs = $this->db->query();
 				if(!$rs) {
 					break;
 				}
 				$this->db->setQuery('UPDATE '.$table.' SET lft=lft-'.(int)($right - $left + 1).
-					' WHERE lft>'.(int)$right);
+						' WHERE lft>'.(int)$right);
 				$rs = $this->db->query();
 				if(!$rs) {
 					break;
 				}
 				$this->db->setQuery('UPDATE '.$table.' SET rgt=rgt-'.(int)($right - $left + 1).
-					' WHERE rgt>'.(int)$right);
+						' WHERE rgt>'.(int)$right);
 				$rs = $this->db->query();
 				if(!$rs) {
 					break;
@@ -693,11 +695,11 @@ class gacl_api extends gacl {
 		if($return_hidden == 0) {
 			$where[] = 'hidden=0';
 		}
-/*
+		/*
 		if(!empty($where)) {
 			$query .= ' WHERE '.implode(' AND ', $where);
 		}
-*/
+		*/
 		$rs = $this->db->loadResultArray();
 		if(!is_array($rs)) {
 			$this->debug_db('get_object');
@@ -739,9 +741,9 @@ class gacl_api extends gacl {
 			FROM		'.$group_table.' g
 			LEFT JOIN	'.$table.' gm ON gm.group_id=g.group_id
 			LEFT JOIN	'.$object_table.' o ON o.'.$group_type.'_id = gm.'.$group_type.
-			'_id
+				'_id
 			WHERE		(o.section_value=\''.$this->db->getEscaped($object_section_value).'\' AND o.value=\''.
-			$this->db->getEscaped($object_value).'\')');
+				$this->db->getEscaped($object_value).'\')');
 		$rs = $this->db->loadResultArray();
 		if($this->db->getErrorNum()) {
 			$this->debug_db('get_object_id');
@@ -779,8 +781,8 @@ class gacl_api extends gacl {
 			return false;
 		}
 		$this->db->setQuery('SELECT '.$object_type.'_id FROM '.$table.
-			' WHERE section_value=\''.$this->db->getEscaped($section_value).'\' AND value=\''.
-			$this->db->getEscaped($value).'\'');
+				' WHERE section_value=\''.$this->db->getEscaped($section_value).'\' AND value=\''.
+				$this->db->getEscaped($value).'\'');
 		$rs = $this->db->loadRowList();
 		if($this->db->getErrorNum()) {
 			$this->debug_db('get_object_id');
@@ -799,7 +801,7 @@ class gacl_api extends gacl {
 		return $row[0];
 	}
 	function add_object($section_value, $name, $value = 0, $order = 0, $hidden = 0,
-		$object_type = null) {
+			$object_type = null) {
 		switch(strtolower(trim($object_type))) {
 			case 'aco':
 				$object_type = 'aco';
@@ -845,7 +847,7 @@ class gacl_api extends gacl {
 			SELECT		(o.'.$object_type.'_id IS NOT NULL) AS object_exists
 			FROM		'.$object_sections_table.' s
 			LEFT JOIN	'.$table.' o ON (s.value=o.section_value AND o.value=\''.$this->db->getEscaped
-			($value).'\')
+				($value).'\')
 			WHERE		s.value=\''.$this->db->getEscaped($section_value).'\'');
 		$rows = $this->db->loadRowList();
 		if($this->db->getErrorNum()) {
@@ -862,8 +864,8 @@ class gacl_api extends gacl {
 		}
 		$insert_id = $this->db->GenID($this->_db_table_prefix.$object_type.'_seq', 10);
 		$this->db->setQuery("INSERT INTO $table ({$object_type}_id,section_value,value,order_value,name,hidden) VALUES(".
-			(int)$insert_id.",".$this->db->Quote($section_value).",".$this->db->Quote($value).
-			",".$this->db->Quote($order).",".$this->db->Quote($name).",".(int)$hidden.")");
+				(int)$insert_id.",".$this->db->Quote($section_value).",".$this->db->Quote($value).
+				",".$this->db->Quote($order).",".$this->db->Quote($name).",".(int)$hidden.")");
 		if(!$this->db->query()) {
 			$this->debug_db('add_object');
 			return false;
@@ -908,7 +910,7 @@ class gacl_api extends gacl {
 			return false;
 		}
 		$this->db->setQuery('SELECT value, section_value FROM '.$table.' WHERE '.$object_type.
-			'_id='.(int)$object_id);
+				'_id='.(int)$object_id);
 		$old = $this->db->loadRow();
 		$this->db->setQuery('
 			UPDATE	'.$table.'
@@ -938,7 +940,7 @@ class gacl_api extends gacl {
 				return false;
 			}
 			$this->debug_text('edit_object(): Modified Map Value: '.$value.
-				' Section Value: '.$section_value);
+					' Section Value: '.$section_value);
 		}
 		return true;
 	}
@@ -991,7 +993,7 @@ class gacl_api extends gacl {
 			$this->debug_text("del_object(): Erase was set to TRUE, delete all referencing objects");
 			if($object_type == "aro" or $object_type == "axo") {
 				$this->db->setQuery('DELETE FROM '.$object_group_table.' WHERE '.$object_type.
-					'_id='.(int)$object_id);
+						'_id='.(int)$object_id);
 				$rs = $this->db->query();
 				if(!$rs) {
 					$this->debug_db('edit_object');
@@ -1003,7 +1005,7 @@ class gacl_api extends gacl {
 					$orphan_acl_ids = $acl_ids;
 				} else {
 					$this->db->setQuery("DELETE FROM $object_map_table WHERE section_value=".$this->db->Quote
-						($section_value)." AND value=".$this->db->Quote($value));
+							($section_value)." AND value=".$this->db->Quote($value));
 					$rs = $this->db->query();
 					if(!$rs) {
 						$this->debug_db('edit_object');
@@ -1043,7 +1045,7 @@ class gacl_api extends gacl {
 			$groups_ids = $this->db->loadResultArray();
 		}
 		if((isset($acl_ids) and $acl_ids !== false) or (isset($groups_ids) and $groups_ids
-			!== false)) {
+						!== false)) {
 			$this->debug_text("del_object(): Can't delete the object as it is being referenced by GROUPs (".@implode($groups_ids).") or ACLs (".@implode($acl_ids, ",").")");
 			return false;
 		} else {
@@ -1069,15 +1071,15 @@ class gacl_api extends gacl {
 		if(is_int($grp_src) && is_int($grp_tgt)) {
 			$this->db->setQuery("SELECT COUNT(*)"."\nFROM $table AS g1"."\nLEFT JOIN $table AS g2 ON g1.lft > g2.lft AND g1.lft < g2.rgt"."\nWHERE g1.group_id=".(int)$grp_src." AND g2.group_id=".(int)$grp_tgt);
 		} else
-			if(is_string($grp_src) && is_string($grp_tgt)) {
-				$this->db->setQuery("SELECT COUNT(*)"."\nFROM $table AS g1"."\nLEFT JOIN $table AS g2 ON g1.lft > g2.lft AND g1.lft < g2.rgt"."\nWHERE g1.name=".$this->db->Quote($grp_src)." AND g2.name=".$this->db->Quote($grp_tgt));
-			} else
-				if(is_int($grp_src) && is_string($grp_tgt)) {
-					$this->db->setQuery("SELECT COUNT(*)"."\nFROM $table AS g1"."\nLEFT JOIN $table AS g2 ON g1.lft > g2.lft AND g1.lft < g2.rgt"."\nWHERE g1.group_id=".(int)$grp_src." AND g2.name=".$this->db->Quote($grp_tgt));
-				} else {
-					$this->db->setQuery("SELECT COUNT(*)"."\nFROM $table AS g1"."\nLEFT JOIN $table AS g2 ON g1.lft > g2.lft AND g1.lft < g2.rgt"."\nWHERE g1.name=".$this->db->Quote($grp_src)." AND g2.group_id=".(int)$grp_tgt);
-				}
-				return $this->db->loadResult();
+		if(is_string($grp_src) && is_string($grp_tgt)) {
+			$this->db->setQuery("SELECT COUNT(*)"."\nFROM $table AS g1"."\nLEFT JOIN $table AS g2 ON g1.lft > g2.lft AND g1.lft < g2.rgt"."\nWHERE g1.name=".$this->db->Quote($grp_src)." AND g2.name=".$this->db->Quote($grp_tgt));
+		} else
+		if(is_int($grp_src) && is_string($grp_tgt)) {
+			$this->db->setQuery("SELECT COUNT(*)"."\nFROM $table AS g1"."\nLEFT JOIN $table AS g2 ON g1.lft > g2.lft AND g1.lft < g2.rgt"."\nWHERE g1.group_id=".(int)$grp_src." AND g2.name=".$this->db->Quote($grp_tgt));
+		} else {
+			$this->db->setQuery("SELECT COUNT(*)"."\nFROM $table AS g1"."\nLEFT JOIN $table AS g2 ON g1.lft > g2.lft AND g1.lft < g2.rgt"."\nWHERE g1.name=".$this->db->Quote($grp_src)." AND g2.group_id=".(int)$grp_tgt);
+		}
+		return $this->db->loadResult();
 	}
 	function getAroGroup($value) {
 		return $this->_getGroup('aro', $value);
@@ -1100,10 +1102,10 @@ class gacl_api extends gacl {
 		$root->rgt = 0;
 		if($root_id) {
 		} else
-			if($root_name) {
-				$database->setQuery("SELECT lft, rgt FROM $table WHERE name=".$database->Quote($root_name));
-				$database->loadObject($root);
-			}
+		if($root_name) {
+			$database->setQuery("SELECT lft, rgt FROM $table WHERE name=".$database->Quote($root_name));
+			$database->loadObject($root);
+		}
 		$where = '';
 		if($root->lft + $root->rgt != 0) {
 			if($inclusive) {

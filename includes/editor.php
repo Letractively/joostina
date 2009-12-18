@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -30,9 +30,9 @@ if(!defined('_JOS_EDITOR_INCLUDED')) {
 	$_MAMBOTS->loadBot('editors',$editor,1);
 
 	/**
-	* Инициализация редактора
-	* При вызове функции происходит загрузка мамботов группы редакторов и выводятся данные их настройки
-	*/
+	 * Инициализация редактора
+	 * При вызове функции происходит загрузка мамботов группы редакторов и выводятся данные их настройки
+	 */
 	function initEditor() {
 		global $mainframe,$_MAMBOTS;
 		if($mainframe->get('loadEditor')) {
@@ -45,9 +45,9 @@ if(!defined('_JOS_EDITOR_INCLUDED')) {
 		}
 	}
 	/**
-	* Получение содержимого редактора
-	* Проверяется функция соответствующая триггеру onGetEditorContents
-	*/
+	 * Получение содержимого редактора
+	 * Проверяется функция соответствующая триггеру onGetEditorContents
+	 */
 	function getEditorContents($editorArea,$hiddenField) {
 		global $mainframe,$_MAMBOTS;
 		$mainframe->set('loadEditor',true);

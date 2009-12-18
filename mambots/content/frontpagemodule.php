@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -28,9 +28,9 @@ function frontpagemodule($row,&$params) {
 			$_MAMBOTS->_content_mambot_params['bot_frontpagemodule'] = $mambot;
 		}
 
-		if(!isset($_MAMBOTS->_content_mambot_params['_frontpagemodule']->params->i)){
+		if(!isset($_MAMBOTS->_content_mambot_params['_frontpagemodule']->params->i)) {
 			$_MAMBOTS->_content_mambot_params['_frontpagemodule']->params->i =1;
-		}else{
+		}else {
 			$_MAMBOTS->_content_mambot_params['_frontpagemodule']->params->i ++;
 		}
 
@@ -40,7 +40,7 @@ function frontpagemodule($row,&$params) {
 		$mod_type = $params->def('mod_type','1');
 		$mod_after = $params->def('mod_after','1');
 
-		if(mosCountModules($mod_position)>0 && $_MAMBOTS->_content_mambot_params['_frontpagemodule']->params->i == $mod_after){
+		if(mosCountModules($mod_position)>0 && $_MAMBOTS->_content_mambot_params['_frontpagemodule']->params->i == $mod_after) {
 			echo '<div class="frontpagemodule">';
 			mosLoadModules($mod_position,$mod_type);
 			echo '</div>';

@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -13,14 +13,14 @@ defined('_VALID_MOS') or die();
 $_MAMBOTS->registerFunction('onSearch','botSearchCategories');
 
 /**
-* Метод поиска категорий
-*
-* запрос sql должен возвратить поля, используются в обычной операции 
-* отображения: href, title, section, created, text, browsernav
-* @param определяет цель поиска
-* @param сопоставляет параметры: exact|any|all
-* @param определяет порядок сортировки: newest|oldest|popular|alpha|category
-*/
+ * Метод поиска категорий
+ *
+ * запрос sql должен возвратить поля, используются в обычной операции
+ * отображения: href, title, section, created, text, browsernav
+ * @param определяет цель поиска
+ * @param сопоставляет параметры: exact|any|all
+ * @param определяет порядок сортировки: newest|oldest|popular|alpha|category
+ */
 function botSearchCategories($text,$phrase = '',$ordering = '') {
 	global $my,$_MAMBOTS;
 
@@ -63,14 +63,14 @@ function botSearchCategories($text,$phrase = '',$ordering = '') {
 	}
 
 	$query = "SELECT a.name AS title,"."\n a.description AS text,"."\n '' AS created,".
-		"\n '2' AS browsernav,"."\n '' AS section,"."\n '' AS href,"."\n s.id AS secid, a.id AS catid,".
-		"\n m.id AS menuid, m.type AS menutype"."\n FROM #__categories AS a"."\n INNER JOIN #__sections AS s ON s.id = a.section".
-		"\n LEFT JOIN #__menu AS m ON m.componentid = a.id"."\n WHERE ( a.name LIKE '%$text%'".
-		"\n OR a.title LIKE '%$text%'"."\n OR a.description LIKE '%$text%' )"."\n AND a.published = 1".
-		"\n AND s.published = 1"."\n AND a.access <= ".(int)$my->gid."\n AND s.access <= ".(int)
-		$my->gid."\n AND ( m.type = 'content_section' OR m.type = 'content_blog_section'".
-		"\n OR m.type = 'content_category' OR m.type = 'content_blog_category')"."\n GROUP BY a.id".
-		"\n ORDER BY $order";
+			"\n '2' AS browsernav,"."\n '' AS section,"."\n '' AS href,"."\n s.id AS secid, a.id AS catid,".
+			"\n m.id AS menuid, m.type AS menutype"."\n FROM #__categories AS a"."\n INNER JOIN #__sections AS s ON s.id = a.section".
+			"\n LEFT JOIN #__menu AS m ON m.componentid = a.id"."\n WHERE ( a.name LIKE '%$text%'".
+			"\n OR a.title LIKE '%$text%'"."\n OR a.description LIKE '%$text%' )"."\n AND a.published = 1".
+			"\n AND s.published = 1"."\n AND a.access <= ".(int)$my->gid."\n AND s.access <= ".(int)
+			$my->gid."\n AND ( m.type = 'content_section' OR m.type = 'content_blog_section'".
+			"\n OR m.type = 'content_category' OR m.type = 'content_blog_category')"."\n GROUP BY a.id".
+			"\n ORDER BY $order";
 	$database->setQuery($query,0,$limit);
 	$rows = $database->loadObjectList();
 

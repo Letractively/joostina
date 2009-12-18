@@ -13,7 +13,7 @@
 		<filename mambot="content.searchbot">content.searchbot.php</filename>
 	</files>
 	<params>
-		<param name="search_limit" type="text" size="5" default="50" label="Ограничить поиск" description="Ограничение количества найденных объектов"/>		
+		<param name="search_limit" type="text" size="5" default="50" label="Ограничить поиск" description="Ограничение количества найденных объектов"/>
 		<param name="nonmenu" type="radio" default="1" label="Статичное содержимое без ссылки" description="Искать статичное содержимое, не связанное с пунктом меню?">
 			<option value="0">Нет</option>
 			<option value="1">Да</option>

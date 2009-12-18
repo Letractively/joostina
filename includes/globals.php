@@ -1,21 +1,21 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 // удаляем зарегистрированные глобальные переменные если они разрешены
 
 /**
-* Adds an array to the GLOBALS array and checks that the GLOBALS variable is
-* not being attacked
-* @param array
-* @param boolean True if the array is to be added to the GLOBALS
-*/
+ * Adds an array to the GLOBALS array and checks that the GLOBALS variable is
+ * not being attacked
+ * @param array
+ * @param boolean True if the array is to be added to the GLOBALS
+ */
 function checkInputArray(&$array,$globalise = false) {
 	static $banned = array('_files','_env','_get','_post','_cookie','_server','_session','globals');
 
@@ -34,8 +34,8 @@ function checkInputArray(&$array,$globalise = false) {
 }
 
 /**
-* Emulates register globals = off
-*/
+ * Emulates register globals = off
+ */
 function unregisterGlobals() {
 	checkInputArray($_FILES);
 	checkInputArray($_ENV);

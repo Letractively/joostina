@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -13,19 +13,19 @@ defined('_VALID_MOS') or die();
 $_MAMBOTS->registerFunction('onPrepareContent','botMosPaging');
 
 /**
-* Мамбот разрыва страницы
-*
-* <b>Использование:</b>
-* <code>{mospagebreak}</code>
-* <code>{mospagebreak title=Заголовок страницы}</code>
-* или
-* <code>{mospagebreak heading=Первая страница}</code>
-* или
-* <code>{mospagebreak title=Заголовок страницы&heading=Первая страница}</code>
-* или
-* <code>{mospagebreak heading=Первая страница&title=Заголовок страницы}</code>
-*
-*/
+ * Мамбот разрыва страницы
+ *
+ * <b>Использование:</b>
+ * <code>{mospagebreak}</code>
+ * <code>{mospagebreak title=Заголовок страницы}</code>
+ * или
+ * <code>{mospagebreak heading=Первая страница}</code>
+ * или
+ * <code>{mospagebreak title=Заголовок страницы&heading=Первая страница}</code>
+ * или
+ * <code>{mospagebreak heading=Первая страница&title=Заголовок страницы}</code>
+ *
+ */
 function botMosPaging($published,&$row,&$params,$page = 0) {
 	global $Itemid,$_MAMBOTS;
 
@@ -91,13 +91,13 @@ function botMosPaging($published,&$row,&$params,$page = 0) {
 					$row->page_title = '';
 				}
 			} else
-				if($matches[$page - 1][2]) {
-					parse_str(html_entity_decode($matches[$page - 1][2],ENT_QUOTES,'UTF-8'),$args);
+			if($matches[$page - 1][2]) {
+				parse_str(html_entity_decode($matches[$page - 1][2],ENT_QUOTES,'UTF-8'),$args);
 
-					if(@$args['title']) {
-						$row->page_title = ': '.stripslashes($args['title']);
-					}
+				if(@$args['title']) {
+					$row->page_title = ': '.stripslashes($args['title']);
 				}
+			}
 		}
 
 		// сброс текста, удержание его в массиве $text
@@ -174,8 +174,7 @@ function createTOC(&$row,&$matches) {
 		<td>
 		<a href="'.$link.'" class="toclink">'.$heading.'</a>
 		</td>
-	</tr>
-	';
+	</tr>';
 
 	$i = 2;
 	$args2 = array();

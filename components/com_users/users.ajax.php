@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -30,7 +30,7 @@ switch($task) {
 		return;
 }
 
-function upload_avatar(){
+function upload_avatar() {
 	global $my;
 
 	$database = &database::getInstance();
@@ -40,10 +40,10 @@ function upload_avatar(){
 	$return = array();
 
 	$resize_options = array(
-		'method' => '0',		//Приводит к заданной ширине, сохраняя пропорции.
-		'output_file' => '',	//если 'thumb', то ресайзенная копия ляжет в подпапку "thumb'
-		'width'  => '150',
-		'height' => '150'
+			'method' => '0',		//Приводит к заданной ширине, сохраняя пропорции.
+			'output_file' => '',	//если 'thumb', то ресайзенная копия ляжет в подпапку "thumb'
+			'width'  => '150',
+			'height' => '150'
 	);
 
 	$file = new Image();
@@ -54,12 +54,12 @@ function upload_avatar(){
 
 	$foto_name = $file->upload($resize_options);
 
-	if($foto_name){
-		if($my->id){
+	if($foto_name) {
+		if($my->id) {
 			$user = new mosUser($database);
 			$user->load((int)$my->id);
 			$user_id = $user->id;
-			if($user->avatar!=''){
+			if($user->avatar!='') {
 				$foto = new Image();
 				$foto->directory = 'images/avatars';
 				$foto->name = $user->avatar;
@@ -67,14 +67,14 @@ function upload_avatar(){
 			}
 			$user->update_avatar($my->id, $foto_name);
 		}
-			echo $foto_name;
-	}else{
+		echo $foto_name;
+	}else {
 		return false;
 	};
 }
 
 
-function x_delavatar(){
+function x_delavatar() {
 	global $my;
 
 	$database = &database::getInstance();
@@ -86,7 +86,7 @@ function x_delavatar(){
 }
 
 
-function request_from_plugin(){
+function request_from_plugin() {
 	$mainframe = &mosMainFrame::getInstance();
 
 	$plugin	= mosGetParam($_REQUEST,'plugin','');
@@ -94,7 +94,7 @@ function request_from_plugin(){
 
 	// проверяем, какой файл необходимо подключить, данные берутся из пришедшего GET запроса
 	if(is_file(JPATH_BASE.DS. 'mambots'.DS.'profile'.DS.$plugin.DS.$plugin.'.ajax.php')) {
-		if(is_file($mainframe->getLangFile('bot_'.$plugin))){
+		if(is_file($mainframe->getLangFile('bot_'.$plugin))) {
 			include_once ($mainframe->getLangFile('bot_'.$plugin));
 		}
 		include_once (JPATH_BASE.DS. 'mambots'.DS.'profile'.DS.$plugin.DS.$plugin.'.ajax.php');

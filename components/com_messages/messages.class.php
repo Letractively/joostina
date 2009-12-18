@@ -1,58 +1,58 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 /**
-* @package Joostina
-* @subpackage Messages
-*/
+ * @package Joostina
+ * @subpackage Messages
+ */
 class mosMessage extends mosDBTable {
 	/**
-	@var int Primary key*/
+	 @var int Primary key*/
 	var $message_id = null;
 	/**
-	@var int*/
+	 @var int*/
 	var $user_id_from = null;
 	/**
-	@var int*/
+	 @var int*/
 	var $user_id_to = null;
 	/**
-	@var int*/
+	 @var int*/
 	var $folder_id = null;
 	/**
-	@var datetime*/
+	 @var datetime*/
 	var $date_time = null;
 	/**
-	@var int*/
+	 @var int*/
 	var $state = null;
 	/**
-	@var int*/
+	 @var int*/
 	var $priority = null;
 	/**
-	@var string*/
+	 @var string*/
 	var $subject = null;
 	/**
-	@var text*/
+	 @var text*/
 	var $message = null;
 
 	/**
-	* @param database A database connector object
-	*/
+	 * @param database A database connector object
+	 */
 	function mosMessage(&$db) {
 		$this->mosDBTable('#__messages','message_id',$db);
 	}
 
 	/**
-	* Validation and filtering
-	*/
+	 * Validation and filtering
+	 */
 	function check() {
 		// filter malicious code
 		$this->filter();

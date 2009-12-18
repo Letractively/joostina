@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -13,11 +13,11 @@ defined('_VALID_MOS') or die();
 $_MAMBOTS->registerFunction('onPrepareContent','botMosCode');
 
 /**
-* Мамбот подсветки кода
-*
-* <b>Использование:</b>
-* <code>{moscode}...какой-нибудь код...{/moscode}</code>
-*/
+ * Мамбот подсветки кода
+ *
+ * <b>Использование:</b>
+ * <code>{moscode}...какой-нибудь код...{/moscode}</code>
+ */
 function botMosCode($published,&$row) {
 	// определение правильного выражения для бота
 	if(strpos($row->text,'moscode') === false) {
@@ -39,10 +39,10 @@ function botMosCode($published,&$row) {
 	return true;
 }
 /**
-* Замена совпадающих тэгов an image
-* @param array - Массив соответствий (см. - preg_match_all)
-* @return string
-*/
+ * Замена совпадающих тэгов an image
+ * @param array - Массив соответствий (см. - preg_match_all)
+ * @return string
+ */
 function botMosCode_replacer(&$matches) {
 	$html_entities_match = array("#<#","#>#");
 	$html_entities_replace = array("&lt;","&gt;");

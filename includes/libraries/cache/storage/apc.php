@@ -1,12 +1,12 @@
 <?php
 /**
-* @package Joostina
+ * @package Joostina
  * @subpackage Cache handler
-* @copyright Авторские права (C) 2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @copyright Авторские права (C) 2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // Check to ensure this file is within the rest of the framework
 defined('_VALID_MOS') or die();
@@ -14,24 +14,22 @@ defined('_VALID_MOS') or die();
 /**
  * APC cache storage handler
  *
- * @author		
+ * @author
  * @package		Joostina
  * @subpackage	Cache
  * @since		1.3
  */
-class JCacheStorageApc extends JCacheStorage
-{
+class JCacheStorageApc extends JCacheStorage {
 	/**
 	 * Constructor
 	 *
 	 * @access protected
 	 * @param array $options optional parameters
 	 */
-	function __construct( $options = array() )
-	{
+	function __construct( $options = array() ) {
 		global $mosConfig_secret;
 		parent::__construct($options);
-		
+
 		$this->_hash	= $mosConfig_secret;
 	}
 
@@ -45,8 +43,7 @@ class JCacheStorageApc extends JCacheStorage
 	 * @return	mixed	Boolean false on failure or a cached data string
 	 * @since	1.3
 	 */
-	function get($id, $group, $checkTime)
-	{
+	function get($id, $group, $checkTime) {
 		$cache_id = $this->_getCacheId($id, $group);
 		$this->_setExpire($cache_id);
 		return apc_fetch($cache_id);
@@ -62,8 +59,7 @@ class JCacheStorageApc extends JCacheStorage
 	 * @return	boolean	True on success, false otherwise
 	 * @since	1.3
 	 */
-	function store($id, $group, $data)
-	{
+	function store($id, $group, $data) {
 		$cache_id = $this->_getCacheId($id, $group);
 		apc_store($cache_id.'_expire', time());
 		return apc_store($cache_id, $data, $this->_lifetime);
@@ -78,8 +74,7 @@ class JCacheStorageApc extends JCacheStorage
 	 * @return	boolean	True on success, false otherwise
 	 * @since	1.3
 	 */
-	function remove($id, $group)
-	{
+	function remove($id, $group) {
 		$cache_id = $this->_getCacheId($id, $group);
 		apc_delete($cache_id.'_expire');
 		return apc_delete($cache_id);
@@ -97,10 +92,10 @@ class JCacheStorageApc extends JCacheStorage
 	 * @return	boolean	True on success, false otherwise
 	 * @since	1.3
 	 */
-	function clean($group, $mode)
-	{
-		// Now it's clearing ALL cached data 
-		return apc_clear_cache("user");;
+	function clean($group, $mode) {
+		// Now it's clearing ALL cached data
+		return apc_clear_cache("user");
+		;
 	}
 
 	/**
@@ -110,8 +105,7 @@ class JCacheStorageApc extends JCacheStorage
 	 * @access public
 	 * @return boolean  True on success, false otherwise.
 	 */
-	function test()
-	{
+	function test() {
 		return extension_loaded('apc');
 	}
 
@@ -123,8 +117,7 @@ class JCacheStorageApc extends JCacheStorage
 	 * @param string  $key   Cache key to expire.
 	 * @param integer $lifetime  Lifetime of the data in seconds.
 	 */
-	function _setExpire($key)
-	{
+	function _setExpire($key) {
 		$lifetime	= $this->_lifetime;
 		$expire		= apc_fetch($key.'_expire');
 
@@ -146,8 +139,7 @@ class JCacheStorageApc extends JCacheStorage
 	 * @return	string	The cache_id string
 	 * @since	1.3
 	 */
-	function _getCacheId($id, $group)
-	{
+	function _getCacheId($id, $group) {
 		global $mosConfig_cache_key;
 		$name	= md5($mosConfig_cache_key . "-" . $this->_application.'-'.$id.'-'.$this->_hash.'-'.$this->_language);
 		return 'cache_'.$group.'-'.$name;

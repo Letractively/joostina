@@ -63,23 +63,23 @@ function showPopup() {
 
 	if(strpos(JPATH_SITE, $img) === false)
 		$img = JPATH_SITE . '/' . $img;
-?>
-	<style type="text/css">
-		body{
-			margin: 0px;
-			padding: 0px;
-		}
-	</style>
-	<script type="text/javascript">
+	?>
+<style type="text/css">
+	body{
+		margin: 0px;
+		padding: 0px;
+	}
+</style>
+<script type="text/javascript">
 	var w = '<?php $w; ?>';
 	var h = '<?php echo $h; ?>';
 	var x = (screen.width-parseInt(w))/2;
 	var y = (screen.height-parseInt(h))/2;
 
 	window.moveTo(x, y);
-	</script>
+</script>
 	<?php if($right_click) { ?>
-	<script type="text/javascript">
+<script type="text/javascript">
 	function clickIE4(){
 		if (event.button==2){
 			return false;
@@ -100,30 +100,30 @@ function showPopup() {
 		document.onmousedown=clickIE4;
 	}
 	document.oncontextmenu=new Function("return false");
-	</script>
-	<?php }
+</script>
+		<?php }
 	switch ($mode) {
 		case '0':
-?>
-			<img src="<?php echo $img; ?>" width="<?php echo $w; ?>" height="<?php echo $h; ?>" title="<?php echo $title; ?>" alt="<?php echo $title; ?>" style="cursor:pointer;" onclick="window.close();" />
-	<?php
+			?>
+<img src="<?php echo $img; ?>" width="<?php echo $w; ?>" height="<?php echo $h; ?>" title="<?php echo $title; ?>" alt="<?php echo $title; ?>" style="cursor:pointer;" onclick="window.close();" />
+			<?php
 			break;
 		case '1':
-?>
-			<table align="center" cellspacing="0" cellpadding="0" border="0">
-				<tr>
-					<td align="left" class="contentheading" style="width:<?php echo $w - 18; ?>px; margin-left: 5px;"><?php echo $title; ?></td>
-					<td align="right" style="width:18px;" class="buttonheading">
+			?>
+<table align="center" cellspacing="0" cellpadding="0" border="0">
+	<tr>
+		<td align="left" class="contentheading" style="width:<?php echo $w - 18; ?>px; margin-left: 5px;"><?php echo $title; ?></td>
+		<td align="right" style="width:18px;" class="buttonheading">
 						<?php if($print) { ?>
-							<a href="javascript:;" onClick="window.print(); return false"><img src="<?php echo JPATH_SITE; ?>/images/M_images/printButton.png" width="16" height="16" alt="<?php echo _PRINT; ?>" title="<?php echo _PRINT; ?>" border="0" style="vertical-align:middle;"/></a>
-						<?php } ?>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2"><img src="<?php echo $img; ?>" width="<?php echo $w; ?>" height="<?php echo $h; ?>" title="<?php echo $title; ?>" alt="<?php echo $title; ?>" style="cursor:pointer;" onclick="window.close();" /></td>
-				</tr>
-			</table>
-	<?php
-		break;
+			<a href="javascript:;" onClick="window.print(); return false"><img src="<?php echo JPATH_SITE; ?>/images/M_images/printButton.png" width="16" height="16" alt="<?php echo _PRINT; ?>" title="<?php echo _PRINT; ?>" border="0" style="vertical-align:middle;"/></a>
+							<?php } ?>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2"><img src="<?php echo $img; ?>" width="<?php echo $w; ?>" height="<?php echo $h; ?>" title="<?php echo $title; ?>" alt="<?php echo $title; ?>" style="cursor:pointer;" onclick="window.close();" /></td>
+	</tr>
+</table>
+			<?php
+			break;
 	}
 }

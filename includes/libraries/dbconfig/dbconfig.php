@@ -1,7 +1,7 @@
 <?php
 /**
  * Класс для получения конфигурации в базе данных
- * 
+ *
  * @package Joostina
  * @copyright (C) 2009 Extention Team. Joostina Team. Все права зищищены.
  * @license GNU/GPL, подробнее в help/lisense.php
@@ -14,21 +14,21 @@ defined('_VALID_MOS') or die();
 /**
  * Класс для получения параметров из базы данных
  */
-class DBconfig{
+class DBconfig {
 	var $_group = '';
 	var $_subgroup = '';
 	var $_db = null;
 	var $_error = '';
 	var $_loaded = null;
 	/**
-	 * 
+	 *
 	 */
 	function DBconfig($database, $group = '', $subgroup='') {
 		global $option;
 
 		$database = &database::getInstance();
 		$this->_db = $database;
-		
+
 		// проверяем - задана ли группа
 		if (trim($group) == '') {
 			$this->_group = $option;// нет не задана - принимаем значение $option
@@ -42,9 +42,9 @@ class DBconfig{
 		} else {
 			$this->_subgroup = $subgroup;
 		}
-		
+
 		// получаем все значение из базы данных
-		if($this->bindConfig($this->_formatArray($values = $this->getBatchValues()))){
+		if($this->bindConfig($this->_formatArray($values = $this->getBatchValues()))) {
 			return $values;
 		};
 		return false;
@@ -65,15 +65,15 @@ class DBconfig{
 			return true;
 		}
 	}
-	
-	function prepare_for_xml_render(){
-			
-		$rows = get_object_vars($this); 
+
+	function prepare_for_xml_render() {
+
+		$rows = get_object_vars($this);
 		$array = array();
 		foreach ($rows as $key => $value) {
-			if(substr($key, 0, 1) !== '_'){
-				$array[] = "$key=$value";	
-			}	
+			if(substr($key, 0, 1) !== '_') {
+				$array[] = "$key=$value";
+			}
 		}
 		$txt = implode("\n", $array);
 		return $txt;
@@ -113,11 +113,11 @@ class DBconfig{
 		$this->$key = $value;
 		return $value;
 	}
-	
+
 	function getBatchValues() {
 
 		$where = '';
-		if($this->_subgroup){
+		if($this->_subgroup) {
 			$where = " AND c.subgroup = '".$this->_subgroup."'";
 		}
 
@@ -132,7 +132,7 @@ class DBconfig{
 		}
 	}
 
-	
+
 	/**
 	 * Получение одиночного параметра из базы данных
 	 *
@@ -140,7 +140,7 @@ class DBconfig{
 	 * @var string $group Группа параметра
 	 * @var string $type Тип записи: s - текстовая строка; i - целое число; f - дробное число; a - массив; b - логическое И/Л
 	 * @var variant $default Значение по умолчанию, если параметр не будет найден в базе данных, то значение по умолчанию передается
-	 * 
+	 *
 	 * @return variant Значение параметра конфигурации
 	 */
 	function getValue($name, $default = null) {
@@ -158,7 +158,7 @@ class DBconfig{
 		if (!$return) {
 			$return = $default;
 		}
-		
+
 		return $return;
 	}
 
@@ -190,7 +190,7 @@ class DBconfig{
 		$str = $this->_formatValue($type,$value);
 
 		$where = '';
-		if($this->_subgroup){
+		if($this->_subgroup) {
 			$where = " AND c.subgroup = '".$this->_subgroup."'";
 		}
 
@@ -228,7 +228,7 @@ class DBconfig{
 	private function _parseValue($value) {
 		$value_array = array();
 
-		if (substr($value, 1, 1) == ":"){
+		if (substr($value, 1, 1) == ":") {
 			$type = substr($value, 0, 1);
 		} else {
 			$type = "u";
@@ -237,7 +237,7 @@ class DBconfig{
 		$length = (int)substr($value, 2, $pos-2);
 		$value = substr($value, $pos+1, strlen($value)-2-$pos);
 		$value = substr($value, 0, $length);
-		
+
 		// задаем тип параметра
 		switch ($type) {
 			// текстовая строка
@@ -268,7 +268,7 @@ class DBconfig{
 			case 'b':
 				$return = ($value_array['value'] == '1')?true:false;
 				break;
-				
+
 			case 'u':
 			default:
 				$return = $value;
@@ -280,12 +280,12 @@ class DBconfig{
 
 	/**
 	 * Формирование строки для записи в базу данных
-	 * 
+	 *
 	 * @var string $type Тип параметра
 	 * @var variant $value Значение параметра
 	 */
 	private function _formatValue($type, $value) {
-		switch ($type){
+		switch ($type) {
 			case 's':
 			case 'i':
 			case 'f':
@@ -297,7 +297,7 @@ class DBconfig{
 				break;
 
 			case 'a':
-				// проверка является ли значение массивом
+			// проверка является ли значение массивом
 				if (is_array($value)) {
 					$a = array();
 					for ($i=0; $i<count($value); $i++) {
@@ -309,7 +309,7 @@ class DBconfig{
 		}
 		return $type . ":" . strlen($v) . "{" . $v . "}";
 	}
-	
+
 	function _formatArray($array) {
 		$return = array();
 		if (is_array($array) and count($array) > 0) {

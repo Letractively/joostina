@@ -11,7 +11,7 @@
 	<description><![CDATA[<p>
 		<strong>JCE</strong>
 		<em>(Joomla Content Editor)</em> - гибко настраиваемый и расширяемый, основанный на работах Moxiecode&apos;s
-		<a href"http://tinymce.moxiecode.com" target="_blank" />TinyMCE</a> редактор, для  Joomla! CMS.</p><p>Автор посвящает JCE своему отцу .</p>]]></description>
+	<a href"http://tinymce.moxiecode.com" target="_blank" />TinyMCE</a> редактор, для  Joomla! CMS.</p><p>Автор посвящает JCE своему отцу .</p>]]></description>
 	<params>
 		<param name="@spacer" type="spacer" default="" label="Настройки" description="" />
 		<param name="editor_width" type="text" size="5" default="500" label="Ширина редактора" description="Ширина области занимаемой редактором" />

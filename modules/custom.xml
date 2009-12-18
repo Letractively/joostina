@@ -16,7 +16,7 @@
 		<param type="cache_list" name="cache_time" label="Кэшировать" description="Выберите время на которое необходимо кэшировать данный модуль. По умолчанию используется время, указанное в глобальной конфигураци." />
 		<param type="tabs" default="endTab" />
 		<param type="tabs" default="startTab" name="1" label="Пользовательский модуль"/>
-			<param name="user_template" type="text" default="" label="Шаблон модуля" description="Вы можете поместить содержимое модуля в отдельный файл. Файл шаблона модуля должен находиться в `templates/текущий_шаблон/html/user_modules`. Укажите здесь название файла (например, my_template.php). Если оставить поле пустым - содержимое модуля будет браться из поля [Содержимое]" />
+		<param name="user_template" type="text" default="" label="Шаблон модуля" description="Вы можете поместить содержимое модуля в отдельный файл. Файл шаблона модуля должен находиться в `templates/текущий_шаблон/html/user_modules`. Укажите здесь название файла (например, my_template.php). Если оставить поле пустым - содержимое модуля будет браться из поля [Содержимое]" />
 		<param type="tabs" default="endTab" />
 		<param type="tabs" default="endPane" />
 	</params>

@@ -67,7 +67,7 @@ class database {
 	 * @param string Common prefix for all tables
 	 * @param boolean If true and there is an error, go offline
 	 */
-	function database($host = 'localhost',$user,$pass,$db = '',$table_prefix = '',$goOffline = true,$debug=0) {
+	function database($host = 'localhost',$user='root',$pass='',$db = '',$table_prefix = '',$goOffline = true,$debug=0) {
 		// perform a number of fatality checks, then die gracefully
 		if( !function_exists('mysql_connect')) {
 			$mosSystemError = 1;

@@ -51,7 +51,7 @@ class ContentView {
 			$page_link = 'index.php?option=com_content&amp;task=user_content&amp;id='.$user_id.'&amp;Itemid='.$Itemid.'&amp;order='.$order;
 		}
 
-		if( trim($lists['filter']!='')){
+		if( trim($lists['filter']!='')) {
 			$page_link .= '&amp;filter='.urlencode($lists['filter']);
 		}
 
@@ -116,7 +116,7 @@ class ContentView {
 	function showContentList($obj, &$access, &$params,&$mainframe=null) {
 		global $Itemid, $my;
 
-		if(!isset($mainframe)){
+		if(!isset($mainframe)) {
 			$mainframe = &mosMainFrame::getInstance();
 		}
 
@@ -226,39 +226,39 @@ class ContentView {
 		$compat = (int)$mainframe->getCfg('itemid_compat');
 
 		if($show && isset($rows[$i])) { ?>
-			<div class="more_items">
-				<strong><?php echo _MORE; ?></strong>
-		<ul class="more_items">
-		<?php for ($z = 0; $z < $links; $z++) {
-			if(!isset($rows[$i])) {
-				// stops loop if total number of items is less than the number set to display as intro + leading
-				break;
-			}
+<div class="more_items">
+	<strong><?php echo _MORE; ?></strong>
+	<ul class="more_items">
+					<?php for ($z = 0; $z < $links; $z++) {
+						if(!isset($rows[$i])) {
+							// stops loop if total number of items is less than the number set to display as intro + leading
+							break;
+						}
 
-			if($compat > 0 && $compat <= 11) {
-				$_Itemid = $mainframe->getItemid($rows[$i]->id, 0, 0);
-			} else {
-				$_Itemid = $Itemid;
-			}
+						if($compat > 0 && $compat <= 11) {
+							$_Itemid = $mainframe->getItemid($rows[$i]->id, 0, 0);
+						} else {
+							$_Itemid = $Itemid;
+						}
 
-			if($_Itemid && $_Itemid != 99999999) {
-				// where Itemid value is returned, do not add Itemid to url
-				$Itemid_link = '&amp;Itemid='.$_Itemid;
-			} else {
-				// where Itemid value is NOT returned, do not add Itemid to url
-				$Itemid_link = '';
-			}
+						if($_Itemid && $_Itemid != 99999999) {
+							// where Itemid value is returned, do not add Itemid to url
+							$Itemid_link = '&amp;Itemid='.$_Itemid;
+						} else {
+							// where Itemid value is NOT returned, do not add Itemid to url
+							$Itemid_link = '';
+						}
 
-			$link = sefRelToAbs('index.php?option=com_content&amp;task=view&amp;id='.$rows[$i]->id.$Itemid_link) ?>
-			<li>
-				<a class="blogsection" href="<?php echo $link; ?>" title="<?php echo $rows[$i]->title; ?>"><?php echo $rows[$i]->title; ?></a>
-			</li>
-			<?php $i++;
-		}?>
-		</ul>
-		</div>
-		<?php } ?>
-	<?php }
+						$link = sefRelToAbs('index.php?option=com_content&amp;task=view&amp;id='.$rows[$i]->id.$Itemid_link) ?>
+		<li>
+			<a class="blogsection" href="<?php echo $link; ?>" title="<?php echo $rows[$i]->title; ?>"><?php echo $rows[$i]->title; ?></a>
+		</li>
+						<?php $i++;
+					}?>
+	</ul>
+</div>
+			<?php } ?>
+		<?php }
 
 	/**
 	 * Отображение содержимого
@@ -269,8 +269,8 @@ class ContentView {
 		global $hide_js, $_MAMBOTS;
 		global $news_uid, $task;
 
-		if(!isset($mainframe)){
-jd_inc(':(--show');
+		if(!isset($mainframe)) {
+			jd_inc(':(--show');
 			$mainframe = &mosMainFrame::getInstance();
 		}
 
@@ -344,9 +344,9 @@ jd_inc(':(--show');
 		//поэтому никаких дополнительных манипуляций не требуется,
 		// так как имя шаблона задается непосредственно в шаблоне блога раздела или категории
 		if($params->get('page_type')=='item_intro_simple' || $params->get('page_type')=='item_intro_leading') {
-			
+
 			$template = new ContentTemplate();
-			$_template = $params->get('page_type').'='.$_template; 
+			$_template = $params->get('page_type').'='.$_template;
 			$template->set_template($params->get('page_type'), $_template);
 			include ($template->template_file);
 			//include (JPATH_BASE.'/components/com_content/view/item/'.$template);
@@ -382,7 +382,7 @@ jd_inc(':(--show');
 	function _Itemid(&$row,&$mainframe) {
 		global $task, $Itemid;
 
-		if(!isset($mainframe)){
+		if(!isset($mainframe)) {
 			$mainframe = &mosMainFrame::getInstance();
 			jd_inc('_Itemid');
 		}
@@ -488,15 +488,15 @@ jd_inc(':(--show');
 		$overlib .= $date;
 		$overlib .= '<br />';
 		$overlib .= $author; ?>
-		<a href="<?php echo sefRelToAbs($link); ?>"><?php echo $image; ?></a>
-<?php }
+<a href="<?php echo sefRelToAbs($link); ?>"><?php echo $image; ?></a>
+		<?php }
 
 	/**
 	 * Writes Email icon
 	 */
 	function EmailIcon(&$row, &$params, $hide_js) {
 		global $Itemid, $task, $cne_i;
-		if(!isset($cne_i)){
+		if(!isset($cne_i)) {
 			$cne_i = '';
 		}
 
@@ -517,8 +517,8 @@ jd_inc(':(--show');
 			} else {
 				$image = '&nbsp;'._EMAIL;
 			} ?>
-			<a href="<?php echo $link; ?>" target="_blank" onclick="window.open('<?php echo $link; ?>','win2','<?php echo $status; ?>'); return false;" title="<?php echo _EMAIL; ?>"><?php echo $image; ?></a>
-<?php }
+<a href="<?php echo $link; ?>" target="_blank" onclick="window.open('<?php echo $link; ?>','win2','<?php echo $status; ?>'); return false;" title="<?php echo _EMAIL; ?>"><?php echo $image; ?></a>
+			<?php }
 	}
 
 	/**
@@ -526,20 +526,20 @@ jd_inc(':(--show');
 	 */
 	function Section_Category(&$row, &$params) {
 		if($params->get('section') || $params->get('category')) { ?>
-			<tr>
-				<td>
-<?php }
+<tr>
+	<td>
+					<?php }
 
-		// displays Section Name
-		ContentView::Section($row, $params);
+				// displays Section Name
+				ContentView::Section($row, $params);
 
-		// displays Section Name
-		ContentView::Category($row, $params);
+				// displays Section Name
+				ContentView::Category($row, $params);
 
-		if($params->get('section') || $params->get('category')) { ?>
-				</td>
-			</tr>
-<?php }
+				if($params->get('section') || $params->get('category')) { ?>
+	</td>
+</tr>
+			<?php }
 	}
 
 	/**
@@ -547,14 +547,14 @@ jd_inc(':(--show');
 	 */
 	function Section(&$row, &$params) {
 		if($params->get('section')) { ?>
-			<span class="section_name">
-	<?php echo $row->section;
-			// writes dash between section & Category Name when both are active
-			if($params->get('category')) {
-				echo ' - ';
-			} ?>
-			</span>
-<?php }
+<span class="section_name">
+				<?php echo $row->section;
+				// writes dash between section & Category Name when both are active
+				if($params->get('category')) {
+					echo ' - ';
+				} ?>
+</span>
+			<?php }
 	}
 
 	/**
@@ -562,8 +562,8 @@ jd_inc(':(--show');
 	 */
 	function Category(&$row, &$params) {
 		if($params->get('category')) { ?>
-		<span class="category_name"><?php echo $row->category; ?></span>
-	<?php }
+<span class="category_name"><?php echo $row->category; ?></span>
+			<?php }
 	}
 
 	/**
@@ -577,8 +577,8 @@ jd_inc(':(--show');
 		}
 
 		if($params->get('createdate')) { ?>
-			<span class="date"><?php echo $create_date; ?></span>
-<?php }
+<span class="date"><?php echo $create_date; ?></span>
+			<?php }
 	}
 
 	/**
@@ -586,10 +586,10 @@ jd_inc(':(--show');
 	 */
 	function URL(&$row, &$params) {
 		if($params->get('url') && $row->urls) { ?>
-			<tr>
-				<td valign="top" colspan="2"><a href="http://<?php echo $row->urls; ?>" target="_blank"><?php echo $row->urls; ?></a></td>
-			</tr>
-<?php }
+<tr>
+	<td valign="top" colspan="2"><a href="http://<?php echo $row->urls; ?>" target="_blank"><?php echo $row->urls; ?></a></td>
+</tr>
+			<?php }
 	}
 
 	/**
@@ -613,16 +613,16 @@ jd_inc(':(--show');
 
 		if(($mod_date != '') && $params->get('modifydate')) {
 			?><div class="modifydate"><?php echo _LAST_UPDATED; ?> ( <?php echo $mod_date; ?> )</div>
-<?php
+			<?php
 		}
 	}
 
 	/**
 	 * Writes Readmore Button
 	 */
-	function ReadMore(&$row, &$params, $template = ''){
+	function ReadMore(&$row, &$params, $template = '') {
 		$return = '';
-		if ($params->get('readmore',0) && $params->get('intro_only',0) && $row->link_text){
+		if ($params->get('readmore',0) && $params->get('intro_only',0) && $row->link_text) {
 			$return = '<a href="' . $row->link_on . '" title="' . $row->title . '" class="readon">' . $row->link_text . '</a>';
 		}
 		return $return;
@@ -657,24 +657,24 @@ jd_inc(':(--show');
 
 		if($params->get('item_navigation') && ($task == 'view') && !$params->get('popup') && ($row->prev || $row->next)) { ?>
 
-		<table class="page_navigation">
-			<tr>
-<?php if($row->prev) { ?>
-				<th class="pagenav_prev">
-					<a href="<?php echo $row->prev; ?>" title="<?php echo $row->prev_title; ?>"><?php echo _ITEM_PREVIOUS.$row->prev_title; ?></a>
-				</th>
-<?php } ?>
-<?php if($row->prev && $row->next) { ?>
-				<th width="50">&nbsp;</th>
-<?php } ?>
-<?php if($row->next) { ?>
-				<th class="pagenav_next">
-					<a href="<?php echo $row->next; ?>" title="<?php echo $row->next_title; ?>"><?php echo $row->next_title._ITEM_NEXT; ?></a>
-				</th>
-<?php } ?>
-			</tr>
-		</table>
-<?php }
+<table class="page_navigation">
+	<tr>
+					<?php if($row->prev) { ?>
+		<th class="pagenav_prev">
+			<a href="<?php echo $row->prev; ?>" title="<?php echo $row->prev_title; ?>"><?php echo _ITEM_PREVIOUS.$row->prev_title; ?></a>
+		</th>
+						<?php } ?>
+					<?php if($row->prev && $row->next) { ?>
+		<th width="50">&nbsp;</th>
+						<?php } ?>
+					<?php if($row->next) { ?>
+		<th class="pagenav_next">
+			<a href="<?php echo $row->next; ?>" title="<?php echo $row->next_title; ?>"><?php echo $row->next_title._ITEM_NEXT; ?></a>
+		</th>
+						<?php } ?>
+	</tr>
+</table>
+			<?php }
 	}
 
 	/**
@@ -773,19 +773,19 @@ jd_inc(':(--show');
 
 		$mainframe->setPageTitle($title);
 		$mainframe->addCustomHeadTag('<link rel="stylesheet" href="templates/'.$template.'/css/template_css.css" type="text/css" />'); ?>
-		<script language="javascript" type="text/javascript">
-		function submitbutton() {
-			var form = document.frontendForm;
-			// do field validation
-			if (form.email.value == "" || form.youremail.value == "") {
-				alert( '<?php echo addslashes(_EMAIL_ERR_NOINFO); ?>' );
-				return false;
-			}
-			return true;
+<script language="javascript" type="text/javascript">
+	function submitbutton() {
+		var form = document.frontendForm;
+		// do field validation
+		if (form.email.value == "" || form.youremail.value == "") {
+			alert( '<?php echo addslashes(_EMAIL_ERR_NOINFO); ?>' );
+			return false;
 		}
-		</script>
+		return true;
+	}
+</script>
 
-	<form action="index2.php?option=com_content&amp;task=emailsend" name="frontendForm" method="post" onSubmit="return submitbutton();">
+<form action="index2.php?option=com_content&amp;task=emailsend" name="frontendForm" method="post" onSubmit="return submitbutton();">
 	<table cellspacing="0" cellpadding="0" border="0">
 		<tr>
 			<td colspan="2"><?php echo _EMAIL_FRIEND; ?></td>
@@ -814,16 +814,16 @@ jd_inc(':(--show');
 		</tr>
 		<tr>
 			<td colspan="2">
-			<span class="button"><input type="submit" name="submit" value="<?php echo _BUTTON_SUBMIT_MAIL; ?>" /></span>
-			<span class="button"><input type="button" name="cancel" value="<?php echo _CANCEL; ?>" onclick="window.close();" /></span>
+				<span class="button"><input type="submit" name="submit" value="<?php echo _BUTTON_SUBMIT_MAIL; ?>" /></span>
+				<span class="button"><input type="button" name="cancel" value="<?php echo _CANCEL; ?>" onclick="window.close();" /></span>
 			</td>
 		</tr>
 	</table>
 	<input type="hidden" name="id" value="<?php echo $uid; ?>" />
 	<input type="hidden" name="itemid" value="<?php echo $itemid; ?>" />
 	<input type="hidden" name="<?php echo $validate; ?>" value="1" />
-	</form>
-<?php }
+</form>
+		<?php }
 
 	/**
 	 * Writes Email sent popup
@@ -835,20 +835,20 @@ jd_inc(':(--show');
 
 		$mainframe->setPageTitle($mainframe->getCfg('sitename'));
 		$mainframe->addCustomHeadTag('<link rel="stylesheet" href="templates/'.$template.'/css/template_css.css" type="text/css" />'); ?>
-		<span class="contentheading"><?php echo _EMAIL_SENT." $to"; ?></span>
-		<br />
-		<br />
-		<br />
-		<a href='javascript:window.close();'><span class="small"><?php echo _PROMPT_CLOSE; ?></span></a>
-<?php }
+<span class="contentheading"><?php echo _EMAIL_SENT." $to"; ?></span>
+<br />
+<br />
+<br />
+<a href='javascript:window.close();'><span class="small"><?php echo _PROMPT_CLOSE; ?></span></a>
+		<?php }
 
 	function _no_access($message = _NOT_AUTH) { ?>
-		<div class="error"><?php echo $message; ?></div>
-<?php
+<div class="error"><?php echo $message; ?></div>
+		<?php
 	}
 
 	function _after_create_content($row) { ?>
 		Усё пучкомм
-	<?php
+		<?php
 	}
 }

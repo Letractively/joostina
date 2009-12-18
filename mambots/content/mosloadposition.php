@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -13,8 +13,8 @@ defined('_VALID_MOS') or die();
 $_MAMBOTS->registerFunction('onPrepareContent','botMosLoadPosition');
 
 /**
-* Мамбот, загружающий модули в пределах содержимого
-*/
+ * Мамбот, загружающий модули в пределах содержимого
+ */
 function botMosLoadPosition($published,&$row) {
 	global $database,$_MAMBOTS;
 
@@ -98,4 +98,3 @@ function loadPosition($position,$style = -2) {
 	}
 	return $modules;
 }
-?>

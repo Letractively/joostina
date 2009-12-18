@@ -4,7 +4,7 @@
  * @package     Joostina
  * @subpackage  templates/NewLine2
  * @version     $Id: components.css 29-09-2009 12:17 ZaiSL $;
- */
+*/
 
 /*--------------------------------------------------- com_content - Содержимое*/
 /*Заголовки*/
@@ -172,11 +172,11 @@ table.cedit_main {
     float: right;
 }
 .contact_page dl{
- margin: 15px 0 10px 0; padding: 0;
+	margin: 15px 0 10px 0; padding: 0;
 }
 .contact_page dt{
- float: left; width: 85px; text-align: right; clear: left; margin: 0 10px 0 0;
- font-weight: bold; display: block;
+	float: left; width: 85px; text-align: right; clear: left; margin: 0 10px 0 0;
+	font-weight: bold; display: block;
 }
 .contact_page .vcard{
     padding: 0 0 0 95px; display: block; clear: both;
@@ -189,10 +189,10 @@ table.cedit_main {
     display:block; float: left;
 }
 .contact_page br{
-   clear:both;
+	clear:both;
 }
 .contact_page span.button{
-   margin: 10px 0 0 100px;
+	margin: 10px 0 0 100px;
 }
 
 /*-------------------------------------------------- com_users - Пользователи*/
@@ -311,7 +311,7 @@ table.cedit_main {
 
 /* ----------------------------------------------------- com_poll - "Опросы" */
 .poll_quest {
-/* Текст вопроса   */
+	/* Текст вопроса   */
 	background: url(../images/elements/arrow2.png) no-repeat left;
 	padding: 2px 0 2px 20px;
 	vertical-align: middle;

@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined( '_VALID_MOS' ) or die();
@@ -45,18 +45,16 @@ sort( $darray );
 $onchange = '';
 if ($show_preview) {
 	$onchange = "showimage()";
-?>
+	?>
 <img src="<?php echo "templates/$cur_template/template_thumbnail.png";?>" name="preview" border="1" width="<?php echo $preview_width;?>" height="<?php echo $preview_height;?>" alt="<?php echo $cur_template; ?>" />
 <script language='JavaScript1.2' type='text/javascript'>
-<!--
+	<!--
 	function showimage() {
-		//if (!document.images) return;
 		document.images.preview.src = 'templates/' + getSelectedValue( 'templateform', 'jos_change_template' ) + '/template_thumbnail.png';
 	}
 	function getSelectedValue( frmName, srcListName ) {
 		var form = eval( 'document.' + frmName );
 		var srcList = eval( 'form.' + srcListName );
-
 		i = srcList.selectedIndex;
 		if (i != null && i > -1) {
 			return srcList.options[i].value;
@@ -64,9 +62,9 @@ if ($show_preview) {
 			return null;
 		}
 	}
--->
+	-->
 </script>
-<?php
+	<?php
 }
 ?>
 <form action="index.php" name="templateform" method="post">

@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // Установка флага родительского файла
 define('_VALID_MOS',1);
@@ -90,13 +90,13 @@ if(isset($_POST['submit'])) {
 			exit;
 		}
 	}
-/*
+	/*
 	if((int) $config->config_admin_bad_auth >= 0 && $config->config_admin_bad_auth <= $bad_auth_count) {
 		mosRedirect($config->config_live_site.'/'.JADMIN_BASE.'/',_USER_BLOKED);
 		unset($_SESSION['captcha_keystring']);
 		exit;
 	}
-*/
+	*/
 	$my = null;
 	$query = 'SELECT * FROM #__users WHERE username ='.$database->Quote($usrname).' AND block = 0';
 	$database->setQuery($query);
@@ -133,7 +133,7 @@ if(isset($_POST['submit'])) {
 			$database->query();
 			$_SESSION['bad_auth'] = $bad_auth_count + 1;
 
-			if($_SESSION['bad_auth']>=$config->config_count_for_user_block){
+			if($_SESSION['bad_auth']>=$config->config_count_for_user_block) {
 				$query = 'UPDATE #__users SET block = 1 WHERE id = ' . (int)$my->id;
 				$database->setQuery($query);
 				$database->query();

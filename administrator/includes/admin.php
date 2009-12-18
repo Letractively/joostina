@@ -1,19 +1,19 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 /**
-* вывод подключения js и css
-*/
-function adminHead($mainframe){
+ * вывод подключения js и css
+ */
+function adminHead($mainframe) {
 
 	if(isset($mainframe->_head['custom'])) {
 		$head = array();
@@ -42,8 +42,8 @@ function adminHead($mainframe){
 
 
 /**
-* @param string THe template position
-*/
+ * @param string THe template position
+ */
 function mosCountAdminModules($position = 'left') {
 	$database = &database::getInstance();
 
@@ -57,15 +57,15 @@ function mosCountAdminModules($position = 'left') {
 	return $database->loadResult();
 }
 /**
-* Loads admin modules via module position
-* @param string The position
-* @param int 0 = no style, 1 = tabbed
-*/
+ * Loads admin modules via module position
+ * @param string The position
+ * @param int 0 = no style, 1 = tabbed
+ */
 function mosLoadAdminModules($position = 'left',$style = 0) {
 	global $acl,$my;
 
 	static $all_modules;
-	if(!isset($all_modules)){
+	if(!isset($all_modules)) {
 		$database = &database::getInstance();
 
 		$query = "SELECT id, title, module, position, content, showtitle, params FROM #__modules AS m WHERE m.published = 1 AND m.client_id = 1 ORDER BY m.ordering";
@@ -74,7 +74,7 @@ function mosLoadAdminModules($position = 'left',$style = 0) {
 
 
 		$all_modules = array();
-		foreach($_all_modules as $__all_modules){
+		foreach($_all_modules as $__all_modules) {
 			$all_modules[$__all_modules->position][]=$__all_modules;
 		}
 		unset($_all_modules,$__all_modules);
@@ -84,7 +84,7 @@ function mosLoadAdminModules($position = 'left',$style = 0) {
 
 	switch($style) {
 		case 1:
-			// Tabs
+		// Tabs
 			$tabs = new mosTabs(1,1);
 			$tabs->startPane('modules-'.$position);
 			foreach($modules as $module) {
@@ -105,7 +105,7 @@ function mosLoadAdminModules($position = 'left',$style = 0) {
 			break;
 
 		case 2:
-			// Div'd
+		// Div'd
 			foreach($modules as $module) {
 				$params = new mosParameters($module->params);
 				echo '<div>';
@@ -132,8 +132,8 @@ function mosLoadAdminModules($position = 'left',$style = 0) {
 	}
 }
 /**
-* Loads an admin module
-*/
+ * Loads an admin module
+ */
 function mosLoadAdminModule($name,$params = null) {
 	global $task,$acl,$my,$option;
 
@@ -146,8 +146,8 @@ function mosLoadAdminModule($name,$params = null) {
 	$name = str_replace('/','',$name);
 	$name = str_replace('\\','',$name);
 	$path = JPATH_BASE_ADMIN."/modules/mod_$name.php";
-	if(file_exists($path)) { 
-		if($mainframe->getLangFile('mod_'.$name)){
+	if(file_exists($path)) {
+		if($mainframe->getLangFile('mod_'.$name)) {
 			include($mainframe->getLangFile('mod_'.$name));
 		}
 		require $path;
@@ -276,11 +276,11 @@ function mosIsChmodable($file) {
 } // mosIsChmodable
 
 /**
-* @param string An existing base path
-* @param string A path to create from the base path
-* @param int Directory permissions
-* @return boolean True if successful
-*/
+ * @param string An existing base path
+ * @param string A path to create from the base path
+ * @param int Directory permissions
+ * @return boolean True if successful
+ */
 function mosMakePath($base,$path = '',$mode = null) {
 	global $mosConfig_dirperms;
 
@@ -376,20 +376,20 @@ function josSecurityCheck($width = '95%') {
 	if(ini_get('register_globals') == '1')$wrongSettingsTexts[] = _PHP_REGISTER_GLOBALS_ON_OFF;
 
 	if(count($wrongSettingsTexts)) {
-?>
-		<div style="width: <?php echo $width; ?>;" class="jwarning">
-			<h3 style="color:#484848"><?php echo _PHP_SETTINGS_WARNING?>:</h3>
-			<ul style="margin: 0px; padding: 0px; padding-left: 15px; list-style: none;" >
-<?php
-	foreach($wrongSettingsTexts as $txt) {
-?>	
-				<li style="font-size: 12px; color: red;"><b><?php echo $txt;?></b></li>
-<?php
-	}
-?>
-			</ul>
-		</div>
-<?php
+		?>
+<div style="width: <?php echo $width; ?>;" class="jwarning">
+	<h3 style="color:#484848"><?php echo _PHP_SETTINGS_WARNING?>:</h3>
+	<ul style="margin: 0px; padding: 0px; padding-left: 15px; list-style: none;" >
+				<?php
+				foreach($wrongSettingsTexts as $txt) {
+					?>
+		<li style="font-size: 12px; color: red;"><b><?php echo $txt;?></b></li>
+					<?php
+				}
+				?>
+	</ul>
+</div>
+		<?php
 	}
 }
 

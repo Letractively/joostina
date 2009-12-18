@@ -1,12 +1,12 @@
 <?php
 /**
-* @package Joostina
+ * @package Joostina
  * @subpackage Cache
-* @copyright Авторские права (C) 2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @copyright Авторские права (C) 2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // Check to ensure this file is within the rest of the framework
 defined('_VALID_MOS') or die();
@@ -14,12 +14,12 @@ defined('_VALID_MOS') or die();
 /**
  * Joomla! Cache callback type object
  *
- * @author		
+ * @author
  * @package		Joostina
  * @subpackage	Cache
  * @since		1.3
  */
-class JCacheCallback extends JCache{
+class JCacheCallback extends JCache {
 	/**
 	 * Executes a cacheable callback if not found in cache else returns cached output and result
 	 *
@@ -35,7 +35,7 @@ class JCacheCallback extends JCache{
 	 * @return	mixed	Result of the callback
 	 * @since	1.3
 	 */
-	function call(){
+	function call() {
 		// Get callback and arguments
 		$args = func_get_args();
 		jd_inc('cache::call->'.$args[0]);
@@ -52,8 +52,7 @@ class JCacheCallback extends JCache{
 	 * @return	mixed	Result of the callback
 	 * @since	1.3
 	 */
-	function get( $callback, $args, $id=false )
-	{
+	function get( $callback, $args, $id=false ) {
 		// Normalize callback
 		if (is_array( $callback )) {
 			// We have a standard php callback array -- do nothing
@@ -68,7 +67,7 @@ class JCacheCallback extends JCache{
 			 * PHP callback array syntax: <http://php.net/callback>
 			 *
 			 * We have to use some silly global notation to pull it off and this is very unreliable
-			 */
+			*/
 			list( $object_123456789, $method ) = explode('->', $callback);
 			global $$object_123456789;
 			$callback = array( $$object_123456789, $method );
@@ -91,9 +90,9 @@ class JCacheCallback extends JCache{
 			ob_start();
 			ob_implicit_flush( false );
 
-			if(!$this->_object){
+			if(!$this->_object) {
 				$result = call_user_func_array($callback, $args);
-			}else{
+			}else {
 				$result = call_user_method_array($callback, $this->_object, $args);
 			}
 
@@ -121,8 +120,7 @@ class JCacheCallback extends JCache{
 	 * @return	string	MD5 Hash : function cache id
 	 * @since	1.3
 	 */
-	function _makeId($callback, $args)
-	{
+	function _makeId($callback, $args) {
 		if(is_array($callback) && is_object($callback[0])) {
 			$vars = get_object_vars($callback[0]);
 			$vars[] = strtolower(get_class($callback[0]));

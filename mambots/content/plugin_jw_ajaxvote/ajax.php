@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 define( "_VALID_MOS", 1 );
 
@@ -22,11 +22,13 @@ if ( $GLOBALS['mosConfig_db'] != "") {
 	$database = new database( $GLOBALS['mosConfig_host'], $GLOBALS['mosConfig_user'], $GLOBALS['mosConfig_password'], $GLOBALS['mosConfig_db'], $GLOBALS['mosConfig_dbprefix'] );
 }
 
-switch($_GET['task']){
+switch($_GET['task']) {
 	case 'vote':
-		echo recordVote(); break;
+		echo recordVote();
+		break;
 	case 'show':
-		echo showVotes(); break;
+		echo showVotes();
+		break;
 }
 
 function recordVote() {
@@ -44,12 +46,13 @@ function recordVote() {
 		if ( !( $database->loadObject( $votesdb ) ) ) {
 			$query = "INSERT INTO #__content_rating ( content_id, lastip, rating_sum, rating_count ) VALUES ( " . $cid . ", " . $database->Quote( $currip ) . ", " . $user_rating . ", 1 )";
 			$database->setQuery( $query );
-			$database->query() or die( $database->stderr() );;
+			$database->query() or die( $database->stderr() );
+			;
 		} else {
 			if ($currip != ($votesdb->lastip)) {
 				$query = "UPDATE #__content_rating"
-				. "\n SET rating_count = rating_count + 1, rating_sum = rating_sum + " . $user_rating . ", lastip = " . $database->Quote( $currip )
-				. "\n WHERE content_id = " . (int) $cid;
+						. "\n SET rating_count = rating_count + 1, rating_sum = rating_sum + " . $user_rating . ", lastip = " . $database->Quote( $currip )
+						. "\n WHERE content_id = " . (int) $cid;
 				$database->setQuery( $query );
 				$database->query() or die( $database->stderr() );
 			} else {
@@ -60,10 +63,10 @@ function recordVote() {
 		}
 		return 1;
 	}
-	
+
 }
 
-function getPercentage (){
+function getPercentage () {
 	global $database;
 	$result = 0;
 
@@ -72,7 +75,7 @@ function getPercentage (){
 	$database->setQuery('SELECT * FROM #__content_rating WHERE content_id='.$id);
 	$database->loadObject($vote);
 
-	if($vote->rating_count!=0){
+	if($vote->rating_count!=0) {
 		$result = number_format(intval($vote->rating_sum) / intval( $vote->rating_count ),2)*100;
 	}
 

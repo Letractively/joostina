@@ -12,7 +12,7 @@
 	<files>
 		<filename module="mod_mainmenu">mod_mainmenu.php</filename>
 	</files>
-		<params>
+	<params>
 		<param name="class_sfx" type="text" default="" label="CSS-суффикс класса меню" description="Суффикс, используемый в классе CSS для объектов меню" />
 		<param name="moduleclass_sfx" type="text" default="" label="CSS-суффикс класса модуля" description="Суффикс, который будет использован в описании класса (table.moduletable) таблицы стилей (CSS) модуля. Это позволяет использовать индивидуальный стиль модуля." />
 		<param name="@spacer" type="spacer" default="" label="" description="" />
@@ -21,12 +21,12 @@
 			<option value="vert_indent">Вертикально</option>
 			<option value="horiz_flat">Горизонтально</option>
 			<option value="list_flat">Плоский список</option>
-		</param>	 
+		</param>
 		<param name="@spacer" type="spacer" default="" label="" description="" />
 		<param name="full_active_id" type="radio" default="0" label="Полная подсветка активных пунктов" description="Разрешает полную подсветку активных пунктов меню, включая `Ссылка - Пункт компонента` и `Ссылка - Url`, что может стать причиной несовместимости с XHTML, если более одной ссылки являются активными">
 			<option value="0">Нет</option>
 			<option value="1">Да</option>
-		</param>		
+		</param>
 		<param name="@spacer" type="spacer" default="" label="" description="" />
 		<param name="cache" type="radio" default="0" label="Разрешить кэширование" description="Выберите, кэшировать ли содержимое этого модуля">
 			<option value="0">Нет</option>

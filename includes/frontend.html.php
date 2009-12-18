@@ -1,29 +1,29 @@
 <?php
 /**
-* @version $Id: module.php 5132 2006-09-22 15:59:38Z friesengeist $
-* @package Joostina
-* @localized Авторские права (C) 2005 Joom.Ru - Русский дом Joomla!
-* @copyright Авторские права (C) 2005 Open Source Matters. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, смотрите LICENSE.php
-* Joomla! - свободное программное обеспечение. Эта версия может быть изменена
-* в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
-* её дальнейшее распространение в составе результата работы, лицензированного
-* согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
-* программ или программ с открытым исходным кодом.
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @version $Id: module.php 5132 2006-09-22 15:59:38Z friesengeist $
+ * @package Joostina
+ * @localized Авторские права (C) 2005 Joom.Ru - Русский дом Joomla!
+ * @copyright Авторские права (C) 2005 Open Source Matters. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, смотрите LICENSE.php
+ * Joomla! - свободное программное обеспечение. Эта версия может быть изменена
+ * в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
+ * её дальнейшее распространение в составе результата работы, лицензированного
+ * согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
+ * программ или программ с открытым исходным кодом.
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 /**
-* @package Joostina
-*/
+ * @package Joostina
+ */
 class modules_html {
 
 	var $_mainframe = null;
 
-	function modules_html($mainframe){
+	function modules_html($mainframe) {
 		$this->_mainframe = $mainframe;
 	}
 
@@ -61,34 +61,34 @@ class modules_html {
 		$module = mosModule::convert_to_object($module, $this->_mainframe);
 		switch($style) {
 			case - 3:
-				// allows for rounded corners
+			// allows for rounded corners
 				modules_html::modoutput_rounded($module,$params,$Itemid,$moduleclass_sfx,1);
 				break;
 
 			case - 2:
-				// xhtml (divs and font headder tags)
+			// xhtml (divs and font headder tags)
 				modules_html::modoutput_xhtml($module,$params,$Itemid,$moduleclass_sfx,1);
 				break;
 
 			case - 1:
-				// show a naked module - no wrapper and no title
+			// show a naked module - no wrapper and no title
 				modules_html::modoutput_naked($module,$params,$Itemid,$moduleclass_sfx,1);
 				break;
 
 			default:
-				// standard tabled output
+			// standard tabled output
 				modules_html::modoutput_table($module,$params,$Itemid,$moduleclass_sfx,1);
 				break;
 		}
 	}
 
 	/**
-	* Output Handling for 3PD modules
-	* @param object
-	* @param object
-	* @param int The menu item ID
-	* @param int -1=show without wrapper and title, -2=xhtml style
-	*/
+	 * Output Handling for 3PD modules
+	 * @param object
+	 * @param object
+	 * @param int The menu item ID
+	 * @param int -1=show without wrapper and title, -2=xhtml style
+	 */
 	function module2(&$module,&$params,$Itemid,$style = 0,$count = 0) {
 		$config = $this->_mainframe->config;
 
@@ -108,22 +108,22 @@ class modules_html {
 
 		switch($style) {
 			case - 3:
-				// allows for rounded corners
+			// allows for rounded corners
 				modules_html::modoutput_rounded($module,$params,$Itemid,$moduleclass_sfx);
 				break;
 
 			case - 2:
-				// xhtml (divs and font headder tags)
+			// xhtml (divs and font headder tags)
 				modules_html::modoutput_xhtml($module,$params,$Itemid,$moduleclass_sfx);
 				break;
 
 			case - 1:
-				// show a naked module - no wrapper and no title
+			// show a naked module - no wrapper and no title
 				modules_html::modoutput_naked($module,$params,$Itemid,$moduleclass_sfx);
 				break;
 
 			default:
-				// standard tabled output
+			// standard tabled output
 				modules_html::modoutput_table($module,$params,$Itemid,$moduleclass_sfx);
 				break;
 		}
@@ -241,19 +241,19 @@ class modules_html {
 						$content_buffer .= "<a href=\"".ampReplace($currItem->getLink())."\" target=\"_blank\">\n";
 						$content_buffer .= "  ".$item_title."</a>\n";
 					} else
-						if($currItem->getEnclosure()) {
-							$enclosure = $currItem->getEnclosure();
-							$eUrl = $enclosure->getUrl();
-							$content_buffer .= "<a href=\"".ampReplace($eUrl)."\" target=\"_blank\">\n";
-							$content_buffer .= " ".$item_title."</a>\n";
-						} else
-							if(($currItem->getEnclosure()) && ($currItem->getLink())) {
-								$enclosure = $currItem->getEnclosure();
-								$eUrl = $enclosure->getUrl();
-								$content_buffer .= "  <a href=\"".ampReplace($currItem->getLink())."\" target=\"_blank\">\n";
-								$content_buffer .= "      ".$item_title."</a><br/>\n";
-								$content_buffer .= "   <a href=\"".ampReplace($eUrl)."\" target=\"_blank\"><u>Download</u></a>\n";
-							}
+					if($currItem->getEnclosure()) {
+						$enclosure = $currItem->getEnclosure();
+						$eUrl = $enclosure->getUrl();
+						$content_buffer .= "<a href=\"".ampReplace($eUrl)."\" target=\"_blank\">\n";
+						$content_buffer .= " ".$item_title."</a>\n";
+					} else
+					if(($currItem->getEnclosure()) && ($currItem->getLink())) {
+						$enclosure = $currItem->getEnclosure();
+						$eUrl = $enclosure->getUrl();
+						$content_buffer .= "  <a href=\"".ampReplace($currItem->getLink())."\" target=\"_blank\">\n";
+						$content_buffer .= "      ".$item_title."</a><br/>\n";
+						$content_buffer .= "   <a href=\"".ampReplace($eUrl)."\" target=\"_blank\"><u>Download</u></a>\n";
+					}
 					$content_buffer .= "</strong>\n";
 					// END fix for RSS enclosure tag url not showing
 					// item description
@@ -297,34 +297,34 @@ class modules_html {
 		$mainframe = $this->_mainframe;
 		$database = $this->_mainframe->_db;
 
-?>
-		<table cellpadding="0" cellspacing="0" class="moduletable<?php echo $moduleclass_sfx; ?>">
-<?php
-		if($module->showtitle != 0) {
-?>
-			<tr>
-				<th valign="top"><?php echo htmlspecialchars($module->title); ?></th>
-			</tr>
-<?php
-		}
-?>
-		<tr>
-			<td>
-<?php
-		if($type) {
-			modules_html::CustomContent($module,$params);
-		} else {
-			include (JPATH_BASE.DS.'modules'.DS.$module->module.'.php');
-
-			if(isset($content)) {
-				echo $content;
+		?>
+<table cellpadding="0" cellspacing="0" class="moduletable<?php echo $moduleclass_sfx; ?>">
+			<?php
+			if($module->showtitle != 0) {
+				?>
+	<tr>
+		<th valign="top"><?php echo htmlspecialchars($module->title); ?></th>
+	</tr>
+				<?php
 			}
-		}
-?>
-			</td>
-		</tr>
-		</table>
-<?php
+			?>
+	<tr>
+		<td>
+					<?php
+					if($type) {
+						modules_html::CustomContent($module,$params);
+					} else {
+						include (JPATH_BASE.DS.'modules'.DS.$module->module.'.php');
+
+						if(isset($content)) {
+							echo $content;
+						}
+					}
+					?>
+		</td>
+	</tr>
+</table>
+		<?php
 	}
 
 	/*
@@ -356,24 +356,24 @@ class modules_html {
 		$mainframe = $this->_mainframe;
 		$database = $this->_mainframe->_db;
 
-?>
-		<div class="moduletable<?php echo $moduleclass_sfx; ?>">
-<?php if($module->showtitle != 0) {?>
-			<h3><?php echo htmlspecialchars($module->title); ?></h3>
-<?php
-		}
-
-		if($type) {
-			modules_html::CustomContent($module,$params);
-		} else {
-			include (JPATH_BASE.DS.'modules'.DS.$module->module.'.php');
-			if(isset($content)) {
-				echo $content;
+		?>
+<div class="moduletable<?php echo $moduleclass_sfx; ?>">
+			<?php if($module->showtitle != 0) {?>
+	<h3><?php echo htmlspecialchars($module->title); ?></h3>
+				<?php
 			}
-		}
-?>
-		</div>
-<?php
+
+			if($type) {
+				modules_html::CustomContent($module,$params);
+			} else {
+				include (JPATH_BASE.DS.'modules'.DS.$module->module.'.php');
+				if(isset($content)) {
+					echo $content;
+				}
+			}
+			?>
+</div>
+		<?php
 	}
 
 	/*
@@ -386,31 +386,31 @@ class modules_html {
 		$database = $this->_mainframe->_db;
 		$config = $this->_mainframe->get('config');
 
-?>
-		<div class="module<?php echo $moduleclass_sfx; ?>">
+		?>
+<div class="module<?php echo $moduleclass_sfx; ?>">
+	<div>
+		<div>
 			<div>
-				<div>
-					<div>
-<?php
-		if($module->showtitle != 0) {
-			echo '<h3>'.htmlspecialchars($module->title).'</h3>';
-		}
+						<?php
+						if($module->showtitle != 0) {
+							echo '<h3>'.htmlspecialchars($module->title).'</h3>';
+						}
 
-		if($type) {
-			modules_html::CustomContent($module,$params);
-		} else {
-			include (JPATH_BASE.DS.'modules'.DS.$module->module.'.php');
+						if($type) {
+							modules_html::CustomContent($module,$params);
+						} else {
+							include (JPATH_BASE.DS.'modules'.DS.$module->module.'.php');
 
-			if(isset($content)) {
-				echo $content;
-			}
-		}
-?>
-					</div>
-				</div>
+							if(isset($content)) {
+								echo $content;
+							}
+						}
+						?>
 			</div>
 		</div>
-<?php
+	</div>
+</div>
+		<?php
 	}
 
 	function CustomContent(&$module,$params) {
@@ -426,10 +426,10 @@ class modules_html {
 			$module->content = $row->text;
 		}
 		// output custom module contents
-		if($params->get('user_template', '') && $module->set_template_custom($params->get('user_template', ''))){
+		if($params->get('user_template', '') && $module->set_template_custom($params->get('user_template', ''))) {
 			require($module->template);
 		}
-		else{
+		else {
 			echo $module->content;
 		}
 

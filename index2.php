@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // Установка флага, что это - родительский файл
 define('_VALID_MOS',1);
@@ -84,11 +84,11 @@ if($mosConfig_mmb_system_off == 0) {
 	$_MAMBOTS->trigger('onAfterStart');
 }
 
-if($mainframe->get('_multisite')=='2' && $cookie_exist ){
-	$mainframe->set('_multisite_params', $m_s);	
+if($mainframe->get('_multisite')=='2' && $cookie_exist ) {
+	$mainframe->set('_multisite_params', $m_s);
 	$my = $mainframe->getUser_from_sess($_COOKIE[mosMainFrame::sessionCookieName($m_s->main_site)]);
 }
-else{
+else {
 	$my = $mainframe->getUser();
 }
 $gid = intval($my->gid);
@@ -123,7 +123,7 @@ if($path = $mainframe->getPath('front')) {
 	$ret = mosMenuCheck($Itemid,$option,$task,$gid,$mainframe);
 	if($ret) {
 		//Подключаем язык компонента
-		if($mainframe->getLangFile($option)){ 
+		if($mainframe->getLangFile($option)) {
 			include_once($mainframe->getLangFile($option));
 		}
 		//$mainframe->addLib('mylib');
@@ -142,11 +142,11 @@ ob_end_clean();
 global $mosConfig_custom_print;
 
 // печать страницы
-if($print){
+if($print) {
 	$cpex = 0;
-	if($mosConfig_custom_print){
+	if($mosConfig_custom_print) {
 		$cust_print_file = JPATH_BASE.'/templates/'.$cur_template.'/html/print.php';
-		if(file_exists($cust_print_file)){
+		if(file_exists($cust_print_file)) {
 			ob_start();
 			include($cust_print_file);
 			$_MOS_OPTION['buffer'] = ob_get_contents();
@@ -154,7 +154,7 @@ if($print){
 			$cpex = 1;
 		}
 	}
-	if(!$cpex){
+	if(!$cpex) {
 		$mainframe->addCSS($mosConfig_live_site.'/templates/css/print.css');
 		$mainframe->addJS($mosConfig_live_site.'/includes/js/print/print.js');
 
@@ -163,7 +163,7 @@ if($print){
 
 		$_MOS_OPTION['buffer'] = '<div class="logo">'. $mosConfig_sitename .'</div><div id="main">'.$_MOS_OPTION['buffer']."\n</div>\n<div id=\"ju_foo\">"._PRINT_PAGE_LINK." :<br /><i>".sefRelToAbs($pg_link)."</i><br /><br />&copy; ".$mosConfig_sitename.",&nbsp;".date('Y').'</div>';
 	}
-}else{
+}else {
 	$mainframe->addCSS($mosConfig_live_site.'/templates/'.$cur_template.'/css/template_css.css');
 }
 // подключение js библиотеки системы
@@ -203,19 +203,19 @@ if($no_html == 0) {
 		$iso = split('=',_ISO);
 		// пролог xml
 		echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>';
-?>
+		?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-	<link rel="shortcut icon" href="<?php echo $mosConfig_live_site; ?>/images/favicon.ico" />
-	<meta http-equiv="Content-Type" content="text/html; <?php echo _ISO; ?>" />
-	<?php echo $mainframe->getHead(); ?>
-</head>
+	<head>
+		<link rel="shortcut icon" href="<?php echo $mosConfig_live_site; ?>/images/favicon.ico" />
+		<meta http-equiv="Content-Type" content="text/html; <?php echo _ISO; ?>" />
+				<?php echo $mainframe->getHead(); ?>
+	</head>
 	<body class="contentpane">
-	<?php mosMainBody(); ?>
+				<?php mosMainBody(); ?>
 	</body>
 </html>
-<?php
+		<?php
 	}
 } else {
 	mosMainBody();
