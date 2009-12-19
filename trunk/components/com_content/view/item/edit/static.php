@@ -148,6 +148,7 @@ defined('_VALID_MOS') or die(); ?>
 	<input type="hidden" name="id" value="<?php echo $row->id; ?>" />
 	<input type="hidden" name="version" value="<?php echo $row->version; ?>" />
 	<input type="hidden" name="sectionid" value="0" />
+	<input type="hidden" name="images" value="<?php echo $row->images; ?>" />
 	<input type="hidden" name="created_by" value="<?php echo $row->created_by; ?>" />
 	<input type="hidden" name="referer" value="<?php echo ampReplace(@$_SERVER['HTTP_REFERER']); ?>" />
 	<input type="hidden" name="task" id="task" value="save" />
