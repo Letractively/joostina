@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -42,64 +42,64 @@ switch($task) {
 		return;
 }
 
- function upload_avatar(){
-        global $database, $my;
-        $id = intval(mosGetParam($_REQUEST,'id',0));
-        
-        mosMainFrame::getInstance()->addLib('images');
-        
-        $return = array();
+function upload_avatar() {
+	global $database, $my;
+	$id = intval(mosGetParam($_REQUEST,'id',0));
 
-        $resize_options = array(
-                'method' => '0',        //Приводит к заданной ширине, сохраняя пропорции.
-                'output_file' => '',    //если 'thumb', то ресайзенная копия ляжет в подпапку "thumb'
-                'width'  => '150',
-                'height' => '150'
-        );
+	mosMainFrame::getInstance()->addLib('images');
 
-        $file = new Image();
-        $file->field_name = 'avatar';
-        $file->directory = 'images/avatars' ;
-        $file->file_prefix = 'av_';
-        $file->max_size = 0.5 * 1024 * 1024;
+	$return = array();
 
-        $foto_name = $file->upload($resize_options);
+	$resize_options = array(
+			'method' => '0',        //Приводит к заданной ширине, сохраняя пропорции.
+			'output_file' => '',    //если 'thumb', то ресайзенная копия ляжет в подпапку "thumb'
+			'width'  => '150',
+			'height' => '150'
+	);
 
-        if($foto_name){
-            if($id){
-                $user = new mosUser($database);
-                $user->load((int)$id);
-                $user_id = $user->id;
-                if($user->avatar!=''){
-                    $foto = new Image();
-                    $foto->directory = 'images/avatars';
-                    $foto->name = $user->avatar;
-                    $foto->delFile($foto);
-                }
-                $user->update_avatar($id, $foto_name);
-            }
+	$file = new Image();
+	$file->field_name = 'avatar';
+	$file->directory = 'images/avatars' ;
+	$file->file_prefix = 'av_';
+	$file->max_size = 0.5 * 1024 * 1024;
 
-            echo $foto_name;
+	$foto_name = $file->upload($resize_options);
 
-        }else{
-            return false;
-        };
-    }
+	if($foto_name) {
+		if($id) {
+			$user = new mosUser($database);
+			$user->load((int)$id);
+			$user_id = $user->id;
+			if($user->avatar!='') {
+				$foto = new Image();
+				$foto->directory = 'images/avatars';
+				$foto->name = $user->avatar;
+				$foto->delFile($foto);
+			}
+			$user->update_avatar($id, $foto_name);
+		}
+
+		echo $foto_name;
+
+	}else {
+		return false;
+	};
+}
 
 
-function x_delavatar(){
+function x_delavatar() {
 	global $database;
 	$file_name = mosGetParam($_REQUEST,'file_name','');
-	
+
 	$user = new mosUser($database);
 	$user->update_avatar(null, $file_name, 1);
-	
+
 	echo 'none.jpg';
 }
 
 
 // блокировка пользователя
-function x_user_block($id){
+function x_user_block($id) {
 	global $database,$my;
 
 	if($my->id==$id) return 'info.png';
@@ -129,7 +129,7 @@ function x_user_block($id){
 	$user = new mosUser($database);
 	$user->load($id);
 	// попытка закончить авторизацию всех пользователей кроме суперадминистрторов
-	if($my->gid != 24 && $user->gid != 25){
+	if($my->gid != 24 && $user->gid != 25) {
 		// удаляем сессию авторизованного пользователя
 		$query = "DELETE FROM #__session WHERE userid = $id";
 		$database->setQuery($query);
@@ -164,6 +164,3 @@ function img_resize($src,$dest,$width=250,$height=250,$quality = 100) {
 	return true;
 
 }
-
-
-?>

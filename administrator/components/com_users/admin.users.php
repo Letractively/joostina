@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -35,7 +35,7 @@ switch($task) {
 
 	case 'save':
 	case 'apply':
-		// check to see if functionality restricted for use as demo site
+	// check to see if functionality restricted for use as demo site
 		if(joomlaVersion::get('RESTRICT') == 1) {
 			mosRedirect('index2.php?mosmsg='._RESTRICT_FUNCTION);
 		} else {
@@ -48,7 +48,7 @@ switch($task) {
 		break;
 
 	case 'block':
-		// check to see if functionality restricted for use as demo site
+	// check to see if functionality restricted for use as demo site
 		if(joomlaVersion::get('RESTRICT') == 1) {
 			mosRedirect('index2.php?mosmsg='._RESTRICT_FUNCTION);
 		} else {
@@ -90,7 +90,7 @@ switch($task) {
 		break;
 }
 
-function config($option){
+function config($option) {
 	$database = &database::getInstance();
 
 	mosCommonHTML::loadOverlib();
@@ -102,7 +102,7 @@ function config($option){
 
 }
 
-function save_config(){
+function save_config() {
 	$database = &database::getInstance();
 
 	$act = mosGetParam($_REQUEST,'act','');
@@ -139,18 +139,18 @@ function showUsers($option) {
 		if($filter_type == 'Public Frontend') {
 			$where[] = "(a.usertype = 'Registered' OR a.usertype = 'Author' OR a.usertype = 'Editor'OR a.usertype = 'Publisher')";
 		} else
-			if($filter_type == 'Public Backend') {
-				$where[] = "(a.usertype = 'Manager' OR a.usertype = 'Administrator' OR a.usertype = 'Super Administrator')";
-			} else {
-				$where[] = "a.usertype = LOWER( ".$database->Quote($filter_type)." )";
-			}
+		if($filter_type == 'Public Backend') {
+			$where[] = "(a.usertype = 'Manager' OR a.usertype = 'Administrator' OR a.usertype = 'Super Administrator')";
+		} else {
+			$where[] = "a.usertype = LOWER( ".$database->Quote($filter_type)." )";
+		}
 	}
 	if($filter_logged == 1) {
 		$where[] = "s.userid = a.id";
 	} else
-		if($filter_logged == 2) {
-			$where[] = "s.userid IS NULL";
-		}
+	if($filter_logged == 2) {
+		$where[] = "s.userid IS NULL";
+	}
 
 	// exclude any child group id's for this user
 	$pgids = $acl->get_group_children($my->gid,'ARO','RECURSE');
@@ -174,11 +174,11 @@ function showUsers($option) {
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
 	$query = "SELECT a.*, g.name AS groupname FROM #__users AS a"
-		."\n INNER JOIN #__core_acl_aro AS aro ON aro.value = a.id"
-		// map user to aro
-		."\n INNER JOIN #__core_acl_groups_aro_map AS gm ON gm.aro_id = aro.aro_id"
-		// map aro to group
-		."\n INNER JOIN #__core_acl_aro_groups AS g ON g.group_id = gm.group_id";
+			."\n INNER JOIN #__core_acl_aro AS aro ON aro.value = a.id"
+			// map user to aro
+			."\n INNER JOIN #__core_acl_groups_aro_map AS gm ON gm.aro_id = aro.aro_id"
+			// map aro to group
+			."\n INNER JOIN #__core_acl_aro_groups AS g ON g.group_id = gm.group_id";
 	if($filter_logged == 1 || $filter_logged == 2) {
 		$query .= "\n INNER JOIN #__session AS s ON s.userid = a.id";
 	}
@@ -217,10 +217,10 @@ function showUsers($option) {
 }
 
 /**
-* Edit the user
-* @param int The user ID
-* @param string The URL option
-*/
+ * Edit the user
+ * @param int The user ID
+ * @param string The URL option
+ */
 function editUser($uid = '0',$option = 'users') {
 	global $my;
 
@@ -291,7 +291,7 @@ function editUser($uid = '0',$option = 'users') {
 
 	$file = $mainframe->getPath('com_xml','com_users');
 	$params = &new mosUserParameters($row->params,$file,'component');
-	
+
 	$user_extra = new userUsersExtra($database);
 	$user_extra->load((int)$uid);
 	$row->user_extra = $user_extra;
@@ -389,11 +389,11 @@ function saveUser($task) {
 				echo "<script> alert('"._NO_RIGHT_TO_CHANGE_GROUP."'); window.history.go(-1); </script>\n";
 				exit();
 			} else
-				if($my->gid == 24 && $original->gid == 24) {
-					// disallow change of super-Admin by non-super admin
-					echo "<script> alert('"._NO_RIGHT_TO_CHANGE_GROUP."'); window.history.go(-1); </script>\n";
-					exit();
-				} // ensure user can't add group higher than themselves done below
+			if($my->gid == 24 && $original->gid == 24) {
+				// disallow change of super-Admin by non-super admin
+				echo "<script> alert('"._NO_RIGHT_TO_CHANGE_GROUP."'); window.history.go(-1); </script>\n";
+				exit();
+			} // ensure user can't add group higher than themselves done below
 		}
 	}
 	/*
@@ -435,7 +435,7 @@ function saveUser($task) {
 		echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
 		exit();
 	}
-	
+
 	$user_id = $row->id;
 
 	//Сохранение дополнительной информации
@@ -444,14 +444,14 @@ function saveUser($task) {
 	if(!$user_extra->bind($_POST)) {
 		echo "<script> alert('".$user_extra->getError()."'); window.history.go(-1); </script>\n";
 		exit();
-	}		
+	}
 	$user_extra->birthdate  = $_POST['birthdate_year'].'-'.$_POST['birthdate_month'].'-'.$_POST['birthdate_day'].' 00:00:00';
 
-	if(!$ret){
+	if(!$ret) {
 		$user_extra->insert($user_id);
 	}
 	$user_extra->store();
-	
+
 	$row->checkin();
 
 	// updates the current users param settings
@@ -519,9 +519,9 @@ function saveUser($task) {
 }
 
 /**
-* Cancels an edit operation
-* @param option component option to call
-*/
+ * Cancels an edit operation
+ * @param option component option to call
+ */
 function cancelUser($option) {
 	mosRedirect('index2.php?option='.$option.'&task=view');
 }
@@ -572,11 +572,11 @@ function removeUsers($cid,$option) {
 
 
 /**
-* Blocks or Unblocks one or more user records
-* @param array An array of unique category id numbers
-* @param integer 0 if unblock, 1 if blocking
-* @param string The current url option
-*/
+ * Blocks or Unblocks one or more user records
+ * @param array An array of unique category id numbers
+ * @param integer 0 if unblock, 1 if blocking
+ * @param string The current url option
+ */
 function changeUserBlock($cid = null,$block = 1,$option) {
 	josSpoofCheck();
 
@@ -614,7 +614,7 @@ function changeUserBlock($cid = null,$block = 1,$option) {
 			logoutUser($id,'com_users','block');
 		}
 	}
-	
+
 	//TODO: сделать отсылку письма
 	//Если в настройках регистрации включен параметр "Активация администратором",
 	//отправляем письмо пользователю, что его аккаунт был активирован
@@ -623,9 +623,9 @@ function changeUserBlock($cid = null,$block = 1,$option) {
 }
 
 /**
-* @param array An array of unique user id numbers
-* @param string The current url option
-*/
+ * @param array An array of unique user id numbers
+ * @param string The current url option
+ */
 function logoutUser($cid = null,$option,$task) {
 	global $my;
 	josSpoofCheck(null, null, 'request');
@@ -682,13 +682,13 @@ function logoutUser($cid = null,$option,$task) {
 }
 
 /**
-* Check if users are of lower permissions than current user (if not super-admin) and if the user himself is not included
-*
-* @param array of userId $cid
-* @param string $actionName to insert in message.
-* @return string of error if error, otherwise null
-* Added 1.0.11
-*/
+ * Check if users are of lower permissions than current user (if not super-admin) and if the user himself is not included
+ *
+ * @param array of userId $cid
+ * @param string $actionName to insert in message.
+ * @return string of error if error, otherwise null
+ * Added 1.0.11
+ */
 function checkUserPermissions($cid,$actionName,$allowActionToMyself = false) {
 	global $my;
 
@@ -711,10 +711,10 @@ function checkUserPermissions($cid,$actionName,$allowActionToMyself = false) {
 			if(!$allowActionToMyself && $id == $my->id) {
 				$msg .= 'You cannot '.$actionName.' yourself!';
 			} else
-				if(($obj->gid == $my->gid && !in_array($my->gid,array(24,25))) || ($obj->gid &&
-					!in_array($obj->gid,getGIDSChildren($my->gid)))) {
-					$msg .= 'You cannot '.$actionName.' `'.$this_group.'`. '._THIS_CAN_DO_HIGHLEVEL_USERS;
-				}
+			if(($obj->gid == $my->gid && !in_array($my->gid,array(24,25))) || ($obj->gid &&
+							!in_array($obj->gid,getGIDSChildren($my->gid)))) {
+				$msg .= 'You cannot '.$actionName.' `'.$this_group.'`. '._THIS_CAN_DO_HIGHLEVEL_USERS;
+			}
 		}
 	}
 
@@ -722,15 +722,15 @@ function checkUserPermissions($cid,$actionName,$allowActionToMyself = false) {
 }
 
 /**
-* Added 1.0.11
-*/
+ * Added 1.0.11
+ */
 function getGIDSChildren($gid) {
 	$database = &database::getInstance();
 
 	$standardlist = array(-2,);
 
 	$query = "SELECT g1.group_id, g1.name FROM #__core_acl_aro_groups g1"
-	."\n LEFT JOIN #__core_acl_aro_groups g2 ON g2.lft >= g1.lft WHERE g2.group_id = ".(int)$gid."\n ORDER BY g1.name";
+			."\n LEFT JOIN #__core_acl_aro_groups g2 ON g2.lft >= g1.lft WHERE g2.group_id = ".(int)$gid."\n ORDER BY g1.name";
 	$database->setQuery($query);
 	$array = $database->loadResultArray();
 
@@ -743,15 +743,15 @@ function getGIDSChildren($gid) {
 }
 
 /**
-* Added 1.0.11
-*/
+ * Added 1.0.11
+ */
 function getGIDSParents($gid) {
 	$database = &database::getInstance();
 
 	$query = "SELECT g1.group_id, g1.name"
-	."\n FROM #__core_acl_aro_groups g1"
-	."\n LEFT JOIN #__core_acl_aro_groups g2 ON g2.lft <= g1.lft"
-	."\n WHERE g2.group_id = ".(int)$gid."\n ORDER BY g1.name";
+			."\n FROM #__core_acl_aro_groups g1"
+			."\n LEFT JOIN #__core_acl_aro_groups g2 ON g2.lft <= g1.lft"
+			."\n WHERE g2.group_id = ".(int)$gid."\n ORDER BY g1.name";
 	$database->setQuery($query);
 	$array = $database->loadResultArray();
 

@@ -9,5 +9,4 @@
 	<authorUrl>www.joostina.ru</authorUrl>
 	<version>1.0 JE</version>
 	<description>Этот компонент позволяет отправлять почту определенным группам пользователей</description>
-	<params/>
 </mosinstall>

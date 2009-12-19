@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -54,7 +54,7 @@ switch($act) {
 		jpackScreens::fPack();
 		break;
 	case 'def':
-		// список каталогов которые не попадут в бэкап
+	// список каталогов которые не попадут в бэкап
 		require_once (JPATH_BASE_ADMIN.'/components/com_joomlapack/includes/engine.exdirs.php');
 		jpackScreens::fDirExclusion();
 		break;
@@ -62,7 +62,7 @@ switch($act) {
 		jpackScreens::fLog();
 		break;
 	default:
-		// Application status check
+	// Application status check
 		jpackScreens::fMain();
 		break;
 }
@@ -96,4 +96,3 @@ function processSave() {
 
 	$JPConfiguration->SaveConfiguration();
 }
-?>

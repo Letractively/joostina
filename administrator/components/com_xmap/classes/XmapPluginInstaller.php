@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -13,14 +13,14 @@ defined('_VALID_MOS') or die();
 require_once (JPATH_BASE .'/includes/domit/xml_domit_lite_parser.php');
 
 /**
-* Plugin installer
-* @package Xmap
-*/
+ * Plugin installer
+ * @package Xmap
+ */
 class XmapPluginInstaller extends mosInstaller {
 	/**
-	* Custom install method
-	* @param boolean True if installing from directory
-	*/
+	 * Custom install method
+	 * @param boolean True if installing from directory
+	 */
 	function install( $p_fromdir = null ) {
 		$database = &database::getInstance();
 
@@ -54,7 +54,7 @@ class XmapPluginInstaller extends mosInstaller {
 
 		// Insert extension in DB
 		$query = "SELECT id FROM #__xmap_ext"
-			. "\n WHERE extension = " . $database->Quote( $this->elementSpecial() );
+				. "\n WHERE extension = " . $database->Quote( $this->elementSpecial() );
 		$database->setQuery( $query );
 		if (!$database->query()) {
 			$this->setError( 1, 'SQL error: ' . $database->stderr( true ) );
@@ -66,7 +66,7 @@ class XmapPluginInstaller extends mosInstaller {
 		if (!$id) {
 			// Insert extension in DB
 			$query = "SELECT id FROM #__xmap_ext"
-				. "\n WHERE extension = " . $database->Quote( $this->elementSpecial().'.bak' )
+					. "\n WHERE extension = " . $database->Quote( $this->elementSpecial().'.bak' )
 			;
 			$database->setQuery( $query );
 			if (!$database->query()) {
@@ -97,9 +97,9 @@ class XmapPluginInstaller extends mosInstaller {
 	}
 
 	/**
-	* Custom install method
-	* @param int The id of the extension
-	*/
+	 * Custom install method
+	 * @param int The id of the extension
+	 */
 	function uninstall( $clientID,$id ) {
 		$database = &database::getInstance();
 

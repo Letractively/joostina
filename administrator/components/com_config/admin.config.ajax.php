@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -29,8 +29,8 @@ switch($task) {
 }
 
 /**
-* Сохранение конфигурации
-*/
+ * Сохранение конфигурации
+ */
 function x_saveconfig($task) {
 	global $database,$mosConfig_password,$mosConfig_session_type;
 	josSpoofCheck();
@@ -44,10 +44,10 @@ function x_saveconfig($task) {
 	if($mosConfig_session_type != $row->config_session_type) {
 		$past = time();
 		$query = "DELETE FROM #__session"
-			."\n WHERE time < ".$database->Quote($past)
-			."\n AND ("
-			."\n ( guest = 1 AND userid = 0 ) OR ( guest = 0 AND gid > 0 )"
-			."\n )";
+				."\n WHERE time < ".$database->Quote($past)
+				."\n AND ("
+				."\n ( guest = 1 AND userid = 0 ) OR ( guest = 0 AND gid > 0 )"
+				."\n )";
 		$database->setQuery($query);
 		$database->query();
 	}

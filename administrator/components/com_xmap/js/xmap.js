@@ -52,46 +52,46 @@ function addExclude(sitemap) {
 function addSitemap() {
 	showLoading();
 	var myAjax = new Ajax(
-	ajaxURL +'&action=add_sitemap',
-	{
-		method: 'get', 
-		onComplete: showSitemap
-	}).request();
+		ajaxURL +'&action=add_sitemap',
+		{
+			method: 'get',
+			onComplete: showSitemap
+		}).request();
 }
 
 function saveProperty(sitemapid,property,value) {
 	showLoading();
 	var myAjax = new Ajax(
-	ajaxURL,
-	{
-		method: 'post', 
-		postBody: 'ajax.index.php?option=com_xmap&task=ajax_request&action=save_property&sitemap='+sitemapid+'&property='+property+'&value='+value,
-		onComplete: checkResultSave.bindAsEventListener(this,[sitemapid])
-	}).request();
+		ajaxURL,
+		{
+			method: 'post',
+			postBody: 'ajax.index.php?option=com_xmap&task=ajax_request&action=save_property&sitemap='+sitemapid+'&property='+property+'&value='+value,
+			onComplete: checkResultSave.bindAsEventListener(this,[sitemapid])
+		}).request();
 }
 
 function setAsDefault() {
 	showLoading();
 	sitemapid=currSitemapMenu;
 	var myAjax = new Ajax(
-	ajaxURL,
-	{
-		method: 'post', 
-		postBody: 'ajax.index.php?option=com_xmap&task=ajax_request&action=set_default&sitemap='+sitemapid,
-		onComplete: checkResultSetDefault.bindAsEventListener(this,[sitemapid])
-	}).request();
+		ajaxURL,
+		{
+			method: 'post',
+			postBody: 'ajax.index.php?option=com_xmap&task=ajax_request&action=set_default&sitemap='+sitemapid,
+			onComplete: checkResultSetDefault.bindAsEventListener(this,[sitemapid])
+		}).request();
 }
 
 function changePluginState(pluginid) {
 	showLoading();
 	sitemapid=currSitemapMenu;
 	var myAjax = new Ajax(
-	ajaxURL,
-	{
-		method: 'post', 
-		postBody: 'ajax.index.php?option=com_xmap&task=ajax_request&action=change_plugin_state&plugin='+pluginid,
-		onComplete: checkResultChangePluginState.bindAsEventListener(this,[pluginid])
-	}).request();
+		ajaxURL,
+		{
+			method: 'post',
+			postBody: 'ajax.index.php?option=com_xmap&task=ajax_request&action=change_plugin_state&plugin='+pluginid,
+			onComplete: checkResultChangePluginState.bindAsEventListener(this,[pluginid])
+		}).request();
 }
 
 function checkResultChangePluginState (ajaxResponse,pluginid) {
@@ -118,12 +118,12 @@ function deleteSitemap() {
 		showLoading();
 		sitemapid=currSitemapMenu;
 		var myAjax = new Ajax(
-		ajaxURL,
-		{
-			method: 'post', 
-			postBody: 'ajax.index.php?option=com_xmap&task=ajax_request&action=delete_sitemap&sitemap='+sitemapid,
-			onComplete: checkResultDelete.bindAsEventListener(this,[sitemapid])
-		}).request();
+			ajaxURL,
+			{
+				method: 'post',
+				postBody: 'ajax.index.php?option=com_xmap&task=ajax_request&action=delete_sitemap&sitemap='+sitemapid,
+				onComplete: checkResultDelete.bindAsEventListener(this,[sitemapid])
+			}).request();
 	}
 }
 
@@ -131,12 +131,12 @@ function uninstallPlugin(pluginid) {
 	if (confirm(unistallPluginConfirmMessage)) {
 		showLoading();
 		var myAjax = new Ajax(
-		ajaxURL,
-		{
-			method: 'post', 
-			postBody: 'ajax.index.php?option=com_xmap&task=ajax_request&action=uninstallplugin&plugin='+pluginid,
-			onComplete: checkResultUninstallPlugin.bindAsEventListener(this,[pluginid])
-		}).request();
+			ajaxURL,
+			{
+				method: 'post',
+				postBody: 'ajax.index.php?option=com_xmap&task=ajax_request&action=uninstallplugin&plugin='+pluginid,
+				onComplete: checkResultUninstallPlugin.bindAsEventListener(this,[pluginid])
+			}).request();
 	}
 }
 
@@ -144,24 +144,27 @@ function clearCacheSitemap() {
 	showLoading();
 	sitemapid=currSitemapMenu;
 	var myAjax = new Ajax(
-	ajaxURL,
-	{
-		method: 'post', 
-		postBody: 'ajax.index.php?option=com_xmap&task=ajax_request&action=clean_cache_sitemap&sitemap='+sitemapid,
-		onComplete: function (ajaxResponse) {hideLoading();alert(ajaxResponse);}
-	}).request();
+		ajaxURL,
+		{
+			method: 'post',
+			postBody: 'ajax.index.php?option=com_xmap&task=ajax_request&action=clean_cache_sitemap&sitemap='+sitemapid,
+			onComplete: function (ajaxResponse) {
+				hideLoading();
+				alert(ajaxResponse);
+			}
+		}).request();
 }
 
 function copySitemap() {
 	showLoading();
 	sitemapid=currSitemapMenu;
 	var myAjax = new Ajax(
-	ajaxURL,
-	{
-		method: 'post', 
-		postBody: 'ajax.index.php?option=com_xmap&task=ajax_request&action=copy_sitemap&sitemap='+sitemapid,
-		onComplete: showSitemap
-	}).request();
+		ajaxURL,
+		{
+			method: 'post',
+			postBody: 'ajax.index.php?option=com_xmap&task=ajax_request&action=copy_sitemap&sitemap='+sitemapid,
+			onComplete: showSitemap
+		}).request();
 }
 function settingsSitemap() {
 	showLoading();
@@ -186,12 +189,12 @@ function settingsSitemap() {
 	centerElement(container);
 
 	var myAjax = new Ajax(
-	ajaxURL,
-	{
-		method: 'post', 
-		postBody: 'ajax.index.php?option=com_xmap&task=ajax_request&action=edit_sitemap_settings&sitemap='+sitemapid,
-		onComplete: showSitemapSettings
-	}).request();
+		ajaxURL,
+		{
+			method: 'post',
+			postBody: 'ajax.index.php?option=com_xmap&task=ajax_request&action=edit_sitemap_settings&sitemap='+sitemapid,
+			onComplete: showSitemapSettings
+		}).request();
 }
 function settingsPlugin(pluginid) {
 	showLoading();
@@ -216,12 +219,12 @@ function settingsPlugin(pluginid) {
 	centerElement(container);
 
 	var myAjax = new Ajax(
-	ajaxURL,
-	{
-		method: 'post', 
-		postBody: 'ajax.index.php?option=com_xmap&task=ajax_request&action=edit_plugin_settings&plugin='+pluginid,
-		onComplete: showPluginSettings
-	}).request();
+		ajaxURL,
+		{
+			method: 'post',
+			postBody: 'ajax.index.php?option=com_xmap&task=ajax_request&action=edit_plugin_settings&plugin='+pluginid,
+			onComplete: showPluginSettings
+		}).request();
 }
 
 function optionsMenuSettings(sitemapid,menutype,menu) {
@@ -354,7 +357,10 @@ function showSitemapSettings(ajaxResponse) {
 	hideLoading();
 	var container = $('sitemapsettings');
 	var outer = $('divbg');
-	window.onscroll=function(outer,container) {centerElement(outer,true);centerElement(container);}.pass([outer,container]);
+	window.onscroll=function(outer,container) {
+		centerElement(outer,true);
+		centerElement(container);
+	}.pass([outer,container]);
 	container.setHTML(ajaxResponse);
 	centerElement(outer,true);
 	centerElement(container);
@@ -366,7 +372,10 @@ function showPluginSettings(ajaxResponse) {
 	hideLoading();
 	var container = $('pluginsettings');
 	var outer = $('divbg');
-	window.onscroll=function(outer,container) {centerElement(outer,true);centerElement(container);}.pass([outer,container]);
+	window.onscroll=function(outer,container) {
+		centerElement(outer,true);
+		centerElement(container);
+	}.pass([outer,container]);
 	container.setHTML(ajaxResponse);
 	centerElement(outer,true);
 	centerElement(container);
@@ -378,7 +387,10 @@ function showOptionsMenuSettings(ajaxResponse) {
 	hideLoading();
 	var container = $('menuoptions');
 	var outer = $('divbg');
-	window.onscroll=function(outer,container) {centerElement(outer,true);centerElement(container);}.pass([outer,container]);
+	window.onscroll=function(outer,container) {
+		centerElement(outer,true);
+		centerElement(container);
+	}.pass([outer,container]);
 	container.setHTML(ajaxResponse);
 	centerElement(outer,true);
 	centerElement(container);
@@ -411,7 +423,9 @@ function editTextField(elm,id,prop) {
 	}
 }
 function checkKey (e,elm,input,id){
-	if(!e) { e=window.event; }
+	if(!e) {
+		e=window.event;
+	}
 	if(e.keyCode == 13){
 		updateSitemapProperty(elm,input,id,e);
 		return false;
@@ -431,25 +445,29 @@ function optionsMenu(id) {
 	if (!divOptions) {
 		divOptions = $('optionsmenu');
 		divOptions.setStyle('display','');
-		divOptions.set({'events':{'click': closeOptionsMenu}});
-	}
-	if (divOptions.sitemapid && divOptions.sitemapid != id) {
-		divOptions.setStyle('visibility','hidden');
-	}
-	divOptions.sitemapid=id;
-	var elm = $('optionsbut'+id);
-	var pos = elm.getPosition();
-	var dim1 = elm.getSize();
-	var dim2 = divOptions.getSize();
-	divOptions.setStyle('left',(pos.x+dim1.size.x-dim2.size.x) + 'px');
-	divOptions.setStyle('top',(pos.y + dim1.size.y + 2) + 'px');
+		divOptions.set({
+			'events':{
+				'click': closeOptionsMenu
+			}
+		});
+}
+if (divOptions.sitemapid && divOptions.sitemapid != id) {
+	divOptions.setStyle('visibility','hidden');
+}
+divOptions.sitemapid=id;
+var elm = $('optionsbut'+id);
+var pos = elm.getPosition();
+var dim1 = elm.getSize();
+var dim2 = divOptions.getSize();
+divOptions.setStyle('left',(pos.x+dim1.size.x-dim2.size.x) + 'px');
+divOptions.setStyle('top',(pos.y + dim1.size.y + 2) + 'px');
 
-	divOptions.clicks=0;
-	if (divOptions.style.visibility == 'visible') {
-		divOptions.setStyle('visibility','hidden');
-	} else {
-		divOptions.setStyle('visibility','visible');
-	}
+divOptions.clicks=0;
+if (divOptions.style.visibility == 'visible') {
+	divOptions.setStyle('visibility','hidden');
+} else {
+	divOptions.setStyle('visibility','visible');
+}
 }
 
 function handleClick() {
@@ -481,26 +499,26 @@ function showMenuOptions(elmid,menuname,sitemap) {
 		'class': 'menuoption'
 	}).setHTML(moveUMenuMessage));
 	menu.appendChild( new Element('div',{
-                'events': {
-                        'click':moveMenuPosition.pass([sitemap,menuname,'1',menu]),
+		'events': {
+			'click':moveMenuPosition.pass([sitemap,menuname,'1',menu]),
 			'mouseover': clearDelay
-                },
-                'class': 'menuoption'
-        }).setHTML(moveDMenuMessage));
+		},
+		'class': 'menuoption'
+	}).setHTML(moveDMenuMessage));
 	menu.appendChild( new Element('div',{
-                'events': {
-                        'click':removeMenuFromSitemap.pass([sitemap,menuname,menu]),
+		'events': {
+			'click':removeMenuFromSitemap.pass([sitemap,menuname,menu]),
 			'mouseover': clearDelay
-                },
-                'class': 'menuoption'
-        }).setHTML(deleteMenuMessage));
+		},
+		'class': 'menuoption'
+	}).setHTML(deleteMenuMessage));
 	menu.appendChild( new Element('div',{
-                'events': {
-                        'click':optionsMenuSettings.pass([sitemap,menuname,menu]),
+		'events': {
+			'click':optionsMenuSettings.pass([sitemap,menuname,menu]),
 			'mouseover': clearDelay
-                },
-                'class': 'menuoption'
-        }).setHTML(editMenuOptionsMessage));
+		},
+		'class': 'menuoption'
+	}).setHTML(editMenuOptionsMessage));
 	menu.setStyle('display','');
 	var pos = elm.getPosition();
 	var dim1 = elm.getSize(elm);
@@ -510,12 +528,12 @@ function showMenuOptions(elmid,menuname,sitemap) {
 		'events': {
 			'mouseover': clearDelay
 		},
-        	'styles':{
-        		'visibility':'visible',
-        		'z-index':'10',
+		'styles':{
+			'visibility':'visible',
+			'z-index':'10',
 			'left':(pos.x+dim1.size.x-dim2.size.x) + 'px',
 			'top':(pos.y + dim1.size.y) + 'px'
-        	}
+		}
 	});
 	elm.menu=menu;
 	menu.parent=elm;
@@ -548,7 +566,7 @@ function showMenusList (sitemap,elmid) {
 	var menu;
 	var checkbox;
 	for(i=0;i<menus.length;i++){
-	 	var menu = $(menus[i]+sitemap);
+		var menu = $(menus[i]+sitemap);
 		if (!menu) {
 			menu=document.createElement('DIV');
 			checkbox=document.createElement('INPUT');
@@ -566,13 +584,17 @@ function showMenusList (sitemap,elmid) {
 	}
 	menu=document.createElement('DIV');
 	var option= new Element ('div',{
-		'events': {'click':addMenusToSitemap.pass([sitemap])},
+		'events': {
+			'click':addMenusToSitemap.pass([sitemap])
+			},
 		'class':'menulistoption'
 	});
 	option.appendChild(document.createTextNode(addMessage));
 	menu.appendChild(option);
 	var option= new Element ('div',{
-		'events': {'click':showMenusList.pass([sitemap,elm.id])},
+		'events': {
+			'click':showMenusList.pass([sitemap,elm.id])
+			},
 		'class':'menulistoption'
 	});
 	option.appendChild(document.createTextNode(cancelMessage));
@@ -581,8 +603,13 @@ function showMenusList (sitemap,elmid) {
 	//var pos = Position.cumulativeOffset(elm);
 	var pos = elm.getPosition();
 	var dim = elm.getSize();
-	menulist.set({'styles':{left: pos.x + 'px',top: (pos.y + dim.size.y) + 'px'}});
-	menulist.setStyle('display','');
+	menulist.set({
+		'styles':{
+			left: pos.x + 'px',
+			top: (pos.y + dim.size.y) + 'px'
+			}
+		});
+menulist.setStyle('display','');
 }
 function addMenusToSitemap (sitemap) {
 	//Close the menu
@@ -590,27 +617,27 @@ function addMenusToSitemap (sitemap) {
 	showLoading();
 	var theform = $('frmmenulist');
 	var postVars= 'ajax.index.php?option=com_xmap&task=ajax_request&action=add_menu_sitemap&sitemap='+sitemap+'&'+theform.toQueryString();
-				var myAjax = new Ajax(
-	ajaxURL,
-				{
-		method: 'post',
-		postBody: postVars,
-		update: 'menulist'+sitemap,
-		onComplete: hideLoading
-	}).request();
+	var myAjax = new Ajax(
+		ajaxURL,
+		{
+			method: 'post',
+			postBody: postVars,
+			update: 'menulist'+sitemap,
+			onComplete: hideLoading
+		}).request();
 }
 function removeMenuFromSitemap (sitemap,menuname,menu) {
 	showLoading();
 	closeMenu(menu);
 	var postVars= 'ajax.index.php?option=com_xmap&task=ajax_request&action=remove_menu_sitemap&sitemap='+sitemap+'&menu='+menuname;
 	var myAjax = new Ajax(
-	ajaxURL,
-				{
-		method: 'post',
-		update:'menulist'+sitemap,
-		postBody: postVars,
-		onComplete: hideLoading
-	}).request();
+		ajaxURL,
+		{
+			method: 'post',
+			update:'menulist'+sitemap,
+			postBody: postVars,
+			onComplete: hideLoading
+		}).request();
 }
 function moveMenuPosition (sitemap,menuname,move,menu) {
 	//Close the menu
@@ -618,23 +645,29 @@ function moveMenuPosition (sitemap,menuname,move,menu) {
 	showLoading();
 	var postVars= 'option=com_xmap&task=ajax_request&action=move_menu_sitemap&sitemap='+sitemap+'&menu='+menuname+'&move='+move;
 	var myAjax = new Ajax(
-	ajaxURL,
-				{
-		method: 'post',
-		update: 'menulist'+sitemap,
-		postBody: postVars,
-		onComplete: function () {hideLoading(); closeMenu()}
-	}).request();
+		ajaxURL,
+		{
+			method: 'post',
+			update: 'menulist'+sitemap,
+			postBody: postVars,
+			onComplete: function () {
+				hideLoading();
+				closeMenu()
+				}
+		}).request();
 }
 function refreshMenuList (sitemap) {
 	showLoading();
 	var myAjax = new Ajax(
-				ajaxURL+ 'action=get_menus_sitemap&sitemap='+sitemap,
-				{
-						method: 'get',
-						update: 'menulist'+sitemap,
-						onComplete: function () {hideLoading(); closeMenu()}
-				}).request();
+		ajaxURL+ 'action=get_menus_sitemap&sitemap='+sitemap,
+		{
+			method: 'get',
+			update: 'menulist'+sitemap,
+			onComplete: function () {
+				hideLoading();
+				closeMenu()
+				}
+		}).request();
 }
 function hideOptions (menu) {
 	if (menu) {
@@ -711,5 +744,9 @@ function loadingPosition(div) {
 	} else {
 		return false;
 	}
-	Element.set(div,{'styles':{top: (y+3)+'px'}});
+	Element.set(div,{
+		'styles':{
+			top: (y+3)+'px'
+			}
+		});
 }

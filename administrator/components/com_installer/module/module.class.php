@@ -1,22 +1,22 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 /**
-* Module installer
-* @package Joostina
-*/
+ * Module installer
+ * @package Joostina
+ */
 class mosInstallerModule extends mosInstaller {
-	
-	function __construct($pre_installer){
+
+	function __construct($pre_installer) {
 		// Copy data
 		$this->i_installfilename = $pre_installer->i_installfilename;
 		$this->i_installarchive = $pre_installer->i_installarchive;
@@ -34,11 +34,11 @@ class mosInstallerModule extends mosInstaller {
 		$this->i_hasinstallfile = $pre_installer->i_hasinstallfile;
 		$this->i_installfile = $pre_installer->i_installfile;
 	}
-	
+
 	/**
-	* Custom install method
-	* @param boolean True if installing from directory
-	*/
+	 * Custom install method
+	 * @param boolean True if installing from directory
+	 */
 	function install($p_fromdir = null) {
 		$database = &database::getInstance();
 
@@ -127,11 +127,11 @@ class mosInstallerModule extends mosInstaller {
 		return $this->copySetupFile('front');
 	}
 	/**
-	* Custom install method
-	* @param int The id of the module
-	* @param string The URL option
-	* @param int The client id
-	*/
+	 * Custom install method
+	 * @param int The id of the module
+	 * @param string The URL option
+	 * @param int The client id
+	 */
 	function uninstall($id,$option,$client = 0) {
 		global $database;
 		josSpoofCheck();
@@ -213,29 +213,27 @@ class mosInstallerModule extends mosInstaller {
 			}
 		}
 	}
-	
+
 	/**
-	* Uninstall method
-	*/
+	 * Uninstall method
+	 */
 	function cleanAfterError() {
 		global $database, $client;
 		josSpoofCheck();
-		
+
 		$mosinstall = &$this->i_xmldoc->documentElement;
 		$client = $mosinstall->getAttribute('client');
-		
-		if($client == 'administrator')
-		{
+
+		if($client == 'administrator') {
 			$basepath = JPATH_BASE_ADMIN."/modules/";
 		}
-		else
-		{
+		else {
 			$basepath = JPATH_BASE."/modules/";
 		}
-		
+
 		// Search the install dir for an xml file
 		$files = mosReadDirectory($this->installDir(),'.xml$',true,true);
-		
+
 		if(count($files) > 0) {
 			foreach($files as $file) {
 				$packagefile = $this->isPackageFile($file);
@@ -244,12 +242,12 @@ class mosInstallerModule extends mosInstaller {
 				}
 			}
 		}
-		if($this->isWindows()){
+		if($this->isWindows()) {
 			$elementName = substr(substr(strrchr($xmlfilename, '\\'), 1), 0,  -4);
-		}else{
+		}else {
 			$elementName = substr(substr(strrchr($xmlfilename, '/'), 1), 0, -4);
 		}
-		
+
 		// get the files element
 		$files_element = &$mosinstall->getElementsByPath('files',1);
 		if(!is_null($files_element)) {
@@ -270,11 +268,9 @@ class mosInstallerModule extends mosInstaller {
 		}
 		// remove XML file from front
 		@unlink(mosPathName($basepath.'/'.$elementName. '.xml',false));
-		if(file_exists($basepath. $elementName))
-		{
+		if(file_exists($basepath. $elementName)) {
 			deldir($basepath. $elementName . '/');
 		}
 		return true;
 	}
 }
-?>

@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -51,37 +51,37 @@ switch($task) {
 	case 'save':
 	case 'apply':
 	case 'save_and_new':
-		//чистим кэш меню панели управления
+	//чистим кэш меню панели управления
 		js_menu_cache_clear();
 		saveSection($option,$scope,$task);
 		break;
 
 	case 'remove':
-		// чистим кэш меню панели управления
+	// чистим кэш меню панели управления
 		js_menu_cache_clear();
 		removeSections($cid,$scope,$option);
 		break;
 
 	case 'copyselect':
-		// чистим кэш меню панели управления
+	// чистим кэш меню панели управления
 		js_menu_cache_clear();
 		copySectionSelect($option,$cid,$section);
 		break;
 
 	case 'copysave':
-		// чистим кэш меню панели управления
+	// чистим кэш меню панели управления
 		js_menu_cache_clear();
 		copySectionSave($cid);
 		break;
 
 	case 'publish':
-		// чистим кэш меню панели управления
+	// чистим кэш меню панели управления
 		js_menu_cache_clear();
 		publishSections($scope,$cid,1,$option);
 		break;
 
 	case 'unpublish':
-		// чистим кэш меню панели управления
+	// чистим кэш меню панели управления
 		js_menu_cache_clear();
 		publishSections($scope,$cid,0,$option);
 		break;
@@ -119,7 +119,7 @@ switch($task) {
 		break;
 }
 
-function mass_add($option){
+function mass_add($option) {
 	$database = &database::getInstance();
 	// получение списка существующих разделов
 	$query = "SELECT id AS value, title AS text FROM #__sections ORDER BY title ASC";
@@ -137,7 +137,7 @@ function mass_add($option){
 	sections_html::mass_add($option,$sec,$cat);
 }
 
-function mass_save(){
+function mass_save() {
 	global $my;
 	josSpoofCheck();
 
@@ -158,20 +158,20 @@ function mass_save(){
 	$parsed = explode ("\n",$addcontent);
 	$results=array();
 
-	foreach($parsed as $parse){
-		if($type==0){
+	foreach($parsed as $parse) {
+		if($type==0) {
 			// добавляем разделы
 			$row = new mosSection($database);
 			// ссылка на редактирование раздела
 			$link = '<a href="index2.php?option=com_sections&scope=content&task=editA&hidemainmenu=1&id=';
 			$text = _ADD_SECTIONS_RESULT;
-		}elseif($type==1){
+		}elseif($type==1) {
 			// добавляем категории
 			$row = new mosCategory($database);
 			// ссылка на редактирование категории
 			$link = '<a href="index2.php?option=com_categories&section=content&task=editA&hidemainmenu=1&id=';
 			$text = _ADD_CATEGORIES_RESULT;
-		}else{
+		}else {
 			// добавляем содержимое
 			$row = new mosContent($database);
 			$link = '<a href="index2.php?option=com_content&sectionid=0&task=edit&hidemainmenu=1&id=';
@@ -180,16 +180,16 @@ function mass_save(){
 		}
 		$_POST['title'] = $_POST['introtext'] = $_POST['name'] = $parse = trim($parse);
 
-		if($parse!=''){
+		if($parse!='') {
 			if(!$row->bind($_POST)) {
 				$results[]= '<b>'.$parse.'</b> - '._ERROR_WHEN_ADDING.': <font color="red">'.$row->getError().'</font>';
-			}else{
+			}else {
 				if(!$row->check()) {
 					$results[]= '<b>'.$parse.'</b> - '._ERROR_WHEN_ADDING.': <font color="red">'.$row->getError().'</font>';
-				}else{
+				}else {
 					if(!$row->store()) {
 						$results[]= '<b>'.$parse.'</b> - '._ERROR_WHEN_ADDING.': <font color="red">'.$row->getError().'</font>';
-					}else{
+					}else {
 						$results[]= _E_ITEM_SAVED.' <font color="green">'.$parse.' ('.$link.$row->id.'"> '._EDIT.' )</a></font>';
 					}
 					$row->checkin();
@@ -200,7 +200,7 @@ function mass_save(){
 	sections_html::mas_result($type,$results,$text);
 }
 
-function _gedsid($cid){
+function _gedsid($cid) {
 
 	$database = &database::getInstance();
 	$query = 'SELECT section FROM #__categories WHERE id='.$cid;
@@ -209,11 +209,11 @@ function _gedsid($cid){
 }
 
 /**
-* Compiles a list of categories for a section
-* @param database A database connector object
-* @param string The name of the category section
-* @param string The name of the current user
-*/
+ * Compiles a list of categories for a section
+ * @param database A database connector object
+ * @param string The name of the category section
+ * @param string The name of the current user
+ */
 function showSections($scope,$option) {
 	global $my;
 
@@ -248,18 +248,18 @@ function showSections($scope,$option) {
 	}
 
 	$sects_ids = array();
-	foreach ($rows as $row){
+	foreach ($rows as $row) {
 		$sects_ids[]=$row->id;
 		unset($row);
 	}
 	$rows_new = array();
-	if( count($sects_ids)>0 ){
+	if( count($sects_ids)>0 ) {
 		$query = "SELECT COUNT( a.id ) as count,a.section FROM #__categories AS a WHERE a.section IN (".implode(',',$sects_ids).") AND a.published != -2 GROUP BY a.section";
 		$database->setQuery($query);
 		$sects_info = $database->loadObjectList();
 
 
-		foreach ($sects_info as $sect_info){
+		foreach ($sects_info as $sect_info) {
 			$rows[$sect_info->section]->categories = $sect_info->count;
 		}
 
@@ -267,11 +267,11 @@ function showSections($scope,$option) {
 		$database->setQuery($query);
 		$contents_info = $database->loadObjectList();
 
-		foreach ($contents_info as $content_info){
-			if($content_info->state=='-2'){
+		foreach ($contents_info as $content_info) {
+			if($content_info->state=='-2') {
 				$rows[$content_info->sectionid]->trash = $content_info->count;
 				$rows[$content_info->sectionid]->active = 0;
-			}else{
+			}else {
 				$rows[$content_info->sectionid]->active = $content_info->count;
 				$rows[$content_info->sectionid]->trash = 0;
 			}
@@ -279,11 +279,11 @@ function showSections($scope,$option) {
 		}
 	}
 	//Добавляем в $new_rows разделы без категорий
-	foreach($sects_ids as $v){
-		if (!in_array($rows[$v], $rows_new)){
+	foreach($sects_ids as $v) {
+		if (!in_array($rows[$v], $rows_new)) {
 			$rows[$v]->trash = 0;
-			$rows[$v]->active = 0; 
-			$rows[$v]->categories = 0; 
+			$rows[$v]->active = 0;
+			$rows[$v]->categories = 0;
 			$rows_new[] = $rows[$v];
 		}
 	}
@@ -291,12 +291,12 @@ function showSections($scope,$option) {
 }
 
 /**
-* Compiles information to add or edit a section
-* @param database A database connector object
-* @param string The name of the category section
-* @param integer The unique id of the category to edit (0 if new)
-* @param string The name of the current user
-*/
+ * Compiles information to add or edit a section
+ * @param database A database connector object
+ * @param string The name of the category section
+ * @param integer The unique id of the category to edit (0 if new)
+ * @param string The name of the current user
+ */
 function editSection($uid = 0,$scope = '',$option) {
 	global $my,$mainframe;
 
@@ -403,10 +403,10 @@ function editSection($uid = 0,$scope = '',$option) {
 }
 
 /**
-* Saves the catefory after an edit form submit
-* @param database A database connector object
-* @param string The name of the category section
-*/
+ * Saves the catefory after an edit form submit
+ * @param database A database connector object
+ * @param string The name of the category section
+ */
 function saveSection($option,$scope,$task) {
 	global $database;
 	josSpoofCheck();
@@ -440,22 +440,22 @@ function saveSection($option,$scope,$task) {
 	if(strpos($folders,'*1*') !== false) {
 		$folders = '*1*';
 	} else
-		if(strpos($folders,'*0*') !== false) {
-			$folders = '*0*';
-		} else
-			if(strpos($folders,',*#*') !== false) {
-				$folders = str_replace(',*#*','',$folders);
-			} else
-				if(strpos($folders,'*#*,') !== false) {
-					$folders = str_replace('*#*,','',$folders);
-				} else
-					if(strpos($folders,'*#*') !== false) {
-						$folders = str_replace('*#*','',$folders);
-					}
+	if(strpos($folders,'*0*') !== false) {
+		$folders = '*0*';
+	} else
+	if(strpos($folders,',*#*') !== false) {
+		$folders = str_replace(',*#*','',$folders);
+	} else
+	if(strpos($folders,'*#*,') !== false) {
+		$folders = str_replace('*#*,','',$folders);
+	} else
+	if(strpos($folders,'*#*') !== false) {
+		$folders = str_replace('*#*','',$folders);
+	}
 	$row->params = 'imagefolders='.$folders;
 
-    $templates = new ContentTemplate();
-    $row->templates = $templates->prepare_for_save(mosGetParam($_POST,'templates',array()));
+	$templates = new ContentTemplate();
+	$row->templates = $templates->prepare_for_save(mosGetParam($_POST,'templates',array()));
 
 	if(!$row->store()) {
 		echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
@@ -474,7 +474,7 @@ function saveSection($option,$scope,$task) {
 
 		case 'go2menuitem':
 			mosRedirect('index2.php?option=com_menus&menutype='.$menu.
-				'&task=edit&hidemainmenu=1&id='.$menuid);
+					'&task=edit&hidemainmenu=1&id='.$menuid);
 			break;
 
 		case 'menulink':
@@ -484,10 +484,10 @@ function saveSection($option,$scope,$task) {
 		case 'apply':
 			$msg = _SECTION_CHANGES_SAVED;
 			mosRedirect('index2.php?option='.$option.'&scope='.$scope.
-				'&task=editA&hidemainmenu=1&id='.$row->id,$msg);
+					'&task=editA&hidemainmenu=1&id='.$row->id,$msg);
 			break;
 
-			/* boston, после сохранения возвращаемся в окно добавления нового раздела*/
+		/* boston, после сохранения возвращаемся в окно добавления нового раздела*/
 		case 'save_and_new':
 			$msg = $row->title.' - '._E_ITEM_SAVED;
 			mosRedirect('index2.php?option='.$option.'&scope='.$scope.'&task=new',$msg);
@@ -501,11 +501,11 @@ function saveSection($option,$scope,$task) {
 	}
 }
 /**
-* Deletes one or more categories from the categories table
-* @param database A database connector object
-* @param string The name of the category section
-* @param array An array of unique category id numbers
-*/
+ * Deletes one or more categories from the categories table
+ * @param database A database connector object
+ * @param string The name of the category section
+ * @param array An array of unique category id numbers
+ */
 function removeSections($cid,$scope,$option) {
 	global $database;
 	josSpoofCheck();
@@ -559,14 +559,14 @@ function removeSections($cid,$scope,$option) {
 }
 
 /**
-* Publishes or Unpublishes one or more categories
-* @param database A database connector object
-* @param string The name of the category section
-* @param integer A unique category id (passed from an edit form)
-* @param array An array of unique category id numbers
-* @param integer 0 if unpublishing, 1 if publishing
-* @param string The name of the current user
-*/
+ * Publishes or Unpublishes one or more categories
+ * @param database A database connector object
+ * @param string The name of the category section
+ * @param integer A unique category id (passed from an edit form)
+ * @param array An array of unique category id numbers
+ * @param integer 0 if unpublishing, 1 if publishing
+ * @param string The name of the current user
+ */
 function publishSections($scope,$cid = null,$publish = 1,$option) {
 	global $database,$my;
 	josSpoofCheck();
@@ -589,11 +589,11 @@ function publishSections($scope,$cid = null,$publish = 1,$option) {
 	$cids = 'id='.implode(' OR id=',$cid);
 
 	$query = "UPDATE #__sections"."\n SET published = ".(int)$publish."\n WHERE ( $cids )".
-		"\n AND ( checked_out = 0 OR ( checked_out = ".(int)$my->id." ) )";
+			"\n AND ( checked_out = 0 OR ( checked_out = ".(int)$my->id." ) )";
 	$database->setQuery($query);
 	if(!$database->query()) {
 		echo "<script> alert('".$database->getErrorMsg().
-			"'); window.history.go(-1); </script>\n";
+				"'); window.history.go(-1); </script>\n";
 		exit();
 	}
 
@@ -613,7 +613,7 @@ function publishSections($scope,$cid = null,$publish = 1,$option) {
 		if($menus) {
 			foreach($menus as $menu) {
 				$query = "UPDATE #__menu"."\n SET published = ".(int)$publish."\n WHERE id = ".(int)
-					$menu->id;
+						$menu->id;
 				$database->setQuery($query);
 				$database->query();
 			}
@@ -627,11 +627,11 @@ function publishSections($scope,$cid = null,$publish = 1,$option) {
 }
 
 /**
-* Cancels an edit operation
-* @param database A database connector object
-* @param string The name of the category section
-* @param integer A unique category id
-*/
+ * Cancels an edit operation
+ * @param database A database connector object
+ * @param string The name of the category section
+ * @param integer A unique category id
+ */
 function cancelSection($option,$scope) {
 	global $database;
 	josSpoofCheck();
@@ -643,9 +643,9 @@ function cancelSection($option,$scope) {
 }
 
 /**
-* Moves the order of a record
-* @param integer The increment to reorder by
-*/
+ * Moves the order of a record
+ * @param integer The increment to reorder by
+ */
 function orderSection($uid,$inc,$option,$scope) {
 	global $database;
 	josSpoofCheck();
@@ -662,8 +662,8 @@ function orderSection($uid,$inc,$option,$scope) {
 
 
 /**
-* Form for copying item(s) to a specific menu
-*/
+ * Form for copying item(s) to a specific menu
+ */
 function copySectionSelect($option,$cid,$section) {
 	global $database;
 	josSpoofCheck();
@@ -684,7 +684,7 @@ function copySectionSelect($option,$cid,$section) {
 	//mosArrayToInts( $cid ); // Just done a few lines earlier
 	$cids = 'a.sectionid='.implode(' OR a.sectionid=',$cid);
 	$query = "SELECT a.title, a.id"."\n FROM #__content AS a"."\n WHERE ( $cids )".
-		"\n ORDER BY a.sectionid, a.catid, a.title";
+			"\n ORDER BY a.sectionid, a.catid, a.title";
 	$database->setQuery($query);
 	$contents = $database->loadObjectList();
 
@@ -693,8 +693,8 @@ function copySectionSelect($option,$cid,$section) {
 
 
 /**
-* Save the item(s) to the menu selected
-*/
+ * Save the item(s) to the menu selected
+ */
 function copySectionSave() {
 	global $database;
 	josSpoofCheck();
@@ -713,12 +713,12 @@ function copySectionSave() {
 	$section->published = 1;
 	if(!$section->check()) {
 		echo "<script> alert('".$section->getError().
-			"'); window.history.go(-1); </script>\n";
+				"'); window.history.go(-1); </script>\n";
 		exit();
 	}
 	if(!$section->store()) {
 		echo "<script> alert('".$section->getError().
-			"'); window.history.go(-1); </script>\n";
+				"'); window.history.go(-1); </script>\n";
 		exit();
 	}
 	$section->checkin();
@@ -738,12 +738,12 @@ function copySectionSave() {
 
 		if(!$category->check()) {
 			echo "<script> alert('".$category->getError().
-				"'); window.history.go(-1); </script>\n";
+					"'); window.history.go(-1); </script>\n";
 			exit();
 		}
 		if(!$category->store()) {
 			echo "<script> alert('".$category->getError().
-				"'); window.history.go(-1); </script>\n";
+					"'); window.history.go(-1); </script>\n";
 			exit();
 		}
 		$category->checkin();
@@ -775,9 +775,9 @@ function copySectionSave() {
 }
 
 /**
-* changes the access level of a record
-* @param integer The increment to reorder by
-*/
+ * changes the access level of a record
+ * @param integer The increment to reorder by
+ */
 function accessMenu($uid,$access,$option) {
 	global $database;
 	josSpoofCheck();
@@ -859,7 +859,7 @@ function menuLink($id) {
 
 	$msg = $name.' ( '.$menutype.' ) '.$menu.' success';
 	mosRedirect('index2.php?option=com_sections&scope=content&task=editA&hidemainmenu=1&id='.
-		$id,$msg);
+			$id,$msg);
 }
 
 function saveOrder(&$cid) {
@@ -879,7 +879,7 @@ function saveOrder(&$cid) {
 			$row->ordering = $order[$i];
 			if(!$row->store()) {
 				echo "<script> alert('".$database->getErrorMsg().
-					"'); window.history.go(-1); </script>\n";
+						"'); window.history.go(-1); </script>\n";
 				exit();
 			} // if
 			// remember to updateOrder this group
@@ -915,7 +915,7 @@ function recursive_listdir($base) {
 		$dh = opendir($base);
 		while(false !== ($dir = readdir($dh))) {
 			if($dir !== '.' && $dir !== '..' && is_dir($base.'/'.$dir) && strtolower($dir)
-				!== 'cvs' && strtolower($dir) !== '.svn') {
+					!== 'cvs' && strtolower($dir) !== '.svn') {
 				$subbase = $base.'/'.$dir;
 				$dirlist[] = $subbase;
 				$subdirlist = recursive_listdir($subbase);
@@ -925,4 +925,3 @@ function recursive_listdir($base) {
 	}
 	return $dirlist;
 }
-?>

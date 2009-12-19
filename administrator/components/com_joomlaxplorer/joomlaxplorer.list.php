@@ -1,43 +1,43 @@
 <?php
 /**
-* @package Joostina
-* @copyright яПНяПНяПНяПНяПНяПНяПНяПНяПН яПНяПНяПНяПНяПН (C) 2008-2009 Joostina team. яПНяПНяПН яПНяПНяПНяПНяПН яПНяПНяПНяПНяПНяПНяПНяПН.
-* @license яПНяПНяПНяПНяПНяПНяПНяПН http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, яПНяПНяПН help/license.php
-* Joostina! - яПНяПНяПНяПНяПНяПНяПНяПНяПН яПНяПНяПНяПНяПНяПНяПНяПНяПНяПНяПН яПНяПНяПНяПНяПНяПНяПНяПНяПНяПНяПН яПНяПНяПНяПНяПНяПНяПНяПНяПНяПНяПНяПНяПНяПНяПНяПН яПНяПН яПНяПНяПНяПНяПНяПНяПНяПН яПНяПНяПНяПНяПНяПНяПНяПН GNU/GPL
-* яПНяПНяПН яПНяПНяПНяПНяПНяПНяПНяПНяПН яПНяПНяПНяПНяПНяПНяПНяПНяПНяПН яПН яПНяПНяПНяПНяПНяПНяПНяПНяПНяПНяПНяПН яПНяПНяПНяПНяПНяПНяПНяПНяПНяПНяПН яПН яПНяПНяПНяПНяПНяПНяПНяПНяПН яПНяПН яПНяПНяПНяПНяПНяПНяПНяПНяПН яПНяПНяПНяПНяПН, яПНяПНяПНяПНяПНяПНяПНяПН яПНяПНяПНяПН help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
-// яПНяПНяПНяПНяПНяПН яПНяПНяПНяПНяПНяПНяПН яПНяПНяПНяПНяПНяПНяПН
+// запрет прямого доступа
 defined('_VALID_MOS') or die();
 /**
-* @version $Id: $
-* @package joomlaXplorer
-* @copyright soeren 2007
-* @author The joomlaXplorer project (http://joomlacode.org/gf/project/joomlaxplorer/)
-* @author The  The QuiX project (http://quixplorer.sourceforge.net)
-* @license
-* The contents of this file are subject to the Mozilla Public License
-* Version 1.1 (the "License"); you may not use this file except in
-* compliance with the License. You may obtain a copy of the License at
-* http://www.mozilla.org/MPL/
-* 
-* Software distributed under the License is distributed on an "AS IS"
-* basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
-* License for the specific language governing rights and limitations
-* under the License.
-* 
-* Alternatively, the contents of this file may be used under the terms
-* of the GNU General Public License Version 2 or later (the "GPL"), in
-* which case the provisions of the GPL are applicable instead of
-* those above. If you wish to allow use of your version of this file only
-* under the terms of the GPL and not to allow others to use
-* your version of this file under the MPL, indicate your decision by
-* deleting  the provisions above and replace  them with the notice and
-* other provisions required by the GPL.  If you do not delete
-* the provisions above, a recipient may use your version of this file
-* under either the MPL or the GPL."
-* 
-*/
+ * @version $Id: $
+ * @package joomlaXplorer
+ * @copyright soeren 2007
+ * @author The joomlaXplorer project (http://joomlacode.org/gf/project/joomlaxplorer/)
+ * @author The  The QuiX project (http://quixplorer.sourceforge.net)
+ * @license
+ * The contents of this file are subject to the Mozilla Public License
+ * Version 1.1 (the "License"); you may not use this file except in
+ * compliance with the License. You may obtain a copy of the License at
+ * http://www.mozilla.org/MPL/
+ *
+ * Software distributed under the License is distributed on an "AS IS"
+ * basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+ * License for the specific language governing rights and limitations
+ * under the License.
+ *
+ * Alternatively, the contents of this file may be used under the terms
+ * of the GNU General Public License Version 2 or later (the "GPL"), in
+ * which case the provisions of the GPL are applicable instead of
+ * those above. If you wish to allow use of your version of this file only
+ * under the terms of the GPL and not to allow others to use
+ * your version of this file under the MPL, indicate your decision by
+ * deleting  the provisions above and replace  them with the notice and
+ * other provisions required by the GPL.  If you do not delete
+ * the provisions above, a recipient may use your version of this file
+ * under either the MPL or the GPL."
+ *
+ */
 // HELPER FUNCTIONS (USED BY MAIN FUNCTION 'list_dir', SEE BOTTOM)
 function make_list($_list1,$_list2) { // make list of files
 	$list = array();
@@ -85,7 +85,7 @@ function make_tables($dir,&$dir_list,&$file_list,&$tot_file_size,&$num_items) { 
 
 		if($new_item == "." || $new_item == "..") continue;
 		if(!file_exists($abs_new_item))
-			//show_error($dir."/$abs_new_item: ".$GLOBALS["error_msg"]["readdir"]);
+		//show_error($dir."/$abs_new_item: ".$GLOBALS["error_msg"]["readdir"]);
 
 			if(!get_show_item($dir,$new_item)) continue;
 
@@ -145,11 +145,11 @@ function print_table($dir,$list) { // print table of files
 	if(!is_array($list)) return;
 	if($dir != "" || strstr($dir,_QUIXPLORER_PATH)) {
 		echo "<tr class=\"sectiontableentry1\"><td valign=\"baseline\"><a href=\"".
-			make_link("list",$dir_up,null)."\">";
+				make_link("list",$dir_up,null)."\">";
 		echo "<img border=\"0\" width=\"22\" height=\"22\" align=\"absmiddle\" src=\"".
-			_QUIXPLORER_URL."/images/_up.png\" ";
+				_QUIXPLORER_URL."/images/_up.png\" ";
 		echo "alt=\"".$GLOBALS["messages"]["uplink"]."\" title=\"".$GLOBALS["messages"]["uplink"].
-			"\"/>&nbsp;&nbsp;..</a></td>\n";
+				"\"/>&nbsp;&nbsp;..</a></td>\n";
 		echo "<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>";
 		echo "</tr>";
 	}
@@ -187,7 +187,7 @@ function print_table($dir,$list) { // print table of files
 		//else echo "<A>";
 		echo "<img border=\"0\" width=\"22\" height=\"22\" ";
 		echo "align=\"absmiddle\" vspace=\"5\" hspace=\"5\" src=\""._QUIXPLORER_URL.
-			"/images/".get_mime_type($abs_item,"img")."\" alt=\"\">&nbsp;";
+				"/images/".get_mime_type($abs_item,"img")."\" alt=\"\">&nbsp;";
 		$s_item = $item;
 		if(strlen($s_item) > 50) $s_item = substr($s_item,0,47)."...";
 		$s_item = htmlspecialchars($s_item);
@@ -284,8 +284,3 @@ function list_dir($dir) { // list directory contents
 	echo "</tr>\n<tr><td colspan=\"4\"><hr/></td></tr></table>\n";
 
 }
-//------------------------------------------------------------------------------
-
-
-
-?>

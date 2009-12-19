@@ -1,19 +1,19 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 /**
-* @package Joostina
-* @subpackage Content
-*/
+ * @package Joostina
+ * @subpackage Content
+ */
 class TOOLBAR_content {
 	function _EDIT() {
 		global $id;
@@ -26,15 +26,15 @@ class TOOLBAR_content {
 		mosMenuBar::spacer();
 		mosMenuBar::save();
 		mosMenuBar::spacer();
-		if($id){
+		if($id) {
 			mosMenuBar::ext(_APPLY,'#','-apply','id="tb-apply" onclick="return ch_apply();"');
-		}else{
+		}else {
 			mosMenuBar::apply();
 		}
 		mosMenuBar::spacer();
-		if($id){
+		if($id) {
 			mosMenuBar::cancel('cancel',_CLOSE);
-		}else{
+		}else {
 			mosMenuBar::cancel();
 		}
 		mosMenuBar::spacer();
@@ -42,7 +42,7 @@ class TOOLBAR_content {
 		mosMenuBar::endTable();
 	}
 
-	function _CONFIG(){
+	function _CONFIG() {
 		mosMenuBar::startTable();
 		mosMenuBar::save('save_config');
 		mosMenuBar::spacer();

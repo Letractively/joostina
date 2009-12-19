@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -33,7 +33,7 @@ class TOOLBAR_jpack {
 		mosMenuBar::back(_JP_BACKUP_PANEL,'index2.php?option=com_joomlapack');
 		mosMenuBar::endTable();
 	}
-	function _DB_MENU(){
+	function _DB_MENU() {
 		mosMenuBar::startTable();
 		mosMenuBar::back(_DB_MANAGEMENT,'index2.php?option=com_joomlapack&act=db');
 		mosMenuBar::spacer();
@@ -50,7 +50,7 @@ class TOOLBAR_jpack {
 		mosMenuBar::custom('doOptimize','-optimize','',_JP_OPTIMIZE);
 		mosMenuBar::spacer();
 		mosMenuBar::custom('doRepair','-help','',_JP_REPAIR);
-		if($act!='db'){
+		if($act!='db') {
 			mosMenuBar::spacer();
 			mosMenuBar::back(_DB_MANAGEMENT,'index2.php?option=com_joomlapack&ack=db');
 		}
@@ -59,4 +59,3 @@ class TOOLBAR_jpack {
 		mosMenuBar::endTable();
 	}
 }
-?>

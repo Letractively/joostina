@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -27,26 +27,26 @@ switch($task) {
 }
 
 // включение / отключение визуального редактора
-function x_toggle_editor(){
+function x_toggle_editor() {
 	$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 
-	if(!intval(mosGetParam($_SESSION,'user_editor_off',''))){
+	if(!intval(mosGetParam($_SESSION,'user_editor_off',''))) {
 		// отключаем редактор
 		$_SESSION['user_editor_off'] = 1;
 		return $cur_file_icons_path.'/editor_off.png';
-	}else{
+	}else {
 		// включаем редактор
 		$_SESSION['user_editor_off'] = 0;
 		return $cur_file_icons_path.'/editor_on.png';
 	}
 }
 
-function x_upload(){
-?>
+function x_upload() {
+	?>
 <form method="post" action="uploadimage.php" enctype="multipart/form-data" name="filename" id="filename">
 	<table class="adminform" style="width:100%;">
 		<tr>
-		<th class="title"><?php echo _FILE_UPLOAD?>:</th>
+			<th class="title"><?php echo _FILE_UPLOAD?>:</th>
 		</tr>
 		<tr>
 			<td align="center">
@@ -55,10 +55,10 @@ function x_upload(){
 		</tr>
 		<tr>
 			<td><?php echo _MAX_SIZE?> = <?php echo ini_get('post_max_size'); ?></td>
-	</tr>
+		</tr>
 	</table>
 	<input type="hidden" name="directory" value="" />
 	<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
 </form>
-<?php
+	<?php
 }

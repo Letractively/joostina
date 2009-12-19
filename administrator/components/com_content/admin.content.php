@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -132,7 +132,7 @@ switch($task) {
 		break;
 }
 
-function config($option){
+function config($option) {
 	$mainframe = &mosMainFrame::getInstance(true);
 	$database = &$mainframe->_db;
 
@@ -144,7 +144,7 @@ function config($option){
 	$config->display_config($option);
 }
 
-function save_config(){
+function save_config() {
 	$database = &database::getInstance();
 
 	$act = mosGetParam($_REQUEST,'act','');
@@ -157,7 +157,7 @@ function save_config(){
 	mosRedirect('index2.php?option=com_content&task=config&act='.$act, _CONFIG_SAVED);
 }
 
-function submitContent(){
+function submitContent() {
 	$mainframe = &mosMainFrame::getInstance(true);
 	$database = &$mainframe->_db;
 
@@ -171,9 +171,9 @@ function submitContent(){
 }
 
 /**
-* Compiles a list of installed or defined modules
-* @param database A database connector object
-*/
+ * Compiles a list of installed or defined modules
+ * @param database A database connector object
+ */
 function viewContent($sectionid,$option) {
 
 	$mainframe = &mosMainFrame::getInstance();
@@ -194,7 +194,7 @@ function viewContent($sectionid,$option) {
 	$filter_authorid = intval( mosGetParam($_REQUEST,'filter_authorid',0) );
 	$showarchive = intval( mosGetParam($_REQUEST,'showarchive',0) );
 
-	if ($filter_authorid <> 0)  {
+	if ($filter_authorid <> 0) {
 		$link = '&filter_authorid='.$filter_authorid;
 	}else {
 		$link = '&catid='.$catid;
@@ -239,7 +239,7 @@ function viewContent($sectionid,$option) {
 	}
 
 	$where_arh = $showarchive ? "c.state = -1" : "c.state >= 0";
-	
+
 	if($sectionid == 0 && $catid==0) {
 		// used to show All content items
 		$where = array($where_arh,"c.catid = cc.id","cc.section = s.id","s.scope = 'content'",);
@@ -255,7 +255,7 @@ function viewContent($sectionid,$option) {
 		$section->params = array();
 		$section->params['name']=_SECTION;
 		$section->params['link']='index2.php?option=com_sections&scope=content&task=editA&hidemainmenu=1&id='.$section->id;
-	}else{
+	}else {
 		$all = null;
 		$section = new mosCategory($database);
 		$section->load((int)$catid);
@@ -338,9 +338,9 @@ function viewContent($sectionid,$option) {
 }
 
 /**
-* Shows a list of archived content items
-* @param int The section id
-*/
+ * Shows a list of archived content items
+ * @param int The section id
+ */
 function viewArchive($sectionid,$option) {
 
 	$mainframe = &mosMainFrame::getInstance();
@@ -433,11 +433,11 @@ function viewArchive($sectionid,$option) {
 }
 
 /**
-* Compiles information to add or edit the record
-* @param database A database connector object
-* @param integer The unique id of the record to edit (0 if new)
-* @param integer The id of the content section
-*/
+ * Compiles information to add or edit the record
+ * @param database A database connector object
+ * @param integer The unique id of the record to edit (0 if new)
+ * @param integer The id of the content section
+ */
 function editContent($uid = 0,$sectionid = 0,$option) {
 	global $my;
 
@@ -449,7 +449,7 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 	$nullDate = $database->getNullDate();
 	if ($uid) {
 		$filter_authorid = intval( mosGetParam($_REQUEST,'filter_authorid',0) );
-		if ($filter_authorid <> 0)  {
+		if ($filter_authorid <> 0) {
 			$link = '&filter_authorid='.$filter_authorid;
 		}
 		else {
@@ -624,11 +624,11 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 	$lists['ordering'] = mosAdminMenus::SpecificOrdering($row,$uid,$query,1);
 
 	// pull param column from category info
-	if($row->catid>0){
+	if($row->catid>0) {
 		$query = 'SELECT params FROM #__categories WHERE id = '.(int)$row->catid;
 		$database->setQuery($query);
 		$categoryParam = $database->loadResult();
-	}else{
+	}else {
 		$categoryParam = '';
 	}
 
@@ -643,11 +643,11 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 	if(strpos($selected_folders,'*2*') !== false) {
 		unset($selected_folders);
 		// load param column from section info
-		if($row->sectionid>0){
+		if($row->sectionid>0) {
 			$query = 'SELECT params FROM #__sections WHERE id = '.(int)$row->sectionid;
 			$database->setQuery($query);
 			$sectionParam = $database->loadResult();
-		}else{
+		}else {
 			$sectionParam = '';
 		}
 		$paramsSec = new mosParameters($sectionParam,$mainframe->getPath('com_xml','com_sections'),'component');
@@ -715,16 +715,16 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 
 	//Тэги
 	$row->tags = null;
-		if($row->id){
+	if($row->id) {
 		$tags = new contentTags($database);
 
 		$load_tags = $tags->load_by($row);
-		if(count($load_tags)){
+		if(count($load_tags)) {
 			$row->tags = implode(',', $load_tags);
 		}
 	}
 
-	if($mainframe->getCfg('use_content_edit_mambots')){
+	if($mainframe->getCfg('use_content_edit_mambots')) {
 		global $_MAMBOTS;
 		$_MAMBOTS->loadBotGroup('content');
 		$_MAMBOTS->trigger('onEditContent',array($row));
@@ -735,10 +735,10 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 }
 
 /**
-* Saves the content item an edit form submit
-* @param database A database connector object
-* boston, добавил параметр -  возврат в редактирование содержимого после сохранения для добавления нового
-*/
+ * Saves the content item an edit form submit
+ * @param database A database connector object
+ * boston, добавил параметр -  возврат в редактирование содержимого после сохранения для добавления нового
+ */
 function saveContent($sectionid,$task) {
 	global $my;
 
@@ -822,8 +822,8 @@ function saveContent($sectionid,$task) {
 	}
 
 	$row->version++;
-	
-	if($mainframe->getCfg('use_content_save_mambots')){
+
+	if($mainframe->getCfg('use_content_save_mambots')) {
 		global $_MAMBOTS;
 		$_MAMBOTS->loadBotGroup('content');
 		$_MAMBOTS->trigger('onSaveContent',array($row));
@@ -833,19 +833,19 @@ function saveContent($sectionid,$task) {
 		echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
 		exit();
 	}
-	
-	if($mainframe->getCfg('use_content_save_mambots')){
+
+	if($mainframe->getCfg('use_content_save_mambots')) {
 		$_MAMBOTS->trigger('onAfterSaveContent',array($row));
 	}
 
-    //Подготовка тэгов
-    $tags = explode(',', $_POST['tags']);
-    $tag = new contentTags($database);
-    $tags = $tag->clear_tags($tags);
-    //Запись тэгов
-    $row->obj_type = 'com_content';
-    $tag->update($tags, $row);
-    //$row->metakey = implode(',', $tags);
+	//Подготовка тэгов
+	$tags = explode(',', $_POST['tags']);
+	$tag = new contentTags($database);
+	$tags = $tag->clear_tags($tags);
+	//Запись тэгов
+	$row->obj_type = 'com_content';
+	$tag->update($tags, $row);
+	//$row->metakey = implode(',', $tags);
 
 	// manage frontpage items
 	require_once ($mainframe->getPath('class','com_frontpage'));
@@ -904,7 +904,7 @@ function saveContent($sectionid,$task) {
 			mosRedirect('index2.php?option=com_content&sectionid='.$redirect.'&task=edit&hidemainmenu=1&id='.$row->id,$msg);
 			break;
 
-			/* boston, после сохранения возвращаемся в окно добавления нового содержимого*/
+		/* boston, после сохранения возвращаемся в окно добавления нового содержимого*/
 		case 'save_and_new':
 			$msg = $row->title.' - '._E_ITEM_SAVED;
 			mosRedirect('index2.php?option=com_content&sectionid=0&task=new&sectionid='.$row->sectionid.'&catid='.$row->catid,$msg);
@@ -919,13 +919,13 @@ function saveContent($sectionid,$task) {
 }
 
 /**
-* Changes the state of one or more content pages
-* @param string The name of the category section
-* @param integer A unique category id (passed from an edit form)
-* @param array An array of unique category id numbers
-* @param integer 0 if unpublishing, 1 if publishing
-* @param string The name of the current user
-*/
+ * Changes the state of one or more content pages
+ * @param string The name of the category section
+ * @param integer A unique category id (passed from an edit form)
+ * @param array An array of unique category id numbers
+ * @param integer 0 if unpublishing, 1 if publishing
+ * @param string The name of the current user
+ */
 function changeContent($cid = null,$state = 0,$option) {
 	global $my,$task;
 
@@ -945,7 +945,7 @@ function changeContent($cid = null,$state = 0,$option) {
 	$cids = 'id='.implode(' OR id=',$cid);
 
 	$query = "UPDATE #__content SET state = ".(int)$state.", modified = ".$database->Quote(date('Y-m-d H:i:s'))."\n WHERE ( $cids ) AND ( checked_out = 0 OR (checked_out = ".(int)
-		$my->id.") )";
+			$my->id.") )";
 	$database->setQuery($query);
 	if(!$database->query()) {
 		echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
@@ -994,13 +994,13 @@ function changeContent($cid = null,$state = 0,$option) {
 }
 
 /**
-* Changes the state of one or more content pages
-* @param string The name of the category section
-* @param integer A unique category id (passed from an edit form)
-* @param array An array of unique category id numbers
-* @param integer 0 if unpublishing, 1 if publishing
-* @param string The name of the current user
-*/
+ * Changes the state of one or more content pages
+ * @param string The name of the category section
+ * @param integer A unique category id (passed from an edit form)
+ * @param array An array of unique category id numbers
+ * @param integer 0 if unpublishing, 1 if publishing
+ * @param string The name of the current user
+ */
 function toggleFrontPage($cid,$section,$option) {
 
 	josSpoofCheck();
@@ -1083,8 +1083,8 @@ function removeContent(&$cid,$sectionid,$option) {
 }
 
 /**
-* Cancels an edit operation
-*/
+ * Cancels an edit operation
+ */
 function cancelContent() {
 	josSpoofCheck();
 
@@ -1099,9 +1099,9 @@ function cancelContent() {
 }
 
 /**
-* Moves the order of a record
-* @param integer The increment to reorder by
-*/
+ * Moves the order of a record
+ * @param integer The increment to reorder by
+ */
 function orderContent($uid,$inc,$option) {
 	$database = &database::getInstance();
 
@@ -1122,8 +1122,8 @@ function orderContent($uid,$inc,$option) {
 }
 
 /**
-* Form for moving item(s) to a different section and category
-*/
+ * Form for moving item(s) to a different section and category
+ */
 function moveSection($cid,$sectionid,$option) {
 	$database = &database::getInstance();
 
@@ -1141,11 +1141,11 @@ function moveSection($cid,$sectionid,$option) {
 	$items = $database->loadObjectList();
 
 	$database->setQuery($query =
-		"SELECT CONCAT_WS( ', ', s.id, c.id ) AS `value`, CONCAT_WS( '/', s.name, c.name ) AS `text`"
-		."\n FROM #__sections AS s"
-		."\n INNER JOIN #__categories AS c ON c.section = s.id"
-		."\n WHERE s.scope = 'content'"
-		."\n ORDER BY s.name, c.name");
+			"SELECT CONCAT_WS( ', ', s.id, c.id ) AS `value`, CONCAT_WS( '/', s.name, c.name ) AS `text`"
+			."\n FROM #__sections AS s"
+			."\n INNER JOIN #__categories AS c ON c.section = s.id"
+			."\n WHERE s.scope = 'content'"
+			."\n ORDER BY s.name, c.name");
 	$rows = $database->loadObjectList();
 	// build the html select list
 	$sectCatList = mosHTML::selectList($rows,'sectcat','class="inputbox" size="8"','value','text',null);
@@ -1154,8 +1154,8 @@ function moveSection($cid,$sectionid,$option) {
 }
 
 /**
-* Save the changes to move item(s) to a different section and category
-*/
+ * Save the changes to move item(s) to a different section and category
+ */
 function moveSectionSave(&$cid,$sectionid,$option) {
 	global $my;
 	josSpoofCheck();
@@ -1179,7 +1179,7 @@ function moveSectionSave(&$cid,$sectionid,$option) {
 
 	// find category name
 	$query = "SELECT  a.name FROM #__categories AS a WHERE a.id = ".(int)
-		$newcat;
+			$newcat;
 	$database->setQuery($query);
 	$category = $database->loadResult();
 
@@ -1220,8 +1220,8 @@ function moveSectionSave(&$cid,$sectionid,$option) {
 
 
 /**
-* Form for copying item(s)
-**/
+ * Form for copying item(s)
+ **/
 function copyItem($cid,$sectionid,$option) {
 	$database = &database::getInstance();
 
@@ -1240,10 +1240,10 @@ function copyItem($cid,$sectionid,$option) {
 
 	## Section & Category query
 	$query = "SELECT CONCAT_WS(',',s.id,c.id) AS `value`, CONCAT_WS(' // ', s.name, c.name) AS `text`"
-		."\n FROM #__sections AS s"
-		."\n INNER JOIN #__categories AS c ON c.section = s.id"
-		."\n WHERE s.scope = 'content'"
-		."\n ORDER BY s.name, c.name";
+			."\n FROM #__sections AS s"
+			."\n INNER JOIN #__categories AS c ON c.section = s.id"
+			."\n WHERE s.scope = 'content'"
+			."\n ORDER BY s.name, c.name";
 	$database->setQuery($query);
 	$rows = $database->loadObjectList();
 	// build the html select list
@@ -1254,8 +1254,8 @@ function copyItem($cid,$sectionid,$option) {
 
 
 /**
-* saves Copies of items
-**/
+ * saves Copies of items
+ **/
 function copyItemSave($cid,$sectionid,$option) {
 	josSpoofCheck();
 
@@ -1337,9 +1337,9 @@ function copyItemSave($cid,$sectionid,$option) {
 }
 
 /**
-* Function to reset Hit count of a content item
-* PT
-*/
+ * Function to reset Hit count of a content item
+ * PT
+ */
 function resethits($redirect,$id) {
 	josSpoofCheck();
 
@@ -1356,10 +1356,10 @@ function resethits($redirect,$id) {
 }
 
 /**
-* @param integer The id of the content item
-* @param integer The new access level
-* @param string The URL option
-*/
+ * @param integer The id of the content item
+ * @param integer The new access level
+ * @param string The URL option
+ */
 function accessMenu($uid,$access,$option) {
 	josSpoofCheck();
 
@@ -1502,7 +1502,7 @@ function saveOrder(&$cid) {
 	} // switch
 } // saveOrder
 
-function seccatli($act = 0,$filter_authorid=0){
+function seccatli($act = 0,$filter_authorid=0) {
 
 	$database = &database::getInstance();
 
@@ -1552,7 +1552,7 @@ function seccatli($act = 0,$filter_authorid=0){
 	return $sectli;
 }
 
-function _cat_d($act){
+function _cat_d($act) {
 	$database = &database::getInstance();
 
 	$query = "SELECT cat.id, cat.title, cat.section, COUNT(con.catid) AS countcon"
@@ -1568,10 +1568,10 @@ function _cat_d($act){
 	$n=0;
 	foreach($rows as $row) {
 		$n++;
-		if(Jstring::strlen($row->title)>30){
+		if(Jstring::strlen($row->title)>30) {
 			$row->title = Jstring::substr($row->title,0,30).'...';
 		}
-		if($act!=$row->id){
+		if($act!=$row->id) {
 			$row->title= '<a href="index2.php?option=com_content&sectionid=0&catid='.$row->id.'">'.$row->title.'<\/a>';
 		}
 		$ret .= "\n c.add(0$n$row->id,$row->section,'$row->title ($row->countcon)');";
@@ -1580,7 +1580,7 @@ function _cat_d($act){
 	return $ret;
 }
 
-function _user_d(){
+function _user_d() {
 	$database = &database::getInstance();
 
 	$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/dtree_ico/';

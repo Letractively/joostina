@@ -21,3 +21,4 @@ DEFINE('_ACTIVE','Активных');
 DEFINE('_PRIVATE_MESSAGES','Личные сообщения');
 DEFINE('_GLOBAL_CHECKIN','Глобальная разблокировка');
 DEFINE('_BLOCKED_OBJECTS','Заблокированные объекты');
+DEFINE('_EXTENSION_MANAGEMENT','Управление расширениями');

@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -119,10 +119,10 @@ class XmapSitemap {
 			$sep = "";
 			$values="";
 			foreach ($fields as $k  => $value) {
-			if ($k != 'id') {
-				$values .= "$sep$k=$value";
-				$sep = ",";
-			}
+				if ($k != 'id') {
+					$values .= "$sep$k=$value";
+					$sep = ",";
+				}
 			}
 			$query = "UPDATE #__xmap_sitemap SET $values WHERE id=" . intval($this->id);
 			$isInsert = 0;
@@ -135,13 +135,13 @@ class XmapSitemap {
 		if( $database->query() === FALSE ) {
 			echo mosStripslashes($database->getErrorMsg());
 			return false;
-	 	}
+		}
 		if ($isInsert) {
 			$this->id = mysql_insert_id( $database->_resource );
 		}
 		return true;
 	}
-	
+
 	/** Debug output of current settings */
 	function dump() {
 		$vars = get_object_vars( $this );
@@ -171,7 +171,7 @@ class XmapSitemap {
 
 	/** Move the display order of a record */
 	function orderMenu( $menutype, $inc ) {
-	
+
 		$menus	= $this->getMenus();
 		if (empty($menus[$menutype]) ) {
 			return false;
@@ -181,10 +181,10 @@ class XmapSitemap {
 		if ($menus[$menutype]->ordering >= count($menus) && $inc > 0) return false;
 
 		$menus[$menutype]->ordering += $inc;		// move position up/down
-	
+
 		foreach( $menus as $type => $menu ) {		// swap position of previous entry at that position
 			if( $type != $menutype
-				&& $menu->ordering == $menus[$menutype]->ordering )
+					&& $menu->ordering == $menus[$menutype]->ordering )
 				$menus[$type]->ordering -= $inc;
 		}
 

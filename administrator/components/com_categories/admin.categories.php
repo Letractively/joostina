@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -116,9 +116,9 @@ switch($task) {
 }
 
 /**
-* Compiles a list of categories for a section
-* @param string The name of the category section
-*/
+ * Compiles a list of categories for a section
+ * @param string The name of the category section
+ */
 function showCategories($section,$option) {
 	global $database,$mainframe,$mosConfig_list_limit,$mosConfig_dbprefix;
 
@@ -140,24 +140,24 @@ function showCategories($section,$option) {
 		$where = "\n WHERE c.section = ".$database->Quote($section);
 		$type = 'content';
 	} else
-		if(strpos($section,'com_') === 0) {
-			$table = substr($section,4);
+	if(strpos($section,'com_') === 0) {
+		$table = substr($section,4);
 
-			$query = "SELECT name FROM #__components WHERE link = 'option=".$database->getEscaped($section)."'";
-			$database->setQuery($query);
-			$section_name = $database->loadResult();
-			$where = "\n WHERE c.section = ".$database->Quote($section);
-			$type = 'other';
-			// special handling for contact component
-			if($section == 'com_contact_details') {
-				$section_name = _ENQUIRY;
-			}
-			$section_name = _COMPONENT.': '.$section_name;
-		} else {
-			$table = $section;
-			$where = "\n WHERE c.section = ".$database->Quote($section);
-			$type = 'other';
+		$query = "SELECT name FROM #__components WHERE link = 'option=".$database->getEscaped($section)."'";
+		$database->setQuery($query);
+		$section_name = $database->loadResult();
+		$where = "\n WHERE c.section = ".$database->Quote($section);
+		$type = 'other';
+		// special handling for contact component
+		if($section == 'com_contact_details') {
+			$section_name = _ENQUIRY;
 		}
+		$section_name = _COMPONENT.': '.$section_name;
+	} else {
+		$table = $section;
+		$where = "\n WHERE c.section = ".$database->Quote($section);
+		$type = 'other';
+	}
 
 	// get the total number of records
 	$query = "SELECT COUNT(*) FROM #__categories WHERE section = ".$database->Quote($section);
@@ -199,18 +199,18 @@ function showCategories($section,$option) {
 	}
 
 	$query = "SELECT  c.*, c.checked_out as checked_out_contact_category, g.name AS groupname, u.name AS editor, '0' AS active, '0' AS trash,"
-		."COUNT( DISTINCT s2.checked_out ) AS checked_out"
-		.$content_add
-		."\n FROM #__categories AS c"
-		."\n LEFT JOIN #__users AS u ON u.id = c.checked_out"
-		."\n LEFT JOIN #__groups AS g ON g.id = c.access"
-		."\n LEFT JOIN `#__$table` AS s2 ON s2.catid = c.id AND s2.checked_out > 0"
-		.$content_join
-		.$where
-		.$filter
-		."\n AND c.published != -2"
-		."\n GROUP BY c.id"
-		.$order;
+			."COUNT( DISTINCT s2.checked_out ) AS checked_out"
+			.$content_add
+			."\n FROM #__categories AS c"
+			."\n LEFT JOIN #__users AS u ON u.id = c.checked_out"
+			."\n LEFT JOIN #__groups AS g ON g.id = c.access"
+			."\n LEFT JOIN `#__$table` AS s2 ON s2.catid = c.id AND s2.checked_out > 0"
+			.$content_join
+			.$where
+			.$filter
+			."\n AND c.published != -2"
+			."\n GROUP BY c.id"
+			.$order;
 
 	$database->setQuery($query,$pageNav->limitstart,$pageNav->limit);
 
@@ -222,29 +222,29 @@ function showCategories($section,$option) {
 	}
 
 	$cat_ids = array();
-	foreach ($rows as $row){
+	foreach ($rows as $row) {
 		$cat_ids[]=$row->id;
 		unset($row);
 	}
 
 	$new_rows = array();
-	if(count($cat_ids)>0){
+	if(count($cat_ids)>0) {
 		$query = "SELECT COUNT( a.id ) as count,a.state,a.catid FROM #__content AS a WHERE a.catid IN(".implode(',',$cat_ids).") GROUP BY a.catid";
 		$database->setQuery($query);
 		$cats_info = $database->loadObjectList();
 		// заполняем данные о числе активных и удалённых материалах в категории
-		foreach ($cats_info as $cat_info){
-			if($cat_info->state=='-2'){
+		foreach ($cats_info as $cat_info) {
+			if($cat_info->state=='-2') {
 				$rows[$cat_info->catid]->trash = $cat_info->count;
 				$rows[$cat_info->catid]->active = 0;
-			}else{
+			}else {
 				$rows[$cat_info->catid]->active = $cat_info->count;
 				$rows[$cat_info->catid]->trash = 0;
 			}
 		}
 	}
 
-	foreach($rows as $v){
+	foreach($rows as $v) {
 		$new_rows[] = $v;
 	}
 
@@ -259,11 +259,11 @@ function showCategories($section,$option) {
 }
 
 /**
-* Compiles information to add or edit a category
-* @param string The name of the category section
-* @param integer The unique id of the category to edit (0 if new)
-* @param string The name of the current user
-*/
+ * Compiles information to add or edit a category
+ * @param string The name of the category section
+ * @param integer The unique id of the category to edit (0 if new)
+ * @param string The name of the current user
+ */
 function editCategory($uid = 0,$section = '') {
 	global $database,$my,$mainframe;
 
@@ -410,17 +410,17 @@ function editCategory($uid = 0,$section = '') {
 	if($row->section == 'com_contact_details') {
 		$types[] = mosHTML::makeOption('contact_category_table',_TABLE_CATEGORY_CONTACTS);
 	} else
-		if($row->section == 'com_newsfeeds') {
-			$types[] = mosHTML::makeOption('newsfeed_category_table',_TABLE_NEWSFEEDS_CATEGORY);
-		} else
-			if($row->section == 'com_weblinks') {
-				$types[] = mosHTML::makeOption('weblink_category_table',_TABLE_LINKS_CATEGORY);
-			} else {
-				$types[] = mosHTML::makeOption('content_category',_TABLE_CATEGORY_CONTENT);
-				$types[] = mosHTML::makeOption('content_blog_category',_BLOG_CATEGORY_CONTENT);
-				$types[] = mosHTML::makeOption('content_archive_category',_BLOG_CATEGORY_ARCHIVE);
-			} // if
-			$lists['link_type'] = mosHTML::selectList($types,'link_type','class="inputbox" size="1"','value','text');
+	if($row->section == 'com_newsfeeds') {
+		$types[] = mosHTML::makeOption('newsfeed_category_table',_TABLE_NEWSFEEDS_CATEGORY);
+	} else
+	if($row->section == 'com_weblinks') {
+		$types[] = mosHTML::makeOption('weblink_category_table',_TABLE_LINKS_CATEGORY);
+	} else {
+		$types[] = mosHTML::makeOption('content_category',_TABLE_CATEGORY_CONTENT);
+		$types[] = mosHTML::makeOption('content_blog_category',_BLOG_CATEGORY_CONTENT);
+		$types[] = mosHTML::makeOption('content_archive_category',_BLOG_CATEGORY_ARCHIVE);
+	} // if
+	$lists['link_type'] = mosHTML::selectList($types,'link_type','class="inputbox" size="1"','value','text');
 
 	// build the html select list for ordering
 	$query = "SELECT ordering AS value, title AS text"
@@ -464,9 +464,9 @@ function editCategory($uid = 0,$section = '') {
 }
 
 /**
-* Saves the catefory after an edit form submit
-* @param string The name of the category section
-*/
+ * Saves the catefory after an edit form submit
+ * @param string The name of the category section
+ */
 function saveCategory($task) {
 	global $database;
 	josSpoofCheck();
@@ -492,21 +492,21 @@ function saveCategory($task) {
 		if(strpos($folders,'*2*') !== false) {
 			$folders = '*2*';
 		} else
-			if(strpos($folders,'*1*') !== false) {
-				$folders = '*1*';
-			} else
-				if(strpos($folders,'*0*') !== false) {
-					$folders = '*0*';
-				} else
-					if(strpos($folders,',*#*') !== false) {
-						$folders = str_replace(',*#*','',$folders);
-					} else
-						if(strpos($folders,'*#*,') !== false) {
-							$folders = str_replace('*#*,','',$folders);
-						} else
-							if(strpos($folders,'*#*') !== false) {
-								$folders = str_replace('*#*','',$folders);
-							}
+		if(strpos($folders,'*1*') !== false) {
+			$folders = '*1*';
+		} else
+		if(strpos($folders,'*0*') !== false) {
+			$folders = '*0*';
+		} else
+		if(strpos($folders,',*#*') !== false) {
+			$folders = str_replace(',*#*','',$folders);
+		} else
+		if(strpos($folders,'*#*,') !== false) {
+			$folders = str_replace('*#*,','',$folders);
+		} else
+		if(strpos($folders,'*#*') !== false) {
+			$folders = str_replace('*#*','',$folders);
+		}
 
 		$row->params = 'imagefolders='.$folders;
 	}
@@ -537,7 +537,7 @@ function saveCategory($task) {
 
 	// Update Section Count
 	if($row->section != 'com_contact_details' && $row->section != 'com_newsfeeds' &&
-		$row->section != 'com_weblinks') {
+			$row->section != 'com_weblinks') {
 		$query = "UPDATE #__sections SET count=count+1 WHERE id = ".$database->Quote($row->section);
 		$database->setQuery($query);
 	}
@@ -568,7 +568,7 @@ function saveCategory($task) {
 			mosRedirect('index2.php?option=com_categories&section='.$redirect.'&task=editA&hidemainmenu=1&id='.$row->id,_CATEGORY_CHANGES_SAVED);
 			break;
 
-			/* boston, после сохранения возвращаемся в окно добавления новой категории*/
+		/* boston, после сохранения возвращаемся в окно добавления новой категории*/
 		case 'save_and_new':
 			$msg = $row->title._COM_CATEGORIES_SAVED_2;
 			mosRedirect('index2.php?option=com_categories&task=new',$msg);
@@ -582,10 +582,10 @@ function saveCategory($task) {
 }
 
 /**
-* Deletes one or more categories from the categories table
-* @param string The name of the category section
-* @param array An array of unique category id numbers
-*/
+ * Deletes one or more categories from the categories table
+ * @param string The name of the category section
+ * @param array An array of unique category id numbers
+ */
 function removeCategories($section,$cid) {
 	global $database,$mosConfig_dbprefix;
 	josSpoofCheck();
@@ -597,13 +597,13 @@ function removeCategories($section,$cid) {
 	if(intval($section) > 0) {
 		$table = 'content';
 	} else
-		if(strpos($section,'com_') === 0) {
-			$table = substr($section,4);
-		} else {
-			$table = $section;
-		}
+	if(strpos($section,'com_') === 0) {
+		$table = substr($section,4);
+	} else {
+		$table = $section;
+	}
 
-		$tablesAllowed = $database->getTableList();
+	$tablesAllowed = $database->getTableList();
 	if(!in_array($mosConfig_dbprefix.$table,$tablesAllowed)) {
 		$table = 'content';
 	}
@@ -651,13 +651,13 @@ function removeCategories($section,$cid) {
 }
 
 /**
-* Publishes or Unpublishes one or more categories
-* @param string The name of the category section
-* @param integer A unique category id (passed from an edit form)
-* @param array An array of unique category id numbers
-* @param integer 0 if unpublishing, 1 if publishing
-* @param string The name of the current user
-*/
+ * Publishes or Unpublishes one or more categories
+ * @param string The name of the category section
+ * @param integer A unique category id (passed from an edit form)
+ * @param array An array of unique category id numbers
+ * @param integer 0 if unpublishing, 1 if publishing
+ * @param string The name of the current user
+ */
 function publishCategories($section,$categoryid = null,$cid = null,$publish = 1) {
 	global $database,$my;
 	josSpoofCheck();
@@ -698,10 +698,10 @@ function publishCategories($section,$categoryid = null,$cid = null,$publish = 1)
 }
 
 /**
-* Cancels an edit operation
-* @param string The name of the category section
-* @param integer A unique category id
-*/
+ * Cancels an edit operation
+ * @param string The name of the category section
+ * @param integer A unique category id
+ */
 function cancelCategory() {
 	global $database;
 	josSpoofCheck();
@@ -716,9 +716,9 @@ function cancelCategory() {
 }
 
 /**
-* Moves the order of a record
-* @param integer The increment to reorder by
-*/
+ * Moves the order of a record
+ * @param integer The increment to reorder by
+ */
 function orderCategory($uid,$inc) {
 	global $database;
 	josSpoofCheck();
@@ -734,8 +734,8 @@ function orderCategory($uid,$inc) {
 }
 
 /**
-* Form for moving item(s) to a specific menu
-*/
+ * Form for moving item(s) to a specific menu
+ */
 function moveCategorySelect($option,$cid,$sectionOld) {
 	global $database;
 
@@ -774,8 +774,8 @@ function moveCategorySelect($option,$cid,$sectionOld) {
 
 
 /**
-* Save the item(s) to the menu selected
-*/
+ * Save the item(s) to the menu selected
+ */
 function moveCategorySave($cid,$sectionOld) {
 	global $database;
 	josSpoofCheck();
@@ -819,8 +819,8 @@ function moveCategorySave($cid,$sectionOld) {
 }
 
 /**
-* Form for copying item(s) to a specific menu
-*/
+ * Form for copying item(s) to a specific menu
+ */
 function copyCategorySelect($option,$cid,$sectionOld) {
 	global $database;
 
@@ -859,8 +859,8 @@ function copyCategorySelect($option,$cid,$sectionOld) {
 
 
 /**
-* Save the item(s) to the menu selected
-*/
+ * Save the item(s) to the menu selected
+ */
 function copyCategorySave($cid,$sectionOld) {
 	global $database;
 	josSpoofCheck();
@@ -881,13 +881,13 @@ function copyCategorySave($cid,$sectionOld) {
 		$category->section = $sectionMove;
 		if(!$category->check()) {
 			echo "<script> alert('".$category->getError().
-				"'); window.history.go(-1); </script>\n";
+					"'); window.history.go(-1); </script>\n";
 			exit();
 		}
 
 		if(!$category->store()) {
 			echo "<script> alert('".$category->getError().
-				"'); window.history.go(-1); </script>\n";
+					"'); window.history.go(-1); </script>\n";
 			exit();
 		}
 		$category->checkin();
@@ -933,9 +933,9 @@ function copyCategorySave($cid,$sectionOld) {
 }
 
 /**
-* changes the access level of a record
-* @param integer The increment to reorder by
-*/
+ * changes the access level of a record
+ * @param integer The increment to reorder by
+ */
 function accessMenu($uid,$access,$section) {
 	global $database;
 
@@ -977,7 +977,7 @@ function menuLink($id) {
 	switch($type) {
 		case 'content_category':
 			$link = 'index.php?option=com_content&task=category&sectionid='.$sectionid.
-				'&id='.$id;
+					'&id='.$id;
 			$menutype = _TABLE_CATEGORY_CONTENT;
 			break;
 
@@ -1056,7 +1056,7 @@ function saveOrder(&$cid,$section) {
 			$row->ordering = $order[$i];
 			if(!$row->store()) {
 				echo "<script> alert('".$database->getErrorMsg().
-					"'); window.history.go(-1); </script>\n";
+						"'); window.history.go(-1); </script>\n";
 				exit();
 			} // if
 			// remember to updateOrder this group
@@ -1097,7 +1097,7 @@ function recursive_listdir($base) {
 		$dh = opendir($base);
 		while(false !== ($dir = readdir($dh))) {
 			if($dir !== '.' && $dir !== '..' && is_dir($base.'/'.$dir) && strtolower($dir)
-				!== 'cvs' && strtolower($dir) !== '.svn') {
+					!== 'cvs' && strtolower($dir) !== '.svn') {
 				$subbase = $base.'/'.$dir;
 				$dirlist[] = $subbase;
 				$subdirlist = recursive_listdir($subbase);
@@ -1107,4 +1107,3 @@ function recursive_listdir($base) {
 	}
 	return $dirlist;
 }
-?>

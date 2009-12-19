@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 //error_reporting(E_ALL);
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -15,32 +15,32 @@ require_once ($mainframe->getPath('installer_class','installer'));
 
 // map the element to the required derived class
 $classMap = array(
-	'component' => 'mosInstallerComponent'
-	,'language' => 'mosInstallerLanguage'
-	,'mambot' =>   'mosInstallerMambot'
-	,'module' =>   'mosInstallerModule'
-	,'template' => 'mosInstallerTemplate'
+		'component' => 'mosInstallerComponent'
+		,'language' => 'mosInstallerLanguage'
+		,'mambot' =>   'mosInstallerMambot'
+		,'module' =>   'mosInstallerModule'
+		,'template' => 'mosInstallerTemplate'
 );
 
 $generalInstaller = new mosGeneralInstaller();
 js_menu_cache_clear();
 
 switch($task) {
-		case 'installfromurl':
-			$generalInstaller->getPackageFromUrl($url, $client);
-			break;
+	case 'installfromurl':
+		$generalInstaller->getPackageFromUrl($url, $client);
+		break;
 
-		case 'uploadfile':
-			$generalInstaller->uploadPackage($option,$element,$client);
-			break;
+	case 'uploadfile':
+		$generalInstaller->uploadPackage($option,$element,$client);
+		break;
 
-		case 'installfromdir':
-			$generalInstaller->installFromDirectory($option,$element,$client);
-			break;
+	case 'installfromdir':
+		$generalInstaller->installFromDirectory($option,$element,$client);
+		break;
 
-		default:
-			$generalInstaller->showInstallForm();
-			break;
+	default:
+		$generalInstaller->showInstallForm();
+		break;
 }
 
 js_menu_cache_clear();
@@ -75,54 +75,54 @@ class mosGeneralInstaller {
 		return false;
 	}
 	/**
-	* @param string The class name for the installer
-	* @param string The URL option
-	* @param string The element name
-	*/
+	 * @param string The class name for the installer
+	 * @param string The URL option
+	 * @param string The element name
+	 */
 	function getPackageFromUrl($url, $client) {
 		global $classMap;
 		$pre_installer = new mosInstaller();
 		josSpoofCheck();
-				
+
 		// Check if url is available for fopen
 		if(!(bool)ini_get('allow_url_fopen')) {
 			HTML_installer::showInstallMessage(_CANNOT_INSTALL_DISABLED_UPLOAD,_INSTALL_ERROR,$pre_installer->returnTo($option,$element,$client));
 			return false;
 		}
-				
+
 		$p_file = $pre_installer->downloadPackage($url);
-		
+
 		// Was the package downloaded?
 		if (!$p_file) {
 			HTML_installer::showInstallMessage($pre_installer->getError(),_UPLOADING_ERROR.' '.$element,$pre_installer->returnTo('com_installer','installer',$client));
 			return false;
 		}
-		
-		if (!$pre_installer->upload($p_file)) {
-				HTML_installer::showInstallMessage($pre_installer->getError(),_UPLOADING_ERROR.' '.$element,$pre_installer->returnTo($option,$element,$client));
-			}
-			$installType = $pre_installer->getInstallType();
-			if ($installType != "" && array_key_exists($installType,$classMap)) {
-				
-				require ( JPATH_BASE_ADMIN."/components/com_installer/$installType/$installType.class.php");
-				
-				$installer = new $classMap[$installType]($pre_installer);
-				
-				$ret = $installer->install();
 
-				HTML_installer::showInstallMessage($installer->getError(),$element.' - '.($ret? _SUCCESS :_UNSUCCESS),$installer->returnTo($option,$element,$client));
-				cleanupInstall($p_file,$installer->unpackDir());
-			} else {
-				HTML_installer::showInstallMessage($msg,$element.' - '._UPLOADING_ERROR,$pre_installer->returnTo($option,$element,$client));
-			}
+		if (!$pre_installer->upload($p_file)) {
+			HTML_installer::showInstallMessage($pre_installer->getError(),_UPLOADING_ERROR.' '.$element,$pre_installer->returnTo($option,$element,$client));
+		}
+		$installType = $pre_installer->getInstallType();
+		if ($installType != "" && array_key_exists($installType,$classMap)) {
+
+			require ( JPATH_BASE_ADMIN."/components/com_installer/$installType/$installType.class.php");
+
+			$installer = new $classMap[$installType]($pre_installer);
+
+			$ret = $installer->install();
+
+			HTML_installer::showInstallMessage($installer->getError(),$element.' - '.($ret? _SUCCESS :_UNSUCCESS),$installer->returnTo($option,$element,$client));
+			cleanupInstall($p_file,$installer->unpackDir());
+		} else {
+			HTML_installer::showInstallMessage($msg,$element.' - '._UPLOADING_ERROR,$pre_installer->returnTo($option,$element,$client));
+		}
 	}
 	function uploadPackage($option,$element,$client) {
 		global $classMap;
 		$config = &Jconfig::getInstance();
-		
+
 		$pre_installer = new mosInstaller();
 		josSpoofCheck();
-		
+
 		// Check if file uploads are enabled
 		if(!(bool)ini_get('file_uploads')) {
 			HTML_installer::showInstallMessage(_CANNOT_INSTALL_DISABLED_UPLOAD,_INSTALL_ERROR,$pre_installer->returnTo($option,$element,$client));
@@ -145,7 +145,7 @@ class mosGeneralInstaller {
 
 		$msg = '';
 		$resultdir = $this->uploadFile($userfile['tmp_name'],$userfile['name'],$msg);
-		
+
 		if($resultdir !== false) {
 			if (!$pre_installer->upload($userfile['name'])) {
 				HTML_installer::showInstallMessage($pre_installer->getError(),_UPLOADING_ERROR.' '.$element,$pre_installer->returnTo($option,$element,$client));
@@ -164,16 +164,16 @@ class mosGeneralInstaller {
 			} else {
 				HTML_installer::showInstallMessage($msg,$element.' - '._UPLOADING_ERROR,$pre_installer->returnTo($option,$element,$client));
 			}
-			
+
 		} else {
 			HTML_installer::showInstallMessage(_UPLOADING_ERROR,$element.' - '._UPLOADING_ERROR,'/');
 		}
 	}
 
 	/**
-	* Install a template from a directory
-	* @param string The URL option
-	*/
+	 * Install a template from a directory
+	 * @param string The URL option
+	 */
 	function installFromDirectory($option,$element,$client) {
 		global $classMap;
 		$config = &Jconfig::getInstance();
@@ -181,20 +181,20 @@ class mosGeneralInstaller {
 		$pre_installer = new mosInstaller();
 		$userfile = mosGetParam($_REQUEST,'userfile','');
 		josSpoofCheck();
-		
+
 		if(!$userfile) {
 			mosRedirect("index2.php?option=com_installer&element=installer",_CHOOSE_DIRECTORY_PLEASE);
 		}
-		
+
 		$path = mosPathName($userfile);
-		
+
 		if(!is_dir($path)) {
 			mosRedirect("index2.php?option=com_installer&element=installer",_CHOOSE_DIRECTORY_NOT_ARCHIVE);
 		}
 
 		$pre_installer->preInstallSetting($path);
 
-		$installType = $pre_installer->getInstallType();		
+		$installType = $pre_installer->getInstallType();
 		if ($installType != "" && array_key_exists($installType,$classMap)) {
 			require (JPATH_BASE_ADMIN."/components/com_installer/$installType/$installType.class.php");
 			$installer = new $classMap[$installType]($pre_installer);

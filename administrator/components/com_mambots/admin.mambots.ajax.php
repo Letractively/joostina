@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -37,8 +37,8 @@ switch($task) {
 
 
 /**
-* Saves the module after an edit form submit
-*/
+ * Saves the module after an edit form submit
+ */
 function x_apply() {
 	global $database;
 	josSpoofCheck();
@@ -48,7 +48,7 @@ function x_apply() {
 	foreach($_POST as $key => $val) {
 		$_POST[$key] = joostina_api::convert($val);
 	}
-	
+
 	if(is_array($params)) {
 		$txt = array();
 		foreach($params as $k => $v) {
@@ -76,7 +76,7 @@ function x_apply() {
 }
 
 
-function x_access($id){
+function x_access($id) {
 	global $database;
 	$access = mosGetParam($_GET,'chaccess','accessregistered');
 	$option = strval(mosGetParam($_REQUEST,'option',''));
@@ -142,4 +142,3 @@ function x_publish($id = null) {
 		return $ret_img;
 	}
 }
-?>

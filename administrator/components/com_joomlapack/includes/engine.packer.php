@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -14,52 +14,52 @@ define('PCLZIP_TEMPORARY_DIR',$JPConfiguration->OutputDirectory.'/');
 
 class CPackerEngine {
 	/**
-	* Have we finished processing our task?
-	* @access private
-	* @var boolean
-	*/
+	 * Have we finished processing our task?
+	 * @access private
+	 * @var boolean
+	 */
 	var $_isFinished;
 
 	/**
-	* Full pathname to the archive file
-	* @access private
-	* @var string
-	*/
+	 * Full pathname to the archive file
+	 * @access private
+	 * @var string
+	 */
 	var $_archiveFile;
 
 	/**
-	* Maximum fragment number
-	* @access private
-	* @var long
-	*/
+	 * Maximum fragment number
+	 * @access private
+	 * @var long
+	 */
 	var $_maxFragment;
 
 	/**
-	* Current fragment number
-	* @access private
-	* @var long
-	*/
+	 * Current fragment number
+	 * @access private
+	 * @var long
+	 */
 	var $_currentFragment;
 
 	/**
-	* Active file list descriptor
-	* @access private
-	* @var array
-	*/
+	 * Active file list descriptor
+	 * @access private
+	 * @var array
+	 */
 	var $_fileListDescriptor;
 
 	/**
-	* Total size of file lists
-	* @access private
-	* @var long
-	*/
+	 * Total size of file lists
+	 * @access private
+	 * @var long
+	 */
 	var $_totalBytes;
 
 	/**
-	* Total size processed so far
-	* @access private
-	* @var long
-	*/
+	 * Total size processed so far
+	 * @access private
+	 * @var long
+	 */
 	var $_currentBytes;
 
 	function CPackerEngine() {
@@ -91,8 +91,8 @@ class CPackerEngine {
 	}
 
 	/**
-	* Try to execute the business logic of this step
-	*/
+	 * Try to execute the business logic of this step
+	 */
 	function tick() {
 		global $JPConfiguration;
 
@@ -140,8 +140,8 @@ class CPackerEngine {
 	}
 
 	/**
-	* Loads a fragment's filelist
-	*/
+	 * Loads a fragment's filelist
+	 */
 	function _importFragment($fragmentID) {
 		global $database;
 		$sql = 'SELECT `value2` FROM #__jp_packvars WHERE `key` = \'fragment'.$fragmentID.'\'';
@@ -155,8 +155,8 @@ class CPackerEngine {
 	}
 
 	/**
-	* Returns the path to trim and the path to add to the fragment's files
-	*/
+	 * Returns the path to trim and the path to add to the fragment's files
+	 */
 	function _getPaths($fragmentType) {
 		global $JPConfiguration;
 
@@ -175,8 +175,8 @@ class CPackerEngine {
 				$retArray['remove'] = $JPConfiguration->TranslateWinPath($JPConfiguration->TempDirectory);
 				$retArray['add'] = 'installation/sql';
 				break;
-				// case "external":
-				// TODO - Handle forcibly included directories (later versions will do that...)
+			// case "external":
+			// TODO - Handle forcibly included directories (later versions will do that...)
 		} // switch
 
 		CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_CURRENT_FRAGMENT.' '.$fragmentType);
@@ -186,8 +186,8 @@ class CPackerEngine {
 	}
 
 	/**
-	* Performs the actual archiving of the current file list
-	*/
+	 * Performs the actual archiving of the current file list
+	 */
 	function _archiveFileList() {
 		global $JPConfiguration,$database;
 
@@ -239,12 +239,12 @@ class CPackerEngine {
 	}
 
 	/**
-	* Transforms a naming template to the final name of the archive by parsing template
-	* tags within the name.
-	* @param string $templateName The naming template
-	* @param boolean $boolCompress "tgz" if the archive should be compressed (and thus have .tar.gz extension),
-	* "tar" for not (and thus have a .tar extension) or "zip" for a .zip file.
-	*/
+	 * Transforms a naming template to the final name of the archive by parsing template
+	 * tags within the name.
+	 * @param string $templateName The naming template
+	 * @param boolean $boolCompress "tgz" if the archive should be compressed (and thus have .tar.gz extension),
+	 * "tar" for not (and thus have a .tar extension) or "zip" for a .zip file.
+	 */
 	function _expandTarName($templateName) {
 		global $JPConfiguration;
 		// Get the proper extension
@@ -270,6 +270,4 @@ class CPackerEngine {
 
 		return $templateName.$extension;
 	}
-
 }
-?>

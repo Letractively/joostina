@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 define("_VALID_MOS", 1);
 
@@ -13,7 +13,7 @@ define("_VALID_MOS", 1);
 require ('../../includes/auth.php');
 if(file_exists(JPATH_BASE . '/language/'.$mosConfig_lang.'/administrator/com_banners.php')) {
 	$artbannerslanguage = $mosConfig_lang;
-}else{
+}else {
 	$artbannerslanguage = 'russian';
 }
 include_once (JPATH_BASE.'/language/'.$mosConfig_lang.'/system.php'); 
@@ -64,10 +64,10 @@ if(isset($_FILES['userfile'])) {
 
 	if(!move_uploaded_file($_FILES['userfile']['tmp_name'], $base_Dir . $_FILES['userfile']['name']) || !mosChmod($base_Dir . $_FILES['userfile']['name'])) {
 		mosErrorAlert(str_replace("#FILENAME#",$userfile_name,_BANNER_UPLOAD_ERROR));
-		
+
 	} else {
 		mosErrorAlert(str_replace(array("#FILENAME#","#DIRNAME#"),array($userfile_name,$base_Dir),_BANNER_UPLOAD_SUCCESS), "window.close()");
-		
+
 	}
 
 	echo $base_Dir . $_FILES['userfile']['name'];
@@ -79,29 +79,29 @@ echo '<?xml version="1.0" encoding="' . $iso[1] . '"?' . '>';
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<title><?php echo _UPLOAD_BANNER_FILE ?></title>
-</head>
-<body>
-<link rel="stylesheet" href="../../templates/joostfree/css/template_css.css" type="text/css" />
-<form method="post" action="uploadbanners.php" enctype="multipart/form-data" name="filename">
-	<table class="adminform">
-	<tr>
-		<th class="title" colspan="2"><?php echo _UPLOAD_BANNER_FILE?></th>
-	</tr>
-	<tr>
-		<td align="center">
-			<input class="inputbox" name="userfile" type="file" />
-		</td>
-		<td>
-			<input class="button" type="submit" value="<?php echo _TASK_UPLOAD?>" name="fileupload" />
-		</td>
-	</tr>
-	<tr>
-		<td colspan="2"><?php echo _MAX_SIZE?> = <?php echo ini_get('post_max_size'); ?></td>
-	</tr>
-	</table>
-<input type="hidden" name="directory" value="show" />
-</form>
-</body>
+	<head>
+		<title><?php echo _UPLOAD_BANNER_FILE ?></title>
+	</head>
+	<body>
+		<link rel="stylesheet" href="../../templates/joostfree/css/template_css.css" type="text/css" />
+		<form method="post" action="uploadbanners.php" enctype="multipart/form-data" name="filename">
+			<table class="adminform">
+				<tr>
+					<th class="title" colspan="2"><?php echo _UPLOAD_BANNER_FILE?></th>
+				</tr>
+				<tr>
+					<td align="center">
+						<input class="inputbox" name="userfile" type="file" />
+					</td>
+					<td>
+						<input class="button" type="submit" value="<?php echo _TASK_UPLOAD?>" name="fileupload" />
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2"><?php echo _MAX_SIZE?> = <?php echo ini_get('post_max_size'); ?></td>
+				</tr>
+			</table>
+			<input type="hidden" name="directory" value="show" />
+		</form>
+	</body>
 </html>

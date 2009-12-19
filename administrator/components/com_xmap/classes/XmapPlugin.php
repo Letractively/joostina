@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -57,19 +57,19 @@ class XmapPlugin extends mosDBTable {
 		$xmlDoc->resolveErrors( true );
 
 		$params=null;
-                if ($xmlDoc->loadXML( $path, false, true )) {
-                        $root =& $xmlDoc->documentElement;
+		if ($xmlDoc->loadXML( $path, false, true )) {
+			$root =& $xmlDoc->documentElement;
 
-                        $tagName = $root->getTagName();
-                        $isParamsFile = ($tagName == 'mosinstall' || $tagName == 'mosparams');
-                        if ($isParamsFile && $root->getAttribute( 'type' ) == 'xmap_ext') {
-                                $params = &$root->getElementsByPath( 'params', 1 );
-                        }
-                }
+			$tagName = $root->getTagName();
+			$isParamsFile = ($tagName == 'mosinstall' || $tagName == 'mosparams');
+			if ($isParamsFile && $root->getAttribute( 'type' ) == 'xmap_ext') {
+				$params = &$root->getElementsByPath( 'params', 1 );
+			}
+		}
 
 		$result = ($asText)? '' : array();
 
-                if (is_object( $params )) {
+		if (is_object( $params )) {
 			foreach ($params->childNodes as $param) {
 				$name = $param->getAttribute( 'name' );
 				$label = $param->getAttribute( 'label' );
@@ -88,17 +88,17 @@ class XmapPlugin extends mosDBTable {
 		return $result;
 	}
 
-        /** convert a menuitem's params field to an array */
+	/** convert a menuitem's params field to an array */
 	function paramsToArray( &$menuparams ) {
 		$tmp = explode("\n", $menuparams);
-		$res = array(); 
+		$res = array();
 		foreach($tmp AS $a) {
 			@list($key, $val) = explode('=', $a, 2);
 			$res[$key] = str_replace('\n',"\n",$val);
 		}
 		$res['__TXT__'] = $menuparams;
 		return $res;
-        }
+	}
 
 	function setParams($params,$itemid) {
 		$this->_params[$itemid] = $params;
@@ -129,5 +129,4 @@ class XmapPlugin extends mosDBTable {
 			mosDBTable::store();
 		}
 	}
-
 }

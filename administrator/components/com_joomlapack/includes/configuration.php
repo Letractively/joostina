@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -13,82 +13,82 @@ defined('_VALID_MOS') or die();
 global $option;
 
 /**
-* CConfiguration is responsible for loading and saving configuration options
-*
-* Configuration is rather sparse at the moment, but this will change with next versions. All
-* configuration values are saved to and retrieved from a PHP file, in the fashion Joomla does.
-*
-* @package    JoomlaPacker
-* @author     Nicholas K. Dionysopoulos nikosdion@gmail.com
-* @copyright  2006 Nicholas K. Dionysopoulos
-* @license    http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL
-* @version    1.0
-* @since      File available since Release 1.0
-*/
+ * CConfiguration is responsible for loading and saving configuration options
+ *
+ * Configuration is rather sparse at the moment, but this will change with next versions. All
+ * configuration values are saved to and retrieved from a PHP file, in the fashion Joomla does.
+ *
+ * @package    JoomlaPacker
+ * @author     Nicholas K. Dionysopoulos nikosdion@gmail.com
+ * @copyright  2006 Nicholas K. Dionysopoulos
+ * @license    http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL
+ * @version    1.0
+ * @since      File available since Release 1.0
+ */
 class CConfiguration {
 	/**
-	* The directory used to output packed files. It is suggested to be outside the
-	* web root for security reasons.
-	* @var string
-	*/
+	 * The directory used to output packed files. It is suggested to be outside the
+	 * web root for security reasons.
+	 * @var string
+	 */
 	var $OutputDirectory;
 	/**
-	* The directory used to output temporary files. It is suggested to be outside the
-	* web root for security reasons.
-	* @var string
-	*/
+	 * The directory used to output temporary files. It is suggested to be outside the
+	 * web root for security reasons.
+	 * @var string
+	 */
 	var $TempDirectory;
 	/**
-	* MySQL Export compatibility options
-	* @var string
-	*/
+	 * MySQL Export compatibility options
+	 * @var string
+	 */
 	var $MySQLCompat;
 	/**
-	* The absolute path to the directory Joomla! Pack is installed
-	* @var string
-	*/
+	 * The absolute path to the directory Joomla! Pack is installed
+	 * @var string
+	 */
 	var $_InstallationRoot;
 	/**
-	* The template name for the archive file; three tags are recognized: [DATE], [TIME], [HOST]
-	* @access public
-	* @var string
-	*/
+	 * The template name for the archive file; three tags are recognized: [DATE], [TIME], [HOST]
+	 * @access public
+	 * @var string
+	 */
 	var $TarNameTemplate;
 	/**
-	* Should we use compression or not?
-	* @access public
-	* @var boolean
-	*/
+	 * Should we use compression or not?
+	 * @access public
+	 * @var boolean
+	 */
 	var $boolCompress;
 	/**
-	* Algorithm for filelist creation
-	* @access public
-	* @var string
-	*/
+	 * Algorithm for filelist creation
+	 * @access public
+	 * @var string
+	 */
 	var $fileListAlgorithm;
 	/**
-	* Algorithm for db backup
-	* @access public
-	* @var string
-	*/
+	 * Algorithm for db backup
+	 * @access public
+	 * @var string
+	 */
 	var $dbAlgorithm;
 	/**
-	* Algorithm for file packing
-	* @access public
-	* @var string
-	*/
+	 * Algorithm for file packing
+	 * @access public
+	 * @var string
+	 */
 	var $packAlgorithm;
 	/**
-	* The absolute path to the configuration.php file
-	* @access private
-	* @var string
-	*/
+	 * The absolute path to the configuration.php file
+	 * @access private
+	 * @var string
+	 */
 	var $_configurationFile;
 	/**
-	* The level over which to log events in the log file
-	* @access private
-	* @var integer
-	*/
+	 * The level over which to log events in the log file
+	 * @access private
+	 * @var integer
+	 */
 	var $logLevel;
 	/**
 	 * Режим архивирования базы данных
@@ -101,11 +101,11 @@ class CConfiguration {
 	 * использование преффикса при дампе таблиц
 	 **/
 	var $sql_pref = 1;
-	 
+
 	/**
-	* Initializer. Loads a set of default values that are good enough - but not secure enough -
-	* for most users.
-	*/
+	 * Initializer. Loads a set of default values that are good enough - but not secure enough -
+	 * for most users.
+	 */
 	function CConfiguration() {
 		global $option;
 
@@ -131,9 +131,9 @@ class CConfiguration {
 	}
 
 	/**
-	* получение конфигурации
-	* @return boolean
-	*/
+	 * получение конфигурации
+	 * @return boolean
+	 */
 	function LoadConfiguration() {
 		$fp = @fopen($this->_configurationFile,"r");
 		if($fp === false) {
@@ -156,9 +156,9 @@ class CConfiguration {
 	}
 
 	/**
-	* Saves configuration to disk
-	* @return boolean
-	*/
+	 * Saves configuration to disk
+	 * @return boolean
+	 */
 	function SaveConfiguration() {
 		if(!$this->isConfigurationWriteable()) {
 			return false;
@@ -187,17 +187,17 @@ class CConfiguration {
 	}
 
 	/**
-	* Returns true if configuration.php is present
-	* @return boolean
-	*/
+	 * Returns true if configuration.php is present
+	 * @return boolean
+	 */
 	function hasConfiguration() {
 		return file_exists($this->_configurationFile);
 	}
 
 	/**
-	* Returns true if configuration.php is present
-	* @return boolean
-	*/
+	 * Returns true if configuration.php is present
+	 * @return boolean
+	 */
 	function isConfigurationWriteable() {
 		if($this->hasConfiguration()) {
 			return is_writable($this->_configurationFile);
@@ -207,26 +207,26 @@ class CConfiguration {
 	}
 
 	/**
-	* Returns true if the output target directory is writeable by the PHP script
-	* @return boolean
-	*/
+	 * Returns true if the output target directory is writeable by the PHP script
+	 * @return boolean
+	 */
 	function isOutputWriteable() {
 		return is_writable($this->OutputDirectory);
 	}
 
 	/**
-	* Returns true if the temporary files directory is writeable by the PHP script
-	* @return boolean
-	*/
+	 * Returns true if the temporary files directory is writeable by the PHP script
+	 * @return boolean
+	 */
 	function isTempWriteable() {
 		return is_writable($this->TempDirectory);
 	}
 
 	/**
-	* Writes a debug variable to the database (#__jp_packvars)
-	* @param string The name of the variable to write / update
-	* @param mixed The value of the variable to write / update
-	*/
+	 * Writes a debug variable to the database (#__jp_packvars)
+	 * @param string The name of the variable to write / update
+	 * @param mixed The value of the variable to write / update
+	 */
 	function WriteDebugVar($varName,&$value,$boolLongText = false) {
 		global $database;
 
@@ -249,8 +249,8 @@ class CConfiguration {
 	}
 
 	/**
-	* Reads a debug variable out of #__jp_packvars
-	*/
+	 * Reads a debug variable out of #__jp_packvars
+	 */
 	function ReadDebugVar($key,$boolLongText = false) {
 		global $database;
 
@@ -267,8 +267,8 @@ class CConfiguration {
 	}
 
 	/**
-	* Deletes a debug variable from #__jp_packvars
-	*/
+	 * Deletes a debug variable from #__jp_packvars
+	 */
 	function DeleteDebugVar($key) {
 		global $database;
 
@@ -300,8 +300,8 @@ define('_JP_LOG_DEBUG',4);
 
 class CJPLogger {
 	/**
-	* Clears the logfile
-	*/
+	 * Clears the logfile
+	 */
 	function ResetLog() {
 		$logName = CJPLogger::logName();
 		@unlink($logName);
@@ -309,11 +309,11 @@ class CJPLogger {
 	}
 
 	/**
-	* Writes a line to the log, if the log level is high enough
-	*
-	* @param integer $level The log level (_JP_LOG_XXXXX constants)
-	* @param string $message The message to write to the log
-	*/
+	 * Writes a line to the log, if the log level is high enough
+	 *
+	 * @param integer $level The log level (_JP_LOG_XXXXX constants)
+	 * @param string $message The message to write to the log
+	 */
 	function WriteLog($level,$message) {
 		global $JPConfiguration;
 
@@ -344,8 +344,8 @@ class CJPLogger {
 	}
 
 	/**
-	* Parses the log file and outputs formatted HTML to the standard output
-	*/
+	 * Parses the log file and outputs formatted HTML to the standard output
+	 */
 	function VisualizeLogDirect() {
 		$logName = CJPLogger::logName();
 		if(!file_exists($logName)) return false; //joostina pach
@@ -385,8 +385,8 @@ class CJPLogger {
 	}
 
 	/**
-	* Calculates the absolute path to the log file
-	*/
+	 * Calculates the absolute path to the log file
+	 */
 	function logName() {
 		global $JPConfiguration;
 		return $JPConfiguration->TranslateWinPath($JPConfiguration->OutputDirectory.'/joomlapack.log');
@@ -396,34 +396,34 @@ class CJPLogger {
 
 class CAltInstaller {
 	/**
-	@var string Short name of the installer*/
+	 @var string Short name of the installer*/
 	var $Name;
 
 	/**
-	@var string Package file, wihout path*/
+	 @var string Package file, wihout path*/
 	var $Package;
 
 	/**
-	@var string List of installer files*/
+	 @var string List of installer files*/
 	var $fileList;
 
 	/**
-	@var string Dump mode for the SQL data (split, one)*/
+	 @var string Dump mode for the SQL data (split, one)*/
 	var $SQLDumpMode;
 
 	/**
-	@var string Filename of the unified or table definition dump, relative to installer root*/
+	 @var string Filename of the unified or table definition dump, relative to installer root*/
 	var $BaseDump;
 
 	/**
-	@var string Filename of the data dump, relative to installer root*/
+	 @var string Filename of the data dump, relative to installer root*/
 	var $SampleDump;
 
 	/**
-	* Loads a definition file.
-	* @param string The name of the file you want to load. Relative to 'installers' directory.
-	* @return boolean True if loaded successful the file
-	*/
+	 * Loads a definition file.
+	 * @param string The name of the file you want to load. Relative to 'installers' directory.
+	 * @return boolean True if loaded successful the file
+	 */
 	function loadDefinition($file) {
 		global $option;
 		require_once (JPATH_BASE.'/includes/domit/xml_domit_lite_include.php');
@@ -482,9 +482,9 @@ class CAltInstaller {
 	}
 
 	/**
-	* Loads all installer definition files
-	* @return array An array of the installer names and packages
-	*/
+	 * Loads all installer definition files
+	 * @return array An array of the installer names and packages
+	 */
 	function loadAllDefinitions() {
 		global $option;
 		require_once 'engine.abstraction.php';

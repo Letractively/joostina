@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -13,59 +13,59 @@ defined('_VALID_MOS') or die();
 // Global variables
 class CFilelistEngine {
 	/**
-	* Directories to exclude
-	* @access private
-	* @var array
-	*/
+	 * Directories to exclude
+	 * @access private
+	 * @var array
+	 */
 	var $_ExcludeDirs;
 
 	/**
-	* Have we finished processing our task?
-	* @access private
-	* @var boolean
-	*/
+	 * Have we finished processing our task?
+	 * @access private
+	 * @var boolean
+	 */
 	var $_isFinished;
 
 	/**
-	* The next directory to scan
-	* @access private
-	* @var string
-	*/
+	 * The next directory to scan
+	 * @access private
+	 * @var string
+	 */
 	var $_nextDirectory;
 
 	/**
-	* The number of the current node (fragment)
-	* @access private
-	* @var long
-	*/
+	 * The number of the current node (fragment)
+	 * @access private
+	 * @var long
+	 */
 	var $_currentNode;
 
 	/**
-	* The size of the current node (fragment) in bytes
-	* @access private
-	* @var long
-	*/
+	 * The size of the current node (fragment) in bytes
+	 * @access private
+	 * @var long
+	 */
 	var $_currentNodeSize;
 
 	/**
-	* The list of branch nodes (directories not yet scanned for files)
-	* @access private
-	* @var array
-	*/
+	 * The list of branch nodes (directories not yet scanned for files)
+	 * @access private
+	 * @var array
+	 */
 	var $_branchNodes;
 
 	/**
-	* Holds the list of files of the current fragment
-	* @access private
-	* @var array
-	*/
+	 * Holds the list of files of the current fragment
+	 * @access private
+	 * @var array
+	 */
 	var $_currentList;
 
 	/**
-	* Public constructor CFileListEngine
-	* When the object is generated, it takes care of removing old entries and
-	* initializing this task's algorithm
-	*/
+	 * Public constructor CFileListEngine
+	 * When the object is generated, it takes care of removing old entries and
+	 * initializing this task's algorithm
+	 */
 	function CFilelistEngine() {
 		global $database;
 
@@ -90,8 +90,8 @@ class CFilelistEngine {
 	}
 
 	/**
-	* Scans the next directory if we have not finished
-	*/
+	 * Scans the next directory if we have not finished
+	 */
 	function tick() {
 		if($this->_isFinished) {
 			CJPLogger::WriteLog(_JP_LOG_DEBUG,"CFilelistEngine :: Already finished");
@@ -153,7 +153,7 @@ class CFilelistEngine {
 			foreach($fileList as $fileDescriptor) {
 				switch($fileDescriptor['type']) {
 					case "dir":
-						// A new directory found. Mark it for recursion
+					// A new directory found. Mark it for recursion
 						if(!((substr($fileDescriptor['name'],-1,1) == ".") || (substr($fileDescriptor['name'],-1,2) == ".."))) {
 							$this->_branchNodes[] = $fileDescriptor['name'];
 							$processedFiles++;
@@ -161,7 +161,7 @@ class CFilelistEngine {
 						}
 						break;
 					case "file":
-						// Just a file... process it.
+					// Just a file... process it.
 						$processedFiles++;
 						$filesize = $fileDescriptor['size'];
 						if(($this->_currentNodeSize + $filesize <= 1048576) && (count($this->_currentList) < 5)) {
@@ -179,7 +179,7 @@ class CFilelistEngine {
 						$this->_currentList[] = $fileDescriptor['name'];
 						//CJPLogger::WriteLog(_JP_LOG_DEBUG, "Added file " . $fileDescriptor['name'] . "(" . $fileDescriptor['size'] . " bytes )");
 						break;
-						// All other types (links, character devices etc) are ignored.
+					// All other types (links, character devices etc) are ignored.
 				}
 			}
 			// Check for empty directories and add them to the list
@@ -220,9 +220,9 @@ class CFilelistEngine {
 	}
 
 	/**
-	* Returns the array of the exclusion filters
-	* TODO: Probably I should pass a reference to the CDirExclusion object instead of this
-	*/
+	 * Returns the array of the exclusion filters
+	 * TODO: Probably I should pass a reference to the CDirExclusion object instead of this
+	 */
 	function _createExcludeDirs() {
 		global $option;
 		require_once (JPATH_BASE_ADMIN.'/components/com_joomlapack/includes/engine.exdirs.php');
@@ -232,5 +232,4 @@ class CFilelistEngine {
 		CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_GETTING_DIRS_LIST);
 		unset($def);
 	}
-
 }

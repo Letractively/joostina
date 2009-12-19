@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -66,7 +66,7 @@ function x_apply() {
 	$row = new mosModule($database);
 
 	$_POST['title'] = joostina_api::convert($_POST['title']);
-	if (isset($_POST['content'])){
+	if (isset($_POST['content'])) {
 		$_POST['content'] = joostina_api::convert(strval($_POST['content']));
 	}
 
@@ -115,7 +115,7 @@ function x_apply() {
 }
 
 
-function x_access($id){
+function x_access($id) {
 	$database = &database::getInstance();
 
 	$access = mosGetParam($_GET,'chaccess','accessregistered');
@@ -187,7 +187,7 @@ function x_publish($id = null) {
 	}
 }
 // получение списка позиций модулей
-function x_get_position($id){
+function x_get_position($id) {
 	$database = &database::getInstance();
 
 	$row = new mosModule($database);
@@ -208,7 +208,7 @@ function x_get_position($id){
 	}
 	return mosHTML::selectList($pos,'position','class="inputbox" size="1" onchange="ch_sav_pos('.$id.',this.value)"','value','text',$active);
 }
-function x_save_position($id){
+function x_save_position($id) {
 	global $my;
 	$database = &database::getInstance();
 
@@ -222,4 +222,3 @@ function x_save_position($id){
 		return 2; // во время сохранения новой позиции произошла ошибка
 	}
 }
-?>

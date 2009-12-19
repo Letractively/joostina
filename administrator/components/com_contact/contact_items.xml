@@ -104,7 +104,7 @@
 		<param name="icon_telephone" type="imagelist" directory="/images/M_images" hide_none="1" default="" label="Значок телефона" description="Значок для информации о телефоне" />
 		<param name="icon_fax" type="imagelist" directory="/images/M_images" hide_none="1" default="" label="Значок факса" description="Значок для информации о факсе" />
 		<param name="icon_misc" type="imagelist" directory="/images/M_images" hide_none="1" default="" label="Значок прочего" description="Значок для прочей информации" />
- 		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="@spacer" type="spacer" default="" label="" description="" />
 		<param name="robots" type="list" default="-1" label="Мета-тег Robots" description="Выберите, какой мета-тег robots использовать для этой страницы">
 			<option value="-1">Не отображать мета-тег robot</option>
 			<option value="0">Index, follow</option>

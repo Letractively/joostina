@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -34,9 +34,9 @@ switch($task) {
 }
 
 /**
-* Show the configuration edit form
-* @param string The URL option
-*/
+ * Show the configuration edit form
+ * @param string The URL option
+ */
 function showconfig($option) {
 	global $database,$mosConfig_editor,$mosConfig_cache_handler;
 
@@ -84,15 +84,15 @@ function showconfig($option) {
 
 
 	$listLimit = array(
-		mosHTML::makeOption(5,5),
-		mosHTML::makeOption(10,10),
-		mosHTML::makeOption(15,15),
-		mosHTML::makeOption(20,20),
-		mosHTML::makeOption(25,25),
-		mosHTML::makeOption(30,30),
-		mosHTML::makeOption(50,50),
-		mosHTML::makeOption(100,100),
-		mosHTML::makeOption(150,150),
+			mosHTML::makeOption(5,5),
+			mosHTML::makeOption(10,10),
+			mosHTML::makeOption(15,15),
+			mosHTML::makeOption(20,20),
+			mosHTML::makeOption(25,25),
+			mosHTML::makeOption(30,30),
+			mosHTML::makeOption(50,50),
+			mosHTML::makeOption(100,100),
+			mosHTML::makeOption(150,150),
 	);
 
 	$lists['list_limit']= mosHTML::selectList($listLimit,'config_list_limit','class="inputbox" size="1"','value','text',($row->config_list_limit?$row->config_list_limit:50));
@@ -155,22 +155,22 @@ function showconfig($option) {
 	$lists['config_content_hits']= mosHTML::yesnoRadioList('config_content_hits','class="inputbox"',$row->config_content_hits);
 	// формат времени
 	$date_help = array(
-		mosHTML::makeOption('%d.%m.%Y '._COM_CONFIG_YEAR.' %H:%M', strftime('%d.%m.%Y '._COM_CONFIG_YEAR.' %H:%M') ),
-		mosHTML::makeOption('%d:%m:%Y '._COM_CONFIG_YEAR.' %H:%M', strftime('%d:%m:%Y '._COM_CONFIG_YEAR.' %H:%M') ),
-		mosHTML::makeOption('%d-%m-%Y '._COM_CONFIG_YEAR.' %H-%M', strftime('%d-%m-%Y '._COM_CONFIG_YEAR.' %H-%M') ),
-		mosHTML::makeOption('%d/%m/%Y '._COM_CONFIG_YEAR.' %H/%M', strftime('%d/%m/%Y '._COM_CONFIG_YEAR.' %H/%M') ),
-		mosHTML::makeOption('%d/%m/%Y %H/%M', strftime('%d/%m/%Y %H/%M') ),
-		mosHTML::makeOption('%d/%m/%Y', strftime('%d/%m/%Y') ),
-		mosHTML::makeOption('%d:%m:%Y', strftime('%d:%m:%Y') ),
-		mosHTML::makeOption('%d.%m.%Y', strftime('%d.%m.%Y') ),
-		mosHTML::makeOption('%d/%m/%Y '._COM_CONFIG_YEAR, strftime('%d/%m/%Y '._COM_CONFIG_YEAR) ),
-		mosHTML::makeOption('%d:%m:%Y '._COM_CONFIG_YEAR, strftime('%d:%m:%Y '._COM_CONFIG_YEAR) ),
-		mosHTML::makeOption('%d.%m.%Y '._COM_CONFIG_YEAR, strftime('%d.%m.%Y '._COM_CONFIG_YEAR) ),
-		mosHTML::makeOption('%H/%M', strftime('%H/%M') ),
-		mosHTML::makeOption('%H:%M', strftime('%H:%M') ),
-		mosHTML::makeOption('%H '._COM_CONFIG_HOURS.'%M '._COM_CONFIG_MONTH, strftime('%H '._COM_CONFIG_HOURS.' %M '._COM_CONFIG_MONTH) ),
-		mosHTML::makeOption('%A %d/%m/%Y '._COM_CONFIG_YEAR.' %H/%M', Jstring::to_utf8(strftime('%A %d/%m/%Y '._COM_CONFIG_YEAR.' %H/%M')) ),
-		mosHTML::makeOption('%d %B %Y', Jstring::to_utf8(strftime('%d %B %Y')) )
+			mosHTML::makeOption('%d.%m.%Y '._COM_CONFIG_YEAR.' %H:%M', strftime('%d.%m.%Y '._COM_CONFIG_YEAR.' %H:%M') ),
+			mosHTML::makeOption('%d:%m:%Y '._COM_CONFIG_YEAR.' %H:%M', strftime('%d:%m:%Y '._COM_CONFIG_YEAR.' %H:%M') ),
+			mosHTML::makeOption('%d-%m-%Y '._COM_CONFIG_YEAR.' %H-%M', strftime('%d-%m-%Y '._COM_CONFIG_YEAR.' %H-%M') ),
+			mosHTML::makeOption('%d/%m/%Y '._COM_CONFIG_YEAR.' %H/%M', strftime('%d/%m/%Y '._COM_CONFIG_YEAR.' %H/%M') ),
+			mosHTML::makeOption('%d/%m/%Y %H/%M', strftime('%d/%m/%Y %H/%M') ),
+			mosHTML::makeOption('%d/%m/%Y', strftime('%d/%m/%Y') ),
+			mosHTML::makeOption('%d:%m:%Y', strftime('%d:%m:%Y') ),
+			mosHTML::makeOption('%d.%m.%Y', strftime('%d.%m.%Y') ),
+			mosHTML::makeOption('%d/%m/%Y '._COM_CONFIG_YEAR, strftime('%d/%m/%Y '._COM_CONFIG_YEAR) ),
+			mosHTML::makeOption('%d:%m:%Y '._COM_CONFIG_YEAR, strftime('%d:%m:%Y '._COM_CONFIG_YEAR) ),
+			mosHTML::makeOption('%d.%m.%Y '._COM_CONFIG_YEAR, strftime('%d.%m.%Y '._COM_CONFIG_YEAR) ),
+			mosHTML::makeOption('%H/%M', strftime('%H/%M') ),
+			mosHTML::makeOption('%H:%M', strftime('%H:%M') ),
+			mosHTML::makeOption('%H '._COM_CONFIG_HOURS.'%M '._COM_CONFIG_MONTH, strftime('%H '._COM_CONFIG_HOURS.' %M '._COM_CONFIG_MONTH) ),
+			mosHTML::makeOption('%A %d/%m/%Y '._COM_CONFIG_YEAR.' %H/%M', Jstring::to_utf8(strftime('%A %d/%m/%Y '._COM_CONFIG_YEAR.' %H/%M')) ),
+			mosHTML::makeOption('%d %B %Y', Jstring::to_utf8(strftime('%d %B %Y')) )
 	);
 	$lists['form_date_help']= mosHTML::selectList($date_help,'config_form_date_h','class="inputbox" size="1" onchange="adminForm.config_form_date.value=this.value;"','value','text',$row->config_form_date);
 	// полный формат даты и времени
@@ -215,18 +215,18 @@ function showconfig($option) {
 	$lists['gzip']= mosHTML::yesnoRadioList('config_gzip','class="inputbox"',$row->config_gzip);
 
 	$session = array(
-		mosHTML::makeOption(0,_SECURITY_LEVEL3),
-		mosHTML::makeOption(1,_SECURITY_LEVEL2),
-		mosHTML::makeOption(2,_SECURITY_LEVEL1)
+			mosHTML::makeOption(0,_SECURITY_LEVEL3),
+			mosHTML::makeOption(1,_SECURITY_LEVEL2),
+			mosHTML::makeOption(2,_SECURITY_LEVEL1)
 	);
 	$lists['session_type']= mosHTML::selectList($session,'config_session_type','class="inputbox" size="1"','value','text',$row->config_session_type);
 
 	$errors = array(
-		mosHTML::makeOption(-1,_COM_CONFIG_ERROR_SYSTEM),
-		mosHTML::makeOption(0,_COM_CONFIG_ERROR_HIDE),
-		mosHTML::makeOption(E_ERROR | E_WARNING | E_PARSE,_COM_CONFIG_ERROR_TINY),
-		mosHTML::makeOption(E_ALL,_COM_CONFIG_ERROR_ALL),
-		mosHTML::makeOption(E_ALL & ~E_NOTICE,_COM_CONFIG_ERROR_PARANOIDAL),
+			mosHTML::makeOption(-1,_COM_CONFIG_ERROR_SYSTEM),
+			mosHTML::makeOption(0,_COM_CONFIG_ERROR_HIDE),
+			mosHTML::makeOption(E_ERROR | E_WARNING | E_PARSE,_COM_CONFIG_ERROR_TINY),
+			mosHTML::makeOption(E_ALL,_COM_CONFIG_ERROR_ALL),
+			mosHTML::makeOption(E_ALL & ~E_NOTICE,_COM_CONFIG_ERROR_PARANOIDAL),
 	);
 
 	$lists['error_reporting']	= mosHTML::selectList($errors,'config_error_reporting','class="inputbox" size="1"','value','text',$row->config_error_reporting);
@@ -237,96 +237,96 @@ function showconfig($option) {
 	$lists['lang']= mosHTML::selectList($langs,'config_lang','class="inputbox" size="1"','value','text',$row->config_lang);
 
 	$timeoffset = array(
-		mosHTML::makeOption(-12,_TIME_OFFSET_M_12),
-		mosHTML::makeOption(-11,_TIME_OFFSET_M_11),
-		mosHTML::makeOption(-10,_TIME_OFFSET_M_10),
-		mosHTML::makeOption(-9.5,_TIME_OFFSET_M_9_5),
-		mosHTML::makeOption(-9,_TIME_OFFSET_M_9),
-		mosHTML::makeOption(-8,_TIME_OFFSET_M_8),
-		mosHTML::makeOption(-7,_TIME_OFFSET_M_7),
-		mosHTML::makeOption(-6,_TIME_OFFSET_M_6),
-		mosHTML::makeOption(-5,_TIME_OFFSET_M_5),
-		mosHTML::makeOption(-4,_TIME_OFFSET_M_4),
-		mosHTML::makeOption(-3.5,_TIME_OFFSET_M_3_5),
-		mosHTML::makeOption(-3,_TIME_OFFSET_M_3),
-		mosHTML::makeOption(-2,_TIME_OFFSET_M_2),
-		mosHTML::makeOption(-1,_TIME_OFFSET_M_1),
-		mosHTML::makeOption(0,_TIME_OFFSET_M_0),
-		mosHTML::makeOption(1,_TIME_OFFSET_P_1),
-		mosHTML::makeOption(2,_TIME_OFFSET_P_2),
-		mosHTML::makeOption(3,_TIME_OFFSET_P_3),
-		mosHTML::makeOption(3.5,_TIME_OFFSET_P_3_5),
-		mosHTML::makeOption(4,_TIME_OFFSET_P_4),
-		mosHTML::makeOption(4.5,_TIME_OFFSET_P_4_5),
-		mosHTML::makeOption(5,_TIME_OFFSET_P_5),
-		mosHTML::makeOption(5.5,_TIME_OFFSET_P_5_5),
-		mosHTML::makeOption(5.75,_TIME_OFFSET_P_5_75),
-		mosHTML::makeOption(6,_TIME_OFFSET_P_6),
-		mosHTML::makeOption(6.30,_TIME_OFFSET_P_6_5),
-		mosHTML::makeOption(7,_TIME_OFFSET_P_7),
-		mosHTML::makeOption(8,_TIME_OFFSET_P_8),
-		mosHTML::makeOption(8.75,_TIME_OFFSET_P_8_75),
-		mosHTML::makeOption(9,_TIME_OFFSET_P_9),
-		mosHTML::makeOption(9.5,_TIME_OFFSET_P_9_5),
-		mosHTML::makeOption(10,_TIME_OFFSET_P_10),
-		mosHTML::makeOption(10.5,_TIME_OFFSET_P_10_5),
-		mosHTML::makeOption(11,_TIME_OFFSET_P_11),
-		mosHTML::makeOption(11.30,_TIME_OFFSET_P_11_5),
-		mosHTML::makeOption(12,_TIME_OFFSET_P_12),
-		mosHTML::makeOption(12.75,_TIME_OFFSET_P_12_75),
-		mosHTML::makeOption(13,_TIME_OFFSET_P_13),
-		mosHTML::makeOption(14,_TIME_OFFSET_P_14),);
+			mosHTML::makeOption(-12,_TIME_OFFSET_M_12),
+			mosHTML::makeOption(-11,_TIME_OFFSET_M_11),
+			mosHTML::makeOption(-10,_TIME_OFFSET_M_10),
+			mosHTML::makeOption(-9.5,_TIME_OFFSET_M_9_5),
+			mosHTML::makeOption(-9,_TIME_OFFSET_M_9),
+			mosHTML::makeOption(-8,_TIME_OFFSET_M_8),
+			mosHTML::makeOption(-7,_TIME_OFFSET_M_7),
+			mosHTML::makeOption(-6,_TIME_OFFSET_M_6),
+			mosHTML::makeOption(-5,_TIME_OFFSET_M_5),
+			mosHTML::makeOption(-4,_TIME_OFFSET_M_4),
+			mosHTML::makeOption(-3.5,_TIME_OFFSET_M_3_5),
+			mosHTML::makeOption(-3,_TIME_OFFSET_M_3),
+			mosHTML::makeOption(-2,_TIME_OFFSET_M_2),
+			mosHTML::makeOption(-1,_TIME_OFFSET_M_1),
+			mosHTML::makeOption(0,_TIME_OFFSET_M_0),
+			mosHTML::makeOption(1,_TIME_OFFSET_P_1),
+			mosHTML::makeOption(2,_TIME_OFFSET_P_2),
+			mosHTML::makeOption(3,_TIME_OFFSET_P_3),
+			mosHTML::makeOption(3.5,_TIME_OFFSET_P_3_5),
+			mosHTML::makeOption(4,_TIME_OFFSET_P_4),
+			mosHTML::makeOption(4.5,_TIME_OFFSET_P_4_5),
+			mosHTML::makeOption(5,_TIME_OFFSET_P_5),
+			mosHTML::makeOption(5.5,_TIME_OFFSET_P_5_5),
+			mosHTML::makeOption(5.75,_TIME_OFFSET_P_5_75),
+			mosHTML::makeOption(6,_TIME_OFFSET_P_6),
+			mosHTML::makeOption(6.30,_TIME_OFFSET_P_6_5),
+			mosHTML::makeOption(7,_TIME_OFFSET_P_7),
+			mosHTML::makeOption(8,_TIME_OFFSET_P_8),
+			mosHTML::makeOption(8.75,_TIME_OFFSET_P_8_75),
+			mosHTML::makeOption(9,_TIME_OFFSET_P_9),
+			mosHTML::makeOption(9.5,_TIME_OFFSET_P_9_5),
+			mosHTML::makeOption(10,_TIME_OFFSET_P_10),
+			mosHTML::makeOption(10.5,_TIME_OFFSET_P_10_5),
+			mosHTML::makeOption(11,_TIME_OFFSET_P_11),
+			mosHTML::makeOption(11.30,_TIME_OFFSET_P_11_5),
+			mosHTML::makeOption(12,_TIME_OFFSET_P_12),
+			mosHTML::makeOption(12.75,_TIME_OFFSET_P_12_75),
+			mosHTML::makeOption(13,_TIME_OFFSET_P_13),
+			mosHTML::makeOption(14,_TIME_OFFSET_P_14),);
 
 	$lists['offset']= mosHTML::selectList($timeoffset,'config_offset_user','class="inputbox" size="1"','value','text',$row->config_offset_user);
 
 	$feed_timeoffset = array(
-		mosHTML::makeOption( '-12:00', _TIME_OFFSET_M_12),
-		mosHTML::makeOption( '-11:00', _TIME_OFFSET_M_11),
-		mosHTML::makeOption( '-10:00', _TIME_OFFSET_M_10),
-		mosHTML::makeOption( '-09:30', _TIME_OFFSET_M_9_5),
-		mosHTML::makeOption( '-09:00', _TIME_OFFSET_M_9),
-		mosHTML::makeOption( '-08:00', _TIME_OFFSET_M_8),
-		mosHTML::makeOption( '-07:00', _TIME_OFFSET_M_7),
-		mosHTML::makeOption( '-06:00', _TIME_OFFSET_M_6),
-		mosHTML::makeOption( '-05:00', _TIME_OFFSET_M_5),
-		mosHTML::makeOption( '-04:00', _TIME_OFFSET_M_4),
-		mosHTML::makeOption( '-03:30', _TIME_OFFSET_M_3_5),
-		mosHTML::makeOption( '-03:00', _TIME_OFFSET_M_3),
-		mosHTML::makeOption( '-02:00', _TIME_OFFSET_M_2),
-		mosHTML::makeOption( '-01:00', _TIME_OFFSET_M_1),
-		mosHTML::makeOption( '00:00', _TIME_OFFSET_M_0),
-		mosHTML::makeOption( '+01:00' , _TIME_OFFSET_P_1),
-		mosHTML::makeOption( '+02:00', _TIME_OFFSET_P_2),
-		mosHTML::makeOption( '+03:00', _TIME_OFFSET_P_3),
-		mosHTML::makeOption( '+03:30', _TIME_OFFSET_P_3_5),
-		mosHTML::makeOption( '+04:00', _TIME_OFFSET_P_4),
-		mosHTML::makeOption( '+04:30', _TIME_OFFSET_P_4_5),
-		mosHTML::makeOption( '+05:00', _TIME_OFFSET_P_5),
-		mosHTML::makeOption( '+05:30', _TIME_OFFSET_P_5_5),
-		mosHTML::makeOption( '+05:45', _TIME_OFFSET_P_5_75),
-		mosHTML::makeOption( '+06:00', _TIME_OFFSET_P_6),
-		mosHTML::makeOption( '+06:30', _TIME_OFFSET_P_6_5),
-		mosHTML::makeOption( '+07:00', _TIME_OFFSET_P_7),
-		mosHTML::makeOption( '+08:00', _TIME_OFFSET_P_8),
-		mosHTML::makeOption( '+08:45', _TIME_OFFSET_P_8_75),
-		mosHTML::makeOption( '+09:00', _TIME_OFFSET_P_9),
-		mosHTML::makeOption( '+09:30', _TIME_OFFSET_P_9_5),
-		mosHTML::makeOption( '+10:00', _TIME_OFFSET_P_10),
-		mosHTML::makeOption( '+10:30', _TIME_OFFSET_P_10_5),
-		mosHTML::makeOption( '+11:00', _TIME_OFFSET_P_11),
-		mosHTML::makeOption( '+11:30', _TIME_OFFSET_P_11_5),
-		mosHTML::makeOption( '+12:00', _TIME_OFFSET_P_12),
-		mosHTML::makeOption( '+12:45', _TIME_OFFSET_P_12_75),
-		mosHTML::makeOption( '+13:00', _TIME_OFFSET_P_13),
-		mosHTML::makeOption( '+14:00', _TIME_OFFSET_P_14)
+			mosHTML::makeOption( '-12:00', _TIME_OFFSET_M_12),
+			mosHTML::makeOption( '-11:00', _TIME_OFFSET_M_11),
+			mosHTML::makeOption( '-10:00', _TIME_OFFSET_M_10),
+			mosHTML::makeOption( '-09:30', _TIME_OFFSET_M_9_5),
+			mosHTML::makeOption( '-09:00', _TIME_OFFSET_M_9),
+			mosHTML::makeOption( '-08:00', _TIME_OFFSET_M_8),
+			mosHTML::makeOption( '-07:00', _TIME_OFFSET_M_7),
+			mosHTML::makeOption( '-06:00', _TIME_OFFSET_M_6),
+			mosHTML::makeOption( '-05:00', _TIME_OFFSET_M_5),
+			mosHTML::makeOption( '-04:00', _TIME_OFFSET_M_4),
+			mosHTML::makeOption( '-03:30', _TIME_OFFSET_M_3_5),
+			mosHTML::makeOption( '-03:00', _TIME_OFFSET_M_3),
+			mosHTML::makeOption( '-02:00', _TIME_OFFSET_M_2),
+			mosHTML::makeOption( '-01:00', _TIME_OFFSET_M_1),
+			mosHTML::makeOption( '00:00', _TIME_OFFSET_M_0),
+			mosHTML::makeOption( '+01:00' , _TIME_OFFSET_P_1),
+			mosHTML::makeOption( '+02:00', _TIME_OFFSET_P_2),
+			mosHTML::makeOption( '+03:00', _TIME_OFFSET_P_3),
+			mosHTML::makeOption( '+03:30', _TIME_OFFSET_P_3_5),
+			mosHTML::makeOption( '+04:00', _TIME_OFFSET_P_4),
+			mosHTML::makeOption( '+04:30', _TIME_OFFSET_P_4_5),
+			mosHTML::makeOption( '+05:00', _TIME_OFFSET_P_5),
+			mosHTML::makeOption( '+05:30', _TIME_OFFSET_P_5_5),
+			mosHTML::makeOption( '+05:45', _TIME_OFFSET_P_5_75),
+			mosHTML::makeOption( '+06:00', _TIME_OFFSET_P_6),
+			mosHTML::makeOption( '+06:30', _TIME_OFFSET_P_6_5),
+			mosHTML::makeOption( '+07:00', _TIME_OFFSET_P_7),
+			mosHTML::makeOption( '+08:00', _TIME_OFFSET_P_8),
+			mosHTML::makeOption( '+08:45', _TIME_OFFSET_P_8_75),
+			mosHTML::makeOption( '+09:00', _TIME_OFFSET_P_9),
+			mosHTML::makeOption( '+09:30', _TIME_OFFSET_P_9_5),
+			mosHTML::makeOption( '+10:00', _TIME_OFFSET_P_10),
+			mosHTML::makeOption( '+10:30', _TIME_OFFSET_P_10_5),
+			mosHTML::makeOption( '+11:00', _TIME_OFFSET_P_11),
+			mosHTML::makeOption( '+11:30', _TIME_OFFSET_P_11_5),
+			mosHTML::makeOption( '+12:00', _TIME_OFFSET_P_12),
+			mosHTML::makeOption( '+12:45', _TIME_OFFSET_P_12_75),
+			mosHTML::makeOption( '+13:00', _TIME_OFFSET_P_13),
+			mosHTML::makeOption( '+14:00', _TIME_OFFSET_P_14)
 	);
 	$lists['feed_timeoffset']= mosHTML::selectList($feed_timeoffset,'config_feed_timeoffset','class="inputbox" size="1"','value','text',$row->config_feed_timeoffset);
 
 // НАСТРОЙКИ ПОЧТЫ
 	$mailer = array(
-		mosHTML::makeOption( 'mail', _PHP_MAIL_FUNCTION ),
-		mosHTML::makeOption( 'sendmail', 'Sendmail' ),
-		mosHTML::makeOption( 'smtp', _SMTP_SERVER )
+			mosHTML::makeOption( 'mail', _PHP_MAIL_FUNCTION ),
+			mosHTML::makeOption( 'sendmail', 'Sendmail' ),
+			mosHTML::makeOption( 'smtp', _SMTP_SERVER )
 	);
 	$lists['mailer']	= mosHTML::selectList( $mailer, 'config_mailer', 'class="inputbox" size="1"', 'value', 'text', $row->config_mailer );
 	$lists['smtpauth']	= mosHTML::yesnoRadioList( 'config_smtpauth', 'class="inputbox"', $row->config_smtpauth );
@@ -357,19 +357,19 @@ function showconfig($option) {
 	$lists['pagetitles']	= mosHTML::yesnoRadioList( 'config_pagetitles', 'class="inputbox"', $row->config_pagetitles );
 
 	$pagetitles_first = array(
-		mosHTML::makeOption( 0, _COM_CONFIG_SEO_TYPE_1 ),
-		mosHTML::makeOption( 1, _COM_CONFIG_SEO_TYPE_2 ),
-		mosHTML::makeOption( 2, _COM_CONFIG_SEO_TYPE_3 ),
-		mosHTML::makeOption( 3, _COM_CONFIG_SEO_TYPE_4 ),
+			mosHTML::makeOption( 0, _COM_CONFIG_SEO_TYPE_1 ),
+			mosHTML::makeOption( 1, _COM_CONFIG_SEO_TYPE_2 ),
+			mosHTML::makeOption( 2, _COM_CONFIG_SEO_TYPE_3 ),
+			mosHTML::makeOption( 3, _COM_CONFIG_SEO_TYPE_4 ),
 	);
 	$lists['pagetitles_first']	= mosHTML::selectList( $pagetitles_first, 'config_pagetitles_first', 'class="inputbox" size="1"', 'value', 'text', $row->config_pagetitles_first );
 
 // НАСТРОЙКИ СОДЕРЖИМОГО
 	$author_name_type = array(
-		mosHTML::makeOption( 1, _COM_CONFIG_CC_NAME_TEXT ),
-		mosHTML::makeOption( 2, _COM_CONFIG_CC_LOGIN_TEXT ),
-		mosHTML::makeOption( 3, _COM_CONFIG_CC_NAME_LINK ),
-		mosHTML::makeOption( 4, _COM_CONFIG_CC_LIGIN_LINK ),
+			mosHTML::makeOption( 1, _COM_CONFIG_CC_NAME_TEXT ),
+			mosHTML::makeOption( 2, _COM_CONFIG_CC_LOGIN_TEXT ),
+			mosHTML::makeOption( 3, _COM_CONFIG_CC_NAME_LINK ),
+			mosHTML::makeOption( 4, _COM_CONFIG_CC_LIGIN_LINK ),
 	);
 	$lists['authorName']		= mosHTML::selectList( $author_name_type, 'config_author_name', 'class="inputbox" size="1"', 'value', 'text', $row->config_author_name );
 
@@ -391,76 +391,76 @@ function showconfig($option) {
 	$lists['config_custom_print']	= mosHTML::yesnoRadioList( 'config_custom_print', 'class="inputbox"', $row->config_custom_print );
 	$lists['config_old_toolbar']	= mosHTML::yesnoRadioList( 'config_old_toolbar', 'class="inputbox"', $row->config_old_toolbar );
 	$global_templates = array(
-		mosHTML::makeOption( 0, _GLOBAL_TEMPLATES_SYSTEMDIR ),
-		mosHTML::makeOption( 1, _GLOBAL_TEMPLATES_CURTEMPLATE ),
+			mosHTML::makeOption( 0, _GLOBAL_TEMPLATES_SYSTEMDIR ),
+			mosHTML::makeOption( 1, _GLOBAL_TEMPLATES_CURTEMPLATE ),
 	);
 	$lists['global_templates']	= mosHTML::selectList( $global_templates, 'config_global_templates', 'class="inputbox" size="1"', 'value', 'text', $row->config_global_templates );
 
 	$itemid_compat = array(
-		mosHTML::makeOption( '11', '< Joomla! 1.0.11' ),
-		mosHTML::makeOption( '0', 'Joomla! 1.0.12 >' ),
+			mosHTML::makeOption( '11', '< Joomla! 1.0.11' ),
+			mosHTML::makeOption( '0', 'Joomla! 1.0.12 >' ),
 	);
 	$lists['itemid_compat']	= mosHTML::selectList( $itemid_compat, 'config_itemid_compat', 'class="inputbox" size="1"', 'value', 'text', $row->config_itemid_compat );
 
 	$lists['tpreview']= mosHTML::yesnoRadioList('config_disable_tpreview','class="inputbox"',$row->config_disable_tpreview);
 
 	$locales = array(
-		mosHTML::makeOption( 'ru_RU.utf8', 'ru_RU.utf8'),
-		mosHTML::makeOption( 'russian', 'russian (windows)'),
-		mosHTML::makeOption( 'english', 'english (for windows)'),
-		mosHTML::makeOption( 'az_AZ.utf8', 'az_AZ.utf8'),
-		mosHTML::makeOption( 'ar_EG.utf8', 'ar_EG.utf8'),
-		mosHTML::makeOption( 'ar_LB.utf8', 'ar_LB.utf8'),
-		mosHTML::makeOption( 'eu_ES.utf8', 'eu_ES.utf8'),
-		mosHTML::makeOption( 'bg_BG.utf8', 'bg_BG.utf8'),
-		mosHTML::makeOption( 'ca_ES.utf8', 'ca_ES.utf8'),
-		mosHTML::makeOption( 'zh_CN.utf8', 'zh_CN.utf8'),
-		mosHTML::makeOption( 'zh_TW.utf8', 'zh_TW.utf8'),
-		mosHTML::makeOption( 'hr_HR.utf8', 'hr_HR.utf8'),
-		mosHTML::makeOption( 'cs_CZ.utf8', 'cs_CZ.utf8'),
-		mosHTML::makeOption( 'da_DK.utf8', 'da_DK.utf8'),
-		mosHTML::makeOption( 'nl_NL.utf8', 'nl_NL.utf8'),
-		mosHTML::makeOption( 'et_EE.utf8', 'et_EE.utf8'),
-		mosHTML::makeOption( 'en_GB.utf8', 'en_GB.utf8'),
-		mosHTML::makeOption( 'en_US.utf8', 'en_US.utf8'),
-		mosHTML::makeOption( 'en_AU.utf8', 'en_AU.utf8'),
-		mosHTML::makeOption( 'en_IE.utf8', 'en_IE.utf8'),
-		mosHTML::makeOption( 'fa_IR.utf8', 'fa_IR.utf8'),
-		mosHTML::makeOption( 'fi_FI.utf8', 'fi_FI.utf8'),
-		mosHTML::makeOption( 'fr_FR.utf8', 'fr_FR.utf8'),
-		mosHTML::makeOption( 'gl_ES.utf8', 'gl_ES.utf8'),
-		mosHTML::makeOption( 'de_DE.utf8', 'de_DE.utf8'),
-		mosHTML::makeOption( 'el_GR.utf8', 'el_GR.utf8'),
-		mosHTML::makeOption( 'he_IL.utf8', 'he_IL.utf8'),
-		mosHTML::makeOption( 'hu_HU.utf8', 'hu_HU.utf8'),
-		mosHTML::makeOption( 'is_IS.utf8', 'is_IS.utf8'),
-		mosHTML::makeOption( 'ga_IE.utf8', 'ga_IE.utf8'),
-		mosHTML::makeOption( 'it_IT.utf8', 'it_IT.utf8'),
-		mosHTML::makeOption( 'ja_JP.utf8', 'ja_JP.utf8'),
-		mosHTML::makeOption( 'ko_KR.utf8', 'ko_KR.utf8'),
-		mosHTML::makeOption( 'lv_LV.utf8', 'lv_LV.utf8'),
-		mosHTML::makeOption( 'lt_LT.utf8', 'lt_LT.utf8'),
-		mosHTML::makeOption( 'mk_MK.utf8', 'mk_MK.utf8'),
-		mosHTML::makeOption( 'ms_MY.utf8', 'ms_MY.utf8'),
-		mosHTML::makeOption( 'no_NO.utf8', 'no_NO.utf8'),
-		mosHTML::makeOption( 'nn_NO.utf8', 'nn_NO.utf8'),
-		mosHTML::makeOption( 'pl_PL.utf8', 'pl_PL.utf8'),
-		mosHTML::makeOption( 'pt_PT.utf8', 'pt_PT.utf8'),
-		mosHTML::makeOption( 'pt_BR.utf8', 'pt_BR.utf8'),
-		mosHTML::makeOption( 'ro_RO.utf8', 'ro_RO.utf8'),
-		mosHTML::makeOption( 'sk_SK.utf8', 'sk_SK.utf8'),
-		mosHTML::makeOption( 'sl_SI.utf8', 'sl_SI.utf8'),
-		mosHTML::makeOption( 'sr_CS.utf8', 'sr_CS.utf8'),
-		mosHTML::makeOption( 'rs_SR.utf8', 'rs_SR.utf8'),
-		mosHTML::makeOption( 'es_ES.utf8', 'es_ES.utf8'),
-		mosHTML::makeOption( 'es_MX.utf8', 'es_MX.utf8'),
-		mosHTML::makeOption( 'sv_SE.utf8', 'sv_SE.utf8'),
-		mosHTML::makeOption( 'sv_FI.utf8', 'sv_FI.utf8'),
-		mosHTML::makeOption( 'ta_IN.utf8', 'ta_IN.utf8'),
-		mosHTML::makeOption( 'tr_TR.utf8', 'tr_TR.utf8'),
-		mosHTML::makeOption( 'uk_UA.utf8', 'uk_UA.utf8'),
-		mosHTML::makeOption( 'vi_VN.utf8', 'vi_VN.utf8'),
-		mosHTML::makeOption( 'wa_BE.utf8', 'wa_BE.utf8')
+			mosHTML::makeOption( 'ru_RU.utf8', 'ru_RU.utf8'),
+			mosHTML::makeOption( 'russian', 'russian (windows)'),
+			mosHTML::makeOption( 'english', 'english (for windows)'),
+			mosHTML::makeOption( 'az_AZ.utf8', 'az_AZ.utf8'),
+			mosHTML::makeOption( 'ar_EG.utf8', 'ar_EG.utf8'),
+			mosHTML::makeOption( 'ar_LB.utf8', 'ar_LB.utf8'),
+			mosHTML::makeOption( 'eu_ES.utf8', 'eu_ES.utf8'),
+			mosHTML::makeOption( 'bg_BG.utf8', 'bg_BG.utf8'),
+			mosHTML::makeOption( 'ca_ES.utf8', 'ca_ES.utf8'),
+			mosHTML::makeOption( 'zh_CN.utf8', 'zh_CN.utf8'),
+			mosHTML::makeOption( 'zh_TW.utf8', 'zh_TW.utf8'),
+			mosHTML::makeOption( 'hr_HR.utf8', 'hr_HR.utf8'),
+			mosHTML::makeOption( 'cs_CZ.utf8', 'cs_CZ.utf8'),
+			mosHTML::makeOption( 'da_DK.utf8', 'da_DK.utf8'),
+			mosHTML::makeOption( 'nl_NL.utf8', 'nl_NL.utf8'),
+			mosHTML::makeOption( 'et_EE.utf8', 'et_EE.utf8'),
+			mosHTML::makeOption( 'en_GB.utf8', 'en_GB.utf8'),
+			mosHTML::makeOption( 'en_US.utf8', 'en_US.utf8'),
+			mosHTML::makeOption( 'en_AU.utf8', 'en_AU.utf8'),
+			mosHTML::makeOption( 'en_IE.utf8', 'en_IE.utf8'),
+			mosHTML::makeOption( 'fa_IR.utf8', 'fa_IR.utf8'),
+			mosHTML::makeOption( 'fi_FI.utf8', 'fi_FI.utf8'),
+			mosHTML::makeOption( 'fr_FR.utf8', 'fr_FR.utf8'),
+			mosHTML::makeOption( 'gl_ES.utf8', 'gl_ES.utf8'),
+			mosHTML::makeOption( 'de_DE.utf8', 'de_DE.utf8'),
+			mosHTML::makeOption( 'el_GR.utf8', 'el_GR.utf8'),
+			mosHTML::makeOption( 'he_IL.utf8', 'he_IL.utf8'),
+			mosHTML::makeOption( 'hu_HU.utf8', 'hu_HU.utf8'),
+			mosHTML::makeOption( 'is_IS.utf8', 'is_IS.utf8'),
+			mosHTML::makeOption( 'ga_IE.utf8', 'ga_IE.utf8'),
+			mosHTML::makeOption( 'it_IT.utf8', 'it_IT.utf8'),
+			mosHTML::makeOption( 'ja_JP.utf8', 'ja_JP.utf8'),
+			mosHTML::makeOption( 'ko_KR.utf8', 'ko_KR.utf8'),
+			mosHTML::makeOption( 'lv_LV.utf8', 'lv_LV.utf8'),
+			mosHTML::makeOption( 'lt_LT.utf8', 'lt_LT.utf8'),
+			mosHTML::makeOption( 'mk_MK.utf8', 'mk_MK.utf8'),
+			mosHTML::makeOption( 'ms_MY.utf8', 'ms_MY.utf8'),
+			mosHTML::makeOption( 'no_NO.utf8', 'no_NO.utf8'),
+			mosHTML::makeOption( 'nn_NO.utf8', 'nn_NO.utf8'),
+			mosHTML::makeOption( 'pl_PL.utf8', 'pl_PL.utf8'),
+			mosHTML::makeOption( 'pt_PT.utf8', 'pt_PT.utf8'),
+			mosHTML::makeOption( 'pt_BR.utf8', 'pt_BR.utf8'),
+			mosHTML::makeOption( 'ro_RO.utf8', 'ro_RO.utf8'),
+			mosHTML::makeOption( 'sk_SK.utf8', 'sk_SK.utf8'),
+			mosHTML::makeOption( 'sl_SI.utf8', 'sl_SI.utf8'),
+			mosHTML::makeOption( 'sr_CS.utf8', 'sr_CS.utf8'),
+			mosHTML::makeOption( 'rs_SR.utf8', 'rs_SR.utf8'),
+			mosHTML::makeOption( 'es_ES.utf8', 'es_ES.utf8'),
+			mosHTML::makeOption( 'es_MX.utf8', 'es_MX.utf8'),
+			mosHTML::makeOption( 'sv_SE.utf8', 'sv_SE.utf8'),
+			mosHTML::makeOption( 'sv_FI.utf8', 'sv_FI.utf8'),
+			mosHTML::makeOption( 'ta_IN.utf8', 'ta_IN.utf8'),
+			mosHTML::makeOption( 'tr_TR.utf8', 'tr_TR.utf8'),
+			mosHTML::makeOption( 'uk_UA.utf8', 'uk_UA.utf8'),
+			mosHTML::makeOption( 'vi_VN.utf8', 'vi_VN.utf8'),
+			mosHTML::makeOption( 'wa_BE.utf8', 'wa_BE.utf8')
 	);
 	$lists['locale'] = mosHTML::selectList( $locales, 'config_locale', 'class="selectbox" size="1" dir="ltr"', 'value', 'text', $row->config_locale );
 
@@ -469,8 +469,8 @@ function showconfig($option) {
 
 	// режим редиректа при включенном коде безопасноти
 	$redirect_r = array(
-		mosHTML::makeOption(0,'index.php'),
-		mosHTML::makeOption(1,_ADMIN_REDIRECT_PAGE)
+			mosHTML::makeOption(0,'index.php'),
+			mosHTML::makeOption(1,_ADMIN_REDIRECT_PAGE)
 	);
 	$lists['config_admin_redirect_options']= mosHTML::RadioList( $redirect_r, 'config_admin_redirect_options', 'class="inputbox"', $row->config_admin_redirect_options, 'value', 'text' );
 
@@ -481,9 +481,9 @@ function showconfig($option) {
 	if(extension_loaded('apc'))		$cache_handler[] = mosHTML::makeOption( 'apc', 'APC' );
 	if(class_exists('Memcache'))			$cache_handler[] = mosHTML::makeOption( 'memcache', 'Memcache' );
 	if(function_exists('xcache_set'))		$cache_handler[] = mosHTML::makeOption( 'xcache', 'Xcache' );
-	
+
 	?>
-	<script>
+<script>
 	function showHideMemCacheSettings()
 	{
 		if(document.getElementById("config_cache_handler").value != "memcache")
@@ -499,18 +499,18 @@ function showconfig($option) {
 			document.getElementById("memcache_server").style.display = "";
 		}
 	}
-	</script>
-	
+</script>
+
 	<?php
 	// оработчик кэширования
 	$lists['cache_handler']= mosHTML::selectList($cache_handler, 'config_cache_handler','class="inputbox" id="config_cache_handler" onchange="showHideMemCacheSettings();" ','value','text',$row->config_cache_handler);
-	
+
 	if (!empty($row->config_memcache_settings) && !is_array($row->config_memcache_settings)) {
-			$row->config_memcache_settings = unserialize(stripslashes($row->config_memcache_settings));
+		$row->config_memcache_settings = unserialize(stripslashes($row->config_memcache_settings));
 	}
 	$lists['memcache_persist'] = mosHTML::yesnoRadioList('config_memcache_persistent', 'class="inputbox"', $row->config_memcache_persistent);
 	$lists['memcache_compress'] = mosHTML::yesnoRadioList('config_memcache_compression', 'class="inputbox"', $row->config_memcache_compression);
-	
+
 	// использование неопубликованных мамботов
 	$lists['config_use_unpublished_mambots']= mosHTML::yesnoRadioList('config_use_unpublished_mambots','class="inputbox"',$row->config_use_unpublished_mambots);
 
@@ -543,18 +543,18 @@ function showconfig($option) {
 
 	// режим сортировки содержимого в панели управления
 	$order_list = array(
-		mosHTML::makeOption(0,_ORDER_BY_NAME),
-		mosHTML::makeOption(1,_ORDER_BY_HEADERS),
-		mosHTML::makeOption(2,_ORDER_BY_DATE_CR),
-		mosHTML::makeOption(3,_ORDER_BY_DATE_MOD),
-		mosHTML::makeOption(4,_ORDER_BY_ID),
-		mosHTML::makeOption(5,_ORDER_BY_HITS)
+			mosHTML::makeOption(0,_ORDER_BY_NAME),
+			mosHTML::makeOption(1,_ORDER_BY_HEADERS),
+			mosHTML::makeOption(2,_ORDER_BY_DATE_CR),
+			mosHTML::makeOption(3,_ORDER_BY_DATE_MOD),
+			mosHTML::makeOption(4,_ORDER_BY_ID),
+			mosHTML::makeOption(5,_ORDER_BY_HITS)
 	);
 	$lists['admin_content_order_by']= mosHTML::selectList($order_list,'config_admin_content_order_by','class="inputbox" size="1"','value','text',$row->config_admin_content_order_by);
 
 	$order_sort_list = array(
-		mosHTML::makeOption(1,_SORT_ASC),
-		mosHTML::makeOption(0,_SORT_DESC)
+			mosHTML::makeOption(1,_SORT_ASC),
+			mosHTML::makeOption(0,_SORT_DESC)
 	);
 	$lists['admin_content_order_sort']= mosHTML::selectList($order_sort_list,'config_admin_content_order_sort','class="inputbox" size="1"','value','text',$row->config_admin_content_order_sort);
 
@@ -572,8 +572,8 @@ function showconfig($option) {
 }
 
 /**
-* Сохранение конфигурации
-*/
+ * Сохранение конфигурации
+ */
 function saveconfig($task) {
 	global $database,$mosConfig_password,$mosConfig_session_type;
 	josSpoofCheck();
@@ -582,7 +582,7 @@ function saveconfig($task) {
 	if(!$row->bind($_POST)) {
 		mosRedirect('index2.php',$row->getError());
 	}
-	
+
 	// if Session Authentication Type changed, delete all old Frontend sessions only - which used old Authentication Type
 	if($mosConfig_session_type != $row->config_session_type) {
 		$past = time();
@@ -677,4 +677,3 @@ function saveconfig($task) {
 		mosRedirect('index2.php',_CANNOT_OPEN_CONF_FILE);
 	}
 }
-?>

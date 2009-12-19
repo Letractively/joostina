@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -26,29 +26,29 @@ if(!is_array($cid)) {
 
 
 /**
-* @package Custom QuickIcons
-*/
+ * @package Custom QuickIcons
+ */
 class CustomQuickIcons extends mosDBTable {
 	/**
-	@var int Primary key*/
+	 @var int Primary key*/
 	var $id = null;
 	/**
-	@var string*/
+	 @var string*/
 	var $text = null;
 	/**
-	@var string*/
+	 @var string*/
 	var $target = null;
 	/**
-	@var string*/
+	 @var string*/
 	var $icon = null;
 	/**
-	@var int*/
+	 @var int*/
 	var $ordering = null;
 	/**
-	@var int*/
+	 @var int*/
 	var $new_window = null;
 	/**
-	@var int*/
+	 @var int*/
 	var $published = null;
 	/* varchar(30) - title.tag*/
 	var $title = null;
@@ -172,11 +172,11 @@ function show($option) {
 }
 
 /**
-* Function to edit existing or creaate new item
-*
-* @param int $id icon id
-* @param string	$option	internal task
-*/
+ * Function to edit existing or creaate new item
+ *
+ * @param int $id icon id
+ * @param string	$option	internal task
+ */
 function editIcon($id,$option) {
 	global $database,$my,$acl;
 
@@ -272,12 +272,12 @@ function changeIcon($cid,$action,$option) {
 }
 
 /**
-* Save Icon
-*
-* @param bool		$redirect	where to go after savin
-* @param string	$option		internal var
-* @since v.2.0.7	deleting common path
-*/
+ * Save Icon
+ *
+ * @param bool		$redirect	where to go after savin
+ * @param string	$option		internal var
+ * @since v.2.0.7	deleting common path
+ */
 function saveIcon($redirect,$option) {
 	$row = new CustomQuickIcons();
 
@@ -347,7 +347,7 @@ function orderIcon($id,$inc,$option) {
 			$database->setQuery($query);
 			if(!$database->query()) {
 				echo "<script> alert('".$database->getErrorMsg().
-					"'); window.history.go(-1); </script>\n";
+						"'); window.history.go(-1); </script>\n";
 				exit();
 			}
 
@@ -414,14 +414,14 @@ function deleteIcon(&$cid,$option) {
 }
 
 /**
-* Gets images from folder admin and user
-*
-* @param string	$option	internal task
-* @since 2.0.7:
-*	- get images also from user images folder (optional the folder icons can be created new)
-*  - checks for double images
-*  - sort the array before output
-*/
+ * Gets images from folder admin and user
+ *
+ * @param string	$option	internal task
+ * @since 2.0.7:
+ *	- get images also from user images folder (optional the folder icons can be created new)
+ *  - checks for double images
+ *  - sort the array before output
+ */
 function chooseIcon($option) {
 	global $cur_template;
 
@@ -435,7 +435,7 @@ function chooseIcon($option) {
 			$handle = opendir($fold); // 'images/'
 			while($file = readdir($handle)) {
 				if(strpos($file,'.jpg') || strpos($file,'.jpeg') || strpos($file,'.gif') ||
-					strpos($file,'.png')) {
+						strpos($file,'.png')) {
 					if(!in_array($fold.$file,$imgs)) { // $file
 						$imgs[] = $fold.$file;
 						$icons++;
@@ -448,5 +448,3 @@ function chooseIcon($option) {
 	sort($imgs);
 	HTML_QuickIcons::chooseIcon($imgs,$option,$icons);
 }
-
-?>

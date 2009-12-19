@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -56,7 +56,7 @@ function x_resethits($id) {
 	echo _COUNTER_RESET;
 }
 
-function x_metakey($count = 25,$minlench = 4){
+function x_metakey($count = 25,$minlench = 4) {
 	$mainframe	= &mosMainFrame::getInstance(true);
 
 	// подключаем файл стоп-слов
@@ -68,7 +68,7 @@ function x_metakey($count = 25,$minlench = 4){
 
 	$text	= $introtext .' '. $fulltext .' '. $notetext;
 	$text	= Jstring::trim(strip_tags ($text)); // чистим от тегов
-	$remove	= array('nbsp',"rdquo","laquo","raquo","quota","quot","ndash","mdash","«","»", "\t",'\n','\r', "\n","\r", '\\', "'",",",".","/","¬","#",";",":","@","~","[","]","{","}","=","-","+",")","(","*","&","^","%","$","<",">","?","!", '"' );
+	$remove	= array('mosimage','nbsp',"rdquo","laquo","raquo","quota","quot","ndash","mdash","«","»", "\t",'\n','\r', "\n","\r", '\\', "'",",",".","/","¬","#",";",":","@","~","[","]","{","}","=","-","+",")","(","*","&","^","%","$","<",">","?","!", '"' );
 	$text	= str_replace($remove, ' ', $text ); // чистим от спецсимволов
 	$arr	= explode(' ', $text); // делим текст на массив из слов
 	$arr	= str_replace($bad_text, '', $arr ); // чистим от стоп-слов
@@ -84,7 +84,7 @@ function x_metakey($count = 25,$minlench = 4){
 	return $headers;
 }
 
-function x_access($id){
+function x_access($id) {
 	$database = &database::getInstance();
 
 	$access = mosGetParam($_GET,'chaccess','accessregistered');
@@ -129,7 +129,7 @@ function x_access($id){
 }
 
 
-function x_to_trash($id){
+function x_to_trash($id) {
 	$database = &database::getInstance();
 
 	$state = '-2';
@@ -139,7 +139,7 @@ function x_to_trash($id){
 	$database->setQuery($query);
 	if(!$database->query()) {
 		return 2; // ошибка перемещения в корзину
-	}else{
+	}else {
 		mosCache::cleanCache('com_content');
 		return 1; // перемещение в корзину успешно
 	}
@@ -148,10 +148,10 @@ function x_to_trash($id){
 
 
 /**
-* Saves the content item an edit form submit
-* @param database A database connector object
-* boston, добавил параметр -  возврат в редактирование содержимого после сохранения для добавления нового
-*/
+ * Saves the content item an edit form submit
+ * @param database A database connector object
+ * boston, добавил параметр -  возврат в редактирование содержимого после сохранения для добавления нового
+ */
 function x_save() {
 	global $my;
 
@@ -239,10 +239,10 @@ function x_save() {
 		echo $row->getError();
 		exit();
 	}
-	
+
 	//Подготовка тэгов
 	$tags = explode(',', trim($_POST['tags']));
-	if($tags[0]!=''){
+	if($tags[0]!='') {
 		/* вспомогательная библиотека работы с массивами */
 		mosMainFrame::addLib('array');
 		$tags = ArrayHelper::clear($tags);
@@ -318,31 +318,31 @@ function x_publish($id = null) {
 		$state = '1';
 		/* не было опубликовано - публикуем*/
 	} else
-		if(($now <= $row->publish_down || $row->publish_down == $nullDate) && $row->state ==
+	if(($now <= $row->publish_down || $row->publish_down == $nullDate) && $row->state ==
 			1) {
-			// доступно и опубликовано, снимаем с публикации и возвращаем значок "Не опубликовано"
-			$ret_img = 'publish_x.png';
-			$state = '0'; // было опубликовано - снимаем с публикации
-		} else
-			if(($now <= $row->publish_down || $row->publish_down == $nullDate) && $row->state ==
-				0) {
-				// доступно и опубликовано, снимаем с публикации и возвращаем значок "Не опубликовано"
-				$ret_img = 'publish_g.png';
-				$state = '1';
-				/* не было опубликовано - публикуем*/
-			} else
-				if($now > $row->publish_down && $row->state == 1) {
-					// опубликовано, но срок публикации истёк, снимаем с публикации и возвращаем значок "Не опубликовано"
-					$ret_img = 'publish_x.png';
-					$state = '0';
-					/* не было опубликовано - публикуем*/
-				} else
-					if($now > $row->publish_down && $row->state == 0) {
-						// опубликовано, но срок публикации истёк, снимаем с публикации и возвращаем значок "Не опубликовано"
-						$ret_img = 'publish_r.png';
-						$state = '1';
-						/* не было опубликовано - публикуем*/
-					}
+		// доступно и опубликовано, снимаем с публикации и возвращаем значок "Не опубликовано"
+		$ret_img = 'publish_x.png';
+		$state = '0'; // было опубликовано - снимаем с публикации
+	} else
+	if(($now <= $row->publish_down || $row->publish_down == $nullDate) && $row->state ==
+			0) {
+		// доступно и опубликовано, снимаем с публикации и возвращаем значок "Не опубликовано"
+		$ret_img = 'publish_g.png';
+		$state = '1';
+		/* не было опубликовано - публикуем*/
+	} else
+	if($now > $row->publish_down && $row->state == 1) {
+		// опубликовано, но срок публикации истёк, снимаем с публикации и возвращаем значок "Не опубликовано"
+		$ret_img = 'publish_x.png';
+		$state = '0';
+		/* не было опубликовано - публикуем*/
+	} else
+	if($now > $row->publish_down && $row->state == 0) {
+		// опубликовано, но срок публикации истёк, снимаем с публикации и возвращаем значок "Не опубликовано"
+		$ret_img = 'publish_r.png';
+		$state = '1';
+		/* не было опубликовано - публикуем*/
+	}
 
 	$query = "UPDATE #__content"
 			."\n SET state = ".(int)$state.", modified = ".$database->Quote(date('Y-m-d H:i:s'))

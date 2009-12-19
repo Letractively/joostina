@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -97,11 +97,11 @@ switch($task) {
 
 
 /**
-* Compiles a list of installed, version 4.5+ templates
-*
-* Based on xml files found.  If no xml file found the template
-* is ignored
-*/
+ * Compiles a list of installed, version 4.5+ templates
+ *
+ * Based on xml files found.  If no xml file found the template
+ * is ignored
+ */
 function viewTemplates($option,$client) {
 	$mainframe = &mosMainFrame::getInstance();
 	$database = &$mainframe->_db;
@@ -200,7 +200,7 @@ function viewTemplates($option,$client) {
 
 			$rows[] = $row;
 			$rowid++;
-			
+
 			unset($xmlDoc);
 		}
 	}
@@ -215,8 +215,8 @@ function viewTemplates($option,$client) {
 
 
 /**
-* Publish, or make current, the selected template
-*/
+ * Publish, or make current, the selected template
+ */
 function defaultTemplate($p_tname,$option,$client) {
 	global $database;
 	josSpoofCheck();
@@ -244,8 +244,8 @@ function defaultTemplate($p_tname,$option,$client) {
 }
 
 /**
-* Remove the selected template
-*/
+ * Remove the selected template
+ */
 function removeTemplate($cid,$option,$client) {
 	global $database;
 	josSpoofCheck();
@@ -429,7 +429,7 @@ function saveTemplateAssign($option,$client) {
 			if($menuid != -999) {
 				// check if there is already a template assigned to this menu item
 				$query = "DELETE FROM #__templates_menu WHERE client_id = 0 AND menuid = ".(int)
-					$menuid;
+						$menuid;
 				$database->setQuery($query);
 				$database->query();
 
@@ -445,7 +445,7 @@ function saveTemplateAssign($option,$client) {
 
 
 /**
-*/
+ */
 function editPositions($option) {
 	global $database;
 
@@ -457,7 +457,7 @@ function editPositions($option) {
 }
 
 /**
-*/
+ */
 function savePositions($option) {
 	global $database;
 	josSpoofCheck();
@@ -482,4 +482,3 @@ function savePositions($option) {
 	}
 	mosRedirect('index2.php?option='.$option.'&task=positions',_POSITIONS_SAVED);
 }
-?>

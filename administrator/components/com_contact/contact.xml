@@ -81,7 +81,7 @@
 			<option value="0">Выкл.</option>
 			<option value="1">Вкл.</option>
 		</param>
- 		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="@spacer" type="spacer" default="" label="" description="" />
 		<param name="robots" type="list" default="-1" label="Мета-тег Robots" description="Выберите, какой мета-тег robots использовать для этой страницы. Этот тег позволяет управлять поведением поисковых роботов, т.е. индексацией страницы">
 			<option value="-1">Не отображать мета-тег robot</option>
 			<option value="0">Index, follow</option>

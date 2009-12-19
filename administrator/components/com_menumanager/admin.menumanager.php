@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -72,8 +72,8 @@ switch($task) {
 
 
 /**
-* Compiles a list of menumanager items
-*/
+ * Compiles a list of menumanager items
+ */
 function showMenu($option) {
 
 	$database	= &database::getInstance();
@@ -90,7 +90,7 @@ function showMenu($option) {
 	foreach($menuTypes as $a) {
 		$menus[$i]->type = $a;
 		//$count = strlen($a);
-		
+
 		$menus[$i]->modules = 0;
 
 		// query to get number of modules for menutype
@@ -98,16 +98,16 @@ function showMenu($option) {
 		$database->setQuery($query);
 		$modules = $database->loadObjectList();
 
-		foreach($modules as $mod){
-			if(stripos($mod->params, $a)!==false){
+		foreach($modules as $mod) {
+			if(stripos($mod->params, $a)!==false) {
 				$menus[$i]->modules = $menus[$i]->modules + 1;
 			}
 		}
-		
-		if(!$modules){
-			$menus[$i]->modules = '-';	
+
+		if(!$modules) {
+			$menus[$i]->modules = '-';
 		}
-		
+
 		unset($modules);
 		$i++;
 	}
@@ -165,11 +165,11 @@ function showMenu($option) {
 
 
 /**
-* Edits a mod_mainmenu module
-*
-* @param option	options for the edit mode
-* @param cid	menu id
-*/
+ * Edits a mod_mainmenu module
+ *
+ * @param option	options for the edit mode
+ * @param cid	menu id
+ */
 function editMenu($option,$menu) {
 	global $database;
 
@@ -189,9 +189,9 @@ function editMenu($option,$menu) {
 }
 
 /**
-* Creates a new mod_mainmenu module, which makes the menu visible
-* this is a workaround until a new dedicated table for menu management can be created
-*/
+ * Creates a new mod_mainmenu module, which makes the menu visible
+ * this is a workaround until a new dedicated table for menu management can be created
+ */
 function saveMenu() {
 	global $database;
 
@@ -227,7 +227,7 @@ function saveMenu() {
 
 	switch($new) {
 		case 1:
-			// create a new module for the new menu
+		// create a new module for the new menu
 			$row = new mosModule($database);
 			$row->bind($_POST);
 
@@ -259,7 +259,7 @@ function saveMenu() {
 			break;
 
 		default:
-			// change menutype being of all mod_mainmenu modules calling old menutype
+		// change menutype being of all mod_mainmenu modules calling old menutype
 			$query = "SELECT id FROM #__modules WHERE module = 'mod_mainmenu' OR module = 'mod_mljoostinamenu'"
 					."\n AND params LIKE '%".$database->getEscaped($old_menutype)."%'";
 			$database->setQuery($query);
@@ -301,7 +301,7 @@ function saveMenu() {
 			// change menutype of all menuitems using old menutype
 			if($menutype != $old_menutype) {
 				$query = "UPDATE #__menu"."\n SET menutype = ".$database->Quote($menutype)."\n WHERE menutype = ".
-					$database->Quote($old_menutype);
+						$database->Quote($old_menutype);
 				$database->setQuery($query);
 				$database->query();
 			}
@@ -314,8 +314,8 @@ function saveMenu() {
 }
 
 /**
-* Compiles a list of the items you have selected to permanently delte
-*/
+ * Compiles a list of the items you have selected to permanently delte
+ */
 function deleteConfirm($option,$type) {
 	global $database;
 
@@ -326,7 +326,7 @@ function deleteConfirm($option,$type) {
 
 	// list of menu items to delete
 	$query = "SELECT a.name, a.id"."\n FROM #__menu AS a"."\n WHERE a.menutype = ".
-		$database->Quote($type)."\n ORDER BY a.name";
+			$database->Quote($type)."\n ORDER BY a.name";
 	$database->setQuery($query);
 	$items = $database->loadObjectList();
 
@@ -359,8 +359,8 @@ function deleteConfirm($option,$type) {
 }
 
 /**
-* Deletes menu items(s) you have selected
-*/
+ * Deletes menu items(s) you have selected
+ */
 function deleteMenu($option,$cid,$type) {
 	global $database;
 
@@ -418,8 +418,8 @@ function deleteMenu($option,$cid,$type) {
 
 
 /**
-* Compiles a list of the items you have selected to Copy
-*/
+ * Compiles a list of the items you have selected to Copy
+ */
 function copyConfirm($option,$type) {
 	global $database;
 
@@ -433,8 +433,8 @@ function copyConfirm($option,$type) {
 
 
 /**
-* Copies a complete menu, all its items and creates a new module, using the name speified
-*/
+ * Copies a complete menu, all its items and creates a new module, using the name speified
+ */
 function copyMenu($option,$cid,$type) {
 	global $database;
 
@@ -516,9 +516,9 @@ function copyMenu($option,$cid,$type) {
 }
 
 /**
-* Cancels an edit operation
-* @param option	options for the operation
-*/
+ * Cancels an edit operation
+ * @param option	options for the operation
+ */
 function cancelMenu($option) {
 	mosRedirect('index2.php?option='.$option.'&task=view');
 }

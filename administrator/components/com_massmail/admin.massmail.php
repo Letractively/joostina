@@ -1,18 +1,18 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 // ensure user has access to this function
 if(!$acl->acl_check('administration','manage','users',$my->usertype,
-	'components','com_massmail')) {
+'components','com_massmail')) {
 	mosRedirect('index2.php',_NOT_AUTH);
 }
 
@@ -41,7 +41,7 @@ function messageForm($option) {
 	$lists = array();
 	$gtree = array_merge($gtree,$acl->get_group_children_tree(null,'USERS',false));
 	$lists['gid'] = mosHTML::selectList($gtree,'mm_group','size="10"','value',
-		'text',0);
+			'text',0);
 
 	HTML_massmail::messageForm($lists,$option);
 }
@@ -83,16 +83,16 @@ function sendMail() {
 
 		// Get all users email and group except for senders
 		$query = "SELECT email"."\n FROM #__users"."\n WHERE id != ".(int)$my->id.($gou
-			!== '0'?" AND ( $user_ids )":'');
+						!== '0'?" AND ( $user_ids )":'');
 		$database->setQuery($query);
 		$rows = $database->loadObjectList();
 
 		// Build e-mail message format
 		$message_header = sprintf(_MASSMAIL_MESSAGE,html_entity_decode($mosConfig_sitename,
-			ENT_QUOTES));
+				ENT_QUOTES));
 		$message = $message_header.$message_body;
 		$subject = html_entity_decode($mosConfig_sitename,ENT_QUOTES).' / '.
-			stripslashes($subject);
+				stripslashes($subject);
 
 		//Send email
 		foreach($rows as $row) {
@@ -103,4 +103,3 @@ function sendMail() {
 	$msg = _MESSAGE_SENDED_TO_USERS.count($rows);
 	mosRedirect('index2.php?option=com_massmail',$msg);
 }
-?>

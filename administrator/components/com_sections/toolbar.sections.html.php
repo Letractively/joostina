@@ -1,19 +1,19 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 /**
-* @package Joostina
-* @subpackage Sections
-*/
+ * @package Joostina
+ * @subpackage Sections
+ */
 class TOOLBAR_sections {
 	function _MASADD() {
 		mosMenuBar::startTable();
@@ -29,8 +29,8 @@ class TOOLBAR_sections {
 	}
 
 	/**
-	* Draws the menu for Editing an existing category
-	*/
+	 * Draws the menu for Editing an existing category
+	 */
 	function _EDIT() {
 		global $id;
 
@@ -42,7 +42,7 @@ class TOOLBAR_sections {
 		mosMenuBar::save();
 		mosMenuBar::spacer();
 		if($id) // используем Ajax кнопку "Применить" только для уже существующего рездела
-			// кнопка "Применить" с Ajax
+		// кнопка "Применить" с Ajax
 			mosMenuBar::ext(_APPLY,'#','-apply','id="tb-apply" onclick="ch_apply();return;"');
 		else
 			mosMenuBar::apply();
@@ -59,9 +59,9 @@ class TOOLBAR_sections {
 		mosMenuBar::endTable();
 	}
 	/**
-	* Draws the menu for Copying existing sections
-	* @param int The published state (to display the inverse button)
-	*/
+	 * Draws the menu for Copying existing sections
+	 * @param int The published state (to display the inverse button)
+	 */
 	function _COPY() {
 		mosMenuBar::startTable();
 		mosMenuBar::save('copysave');
@@ -70,8 +70,8 @@ class TOOLBAR_sections {
 		mosMenuBar::endTable();
 	}
 	/**
-	* Draws the menu for Editing an existing category
-	*/
+	 * Draws the menu for Editing an existing category
+	 */
 	function _DEFAULT() {
 		mosMenuBar::startTable();
 		mosMenuBar::ext(_CREATE_CATEGORY,'index2.php?option=com_categories&task=new','-new');
@@ -91,4 +91,3 @@ class TOOLBAR_sections {
 		mosMenuBar::endTable();
 	}
 }
-?>

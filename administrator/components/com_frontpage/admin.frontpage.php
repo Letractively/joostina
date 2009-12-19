@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -69,8 +69,8 @@ switch($task) {
 
 
 /**
-* Compiles a list of frontpage items
-*/
+ * Compiles a list of frontpage items
+ */
 function viewFrontPage($option) {
 	global $mainframe,$mosConfig_list_limit;
 
@@ -163,10 +163,10 @@ function viewFrontPage($option) {
 }
 
 /**
-* Changes the state of one or more content pages
-* @param array An array of unique category id numbers
-* @param integer 0 if unpublishing, 1 if publishing
-*/
+ * Changes the state of one or more content pages
+ * @param array An array of unique category id numbers
+ * @param integer 0 if unpublishing, 1 if publishing
+ */
 function changeFrontPage($cid = null,$state = 0,$option) {
 	global $my;
 
@@ -234,9 +234,9 @@ function removeFrontPage(&$cid,$option) {
 }
 
 /**
-* Moves the order of a record
-* @param integer The increment to reorder by
-*/
+ * Moves the order of a record
+ * @param integer The increment to reorder by
+ */
 function orderFrontPage($uid,$inc,$option) {
 	josSpoofCheck();
 
@@ -253,10 +253,10 @@ function orderFrontPage($uid,$inc,$option) {
 }
 
 /**
-* @param integer The id of the content item
-* @param integer The new access level
-* @param string The URL option
-*/
+ * @param integer The id of the content item
+ * @param integer The new access level
+ * @param string The URL option
+ */
 function accessMenu($uid,$access) {
 	josSpoofCheck();
 
@@ -289,7 +289,7 @@ function saveOrder(&$cid) {
 
 	for($i = 0; $i < $total; $i++) {
 		$query = "UPDATE #__content_frontpage SET ordering = ".(int)$order[$i]." WHERE content_id = ".(int)
-			$cid[$i];
+				$cid[$i];
 		$database->setQuery($query);
 		if(!$database->query()) {
 			echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
@@ -308,4 +308,3 @@ function saveOrder(&$cid) {
 	$msg = _NEW_ORDER_SAVED;
 	mosRedirect( 'index2.php?option=com_frontpage', $msg );
 }
-?>

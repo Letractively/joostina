@@ -18,16 +18,16 @@ defined('_VALID_MOS') or die();
 require_once ($mainframe->getPath('toolbar_html'));
 require_once ($mainframe->getPath('toolbar_default'));
 
-switch ($task)
-{
-		case 'purgeadmin':
+switch ($task) {
+	case 'purgeadmin':
 		TOOLBAR_cache::_PURGEADMIN();
-		break;
-		case 'purge':
-		TOOLBAR_cache::_PURGEADMIN();
-		break;
-		default:
-		TOOLBAR_cache::_DEFAULT();
 		break;
 
+	case 'purge':
+		TOOLBAR_cache::_PURGEADMIN();
+		break;
+
+	default:
+		TOOLBAR_cache::_DEFAULT();
+		break;
 }

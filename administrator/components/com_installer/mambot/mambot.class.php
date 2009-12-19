@@ -1,23 +1,23 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 /**
-* Module installer
-* @package Joostina
-* @subpackage Installer
-*/
+ * Module installer
+ * @package Joostina
+ * @subpackage Installer
+ */
 class mosInstallerMambot extends mosInstaller {
-
-	function __construct($pre_installer){
+	
+	function __construct($pre_installer) {
 		// Copy data
 		$this->i_installfilename = $pre_installer->i_installfilename;
 		$this->i_installarchive = $pre_installer->i_installarchive;
@@ -37,9 +37,9 @@ class mosInstallerMambot extends mosInstaller {
 	}
 
 	/**
-	* Custom install method
-	* @param boolean True if installing from directory
-	*/
+	 * Custom install method
+	 * @param boolean True if installing from directory
+	 */
 	function install($p_fromdir = null) {
 		$database = &database::getInstance();
 
@@ -81,7 +81,7 @@ class mosInstallerMambot extends mosInstaller {
 				$r		= strpos( $sql, 'CREATE' );
 				$t		= strpos( $sql, 'TABLE' );
 				// если в запросе нет указания кодировки, но есть явные команды создания таблиц, а база работает в режиме совместимости со старшими версиями MySQL - добавим определение кодировки
-				if((!$d) && (!$c) && ($r) && ($t) ){
+				if((!$d) && (!$c) && ($r) && ($t) ) {
 					$sql = str_replace(';','',$sql);
 					$sql .= ' CHARACTER SET utf8 COLLATE utf8_general_ci;';
 				}
@@ -134,17 +134,17 @@ class mosInstallerMambot extends mosInstaller {
 		return $this->copySetupFile('front');
 	}
 	/**
-	* Custom install method
-	* @param int The id of the module
-	* @param string The URL option
-	* @param int The client id
-	*/
+	 * Custom install method
+	 * @param int The id of the module
+	 * @param string The URL option
+	 * @param int The client id
+	 */
 	function uninstall($id,$option,$client = 0) {
 		$database = &database::getInstance();
 
 		$id = intval($id);
 		$query = "SELECT name, folder, element, iscore FROM #__mambots WHERE id = ".(int)
-			$id;
+				$id;
 		$database->setQuery($query);
 
 		$row = null;
@@ -236,8 +236,8 @@ class mosInstallerMambot extends mosInstaller {
 		return true;
 	}
 	/**
-	* Uninstall method
-	*/
+	 * Uninstall method
+	 */
 	function cleanAfterError() {
 		josSpoofCheck();
 
@@ -245,10 +245,10 @@ class mosInstallerMambot extends mosInstaller {
 		$mosinstall = &$this->i_xmldoc->documentElement;
 		// get the files element
 		$files_element = &$mosinstall->getElementsByPath('files',1);
-		
+
 		// Search the install dir for an xml file
 		$files = mosReadDirectory($this->installDir(),'.xml$',true,true);
-		
+
 		if(count($files) > 0) {
 			foreach($files as $file) {
 				$packagefile = $this->isPackageFile($file);
@@ -257,12 +257,12 @@ class mosInstallerMambot extends mosInstaller {
 				}
 			}
 		}
-		if($this->isWindows()){
+		if($this->isWindows()) {
 			$elementName = substr(substr(strrchr($xmlfilename, '\\'), 1), 0,  -4);
-		}else{
+		}else {
 			$elementName = substr(substr(strrchr($xmlfilename, '/'), 1), 0, -4);
 		}
-		
+
 		if(!is_null($files_element)) {
 			$files = $files_element->childNodes;
 			foreach($files as $file) {
@@ -280,7 +280,7 @@ class mosInstallerMambot extends mosInstaller {
 			}
 			// remove XML file from front
 			@unlink(mosPathName($xmlfilename,false));
-			if(file_exists($basepath. $elementName)){
+			if(file_exists($basepath. $elementName)) {
 				deldir($basepath. $elementName . '/');
 			}
 			return true;

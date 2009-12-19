@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -68,9 +68,9 @@ switch($task) {
 }
 
 /**
-* List the records
-* @param string The current GET/POST option
-*/
+ * List the records
+ * @param string The current GET/POST option
+ */
 function showNewsFeeds($option) {
 	global $database,$mainframe,$mosConfig_list_limit;
 
@@ -88,8 +88,8 @@ function showNewsFeeds($option) {
 
 	// get the subset (based on limits) of required records
 	$query = "SELECT a.*, c.name AS catname, u.name AS editor"."\n FROM #__newsfeeds AS a".
-		"\n LEFT JOIN #__categories AS c ON c.id = a.catid"."\n LEFT JOIN #__users AS u ON u.id = a.checked_out".($catid?
-		"\n WHERE a.catid = ".(int)$catid:'')."\n ORDER BY a.ordering";
+			"\n LEFT JOIN #__categories AS c ON c.id = a.catid"."\n LEFT JOIN #__users AS u ON u.id = a.checked_out".($catid?
+			"\n WHERE a.catid = ".(int)$catid:'')."\n ORDER BY a.ordering";
 	$database->setQuery($query,$pageNav->limitstart,$pageNav->limit);
 
 	$rows = $database->loadObjectList();
@@ -106,10 +106,10 @@ function showNewsFeeds($option) {
 }
 
 /**
-* Creates a new or edits and existing user record
-* @param int The id of the user, 0 if a new entry
-* @param string The current GET/POST option
-*/
+ * Creates a new or edits and existing user record
+ * @param int The id of the user, 0 if a new entry
+ * @param string The current GET/POST option
+ */
 function editNewsFeed($id,$option) {
 	global $database,$my;
 
@@ -145,9 +145,9 @@ function editNewsFeed($id,$option) {
 }
 
 /**
-* Saves the record from an edit form submit
-* @param string The current GET/POST option
-*/
+ * Saves the record from an edit form submit
+ * @param string The current GET/POST option
+ */
 function saveNewsFeed($option) {
 	global $database,$my;
 	josSpoofCheck();
@@ -176,11 +176,11 @@ function saveNewsFeed($option) {
 }
 
 /**
-* Publishes or Unpublishes one or more modules
-* @param array An array of unique category id numbers
-* @param integer 0 if unpublishing, 1 if publishing
-* @param string The current GET/POST option
-*/
+ * Publishes or Unpublishes one or more modules
+ * @param array An array of unique category id numbers
+ * @param integer 0 if unpublishing, 1 if publishing
+ * @param string The current GET/POST option
+ */
 function publishNewsFeeds($cid,$publish,$option) {
 	global $database,$my;
 	josSpoofCheck();
@@ -210,10 +210,10 @@ function publishNewsFeeds($cid,$publish,$option) {
 }
 
 /**
-* Removes records
-* @param array An array of id keys to remove
-* @param string The current GET/POST option
-*/
+ * Removes records
+ * @param array An array of id keys to remove
+ * @param string The current GET/POST option
+ */
 function removeNewsFeeds(&$cid,$option) {
 	global $database;
 	josSpoofCheck();
@@ -236,9 +236,9 @@ function removeNewsFeeds(&$cid,$option) {
 }
 
 /**
-* Cancels an edit operation
-* @param string The current GET/POST option
-*/
+ * Cancels an edit operation
+ * @param string The current GET/POST option
+ */
 function cancelNewsFeed($option) {
 	global $database;
 	josSpoofCheck();
@@ -250,11 +250,11 @@ function cancelNewsFeed($option) {
 }
 
 /**
-* Moves the order of a record
-* @param integer The id of the record to move
-* @param integer The direction to reorder, +1 down, -1 up
-* @param string The current GET/POST option
-*/
+ * Moves the order of a record
+ * @param integer The id of the record to move
+ * @param integer The direction to reorder, +1 down, -1 up
+ * @param string The current GET/POST option
+ */
 function orderNewsFeed($id,$inc,$option) {
 	global $database;
 	josSpoofCheck();
@@ -269,4 +269,3 @@ function orderNewsFeed($id,$inc,$option) {
 
 	mosRedirect('index2.php?option='.$option);
 }
-?>

@@ -23,8 +23,7 @@ defined('_VALID_MOS') or die();
  * @subpackage	Cache
  * @since 		1.3
  */
-class CacheView
-{
+class CacheView {
 
 	/**
 	 * Displays the cache
@@ -32,129 +31,80 @@ class CacheView
 	 * @param array An array of records
 	 * @param string The URL option
 	 */
-	function displayCache(&$rows, &$client, &$page)
-	{
+	function displayCache(&$rows, &$client, &$page) {
 		?>
-		<table border="0" class="adminheading">
-		<tbody><tr>
+<table border="0" class="adminheading">
+	<tbody><tr>
 			<th class="cpanel"><?php echo _CACHE_MANAGEMENT?></th>
 		</tr>
-		</tbody>
-		</table>
-		<form action="index2.php" method="POST" name="adminForm">
-		<table cellpadding="3" cellspacing="0" border="0" width="100%" class="adminlist">
-			<thead>
+	</tbody>
+</table>
+<form action="index2.php" method="POST" name="adminForm">
+	<table cellpadding="3" cellspacing="0" border="0" width="100%" class="adminlist">
+		<thead>
 			<tr>
 				<th class="title" width="10">
-					<?php echo _CACHE_NUM; ?>
+		<?php echo _CACHE_NUM; ?>
 				</th>
 				<th width="20">
 					<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $rows );?>);" />
 				</th>
 				<th class="title" nowrap="nowrap">
-					<?php echo _GROUP; ?>
+		<?php echo _GROUP; ?>
 				</th>
 				<th width="5%" align="center" nowrap="nowrap">
-					<?php echo _CACHE_FILE_NUMBER; ?>
+		<?php echo _CACHE_FILE_NUMBER; ?>
 				</th>
 				<th width="10%" align="center">
-					<?php echo _CACHE_SIZE; ?>
+		<?php echo _CACHE_SIZE; ?>
 				</th>
 			</tr>
-			</thead>
-			<tfoot>
+		</thead>
+		<tfoot>
 			<tr>
 				<td colspan="6">
-				<?php echo $page->getListFooter(); ?>
+		<?php echo $page->getListFooter(); ?>
 				</td>
 			</tr>
-			</tfoot>
-			<tbody>
+		</tfoot>
+		<tbody>
+		<?php
+		$rc = 0;
+					for ($i = 0, $n = count($rows); $i < $n; $i ++) {
+						$row = & $rows[$i];
+						?>
+			<tr class="<?php echo "row$rc"; ?>" >
+				<td style="text-align: center;">
+			<?php echo $i + 1; ?>
+				</td>
+				<td>
+					<input type="checkbox" id="cb<?php echo $i;?>" name="cid[]" value="<?php echo $row->group; ?>" onclick="isChecked(this.checked);" />
+				</td>
+				<td>
+					<span class="bold">
+			<?php echo $row->group; ?>
+					</span>
+				</td>
+				<td align="center">
+			<?php echo $row->count; ?>
+				</td>
+				<td align="center">
+			<?php echo $row->size . " " ._CACHE_KB?>
+				</td>
+			</tr>
 			<?php
-			$rc = 0;
-			for ($i = 0, $n = count($rows); $i < $n; $i ++) {
-				$row = & $rows[$i];
-				?>
-				<tr class="<?php echo "row$rc"; ?>" >
-					<td style="text-align: center;">
-						<?php echo $i + 1; ?>
-					</td>
-					<td>
-						<input type="checkbox" id="cb<?php echo $i;?>" name="cid[]" value="<?php echo $row->group; ?>" onclick="isChecked(this.checked);" />
-					</td>
-					<td>
-						<span class="bold">
-							<?php echo $row->group; ?>
-						</span>
-					</td>
-					<td align="center">
-						<?php echo $row->count; ?>
-					</td>
-					<td align="center">
-						<?php echo $row->size . " " ._CACHE_KB?>
-					</td>
-				</tr>
-				<?php
-				$rc = 1 - $rc;
-			}
-			?>
-			</tbody>
-		</table>
-		<input type="hidden" name="task" value="" />
-		<input type="hidden" name="boxchecked" value="0" />
-		<input type="hidden" name="option" value="com_cache" />
-		<input type="hidden" name="client" value="<?php echo $client;?>" />
-		<input type="hidden" name="chosen" value="">
-		
-		</form>
+			$rc = 1 - $rc;
+					}
+					?>
+		</tbody>
+	</table>
+	<input type="hidden" name="task" value="" />
+	<input type="hidden" name="boxchecked" value="0" />
+	<input type="hidden" name="option" value="com_cache" />
+	<input type="hidden" name="client" value="<?php echo $client;?>" />
+	<input type="hidden" name="chosen" value="">
+
+</form>
 		<?php
 	}
-	/*function showPurgeExecute(){
-		?>
-       <form action="index.php" method="post" name="adminForm">
-        <table class="adminlist" cellspacing="1">
-        <thead>
-			<tr>
-				<th align="left" style="text-align: left;">
-					<?php echo 'Purge expired items'; ?>
-				</th>
-			</tr>
-        </thead>
-        			<tr>
-				<td align="left">
-				<?php echo 'Click on the Purge expired icon in the toolbar to delete all expired cache files. Note: Cache files that are still current will not be deleted.'; ?> <br />
-                <span style="font-weight: bold"><?php echo 'WARNING: This can be resource intensive on sites with large number of items!'; ?></span>
-				</td>
-			</tr>
-        </table>
-        <input type="hidden" name="task" value="" />
-		<input type="hidden" name="option" value="com_cache" />
-        <?php //echo 'form.token'; ?>
-        </form>
-         <?php
-	}
-	function purgeSuccess(){
-		?>
-        <form action="index.php" method="post" name="adminForm">
-        <table class="adminlist" cellspacing="1">
-        <thead>
-			<tr>
-				<th align="left" style="text-align: left;">
-					<?php echo 'Success!'; ?>
-				</th>
-			</tr>
-        </thead>
-        			<tr>
-				<td align="left">
-					<?php echo 'Expired items have been purged'; ?>
-				</td>
-			</tr>
-        </table>
-        <input type="hidden" name="task" value="" />
-		<input type="hidden" name="option" value="com_cache" />
-        <?php //echo 'form.token'; ?>
-        </form>
-		 <?php
-	}*/
 }
-?>

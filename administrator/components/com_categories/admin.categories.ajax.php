@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -39,9 +39,9 @@ switch($task) {
 
 
 /**
-* Saves the catefory after an edit form submit
-* @param string The name of the category section
-*/
+ * Saves the catefory after an edit form submit
+ * @param string The name of the category section
+ */
 function x_apply() {
 	global $database;
 	josSpoofCheck();
@@ -50,11 +50,11 @@ function x_apply() {
 	$oldtitle = stripslashes(strval(mosGetParam($_POST,'oldtitle',null)));
 
 	$row = new mosCategory($database);
-	
+
 	foreach($_POST as $key => $val) {
 		$_POST[$key] = joostina_api::convert($val);
 	}
-	
+
 	if(!$row->bind($_POST,'folders')) return 'error-bind';
 	$row->title = addslashes($row->title);
 	$row->name = addslashes($row->name);
@@ -67,21 +67,21 @@ function x_apply() {
 		if(strpos($folders,'*2*') !== false) {
 			$folders = '*2*';
 		} else
-			if(strpos($folders,'*1*') !== false) {
-				$folders = '*1*';
-			} else
-				if(strpos($folders,'*0*') !== false) {
-					$folders = '*0*';
-				} else
-					if(strpos($folders,',*#*') !== false) {
-						$folders = str_replace(',*#*','',$folders);
-					} else
-						if(strpos($folders,'*#*,') !== false) {
-							$folders = str_replace('*#*,','',$folders);
-						} else
-							if(strpos($folders,'*#*') !== false) {
-								$folders = str_replace('*#*','',$folders);
-							}
+		if(strpos($folders,'*1*') !== false) {
+			$folders = '*1*';
+		} else
+		if(strpos($folders,'*0*') !== false) {
+			$folders = '*0*';
+		} else
+		if(strpos($folders,',*#*') !== false) {
+			$folders = str_replace(',*#*','',$folders);
+		} else
+		if(strpos($folders,'*#*,') !== false) {
+			$folders = str_replace('*#*,','',$folders);
+		} else
+		if(strpos($folders,'*#*') !== false) {
+			$folders = str_replace('*#*','',$folders);
+		}
 
 		$row->params = 'imagefolders='.$folders;
 	}
@@ -95,7 +95,7 @@ function x_apply() {
 	if($oldtitle) {
 		if($oldtitle != $row->title) {
 			$query = "UPDATE #__menu SET name = ".$database->Quote($row->title)." WHERE name = ".
-				$database->Quote($oldtitle)."\n AND type = 'content_category'";
+					$database->Quote($oldtitle)."\n AND type = 'content_category'";
 			$database->setQuery($query);
 			$database->query();
 		}
@@ -103,7 +103,7 @@ function x_apply() {
 
 	// Update Section Count
 	if($row->section != 'com_contact_details' && $row->section != 'com_newsfeeds' &&
-		$row->section != 'com_weblinks') {
+			$row->section != 'com_weblinks') {
 		$query = "UPDATE #__sections SET count=count+1 WHERE id = ".$database->Quote($row->section);
 		$database->setQuery($query);
 	}
@@ -116,7 +116,7 @@ function x_apply() {
 	return _CATEGORY_CHANGES_SAVED;
 }
 
-function x_save_sections($id){
+function x_save_sections($id) {
 	global $database,$my;
 	$new_section = intval(mosGetParam($_GET,'new_sec',0));
 	$query = "UPDATE #__categories SET section = '".$new_section."' WHERE id = ".$id." AND ( checked_out = 0 OR ( checked_out = ".(int)$my->id." ) )";
@@ -130,7 +130,7 @@ function x_save_sections($id){
 	}
 }
 // обновление идентификаторов разделов
-function _update_content($id,$new_section){
+function _update_content($id,$new_section) {
 	global $database;
 	$query = "UPDATE #__content SET sectionid = '".$new_section."' WHERE catid = ".$id." ";
 	$database->setQuery($query);
@@ -140,7 +140,7 @@ function _update_content($id,$new_section){
 	return FALSE;
 }
 
-function x_get_sections($id){
+function x_get_sections($id) {
 	global $database;
 	$sectionid = intval(mosGetParam($_GET,'cur_sec',0));
 	$javascript = 'onchange="ch_save_sec('.$id.',this.value)"';
@@ -153,7 +153,7 @@ function x_get_sections($id){
 	return mosHTML::selectList($database->loadObjectList(),'sectionid','class="inputbox" size="1" '.$javascript,'value','text',$sectionid);
 }
 
-function x_access($id){
+function x_access($id) {
 	global $database;
 	$access = mosGetParam($_GET,'chaccess','accessregistered');
 	$option = strval(mosGetParam($_REQUEST,'option',''));
@@ -227,4 +227,3 @@ function x_publish($id = null) {
 		return $ret_img;
 	}
 }
-?>
