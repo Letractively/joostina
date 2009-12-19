@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -74,9 +74,9 @@ switch($task) {
 }
 
 /**
-* Compiles a list of installed or defined modules
-* @param database A database connector object
-*/
+ * Compiles a list of installed or defined modules
+ * @param database A database connector object
+ */
 function view($option) {
 	global $database,$mainframe,$mosConfig_list_limit;
 
@@ -115,17 +115,17 @@ function view($option) {
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
 	$query = "SELECT c.*, g.name AS groupname, u.name AS editor, z.name AS creator, 0 as links"
-		."\n FROM #__content AS c"
-		."\n LEFT JOIN #__groups AS g ON g.id = c.access"
-		."\n LEFT JOIN #__users AS u ON u.id = c.checked_out"
-		."\n LEFT JOIN #__users AS z ON z.id = c.created_by"
-		."\n WHERE c.sectionid = 0"
-		."\n AND c.catid = 0"
-		."\n AND c.state != -2"
-		.$search_query
-		.$filter
-		."\n ORDER BY ".
-		$order;
+			."\n FROM #__content AS c"
+			."\n LEFT JOIN #__groups AS g ON g.id = c.access"
+			."\n LEFT JOIN #__users AS u ON u.id = c.checked_out"
+			."\n LEFT JOIN #__users AS z ON z.id = c.created_by"
+			."\n WHERE c.sectionid = 0"
+			."\n AND c.catid = 0"
+			."\n AND c.state != -2"
+			.$search_query
+			.$filter
+			."\n ORDER BY ".
+			$order;
 	$database->setQuery($query,$pageNav->limitstart,$pageNav->limit);
 	$rows = $database->loadObjectList('id');
 
@@ -137,18 +137,18 @@ function view($option) {
 	$new_rows = array();
 
 	$contents_ids = array();
-	foreach ($rows as $row){
+	foreach ($rows as $row) {
 		$contents_ids[]=$row->id;
 	}
 	unset($row);
 
-	if(count($contents_ids)>0){
+	if(count($contents_ids)>0) {
 		$query = "SELECT COUNT( id ) as count,componentid FROM #__menu WHERE componentid IN(".implode(',',$contents_ids).") AND type = 'content_typed' AND published != -2 GROUP BY componentid";
 		$database->setQuery($query);
 		$links = $database->loadObjectList('componentid');
 
-		foreach ($rows as $row){
-			if(isset($links[$row->id])){
+		foreach ($rows as $row) {
+			if(isset($links[$row->id])) {
 				$rows[$links[$row->id]->componentid]->links = $links[$row->id]->count ? $links[$row->id]->count : 0;
 			}
 			$new_rows[] = $rows[$row->id];
@@ -175,11 +175,11 @@ function view($option) {
 
 	// get list of Authors for dropdown filter
 	$query = "SELECT c.created_by AS value, u.name AS text"
-		."\n FROM #__content AS c"
-		."\n LEFT JOIN #__users AS u ON u.id = c.created_by"
-		."\n WHERE c.sectionid = 0"
-		."\n GROUP BY u.name"
-		."\n ORDER BY u.name";
+			."\n FROM #__content AS c"
+			."\n LEFT JOIN #__users AS u ON u.id = c.created_by"
+			."\n WHERE c.sectionid = 0"
+			."\n GROUP BY u.name"
+			."\n ORDER BY u.name";
 	$authors[] = mosHTML::makeOption('0',_SEL_AUTHOR);
 	$database->setQuery($query);
 	$authors = array_merge($authors,$database->loadObjectList());
@@ -190,11 +190,11 @@ function view($option) {
 }
 
 /**
-* Compiles information to add or edit content
-* @param database A database connector object
-* @param string The name of the category section
-* @param integer The unique id of the category to edit (0 if new)
-*/
+ * Compiles information to add or edit content
+ * @param database A database connector object
+ * @param string The name of the category section
+ * @param integer The unique id of the category to edit (0 if new)
+ */
 function edit($uid,$option) {
 	global $database,$my,$mainframe;
 	global $mosConfig_offset;
@@ -292,13 +292,13 @@ function edit($uid,$option) {
 
 	//Тэги
 	$row->tags = null;
-		if($row->id){
+	if($row->id) {
 		$tags = new contentTags($database);
-	    
-	    $load_tags = $tags->load_by($row);
-	    if(count($load_tags)){
-	    	$row->tags = implode(',', $load_tags);	
-	    }
+
+		$load_tags = $tags->load_by($row);
+		if(count($load_tags)) {
+			$row->tags = implode(',', $load_tags);
+		}
 	}
 
 	// get params definitions
@@ -310,8 +310,8 @@ function edit($uid,$option) {
 }
 
 /**
-* Saves the typed content item
-*/
+ * Saves the typed content item
+ */
 function save($option,$task) {
 	global $database,$my,$mosConfig_offset;
 	josSpoofCheck();
@@ -367,7 +367,7 @@ function save($option,$task) {
 	$row->introtext = str_replace('<br>','<br />',$row->introtext);
 
 	$row->title = ampReplace($row->title);
-	
+
 	$templates = new ContentTemplate();
 	$row->templates = $templates->prepare_for_save(mosGetParam($_POST,'templates',array()));
 
@@ -375,22 +375,22 @@ function save($option,$task) {
 		echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
 		exit();
 	}
-	
-	
+
+
 	if(!$row->store()) {
 		echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
 		exit();
 	}
 	$row->checkin();
-	
- 	//Подготовка тэгов
-    $tags = explode(',', $_POST['tags']);
-    $tag = new contentTags($database);
-    $tags = $tag->clear_tags($tags);
-    //Запись тэгов
-    $row->obj_type = 'com_content';
-    $tag->update($tags, $row);
-    //$row->metakey = implode(',', $tags);
+
+	//Подготовка тэгов
+	$tags = explode(',', $_POST['tags']);
+	$tag = new contentTags($database);
+	$tags = $tag->clear_tags($tags);
+	//Запись тэгов
+	$row->obj_type = 'com_content';
+	$tag->update($tags, $row);
+	//$row->metakey = implode(',', $tags);
 
 	// clean any existing cache files
 	mosCache::cleanCache('com_content');
@@ -402,7 +402,7 @@ function save($option,$task) {
 
 		case 'go2menuitem':
 			mosRedirect('index2.php?option=com_menus&menutype='.$menu.
-				'&task=edit&hidemainmenu=1&id='.$menuid);
+					'&task=edit&hidemainmenu=1&id='.$menuid);
 			break;
 
 		case 'menulink':
@@ -422,14 +422,14 @@ function save($option,$task) {
 		default:
 			$msg = _CONTENT_SAVED;
 			mosRedirect('index2.php?option='.$option.'&task=edit&hidemainmenu=1&id='.$row->id,
-				$msg);
+					$msg);
 			break;
 	}
 }
 
 /**
-* Trashes the typed content item
-*/
+ * Trashes the typed content item
+ */
 function trash(&$cid,$option) {
 	global $database;
 	josSpoofCheck();
@@ -445,11 +445,11 @@ function trash(&$cid,$option) {
 	mosArrayToInts($cid);
 	$cids = 'id='.implode(' OR id=',$cid);
 	$query = "UPDATE #__content"."\n SET state = ".(int)$state.", ordering = ".(int)
-		$ordering."\n WHERE ( $cids )";
+			$ordering."\n WHERE ( $cids )";
 	$database->setQuery($query);
 	if(!$database->query()) {
 		echo "<script> alert('".$database->getErrorMsg().
-			"'); window.history.go(-1); </script>\n";
+				"'); window.history.go(-1); </script>\n";
 		exit();
 	}
 
@@ -461,13 +461,13 @@ function trash(&$cid,$option) {
 }
 
 /**
-* Changes the state of one or more content pages
-* @param string The name of the category section
-* @param integer A unique category id (passed from an edit form)
-* @param array An array of unique category id numbers
-* @param integer 0 if unpublishing, 1 if publishing
-* @param string The name of the current user
-*/
+ * Changes the state of one or more content pages
+ * @param string The name of the category section
+ * @param integer A unique category id (passed from an edit form)
+ * @param array An array of unique category id numbers
+ * @param integer 0 if unpublishing, 1 if publishing
+ * @param string The name of the current user
+ */
 function changeState($cid = null,$state = 0,$option) {
 	global $database,$my;
 	josSpoofCheck();
@@ -482,11 +482,11 @@ function changeState($cid = null,$state = 0,$option) {
 	$cids = 'id='.implode(' OR id=',$cid);
 
 	$query = "UPDATE #__content"."\n SET state = ".(int)$state."\n WHERE ( $cids )".
-		"\n AND ( checked_out = 0 OR ( checked_out = ".(int)$my->id." ) )";
+			"\n AND ( checked_out = 0 OR ( checked_out = ".(int)$my->id." ) )";
 	$database->setQuery($query);
 	if(!$database->query()) {
 		echo "<script> alert('".$database->getErrorMsg().
-			"'); window.history.go(-1); </script>\n";
+				"'); window.history.go(-1); </script>\n";
 		exit();
 	}
 
@@ -501,16 +501,16 @@ function changeState($cid = null,$state = 0,$option) {
 	if($state == "1") {
 		$msg = _O_SECCESS_PUBLISHED." - ".$total;
 	} else
-		if($state == "0") {
-			$msg = _O_SUCCESS_UNPUBLISHED." - ".$total;
-		}
+	if($state == "0") {
+		$msg = _O_SUCCESS_UNPUBLISHED." - ".$total;
+	}
 	mosRedirect('index2.php?option='.$option.'&msg='.$msg);
 }
 
 /**
-* changes the access level of a record
-* @param integer The increment to reorder by
-*/
+ * changes the access level of a record
+ * @param integer The increment to reorder by
+ */
 function changeAccess($id,$access,$option) {
 	global $database;
 	josSpoofCheck();
@@ -533,8 +533,8 @@ function changeAccess($id,$access,$option) {
 
 
 /**
-* Function to reset Hit count of a content item
-*/
+ * Function to reset Hit count of a content item
+ */
 function resethits($option,$id) {
 	global $database;
 	josSpoofCheck();
@@ -546,13 +546,13 @@ function resethits($option,$id) {
 
 	$msg = _HIT_COUNT_RESETTED;
 	mosRedirect('index2.php?option='.$option.'&task=edit&hidemainmenu=1&id='.$row->id,
-		$msg);
+			$msg);
 }
 
 /**
-* Cancels an edit operation
-* @param database A database connector object
-*/
+ * Cancels an edit operation
+ * @param database A database connector object
+ */
 function cancel($option) {
 	global $database;
 	josSpoofCheck();
@@ -666,5 +666,3 @@ function saveOrder(&$cid) {
 	$msg = _NEW_ORDER_SAVED;
 	mosRedirect('index2.php?option=com_typedcontent',$msg);
 } // saveOrder
-
-?>

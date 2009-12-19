@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -13,26 +13,26 @@ defined('_VALID_MOS') or die();
 class CFSAbstraction {
 
 	/** Should we use glob() ?
-	* @var boolean
-	*/
+	 * @var boolean
+	 */
 	var $_globEnable;
 
 	/**
-	* Public constructor for CFSAbstraction class. Does some heuristics to figure out the
-	* server capabilities and setup internal variables
-	*/
+	 * Public constructor for CFSAbstraction class. Does some heuristics to figure out the
+	 * server capabilities and setup internal variables
+	 */
 	function CFSAbstraction() {
 		// Don't use glob if it's disabled or if opendir is available
 		$this->_globEnable = function_exists('glob');
-		if(function_exists('opendir') && function_exists('readdir') && function_exists('closedir')) 
-				$this->_globEnable = false;
+		if(function_exists('opendir') && function_exists('readdir') && function_exists('closedir'))
+			$this->_globEnable = false;
 	}
 
 	/**
-	* Searches the given directory $dirName for files and folders and returns a multidimensional array.
-	* If the directory is not accessible, returns FALSE
-	* @return array See function description for details
-	*/
+	 * Searches the given directory $dirName for files and folders and returns a multidimensional array.
+	 * If the directory is not accessible, returns FALSE
+	 * @return array See function description for details
+	 */
 	function getDirContents($dirName,$shellFilter = null) {
 		if($this->_globEnable) {
 			return $this->_getDirContents_glob($dirName,$shellFilter);
@@ -46,10 +46,10 @@ class CFSAbstraction {
 	// ============================================================================
 
 	/**
-	* Searches the given directory $dirName for files and folders and returns a multidimensional array.
-	* If the directory is not accessible, returns FALSE. This function uses the PHP glob() function.
-	* @return array See function description for details
-	*/
+	 * Searches the given directory $dirName for files and folders and returns a multidimensional array.
+	 * If the directory is not accessible, returns FALSE. This function uses the PHP glob() function.
+	 * @return array See function description for details
+	 */
 	function _getDirContents_glob($dirName,$shellFilter = null) {
 		global $JPConfiguration; // Needed for TranslateWinPath function
 
@@ -138,4 +138,3 @@ if(!function_exists('fnmatch')) {
 		return @preg_match('/^'.strtr(addcslashes($pattern,'/\\.+^$(){}=!<>|'),array('*' =>'.*','?' => '.?')).'$/i',$string);
 	}
 }
-?>

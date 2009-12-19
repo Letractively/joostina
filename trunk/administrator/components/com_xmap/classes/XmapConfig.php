@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -95,8 +95,8 @@ class XmapConfig {
 
 		require_once(JPATH_BASE . '/'.JADMIN_BASE.'/components/com_xmap/classes/XmapPlugin.php');
 		$extensions = array (
-			//	name			published
-			array(	'com_content',		1)
+				//	name			published
+				array(	'com_content',		1)
 		);
 		foreach ( $extensions as $ext ) {
 			$extension = new XmapPlugin($database);
@@ -116,14 +116,14 @@ class XmapConfig {
 					$fields[] = 'id INT NOT NULL PRIMARY KEY AUTO_INCREMENT';
 				} else {
 					switch( gettype( $value ) ) {
-					case 'integer':
+						case 'integer':
 							$fields[] = "`$name` INTEGER NULL";
 							break;
-					case 'string':
+						case 'string':
 							if( $name == 'menus')
-									$fields[] = "`$name` TEXT NULL";
+								$fields[] = "`$name` TEXT NULL";
 							else
-									$fields[] = "`$name` VARCHAR(255) NULL";
+								$fields[] = "`$name` VARCHAR(255) NULL";
 							break;
 					}
 				}
@@ -132,15 +132,15 @@ class XmapConfig {
 		$query = "CREATE TABLE #__xmap_sitemap (". implode(', ', $fields) .")";
 		$database->setQuery( $query );
 		if( $database->query() === FALSE ) {
-				echo _XMAP_ERR_NO_CREATE . "<br />\n";
-				echo mosStripslashes($database->getErrorMsg());
-				return false;
+			echo _XMAP_ERR_NO_CREATE . "<br />\n";
+			echo mosStripslashes($database->getErrorMsg());
+			return false;
 		}
 		echo _XMAP_MSG_SET_DB_CREATED . "<br />\n";
 
 
 		// Insert default Settings
-		
+
 		$sitemap = new XmapSitemap();
 		$sitemap->save();
 
@@ -347,7 +347,7 @@ class XmapConfig {
 
 		return true;
 	}
-	
+
 	/** Debug output of current settings */
 	function dump() {
 		$vars = get_object_vars( $this );
@@ -357,5 +357,4 @@ class XmapConfig {
 		}
 		echo '</pre>';
 	}
-	
 }

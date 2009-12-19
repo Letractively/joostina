@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -33,10 +33,10 @@ switch($task) {
 
 
 /**
-* Saves the catefory after an edit form submit
-* @param database A database connector object
-* @param string The name of the category section
-*/
+ * Saves the catefory after an edit form submit
+ * @param database A database connector object
+ * @param string The name of the category section
+ */
 function x_apply() {
 	global $database;
 	josSpoofCheck();
@@ -64,18 +64,18 @@ function x_apply() {
 	if(strpos($folders,'*1*') !== false) {
 		$folders = '*1*';
 	} else
-		if(strpos($folders,'*0*') !== false) {
-			$folders = '*0*';
-		} else
-			if(strpos($folders,',*#*') !== false) {
-				$folders = str_replace(',*#*','',$folders);
-			} else
-				if(strpos($folders,'*#*,') !== false) {
-					$folders = str_replace('*#*,','',$folders);
-				} else
-					if(strpos($folders,'*#*') !== false) {
-						$folders = str_replace('*#*','',$folders);
-					}
+	if(strpos($folders,'*0*') !== false) {
+		$folders = '*0*';
+	} else
+	if(strpos($folders,',*#*') !== false) {
+		$folders = str_replace(',*#*','',$folders);
+	} else
+	if(strpos($folders,'*#*,') !== false) {
+		$folders = str_replace('*#*,','',$folders);
+	} else
+	if(strpos($folders,'*#*') !== false) {
+		$folders = str_replace('*#*','',$folders);
+	}
 	$row->params = 'imagefolders='.$folders;
 
 	if(!$row->store()) return 'error-store';
@@ -90,7 +90,7 @@ function x_apply() {
 
 }
 
-function x_access($id){
+function x_access($id) {
 	global $database;
 	$access = mosGetParam($_GET,'chaccess','accessregistered');
 	$option = strval(mosGetParam($_REQUEST,'option',''));
@@ -150,7 +150,7 @@ function x_publish($id = null) {
 		$state = '1';
 	}
 	$query = "UPDATE #__sections"."\n SET published = ".(int)$state."\n WHERE id = ".
-		$id." "."\n AND ( checked_out = 0 OR ( checked_out = ".(int)$my->id." ) )";
+			$id." "."\n AND ( checked_out = 0 OR ( checked_out = ".(int)$my->id." ) )";
 	$database->setQuery($query);
 	if(!$database->query()) {
 		return 'error-db';
@@ -159,4 +159,3 @@ function x_publish($id = null) {
 		return $ret_img;
 	}
 }
-?>

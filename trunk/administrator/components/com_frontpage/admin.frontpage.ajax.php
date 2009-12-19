@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -33,7 +33,7 @@ switch($task) {
 }
 
 
-function x_access($id){
+function x_access($id) {
 	global $database;
 	$access = mosGetParam($_GET,'chaccess','accessregistered');
 	$option = strval(mosGetParam($_REQUEST,'option',''));
@@ -105,29 +105,29 @@ function x_publish($id = null) {
 		$state = '1';
 		/* не было опубликовано - публикуем*/
 	} else
-		if(($now <= $row->publish_down || $row->publish_down == $nullDate) && $row->state == 1) {
-			// доступно и опубликовано, снимаем с публикации и возвращаем значок "Не опубликовано"
-			$ret_img = 'publish_x.png';
-			$state = '0'; // было опубликовано - снимаем с публикации
-		} else
-			if(($now <= $row->publish_down || $row->publish_down == $nullDate) && $row->state == 0) {
-				// доступно и опубликовано, снимаем с публикации и возвращаем значок "Не опубликовано"
-				$ret_img = 'publish_g.png';
-				$state = '1';
-				/* не было опубликовано - публикуем*/
-			} else
-				if($now > $row->publish_down && $row->state == 1) {
-					// опубликовано, но срок публикации истёк, снимаем с публикации и возвращаем значок "Не опубликовано"
-					$ret_img = 'publish_x.png';
-					$state = '0';
-					/* не было опубликовано - публикуем*/
-				} else
-					if($now > $row->publish_down && $row->state == 0) {
-						// опубликовано, но срок публикации истёк, снимаем с публикации и возвращаем значок "Не опубликовано"
-						$ret_img = 'publish_r.png';
-						$state = '1';
-						/* не было опубликовано - публикуем*/
-					}
+	if(($now <= $row->publish_down || $row->publish_down == $nullDate) && $row->state == 1) {
+		// доступно и опубликовано, снимаем с публикации и возвращаем значок "Не опубликовано"
+		$ret_img = 'publish_x.png';
+		$state = '0'; // было опубликовано - снимаем с публикации
+	} else
+	if(($now <= $row->publish_down || $row->publish_down == $nullDate) && $row->state == 0) {
+		// доступно и опубликовано, снимаем с публикации и возвращаем значок "Не опубликовано"
+		$ret_img = 'publish_g.png';
+		$state = '1';
+		/* не было опубликовано - публикуем*/
+	} else
+	if($now > $row->publish_down && $row->state == 1) {
+		// опубликовано, но срок публикации истёк, снимаем с публикации и возвращаем значок "Не опубликовано"
+		$ret_img = 'publish_x.png';
+		$state = '0';
+		/* не было опубликовано - публикуем*/
+	} else
+	if($now > $row->publish_down && $row->state == 0) {
+		// опубликовано, но срок публикации истёк, снимаем с публикации и возвращаем значок "Не опубликовано"
+		$ret_img = 'publish_r.png';
+		$state = '1';
+		/* не было опубликовано - публикуем*/
+	}
 
 	$query = "UPDATE #__content"
 			."\n SET state = ".(int)$state.", modified = ".$database->Quote(date('Y-m-d H:i:s'))
@@ -153,10 +153,10 @@ function x_remfront($id) {
 			$fp->ordering = 0;
 			$fp->updateOrder();
 			mosCache::cleanCache('com_content'); // почистим кэш контент
-		}else{
+		}else {
 			echo 'error-delete';
 		}
-	}else{
+	}else {
 		echo 'error-load';
 	}
 }

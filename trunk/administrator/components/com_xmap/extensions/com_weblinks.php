@@ -10,13 +10,12 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-class xmap_com_weblinks{
-	function &getTree( &$xmap, &$parent ){
+class xmap_com_weblinks {
+	function &getTree( &$xmap, &$parent ) {
 		global $my, $Itemid;
 		$list = array();
 
 		$database = &database::getInstance();
-
 
 		// include popular bloggers by default
 		$sql = 'SELECT id, title FROM #__categories WHERE section=\'com_weblinks\' and published=1';
@@ -25,7 +24,7 @@ class xmap_com_weblinks{
 		$modified = time();
 
 		$xmap->changeLevel(1);
-		foreach($rows as $row){
+		foreach($rows as $row) {
 			$node = new stdclass;
 
 			$node->id = $parent->id;
@@ -44,7 +43,7 @@ class xmap_com_weblinks{
 
 			//http://archive/component/option,com_weblinks/task,view/catid,19/id,1/
 			$xmap->changeLevel(1);
-			foreach($links as $curlink){
+			foreach($links as $curlink) {
 				$child = new stdclass;
 				$child->id = $node->id;
 				$child->browserNav = $node->browserNav;

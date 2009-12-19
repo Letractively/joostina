@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -186,7 +186,7 @@ sajax_show_javascript();
 				SRAX.get('back_file_top').innerHTML	= CUBEArray['backfile'];
 				SRAX.get('back_file_top').href	= 'index2.php?option=com_joomlapack&subtask=downloadfile&filename='+CUBEArray['backfile'];
 			}
-			
+
 		}
 	}
 	function AllDone() {
@@ -198,7 +198,6 @@ sajax_show_javascript();
 		SRAX.get('done').style.display		= 'block';
 	}
 </script>
-</body>
 <div class="jwarning" id="startInfo"><?php echo _JP_DONT_CLOSE_BROWSER_WINDOW?></div>
 <div class="jwarning" id="Timeout" style="display:none"><?php echo _JP_ERRORS_VIEW_LOG?></div>
 <div class="message" id="done" style="display:none"><?php echo _JP_BACKUP_SUCCESS?>: <a href="" id="back_file_top">&nbsp;</a></div>
@@ -212,6 +211,4 @@ sajax_show_javascript();
 <span id="Init" style="display:none">
 	<div><?php echo _JP_PROGRESS?>: <b><span id="JPStep"></span></b></div>
 	<div><?php echo _E_STATE?>: <b><span id="JPSubstep">0</span></b></div>
-</div>
-<?php
-?>
+</span>

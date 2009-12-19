@@ -1,53 +1,53 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined( '_VALID_MOS' ) or die();
 
 ?>
-		<script language="javascript" type="text/javascript">
-		function submitbutton(pressbutton) {
-			if (pressbutton == 'remove') {
-				if (document.adminForm.boxchecked.value == 0) {
-					alert('<?php echo _CHOOSE_OBJECTS_TO_TRASH?>');
-				} else if ( confirm('<?php echo _WANT_TO_TRASH?>')) {
-					submitform('remove');
-				}
-			} else {
-				submitform(pressbutton);
+<script language="javascript" type="text/javascript">
+	function submitbutton(pressbutton) {
+		if (pressbutton == 'remove') {
+			if (document.adminForm.boxchecked.value == 0) {
+				alert('<?php echo _CHOOSE_OBJECTS_TO_TRASH?>');
+			} else if ( confirm('<?php echo _WANT_TO_TRASH?>')) {
+				submitform('remove');
 			}
+		} else {
+			submitform(pressbutton);
 		}
-		</script>
-		<form action="index2.php" method="post" name="adminForm">
+	}
+</script>
+<form action="index2.php" method="post" name="adminForm">
 
-		<table class="adminheading">
+	<table class="adminheading">
 		<tr>
 			<th class="edit" rowspan="2">
-<?php
-		if($all) {
-?>
-				<?php echo _ARCHIVE?> <small><small>[ <?php echo _ALL_SECTIONS?> ]</small></small>
-<?php
-		} else {
-?>
-				<?php echo _ARCHIVE?> <small><small>[ <?php echo _SECTION?>: <?php echo $section->title; ?> ]</small></small>
-<?php
-		}
-?>
-			</th>
-<?php
-		if($all) {
-?>
-				<td align="right" rowspan="2" valign="top"><?php echo $lists['sectionid']; ?></td>
 				<?php
-		}
-?>
+				if($all) {
+					?>
+					<?php echo _ARCHIVE?> <small><small>[ <?php echo _ALL_SECTIONS?> ]</small></small>
+					<?php
+				} else {
+					?>
+					<?php echo _ARCHIVE?> <small><small>[ <?php echo _SECTION?>: <?php echo $section->title; ?> ]</small></small>
+					<?php
+				}
+				?>
+			</th>
+			<?php
+			if($all) {
+				?>
+			<td align="right" rowspan="2" valign="top"><?php echo $lists['sectionid']; ?></td>
+				<?php
+			}
+			?>
 			<td align="right" valign="top"><?php echo $lists['catid']; ?></td>
 			<td valign="top"><?php echo $lists['authorid']; ?></td>
 		</tr>
@@ -57,8 +57,8 @@ defined( '_VALID_MOS' ) or die();
 				<input type="text" name="search" value="<?php echo htmlspecialchars($search); ?>" class="text_area" onChange="document.adminForm.submit();" />
 			</td>
 		</tr>
-		</table>
-		<table class="adminlist">
+	</table>
+	<table class="adminlist">
 		<tr>
 			<th width="5">#</th>
 			<th width="20">
@@ -96,34 +96,34 @@ defined( '_VALID_MOS' ) or die();
 			}
 
 			$date = mosFormatDate($row->created,'%x');
-?>
-			<tr class="<?php echo "row$k"; ?>">
-				<td><?php echo $pageNav->rowNumber($i); ?></td>
-				<td width="20"><?php echo mosHTML::idBox($i,$row->id); ?></td>
-				<td><?php echo $row->title; ?></td>
-				<td align="center" colspan="2">
-					<input type="text" name="order[]" size="5" value="<?php echo $row->ordering; ?>" class="text_area" style="text-align: center" />
-				</td>
-				<td>
-					<a href="<?php echo $row->cat_link; ?>" title="<?php echo _CHANGE_CATEGORY?>">
+			?>
+		<tr class="<?php echo "row$k"; ?>">
+			<td><?php echo $pageNav->rowNumber($i); ?></td>
+			<td width="20"><?php echo mosHTML::idBox($i,$row->id); ?></td>
+			<td><?php echo $row->title; ?></td>
+			<td align="center" colspan="2">
+				<input type="text" name="order[]" size="5" value="<?php echo $row->ordering; ?>" class="text_area" style="text-align: center" />
+			</td>
+			<td>
+				<a href="<?php echo $row->cat_link; ?>" title="<?php echo _CHANGE_CATEGORY?>">
 						<?php echo $row->name; ?>
-					</a>
-				</td>
-				<td><?php echo $author; ?></td>
-				<td><?php echo $date; ?></td>
-			</tr>
-<?php
+				</a>
+			</td>
+			<td><?php echo $author; ?></td>
+			<td><?php echo $date; ?></td>
+		</tr>
+			<?php
 			$k = 1 - $k;
 		}
-?>
-		</table>
-		<?php echo $pageNav->getListFooter(); ?>
-		<input type="hidden" name="option" value="<?php echo $option; ?>" />
-		<input type="hidden" name="sectionid" value="<?php echo $section->id; ?>" />
-		<input type="hidden" name="task" value="showarchive" />
-		<input type="hidden" name="returntask" value="showarchive" />
-		<input type="hidden" name="boxchecked" value="0" />
-		<input type="hidden" name="hidemainmenu" value="0" />
-		<input type="hidden" name="redirect" value="<?php echo $redirect; ?>" />
-		<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
-	</form>
+		?>
+	</table>
+	<?php echo $pageNav->getListFooter(); ?>
+	<input type="hidden" name="option" value="<?php echo $option; ?>" />
+	<input type="hidden" name="sectionid" value="<?php echo $section->id; ?>" />
+	<input type="hidden" name="task" value="showarchive" />
+	<input type="hidden" name="returntask" value="showarchive" />
+	<input type="hidden" name="boxchecked" value="0" />
+	<input type="hidden" name="hidemainmenu" value="0" />
+	<input type="hidden" name="redirect" value="<?php echo $redirect; ?>" />
+	<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
+</form>

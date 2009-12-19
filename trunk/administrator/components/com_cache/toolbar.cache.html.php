@@ -17,30 +17,22 @@
 defined('_VALID_MOS') or die();
 
 /**
-* @package		Joomla
-* @subpackage	Cache
-*/
-class TOOLBAR_cache
-{
+ * @package		Joomla
+ * @subpackage	Cache
+ */
+class TOOLBAR_cache {
 	/**
-	* Draws the menu for a New category
-	*/
+	 * Draws the menu for a New category
+	 */
 	function _DEFAULT() {
-
 		mosMenuBar::startTable();
 		mosMenuBar::deleteList('', 'delete');
 		mosMenuBar::endTable();
 	}
+
 	function DEFAULT_MENU() {
 		mosMenuBar::startTable();
 		mosMenuBar::deleteList('', 'delete');
 		mosMenuBar::endTable();
-	}
-
-	function _PURGEADMIN() {
-
-		//mosMenuBar::title( JText::_( 'Cache Manager - Purge Cache Admin' ), 'checkin.png' );
-		//mosMenuBar::custom( 'purge', 'delete.png', 'delete_f2.png', 'Purge expired', false );
-		//mosMenuBar::help( 'screen.cache' );
 	}
 }

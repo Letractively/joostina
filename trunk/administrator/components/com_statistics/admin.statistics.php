@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -45,10 +45,10 @@ function showSummary($option,$task) {
 	if($order != 'asc' && $order != 'desc' && $order != 'none') {
 		$order = 'asc';
 	} else
-		if($order == 'none') {
-			$field = 'agent';
-			$order = 'asc';
-		}
+	if($order == 'none') {
+		$field = 'agent';
+		$order = 'asc';
+	}
 
 	// browser stats
 	$order_by = '';
@@ -109,7 +109,7 @@ function showSummary($option,$task) {
 	$database->loadObject($dstats);
 
 	HTML_statistics::show($browsers,$platforms,$tldomains,$bstats,$pstats,$dstats,$sorts,
-		$option);
+			$option);
 }
 
 function showPageImpressions($option,$task) {

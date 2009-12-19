@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -82,8 +82,8 @@ switch($task) {
 }
 
 /**
-* Compiles a list of installed or defined modules
-*/
+ * Compiles a list of installed or defined modules
+ */
 function viewModules($option,$client) {
 	global $database,$my,$mainframe,$mosConfig_list_limit;
 
@@ -170,10 +170,10 @@ function viewModules($option,$client) {
 }
 
 /**
-* Compiles information to add or edit a module
-* @param string The current GET/POST option
-* @param integer The unique id of the record to edit
-*/
+ * Compiles information to add or edit a module
+ * @param string The current GET/POST option
+ * @param integer The unique id of the record to edit
+ */
 function copyModule($option,$uid,$client) {
 	global $database,$my;
 	josSpoofCheck();
@@ -202,7 +202,7 @@ function copyModule($option,$uid,$client) {
 	$row->updateOrder('position='.$database->Quote($row->position)." AND ($where)");
 
 	$query = "SELECT menuid FROM #__modules_menu WHERE moduleid = ".(int)
-		$uid;
+			$uid;
 	$database->setQuery($query);
 	$rows = $database->loadResultArray();
 
@@ -219,8 +219,8 @@ function copyModule($option,$uid,$client) {
 }
 
 /**
-* Saves the module after an edit form submit
-*/
+ * Saves the module after an edit form submit
+ */
 function saveModule($option,$client,$task) {
 	$database = database::getInstance();
 
@@ -300,10 +300,10 @@ function saveModule($option,$client,$task) {
 }
 
 /**
-* Compiles information to add or edit a module
-* @param string The current GET/POST option
-* @param integer The unique id of the record to edit
-*/
+ * Compiles information to add or edit a module
+ * @param string The current GET/POST option
+ * @param integer The unique id of the record to edit
+ */
 function editModule($option,$uid,$client) {
 	global $database,$my,$mainframe;
 
@@ -375,7 +375,7 @@ function editModule($option,$uid,$client) {
 		}
 
 		$orders2[$orders[$i]->position][] = mosHTML::makeOption($ord,$ord.'::'.
-			addslashes($orders[$i]->title));
+				addslashes($orders[$i]->title));
 	}
 
 	// build the html select list
@@ -435,11 +435,11 @@ function editModule($option,$uid,$client) {
 }
 
 /**
-* Deletes one or more modules
-*
-* Also deletes associated entries in the #__module_menu table.
-* @param array An array of unique category id numbers
-*/
+ * Deletes one or more modules
+ *
+ * Also deletes associated entries in the #__module_menu table.
+ * @param array An array of unique category id numbers
+ */
 function removeModule(&$cid,$option,$client) {
 	global $database,$my;
 	josSpoofCheck();
@@ -509,10 +509,10 @@ function removeModule(&$cid,$option,$client) {
 }
 
 /**
-* Publishes or Unpublishes one or more modules
-* @param array An array of unique record id numbers
-* @param integer 0 if unpublishing, 1 if publishing
-*/
+ * Publishes or Unpublishes one or more modules
+ * @param array An array of unique record id numbers
+ * @param integer 0 if unpublishing, 1 if publishing
+ */
 function publishModule($cid = null,$publish = 1,$option,$client) {
 	global $database,$my;
 	josSpoofCheck();
@@ -543,8 +543,8 @@ function publishModule($cid = null,$publish = 1,$option,$client) {
 }
 
 /**
-* Cancels an edit operation
-*/
+ * Cancels an edit operation
+ */
 function cancelModule($option,$client) {
 	global $database;
 	josSpoofCheck();
@@ -557,10 +557,10 @@ function cancelModule($option,$client) {
 }
 
 /**
-* Moves the order of a record
-* @param integer The unique id of record
-* @param integer The increment to reorder by
-*/
+ * Moves the order of a record
+ * @param integer The unique id of record
+ * @param integer The increment to reorder by
+ */
 function orderModule($uid,$inc,$option) {
 	global $database;
 	josSpoofCheck();
@@ -587,9 +587,9 @@ function orderModule($uid,$inc,$option) {
 }
 
 /**
-* changes the access level of a record
-* @param integer The increment to reorder by
-*/
+ * changes the access level of a record
+ * @param integer The increment to reorder by
+ */
 function accessMenu($uid,$access,$option,$client) {
 	global $database;
 	josSpoofCheck();
@@ -643,7 +643,7 @@ function saveOrder(&$cid,$client) {
 			} // if
 			// remember to updateOrder this group
 			$condition = "position = ".$database->Quote($row->position)." AND client_id = ".(int)
-				$row->client_id;
+					$row->client_id;
 			$found = false;
 			foreach($conditions as $cond)
 				if($cond[1] == $condition) {
@@ -665,5 +665,3 @@ function saveOrder(&$cid,$client) {
 	$msg = _NEW_ORDER_SAVED;
 	mosRedirect('index2.php?option=com_modules&client='.$client,$msg);
 } // saveOrder
-
-?>

@@ -1,21 +1,21 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 /**
-* Installer class
-* @package Joostina
-* @subpackage Installer
-* @abstract
-*/
+ * Installer class
+ * @package Joostina
+ * @subpackage Installer
+ * @abstract
+ */
 class mosInstaller {
 	// name of the XML file with installation information
 	var $i_installfilename = "";
@@ -29,32 +29,32 @@ class mosInstaller {
 	var $i_docleanup = true;
 
 	/**
-	@var string The directory where the element is to be installed*/
+	 @var string The directory where the element is to be installed*/
 	var $i_elementdir = '';
 	/**
-	@var string The name of the Joomla! element*/
+	 @var string The name of the Joomla! element*/
 	var $i_elementname = '';
 	/**
-	@var string The name of a special atttibute in a tag*/
+	 @var string The name of a special atttibute in a tag*/
 	var $i_elementspecial = '';
 	/**
-	@var object A DOMIT XML document*/
+	 @var object A DOMIT XML document*/
 	var $i_xmldoc = null;
 	var $i_hasinstallfile = null;
 	var $i_installfile = null;
 
 	/**
-	* Constructor
-	*/
+	 * Constructor
+	 */
 	function mosInstaller() {
 		$this->i_iswin = (substr(PHP_OS,0,3) == 'WIN');
 	}
 	/**
-	* Uploads and unpacks a file
-	* @param string The uploaded package filename or install directory
-	* @param boolean True if the file is an archive file
-	* @return boolean True on success, False on error
-	*/
+	 * Uploads and unpacks a file
+	 * @param string The uploaded package filename or install directory
+	 * @param boolean True if the file is an archive file
+	 * @return boolean True on success, False on error
+	 */
 	function upload($p_filename = null,$p_unpack = true) {
 		$this->i_iswin = (substr(PHP_OS,0,3) == 'WIN');
 		$this->installArchive($p_filename);
@@ -68,9 +68,9 @@ class mosInstaller {
 		}
 	}
 	/**
-	* Extracts the package archive file
-	* @return boolean True on success, False on error
-	*/
+	 * Extracts the package archive file
+	 * @return boolean True on success, False on error
+	 */
 	function extractArchive() {
 		$base_Dir = mosPathName(JPATH_BASE.'/media');
 
@@ -124,9 +124,9 @@ class mosInstaller {
 		return true;
 	}
 	/**
-	* Tries to find the package XML file
-	* @return boolean True on success, False on error
-	*/
+	 * Tries to find the package XML file
+	 * @return boolean True on success, False on error
+	 */
 	function findInstallFile() {
 		$found = false;
 		// Search the install dir for an xml file
@@ -148,9 +148,9 @@ class mosInstaller {
 		}
 	}
 	/**
-	* @param string A file path
-	* @return object A DOMIT XML document, or null if the file failed to parse
-	*/
+	 * @param string A file path
+	 * @return object A DOMIT XML document, or null if the file failed to parse
+	 */
 	function isPackageFile($p_file) {
 		$xmlDoc = new DOMIT_Lite_Document();
 		$xmlDoc->resolveErrors(true);
@@ -169,9 +169,9 @@ class mosInstaller {
 		return $xmlDoc;
 	}
 	/**
-	* Loads and parses the XML setup file
-	* @return boolean True on success, False on error
-	*/
+	 * Loads and parses the XML setup file
+	 * @return boolean True on success, False on error
+	 */
 	function readInstallFile() {
 
 		if($this->installFilename() == "") {
@@ -196,28 +196,28 @@ class mosInstaller {
 		return true;
 	}
 	/**
-	* Abstract install method
-	*/
+	 * Abstract install method
+	 */
 	function install() {
 		die(_CANNOT_RUN_INSTALL_METHOD.' '.strtolower(get_class($this)));
 	}
 	/**
-	* Abstract uninstall method
-	*/
+	 * Abstract uninstall method
+	 */
 	function uninstall() {
 		die(_CANNOT_RUN_UNINSTALL_METHOD.' '.strtolower(get_class($this)));
 	}
 	/**
-	* return to method
-	*/
+	 * return to method
+	 */
 	function returnTo($option,$element) {
 		return "index2.php?option=$option&element=$element";
 	}
 	/**
-	* @param string Install from directory
-	* @param string The install type
-	* @return boolean
-	*/
+	 * @param string Install from directory
+	 * @param string The install type
+	 * @return boolean
+	 */
 	function preInstallCheck($p_fromdir,$type) {
 
 		if(!is_null($p_fromdir)) {
@@ -246,12 +246,12 @@ class mosInstaller {
 		return true;
 	}
 	/**
-	* @param string The tag name to parse
-	* @param string An attribute to search for in a filename element
-	* @param string The value of the 'special' element if found
-	* @param boolean True for Administrator components
-	* @return mixed Number of file or False on error
-	*/
+	 * @param string The tag name to parse
+	 * @param string An attribute to search for in a filename element
+	 * @param string The value of the 'special' element if found
+	 * @param boolean True for Administrator components
+	 * @return mixed Number of file or False on error
+	 */
 	function parseFiles($tagName = 'files',$special = '',$specialError = '',$adminFiles =0) {
 		$config = &Jconfig::getInstance();
 
@@ -322,22 +322,22 @@ class mosInstaller {
 			// media is a special tag
 			$installTo = mosPathName(JPATH_BASE.'/images/stories');
 		} else
-			if($adminFiles) {
-				$installTo = $this->componentAdminDir();
-			} else {
-				$installTo = $this->elementDir();
-			}
-			$result = $this->copyFiles($installFrom,$installTo,$copyfiles);
+		if($adminFiles) {
+			$installTo = $this->componentAdminDir();
+		} else {
+			$installTo = $this->elementDir();
+		}
+		$result = $this->copyFiles($installFrom,$installTo,$copyfiles);
 
 		return $result;
 	}
 	/**
-	* @param string Source directory
-	* @param string Destination directory
-	* @param array array with filenames
-	* @param boolean True is existing files can be replaced
-	* @return boolean True on success, False on error
-	*/
+	 * @param string Source directory
+	 * @param string Destination directory
+	 * @param array array with filenames
+	 * @param boolean True is existing files can be replaced
+	 * @return boolean True on success, False on error
+	 */
 	function copyFiles($p_sourcedir,$p_destdir,$p_files,$overwrite = false) {
 		if(is_array($p_files) && count($p_files) > 0) {
 			foreach($p_files as $_file) {
@@ -348,19 +348,19 @@ class mosInstaller {
 					$this->setError(1,_FILE_NOT_EXISTSS." $filesource");
 					return false;
 				} else
-					if(file_exists($filedest) && !$overwrite) {
-						$this->setError(1,_FILE_NOT_EXISTSS." $filedest - "._INSTALL_TWICE);
-						return false;
-					} else {
-						$path_info = pathinfo($_file);
-						if(!is_dir($path_info['dirname'])) {
-							mosMakePath($p_destdir,$path_info['dirname']);
-						}
-						if(!(copy($filesource,$filedest) && mosChmod($filedest))) {
-							$this->setError(1,_ERROR_COPYING_FILE.": $filesource в $filedest");
-							return false;
-						}
+				if(file_exists($filedest) && !$overwrite) {
+					$this->setError(1,_FILE_NOT_EXISTSS." $filedest - "._INSTALL_TWICE);
+					return false;
+				} else {
+					$path_info = pathinfo($_file);
+					if(!is_dir($path_info['dirname'])) {
+						mosMakePath($p_destdir,$path_info['dirname']);
 					}
+					if(!(copy($filesource,$filedest) && mosChmod($filedest))) {
+						$this->setError(1,_ERROR_COPYING_FILE.": $filesource в $filedest");
+						return false;
+					}
+				}
 			}
 		} else {
 			return false;
@@ -368,33 +368,33 @@ class mosInstaller {
 		return count($p_files);
 	}
 	/**
-	* Copies the XML setup file to the element Admin directory
-	* Used by Components/Modules/Mambot Installer Installer
-	* @return boolean True on success, False on error
-	*/
+	 * Copies the XML setup file to the element Admin directory
+	 * Used by Components/Modules/Mambot Installer Installer
+	 * @return boolean True on success, False on error
+	 */
 	function copySetupFile($where = 'admin') {
 		if($where == 'admin') {
 			return $this->copyFiles($this->installDir(),$this->componentAdminDir(),array(basename
-				($this->installFilename())),true);
+					($this->installFilename())),true);
 		} else
-			if($where == 'front') {
-				return $this->copyFiles($this->installDir(),$this->elementDir(),array(basename($this->installFilename())),true);
-			}
+		if($where == 'front') {
+			return $this->copyFiles($this->installDir(),$this->elementDir(),array(basename($this->installFilename())),true);
+		}
 	}
 
 	/**
-	* @param int The error number
-	* @param string The error message
-	*/
+	 * @param int The error number
+	 * @param string The error message
+	 */
 	function setError($p_errno,$p_error) {
 		$this->errno($p_errno);
 		$this->error($p_error);
 	}
 	/**
-	* @param boolean True to display both number and message
-	* @param string The error message
-	* @return string
-	*/
+	 * @param boolean True to display both number and message
+	 * @param string The error message
+	 * @return string
+	 */
 	function getError($p_full = false) {
 		if($p_full) {
 			return $this->errno()." ".$this->error();
@@ -403,10 +403,10 @@ class mosInstaller {
 		}
 	}
 	/**
-	* @param string The name of the property to set/get
-	* @param mixed The value of the property to set
-	* @return The value of the property
-	*/
+	 * @param string The name of the property to set/get
+	 * @param mixed The value of the property to set
+	 * @return The value of the property
+	 */
 	function &setVar($name,$value = null) {
 		if(!is_null($value)) {
 			$this->$name = $value;

@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -17,9 +17,9 @@ sajax_handle_client_request();
 
 
 /**
-* Continues the procedure
-* @param $forceStart boolean When set to true, forces the procedure to start over
-*/
+ * Continues the procedure
+ * @param $forceStart boolean When set to true, forces the procedure to start over
+ */
 function tick($forceStart = 0,$forceDBOnly = 0) {
 	global $CUBE,$JPConfiguration;
 	require_once ('ccube.php');
@@ -38,27 +38,27 @@ function tick($forceStart = 0,$forceDBOnly = 0) {
 }
 
 /**
-* Returns the stored copy of the CUBE Array
-*/
+ * Returns the stored copy of the CUBE Array
+ */
 function getCUBEArray() {
 	require_once ('ccube.php');
 	return loadJPCUBEArray();
 }
 
 /**
-* Simple PING server for debugging purposes
-* @return integer Always 1
-*/
+ * Simple PING server for debugging purposes
+ * @return integer Always 1
+ */
 function ping() {
 	return 1;
 }
 
 /**
-* JPSetErrorReporting will reset error reporting to only syntax and parse errors,
-* storing the old value for later use. It'll also try to set an infinite time
-* limit on the script. All this is required to avoid PHP messing output meant
-* for AJAX client-side parsing which caused notorious timeouts.
-*/
+ * JPSetErrorReporting will reset error reporting to only syntax and parse errors,
+ * storing the old value for later use. It'll also try to set an infinite time
+ * limit on the script. All this is required to avoid PHP messing output meant
+ * for AJAX client-side parsing which caused notorious timeouts.
+ */
 function JPSetErrorReporting() {
 	global $JP_Error_Reporting;
 	$JP_Error_Reporting = @error_reporting(E_ERROR | E_PARSE);
@@ -67,11 +67,11 @@ function JPSetErrorReporting() {
 }
 
 /**
-* JPRestoreErrorReporing will restore error reporting. It'll also try to clear
-* (erase) the output buffer, so that the script can send back only the intended
-* result. All this is required to avoid PHP messing output meant for AJAX
-* client-side parsing which caused notorious timeouts.
-*/
+ * JPRestoreErrorReporing will restore error reporting. It'll also try to clear
+ * (erase) the output buffer, so that the script can send back only the intended
+ * result. All this is required to avoid PHP messing output meant for AJAX
+ * client-side parsing which caused notorious timeouts.
+ */
 function JPRestoreErrorReporing() {
 	global $JP_Error_Reporting;
 	@error_reporting($JP_Error_Reporting);
@@ -139,5 +139,3 @@ function errorTrapReport($badData) {
 	JPRestoreErrorReporing();
 	return 1;
 }
-
-?>

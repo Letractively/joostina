@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -59,7 +59,7 @@ function viewTables($option) {
 			$check_time = "";
 		}
 		$lists .=
-			"<tr class=\"row$k\">"
+				"<tr class=\"row$k\">"
 				."\t<td width=\"1%\"><input type=\"checkbox\" id=\"cb".$i++."\" name=\"tables[]\" value=\"".$table->Name."\" onclick=\"isChecked(this.checked);\" /></td>\n"
 				."\t<td>".$table->Name."</td>\n"
 				."\t<td align=\"right\">".number_format($table->Rows,0,',','.')."</td>\n"
@@ -68,7 +68,7 @@ function viewTables($option) {
 				."\t<td align=\"right\">".number_format($table->Auto_increment,0,',','.')."</td>\n"
 				."\t<td align=\"right\" style=\"white-space: nowrap;\">".strftime('%d.%m.%Y %H:%M',strtotime($table->Create_time))."</td>\n"
 				."\t<td align=\"right\" style=\"white-space: nowrap;\">".$check_time."</td>\n".
-			"</tr>\n";
+				"</tr>\n";
 		$stats_list['rows'] = $stats_list['rows'] + $table->Rows;
 		$stats_list['data'] = $stats_list['data'] + $table->Data_length;
 		$stats_list['over'] = $stats_list['over'] + $table->Data_free;
@@ -120,12 +120,12 @@ function checkDatabase($option,$func) {
 			$k = 0;
 			foreach($result_msgs as $result_msg) {
 				$list .=
-					"<tr class=\"row$k\">"
+						"<tr class=\"row$k\">"
 						."\t<td align=\"left\" style=\"white-space: nowrap;\">".$result_msg->Table."</td>\n"
 						."\t<td align=\"center\" style=\"white-space: nowrap;\">".$result_msg->Op."</td>\n"
 						."\t<td align=\"center\" style=\"white-space: nowrap;\">".$result_msg->Msg_type."</td>\n"
 						."\t<td align=\"center\" style=\"white-space: nowrap;\">".$result_msg->Msg_text."</td>\n"
-					."</tr>\n";
+						."</tr>\n";
 				$results = true;
 				$k = 1 - $k;
 			}
@@ -142,6 +142,3 @@ function mosGetSizes($size) {
 	elseif(1099511627776 < $size) $size = number_format(Round($size / 1099511627776,3),2,',','.')." TB";
 	return $size;
 }
-
-
-?>

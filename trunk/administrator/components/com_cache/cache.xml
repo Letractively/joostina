@@ -9,13 +9,4 @@
 	<authorUrl>www.joostina.ru</authorUrl>
 	<version>1.0.0</version>
 	<description>Cache Manager</description>
-	<administration>
-        <files>
-		  <filename>admin.cache.html.php</filename>
-          <filename>admin.cache.php</filename>
-		  <filename>cache.class.php</filename>
-		  <filename>toolbar.cache.html.php</filename>
-		  <filename>toolbar.cache.php</filename>
-		</files>
-    </administration>
 </mosinstall>

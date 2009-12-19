@@ -1,25 +1,25 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 /**
-* @package Joostina
-* @subpackage Content
-*/
+ * @package Joostina
+ * @subpackage Content
+ */
 class ContentView {
 
 	/**
-	* Writes a list of the content items
-	* @param array An array of content objects
-	*/
+	 * Writes a list of the content items
+	 * @param array An array of content objects
+	 */
 	function showContent(&$rows,$section,&$lists,$search,$pageNav,$all = null,$redirect='') {
 		global $my,$acl;
 
@@ -40,9 +40,9 @@ class ContentView {
 
 
 	/**
-	* Writes a list of the content items
-	* @param array An array of content objects
-	*/
+	 * Writes a list of the content items
+	 * @param array An array of content objects
+	 */
 	function showArchive(&$rows,$section,&$lists,$search,$pageNav,$option,$all = null,$redirect) {
 		global $my,$acl;
 		$mainframe = &mosMainFrame::getInstance();
@@ -52,18 +52,18 @@ class ContentView {
 
 
 	/**
-	* Отображение формы создания / редактирования содержимого
-	*
-	* Новая запись характеризуется значениями <var>$row</var> и  <var>id</var>
-	* равными 0.
-	* @param mosContent The category object
-	* @param string The html for the groups select list
-	*/
+	 * Отображение формы создания / редактирования содержимого
+	 *
+	 * Новая запись характеризуется значениями <var>$row</var> и  <var>id</var>
+	 * равными 0.
+	 * @param mosContent The category object
+	 * @param string The html for the groups select list
+	 */
 	function editContent(&$row,$section,&$lists,&$sectioncategories,&$images,&$params,$option,$redirect,&$menus) {
 
 		$mainframe = &mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images';
-		
+
 		mosMakeHtmlSafe($row);
 		$nullDate = database::getInstance()->getNullDate();
 		$create_date = null;
@@ -84,30 +84,30 @@ class ContentView {
 		mosCommonHTML::loadOverlib();
 		mosCommonHTML::loadCalendar();
 
-		
+
 		include_once($mainframe->adminView('editcontent'));
 
 	}
 
 	/**
-	* Form to select Section/Category to move item(s) to
-	* @param array An array of selected objects
-	* @param int The current section we are looking at
-	* @param array The list of sections and categories to move to
-	*/
+	 * Form to select Section/Category to move item(s) to
+	 * @param array An array of selected objects
+	 * @param int The current section we are looking at
+	 * @param array The list of sections and categories to move to
+	 */
 	function moveSection($cid,$sectCatList,$option,$sectionid,$items) {
 		$mainframe = &mosMainFrame::getInstance();
 		include_once($mainframe->adminView('movesection'));
 	}
 
 	/**
-	* Form to select Section/Category to copys item(s) to
-	*/
+	 * Form to select Section/Category to copys item(s) to
+	 */
 	function copySection($option,$cid,$sectCatList,$sectionid,$items) {
 		$mainframe = &mosMainFrame::getInstance();
 		include_once($mainframe->adminView('copysection'));
 	}
-	function submit($params){
+	function submit($params) {
 		mosCommonHTML::loadOverlib();
 		echo $params->render(null);
 	}

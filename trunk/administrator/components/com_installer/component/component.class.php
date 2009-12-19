@@ -1,25 +1,25 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 /**
-* Component installer
-* @package Joostina
-* @subpackage Installer
-*/
+ * Component installer
+ * @package Joostina
+ * @subpackage Installer
+ */
 class mosInstallerComponent extends mosInstaller {
 	var $i_componentadmindir = '';
 	var $i_hasinstallfile = false;
 	var $i_installfile = '';
-	
+
 	// name of the XML file with installation information
 	var $i_installfilename = "";
 	var $i_installarchive = "";
@@ -30,21 +30,21 @@ class mosInstallerComponent extends mosInstaller {
 	var $i_installtype = "";
 	var $i_unpackdir = "";
 	var $i_docleanup = true;
-	
+
 	/**
-	@var string The directory where the element is to be installed*/
+	 @var string The directory where the element is to be installed*/
 	var $i_elementdir = '';
 	/**
-	@var string The name of the Joomla! element*/
+	 @var string The name of the Joomla! element*/
 	var $i_elementname = '';
 	/**
-	@var string The name of a special atttibute in a tag*/
+	 @var string The name of a special atttibute in a tag*/
 	var $i_elementspecial = '';
 	/**
-	@var object A DOMIT XML document*/
+	 @var object A DOMIT XML document*/
 	var $i_xmldoc = null;
-	
-	function __construct($pre_installer=null){
+
+	function __construct($pre_installer=null) {
 		if(!isset($pre_installer)) return;
 
 		// Copy data  from the base class
@@ -71,7 +71,7 @@ class mosInstallerComponent extends mosInstaller {
 	}
 
 	/**
-	* Custom install method
+	 * Custom install method
 	 * @package Joostina
 	 * @subpackage Installer
 	 * @abstract
@@ -118,8 +118,8 @@ class mosInstallerComponent extends mosInstaller {
 			return false;
 		}
 		$this->parseFiles('images');
-		
-		if ($this->parseFiles('administration/files','','',1) === false)	{
+
+		if ($this->parseFiles('administration/files','','',1) === false) {
 			$this->cleanAfterError();
 			return false;
 		}
@@ -139,7 +139,7 @@ class mosInstallerComponent extends mosInstaller {
 				$r		= strpos( $sql, 'CREATE' );
 				$t		= strpos( $sql, 'TABLE' );
 				// если в запросе нет указания кодировки, но есть явные команды создания таблиц, а база работает в режиме совместимости со старшими версиями MySQL - добавим определение кодировки
-				if((!$d) && (!$c) && ($r) && ($t) ){
+				if((!$d) && (!$c) && ($r) && ($t) ) {
 					$sql = str_replace(';','',$sql);
 					$sql .= ' CHARACTER SET utf8 COLLATE utf8_general_ci;';
 				}
@@ -204,18 +204,18 @@ class mosInstallerComponent extends mosInstaller {
 					if($admin_submenu->getAttribute("act")) {
 						$com->admin_menu_link = "option=$com_name&act=".$admin_submenu->getAttribute("act");
 					} else
-						if($admin_submenu->getAttribute("task")) {
-							$com->admin_menu_link = "option=$com_name&task=".$admin_submenu->getAttribute("task");
-						} else
-							if($admin_submenu->getAttribute("link")) {
-								$com->admin_menu_link = $admin_submenu->getAttribute("link");
-							} else {
-								$com->admin_menu_link = "option=$com_name";
-							}
-							$com->admin_menu_alt = $admin_submenu->getText();
-							$com->option = $com_name;
-							$com->ordering = $submenuordering++;
-							$com->admin_menu_img = "js/ThemeOffice/component.png";
+					if($admin_submenu->getAttribute("task")) {
+						$com->admin_menu_link = "option=$com_name&task=".$admin_submenu->getAttribute("task");
+					} else
+					if($admin_submenu->getAttribute("link")) {
+						$com->admin_menu_link = $admin_submenu->getAttribute("link");
+					} else {
+						$com->admin_menu_link = "option=$com_name";
+					}
+					$com->admin_menu_alt = $admin_submenu->getText();
+					$com->option = $com_name;
+					$com->ordering = $submenuordering++;
+					$com->admin_menu_img = "js/ThemeOffice/component.png";
 
 					if(!$com->store()) {
 						$this->setError(1,$database->stderr(true));
@@ -271,11 +271,11 @@ class mosInstallerComponent extends mosInstaller {
 		return $menuid;
 	}
 	/**
-	* Custom install method
-	* @param int The id of the module
-	* @param string The URL option
-	* @param int The client id
-	*/
+	 * Custom install method
+	 * @param int The id of the module
+	 * @param string The URL option
+	 * @param int The client id
+	 */
 	function uninstall($cid,$option,$client = 0) {
 		$database = &database::getInstance();
 		$config = &Jconfig::getInstance();
@@ -378,49 +378,50 @@ class mosInstallerComponent extends mosInstaller {
 		return $uninstallret;
 	}
 	/**
-	* Uninstall method
-	*/
+	 * Uninstall method
+	 */
 	function cleanAfterError() {
 		$config =&Jconfig::getInstance();
 
 		josSpoofCheck();
 		$basepath = mosPathName(JPATH_BASE.DS.'components'.DS.strtolower("com_".str_replace(" ","",$this->elementName())));
-		$adminpath = mosPathName(JPATH_BASE_ADMIN.DS.'components'.DS.strtolower("com_".str_replace(" ","",$this->elementName())));;
-		
-		if(file_exists($adminpath)){
+		$adminpath = mosPathName(JPATH_BASE_ADMIN.DS.'components'.DS.strtolower("com_".str_replace(" ","",$this->elementName())));
+		;
+
+		if(file_exists($adminpath)) {
 			deldir($adminpath);
 		}
-		if(file_exists($basepath)){
+		if(file_exists($basepath)) {
 			deldir($basepath);
 		}
 		$this->cleanMediaData(0);
 		$this->cleanMediaData(1);
-		
+
 		return true;
 	}
-	function cleanMediaData($adminFiles = 0){
+	function cleanMediaData($adminFiles = 0) {
 		$config =&Jconfig::getInstance();
 
 		$xmlDoc = &$this->xmlDoc();
 		$root = &$xmlDoc->documentElement;
-		if($adminFiles == 1){
+		if($adminFiles == 1) {
 			$files_element = &$root->getElementsByPath('administration/images',1);
 		}
-		else{
+		else {
 			$files_element = &$root->getElementsByPath('images',1);
 		}
-		
+
 		if(!is_null($files_element)) {
 			if($files_element->hasChildNodes()) {
 				$files = $files_element->childNodes;
 				if(count($files) != 0) {
 					foreach($files as $file) {
-						if($adminFiles == 1){
-							if(file_exists(JPATH_BASE_ADMIN . DS . $file->getText())){
+						if($adminFiles == 1) {
+							if(file_exists(JPATH_BASE_ADMIN . DS . $file->getText())) {
 								unlink(JPATH_BASE_ADMIN . DS . $file->getText());
 							}
-						}else{
-							if(file_exists(JPATH_BASE .DS. $file->getText())){
+						}else {
+							if(file_exists(JPATH_BASE .DS. $file->getText())) {
 								unlink(JPATH_BASE .DS. $file->getText());
 							}
 						}

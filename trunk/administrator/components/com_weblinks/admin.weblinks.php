@@ -1,19 +1,17 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 // ensure user has access to this function
-if(!($acl->acl_check('administration','edit','users',$my->usertype,'components',
-	'all') | $acl->acl_check('administration','edit','users',$my->usertype,
-	'components','com_weblinks'))) {
+if(!($acl->acl_check('administration','edit','users',$my->usertype,'components','all') | $acl->acl_check('administration','edit','users',$my->usertype,'components','com_weblinks'))) {
 	mosRedirect('index2.php',_NOT_AUTH);
 }
 
@@ -72,16 +70,16 @@ switch($task) {
 }
 
 /**
-* Compiles a list of records
-* @param database A database connector object
-*/
+ * Compiles a list of records
+ * @param database A database connector object
+ */
 function showWeblinks($option) {
 	global $database,$mainframe,$mosConfig_list_limit;
 
 	$catid = intval($mainframe->getUserStateFromRequest("catid{$option}",'catid',0));
 	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mosConfig_list_limit));
 	$limitstart = intval($mainframe->getUserStateFromRequest("view{$option}limitstart",
-		'limitstart',0));
+			'limitstart',0));
 	$search = $mainframe->getUserStateFromRequest("search{$option}",'search','');
 	if(get_magic_quotes_gpc()) {
 		$search = stripslashes($search);
@@ -94,12 +92,12 @@ function showWeblinks($option) {
 	}
 	if($search) {
 		$where[] = "LOWER(a.title) LIKE '%".$database->getEscaped(trim(strtolower($search))).
-			"%'";
+				"%'";
 	}
 
 	// get the total number of records
 	$query = "SELECT COUNT(*)"."\n FROM #__weblinks AS a".(count($where)?"\n WHERE ".
-		implode(' AND ',$where):"");
+					implode(' AND ',$where):"");
 	$database->setQuery($query);
 	$total = $database->loadResult();
 
@@ -107,8 +105,8 @@ function showWeblinks($option) {
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
 	$query = "SELECT a.*, cc.name AS category, u.name AS editor"."\n FROM #__weblinks AS a".
-		"\n LEFT JOIN #__categories AS cc ON cc.id = a.catid"."\n LEFT JOIN #__users AS u ON u.id = a.checked_out".(count
-		($where)?"\n WHERE ".implode(' AND ',$where):"")."\n ORDER BY a.catid, a.ordering";
+			"\n LEFT JOIN #__categories AS cc ON cc.id = a.catid"."\n LEFT JOIN #__users AS u ON u.id = a.checked_out".(count
+			($where)?"\n WHERE ".implode(' AND ',$where):"")."\n ORDER BY a.catid, a.ordering";
 	$database->setQuery($query,$pageNav->limitstart,$pageNav->limit);
 
 	$rows = $database->loadObjectList();
@@ -120,15 +118,15 @@ function showWeblinks($option) {
 	// build list of categories
 	$javascript = 'onchange="document.adminForm.submit();"';
 	$lists['catid'] = mosAdminMenus::ComponentCategory('catid',$option,intval($catid),
-		$javascript);
+			$javascript);
 
 	HTML_weblinks::showWeblinks($option,$rows,$lists,$search,$pageNav);
 }
 
 /**
-* Compiles information to add or edit
-* @param integer The unique id of the record to edit (0 if new)
-*/
+ * Compiles information to add or edit
+ * @param integer The unique id of the record to edit (0 if new)
+ */
 function editWeblink($option,$id) {
 	global $database,$my;
 
@@ -155,7 +153,7 @@ function editWeblink($option,$id) {
 
 	// build the html select list for ordering
 	$query = "SELECT ordering AS value, title AS text"."\n FROM #__weblinks"."\n WHERE catid = ".(int)
-		$row->catid."\n ORDER BY ordering";
+			$row->catid."\n ORDER BY ordering";
 	$lists['ordering'] = mosAdminMenus::SpecificOrdering($row,$id,$query,1);
 
 	// build list of categories
@@ -170,9 +168,9 @@ function editWeblink($option,$id) {
 }
 
 /**
-* Saves the record on an edit form submit
-* @param database A database connector object
-*/
+ * Saves the record on an edit form submit
+ * @param database A database connector object
+ */
 function saveWeblink($option) {
 	global $database,$my;
 	josSpoofCheck();
@@ -207,10 +205,10 @@ function saveWeblink($option) {
 }
 
 /**
-* Deletes one or more records
-* @param array An array of unique category id numbers
-* @param string The current url option
-*/
+ * Deletes one or more records
+ * @param array An array of unique category id numbers
+ * @param string The current url option
+ */
 function removeWeblinks($cid,$option) {
 	global $database;
 	josSpoofCheck();
@@ -225,7 +223,7 @@ function removeWeblinks($cid,$option) {
 		$database->setQuery($query);
 		if(!$database->query()) {
 			echo "<script> alert('".$database->getErrorMsg().
-				"'); window.history.go(-1); </script>\n";
+					"'); window.history.go(-1); </script>\n";
 		}
 	}
 
@@ -233,11 +231,11 @@ function removeWeblinks($cid,$option) {
 }
 
 /**
-* Publishes or Unpublishes one or more records
-* @param array An array of unique category id numbers
-* @param integer 0 if unpublishing, 1 if publishing
-* @param string The current url option
-*/
+ * Publishes or Unpublishes one or more records
+ * @param array An array of unique category id numbers
+ * @param integer 0 if unpublishing, 1 if publishing
+ * @param string The current url option
+ */
 function publishWeblinks($cid = null,$publish = 1,$option) {
 	global $database,$my;
 	josSpoofCheck();
@@ -251,11 +249,11 @@ function publishWeblinks($cid = null,$publish = 1,$option) {
 	$cids = 'id='.implode(' OR id=',$cid);
 
 	$query = "UPDATE #__weblinks"."\n SET published = ".(int)$publish."\n WHERE ( $cids )".
-		"\n AND ( checked_out = 0 OR ( checked_out = ".(int)$my->id." ) )";
+			"\n AND ( checked_out = 0 OR ( checked_out = ".(int)$my->id." ) )";
 	$database->setQuery($query);
 	if(!$database->query()) {
 		echo "<script> alert('".$database->getErrorMsg().
-			"'); window.history.go(-1); </script>\n";
+				"'); window.history.go(-1); </script>\n";
 		exit();
 	}
 
@@ -266,9 +264,9 @@ function publishWeblinks($cid = null,$publish = 1,$option) {
 	mosRedirect("index2.php?option=$option");
 }
 /**
-* Moves the order of a record
-* @param integer The increment to reorder by
-*/
+ * Moves the order of a record
+ * @param integer The increment to reorder by
+ */
 function orderWeblinks($uid,$inc,$option) {
 	global $database;
 	josSpoofCheck();
@@ -282,9 +280,9 @@ function orderWeblinks($uid,$inc,$option) {
 }
 
 /**
-* Cancels an edit operation
-* @param string The current url option
-*/
+ * Cancels an edit operation
+ * @param string The current url option
+ */
 function cancelWeblink($option) {
 	global $database;
 	josSpoofCheck();
@@ -293,4 +291,3 @@ function cancelWeblink($option) {
 	$row->checkin();
 	mosRedirect("index2.php?option=$option");
 }
-?>

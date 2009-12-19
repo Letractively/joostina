@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -25,12 +25,12 @@ require_once ($mainframe->getPath('class'));
 
 $cid = josGetArrayInts('cid');
 
-if(intval($cid[0])==0){
+if(intval($cid[0])==0) {
 	$cid[0] = intval(mosGetParam($_REQUEST,'cid',0));
 }
 
 switch($task) {
-		// OTHER EVENTS
+	// OTHER EVENTS
 
 	case 'newcategory':
 		editCategory(0, $option);
@@ -64,7 +64,7 @@ switch($task) {
 		viewCategories($option);
 		break;
 
-		// CLIENT EVENTS
+	// CLIENT EVENTS
 
 	case 'newclient':
 		editBannerClient(0, $option);
@@ -98,7 +98,7 @@ switch($task) {
 		viewBannerClients($option);
 		break;
 
-		// BANNER EVENTS
+	// BANNER EVENTS
 
 	case 'newbanner':
 		editBanner(0, $option);
@@ -166,12 +166,12 @@ function cPanel($option) {
 	** Conta i banner attivi
 	*/
 	$sql = "SELECT count(b.id) as attivi"
-		. "\nFROM #__banners as b"
-		. "\nwhere b.state = 1"
-		. "\nAND ('$date' <= b.publish_down_date OR b.publish_down_date = '0000-00-00')"
-		. "\nAND '$date' >= b.publish_up_date"
-		."\nAND '$time' >= b.publish_up_time"
-		. "\nAND ('$time' <= b.publish_down_time OR b.publish_down_time = '00:00:00')";
+			. "\nFROM #__banners as b"
+			. "\nwhere b.state = 1"
+			. "\nAND ('$date' <= b.publish_down_date OR b.publish_down_date = '0000-00-00')"
+			. "\nAND '$date' >= b.publish_up_date"
+			."\nAND '$time' >= b.publish_up_time"
+			. "\nAND ('$time' <= b.publish_down_time OR b.publish_down_time = '00:00:00')";
 
 
 	$database->setQuery($sql);
@@ -340,7 +340,7 @@ function viewBanners($option) {
 	$query = "SELECT id AS value, name AS text FROM #__banners_categories ORDER BY name";
 	$database->setQuery($query);
 	$banners_categories = $database->loadObjectList();
-	
+
 	if($database->getErrorNum()) {
 		echo $database->stderr();
 		return false;
@@ -493,9 +493,9 @@ function saveBanner($option, $task) {
 		$msg = _BANNER_COUNTER_RESETTED;
 		$banner->dta_mod_clicks = mosCurrentDate("%Y-%m-%d");
 	} else
-		if($banner->dta_mod_clicks == '0000-00-00') {
-			$banner->dta_mod_clicks = mosCurrentDate("%Y-%m-%d");
-		}
+	if($banner->dta_mod_clicks == '0000-00-00') {
+		$banner->dta_mod_clicks = mosCurrentDate("%Y-%m-%d");
+	}
 
 	// assemble the starting time
 	if(intval($_publish_up_date) && $_publish_up_date != '0000-00-00') {
@@ -1546,24 +1546,23 @@ function getStato(&$row) {
 		if($now < $row->publish_up_date) {
 			$iRet = BANNER_IN_ATTIVAZIONE;
 		} else
-			if($now == $row->publish_up_date && $time < $row->publish_up_time) {
-				$iRet = BANNER_IN_ATTIVAZIONE;
-			} else
-				if($now < $row->publish_down_date || $row->publish_down_date == '0000-00-00') {
+		if($now == $row->publish_up_date && $time < $row->publish_up_time) {
+			$iRet = BANNER_IN_ATTIVAZIONE;
+		} else
+		if($now < $row->publish_down_date || $row->publish_down_date == '0000-00-00') {
 
-					$iRet = BANNER_ATTIV0;
-					if($row->publish_down_time < $time && $row->publish_down_time != '00:00:00') {
-						$iRet = BANNER_TERMINATO;
-					}
+			$iRet = BANNER_ATTIV0;
+			if($row->publish_down_time < $time && $row->publish_down_time != '00:00:00') {
+				$iRet = BANNER_TERMINATO;
+			}
 
-				} else
-					if($now == $row->publish_down_date && ($time <= $row->publish_down_time || $row->publish_down_time == '00:00:00')) {
-						$iRet = BANNER_ATTIV0;
-					} else
-						if($now >= $row->publish_down_date) {
-							$iRet = BANNER_TERMINATO;
-						}
+		} else
+		if($now == $row->publish_down_date && ($time <= $row->publish_down_time || $row->publish_down_time == '00:00:00')) {
+			$iRet = BANNER_ATTIV0;
+		} else
+		if($now >= $row->publish_down_date) {
+			$iRet = BANNER_TERMINATO;
+		}
 	}
-
 	return $iRet;
 }

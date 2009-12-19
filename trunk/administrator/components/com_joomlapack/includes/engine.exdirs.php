@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -13,12 +13,12 @@ defined('_VALID_MOS') or die();
 class CDirExclusionFilter {
 
 	/**
-	@var array Array of the database filters*/
+	 @var array Array of the database filters*/
 	var $_filterArray;
 
 	/**
-	* Class initializer, loads existing filters
-	*/
+	 * Class initializer, loads existing filters
+	 */
 	function CDirExclusionFilter() {
 		global $database;
 
@@ -35,9 +35,9 @@ class CDirExclusionFilter {
 	}
 
 	/**
-	* Returns the array of the filters
-	* @return array The exclusion filters
-	*/
+	 * Returns the array of the filters
+	 * @return array The exclusion filters
+	 */
 	function getFilters() {
 		global $JPConfiguration,$mosConfig_cachepath;
 
@@ -60,10 +60,10 @@ class CDirExclusionFilter {
 	}
 
 	/**
-	* Returns the contents of a directory and their exclusion status
-	* @param $root string Start from this folder
-	* @return array Directories and their status
-	*/
+	 * Returns the contents of a directory and their exclusion status
+	 * @param $root string Start from this folder
+	 * @return array Directories and their status
+	 */
 	function getDirectory($root) {
 		// If there's no root directory specified, use the site's root
 		$root = is_null($root)?JPATH_BASE:$root;
@@ -91,13 +91,13 @@ class CDirExclusionFilter {
 				if($fileDef['type'] == 'dir') {
 					$fileName = basename($fileName);
 					if(($this->ReplaceSlashes($root) == $this->ReplaceSlashes(JPATH_BASE)) &&
-						(($fileName == ".") || ($fileName == '..'))) {
+							(($fileName == ".") || ($fileName == '..'))) {
 					} else {
 						if($this->_filterArray == '') {
 							$arDirs[$fileName] = false;
 						} else {
 							$arDirs[$fileName] = in_array($this->ReplaceSlashes($root.DS.$fileName),
-								$FilterArray);
+									$FilterArray);
 						}
 					}
 				} // if
@@ -132,6 +132,4 @@ class CDirExclusionFilter {
 			$database->query();
 		}
 	}
-
 }
-?>

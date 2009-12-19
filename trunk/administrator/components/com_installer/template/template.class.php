@@ -1,23 +1,23 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 /**
-* Template installer
-* @package Joostina
-* @subpackage Installer
-*/
+ * Template installer
+ * @package Joostina
+ * @subpackage Installer
+ */
 class mosInstallerTemplate extends mosInstaller {
-	
-	function __construct($pre_installer){
+
+	function __construct($pre_installer) {
 		// Copy data
 		$this->i_installfilename = $pre_installer->i_installfilename;
 		$this->i_installarchive = $pre_installer->i_installarchive;
@@ -36,9 +36,9 @@ class mosInstallerTemplate extends mosInstaller {
 		$this->i_installfile = $pre_installer->i_installfile;
 	}
 	/**
-	* Custom install method
-	* @param boolean True if installing from directory
-	*/
+	 * Custom install method
+	 * @param boolean True if installing from directory
+	 */
 	function install($p_fromdir = null) {
 		global $database;
 		$database = &database::getInstance();
@@ -47,7 +47,7 @@ class mosInstallerTemplate extends mosInstaller {
 		if(!$this->preInstallCheck($p_fromdir,'template')) {
 			return false;
 		}
-		
+
 		$xmlDoc = &$this->xmlDoc();
 		$mosinstall = &$xmlDoc->documentElement;
 
@@ -94,11 +94,11 @@ class mosInstallerTemplate extends mosInstaller {
 		return $this->copySetupFile('front');
 	}
 	/**
-	* Custom install method
-	* @param int The id of the module
-	* @param string The URL option
-	* @param int The client id
-	*/
+	 * Custom install method
+	 * @param int The id of the module
+	 * @param string The URL option
+	 * @param int The client id
+	 */
 	function uninstall($id,$option,$client = 0) {
 		global $database;
 		josSpoofCheck(null, null, 'request');
@@ -118,11 +118,11 @@ class mosInstallerTemplate extends mosInstaller {
 		}
 	}
 	/**
-	* Custom install method
-	* @param int The id of the module
-	* @param string The URL option
-	* @param int The client id
-	*/
+	 * Custom install method
+	 * @param int The id of the module
+	 * @param string The URL option
+	 * @param int The client id
+	 */
 	function cleanAfterError() {
 		global $database,$client;
 		josSpoofCheck(null, null, 'request');
@@ -134,10 +134,9 @@ class mosInstallerTemplate extends mosInstaller {
 		}
 	}
 	/**
-	* return to method
-	*/
+	 * return to method
+	 */
 	function returnTo($option,$element,$client) {
 		return "index2.php?option=com_installer&element=template&client=$client";
 	}
 }
-?>

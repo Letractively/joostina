@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -14,30 +14,30 @@ global $CUBE; // The CUBE object instance
 
 class CCUBE {
 	/**
-	@var string Current domain of operation**/
+	 @var string Current domain of operation**/
 	var $_currentDomain;
 	/**
-	@var string Current step**/
+	 @var string Current step**/
 	var $_currentStep;
 	/**
-	@var string Current substep**/
+	 @var string Current substep**/
 	var $_currentSubstep;
 	/**
-	@var object Current engine object executing work**/
+	 @var object Current engine object executing work**/
 	var $_currentObject;
 	/**
-	@var boolean Indicates if we are done**/
+	 @var boolean Indicates if we are done**/
 	var $_isFinished;
 	/**
-	@var string The current error, if any**/
+	 @var string The current error, if any**/
 	var $_Error;
 	var $_OnlyDBMode;
 
 	var $backfile;
 	/**
-	* Creates a new instance of the CUBE object and empties the temporary
-	* database tables
-	*/
+	 * Creates a new instance of the CUBE object and empties the temporary
+	 * database tables
+	 */
 	function CCUBE($OnlyDBMode = false) {
 		global $database,$JPConfiguration;
 		$this->_OnlyDBMode = $OnlyDBMode;
@@ -80,18 +80,18 @@ class CCUBE {
 	}
 
 	/**
-	* The main workhorse, does all the job for us
-	*/
+	 * The main workhorse, does all the job for us
+	 */
 	function tick() {
 		if(!$this->_isFinished) {
 			switch($this->_runAlgorithm()) {
 				case 0:
-					// more work to do, return OK
+				// more work to do, return OK
 					CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_CUBE_ON_STEP.' '.$this->_currentDomain);
 					return $this->_storeCUBEArray();
 					break;
 				case 1:
-					// Engine part finished
+				// Engine part finished
 					CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_CUBE_STEP_FINISHED.$this->_currentDomain);
 					$this->_getNextObject();
 					if($this->_currentDomain == 'finale') {
@@ -113,8 +113,8 @@ class CCUBE {
 	}
 
 	/**
-	* Post work clean-up of files & database
-	*/
+	 * Post work clean-up of files & database
+	 */
 	function _cleanup() {
 		global $database,$JPConfiguration;
 
@@ -145,9 +145,9 @@ class CCUBE {
 	}
 
 	/**
-	* Recursively deletes file inside a directory
-	* @param string $dirName Directory to delete
-	*/
+	 * Recursively deletes file inside a directory
+	 * @param string $dirName Directory to delete
+	 */
 	function _unlinkRecursive($dirName) {
 		// TODO : Don't use glob
 		require_once 'engine.abstraction.php';
@@ -173,7 +173,7 @@ class CCUBE {
 						case 'file':
 							unlink($fileDescriptor['name']);
 							break;
-							// All other types (links, character devices etc) are ignored.
+						// All other types (links, character devices etc) are ignored.
 					}
 				}
 				@unlink($dirName);
@@ -182,10 +182,10 @@ class CCUBE {
 	}
 
 	/**
-	* Single step algorithm. Runs the tick() function of the $_currentObject
-	* until it finishes or produces an error, then returns the result array.
-	* @return integer 1 if we finished correctly, 2 if error occured.
-	*/
+	 * Single step algorithm. Runs the tick() function of the $_currentObject
+	 * until it finishes or produces an error, then returns the result array.
+	 * @return integer 1 if we finished correctly, 2 if error occured.
+	 */
 	// быстрый режим
 	function _algoSingleStep() {
 		CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_QUICK_MODE);
@@ -215,11 +215,11 @@ class CCUBE {
 	}
 
 	/**
-	* Multi-step algorithm. Runs the tick() function of the $_currentObject once
-	* and returns.
-	* @return integer 0 if more work is to be done, 1 if we finished correctly,
-	* 2 if error eccured.
-	*/
+	 * Multi-step algorithm. Runs the tick() function of the $_currentObject once
+	 * and returns.
+	 * @return integer 0 if more work is to be done, 1 if we finished correctly,
+	 * 2 if error eccured.
+	 */
 	// медленный режим
 	function _algoMultiStep() {
 		CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_MULTISTEP_MODE);
@@ -247,12 +247,12 @@ class CCUBE {
 	}
 
 	/**
-	* Smart step algorithm. Runs the tick() function until we have consumed 75%
-	* of the maximum_execution_time (minus 1 seconds) within this procedure. If
-	* the available time is less than 1 seconds, it defaults to multi-step.
-	* @return integer 0 if more work is to be done, 1 if we finished correctly,
-	* 2 if error eccured.
-	*/
+	 * Smart step algorithm. Runs the tick() function until we have consumed 75%
+	 * of the maximum_execution_time (minus 1 seconds) within this procedure. If
+	 * the available time is less than 1 seconds, it defaults to multi-step.
+	 * @return integer 0 if more work is to be done, 1 if we finished correctly,
+	 * 2 if error eccured.
+	 */
 	function _algoSmartStep() {
 		CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_SMART_MODE);
 
@@ -310,36 +310,36 @@ class CCUBE {
 	}
 
 	/**
-	* Runs the user-selected algorithm for the current engine
-	*/
+	 * Runs the user-selected algorithm for the current engine
+	 */
 	function _runAlgorithm() {
 		$algo = $this->_selectAlgorithm();
 		CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_CHOOSED_ALGO.' '.$algo.' '._JP_ALGORITHM_FOR.' '.$this->_currentDomain);
 
 		switch($algo) {
 			case 'single':
-				// Single-step algorithm - fast but leads to timeouts in medium / big sites
+			// Single-step algorithm - fast but leads to timeouts in medium / big sites
 				return $this->_algoSingleStep();
 				break;
 			case 'multi':
-				// Multi-step algorithm - slow but most compatible
+			// Multi-step algorithm - slow but most compatible
 				return $this->_algoMultiStep();
 				break;
 			case 'smart':
-				// SmartStep algorithm - best compromise between speed and compatibility
+			// SmartStep algorithm - best compromise between speed and compatibility
 				return $this->_algoSmartStep();
 				break;
 			default:
-				// No algorithm (null algorithm) for "init" and "finale" domains. Always returns success.
-				//return $this->_isFinished ? 1 : 0;
+			// No algorithm (null algorithm) for "init" and "finale" domains. Always returns success.
+			//return $this->_isFinished ? 1 : 0;
 				return 1;
 		} // switch
 	}
 
 	/**
-	* Selects the algorithm to use based on the current domain
-	* @return string The algorithm to use
-	*/
+	 * Selects the algorithm to use based on the current domain
+	 * @return string The algorithm to use
+	 */
 	function _selectAlgorithm() {
 		global $JPConfiguration;
 		switch($this->_currentDomain) {
@@ -360,24 +360,24 @@ class CCUBE {
 	}
 
 	/**
-	* Returns the current microtime as a float
-	*/
+	 * Returns the current microtime as a float
+	 */
 	function _microtime_float() {
 		list($usec,$sec) = explode(" ",microtime());
 		return ((float)$usec + (float)$sec);
 	}
 
 	/**
-	* Creates the next engine object based on the current execution domain
-	* @return integer 0 = выполняется, 1 = всё выполнено, 2 = ошибка
-	*/
+	 * Creates the next engine object based on the current execution domain
+	 * @return integer 0 = выполняется, 1 = всё выполнено, 2 = ошибка
+	 */
 	function _getNextObject() {
 		// Kill existing object
 		$this->_currentObject = null;
 		// Try to figure out what object to spawn next
 		switch($this->_currentDomain) {
 			case 'init':
-				// ШАГ - создание списка файлов
+			// ШАГ - создание списка файлов
 				if($this->_OnlyDBMode) {
 					CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_NEXT_STEP_BACKUP_DB);
 					// режим архивирования только базы данных
@@ -430,9 +430,9 @@ class CCUBE {
 	}
 
 	/**
-	* Creates the CUBE return array
-	* @return array A CUBE return array with timestamp data
-	*/
+	 * Creates the CUBE return array
+	 * @return array A CUBE return array with timestamp data
+	 */
 	function _makeCUBEArray() {
 		$ret['HasRun']	= $this->_isFinished ? 0:1;
 		$ret['Domain']	= $this->_currentDomain;
@@ -446,9 +446,9 @@ class CCUBE {
 	}
 
 	/**
-	* Stores the CUBE return array to database
-	* @return array The CUBE array we stored in the database
-	*/
+	 * Stores the CUBE return array to database
+	 * @return array The CUBE array we stored in the database
+	 */
 	function _storeCUBEArray() {
 		global $JPConfiguration;
 		$ret = $this->_makeCUBEArray();
@@ -460,9 +460,9 @@ class CCUBE {
 }
 
 /**
-* Tries to load and unserialize a CUBE object from the database. If it fails, it
-* creates a new object
-*/
+ * Tries to load and unserialize a CUBE object from the database. If it fails, it
+ * creates a new object
+ */
 function loadJPCUBE($forceNew = false) {
 	global $database,$JPConfiguration,$CUBE;
 
@@ -502,8 +502,8 @@ function loadJPCUBE($forceNew = false) {
 }
 
 /**
-* Stores the current CUBE object to the database
-*/
+ * Stores the current CUBE object to the database
+ */
 function saveJPCUBE() {
 	global $JPConfiguration,$CUBE;
 
@@ -515,8 +515,8 @@ function saveJPCUBE() {
 }
 
 /**
-* Returns the current CUBE Array from the database
-*/
+ * Returns the current CUBE Array from the database
+ */
 function loadJPCUBEArray() {
 	global $database,$CUBE;
 
@@ -549,4 +549,3 @@ function deadOnTimeOut() {
 	}
 }
 register_shutdown_function('deadOnTimeOut');
-?>

@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -18,16 +18,16 @@ global $DBPACKER_CORE_TABLES,$DBPACKER_OMIT_DATA;
 
 // таблицы ядра, помещаются в главный файл
 $DBPACKER_CORE_TABLES = array(
-	'#__groups',
-	'#__mambots',
-	'#__menu',
-	'#__modules',
-	'#__modules_menu',
-	'#__templates_menu',
-	'#__template_positions',
-	'#__usertypes',
-	'#__core_acl_aro_groups',
-	'#__core_acl_aro_sections'
+		'#__groups',
+		'#__mambots',
+		'#__menu',
+		'#__modules',
+		'#__modules_menu',
+		'#__templates_menu',
+		'#__template_positions',
+		'#__usertypes',
+		'#__core_acl_aro_groups',
+		'#__core_acl_aro_sections'
 );
 
 // таблицы которые не надо архивировать
@@ -36,75 +36,75 @@ $DBPACKER_OMIT_DATA = array('#__jp_packvars');
 class CDBBackupEngine {
 
 	/**
-	* Stores the results of JoomFish detection
-	* @access private
-	* @var boolean
-	*/
+	 * Stores the results of JoomFish detection
+	 * @access private
+	 * @var boolean
+	 */
 	var $_hasJoomFish;
 	/**
-	* The prefix used in the MySQL database for Joomla! table (i.e. "jos_");
-	* @access private
-	* @var string
-	*/
+	 * The prefix used in the MySQL database for Joomla! table (i.e. "jos_");
+	 * @access private
+	 * @var string
+	 */
 	var $_dbprefix;
 	/**
-	* Have we finished processing our task?
-	* @access private
-	* @var boolean
-	*/
+	 * Have we finished processing our task?
+	 * @access private
+	 * @var boolean
+	 */
 	var $_isFinished;
 	/**
-	* SQL compatibility level
-	* @access private
-	* @var string
-	*/
+	 * SQL compatibility level
+	 * @access private
+	 * @var string
+	 */
 	var $_sqlMode;
 	/**
-	* Database status table
-	* @access private
-	* @var array
-	*/
+	 * Database status table
+	 * @access private
+	 * @var array
+	 */
 	var $_all_tables;
 	/**
-	* Next table to pack
-	* @access private
-	* @var string
-	*/
+	 * Next table to pack
+	 * @access private
+	 * @var string
+	 */
 	var $_nextTable;
 	/**
-	* Starting row to pack
-	* @access private
-	* @var string
-	*/
+	 * Starting row to pack
+	 * @access private
+	 * @var string
+	 */
 	var $_nextRange;
 	/**
-	* Next tables maximum data range
-	* @access private
-	* @var long
-	*/
+	 * Next tables maximum data range
+	 * @access private
+	 * @var long
+	 */
 	var $_maxRange;
 	/**
-	* Filename of dump file : core tables
-	* @access private
-	* @var string
-	*/
+	 * Filename of dump file : core tables
+	 * @access private
+	 * @var string
+	 */
 	var $_filenameCore;
 	/**
-	* Filename of dump file : sample data table
-	* @access private
-	* @var string
-	*/
+	 * Filename of dump file : sample data table
+	 * @access private
+	 * @var string
+	 */
 	var $_filenameSample;
 	/**
-	* We are only dumping the database, not the entire site if this is true
-	* @access private
-	* @var boolean
-	*/
+	 * We are only dumping the database, not the entire site if this is true
+	 * @access private
+	 * @var boolean
+	 */
 	var $_onlyDBDumpMode;
 	/**
-	* Created the DB Backup Engine instance
-	* @param boolean $onlyDBDumpMode If true, notifies the engine that we are backing up only the database and not the entire site.
-	*/
+	 * Created the DB Backup Engine instance
+	 * @param boolean $onlyDBDumpMode If true, notifies the engine that we are backing up only the database and not the entire site.
+	 */
 	function CDBBackupEngine($onlyDBDumpMode = false) {
 		global $mosConfig_dbprefix;
 		global $JPConfiguration,$database;
@@ -245,7 +245,7 @@ class CDBBackupEngine {
 						// файл в который складывается дамп базы
 						$filename = $this->_filenameCore;
 						// выбор типа архивирования дампа базы данных
-						if($this->_onlyDBDumpMode){
+						if($this->_onlyDBDumpMode) {
 							switch($JPConfiguration->sql_pack) {
 								case 0:
 								default:
@@ -261,7 +261,7 @@ class CDBBackupEngine {
 									unset($tar);
 									break;
 								case 2:
-									// архивирование в zip
+								// архивирование в zip
 									include_once (JPATH_BASE_ADMIN.'/includes/pcl/pclzip.lib.php');
 									$filename = $filename.'.zip';
 									$zip = new PclZip($filename);
@@ -287,9 +287,9 @@ class CDBBackupEngine {
 			}
 
 			// Define the backup file type we should use
-			if($JPConfiguration->sql_pref){
+			if($JPConfiguration->sql_pref) {
 				$abstracttablename = $this->_getTableAbstractName($this->_nextTable);
-			}else{
+			}else {
 				$abstracttablename = $this->_nextTable;
 			}
 			if($this->_isCoreTable($abstracttablename)) {
@@ -328,7 +328,7 @@ class CDBBackupEngine {
 				$temp = $database->loadAssocList();
 				$tablesql = $temp[0]['Create Table'];
 				unset($temp);
-				if($JPConfiguration->sql_pref){
+				if($JPConfiguration->sql_pref) {
 					$tablesql = str_replace($this->_dbprefix,'#__',$tablesql);
 				}
 				$tablesql = str_replace('\n',' ',$tablesql);
@@ -406,17 +406,17 @@ class CDBBackupEngine {
 	}
 
 	/**
-	* Returns an abstracted table name, i.e. 'jos_users' is transformed to '#__users'
-	* @param string $tableName The name of the table
-	* @return string
-	*/
+	 * Returns an abstracted table name, i.e. 'jos_users' is transformed to '#__users'
+	 * @param string $tableName The name of the table
+	 * @return string
+	 */
 	function _getTableAbstractName($tableName) {
 		return str_replace($this->_dbprefix,"#__",$tableName);
 	}
 
 	/**
-	* Enforces the user selected SQL compatibility mode
-	*/
+	 * Enforces the user selected SQL compatibility mode
+	 */
 	function _connectDatabase() {
 		// set sql_mode allows exporting SQL files for different versions of MySQL
 		if(($this->_sqlMode != null) && ($this->_sqlMode != '') && ($this->_sqlMode !='default')) {
@@ -429,12 +429,12 @@ class CDBBackupEngine {
 	}
 
 	/**
-	* Saves the string in $fileData to the file $backupfile. Returns TRUE. If saving failed, return value is FALSE.
-	* @param string $backupfile Name of backup file
-	* @param string $fileData Data to write
-	* @param string $mode PHP file mode used in writing to file
-	* @return boolean
-	*/
+	 * Saves the string in $fileData to the file $backupfile. Returns TRUE. If saving failed, return value is FALSE.
+	 * @param string $backupfile Name of backup file
+	 * @param string $fileData Data to write
+	 * @param string $mode PHP file mode used in writing to file
+	 * @return boolean
+	 */
 	function _save_to_file($backupfile,$fileData,$mode) {
 		if($zp = fopen($backupfile,$mode)) {
 			fwrite($zp,$fileData);
@@ -446,9 +446,9 @@ class CDBBackupEngine {
 	}
 
 	/**
-	* Makes the return table (used by CUBE to determine what has happened during the run
-	* @return array A CUBE return table
-	*/
+	 * Makes the return table (used by CUBE to determine what has happened during the run
+	 * @return array A CUBE return table
+	 */
 	function _returnTable($finished,$table = "",$range = "",$maxRange = "",$error = null) {
 		$returnArray = array();
 		$returnArray['HasRun'] = !$finished;
@@ -467,10 +467,10 @@ class CDBBackupEngine {
 	}
 
 	/**
-	* Checks to see if a given table is a Joomla! core table. Shorta hack...
-	* @param $abstractName string The abstracted table name we want to test
-	* @return boolean TRUE if it is a core table, FALSE otherwise
-	*/
+	 * Checks to see if a given table is a Joomla! core table. Shorta hack...
+	 * @param $abstractName string The abstracted table name we want to test
+	 * @return boolean TRUE if it is a core table, FALSE otherwise
+	 */
 	function _isCoreTable($abstractName) {
 		global $DBPACKER_CORE_TABLES;
 		return in_array($abstractName,$DBPACKER_CORE_TABLES);
@@ -496,5 +496,3 @@ class CDBBackupEngine {
 		return $JPConfiguration->OutputDirectory.'/'.$templateName.$extension;
 	}
 }
-
-?>

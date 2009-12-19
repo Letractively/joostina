@@ -45,7 +45,6 @@ DEFINE('_MOD_FULLMENU_FILE_MANAGER','Менеджер файлов');
 DEFINE('_MOD_FULLMENU_BACKUP_CONFIG','Настройки сохранения данных');
 DEFINE('_MOD_FULLMENU_SYSTEM_INFO','Информация о системе');
 DEFINE('_MOD_FULLMENU_NO_ACTIVE_MENU_ON_THIS_PAGE','На этой странице меню не активно');
-DEFINE('_EXTENSION_MANAGEMENT','Управление расширениями');
 DEFINE('_MOD_FULLMENU_MEDIA_MANAGER','Медиа менеджер');
 DEFINE('_MOD_FULLMENU_JP_BACKUP_MANAGEMENT','Резервное копирование');
 DEFINE('_MOD_FULLMENU_JP_CREATE_BACKUP','Создать архив данных');

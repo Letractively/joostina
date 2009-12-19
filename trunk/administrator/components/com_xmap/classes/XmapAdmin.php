@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -13,9 +13,9 @@ defined('_VALID_MOS') or die();
 require_once (JPATH_BASE_ADMIN.'/components/com_installer/installer/installer.class.php');
 
 class XmapAdmin {
-	
+
 	var $config = null;
-	
+
 	/** Parses input parameters and calls appropriate function */
 	function show( &$config, &$task, &$cid ) {
 		$this->config = &$config;
@@ -25,7 +25,7 @@ class XmapAdmin {
 			case 'save':
 				$this->saveOptions( $config );
 				break;
-			
+
 			case 'cancel':
 				mosRedirect( 'index2.php' );
 				break;
@@ -49,8 +49,8 @@ class XmapAdmin {
 	}
 
 	/** Show settings dialog
-	* @param integer  configuration save success
-	*/
+	 * @param integer  configuration save success
+	 */
 	function showSettingsDialog( $success = 0 ) {
 		global $mainframe;
 
@@ -97,10 +97,10 @@ class XmapAdmin {
 		exit;
 	}
 
-	/** 
-	* 
-	* get the complete list of menus in joomla 
-	*/
+	/**
+	 *
+	 * get the complete list of menus in joomla
+	 */
 	function &getMenus() {
 		$config = &$this->config;
 		$menutypes  = mosAdminMenus::menutypes();
@@ -127,9 +127,9 @@ function loadInstalledPlugins( &$rows,&$xmlfile ) {
 	require_once (JPATH_BASE .'/includes/domit/xml_domit_lite_parser.php');
 
 	$query = "SELECT id, extension, published"
-	. "\n FROM #__xmap_ext"
-	. "\n WHERE extension not like '%.bak'"
-	. "\n ORDER BY extension";
+			. "\n FROM #__xmap_ext"
+			. "\n WHERE extension not like '%.bak'"
+			. "\n ORDER BY extension";
 
 	$database->setQuery( $query );
 	$rows = $database->loadObjectList();
@@ -195,8 +195,8 @@ function showInstalledPlugins( $_option ) {
 }
 
 /**
-* Install a uploaded extension
-*/
+ * Install a uploaded extension
+ */
 
 function xmapUploadPlugin( ) {
 	$option ='com_xmap';
@@ -232,26 +232,26 @@ function xmapUploadPlugin( ) {
 	if ($resultdir !== false) {
 		if (!$installer->upload( $userfile['name'] )) {
 			XmapAdminHtml::showInstallMessage( $installer->getError(), 'Upload '.$element.' - Upload Failed',
-			$installer->returnTo( $option, $element, $client ) );
+					$installer->returnTo( $option, $element, $client ) );
 		}
 		$ret = $installer->install();
 
 		XmapAdminHtml::showInstallMessage( $installer->getError(), 'Upload '.$element.' - '.($ret ? 'Success' : 'Failed'),
-			$installer->returnTo( $option, $element, $client ) );
+				$installer->returnTo( $option, $element, $client ) );
 		cleanupInstall( $userfile['name'], $installer->unpackDir() );
 	} else {
 		XmapAdminHtml::showInstallMessage( $msg, 'Upload '.$element.' -  Upload Error',
-			$installer->returnTo( $option, $element, $client ) );
+				$installer->returnTo( $option, $element, $client ) );
 	}
 
 } 
 
 /**
-* Install a extension from a directory
-*/
+ * Install a extension from a directory
+ */
 function xmapInstallPluginFromDirectory() {
 	$userfile = mosGetParam( $_REQUEST, 'userfile', '' );
-	$option ='com_xmap'; 
+	$option ='com_xmap';
 	$element = 'plugin';
 	$client = '';
 	require_once(JPATH_BASE. '/'.JADMIN_BASE.'/components/com_xmap/classes/XmapPluginInstaller.php');
@@ -275,9 +275,9 @@ function xmapInstallPluginFromDirectory() {
 
 
 /**
-*
-* @param
-*/
+ *
+ * @param
+ */
 function xmapUninstallPlugin( $extensionid ) {
 	require_once(JPATH_BASE_ADMIN.'/components/com_xmap/classes/XmapPluginInstaller.php');
 	$installer = new XmapPluginInstaller();
@@ -293,10 +293,10 @@ function xmapUninstallPlugin( $extensionid ) {
 }
 
 /**
-* @param string The name of the php (temporary) uploaded file
-* @param string The name of the file to put in the temp directory
-* @param string The message to return
-*/
+ * @param string The name of the php (temporary) uploaded file
+ * @param string The name of the file to put in the temp directory
+ * @param string The message to return
+ */
 function xmapUploadFile( $filename, $userfile_name, &$msg ) {
 	$baseDir = mosPathName( JPATH_BASE . '/media' );
 

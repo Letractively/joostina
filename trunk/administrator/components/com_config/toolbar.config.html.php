@@ -1,24 +1,24 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 /**
-* @package Joostina
-* @subpackage Config
-*/
+ * @package Joostina
+ * @subpackage Config
+ */
 class TOOLBAR_config {
 
 	/**
-	* Меню для сохранялки параметров отдельных компонентов
-	*/
+	 * Меню для сохранялки параметров отдельных компонентов
+	 */
 	function _SAVE_EXT_CONFIG() {
 		mosMenuBar::startTable();
 		mosMenuBar::save('save_component_config');
@@ -26,7 +26,7 @@ class TOOLBAR_config {
 		mosMenuBar::cancel();
 		mosMenuBar::endTable();
 	}
-	
+
 	function _DEFAULT() {
 		mosMenuBar::startTable();
 		mosMenuBar::save();
@@ -39,4 +39,3 @@ class TOOLBAR_config {
 		mosMenuBar::endTable();
 	}
 }
-?>

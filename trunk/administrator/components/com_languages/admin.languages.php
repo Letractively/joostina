@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -59,8 +59,8 @@ switch($task) {
 }
 
 /**
-* Compiles a list of installed languages
-*/
+ * Compiles a list of installed languages
+ */
 function viewLanguages($option) {
 	global $languages;
 	global $mainframe;
@@ -144,8 +144,8 @@ function viewLanguages($option) {
 }
 
 /**
-* Publish, or make current, the selected language
-*/
+ * Publish, or make current, the selected language
+ */
 function publishLanguage($p_lname,$option) {
 	global $mosConfig_lang;
 	josSpoofCheck();
@@ -173,8 +173,8 @@ function publishLanguage($p_lname,$option) {
 }
 
 /**
-* Remove the selected language
-*/
+ * Remove the selected language
+ */
 function removeLanguage($cid,$option,$client = 'admin') {
 	global $mosConfig_lang;
 	josSpoofCheck();
@@ -239,4 +239,3 @@ function saveLanguageSource($option) {
 		mosRedirect("index2.php?option=$option&mosmsg="._UNSUCCES_OPERATION_CANNOT_OPEN);
 	}
 }
-?>

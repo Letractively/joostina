@@ -1,11 +1,11 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -71,8 +71,8 @@ switch($task) {
 }
 
 /**
-* Compiles a list of installed or defined modules
-*/
+ * Compiles a list of installed or defined modules
+ */
 function viewMambots($option,$client) {
 	global $database,$mainframe,$mosConfig_list_limit;
 
@@ -109,12 +109,12 @@ function viewMambots($option,$client) {
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
 	$query = "SELECT m.*, u.name AS editor, g.name AS groupname"
-		."\n FROM #__mambots AS m"
-		."\n LEFT JOIN #__users AS u ON u.id = m.checked_out"
-		."\n LEFT JOIN #__groups AS g ON g.id = m.access"
-		.(count($where)?"\n WHERE ".implode(' AND ',$where):'')
-		."\n GROUP BY m.id"
-		."\n ORDER BY m.folder ASC, m.ordering ASC, m.name ASC";
+			."\n FROM #__mambots AS m"
+			."\n LEFT JOIN #__users AS u ON u.id = m.checked_out"
+			."\n LEFT JOIN #__groups AS g ON g.id = m.access"
+			.(count($where)?"\n WHERE ".implode(' AND ',$where):'')
+			."\n GROUP BY m.id"
+			."\n ORDER BY m.folder ASC, m.ordering ASC, m.name ASC";
 	$database->setQuery($query,$pageNav->limitstart,$pageNav->limit);
 	$rows = $database->loadObjectList();
 	if($database->getErrorNum()) {
@@ -124,10 +124,10 @@ function viewMambots($option,$client) {
 
 	// get list of Positions for dropdown filter
 	$query = "SELECT folder AS value, folder AS text"
-		."\n FROM #__mambots"
-		."\n WHERE client_id = ".(int)$client_id
-		."\n GROUP BY folder"
-		."\n ORDER BY folder";
+			."\n FROM #__mambots"
+			."\n WHERE client_id = ".(int)$client_id
+			."\n GROUP BY folder"
+			."\n ORDER BY folder";
 	$types[] = mosHTML::makeOption(1,_SEL_TYPE);
 	$database->setQuery($query);
 	$types = array_merge($types,$database->loadObjectList());
@@ -137,8 +137,8 @@ function viewMambots($option,$client) {
 }
 
 /**
-* Saves the module after an edit form submit
-*/
+ * Saves the module after an edit form submit
+ */
 function saveMambot($option,$client,$task) {
 	global $database;
 	josSpoofCheck();
@@ -187,10 +187,10 @@ function saveMambot($option,$client,$task) {
 }
 
 /**
-* Compiles information to add or edit a module
-* @param string The current GET/POST option
-* @param integer The unique id of the record to edit
-*/
+ * Compiles information to add or edit a module
+ * @param string The current GET/POST option
+ * @param integer The unique id of the record to edit
+ */
 function editMambot($option,$uid,$client) {
 	global $database,$my,$mainframe;
 
@@ -225,14 +225,14 @@ function editMambot($option,$uid,$client) {
 		if($row->ordering > -10000 && $row->ordering < 10000) {
 			// build the html select list for ordering
 			$query = "SELECT ordering AS value, name AS text"
-				."\n FROM #__mambots"
-				."\n WHERE folder = "
-				.$database->Quote($row->folder)
-				."\n AND published > 0"
-				."\n AND $where"
-				."\n AND ordering > -10000"
-				."\n AND ordering < 10000"
-				."\n ORDER BY ordering";
+					."\n FROM #__mambots"
+					."\n WHERE folder = "
+					.$database->Quote($row->folder)
+					."\n AND published > 0"
+					."\n AND $where"
+					."\n AND ordering > -10000"
+					."\n AND ordering < 10000"
+					."\n ORDER BY ordering";
 			$order = mosGetOrderingList($query);
 			$lists['ordering'] = mosHTML::selectList($order,'ordering','class="inputbox" size="1"','value','text',intval($row->ordering));
 		} else {
@@ -283,11 +283,11 @@ function editMambot($option,$uid,$client) {
 }
 
 /**
-* Deletes one or more mambots
-*
-* Also deletes associated entries in the #__mambots table.
-* @param array An array of unique category id numbers
-*/
+ * Deletes one or more mambots
+ *
+ * Also deletes associated entries in the #__mambots table.
+ * @param array An array of unique category id numbers
+ */
 function removeMambot(&$cid,$option,$client) {
 	global $database,$my;
 	josSpoofCheck();
@@ -300,10 +300,10 @@ function removeMambot(&$cid,$option,$client) {
 }
 
 /**
-* Publishes or Unpublishes one or more modules
-* @param array An array of unique category id numbers
-* @param integer 0 if unpublishing, 1 if publishing
-*/
+ * Publishes or Unpublishes one or more modules
+ * @param array An array of unique category id numbers
+ * @param integer 0 if unpublishing, 1 if publishing
+ */
 function publishMambot($cid = null,$publish = 1,$option,$client) {
 	global $database,$my;
 	josSpoofCheck();
@@ -332,8 +332,8 @@ function publishMambot($cid = null,$publish = 1,$option,$client) {
 }
 
 /**
-* Cancels an edit operation
-*/
+ * Cancels an edit operation
+ */
 function cancelMambot($option,$client) {
 	global $database;
 	josSpoofCheck();
@@ -345,10 +345,10 @@ function cancelMambot($option,$client) {
 }
 
 /**
-* Moves the order of a record
-* @param integer The unique id of record
-* @param integer The increment to reorder by
-*/
+ * Moves the order of a record
+ * @param integer The unique id of record
+ * @param integer The increment to reorder by
+ */
 function orderMambot($uid,$inc,$option,$client) {
 	global $database;
 	josSpoofCheck();
@@ -366,9 +366,9 @@ function orderMambot($uid,$inc,$option,$client) {
 }
 
 /**
-* changes the access level of a record
-* @param integer The increment to reorder by
-*/
+ * changes the access level of a record
+ * @param integer The increment to reorder by
+ */
 function accessMenu($uid,$access,$option,$client) {
 	global $database;
 	josSpoofCheck();
@@ -439,5 +439,3 @@ function saveOrder(&$cid) {
 	$msg = _NEW_ORDER_SAVED;
 	mosRedirect('index2.php?option=com_mambots',$msg);
 } // saveOrder
-
-?>
