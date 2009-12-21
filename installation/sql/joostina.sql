@@ -1038,7 +1038,7 @@ CREATE TABLE IF NOT EXISTS `#__config` (
   `group` varchar(255) NOT NULL,
   `subgroup` varchar(255) NOT NULL,
   `name` varchar(50) NOT NULL,
-  `value` tinytext NOT NULL,
+  `value` text NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `name` (`name`)
 ) ENGINE=MYISAM  CHARACTER SET utf8 COLLATE utf8_general_ci;
