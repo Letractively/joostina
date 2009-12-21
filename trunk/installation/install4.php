@@ -163,7 +163,7 @@ if($siteUrl) {
 	$config .= "\$mosConfig_uniquemail = '1';\n";
 	$config .= "\$mosConfig_offline_message = 'Сайт временно закрыт.<br />Приносим свои извинения! Пожалуйста, зайдите позже.';\n";
 	$config .= "\$mosConfig_error_message = 'Сайт недоступен.<br />Пожалуйста, сообщите об этом Администратору';\n";
-	$config .= "\$mosConfig_debug = '1';\n";
+	$config .= "\$mosConfig_debug = '0';\n";
 	$config .= "\$mosConfig_lifetime = '900';\n";
 	$config .= "\$mosConfig_session_life_admin = '1800';\n";
 	$config .= "\$mosConfig_session_type = '0';\n";
@@ -212,7 +212,7 @@ if($siteUrl) {
 	// boston, использование одного шаблона на весь сайт
 	$config .= "\$mosConfig_one_template = '...';\n";
 	// boston, отображение времени генерации страницы
-	$config .= "\$mosConfig_time_generate = '1';\n";
+	$config .= "\$mosConfig_time_generate = '0';\n";
 	// boston, индексация печатной версии
 	$config .= "\$mosConfig_index_print = '0';\n";
 	//boston, расширенные теги индексации
@@ -252,7 +252,7 @@ if($siteUrl) {
 	// часовой пояс для rss
 	$config .= "\$mosConfig_feed_timeoffset = '00:00';\n";
 	// использование расширенного отладчика на фронте сайта
-	$config .= "\$mosConfig_front_debug = '1';\n";
+	$config .= "\$mosConfig_front_debug = '0';\n";
 	// отключение мамботов группы mainbody
 	$config .= "\$mosConfig_mmb_mainbody_off = '1';\n";
 	// отключение блокировок объекта
