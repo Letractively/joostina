@@ -225,7 +225,7 @@ class DBconfig {
 	 *
 	 * @var string $value строка для разбора
 	 */
-	private function _parseValue($value) {
+	function _parseValue($value) {
 		$value_array = array();
 
 		if (substr($value, 1, 1) == ":") {
@@ -284,7 +284,7 @@ class DBconfig {
 	 * @var string $type Тип параметра
 	 * @var variant $value Значение параметра
 	 */
-	private function _formatValue($type, $value) {
+	function _formatValue($type, $value) {
 		switch ($type) {
 			case 's':
 			case 'i':
