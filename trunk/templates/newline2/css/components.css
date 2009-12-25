@@ -185,7 +185,7 @@ table.cedit_main {
     width:90px; float: left; text-align: right; font-weight: bold;
     padding: 0 10px 0 0;  display: block; height: 40px; clear: left;
 }
-.contact_page input.inputbox,  textarea.inputbox{
+.contact_page input.inputbox,  .contact_page textarea.inputbox{
     display:block; float: left;
 }
 .contact_page br{
