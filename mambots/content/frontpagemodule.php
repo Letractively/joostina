@@ -34,11 +34,11 @@ function frontpagemodule($row,&$params) {
 			$_MAMBOTS->_content_mambot_params['_frontpagemodule']->params->i ++;
 		}
 
-		$params = new mosParameters($_MAMBOTS->_content_mambot_params['frontpagemodule']->params);
+		$params_bot = new mosParameters($_MAMBOTS->_content_mambot_params['frontpagemodule']->params);
 
-		$mod_position = $params->def('mod_position','banner');
-		$mod_type = $params->def('mod_type','1');
-		$mod_after = $params->def('mod_after','1');
+		$mod_position = $params_bot->def('mod_position','banner');
+		$mod_type = $params_bot->def('mod_type','1');
+		$mod_after = $params_bot->def('mod_after','1');
 
 		if(mosCountModules($mod_position)>0 && $_MAMBOTS->_content_mambot_params['_frontpagemodule']->params->i == $mod_after) {
 			echo '<div class="frontpagemodule">';

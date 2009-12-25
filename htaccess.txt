@@ -129,7 +129,7 @@ RewriteRule ^(.*)$ index.php [F,L]
 #RewriteCond %{REQUEST_FILENAME} !-d
 #RewriteCond %{REQUEST_URI} ^(/component/option,com) [NC,OR] 	##опционально - смотрите примечания##
 #RewriteCond %{REQUEST_URI} (/|\.htm|\.php|\.html|/[^.]*)$  [NC]
-#RewriteRule ^(view/|content/|component/) index.php
+#RewriteRule ^(view/|content/|tag/|component/) index.php
 #
 ########## Конец раздела стандартного SEF
 
