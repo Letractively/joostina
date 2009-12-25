@@ -78,3 +78,4 @@ mosCommonHTML::loadJquery(1);
 		<div class="closewin">&nbsp;</div>
 	</div>
 </div>
+</div>

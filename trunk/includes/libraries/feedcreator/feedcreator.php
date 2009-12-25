@@ -728,8 +728,7 @@ class HTMLCreator extends FeedCreator {
 	}
 	function _generateFilename() {
 		$fileInfo = pathinfo($_SERVER["PHP_SELF"]);
-		return substr($fileInfo["basename"],0,-(strlen($fileInfo["extension"]) + 1)).
-				".html";
+		return substr($fileInfo["basename"],0,-(strlen($fileInfo["extension"]) + 1)).".html";
 	}
 }
 class JSCreator extends HTMLCreator {

@@ -15,6 +15,7 @@ global $task;
 
 // load feed creator class
 mosMainFrame::addLib('feedcreator');
+mosMainFrame::addLib('html_optimize');
 
 $info = null;
 $rss = null;
@@ -33,9 +34,11 @@ switch($task) {
 * Creates feed from Content Iems associated to teh frontpage component
 */
 function feedFrontpage($showFeed) {
-	$database = &database::getInstance();
-	$config = &Jconfig::getInstance();
 	$mainframe = &mosMainFrame::getInstance();
+
+	$database = &$mainframe->_db;
+	$config = &$mainframe->config;
+
 
 	$nullDate = $database->getNullDate();
 	// pull id of syndication component
@@ -293,6 +296,7 @@ function feedFrontpage($showFeed) {
 			$item->fulltext = $row->fulltext?$row->introtext.$row->fulltext:$row->introtext;
 			$item->fulltext = htmlspecialchars(strip_tags($item->fulltext));
 			$item->fulltext = str_replace("'","&apos;",$item->fulltext);
+			$item->fulltext = preg_replace('/{mosimage\s*.*?}/iu','',$item->fulltext);
 
 			if($row->images) {
 				$item->images = array();
@@ -307,6 +311,7 @@ function feedFrontpage($showFeed) {
 			}
 			// yandex export
 		}
+		$item->fulltext = html_optimize($item->fulltext);
 		// loads item info into rss array
 		$rss->addItem($item);
 	}
@@ -314,4 +319,3 @@ function feedFrontpage($showFeed) {
 	// save feed file
 	$rss->saveFeed($info['feed'],$info['file'],$showFeed);
 }
-?>

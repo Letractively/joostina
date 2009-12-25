@@ -62,7 +62,7 @@ class Text {
 			return $str;
 		}
 
-		preg_match('/^\s*+(?:\S++\s*+){1,'.(int) $limit.'}/', $str, $matches);
+		preg_match('/^\s*+(?:\S++\s*+){1,'.(int) $limit.'}/u', $str, $matches);
 
 		if (Jstring::strlen($str) == Jstring::strlen($matches[0])) {
 			$end_char = '';
@@ -89,7 +89,7 @@ class Text {
 			return $str;
 		}
 
-		$str = preg_replace("/\s+/", ' ', str_replace(array("\r\n", "\r", "\n"), ' ', $str));
+		$str = preg_replace("/\s+/u", ' ', str_replace(array("\r\n", "\r", "\n"), ' ', $str));
 
 		if (Jstring::strlen($str) <= $n) {
 			return $str;
