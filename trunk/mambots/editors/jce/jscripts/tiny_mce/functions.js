@@ -8,7 +8,7 @@ var jceFunctions = {
 			//Links
 			html = tinyMCE.regexpReplace(html, 'href\s*=\s*"?' + base + '', 'href="', 'gi');
 			//Images/Embed
-			html = tinyMCE.regexpReplace(html, 'src\s*=\s*"?' + base + '', 'src="', 'gi');
+			html = tinyMCE.regexpReplace(html, 'src\s*=\s*"?' + base + '', 'src="/', 'gi');
 			//Object
 			html = tinyMCE.regexpReplace(html, 'value\s*=\s*"?' + base + '', 'value="', 'gi');
 			html = tinyMCE.regexpReplace(html, 'url\s*=\s*"?' + base + '', 'url="', 'gi');

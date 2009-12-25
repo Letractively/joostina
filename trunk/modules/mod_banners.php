@@ -80,7 +80,7 @@ if(!function_exists('showBanners')) {
 			}
 
 			if($numrows) {
-				$result .= '<tr><td>' . showSingleBanner($rows[$bannum]) . '</td></tr></table>';
+				$result .= '<tr><td>' . showSingleBanner($rows[$bannum],$mainframe) . '</td></tr></table>';
 				return $result;
 			}
 		}
