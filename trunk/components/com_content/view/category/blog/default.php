@@ -20,7 +20,7 @@ defined('_VALID_MOS') or die(); ?>
 			<img src="<?php echo JPATH_SITE; ?>/images/stories/<?php echo $obj->image; ?>" align="<?php echo $obj->image_position; ?>"  alt="" />
 						<?php } ?>
 					<?php if($display_desc_text) { ?>
-			<p><?php echo $obj->description; ?></p>
+			<p> <?php echo $obj->description; ?> </p>
 						<?php } ?>
 		</div>
 				<?php } ?>
@@ -29,6 +29,9 @@ defined('_VALID_MOS') or die(); ?>
 					<?php for ($z = 0; $z < $leading; $z++) {
 						if($i >= ($total - $limitstart)) {
 							break;
+						}
+						if(array_key_exists($rows[$i]->id, $tags_arr)) {
+							$rows[$i]->tags = $tags_arr[$rows[$i]->id];
 						} ?>
 			<div class="intro leading" id="leading_<?php echo $i; ?>">
 							<?php $params->set('page_type', 'item_intro_leading');
@@ -42,6 +45,9 @@ defined('_VALID_MOS') or die(); ?>
 			<?php if($intro && ($i < $total)) { ?>
 		<table class="intro_table" width="100%"  cellpadding="0" cellspacing="0">
 					<?php for ($z = 0; $z < $intro; $z++) {
+						if(isset($rows[$i]) && array_key_exists($rows[$i]->id, $tags_arr)) {
+							$rows[$i]->tags = $tags_arr[$rows[$i]->id];
+						}
 						if($i >= ($total - $limitstart)) {
 							break;
 						}

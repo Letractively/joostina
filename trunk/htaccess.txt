@@ -1,6 +1,6 @@
 ##
 # @package Joostina
-# @copyright Авторские права (C) 2007-2009 Joostina Team.
+# @copyright Авторские права (C) 2007-2010 Joostina Team.
 
 ##
 # -----------------======= ВНИМАНИЕ!!! =======----------------------------
@@ -58,17 +58,6 @@ AddDefaultCharset UTF-8
 # начало строки), перезагрузите в браузере сайт и протестируйте работу SEF-ссылок. Если они работают,
 # то вам не надо ничего менять здесь, т.к. всё уже настроено администратором сервера.
 #
-# Используйте только один из двух разделов SEF, которые находятся ниже. Строки, которые можно
-# раскомментировать (и использовать) имеют только один #.  Строки с двумя символами # раскомментировать не надо.
-# В разделах, которые вы не используете, все строки должны начинаться с символа #
-#
-# Для стандартного SEF, используйте раздел стандартного SEF. Вы можете
-# закомментировать все строки с RewriteCond и уменьшить загрузку сервера, если
-# у вас в корне нет каталогов с названиями 'component' или 'content'
-#
-# Если вы используете сторонние компоненты SEF или Core SEF, то раскомментируйте
-# все строки в разделе 'SEF сторонних разработчиков или Core SEF'
-#
 #####################################################
 
 #####  РЕШЕНИЕ ПРОБЛЕМЫ С НЕРАБОТАЮЩИМИ URL КОМПОНЕНТОВ #####
@@ -97,19 +86,12 @@ AddDefaultCharset UTF-8
 RewriteEngine On
 
 ########## Начало - Правила обработки запросов для блокировки распространенных эксплоитов
-# Block out any script trying to set a mosConfig value through the URL
 RewriteCond %{QUERY_STRING} mosConfig_[a-zA-Z_]{1,21}(=|\%3D) [OR]
-# Block out any script trying to base64_encode crap to send via URL
 RewriteCond %{QUERY_STRING} base64_encode.*\(.*\) [OR]
-# Block out any script that includes a <script> tag in URL
 RewriteCond %{QUERY_STRING} (\<|%3C).*script.*(\>|%3E) [NC,OR]
-# Block out any script trying to set a PHP GLOBALS variable via URL
 RewriteCond %{QUERY_STRING} GLOBALS(=|\[|\%[0-9A-Z]{0,2}) [OR]
-# Block out any script trying to modify a _REQUEST variable via URL
 RewriteCond %{QUERY_STRING} _REQUEST(=|\[|\%[0-9A-Z]{0,2})
-# Send all blocked request to homepage with 403 Forbidden error!
 RewriteRule ^(.*)$ index.php [F,L]
-#
 ########## Конец - Правила обработки (Rewrite rules) для блокировки распространенных эксплоитов
 
 #  Раскомментируйте следующую строку, если URL вашего web-сервера
@@ -118,30 +100,8 @@ RewriteRule ^(.*)$ index.php [F,L]
 
 # RewriteBase /
 
-
-########## Начало раздела стандартного SEF
-########## Используйте эту секцию ТОЛЬКО для работы встроенного SEF Joostina
-## ВСЕ (RewriteCond) строки в этой секции необходимы только если
-## на вашем сервере имеются каталоги с названиями 'content' или 'component'
-## Если каталоги с такими названиями отсутствуют, то закомментируйте эти строки.
-#
-#RewriteCond %{REQUEST_FILENAME} !-f
-#RewriteCond %{REQUEST_FILENAME} !-d
-#RewriteCond %{REQUEST_URI} ^(/component/option,com) [NC,OR] 	##опционально - смотрите примечания##
-#RewriteCond %{REQUEST_URI} (/|\.htm|\.php|\.html|/[^.]*)$  [NC]
-#RewriteRule ^(view/|content/|tag/|component/) index.php
-#
-########## Конец раздела стандартного SEF
-
-
-
-########## Начало раздела SEF сторонних разработчиков или Core SEF
-########## Используйте этот раздел, если вы используете SEF-расширения типа OpenSEF, 404_SEF, 404SEFx, JoomSEF, SEF Advance и т.д.
-#
 RewriteCond %{REQUEST_URI} ^(/component/option,com) [NC,OR] 	##опционально - смотрите примечания##
 RewriteCond %{REQUEST_URI} (/|\.htm|\.php|\.html|\.xml|/[^.]*)$  [NC]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule (.*) index.php
-#
-########## Конец раздела SEF сторонних разработчиков или Core SEF
