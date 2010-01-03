@@ -4530,7 +4530,7 @@ class mosMambotHandler {
 					/** ensure that query is only called once*/
 					define('_JOS_CONTENT_MAMBOTS',1);
 					$where_ac_2 = $where_ac.($config['config_use_unpublished_mambots']==1) ? ' published=1 AND':'';
-					$query = 'SELECT folder, element, published, params FROM #__mambots WHERE '.$where_ac_2.' folder = \'content\' AND client_id=0 ORDER BY ordering DESC';
+					$query = 'SELECT folder, element, published, params FROM #__mambots WHERE '.$where_ac_2.' folder = \'content\' AND client_id=0 ORDER BY ordering ASC';
 					$database->setQuery($query);
 					// load query into class variable _content_mambots
 					if(!($this->_content_mambots = $database->loadObjectList())) {
@@ -4548,7 +4548,7 @@ class mosMambotHandler {
 				if(!defined('_JOS_SEARCH_MAMBOTS')) {
 					define('_JOS_SEARCH_MAMBOTS',1);
 
-					$query = 'SELECT folder, element, published, params FROM #__mambots WHERE published = 1'.$where_ac.' AND folder = \'search\' ORDER BY ordering DESC';
+					$query = 'SELECT folder, element, published, params FROM #__mambots WHERE published = 1'.$where_ac.' AND folder = \'search\' ORDER BY ordering ASC';
 					$database->setQuery($query);
 					if(!($this->_search_mambot = $database->loadObjectList())) {
 						return false;
@@ -4564,7 +4564,7 @@ class mosMambotHandler {
 				break;
 
 			default:
-				$query = 'SELECT folder, element, published, params FROM #__mambots WHERE published = 1'.$where_ac.' AND folder = '.$database->Quote($group).' AND client_id=0 ORDER BY ordering DESC';
+				$query = 'SELECT folder, element, published, params FROM #__mambots WHERE published = 1'.$where_ac.' AND folder = '.$database->Quote($group).' AND client_id=0 ORDER BY ordering ASC';
 				$database->setQuery($query);
 				if(!($bots = $database->loadObjectList())) {
 					return false;
@@ -5651,9 +5651,7 @@ class mosCommonHTML {
 		}
 	}
 </script>
-		<?php
-		foreach($menus as $menu) {
-			?>
+		<?php foreach($menus as $menu) { ?>
 <tr>
 	<td colspan="2"><hr /></td>
 </tr>
@@ -5694,9 +5692,7 @@ class mosCommonHTML {
 					?>
 	</td>
 </tr>
-			<?php
-		}
-		?>
+			<?php } ?>
 <input type="hidden" name="menu" value="" />
 <input type="hidden" name="menuid" value="" />
 		<?php
