@@ -276,8 +276,9 @@ function viewContent($sectionid,$option) {
 	}
 
 	if($search) {
-		$where[] = "LOWER( c.title ) LIKE '%".$database->getEscaped(trim(strtolower($search)))."%'";
+		$where[] = "LOWER( c.title ) LIKE '%".$database->getEscaped(Jstring::trim(Jstring::strtolower($search)))."%'";
 	}
+
 	// отображение архивного содержимого
 	$where[]= $showarchive ? 'c.state=-1' : 'state>=0';
 
@@ -378,7 +379,7 @@ function viewArchive($sectionid,$option) {
 		$where[] = "c.catid = ".(int)$catid;
 	}
 	if($search) {
-		$where[] = "LOWER( c.title ) LIKE '%".$database->getEscaped(trim(strtolower($search))).	"%'";
+		$where[] = "LOWER( c.title ) LIKE '%".$database->getEscaped(Jstring::trim(Jstring::strtolower($search))).	"%'";
 	}
 
 	// get the total number of records
