@@ -552,3 +552,4 @@ DEFINE('_LANGUAGE_PACKS','Языковые пакеты');
 DEFINE('_PAGES_HITS','Статистика посещения страниц');
 DEFINE('_BUTTON_LINK_IN_NEW_WINDOW','В новом окне');
 DEFINE('_SQL_CONSOLE','SQL консоль');
+DEFINE('_XMAP_MSG_NO_SITEMAP', 'Данная карта недоступна');
