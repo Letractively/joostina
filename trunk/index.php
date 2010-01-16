@@ -246,6 +246,7 @@ if(!$mosConfig_caching) { // не кэшируется
 }
 */
 
+($mosConfig_mmb_system_off == 0) ? $_MAMBOTS->trigger('onAfterDispatch') : null;
 
 // отображение предупреждения о выключенном сайте, при входе админа
 if(defined('_ADMIN_OFFLINE')) {
