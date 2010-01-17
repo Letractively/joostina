@@ -12,7 +12,7 @@ defined('_VALID_MOS') or die(); ?>
 <div <?php echo $news_uid_css_title; ?>class="item_title">
 	<div class="contentheading"><h1><?php echo $row->title; ?></h1></div>
 </div>
-	<?php }
+<?php }
 $loadbot_onAfterDisplayTitle;
 $loadbot_onBeforeDisplayContent;
 ?>
@@ -52,10 +52,8 @@ $loadbot_onBeforeDisplayContent;
 	<?php if($params->get('view_introtext', 1)) { ?>
 	<div class="item_text"><?php echo ampReplace($row->text); ?></div>
 		<?php } ?>
-	<?php if($params->get('tags', 1)) { ?>
-	<div class="tags">
-		<span class="tags"><strong><?php echo _TAGS; ?></strong> <?php echo isset($row->tags) ? $row->tags : _TAGS_NOT_DEFINED; ?></span>
-	</div>
+		<?php if($params->get('tags', 1)) { ?>
+	<span class="tags"><strong><?php echo _TAGS; ?></strong> <?php echo isset($row->tags) ? $row->tags : _TAGS_NOT_DEFINED; ?></span>
 		<?php } ?>
 	<?php if($params->get('modifydate')) { ?>
 	<div class="modified_date">
