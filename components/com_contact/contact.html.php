@@ -388,22 +388,22 @@ class HTML_contact {
 	<label id="lbl_contact_subject" for="contact_subject"><?php echo (_SUBJECT); ?>:</label>
 	<input type="text" name="subject" id="contact_subject" size="30" class="inputbox" value="" />
 
-
 	<label id="lbl_contact_text" for="contact_text"><?php echo (_MESSAGE_PROMPT); ?></label>
 	<textarea cols="50" rows="10" name="text" id="contact_text" class="inputbox"></textarea>
-
-			<?php if($params->get('email_copy')) { ?>
-	<input type="checkbox" name="email_copy" id="contact_email_copy" value="1"  />
+<?php if($params->get('email_copy')) { ?>
+	<br />
 	<label id="lbl_contact_email_copy" for="contact_email_copy"><?php echo (_EMAIL_A_COPY); ?></label>
-				<?php } ?>
+	<input type="checkbox" name="email_copy" id="contact_email_copy" value="1" />
+	<br /><br /><br />
+<?php } ?>
 
-			<?php if($mosConfig_captcha_cont) { ?>
+<?php if($mosConfig_captcha_cont) { ?>
 	<div class="captcha">
 		<img id="captchaimg" alt="<?php echo _PRESS_HERE_TO_RELOAD_CAPTCHA?>" onclick="document.emailForm.captchaimg.src='<?php echo JPATH_SITE; ?>/includes/libraries/kcaptcha/index.php?session=<?php echo mosMainFrame::sessionCookieName() ?>&' + new String(Math.random())" src="<?php echo JPATH_SITE; ?>/includes/libraries/kcaptcha/index.php?session=<?php echo mosMainFrame::sessionCookieName() ?>" />
 		<label for="captcha" id="lbl_captcha"><?php echo _PLEASE_ENTER_CAPTCHA; ?></label>
 		<input name="captcha" type="text" class="inputbox" size="30" />
 	</div>
-				<?php } ?>
+<?php } ?>
 
 	<br />
 	<span class="button"><input type="button" name="send" value="<?php echo (_SEND_BUTTON); ?>" class="button" onclick="validate()" /></span>

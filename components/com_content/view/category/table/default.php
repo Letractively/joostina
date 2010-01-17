@@ -23,10 +23,10 @@ defined('_VALID_MOS') or die(); ?>
 		<div class="contentdescription">
 				<?php if($title_image) { ?>
 			<div class="desc_img"><?php echo $title_image; ?></div>
-					<?php } ?>
+				<?php } ?>
 				<?php if($title_description) { ?>
 			<p><?php echo $title_description; ?></p>
-					<?php } ?>
+				<?php } ?>
 		</div>
 			<?php } ?>
 		<!--Описание:END-->

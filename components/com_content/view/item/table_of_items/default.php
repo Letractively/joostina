@@ -114,19 +114,19 @@ if($params->get('navigation')) {
 		<td><?php echo $row->created; ?></td>
 					<?php } ?>
 				<?php if($row->access <= $gid) {
-					$link = sefRelToAbs('index.php?option=com_content&amp;task=view&amp;id='.$row->id.'&amp;Itemid='.$Itemid);
+					$view_link = sefRelToAbs('index.php?option=com_content&amp;task=view&amp;id='.$row->id.'&amp;Itemid='.$Itemid);
 					?>
 		<td>
 						<?php echo mosContent::EditIcon2($row, $params, $access); ?>
-			<a href="<?php echo $link; ?>" title="<?php echo $row->title; ?>"><?php echo $row->title; ?></a>
+			<a href="<?php echo $view_link; ?>" title="<?php echo $row->title; ?>"><?php echo $row->title; ?></a>
 		</td>
 					<?php } else { ?>
 		<td>
 						<?php
 						echo $row->title.' : ';
-						$link = sefRelToAbs('index.php?option=com_registration&amp;task=register');
+						$link_reg = sefRelToAbs('index.php?option=com_registration&amp;task=register');
 						?>
-			<a href="<?php echo $link; ?>" title="<?php echo $row->title; ?>"><?php echo _READ_MORE_REGISTER; ?></a>
+			<a href="<?php echo $link_reg; ?>" title="<?php echo $row->title; ?>"><?php echo _READ_MORE_REGISTER; ?></a>
 		</td>
 					<?php } ?>
 				<?php if($params->get('author')) { ?>
