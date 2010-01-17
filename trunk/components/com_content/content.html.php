@@ -300,13 +300,13 @@ class ContentView {
 		$print_link = JPATH_SITE.'/index2.php?option=com_content&amp;task=view&amp;id='.$row->id.'&amp;pop=1&amp;page='.$page.$row->Itemid_link;
 		$readmore = ContentView::ReadMore($row, $params);
 
-		$row->title = ContentView::Title($row, $params, $access);
-
 		// обработка контента ботами, если в глобальной конфигурации они отключены - то мамботы не используем
 		if($mainframe->getCfg('mmb_content_off') != 1) {
 			$_MAMBOTS->loadBotGroup('content');
 			$results = $_MAMBOTS->trigger('onPrepareContent', array(&$row, &$params, $page), true);
 		}
+
+		$row->title = ContentView::Title($row, $params, $access);
 
 		//зануляем
 		$loadbot_onAfterDisplayTitle = '';
