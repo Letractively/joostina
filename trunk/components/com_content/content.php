@@ -1231,7 +1231,7 @@ function _showItem($row, $params, $gid, &$access, $pop, $template = '',$mainfram
 
 	if(!isset($mainframe)) {
 		$mainframe = &mosMainFrame::getInstance();
-		jd_inc('_showItem');
+		//jd_inc('_showItem');
 	}
 
 	$noauth = !$mainframe->getCfg('shownoauth');

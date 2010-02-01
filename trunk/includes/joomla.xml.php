@@ -37,7 +37,7 @@ class mosParameters {
 	 * @var string The type of setup file
 	 */
 	function mosParameters($text,$path = '',$type = 'component') {
-		jd_inc('mosParameters');
+		//jd_inc('mosParameters');
 		$this->_params = $this->parse($text);
 		$this->_raw = $text;
 		$this->_path = $path;
