@@ -386,7 +386,7 @@ class HTML_config {
 							</td>
 						</tr>
 						<tr>
-							<td><?php echo mosToolTip(_DISABLE_TPREVIEW_INFO,'','','',_SAVE_LAST_PAGE)?>:</td>
+							<td><?php echo mosToolTip(_SAVE_LAST_PAGE2,'','','',_SAVE_LAST_PAGE)?>:</td>
 							<td><?php echo $lists['admin_expired'];?></td>
 						</tr>
 						<tr>

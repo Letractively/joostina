@@ -118,6 +118,7 @@ class mosGeneralInstaller {
 	}
 	function uploadPackage($option,$element,$client) {
 		global $classMap;
+
 		$config = &Jconfig::getInstance();
 
 		$pre_installer = new mosInstaller();
@@ -166,7 +167,7 @@ class mosGeneralInstaller {
 			}
 
 		} else {
-			HTML_installer::showInstallMessage(_UPLOADING_ERROR,$element.' - '._UPLOADING_ERROR,'/');
+			HTML_installer::showInstallMessage(_UPLOADING_ERROR,$element.' - '._UPLOADING_ERROR,$pre_installer->returnTo($option,$element,$client));
 		}
 	}
 

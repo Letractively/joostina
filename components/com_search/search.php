@@ -26,7 +26,7 @@ else {
 
 function search_by_tag($tag) {
 	$mainframe = &mosMainFrame::getInstance();
-	$database = &database::getInstance();
+	$database = &$mainframe->_db;
 
 	$items = new contentTags($database);
 
@@ -88,7 +88,7 @@ function search_by_tag($tag) {
 			'url_params'=>'',
 			'select'=>'',
 			'join'=>'',
-			'where'=>'',
+			'where'=>'item.state=1',
 			'order'=>'id DESC'
 	);
 	$groups['com_content'] = $comcontent_params;

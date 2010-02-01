@@ -238,17 +238,24 @@ class mod_latestnews_Helper {
 		if($params->get('image', 'mosimage')) {
 
 			$text_with_image = $row->introtext;
+
 			if($params->get('image', 'mosimage')=='mosimage') {
 				$text_with_image = $row->images;
 			}
 			$img = Image::get_image_from_text($text_with_image, $params->get('image', 'mosimage'), $params->get('image_default',1));
-			$row->image = '<img title="'.$row->title.'" alt="" src="'.JPATH_SITE.$img.'" />';
 
-			if($params->get('image_link',1) && $row->image) {
-				$row->image =  '<a class="thumb" href="'.$row->link_on.'">'.$row->image.'</a>';
+			if( trim($img)!='' ){
+				if(substr($img, 0, 4)=='http') {
+					$row->image = '<img title="'.$row->title.'" alt="" src="'.$img.'" />';
+				} else {
+					$row->image = '<img title="'.$row->title.'" alt="" src="'.JPATH_SITE.$img.'" />';
+				}
+
+				if($params->get('image_link',1) && $row->image) {
+					$row->image =  '<a class="thumb" href="'.$row->link_on.'">'.$row->image.'</a>';
+				}
 			}
 		}
-
 		$row->author =  mosContent::Author($row,$params);
 		$row->title = ContentView::Title($row,$params);
 		$row->text = $text;
