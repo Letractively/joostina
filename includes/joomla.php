@@ -168,7 +168,7 @@ class mosMainFrame {
 	function &getInstance($isAdmin = false) {
 		static $instance;
 
-		jd_inc('mosMainFrame::getInstance()');
+		//jd_inc('mosMainFrame::getInstance()');
 
 		if (!is_object( $instance )) {
 			$instance = new mosMainFrame(null,null,null,$isAdmin);
@@ -2337,7 +2337,7 @@ class JConfig {
 	function &getInstance() {
 		static $instance;
 
-		jd_inc('Jconfig::getInstance()');
+		//jd_inc('Jconfig::getInstance()');
 
 		if (!is_object( $instance )) {
 			$instance = new JConfig();
@@ -3044,8 +3044,8 @@ class mosCache {
 			mosMainFrame::addLib('cache');
 		}
 
-		jd_inc('getCache');
-		jd_log($group);
+		//jd_inc('getCache');
+		//jd_log($group);
 
 		$handler = ($handler == 'function') ? 'callback' : $handler;
 

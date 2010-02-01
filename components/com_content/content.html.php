@@ -270,7 +270,7 @@ class ContentView {
 		global $news_uid, $task;
 
 		if(!isset($mainframe)) {
-			jd_inc(':(--show');
+			//jd_inc(':(--show');
 			$mainframe = &mosMainFrame::getInstance();
 		}
 
@@ -384,7 +384,7 @@ class ContentView {
 
 		if(!isset($mainframe)) {
 			$mainframe = &mosMainFrame::getInstance();
-			jd_inc('_Itemid');
+			//jd_inc('_Itemid');
 		}
 
 		// getItemid compatibility mode, holds maintenance version number

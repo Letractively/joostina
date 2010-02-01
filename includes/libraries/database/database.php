@@ -114,7 +114,7 @@ class database {
 	function &getInstance() {
 		static $instance;
 
-		jd_inc('database::getInstance()');
+		//jd_inc('database::getInstance()');
 
 		if (!is_object( $instance )) {
 			$config = &Jconfig::getInstance();
