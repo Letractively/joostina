@@ -78,7 +78,7 @@ class contentTags extends mosDBTable {
 				FROM #__content_tags AS tag
 				INNER JOIN #__'.$group["table"].' AS item ON item.'.$group["id"].' = tag.obj_id
 				'.$group["join"].'
-				WHERE tag.tag = \''.$tag.'\' AND tag.obj_type =\''.$group["group_name"].'\'
+				WHERE tag.tag = \''.$tag.'\' '.$where.' AND tag.obj_type =\''.$group["group_name"].'\'
 				ORDER BY '.$order;
 		$this->_db->setQuery($sql);
 		return $this->_db->loadObjectList();

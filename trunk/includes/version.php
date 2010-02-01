@@ -24,21 +24,21 @@ class joomlaVersion {
 	/** @var int Номер основной версии*/
 	var $RELEASE = '1.0';
 	/** @var строка  статус разработки*/
-	var $DEV_STATUS = 'RC';
+	var $DEV_STATUS = '';
 	/** @var int Подверсия*/
 	var $DEV_LEVEL = '15';
 	/** @var int Номер сборки*/
-	var $BUILD = '$: 605';
+	var $BUILD = '$: 606';
 	/** @var string Кодовое имя*/
-	var $CODENAME = 'RC5';
+	var $CODENAME = '';
 	/** @var string Дата*/
-	var $RELDATE = '22:12:2009';
+	var $RELDATE = '**:**:*****';
 	/** @var string Время*/
-	var $RELTIME = '01:05';
+	var $RELTIME = '**:**';
 	/** @var string Временная зона*/
 	var $RELTZ = '+5 GMT';
 	/** @var string Текст авторских прав*/
-	var $COPYRIGHT = 'Авторские права &copy; 2008-2009 Joostina Team. Все права защищены.';
+	var $COPYRIGHT = 'Авторские права &copy; 2008-2010 Joostina Team. Все права защищены.';
 	/** @var string URL*/
 	var $URL = '<a href="http://www.joostina.ru" target="_blank" title="Система создания и управления сайтами Joostina CMS">Joostina!</a> - бесплатное и свободное программное обеспечение для создания сайтов, распространяемое по лицензии GNU/GPL.';
 	/** @var string для реального использования сайта установите = 1 для демонстраций = 0: 1 используется по умолчанию*/
