@@ -71,13 +71,13 @@ $loadbot_onBeforeDisplayContent; ?>
 	<div class="item_text"><?php echo ampReplace($row->text); ?></div>
 <?php endif; ?>		
 
-<?php if($params->get('rating')) : ?>		
+<?php if($params->get('rating')) : ?>
 	<div class="item_rating"><?php echo $row->rating; ?></div>
 <?php endif; ?>
 
 
-<?php if($params->get('readmore')) : ?>
-	<span class="readmore"><?php echo $readmore; ?></span>
+<?php if($params->get('readmore',0)) : ?>
+	<span class="readmore">555<?php echo $readmore; ?></span>
 <?php endif; ?>
 
 <?php if($access->canEdit) : ?>	
@@ -97,6 +97,4 @@ $loadbot_onBeforeDisplayContent; ?>
 <span class="tags"><?php echo _TAGS_NOT_DEFINED ?></span>
 	<?php endif; ?>
 <?php endif; ?>
-
-<?php echo $loadbot_onAfterDisplayContent; ?>
-
+<?php echo ContentView::afterDisplayContent(&$row, &$params, $page); ?>

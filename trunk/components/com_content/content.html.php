@@ -1,6 +1,6 @@
 <?php /**
  * @package Joostina
- * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
+ * @copyright Авторские права (C) 2008-2010 Joostina team. Все права защищены.
  * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
  * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
  * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
@@ -337,9 +337,6 @@ class ContentView {
 			$edit = mosContent::EditIcon2($row, $params, $access, _EDIT);
 		}
 
-		$results_onAfterDisplayContent = $_MAMBOTS->trigger('onAfterDisplayContent', array(&$row, &$params, $page));
-		$loadbot_onAfterDisplayContent = trim(implode("\n", $results_onAfterDisplayContent));
-
 		//если 'template' задано - значит выводится интро записи в блоге,
 		//поэтому никаких дополнительных манипуляций не требуется,
 		// так как имя шаблона задается непосредственно в шаблоне блога раздела или категории
@@ -374,6 +371,12 @@ class ContentView {
 			$template->set_template($params->page_type, $templates);
 			include_once ($template->template_file);
 		}
+	}
+
+	public static function afterDisplayContent(&$row, &$params, $page){
+		global $_MAMBOTS;
+		$results_onAfterDisplayContent = $_MAMBOTS->trigger('onAfterDisplayContent', array(&$row, &$params, $page));
+		return trim(implode("\n", $results_onAfterDisplayContent));
 	}
 
 	/**

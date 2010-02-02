@@ -80,7 +80,7 @@ $loadbot_onBeforeDisplayContent; ?>
 	<span class="readmore"><?php echo $readmore; ?></span>
 <?php endif; ?>
 
-<?php if($access->canEdit) : ?>	
+<?php if($access->canEdit) : ?>
 	<span class="edit_item"><?php echo $edit; ?></span>
 <?php endif; ?>
 
@@ -97,6 +97,4 @@ $loadbot_onBeforeDisplayContent; ?>
 <span class="tags"><?php echo _TAGS_NOT_DEFINED ?></span>
 	<?php endif; ?>
 <?php endif; ?>
-
-<?php echo $loadbot_onAfterDisplayContent; ?>
-
+<?php echo ContentView::afterDisplayContent(&$row, &$params, $page); ?>
