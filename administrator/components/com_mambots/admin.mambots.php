@@ -97,7 +97,7 @@ function viewMambots($option,$client) {
 		$where[] = "m.folder = ".$database->Quote($filter_type);
 	}
 	if($search) {
-		$where[] = "LOWER( m.name ) LIKE '%".$database->getEscaped(trim(strtolower($search)))."%'";
+		$where[] = "LOWER( m.name ) LIKE '%".$database->getEscaped(Jstring::trim(Jstring::strtolower($search)))."%'";
 	}
 
 	// get the total number of records

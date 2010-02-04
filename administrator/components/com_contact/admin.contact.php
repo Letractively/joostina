@@ -86,7 +86,7 @@ function showContacts($option) {
 	}
 
 	if($search) {
-		$where[] = "cd.name LIKE '%".$database->getEscaped(trim(strtolower($search))).
+		$where[] = "cd.name LIKE '%".$database->getEscaped(Jstring::trim(Jstring::strtolower($search))).
 				"%'";
 	}
 	if($catid) {

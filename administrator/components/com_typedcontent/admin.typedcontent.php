@@ -91,7 +91,7 @@ function view($option) {
 
 	// used by filter
 	if($search) {
-		$searchEscaped = $database->getEscaped(trim(strtolower($search)));
+		$searchEscaped = $database->getEscaped(Jstring::trim(Jstring::strtolower($search)));
 		$search_query = "\n AND ( LOWER( c.title ) LIKE '%$searchEscaped%' OR LOWER( c.title_alias ) LIKE '%$searchEscaped%' )";
 	} else {
 		$search_query = '';

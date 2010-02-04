@@ -91,7 +91,7 @@ function showWeblinks($option) {
 		$where[] = "a.catid = ".(int)$catid;
 	}
 	if($search) {
-		$where[] = "LOWER(a.title) LIKE '%".$database->getEscaped(trim(strtolower($search))).
+		$where[] = "LOWER(a.title) LIKE '%".$database->getEscaped(Jstring::trim(Jstring::strtolower($search))).
 				"%'";
 	}
 

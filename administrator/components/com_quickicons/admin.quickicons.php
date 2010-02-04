@@ -146,7 +146,7 @@ function show($option) {
 	$limit		= intval($mainframe->getUserStateFromRequest('viewlistlimit','limit',$mosConfig_list_limit));
 	$limitstart	= intval($mainframe->getUserStateFromRequest("view{$option}limitstart",'limitstart',0));
 	$search		= $mainframe->getUserStateFromRequest("search{$option}",'search','');
-	$search		= $database->getEscaped(trim(strtolower($search)));
+	$search		= $database->getEscaped(Jstring::trim(Jstring::strtolower($search)));
 
 	$where = array();
 

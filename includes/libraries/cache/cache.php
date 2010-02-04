@@ -95,12 +95,7 @@ class JCache {
 
 		if(!class_exists($class)) {
 			$path = dirname(__FILE__).DS.'handler'.DS.$type.'.php';
-
-			if (file_exists($path)) {
-				require_once($path);
-			} else {
-				return NULL;
-			}
+			require_once($path);
 		}
 		$instance = new $class($options,$object);
 		return $instance;
@@ -356,11 +351,7 @@ class JCacheStorage {
 		$class   = 'JCacheStorage'.ucfirst($handler);
 		if(!class_exists($class)) {
 			$path = dirname(__FILE__).DS.'storage'.DS.$handler.'.php';
-			if (file_exists($path) ) {
-				require_once($path);
-			} else {
-				return NULL;
-			}
+			require_once($path);
 		}
 		$return = new $class($options);
 		return $return;
