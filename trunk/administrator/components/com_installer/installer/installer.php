@@ -43,8 +43,6 @@ switch($task) {
 		break;
 }
 
-js_menu_cache_clear();
-
 class mosGeneralInstaller {
 
 	function showInstallForm() {

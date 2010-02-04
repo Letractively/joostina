@@ -101,7 +101,7 @@ function viewFrontPage($option) {
 	}
 
 	if($search) {
-		$where[] = "LOWER( c.title ) LIKE '%".$database->getEscaped(trim(strtolower($search)))."%'";
+		$where[] = "LOWER( c.title ) LIKE '%".$database->getEscaped(Jstring::trim(Jstring::strtolower($search)))."%'";
 	}
 
 	// get the total number of records

@@ -162,7 +162,7 @@ function showMessages($option) {
 	$wheres[] = " a.user_id_to = ".(int)$my->id;
 
 	if(isset($search) && $search != "") {
-		$searchEscaped = $database->getEscaped(trim(strtolower($search)));
+		$searchEscaped = $database->getEscaped(Jstring::trim(Jstring::strtolower($search)));
 		$wheres[] = "( u.username LIKE '%$searchEscaped%' OR email LIKE '%$searchEscaped%' OR u.name LIKE '%$searchEscaped%' )";
 	}
 

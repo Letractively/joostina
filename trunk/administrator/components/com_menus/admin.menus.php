@@ -141,7 +141,7 @@ function viewMenuItems($menutype,$option) {
 	// select the records
 	// note, since this is a tree we have to do the limits code-side
 	if($search) {
-		$query = "SELECT m.id FROM #__menu AS m WHERE menutype = ".$database->Quote($menutype)."\n AND LOWER( m.name ) LIKE '%".$database->getEscaped(trim(strtolower($search)))."%'";
+		$query = "SELECT m.id FROM #__menu AS m WHERE menutype = ".$database->Quote($menutype)."\n AND LOWER( m.name ) LIKE '%".$database->getEscaped(Jstring::trim(Jstring::strtolower($search)))."%'";
 		$database->setQuery($query);
 		$search_rows = $database->loadResultArray();
 	}

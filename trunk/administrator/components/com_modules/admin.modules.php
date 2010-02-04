@@ -118,7 +118,7 @@ function viewModules($option,$client) {
 			$where[] = "m.module = ".$database->Quote($filter_type);
 	}
 	if($search) {
-		$where[] = "LOWER( m.title ) LIKE '%".$database->getEscaped(trim(strtolower($search)))."%'";
+		$where[] = "LOWER( m.title ) LIKE '%".$database->getEscaped(Jstring::trim( Jstring::strtolower($search)))."%'";
 	}
 
 	// get the total number of records

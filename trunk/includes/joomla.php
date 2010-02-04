@@ -3044,9 +3044,6 @@ class mosCache {
 			mosMainFrame::addLib('cache');
 		}
 
-		//jd_inc('getCache');
-		//jd_log($group);
-
 		$handler = ($handler == 'function') ? 'callback' : $handler;
 
 

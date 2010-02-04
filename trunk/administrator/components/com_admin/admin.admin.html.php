@@ -73,7 +73,11 @@ class HTML_admin_misc {
 		<th class="info"><?php echo _INFO?></th>
 	</tr>
 </table>
-
+<div>
+	<ul>
+		<li><a href="http://www.joostina.ru/?from_2" target="_blank">купить тут рекламу ВАШЕГО хостинга ( позиция 2 )</a></li>
+	</ul>
+</div>
 		<?php
 		$tabs->startPane("sysinfo");
 		$tabs->startTab(_ABOUT_JOOSTINA,"joostina-page");

@@ -43,7 +43,7 @@ function viewPlugins($option,$client) {
 	$limitstart = $mainframe->getUserStateFromRequest("view{$option}limitstart",'limitstart',0);
 	$filter_type = $mainframe->getUserStateFromRequest("filter_type{$option}{$client}",'filter_type',1);
 	$search = $mainframe->getUserStateFromRequest("search{$option}{$client}",'search','');
-	$search = $database->getEscaped(trim(strtolower($search)));
+	$search = $database->getEscaped(Jstring::trim(Jstring::strtolower($search)));
 
 	if($client == 'admin') {
 		$where[] = "m.client_id = '1'";

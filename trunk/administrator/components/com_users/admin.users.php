@@ -132,7 +132,7 @@ function showUsers($option) {
 	$where = array();
 
 	if(isset($search) && $search != "") {
-		$searchEscaped = $database->getEscaped(trim(strtolower($search)));
+		$searchEscaped = $database->getEscaped(Jstring::trim(Jstring::strtolower($search)));
 		$where[] = "(a.username LIKE '%$searchEscaped%' OR a.email LIKE '%$searchEscaped%' OR a.name LIKE '%$searchEscaped%')";
 	}
 	if($filter_type) {
