@@ -517,11 +517,20 @@ if (!defined( '_MOS_MLJOOSTINAMENU_MODULE' )) {
 		// establish the hierarchy of the menu
 		$children = array();
 		// first pass - collect children
+		$ml_first_hide = $params->get('ml_first_hidden');
+
+		$n = false;
 		foreach ($rows as $v ) {
-			$pt		= $v->parent;
-			$list	= @$children[$pt] ? $children[$pt] : array();
-			array_push( $list, $v );
-			$children[$pt] = $list;
+			if( $n==false && $ml_first_hide==1 ) {
+				unset ($v);
+				$n = true;
+
+			}else {
+				$pt		= $v->parent;
+				$list	= @$children[$pt] ? $children[$pt] : array();
+				array_push( $list, $v );
+				$children[$pt] = $list;
+			}
 		}
 
 		// second pass - collect 'open' menus
