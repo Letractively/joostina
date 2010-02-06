@@ -251,7 +251,7 @@ echo '<?xml version="1.0" encoding="utf-8"?'.'>';?>
 								<tr>
 									<td class="item">mbstring</td>
 									<td class="toggle">установлено</td>
-									<?php if (  extension_loaded('mbstring') ): ?>
+									<?php if ( !extension_loaded('mbstring') ): ?>
 									<td colspan="2"><b><font color="red"><a href="http://php.net/mbstring" target="_blank">mbstring</a> не установлено</font></b></td>
 									<?php else: ?>
 									<td><b><font color="green">установлено</font></b></td>
