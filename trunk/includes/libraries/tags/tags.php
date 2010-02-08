@@ -194,8 +194,8 @@ class TagsCloud {
 
 	}
 
-	function tagscloud($tags) {
-
+	// проверить необходимость
+	function tagscloud___($tags) {
 		$tags_list = array();
 
 		foreach ($tags as $tag) {
@@ -203,7 +203,6 @@ class TagsCloud {
 		}
 
 		return $tags_list;
-
 	}
 
 	function get_min_count($tags_list) {

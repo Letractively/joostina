@@ -13,10 +13,6 @@ defined('_VALID_MOS') or die();
 class Text {
 	var $text = null;
 
-	function Text() {
-
-	}
-
 	/**
 	 * Вывод численных результатов с учетом склонения слов
 	 *
@@ -84,7 +80,7 @@ class Text {
 	 * @param	string	the end character. Usually an ellipsis
 	 * @return	string
 	 */
-	function character_limiter($str, $n = 500, $end_char = '&#8230;') {
+	public static function character_limiter($str, $n = 500, $end_char = '&#8230;') {
 		if (strlen($str) < $n) {
 			return $str;
 		}

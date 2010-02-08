@@ -111,10 +111,8 @@ class database {
 		$this->_log = array();
 	}
 
-	function &getInstance() {
+	public static function &getInstance() {
 		static $instance;
-
-		//jd_inc('database::getInstance()');
 
 		if (!is_object( $instance )) {
 			$config = &Jconfig::getInstance();

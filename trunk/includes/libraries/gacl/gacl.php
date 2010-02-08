@@ -81,7 +81,7 @@ class gacl {
 		$this->acl_count = count($this->acl);
 	}
 
-	function &getInstance() {
+	public static function &getInstance() {
 		static $instance;
 		if (!is_object( $instance )) {
 			$instance = new gacl_api();

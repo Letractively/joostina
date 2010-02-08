@@ -265,7 +265,7 @@ class ContentView {
 	 * @param object An object with the record
 	 * @param boolean If <code>false</code>, the print button links to a popup window.  If <code>true</code> then the print button invokes the browser print method.
 	 */
-	function show(&$row, &$params, &$access, $page = 0, $_template = '',$mainframe=null) {
+	public static function show(&$row, &$params, &$access, $page = 0, $_template = '',$mainframe=null) {
 		global $hide_js, $_MAMBOTS;
 		global $news_uid, $task;
 
@@ -382,7 +382,7 @@ class ContentView {
 	/**
 	 * calculate Itemid
 	 */
-	function _Itemid(&$row,&$mainframe) {
+	public static function _Itemid(&$row,&$mainframe) {
 		global $task, $Itemid;
 
 		if(!isset($mainframe)) {
@@ -411,7 +411,7 @@ class ContentView {
 	/**
 	 * determines the link and `link text` of the readmore button & linked title
 	 */
-	function _linkInfo(&$row, &$params) {
+	public static function _linkInfo(&$row, &$params) {
 		global $my;
 
 		$row->link_on = '';
@@ -442,7 +442,7 @@ class ContentView {
 	/**
 	 * Вывод заголовка
 	 */
-	function Title(&$row, &$params, &$access = null) {
+	public static function Title(&$row, &$params, &$access = null) {
 		global $task;
 
 		if($params->get('item_title')) {
@@ -497,7 +497,7 @@ class ContentView {
 	/**
 	 * Writes Email icon
 	 */
-	function EmailIcon(&$row, &$params, $hide_js) {
+	public static function EmailIcon(&$row, &$params, $hide_js) {
 		global $Itemid, $task, $cne_i;
 		if(!isset($cne_i)) {
 			$cne_i = '';
@@ -623,7 +623,7 @@ class ContentView {
 	/**
 	 * Writes Readmore Button
 	 */
-	function ReadMore(&$row, &$params, $template = '') {
+	public static function ReadMore(&$row, &$params, $template = '') {
 		$return = '';
 		if ($params->get('readmore',0) && $params->get('intro_only',0) && $row->link_text) {
 			$return = '<a href="' . $row->link_on . '" title="' . $row->title . '" class="readon">' . $row->link_text . '</a>';
@@ -634,7 +634,7 @@ class ContentView {
 	/**
 	 * Writes Next & Prev navigation button
 	 */
-	function Navigation(&$row, &$params) {
+	public static function Navigation(&$row, &$params) {
 		global $task;
 
 		if($params->get('pop')) {
