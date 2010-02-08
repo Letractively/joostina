@@ -64,12 +64,15 @@ class search_html {
 		function display(&$rows, $params, $pageNav, $limitstart, $limit, $total, $totalRows, $searchword) {
 			global $mosConfig_showCreateDate;
 			global $option, $Itemid;
-			$image = mosAdminMenus::ImageCheck('google.png', '/components/com_search/images/', null, null, 'Google', 'Google', 1);
-			$image1 = mosAdminMenus::ImageCheck('yandex.gif', '/components/com_search/images/', null, null, 'Yandex', 'Yandex', 1);
-			$image2 = mosAdminMenus::ImageCheck('rambler.gif', '/components/com_search/images/', null, null, 'Rambler', 'Rambler', 1);
-			$image3 = mosAdminMenus::ImageCheck('mail.gif', '/components/com_search/images/', null, null, 'Mail', 'Mail', 1);
-			$image4 = mosAdminMenus::ImageCheck('aport.gif', '/components/com_search/images/', null, null, 'Aport', 'Aport', 1);
-			$image5 = mosAdminMenus::ImageCheck('gogo.gif', '/components/com_search/images/', null, null, 'GoGo', 'GoGo', 1);
+			$image = mosAdminMenus::ImageCheck('aport.gif', '/components/com_search/images/', null, null, 'Aport', 'Aport', 1);
+			$image1 = mosAdminMenus::ImageCheck('bing.gif', '/components/com_search/images/', null, null, 'Bing', 'Bing', 1);
+			$image2 = mosAdminMenus::ImageCheck('gogo.gif', '/components/com_search/images/', null, null, 'GoGo', 'GoGo', 1);
+			$image3 = mosAdminMenus::ImageCheck('google.gif', '/components/com_search/images/', null, null, 'Google', 'Google', 1);
+			$image4 = mosAdminMenus::ImageCheck('mail.gif', '/components/com_search/images/', null, null, 'Mail', 'Mail', 1);
+			$image5 = mosAdminMenus::ImageCheck('nigma.gif', '/components/com_search/images/', null, null, 'Nigma', 'Nigma', 1);
+			$image6 = mosAdminMenus::ImageCheck('rambler.gif', '/components/com_search/images/', null, null, 'Rambler', 'Rambler', 1);
+			$image7 = mosAdminMenus::ImageCheck('yahoo.gif', '/components/com_search/images/', null, null, 'Yahoo', 'Yahoo', 1);
+			$image8 = mosAdminMenus::ImageCheck('yandex.gif', '/components/com_search/images/', null, null, 'Yandex', 'Yandex', 1);
 			$searchword = urldecode($searchword);
 			$searchword = htmlspecialchars($searchword, ENT_QUOTES);
 			?>
@@ -151,12 +154,15 @@ class search_html {
 	</tr>
 </table>
 <br />
-<a href="http://www.google.com/search?q=<?php echo $searchword; ?>" target="_blank"><?php echo $image; ?></a>
-<a href="http://www.yandex.ru/yandsearch?text=<?php echo $searchword; ?>" target="_blank"><?php echo $image1; ?></a>
-<a href="http://www.rambler.ru/srch?set=www&amp;words=<?php echo $searchword; ?>" target="_blank"><?php echo $image2; ?></a>
-<a href="http://go.mail.ru/search?lfilter=y&amp;q=<?php echo $searchword; ?>" target="_blank"><?php echo $image3; ?></a>
-<a href="http://sm.aport.ru/scripts/template.dll?That=std&amp;r=<?php echo $searchword; ?>" target="_blank"><?php echo $image4; ?></a>
-<a href="http://gogo.ru/go?q=<?php echo $searchword; ?>" target="_blank"><?php echo $image5; ?></a>
+<a href="http://sm.aport.ru/search?That=std&r=<?php echo $searchword; ?>" target="_blank"><?php echo $image; ?></a>
+<a href="http://www.bing.com/search?q=<?php echo $searchword; ?>" target="_blank"><?php echo $image1; ?></a>
+<a href="http://gogo.ru/go?q=<?php echo $searchword; ?>" target="_blank"><?php echo $image2; ?></a>
+<a href="http://www.google.ru/webhp#hl=ru&q=<?php echo $searchword; ?>" target="_blank"><?php echo $image3; ?></a>
+<a href="http://go.mail.ru/search?q=<?php echo $searchword; ?>" target="_blank"><?php echo $image4; ?></a>
+<a href="http://www.nigma.ru/index.php?s=<?php echo $searchword; ?>" target="_blank"><?php echo $image5; ?></a>
+<a href="http://nova.rambler.ru/srch?words=<?php echo $searchword; ?>" target="_blank"><?php echo $image6; ?></a>
+<a href="http://ru.search.yahoo.com/search?p=<?php echo $searchword; ?>" target="_blank"><?php echo $image7; ?></a>
+<a href="http://yandex.ru/yandsearch?text=<?php echo $searchword; ?>" target="_blank"><?php echo $image8; ?></a>
 <br />
 		<?php
 	}
