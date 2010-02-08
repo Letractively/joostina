@@ -1203,6 +1203,7 @@ function _showFullItem($id) {
 		// Мета-данные страницы
 		$meta_params = new mosParameters('');
 		$meta_params = $params;
+		if( !isset( $meta_params->object )) { $meta_params->object = new stdClass(); };
 		$meta_params->object->title = $row->title;
 		$meta_params->object->created_by_alias = $row->created_by_alias;
 		$meta_params->object->author = $row->author;

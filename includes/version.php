@@ -66,7 +66,7 @@ class joomlaVersion {
 		}
 	}
 	// получение переменных окружения информации осистеме
-	function get($name) {
+	public static function get($name) {
 		$v = new joomlaVersion();
 		return $v->$name;
 	}

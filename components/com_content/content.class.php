@@ -785,7 +785,7 @@ class mosContent extends mosDBTable {
 		return $return;
 	}
 
-	function _construct_where_for_fullItem($access) {
+	public static function _construct_where_for_fullItem($access) {
 		global $gid, $task;
 
 		$database = &database::getInstance();
@@ -813,7 +813,7 @@ class mosContent extends mosDBTable {
 		return $xwhere . $where_ac;
 	}
 
-	function get_prev_next($row, $where, $access, $params) {
+	public static function get_prev_next($row, $where, $access, $params) {
 		global $gid;
 
 		$mainframe = &mosMainFrame::getInstance();
@@ -883,7 +883,7 @@ class mosContent extends mosDBTable {
 		return $row;
 	}
 
-	function Author(&$row, &$params = '',$config_author_name=4) {
+	public static function Author(&$row, &$params = '',$config_author_name=4) {
 
 		$author_name = '';
 		if (!$params) {
@@ -1412,7 +1412,7 @@ class contentVoiting {
 }
 
 class contentHelper {
-	function _load_core_js(&$mainframe) {
+	public static function _load_core_js(&$mainframe) {
 		$mainframe->addJS(JPATH_SITE.'/components/com_content/js/com_content.js','custom');
 	}
 }
@@ -1422,7 +1422,7 @@ class contentSqlHelper {
 	/*
 	* @param int 0 = Archives, 1 = Section, 2 = Category
 	*/
-	function construct_where_blog($type = 1, $obj = null, $access, $params = null,$database=null) {
+	public static function construct_where_blog($type = 1, $obj = null, $access, $params = null,$database=null) {
 		global $my;
 
 		static $config;
@@ -1625,7 +1625,7 @@ class contentSqlHelper {
 		return $xwhere2;
 	}
 
-	function _orderby_pri($orderby) {
+	public static function _orderby_pri($orderby) {
 		switch ($orderby) {
 			case 'alpha':
 				$orderby = 'cc.title, ';
@@ -1648,7 +1648,7 @@ class contentSqlHelper {
 	}
 
 
-	function _orderby_sec($orderby) {
+	public static function _orderby_sec($orderby) {
 		switch ($orderby) {
 			case 'date':
 				$orderby = 'a.created';
@@ -1939,7 +1939,7 @@ class contentPageConfig {
 	 *
 	 * @return object $params
 	 */
-	function setup_full_item_page($row, $params) {
+	public static function setup_full_item_page($row, $params) {
 
 		$mainframe = &mosMainFrame::getInstance();
 
@@ -2255,7 +2255,7 @@ class contentPageConfig {
 	 *
 	 * @return object $params
 	 */
-	function setup_frontpage(&$mainframe) {
+	public static function setup_frontpage(&$mainframe) {
 
 		// странно делать одно и тоже разными путями
 		//if(!isset($mainframe->menu->id)){
@@ -2375,7 +2375,7 @@ class contentPageConfig {
 
 	}
 
-	function setup_blog_item(&$params,&$mainframe) {
+	public static function setup_blog_item(&$params,&$mainframe) {
 
 		$params->def('link_titles', $mainframe->config->config_link_titles);
 		$params->def('author', $mainframe->config->config_showAuthor);

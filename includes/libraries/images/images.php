@@ -20,9 +20,6 @@ class Image {
 	var $max_size = 1048576;
 	var $url ='';
 
-	function Image() {
-	}
-
 	function upload($resize_options=0) {
 		global $_FILES;
 
@@ -144,7 +141,7 @@ class Image {
 		return false;
 	}
 
-	function get_image_from_text($text, $type = 'img', $default_image = null) {
+	public static function get_image_from_text($text, $type = 'img', $default_image = null) {
 		if($type=='mosimage') {
 			$image = self::get_mosimage($text, $default_image);
 		}
@@ -156,7 +153,7 @@ class Image {
 	}
 
 
-	function get_mosimage($images, $default_image = null) {
+	public static function get_mosimage($images, $default_image = null) {
 		$images = explode("\n", $images);
 		$total = count($images);
 		$image = '';
@@ -180,7 +177,7 @@ class Image {
 
 	}
 
-	function get_image($text, $default_image = null) {
+	public static function get_image($text, $default_image = null) {
 
 		$matches=array();
 		$regex = '#<img[^>]*src=(["\'])([^"\']*)\1[^>]*>#is';

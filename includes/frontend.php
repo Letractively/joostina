@@ -102,7 +102,7 @@ class PageModel {
 		$this->_mainframe = $mainframe;
 	}
 
-	function getInstance() {
+	public static function &getInstance() {
 		static $page_model;
 		if(!is_object($page_model) ) {
 			$mainframe = &mosMainFrame::getInstance();

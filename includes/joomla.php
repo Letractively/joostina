@@ -10,6 +10,9 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
+//Europe/Moscow
+date_default_timezone_set('America/Los_Angeles');
+
 // флаг использования ядра
 DEFINE('_MOS_MAMBO_INCLUDED',1);
 // каталог администратора
@@ -165,7 +168,7 @@ class mosMainFrame {
 		}
 	}
 
-	function &getInstance($isAdmin = false) {
+	public static function &getInstance($isAdmin = false) {
 		static $instance;
 
 		//jd_inc('mosMainFrame::getInstance()');
@@ -261,7 +264,7 @@ class mosMainFrame {
 	 * @param string $lib Название библиотеки. Может быть сформировано как: `lib_name`, `lib_name/lib_name.php`, `lib_name.php`
 	 * @param string $dir Директория библиотеки. Необязательный параметр. По умолчанию, поиск файла осуществляется в 'includes/libraries'
 	 */
-	function addLib($lib, $dir = '') {
+	public static function addLib($lib, $dir = '') {
 		$dir = (!$dir) ? 'includes/libraries' : $dir;
 
 		$file_lib = JPATH_BASE.DS.$dir.DS.$lib.DS.$lib.'.php';
@@ -270,11 +273,12 @@ class mosMainFrame {
 		}
 	}
 
-
-	function getLangFile($name = '',$mosConfig_lang='') {
+	public static function getLangFile($name = '',$mosConfig_lang='') {
 		if(empty($mosConfig_lang)) {
 			global $mosConfig_lang;
 		}
+
+		$mainframe = &mosMainFrame::getInstance();
 
 		$lang = $mosConfig_lang;
 
@@ -283,7 +287,7 @@ class mosMainFrame {
 		}else {
 			$file = $name;
 		}
-		if( isset($this->_isAdmin) && $this->_isAdmin==true ) {
+		if( isset( $mainframe->_isAdmin ) && $mainframe->_isAdmin==true ) {
 			if(is_file(JPATH_BASE.DS.'language'.DS.$lang.DS.'administrator'.DS.$file.'.php')) {
 				return JPATH_BASE.DS.'language'.DS.$lang.DS.'administrator'.DS.$file.'.php';
 			}else {
@@ -298,7 +302,6 @@ class mosMainFrame {
 		}
 
 		return null;
-
 	}
 
 
@@ -780,7 +783,7 @@ class mosMainFrame {
 						$now = time();
 
 						$file = $this->getPath('com_xml','com_users');
-						$params = &new mosParameters($my->params,$file,'component');
+						$params = new mosParameters($my->params,$file,'component');
 
 						// return to expired page functionality
 						$params->set('expired',$link);
@@ -2011,7 +2014,7 @@ class mosMainFrame {
 			$this->_db->loadObject($menu);
 		} else {
 			// получение пурвого элемента главного меню
-			$menu = &mosMenu::get_all();
+			$menu = mosMenu::get_all();
 			$menu = $menu['mainmenu'];
 			$items = isset($menu) ? array_values($menu) : array();
 			$menu = $items[0];
@@ -2334,7 +2337,7 @@ class JConfig {
 		$this->bindGlobals();
 	}
 
-	function &getInstance() {
+	public static function &getInstance() {
 		static $instance;
 
 		//jd_inc('Jconfig::getInstance()');
@@ -2548,7 +2551,7 @@ class mosMenu extends mosDBTable {
 		$this->_menu = array();
 	}
 
-	function get_all() {
+	public static function &get_all() {
 		static $all_menus;
 
 		if(!is_array( $all_menus )) {
@@ -2619,7 +2622,7 @@ class mosMenu extends mosDBTable {
 		return $this->_menu;
 	}
 
-	function get_menu_links() {
+	public static function get_menu_links() {
 		$_all = mosMenu::get_all();
 		$return = array();
 		foreach($_all as $menus) {
@@ -2710,7 +2713,7 @@ class mosModule extends mosDBTable {
 		}
 	}
 
-	function &getInstance() {
+	public static function &getInstance() {
 		static $modules;
 		if(!is_object($modules) ) {
 			$mainframe = &mosMainFrame::getInstance();
@@ -2735,7 +2738,7 @@ class mosModule extends mosDBTable {
 		return true;
 	}
 
-	function convert_to_object($module, $mainframe) {
+	public static function convert_to_object($module, $mainframe) {
 		$database = &$mainframe->_db;
 
 		$module_obj = new mosModule($database, $mainframe);
@@ -3085,7 +3088,7 @@ class mosCache {
  */
 class mosHTML {
 
-	function makeOption($value,$text = '',$value_name = 'value',$text_name = 'text') {
+	public static function makeOption($value,$text = '',$value_name = 'value',$text_name = 'text') {
 		$obj = new stdClass;
 		$obj->$value_name = $value;
 		$obj->$text_name = trim($text)?$text:$value;
@@ -3410,7 +3413,7 @@ class mosHTML {
 	/**
 	 * Writes Close Button
 	 */
-	function CloseButton(&$params,$hide_js = null) {
+	public static function CloseButton(&$params,$hide_js = null) {
 		// displays close button in Pop-up window
 		if($params->get('popup') && !$hide_js) {
 			?>
@@ -3435,7 +3438,7 @@ class mosHTML {
 	 *
 	 */
 	//TODO: справка - Back Button
-	function BackButton(&$params = null,$hide_js = null) {
+	public static function BackButton(&$params = null,$hide_js = null) {
 		$config = &Jconfig::getInstance();
 
 		if( !$params ||  ($params->get('back_button')==1 && !$params->get('popup') && !$hide_js) || ($params->get('back_button') == -1 && $config->config_back_button == 1 ) ) {
@@ -3470,7 +3473,7 @@ class mosHTML {
 	/**
 	 * Cleans text of all formating and scripting code
 	 */
-	function cleanText(&$text) {
+	public static function cleanText(&$text) {
 		$text = preg_replace("'<script[^>]*>.*?</script>'si",'',$text);
 		//$text = preg_replace('/<a\s+.*?href="([^"]+)"[^>]*>([^<]+)<\/a>/is','\2 (\1)',$text);
 		$text = preg_replace('/<!--.+?-->/','',$text);
@@ -3486,7 +3489,7 @@ class mosHTML {
 	/**
 	 * Вывод значка печати, встроен хак индексации печатной версии
 	 */
-	function PrintIcon($row,&$params,$hide_js,$link,$status = null) {
+	public static function PrintIcon($row,&$params,$hide_js,$link,$status = null) {
 		global $cpr_i;
 
 		if(!isset($cpr_i)) {
@@ -4534,6 +4537,7 @@ class mosMambotHandler {
 						return false;
 					}
 					foreach($this->_content_mambots as $bot) {
+						$this->_content_mambot_params[$bot->element] = new stdClass();
 						$this->_content_mambot_params[$bot->element]->params = $bot->params;
 					}
 				}
@@ -5421,7 +5425,7 @@ class mosAdminMenus {
 	 * Also can be used in conjunction with the menulist param to create the chosen image
 	 * load the default or use no image
 	 */
-	function ImageCheck($file,$directory = '/images/M_images/',$param = null,$param_directory ='/images/M_images/',$alt = null,$name = null,$type = 1,$align = 'middle',$title = null,$admin = null) {
+	public static function ImageCheck($file,$directory = '/images/M_images/',$param = null,$param_directory ='/images/M_images/',$alt = null,$name = null,$type = 1,$align = 'middle',$title = null,$admin = null) {
 
 		$id		= $name ? ' id="'.$name.'"':'';
 		$name	= $name ? ' name="'.$name.'"':'';
@@ -5732,7 +5736,7 @@ class mosCommonHTML {
 	/*
 	* Подключение JS файлов Календаря
 	*/
-	function loadCalendar() {
+	public static function loadCalendar() {
 		if(!defined('_CALLENDAR_LOADED')) {
 			define('_CALLENDAR_LOADED',1);
 			$mainframe = &MosMainFrame::getInstance();
@@ -5744,7 +5748,7 @@ class mosCommonHTML {
 		}
 	}
 	/* подключение mootools*/
-	function loadMootools($ret = false) {
+	public static function loadMootools($ret = false) {
 		if(!defined('_MOO_LOADED')) {
 			define('_MOO_LOADED',1);
 			$mainframe = &MosMainFrame::getInstance();
@@ -5755,7 +5759,7 @@ class mosCommonHTML {
 		<?php
 	}
 	/* подключение prettyTable*/
-	function loadPrettyTable() {
+	public static function loadPrettyTable() {
 		if(!defined('_PRT_LOADED')) {
 			define('_PRT_LOADED',1);
 			$mainframe = &MosMainFrame::getInstance();
@@ -5763,7 +5767,7 @@ class mosCommonHTML {
 		}
 	}
 	/* подключение Fullajax*/
-	function loadFullajax($ret = false) {
+	public static function loadFullajax($ret = false) {
 		if(!defined('_FAX_LOADED')) {
 			define('_FAX_LOADED',1);
 			if($ret) {?>
@@ -5776,9 +5780,8 @@ class mosCommonHTML {
 		}
 	}
 
-
 	/* подключение Jquery*/
-	function loadJquery($ret = false) {
+	public static function loadJquery($ret = false) {
 		if(!defined('_JQUERY_LOADED')) {
 			define('_JQUERY_LOADED',1);
 			if($ret) {
@@ -5791,7 +5794,7 @@ class mosCommonHTML {
 		}
 	}
 	/* подключение расширений Jquery*/
-	function loadJqueryPlugins($name,$ret = false, $css = false, $footer = '') {
+	public static function loadJqueryPlugins($name,$ret = false, $css = false, $footer = '') {
 		$name = trim($name);
 
 		// если само ядро Jquery не загружено - сначала грузим его
@@ -5821,7 +5824,7 @@ class mosCommonHTML {
 		return true;
 	}
 	/* подключение файла Jquery UI*/
-	function loadJqueryUI($ret = false) {
+	public static function loadJqueryUI($ret = false) {
 		if(!defined('_JQUERY_UI_LOADED')) {
 			define('_JQUERY_UI_LOADED',1);
 			if($ret) {?>
@@ -5835,7 +5838,7 @@ class mosCommonHTML {
 	}
 
 	/* подключение codepress*/
-	function loadCodepress() {
+	public static function loadCodepress() {
 		if(!defined('_CODEPRESS_LOADED')) {
 			define('_CODEPRESS_LOADED',1);
 			$mainframe = &MosMainFrame::getInstance();
@@ -5863,7 +5866,7 @@ class mosCommonHTML {
 	}
 
 	/* подключение dTree*/
-	function loadDtree() {
+	public static function loadDtree() {
 		if(!defined('_DTR_LOADED')) {
 			define('_DTR_LOADED',1);
 			$mainframe = &MosMainFrame::getInstance();
