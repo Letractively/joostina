@@ -96,7 +96,7 @@ class mosParameters {
 	 * @param boolean add an associative index for each section [in brackets]
 	 * @return object
 	 */
-	function parse($txt,$process_sections = false,$asArray = false) {
+	public static function parse($txt,$process_sections = false,$asArray = false) {
 		// если в параметрах ничего нет - не будем дальшепытаться его распатсить
 		if(trim($txt)=='') {
 			return $asArray ? array():new stdClass();

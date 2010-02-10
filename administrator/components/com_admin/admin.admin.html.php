@@ -19,7 +19,7 @@ class HTML_admin_misc {
 	/**
 	 * Control panel
 	 */
-	function controlPanel() {
+	public static function controlPanel() {
 		global $mainframe;
 		$path = JPATH_BASE_ADMIN.'/templates/'.JTEMPLATE.'/html/cpanel.php';
 		if(file_exists($path)) {

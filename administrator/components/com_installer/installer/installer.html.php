@@ -108,7 +108,7 @@ class HTML_installer_core {
 					</tr>
 					<tr>
 						<td colspan="2">
-									<?php if((bool)ini_get('allow_url_fopen')) { ?>
+									<?php if( !(bool)ini_get('allow_url_fopen')) { ?>
 							<div class="jwarning"><?php echo _DISABLE_ALLOW_URL_FOPEN; ?></div>
 										<?php }else { ?>
 										<?php echo _INSTALLATION_URL?>:

@@ -872,7 +872,7 @@ class mosMainFrame {
 	* Added as of 1.0.8
 	* Deperciated 1.1
 	*/
-	function sessionCookieValue($id = null) {
+	public static function sessionCookieValue($id = null) {
 		$config = &Jconfig::getInstance();
 		$type		= $config->config_session_type;
 		$browser	= @$_SERVER['HTTP_USER_AGENT'];
@@ -5472,7 +5472,7 @@ class mosAdminMenus {
 		return $image;
 	}
 
-	function menutypes() {
+	public static function menutypes() {
 		$database = &database::getInstance();
 
 		$query = "SELECT params FROM #__modules WHERE module = 'mod_mainmenu' OR module = 'mod_mljoostinamenu' ORDER BY title";
