@@ -23,7 +23,7 @@ if(!defined('_JOS_FULLMENU_MODULE')) {
 		 * Show the menu
 		 * @param string The current user type
 		 */
-		function show($usertype = '') {
+		public static function show($usertype = '') {
 			global $acl,$my;
 			$database = &database::getInstance();
 			$config = &Jconfig::getInstance();
@@ -320,7 +320,7 @@ cmDraw ('myMenuID', myMenu, 'hbr', cmThemeOffice, 'ThemeOffice');
 		 * Show an disbaled version of the menu, used in edit pages
 		 * @param string The current user type
 		 */
-		function showDisabled($usertype = '') {
+		public static function showDisabled($usertype = '') {
 			global $acl;
 
 			$canConfig = $acl->acl_check('administration','config','users',$usertype);
