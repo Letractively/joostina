@@ -302,6 +302,7 @@ _cmSplit,
 				<?php
 			}
 			?>
+['<img src="<?php echo $cur_file_icons_path ?>favicon.ico" />', '<?php echo _MOD_FULLMENU_JOOSTINARU?>', 'http://www.joostina.ru/?from_adminpanel', '_blank','<?php echo _MOD_FULLMENU_JOOSTINARU?>'],
 ],
 _cmSplit];
 cmDraw ('myMenuID', myMenu, 'hbr', cmThemeOffice, 'ThemeOffice');
