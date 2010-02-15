@@ -13,11 +13,16 @@
 		<filename module="mod_banners">mod_banners.php</filename>
 	</files>
 	<params>
+		<param name="moduleclass_sfx" type="text" default="" label="Суффикс класса модуля" description="Суффикс, который будет использован в описании класса (table.moduletable) таблицы стилей (CSS) модуля. Это позволяет использовать индивидуальный стиль модуля." />
 		<param name="categories" type="text" default="" label="Категории" description="Какие категории отображать? (напр. 1,2,7 - отображают первую, вторую и седьмую)" />
 		<param name="banners" type="text" default="" label="Баннеры" description="Какие баннеры будут отображены? (напр. 1,5 - отображают первые и пятые)" />
 		<param name="clients" type="text" default="" label="Клиенты" description="Какие клиенты будут отображены? (напр. 1,5 - отображают первые и пятые)" />
 		<param name="count" type="text" default="1" label="Счетчик" description="Счетчик баннеров, которые будут отображены? (напр. 5 - отображают пять баннеров из выбранных категорий)" />
 		<param name="random" type="list" default="0" label="Случайный баннер" description="Да для случайного отображения (это допустимо только для 'счетика' = 1)">
+			<option value="1">Да</option>
+			<option value="0">Нет</option>
+		</param>
+		<param name="text" type="list" default="0" label="Показывать заголовок?" description="">
 			<option value="1">Да</option>
 			<option value="0">Нет</option>
 		</param>
