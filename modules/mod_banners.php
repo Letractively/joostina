@@ -1,7 +1,7 @@
 <?php
 /**
  * @package Joostina
- * @copyright Авторские права (C) 2008-2010 Joostina team. Все права защищены.
+ * @copyright Авторские права (C) 2008-2009 Joostina team. Все права защищены.
  * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
  * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
  * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
@@ -24,6 +24,7 @@ if(!function_exists('showBanners')) {
 		$clients = $params->get('clients');
 		$orientation = $params->get('orientation', 0);
 		$moduleclass_sfx = $params->get('moduleclass_sfx');
+		$text = $params->get('text',false);
 
 		$weekday = mosCurrentDate("%w");
 		$date = mosCurrentDate("%Y-%m-%d");
@@ -80,7 +81,7 @@ if(!function_exists('showBanners')) {
 			}
 
 			if($numrows) {
-				$result .= '<tr><td>' . showSingleBanner($rows[$bannum],$mainframe) . '</td></tr></table>';
+				$result .= '<tr><td>' . showSingleBanner($text, $moduleclass_sfx, $rows[$bannum]) . '</td></tr></table>';
 				return $result;
 			}
 		}
@@ -93,7 +94,7 @@ if(!function_exists('showBanners')) {
 			//'0' -> Vertical
 			//'1' -> Horizontal
 			if($orientation == '0') {
-				$result .= '<tr><td>' . showSingleBanner($row, $mainframe) . '</td></tr>';
+				$result .= '<tr><td>' . showSingleBanner($text, $moduleclass_sfx, $row, $mainframe) . '</td></tr>';
 			} else {
 
 				if($first == false) {
@@ -101,7 +102,7 @@ if(!function_exists('showBanners')) {
 					$first = true;
 				}
 
-				$result .= '<td>' . showSingleBanner($row, $mainframe) . '</td>';
+				$result .= '<td>' . showSingleBanner($text, $moduleclass_sfx, $row, $mainframe) . '</td>';
 			}
 
 			$showed++;
@@ -120,7 +121,7 @@ if(!function_exists('showBanners')) {
 	}
 
 	// function that showing one banner
-	function showSingleBanner(&$banner, $mainframe) {
+	function showSingleBanner($text, $moduleclass_sfx, &$banner, $mainframe) {
 		$database = &$mainframe->_db;
 
 		$result = '';
@@ -151,6 +152,10 @@ if(!function_exists('showBanners')) {
 
 			$title = $banner->title;
 			$result = "<a href=\"".sefRelToAbs('index.php?option=com_banners&amp;task=clk&amp;id='.$banner->id)."\" target=\"_" . $target . "\"><img src=\"" . $image_url . "\" style=\"border:" . $border_value . "px " . $border_style ." " . $border_color . "\" vspace=\"0\" alt=\"$alt\" title=\"$title\"/></a>";
+			if($text){
+				$result = "<a href=\"".sefRelToAbs('index.php?option=com_banners&amp;task=clk&amp;id='.$banner->id)."\" target=\"_" . $target . "\" class='bantxt".$moduleclass_sfx."'>".$alt."</a><br />".$result;
+			}
+			$result = '<div class="banernblok'.$moduleclass_sfx.'">'.$result.'</div>';
 		} elseif(eregi(".swf", $banner->image_url)) {
 			$image_url = JPATH_SITE.'/images/banners/' . $banner->image_url;
 			$swfinfo = @getimagesize(JPATH_BASE.'/images/banners/'. $banner->image_url);
