@@ -50,7 +50,6 @@ DEFINE('_MOD_FULLMENU_JP_BACKUP_MANAGEMENT','Резервное копирова
 DEFINE('_MOD_FULLMENU_JP_CREATE_BACKUP','Создать архив данных');
 DEFINE('_MOD_FULLMENU_DB_MANAGEMENT','Управление базой данных');
 DEFINE('_MOD_FULLMENU_MODULES_POSITION','Позиции модулей');
-DEFINE('_CACHE_MANAGEMENT','Управление кешем');
 DEFINE('_MOD_FULLMENU_CLEAR_CONTENT_CACHE','Очистить кэш содержимого');
 DEFINE('_MOD_FULLMENU_CLEAR_ALL_CACHE','Очистить весь кэш');
 DEFINE('_MOD_FULLMENU_ALL_USERS','Все пользователи');
