@@ -34,8 +34,7 @@ if($config->config_enable_admin_secure_code) {
         <title>
             <?php echo $config->config_sitename; ?> - <?php echo _JOOSTINA_CONTROL_PANEL?></title>
         <meta http-equiv="Content-Type" content="text/html; <?php echo _ISO; ?>" />
-        <link rel="stylesheet" href="<?php echo JPATH_SITE.'/'.JADMIN_BASE ?>/templates/joostfree/css/admin_login.css" />
-
+        <link rel="stylesheet" href="<?php echo JPATH_SITE.'/'.JADMIN_BASE ?>/templates/joostfree/css/login.css" />
 <?php
 echo mosCommonHTML::loadJquery(true);
 mosCommonHTML::loadJqueryPlugins('jgrowl/jquery.jgrowl',true,true);

@@ -13,7 +13,7 @@ body {
 	padding: 0px;
 	font-size: 11px;
 	font-family: Arial, Helvetica, sans-serif;
-	background-color: #EBEBEB;
+	background: url(../images/bg1.png) repeat-x;
 }
 #joo {
 	width: auto;
@@ -39,7 +39,7 @@ body {
 .button:hover, button:focus {
 	background: #FBFBFB;
 }
-.login {
+#page {
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 5em;
@@ -47,6 +47,7 @@ body {
 	border: 1px solid #cccccc;
 	width: 300px;
 	background: #F1F3F5;
+	background: url(../images/bg1.png) repeat-x;
 }
 .login p {
 	padding: 0 1em 0 1em;
