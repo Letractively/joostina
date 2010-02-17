@@ -8,12 +8,25 @@ a:hover{
 	padding: 0 0 0 12px;
 	background: url(../images/refresh.gif) no-repeat 0 2px;
 }
+.message, #message {
+	margin-top: 20px;
+	border-top: 2px solid rgb(181, 212, 254);
+	border-bottom: 2px solid rgb(181, 212, 254);
+	padding: 5px 20px 5px 45px;
+	background: rgb(248, 250, 252) url(../images/alert.png) no-repeat scroll 15px 50%;
+	-moz-background-clip: -moz-initial;
+	-moz-background-origin: -moz-initial;
+	-moz-background-inline-policy: -moz-initial;
+	text-align: center;
+	color: red;
+	width: auto;
+}
 body {
 	margin: 0px;
 	padding: 0px;
 	font-size: 11px;
 	font-family: Arial, Helvetica, sans-serif;
-	background: url(../images/bg1.png) repeat-x;
+	background-color: #EBEBEB;
 }
 #joo {
 	width: auto;
@@ -39,7 +52,7 @@ body {
 .button:hover, button:focus {
 	background: #FBFBFB;
 }
-#page {
+.login {
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 5em;
@@ -47,7 +60,6 @@ body {
 	border: 1px solid #cccccc;
 	width: 300px;
 	background: #F1F3F5;
-	background: url(../images/bg1.png) repeat-x;
 }
 .login p {
 	padding: 0 1em 0 1em;

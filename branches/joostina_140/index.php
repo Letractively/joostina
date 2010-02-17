@@ -46,9 +46,6 @@ require_once ( JPATH_BASE.DS.'includes'.DS.'frontend.php' );
 $mainframe = &mosMainFrame::getInstance();
 $option = $mainframe->option;
 
-//_xdump($mainframe);
-//exit();
-
 // отключение ведения сессий на фронте
 ($mosConfig_no_session_front == 0) ? $mainframe->initSession() : null;
 
@@ -121,6 +118,3 @@ if($mosConfig_debug) {
 }
 
 doGzip();
-
-// запускаем встроенный оптимизатор таблиц
-($mosConfig_optimizetables == 1) ? joostina_api::optimizetables():null;

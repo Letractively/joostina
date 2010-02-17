@@ -1633,16 +1633,10 @@ class JConfig {
     var $config_multilingual_support = 0;
     /** @var int*/
     var $config_multipage_toc = 0;
-    /** Режим работы с itemid, 0 - прежний режим*/
-    var $config_itemid_compat = 0;
     /** @var int отключение ведения сессий на фронте*/
     var $config_no_session_front = 0;
     /** @var int отключение syndicate*/
     var $config_syndicate_off = 0;
-    /** @var int отключение тега Generator*/
-    var $config_generator_off = 0;
-    /** @var int отключение мамботов группы system*/
-    var $config_mmb_system_off = 0;
     /** @var str использование одного шаблона на весь сайт*/
     var $config_one_template = '...';
     /** @var int подсчет времени генерации страницы*/
@@ -1651,10 +1645,6 @@ class JConfig {
     var $config_index_print = 0;
     /** @var int расширенные теги индексации*/
     var $config_index_tag = 0;
-    /** @var int использование ежесуточной оптимизации таблиц базы данных*/
-    var $config_optimizetables = 1;
-    /** @var int отключение мамботов группы content*/
-    var $config_mmb_content_off = 0;
     /** @var int кэширование меню панели управления*/
     var $config_adm_menu_cache = 0;
     /** @var int расположение элементов title*/
@@ -4998,23 +4988,6 @@ function SortArrayObjects(&$a,$k,$sort_direction = 1) {
     $csort_cmp = array('key' => $k,'direction' => $sort_direction);
     usort($a,'SortArrayObjects_cmp');
     unset($csort_cmp);
-}
-
-/**
- * Sends mail to admin
- */
-function mosSendAdminMail($adminName,$adminEmail,$email,$type,$title='',$author='' ) {
-    $subject = _MAIL_SUB." '$type'";
-    $message = _MAIL_MSG;
-    eval("\$message = \"$message\";");
-    mosMail(Jconfig::getInstance()->config_mailfrom,Jconfig::getInstance()->config_fromname,$adminEmail,$subject,$message);
-}
-
-/*
-* Includes pathway file
-*/
-function mosPathWay() {
-    require_once (JPATH_BASE.'/includes/pathway.php');
 }
 
 /**
