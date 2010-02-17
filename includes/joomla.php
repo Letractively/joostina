@@ -11,7 +11,7 @@
 defined('_VALID_MOS') or die();
 
 //Europe/Moscow
-date_default_timezone_set('America/Los_Angeles');
+date_default_timezone_set('Europe/Moscow');
 
 // флаг использования ядра
 DEFINE('_MOS_MAMBO_INCLUDED',1);
