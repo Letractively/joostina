@@ -74,10 +74,8 @@ $option = mosGetParam( $_REQUEST, 'option', '' );
 						<td width="35" align="center">
 							<input type="image" name="jtoggle_editor" id="jtoggle_editor" title="<?php echo _TOGGLE_WYSIWYG_EDITOR?>" onclick="jtoggle_editor();" src="<?php echo $cur_file_icons_path;?>/<?php echo (intval(mosGetParam($_SESSION,'user_editor_off',''))) ? 'editor_off.png':'editor_on.png'?>" alt="<?php echo _DISABLE_WYSIWYG_EDITOR?>" />
 						</td>
-						<td style="padding-left: 12px;" width="35" align="right">
-							<a href="<?php echo JPATH_SITE; ?>/" target="_blank" title="<?php echo _PREVIEW_SITE?>">
-								<img src="../includes/js/ThemeOffice/preview.png" border="0" alt="<?php echo _PREVIEW_SITE?>"/>
-							</a>
+						<td style="padding-left: 12px;" align="right" class="jtd_nowrap">
+                                                    <a href="<?php echo JPATH_SITE; ?>/" target="_blank" class="preview" title="<?php echo _PREVIEW_SITE?>"><?php echo _PREVIEW_SITE?></a>
 						</td>
 						<td style="padding-left: 7px;" align="right" class="jtd_nowrap">
 							<a href="index2.php?option=logout" class="logoff"><?PHP echo _BUTTON_LOGOUT?> <?php echo $my->username; ?></a>&nbsp;

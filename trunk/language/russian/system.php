@@ -448,7 +448,7 @@ DEFINE('_IN_NEW_WINDOW','Открыть в новом окне');
 DEFINE('_NO_CAPTCHA_CODE','Не введён код проверки');
 DEFINE('_USER_BLOKED','Пользователь заблокирован');
 
-DEFINE('_PREVIEW_SITE','перейти на сайт');
+DEFINE('_PREVIEW_SITE','на сайт');
 
 DEFINE('_JWMM_FILESIZE','Размер');
 DEFINE('_JWMM_BYTES','байт');

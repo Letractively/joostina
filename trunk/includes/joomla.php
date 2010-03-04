@@ -3049,7 +3049,6 @@ class mosCache {
 
 		$handler = ($handler == 'function') ? 'callback' : $handler;
 
-
 		$def_cachetime = (isset($cachetime)) ? $cachetime : $config['config_cachetime'];
 
 		if(!isset($storage)) {
