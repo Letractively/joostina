@@ -2831,12 +2831,26 @@ class mosModule extends mosDBTable {
 	 * Cache some modules information
 	 * @return array
 	 */
-	function &initModules() {
+        function initModules() {
+            global $my,$Itemid;
+
+            $cache = &mosCache::getCache('init_modules');
+            $cache->_options['caching'] = true;
+
+            $this->_all_modules = $cache->call('mosModule::_initModules', $Itemid);
+            require_once (JPATH_BASE.'/includes/frontend.html.php');
+            $this->_view = new modules_html($this->_mainframe);
+            unset($cache,$r);
+        }
+
+
+	public function &_initModules() {
 		global $my,$Itemid;
 
-		if(!($this->_all_modules)) {
-			$database = $this->_mainframe->_db;
-			$config = $this->_mainframe->get('config');
+		//if(!($this->_all_modules)) {
+                        $mainframe = mosMainFrame::getInstance();
+			$database = $mainframe->_db;
+			$config = $mainframe->get('config');
 
 			$all_modules = array();
 
@@ -2863,13 +2877,13 @@ class mosModule extends mosDBTable {
 				}
 			}
 			unset($modules,$module);
-			$this->_all_modules = $all_modules;
+			//$this->_all_modules = $all_modules;
 
-			require_once (JPATH_BASE.'/includes/frontend.html.php');
-			$this->_view = new modules_html($this->_mainframe);
-		}
+			//require_once (JPATH_BASE.'/includes/frontend.html.php');
+			//$this->_view = new modules_html($this->_mainframe);
+		//}
 
-		return $this->_all_modules;
+		return $all_modules;
 	}
 
 	/**

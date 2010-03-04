@@ -26,6 +26,8 @@ if($cid[0] == 0 && isset($moduleid)) {
 	$cid[0] = $moduleid;
 }
 
+ mosCache::cleanCache('init_modules');
+
 switch($task) {
 	case 'copy':
 		copyModule($option,intval($cid[0]),$client);
