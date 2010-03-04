@@ -1556,7 +1556,7 @@ function seccatli($act = 0,$filter_authorid=0) {
 function _cat_d($act) {
 	$database = &database::getInstance();
 
-	$query = "SELECT cat.id, cat.title, cat.section, COUNT(con.catid) AS countcon"
+	$query = "SELECT cat.id, cat.name as title, cat.section, COUNT(con.catid) AS countcon"
 			."\n FROM #__categories AS cat"
 			."\n LEFT JOIN #__content AS con ON con.catid = cat.id"
 			."\n WHERE cat.section NOT LIKE 'com_%' AND con.state>=0" // все кроме архивных
