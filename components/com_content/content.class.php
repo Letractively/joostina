@@ -416,8 +416,10 @@ class mosSection extends mosDBTable {
 
 		$gid = $my->gid;
 		$noauth = !$mainframe->getCfg('shownoauth');
+                
+                $access_check = '';
 
-		if($noauth) {
+                if($noauth) {
 			$access_check = " AND a.access <= ".(int)$gid;
 			$access_check_content = " AND ( b.access <= ".(int)$gid." OR b.access is null)";
 		}

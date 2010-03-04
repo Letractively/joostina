@@ -83,7 +83,7 @@ class content_category_menu_html {
 					<?php echo _NAME?>:
 					</td>
 					<td width="200px">
-					<input type="text" name="name" size="30" maxlength="100" class="inputbox" value="<?php echo htmlspecialchars($menu->name,ENT_QUOTES); ?>"/>
+					<input type="text" name="name" size="50" maxlength="100" class="inputbox" value="<?php echo htmlspecialchars($menu->name,ENT_QUOTES); ?>"/>
 					</td>
 					<td>
 <?php

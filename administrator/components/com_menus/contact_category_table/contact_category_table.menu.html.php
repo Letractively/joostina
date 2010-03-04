@@ -70,12 +70,10 @@ class contact_category_table_menu_html {
 			<td width="60%">
 				<table class="adminform">
 				<tr>
-					<th colspan="3">
-					Детали
-					</th>
+					<th colspan="3"><?php echo _DETAILS?></th>
 				</tr>
 				<tr>
-					<td width="10%" align="right" valign="top">Название:</td>
+					<td width="10%" align="right" valign="top"><?php echo _NAME?>:</td>
 					<td width="200px">
 						<input type="text" name="name" size="50" maxlength="100" class="inputbox" value="<?php echo htmlspecialchars($menu->name,ENT_QUOTES); ?>"/>
 					</td>
