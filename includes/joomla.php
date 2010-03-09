@@ -2835,56 +2835,47 @@ class mosModule extends mosDBTable {
             global $my,$Itemid;
 
             $cache = &mosCache::getCache('init_modules');
-            $cache->_options['caching'] = true;
-
-            $this->_all_modules = $cache->call('mosModule::_initModules', $Itemid);
+            $this->_all_modules = $cache->call('mosModule::_initModules', $Itemid,$my->gid);
             require_once (JPATH_BASE.'/includes/frontend.html.php');
             $this->_view = new modules_html($this->_mainframe);
             unset($cache,$r);
         }
 
 
-	public function &_initModules() {
-		global $my,$Itemid;
+        public function &_initModules( $Itemid,$my_gid ) {
 
-		//if(!($this->_all_modules)) {
-                        $mainframe = mosMainFrame::getInstance();
-			$database = $mainframe->_db;
-			$config = $mainframe->get('config');
+            $mainframe = mosMainFrame::getInstance();
+            $database = $mainframe->_db;
+            $config = $mainframe->get('config');
 
-			$all_modules = array();
+            $all_modules = array();
 
-			$Itemid = intval($Itemid);
-			$check_Itemid = ($Itemid) ? "OR mm.menuid = ".(int)$Itemid:'';
+            $Itemid = intval($Itemid);
+            $check_Itemid = ($Itemid) ? "OR mm.menuid = ".(int)$Itemid:'';
 
-			$where_ac = $config->config_disable_access_control ? '' : "\n AND (m.access=3 OR m.access <= ".(int)$my->gid.') ';
+            $where_ac = $config->config_disable_access_control ? '' : "\n AND (m.access=3 OR m.access <= ".(int)$my_gid.') ';
 
-			$query = "SELECT id, title, module, position, content, showtitle, params,access FROM #__modules AS m"
-					."\n INNER JOIN #__modules_menu AS mm ON mm.moduleid = m.id"
-					."\n WHERE m.published = 1"
-					.$where_ac
-					."\n AND m.client_id != 1 AND ( mm.menuid = 0 $check_Itemid )"
-					."\n ORDER BY ordering";
+            $query = "SELECT id, title, module, position, content, showtitle, params,access FROM #__modules AS m"
+                    ."\n INNER JOIN #__modules_menu AS mm ON mm.moduleid = m.id"
+                    ."\n WHERE m.published = 1"
+                    .$where_ac
+                    ."\n AND m.client_id != 1 AND ( mm.menuid = 0 $check_Itemid )"
+                    ."\n ORDER BY ordering";
 
-			$database->setQuery($query);
-			$modules = $database->loadObjectList();
+            $database->setQuery($query);
+            $modules = $database->loadObjectList();
 
-			foreach($modules as $module) {
-				if($module->access==3) {
-					$my->gid==0 ? $all_modules[$module->position][] = $module : null;
-				}else {
-					$all_modules[$module->position][] = $module;
-				}
-			}
-			unset($modules,$module);
-			//$this->_all_modules = $all_modules;
+            foreach($modules as $module) {
+                if($module->access==3) {
+                    $my_gid ==0 ? $all_modules[$module->position][] = $module : null;
+                }else {
+                    $all_modules[$module->position][] = $module;
+                }
+            }
 
-			//require_once (JPATH_BASE.'/includes/frontend.html.php');
-			//$this->_view = new modules_html($this->_mainframe);
-		//}
 
-		return $all_modules;
-	}
+            return $all_modules;
+        }
 
 	/**
 	 * @param string the template position
