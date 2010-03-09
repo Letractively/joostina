@@ -34,7 +34,7 @@ define('JPATH_SITE', $mosConfig_live_site );
 // для совместимости
 $mosConfig_absolute_path = JPATH_BASE;
 // ядро
-require_once (JPATH_BASE .DS. 'includes'.DS.'joomla.php');
+require_once (JPATH_BASE .DS. 'includes'.DS.'joostina.php');
 
 $acl = &gacl::getInstance();
 

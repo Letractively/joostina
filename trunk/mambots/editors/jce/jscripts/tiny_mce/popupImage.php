@@ -6,7 +6,7 @@ define( '_VALID_MOS', 1 );
 $base = str_replace( 'mambots/editors/jce/jscripts/tiny_mce', '', str_replace( DS, '/', dirname(__FILE__) ) );
 
 include ( $base . "/configuration.php" );
-include ( $base . "/includes/joomla.php" );
+include ( $base . "/includes/joostina.php" );
 
 function getInput( $item, $def=null ) {
 	return htmlspecialchars( mosGetParam( $_REQUEST, $item, $def ) );
