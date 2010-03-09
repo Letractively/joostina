@@ -38,7 +38,7 @@ if(is_file($mosConfig_absolute_path.DIRECTORY_SEPARATOR.'multisite.config.php'))
 }
 
 // подключаем ядро
-require_once (JPATH_BASE .DS. 'includes'.DS.'joomla.php');
+require_once (JPATH_BASE .DS. 'includes'.DS.'joostina.php');
 
 
 // работа с сессиями начинается до создания главного объекта взаимодействия с ядром

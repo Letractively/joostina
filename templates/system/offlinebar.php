@@ -10,7 +10,7 @@
 /** проверка включения этого файла файлом-источником*/
 defined('_VALID_MOS') or die();
 
-require_once (JPATH_BASE.'/includes/joomla.php');
+require_once (JPATH_BASE.'/includes/joostina.php');
 include_once (JPATH_BASE.DS.'language'.DS.$mosConfig_lang.DS.'system.php');
 
 global $option,$database;

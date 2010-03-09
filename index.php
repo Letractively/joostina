@@ -53,7 +53,7 @@ if(is_file($mosConfig_absolute_path.DIRECTORY_SEPARATOR.'multisite.config.php'))
 }
 
 // подключение главного файла - ядра системы
-require_once (JPATH_BASE.DS.'includes'.DS.'joomla.php');
+require_once (JPATH_BASE.DS.'includes'.DS.'joostina.php');
 
 //Проверка подпапки установки, удалена при работе с SVN
 if(file_exists('installation/index.php') && joomlaVersion::get('SVN') == 0) {

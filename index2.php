@@ -33,7 +33,7 @@ if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset
 define('JPATH_SITE', $mosConfig_live_site );
 
 // подключение главного файла - ядра системы
-require_once (JPATH_BASE.DS.'includes'.DS.'joomla.php');
+require_once (JPATH_BASE.DS.'includes'.DS.'joostina.php');
 
 // отображение состояния выключенного сайта
 if($mosConfig_offline == 1) {

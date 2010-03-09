@@ -31,7 +31,7 @@ if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset
 }
 
 if(!defined('_MOS_MAMBO_INCLUDED')) {
-	require(JPATH_BASE.DS.'includes/joomla.php');
+	require(JPATH_BASE.DS.'includes/joostina.php');
 }
 
 global $my;

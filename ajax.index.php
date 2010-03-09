@@ -26,7 +26,7 @@ if(is_file($mosConfig_absolute_path.DIRECTORY_SEPARATOR.'multisite.config.php'))
 	include_once($mosConfig_absolute_path.DIRECTORY_SEPARATOR.'multisite.config.php');
 }
 
-require_once ('includes/joomla.php');
+require_once ('includes/joostina.php');
 
 // отображение состояния выключенного сайта
 if($mosConfig_offline == 1) {

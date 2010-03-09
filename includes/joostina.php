@@ -45,7 +45,7 @@ mosMainFrame::addLib('utf8');
 /* файл данных версии */
 require_once (JPATH_BASE.'/includes/version.php');
 /* ядро работы с XML */
-require_once (JPATH_BASE.'/includes/joomla.xml.php');
+require_once (JPATH_BASE.'/includes/parameters.xml.php');
 /* класс фильтрации данных */
 mosMainFrame::addLib('inputfilter');
 /* класс работы с базой данных */
