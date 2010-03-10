@@ -108,7 +108,6 @@ if(DEFINED('_MULTISITE')) {
 // триггер событий onAfterStart
 ($mosConfig_mmb_system_off == 0) ? $_MAMBOTS->trigger('onAfterStart') : null;
 
-
 // проверка, если мы можем найти Itemid в содержимом
 if($option == 'com_content' && $Itemid === 0) {
 	$id = intval(mosGetParam($_REQUEST,'id',0));

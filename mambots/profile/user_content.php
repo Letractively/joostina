@@ -30,7 +30,7 @@ function botUserContent(&$user) {
 	global $_MAMBOTS,$Itemid;
 
 	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->_db;
+	$database = &$mainframe->getDBO();
 	$config = &$mainframe->config;
 
 	require_once ($mainframe->getPath('class','com_content'));

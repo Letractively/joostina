@@ -49,7 +49,7 @@ function jceEditorInit() {
 	$entity_encoding	= $params->get( 'entity_encoding', 'named' );
 
 	// получение шаблона страницы, только для режима работы с фронта сайта
-	if($mainframe->_isAdmin!=1) {
+	if($mainframe->isAdmin()!=1) {
 		$query = "SELECT template"
 				."\n FROM #__templates_menu"
 				."\n WHERE client_id = 1"

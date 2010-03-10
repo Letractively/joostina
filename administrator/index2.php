@@ -66,7 +66,7 @@ if(DEFINED('_MULTISITE')) {
 }
 
 // объект работы с базой данных
-$database = &$mainframe->_db;
+$database = &$mainframe->getDBO();
 
 // класс работы с правами пользователей
 $acl = &gacl::getInstance();

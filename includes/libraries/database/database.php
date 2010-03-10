@@ -786,9 +786,7 @@ class mosDBTable {
         $this->reset();
 
         $query = 'SELECT * FROM ' . $this->_tbl . ' WHERE ' . $this->_tbl_key . ' = ' . $this->_db->Quote($oid);
-        $this->_db->setQuery($query);
-
-        return $this->_db->loadObject($this);
+        return $this->_db->setQuery($query)->loadObject($this);
     }
 
     /**
@@ -855,9 +853,8 @@ class mosDBTable {
         $table = $table ? $table : $this->_tbl;
 
         $query = "DELETE FROM $table WHERE $key IN (" . implode(',', $oid) . ')';
-        $this->_db->setQuery($query);
-
-        if ($this->_db->query()) {
+        
+        if ($this->_db->setQuery($query)->query()) {
             return true;
         } else {
             $this->_error = $this->_db->getErrorMsg();
@@ -913,8 +910,8 @@ class mosDBTable {
         $cids = $this->_tbl_key . '=' . implode(' OR ' . $this->_tbl_key . '=', $cid);
 
         $query = "UPDATE $this->_tbl SET published = " . (int) $publish . " WHERE ($cids) AND (checked_out = 0 OR checked_out = " . (int) $user_id . ")";
-        $this->_db->setQuery($query);
-        if (!$this->_db->query()) {
+        
+        if (!$this->_db->setQuery($query)->query()) {
             $this->_error = $this->_db->getErrorMsg();
             return false;
         }
@@ -1013,8 +1010,7 @@ class mosDBTable {
         }
 
         $query = "UPDATE $this->_tbl SET hits = ( hits + 1 ) WHERE $this->_tbl_key = ".$this->_db->Quote($this->id);
-        $this->_db->setQuery($query);
-        $this->_db->query();
+        $this->_db->setQuery($query)->query();
 
         if(@$mosConfig_enable_log_items) {
             $now = date('Y-m-d');

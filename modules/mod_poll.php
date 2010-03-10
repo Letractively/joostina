@@ -21,7 +21,7 @@ if(!defined('_JOS_POLL_MODULE')) {
 	 * @param string CSS suffix
 	 */
 	function show_poll_vote_form($Itemid, &$params, $mainframe) {
-		$database = &$mainframe->_db;
+		$database = &$mainframe->getDBO();
 
 		$query = "SELECT p.id, p.title FROM #__polls AS p INNER JOIN #__poll_menu AS pm ON  pm.pollid = p.id WHERE ( pm.menuid = " . (int)$Itemid . " OR pm.menuid = 0 ) AND p.published = 1";
 

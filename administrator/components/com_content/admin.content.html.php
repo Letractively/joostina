@@ -24,7 +24,7 @@ class ContentView {
 		global $my,$acl;
 
 		$mainframe = &mosMainFrame::getInstance();
-		$database = &$mainframe->_db;
+		$database = &$mainframe->getDBO();
 
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 		$cur_file_icons_path2 = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images';

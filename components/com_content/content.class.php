@@ -352,7 +352,7 @@ class mosSection extends mosDBTable {
 
 		$gid = $my->gid;
 		$noauth = !$mainframe->getCfg('shownoauth');
-		$nullDate = $mainframe->_db->getNullDate();
+		$nullDate = $mainframe->getDBO()->getNullDate();
 		$now = _CURRENT_SERVER_TIME;
 
 		$xwhere = '';
@@ -819,7 +819,7 @@ class mosContent extends mosDBTable {
 		global $gid;
 
 		$mainframe = &mosMainFrame::getInstance();
-		$database = &$mainframe->_db;
+		$database = &$mainframe->getDBO();
 
 		// Paramters for menu item as determined by controlling Itemid
 
@@ -1527,7 +1527,7 @@ class contentSqlHelper {
 		global $my;
 
 		$mainframe = &mosMainFrame::getInstance();
-		$database = &$mainframe->_db;
+		$database = &$mainframe->getDBO();
 
 		$gid = $my->gid;
 		$noauth = !$mainframe->getCfg('shownoauth');
@@ -1596,7 +1596,7 @@ class contentSqlHelper {
 		global $my;
 
 		$mainframe = &mosMainFrame::getInstance();
-		$database = &$mainframe->_db;
+		$database = &$mainframe->getDBO();
 
 		$gid = $my->gid;
 		$noauth = !$mainframe->getCfg('shownoauth');
@@ -1956,7 +1956,7 @@ class contentPageConfig {
 		if (!$row->sectionid) {
 			$params->page_type = 'item_static';
 		}else {
-			$database = &$mainframe->_db;
+			$database = &$mainframe->getDBO();
 			$section = new mosSection($database);
 			$section->load((int)$row->sectionid);
 			$category = new mosCategory($database);
@@ -2047,7 +2047,7 @@ class contentPageConfig {
 		}else {
 			$menu = '';
 			//$params = new mosParameters('');
-			$database = &$mainframe->_db;
+			$database = &$mainframe->getDBO();
 			require_once ($mainframe->getPath('config', 'com_content'));
 			$params = new configContent_sectionblog($database);
 		}
@@ -2087,7 +2087,7 @@ class contentPageConfig {
 			$params = new mosParameters($menu->params);
 		} else {
 			$menu = '';
-			$database = &$mainframe->_db;
+			$database = &$mainframe->getDBO();
 			require_once ($mainframe->getPath('config', 'com_content'));
 			$params = new configContent_categoryblog($database);
 		}
@@ -2127,7 +2127,7 @@ class contentPageConfig {
 			$params = new mosParameters($menu->params);
 		} else {
 			$menu = '';
-			$database = &$mainframe->_db;
+			$database = &$mainframe->getDBO();
 			require_once ($mainframe->getPath('config', 'com_content'));
 			$params = new configContent_sectionarchive($database);
 		}
@@ -2166,7 +2166,7 @@ class contentPageConfig {
 			$params = new mosParameters($menu->params);
 		} else {
 			$menu = '';
-			$database = &$mainframe->_db;
+			$database = &$mainframe->getDBO();
 			require_once ($mainframe->getPath('config', 'com_content'));
 			$params = new configContent_categoryarchive($database);
 		}

@@ -27,7 +27,7 @@ class mod_latestnews_Helper {
 		global $my;
 
 		$mainframe	= $this->_mainframe;
-		$database	= $this->_mainframe->_db;
+		$database	= $this->_mainframe->getDBO();
 
 		$now		= _CURRENT_SERVER_TIME;
 		$access		= !$mainframe->getCfg( 'shownoauth' );
@@ -53,7 +53,7 @@ class mod_latestnews_Helper {
 		global $my;
 
 		$mainframe = $this->_mainframe;
-		$database = $this->_mainframe->_db;
+		$database = $this->_mainframe->getDBO();
 
 		$now = _CURRENT_SERVER_TIME;
 		$access	= !$mainframe->getCfg( 'shownoauth' );
@@ -116,7 +116,7 @@ class mod_latestnews_Helper {
 		global $my;
 
 		$mainframe = $this->_mainframe;
-		$database = $this->_mainframe->_db;
+		$database = $this->_mainframe->getDBO();
 
 		$now = _CURRENT_SERVER_TIME;
 		$access	= !$mainframe->getCfg( 'shownoauth' );
@@ -168,7 +168,7 @@ class mod_latestnews_Helper {
 
 	function get_itemid($row, $params) {
 		$mainframe = $this->_mainframe;
-		$database = $this->_mainframe->_db;
+		$database = $this->_mainframe->getDBO();
 
 		$type = intval($params->get('type', 1));
 

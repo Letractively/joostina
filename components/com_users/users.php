@@ -129,7 +129,7 @@ switch($task) {
 function profile($uid) {
 
 	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->_db;
+	$database = &$mainframe->getDBO();
 
 	$row = new mosUser($database);
 	if($row->load($uid)) {
@@ -157,7 +157,7 @@ function profile($uid) {
 function userEdit($option,$uid,$submitvalue) {
 
 	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->_db;
+	$database = &$mainframe->getDBO();
 
 	if($uid == 0) {
 		mosNotAuth();
@@ -190,7 +190,7 @@ function userSave($option,$uid) {
 	josSpoofCheck();
 	$mainframe = &mosMainFrame::getInstance();
 	$config = &$mainframe->config;
-	$database = &$mainframe->_db;
+	$database = &$mainframe->getDBO();
 
 	$user_id = intval(mosGetParam($_POST,'id',0));
 
@@ -288,7 +288,7 @@ function userSave($option,$uid) {
 function userList($gid,$limit,$limitstart=0) {
 
 	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->_db;
+	$database = &$mainframe->getDBO();
 	$acl = &gacl::getInstance();
 
 	$menu = null;
@@ -433,7 +433,7 @@ function lostPassForm($option) {
 	$mainframe->SetPageTitle(_LOST_PASSWORDWORD);
 
 	$config = &Jconfig::getInstance();
-	$database = &$mainframe->_db;
+	$database = &$mainframe->getDBO();
 
 	$user_config = new configUser_lostpass($database);
 
@@ -503,7 +503,7 @@ function sendNewPass() {
 function registerForm($option,$useractivation) {
 
 	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->_db;
+	$database = &$mainframe->getDBO();
 	$acl = &gacl::getInstance();
 
 	if(!$mainframe->getCfg('allowUserRegistration')) {
@@ -543,7 +543,7 @@ function saveRegistration() {
 	josSpoofCheck();
 
 	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->_db;
+	$database = &$mainframe->getDBO();
 	$acl = &gacl::getInstance();
 
 	if($mainframe->getCfg('allowUserRegistration') == 0) {
@@ -712,7 +712,7 @@ function activate() {
 	global $my;
 
 	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->_db;
+	$database = &$mainframe->getDBO();
 
 	if($my->id) {
 		mosRedirect('index.php');
