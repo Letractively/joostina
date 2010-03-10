@@ -527,7 +527,7 @@ class database {
             return false;
         }
         $id = mysql_insert_id($this->_resource);
-        ($verbose) &&print"id=[$id]<br />\n";
+        ($verbose) &&print "id=[$id]<br />\n";
         if($keyName && $id) {
             $object->$keyName = $id;
         }
@@ -1175,12 +1175,13 @@ class mosDBTable {
         }
     }
 
-// НОВАЯ, число записей в таблице по условию
+	//  число записей в таблице по условию
     public function count($where = '') {
         $sql = "SELECT count(*) FROM $this->_tbl " . $where;
         return $this->_db->setQuery($sql)->loadResult();
     }
 
+	// получение списка значений
     public function get_list(array $params = array()) {
 
         $select = isset($params['select']) ? $params['select'] : '*';
@@ -1192,6 +1193,7 @@ class mosDBTable {
         return $this->_db->setQuery("SELECT $select FROM $this->_tbl " . $where . $order, $offset, $limit)->loadObjectList();
     }
 
+	// получение списка значений для селектора
     public function get_selector(array $key_val, array $params = array()) {
 
         $key = isset($key_val['key']) ? $key_val['key'] : 'id';
@@ -1228,26 +1230,7 @@ class mosDBTable {
         return $this->_db->setQuery($sql, $offset, $limit)->loadAssocList('id');
     }
 
-    // селектор выбора отношений один-ко-многим
-    public function get_one_to_many_selectors( $name,$table_values, $table_keys, $key_parent, $key_children, array $selected_ids, array $params = array()) {
-        mosMainFrame::addLib('form');
-
-        $params['select'] = isset($params['select']) ? $params['select'] : 't_val.id, t_val.title';
-
-        $childrens = $this->get_selector( array() , array( 'table'=>$table_values ) );
-
-        $rets = array();
-        foreach ($childrens as $key=>$value) {
-            $el_id = $name.$key;
-            $checked = (bool) isset( $selected_ids[$key] );
-            $rets[] = form::checkbox($name.'[]', $key, $checked, 'id="'.$el_id.'" ' );
-            $rets[] = form::label($el_id, $value);
-        }
-
-        return implode("\n\t", $rets);
-    }
-
-    // сохранение значение одного ко многим
+	// сохранение значение одного ко многим
     public function save_one_to_many( $name_table_keys, $key_name, $value_name,$key_value, $values ) {
 
         //сначала чистим все предыдущие связи
