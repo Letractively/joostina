@@ -10,11 +10,9 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-//Europe/Moscow
-date_default_timezone_set('Europe/Moscow');
+//Europe/Moscow // GMT0
+date_default_timezone_set('Boston');
 
-// флаг использования ядра
-DEFINE('_MOS_MAMBO_INCLUDED',1);
 // каталог администратора
 DEFINE('JADMIN_BASE','administrator');
 // формат даты
@@ -50,15 +48,15 @@ require_once (JPATH_BASE.'/includes/parameters.xml.php');
 mosMainFrame::addLib('inputfilter');
 /* класс работы с базой данных */
 mosMainFrame::addLib('database');
-// TODO запретить к релизу!!!
-$database = &database::getInstance();
+// TODO запретить к 1.3.2!!!
+$database = database::getInstance();
 
 /* класс работы с правами пользователей */
 mosMainFrame::addLib('gacl');
-// TODO запретить к релизу!!!
-$acl = &gacl::getInstance();
+// TODO запретить к 1.3.2!!!
+$acl = gacl::getInstance();
 
-// корректировка работы с данными полученными от сервера
+// TODO убрать к 1.3.3 корректировка работы с данными полученными от сервера
 if(isset($_SERVER['REQUEST_URI'])) {
 	$request_uri = $_SERVER['REQUEST_URI'];
 } else {
@@ -79,7 +77,7 @@ unset($request_uri);
 class mosMainFrame {
 	/**
 	 @var database Internal database class pointer*/
-	var $_db = null;
+	private $_db = null;
 	/**
 	 @var object An object of configuration variables*/
 	var $_config = null;
@@ -133,9 +131,9 @@ class mosMainFrame {
 	function mosMainFrame($db,$option,$basePath=null,$isAdmin = false) {
 		unset($db,$option,$basePath);
 
-		$this->config = &Jconfig::getInstance();
+		$this->config = Jconfig::getInstance();
 
-		$this->_db = &database::getInstance();
+		$this->_db = database::getInstance();
 
 		if(!$isAdmin) {
 			$current = $this->get_option();
@@ -259,6 +257,11 @@ class mosMainFrame {
 		}
 	}
 
+	// получение объекта базы данных
+	public function getDBO(){
+		return $this->_db;
+	}
+
 	/**
 	 * Подключение библиотеки
 	 * @param string $lib Название библиотеки. Может быть сформировано как: `lib_name`, `lib_name/lib_name.php`, `lib_name.php`
@@ -278,7 +281,7 @@ class mosMainFrame {
 			global $mosConfig_lang;
 		}
 
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = mosMainFrame::getInstance();
 
 		$lang = $mosConfig_lang;
 

@@ -28,17 +28,17 @@ class joomlaVersion {
 	/** @var int Подверсия*/
 	var $DEV_LEVEL = '15';
 	/** @var int Номер сборки*/
-	var $BUILD = '$: 606';
+	var $BUILD = '$: 607';
 	/** @var string Кодовое имя*/
 	var $CODENAME = '';
 	/** @var string Дата*/
-	var $RELDATE = '**:**:*****';
+	var $RELDATE = 'xx:00:xXXx';
 	/** @var string Время*/
-	var $RELTIME = '**:**';
+	var $RELTIME = '*0:0*';
 	/** @var string Временная зона*/
 	var $RELTZ = '+5 GMT';
 	/** @var string Текст авторских прав*/
-	var $COPYRIGHT = 'Авторские права &copy; 2008-2010 Joostina Team. Все права защищены.';
+	var $COPYRIGHT = 'Авторские права &copy; 2007-2010 Joostina Team. Все права защищены.';
 	/** @var string URL*/
 	var $URL = '<a href="http://www.joostina.ru" target="_blank" title="Система создания и управления сайтами Joostina CMS">Joostina!</a> - бесплатное и свободное программное обеспечение для создания сайтов, распространяемое по лицензии GNU/GPL.';
 	/** @var string для реального использования сайта установите = 1 для демонстраций = 0: 1 используется по умолчанию*/
@@ -59,11 +59,7 @@ class joomlaVersion {
 	}
 	/*** @return string Version suffix for help files*/
 	function getHelpVersion() {
-		if($this->RELEASE > '1.0') {
-			return '.'.str_replace('.','',$this->RELEASE);
-		} else {
-			return '';
-		}
+		return '.'.str_replace('.','',$this->RELEASE);
 	}
 	// получение переменных окружения информации осистеме
 	public static function get($name) {

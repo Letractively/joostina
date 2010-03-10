@@ -416,10 +416,10 @@ class mosSection extends mosDBTable {
 
 		$gid = $my->gid;
 		$noauth = !$mainframe->getCfg('shownoauth');
-                
-                $access_check = '';
 
-                if($noauth) {
+		$access_check = '';
+
+		if($noauth) {
 			$access_check = " AND a.access <= ".(int)$gid;
 			$access_check_content = " AND ( b.access <= ".(int)$gid." OR b.access is null)";
 		}
@@ -462,7 +462,7 @@ class mosSection extends mosDBTable {
 				default:
 					$and_type = "AND type = 'content_blog_section' ";
 					break;
-
+				
 				case 'list':
 					$and_type = "AND type = 'content_section' ";
 					break;
@@ -471,7 +471,7 @@ class mosSection extends mosDBTable {
 		}
 
 		$query = 'SELECT id, link FROM #__menu'
-				.' WHERE published = 1'
+				.' WHERE published = 1 '
 				.$and_type
 				.' AND componentid = '.(int)$section_id
 				.' ORDER BY type DESC, ordering';
