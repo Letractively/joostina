@@ -219,7 +219,7 @@ function showSections($scope,$option) {
 
 	$mainframe	= &mosMainFrame::getInstance(true);
 	$config = &$mainframe->config;
-	$database	= $mainframe->_db;
+	$database	= $mainframe->getDBO();
 
 	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit",'limit',$config->config_list_limit));
 	$limitstart = intval($mainframe->getUserStateFromRequest("view{$option}limitstart",'limitstart',0));

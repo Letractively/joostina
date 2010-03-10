@@ -225,7 +225,7 @@ function editUser($uid = '0',$option = 'users') {
 	global $my;
 
 	$mainframe = mosMainFrame::getInstance(true);
-	$database = &$mainframe->_db;
+	$database = &$mainframe->getDBO();
 	$acl = &gacl::getInstance();
 
 	$msg = checkUserPermissions(array($uid),"edit",true);

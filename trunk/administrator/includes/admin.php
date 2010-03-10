@@ -15,23 +15,28 @@ defined('_VALID_MOS') or die();
  */
 function adminHead($mainframe) {
 
-	if(isset($mainframe->_head['custom'])) {
+	$custom = $mainframe->getHeadData('custom');
+	if(!empty($custom)) {
 		$head = array();
-		foreach($mainframe->_head['custom'] as $html) {
+		foreach($custom as $html) {
 			$head[] = $html;
 		}
 		echo implode("\n",$head)."\n";
 	};
-	if(isset($mainframe->_head['js'])) {
+
+	$js = $mainframe->getHeadData('js');
+	if(!empty($js)) {
 		$head = array();
-		foreach($mainframe->_head['js'] as $html) {
+		foreach($js as $html) {
 			$head[] = $html;
 		}
 		echo implode("\n",$head)."\n";
 	};
-	if(isset($mainframe->_head['css'])) {
+
+	$css = $mainframe->getHeadData('css');
+	if(!empty($css)) {
 		$head = array();
-		foreach($mainframe->_head['css'] as $html) {
+		foreach($css as $html) {
 			$head[] = $html;
 		}
 		echo implode("\n",$head)."\n";
@@ -138,7 +143,7 @@ function mosLoadAdminModule($name,$params = null) {
 	global $task,$acl,$my,$option;
 
 	$mainframe = mosMainFrame::getInstance(true);
-	$database = &$mainframe->_db;
+	$database = &$mainframe->getDBO();
 
 	// legacy support for $act
 	$act = mosGetParam($_REQUEST,'act','');

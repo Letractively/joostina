@@ -133,7 +133,7 @@ function showUserItems($user_id) {
 	global $Itemid, $my;
 
 	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->_db;
+	$database = &$mainframe->getDBO();
 	$acl = &gacl::getInstance();
 
 	mosMainFrame::addLib('dbconfig');
@@ -233,7 +233,7 @@ function frontpage($gid,$limit,$limitstart,$pop) {
 	global $my;
 
 	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->_db;
+	$database = &$mainframe->getDBO();
 
 	//права доступа
 	$access = new contentAccess();
@@ -287,7 +287,7 @@ function _showSectionCatlist($id) {
 	global $Itemid, $my;
 
 	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->_db;
+	$database = &$mainframe->getDBO();
 
 	if(!$id) {
 		$error = new errorCase(1);
@@ -370,7 +370,7 @@ function _showTableCategory($id,$gid,$limit,$limitstart,$sectionid,$selected,$fi
 	global $Itemid, $my;
 
 	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->_db;
+	$database = &$mainframe->getDBO();
 
 	$selected = preg_replace('/[^a-z]/i', '', $selected);
 
@@ -490,7 +490,7 @@ function _showBlogSection($id,$gid,$pop,$limit,$limitstart) {
 	global $Itemid, $my;
 
 	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->_db;
+	$database = &$mainframe->getDBO();
 
 	$section = new mosSection($database);
 	//Если ID найден - получаем данные о конкретном разделе
@@ -580,7 +580,7 @@ function _showBlogCategory($id = 0,$gid,$pop,$limit,$limitstart) {
 	global $Itemid, $my;
 
 	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->_db;
+	$database = &$mainframe->getDBO();
 
 	//права доступа
 	$access = new contentAccess();
@@ -657,7 +657,7 @@ function showArchiveSection($id = null) {
 	global $Itemid, $my;
 
 	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->_db;
+	$database = &$mainframe->getDBO();
 
 	$year = intval(mosGetParam($_REQUEST, 'year', date('Y')));
 	$month = intval(mosGetParam($_REQUEST, 'month', date('m')));
@@ -738,7 +738,7 @@ function showArchiveCategory($id = 0) {
 	global $Itemid, $my;
 
 	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->_db;
+	$database = &$mainframe->getDBO();
 
 	$year = intval(mosGetParam($_REQUEST, 'year', date('Y')));
 	$month = intval(mosGetParam($_REQUEST, 'month', date('m')));
@@ -835,7 +835,7 @@ function BlogOutput(&$obj, $params, &$access,$mainframe=null) {
 		$mainframe = &mosMainFrame::getInstance();
 	}
 
-	$database = &$mainframe->_db;
+	$database = &$mainframe->getDBO();
 
 	$rows = $obj->content;
 	$total = $obj->total;
@@ -1114,7 +1114,7 @@ function _showFullItem($id) {
 	global $my;
 
 	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->_db;
+	$database = &$mainframe->getDBO();
 
 	$pop = intval(mosGetParam($_REQUEST, 'pop', 0));
 	$task = strval(mosGetParam($_REQUEST, 'task', ''));
@@ -1308,7 +1308,7 @@ function _showItem($row, $params, $gid, &$access, $pop, $template = '',$mainfram
 
 	// запись счетчика прочтения
 	if(!$params->get('intro_only') && ($page == 0) && ($mainframe->getCfg('content_hits'))) {
-		$database = &$mainframe->_db;
+		$database = &$mainframe->getDBO();
 		$obj = new mosContent($database);
 		$obj->hit($row->id);
 	}
@@ -1327,7 +1327,7 @@ function editItem($task) {
 	global $my, $gid;
 
 	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->_db;
+	$database = &$mainframe->getDBO();
 	$acl = &gacl::getInstance();
 
 	$nullDate = $database->getNullDate();
@@ -1633,7 +1633,7 @@ function saveContent($task) {
 	global $my,$Itemid;
 
 	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->_db;
+	$database = &$mainframe->getDBO();
 
 	// simple spoof check security
 	josSpoofCheck();
@@ -1994,7 +1994,7 @@ function emailContentForm($uid, $gid) {
 function emailContentSend($uid, $gid) {
 
 	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->_db;
+	$database = &$mainframe->getDBO();
 
 	$id = intval(mosGetParam($_REQUEST, 'id', 0));
 	if($id) {

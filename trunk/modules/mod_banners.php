@@ -15,7 +15,7 @@ if(!function_exists('showBanners')) {
 	function showBanners(&$params, $mainframe) {
 		global $my;
 
-		$database = &$mainframe->_db;
+		$database = &$mainframe->getDBO();
 
 		$random = $params->get('random', 0);
 		$count = $params->get('count', 1);
@@ -122,7 +122,7 @@ if(!function_exists('showBanners')) {
 
 	// function that showing one banner
 	function showSingleBanner($text, $moduleclass_sfx, &$banner, $mainframe) {
-		$database = &$mainframe->_db;
+		$database = &$mainframe->getDBO();
 
 		$result = '';
 

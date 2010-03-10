@@ -25,7 +25,7 @@ function mosLoadComponent($name) {
 	global $my,$task,$Itemid,$id,$option,$gid;
 
 	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->_db;
+	$database = &$mainframe->getDBO();
 	include (JPATH_BASE.DS."components/com_$name/$name.php");
 }
 /**
@@ -106,7 +106,6 @@ class PageModel {
 		static $page_model;
 		if(!is_object($page_model) ) {
 			$mainframe = &mosMainFrame::getInstance();
-			unset($mainframe->menu,$mainframe->_session);
 			$page_model = new PageModel($mainframe);
 		}
 
@@ -181,15 +180,16 @@ class PageModel {
 		$_meta_keys_index = -1;
 		$_meta_desc_index = -1;
 
-		$n = count($mainframe->_head['meta']);
+		$meta = $mainframe->getHeadData('meta');
+		$n = count($meta);
 		for($i = 0; $i < $n; $i++) {
-			if($mainframe->_head['meta'][$i][0] == 'keywords') {
+			if($meta[$i][0] == 'keywords') {
 				$_meta_keys_index = $i;
-				$keywords = $mainframe->_head['meta'][$i][1];
+				$keywords = $meta[$i][1];
 			} else {
-				if($mainframe->_head['meta'][$i][0] == 'description') {
+				if($meta[$i][0] == 'description') {
 					$_meta_desc_index = $i;
-					$description = $mainframe->_head['meta'][$i][1];
+					$description = $meta[$i][1];
 				}
 			}
 		}
@@ -288,8 +288,7 @@ class PageModel {
 
 		$row = new mosComponent();
 		$query = "SELECT a.params, a.option FROM #__components AS a WHERE ( a.admin_menu_link = 'option=com_syndicate' OR a.admin_menu_link = 'option=com_syndicate&hidemainmenu=1' ) AND a.option = 'com_syndicate'";
-		$mainframe->_db->setQuery($query);
-		$mainframe->_db->loadObject($row);
+		$mainframe->getDBO()->setQuery($query)->loadObject($row);
 
 		// get params definitions
 		$syndicateParams = new mosParameters($row->params,$mainframe->getPath('com_xml',$row->option),'component');
@@ -338,8 +337,8 @@ class PageModel {
 			if($check) {
 				// проверяем, не опубликован ли уже модуль с RSS
 				$query = "SELECT m.id FROM #__modules AS m WHERE m.module = 'mod_rssfeed' AND m.published = 1 LIMIT 1";
-				$mainframe->_db->setQuery($query);
-				$check = $mainframe->_db->loadResult();
+				$mainframe->getDBO()->setQuery($query);
+				$check = $mainframe->getDBO()->loadResult();
 				if($check>0) {
 					$show = 0;
 				}

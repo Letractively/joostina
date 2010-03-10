@@ -33,7 +33,7 @@ class modules_html {
 	function module(&$module,&$params,$Itemid,$style = 0) {
 		global $_MAMBOTS;
 
-		$database = $this->_mainframe->_db;
+		$database = $this->_mainframe->getDBO();
 
 		// custom module params
 		$moduleclass_sfx = $params->get('moduleclass_sfx');
@@ -295,7 +295,7 @@ class modules_html {
 		global $my;
 
 		$mainframe = $this->_mainframe;
-		$database = $this->_mainframe->_db;
+		$database = $this->_mainframe->getDBO();
 
 		?>
 <table cellpadding="0" cellspacing="0" class="moduletable<?php echo $moduleclass_sfx; ?>">
@@ -334,7 +334,7 @@ class modules_html {
 		global $my;
 
 		$mainframe = $this->_mainframe;
-		$database = $this->_mainframe->_db;
+		$database = $this->_mainframe->getDBO();
 
 		if($type) {
 			modules_html::CustomContent($module,$params);
@@ -354,7 +354,7 @@ class modules_html {
 		global $my;
 
 		$mainframe = $this->_mainframe;
-		$database = $this->_mainframe->_db;
+		$database = $this->_mainframe->getDBO();
 
 		?>
 <div class="moduletable<?php echo $moduleclass_sfx; ?>">
@@ -383,7 +383,7 @@ class modules_html {
 		global $my;
 
 		$mainframe = $this->_mainframe;
-		$database = $this->_mainframe->_db;
+		$database = $this->_mainframe->getDBO();
 		$config = $this->_mainframe->get('config');
 
 		?>

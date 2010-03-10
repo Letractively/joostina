@@ -103,7 +103,7 @@ function pollresult($uid) {
 	global $Itemid;
 
 	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->_db;
+	$database = &$mainframe->getDBO();
 
 	$poll = new mosPoll($database);
 	$poll->load((int)$uid);

@@ -48,7 +48,7 @@ function listContacts($option,$catid) {
 
 	$mainframe = &mosMainFrame::getInstance();
 	$config = &$mainframe->config;
-	$database = &$mainframe->_db;
+	$database = &$mainframe->getDBO();
 
 	/* Query to retrieve all categories that belong under the contacts section and that are published.*/
 	$query = "SELECT*, COUNT( a.id ) AS numlinks FROM #__categories AS cc"
@@ -204,7 +204,7 @@ function contactpage($contact_id) {
 
 	$mainframe = &mosMainFrame::getInstance();
 	$config = &$mainframe->config;
-	$database = &$mainframe->_db;
+	$database = &$mainframe->getDBO();
 
 	$query = "SELECT a.id AS value, CONCAT_WS( ' - ', a.name, a.con_position ) AS text, a.catid, cc.access AS cat_access"
 			."\n FROM #__contact_details AS a"
@@ -407,7 +407,7 @@ function sendmail($con_id,$option) {
 
 	$mainframe = &mosMainFrame::getInstance();
 	$config = &$mainframe->config;
-	$database = &$mainframe->_db;
+	$database = &$mainframe->getDBO();
 
 	$query = "SELECT* FROM #__contact_details WHERE id = ".(int)$con_id;
 	$database->setQuery($query);

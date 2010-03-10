@@ -36,7 +36,7 @@ switch($task) {
 function feedFrontpage($showFeed) {
 	$mainframe = &mosMainFrame::getInstance();
 
-	$database = &$mainframe->_db;
+	$database = &$mainframe->getDBO();
 	$config = &$mainframe->config;
 
 

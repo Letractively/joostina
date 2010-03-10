@@ -156,7 +156,7 @@ function x_save() {
 	global $my;
 
 	$mainframe	= &mosMainFrame::getInstance(true);
-	$database	= &$mainframe->_db;
+	$database	= &$mainframe->getDBO();
 
 	$menu		= strval(mosGetParam($_POST,'menu','mainmenu'));
 	$menuid		= intval(mosGetParam($_POST,'menuid',0));
@@ -360,7 +360,7 @@ function x_publish($id = null) {
 */
 function x_frontpage($id) {
 	$mainframe	= &mosMainFrame::getInstance(true);
-	$database	= &$mainframe->_db;
+	$database	= &$mainframe->getDBO();
 
 	require_once ($mainframe->getPath('class','com_frontpage'));
 

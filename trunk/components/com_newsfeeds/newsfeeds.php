@@ -31,7 +31,7 @@ function listFeeds($catid) {
 	global $my,$Itemid;
 
 	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->_db;
+	$database = &$mainframe->getDBO();
 	$config = &$mainframe->config;
 
 	/* Query to retrieve all categories that belong under the contacts section and that are published.*/
@@ -140,7 +140,7 @@ function showFeed($feedid) {
 	global $Itemid,$my;
 
 	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->_db;
+	$database = &$mainframe->getDBO();
 	$config = &$mainframe->config;
 
 	// check if cache directory is writeable

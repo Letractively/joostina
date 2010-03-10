@@ -39,7 +39,7 @@ unset($http_host);
 define('JPATH_SITE', $mosConfig_live_site );
 
 $mainframe	= &mosMainFrame::getInstance(true);
-$database	= &$mainframe->_db;
+$database	= &$mainframe->getDBO();
 $config		= &$mainframe->config;
 
 // получение шаблона страницы
