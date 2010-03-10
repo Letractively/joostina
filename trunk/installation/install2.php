@@ -45,7 +45,7 @@ if(!$DBcreated) {
 	$database = new database($DBhostname,$DBuserName,$DBpassword,'','',false);
 	$test = $database->getErrorMsg();
 
-	if(!$database->_resource) {
+	if(!$database->getResource() ) {
 		db_err('stepBack2','Введены неверные имя пользователя и пароль.');
 	}
 
@@ -57,7 +57,7 @@ if(!$DBcreated) {
 	$configArray['DBPrefix'] = $DBPrefix;
 
 	//Если не выбрано создание базы, пробуем соединиться с указанной
-	if(mysql_select_db($DBname,$database->_resource)){
+	if(mysql_select_db($DBname,$database->getResource() )){
 		$sql = "USE `$DBname` ";
 		$database->setQuery($sql);
 		$database->query();

@@ -221,6 +221,10 @@ class database {
         return str_replace('#__', $this->_table_prefix, $sql);
     }
 
+    public function getResource(){
+        return $this->_resource;
+    }
+
     /**
      * @return string The current value of the internal SQL vairable
      */
