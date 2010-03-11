@@ -28,13 +28,13 @@ class joomlaVersion {
 	/** @var int Подверсия*/
 	var $DEV_LEVEL = '15';
 	/** @var int Номер сборки*/
-	var $BUILD = '$: 608';
+	var $BUILD = '$: 609';
 	/** @var string Кодовое имя*/
 	var $CODENAME = '';
 	/** @var string Дата*/
-	var $RELDATE = '**:**:2010';
+	var $RELDATE = '12:03:2010';
 	/** @var string Время*/
-	var $RELTIME = '**:**';
+	var $RELTIME = '01:10';
 	/** @var string Временная зона*/
 	var $RELTZ = '+5 GMT';
 	/** @var string Текст авторских прав*/
