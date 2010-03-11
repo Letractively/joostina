@@ -83,10 +83,6 @@ JoomlaPack
 Авторские права: Nicholas K. Dionysopoulos ( http://www.joomlapack.net )
 Лицензия: GNU General Public License (GPL)
 
-joomlaXplorer
-Авторские права: Soeren, QuiX Project ( http://www.virtuemart.net )
-Лицензия: GNU General Public License (GPL)
-
 JW MMXTD
 Авторские права: JoomlaWorks ( http://www.joomlaworks.gr )
 Лицензия: GNU General Public License (GPL)

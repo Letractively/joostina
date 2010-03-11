@@ -2140,8 +2140,6 @@ class JConfig {
 	var $config_com_frontpage_clear = 1;
 	/** @str корень для компонента управления медиа содержимым*/
 	var $config_media_dir = 'images/stories';
-	/** @str корень файлового менеджера*/
-	var $config_joomlaxplorer_dir = null;
 	/** @int автоматическая установка "Публиковать на главной"*/
 	var $config_auto_frontpage = 0;
 	/** @int уникальные идентификаторы новостей*/

@@ -278,7 +278,6 @@ _cmSplit,
 _cmSplit,
 ['<img src="<?php echo $cur_file_icons_path ?>media.png" />','<?php echo _MOD_FULLMENU_MEDIA_MANAGER?>','index2.php?option=com_jwmmxtd',null,'<?php echo _MOD_FULLMENU_MEDIA_MANAGER?>'],
 			<?php if($canConfig) { ?>
-['<img src="<?php echo $cur_file_icons_path ?>jfmanager.png" />','<?php echo _MOD_FULLMENU_FILE_MANAGER?>','index2.php?option=com_joomlaxplorer',null,'<?php echo _MOD_FULLMENU_FILE_MANAGER?>'],
 ['<img src="<?php echo $cur_file_icons_path ?>license.png" />','<?php echo _SQL_CONSOLE?>','index2.php?option=com_easysql',null,'<?php echo _SQL_CONSOLE?>'],
 _cmSplit,
 ['<img src="<?php echo $cur_file_icons_path ?>checkin.png" />', '<?php echo _GLOBAL_CHECKIN?>', 'index2.php?option=com_checkin', null,'<?php echo _GLOBAL_CHECKIN?>'],
