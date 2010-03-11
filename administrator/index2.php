@@ -16,6 +16,11 @@ define('JPATH_BASE', dirname(dirname(__FILE__)) );
 // корень файлов админкиы
 define('JPATH_BASE_ADMIN', dirname(__FILE__) );
 
+if(!file_exists(JPATH_BASE.DS.'configuration.php')) {
+	header('Location: ../installation/index.php');
+	exit();
+}
+
 (ini_get('register_globals') == 1) ? require_once (JPATH_BASE.DS.'includes'.DS.'globals.php') : null;
 require_once (JPATH_BASE.DS.'configuration.php');
 

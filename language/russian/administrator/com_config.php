@@ -169,7 +169,6 @@ DEFINE('_FILE_MODE5','Выберите этот пункт для установ
 DEFINE('_FRONT_SESSION_TIME','Время существования сессии на фронте');
 DEFINE('_FRONT_SESSION_TIME2','Время автоотключения пользователя сайта при неактивности. Большое значение этого параметра снижает безопасность.');
 DEFINE('_FRONTPAGE','Фронт');
-DEFINE('_GZ_CSS_JS','Сжатие CSS и JS файлов');
 DEFINE('_HELP_SERVER','Сервер помощи');
 DEFINE('_HELP_SERVER2','Сервер помощи - Если поле пустое, то файлы помощи будут браться из локальной папки http://адрес_вашего_сайта/help/, Для включения сервера On-Line помощи введите http://help.joom.ru или http://help.joomla.org');
 DEFINE('_HTML_CSS_EDITOR','Визуальный редактор для html и css');

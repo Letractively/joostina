@@ -129,9 +129,6 @@ INSERT INTO `#__components` VALUES (1, 'Баннеры', '', 0, 0, 'option=com_b
 INSERT INTO `#__components` VALUES (2, 'Баннеры', '', 0, 1, 'option=com_banners&task=banners', 'Активные баннеры', 'com_banners', 1, 'js/ThemeOffice/edit.png', 0, '');
 INSERT INTO `#__components` VALUES (3, 'Клиенты', '', 0, 1, 'option=com_banners&task=clients', 'Управление клиентами', 'com_banners', 2, 'js/ThemeOffice/categories.png', 0, '');
 INSERT INTO `#__components` VALUES (25, 'Категории', '', 0, 1, 'option=com_banners&task=categories', 'Управление категориями', 'com_banners', 2, 'js/ThemeOffice/categories.png', 0, '');
-INSERT INTO `#__components` VALUES (4, 'Каталог ссылок', 'option=com_weblinks', 0, 0, '', 'Управление ссылками', 'com_weblinks', 0, 'js/ThemeOffice/globe2.png', 0, '');
-INSERT INTO `#__components` VALUES (5, 'Ссылки', '', 0, 4, 'option=com_weblinks', 'Просмотр существующих ссылок', 'com_weblinks', 1, 'js/ThemeOffice/edit.png', 0, '');
-INSERT INTO `#__components` VALUES (6, 'Категории', '', 0, 4, 'option=com_categories&section=com_weblinks', 'Управление категориями ссылок', '', 2, 'js/ThemeOffice/categories.png', 0, '');
 INSERT INTO `#__components` VALUES (7, 'Контакты', 'option=com_contact', 0, 0, '', 'Редактировать контактную информацию', 'com_contact', 0, 'js/ThemeOffice/user.png', 1, '');
 INSERT INTO `#__components` VALUES (8, 'Контакты', '', 0, 7, 'option=com_contact', 'Редактировать контактную информацию', 'com_contact', 0, 'js/ThemeOffice/edit.png', 1, '');
 INSERT INTO `#__components` VALUES (9, 'Категории', '', 0, 7, 'option=com_categories&section=com_contact_details', 'Управление категориями контактов', '', 2, 'js/ThemeOffice/categories.png', 1, '');
@@ -318,7 +315,6 @@ INSERT INTO `#__mambots` VALUES (2,'Разбиение на страницы MOS
 INSERT INTO `#__mambots` VALUES (4,'SEF','mossef','content',0,3,0,0,0,0,'0000-00-00 00:00:00','');
 INSERT INTO `#__mambots` VALUES (5,'Рейтинг статей','plugin_jw_ajaxvote','content',0,4,1,1,0,0,'0000-00-00 00:00:00','');
 INSERT INTO `#__mambots` VALUES (6,'Поиск содержимого','content.searchbot','search',0,1,1,1,0,0,'0000-00-00 00:00:00','');
-INSERT INTO `#__mambots` VALUES (7,'Поиск веб-ссылок','weblinks.searchbot','search',0,2,1,1,0,0,'0000-00-00 00:00:00','');
 INSERT INTO `#__mambots` VALUES (8,'Поддержка кода','moscode','content',0,2,0,0,0,0,'0000-00-00 00:00:00','');
 INSERT INTO `#__mambots` VALUES (9,'Простой редактор HTML','none','editors',0,0,1,1,0,0,'0000-00-00 00:00:00','');
 INSERT INTO `#__mambots` VALUES (10, 'WYSIWYG-редактор JCE', 'jce', 'editors', 0, 1, 1, 0, 0, 0, '0000-00-00 00:00:00', 'theme=advance\r\neditor_width=100%');
@@ -718,30 +714,6 @@ INSERT INTO `#__usertypes` VALUES (6, 'manager', '');
 # --------------------------------------------------------
 
 #
-# Структура таблицы `#__weblinks`
-#
-
-CREATE TABLE `#__weblinks` (
-  `id` int(11) unsigned NOT NULL auto_increment,
-  `catid` int(11) NOT NULL default '0',
-  `sid` int(11) NOT NULL default '0',
-  `title` varchar(250) NOT NULL default '',
-  `url` varchar(250) NOT NULL default '',
-  `description` varchar(250) NOT NULL default '',
-  `date` datetime NOT NULL default '0000-00-00 00:00:00',
-  `hits` int(11) NOT NULL default '0',
-  `published` tinyint(1) NOT NULL default '0',
-  `checked_out` int(11) NOT NULL default '0',
-  `checked_out_time` datetime NOT NULL default '0000-00-00 00:00:00',
-  `ordering` int(11) NOT NULL default '0',
-  `archived` tinyint(1) NOT NULL default '0',
-  `approved` tinyint(1) NOT NULL default '1',
-  `params` text NOT NULL,
-  PRIMARY KEY  (`id`),
-  KEY `catid` (`catid`,`published`,`archived`)
-) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
-
-#
 # Структура таблицы `#__core_acl_aro`
 #
 
@@ -999,7 +971,6 @@ CREATE TABLE IF NOT EXISTS `#__xmap_ext` (
 ) ENGINE=MyISAM  CHARACTER SET utf8 COLLATE utf8_general_ci;
 # запись о расширении для создания карты контента
 INSERT INTO `#__xmap_ext` ( `extension`, `published`, `params`) VALUES ( 'com_content', 1, '-1{expand_categories=1\nexpand_sections=1\nshow_unauth=0\ncat_priority=-1\ncat_changefreq=-1\nart_priority=-1\nart_changefreq=-1}');
-INSERT INTO `#__xmap_ext` ( `extension`, `published`, `params`) VALUES ( 'com_weblinks', 1, '');
 
 # таблица хранения конфигураций сайта
 CREATE TABLE IF NOT EXISTS `#__config` (

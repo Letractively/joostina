@@ -297,10 +297,6 @@ function editCategory($uid = 0,$section = '') {
 
 		// code for Link Menu
 		switch($row->section) {
-			case 'com_weblinks':
-				$and = "\n AND type = 'weblink_category_table'";
-				$link = _TABLE_LINKS_CATEGORY;
-				break;
 
 			case 'com_newsfeeds':
 				$and = "\n AND type = 'newsfeed_category_table'";
@@ -413,13 +409,11 @@ function editCategory($uid = 0,$section = '') {
 	if($row->section == 'com_newsfeeds') {
 		$types[] = mosHTML::makeOption('newsfeed_category_table',_TABLE_NEWSFEEDS_CATEGORY);
 	} else
-	if($row->section == 'com_weblinks') {
-		$types[] = mosHTML::makeOption('weblink_category_table',_TABLE_LINKS_CATEGORY);
-	} else {
+
 		$types[] = mosHTML::makeOption('content_category',_TABLE_CATEGORY_CONTENT);
-		$types[] = mosHTML::makeOption('content_blog_category',_BLOG_CATEGORY_CONTENT);
-		$types[] = mosHTML::makeOption('content_archive_category',_BLOG_CATEGORY_ARCHIVE);
-	} // if
+	$types[] = mosHTML::makeOption('content_blog_category',_BLOG_CATEGORY_CONTENT);
+	$types[] = mosHTML::makeOption('content_archive_category',_BLOG_CATEGORY_ARCHIVE);
+
 	$lists['link_type'] = mosHTML::selectList($types,'link_type','class="inputbox" size="1"','value','text');
 
 	// build the html select list for ordering
@@ -536,8 +530,7 @@ function saveCategory($task) {
 	}
 
 	// Update Section Count
-	if($row->section != 'com_contact_details' && $row->section != 'com_newsfeeds' &&
-			$row->section != 'com_weblinks') {
+	if($row->section != 'com_contact_details' && $row->section != 'com_newsfeeds') {
 		$query = "UPDATE #__sections SET count=count+1 WHERE id = ".$database->Quote($row->section);
 		$database->setQuery($query);
 	}
@@ -1000,11 +993,7 @@ function menuLink($id) {
 			$link = 'index.php?option=com_newsfeeds&catid='.$id;
 			$menutype = _TABLE_NEWSFEEDS_CATEGORY;
 			break;
-
-		case 'weblink_category_table':
-			$link = 'index.php?option=com_weblinks&catid='.$id;
-			$menutype = _TABLE_LINKS_CATEGORY;
-			break;
+		
 	}
 
 	$row = new mosMenu($database);

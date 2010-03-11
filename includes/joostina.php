@@ -515,6 +515,7 @@ class mosMainFrame {
 		return implode("\n",$footer)."\n";
 	}
 
+
 	/**
 	 * добавление js файлов в шапку или футер страницы
 	 * если $footer - скрипт будет добавлен в $mainframe->_footer
@@ -522,11 +523,12 @@ class mosMainFrame {
 	 * 	'js' - скрипт будет добавлен в $mainfrane->_footer['js'] (первый этап вывода футера)
 	 * 	'custom' - скрипт будет добавлен в $mainfrane->_footer['custom'] (второй этап вывода футера)
 	 */
-	function addJS($path, $footer = '', &$def = '') {
+	public function addJS($path, $footer = '', &$def = '') {
+		$mainframe = mosMainFrame::getInstance();
 		if($footer) {
-			$this->_footer[$footer][] = '<script language="JavaScript" src="'. $path .'" type="text/javascript"></script>';
+			$mainframe->_footer[$footer][] = '<script language="JavaScript" src="'. $path .'" type="text/javascript"></script>';
 		}else {
-			$this->_head['js'][] = '<script language="JavaScript" src="'. $path .'" type="text/javascript"></script>';
+			$mainframe->_head['js'][] = '<script language="JavaScript" src="'. $path .'" type="text/javascript"></script>';
 		}
 	}
 	/**
@@ -2180,8 +2182,6 @@ class JConfig {
 	var $config_disable_access_control = 0;
 	/** @var int включение оптимизации функции кэширования*/
 	var $config_cache_opt = 0;
-	/** @var int включение сжатия css и js файлов*/
-	var $config_gz_js_css = 0;
 	/** @var int captcha для регистрации*/
 	var $config_captcha_reg = 0;
 	/** @var int captcha для формы контактов*/
@@ -4625,15 +4625,8 @@ class mosTabs {
 	function mosTabs($useCookies,$xhtml = 0) {
 		$mainframe = &MosMainFrame::getInstance();
 		$config = $mainframe->get('config');
-
-		// активация gzip сжатия css и js файлов
-		if($config->config_gz_js_css) {
-			$css_f = 'joostina.tabs.css.php';
-			$js_f = 'joostina.tabs.js.php';
-		} else {
-			$css_f = 'tabpane.css';
-			$js_f = 'tabpane.js';
-		}
+		$css_f = 'tabpane.css';
+		$js_f = 'tabpane.js';
 
 		$r_dir = '';
 		if($mainframe->isAdmin()==1) {
