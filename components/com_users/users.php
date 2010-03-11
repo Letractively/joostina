@@ -41,7 +41,7 @@ switch($task) {
 
 	case 'saveUserEdit':
 	// check to see if functionality restricted for use as demo site
-		if(joomlaVersion::get('RESTRICT') == 1) {
+		if(coreVersion::get('RESTRICT') == 1) {
 			mosRedirect('index.php',_RESTRICT_FUNCTION);
 		} else {
 			userSave($option,$my->id);

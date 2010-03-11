@@ -387,7 +387,7 @@ if(!class_exists('mosMenuBar')) {
 					} else
 					if($helpUrl) {
 						// Online help site as defined in GC
-						$_VERSION	= new joomlaVersion();
+						$_VERSION	= new coreVersion();
 						$ref .= $_VERSION->getHelpVersion();
 						$url = $helpUrl.'/index2.php?option=com_content&amp;task=findkey&amp;pop=1&amp;keyref='.urlencode($ref);
 					} else {

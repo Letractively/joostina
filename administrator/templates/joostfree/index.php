@@ -93,7 +93,7 @@ $option = mosGetParam( $_REQUEST, 'option', '' );
 		</div>
 		<?php
 // копирайты, не удалять ):-))
-		$_VERSION	= new joomlaVersion();
+		$_VERSION	= new coreVersion();
 		$jostina_ru	= $_VERSION->CMS.' '.$_VERSION->CMS_ver.'.'.$_VERSION->DEV_STATUS.' [ '.$_VERSION->CODENAME.' ] '.$_VERSION->RELDATE.' '.$_VERSION->RELTIME.' '.$_VERSION->RELTZ.'<br />'.$_VERSION->SUPPORT;
 		?>
 		<div id="footer" align="center" class="smallgrey"><?php echo $jostina_ru; ?></div>

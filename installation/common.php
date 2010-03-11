@@ -84,6 +84,6 @@ function mosChmodRecursive($path,$filemode = null,$dirmode = null) {
 } // mosChmodRecursive
 
 require_once ('../includes/version.php');
-$_VERSION = new joomlaVersion();
+$_VERSION = new coreVersion();
 $versioninfo = $_VERSION->RELEASE.'.'.$_VERSION->CMS_ver;
 $version = $_VERSION->CMS.' '.$_VERSION->CMS_ver.' '.$_VERSION->DEV_STATUS.' [ '.$_VERSION->CODENAME.' ] '.$_VERSION->RELDATE.' '.$_VERSION->RELTIME.' '.$_VERSION->RELTZ;

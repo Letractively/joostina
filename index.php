@@ -51,7 +51,7 @@ define('JPATH_SITE', $mosConfig_live_site );
 require_once (JPATH_BASE.DS.'includes'.DS.'joostina.php');
 
 //Проверка подпапки установки, удалена при работе с SVN
-if(file_exists('installation/index.php') && joomlaVersion::get('SVN') == 0) {
+if(file_exists('installation/index.php') && coreVersion::get('SVN') == 0) {
 	define('_INSTALL_CHECK',1);
 	include (JPATH_BASE.DS.'templates'.DS.'system'.DS.'offline.php');
 	exit();

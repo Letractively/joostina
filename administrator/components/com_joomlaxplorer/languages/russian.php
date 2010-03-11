@@ -16,7 +16,7 @@ defined('_VALID_MOS') or die();
 ** Encoding: Win-1251
 *******************************************************************************/
 
-$_VERSION = new joomlaVersion();
+$_VERSION = new coreVersion();
 
 $GLOBALS['charset'] = 'utf-8';
 $GLOBALS['text_dir'] = 'ltr'; // ('ltr' для слева направо, 'rtl' для справа налево)

@@ -36,7 +36,7 @@ switch($task) {
 	case 'save':
 	case 'apply':
 	// check to see if functionality restricted for use as demo site
-		if(joomlaVersion::get('RESTRICT') == 1) {
+		if(coreVersion::get('RESTRICT') == 1) {
 			mosRedirect('index2.php?mosmsg='._RESTRICT_FUNCTION);
 		} else {
 			saveUser($task);
@@ -49,7 +49,7 @@ switch($task) {
 
 	case 'block':
 	// check to see if functionality restricted for use as demo site
-		if(joomlaVersion::get('RESTRICT') == 1) {
+		if(coreVersion::get('RESTRICT') == 1) {
 			mosRedirect('index2.php?mosmsg='._RESTRICT_FUNCTION);
 		} else {
 			changeUserBlock($cid,1,$option);

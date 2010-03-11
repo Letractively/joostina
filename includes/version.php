@@ -14,13 +14,11 @@ defined('_VALID_MOS') or die();
  * Информация о версии
  * @package Joostina
  */
-class joomlaVersion {
-	/** @var строка Продукт*/
-	var $PRODUCT = 'Joomla!';
+class coreVersion {
 	/** @var строка CMS*/
 	var $CMS = 'Joostina';
 	/** @var версия*/
-	var $CMS_ver = '1.3.0';
+	var $CMS_ver = '1.3.1';
 	/** @var int Номер основной версии*/
 	var $RELEASE = '1.0';
 	/** @var строка  статус разработки*/
@@ -32,9 +30,9 @@ class joomlaVersion {
 	/** @var string Кодовое имя*/
 	var $CODENAME = '';
 	/** @var string Дата*/
-	var $RELDATE = '12:03:2010';
+	var $RELDATE = '**:03:2010';
 	/** @var string Время*/
-	var $RELTIME = '01:10';
+	var $RELTIME = '**:**';
 	/** @var string Временная зона*/
 	var $RELTZ = '+5 GMT';
 	/** @var string Текст авторских прав*/
@@ -63,7 +61,7 @@ class joomlaVersion {
 	}
 	// получение переменных окружения информации осистеме
 	public static function get($name) {
-		$v = new joomlaVersion();
+		$v = new coreVersion();
 		return $v->$name;
 	}
 }
