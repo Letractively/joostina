@@ -70,11 +70,6 @@ if($pop=='1' && $page==0) $print = true;
 //$mainframe = new mosMainFrame($database,$option,'.');
 $mainframe = &mosMainFrame::getInstance();
 
-//Межсайтовая интеграция
-//if(is_file(JPATH_BASE.DS.'multisite.config.php')){
-//	include_once(JPATH_BASE.DS.'multisite.config.php');
-//}
-
 if($mosConfig_no_session_front == 0) {
 	$mainframe->initSession();
 }
@@ -84,13 +79,8 @@ if($mosConfig_mmb_system_off == 0) {
 	$_MAMBOTS->trigger('onAfterStart');
 }
 
-if($mainframe->get('_multisite')=='2' && $cookie_exist ) {
-	$mainframe->set('_multisite_params', $m_s);
-	$my = $mainframe->getUser_from_sess($_COOKIE[mosMainFrame::sessionCookieName($m_s->main_site)]);
-}
-else {
-	$my = $mainframe->getUser();
-}
+$my = $mainframe->getUser();
+
 $gid = intval($my->gid);
 // patch to lessen the impact on templates
 if($option == 'search') {
