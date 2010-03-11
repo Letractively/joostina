@@ -42,10 +42,6 @@ class mod_ml_login_Helper {
 		}
 
 		$params->_action = sefRelToAbs('index.php?option=logout');
-		if($mainframe->get('_multisite') == 2) {
-			$params->_action = sefRelToAbs($mainframe->_multisite_params->main_site.'/index.php?option=logout');
-		}
-
 		$params->_returnUrl = self::get_return($params);
 
 		return $params;

@@ -47,11 +47,6 @@ unset($http_host);
 // live_site
 define('JPATH_SITE', $mosConfig_live_site );
 
-//Межсайтовая интеграция
-if(is_file($mosConfig_absolute_path.DIRECTORY_SEPARATOR.'multisite.config.php')) {
-	include_once($mosConfig_absolute_path.DIRECTORY_SEPARATOR.'multisite.config.php');
-}
-
 // подключение главного файла - ядра системы
 require_once (JPATH_BASE.DS.'includes'.DS.'joostina.php');
 
@@ -88,22 +83,9 @@ if($mosConfig_offline == 1) {
 	require (JPATH_BASE.DS.'templates'.DS.'system'.DS.'offline.php');
 }
 
-//Межсайтовая интеграция
-if(DEFINED('_MULTISITE')) {
-	$mainframe->set('_multisite', $m_s->flag);
-	$mainframe->set('_multisite_params', $m_s);
-}
-
 // отключение ведения сессий на фронте
 ($mosConfig_no_session_front == 0) ? $mainframe->initSession() : null;
 
-//Межсайтовая интеграция
-if(DEFINED('_MULTISITE')) {
-	$cookie_exist = 0;
-	if(isset($_COOKIE[mosMainFrame::sessionCookieName($m_s->main_site)])) {
-		$cookie_exist = 1;
-	}
-}
 
 // триггер событий onAfterStart
 ($mosConfig_mmb_system_off == 0) ? $_MAMBOTS->trigger('onAfterStart') : null;
@@ -126,11 +108,7 @@ include_once($mainframe->getLangFile('',$mosConfig_lang));
 $return		= strval(mosGetParam($_REQUEST,'return',null));
 $message	= intval(mosGetParam($_POST,'message',0));
 
-if($mainframe->get('_multisite')=='2' && $cookie_exist ) {
-	$my = $mainframe->getUser_from_sess($_COOKIE[mosMainFrame::sessionCookieName($m_s->main_site)]);
-}else {
-	$my = $mainframe->getUser();
-}
+$my = $mainframe->getUser();
 
 $gid = intval($my->gid);
 
