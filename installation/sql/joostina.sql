@@ -133,7 +133,6 @@ INSERT INTO `#__components` VALUES (7, 'Контакты', 'option=com_contact',
 INSERT INTO `#__components` VALUES (8, 'Контакты', '', 0, 7, 'option=com_contact', 'Редактировать контактную информацию', 'com_contact', 0, 'js/ThemeOffice/edit.png', 1, '');
 INSERT INTO `#__components` VALUES (9, 'Категории', '', 0, 7, 'option=com_categories&section=com_contact_details', 'Управление категориями контактов', '', 2, 'js/ThemeOffice/categories.png', 1, '');
 INSERT INTO `#__components` VALUES (10, 'Главная страница', 'option=com_frontpage', 0, 0, '', 'Управление объектами главной страницы', 'com_frontpage', 0, 'js/ThemeOffice/component.png', 1, '');
-INSERT INTO `#__components` VALUES (11, 'Опросы', 'option=com_poll', 0, 0, 'option=com_poll', 'Управление опросами', 'com_poll', 0, 'js/ThemeOffice/component.png', 0, '');
 INSERT INTO `#__components` VALUES (12, 'Ленты новостей', 'option=com_newsfeeds', 0, 0, '', 'Управление настройками лент новостей', 'com_newsfeeds', 0, 'js/ThemeOffice/rss_go.png', 0, '');
 INSERT INTO `#__components` VALUES (13, 'Ленты новостей', '', 0, 12, 'option=com_newsfeeds', 'Управление лентами новостей', 'com_newsfeeds', 1, 'js/ThemeOffice/edit.png', 0, '');
 INSERT INTO `#__components` VALUES (14, 'Категории', '', 0, 12, 'option=com_categories&section=com_newsfeeds', 'Управление категориями', '', 2, 'js/ThemeOffice/categories.png', 0, '');
@@ -395,7 +394,6 @@ CREATE TABLE `#__modules` (
 # Данные таблицы `#__modules`
 #
 
-INSERT INTO `#__modules` VALUES (1, 'Ваше мнение', '', 4, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_poll', 0, 0, 1, 'cache=1\nmoduleclass_sfx=', 0, 0);
 INSERT INTO `#__modules` VALUES (2, 'Меню пользователя', '', 1, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_mljoostinamenu', 0, 1, 1, 'moduleclass_sfx=_menu\nclass_sfx=\nmenutype=usermenu\nmenu_style=ulli\nml_imaged=0\nml_module_number=1\nml_first_hidden=0\nfull_active_id=0\nmenu_images=0\nmenu_images_align=0\nexpand_menu=0\nactivate_parent=0\nindent_image=0\nindent_image1=\nindent_image2=\nindent_image3=\nindent_image4=\nindent_image5=\nindent_image6=\nml_separated_link=0\nml_linked_sep=0\nml_separated_link_first=0\nml_separated_link_last=0\nml_hide_active=0\nml_separated_active=0\nml_linked_sep_active=0\nml_separated_active_first=0\nml_separated_active_last=0\nml_separated_element=0\nml_separated_element_first=0\nml_separated_element_last=0\nml_td_width=0\nml_div=0\nml_aligner=left\nml_rollover_use=0\nml_image1=-1\nml_image2=-1\nml_image3=-1\nml_image4=-1\nml_image5=-1\nml_image6=-1\nml_image7=-1\nml_image8=-1\nml_image9=-1\nml_image10=-1\nml_image11=-1\nml_image_roll_1=-1\nml_image_roll_2=-1\nml_image_roll_3=-1\nml_image_roll_4=-1\nml_image_roll_5=-1\nml_image_roll_6=-1\nml_image_roll_7=-1\nml_image_roll_8=-1\nml_image_roll_9=-1\nml_image_roll_10=-1\nml_image_roll_11=-1\nml_hide_logged1=1\nml_hide_logged2=1\nml_hide_logged3=1\nml_hide_logged4=1\nml_hide_logged5=1\nml_hide_logged6=1\nml_hide_logged7=1\nml_hide_logged8=1\nml_hide_logged9=1\nml_hide_logged10=1\nml_hide_logged11=1', 1, 0);
 INSERT INTO `#__modules` VALUES (3, 'Главное меню', '', 2, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_mljoostinamenu', 0, 0, 0, 'cache=1\nmoduleclass_sfx=-round\nclass_sfx=\nmenutype=mainmenu\nmenu_style=ulli\nml_imaged=0\nml_module_number=1\nnumrow=5\nml_first_hidden=1\nfull_active_id=0\nmenu_images=0\nmenu_images_align=0\nexpand_menu=0\nactivate_parent=0\nindent_image=0\nindent_image1=\nindent_image2=\nindent_image3=\nindent_image4=\nindent_image5=\nindent_image6=\nml_separated_link=0\nml_linked_sep=0\nml_separated_link_first=0\nml_separated_link_last=0\nml_hide_active=0\nml_separated_active=0\nml_linked_sep_active=0\nml_separated_active_first=0\nml_separated_active_last=0\nml_separated_element=0\nml_separated_element_first=0\nml_separated_element_last=0\nml_td_width=0\nml_div=0\nml_aligner=left\nml_rollover_use=0\nml_image1=-1\nml_image2=-1\nml_image3=-1\nml_image4=-1\nml_image5=-1\nml_image6=apply.png\nml_image7=apply.png\nml_image8=apply.png\nml_image9=apply.png\nml_image10=apply.png\nml_image11=apply.png\nml_image_roll_1=-1\nml_image_roll_2=-1\nml_image_roll_3=-1\nml_image_roll_4=-1\nml_image_roll_5=-1\nml_image_roll_6=-1\nml_image_roll_7=-1\nml_image_roll_8=-1\nml_image_roll_9=-1\nml_image_roll_10=-1\nml_image_roll_11=-1\nml_hide_logged1=1\nml_hide_logged2=1\nml_hide_logged3=1\nml_hide_logged4=1\nml_hide_logged5=1\nml_hide_logged6=1\nml_hide_logged7=1\nml_hide_logged8=1\nml_hide_logged9=1\nml_hide_logged10=1\nml_hide_logged11=1', 1, 0);
 INSERT INTO `#__modules` VALUES (4, 'Авторизация', '', 1, 'toolbar', 0, '0000-00-00 00:00:00', 1, 'mod_ml_login', 0, 0, 0, 'moduleclass_sfx=\nml_visibility=1\ndr_login_text=Вход\norientation=0\nml_avatar=0\npretext=\nposttext=\nlogin=\nlogin_message=0\ngreeting=1\nuser_name=0\nprofile_link=0\nprofile_link_text=Личный кабинет\nlogout=\nlogout_message=0\nshow_login_text=1\nshow_login_tooltip=1\nml_login_text=Логин\nlogin_tooltip_text=\nshow_pass_text=1\nshow_pass_tooltip=0\nml_pass_text=\npass_tooltip_text=\nshow_remember=0\nml_rem_text=\nshow_lost_pass=1\nml_rem_pass_text=\nshow_register=1\nml_reg_text=\nsubmit_button_text=', 1, 0);
@@ -404,7 +402,6 @@ INSERT INTO `#__modules` VALUES (6, 'Последние новости', '', 1, 
 INSERT INTO `#__modules` VALUES (7, 'Статистика', '', 2, 'user9', 0, '0000-00-00 00:00:00', 1, 'mod_stats', 0, 0, 0, 'cache=1\nserverinfo=1\nsiteinfo=0\ncounter=0\nincrease=0\nmoduleclass_sfx=-stat', 0, 0);
 INSERT INTO `#__modules` VALUES (8, 'Пользователи', '', 1, 'user9', 0, '0000-00-00 00:00:00', 1, 'mod_whosonline', 0, 0, 1, 'nmoduleclass_sfx=\nmodule_orientation=0\nall_user=1\nonline_user_count=0\nonline_users=0\nuser_avatar=0', 0, 0);
 INSERT INTO `#__modules` VALUES (9, 'Популярное', '', 1, 'user6', 0, '0000-00-00 00:00:00', 1, 'mod_mostread', 0, 0, 1, 'cache=1\nmoduleclass_sfx=\ncache=1\nnoncss=0\ntype=1\nshow_front=1\nshow_hits=0\ncount=3\ncatid=\nsecid=\ndef_itemid=0', 0, 0);
-INSERT INTO `#__modules` VALUES (10, 'Выбор шаблона', '', 7, 'left', 0, '0000-00-00 00:00:00', 0, 'mod_templatechooser', 0, 0, 1, 'show_preview=1', 0, 0);
 INSERT INTO `#__modules` VALUES (11, 'Архив', '', 8, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_archive', 0, 0, 1, '', 1, 0);
 INSERT INTO `#__modules` VALUES (12, 'Разделы', '', 9, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_sections', 0, 0, 1, '', 1, 0);
 INSERT INTO `#__modules` VALUES (13, 'Краткие новости', '', 1, 'top', 0, '0000-00-00 00:00:00', 0, 'mod_newsflash', 0, 0, 0, 'ncatid=3\nstyle=random\nimage=0\nlink_titles=\nreadmore=0\nitem_title=0\nitems=\ncache=0\nmoduleclass_sfx=', 0, 0);
@@ -493,58 +490,6 @@ CREATE TABLE `#__newsfeeds` (
   `code` int(2) NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `published` (`published`)
-) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
-
-#
-# Структура таблицы `#__poll_data`
-#
-
-CREATE TABLE `#__poll_data` (
-  `id` int(11) NOT NULL auto_increment,
-  `pollid` int(4) NOT NULL default '0',
-  `text` text NOT NULL,
-  `hits` int(11) NOT NULL default '0',
-  PRIMARY KEY  (`id`),
-  KEY `pollid` (`pollid`,`text`(1))
-) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
-
-#
-# Структура таблицы `#__poll_date`
-#
-
-CREATE TABLE `#__poll_date` (
-  `id` bigint(20) NOT NULL auto_increment,
-  `date` datetime NOT NULL default '0000-00-00 00:00:00',
-  `vote_id` int(11) NOT NULL default '0',
-  `poll_id` int(11) NOT NULL default '0',
-  PRIMARY KEY  (`id`),
-  KEY `poll_id` (`poll_id`)
-) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
-
-#
-# Структура таблицы `#__polls`
-#
-
-CREATE TABLE `#__polls` (
-  `id` int(11) unsigned NOT NULL auto_increment,
-  `title` varchar(100) NOT NULL default '',
-  `voters` int(9) NOT NULL default '0',
-  `checked_out` int(11) NOT NULL default '0',
-  `checked_out_time` datetime NOT NULL default '0000-00-00 00:00:00',
-  `published` tinyint(1) NOT NULL default '0',
-  `access` int(11) NOT NULL default '0',
-  `lag` int(11) NOT NULL default '0',
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
-
-#
-# Структура таблицы `#__poll_menu`
-#
-
-CREATE TABLE `#__poll_menu` (
-  `pollid` int(11) NOT NULL default '0',
-  `menuid` int(11) NOT NULL default '0',
-  PRIMARY KEY  (`pollid`,`menuid`)
 ) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 #
