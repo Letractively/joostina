@@ -197,8 +197,6 @@ function showconfig($option) {
 	$lists['config_disable_access_control']= mosHTML::yesnoRadioList('config_disable_access_control','class="inputbox"',$row->config_disable_access_control);
 	// оптимизация функции кэширования
 	$lists['config_cache_opt']= mosHTML::yesnoRadioList('config_cache_opt','class="inputbox"',$row->config_cache_opt);
-	// включение сжатия css и js файлов
-	$lists['config_gz_js_css']= mosHTML::yesnoRadioList('config_gz_js_css','class="inputbox"',$row->config_gz_js_css);
 	// captcha для регистрации
 	$lists['config_captcha_reg']= mosHTML::yesnoRadioList('config_captcha_reg','class="inputbox"',$row->config_captcha_reg);
 	// captcha для формы контактов

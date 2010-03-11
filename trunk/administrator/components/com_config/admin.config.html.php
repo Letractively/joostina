@@ -581,10 +581,6 @@ class HTML_config {
 							<td><strong><?php echo $row->config_secret; ?></strong></td>
 						</tr>
 						<tr>
-							<td><?php echo _GZ_CSS_JS?>:</td>
-							<td><?php echo $lists['config_gz_js_css']; ?></td>
-						</tr>
-						<tr>
 							<td><?php echo _SESSION_TYPE?>:</td>
 							<td>
 										<?php echo $lists['session_type']; ?>

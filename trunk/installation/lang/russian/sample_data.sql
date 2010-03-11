@@ -19,7 +19,6 @@ INSERT INTO `#__banners` VALUES (3, 1, 1, '', 'Joostina_3', 0, 297, 0, 'joostina
 # Данные для таблицы `#__categories`
 #
 INSERT INTO `#__categories` VALUES (1, 0, 'Новости', 'Последние новости', 'taking_notes.jpg', '1', 'left', 'Последние новости от команды разработчиков Joostina!\r\n', 1, 0, '0000-00-00 00:00:00', '', 1, 0, 1, 'imagefolders=*2*','');
-INSERT INTO `#__categories` VALUES (2, 0, 'Joostina!', 'Joostina!', 'clock.jpg', 'com_weblinks', 'left', 'Избранные ссылки на сайты, связанные с проектом Joostina!', 1, 0, '0000-00-00 00:00:00', NULL, 0, 0, 0, '','');
 INSERT INTO `#__categories` VALUES (3, 0, 'Работа с Joostina CMS', 'Работа с Joostina CMS', '', '2', 'left', '', 1, 0, '0000-00-00 00:00:00', '', 2, 0, 0, 'imagefolders=*2*','');
 INSERT INTO `#__categories` VALUES (4, 0, 'Joostina!', 'Joostina!', '', 'com_newsfeeds', 'left', '', 1, 0, '0000-00-00 00:00:00', NULL, 2, 0, 0, '','');
 INSERT INTO `#__categories` VALUES (5, 0, 'Технологии, интересно', 'Технологии', '', 'com_newsfeeds', 'left', '', 1, 0, '0000-00-00 00:00:00', NULL, 1, 0, 0, '','');
@@ -28,7 +27,6 @@ INSERT INTO `#__categories` VALUES (8, 0, 'Финансы', 'Финансы', ''
 INSERT INTO `#__categories` VALUES (9, 0, 'Linux', 'Linux', '', 'com_newsfeeds', 'left', '', 1, 0, '0000-00-00 00:00:00', NULL, 6, 0, 0, '','');
 INSERT INTO `#__categories` VALUES (10, 0, 'Интернет', 'Интернет', '', 'com_newsfeeds', 'left', '', 1, 0, '0000-00-00 00:00:00', NULL, 7, 0, 0, '','');
 INSERT INTO `#__categories` VALUES (12, 0, 'Контакты', 'Контакты', '', 'com_contact_details', 'left', 'Подробная контактная информация для этого сайта', 1, 0, '0000-00-00 00:00:00', NULL, 0, 0, 0, '','');
-INSERT INTO `#__categories` VALUES (13, 0, 'Joostina! по-русски', 'Joostina! по-русски', 'web_links.jpg', 'com_weblinks', 'left', 'Сайты о Joomla! на русском языке.', 1, 0, '0000-00-00 00:00:00', NULL, 0, 0, 0, '','');
 INSERT INTO `#__categories` VALUES (15, 0, 'В помощь веб-разработчику', 'В помощь веб-разработчику', '', '2', 'left', '', 1, 0, '0000-00-00 00:00:00', NULL, 1, 0, 0, 'imagefolders=*2*','');
 
 
@@ -70,7 +68,6 @@ INSERT INTO `#__content_frontpage` VALUES (14, 2);
 #
 INSERT INTO `#__menu` VALUES (2, 'mainmenu', 'Новости', 'index.php?option=com_content&task=section&id=1', 'content_section', 0, 0, 1, 0, 4, 0, '0000-00-00 00:00:00', 0, 0, 0, 3, '');
 INSERT INTO `#__menu` VALUES (3, 'mainmenu', 'Контакты', 'index.php?option=com_contact', 'components', 0, 0, 7, 0, 1, 0, '0000-00-00 00:00:00', 0, 0, 0, 3, '');
-INSERT INTO `#__menu` VALUES (4, 'mainmenu', 'Ссылки', 'index.php?option=com_weblinks', 'components', 1, 0, 4, 0, 6, 0, '0000-00-00 00:00:00', 0, 0, 0, 0, 'menu_image=web_links.jpg\npageclass_sfx=\nback_button=\npage_title=1\nheader=\nheadings=1\nhits=\nitem_description=1\nother_cat=1\ndescription=1\ndescription_text=\nimage=-1\nimage_align=right\nweblink_icons=');
 INSERT INTO `#__menu` VALUES (5, 'mainmenu', 'Поиск', 'index.php?option=com_search', 'components', 1, 0, 16, 0, 7, 0, '0000-00-00 00:00:00', 0, 0, 0, 3, '');
 INSERT INTO `#__menu` VALUES (6, 'mainmenu', 'Лицензия Joostina', 'index.php?option=com_content&task=view&id=5', 'content_typed', 1, 0, 5, 0, 3, 0, '0000-00-00 00:00:00', 0, 0, 0, 0, 'title=Условия использования Joostina CMS\nmenu_image=-1\nunique_itemid=0');
 INSERT INTO `#__menu` VALUES (7, 'mainmenu', 'Ленты новостей', 'index.php?option=com_newsfeeds', 'components', 1, 0, 12, 0, 8, 0, '0000-00-00 00:00:00', 0, 0, 0, 3, 'title=\nmenu_image=-1\npageclass_sfx=\nback_button=\npage_title=1\nheader=\nother_cat_section=1\nother_cat=1\ncat_description=1\ncat_items=1\ndescription=0\ndescription_text=\nimage=-1\nimage_align=right\nheadings=1\nname=1\narticles=1\nlink=0\nfeed_image=1\nfeed_descr=1\nitem_descr=1\nword_count=0');
@@ -84,7 +81,6 @@ INSERT INTO `#__menu` VALUES (14, 'othermenu', 'joomla-support.ru', 'http://www.
 INSERT INTO `#__menu` VALUES (15, 'othermenu', 'joomla.ru', 'http://www.joomla.ru', 'url', 1, 0, 0, 0, 4, 0, '0000-00-00 00:00:00', 0, 0, 0, 3, '');
 INSERT INTO `#__menu` VALUES (16, 'usermenu', 'Панель управления', 'administrator/', 'url', 1, 0, 0, 0, 6, 0, '0000-00-00 00:00:00', 0, 0, 0, 3, 'menu_image=-1');
 INSERT INTO `#__menu` VALUES (18, 'usermenu', 'Добавить материал', 'index.php?option=com_content&task=new', 'submit_content', 1, 0, 0, 0, 2, 0, '0000-00-00 00:00:00', 0, 0, 1, 3, 'title=\nmenu_image=-1\nids_user=\nids_action=0\ncontent_type=0\nwwig=1\nfulltext=1\nallow_alias=1\nallow_img=1\nallow_params=0\nallow_desc=1\nallow_tags=1\nauto_publish=0\nallow_frontpage=1\nfront_label=');
-INSERT INTO `#__menu` VALUES (19, 'usermenu', 'Добавить ссылку', 'index.php?option=com_weblinks&task=new', 'url', 1, 0, 0, 0, 4, 0, '0000-00-00 00:00:00', 0, 0, 1, 2, '');
 INSERT INTO `#__menu` VALUES (20, 'usermenu', 'Разблокировать содержимое', 'index.php?option=com_users&task=CheckIn', 'url', 1, 0, 0, 0, 5, 0, '0000-00-00 00:00:00', 0, 0, 1, 2, '');
 INSERT INTO `#__menu` VALUES (26, 'mainmenu', 'О Joostina (табличный вывод)', 'index.php?option=com_content&task=category&sectionid=3&id=7', 'content_category', 1, 0, 7, 0, 9, 0, '0000-00-00 00:00:00', 0, 0, 0, 0, 'title=О Joostina (табличный вывод)\npage_name=\nno_site_name=1\nrobots=-1\nmeta_description=\nmeta_keywords=\nmeta_author=\nmenu_image=-1\npage_title=1\npageclass_sfx=\nback_button=\ndescription_cat=0\ndescription_cat_image=0\norderby=\ndate_format=\ndate=\nauthor=\nhits=\nheadings=1\nnavigation=1\norder_select=1\ndisplay=1\ndisplay_num=50\nfilter=1\nfilter_type=title\nother_cat=1\nempty_cat=0\ncat_items=1\ncat_description=1\nunpublished=1');
 INSERT INTO `#__menu` VALUES (27, 'mainmenu', 'Карта сайта', 'index.php?option=com_xmap', 'components', 1, 0, 24, 0, 11, 0, '0000-00-00 00:00:00', 0, 0, 0, 0, '');
@@ -134,18 +130,6 @@ INSERT INTO `#__poll_menu` VALUES (14, 0);
 INSERT INTO `#__sections` VALUES (1, 'Новости', 'Новости', 'articles.jpg', 'content', 'right', 'Выберите тему новостей из списка ниже, а затем выберите новость для чтения.', 1, 0, '0000-00-00 00:00:00', 1, 0, 2, '','');
 INSERT INTO `#__sections` VALUES (2, 'Статьи', 'Статьи', '', 'content', 'left', '', 1, 0, '0000-00-00 00:00:00', 2, 0, 6, 'imagefolders=*1*','');
 INSERT INTO `#__sections` VALUES (3, 'О Joostina', 'О Joostina', '', 'content', 'left', '', 1, 0, '0000-00-00 00:00:00', 3, 0, 4, 'imagefolders=*1*','');
-
-#
-# Данные для таблицы `#__weblinks`
-#
-INSERT INTO `#__weblinks` VALUES (1, 2, 0, 'Joostina!', 'http://www.joostina.ru', 'Домашняя страница Joostina!', '2007-10-28 23:20:02', 3, 1, 0, '0000-00-00 00:00:00', 1, 0, 1, 'target=0');
-INSERT INTO `#__weblinks` VALUES (2, 2, 0, 'php.net', 'http://www.php.net', 'Язык программирования, на котором написана Joostina!', '2004-07-07 11:33:24', 0, 1, 0, '0000-00-00 00:00:00', 3, 0, 1, '');
-INSERT INTO `#__weblinks` VALUES (3, 2, 0, 'MySQL', 'http://www.mysql.com', 'База данных, используемая Joostina!', '2004-07-07 10:18:31', 0, 1, 0, '0000-00-00 00:00:00', 5, 0, 1, '');
-INSERT INTO `#__weblinks` VALUES (6, 13, 0, 'Joom.Ru - Русский дом Joomla!', 'http://joom.ru/', 'Русский дом Joomla!', '2005-10-26 22:07:32', 0, 1, 0, '0000-00-00 00:00:00', 1, 0, 1, 'target=0');
-INSERT INTO `#__weblinks` VALUES (7, 13, 0, 'Форумы Joomla!', 'http://joomla-support.ru/', 'Форумы поддержки пользователей Joomla! в России.', '2005-10-26 22:10:39', 0, 1, 0, '0000-00-00 00:00:00', 2, 0, 1, 'target=0');
-INSERT INTO `#__weblinks` VALUES (8, 13, 0, 'Joomlaportal.ru!', 'http://www.joomlaportal.ru/?from_joostina', 'Информация о Joostina и Joomla! в России', '2005-10-26 22:07:32', 0, 1, 0, '0000-00-00 00:00:00', 1, 0, 1, 'target=0');
-INSERT INTO `#__weblinks` VALUES (9, 13, 0, 'Joomlaforum.ru', 'http://www.joomlaforum.ru/?from_joostina', 'Русский форум поддержки Joostina и Joomla.', '2007-10-28 23:21:39', 0, 1, 0, '0000-00-00 00:00:00', 2, 0, 1, 'target=0');
-INSERT INTO `#__weblinks` VALUES (10, 13, 0, 'Joomla.ru', 'http://www.joomla.ru/', 'О Joostina и Joomla в России.', '2007-10-28 23:21:39', 0, 1, 0, '0000-00-00 00:00:00', 2, 0, 1, 'target=0');
 
 # Базовая карта для Xmap
 INSERT INTO `#__xmap_sitemap` VALUES (1, 'Карта сайта', 0, 0, 0, 1, 1, 'img_grey.gif', 'mainmenu,0,1,1,0.5,daily\ntopmenu,1,1,1,0.5,daily', '', 1, 1, 1800, 'sitemap', 0, 43, 0, 39, 0, 1233415318);
