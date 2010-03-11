@@ -88,8 +88,6 @@ INSERT INTO `#__menu` VALUES (29, 'topmenu', 'Новости', 'index.php?option
 INSERT INTO `#__menu` VALUES (30, 'topmenu', 'Статьи', 'index.php?option=com_content&task=section&id=2', 'content_section', 1, 0, 2, 0, 2, 0, '0000-00-00 00:00:00', 0, 0, 0, 0, 'title=Статьи\npage_name=\nno_site_name=1\nmenu_image=-1\npage_title=1\npageclass_sfx=\nback_button=\ndescription_sec=1\ndescription_sec_image=1\nrobots=-1\nmeta_description=\nmeta_keywords=\nmeta_author=\norderby=\nother_cat_section=1\nempty_cat_section=0\ndescription=1\ndescription_image=1\nother_cat=0\nempty_cat=0\ncat_items=1\ncat_description=1\ndate_format=\ndate=\nauthor=\nhits=\nheadings=1\nnavigation=1\norder_select=1\ndisplay=1\ndisplay_num=50\nfilter=1\nfilter_type=title\nunpublished=1');
 INSERT INTO `#__menu` VALUES (32, 'topmenu', 'О Joostina', 'index.php?option=com_content&task=blogcategory&id=7', 'content_blog_category', 1, 0, 7, 0, 3, 0, '0000-00-00 00:00:00', 0, 0, 0, 0, 'title=\npage_name=\nno_site_name=1\nmenu_image=-1\npageclass_sfx=\nback_button=\nheader=\npage_title=1\nrobots=-1\nmeta_description=\nmeta_keywords=\nmeta_author=\nleading=3\nintro=0\ncolumns=2\nlink=4\norderby_pri=\norderby_sec=\npagination=2\npagination_results=1\nimage=1\ndescription=1\ndescription_image=1\ncategory=0\ncategory_link=0\nitem_title=1\nlink_titles=\nreadmore=\nrating=0\nauthor=0\ncreatedate=\nmodifydate=\nprint=0\nemail=0\nunpublished=0\ncategoryid=7');
 INSERT INTO `#__menu` VALUES (33, 'topmenu', 'Контакты', 'index.php?option=com_contact', 'components', 1, 0, 7, 0, 4, 0, '0000-00-00 00:00:00', 0, 0, 0, 0, 'title=Контакты');
-INSERT INTO `#__menu` VALUES (34, 'mainmenu', 'Опросы', 'index.php?option=com_poll', 'components', 1, 0, 11, 0, 12, 0, '0000-00-00 00:00:00', 0, 0, 0, 0, 'title=\nmenu_image=-1\npageclass_sfx=\nback_button=\npage_title=1\nheader=');
-
 
 # Данные для таблицы `#__newsfeeds`
 #
@@ -97,32 +95,6 @@ INSERT INTO `#__newsfeeds` VALUES (4, 1, 'Joostina! - Новости офици�
 INSERT INTO `#__newsfeeds` VALUES (4, 11, 'Новости Joostina и Joomla! в России', 'http://www.joomlaportal.ru/component/option,com_rss/feed,RSS2.0/no_html,1/', '', 1, 5, 3600, 0, '0000-00-00 00:00:00', 2,0);
 INSERT INTO `#__newsfeeds` VALUES (4, 12, 'Форумы о Joomla! в России', 'http://forum.joom.ru/index.php?type=rss;action=.xml', '', 1, 5, 1200, 0, '0000-00-00 00:00:00', 1,0);
 INSERT INTO `#__newsfeeds` VALUES (5, 5, 'Хабрахабр', 'http://www.habrahabr.ru/rss/', '', 1, 3, 3600, 0, '0000-00-00 00:00:00', 2,0);
-
-#
-# Данные для таблицы `#__poll_data`
-#
-INSERT INTO `#__poll_data` VALUES (1, 14, 'Нормально, без проблем', 2);
-INSERT INTO `#__poll_data` VALUES (2, 14, 'Были некоторые затруднения', 0);
-INSERT INTO `#__poll_data` VALUES (3, 14, 'А что, уже все установлено? Какой я молодец!', 0);
-INSERT INTO `#__poll_data` VALUES (4, 14, '', 0);
-INSERT INTO `#__poll_data` VALUES (5, 14, '', 0);
-INSERT INTO `#__poll_data` VALUES (6, 14, '', 0);
-INSERT INTO `#__poll_data` VALUES (7, 14, '', 0);
-INSERT INTO `#__poll_data` VALUES (8, 14, '', 0);
-INSERT INTO `#__poll_data` VALUES (9, 14, '', 0);
-INSERT INTO `#__poll_data` VALUES (10, 14, '', 0);
-INSERT INTO `#__poll_data` VALUES (11, 14, '', 0);
-INSERT INTO `#__poll_data` VALUES (12, 14, '', 0);
-
-#
-# Данные для таблицы `#__polls`
-#
-INSERT INTO `#__polls` VALUES (14, 'Как прошла установка?', 2, 0, '0000-00-00 00:00:00', 1, 0, 86400);
-
-#
-# Данные для таблицы `#__poll_menu`
-#
-INSERT INTO `#__poll_menu` VALUES (14, 0);
 
 #
 # Данные для таблицы `#__sections`
