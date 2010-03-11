@@ -59,7 +59,7 @@ $mainframe->set('lang', $mosConfig_lang);
 include_once($mainframe->getLangFile());
 
 //Installation sub folder check, removed for work with SVN
-if(file_exists('../installation/index.php') && joomlaVersion::get('SVN') == 0) {
+if(file_exists('../installation/index.php') && coreVersion::get('SVN') == 0) {
 	define('_INSTALL_CHECK',1);
 	include (JPATH_BASE.DS.'templates'.DS.'system'.DS.'offline.php');
 	exit();
@@ -166,7 +166,7 @@ if(isset($_POST['submit'])) {
 
 		// check if site designated as a production site
 		// for a demo site allow multiple logins with same user account
-		if(joomlaVersion::get('SITE') == 1) {
+		if(coreVersion::get('SITE') == 1) {
 			// delete other open admin sessions for same account
 			$query = "DELETE FROM #__session WHERE userid = " . (int)$my->id . " AND username = " .$database->Quote($my->username) . "\n AND usertype = " . $database->Quote($my->usertype) . "\n AND session_id != " . $database->Quote($session_id). "\n AND guest = 1" . "\n AND gid = 0";
 			$database->setQuery($query);
@@ -191,7 +191,7 @@ if(isset($_POST['submit'])) {
 
 		// check if site designated as a production site
 		// for a demo site disallow expired page functionality
-		if(joomlaVersion::get('SITE') == 1 && $mosConfig_admin_expired === '1') {
+		if(coreVersion::get('SITE') == 1 && $mosConfig_admin_expired === '1') {
 			$file = $mainframe->getPath('com_xml','com_users');
 			$params = new mosParameters($my->params,$file,'component');
 

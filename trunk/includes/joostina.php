@@ -765,7 +765,7 @@ class mosMainFrame {
 					// check if site designated as a production site
 					// for a demo site disallow expired page functionality
 					// link must also be a Joomla link to stop malicious redirection
-					if($link && strpos($link,'index2.php?option=com_') === 0 && joomlaVersion::get('SITE') == 1) {
+					if($link && strpos($link,'index2.php?option=com_') === 0 && coreVersion::get('SITE') == 1) {
 						$now = time();
 
 						$file = $this->getPath('com_xml','com_users');
@@ -1050,7 +1050,7 @@ class mosMainFrame {
 
 				// check to see if site is a production site
 				// allows multiple logins with same user for a demo site
-				if(joomlaVersion::get('SITE')) {
+				if(coreVersion::get('SITE')) {
 					// delete any old front sessions to stop duplicate sessions
 					$query = "DELETE FROM #__session WHERE session_id != ".$this->_db->Quote($session->session_id)." AND username = ".$this->_db->Quote($row->username)." AND userid = ".(int)$row->id." AND gid = ".(int)$row->gid." AND guest = 0";
 					$this->_db->setQuery($query)->query();

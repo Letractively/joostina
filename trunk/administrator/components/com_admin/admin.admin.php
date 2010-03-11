@@ -43,7 +43,7 @@ switch($task) {
 		break;
 
 	case 'sysinfo':
-		$version = new joomlaVersion();
+		$version = new coreVersion();
 		HTML_admin_misc::system_info($version,$option);
 		break;
 

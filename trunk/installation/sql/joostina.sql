@@ -368,35 +368,6 @@ CREATE TABLE `#__menu` (
 ) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 INSERT INTO `#__menu` VALUES (1, 'mainmenu', 'Главная', 'index.php?option=com_frontpage', 'components', 1, 0, 10, 0, 2, 0, '0000-00-00 00:00:00', 0, 0, 0, 3, 'title=\npage_name=\nno_site_name=0\nrobots=-1\nmeta_description=\nmeta_keywords=\nmeta_author=\nmenu_image=-1\npageclass_sfx=\nheader=Добро пожаловать на главную страницу\npage_title=0\nback_button=0\nleading=2\nintro=2\ncolumns=1\nlink=0\norderby_pri=\norderby_sec=front\npagination=2\npagination_results=0\nimage=1\nsection=0\nsection_link=0\nsection_link_type=blog\ncategory=1\ncategory_link=0\ncat_link_type=blog\nitem_title=1\nlink_titles=1\nintro_only=1\nview_introtext=1\nintrotext_limit=\nview_tags=1\nreadmore=0\nrating=0\nauthor=1\nauthor_name=0\ncreatedate=1\nmodifydate=0\nhits=\nprint=0\nemail=0\nunpublished=0');
-# --------------------------------------------------------
-
-#
-# Структура таблицы `#__messages`
-#
-
-CREATE TABLE `#__messages` (
-  `message_id` int(10) unsigned NOT NULL auto_increment,
-  `user_id_from` int(10) unsigned NOT NULL default '0',
-  `user_id_to` int(10) unsigned NOT NULL default '0',
-  `folder_id` int(10) unsigned NOT NULL default '0',
-  `date_time` datetime NOT NULL default '0000-00-00 00:00:00',
-  `state` int(11) NOT NULL default '0',
-  `priority` int(1) unsigned NOT NULL default '0',
-  `subject` varchar(230) NOT NULL default '',
-  `message` text NOT NULL,
-  PRIMARY KEY  (`message_id`)
-) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
-
-#
-# Структура таблицы `#__messages_cfg`
-#
-
-CREATE TABLE `#__messages_cfg` (
-  `user_id` int(10) unsigned NOT NULL default '0',
-  `cfg_name` varchar(100) NOT NULL default '',
-  `cfg_value` varchar(255) NOT NULL default '',
-  UNIQUE `idx_user_var_name` (`user_id`,`cfg_name`)
-) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 #
 # Структура таблицы `#__modules`
@@ -451,7 +422,6 @@ INSERT INTO `#__modules` VALUES (20, 'Популярное содержимое'
 INSERT INTO `#__modules` VALUES (21, 'Последнее добавленное содержимое', '', 4, 'advert1', 0, '0000-00-00 00:00:00', 1, 'mod_latest', 0, 99, 1, '', 1, 1);
 INSERT INTO `#__modules` VALUES (22, 'Меню', '', 5, 'cpanel', 0, '0000-00-00 00:00:00', 1, 'mod_stats', 0, 99, 1, '', 0, 1);
 INSERT INTO `#__modules` VALUES (23, 'Последние зарегистрированные пользователи', '', 4, 'advert2', 0, '0000-00-00 00:00:00', 1, 'mod_latest_users', 0, 99, 1, '', 1, 1);
-INSERT INTO `#__modules` VALUES (24, 'Новые сообщения', '', 1, 'header', 0, '0000-00-00 00:00:00', 0, 'mod_unread', 0, 99, 1, '', 1, 1);
 INSERT INTO `#__modules` VALUES (25, 'Активные пользователи', '', 2, 'header', 0, '0000-00-00 00:00:00', 0, 'mod_online', 0, 99, 1, '', 1, 1);
 INSERT INTO `#__modules` VALUES (26, 'Полное меню', '', 1, 'top', 0, '0000-00-00 00:00:00', 1, 'mod_fullmenu', 0, 99, 1, '', 1, 1);
 INSERT INTO `#__modules` VALUES (27, 'Путь', '', 1, 'pathway', 0, '0000-00-00 00:00:00', 0, 'mod_pathway', 0, 99, 1, '', 1, 1);

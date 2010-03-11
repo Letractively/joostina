@@ -204,7 +204,7 @@ class PageModel {
 
 		// отключение тега Generator
 		if($mainframe->getCfg('generator_off') == 0) {
-			$mainframe->addMetaTag('Generator',joomlaVersion::get('CMS').' - '.joomlaVersion::get('COPYRIGHT'));
+			$mainframe->addMetaTag('Generator',coreVersion::get('CMS').' - '.coreVersion::get('COPYRIGHT'));
 		}
 
 

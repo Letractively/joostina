@@ -53,7 +53,7 @@ if(!defined('_ADMIN_OFFLINE') || defined('_INSTALL_CHECK')) {
     include_once (JPATH_BASE.DS.'language'.DS.$mosConfig_lang.DS.'system.php');
     require_once (JPATH_BASE.DS.'includes'.DS.'version.php');
 
-    $_VERSION	= new joomlaVersion();
+    $_VERSION	= new coreVersion();
     $version	= $_VERSION->CMS.' '.$_VERSION->CMS_ver.' '.$_VERSION->DEV_STATUS.' [ '.$_VERSION->CODENAME.' ] '.$_VERSION->RELDATE.' '.$_VERSION->RELTIME.' '.$_VERSION->RELTZ;
 
     if($database != null) {
