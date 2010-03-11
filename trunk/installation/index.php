@@ -302,7 +302,7 @@ echo '<?xml version="1.0" encoding="utf-8"?'.'>';?>
 												if(get_php_setting($phprec[1]) == $phprec[2]) { ?>
 										<font color="green"><strong>
 															<?php } else { ?>
-												<font color="red"><strong>
+												<strong><font color="red">
 																	<?php
 																}
 															}
@@ -312,7 +312,7 @@ echo '<?xml version="1.0" encoding="utf-8"?'.'>';?>
 																echo 'OFF';
 															} else echo '<strong><font color="green">'.$act_val.'</font>';
 															?>
-													</strong></font>
+													</font></strong>
 												</td>
 												</tr>
 													<?php
