@@ -76,7 +76,7 @@ switch($task) {
  */
 function showMenu($option) {
 
-	$database	= &database::getInstance();
+	$database	= database::getDBO();
 	$mainframe	= &mosMainFrame::getInstance();
 	$config		= &Jconfig::getInstance();
 

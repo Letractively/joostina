@@ -10,36 +10,30 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-$database = &database::getInstance();
+$database = database::getDBO();
 
-// check to see if site is a production site
-// allows multiple logins with same user for a demo site
-if(coreVersion::get('SITE') == 1) {
-	// обновление записи последнего посещения панели управления в базе данных
-	if(isset($_SESSION['session_user_id']) && $_SESSION['session_user_id'] != '') {
-		$currentDate = date("Y-m-d\TH:i:s");
+// обновление записи последнего посещения панели управления в базе данных
+if(isset($_SESSION['session_user_id']) && $_SESSION['session_user_id'] != '') {
+    $currentDate = date("Y-m-d\TH:i:s");
 
-		$query = "UPDATE #__users SET lastvisitDate = " . $database->Quote($currentDate)." WHERE id = " . (int)$_SESSION['session_user_id'];
-		$database->setQuery($query);
-		
-		if(!$database->query()) {
-			echo $database->stderr();
-		}
-	}
+    $query = "UPDATE #__users SET lastvisitDate = " . $database->Quote($currentDate)." WHERE id = " . (int)$_SESSION['session_user_id'];
+    $database->setQuery($query);
 
-	// delete db session record corresponding to currently logged in user
-	if(isset($_SESSION['session_id']) && $_SESSION['session_id'] != '') {
-		$query = "DELETE FROM #__session WHERE session_id = " . $database->Quote($_SESSION['session_id']);
-		$database->setQuery($query);
-
-		if(!$database->query()) {
-			echo $database->stderr();
-		}
-	}
+    if(!$database->query()) {
+        echo $database->stderr();
+    }
 }
 
-// destroy PHP session
+// delete db session record corresponding to currently logged in user
+if(isset($_SESSION['session_id']) && $_SESSION['session_id'] != '') {
+    $query = "DELETE FROM #__session WHERE session_id = " . $database->Quote($_SESSION['session_id']);
+    $database->setQuery($query);
+
+    if(!$database->query()) {
+        echo $database->stderr();
+    }
+}
+
 session_destroy();
 
-// return to site homepage
 mosRedirect('index.php');

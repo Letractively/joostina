@@ -26,7 +26,7 @@ else {
 
 function search_by_tag($tag) {
 	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
+	$database = &$mainframe->_db;
 
 	$items = new contentTags($database);
 

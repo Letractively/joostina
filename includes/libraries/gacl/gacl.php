@@ -22,7 +22,7 @@ class gacl {
 
 	function gacl($db = null) {
 
-		$database = &database::getInstance();
+		$database = database::getDBO();
 
 		$this->db = $db ? $db:$database;
 		$this->acl = array();

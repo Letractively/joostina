@@ -453,7 +453,7 @@ if (!defined( '_MOS_MLJOOSTINAMENU_MODULE' )) {
 		global $my, $cur_template, $Itemid,$mosConfig_disable_access_control;
 		global $mosConfig_shownoauth;
 
-		$database = &database::getInstance();
+		$database = database::getDBO();
 
 		$and = '';
 		if ( !$mosConfig_shownoauth AND !$mosConfig_disable_access_control ) {

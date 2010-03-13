@@ -17,6 +17,11 @@ mosCommonHTML::loadJquery(1);
 
 ?>
 <div class="mod_ml_login login popup">
+	<?php if($mainframe->get('_multisite')==2) { ?>
+	<a href="<?php echo $mainframe->_multisite_params->main_site; ?>/index.php?option=com_login" class="login_button"><?php echo $params->get( 'dr_login_text', _LOGIN_TEXT);?></a>
+</div>
+	<?php return;
+} ?>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('#log_in').click (function() {

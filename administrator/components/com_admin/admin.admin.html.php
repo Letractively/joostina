@@ -61,7 +61,7 @@ class HTML_admin_misc {
 		global $mosConfig_cachepath;
 
 		$mainframe = &mosMainFrame::getInstance();
-		$database = &$mainframe->getDBO();
+		$database = &$mainframe->_db;
 
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 

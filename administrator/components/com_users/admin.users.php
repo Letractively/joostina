@@ -36,7 +36,7 @@ switch($task) {
 	case 'save':
 	case 'apply':
 	// check to see if functionality restricted for use as demo site
-		if(coreVersion::get('RESTRICT') == 1) {
+		if(joomlaVersion::get('RESTRICT') == 1) {
 			mosRedirect('index2.php?mosmsg='._RESTRICT_FUNCTION);
 		} else {
 			saveUser($task);
@@ -49,7 +49,7 @@ switch($task) {
 
 	case 'block':
 	// check to see if functionality restricted for use as demo site
-		if(coreVersion::get('RESTRICT') == 1) {
+		if(joomlaVersion::get('RESTRICT') == 1) {
 			mosRedirect('index2.php?mosmsg='._RESTRICT_FUNCTION);
 		} else {
 			changeUserBlock($cid,1,$option);
@@ -91,7 +91,7 @@ switch($task) {
 }
 
 function config($option) {
-	$database = &database::getInstance();
+	$database = database::getDBO();
 
 	mosCommonHTML::loadOverlib();
 
@@ -103,7 +103,7 @@ function config($option) {
 }
 
 function save_config() {
-	$database = &database::getInstance();
+	$database = database::getDBO();
 
 	$act = mosGetParam($_REQUEST,'act','');
 	$config_class = 'configUser_'.$act;
@@ -116,7 +116,7 @@ function save_config() {
 function showUsers($option) {
 	global $my;
 
-	$database = &database::getInstance();
+	$database = database::getDBO();
 	$mainframe = mosMainFrame::getInstance(true);
 	$acl = &gacl::getInstance();
 
@@ -225,7 +225,7 @@ function editUser($uid = '0',$option = 'users') {
 	global $my;
 
 	$mainframe = mosMainFrame::getInstance(true);
-	$database = &$mainframe->getDBO();
+	$database = &$mainframe->_db;
 	$acl = &gacl::getInstance();
 
 	$msg = checkUserPermissions(array($uid),"edit",true);
@@ -239,17 +239,12 @@ function editUser($uid = '0',$option = 'users') {
 	$row->load((int)$uid);
 
 	if($uid) {
-		$query = "SELECT* FROM #__contact_details WHERE user_id = ".(int)$row->id;
-		$database->setQuery($query);
-		$contact = $database->loadObjectList();
-
 		$row->name = trim($row->name);
 		$row->email = trim($row->email);
 		$row->username = trim($row->username);
 		$row->password = trim($row->password);
 
 	} else {
-		$contact = null;
 		$row->block = 0;
 	}
 
@@ -296,7 +291,7 @@ function editUser($uid = '0',$option = 'users') {
 	$user_extra->load((int)$uid);
 	$row->user_extra = $user_extra;
 
-	HTML_users::edituser($row,$contact,$lists,$option,$uid,$params);
+	HTML_users::edituser($row,$lists,$option,$uid,$params);
 }
 
 function saveUser($task) {
@@ -305,7 +300,7 @@ function saveUser($task) {
 
 	josSpoofCheck();
 
-	$database = &database::getInstance();
+	$database = database::getDBO();
 	$mainframe = mosMainFrame::getInstance(true);
 	$acl = &gacl::getInstance();
 
@@ -530,7 +525,7 @@ function removeUsers($cid,$option) {
 	global $my;
 	josSpoofCheck();
 
-	$database = &database::getInstance();
+	$database = database::getDBO();
 	$mainframe = mosMainFrame::getInstance(true);
 	$acl = &gacl::getInstance();
 
@@ -580,7 +575,7 @@ function removeUsers($cid,$option) {
 function changeUserBlock($cid = null,$block = 1,$option) {
 	josSpoofCheck();
 
-	$database = &database::getInstance();
+	$database = database::getDBO();
 
 	$action = $block?'block':'unblock';
 
@@ -630,7 +625,7 @@ function logoutUser($cid = null,$option,$task) {
 	global $my;
 	josSpoofCheck(null, null, 'request');
 
-	$database = &database::getInstance();
+	$database = database::getDBO();
 
 	if(is_array($cid)) {
 		if(count($cid) < 1) {
@@ -692,7 +687,7 @@ function logoutUser($cid = null,$option,$task) {
 function checkUserPermissions($cid,$actionName,$allowActionToMyself = false) {
 	global $my;
 
-	$database = &database::getInstance();
+	$database = database::getDBO();
 	$acl = &gacl::getInstance();
 
 	$msg = null;
@@ -725,7 +720,7 @@ function checkUserPermissions($cid,$actionName,$allowActionToMyself = false) {
  * Added 1.0.11
  */
 function getGIDSChildren($gid) {
-	$database = &database::getInstance();
+	$database = database::getDBO();
 
 	$standardlist = array(-2,);
 
@@ -746,7 +741,7 @@ function getGIDSChildren($gid) {
  * Added 1.0.11
  */
 function getGIDSParents($gid) {
-	$database = &database::getInstance();
+	$database = database::getDBO();
 
 	$query = "SELECT g1.group_id, g1.name"
 			."\n FROM #__core_acl_aro_groups g1"

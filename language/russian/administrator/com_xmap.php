@@ -71,6 +71,7 @@ DEFINE('_XMAP_CFG_CHANGEFREQ_YEARLY',	'Ежегодно');
 DEFINE('_XMAP_TIT_SETTINGS_OF',			'Настройки %s');
 DEFINE('_XMAP_TAB_SITEMAPS',			'Карта');
 DEFINE('_XMAP_MSG_NO_SITEMAPS',			'Нет созданных карт');
+DEFINE('_XMAP_MSG_NO_SITEMAP',			'Данная карта недоступна');
 DEFINE('_XMAP_MSG_LOADING_SETTINGS',	'Загрузка настроек...');
 DEFINE('_XMAP_MSG_ERROR_LOADING_SITEMAP','Ошибка. Невозможно загрузить карту');
 DEFINE('_XMAP_MSG_ERROR_SAVE_PROPERTY',	'Ошибка. Невозможно сохранить приоритет.');

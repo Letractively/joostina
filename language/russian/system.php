@@ -433,6 +433,7 @@ DEFINE('_TEMPLATE_ITEM_EDIT', 'Страница добавления/редак�
 DEFINE('_CONTACT', 'Контакт');
 
 DEFINE('_ALIAS','Псевдоним');
+DEFINE('_POLLS','Опросы');
 
 /* content,users,avatars */
 DEFINE('_C_USERS_AVATARS_SHOISE','Сменить');
@@ -447,7 +448,7 @@ DEFINE('_IN_NEW_WINDOW','Открыть в новом окне');
 DEFINE('_NO_CAPTCHA_CODE','Не введён код проверки');
 DEFINE('_USER_BLOKED','Пользователь заблокирован');
 
-DEFINE('_PREVIEW_SITE','на сайт');
+DEFINE('_PREVIEW_SITE','перейти на сайт');
 
 DEFINE('_JWMM_FILESIZE','Размер');
 DEFINE('_JWMM_BYTES','байт');
@@ -552,4 +553,3 @@ DEFINE('_PAGES_HITS','Статистика посещения страниц');
 DEFINE('_BUTTON_LINK_IN_NEW_WINDOW','В новом окне');
 DEFINE('_SQL_CONSOLE','SQL консоль');
 DEFINE('_XMAP_MSG_NO_SITEMAP', 'Данная карта недоступна');
-DEFINE('_CACHE_MANAGEMENT', 'Управление кешем');

@@ -359,9 +359,41 @@ if(!class_exists('mosMenuBar')) {
 				 * @param boolean Use the help file in the component directory
 				 */
 				public static function help($ref,$com = false) {
-					return '';
+					global $mosConfig_disable_button_help;
+					if($mosConfig_disable_button_help) return; // при активном отключении кнопки "Помощь" функция прерывается в самом начале
+					$helpUrl = mosGetParam($GLOBALS,'mosConfig_helpurl','');
+					if($helpUrl == 'http://help.mamboserver.com') {
+						$helpUrl = 'http://help.joomla.org';
+					}
+
+					if($com) {
+						// help file for 3PD Components
+						$url = JPATH_SITE.'/'.JADMIN_BASE.'/components/'.$GLOBALS['option'].'/help/';
+						if(!eregi('\.html$',$ref) && !eregi('\.xml$',$ref)) {
+							$ref = $ref.'.html';
+						}
+						$url .= $ref;
+					} else
+					if($helpUrl) {
+						// Online help site as defined in GC
+						$ref .= $GLOBALS['_VERSION']->getHelpVersion();
+						$url = $helpUrl.'/index2.php?option=com_content&amp;task=findkey&amp;pop=1&amp;keyref='.
+								urlencode($ref);
+					} else {
+						// Included html help files
+						$url = JPATH_SITE.'/help/';
+						if(!eregi('\.html$',$ref) && !eregi('\.xml$',$ref)) {
+							$ref = $ref.'.html';
+						}
+						$url .= $ref;
+					}
+					?>
+		<li>
+			<a class="tb-help" href="#" onclick="window.open('<?php echo $url; ?>', 'mambo_help_win', 'status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=640,height=480,directories=no,location=no');"><span><?php echo _HELP?></span></a>
+		</li>
+					<?php
 				}
-				
+
 				/**
 				 * Writes a save button for a given option
 				 * Apply operation leads to a save action only (does not leave edit mode)
@@ -449,19 +481,6 @@ if(!class_exists('mosMenuBar')) {
 					?><li>&nbsp;</li><?php
 				}
 
-				/**
-				 * Writes a media_manager button
-				 * @param string The sub-drectory to upload the media to
-				 */
-				public static function media_manager($directory = '',$alt = _TASK_UPLOAD) {
-					global $mainframe;
-					$cur_template = JTEMPLATE;
-					?>
-		<li>
-			<a class="tb-media-manager" href="#" onclick="popupWindow('popups/uploadimage.php?directory=<?php echo $directory; ?>&amp;t=<?php echo $cur_template; ?>','win1',250,100,'no');"><span><?php echo $alt; ?></span></a>
-		</li>
-					<?php
-				}
 
 				/**
 				 * Writes a spacer cell

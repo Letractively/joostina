@@ -29,7 +29,7 @@ function botUserInfo_tab(&$user) {
 function botUserInfo(&$user) {
 	global $_MAMBOTS;
 
-	$database = &database::getInstance();
+	$database = database::getDBO();
 	$params = new mosParameters($_MAMBOTS->_mambot_params['user_info']);
 
 	?><div id="userInfo_area">

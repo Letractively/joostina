@@ -60,7 +60,7 @@ class userlist_menu {
 	}
 	
 	function saveMenu($option,$task) {
-		$database = &database::getInstance();
+		$database = database::getDBO();
 
 		$params = mosGetParam($_POST,'params','');
 		$params['group'] = $_POST['gid'];

@@ -33,7 +33,7 @@ switch($task) {
 function upload_avatar() {
 	global $my;
 
-	$database = &database::getInstance();
+	$database = database::getDBO();
 
 	mosMainFrame::addLib('images');
 
@@ -77,7 +77,7 @@ function upload_avatar() {
 function x_delavatar() {
 	global $my;
 
-	$database = &database::getInstance();
+	$database = database::getDBO();
 
 	$user = new mosUser($database);
 	$user->update_avatar(null, $my->avatar, 1);

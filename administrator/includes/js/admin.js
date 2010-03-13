@@ -1,4 +1,5 @@
 // JS функции панели управления
 $(document).ready(function() {
-	$('#ajax_status').hide();
+	// скрываем индикатор загрузки страницы
+    $('#ajax_status').hide();
 });

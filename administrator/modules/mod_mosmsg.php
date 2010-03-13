@@ -9,8 +9,6 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-$mosmsg = mosMainFrame::getInstance()->get_mosmsg();
+$mosmsg = $mainframe->get_mosmsg();
 
-if($mosmsg) {
-	echo '<div class="message">'.$mosmsg.'</div>';
-}
+echo count($mosmsg)>0 ? '<script language="JavaScript" type="text/javascript">$.jGrowl("'.implode('");$.jGrowl("', $mosmsg).'");</script>' : null;

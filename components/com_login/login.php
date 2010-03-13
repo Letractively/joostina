@@ -44,6 +44,10 @@ $params->def('image_login_align','right');
 $params->def('image_logout_align','right');
 $params->def('registration',$mainframe->getCfg('allowUserRegistration'));
 
+if($mainframe->get('_multisite')==1) {
+	$params->set('login', $_SERVER['HTTP_REFERER'] );
+}
+
 $image_login = '';
 $image_logout = '';
 if($params->get('image_login') != -1) {

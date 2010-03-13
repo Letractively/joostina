@@ -16,29 +16,20 @@ define('JPATH_BASE', dirname(dirname(__FILE__)) );
 // корень файлов админкиы
 define('JPATH_BASE_ADMIN', dirname(__FILE__) );
 
-if(!file_exists(JPATH_BASE.DS.'configuration.php')) {
-	header('Location: ../installation/index.php');
-	exit();
-}
-
 (ini_get('register_globals') == 1) ? require_once (JPATH_BASE.DS.'includes'.DS.'globals.php') : null;
 require_once (JPATH_BASE.DS.'configuration.php');
 
 // для совместимости
 $mosConfig_absolute_path = JPATH_BASE;
 
-// SSL проверка  - $http_host returns <live site url>:<port number if it is 443>
-$http_host = explode(':',$_SERVER['HTTP_HOST']);
-if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset($http_host[1]) && $http_host[1] == 443) && substr($mosConfig_live_site,0,8) !='https://') {
-	$mosConfig_live_site = 'https://' . substr($mosConfig_live_site,7);
-}
-
 // live_site
 define('JPATH_SITE', $mosConfig_live_site );
 
 // подключаем ядро
-require_once (JPATH_BASE .DS. 'includes'.DS.'joostina.php');
+require_once (JPATH_BASE .DS. 'includes'.DS.'joomla.php');
 
+/* класс работы с правами пользователей */
+mosMainFrame::addLib('gacl');
 
 // работа с сессиями начинается до создания главного объекта взаимодействия с ядром
 session_name(md5(JPATH_SITE));
@@ -56,19 +47,11 @@ $id			= intval(mosGetParam($_REQUEST,'id',0));
 
 // mainframe - основная рабочая среда API, осуществляет взаимодействие с 'ядром'
 $mainframe = mosMainFrame::getInstance(true);
-
 // объект работы с базой данных
-$database = &$mainframe->getDBO();
+$database = database::getDBO();
 
 // класс работы с правами пользователей
 $acl = &gacl::getInstance();
-
-// установка языка систему
-$mainframe->set('lang', $mosConfig_lang);
-
-// получаем название шаблона для панели управления
-$cur_template = $mainframe->getTemplate();
-define('JTEMPLATE', $cur_template );
 
 require_once($mainframe->getLangFile());
 require_once($mainframe->getLangFile('administrator'));
@@ -77,25 +60,14 @@ require_once (JPATH_BASE_ADMIN.DS.'includes'.DS.'admin.php');
 // запуск сессий панели управления
 $my = $mainframe->initSessionAdmin($option,$task);
 
-// установка параметра overlib
-$mainframe->set('loadOverlib',false);
-
 // страница панели управления по умолчанию
 if($option == '') {
 	$option = 'com_admin';
 }
 
-if($mosConfig_mmb_system_off == 0) {
-	$_MAMBOTS->loadBotGroup('admin');
-	$_MAMBOTS->trigger('onAfterAdminStart');
-}
-
-// инициализация редактора
-$mainframe->set( 'allow_wysiwyg', 1 );  
-require_once (JPATH_BASE . '/includes/editor.php');
-
 ob_start();
-if($path = $mainframe->getPath('admin')) {
+$path = $mainframe->getPath('admin');
+if( $path ) {
 	//Подключаем язык компонента
 	if($mainframe->getLangFile($option)) {
 		include_once($mainframe->getLangFile($option));

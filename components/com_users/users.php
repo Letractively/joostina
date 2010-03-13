@@ -41,7 +41,7 @@ switch($task) {
 
 	case 'saveUserEdit':
 	// check to see if functionality restricted for use as demo site
-		if(coreVersion::get('RESTRICT') == 1) {
+		if(joomlaVersion::get('RESTRICT') == 1) {
 			mosRedirect('index.php',_RESTRICT_FUNCTION);
 		} else {
 			userSave($option,$my->id);
@@ -129,7 +129,7 @@ switch($task) {
 function profile($uid) {
 
 	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
+	$database = &$mainframe->_db;
 
 	$row = new mosUser($database);
 	if($row->load($uid)) {
@@ -157,7 +157,7 @@ function profile($uid) {
 function userEdit($option,$uid,$submitvalue) {
 
 	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
+	$database = &$mainframe->_db;
 
 	if($uid == 0) {
 		mosNotAuth();
@@ -190,7 +190,7 @@ function userSave($option,$uid) {
 	josSpoofCheck();
 	$mainframe = &mosMainFrame::getInstance();
 	$config = &$mainframe->config;
-	$database = &$mainframe->getDBO();
+	$database = &$mainframe->_db;
 
 	$user_id = intval(mosGetParam($_POST,'id',0));
 
@@ -288,7 +288,7 @@ function userSave($option,$uid) {
 function userList($gid,$limit,$limitstart=0) {
 
 	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
+	$database = &$mainframe->_db;
 	$acl = &gacl::getInstance();
 
 	$menu = null;
@@ -321,7 +321,7 @@ function userList($gid,$limit,$limitstart=0) {
 
 function CheckIn($userid,$access) {
 
-	$database = &database::getInstance();
+	$database = database::getDBO();
 	$config = &Jconfig::getInstance();
 
 	$nullDate = $database->getNullDate();
@@ -433,7 +433,7 @@ function lostPassForm($option) {
 	$mainframe->SetPageTitle(_LOST_PASSWORDWORD);
 
 	$config = &Jconfig::getInstance();
-	$database = &$mainframe->getDBO();
+	$database = &$mainframe->_db;
 
 	$user_config = new configUser_lostpass($database);
 
@@ -454,7 +454,7 @@ function lostPassForm($option) {
 function sendNewPass() {
 	josSpoofCheck();
 
-	$database = &database::getInstance();
+	$database = database::getDBO();
 	$config = &Jconfig::getInstance();
 
 	$checkusername = stripslashes(mosGetParam($_POST,'checkusername',''));
@@ -503,7 +503,7 @@ function sendNewPass() {
 function registerForm($option,$useractivation) {
 
 	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
+	$database = &$mainframe->_db;
 	$acl = &gacl::getInstance();
 
 	if(!$mainframe->getCfg('allowUserRegistration')) {
@@ -543,7 +543,7 @@ function saveRegistration() {
 	josSpoofCheck();
 
 	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
+	$database = &$mainframe->_db;
 	$acl = &gacl::getInstance();
 
 	if($mainframe->getCfg('allowUserRegistration') == 0) {
@@ -712,7 +712,7 @@ function activate() {
 	global $my;
 
 	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
+	$database = &$mainframe->_db;
 
 	if($my->id) {
 		mosRedirect('index.php');

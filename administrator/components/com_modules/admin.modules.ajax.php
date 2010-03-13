@@ -46,7 +46,7 @@ switch($task) {
 function x_apply() {
 	josSpoofCheck();
 
-	$database = &database::getInstance();
+	$database = database::getDBO();
 
 	$params = mosGetParam($_POST,'params','');
 	$client = strval(mosGetParam($_REQUEST,'client',''));
@@ -116,7 +116,7 @@ function x_apply() {
 
 
 function x_access($id) {
-	$database = &database::getInstance();
+	$database = database::getDBO();
 
 	$access = mosGetParam($_GET,'chaccess','accessregistered');
 	$option = strval(mosGetParam($_REQUEST,'option',''));
@@ -160,7 +160,7 @@ function x_access($id) {
 function x_publish($id = null) {
 	global $my;
 
-	$database = &database::getInstance();
+	$database = database::getDBO();
 
 	if(!$id) return 'error-id';
 
@@ -188,7 +188,7 @@ function x_publish($id = null) {
 }
 // получение списка позиций модулей
 function x_get_position($id) {
-	$database = &database::getInstance();
+	$database = database::getDBO();
 
 	$row = new mosModule($database);
 	$row->load((int)$id);
@@ -210,7 +210,7 @@ function x_get_position($id) {
 }
 function x_save_position($id) {
 	global $my;
-	$database = &database::getInstance();
+	$database = database::getDBO();
 
 	$new_pos = strval(mosGetParam($_GET,'new_pos','left'));
 	if($new_pos=='0') return 1;

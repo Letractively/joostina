@@ -21,7 +21,12 @@ define('JPATH_SITE', $mosConfig_live_site );
 // для совместимости
 $mosConfig_absolute_path = JPATH_BASE;
 
-require_once ('includes/joostina.php');
+//Межсайтовая интеграция
+if(is_file($mosConfig_absolute_path.DIRECTORY_SEPARATOR.'multisite.config.php')) {
+	include_once($mosConfig_absolute_path.DIRECTORY_SEPARATOR.'multisite.config.php');
+}
+
+require_once ('includes/joomla.php');
 
 // отображение состояния выключенного сайта
 if($mosConfig_offline == 1) {
@@ -52,6 +57,16 @@ $mainframe = &mosMainFrame::getInstance();
 
 $mainframe->initSession();
 
+//Межсайтовая интеграция
+if(DEFINED('_MULTISITE')) {
+	$mainframe->set('_multisite', $m_s->flag);
+	$mainframe->set('_multisite_params', $m_s);
+	$cookie_exist = 0;
+	if(isset($_COOKIE[mosMainFrame::sessionCookieName($m_s->main_site)])) {
+		$cookie_exist = 1;
+	}
+}
+
 // загрузка файла русского языка по умолчанию
 if($mosConfig_lang == '') {
 	$mosConfig_lang = 'russian';
@@ -59,8 +74,14 @@ if($mosConfig_lang == '') {
 $mainframe->set('lang', $mosConfig_lang);
 include_once($mainframe->getLangFile());
 
-$my = $mainframe->getUser();
-
+// get the information about the current user from the sessions table
+if($mainframe->get('_multisite')=='2' && $cookie_exist ) {
+	$mainframe->set('_multisite_params', $m_s);
+	$my = $mainframe->getUser_from_sess($_COOKIE[mosMainFrame::sessionCookieName($m_s->main_site)]);
+}
+else {
+	$my = $mainframe->getUser();
+}
 $gid = intval($my->gid);
 
 if($mosConfig_mmb_ajax_starts_off == 0) {

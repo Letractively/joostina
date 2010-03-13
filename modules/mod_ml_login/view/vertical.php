@@ -15,6 +15,13 @@ $module->helper->prepare_login_form($params);
 $validate = josSpoofValue(1); ?>
 <div class="mod_ml_login login vertical">
 	<div class="form_pretext"><?php echo $params->get('pretext' ,'')?></div>
+	<?php if($mainframe->get('_multisite')==2) { ?>
+	<a href="<?php echo $mainframe->_multisite_params->main_site; ?>/index.php?option=com_login" class="login_button">
+			<?php echo $params->get( 'dr_login_text', _LOGIN_TEXT);?>
+	</a>
+		<?php echo '</div>';
+		return;
+	} ?>
     <form action="<?php echo sefRelToAbs( 'index.php' ); ?>" method="post" name="login">
 		<div class="login_form">
 			<?php echo $params->_input_login; ?><br />

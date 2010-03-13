@@ -27,7 +27,7 @@ switch($task) {
 }
 
 function x_publish($id = null) {
-	$database = &database::getInstance();
+	$database = database::getDBO();
 
 	if(!$id) return 'error-id';
 

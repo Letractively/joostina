@@ -54,7 +54,7 @@ function removeElement($client) {
  */
 function viewTemplates($option,$client) {
 	$mainframe = &mosMainFrame::getInstance(true);
-	$database = &database::getInstance();
+	$database = database::getDBO();
 
 	$limit = $mainframe->getUserStateFromRequest('viewlistlimit','limit',$mainframe->getCfg('list_limit'));
 	$limitstart = $mainframe->getUserStateFromRequest("view{$option}limitstart",'limitstart',0);

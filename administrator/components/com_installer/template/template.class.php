@@ -41,7 +41,7 @@ class mosInstallerTemplate extends mosInstaller {
 	 */
 	function install($p_fromdir = null) {
 		global $database;
-		$database = &database::getInstance();
+		$database = database::getDBO();
 
 		josSpoofCheck();
 		if(!$this->preInstallCheck($p_fromdir,'template')) {
