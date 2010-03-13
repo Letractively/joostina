@@ -639,6 +639,13 @@ class database {
         }
         echo '</div>';
     }
+	/**
+	* Fudge method for ADOdb compatibility
+	*/
+	// TODO убрать
+	function GenID() {
+		return 0;
+	}
 }
 
 /**
