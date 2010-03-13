@@ -1,177 +1,136 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
-
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
-
-include_once (JPATH_BASE.'/includes/vcard.class.php');
-
+include_once ($mosConfig_absolute_path.'/includes/vcard.class.php');
 /**
- * @package Joostina
- * @subpackage Contact
- */
+* @package Joostina
+* @subpackage Contact
+*/
 class mosContact extends mosDBTable {
-	/**
-	 @var int Primary key*/
-	var $id = null;
-	/**
-	 @var string*/
-	var $name = null;
-	/**
-	 @var string*/
-	var $con_position = null;
-	/**
-	 @var string*/
-	var $address = null;
-	/**
-	 @var string*/
-	var $suburb = null;
-	/**
-	 @var string*/
-	var $state = null;
-	/**
-	 @var string*/
-	var $country = null;
-	/**
-	 @var string*/
-	var $postcode = null;
-	/**
-	 @var string*/
-	var $telephone = null;
-	/**
-	 @var string*/
-	var $fax = null;
-	/**
-	 @var string*/
-	var $misc = null;
-	/**
-	 @var string*/
-	var $image = null;
-	/**
-	 @var string*/
-	var $imagepos = null;
-	/**
-	 @var string*/
-	var $email_to = null;
-	/**
-	 @var int*/
-	var $default_con = null;
-	/**
-	 @var int*/
-	var $published = null;
-	/**
-	 @var int*/
-	var $checked_out = null;
-	/**
-	 @var datetime*/
-	var $checked_out_time = null;
-	/**
-	 @var int*/
-	var $ordering = null;
-	/**
-	 @var string*/
-	var $params = null;
-	/**
-	 @var int A link to a registered user*/
-	var $user_id = null;
-	/**
-	 @var int A link to a category*/
-	var $catid = null;
-	/**
-	 @var int*/
-	var $access = null;
-
-	/**
-	 * @param database A database connector object
-	 */
-	function mosContact() {
-		global $database;
-		$this->mosDBTable('#__contact_details','id',$database);
-	}
-
-	function check() {
-		$this->default_con = intval($this->default_con);
-		return true;
-	}
+/**@var int Primary key*/
+var $id = null;
+/**@var string*/
+var $name = null;
+/**@var string*/
+var $con_position = null;
+/**@var string*/
+var $address = null;
+/**@var string*/
+var $suburb = null;
+/**@var string*/
+var $state = null;
+/**@var string*/
+var $country = null;
+/**@var string*/
+var $postcode = null;
+/**@var string*/
+var $telephone = null;
+/**@var string*/
+var $fax = null;
+/**@var string*/
+var $misc = null;
+/**@var string*/
+var $image = null;
+/**@var string*/
+var $imagepos = null;
+/**@var string*/
+var $email_to = null;
+/**@var int*/
+var $default_con = null;
+/**@var int*/
+var $published = null;
+/**@var int*/
+var $checked_out = null;
+/**@var datetime*/
+var $checked_out_time = null;
+/**@var int*/
+var $ordering = null;
+/**@var string*/
+var $params = null;
+/**@var int A link to a registered user*/
+var $user_id = null;
+/**@var int A link to a category*/
+var $catid = null;
+/**@var int*/
+var $access = null;
+/** @param database A database connector object*/
+function mosContact() {
+global $database;
+$this->mosDBTable('#__contact_details','id',$database);
 }
-
+function check() {
+$this->default_con = intval($this->default_con);
+return true;
+}
+}
 /**
- * @package Joostina
- * class needed to extend vcard class and to correct minor errors
- */
+* @package Joostina
+* class needed to extend vcard class and to correct minor errors
+*/
 class MambovCard extends vCard {
+// needed to fix bug in vcard class
+function setName($family = '',$first = '',$additional = '',$prefix = '',$suffix =
+'') {
+$this->properties["N"] = "$family;$first;$additional;$prefix;$suffix";
+$this->setFormattedName(trim("$prefix $first $additional $family $suffix"));
+}
+// needed to fix bug in vcard class
+function setAddress($postoffice = '',$extended = '',$street = '',$city = '',$region =
+'',$zip = '',$country = '',$type = 'HOME;POSTAL') {
+// $type may be DOM | INTL | POSTAL | PARCEL | HOME | WORK or any combination of these: e.g. "WORK;PARCEL;POSTAL"
+$separator = ';';
+$key = 'ADR';
+if($type != '') {
+$key .= $separator.$type;
+}
+$key .= ';ENCODING=QUOTED-PRINTABLE';
+$return = encode($postoffice);
+$return .= $separator.encode($extended);
+$return .= $separator.encode($street);
+$return .= $separator.encode($city);
+$return .= $separator.encode($region);
+$return .= $separator.encode($zip);
+$return .= $separator.encode($country);
+$this->properties[$key] = $return;
+}
+// added ability to set filename
+function setFilename($filename) {
+$this->filename = $filename.'.vcf';
+}
+// added ability to set position/title
+function setTitle($title) {
+$title = trim($title);
+$this->properties['TITLE'] = $title;
+}
+// added ability to set organisation/company
+function setOrg($org) {
+$org = trim($org);
+$this->properties['ORG'] = $org;
+}
+function getVCard($sitename) {
+$text = 'BEGIN:VCARD';
+$text .= "\r\n";
+$text .= 'VERSION:2.1';
+$text .= "\r\n";
+foreach($this->properties as $key => $value) {
+$text .= "$key:$value";
+$text .= "\r\n";
+}
+$text .= 'REV:'.date('Y-m-d').'T'.date('H:i:s').'Z';
+$text .= "\r\n";
+$text .= 'MAILER: Joostina! vCard for '.$sitename;
+$text .= "\r\n";
+$text .= 'END:VCARD';
+$text .= "\r\n";
 
-	// needed to fix bug in vcard class
-	function setName($family = '',$first = '',$additional = '',$prefix = '',$suffix = '') {
-		$this->properties["N"] = "$family;$first;$additional;$prefix;$suffix";
-		$this->setFormattedName(trim("$prefix $first $additional $family $suffix"));
-	}
-
-	// needed to fix bug in vcard class
-	function setAddress($postoffice = '',$extended = '',$street = '',$city = '',$region ='',$zip = '',$country = '',$type = 'HOME;POSTAL') {
-		// $type may be DOM | INTL | POSTAL | PARCEL | HOME | WORK or any combination of these: e.g. "WORK;PARCEL;POSTAL"
-		$separator = ';';
-
-		$key = 'ADR';
-		if($type != '') {
-			$key .= $separator.$type;
-		}
-		$key .= ';ENCODING=QUOTED-PRINTABLE';
-
-		$return = encode($postoffice);
-		$return .= $separator.encode($extended);
-		$return .= $separator.encode($street);
-		$return .= $separator.encode($city);
-		$return .= $separator.encode($region);
-		$return .= $separator.encode($zip);
-		$return .= $separator.encode($country);
-
-		$this->properties[$key] = $return;
-	}
-
-	// added ability to set filename
-	function setFilename($filename) {
-		$this->filename = $filename.'.vcf';
-	}
-
-	// added ability to set position/title
-	function setTitle($title) {
-		$title = trim($title);
-
-		$this->properties['TITLE'] = $title;
-	}
-
-	// added ability to set organisation/company
-	function setOrg($org) {
-		$org = trim($org);
-
-		$this->properties['ORG'] = $org;
-	}
-
-	function getVCard($sitename) {
-		$text = 'BEGIN:VCARD';
-		$text .= "\r\n";
-		$text .= 'VERSION:2.1';
-		$text .= "\r\n";
-
-		foreach($this->properties as $key => $value) {
-			$text .= "$key:$value";
-			$text .= "\r\n";
-		}
-		$text .= 'REV:'.date('Y-m-d').'T'.date('H:i:s').'Z';
-		$text .= "\r\n";
-		$text .= 'MAILER: Joomla! vCard for '.$sitename;
-		$text .= "\r\n";
-		$text .= 'END:VCARD';
-		$text .= "\r\n";
-
-		return $text;
-	}
+return $text;
+}
 }
 ?>

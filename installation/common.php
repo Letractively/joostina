@@ -1,87 +1,78 @@
 <?php
 /**
- * @version $Id: common.php 4675 2006-08-23 16:55:24Z stingrey $
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2005 Open Source Matters. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ LICENSE.php
- * Joomla! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ. Ð­Ñ‚Ð° Ð²ÐµÑ€ÑÐ¸Ñ Ð¼Ð¾Ð¶ÐµÑ‚ Ð±Ñ‹Ñ‚ÑŒ Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð°
- * Ð² ÑÐ¾Ð¾Ñ‚Ð²ÐµÑ‚ÑÑ‚Ð²Ð¸Ð¸ Ñ Ð“ÐµÐ½ÐµÑ€Ð°Ð»ÑŒÐ½Ð¾Ð¹ ÐžÐ±Ñ‰ÐµÑÑ‚Ð²ÐµÐ½Ð½Ð¾Ð¹ Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸ÐµÐ¹ GNU, Ð¿Ð¾ÑÑ‚Ð¾Ð¼Ñƒ Ð²Ð¾Ð·Ð¼Ð¾Ð¶Ð½Ð¾
- * ÐµÑ‘ Ð´Ð°Ð»ÑŒÐ½ÐµÐ¹ÑˆÐµÐµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÐµÐ½Ð¸Ðµ Ð² ÑÐ¾ÑÑ‚Ð°Ð²Ðµ Ñ€ÐµÐ·ÑƒÐ»ÑŒÑ‚Ð°Ñ‚Ð° Ñ€Ð°Ð±Ð¾Ñ‚Ñ‹, Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð½Ð¾Ð³Ð¾
- * ÑÐ¾Ð³Ð»Ð°ÑÐ½Ð¾ Ð“ÐµÐ½ÐµÑ€Ð°Ð»ÑŒÐ½Ð¾Ð¹ ÐžÐ±Ñ‰ÐµÑÑ‚Ð²ÐµÐ½Ð½Ð¾Ð¹ Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸ÐµÐ¹ GNU Ð¸Ð»Ð¸ Ð´Ñ€ÑƒÐ³Ð¸Ñ… Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¹ ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ñ‹Ñ…
- * Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼ Ð¸Ð»Ð¸ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼ Ñ Ð¾Ñ‚ÐºÑ€Ñ‹Ñ‚Ñ‹Ð¼ Ð¸ÑÑ…Ð¾Ð´Ð½Ñ‹Ð¼ ÐºÐ¾Ð´Ð¾Ð¼.
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
+* @version $Id: common.php 4675 2006-08-23 16:55:24Z stingrey $
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2005 Open Source Matters. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, ñìîòðèòå LICENSE.php
+* Joomla! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå. Ýòà âåðñèÿ ìîæåò áûòü èçìåíåíà
+* â ñîîòâåòñòâèè ñ Ãåíåðàëüíîé Îáùåñòâåííîé Ëèöåíçèåé GNU, ïîýòîìó âîçìîæíî
+* å¸ äàëüíåéøåå ðàñïðîñòðàíåíèå â ñîñòàâå ðåçóëüòàòà ðàáîòû, ëèöåíçèðîâàííîãî
+* ñîãëàñíî Ãåíåðàëüíîé Îáùåñòâåííîé Ëèöåíçèåé GNU èëè äðóãèõ ëèöåíçèé ñâîáîäíûõ 
+* ïðîãðàìì èëè ïðîãðàìì ñ îòêðûòûì èñõîäíûì êîäîì.
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
 defined('_VALID_MOS') or die();
-
 error_reporting(E_ALL);
-
-header('Content-type: text/html; charset=UTF-8');
 header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
 header("Pragma: no-cache"); // HTTP/1.0
 
-/**
- * Ð¡ÐµÑ€Ð²Ð¸ÑÐ½Ñ‹Ðµ Ñ„ÑƒÐ½ÐºÑ†Ð¸Ð¸ Ð´Ð»Ñ ÑƒÑÑ‚Ð°Ð½Ð¾Ð²Ð¾Ðº Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ð¹ Ð¿Ð¾ ÑƒÐ¼Ð¾Ð»Ñ‡Ð°Ð½Ð¸ÑŽ
- */
+/** Ñåðâèñíûå ôóíêöèè äëÿ óñòàíîâîê çíà÷åíèé ïî óìîë÷àíèþ*/
 define("_MOS_NOTRIM",0x0001);
 define("_MOS_ALLOWHTML",0x0002);
 function mosGetParam(&$arr,$name,$def = null,$mask = 0) {
-	if(isset($arr[$name])) {
-		if(is_string($arr[$name])) {
-			if(!($mask & _MOS_NOTRIM)) {
-				$arr[$name] = trim($arr[$name]);
-			}
-			if(!($mask & _MOS_ALLOWHTML)) {
-				$arr[$name] = strip_tags($arr[$name]);
-			}
-			if(!get_magic_quotes_gpc()) {
-				$arr[$name] = addslashes($arr[$name]);
-			}
-		}
-		return $arr[$name];
-	} else {
-		return $def;
-	}
+if(isset($arr[$name])) {
+if(is_string($arr[$name])) {
+if(!($mask & _MOS_NOTRIM)) {
+$arr[$name] = trim($arr[$name]);
 }
-
+if(!($mask & _MOS_ALLOWHTML)) {
+$arr[$name] = strip_tags($arr[$name]);
+}
+if(!get_magic_quotes_gpc()) {
+$arr[$name] = addslashes($arr[$name]);
+}
+}
+return $arr[$name];
+} else {
+return $def;
+}
+}
 function mosMakePassword($length) {
-	$salt = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-	$len = strlen($salt);
-	$makepass = "";
-	mt_srand(10000000* (double)microtime());
-	for($i = 0; $i < $length; $i++) $makepass .= $salt[mt_rand(0,$len - 1)];
-	return $makepass;
+$salt = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+$len = strlen($salt);
+$makepass = "";
+mt_srand(10000000* (double)microtime());
+for($i = 0; $i < $length; $i++) $makepass .= $salt[mt_rand(0,$len - 1)];
+return $makepass;
 }
-
 /**
- * ÐŸÑ€Ð°Ð²Ð° Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð° Ðº Ñ„Ð°Ð¹Ð»Ð°Ð¼ Ð¸ Ð´Ð¸Ñ€ÐµÐºÑ‚Ð¾Ñ€Ð¸ÑÐ¼
- * @param path Ð½Ð°Ñ‡Ð°Ð»ÑŒÐ½Ñ‹Ð¹ Ñ„Ð°Ð¹Ð» Ð¸Ð»Ð¸ Ð´Ð¸Ñ€ÐµÐºÑ‚Ð¾Ñ€Ð¸Ñ (Ð±ÐµÐ· ÑÐ»ÐµÑˆÐ° Ð² ÐºÐ¾Ð½Ñ†Ðµ)
- * @param filemode Ð—Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ Ð¿ÐµÑ€ÐµÐ¼ÐµÐ½Ð½Ð¾Ð¹ Ð´Ð»Ñ ÑƒÑÑ‚Ð°Ð½Ð¾Ð²ÐºÐ¸ Ð¿Ñ€Ð°Ð² Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð° Ðº Ñ„Ð°Ð¹Ð»Ð°Ð¼. NULL = Ð±ÐµÐ· ÑƒÑÑ‚Ð°Ð½Ð¾Ð²ÐºÐ¸ Ð¿Ñ€Ð°Ð² Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°.
- * @param dirmode Ð—Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ Ð¿ÐµÑ€ÐµÐ¼ÐµÐ½Ð½Ð¾Ð¹ Ð´Ð»Ñ ÑƒÑÑ‚Ð°Ð½Ð¾Ð²ÐºÐ¸ Ð¿Ñ€Ð°Ð² Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð° Ðº Ð´Ð¸Ñ€ÐµÐºÑ‚Ð¾Ñ€Ð¸ÑÐ¼. NULL = Ð±ÐµÐ· ÑƒÑÑ‚Ð°Ð½Ð¾Ð²ÐºÐ¸ Ð¿Ñ€Ð°Ð² Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°..
- * @return TRUE=all ÑÐ»ÐµÐ´Ð¾Ð²Ð°Ñ‚ÐµÐ»ÑŒÐ½Ð¾ FALSE=one Ð´Ð»Ñ Ð¿Ñ€Ð°Ð² Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð° ÐºÐ¾ Ð²ÑÐµÐ¼ Ñ„Ð°Ð¹Ð»Ð°Ð¼
- */
+* Ïðàâà äîñòóïà ê ôàéëàì è äèðåêòîðèÿì
+* @param path íà÷àëüíûé ôàéë èëè äèðåêòîðèÿ (áåç ñëåøà â êîíöå)
+* @param filemode Çíà÷åíèå ïåðåìåííîé äëÿ óñòàíîâêè ïðàâ äîñòóïà ê ôàéëàì. NULL = áåç óñòàíîâêè ïðàâ äîñòóïà.
+* @param dirmode Çíà÷åíèå ïåðåìåííîé äëÿ óñòàíîâêè ïðàâ äîñòóïà ê äèðåêòîðèÿì. NULL = áåç óñòàíîâêè ïðàâ äîñòóïà..
+* @return TRUE=all ñëåäîâàòåëüíî FALSE=one äëÿ ïðàâ äîñòóïà êî âñåì ôàéëàì
+*/
 function mosChmodRecursive($path,$filemode = null,$dirmode = null) {
-	$ret = true;
-	if(is_dir($path)) {
-		$dh = opendir($path);
-		while($file = readdir($dh)) {
-			if($file != '.' && $file != '..') {
-				$fullpath = $path.'/'.$file;
-				if(is_dir($fullpath)) {
-					if(!mosChmodRecursive($fullpath,$filemode,$dirmode)) $ret = false;
-				} else {
-					if(isset($filemode))
-						if(!@chmod($fullpath,$filemode)) $ret = false;
-				} // ÐµÑÐ»Ð¸
-			} // ÐµÑÐ»Ð¸
-		} // Ð² Ñ‚Ð¾ Ð²Ñ€ÐµÐ¼Ñ ÐºÐ°Ðº
-		closedir($dh);
-		if(isset($dirmode))
-			if(!@chmod($path,$dirmode)) $ret = false;
-	} else {
-		if(isset($filemode)) $ret = @chmod($path,$filemode);
-	} // if
-	return $ret;
+$ret = true;
+if(is_dir($path)) {
+$dh = opendir($path);
+while($file = readdir($dh)) {
+if($file != '.' && $file != '..') {
+$fullpath = $path.'/'.$file;
+if(is_dir($fullpath)) {
+if(!mosChmodRecursive($fullpath,$filemode,$dirmode)) $ret = false;
+} else {
+if(isset($filemode))
+if(!@chmod($fullpath,$filemode)) $ret = false;
+} // åñëè
+} // åñëè
+} // â òî âðåìÿ êàê
+closedir($dh);
+if(isset($dirmode))
+if(!@chmod($path,$dirmode)) $ret = false;
+} else {
+if(isset($filemode)) $ret = @chmod($path,$filemode);
+} // if
+return $ret;
 } // mosChmodRecursive
-
-require_once ('../includes/version.php');
-$version = coreVersion::$CMS.' '.coreVersion::$CMS_ver.' '.coreVersion::$RELDATE.' '.coreVersion::$RELTIME;
+?>

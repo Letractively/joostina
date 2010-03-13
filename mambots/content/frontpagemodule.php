@@ -1,49 +1,41 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
-
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
-
 $_MAMBOTS->registerFunction('onAfterDisplayContent','frontpagemodule');
-
 function frontpagemodule($row,&$params) {
-	global $option,$database,$_MAMBOTS;
-
-	// Ð¸ÑÐºÐ»ÑŽÑ‡Ð°ÐµÐ¼ Ñ€Ð°Ð±Ð¾Ñ‚Ñƒ Ð¼Ð°Ð¼Ð±Ð¾Ñ‚Ð° Ð² Ð¼Ð¾Ð´ÑƒÐ»ÑÑ… Ð¸ Ð¿Ñ€Ð¸ Ð²Ñ‹Ð²Ð¾Ð´Ðµ Ð½Ð° Ð¿ÐµÑ‡Ð°Ñ‚ÑŒ
-	$pvars = array_keys(get_object_vars($params->_params));
-	if($params->get('popup') || in_array('moduleclass_sfx',$pvars)) {
-		return;
-	}
-
-	if($option == 'com_frontpage') {
-		if(!isset($_MAMBOTS->_content_mambot_params['frontpagemodule'])) {
-			$database->setQuery("SELECT params FROM #__mambots WHERE element = 'frontpagemodule' AND folder = 'content'");
-			$database->loadObject($mambot);
-			$_MAMBOTS->_content_mambot_params['bot_frontpagemodule'] = $mambot;
-		}
-
-		if(!isset($_MAMBOTS->_content_mambot_params['_frontpagemodule']->params->i)) {
-			$_MAMBOTS->_content_mambot_params['_frontpagemodule']->params->i =1;
-		}else {
-			$_MAMBOTS->_content_mambot_params['_frontpagemodule']->params->i ++;
-		}
-
-		$params_bot = new mosParameters($_MAMBOTS->_content_mambot_params['frontpagemodule']->params);
-
-		$mod_position = $params_bot->def('mod_position','banner');
-		$mod_type = $params_bot->def('mod_type','1');
-		$mod_after = $params_bot->def('mod_after','1');
-
-		if(mosCountModules($mod_position)>0 && $_MAMBOTS->_content_mambot_params['_frontpagemodule']->params->i == $mod_after) {
-			echo '<div class="frontpagemodule">';
-			mosLoadModules($mod_position,$mod_type);
-			echo '</div>';
-		}
-	}
+global $option,$mosConfig_absolute_path,$database,$_MAMBOTS;
+// èñêëþ÷àåì ðàáîòó ìàìáîòà â ìîäóëÿõ è ïðè âûâîäå íà ïå÷àòü
+$pvars = array_keys(get_object_vars($params->_params));
+if($params->get('popup') || in_array('moduleclass_sfx',$pvars)) {
+return;
 }
+if($option == 'com_frontpage') {
+if(!isset($_MAMBOTS->_content_mambot_params['frontpagemodule'])) {
+$database->setQuery("SELECT params FROM #__mambots WHERE element = 'frontpagemodule' AND folder = 'content'");
+$database->loadObject($mambot);
+$_MAMBOTS->_content_mambot_params['bot_frontpagemodule'] = $mambot;
+}
+if(!isset($_MAMBOTS->_content_mambot_params['_frontpagemodule']->params->i)){
+$_MAMBOTS->_content_mambot_params['_frontpagemodule']->params->i =1;
+}else{
+$_MAMBOTS->_content_mambot_params['_frontpagemodule']->params->i ++;
+}
+$params = new mosParameters($_MAMBOTS->_content_mambot_params['frontpagemodule']->params);
+$mod_position = $params->def('mod_position','banner');
+$mod_type = $params->def('mod_type','1');
+$mod_after = $params->def('mod_after','1');
+if(mosCountModules($mod_position)>0 && $_MAMBOTS->_content_mambot_params['_frontpagemodule']->params->i == $mod_after){
+echo '<div class="frontpagemodule">';
+mosLoadModules($mod_position,$mod_type);
+echo '</div>';
+}
+}
+}
+?>

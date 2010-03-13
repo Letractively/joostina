@@ -1,181 +1,143 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
-
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
-
 /**
- * @package Joostina
- * @subpackage Users
- */
+* @package Joostina
+* @subpackage Users
+*/
 class loginHTML {
-
-	function loginpage(&$params,$image) {
-		global $mosConfig_lang;
-
-		// used for spoof hardening
-		$validate = josSpoofValue(1);
-
-		$return = $params->get('login');
-		?>
+function loginpage(&$params,$image) {
+global $mosConfig_lang;
+// used for spoof hardening
+$validate = josSpoofValue(1);
+$return = $params->get('login');
+?>
 <form action="<?php echo sefRelToAbs('index.php?option=login'); ?>" method="post" name="login" id="login">
-	<table width="100%" border="0" align="center" cellpadding="4" cellspacing="0" class="contentpane<?php echo
-				   $params->get('pageclass_sfx'); ?>">
-		<tr>
-			<td colspan="2">
-						<?php
-						if($params->get('page_title')) {
-							?>
-				<div class="componentheading<?php echo $params->get('pageclass_sfx'); ?>">
-								<?php echo $params->get('header_login'); ?>
-				</div>
-							<?php
-						}
-						?>
-				<div>
-							<?php echo $image; ?>
-							<?php
-							if($params->get('description_login')) {
-								?>
-								<?php echo $params->get('description_login_text'); ?>
-					<br/><br/>
-								<?php
-							}
-							?>
-				</div>
-			</td>
-		</tr>
-		<tr>
-			<td align="center" width="50%">
-				<br />
-				<table>
-					<tr>
-						<td align="center">
-									<?php echo _USER; ?>
-							<br />
-						</td>
-						<td align="center">
-									<?php echo _PASSWORDWORD; ?>
-							<br />
-						</td>
-					</tr>
-					<tr>
-						<td align="center">
-							<input name="username" type="text" class="inputbox" size="20" />
-						</td>
-						<td align="center">
-							<input name="passwd" type="password" class="inputbox" size="20" />
-						</td>
-					</tr>
-					<tr>
-						<td align="center" colspan="2">
-							<br/>
-									<?php echo _REMEMBER_ME; ?>
-							<input type="checkbox" name="remember" class="inputbox" value="yes" />
-							<br/>
-							<a href="<?php echo sefRelToAbs('index.php?option=com_registration&amp;task=lostPassword'); ?>">
-										<?php echo _LOST_PASSWORDWORD; ?>
-							</a>
-									<?php
-									if($params->get('registration')) {
-										?>
-							<br/>
-										<?php echo _NO_ACCOUNT; ?>
-							<a href="<?php echo sefRelToAbs('index.php?option=com_registration&amp;task=register'); ?>">
-											<?php echo _CREATE_ACCOUNT; ?>
-							</a>
-										<?php
-									}
-									?>
-							<br/><br/><br/>
-						</td>
-					</tr>
-				</table>
-			</td>
-			<td>
-				<div align="center">
-					<input type="submit" name="submit" class="button" value="<?php echo
-								   _BUTTON_LOGIN; ?>" />
-				</div>
-
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<noscript>
-							<?php echo _JAVASCRIPT; ?>
-				</noscript>
-			</td>
-		</tr>
-	</table>
-			<?php
-			// displays back button
-			mosHTML::BackButton($params);
-			?>
-
-	<input type="hidden" name="op2" value="login" />
-	<input type="hidden" name="return" value="<?php echo sefRelToAbs($return); ?>" />
-	<input type="hidden" name="lang" value="<?php echo $mosConfig_lang; ?>" />
-	<input type="hidden" name="message" value="<?php echo $params->get('login_message'); ?>" />
-	<input type="hidden" name="<?php echo $validate; ?>" value="1" />
-</form>
-		<?php
-	}
-
-	function logoutpage(&$params,$image) {
-		global $mosConfig_lang;
-
-		$return = $params->get('logout');
-		?>
-<form action="<?php echo sefRelToAbs('index.php?option=logout'); ?>" method="post" name="login" id="login">
-	<table width="100%" border="0" align="center" cellpadding="4" cellspacing="0" class="contentpane<?php echo
-				   $params->get('pageclass_sfx'); ?>">
-		<tr>
-			<td valign="top">
-						<?php
-						if($params->get('page_title')) {
-							?>
-				<div class="componentheading<?php echo $params->get('pageclass_sfx'); ?>">
-								<?php echo $params->get('header_logout'); ?>
-				</div>
-							<?php
-						}
-						?>
-				<div>
-							<?php
-							echo $image;
-
-							if($params->get('description_logout')) {
-								echo $params->get('description_logout_text');
-								?>
-					<br/><br/>
-								<?php
-							}
-							?>
-				</div>
-			</td>
-		</tr>
-		<tr>
-			<td align="center">
-				<div align="center">
-					<input type="submit" name="Submit" class="button" value="<?php echo
-								   _BUTTON_LOGOUT; ?>" />
-				</div>
-			</td>
-		</tr>
-	</table>
-			<?php mosHTML::BackButton($params); ?>
-	<input type="hidden" name="op2" value="logout" />
-	<input type="hidden" name="return" value="<?php echo sefRelToAbs($return); ?>" />
-	<input type="hidden" name="lang" value="<?php echo $mosConfig_lang; ?>" />
-	<input type="hidden" name="message" value="<?php echo $params->get('logout_message'); ?>" />
-</form>
-		<?php
-	}
+<table width="100%" border="0" align="center" cellpadding="4" cellspacing="0" class="contentpane<?php echo
+$params->get('pageclass_sfx'); ?>">
+<tr>
+<td colspan="2">
+<?php
+if($params->get('page_title')) {
+?>
+<div class="componentheading<?php echo $params->get('pageclass_sfx'); ?>"><?php echo $params->get('header_login'); ?></div>
+<?php
 }
+?>
+<div>
+<?php echo $image; ?>
+<?php
+if($params->get('description_login')) {
+?>
+<?php echo $params->get('description_login_text'); ?>
+<br /><br />
+<?php
+}
+?>
+</div>
+</td>
+</tr>
+<tr>
+<td align="center" width="50%">
+<br />
+<table>
+<tr>
+<td align="center"><?php echo _USERNAME; ?><br /></td>
+<td align="center"><?php echo _PASSWORD; ?><br /></td>
+</tr>
+<tr>
+<td align="center"><input name="username" type="text" class="inputbox" size="20" /></td>
+<td align="center"><input name="passwd" type="password" class="inputbox" size="20" /></td>
+</tr>
+<tr>
+<td align="center" colspan="2">
+<br />
+<?php echo _REMEMBER_ME; ?>
+<input type="checkbox" name="remember" class="inputbox" value="yes" />
+<br />
+<a href="<?php echo sefRelToAbs('index.php?option=com_registration&amp;task=lostPassword'); ?>"><?php echo _LOST_PASSWORD; ?></a>
+<?php
+if($params->get('registration')) {
+?>
+<br />
+<?php echo _NO_ACCOUNT; ?>
+<a href="<?php echo sefRelToAbs('index.php?option=com_registration&amp;task=register'); ?>"><?php echo _CREATE_ACCOUNT; ?></a>
+<?php
+}
+?>
+<br /><br /><br />
+</td>
+</tr>
+</table>
+</td>
+<td><div align="center"><input type="submit" name="submit" class="button" value="<?php echo _BUTTON_LOGIN; ?>" /></div></td>
+</tr>
+<tr>
+<td colspan="2"><noscript><?php echo _CMN_JAVASCRIPT; ?></noscript></td>
+</tr>
+</table>
+<?php
+// displays back button
+mosHTML::BackButton($params);
+?>
+<input type="hidden" name="op2" value="login" />
+<input type="hidden" name="return" value="<?php echo sefRelToAbs($return); ?>" />
+<input type="hidden" name="lang" value="<?php echo $mosConfig_lang; ?>" />
+<input type="hidden" name="message" value="<?php echo $params->get('login_message'); ?>" />
+<input type="hidden" name="<?php echo $validate; ?>" value="1" />
+</form>
+<?php
+}
+function logoutpage(&$params,$image) {
+global $mosConfig_lang;
+$return = $params->get('logout');
+?>
+<form action="<?php echo sefRelToAbs('index.php?option=logout'); ?>" method="post" name="login" id="login">
+<table width="100%" border="0" align="center" cellpadding="4" cellspacing="0" class="contentpane<?php echo
+$params->get('pageclass_sfx'); ?>">
+<tr>
+<td valign="top">
+<?php
+if($params->get('page_title')) {
+?>
+<div class="componentheading<?php echo $params->get('pageclass_sfx'); ?>"><?php echo $params->get('header_logout'); ?></div>
+<?php
+}
+?>
+<div>
+<?php
+echo $image;
+if($params->get('description_logout')) {
+echo $params->get('description_logout_text');
+?>
+<br /><br />
+<?php
+}
+?>
+</div>
+</td>
+</tr>
+<tr>
+<td align="center"><div align="center"><input type="submit" name="Submit" class="button" value="<?php echo _BUTTON_LOGOUT; ?>" /></div></td>
+</tr>
+</table>
+<?php
+// displays back button
+mosHTML::BackButton($params);
+?>
+<input type="hidden" name="op2" value="logout" />
+<input type="hidden" name="return" value="<?php echo sefRelToAbs($return); ?>" />
+<input type="hidden" name="lang" value="<?php echo $mosConfig_lang; ?>" />
+<input type="hidden" name="message" value="<?php echo $params->get('logout_message'); ?>" />
+</form>
+<?php
+}
+}
+?>

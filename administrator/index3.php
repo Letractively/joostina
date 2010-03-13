@@ -1,119 +1,91 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
-
-// Ð£ÑÑ‚Ð°Ð½Ð¾Ð²ÐºÐ° Ñ„Ð»Ð°Ð³Ð° Ñ€Ð¾Ð´Ð¸Ñ‚ÐµÐ»ÑŒÑÐºÐ¾Ð³Ð¾ Ñ„Ð°Ð¹Ð»Ð°
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
+// Óñòàíîâêà ðîäèòåëüñêîãî ôëàãà
 define('_VALID_MOS',1);
-// Ñ€Ð°Ð·Ð´ÐµÐ»Ð¸Ñ‚ÐµÐ»ÑŒ ÐºÐ°Ñ‚Ð°Ð»Ð¾Ð³Ð¾Ð²
-define('DS', DIRECTORY_SEPARATOR );
-// ÐºÐ¾Ñ€ÐµÐ½ÑŒ Ñ„Ð°Ð¹Ð»Ð¾Ð²
-define('JPATH_BASE', dirname(dirname(__FILE__)) );
-// ÐºÐ¾Ñ€ÐµÐ½ÑŒ Ñ„Ð°Ð¹Ð»Ð¾Ð² Ð°Ð´Ð¼Ð¸Ð½ÐºÐ¸Ñ‹
-define('JPATH_BASE_ADMIN', dirname(__FILE__) );
-
-(ini_get('register_globals') == 1) ? require_once (JPATH_BASE.DS.'includes'.DS.'globals.php') : null;
-require_once (JPATH_BASE.DS.'configuration.php');
-
-// live_site
-define('JPATH_SITE', $mosConfig_live_site );
-
+if(!file_exists('../configuration.php')) {
+header('Location: ../installation/index.php');
+exit();
+}
+require ('../globals.php');
+require_once ('../configuration.php');
+require_once ('../includes/definitions.php');
+// îòêëþ÷àåì êýøèðîâàíèå çàïðîñîâ áàçû äàííûõ äëÿ ïàíåëè óïðàâëåíèÿ
+$mosConfig_db_cache_handler = 'none';
 // SSL check - $http_host returns <live site url>:<port number if it is 443>
 $http_host = explode(':',$_SERVER['HTTP_HOST']);
 if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset($http_host[1]) && $http_host[1] == 443) && substr($mosConfig_live_site,0,8) !='https://') {
-	$mosConfig_live_site = 'https://' . substr($mosConfig_live_site,7);
+$mosConfig_live_site = 'https://' . substr($mosConfig_live_site,7);
 }
-
-// live_site
-define('JPATH_SITE', $mosConfig_live_site );
-
-// Ð´Ð»Ñ ÑÐ¾Ð²Ð¼ÐµÑÑ‚Ð¸Ð¼Ð¾ÑÑ‚Ð¸
-$mosConfig_absolute_path = JPATH_BASE;
-// ÑÐ´Ñ€Ð¾
-require_once (JPATH_BASE .DS. 'includes'.DS.'joostina.php');
-
-$acl = &gacl::getInstance();
-
+require_once ($mosConfig_absolute_path . '/includes/joomla.php');
+include_once ($mosConfig_absolute_path . '/language/' . $mosConfig_lang . '.php');
+require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/includes/admin.php');
 // must start the session before we create the mainframe object
 session_name(md5($mosConfig_live_site));
 session_start();
-// Ð·Ð°Ð³Ð¾Ð»Ð¾Ð²ÐºÐ¸
-header('Content-type: text/html; charset=UTF-8');
-
-// mainframe - Ð¾ÑÐ½Ð¾Ð²Ð½Ð°Ñ Ñ€Ð°Ð±Ð¾Ñ‡Ð°Ñ ÑÑ€ÐµÐ´Ð° API, Ð¾ÑÑƒÑ‰ÐµÑÑ‚Ð²Ð»ÑÐµÑ‚ Ð²Ð·Ð°Ð¸Ð¼Ð¾Ð´ÐµÐ¹ÑÑ‚Ð²Ð¸Ðµ Ñ 'ÑÐ´Ñ€Ð¾Ð¼'
-$mainframe = mosMainFrame::getInstance(true);
-$mainframe->set('lang', $mosConfig_lang);
-include_once($mainframe->getLangFile());
-
-// Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ðµ ÑˆÐ°Ð±Ð»Ð¾Ð½Ð° ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñ‹
-$cur_template = $mainframe->getTemplate();
-define('JTEMPLATE', $cur_template );
-
-require_once (JPATH_BASE_ADMIN.DS.'includes'.DS.'admin.php');
-
-$act		= strtolower(mosGetParam($_REQUEST,'act',''));
-$section	= mosGetParam($_REQUEST,'section','');
-$no_html	= intval(mosGetParam($_REQUEST,'no_html',''));
-$id			= intval(mosGetParam($_REQUEST,'id',0));
-$mosmsg		= strval(strip_tags(mosGetParam($_REQUEST,'mosmsg','')));
-$option		= strval(strtolower(mosGetParam($_REQUEST,'option','')));
-$task		= strval(mosGetParam($_REQUEST,'task',''));
-
+$option= strval(strtolower(mosGetParam($_REQUEST,'option','')));
+$task= strval(mosGetParam($_REQUEST,'task',''));
+// mainframe is an API workhorse, lots of 'core' interaction routines
+$mainframe = new mosMainFrame($database,$option,'..',true);
 // admin session handling
 $my = $mainframe->initSessionAdmin($option,$task);
-
+// initialise some common request directives
+$act= strtolower(mosGetParam($_REQUEST,'act',''));
+$section= mosGetParam($_REQUEST,'section','');
+$mosmsg= strval(strip_tags(mosGetParam($_REQUEST,'mosmsg','')));
+$no_html= mosGetParam($_REQUEST,'no_html','');
+$id= intval(mosGetParam($_REQUEST,'id',0));
 // start the html output
 if($no_html) {
-	if($path = $mainframe->getPath('admin')) {
-		//ÐŸÐ¾Ð´ÐºÐ»ÑŽÑ‡Ð°ÐµÐ¼ ÑÐ·Ñ‹Ðº ÐºÐ¾Ð¼Ð¿Ð¾Ð½ÐµÐ½Ñ‚Ð°
-		if($mainframe->getLangFile($option)) {
-			include($mainframe->getLangFile($option));
-		}
-		require $path;
-	}
-	exit;
+if($path = $mainframe->getPath('admin')) {
+require $path;
 }
-
+exit;
+}
 initGzip();
 ?>
 <?php echo "<?xml version=\"1.0\"?>"; ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<title><?php echo $mosConfig_sitename; ?> - Joostina</title>
-		<link rel="stylesheet" href="templates/<?php echo JTEMPLATE; ?>/css/template_css.css" type="text/css" />
-		<link rel="stylesheet" href="templates/<?php echo JTEMPLATE; ?>/css/theme.css" type="text/css" />
-		<script language="JavaScript" src="../includes/js/JSCookMenu.js" type="text/javascript"></script>
-		<script language="JavaScript" src="includes/js/ThemeOffice/theme.js" type="text/javascript"></script>
-		<script language="JavaScript" src="../includes/js/joomla.javascript.js" type="text/javascript"></script>
-		<meta http-equiv="Content-Type" content="text/html; <?php echo _ISO; ?>" />
-		<?php
-		$mainframe->set('loadEditor',true);
-		include_once (JPATH_BASE . '/includes/editor.php');
-		initEditor();
-		?>
-	</head>
-	<body>
-		<?php
-		if($mosmsg) {
-			if(!get_magic_quotes_gpc()) {
-				$mosmsg = addslashes($mosmsg);
-			}
-			echo "\n<script language=\"javascript\" type=\"text/javascript\">alert('$mosmsg');</script>";
-		}
+<head>
+<title><?php echo $mosConfig_sitename; ?> - Joostina</title>
+<link rel="stylesheet" href="templates/<?php echo $mainframe->getTemplate(); ?>/css/template_css.css" type="text/css" />
+<link rel="stylesheet" href="templates/<?php echo $mainframe->getTemplate(); ?>/css/theme.css" type="text/css" />
+<script language="JavaScript" src="../includes/js/JSCookMenu.js" type="text/javascript"></script>
+<script language="JavaScript" src="includes/js/ThemeOffice/theme.js" type="text/javascript"></script>
+<script language="JavaScript" src="../includes/js/joomla.javascript.js" type="text/javascript"></script>
+<meta http-equiv="Content-Type" content="text/html; <?php echo _ISO; ?>" />
+<?php
+$mainframe->set('loadEditor',true);
+include_once ($mosConfig_absolute_path .'/editor/editor.php');
+initEditor();
+?>
+</head>
+<body>
+<?php
+if($mosmsg) {
+if(!get_magic_quotes_gpc()) {
+$mosmsg = addslashes($mosmsg);
+}
+echo "\n<script language=\"javascript\" type=\"text/javascript\">alert('$mosmsg');</script>";
+}
 
 // Show list of items to edit or delete or create new
-		if($path = $mainframe->getPath('admin')) {
-			require $path;
-		} else { ?>
-		<img src="<?php echo JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE;?>/images/ico/error.png" border="0" alt="Joostina!" />
-		<br />
-			<?php } ?>
-	</body>
+if($path = $mainframe->getPath('admin')) {
+require $path;
+} else {
+?>
+<img src="images/error.jpg" border="0" alt="Joostina!" /><br />
+<?php
+}
+?>
+</body>
 </html>
 <?php
 doGzip();
+?>

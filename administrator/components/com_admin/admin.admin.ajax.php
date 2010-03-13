@@ -1,19 +1,19 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
 
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
 
-// Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€ Ð²Ñ‹Ð¿Ð¾Ð»Ð½ÑÐµÐ¼Ð¾Ð³Ð¾ Ð´ÐµÐ¹ÑÑ‚Ð²Ð¸Ñ
+// ïàðàìåòð âûïîëíÿåìîãî äåéñòâèÿ
 $task	= mosGetParam($_GET,'task','publish');
 
-// Ð¾Ð±Ñ€Ð°Ð±Ð°Ñ‚Ñ‹Ð²Ð°ÐµÐ¼ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð½Ñ‹Ð¹ Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€ task
+// îáðàáàòûâàåì ïîëó÷åííûé ïàðàìåòð task
 switch($task) {
 	case 'toggle_editor':
 		echo x_toggle_editor();
@@ -26,39 +26,41 @@ switch($task) {
 		return;
 }
 
-// Ð²ÐºÐ»ÑŽÑ‡ÐµÐ½Ð¸Ðµ / Ð¾Ñ‚ÐºÐ»ÑŽÑ‡ÐµÐ½Ð¸Ðµ Ð²Ð¸Ð·ÑƒÐ°Ð»ÑŒÐ½Ð¾Ð³Ð¾ Ñ€ÐµÐ´Ð°ÐºÑ‚Ð¾Ñ€Ð°
-function x_toggle_editor() {
-	$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
-
-	if(!intval(mosGetParam($_SESSION,'user_editor_off',''))) {
-		// Ð¾Ñ‚ÐºÐ»ÑŽÑ‡Ð°ÐµÐ¼ Ñ€ÐµÐ´Ð°ÐºÑ‚Ð¾Ñ€
+// âêëþ÷åíèå / îòêëþ÷åíèå âèçóàëüíîãî ðåäàêòîðà
+function x_toggle_editor(){
+	if(!intval(mosGetParam($_SESSION,'user_editor_off',''))){
+		// îòêëþ÷àåì ðåäàêòîð
 		$_SESSION['user_editor_off'] = 1;
-		return $cur_file_icons_path.'/editor_off.png';
-	}else {
-		// Ð²ÐºÐ»ÑŽÑ‡Ð°ÐµÐ¼ Ñ€ÐµÐ´Ð°ÐºÑ‚Ð¾Ñ€
+		return 'editor_off.png';
+	}else{
+		// âêëþ÷àåì ðåäàêòîð
 		$_SESSION['user_editor_off'] = 0;
-		return $cur_file_icons_path.'/editor_on.png';
+		return 'editor_on.png';
 	}
 }
 
-function x_upload() {
-	?>
+function x_upload(){
+?>
 <form method="post" action="uploadimage.php" enctype="multipart/form-data" name="filename" id="filename">
 	<table class="adminform" style="width:100%;">
 		<tr>
-			<th class="title"><?php echo _FILE_UPLOAD?>:</th>
+		<th class="title">
+			<?php echo _FILE_UPLOAD?>:
+		</th>
 		</tr>
 		<tr>
 			<td align="center">
-				<input class="inputbox" name="userfile" type="file" /><input class="button" type="submit" value="Ð—Ð°Ð³Ñ€ÑƒÐ·Ð¸Ñ‚ÑŒ" name="fileupload" />
+				<input class="inputbox" name="userfile" type="file" /><input class="button" type="submit" value="Çàãðóçèòü" name="fileupload" />
 			</td>
 		</tr>
 		<tr>
 			<td><?php echo _MAX_SIZE?> = <?php echo ini_get('post_max_size'); ?></td>
-		</tr>
+	</tr>
 	</table>
 	<input type="hidden" name="directory" value="" />
 	<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
 </form>
-	<?php
+<?php
 }
+
+?>

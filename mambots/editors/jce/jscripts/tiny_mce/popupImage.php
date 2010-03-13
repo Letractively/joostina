@@ -3,12 +3,14 @@
 
 define( '_VALID_MOS', 1 );
 
-$base = str_replace( 'mambots/editors/jce/jscripts/tiny_mce', '', str_replace( DS, '/', dirname(__FILE__) ) );
+global $mosConfig_live_site;
+
+$base = str_replace( 'mambots/editors/jce/jscripts/tiny_mce', '', str_replace( DIRECTORY_SEPARATOR, '/', dirname(__FILE__) ) );
 
 include ( $base . "/configuration.php" );
-include ( $base . "/includes/joostina.php" );
+include ( $base . "/includes/joomla.php" );
 
-function getInput( $item, $def=null ) {
+function getInput( $item, $def=null ){
 	return htmlspecialchars( mosGetParam( $_REQUEST, $item, $def ) );
 }
 
@@ -20,4 +22,6 @@ $img = getInput( 'img' );
 $src = getInput( 'src' );
 
 $img = ( $src ) ? $src : $img;
-mosRedirect( JPATH_SITE."/index2.php?option=com_jce&task=popup&img=$img&mode=$mode&title=$title&alt=$alt" );
+mosRedirect( "$mosConfig_live_site/index2.php?option=com_jce&task=popup&img=$img&mode=$mode&title=$title&alt=$alt" );
+
+?>

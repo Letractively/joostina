@@ -1,102 +1,103 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
 
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
 
 /**
- * @package Joostina
- * @subpackage Massmail
- */
+* @package Joostina
+* @subpackage Massmail
+*/
 class HTML_massmail {
 	function messageForm(&$lists,$option) {
-		?>
-<script language="javascript" type="text/javascript">
-	function submitbutton(pressbutton) {
-		var form = document.adminForm;
-		if (pressbutton == 'cancel') {
-			submitform( pressbutton );
-			return;
-		}
-		// do field validation
-		if (form.mm_subject.value == ""){
-			alert( "<?php echo _PLEASE_ENTER_SUBJECT?>" );
-		} else if (getSelectedValue('adminForm','mm_group') < 0){
-			alert( "<?php echo _PLEASE_CHOOSE_GROUP?>" );
-		} else if (form.mm_message.value == ""){
-			alert( "<?php echo _PLEASE_ENTER_MESSAGE?>" );
-		} else {
-			submitform( pressbutton );
-		}
-	}
-</script>
+?>
+		<script language="javascript" type="text/javascript">
+			function submitbutton(pressbutton) {
+				var form = document.adminForm;
+				if (pressbutton == 'cancel') {
+					submitform( pressbutton );
+					return;
+				}
+				// do field validation
+				if (form.mm_subject.value == ""){
+					alert( "<?php echo _PLEASE_ENTER_SUBJECT?>" );
+				} else if (getSelectedValue('adminForm','mm_group') < 0){
+					alert( "<?php echo _PLEASE_CHOOSE_GROUP?>" );
+				} else if (form.mm_message.value == ""){
+					alert( "<?php echo _PLEASE_ENTER_MESSAGE?>" );
+				} else {
+					submitform( pressbutton );
+				}
+			}
+		</script>
 
-<form action="index2.php" name="adminForm" method="post">
-	<table class="adminheading">
+		<form action="index2.php" name="adminForm" method="post">
+		<table class="adminheading">
 		<tr>
 			<th class="massemail">
-						<?php echo _MASSMAIL_TTILE?>
+			<?php echo _MASSMAIL_TTILE?>
 			</th>
 		</tr>
-	</table>
+		</table>
 
-	<table class="adminform">
+		<table class="adminform">
 		<tr>
 			<th colspan="2">
-						<?php echo _DETAILS?>
+			<?php echo _DETAILS?>
 			</th>
 		</tr>
 		<tr>
 			<td width="150" valign="top">
-						<?php echo _GROUP?>:
+			<?php echo _O_GROUP?>:
 			</td>
 			<td width="85%">
-						<?php echo $lists['gid']; ?>
+			<?php echo $lists['gid']; ?>
 			</td>
 		</tr>
 		<tr>
 			<td>
-						<?php echo _SEND_TO_SUBGROUPS?>:
+			<?php echo _SEND_TO_SUBGROUPS?>:
 			</td>
 			<td>
-				<input type="checkbox" name="mm_recurse" value="RECURSE" />
-			</td>
-		</tr>
-		<tr>
-			<td>
-						<?php echo _SEND_IN_HTML?>:
-			</td>
-			<td>
-				<input type="checkbox" name="mm_mode" value="1" />
+			<input type="checkbox" name="mm_recurse" value="RECURSE" />
 			</td>
 		</tr>
 		<tr>
 			<td>
-						<?php echo _SUBJECT?>:
+			<?php echo _SEND_IN_HTML?>:
 			</td>
 			<td>
-				<input class="inputbox" type="text" name="mm_subject" value="" size="50"/>
+			<input type="checkbox" name="mm_mode" value="1" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<?php echo _MAIL_SUBJECT?>:
+			</td>
+			<td>
+			<input class="inputbox" type="text" name="mm_subject" value="" size="50"/>
 			</td>
 		</tr>
 		<tr>
 			<td valign="top">
-						<?php echo _MESSAGE?>:
+			<?php echo _MESSAGE?>:
 			</td>
 			<td>
-				<textarea cols="80" rows="25" name="mm_message" class="inputbox"></textarea>
+			<textarea cols="80" rows="25" name="mm_message" class="inputbox"></textarea>
 			</td>
 		</tr>
-	</table>
-	<input type="hidden" name="option" value="<?php echo $option; ?>"/>
-	<input type="hidden" name="task" value=""/>
-	<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
-</form>
+		</table>
+		<input type="hidden" name="option" value="<?php echo $option; ?>"/>
+		<input type="hidden" name="task" value=""/>
+		<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
+		</form>
 		<?php
 	}
 }
+?>

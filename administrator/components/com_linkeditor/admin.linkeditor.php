@@ -1,13 +1,13 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
 
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
 
 require_once ($mainframe->getPath('admin_html'));
@@ -50,11 +50,11 @@ switch($task) {
 }
 
 function deleteLink(&$cid) {
-	$database = &database::getInstance();
+	global $database;
 
 	if(count($cid)) {
 		$cids = implode(',',$cid);
-		$query = "DELETE FROM #__components WHERE id IN ( $cids )";
+		$query = "DELETE FROM #__components"."\n WHERE id IN ( $cids )";
 		$database->setQuery($query);
 		if(!$database->query()) {
 			echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
@@ -65,7 +65,7 @@ function deleteLink(&$cid) {
 
 }
 function saveOrder(&$cid) {
-	$database = &database::getInstance();
+	global $database;
 
 	$total = count($cid);
 	$order = mosGetParam($_POST,'order',array(0));
@@ -79,7 +79,7 @@ function saveOrder(&$cid) {
 			$row->ordering = $order[$i];
 			if(!$row->store()) {
 				echo "<script> alert('".$database->getErrorMsg().
-						"'); window.history.go(-1); </script>\n";
+					"'); window.history.go(-1); </script>\n";
 				exit();
 			} // if
 			// remember to updateOrder this group
@@ -105,14 +105,12 @@ function saveOrder(&$cid) {
 } // saveOrder
 
 function editLink($id = 0) {
-
-	$database = &database::getInstance();
-
+	global $database,$mosConfig_absolute_path,$mosConfig_live_site;
 	$row = new mosComponent($database);
 	$row->load($id);
 
-	$pathA = JPATH_BASE.'/includes/js/ThemeOffice';
-	$pathL = JPATH_SITE.'/includes/js/ThemeOffice';
+	$pathA = $mosConfig_absolute_path.'/includes/js/ThemeOffice';
+	$pathL = $mosConfig_live_site.'/includes/js/ThemeOffice';
 	$images = array();
 	$folders = array();
 	$folders[] = mosHTML::makeOption('/');
@@ -153,7 +151,7 @@ function ReadImages($imagePath,$folderPath,&$folders,&$images) {
 }
 
 function categoryParentList($id,$action,$options = array()) {
-	$database = &database::getInstance();
+	global $database;
 
 	$list = categoryArray();
 
@@ -180,7 +178,7 @@ function categoryParentList($id,$action,$options = array()) {
 }
 
 function categoryArray() {
-	$database = &database::getInstance();
+	global $database;
 
 	// get a list of the menu items
 	$query = "SELECT* FROM #__components ORDER BY ordering";
@@ -204,8 +202,7 @@ function categoryArray() {
 
 
 function saveLink() {
-	$database = &database::getInstance();
-
+	global $database;
 	$image = mosGetParam($_POST,'admin_menu_img');
 
 	$admin_menu_img = "js/ThemeOffice/".$image;
@@ -221,14 +218,11 @@ function saveLink() {
 		echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
 		exit();
 	}
-	mosRedirect("index2.php?option=com_linkeditor",'Ð˜Ð·Ð¼ÐµÐ½ÐµÐ½Ð¸Ñ ÑÐ¾Ñ…Ñ€Ð°Ð½ÐµÐ½Ñ‹');
+	mosRedirect("index2.php?option=com_linkeditor",'Èçìåíåíèÿ ñîõðàíåíû');
 }
 
 function viewLinks() {
-	global $mainframe,$mosConfig_list_limit,$option,$section,$menutype;
-
-	$database = &database::getInstance();
-
+	global $database,$mainframe,$mosConfig_list_limit,$option,$section,$menutype;
 	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mosConfig_list_limit));
 	$limitstart = intval($mainframe->getUserStateFromRequest("view{$section}limitstart",'limitstart',0));
 	$levellimit = intval($mainframe->getUserStateFromRequest("view{$option}limit$menutype",'levellimit',10));
@@ -252,7 +246,7 @@ function viewLinks() {
 
 	$total = count($list);
 
-	require_once (JPATH_BASE.DS.JADMIN_BASE.'/includes/pageNavigation.php');
+	require_once ($GLOBALS['mosConfig_absolute_path'].'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
 	// slice out elements based on limits
@@ -260,3 +254,4 @@ function viewLinks() {
 	HTML_linkeditor::viewall($list,$pageNav);
 
 }
+?>

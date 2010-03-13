@@ -1,78 +1,78 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <mosinstall type="component" version="1.0.0">
 	<name>Syndicate</name>
 	<author>Joostina! Project</author>
-	<copyright>(C) 2008-2010 Joostina team.</copyright>
+	<copyright>(C) 2008 Joostina team.</copyright>
 	<license>http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL</license>
 	<authorEmail>joostinacms@gmail.com</authorEmail>
 	<authorUrl>www.joostina.ru</authorUrl>
 	<version>1.0.0</version>
-	<description>РљРѕРјРїРѕРЅРµРЅС‚ РґР»СЏ СѓРїСЂР°РІР»РµРЅРёСЏ РЅР°СЃС‚СЂРѕР№РєР°РјРё СЌРєСЃРїРѕСЂС‚Р° РЅРѕРІРѕСЃС‚РµР№</description>
+	<description>Компонент для управления настройками экспорта новостей</description>
 	<params>
-		<param name="check" type="radio" default="1" label="РџСЂРѕРІРµСЂРєР° Р±РµР·РѕРїР°СЃРЅРѕСЃС‚Рё" description="Р•СЃР»Рё СЂР°Р·СЂРµС€РµРЅРѕ, С‚РѕРіРґР° С„СѓРЅРєС†РёСЏ СЌРєСЃРїРѕСЂС‚Р° РЅРѕРІРѕСЃС‚РµР№ Р±СѓРґРµС‚ СЂР°Р±РѕС‚Р°С‚СЊ С‚РѕР»СЊРєРѕ С‚РѕРіРґР°, РєРѕРіРґР° РѕРїСѓР±Р»РёРєРѕРІР°РЅ РјРѕРґСѓР»СЊ СЌРєСЃРїРѕСЂС‚Р° - mod_rssfeed">
-			<option value="0">РќРµС‚</option>
-			<option value="1">Р”Р°</option>
+		<param name="check" type="radio" default="1" label="Проверка безопасности" description="Если разрешено, тогда функция экспорта новостей будет работать только тогда, когда опубликован модуль экспорта - mod_rssfeed">
+			<option value="0">Нет</option>
+			<option value="1">Да</option>
 		</param>
 		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="cache" type="radio" default="1" label="Р’РєР»СЋС‡РёС‚СЊ РєСЌС€РёСЂРѕРІР°РЅРёРµ" description="РљСЌС€РёСЂРѕРІР°С‚СЊ Р»Рё С„Р°Р№Р»С‹ Р»РµРЅС‚ РЅРѕРІРѕСЃС‚РµР№">
-			<option value="0">РќРµС‚</option>
-			<option value="1">Р”Р°</option>
+		<param name="cache" type="radio" default="1" label="Включить кэширование" description="Кэшировать ли файлы лент новостей">
+			<option value="0">Нет</option>
+			<option value="1">Да</option>
 		</param>
-		<param name="cache_time" type="text" size="8" default="3600" label="Р’СЂРµРјСЏ РѕР±РЅРѕРІР»РµРЅРёСЏ РєСЌС€Р°" description="Р¤Р°Р№Р» РєСЌС€Р° Р±СѓРґРµС‚ РѕР±РЅРѕРІР»СЏС‚СЊСЃСЏ С‡РµСЂРµР· x СЃРµРєСѓРЅРґ" />
+		<param name="cache_time" type="text" size="8" default="3600" label="Время обновления кэша" description="Файл кэша будет обновляться через x секунд" />
 		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="count" type="text" size="4" default="5" label="Р§РёСЃР»Рѕ РѕР±СЉРµРєС‚РѕРІ" description="РљРѕР»РёС‡РµСЃС‚РІРѕ РѕР±СЉРµРєС‚РѕРІ РґР»СЏ СЌРєСЃРїРѕСЂС‚Р°" />
-		<param name="title" type="text" size="40" default="РЎРѕР·РґР°РЅРѕ Joostina CMS!" label="Р—Р°РіРѕР»РѕРІРѕРє" description="Р—Р°РіРѕР»РѕРІРѕРє СЌРєСЃРїРѕСЂС‚РёСЂСѓРµРјРѕР№ Р»РµРЅС‚С‹" />
-		<param name="description" type="textarea" rows="5" cols="30" default="Р­РєСЃРїРѕСЂС‚ СЃ СЃР°Р№С‚Р° Joostina!" label="РћРїРёСЃР°РЅРёРµ" description="РћРїРёСЃР°РЅРёРµ Р»РµРЅС‚С‹" />
+		<param name="count" type="text" size="4" default="5" label="Число объектов" description="Количество объектов для экспорта" />
+		<param name="title" type="text" size="40" default="Создано Joostina! 1.0" label="Заголовок" description="Заголовок экспортируемой ленты" />
+		<param name="description" type="textarea" rows="5" cols="30" default="Экспорт с сайта Joostina!" label="Описание" description="Описание ленты" />
 		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="image_file" type="imagelist" directory="/images/M_images" default="" label="РР·РѕР±СЂР°Р¶РµРЅРёРµ" description="РР·РѕР±СЂР°Р¶РµРЅРёРµ РІ Р»РµРЅС‚Рµ РЅРѕРІРѕСЃС‚РµР№" />
-		<param name="image_alt" type="text" size="30" default="РЎРѕР·РґР°РЅРѕ Joostina CMS!" label="РђР»СЊС‚РµСЂРЅР°С‚РёРІРЅС‹Р№ С‚РµРєСЃС‚ РґР»СЏ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ" description="РђР»СЊС‚РµСЂРЅР°С‚РёРІРЅС‹Р№ С‚РµРєСЃС‚ РґР»СЏ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ" />
+		<param name="image_file" type="imagelist" directory="/images/M_images" default="" label="Изображение" description="Изображение в ленте новостей" />
+		<param name="image_alt" type="text" size="30" default="Создано Joostina! 1.0" label="Альтернативный текст для изображения" description="Альтернативный текст для изображения" />
 		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="limit_text" type="radio" default="1" label="РћРіСЂР°РЅРёС‡РµРЅРёРµ С‚РµРєСЃС‚Р°" description="РћРіСЂР°РЅРёС‡РёС‚СЊ РѕР±СЉРµРј С‚РµРєСЃС‚Р° СЃС‚Р°С‚РµР№ Р·РЅР°С‡РµРЅРёРµРј, СѓРєР°Р·Р°РЅРЅС‹Рј РЅРёР¶Рµ">
-			<option value="0">РќРµС‚</option>
-			<option value="1">Р”Р°</option>
+		<param name="limit_text" type="radio" default="1" label="Ограничение текста" description="Ограничить объем текста статей значением, указанным ниже">
+			<option value="0">Нет</option>
+			<option value="1">Да</option>
 		</param>
-		<param name="text_length" type="text" size="4" default="20" label="Р”Р»РёРЅР° С‚РµРєСЃС‚Р°" description="Р”Р»РёРЅР° С‚РµРєСЃС‚Р° РІ СЌРєСЃРїРѕСЂС‚РёСЂСѓРµРјС‹С… СЃС‚Р°С‚СЊСЏС…. РџСЂРё 0 С‚РµРєСЃС‚ РїРѕРєР°Р·С‹РІР°С‚СЊСЃСЏ РЅРµ Р±СѓРґРµС‚" />
-		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="yandex" type="radio" default="1" label="Yandex" description="Р Р°Р·СЂРµС€РёС‚СЊ/Р—Р°РїСЂРµС‚РёС‚СЊ СЌРєСЃРїРѕСЂС‚ Р»РµРЅС‚С‹ РЅРѕРІРѕСЃС‚РµР№ РІ С„РѕСЂРјР°С‚Рµ Yandex">
-			<option value="0">Р—Р°РїСЂРµС‚РёС‚СЊ</option>
-			<option value="1">Р Р°Р·СЂРµС€РёС‚СЊ</option>
+		<param name="text_length" type="text" size="4" default="20" label="Длина текста" description="Длина текста в экспортируемых статьях. При 0 текст показываться не будет" />
+		<param name="@spacer" type="spacer" default="" label="" description="" />	
+		<param name="yandex" type="radio" default="1" label="Yandex" description="Разрешить/Запретить экспорт ленты новостей в формате Yandex">
+			<option value="0">Запретить</option>
+			<option value="1">Разрешить</option>
 		</param>
-		<param name="rss091" type="radio" default="1" label="RSS 0.91" description="Р Р°Р·СЂРµС€РёС‚СЊ/Р—Р°РїСЂРµС‚РёС‚СЊ СЌРєСЃРїРѕСЂС‚ Р»РµРЅС‚С‹ РЅРѕРІРѕСЃС‚РµР№ РІ С„РѕСЂРјР°С‚Рµ RSS 0.91">
-			<option value="0">Р—Р°РїСЂРµС‚РёС‚СЊ</option>
-			<option value="1">Р Р°Р·СЂРµС€РёС‚СЊ</option>
+		<param name="rss091" type="radio" default="1" label="RSS 0.91" description="Разрешить/Запретить экспорт ленты новостей в формате RSS 0.91">
+			<option value="0">Запретить</option>
+			<option value="1">Разрешить</option>
 		</param>
-		<param name="rss10" type="radio" default="1" label="RSS 1.0" description="Р Р°Р·СЂРµС€РёС‚СЊ/Р—Р°РїСЂРµС‚РёС‚СЊ СЌРєСЃРїРѕСЂС‚ Р»РµРЅС‚С‹ РЅРѕРІРѕСЃС‚РµР№ РІ С„РѕСЂРјР°С‚Рµ RSS 1.0">
-			<option value="0">Р—Р°РїСЂРµС‚РёС‚СЊ</option>
-			<option value="1">Р Р°Р·СЂРµС€РёС‚СЊ</option>
+		<param name="rss10" type="radio" default="1" label="RSS 1.0" description="Разрешить/Запретить экспорт ленты новостей в формате RSS 1.0">
+			<option value="0">Запретить</option>
+			<option value="1">Разрешить</option>
 		</param>
-		<param name="rss20" type="radio" default="1" label="RSS 2.0" description="Р Р°Р·СЂРµС€РёС‚СЊ/Р—Р°РїСЂРµС‚РёС‚СЊ СЌРєСЃРїРѕСЂС‚ Р»РµРЅС‚С‹ РЅРѕРІРѕСЃС‚РµР№ РІ С„РѕСЂРјР°С‚Рµ RSS 2.0">
-			<option value="0">Р—Р°РїСЂРµС‚РёС‚СЊ</option>
-			<option value="1">Р Р°Р·СЂРµС€РёС‚СЊ</option>
+		<param name="rss20" type="radio" default="1" label="RSS 2.0" description="Разрешить/Запретить экспорт ленты новостей в формате RSS 2.0">
+			<option value="0">Запретить</option>
+			<option value="1">Разрешить</option>
 		</param>
-		<param name="atom03" type="radio" default="1" label="ATOM 0.3" description="Р Р°Р·СЂРµС€РёС‚СЊ/Р—Р°РїСЂРµС‚РёС‚СЊ СЌРєСЃРїРѕСЂС‚ Р»РµРЅС‚С‹ РЅРѕРІРѕСЃС‚РµР№ РІ С„РѕСЂРјР°С‚Рµ ATOM 0.3">
-			<option value="0">Р—Р°РїСЂРµС‚РёС‚СЊ</option>
-			<option value="1">Р Р°Р·СЂРµС€РёС‚СЊ</option>
+		<param name="atom03" type="radio" default="1" label="ATOM 0.3" description="Разрешить/Запретить экспорт ленты новостей в формате ATOM 0.3">
+			<option value="0">Запретить</option>
+			<option value="1">Разрешить</option>
 		</param>
-		<param name="opml" type="radio" default="1" label="OPML" description="Р Р°Р·СЂРµС€РёС‚СЊ/Р—Р°РїСЂРµС‚РёС‚СЊ СЌРєСЃРїРѕСЂС‚ Р»РµРЅС‚С‹ РЅРѕРІРѕСЃС‚РµР№ РІ С„РѕСЂРјР°С‚Рµ OPML">
-			<option value="0">Р—Р°РїСЂРµС‚РёС‚СЊ</option>
-			<option value="1">Р Р°Р·СЂРµС€РёС‚СЊ</option>
-		</param>
-		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="orderby" type="list" default="front" label="РџРѕСЂСЏРґРѕРє РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ" description="РџРѕСЂСЏРґРѕРє, РІ РєРѕС‚РѕСЂРѕРј Р±СѓРґСѓС‚ РѕС‚РѕР±СЂР°Р¶Р°С‚СЊСЃСЏ РѕР±СЉРµРєС‚С‹">
-			<option value="front">РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ</option>
-			<option value="front">РљР°Рє РЅР° РіР»Р°РІРЅРѕР№ СЃС‚СЂР°РЅРёС†Рµ</option>
-			<option value="date">РЎРЅР°С‡Р°Р»Р° СЃР°РјС‹Рµ СЃС‚Р°СЂС‹Рµ</option>
-			<option value="rdate">РЎРЅР°С‡Р°Р»Р° СЃР°РјС‹Рµ РЅРѕРІС‹Рµ</option>
-			<option value="alpha">Р—Р°РіРѕР»РѕРІРєРё РїРѕ Р°Р»С„Р°РІРёС‚Сѓ</option>
-			<option value="ralpha">Р—Р°РіРѕР»РѕРІРєРё РІ РѕР±СЂР°С‚РЅРѕРј РїРѕСЂСЏРґРєРµ Р°Р»С„Р°РІРёС‚Р°</option>
-			<option value="author">РђРІС‚РѕСЂС‹ РїРѕ Р°Р»С„Р°РІРёС‚Сѓ</option>
-			<option value="rauthor">РђРІС‚РѕСЂС‹ РІ РѕР±СЂР°С‚РЅРѕРј РїРѕСЂСЏРґРєРµ Р°Р»С„Р°РІРёС‚Р°</option>
-			<option value="hits">РЎРЅР°С‡Р°Р»Р° СЃР°РјС‹Рµ С‡РёС‚Р°РµРјС‹Рµ</option>
-			<option value="rhits">РЎРЅР°С‡Р°Р»Р° СЂРµРґРєРѕ С‡РёС‚Р°РµРјС‹Рµ</option>
+		<param name="opml" type="radio" default="1" label="OPML" description="Разрешить/Запретить экспорт ленты новостей в формате OPML">
+			<option value="0">Запретить</option>
+			<option value="1">Разрешить</option>
 		</param>
 		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="live_bookmark" type="list" default="0" label="Р–РёРІС‹Рµ Р·Р°РєР»Р°РґРєРё" description="Р’РєР»СЋС‡РёС‚СЊ РїРѕРґРґРµСЂР¶РєСѓ Р–РёРІС‹С… Р·Р°РєР»Р°РґРѕРє Р±СЂР°СѓР·РµСЂР° Firefox">
-			<option value="0">РћС‚РєР»СЋС‡РµРЅРѕ</option>
+		<param name="orderby" type="list" default="front" label="Порядок отображения" description="Порядок, в котором будут отображаться объекты">
+			<option value="front">По умолчанию</option>
+			<option value="front">Как на главной странице</option>
+			<option value="date">Сначала самые старые</option>
+			<option value="rdate">Сначала самые новые</option>
+			<option value="alpha">Заголовки по алфавиту</option>
+			<option value="ralpha">Заголовки в обратном порядке алфавита</option>
+			<option value="author">Авторы по алфавиту</option>
+			<option value="rauthor">Авторы в обратном порядке алфавита</option>
+			<option value="hits">Сначала самые читаемые</option>
+			<option value="rhits">Сначала редко читаемые</option>
+		</param>
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="live_bookmark" type="list" default="0" label="Живые закладки" description="Включить поддержку Живых закладок браузера Firefox">
+			<option value="0">Отключено</option>
 			<option value="RSS0.91">RSS 0.91</option>
 			<option value="RSS1.0">RSS 1.0</option>
 			<option value="RSS2.0">RSS 2.0</option>

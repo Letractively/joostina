@@ -1,45 +1,98 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <mosinstall type="module" version="1.0.0">
-	<name>РЎР»СѓС‡Р°Р№РЅРѕРµ РёР·РѕР±СЂР°Р¶РµРЅРёРµ</name>
+	<name>Случайное изображение</name>
 	<author>Joostina! Project</author>
-	<creationDate>РСЋРЅСЊ 2009</creationDate>
-	<copyright>(C) 2008-2010 Joostina team.</copyright>
+	<creationDate>Июнь 2008</creationDate>
+	<copyright>(C) 2008 Joostina team.</copyright>
 	<license>http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL</license>
 	<authorEmail>joostinacms@gmail.com</authorEmail>
 	<authorUrl>www.joostina.ru</authorUrl>
 	<version>1.0.0</version>
-	<description>Р­С‚РѕС‚ РјРѕРґСѓР»СЊ РїРѕР·РІРѕР»СЏРµС‚ РїРѕРєР°Р·С‹РІР°С‚СЊ СЃР»СѓС‡Р°Р№РЅРѕРµ РёР·РѕР±СЂР°Р¶РµРЅРёРµ РёР· Р·Р°РґР°РЅРЅРѕР№ РїР°РїРєРё</description>
+	<description>Этот модуль позволяет показывать случайное изображение из заданной папки</description>
 	<files>
-		<filename module="mod_random_image">mod_random_image.php</filename>
+	<filename module="mod_random_image">mod_random_image.php</filename>
 	</files>
 	<params>
-		<param name="params" type="tabs" default="startPane" />
-		<param name="tab1" type="tabs" default="startTab" label="РћСЃРЅРѕРІРЅС‹Рµ РЅР°СЃС‚СЂРѕР№РєРё" />
-		<param name="rotate_type" type="list" default="0" label="РўРёРї РІС‹РІРѕРґР°" description="РћР±С‹С‡РЅС‹Р№ - РІС‹РІРѕРґ РѕРґРЅРѕР№ РєР°СЂС‚РёРЅРєРё СЃР»СѓС‡Р°Р№РЅРј РѕР±СЂР°Р·РѕРј; РЎР»Р°Р№Рґ-С€РѕСѓ - ajax-СЂРѕС‚Р°С†РёСЏ РёР·РѕР±СЂР°Р¶РµРЅРёР№">
-			<option value="0">РћР±С‹С‡РЅС‹Р№</option>
-			<option value="1">РЎР»Р°Р№Рґ-С€РѕСѓ</option>
-		</param>
-		<param name="type" type="text" default="jpg" label="РўРёРї РёР·РѕР±СЂР°Р¶РµРЅРёСЏ" description="РўРёРї РёР·РѕР±СЂР°Р¶РµРЅРёСЏ: PNG/GIF/JPG РёР»Рё РґСЂСѓРіРѕР№ (РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ - JPG)." />
-		<param name="folder" type="text" default="" label="РџР°РїРєР° СЃ РёР·РѕР±СЂР°Р¶РµРЅРёСЏРјРё" description="РџСѓС‚СЊ РґРѕ РїР°РїРєРё СЃ РёР·РѕР±СЂР°Р¶РµРЅРёСЏРјРё РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ Р°РґСЂРµСЃР° СЃР°Р№С‚Р°. РќР°РїСЂРёРјРµСЂ: images/stories" />
-		<param name="link" type="text" default="" label="РЎСЃС‹Р»РєР°" description="URL-Р°РґСЂРµСЃ РґР»СЏ РїРµСЂРµРјРµС‰РµРЅРёСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РїРѕСЃР»Рµ РЅР°Р¶Р°С‚РёСЏ РЅР° РёР·РѕР±СЂР°Р¶РµРЅРёРё, РЅР°РїСЂРёРјРµСЂ: http://www.joostina.ru" />
-		<param name="width" type="text" default="" label="РЁРёСЂРёРЅР° (РІ РїРёРєСЃРµР»СЏС… - px)" description="РЁРёСЂРёРЅР° РёР·РѕР±СЂР°Р¶РµРЅРёСЏ (РІСЃРµ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ Р±СѓРґСѓС‚ РѕС‚РѕР±СЂР°Р¶Р°С‚СЊСЃСЏ СЃ СЌС‚РѕР№ С€РёСЂРёРЅРѕР№)" />
-		<param name="height" type="text" default="" label="Р’С‹СЃРѕС‚Р° (РІ РїРёРєСЃРµР»СЏС… - px)" description="Р’С‹СЃРѕС‚Р° РёР·РѕР±СЂР°Р¶РµРЅРёСЏ (РІСЃРµ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ Р±СѓРґСѓС‚ РїРѕРєР°Р·С‹РІР°С‚СЊСЃСЏ СЃ СЌС‚РѕР№ РІС‹СЃРѕС‚РѕР№)" />
-		<param name="moduleclass_sfx" type="text" default="" label="CSS-СЃСѓС„С„РёРєСЃ РєР»Р°СЃСЃР° РјРѕРґСѓР»СЏ" description="РЎСѓС„С„РёРєСЃ, РєРѕС‚РѕСЂС‹Р№ Р±СѓРґРµС‚ РёСЃРїРѕР»СЊР·РѕРІР°РЅ РІ РѕРїРёСЃР°РЅРёРё РєР»Р°СЃСЃР° (table.moduletable) С‚Р°Р±Р»РёС†С‹ СЃС‚РёР»РµР№ (CSS) РјРѕРґСѓР»СЏ. Р­С‚Рѕ РїРѕР·РІРѕР»СЏРµС‚ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РёРЅРґРёРІРёРґСѓР°Р»СЊРЅС‹Р№ СЃС‚РёР»СЊ РјРѕРґСѓР»СЏ." />
-		<param name="tab1" type="tabs" default="endTab" />
-		<param name="tab2" type="tabs" default="startTab" label="РќР°СЃС‚СЂРѕР№РєРё СЃР»Р°Р№Рґ-С€РѕСѓ" />
-		<param name="slideshow_name" type="text" default="jstSlideShow_1" label="РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ СЃР»Р°Р№Рґ-С€РѕСѓ" description="РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ РґРѕР»Р¶РµРЅ РёРјРµС‚СЊ СѓРЅРёРєР°Р»СЊРЅРѕРµ РёРјСЏ, РїРѕСЃРєРѕР»СЊРєСѓ РґР»СЏ РІС‹РІРѕРґР° Р±СѓРґРµС‚ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊСЃСЏ div СЃ ID, СЂР°РІРЅС‹Рј РґР°РЅРЅРѕРјСѓ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂСѓ" />
-		<param name="img_pref" type="text" default="" label="РџСЂРµС„С„РёРєСЃ РёРјРµРЅРё С„Р°Р№Р»Р°" description="Р•СЃР»Рё РїСЂРµС„С„РёРєСЃ СѓРєР°Р·Р°РЅ, РґР»СЏ СЂРѕС‚Р°С†РёРё Р±СѓРґСѓС‚ РІС‹Р±РёСЂР°С‚СЊСЃСЏ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ, РЅР°Р·РІР°РЅРёСЏ РєРѕС‚РѕСЂС‹С… РЅР°С‡РёРЅР°СЋС‚СЃСЏ СЃ [РїСЂРµС„С„РёРєСЃ][РїРѕСЂСЏРґРєРѕРІС‹Р№ РЅРѕРјРµСЂ]" />
-		<param name="s_autoplay" type="list" default="1" label="РђРІС‚РѕР·Р°РїСѓСЃРє СЃР»Р°Р№РґРѕРІ" description="Р”Р° - Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєР°СЏ РїСЂРѕРєСЂСѓС‚РєР° СЃР»Р°Р№РґРѕРІ. РќРµС‚ - СЃРјРµРЅР° СЃР»Р°Р№РґРѕРІ РґРѕСЃС‚СѓРїРЅР° С‚РѕР»СЊРєРѕ РІ СЂСѓС‡РЅРѕРј СЂРµР¶РёРјРµ (С‚.Рµ. СЃ РїРѕРјРѕС‰СЊСЋ РєРЅРѕРїРѕРє СѓРїСЂР°РІР»РµРЅРёСЏ) ">
-			<option value="0">РќРµС‚</option>
-			<option value="1">Р”Р°</option>
-		</param>
-		<param name="s_pause" type="text" default="2500" label="РџР°СѓР·Р° РјРµР¶РґСѓ СЃР»Р°Р№РґР°РјРё, РјСЃ" description="" />
-		<param name="s_fadeduration" type="text" default="500" label="РЎРєРѕСЂРѕСЃС‚СЊ Р°РЅРёРјР°С†РёРё, РјСЃ" description="" />
-		<param name="panel_height" type="text" default="45px" label="Р’С‹СЃРѕС‚Р° РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ" description="Р—Р°РґР°Р№С‚Рµ РІС‹СЃРѕС‚Сѓ РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ РІ РїРёРєСЃРµР»СЏС… (РѕР±Р»Р°СЃС‚СЊ, РіРґРµ СЂР°СЃРїРѕР»РѕР¶РµРЅС‹ РєРЅРѕРїРєРё СѓРїСЂР°РІР»РµРЅРёСЏ СЃР»Р°Р№Рґ-С€РѕСѓ)" />
-		<param name="panel_opacity" type="text" default="0.5" label="РџСЂРѕР·СЂР°С‡РЅРѕСЃС‚СЊ РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ" description="Р—Р°РґР°Р№С‚Рµ РєРѕСЌС„С„РёС†РёРµРЅС‚ РїСЂРѕР·СЂР°С‡РЅРѕСЃС‚Рё РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ" />
-		<param name="panel_padding" type="text" default="5px" label="Р’РµСЂС…РЅРёР№ РѕС‚СЃС‚СѓРї РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ (padding-top)" description="" />
-		<param name="panel_font" type="text" default="bold 11px Verdana" label="РЁСЂРёС„С‚ РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ" description="" />
-		<param name="tab2" type="tabs" default="endTab" />
-		<param name="params" type="tabs" default="endPane" />
+
+    <!-- панель с вкладками: начало -->
+    <param name="params" type="tabs"  default="startPane"  />
+
+        <!-- первая вкладка: начало -->
+        <param name="tab1" type="tabs"  default="startTab"  label="Основные настройки" />
+
+            <param name="rotate_type" type="list" default="0" label="Тип вывода" description="Обычный - вывод одной картинки случайнм образом; Слайд-шоу - ajax-ротация изображений">
+		        <option value="0">Обычный</option>
+            	<option value="1">Слайд-шоу</option>
+	        </param>
+		    <param name="type" type="text" default="jpg" label="Тип изображения" description="Тип изображения: PNG/GIF/JPG или другой (по умолчанию - JPG)." />
+		    <param name="folder" type="text" default="" label="Папка с изображениями" description="Путь до папки с  изображениями относительно адреса сайта. Например: images/stories" />
+		    <param name="link" type="text" default="" label="Ссылка" description="URL-адрес для перемещения пользователя после нажатия на изображении, например: http://www.joostina.ru" />
+		    <param name="width" type="text" default="" label="Ширина (в пикселях - px)" description="Ширина изображения (все изображения будут отображаться с этой шириной)" />
+		    <param name="height" type="text" default="" label="Высота (в пикселях - px)" description="Высота изображения (все изображения будут показываться с этой высотой)" />
+		    <param name="moduleclass_sfx" type="text" default="" label="CSS-суффикс класса модуля" description="Суффикс, который будет использован в описании класса (table.moduletable) таблицы стилей (CSS) модуля. Это позволяет использовать индивидуальный стиль модуля." />
+
+        <!-- первая вкладка: конец -->
+        <param name="tab1" type="tabs"  default="endTab" />
+
+        <!-- вторая вкладка: начало -->
+        <param name="tab2" type="tabs"  default="startTab"  label="Настройки слайд-шоу" />
+            <param name="slideshow_name" type="text" default="jstSlideShow_1" label="Идентификатор слайд-шоу" description="Идентификатор должен иметь уникальное имя, поскольку для вывода будет использоваться div с ID, равным данному идентификатору" />
+            <param name="img_pref" type="text" default="pic" label="Преффикс имени файла" description="Если преффикс указан, для ротации будут выбираться изображения, названия которых начинаются с [преффикс][порядковый номер]" />
+            <param name="s_autoplay" type="list" default="1" label="Автозапуск слайдов" description="Да - автоматическая прокрутка слайдов. Нет - смена слайдов доступна только в ручном режиме (т.е. с помощью кнопок управления) ">
+		        <option value="0">Нет</option>
+            	<option value="1">Да</option>
+	        </param>
+            <param name="s_pause" type="text" default="2500" label="Пауза между слайдами, мс" description="" />
+            <param name="s_fadeduration" type="text" default="500" label="Скорость анимации, мс" description="" />
+
+            <param name="panel_height" type="text" default="45px" label="Высота панели управления" description="Задайте высоту панели управления в пикселях (область, где расположены кнопки управления слайд-шоу)" />
+            <param name="panel_opacity" type="text" default="0.5" label="Прозрачность панели управления" description="Задайте коэффициент прозрачности панели управления" />
+            <param name="panel_padding" type="text" default="5px" label="Верхний отступ панели управления (padding-top)" description="" />
+            <param name="panel_font" type="text" default="bold 11px Verdana" label="Шрифт панели управления" description="" />
+
+        <!-- вторая вкладка: конец -->
+        <param name="tab2" type="tabs"  default="endTab" />
+
+
+    <param name="params" type="tabs"  default="endPane" />
+    <!-- панель с вкладками: конец -->
+
+
 	</params>
 </mosinstall>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

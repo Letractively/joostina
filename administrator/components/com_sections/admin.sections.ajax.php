@@ -1,16 +1,16 @@
 <?php
 /**
- * @package Joostina
- * @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2010 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
- * @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
- * Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
- * Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
- */
+* @package Joostina
+* @copyright Авторские права (C) 2008 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+*/
 
-// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+// запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-global $my;
+global $mosConfig_absolute_path,$mosConfig_live_site,$my;
 
 $task = mosGetParam($_GET,'task','publish');
 $id = intval(mosGetParam($_GET,'id','0'));
@@ -33,10 +33,10 @@ switch($task) {
 
 
 /**
- * Saves the catefory after an edit form submit
- * @param database A database connector object
- * @param string The name of the category section
- */
+* Saves the catefory after an edit form submit
+* @param database A database connector object
+* @param string The name of the category section
+*/
 function x_apply() {
 	global $database;
 	josSpoofCheck();
@@ -64,18 +64,18 @@ function x_apply() {
 	if(strpos($folders,'*1*') !== false) {
 		$folders = '*1*';
 	} else
-	if(strpos($folders,'*0*') !== false) {
-		$folders = '*0*';
-	} else
-	if(strpos($folders,',*#*') !== false) {
-		$folders = str_replace(',*#*','',$folders);
-	} else
-	if(strpos($folders,'*#*,') !== false) {
-		$folders = str_replace('*#*,','',$folders);
-	} else
-	if(strpos($folders,'*#*') !== false) {
-		$folders = str_replace('*#*','',$folders);
-	}
+		if(strpos($folders,'*0*') !== false) {
+			$folders = '*0*';
+		} else
+			if(strpos($folders,',*#*') !== false) {
+				$folders = str_replace(',*#*','',$folders);
+			} else
+				if(strpos($folders,'*#*,') !== false) {
+					$folders = str_replace('*#*,','',$folders);
+				} else
+					if(strpos($folders,'*#*') !== false) {
+						$folders = str_replace('*#*','',$folders);
+					}
 	$row->params = 'imagefolders='.$folders;
 
 	if(!$row->store()) return 'error-store';
@@ -90,7 +90,7 @@ function x_apply() {
 
 }
 
-function x_access($id) {
+function x_access($id){
 	global $database;
 	$access = mosGetParam($_GET,'chaccess','accessregistered');
 	$option = strval(mosGetParam($_REQUEST,'option',''));
@@ -128,7 +128,7 @@ function x_access($id) {
 		$task_access = 'accesspublic';
 		$text_href = _USER_GROUP_SPECIAL;
 	}
-	// С‡РёСЃС‚РёРј РєСЌС€
+	// чистим кэш
 	mosCache::cleanCache('com_content');
 	return '<a href="#" onclick="ch_access('.$row->id.',\''.$task_access.'\',\''.$option.'\')" '.$color_access.'>'.$text_href.'</a>';
 }
@@ -150,7 +150,7 @@ function x_publish($id = null) {
 		$state = '1';
 	}
 	$query = "UPDATE #__sections"."\n SET published = ".(int)$state."\n WHERE id = ".
-			$id." "."\n AND ( checked_out = 0 OR ( checked_out = ".(int)$my->id." ) )";
+		$id." "."\n AND ( checked_out = 0 OR ( checked_out = ".(int)$my->id." ) )";
 	$database->setQuery($query);
 	if(!$database->query()) {
 		return 'error-db';
@@ -159,3 +159,4 @@ function x_publish($id = null) {
 		return $ret_img;
 	}
 }
+?>

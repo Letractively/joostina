@@ -1,48 +1,32 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
 
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
 
+// ensure user has access to this function
+if(!$acl->acl_check('administration','manage','users',$GLOBALS['my']->usertype,'components','com_templates')) {
+	mosRedirect('index2.php',_NOT_AUTH);
+}
+
 /**
- * Template installer
- * @package Joostina
- * @subpackage Installer
- */
+* Template installer
+* @package Joostina
+* @subpackage Installer
+*/
 class mosInstallerTemplate extends mosInstaller {
-
-	function __construct($pre_installer) {
-		// Copy data
-		$this->i_installfilename = $pre_installer->i_installfilename;
-		$this->i_installarchive = $pre_installer->i_installarchive;
-		$this->i_installdir = $pre_installer->i_installdir;
-		$this->i_iswin = $pre_installer->i_iswin;
-		$this->i_errno = $pre_installer->i_errno;
-		$this->i_error = $pre_installer->i_error;
-		$this->i_installtype = $pre_installer->i_installtype;
-		$this->i_unpackdir = $pre_installer->i_unpackdir;
-		$this->i_docleanup = $pre_installer->i_docleanup;
-		$this->i_elementdir = $pre_installer->i_elementdir;
-		$this->i_elementname = $pre_installer->i_elementname;
-		$this->i_elementspecial = $pre_installer->i_elementspecial;
-		$this->i_xmldoc = $pre_installer->i_xmldoc;
-		$this->i_hasinstallfile = $pre_installer->i_hasinstallfile;
-		$this->i_installfile = $pre_installer->i_installfile;
-	}
 	/**
-	 * Custom install method
-	 * @param boolean True if installing from directory
-	 */
+	* Custom install method
+	* @param boolean True if installing from directory
+	*/
 	function install($p_fromdir = null) {
-		global $database;
-		$database = &database::getInstance();
-
+		global $mosConfig_absolute_path,$database;
 		josSpoofCheck();
 		if(!$this->preInstallCheck($p_fromdir,'template')) {
 			return false;
@@ -64,7 +48,7 @@ class mosInstallerTemplate extends mosInstaller {
 		// Set some vars
 		$e = &$mosinstall->getElementsByPath('name',1);
 		$this->elementName($e->getText());
-		$this->elementDir(mosPathName(JPATH_BASE.($client == 'admin'?'/'.JADMIN_BASE:'').'/templates/'.strtolower(str_replace(" ","_",$this->elementName()))));
+		$this->elementDir(mosPathName($mosConfig_absolute_path.($client == 'admin'?'/'.ADMINISTRATOR_DIRECTORY:'').'/templates/'.strtolower(str_replace(" ","_",$this->elementName()))));
 
 		if(!file_exists($this->elementDir()) && !mosMakePath($this->elementDir())) {
 			$this->setError(1,_CANNOT_CREATE_DIR.' "'.$this->elementDir().'"');
@@ -72,19 +56,15 @@ class mosInstallerTemplate extends mosInstaller {
 		}
 
 		if($this->parseFiles('files') === false) {
-			$this->cleanAfterError();
 			return false;
 		}
 		if($this->parseFiles('images') === false) {
-			$this->cleanAfterError();
 			return false;
 		}
 		if($this->parseFiles('css') === false) {
-			$this->cleanAfterError();
 			return false;
 		}
 		if($this->parseFiles('media') === false) {
-			$this->cleanAfterError();
 			return false;
 		}
 		if($e = &$mosinstall->getElementsByPath('description',1)) {
@@ -94,16 +74,16 @@ class mosInstallerTemplate extends mosInstaller {
 		return $this->copySetupFile('front');
 	}
 	/**
-	 * Custom install method
-	 * @param int The id of the module
-	 * @param string The URL option
-	 * @param int The client id
-	 */
+	* Custom install method
+	* @param int The id of the module
+	* @param string The URL option
+	* @param int The client id
+	*/
 	function uninstall($id,$option,$client = 0) {
-		global $database;
+		global $database,$mosConfig_absolute_path;
 		josSpoofCheck(null, null, 'request');
 		// Delete directories
-		$path = JPATH_BASE.($client == 'admin' ? '/'.JADMIN_BASE:'').'/templates/'.$id;
+		$path = $mosConfig_absolute_path.($client == 'admin' ? '/'.ADMINISTRATOR_DIRECTORY:'').'/templates/'.$id;
 
 		$id = str_replace('..','',$id);
 		if(trim($id)) {
@@ -118,25 +98,10 @@ class mosInstallerTemplate extends mosInstaller {
 		}
 	}
 	/**
-	 * Custom install method
-	 * @param int The id of the module
-	 * @param string The URL option
-	 * @param int The client id
-	 */
-	function cleanAfterError() {
-		global $database,$client;
-		josSpoofCheck(null, null, 'request');
-		// Delete directories
-		$path = JPATH_BASE.($client == 'admin' ? '/'.JADMIN_BASE:'').'/templates/'.$this->elementName();
-		// get the files element
-		if(is_dir($path)) {
-			return deldir(mosPathName($path));
-		}
-	}
-	/**
-	 * return to method
-	 */
+	* return to method
+	*/
 	function returnTo($option,$element,$client) {
-		return "index2.php?option=com_installer&element=template&client=$client";
+		return "index2.php?option=com_templates&client=$client";
 	}
 }
+?>

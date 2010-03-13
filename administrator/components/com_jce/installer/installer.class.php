@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
-* @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
-* Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
-* Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
 */
 
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
 
 /**
@@ -72,7 +72,9 @@ class mosInstaller {
 	* @return boolean True on success, False on error
 	*/
 	function extractArchive() {
-		$base_Dir = mosPathName(JPATH_BASE.'/media');
+		global $mosConfig_absolute_path;
+
+		$base_Dir = mosPathName($mosConfig_absolute_path.'/media');
 
 		$archivename = $base_Dir.$this->installArchive();
 		$tmpdir = uniqid('install_');
@@ -84,12 +86,12 @@ class mosInstaller {
 
 		if(eregi('.zip$',$archivename)) {
 			// Extract functions
-			require_once (JPATH_BASE.
-				'/'.JADMIN_BASE.'/includes/pcl/pclzip.lib.php');
-			require_once (JPATH_BASE.
-				'/'.JADMIN_BASE.'/includes/pcl/pclerror.lib.php');
-			//require_once( JPATH_BASE . '/administrator/includes/pcl/pcltrace.lib.php' );
-			//require_once( JPATH_BASE . '/administrator/includes/pcl/pcltar.lib.php' );
+			require_once ($mosConfig_absolute_path.
+				'/'.ADMINISTRATOR_DIRECTORY.'/includes/pcl/pclzip.lib.php');
+			require_once ($mosConfig_absolute_path.
+				'/'.ADMINISTRATOR_DIRECTORY.'/includes/pcl/pclerror.lib.php');
+			//require_once( $mosConfig_absolute_path . '/administrator/includes/pcl/pcltrace.lib.php' );
+			//require_once( $mosConfig_absolute_path . '/administrator/includes/pcl/pcltar.lib.php' );
 			$zipfile = new PclZip($archivename);
 			if($this->isWindows()) {
 				define('OS_WINDOWS',1);
@@ -103,7 +105,7 @@ class mosInstaller {
 				return false;
 			}
 		} else {
-			require_once (JPATH_BASE.'/includes/Archive/Tar.php');
+			require_once ($mosConfig_absolute_path.'/includes/Archive/Tar.php');
 			$archive = new Archive_Tar($archivename);
 			$archive->setErrorHandling(PEAR_ERROR_PRINT);
 
@@ -259,7 +261,9 @@ class mosInstaller {
 	* @param boolean True for Administrator components
 	* @return mixed Number of file or False on error
 	*/
-	function parseFiles($tagName = 'files',$special = '',$specialError = '',$adminFiles =0) {
+	function parseFiles($tagName = 'files',$special = '',$specialError = '',$adminFiles =
+		0) {
+		global $mosConfig_absolute_path;
 		// Find files to copy
 		$xmlDoc = &$this->xmlDoc();
 		$root = &$xmlDoc->documentElement;
@@ -348,7 +352,7 @@ class mosInstaller {
 				$filedest = mosPathName(mosPathName($p_destdir).$_file,false);
 
 				if(!file_exists($filesource)) {
-					$this->setError(1,_FILE_NOT_EXISTSS." $filesource");
+					$this->setError(1,_FILE_NOT_EXISTS." $filesource");
 					return false;
 				} else
 					if(file_exists($filedest) && !$overwrite) {
@@ -478,9 +482,11 @@ class mosInstaller {
 }
 
 function cleanupInstall($userfile_name,$resultdir) {
+	global $mosConfig_absolute_path;
+
 	if(file_exists($resultdir)) {
 		deldir($resultdir);
-		unlink(mosPathName(JPATH_BASE.'/media/'.$userfile_name,false));
+		unlink(mosPathName($mosConfig_absolute_path.'/media/'.$userfile_name,false));
 	}
 }
 

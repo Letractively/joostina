@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2010 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
-* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
-* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
-* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
+* @copyright Авторские права (C) 2008 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
 */
 
-// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+// запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 /**
@@ -17,10 +17,7 @@ defined('_VALID_MOS') or die();
 class HTML_menusections {
 
 	function showMenusections($rows,$pageNav,$search,$levellist,$menutype,$option) {
-		global $my;
-		$mainframe = &mosMainFrame::getInstance();
-		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
-		
+		global $my,$mosConfig_live_site;
 		mosCommonHTML::loadOverlib();
 ?>
 		<form action="index2.php" method="post" name="adminForm">
@@ -55,11 +52,11 @@ class HTML_menusections {
 				<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count($rows); ?>);" />
 			</th>
 			<th class="title" width="40%"><?php echo _MENUITEM?></th>
-			<th width="5%"><?php echo _PUBLISHED?></th>
-			<th colspan="2" width="5%"><?php echo _ORDERING?></th>
-			<th width="2%"><?php echo _COM_MENUS_ORDER_DROPDOWN?></th>
+			<th width="5%"><?php echo _CMN_PUBLISHED?></th>
+			<th colspan="2" width="5%"><?php echo _CMN_ORDERING?></th>
+			<th width="2%"><?php echo _ORDER_DROPDOWN?></th>
 			<th width="1%">
-				<a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="<?php echo $cur_file_icons_path;?>/filesave.png" border="0" width="16" height="16" alt="<?php echo _SAVE_ORDER?>" /></a>
+				<a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="images/filesave.png" border="0" width="16" height="16" alt="<?php echo _SAVE_ORDER?>" /></a>
 			</th>
 			<th width="10%"><?php echo _ACCESS?></th>
 			<th>Itemid</th>
@@ -92,7 +89,7 @@ class HTML_menusections {
 ?>
 				</td>
 				<td align="center" <?php echo ($row->checked_out && ($row->checked_out != $my->id)) ? null : 'onclick="ch_publ('.$row->id.',\'com_menus\');" class="td-state"';?>>
-					<img class="img-mini-state" src="<?php echo $cur_file_icons_path;?>/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?php echo _PUBLISHING?>" />
+					<img class="img-mini-state" src="images/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="Публикация" />
 				</td>
 				<td><?php echo $pageNav->orderUpIcon($i); ?></td>
 				<td><?php echo $pageNav->orderDownIcon($i,$n); ?></td>
@@ -129,9 +126,10 @@ class HTML_menusections {
 
 
 	/**
-	* РћС‚РѕР±СЂР°Р¶РµРЅРёРµ СЃРїРёСЃРєР° С‚РёРїРѕРІ РїСѓРЅРєС‚РѕРІ РјРµРЅСЋ РґР»СЏ СЃРѕР·РґР°РЅРёСЏ
+	* Отображение списка типов пунктов меню для создания
 	*/
-	function addMenuItem(&$cid,$menutype,$option,$types_content,$types_component,$types_link,$types_other,$types_submit) {
+	function addMenuItem(&$cid,$menutype,$option,$types_content,$types_component,$types_link,
+		$types_other,$types_submit) {
 
 		mosCommonHTML::loadOverlib();
 ?>
@@ -146,7 +144,7 @@ class HTML_menusections {
 		<form action="index2.php" method="post" name="adminForm">
 		<table class="adminheading">
 			<tr>
-				<th width="100px" class="menus"><?php echo _NEW_MENU_ITEM ?></th>
+				<th width="100px" class="menus">Новый пункт меню</th>
 				<td class="jtd_nowrap" style="color: red;">
 					<?php echo _NOTE_MENU_ITEMS1?>
 				</td>
@@ -156,7 +154,7 @@ class HTML_menusections {
 		<tr>
 			<td width="50%" valign="top">
 				<fieldset>
-				<legend><?php echo _CONTENT?></legend>
+				<legend><?php echo _E_CONTENT?></legend>
 					<table class="adminform">
 <?php
 		$k = 0;

@@ -1,89 +1,84 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
-
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
-defined( '_VALID_MOS' ) or die();
-
-$moduleclass_sfx= $params->get( 'moduleclass_sfx' );
-$button_vis		= $params->get( 'button', 1 );
-$button_pos		= $params->get( 'button_pos', 'right' );
-$button_text	= $params->get( 'button_text', _SEARCH );
-$width			= intval( $params->get( 'width', 20 ) );
-$text			= $params->get( 'text', _SEARCH_BOX );
-$text_pos		= $params->get( 'text_pos', 'inside' );
-$set_Itemid		= intval( $params->get( 'set_itemid', 0 ) );
-
-$params->set('template',$params->get('template','default.php'));
-
-switch ($text_pos) {
-	case 'iside':
-	default:
-		$output = '<input name="searchword" id="mod_search_searchword" maxlength="100" alt="search" class="inputbox'. $moduleclass_sfx .'" type="text" size="'. $width .'" value="'. $text .'"  onblur="if(this.value==\'\') this.value=\''. $text .'\';" onfocus="if(this.value==\''. $text .'\') this.value=\'\';" />';
-		break;
-
-	case 'left':
-		$output = '<strong>'.$text.'</strong>&nbsp;<input name="searchword" id="mod_search_searchword" maxlength="100" alt="search" class="inputbox'. $moduleclass_sfx .'" type="text" size="'. $width .'" value=""  />';
-		break;
-
-	case 'top':
-		$output = '<strong>'.$text.'</strong><br /><input name="searchword" id="mod_search_searchword" maxlength="100" alt="search" class="inputbox'. $moduleclass_sfx .'" type="text" size="'. $width .'" value=""  />';
-		break;
-
-	case 'hidden':
-		$output = '<input name="searchword" id="mod_search_searchword" maxlength="100" alt="search" class="inputbox'. $moduleclass_sfx .'" type="text" size="'. $width .'" value=""  />';
-		break;
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
+// çàïðåò ïðÿìîãî äîñòóïà
+defined('_VALID_MOS') or die();
+$moduleclass_sfx = $params->get('moduleclass_sfx');
+$button_vis= $params->get('button', 1);
+$button_pos= $params->get('button_pos', 'left');
+$button_text= $params->get('button_text', _SEARCH_TITLE);
+$width= intval( $params->get('width', 20));
+$text= $params->get('text', _SEARCH_BOX);
+$text_pos= $params->get('text_pos', 'inside');
+$set_Itemid= intval($params->get('set_itemid', 0));
+switch ($text_pos){
+case 'iside':
+default:
+$output = '<input name="searchword" id="mod_search_searchword" maxlength="100" alt="search" class="inputbox'.$moduleclass_sfx.'" type="text" size="'.$width.'" value="'.$text.'" onblur="if(this.value==\'\') this.value=\''.$text.'\';" onfocus="if(this.value==\''.$text.'\') this.value=\'\';" />';
+break;
+case 'left':
+$output = '<strong>'.$text.'</strong>&nbsp;<input name="searchword" id="mod_search_searchword" maxlength="100" alt="search" class="inputbox'.$moduleclass_sfx.'" type="text" size="'.$width.'" value="" />';
+break;
+case 'top':
+$output = '<strong>'.$text.'</strong><br /><input name="searchword" id="mod_search_searchword" maxlength="100" alt="search" class="inputbox'.$moduleclass_sfx.'" type="text" size="'.$width.'" value="" />';
+break;
+case 'hidden':
+$output = '<input name="searchword" id="mod_search_searchword" maxlength="100" alt="search" class="inputbox'.$moduleclass_sfx.'" type="text" size="'.$width.'" value="" />';
+break;
 }
-
-$button = $button_vis ? '<input type="submit" value="'. $button_text .'" class="button'. $moduleclass_sfx .'"/>' : '';
-
+if ( $button_vis ) {
+$button = '<input type="submit" value="'.$button_text.'" class="button'.$moduleclass_sfx.'" />';
+}else{
+$button = '';
+}
 switch ( $button_pos ) {
-	case 'top':
-		$button = $button .'<br/>';
-		$output = $button . $output;
-		break;
-
-	case 'bottom':
-		$button =  '<br/>'. $button;
-		$output = $output . $button;
-		break;
-
-	case 'right':
-		$output = $output . $button;
-		break;
-
-	case 'left':
-	default:
-		$output = $button . $output;
-		break;
+case 'top':
+$button = $button .'<br />';
+$output = $button . $output;
+break;
+case 'bottom':
+$button = '<br />'. $button;
+$output = $output . $button;
+break;
+case 'right':
+$output = $output . $button;
+break;
+case 'left':
+default:
+$output = $button . $output;
+break;
 }
-
-// ÑƒÐºÐ°Ð·Ñ‹Ð²Ð°ÐµÐ¼ Itemid
-if ( $set_Itemid ) {
-	$_Itemid	= $set_Itemid;
-	$link		= JPATH_SITE . '/index.php?option=com_search&amp;Itemid='. $set_Itemid;
+// set Itemid id for links
+if ($set_Itemid) {
+// use param setting
+$_Itemid= $set_Itemid;
+$link= 'index.php?option=com_search&amp;Itemid='.$set_Itemid;
 } else {
-	$query = "SELECT id FROM #__menu WHERE link = 'index.php?option=com_search' AND published = 1";
-	$database->setQuery( $query,0,1 );
-	$s_itemid = $database->loadResult();
-
-	// try to auto detect search component Itemid
-	if ( $s_itemid ) {
-		$_Itemid	= $s_itemid;
-		$link		= JPATH_SITE . '/index.php?Itemid='. $_Itemid;
-	} else {
-		// Assign no Itemid
-		$_Itemid	= '';
-		$link		= 'index.php';
-	}
+$query = "SELECT id"
+. "\n FROM #__menu"
+. "\n WHERE link = 'index.php?option=com_search'"
+. "\n AND published = 1"
+;
+$database->setQuery($query);
+$rows = $database->loadObjectList(); 
+// try to auto detect search component Itemid
+if ( count( $rows ) ) {
+$_Itemid= $rows[0]->id;
+$link= 'index.php?option=com_search&amp;Itemid='.$_Itemid;
+} else {
+// Assign no Itemid
+$_Itemid= '';
+$link= 'index.php?option=com_search';
 }
-
-//ÐŸÐ¾Ð´ÐºÐ»ÑŽÑ‡Ð°ÐµÐ¼ ÑˆÐ°Ð±Ð»Ð¾Ð½
-if($module->set_template($params)) {
-	require($module->template);
 }
+?>
+<form action="<?php echo $link; ?>" method="get">
+<div class="search<?php echo $moduleclass_sfx; ?>"><?php echo $output; ?></div>
+<input type="hidden" name="option" value="com_search" />
+<input type="hidden" name="Itemid" value="<?php echo $_Itemid; ?>" />
+</form>

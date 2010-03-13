@@ -1,57 +1,171 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
-
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
-defined( '_VALID_MOS' ) or die();
-
-$type = intval($params->get('type', 1));
-$def_itemid = $params->get('def_itemid', false);
-$params->def('item_title', 1);
-$params->def('link_titles', 1);
-$params->def('template', 'default.php');
-
-//ÐŸÐ¾Ð´ÐºÐ»ÑŽÑ‡Ð°ÐµÐ¼ Ð²ÑÐ¿Ð¾Ð¼Ð¾Ð³Ð°Ñ‚ÐµÐ»ÑŒÐ½Ñ‹Ð¹ ÐºÐ»Ð°ÑÑ
-$module->get_helper($mainframe);
-
-// Ð’Ñ‹Ð±Ð¾Ñ€ Ð¼ÐµÐ¶Ð´Ñƒ Ð²Ñ‹Ð²Ð¾Ð´Ð¾Ð¼ ÑÐ¾Ð´ÐµÑ€Ð¶Ð¸Ð¼Ð¾Ð³Ð¾ Ð¾Ð±ÑŠÐµÐºÑ‚Ð¾Ð², 
-//ÑÑ‚Ð°Ñ‚Ð¸Ñ‡ÐµÑÐºÐ¾Ð³Ð¾ ÑÐ¾Ð´ÐµÑ€Ð¶Ð¸Ð¼Ð¾Ð³Ð¾ Ð¸Ð»Ð¸ ÑÑ€Ð°Ð·Ñƒ Ð¾Ð±Ð¾Ð¸Ñ…
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
+// çàïðåò ïðÿìîãî äîñòóïà
+defined('_VALID_MOS') or die();
+global $mosConfig_offset, $mosConfig_live_site, $mainframe,$my,$moduleclass_sfx;
+$type= intval($params->get('type', 1));
+$count= intval($params->get('count', 5));
+$catid= trim($params->get('catid'));
+$secid= trim($params->get('secid'));
+$noncss= intval($params->get('noncss',1) );
+$show_front= $params->get('show_front', 1);
+$def_itemid= $params->get('def_itemid', false);
+$now= _CURRENT_SERVER_TIME;
+$access= !$mainframe->getCfg( 'shownoauth' );
+$nullDate = $database->getNullDate();  
+// Âûáîð ìåæäó âûâîäîì ñîäåðæèìîãî îáúåêòîâ, ñòàòè÷åñêîãî ñîäåðæèìîãî èëè ñðàçó îáîèõ
 switch ($type) {
-	case 2:
-	//Ð¢Ð¾Ð»ÑŒÐºÐ¾ ÑÑ‚Ð°Ñ‚Ð¸Ñ‡ÐµÑÐºÐ¾Ðµ ÑÐ¾Ð´ÐµÑ€Ð¶Ð¸Ð¼Ð¾Ðµ
-		$rows = $module->helper->get_static_items($params);
-		break;
-
-	case 3:
-	//ÐžÐ±Ð° Ñ‚Ð¸Ð¿Ð°
-		$rows = $module->helper->get_items_both($params);
-		break;
-
-	case 1:
-	default:
-	//Ð¢Ð¾Ð»ÑŒÐºÐ¾ ÑÐ¾Ð´ÐµÑ€Ð¶Ð¸Ð¼Ð¾Ðµ ÐºÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸Ð¹
-		$rows = $module->helper->get_category_items($params);
-		break;
+case 2: 
+//Òîëüêî ñòàòè÷åñêîå ñîäåðæèìîå
+$query = "SELECT a.id, a.title"
+. "\n FROM #__content AS a"
+. "\n WHERE (a.state = 1 AND a.sectionid = 0)"
+. "\n AND (a.publish_up = " . $database->Quote( $nullDate ) . " OR a.publish_up <= " . $database->Quote( $now ) . ")"
+. "\n AND (a.publish_down = " . $database->Quote( $nullDate ) . " OR a.publish_down >= " . $database->Quote( $now ) . ")"
+. ($access ? "\n AND a.access <= " . (int) $my->gid : '')
+. "\n ORDER BY a.created DESC"
+;
+$database->setQuery($query, 0, $count);
+$rows = $database->loadObjectList();
+break;
+case 3: 
+//Îáà òèïà
+$whereCatid = '';
+if ($catid) {
+$catids = explode(',', $catid);
+mosArrayToInts($catids);
+$whereCatid = "\n AND (a.catid=" . implode( " OR a.catid=", $catids ) . ")";
 }
-
-$params->def('numrows', count($rows));
-$params->set('intro_only',1);
-
-if(!$def_itemid>0) {
-	// Ñ‚Ñ€ÐµÐ±Ð¾Ð²Ð°Ð½Ð¸Ðµ ÑƒÐ¼ÐµÐ½ÑŒÑˆÐ¸Ñ‚ÑŒ Ð·Ð°Ð¿Ñ€Ð¾ÑÑ‹, Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ðµ getItemid Ð´Ð»Ñ Ð¾Ð±ÑŠÐµÐºÑ‚Ð¾Ð² ÑÐ¾Ð´ÐµÑ€Ð¶Ð¸Ð¼Ð¾Ð³Ð¾
-	if (($type == 1) || ($type == 3)) {
-		$params->def('bs', $mainframe->getBlogSectionCount());
-		$params->def('bc', $mainframe->getBlogCategoryCount());
-		$params->def('gbs',$mainframe->getGlobalBlogSectionCount());
-	}
+$whereSecid = '';
+if ($secid) {
+$secids = explode(',', $secid);
+mosArrayToInts( $secids );
+$whereSecid = "\n AND (a.sectionid=" . implode( " OR a.sectionid=", $secids ) . ")";
 }
-
-//ÐŸÐ¾Ð´ÐºÐ»ÑŽÑ‡Ð°ÐµÐ¼ ÑˆÐ°Ð±Ð»Ð¾Ð½
-if($module->set_template($params)) {
-	require($module->template);
+$query = "SELECT a.id, a.title, a.sectionid, a.catid, cc.access AS cat_access, s.access AS sec_access, cc.published AS cat_state, s.published AS sec_state"
+. "\n FROM #__content AS a"
+. "\n LEFT JOIN #__content_frontpage AS f ON f.content_id = a.id"
+. "\n LEFT JOIN #__categories AS cc ON cc.id = a.catid"
+. "\n LEFT JOIN #__sections AS s ON s.id = a.sectionid"
+. "\n WHERE a.state = 1"
+. "\n AND ( a.publish_up = " . $database->Quote( $nullDate ) . " OR a.publish_up <= " . $database->Quote( $now ) . " )"
+. "\n AND ( a.publish_down = " . $database->Quote( $nullDate ) . " OR a.publish_down >= " . $database->Quote( $now ) . " )"
+. ( $access ? "\n AND a.access <= " . (int) $my->gid : '' )
+. $whereCatid
+. $whereSecid
+. ( $show_front == '0' ? "\n AND f.content_id IS NULL" : '' )
+. "\n ORDER BY a.created DESC" 
+;
+$database->setQuery($query, 0, $count);
+$temp = $database->loadObjectList();
+$rows = array();
+if (count($temp)) {
+foreach ($temp as $row ) {
+if (($row->cat_state == 1 || $row->cat_state == '') &&  ($row->sec_state == 1 || $row->sec_state == '') &&  ($row->cat_access <= $my->gid || $row->cat_access == '' || !$access) &&  ($row->sec_access <= $my->gid || $row->sec_access == '' || !$access)) {
+$rows[] = $row;
 }
+}
+}
+unset($temp);
+break;
+case 1:
+default:
+//Òîëüêî ñîäåðæèìîå îáúåêòîâ
+$whereCatid = '';
+if ($catid) {
+$catids = explode(',', $catid);
+mosArrayToInts($catids);
+$whereCatid = "\n AND (a.catid=" . implode(" OR a.catid=", $catids) . ")";
+}
+$whereSecid = '';
+if ($secid) {
+$secids = explode(',', $secid);
+mosArrayToInts( $secids );
+$whereSecid = "\n AND ( a.sectionid=" . implode( " OR a.sectionid=", $secids ) . " )";
+}
+$query = "SELECT a.id, a.title, a.sectionid, a.catid"
+. "\n FROM #__content AS a"
+. "\n LEFT JOIN #__content_frontpage AS f ON f.content_id = a.id"
+. "\n INNER JOIN #__categories AS cc ON cc.id = a.catid"
+. "\n INNER JOIN #__sections AS s ON s.id = a.sectionid"
+. "\n WHERE ( a.state = 1 AND a.sectionid > 0 )"
+. "\n AND ( a.publish_up = " . $database->Quote( $nullDate ) . " OR a.publish_up <= " . $database->Quote( $now ) . " )"
+. "\n AND ( a.publish_down = " . $database->Quote( $nullDate ) . " OR a.publish_down >= " . $database->Quote( $now ) . " )"
+. ( $access ? "\n AND a.access <= " . (int) $my->gid . " AND cc.access <= " . (int) $my->gid . " AND s.access <= " . (int) $my->gid : '' )
+. $whereCatid
+. $whereSecid
+. ( $show_front == '0' ? "\n AND f.content_id IS NULL" : '' )
+. "\n AND s.published = 1"
+. "\n AND cc.published = 1"
+. "\n ORDER BY a.created DESC"
+;
+$database->setQuery( $query, 0, $count );
+$rows = $database->loadObjectList();
+break;
+}
+if(!$def_itemid>0){
+// òðåáîâàíèå óìåíüøèòü çàïðîñû, èñïîëüçóåìûå getItemid äëÿ îáúåêòîâ ñîäåðæèìîãî
+if (($type == 1) || ($type == 3)) {
+$bs= $mainframe->getBlogSectionCount();
+$bc= $mainframe->getBlogCategoryCount();
+$gbs= $mainframe->getGlobalBlogSectionCount();
+}
+}
+// Âûâîä
+?>
+<ul class="latestnews<?php echo $moduleclass_sfx; ?>">
+<?php
+foreach ($rows as $row) {
+// get Itemid
+if(!$def_itemid>0){
+switch ($type) {
+case 2:
+$query = "SELECT id"
+. "\n FROM #__menu"
+. "\n WHERE type = 'content_typed'"
+. "\n AND componentid = " . (int) $row->id
+;
+$database->setQuery($query);
+$Itemid = $database->loadResult();
+break;
+case 3:
+if ($row->sectionid) {
+$Itemid = $mainframe->getItemid($row->id, 0, 0, $bs, $bc, $gbs);
+} else {
+$query = "SELECT id"
+. "\n FROM #__menu"
+. "\n WHERE type = 'content_typed'"
+. "\n AND componentid = " . (int) $row->id
+;
+$database->setQuery($query);
+$Itemid = $database->loadResult();
+}
+break;
+case 1:
+default:
+$Itemid = $mainframe->getItemid($row->id, 0, 0, $bs, $bc, $gbs);
+break;
+}
+}else{
+$Itemid=$def_itemid;
+}
+// Î÷èñòêà ñ÷åò÷èêà itemid äëÿ SEF
+if ($Itemid == NULL) {
+$Itemid = '';
+} else {
+$Itemid = '&amp;Itemid='.$Itemid;
+}
+$link= sefRelToAbs('index.php?option=com_content&amp;task=view&amp;id='.$row->id .$Itemid);
+$class= ($noncss ? '':' class="latestnews'.$moduleclass_sfx.'"');
+?>
+<li class="latestnews"><a href="<?php echo $link; ?>" title="<?php echo $row->title; ?>" class="latestnews"><?php echo $row->title; ?></a></li>
+<?php
+}
+?>
+</ul>

@@ -1,17 +1,19 @@
 <?php
 /**
- * @package Joostina
- * @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2010 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
- * @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
- * Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
- * Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
- */
+* @package Joostina
+* @copyright Авторские права (C) 2008 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+*/
 
-// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+// запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 // ensure user has access to this function
-if(!($acl->acl_check('administration','edit','users',$my->usertype,'components','all') | $acl->acl_check('administration','edit','users',$my->usertype,'components','com_newsfeeds'))) {
+if(!($acl->acl_check('administration','edit','users',$my->usertype,'components',
+	'all') | $acl->acl_check('administration','edit','users',$my->usertype,
+	'components','com_newsfeeds'))) {
 	mosRedirect('index2.php',_NOT_AUTH);
 }
 
@@ -68,9 +70,9 @@ switch($task) {
 }
 
 /**
- * List the records
- * @param string The current GET/POST option
- */
+* List the records
+* @param string The current GET/POST option
+*/
 function showNewsFeeds($option) {
 	global $database,$mainframe,$mosConfig_list_limit;
 
@@ -79,17 +81,17 @@ function showNewsFeeds($option) {
 	$limitstart = intval($mainframe->getUserStateFromRequest("view{$option}limitstart",'limitstart',0));
 
 	// get the total number of records
-	$query = "SELECT COUNT(*) FROM #__newsfeeds".($catid?"\n WHERE catid = ".(int)$catid:'');
+	$query = "SELECT COUNT(*)"."\n FROM #__newsfeeds".($catid?"\n WHERE catid = ".(int)$catid:'');
 	$database->setQuery($query);
 	$total = $database->loadResult();
 
-	require_once (JPATH_BASE.'/'.JADMIN_BASE.'/includes/pageNavigation.php');
+	require_once ($GLOBALS['mosConfig_absolute_path'].'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
 	// get the subset (based on limits) of required records
 	$query = "SELECT a.*, c.name AS catname, u.name AS editor"."\n FROM #__newsfeeds AS a".
-			"\n LEFT JOIN #__categories AS c ON c.id = a.catid"."\n LEFT JOIN #__users AS u ON u.id = a.checked_out".($catid?
-			"\n WHERE a.catid = ".(int)$catid:'')."\n ORDER BY a.ordering";
+		"\n LEFT JOIN #__categories AS c ON c.id = a.catid"."\n LEFT JOIN #__users AS u ON u.id = a.checked_out".($catid?
+		"\n WHERE a.catid = ".(int)$catid:'')."\n ORDER BY a.ordering";
 	$database->setQuery($query,$pageNav->limitstart,$pageNav->limit);
 
 	$rows = $database->loadObjectList();
@@ -106,10 +108,10 @@ function showNewsFeeds($option) {
 }
 
 /**
- * Creates a new or edits and existing user record
- * @param int The id of the user, 0 if a new entry
- * @param string The current GET/POST option
- */
+* Creates a new or edits and existing user record
+* @param int The id of the user, 0 if a new entry
+* @param string The current GET/POST option
+*/
 function editNewsFeed($id,$option) {
 	global $database,$my;
 
@@ -128,26 +130,26 @@ function editNewsFeed($id,$option) {
 		$row->numarticles = 5;
 		$row->cache_time = 3600;
 		$row->published = 1;
-		$row->code = 0;
 	}
 
 	// build the html select list for ordering
-	$query = "SELECT a.ordering AS value, a.name AS text FROM #__newsfeeds AS a ORDER BY a.ordering";
+	$query = "SELECT a.ordering AS value, a.name AS text"."\n FROM #__newsfeeds AS a".
+		"\n ORDER BY a.ordering";
 	$lists['ordering'] = mosAdminMenus::SpecificOrdering($row,$id,$query,1);
 
 	// build list of categories
 	$lists['category'] = mosAdminMenus::ComponentCategory('catid',$option,intval($row->catid));
 	// build the html select list
 	$lists['published'] = mosHTML::yesnoRadioList('published','class="inputbox"',$row->published);
-	// РєРѕРґРёСЂРѕРІРєР° Р»РµРЅС‚С‹
+	// кодировка ленты
 	$lists['code'] = mosHTML::yesnoRadioList('code','class="inputbox"',$row->code);
 	HTML_newsfeeds::editNewsFeed($row,$lists,$option);
 }
 
 /**
- * Saves the record from an edit form submit
- * @param string The current GET/POST option
- */
+* Saves the record from an edit form submit
+* @param string The current GET/POST option
+*/
 function saveNewsFeed($option) {
 	global $database,$my;
 	josSpoofCheck();
@@ -176,28 +178,30 @@ function saveNewsFeed($option) {
 }
 
 /**
- * Publishes or Unpublishes one or more modules
- * @param array An array of unique category id numbers
- * @param integer 0 if unpublishing, 1 if publishing
- * @param string The current GET/POST option
- */
+* Publishes or Unpublishes one or more modules
+* @param array An array of unique category id numbers
+* @param integer 0 if unpublishing, 1 if publishing
+* @param string The current GET/POST option
+*/
 function publishNewsFeeds($cid,$publish,$option) {
 	global $database,$my;
 	josSpoofCheck();
 
 	if(count($cid) < 1) {
-		$action = $publish?'РїСѓР±Р»РёРєР°С†РёРё':'СЃРѕРєСЂС‹С‚РёСЏ';
-		echo "<script> alert('Р’С‹Р±РµСЂРёС‚Рµ РјРѕРґСѓР»СЊ РґР»СЏ $action'); window.history.go(-1);</script>\n";
+		$action = $publish?'публикации':'сокрытия';
+		echo "<script> alert('Выберите модуль для $action'); window.history.go(-1);</script>\n";
 		exit;
 	}
 
 	mosArrayToInts($cid);
 	$cids = 'id='.implode(' OR id=',$cid);
 
-	$query = "UPDATE #__newsfeeds SET published = ".intval($publish)."\n WHERE ( $cids )"."\n AND ( checked_out = 0 OR ( checked_out = ".(int)$my->id." ) )";
+	$query = "UPDATE #__newsfeeds"."\n SET published = ".intval($publish)."\n WHERE ( $cids )".
+		"\n AND ( checked_out = 0 OR ( checked_out = ".(int)$my->id." ) )";
 	$database->setQuery($query);
 	if(!$database->query()) {
-		echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
+		echo "<script> alert('".$database->getErrorMsg().
+			"'); window.history.go(-1); </script>\n";
 		exit();
 	}
 
@@ -210,25 +214,26 @@ function publishNewsFeeds($cid,$publish,$option) {
 }
 
 /**
- * Removes records
- * @param array An array of id keys to remove
- * @param string The current GET/POST option
- */
+* Removes records
+* @param array An array of id keys to remove
+* @param string The current GET/POST option
+*/
 function removeNewsFeeds(&$cid,$option) {
 	global $database;
 	josSpoofCheck();
 
 	if(!is_array($cid) || count($cid) < 1) {
-		echo "<script> alert('"._CHOOSE_OBJ_DELETE."'); window.history.go(-1);</script>\n";
+		echo "<script> alert('Выберите объект для удаления'); window.history.go(-1);</script>\n";
 		exit;
 	}
 	if(count($cid)) {
 		mosArrayToInts($cid);
 		$cids = 'id='.implode(' OR id=',$cid);
-		$query = "DELETE FROM #__newsfeeds WHERE ( $cids )"."\n AND checked_out = 0";
+		$query = "DELETE FROM #__newsfeeds"."\n WHERE ( $cids )"."\n AND checked_out = 0";
 		$database->setQuery($query);
 		if(!$database->query()) {
-			echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
+			echo "<script> alert('".$database->getErrorMsg().
+				"'); window.history.go(-1); </script>\n";
 		}
 	}
 
@@ -236,9 +241,9 @@ function removeNewsFeeds(&$cid,$option) {
 }
 
 /**
- * Cancels an edit operation
- * @param string The current GET/POST option
- */
+* Cancels an edit operation
+* @param string The current GET/POST option
+*/
 function cancelNewsFeed($option) {
 	global $database;
 	josSpoofCheck();
@@ -250,11 +255,11 @@ function cancelNewsFeed($option) {
 }
 
 /**
- * Moves the order of a record
- * @param integer The id of the record to move
- * @param integer The direction to reorder, +1 down, -1 up
- * @param string The current GET/POST option
- */
+* Moves the order of a record
+* @param integer The id of the record to move
+* @param integer The direction to reorder, +1 down, -1 up
+* @param string The current GET/POST option
+*/
 function orderNewsFeed($id,$inc,$option) {
 	global $database;
 	josSpoofCheck();
@@ -269,3 +274,4 @@ function orderNewsFeed($id,$inc,$option) {
 
 	mosRedirect('index2.php?option='.$option);
 }
+?>

@@ -1,100 +1,79 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
-
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
-
 $_MAMBOTS->registerFunction('onPrepareContent','botMosLoadPosition');
-
-/**
- * ÐœÐ°Ð¼Ð±Ð¾Ñ‚, Ð·Ð°Ð³Ñ€ÑƒÐ¶Ð°ÑŽÑ‰Ð¸Ð¹ Ð¼Ð¾Ð´ÑƒÐ»Ð¸ Ð² Ð¿Ñ€ÐµÐ´ÐµÐ»Ð°Ñ… ÑÐ¾Ð´ÐµÑ€Ð¶Ð¸Ð¼Ð¾Ð³Ð¾
- */
+/** Ìàìáîò, çàãðóæàþùèé ìîäóëè â ïðåäåëàõ ñîäåðæèìîãî*/
 function botMosLoadPosition($published,&$row) {
-	global $database,$_MAMBOTS;
-
-	// simple performance check to determine whether bot should process further
-	if(strpos($row->text,'mosloadposition') === false) {
-		return true;
-	}
-
-	// expression to search for
-	$regex = '/{mosloadposition\s*.*?}/i';
-
-	// check whether mambot has been unpublished
-	if(!$published) {
-		$row->text = preg_replace($regex,'',$row->text);
-		return true;
-	}
-
-	// Ð½Ð°Ð¹Ñ‚Ð¸ Ð²ÑÐµ Ð¾Ð±Ñ€Ð°Ð·Ñ†Ñ‹ Ð¼Ð°Ð¼Ð±Ð¾Ñ‚Ð° Ð¸ Ð²ÑÑ‚Ð°Ð²Ð¸Ñ‚ÑŒ Ð² $matches
-	preg_match_all($regex,$row->text,$matches);
-
-	// ÐšÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ð¼Ð°Ð¼Ð±Ð¾Ñ‚Ð¾Ð²
-	$count = count($matches[0]);
-
-	// Ð¼Ð°Ð¼Ð±Ð¾Ñ‚ Ð¿Ñ€Ð¾Ð¸Ð·Ð²Ð¾Ð´Ð¸Ñ‚ Ð¾Ð±Ñ€Ð°Ð±Ð¾Ñ‚ÐºÑƒ ÐµÑÐ»Ð¸ Ð½Ð°Ñ…Ð¾Ð´Ð¸Ñ‚ Ð² Ñ‚ÐµÐºÑÑ‚Ðµ Ð¾Ð±Ñ€Ð°Ð·Ñ†Ñ‹ Ð¼Ð°Ð¼Ð±Ð¾Ñ‚Ð°
-	if($count) {
-		// check if param query has previously been processed
-		if(!isset($_MAMBOTS->_content_mambot_params['mosloadposition'])) {
-			// load mambot params info
-			$query = "SELECT params FROM #__mambots WHERE element = 'mosloadposition' AND folder = 'content'";
-			$database->setQuery($query);
-			$database->loadObject($mambot);
-
-			// save query to class variable
-			$_MAMBOTS->_content_mambot_params['mosloadposition'] = $mambot;
-		}
-
-		// pull query data from class variable
-		$mambot = $_MAMBOTS->_content_mambot_params['mosloadposition'];
-
-		$botParams = new mosParameters($mambot->params);
-
-		$style = $botParams->def('style',-2);
-
-		processPositions($row,$matches,$count,$regex,$style);
-	}
+global $database,$_MAMBOTS;
+// simple performance check to determine whether bot should process further
+if(strpos($row->text,'mosloadposition') === false) {
+return true;
 }
-
+// expression to search for
+$regex = '/{mosloadposition\s*.*?}/i';
+// check whether mambot has been unpublished
+if(!$published) {
+$row->text = preg_replace($regex,'',$row->text);
+return true;
+}
+// íàéòè âñå îáðàçöû ìàìáîòà è âñòàâèòü â $matches
+preg_match_all($regex,$row->text,$matches);
+// Êîëè÷åñòâî ìàìáîòîâ
+$count = count($matches[0]);
+// ìàìáîò ïðîèçâîäèò îáðàáîòêó åñëè íàõîäèò â òåêñòå îáðàçöû ìàìáîòà
+if($count) {
+// check if param query has previously been processed
+if(!isset($_MAMBOTS->_content_mambot_params['mosloadposition'])) {
+// load mambot params info
+$query = "SELECT params FROM #__mambots WHERE element = 'mosloadposition' AND folder = 'content'";
+$database->setQuery($query);
+$database->loadObject($mambot);
+// save query to class variable
+$_MAMBOTS->_content_mambot_params['mosloadposition'] = $mambot;
+}
+// pull query data from class variable
+$mambot = $_MAMBOTS->_content_mambot_params['mosloadposition'];
+$botParams = new mosParameters($mambot->params);
+$style = $botParams->def('style',-2);
+processPositions($row,$matches,$count,$regex,$style);
+}
+}
 function processPositions(&$row,&$matches,$count,$regex,$style) {
-	global $database;
-
-	$query = "SELECT position"."\n FROM #__template_positions"."\n ORDER BY position";
-	$database->setQuery($query);
-	$positions = $database->loadResultArray();
-
-	for($i = 0; $i < $count; $i++) {
-		$load = str_replace('mosloadposition','',$matches[0][$i]);
-		$load = str_replace('{','',$load);
-		$load = str_replace('}','',$load);
-		$load = trim($load);
-
-		foreach($positions as $position) {
-			if($position == @$load) {
-				$modules = loadPosition($load,$style);
-				$row->text = str_replace($matches[0][$i],$modules,$row->text);
-				break;
-			}
-		}
-	}
-
-	// ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ðµ Ñ‚ÑÐ³Ð¾Ð², Ð½Ðµ ÑÐ¾Ð¾Ñ‚Ð²ÐµÑ‚ÑÑ‚Ð²ÑƒÑŽÑ‰Ð¸Ñ… Ð¿Ð¾Ð·Ð¸Ñ†Ð¸Ð¸ Ð¼Ð¾Ð´ÑƒÐ»Ñ
-	$row->text = preg_replace($regex,'',$row->text);
+global $database;
+$query = "SELECT position"."\n FROM #__template_positions"."\n ORDER BY position";
+$database->setQuery($query);
+$positions = $database->loadResultArray();
+for($i = 0; $i < $count; $i++) {
+$load = str_replace('mosloadposition','',$matches[0][$i]);
+$load = str_replace('{','',$load);
+$load = str_replace('}','',$load);
+$load = trim($load);
+foreach($positions as $position) {
+if($position == @$load) {
+$modules = loadPosition($load,$style);
+$row->text = str_replace($matches[0][$i],$modules,$row->text);
+break;
 }
-
+}
+}
+// óäàëåíèå òýãîâ, íå ñîîòâåòñòâóþùèõ ïîçèöèè ìîäóëÿ
+$row->text = preg_replace($regex,'',$row->text);
+}
 function loadPosition($position,$style = -2) {
-	$modules = '';
-	if(mosCountModules($position)) {
-		ob_start();
-		mosLoadModules($position,$style);
-		$modules = ob_get_contents();
-		ob_end_clean();
-	}
-	return $modules;
+$modules = '';
+if(mosCountModules($position)) {
+ob_start();
+mosLoadModules($position,$style);
+$modules = ob_get_contents();
+ob_end_clean();
 }
+return $modules;
+}
+?>

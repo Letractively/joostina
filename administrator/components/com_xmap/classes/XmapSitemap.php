@@ -1,13 +1,13 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
 
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
 
 /** Wraps all configuration functions for Xmap */
@@ -35,7 +35,7 @@ class XmapSitemap {
 
 	function XmapSitemap() {
 		global $mosConfig_cachetime,$mosConfig_caching;
-		$this->name= '';
+		$this->name= _XMAP_NAME_NEW_SITEMAP;
 		$this->usecache	= $mosConfig_caching;
 		$this->cachelifetime= $mosConfig_cachetime;
 	}
@@ -74,8 +74,7 @@ class XmapSitemap {
 
 	/** Remove the sitemap from the table */
 	function remove() {
-		$database = &database::getInstance();
-
+		global $database;
 		$query = "delete from #__xmap_sitemap where `id`=".$this->id;
 		$database->setQuery( $query );
 		if( $database->query() === FALSE ) {
@@ -88,20 +87,20 @@ class XmapSitemap {
 
 	/** Load settings from the database into this instance */
 	function load($id) {
-		$database = &database::getInstance();
+		global $database;
 
 		$id = intval($id);
 		$query = "SELECT * FROM #__xmap_sitemap where id=$id";
 		$database->setQuery( $query );
 		if( $database->loadObject( $this ) === FALSE ) {
-			return false;// defaults are still set, though
+			return false;														// defaults are still set, though
 		}
 		return true;
 	}
 
 	/** Save current settings to the database */
 	function save($forceinstall=false) {
-		$database = &database::getInstance();
+		global $database;
 
 		$fields = array();
 
@@ -116,32 +115,32 @@ class XmapSitemap {
 		}
 
 		if ($this->id && !$forceinstall) {
-			$sep = "";
-			$values="";
-			foreach ($fields as $k  => $value) {
-				if ($k != 'id') {
-					$values .= "$sep$k=$value";
-					$sep = ",";
-				}
+		    $sep = "";
+		    $values="";
+		    foreach ($fields as $k  => $value) {
+			if ($k != 'id') {
+				$values .= "$sep$k=$value";
+				$sep = ",";
 			}
-			$query = "UPDATE #__xmap_sitemap SET $values WHERE id=" . intval($this->id);
-			$isInsert = 0;
+		    }
+		    $query = "UPDATE #__xmap_sitemap SET $values WHERE id=" . intval($this->id);
+		    $isInsert = 0;
 		} else {
-			$query = "INSERT INTO #__xmap_sitemap (". implode(',',array_keys($fields)) .") VALUES (".implode(',',$fields).")";
-			$isInsert = 1;
+		    $query = "INSERT INTO #__xmap_sitemap (". implode(',',array_keys($fields)) .") VALUES (".implode(',',$fields).")";
+		    $isInsert = 1;
 		}
 		$database->setQuery( $query );
 		# echo $database->getQuery( );
 		if( $database->query() === FALSE ) {
 			echo mosStripslashes($database->getErrorMsg());
 			return false;
-		}
+	 	}
 		if ($isInsert) {
 			$this->id = mysql_insert_id( $database->_resource );
 		}
 		return true;
 	}
-
+	
 	/** Debug output of current settings */
 	function dump() {
 		$vars = get_object_vars( $this );
@@ -171,7 +170,7 @@ class XmapSitemap {
 
 	/** Move the display order of a record */
 	function orderMenu( $menutype, $inc ) {
-
+	
 		$menus	= $this->getMenus();
 		if (empty($menus[$menutype]) ) {
 			return false;
@@ -181,10 +180,10 @@ class XmapSitemap {
 		if ($menus[$menutype]->ordering >= count($menus) && $inc > 0) return false;
 
 		$menus[$menutype]->ordering += $inc;		// move position up/down
-
+	
 		foreach( $menus as $type => $menu ) {		// swap position of previous entry at that position
 			if( $type != $menutype
-					&& $menu->ordering == $menus[$menutype]->ordering )
+				&& $menu->ordering == $menus[$menutype]->ordering )
 				$menus[$type]->ordering -= $inc;
 		}
 

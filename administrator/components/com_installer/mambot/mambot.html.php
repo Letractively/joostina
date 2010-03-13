@@ -1,87 +1,84 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
 
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
 
 /**
- * @package Joostina
- * @subpackage Installer
- */
+* @package Joostina
+* @subpackage Installer
+*/
 class HTML_mambot {
-
 	/**
-	 * Displays the installed non-core Joostina
-	 * @param array An array of mambot object
-	 * @param strong The URL option
-	 */
+	* Displays the installed non-core Joostina
+	* @param array An array of mambot object
+	* @param strong The URL option
+	*/
 	function showInstalledMambots(&$rows,$option) {
+		// ïîäêëþ÷åíèå ñêðèïòà ÷óäåñíûõ òàáëèö
 		mosCommonHTML::loadPrettyTable();
-		?>
-<form action="index2.php" method="post" name="adminForm">
+?>
 	<table class="adminheading">
 		<tr>
 			<th class="install"><?php echo _INSTALLED_MAMBOTS?></th>
 		</tr>
 		<tr>
-					<?php HTML_installer::cPanel(); ?>
-		</tr>
-		<tr>
 			<td><div class="jwarning"><?php echo _INSTALLED_COMPONENTS2?></div></td>
 		</tr>
 	</table>
-			<?php
-			if(count($rows)) { ?>
-
-	<table class="adminlist" id="adminlist">
-		<tr>
-			<th width="20%" class="title"><?php echo _MAMBOT?></th>
-			<th width="10%" class="title"><?php echo _TYPE?></th>
-			<th width="10%" align="left"><?php echo _AUTHOR?></th>
-			<th width="5%" align="center"><?php echo _VERSION?></th>
-			<th width="10%" align="center"><?php echo _DATE?></th>
-			<th width="15%" align="left">E-mail</th>
-			<th width="15%" align="left"><?php echo _COMPONENT_AUTHOR_URL?></th>
-		</tr>
-					<?php
-					$rc = 0;
-					$n = count($rows);
-					for($i = 0; $i < $n; $i++) {
-						$row = &$rows[$i];
-						?>
-		<tr class="row<?php echo $rc ?>">
-			<td align="left">
-				<input type="radio" id="cb<?php echo $i; ?>" name="cid[]" value="<?php echo $row->id; ?>" onclick="alert('sdsdsd'); isChecked(this.checked);">
-				<span class="bold"><?php echo $row->name; ?></span>
-			</td><td align="left"><?php echo $row->folder; ?></td>
-			<td><?php echo @$row->author != ''?$row->author:"&nbsp;"; ?></td>
-			<td align="center"><?php echo @$row->version != ''?$row->version:"&nbsp;"; ?></td>
-			<td align="center"><?php echo @$row->creationdate != ''?$row->creationdate:"&nbsp;"; ?></td>
-			<td><?php echo @$row->authorEmail != ''?$row->authorEmail:"&nbsp;"; ?></td>
-			<td><?php echo @$row->authorUrl != ""?"<a href=\"".(substr($row->authorUrl,0,7) =='http://'?$row->authorUrl:'http://'.$row->authorUrl)."\" target=\"_blank\">$row->authorUrl</a>":"&nbsp;"; ?></td>
-		</tr>
-						<?php
-						$rc = 1 - $rc;
-					}
-					?>
-	</table>
-	<input type="hidden" name="task" value="" />
-	<input type="hidden" name="boxchecked" value="0" />
-	<input type="hidden" name="option" value="com_installer" />
-	<input type="hidden" name="element" value="mambot" />
-	<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
-				<?php
-			} else {
-				echo _OTHER_MAMBOTS;
-			}
-			?>
-</form>
 		<?php
+		if(count($rows)) { ?>
+			<form action="index2.php" method="post" name="adminForm">
+			<table class="adminlist" id="adminlist">
+			<tr>
+				<th width="20%" class="title"><?php echo _MAMBOT?></th>
+				<th width="10%" class="title"><?php echo _TYPE?></th>
+				<th width="10%" align="left"><?php echo _AUTHOR_BY?></th>
+				<th width="5%" align="center"><?php echo _E_VERSION?></th>
+				<th width="10%" align="center"><?php echo _DATE?></th>
+				<th width="15%" align="left">E-mail</th>
+				<th width="15%" align="left"><?php echo _COMPONENT_AUTHOR_URL?></th>
+			</tr>
+			<?php
+			$rc = 0;
+			$n = count($rows);
+			for($i = 0; $i < $n; $i++) {
+				$row = &$rows[$i];
+?>
+				<tr class="<?php echo "row$rc"; ?>">
+					<td align="left">
+					<input type="radio" id="cb<?php echo $i; ?>" name="cid[]" value="<?php echo $row->id; ?>" onclick="isChecked(this.checked);">
+					<span class="bold"><?php echo $row->name; ?></span>
+					</td><td align="left"><?php echo $row->folder; ?></td>
+					<td><?php echo @$row->author != ''?$row->author:"&nbsp;"; ?></td>
+					<td align="center"><?php echo @$row->version != ''?$row->version:"&nbsp;"; ?></td>
+					<td align="center"><?php echo @$row->creationdate != ''?$row->creationdate:"&nbsp;"; ?></td>
+					<td><?php echo @$row->authorEmail != ''?$row->authorEmail:"&nbsp;"; ?></td>
+					<td><?php echo @$row->authorUrl != ""?"<a href=\"".(substr($row->authorUrl,0,7) =='http://'?$row->authorUrl:'http://'.$row->authorUrl)."\" target=\"_blank\">$row->authorUrl</a>":"&nbsp;"; ?></td>
+				</tr>
+				<?php
+				$rc = 1 - $rc;
+			}
+?>
+			</table>
+			<input type="hidden" name="task" value="" />
+			<input type="hidden" name="boxchecked" value="0" />
+			<input type="hidden" name="option" value="com_installer" />
+			<input type="hidden" name="element" value="mambot" />
+			<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
+			</form>
+			<?php
+		} else {
+?>
+			<?php echo _OTHER_MAMBOTS?>
+			<?php
+		}
 	}
 }
+?>

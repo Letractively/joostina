@@ -1,13 +1,13 @@
 <?php
 /**
- * @package Joostina
- * @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2010 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
- * @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
- * Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
- * Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
- */
+* @package Joostina
+* @copyright Авторские права (C) 2008 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+*/
 
-// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+// запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 // ensure user has access to this function
@@ -71,10 +71,11 @@ switch($task) {
 }
 
 /**
- * Compiles a list of installed or defined modules
- */
+* Compiles a list of installed or defined modules
+*/
 function viewMambots($option,$client) {
 	global $database,$mainframe,$mosConfig_list_limit;
+	global $mosConfig_absolute_path;
 
 	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mosConfig_list_limit));
 	$limitstart = intval($mainframe->getUserStateFromRequest("view{$option}limitstart",'limitstart',0));
@@ -97,24 +98,21 @@ function viewMambots($option,$client) {
 		$where[] = "m.folder = ".$database->Quote($filter_type);
 	}
 	if($search) {
-		$where[] = "LOWER( m.name ) LIKE '%".$database->getEscaped(Jstring::trim(Jstring::strtolower($search)))."%'";
+		$where[] = "LOWER( m.name ) LIKE '%".$database->getEscaped(trim(strtolower($search)))."%'";
 	}
 
 	// get the total number of records
-	$query = "SELECT COUNT(*) FROM #__mambots AS m".(count($where)?"\n WHERE ".implode(' AND ',$where):'');
+	$query = "SELECT COUNT(*)"."\n FROM #__mambots AS m".(count($where)?"\n WHERE ".implode(' AND ',$where):'');
 	$database->setQuery($query);
 	$total = $database->loadResult();
 
-	require_once (JPATH_BASE.DS.JADMIN_BASE.'/includes/pageNavigation.php');
+	require_once ($GLOBALS['mosConfig_absolute_path'].
+		'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
-	$query = "SELECT m.*, u.name AS editor, g.name AS groupname"
-			."\n FROM #__mambots AS m"
-			."\n LEFT JOIN #__users AS u ON u.id = m.checked_out"
-			."\n LEFT JOIN #__groups AS g ON g.id = m.access"
-			.(count($where)?"\n WHERE ".implode(' AND ',$where):'')
-			."\n GROUP BY m.id"
-			."\n ORDER BY m.folder ASC, m.ordering ASC, m.name ASC";
+	$query = "SELECT m.*, u.name AS editor, g.name AS groupname"."\n FROM #__mambots AS m".
+		"\n LEFT JOIN #__users AS u ON u.id = m.checked_out"."\n LEFT JOIN #__groups AS g ON g.id = m.access".(count
+		($where)?"\n WHERE ".implode(' AND ',$where):'')."\n GROUP BY m.id"."\n ORDER BY m.folder ASC, m.ordering ASC, m.name ASC";
 	$database->setQuery($query,$pageNav->limitstart,$pageNav->limit);
 	$rows = $database->loadObjectList();
 	if($database->getErrorNum()) {
@@ -123,22 +121,21 @@ function viewMambots($option,$client) {
 	}
 
 	// get list of Positions for dropdown filter
-	$query = "SELECT folder AS value, folder AS text"
-			."\n FROM #__mambots"
-			."\n WHERE client_id = ".(int)$client_id
-			."\n GROUP BY folder"
-			."\n ORDER BY folder";
+	$query = "SELECT folder AS value, folder AS text"."\n FROM #__mambots"."\n WHERE client_id = ".(int)
+		$client_id."\n GROUP BY folder"."\n ORDER BY folder";
 	$types[] = mosHTML::makeOption(1,_SEL_TYPE);
 	$database->setQuery($query);
 	$types = array_merge($types,$database->loadObjectList());
-	$lists['type'] = mosHTML::selectList($types,'filter_type','class="inputbox" size="1" onchange="document.adminForm.submit( );"','value','text',$filter_type);
+	$lists['type'] = mosHTML::selectList($types,'filter_type',
+		'class="inputbox" size="1" onchange="document.adminForm.submit( );"','value',
+		'text',$filter_type);
 
 	HTML_modules::showMambots($rows,$client,$pageNav,$option,$lists,$search);
 }
 
 /**
- * Saves the module after an edit form submit
- */
+* Saves the module after an edit form submit
+*/
 function saveMambot($option,$client,$task) {
 	global $database;
 	josSpoofCheck();
@@ -187,12 +184,13 @@ function saveMambot($option,$client,$task) {
 }
 
 /**
- * Compiles information to add or edit a module
- * @param string The current GET/POST option
- * @param integer The unique id of the record to edit
- */
+* Compiles information to add or edit a module
+* @param string The current GET/POST option
+* @param integer The unique id of the record to edit
+*/
 function editMambot($option,$uid,$client) {
 	global $database,$my,$mainframe;
+	global $mosConfig_absolute_path;
 
 	$lists = array();
 	$row = new mosMambot($database);
@@ -202,7 +200,7 @@ function editMambot($option,$uid,$client) {
 
 	// fail if checked out not by 'me'
 	if($row->isCheckedOut($my->id)) {
-		mosErrorAlert($row->title.' '._COM_MAMBOTS_NON_EDIT);
+		mosErrorAlert("The module ".$row->title." is currently being edited by another administrator");
 	}
 
 	if($client == 'admin') {
@@ -224,33 +222,31 @@ function editMambot($option,$uid,$client) {
 
 		if($row->ordering > -10000 && $row->ordering < 10000) {
 			// build the html select list for ordering
-			$query = "SELECT ordering AS value, name AS text"
-					."\n FROM #__mambots"
-					."\n WHERE folder = "
-					.$database->Quote($row->folder)
-					."\n AND published > 0"
-					."\n AND $where"
-					."\n AND ordering > -10000"
-					."\n AND ordering < 10000"
-					."\n ORDER BY ordering";
+			$query = "SELECT ordering AS value, name AS text"."\n FROM #__mambots"
+				."\n WHERE folder = "
+				.$database->Quote($row->folder)."\n AND published > 0"
+				."\n AND $where"
+				."\n AND ordering > -10000"
+				."\n AND ordering < 10000"."\n ORDER BY ordering";
 			$order = mosGetOrderingList($query);
 			$lists['ordering'] = mosHTML::selectList($order,'ordering','class="inputbox" size="1"','value','text',intval($row->ordering));
 		} else {
-			$lists['ordering'] = '<input type="hidden" name="ordering" value="'.$row->ordering.'" />'._COM_MAMBOTS_NON_REORDER;
+			$lists['ordering'] = '<input type="hidden" name="ordering" value="'.$row->ordering.'" />Порядок расположения этого мамбота не может быть изменен';
 		}
 		$lists['folder'] = '<input type="hidden" name="folder" value="'.$row->folder.'" />'.$row->folder;
 
 		// XML library
-		require_once (JPATH_BASE.'/includes/domit/xml_domit_lite_include.php');
+		require_once ($mosConfig_absolute_path.'/includes/domit/xml_domit_lite_include.php');
 		// xml file for module
-		$xmlfile = JPATH_BASE.DS.'mambots'.DS.$row->folder.DS.$row->element.'.xml';
+		$xmlfile = $mosConfig_absolute_path.'/mambots/'.$row->folder.'/'.$row->element.'.xml';
 		$xmlDoc = new DOMIT_Lite_Document();
 		$xmlDoc->resolveErrors(true);
 		if($xmlDoc->loadXML($xmlfile,false,true)) {
 			$root = &$xmlDoc->documentElement;
 			if($root->getTagName() == 'mosinstall' && $root->getAttribute('type') =='mambot') {
 				$element = &$root->getElementsByPath('description',1);
-				$row->description = $element ? trim($element->getText()):'';
+				$row->description = $element?trim($element->getText()):'';
+
 			}
 		}
 	} else {
@@ -259,40 +255,42 @@ function editMambot($option,$uid,$client) {
 		$row->published = 1;
 		$row->description = '';
 
-		$folders = mosReadDirectory(JPATH_BASE.DS.'mambots'.DS);
+		$folders = mosReadDirectory($mosConfig_absolute_path.'/mambots/');
 		$folders2 = array();
 		foreach($folders as $folder) {
-			if(is_dir(JPATH_BASE.DS.'mambots'.DS.$folder) && ($folder != 'CVS')) {
+			if(is_dir($mosConfig_absolute_path.'/mambots/'.$folder) && ($folder != 'CVS')) {
 				$folders2[] = mosHTML::makeOption($folder);
 			}
 		}
-		$lists['folder'] = mosHTML::selectList($folders2,'folder','class="inputbox" size="1"','value','text',null);
+		$lists['folder'] = mosHTML::selectList($folders2,'folder',
+			'class="inputbox" size="1"','value','text',null);
 		$lists['ordering'] = '<input type="hidden" name="ordering" value="'.$row->ordering.'" />'._NEW_MAMBOTS_IN_THE_END;
 	}
 
 	$lists['published'] = mosHTML::yesnoRadioList('published','class="inputbox"',$row->published);
 
-	$path = JPATH_BASE.DS."mambots/$row->folder/$row->element.xml";
+	$path = $mosConfig_absolute_path."/mambots/$row->folder/$row->element.xml";
 	if(!file_exists($path)) {
 		$path = '';
 	}
 
 	// get params definitions
 	$params = new mosParameters($row->params,$path,'mambot');
+
 	HTML_modules::editMambot($row,$lists,$params,$option);
 }
 
 /**
- * Deletes one or more mambots
- *
- * Also deletes associated entries in the #__mambots table.
- * @param array An array of unique category id numbers
- */
+* Deletes one or more mambots
+*
+* Also deletes associated entries in the #__mambots table.
+* @param array An array of unique category id numbers
+*/
 function removeMambot(&$cid,$option,$client) {
 	global $database,$my;
 	josSpoofCheck();
 	if(count($cid) < 1) {
-		echo "<script> alert('"._CHOOSE_OBJ_DELETE."'); window.history.go(-1);</script>\n";
+		echo "<script> alert('Select a module to delete'); window.history.go(-1);</script>\n";
 		exit;
 	}
 
@@ -300,10 +298,10 @@ function removeMambot(&$cid,$option,$client) {
 }
 
 /**
- * Publishes or Unpublishes one or more modules
- * @param array An array of unique category id numbers
- * @param integer 0 if unpublishing, 1 if publishing
- */
+* Publishes or Unpublishes one or more modules
+* @param array An array of unique category id numbers
+* @param integer 0 if unpublishing, 1 if publishing
+*/
 function publishMambot($cid = null,$publish = 1,$option,$client) {
 	global $database,$my;
 	josSpoofCheck();
@@ -316,10 +314,12 @@ function publishMambot($cid = null,$publish = 1,$option,$client) {
 	mosArrayToInts($cid);
 	$cids = 'id='.implode(' OR id=',$cid);
 
-	$query = "UPDATE #__mambots SET published = ".(int)$publish."\n WHERE ( $cids ) AND ( checked_out = 0 OR ( checked_out = ".(int)$my->id." ) )";
+	$query = "UPDATE #__mambots SET published = ".(int)$publish."\n WHERE ( $cids )".
+		"\n AND ( checked_out = 0 OR ( checked_out = ".(int)$my->id." ) )";
 	$database->setQuery($query);
 	if(!$database->query()) {
-		echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
+		echo "<script> alert('".$database->getErrorMsg().
+			"'); window.history.go(-1); </script>\n";
 		exit();
 	}
 
@@ -332,8 +332,8 @@ function publishMambot($cid = null,$publish = 1,$option,$client) {
 }
 
 /**
- * Cancels an edit operation
- */
+* Cancels an edit operation
+*/
 function cancelMambot($option,$client) {
 	global $database;
 	josSpoofCheck();
@@ -345,10 +345,10 @@ function cancelMambot($option,$client) {
 }
 
 /**
- * Moves the order of a record
- * @param integer The unique id of record
- * @param integer The increment to reorder by
- */
+* Moves the order of a record
+* @param integer The unique id of record
+* @param integer The increment to reorder by
+*/
 function orderMambot($uid,$inc,$option,$client) {
 	global $database;
 	josSpoofCheck();
@@ -360,15 +360,16 @@ function orderMambot($uid,$inc,$option,$client) {
 	}
 	$row = new mosMambot($database);
 	$row->load((int)$uid);
-	$row->move($inc,"folder=".$database->Quote($row->folder)." AND ordering > -10000 AND ordering < 10000 AND ($where)");
+	$row->move($inc,"folder=".$database->Quote($row->folder).
+		" AND ordering > -10000 AND ordering < 10000 AND ($where)");
 
 	mosRedirect('index2.php?option='.$option);
 }
 
 /**
- * changes the access level of a record
- * @param integer The increment to reorder by
- */
+* changes the access level of a record
+* @param integer The increment to reorder by
+*/
 function accessMenu($uid,$access,$option,$client) {
 	global $database;
 	josSpoofCheck();
@@ -419,7 +420,8 @@ function saveOrder(&$cid) {
 				exit();
 			} // if
 			// remember to updateOrder this group
-			$condition = "folder = ".$database->Quote($row->folder)." AND ordering > -10000 AND ordering < 10000 AND client_id = ".(int)$row->client_id;
+			$condition = "folder = ".$database->Quote($row->folder)
+						." AND ordering > -10000 AND ordering < 10000 AND client_id = ".(int)$row->client_id;
 			$found = false;
 			foreach($conditions as $cond)
 				if($cond[1] == $condition) {
@@ -439,3 +441,5 @@ function saveOrder(&$cid) {
 	$msg = _NEW_ORDER_SAVED;
 	mosRedirect('index2.php?option=com_mambots',$msg);
 } // saveOrder
+
+?>

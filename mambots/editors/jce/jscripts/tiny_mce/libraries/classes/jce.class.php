@@ -17,8 +17,7 @@ class JCE{
 	var $params;
 	//Constructor
 	function JCE(){
-		global $my;
-		$database = &database::getInstance();
+		global $my, $database;
 		$this->usertype = strtolower( $my->usertype );
 		$this->username = $my->username;
 
@@ -44,8 +43,12 @@ class JCE{
 	}
 	//Return JCE mambot paramters
 	function getParams(){
-		$database = &database::getInstance();
-		$query = "SELECT params FROM #__mambots WHERE element = 'jce' AND folder = 'editors'";
+		global $database;
+		$query = "SELECT params"
+			. "\n FROM #__mambots"
+			. "\n WHERE element = 'jce'"
+			. "\n AND folder = 'editors'"
+		;
 		$database->setQuery( $query );
 		$params = $database->loadResult();
 		$params = new mosParameters( $params );
@@ -54,8 +57,11 @@ class JCE{
 	}
 	//Return a list of published plugins
 	function getPlugins( $exclude ){
-		$database = &database::getInstance();
-		$query = "SELECT plugin FROM #__jce_plugins WHERE access <= '".$this->id."' AND published = 1 AND type = 'plugin'";
+		global $database;
+		$query = "SELECT plugin"
+			. "\n FROM #__jce_plugins"
+			. "\n WHERE access <= '".$this->id."' AND published = 1 AND type = 'plugin'"
+		;
 		$database->setQuery( $query );
 		$plugins = $database->loadResultArray();
 		if( $exclude ){
@@ -67,14 +73,19 @@ class JCE{
 		}
 		return implode( ',', $plugins );
 	}
-	// получение списка установленных языков
+	//Return a list of installed languages
 	function getLangs(){
-		return '';
+		global $database;
+		$query = "SELECT lang FROM #__jce_langs";
+		$database->setQuery( $query );
+		return implode( ',', $database->loadResultArray() );
 	}
 	//Return a the published language
 	function getLanguage(){
-		$database = &database::getInstance();
-		$query = "SELECT lang FROM #__jce_langs WHERE published = 1";
+		global $database;
+		$query = "SELECT lang"
+		. "\n FROM #__jce_langs"
+		. "\n WHERE published = 1";
 		$database->setQuery( $query );
 		$this->language = $database->loadResult();
 		return $this->language;
@@ -84,7 +95,7 @@ class JCE{
 		if( file_exists( $this->getPluginPath()  . "/langs/" . $l . ".php" ) ){
 			return $l;
 		}else{
-			return 'ru';
+			return "ru";
 		}
 	}
 	function removeKey( $array, $key ){
@@ -112,8 +123,13 @@ class JCE{
 	}
 	//Return a string of commands to be removed
 	function getRemovePlugins(){
-		$database = &database::getInstance();
-		$query = "SELECT plugin FROM #__jce_plugins WHERE type = 'command' AND published = 0 AND access > '" . $this->id . "'";
+		global $database;
+		$query = "SELECT plugin"
+		. "\n FROM #__jce_plugins"
+		. "\n WHERE type = 'command'"
+		. "\n AND published = 0"
+		 //. "\n AND access > '" . $this->id . "'"
+		;
 		$database->setQuery( $query );
 		$remove = $database->loadResultArray();
 		if( $remove ){
@@ -124,22 +140,22 @@ class JCE{
 	}
 	//Return a an array of buttons for a specified row
 	function getRow( $row ){
-		static $all_rows;
-		if(!is_array($all_rows)){
-			$database = &database::getInstance();
-			$query = "SELECT row,icon FROM #__jce_plugins WHERE access <= '".$this->id."' AND published = 1 AND icon != '' ORDER BY ordering ASC";
-			$database->setQuery( $query );
-			$r = $database->loadObjectList();
-			foreach($r as $all){
-				$all_rows[$all->row][]=$all->icon;
-			}
-		}
-		$ret = isset($all_rows[$row]) ? $all_rows[$row] : array();
-		return implode( ',', $ret);
+		global $database;
+		
+		$query = "SELECT icon"
+		. "\n FROM #__jce_plugins"
+		. "\n WHERE access <= '".$this->id."'"
+		. "\n AND published = 1"
+		. "\n AND row = " . $row . ""
+		. "\n AND icon != ''"
+		. "\n ORDER BY ordering ASC"
+		;
+		$database->setQuery( $query );
+		return implode( ',', $database->loadResultArray() );
 	}
 	//Return a string of extended elements for a plugin
 	function getElements(){
-		$database = &database::getInstance();
+		global $database;
 		
 		$params = $this->params;
 		$jce_elements = explode( ',', $this->cleanParam( $params->get( 'extended_elements', '' ) ) );
@@ -155,29 +171,29 @@ class JCE{
 		return implode( ',', $elements );		
 	}
 	function getPluginParams( $plugin='' ){
-		static $al_plugins;
+		global $database;
 
 		if( !$plugin ) $plugin = $this->plugin;
-
-		if(!isset($al_plugins)){
-			$database = &database::getInstance();
-			$query = "SELECT plugin,params FROM #__jce_plugins WHERE published = 1 AND params<>''";
-			$database->setQuery( $query );
-			$al_plugins = $database->loadObjectList('plugin');
-		}
-
-		if(isset($al_plugins[$plugin])){
-			return new mosParameters( $al_plugins[$plugin]->params );
-		} else{
-			return new mosParameters( '' );
-		}
+		
+		require_once( $this->getParamsPath() . '/plugins.class.php' );
+		$plugins = new jcePlugins( $database );
+		
+		$query = "SELECT id FROM #__jce_plugins WHERE plugin = '" . $plugin . "' AND published = 1 LIMIT 1";
+		$database->setQuery( $query );
+		$id = $database->loadResult();
+		$plugins->load( $id );
+		$params = new mosParameters( $plugins->params );
+		
+		return $params;
 	}
 	//Boolean - is a plugin loaded?
 	function isLoaded( $plugin ){
-		// интересное место, boston тут сделал большииие глаза и запретил фукнцию :)
-		return true;
-		$database = &database::getInstance();
-		$query = "SELECT id FROM #__jce_plugins WHERE plugin = '" . $plugin . "' AND published = 1 LIMIT 1";
+		global $database;
+		$query = "SELECT id"
+		. "\n FROM #__jce_plugins"
+		. "\n WHERE plugin = '" . $plugin . "'"
+		. "\n AND published = 1 LIMIT 1"
+		;
 		$database->setQuery( $query );
 		$id = $database->loadResult();
 		if( $id ){
@@ -247,15 +263,23 @@ class JCE{
 		return $base_dir;
 	}
 	function getTinyUrl(){
-		global $mainframe;
+		//global $mainframe;
 		if( !$this->tiny_url ){
-			$this->tiny_url =  JPATH_SITE . "/mambots/editors/jce/jscripts/tiny_mce";
+			//$this->tiny_url =  $mainframe->getCfg('live_site') . "/mambots/editors/jce/jscripts/tiny_mce";
+			$url = 'http://'.$_SERVER['HTTP_HOST'].rtrim(dirname($_SERVER['PHP_SELF']),'/\\').'/';
+			$this->tiny_url = str_replace('administrator/','',$url).'/mambots/editors/jce/jscripts/tiny_mce';
 		}	
 		return $this->tiny_url;
 	}
+	function getBaseUrl(){
+		$url = 'http://'.$_SERVER['HTTP_HOST'].rtrim(dirname($_SERVER['PHP_SELF']),'/\\').'/';
+		$url = str_replace('administrator/','',$url);
+		return $url;
+	}
+	
 	function getTinyPath(){
 		global $mainframe;
-		$this->tiny_path = JPATH_BASE . "/mambots/editors/jce/jscripts/tiny_mce";
+		$this->tiny_path = $mainframe->getCfg('absolute_path') . "/mambots/editors/jce/jscripts/tiny_mce";
 		return $this->tiny_path;
 	}
 	function getLibUrl(){
@@ -279,7 +303,7 @@ class JCE{
 	}
 	function getParamsPath(){
 		global $mainframe;
-		return JPATH_BASE . '/'.JADMIN_BASE.'/components/com_jce/plugins';
+		return $mainframe->getCfg('absolute_path') . '/'.ADMINISTRATOR_DIRECTORY.'/components/com_jce/plugins';
 	}
 	function printTinyJs( $file ){
 		$url = $this->getTinyUrl() . "/" . $file . ".js";
@@ -475,7 +499,7 @@ class Manager{
 		 */
 		function getBaseDir(){
 			global $mainframe;
-			return JPath::makePath( JPATH_BASE, $this->base_dir );
+			return JPath::makePath( $mainframe->getCfg('absolute_path'), $this->base_dir );
 		}
 		/**
 		 * Get the base URL.
@@ -483,7 +507,7 @@ class Manager{
 		 */
 		function getBaseURL(){
 			global $mainframe;
-			return JPath::makePath( JPATH_SITE, $this->base_url );
+			return JPath::makePath( $mainframe->getCfg('live_site'), $this->base_url );
 		}
 		/**
 		 * Get a list of dirs in the base dir

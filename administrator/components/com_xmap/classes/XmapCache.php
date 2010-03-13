@@ -1,54 +1,54 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
 
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
-
 
 class XmapCache {
 	/**
-	 * @return object A function cache object
-	 */
-	function &getCache(&$sitemap, $handler = 'callback', $storage = 'file') {
-		$handler = ($handler == 'function') ? 'callback' : $handler;
+	* @return object A function cache object
+	*/
+	function &getCache( &$sitemap ) {
+		global $mosConfig_absolute_path, $mosConfig_cachepath, $mosConfig_cachetime;
 
-		$config = &Jconfig::getInstance();
-
-		if(!isset($storage)) {
-			$storage =($config->config_cache_handler != '')? $config->config_cache_handler : 'file';
-		}
-
-		$options = array(
-				'defaultgroup' 	=> 'com_xmap',
-				'cachebase' 	=> $config->config_cachepath.'/',
-				'lifetime' 		=> $sitemap->cachelifetime,
-				'language' 		=> $config->config_lang,
-				'storage'		=> $storage
-		);
-
-
-
-		require_once (JPATH_BASE.'/includes/libraries/cache/cache.php');
-		$cache =&JCache::getInstance( $handler, $options );
-		if($cache != NULL) {
+		if (class_exists('JFactory')) {
+			$cache = &JFactory::getCache('com_xmap_'.$sitemap->id);
 			$cache->setCaching($sitemap->usecache);
+			$cache->setLifeTime($sitemap->cachelifetime);
+		} else {
+			$options = array (
+				'cacheDir'		=> $mosConfig_cachepath . '/',
+				'caching'		=> $sitemap->usecache,
+				'defaultGroup'		=> 'com_xmap_'.$sitemap->id,
+				'lifeTime'		=> $sitemap->cachelifetime
+			);
+			if (file_exists($mosConfig_absolute_path . '/includes/joomla.cache.php')) {
+				require_once( $mosConfig_absolute_path . '/includes/joomla.cache.php' );
+				$cache = new JCache_Lite_Function( $options );
+			} else {
+				require_once( $mosConfig_absolute_path . '/includes/Cache/Lite.php' );
+				require_once( $mosConfig_absolute_path . '/includes/Cache/Lite/Function.php' );
+				$cache = new Cache_Lite_Function( $options );
+			}
+			$cache->_group = $options['defaultGroup'];
 		}
 		return $cache;
 	}
 	/**
-	 * Cleans the cache
-	 */
-	function cleanCache(&$group = false) {
-		$cache = &XmapCache::getCache($group);
-		//_xdump($cache);
-		if($cache != NULL) {
-			$cache->clean($cache->_options['defaultgroup']);
+	* Cleans the cache
+	*/
+	function cleanCache( &$sitemap ) {
+		$cache =&XmapCache::getCache( $sitemap );
+		if (class_exists('JFactory')) {
+			return $cache->clean();
+		} else {
+			return $cache->clean( $cache->_group );
 		}
 	}
 }

@@ -1,85 +1,69 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
-
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
-
 $_MAMBOTS->registerFunction('onSearch','botSearchContacts');
-
 /**
- * ÐœÐµÑ‚Ð¾Ð´ Ð¿Ð¾Ð¸ÑÐºÐ° ÐºÐ¾Ð½Ñ‚Ð°ÐºÑ‚Ð¾Ð²
- *
- * Ð·Ð°Ð¿Ñ€Ð¾Ñ sql Ð´Ð¾Ð»Ð¶ÐµÐ½ Ð²Ð¾Ð·Ð²Ñ€Ð°Ñ‚Ð¸Ñ‚ÑŒ Ð¿Ð¾Ð»Ñ, Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÑŽÑ‚ÑÑ Ð² Ð¾Ð±Ñ‹Ñ‡Ð½Ð¾Ð¹ Ð¾Ð¿ÐµÑ€Ð°Ñ†Ð¸Ð¸
- * Ð¾Ñ‚Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ð¸Ñ: href, title, section, created, text, browsernav
- * @param Ð¾Ð¿Ñ€ÐµÐ´ÐµÐ»ÑÐµÑ‚ Ñ†ÐµÐ»ÑŒ Ð¿Ð¾Ð¸ÑÐºÐ°
- * @param ÑÐ¾Ð¿Ð¾ÑÑ‚Ð°Ð²Ð»ÑÐµÑ‚ Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ñ‹: exact|any|all
- * @param Ð¾Ð¿Ñ€ÐµÐ´ÐµÐ»ÑÐµÑ‚ Ð¿Ð¾Ñ€ÑÐ´Ð¾Ðº ÑÐ¾Ñ€Ñ‚Ð¸Ñ€Ð¾Ð²ÐºÐ¸: newest|oldest|popular|alpha|category
- */
+* Ìåòîä ïîèñêà êîíòàêòîâ
+* çàïðîñ sql äîëæåí âîçâðàòèòü ïîëÿ, èñïîëüçóþòñÿ â îáû÷íîé îïåðàöèè 
+* îòîáðàæåíèÿ: href, title, section, created, text, browsernav
+* @param îïðåäåëÿåò öåëü ïîèñêà
+* @param ñîïîñòàâëÿåò ïàðàìåòðû: exact|any|all
+* @param îïðåäåëÿåò ïîðÿäîê ñîðòèðîâêè: newest|oldest|popular|alpha|category
+*/
 function botSearchContacts($text,$phrase = '',$ordering = '') {
-	global $my,$_MAMBOTS;
-
-	$database = &database::getInstance();
-
-	// check if param query has previously been processed
-	if(!isset($_MAMBOTS->_search_mambot_params['contacts'])) {
-		// load mambot params info
-		$query = "SELECT params FROM #__mambots WHERE element = 'contacts.searchbot' AND folder = 'search'";
-		$database->setQuery($query);
-		$database->loadObject($mambot);
-
-		// save query to class variable
-		$_MAMBOTS->_search_mambot_params['contacts'] = $mambot;
-	}
-
-	// pull query data from class variable
-	$mambot = $_MAMBOTS->_search_mambot_params['contacts'];
-
-	$botParams = new mosParameters($mambot->params);
-
-	$limit = $botParams->def('search_limit',50);
-
-	$text = trim($text);
-	if($text == '') {
-		return array();
-	}
-
-	$section = _CONTACT_TITLE;
-
-	switch($ordering) {
-		case 'alpha':
-			$order = 'a.name ASC';
-			break;
-
-		case 'category':
-			$order = 'b.title ASC, a.name ASC';
-			break;
-
-		case 'popular':
-		case 'newest':
-		case 'oldest':
-		default:
-			$order = 'a.name DESC';
-			break;
-	}
-
-	$query = "SELECT a.name AS title,"."\n CONCAT_WS( ', ', a.name, a.con_position, a.misc ) AS text,".
-			"\n '' AS created,"."\n CONCAT_WS( ' / ', ".$database->Quote($section).
-			", b.title ) AS section,"."\n '2' AS browsernav,"."\n CONCAT( 'index.php?option=com_contact&task=view&contact_id=', a.id ) AS href".
-			"\n FROM #__contact_details AS a"."\n INNER JOIN #__categories AS b ON b.id = a.catid".
-			"\n WHERE ( a.name LIKE '%$text%'"."\n OR a.misc LIKE '%$text%'"."\n OR a.con_position LIKE '%$text%'".
-			"\n OR a.address LIKE '%$text%'"."\n OR a.suburb LIKE '%$text%'"."\n OR a.state LIKE '%$text%'".
-			"\n OR a.country LIKE '%$text%'"."\n OR a.postcode LIKE '%$text%'"."\n OR a.telephone LIKE '%$text%'".
-			"\n OR a.fax LIKE '%$text%' )"."\n AND a.published = 1"."\n AND b.published = 1".
-			"\n AND a.access <= ".(int)$my->gid."\n AND b.access <= ".(int)$my->gid."\n GROUP BY a.id".
-			"\n ORDER BY $order";
-	$database->setQuery($query,0,$limit);
-	$rows = $database->loadObjectList();
-
-	return $rows;
+global $database,$my,$_MAMBOTS;
+// check if param query has previously been processed
+if(!isset($_MAMBOTS->_search_mambot_params['contacts'])) {
+// load mambot params info
+$query = "SELECT params"."\n FROM #__mambots"."\n WHERE element = 'contacts.searchbot'".
+"\n AND folder = 'search'";
+$database->setQuery($query);
+$database->loadObject($mambot);
+// save query to class variable
+$_MAMBOTS->_search_mambot_params['contacts'] = $mambot;
 }
+// pull query data from class variable
+$mambot = $_MAMBOTS->_search_mambot_params['contacts'];
+$botParams = new mosParameters($mambot->params);
+$limit = $botParams->def('search_limit',50);
+$text = trim($text);
+if($text == '') {
+return array();
+}
+$section = _CONTACT_TITLE;
+switch($ordering) {
+case 'alpha':
+$order = 'a.name ASC';
+break;
+case 'category':
+$order = 'b.title ASC, a.name ASC';
+break;
+case 'popular':
+case 'newest':
+case 'oldest':
+default:
+$order = 'a.name DESC';
+break;
+}
+$query = "SELECT a.name AS title,"."\n CONCAT_WS( ', ', a.name, a.con_position, a.misc ) AS text,".
+"\n '' AS created,"."\n CONCAT_WS( ' / ', ".$database->Quote($section).
+", b.title ) AS section,"."\n '2' AS browsernav,"."\n CONCAT( 'index.php?option=com_contact&task=view&contact_id=', a.id ) AS href".
+"\n FROM #__contact_details AS a"."\n INNER JOIN #__categories AS b ON b.id = a.catid".
+"\n WHERE ( a.name LIKE '%$text%'"."\n OR a.misc LIKE '%$text%'"."\n OR a.con_position LIKE '%$text%'".
+"\n OR a.address LIKE '%$text%'"."\n OR a.suburb LIKE '%$text%'"."\n OR a.state LIKE '%$text%'".
+"\n OR a.country LIKE '%$text%'"."\n OR a.postcode LIKE '%$text%'"."\n OR a.telephone LIKE '%$text%'".
+"\n OR a.fax LIKE '%$text%' )"."\n AND a.published = 1"."\n AND b.published = 1".
+"\n AND a.access <= ".(int)$my->gid."\n AND b.access <= ".(int)$my->gid."\n GROUP BY a.id".
+"\n ORDER BY $order";
+$database->setQuery($query,0,$limit);
+$rows = $database->loadObjectList();
+return $rows;
+}
+?>

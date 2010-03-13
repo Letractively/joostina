@@ -1,41 +1,38 @@
 <?php
 /**
 * @package Joostina
-* @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
-* @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
-* Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
-* Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
 */
-
-// ÑƒÑÑ‚Ð°Ð½Ð°Ð²Ð»Ð¸Ð²Ð°ÐµÐ¼ Ñ€Ð¾Ð´Ð¸Ñ‚ÐµÐ»ÑŒÑÐºÐ¸Ð¹ Ñ„Ð»Ð°Ð³
+// óñòàíàâëèâàåì ðîäèòåëüñêèé ôëàã
 define('_VALID_MOS',1);
-
-// Ð¿Ñ€Ð¾Ð²ÐµÑ€ÐºÐ° Ñ„Ð°Ð¹Ð»Ð° ÐºÐ¾Ð½Ñ„Ð¸Ð³ÑƒÑ€Ð°Ñ†Ð¸Ð¸
+global $mosConfig_absolute_path;
+// ïðîâåðêà ôàéëà êîíôèãóðàöèè
 if(!file_exists('../configuration.php')) {
-	die('NON config file');
+die('NON config file');
 }
-
 require_once ('../configuration.php');
-// Ð¿Ð¾Ð¿Ñ‹Ñ‚ÐºÐ° ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ñ ÐºÐ°Ñ‚Ð°Ð»Ð¾Ð³Ñƒ ÑƒÑÑ‚Ð°Ð½Ð¾Ð²ÐºÐ¸
-if(!deldir('../installation/')) echo 'Error!';
-	else
+// ïîïûòêà óäàëåíèÿ êàòàëîãó óñòàíîâêè
+if(!deldir($mosConfig_absolute_path.'/installation/')) echo 'Error!';
+else
 echo 'www.joostina.ru';
-
-
 function deldir($dir) {
-	$current_dir = opendir($dir);
-	$old_umask = umask(0);
-	while($entryname = readdir($current_dir)) {
-		if($entryname != '.' and $entryname != '..') {
-			if(is_dir($dir.$entryname)) {
-				@deldir($dir.$entryname.'/');
-			} else {
-				@chmod($dir.$entryname,0777);
-				@unlink($dir.$entryname);
-			}
-		}
-	}
-	@umask($old_umask);
-	@closedir($current_dir);
-	return @rmdir($dir);
+$current_dir = opendir($dir);
+$old_umask = umask(0);
+while($entryname = readdir($current_dir)) {
+if($entryname != '.' and $entryname != '..') {
+if(is_dir($dir.$entryname)) {
+@deldir($dir.$entryname.'/');
+} else {
+@chmod($dir.$entryname,0777);
+@unlink($dir.$entryname);
 }
+}
+}
+@umask($old_umask);
+@closedir($current_dir);
+return @rmdir($dir);
+}
+?>

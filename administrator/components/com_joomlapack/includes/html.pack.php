@@ -1,21 +1,22 @@
 <?php
 /**
- * @package Joostina
- * @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2010 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
- * @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
- * Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
- * Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
- */
+* @package Joostina
+* @copyright Авторские права (C) 2008 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+*/
 
-// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+// запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 $task	= mosGetParam($_REQUEST,'task','');
 $act	= mosGetParam($_REQUEST,'act','default');
 
 global $JPConfiguration,$option;
+global $mosConfig_absolute_path,$mosConfig_live_site;
 
-$siteRoot = JPATH_BASE;
+$siteRoot = $mosConfig_absolute_path;
 
 ?>
 <table class="adminheading">
@@ -158,7 +159,7 @@ sajax_show_javascript();
 			if ( CUBEArray['Domain'] == 'FileList' ) {
 				SRAX.get('pack_step_1').className='pack_step_activ';
 				SRAX.get('state_1').innerHTML=SRAX.get('Init').innerHTML;
-				CUBEArray['Substep'] = '<?php echo _JP_GET_FILE_LISTING?>';
+				CUBEArray['Substep'] = 'Получение списка файлов';
 			} else if ( CUBEArray['Domain'] == 'PackDB' ) {
 				SRAX.get('pack_step_1').className='pack_step_done';
 				SRAX.get('pack_step_2').className='pack_step_activ';
@@ -186,7 +187,7 @@ sajax_show_javascript();
 				SRAX.get('back_file_top').innerHTML	= CUBEArray['backfile'];
 				SRAX.get('back_file_top').href	= 'index2.php?option=com_joomlapack&subtask=downloadfile&filename='+CUBEArray['backfile'];
 			}
-
+			
 		}
 	}
 	function AllDone() {
@@ -198,6 +199,7 @@ sajax_show_javascript();
 		SRAX.get('done').style.display		= 'block';
 	}
 </script>
+</body>
 <div class="jwarning" id="startInfo"><?php echo _JP_DONT_CLOSE_BROWSER_WINDOW?></div>
 <div class="jwarning" id="Timeout" style="display:none"><?php echo _JP_ERRORS_VIEW_LOG?></div>
 <div class="message" id="done" style="display:none"><?php echo _JP_BACKUP_SUCCESS?>: <a href="" id="back_file_top">&nbsp;</a></div>
@@ -210,5 +212,7 @@ sajax_show_javascript();
 </div>
 <span id="Init" style="display:none">
 	<div><?php echo _JP_PROGRESS?>: <b><span id="JPStep"></span></b></div>
-	<div><?php echo _E_STATE?>: <b><span id="JPSubstep">0</span></b></div>
-</span>
+	<div><?php echo _O_STATE?>: <b><span id="JPSubstep">0</span></b></div>
+</div>
+<?php
+?>

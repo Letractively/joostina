@@ -1,17 +1,16 @@
 <?php
 /**
- * @package Joostina
- * @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2010 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
- * @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
- * Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
- * Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
- */
+* @package Joostina
+* @copyright Авторские права (C) 2008 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+*/
 
-// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+// запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 require_once ($mainframe->getPath('admin_html'));
-require_once ($mainframe->getPath('config','com_content'));
 
 global $task,$option,$id;
 
@@ -119,118 +118,74 @@ switch($task) {
 		saveOrder($cid);
 		break;
 
-	case 'config':
-		config($option);
-		break;
-
-	case 'save_config':
-		save_config();
-		break;
-
 	default:
 		viewContent($sectionid,$option);
 		break;
 }
 
-function config($option) {
-	$mainframe = &mosMainFrame::getInstance(true);
-	$database = &$mainframe->getDBO();
-
-	mosCommonHTML::loadOverlib();
-
-	$act = mosGetParam($_REQUEST,'act','');
-	$config_class = 'configContent_'.$act;
-	$config = new $config_class($database);
-	$config->display_config($option);
-}
-
-function save_config() {
-	$database = &database::getInstance();
-
-	$act = mosGetParam($_REQUEST,'act','');
-	$config_class = 'configContent_'.$act;
-	$config = new $config_class($database);
-	$config->save_config();
-
-	mosCache::cleanCache('com_content');
-
-	mosRedirect('index2.php?option=com_content&task=config&act='.$act, _CONFIG_SAVED);
-}
-
-function submitContent() {
-	$mainframe = &mosMainFrame::getInstance(true);
-	$database = &$mainframe->getDBO();
-
+function submitContent(){
+	global $mosConfig_absolute_path,$database;
 	$query = 'SELECT params from #__components WHERE id=25';
 	$database->setQuery($query);
 	$rowp = $database->loadResult();
 
-	$file = JPATH_BASE.'/'.JADMIN_BASE.'/components/com_content/submit_content.xml';
+	$file = $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_content/submit_content.xml';
 	$params = new mosParameters($rowp,$file,'component');
-	ContentView::submit($params);
+	HTML_content::submit($params);
 }
 
 /**
- * Compiles a list of installed or defined modules
- * @param database A database connector object
- */
+* Compiles a list of installed or defined modules
+* @param database A database connector object
+*/
 function viewContent($sectionid,$option) {
+	global $database,$mainframe,$mosConfig_list_limit;
 
-	$mainframe = &mosMainFrame::getInstance();
-	$config = &$mainframe->config;
-	$database = &$mainframe->getDBO();
-
-	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit",'limit',$config->config_list_limit));
+	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mosConfig_list_limit));
 	$limitstart = intval($mainframe->getUserStateFromRequest("view{$option}{$sectionid}limitstart",'limitstart',0));
 
 	$search = $mainframe->getUserStateFromRequest("search{$option}{$sectionid}",'search','');
 
-	$order_by = $mainframe->getUserStateFromRequest("order_by{$option}{$sectionid}",'order_by',$config->config_admin_content_order_by);
-	$order_sort = intval($mainframe->getUserStateFromRequest("order_sort{$option}{$sectionid}",'order_sort',$config->config_admin_content_order_sort));
+	$order_by = $mainframe->getUserStateFromRequest("order_by{$option}{$sectionid}",'order_by','');
+	$order_sort = $mainframe->getUserStateFromRequest("order_sort{$option}{$sectionid}",'order_sort','');
 
 	$filter_sectionid = intval($mainframe->getUserStateFromRequest("filter_sectionid{$option}{$sectionid}",'filter_sectionid',0));
 
 	$catid = intval( mosGetParam($_REQUEST,'catid',0));
 	$filter_authorid = intval( mosGetParam($_REQUEST,'filter_authorid',0) );
-	$showarchive = intval( mosGetParam($_REQUEST,'showarchive',0) );
-
-	if ($filter_authorid <> 0) {
+	if ($filter_authorid <> 0)  {
 		$link = '&filter_authorid='.$filter_authorid;
-	}else {
+	}
+	else {
 		$link = '&catid='.$catid;
 	}
 	$redirect = $sectionid.$link;
 
-	// СЃРѕСЂС‚РёСЂРѕРІРєР°
-	$order_sort_sql = ($order_sort==0) ? ' DESC':' ASC';
+	if($order_sort == '1'){
+		$order_sort_sql = ' DESC';
+	}else{
+		$order_sort_sql = ' ASC';
+	}
 
-
-	$sql_order = ' ORDER BY ';
+	$sql_order = "\n ORDER BY ";
 	switch($order_by) {
-
-		case '0': // РІРЅСѓС‚СЂРµРЅРЅРёР№ РїРѕСЂСЏРґРѕРє
-			$sql_order .= 'cc.ordering, cc.title, c.ordering';
+		case '0': // внутренний порядок
+		default:
+			$sql_order .= "\n cc.ordering, cc.title, c.ordering";
 			break;
-
-		case '1': // Р·Р°РіРѕР»РѕРІРєРё
+		case '1': // заголовки
 			$sql_order .= 'c.title';
 			break;
-
-		default:
-		case '2': // РґР°С‚Р° СЃРѕР·РґР°РЅРёСЏ
+		case '2': // дата создания
 			$sql_order .= 'c.created';
 			break;
-
-		case '3': // РґР°С‚Р° РїРѕСЃР»РµРґРЅРµР№ РјРѕРґРёС„РёРєР°С†РёРё
+		case '3': // дата последней модификации
 			$sql_order .= 'c.modified';
 			break;
-
-
-		case '4': // РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂС‹
+		case '4': // идентификаторы
 			$sql_order .= 'c.id';
 			break;
-
-		case '5': // РїСЂРѕСЃРјРѕС‚СЂС‹
+		case '5': // просмотры
 			$sql_order .= 'c.hits';
 			break;
 	}
@@ -238,29 +193,28 @@ function viewContent($sectionid,$option) {
 		$search = stripslashes($search);
 	}
 
-	$where_arh = $showarchive ? "c.state = -1" : "c.state >= 0";
 
 	if($sectionid == 0 && $catid==0) {
 		// used to show All content items
-		$where = array($where_arh,"c.catid = cc.id","cc.section = s.id","s.scope = 'content'",);
-		$order = $sql_order.$order_sort_sql; // РїРѕРґСЃС‚Р°РІР»СЏРµРј СЃРІРѕР№ РїР°СЂР°РјРµС‚СЂ СЃРѕСЂС‚РёСЂРѕРІРєРё
+		$where = array("c.state >= 0","c.catid = cc.id","cc.section = s.id","s.scope = 'content'",);
+		$order = $sql_order.$order_sort_sql; // подставляем свой параметр сортировки
 		$all = 1;
 		$section->title = _ALL_CONTENT;
 		$section->id = 0;
 	} elseif(!$catid) {
-		$where = array($where_arh,"c.catid = cc.id","cc.section = s.id","s.scope = 'content'","c.sectionid = ".(int)$sectionid);
+		$where = array("c.state >= 0","c.catid = cc.id","cc.section = s.id","s.scope = 'content'","c.sectionid = ".(int)$sectionid);
 		$all = null;
 		$section = new mosSection($database);
 		$section->load((int)$sectionid);
 		$section->params = array();
 		$section->params['name']=_SECTION;
 		$section->params['link']='index2.php?option=com_sections&scope=content&task=editA&hidemainmenu=1&id='.$section->id;
-	}else {
+	}else{
 		$all = null;
 		$section = new mosCategory($database);
 		$section->load((int)$catid);
 		$section->params = array();
-		$section->params['name']=_CATEGORY;
+		$section->params['name']=_E_CATEGORY;
 		$section->params['link']='index2.php?option=com_categories&section=content&task=editA&hidemainmenu=1&id='.$section->id;
 	}
 
@@ -276,23 +230,20 @@ function viewContent($sectionid,$option) {
 	}
 
 	if($search) {
-		$where[] = "LOWER( c.title ) LIKE '%".$database->getEscaped(Jstring::trim(Jstring::strtolower($search)))."%'";
+		$where[] = "LOWER( c.title ) LIKE '%".$database->getEscaped(trim(strtolower($search)))."%'";
 	}
-
-	// РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ Р°СЂС…РёРІРЅРѕРіРѕ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ
-	$where[]= $showarchive ? 'c.state=-1' : 'state>=0';
-
-	$order = $sql_order.$order_sort_sql; // РїРѕРґСЃС‚Р°РІР»СЏРµРј СЃРІРѕР№ РїР°СЂР°РјРµС‚СЂ СЃРѕСЂС‚РёСЂРѕРІРєРё
+	$where[]='state<>-2';
+	$order = $sql_order.$order_sort_sql; // подставляем свой параметр сортировки
 	// get the total number of records
 	$query = "SELECT COUNT(*)"
 			."\n FROM #__content AS c"
 			."\n LEFT JOIN #__categories AS cc ON cc.id = c.catid"
 			."\n LEFT JOIN #__sections AS s ON s.id = c.sectionid"
-			.(count($where) ? "\n WHERE ".implode(' AND ',$where) : '');
+			.(count($where)?"\n WHERE "
+			.implode(' AND ',$where):"");
 	$database->setQuery($query);
 	$total = $database->loadResult();
-
-	require_once (JPATH_BASE.'/'.JADMIN_BASE.'/includes/pageNavigation.php');
+	require_once ($GLOBALS['mosConfig_absolute_path'].'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
 	$query = "SELECT c.*, g.name AS groupname, cc.name, u.name AS editor, f.content_id AS frontpage, s.title AS section_name, v.name AS author"
@@ -307,20 +258,19 @@ function viewContent($sectionid,$option) {
 	$database->setQuery($query,$pageNav->limitstart,$pageNav->limit);
 	$rows = $database->loadObjectList();
 
-
 	if($database->getErrorNum()) {
 		echo $database->stderr();
 		return false;
 	}
 
-	// РїРѕР»СѓС‡РµРЅРёРµ СЃРїРёСЃРєР° СЂР°Р·РґРµР»РѕРІ / РєР°С‚РµРіРѕСЂРёР№ Рё С„РѕСЂРјРёСЂРѕРІР°РЅРёРµ РґРµСЂРµРІР°
+	// получение списка разделов / категорий и формирование дерева
 	$lists['sectree'] = seccatli($catid,$filter_authorid);
 
 	$treeexp = intval(mosGetParam($_COOKIE,'j-ntree-hide',null));
 	$lists['sectreeact'] =  $treeexp ? 'style="display: none;"':'';
 	$lists['sectreetoggle'] =  $treeexp ? 'class="tdtoogleon"':'class="tdtoogleoff"';
 
-	/* РїР°СЂР°РјРµС‚СЂС‹ РґР»СЏ СЃРѕСЂС‚РёСЂРѕРІРєРё СЌР»РµРјРµРЅС‚РѕРІ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ*/
+	/* параметры для сортировки элементов содержимого*/
 	$order_list = array();
 	$order_list[] = mosHTML::makeOption('0',_ORDER_BY_NAME,'order_by','name');
 	$order_list[] = mosHTML::makeOption('1',_ORDER_BY_HEADERS,'order_by','name');
@@ -331,24 +281,22 @@ function viewContent($sectionid,$option) {
 	$lists['order'] = mosHTML::selectList($order_list,'order_by','class="inputbox" size="1" style="width:99%" onchange="document.adminForm.submit( );"','order_by','name',$order_by);
 
 	$order_sort_list = array();
-	$order_sort_list[] = mosHTML::makeOption('1',_SORT_ASC,'order_sort','name');
-	$order_sort_list[] = mosHTML::makeOption('0',_SORT_DESC,'order_sort','name');
+	$order_sort_list[] = mosHTML::makeOption('0',_CMN_SORT_ASC,'order_sort','name');
+	$order_sort_list[] = mosHTML::makeOption('1',_CMN_SORT_DESC,'order_sort','name');
 	$lists['order_sort'] = mosHTML::selectList($order_sort_list,'order_sort','class="inputbox" size="1" style="width:99%" onchange="document.adminForm.submit( );"','order_sort','name',$order_sort);
 
-	ContentView::showContent($rows,$section,$lists,$search,$pageNav,$all,$redirect);
+	HTML_content::showContent($rows,$section,$lists,$search,$pageNav,$all,$redirect);
 }
 
 /**
- * Shows a list of archived content items
- * @param int The section id
- */
+* Shows a list of archived content items
+* @param int The section id
+*/
 function viewArchive($sectionid,$option) {
-
-	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
+	global $database,$mainframe,$mosConfig_list_limit;
 
 	$catid = intval($mainframe->getUserStateFromRequest("catidarc{$option}{$sectionid}",'catid',0));
-	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mainframe->getCfg('list_limit')));
+	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mosConfig_list_limit));
 	$limitstart = intval($mainframe->getUserStateFromRequest("viewarc{$option}{$sectionid}limitstart",'limitstart',0));
 	$filter_authorid = intval($mainframe->getUserStateFromRequest("filter_authorid{$option}{$sectionid}",'filter_authorid',0));
 	$filter_sectionid = intval($mainframe->getUserStateFromRequest("filter_sectionid{$option}{$sectionid}",'filter_sectionid',0));
@@ -359,7 +307,7 @@ function viewArchive($sectionid,$option) {
 	$redirect = $sectionid;
 
 	if($sectionid == 0) {
-		$where = array("c.state = -1","c.catid = cc.id","cc.section = s.id","s.scope = 'content'");
+		$where = array("c.state = -1","c.catid	= cc.id","cc.section = s.id","s.scope = 'content'");
 		$filter = "\n , #__sections AS s WHERE s.id = c.section";
 		$all = 1;
 	} else {
@@ -379,7 +327,7 @@ function viewArchive($sectionid,$option) {
 		$where[] = "c.catid = ".(int)$catid;
 	}
 	if($search) {
-		$where[] = "LOWER( c.title ) LIKE '%".$database->getEscaped(Jstring::trim(Jstring::strtolower($search))).	"%'";
+		$where[] = "LOWER( c.title ) LIKE '%".$database->getEscaped(trim(strtolower($search))).	"%'";
 	}
 
 	// get the total number of records
@@ -390,7 +338,7 @@ function viewArchive($sectionid,$option) {
 	$database->setQuery($query);
 	$total = $database->loadResult();
 
-	require_once (JPATH_BASE.'/'.JADMIN_BASE.'/includes/pageNavigation.php');
+	require_once ($GLOBALS['mosConfig_absolute_path'].'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
 	$query = "SELECT c.*, g.name AS groupname, cc.name, v.name AS author"
@@ -398,8 +346,8 @@ function viewArchive($sectionid,$option) {
 			."\n LEFT JOIN #__categories AS cc ON cc.id = c.catid"
 			."\n LEFT JOIN #__sections AS s ON s.id = c.sectionid"
 			."\n LEFT JOIN #__groups AS g ON g.id = c.access"
-			."\n LEFT JOIN #__users AS v ON v.id = c.created_by"
-			.(count($where) ? "\n WHERE ".implode(' AND ',$where) : '')."\n ORDER BY c.catid, c.ordering";
+			."\n LEFT JOIN #__users AS v ON v.id = c.created_by".(count
+		($where)?"\n WHERE ".implode(' AND ',$where):'')."\n ORDER BY c.catid, c.ordering";
 	$database->setQuery($query,$pageNav->limitstart,$pageNav->limit);
 	$rows = $database->loadObjectList();
 	if($database->getErrorNum()) {
@@ -408,7 +356,7 @@ function viewArchive($sectionid,$option) {
 	}
 
 	// get list of categories for dropdown filter
-	$query = "SELECT c.id AS value, c.title AS text FROM #__categories AS c".$filter." ORDER BY c.ordering";
+	$query = "SELECT c.id AS value, c.title AS text"."\n FROM #__categories AS c".$filter."\n ORDER BY c.ordering";
 	$lists['catid'] = filterCategory($query,$catid);
 
 	// get list of sections for dropdown filter
@@ -423,34 +371,31 @@ function viewArchive($sectionid,$option) {
 			."\n FROM #__content AS c"
 			."\n INNER JOIN #__sections AS s ON s.id = c.sectionid"
 			."\n LEFT JOIN #__users AS u ON u.id = c.created_by"
-			."\n WHERE c.state = -1 GROUP BY u.name"
+			."\n WHERE c.state = -1"."\n GROUP BY u.name"
 			."\n ORDER BY u.name";
 	$authors[] = mosHTML::makeOption('0',_SEL_AUTHOR,'created_by','name');
 	$database->setQuery($query);
 	$authors = array_merge($authors,$database->loadObjectList());
 	$lists['authorid'] = mosHTML::selectList($authors,'filter_authorid','class="inputbox" size="1" onchange="document.adminForm.submit( );"','created_by','name',$filter_authorid);
 
-	ContentView::showArchive($rows,$section,$lists,$search,$pageNav,$option,$all,$redirect);
+	HTML_content::showArchive($rows,$section,$lists,$search,$pageNav,$option,$all,$redirect);
 }
 
 /**
- * Compiles information to add or edit the record
- * @param database A database connector object
- * @param integer The unique id of the record to edit (0 if new)
- * @param integer The id of the content section
- */
+* Compiles information to add or edit the record
+* @param database A database connector object
+* @param integer The unique id of the record to edit (0 if new)
+* @param integer The id of the content section
+*/
 function editContent($uid = 0,$sectionid = 0,$option) {
-	global $my;
-
-	$mainframe = &mosMainFrame::getInstance(true);
-	$database = &$mainframe->getDBO();
-
-	$catid = intval( mosGetParam($_REQUEST,'catid',0));
+	global $database,$my,$mainframe,$mosConfig_auto_frontpage,$mosConfig_one_editor;
+	global $mosConfig_absolute_path,$mosConfig_live_site,$mosConfig_offset;
 
 	$nullDate = $database->getNullDate();
 	if ($uid) {
+		$catid = intval( mosGetParam($_REQUEST,'catid',0));
 		$filter_authorid = intval( mosGetParam($_REQUEST,'filter_authorid',0) );
-		if ($filter_authorid <> 0) {
+		if ($filter_authorid <> 0)  {
 			$link = '&filter_authorid='.$filter_authorid;
 		}
 		else {
@@ -474,7 +419,7 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 
 	// fail if checked out not by 'me'
 	if($row->checked_out && $row->checked_out != $my->id) {
-		mosRedirect('index2.php?option=com_content',_CONTENT.' '.$row->title.' '._NOW_EDITING_BY_OTHER);
+		mosRedirect('index2.php?option=com_content',_E_CONTENT.' '.$row->title.' '._NOW_EDITING_BY_OTHER);
 	}
 
 	$selected_folders = null;
@@ -492,7 +437,7 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 		$row->publish_up = mosFormatDate($row->publish_up,_CURRENT_SERVER_TIME_FORMAT);
 
 		if(trim($row->publish_down) == $nullDate || trim($row->publish_down) == '' || trim($row->publish_down) == '-') {
-			$row->publish_down = _NEVER;
+			$row->publish_down = 'Никогда';
 		}
 		$row->publish_down = mosFormatDate($row->publish_down,_CURRENT_SERVER_TIME_FORMAT);
 
@@ -504,7 +449,9 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 		if($row->created_by == $row->modified_by) {
 			$row->modifier = $row->creator;
 		} else {
-			$query = "SELECT name FROM #__users WHERE id = ".(int)$row->modified_by;
+			$query = "SELECT name"
+					."\n FROM #__users"
+					."\n WHERE id = ".(int)$row->modified_by;
 			$database->setQuery($query);
 			$row->modifier = $database->loadResult();
 		}
@@ -513,16 +460,17 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 		$database->setQuery($query);
 		$row->frontpage = $database->loadResult();
 
-		$and = ' AND componentid = '.(int)$row->id;
+		// get list of links to this item
+		$and = "\n AND componentid = ".(int)$row->id;
 		$menus = mosAdminMenus::Links2Menu('content_item_link',$and);
 	} else {
 		if(!$sectionid && @$_POST['filter_sectionid']) {
 			$sectionid = $_POST['filter_sectionid'];
 		}
-		if($catid) {
-			$row->catid = $catid;
+		if(@$_POST['catid']) {
+			$row->catid = (int)$_POST['catid'];
 			$category = new mosCategory($database);
-			$category->load($catid);
+			$category->load((int)$_POST['catid']);
 			$sectionid = $category->section;
 		} else {
 			$row->catid = 0;
@@ -533,21 +481,23 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 		$row->state = 1;
 		$row->ordering = 0;
 		$row->images = array();
-		$row->publish_up = date('Y-m-d H:i:s',time() + ($mainframe->getCfg('offset') * 60* 60));
-		$row->publish_down = _NEVER;
+		$row->publish_up = date('Y-m-d H:i:s',time() + ($mosConfig_offset* 60* 60));
+		$row->publish_down = 'Никогда';
 		$row->creator = '';
 		$row->modified = $nullDate;
 		$row->modifier = '';
-		$row->frontpage = $mainframe->getCfg('auto_frontpage');
+		$row->frontpage = $mosConfig_auto_frontpage;
 		$menus = array();
 	}
 
 	$javascript = "onchange=\"changeDynaList( 'catid', sectioncategories, document.adminForm.sectionid.options[document.adminForm.sectionid.selectedIndex].value, 0, 0);\"";
 
-	$query = "SELECT s.id, s.title FROM #__sections AS s ORDER BY s.ordering";
+	$query = "SELECT s.id, s.title"
+			."\n FROM #__sections AS s"
+			."\n ORDER BY s.ordering";
 	$database->setQuery($query);
 	if($sectionid == 0) {
-		$sections[] = mosHTML::makeOption('-1',_SEL_SECTION,'id','title');
+		$sections[] = mosHTML::makeOption('-1','Выберите раздел','id','title');
 		$sections = array_merge($sections,$database->loadObjectList());
 		$lists['sectionid'] = mosHTML::selectList($sections,'sectionid','class="inputbox" size="1" style="width:99%"'.$javascript,'id','title');
 	} else {
@@ -574,9 +524,12 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 	$sectioncategories[-1] = array();
 	$sectioncategories[-1][] = mosHTML::makeOption('-1',_SEL_CATEGORY,'id','name');
 	mosArrayToInts($section_list);
-	$section_list = 'section IN('.implode(',',$section_list).')';
+	$section_list = 'section='.implode(' OR section=',$section_list);
 
-	$query = "SELECT id, title as name, section FROM #__categories WHERE $section_list ORDER BY title ASC";
+	$query = "SELECT id, title as name, section"
+			."\n FROM #__categories"
+			."\n WHERE ( $section_list )"
+			."\n ORDER BY title ASC";
 	$database->setQuery($query);
 	$cat_list = $database->loadObjectList();
 	foreach($sections as $section) {
@@ -625,13 +578,11 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 	$lists['ordering'] = mosAdminMenus::SpecificOrdering($row,$uid,$query,1);
 
 	// pull param column from category info
-	if($row->catid>0) {
-		$query = 'SELECT params FROM #__categories WHERE id = '.(int)$row->catid;
-		$database->setQuery($query);
-		$categoryParam = $database->loadResult();
-	}else {
-		$categoryParam = '';
-	}
+	$query = "SELECT params"
+			."\n FROM #__categories"
+			."\n WHERE id = ".(int)$row->catid;
+	$database->setQuery($query);
+	$categoryParam = $database->loadResult();
 
 	$paramsCat = new mosParameters($categoryParam,$mainframe->getPath('com_xml','com_categories'),'component');
 	$selected_folders = $paramsCat->get('imagefolders','');
@@ -644,13 +595,12 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 	if(strpos($selected_folders,'*2*') !== false) {
 		unset($selected_folders);
 		// load param column from section info
-		if($row->sectionid>0) {
-			$query = 'SELECT params FROM #__sections WHERE id = '.(int)$row->sectionid;
-			$database->setQuery($query);
-			$sectionParam = $database->loadResult();
-		}else {
-			$sectionParam = '';
-		}
+		$query = "SELECT params"
+				."\n FROM #__sections"
+				."\n WHERE id = ".(int)$row->sectionid;
+		$database->setQuery($query);
+		$sectionParam = $database->loadResult();
+
 		$paramsSec = new mosParameters($sectionParam,$mainframe->getPath('com_xml','com_sections'),'component');
 		$selected_folders = $paramsSec->get('imagefolders','');
 	}
@@ -666,8 +616,8 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 	}
 
 	// calls function to read image from directory
-	$pathA = JPATH_BASE.'/images/stories';
-	$pathL = JPATH_SITE.'/images/stories';
+	$pathA = $mosConfig_absolute_path.'/images/stories';
+	$pathL = $mosConfig_live_site.'/images/stories';
 	$images = array();
 
 	if($folders[0]->value == '*1*') {
@@ -687,7 +637,7 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 
 	// build list of users
 	$active = (intval($row->created_by)?intval($row->created_by):$my->id);
-	$lists['created_by'] = mosAdminMenus::UserSelect('created_by',$active, 0, null, 'name', 0);
+	$lists['created_by'] = mosAdminMenus::UserSelect('created_by',$active);
 	// build the select list for the image position alignment
 	$lists['_align'] = mosAdminMenus::Positions('_align');
 	// build the select list for the image caption alignment
@@ -698,14 +648,14 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 	$lists['menuselect'] = mosAdminMenus::MenuSelect();
 
 	// build the select list for the image caption position
-	$pos[] = mosHTML::makeOption('bottom',_BOTTOM);
-	$pos[] = mosHTML::makeOption('top',_TOP);
+	$pos[] = mosHTML::makeOption('bottom',_CMN_BOTTOM);
+	$pos[] = mosHTML::makeOption('top',_CMN_TOP);
 	$lists['_caption_position'] = mosHTML::selectList($pos,'_caption_position','class="inputbox" size="1"','value','text');
 
 	// get params definitions
 	$params = new mosParameters($row->attribs,$mainframe->getPath('com_xml','com_content'),'component');
-	// РїСЂРё Р°РєС‚РёРІРёСЂРѕРІР°РЅРёРё РїР°СЂР°РјРµС‚СЂР° РѕРґРЅРѕРіРѕ СЂРµРґР°РєС‚РѕСЂР° - СЃРґРµР»Р°РµРј РЅРѕРІС‹Р№ РѕР±СЉРµРєС‚ СЃРѕРґРµСЂР¶Р°С‰РёР№ СЃРѕРµРґРёРЅС‘РЅРЅС‹Р№ С‚РµРєСЃС‚
-
+	// при активировании параметра одного редактора - сделаем новый объект содержащий соединённый текст
+	if($mosConfig_one_editor & strlen($row->fulltext) > 1) $row->introtext = $row->introtext.'<!-- pagebreak -->'.$row->fulltext;
 	# Added the robots tag for the content!
 	$robots[] = mosHTML::makeOption('-1',_ROBOTS_HIDE);
 	$robots[] = mosHTML::makeOption('0','Index, Follow');
@@ -714,44 +664,31 @@ function editContent($uid = 0,$sectionid = 0,$option) {
 	$robots[] = mosHTML::makeOption('3','NoIndex, NoFollow');
 	$lists['robots'] = mosHTML::selectList($robots,'params[robots]','class="inputbox" style="width: 356px;" size="1"','value','text',$params->get('robots'));
 
-	//РўСЌРіРё
-	$row->tags = null;
-	if($row->id) {
-		$tags = new contentTags($database);
-
-		$load_tags = $tags->load_by($row);
-		if(count($load_tags)) {
-			$row->tags = implode(',', $load_tags);
-		}
-	}
-
-	if($mainframe->getCfg('use_content_edit_mambots')) {
-		global $_MAMBOTS;
-		$_MAMBOTS->loadBotGroup('content');
-		$_MAMBOTS->trigger('onEditContent',array($row));
-	}
-
-
-	ContentView::editContent($row,$contentSection,$lists,$sectioncategories,$images,$params,$option,$redirect,$menus);
+	HTML_content::editContent($row,$contentSection,$lists,$sectioncategories,$images,$params,$option,$redirect,$menus);
 }
 
 /**
- * Saves the content item an edit form submit
- * @param database A database connector object
- * boston, РґРѕР±Р°РІРёР» РїР°СЂР°РјРµС‚СЂ -  РІРѕР·РІСЂР°С‚ РІ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ РїРѕСЃР»Рµ СЃРѕС…СЂР°РЅРµРЅРёСЏ РґР»СЏ РґРѕР±Р°РІР»РµРЅРёСЏ РЅРѕРІРѕРіРѕ
- */
+* Saves the content item an edit form submit
+* @param database A database connector object
+* boston, добавил параметр -  возврат в редактирование содержимого после сохранения для добавления нового
+*/
 function saveContent($sectionid,$task) {
-	global $my;
-
+	global $database,$my,$mainframe,$mosConfig_offset,$mosConfig_one_editor;
 	josSpoofCheck();
-
-	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
-
 	$menu		= strval(mosGetParam($_POST,'menu','mainmenu'));
 	$menuid		= intval(mosGetParam($_POST,'menuid',0));
 	$nullDate	= $database->getNullDate();
-
+	// инициализация использования одного редактора
+	if($mosConfig_one_editor){
+		$alltext	= mosGetParam($_POST,'introtext','',_MOS_ALLOWHTML);
+		$tagPos		= strpos( $alltext, '<!-- pagebreak -->' );
+		if ( $tagPos === false ){
+			$_POST['introtext']	= $alltext;
+		} else {
+			$_POST['introtext']	= substr($alltext, 0, $tagPos);
+			$_POST['fulltext']		= substr($alltext, $tagPos + 18 );
+		}
+	}
 	$row = new mosContent($database);
 	if(!$row->bind($_POST)) {
 		echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
@@ -766,25 +703,25 @@ function saveContent($sectionid,$task) {
 		$row->modified_by = $my->id;
 	}
 
-	$row->created_by = $row->created_by ? $row->created_by : $my->id;
+	$row->created_by = $row->created_by?$row->created_by:$my->id;
 
 	if($row->created && strlen(trim($row->created)) <= 10) {
 		$row->created .= ' 00:00:00';
 	}
-	$row->created = $row->created ? mosFormatDate($row->created,'%Y-%m-%d %H:%M:%S',-$mainframe->getCfg('offset')):date('Y-m-d H:i:s');
+	$row->created = $row->created?mosFormatDate($row->created,'%Y-%m-%d %H:%M:%S',-$mosConfig_offset):date('Y-m-d H:i:s');
 
 	if(strlen(trim($row->publish_up)) <= 10) {
 		$row->publish_up .= ' 00:00:00';
 	}
-	$row->publish_up = mosFormatDate($row->publish_up,_CURRENT_SERVER_TIME_FORMAT,- $mainframe->getCfg('offset'));
+	$row->publish_up = mosFormatDate($row->publish_up,_CURRENT_SERVER_TIME_FORMAT,- $mosConfig_offset);
 
-	if(trim($row->publish_down) == _NEVER || trim($row->publish_down) == '') {
+	if(trim($row->publish_down) == 'Никогда' || trim($row->publish_down) == '') {
 		$row->publish_down = $nullDate;
 	} else {
 		if(strlen(trim($row->publish_down)) <= 10) {
 			$row->publish_down .= ' 00:00:00';
 		}
-		$row->publish_down = mosFormatDate($row->publish_down,_CURRENT_SERVER_TIME_FORMAT,-$mainframe->getCfg('offset'));
+		$row->publish_down = mosFormatDate($row->publish_down,_CURRENT_SERVER_TIME_FORMAT,-$mosConfig_offset);
 	}
 
 	$row->state = intval(mosGetParam($_REQUEST,'published',0));
@@ -806,16 +743,13 @@ function saveContent($sectionid,$task) {
 	$row->fulltext = str_replace('<br>','<br />',$row->fulltext);
 
 	// remove <br /> take being automatically added to empty fulltext
-	$length = Jstring::strlen($row->fulltext) < 9;
-	$search = Jstring::stristr($row->fulltext,'<br />');
+	$length = strlen($row->fulltext) < 9;
+	$search = strstr($row->fulltext,'<br />');
 	if($length && $search) {
 		$row->fulltext = null;
 	}
 
 	$row->title = ampReplace($row->title);
-
-	$templates = new ContentTemplate();
-	$row->templates = $templates->prepare_for_save(mosGetParam($_POST,'templates',array()));
 
 	if(!$row->check()) {
 		echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
@@ -823,30 +757,10 @@ function saveContent($sectionid,$task) {
 	}
 
 	$row->version++;
-
-	if($mainframe->getCfg('use_content_save_mambots')) {
-		global $_MAMBOTS;
-		$_MAMBOTS->loadBotGroup('content');
-		$_MAMBOTS->trigger('onSaveContent',array($row));
-	}
-
 	if(!$row->store()) {
 		echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
 		exit();
 	}
-
-	if($mainframe->getCfg('use_content_save_mambots')) {
-		$_MAMBOTS->trigger('onAfterSaveContent',array($row));
-	}
-
-	//РџРѕРґРіРѕС‚РѕРІРєР° С‚СЌРіРѕРІ
-	$tags = explode(',', $_POST['tags']);
-	$tag = new contentTags($database);
-	$tags = $tag->clear_tags($tags);
-	//Р—Р°РїРёСЃСЊ С‚СЌРіРѕРІ
-	$row->obj_type = 'com_content';
-	$tag->update($tags, $row);
-	//$row->metakey = implode(',', $tags);
 
 	// manage frontpage items
 	require_once ($mainframe->getPath('class','com_frontpage'));
@@ -856,7 +770,7 @@ function saveContent($sectionid,$task) {
 		// toggles go to first place
 		if(!$fp->load((int)$row->id)) {
 			// new entry
-			$query = "INSERT INTO #__content_frontpage VALUES ( ".(int)$row->id.", 1 )";
+			$query = "INSERT INTO #__content_frontpage"."\n VALUES ( ".(int)$row->id.", 1 )";
 			$database->setQuery($query);
 			if(!$database->query()) {
 				echo "<script> alert('".$database->stderr()."');</script>\n";
@@ -905,10 +819,10 @@ function saveContent($sectionid,$task) {
 			mosRedirect('index2.php?option=com_content&sectionid='.$redirect.'&task=edit&hidemainmenu=1&id='.$row->id,$msg);
 			break;
 
-		/* boston, РїРѕСЃР»Рµ СЃРѕС…СЂР°РЅРµРЅРёСЏ РІРѕР·РІСЂР°С‰Р°РµРјСЃСЏ РІ РѕРєРЅРѕ РґРѕР±Р°РІР»РµРЅРёСЏ РЅРѕРІРѕРіРѕ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ*/
+			/* boston, после сохранения возвращаемся в окно добавления нового содержимого*/
 		case 'save_and_new':
 			$msg = $row->title.' - '._E_ITEM_SAVED;
-			mosRedirect('index2.php?option=com_content&sectionid=0&task=new&sectionid='.$row->sectionid.'&catid='.$row->catid,$msg);
+			mosRedirect('index2.php?option=com_content&sectionid=0&task=new',$msg);
 			break;
 
 		case 'save':
@@ -920,21 +834,16 @@ function saveContent($sectionid,$task) {
 }
 
 /**
- * Changes the state of one or more content pages
- * @param string The name of the category section
- * @param integer A unique category id (passed from an edit form)
- * @param array An array of unique category id numbers
- * @param integer 0 if unpublishing, 1 if publishing
- * @param string The name of the current user
- */
+* Changes the state of one or more content pages
+* @param string The name of the category section
+* @param integer A unique category id (passed from an edit form)
+* @param array An array of unique category id numbers
+* @param integer 0 if unpublishing, 1 if publishing
+* @param string The name of the current user
+*/
 function changeContent($cid = null,$state = 0,$option) {
-	global $my,$task;
-
+	global $database,$my,$task;
 	josSpoofCheck();
-
-	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
-
 	if(count($cid) < 1) {
 		$action = $state == 1?'publish':($state == -1?'archive':'unpublish');
 		echo "<script> alert('Select an item to $action'); window.history.go(-1);</script>\n";
@@ -945,11 +854,13 @@ function changeContent($cid = null,$state = 0,$option) {
 	$total = count($cid);
 	$cids = 'id='.implode(' OR id=',$cid);
 
-	$query = "UPDATE #__content SET state = ".(int)$state.", modified = ".$database->Quote(date('Y-m-d H:i:s'))."\n WHERE ( $cids ) AND ( checked_out = 0 OR (checked_out = ".(int)
-			$my->id.") )";
+	$query = "UPDATE #__content"."\n SET state = ".(int)$state.", modified = ".$database->Quote(date
+		('Y-m-d H:i:s'))."\n WHERE ( $cids ) AND ( checked_out = 0 OR (checked_out = ".(int)
+		$my->id.") )";
 	$database->setQuery($query);
 	if(!$database->query()) {
-		echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
+		echo "<script> alert('".$database->getErrorMsg().
+			"'); window.history.go(-1); </script>\n";
 		exit();
 	}
 
@@ -995,20 +906,16 @@ function changeContent($cid = null,$state = 0,$option) {
 }
 
 /**
- * Changes the state of one or more content pages
- * @param string The name of the category section
- * @param integer A unique category id (passed from an edit form)
- * @param array An array of unique category id numbers
- * @param integer 0 if unpublishing, 1 if publishing
- * @param string The name of the current user
- */
+* Changes the state of one or more content pages
+* @param string The name of the category section
+* @param integer A unique category id (passed from an edit form)
+* @param array An array of unique category id numbers
+* @param integer 0 if unpublishing, 1 if publishing
+* @param string The name of the current user
+*/
 function toggleFrontPage($cid,$section,$option) {
-
+	global $database,$mainframe;
 	josSpoofCheck();
-
-	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
-
 	if(count($cid) < 1) {
 		echo "<script> alert('"._CHOOSE_OBJ_TOGGLE."'); window.history.go(-1);</script>\n";
 		exit;
@@ -1027,7 +934,7 @@ function toggleFrontPage($cid,$section,$option) {
 			$fp->ordering = 0;
 		} else {
 			// new entry
-			$query = 'INSERT INTO #__content_frontpage VALUES ( '.(int)$id.', 0 )';
+			$query = "INSERT INTO #__content_frontpage"."\n VALUES ( ".(int)$id.", 0 )";
 			$database->setQuery($query);
 			if(!$database->query()) {
 				echo "<script> alert('".$database->stderr()."');</script>\n";
@@ -1049,10 +956,8 @@ function toggleFrontPage($cid,$section,$option) {
 }
 
 function removeContent(&$cid,$sectionid,$option) {
+	global $database;
 	josSpoofCheck();
-
-	$database = &database::getInstance();
-
 	$total = count($cid);
 	if($total < 1) {
 		echo "<script> alert('"._CHOOSE_OBJ_DELETE."'); window.history.go(-1);</script>\n";
@@ -1064,10 +969,12 @@ function removeContent(&$cid,$sectionid,$option) {
 	//seperate contentids
 	mosArrayToInts($cid);
 	$cids = 'id='.implode(' OR id=',$cid);
-	$query = "UPDATE #__content SET state = ".(int)$state.", ordering = ".(int)$ordering." WHERE ( $cids )";
+	$query = "UPDATE #__content"."\n SET state = ".(int)$state.", ordering = ".(int)
+		$ordering."\n WHERE ( $cids )";
 	$database->setQuery($query);
 	if(!$database->query()) {
-		echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
+		echo "<script> alert('".$database->getErrorMsg().
+			"'); window.history.go(-1); </script>\n";
 		exit();
 	}
 
@@ -1084,13 +991,11 @@ function removeContent(&$cid,$sectionid,$option) {
 }
 
 /**
- * Cancels an edit operation
- */
+* Cancels an edit operation
+*/
 function cancelContent() {
+	global $database;
 	josSpoofCheck();
-
-	$database = &database::getInstance();
-
 	$row = new mosContent($database);
 	$row->bind($_POST);
 	$row->checkin();
@@ -1100,12 +1005,11 @@ function cancelContent() {
 }
 
 /**
- * Moves the order of a record
- * @param integer The increment to reorder by
- */
+* Moves the order of a record
+* @param integer The increment to reorder by
+*/
 function orderContent($uid,$inc,$option) {
-	$database = &database::getInstance();
-
+	global $database;
 	josSpoofCheck();
 	$row = new mosContent($database);
 	$row->load((int)$uid);
@@ -1123,13 +1027,13 @@ function orderContent($uid,$inc,$option) {
 }
 
 /**
- * Form for moving item(s) to a different section and category
- */
+* Form for moving item(s) to a different section and category
+*/
 function moveSection($cid,$sectionid,$option) {
-	$database = &database::getInstance();
+	global $database;
 
 	if(!is_array($cid) || count($cid) < 1) {
-		echo "<script> alert('"._CHOOSE_OBJECT_TO_MOVE."'); window.history.go(-1);</script>\n";
+		echo "<script> alert('"._CHOOSE_OBJ_MOVE."'); window.history.go(-1);</script>\n";
 		exit;
 	}
 
@@ -1137,32 +1041,28 @@ function moveSection($cid,$sectionid,$option) {
 	mosArrayToInts( $cid );
 	$cids = 'a.id='.implode(' OR a.id=',$cid);
 	// Content Items query
-	$query = "SELECT a.title FROM #__content AS a WHERE ( $cids ) ORDER BY a.title";
+	$query = "SELECT a.title"."\n FROM #__content AS a"."\n WHERE ( $cids )"."\n ORDER BY a.title";
 	$database->setQuery($query);
 	$items = $database->loadObjectList();
 
 	$database->setQuery($query =
-			"SELECT CONCAT_WS( ', ', s.id, c.id ) AS `value`, CONCAT_WS( '/', s.name, c.name ) AS `text`"
-			."\n FROM #__sections AS s"
-			."\n INNER JOIN #__categories AS c ON c.section = s.id"
-			."\n WHERE s.scope = 'content'"
-			."\n ORDER BY s.name, c.name");
+		"SELECT CONCAT_WS( ', ', s.id, c.id ) AS `value`, CONCAT_WS( '/', s.name, c.name ) AS `text`".
+		"\n FROM #__sections AS s"."\n INNER JOIN #__categories AS c ON c.section = s.id".
+		"\n WHERE s.scope = 'content'"."\n ORDER BY s.name, c.name");
 	$rows = $database->loadObjectList();
 	// build the html select list
-	$sectCatList = mosHTML::selectList($rows,'sectcat','class="inputbox" size="8"','value','text',null);
+	$sectCatList = mosHTML::selectList($rows,'sectcat','class="inputbox" size="8"',
+		'value','text',null);
 
-	ContentView::moveSection($cid,$sectCatList,$option,$sectionid,$items);
+	HTML_content::moveSection($cid,$sectCatList,$option,$sectionid,$items);
 }
 
 /**
- * Save the changes to move item(s) to a different section and category
- */
+* Save the changes to move item(s) to a different section and category
+*/
 function moveSectionSave(&$cid,$sectionid,$option) {
-	global $my;
+	global $database,$my;
 	josSpoofCheck();
-
-	$database = &database::getInstance();
-
 	$sectcat = mosGetParam($_POST,'sectcat','');
 	list($newsect,$newcat) = explode(',',$sectcat);
 	// ensure values are integers
@@ -1174,13 +1074,13 @@ function moveSectionSave(&$cid,$sectionid,$option) {
 	}
 
 	// find section name
-	$query = "SELECT a.name FROM #__sections AS a WHERE a.id = ".(int)$newsect;
+	$query = "SELECT a.name"."\n FROM #__sections AS a"."\n WHERE a.id = ".(int)$newsect;
 	$database->setQuery($query);
 	$section = $database->loadResult();
 
 	// find category name
-	$query = "SELECT  a.name FROM #__categories AS a WHERE a.id = ".(int)
-			$newcat;
+	$query = "SELECT  a.name"."\n FROM #__categories AS a"."\n WHERE a.id = ".(int)
+		$newcat;
 	$database->setQuery($query);
 	$category = $database->loadResult();
 
@@ -1197,10 +1097,13 @@ function moveSectionSave(&$cid,$sectionid,$option) {
 
 	mosArrayToInts( $cid );
 	$cids = 'id='.implode(' OR id=',$cid);
-	$query = "UPDATE #__content SET sectionid = ".(int)$newsect.", catid = ".(int)$newcat."\n WHERE ( $cids )"."\n AND ( checked_out = 0 OR ( checked_out = ".(int)$my->id." ) )";
+	$query = "UPDATE #__content SET sectionid = ".(int)$newsect.", catid = ".(int)$newcat.
+		"\n WHERE ( $cids )"."\n AND ( checked_out = 0 OR ( checked_out = ".(int)$my->id.
+		" ) )";
 	$database->setQuery($query);
 	if(!$database->query()) {
-		echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
+		echo "<script> alert('".$database->getErrorMsg().
+			"'); window.history.go(-1); </script>\n";
 		exit();
 	}
 
@@ -1215,16 +1118,16 @@ function moveSectionSave(&$cid,$sectionid,$option) {
 	// clean any existing cache files
 	mosCache::cleanCache('com_content');
 
-	$msg = $total.' '._OBJECTS_MOVED_TO_SECTION.': '.$section.', '._CATEGORY.': '.$category;
+	$msg = $total.' '._OBJECTS_MOVED_TO_SECTION.': '.$section.', '._E_CATEGORY.': '.$category;
 	mosRedirect('index2.php?option='.$option.'&sectionid='.$sectionid.'&mosmsg='.$msg);
 }
 
 
 /**
- * Form for copying item(s)
- **/
+* Form for copying item(s)
+**/
 function copyItem($cid,$sectionid,$option) {
-	$database = &database::getInstance();
+	global $database;
 
 	if(!is_array($cid) || count($cid) < 1) {
 		echo "<script> alert('"._CHOOSE_OBJECT_TO_MOVE."'); window.history.go(-1);</script>\n";
@@ -1235,33 +1138,30 @@ function copyItem($cid,$sectionid,$option) {
 	mosArrayToInts( $cid );
 	$cids = 'a.id='.implode(' OR a.id=',$cid);
 	## Content Items query
-	$query = "SELECT a.title FROM #__content AS a WHERE ( $cids ) ORDER BY a.title";
+	$query = "SELECT a.title"."\n FROM #__content AS a"."\n WHERE ( $cids )"."\n ORDER BY a.title";
 	$database->setQuery($query);
 	$items = $database->loadObjectList();
 
 	## Section & Category query
-	$query = "SELECT CONCAT_WS(',',s.id,c.id) AS `value`, CONCAT_WS(' // ', s.name, c.name) AS `text`"
-			."\n FROM #__sections AS s"
-			."\n INNER JOIN #__categories AS c ON c.section = s.id"
-			."\n WHERE s.scope = 'content'"
-			."\n ORDER BY s.name, c.name";
+	$query = "SELECT CONCAT_WS(',',s.id,c.id) AS `value`, CONCAT_WS(' // ', s.name, c.name) AS `text`".
+		"\n FROM #__sections AS s"."\n INNER JOIN #__categories AS c ON c.section = s.id".
+		"\n WHERE s.scope = 'content'"."\n ORDER BY s.name, c.name";
 	$database->setQuery($query);
 	$rows = $database->loadObjectList();
 	// build the html select list
-	$sectCatList = mosHTML::selectList($rows,'sectcat','class="inputbox" size="10"','value','text',null);
+	$sectCatList = mosHTML::selectList($rows,'sectcat','class="inputbox" size="10"',
+		'value','text',null);
 
-	ContentView::copySection($option,$cid,$sectCatList,$sectionid,$items);
+	HTML_content::copySection($option,$cid,$sectCatList,$sectionid,$items);
 }
 
 
 /**
- * saves Copies of items
- **/
+* saves Copies of items
+**/
 function copyItemSave($cid,$sectionid,$option) {
+	global $database;
 	josSpoofCheck();
-
-	$database = &database::getInstance();
-
 	$sectcat = mosGetParam($_POST,'sectcat','');
 	//seperate sections and categories from selection
 	$sectcat = explode(',',$sectcat);
@@ -1272,12 +1172,12 @@ function copyItemSave($cid,$sectionid,$option) {
 	}
 
 	// find section name
-	$query = "SELECT a.name FROM #__sections AS a WHERE a.id = ".(int)$newsect;
+	$query = "SELECT a.name"."\n FROM #__sections AS a"."\n WHERE a.id = ".(int)$newsect;
 	$database->setQuery($query);
 	$section = $database->loadResult();
 
 	// find category name
-	$query = "SELECT a.name FROM #__categories AS a WHERE a.id = ".(int)$newcat;
+	$query = "SELECT a.name"."\n FROM #__categories AS a"."\n WHERE a.id = ".(int)$newcat;
 	$database->setQuery($query);
 	$category = $database->loadResult();
 
@@ -1286,7 +1186,7 @@ function copyItemSave($cid,$sectionid,$option) {
 		$row = new mosContent($database);
 
 		// main query
-		$query = "SELECT a.* FROM #__content AS a WHERE a.id = ".(int)$cid[$i];
+		$query = "SELECT a.*"."\n FROM #__content AS a"."\n WHERE a.id = ".(int)$cid[$i];
 		$database->setQuery($query);
 		$item = $database->loadObjectList();
 
@@ -1333,39 +1233,35 @@ function copyItemSave($cid,$sectionid,$option) {
 	// clean any existing cache files
 	mosCache::cleanCache('com_content');
 
-	$msg = $total.' '._OBJECTS_COPIED_TO_SECTION.': '.$section.', '._CATEGORY.': '.$category;
+	$msg = $total.' '._OBJECTS_COPIED_TO_SECTION.': '.$section.', '._E_CATEGORY.': '.$category;
 	mosRedirect('index2.php?option='.$option.'&sectionid='.$sectionid.'&mosmsg='.$msg);
 }
 
 /**
- * Function to reset Hit count of a content item
- * PT
- */
+* Function to reset Hit count of a content item
+* PT
+*/
 function resethits($redirect,$id) {
+	global $database;
 	josSpoofCheck();
-
-	$database = &database::getInstance();
-
 	$row = new mosContent($database);
 	$row->Load((int)$id);
 	$row->hits = 0;
 	$row->store();
 	$row->checkin();
 
-	$msg = _COUNTER_RESET;
+	$msg = _HITCOUNT_RESETTED;
 	mosRedirect('index2.php?option=com_content&sectionid='.$redirect.'&task=edit&hidemainmenu=1&id='.$id,$msg);
 }
 
 /**
- * @param integer The id of the content item
- * @param integer The new access level
- * @param string The URL option
- */
+* @param integer The id of the content item
+* @param integer The new access level
+* @param string The URL option
+*/
 function accessMenu($uid,$access,$option) {
+	global $database;
 	josSpoofCheck();
-
-	$database = &database::getInstance();
-
 	$row = new mosContent($database);
 	$row->load((int)$uid);
 	$row->access = $access;
@@ -1386,22 +1282,22 @@ function accessMenu($uid,$access,$option) {
 }
 
 function filterCategory($query,$active = null) {
-	$database = &database::getInstance();
+	global $database;
 
 	$categories[] = mosHTML::makeOption('0',_SEL_CATEGORY);
 	$database->setQuery($query);
 	$categories = array_merge($categories,$database->loadObjectList());
 
-	$category = mosHTML::selectList($categories,'catid','class="inputbox" size="1" onchange="document.adminForm.submit( );"','value','text',$active);
+	$category = mosHTML::selectList($categories,'catid',
+		'class="inputbox" size="1" onchange="document.adminForm.submit( );"','value',
+		'text',$active);
 
 	return $category;
 }
 
 function menuLink($redirect,$id) {
+	global $database;
 	josSpoofCheck();
-
-	$database = &database::getInstance();
-
 	$menu = strval(mosGetParam($_POST,'menuselect',''));
 	$link = strval(mosGetParam($_POST,'link_name',''));
 
@@ -1430,7 +1326,7 @@ function menuLink($redirect,$id) {
 	// clean any existing cache files
 	mosCache::cleanCache('com_content');
 
-	$msg = $link.' (РЎСЃС‹Р»РєР° - РћР±СЉРµРєС‚ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ) РІ РјРµРЅСЋ: '.$menu.' СѓСЃРїРµС€РЅРѕ СЃРѕР·РґР°РЅС‹';
+	$msg = $link.' (Ссылка - Объект содержимого) в меню: '.$menu.' successfully created';
 	mosRedirect('index2.php?option=com_content&sectionid='.$redirect.'&task=edit&hidemainmenu=1&id='.$id,$msg);
 }
 
@@ -1448,10 +1344,8 @@ function go2menuitem() {
 }
 
 function saveOrder(&$cid) {
+	global $database;
 	josSpoofCheck();
-
-	$database = &database::getInstance();
-
 	$total = count($cid);
 	$redirect = mosGetParam($_POST,'redirect');
 	$rettask = strval(mosGetParam($_POST,'returntask',''));
@@ -1503,96 +1397,79 @@ function saveOrder(&$cid) {
 	} // switch
 } // saveOrder
 
-function seccatli($act = 0,$filter_authorid=0) {
-
-	$database = &database::getInstance();
-
-	$showarchive = intval( mosGetParam($_REQUEST,'showarchive',0));
-
-	$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/dtree_ico/';
-
+function seccatli($act = 0,$filter_authorid=0){
+	global $database,$mosConfig_live_site;
 
 	$sectli = '<div id="ntree" class="dtree"><script type="text/javascript"><!--';
-	$sectli .= "\n c = new dTree('c','{$cur_file_icons_path}');";
-	$sectli .= "\n c.add(0,-1,'"._CONTENT." (<a href=\"index2.php?option=com_content&sectionid=0&catid=0\">"._ALL."<\/a>)');";
+	$sectli .= "\n c = new dTree('c','$mosConfig_live_site/".ADMINISTRATOR_DIRECTORY."/images/dtree/');";
+	$sectli .= "\n c.add(0,-1,'Структура (<a href=\"index2.php?option=com_content&sectionid=0&catid=0\">все</a>)');";
 
 	$query = "SELECT s.id, s.title, c.section"
 			."\n FROM #__sections AS s"
 			."\n LEFT JOIN #__categories AS c ON c.section = s.id"
-			."\n LEFT JOIN #__content AS con ON con.catid = c.id"
-			."\n WHERE con.state>=0"
+			."\n INNER JOIN #__content AS con ON con.catid = c.id"
 			."\n GROUP BY c.section"
 			."\n ORDER BY s.title, s.ordering ASC";
 	$database->setQuery($query);
 	$rows = $database->loadObjectList();
-
 	foreach($rows as $row) {
 		$sectli .= "\n c.add($row->id,0,'$row->title');";
 	}
 	$sectli .= _cat_d($act);
 
-	$sectli .= "\n u = new dTree('u','{$cur_file_icons_path}');";
-	$sectli .= "\n u.add(0,-1,'"._AUTHORS."');";
+	$sectli .= "\n u = new dTree('u','$mosConfig_live_site/".ADMINISTRATOR_DIRECTORY."/images/dtree/');";
+	$sectli .= "\n u.add(0,-1,'Авторы');";
 	$sectli .=_user_d($act);
 	$query = "SELECT u.id,u.gid,u.name,COUNT(c.id) AS num FROM #__users AS u INNER JOIN #__content AS c ON c.created_by = u.id WHERE c.sectionid>0 AND c.state!='-2' GROUP BY c.created_by";
 	$database->setQuery($query);
 	$rows = $database->loadObjectList();
 	foreach($rows as $row) {
-		if($filter_authorid!=$row->id) $row->name = "<a href=\"index2.php?option=com_content&sectionid=0&filter_authorid=$row->id\"> $row->name<\/a>";
+		if($filter_authorid!=$row->id) $row->name = "<a href=\"index2.php?option=com_content&sectionid=0&filter_authorid=$row->id\"> $row->name</a>";
 		$sectli .= "\n u.add($row->id,$row->gid,'$row->name ($row->num)');";
 	}
 
-	$sectli .= "\n t = new dTree('t','{$cur_file_icons_path}');";
-	$sectli .= "\n t.add(0,-1,'"._COM_CONTENT_TYPES."');";
-	$sectli .= $showarchive ? "\n t.add(1,0,'"._COM_CONTENT_ARCHIVE_CONTENT."');" : "\n t.add(1,0,'<a href=\"index2.php?option=com_content&showarchive=1\">"._COM_CONTENT_ARCHIVE_CONTENT."</a>');";
-
 	$sectli .= "\n document.write(c);";
 	$sectli .= "\n document.write(u);";
-	$sectli .= "\n document.write(t);";
 	$sectli .= '//--></script></div>';
 	return $sectli;
 }
 
-function _cat_d($act) {
-	$database = &database::getInstance();
-
-	$query = "SELECT cat.id, cat.name as title, cat.section, COUNT(con.catid) AS countcon"
+function _cat_d($act){
+	global $database;
+	$query = "SELECT cat.id, cat.title, cat.section, COUNT(con.catid) AS countcon"
 			."\n FROM #__categories AS cat"
 			."\n LEFT JOIN #__content AS con ON con.catid = cat.id"
-			."\n WHERE cat.section NOT LIKE 'com_%' AND con.state>=0" // РІСЃРµ РєСЂРѕРјРµ Р°СЂС…РёРІРЅС‹С…
+			."\n WHERE state!=-2"
 			."\n GROUP BY cat.id"
 			."\n ORDER BY cat.section ASC";
 	$database->setQuery($query);
 	$rows = $database->loadObjectList();
-
 	$ret = '';
 	$n=0;
 	foreach($rows as $row) {
 		$n++;
-		if(Jstring::strlen($row->title)>30) {
-			$row->title = Jstring::substr($row->title,0,30).'...';
-		}
-		if($act!=$row->id) {
-			$row->title= '<a href="index2.php?option=com_content&sectionid=0&catid='.$row->id.'">'.$row->title.'<\/a>';
-		}
-		$ret .= "\n c.add(0$n$row->id,$row->section,'$row->title ($row->countcon)');";
+		if(strlen($row->title)>30) $row->title = substr($row->title,0,30).'...';
+		if($act!=$row->id) $row->title="<a href=\"index2.php?option=com_content&sectionid=0&catid=$row->id\"> $row->title</a>";
+		$ret .= "\n c.add(2008$n$row->id,$row->section,'$row->title ($row->countcon)');";
 	}
 	unset($rows);
 	return $ret;
 }
 
-function _user_d() {
-	$database = &database::getInstance();
-
-	$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/dtree_ico/';
-
-	$query = "SELECT a.group_id,a.name FROM #__core_acl_aro_groups AS a INNER JOIN #__users AS u ON u.gid = a.group_id GROUP BY u.gid";
+function _user_d(){
+	global $database,$mosConfig_live_site;
+	$query = "SELECT a.group_id,a.name FROM #__core_acl_aro_groups AS a"
+		." INNER JOIN #__users AS u ON u.gid = a.group_id"
+		." GROUP BY u.gid";
 	$database->setQuery($query);
 	$rows = $database->loadObjectList();
 	$ret = '';
 	foreach($rows as $row) {
-		$ret .= "\n u.add($row->group_id,0,'$row->name','','','','','$cur_file_icons_path/folder_user.gif');";
+		$ret .= "\n u.add($row->group_id,0,'$row->name','','','','','$mosConfig_live_site/".ADMINISTRATOR_DIRECTORY."/images/dtree/folder_user.gif');";
 	}
-	unset($rows,$row);
+	unset($rows);
 	return $ret;
 }
+
+
+?>

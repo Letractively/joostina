@@ -1,37 +1,32 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
-
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
-
 // load the html drawing class
 require_once ($mainframe->getPath('front_html'));
-
 global $database,$my,$mainframe;
-global $mosConfig_frontend_login,$mosConfig_db,$mosConfig_no_session_front;
-
-if($mosConfig_frontend_login != null && ($mosConfig_frontend_login === 0 || $mosConfig_frontend_login === '0' || $mosConfig_no_session_front != 0)) {
-	header("HTTP/1.0 403 Forbidden");
-	echo _NOT_AUTH;
-	return;
+global $mosConfig_live_site,$mosConfig_frontend_login,$mosConfig_db,$mosConfig_session_front;
+if($mosConfig_frontend_login != null && ($mosConfig_frontend_login === 0 || $mosConfig_frontend_login
+=== '0' || $mosConfig_session_front != 0)) {
+header("HTTP/1.0 403 Forbidden");
+echo _NOT_AUTH;
+return;
 }
-
 $menu = $mainframe->get('menu');
 $params = new mosParameters($menu->params);
-
 $params->def('page_title',1);
 $params->def('header_login',$menu->name);
 $params->def('header_logout',$menu->name);
 $params->def('pageclass_sfx','');
 $params->def('back_button',$mainframe->getCfg('back_button'));
-$params->def('login',JPATH_SITE);
-$params->def('logout',JPATH_SITE);
+$params->def('login',$mosConfig_live_site);
+$params->def('logout',$mosConfig_live_site);
 $params->def('login_message',0);
 $params->def('logout_message',0);
 $params->def('description_login',1);
@@ -43,20 +38,19 @@ $params->def('image_logout','key.jpg');
 $params->def('image_login_align','right');
 $params->def('image_logout_align','right');
 $params->def('registration',$mainframe->getCfg('allowUserRegistration'));
-
 $image_login = '';
 $image_logout = '';
 if($params->get('image_login') != -1) {
-	$image = JPATH_SITE.'/images/stories/'.$params->get('image_login');
-	$image_login = '<img src="'.$image.'" align="'.$params->get('image_login_align').'" hspace="10" alt="" />';
+$image = $mosConfig_live_site.'/images/stories/'.$params->get('image_login');
+$image_login = '<img src="'.$image.'" align="'.$params->get('image_login_align').'" hspace="10" alt="" />';
 }
 if($params->get('image_logout') != -1) {
-	$image = JPATH_SITE.'/images/stories/'.$params->get('image_logout');
-	$image_logout = '<img src="'.$image.'" align="'.$params->get('image_logout_align').'" hspace="10" alt="" />';
+$image = $mosConfig_live_site.'/images/stories/'.$params->get('image_logout');
+$image_logout = '<img src="'.$image.'" align="'.$params->get('image_logout_align').'" hspace="10" alt="" />';
 }
-
 if($my->id) {
-	loginHTML::logoutpage($params,$image_logout);
+loginHTML::logoutpage($params,$image_logout);
 } else {
-	loginHTML::loginpage($params,$image_login);
+loginHTML::loginpage($params,$image_login);
 }
+?>

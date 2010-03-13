@@ -1,16 +1,16 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
 
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
 
-$acl = &gacl::getInstance();
+global $acl;
 
 // check access permissions (only superadmins & admins)
 if ( !( $acl->acl_check('administration', 'config', 'users', $my->usertype) ) ||  $acl->acl_check('administration', 'edit', 'users', $my->usertype, 'components', 'com_xmap') ) {
@@ -21,19 +21,27 @@ $value = joostina_api::convert( mosGetParam($_REQUEST ,'value',''));
 
 $action = mosGetParam($_REQUEST ,'action','');
 
-global $database;
+global $database,$mosConfig_absolute_path;
 
-global $mosConfig_lang,$xmapComponentURL,$xmapSiteURL,$xmapComponentPath,$xmapAdministratorURL,$xmapLang,$xmapAdministratorPath;
+global $mosConfig_live_site, $mosConfig_lang,$mosConfig_absolute_path,$xmapComponentURL,$xmapSiteURL,$xmapComponentPath,$xmapAdministratorURL,$xmapLang,$xmapAdministratorPath;
 
 define ('_XMAP_JOOMLA15',0);
 define('_XMAP_MAMBO',0);
 
 $xmapLang = strtolower($mosConfig_lang);
-$xmapComponentPath = JPATH_BASE_ADMIN.'/components/com_xmap';
-$xmapAdministratorPath = JPATH_BASE_ADMIN;
-$xmapComponentURL = JPATH_SITE.DS.JADMIN_BASE.'/components/com_xmap';
-$xmapAdministratorURL = JPATH_SITE.DS.JADMIN_BASE;
-$xmapSiteURL = JPATH_SITE;
+$xmapComponentPath = $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap';
+$xmapAdministratorPath = $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY;
+$xmapComponentURL = $mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap';
+$xmapAdministratorURL = $mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY;
+$xmapSiteURL = $mosConfig_live_site;
+
+// load language file
+if( file_exists( $xmapComponentPath .'/language/' . $xmapLang . '.php') ) {
+	require_once( $xmapComponentPath .'/language/' . $xmapLang . '.php' );
+} else {
+	$xmapLang = 'russian';
+	require_once( $xmapComponentPath .'/language/russian.php' );
+}
 
 require_once( $xmapComponentPath.'/classes/XmapAdmin.php' );
 
@@ -41,15 +49,15 @@ require_once( $xmapComponentPath.'/classes/XmapAdmin.php' );
 require_once( $xmapComponentPath.'/classes/XmapConfig.php' );
 require_once( $xmapComponentPath.'/admin.xmap.html.php' );
 
-require_once( JPATH_BASE . DS.JADMIN_BASE.'/components/com_xmap/classes/XmapCache.php' );
-require_once( JPATH_BASE . DS.JADMIN_BASE.'/components/com_xmap/classes/XmapPlugin.php' );
+require_once( $mosConfig_absolute_path . '/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/classes/XmapCache.php' );
+require_once( $mosConfig_absolute_path . '/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/classes/XmapPlugin.php' );
 
 switch ($action) {
 	case 'add_sitemap':
 		$sitemap = new XmapSitemap();
 		$sitemap->save();
 		XmapAdminHtml::showSitemapInfo($sitemap);
-		break;
+	break;
 	case 'delete_sitemap':
 		$id = intval (mosGetParam($_REQUEST ,'sitemap',''));
 		$config = new XmapConfig();
@@ -69,7 +77,7 @@ switch ($action) {
 		} else {
 			$database->getErrorMsg();
 		}
-		break;
+	break;
 	case 'copy_sitemap':
 		$id = intval (mosGetParam($_REQUEST ,'sitemap',''));
 		if (!$id || $id != mosGetParam($_REQUEST ,'sitemap','')) {
@@ -82,7 +90,7 @@ switch ($action) {
 			$sitemap->save();
 			XmapAdminHtml::showSitemapInfo($sitemap);
 		}
-		break;
+	break;
 	case 'save_property':
 		$id = intval (mosGetParam($_REQUEST ,'sitemap',''));
 		$property = mosGetParam($_REQUEST ,'property','');
@@ -107,7 +115,7 @@ switch ($action) {
 		}
 		echo _XMAP_MSG_ERROR_SAVE_PROPERTY;
 		exit;
-		break;
+	break;
 	case 'edit_sitemap_settings':
 		$id = intval (mosGetParam($_REQUEST ,'sitemap',''));
 		if (!$id || $id != mosGetParam($_REQUEST ,'sitemap','')) {
@@ -122,15 +130,18 @@ switch ($action) {
 
 			// column count selection
 			$columns = array (
-					mosHTML::makeOption( 1, 1 ),
-					mosHTML::makeOption( 2, 2 ),
-					mosHTML::makeOption( 3, 3 ),
-					mosHTML::makeOption( 4, 4 )
+				mosHTML::makeOption( 1, 1 ),
+				mosHTML::makeOption( 2, 2 ),
+				mosHTML::makeOption( 3, 3 ),
+				mosHTML::makeOption( 4, 4 )
 			);
 			$lists['columns'] = mosHTML::selectList( $columns, 'columns', 'id="columns" class="inputbox" size="1"', 'value', 'text', $sitemap->columns );
 
 			// get list of menu entries in all menus
-			$query = "SELECT id AS value, name AS text, CONCAT( id, ' - ', name ) AS menu FROM #__menu WHERE published != -2 ORDER BY menutype, parent, ordering";
+			$query = "SELECT id AS value, name AS text, CONCAT( id, ' - ', name ) AS menu"
+			. "\n FROM #__menu"
+			. "\n WHERE published != -2"
+			. "\n ORDER BY menutype, parent, ordering";
 			$database->setQuery( $query );
 			$exclmenus = $database->loadObjectList();
 			$lists['exclmenus'] = mosHTML::selectList( $exclmenus, 'excl_menus', 'class="inputbox" size="1"', 'value', 'menu', NULL );
@@ -138,7 +149,7 @@ switch ($action) {
 		} else {
 			echo _XMAP_MSG_ERROR_LOADING_SITEMAP;
 		}
-		break;
+	break;
 	case 'save_sitemap_settings':
 		$id = intval (mosGetParam($_REQUEST ,'id',''));
 		if (!$id || $id != mosGetParam($_REQUEST ,'id','')) {
@@ -148,7 +159,7 @@ switch ($action) {
 
 		if ( $sitemap->load($id) ) {
 			$_POST['menus']	= $sitemap->menus;
-			$_POST['name']	= $database->getEscaped(mosGetParam($_POST ,'name',''));
+			$_POST['name']	= joostina_api::convert($database->getEscaped($_POST['name']));
 			$sitemap->bind($_POST);
 			if ( $sitemap->save() ) {
 				if ( $sitemap->usecache ) {
@@ -161,7 +172,7 @@ switch ($action) {
 		} else {
 			die(_XMAP_INVALID_SID);
 		}
-		break;
+	break;
 	case 'save_plugin_settings':
 		$id = intval (mosGetParam($_REQUEST ,'id',''));
 		if (!$id || $id != mosGetParam($_REQUEST ,'id','')) {
@@ -189,7 +200,7 @@ switch ($action) {
 		} else {
 			die(_XMAP_INVALID_SID);
 		}
-		break;
+	break;
 	case 'set_default':
 		$id = intval (mosGetParam($_REQUEST ,'sitemap',''));
 		if (!$id || $id != mosGetParam($_REQUEST ,'sitemap','')) {
@@ -203,7 +214,7 @@ switch ($action) {
 		} else {
 			echo $database->getErrorMsg();
 		}
-		break;
+	break;
 	case 'change_plugin_state':
 		$id = intval (mosGetParam($_REQUEST ,'plugin',''));
 		if (!$id || $id != mosGetParam($_REQUEST ,'plugin','')) {
@@ -216,7 +227,7 @@ switch ($action) {
 		} else {
 			echo $database->getErrorMsg();
 		}
-		break;
+	break;
 	case 'clean_cache_sitemap':
 		$id = intval (mosGetParam($_REQUEST ,'sitemap',''));
 		if (!$id || $id != mosGetParam($_REQUEST ,'sitemap','')) {
@@ -224,7 +235,7 @@ switch ($action) {
 		}
 		$sitemap = new XmapSitemap();
 		if ($sitemap->load($id)) {
-			if ( XmapCache::cleanCache($sitemap) ) {
+			if ( XmapCache::cleanCache($sitemap) )  {
 				echo _XMAP_MSG_CACHE_CLEANED;
 			} else {
 				echo _XMAP_MSG_ERROR_CLEAN_CACHE;
@@ -233,7 +244,7 @@ switch ($action) {
 		} else {
 			echo $database->getErrorMsg();
 		}
-		break;
+	break;
 	case 'add_menu_sitemap':
 		$id = intval (mosGetParam($_REQUEST ,'sitemap',''));
 		if (!$id || $id != mosGetParam($_REQUEST ,'sitemap','')) {
@@ -258,11 +269,11 @@ switch ($action) {
 			}
 			$sitemap->setMenus($menus);
 			if ( $sitemap->save() && $sitemap->usecache) {
-				XmapCache::cleanCache($sitemap);
+					XmapCache::cleanCache($sitemap);
 			}
 			XmapAdminHtml::printMenusList($sitemap);
 		}
-		break;
+	break;
 	case 'remove_menu_sitemap':
 		$id = intval (mosGetParam($_REQUEST ,'sitemap',''));
 		if (!$id || $id != mosGetParam($_REQUEST ,'sitemap','')) {
@@ -280,11 +291,11 @@ switch ($action) {
 			}
 			$sitemap->setMenus($newMenus);
 			if ( $sitemap->save() && $sitemap->usecache) {
-				XmapCache::cleanCache($sitemap);
+					XmapCache::cleanCache($sitemap);
 			}
 			XmapAdminHtml::printMenusList($sitemap);
 		}
-		break;
+	break;
 	case 'move_menu_sitemap':
 		$id = intval (mosGetParam($_REQUEST ,'sitemap',''));
 		if (!$id || $id != mosGetParam($_REQUEST ,'sitemap','')) {
@@ -301,7 +312,7 @@ switch ($action) {
 
 			XmapAdminHtml::printMenusList($sitemap);
 		}
-		break;
+	break;
 	case 'get_menus_sitemap':
 		$id = intval (mosGetParam($_REQUEST ,'sitemap',''));
 		if (!$id || $id != mosGetParam($_REQUEST ,'sitemap','')) {
@@ -311,7 +322,7 @@ switch ($action) {
 		if ( $sitemap->load($id) ) {
 			XmapAdminHtml::printMenusList($sitemap);
 		}
-		break;
+	break;
 	case 'menu_options':
 		$id = intval (mosGetParam($_REQUEST ,'sitemap',''));
 		$sitemap = new XmapSitemap();
@@ -328,7 +339,7 @@ switch ($action) {
 		$changefreq[] = mosHTML::makeOption( 'weekly', _XMAP_CFG_CHANGEFREQ_WEEKLY);
 		$changefreq[] = mosHTML::makeOption( 'monthly', _XMAP_CFG_CHANGEFREQ_MONTHLY);
 		$changefreq[] = mosHTML::makeOption( 'yearly', _XMAP_CFG_CHANGEFREQ_YEARLY);
-		$changefreq[] = mosHTML::makeOption( 'never', _ALWAYS);
+		$changefreq[] = mosHTML::makeOption( 'never', _XMAP_CFG_CHANGEFREQ_NEVER);
 		$lists['changefreq'] = mosHTML::selectList( $changefreq, 'changefreq', 'class="inputbox" size="1"', 'value', 'text', $menu->changefreq );
 		$priority = array();
 		for ($i=0;$i<=9;$i++) {
@@ -337,7 +348,7 @@ switch ($action) {
 		$priority[] =  mosHTML::makeOption( '1', '1' );
 		$lists['priority'] = mosHTML::selectList( $priority, 'priority', 'class="inputbox" size="1"', 'value', 'text', $menu->priority );
 		XmapAdminHtml::showMenuOptions($sitemap,$menu,$lists);
-		break;
+	break;
 	case 'save_menu_options':
 		$id = intval (mosGetParam($_REQUEST ,'sitemap',''));
 		$sitemap = new XmapSitemap();
@@ -364,7 +375,7 @@ switch ($action) {
 				echo $database->getErrorMsg();
 			}
 		}
-		break;
+	break;
 	case 'uninstallplugin':
 		$id = intval (mosGetParam($_REQUEST ,'plugin',''));
 		if ($id != mosGetParam($_REQUEST ,'plugin','')) {  //Security Check!
@@ -382,5 +393,5 @@ switch ($action) {
 		}
 		XmapAdminHtml::showPluginSettings($plugin);
 
-		break;
+	break;
 }

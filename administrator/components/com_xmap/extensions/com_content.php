@@ -1,13 +1,13 @@
 <?php
 /**
  * @package Joostina
- * @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2010 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
- * @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
- * Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
- * Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
+ * @copyright Авторские права (C) 2008 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
  */
 
-// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+// запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 /** Handles standard Joomla Content */
@@ -43,7 +43,7 @@ class xmap_com_content {
 		$show_unauth = ($show_unauth == 1 || ($show_unauth == 2 && $xmap->view == 'xml') || ($show_unauth == 3 && $xmap->view == 'html'));
 		$params['show_unauth'] = $show_unauth;
 
-		//----- СЂР°Р·РґРµР»РµРЅРёРµ РЅР° РїРѕРґСЃС‚СЂР°РЅРёС†С‹
+		//----- разделение на подстраницы
 		$params['use_mospagebreak'] = mosGetParam($params, 'use_mospagebreak', 1);
 
 
@@ -74,7 +74,7 @@ class xmap_com_content {
 				if($params['expand_categories']) {
 					$menuparams = xmap_com_content::paramsToArray($parent->params);
 					if($id == 0) // Multi category
-						$id = mosGetParam($menuparams, 'categoryid', $id);
+					$id = mosGetParam($menuparams, 'categoryid', $id);
 					$result = xmap_com_content::getContentCategory($xmap, $parent, $id, $params, $menuparams);
 				}
 				break;
@@ -97,10 +97,10 @@ class xmap_com_content {
 				}
 				break;
 			case 'content_typed':
-				$database = &database::getInstance();
+				global $database;
 				$database->setQuery("SELECT modified, created FROM #__content WHERE id=" . $id);
 				$database->loadObject($item);
-				if((isset($item->modified))&&$item->modified == '0000-00-00 00:00:00') {
+				if((isset($item->modified))&&$item->modified == '0000-00-00 00:00:00'){
 					$item->modified = $item->created;
 				}
 				$parent->modified = xmap_com_content::toTimestamp($item->modified);
@@ -112,20 +112,20 @@ class xmap_com_content {
 	/** Get all content items within a content category.
 	 * Returns an array of all contained content items. */
 	function getContentCategory(&$xmap, &$parent, $catid, &$params, &$menuparams) {
-		$database = &database::getInstance();
-
+		global $database;
 		$orderby = !empty($menuparams['orderby']) ? $menuparams['orderby'] : (!empty($menuparams['orderby_sec']) ? $menuparams['orderby_sec'] : 'rdate');
 		$orderby = xmap_com_content::orderby_sec($orderby);
 
-		$isJ15 = 0;
+		$isJ15 = ($parent->type == 'component' ? 1 : 0);
 		$query = "SELECT a.id, a.introtext, a.fulltext, a.title, a.modified, a.created"
-				. "\n FROM #__content AS a"
-				. "\n WHERE a.catid=(" . $catid . ")"
-				. "\n AND a.state='1'"
-				. "\n AND ( a.publish_up = '0000-00-00 00:00:00' OR a.publish_up <= '" . date('Y-m-d H:i:s', $xmap->now) . "' )"
-				. "\n AND ( a.publish_down = '0000-00-00 00:00:00' OR a.publish_down >= '" . date('Y-m-d H:i:s', $xmap->now) . "' )"
-				. ($xmap->noauth ? '' : "\n AND a.access<='" . $xmap->gid . "'") // authentication required ?
-				. ($xmap->view != 'xml' ? "\n ORDER BY " . $orderby . "" : '');
+			. ($isJ15 ? ',CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(":", a.id, a.alias) ELSE a.id END as slug'
+			. ',CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(":", c.id, c.alias) ELSE c.id END as catslug' : '')
+			. "\n FROM #__content AS a" . ($isJ15 ? ',#__categories AS c' : '') . "\n WHERE a.catid=(" . $catid . ")"
+			. ($isJ15 ? "\n AND a.catid=c.id" : '') . "\n AND a.state='1'"
+			. "\n AND ( a.publish_up = '0000-00-00 00:00:00' OR a.publish_up <= '" . date('Y-m-d H:i:s', $xmap->now) . "' )"
+			. "\n AND ( a.publish_down = '0000-00-00 00:00:00' OR a.publish_down >= '" . date('Y-m-d H:i:s', $xmap->now) . "' )"
+			. ($xmap->noauth ? '' : "\n AND a.access<='" . $xmap->gid . "'") // authentication required ?
+			. ($xmap->view != 'xml' ? "\n ORDER BY " . $orderby . "" : '');
 		$database->setQuery($query);
 		$items = $database->loadObjectList();
 
@@ -145,7 +145,7 @@ class xmap_com_content {
 
 				$node->modified = xmap_com_content::toTimestamp($item->modified);
 
-				if($params['use_mospagebreak']) {
+				if($params['use_mospagebreak']){
 					$text = $item->introtext.$item->fulltext;
 					$node->end_line = to_page($text,$item->id,$node->id);
 				}
@@ -160,16 +160,16 @@ class xmap_com_content {
 	/** Get all Categories within a Section.
 	 * Also call getCategory() for each Category to include it's items */
 	function getContentSection(&$xmap, &$parent, $secid, &$params, &$menuparams) {
-		$database = &database::getInstance();
+		global $database;
 
 		$orderby = isset($menuparams['orderby']) ? $menuparams['orderby'] : '';
 		$orderby = xmap_com_content::orderby_sec($orderby);
 
 		$isJ15 = ($parent->type == 'component' ? 1 : 0);
 		$query = "SELECT a.id, a.title, a.name, a.params" . ($isJ15 ? ",a.alias" : "") . ($isJ15 ? ',CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(":", a.id, a.alias) ELSE a.id END as slug' : '') . "\n FROM #__categories AS a" . "\n LEFT JOIN #__content AS b ON b.catid = a.id " . "\n AND b.state = '1'" . "\n AND ( b.publish_up = '0000-00-00 00:00:00' OR b.publish_up <= '" . date('Y-m-d H:i:s', $xmap->now) . "' )" . "\n AND ( b.publish_down = '0000-00-00 00:00:00' OR b.publish_down >= '" . date('Y-m-d H:i:s', $xmap->now) . "' )" . ($xmap->noauth ? '' : "\n AND b.access <= " . $xmap->gid) // authentication required ?
-				. "\n WHERE a.section = '" . $secid . "'" . "\n AND a.published = '1'" . ($xmap->noauth ? '' : "\n AND a.access <= " . $xmap->gid) // authentication required ?
-				. "\n GROUP BY a.id" . (@$menuparams['empty_cat'] ? '' : "\n HAVING COUNT( b.id ) > 0") // hide empty categories ?
-				. ($xmap->view != 'xml' ? "\n ORDER BY " . $orderby : '');
+			. "\n WHERE a.section = '" . $secid . "'" . "\n AND a.published = '1'" . ($xmap->noauth ? '' : "\n AND a.access <= " . $xmap->gid) // authentication required ?
+			. "\n GROUP BY a.id" . (@$menuparams['empty_cat'] ? '' : "\n HAVING COUNT( b.id ) > 0") // hide empty categories ?
+			. ($xmap->view != 'xml' ? "\n ORDER BY " . $orderby : '');
 		$database->setQuery($query);
 		$items = $database->loadObjectList();
 
@@ -200,7 +200,8 @@ class xmap_com_content {
 
 	/** Return an array with all Items in a Section */
 	function getContentBlogSection(&$xmap, &$parent, $secid, &$params, &$menuparams) {
-		$database = &database::getInstance();
+		global $database;
+
 
 		$order_pri = isset($menuparams['orderby_pri']) ? $menuparams['orderby_pri'] : '';
 		$order_sec = isset($menuparams['orderby_sec']) && !empty($menuparams['orderby_sec']) ? $menuparams['orderby_sec'] : 'rdate';
@@ -212,7 +213,7 @@ class xmap_com_content {
 		$where = xmap_com_content::where(1, $xmap->access, $xmap->noauth, $xmap->gid, $secid, date('Y-m-d H:i:s', $xmap->now));
 
 		$isJ15 = ($parent->type == 'component' ? 1 : 0);
-		$query = "SELECT a.id, a.introtext, a.fulltext, a.title, a.modified, a.created FROM #__content AS a INNER JOIN #__categories AS cc ON cc.id = a.catid LEFT JOIN #__users AS u ON u.id = a.created_by LEFT JOIN #__content_rating AS v ON a.id = v.content_id LEFT JOIN #__sections AS s ON a.sectionid = s.id LEFT JOIN #__groups AS g ON a.access = g.id WHERE " . implode("\n AND ", $where) . "\n AND s.access <= " . $xmap->gid . " AND cc.access <= " . $xmap->gid . "\n AND s.published = 1" . "\n AND cc.published = 1" . ($xmap->view != 'xmal' ? "\n ORDER BY $order_pri $order_sec" : '');
+		$query = "SELECT a.id, a.introtext, a.fulltext, a.title, a.modified, a.created" . ($isJ15 ? ',CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(":", a.id, a.alias) ELSE a.id END as slug' : '') . "\n FROM #__content AS a" . "\n INNER JOIN #__categories AS cc ON cc.id = a.catid" . "\n LEFT JOIN #__users AS u ON u.id = a.created_by" . "\n LEFT JOIN #__content_rating AS v ON a.id = v.content_id" . "\n LEFT JOIN #__sections AS s ON a.sectionid = s.id" . "\n LEFT JOIN #__groups AS g ON a.access = g.id" . "\n WHERE " . implode("\n AND ", $where) . "\n AND s.access <= " . $xmap->gid . "\n AND cc.access <= " . $xmap->gid . "\n AND s.published = 1" . "\n AND cc.published = 1" . ($xmap->view != 'xmal' ? "\n ORDER BY $order_pri $order_sec" : '');
 
 		$database->setQuery($query);
 		$items = $database->loadObjectList();
@@ -227,11 +228,11 @@ class xmap_com_content {
 			$node->changefreq = $params['art_changefreq'];
 			$node->name = $item->title;
 
-			if($item->modified == '0000-00-00 00:00:00') {
+			if($item->modified == '0000-00-00 00:00:00'){
 				$item->modified = $item->created;
 			}
 			$node->modified = xmap_com_content::toTimestamp($item->modified);
-			if($params['use_mospagebreak']) {
+			if($params['use_mospagebreak']){
 				$text = $item->introtext.$item->fulltext;
 				$node->end_line = to_page($text,$item->id,$node->id);
 			}
@@ -339,9 +340,9 @@ class xmap_com_content {
 		return $orderby;
 	}
 	/**
-	 @param int 0 = Archives, 1 = Section, 2 = Category */
+ 	@param int 0 = Archives, 1 = Section, 2 = Category */
 	function where($type = 1, &$access, &$noauth, $gid, $id, $now = null, $year = null, $month = null) {
-		$database = &database::getInstance();
+		global $database;
 
 		$nullDate = $database->getNullDate();
 		$where = array();
@@ -360,9 +361,9 @@ class xmap_com_content {
 				if($type == 1) {
 					$where[] = "a.sectionid IN ( $id ) ";
 				} else
-				if($type == 2) {
-					$where[] = "a.catid IN ( $id ) ";
-				}
+					if($type == 2) {
+						$where[] = "a.catid IN ( $id ) ";
+					}
 			}
 		}
 
@@ -382,9 +383,9 @@ class xmap_com_content {
 				if($type == -1) {
 					$where[] = "a.sectionid = $id";
 				} else
-				if($type == -2) {
-					$where[] = "a.catid = $id";
-				}
+					if($type == -2) {
+						$where[] = "a.catid = $id";
+					}
 			}
 		}
 
@@ -392,24 +393,26 @@ class xmap_com_content {
 	}
 }
 
-function to_page($text,$id,$Itemid) {
+function to_page($text,$id,$Itemid){
 	if(strpos($text,'mospagebreak') === false) {
 		return;
 	}
 
-	// РЅР°Р№С‚Рё РІСЃРµ РѕР±СЂР°Р·С†С‹ РјР°РјР±РѕС‚Р° Рё РІСЃС‚Р°РІРёС‚СЊ РІ $matches
+	// найти все образцы мамбота и вставить в $matches
 	$matches = array();
 	$regex = '/{(mospagebreak)\s*(.*?)}/i';
 	preg_match_all($regex,$text,$matches,PREG_SET_ORDER);
 
-	// РјР°РјР±РѕС‚ СЂР°Р·СЂС‹РІР° С‚РµРєСЃС‚Р°
+	// мамбот разрыва текста
 	$text = preg_split($regex,$text);
 
-	// РїРѕРґСЃС‡РµС‚ С‡РёСЃР»Р° СЃС‚СЂР°РЅРёС†
+	// подсчет числа страниц
 	$n = count($text)-1;
 	$ret = '';
 	for ($i = 1; $i <= $n; $i++) {
-		$ret .= ', <a href="'.sefRelToAbs('index.php?option=com_content&amp;task=view&amp;id='.$id.'&amp;limit=1&amp;limitstart='.$i.'&amp;Itemid='.$Itemid).'" >'.($i + 1).' '._PN_PAGE.'</a>';
+		$ret .= ', <a href="'.sefRelToAbs('index.php?option=com_content&amp;task=view&amp;id='.$id.'&amp;limit=1&amp;limitstart='.$i.'&amp;Itemid='.$Itemid).'" >'.($i + 1)._XMAP_PAGE.'</a>';
 	}
 	return $ret;
 }
+
+?>

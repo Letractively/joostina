@@ -1,44 +1,60 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
 
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
 
 $query = "SELECT a.hits, a.id, a.sectionid, a.title, a.created, u.name"."\n FROM #__content AS a".
-		"\n LEFT JOIN #__users AS u ON u.id=a.created_by"."\n WHERE a.state != -2"."\n ORDER BY hits DESC";
+	"\n LEFT JOIN #__users AS u ON u.id=a.created_by"."\n WHERE a.state != -2"."\n ORDER BY hits DESC";
 $database->setQuery($query,0,10);
 $rows = $database->loadObjectList();
 ?>
 
 <table class="adminlist">
+<tr>
+	<th class="title">
+		<?php echo _POPULAR_CONTENT?>
+	</th>
+	<th class="title">
+		<?php echo _CREATED_CONTENT?>
+	</th>
+	<th class="title">
+		<?php echo _CONTENT_HITS?>
+	</th>
+</tr>
+<?php
+foreach($rows as $row) {
+	if($row->sectionid == 0) {
+		$link = 'index2.php?option=com_typedcontent&amp;task=edit&amp;hidemainmenu=1&amp;id='.
+			$row->id;
+	} else {
+		$link = 'index2.php?option=com_content&amp;task=edit&amp;hidemainmenu=1&amp;id='.
+			$row->id;
+	}
+?>
 	<tr>
-		<th class="title"><?php echo _POPULAR_CONTENT?></th>
-		<th class="title"><?php echo _CREATED_CONTENT?></th>
-		<th class="title"><?php echo _CONTENT_HITS?></th>
+		<td>
+			<a href="<?php echo $link; ?>">
+				<?php echo htmlspecialchars($row->title,ENT_QUOTES); ?></a>
+		</td>
+		<td>
+			<?php echo $row->created; ?>
+		</td>
+		<td style="text-align: center">
+			<?php echo $row->hits; ?>
+		</td>
 	</tr>
 	<?php
-	foreach($rows as $row) {
-		if($row->sectionid == 0) {
-			$link = 'index2.php?option=com_typedcontent&amp;task=edit&amp;hidemainmenu=1&amp;id='.
-					$row->id;
-		} else {
-			$link = 'index2.php?option=com_content&amp;task=edit&amp;hidemainmenu=1&amp;id='.
-					$row->id;
-		}
-		?>
-	<tr>
-		<td><a href="<?php echo $link; ?>"><?php echo htmlspecialchars($row->title,ENT_QUOTES); ?></a></td>
-		<td><?php echo $row->created; ?></td>
-		<td style="text-align: center"><?php echo $row->hits; ?></td>
-	</tr>
-		<?php
-	}
-	?>
-	<tr><th colspan="3"></th></tr>
+}
+?>
+<tr>
+	<th colspan="3">
+	</th>
+</tr>
 </table>

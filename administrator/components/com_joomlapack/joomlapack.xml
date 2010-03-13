@@ -1,13 +1,13 @@
-<?xml version = '1.0' encoding="utf-8"?>
+<?xml version = '1.0' encoding="windows-1251"?>
 <mosinstall type="component" >
-	<name>Р РµР·РµСЂРІРЅРѕРµ РєРѕРїРёСЂРѕРІР°РЅРёРµ</name>
+	<name>Резервное копирование</name>
 	<creationDate>24:02:2008</creationDate>
 	<author>Joostina! Project</author>
-	<copyright>(C) 2008-2010 Joostina team.</copyright>
+	<copyright>(C) 2008 Joostina Team.</copyright>
 	<authorEmail>joostinacms@gmail.com</authorEmail>
 	<authorUrl>www.joostina.ru</authorUrl>
 	<version>1.0 JE</version>
 	<description>
-		<![CDATA[ РљРѕРјРїРѕРЅРµРЅС‚ СЃРѕР·РґР°РЅРёСЏ СЂРµР·РµСЂРІРЅС‹С… РєРѕРїРёР№ РґР°РЅРЅС‹С… СЃР°Р№С‚Р° ]]>
+		<![CDATA[ Компонент создания резервных копий данных сайта ]]>
 	</description>
 </mosinstall>

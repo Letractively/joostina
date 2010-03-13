@@ -1,13 +1,13 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
 
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
 
 // ensure user has access to this function
@@ -29,7 +29,7 @@ switch($task) {
 	case 'delete':
 		deleteTrash($cid,$option);
 		break;
-	// Ð¿Ð¾Ð»Ð½Ð°Ñ Ð¾Ñ‡Ð¸ÑÑ‚ÐºÐ° ÑÐ¾Ð´ÐµÑ€Ð¶Ð¸Ð¼Ð¾Ð³Ð¾ ÐºÐ¾Ñ€Ð·Ð¸Ð½Ñ‹
+		// ïîëíàÿ î÷èñòêà ñîäåðæèìîãî êîðçèíû
 	case 'deleteall':
 		clearTrash();
 		break;
@@ -49,39 +49,36 @@ switch($task) {
 
 
 /**
- * Compiles a list of trash items
- */
+* Compiles a list of trash items
+*/
 function viewTrash($option) {
-	global $mosConfig_list_limit;
-
-	$database = &database::getInstance();
-	$mainframe = &mosMainFrame::getInstance();
+	global $database,$mainframe,$mosConfig_list_limit;
 
 	$catid = $mainframe->getUserStateFromRequest("catid{$option}",'catid','content');
 	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mosConfig_list_limit));
 	$limitstart = intval($mainframe->getUserStateFromRequest("view{$option}limitstart",'limitstart',0));
 
-	require_once (JPATH_BASE.'/'.JADMIN_BASE.'/includes/pageNavigation.php');
+	require_once ($GLOBALS['mosConfig_absolute_path'].'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 
 	if($catid == "content") {
 		// get the total number of content
 		$query = "SELECT count(*)"
-				."\n FROM #__content AS c"
-				."\n LEFT JOIN #__categories AS cc ON cc.id = c.catid"
-				."\n LEFT JOIN #__sections AS s ON s.id = cc.section AND s.scope = 'content'"
-				."\n WHERE c.state = -2";
+		."\n FROM #__content AS c"
+		."\n LEFT JOIN #__categories AS cc ON cc.id = c.catid"
+		."\n LEFT JOIN #__sections AS s ON s.id = cc.section AND s.scope = 'content'"
+		."\n WHERE c.state = -2";
 		$database->setQuery($query);
 		$total = $database->loadResult();
 		$pageNav = new mosPageNav($total,$limitstart,$limit);
 
 		// Query content items
 		$query = "SELECT c.*, g.name AS groupname, cc.name AS catname, s.name AS sectname"
-				."\n FROM #__content AS c"
-				."\n LEFT JOIN #__categories AS cc ON cc.id = c.catid"
-				."\n LEFT JOIN #__sections AS s ON s.id = cc.section AND s.scope='content'"
-				."\n INNER JOIN #__groups AS g ON g.id = c.access"
-				."\n LEFT JOIN #__users AS u ON u.id = c.checked_out"
-				."\n WHERE c.state = -2"."\n ORDER BY s.name, cc.name, c.title";
+		."\n FROM #__content AS c"
+		."\n LEFT JOIN #__categories AS cc ON cc.id = c.catid"
+		."\n LEFT JOIN #__sections AS s ON s.id = cc.section AND s.scope='content'"
+		."\n INNER JOIN #__groups AS g ON g.id = c.access"
+		."\n LEFT JOIN #__users AS u ON u.id = c.checked_out"
+		."\n WHERE c.state = -2"."\n ORDER BY s.name, cc.name, c.title";
 		$database->setQuery($query,$pageNav->limitstart,$pageNav->limit);
 		$content = $database->loadObjectList();
 
@@ -104,10 +101,10 @@ function viewTrash($option) {
 
 		// Query menu items
 		$query = "SELECT m.name AS title, m.menutype AS sectname, m.type AS catname, m.id AS id"
-				."\n FROM #__menu AS m"
-				."\n LEFT JOIN #__users AS u ON u.id = m.checked_out"
-				."\n WHERE m.published = -2"
-				."\n ORDER BY m.menutype, m.ordering, m.ordering, m.name";
+		."\n FROM #__menu AS m"
+		."\n LEFT JOIN #__users AS u ON u.id = m.checked_out"
+		."\n WHERE m.published = -2"
+		."\n ORDER BY m.menutype, m.ordering, m.ordering, m.name";
 		$database->setQuery($query,$pageNav->limitstart,$pageNav->limit);
 		$content = $database->loadObjectList();
 	}
@@ -125,134 +122,115 @@ function viewTrash($option) {
 
 
 /**
- * Compiles a list of the items you have selected to permanently delte
- */
+* Compiles a list of the items you have selected to permanently delte
+*/
 function viewdeleteTrash($cid,$mid,$option) {
-
-	$database = &database::getInstance();
+	global $database;
 
 	if(!in_array(0,$cid)) {
 		// Content Items query
 		mosArrayToInts($cid);
 		$cids = 'a.id='.implode(' OR a.id=',$cid);
-		$query = "SELECT a.title AS name FROM #__content AS a WHERE ( $cids ) ORDER BY a.title";
+		$query = "SELECT a.title AS name"."\n FROM #__content AS a"."\n WHERE ( $cids )".
+			"\n ORDER BY a.title";
 		$database->setQuery($query);
 		$items = $database->loadObjectList();
 		$id = $cid;
 		$type = 'content';
 	} else
-	if(!in_array(0,$mid)) {
-		// Content Items query
-		mosArrayToInts($mid);
-		$mids = 'a.id='.implode(' OR a.id=',$mid);
-		$query = "SELECT a.name FROM #__menu AS a WHERE ( $mids ) ORDER BY a.name";
-		$database->setQuery($query);
-		$items = $database->loadObjectList();
-		$id = $mid;
-		$type = 'menu';
-	}
+		if(!in_array(0,$mid)) {
+			// Content Items query
+			mosArrayToInts($mid);
+			$mids = 'a.id='.implode(' OR a.id=',$mid);
+			$query = "SELECT a.name"."\n FROM #__menu AS a"."\n WHERE ( $mids )"."\n ORDER BY a.name";
+			$database->setQuery($query);
+			$items = $database->loadObjectList();
+			$id = $mid;
+			$type = 'menu';
+		}
 
 	HTML_trash::showDelete($option,$id,$items,$type);
 }
 
 
 /**
- * Permanently deletes the selected list of trash items
- */
+* Permanently deletes the selected list of trash items
+*/
 function deleteTrash($cid,$option) {
+	global $database;
 	josSpoofCheck();
-
-	$database = &database::getInstance();
-	$config = &Jconfig::getInstance();
-
 	$type = mosGetParam($_POST,'type',array(0));
-	$total = count($cid);
 
-	if(Jconfig::getInstance()->config_use_content_delete_mambots) {
-		global $_MAMBOTS;
-		$_MAMBOTS->loadBotGroup('content');
-	}
+	$total = count($cid);
 
 	if($type == 'content') {
 		$obj = new mosContent($database);
 		$fp = new mosFrontPage($database);
 		foreach($cid as $id) {
 			$id = intval($id);
-			// Ð¾Ð±Ñ€Ð°Ð±Ð¾Ñ‚ÐºÐ° Ð¼Ð°Ð¼Ð±Ð¾Ñ‚Ð°Ð¼Ð¸ ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ñ ÑÐ¾Ð´ÐµÑ€Ð¶Ð¸Ð¼Ð¾Ð³Ð¾
-			$config->config_use_content_delete_mambots ? $_MAMBOTS->trigger('onDeleteContent',array($id)) : null;
 			$obj->delete($id);
 			$fp->delete($id);
 		}
 	} else
-	if($type == 'menu') {
-		$obj = new mosMenu($database);
-		foreach($cid as $id) {
-			$id = intval($id);
-			$obj->delete($id);
+		if($type == 'menu') {
+			$obj = new mosMenu($database);
+			foreach($cid as $id) {
+				$id = intval($id);
+				$obj->delete($id);
+			}
 		}
-	}
 
 	$msg = $total." "._OBJECTS_DELETED;
-	mosRedirect('index2.php?option='.$option,$msg);
+	mosRedirect("index2.php?option=$option&mosmsg=".$msg."");
 }
 
 /**
- * ÐŸÐ¾Ð»Ð½Ð°Ñ Ð¾Ñ‡Ð¸ÑÑ‚ÐºÐ° ÐºÐ¾Ñ€Ð·Ð¸Ð½Ñ‹
- *
- */
+* Ïîëíàÿ î÷èñòêà êîðçèíû
+*
+*/
 function clearTrash() {
+	global $database;
 	josSpoofCheck();
 
-	$database = &database::getInstance();
-	$config = &Jconfig::getInstance();
-
-	// Ð²Ñ‹Ð±Ð¸Ñ€Ð°ÐµÐ¼ Ð¸Ð· Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñ‹ ÑÐ¾Ð´ÐµÑ€Ð¶Ð¸Ð¼Ð¾Ð³Ð¾ Ð·Ð°Ð¿Ð¸ÑÐ¸ Ð¿Ð¾Ð¼ÐµÑ‡ÐµÐ½Ð½Ñ‹Ðµ ÐºÐ°Ðº ÑƒÐ´Ð°Ð»Ñ‘Ð½Ð½Ñ‹Ðµ
+	// âûáèðàåì èç òàáëèöû ñîäåðæèìîãî çàïèñè ïîìå÷åííûå êàê óäàë¸ííûå
 	$sql_content = 'SELECT id FROM #__content WHERE state="-2" ';
 	$database->setQuery($sql_content);
-	// Ð·Ð°Ð³Ñ€ÑƒÐ·Ð¸Ð¼ Ð¼Ð°ÑÑÐ¸Ð² Ð¸Ð´ÐµÐ½Ñ‚Ð¸Ñ„Ð¸ÐºÐ°Ñ‚Ð¾Ñ€Ð¾Ð² ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚Ð¾Ð² Ð¼ÐµÐ½ÑŽ Ð´Ð»Ñ ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ñ
+	// çàãðóçèì ìàññèâ èäåíòèôèêàòîðîâ ýëåìåíòîâ ìåíþ äëÿ óäàëåíèÿ
 	$cid = $database->loadResultArray();
-	// Ñ‡Ð¸ÑÐ»Ð¾ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚Ð¾Ð² ÑÐ¾Ð´ÐµÑ€Ð¶Ð¸Ð¼Ð¾Ð³Ð¾ Ð´Ð»Ñ ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ñ
+	// ÷èñëî ýëåìåíòîâ ñîäåðæèìîãî äëÿ óäàëåíèÿ
 	$total_content = count($cid);
-	// ÑÐ¾Ð·Ð´Ð°Ñ‘Ð¼ Ð¾Ð±ÑŠÐµÐºÑ‚Ñ‹ ÑÐ¾Ð´ÐµÑ€Ð¶Ð¸Ð¼Ð¾Ð³Ð¾ Ð¸ Ð³Ð»Ð°Ð²Ð½Ð¾Ð¹ ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñ‹
+	// ñîçäà¸ì îáúåêòû ñîäåðæèìîãî è ãëàâíîé ñòðàíèöû
 	$obj = new mosContent($database);
 	$fp = new mosFrontPage($database);
-
-	if($config->config_use_content_delete_mambots) {
-		global $_MAMBOTS;
-		$_MAMBOTS->loadBotGroup('content');
-	}
-
-	// Ð¿ÐµÑ€ÐµÐ±Ð¸Ñ€Ð°Ñ Ð¿Ð¾ Ñ†Ð¸ÐºÐ»Ñƒ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚Ñ‹ Ð¿Ð¾Ð¼ÐµÑ‡ÐµÐ½Ð½Ñ‹Ðµ ÐºÐ°Ðº ÑƒÐ´Ð°Ð»Ñ‘Ð½Ð½Ñ‹Ðµ Ð¿Ñ€Ð¾Ð¸Ð·Ð²ÐµÐ´Ñ‘Ð¼ Ð¸Ñ… Ñ„Ð¸Ð·Ð¸Ñ‡ÐµÑÐºÐ¾Ðµ ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ðµ
+	// ïåðåáèðàÿ ïî öèêëó ýëåìåíòû ïîìå÷åííûå êàê óäàë¸ííûå ïðîèçâåä¸ì èõ ôèçè÷åñêîå óäàëåíèå
 	foreach($cid as $id) {
 		$id = intval($id);
-		// Ð¾Ð±Ñ€Ð°Ð±Ð¾Ñ‚ÐºÐ° Ð¼Ð°Ð¼Ð±Ð¾Ñ‚Ð°Ð¼Ð¸ ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ñ ÑÐ¾Ð´ÐµÑ€Ð¶Ð¸Ð¼Ð¾Ð³Ð¾
-		$config->config_use_content_delete_mambots ? $_MAMBOTS->trigger('onDeleteContent',array($id)) : null;
+		echo $id;
 		$obj->delete($id);
 		$fp->delete($id);
 	}
-	// Ð²Ñ‹Ð±Ð¸Ñ€Ð°ÐµÐ¼ Ð¸Ð· Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñ‹ ÑÐ¾Ð´ÐµÑ€Ð¶Ð¸Ð¼Ð¾Ð³Ð¾ Ð¼ÐµÐ½ÑŽ Ð¿Ð¾Ð¼ÐµÑ‡ÐµÐ½Ð½Ñ‹Ðµ ÐºÐ°Ðº ÑƒÐ´Ð°Ð»Ñ‘Ð½Ð½Ñ‹Ðµ
+	// âûáèðàåì èç òàáëèöû ñîäåðæèìîãî ìåíþ ïîìå÷åííûå êàê óäàë¸ííûå
 	$sql_content = 'SELECT id FROM #__menu WHERE published="-2" ';
 	$database->setQuery($sql_content);
 	$cid = $database->loadResultArray();
-	// Ñ‡Ð¸ÑÐ»Ð¾ Ð¿ÑƒÐ½ÐºÑ‚Ð¾Ð² Ð¼ÐµÐ½ÑŽ Ð´Ð»Ñ ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ñ
+	// ÷èñëî ïóíêòîâ ìåíþ äëÿ óäàëåíèÿ
 	$total_menu = count($cid);
-	// ÑÐ¾Ð·Ð´Ð°Ð´Ð¸Ð¼ Ð¾Ð±ÑŠÐµÐºÑ‚ Ð¼ÐµÐ½ÑŽ
+	// ñîçäàäèì îáúåêò ìåíþ
 	$obj = new mosMenu($database);
-	// Ð¿ÐµÑ€ÐµÐ±Ð¸Ñ€Ð°Ñ Ð¿Ð¾ Ñ†Ð¸ÐºÐ»Ñƒ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚Ñ‹ Ð¿Ð¾Ð¼ÐµÑ‡ÐµÐ½Ð½Ñ‹Ðµ ÐºÐ°Ðº ÑƒÐ´Ð°Ð»Ñ‘Ð½Ð½Ñ‹Ðµ Ð¿Ñ€Ð¾Ð¸Ð·Ð²ÐµÐ´Ñ‘Ð¼ Ð¸Ñ… Ñ„Ð¸Ð·Ð¸Ñ‡ÐµÑÐºÐ¾Ðµ ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ðµ
+	// ïåðåáèðàÿ ïî öèêëó ýëåìåíòû ïîìå÷åííûå êàê óäàë¸ííûå ïðîèçâåä¸ì èõ ôèçè÷åñêîå óäàëåíèå
 	foreach($cid as $id) {
 		$id = intval($id);
 		$obj->delete($id);
 	}
-	//ÑÐ¾Ð±Ð¸Ñ€Ð°ÐµÐ¼ Ð¸Ñ‚Ð¾Ð³Ð¾Ð²Ð¾Ðµ ÑÐ¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ðµ
-	$msg = _SUCCESS_DELETION.': content: '.$total_content.', menu: '.$total_menu;
-	mosRedirect('index2.php?option='.$option,$msg);
+	//ñîáèðàåì èòîãîâîå ñîîáùåíèå
+	$msg = _SUCCESS_DELETION.': '.$total_content.', '.$total_menu;
+	mosRedirect("index2.php?option=$option&mosmsg=".$msg."");
 }
 /**
- * Compiles a list of the items you have selected to permanently delte
- */
+* Compiles a list of the items you have selected to permanently delte
+*/
 function viewrestoreTrash($cid,$mid,$option) {
-	$database = &database::getInstance();
-
+	global $database;
 	if(!in_array(0,$cid)) {
 		// Content Items query
 		mosArrayToInts($cid);
@@ -266,28 +244,27 @@ function viewrestoreTrash($cid,$mid,$option) {
 		$id = $cid;
 		$type = "content";
 	} else
-	if(!in_array(0,$mid)) {
-		// Content Items query
-		mosArrayToInts($mid);
-		$mids = 'a.id='.implode(' OR a.id=',$mid);
-		$query = "SELECT a.name"."\n FROM #__menu AS a"."\n WHERE ( $mids )"."\n ORDER BY a.name";
-		$database->setQuery($query);
-		$items = $database->loadObjectList();
-		$id = $mid;
-		$type = "menu";
-	}
+		if(!in_array(0,$mid)) {
+			// Content Items query
+			mosArrayToInts($mid);
+			$mids = 'a.id='.implode(' OR a.id=',$mid);
+			$query = "SELECT a.name"."\n FROM #__menu AS a"."\n WHERE ( $mids )"."\n ORDER BY a.name";
+			$database->setQuery($query);
+			$items = $database->loadObjectList();
+			$id = $mid;
+			$type = "menu";
+		}
 
 	HTML_trash::showRestore($option,$id,$items,$type);
 }
 
 
 /**
- * Restores items selected to normal - restores to an unpublished state
- */
+* Restores items selected to normal - restores to an unpublished state
+*/
 function restoreTrash($cid,$option) {
+	global $database;
 	josSpoofCheck();
-
-	$database = &database::getInstance();
 
 	$type = mosGetParam($_POST,'type',array(0));
 
@@ -301,48 +278,53 @@ function restoreTrash($cid,$option) {
 		// query to restore content items
 		mosArrayToInts($cid);
 		$cids = 'id='.implode(' OR id=',$cid);
-		$query = "UPDATE #__content"."\n SET state = ".(int)$state.", ordering = ".(int)$ordering."\n WHERE ( $cids )";
+		$query = "UPDATE #__content"."\n SET state = ".(int)$state.", ordering = ".(int)
+			$ordering."\n WHERE ( $cids )";
 		$database->setQuery($query);
 		if(!$database->query()) {
 			echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
 			exit();
 		}
 	} else
-	if($type == 'menu') {
-		sort($cid);
+		if($type == 'menu') {
+			sort($cid);
 
-		foreach($cid as $id) {
-			$check = 1;
-			$row = new mosMenu($database);
-			$row->load($id);
+			foreach($cid as $id) {
+				$check = 1;
+				$row = new mosMenu($database);
+				$row->load($id);
 
-			// check if menu item is a child item
-			if($row->parent != 0) {
-				$query = "SELECT id FROM #__menu"
-						."\n WHERE id = ".(int)$row->parent
-						."\n AND ( published = 0 OR published = 1 )";
+				// check if menu item is a child item
+				if($row->parent != 0) {
+					$query = "SELECT id"."\n FROM #__menu"
+							."\n WHERE id = ".(int)$row->parent
+							."\n AND ( published = 0 OR published = 1 )";
+					$database->setQuery($query);
+					$check = $database->loadResult();
+
+					if(!$check) {
+						// if menu items parent is not found that are published/unpublished make it a root menu item
+						$query = "UPDATE #__menu"
+								."\n SET parent = 0, published = ".(int)$state.", ordering = 9999"
+								."\n WHERE id = ".(int)$id;
+					}
+				}
+
+				if($check) {
+					// query to restore menu items
+					$query = "UPDATE #__menu"."\n SET published = ".(int)$state.", ordering = 9999".
+						"\n WHERE id = ".(int)$id;
+				}
+
 				$database->setQuery($query);
-				$check = $database->loadResult();
-
-				if(!$check) {
-					// if menu items parent is not found that are published/unpublished make it a root menu item
-					$query = "UPDATE #__menu SET parent = 0, published = ".(int)$state.", ordering = 9999 WHERE id = ".(int)$id;
+				if(!$database->query()) {
+					echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
+					exit();
 				}
 			}
-
-			if($check) {
-				// query to restore menu items
-				$query = "UPDATE #__menu SET published = ".(int)$state.", ordering = 9999 WHERE id = ".(int)$id;
-			}
-
-			$database->setQuery($query);
-			if(!$database->query()) {
-				echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
-				exit();
-			}
 		}
-	}
 
 	$msg = $total." "._OBJECTS_RESTORED;
-	mosRedirect("index2.php?option=".$option,$msg);
+	mosRedirect("index2.php?option=$option&mosmsg=".$msg."");
 }
+?>

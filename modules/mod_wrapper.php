@@ -1,70 +1,68 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
-
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
-defined( '_VALID_MOS' ) or die();
-
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
+// çàïðåò ïðÿìîãî äîñòóïà
+defined('_VALID_MOS') or die();
 global $mod_wrapper_count;
-
-$params->def( 'url', '' );
-$params->def( 'scrolling', 'auto' );
-$params->def( 'height', '200' );
-$params->def( 'height_auto', '0' );
-$params->def( 'width', '100%' );
-$params->def( 'add', '1' );
-
-$url = $params->get( 'url' );
-if ( $params->get( 'add' ) ) {
-	// Ð”Ð¾Ð±Ð°Ð²Ð¸Ñ‚ÑŒ 'http://' , ÐµÑÐ»Ð¸ Ð¾Ñ‚ÑÑƒÑ‚ÑÑ‚Ð²ÑƒÐµÑ‚
-	if ( substr( $url, 0, 1 ) == '/' ) {
-		// relative url in component. use server http_host.
-		$url = 'http://'. $_SERVER['HTTP_HOST'] . $url;
-	} elseif ( !strstr( $url, 'http' ) && !strstr( $url, 'https' ) ) {
-		$url = 'http://'. $url;
-	}
-}
-
-// Create a unique ID for the IFrame, output the javascript function only once
-if (!isset( $mod_wrapper_count )) {
-	$mod_wrapper_count = 0;
-	?>
-<script language="javascript" type="text/javascript">
-	function iFrameHeightX( iFrameId ) {
-		var h = 0;
-		if ( !document.all ) {
-			h = document.getElementById(iFrameId).contentDocument.height;
-			document.getElementById(iFrameId).style.height = h + 60 + 'px';
-		} else if( document.all ) {
-			h = document.frames(iFrameId).document.body.scrollHeight;
-			document.all[iFrameId].style.height = h + 20 + 'px';
-		}
-	}
-</script>
-	<?php
-}
-
-// Ð°Ð²Ñ‚Ð¾Ð¼Ð°Ñ‚Ð¸Ñ‡ÐµÑÐºÐ¸Ð¹ ÐºÐ¾Ð½Ñ‚Ñ€Ð¾Ð»ÑŒ Ð²Ñ‹ÑÐ¾Ñ‚Ñ‹
-if ( $params->def( 'height_auto' ) ) {
-	$load = 'onload="iFrameHeightX(\'blockrandom' . $mod_wrapper_count . '\')" ';
+$params->def('url', '');
+$params->def('scrolling', 'auto');
+$params->def('height', '200');
+$params->def('height_auto', '0');
+$params->def('width', '100%');
+$params->def('add', '1');
+$url = $params->get('url');
+if ($params->get('add')) {
+// Äîáàâèòü 'http://' , åñëè îòñóòñòâóåò  
+if (substr($url, 0, 1) == '/') {
+// relative url in component. use server http_host.
+$url = 'http://'.$_SERVER['HTTP_HOST'].$url;
+} else if (!strstr($url, 'http') && !strstr($url, 'https')) {
+$url = 'http://'.$url;
 } else {
-	$load = '';
+$url = $url;
+}
+}
+// Create a unique ID for the IFrame, output the javascript function only once
+if (!isset($mod_wrapper_count)) {
+$mod_wrapper_count = 0;
+?>
+<script language="javascript" type="text/javascript">
+<!--
+function iFrameHeightX(iFrameId) {
+var h = 0;
+if (!document.all) {
+h = document.getElementById(iFrameId).contentDocument.height;
+document.getElementById(iFrameId).style.height = h + 60 + 'px';
+} else if(document.all) {
+h = document.frames(iFrameId).document.body.scrollHeight;
+document.all[iFrameId].style.height = h + 20 + 'px';
+}
+}
+//-->
+</script>
+<?php
+}
+// àâòîìàòè÷åñêèé êîíòðîëü âûñîòû
+if ($params->def('height_auto')) {
+$load = 'onload="iFrameHeightX(\'blockrandom'.$mod_wrapper_count.'\')" ';
+} else {
+$load = '';
 }
 ?>
 <iframe
 <?php echo $load; ?>
-	id="blockrandom<?php echo $mod_wrapper_count++; ?>"
-	src="<?php echo $url; ?>"
-	width="<?php echo $params->get( 'width' ); ?>"
-	height="<?php echo $params->get( 'height' ); ?>"
-	scrolling="<?php echo $params->get( 'scrolling' ); ?>"
-	align="top"
-	frameborder="0"
-	class="wrapper<?php echo $params->get( 'moduleclass_sfx' ); ?>">
-		<?php echo _IFRAMES; ?>
+id="blockrandom<?php echo $mod_wrapper_count++; ?>"
+src="<?php echo $url; ?>"
+width="<?php echo $params->get('width'); ?>"
+height="<?php echo $params->get('height'); ?>"
+scrolling="<?php echo $params->get('scrolling'); ?>"
+align="top"
+frameborder="0"
+class="wrapper<?php echo $params->get('moduleclass_sfx'); ?>">
+<?php echo _CMN_IFRAMES; ?>
 </iframe>

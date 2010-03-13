@@ -1,47 +1,25 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
 
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
-
 /**
- * Module installer
- * @package Joostina
- */
+* Module installer
+* @package Joostina
+*/
 class mosInstallerModule extends mosInstaller {
-
-	function __construct($pre_installer) {
-		// Copy data
-		$this->i_installfilename = $pre_installer->i_installfilename;
-		$this->i_installarchive = $pre_installer->i_installarchive;
-		$this->i_installdir = $pre_installer->i_installdir;
-		$this->i_iswin = $pre_installer->i_iswin;
-		$this->i_errno = $pre_installer->i_errno;
-		$this->i_error = $pre_installer->i_error;
-		$this->i_installtype = $pre_installer->i_installtype;
-		$this->i_unpackdir = $pre_installer->i_unpackdir;
-		$this->i_docleanup = $pre_installer->i_docleanup;
-		$this->i_elementdir = $pre_installer->i_elementdir;
-		$this->i_elementname = $pre_installer->i_elementname;
-		$this->i_elementspecial = $pre_installer->i_elementspecial;
-		$this->i_xmldoc = $pre_installer->i_xmldoc;
-		$this->i_hasinstallfile = $pre_installer->i_hasinstallfile;
-		$this->i_installfile = $pre_installer->i_installfile;
-	}
-
 	/**
-	 * Custom install method
-	 * @param boolean True if installing from directory
-	 */
+	* Custom install method
+	* @param boolean True if installing from directory
+	*/
 	function install($p_fromdir = null) {
-		$database = &database::getInstance();
-
+		global $mosConfig_absolute_path,$database;
 		josSpoofCheck();
 		if(!$this->preInstallCheck($p_fromdir,'module')) {
 			return false;
@@ -63,7 +41,7 @@ class mosInstallerModule extends mosInstaller {
 		// Set some vars
 		$e = &$mosinstall->getElementsByPath('name',1);
 		$this->elementName($e->getText());
-		$this->elementDir(mosPathName(JPATH_BASE.($client == 'admin'?'/'.JADMIN_BASE:'').'/modules/'));
+		$this->elementDir(mosPathName($mosConfig_absolute_path.($client == 'admin'?'/'.ADMINISTRATOR_DIRECTORY:'').'/modules/'));
 
 		$e = &$mosinstall->getElementsByPath('position',1);
 		if(!is_null($e)) {
@@ -80,14 +58,13 @@ class mosInstallerModule extends mosInstaller {
 		}
 
 		if($this->parseFiles('files','module',_NO_FILES_MODULES) === false) {
-			$this->cleanAfterError();
 			return false;
 		}
 		$this->parseFiles('images');
 
 		$client_id = intval($client == 'admin');
 		// Insert in module in DB
-		$query = "SELECT id FROM #__modules WHERE module = ".$database->Quote($this->elementSpecial())." AND client_id = ".(int)$client_id;
+		$query = "SELECT id FROM #__modules WHERE module = ".$database->Quote($this->elementSpecial())."\n AND client_id = ".(int)$client_id;
 		$database->setQuery($query);
 		if(!$database->query()) {
 			$this->setError(1,_SQL_ERROR.': '.$database->stderr(true));
@@ -121,23 +98,24 @@ class mosInstallerModule extends mosInstaller {
 			return false;
 		}
 		if($e = &$mosinstall->getElementsByPath('description',1)) {
-			$this->setError(0,'<h2>'.$this->elementName().'</h2><p>'.$e->getText().'</p>');
+			$this->setError(0,$this->elementName().'<p>'.$e->getText().'</p>');
 		}
 
 		return $this->copySetupFile('front');
 	}
 	/**
-	 * Custom install method
-	 * @param int The id of the module
-	 * @param string The URL option
-	 * @param int The client id
-	 */
+	* Custom install method
+	* @param int The id of the module
+	* @param string The URL option
+	* @param int The client id
+	*/
 	function uninstall($id,$option,$client = 0) {
-		global $database;
+		global $database,$mosConfig_absolute_path;
 		josSpoofCheck();
 		$id = intval($id);
 
-		$query = "SELECT module, iscore, client_id FROM #__modules WHERE id = ".(int)$id;
+		$query = "SELECT module, iscore, client_id FROM #__modules WHERE id = ".(int)
+			$id;
 		$database->setQuery($query);
 		$row = null;
 		$database->loadObject($row);
@@ -170,9 +148,9 @@ class mosInstallerModule extends mosInstaller {
 			}
 
 			if(!$row->client_id) {
-				$basepath = JPATH_BASE.'/modules/';
+				$basepath = $mosConfig_absolute_path.'/modules/';
 			} else {
-				$basepath = JPATH_BASE_ADMIN.'/modules/';
+				$basepath = $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/modules/';
 			}
 
 			$xmlfile = $basepath.$row->module.'.xml';
@@ -204,6 +182,7 @@ class mosInstallerModule extends mosInstaller {
 								echo intval($result);
 							}
 						}
+
 						// remove XML file from front
 						echo _DELETING_XML_FILE.": $xmlfile";
 						@unlink(mosPathName($xmlfile,false));
@@ -212,65 +191,7 @@ class mosInstallerModule extends mosInstaller {
 				}
 			}
 		}
-	}
 
-	/**
-	 * Uninstall method
-	 */
-	function cleanAfterError() {
-		global $database, $client;
-		josSpoofCheck();
-
-		$mosinstall = &$this->i_xmldoc->documentElement;
-		$client = $mosinstall->getAttribute('client');
-
-		if($client == 'administrator') {
-			$basepath = JPATH_BASE_ADMIN."/modules/";
-		}
-		else {
-			$basepath = JPATH_BASE."/modules/";
-		}
-
-		// Search the install dir for an xml file
-		$files = mosReadDirectory($this->installDir(),'.xml$',true,true);
-
-		if(count($files) > 0) {
-			foreach($files as $file) {
-				$packagefile = $this->isPackageFile($file);
-				if(!is_null($packagefile)) {
-					$xmlfilename =  $file;
-				}
-			}
-		}
-		if($this->isWindows()) {
-			$elementName = substr(substr(strrchr($xmlfilename, '\\'), 1), 0,  -4);
-		}else {
-			$elementName = substr(substr(strrchr($xmlfilename, '/'), 1), 0, -4);
-		}
-
-		// get the files element
-		$files_element = &$mosinstall->getElementsByPath('files',1);
-		if(!is_null($files_element)) {
-			$files = $files_element->childNodes;
-			foreach($files as $file) {
-				// delete the files
-				$filename = $file->getText();
-				if(file_exists($basepath.$filename)) {
-					$parts = pathinfo($filename);
-					$subpath = $parts['dirname'];
-					if($subpath != '' && $subpath != '.' && $subpath != '..') {
-						$result = deldir(mosPathName($basepath.'/'.$subpath.'/'));
-					} else {
-						$result = unlink(mosPathName($basepath.$filename,false));
-					}
-				}
-			}
-		}
-		// remove XML file from front
-		@unlink(mosPathName($basepath.'/'.$elementName. '.xml',false));
-		if(file_exists($basepath. $elementName)) {
-			deldir($basepath. $elementName . '/');
-		}
-		return true;
 	}
 }
+?>

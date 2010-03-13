@@ -1,17 +1,19 @@
 <?php
 /**
- * @package Joostina
- * @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2010 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
- * @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
- * Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
- * Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
- */
+* @package Joostina
+* @copyright Авторские права (C) 2008 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+*/
 
-// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+// запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 // ensure user has access to this function
-if(!($acl->acl_check('administration','edit','users',$my->usertype,'components','all') | $acl->acl_check('administration','edit','users',$my->usertype,'components','com_frontpage'))) {
+if(!($acl->acl_check('administration','edit','users',$my->usertype,'components',
+	'all') | $acl->acl_check('administration','edit','users',$my->usertype,
+	'components','com_frontpage'))) {
 	mosRedirect('index2.php',_NOT_AUTH);
 }
 
@@ -69,12 +71,10 @@ switch($task) {
 
 
 /**
- * Compiles a list of frontpage items
- */
+* Compiles a list of frontpage items
+*/
 function viewFrontPage($option) {
-	global $mainframe,$mosConfig_list_limit;
-
-	$database = &database::getInstance();
+	global $database,$mainframe,$mosConfig_list_limit;
 
 	$catid = intval($mainframe->getUserStateFromRequest("catid{$option}",'catid',0));
 	$filter_authorid = intval($mainframe->getUserStateFromRequest("filter_authorid{$option}",'filter_authorid',0));
@@ -101,7 +101,8 @@ function viewFrontPage($option) {
 	}
 
 	if($search) {
-		$where[] = "LOWER( c.title ) LIKE '%".$database->getEscaped(Jstring::trim(Jstring::strtolower($search)))."%'";
+		$where[] = "LOWER( c.title ) LIKE '%".$database->getEscaped(trim(strtolower($search))).
+			"%'";
 	}
 
 	// get the total number of records
@@ -113,7 +114,7 @@ function viewFrontPage($option) {
 	$database->setQuery($query);
 	$total = $database->loadResult();
 
-	require_once (JPATH_BASE.'/'.JADMIN_BASE.'/includes/pageNavigation.php');
+	require_once ($GLOBALS['mosConfig_absolute_path'].'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
 	$query = "SELECT c.*, g.name AS groupname, cc.name, s.name AS sect_name, u.name AS editor, f.ordering AS fpordering, v.name AS author"
@@ -159,23 +160,20 @@ function viewFrontPage($option) {
 	$authors = array_merge($authors,$database->loadObjectList());
 	$lists['authorid'] = mosHTML::selectList($authors,'filter_authorid','class="inputbox" size="1" onchange="document.adminForm.submit( );"','created_by','name',$filter_authorid);
 
-	ContentView::showList($rows,$search,$pageNav,$option,$lists);
+	HTML_content::showList($rows,$search,$pageNav,$option,$lists);
 }
 
 /**
- * Changes the state of one or more content pages
- * @param array An array of unique category id numbers
- * @param integer 0 if unpublishing, 1 if publishing
- */
+* Changes the state of one or more content pages
+* @param array An array of unique category id numbers
+* @param integer 0 if unpublishing, 1 if publishing
+*/
 function changeFrontPage($cid = null,$state = 0,$option) {
-	global $my;
-
-	$database = &database::getInstance();
-
+	global $database,$my;
 	josSpoofCheck();
 	if(count($cid) < 1) {
-		$action = $state == 1 ? _CHANGE_TO_PUBLISH : ($state == -1 ? _CHANGE_TO_ARH  : _CHANGE_TO_UNPUBLISH);
-		echo "<script> alert('Р’С‹Р±РµСЂРёС‚Рµ РѕР±СЉРµРєС‚ РґР»СЏ $action'); window.history.go(-1);</script>\n";
+		$action = $state == 1?'публикации':($state == -1?'архивирования':'сокрытия');
+		echo "<script> alert('Выберите объект для $action'); window.history.go(-1);</script>\n";
 		exit;
 	}
 
@@ -203,12 +201,10 @@ function changeFrontPage($cid = null,$state = 0,$option) {
 }
 
 function removeFrontPage(&$cid,$option) {
+	global $database;
 	josSpoofCheck();
-
-	$database = &database::getInstance();
-
 	if(!is_array($cid) || count($cid) < 1) {
-		echo "<script> alert('"._CHOOSE_OBJ_DELETE."'); window.history.go(-1);</script>\n";
+		echo "<script> alert('Выберите объект для удаления'); window.history.go(-1);</script>\n";
 		exit;
 	}
 	$fp = new mosFrontPage($database);
@@ -234,14 +230,12 @@ function removeFrontPage(&$cid,$option) {
 }
 
 /**
- * Moves the order of a record
- * @param integer The increment to reorder by
- */
+* Moves the order of a record
+* @param integer The increment to reorder by
+*/
 function orderFrontPage($uid,$inc,$option) {
+	global $database;
 	josSpoofCheck();
-
-	$database = &database::getInstance();
-
 	$fp = new mosFrontPage($database);
 	$fp->load((int)$uid);
 	$fp->move($inc);
@@ -253,15 +247,13 @@ function orderFrontPage($uid,$inc,$option) {
 }
 
 /**
- * @param integer The id of the content item
- * @param integer The new access level
- * @param string The URL option
- */
+* @param integer The id of the content item
+* @param integer The new access level
+* @param string The URL option
+*/
 function accessMenu($uid,$access) {
+	global $database;
 	josSpoofCheck();
-
-	$database = &database::getInstance();
-
 	$row = new mosContent($database);
 	$row->load((int)$uid);
 	$row->access = $access;
@@ -280,19 +272,18 @@ function accessMenu($uid,$access) {
 }
 
 function saveOrder(&$cid) {
+	global $database;
 	josSpoofCheck();
-
-	$database = &database::getInstance();
-
 	$total = count($cid);
 	$order = josGetArrayInts('order');
-
+	print_r($order);
 	for($i = 0; $i < $total; $i++) {
-		$query = "UPDATE #__content_frontpage SET ordering = ".(int)$order[$i]." WHERE content_id = ".(int)
-				$cid[$i];
+		$query = "UPDATE #__content_frontpage"."\n SET ordering = ".(int)$order[$i]."\n WHERE content_id = ".(int)
+			$cid[$i];
 		$database->setQuery($query);
 		if(!$database->query()) {
-			echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
+			echo "<script> alert('".$database->getErrorMsg().
+				"'); window.history.go(-1); </script>\n";
 			exit();
 		}
 
@@ -306,5 +297,6 @@ function saveOrder(&$cid) {
 	mosCache::cleanCache('com_content');
 
 	$msg = _NEW_ORDER_SAVED;
-	mosRedirect( 'index2.php?option=com_frontpage', $msg );
+	//mosRedirect( 'index2.php?option=com_frontpage', $msg );
 }
+?>

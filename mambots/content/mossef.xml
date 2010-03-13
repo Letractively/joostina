@@ -1,14 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <mosinstall version="1.0.0" type="mambot" group="content">
 	<name>mossef</name>
 	<author>Joostina! Project</author>
-	<creationDate>РђРІРіСѓСЃС‚ 2004</creationDate>
-	<copyright>(C) 2008-2010 Joostina team.</copyright>
+	<creationDate>Август 2004</creationDate>
+	<copyright>(C) 2008 Joostina team.</copyright>
 	<license>http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL</license>
 	<authorEmail>joostinacms@gmail.com</authorEmail>
 	<authorUrl>www.joostina.ru</authorUrl>
 	<version>1.0.0 RE</version>
-	<description>Р”РѕР±Р°РІР»РµРЅРёРµ РїРѕРґРґРµСЂР¶РєРё SEF РґР»СЏ СЃСЃС‹Р»РѕРє РЅР° РѕР±СЉРµРєС‚С‹ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ.  Р­С‚Рѕ СЂР°Р±РѕС‚Р°РµС‚ РЅР°РїСЂСЏРјСѓСЋ СЃ html Рё РЅРµ С‚СЂРµР±СѓРµС‚ СЃРїРµС†РёР°Р»СЊРЅС‹С… С‚СЌРіРѕРІ.</description>
+	<description>Добавление поддержки SEF для ссылок на объекты содержимого. Это работает напрямую с html и не требует специальных тэгов.</description>
 	<files>
 		<filename mambot="mossef">mossef.php</filename>
 	</files>

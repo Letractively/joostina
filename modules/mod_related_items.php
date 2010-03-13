@@ -1,86 +1,77 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
-
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
-defined( '_VALID_MOS' ) or die();
-
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
+// çàïðåò ïðÿìîãî äîñòóïà
+defined('_VALID_MOS') or die();
 global $mosConfig_offset, $option, $task,$my;
-
-$id		= intval( mosGetParam( $_REQUEST, 'id', null ) );
-$limit = $params->get( 'limit',5);
-
-$now		= _CURRENT_SERVER_TIME;
-$nullDate = $database->getNullDate();
-
+$id= intval(mosGetParam($_REQUEST, 'id', null));
+$now= _CURRENT_SERVER_TIME;
+$nullDate = $database->getNullDate();   
 if ($option == 'com_content' && $task == 'view' && $id) {
-	// Ð²Ñ‹Ð±Ð¾Ñ€ÐºÐ° ÐºÐ»ÑŽÑ‡ÐµÐ²Ñ‹Ñ… ÑÐ»Ð¾Ð² Ð¸Ð· Ð¾Ð±ÑŠÐµÐºÑ‚Ð°
-	$query = 'SELECT metakey FROM #__content WHERE id = '.(int) $id;
-	$database->setQuery( $query );
-	if ($metakey = trim( $database->loadResult() )) {
-		// Ñ€Ð°Ð·Ð´ÐµÐ»Ð¸Ñ‚ÑŒ ÐºÐ»ÑŽÑ‡ÐµÐ²Ñ‹Ðµ ÑÐ»Ð¾Ð²Ð° Ð·Ð°Ð¿ÑÑ‚Ñ‹Ð¼Ð¸
-		$keys = explode( ',', $metakey );
-		$likes = array();
-
-		// ÑÐ¾Ð±Ð¸Ñ€Ð°Ð½Ð¸Ðµ Ð»ÑŽÐ±Ñ‹Ñ… Ð½ÐµÐ¿ÑƒÑÑ‚Ñ‹Ñ… ÑÐ»Ð¾Ð²
-		foreach ($keys as $key) {
-			$key = trim( $key );
-			if ($key) {
-				$likes[] = $database->getEscaped( $key, true );
-			}
-		}
-
-		if (count($likes)) {
-			// select other items based on the metakey field 'like' the keys found
-			$query = "SELECT a.id, a.title, a.sectionid, a.catid, cc.access AS cat_access, s.access AS sec_access, cc.published AS cat_state, s.published AS sec_state"
-					. "\n FROM #__content AS a"
-					. "\n LEFT JOIN #__content_frontpage AS f ON f.content_id = a.id"
-					. "\n LEFT JOIN #__categories AS cc ON cc.id = a.catid"
-					. "\n LEFT JOIN #__sections AS s ON s.id = a.sectionid"
-					. "\n WHERE a.id != " . (int) $id
-					. "\n AND a.state = 1"
-					. "\n AND a.access <= " . (int) $my->gid
-					. "\n AND ( a.metakey LIKE '%" . implode( "%' OR a.metakey LIKE '%", $likes ) ."%' )"
-					. "\n AND ( a.publish_up = " . $database->Quote( $nullDate ) . " OR a.publish_up <= " . $database->Quote( $now ) . " )"
-					. "\n AND ( a.publish_down = " . $database->Quote( $nullDate ) . " OR a.publish_down >= " . $database->Quote( $now ) . " )"
-			;
-			$database->setQuery( $query, 0, $limit );
-			$temp = $database->loadObjectList();
-
-			$related = array();
-			if (count($temp)) {
-				foreach ($temp as $row ) {
-					if (($row->cat_state == 1 || $row->cat_state == '') &&  ($row->sec_state == 1 || $row->sec_state == '') &&  ($row->cat_access <= $my->gid || $row->cat_access == '') &&  ($row->sec_access <= $my->gid || $row->sec_access == '')) {
-						$related[] = $row;
-					}
-				}
-			}
-			unset($temp);
-
-			if ( count( $related ) ) {?>
-<ul>
+// âûáîðêà êëþ÷åâûõ ñëîâ èç îáúåêòà
+$query = "SELECT metakey"
+. "\n FROM #__content"
+. "\n WHERE id = " . (int) $id
+;
+$database->setQuery($query);
+if ($metakey = trim($database->loadResult())) {
+// ðàçäåëèòü êëþ÷åâûå ñëîâà çàïÿòûìè
+$keys = explode(',', $metakey);
+$likes = array();
+// ñîáèðàíèå ëþáûõ íåïóñòûõ ñëîâ
+foreach ($keys as $key) {
+$key = trim($key);
+if ($key) {
+$likes[] = $database->getEscaped($key, true);
+}
+}
+if (count( $likes )) {
+// select other items based on the metakey field 'like' the keys found
+$query = "SELECT a.id, a.title, a.sectionid, a.catid, cc.access AS cat_access, s.access AS sec_access, cc.published AS cat_state, s.published AS sec_state"
+. "\n FROM #__content AS a"
+. "\n LEFT JOIN #__content_frontpage AS f ON f.content_id = a.id"
+. "\n LEFT JOIN #__categories AS cc ON cc.id = a.catid"
+. "\n LEFT JOIN #__sections AS s ON s.id = a.sectionid"
+. "\n WHERE a.id != " . (int) $id
+. "\n AND a.state = 1"
+. "\n AND a.access <= " . (int) $my->gid
+. "\n AND (a.metakey LIKE '%" . implode("%' OR a.metakey LIKE '%", $likes) ."%')"
+. "\n AND (a.publish_up = " . $database->Quote($nullDate) . " OR a.publish_up <= " . $database->Quote($now) . ")"
+. "\n AND (a.publish_down = " . $database->Quote($nullDate) . " OR a.publish_down >= " . $database->Quote($now) . ")"
+;
+$database->setQuery($query);
+$temp = $database->loadObjectList(); 
+$related = array();
+if (count($temp)) {
+foreach ($temp as $row ) {
+if (($row->cat_state == 1 || $row->cat_state == '') &&  ($row->sec_state == 1 || $row->sec_state == '') &&  ($row->cat_access <= $my->gid || $row->cat_access == '') &&  ($row->sec_access <= $my->gid || $row->sec_access == '')) {
+$related[] = $row;
+}
+}
+}
+unset($temp);
+if (count($related)) {?>
+<ul class="related_items<?php echo $moduleclass_sfx; ?>">
 <?php
-					foreach ($related as $item) {
-						if ($option == 'com_content' && $task == 'view') {
-							$Itemid = $mainframe->getItemid($item->id);
-						}
-						$href = sefRelToAbs( "index.php?option=com_content&amp;task=view&amp;id=$item->id&amp;Itemid=$Itemid" );
-						?>
-	<li>
-		<a href="<?php echo $href; ?>"><?php echo $item->title; ?></a>
-	</li>
+foreach ($related as $item) {
+if ($option == 'com_content' && $task == 'view') {
+$Itemid = $mainframe->getItemid($item->id);
+}
+$href = sefRelToAbs("index.php?option=com_content&amp;task=view&amp;id=$item->id&amp;Itemid=$Itemid");
+?>
+<li class="related_items<?php echo $moduleclass_sfx; ?>"><a class="related_items" href="<?php echo $href; ?>"><?php echo $item->title; ?></a></li>
 <?php
-					}
+}
 ?>
 </ul>
 <?php
-			}
-		}
-	}
 }
-unset($related,$item,$likes);
+}
+}
+}
+?>

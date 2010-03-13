@@ -1,16 +1,17 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
 
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
 
-require_once (JPATH_BASE.DS.JADMIN_BASE.'/components/com_xmap/classes/XmapSitemap.php');
+global $mosConfig_absolute_path;
+require_once ($mosConfig_absolute_path . '/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/classes/XmapSitemap.php');
 
 class XmapConfig {
 	var $version 			= '1.1';
@@ -46,7 +47,7 @@ class XmapConfig {
 
 	/** Return $menus as an associative array */
 	function &getSitemaps() {
-		$database = &database::getInstance();
+		global $database;
 
 		$query = "SELECT id FROM #__xmap_sitemap";
 		$database->setQuery($query);
@@ -63,11 +64,12 @@ class XmapConfig {
 
 	/** Create the settings table for Xmap and add initial default values */
 	function create() {
-		$database = &database::getInstance();
+		global $database,$mosConfig_absolute_path;
 
 		$fields = array();
 		$fields[] = "`name` varchar(30) not null primary key";
 		$fields[] = "`value` varchar(100)";
+
 
 		$query = "CREATE TABLE #__xmap (". implode(', ', $fields) .")";
 		$database->setQuery( $query );
@@ -93,10 +95,10 @@ class XmapConfig {
 			return false;
 		}
 
-		require_once(JPATH_BASE . '/'.JADMIN_BASE.'/components/com_xmap/classes/XmapPlugin.php');
+		require_once($mosConfig_absolute_path . '/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/classes/XmapPlugin.php');
 		$extensions = array (
-				//	name			published
-				array(	'com_content',		1)
+			//	name			published
+			array(	'com_content',		1)
 		);
 		foreach ( $extensions as $ext ) {
 			$extension = new XmapPlugin($database);
@@ -116,14 +118,14 @@ class XmapConfig {
 					$fields[] = 'id INT NOT NULL PRIMARY KEY AUTO_INCREMENT';
 				} else {
 					switch( gettype( $value ) ) {
-						case 'integer':
+					case 'integer':
 							$fields[] = "`$name` INTEGER NULL";
 							break;
-						case 'string':
+					case 'string':
 							if( $name == 'menus')
-								$fields[] = "`$name` TEXT NULL";
+									$fields[] = "`$name` TEXT NULL";
 							else
-								$fields[] = "`$name` VARCHAR(255) NULL";
+									$fields[] = "`$name` VARCHAR(255) NULL";
 							break;
 					}
 				}
@@ -132,15 +134,15 @@ class XmapConfig {
 		$query = "CREATE TABLE #__xmap_sitemap (". implode(', ', $fields) .")";
 		$database->setQuery( $query );
 		if( $database->query() === FALSE ) {
-			echo _XMAP_ERR_NO_CREATE . "<br />\n";
-			echo mosStripslashes($database->getErrorMsg());
-			return false;
+				echo _XMAP_ERR_NO_CREATE . "<br />\n";
+				echo mosStripslashes($database->getErrorMsg());
+				return false;
 		}
 		echo _XMAP_MSG_SET_DB_CREATED . "<br />\n";
 
 
 		// Insert default Settings
-
+		
 		$sitemap = new XmapSitemap();
 		$sitemap->save();
 
@@ -165,8 +167,7 @@ class XmapConfig {
 
 	/** Create a backup of the settings */
 	function backup() {
-		$database = &database::getInstance();
-
+		global $database;
 		$query = "DROP TABLE IF EXISTS #__xmap_backup";				// remove old backup
 		$database->setQuery( $query );
 		if( $database->query() === FALSE ) {
@@ -208,9 +209,8 @@ class XmapConfig {
 
 	/** Restore backup settings */
 	function restore() {
-		global $mosConfig_dbprefix;
+		global $database,$mosConfig_dbprefix;
 
-		$database = &database::getInstance();
 
 		$query = "show table status like '".$mosConfig_dbprefix."xmap_backup'";
 		$database->setQuery($query);
@@ -295,7 +295,7 @@ class XmapConfig {
 
 	/** Remove the settings table */
 	function remove() {
-		$database = &database::getInstance();
+		global $database;
 		$querys[] = "DROP TABLE IF EXISTS #__xmap";
 		$querys[] = "DROP TABLE IF EXISTS #__xmap_sitemap";
 		$querys[] = "DROP TABLE IF EXISTS #__xmap_ext";
@@ -313,7 +313,7 @@ class XmapConfig {
 
 	/** Load settings from the database into this instance */
 	function load() {
-		$database = &database::getInstance();
+		global $database;
 
 		$query = "SELECT * FROM #__xmap";
 		$database->setQuery( $query );
@@ -329,7 +329,7 @@ class XmapConfig {
 
 	/** Save current settings to the database */
 	function save() {
-		$database = &database::getInstance();
+		global $database;
 
 		$vars = get_object_vars( $this );
 		$query = "DELETE FROM `#__xmap`";
@@ -347,7 +347,7 @@ class XmapConfig {
 
 		return true;
 	}
-
+	
 	/** Debug output of current settings */
 	function dump() {
 		$vars = get_object_vars( $this );
@@ -357,4 +357,5 @@ class XmapConfig {
 		}
 		echo '</pre>';
 	}
+	
 }

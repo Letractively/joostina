@@ -1,68 +1,68 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <mosinstall type="menu" version="1.0.0">
-	<name>РўР°Р±Р»РёС†Р° - Р›РµРЅС‚С‹ РЅРѕРІРѕСЃС‚РµР№ РёР· РєР°С‚РµРіРѕСЂРёРё</name>
+	<name>Таблица - Ленты новостей из категории</name>
 	<group>Component</group>
 	<author>Joostina! Project</author>
-	<creationDate>РЇРЅРІР°СЂСЊ 2008</creationDate>
-	<copyright>(C) 2008-2010 Joostina team.</copyright>
+	<creationDate>Январь 2008</creationDate>
+	<copyright>(C) 2008 Joostina team.</copyright>
 	<license>http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL</license>
 	<authorEmail>joostinacms@gmail.com</authorEmail>
 	<authorUrl>www.joostina.ru</authorUrl>
 	<version>1.0.0</version>
-	<description>Р’ РІРёРґРµ С‚Р°Р±Р»РёС†С‹ РїРѕРєР°Р·С‹РІР°СЋС‚СЃСЏ Р»РµРЅС‚С‹ РЅРѕРІРѕСЃС‚РµР№ РёР· РѕРїСЂРµРґРµР»РµРЅРЅРѕР№ РєР°С‚РµРіРѕСЂРёРё</description>
+	<description>В виде таблицы показываются ленты новостей из определенной категории</description>
 	<params>
-		<param name="menu_image" type="imagelist" directory="/images" hide_default="1" default="" label="РР·РѕР±СЂР°Р¶РµРЅРёРµ РјРµРЅСЋ" description="A small image to be placed to the left or right of your menu item, images must be in /images" />
-		<param name="pageclass_sfx" type="text" default="" label="РЎСѓС„С„РёРєСЃ CSS-РєР»Р°СЃСЃР° СЃС‚СЂР°РЅРёС†С‹" description="РЎСѓС„С„РёРєСЃ CSS-РєР»Р°СЃСЃР°, РёСЃРїРѕР»СЊР·СѓРµРјРѕРіРѕ РЅР° СЌС‚РѕР№ СЃС‚СЂР°РЅРёС†Рµ. РќРµРѕР±С…РѕРґРёРј РґР»СЏ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ РёРЅРґРёРІРёРґСѓР°Р»СЊРЅРѕРіРѕ СЃС‚РёР»СЏ СЃС‚СЂР°РЅРёС†С‹" />
-		<param name="back_button" type="radio" default="" label="РљРЅРѕРїРєР° РќР°Р·Р°Рґ (Р’РµСЂРЅСѓС‚СЊСЃСЏ)" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РєРЅРѕРїРєСѓ РќР°Р·Р°Рґ (Р’РµСЂРЅСѓС‚СЊСЃСЏ), РІРѕР·РІСЂР°С‰Р°СЋС‰СѓСЋ РЅР° РїСЂРµРґС‹РґСѓС‰СѓСЋ РїСЂРѕСЃРјРѕС‚СЂРµРЅРЅСѓСЋ СЃС‚СЂР°РЅРёС†Сѓ">
-			<option value="">РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РіР»РѕР±Р°Р»СЊРЅС‹Рµ</option>
-			<option value="0">РЎРєСЂС‹С‚СЊ</option>
-			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
+		<param name="menu_image" type="imagelist" directory="/images" hide_default="1" default="" label="Изображение меню" description="A small image to be placed to the left or right of your menu item, images must be in /images" />
+		<param name="pageclass_sfx" type="text" default="" label="Суффикс CSS-класса страницы" description="Суффикс CSS-класса, используемого на этой странице. Необходим для использования индивидуального стиля страницы" />
+		<param name="back_button" type="radio" default="" label="Кнопка Назад (Вернуться)" description="Показать/Скрыть кнопку Назад (Вернуться), возвращающую на предыдущую просмотренную страницу">
+			<option value="">Использовать глобальные</option>
+			<option value="0">Скрыть</option>
+			<option value="1">Показать</option>
 		</param>
-		<param name="page_title" type="radio" default="1" label="Р—Р°РіРѕР»РѕРІРѕРє СЃС‚СЂР°РЅРёС†С‹" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ Р·Р°РіРѕР»РѕРІРѕРє СЃС‚СЂР°РЅРёС†С‹">
-			<option value="0">РЎРєСЂС‹С‚СЊ</option>
-			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
+		<param name="page_title" type="radio" default="1" label="Заголовок страницы" description="Показать/Скрыть заголовок страницы">
+			<option value="0">Скрыть</option>
+			<option value="1">Показать</option>
 		</param>
-		<param name="header" type="text" size="30" default="" label="Р—Р°РіРѕР»РѕРІРѕРє СЃС‚СЂР°РЅРёС†С‹" description="РўРµРєСЃС‚, РѕС‚РѕР±СЂР°Р¶Р°РµРјС‹Р№ РІРІРµСЂС…Сѓ СЃС‚СЂР°РЅРёС†С‹. Р•СЃР»Рё РЅРµ Р±СѓРґРµС‚ Р·Р°РїРѕР»РЅРµРЅРѕ, С‚Рѕ РІР·Р°РјРµРЅ Р±СѓРґРµС‚ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊСЃСЏ РЅР°Р·РІР°РЅРёРµ РјРµРЅСЋ" />
+		<param name="header" type="text" size="30" default="" label="Заголовок страницы" description="Текст, отображаемый вверху страницы. Если не будет заполнено, то взамен будет использоваться название меню" />
 		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="headings" type="radio" default="1" label="Р—Р°РіРѕР»РѕРІРєРё С‚Р°Р±Р»РёС†" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ Р·Р°РіРѕР»РѕРІРєРё С‚Р°Р±Р»РёС†">
-			<option value="0">РЎРєСЂС‹С‚СЊ</option>
-			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
+		<param name="headings" type="radio" default="1" label="Заголовки таблиц" description="Показать/Скрыть заголовки таблиц">
+			<option value="0">Скрыть</option>
+			<option value="1">Показать</option>
 		</param>
-		<param name="name" type="radio" default="1" label="РЎС‚РѕР»Р±РµС† РќР°Р·РІР°РЅРёРµ" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ СЃС‚РѕР»Р±РµС† РќР°Р·РІР°РЅРёРµ">
-			<option value="0">РЎРєСЂС‹С‚СЊ</option>
-			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
+		<param name="name" type="radio" default="1" label="Столбец Название" description="Показать/Скрыть столбец Название">
+			<option value="0">Скрыть</option>
+			<option value="1">Показать</option>
 		</param>
-		<param name="articles" type="radio" default="1" label="РЎС‚РѕР»Р±РµС† РЎС‚Р°С‚СЊРё" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ СЃС‚РѕР»Р±РµС† РєРѕР»РёС‡РµСЃС‚РІР° СЃС‚Р°С‚РµР№">
-			<option value="0">РЎРєСЂС‹С‚СЊ</option>
-			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
+		<param name="articles" type="radio" default="1" label="Столбец Статьи" description="Показать/Скрыть столбец количества статей">
+			<option value="0">Скрыть</option>
+			<option value="1">Показать</option>
 		</param>
-		<param name="link" type="radio" default="0" label="РЎС‚РѕР»Р±РµС† РЎСЃС‹Р»РєР°" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ СЃС‚РѕР»Р±РµС† СЃРѕ СЃСЃС‹Р»РєРѕР№ РЅР° Р»РµРЅС‚Сѓ РЅРѕРІРѕСЃС‚РµР№">
-			<option value="0">РЎРєСЂС‹С‚СЊ</option>
-			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
+		<param name="link" type="radio" default="0" label="Столбец Ссылка" description="Показать/Скрыть столбец со ссылкой на ленту новостей">
+			<option value="0">Скрыть</option>
+			<option value="1">Показать</option>
 		</param>
 		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="other_cat" type="radio" default="1" label="Р”СЂСѓРіРёРµ РєР°С‚РµРіРѕСЂРёРё" description="РџСЂРё РїСЂРѕСЃРјРѕС‚СЂРµ РєР°С‚РµРіРѕСЂРёРё, РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ СЃРїРёСЃРѕРє РґСЂСѓРіРёС… РєР°С‚РµРіРѕСЂРёР№">
-			<option value="0">РЎРєСЂС‹С‚СЊ</option>
-			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
+		<param name="other_cat" type="radio" default="1" label="Другие категории" description="При просмотре категории, Показать/Скрыть список других категорий">
+			<option value="0">Скрыть</option>
+			<option value="1">Показать</option>
 		</param>
-		<param name="cat_description" type="radio" default="1" label="РћРїРёСЃР°РЅРёРµ РєР°С‚РµРіРѕСЂРёРё" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ РѕРїРёСЃР°РЅРёРµ РґР»СЏ СЃРїРёСЃРєР° РєР°С‚РµРіРѕСЂРёР№">
-			<option value="0">РЎРєСЂС‹С‚СЊ</option>
-			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
+		<param name="cat_description" type="radio" default="1" label="Описание категории" description="Показать/Скрыть описание для списка категорий">
+			<option value="0">Скрыть</option>
+			<option value="1">Показать</option>
 		</param>
-		<param name="cat_items" type="radio" default="1" label="РљРѕР»-РІРѕ РѕР±СЉРµРєС‚РѕРІ РєР°С‚РµРіРѕСЂРёРё" description="РџРѕРєР°Р·Р°С‚СЊ/РЎРєСЂС‹С‚СЊ С‡РёСЃР»Рѕ РѕР±СЉРµРєС‚РѕРІ РєР°Р¶РґРѕР№ РєР°С‚РµРіРѕСЂРёРё">
-			<option value="0">РЎРєСЂС‹С‚СЊ</option>
-			<option value="1">РџРѕРєР°Р·Р°С‚СЊ</option>
+		<param name="cat_items" type="radio" default="1" label="Кол-во объектов категории" description="Показать/Скрыть число объектов каждой категории">
+			<option value="0">Скрыть</option>
+			<option value="1">Показать</option>
 		</param>
  		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="robots" type="list" default="-1" label="РњРµС‚Р°-С‚РµРі Robots" description="Р’С‹Р±РµСЂРёС‚Рµ, РєР°РєРѕР№ РјРµС‚Р°-С‚РµРі robots РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РґР»СЏ СЌС‚РѕР№ СЃС‚СЂР°РЅРёС†С‹">
-			<option value="-1">РќРµ РѕС‚РѕР±СЂР°Р¶Р°С‚СЊ РјРµС‚Р°-С‚РµРі robot</option>
+		<param name="robots" type="list" default="-1" label="Мета-тег Robots" description="Выберите, какой мета-тег robots использовать для этой страницы">
+			<option value="-1">Не отображать мета-тег robot</option>
 			<option value="0">Index, follow</option>
 			<option value="1">Index, NoFollow</option>
 			<option value="2">NoIndex, Follow</option>
 			<option value="3">NoIndex, NoFollow</option>
 		</param>
-		<param name="meta_description" type="textarea" default="" label="META-С‚РµРі description" rows="5" cols="30" description="META-С‚РµРі: Description"/>
-		<param name="meta_keywords"    type="textarea" default="" label="META-С‚РµРі keywords" rows="5" cols="30" description="META-С‚РµРі keywords. Р Р°Р·РґРµР»СЏР№С‚Рµ РєР»СЋС‡РµРІС‹Рµ СЃР»РѕРІР° Р·Р°РїСЏС‚С‹РјРё"/>
-		<param name="meta_author" 	   type="text" size="40" default="" label="META-С‚РµРі author" description="Р’РІРµРґРёС‚Рµ РњР•РўРђ-С‚РµРі author. РћСЃС‚Р°РІСЊС‚Рµ СЌС‚Рѕ РїРѕР»Рµ РїСѓСЃС‚С‹Рј, РµСЃР»Рё РЅРµ С…РѕС‚РёС‚Рµ РѕС‚РѕР±СЂР°Р¶Р°С‚СЊ СЌС‚РѕС‚ С‚РµРі РІ Р·Р°РіРѕР»РѕРІРєРµ СЃС‚СЂР°РЅРёС†С‹" />
+		<param name="meta_description" type="textarea" default="" label="META-тег description" rows="5" cols="30" description="META-тег: Description"/>
+		<param name="meta_keywords"    type="textarea" default="" label="META-тег keywords" rows="5" cols="30" description="META-тег keywords. Разделяйте ключевые слова запятыми"/>
+		<param name="meta_author" 	   type="text" size="40" default="" label="META-тег author" description="Введите МЕТА-тег author. Оставьте это поле пустым, если не хотите отображать этот тег в заголовке страницы" />
 	</params>
 </mosinstall>

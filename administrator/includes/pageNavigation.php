@@ -1,28 +1,28 @@
 <?php
 /**
- * @package Joostina
- * @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2010 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
- * @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
- * Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
- * Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
- */
+* @package Joostina
+* @copyright Авторские права (C) 2008 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+*/
 
-// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+// запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 /**
- * Page navigation support class
- * @package Joostina
- */
+* Page navigation support class
+* @package Joostina
+*/
 class mosPageNav {
 	/**
-	 @var int The record number to start dislpaying from*/
+	@var int The record number to start dislpaying from*/
 	var $limitstart = null;
 	/**
-	 @var int Number of rows to display per page*/
+	@var int Number of rows to display per page*/
 	var $limit = null;
 	/**
-	 @var int Total number of rows*/
+	@var int Total number of rows*/
 	var $total = null;
 
 	function mosPageNav($total,$limitstart,$limit) {
@@ -37,8 +37,8 @@ class mosPageNav {
 		}
 	}
 	/**
-	 * @return string The html for the limit # input box
-	 */
+	* @return string The html for the limit # input box
+	*/
 	function getLimitBox() {
 		$limits = array();
 		for($i = 5; $i <= 30; $i += 5) {
@@ -47,15 +47,15 @@ class mosPageNav {
 		$limits[] = mosHTML::makeOption('50');
 		$limits[] = mosHTML::makeOption('100');
 		$limits[] = mosHTML::makeOption('150');
-		$limits[] = mosHTML::makeOption('5000',_PN_ALL);
+		$limits[] = mosHTML::makeOption('5000','-Все-');
 		// build the html select list
 		$html = mosHTML::selectList($limits,'limit','class="inputbox" size="1" onchange="document.adminForm.submit();"','value','text',$this->limit);
 		$html .= "\n<input type=\"hidden\" name=\"limitstart\" value=\"$this->limitstart\" />";
 		return $html;
 	}
 	/**
-	 * Writes the html limit # input box
-	 */
+	* Writes the html limit # input box
+	*/
 	function writeLimitBox() {
 		echo mosPageNav::getLimitBox();
 	}
@@ -63,8 +63,8 @@ class mosPageNav {
 		echo $this->getPagesCounter();
 	}
 	/**
-	 * @return string The html for the pages counter, eg, Results 1-10 of x
-	 */
+	* @return string The html for the pages counter, eg, Results 1-10 of x
+	*/
 	function getPagesCounter() {
 		$html = '';
 		$from_result = $this->limitstart + 1;
@@ -76,24 +76,24 @@ class mosPageNav {
 		if($this->total > 0) {
 			$html .= "\n"._NAV_SHOW." ".$from_result." - ".$to_result." "._NAV_SHOW_FROM." ".$this->total;
 		} else {
-			$html .= "\n"._NO_ITEMS;
+			$html .= "\n"._NAV_NO_RECORDS;
 		}
 		return $html;
 	}
 	/**
-	 * Writes the html for the pages counter, eg, Results 1-10 of x
-	 */
+	* Writes the html for the pages counter, eg, Results 1-10 of x
+	*/
 	function writePagesLinks() {
 		echo $this->getPagesLinks();
 	}
 	/**
-	 * @return string The html links for pages, eg, previous, next, 1 2 3 ... x
-	 */
+	* @return string The html links for pages, eg, previous, next, 1 2 3 ... x
+	*/
 	function getPagesLinks() {
 		$html = '';
 		$displayed_pages = 10;
 		$total_pages = ceil($this->total / $this->limit);
-		// СЃРєСЂС‹РІР°РµРј РЅР°РІРёРіР°С‚РѕСЂ РїРѕ СЃС‚СЂР°РЅРёС†Р°Рј РµСЃР»Рё РёС… РјРµРЅСЊС€Рµ 2С….
+		// скрываем навигатор по страницам если их меньше 2х.
 		if($total_pages<2) return;
 		$this_page = ceil(($this->limitstart + 1) / $this->limit);
 		$start_loop = (floor(($this_page - 1) / $displayed_pages))* $displayed_pages +1;
@@ -140,65 +140,72 @@ class mosPageNav {
 		return $html;
 	}
 	/**
-	 * @param int The row index
-	 * @return int
-	 */
+	* @param int The row index
+	* @return int
+	*/
 	function rowNumber($i) {
 		return $i + 1 + $this->limitstart;
 	}
 	/**
-	 * @param int The row index
-	 * @param string The task to fire
-	 * @param string The alt text for the icon
-	 * @return string
-	 */
-	function orderUpIcon($i,$condition = true,$task = 'orderup',$alt = _PN_MOVE_TOP) {
-		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
+	* @param int The row index
+	* @param string The task to fire
+	* @param string The alt text for the icon
+	* @return string
+	*/
+	function orderUpIcon($i,$condition = true,$task = 'orderup',$alt =
+		'Передвинуть выше') {
 		if(($i > 0 || ($i + $this->limitstart > 0)) && $condition) {
-			return '<a href="#reorder" onClick="return listItemTask(\'cb'.$i.'\',\''.$task.'\')" title="'.$alt.'"><img src="'.$cur_file_icons_path.'/uparrow.png" width="12" height="12" border="0" alt="'.$alt.'" /></a>';
+			return '<a href="#reorder" onClick="return listItemTask(\'cb'.$i.'\',\''.$task.
+				'\')" title="'.$alt.'">
+				<img src="images/uparrow.png" width="12" height="12" border="0" alt="'.$alt.
+				'" />
+			</a>';
 		} else {
 			return '&nbsp;';
 		}
 	}
 	/**
-	 * @param int The row index
-	 * @param int The number of items in the list
-	 * @param string The task to fire
-	 * @param string The alt text for the icon
-	 * @return string
-	 */
-	function orderDownIcon($i,$n,$condition = true,$task = 'orderdown',$alt =_PN_MOVE_DOWN) {
-		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
+	* @param int The row index
+	* @param int The number of items in the list
+	* @param string The task to fire
+	* @param string The alt text for the icon
+	* @return string
+	*/
+	function orderDownIcon($i,$n,$condition = true,$task = 'orderdown',$alt =
+		'Передвинуть ниже') {
 		if(($i < $n - 1 || $i + $this->limitstart < $this->total - 1) && $condition) {
-			return '<a href="#reorder" onClick="return listItemTask(\'cb'.$i.'\',\''.$task.'\')" title="'.$alt.'"><img src="'.$cur_file_icons_path.'/downarrow.png" width="12" height="12" border="0" alt="'.$alt.'" /></a>';
+			return '<a href="#reorder" onClick="return listItemTask(\'cb'.$i.'\',\''.$task.
+				'\')" title="'.$alt.'">
+				<img src="images/downarrow.png" width="12" height="12" border="0" alt="'.$alt.
+				'" />
+			</a>';
 		} else {
 			return '&nbsp;';
 		}
 	}
 
 	/**
-	 * @param int The row index
-	 * @param string The task to fire
-	 * @param string The alt text for the icon
-	 * @return string
-	 */
+	* @param int The row index
+	* @param string The task to fire
+	* @param string The alt text for the icon
+	* @return string
+	*/
 	function orderUpIcon2($id,$order) {
-		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 		if($order == 0) {
 			$img = 'uparrow.png';
 			$show = true;
 		} else
-		if($order < 0) {
-			$img = 'uparrow.png';
-			$show = true;
-		} else {
-			$img = 'uparrow.png';
-			$show = true;
-		}
-		;
+			if($order < 0) {
+				$img = 'uparrow.png';
+				$show = true;
+			} else {
+				$img = 'uparrow.png';
+				$show = true;
+			}
+			;
 		if($show) {
 			$output = '<a href="#ordering" onClick="listItemTask(\'cb'.$id.'\',\'orderup\')" title="'._NAV_ORDER_UP.'">';
-			$output .= '<img src="'.$cur_file_icons_path.'/'.$img.'" width="12" height="12" border="0" alt="'._NAV_ORDER_UP.'" title="'._NAV_ORDER_UP.'" /></a>';
+			$output .= '<img src="images/'.$img.'" width="12" height="12" border="0" alt="'._NAV_ORDER_UP.'" title="'._NAV_ORDER_UP.'" /></a>';
 
 			return $output;
 		} else {
@@ -207,30 +214,29 @@ class mosPageNav {
 	}
 
 	/**
-	 * @param int The row index
-	 * @param int The number of items in the list
-	 * @param string The task to fire
-	 * @param string The alt text for the icon
-	 * @return string
-	 */
+	* @param int The row index
+	* @param int The number of items in the list
+	* @param string The task to fire
+	* @param string The alt text for the icon
+	* @return string
+	*/
 	function orderDownIcon2($id,$order) {
-		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 
 		if($order == 0) {
 			$img = 'downarrow.png';
 			$show = true;
 		} else
-		if($order < 0) {
-			$img = 'downarrow.png';
-			$show = true;
-		} else {
-			$img = 'downarrow.png';
-			$show = true;
-		}
-		;
+			if($order < 0) {
+				$img = 'downarrow.png';
+				$show = true;
+			} else {
+				$img = 'downarrow.png';
+				$show = true;
+			}
+			;
 		if($show) {
 			$output = '<a href="#ordering" onClick="listItemTask(\'cb'.$id.'\',\'orderdown\')" title="'._NAV_ORDER_DOWN.'">';
-			$output .= '<img src="'.$cur_file_icons_path.'/'.$img.'" width="12" height="12" border="0" alt="'._NAV_ORDER_DOWN.'" title="'._NAV_ORDER_DOWN.'" /></a>';
+			$output .= '<img src="images/'.$img.'" width="12" height="12" border="0" alt="'._NAV_ORDER_DOWN.'" title="'._NAV_ORDER_DOWN.'" /></a>';
 
 			return $output;
 		} else {
@@ -239,11 +245,12 @@ class mosPageNav {
 	}
 
 	/**
-	 * Sets the vars for the page navigation template
-	 */
+	* Sets the vars for the page navigation template
+	*/
 	function setTemplateVars(&$tmpl,$name = 'admin-list-footer') {
 		$tmpl->addVar($name,'PAGE_LINKS',$this->getPagesLinks());
 		$tmpl->addVar($name,'PAGE_LIST_OPTIONS',$this->getLimitBox());
 		$tmpl->addVar($name,'PAGE_COUNTER',$this->getPagesCounter());
 	}
 }
+?>

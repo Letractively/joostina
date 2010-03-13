@@ -1,13 +1,13 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
 
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
 
 global $my,$task;
@@ -26,7 +26,7 @@ $canManageUsers = $acl->acl_check('administration','manage','users',$my->usertyp
 
 $count = intval($params->def('count',10));
 
-$query = "SELECT * FROM #__components ORDER BY ordering, name";
+$query = "SELECT*"."\n FROM #__components"."\n ORDER BY ordering, name";
 $database->setQuery($query);
 $comps = $database->loadObjectList(); // component list
 
@@ -44,105 +44,126 @@ foreach($comps as $row) {
 
 ?>
 <table class="adminlist">
-	<tr>
-		<th class="title"><?php echo _COMPONENTS?></th>
-	</tr>
-	<tr>
-		<td>
-			<?php
-			if($task == 'listcomponents') {
-				$topLevelLimit = 10000;
-			} else {
-				$topLevelLimit = $count;
-			}
-			$i = 0;
-			$z = 0;
-			foreach($comps as $row) {
-				if($editAllComponents | $acl->acl_check('administration','edit','users',$my->usertype,'components',$row->option)) {
+<tr>
+	<th class="title">
+	   <?php echo _COMPONENTS?>
+	</th>
+</tr>
+<tr>
+	<td>
+		<?php
+if($task == 'listcomponents') {
+	$topLevelLimit = 10000;
+} else {
+	$topLevelLimit = $count;
+}
+$i = 0;
+$z = 0;
+foreach($comps as $row) {
+	if($editAllComponents | $acl->acl_check('administration','edit','users',$my->usertype,
+		'components',$row->option)) {
 
-					if($row->parent == 0 && (trim($row->admin_menu_link) || array_key_exists($row->id,
-									$subs))) {
+		if($row->parent == 0 && (trim($row->admin_menu_link) || array_key_exists($row->id,
+			$subs))) {
 
-						if($i >= $topLevelLimit) {
-							if($i == $topLevelLimit) {
-								?>
-			<div>
-				<table width="100%" class="adminlist">
-					<tr>
-						<td align="center" style="text-align: center; font-weight: bold;">
-							<a href="index2.php?option=com_admin&task=listcomponents"><?php echo _FULL_COMPONENTS_LIST?></a>
-						</td>
-					</tr>
-				</table>
-			</div>
-								<?php
-								$i = 1000;
-							} // if
-						} else {
-							?>
-			<table width="50%" class="adminlist" border="1" style="text-align: left">
-								<?php
-								if($i < $topLevelLimit) {
-									$i++;
-									$name = htmlspecialchars($row->name,ENT_QUOTES);
-									// $alt = htmlspecialchars( $row->admin_menu_alt, ENT_QUOTES );
-									if($row->admin_menu_link) {
-										?>
-				<tr>
-					<td>
-												<?php
-												echo '<a href="index2.php?'.htmlspecialchars($row->admin_menu_link,ENT_QUOTES).'"><strong>'.$name.'</strong></a><br/>';
-												?>
-					</td>
-				</tr>
-										<?php
-									} else {
-										?>
-				<tr>
-					<td>
-						<strong><?php echo $name; ?></strong><br />
-					</td>
-				</tr>
-										<?php
-									} // if else
-									if(array_key_exists($row->id,$subs)) {
-										foreach($subs[$row->id] as $sub) { //print_r($row);
-
-											?>
-				<tr>
-					<td>
-						<ul style="padding: 0px 0px 0px 20px; margin: 0px;">
-														<?php
-														$name = htmlspecialchars($sub->name);
-														if($sub->admin_menu_link) {
-															?>
-							<li><?php echo '<a href="index2.php?'.htmlspecialchars($sub->admin_menu_link,ENT_QUOTES).'">'.$name.'</a><br/>'; ?></li>
-															<?php
-														} else {
-															?>
-							<li><?php echo $name; ?><br /></li>
-															<?php
-														} // if else
-
-														?>
-						</ul>
-					</td>
-				</tr>
-											<?php
-										} // foreach
-									} // if
-								} // if
-
-								?>
-			</table>
+			if($i >= $topLevelLimit) {
+				if($i == $topLevelLimit) {
+?>
+							<div>
+							<table width="100%" class="adminlist">
+							<tr>
+								<td align="center" style="text-align: center; font-weight: bold;">
+									<a href="index2.php?option=com_admin&task=listcomponents"><?php echo _FULL_COMPONENTS_LIST?></a>
+								</td>
+							</tr>		
+							</table>					
+							</div>
 							<?php
-						} // if else
+					$i = 1000;
+				} // if
+			} else {
+?>
+						<table width="50%" class="adminlist" border="1" style="text-align: left">
+						<?php
+				if($i < $topLevelLimit) {
+					$i++;
+					$name = htmlspecialchars($row->name,ENT_QUOTES);
+					// $alt = htmlspecialchars( $row->admin_menu_alt, ENT_QUOTES );
+					if($row->admin_menu_link) {
+?>
+								<tr>
+									<td>
+										<?php
+						echo '<a href="index2.php?'.htmlspecialchars($row->admin_menu_link,ENT_QUOTES).
+							'"><strong>'.$name.'</strong></a><br/>';
+?>
+									</td>
+								</tr>
+								<?php
+					} else {
+?>
+								<tr>
+									<td>
+										<strong>
+										<?php echo $name; ?>
+										</strong>
+										<br/>
+									</td>
+								</tr>
+								<?php
+					} // if else
+					if(array_key_exists($row->id,$subs)) {
+						foreach($subs[$row->id] as $sub) { //print_r($row);
+
+?>
+									<tr>
+										<td>
+											<ul style="padding: 0px 0px 0px 20px; margin: 0px;">
+												<?php
+							$name = htmlspecialchars($sub->name);
+							// $alt = htmlspecialchars( $sub->admin_menu_alt );
+							// $link = $sub->admin_menu_link ? "" : "null";
+							// $img = $sub->admin_menu_img ? "<img src=\"../includes/$sub->admin_menu_img\" />" : '';
+							if($sub->admin_menu_link) {
+?>
+													<li>
+														<?php echo '<a href="index2.php?'.htmlspecialchars($sub->admin_menu_link,
+ENT_QUOTES).'">'.$name.'</a><br/>'; ?>
+													</li>
+													<?php
+							} else {
+?>
+													<li>
+														<?php echo $name; ?>
+														<br/>
+													</li>
+													<?php
+							} // if else
+
+?>
+					  						</ul>
+										</td>
+									</tr>
+									<?php
+						} // foreach
 					} // if
 				} // if
-				$z++;
-			} // foreach
-			?>
-		</td>
-	</tr>
-	<tr><th></th></tr>
+
+?>
+						</table>											
+						<?php
+			} // if else
+		} // if
+	} // if
+
+	$z++;
+} // foreach
+
+?>
+	</td>
+</tr>
+<tr>
+	<th>
+	</th>
+</tr>
 </table>

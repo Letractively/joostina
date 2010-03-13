@@ -1,17 +1,15 @@
 <?php
 /**
- * @package Joostina
- * @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2010 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
- * @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
- * Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
- * Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
- */
+* @package Joostina
+* @copyright Авторские права (C) 2008 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+*/
 
-// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+// запрет прямого доступа
 defined('_VALID_MOS') or die();
-global $my;
-
-$acl = &gacl::getInstance();
+global $mosConfig_absolute_path,$mosConfig_live_site,$my;
 
 if(!($acl->acl_check('administration','edit','users',$my->usertype,'modules','all') | $acl->acl_check('administration','install','users',$my->usertype,'modules','all'))) {
 	die('error-acl');
@@ -37,8 +35,8 @@ switch($task) {
 
 
 /**
- * Saves the module after an edit form submit
- */
+* Saves the module after an edit form submit
+*/
 function x_apply() {
 	global $database;
 	josSpoofCheck();
@@ -48,7 +46,7 @@ function x_apply() {
 	foreach($_POST as $key => $val) {
 		$_POST[$key] = joostina_api::convert($val);
 	}
-
+	
 	if(is_array($params)) {
 		$txt = array();
 		foreach($params as $k => $v) {
@@ -71,12 +69,12 @@ function x_apply() {
 		$where = "client_id='0'";
 	}
 	$row->updateOrder("folder = ".$database->Quote($row->folder)." AND ordering > -10000 AND ordering < 10000 AND ( $where )");
-	$msg = sprintf(_COM_MAMBOTS_APPLY,$row->name);
+	$msg = 'Все изменения мамбота <b>'.$row->name.'</b> успешно сохранены';
 	return $msg;
 }
 
 
-function x_access($id) {
+function x_access($id){
 	global $database;
 	$access = mosGetParam($_GET,'chaccess','accessregistered');
 	$option = strval(mosGetParam($_REQUEST,'option',''));
@@ -142,3 +140,4 @@ function x_publish($id = null) {
 		return $ret_img;
 	}
 }
+?>

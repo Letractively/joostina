@@ -1,27 +1,27 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <mosinstall type="module">
-	<name>РџРѕСЃР»РµРґРЅРµРµ РґРѕР±Р°РІР»РµРЅРЅРѕРµ СЃРѕРґРµСЂР¶РёРјРѕРµ</name>
+	<name>Последнее добавленное содержимое</name>
 	<author>Joostina! Project</author>
 	<creationDate>14:04:2008</creationDate>
-	<copyright>(C) 2008-2010 Joostina team.</copyright>
+	<copyright>(C) 2008 Joostina team.</copyright>
 	<license>http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL</license>
 	<authorEmail>joostinacms@gmail.com</authorEmail>
 	<authorUrl>www.joostina.ru</authorUrl>
 	<version>1.0 JE</version>
-	<description>Р­С‚РѕС‚ РјРѕРґСѓР»СЊ РїРѕРєР°Р·С‹РІР°РµС‚ СЃРїРёСЃРѕРє СЃР°РјС‹С… РїРѕСЃР»РµРґРЅРёС… РѕРїСѓР±Р»РёРєРѕРІР°РЅРЅС‹С… РѕР±СЉРµРєС‚РѕРІ.</description>
+	<description>Этот модуль показывает список самых последних опубликованных объектов.</description>
 	<files>
 		<filename module="mod_latest">mod_latest.php</filename>
 	</files>
 	<params>
-		<param name="num" type="text" size="50" default="10" label="Р§РёСЃР»Рѕ СЌР»РµРјРµРЅС‚РѕРІ" description="РљРѕР»РёС‡РµСЃС‚РІРѕ СЌР»РµРјРµРЅС‚РѕРІ РґР»СЏ РІС‹РІРѕРґР°" />
-		<param name="type" type="list" default="0" label="РћС‚РѕР±СЂР°Р¶Р°С‚СЊ" description="РЈРєР°Р¶РёС‚Рµ СЌР»РµРјРµРЅС‚С‹ РєР°РєРѕРіРѕ С‚РёРїР° РѕС‚РѕР±СЂР°Р¶Р°С‚СЊ РІ РјРѕРґСѓР»Рµ">
-			<option value="0">Р’СЃРµ СЌР»РµРјРµРЅС‚С‹</option>
-			<option value="1">РўРѕР»СЊРєРѕ РѕРїСѓР±Р»РёРєРѕРІР°РЅРЅРѕРµ</option>
-			<option value="2">РўРѕР»СЊРєРѕ РЅРµ РѕРїСѓР±Р»РёРєРѕРІР°РЅРЅРѕРµ</option>
+		<param name="num" type="text" size="50" default="10" label="Число элементов" description="Количество элементов для вывода" />
+		<param name="type" type="list" default="0" label="Отображать" description="Укажите элементы какого типа отображать в модуле">
+			<option value="0">Все элементы</option>
+			<option value="1">Только опубликованное</option>
+			<option value="2">Только не опубликованное</option>
 		</param>
-		<param name="ext" type="radio" default="1" label="РћС‚РѕР±СЂР°Р¶Р°С‚СЊ СЂР°Р·РґРµР» Рё РєР°С‚РµРіРѕСЂРёСЋ" description="РћС‚РѕР±СЂР°Р¶Р°РµРјС‹Р№ РІ СЃРѕРґРµСЂР¶РёРјРѕРј СЂР°Р·РґРµР» Рё РєР°С‚РµРіРѕСЂРёСЋ РєРѕС‚РѕСЂС‹Рј РѕРЅ РїСЂРёРЅР°РґР»РµР¶РёС‚">
-			<option value="1">Р”Р°</option>
-			<option value="0">РќРµС‚</option>
+		<param name="ext" type="radio" default="1" label="Отображать раздел и категорию" description="Отображаемый в содержимом раздел и категорию которым он принадлежит">
+			<option value="1">Да</option>
+			<option value="0">Нет</option>
 		</param>
 	</params>
 </mosinstall>

@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2010 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
-* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
-* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
-* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
+* @copyright Авторские права (C) 2008 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
 */
 
-// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+// запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 /**
@@ -21,6 +21,7 @@ defined('_VALID_MOS') or die();
 class contact_category_table_menu_html {
 
 	function editCategory(&$menu,&$lists,&$params,$option) {
+		global $mosConfig_live_site;
 		mosCommonHTML::loadOverlib();
 ?>
 		<div id="overDiv" style="position:absolute; visibility:hidden; z-index:10000;"></div>
@@ -61,7 +62,7 @@ class contact_category_table_menu_html {
 		<form action="index2.php" method="post" name="adminForm">
 		<table class="adminheading">
 		<tr>
-			<th class="menus"><?php echo $menu->id?_EDITING.' -':_CREATION.' -'; ?> <?php echo _MENU_ITEM_TABLE_CONTACT_CATEGORY?></th>
+			<th class="menus"><?php echo $menu->id?_O_EDITING.' -':_O_CREATION.' -'; ?> <?php echo _MENU_ITEM_TABLE_CONTACT_CATEGORY?></th>
 		</tr>
 		</table>
 
@@ -70,10 +71,12 @@ class contact_category_table_menu_html {
 			<td width="60%">
 				<table class="adminform">
 				<tr>
-					<th colspan="3"><?php echo _DETAILS?></th>
+					<th colspan="3">
+					Детали
+					</th>
 				</tr>
 				<tr>
-					<td width="10%" align="right" valign="top"><?php echo _NAME?>:</td>
+					<td width="10%" align="right" valign="top">Название:</td>
 					<td width="200px">
 						<input type="text" name="name" size="50" maxlength="100" class="inputbox" value="<?php echo htmlspecialchars($menu->name,ENT_QUOTES); ?>"/>
 					</td>
@@ -92,7 +95,7 @@ class contact_category_table_menu_html {
 					</td>
 				</tr>
 				<tr>
-					<td width="10%" align="right" valign="top"><?php echo _CATEGORY?>:</td>
+					<td width="10%" align="right" valign="top"><?php echo _E_CATEGORY?>:</td>
 					<td colspan="2"><?php echo $lists['componentid']; ?></td>
 				</tr>
 				<tr>
@@ -108,11 +111,11 @@ class contact_category_table_menu_html {
 					<td colspan="2"><?php echo $lists['ordering']; ?></td>
 				</tr>
 				<tr>
-					<td valign="top" align="right"><?php echo _ACCESS?>:</td>
+					<td valign="top" align="right"><?php echo _CMN_ACCESS?>:</td>
 					<td colspan="2"><?php echo $lists['access']; ?></td>
 				</tr>
 				<tr>
-					<td valign="top" align="right"><?php echo _PUBLISHED?>:</td>
+					<td valign="top" align="right"><?php echo _CMN_PUBLISHED?>:</td>
 					<td colspan="2"><?php echo $lists['published']; ?></td>
 				</tr>
 				<tr>

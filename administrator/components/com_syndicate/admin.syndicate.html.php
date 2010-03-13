@@ -1,67 +1,78 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
 
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
 
 /**
- * @package Joostina
- * @subpackage Syndicate
- */
+* @package Joostina
+* @subpackage Syndicate
+*/
 class HTML_syndicate {
 
 	function settings($option,&$params,$id) {
-		global $mosConfig_cachepath,$my;
+		global $mosConfig_live_site,$mosConfig_cachepath,$my;
 		mosCommonHTML::loadOverlib();
-		?>
-<div id="overDiv" style="position:absolute; visibility:hidden; z-index:10000;"></div>
-<form action="index2.php" method="post" name="adminForm">
-	<table class="adminheading">
+?>
+		<div id="overDiv" style="position:absolute; visibility:hidden; z-index:10000;"></div>
+		<form action="index2.php" method="post" name="adminForm">
+		<table class="adminheading">
 		<tr>
-			<th class="rss"><?php echo _NEWS_EXPORT_SETUP?></th>
+			<th class="rss">
+			<?php echo _NEWS_EXPORT_SETUP?>
+			</th>
 		</tr>
-	</table>
-	<table class="adminform">
+		</table>
+
+		<table class="adminform">
 		<tr>
-			<th><?php echo _PARAMETERS?></th>
+			<th>
+			<?php echo _PARAMETERS?>
+			</th>
 		</tr>
 		<tr>
-			<td><?php echo $params->render(); ?></td>
+			<td>
+			<?php
+		echo $params->render();
+?>
+			</td>
 		</tr>
-	</table>
-	<table class="adminform">
+		</table>
+
+		<table class="adminform">
 		<tr>
 			<td>
 				<table align="center">
-							<?php
-							$visible = 0;
-							// check to hide certain paths if not super admin
-							if($my->gid == 25) {
-								$visible = 1;
-							}
-							mosHTML::writableCell($mosConfig_cachepath,0,'<strong>'._CACHE_DIR.'</strong> ',$visible);
-							?>
+				<?php
+		$visible = 0;
+		// check to hide certain paths if not super admin
+		if($my->gid == 25) {
+			$visible = 1;
+		}
+		mosHTML::writableCell($mosConfig_cachepath,0,'<strong>'._CACHE_DIRECTORY.'</strong> ',$visible);
+?>
 				</table>
 			</td>
 		</tr>
-	</table>
-	<input type="hidden" name="id" value="<?php echo $id; ?>" />
-	<input type="hidden" name="name" value="<?php echo _RSS_EXPORT?>" />
-	<input type="hidden" name="admin_menu_link" value="option=com_syndicate&amp;hidemainmenu=1" />
-	<input type="hidden" name="admin_menu_alt" value="<?php echo _RSS_EXPORT_SETUP?>" />
-	<input type="hidden" name="option" value="com_syndicate" />
-	<input type="hidden" name="admin_menu_img" value="js/ThemeOffice/component.png" />
-	<input type="hidden" name="option" value="<?php echo $option; ?>" />
-	<input type="hidden" name="task" value="" />
-	<input type="hidden" name="boxchecked" value="0" />
-	<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
-</form>
+		</table>
+		<input type="hidden" name="id" value="<?php echo $id; ?>" />
+		<input type="hidden" name="name" value="<?php echo _RSS_EXPORT?>" />
+		<input type="hidden" name="admin_menu_link" value="option=com_syndicate&amp;hidemainmenu=1" />
+		<input type="hidden" name="admin_menu_alt" value="<?php echo _RSS_EXPORT_SETUP?>" />
+		<input type="hidden" name="option" value="com_syndicate" />
+		<input type="hidden" name="admin_menu_img" value="js/ThemeOffice/component.png" />
+		<input type="hidden" name="option" value="<?php echo $option; ?>" />
+		<input type="hidden" name="task" value="" />
+		<input type="hidden" name="boxchecked" value="0" />
+		<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
+		</form>
 		<?php
 	}
 }
+?>

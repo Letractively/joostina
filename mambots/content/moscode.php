@@ -1,75 +1,64 @@
 <?php
 /**
- * @package Joostina
- * @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2010 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
- * @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
- * Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
- * Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
- */
-
-// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+* @package Joostina
+* @copyright Авторские права (C) 2008 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+*/
+// запрет прямого доступа
 defined('_VALID_MOS') or die();
-
 $_MAMBOTS->registerFunction('onPrepareContent','botMosCode');
-
 /**
- * РњР°РјР±РѕС‚ РїРѕРґСЃРІРµС‚РєРё РєРѕРґР°
- *
- * <b>РСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ:</b>
- * <code>{moscode}...РєР°РєРѕР№-РЅРёР±СѓРґСЊ РєРѕРґ...{/moscode}</code>
- */
+* Мамбот подсветки кода
+* <b>Использование:</b>
+* <code>{moscode}...какой-нибудь код...{/moscode}</code>
+*/
 function botMosCode($published,&$row) {
-	// РѕРїСЂРµРґРµР»РµРЅРёРµ РїСЂР°РІРёР»СЊРЅРѕРіРѕ РІС‹СЂР°Р¶РµРЅРёСЏ РґР»СЏ Р±РѕС‚Р°
-	if(strpos($row->text,'moscode') === false) {
-		return true;
-	}
-
-	// define the regular expression for the bot
-	$regex = "#{moscode}(.*?){/moscode}#s";
-
-	// check whether mambot has been unpublished
-	if(!$published) {
-		$row->text = preg_replace($regex,'',$row->text);
-		return true;
-	}
-
-	// РІС‹РїРѕР»РЅРµРЅРёРµ Р·Р°РјРµРЅС‹
-	$row->text = preg_replace_callback($regex,'botMosCode_replacer',$row->text);
-
-	return true;
+// определение правильного выражения для бота
+if(strpos($row->text,'moscode') === false) {
+return true;
+}
+// define the regular expression for the bot
+$regex = "#{moscode}(.*?){/moscode}#s";
+// check whether mambot has been unpublished
+if(!$published) {
+$row->text = preg_replace($regex,'',$row->text);
+return true;
+}
+// выполнение замены
+$row->text = preg_replace_callback($regex,'botMosCode_replacer',$row->text);
+return true;
 }
 /**
- * Р—Р°РјРµРЅР° СЃРѕРІРїР°РґР°СЋС‰РёС… С‚СЌРіРѕРІ an image
- * @param array - РњР°СЃСЃРёРІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёР№ (СЃРј. - preg_match_all)
- * @return string
- */
+* Замена совпадающих тэгов an image
+* @param array - Массив соответствий (см. - preg_match_all)
+* @return string
+*/
 function botMosCode_replacer(&$matches) {
-	$html_entities_match = array("#<#","#>#");
-	$html_entities_replace = array("&lt;","&gt;");
-
-	$text = $matches[1];
-
-	$text = preg_replace($html_entities_match,$html_entities_replace,$text);
-
-	// Р—Р°РјРµРЅР° 2 РїСЂРѕР±РµР»РѕРІ "&nbsp; " С‚Р°Рє,  С‡С‚РѕР±С‹ РІС‹СЂР°РІРЅРёРІР°Р»СЃСЏ РЅРµС‚Р°Р±СѓР»РёСЂРѕРІР°РЅРЅС‹Р№ РєРѕРґ, РїСЂРё СЌС‚РѕРј РЅРµ СЃРѕР·РґР°РІР°СЏ РѕРіСЂРѕРјРЅС‹С… РґР»РёРЅРЅС‹С… СЃС‚СЂРѕРє.
-	$text = str_replace("  ","&nbsp; ",$text);
-	// РЅРµРјРµРґР»РµРЅРЅР°СЏ Р·Р°РјРµРЅР° 2 РїСЂРѕР±РµР»Р°РјРё СЃ " &nbsp;" РІС‹СЏРІР»РµРЅРЅС‹Рј РЅРµС‡РµС‚РЅС‹Рј РєРѕР»РёС‡РµСЃС‚РІРѕРј РїСЂРѕР±РµР»РѕРІ.
-	$text = str_replace("  "," &nbsp;",$text);
-
-	// Р—Р°РјРµРЅР° С‚Р°Р±СѓР»СЏС†РёР№ "&nbsp; &nbsp;" С‚Р°Рє, С‡С‚Рѕ РєРѕРґ СЃ СЃРёРјРІРѕР»Р°РјРё С‚Р°Р±СѓР»СЏС†РёРё РІС‹СЂР°РІРЅРёРІР°РµС‚СЃСЏ РїРѕ РїСЂР°РІРѕРјСѓ РєСЂР°СЋ, РЅРµ СЃРѕР·РґР°РІР°СЏ СЃР»РёС€РєРѕРј РґР»РёРЅРЅС‹С… СЃС‚СЂРѕРє.
-	$text = str_replace("\t","&nbsp; &nbsp;",$text);
-
-	$text = str_replace('&lt;','<',$text);
-	$text = str_replace('&gt;','>',$text);
-
-	$text = highlight_string($text,1);
-
-	$text = str_replace('&amp;nbsp;','&nbsp;',$text);
-	$text = str_replace('&lt;br/&gt;','<br />',$text);
-	$text = str_replace('<font color="#007700">&lt;</font><font color="#0000BB">br</font><font color="#007700">/&gt;','<br />',$text);
-	$text = str_replace('&amp;</font><font color="#0000CC">nbsp</font><font color="#006600">;','&nbsp;',$text);
-	$text = str_replace('&amp;</font><font color="#0000BB">nbsp</font><font color="#007700">;','&nbsp;',$text);
-	$text = str_replace('<font color="#007700">;&lt;</font><font color="#0000BB">br</font><font color="#007700">/&gt;','<br />',$text);
-
-	return $text;
+$html_entities_match = array("#<#","#>#");
+$html_entities_replace = array("&lt;","&gt;");
+$text = $matches[1];
+$text = preg_replace($html_entities_match,$html_entities_replace,$text);
+// Замена 2 пробелов "&nbsp; " так,  чтобы выравнивался нетабулированный код, при этом не создавая огромных длинных строк.
+$text = str_replace("  ","&nbsp; ",$text);
+// немедленная замена 2 пробелами с " &nbsp;" выявленным нечетным количеством пробелов.
+$text = str_replace("  "," &nbsp;",$text);
+// Замена табуляций "&nbsp; &nbsp;" так, что код с символами табуляции выравнивается по правому краю, не создавая слишком длинных строк.
+$text = str_replace("\t","&nbsp; &nbsp;",$text);
+$text = str_replace('&lt;','<',$text);
+$text = str_replace('&gt;','>',$text);
+$text = highlight_string($text,1);
+$text = str_replace('&amp;nbsp;','&nbsp;',$text);
+$text = str_replace('&lt;br/&gt;','<br />',$text);
+$text = str_replace('<font color="#007700">&lt;</font><font color="#0000BB">br</font><font color="#007700">/&gt;',
+'<br />',$text);
+$text = str_replace('&amp;</font><font color="#0000CC">nbsp</font><font color="#006600">;',
+'&nbsp;',$text);
+$text = str_replace('&amp;</font><font color="#0000BB">nbsp</font><font color="#007700">;',
+'&nbsp;',$text);
+$text = str_replace('<font color="#007700">;&lt;</font><font color="#0000BB">br</font><font color="#007700">/&gt;',
+'<br />',$text);
+return $text;
 }
+?>

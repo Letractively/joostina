@@ -1,77 +1,75 @@
 <?php
 /**
 * @package Joostina
-* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2010 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
-* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
-* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
-* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
+* @copyright Авторские права (C) 2008 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
 */
-
-// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+// doctorgrif: удалил лишние пробелы и табы
+// запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 $_MAMBOTS->registerFunction('onInitEditor','botNoEditorInit');
 $_MAMBOTS->registerFunction('onGetEditorContents','botNoEditorGetContents');
 $_MAMBOTS->registerFunction('onEditorArea','botNoEditorEditorArea');
 
-/**
-* РќРµ РІРёР·СѓР°Р»СЊРЅС‹Р№ СЂРµРґР°РєС‚РѕСЂ - РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ javascript
-*/
+/** Не визуальный редактор - инициализация javascript*/
 function botNoEditorInit() {
-	return <<< EOD
+return <<< EOD
 <script type="text/javascript">
-	function insertAtCursor(myField, myValue) {
-		if (document.selection) {
-			// IE
-			myField.focus();
-			sel = document.selection.createRange();
-			sel.text = myValue;
-		} else if (myField.selectionStart || myField.selectionStart == '0') {
-			// MOZILLA/NETSCAPE
-			var startPos = myField.selectionStart;
-			var endPos = myField.selectionEnd;
-			myField.value = myField.value.substring(0, startPos)+ myValue+ myField.value.substring(endPos, myField.value.length);
-		} else {
-			myField.value += myValue;
-		}
-	}
+function insertAtCursor(myField, myValue) {
+if (document.selection) {
+// IE
+myField.focus();
+sel = document.selection.createRange();
+sel.text = myValue;
+} else if (myField.selectionStart || myField.selectionStart == '0') {
+// MOZILLA/NETSCAPE
+var startPos = myField.selectionStart;
+var endPos = myField.selectionEnd;
+myField.value = myField.value.substring(0, startPos)+ myValue+ myField.value.substring(endPos, myField.value.length);
+} else {
+myField.value += myValue;
+}
+}
 </script>
 EOD;
 }
 /**
-* РќРµ РІРёР·СѓР°Р»СЊРЅС‹Р№ СЂРµРґР°РєС‚РѕСЂ - РєРѕРїРёСЂРѕРІР°РЅРёРµ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ СЂРµРґР°РєС‚РѕСЂР° РІ РїРѕР»Рµ С„РѕСЂРјС‹
-* @param string - РќР°Р·РІР°РЅРёРµ РѕР±Р»Р°СЃС‚Рё СЂРµРґР°РєС‚РѕСЂР°
-* @param string - РќР°Р·РІР°РЅРёРµ РїРѕР»СЏ С„РѕСЂРјС‹
+* Не визуальный редактор - копирование содержимого редактора в поле формы
+* @param string - Название области редактора
+* @param string - Название поля формы
 */
 function botNoEditorGetContents() {
-	return <<< EOD
+return <<< EOD
 EOD;
 }
 /**
-* РќРµ РІРёР·СѓР°Р»СЊРЅС‹Р№ СЂРµРґР°РєС‚РѕСЂ - РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ СЂРµРґР°РєС‚РѕСЂР°
-* @param string - РќР°Р·РІР°РЅРёРµ РѕР±Р»Р°СЃС‚Рё СЂРµРґР°РєС‚РѕСЂР°
-* @param string - РџРѕР»Рµ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ
-* @param string - РќР°Р·РІР°РЅРёРµ РїРѕР»СЏ С„РѕСЂРјС‹
-* @param string - РЁРёСЂРёРЅР° РѕР±Р»Р°СЃС‚Рё СЂРµРґР°РєС‚РѕСЂР°
-* @param string - Р’С‹СЃРѕС‚Р° РѕР±Р»Р°СЃС‚Рё СЂРµРґР°РєС‚РѕСЂР°
-* @param int - Р§РёСЃР»Рѕ СЃС‚РѕР»Р±С†РѕРІ РѕР±Р»Р°СЃС‚Рё СЂРµРґР°РєС‚РѕСЂР°
-* @param int - Р§РёСЃР»Рѕ СЃС‚СЂРѕРє РѕР±Р»Р°СЃС‚Рё СЂРµРґР°РєС‚РѕСЂР°
+* Не визуальный редактор - отображение редактора
+* @param string - Название области редактора
+* @param string - Поле содержимого
+* @param string - Название поля формы
+* @param string - Ширина области редактора
+* @param string - Высота области редактора
+* @param int - Число столбцов области редактора
+* @param int - Число строк области редактора
 */
 function botNoEditorEditorArea($name,$content,$hiddenField,$width,$height,$col,$row) {
-	global $_MAMBOTS;
-	$results = $_MAMBOTS->trigger('onCustomEditorButton');
-	$buttons = array();
-	foreach($results as $result) {
-		if($result[0]) {
-			$buttons[] = '<img src="'.JPATH_SITE.'/mambots/editors-xtd/'.$result[0].'" onclick="insertAtCursor( document.adminForm.'.$hiddenField.', \''.$result[1].'\' )" alt="'.$result[1].'"/>';
-		}
-	}
-	$buttons = implode("",$buttons);
-	$width = $width.'px';
-	$height = $height.'px';
-
-	return <<< EOD
+global $mosConfig_live_site,$_MAMBOTS;
+$results = $_MAMBOTS->trigger('onCustomEditorButton');
+$buttons = array();
+foreach($results as $result) {
+if($result[0]) {
+$buttons[] = '<img src="'.$mosConfig_live_site.'/mambots/editors-xtd/'.$result[0].'" onclick="insertAtCursor( document.adminForm.'.$hiddenField.', \''.$result[1].'\' )" alt="'.$result[1].'"/>';
+}
+}
+$buttons = implode("",$buttons);
+$width = $width.'px';
+$height = $height.'px';
+return <<< EOD
 <textarea name="$hiddenField" id="$hiddenField" cols="$col" rows="$row" style="width:$width;height:$height;">$content</textarea>
 <br />$buttons
 EOD;
 }
+?>

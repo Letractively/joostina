@@ -1,18 +1,18 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
 
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
 
 // ensure user has access to this function
 if(!$acl->acl_check('administration','manage','users',$my->usertype,
-'components','com_massmail')) {
+	'components','com_massmail')) {
 	mosRedirect('index2.php',_NOT_AUTH);
 }
 
@@ -41,7 +41,7 @@ function messageForm($option) {
 	$lists = array();
 	$gtree = array_merge($gtree,$acl->get_group_children_tree(null,'USERS',false));
 	$lists['gid'] = mosHTML::selectList($gtree,'mm_group','size="10"','value',
-			'text',0);
+		'text',0);
 
 	HTML_massmail::messageForm($lists,$option);
 }
@@ -83,16 +83,16 @@ function sendMail() {
 
 		// Get all users email and group except for senders
 		$query = "SELECT email"."\n FROM #__users"."\n WHERE id != ".(int)$my->id.($gou
-						!== '0'?" AND ( $user_ids )":'');
+			!== '0'?" AND ( $user_ids )":'');
 		$database->setQuery($query);
 		$rows = $database->loadObjectList();
 
 		// Build e-mail message format
 		$message_header = sprintf(_MASSMAIL_MESSAGE,html_entity_decode($mosConfig_sitename,
-				ENT_QUOTES));
+			ENT_QUOTES));
 		$message = $message_header.$message_body;
 		$subject = html_entity_decode($mosConfig_sitename,ENT_QUOTES).' / '.
-				stripslashes($subject);
+			stripslashes($subject);
 
 		//Send email
 		foreach($rows as $row) {
@@ -103,3 +103,4 @@ function sendMail() {
 	$msg = _MESSAGE_SENDED_TO_USERS.count($rows);
 	mosRedirect('index2.php?option=com_massmail',$msg);
 }
+?>

@@ -1,113 +1,113 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <mosinstall version="1.0.12" type="mambot" group="editors">
 	<name>JCE Editor Mambot</name>
 	<creationDate>24:02:2008</creationDate>
 	<author>Joostina! Project</author>
-	<copyright>(C) 2008-2010 Joostina team.</copyright>
+	<copyright>(C) 2008 Joostina Team.</copyright>
 	<authorEmail>joostinacms@gmail.com</authorEmail>
 	<authorUrl>www.joostina.ru</authorUrl>
 	<version>1.1.8 JE</version>
 	<license>GNU General Public License</license>
 	<description><![CDATA[<p>
 		<strong>JCE</strong>
-		<em>(Joomla Content Editor)</em> - РіРёР±РєРѕ РЅР°СЃС‚СЂР°РёРІР°РµРјС‹Р№ Рё СЂР°СЃС€РёСЂСЏРµРјС‹Р№, РѕСЃРЅРѕРІР°РЅРЅС‹Р№ РЅР° СЂР°Р±РѕС‚Р°С… Moxiecode&apos;s
-	<a href"http://tinymce.moxiecode.com" target="_blank" />TinyMCE</a> СЂРµРґР°РєС‚РѕСЂ, РґР»СЏ  Joomla! CMS.</p><p>РђРІС‚РѕСЂ РїРѕСЃРІСЏС‰Р°РµС‚ JCE СЃРІРѕРµРјСѓ РѕС‚С†Сѓ .</p>]]></description>
+		<em>(Joomla Content Editor)</em> - гибко настраиваемый и расширяемый, основанный на работах Moxiecode&apos;s
+		<a href"http://tinymce.moxiecode.com" target="_blank" />TinyMCE</a> редактор, для  Joomla! CMS. Оптимизирован и для работы в среде Joostina CMS.</p><p>Автор посвящает JCE своему отцу .</p>]]></description>
 	<params>
-		<param name="@spacer" type="spacer" default="" label="РќР°СЃС‚СЂРѕР№РєРё" description="" />
-		<param name="editor_width" type="text" size="5" default="500" label="РЁРёСЂРёРЅР° СЂРµРґР°РєС‚РѕСЂР°" description="РЁРёСЂРёРЅР° РѕР±Р»Р°СЃС‚Рё Р·Р°РЅРёРјР°РµРјРѕР№ СЂРµРґР°РєС‚РѕСЂРѕРј" />
-		<param name="editor_height" type="text" size="5" default="600" label="Р’С‹СЃРѕС‚Р° СЂРµРґР°РєС‚РѕСЂР°" description="Р’С‹СЃРѕС‚Р° РѕР±Р»Р°СЃС‚Рё Р·Р°РЅРёРјР°РµРјРѕР№ СЂРµРґР°РєС‚РѕСЂРѕРј" />
-		<param name="size_all" type="radio" default="0" label="РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ СЌС‚Рё СЂР°Р·РјРµСЂС‹" description="РРіРЅРѕСЂРёСЂРѕРІР°С‚СЊ СЂР°Р·РјРµСЂС‹ СЂРµРґР°РєС‚РѕСЂР° СѓРєР°Р·Р°РЅРЅС‹Рµ РІ С„Р°Р№Р»Р°С… РІС‹Р·РѕРІР°.">
-			<option value="1">Р”Р°</option>
-			<option value="0">РќРµС‚</option>
+		<param name="@spacer" type="spacer" default="" label="Настройки" description="" />
+		<param name="editor_width" type="text" size="5" default="500" label="Ширина редактора" description="Ширина области занимаемой редактором" />
+		<param name="editor_height" type="text" size="5" default="600" label="Высота редактора" description="Высота области занимаемой редактором" />
+		<param name="size_all" type="radio" default="0" label="Использовать эти размеры" description="Игнорировать размеры редактора указанные в файлах вызова.">
+			<option value="1">Да</option>
+			<option value="0">Нет</option>
 		</param>
-		<param name="editor_state" type="radio" default="mceEditor" label="Р РµРґР°РєС‚РѕСЂ РІРєР»СЋС‡РµРЅ" description="РЎРѕСЃС‚РѕСЏРЅРёРµ СЂРµРґР°РєС‚РѕСЂР° - Р’РєР»СЋС‡РµРЅ/Р’С‹РєР»СЋС‡РµРЅ.">
-			<option value="mceEditor">Р’РєР»СЋС‡РµРЅ</option>
-			<option value="mceNoEditor">Р’С‹РєР»СЋС‡РµРЅ</option>
+		<param name="editor_state" type="radio" default="mceEditor" label="Редактор включен" description="Состояние редактора - Включен/Выключен.">
+			<option value="mceEditor">Включен</option>
+			<option value="mceNoEditor">Выключен</option>
 		</param>
-		<param name="compression" type="radio" default="0" label="GZip СЃР¶Р°С‚РёРµ" description="РЎР¶Р°С‚РёРµ СЃРєСЂРёРїС‚РѕРІ РґР»СЏ Р±РѕР»РµРµ Р±С‹СЃС‚СЂРѕР№ Р·Р°РіСЂСѓР·РєРё СЂРµРґР°РєС‚РѕСЂР°.">
-			<option value="1">Р”Р°</option>
-			<option value="0">РќРµС‚</option>
+		<param name="compression" type="radio" default="0" label="GZip сжатие" description="Сжатие скриптов для более быстрой загрузки редактора.">
+			<option value="1">Да</option>
+			<option value="0">Нет</option>
 		</param>
-		<param name="absolute_url" type="radio" default="0" label="РђР±СЃРѕР»СЋС‚РЅС‹Рµ РїСѓС‚Рё" description="РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ Р°Р±СЃРѕР»СЋС‚РЅС‹Рµ РїСѓС‚Рё РґР»СЏ СЂР°Р±РѕС‚С‹ СЂРµРґР°РєС‚РѕСЂР°.">
-			<option value="1">Р”Р°</option>
-			<option value="0">РќРµС‚</option>
+		<param name="absolute_url" type="radio" default="0" label="Абсолютные пути" description="Использовать абсолютные пути для работы редактора.">
+			<option value="1">Да</option>
+			<option value="0">Нет</option>
 		</param>
-		<param name="relative_url" type="radio" default="1" label="РћС‚РЅРѕСЃРёС‚РµР»СЊРЅС‹Рµ СЃСЃС‹Р»РєРё" description="Р—Р°РјРµРЅСЏС‚СЊ РІСЃРµ Р°Р±СЃРѕР»СЋС‚РЅС‹Рµ СЃСЃС‹Р»РєРё (src, href Рё С‚.Рґ..) РЅР° РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅС‹Рµ, С‚.Рµ. СѓРґР°Р»РµРЅРёРµ РЅР°Р·РІР°РЅРёРµ Р’Р°С€РµРіРѕ СЃР°Р№С‚Р°. (Р РµРєРѕРјРµРЅРґСѓРµС‚СЃСЏ).">
-			<option value="1">Р”Р°</option>
-			<option value="0">РќРµС‚</option>
+		<param name="relative_url" type="radio" default="1" label="Относительные ссылки" description="Заменять все абсолютные ссылки (src, href и т.д..) на относительные, т.е. удаление название Вашего сайта. (Рекомендуется).">
+			<option value="1">Да</option>
+			<option value="0">Нет</option>
 		</param>
-		<param name="text_direction" type="radio" default="ltr" label="Р Р°СЃРїРѕР»РѕР¶РµРЅРёРµ С‚РµРєСЃС‚Р°" description="РРЅРґРёРІРёРґСѓР°Р»СЊРЅС‹Рµ СЏР·С‹РєРѕРІС‹Рµ РЅР°СЃС‚СЂРѕР№РєРё СЂР°СЃРїРѕР»РѕР¶РµРЅРёСЏ С‚РµРєСЃС‚Р°">
-			<option value="ltr">РЎР»РµРІР° РЅР° РїСЂР°РІРѕ</option>
-			<option value="rtl">РЎРїСЂР°РІР° РЅР° Р»РµРІРѕ</option>
+		<param name="text_direction" type="radio" default="ltr" label="Расположение текста" description="Индивидуальные языковые настройки расположения текста">
+			<option value="ltr">Слева на право</option>
+			<option value="rtl">Справа на лево</option>
 		</param>
-		<param name="charset" type="text" default="utf-8" label="РљРѕРґРёСЂРѕРІРєР°" description="РљРѕРґРёСЂРѕРІРєР° СЂРµРґР°РєС‚РёСЂСѓРµРјС‹С… РґР°РЅРЅС‹С… РґР»СЏ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ РІ Р°СЏРєСЃ С„СѓРЅРєС†РёСЏС…." />
-		<param name="table_inline" type="radio" default="0" label="Р Р°СЃС€РёСЂРµРЅРЅРѕРµ СѓРїСЂР°РІР»РµРЅРёРµ С‚Р°Р±Р»РёС†Р°РјРё" description="РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РїСЂРѕРґРІРёРЅСѓС‚С‹Р№ СЂРµРґР°РєС‚РѕСЂ РґР»СЏ С‚Р°Р±Р»РёС†">
-			<option value="0">РќРµС‚</option>
-			<option value="1">Р”Р°</option>
+		<param name="charset" type="text" default="windows-1251" label="Кодировка" description="Кодировка редактируемых данных для использования в аякс функциях." />
+		<param name="table_inline" type="radio" default="0" label="Расширенное управление таблицами" description="Использовать продвинутый редактор для таблиц">
+			<option value="0">Нет</option>
+			<option value="1">Да</option>
 		</param>
-		<param name="content_css" type="radio" default="1" label="CSS С€Р°Р±Р»РѕРЅР°" description="РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ С„Р°Р№Р» СЃС‚РёР»РµР№ template_css.css С€Р°Р±Р»РѕРЅР° РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ">
-			<option value="0">РќРµС‚</option>
-			<option value="1">Р”Р°</option>
+		<param name="content_css" type="radio" default="1" label="CSS шаблона" description="Использовать файл стилей template_css.css шаблона по умолчанию">
+			<option value="0">Нет</option>
+			<option value="1">Да</option>
 		</param>
-		<param name="content_css_custom" type="text" size="50" default="" label="Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Р№ CSS С„Р°Р№Р»" description="РњРѕР¶РЅРѕ Р·Р°РіСЂСѓР¶Р°С‚СЊ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Р№ CSS С„Р°Р№Р», РѕРґРЅРѕ СѓСЃР»РѕРІРёРµ - РѕРЅ РґРѕР»Р¶РµРЅ РЅР°С…РѕРґРёС‚СЃСЏ РІ С‚РѕРј Р¶Рµ РєР°С‚Р°Р»РѕРіРµ С‡С‚Рѕ Р’Р°С€ РѕСЃРЅРѕРІРЅРѕР№ CSS С„Р°Р№Р»." />
-		<param name="newlines" type="radio" default="0" label="РќРѕРІР°СЏ СЃС‚СЂРѕРєР°" description="РџР°СЂР°РјРµС‚СЂС‹ СЃРѕР·РґР°РЅРёСЏ РЅРѕРІРѕР№ СЃС‚СЂРѕРєРё, РёСЃРїРѕР»СЊР·СѓРµРјС‹Р№ С‚РµРі.">
-			<option value="1">Р­Р»РµРјРµРЅС‚ BR</option>
-			<option value="0">Р­Р»РµРјРµРЅС‚ P</option>
+		<param name="content_css_custom" type="text" size="50" default="" label="Дополнительный CSS файл" description="Можно загружать дополнительный CSS файл, одно условие - он должен находится в том же каталоге что Ваш основной CSS файл." />
+		<param name="newlines" type="radio" default="0" label="Новая строка" description="Параметры создания новой строки, используемый тег.">
+			<option value="1">Элемент BR</option>
+			<option value="0">Элемент P</option>
 		</param>
-		<param name="toolbar" type="radio" default="top" label="РџР°РЅРµР»СЊ РёРЅСЃС‚СЂСѓРјРµРЅС‚РѕРІ" description="Р Р°СЃРїРѕР»РѕР¶РµРЅРёРµ РїР°РЅРµР»Рё РёРЅСЃС‚СЂСѓРјРµРЅС‚РѕРІ.">
-			<option value="top">РЎРІРµСЂС…Сѓ</option>
-			<option value="bottom">РЎРЅРёР·Сѓ</option>
+		<param name="toolbar" type="radio" default="top" label="Панель инструментов" description="Расположение панели инструментов.">
+			<option value="top">Сверху</option>
+			<option value="bottom">Снизу</option>
 		</param>
-		<param name="toolbar_align" type="radio" default="left" label="Р’С‹СЂР°РІРЅРёРІР°РЅРёРµ РєРЅРѕРїРѕРє РЅР° РїР°РЅРµР»Рё" description="Р’С‹СЂР°РІРЅРёРІР°РЅРёРµ РєРЅРѕРїРѕРє РїР°РЅРµР»Рё РёРЅСЃС‚СЂСѓРјРµРЅС‚РѕРІ">
-			<option value="left">РЎР»РµРІР°</option>
-			<option value="center">РџРѕ С†РµРЅС‚СЂСѓ</option>
-			<option value="right">РЎРїСЂР°РІР°</option>
+		<param name="toolbar_align" type="radio" default="left" label="Выравнивание кнопок на панели" description="Выравнивание кнопок панели инструментов">
+			<option value="left">Слева</option>
+			<option value="center">По центру</option>
+			<option value="right">Справа</option>
 		</param>
-		<param name="editor_resizing" type="radio" default="1" label="Р Р°СЃС‚СЏРіРёРІР°С‚СЊ СЂРµРґР°РєС‚РѕСЂ" description="Р Р°Р·СЂРµС€РёС‚СЊ СЂР°СЃС‚СЏРіРёРІР°С‚СЊ РѕРєРЅРѕ СЂРµРґР°РєС‚РѕСЂР°">
-			<option value="1">Р”Р°</option>
-			<option value="0">РќРµС‚</option>
+		<param name="editor_resizing" type="radio" default="1" label="Растягивать редактор" description="Разрешить растягивать окно редактора">
+			<option value="1">Да</option>
+			<option value="0">Нет</option>
 		</param>
-		<param name="resize_horizontal" type="radio" default="0" label="Р Р°СЃС‚СЏРіРёРІР°С‚СЊ РїРѕ РіРѕСЂРёР·РѕРЅС‚Р°Р»Рё" description="Р Р°Р·СЂРµС€РёС‚СЊ СЂР°СЃС‚СЏРіРёРІР°С‚СЊ РѕРєРЅРѕ СЂРµРґР°РєС‚РѕСЂР° РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅРѕ">
-			<option value="1">Р”Р°</option>
-			<option value="0">РќРµС‚</option>
+		<param name="resize_horizontal" type="radio" default="0" label="Растягивать по горизонтали" description="Разрешить растягивать окно редактора горизонтально">
+			<option value="1">Да</option>
+			<option value="0">Нет</option>
 		</param>
-		<param name="editor_resizing_cookie" type="radio" default="0" label="РЎРѕС…СЂР°РЅСЏС‚СЊ СЂР°Р·РјРµСЂ" description="РЎРѕС…СЂР°РЅСЏС‚СЊ РёР·РјРµРЅС‘РЅРЅС‹Рµ СЂР°Р·РјРµСЂС‹ СЂРµРґР°РєС‚РѕСЂР°">
-			<option value="1">Р”Р°</option>
-			<option value="0">РќРµС‚</option>
+		<param name="editor_resizing_cookie" type="radio" default="0" label="Сохранять размер" description="Сохранять изменённые размеры редактора">
+			<option value="1">Да</option>
+			<option value="0">Нет</option>
 		</param>
-		<param name="@spacer" type="spacer" default="" label="РћС‡РёСЃС‚РєР°" description="" />
-		<param name="verify_html" type="radio" default="0" label="РћС‡РёСЃС‚РєР°" description="РћС‡РёСЃС‚РєР° Р±Р°Р·РѕРІС‹С… HTML СЃСѓС‰РЅРѕСЃС‚РµР№">
-			<option value="1">Р”Р°</option>
-			<option value="0">РќРµС‚</option>
+		<param name="@spacer" type="spacer" default="" label="Очистка" description="" />
+		<param name="verify_html" type="radio" default="0" label="Очистка" description="Очистка базовых HTML сущностей">
+			<option value="1">Да</option>
+			<option value="0">Нет</option>
 		</param>
-		<param name="fix_table_elements" type="radio" default="1" label="РСЃРїСЂР°РІР»СЏС‚СЊ С‚Р°Р±Р»РёС†С‹" description="РђРІС‚РѕРјР°С‚РёС‡РµСЃРєРё РїРµСЂРµРґРµР»С‹РІР°С‚СЊ С‚Р°Р±Р»РёС†С‹ РґР»СЏ СЃРѕРІРјРµСЃС‚РёРјРѕСЃС‚Рё СЃ  XHTML.">
-			<option value="1">Р”Р°</option>
-			<option value="0">РќРµС‚</option>
+		<param name="fix_table_elements" type="radio" default="1" label="Исправлять таблицы" description="Автоматически переделывать таблицы для совместимости с  XHTML.">
+			<option value="1">Да</option>
+			<option value="0">Нет</option>
 		</param>
-		<param name="fix_list_elements" type="radio" default="1" label="РСЃРїСЂР°РІР»СЏС‚СЊ СЃРїРёСЃРєРё" description="РљРѕРЅРІРµСЂС‚РёСЂРѕРІР°С‚СЊ СЌР»РµРјРµРЅС‚С‹ UL/OL РґР»СЏ СЃРѕРІРјРµСЃС‚РёРјРѕСЃС‚Рё СЃ XHTML.">
-			<option value="1">Р”Р°</option>
-			<option value="0">РќРµС‚</option>
+		<param name="fix_list_elements" type="radio" default="1" label="Исправлять списки" description="Конвертировать элементы UL/OL для совместимости с XHTML.">
+			<option value="1">Да</option>
+			<option value="0">Нет</option>
 		</param>
-		<param name="mambot_mode" type="list" default="0" label="Р РµР¶РёРј РјР°РјР±РѕС‚Р°" description="РџСЂРё Р°РєС‚РёРІР°С†РёРё, &amp; Рё &apos; РЅРµ Р±СѓРґСѓС‚ РїРµСЂРµРєРѕРґРёСЂРѕРІР°РЅС‹ РїСЂРё СЃРѕС…СЂР°РЅРµРЅРёРё.">
-			<option value="1">Р”Р°</option>
-			<option value="0">РќРµС‚</option>
+		<param name="mambot_mode" type="list" default="0" label="Режим мамбота" description="При активации, &amp; и &apos; не будут перекодированы при сохранении.">
+			<option value="1">Да</option>
+			<option value="0">Нет</option>
 		</param>
-		<param name="entity_encoding" type="list" default="named" label="РљРѕРґРёСЂРѕРІРєР° Entity" description="This option controls how entities/characters gets processed by TinyMCE/JCE. The value can be set to numeric, named or raw. The default value of this option is named, if named is used the entities option will be used to convert the codes into names.">
+		<param name="entity_encoding" type="list" default="named" label="Кодировка Entity" description="This option controls how entities/characters gets processed by TinyMCE/JCE. The value can be set to numeric, named or raw. The default value of this option is named, if named is used the entities option will be used to convert the codes into names.">
 			<option value="numeric">Numeric</option>
 			<option value="named">Named</option>
 			<option value="raw">Raw</option>
 		</param>
-		<param name="font_size_type" type="radio" default="length" label="Р Р°Р·РјРµСЂ С€СЂРёС„С‚Р°" description="РўРёРї С‚РѕРіРѕ РєР°Рє Р±СѓРґРµС‚ Р·Р°РґР°РІР°С‚СЊСЃСЏ СЂР°Р·РјРµСЂ С€СЂРёС„С‚Р°, РЅР°РїСЂРёРјРµСЂ: 10pt, РёР»Рё Р°Р±СЃРѕР»СЋС‚РЅС‹Р№ СЂР°Р·РјРµСЂ: x-small.">
-			<option value="length">Р’С‹СЃРѕС‚Р°</option>
-			<option value="absolute">РђР±СЃРѕР»СЋС‚РЅС‹Р№ СЂР°Р·РјРµСЂ</option>
+		<param name="font_size_type" type="radio" default="length" label="Размер шрифта" description="Тип того как будет задаваться размер шрифта, например: 10pt, или абсолютный размер: x-small.">
+			<option value="length">Высота</option>
+			<option value="absolute">Абсолютный размер</option>
 		</param>
-		<param name="invalid_elements" type="text" size="50" default="applet" label="РЈРґР°Р»СЏС‚СЊ СЌР»РµРјРµРЅС‚С‹" description="Р­Р»РµРјРµРЅС‚С‹ РєРѕС‚РѕСЂС‹Рµ Р±СѓРґСѓС‚ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё СѓРґР°Р»СЏС‚СЊСЃСЏ РёР· С‚РµРєСЃС‚Р°." />
-		<param name="extended_elements" type="textarea" rows="2" cols="35" default="" label="Р Р°СЃС€РёСЂРµРЅРЅС‹Рµ СЌР»РµРјРµРЅС‚С‹" description="Р Р°СЃС€РёСЂРµРЅРёСЏ С„СѓРЅРєС†РёР№ JCE. Р¤РѕСЂРјР°С‚: elm[tag1|tag2]" />
-		<param name="event_elements" type="text" size="50" default="td,img,a" label="Р—Р°РґР°С‡Рё СЌР»РµРјРµРЅС‚РѕРІ" description="This option should contain a comma separated list of elements thay may have event attributes such as onclick and simmilar. This option is needed since some browsers execute these events while editing content." />
-		<param name="allow_script" type="list" default="18" label="Р Р°Р·СЂРµС€РёС‚СЊ СЏРІР°-СЃРєСЂРёРїС‚С‹" description="Р Р°Р·СЂРµС€РµРЅРёРµ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ СЏРІР°-СЃРєСЂРёРїС‚С‹">
-			<option value="99">**РћС‚РєР»СЋС‡РµРЅРѕ**</option>
-			<option value="0">Р“РѕСЃС‚Рё</option>
-			<option value="18">-Р—Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅРЅС‹Рµ</option>
+		<param name="invalid_elements" type="text" size="50" default="applet" label="Удалять элементы" description="Элементы которые будут автоматически удаляться из текста." />
+		<param name="extended_elements" type="textarea" rows="2" cols="35" default="" label="Расширенные элементы" description="Расширения функций JCE. Формат: elm[tag1|tag2]" />
+		<param name="event_elements" type="text" size="50" default="td,img,a" label="Задачи элементов" description="This option should contain a comma separated list of elements thay may have event attributes such as onclick and simmilar. This option is needed since some browsers execute these events while editing content." />
+		<param name="allow_script" type="list" default="18" label="Разрешить ява-скрипты" description="Разрешение использовать ява-скрипты">
+			<option value="99">**Отключено**</option>
+			<option value="0">Гости</option>
+			<option value="18">-Зарегистрированные</option>
 			<option value="19">--Author</option>
 			<option value="20">---Editor</option>
 			<option value="21">----Publisher</option>
@@ -116,10 +116,10 @@
 			<option value="25">-------Super Administrator</option>
 		</param>
 		<param name="@spacer" type="spacer" default="" label="General" description="" />
-		<param name="html_height" type="text" default="550" size="5" label="Р’С‹СЃРѕС‚Р° HTML" description="Р’С‹СЃРѕС‚Р° РѕРєРЅР° РїСЂРµРґРїСЂРѕСЃРјРѕС‚СЂР° HTML РєРѕРґР°." />
-		<param name="html_width" type="text" default="750" size="5" label="РЁРёСЂРёРЅР° HTML" description="РЁРёСЂРёРЅР° РѕРєРЅР° РїСЂРµРґРїСЂРѕСЃРјРѕС‚СЂР° HTML РєРѕРґР°." />
-		<param name="preview_height" type="text" default="550" size="5" label="Р’С‹СЃРѕС‚Р° РїСЂРµРґРїСЂРѕСЃРјРѕС‚СЂР°" description="Р’С‹СЃРѕС‚Р° РѕРєРЅР° РїСЂРµРґРїСЂРѕСЃРјРѕС‚СЂР° СЂРµРґР°РєС‚РёСЂСѓРµРјРѕРіРѕ С‚РµРєСЃС‚Р°." />
-		<param name="preview_width" type="text" default="750" size="5" label="РЁРёСЂРёРЅР° РїСЂРµРґРїСЂРѕСЃРјРѕС‚СЂР°" description="РЁРёСЂРёРЅР° РѕРєРЅР° РїСЂРµРґРїСЂРѕСЃРјРѕС‚СЂР° СЂРµРґР°РєС‚РёСЂСѓРµРјРѕРіРѕ С‚РµРєСЃС‚Р°." />
-		<param name="template_colors" type="textarea" rows="2" cols="35" default="" label="РЁР°Р±Р»РѕРЅС‹ С†РІРµС‚РѕРІ" description="Р§РµСЂРµР· С‚РѕС‡РєСѓ РјРѕР¶РЅРѕ РїРµСЂРµС‡РёСЃР»РёС‚СЊ С†РІРµС‚Р°, РёСЃРїРѕР»СЊР·СѓРµРјС‹Рµ РІ СЂРµРґР°РєС‚РѕСЂРµ, РЅР°РїСЂРёРјРµСЂ: #ff0000, (РќРµ Р±РѕР»РµРµ 18)." />
+		<param name="html_height" type="text" default="550" size="5" label="Высота HTML" description="Высота окна предпросмотра HTML кода." />
+		<param name="html_width" type="text" default="750" size="5" label="Ширина HTML" description="Ширина окна предпросмотра HTML кода." />
+		<param name="preview_height" type="text" default="550" size="5" label="Высота предпросмотра" description="Высота окна предпросмотра редактируемого текста." />
+		<param name="preview_width" type="text" default="750" size="5" label="Ширина предпросмотра" description="Ширина окна предпросмотра редактируемого текста." />
+		<param name="template_colors" type="textarea" rows="2" cols="35" default="" label="Шаблоны цветов" description="Через точку можно перечислить цвета, используемые в редакторе, например: #ff0000, (Не более 18)." />
 	</params>
 </mosinstall>

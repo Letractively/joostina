@@ -1,15 +1,15 @@
 <?php
 /**
 * @package Joostina
-* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2010 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
-* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
-* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
-* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
+* @copyright Авторские права (C) 2008 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
 */
 
-// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+// запрет прямого доступа
 defined('_VALID_MOS') or die();
-global $my;
+global $mosConfig_absolute_path,$mosConfig_live_site,$my;
 
 
 $task = mosGetParam($_GET,'task','publish');
@@ -56,17 +56,17 @@ function x_access($id){
 	if(!$row->access) {
 		$color_access = 'style="color: green;"';
 		$task_access = 'accessregistered';
-		$text_href = _USER_GROUP_ALL;
+		$text_href = 'Общий';
 	} elseif($row->access == 1) {
 		$color_access = 'style="color: red;"';
 		$task_access = 'accessspecial';
-		$text_href = _USER_GROUP_REGISTERED;
+		$text_href = 'Участники';
 	} else {
 		$color_access = 'style="color: black;"';
 		$task_access = 'accesspublic';
-		$text_href = _USER_GROUP_SPECIAL;
+		$text_href = 'Специальный';
 	}
-	// С‡РёСЃС‚РёРј РєСЌС€
+	// чистим кэш
 	mosCache::cleanCache('com_content');
 	return '<a href="#" onclick="ch_access('.$row->id.',\''.$task_access.'\',\''.$option.'\')" '.$color_access.'>'.$text_href.'</a>';
 }

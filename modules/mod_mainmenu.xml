@@ -1,68 +1,68 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <mosinstall type="module" version="1.0.0">
-	<name>Р“Р»Р°РІРЅРѕРµ РјРµРЅСЋ</name>
+	<name>Главное меню</name>
 	<author>Joostina! Project</author>
-	<creationDate>РСЋРЅСЊ 2008</creationDate>
-	<copyright>(C) 2008-2010 Joostina team.</copyright>
+	<creationDate>Июнь 2008</creationDate>
+	<copyright>(C) 2008 Joostina team.</copyright>
 	<license>http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL</license>
 	<authorEmail>joostinacms@gmail.com</authorEmail>
 	<authorUrl>www.joostina.ru</authorUrl>
 	<version>1.0.0</version>
-	<description>РћС‚РѕР±СЂР°Р¶РµРЅРёРµ РјРµРЅСЋ.</description>
+	<description>Модуль отображение меню.</description>
 	<files>
 		<filename module="mod_mainmenu">mod_mainmenu.php</filename>
 	</files>
-	<params>
-		<param name="class_sfx" type="text" default="" label="CSS-СЃСѓС„С„РёРєСЃ РєР»Р°СЃСЃР° РјРµРЅСЋ" description="РЎСѓС„С„РёРєСЃ, РёСЃРїРѕР»СЊР·СѓРµРјС‹Р№ РІ РєР»Р°СЃСЃРµ CSS РґР»СЏ РѕР±СЉРµРєС‚РѕРІ РјРµРЅСЋ" />
-		<param name="moduleclass_sfx" type="text" default="" label="CSS-СЃСѓС„С„РёРєСЃ РєР»Р°СЃСЃР° РјРѕРґСѓР»СЏ" description="РЎСѓС„С„РёРєСЃ, РєРѕС‚РѕСЂС‹Р№ Р±СѓРґРµС‚ РёСЃРїРѕР»СЊР·РѕРІР°РЅ РІ РѕРїРёСЃР°РЅРёРё РєР»Р°СЃСЃР° (table.moduletable) С‚Р°Р±Р»РёС†С‹ СЃС‚РёР»РµР№ (CSS) РјРѕРґСѓР»СЏ. Р­С‚Рѕ РїРѕР·РІРѕР»СЏРµС‚ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РёРЅРґРёРІРёРґСѓР°Р»СЊРЅС‹Р№ СЃС‚РёР»СЊ РјРѕРґСѓР»СЏ." />
+		<params>
+		<param name="class_sfx" type="text" default="" label="CSS-суффикс класса меню" description="Суффикс, используемый в классе CSS для объектов меню" />
+		<param name="moduleclass_sfx" type="text" default="" label="CSS-суффикс класса модуля" description="Суффикс, который будет использован в описании класса (table.moduletable) таблицы стилей (CSS) модуля. Это позволяет использовать индивидуальный стиль модуля." />
 		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="menutype" type="mos_menu" default="" label="РќР°Р·РІР°РЅРёРµ РјРµРЅСЋ" description="РќР°Р·РІР°РЅРёРµ РјРµРЅСЋ (РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ - `mainmenu`)" />
-		<param name="menu_style" type="list" default="vert_indent" label="РЎС‚РёР»СЊ РјРµРЅСЋ" description="РЎС‚РёР»СЊ (РІРёРґ) РјРµРЅСЋ">
-			<option value="vert_indent">Р’РµСЂС‚РёРєР°Р»СЊРЅРѕ</option>
-			<option value="horiz_flat">Р“РѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅРѕ</option>
-			<option value="list_flat">РџР»РѕСЃРєРёР№ СЃРїРёСЃРѕРє</option>
+		<param name="menutype" type="mos_menu" default="" label="Название меню" description="Название меню (по умолчанию - `mainmenu`)" />
+		<param name="menu_style" type="list" default="vert_indent" label="Стиль меню" description="Стиль (вид) меню">
+			<option value="vert_indent">Вертикально</option>
+			<option value="horiz_flat">Горизонтально</option>
+			<option value="list_flat">Плоский список</option>
+		</param>	 
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="full_active_id" type="radio" default="0" label="Полная подсветка активных пунктов" description="Разрешает полную подсветку активных пунктов меню, включая `Ссылка - Пункт компонента` и `Ссылка - Url`, что может стать причиной несовместимости с XHTML, если более одной ссылки являются активными">
+			<option value="0">Нет</option>
+			<option value="1">Да</option>
+		</param>		
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="cache" type="radio" default="0" label="Разрешить кэширование" description="Выберите, кэшировать ли содержимое этого модуля">
+			<option value="0">Нет</option>
+			<option value="1">Да</option>
+		</param>
+		<param name="menu_images" type="radio" default="0" label="Показывать значки меню" description="Выберите, использовать ли значки для объектов меню">
+			<option value="0">Нет</option>
+			<option value="1">Да</option>
+		</param>
+		<param name="menu_images_align" type="radio" default="0" label="Расположение значков меню" description="Расположение значков меню">
+			<option value="0">Слева</option>
+			<option value="1">Справа</option>
+		</param>
+		<param name="expand_menu" type="radio" default="0" label="Развернутое меню" description="Развернутое меню с созданием всегда видимого подменю">
+			<option value="0">Нет</option>
+			<option value="1">Да</option>
+		</param>
+		<param name="activate_parent" type="radio" default="0" label="Включение родителя" description="Установка id активации также для всех родительских меню в дереве">
+			<option value="0">Нет</option>
+			<option value="1">Да</option>
 		</param>
 		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="full_active_id" type="radio" default="0" label="РџРѕР»РЅР°СЏ РїРѕРґСЃРІРµС‚РєР° Р°РєС‚РёРІРЅС‹С… РїСѓРЅРєС‚РѕРІ" description="Р Р°Р·СЂРµС€Р°РµС‚ РїРѕР»РЅСѓСЋ РїРѕРґСЃРІРµС‚РєСѓ Р°РєС‚РёРІРЅС‹С… РїСѓРЅРєС‚РѕРІ РјРµРЅСЋ, РІРєР»СЋС‡Р°СЏ `РЎСЃС‹Р»РєР° - РџСѓРЅРєС‚ РєРѕРјРїРѕРЅРµРЅС‚Р°` Рё `РЎСЃС‹Р»РєР° - Url`, С‡С‚Рѕ РјРѕР¶РµС‚ СЃС‚Р°С‚СЊ РїСЂРёС‡РёРЅРѕР№ РЅРµСЃРѕРІРјРµСЃС‚РёРјРѕСЃС‚Рё СЃ XHTML, РµСЃР»Рё Р±РѕР»РµРµ РѕРґРЅРѕР№ СЃСЃС‹Р»РєРё СЏРІР»СЏСЋС‚СЃСЏ Р°РєС‚РёРІРЅС‹РјРё">
-			<option value="0">РќРµС‚</option>
-			<option value="1">Р”Р°</option>
-		</param>
-		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="cache" type="radio" default="0" label="Р Р°Р·СЂРµС€РёС‚СЊ РєСЌС€РёСЂРѕРІР°РЅРёРµ" description="Р’С‹Р±РµСЂРёС‚Рµ, РєСЌС€РёСЂРѕРІР°С‚СЊ Р»Рё СЃРѕРґРµСЂР¶РёРјРѕРµ СЌС‚РѕРіРѕ РјРѕРґСѓР»СЏ">
-			<option value="0">РќРµС‚</option>
-			<option value="1">Р”Р°</option>
-		</param>
-		<param name="menu_images" type="radio" default="0" label="РџРѕРєР°Р·С‹РІР°С‚СЊ Р·РЅР°С‡РєРё РјРµРЅСЋ" description="Р’С‹Р±РµСЂРёС‚Рµ, РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ Р»Рё Р·РЅР°С‡РєРё РґР»СЏ РѕР±СЉРµРєС‚РѕРІ РјРµРЅСЋ">
-			<option value="0">РќРµС‚</option>
-			<option value="1">Р”Р°</option>
-		</param>
-		<param name="menu_images_align" type="radio" default="0" label="Р Р°СЃРїРѕР»РѕР¶РµРЅРёРµ Р·РЅР°С‡РєРѕРІ РјРµРЅСЋ" description="Р Р°СЃРїРѕР»РѕР¶РµРЅРёРµ Р·РЅР°С‡РєРѕРІ РјРµРЅСЋ">
-			<option value="0">РЎР»РµРІР°</option>
-			<option value="1">РЎРїСЂР°РІР°</option>
-		</param>
-		<param name="expand_menu" type="radio" default="0" label="Р Р°Р·РІРµСЂРЅСѓС‚РѕРµ РјРµРЅСЋ" description="Р Р°Р·РІРµСЂРЅСѓС‚РѕРµ РјРµРЅСЋ СЃ СЃРѕР·РґР°РЅРёРµРј РІСЃРµРіРґР° РІРёРґРёРјРѕРіРѕ РїРѕРґРјРµРЅСЋ">
-			<option value="0">РќРµС‚</option>
-			<option value="1">Р”Р°</option>
-		</param>
-		<param name="activate_parent" type="radio" default="0" label="Р’РєР»СЋС‡РµРЅРёРµ СЂРѕРґРёС‚РµР»СЏ" description="РЈСЃС‚Р°РЅРѕРІРєР° id Р°РєС‚РёРІР°С†РёРё С‚Р°РєР¶Рµ РґР»СЏ РІСЃРµС… СЂРѕРґРёС‚РµР»СЊСЃРєРёС… РјРµРЅСЋ РІ РґРµСЂРµРІРµ">
-			<option value="0">РќРµС‚</option>
-			<option value="1">Р”Р°</option>
-		</param>
-		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="indent_image" type="list" default="0" label="РР·РѕР±СЂР°Р¶РµРЅРёРµ РѕС‚СЃС‚СѓРїР°" description="Р’С‹Р±РµСЂРёС‚Рµ, РєР°РєРѕРµ РёР·РѕР±СЂР°Р¶РµРЅРёРµ Р±СѓРґРµС‚ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊСЃСЏ СЃРёСЃС‚РµРјРѕР№">
-			<option value="0">РР· С€Р°Р±Р»РѕРЅР°</option>
+		<param name="indent_image" type="list" default="0" label="Изображение отступа" description="Выберите, какое изображение будет использоваться системой">
+			<option value="0">Из шаблона</option>
 			<option value="1">Joomla! default images</option>
-			<option value="2">РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РїР°СЂР°РјРµС‚СЂС‹ РЅРёР¶Рµ</option>
-			<option value="3">РќРµС‚</option>
+			<option value="2">Использовать параметры ниже</option>
+			<option value="3">Нет</option>
 		</param>
-		<param name="indent_image1" type="imagelist" directory="/images/M_images" default="" label="РР·РѕР±СЂР°Р¶РµРЅРёРµ РѕС‚СЃС‚СѓРїР° 1" description="РР·РѕР±СЂР°Р¶РµРЅРёРµ РґР»СЏ РїРµСЂРІРѕРіРѕ РїРѕРґСѓСЂРѕРІРЅСЏ" />
-		<param name="indent_image2" type="imagelist" directory="/images/M_images" default="" label="РР·РѕР±СЂР°Р¶РµРЅРёРµ РѕС‚СЃС‚СѓРїР° 2" description="РР·РѕР±СЂР°Р¶РµРЅРёРµ РґР»СЏ РІС‚РѕСЂРѕРіРѕ РїРѕРґСѓСЂРѕРІРЅСЏ" />
-		<param name="indent_image3" type="imagelist" directory="/images/M_images" default="" label="РР·РѕР±СЂР°Р¶РµРЅРёРµ РѕС‚СЃС‚СѓРїР° 3" description="РР·РѕР±СЂР°Р¶РµРЅРёРµ РґР»СЏ С‚СЂРµС‚СЊРµРіРѕ РїРѕРґСѓСЂРѕРІРЅСЏ" />
-		<param name="indent_image4" type="imagelist" directory="/images/M_images" default="" label="РР·РѕР±СЂР°Р¶РµРЅРёРµ РѕС‚СЃС‚СѓРїР° 4" description="РР·РѕР±СЂР°Р¶РµРЅРёРµ РґР»СЏ С‡РµС‚РІРµСЂС‚РѕРіРѕ РїРѕРґСѓСЂРѕРІРЅСЏ" />
-		<param name="indent_image5" type="imagelist" directory="/images/M_images" default="" label="РР·РѕР±СЂР°Р¶РµРЅРёРµ РѕС‚СЃС‚СѓРїР° 5" description="РР·РѕР±СЂР°Р¶РµРЅРёРµ РґР»СЏ РїСЏС‚РѕРіРѕ РїРѕРґСѓСЂРѕРІРЅСЏ" />
-		<param name="indent_image6" type="imagelist" directory="/images/M_images" default="" label="РР·РѕР±СЂР°Р¶РµРЅРёРµ РѕС‚СЃС‚СѓРїР° 6" description="РР·РѕР±СЂР°Р¶РµРЅРёРµ РґР»СЏ С€РµСЃС‚РѕРіРѕ РїРѕРґСѓСЂРѕРІРЅСЏ" />
+		<param name="indent_image1" type="imagelist" directory="/images/M_images" default="" label="Изображение отступа 1" description="Изображение для первого подуровня" />
+		<param name="indent_image2" type="imagelist" directory="/images/M_images" default="" label="Изображение отступа 2" description="Изображение для второго подуровня" />
+		<param name="indent_image3" type="imagelist" directory="/images/M_images" default="" label="Изображение отступа 3" description="Изображение для третьего подуровня" />
+		<param name="indent_image4" type="imagelist" directory="/images/M_images" default="" label="Изображение отступа 4" description="Изображение для четвертого подуровня" />
+		<param name="indent_image5" type="imagelist" directory="/images/M_images" default="" label="Изображение отступа 5" description="Изображение для пятого подуровня" />
+		<param name="indent_image6" type="imagelist" directory="/images/M_images" default="" label="Изображение отступа 6" description="Изображение для шестого подуровня" />
 		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="spacer" type="text" default="" size="5" label="Р Р°Р·РґРµР»РёС‚РµР»СЊ" description="Р Р°Р·РґРµР»РёС‚РµР»СЊ РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅРѕРіРѕ РјРµРЅСЋ" />
-		<param name="end_spacer" type="text" default="" size="5" label="Р Р°Р·РґРµР»РёС‚РµР»СЊ РїРѕ РєРѕРЅС†Р°Рј" description="Р Р°Р·РґРµР»РёС‚РµР»СЊ РїРѕ РєРѕРЅС†Р°Рј РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅРѕРіРѕ РјРµРЅСЋ" />
+		<param name="spacer" type="text" default="" size="5" label="Разделитель" description="Разделитель горизонтального меню" />
+		<param name="end_spacer" type="text" default="" size="5" label="Разделитель по концам" description="Разделитель по концам горизонтального меню" />
 	</params>
 </mosinstall>

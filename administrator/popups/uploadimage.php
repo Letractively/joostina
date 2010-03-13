@@ -1,20 +1,18 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
 
 define("_VALID_MOS",1);
 
-/** Ð¿Ñ€Ð¾Ð²ÐµÑ€ÐºÐ° Ð±ÐµÐ·Ð¾Ð¿Ð°ÑÐ½Ð¾ÑÑ‚Ð¸*/
+/** ïðîâåðêà áåçîïàñíîñòè*/
 require ('../includes/auth.php');
-
-$mainframe = &mosMainFrame::getInstance(true);
-$mainframe->set('lang', $mosConfig_lang);
-include_once($mainframe->getLangFile());
+include_once ($mosConfig_absolute_path.'/language/'.$mosConfig_lang.'.php');
+include_once ($mosConfig_absolute_path.'/includes/definitions.php');
 
 /*
 * Stops file upload below /images/stories directory
@@ -60,11 +58,11 @@ switch($option) {
 		break;
 }
 // mainframe is an API workhorse, lots of 'core' interaction routines
-$mainframe = new mosMainFrame( $database, $option, JPATH_BASE, true );
+$mainframe = new mosMainFrame( $database, $option, $mosConfig_absolute_path, true );
 $directory = mosGetParam($_REQUEST,'directory','');
 $css = mosGetParam($_REQUEST,'t','');
 
-$media_path = JPATH_BASE.'/media/';
+$media_path = $mosConfig_absolute_path.'/media/';
 
 $userfile2 = (isset($_FILES['userfile']['tmp_name'])?$_FILES['userfile']['tmp_name']:"");
 $userfile_name = (isset($_FILES['userfile']['name'])?$_FILES['userfile']['name']:"");
@@ -72,7 +70,7 @@ $userfile_name = (isset($_FILES['userfile']['name'])?$_FILES['userfile']['name']
 limitDirectory($directory);
 
 // check to see if directory exists
-if($directory != 'banners' && $directory != '' && !is_dir(JPATH_BASE.'/images/stories/'.$directory)) {
+if($directory != 'banners' && $directory != '' && !is_dir($mosConfig_absolute_path.'/images/stories/'.$directory)) {
 	$directory = '';
 }
 
@@ -82,20 +80,20 @@ if(isset($_FILES['userfile'])) {
 	if($directory == 'banners') {
 		$base_Dir = "../../images/banners/";
 	} else
-	if($directory != '') {
-		$base_Dir = '../../images/stories/'.$directory;
+		if($directory != '') {
+			$base_Dir = '../../images/stories/'.$directory;
 
-		if(!is_dir(JPATH_BASE.'/images/stories/'.$directory)) {
+			if(!is_dir($mosConfig_absolute_path.'/images/stories/'.$directory)) {
+				$base_Dir = '../../images/stories/';
+				$directory = '';
+			}
+		} else {
 			$base_Dir = '../../images/stories/';
-			$directory = '';
 		}
-	} else {
-		$base_Dir = '../../images/stories/';
-	}
 
-	if(empty($userfile_name)) {
-		mosErrorAlert(_CHOOSE_IMAGE_FOR_UPLOAD,$action);
-	}
+		if(empty($userfile_name)) {
+			mosErrorAlert(_CHOOSE_IMAGE_FOR_UPLOAD,$action);
+		}
 
 	$filename = split("\.",$userfile_name);
 
@@ -108,7 +106,7 @@ if(isset($_FILES['userfile'])) {
 	}
 
 	if((strcasecmp(substr($userfile_name,-4),'.gif')) && (strcasecmp(substr($userfile_name,-4),'.jpg')) && (strcasecmp(substr($userfile_name,-4),'.png')) && (strcasecmp(substr($userfile_name,-4),'.bmp')) && (strcasecmp(substr($userfile_name,-4),'.doc')) &&(strcasecmp(substr($userfile_name,-4),'.xls')) && (strcasecmp(substr($userfile_name,-4),'.ppt')) && (strcasecmp(substr($userfile_name,-4),'.swf')) && (strcasecmp(substr($userfile_name,-4),'.pdf'))) {
-		mosErrorAlert(_FILE_MUST_HAVE_THIS_EXTENSION.' gif, png, jpg, bmp, swf, doc, xls, ppt',$action);
+		mosErrorAlert(_FILE_MUST_HAVE_THIS_EXTENSION.' gif, png, jpg, bmp, swf, doc, xls èëè ppt',$action);
 	}
 
 
@@ -128,12 +126,12 @@ if(isset($_FILES['userfile'])) {
 
 // css file handling
 // check to see if template exists
-if($css != '' && !is_dir(JPATH_BASE_ADMIN.'/templates/'.$css.'/css/template_css.css')) {
+if($css != '' && !is_dir($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$css.'/css/template_css.css')) {
 	$css = 'joostfree';
 } else
-if($css == '') {
-	$css = 'joostfree';
-}
+	if($css == '') {
+		$css = 'joostfree';
+	}
 
 $iso = split('=',_ISO);
 // xml prolog
@@ -141,31 +139,31 @@ echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>';
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<title><?php echo _FILE_UPLOAD?></title>
-		<meta http-equiv="Content-Type" content="text/html; <?php echo _ISO; ?>" />
-	</head>
-	<body>
+<head>
+<title><?php echo _FILE_UPLOAD?></title>
+<meta http-equiv="Content-Type" content="text/html; <?php echo _ISO; ?>" />
+</head>
+<body>
 
-		<link rel="stylesheet" href="../templates/<?php echo $css; ?>/css/template_css.css" type="text/css" />
-		<form method="post" action="uploadimage.php" enctype="multipart/form-data" name="filename" id="filename">
-			<table class="adminform">
-				<tr>
-					<th class="title">
-						<?php echo _FILE_UPLOAD?>: <?php echo $directory; ?>
-					</th>
-				</tr>
-				<tr>
-					<td align="center">
-						<input class="inputbox" name="userfile" type="file" /><input class="button" type="submit" value="<?php echo _TASK_UPLOAD?>" name="fileupload" />
-					</td>
-				</tr>
-				<tr>
-					<td><?php echo _MAX_SIZE?> = <?php echo ini_get('post_max_size'); ?></td>
-				</tr>
-			</table>
-			<input type="hidden" name="directory" value="<?php echo $directory; ?>" />
-			<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
-		</form>
-	</body>
+<link rel="stylesheet" href="../templates/<?php echo $css; ?>/css/template_css.css" type="text/css" />
+<form method="post" action="uploadimage.php" enctype="multipart/form-data" name="filename" id="filename">
+	<table class="adminform">
+		<tr>
+		<th class="title">
+			<?php echo _FILE_UPLOAD?>: <?php echo $directory; ?>
+		</th>
+		</tr>
+		<tr>
+			<td align="center">
+				<input class="inputbox" name="userfile" type="file" /><input class="button" type="submit" value="Çàãðóçèòü" name="fileupload" />
+			</td>
+		</tr>
+		<tr>
+			<td><?php echo _MAX_SIZE?> = <?php echo ini_get('post_max_size'); ?></td>
+	</tr>
+	</table>
+	<input type="hidden" name="directory" value="<?php echo $directory; ?>" />
+	<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
+</form>
+</body>
 </html>

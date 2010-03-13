@@ -1,17 +1,17 @@
 <?php
 /**
 * @package Joostina
-* @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
-* @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
-* Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
-* Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
 */
 
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
 
-require_once (JPATH_BASE.'/'.JADMIN_BASE.'/components/com_jce/plugins/plugins.html.php');
-require_once (JPATH_BASE.'/'.JADMIN_BASE.'/components/com_jce/plugins/plugins.class.php');
+require_once ($mainframe->getCfg('absolute_path').'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jce/plugins/plugins.html.php');
+require_once ($mainframe->getCfg('absolute_path').'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jce/plugins/plugins.class.php');
 
 $client = mosGetParam($_REQUEST,'client','');
 $cid = mosGetParam($_POST,'cid',array(0));
@@ -23,7 +23,7 @@ function access_list($row) {
 	$access_list = array(
 		mosHTML::makeOption('0',_GUEST),
 		mosHTML::makeOption('18','-'._USER_GROUP_REGISTERED),
-		mosHTML::makeOption('19','--'._AUTHOR),
+		mosHTML::makeOption('19','--'._AUTHOR_BY),
 		mosHTML::makeOption('20','---'._EDITOR),
 		mosHTML::makeOption('21','----'._PUBLISHER),
 		mosHTML::makeOption('23','-----'._MANAGER),
@@ -43,7 +43,7 @@ function viewPlugins($option,$client) {
 	$limitstart = $mainframe->getUserStateFromRequest("view{$option}limitstart",'limitstart',0);
 	$filter_type = $mainframe->getUserStateFromRequest("filter_type{$option}{$client}",'filter_type',1);
 	$search = $mainframe->getUserStateFromRequest("search{$option}{$client}",'search','');
-	$search = $database->getEscaped(Jstring::trim(Jstring::strtolower($search)));
+	$search = $database->getEscaped(trim(strtolower($search)));
 
 	if($client == 'admin') {
 		$where[] = "m.client_id = '1'";
@@ -66,7 +66,7 @@ function viewPlugins($option,$client) {
 	$database->setQuery($query);
 	$total = $database->loadResult();
 
-	require_once (JPATH_BASE.	'/'.JADMIN_BASE.'/includes/pageNavigation.php');
+	require_once ($mainframe->getCfg('absolute_path').	'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
 	$query = "SELECT m.*, u.name AS editor"
@@ -195,9 +195,9 @@ function editPlugins($option,$uid,$client) {
 			'" />'.$row->plugin;
 
 		// XML library
-		require_once (JPATH_BASE.'/includes/domit/xml_domit_lite_include.php');
+		require_once ($mainframe->getCfg('absolute_path').'/includes/domit/xml_domit_lite_include.php');
 		// xml file for module
-		$xmlfile = JPATH_BASE.
+		$xmlfile = $mainframe->getCfg('absolute_path').
 			'/mambots/editors/jce/jscripts/tiny_mce/plugins/'.$row->plugin.'/'.$row->plugin.'.xml';
 		$xmlDoc = new DOMIT_Lite_Document();
 		$xmlDoc->resolveErrors(true);
@@ -217,16 +217,16 @@ function editPlugins($option,$uid,$client) {
 		$row->access = 18;
 		$row->editable = 1;
 
-		$folders = mosReadDirectory(JPATH_BASE.'/mambots/editors/jce/jscripts/tiny_mce/plugins/');
+		$folders = mosReadDirectory($mainframe->getCfg('absolute_path').'/mambots/editors/jce/jscripts/tiny_mce/plugins/');
 		$folders2 = array();
 		foreach($folders as $folder) {
-			if(is_dir(JPATH_BASE.'/mambots/editors/jce/jscripts/tiny_mce/plugins/'.$folder) && ($folder <> 'CVS')) {
+			if(is_dir($mainframe->getCfg('absolute_path').'/mambots/editors/jce/jscripts/tiny_mce/plugins/'.$folder) && ($folder <> 'CVS')) {
 				$folders2[] = mosHTML::makeOption($folder);
 			}
 		}
 		$lists['folder'] = mosHTML::selectList($folders2,'folder',
 			'class="inputbox" size="1"','value','text',null);
-		$xmlfile = JPATH_BASE.'/mambots/editors/jce/jscripts/tiny_mce/plugins/'.$row->plugin.'/'.$row->plugin.'.xml';
+		$xmlfile = $mainframe->getCfg('absolute_path').'/mambots/editors/jce/jscripts/tiny_mce/plugins/'.$row->plugin.'/'.$row->plugin.'.xml';
 	}
 
 	$lists['published'] = mosHTML::yesnoRadioList('published','class="inputbox"',$row->published);

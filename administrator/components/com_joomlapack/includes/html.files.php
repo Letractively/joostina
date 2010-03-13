@@ -1,13 +1,13 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
 
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
 
 global $JPConfiguration,$option;
@@ -16,7 +16,7 @@ $subtask	= mosGetParam($_REQUEST,'subtask','main');
 $filename	= mosGetParam($_REQUEST,'filename','');
 
 switch($subtask) {
-	// ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ðµ Ñ„Ð°Ð¹Ð»Ðµ
+	// óäàëåíèå ôàéëå
 	case 'deletefile':
 		if(unlink($filename))
 			echo '<div class="message">'.$filename.' '._JWMM_FILE_DELETED.'</div>';
@@ -42,43 +42,40 @@ switch($subtask) {
 
 function JP_BUFA_Main() {
 	global $option;
-	?>
-<script>
-	function postTaskForm( myTask, myFile ) {
-		document.JPadminForm.subtask.value=myTask;
-		document.JPadminForm.filename.value=myFile;
-		try {
-			document.JPadminForm.onsubmit();
+?>
+	<script>
+		function postTaskForm( myTask, myFile ) {
+			document.JPadminForm.subtask.value=myTask;
+			document.JPadminForm.filename.value=myFile;
+			try {
+				document.JPadminForm.onsubmit();
+				}
+			catch(e){}
+			document.JPadminForm.submit();
 		}
-		catch(e){}
-		document.JPadminForm.submit();
-	}
-</script>
-<form name="JPadminForm" id="JPadminForm" action="index2.php" method="get">
-	<input type="hidden" name="option" value="<?php echo $option; ?>" />
-	<input type="hidden" name="no_html" id="no_html" value="1" />
-	<input type="hidden" name="subtask" value="" />
-	<input type="hidden" name="filename" value="" />
-</form>
-<table class="adminlist">
-	<tr>
-		<th class="title"><?php echo _FILE_NAME?></th>
-		<th width="80" align="right"><?php echo _JP_DOWNLOAD_FILE?></th>
-		<th width="80" align="right"><?php echo _DELETE?></th>
-	</tr>
-		<?php
-		JP_GetFileList();
-		?>
-</table>
-	<?php
+	</script>
+	<form name="JPadminForm" id="JPadminForm" action="index2.php" method="get">
+		<input type="hidden" name="option" value="<?php echo $option; ?>" />
+		<input type="hidden" name="no_html" id="no_html" value="1" />
+		<input type="hidden" name="subtask" value="" />
+		<input type="hidden" name="filename" value="" />
+	</form>
+	<table class="adminlist">
+		<tr>
+			<th class="title"><?php echo _FILE_NAME?></th>
+			<th width="80" align="right"><?php echo _JP_DOWNLOAD_FILE?></th>
+			<th width="80" align="right"><?php echo _CMN_DELETE?></th>
+		</tr>
+<?php
+	JP_GetFileList();
+?>
+	</table>
+<?php
 }
 
-// Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ðµ ÑÐ¿Ð¸ÑÐºÐ° Ñ€ÐµÐ·ÐµÑ€Ð²Ð½Ñ‹Ñ… ÐºÐ¾Ð¿Ð¸Ð¹
+// ïîëó÷åíèå ñïèñêà ðåçåðâíûõ êîïèé
 function JP_GetFileList() {
 	global $JPConfiguration;
-
-	$mainframe = &mosMainFrame::getInstance();
-	$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 
 	require_once 'engine.abstraction.php';
 	$FS = new CFSAbstraction();
@@ -91,7 +88,7 @@ function JP_GetFileList() {
 	$allFilesAndDirs = _selectiveMergeArrays($allFilesAndDirs,$files3);
 	if($allFilesAndDirs === false) return false;
 	$k = 0;
-	if(count($allFilesAndDirs)>0) {
+	if(count($allFilesAndDirs)>0){
 		foreach($allFilesAndDirs as $fileDef) {
 			$fileName = $fileDef['name'];
 			switch($fileDef['type']) {
@@ -103,28 +100,28 @@ function JP_GetFileList() {
 					$onlyName		= str_replace($JPConfiguration->OutputDirectory.'/',"",$fileName);
 					$linkDownload	= "javascript:postTaskForm('downloadfile', '".addslashes($fileName)."');";
 					$linkDelete		= "javascript:if (confirm('"._JP_REALLY_DELETE_FILE."')){ SRAX.get('no_html').value = 0; postTaskForm('deletefile', '".addslashes($fileName)."'); }";
-					?>
-<tr class="row<?php echo $k;?>">
-	<td align="left"><img src="<?php echo $cur_file_icons_path;?>/<?php echo $ico; ?>" border="0"><?php echo $onlyName.'<br />'._JP_FILE_CREATION_DATE.': <b>'.$createdTime.'</b>, '._JWMM_FILESIZE.': <b>'.$fileSizeKb; ?> <?php echo _JWMM_KBYTES?></b></td>
-<td align="center">
-	<img src="<?php echo $cur_file_icons_path;?>/down.png" border="0">&nbsp;&nbsp;<a href="<?php echo $linkDownload; ?>"><?php echo _JP_DOWNLOAD_FILE?></a></td>
-<td align="center">
-	<img src="<?php echo $cur_file_icons_path;?>/publish_x.png" border="0">&nbsp;&nbsp;<a href="<?php echo $linkDelete; ?>"><?php echo _DELETE?></a>
-</td>
-</tr>
-					<?php
+?>
+				<tr class="row<?php echo $k;?>">
+					<td align="left"><img src="images/ico/<?php echo $ico; ?>" border="0"><?php echo $onlyName.'<br />'._JP_FILE_CREATION_DATE.': <b>'.$createdTime.'</b>, '._JWMM_FILESIZE.': <b>'.$fileSizeKb; ?> <?php echo _JWMM_KBYTES?></b></td>
+					<td align="center">
+						<img src="images/ico/down.png" border="0">&nbsp;&nbsp;<a href="<?php echo $linkDownload; ?>"><?php echo _JP_DOWNLOAD_FILE?></a></td>
+					<td align="center">
+						<img src="images/publish_x.png" border="0">&nbsp;&nbsp;<a href="<?php echo $linkDelete; ?>"><?php echo _CMN_DELETE?></a>
+					</td>
+				</tr>
+<?php
 					break;
 				default:
 					break;
 			}
 			$k = 1 - $k;
 		}
-	}else {
-		?>
-<tr>
-	<td colspan="3"><?php echo _JP_NO_BACKUPS?></td>
-</tr>
-		<?php
+	}else{
+?>
+			<tr>
+				<td colspan="3"><?php echo _JP_NO_BACKUPS?></td>
+			</tr>
+<?php
 	}
 }
 
@@ -143,3 +140,4 @@ function _selectiveMergeArrays($files1,$files2) {
 		}
 	}
 }
+?>

@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2010 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
-* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
-* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
-* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
+* @copyright Авторские права (C) 2008 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
 */
 
-// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+// запрет прямого доступа
 defined('_VALID_MOS') or die();
 /**
 * Language installer
@@ -30,8 +30,8 @@ class JCELanguageInstaller extends mosInstaller {
 	function install($p_fromdir = null) {
 		global $mainframe,$database;
 
-		require_once (JPATH_BASE.
-			'/'.JADMIN_BASE.'/components/com_jce/languages/languages.class.php');
+		require_once ($mainframe->getCfg('absolute_path').
+			'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jce/languages/languages.class.php');
 
 		if(!$this->preInstallCheck($p_fromdir,'jcelang')) {
 			return false;
@@ -43,10 +43,10 @@ class JCELanguageInstaller extends mosInstaller {
 		// Set some vars
 		$e = &$root->getElementsByPath('name',1);
 		$this->elementName($e->getText());
-		$this->elementDir(mosPathName(JPATH_BASE.
+		$this->elementDir(mosPathName($mainframe->getCfg('absolute_path').
 			"/mambots/editors/jce/jscripts/tiny_mce/"));
-		$this->componentAdminDir(mosPathName(JPATH_BASE.
-			"/".JADMIN_BASE."/components/com_jce/language/"));
+		$this->componentAdminDir(mosPathName($mainframe->getCfg('absolute_path').
+			"/".ADMINISTRATOR_DIRECTORY."/components/com_jce/language/"));
 
 		// Find files to copy
 		if($this->parseFiles('files') === false) {
@@ -64,7 +64,7 @@ class JCELanguageInstaller extends mosInstaller {
 		$query = "SELECT id"."\n FROM #__jce_langs"."\n WHERE lang = '".$lang."'";
 		$database->setQuery($query);
 		if(!$database->query()) {
-			$this->setError(1,'РћС€РёР±РєР° SQL: '.$database->stderr(true));
+			$this->setError(1,'Ошибка SQL: '.$database->stderr(true));
 			return false;
 		}
 
@@ -101,9 +101,9 @@ class JCELanguageInstaller extends mosInstaller {
 		global $mainframe,$database;
 		$id = str_replace(array('\\','/'),'',$id);
 
-		$adminpath = JPATH_BASE.
-			'/'.JADMIN_BASE.'/components/com_jce/language/';
-		$basepath = JPATH_BASE.
+		$adminpath = $mainframe->getCfg('absolute_path').
+			'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jce/language/';
+		$basepath = $mainframe->getCfg('absolute_path').
 			'/mambots/editors/jce/jscripts/tiny_mce/';
 		$xmlfile = $adminpath.$id.'.xml';
 
@@ -125,7 +125,7 @@ class JCELanguageInstaller extends mosInstaller {
 						$filename = $file->getText();
 						echo $filename;
 						if(file_exists($basepath.$filename)) {
-							echo '<br />РЈРґР°Р»РµРЅРёРµ: '.$basepath.$filename;
+							echo '<br />Удаление: '.$basepath.$filename;
 							$result = unlink($basepath.$filename);
 						}
 						echo intval($result);

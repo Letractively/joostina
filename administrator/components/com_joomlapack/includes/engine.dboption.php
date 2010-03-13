@@ -1,13 +1,13 @@
 <?php
 /**
- * @package Joostina
- * @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2007 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
- * @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
- * Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
- * Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
- */
+* @package Joostina
+* @copyright Авторские права (C) 2007 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+*/
 
-// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+// запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 require_once ($mainframe->getPath('admin_html'));
@@ -40,7 +40,7 @@ switch($task) {
 		break;
 }
 
-// РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ СЃРїРёСЃРєР° С‚Р°Р±Р»РёС†
+// отображение списка таблиц
 function viewTables($option) {
 	global $database,$mosConfig_db;
 	$sql = 'SHOW TABLE STATUS FROM `'.$mosConfig_db.'`';
@@ -59,7 +59,7 @@ function viewTables($option) {
 			$check_time = "";
 		}
 		$lists .=
-				"<tr class=\"row$k\">"
+			"<tr class=\"row$k\">"
 				."\t<td width=\"1%\"><input type=\"checkbox\" id=\"cb".$i++."\" name=\"tables[]\" value=\"".$table->Name."\" onclick=\"isChecked(this.checked);\" /></td>\n"
 				."\t<td>".$table->Name."</td>\n"
 				."\t<td align=\"right\">".number_format($table->Rows,0,',','.')."</td>\n"
@@ -68,7 +68,7 @@ function viewTables($option) {
 				."\t<td align=\"right\">".number_format($table->Auto_increment,0,',','.')."</td>\n"
 				."\t<td align=\"right\" style=\"white-space: nowrap;\">".strftime('%d.%m.%Y %H:%M',strtotime($table->Create_time))."</td>\n"
 				."\t<td align=\"right\" style=\"white-space: nowrap;\">".$check_time."</td>\n".
-				"</tr>\n";
+			"</tr>\n";
 		$stats_list['rows'] = $stats_list['rows'] + $table->Rows;
 		$stats_list['data'] = $stats_list['data'] + $table->Data_length;
 		$stats_list['over'] = $stats_list['over'] + $table->Data_free;
@@ -77,10 +77,10 @@ function viewTables($option) {
 	$stats_list['rows'] = number_format($stats_list['rows'],0,',','.');
 	$stats_list['data'] = mosGetSizes($stats_list['data']);
 	$stats_list['over'] = mosGetSizes($stats_list['over']);
-	HTML_joomlapack::showTables($option,$lists,$table_lists,$stats_list);
+	HTML_joomlapack::showTables($option,$lists,&$table_lists,$stats_list);
 }
 
-// СЂР°Р±РѕС‚Р° СЃ Р±Р°Р·РѕР№, РѕРїС‚РёРјРёР·Р°С†РёСЏ, РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёРµ Рё С‚.Рґ.
+// работа с базой, оптимизация, восстановление и т.д.
 function checkDatabase($option,$func) {
 	global $tables,$database;
 	$i = 0;
@@ -120,12 +120,12 @@ function checkDatabase($option,$func) {
 			$k = 0;
 			foreach($result_msgs as $result_msg) {
 				$list .=
-						"<tr class=\"row$k\">"
+					"<tr class=\"row$k\">"
 						."\t<td align=\"left\" style=\"white-space: nowrap;\">".$result_msg->Table."</td>\n"
 						."\t<td align=\"center\" style=\"white-space: nowrap;\">".$result_msg->Op."</td>\n"
 						."\t<td align=\"center\" style=\"white-space: nowrap;\">".$result_msg->Msg_type."</td>\n"
 						."\t<td align=\"center\" style=\"white-space: nowrap;\">".$result_msg->Msg_text."</td>\n"
-						."</tr>\n";
+					."</tr>\n";
 				$results = true;
 				$k = 1 - $k;
 			}
@@ -133,7 +133,7 @@ function checkDatabase($option,$func) {
 		}
 	}
 }
-// РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ Р·Р°РЅРёРјР°РµРјРѕРіРѕ СЂР°Р·РјРµСЂР° С„Р°Р№Р»Р°
+// отображение занимаемого размера файла
 function mosGetSizes($size) {
 	if($size < 1024)$size = number_format(Round($size,3),0,',','.')." B";
 	elseif($size < 1048576) $size = number_format(Round($size / 1024,3),2,',','.')." KB";
@@ -142,3 +142,6 @@ function mosGetSizes($size) {
 	elseif(1099511627776 < $size) $size = number_format(Round($size / 1099511627776,3),2,',','.')." TB";
 	return $size;
 }
+
+
+?>

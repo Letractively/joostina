@@ -1,314 +1,330 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
-
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
-
 /**
- * @package Joostina
- * @subpackage Newsfeeds
- */
+* @package Joostina
+* @subpackage Newsfeeds
+*/
 class HTML_newsfeed {
-
-	function displaylist(&$categories,&$rows,$catid,$currentcat = null,&$params,$tabclass) {
-		global $Itemid,$hide_js;
-		?>
-<div class="newsfeeds <?php echo $params->get('pageclass_sfx'); ?>">
-			<?php if($params->get('page_title')) { ?>
-	<div class="componentheading"><h1><?php echo $currentcat->header; ?></h1></div>
-				<?php } ?>
-
-	<form action="index.php" method="post" name="adminForm">
-
-				<?php if ($currentcat->descrip || $currentcat->img) {?>
-		<div class="contentdescription">
-						<?php if($currentcat->img) { ?>
-			<img src="<?php echo $currentcat->img; ?>" align="<?php echo $currentcat->align; ?>" hspace="6" alt="<?php echo _LINKS; ?>" />
-							<?php } ?>
-
-						<?php echo $currentcat->descrip; ?>
-		</div>
-					<?php } ?>
-
-				<?php if(count($rows)) { ?>
-		<div class="newsfeeds_list">
-						<?php HTML_newsfeed::showTable($params,$rows,$catid,$tabclass); ?>
-		</div>
-					<?php } ?>
-
-		<div class="newsfeeds_cats">
-					<?php if(($params->get('type') == 'category') && $params->get('other_cat')) {
-						HTML_newsfeed::showCategories($params,$categories,$catid);
-					} else
-					if(($params->get('type') == 'section') && $params->get('other_cat_section')) {
-						HTML_newsfeed::showCategories($params,$categories,$catid);
-					}
-					?>
-		</div>
-
-	</form>
-
-			<?php mosHTML::BackButton($params,$hide_js); ?>
-
-</div>
-		<?php	}
-
-	/**
-	 * Display Table of items
-	 */
-	function showTable(&$params,&$rows,$catid,$tabclass) {
-		global $Itemid;
-		// icon in table display
-		$img = mosAdminMenus::ImageCheck('con_info.png','/images/M_images/',$params->get('icon'));
-
-		?>
-<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
-
-			<?php if($params->get('headings')) { ?>
-	<tr>
-					<?php if($params->get('name')) { ?>
-		<th><?php echo _FEED_NAME; ?></th>
-						<?php } ?>
-
-					<?php if($params->get('articles')) { ?>
-		<th><?php echo _FEED_ARTICLES; ?></th>
-						<?php } ?>
-
-					<?php if($params->get('link')) { ?>
-		<th><?php echo _FEED_LINK; ?></th>
-						<?php } ?>
-	</tr>
-				<?php } ?>
-			<?php
-			$k = 0;
-
-			foreach($rows as $row) {
-				$link = 'index.php?option=com_newsfeeds&amp;task=view&amp;feedid='.$row->id.'&amp;Itemid='.$Itemid;
-				?>
-
-	<tr>
-					<?php if($params->get('name')) { ?>
-		<td height="20" class="<?php echo $tabclass[$k]; ?>">
-			<a href="<?php echo sefRelToAbs($link); ?>" class="category<?php echo $params->get('pageclass_sfx'); ?>"><?php echo $row->name; ?></a>
-		</td>
-						<?php } ?>
-
-					<?php if($params->get('articles')) { ?>
-		<td width="20%" class="<?php echo $tabclass[$k]; ?>" align="center">
-							<?php echo $row->numarticles; ?>
-		</td>
-						<?php } ?>
-
-					<?php if($params->get('link')) { ?>
-		<td width="50%" class="<?php echo $tabclass[$k]; ?>">
-							<?php echo ampReplace($row->link); ?>
-		</td>
-						<?php } ?>
-
-	</tr>
-
-				<?php $k = 1 - $k;
-		} ?>
-
+function displaylist(&$categories,&$rows,$catid,$currentcat = null,&$params,$tabclass) {
+global $Itemid,$mosConfig_live_site,$hide_js;
+if($params->get('page_title')) {
+?>
+<div class="componentheading<?php echo $params->get('pageclass_sfx'); ?>"><?php echo $currentcat->header; ?></div>
+<?php
+}
+?>
+<form action="index.php" method="post" name="adminForm">
+<table width="100%" cellpadding="4" cellspacing="0" border="0" align="center" class="contentpane<?php echo $params->get('pageclass_sfx'); ?>">
+<?php if($currentcat->descrip) {?>
+<tr>
+<td width="60%" valign="top" class="contentdescription<?php echo $params->get('pageclass_sfx'); ?>" colspan="2">
+<?php
+// show image
+if($currentcat->img) {
+?>
+<img src="<?php echo $currentcat->img; ?>" align="<?php echo $currentcat->align; ?>" hspace="6" alt="<?php echo _WEBLINKS_TITLE; ?>" />
+<?php
+}
+echo $currentcat->descrip;
+?>
+</td>
+</tr>
+<?php }?>
+<tr>
+<td>
+<?php
+if(count($rows)) {
+HTML_newsfeed::showTable($params,$rows,$catid,$tabclass);
+}
+?>
+</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>
+<?php
+// Displays listing of Categories
+if(($params->get('type') == 'category') && $params->get('other_cat')) {
+HTML_newsfeed::showCategories($params,$categories,$catid);
+} else
+if(($params->get('type') == 'section') && $params->get('other_cat_section')) {
+HTML_newsfeed::showCategories($params,$categories,$catid);
+}
+?>
+</td>
+</tr>
 </table>
-		<?php
-	}
-
-	/**
-	 * Display links to categories
-	 */
-	function showCategories(&$params,&$categories,$catid) {
-		global $Itemid;
-		?>
-
+</form>
+<?php
+// displays back button
+mosHTML::BackButton($params,$hide_js);
+}
+/** Display Table of items*/
+function showTable(&$params,&$rows,$catid,$tabclass) {
+global $mosConfig_live_site,$Itemid;
+// icon in table display
+$img = mosAdminMenus::ImageCheck('con_info.png','/images/M_images/',$params->get
+('icon'));
+?>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+<?php
+if($params->get('headings')) {
+?>
+<tr>
+<?php
+if($params->get('name')) {
+?>
+<td height="20" class="sectiontableheader<?php echo $params->get('pageclass_sfx'); ?>"><?php echo _FEED_NAME; ?></td>
+<?php
+}
+?>
+<?php
+if($params->get('articles')) {
+?>
+<td height="20" class="sectiontableheader<?php echo $params->get('pageclass_sfx'); ?>" align="center"><?php echo _FEED_ARTICLES; ?></td>
+<?php
+}
+?>
+<?php
+if($params->get('link')) {
+?>
+<td height="20" class="sectiontableheader<?php echo $params->get('pageclass_sfx'); ?>"><?php echo _FEED_LINK; ?></td>
+<?php
+}
+?>
+</tr>
+<?php
+}
+$k = 0;
+foreach($rows as $row) {
+$link = 'index.php?option=com_newsfeeds&amp;task=view&amp;feedid='.$row->id.'&amp;Itemid='.$Itemid;
+?>
+<tr>
+<?php
+if($params->get('name')) {
+?>
+<td height="20" class="<?php echo $tabclass[$k]; ?>"><a href="<?php echo sefRelToAbs($link); ?>" class="category<?php echo $params->get('pageclass_sfx'); ?>"><?php echo $row->name; ?></a></td>
+<?php
+}
+?>
+<?php
+if($params->get('articles')) {
+?>
+<td width="20%" class="<?php echo $tabclass[$k]; ?>" align="center"><?php echo $row->numarticles; ?></td>
+<?php
+}
+?>
+<?php
+if($params->get('link')) {
+?>
+<td width="50%" class="<?php echo $tabclass[$k]; ?>"><?php echo ampReplace($row->link); ?></td>
+<?php
+}
+?>
+</tr>
+<?php
+$k = 1 - $k;
+}
+?>
+</table>
+<?php
+}
+/** Display links to categories*/
+function showCategories(&$params,&$categories,$catid) {
+global $mosConfig_live_site,$Itemid;
+?>
 <ul>
-			<?php
-			foreach($categories as $cat) {
-
-			if($catid == $cat->catid) { ?>
-	<li>
-		<b><?php echo $cat->title; ?></b>
-		&nbsp;
-		<span class="small">(<?php echo $cat->numlinks; ?>)</span>
-	</li>
-
-					<?php
-				} else {
-					$link = 'index.php?option=com_newsfeeds&amp;catid='.$cat->catid.'&amp;Itemid='.
-							$Itemid;
-				?>
-	<li>
-		<a href="<?php echo sefRelToAbs($link); ?>" class="category<?php echo $params->get('pageclass_sfx'); ?>">
-				<?php echo $cat->title; ?>
-		</a>
-				<?php if($params->get('cat_items')) { ?>
-		&nbsp;
-		<span class="small">
-						(<?php echo $cat->numlinks; ?>)
-		</span>
-					<?php } ?>
-
-						<?php if($params->get('cat_description')) {
-							echo '<br />';
-							echo $cat->description;
-				} ?>
-
-	</li>
-					<?php }
-			}
-
-		?>
+<?php
+foreach($categories as $cat) {
+if($catid == $cat->catid) {
+?>
+<li><b><?php echo $cat->title; ?></b>&nbsp;<span class="small">(<?php echo $cat->numlinks; ?>)</span></li>
+<?php
+} else {
+$link = 'index.php?option=com_newsfeeds&amp;catid='.$cat->catid.'&amp;Itemid='.$Itemid;
+?>
+<li>
+<a href="<?php echo sefRelToAbs($link); ?>" class="category<?php echo $params->get('pageclass_sfx'); ?>"><?php echo $cat->title; ?></a>
+<?php
+if($params->get('cat_items')) {
+?>
+&nbsp;
+<span class="small">(<?php echo $cat->numlinks; ?>)</span>
+<?php
+}
+?>
+<?php
+// Writes Category Description
+if($params->get('cat_description')) {
+echo '<br />';
+echo $cat->description;
+}
+?>
+</li>
+<?php
+}
+}
+?>
 </ul>
-		<?php
-	}
-
-
-	//TODO:Ð±Ð°Ñ€Ð´Ð°Ðº Ð² Ð²Ñ‹Ð²Ð¾Ð´Ðµ - Ð¿ÐµÑ€ÐµÐ´ÐµÐ»Ð°Ñ‚ÑŒ Ð² 1.3.1
-	function showNewsfeeds(&$newsfeed,$LitePath,$cacheDir,&$params) {
-		?>
-<div class="newsfeeds_show">
-		<?php if($params->get('header')) { ?>
-	<div class="componentheading"><h1><?php echo $params->get('header'); ?></h1></div>
-				<?php } ?>
-			<?php
-			// full RSS parser used to access image information
-			$rssDoc = new xml_domit_rss_document();
-			$rssDoc->setRSSTimeout(5);
-
-			$rssDoc->useCacheLite(false,$LitePath,$cacheDir,$newsfeed->cache_time);
-			$success = $rssDoc->loadRSS($newsfeed->link);
-
-			$utf8enc = $newsfeed->code;
-			if($success) {
-				$totalChannels = $rssDoc->getChannelCount();
-
-				for($i = 0; $i < $totalChannels; $i++) {
-					$currChannel = &$rssDoc->getChannel($i);
-					$elements = $currChannel->getElementList();
-					$descrip = 0;
-					$iUrl = 0;
-
-					foreach($elements as $element) {
-						//image handling
-						if($element == 'image') {
-							$image = &$currChannel->getElement(DOMIT_RSS_ELEMENT_IMAGE);
-							$iUrl = $image->getUrl();
-							$iTitle = $image->getTitle();
-						}
-						if($element == 'description') {
-							$descrip = 1;
-							// hide com_rss descrip in 4.5.0 feeds
-							if($currChannel->getDescription() == 'com_rss') {
-								$descrip = 0;
-							}
-						}
-					}
-					$feed_title = $currChannel->getTitle();
-					$feed_title = mosCommonHTML::newsfeedEncoding($rssDoc,$feed_title,$utf8enc);
-				?>
-	<div class="contentdescription">
-		<h2><a href="<?php echo ampReplace($currChannel->getLink()); ?>" target="_blank"><?php echo $feed_title; ?></a></h2>
-						<?php if($descrip && $params->get('feed_descr')) {
-							$feed_descrip = $currChannel->getDescription();
-					$feed_descrip = mosCommonHTML::newsfeedEncoding($rssDoc,$feed_descrip,$utf8enc); ?>
-
-					<?php if($iUrl && $params->get('feed_image')) { ?>
-		<img src="<?php echo $iUrl; ?>" alt="<?php echo mosCommonHTML::newsfeedEncoding($rssDoc,$iTitle,$utf8enc); ?>" />
-								<?php } ?>
-							<?php echo $feed_descrip; ?>
-					<?php } ?>
-	</div>
-					<?php
-					$actualItems = $currChannel->getItemCount();
-					$setItems = $newsfeed->numarticles;
-					if($setItems > $actualItems) {
-						$totalItems = $actualItems;
-					} else {
-						$totalItems = $setItems;
-					}
-				?>
-
-	<ul>
-
-						<?php
-						for($j = 0; $j < $totalItems; $j++) {
-							$currItem = &$currChannel->getItem($j);
-
-							$item_title = $currItem->getTitle();
-					$item_title = mosCommonHTML::newsfeedEncoding($rssDoc,$item_title,$utf8enc); ?>
-
-		<li>
-					<?php if($currItem->getLink()) { ?>
-			<a href="<?php echo ampReplace($currItem->getLink()); ?>" target="_blank"><?php echo $item_title; ?></a>
-
-									<?php } else if($currItem->getEnclosure()) {
-									$enclosure = $currItem->getEnclosure();
-						$eUrl = $enclosure->getUrl(); ?>
-
-			<a href="<?php echo ampReplace($eUrl); ?>" target="_blank"><?php echo $item_title; ?></a>
-
-									<?php } else if(($currItem->getEnclosure()) && ($currItem->getLink())) {
-									$enclosure = $currItem->getEnclosure();
-						$eUrl = $enclosure->getUrl(); ?>
-
-			<a href="<?php echo ampReplace($currItem->getLink()); ?>" target="_blank"><?php echo $item_title; ?></a>
-			<br />
-			<a href="<?php echo $eUrl; ?>" target="_blank"><?php echo ampReplace($eUrl); ?></a>
-
-						<?php } ?>
-
-
-								<?php // END fix for RSS enclosure tag url not showing
-
-
-								// item description
-								if($params->get('item_descr')) {
-									$text = $currItem->getDescription();
-									$text = mosCommonHTML::newsfeedEncoding($rssDoc,$text,$utf8enc);
-									$num = $params->get('word_count');
-
-									// word limit check
-									if($num) {
-										$texts = explode(' ',$text);
-										$count = count($texts);
-										if($count > $num) {
-											$text = '';
-											for($i = 0; $i < $num; $i++) {
-												$text .= ' '.$texts[$i];
-											}
-											$text .= '...';
-										}
-									}
-						?>
-
-			<br />
-						<?php echo $text; ?>
-			<br />
-			<br />
-						<?php } ?>
-
-
-		</li>
-					<?php } ?>
-
-	</ul>
-
-				<?php } ?>
-
-			<?php } ?>
-
-		<?php mosHTML::BackButton($params); ?>
-
-</div>
-
-
-		<?php
-	}
+<?php
+}
+function showNewsfeeds(&$newsfeed,$LitePath,$cacheDir,&$params) {
+?>
+<table width="100%" class="contentpane<?php echo $params->get('pageclass_sfx'); ?>">
+<?php
+if($params->get('header')) {
+?>
+<tr>
+<td class="componentheading<?php echo $params->get('pageclass_sfx'); ?>" colspan="2"><?php echo $params->get('header'); ?></td>
+</tr>
+<?php
+}
+// full RSS parser used to access image information
+$rssDoc = new xml_domit_rss_document();
+$rssDoc->setRSSTimeout(5);
+$rssDoc->useCacheLite(true,$LitePath,$cacheDir,$newsfeed->cache_time);
+$success = $rssDoc->loadRSS($newsfeed->link);
+$utf8enc = $newsfeed->code;
+if($success) {
+$totalChannels = $rssDoc->getChannelCount();
+for($i = 0; $i < $totalChannels; $i++) {
+$currChannel = &$rssDoc->getChannel($i);
+$elements = $currChannel->getElementList();
+$descrip = 0;
+$iUrl = 0;
+foreach($elements as $element) {
+//image handling
+if($element == 'image') {
+$image = &$currChannel->getElement(DOMIT_RSS_ELEMENT_IMAGE);
+$iUrl = $image->getUrl();
+$iTitle = $image->getTitle();
+}
+if($element == 'description') {
+$descrip = 1;
+// hide com_rss descrip in 4.5.0 feeds
+if($currChannel->getDescription() == 'com_rss') {
+$descrip = 0;
+}
+}
+}
+$feed_title = $currChannel->getTitle();
+$feed_title = mosCommonHTML::newsfeedEncoding($rssDoc,$feed_title,$utf8enc);
+?>
+<tr>
+<td class="contentheading<?php echo $params->get('pageclass_sfx'); ?>"><a href="<?php echo ampReplace($currChannel->getLink()); ?>" target="_blank"><?php echo $feed_title; ?></a></td>
+</tr>
+<?php
+// feed description
+if($descrip && $params->get('feed_descr')) {
+$feed_descrip = $currChannel->getDescription();
+$feed_descrip = mosCommonHTML::newsfeedEncoding($rssDoc,$feed_descrip,$utf8enc);
+?>
+<tr>
+<td><?php echo $feed_descrip; ?><br /><br /></td>
+</tr>
+<?php
+}
+// feed image
+if($iUrl && $params->get('feed_image')) {
+?>
+<tr>
+<td><img src="<?php echo $iUrl; ?>" alt="<?php echo $iTitle; ?>" /></td>
+</tr>
+<?php
+}
+$actualItems = $currChannel->getItemCount();
+$setItems = $newsfeed->numarticles;
+if($setItems > $actualItems) {
+$totalItems = $actualItems;
+} else {
+$totalItems = $setItems;
+}
+?>
+<tr>
+<td>
+<ul>
+<?php
+for($j = 0; $j < $totalItems; $j++) {
+$currItem = &$currChannel->getItem($j);
+$item_title = $currItem->getTitle();
+$item_title = mosCommonHTML::newsfeedEncoding($rssDoc,$item_title,$utf8enc);
+?>
+<li>
+<?php
+// START fix for RSS enclosure tag url not showing
+if($currItem->getLink()) {
+?>
+<a href="<?php echo ampReplace($currItem->getLink()); ?>" target="_blank"><?php echo $item_title; ?></a>
+<?php
+} else
+if($currItem->getEnclosure()) {
+$enclosure = $currItem->getEnclosure();
+$eUrl = $enclosure->getUrl();
+?>
+<a href="<?php echo ampReplace($eUrl); ?>" target="_blank"><?php echo $item_title; ?></a>
+<?php
+} else
+if(($currItem->getEnclosure()) && ($currItem->getLink())) {
+$enclosure = $currItem->getEnclosure();
+$eUrl = $enclosure->getUrl();
+?>
+<a href="<?php echo ampReplace($currItem->getLink()); ?>" target="_blank"><?php echo $item_title; ?></a><br />
+<!--doctorgrif: âûíåñ ðóññêèå ñëîâà â ÿçûêîâûå ïåðåìåííûå, âçÿâ èõ èæ óæå èìåþùåãîñÿ ÿçûêîâîãî ôàéëà-->
+<?php echo _NEWSFEED_LINK; ?>: 
+<a href="<?php echo $eUrl; ?>" target="_blank"><?php echo ampReplace($eUrl); ?></a>
+<?php
+}
+// END fix for RSS enclosure tag url not showing
+// item description
+if($params->get('item_descr')) {
+$text = $currItem->getDescription();
+$text = mosCommonHTML::newsfeedEncoding($rssDoc,$text,$utf8enc);
+$num = $params->get('word_count');
+// word limit check
+if($num) {
+$texts = explode(' ',$text);
+$count = count($texts);
+if($count > $num) {
+$text = '';
+for($i = 0; $i < $num; $i++) {
+$text .= ' '.$texts[$i];
+}
+$text .= '...';
+}
+}
+?>
+<br /><?php echo $text; ?><br /><br />
+<?php
+}
+?>
+</li>
+<?php
+}
+?>
+</ul>
+</td>
+</tr>
+<tr>
+<td><br /></td>
+</tr>
+<?php
+}
+}
+?>
+</table>
+<?php
+// displays back button
+mosHTML::BackButton($params);
+}
 }
 ?>

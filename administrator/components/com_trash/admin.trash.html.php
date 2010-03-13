@@ -1,257 +1,253 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
 
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
 
 /**
- * HTML class for all trash component output
- * @package Joostina
- * @subpackage Trash
- */
+* HTML class for all trash component output
+* @package Joostina
+* @subpackage Trash
+*/
 class HTML_trash {
 	/**
-	 * Writes a list of the Trash items
-	 */
+	* Writes a list of the Trash items
+	*/
 	function showList($option,$content,$pageNav,$list,$catid) {
 		global $my;
-		?>
-<script language="javascript" type="text/javascript">
-	/**
-	 * Toggles the check state of a group of boxes
-	 *
-	 * Checkboxes must have an id attribute in the form cb0, cb1...
-	 * @param The number of box to 'check'
-	 */
-	function checkAll_xtd ( n ) {
-		var f = document.adminForm;
-		var c = f.toggle1.checked;
-		var n2 = 0;
-		for ( i=0; i < n; i++ ) {
-			cb = eval( 'f.cb1' + i );
-			if (cb) {
-				cb.checked = c;
-				n2++;
+?>
+		<script language="javascript" type="text/javascript">
+		/**
+		* Toggles the check state of a group of boxes
+		*
+		* Checkboxes must have an id attribute in the form cb0, cb1...
+		* @param The number of box to 'check'
+		*/
+		function checkAll_xtd ( n ) {
+			var f = document.adminForm;
+			var c = f.toggle1.checked;
+			var n2 = 0;
+			for ( i=0; i < n; i++ ) {
+				cb = eval( 'f.cb1' + i );
+				if (cb) {
+					cb.checked = c;
+					n2++;
+				}
+			}
+			if (c) {
+				document.adminForm.boxchecked.value = n2;
+			} else {
+				document.adminForm.boxchecked.value = 0;
 			}
 		}
-		if (c) {
-			document.adminForm.boxchecked.value = n2;
-		} else {
-			document.adminForm.boxchecked.value = 0;
-		}
-	}
-</script>
-<form action="index2.php?option=com_trash" method="post" name="adminForm">
-	<table class="adminheading">
+		</script>
+		<form action="index2.php?option=com_trash" method="post" name="adminForm">
+		<table class="adminheading">
 		<tr>
 			<th class="trash"><?php echo _TRASH?></th>
 			<td width="right">
-						<?php echo $list; ?>
+				<?php echo $list; ?>
 			</td>
 		</tr>
-	</table>
+		</table>
 
-	<table class="adminlist" width="90%">
+		<table class="adminlist" width="90%">
 		<tr>
 			<th width="20">#</th>
 			<th width="20">
-				<input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo count($content); ?>);" />
+			<input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo count($content); ?>);" />
 			</th>
 			<th width="20px">&nbsp;</th>
 			<th class="title">
-						<?php echo _CAPTION?>
+			<?php echo _HEADER_TITLE?>
 			</th>
 			<th>
-						<?php echo _SECTION?>
+			<?php echo _SECTION?>
 			</th>
 			<th>
-						<?php echo _CATEGORY?>
+			<?php echo _E_CATEGORY?>
 			</th>
 			<th width="70px">
 			ID
 			</th>
 		</tr>
-				<?php
-				$k = 0;
-				$i = 0;
-				$n = count($content);
-				foreach($content as $row) {
-					?>
-		<tr class="<?php echo "row".$k; ?>">
-			<td align="center" width="30px">
-							<?php echo $i + 1 + $pageNav->limitstart; ?>
-			</td>
-			<td width="20px" align="center"><?php
-							if($catid == "content") {
-								echo mosHTML::idBox($i,$row->id);
-							} else {
-								echo "<input type=\"checkbox\" id=\"cb$i\" name=\"mid[]\" value=\"$row->id\" onclick=\"isChecked(this.checked);\" />";
-							}
-							?></td>
-			<td width="20px"></td>
-			<td class="jtd_nowrap" align="left">
-							<?php
-							echo $row->title;
-							?>
-			</td>
-			<td align="center" width="20%">
-							<?php
-							echo $row->sectname;
-							?>
-			</td>
-			<td align="center" width="20%">
-							<?php
-							echo $row->catname;
-							?>
-			</td>
-			<td align="center">
-							<?php
-							echo $row->id;
-							?>
-			</td>
-		</tr>
-					<?php
-					$k = 1 - $k;
-					$i++;
-				}
-				?>
-	</table>
-			<?php echo $pageNav->getListFooter(); ?>
-	<input type="hidden" name="option" value="com_trash" />
-	<input type="hidden" name="task" value="" />
-	<input type="hidden" name="boxchecked" value="0" />
-	<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
-</form>
 		<?php
+		$k = 0;
+		$i = 0;
+		$n = count($content);
+		foreach($content as $row) {
+?>
+			<tr class="<?php echo "row".$k; ?>">
+				<td align="center" width="30px">
+				<?php echo $i + 1 + $pageNav->limitstart; ?>
+				</td>
+				<td width="20px" align="center"><?php
+			if($catid == "content") {
+				echo mosHTML::idBox($i,$row->id);
+			} else {
+				echo "<input type=\"checkbox\" id=\"cb$i\" name=\"mid[]\" value=\"$row->id\" onclick=\"isChecked(this.checked);\" />";
+			}
+?></td>
+				<td width="20px"></td>
+				<td class="jtd_nowrap" align="left">
+<?php
+			echo $row->title;
+?>
+				</td>
+				<td align="center" width="20%">
+<?php
+			echo $row->sectname;
+?>
+				</td>
+				<td align="center" width="20%">
+<?php
+			echo $row->catname;
+?>
+				</td>
+				<td align="center">
+<?php
+			echo $row->id;
+?>
+				</td>
+			</tr>
+<?php
+			$k = 1 - $k;
+			$i++;
+		}
+?>
+		</table>
+<?php echo $pageNav->getListFooter(); ?>
+		<input type="hidden" name="option" value="com_trash" />
+		<input type="hidden" name="task" value="" />
+		<input type="hidden" name="boxchecked" value="0" />
+		<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
+		</form>
+<?php
 	}
 
 
 	/**
-	 * A delete confirmation page
-	 * Writes list of the items that have been selected for deletion
-	 */
+	* A delete confirmation page
+	* Writes list of the items that have been selected for deletion
+	*/
 	function showDelete($option,$cid,$items,$type) {
-
-		$mainframe = &mosMainFrame::getInstance();
-		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/file_ico';
-		?>
-<form action="index2.php" method="post" name="adminForm">
-	<table class="adminheading">
+?>
+		<form action="index2.php" method="post" name="adminForm">
+		<table class="adminheading">
 		<tr>
 			<th><?php echo _OBJECT_DELETION?></th>
 		</tr>
-	</table>
-	<table class="adminform">
+		</table>
+		<table class="adminform">
 		<tr>
 			<td width="3%"></td>
 			<td align="left" valign="top" width="20%">
-				<strong><?php echo _COM_TRASH_OBJECT_COUNT?>:</strong>
-				<br />
-				<font color="#000066"><strong><?php echo count($cid); ?></strong></font>
-				<br /><br />
+			<strong><?php echo _OBJECT_COUNT?>:</strong>
+			<br />
+			<font color="#000066"><strong><?php echo count($cid); ?></strong></font>
+			<br /><br />
 			</td>
 			<td align="left" valign="top" width="25%">
-				<strong><?php echo _OBJECTS_TO_DELETE?>:</strong>
-				<br />
-						<?php
-						echo "<ol>";
-						foreach($items as $item) {
-							echo "<li>".$item->name."</li>";
-						}
-						echo "</ol>";
-						?>
+			<strong><?php echo _OBJECTS_TO_DELETE?>:</strong>
+			<br />
+<?php
+		echo "<ol>";
+		foreach($items as $item) {
+			echo "<li>".$item->name."</li>";
+		}
+		echo "</ol>";
+?>
 			</td>
-			<td valign="top">
-						<?php echo _THIS_ACTION_WILL_DELETE_O_FOREVER?>
-				<br /><br /><br />
-				<div style="border: 1px dotted gray; width: 70px; padding: 10px; margin-left: 50px;">
-					<a class="toolbar" href="javascript:if (confirm('<?php echo _REALLY_DELETE_OBJECTS?>')){ submitbutton('delete');}">
-						<img name="remove" src="<?php echo $cur_file_icons_path;?>/delete.png" alt="<?php echo _DELETE?>" border="0" align="middle" />
-						&nbsp;<?php echo _DELETE?>
-					</a>
-				</div>
+			 <td valign="top">
+			<?php echo _THIS_ACTION_WILL_DELETE_O_FOREVER?>
+			<br /><br /><br />
+			<div style="border: 1px dotted gray; width: 70px; padding: 10px; margin-left: 50px;">
+			<a class="toolbar" href="javascript:if (confirm('<?php echo _REALLY_DELETE_OBJECTS?>')){ submitbutton('delete');}">
+			<img name="remove" src="images/delete.png" alt="<?php echo _CMN_DELETE?>" border="0" align="middle" />
+			&nbsp;<?php echo _CMN_DELETE?>
+			</a>
+			</div>
 			</td>
 		</tr>
-	</table>
-	<input type="hidden" name="option" value="<?php echo $option; ?>" />
-	<input type="hidden" name="task" value="" />
-	<input type="hidden" name="boxchecked" value="1" />
-	<input type="hidden" name="type" value="<?php echo $type; ?>" />
-			<?php
-			foreach($cid as $id) {
-				echo "\n<input type=\"hidden\" name=\"cid[]\" value=\"$id\" />";
-			}
-			?>
-	<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
-</form>
-		<?php
+		</table>
+		<input type="hidden" name="option" value="<?php echo $option; ?>" />
+		<input type="hidden" name="task" value="" />
+		<input type="hidden" name="boxchecked" value="1" />
+		<input type="hidden" name="type" value="<?php echo $type; ?>" />
+<?php
+		foreach($cid as $id) {
+			echo "\n<input type=\"hidden\" name=\"cid[]\" value=\"$id\" />";
+		}
+?>
+		<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
+		</form>
+<?php
 	}
 
 
 	/**
-	 * A restore confirmation page
-	 * Writes list of the items that have been selected for restore
-	 */
+	* A restore confirmation page
+	* Writes list of the items that have been selected for restore
+	*/
 	function showRestore($option,$cid,$items,$type) {
-
-		$mainframe = &mosMainFrame::getInstance();
-		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
-		?>
-<form action="index2.php" method="post" name="adminForm">
-	<table class="adminheading">
+?>
+		<form action="index2.php" method="post" name="adminForm">
+		<table class="adminheading">
 		<tr>
 			<th><?php echo _OBJECT_RESTORE?></th>
 		</tr>
-	</table>
-	<table class="adminform">
+		</table>
+		<table class="adminform">
 		<tr>
 			<td width="3%"></td>
 			<td align="left" valign="top" width="20%">
-				<strong><?php echo _COM_TRASH_OBJECT_COUNT?>:</strong>
-				<br />
-				<font color="#000066"><strong><?php echo count($cid); ?></strong></font>
-				<br /><br />
+			<strong><?php echo _OBJECT_COUNT?>:</strong>
+			<br />
+			<font color="#000066"><strong><?php echo count($cid); ?></strong></font>
+			<br /><br />
 			</td>
 			<td align="left" valign="top" width="25%">
-				<strong><?php echo _OBECTS_TO_RESTORE?>:</strong>
-				<br />
-						<?php
-						echo "<ol>";
-						foreach($items as $item) {
-							echo "<li>".$item->name."</li>";
-						}
-						echo "</ol>";
-						?>
+			<strong><?php echo _OBECTS_TO_RESTORE?>:</strong>
+			<br />
+<?php
+		echo "<ol>";
+		foreach($items as $item) {
+			echo "<li>".$item->name."</li>";
+		}
+		echo "</ol>";
+?>
 			</td>
-			<td valign="top">
-						<?php echo _THIS_ACTION_WILL_RESTORE_O_FOREVER?>
-				<br /><br /><br />
-				<div style="border: 1px dotted gray; width: 120px; height:25px; padding: 10px; margin-left: 50px;">
-					<a class="toolbar" href="javascript:if (confirm('<?php echo _REALLY_RESTORE_OBJECTS?>')){ submitbutton('restore');}">
-						<img name="restore" src="<?php echo $cur_file_icons_path;?>/restore.png" alt="<?php echo _RESTORE?>" border="0" align="left" />
-						&nbsp;<?php echo _RESTORE?>
-					</a>
-				</div>
+			 <td valign="top">
+			<?php echo _THIS_ACTION_WILL_RESTORE_O_FOREVER?>
+			<br /><br /><br />
+			<div style="border: 1px dotted gray; width: 120px; height:25px; padding: 10px; margin-left: 50px;">
+			<a class="toolbar" href="javascript:if (confirm('<?php echo _REALLY_RESTORE_OBJECTS?>')){ submitbutton('restore');}">
+			<img name="restore" src="images/restore.png" alt="<?php echo _RESTORE?>" border="0" align="left" />
+			&nbsp;<?php echo _RESTORE?>
+			</a>
+			</div>
 			</td>
 		</tr>
-	</table>
-	<input type="hidden" name="option" value="<?php echo $option; ?>" />
-	<input type="hidden" name="task" value="" />
-	<input type="hidden" name="boxchecked" value="1" />
-	<input type="hidden" name="type" value="<?php echo $type; ?>" />
-			<?php
-			foreach($cid as $id) {
-				echo "\n<input type=\"hidden\" name=\"cid[]\" value=\"$id\" />";
-			}
-			?>
-	<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
-</form>
-		<?php
+		</table>
+		<input type="hidden" name="option" value="<?php echo $option; ?>" />
+		<input type="hidden" name="task" value="" />
+		<input type="hidden" name="boxchecked" value="1" />
+		<input type="hidden" name="type" value="<?php echo $type; ?>" />
+<?php
+		foreach($cid as $id) {
+			echo "\n<input type=\"hidden\" name=\"cid[]\" value=\"$id\" />";
+		}
+?>
+		<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
+		</form>
+<?php
 	}
+
 }
+?>

@@ -1,13 +1,13 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
 
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
 
 // ensure user has access to this function
@@ -42,94 +42,92 @@ switch($task) {
 		break;
 }
 
-function checkall() {
+function checkall(){
 	global $database,$mosConfig_dbprefix;
 	$nullDate = $database->getNullDate();
-	$mainframe = &mosMainFrame::getInstance();
-	$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 	?>
-<table class="adminheading">
-	<tr>
-		<th class="checkin"><?php echo _GLOBAL_CHECKIN?></th>
-	</tr>
-</table>
-<table class="adminform">
-	<tr>
-		<th class="title"><?php echo _TABLE_IN_DB?></th>
-		<th class="title"><?php echo _OBJECT_COUNT?></th>
-		<th class="title"><?php echo _UNBLOCKED?></th>
-		<th class="title">&nbsp;</th>
-	</tr>
-		<?php
-		$tables = $database->getTableList();
-		$k = 0;
-		foreach($tables as $tn) {
-			// make sure we get the right tables based on prefix
-			if(!preg_match("/^".$mosConfig_dbprefix."/i",$tn)) {
-				continue;
+	<table class="adminheading">
+		<tr>
+			<th class="checkin"><?php echo _GLOBAL_CHECKIN?></th>
+		</tr>
+	</table>
+	<table class="adminform">
+		<tr>
+			<th class="title"><?php echo _TABLE_IN_DB?></th>
+			<th class="title"><?php echo _OBJECT_COUNT?></th>
+			<th class="title"><?php echo _UNBLOCKED?></th>
+			<th class="title">&nbsp;</th>
+		</tr>
+	<?php
+	$tables = $database->getTableList();
+	$k = 0;
+	foreach($tables as $tn) {
+		// make sure we get the right tables based on prefix
+		if(!preg_match("/^".$mosConfig_dbprefix."/i",$tn)) {
+			continue;
+		}
+		$fields = $database->getTableFields(array($tn));
+
+		$foundCO = false;
+		$foundCOT = false;
+		$foundE = false;
+
+		$foundCO = isset($fields[$tn]['checked_out']);
+		$foundCOT = isset($fields[$tn]['checked_out_time']);
+		$foundE = isset($fields[$tn]['editor']);
+
+		if($foundCO && $foundCOT) {
+			if($foundE) {
+				$query = "SELECT checked_out, editor FROM $tn WHERE checked_out > 0";
+			} else {
+				$query = "SELECT checked_out FROM $tn WHERE checked_out > 0";
 			}
-			$fields = $database->getTableFields(array($tn));
+			$database->setQuery($query);
+			$res = $database->query();
+			$num = $database->getNumRows($res);
 
-			$foundCO = false;
-			$foundCOT = false;
-			$foundE = false;
+			if($foundE) {
+				$query = "UPDATE $tn SET checked_out = 0, checked_out_time = ".$database->Quote($nullDate).", editor = NULL WHERE checked_out > 0";
+			} else {
+				$query = "UPDATE $tn SET checked_out = 0, checked_out_time = ".$database->Quote($nullDate)." WHERE checked_out > 0";
+			}
+			$database->setQuery($query);
+			$res = $database->query();
 
-			$foundCO = isset($fields[$tn]['checked_out']);
-			$foundCOT = isset($fields[$tn]['checked_out_time']);
-			$foundE = isset($fields[$tn]['editor']);
-
-			if($foundCO && $foundCOT) {
-				if($foundE) {
-					$query = "SELECT checked_out, editor FROM $tn WHERE checked_out > 0";
+			if($res == 1) {
+				if($num > 0) {
+					echo "<tr class=\"row$k\">";
+					echo "\n<td width=\"350\">"._CHECHKED_TABLE." - $tn</td>";
+					echo "\n<td width=\"150\">"._UNBLOCKED." - <b>$num</b></td>";
+					echo "\n<td width=\"100\" align=\"center\"><img src=\"images/tick.png\" border=\"0\" alt=\"tick\" /></td>";
+					echo "\n<td>&nbsp;</td>";
+					echo "\n</tr>";
 				} else {
-					$query = "SELECT checked_out FROM $tn WHERE checked_out > 0";
+					echo "<tr class=\"row$k\">";
+					echo "\n<td width=\"350\">"._CHECHKED_TABLE." - $tn</td>";
+					echo "\n<td width=\"150\">"._UNBLOCKED." - <b>$num</b></td>";
+					echo "\n<td width=\"100\">&nbsp;</td>";
+					echo "\n<td>&nbsp;</td>";
+					echo "\n</tr>";
 				}
-				$database->setQuery($query);
-				$res = $database->query();
-				$num = $database->getNumRows($res);
-
-				if($foundE) {
-					$query = "UPDATE $tn SET checked_out = 0, checked_out_time = ".$database->Quote($nullDate).", editor = NULL WHERE checked_out > 0";
-				} else {
-					$query = "UPDATE $tn SET checked_out = 0, checked_out_time = ".$database->Quote($nullDate)." WHERE checked_out > 0";
-				}
-				$database->setQuery($query);
-				$res = $database->query();
-
-				if($res == 1) {
-					if($num > 0) {
-						echo "<tr class=\"row$k\">";
-						echo "\n<td width=\"350\">"._CHECHKED_TABLE." - $tn</td>";
-						echo "\n<td width=\"150\">"._UNBLOCKED." - <b>$num</b></td>";
-						echo "\n<td width=\"100\" align=\"center\"><img src=\"".$cur_file_icons_path."/tick.png\" border=\"0\" alt=\"tick\" /></td>";
-						echo "\n<td>&nbsp;</td>";
-						echo "\n</tr>";
-					} else {
-						echo "<tr class=\"row$k\">";
-						echo "\n<td width=\"350\">"._CHECHKED_TABLE." - $tn</td>";
-						echo "\n<td width=\"150\">"._UNBLOCKED." - <b>$num</b></td>";
-						echo "\n<td width=\"100\">&nbsp;</td>";
-						echo "\n<td>&nbsp;</td>";
-						echo "\n</tr>";
-					}
-					$k = 1 - $k;
-				}
+				$k = 1 - $k;
 			}
 		}
-		?>
-	<tr>
-		<td colspan="4">
-			<strong><?php echo _ALL_BLOCKED_IS_UNBLOCKED?></strong>
-		</td>
-	</tr>
-</table>
+	}
+	?>
+		<tr>
+			<td colspan="4">
+				<strong><?php echo _ALL_BLOCKED_IS_UNBLOCKED?></strong>
+			</td>
+		</tr>
+	</table>
 	<?php
 }
 
 /**
- * List the records
- * @param string The current GET/POST option
- */
+* List the records
+* @param string The current GET/POST option
+*/
 function showMyCheckin($option) {
 	global $mainframe,$mosConfig_db,$database;
 
@@ -211,23 +209,23 @@ function showMyCheckin($option) {
 					}
 					$mosusers->load($rows[$i]->checked_out);
 					$checkouttime = mktime(substr($rows[$i]->checked_out_time,11,2),substr($rows[$i]->checked_out_time,
-							14,2),substr($rows[$i]->checked_out_time,17,2),substr($rows[$i]->checked_out_time,
-							5,2),substr($rows[$i]->checked_out_time,8,2),substr($rows[$i]->checked_out_time,
-							0,4));
+						14,2),substr($rows[$i]->checked_out_time,17,2),substr($rows[$i]->checked_out_time,
+						5,2),substr($rows[$i]->checked_out_time,8,2),substr($rows[$i]->checked_out_time,
+						0,4));
 
 					$duration = round((time() - $checkouttime) / 60);
 					if($duration <= 120) {
 						$duration .= " "._MINUTES;
 					} else
-					if($duration <= (48* 60)) {
-						$duration = round($duration / 60);
-						$duration .= " "._HOURS;
-					} else {
-						$duration = round($duration / (60* 24));
-						$duration .= " "._DAYS;
-					}
+						if($duration <= (48* 60)) {
+							$duration = round($duration / 60);
+							$duration .= " "._HOURS;
+						} else {
+							$duration = round($duration / (60* 24));
+							$duration .= " "._DAYS;
+						}
 
-					$list[$listcnt] = array("component" => $tn,"title" => $str,"name" => $mosusers->name,
+						$list[$listcnt] = array("component" => $tn,"title" => $str,"name" => $mosusers->name,
 							"cotime" => $rows[$i]->checked_out_time." ($duration)","PKEY" => $keyname,"id" =>
 							$rows[$i]->$keyname,"editor" => ($foundE)?'Y':'N');
 					$listcnt++;
@@ -242,9 +240,6 @@ function showMyCheckin($option) {
 function checkin($pkey,$checkid,$component,$editor) {
 	global $database;
 
-	$mainframe = &mosMainFrame::getInstance();
-	$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
-
 	if($editor == "Y") {
 		$database->setQuery("UPDATE $component SET checked_out=0, checked_out_time='00:00:00', editor=NULL WHERE $pkey = $checkid AND checked_out > 0");
 	} else {
@@ -255,7 +250,7 @@ function checkin($pkey,$checkid,$component,$editor) {
 	echo "<tr class=\"row1\">";
 	echo "<td align=\"center\" width=\"70%\"><b>$component</b> "._UNBLOCKED2;
 	if($res == 1) {
-		echo "<img src=\"".$cur_file_icons_path."/tick.png\" border=\"0\" alt=\"ÑƒÑÐ¿ÐµÑˆÐ½Ð¾\" />";
+		echo "<img src=\"images/tick.png\" border=\"0\" alt=\"óñïåøíî\" />";
 	} else {
 		echo _ERROR_WHEN_UNBLOCKING;
 	}
@@ -263,9 +258,10 @@ function checkin($pkey,$checkid,$component,$editor) {
 }
 
 /**
- * Cancels editing and checks in the record
- * @int the contact id
- */
+* Cancels editing and checks in the record
+* @int the contact id
+*/
 function cancelMyCheckin($cid) {
 	mosRedirect('index2.php');
 }
+?>

@@ -1,38 +1,32 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
 
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
 
+global $cur_template,$mosConfig_absolute_path;
+
 $use_ext = $params->get('use_ext',0);
-$use_cache = $params->get('use_cache',1);
 
 if(!defined('_QUICKICON_MODULE')) {
-    define('_QUICKICON_MODULE',1);
-
-    function show_quick_icons($use_ext) {
-        if($use_ext) {
-            // Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ð½Ð¸Ðµ Ð·Ð½Ð°Ñ‡ÐºÐ¾Ð² Ð¾Ñ‚Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ð¸Ñ ÑˆÐ°Ð±Ð»Ð¾Ð½Ð°
-            if(file_exists(JPATH_BASE_ADMIN.'/templates/'.JTEMPLATE.'/html/quickicons.php')) {
-                require_once (JPATH_BASE_ADMIN.'/templates/'.JTEMPLATE.'/html/quickicons.php');
-            } else {
-                // Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ð½Ð¸Ðµ ÑÑ‚Ð°Ð½Ð´Ð°Ñ€Ñ‚Ð½Ñ‹Ñ… Ð·Ð½Ð°Ñ‡ÐºÐ¾Ð² Ð¾Ñ‚Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ð¸Ñ
-                require_once (JPATH_BASE_ADMIN.'/components/com_quickicons/quickicons.php');
-            }
-        }else {
-            // Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ð½Ð¸Ðµ ÑÑ‚Ð°Ð½Ð´Ð°Ñ€Ñ‚Ð½Ñ‹Ñ… Ð·Ð½Ð°Ñ‡ÐºÐ¾Ð² Ð¾Ñ‚Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ð¸Ñ
-            require_once (JPATH_BASE_ADMIN.'/components/com_quickicons/quickicons.php');
-        }
-    }
+	define('_QUICKICON_MODULE',1);
+	if($use_ext){
+		// èñïîëüçîâàíèå çíà÷êîâ îòîáðàæåíèÿ øàáëîíà
+		if(file_exists($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$cur_template.'/html/quickicons.php')) {
+			require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$cur_template.'/html/quickicons.php');
+		} else {
+			// èñïîëüçîâàíèå ñòàíäàðòíûõ çíà÷êîâ îòîáðàæåíèÿ
+			require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_quickicons/quickicons.php');
+		}
+	}else{
+		// èñïîëüçîâàíèå ñòàíäàðòíûõ çíà÷êîâ îòîáðàæåíèÿ
+		require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_quickicons/quickicons.php');
+	}
 }
-// Ð·Ð½Ð°Ñ‡ÐºÐ¸ Ð±Ñ‹ÑÑ‚Ñ€Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð° ÐºÑÑˆÐ¸Ñ€ÑƒÐµÐ¼
-$cache = &mosCache::getCache('quick_icons', 'callback','file',2592000);
-$cache->_options['caching'] = $use_cache;
-$r = $cache->call('show_quick_icons', $use_ext);
-unset($cache,$r);
+?>

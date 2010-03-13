@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2010 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
-* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
-* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
-* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
+* @copyright Авторские права (C) 2008 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
 */
 
-// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+// запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 /**
@@ -21,7 +21,7 @@ class JCEPluginInstaller extends mosInstaller {
 	* @param boolean True if installing from directory
 	*/
 	function install($p_fromdir = null) {
-		global $database;
+		global $mosConfig_absolute_path,$database;
 
 		if(!$this->preInstallCheck($p_fromdir,'jceplugin')) {
 			return false;
@@ -35,7 +35,7 @@ class JCEPluginInstaller extends mosInstaller {
 		$this->elementName($e->getText());
 
 		$folder = $mosinstall->getAttribute('plugin');
-		$this->elementDir(mosPathName(JPATH_BASE.
+		$this->elementDir(mosPathName($mosConfig_absolute_path.
 			'/mambots/editors/jce/jscripts/tiny_mce/plugins/'.$folder));
 
 		if(!file_exists($this->elementDir()) && !mosMakePath($this->elementDir())) {
@@ -52,7 +52,7 @@ class JCEPluginInstaller extends mosInstaller {
 			"'";
 		$database->setQuery($query);
 		if(!$database->query()) {
-			$this->setError(1,'РћС€РёР±РєР° SQL: '.$database->stderr(true));
+			$this->setError(1,'Ошибка SQL: '.$database->stderr(true));
 			return false;
 		}
 
@@ -83,7 +83,7 @@ class JCEPluginInstaller extends mosInstaller {
 			$row->iscore = 0;
 
 			if(!$row->store()) {
-				$this->setError(1,'РћС€РёР±РєР° SQL: '.$row->getError());
+				$this->setError(1,'Ошибка SQL: '.$row->getError());
 				return false;
 			}
 		} else {
@@ -103,20 +103,22 @@ class JCEPluginInstaller extends mosInstaller {
 	* @param int The client id
 	*/
 	function uninstall($id,$option,$client = 0) {
-		global $database;
+		global $database,$mosConfig_absolute_path;
 
 		$id = intval($id);
-		$query = "SELECT name, plugin, iscore FROM #__jce_plugins WHERE id = $id";
+		$query = "SELECT name, plugin, iscore"."\n FROM #__jce_plugins"."\n WHERE id = $id";
 		$database->setQuery($query);
 
 		$row = null;
 		$database->loadObject($row);
 		if($database->getErrorNum()) {
-			HTML_installer::showInstallMessage($database->stderr(),_DELETE_ERROR,$this->returnTo($option,'install&element=plugins',$client));
+			HTML_installer::showInstallMessage($database->stderr(),_DELETE_ERROR,$this->returnTo
+				($option,'install&element=plugins',$client));
 			exit();
 		}
 		if($row == null) {
-			HTML_installer::showInstallMessage(_BAD_OBJECT_ID,_DELETE_ERROR,$this->returnTo($option,'install&element=plugins',$client));
+			HTML_installer::showInstallMessage(_BAD_OBJECT_ID,_DELETE_ERROR,$this->returnTo
+				($option,'install&element=plugins',$client));
 			exit();
 		}
 
@@ -125,7 +127,8 @@ class JCEPluginInstaller extends mosInstaller {
 			exit();
 		}
 
-		$basepath = JPATH_BASE.'/mambots/editors/jce/jscripts/tiny_mce/plugins/'.$row->plugin.'/';
+		$basepath = $mosConfig_absolute_path.
+			'/mambots/editors/jce/jscripts/tiny_mce/plugins/'.$row->plugin.'/';
 		$xmlfile = $basepath.$row->plugin.'.xml';
 
 		// see if there is an xml install file, must be same name as element
@@ -146,10 +149,10 @@ class JCEPluginInstaller extends mosInstaller {
 							$parts = pathinfo($filename);
 							$subpath = $parts['dirname'];
 							if($subpath != '' && $subpath != '.' && $subpath != '..') {
-								echo '<br />РЈРґР°Р»РµРЅРёРµ: '.$basepath.$subpath;
+								echo '<br />Удаление: '.$basepath.$subpath;
 								$result = deldir(mosPathName($basepath.$subpath.'/'));
 							} else {
-								echo '<br />РЈРґР°Р»РµРЅРёРµ: '.$basepath.$filename;
+								echo '<br />Удаление: '.$basepath.$filename;
 								$result = unlink(mosPathName($basepath.$filename,false));
 							}
 							echo intval($result);
@@ -157,7 +160,7 @@ class JCEPluginInstaller extends mosInstaller {
 					}
 
 					// remove XML file from front
-					echo "РЈРґР°Р»РµРЅРёРµ XML-С„Р°Р№Р»Р°: $xmlfile";
+					echo "Удаление XML-файла: $xmlfile";
 					@unlink(mosPathName($xmlfile,false));
 
 					// define folders that should not be removed

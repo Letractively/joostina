@@ -1,25 +1,21 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <mosinstall type="module" client="administrator" version="1.0.0">
-	<name>РљРЅРѕРїРєРё Р±С‹СЃС‚СЂРѕРіРѕ РґРѕСЃС‚СѓРїР°</name>
+	<name>Кнопки быстрого доступа</name>
 	<author>Joostina! Project</author>
 	<creationDate>22:05:2008</creationDate>
-	<copyright>(C) 2008-2010 Joostina team.</copyright>
+	<copyright>(C) 2008 Joostina team.</copyright>
 	<license>http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL</license>
 	<authorEmail>joostinacms@gmail.com</authorEmail>
 	<authorUrl>www.joostina.ru</authorUrl>
 	<version>1.0.1 JE</version>
-	<description><![CDATA[ РњРѕРґСѓР»СЊ РІС‹РІРѕРґР° РєРЅРѕРїРѕРє Р±С‹СЃС‚СЂРѕРіРѕ РґРѕСЃС‚СѓРїР° ]]></description>
+	<description><![CDATA[ Модуль вывода кнопок быстрого доступа ]]></description>
 	<files>
 		<filename module="mod_customquickicons">mod_quickicons.php</filename>
 	</files>
 	<params>
-		<param name="use_cache" type="radio" default="1" label="РљСЌС€РёСЂРѕРІР°С‚СЊ РјРѕРґСѓР»СЊ" description="РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РєСЌС€РёСЂРѕРІР°РЅРёРµ Р·РЅР°С‡РєРѕРІ РјРѕРґСѓР»СЏ">
-			<option value="1">Р”Р°</option>
-			<option value="0">РќРµС‚</option>
+		<param name="use_ext" type="radio" default="0" label="Использовать модуль шаблона" description="Использовать для вывода кнопок быстрого доступа файл установленного шаблона панели управления">
+			<option value="1">Да</option>
+			<option value="0">Нет</option>
 		</param>
-                <param name="use_ext" type="radio" default="0" label="РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РјРѕРґСѓР»СЊ С€Р°Р±Р»РѕРЅР°" description="РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РґР»СЏ РІС‹РІРѕРґР° РєРЅРѕРїРѕРє Р±С‹СЃС‚СЂРѕРіРѕ РґРѕСЃС‚СѓРїР° С„Р°Р№Р» СѓСЃС‚Р°РЅРѕРІР»РµРЅРЅРѕРіРѕ С€Р°Р±Р»РѕРЅР° РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ">
-			<option value="1">Р”Р°</option>
-			<option value="0">РќРµС‚</option>
-		</param>
-        </params>
+	<params/>
 </mosinstall>

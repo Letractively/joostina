@@ -1,13 +1,13 @@
 <?php
 /**
  * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
+ * @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+ * @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+ * Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+ * Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
  */
 
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
 
 $task = mosGetParam($_REQUEST, 'task');
@@ -27,23 +27,23 @@ switch ($task) {
 		$plugin = cleanInput(mosGetParam($_REQUEST, 'plugin'));
 		if(in_array($plugin, $plugins)) {
 			$file = cleanInput(basename(mosGetParam($_REQUEST, 'file')));
-			$path = JPATH_BASE . '/mambots/editors/jce/jscripts/tiny_mce/plugins/' . $plugin;
+			$path = $mainframe->getCfg('absolute_path') . '/mambots/editors/jce/jscripts/tiny_mce/plugins/' . $plugin;
 			if(is_dir($path) && file_exists($path . '/' . $file)) {
 				include_once $path . '/' . $file;
 			} else {
-				die('Ð¤Ð°Ð¹Ð» Ð½Ðµ Ð½Ð°Ð¹Ð´ÐµÐ½!');
+				die('Ôàéë íå íàéäåí!');
 			}
 		} else {
-			die('Ð Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸Ðµ Ð½Ðµ Ð½Ð°Ð¹Ð´ÐµÐ½Ð¾!');
+			die('Ðàñøèðåíèå íå íàéäåíî!');
 		}
 		break;
 	case 'help':
 		$file = cleanInput(basename(mosGetParam($_REQUEST, 'file')));
-		$path = JPATH_BASE . '/mambots/editors/jce/jscripts/tiny_mce/libraries/help/' . $file;
+		$path = $mainframe->getCfg('absolute_path') . '/mambots/editors/jce/jscripts/tiny_mce/libraries/help/' . $file;
 		if(file_exists($path)) {
 			include_once $path;
 		} else {
-			die('Ð¤Ð°Ð¹Ð» Ð½Ðµ Ð½Ð°Ð¹Ð´ÐµÐ½!');
+			die('Ôàéë íå íàéäåí!');
 		}
 		break;
 }
@@ -51,7 +51,7 @@ function getInput($item, $def = null) {
 	return htmlspecialchars(mosGetParam($_REQUEST, $item, $def));
 }
 function showPopup() {
-	global $mainframe;
+	global $mainframe, $mosConfig_live_site;
 
 	$img = getInput('img');
 	$title = str_replace('_', ' ', getInput('title', 'Image'));
@@ -61,25 +61,25 @@ function showPopup() {
 	$w = getInput('w');
 	$h = getInput('h');
 
-	if(strpos(JPATH_SITE, $img) === false)
-		$img = JPATH_SITE . '/' . $img;
-	?>
-<style type="text/css">
-	body{
-		margin: 0px;
-		padding: 0px;
-	}
-</style>
-<script type="text/javascript">
+	if(strpos($mainframe->getCfg('live_site'), $img) === false)
+		$img = $mainframe->getCfg('live_site') . '/' . $img;
+?>
+	<style type="text/css">
+		body{
+			margin: 0px;
+			padding: 0px;
+		}
+	</style>
+	<script type="text/javascript">
 	var w = '<?php $w; ?>';
 	var h = '<?php echo $h; ?>';
 	var x = (screen.width-parseInt(w))/2;
 	var y = (screen.height-parseInt(h))/2;
 
 	window.moveTo(x, y);
-</script>
+	</script>
 	<?php if($right_click) { ?>
-<script type="text/javascript">
+	<script type="text/javascript">
 	function clickIE4(){
 		if (event.button==2){
 			return false;
@@ -100,30 +100,31 @@ function showPopup() {
 		document.onmousedown=clickIE4;
 	}
 	document.oncontextmenu=new Function("return false");
-</script>
-		<?php }
+	</script>
+	<?php }
 	switch ($mode) {
 		case '0':
-			?>
-<img src="<?php echo $img; ?>" width="<?php echo $w; ?>" height="<?php echo $h; ?>" title="<?php echo $title; ?>" alt="<?php echo $title; ?>" style="cursor:pointer;" onclick="window.close();" />
-			<?php
+?>
+			<img src="<?php echo $img; ?>" width="<?php echo $w; ?>" height="<?php echo $h; ?>" title="<?php echo $title; ?>" alt="<?php echo $title; ?>" style="cursor:pointer;" onclick="window.close();" />
+	<?php
 			break;
 		case '1':
-			?>
-<table align="center" cellspacing="0" cellpadding="0" border="0">
-	<tr>
-		<td align="left" class="contentheading" style="width:<?php echo $w - 18; ?>px; margin-left: 5px;"><?php echo $title; ?></td>
-		<td align="right" style="width:18px;" class="buttonheading">
+?>
+			<table align="center" cellspacing="0" cellpadding="0" border="0">
+				<tr>
+					<td align="left" class="contentheading" style="width:<?php echo $w - 18; ?>px; margin-left: 5px;"><?php echo $title; ?></td>
+					<td align="right" style="width:18px;" class="buttonheading">
 						<?php if($print) { ?>
-			<a href="javascript:;" onClick="window.print(); return false"><img src="<?php echo JPATH_SITE; ?>/images/M_images/printButton.png" width="16" height="16" alt="<?php echo _PRINT; ?>" title="<?php echo _PRINT; ?>" border="0" style="vertical-align:middle;"/></a>
-							<?php } ?>
-		</td>
-	</tr>
-	<tr>
-		<td colspan="2"><img src="<?php echo $img; ?>" width="<?php echo $w; ?>" height="<?php echo $h; ?>" title="<?php echo $title; ?>" alt="<?php echo $title; ?>" style="cursor:pointer;" onclick="window.close();" /></td>
-	</tr>
-</table>
-			<?php
+							<a href="javascript:;" onClick="window.print(); return false"><img src="<?php echo $mosConfig_live_site; ?>/images/M_images/printButton.png" width="16" height="16" alt="<?php echo _CMN_PRINT; ?>" title="<?php echo _CMN_PRINT; ?>" border="0" style="vertical-align:middle;"/></a>
+						<?php } ?>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2"><img src="<?php echo $img; ?>" width="<?php echo $w; ?>" height="<?php echo $h; ?>" title="<?php echo $title; ?>" alt="<?php echo $title; ?>" style="cursor:pointer;" onclick="window.close();" /></td>
+			   </tr>
+			</table>
+	<?php
 			break;
 	}
 }
+?>

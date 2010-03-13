@@ -1,87 +1,72 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
-
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
-
 $_MAMBOTS->registerFunction('onSearch','botSearchSections');
-
 /**
- * ÐœÐµÑ‚Ð¾Ð´ Ð¿Ð¾Ð¸ÑÐºÐ° ÑÐµÐºÑ†Ð¸Ð¹
- *
- * Ð·Ð°Ð¿Ñ€Ð¾Ñ sql Ð´Ð¾Ð»Ð¶ÐµÐ½ Ð²Ð¾Ð·Ð²Ñ€Ð°Ñ‚Ð¸Ñ‚ÑŒ Ð¿Ð¾Ð»Ñ, Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÑŽÑ‚ÑÑ Ð² Ð¾Ð±Ñ‹Ñ‡Ð½Ð¾Ð¹ Ð¾Ð¿ÐµÑ€Ð°Ñ†Ð¸Ð¸
- * Ð¾Ñ‚Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ð¸Ñ: href, title, section, created, text, browsernav
- * @param Ð¾Ð¿Ñ€ÐµÐ´ÐµÐ»ÑÐµÑ‚ Ñ†ÐµÐ»ÑŒ Ð¿Ð¾Ð¸ÑÐºÐ°
- * @param ÑÐ¾Ð¿Ð¾ÑÑ‚Ð°Ð²Ð»ÑÐµÑ‚ Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ñ‹: exact|any|all
- * @param Ð¾Ð¿Ñ€ÐµÐ´ÐµÐ»ÑÐµÑ‚ Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€ ÑÐ¾Ñ€Ñ‚Ð¸Ñ€Ð¾Ð²ÐºÐ¸: newest|oldest|popular|alpha|category
- */
+* Ìåòîä ïîèñêà ñåêöèé
+* çàïðîñ sql äîëæåí âîçâðàòèòü ïîëÿ, èñïîëüçóþòñÿ â îáû÷íîé îïåðàöèè 
+* îòîáðàæåíèÿ: href, title, section, created, text, browsernav
+* @param îïðåäåëÿåò öåëü ïîèñêà
+* @param ñîïîñòàâëÿåò ïàðàìåòðû: exact|any|all
+* @param îïðåäåëÿåò ïàðàìåòð ñîðòèðîâêè: newest|oldest|popular|alpha|category
+*/
 function botSearchSections($text,$phrase = '',$ordering = '') {
-	global $my,$_MAMBOTS;
-
-	$database = &database::getInstance();
-
-	// check if param query has previously been processed
-	if(!isset($_MAMBOTS->_search_mambot_params['sections'])) {
-		// load mambot params info
-		$query = "SELECT params FROM #__mambots WHERE element = 'sections.searchbot' AND folder = 'search'";
-		$database->setQuery($query);
-		$database->loadObject($mambot);
-
-		// save query to class variable
-		$_MAMBOTS->_search_mambot_params['sections'] = $mambot;
-	}
-
-	// pull query data from class variable
-	$mambot = $_MAMBOTS->_search_mambot_params['sections'];
-
-	$botParams = new mosParameters($mambot->params);
-
-	$limit = $botParams->def('search_limit',50);
-
-	$text = trim($text);
-	if($text == '') {
-		return array();
-	}
-
-	switch($ordering) {
-		case 'alpha':
-			$order = 'a.name ASC';
-			break;
-
-		case 'category':
-		case 'popular':
-		case 'newest':
-		case 'oldest':
-		default:
-			$order = 'a.name DESC';
-	}
-
-	$query = "SELECT a.name AS title,"."\n a.description AS text,"."\n '' AS created,".
-			"\n '2' AS browsernav,"."\n a.id AS secid, m.id AS menuid, m.type AS menutype".
-			"\n FROM #__sections AS a"."\n LEFT JOIN #__menu AS m ON m.componentid = a.id".
-			"\n WHERE ( a.name LIKE '%$text%'"."\n OR a.title LIKE '%$text%'"."\n OR a.description LIKE '%$text%' )".
-			"\n AND a.published = 1"."\n AND a.access <= ".(int)$my->gid."\n AND ( m.type = 'content_section' OR m.type = 'content_blog_section' )".
-			"\n GROUP BY a.id"."\n ORDER BY $order";
-	$database->setQuery($query,0,$limit);
-	$rows = $database->loadObjectList();
-
-	$count = count($rows);
-	for($i = 0; $i < $count; $i++) {
-		if($rows[$i]->menutype == 'content_section') {
-			$rows[$i]->href = 'index.php?option=com_content&task=section&id='.$rows[$i]->secid.'&Itemid='.$rows[$i]->menuid;
-			$rows[$i]->section = _SECTION_LIST;
-		}
-		if($rows[$i]->menutype == 'content_blog_section') {
-			$rows[$i]->href = 'index.php?option=com_content&task=blogsection&id='.$rows[$i]->secid.'&Itemid='.$rows[$i]->menuid;
-			$rows[$i]->section = _SECTION_BLOG;
-		}
-	}
-
-	return $rows;
+global $database,$my,$_MAMBOTS;
+// check if param query has previously been processed
+if(!isset($_MAMBOTS->_search_mambot_params['sections'])) {
+// load mambot params info
+$query = "SELECT params"."\n FROM #__mambots"."\n WHERE element = 'sections.searchbot'".
+"\n AND folder = 'search'";
+$database->setQuery($query);
+$database->loadObject($mambot);
+// save query to class variable
+$_MAMBOTS->_search_mambot_params['sections'] = $mambot;
 }
+// pull query data from class variable
+$mambot = $_MAMBOTS->_search_mambot_params['sections'];
+$botParams = new mosParameters($mambot->params);
+$limit = $botParams->def('search_limit',50);
+$text = trim($text);
+if($text == '') {
+return array();
+}
+switch($ordering) {
+case 'alpha':
+$order = 'a.name ASC';
+break;
+case 'category':
+case 'popular':
+case 'newest':
+case 'oldest':
+default:
+$order = 'a.name DESC';
+}
+$query = "SELECT a.name AS title,"."\n a.description AS text,"."\n '' AS created,".
+"\n '2' AS browsernav,"."\n a.id AS secid, m.id AS menuid, m.type AS menutype".
+"\n FROM #__sections AS a"."\n LEFT JOIN #__menu AS m ON m.componentid = a.id".
+"\n WHERE ( a.name LIKE '%$text%'"."\n OR a.title LIKE '%$text%'"."\n OR a.description LIKE '%$text%' )".
+"\n AND a.published = 1"."\n AND a.access <= ".(int)$my->gid."\n AND ( m.type = 'content_section' OR m.type = 'content_blog_section' )".
+"\n GROUP BY a.id"."\n ORDER BY $order";
+$database->setQuery($query,0,$limit);
+$rows = $database->loadObjectList();
+$count = count($rows);
+for($i = 0; $i < $count; $i++) {
+if($rows[$i]->menutype == 'content_section') {
+$rows[$i]->href = 'index.php?option=com_content&task=section&id='.$rows[$i]->secid.'&Itemid='.$rows[$i]->menuid;
+$rows[$i]->section = _SEARCH_SECLIST;
+}
+if($rows[$i]->menutype == 'content_blog_section') {
+$rows[$i]->href = 'index.php?option=com_content&task=blogsection&id='.$rows[$i]->secid.'&Itemid='.$rows[$i]->menuid;
+$rows[$i]->section = _SEARCH_SECBLOG;
+}
+}
+return $rows;
+}
+?>

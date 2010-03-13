@@ -1,75 +1,68 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
-
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
-defined( '_VALID_MOS' ) or die();
-
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
+// çàïðåò ïðÿìîãî äîñòóïà
+defined('_VALID_MOS') or die();
 global $mosConfig_offset,$my;
-
-$count	= intval( $params->get( 'count', 20 ) );
-$access = !$mainframe->getCfg( 'shownoauth' );
-$now	= _CURRENT_SERVER_TIME;
+$count= intval($params->get('count', 20));
+$access = !$mainframe->getCfg('shownoauth');
+$now= _CURRENT_SERVER_TIME;
 $nullDate = $database->getNullDate();
-
 $query = "SELECT a.id AS id, a.title AS title, COUNT(b.id) as cnt"
-		. "\n FROM #__sections as a"
-		. "\n LEFT JOIN #__content as b ON a.id = b.sectionid"
-		. ( $access ? "\n AND b.access <= " . (int) $my->gid : '' )
-		. "\n AND ( b.publish_up = " . $database->Quote( $nullDate ) . " OR b.publish_up <= " . $database->Quote( $now ) . " )"
-		. "\n AND ( b.publish_down = " . $database->Quote( $nullDate ) . " OR b.publish_down >= " . $database->Quote( $now ) . " )"
-		. "\n WHERE a.scope = 'content'"
-		. "\n AND a.published = 1"
-		. ( $access ? "\n AND a.access <= " . (int) $my->gid : '' )
-		. "\n GROUP BY a.id"
-		. "\n HAVING COUNT( b.id ) > 0"
-		. "\n ORDER BY a.ordering"
+. "\n FROM #__sections as a"
+. "\n LEFT JOIN #__content as b ON a.id = b.sectionid"
+. ($access ? "\n AND b.access <= " . (int) $my->gid : '')
+. "\n AND (b.publish_up = " . $database->Quote($nullDate) . " OR b.publish_up <= " . $database->Quote($now) . ")"
+. "\n AND (b.publish_down = " . $database->Quote($nullDate) . " OR b.publish_down >= " . $database->Quote($now) . ")"
+. "\n WHERE a.scope = 'content'"
+. "\n AND a.published = 1"
+. ($access ? "\n AND a.access <= " . (int) $my->gid : '')
+. "\n GROUP BY a.id"
+. "\n HAVING COUNT(b.id) > 0"
+. "\n ORDER BY a.ordering"
 ;
 $database->setQuery( $query, 0, $count );
 $rows = $database->loadObjectList();
-
-if ( $rows ) {
-	// list of sectionids, used to find corresponding Itemids
-	for( $i=0, $n=count( $rows ); $i<$n; $i++ ) {
-		$sids[] = (int) $rows[$i]->id;
-	}
-	// add 0 to the list, to get the Itemid of a global blog section item as a fallback
-	$sids[] = 0;
-
-	// get Itemids of sections
-	$query = "SELECT m.id AS Itemid, m.componentid AS sectionid"
-			. "\n FROM #__menu AS m"
-			. "\n WHERE ( m.type = 'content_section' OR m.type = 'content_blog_section' )"
-			. "\n AND m.published = 1"
-			. ( $access ? "\n AND m.access <= " . (int) $my->gid : '' )
-			. "\n AND ( m.componentid=" . implode( " OR m.componentid=", $sids ) . " )"
-			. "\n ORDER BY m.type DESC, m.id DESC"
-	;
-	$database->setQuery( $query );
-	$itemids = $database->loadObjectList( 'sectionid' );
-	?>
-<ul>
-<?php
-		foreach ($rows as $row) {
-			if (isset( $itemids[$row->id] )) {
-				$link = sefRelToAbs( "index.php?option=com_content&task=blogsection&id=". $row->id . "&Itemid=" . $itemids[$row->id]->Itemid );
-			} else if (isset( $itemids[0] )) {
-				$link = sefRelToAbs( "index.php?option=com_content&task=blogsection&id=". $row->id . "&Itemid=" . $itemids[0]->Itemid );
-			} else {
-				$link = sefRelToAbs( "index.php?option=com_content&task=blogsection&id=". $row->id );
-			}
-			?>
-	<li>
-		<a href="<?php echo $link;?>" title="<?php echo $row->title;?>"><?php echo $row->title;?></a>
-	</li>
-			<?php
-		}
-		?>
-</ul>
-	<?php
+if($rows) {
+// list of sectionids, used to find corresponding Itemids
+for($i=0, $n=count($rows); $i<$n; $i++) {
+$sids[] = (int) $rows[$i]->id;
 }
+// add 0 to the list, to get the Itemid of a global blog section item as a fallback
+$sids[] = 0;
+// get Itemids of sections
+$query = "SELECT m.id AS Itemid, m.componentid AS sectionid"
+. "\n FROM #__menu AS m"
+. "\n WHERE ( m.type = 'content_section' OR m.type = 'content_blog_section' )"
+. "\n AND m.published = 1"
+. ( $access ? "\n AND m.access <= " . (int) $my->gid : '' )
+. "\n AND ( m.componentid=" . implode( " OR m.componentid=", $sids ) . " )"
+. "\n ORDER BY m.type DESC, m.id DESC"
+;
+$database->setQuery( $query );
+$itemids = $database->loadObjectList( 'sectionid' );
+?>
+<ul class="section<?php echo $moduleclass_sfx; ?>">
+<?php
+foreach ($rows as $row) {
+if (isset($itemids[$row->id])) {
+$link = sefRelToAbs("index.php?option=com_content&task=blogsection&id=".$row->id."&Itemid=".$itemids[$row->id]->Itemid);
+} else if (isset( $itemids[0] )) {
+$link = sefRelToAbs("index.php?option=com_content&task=blogsection&id=".$row->id."&Itemid=".$itemids[0]->Itemid);
+} else {
+$link = sefRelToAbs("index.php?option=com_content&task=blogsection&id=".$row->id);
+}
+?>
+<li class="section<?php echo $moduleclass_sfx; ?>"><a class="section" href="<?php echo $link;?>" title="<?php echo $row->title;?>"><?php echo $row->title;?></a></li>
+<?php
+}
+?>
+</ul>
+<?php
+}
+?>

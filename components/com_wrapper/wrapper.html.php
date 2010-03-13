@@ -1,59 +1,61 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
-
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
-
 /**
- * @package Joostina
- * @subpackage Wrapper
- */
+* @package Joostina
+* @subpackage Wrapper
+*/
 class HTML_wrapper {
-	function displayWrap(&$row,&$params) {
-		?>
+function displayWrap(&$row,&$params) {
+?>
+<!--doctorgrif: ñïåöòåãè äëÿ js-->
 <script language="javascript" type="text/javascript">
-	function iFrameHeight() {
-		var h = 0;
-		if ( !document.all ) {
-			h = document.getElementById('blockrandom').contentDocument.height;
-			document.getElementById('blockrandom').style.height = h + 60 + 'px';
-		} else if( document.all ) {
-			h = document.frames('blockrandom').document.body.scrollHeight;
-			document.all.blockrandom.style.height = h + 20 + 'px';
-		}
-	}
+<!--
+function iFrameHeight() {
+var h = 0;
+if ( !document.all ) {
+h = document.getElementById('blockrandom').contentDocument.height;
+document.getElementById('blockrandom').style.height = h + 60 + 'px';
+} else if( document.all ) {
+h = document.frames('blockrandom').document.body.scrollHeight;
+document.all.blockrandom.style.height = h + 20 + 'px';
+}
+}
+//-->
 </script>
 <div class="contentpane<?php echo $params->get('pageclass_sfx'); ?>">
-			<?php
-			if($params->get('page_title')) {
-				?>
-	<div class="componentheading<?php echo $params->get('pageclass_sfx'); ?>"><?php echo $params->get('header'); ?></div>
-				<?php
-			}
-			?>
-	<div class="com_wrapper">	<iframe
-				<?php echo $row->load; ?>
-			id="blockrandom"
-			name="iframe"
-			src="<?php echo $row->url; ?>"
-			width="<?php echo $params->get('width'); ?>"
-			height="<?php echo $params->get('height'); ?>"
-			scrolling="<?php echo $params->get('scrolling'); ?>"
-			align="top"
-			frameborder="0"
-			class="wrapper<?php echo $params->get('pageclass_sfx'); ?>">
-						<?php echo _IFRAMES; ?>
-		</iframe>
-	</div>
-</div>
-		<?php
-		// displays back button
-		mosHTML::BackButton($params);
-	}
+<?php
+if($params->get('page_title')) {
+?>
+<div class="componentheading<?php echo $params->get('pageclass_sfx'); ?>"><?php echo $params->get('header'); ?></div>
+<?php
 }
+?>
+<div class="com_wrapper"><iframe
+<?php echo $row->load; ?>
+id="blockrandom"
+name="iframe"
+src="<?php echo $row->url; ?>"
+width="<?php echo $params->get('width'); ?>"
+height="<?php echo $params->get('height'); ?>"
+scrolling="<?php echo $params->get('scrolling'); ?>"
+align="top"
+frameborder="0"
+class="wrapper<?php echo $params->get('pageclass_sfx'); ?>">
+<?php echo _CMN_IFRAMES; ?>
+</iframe>
+</div>
+</div>
+<?php
+// displays back button
+mosHTML::BackButton($params);
+}
+}
+?>

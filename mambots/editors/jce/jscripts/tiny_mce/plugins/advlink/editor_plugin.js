@@ -4,7 +4,7 @@
  * $Date: 2006/02/10 16:29:38 $
  *
  * @author Moxiecode
- * @copyright Copyright Т– 2004-2006, Moxiecode Systems AB, All rights reserved.
+ * @copyright Copyright � 2004-2006, Moxiecode Systems AB, All rights reserved.
  */
 
 //Modified and enhanced for JCE 1.1 - Ryan Demmer
@@ -51,8 +51,8 @@ var TinyMCE_AdvancedLinkPlugin = {
 					var template = new Array();
 
 					template['file']   =  tinyMCE.getParam('site')+'/index2.php?option=com_jce&no_html=1&task=plugin&plugin=advlink&file=link.php';
-					template['width']  = 600;
-					template['height'] = 650;
+					template['width']  = 460;
+					template['height'] = 465;
 
 					// Language specific width and height addons
 					template['width']  += tinyMCE.getLang('lang_advlink_delta_width', 0);

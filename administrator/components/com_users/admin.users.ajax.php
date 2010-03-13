@@ -1,16 +1,14 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
 
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
-
-$acl = &gacl::getInstance();
 
 if(!$acl->acl_check('administration','manage','users',$my->usertype,'components','com_users')) {
 	die('error-acl');
@@ -28,12 +26,12 @@ switch($task) {
 		echo x_apply();
 		return;
 
-	case 'upload_avatar':
-		echo upload_avatar();
+	case 'uploadavatar':
+		echo x_uploadavatar($id);
 		return;
 
-	case 'del_avatar':
-		echo x_delavatar();
+	case 'delavatar':
+		echo x_delavatar($id);
 		return;
 
 
@@ -42,64 +40,34 @@ switch($task) {
 		return;
 }
 
-function upload_avatar() {
-	global $database, $my;
-	$id = intval(mosGetParam($_REQUEST,'id',0));
+function x_uploadavatar($id){
+	global $mosConfig_absolute_path,$mosConfig_live_site;
+	$file = $_FILES['avatar']['tmp_name'];
 
-	mosMainFrame::getInstance()->addLib('images');
+	$res = img_resize($file,$mosConfig_absolute_path.'/images/avatars/'.$id.'.jpg',200,200);
+	$res_normal = img_resize($file,$mosConfig_absolute_path.'/images/avatars/normal/'.$id.'.jpg',100,100);
+	$res_mini = img_resize($file,$mosConfig_absolute_path.'/images/avatars/mini/'.$id.'.jpg',25,25);
 
-	$return = array();
+	// ?time() íåîáõîäèìî ÷òîáû áðàóçåð íå êýøèðîâàë èçîáðàæåíèå, è ñðàçó åãî îáíîâèëî
+	if($res && $res_mini && $res_normal) return $mosConfig_live_site.mosUser::avatar($id,'big').'?'.time();
 
-	$resize_options = array(
-			'method' => '0',        //ÐŸÑ€Ð¸Ð²Ð¾Ð´Ð¸Ñ‚ Ðº Ð·Ð°Ð´Ð°Ð½Ð½Ð¾Ð¹ ÑˆÐ¸Ñ€Ð¸Ð½Ðµ, ÑÐ¾Ñ…Ñ€Ð°Ð½ÑÑ Ð¿Ñ€Ð¾Ð¿Ð¾Ñ€Ñ†Ð¸Ð¸.
-			'output_file' => '',    //ÐµÑÐ»Ð¸ 'thumb', Ñ‚Ð¾ Ñ€ÐµÑÐ°Ð¹Ð·ÐµÐ½Ð½Ð°Ñ ÐºÐ¾Ð¿Ð¸Ñ Ð»ÑÐ¶ÐµÑ‚ Ð² Ð¿Ð¾Ð´Ð¿Ð°Ð¿ÐºÑƒ "thumb'
-			'width'  => '150',
-			'height' => '150'
-	);
-
-	$file = new Image();
-	$file->field_name = 'avatar';
-	$file->directory = 'images/avatars' ;
-	$file->file_prefix = 'av_';
-	$file->max_size = 0.5 * 1024 * 1024;
-
-	$foto_name = $file->upload($resize_options);
-
-	if($foto_name) {
-		if($id) {
-			$user = new mosUser($database);
-			$user->load((int)$id);
-			$user_id = $user->id;
-			if($user->avatar!='') {
-				$foto = new Image();
-				$foto->directory = 'images/avatars';
-				$foto->name = $user->avatar;
-				$foto->delFile($foto);
-			}
-			$user->update_avatar($id, $foto_name);
-		}
-
-		echo $foto_name;
-
-	}else {
-		return false;
-	};
+	return 0;
 }
 
+function x_delavatar($id){
+	global $mosConfig_absolute_path,$mosConfig_live_site;
 
-function x_delavatar() {
-	global $database;
-	$file_name = mosGetParam($_REQUEST,'file_name','');
+	$res = unlink ($mosConfig_absolute_path.'/images/avatars/'.$id.'.jpg');
+	$res_normal = unlink ($mosConfig_absolute_path.'/images/avatars/normal/'.$id.'.jpg');
+	$res_mini = unlink ($mosConfig_absolute_path.'/images/avatars/mini/'.$id.'.jpg');
 
-	$user = new mosUser($database);
-	$user->update_avatar(null, $file_name, 1);
+	if($res && $res_mini && $res_normal) return $mosConfig_live_site.mosUser::avatar($id,'big').'?'.time();
 
-	echo 'none.jpg';
+	return 0;
 }
 
-
-// Ð±Ð»Ð¾ÐºÐ¸Ñ€Ð¾Ð²ÐºÐ° Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»Ñ
-function x_user_block($id) {
+// áëîêèðîâêà ïîëüçîâàòåëÿ
+function x_user_block($id){
 	global $database,$my;
 
 	if($my->id==$id) return 'info.png';
@@ -109,11 +77,11 @@ function x_user_block($id) {
 	$block = $database->loadResult();
 
 	if($block == '0') {
-		// Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»ÑŒ Ð±Ñ‹Ð» Ñ€Ð°Ð·Ñ€ÐµÑˆÑ‘Ð½
+		// ïîëüçîâàòåëü áûë ðàçðåø¸í
 		$ret_img = 'publish_x.png';
 		$block = '1';
 	} else {
-		// Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»ÑŒ Ð±Ñ‹Ð» Ð·Ð°Ð±Ð»Ð¾ÐºÐ¸Ñ€Ð¾Ð²Ð°Ð½
+		// ïîëüçîâàòåëü áûë çàáëîêèðîâàí
 		$ret_img = 'tick.png';
 		$block = '0';
 	}
@@ -128,9 +96,9 @@ function x_user_block($id) {
 
 	$user = new mosUser($database);
 	$user->load($id);
-	// Ð¿Ð¾Ð¿Ñ‹Ñ‚ÐºÐ° Ð·Ð°ÐºÐ¾Ð½Ñ‡Ð¸Ñ‚ÑŒ Ð°Ð²Ñ‚Ð¾Ñ€Ð¸Ð·Ð°Ñ†Ð¸ÑŽ Ð²ÑÐµÑ… Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»ÐµÐ¹ ÐºÑ€Ð¾Ð¼Ðµ ÑÑƒÐ¿ÐµÑ€Ð°Ð´Ð¼Ð¸Ð½Ð¸ÑÑ‚Ñ€Ñ‚Ð¾Ñ€Ð¾Ð²
-	if($my->gid != 24 && $user->gid != 25) {
-		// ÑƒÐ´Ð°Ð»ÑÐµÐ¼ ÑÐµÑÑÐ¸ÑŽ Ð°Ð²Ñ‚Ð¾Ñ€Ð¸Ð·Ð¾Ð²Ð°Ð½Ð½Ð¾Ð³Ð¾ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»Ñ
+	// ïîïûòêà çàêîí÷èòü àâòîðèçàöèþ âñåõ ïîëüçîâàòåëåé êðîìå ñóïåðàäìèíèñòðòîðîâ
+	if($my->gid != 24 && $user->gid != 25){
+		// óäàëÿåì ñåññèþ àâòîðèçîâàííîãî ïîëüçîâàòåëÿ
 		$query = "DELETE FROM #__session WHERE userid = $id";
 		$database->setQuery($query);
 		$database->query();
@@ -164,3 +132,6 @@ function img_resize($src,$dest,$width=250,$height=250,$quality = 100) {
 	return true;
 
 }
+
+
+?>

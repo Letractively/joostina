@@ -1,35 +1,185 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
 
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
 
-require_once ($mainframe->getPath('admin_html'));
-require_once ($mainframe->getPath('installer_class','installer'));
-
 // XML library
-require_once (JPATH_BASE.'/includes/domit/xml_domit_lite_include.php');
+require_once ($mosConfig_absolute_path.'/includes/domit/xml_domit_lite_include.php');
+require_once ($mainframe->getPath('admin_html'));
+require_once ($mainframe->getPath('class'));
 
 $element	= mosGetParam($_REQUEST,'element','');
 $client		= mosGetParam($_REQUEST,'client','');
-$option		= mosGetParam($_REQUEST,'option','');
-$url		= mosGetParam($_REQUEST,'url','');
+$path		= $mosConfig_absolute_path."/".ADMINISTRATOR_DIRECTORY."/components/com_installer/$element/$element.php";
 
 // ensure user has access to this function
 if(!$acl->acl_check('administration','install','users',$my->usertype,$element.'s','all')) {
 	mosRedirect('index2.php',_NOT_AUTH);
 }
 
-$path = JPATH_BASE_ADMIN."/components/com_installer/$element/$element.php";
+// map the element to the required derived class
+$classMap = array(
+	'component' => 'mosInstallerComponent'
+	,'language' => 'mosInstallerLanguage'
+	,'mambot' =>   'mosInstallerMambot'
+	,'module' =>   'mosInstallerModule'
+	,'template' => 'mosInstallerTemplate');
 
-if(file_exists($path)) {
-	require $path;
+if(array_key_exists($element,$classMap)) {
+	require_once ($mainframe->getPath('installer_class',$element));
+
+	switch($task) {
+
+		case 'uploadfile':
+			uploadPackage($classMap[$element],$option,$element,$client);
+			js_menu_cache_clear();
+			break;
+
+		case 'installfromdir':
+			installFromDirectory($classMap[$element],$option,$element,$client);
+			js_menu_cache_clear();
+			break;
+
+		case 'remove':
+			removeElement($classMap[$element],$option,$element,$client);
+			js_menu_cache_clear();
+			break;
+
+		default:
+			$path = $mosConfig_absolute_path."/".ADMINISTRATOR_DIRECTORY."/components/com_installer/$element/$element.php";
+
+			if(file_exists($path)) {
+				require $path;
+			} else {
+				echo "[$element] - "._NO_INSTALLER;
+			}
+			break;
+	}
 } else {
-	echo "[$element] - "._NO_INSTALLER;
+	echo _CANNOT_INSTALL."[$element]";
 }
+
+/**
+* @param string The class name for the installer
+* @param string The URL option
+* @param string The element name
+*/
+function uploadPackage($installerClass,$option,$element,$client) {
+	$installer = new $installerClass();
+	josSpoofCheck();
+	// Check if file uploads are enabled
+	if(!(bool)ini_get('file_uploads')) {
+		HTML_installer::showInstallMessage(_CANNOT_INSTALL_DISABLED_UPLOAD,_INSTALL_ERROR,$installer->returnTo($option,$element,$client));
+		exit();
+	}
+
+	// Check that the zlib is available
+	if(!extension_loaded('zlib')) {
+		HTML_installer::showInstallMessage(_CANNOT_INSTALL_NO_ZLIB,_INSTALL_ERROR,$installer->returnTo($option,$element,$client));
+		exit();
+	}
+
+	$userfile = mosGetParam($_FILES,'userfile',null);
+
+	if(!$userfile) {
+		HTML_installer::showInstallMessage(_NO_FILE_CHOOSED,_ERORR_UPLOADING_EXT,$installer->returnTo($option,$element,$client));
+		exit();
+	}
+
+	$userfile_name = $userfile['name'];
+
+	$msg = '';
+	$resultdir = uploadFile($userfile['tmp_name'],$userfile['name'],$msg);
+
+	if($resultdir !== false) {
+		if(!$installer->upload($userfile['name'])) {
+			HTML_installer::showInstallMessage($installer->getError(),_UPLOADING_ERROR.' '.$element,$installer->returnTo($option,$element,$client));
+		}
+		$ret = $installer->install();
+
+		HTML_installer::showInstallMessage($installer->getError(),$element.' - '.($ret? _SUCCESS :_UNSUCCESS),$installer->returnTo($option,$element,$client));
+		cleanupInstall($userfile['name'],$installer->unpackDir());
+	} else {
+		HTML_installer::showInstallMessage($msg,$element.' - '._UPLOADING_ERROR,$installer->returnTo($option,$element,$client));
+	}
+}
+
+/**
+* Install a template from a directory
+* @param string The URL option
+*/
+function installFromDirectory($installerClass,$option,$element,$client) {
+	$userfile = mosGetParam($_REQUEST,'userfile','');
+	josSpoofCheck();
+	if(!$userfile) {
+		mosRedirect("index2.php?option=$option&element=module",_CHOOSE_DIRECTORY_PLEASE);
+	}
+
+	$installer = new $installerClass();
+
+	$path = mosPathName($userfile);
+	if(!is_dir($path)) {
+		$path = dirname($path);
+	}
+
+	$ret = $installer->install($path);
+	HTML_installer::showInstallMessage($installer->getError(),_UPLOAD_OF_EXT.': '.$element.' - '.($ret?_SUCCESS:_UNSUCCESS),$installer->returnTo($option,$element,$client));
+}
+/**
+*
+* @param
+*/
+function removeElement($installerClass,$option,$element,$client) {
+	josSpoofCheck(null, null, 'request');
+	$cid = mosGetParam($_REQUEST,'cid',array(0));
+	if(!is_array($cid)) {
+		$cid = array(0);
+	}
+
+	$installer = new $installerClass();
+	$result = false;
+	if($cid[0]) {
+		$result = $installer->uninstall($cid[0],$option,$client);
+	}
+
+	$msg = $installer->getError();
+
+	mosRedirect($installer->returnTo($option,$element,$client),$result?_DELETE_SUCCESS.' '.$msg : _UNSUCCESS.' '.$msg);
+}
+/**
+* @param string The name of the php (temporary) uploaded file
+* @param string The name of the file to put in the temp directory
+* @param string The message to return
+*/
+function uploadFile($filename,$userfile_name,&$msg) {
+	josSpoofCheck();
+	global $mosConfig_absolute_path;
+	$baseDir = mosPathName($mosConfig_absolute_path.'/media');
+
+	if(file_exists($baseDir)) {
+		if(is_writable($baseDir)) {
+			if(move_uploaded_file($filename,$baseDir.$userfile_name)) {
+				if(mosChmod($baseDir.$userfile_name)) {
+					return true;
+				} else {
+					$msg = _CANNOT_CHMOD;
+				}
+			} else {
+				$msg = _CANNOT_MOVE_TO_MEDIA;
+			}
+		} else {
+			$msg = _CANNOT_WRITE_TO_MEDIA;
+		}
+	} else {
+		$msg = _CANNOT_INSTALL_NO_MEDIA;
+	}
+	return false;
+}
+?>

@@ -1,13 +1,13 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
 
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
 
 require_once ($mainframe->getPath('admin_html'));
@@ -31,8 +31,7 @@ switch($task) {
 }
 
 function showSummary($option,$task) {
-	$database = &database::getInstance();
-	$mainframe = mosMainFrame::getInstance(true);
+	global $database,$mainframe;
 
 	// get sort field and check against allowable field names
 	$field = strtolower(mosGetParam($_REQUEST,'field',''));
@@ -45,10 +44,10 @@ function showSummary($option,$task) {
 	if($order != 'asc' && $order != 'desc' && $order != 'none') {
 		$order = 'asc';
 	} else
-	if($order == 'none') {
-		$field = 'agent';
-		$order = 'asc';
-	}
+		if($order == 'none') {
+			$field = 'agent';
+			$order = 'asc';
+		}
 
 	// browser stats
 	$order_by = '';
@@ -79,54 +78,57 @@ function showSummary($option,$task) {
 			break;
 	}
 
-	$query = "SELECT* FROM #__stats_agents WHERE type = 0 ORDER BY $order_by";
+	$query = "SELECT*"."\n FROM #__stats_agents"."\n WHERE type = 0"."\n ORDER BY $order_by";
 	$database->setQuery($query);
 	$browsers = $database->loadObjectList();
 
-	$query = "SELECT SUM( hits ) AS totalhits, MAX( hits ) AS maxhits FROM #__stats_agents WHERE type = 0";
+	$query = "SELECT SUM( hits ) AS totalhits, MAX( hits ) AS maxhits"."\n FROM #__stats_agents".
+		"\n WHERE type = 0";
 	$database->setQuery($query);
 	$bstats = null;
 	$database->loadObject($bstats);
 
 	// platform statistics
-	$query = "SELECT* FROM #__stats_agents WHERE type = 1 ORDER BY hits DESC";
+	$query = "SELECT*"."\n FROM #__stats_agents"."\n WHERE type = 1"."\n ORDER BY hits DESC";
 	$database->setQuery($query);
 	$platforms = $database->loadObjectList();
 
-	$query = "SELECT SUM( hits ) AS totalhits, MAX( hits ) AS maxhits FROM #__stats_agents WHERE type = 1";
+	$query = "SELECT SUM( hits ) AS totalhits, MAX( hits ) AS maxhits"."\n FROM #__stats_agents".
+		"\n WHERE type = 1";
 	$database->setQuery($query);
 	$pstats = null;
 	$database->loadObject($pstats);
 
 	// domain statistics
-	$query = "SELECT* FROM #__stats_agents WHERE type = 2 ORDER BY hits DESC";
+	$query = "SELECT*"."\n FROM #__stats_agents"."\n WHERE type = 2"."\n ORDER BY hits DESC";
 	$database->setQuery($query);
 	$tldomains = $database->loadObjectList();
 
-	$query = "SELECT SUM( hits ) AS totalhits, MAX( hits ) AS maxhits FROM #__stats_agents WHERE type = 2";
+	$query = "SELECT SUM( hits ) AS totalhits, MAX( hits ) AS maxhits"."\n FROM #__stats_agents".
+		"\n WHERE type = 2";
 	$database->setQuery($query);
 	$dstats = null;
 	$database->loadObject($dstats);
 
 	HTML_statistics::show($browsers,$platforms,$tldomains,$bstats,$pstats,$dstats,$sorts,
-			$option);
+		$option);
 }
 
 function showPageImpressions($option,$task) {
-	$database = &database::getInstance();
-	$mainframe = mosMainFrame::getInstance(true);
+	global $database,$mainframe,$mosConfig_list_limit;
 
-	$query = "SELECT COUNT( id ) FROM #__content";
+	$query = "SELECT COUNT( id )"."\n FROM #__content";
 	$database->setQuery($query);
 	$total = $database->loadResult();
 
-	$limit = $mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mainframe->getCfg('list_limit'));
-	$limitstart = $mainframe->getUserStateFromRequest("view{$option}{$task}limitstart",'limitstart',0);
+	$limit = $mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mosConfig_list_limit);
+	$limitstart = $mainframe->getUserStateFromRequest("view{$option}{$task}limitstart",
+		'limitstart',0);
 
-	require_once (JPATH_BASE.'/'.JADMIN_BASE.'/includes/pageNavigation.php');
+	require_once ($GLOBALS['mosConfig_absolute_path'].'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
-	$query = "SELECT id, title, created, hits FROM #__content ORDER BY hits DESC";
+	$query = "SELECT id, title, created, hits"."\n FROM #__content"."\n ORDER BY hits DESC";
 	$database->setQuery($query,$pageNav->limitstart,$pageNav->limit);
 
 	$rows = $database->loadObjectList();
@@ -135,23 +137,22 @@ function showPageImpressions($option,$task) {
 }
 
 function showSearches($option,$task,$showResults = null) {
+	global $database,$mainframe,$mosConfig_list_limit;
 	global $_MAMBOTS;
 
-	$database = &database::getInstance();
-	$mainframe = mosMainFrame::getInstance(true);
-
-	$limit = $mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mainframe->getCfg('list_limit'));
-	$limitstart = $mainframe->getUserStateFromRequest("view{$option}{$task}limitstart",'limitstart',0);
+	$limit = $mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mosConfig_list_limit);
+	$limitstart = $mainframe->getUserStateFromRequest("view{$option}{$task}limitstart",
+		'limitstart',0);
 
 	// get the total number of records
-	$query = "SELECT COUNT(*) FROM #__core_log_searches";
+	$query = "SELECT COUNT(*)"."\n FROM #__core_log_searches";
 	$database->setQuery($query);
 	$total = $database->loadResult();
 
-	require_once (JPATH_BASE.'/'.JADMIN_BASE.'/includes/pageNavigation.php');
+	require_once ($GLOBALS['mosConfig_absolute_path'].'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
-	$query = "SELECT* FROM #__core_log_searches ORDER BY hits DESC";
+	$query = "SELECT*"."\n FROM #__core_log_searches"."\n ORDER BY hits DESC";
 	$database->setQuery($query,$pageNav->limitstart,$pageNav->limit);
 
 	$rows = $database->loadObjectList();
@@ -183,3 +184,4 @@ function showSearches($option,$task,$showResults = null) {
 
 	HTML_statistics::showSearches($rows,$pageNav,$option,$task,$showResults);
 }
+?>

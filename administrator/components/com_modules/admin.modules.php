@@ -1,13 +1,13 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
 
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
 
 // ensure user has access to this function
@@ -25,8 +25,6 @@ $cid = josGetArrayInts('cid');
 if($cid[0] == 0 && isset($moduleid)) {
 	$cid[0] = $moduleid;
 }
-
- mosCache::cleanCache('init_modules');
 
 switch($task) {
 	case 'copy':
@@ -84,10 +82,10 @@ switch($task) {
 }
 
 /**
- * Compiles a list of installed or defined modules
- */
+* Compiles a list of installed or defined modules
+*/
 function viewModules($option,$client) {
-	global $database,$my,$mainframe,$mosConfig_list_limit;
+	global $database,$my,$mainframe,$mosConfig_list_limit,$mosConfig_absolute_path;
 
 	$filter_position = $mainframe->getUserStateFromRequest("filter_position{$option}{$client}",'filter_position',0);
 	$filter_type = $mainframe->getUserStateFromRequest("filter_type{$option}{$client}",	'filter_type',0);
@@ -120,7 +118,7 @@ function viewModules($option,$client) {
 			$where[] = "m.module = ".$database->Quote($filter_type);
 	}
 	if($search) {
-		$where[] = "LOWER( m.title ) LIKE '%".$database->getEscaped(Jstring::trim( Jstring::strtolower($search)))."%'";
+		$where[] = "LOWER( m.title ) LIKE '%".$database->getEscaped(trim(strtolower($search)))."%'";
 	}
 
 	// get the total number of records
@@ -128,7 +126,7 @@ function viewModules($option,$client) {
 	$database->setQuery($query);
 	$total = $database->loadResult();
 
-	require_once (JPATH_BASE_ADMIN.'/includes/pageNavigation.php');
+	require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
 	$query = "SELECT m.*, u.name AS editor, g.name AS groupname, MIN(mm.menuid) AS pages"
@@ -163,7 +161,7 @@ function viewModules($option,$client) {
 			."\n WHERE module!='' AND client_id = ".(int)$client_id."\n GROUP BY module"
 			."\n ORDER BY module";
 	$types[] = mosHTML::makeOption('0',_SEL_TYPE);
-	$types[] = mosHTML::makeOption('user_create',_USER_MODULES);
+	$types[] = mosHTML::makeOption('user_create','Ïîëüçîâàòåëüñêèå');
 	$database->setQuery($query);
 	$types = array_merge($types,$database->loadObjectList());
 	$lists['type'] = mosHTML::selectList($types,'filter_type','class="inputbox" size="1" onchange="document.adminForm.submit( );"','value','text',"$filter_type");
@@ -172,17 +170,17 @@ function viewModules($option,$client) {
 }
 
 /**
- * Compiles information to add or edit a module
- * @param string The current GET/POST option
- * @param integer The unique id of the record to edit
- */
+* Compiles information to add or edit a module
+* @param string The current GET/POST option
+* @param integer The unique id of the record to edit
+*/
 function copyModule($option,$uid,$client) {
 	global $database,$my;
 	josSpoofCheck();
 	$row = new mosModule($database);
 	// load the row from the db table
 	$row->load((int)$uid);
-	$row->title = _MODULES_COPY.$row->title;
+	$row->title = 'Êîïèÿ '.$row->title;
 	$row->id = 0;
 	$row->iscore = 0;
 	$row->published = 0;
@@ -203,13 +201,14 @@ function copyModule($option,$uid,$client) {
 	}
 	$row->updateOrder('position='.$database->Quote($row->position)." AND ($where)");
 
-	$query = "SELECT menuid FROM #__modules_menu WHERE moduleid = ".(int)
-			$uid;
+	$query = "SELECT menuid"."\n FROM #__modules_menu"."\n WHERE moduleid = ".(int)
+		$uid;
 	$database->setQuery($query);
 	$rows = $database->loadResultArray();
 
 	foreach($rows as $menuid) {
-		$query = "INSERT INTO #__modules_menu SET moduleid = ".(int)$row->id.", menuid = ".(int)$menuid;
+		$query = "INSERT INTO #__modules_menu"."\n SET moduleid = ".(int)$row->id.
+			", menuid = ".(int)$menuid;
 		$database->setQuery($query);
 		$database->query();
 	}
@@ -221,11 +220,10 @@ function copyModule($option,$uid,$client) {
 }
 
 /**
- * Saves the module after an edit form submit
- */
+* Saves the module after an edit form submit
+*/
 function saveModule($option,$client,$task) {
-	$database = database::getInstance();
-
+	global $database;
 	josSpoofCheck();
 	$params = mosGetParam($_POST,'params','');
 	if(is_array($params)) {
@@ -262,7 +260,7 @@ function saveModule($option,$client,$task) {
 	$menus = josGetArrayInts('selections');
 
 	// delete old module to menu item associations
-	$query = "DELETE FROM #__modules_menu WHERE moduleid = ".(int)$row->id;
+	$query = "DELETE FROM #__modules_menu"."\n WHERE moduleid = ".(int)$row->id;
 	$database->setQuery($query);
 	$database->query();
 
@@ -270,7 +268,8 @@ function saveModule($option,$client,$task) {
 	// and other menu items resulting in a module being displayed twice
 	if(in_array('0',$menus)) {
 		// assign new module to `all` menu item associations
-		$query = "INSERT INTO #__modules_menu SET moduleid = ".(int)$row->id.", menuid = 0";
+		$query = "INSERT INTO #__modules_menu"."\n SET moduleid = ".(int)$row->id.
+			", menuid = 0";
 		$database->setQuery($query);
 		$database->query();
 	} else {
@@ -278,7 +277,8 @@ function saveModule($option,$client,$task) {
 			// this check for the blank spaces in the select box that have been added for cosmetic reasons
 			if($menuid != "-999") {
 				// assign new module to menu item associations
-				$query = "INSERT INTO #__modules_menu SET moduleid = ".(int)$row->id.", menuid = ".(int)$menuid;
+				$query = "INSERT INTO #__modules_menu"."\n SET moduleid = ".(int)$row->id.
+					", menuid = ".(int)$menuid;
 				$database->setQuery($query);
 				$database->query();
 			}
@@ -302,12 +302,13 @@ function saveModule($option,$client,$task) {
 }
 
 /**
- * Compiles information to add or edit a module
- * @param string The current GET/POST option
- * @param integer The unique id of the record to edit
- */
+* Compiles information to add or edit a module
+* @param string The current GET/POST option
+* @param integer The unique id of the record to edit
+*/
 function editModule($option,$uid,$client) {
 	global $database,$my,$mainframe;
+	global $mosConfig_absolute_path;
 
 	$lists = array();
 	$row = new mosModule($database);
@@ -377,7 +378,7 @@ function editModule($option,$uid,$client) {
 		}
 
 		$orders2[$orders[$i]->position][] = mosHTML::makeOption($ord,$ord.'::'.
-				addslashes($orders[$i]->title));
+			addslashes($orders[$i]->title));
 	}
 
 	// build the html select list
@@ -405,7 +406,7 @@ function editModule($option,$uid,$client) {
 			$lists['access'] = 'N/A';
 			$lists['selections'] = 'N/A';
 		} else {
-			$lists['access'] = mosAdminMenus::Access($row,true);
+			$lists['access'] = mosAdminMenus::Access($row);
 			$lists['selections'] = mosAdminMenus::MenuLinks($lookup,1,1);
 		}
 		$lists['showtitle'] = mosHTML::yesnoRadioList('showtitle','class="inputbox"',$row->showtitle);
@@ -416,7 +417,7 @@ function editModule($option,$uid,$client) {
 
 	$row->description = '';
 	// XML library
-	require_once (JPATH_BASE.'/includes/domit/xml_domit_lite_include.php');
+	require_once ($mosConfig_absolute_path.'/includes/domit/xml_domit_lite_include.php');
 	// xml file for module
 	$xmlfile = $mainframe->getPath($path,$row->module);
 	$xmlDoc = new DOMIT_Lite_Document();
@@ -437,11 +438,11 @@ function editModule($option,$uid,$client) {
 }
 
 /**
- * Deletes one or more modules
- *
- * Also deletes associated entries in the #__module_menu table.
- * @param array An array of unique category id numbers
- */
+* Deletes one or more modules
+*
+* Also deletes associated entries in the #__module_menu table.
+* @param array An array of unique category id numbers
+*/
 function removeModule(&$cid,$option,$client) {
 	global $database,$my;
 	josSpoofCheck();
@@ -453,10 +454,11 @@ function removeModule(&$cid,$option,$client) {
 	mosArrayToInts($cid);
 	$cids = 'id='.implode(' OR id=',$cid);
 
-	$query = "SELECT id, module, title, iscore, params FROM #__modules WHERE ( $cids )";
+	$query = "SELECT id, module, title, iscore, params"."\n FROM #__modules WHERE ( $cids )";
 	$database->setQuery($query);
 	if(!($rows = $database->loadObjectList())) {
-		echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
+		echo "<script> alert('".$database->getErrorMsg().
+			"'); window.history.go(-1); </script>\n";
 		exit;
 	}
 
@@ -480,15 +482,16 @@ function removeModule(&$cid,$option,$client) {
 	if(count($cid)) {
 		mosArrayToInts($cid);
 		$cids = 'id='.implode(' OR id=',$cid);
-		$query = "DELETE FROM #__modules WHERE ( $cids )";
+		$query = "DELETE FROM #__modules"."\n WHERE ( $cids )";
 		$database->setQuery($query);
 		if(!$database->query()) {
-			echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
+			echo "<script> alert('".$database->getErrorMsg().
+				"'); window.history.go(-1); </script>\n";
 			exit;
 		}
 		// mosArrayToInts( $cid ); // just done a few lines earlier
 		$cids = 'moduleid='.implode(' OR moduleid=',$cid);
-		$query = "DELETE FROM #__modules_menu WHERE ( $cids )";
+		$query = "DELETE FROM #__modules_menu"."\n WHERE ( $cids )";
 		$database->setQuery($query);
 		if(!$database->query()) {
 			echo "<script> alert('".$database->getErrorMsg()."');</script>\n";
@@ -511,10 +514,10 @@ function removeModule(&$cid,$option,$client) {
 }
 
 /**
- * Publishes or Unpublishes one or more modules
- * @param array An array of unique record id numbers
- * @param integer 0 if unpublishing, 1 if publishing
- */
+* Publishes or Unpublishes one or more modules
+* @param array An array of unique record id numbers
+* @param integer 0 if unpublishing, 1 if publishing
+*/
 function publishModule($cid = null,$publish = 1,$option,$client) {
 	global $database,$my;
 	josSpoofCheck();
@@ -527,10 +530,12 @@ function publishModule($cid = null,$publish = 1,$option,$client) {
 	mosArrayToInts($cid);
 	$cids = 'id='.implode(' OR id=',$cid);
 
-	$query = "UPDATE #__modules"."\n SET published = ".(int)$publish."\n WHERE ( $cids ) AND ( checked_out = 0 OR ( checked_out = ".(int)$my->id." ) )";
+	$query = "UPDATE #__modules"."\n SET published = ".(int)$publish."\n WHERE ( $cids )".
+		"\n AND ( checked_out = 0 OR ( checked_out = ".(int)$my->id." ) )";
 	$database->setQuery($query);
 	if(!$database->query()) {
-		echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
+		echo "<script> alert('".$database->getErrorMsg().
+			"'); window.history.go(-1); </script>\n";
 		exit();
 	}
 
@@ -545,8 +550,8 @@ function publishModule($cid = null,$publish = 1,$option,$client) {
 }
 
 /**
- * Cancels an edit operation
- */
+* Cancels an edit operation
+*/
 function cancelModule($option,$client) {
 	global $database;
 	josSpoofCheck();
@@ -559,10 +564,10 @@ function cancelModule($option,$client) {
 }
 
 /**
- * Moves the order of a record
- * @param integer The unique id of record
- * @param integer The increment to reorder by
- */
+* Moves the order of a record
+* @param integer The unique id of record
+* @param integer The increment to reorder by
+*/
 function orderModule($uid,$inc,$option) {
 	global $database;
 	josSpoofCheck();
@@ -589,9 +594,9 @@ function orderModule($uid,$inc,$option) {
 }
 
 /**
- * changes the access level of a record
- * @param integer The increment to reorder by
- */
+* changes the access level of a record
+* @param integer The increment to reorder by
+*/
 function accessMenu($uid,$access,$option,$client) {
 	global $database;
 	josSpoofCheck();
@@ -640,12 +645,13 @@ function saveOrder(&$cid,$client) {
 		if($row->ordering != $order[$i]) {
 			$row->ordering = $order[$i];
 			if(!$row->store()) {
-				echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
+				echo "<script> alert('".$database->getErrorMsg().
+					"'); window.history.go(-1); </script>\n";
 				exit();
 			} // if
 			// remember to updateOrder this group
 			$condition = "position = ".$database->Quote($row->position)." AND client_id = ".(int)
-					$row->client_id;
+				$row->client_id;
 			$found = false;
 			foreach($conditions as $cond)
 				if($cond[1] == $condition) {
@@ -667,3 +673,5 @@ function saveOrder(&$cid,$client) {
 	$msg = _NEW_ORDER_SAVED;
 	mosRedirect('index2.php?option=com_modules&client='.$client,$msg);
 } // saveOrder
+
+?>

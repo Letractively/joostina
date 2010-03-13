@@ -1,45 +1,44 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
-
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
-
-$database = &database::getInstance();
-
+global $database,$_VERSION;
 // check to see if site is a production site
 // allows multiple logins with same user for a demo site
-if(coreVersion::get('SITE') == 1) {
-	// Ð¾Ð±Ð½Ð¾Ð²Ð»ÐµÐ½Ð¸Ðµ Ð·Ð°Ð¿Ð¸ÑÐ¸ Ð¿Ð¾ÑÐ»ÐµÐ´Ð½ÐµÐ³Ð¾ Ð¿Ð¾ÑÐµÑ‰ÐµÐ½Ð¸Ñ Ð¿Ð°Ð½ÐµÐ»Ð¸ ÑƒÐ¿Ñ€Ð°Ð²Ð»ÐµÐ½Ð¸Ñ Ð² Ð±Ð°Ð·Ðµ Ð´Ð°Ð½Ð½Ñ‹Ñ…
-	if(isset($_SESSION['session_user_id']) && $_SESSION['session_user_id'] != '') {
-		$currentDate = date("Y-m-d\TH:i:s");
-
-		$query = "UPDATE #__users SET lastvisitDate = " . $database->Quote($currentDate)." WHERE id = " . (int)$_SESSION['session_user_id'];
-		$database->setQuery($query);
-		
-		if(!$database->query()) {
-			echo $database->stderr();
-		}
-	}
-
-	// delete db session record corresponding to currently logged in user
-	if(isset($_SESSION['session_id']) && $_SESSION['session_id'] != '') {
-		$query = "DELETE FROM #__session WHERE session_id = " . $database->Quote($_SESSION['session_id']);
-		$database->setQuery($query);
-
-		if(!$database->query()) {
-			echo $database->stderr();
-		}
-	}
+if($_VERSION->SITE == 1) {
+// îáíîâëåíèå çàïèñè ïîñëåäíåãî ïîñåùåíèÿ ïàíåëè óïðàâëåíèÿ â áàçå äàííûõ
+if(isset($_SESSION['session_user_id']) && $_SESSION['session_user_id'] != '') {
+$currentDate = date("Y-m-d\TH:i:s");
+$query = "UPDATE #__users"
+."\n SET lastvisitDate = " . $database->Quote($currentDate)
+."\n WHERE id = " . (int)$_SESSION['session_user_id'];
+$database->setQuery($query);
+if(!$database->query()) {
+echo $database->stderr();
 }
-
+}
+// delete db session record corresponding to currently logged in user
+if(isset($_SESSION['session_id']) && $_SESSION['session_id'] != '') {
+$query = "DELETE FROM #__session"
+."\n WHERE session_id = " . $database->Quote($_SESSION['session_id']);
+$database->setQuery($query);
+if(!$database->query()) {
+echo $database->stderr();
+}
+}
+}
+$name = '';
+$fullname = '';
+$id = '';
+$session_id = '';
 // destroy PHP session
 session_destroy();
-
 // return to site homepage
 mosRedirect('index.php');
+?>

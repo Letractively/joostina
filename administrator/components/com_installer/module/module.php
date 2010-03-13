@@ -1,72 +1,56 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
 
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
 
-require_once ($mainframe->getPath('installer_html','module'));
-require_once ($mainframe->getPath('installer_class','module'));
-
-switch($task) {
-	case 'remove':
-		removeElement($client);
-		js_menu_cache_clear();
-		break;
-
-	default:
-		showInstalledModules($option);
-		js_menu_cache_clear();
-		break;
+// ensure user has access to this function
+if(!$acl->acl_check('administration','install','users',$my->usertype,$element.'s','all')) {
+	mosRedirect('index2.php',_NOT_AUTH);
 }
 
+require_once ($mainframe->getPath('installer_html','module'));
+
+HTML_installer::showInstallForm(_MODULE_INSTALL,$option,'module','',dirname(__file__));
+?>
+<table class="adminlist">
+<?php
+writableCell('media');
+writableCell(ADMINISTRATOR_DIRECTORY.'/modules');
+writableCell('modules');
+?>
+</table>
+<?php
+showInstalledModules($option);
 
 /**
- *
- * @param
- */
-function removeElement($client) {
-	josSpoofCheck(null, null, 'request');
-	$cid = mosGetParam($_REQUEST,'cid',array(0));
-	if(!is_array($cid)) {
-		$cid = array(0);
-	}
-
-	$installer = new mosInstallerModule();
-	$result = false;
-	if($cid[0]) {
-		$result = $installer->uninstall($cid[0],$option,$client);
-	}
-
-	$msg = $installer->getError();
-
-	mosRedirect($installer->returnTo('com_installer','module',$client),$result?_DELETE_SUCCESS.' '.$msg : _UNSUCCESS.' '.$msg);
-}
-
+* @param string The URL option
+*/
 function showInstalledModules($_option) {
-	$database = &database::getInstance();
+	global $database,$mosConfig_absolute_path;
 
 	$filter = mosGetParam($_POST,'filter','');
-	$select[] = mosHTML::makeOption('',_ALL);
+	$select[] = mosHTML::makeOption('',_CMN_ALL);
 	$select[] = mosHTML::makeOption('0',_SITE_MODULES);
 	$select[] = mosHTML::makeOption('1',_ADMIN_MODULES);
 	$lists['filter'] = mosHTML::selectList($select,'filter','class="inputbox" size="1" onchange="document.adminForm.submit();"','value','text',$filter);
 	if($filter == null) {
 		$and = '';
 	} else
-	if(!$filter) {
-		$and = "\n AND client_id = 0";
-	} else
-	if($filter) {
-		$and = "\n AND client_id = 1";
-	}
+		if(!$filter) {
+			$and = "\n AND client_id = 0";
+		} else
+			if($filter) {
+				$and = "\n AND client_id = 1";
+			}
 
-	$query = "SELECT id, module, client_id FROM #__modules WHERE module LIKE 'mod_%' AND iscore='0'".$and." GROUP BY module, client_id ORDER BY client_id, module";
+	$query = "SELECT id, module, client_id FROM #__modules WHERE module LIKE 'mod_%' AND iscore='0'".$and."\n GROUP BY module, client_id ORDER BY client_id, module";
 	$database->setQuery($query);
 	$rows = $database->loadObjectList();
 
@@ -76,13 +60,13 @@ function showInstalledModules($_option) {
 
 		// path to module directory
 		if($row->client_id == "1") {
-			$moduleBaseDir = mosPathName(mosPathName(JPATH_BASE).JADMIN_BASE.DS.'modules');
+			$moduleBaseDir = mosPathName(mosPathName($mosConfig_absolute_path).ADMINISTRATOR_DIRECTORY."/modules");
 		} else {
-			$moduleBaseDir = mosPathName(mosPathName(JPATH_BASE).'modules');
+			$moduleBaseDir = mosPathName(mosPathName($mosConfig_absolute_path)."modules");
 		}
 
 		// xml file for module
-		$xmlfile = $moduleBaseDir.DS.$row->module.".xml";
+		$xmlfile = $moduleBaseDir."/".$row->module.".xml";
 
 		if(file_exists($xmlfile)) {
 			$xmlDoc = new DOMIT_Lite_Document();
@@ -117,8 +101,9 @@ function showInstalledModules($_option) {
 
 			$element = &$root->getElementsByPath('version',1);
 			$row->version = $element?$element->getText():'';
-			unset($xmlDoc,$row);
 		}
 	}
+
 	HTML_module::showInstalledModules($rows,$_option,$xmlfile,$lists);
 }
+?>

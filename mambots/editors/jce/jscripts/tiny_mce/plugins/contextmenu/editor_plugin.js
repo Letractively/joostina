@@ -2,7 +2,7 @@
  * $Id: editor_plugin_src.js 144 2006-11-14 21:42:06Z spocke $
  *
  * @author Moxiecode
- * @copyright Copyright Т– 2004-2006, Moxiecode Systems AB, All rights reserved.
+ * @copyright Copyright � 2004-2006, Moxiecode Systems AB, All rights reserved.
  */
 
 /* Import plugin specific language pack */

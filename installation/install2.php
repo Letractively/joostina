@@ -1,31 +1,33 @@
 <?php
 /**
 * @package Joostina
-* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2010 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
-* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
-* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
-* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
+* @copyright Авторские права (C) 2008 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
 */
 
 
-// РЈСЃС‚Р°РЅРѕРІРєР° С„Р»Р°РіР° СЂРѕРґРёС‚РµР»СЊСЃРєРѕРіРѕ С„Р°Р№Р»Р°
+// Установка флага родительского файла
 define("_VALID_MOS",1);
 
-// РџРѕРґРєР»СЋС‡РµРЅРёРµ common.php
-require_once ('common.php');
-require_once ('../includes/libraries/database/database.php');
 
-$DBhostname	= trim(mosGetParam($_POST,'DBhostname',''));
-$DBuserName	= trim(mosGetParam($_POST,'DBuserName',''));
-$DBpassword	= trim(mosGetParam($_POST,'DBpassword',''));
-$DBname		= trim(mosGetParam($_POST,'DBname',''));
-$DBPrefix	= trim(mosGetParam($_POST,'DBPrefix',''));
+// Подключение common.php
+require_once ('common.php');
+// используем оригинальный класс работы с базой данных - без кэширования
+require_once ('../includes/database/database/database.php');
+
+$DBhostname	= mosGetParam($_POST,'DBhostname','');
+$DBuserName	= mosGetParam($_POST,'DBuserName','');
+$DBpassword	= mosGetParam($_POST,'DBpassword','');
+$DBname		= mosGetParam($_POST,'DBname','');
+$DBPrefix	= mosGetParam($_POST,'DBPrefix','');
 $DBDel		= intval(mosGetParam($_POST,'DBDel',0));
 $DBBackup	= intval(mosGetParam($_POST,'DBBackup',0));
 $DBSample	= intval(mosGetParam($_POST,'DBSample',0));
 $DBcreated	= intval(mosGetParam($_POST,'DBcreated',0));
+$DBold		= intval(mosGetParam($_POST,'DBold',0));
 $DBexp		= intval(mosGetParam($_POST,'DBexp',0));
-$create_db	= intval(mosGetParam($_POST,'create_db',0));
 $BUPrefix	= 'old_';
 $configArray['sitename'] = trim(mosGetParam($_POST,'sitename',''));
 $database	= null;
@@ -35,18 +37,18 @@ $lang = 'russian';
 $errors = array();
 if(!$DBcreated) {
 	if(!$DBhostname || !$DBuserName || !$DBname) {
-		db_err('stepBack3','Р’Р°РјРё РІРІРµРґРµРЅС‹ РЅРµРІРµСЂРЅС‹Рµ РґР°РЅРЅС‹Рµ Рѕ Р‘Р” MySQL РёР»Рё РЅРµ Р·Р°РїРѕР»РЅРµРЅС‹ РЅРµРѕР±С…РѕРґРёРјС‹Рµ РїРѕР»СЏ С„РѕСЂРјС‹.');
+		db_err('stepBack3','Вами введены неверные данные о БД MySQL или не заполнены необходимые поля формы.');
 	}
 
 	if($DBPrefix == '') {
-		db_err('stepBack','РќРµРѕР±С…РѕРґРёРјРѕ РІРІРµСЃС‚Рё РїСЂРµС„РёРєСЃ Р±Р°Р·С‹ РґР°РЅРЅС‹С….');
+		db_err('stepBack','Вы можете не вводить префикс базы данных.');
 	}
 
 	$database = new database($DBhostname,$DBuserName,$DBpassword,'','',false);
 	$test = $database->getErrorMsg();
 
-	if(!$database->getResource() ) {
-		db_err('stepBack2','Р’РІРµРґРµРЅС‹ РЅРµРІРµСЂРЅС‹Рµ РёРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ Рё РїР°СЂРѕР»СЊ.');
+	if(!$database->_resource) {
+		db_err('stepBack2','Введены неверные имя пользователя и пароль.');
 	}
 
 	// Does this code actually do anything???
@@ -56,33 +58,28 @@ if(!$DBcreated) {
 	$configArray['DBname'] = $DBname;
 	$configArray['DBPrefix'] = $DBPrefix;
 
-	//Р•СЃР»Рё РЅРµ РІС‹Р±СЂР°РЅРѕ СЃРѕР·РґР°РЅРёРµ Р±Р°Р·С‹, РїСЂРѕР±СѓРµРј СЃРѕРµРґРёРЅРёС‚СЊСЃСЏ СЃ СѓРєР°Р·Р°РЅРЅРѕР№
-	if(mysql_select_db($DBname,$database->getResource() )){
-		$sql = "USE `$DBname` ";
+	// если база данных не создана - создадим её
+	if($DBname != '' && !mysql_select_db($DBname,$database->_resource)) {
+		// обработка разных версий MySQL
+		if(!$DBold) {// для старших версий MySQL
+			$sql = "CREATE DATABASE IF NOT EXISTS `$DBname` DEFAULT CHARACTER SET cp1251 COLLATE cp1251_general_ci";
+		}else{// для младших версий MySQL
+			$sql = "CREATE DATABASE IF NOT EXISTS `$DBname`";
+		}
 		$database->setQuery($sql);
 		$database->query();
-	}elseif($create_db==1) {
-		// РѕР±СЂР°Р±РѕС‚РєР° СЂР°Р·РЅС‹С… РІРµСЂСЃРёР№ MySQL
-		$sql = "CREATE DATABASE IF NOT EXISTS `$DBname` CHARACTER SET utf8 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT COLLATE utf8_general_ci";
-		$database->setQuery($sql);
-		$database->query();
-	}else{
-		db_err('stepBack3','РџРѕРґРєР»СЋС‡РµРЅРёРµ Рє СѓРєР°Р·Р°РЅРЅРѕР№ Р±Р°Р·Рµ РЅРµРІРѕР·РјРѕР¶РЅРѕ.');
 	}
 
 	$test = $database->getErrorNum();
 
-
 	if($test != 0 && $test != 1007) {
-		db_err('stepBack','РћС€РёР±РєР° СЃРѕР·РґР°РЅРёСЏ Р±Р°Р·С‹ РґР°РЅРЅС‹С…: '.$database->getErrorMsg());
+		db_err('stepBack','Ошибка создания данных: '.$database->getErrorMsg());
 	}
 
-	unset($database);
-
-	// СЃРѕР·РґР°РЅРёРµ РЅРѕРІС‹С… РїР°СЂР°РјРµС‚СЂРѕРІ Р‘Р” Рё Р·Р°РјРµРЅР° СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёС…
+	// создание новых параметров БД и замена существующих
 	$database = new database($DBhostname,$DBuserName,$DBpassword,$DBname,$DBPrefix);
 
-	// СѓРґР°Р»РµРЅРёРµ СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёС… С‚Р°Р±Р»РёС† (РµСЃР»Рё Р·Р°РґР°РЅРѕ)
+	// удаление существующих таблиц (если задано)
 	if($DBDel) {
 		$query = "SHOW TABLES FROM `$DBname`";
 		$database->setQuery($query);
@@ -115,7 +112,12 @@ if(!$DBcreated) {
 			}
 		}
 	}
-	populate_db($database,'sql/joostina.sql');
+	// обработка разных версий MySQL
+	if($DBexp) //экспериментальный тип таблиц
+			populate_db($database,'sql/joostina_exp.sql');
+	elseif(!$DBold) // для старших версий MySQL
+			populate_db($database,'sql/joostina.sql');
+	else populate_db($database,'sql/joostina_old.sql');
 
 	if($DBSample) {
 		populate_db($database,'lang/'.$lang.'/sample_data.sql');
@@ -140,10 +142,10 @@ function db_err($step,$alert) {
 * @param object
 * @param string File name
 */
-function populate_db(&$database,$sqlfile = 'joostina.sql') {
-	global $errors;
-	// РїРµСЂРµРІРѕРґРёРј РІ 'РїСЂР°РІРёР»СЊРЅРѕРµ СЂСѓСЃР»Рѕ'
-	$database->setQuery("SET NAMES 'utf8'");
+function populate_db(&$database,$sqlfile = 'mambo.sql') {
+	global $errors,$DBold;
+	// переводим в 'правильное русло'
+	if(!$DBold) $database->setQuery("SET NAMES 'cp1251'");
 
 	$database->query();
 	$mqr = @get_magic_quotes_runtime();
@@ -168,7 +170,7 @@ function populate_db(&$database,$sqlfile = 'joostina.sql') {
 */
 function split_sql($sql) {
 	$sql = trim($sql);
-	$sql = preg_replace("/\n#[^\n]*\n/","\n",$sql);
+	$sql = ereg_replace("\n#[^\n]*\n","\n",$sql);
 
 	$buffer = array();
 	$ret = array();
@@ -201,22 +203,22 @@ function split_sql($sql) {
 
 $isErr = intval(count($errors));
 
-echo "<?xml version=\"1.0\" encoding=\"utf-8\"?".">";?>
+echo "<?xml version=\"1.0\" encoding=\"windows-1251\"?".">";?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<title>Joostina - Web-СѓСЃС‚Р°РЅРѕРІРєР°. РЁР°Рі 2 - РЅР°Р·РІР°РЅРёРµ РІР°С€РµРіРѕ СЃР°Р№С‚Р°.</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Joostina - Web-установка. Шаг 2 - название вашего сайта.</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
 		<link rel="shortcut icon" href="../images/favicon.ico" />
 		<link rel="stylesheet" href="install.css" type="text/css" />
  <script type="text/javascript">
 <!--
 function check() {
-	// РїСЂРѕРІРµСЂРєР° РїСЂР°РІРёР»СЊРЅРѕСЃС‚Рё Р·Р°РїРѕР»РЅРµРЅРёСЏ С„РѕСЂРјС‹
+	// проверка правильности заполнения формы
 	var formValid = true;
 	var f = document.form;
 	if ( f.sitename.value == '' ) {
-		alert('Р’РІРµРґРёС‚Рµ РЅР°Р·РІР°РЅРёРµ Р’Р°С€РµРіРѕ СЃР°Р№С‚Р°');
+		alert('Введите название Вашего сайта');
 		f.sitename.focus();
 		formValid = false
 	}
@@ -226,54 +228,45 @@ function check() {
  </script>
 </head>
 <body onload="document.form.sitename.focus();">
-
+ <div id="wrapper">
+  <div id="header">
+   <div id="joomla"><img src="img/header_install.png" alt="Установка Joostina" /></div>
+  </div>
+ </div>
  <div id="ctr" align="center">
   <form action="install3.php" method="post" name="form" id="form" onsubmit="return check();">
-   <input type="hidden" name="DBhostname" value="<?php echo $DBhostname; ?>" />
-   <input type="hidden" name="DBuserName" value="<?php echo $DBuserName; ?>" />
-   <input type="hidden" name="DBpassword" value="<?php echo $DBpassword; ?>" />
-   <input type="hidden" name="DBname" value="<?php echo $DBname; ?>" />
-   <input type="hidden" name="DBPrefix" value="<?php echo $DBPrefix; ?>" />
-   <input type="hidden" name="DBcreated" value="<?php echo $DBcreated; ?>" />
+   <input type="hidden" name="DBhostname" value="<?php echo "$DBhostname"; ?>" />
+   <input type="hidden" name="DBuserName" value="<?php echo "$DBuserName"; ?>" />
+   <input type="hidden" name="DBpassword" value="<?php echo "$DBpassword"; ?>" />
+   <input type="hidden" name="DBname" value="<?php echo "$DBname"; ?>" />
+   <input type="hidden" name="DBPrefix" value="<?php echo "$DBPrefix"; ?>" />
+   <input type="hidden" name="DBcreated" value="<?php echo "$DBcreated"; ?>" />
+   <input type="hidden" name="DBold" value="<?php echo "$DBold"; ?>" />
    <div class="install">
-   
-   	<div id="header">
-				<p><?php echo $version; ?></p>
-				<p class="jst"><a href="http://www.joostina.ru">Joostina</a> - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ, СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ Р»РёС†РµРЅР·РёРё GNU/GPL.</p>
-			</div>	
-			
-			<div id="navigator">
-				<big>РЈСЃС‚Р°РЅРѕРІРєР° Joostina CMS</big>
-				<ul>
-					<li class="step"><strong>1</strong><span>РџСЂРѕРІРµСЂРєР° СЃРёСЃС‚РµРјС‹</span></li>
-					<li class="arrow">&nbsp;</li>
-					<li class="step"><strong>2</strong><span>Р›РёС†РµРЅР·РёРѕРЅРЅРѕРµ СЃРѕРіР»Р°С€РµРЅРёРµ</span></li>
-					<li class="arrow">&nbsp;</li>
-					<li class="step"><strong>3</strong><span>РљРѕРЅС„РёРіСѓСЂР°С†РёСЏ Р±Р°Р·С‹ РґР°РЅРЅС‹С…</span></li>
-					<li class="arrow">&nbsp;</li>
-					<li class="step step-on"><strong>4</strong><span>РќР°Р·РІР°РЅРёРµ СЃР°Р№С‚Р°</span></li>
-					<li class="arrow">&nbsp;</li>
-					<li class="step"><strong>5</strong><span>РљРѕРЅС„РёРіСѓСЂР°С†РёСЏ СЃР°Р№С‚Р°</span></li>
-					<li class="arrow">&nbsp;</li>
-					<li class="step"><strong>6</strong><span>Р—Р°РІРµСЂС€РµРЅРёРµ СѓСЃС‚Р°РЅРѕРІРєРё</span></li>
-				</ul>				
-			</div>
-			
-				<div class="buttons">
-				<?php if(!$isErr) { ?>					
-						<input class="button" type="submit" name="next" value="Р”Р°Р»РµРµ &gt;&gt;"/>
-						<?php } ?>				
-				</div>
-
-    <div id="wrap">
+					<div id="step"><span>Название сайта</span>
+						<div class="step-right">
+						<?php if(!$isErr) { ?>
+							<input class="button" type="submit" name="next" value="Далее >>"/>
+						<?php } ?>
+						</div>
+					</div>
+    <div id="stepbar">
+     <div class="step-off">Проверка системы</div>
+     <div class="step-off">Лицензия</div>
+     <div class="step-off">Шаг 1</div>
+     <div class="step-on">Шаг 2</div>
+     <div class="step-off">Шаг 3</div>
+     <div class="step-off">Шаг 4</div>
+    </div>
+    <div id="right">
      <div class="far-right">
      </div>
      <div class="install-text">
       <?php if($isErr) { ?>
-      РџСЂРѕРёР·РѕС€Р»Рё РѕС€РёР±РєРё РїСЂРё РєРѕРЅС„РёРіСѓСЂРёСЂРѕРІР°РЅРёРё Р±Р°Р·С‹ РґР°РЅРЅС‹С…!<br />
-      РџСЂРѕРґРѕР»Р¶РµРЅРёРµ СѓСЃС‚Р°РЅРѕРІРєРё РќР•Р’РћР—РњРћР–РќРћ!
+      Произошли ошибки при вставке данных в вашу базу данных!<br />
+      Продолжение установки НЕВОЗМОЖНО!
       <?php } else { ?>
-      РќР°Р·РІР°РЅРёРµ СЃР°Р№С‚ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РїСЂРё Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРѕР№ РѕС‚РїСЂР°РІРєРµ СЃРѕРѕР±С‰РµРЅРёР№ РїРѕ СЌР»РµРєС‚СЂРѕРЅРЅРѕР№ РїРѕС‡С‚Рµ Рё РјРѕР¶РµС‚ РѕС‚РѕР±СЂР°Р¶Р°С‚СЊСЃСЏ РІ Р·Р°РіРѕР»РѕРІРєРµ СЃР°Р№С‚Р°.
+      Оно используется при автоматической отправке сообщений по электронной почте и может отображается в заголовке сайта.
       <?php } ?>
      </div>
      <div class="install-form">
@@ -282,8 +275,8 @@ function check() {
 if($isErr) {
 	echo '<tr><td colspan="2">';
 	echo '<b></b>';
-	echo "<br/><br /><b><font color=\"red\">РћС€РёР±РєРё:</font></b><br />\n";
-	echo '<textarea rows="20" cols="140">';
+	echo "<br/><br />Ошибки:<br />\n";
+	echo '<textarea rows="20" cols="60">';
 	foreach($errors as $error) {
 		echo "SQL=$error[0]:\n- - - - - - - - - -\n$error[1]\n= = = = = = = = = =\n\n";
 	}
@@ -293,12 +286,13 @@ if($isErr) {
 ?>
        <table class="content2">
 	<tr>
-	 <td width="100">РќР°Р·РІР°РЅРёРµ СЃР°Р№С‚Р°</td>
-	 <td align="center"><input class="inputbox" type="text" name="sitename" size="40" value="<?php echo $configArray['sitename']; ?>" /></td>
+	 <td width="100">Название сайта</td>
+	 <td align="center"><input class="inputbox" type="text" name="sitename" size="40" value="<?php echo
+"{$configArray['sitename']}"; ?>" /></td>
 	</tr>
 	<tr>
 	 <td width="100">&nbsp;</td>
-	 <td align="center" class="small">РќР°РїСЂРёРјРµСЂ: РњРѕР№ РЅРѕРІС‹Р№ СЃР°Р№С‚!</td>
+	 <td align="center" class="small">Например: Мой новый сайт!</td>
 	</tr>
        </table>
        <?php
@@ -314,6 +308,6 @@ if($isErr) {
   </form>
 </div>
   <div class="clr"></div>
- <div class="ctr" id="footer"><a href="http://www.joostina.ru" target="_blank">Joostina</a> - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ, СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ Р»РёС†РµРЅР·РёРё GNU/GPL.</div>
+ <div class="ctr" id="footer"><a href="http://www.Joostina.ru" target="_blank">Joostina</a> - свободное программное обеспечение, распространяемое по лицензии GNU/GPL.</div>
 </body>
 </html>

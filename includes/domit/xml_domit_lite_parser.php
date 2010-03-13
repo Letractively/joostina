@@ -1,10 +1,10 @@
 <?php
 /**
 * @package Joostina
-* @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
-* @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
-* Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
-* Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
 *
 * dom_xmlrpc_array_document wraps a PHP array with the DOM XML-RPC API
 * @package dom-xmlrpc
@@ -37,7 +37,8 @@ class DOMIT_Lite_Node {
 	var $uid;
 	var $childCount = 0;
 	function DOMIT_Lite_Node() {
-		DOMIT_DOMException::raiseException(DOMIT_ABSTRACT_CLASS_INSTANTIATION_ERR,'Cannot instantiate abstract class DOMIT_Lite_Node');
+		DOMIT_DOMException::raiseException(DOMIT_ABSTRACT_CLASS_INSTANTIATION_ERR,
+			'Cannot instantiate abstract class DOMIT_Lite_Node');
 	}
 
 	function _constructor() {
@@ -46,19 +47,23 @@ class DOMIT_Lite_Node {
 	}
 
 	function &appendChild() {
-		DOMIT_DOMException::raiseException(DOMIT_HIERARCHY_REQUEST_ERR,('Method appendChild cannot be called by class '.get_class($this)));
+		DOMIT_DOMException::raiseException(DOMIT_HIERARCHY_REQUEST_ERR,('Method appendChild cannot be called by class '.
+			get_class($this)));
 	}
 
 	function &insertBefore() {
-		DOMIT_DOMException::raiseException(DOMIT_HIERARCHY_REQUEST_ERR,('Method insertBefore cannot be called by class '.get_class($this)));
+		DOMIT_DOMException::raiseException(DOMIT_HIERARCHY_REQUEST_ERR,('Method insertBefore cannot be called by class '.
+			get_class($this)));
 	}
 
 	function &replaceChild() {
-		DOMIT_DOMException::raiseException(DOMIT_HIERARCHY_REQUEST_ERR,('Method replaceChild cannot be called by class '.get_class($this)));
+		DOMIT_DOMException::raiseException(DOMIT_HIERARCHY_REQUEST_ERR,('Method replaceChild cannot be called by class '.
+			get_class($this)));
 	}
 
 	function &removeChild() {
-		DOMIT_DOMException::raiseException(DOMIT_HIERARCHY_REQUEST_ERR,('Method removeChild cannot be called by class '.get_class($this)));
+		DOMIT_DOMException::raiseException(DOMIT_HIERARCHY_REQUEST_ERR,('Method removeChild cannot be called by class '.
+			get_class($this)));
 	}
 
 	function getChildNodeIndex(&$arr,&$child) {
@@ -105,7 +110,8 @@ class DOMIT_Lite_Node {
 	}
 
 	function &getElementsByPath() {
-		DOMIT_DOMException::raiseException(DOMIT_HIERARCHY_REQUEST_ERR,('Method getElementsByPath cannot be called by class '.get_class($this)));
+		DOMIT_DOMException::raiseException(DOMIT_HIERARCHY_REQUEST_ERR,('Method getElementsByPath cannot be called by class '.
+			get_class($this)));
 	}
 
 	function getText() {
@@ -118,10 +124,17 @@ class DOMIT_Lite_Node {
 	}
 
 	function toArray() {
-		DOMIT_DOMException::raiseException(DOMIT_HIERARCHY_REQUEST_ERR,('Method toArray cannot be called by class '.get_class($this)));
+		DOMIT_DOMException::raiseException(DOMIT_HIERARCHY_REQUEST_ERR,('Method toArray cannot be called by class '.
+			get_class($this)));
 	}
 
-	function onLoad() {}
+	function onLoad() {
+
+
+
+
+
+	}
 
 	function clearReferences() {
 		if($this->previousSibling != null) {
@@ -143,9 +156,8 @@ class DOMIT_Lite_Node {
 		require_once (DOMIT_INCLUDE_PATH.'xml_domit_utilities.php');
 		global $DOMIT_defined_entities_flip;
 		$result = DOMIT_Utilities::toNormalizedString($this,$subEntities,$DOMIT_defined_entities_flip);
-		if($htmlSafe){
+		if($htmlSafe)
 			$result = $this->forHTML($result);
-		}
 		return $result;
 	}
 
@@ -153,7 +165,8 @@ class DOMIT_Lite_Node {
 
 class DOMIT_Lite_ChildNodes_Interface extends DOMIT_Lite_Node {
 	function DOMIT_Lite_ChildNodes_Interface() {
-		DOMIT_DOMException::raiseException(DOMIT_ABSTRACT_CLASS_INSTANTIATION_ERR,'Cannot instantiate abstract class DOMIT_Lite_ChildNodes_Interface');
+		DOMIT_DOMException::raiseException(DOMIT_ABSTRACT_CLASS_INSTANTIATION_ERR,
+			'Cannot instantiate abstract class DOMIT_Lite_ChildNodes_Interface');
 	}
 
 	function &appendChild(&$child) {
@@ -194,7 +207,8 @@ class DOMIT_Lite_ChildNodes_Interface extends DOMIT_Lite_Node {
 
 	function &insertBefore(&$newChild,&$refChild) {
 		if(($refChild->nodeType == DOMIT_DOCUMENT_NODE) || ($refChild->parentNode == null)) {
-			DOMIT_DOMException::raiseException(DOMIT_NOT_FOUND_ERR,'Reference child not present in the child nodes list.');
+			DOMIT_DOMException::raiseException(DOMIT_NOT_FOUND_ERR,
+				'Reference child not present in the child nodes list.');
 		}
 
 
@@ -353,7 +367,8 @@ class DOMIT_Lite_ChildNodes_Interface extends DOMIT_Lite_Node {
 	function _getElementsByAttribute(&$nodelist,$attrName,$attrValue,$returnFirstFoundNode,
 		$treatUIDAsAttribute,$foundNode = false) {
 		if(!($foundNode && $returnFirstFoundNode)) {
-			if(($this->getAttribute($attrName) == $attrValue) || ($treatUIDAsAttribute && ($attrName =='uid') && ($this->uid == $attrValue))) {
+			if(($this->getAttribute($attrName) == $attrValue) || ($treatUIDAsAttribute && ($attrName ==
+				'uid') && ($this->uid == $attrValue))) {
 				$nodelist->appendNode($this);
 				$foundNode = true;
 				if($returnFirstFoundNode)
@@ -455,7 +470,8 @@ class DOMIT_Lite_Document extends DOMIT_Lite_ChildNodes_Interface {
 			}
 			$this->documentElement = &$node;
 		} else {
-			DOMIT_DOMException::raiseException(DOMIT_HIERARCHY_REQUEST_ERR,('Cannot add a node of type '.get_class($node).' as a Document Element.'));
+			DOMIT_DOMException::raiseException(DOMIT_HIERARCHY_REQUEST_ERR,('Cannot add a node of type '.
+				get_class($node).' as a Document Element.'));
 		}
 		return $node;
 	}
@@ -470,7 +486,8 @@ class DOMIT_Lite_Document extends DOMIT_Lite_ChildNodes_Interface {
 				DOMIT_DOMException::raiseException(DOMIT_HIERARCHY_REQUEST_ERR,('Cannot have more than one root node (documentElement) in a DOMIT_Document.'));
 			}
 		} else {
-			DOMIT_DOMException::raiseException(DOMIT_HIERARCHY_REQUEST_ERR,('Cannot add a node of type '.get_class($node).' to a DOMIT_Document.'));
+			DOMIT_DOMException::raiseException(DOMIT_HIERARCHY_REQUEST_ERR,('Cannot add a node of type '.
+				get_class($node).' to a DOMIT_Document.'));
 		}
 		return $node;
 	}
@@ -481,7 +498,8 @@ class DOMIT_Lite_Document extends DOMIT_Lite_ChildNodes_Interface {
 
 				$this->setDocumentElement($newChild);
 			} else {
-				DOMIT_DOMException::raiseException(DOMIT_HIERARCHY_REQUEST_ERR,('Cannot replace Document Element with a node of class '.get_class($newChild)));
+				DOMIT_DOMException::raiseException(DOMIT_HIERARCHY_REQUEST_ERR,('Cannot replace Document Element with a node of class '.
+					get_class($newChild)));
 			}
 		} else {
 			if($node->nodeType == DOMIT_ELEMENT_NODE) {
@@ -491,7 +509,8 @@ class DOMIT_Lite_Document extends DOMIT_Lite_ChildNodes_Interface {
 					parent::replaceChild($newChild,$oldChild);
 				}
 			} else {
-				DOMIT_DOMException::raiseException(DOMIT_HIERARCHY_REQUEST_ERR,('Nodes of class '.get_class($newChild).' cannot be children of a DOMIT_Document.'));
+				DOMIT_DOMException::raiseException(DOMIT_HIERARCHY_REQUEST_ERR,('Nodes of class '.
+					get_class($newChild).' cannot be children of a DOMIT_Document.'));
 			}
 		}
 		return $newChild;
@@ -508,7 +527,8 @@ class DOMIT_Lite_Document extends DOMIT_Lite_ChildNodes_Interface {
 				DOMIT_DOMException::raiseException(DOMIT_HIERARCHY_REQUEST_ERR,('Cannot have more than one root node (documentElement) in a DOMIT_Document.'));
 			}
 		} else {
-			DOMIT_DOMException::raiseException(DOMIT_HIERARCHY_REQUEST_ERR,('Cannot insert a node of type '.get_class($newChild).' to a DOMIT_Document.'));
+			DOMIT_DOMException::raiseException(DOMIT_HIERARCHY_REQUEST_ERR,('Cannot insert a node of type '.
+				get_class($newChild).' to a DOMIT_Document.'));
 		}
 		return $newChild;
 	}
@@ -570,15 +590,16 @@ class DOMIT_Lite_Document extends DOMIT_Lite_ChildNodes_Interface {
 		if(DOMIT_Utilities::validateXML($xmlText)) {
 			$domParser = new DOMIT_Lite_Parser();
 			if($useSAXY || (!function_exists('xml_parser_create'))) {
+
 				$this->parser = 'SAXY_LITE';
 				$success = $domParser->parseSAXY($this,$xmlText,$preserveCDATA,$this->definedEntities);
 			} else {
+
 				$this->parser = 'EXPAT';
 				$success = $domParser->parse($this,$xmlText,$preserveCDATA);
 			}
-			if($fireLoadEvent && ($this->documentElement != null)){
+			if($fireLoadEvent && ($this->documentElement != null))
 				$this->load($this->documentElement);
-			}
 			return $success;
 		}
 		return false;
@@ -591,7 +612,6 @@ class DOMIT_Lite_Document extends DOMIT_Lite_ChildNodes_Interface {
 
 	function loadXML($filename,$useSAXY = true,$preserveCDATA = true,$fireLoadEvent = false) {
 		$xmlText = $this->getTextFromFile($filename);
-		$xmlText = Jstring::to_utf8($xmlText);
 		return $this->parseXML($xmlText,true,$preserveCDATA,$fireLoadEvent);
 	}
 
@@ -612,7 +632,9 @@ class DOMIT_Lite_Document extends DOMIT_Lite_ChildNodes_Interface {
 			return $response->getResponse();
 		} else
 			if(function_exists('file_get_contents')) {
+
 				return file_get_contents($filename);
+
 			} else {
 				require_once (DOMIT_INCLUDE_PATH.'php_file_utilities.php');
 				$fileContents = &php_file_utilities::getDataFromFile($filename,'r');
@@ -996,7 +1018,7 @@ class DOMIT_Lite_Parser {
 
 
 		if(!$this->xmlDoc->preserveWhitespace) {
-			$xmlText = preg_replace('/>'."[[:space:]]+".'</iu','><',$xmlText);
+			$xmlText = eregi_replace('>'."[[:space:]]+".'<','><',$xmlText);
 		}
 		$success = xml_parse($parser,$xmlText);
 		$this->xmlDoc->errorCode = xml_get_error_code($parser);
@@ -1014,7 +1036,8 @@ class DOMIT_Lite_Parser {
 		$parser->appendEntityTranslationTable($definedEntities);
 
 		$parser->preserveWhitespace = $this->xmlDoc->preserveWhitespace;
-		$parser->xml_set_element_handler(array(&$this,'startElement'),array(&$this,'endElement'));
+		$parser->xml_set_element_handler(array(&$this,'startElement'),array(&$this,
+			'endElement'));
 		$parser->xml_set_character_data_handler(array(&$this,'dataElement'));
 		if($preserveCDATA) {
 			$parser->xml_set_cdata_section_handler(array(&$this,'cdataElement'));

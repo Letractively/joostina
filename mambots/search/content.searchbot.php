@@ -1,179 +1,155 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
-
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
-
 $_MAMBOTS->registerFunction('onSearch','botSearchContent');
-
 /**
- * Content Search method
- *
- * Ð·Ð°Ð¿Ñ€Ð¾Ñ sql Ð´Ð¾Ð»Ð¶ÐµÐ½ Ð²Ð¾Ð·Ð²Ñ€Ð°Ñ‚Ð¸Ñ‚ÑŒ Ð¿Ð¾Ð»Ñ, Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÑŽÑ‚ÑÑ Ð² Ð¾Ð±Ñ‹Ñ‡Ð½Ð¾Ð¹ Ð¾Ð¿ÐµÑ€Ð°Ñ†Ð¸Ð¸
- * Ð¾Ñ‚Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ð¸Ñ: href, title, section, created, text, browsernav
- * @param Ð¾Ð¿Ñ€ÐµÐ´ÐµÐ»ÑÐµÑ‚ Ñ†ÐµÐ»ÑŒ Ð¿Ð¾Ð¸ÑÐºÐ°
- * @param ÑÐ¾Ð¿Ð¾ÑÑ‚Ð°Ð²Ð»ÑÐµÑ‚ Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ñ‹: exact|any|all
- * @param Ð¾Ð¿Ñ€ÐµÐ´ÐµÐ»ÑÐµÑ‚ Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€ ÑÐ¾Ñ€Ñ‚Ð¸Ñ€Ð¾Ð²ÐºÐ¸: newest|oldest|popular|alpha|category
- */
+* Content Search method
+* çàïðîñ sql äîëæåí âîçâðàòèòü ïîëÿ, èñïîëüçóþòñÿ â îáû÷íîé îïåðàöèè 
+* îòîáðàæåíèÿ: href, title, section, created, text, browsernav
+* @param îïðåäåëÿåò öåëü ïîèñêà
+* @param ñîïîñòàâëÿåò ïàðàìåòðû: exact|any|all
+* @param îïðåäåëÿåò ïàðàìåòð ñîðòèðîâêè: newest|oldest|popular|alpha|category
+*/
 function botSearchContent($text,$phrase = '',$ordering = '') {
-	global $my,$_MAMBOTS;
-
-	$database = &database::getInstance();
-
-	// check if param query has previously been processed
-	if(!isset($_MAMBOTS->_search_mambot_params['content'])) {
-		// load mambot params info
-		$query = "SELECT params FROM #__mambots WHERE element = 'content.searchbot' AND folder = 'search'";
-		$database->setQuery($query);
-		$database->loadObject($mambot);
-
-		// save query to class variable
-		$_MAMBOTS->_search_mambot_params['content'] = $mambot;
-	}
-
-	// pull query data from class variable
-	$mambot = $_MAMBOTS->_search_mambot_params['content'];
-
-	$botParams = new mosParameters($mambot->params);
-
-	$limit = $botParams->def('search_limit',50);
-	$nonmenu = $botParams->def('nonmenu',1);
-
-	$nullDate = $database->getNullDate();
-	$now = _CURRENT_SERVER_TIME;
-
-	$text = trim($text);
-	if($text == '') {
-		return array();
-	}
-
-	$wheres = array();
-	switch($phrase) {
-		case 'exact':
-			$wheres2 = array();
-			$wheres2[] = "LOWER(a.title) LIKE LOWER('%$text%')";
-			$wheres2[] = "LOWER(a.introtext) LIKE LOWER('%$text%')";
-			$wheres2[] = "LOWER(a.fulltext) LIKE LOWER('%$text%')";
-			$wheres2[] = "LOWER(a.metakey) LIKE LOWER('%$text%')";
-			$wheres2[] = "LOWER(a.metadesc) LIKE LOWER('%$text%')";
-			$where = '('.implode(') OR (',$wheres2).')';
-			break;
-
-		case 'all':
-		case 'any':
-		default:
-			$words = explode(' ',$text);
-			$wheres = array();
-			foreach($words as $word) {
-				$wheres2 = array();
-				$wheres2[] = "LOWER(a.title) LIKE LOWER('%$word%')";
-				$wheres2[] = "LOWER(a.introtext) LIKE LOWER('%$word%')";
-				$wheres2[] = "LOWER(a.fulltext) LIKE LOWER('%$word%')";
-				$wheres2[] = "LOWER(a.metakey) LIKE LOWER('%$word%')";
-				$wheres2[] = "LOWER(a.metadesc) LIKE LOWER('%$word%')";
-				$wheres[] = implode(' OR ',$wheres2);
-			}
-			$where = '('.implode(($phrase == 'all'?') AND (':') OR ('),$wheres).')';
-			break;
-	}
-
-	$morder = '';
-	switch($ordering) {
-		case 'oldest':
-			$order = 'a.created ASC';
-			break;
-
-		case 'popular':
-			$order = 'a.hits DESC';
-			break;
-
-		case 'alpha':
-			$order = 'a.title ASC';
-			break;
-
-		case 'category':
-			$order = 'b.title ASC, a.title ASC';
-			$morder = 'a.title ASC';
-			break;
-
-		case 'newest':
-		default:
-			$order = 'a.created DESC';
-			break;
-	}
-
-	// search content items
-	$query = "SELECT a.title AS title,"."\n a.created AS created,"."\n CONCAT(a.introtext, a.fulltext) AS text,".
-			"\n CONCAT_WS( '/', u.title, b.title ) AS section,"."\n CONCAT( 'index.php?option=com_content&task=view&id=', a.id ) AS href,".
-			"\n '2' AS browsernav,"."\n 'content' AS type"."\n, u.id AS sec_id, b.id as cat_id".
-			"\n FROM #__content AS a"."\n INNER JOIN #__categories AS b ON b.id=a.catid"."\n INNER JOIN #__sections AS u ON u.id = a.sectionid".
-			"\n WHERE ( $where )"."\n AND a.state = 1"."\n AND u.published = 1"."\n AND b.published = 1".
-			"\n AND a.access <= ".(int)$my->gid."\n AND b.access <= ".(int)$my->gid."\n AND u.access <= ".(int)
-			$my->gid."\n AND ( a.publish_up = ".$database->Quote($nullDate).
-			" OR a.publish_up <= ".$database->Quote($now)." )"."\n AND ( a.publish_down = ".
-			$database->Quote($nullDate)." OR a.publish_down >= ".$database->Quote($now).
-			" )"."\n GROUP BY a.id"."\n ORDER BY $order";
-	$database->setQuery($query,0,$limit);
-	$list = $database->loadObjectList();
-
-	// search static content
-	$query = "SELECT a.title AS title,"."\n a.created AS created,"."\n a.introtext AS text,".
-			"\n ".$database->Quote(_STATIC_CONTENT)." AS section,"."\n CONCAT( 'index.php?option=com_content&task=view&id=', a.id, '&Itemid=', m.id ) AS href,".
-			"\n '2' AS browsernav,"."\n a.id"."\n FROM #__content AS a"."\n LEFT JOIN #__menu AS m ON m.componentid = a.id".
-			"\n WHERE ($where)"."\n AND a.state = 1"."\n AND a.access <= ".(int)$my->gid."\n AND m.type = 'content_typed'".
-			"\n AND ( a.publish_up = ".$database->Quote($nullDate)." OR a.publish_up <= ".$database->Quote($now).
-			" )"."\n AND ( a.publish_down = ".$database->Quote($nullDate).
-			" OR a.publish_down >= ".$database->Quote($now)." )"."\n GROUP BY a.id"."\n ORDER BY ".($morder?
-			$morder:$order);
-	$database->setQuery($query,0,$limit);
-	$list2 = $database->loadObjectList();
-
-	// Ð¿Ð¾Ð¸ÑÐº Ð°Ñ€Ñ…Ð¸Ð²Ð½Ð¾Ð³Ð¾ ÑÐ¾Ð´ÐµÑ€Ð¶Ð¸Ð¼Ð¾Ð³Ð¾
-	$query = "SELECT a.title AS title,"."\n a.created AS created,"."\n a.introtext AS text,".
-			"\n CONCAT_WS( '/', ".$database->Quote(_IN_ARCHIVE).
-			", u.title, b.title ) AS section,"."\n CONCAT('index.php?option=com_content&task=view&id=',a.id) AS href,".
-			"\n '2' AS browsernav,"."\n 'content' AS type"."\n FROM #__content AS a"."\n INNER JOIN #__categories AS b ON b.id=a.catid".
-			"\n INNER JOIN #__sections AS u ON u.id = a.sectionid"."\n WHERE ( $where )"."\n AND a.state = -1".
-			"\n AND u.published = 1"."\n AND b.published = 1"."\n AND a.access <= ".(int)$my->gid.
-			"\n AND b.access <= ".(int)$my->gid."\n AND u.access <= ".(int)$my->gid."\n AND ( a.publish_up = ".
-			$database->Quote($nullDate)." OR a.publish_up <= ".$database->Quote($now)." )".
-			"\n AND ( a.publish_down = ".$database->Quote($nullDate).
-			" OR a.publish_down >= ".$database->Quote($now)." )"."\n ORDER BY $order";
-	$database->setQuery($query,0,$limit);
-	$list3 = $database->loadObjectList();
-
-	// check if search of nonmenu linked static content is allowed
-	if($nonmenu) {
-		// collect ids of static content items linked to menu items
-		// so they can be removed from query that follows
-		$ids = null;
-		if(count($list2)) {
-			foreach($list2 as $static) {
-				$ids[] = (int)$static->id;
-			}
-			$ids = "a.id != ".implode(" OR a.id != ",$ids);
-		}
-
-		// search static content not connected to a menu
-		$query = "SELECT a.title AS title,"."\n a.created AS created,"."\n a.introtext AS text,".
-				"\n '2' as browsernav, ".$database->Quote(_STATIC_CONTENT)." AS section,"."\n CONCAT( 'index.php?option=com_content&task=view&id=', a.id ) AS href,".
-				"\n a.id"."\n FROM #__content AS a"."\n WHERE ($where)".(($ids)?"\n AND ( $ids )":
-				'')."\n AND a.state = 1"."\n AND a.access <= ".(int)$my->gid."\n AND a.sectionid = 0".
-				"\n AND ( a.publish_up = ".$database->Quote($nullDate)." OR a.publish_up <= ".$database->Quote($now).
-				" )"."\n AND ( a.publish_down = ".$database->Quote($nullDate).
-				" OR a.publish_down >= ".$database->Quote($now)." )"."\n ORDER BY ".($morder?$morder:
-				$order);
-		$database->setQuery($query,0,$limit);
-		$list4 = $database->loadObjectList();
-	} else {
-		$list4 = array();
-	}
-
-	return array_merge($list,$list2,$list3,(array )$list4);
+global $database,$my,$_MAMBOTS;
+// check if param query has previously been processed
+if(!isset($_MAMBOTS->_search_mambot_params['content'])) {
+// load mambot params info
+$query = "SELECT params"."\n FROM #__mambots"."\n WHERE element = 'content.searchbot'".
+"\n AND folder = 'search'";
+$database->setQuery($query);
+$database->loadObject($mambot);
+// save query to class variable
+$_MAMBOTS->_search_mambot_params['content'] = $mambot;
 }
+// pull query data from class variable
+$mambot = $_MAMBOTS->_search_mambot_params['content'];
+$botParams = new mosParameters($mambot->params);
+$limit = $botParams->def('search_limit',50);
+$nonmenu = $botParams->def('nonmenu',1);
+$nullDate = $database->getNullDate();
+$now = _CURRENT_SERVER_TIME;
+$text = trim($text);
+if($text == '') {
+return array();
+}
+$wheres = array();
+switch($phrase) {
+case 'exact':
+$wheres2 = array();
+$wheres2[] = "LOWER(a.title) LIKE LOWER('%$text%')";
+$wheres2[] = "LOWER(a.introtext) LIKE LOWER('%$text%')";
+$wheres2[] = "LOWER(a.fulltext) LIKE LOWER('%$text%')";
+$wheres2[] = "LOWER(a.metakey) LIKE LOWER('%$text%')";
+$wheres2[] = "LOWER(a.metadesc) LIKE LOWER('%$text%')";
+$where = '('.implode(') OR (',$wheres2).')';
+break;
+case 'all':
+case 'any':
+default:
+$words = explode(' ',$text);
+$wheres = array();
+foreach($words as $word) {
+$wheres2 = array();
+$wheres2[] = "LOWER(a.title) LIKE LOWER('%$word%')";
+$wheres2[] = "LOWER(a.introtext) LIKE LOWER('%$word%')";
+$wheres2[] = "LOWER(a.fulltext) LIKE LOWER('%$word%')";
+$wheres2[] = "LOWER(a.metakey) LIKE LOWER('%$word%')";
+$wheres2[] = "LOWER(a.metadesc) LIKE LOWER('%$word%')";
+$wheres[] = implode(' OR ',$wheres2);
+}
+$where = '('.implode(($phrase == 'all'?') AND (':') OR ('),$wheres).')';
+break;
+}
+$morder = '';
+switch($ordering) {
+case 'oldest':
+$order = 'a.created ASC';
+break;
+case 'popular':
+$order = 'a.hits DESC';
+break;
+case 'alpha':
+$order = 'a.title ASC';
+break;
+case 'category':
+$order = 'b.title ASC, a.title ASC';
+$morder = 'a.title ASC';
+break;
+case 'newest':
+default:
+$order = 'a.created DESC';
+break;
+}
+// search content items
+$query = "SELECT a.title AS title,"."\n a.created AS created,"."\n CONCAT(a.introtext, a.fulltext) AS text,".
+"\n CONCAT_WS( '/', u.title, b.title ) AS section,"."\n CONCAT( 'index.php?option=com_content&task=view&id=', a.id ) AS href,".
+"\n '2' AS browsernav,"."\n 'content' AS type"."\n, u.id AS sec_id, b.id as cat_id".
+"\n FROM #__content AS a"."\n INNER JOIN #__categories AS b ON b.id=a.catid"."\n INNER JOIN #__sections AS u ON u.id = a.sectionid".
+"\n WHERE ( $where )"."\n AND a.state = 1"."\n AND u.published = 1"."\n AND b.published = 1".
+"\n AND a.access <= ".(int)$my->gid."\n AND b.access <= ".(int)$my->gid."\n AND u.access <= ".(int)
+$my->gid."\n AND ( a.publish_up = ".$database->Quote($nullDate).
+" OR a.publish_up <= ".$database->Quote($now)." )"."\n AND ( a.publish_down = ".
+$database->Quote($nullDate)." OR a.publish_down >= ".$database->Quote($now).
+" )"."\n GROUP BY a.id"."\n ORDER BY $order";
+$database->setQuery($query,0,$limit);
+$list = $database->loadObjectList();
+// search static content
+$query = "SELECT a.title AS title,"."\n a.created AS created,"."\n a.introtext AS text,".
+"\n ".$database->Quote(_STATIC_CONTENT)." AS section,"."\n CONCAT( 'index.php?option=com_content&task=view&id=', a.id, '&Itemid=', m.id ) AS href,".
+"\n '2' AS browsernav,"."\n a.id"."\n FROM #__content AS a"."\n LEFT JOIN #__menu AS m ON m.componentid = a.id".
+"\n WHERE ($where)"."\n AND a.state = 1"."\n AND a.access <= ".(int)$my->gid."\n AND m.type = 'content_typed'".
+"\n AND ( a.publish_up = ".$database->Quote($nullDate)." OR a.publish_up <= ".$database->Quote($now).
+" )"."\n AND ( a.publish_down = ".$database->Quote($nullDate).
+" OR a.publish_down >= ".$database->Quote($now)." )"."\n GROUP BY a.id"."\n ORDER BY ".($morder?
+$morder:$order);
+$database->setQuery($query,0,$limit);
+$list2 = $database->loadObjectList();
+// ïîèñê àðõèâíîãî ñîäåðæèìîãî
+$query = "SELECT a.title AS title,"."\n a.created AS created,"."\n a.introtext AS text,".
+"\n CONCAT_WS( '/', ".$database->Quote(_SEARCH_ARCHIVED).
+", u.title, b.title ) AS section,"."\n CONCAT('index.php?option=com_content&task=view&id=',a.id) AS href,".
+"\n '2' AS browsernav,"."\n 'content' AS type"."\n FROM #__content AS a"."\n INNER JOIN #__categories AS b ON b.id=a.catid".
+"\n INNER JOIN #__sections AS u ON u.id = a.sectionid"."\n WHERE ( $where )"."\n AND a.state = -1".
+"\n AND u.published = 1"."\n AND b.published = 1"."\n AND a.access <= ".(int)$my->gid.
+"\n AND b.access <= ".(int)$my->gid."\n AND u.access <= ".(int)$my->gid."\n AND ( a.publish_up = ".
+$database->Quote($nullDate)." OR a.publish_up <= ".$database->Quote($now)." )".
+"\n AND ( a.publish_down = ".$database->Quote($nullDate).
+" OR a.publish_down >= ".$database->Quote($now)." )"."\n ORDER BY $order";
+$database->setQuery($query,0,$limit);
+$list3 = $database->loadObjectList();
+// check if search of nonmenu linked static content is allowed
+if($nonmenu) {
+// collect ids of static content items linked to menu items
+// so they can be removed from query that follows
+$ids = null;
+if(count($list2)) {
+foreach($list2 as $static) {
+$ids[] = (int)$static->id;
+}
+$ids = "a.id != ".implode(" OR a.id != ",$ids);
+}
+// search static content not connected to a menu
+$query = "SELECT a.title AS title,"."\n a.created AS created,"."\n a.introtext AS text,".
+"\n '2' as browsernav, ".$database->Quote(_STATIC_CONTENT)." AS section,"."\n CONCAT( 'index.php?option=com_content&task=view&id=', a.id ) AS href,".
+"\n a.id"."\n FROM #__content AS a"."\n WHERE ($where)".(($ids)?"\n AND ( $ids )":
+'')."\n AND a.state = 1"."\n AND a.access <= ".(int)$my->gid."\n AND a.sectionid = 0".
+"\n AND ( a.publish_up = ".$database->Quote($nullDate)." OR a.publish_up <= ".$database->Quote($now).
+" )"."\n AND ( a.publish_down = ".$database->Quote($nullDate).
+" OR a.publish_down >= ".$database->Quote($now)." )"."\n ORDER BY ".($morder?$morder:
+$order);
+$database->setQuery($query,0,$limit);
+$list4 = $database->loadObjectList();
+} else {
+$list4 = array();
+}
+return array_merge($list,$list2,$list3,(array )$list4);
+}
+?>

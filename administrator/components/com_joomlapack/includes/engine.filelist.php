@@ -1,73 +1,73 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
 
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
 
 // Global variables
 class CFilelistEngine {
 	/**
-	 * Directories to exclude
-	 * @access private
-	 * @var array
-	 */
+	* Directories to exclude
+	* @access private
+	* @var array
+	*/
 	var $_ExcludeDirs;
 
 	/**
-	 * Have we finished processing our task?
-	 * @access private
-	 * @var boolean
-	 */
+	* Have we finished processing our task?
+	* @access private
+	* @var boolean
+	*/
 	var $_isFinished;
 
 	/**
-	 * The next directory to scan
-	 * @access private
-	 * @var string
-	 */
+	* The next directory to scan
+	* @access private
+	* @var string
+	*/
 	var $_nextDirectory;
 
 	/**
-	 * The number of the current node (fragment)
-	 * @access private
-	 * @var long
-	 */
+	* The number of the current node (fragment)
+	* @access private
+	* @var long
+	*/
 	var $_currentNode;
 
 	/**
-	 * The size of the current node (fragment) in bytes
-	 * @access private
-	 * @var long
-	 */
+	* The size of the current node (fragment) in bytes
+	* @access private
+	* @var long
+	*/
 	var $_currentNodeSize;
 
 	/**
-	 * The list of branch nodes (directories not yet scanned for files)
-	 * @access private
-	 * @var array
-	 */
+	* The list of branch nodes (directories not yet scanned for files)
+	* @access private
+	* @var array
+	*/
 	var $_branchNodes;
 
 	/**
-	 * Holds the list of files of the current fragment
-	 * @access private
-	 * @var array
-	 */
+	* Holds the list of files of the current fragment
+	* @access private
+	* @var array
+	*/
 	var $_currentList;
 
 	/**
-	 * Public constructor CFileListEngine
-	 * When the object is generated, it takes care of removing old entries and
-	 * initializing this task's algorithm
-	 */
+	* Public constructor CFileListEngine
+	* When the object is generated, it takes care of removing old entries and
+	* initializing this task's algorithm
+	*/
 	function CFilelistEngine() {
-		global $database;
+		global $database,$mosConfig_absolute_path;
 
 		// Remove old entries from filelist database
 		$sql = "DELETE FROM #__jp_packvars WHERE `key` like 'fragment%'";
@@ -79,8 +79,8 @@ class CFilelistEngine {
 
 		// Initialize our variables
 		$this->_isFinished = false; // We have not finished yet
-		// FIX 1.1.0 JPATH_BASE may contain trailing slashes or backslashes incompatible with exclusion filters
-		$this->_nextDirectory = realpath(JPATH_BASE); // Start scanning from Joomla! root
+		// FIX 1.1.0 $mosConfig_absolute_path may contain trailing slashes or backslashes incompatible with exclusion filters
+		$this->_nextDirectory = realpath($mosConfig_absolute_path); // Start scanning from Joomla! root
 		$this->_currentNode = 1; // We start adding to the first fragment
 		$this->_currentNodeSize = 0; // The size of this fragment is 0 bytes, as no files are added yet
 		$this->_branchNodes = array();
@@ -90,8 +90,8 @@ class CFilelistEngine {
 	}
 
 	/**
-	 * Scans the next directory if we have not finished
-	 */
+	* Scans the next directory if we have not finished
+	*/
 	function tick() {
 		if($this->_isFinished) {
 			CJPLogger::WriteLog(_JP_LOG_DEBUG,"CFilelistEngine :: Already finished");
@@ -153,7 +153,7 @@ class CFilelistEngine {
 			foreach($fileList as $fileDescriptor) {
 				switch($fileDescriptor['type']) {
 					case "dir":
-					// A new directory found. Mark it for recursion
+						// A new directory found. Mark it for recursion
 						if(!((substr($fileDescriptor['name'],-1,1) == ".") || (substr($fileDescriptor['name'],-1,2) == ".."))) {
 							$this->_branchNodes[] = $fileDescriptor['name'];
 							$processedFiles++;
@@ -161,7 +161,7 @@ class CFilelistEngine {
 						}
 						break;
 					case "file":
-					// Just a file... process it.
+						// Just a file... process it.
 						$processedFiles++;
 						$filesize = $fileDescriptor['size'];
 						if(($this->_currentNodeSize + $filesize <= 1048576) && (count($this->_currentList) < 5)) {
@@ -179,7 +179,7 @@ class CFilelistEngine {
 						$this->_currentList[] = $fileDescriptor['name'];
 						//CJPLogger::WriteLog(_JP_LOG_DEBUG, "Added file " . $fileDescriptor['name'] . "(" . $fileDescriptor['size'] . " bytes )");
 						break;
-					// All other types (links, character devices etc) are ignored.
+						// All other types (links, character devices etc) are ignored.
 				}
 			}
 			// Check for empty directories and add them to the list
@@ -203,8 +203,8 @@ class CFilelistEngine {
 		unset($fragmentDescriptor);
 
 		$sql = "INSERT INTO #__jp_packvars (`key`, value2) VALUES (\""
-				.mysql_real_escape_string("fragment".$this->_currentNode)."\", \""
-				.mysql_real_escape_string($serializedDescriptor)."\")";
+				.mysql_escape_string("fragment".$this->_currentNode)."\", \""
+				.mysql_escape_string($serializedDescriptor)."\")";
 		$database->setQuery($sql);
 		$database->query();
 
@@ -220,16 +220,18 @@ class CFilelistEngine {
 	}
 
 	/**
-	 * Returns the array of the exclusion filters
-	 * TODO: Probably I should pass a reference to the CDirExclusion object instead of this
-	 */
+	* Returns the array of the exclusion filters
+	* TODO: Probably I should pass a reference to the CDirExclusion object instead of this
+	*/
 	function _createExcludeDirs() {
-		global $option;
-		require_once (JPATH_BASE_ADMIN.'/components/com_joomlapack/includes/engine.exdirs.php');
+		global $mosConfig_absolute_path,$option;
+		require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_joomlapack/includes/engine.exdirs.php');
 
 		$def = new CDirExclusionFilter();
 		$this->_ExcludeDirs = $def->getFilters();
 		CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_GETTING_DIRS_LIST);
 		unset($def);
 	}
+
 }
+?>

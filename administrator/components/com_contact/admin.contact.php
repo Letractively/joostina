@@ -1,19 +1,19 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
 
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
 
 // ensure user has access to this function
 if(!($acl->acl_check('administration','edit','users',$my->usertype,'components',
-		'all') | $acl->acl_check('administration','edit','users',$my->usertype,
-		'components','com_contact'))) {
+	'all') | $acl->acl_check('administration','edit','users',$my->usertype,
+	'components','com_contact'))) {
 	mosRedirect('index2.php',_NOT_AUTH);
 }
 
@@ -70,24 +70,24 @@ switch($task) {
 }
 
 /**
- * List the records
- * @param string The current GET/POST option
- */
+* List the records
+* @param string The current GET/POST option
+*/
 function showContacts($option) {
 	global $database,$mainframe,$mosConfig_list_limit;
 
 	$catid = intval($mainframe->getUserStateFromRequest("catid{$option}",'catid',0));
 	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mosConfig_list_limit));
 	$limitstart = intval($mainframe->getUserStateFromRequest("view{$option}limitstart",
-			'limitstart',0));
+		'limitstart',0));
 	$search = $mainframe->getUserStateFromRequest("search{$option}",'search','');
 	if(get_magic_quotes_gpc()) {
 		$search = stripslashes($search);
 	}
 
 	if($search) {
-		$where[] = "cd.name LIKE '%".$database->getEscaped(Jstring::trim(Jstring::strtolower($search))).
-				"%'";
+		$where[] = "cd.name LIKE '%".$database->getEscaped(trim(strtolower($search))).
+			"%'";
 	}
 	if($catid) {
 		$where[] = "cd.catid = ".(int)$catid;
@@ -103,32 +103,33 @@ function showContacts($option) {
 	$database->setQuery($query);
 	$total = $database->loadResult();
 
-	require_once (JPATH_BASE.'/'.JADMIN_BASE.'/includes/pageNavigation.php');
+	require_once ($GLOBALS['mosConfig_absolute_path'].'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
 	// get the subset (based on limits) of required records
 	$query = "SELECT cd.*, cc.title AS category, u.name AS user, v.name as editor".
-			"\n FROM #__contact_details AS cd"."\n LEFT JOIN #__categories AS cc ON cc.id = cd.catid".
-			"\n LEFT JOIN #__users AS u ON u.id = cd.user_id"."\n LEFT JOIN #__users AS v ON v.id = cd.checked_out".
-			$where."\n ORDER BY cd.catid, cd.ordering, cd.name ASC";
+		"\n FROM #__contact_details AS cd"."\n LEFT JOIN #__categories AS cc ON cc.id = cd.catid".
+		"\n LEFT JOIN #__users AS u ON u.id = cd.user_id"."\n LEFT JOIN #__users AS v ON v.id = cd.checked_out".
+		$where."\n ORDER BY cd.catid, cd.ordering, cd.name ASC";
 	$database->setQuery($query,$pageNav->limitstart,$pageNav->limit);
 	$rows = $database->loadObjectList();
 
 	// build list of categories
 	$javascript = 'onchange="document.adminForm.submit();"';
 	$lists['catid'] = mosAdminMenus::ComponentCategory('catid',
-			'com_contact_details',intval($catid),$javascript);
+		'com_contact_details',intval($catid),$javascript);
 
 	HTML_contact::showcontacts($rows,$pageNav,$search,$option,$lists);
 }
 
 /**
- * Creates a new or edits and existing user record
- * @param int The id of the record, 0 if a new entry
- * @param string The current GET/POST option
- */
+* Creates a new or edits and existing user record
+* @param int The id of the record, 0 if a new entry
+* @param string The current GET/POST option
+*/
 function editContact($id,$option) {
 	global $database,$my;
+	global $mosConfig_absolute_path;
 
 	$row = new mosContact($database);
 	// load the row from the db table
@@ -163,16 +164,16 @@ function editContact($id,$option) {
 	$lists['default_con'] = mosHTML::yesnoradioList('default_con','',$row->default_con);
 
 	// get params definitions
-	$file = JPATH_BASE_ADMIN.'/components/com_contact/contact_items.xml';
+	$file = $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_contact/contact_items.xml';
 	$params = new mosParameters($row->params,$file,'component');
 
 	HTML_contact::editcontact($row,$lists,$option,$params);
 }
 
 /**
- * Saves the record from an edit form submit
- * @param string The current GET/POST option
- */
+* Saves the record from an edit form submit
+* @param string The current GET/POST option
+*/
 function saveContact($option) {
 	global $database;
 	josSpoofCheck();
@@ -207,7 +208,7 @@ function saveContact($option) {
 	$row->updateOrder();
 	if($row->default_con) {
 		$query = "UPDATE #__contact_details"."\n SET default_con = 0"."\n WHERE id != ".(int)
-				$row->id."\n AND default_con = 1";
+			$row->id."\n AND default_con = 1";
 		$database->setQuery($query);
 		$database->query();
 	}
@@ -216,10 +217,10 @@ function saveContact($option) {
 }
 
 /**
- * Removes records
- * @param array An array of id keys to remove
- * @param string The current GET/POST option
- */
+* Removes records
+* @param array An array of id keys to remove
+* @param string The current GET/POST option
+*/
 function removeContacts(&$cid,$option) {
 	global $database;
 	josSpoofCheck();
@@ -230,7 +231,7 @@ function removeContacts(&$cid,$option) {
 		$database->setQuery($query);
 		if(!$database->query()) {
 			echo "<script> alert('".$database->getErrorMsg().
-					"'); window.history.go(-1); </script>\n";
+				"'); window.history.go(-1); </script>\n";
 		}
 	}
 
@@ -238,11 +239,11 @@ function removeContacts(&$cid,$option) {
 }
 
 /**
- * Changes the state of one or more content pages
- * @param array An array of unique category id numbers
- * @param integer 0 if unpublishing, 1 if publishing
- * @param string The current option
- */
+* Changes the state of one or more content pages
+* @param array An array of unique category id numbers
+* @param integer 0 if unpublishing, 1 if publishing
+* @param string The current option
+*/
 function changeContact($cid = null,$state = 0,$option) {
 	global $database,$my;
 	josSpoofCheck();
@@ -255,11 +256,11 @@ function changeContact($cid = null,$state = 0,$option) {
 	$cids = 'id='.implode(' OR id=',$cid);
 
 	$query = "UPDATE #__contact_details"."\n SET published = ".(int)$state."\n WHERE ( $cids )".
-			"\n AND ( checked_out = 0 OR ( checked_out = ".(int)$my->id.") )";
+		"\n AND ( checked_out = 0 OR ( checked_out = ".(int)$my->id.") )";
 	$database->setQuery($query);
 	if(!$database->query()) {
 		echo "<script> alert('".$database->getErrorMsg().
-				"'); window.history.go(-1); </script>\n";
+			"'); window.history.go(-1); </script>\n";
 		exit();
 	}
 
@@ -272,9 +273,9 @@ function changeContact($cid = null,$state = 0,$option) {
 }
 
 /** JJC
- * Moves the order of a record
- * @param integer The increment to reorder by
- */
+* Moves the order of a record
+* @param integer The increment to reorder by
+*/
 function orderContacts($uid,$inc,$option) {
 	global $database;
 
@@ -288,8 +289,8 @@ function orderContacts($uid,$inc,$option) {
 }
 
 /** PT
- * Cancels editing and checks in the record
- */
+* Cancels editing and checks in the record
+*/
 function cancelContact() {
 	global $database;
 	josSpoofCheck();
@@ -298,3 +299,4 @@ function cancelContact() {
 	$row->checkin();
 	mosRedirect('index2.php?option=com_contact');
 }
+?>

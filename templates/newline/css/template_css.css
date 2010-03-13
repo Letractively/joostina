@@ -1,0 +1,85 @@
+/*
+* template_css.css. Используется для описания стилей меню,
+* элементов раскладки шаблона, уникальных стилей
+* @package Joostina
+* @subpackagetemplates/NewLine
+* @version $Id:base.css 2009-01-31 11:05 ZaiSL $;
+*/
+@import "reset.css";
+@import "base.css";
+html{height:100%;width:100%;}
+body.joo_flex{background:url(../images/bg.jpg) repeat-x top left;height:100%;position:relative;text-align:center;width:100%;}
+.main_wrap{background:url(../images/header_left.png) no-repeat top left;overflow:hidden;padding:0 0 40px 0;position:relative;}
+.header{background:url(../images/right_header.jpg) no-repeat 75% 0px;height:165px;position:relative;text-align:center;}
+a#logo{background:url(../images/logo.png) no-repeat top left;cursor:pointer;display:block;height:112px;left:0px;position:absolute;text-decoration:none;top:20px;width:147px;}
+.header_center{height:110px;margin:0 auto;padding:24px 0 0 0;width:50%;}
+.header_right{position:absolute;right:0;top:10px;width:150px;}
+.wrapper{margin:0 auto;position:relative;text-align:left;width:1004px;}
+a#about{background:url(../images/about.jpg) no-repeat top left;cursor:pointer;display:block;float:left;height:36px;text-decoration:none;width:143px;}
+a#rss{background:url(../images/rss_small.png) no-repeat center;}
+.content{float:right;width:73%;position:relative;}
+.col{float:left;width:23%;}
+.col div h3{color:#D43015;}
+.footer{background:url(../images/footer_bg.jpg) repeat-x bottom left;bottom:0px;clear:both;position:relative;}
+.bottom{border-top:4px solid #D2D6BF;height:40px;line-height:40px;margin:0 auto;padding:12px 0 12px 0;width:1004px;}
+.valid{float:right;width:180px;}
+/* -----Верхнее меню:BEGIN------*/
+ul#mainlevel-nav, ul#mainlevel-nav li{display:inline;list-style:none;margin:0;padding:0;}
+.top_menu_1{background:url(../images/topmenu_left.png) no-repeat top left;margin:15px 0 0 0;padding:0 0 0 36px;}
+.top_menu_2{background:url(../images/topmenu_right.png) no-repeat top right;padding:0 24px 0 0;}
+ul#mainlevel-nav{background:url(../images/topmenu_bg.png) repeat-x center;display:block;height:51px;padding:0 12px 0 0;text-align:center;}
+ul#mainlevel-nav li a{display:inline;font-size:18px;line-height:51px;margin:0 8px;position:relative;}
+ul#mainlevel-nav li a#active_menu-nav{color:#4B8EC2;text-decoration:none;}
+/* -----Верхнее меню:END------*/
+/* -----Левое меню:BEGIN------*/
+.moduletable-round{background:#EAECDE;padding:15px 20px 15px 20px;}
+.moduletable-round a{border-bottom:1px dashed #CCC;color:#5B5B5B;display:block;font-size:13px;font-weight:bold;padding:1px 5px;text-decoration:none;}
+.moduletable-round a:hover, .moduletable-round a#active_menu{background:#DEE0D3;color:#BD3620;}
+.moduletable-round ul, .moduletable-round ul li{list-style:none;margin:2px 0;padding:0;}
+/* -----Левое меню:END------*/
+/* -----Дополнительное меню:BEGIN------*/
+.moduletable-help{background:url(../images/help.jpg) no-repeat top left;margin:15px 0;overflow:hidden;padding:20px 0 10px 0;}
+.moduletable-help h3{padding:0 10px 8px 108px;}
+.moduletable-help ul{float:left;list-style:none;margin:0 6px 0 0;padding:0;width:46%;}
+.moduletable-help ul li{list-style:none;margin:0;padding:0;}
+.moduletable-help ul li a{color:#498FC3;}
+/* -----Дополнительное меню:END------*/
+/* -----Нижнее меню:BEGIN------*/
+.footer ul.menulist-bottom{float:left;margin:0 0 0 20%;text-align:center;}
+.footer ul.menulist-bottom li{display:inline;height:32px;line-height:32px;margin:0 9px 0 0;}
+.footer ul.menulist-bottom li a{color:#000;font-size:14px;}
+/* -----Нижнее меню:END------*/
+/* -----Сервисные ссылки:BEGIN------*/
+a.navbar{display:block;float:left;height:60px;text-decoration:none;width:48px;}
+a.navbar#home{background:url(../images/home.jpg) no-repeat center;}
+a.navbar#mail{background:url(../images/mail.jpg) no-repeat center;}
+a.navbar#map{background:url(../images/map.jpg) no-repeat center;}
+/* -----Сервисные ссылки:END------*/
+.block_w1,.block_w2,.block_w3{float:left;margin:0 0 10px 0;display:inline;}
+.block_w1{width:98%;}
+.block_w2{width:48%;}
+.block_w3{width:32%;}
+.block_w3.w25{width:25%;}
+.block_w3.w35{width:35%;}
+.block_w2.w25{width:25%;}
+.block_w2.w35{width:70%;}
+.block_w1.w25,.block_w1.w35{width:95%;}
+/* -----Первый блок (user1, user2, user3)----*/
+.block1 .moduletable{padding:5px 10px 5px 2px;}
+.block1 h3{color:#4B8EC2;font-size:24px;}
+/* -----Второй блок (user4, user5, user6)----*/
+.block2 .moduletable{margin:0 10px 0 0;padding:5px 10px 5px 2px;}
+.block2 h3{background:url(../images/listok.jpg) no-repeat 8px 1px #F3F4EE;color:#4C8EC0;font-size:20px;padding:5px 2px 5px 52px;}
+/* -----Третий блок (user7, user8, user9)----*/
+.block3{background:url(../images/block3_bg_top.jpg) repeat-x top left;clear:both;overflow:hidden;padding:3px 10px 15px 0;}
+.block3_bottom{background:url(../images/block3_bg_bottom.jpg) repeat-x bottom left;overflow:hidden;padding:0 0 0 10px;}
+.block3 .moduletable{margin:0 10px 0 0;padding:5px 5px 5px 2px;}
+.block3 h3{color:#626262;font-size:18px;padding:0 0 10px 0;}
+/* -----Дополнительные стили------*/
+div.marker_round{font-size:12px;padding:5px 0;}
+div.marker_round b{background:url(../images/ol_big.jpg) no-repeat top left;color:#FFF;display:block;float:left;font-weight:bold;height:39px;line-height:32px;margin:3px 6px 4px 0;text-align:center;width:36px;}
+div.marker_round br{clear:both;display:block;height:16px;line-height:16px;width:100%;}
+/* Маркированный список с большими маркерами*/
+ul.bigred{list-style:none;margin:0;padding:0;}
+ul.bigred li{background:url(../images/big_marker.png) no-repeat top left;list-style:none;margin:0 0 6px 0;padding:0 0 0 40px;}
+#email, #print{padding:3px;}

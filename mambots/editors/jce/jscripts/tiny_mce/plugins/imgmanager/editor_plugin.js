@@ -26,8 +26,8 @@ var TinyMCE_ImageManagerPlugin = {
 				var template = new Array();
 
 				template['file']   = tinyMCE.getParam('site') + '/index2.php?option=com_jce&no_html=1&task=plugin&plugin=imgmanager&file=manager.php';
-				template['width']  = 750;
-				template['height'] = 650;
+                template['width']  = 750;
+			    template['height'] = 620;
 				
 				template['width']  += tinyMCE.getLang('lang_imgmanager_delta_width', 0);
 				template['height'] += tinyMCE.getLang('lang_imgmanager_delta_height', 0);

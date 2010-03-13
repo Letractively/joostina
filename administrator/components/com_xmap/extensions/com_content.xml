@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <mosinstall type="xmap_ext" version="1.0.0">
 	<name>com_content</name>
 	<author>Guillermo Vargas</author>
@@ -13,29 +13,29 @@
 		<filename xmap_ext="com_content">com_content.php</filename>
 	</files>
 	<params>
-		<param name="use_mospagebreak" type="list" default="1" label="Р Р°СЃРєСЂС‹РІР°С‚СЊ РїРѕСЃС‚СЂР°РЅРёС‡РЅСѓСЋ РЅР°РІРёРіР°С†РёСЋ" description="РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РІС‹РІРѕРґ СЃСЃС‹Р»РѕРє РЅР° СЃС‚СЂР°РЅРёС†С‹ РїСЂРё СЂР°Р·РґРµР»РµРЅРёРё РёС… С‡РµСЂРµР· mospagebreak">
-			<option value="1">Р”Р°</option>
-			<option value="0">РќРµС‚</option>
+		<param name="use_mospagebreak" type="list" default="1" label="Раскрывать постраничную навигацию" description="Использовать вывод ссылок на страницы при разделении их через mospagebreak">
+			<option value="1">Да</option>
+			<option value="0">Нет</option>
 		</param>
-		<param name="expand_categories" type="list" default="1" label="Р Р°СЃРєСЂС‹РІР°С‚СЊ РєР°С‚РµРіРѕСЂРёРё" description="Р Р°СЃРєСЂС‹РІР°С‚СЊ РєР°С‚РµРіРѕСЂРёРё СЃРѕРґРµСЂР¶РёРјРѕРіРѕ">
-			<option value="0">РќРёРєРѕРіРґР°</option>
-			<option value="1">Р’СЃРµРіРґР°</option>
-			<option value="2">РўРѕР»СЊРєРѕ РІ XML РєР°СЂС‚Рµ</option>
-			<option value="3">РўРѕР»СЊРєРѕ РІ РєР°СЂС‚Рµ СЃР°Р№С‚Р°</option>
+		<param name="expand_categories" type="list" default="1" label="Раскрывать категории" description="Раскрывать категории содержимого">
+			<option value="0">Никогда</option>
+			<option value="1">Всегда</option>
+			<option value="2">Только в XML карте</option>
+			<option value="3">Только в карте сайта</option>
 		</param>
-		<param name="expand_sections" type="list" default="1" label="Р Р°СЃРєСЂС‹РІР°С‚СЊ СЂР°Р·РґРµР»С‹" description="Р Р°СЃРєСЂС‹РІР°С‚СЊ СЂР°Р·РґРµР»С‹ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ">
-			<option value="0">РќРёРєРѕРіРґР°</option>
-			<option value="1">Р’СЃРµРіРґР°</option>
-			<option value="2">РўРѕР»СЊРєРѕ РІ XML РєР°СЂС‚Рµ</option>
-			<option value="3">РўРѕР»СЊРєРѕ РІ РєР°СЂС‚Рµ СЃР°Р№С‚Р°</option>
+		<param name="expand_sections" type="list" default="1" label="Раскрывать разделы" description="Раскрывать разделы содержимого">
+			<option value="0">Никогда</option>
+			<option value="1">Всегда</option>
+			<option value="2">Только в XML карте</option>
+			<option value="3">Только в карте сайта</option>
 		</param>
-		<param name="show_unauth" type="list" default="0" label="РџРѕРєР°Р·С‹РІР°С‚СЊ СЃСЃС‹Р»РєРё РЅРµР°РІС‚РѕСЂРёР·РѕРІР°РЅРЅС‹Рј" description="РћС‚РѕР±СЂР°Р¶Р°С‚СЊ СЃСЃС‹Р»РєРё РЅР° РєРѕРЅС‚РµРЅС‚ РїСЂРµРґРЅР°Р·РЅР°С‡РµРЅРЅС‹Р№ С‚РѕР»СЊРєРѕ РґР»СЏ Р°РІС‚РѕСЂРёР·РѕРІР°РЅРЅС‹С… РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№.">
-			<option value="0">РќРёРєРѕРіРґР°</option>
-			<option value="1">Р’СЃРµРіРґР°</option>
-			<option value="2">РўРѕР»СЊРєРѕ РІ XML РєР°СЂС‚Рµ</option>
-			<option value="3">РўРѕР»СЊРєРѕ РІ РєР°СЂС‚Рµ СЃР°Р№С‚Р°</option>
+		<param name="show_unauth" type="list" default="0" label="Показывать ссылки неавторизованным" description="Отображать ссылки на контент предназначенный только для авторизованных пользователей.">
+			<option value="0">Никогда</option>
+			<option value="1">Всегда</option>
+			<option value="2">Только в XML карте</option>
+			<option value="3">Только в карте сайта</option>
 		</param>
-		<param name="@spacer" type="spacer" default="" label="XML РєР°СЂС‚Р° СЃР°Р№С‚Р°" description="РќР°СЃС‚СЂРѕР№РєРё РєР°СЂС‚С‹ СЃР°Р№С‚Р° РїСЂРёРјРµРЅРёС‚РµР»СЊРЅРѕ Рє XML РѕС‚РѕР±СЂР°Р¶РµРЅРёСЋ" />
+		<param name="@spacer" type="spacer" default="" label="XML карта сайта" description="Настройки карты сайта применительно к XML отображению" />
 		<param name="cat_priority" type="list" default="-1" label="Category Priority" description="Set the priority for the categories">
 			<option value="-1">Use Parent Menu Settings</option>
 			<option value="0.0">0.0</option>

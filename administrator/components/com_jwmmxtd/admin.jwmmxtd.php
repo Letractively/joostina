@@ -1,21 +1,21 @@
 <?php
 /**
- * @package Joostina
- * @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2010 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
- * @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
- * Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
- * Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
- */
+* @package Joostina
+* @copyright Авторские права (C) 2008 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+*/
 
-// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+// запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-// РєРѕСЂРµРЅСЊ РњРµРґРёР° - РјРµРЅРµРґР¶РµСЂР° РёР· РіР»РѕР±Р°Р»СЊРЅРѕР№ РєРѕРЅС„РёРіСѓСЂР°С†РёРё
-global $mosConfig_media_dir,$mosConfig_cachepath;
+// корень Медиа - менеджера из глобальной конфигурации
+global $mosConfig_media_dir,$mosConfig_cachepath,$mosConfig_live_site;
 $jwmmxtd_browsepath = $mosConfig_media_dir;
 
-define('JWMMXTD_STARTABSPATH',JPATH_BASE.DS.$jwmmxtd_browsepath);
-define('JWMMXTD_STARTURLPATH',JPATH_SITE.'/'.$jwmmxtd_browsepath);
+define('JWMMXTD_STARTABSPATH',$mosConfig_absolute_path.DIRECTORY_SEPARATOR.$jwmmxtd_browsepath);
+define('JWMMXTD_STARTURLPATH',$mosConfig_live_site.'/'.$jwmmxtd_browsepath);
 
 require_once ($mainframe->getPath('admin_html'));
 
@@ -40,21 +40,40 @@ if(is_int(strpos($curdirectory,".."))) {
 	mosRedirect('index2.php',_JWMM_HACK_ATTEMPT);
 }
 
-// РѕС‡РёСЃС‚РєР° РєР°С‚Р°Р»РѕРіР° РєСЌС€Р°
+// очистка каталога кэша
 $tmpimage = mosGetParam($_REQUEST,'tmpimage','');
 if($tmpimage != "") {
-	@unlink($mosConfig_cachepath.DS.$tmpimage);
+	@unlink($mosConfig_cachepath.DIRECTORY_SEPARATOR.$tmpimage);
 }
 
-$mainframe->addCSS(JPATH_SITE.'/'.JADMIN_BASE.'/components/com_jwmmxtd/css/jw_mmxtd.css');
-
+$mainframe->addCSS($mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jwmmxtd/css/jw_mmxtd.css');
+mosCommonHTML::loadMootools();
 
 if($task == 'edit') {
-	$mainframe->addJS(JPATH_SITE.'/'.JADMIN_BASE.'/components/com_jwmmxtd/js/jw_mmxtd_edit.php');
+	$mainframe->addJS($mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jwmmxtd/js/jw_mmxtd_edit.php');
 } else {
+	$mainframe->addJS($mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jwmmxtd/js/jw_mmxtd_browse.php');
 	$jw_mmxtd_head = '
 	<script type="text/javascript">
 	<!--
+	if (navigator.appName.indexOf("Microsoft") == 0) {
+		function loadEvent(obj, evType, fn) {
+			if (obj.addEventListener) {
+				obj.addEventListener(evType, fn, false);
+				return (true);
+			} else if (obj.attachEvent) {
+				var r = obj.attachEvent("on"+evType, fn);
+				return (r);
+			} else return (false);
+		}
+		loadEvent(window, "load", Slider.init);
+		loadEvent(window, "load", Lightbox.init.bind(Lightbox));
+		loadEvent(window, "load", Videobox.init.bind(Videobox));
+	} else {
+		window.addEvent("domready", Slider.init);
+		window.addEvent("domready", Lightbox.init.bind(Lightbox));
+		window.addEvent("domready", Videobox.init.bind(Videobox));
+	};
 		function updateDir(){
 			var allPaths = window.top.document.forms[0].dirPath.options;
 			for(i=0; i<allPaths.length; i++) {
@@ -77,19 +96,10 @@ if($task == 'edit') {
 			}
 			if(confirm("'._JWMM_DELETE_CATALOG.' \""+folder+"\"?")) return true; return false;
 		}
-		function get_image(file,name,width,height){
-			get_file(file,name);
-			id("file_url").value=\'<img width="\'+width+\'" height="\'+height+\'" src="\'+file+\'" alt="\'+name+\'" />\';
-		}
-		function get_file(file,name){
-			id("file_href").value=\'<a href="\'+file+\'">\'+name+\'</a>\';
-			id("file_link").value=file;
-			id("file_url").value = \'\';
-		}
 	-->
-	</script>';
+	</script>
+';
 	$mainframe->addCustomHeadTag($jw_mmxtd_head);
-	mosCommonHTML::loadJqueryPlugins('multiple-file-upload/jquery.MultiFile');
 }
 
 
@@ -183,12 +193,13 @@ switch($task) {
 		break;
 }
 
-// СЂР°СЃРїР°РєРѕРІРєР° ZIP Р°СЂС…РёРІРѕРІ
+// распаковка ZIP архивов
 function unzipzipfile($curdirpath,$curfile,$destindir) {
-	include_once (JPATH_BASE_ADMIN.'/includes/pcl/pclzip.lib.php');
+	global $mosConfig_absolute_path;
+	include_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/includes/pcl/pclzip.lib.php');
 
-	$path = JWMMXTD_STARTABSPATH.$curdirpath.DS.$curfile;// С„Р°Р№Р» РґР»СЏ СЂР°СЃРїР°РєРѕРІРєРё
-	$path2 = JWMMXTD_STARTABSPATH.$destindir.DS; // РєР°С‚Р°Р»РѕРі РґР»СЏ СЂР°СЃРїР°РєРѕРІРєРё
+	$path = JWMMXTD_STARTABSPATH.$curdirpath.DIRECTORY_SEPARATOR.$curfile;// файл для распаковки
+	$path2 = JWMMXTD_STARTABSPATH.$destindir.DIRECTORY_SEPARATOR; // каталог для распаковки
 
 	if(is_file($path)) {
 		if(eregi(".zip",$path)) {
@@ -202,15 +213,16 @@ function unzipzipfile($curdirpath,$curfile,$destindir) {
 			$msg = $curfile.' '._FILE_IS_NOT_A_ZIP;
 			return $msg;
 		}
-	} else $msg = $curfile.' '._FILE_NOT_EXISTS;
+	} else $msg = $curfile.' '._FILE_NOT_EXIST;
 	return $msg;
 }
 
-// Р·Р°РіСЂСѓР·РєР° РёР·РѕР±СЂР°Р¶РµРЅРёСЏ
+// загрузка изображения
 function saveImage($cur) {
 	require_once ('class.upload.php');
+	global $mosConfig_absolute_path;
 
-	$cur = JWMMXTD_STARTABSPATH.$cur.DS;
+	$cur = JWMMXTD_STARTABSPATH.$cur.DIRECTORY_SEPARATOR;
 
 	$primage = mosGetParam($_REQUEST,'primage','');
 	$orimage = mosGetParam($_REQUEST,'originalimage','');
@@ -220,11 +232,11 @@ function saveImage($cur) {
 	$orname = str_replace(substr($ornamewithext,-4),"",$ornamewithext);
 
 	if($orname) {
-		$pic = new upload(JPATH_BASE.DS.'media'.DS.$primage);
+		$pic = new upload($mosConfig_absolute_path.DIRECTORY_SEPARATOR.'media'.DIRECTORY_SEPARATOR.$primage);
 		if($pic->uploaded) {
 			$pic->file_src_name_body = $orname."_edit".rand(100,999);
 			$pic->Process($cur);
-			@unlink(JPATH_BASE.DS.'media'.DS.$primage);
+			@unlink($mosConfig_absolute_path.DIRECTORY_SEPARATOR.'media'.DIRECTORY_SEPARATOR.$primage);
 			$ok = true;
 		} else $ok = false;
 	} else $ok = false;
@@ -237,16 +249,19 @@ function saveImage($cur) {
 
 function returnFromEdit() {
 	require_once ('class.upload.php');
+	global $mosConfig_absolute_path;
 	$primage = mosGetParam($_REQUEST,'primage','');
-	@unlink(JPATH_BASE.DS.'media'.DS.$primage);
+	@unlink($mosConfig_absolute_path.DIRECTORY_SEPARATOR.'media'.DIRECTORY_SEPARATOR.$primage);
 }
 
 function emptyTmp() {
-	$dir = JPATH_BASE.DS.'media';
+	global $mosConfig_absolute_path;
+	$dir = $mosConfig_absolute_path.DIRECTORY_SEPARATOR.'media';
 	if(is_dir($dir)) {
 		$d = dir($dir);
 		while(false !== ($entry = $d->read())) {
-			if(substr($entry,-4) == ".jpg" || substr($entry,-4) == ".gif" || substr($entry,-4) == ".png") {
+			if(substr($entry,-4) == ".jpg" || substr($entry,-4) == ".gif" || substr($entry,
+				-4) == ".png") {
 				@unlink($dir."/".$entry);
 			}
 		}
@@ -256,7 +271,8 @@ function emptyTmp() {
 	if(is_dir($dir)) {
 		$d = dir($dir);
 		while(false !== ($entry = $d->read())) {
-			if(substr($entry,-4) == ".jpg" || substr($entry,-4) == ".gif" || substr($entry,-4) == ".png") {
+			if(substr($entry,-4) == ".jpg" || substr($entry,-4) == ".gif" || substr($entry,
+				-4) == ".png") {
 				$total_file++;
 			}
 		}
@@ -269,8 +285,8 @@ function emptyTmp() {
 
 function newFileName($curdirectory,$curfile,$newfile) {
 	if($curfile == "" || $newfile == "") return false;
-	$path = JWMMXTD_STARTABSPATH.$curdirectory.DS.$curfile;
-	$path2 = JWMMXTD_STARTABSPATH.$curdirectory.DS.$newfile;
+	$path = JWMMXTD_STARTABSPATH.$curdirectory.DIRECTORY_SEPARATOR.$curfile;
+	$path2 = JWMMXTD_STARTABSPATH.$curdirectory.DIRECTORY_SEPARATOR.$newfile;
 	if(file_exists($path2)) return false;
 	if(rename($path,$path2))
 		$ok = true;
@@ -281,8 +297,8 @@ function newFileName($curdirectory,$curfile,$newfile) {
 
 function copyFile($curdirectory,$curfile,$dirtocopy) {
 	if($curfile == "") return false;
-	$path = JWMMXTD_STARTABSPATH.$curdirectory.DS.$curfile;
-	$path2 = JWMMXTD_STARTABSPATH.$dirtocopy.DS.$curfile;
+	$path = JWMMXTD_STARTABSPATH.$curdirectory.DIRECTORY_SEPARATOR.$curfile;
+	$path2 = JWMMXTD_STARTABSPATH.$dirtocopy.DIRECTORY_SEPARATOR.$curfile;
 	if(file_exists($path2)) return false;
 	if(!copy($path,$path2))
 		$ok = false;
@@ -293,8 +309,8 @@ function copyFile($curdirectory,$curfile,$dirtocopy) {
 
 function moveFile($curdirectory,$curfile,$dirtomove) {
 	if($curfile == "") return false;
-	$path = JWMMXTD_STARTABSPATH.$curdirectory.DS.$curfile;
-	$path2 = JWMMXTD_STARTABSPATH.$dirtomove.DS.$curfile;
+	$path = JWMMXTD_STARTABSPATH.$curdirectory.DIRECTORY_SEPARATOR.$curfile;
+	$path2 = JWMMXTD_STARTABSPATH.$dirtomove.DIRECTORY_SEPARATOR.$curfile;
 	if(file_exists($path2)) return false;
 	if(!rename($path,$path2))
 		$ok = false;
@@ -316,7 +332,7 @@ function uploadImages($curdirectory) {
 	foreach($files as $file) {
 		$handle = new Upload($file);
 		if($handle->uploaded) {
-			$updirectory = JWMMXTD_STARTABSPATH.$curdirectory.DS;
+			$updirectory = JWMMXTD_STARTABSPATH.$curdirectory.DIRECTORY_SEPARATOR;
 			$handle->Process($updirectory);
 			if($handle->processed) {
 				$mosmsg = _FILES_UPLOADED;
@@ -324,15 +340,15 @@ function uploadImages($curdirectory) {
 				$mosmsg = _FILES_NOT_UPLOADED;
 			}
 		} else {
-			//$mosmsg = 'Р¤Р°Р№Р»С‹ РЅРµ Р·Р°РіСЂСѓР¶РµРЅС‹ РЅР° СЃРµСЂРІРµСЂ!';
+			//$mosmsg = 'Файлы не загружены на сервер!';
 		}
 	}
 	return $mosmsg;
 }
 
 function delete_folder($listdir,$delFolder) {
-	$del_html = JWMMXTD_STARTABSPATH.$listdir.DS.$delFolder.DS.'index.html';
-	$del_folder = JWMMXTD_STARTABSPATH.$listdir.DS.$delFolder;
+	$del_html = JWMMXTD_STARTABSPATH.$listdir.DIRECTORY_SEPARATOR.$delFolder.DIRECTORY_SEPARATOR.'index.html';
+	$del_folder = JWMMXTD_STARTABSPATH.$listdir.DIRECTORY_SEPARATOR.$delFolder;
 	$entry_count = 0;
 	$dir = opendir($del_folder);
 	while($entry = readdir($dir)) {
@@ -352,7 +368,7 @@ function delete_folder($listdir,$delFolder) {
 }
 
 function delete_file($listdir,$delFile) {
-	$fullPath = JWMMXTD_STARTABSPATH.$listdir.DS.stripslashes($delFile);
+	$fullPath = JWMMXTD_STARTABSPATH.$listdir.DIRECTORY_SEPARATOR.stripslashes($delFile);
 	if(file_exists($fullPath)) {
 		if(unlink($fullPath)) return true;
 	}
@@ -367,12 +383,12 @@ function listofImages($listdir) {
 		$images = array();
 		$folders = array();
 		$docs = array();
-		// Рє РёР·РѕР±СЂР°Р¶РµРЅРёСЏРј РѕС‚РЅРѕСЃСЏС‚СЃСЏ С‚РѕР»СЊРєРѕ С„Р°Р№Р»С‹ РїРµСЂРµС‡РёСЃР»РµРЅРЅРѕРіРѕ С‚РёРїР°
+		// к изображениям относятся только файлы перечисленного типа
 		$allowable = 'xcf|odg|gif|jpg|png|bmp';
 		while(false !== ($entry = $d->read())) {
 			$img_file = $entry;
 			if(is_file($listdir.'/'.$img_file) && substr($entry,0,1) != '.' && strtolower($entry)
-					!== 'index.html') {
+				!== 'index.html') {
 				if(eregi($allowable,$img_file)) {
 					$image_info = @getimagesize($listdir.'/'.$img_file);
 					$file_details['file'] = $listdir."/".$img_file;
@@ -385,18 +401,18 @@ function listofImages($listdir) {
 					$docs[$entry] = $file_details;
 				}
 			} else
-			if(is_dir($listdir.'/'.$img_file) && substr($entry,0,1) != '.' && strtolower($entry)!== 'cvs') {
-				$folders[$entry] = $img_file;
-			}
+				if(is_dir($listdir.'/'.$img_file) && substr($entry,0,1) != '.' && strtolower($entry)!== 'cvs') {
+					$folders[$entry] = $img_file;
+				}
 		}
 		$d->close();
 		if(count($images) > 0 || count($folders) > 0 || count($docs) > 0) {
-			// СЃРѕСЂС‚РёСЂРѕРІРєР° С„Р°Р№Р»РѕРІ Рё РєР°С‚Р°Р»РѕРіРѕРІ РїРѕ РёРјРµРЅРё
+			// сортировка файлов и каталогов по имени
 			ksort($images);
 			ksort($folders);
 			ksort($docs);
 
-			// РїРѕРґРєР°С‚Р°Р»РѕРіРё
+			// подкаталоги
 			if(count($folders) > 0) {
 				echo '<fieldset><legend>'._DIRECTORIES.'</legend>';
 				for($i = 0; $i < count($folders); $i++) {
@@ -407,9 +423,9 @@ function listofImages($listdir) {
 				echo '</fieldset>';
 			}
 
-			// РёР·РѕР±СЂР°Р¶РµРЅРёСЏ
+			// изображения
 			if(count($images) > 0) {
-				echo '<fieldset><legend>'._IMAGES.'</legend>';
+				echo '<fieldset><legend>'._E_IMAGES.'</legend>';
 				for($i = 0; $i < count($images); $i++) {
 					$image_name = key($images);
 					HTML_mmxtd::show_image($images[$image_name]['file'],$image_name,$images[$image_name]['img_info'],$images[$image_name]['size'],str_replace(JWMMXTD_STARTABSPATH,"",$listdir));
@@ -417,20 +433,16 @@ function listofImages($listdir) {
 				}
 				echo "</fieldset>";
 			}
-			// СЂР°Р·РЅС‹Рµ С„Р°Р№Р»С‹
+			// разные файлы
 			if(count($docs) > 0) {
-				echo '<fieldset><legend>'._JWMM_FILE.'</legend>';
+				echo '<fieldset><legend>'._JWMM_FILES.'</legend>';
 				for($i = 0; $i < count($docs); $i++) {
 					$doc_name = key($docs);
-					//$iconfile = JPATH_BASE.'/images/icons/'.substr($doc_name,-3).'.png';
-
-					$mainframe = mosMainFrame::getInstance(true);
-					$iconfile = JPATH_BASE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/file_ico/'.substr($doc_name,-3).'.png';
-
+					$iconfile = $GLOBALS['mosConfig_absolute_path'].'/images/icons/'.substr($doc_name,-3).'.png';
 					if(file_exists($iconfile)) {
-						$icon = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/file_ico/'.substr($doc_name,-3).'.png';
+						$icon = '../images/icons/'.(substr($doc_name,-3)).'.png';
 					} else {
-						$icon = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/file_ico/file.png';
+						$icon = '../images/icons/document.png';
 					}
 					$icon = strtolower($icon);
 					HTML_mmxtd::show_doc($doc_name,$docs[$doc_name]['size'],str_replace(JWMMXTD_STARTABSPATH,'',$listdir),$icon);
@@ -447,14 +459,14 @@ function listofImages($listdir) {
 function listImagesBak($dirname = '.') {
 	return glob($dirname.'*.{jpg,png,jpeg,gif}',GLOB_BRACE);
 }
-// СЃРѕР·РґР°РЅРёРµ РєР°С‚Р°Р»РѕРіР°
+// создание каталога
 function create_folder($curdirectory,$folder_name) {
 	$folder_name = str_replace(" ","_",$folder_name);
 	if(strlen($folder_name) > 0) {
 		if(eregi("[^0-9a-zA-Z_]",$folder_name)) {
 			mosRedirect("index2.php?option=com_jwmmxtdcurdirectory=".$curdirectory,_JWMM_FILE_NAME_WARNING);
 		}
-		$folder = JWMMXTD_STARTABSPATH.$curdirectory.DS.$folder_name;
+		$folder = JWMMXTD_STARTABSPATH.$curdirectory.DIRECTORY_SEPARATOR.$folder_name;
 		if(!is_dir($folder) && !is_file($folder)) {
 			$suc = mosMakePath($folder);
 			$fp = fopen($folder."/index.html","w");
@@ -465,7 +477,7 @@ function create_folder($curdirectory,$folder_name) {
 		}
 	}
 }
-// СЃРїРёСЃРѕРє РїРѕРґРєР°С‚Р°Р»РѕРіРѕРІ
+// список подкаталогов
 function listofdirectories($base) {
 	static $filelist = array();
 	static $dirlist = array();
@@ -483,13 +495,9 @@ function listofdirectories($base) {
 	return $dirlist;
 }
 
-// РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ РјРµРґРёР°-РјРµРЅРµРґР¶РµСЂР°
+// отображение медиа-менеджера
 function viewMediaManager($curdirectory = "",$mosmsg = "",$selectedfile = "") {
-	global $my,$subtask;
-
-	$mainframe = &mosMainFrame::getInstance();
-	$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/file_ico';
-
+	global $my,$mosConfig_absolute_path,$subtask;
 	$imgFiles = listofdirectories(JWMMXTD_STARTABSPATH);
 	$folders = array();
 	$folders[] = mosHTML::makeOption("","/");
@@ -500,124 +508,131 @@ function viewMediaManager($curdirectory = "",$mosmsg = "",$selectedfile = "") {
 	if(is_array($folders)) {
 		sort($folders);
 	}
-	$dirPath = mosHTML::selectList($folders,'curdirectory',"class=\"inputbox\" size=\"5\" style=\"width:95%;\" onchange=\"document.adminForm.task.value='';document.adminForm.submit( );\" ",'value','text',$curdirectory);
-	if($curdirectory == '') {
-		$upcategory = '';
-	}else {
-		$tmp = explode('/',$curdirectory);
+	$dirPath = mosHTML::selectList($folders,'curdirectory',"class=\"inputbox\" size=\"1\" onchange=\"document.adminForm.task.value='';document.adminForm.submit( );\" ",'value','text',$curdirectory);
+	if($curdirectory == "") $upcategory = "";
+	else {
+		$tmp = explode("/",$curdirectory);
 		end($tmp);
 		unset($tmp[key($tmp)]);
-		$upcategory = implode('/',$tmp);
+		$upcategory = implode("/",$tmp);
+		if($upcategory == "") $upcategory = "";
 	}
-	// СЃРѕРѕР±С‰РµРЅРёСЏ Рѕ РѕС€РёР±РєР°С…, СѓРІРµРґРѕРјР»РµРЅРёСЏ
+	// сообщения о ошибках, уведомления
 	if($mosmsg) {
 		echo '<div class="message">'.$mosmsg.'</div>';
 	}
-	?>
+?>
 <div id="jwmmxtd">
 	<form action="index2.php" name="adminForm" method="POST" enctype="multipart/form-data">
-		<table cellpadding="0" cellspacing="0" style="width:100%;" id="upper" class="adminheading">
+	<table cellpadding="0" cellspacing="0" style="width:100%;" id="upper" class="adminheading">
+		<tr>
+		<th class="media"><?php echo _JWMM_MEDIA_MANAGER?></th>
+		<td id="browse"><table cellpadding="0" cellspacing="4" align="right">
 			<tr>
-				<th class="media"><?php echo _MEDIA_MANAGER?></th>
-				<td id="browse"><table cellpadding="0" cellspacing="4" align="right">
-						<tr>
-							<td><?php echo _JWMM_CREATE_DIRECTORY?>:</td>
-							<td><input style="width:200px;" class="inputbox" type="text" name="createfolder" id="createfolder" /></td>
-							<td>
-								<input type="button" class="button" onclick="javascript:document.adminForm.task.value='createfolder';document.adminForm.submit( );" value="<?php echo _NEW?>" />
-							</td>
-						</tr>
-						<tr>
-							<td><?php echo _UPLOAD_FILE?>:</td>
-							<td><input type="file" class="inputbox multi" name="upimage[]" maxlength="8" /></td>
-							<td>
-								<input type="button" class="button" onclick="javascript:document.adminForm.task.value='uploadimages';document.adminForm.submit( );" value="<?php echo _TASK_UPLOAD?>" />
-							</td>
-						</tr>
-					</table></td>
+				<td><?php echo _JWMM_CREATE_DIRECTORY?></td>
+				<td style="width:220px;"><input class="inputbox" type="text" name="createfolder" id="createfolder" /></td>
+				<td>
+					<input type="button" class="button" onclick="javascript:document.adminForm.task.value='createfolder';document.adminForm.submit( );" value="<?php echo _CMN_NEW?>" />
+				</td>
 			</tr>
-		</table>
-		<table style="width:100%;" cellpadding="0" cellspacing="0">
 			<tr>
-				<td><?php echo _JWMM_IMAGE_LINK ?></td><td><input onfocus="this.select()" type="text" id="file_link" name="file_link" class="inputbox" size="100"/></td>
-				<td rowspan="3" width="50%"><?php echo _FILE_PATH?>:<a href="index2.php?option=com_jwmmxtd&amp;curdirectory=<?php echo $upcategory; ?>"><img src="<?php echo $cur_file_icons_path;?>/uparrow.png" alt="<?php echo _JWMM_UP_TO_DIRECTORY?>" /></a><br /><?php echo $dirPath; ?></td>
+				<td><?php echo _UPLOAD_FILE?>:<a id="toggle" name="toggle" href="#">(+)</a></td>
+				<td><input type="file" class="inputbox" name="upimage[]" />
+				<div class="wrap">
+				<div id="upload_more">
+					<input type="file" class="inputbox" name="upimage[]" /><br />
+					<input type="file" class="inputbox" name="upimage[]" /><br />
+					<input type="file" class="inputbox" name="upimage[]" /><br />
+					<input type="file" class="inputbox" name="upimage[]" /><br />
+					</div>
+				</div>
+				</td>
+				<td>
+					<input type="button" class="button" onclick="javascript:document.adminForm.task.value='uploadimages';document.adminForm.submit( );" value="<?php echo _TASK_UPLOAD?>" />
+				</td>
 			</tr>
-			<tr><td><?php echo _JWMM_IMAGE_HREF ?></td><td><input onfocus="this.select()" type="text" id="file_href" name="file_href" class="inputbox" size="100"/></td></tr>
-			<tr><td><?php echo _JWMM_IMAGE_TAG ?></td><td><input onfocus="this.select()" type="text" id="file_url" name="file_url" class="inputbox" size="100"/></td></tr>
-		</table>
-		<div id="actions">
-				<?php if($selectedfile != "" && $subtask == "renamefile") { ?>
-			<fieldset class="block">
-				<legend><?php echo _JWMM_RENAMING?>: <span><?php echo $selectedfile; ?></span></legend>
-				<input type="hidden" name="curfile" value="<?php echo $selectedfile; ?>"><?php echo _JWMM_NEW_NAME?>:
-				<input type="text" name="newfilename" id="newfilename">
-				<input type="button" onclick="javascript:document.adminForm.task.value='alterfilename';document.adminForm.submit( );" class="button" value="<?php echo _RENAME?>" />
-			</fieldset>
-					<?php } ?>
+			<tr>
+				<td><?php echo _JWMM_FILE_PATH?>:</td>
+				<td><?php echo $dirPath; ?></td>
+				<td>
+					<a href="index2.php?option=com_jwmmxtd&amp;curdirectory=<?php echo $upcategory; ?>"><img src="images/uparrow.png" alt="<?php echo _JWMM_UP_TO_DIRECTORY?>" /></a>
+				</td>
+			</tr>
+			</table></td>
+		</tr>
+	</table>
+	<div id="actions">
+<?php if($selectedfile != "" && $subtask == "renamefile") { ?>
+		<fieldset class="block">
+		<legend><?php echo _JWMM_RENAMING?>: <span><?php echo $selectedfile; ?></span></legend>
+		<input type="hidden" name="curfile" value="<?php echo $selectedfile; ?>"><?php echo _JWMM_NEW_NAME?>:
+		<input type="text" name="newfilename" id="newfilename">
+		<input type="button" onclick="javascript:document.adminForm.task.value='alterfilename';document.adminForm.submit( );" class="button" value="<?php echo _RENAME?>" />
+		</fieldset>
+<?php } ?>
 
-				<?php if($selectedfile != "" && $subtask == "copyfile") { ?>
-			<fieldset class="block">
-				<legend><?php echo _CHOOSE_DIR_TO_COPY?>:<span><?php $selectedfile; ?></span></legend>
-				<input type="hidden" name="curfile" value="<?php echo $selectedfile; ?>">
-						<?php echo _JWMM_COPY_TO?>: <?php echo mosHTML::selectList($folders,'dirtocopy',"class=\"inputbox\" size=\"1\" ",'value','text',$curdirectory); ?>
-				<input type="button" onclick="javascript:document.adminForm.task.value='copyfile';document.adminForm.submit( );" class="button" value="<?php echo _COPY?>" />
-			</fieldset>
-					<?php }if
-	($selectedfile != "" && $subtask == "movefile") { ?>
-			<fieldset class="block">
-				<legend><?php echo _CHOOSE_DIR_TO_MOVE?>:<span><?php echo $selectedfile; ?></span></legend>
-				<input type="hidden" name="curfile" value="<?php echo $selectedfile; ?>">
-		<?php echo _MOVE_TO?>: <?php echo mosHTML::selectList($folders,'dirtomove','class="inputbox" size="1" ','value','text',$curdirectory); ?>
-				<input type="button" onclick="javascript:document.adminForm.task.value='movefile';document.adminForm.submit( );" class="button" value="<?php echo _MOVE?>" />
-			</fieldset>
-		<?php }if
-	($selectedfile != "" && $subtask == "unzipfile") {?>
-			<fieldset class="block">
-				<legend><?php echo _CHOOSE_DIR_TO_UNPACK?>:<span><?php echo $selectedfile; ?></span></legend>
-				<input type="hidden" name="curfile" value="<?php echo $selectedfile; ?>" />
+<?php if($selectedfile != "" && $subtask == "copyfile") { ?>
+		<fieldset class="block">
+		<legend><?php echo _CHOOSE_DIR_TO_COPY?>:<span><?php $selectedfile; ?></span></legend>
+		<input type="hidden" name="curfile" value="<?php echo $selectedfile; ?>">
+			<?php echo _JWMM_COPY_TO?>: <?php echo mosHTML::selectList($folders,'dirtocopy',"class=\"inputbox\" size=\"1\" ",'value','text',$curdirectory); ?>
+		<input type="button" onclick="javascript:document.adminForm.task.value='copyfile';document.adminForm.submit( );" class="button" value="<?php echo _COPY?>" />
+		</fieldset>
+<?php }if($selectedfile != "" && $subtask == "movefile") { ?>
+		<fieldset class="block">
+		<legend><?php echo _CHOOSE_DIR_TO_MOVE?>:<span><?php echo $selectedfile; ?></span></legend>
+		<input type="hidden" name="curfile" value="<?php echo $selectedfile; ?>">
+		<?php echo _JWMM_MOVE_TO?>: <?php echo mosHTML::selectList($folders,'dirtomove','class="inputbox" size="1" ','value','text',$curdirectory); ?>
+		<input type="button" onclick="javascript:document.adminForm.task.value='movefile';document.adminForm.submit( );" class="button" value="<?php echo _JWMM_MOVE?>" />
+		</fieldset>
+<?php }if($selectedfile != "" && $subtask == "unzipfile") {?>
+	<fieldset class="block">
+	<legend><?php echo _CHOOSE_DIR_TO_UNPACK?>:<span><?php echo $selectedfile; ?></span></legend>
+		<input type="hidden" name="curfile" value="<?php echo $selectedfile; ?>" />
 		<?php echo _DERICTORY_TO_UNPACK?>:<?php echo mosHTML::selectList($folders,'dirtocopy',"class=\"inputbox\" size=\"1\" ",'value','text',$curdirectory); ?>
-				<input type="button" onclick="javascript:document.adminForm.task.value='unzipfile';document.adminForm.submit( );" class="button" value="<?php echo _UNPACK?>" />
-			</fieldset>
-		<?php } ?>
+		<input type="button" onclick="javascript:document.adminForm.task.value='unzipfile';document.adminForm.submit( );" class="button" value="<?php echo _UNPACK?>" />
+	</fieldset>
+<?php } ?>
 
-		</div>
-		<input type="hidden" name="selectedfile" value="">
-		<input type="hidden" name="subtask" value="">
-		<input type="hidden" name="task" value="">
-		<input type="hidden" name="option" value="com_jwmmxtd">
+	</div>
+	<input type="hidden" name="selectedfile" value="">
+	<input type="hidden" name="subtask" value="">
+	<input type="hidden" name="task" value="">
+	<input type="hidden" name="option" value="com_jwmmxtd">
 	</form>
 	<div class="jwmmxtd_clr"></div>
 	<?php echo listofImages($curdirectory); ?>
 	<div class="jwmmxtd_clr"></div>
 	<div id="jwmmxtd_tmp">
-			<?php if($my->gid == 25 || $my->gid == 24) {
-				echo _NUMBER_OF_IMAGES_IN_TMP_DIR.': ';
-				$dir = JPATH_BASE.'/media/';
-				$total_file = 0;
-				if(is_dir($dir)) {
-					$d = dir($dir);
-					while(false !== ($entry = $d->read())) {
-						if(substr($entry,-4) == ".jpg" || substr($entry,-4) == ".gif" || substr($entry,-4) == ".png") {
-							$total_file++;
-						}
-					}
-					$d->close();
+	<?php if($my->gid == 25 || $my->gid == 24) {
+		echo _NUMBER_OF_IMAGES_IN_TMP_DIR.': ';
+		$dir = $mosConfig_absolute_path.'/media/';
+		$total_file = 0;
+		if(is_dir($dir)) {
+			$d = dir($dir);
+			while(false !== ($entry = $d->read())) {
+				if(substr($entry,-4) == ".jpg" || substr($entry,-4) == ".gif" || substr($entry,-4) == ".png") {
+					$total_file++;
 				}
+			}
+			$d->close();
+		}
 		echo $total_file;
-				?>
-		<input type="button" class="button" onclick="javascript:document.adminForm.task.value='emptytmp';document.adminForm.submit( );" value="<?php echo _CLEAR_DIRECTORY?>" />
-		<?php } ?>
+?>
+	<input type="button" class="button" onclick="javascript:document.adminForm.task.value='emptytmp';document.adminForm.submit( );" value="<?php echo _CLEAR_DIRECTORY?>" />
+	<?php } ?>
 	</div>
 </div>
-	<?php
+<?php
 }
-// РѕС‚РјРµРЅР° РІСЃРµС… РґРµР№СЃС‚РІРёР№ РїРѕ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЋ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ
+// отмена всех действий по редактированию изображения
 function OriginalImage($aFormValues) {
 	require_once ('class.upload.php');
+	global $mosConfig_absolute_path;
 	$primage		= $aFormValues['primage'];
 	$orimage		= $aFormValues['originalimage'];
 	$curdirectory	= $aFormValues['curdirectory'];
-	@unlink(JPATH_BASE.DS.'media'.DS.$primage);
+	@unlink($mosConfig_absolute_path.DIRECTORY_SEPARATOR.'media'.DIRECTORY_SEPARATOR.$primage);
 	$objResponse	= new xajaxResponse();
 	$objResponse->addAssign("mmxtd","innerHTML","<img name=\"mainimage\" id=\"mainimage\" src='".JWMMXTD_STARTURLPATH.$curdirectory."/".$orimage."'>");
 	$objResponse->addAssign("imagepath","value",JWMMXTD_STARTURLPATH.$curdirectory."/".$orimage);
@@ -626,6 +641,7 @@ function OriginalImage($aFormValues) {
 
 function UpdateImage($aFormValues) {
 	require_once ('class.upload.php');
+	global $mosConfig_absolute_path,$mosConfig_live_site;
 
 	$imagepath	= $aFormValues['imagepath'];
 	$imagepath	= str_replace(JWMMXTD_STARTURLPATH,JWMMXTD_STARTABSPATH,$imagepath);
@@ -728,7 +744,7 @@ function UpdateImage($aFormValues) {
 			$pic->image_border = $borderw;
 			$pic->image_border_color = $borderc;
 		} elseif($bordert != "" && $borderr != "" && $borderb != "" && $borderl != "" &&
-				$borderc2 != "") {
+		$borderc2 != "") {
 			$pic->image_border = $bordert." ".$borderr." ".$borderb." ".$borderl;
 			$pic->image_border_color = $borderc2;
 		}
@@ -790,22 +806,22 @@ function UpdateImage($aFormValues) {
 				$pic->image_text_y = $textabsolutey;
 			}
 		}
-		$pic->Process(JPATH_BASE.'/media/');
+		$pic->Process($mosConfig_absolute_path.'/media/');
 		if($pic->processed) {
-			$img2out = '<img name="mainimage" id="mainimage" src="'.JPATH_SITE.'/media/'.$pic->file_dst_name.'" />';
-			@unlink(JPATH_BASE.'/media/'.$primage);
+			$img2out = '<img name="mainimage" id="mainimage" src="'.$mosConfig_live_site.'/media/'.$pic->file_dst_name.'" />';
+			@unlink($mosConfig_absolute_path.'/media/'.$primage);
 			$primage = $pic->file_dst_name;
 		}
 	} else $img2out = _JWMM_ERROR_EDIT_FILE." ".$imagepath;
 
 	$objResponse = new xajaxResponse();
 	//$objResponse->addAssign("mymsg","innerHTML",$imagepath."--".$primage);
-	$objResponse->addAssign("tb-apply","className",'tb-apply'); // СЃРєСЂС‹РІР°РµРј СЃР»РѕР№ СЃ РёРЅРґРёРєР°С‚РѕСЂРѕРј РІС‹РїРѕР»РЅРµРЅРёСЏ РїСЂРѕС†РµСЃСЃР°
+	$objResponse->addAssign("tb-apply","className",'tb-apply'); // скрываем слой с индикатором выполнения процесса
 	$objResponse->addClear("mainimage","src");
 	$objResponse->addAssign("loading_placeholder","innerHTML",'');
 	$objResponse->addAssign("mmxtd","innerHTML",$img2out);
 	$objResponse->addAssign("primage","innerHTML","<input type=\"hidden\" name=\"primage\" id=\"primage\" value=\"".$primage."\">");
-	$objResponse->addAssign("imagepath","value",JPATH_BASE.'/media/'.$primage);
+	$objResponse->addAssign("imagepath","value",$mosConfig_absolute_path.'/media/'.$primage);
 	$objResponse->addAssign("width","value","");
 	$objResponse->addAssign("height","value","");
 	$objResponse->addAssign("rotation","value","0");
@@ -845,17 +861,17 @@ function UpdateImage($aFormValues) {
 }
 
 function editImage($img,$cur) {
-	global $option;
-	require_once (JPATH_BASE.'/includes/libraries/xajax/xajax.inc.php');
+	global $mosConfig_live_site,$option,$mosConfig_absolute_path;
+	require_once ($mosConfig_absolute_path.'/includes/xajax/xajax.inc.php');
 	$path = JWMMXTD_STARTURLPATH.$cur.'/'.$img;
 	$xajax = new xajax();
 	//$xajax->debugOn();
-	$xajax->registerFunction('UpdateImage');
-	$xajax->registerFunction('OriginalImage');
-	$xajax->registerFunction('MoveImage');
+	$xajax->registerFunction("UpdateImage");
+	$xajax->registerFunction("OriginalImage");
+	$xajax->registerFunction("MoveImage");
 	$xajax->processRequests();
-	$xajax->printJavascript(JPATH_SITE.'/includes/libraries/xajax');
-	?>
+	$xajax->printJavascript($mosConfig_live_site.'/includes/xajax');
+?>
 <script type="text/javascript">
 	function UpdateImg(value){
 		SRAX.get('tb-apply').className='tb-load';
@@ -870,263 +886,263 @@ function editImage($img,$cur) {
 	<div id="mymsg"></div>
 	<div id="show_image_path"><?php echo _FILE?>:<b><?php echo $path; ?></b></div>
 	<div id="jwmmxtd_editpage">
-		<div id="jwmmxtd_image">
-			<div id="mmxtd"><img name="mainimage" id="mainimage" src="<?php echo $path; ?>" /></div>
-		</div>
-		<div id="jwmmxtd_panel">
-			<form method="POST" id="adminForm" name="adminForm" enctype="multipart/form-data" onSubmit="return false;">
-				<fieldset><legend><?php echo _HEIGHT?> x <?php echo _WIDTH?></legend>
-						<?php echo _WIDTH?><input id="width" name="width" type="text" size="4" />
+	<div id="jwmmxtd_image">
+		<div id="mmxtd"><img name="mainimage" id="mainimage" src="<?php echo $path; ?>" /></div>
+	</div>
+	<div id="jwmmxtd_panel">
+		<form method="POST" id="adminForm" name="adminForm" enctype="multipart/form-data" onSubmit="return false;">
+		<fieldset><legend><?php echo _HEIGHT?> x <?php echo _WIDTH?></legend>
+			<?php echo _WIDTH?><input id="width" name="width" type="text" size="4" />
 			x<input id="height" name="height" type="text" size="4" />
-	<?php echo _HEIGHT?>
-				</fieldset>
-				<fieldset>
-					<legend><?php echo _JWMM_IMAGE_RESIZE?></legend>
-	<?php echo _JWMM_IMAGE_RESIZE?>
-					<select id="convert" name="convert">
-						<option value="none"><?php echo _SEL_TYPE?></option>
-						<option value="jpg">jpg</option>
-						<option value="gif">gif</option>
-						<option value="png">png</option>
-					</select>
-				</fieldset>
-				<fieldset>
-					<legend><?php echo _JWMM_IMAGE_CROP?></legend>
-					<fieldset>
-						<legend><?php echo _JWMM_IMAGE_SIZE?></legend>
-	<?php echo _JWMM_IMAGE_SIZE?>
-						<input id="crop" name="crop" type="text" size="4" />
-					</fieldset>
-					<fieldset>
-						<legend><?php echo _JWMM_X_Y_POSITION?></legend>
-	<?php echo _VERICAL?>:<input id="cropv" name="cropv" type="text" size="4" />
-	<?php echo _HORIZONTAL?>:<input id="cropo" name="cropo" type="text" size="4" />
-					</fieldset>
-					<fieldset>
-						<legend><?php echo _JWMM_IMAGE_CROP?></legend>
-						<table cellpadding="0" cellspacing="0" style="text-align:center;">
-							<tr>
-								<td><?php echo _JWMM_CROP_TOP?><br />
-									<input id="cropt" name="cropt" type="text" size="4" />
-								</td>
-							</tr>
-							<tr>
-								<td>
-	<?php echo _LEFT?><input id="cropl" name="cropl" type="text" size="4" />
-									&nbsp;
-									<input id="cropr" name="cropr" type="text" size="4" />
-	<?php echo _RIGHT?>
-								</td>
-							</tr>
-							<tr>
-								<td><input id="cropb" name="cropb" type="text" size="4" />
-									<br /><?php echo _JWMM_BOTTOM?>
-								</td>
-							</tr>
-						</table>
-					</fieldset>
-				</fieldset>
-				<fieldset>
-					<legend><?php echo _JWMM_ROTATION?></legend>
-	<?php echo _JWMM_ROTATION?>
-					<select id="rotation" name="rotation">
-						<option value="0"><?php echo _JWMM_CHOOSE?></option>
-						<option value="90">90</option>
-						<option value="180">180</option>
-						<option value="270">270</option>
-					</select>
-				</fieldset>
-				<fieldset>
-					<legend><?php echo _JWMM_MIRROR?></legend>
-	<?php echo _JWMM_MIRROR?>
-					<select id="flip" name="flip">
-						<option value="none"><?php echo _JWMM_CHOOSE?></option>
-						<option value="H"><?php echo _VERICAL?></option>
-						<option value="V"><?php echo _HORIZONTAL?></option>
-					</select>
-				</fieldset>
-				<fieldset>
-					<legend><?php echo _JWMM_GRADIENT_BORDER?></legend>
-					<table cellpadding="0" cellspacing="0">
-						<tr>
-							<td><?php echo _JWMM_SIZE_PX?></td>
-							<td><input id="bevelpx" name="bevelpx" type="text" /></td>
-						</tr>
-						<tr>
-							<td><?php echo _JWMM_TOP_LEFT?></td>
-							<td><input id="beveltl" name="beveltl" type="text" />
-								<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.beveltl)">
-									<img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo JPATH_SITE.'/'.JADMIN_BASE.'/components/com_jwmmxtd/images/color_wheel.png'; ?>">
-								</a>
-							</td>
-						</tr>
-						<tr>
-							<td><?php echo _JWMM_BOTTOM_RIGHT?></td>
-							<td><input id="bevelrb" name="bevelrb" type="text" />
-								<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.bevelrb)"><img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo JPATH_SITE.'/'.JADMIN_BASE.'/components/com_jwmmxtd/images/color_wheel.png'; ?>"></a></td>
-						</tr>
-					</table>
-				</fieldset>
-				<fieldset>
-					<legend><?php echo _JWMM_BORDER?></legend>
-					<fieldset>
-						<legend><?php echo _JWMM_BORDER?></legend>
-						<table cellpadding="0" cellspacing="0">
-							<tr>
-								<td><php echo _WIDTH></td>
-								<td><input id="borderw" name="borderw" type="text" /></td>
-								</tr>
-								<tr>
-									<td><?php echo _COLOR?></td>
-									<td><input id="borderc" name="borderc" type="text" />
-										<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.borderc)"><img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo JPATH_SITE.'/'.JADMIN_BASE.'/components/com_jwmmxtd/images/color_wheel.png'; ?>"> </a></td>
-								</tr>
-						</table>
-					</fieldset>
-					<fieldset>
-						<legend><?php echo _JWMM_ALL_BORDERS?></legend>
-						<table cellpadding="0" cellspacing="0" style="text-align:center;">
-							<tr>
-								<td><?php echo _JWMM_TOP?><br /><input id="bordert" name="bordert" type="text" size="4" /></td>
-							</tr>
-							<tr>
-								<td><?php echo _JWMM_LEFT?><input id="borderl" name="borderl" type="text" size="4" />&nbsp;
-									<input id="borderr" name="borderr" type="text" size="4" />
-	<?php echo _RIGHT?></td>
-							</tr>
-							<tr>
-								<td><input id="borderb" name="borderb" type="text" size="4" />
-									<br />
-	<?php echo _JWMM_BOTTOM?><br />
-	<?php echo _COLOR?>
-									<input id="borderc2" name="borderc2" type="text" />
-									<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.borderc2)"><img width="16" height="16" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo JPATH_SITE.'/'.JADMIN_BASE.'/components/com_jwmmxtd/images/color_wheel.png'; ?>"></a> </td>
-							</tr>
-						</table>
-					</fieldset>
-				</fieldset>
-				<fieldset>
-					<legend>Tint Color</legend>
-	<?php echo _COLOR?>
-					<input id="tint" name="tint" type="text" />
-					<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.tint)"> <img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo JPATH_SITE.'/'.JADMIN_BASE.'/components/com_jwmmxtd/images/color_wheel.png'; ?>"> </a>
-				</fieldset>
-				<fieldset>
-					<legend>Overlay</legend>
-					<table cellpadding="0" cellspacing="0">
-						<tr>
-							<td>Percent</td>
-							<td><input id="overlayp" name="overlayp" type="text" size="4" /></td>
-						</tr>
-						<tr>
-							<td><?php echo _COLOR?></td>
-							<td><input id="overlayc" name="overlayc" type="text" />
-								<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.overlayc)"> <img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo JPATH_SITE.'/'.JADMIN_BASE.'/components/com_jwmmxtd/images/color_wheel.png'; ?>"> </a></td>
-						</tr>
-					</table>
-				</fieldset>
-				<fieldset>
-					<legend><?php echo _JWMM_BRIGHTNESS?></legend>
-					<input id="brightness" name="brightness" type="text" />
-				</fieldset>
-				<fieldset>
-					<legend><?php echo _JWMM_CONTRAST?></legend>
-					<input id="contrast" name="contrast" type="text" />
-				</fieldset>
-				<fieldset>
-					<legend>Threshold filter</legend>
-					<input id="threshold" name="threshold" type="text" />
-				</fieldset>
-				<fieldset>
-					<legend><?php echo _JWMM_ADDITIONAL_ACTIONS?></legend>
-	<?php echo _JWMM_GRAY_SCALE?><input type="checkbox" name="greyscale" id="greyscale">
-	<?php echo _JWMM_NEGATIVE?><input type="checkbox" name="negative" id="negative">
-				</fieldset>
-				<fieldset>
-					<legend><?php echo _JWMM_ADD_TEXT?></legend>
-					<table cellpadding="0" cellspacing="2">
-						<tr>
-							<td><?php echo _JWMM_TEXT?></td>
-							<td><input type="text" name="text" id="text">
-							</td>
-						</tr>
-						<tr>
-							<td><?php echo _JWMM_TEXT_COLOR?></td>
-							<td><input type="text" name="textcolor" id="textcolor">
-								<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.textcolor)"> <img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo JPATH_SITE.'/'.JADMIN_BASE.'/components/com_jwmmxtd/images/color_wheel.png'; ?>"> </a> </td>
-						</tr>
-						<tr>
-							<td><?php echo _JWMM_TEXT_FONT?></td>
-							<td><input type="text" name="textfont" id="textfont">
-							</td>
-						</tr>
-						<tr>
-							<td><?php echo _JWMM_TEXT_SIZE?></td>
-							<td><input type="text" name="textpercent" id="textpercent"></td>
-						</tr>
-						<tr>
-							<td><?php echo _JWMM_ORIENTATION?></td>
-							<td><select name="textdirection" id="textdirection">
-									<option value="none"><?php echo _JWMM_CHOOSE?></option>
-									<option value="h"><?php echo _HORIZONTAL?></option>
-									<option value="v"><?php echo _VERICAL?></option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td><?php echo _POSITION?></td>
-							<td><select name="textposition" id="textposition">
-									<option value="none"><?php echo _JWMM_CHOOSE?></option>
-									<option value="TL">Top - Left</option>
-									<option value="T">Top</option>
-									<option value="TR">Top - Right</option>
-									<option value="L">Left</option>
-									<option value="R">Right</option>
-									<option value="BL">Bottom - Left</option>
-									<option value="B">Bottom</option>
-									<option value="BR">Bottom - Right</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td>Bg Percent</td>
-							<td><input type="text" name="bgpercent" id="bgpercent">
-							</td>
-						</tr>
-						<tr>
-							<td><?php echo _JWMM_BG_COLOR?></td>
-							<td><input type="text" name="bgcolor" id="bgcolor">
-								<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.bgcolor)">
-									<img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo JPATH_SITE.'/'.JADMIN_BASE.'/components/com_jwmmxtd/images/color_wheel.png'; ?>"> </a> </td>
-						</tr>
-						<tr>
-							<td><?php echo _JWMM_XY_POSITION?></td>
-							<td>
+			<?php echo _HEIGHT?>
+		</fieldset>
+		<fieldset>
+			<legend><?php echo _JWMM_IMAGE_RESIZE?></legend>
+			<?php echo _JWMM_IMAGE_RESIZE?>
+			<select id="convert" name="convert">
+				<option value="none"><?php echo _SEL_TYPE?></option>
+				<option value="jpg">jpg</option>
+				<option value="gif">gif</option>
+				<option value="png">png</option>
+			</select>
+		</fieldset>
+		<fieldset>
+		<legend><?php echo _JWMM_IMAGE_CROP?></legend>
+		<fieldset>
+		<legend><?php echo _JWMM_IMAGE_SIZE?></legend>
+		<?php echo _JWMM_IMAGE_SIZE?>
+		<input id="crop" name="crop" type="text" size="4" />
+		</fieldset>
+		<fieldset>
+		<legend><?php echo _JWMM_X_Y_POSITION?></legend>
+			<?php echo _JWMM_BY_HEIGHT?>:<input id="cropv" name="cropv" type="text" size="4" />
+			<?php echo _JWMM_BY_WIDTH?>:<input id="cropo" name="cropo" type="text" size="4" />
+		</fieldset>
+		<fieldset>
+		<legend><?php echo _JWMM_IMAGE_CROP?></legend>
+		<table cellpadding="0" cellspacing="0" style="text-align:center;">
+			<tr>
+				<td><?php echo _JWMM_CROP_TOP?><br />
+					<input id="cropt" name="cropt" type="text" size="4" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<?php echo _JWMM_CROP_LEFT?><input id="cropl" name="cropl" type="text" size="4" />
+					&nbsp;
+					<input id="cropr" name="cropr" type="text" size="4" />
+					<?php echo _JWMM_CROP_RIGHT?>
+				</td>
+			</tr>
+			<tr>
+				<td><input id="cropb" name="cropb" type="text" size="4" />
+					<br /><?php echo _JWMM_CROP_BOTTOM?>
+				</td>
+			</tr>
+		</table>
+		</fieldset>
+		</fieldset>
+		<fieldset>
+		<legend><?php echo _JWMM_ROTATION?></legend>
+		<?php echo _JWMM_ROTATION?>
+		<select id="rotation" name="rotation">
+			<option value="0"><?php echo _JWMM_CHOOSE?></option>
+			<option value="90">90</option>
+			<option value="180">180</option>
+			<option value="270">270</option>
+		</select>
+		</fieldset>
+		<fieldset>
+		<legend><?php echo _JWMM_MIRROR?></legend>
+		<?php echo _JWMM_MIRROR?>
+		<select id="flip" name="flip">
+			<option value="none"><?php echo _JWMM_CHOOSE?></option>
+			<option value="H"><?php echo _JWMM_VERICAL?></option>
+			<option value="V"><?php echo _JWMM_HORIZONTAL?></option>
+		</select>
+		</fieldset>
+		<fieldset>
+		<legend><?php echo _JWMM_GRADIENT_BORDER?></legend>
+		<table cellpadding="0" cellspacing="0">
+			<tr>
+				<td><?php echo _JWMM_SIZE_PX?></td>
+				<td><input id="bevelpx" name="bevelpx" type="text" /></td>
+			</tr>
+			<tr>
+				<td><?php echo _JWMM_TOP_LEFT?></td>
+				<td><input id="beveltl" name="beveltl" type="text" />
+				<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.beveltl)">
+					<img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo $mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jwmmxtd/images/color_wheel.png'; ?>">
+				</a>
+				</td>
+			</tr>
+			<tr>
+				<td><?php echo _JWMM_BOTTOM_RIGHT?></td>
+				<td><input id="bevelrb" name="bevelrb" type="text" />
+				<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.bevelrb)"><img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo $mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jwmmxtd/images/color_wheel.png'; ?>"></a></td>
+			</tr>
+		</table>
+		</fieldset>
+		<fieldset>
+		<legend><?php echo _JWMM_BORDER?></legend>
+		<fieldset>
+		<legend><?php echo _JWMM_BORDER?></legend>
+		<table cellpadding="0" cellspacing="0">
+			<tr>
+				<td><php echo _WIDTH></td>
+				<td><input id="borderw" name="borderw" type="text" /></td>
+			</tr>
+			<tr>
+				<td><?php echo _COLOR?></td>
+				<td><input id="borderc" name="borderc" type="text" />
+				<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.borderc)"><img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo $mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jwmmxtd/images/color_wheel.png'; ?>"> </a></td>
+			</tr>
+		</table>
+		</fieldset>
+		<fieldset>
+		<legend><?php echo _JWMM_ALL_BORDERS?></legend>
+		<table cellpadding="0" cellspacing="0" style="text-align:center;">
+			<tr>
+				<td><?php echo _JWMM_TOP?><br /><input id="bordert" name="bordert" type="text" size="4" /></td>
+			</tr>
+			<tr>
+			<td><?php echo _JWMM_LEFT?><input id="borderl" name="borderl" type="text" size="4" />&nbsp;
+				<input id="borderr" name="borderr" type="text" size="4" />
+				<?php echo _JWMM_RIGHT?></td>
+			</tr>
+			<tr>
+			<td><input id="borderb" name="borderb" type="text" size="4" />
+				<br />
+				<?php echo _JWMM_BOTTOM?><br />
+				<?php echo _COLOR?>
+				<input id="borderc2" name="borderc2" type="text" />
+				<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.borderc2)"><img width="16" height="16" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo $mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jwmmxtd/images/color_wheel.png'; ?>"></a> </td>
+			</tr>
+		</table>
+		</fieldset>
+		</fieldset>
+		<fieldset>
+		<legend>Tint Color</legend>
+		<?php echo _COLOR?>
+		<input id="tint" name="tint" type="text" />
+		<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.tint)"> <img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo $mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jwmmxtd/images/color_wheel.png'; ?>"> </a>
+		</fieldset>
+		<fieldset>
+		<legend>Overlay</legend>
+		<table cellpadding="0" cellspacing="0">
+			<tr>
+				<td>Percent</td>
+				<td><input id="overlayp" name="overlayp" type="text" size="4" /></td>
+			</tr>
+			<tr>
+			<td><?php echo _COLOR?></td>
+			<td><input id="overlayc" name="overlayc" type="text" />
+				<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.overlayc)"> <img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo $mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jwmmxtd/images/color_wheel.png'; ?>"> </a></td>
+			</tr>
+		</table>
+		</fieldset>
+		<fieldset>
+		<legend><?php echo _JWMM_BRIGHTNESS?></legend>
+			<input id="brightness" name="brightness" type="text" />
+		</fieldset>
+		<fieldset>
+		<legend><?php echo _JWMM_CONTRAST?></legend>
+			<input id="contrast" name="contrast" type="text" />
+		</fieldset>
+		<fieldset>
+		<legend>Threshold filter</legend>
+			<input id="threshold" name="threshold" type="text" />
+		</fieldset>
+		<fieldset>
+		<legend><?php echo _JWMM_ADDITIONAL_ACTIONS?></legend>
+			<?php echo _JWMM_GRAY_SCALE?><input type="checkbox" name="greyscale" id="greyscale">
+			<?php echo _JWMM_NEGATIVE?><input type="checkbox" name="negative" id="negative">
+		</fieldset>
+		<fieldset>
+		<legend><?php echo _JWMM_ADD_TEXT?></legend>
+		<table cellpadding="0" cellspacing="2">
+			<tr>
+			<td><?php echo _JWMM_TEXT?></td>
+			<td><input type="text" name="text" id="text">
+			</td>
+			</tr>
+			<tr>
+			<td><?php echo _JWMM_TEXT_COLOR?></td>
+			<td><input type="text" name="textcolor" id="textcolor">
+				<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.textcolor)"> <img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo $mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jwmmxtd/images/color_wheel.png'; ?>"> </a> </td>
+			</tr>
+			<tr>
+			<td><?php echo _JWMM_TEXT_FONT?></td>
+			<td><input type="text" name="textfont" id="textfont">
+			</td>
+			</tr>
+			<tr>
+			<td><?php echo _JWMM_TEXT_SIZE?></td>
+			<td><input type="text" name="textpercent" id="textpercent"></td>
+			</tr>
+			<tr>
+			<td><?php echo _JWMM_ORIENTATION?></td>
+			<td><select name="textdirection" id="textdirection">
+				<option value="none"><?php echo _JWMM_CHOOSE?></option>
+				<option value="h"><?php echo _JWMM_BY_WIDTH?></option>
+				<option value="v"><?php echo _JWMM_BY_HEIGHT?></option>
+				</select>
+			</td>
+			</tr>
+			<tr>
+			<td><?php echo _MODULE_POSITION?></td>
+			<td><select name="textposition" id="textposition">
+				<option value="none"><?php echo _JWMM_CHOOSE?></option>
+				<option value="TL">Top - Left</option>
+				<option value="T">Top</option>
+				<option value="TR">Top - Right</option>
+				<option value="L">Left</option>
+				<option value="R">Right</option>
+				<option value="BL">Bottom - Left</option>
+				<option value="B">Bottom</option>
+				<option value="BR">Bottom - Right</option>
+				</select>
+			</td>
+			</tr>
+			<tr>
+			<td>Bg Percent</td>
+			<td><input type="text" name="bgpercent" id="bgpercent">
+			</td>
+			</tr>
+			<tr>
+			<td><?php echo _JWMM_BG_COLOR?></td>
+			<td><input type="text" name="bgcolor" id="bgcolor">
+				<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.bgcolor)">
+			<img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo $mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jwmmxtd/images/color_wheel.png'; ?>"> </a> </td>
+			</tr>
+			<tr>
+				<td><?php echo _JWMM_XY_POSITION?></td>
+				<td>
 					X:<input type="text" name="textpaddingx" id="textpaddingx" size="4">
 					Y:<input type="text" name="textpaddingy" id="textpaddingy" size="4">
-							</td>
-						</tr>
-						<tr>
-							<td><?php echo _JWMM_XY_PADDING?></td>
-							<td>
+				</td>
+			</tr>
+			<tr>
+				<td><?php echo _JWMM_XY_PADDING?></td>
+				<td>
 					X:<input type="text" name="textabsolutex" id="textabsolutex" size="4">
 					Y:<input type="text" name="textabsolutey" id="textabsolutey" size="4">
-							</td>
-						</tr>
-					</table>
-				</fieldset>
-				<input type="hidden" name="imagepath" id="imagepath" value="<?php echo $path; ?>">
-				<input type="hidden" name="originalimage" id="originalimage" value="<?php echo $img; ?>">
-				<input type="hidden" name="curdirectory" id="curdirectory" value="<?php echo $cur; ?>">
-				<input type="hidden" name="option" id="option" value="<?php echo $option; ?>">
-				<input type="hidden" name="task" id="task" value="">
-				<div id="primage"></div>
-			</form>
-		</div>
-		<div class="jwmmxtd_clr"></div>
-		<script type="text/javascript">
-			initFloatingWindowWithTabs('editor_panel',Array(_PN_START,_JWMM_SECOND,_JWMM_THIRDTH),100,450,80,60,true,false,false,true);
-		</script>
+				</td>
+			</tr>
+		</table>
+		</fieldset>
+		<input type="hidden" name="imagepath" id="imagepath" value="<?php echo $path; ?>">
+		<input type="hidden" name="originalimage" id="originalimage" value="<?php echo $img; ?>">
+		<input type="hidden" name="curdirectory" id="curdirectory" value="<?php echo $cur; ?>">
+		<input type="hidden" name="option" id="option" value="<?php echo $option; ?>">
+		<input type="hidden" name="task" id="task" value="">
+		<div id="primage"></div>
+	</form>
+	</div>
+	<div class="jwmmxtd_clr"></div>
+<script type="text/javascript">
+	initFloatingWindowWithTabs('editor_panel',Array(_JWMM_FIRST,_JWMM_SECOND,_JWMM_THIRDTH),100,450,80,60,true,false,false,true);
+</script>
 	</div>
 </div>
-	<?php } ?>
+<?php } ?>

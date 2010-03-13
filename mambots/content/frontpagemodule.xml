@@ -1,20 +1,21 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <mosinstall version="1.0.0" type="mambot" group="content">
 	<name>FrontpageBanner</name>
 	<author>Joostina! Project</author>
 	<creationDate>31:07:2008</creationDate>
-	<copyright>(C) 2008-2010 Joostina team.</copyright>
+	<copyright>(C) 2008 Joostina team.</copyright>
 	<license>http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL</license>
 	<authorEmail>joostinacms@gmail.com</authorEmail>
 	<authorUrl>www.joostina.ru</authorUrl>
 	<version>1.1 JE</version>
-	<description>Р”РѕР±Р°РІР»СЏРµС‚ РІС‹РІРѕРґ РїРѕР·РёС†РёРё РјРѕРґСѓР»СЏ РїРѕСЃР»Рµ РЅРѕРІРѕСЃС‚РµР№ РіР»Р°РІРЅРѕР№ СЃС‚СЂР°РЅРёС†С‹.</description>
+	<description>Добавляет вывод позиции модуля после новостей главной страницы.</description>
 	<files>
 		<filename mambot="frontpagemodule">frontpagemodule.php</filename>
 	</files>
 	<params>
-		<param name="mod_position" type="text" default="banner" label="РџРѕР·РёС†РёСЏ РјРѕРґСѓР»СЏ" description="РќР°Р·РІР°РЅРёРµ РїРѕР·РёС†РёРё РґР»СЏ РІС‹РІРѕРґР° РјРѕРґСѓР»РµР№, РЅР°РїСЂРёРјРµСЂ banner РёР»Рё left" />
-		<param name="mod_type" type="text" default="-2" label="РџР°СЂР°РјРµС‚СЂ Р·Р°РіСЂСѓР·РєРё РјРѕРґСѓР»СЏ" description="РџР°СЂР°РјРµС‚СЂ Р·Р°РіСЂСѓР·РєРё РјРѕРґСѓР»СЏ, mosLoadModules('РїРѕР·РёС†РёСЏ','РїР°СЂР°РјРµС‚СЂ')" />
-		<param name="mod_after" type="text" default="1" label="РџРѕСЃР»Рµ РЅРѕРІРѕСЃС‚Рё в„–" description="Р’С‹ РІРѕРґРёС‚СЊ РїРѕР·РёС†РёСЋ РјРѕРґСѓР»СЏ РїРѕСЃР»Рµ РЅРѕРІРѕСЃС‚Рё СЃ СѓРєР°Р·Р°РЅРЅС‹Рј Р·РґРµСЃСЊ РЅРѕРјРµСЂРѕРј" />
+		<param name="mod_position" type="text" default="banner" label="Позиция модуля" description="Название позиции для вывода модулей, например banner или left" />
+		<param name="mod_type" type="text" default="-2" label="Параметр загрузки модуля" description="Параметр загрузки модуля, mosLoadModules('позиция','параметр')" />
+		<param name="mod_after" type="text" default="1" label="После новости №" description="Вы водить позицию модуля после новости с указанным здесь номером" />
+
 	</params>
 </mosinstall>

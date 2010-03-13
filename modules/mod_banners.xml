@@ -1,34 +1,29 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <mosinstall type="module" version="1.0.0">
-	<name>Р‘Р°РЅРЅРµСЂС‹</name>
+	<name>Баннеры</name>
 	<author>Joostina! Project</author>
 	<creationDate>30:07:2008</creationDate>
-	<copyright>(C) 2008-2010 Joostina team.</copyright>
+	<copyright>(C) 2008 Joostina team.</copyright>
 	<license>http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL</license>
 	<authorEmail>joostinacms@gmail.com</authorEmail>
 	<authorUrl>www.joostina.ru</authorUrl>
 	<version>1.0.0</version>
-	<description>РњРѕРґСѓР»СЊ Р±Р°РЅРЅРµСЂР° РїРѕР·РІРѕР»СЏРµС‚ РїРѕРєР°Р·С‹РІР°С‚СЊ Р°РєС‚РёРІРЅС‹Рµ Р±Р°РЅРЅРµСЂС‹ РёР· РєРѕРјРїРѕРЅРµРЅС‚Р° РІРЅСѓС‚СЂРё Р’Р°С€РµРіРѕ СЃР°Р№С‚Р°.</description>
+	<description>Модуль баннера позволяет показывать активные баннеры из компонента внутри Вашего сайта.</description>
 	<files>
 		<filename module="mod_banners">mod_banners.php</filename>
 	</files>
 	<params>
-		<param name="moduleclass_sfx" type="text" default="" label="РЎСѓС„С„РёРєСЃ РєР»Р°СЃСЃР° РјРѕРґСѓР»СЏ" description="РЎСѓС„С„РёРєСЃ, РєРѕС‚РѕСЂС‹Р№ Р±СѓРґРµС‚ РёСЃРїРѕР»СЊР·РѕРІР°РЅ РІ РѕРїРёСЃР°РЅРёРё РєР»Р°СЃСЃР° (table.moduletable) С‚Р°Р±Р»РёС†С‹ СЃС‚РёР»РµР№ (CSS) РјРѕРґСѓР»СЏ. Р­С‚Рѕ РїРѕР·РІРѕР»СЏРµС‚ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РёРЅРґРёРІРёРґСѓР°Р»СЊРЅС‹Р№ СЃС‚РёР»СЊ РјРѕРґСѓР»СЏ." />
-		<param name="categories" type="text" default="" label="РљР°С‚РµРіРѕСЂРёРё" description="РљР°РєРёРµ РєР°С‚РµРіРѕСЂРёРё РѕС‚РѕР±СЂР°Р¶Р°С‚СЊ? (РЅР°РїСЂ. 1,2,7 - РѕС‚РѕР±СЂР°Р¶Р°СЋС‚ РїРµСЂРІСѓСЋ, РІС‚РѕСЂСѓСЋ Рё СЃРµРґСЊРјСѓСЋ)" />
-		<param name="banners" type="text" default="" label="Р‘Р°РЅРЅРµСЂС‹" description="РљР°РєРёРµ Р±Р°РЅРЅРµСЂС‹ Р±СѓРґСѓС‚ РѕС‚РѕР±СЂР°Р¶РµРЅС‹? (РЅР°РїСЂ. 1,5 - РѕС‚РѕР±СЂР°Р¶Р°СЋС‚ РїРµСЂРІС‹Рµ Рё РїСЏС‚С‹Рµ)" />
-		<param name="clients" type="text" default="" label="РљР»РёРµРЅС‚С‹" description="РљР°РєРёРµ РєР»РёРµРЅС‚С‹ Р±СѓРґСѓС‚ РѕС‚РѕР±СЂР°Р¶РµРЅС‹? (РЅР°РїСЂ. 1,5 - РѕС‚РѕР±СЂР°Р¶Р°СЋС‚ РїРµСЂРІС‹Рµ Рё РїСЏС‚С‹Рµ)" />
-		<param name="count" type="text" default="1" label="РЎС‡РµС‚С‡РёРє" description="РЎС‡РµС‚С‡РёРє Р±Р°РЅРЅРµСЂРѕРІ, РєРѕС‚РѕСЂС‹Рµ Р±СѓРґСѓС‚ РѕС‚РѕР±СЂР°Р¶РµРЅС‹? (РЅР°РїСЂ. 5 - РѕС‚РѕР±СЂР°Р¶Р°СЋС‚ РїСЏС‚СЊ Р±Р°РЅРЅРµСЂРѕРІ РёР· РІС‹Р±СЂР°РЅРЅС‹С… РєР°С‚РµРіРѕСЂРёР№)" />
-		<param name="random" type="list" default="0" label="РЎР»СѓС‡Р°Р№РЅС‹Р№ Р±Р°РЅРЅРµСЂ" description="Р”Р° РґР»СЏ СЃР»СѓС‡Р°Р№РЅРѕРіРѕ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ (СЌС‚Рѕ РґРѕРїСѓСЃС‚РёРјРѕ С‚РѕР»СЊРєРѕ РґР»СЏ 'СЃС‡РµС‚РёРєР°' = 1)">
-			<option value="1">Р”Р°</option>
-			<option value="0">РќРµС‚</option>
+		<param name="categories" type="text" default="" label="Категории"  description="Какие категории отображать? (напр. 1,2,7 - отображают первую, вторую и седьмую)" />
+		<param name="banners" type="text" default="" label="Баннеры" description="Какие баннеры будут отображены? (напр. 1,5 - отображают первые и пятые)" />
+		<param name="clients" type="text" default="" label="Клиенты" description="Какие клиенты будут отображены? (напр. 1,5 - отображают первые и пятые)" />
+		<param name="count" type="text" default="1" label="Счетчик" description="Счетчик баннеров, которые будут отображены? (напр. 5 - отображают пять баннеров из выбранных категорий)" />
+		<param name="random" type="list" default="0" label="Случайный баннер" description="Да для случайного отображения (это допустимо только для 'счетика' = 1)">
+			<option value="1">Да</option>
+			<option value="0">Нет</option>
 		</param>
-		<param name="text" type="list" default="0" label="РџРѕРєР°Р·С‹РІР°С‚СЊ Р·Р°РіРѕР»РѕРІРѕРє?" description="">
-			<option value="1">Р”Р°</option>
-			<option value="0">РќРµС‚</option>
-		</param>
-		<param name="orientation" type="list" default="0" label="РћСЂРёРµРЅС‚Р°С†РёСЏ" description="Р’С‹Р±РµСЂРёС‚Рµ, РµСЃР»Рё Р’С‹ С…РѕС‚РёС‚Рµ РїРѕРєР°Р·С‹РІР°С‚СЊ РІР°С€Рё Р±Р°РЅРЅРµСЂР°Рј РІРµСЂС‚РёРєР°Р»СЊРЅРѕ РёР»Рё РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅРѕ">
-			<option value="0">Р’РµСЂС‚РёРєР°Р»СЊРЅР°СЏ</option>
-			<option value="1">Р“РѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅР°СЏ</option>
+		<param name="orientation" type="list" default="0" label="Ориентация" description="Выберите, если Вы хотите показывать ваши баннерам вертикально или горизонтально">
+			<option value="0">Вертикальная</option>
+			<option value="1">Горизонтальная</option>
 		</param>
 	</params>
 </mosinstall>

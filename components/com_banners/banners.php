@@ -1,87 +1,81 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
-
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
-
+if(file_exists($mosConfig_absolute_path.'/components/com_banners/language/'.$mosConfig_lang.'.php')) {
+$artbannerslanguage = $mosConfig_lang;
+}else{
+$artbannerslanguage = 'russian';
+}
+include_once ($mosConfig_absolute_path.'/components/com_banners/language/'.$artbannerslanguage.'.php');
 // including classes
-require_once ($mainframe->getPath('class'));
-
+require_once ($mosConfig_absolute_path."/components/com_banners/banners.class.php");
 $id = intval(mosGetParam($_REQUEST, 'id', 0));
 $task = strval(mosGetParam($_REQUEST, 'task', ''));
-
 switch($task) {
-	case 'clk':
-		clickArtBanner($id);
-		break;
+case 'clk':
+clickArtBanner($id);
+break;
 
-	case 'statistics':
-		showStatistics($id);
-		break;
+case 'statistics':
+showStatistics($id);
+break;
 }
-
-/* Function to redirect the clicks to the correct url and add 1 click
-*/
+/* Function to redirect the clicks to the correct url and add 1 click*/
 function clickArtBanner($id) {
-	$database = &database::getInstance();
-
-	$banner = new mosArtBanner($database);
-	$banner->load($id);
-	$banner->clicks();
-
-	$click_url = $banner->click_url; //default
-	if(!eregi('http://', $banner->click_url))
-		$click_url = "http://$banner->click_url";
-
-	mosRedirect($click_url);
+global $database;
+$banner = new mosArtBanner($database);
+$banner->load($id);
+$banner->clicks();
+$click_url = $banner->click_url; //default
+if(!eregi('http://',$banner->click_url))
+$click_url = "http://$banner->click_url";
+mosRedirect($click_url);
 }
-
 function showStatistics($id) {
-	$database = &database::getInstance();
-
-	$password = strval(mosGetParam($_REQUEST, 'password', ''));
-
-	if($id == 0 || $password == "") {
-		echo _ABP_FAILED_ACCESS;
-	} else {
-		$banner = new mosArtBanner($database);
-		$banner->load($id);
-
-		// verifico password
-		if($password == mosHash($banner->password)) {
-			echo '<br>';
-			echo '<b>', _ABP_CLICKS, '</b>', '&nbsp;:&nbsp;', $banner->complete_clicks, ' / ', $banner->clicks, ' ( dal ', $banner->dta_mod_clicks, ' )<br><br>';
-			echo '<b>', _ABP_IMPMADE, '</b>', '&nbsp;:&nbsp;', $banner->imp_made, '<br><br>';
-			echo '<b>', _ABP_TOT_IMP_CLIC, '</b>', '&nbsp;:&nbsp; ', $banner->click_value * $banner->complete_clicks + $banner->imp_value * $banner->imp_made, '<br><br>';
-
-			if($banner->custom_banner_code != "") {
-				echo $banner->custom_banner_code;
-			} else
-			if(eregi("(\.bmp|\.gif|\.jpg|\.jpeg|\.png)$", $banner->image_url)) {
-				$image_url = JPATH_SITE."/images/show/$banner->image_url";
-				$imginfo = @getimagesize("JPATH_BASE/images/show/" . $banner->image_url);
-				$border_value = $banner->border_value;
-				$border_style = $banner->border_style;
-				$border_color = $banner->border_color;
-				$width = $imginfo[0] / 1.23;
-				$height = $imginfo[1] / 1.23;
-				echo "<img src=\"" . $image_url . "\" style=\"border:" . $border_value . "px " . $border_style . " " . $border_color . "\" vspace=\"0\" alt=\"$banner->name\" width=\"$width\" height=\"$height\" />";
-			} else
-			if(eregi(".swf", $banner->image_url)) {
-				$image_url = JPATH_SITE."/images/show/" . $banner->image_url;
-				$swfinfo = @getimagesize("JPATH_BASE/images/show/" . $banner->image_url);
-				$width = $swfinfo[0] / 1.23;
-				$height = $swfinfo[1] / 1.23;
-				echo "<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=4,0,2,0\" border=\"0\" width=\"$width\" height=\"$height\" vspace=\"0\"><param name=\"SRC\" value=\"$image_url\"><embed src=\"$image_url\" loop=\"false\" pluginspage=\"http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash\" type=\"application/x-shockwave-flash\" width=\"$width\" height=\"$height\"></object>";
-			}
-		} else {
-			echo _COM_BANNERS_NONE_ACCESS;
-		}
-	}
+global $database;
+$password = strval(mosGetParam($_REQUEST, 'password', ''));
+if($id == 0 || $password == "") {
+echo 'Îøèáêà äîñòóïà';
+} else {
+$banner = new mosArtBanner($database);
+$banner->load($id);
+// verifico password
+if($password == mosHash($banner->password)) {
+global $mosConfig_live_site, $mosConfig_absolute_path;
+echo '<br />';
+echo '<b>',_ABP_CLICKS,'</b>', '&nbsp;:&nbsp;',$banner->complete_clicks,' / ',$banner->clicks,' (dal ',$banner->dta_mod_clicks,')<br /><br />';
+echo '<b>',_ABP_IMPMADE,'</b>', '&nbsp;:&nbsp;',$banner->imp_made,'<br /><br />';
+echo '<b>',_ABP_TOT_IMP_CLIC,'</b>', '&nbsp;:&nbsp;',$banner->click_value * $banner->complete_clicks + $banner->imp_value * $banner->imp_made,'<br /><br />';
+if($banner->custom_banner_code != "") {
+echo $banner->custom_banner_code;
+} else
+if(eregi("(\.bmp|\.gif|\.jpg|\.jpeg|\.png)$", $banner->image_url)) {
+$image_url = "$mosConfig_live_site/images/banners/$banner->image_url";
+$imginfo = @getimagesize("$mosConfig_absolute_path/images/banners/".$banner->image_url);
+$border_value = $banner->border_value;
+$border_style = $banner->border_style;
+$border_color = $banner->border_color;
+$width = $imginfo[0] / 1.23;
+$height = $imginfo[1] / 1.23;
+echo "<img src=\"".$image_url."\" style=\"border:".$border_value."px ".$border_style." ".$border_color."\" vspace=\"0\" alt=\"$banner->name\" width=\"$width\" height=\"$height\" />";
+} else
+if(eregi(".swf", $banner->image_url)) {
+$image_url = "$mosConfig_live_site/images/banners/".$banner->image_url;
+$swfinfo = @getimagesize("$mosConfig_absolute_path/images/banners/".$banner->image_url);
+$width = $swfinfo[0] / 1.23;
+$height = $swfinfo[1] / 1.23;
+echo "<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=4,0,2,0\" border=\"0\" width=\"$width\" height=\"$height\" vspace=\"0\"><param name=\"SRC\" value=\"$image_url\"><embed src=\"$image_url\" loop=\"false\" pluginspage=\"http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash\" type=\"application/x-shockwave-flash\" width=\"$width\" height=\"$height\"></object>";
 }
+} else {
+echo 'Äîñòóï íå âîçìîæåí';
+}
+}
+}
+?>

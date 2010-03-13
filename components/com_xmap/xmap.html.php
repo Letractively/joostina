@@ -1,155 +1,128 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
-
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
-
 /** Wraps HTML output */
 class XmapHtml extends Xmap {
-	var $level = -1;
-	var $_openList = '';
-	var $_closeList = '';
-	var $_closeItem = '';
-	var $_childs;
-	var $_width;
-
-	function XmapHtml (&$config, &$sitemap) {
-		$this->view = 'html';
-		Xmap::Xmap($config, $sitemap);
-	}
-
-	/**
-	 * Print one node of the sitemap
-	 */
-	function printNode( &$node ) {
-		global $Itemid;
-
-		$out = '';
-
-		$out .= $this->_closeItem;
-		$out .= $this->_openList;
-		$this->_openList = "";
-
-		if ( $Itemid == $node->id )
-			$out .= '<li class="active">';
-		else
-			$out .= '<li>';
-
-		$link = Xmap::getItemLink($node);
-		;
-
-		if( !isset($node->browserNav) )
-			$node->browserNav = 0;
-
-		$node->name = htmlspecialchars($node->name);
-		switch( $node->browserNav ) {
-			case 1:		// open url in new window
-				$ext_image = '';
-				if ( $this->sitemap->exlinks ) {
-					$ext_image = '&nbsp;<img src="'. JPATH_SITE .'/components/com_xmap/images/'. $this->sitemap->ext_image .'" alt="' . _XMAP_SHOW_AS_EXTERN_ALT . '" title="' . _XMAP_SHOW_AS_EXTERN_ALT . '" border="0" />';
-				}
-				$out .= '<a href="'. $link .'" title="'. $node->name .'" target="_blank">'. $node->name . $ext_image .'</a>';
-				break;
-
-			case 2:		// open url in javascript popup window
-				$ext_image = '';
-				if( $this->sitemap->exlinks ) {
-					$ext_image = '&nbsp;<img src="'. JPATH_SITE .'/components/com_xmap/images/'. $this->sitemap->ext_image .'" alt="' . _XMAP_SHOW_AS_EXTERN_ALT . '" title="' . _XMAP_SHOW_AS_EXTERN_ALT . '" border="0" />';
-				}
-				$out .= '<a href="'. $link .'" title="'. $node->name .'" target="_blank" '. "onClick=\"javascript: window.open('". $link ."', '', 'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=780,height=550'); return false;\">". $node->name . $ext_image."</a>";
-				break;
-
-			case 3:		// no link
-				$out .= '<span>'. $node->name .'</span>';
-				break;
-
-			default:	// open url in parent window
-				$out .= '<a href="'. $link .'" title="'. $node->name .'">'. $node->name .'</a>';
-				break;
-		}
-		if(isset($node->end_line)) {
-			$this->_closeItem =$node->end_line."</li>\n";
-		}else {
-			$this->_closeItem = "</li>\n";
-		}
-
-		$this->_childs[$this->level]++;
-		echo $out;
-		$this->count++;
-	}
-
-	/**
-	 * Moves sitemap level up or down
-	 */
-	function changeLevel( $level ) {
-		if ( $level > 0 ) {
-			# We do not print start ul here to avoid empty list, it's printed at the first child
-			$this->level += $level;
-			$this->_childs[$this->level]=0;
-			$this->_openList = "\n<ul class=\"level_".$this->level."\">\n";
-			$this->_closeItem = '';
-		} else {
-			if ($this->_childs[$this->level]) {
-				echo $this->_closeItem."</ul>\n";
-			}
-			$this->_closeItem ='</li>';
-			$this->_openList = '';
-			$this->level += $level;
-		}
-	}
-
-	/** Print component heading, etc. Then call getHtmlList() to print list */
-	function startOutput(&$menus,&$config,$title) {
-		global $database, $Itemid;
-
-		$sitemap = &$this->sitemap;
-
-		$exlink[0] = $sitemap->exlinks;		// image to mark popup links
-		$exlink[1] = $sitemap->ext_image;
-
-		if( $sitemap->columns > 1 ) {		// calculate column widths
-			$total = count($menus);
-			$columns = $total < $sitemap->columns ? $total : $sitemap->columns;
-			$this->_width	= (100 / $columns) - 1;
-		}
-		echo '<div class="'. $sitemap->classname .'">';
-		echo '<div class="componentheading"><h1>'.$title.'</h1></div>';
-		echo '<div class="contentpaneopen"'. ($sitemap->columns > 1 ? ' style="float:left;width:100%;"' : '') .'>';
-
-
-	}
-
-	/** Print component heading, etc. Then call getHtmlList() to print list */
-	function endOutput(&$menus) {
-		global $database, $Itemid;
-		$sitemap = &$this->sitemap;
-		echo '<div style="clear:left"></div>';
-		echo '</div>';
-		echo "</div>\n";
-	}
-
-	function startMenu(&$menu) {
-		$sitemap=&$this->sitemap;
-		if( $sitemap->columns > 1 )// use columns
-			echo '<div style="float:left;width:'.$this->_width.'%;">';
-		if( $sitemap->show_menutitle )// show menu titles
-			echo '<h2 class="menutitle">'.$menu->name.'</h2>';
-	}
-
-	function endMenu(&$menu) {
-		$sitemap=&$this->sitemap;
-		$this->_closeItem='';
-		if( $sitemap->show_menutitle || $sitemap->columns > 1 ) {// each menu gets a separate list
-			if( $sitemap->columns > 1 ) {
-				echo "</div>\n";
-			}
-
-		}
-	}
+var $level = -1;
+var $_openList = '';
+var $_closeList = '';
+var $_closeItem = '';
+var $_childs;
+var $_width;
+function XmapHtml (&$config, &$sitemap) {
+$this->view = 'html';
+Xmap::Xmap($config, $sitemap);
+}
+/** Print one node of the sitemap */
+function printNode(&$node) {
+global $Itemid,$mosConfig_live_site;
+$out = '';
+$out .= $this->_closeItem;
+$out .= $this->_openList;
+$this->_openList = "";
+if ( $Itemid == $node->id )
+$out .= '<li class="xmap active">';
+else
+$out .= '<li class="xmap">';
+$link = Xmap::getItemLink($node);;
+if(!isset($node->browserNav))
+$node->browserNav = 0;
+$node->name = htmlspecialchars($node->name);
+switch( $node->browserNav ) {
+case 1:// open url in new window
+$ext_image = '';
+if ($this->sitemap->exlinks) {
+$ext_image = '&nbsp;<img class="xmap" src="'.$mosConfig_live_site.'/components/com_xmap/images/'.$this->sitemap->ext_image.'" alt="'._XMAP_SHOW_AS_EXTERN_ALT.'" title="'._XMAP_SHOW_AS_EXTERN_ALT.'" />';
+}
+$out .= '<a class="xmap" href="'.$link.'" title="'.$node->name.'" target="_blank">'.$node->name. $ext_image.'</a>';
+break;
+case 2:// open url in javascript popup window
+$ext_image = '';
+if($this->sitemap->exlinks) {
+$ext_image = '&nbsp;<img class="xmap" src="'.$mosConfig_live_site.'/components/com_xmap/images/'.$this->sitemap->ext_image.'" alt="'._XMAP_SHOW_AS_EXTERN_ALT.'" title="'. _XMAP_SHOW_AS_EXTERN_ALT.'" />';
+}
+$out .= '<a class="xmap" href="'.$link.'" title="'.$node->name.'" target="_blank" '. "onClick=\"javascript: window.open('".$link."', '', 'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=780,height=550'); return false;\">".$node->name. $ext_image."</a>";
+break;
+case 3:// no link
+$out .= '<span class="xmap">'.$node->name.'</span>';
+break;
+default:// open url in parent window
+$out .= '<a class=xmap" href="'.$link.'" title="'.$node->name.'">'.$node->name.'</a>';
+break;
+}
+if(isset($node->end_line)){
+$this->_closeItem =$node->end_line."</li>\n";
+}else{
+$this->_closeItem = "</li>\n";
+}
+$this->_childs[$this->level]++;
+echo $out;
+$this->count++;
+}
+/** Moves sitemap level up or down*/
+function changeLevel($level) {
+if ($level > 0) {
+# We do not print start ul here to avoid empty list, it's printed at the first child
+$this->level += $level;
+$this->_childs[$this->level]=0;
+$this->_openList = "\n<ul class=\"xmap level_".$this->level."\">\n";
+$this->_closeItem = '';
+} else {
+if ($this->_childs[$this->level]){
+echo $this->_closeItem."</ul>\n";
+}
+$this->_closeItem ='</li>';
+$this->_openList = '';
+$this->level += $level;
+}
+}
+/** Print component heading, etc. Then call getHtmlList() to print list */
+function startOutput(&$menus,&$config) {
+global $database, $Itemid;
+$sitemap = &$this->sitemap;
+$menu = new mosMenu( $database );
+$menu->load( $Itemid );// Load params for the Xmap menu-item
+$title = $menu->name;
+$exlink[0] = $sitemap->exlinks;// image to mark popup links
+$exlink[1] = $sitemap->ext_image;
+if( $sitemap->columns > 1 ) {// calculate column widths
+$total = count($menus);
+$columns = $total < $sitemap->columns ? $total : $sitemap->columns;
+$this->_width= (100 / $columns) - 1;
+}
+echo '<div class="'.$sitemap->classname.'">';
+echo '<div class="xmap componentheading">'.$title.'</div>';
+echo '<div class="xmap contentpaneopen"'.($sitemap->columns > 1 ? ' style="float:left;width:100%;"' : '').'>';
+}
+/** Print component heading, etc. Then call getHtmlList() to print list */
+function endOutput(&$menus) {
+global $database, $Itemid;
+$sitemap = &$this->sitemap;
+echo '<div style="clear:left"></div>';
+echo "</div>";
+echo "</div>\n";
+}
+function startMenu(&$menu) {
+$sitemap=&$this->sitemap;
+if($sitemap->columns > 1)// use columns
+echo '<div style="float:left;width:'.$this->_width.'%;">';
+if($sitemap->show_menutitle)// show menu titles
+echo '<h2 class="xmap menutitle">'.$menu->name.'</h2>';
+}
+function endMenu(&$menu) {
+$sitemap=&$this->sitemap;
+$this->_closeItem='';
+if($sitemap->show_menutitle || $sitemap->columns > 1) {// each menu gets a separate list
+if($sitemap->columns > 1) {
+echo "</div>\n";
+}
+}
+}
 }

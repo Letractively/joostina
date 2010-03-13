@@ -1,119 +1,118 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
 
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
 
 /**
- * @package Joostina
- * @subpackage Languages
- */
+* @package Joostina
+* @subpackage Languages
+*/
 class HTML_languages {
 
 	function showLanguages($cur_lang,&$rows,&$pageNav,$option) {
 		global $my;
-		$mainframe = &mosMainFrame::getInstance();
-		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
-		?>
-<form action="index2.php" method="post" name="adminForm">
-	<table class="adminheading">
+?>
+		<form action="index2.php" method="post" name="adminForm">
+		<table class="adminheading">
 		<tr>
 			<th class="langmanager">
-						<?php echo _LANGUAGE_PACKS?> <small><small>[ <?php echo _SITE?> ]</small></small>
+			<?php echo _LANGUAGE_PACKS?> <small><small>[ <?php echo _SITE?> ]</small></small>
 			</th>
 		</tr>
-	</table>
+		</table>
 
-	<table class="adminlist">
+		<table class="adminlist">
 		<tr>
 			<th width="20">
 			#
 			</th>
 			<th width="30">
-				&nbsp;
+			&nbsp;
 			</th>
 			<th width="25%" class="title">
-						<?php echo _E_LANGUAGE?>
+			<?php echo _E_LANGUAGE?>
 			</th>
 			<th width="5%">
-						<?php echo _USED_ON?>
+			<?php echo _USED_ON?>
 			</th>
 			<th width="10%">
-						<?php echo _VERSION?>
+			<?php echo _E_VERSION?>
 			</th>
 			<th width="10%">
-						<?php echo _DATE?>
+			<?php echo _DATE?>
 			</th>
 			<th width="20%">
-						<?php echo _AUTHOR?>
+			<?php echo _AUTHOR_BY?>
 			</th>
 			<th width="25%">
 			E-mail
 			</th>
 		</tr>
-				<?php
-				$k = 0;
-				for($i = 0,$n = count($rows); $i < $n; $i++) {
-					$row = &$rows[$i];
-					?>
-		<tr class="<?php echo "row$k"; ?>">
-			<td width="20"><?php echo $pageNav->rowNumber($i); ?></td>
-			<td width="20">
+<?php
+		$k = 0;
+		for($i = 0,$n = count($rows); $i < $n; $i++) {
+			$row = &$rows[$i];
+?>
+			<tr class="<?php echo "row$k"; ?>">
+				<td width="20"><?php echo $pageNav->rowNumber($i); ?></td>
+				<td width="20">
 				<input type="radio" id="cb<?php echo $i; ?>" name="cid[]" value="<?php echo $row->language; ?>" onClick="isChecked(this.checked);" />
-			</td>
-			<td width="25%">
+				</td>
+				<td width="25%">
 				<a href="#edit" onclick="hideMainMenu();return listItemTask('cb<?php echo $i; ?>','edit_source')"><?php echo $row->name; ?></a></td>
-			<td width="5%" align="center">
-							<?php
-							if($row->published == 1) { ?>
-				<img src="<?php echo $cur_file_icons_path;?>/tick.png" alt="<?php echo _PUBLISHED?>"/>
-								<?php
-							} else {
-								?>
-				&nbsp;
-								<?php
-							}
-							?>
-			</td>
-			<td align=center>
-							<?php echo $row->version; ?>
-			</td>
-			<td align=center>
-							<?php echo $row->creationdate; ?>
-			</td>
-			<td align=center>
-							<?php echo $row->author; ?>
-			</td>
-			<td align=center>
-							<?php echo $row->authorEmail; ?>
-			</td>
-		</tr>
+				<td width="5%" align="center">
+				<?php
+			if($row->published == 1) { ?>
+					<img src="images/tick.png" alt="<?php echo _CMN_PUBLISHED?>"/>
 					<?php
-				}
-				?>
-	</table>
-			<?php echo $pageNav->getListFooter(); ?>
+			} else {
+?>
+					&nbsp;
+				<?php
+			}
+?>
+				</td>
+				<td align=center>
+				<?php echo $row->version; ?>
+				</td>
+				<td align=center>
+				<?php echo $row->creationdate; ?>
+				</td>
+				<td align=center>
+				<?php echo $row->author; ?>
+				</td>
+				<td align=center>
+				<?php echo $row->authorEmail; ?>
+				</td>
+			</tr>
+		<?php
+		}
+?>
+		</table>
+		<?php echo $pageNav->getListFooter(); ?>
 
-	<input type="hidden" name="option" value="<?php echo $option; ?>" />
-	<input type="hidden" name="task" value="" />
-	<input type="hidden" name="hidemainmenu" value="0" />
-	<input type="hidden" name="boxchecked" value="0" />
-	<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
-</form>
+		<input type="hidden" name="option" value="<?php echo $option; ?>" />
+		<input type="hidden" name="task" value="" />
+		<input type="hidden" name="hidemainmenu" value="0" />
+		<input type="hidden" name="boxchecked" value="0" />
+		<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
+		</form>
 		<?php
 	}
 
 	function editLanguageSource($language,&$content,$option) {
-		$language_path = JPATH_BASE."/language/".$language."/system.php";
-		?>
-<form action="index2.php" method="post" name="adminForm">
-	<table cellpadding="1" cellspacing="1" border="0" width="100%">
+		global $mosConfig_absolute_path;
+		$language_path = $mosConfig_absolute_path."/language/".$language.".php";
+?>
+		<form action="index2.php" method="post" name="adminForm">
+		<table cellpadding="1" cellspacing="1" border="0" width="100%">
 		<tr>
 			<td width="270">
 				<table class="adminheading">
@@ -123,40 +122,42 @@ class HTML_languages {
 				</table>
 			</td>
 			<td width="240">
-				<span class="componentheading"> system.php :<b><?php echo is_writable($language_path)?'<font color="green"> '._WRITEABLE.'</font>':'<font color="red"> '._UNWRITEABLE.'</font>' ?></b>
+				<span class="componentheading"><?php echo $language; ?>.php :<b><?php echo is_writable($language_path)?'<font color="green"> '._WRITEABLE.'</font>':'<font color="red"> '._UNWRITEABLE.'</font>' ?></b>
 				</span>
 			</td>
-					<?php
-					if(mosIsChmodable($language_path)) {
-						if(is_writable($language_path)) {
-							?>
+<?php
+		if(mosIsChmodable($language_path)) {
+			if(is_writable($language_path)) {
+?>
 			<td>
 				<input type="checkbox" id="disable_write" name="disable_write" value="1"/>
 				<label for="disable_write"><?php echo _MAKE_UNWRITEABLE_AFTER_SAVING?></label>
 			</td>
-							<?php
-						} else {
-							?>
+<?php
+			} else {
+?>
 			<td>
 				<input type="checkbox" id="enable_write" name="enable_write" value="1"/>
 				<label for="enable_write"><?php echo _IGNORE_WRITE_PROTECTION_WHEN_SAVE?></label>
 			</td>
-							<?php
-						} // if
-					} // if
+<?php
+			} // if
+		} // if
 
-					?>
+?>
 		</tr>
-	</table>
-	<table class="adminform">
-		<tr><th><?php echo $language_path; ?></th></tr>
-		<tr><td><textarea style="width:100%" cols="110" rows="25" name="filecontent" class="inputbox"><?php echo $content; ?></textarea></td></tr>
-	</table>
-	<input type="hidden" name="language" value="<?php echo $language; ?>" />
-	<input type="hidden" name="option" value="<?php echo $option; ?>" />
-	<input type="hidden" name="task" value="" />
-	<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
-</form>
-		<?php
+		</table>
+		<table class="adminform">
+			<tr><th><?php echo $language_path; ?></th></tr>
+			<tr><td><textarea style="width:100%" cols="110" rows="25" name="filecontent" class="inputbox"><?php echo $content; ?></textarea></td></tr>
+		</table>
+		<input type="hidden" name="language" value="<?php echo $language; ?>" />
+		<input type="hidden" name="option" value="<?php echo $option; ?>" />
+		<input type="hidden" name="task" value="" />
+		<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
+		</form>
+	<?php
 	}
+
 }
+?>

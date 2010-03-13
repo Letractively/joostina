@@ -1,72 +1,65 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <mosinstall type="menu" version="1.0.0">
-	<name>Р”РѕР±Р°РІРёС‚СЊ СЃРѕРґРµСЂР¶РёРјРѕРµ</name>
+	<name>Добавить содержимое</name>
 	<group>Content|Submit</group>
-	<author>Jason407</author>
-	<creationDate>August 2005</creationDate>
-	<copyright>(C) 2008-2010 Joostina team.</copyright>
+	<author>Joostina! Project</author>
+	<creationDate>Февраль 2009</creationDate>
+	<copyright>(C) 2008 Joostina Team.</copyright>
 	<license>http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL</license>
 	<authorEmail>joostinacms@gmail.com</authorEmail>
 	<authorUrl>www.joostina.ru</authorUrl>
-	<version>1.0.1 JE</version>
-	<description>РЎРѕР·РґР°РµС‚ СЃСЃС‹Р»РєСѓ РЅР° РґРѕР±Р°РІР»РµРЅРёРµ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏРјРё</description>
+	<version>1.0.0 RE</version>
+	<description>Создает ссылку на добавление содержимого пользователями</description>
 	<params>
-		<param name="menu_image" type="imagelist" directory="/images/stories" hide_default="1" default="" label="РР·РѕР±СЂР°Р¶РµРЅРёРµ РјРµРЅСЋ" description="РњР°Р»РµРЅСЊРєРѕРµ РёР·РѕР±СЂР°Р¶РµРЅРёРµ, СЂР°СЃРїРѕР»Р°РіР°РµРјРѕРµ СЃР»РµРІР° РёР»Рё СЃРїСЂР°РІР° РѕС‚ РїСѓРЅРєС‚Р° РјРµРЅСЋ. РР·РѕР±СЂР°Р¶РµРЅРёРµ РґРѕР»Р¶РЅРѕ РЅР°С…РѕРґРёС‚СЊСЃСЏ РІ РїР°РїРєРµ images/stories/" />
-		<param name="form_title_add" type="text" default="" label="Р—Р°РіРѕР»РѕРІРѕРє С„РѕСЂРјС‹ РїСЂРё РґРѕР±Р°РІР»РµРЅРёРё Р·Р°РїРёСЃРё" description="" />
-		<param name="form_title_edit" type="text" default="" label="Р—Р°РіРѕР»РѕРІРѕРє С„РѕСЂРјС‹ РїСЂРё СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёРё Р·Р°РїРёСЃРё" description="" />
-		<param name="for_section" type="mos_section" default="0" label="РџР°СЂР°РјРµС‚СЂС‹ РґРѕР±Р°РІР»РµРЅРёСЏ РґР»СЏ:" hide_none="0" hide_default="0" description="Р’С‹Р±РµСЂРёС‚Рµ, РґР»СЏ РєР°РєРѕРіРѕ СЂР°Р·РґРµР»Р° Р±СѓРґСѓС‚ РґРµР№СЃС‚РѕРІР°С‚СЊ РґР°РЅРЅС‹Рµ РЅР°СЃС‚СЂРѕР№РєРё" />
-		<param name="ids_user" type="text" default="" label="ID СЂР°Р·РґРµР»РѕРІ РёР»Рё РєР°С‚РµРіРѕСЂРёР№, РІ РєРѕС‚РѕСЂС‹Рµ СЂР°Р·СЂРµС€РµРЅРѕ/Р·Р°РїСЂРµС‰РµРЅРѕ РґРѕР±Р°РІР»РµРЅРёРµ РјР°С‚РµСЂРёР°Р»РѕРІ" description="РЈРєР°Р¶РёС‚Рµ С‡РµСЂРµР· Р·Р°РїСЏС‚СѓСЋ ID СЂР°Р·РґРµР»РѕРІ РёР»Рё РєР°С‚РµРіРѕСЂРёР№, РІ РєРѕС‚РѕСЂС‹Рµ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏРј СЂР°Р·СЂРµС€РµРЅРѕ/Р·Р°РїСЂРµС‰РµРЅРѕ РґРѕР±Р°РІР»СЏС‚СЊ РјР°С‚РµСЂРёР°Р»С‹. РўРёРї РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ РІРІРµРґРµРЅРЅС‹С… ID СѓРєР°Р¶РёС‚Рµ РЅРёР¶Рµ - СЃ РїРѕРјРѕС‰СЊСЋ РІС‹РїР°РґР°СЋС‰РµРіРѕ СЃРїРёСЃРєР°. " />
-		<param name="ids_action" type="list" default="0" label="РўРёРї РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ РІРІРµРґРµРЅРЅС‹С… ID СЂР°Р·РґРµР»РѕРІ РёР»Рё РєР°С‚РµРіРѕСЂРёР№" description="Р’С‹Р±РµСЂРёС‚Рµ, РєР°РєРёРј РѕР±СЂР°Р·РѕРј РѕР±СЂР°Р±Р°С‚С‹РІР°С‚СЊ РІРІРµРґРµРЅРЅС‹Рµ Р’Р°РјРё РёСЃРєР»СЋС‡РµРЅРёСЏ. Р•СЃР»Рё РІС‹Р±СЂР°РЅРѕ 'РќРµ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ' - РїРѕР»СЊР·РѕРІР°С‚РµР»СЏРј Р±СѓРґРµС‚ СЂР°Р·СЂРµС€РµРЅРѕ РґРѕР±Р°РІР»РµРЅРёРµ Р·Р°РїРёСЃРµР№ РІРѕ РІСЃРµ СЂР°Р·РґРµР»С‹/РєР°С‚РµРіРѕСЂРёРё">
-			<option value="0">РќРµ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ</option>
-			<option value="1">Р Р°Р·СЂРµС€РёС‚СЊ РїСѓР±Р»РёРєР°С†РёСЋ С‚РѕР»СЊРєРѕ РІ СѓРєР°Р·Р°РЅРЅС‹С… Р РђР—Р”Р•Р›РђРҐ</option>
-			<option value="2">Р Р°Р·СЂРµС€РёС‚СЊ РїСѓР±Р»РёРєР°С†РёСЋ С‚РѕР»СЊРєРѕ РІ СѓРєР°Р·Р°РЅРЅС‹С… РљРђРўР•Р“РћР РРЇРҐ</option>
-			<option value="3">Р—Р°РїСЂРµС‚РёС‚СЊ РїСѓР±Р»РёРєР°С†РёСЋ РІ СѓРєР°Р·Р°РЅРЅС‹С… Р РђР—Р”Р•Р›РђРҐ</option>
-			<option value="4">Р—Р°РїСЂРµС‚РёС‚СЊ РїСѓР±Р»РёРєР°С†РёСЋ РІ СѓРєР°Р·Р°РЅРЅС‹С… РљРђРўР•Р“РћР РРЇРҐ</option>
+		<param name="menu_image" type="imagelist" directory="/images/stories" hide_default="1" default="" label="Изображение меню" description="Маленькое изображение, располагаемое слева или справа от пункта меню. Изображение должно находиться в папке images/stories/" />
+		<param name="ids_action" type="list" default="0" label="Тип использования введенных ID разделов или категорий" description="Выберите, каким образом обрабатывать введенные Вами исключения. Если выбрано 'Не использовать' - пользователям будет разрешено добавление записей во все разделы/категории">
+			<option value="0">Не использовать</option>
+			<option value="1">Разрешить публикацию только в указанных РАЗДЕЛАХ</option>
+			<option value="2">Разрешить публикацию только в указанных КАТЕГОРИЯХ</option>
+			<option value="3">Запретить публикацию в указанных РАЗДЕЛАХ</option>
+			<option value="4">Запретить публикацию в указанных КАТЕГОРИЯХ</option>
 		</param>
-		<param name="content_type" type="radio" default="0" label="РўРёРї СЃРѕРґРµСЂР¶РёРјРѕРіРѕ" description="Р’С‹Р±РµСЂРёС‚Рµ С‚РёРї СЃРѕРґРµСЂР¶РёРјРѕРіРѕ">
-			<option value="0">РЎС‚Р°С‚СЊСЏ</option>
-			<option value="1">РЎС‚Р°С‚РёС‡РЅРѕРµ СЃРѕРґРµСЂР¶РёРјРѕРµ</option>
+		<param name="ids_user" type="text" default="" size="50" label="ID разделов или категорий, в которые разрешено/запрещено добавление материалов" description="Укажите через запятую ID разделов или категорий, в которые пользователям разрешено/запрещено добавлять материалы. Тип использования введенных ID укажите ниже - с помощью выпадающего списка. " />
+		<param name="content_type" type="radio" default="0" label="Тип содержимого" description="Выберите тип содержимого">
+			<option value="0">Статья</option>
+			<option value="1">Статичное содержимое</option>
 		</param>
-		<param name="wwig" type="radio" default="1" label="Р’РёР·СѓР°Р»СЊРЅС‹Р№ СЂРµРґР°РєС‚РѕСЂ" description="РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ Р»Рё РІРёР·СѓР°Р»СЊРЅС‹Р№ СЂРµРґР°РєС‚РѕСЂ РґР»СЏ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ С‚РµРєСЃС‚Р°">
-			<option value="1">Р”Р°</option>
-			<option value="0">РќРµС‚</option>
+		<param name="wwig" type="radio" default="1" label="Визуальный редактор" description="Использовать ли визуальный редактор для редактирования текста">
+			<option value="1">Да</option>
+			<option value="0">Нет</option>
 		</param>
-		<param name="wwig_buttons" type="radio" default="0" label="РљРЅРѕРїРєРё РїРѕРґ СЂРµРґР°РєС‚РѕСЂРѕРј" description="РћС‚РѕР±СЂР°Р¶Р°С‚СЊ РєРЅРѕРїРєРё РїРѕРґ РІРёР·СѓР°Р»СЊРЅС‹Рј СЂРµРґР°РєС‚РѕСЂРѕРј? РќР°РїСЂРёРјРµСЂ: [Р Р°Р·СЂС‹РІ СЃС‚СЂР°РЅРёС†С‹] Рё С‚.Рї.">
-			<option value="0">РќРµС‚</option>
-			<option value="1">Р”Р°</option>
+		<param name="fulltext" type="radio" default="1" label="Полный текст" description="Отображать поле [Полный текст]?">
+			<option value="1">Да</option>
+			<option value="0">Нет</option>
 		</param>
-		<param name="fulltext" type="radio" default="1" label="РџРѕР»РЅС‹Р№ С‚РµРєСЃС‚" description="РћС‚РѕР±СЂР°Р¶Р°С‚СЊ РїРѕР»Рµ [РџРѕР»РЅС‹Р№ С‚РµРєСЃС‚]?">
-			<option value="0">РќРµС‚</option>
-			<option value="1">Р”Р°</option>
+		<param name="allow_alias" type="radio" default="1" label="Псевдоним заголовка" description="Показывать поле 'Псевдоним заголовка' при добавлении содержимого?">
+			<option value="1">Да</option>
+			<option value="0">Нет</option>
 		</param>
-		<param name="allow_alias" type="radio" default="1" label="РџСЃРµРІРґРѕРЅРёРј Р·Р°РіРѕР»РѕРІРєР°" description="РџРѕРєР°Р·С‹РІР°С‚СЊ РїРѕР»Рµ 'РџСЃРµРІРґРѕРЅРёРј Р·Р°РіРѕР»РѕРІРєР°' РїСЂРё РґРѕР±Р°РІР»РµРЅРёРё СЃРѕРґРµСЂР¶РёРјРѕРіРѕ?">
-			<option value="0">РќРµС‚</option>
-			<option value="1">Р”Р°</option>
+		<param name="allow_img" type="radio" default="1" label="Вкладка [Изображения]" description="Показывать вкладку 'Изображения' при добавлении содержимого?">
+			<option value="1">Да</option>
+			<option value="0">Нет</option>
 		</param>
-		<param name="allow_info" type="radio" default="1" label="РРЅС„РѕСЂРјР°С†РёСЏ" description="РџРѕРєР°Р·С‹РІР°С‚СЊ РїРѕРґСЂРѕР±РЅСѓСЋ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ Р·Р°РїРёСЃРµ?">
-			<option value="0">РќРµС‚</option>
-			<option value="1">Р”Р°</option>
+		<param name="allow_params" type="radio" default="1" label="Параметры публикаци" description="Показывать вкладку 'Параметры публикации' при добавлении содержимого?">
+			<option value="1">Да</option>
+			<option value="0">Нет</option>
 		</param>
-		<param name="allow_params" type="radio" default="1" label="РџР°СЂР°РјРµС‚СЂС‹ РїСѓР±Р»РёРєР°С†РёРё" description="РџРѕРєР°Р·С‹РІР°С‚СЊ РІРєР»Р°РґРєСѓ 'РџР°СЂР°РјРµС‚СЂС‹ РїСѓР±Р»РёРєР°С†РёРё' РїСЂРё РґРѕР±Р°РІР»РµРЅРёРё СЃРѕРґРµСЂР¶РёРјРѕРіРѕ?">
-			<option value="0">РќРµС‚</option>
-			<option value="1">Р”Р°</option>
+		<param name="allow_desc" type="radio" default="1" label="Описание материала" description="Отображать поле ввода описания для содержимого?">
+			<option value="1">Да</option>
+			<option value="0">Нет</option>
 		</param>
-		<param name="allow_desc" type="radio" default="1" label="РћРїРёСЃР°РЅРёРµ РјР°С‚РµСЂРёР°Р»Р°" description="РћС‚РѕР±СЂР°Р¶Р°С‚СЊ РїРѕР»Рµ РІРІРѕРґР° РѕРїРёСЃР°РЅРёСЏ РґР»СЏ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ?">
-			<option value="0">РќРµС‚</option>
-			<option value="1">Р”Р°</option>
+		<param name="allow_tags" type="radio" default="1" label="Ключевые слова" description="Отображать поле ввода ключевых слов?">
+			<option value="1">Да</option>
+			<option value="0">Нет</option>
 		</param>
-		<param name="allow_tags" type="radio" default="1" label="РўСЌРіРё" description="РћС‚РѕР±СЂР°Р¶Р°С‚СЊ РїРѕР»Рµ РІРІРѕРґР° С‚СЌРіРѕРІ?">
-			<option value="0">РќРµС‚</option>
-			<option value="1">Р”Р°</option>
+		<param name="auto_publish" type="list" default="0" label="Настройка публикации статей" description="Выберите соответствующий параметр для публикации.">
+			<option value="0">В соответствии с группой пользователей</option>
+			<option value="1">Выбор осуществляется пользователем</option>
 		</param>
-		<param name="auto_publish" type="list" default="0" label="РќР°СЃС‚СЂРѕР№РєР° РїСѓР±Р»РёРєР°С†РёРё СЃС‚Р°С‚РµР№" description="Р’С‹Р±РµСЂРёС‚Рµ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РёР№ РїР°СЂР°РјРµС‚СЂ РґР»СЏ РїСѓР±Р»РёРєР°С†РёРё.">
-			<option value="0">Р’ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ РіСЂСѓРїРїРѕР№ РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№</option>
-			<option value="1">Р’С‹Р±РѕСЂ РѕСЃСѓС‰РµСЃС‚РІР»СЏРµС‚СЃСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј</option>
+		<param name="allow_frontpage" type="radio" default="1" label="Показывать переключатель 'На главной'" description="Отображать переключатель">
+			<option value="1">Да</option>
+			<option value="0">Нет</option>
 		</param>
-		<param name="allow_frontpage" type="radio" default="1" label="РџРѕРєР°Р·С‹РІР°С‚СЊ РїРµСЂРµРєР»СЋС‡Р°С‚РµР»СЊ 'РќР° РіР»Р°РІРЅРѕР№'" description="РћС‚РѕР±СЂР°Р¶Р°С‚СЊ РїРµСЂРµРєР»СЋС‡Р°С‚РµР»СЊ. РќРµР·Р°РІРёСЃРёРјРѕ РѕС‚ РЅР°СЃС‚СЂРѕРµРє, РЎСѓРїРµСЂР°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂ РІСЃРµРіРґР° Р±СѓРґРµС‚ РІРёРґРµС‚СЊ СЌС‚РѕС‚ РїРµСЂРµРєР»СЋС‡Р°С‚РµР»СЊ">
-			<option value="0">РќРµС‚</option>
-			<option value="1">Р”Р°</option>
-		</param>
-		<param name="front_label" type="text" default="" label="РџРѕРґРїРёСЃСЊ РїРµСЂРµРєР»СЋС‡Р°С‚РµР»СЏ 'РќР° РіР»Р°РІРЅРѕР№'" description="" />
+		<param name="front_label" type="text" default="" label="Подпись переключателя 'На главной'" description="" />
 	</params>
 </mosinstall>

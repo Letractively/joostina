@@ -1,44 +1,34 @@
 <?php
 /**
- * @package Joostina
- * @copyright –ê–≤—Ç–æ—Ä—Å–∫–∏–µ –ø—Ä–∞–≤–∞ (C) 2008-2010 Joostina team. –í—Å–µ –ø—Ä–∞–≤–∞ –∑–∞—â–∏—â–µ–Ω—ã.
- * @license –õ–∏—Ü–µ–Ω–∑–∏—è http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, –∏–ª–∏ help/license.php
- * Joostina! - —Å–≤–æ–±–æ–¥–Ω–æ–µ –ø—Ä–æ–≥—Ä–∞–º–º–Ω–æ–µ –æ–±–µ—Å–ø–µ—á–µ–Ω–∏–µ —Ä–∞—Å–ø—Ä–æ—Å—Ç—Ä–∞–Ω—è–µ–º–æ–µ –ø–æ —É—Å–ª–æ–≤–∏—è–º –ª–∏—Ü–µ–Ω–∑–∏–∏ GNU/GPL
- * –î–ª—è –ø–æ–ª—É—á–µ–Ω–∏—è –∏–Ω—Ñ–æ—Ä–º–∞—Ü–∏–∏ –æ –∏—Å–ø–æ–ª—å–∑—É–µ–º—ã—Ö —Ä–∞—Å—à–∏—Ä–µ–Ω–∏—è—Ö –∏ –∑–∞–º–µ—á–∞–Ω–∏–π –æ–± –∞–≤—Ç–æ—Ä—Å–∫–æ–º –ø—Ä–∞–≤–µ, —Å–º–æ—Ç—Ä–∏—Ç–µ —Ñ–∞–π–ª help/copyright.php.
- */
-
-// –∑–∞–ø—Ä–µ—Ç –ø—Ä—è–º–æ–≥–æ –¥–æ—Å—Ç—É–ø–∞
-defined( '_VALID_MOS' ) or die();
-
-// –æ—Ñ–æ—Ä–º–ª—è–µ–º —Ä–∞–±–æ—Ç—É –º–æ–¥—É–ª—è –≤ —Ñ—É–Ω–∫—Ü–∏—é - —á—Ç–æ –±—ã –Ω–µ –ø–ª–æ–¥–∏—Ç—å –ª–∏—à–Ω–∏–µ –ø–µ—Ä–µ–º–µ–Ω–Ω—ã–µ –≤ –æ–±–ª–∞—Å—Ç–∏ –≤–∏–¥–∏–º–æ—Å—Ç–∏
-if(!defined( '_MOD_ARCHIVE_INCLUDED')) {
-	DEFINE('_MOD_ARCHIVE_INCLUDED',1);
-
-	function _mod_archive($count,$database) {
-
-		$query = "SELECT MONTH(created) AS created_month, created, id, sectionid, title, YEAR(created) AS created_year FROM #__content WHERE ( state = -1 AND checked_out = 0 AND sectionid > 0 ) GROUP BY created_year DESC, created_month DESC";
-		$database->setQuery( $query, 0, $count );
-		$rows = $database->loadObjectList();
-
-		if( count( $rows ) ) {
-			echo '<ul>';
-			foreach ( $rows as $row ) {
-				$created_month	= mosFormatDate ( $row->created, "%m" );
-				$month_name		= mosFormatDate ( $row->created, "%B" );
-				$created_year	= mosFormatDate ( $row->created, "%Y" );
-				$link			= sefRelToAbs( 'index.php?option=com_content&amp;task=archivecategory&amp;year='. $created_year .'&amp;month='. $created_month .'&amp;module=1' );
-				$text			= $month_name .', '. $created_year;
-				?><li>
-	<a href="<?php echo $link; ?>"><?php echo $text; ?></a>
-</li><?php
-			}
-			echo '</ul>';
-		}
-	}
+* @package Joostina
+* @copyright ¿‚ÚÓÒÍËÂ Ô‡‚‡ (C) 2008 Joostina team. ¬ÒÂ Ô‡‚‡ Á‡˘Ë˘ÂÌ˚.
+* @license ÀËˆÂÌÁËˇ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, ËÎË help/license.php
+* Joostina! - Ò‚Ó·Ó‰ÌÓÂ ÔÓ„‡ÏÏÌÓÂ Ó·ÂÒÔÂ˜ÂÌËÂ ‡ÒÔÓÒÚ‡ÌˇÂÏÓÂ ÔÓ ÛÒÎÓ‚ËˇÏ ÎËˆÂÌÁËË GNU/GPL
+* ƒÎˇ ÔÓÎÛ˜ÂÌËˇ ËÌÙÓÏ‡ˆËË Ó ËÒÔÓÎ¸ÁÛÂÏ˚ı ‡Ò¯ËÂÌËˇı Ë Á‡ÏÂ˜‡ÌËÈ Ó· ‡‚ÚÓÒÍÓÏ Ô‡‚Â, ÒÏÓÚËÚÂ Ù‡ÈÎ help/copyright.php.
+*/
+// Á‡ÔÂÚ ÔˇÏÓ„Ó ‰ÓÒÚÛÔ‡
+defined('_VALID_MOS') or die();
+$count= intval( $params->def( 'count', 10 ) );
+$now= _CURRENT_SERVER_TIME;
+$query = "SELECT MONTH(created) AS created_month, created, id, sectionid, title, YEAR(created) AS created_year"
+. "\n FROM #__content"
+. "\n WHERE (state = -1 AND checked_out = 0 AND sectionid > 0)"
+. "\n GROUP BY created_year DESC, created_month DESC"
+;
+$database->setQuery( $query, 0, $count );
+$rows = $database->loadObjectList();
+if( count( $rows ) ) {
+echo '<ul class="archive">';
+foreach ($rows as $row) {
+$created_month= mosFormatDate ($row->created, "%m");
+$month_name= mosFormatDate ($row->created, "%B");
+$created_year= mosFormatDate ($row->created, "%Y");
+$link= sefRelToAbs('index.php?option=com_content&amp;task=archivecategory&amp;year='.$created_year.'&amp;month='.$created_month.'&amp;module=1');
+$text= $month_name.', '.$created_year;
+?>
+<li class="archive"><a class="archive" href="<?php echo $link; ?>"><?php echo $text; ?></a></li>
+<?php
 }
-
-$count = intval($params->def( 'count', 10 ));
-_mod_archive($count,$database);
-
-// —á–∏—Å—Ç–∏–º –ø–∞–º—è—Ç—å
-unset($params,$count);
+echo '</ul>';
+}
+?>

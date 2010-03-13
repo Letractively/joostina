@@ -1,35 +1,32 @@
 <?php
 /**
 * @package Joostina
-* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2010 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
-* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
-* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
-* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
+* @copyright Авторские права (C) 2008 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
 */
 
 define("_VALID_MOS",1);
 
 // Include common.php
 require_once ('common.php');
-// РёСЃРїРѕР»СЊР·СѓРµРј РѕСЂРёРіРёРЅР°Р»СЊРЅС‹Р№ РєР»Р°СЃСЃ СЂР°Р±РѕС‚С‹ СЃ Р±Р°Р·РѕР№ РґР°РЅРЅС‹С… - Р±РµР· РєСЌС€РёСЂРѕРІР°РЅРёСЏ
-require_once ('../includes/libraries/database/database.php');
+// используем оригинальный класс работы с базой данных - без кэширования
+require_once ('../includes/database/database/database.php');
 
 $DBhostname		= mosGetParam($_POST,'DBhostname','');
 $DBuserName		= mosGetParam($_POST,'DBuserName','');
 $DBpassword		= mosGetParam($_POST,'DBpassword','');
 $DBname			= mosGetParam($_POST,'DBname','');
 $DBPrefix		= mosGetParam($_POST,'DBPrefix','');
-$sitename		= htmlspecialchars(stripslashes(mosGetParam($_POST,'sitename','')));
+$DBold			= intval(mosGetParam($_POST,'DBold',0));
+$sitename		= mosGetParam($_POST,'sitename','');
 $adminEmail		= mosGetParam($_POST,'adminEmail','');
 $siteUrl		= mosGetParam($_POST,'siteUrl','');
 $absolutePath	= mosGetParam($_POST,'absolutePath','');
 $adminPassword	= mosGetParam($_POST,'adminPassword','');
 $adminLogin		= mosGetParam($_POST,'adminLogin','');
 $filePerms		= '';
-
-if(get_magic_quotes_gpc()) {
-	$sitename = stripslashes(stripslashes($sitename));
-}
 
 if(mosGetParam($_POST,'filePermsMode',0))
 		$filePerms = '0'.(
@@ -63,6 +60,7 @@ if((trim($adminEmail == "")) || (preg_match("/[\w\.\-]+@\w+[\w\.\-]*?\.\w{1,4}/"
                 <input type=\"hidden\" name=\"DBpassword\" value=\"$DBpassword\" />
                 <input type=\"hidden\" name=\"DBname\" value=\"$DBname\" />
                 <input type=\"hidden\" name=\"DBPrefix\" value=\"$DBPrefix\" />
+                <input type=\"hidden\" name=\"DBold\" value=\"$DBold\" />
                 <input type=\"hidden\" name=\"DBcreated\" value=\"1\" />
                 <input type=\"hidden\" name=\"sitename\" value=\"$sitename\" />
                 <input type=\"hidden\" name=\"adminEmail\" value=\"$adminEmail\" />
@@ -73,7 +71,7 @@ if((trim($adminEmail == "")) || (preg_match("/[\w\.\-]+@\w+[\w\.\-]*?\.\w{1,4}/"
                 <input type=\"hidden\" name=\"adminPassword\" value=\"$adminPassword\" />
                 <input type=\"hidden\" name=\"adminLogin\" value=\"$adminLogin\" />
                 </form>";
-	echo "<script>alert('Р’С‹ РґРѕР»Р¶РЅС‹ СѓРєР°Р·Р°С‚СЊ РїСЂР°РІРёР»СЊРЅС‹Р№ Р°РґСЂРµСЃ e-mail РђРґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР°!.'); document.stepBack.submit(); </script></body>";
+	echo "<script>alert('Вы должны указать правильный адрес e-mail Администратора!.'); document.stepBack.submit(); </script></body>";
 	exit();
 	return;
 }
@@ -84,6 +82,7 @@ if($DBhostname && $DBuserName && $DBname) {
 	$configArray['DBpassword'] = $DBpassword;
 	$configArray['DBname'] = $DBname;
 	$configArray['DBPrefix'] = $DBPrefix;
+	$configArray['DBold'] = $DBold;
 } else {
 	echo "<form name=\"stepBack\" method=\"post\" action=\"install3.php\">
                 <input type=\"hidden\" name=\"DBhostname\" value=\"$DBhostname\" />
@@ -91,6 +90,7 @@ if($DBhostname && $DBuserName && $DBname) {
                 <input type=\"hidden\" name=\"DBpassword\" value=\"$DBpassword\" />
                 <input type=\"hidden\" name=\"DBname\" value=\"$DBname\" />
                 <input type=\"hidden\" name=\"DBPrefix\" value=\"$DBPrefix\" />
+                <input type=\"hidden\" name=\"DBold\" value=\"$DBold\" />
                 <input type=\"hidden\" name=\"DBcreated\" value=\"1\" />
                 <input type=\"hidden\" name=\"sitename\" value=\"$sitename\" />
                 <input type=\"hidden\" name=\"adminEmail\" value=\"$adminEmail\" />
@@ -102,7 +102,7 @@ if($DBhostname && $DBuserName && $DBname) {
                 <input type=\"hidden\" name=\"adminLogin\" value=\"$adminLogin\" />
                 </form>";
 
-	echo "<script>alert('РЈРєР°Р·Р°РЅРЅС‹Рµ Р·РЅР°С‡РµРЅРёСЏ РґР»СЏ Р‘Р” РЅРµРІРµСЂРЅС‹ Рё/РёР»Рё РїСѓСЃС‚С‹'); document.stepBack.submit(); </script>";
+	echo "<script>alert('Указанные значения для БД неверны и/или пусты'); document.stepBack.submit(); </script>";
 	return;
 }
 
@@ -119,6 +119,7 @@ if($sitename) {
                 <input type=\"hidden\" name=\"DBpassword\" value=\"$DBpassword\" />
                 <input type=\"hidden\" name=\"DBname\" value=\"$DBname\" />
                 <input type=\"hidden\" name=\"DBPrefix\" value=\"$DBPrefix\" />
+                <input type=\"hidden\" name=\"DBold\" value=\"$DBold\" />
                 <input type=\"hidden\" name=\"DBcreated\" value=\"1\" />
                 <input type=\"hidden\" name=\"sitename\" value=\"$sitename\" />
                 <input type=\"hidden\" name=\"adminEmail\" value=\"$adminEmail\" />
@@ -130,7 +131,7 @@ if($sitename) {
                 <input type=\"hidden\" name=\"adminLogin\" value=\"$adminLogin\" />
                 </form>";
 
-	echo "<script>alert('Р’Р°РјРё РЅРµ СѓРєР°Р·Р°РЅРѕ РЅР°Р·РІР°РЅРёРµ СЃР°Р№С‚Р°! '); document.stepBack2.submit();</script>";
+	echo "<script>alert('Вами не указано название сайта! '); document.stepBack2.submit();</script>";
 	return;
 }
 
@@ -155,32 +156,32 @@ if($siteUrl) {
 	$config .= "\$mosConfig_password = '{$configArray['DBpassword']}';\n";
 	$config .= "\$mosConfig_db = '{$configArray['DBname']}';\n";
 	$config .= "\$mosConfig_dbprefix = '{$configArray['DBPrefix']}';\n";
+	$config .= "\$mosConfig_dbold = '{$configArray['DBold']}';\n";
 	$config .= "\$mosConfig_lang = 'russian';\n";
+	$config .= "\$mosConfig_absolute_path = '{$configArray['absolutePath']}';\n";
 	$config .= "\$mosConfig_live_site = '{$configArray['siteUrl']}';\n";
 	$config .= "\$mosConfig_sitename = '{$configArray['sitename']}';\n";
 	$config .= "\$mosConfig_shownoauth = '0';\n";
 	$config .= "\$mosConfig_useractivation = '1';\n";
 	$config .= "\$mosConfig_uniquemail = '1';\n";
-	$config .= "\$mosConfig_offline_message = 'РЎР°Р№С‚ РІСЂРµРјРµРЅРЅРѕ Р·Р°РєСЂС‹С‚.<br />РџСЂРёРЅРѕСЃРёРј СЃРІРѕРё РёР·РІРёРЅРµРЅРёСЏ! РџРѕР¶Р°Р»СѓР№СЃС‚Р°, Р·Р°Р№РґРёС‚Рµ РїРѕР·Р¶Рµ.';\n";
-	$config .= "\$mosConfig_error_message = 'РЎР°Р№С‚ РЅРµРґРѕСЃС‚СѓРїРµРЅ.<br />РџРѕР¶Р°Р»СѓР№СЃС‚Р°, СЃРѕРѕР±С‰РёС‚Рµ РѕР± СЌС‚РѕРј РђРґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂСѓ';\n";
+	$config .= "\$mosConfig_offline_message = 'Сайт временно закрыт.<br />Приносим свои извинения! Пожалуйста, зайдите позже.';\n";
+	$config .= "\$mosConfig_error_message = 'Сайт недоступен.<br />Пожалуйста, сообщите об этом Администратору';\n";
 	$config .= "\$mosConfig_debug = '0';\n";
 	$config .= "\$mosConfig_lifetime = '900';\n";
 	$config .= "\$mosConfig_session_life_admin = '1800';\n";
 	$config .= "\$mosConfig_session_type = '0';\n";
-	$config .= "\$mosConfig_MetaDesc = 'Joostina - СЃРѕРІСЂРµРјРµРЅРЅР°СЏ СЃРёСЃС‚РµРјР° СѓРїСЂР°РІР»РµРЅРёСЏ СЃРѕРґРµСЂР¶РёРјС‹Рј РґРёРЅР°РјРёС‡РЅС‹С… СЃР°Р№С‚РѕРІ Рё РјРѕС‰РЅР°СЏ СЃРёСЃС‚РµРјР° СѓРїСЂР°РІР»РµРЅРёСЏ РїРѕСЂС‚Р°Р»Р°РјРё';\n";
+	$config .= "\$mosConfig_MetaDesc = 'Joostina - современная система управления содержимым динамичных сайтов и мощная система управления порталами';\n";
 	$config .= "\$mosConfig_MetaKeys = 'Joostina, joostina';\n";
 	$config .= "\$mosConfig_MetaTitle = '1';\n";
 	$config .= "\$mosConfig_MetaAuthor = '1';\n";
-	$config .= "\$mosConfig_locale = 'ru_RU.utf8';\n";
+	$config .= "\$mosConfig_locale = 'ru_RU.CP1251';\n";
 	$config .= "\$mosConfig_offset = '0';\n";
 	$config .= "\$mosConfig_offset_user = '0';\n";
-	$config .= "\$mosConfig_showAuthor = '1';\n";
-	$config .= "\$mosConfig_showCreateDate = '1';\n";
-	$config .= "\$mosConfig_showModifyDate = '0';\n";
-	$config .= "\$mosConfig_tags = '0';\n";
-	$config .= "\$mosConfig_global_templates = '0';\n";
-	$config .= "\$mosConfig_showPrint = '1';\n";
-	$config .= "\$mosConfig_showEmail = '1';\n";
+	$config .= "\$mosConfig_hideAuthor = '0';\n";
+	$config .= "\$mosConfig_hideCreateDate = '0';\n";
+	$config .= "\$mosConfig_hideModifyDate = '1';\n";
+	$config .= "\$mosConfig_hidePrint = '0';\n";
+	$config .= "\$mosConfig_hideEmail = '1';\n";
 	$config .= "\$mosConfig_enable_log_items = '0';\n";
 	$config .= "\$mosConfig_enable_log_searches = '0';\n";
 	$config .= "\$mosConfig_enable_stats = '0';\n";
@@ -190,7 +191,7 @@ if($siteUrl) {
 	$config .= "\$mosConfig_multipage_toc = '1';\n";
 	$config .= "\$mosConfig_allowUserRegistration = '1';\n";
 	$config .= "\$mosConfig_link_titles = '0';\n";
-	$config .= "\$mosConfig_error_reporting = '6143';\n";
+	$config .= "\$mosConfig_error_reporting = '-1';\n";
 	$config .= "\$mosConfig_list_limit = '30';\n";
 	$config .= "\$mosConfig_caching = '0';\n";
 	$config .= "\$mosConfig_cachepath = '{$configArray['absolutePath']}/cache';\n";
@@ -201,74 +202,93 @@ if($siteUrl) {
 	$config .= "\$mosConfig_sendmail = '/usr/sbin/sendmail';\n";
 	$config .= "\$mosConfig_smtpauth = '0';\n";
 	$config .= "\$mosConfig_smtpuser = '';\n";
-	// boston, РѕС‚РєР»СЋС‡РµРЅРёРµ РІРµРґРµРЅРёСЏ СЃРµСЃСЃРёР№ РЅР° С„СЂРѕРЅС‚Рµ
-	$config .= "\$mosConfig_no_session_front = '0';\n";
-	// boston, РѕС‚РєР»СЋС‡РµРЅРёРµ RSS
+	// boston, отключение ведения сессий на фронте
+	$config .= "\$mosConfig_session_front = '0';\n";
+	// boston, отключение RSS
 	$config .= "\$mosConfig_syndicate_off = '0';\n";
-	// boston, РѕС‚РєР»СЋС‡РµРЅРёРµ С‚РµРіР° Generetor
+	// boston, отключение тега Generetor
 	$config .= "\$mosConfig_generator_off = '0';\n";
-	// boston, РѕС‚РєР»СЋС‡РµРЅРёРµ РјР°РјР±РѕС‚РѕРІ РіСЂСѓРїРїС‹ system
+	// boston, отключение мамботов группы system
 	$config .= "\$mosConfig_mmb_system_off = '0';\n";
-	// boston, РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РѕРґРЅРѕРіРѕ С€Р°Р±Р»РѕРЅР° РЅР° РІРµСЃСЊ СЃР°Р№С‚
+	// boston, использование одного шаблона на весь сайт
 	$config .= "\$mosConfig_one_template = '...';\n";
-	// boston, РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ РІСЂРµРјРµРЅРё РіРµРЅРµСЂР°С†РёРё СЃС‚СЂР°РЅРёС†С‹
-	$config .= "\$mosConfig_time_generate = '0';\n";
-	// boston, РёРЅРґРµРєСЃР°С†РёСЏ РїРµС‡Р°С‚РЅРѕР№ РІРµСЂСЃРёРё
+	// boston, отображение времени генерации страницы
+	$config .= "\$mosConfig_time_gen = '0';\n";
+	// boston, индексация печатной версии
 	$config .= "\$mosConfig_index_print = '0';\n";
-	//boston, СЂР°СЃС€РёСЂРµРЅРЅС‹Рµ С‚РµРіРё РёРЅРґРµРєСЃР°С†РёРё
+	//boston, расширенные теги индексации
 	$config .= "\$mosConfig_index_tag = '0';\n";
-	// boston, РѕРїС‚РёРјРёР·Р°С†РёСЏ С‚Р°Р±Р»РёС† Р±Рґ
+	//boston, отключение модулей при редактировании содержимого на фронте
+	$config .= "\$mosConfig_module_on_edit_off = '0';\n";
+	// boston, оптимизация таблиц бд
 	$config .= "\$mosConfig_optimizetables = '0';\n";
-	// boston, РѕС‚РєР»СЋС‡РµРЅРёРµ РјР°РјР±РѕС‚РѕРІ РіСЂСѓРїРїС‹ content
+	// boston, отключение мамботов группы content
 	$config .= "\$mosConfig_mmb_content_off = '0';\n";
-	// boston, РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ captcha РґР»СЏ Р°РІС‚РѕСЂРёР·Р°С†РёРё РІ РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ
+	// boston, использование captcha для авторизации в панели управления
 	$config .= "\$mosConfig_captcha = '0';\n";
-	// boston, РєСЌС€РёСЂРѕРІР°РЅРёРµ РјРµРЅСЋ РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ
+	// boston, кэширование меню панели управления
 	$config .= "\$mosConfig_adm_menu_cache = '0';\n";
-	// boston, СЂР°СЃРїРѕР»РѕР¶РµРЅРёРµ СЌР»РµРјРµРЅС‚РѕРІ title ( Р—Р°РіРѕР»РѕРІРѕРє СЃС‚СЂР°РЅРёС†С‹ - РќР°Р·РІР°РЅРёРµ СЃР°Р№С‚Р° )
+	// boston, расположение элементов title ( Заголовок страницы - Название сайта )
 	$config .= "\$mosConfig_pagetitles_first = '1';\n";
-	// boston, РѕС‡РёСЃС‚РєР° СЃСЃС‹Р»РєРё РЅР° РєРѕРјРїРѕРЅРµРЅС‚ РіР»Р°РІРЅРѕР№ СЃС‚СЂР°РЅРёС†С‹
+	// boston, очистка ссылки на компонент главной страницы
 	$config .= "\$mosConfig_com_frontpage_clear = '1';\n";
-	// boston, РєРѕСЂРµРЅСЊ РјРµРґРёР° РјРµРЅРµРґР¶РµСЂР°
+	// boston, корень медиа менеджера
 	$config .= "\$mosConfig_media_dir = 'images/stories';\n";
-	// boston, РєРѕСЂРµРЅСЊ С„Р°Р№Р»РѕРІРѕРіРѕ РјРµРЅРµРґР¶РµСЂР°
+	// boston, корень файлового менеджера
 	$config .= "\$mosConfig_joomlaplorer_dir = null;\n";
-	// boston, Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєР°СЏ РїСѓР±Р»РёРєР°С†РёСЏ РЅРѕРІРѕСЃС‚РµР№ РЅР° РіР»Р°РІРЅРѕР№
+	// boston, автоматическая публикация новостей на главной
 	$config .= "\$mosConfig_auto_frontpage = '0';\n";
-	// boston, СѓРЅРёРєР°Р»СЊРЅС‹Рµ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂС‹ РЅРѕРІРѕСЃС‚РµР№
+	// boston, уникальные идентификаторы новостей
 	$config .= "\$mosConfig_uid_news = '0';\n";
-	// boston, СЃС‡РµС‚С‡РёРє РїСЂРѕСЃРјРѕС‚СЂРѕРІ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ
+	// boston, счетчик просмотров содержимого
 	$config .= "\$mosConfig_content_hits = '1';\n";
-	// С„РѕСЂРјР°С‚ РґР°С‚С‹
-	$config .= "\$mosConfig_form_date = '%d.%m.%Y Рі.';\n";
-	// С„РѕСЂРјР°С‚ РґР°С‚С‹ Рё РІСЂРµРјРµРЅРё
-	$config .= "\$mosConfig_form_date_full = '%d.%m.%Y Рі. %H:%M';\n";
-	// СЂР°Р·РґРµР»РёС‚РµР»СЊ РґР»СЏ Р·Р°РіРѕР»РѕРІРєР° СЃС‚СЂР°РЅРёС†С‹
+	// формат даты
+	$config .= "\$mosConfig_form_date = '%d:%m:%Y г.';\n";
+	// формат даты и времени
+	$config .= "\$mosConfig_form_date_full = '%d.%m.%Y г. %H:%M';\n";
+	// разделитель для заголовка страницы
 	$config .= "\$mosConfig_tseparator = ' - ';\n";
-	// РЅРµ СѓРґР°Р»СЏС‚СЊ СЃРµСЃСЃРёРё РїРѕСЃР»Рµ РѕРєРѕРЅС‡Р°РЅРёСЏ СЃСЂРѕРєР° СЃСѓС‰РµСЃС‚РІРѕРІР°РЅРёСЏ
+	// не удалять сессии после окончания срока существования
 	$config .= "\$mosConfig_adm_session_del = '0';\n";
-	// РѕС‚РєР»СЋС‡РёС‚СЊ favicon РґР»СЏ Р·РЅР°С‡РєР° СЃР°Р№С‚Р° РІ Р±СЂР°СѓР·РµСЂРµ
+	// отключить favicon для значка сайта в браузере
 	$config .= "\$mosConfig_disable_favicon = '0';\n";
-	// С‡Р°СЃРѕРІРѕР№ РїРѕСЏСЃ РґР»СЏ rss
+	// часовой пояс для rss
 	$config .= "\$mosConfig_feed_timeoffset = '00:00';\n";
-	// РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ СЂР°СЃС€РёСЂРµРЅРЅРѕРіРѕ РѕС‚Р»Р°РґС‡РёРєР° РЅР° С„СЂРѕРЅС‚Рµ СЃР°Р№С‚Р°
+	// использование расширенного отладчика на фронте сайта
 	$config .= "\$mosConfig_front_debug = '0';\n";
-	// РѕС‚РєР»СЋС‡РµРЅРёРµ РјР°РјР±РѕС‚РѕРІ РіСЂСѓРїРїС‹ mainbody
+	// отключение мамботов группы mainbody
 	$config .= "\$mosConfig_mmb_mainbody_off = '1';\n";
-	// РѕС‚РєР»СЋС‡РµРЅРёРµ Р±Р»РѕРєРёСЂРѕРІРѕРє РѕР±СЉРµРєС‚Р°
+	// отключение блокировок объекта
 	$config .= "\$mosConfig_disable_checked_out = '0';\n";
-	// РѕС‚РєР»СЋС‡РµРЅРёРµ РєРЅРѕРїРєРё РџРѕРјРѕС‰СЊ
+	// отключение кнопки Помощь
 	$config .= "\$mosConfig_disable_button_help = '1';\n";
-	// Р°РІС‚РѕСЂРёР·РѕРІР°С‚СЊ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РїРѕСЃР»Рµ РїРѕРґС‚РІРµСЂР¶РґРµРЅРёСЏ СЂРµРіРёСЃС‚СЂР°С†РёРё
+	// авторизовать пользователя после подтверждения регистрации
 	$config .= "\$mosConfig_auto_activ_login = '1';\n";
-	// РѕС‚РєР»СЋС‡РµРЅРёРµ СѓСЃР»РѕРІРёСЏ РїСѓР±Р»РёРєР°С†РёРё СЃ СѓС‡РµС‚РѕРј РґР°С‚
+	// отключение SET sql_mode
+	$config .= "\$mosConfig_sql_mode_off = '0';\n";
+	// обрамлять заголовки тегом h1
+	$config .= "\$mosConfig_title_h1 = '0';\n";
+	// обрамлять заголовки тегом h1 только в режиме полного просмотра содержимого
+	$config .= "\$mosConfig_title_h1_only_view = '0';\n";
+	// отключение условия публикации с учетом дат
 	$config .= "\$mosConfig_disable_date_state = '0';\n";
-	// РѕС‚РєР»СЋС‡РµРЅРёРµ РєРѕРЅС‚СЂРѕР»СЏ СѓСЂРѕРІРЅСЏ РґРѕСЃС‚СѓРїР° Рє СЃРѕРґРµСЂР¶РёРјРѕРјСѓ
+	// отключение контроля уровня доступа к содержимому
 	$config .= "\$mosConfig_disable_access_control = '0';\n";
-	// РІРёР·СѓР°Р»СЊРЅС‹Р№ СЂРµРґР°РєС‚РѕСЂ РґР»СЏ css Рё html
+	// сжатие css и js файлов
+	$config .= "\$mosConfig_gz_js_css = '0';\n";
+	// визуальный редактор для css и html
 	$config .= "\$mosConfig_codepress = '0';\n";
-	// РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ СЃС‚СЂР°РЅРёС†С‹ РїРµС‡Р°С‚Рё РёР· РєР°С‚Р°Р»РѕРіР° С‚РµРєСѓС‰РµРіРѕ С€Р°Р±Р»РѕРЅР°
+	// автоматическая очистка каталога кэша
+	$config .= "\$mosConfig_clearCache = '0';\n";
+	// использование страницы печати из каталога текущего шаблона
 	$config .= "\$mosConfig_custom_print = '0';\n";
+	// отключить многоязычность модулей
+	$config .= "\$mosConfig_module_multilang = '0';\n";
+	// отключить кэш запросов БД
+	$config .= "\$mosConfig_db_cache_handler = 'none';\n";
+
+
+
 
 	$config .= "\$mosConfig_smtppass = '';\n";
 	$config .= "\$mosConfig_smtphost = 'localhost';\n";
@@ -288,19 +308,6 @@ if($siteUrl) {
 	$config .= "\$mosConfig_admin_expired = '1';\n";
 	$config .= "\$mosConfig_frontend_login = '1';\n";
 	$config .= "\$mosConfig_frontend_userparams = '1';\n";
-
-	//Joostina ver. 1.3
-	$config .= "\$mosConfig_admin_redirect_options = '0';\n";
-	$config .= "\$mosConfig_admin_redirect_path = '404.html';\n";
-	$config .= "\$mosConfig_admin_secure_code = 'admin';\n";
-	$config .= "\$mosConfig_admin_bad_auth = '5';\n";
-	$config .= "\$mosConfig_cache_handler = 'file';\n";
-	$config .= "\$mosConfig_cache_key = '" . time() . "';\n";
-	$config .= "\$mosConfig_enable_admin_secure_code = '0';\n";
-	$config .= "\$mosConfig_author_name = '4';\n";
-	$config .= "\$mosConfig_mmb_ajax_starts_off = '0';\n";
-
-
 	$config .= "setlocale (LC_TIME, \$mosConfig_locale);\n";
 	$config .= "?>";
 
@@ -311,20 +318,18 @@ if($siteUrl) {
 		$canWrite = false;
 	} // if
 
-	$salt = mosMakePassword(16);
-	$crypt = md5($adminPassword.$salt);
-	$cryptpass = $crypt.':'.$salt;
+	$cryptpass = md5($adminPassword);
 
 	$database = new database($DBhostname,$DBuserName,$DBpassword,$DBname,$DBPrefix);
 	$nullDate = $database->getNullDate();
 
-	// СЃРѕР·РґР°РЅРёРµ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР°
+	// создание администратора
 	$installdate = date('Y-m-d H:i:s');
 	$adminLogin = $database->getEscaped($adminLogin);
-	$query = "INSERT INTO `#__users` VALUES (62, 'Administrator', '$adminLogin', '$adminEmail', '$cryptpass', 'Super Administrator', 0, 1, 25, '$installdate', '$nullDate', '', '',0, '')";
+	$query = "INSERT INTO `#__users` VALUES (62, 'Administrator', '$adminLogin', '$adminEmail', '$cryptpass', 'Super Administrator', 0, 1, 25, '$installdate', '$nullDate', '', '')";
 	$database->setQuery($query);
 	$database->query();
-	// РґРѕР±Р°РІРёС‚СЊ ARO (Access Request Object)
+	// добавить ARO (Access Request Object)
 	$query = "INSERT INTO `#__core_acl_aro` VALUES (10,'users','62',0,'Administrator',0)";
 	$database->setQuery($query);
 	$database->query();
@@ -334,7 +339,7 @@ if($siteUrl) {
 	$database->query();
 
 	// chmod files and directories if desired
-	$chmod_report = "РџСЂР°РІР° РґРѕСЃС‚СѓРїР° Рє С„Р°Р№Р»Р°Рј Рё РєР°С‚Р°Р»РѕРіР°Рј РЅРµ РёР·РјРµРЅРµРЅС‹.";
+	$chmod_report = "Права доступа к файлам и каталогам не изменены.";
 	if($filePerms != '' || $dirPerms != '') {
 		$mosrootfiles = array('administrator','cache','components','images','language','mambots','media','modules','templates','configuration.php');
 		$filemode = null;
@@ -348,9 +353,9 @@ if($siteUrl) {
 			}
 		}
 		if($chmodOk) {
-			$chmod_report = 'РџСЂР°РІР° РґРѕСЃС‚СѓРїР° Рє С„Р°Р№Р»Р°Рј Рё РєР°С‚Р°Р»РѕРіР°Рј СѓСЃРїРµС€РЅРѕ РёР·РјРµРЅРµРЅС‹.';
+			$chmod_report = 'Права доступа к файлам и каталогам успешно изменены.';
 		} else {
-			$chmod_report = 'РџСЂР°РІР° РґРѕСЃС‚СѓРїР° Рє С„Р°Р№Р»Р°Рј Рё РєР°С‚Р°Р»РѕРіР°Рј РЅРµ РјРѕРіСѓС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅС‹.<br />РџРѕР¶Р°Р»СѓР№СЃС‚Р°, СѓСЃС‚Р°РЅРѕРІРёС‚Рµ CHMOD РєР°С‚Р°Р»РѕРіРѕРІ Рё С„Р°Р№Р»РѕРІ Joostina РІСЂСѓС‡РЅСѓСЋ.';
+			$chmod_report = 'Права доступа к файлам и каталогам не могут быть изменены.<br />Пожалуйста, установите CHMOD каталогов и файлов Joostina вручную.';
 		}
 	} // if chmod wanted
 } else {
@@ -361,6 +366,7 @@ if($siteUrl) {
           <input type="hidden" name="DBpassword" value="<?php echo $DBpassword; ?>" />
           <input type="hidden" name="DBname" value="<?php echo $DBname; ?>" />
           <input type="hidden" name="DBPrefix" value="<?php echo $DBPrefix; ?>" />
+          <input type="hidden" name="DBold" value="<?php echo $DBold; ?>" />
           <input type="hidden" name="DBcreated" value="1" />
           <input type="hidden" name="sitename" value="<?php echo $sitename; ?>" />
           <input type="hidden" name="adminEmail" value="$adminEmail" />
@@ -369,54 +375,46 @@ if($siteUrl) {
           <input type="hidden" name="filePerms" value="$filePerms" />
           <input type="hidden" name="dirPerms" value="$dirPerms" />
         </form>
-        <script>alert('URL СЃР°Р№С‚Р° РЅРµ РІРІРµРґРµРЅ'); document.stepBack3.submit();</script>
+        <script>alert('URL сайта не введен'); document.stepBack3.submit();</script>
 <?php
 }
-echo "<?xml version=\"1.0\" encoding=\"utf-8\"?".">";?>
+echo "<?xml version=\"1.0\" encoding=\"windows-1251\"?".">";?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<title>Joostina - Web-СѓСЃС‚Р°РЅРѕРІРєР°. РЁР°Рі 4 - СѓСЃС‚Р°РЅРѕРІРєР° Р·Р°РІРµСЂС€РµРЅР°</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Joostina - Web-установка. Шаг 4 - установка завершена</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
 		<link rel="shortcut icon" href="../images/favicon.ico" />
 		<link rel="stylesheet" href="install.css" type="text/css" />
 <?php echo '<script language="JavaScript" src="'.$siteUrl.'/includes/js/jquery/jquery.js" type="text/javascript"></script>'; ?>
 </head>
 <body>
-
+ <div id="wrapper">
+  <div id="header">
+   <div id="joomla"><img src="img/header_install.png" alt="Установка Joostina" /></div>
+  </div>
+ </div>
  <div id="ctr" align="center">
   <form action="dummy" name="form" id="form">
    <div class="install">
-	<div id="header">
-				<p><?php echo $version; ?></p>
-				<p class="jst"><a href="http://www.joostina.ru">Joostina</a> - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ, СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ Р»РёС†РµРЅР·РёРё GNU/GPL.</p>
-			</div>	
-			
-			<div id="navigator">
-				<big>РЈСЃС‚Р°РЅРѕРІРєР° Joostina CMS</big>
-				<ul>
-					<li class="step"><strong>1</strong><span>РџСЂРѕРІРµСЂРєР° СЃРёСЃС‚РµРјС‹</span></li>
-					<li class="arrow">&nbsp;</li>
-					<li class="step"><strong>2</strong><span>Р›РёС†РµРЅР·РёРѕРЅРЅРѕРµ СЃРѕРіР»Р°С€РµРЅРёРµ</span></li>
-					<li class="arrow">&nbsp;</li>
-					<li class="step"><strong>3</strong><span>РљРѕРЅС„РёРіСѓСЂР°С†РёСЏ Р±Р°Р·С‹ РґР°РЅРЅС‹С…</span></li>
-					<li class="arrow">&nbsp;</li>
-					<li class="step"><strong>4</strong><span>РќР°Р·РІР°РЅРёРµ СЃР°Р№С‚Р°</span></li>
-					<li class="arrow">&nbsp;</li>
-					<li class="step"><strong>5</strong><span>РљРѕРЅС„РёРіСѓСЂР°С†РёСЏ СЃР°Р№С‚Р°</span></li>
-					<li class="arrow">&nbsp;</li>
-					<li class="step  step-on"><strong>6</strong><span>Р—Р°РІРµСЂС€РµРЅРёРµ СѓСЃС‚Р°РЅРѕРІРєРё</span></li>
-				</ul>				
+			<div id="step"><span>Конфигурация сайта</span>
 			</div>
-   <div id="wrap">
-   
+    <div id="stepbar">
+    <div class="step-off">Проверка системы</div>
+    <div class="step-off">Лицензия</div>
+    <div class="step-off">Шаг 1</div>
+    <div class="step-off">Шаг 2</div>
+    <div class="step-off">Шаг 3</div>
+    <div class="step-on">Шаг 4</div>
+   </div>
+   <div id="right">
     <div class="install-form">
      <div class="form-block">
-     	<div class="install-text">РџРћР–РђР›РЈР™РЎРўРђ, <b> РЈР”РђР›РРўР• РљРђРўРђР›РћР“ 'INSTALLATION'</b>, РРќРђР§Р• Р’РђРЁ РЎРђР™Рў РќР• Р—РђР“Р РЈР—РРўРЎРЇ</div>
-     
-     
-
-<input class="button small" type="button" name="runSite" value="РџСЂРѕСЃРјРѕС‚СЂ СЃР°Р№С‚Р°"
+      <table width="100%" class="content">
+	<tr><td align="center"><span id="alert_mess" class="error">ПОЖАЛУЙСТА, <b> УДАЛИТЕ КАТАЛОГ 'INSTALLATION'</b>,<br />ИНАЧЕ ВАШ САЙТ НЕ ЗАГРУЗИТСЯ</span></td></tr>
+	<tr><td>&nbsp;</td></tr>
+<tr><td align="center">
+<input class="button" type="button" name="runSite" value="Просмотр сайта"
 <?php
 if($siteUrl) {
 	echo "onClick=\"window.location.href='$siteUrl/' \"";
@@ -424,7 +422,7 @@ if($siteUrl) {
 	echo "onClick=\"window.location.href='".$configArray['siteURL']."/index.php' \"";
 }
 ?>/>
-&nbsp;<input class="button small" type="button" name="Admin" value="РџР°РЅРµР»СЊ СѓРїСЂР°РІР»РµРЅРёСЏ"
+&nbsp;<input class="button" type="button" name="Admin" value="Панель управления"
 <?php
 if($siteUrl) {
 	echo "onClick=\"window.location.href='$siteUrl/administrator/index.php' \"";
@@ -434,27 +432,34 @@ if($siteUrl) {
 ?>/>
 <?php
 $url = $siteUrl.'/installation/install.ajax.php?task=rminstalldir';
-$clk = 'onclick=\'$.ajax({url: "'.$url.'", beforeSend: function(response){$("#status").show("normal")}, success: function(response){$("#delbutton").val(response); $("#delbutton").click(function(){if(response == "www.joostina.ru") window.location.href="http://www.joostina.ru"}); $("#alert_mess").hide("fast")}, dataType: "html"}); return false;\'';
-$delbutton = '&nbsp;<input class="button small" '.$clk.' type="button" id="delbutton" name="delbutton" value="РЈРґР°Р»РёС‚СЊ installation" />';
+$clk = 'onclick=\'$.ajax({url: "'.$url.'/installation/install.ajax.php", beforeSend: function(response){$("#status").show("normal")}, success: function(response){$("#delbutton").val(response);$("#alert_mess").hide("fast")}, dataType: "html"}); return false;\'';
+$delbutton = '&nbsp;<input class="button" '.$clk.' type="button" id="delbutton" name="delbutton" value="Удалить installation" />';
 echo $delbutton;
 ?>
 <div id="status" style="display:none;"></div>
-<h2>Р”Р°РЅРЅС‹Рµ РґР»СЏ Р°РІС‚РѕСЂРёР·Р°С†РёРё Р“Р»Р°РІРЅРѕРіРѕ РђРґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР° СЃР°Р№С‚Р°:</h2>
-                       Р›РѕРіРёРЅ: <b><?php echo $adminLogin;?></b> РџР°СЂРѕР»СЊ: <b><?php echo $adminPassword; ?></b>
+</td></tr>
+<tr><td>&nbsp;</td></tr>
+                        <tr><td align="center"><h2>Данные для авторизации Главного Администратора сайта:</h2></td></tr>
+                        <tr><td align="center">Логин: <b><?php echo $adminLogin;?></b> Пароль: <b><?php echo $adminPassword; ?></b></td></tr>
        <?php if(!$canWrite) { ?>
-       <div class="install-text">
-         Р’Р°С€ РєРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРЅС‹Р№ С„Р°Р№Р» РёР»Рё РЅСѓР¶РЅС‹Р№ РєР°С‚Р°Р»РѕРі РЅРµРґРѕСЃС‚СѓРїРЅС‹ РґР»СЏ Р·Р°РїРёСЃРё,
-         РёР»Рё РµСЃС‚СЊ РєР°РєР°СЏ-С‚Рѕ РїСЂРѕР±Р»РµРјР° СЃ СЃРѕР·РґР°РЅРёРµРј РѕСЃРЅРѕРІРЅРѕРіРѕ РєРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРЅРѕРіРѕ С„Р°Р№Р»Р°.
-         Р’Р°Рј РїСЂРёРґРµС‚СЃСЏ Р·Р°РіСЂСѓР·РёС‚СЊ СЌС‚РѕС‚ РєРѕРґ РІСЂСѓС‡РЅСѓСЋ.<br />
-         РћР‘РЇР—РђРўР•Р›Р¬РќРћ РІС‹РґРµР»РёС‚Рµ Рё СЃРєРѕРїРёСЂСѓР№С‚Рµ РІРµСЃСЊ СЃР»РµРґСѓСЋС‰РёР№ РєРѕРґ:
-        </div>
-        
-      
-         <textarea rows="5" cols="60" name="configcode" onclick="javascript:this.form.configcode.focus();this.form.configcode.select();" ><?php echo htmlspecialchars($config); ?></textarea>
-       
+       <tr>
+        <td class="small">
+         Ваш конфигурационный файл или нужный каталог недоступны для записи,
+         или есть какая-то проблема с созданием основного конфигурационного файла.
+         Вам придется загрузить этот код вручную.<br />
+         ОБЯЗАТЕЛЬНО выделите и скопируйте весь следующий код:
+        </td>
+       </tr>
+       <tr>
+        <td align="center">
+         <textarea rows="5" cols="60" name="configcode" onclick="javascript:this.form.configcode.focus();this.form.configcode.select();" ><?php echo
+htmlspecialchars($config); ?></textarea>
+        </td>
+       </tr>
        <?php } ?>
-						<div><?php /*echo $chmod_report*/; ?></div>
- 
+						<tr><td class="small"><?php /*echo $chmod_report*/
+; ?></td></tr>
+      </table>
      </div>
     </div>
     <div id="break"></div>
@@ -464,6 +469,6 @@ echo $delbutton;
   </form>
  </div>
  <div class="clr"></div>
- 
+ <div class="ctr" id="footer"><a href="http://www.joostina.ru" target="_blank">Joostina</a> - свободное программное обеспечение, распространяемое по лицензии GNU/GPL.</div>
 </body>
 </html>

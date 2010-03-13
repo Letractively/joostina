@@ -1,30 +1,36 @@
 <?php
 /**
 * @package Joostina
-* @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
-* @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
-* Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
-* Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
 */
 
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
 
 // XML library
-require_once (JPATH_BASE.DS.'includes/domit/xml_domit_lite_include.php');
-require_once (JPATH_BASE_ADMIN."/components/com_jce/installer/installer.html.php");
-require_once (JPATH_BASE_ADMIN."/components/com_jce/installer/installer.class.php");
+require_once ($mosConfig_absolute_path.
+	'/includes/domit/xml_domit_lite_include.php');
+require_once ($mosConfig_absolute_path.
+	"/".ADMINISTRATOR_DIRECTORY."/components/com_jce/installer/installer.html.php");
+require_once ($mosConfig_absolute_path.
+	"/".ADMINISTRATOR_DIRECTORY."/components/com_jce/installer/installer.class.php");
 
 function jceInstaller($option,$client,$opt) {
+	global $mosConfig_absolute_path;
 	$element = mosGetParam($_REQUEST,'element','');
 
-	$path = JPATH_BASE_ADMIN."/components/com_jce/installer/$element/$element.php";
+	$path = $mosConfig_absolute_path."/".ADMINISTRATOR_DIRECTORY."/components/com_jce/installer/$element/$element.php";
 
 	// map the element to the required derived class
-	$classMap = array('plugins' => 'JCEPluginInstaller','language' =>'JCELanguageInstaller');
+	$classMap = array('plugins' => 'JCEPluginInstaller','language' =>
+		'JCELanguageInstaller');
 
 	if(array_key_exists($element,$classMap)) {
-		require_once (JPATH_BASE.DS.JADMIN_BASE."/components/com_jce/installer/$element/$element.class.php");
+		require_once ($mosConfig_absolute_path.
+			"/".ADMINISTRATOR_DIRECTORY."/components/com_jce/installer/$element/$element.class.php");
 
 		switch($opt) {
 
@@ -41,7 +47,7 @@ function jceInstaller($option,$client,$opt) {
 				break;
 
 			case 'show':
-				$path = JPATH_BASE_ADMIN."/components/com_jce/installer/$element/$element.php";
+				$path = $mosConfig_absolute_path."/".ADMINISTRATOR_DIRECTORY."/components/com_jce/installer/$element/$element.php";
 
 				if(file_exists($path)) {
 					require $path;
@@ -157,7 +163,8 @@ function removeElement($installerClass,$option,$element,$client) {
 * @param string The message to return
 */
 function uploadFile($filename,$userfile_name,&$msg) {
-	$baseDir = mosPathName(JPATH_BASE.'/media');
+	global $mosConfig_absolute_path;
+	$baseDir = mosPathName($mosConfig_absolute_path.'/media');
 
 	if(file_exists($baseDir)) {
 		if(is_writable($baseDir)) {

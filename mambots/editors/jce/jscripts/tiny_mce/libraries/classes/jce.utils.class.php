@@ -15,9 +15,14 @@
 /** boolean True if a Windows based host */
 define( 'JPATH_ISWIN', (substr(PHP_OS, 0, 3) == 'WIN') );
 
+if(!defined('DS')) {
+	/** string Shortcut for the DIRECTORY_SEPERATOR define */
+	define('DS', DIRECTORY_SEPARATOR);
+}
+
 if (!defined( 'JPATH_ROOT' )) {
 	/** string The root directory of the file system in native format */
-	define( 'JPATH_ROOT', JPath::clean( JPATH_BASE ) );
+	define( 'JPATH_ROOT', JPath::clean( $mosConfig_absolute_path ) );
 }
 
 /**
@@ -457,7 +462,7 @@ class JFolder
 
 		// read the source directory
 		$handle = opendir( $path );
-		$path .= DS;
+		$path .= DIRECTORY_SEPARATOR;
 		while ($file = readdir( $handle )) {
 			$dir = $path . $file;
 			$isDir = is_dir( $dir );
@@ -502,7 +507,7 @@ class JFolder
 
 		// read the source directory
 		$handle = opendir( $path );
-		$path 	.= DS;
+		$path 	.= DIRECTORY_SEPARATOR;
 		while ( $file = readdir( $handle ) ) {
 			$dir 	= $path . $file;
 			$isDir 	= is_dir( $dir );
@@ -730,18 +735,18 @@ class JPath {
 			$retval = JPATH_ROOT;
 		} else {
 			if (JPATH_ISWIN)	{
-				$retval = str_replace( '/', DS, $p_path );
+				$retval = str_replace( '/', DIRECTORY_SEPARATOR, $p_path );
 				// Remove double \\
-				$retval = str_replace( '\\\\', DS, $retval );
+				$retval = str_replace( '\\\\', DIRECTORY_SEPARATOR, $retval );
 			} else {
-				$retval = str_replace( '\\', DS, $p_path );
+				$retval = str_replace( '\\', DIRECTORY_SEPARATOR, $p_path );
 				// Remove double //
-				$retval = str_replace('//',DS,$retval);
+				$retval = str_replace('//',DIRECTORY_SEPARATOR,$retval);
 			}
 		}
 		if ($p_addtrailingslash) {
-			if (substr( $retval, -1 ) != DS) {
-				$retval .= DS;
+			if (substr( $retval, -1 ) != DIRECTORY_SEPARATOR) {
+				$retval .= DIRECTORY_SEPARATOR;
 			}
 		}
 

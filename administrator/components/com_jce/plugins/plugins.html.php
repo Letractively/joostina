@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2010 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
-* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
-* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
-* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
+* @copyright Авторские права (C) 2008 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
 */
 
-// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+// запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 /**
@@ -19,7 +19,7 @@ class JCE_plugins {
 		$access_list = array(
 			mosHTML::makeOption('0',_GUEST),
 			mosHTML::makeOption('18','-'._USER_GROUP_REGISTERED),
-			mosHTML::makeOption('19','--'._AUTHOR),
+			mosHTML::makeOption('19','--'._AUTHOR_BY),
 			mosHTML::makeOption('20','---'._EDITOR),
 			mosHTML::makeOption('21','----'._PUBLISHER),
 			mosHTML::makeOption('23','-----'._MANAGER),
@@ -34,11 +34,11 @@ class JCE_plugins {
 	* @param array An array of category objects
 	*/
 	function showPlugins(&$rows,$client,&$pageNav,$option,&$lists,$search) {
-		global $my,$database;
+		global $my,$mosConfig_live_site,$mosConfig_absolute_path,$database;
 
 		$database->setQuery("SELECT lang FROM #__jce_langs WHERE published= '1'");
 		$lang = $database->loadResult();
-		require_once (JPATH_BASE."/administrator/components/com_jce/language/".$lang.".php");
+		require_once ($mosConfig_absolute_path."/administrator/components/com_jce/language/".$lang.".php");
 
 		mosCommonHTML::loadOverlib();
 		$access = JCE_plugins::AccessList();
@@ -76,7 +76,7 @@ class JCE_plugins {
 			$link = 'index2.php?option=com_jce&client='.$client.'&task=editplugin&hidemainmenu=1&id='.$row->id;
 			$checked = mosCommonHTML::CheckedOutProcessing($row,$i);
 			$published = mosCommonHTML::PublishedProcessing($row,$i);
-			$core = ($row->iscore == 1)?_YES:_NO;
+			$core = ($row->iscore == 1)?'Да':'Нет';
 			switch($row->access) {
 				case '0':
 					$access_value = _GUEST;
@@ -85,7 +85,7 @@ class JCE_plugins {
 					$access_value = _USER_GROUP_REGISTERED;
 					break;
 				case '19':
-					$access_value = _AUTHOR;
+					$access_value = _AUTHOR_BY;
 					break;
 				case '20':
 					$access_value = _EDITOR;
@@ -127,9 +127,9 @@ class JCE_plugins {
 				<td align="center">
 <?php if( !empty( $row->layout_icon )  ){
 					if( $row->type == 'plugin' ){
-						$icon_path = JPATH_SITE."/mambots/editors/jce/jscripts/tiny_mce/plugins/".$row->plugin."/images/".$row->layout_icon.".gif";
+						$icon_path = $mosConfig_live_site."/mambots/editors/jce/jscripts/tiny_mce/plugins/".$row->plugin."/images/".$row->layout_icon.".gif";
 					}else{
-						$icon_path = JPATH_SITE."/mambots/editors/jce/jscripts/tiny_mce/themes/advanced/images/".$row->layout_icon.".gif";
+						$icon_path = $mosConfig_live_site."/mambots/editors/jce/jscripts/tiny_mce/themes/advanced/images/".$row->layout_icon.".gif";
 					}
 ?>
 					<img src="<?php echo $icon_path;?>" alt="<?php echo $row->name;?>" title="<?php echo $row->name;?>" height="20" />
@@ -168,11 +168,9 @@ class JCE_plugins {
 	function editPlugins(&$row,&$lists,&$params,$option) {
 		global $mainframe,$database;
 
-		mosCommonHTML::loadOverlib();
-
 		$database->setQuery("SELECT lang FROM #__jce_langs WHERE published= '1'");
 		$lang = $database->loadResult();
-		require_once (JPATH_BASE."/administrator/components/com_jce/language/".$lang.".php");
+		require_once ($mainframe->getCfg('absolute_path')."/administrator/components/com_jce/language/".$lang.".php");
 
 		$row->nameA = '';
 		if($row->id) {
@@ -311,6 +309,8 @@ class JCE_plugins {
 <?php
 		if($row->id) {
 			echo $params->render();
+		} else {
+			echo '<i>Нет параметров</i>';
 		}
 ?>
 					</td>
@@ -325,6 +325,7 @@ class JCE_plugins {
 		<input type="hidden" name="client" value="<?php echo $row->client_id; ?>" />
 		<input type="hidden" name="task" value="" />
 		</form>
+		<script language="Javascript" src="<?php echo $mainframe->getCfg('live_site'); ?>/includes/js/overlib_mini.js"></script>
 		<?php
 	}
 }

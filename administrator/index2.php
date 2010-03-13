@@ -1,141 +1,89 @@
 <?php
 /**
- * @package Joostina
- * @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2010 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
- * @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
- * Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
- * Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
- */
-
-// РЈСЃС‚Р°РЅРѕРІРєР° С„Р»Р°РіР° СЂРѕРґРёС‚РµР»СЊСЃРєРѕРіРѕ С„Р°Р№Р»Р°
+* @package Joostina
+* @copyright Авторские права (C) 2008 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+*/
+// Установка флага, что этот файл - родительский
 define('_VALID_MOS',1);
-// СЂР°Р·РґРµР»РёС‚РµР»СЊ РєР°С‚Р°Р»РѕРіРѕРІ
-define('DS', DIRECTORY_SEPARATOR );
-// РєРѕСЂРµРЅСЊ С„Р°Р№Р»РѕРІ
-define('JPATH_BASE', dirname(dirname(__FILE__)) );
-// РєРѕСЂРµРЅСЊ С„Р°Р№Р»РѕРІ Р°РґРјРёРЅРєРёС‹
-define('JPATH_BASE_ADMIN', dirname(__FILE__) );
-
-if(!file_exists(JPATH_BASE.DS.'configuration.php')) {
-	header('Location: ../installation/index.php');
-	exit();
+if(!file_exists('../configuration.php')) {
+header('Location: ../installation/index.php');
+exit();
 }
-
-(ini_get('register_globals') == 1) ? require_once (JPATH_BASE.DS.'includes'.DS.'globals.php') : null;
-require_once (JPATH_BASE.DS.'configuration.php');
-
-// РґР»СЏ СЃРѕРІРјРµСЃС‚РёРјРѕСЃС‚Рё
-$mosConfig_absolute_path = JPATH_BASE;
-
-// SSL РїСЂРѕРІРµСЂРєР°  - $http_host returns <live site url>:<port number if it is 443>
+require ('../globals.php');
+require_once ('../configuration.php');
+require_once ('../includes/definitions.php');
+// отключаем кэширование запросов базы данных для панели управления
+$mosConfig_db_cache_handler_orig = $mosConfig_db_cache_handler;
+$mosConfig_db_cache_handler = 'none';
+// SSL проверка  - $http_host returns <live site url>:<port number if it is 443>
 $http_host = explode(':',$_SERVER['HTTP_HOST']);
 if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset($http_host[1]) && $http_host[1] == 443) && substr($mosConfig_live_site,0,8) !='https://') {
-	$mosConfig_live_site = 'https://' . substr($mosConfig_live_site,7);
+$mosConfig_live_site = 'https://'.substr($mosConfig_live_site,7);
 }
-
-// live_site
-define('JPATH_SITE', $mosConfig_live_site );
-
-// РїРѕРґРєР»СЋС‡Р°РµРј СЏРґСЂРѕ
-require_once (JPATH_BASE .DS. 'includes'.DS.'joostina.php');
-
-
-// СЂР°Р±РѕС‚Р° СЃ СЃРµСЃСЃРёСЏРјРё РЅР°С‡РёРЅР°РµС‚СЃСЏ РґРѕ СЃРѕР·РґР°РЅРёСЏ РіР»Р°РІРЅРѕРіРѕ РѕР±СЉРµРєС‚Р° РІР·Р°РёРјРѕРґРµР№СЃС‚РІРёСЏ СЃ СЏРґСЂРѕРј
-session_name(md5(JPATH_SITE));
+require_once ($mosConfig_absolute_path .'/includes/joomla.php');
+include_once ($mosConfig_absolute_path .'/language/'.$mosConfig_lang.'.php');
+require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/includes/admin.php');
+global $database;
+// работа с сессиями начинается до создания главного объекта взаимодействия с ядром
+session_name(md5($mosConfig_live_site));
 session_start();
-
-header('Content-type: text/html; charset=UTF-8');
-
-// РїРѕР»СѓС‡РµРЅРёРµ РѕСЃРЅРѕРІРЅС‹С… РїР°СЂР°РјРµС‚СЂРѕРІ
-$option		= strval(strtolower(mosGetParam($_REQUEST,'option','')));
-$task		= strval(mosGetParam($_REQUEST,'task',''));
-$act		= strtolower(mosGetParam($_REQUEST,'act',''));
-$section	= mosGetParam($_REQUEST,'section','');
-$no_html	= intval(mosGetParam($_REQUEST,'no_html',0));
-$id			= intval(mosGetParam($_REQUEST,'id',0));
-
-// mainframe - РѕСЃРЅРѕРІРЅР°СЏ СЂР°Р±РѕС‡Р°СЏ СЃСЂРµРґР° API, РѕСЃСѓС‰РµСЃС‚РІР»СЏРµС‚ РІР·Р°РёРјРѕРґРµР№СЃС‚РІРёРµ СЃ 'СЏРґСЂРѕРј'
-$mainframe = mosMainFrame::getInstance(true);
-
-// РѕР±СЉРµРєС‚ СЂР°Р±РѕС‚С‹ СЃ Р±Р°Р·РѕР№ РґР°РЅРЅС‹С…
-$database = &$mainframe->getDBO();
-
-// РєР»Р°СЃСЃ СЂР°Р±РѕС‚С‹ СЃ РїСЂР°РІР°РјРё РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№
-$acl = &gacl::getInstance();
-
-// СѓСЃС‚Р°РЅРѕРІРєР° СЏР·С‹РєР° СЃРёСЃС‚РµРјСѓ
-$mainframe->set('lang', $mosConfig_lang);
-
-// РїРѕР»СѓС‡Р°РµРј РЅР°Р·РІР°РЅРёРµ С€Р°Р±Р»РѕРЅР° РґР»СЏ РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ
-$cur_template = $mainframe->getTemplate();
-define('JTEMPLATE', $cur_template );
-
-require_once($mainframe->getLangFile());
-require_once($mainframe->getLangFile('administrator'));
-require_once (JPATH_BASE_ADMIN.DS.'includes'.DS.'admin.php');
-
-// Р·Р°РїСѓСЃРє СЃРµСЃСЃРёР№ РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ
+$option= strval(strtolower(mosGetParam($_REQUEST,'option','')));
+$task= strval(mosGetParam($_REQUEST,'task',''));
+// создание объекта взаимодействия с ядром системы
+$mainframe = new mosMainFrame($database,$option,'..',true);
+// запуск сессий панели управления
 $my = $mainframe->initSessionAdmin($option,$task);
-
-// СѓСЃС‚Р°РЅРѕРІРєР° РїР°СЂР°РјРµС‚СЂР° overlib
-$mainframe->set('loadOverlib',false);
-
-// СЃС‚СЂР°РЅРёС†Р° РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
+// получение основных параметров
+$act= strtolower(mosGetParam($_REQUEST,'act',''));
+$section= mosGetParam($_REQUEST,'section','');
+$no_html= intval(mosGetParam($_REQUEST,'no_html',0));
+$id= intval(mosGetParam($_REQUEST,'id',0));
+$cur_template = $mainframe->getTemplate();
+// страница панели управления по умолчанию
 if($option == '') {
-	$option = 'com_admin';
+$option = 'com_admin';
 }
-
-if($mosConfig_mmb_system_off == 0) {
-	$_MAMBOTS->loadBotGroup('admin');
-	$_MAMBOTS->trigger('onAfterAdminStart');
-}
-
-// РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЂРµРґР°РєС‚РѕСЂР°
-$mainframe->set( 'allow_wysiwyg', 1 );  
-require_once (JPATH_BASE . '/includes/editor.php');
-
+// установка параметра overlib
+$mainframe->set('loadOverlib',false);
+// инициализация редактора
+require_once ($mosConfig_absolute_path.'/editor/editor.php');
 ob_start();
 if($path = $mainframe->getPath('admin')) {
-	//РџРѕРґРєР»СЋС‡Р°РµРј СЏР·С‹Рє РєРѕРјРїРѕРЅРµРЅС‚Р°
-	if($mainframe->getLangFile($option)) {
-		include_once($mainframe->getLangFile($option));
-	}
-	require_once ($path);
+require_once ($path);
 } else {
-	?>
-<img src="<?php echo JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE;?>/images/ico/error.png" border="0" alt="Joostina!" />
-	<?php
+?>
+<img src="images/error.png" border="0" alt="Joostina!" />
+<?php
 }
-
 $_MOS_OPTION['buffer'] = ob_get_contents();
 ob_end_clean();
-
 initGzip();
-
-// РЅР°С‡Р°Р»Рѕ РІС‹РІРѕРґР° html
+// начало вывода html
 if($no_html == 0) {
-	// Р·Р°РіСЂСѓР·РєР° С„Р°Р№Р»Р° С€Р°Р±Р»РѕРЅР°
-	if(!file_exists(JPATH_BASE .DS.JADMIN_BASE.DS.'templates'.DS. JTEMPLATE .DS.'index.php')) {
-		echo _TEMPLATE_NOT_FOUND.': '.JTEMPLATE;
-	} else {
-		//РџРѕРґРєР»СЋС‡Р°РµРј СЏР·С‹Рє С€Р°Р±Р»РѕРЅР°
-		if($mainframe->getLangFile('tmpl_'.JTEMPLATE)) {
-			include_once($mainframe->getLangFile('tmpl_'.JTEMPLATE));
-		}
-		require_once (JPATH_BASE . DS.JADMIN_BASE.DS.'templates' .DS. JTEMPLATE .DS.'index.php');
-	}
+// загрузка файла шаблона
+if(!file_exists($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$cur_template.'/index.php')) {
+echo _TEMPLATE_NOT_FOUND.': ',$cur_template;
 } else {
-	mosMainBody_Admin();
+require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$cur_template.'/index.php');
 }
-
-// РёРЅС„РѕСЂРјР°С†РёСЏ РѕС‚Р»Р°РґРєРё, С‡РёСЃР»Рѕ Р·Р°РїСЂРѕСЃРѕРІ РІ Р‘Р”
+} else {
+mosMainBody_Admin();
+}
+// информация отладки, число запросов в БД
 if($mosConfig_debug) {
-	jd_get();
+echo _SQL_QUERIES_COUNT.': '. $database->_ticker;
+echo '<pre>';
+foreach($database->_log as $k => $sql) {
+echo $k + 1 . ":&nbsp;" . $sql . '<br /><br />';
 }
-
-// РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёРµ СЃРµСЃСЃРёР№
-if($task == 'save' || $task == 'apply' || $task == 'save_and_new' ) {
-	$mainframe->initSessionAdmin($option,'');
+echo '</pre>';
 }
-
+// восстановление сессий
+if($task == 'save' || $task == 'apply') {
+$mainframe->initSessionAdmin($option,'');
+}
 doGzip();
+?>

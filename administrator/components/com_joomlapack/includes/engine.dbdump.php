@@ -1,13 +1,13 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
 
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
 
 // Constants
@@ -16,107 +16,107 @@ define('_DBPACKER_TABLES_SAMPLE_DATA',2);
 
 global $DBPACKER_CORE_TABLES,$DBPACKER_OMIT_DATA;
 
-// Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñ‹ ÑÐ´Ñ€Ð°, Ð¿Ð¾Ð¼ÐµÑ‰Ð°ÑŽÑ‚ÑÑ Ð² Ð³Ð»Ð°Ð²Ð½Ñ‹Ð¹ Ñ„Ð°Ð¹Ð»
+// òàáëèöû ÿäðà, ïîìåùàþòñÿ â ãëàâíûé ôàéë
 $DBPACKER_CORE_TABLES = array(
-		'#__groups',
-		'#__mambots',
-		'#__menu',
-		'#__modules',
-		'#__modules_menu',
-		'#__templates_menu',
-		'#__template_positions',
-		'#__usertypes',
-		'#__core_acl_aro_groups',
-		'#__core_acl_aro_sections'
+	'#__groups',
+	'#__mambots',
+	'#__menu',
+	'#__modules',
+	'#__modules_menu',
+	'#__templates_menu',
+	'#__template_positions',
+	'#__usertypes',
+	'#__core_acl_aro_groups',
+	'#__core_acl_aro_sections'
 );
 
-// Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñ‹ ÐºÐ¾Ñ‚Ð¾Ñ€Ñ‹Ðµ Ð½Ðµ Ð½Ð°Ð´Ð¾ Ð°Ñ€Ñ…Ð¸Ð²Ð¸Ñ€Ð¾Ð²Ð°Ñ‚ÑŒ
+// òàáëèöû êîòîðûå íå íàäî àðõèâèðîâàòü
 $DBPACKER_OMIT_DATA = array('#__jp_packvars');
 
 class CDBBackupEngine {
 
 	/**
-	 * Stores the results of JoomFish detection
-	 * @access private
-	 * @var boolean
-	 */
+	* Stores the results of JoomFish detection
+	* @access private
+	* @var boolean
+	*/
 	var $_hasJoomFish;
 	/**
-	 * The prefix used in the MySQL database for Joomla! table (i.e. "jos_");
-	 * @access private
-	 * @var string
-	 */
+	* The prefix used in the MySQL database for Joomla! table (i.e. "jos_");
+	* @access private
+	* @var string
+	*/
 	var $_dbprefix;
 	/**
-	 * Have we finished processing our task?
-	 * @access private
-	 * @var boolean
-	 */
+	* Have we finished processing our task?
+	* @access private
+	* @var boolean
+	*/
 	var $_isFinished;
 	/**
-	 * SQL compatibility level
-	 * @access private
-	 * @var string
-	 */
+	* SQL compatibility level
+	* @access private
+	* @var string
+	*/
 	var $_sqlMode;
 	/**
-	 * Database status table
-	 * @access private
-	 * @var array
-	 */
+	* Database status table
+	* @access private
+	* @var array
+	*/
 	var $_all_tables;
 	/**
-	 * Next table to pack
-	 * @access private
-	 * @var string
-	 */
+	* Next table to pack
+	* @access private
+	* @var string
+	*/
 	var $_nextTable;
 	/**
-	 * Starting row to pack
-	 * @access private
-	 * @var string
-	 */
+	* Starting row to pack
+	* @access private
+	* @var string
+	*/
 	var $_nextRange;
 	/**
-	 * Next tables maximum data range
-	 * @access private
-	 * @var long
-	 */
+	* Next tables maximum data range
+	* @access private
+	* @var long
+	*/
 	var $_maxRange;
 	/**
-	 * Filename of dump file : core tables
-	 * @access private
-	 * @var string
-	 */
+	* Filename of dump file : core tables
+	* @access private
+	* @var string
+	*/
 	var $_filenameCore;
 	/**
-	 * Filename of dump file : sample data table
-	 * @access private
-	 * @var string
-	 */
+	* Filename of dump file : sample data table
+	* @access private
+	* @var string
+	*/
 	var $_filenameSample;
 	/**
-	 * We are only dumping the database, not the entire site if this is true
-	 * @access private
-	 * @var boolean
-	 */
+	* We are only dumping the database, not the entire site if this is true
+	* @access private
+	* @var boolean
+	*/
 	var $_onlyDBDumpMode;
 	/**
-	 * Created the DB Backup Engine instance
-	 * @param boolean $onlyDBDumpMode If true, notifies the engine that we are backing up only the database and not the entire site.
-	 */
+	* Created the DB Backup Engine instance
+	* @param boolean $onlyDBDumpMode If true, notifies the engine that we are backing up only the database and not the entire site.
+	*/
 	function CDBBackupEngine($onlyDBDumpMode = false) {
-		global $mosConfig_dbprefix;
+		global $mosConfig_absolute_path,$mosConfig_dbprefix;
 		global $JPConfiguration,$database;
 
 		// SECTION 1.
 		// Populate basic global variables
-		CJPLogger::WriteLog(_JP_LOG_DEBUG,'CDBBackupEngine :: ÐÐ°Ñ‡Ð°Ð»Ð¸');
+		CJPLogger::WriteLog(_JP_LOG_DEBUG,'CDBBackupEngine :: Íà÷àëè');
 		// Initialize private variables
 		$this->_onlyDBDumpMode = $onlyDBDumpMode;
 		$this->_dbprefix = $mosConfig_dbprefix;
 		// Detect JoomFish
-		if(file_exists(JPATH_BASE_ADMIN.'/components/com_joomfish/config.joomfish.php')) {
+		if(file_exists($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_joomfish/config.joomfish.php')) {
 			$this->_hasJoomFish = true;
 		} else {
 			$this->_hasJoomFish = false;
@@ -168,7 +168,7 @@ class CDBBackupEngine {
 	}
 
 	function tick() {
-		global $database,$JPConfiguration;
+		global $database,$JPConfiguration,$mosConfig_absolute_path;
 		$out = ''; // joostina pach
 		if($this->_isFinished) {
 			// Indicate we're done
@@ -210,9 +210,11 @@ class CDBBackupEngine {
 							$fragmentSize = 0;
 
 							$filename = $this->_filenameCore;
-							$filesize = filesize($filename);
-							$fragmentSize += $filesize;
-							$fileList[] = $filename;
+							if(file_exists($filename)){
+								$filesize = filesize($filename);
+								$fragmentSize += $filesize;
+								$fileList[] = $filename;
+							}
 
 							if($this->_filenameCore != $this->_filenameSample) {
 								$filename = $this->_filenameSample;
@@ -242,17 +244,17 @@ class CDBBackupEngine {
 
 							CJPLogger::WriteLog(_JP_LOG_DEBUG,_JP_NEW_FRAGMENT_ADDED);
 						}
-						// Ñ„Ð°Ð¹Ð» Ð² ÐºÐ¾Ñ‚Ð¾Ñ€Ñ‹Ð¹ ÑÐºÐ»Ð°Ð´Ñ‹Ð²Ð°ÐµÑ‚ÑÑ Ð´Ð°Ð¼Ð¿ Ð±Ð°Ð·Ñ‹
+						// ôàéë â êîòîðûé ñêëàäûâàåòñÿ äàìï áàçû
 						$filename = $this->_filenameCore;
-						// Ð²Ñ‹Ð±Ð¾Ñ€ Ñ‚Ð¸Ð¿Ð° Ð°Ñ€Ñ…Ð¸Ð²Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ñ Ð´Ð°Ð¼Ð¿Ð° Ð±Ð°Ð·Ñ‹ Ð´Ð°Ð½Ð½Ñ‹Ñ…
-						if($this->_onlyDBDumpMode) {
+						// âûáîð òèïà àðõèâèðîâàíèÿ äàìïà áàçû äàííûõ
+						if($this->_onlyDBDumpMode){
 							switch($JPConfiguration->sql_pack) {
 								case 0:
 								default:
 									break;
 								case 1:
-								// Ð°Ñ€Ñ…Ð¸Ð²Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ Ð² tar.gz
-									require_once (JPATH_BASE.'/includes/Archive/Tar.php');
+								// àðõèâèðîâàíèå â tar.gz
+									require_once ($mosConfig_absolute_path.'/includes/Archive/Tar.php');
 									$filename = $filename.'.tar.gz';
 									$tar = new Archive_Tar($filename);
 									$tar->setErrorHandling(PEAR_ERROR_PRINT);
@@ -261,8 +263,8 @@ class CDBBackupEngine {
 									unset($tar);
 									break;
 								case 2:
-								// Ð°Ñ€Ñ…Ð¸Ð²Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ Ð² zip
-									include_once (JPATH_BASE_ADMIN.'/includes/pcl/pclzip.lib.php');
+									// àðõèâèðîâàíèå â zip
+									include_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/includes/pcl/pclzip.lib.php');
 									$filename = $filename.'.zip';
 									$zip = new PclZip($filename);
 									$zip->add($this->_filenameCore,'',PclZipUtilTranslateWinPath(dirname($this->_filenameCore)));
@@ -270,7 +272,7 @@ class CDBBackupEngine {
 									unset($zip);
 									break;
 							}
-							// Ð²ÑÑ‘ ÑƒÑÐ¿ÐµÑˆÐ½Ð¾ Ð·Ð°Ð²ÐµÑ€ÑˆÐµÐ½Ð¾
+							// âñ¸ óñïåøíî çàâåðøåíî
 							$returnArray = array();
 							$returnArray['HasRun'] = 0;
 							$returnArray['Domain'] = 'finale';
@@ -287,9 +289,9 @@ class CDBBackupEngine {
 			}
 
 			// Define the backup file type we should use
-			if($JPConfiguration->sql_pref) {
+			if($JPConfiguration->sql_pref){
 				$abstracttablename = $this->_getTableAbstractName($this->_nextTable);
-			}else {
+			}else{
 				$abstracttablename = $this->_nextTable;
 			}
 			if($this->_isCoreTable($abstracttablename)) {
@@ -328,7 +330,7 @@ class CDBBackupEngine {
 				$temp = $database->loadAssocList();
 				$tablesql = $temp[0]['Create Table'];
 				unset($temp);
-				if($JPConfiguration->sql_pref) {
+				if($JPConfiguration->sql_pref){
 					$tablesql = str_replace($this->_dbprefix,'#__',$tablesql);
 				}
 				$tablesql = str_replace('\n',' ',$tablesql);
@@ -406,17 +408,17 @@ class CDBBackupEngine {
 	}
 
 	/**
-	 * Returns an abstracted table name, i.e. 'jos_users' is transformed to '#__users'
-	 * @param string $tableName The name of the table
-	 * @return string
-	 */
+	* Returns an abstracted table name, i.e. 'jos_users' is transformed to '#__users'
+	* @param string $tableName The name of the table
+	* @return string
+	*/
 	function _getTableAbstractName($tableName) {
 		return str_replace($this->_dbprefix,"#__",$tableName);
 	}
 
 	/**
-	 * Enforces the user selected SQL compatibility mode
-	 */
+	* Enforces the user selected SQL compatibility mode
+	*/
 	function _connectDatabase() {
 		// set sql_mode allows exporting SQL files for different versions of MySQL
 		if(($this->_sqlMode != null) && ($this->_sqlMode != '') && ($this->_sqlMode !='default')) {
@@ -429,12 +431,12 @@ class CDBBackupEngine {
 	}
 
 	/**
-	 * Saves the string in $fileData to the file $backupfile. Returns TRUE. If saving failed, return value is FALSE.
-	 * @param string $backupfile Name of backup file
-	 * @param string $fileData Data to write
-	 * @param string $mode PHP file mode used in writing to file
-	 * @return boolean
-	 */
+	* Saves the string in $fileData to the file $backupfile. Returns TRUE. If saving failed, return value is FALSE.
+	* @param string $backupfile Name of backup file
+	* @param string $fileData Data to write
+	* @param string $mode PHP file mode used in writing to file
+	* @return boolean
+	*/
 	function _save_to_file($backupfile,$fileData,$mode) {
 		if($zp = fopen($backupfile,$mode)) {
 			fwrite($zp,$fileData);
@@ -446,9 +448,9 @@ class CDBBackupEngine {
 	}
 
 	/**
-	 * Makes the return table (used by CUBE to determine what has happened during the run
-	 * @return array A CUBE return table
-	 */
+	* Makes the return table (used by CUBE to determine what has happened during the run
+	* @return array A CUBE return table
+	*/
 	function _returnTable($finished,$table = "",$range = "",$maxRange = "",$error = null) {
 		$returnArray = array();
 		$returnArray['HasRun'] = !$finished;
@@ -467,10 +469,10 @@ class CDBBackupEngine {
 	}
 
 	/**
-	 * Checks to see if a given table is a Joomla! core table. Shorta hack...
-	 * @param $abstractName string The abstracted table name we want to test
-	 * @return boolean TRUE if it is a core table, FALSE otherwise
-	 */
+	* Checks to see if a given table is a Joomla! core table. Shorta hack...
+	* @param $abstractName string The abstracted table name we want to test
+	* @return boolean TRUE if it is a core table, FALSE otherwise
+	*/
 	function _isCoreTable($abstractName) {
 		global $DBPACKER_CORE_TABLES;
 		return in_array($abstractName,$DBPACKER_CORE_TABLES);
@@ -496,3 +498,5 @@ class CDBBackupEngine {
 		return $JPConfiguration->OutputDirectory.'/'.$templateName.$extension;
 	}
 }
+
+?>

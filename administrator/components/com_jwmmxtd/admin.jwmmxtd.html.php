@@ -1,19 +1,19 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
 
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
 
-global $mainframe,$task;
+global $mosConfig_live_site,$mainframe,$task;
 
 class HTML_mmxtd {
-// Ð¾Ñ‚Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ð¸Ñ Ð¿Ð¾Ð´ÐºÐ°Ñ‚Ð°Ð»Ð¾Ð³Ð° Ñ‚ÐµÐºÑƒÑ‰ÐµÐ³Ð¾ ÐºÐ°Ñ‚Ð°Ð»Ð¾Ð³Ð°
+// îòîáðàæåíèÿ ïîäêàòàëîãà òåêóùåãî êàòàëîãà
 	function show_dir($path,$dir,$listdir) {
 		if($listdir) {
 			$link = 'index2.php?option=com_jwmmxtd&amp;curdirectory='.$listdir."/".$path;
@@ -24,50 +24,48 @@ class HTML_mmxtd {
 		}
 		$num_files = $count[0];
 		$num_dir = $count[1];
-		$mainframe = mosMainFrame::getInstance(true);
-		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/file_ico/';
-		?>
+?>
 <div class="folder_style">
-	<table cellpadding="0" cellspacing="0">
-		<tr>
-			<td class="filename" colspan="2"><h2><?php echo substr($dir,0,20).(strlen($dir) > 20?'...':''); ?></h2></td>
-		</tr>
-		<tr>
-			<td class="fileinfo">
-						<?php echo _JWMM_DIRECTORIES?>: <?php echo $num_dir; ?><br />
-						<?php echo _JWMM_FILES?>: <?php echo $num_files; ?>
-			</td>
-			<td class="fileactions">
-				<a href="javascript:void(null)" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $path ?>';document.adminForm.subtask.value='renamefile';document.adminForm.submit( );" title="<?php echo _RENAME?>">
-					<img src="<?php echo $cur_file_icons_path?>rename.png" alt="<?php echo _RENAME?>" title="<?php echo _RENAME?>" /></a>
-				<a href="javascript:void(null)" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $path ?>';document.adminForm.subtask.value='copyfile';document.adminForm.submit( );" title="<?php echo _COPY?>">
-					<img src="<?php echo $cur_file_icons_path?>copy.png" alt="<?php echo _COPY?>" title="<?php echo _COPY?>" /></a>
-				<a href="javascript:void(null)" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $path ?>';document.adminForm.subtask.value='movefile';document.adminForm.submit( );" title="<?php echo _MOVE?>">
-					<img src="<?php echo $cur_file_icons_path?>cut.png" alt="<?php echo _MOVE?>" title="<?php echo _MOVE?>" /></a>
-				<a href="index2.php?option=com_jwmmxtd&amp;task=deletefolder&amp;delFolder=<?php echo $path; ?>&amp;curdirectory=<?php echo $listdir; ?>" onclick="return deleteFolder('<?php echo $dir; ?>', <?php echo $num_files; ?>);" title="<?php echo _DELETE?>">
-					<img src="<?php echo $cur_file_icons_path?>delete.png" alt="<?php echo _DELETE?>" title="<?php echo _DELETE?>" /></a>
-			</td>
-		</tr>
-	</table>
-	<div style="text-align:center;margin:2px auto;"> <a href="<?php echo $link; ?>"><img src="components/com_jwmmxtd/images/folder.gif" /></a> </div>
+<table cellpadding="0" cellspacing="0">
+	<tr>
+		<td class="filename" colspan="2"><h2><?php echo substr($dir,0,20).(strlen($dir) > 20?'...':''); ?></h2></td>
+	</tr>
+	<tr>
+		<td class="fileinfo">
+			<?php echo _JWMM_DIRECTORIES?>: <?php echo $num_dir; ?><br />
+			<?php echo _JWMM_FILES?>: <?php echo $num_files; ?>
+		</td>
+		<td class="fileactions">
+			<a href="javascript:void(null)" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $path ?>';document.adminForm.subtask.value='renamefile';document.adminForm.submit( );" title="<?php echo _RENAME?>">
+			<img src="images/ico/rename.png" alt="<?php echo _RENAME?>" title="<?php echo _RENAME?>" /></a>
+			<a href="javascript:void(null)" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $path ?>';document.adminForm.subtask.value='copyfile';document.adminForm.submit( );" title="<?php echo _COPY?>">
+			<img src="images/ico/copy.png" alt="<?php echo _COPY?>" title="<?php echo _COPY?>" /></a>
+			<a href="javascript:void(null)" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $path ?>';document.adminForm.subtask.value='movefile';document.adminForm.submit( );" title="<?php echo _JWMM_MOVE?>">
+			<img src="images/ico/cut.png" alt="<?php echo _JWMM_MOVE?>" title="<?php echo _JWMM_MOVE?>" /></a>
+			<a href="index2.php?option=com_jwmmxtd&amp;task=deletefolder&amp;delFolder=<?php echo $path; ?>&amp;curdirectory=<?php echo $listdir; ?>" onclick="return deleteFolder('<?php echo $dir; ?>', <?php echo $num_files; ?>);" title="<?php echo _CMN_DELETE?>">
+			<img src="images/ico/delete.png" alt="<?php echo _CMN_DELETE?>" title="<?php echo _CMN_DELETE?>" /></a>
+		</td>
+	</tr>
+</table>
+<div style="text-align:center;margin:2px auto;"> <a href="<?php echo $link; ?>"><img src="components/com_jwmmxtd/images/folder.gif" /></a> </div>
 </div>
-		<?php
+<?php
 	}
-// Ð¿Ð¾Ð´ÑÑ‡ÐµÑ‚ Ñ€Ð°Ð·Ð¼ÐµÑ€Ð°
+// ïîäñ÷åò ðàçìåðà
 	function parse_size($size) {
 		if($size < 1024) {
 			return $size.' '._JWMM_BYTES;
 		} else
-		if($size >= 1024 && $size < 1024* 1024) {
-			return sprintf('%01.2f',$size / 1024.0).' '._JWMM_KBYTES;
-		} else {
-			return sprintf('%01.2f',$size / (1024.0* 1024)).' '._JWMM_MBYTES;
-		}
+			if($size >= 1024 && $size < 1024* 1024) {
+				return sprintf('%01.2f',$size / 1024.0).' '._JWMM_KBYTES;
+			} else {
+				return sprintf('%01.2f',$size / (1024.0* 1024)).' '._JWMM_MBYTES;
+			}
 	}
-// Ð²Ñ‹Ð²Ð¾Ð´ Ð¸Ð·Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ð¸Ñ
+// âûâîä èçîáðàæåíèÿ
 	function show_image($img,$file,$info,$size,$listdir) {
 		$img_file = basename($img);
-		$img_url_link = JWMMXTD_STARTURLPATH.$listdir.'/'.rawurlencode($img_file);
+		$img_url_link = JWMMXTD_STARTURLPATH.$listdir."/".rawurlencode($img_file);
 		$cur = $listdir;
 		$filesize = HTML_mmxtd::parse_size($size);
 		if(($info[0] > 200) || ($info[1] > 200)) {
@@ -75,122 +73,119 @@ class HTML_mmxtd {
 		} else {
 			$img_dimensions = 'style="width:'.$info[0].'px;height:'.$info[1].'px; margin:4px auto;display:block;"';
 		}
-
-		$mainframe = mosMainFrame::getInstance(true);
-		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/file_ico/';
-		?>
+?>
 <div class="image_style">
-	<table cellpadding="0" cellspacing="0">
+<table cellpadding="0" cellspacing="0">
 		<tr>
 			<td class="filename" colspan="2">
 				<h2><a href="<?php echo $img_url_link; ?>" title="<?php echo $file; ?>" rel="lightbox[jwmmxtd-title]">
-								<?php echo htmlspecialchars(substr($file,0,20).(strlen($file) > 20?'...':''),ENT_QUOTES); ?></a></h2>
+				<?php echo htmlspecialchars(substr($file,0,20).(strlen($file) > 20?'...':''),ENT_QUOTES); ?></a></h2>
 			</td>
 		</tr>
 		<tr>
 			<td class="fileactions">
-				<a href="index2.php?option=com_jwmmxtd&task=edit&curdirectory=<?php echo $cur; ?>&img=<?php echo $img_file; ?>" title="<?php echo _EDIT?>">
-					<img src="<?php echo $cur_file_icons_path ?>picture_edit.png" alt="<?php echo _EDIT?>" title="<?php echo _EDIT?>" /></a>
+				<a href="index2.php?option=com_jwmmxtd&task=edit&curdirectory=<?php echo $cur; ?>&img=<?php echo $img_file; ?>" title="<?php echo _E_EDIT?>">
+				<img src="images/ico/picture_edit.png" alt="<?php echo _E_EDIT?>" title="<?php echo _E_EDIT?>" /></a>
 				<a href="#" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $file ?>';document.adminForm.subtask.value='renamefile';document.adminForm.submit( );" title="<?php echo _RENAME?>">
-					<img src="<?php echo $cur_file_icons_path ?>rename.png" alt="<?php echo _RENAME?>" title="<?php echo _RENAME?>" /></a>
+				<img src="images/ico/rename.png" alt="<?php echo _RENAME?>" title="<?php echo _RENAME?>" /></a>
 				<a href="#" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $file ?>';document.adminForm.subtask.value='copyfile';document.adminForm.submit( );" title="<?php echo _COPY?>">
-					<img src="<?php echo $cur_file_icons_path ?>copy.png" alt="<?php echo _COPY?>" title="<?php echo _COPY?>" /></a>
-				<a href="#" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $file ?>';document.adminForm.subtask.value='movefile';document.adminForm.submit( );" title="<?php echo _MOVE?>">
-					<img src="<?php echo $cur_file_icons_path ?>cut.png" alt="<?php echo _MOVE?>" title="<?php echo _MOVE?>" /></a>
-				<a href="index2.php?option=com_jwmmxtd&amp;task=delete&amp;delFile=<?php echo $file; ?>&amp;curdirectory=<?php echo $cur; ?>" onclick="javascript:if(confirm('<?php echo _JWMM_DELETE_FILE_CONFIRM?>:<?php echo $file; ?>')) return true; return false;" title="<?php echo _DELETE?>">
-					<img src="<?php echo $cur_file_icons_path ?>delete.png" alt="<?php echo _DELETE?>" title="<?php echo _DELETE?>" /></a>
+				<img src="images/ico/copy.png" alt="<?php echo _COPY?>" title="<?php echo _COPY?>" /></a>
+				<a href="#" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $file ?>';document.adminForm.subtask.value='movefile';document.adminForm.submit( );" title="<?php echo _JWMM_MOVE?>">
+				<img src="images/ico/cut.png" alt="<?php echo _JWMM_MOVE?>" title="<?php echo _JWMM_MOVE?>" /></a>
+				<a href="index2.php?option=com_jwmmxtd&amp;task=delete&amp;delFile=<?php echo $file; ?>&amp;curdirectory=<?php echo $cur; ?>" onclick="javascript:if(confirm('<?php echo _JWMM_DELETE_FILE_CONFIRM?>:<?php echo $file; ?>')) return true; return false;" title="<?php echo _CMN_DELETE?>">
+				<img src="images/ico/delete.png" alt="<?php echo _CMN_DELETE?>" title="<?php echo _CMN_DELETE?>" /></a>
 			</td>
 		</tr>
-	</table>
-	<div class="fileimage" onclick="get_image('<?php echo $img_url_link; ?>','<?php echo $file?>',<?php echo $info[0] ?>,<?php echo $info[1] ?>);">
-		<img src="<?php echo $img_url_link; ?>" <?php echo $img_dimensions; ?> alt="<?php echo _JWMM_CLICK_TO_URL?>" title="<?php echo _CLICK_TO_PREVIEW?>" />
-	</div>
-			<?php echo _JWMM_FILESIZE?>: <?php echo $filesize; ?><br />
-			<?php echo _WIDTH?>: <?php echo $info[0]; ?>px, <?php echo _HEIGHT?>: <?php echo $info[1]; ?>px
+</table>
+<div class="fileimage"> <a href="<?php echo $img_url_link; ?>" rel="lightbox[jwmmxtd]" title="<?php echo _FILE?>:<br /><?php echo $file; ?>" alt="<?php echo _CLICK_TO_PREVIEW?>">
+	<img src="<?php echo $img_url_link; ?>?ok=ok" <?php echo $img_dimensions; ?> alt="<?php echo _CLICK_TO_PREVIEW?>" title="<?php echo _CLICK_TO_PREVIEW?>" /></a>
 </div>
-		<?php
+<?php echo _JWMM_FILESIZE?>: <?php echo $filesize; ?><br />
+<?php echo _WIDTH?>: <?php echo $info[0]; ?>px, <?php echo _HEIGHT?>: <?php echo $info[1]; ?>px
+</div>
+<?php
 	}
-// Ð¿Ð¾Ð´ÑÑ‡ÐµÑ‚ Ñ‡Ð¸ÑÐ»Ð° Ñ„Ð°Ð¹Ð»Ð¾Ð²
+// ïîäñ÷åò ÷èñëà ôàéëîâ
 	function num_files($dir) {
 		$total_file = 0;
 		$total_dir = 0;
 		$dir = JWMMXTD_STARTABSPATH.$dir;
 		if(is_dir($dir)) {
 			$d = dir($dir);
+
 			while(false !== ($entry = $d->read())) {
-				if(substr($entry,0,1) != '.' && is_file($dir.DS.$entry) && strpos($entry,'.html') === false && strpos($entry,'.php') === false) {
+				if(substr($entry,0,1) != '.' && is_file($dir.DIRECTORY_SEPARATOR.$entry) &&
+					strpos($entry,'.html') === false && strpos($entry,'.php') === false) {
 					$total_file++;
 				}
-				if(substr($entry,0,1) != '.' && is_dir($dir.DS.$entry)) {
+				if(substr($entry,0,1) != '.' && is_dir($dir.DIRECTORY_SEPARATOR.$entry)) {
 					$total_dir++;
 				}
 			}
+
 			$d->close();
 		}
 
 		return array($total_file,$total_dir);
 	}
-// Ð¾Ñ‚Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ð¸Ðµ Ð´Ð¾ÐºÑƒÐ¼ÐµÐ½Ñ‚Ð¾Ð²
+// îòîáðàæåíèå äîêóìåíòîâ
 	function show_doc($doc,$size,$listdir,$icon) {
 		$size = HTML_mmxtd::parse_size($size);
-		$doc_url_link = JWMMXTD_STARTURLPATH.$listdir.'/'.rawurlencode($doc);
+		$doc_url_link = JWMMXTD_STARTURLPATH.$listdir."/".rawurlencode($doc);
 		$cur = $listdir;
-		$mainframe = mosMainFrame::getInstance(true);
-		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/file_ico/';
+?>
 
-		?>
 <div class="file_style">
-	<table cellpadding="0" cellspacing="0">
-		<tr>
-			<td class="filename" colspan="2"><h2><?php echo htmlspecialchars(substr($doc,0,14).(strlen($doc) > 14?'...':''),ENT_QUOTES); ?></h2></td>
-		</tr>
-		<tr>
-			<td class="fileinfo"><?php echo $size; ?></td>
-			<td class="fileactions">
-						<?php
-// Ð°Ñ€Ñ…Ð¸Ð²
-						if($icon == $cur_file_icons_path.'zip.png') { ?>
-				<a href="#" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $doc ?>';document.adminForm.subtask.value='unzipfile';document.adminForm.submit( );" title="<?php echo _UNPACK?>">
-					<img src="<?php echo $cur_file_icons_path ?>compress.png" alt="<?php echo _UNPACK?>" title="<?php echo _UNPACK?>" /></a>
-							<?php } ?>
-				<a href="#" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $doc ?>';document.adminForm.subtask.value='renamefile';document.adminForm.submit( );" title="<?php echo _RENAME?>">
-					<img src="<?php echo $cur_file_icons_path ?>rename.png" alt="<?php echo _RENAME?>" title="<?php echo _RENAME?>" /></a>
-				<a href="#" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $doc ?>';document.adminForm.subtask.value='copyfile';document.adminForm.submit( );" title="<?php echo _COPY?>">
-					<img src="<?php echo $cur_file_icons_path ?>copy.png" alt="<?php echo _COPY?>" title="<?php echo _COPY?>" /></a>
-				<a href="#" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $doc ?>';document.adminForm.subtask.value='movefile';document.adminForm.submit( );" title="<?php echo _MOVE?>">
-					<img src="<?php echo $cur_file_icons_path ?>cut.png" alt="<?php echo _MOVE?>" title="<?php echo _MOVE?>" /></a>
-				<a href="index2.php?option=com_jwmmxtd&amp;task=delete&amp;delFile=<?php echo $doc; ?>&amp;curdirectory=<?php echo $cur; ?>" onclick="javascript:if(confirm('<?php echo _JWMM_DELETE_FILE_CONFIRM?>: <?php echo $doc; ?>')) return true; return false;" title="<?php echo _DELETE?>">
-					<img src="<?php echo $cur_file_icons_path ?>delete.png" alt="<?php echo _DELETE?>" title="<?php echo _DELETE?>" /></a>
-			</td>
-		</tr>
-	</table>
-	<div class="fileimage" onclick="get_file('<?php echo $doc_url_link; ?>','<?php echo $doc?>');">
-				<?php
-				// Ñ„Ð»ÐµÑˆ - Ñ„Ð°Ð¹Ð» flv
-				if($icon == $cur_file_icons_path.'flv.png') {
-					?>
-		<a href="components/com_jwmmxtd/js/flvplayer.swf?file=<?php echo $doc_url_link; ?>&amp;autostart=true&amp;allowfullscreen=true" target="_blank" title="<?php echo _JWMM_VIDEO_FILE?>:<br /><?php echo $doc; ?>" alt="<?php echo _CLICK_TO_PREVIEW?>">
-			<img src="<?php echo $icon ?>" alt="<?php echo $doc; ?>" title="<?php echo _CLICK_TO_PREVIEW?>" /></a>
-					<?php
-					// Ñ„Ð»ÐµÑˆ - Ñ„Ð°Ð¹Ð» swf
-				} elseif($icon == $cur_file_icons_path.'swf.png') {
-					$swfinfo = @getimagesize($doc_url_link);
-					?>
-		<a href="<?php echo $doc_url_link; ?>" rel="vidbox <?php echo $swfinfo[0]; ?> <?php echo $swfinfo[1]; ?>" title="<?php echo _FILE?>:</b><br /><?php echo $doc; ?>" alt="<?php echo _CLICK_TO_PREVIEW?>">
-			<img src="<?php echo $icon ?>" alt="<?php echo $doc; ?>" title="<?php echo _CLICK_TO_PREVIEW?>" /></a>
-					<?php
-				} else {
-					?>
-		<img src="<?php echo $icon ?>" alt="<?php echo $doc; ?>" />
-					<?php
-				}
-				?>
-	</div>
-</div>
-		<?php
+<table cellpadding="0" cellspacing="0">
+	<tr>
+		<td class="filename" colspan="2"><h2><?php echo htmlspecialchars(substr($doc,0,14).(strlen($doc) > 14?'...':''),ENT_QUOTES); ?></h2></td>
+	</tr>
+	<tr>
+		<td class="fileinfo"><?php echo $size; ?></td>
+		<td class="fileactions">
+<?php
+// àðõèâ
+if($icon == "../images/icons/zip.png") { ?>
+		<a href="#" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $doc ?>';document.adminForm.subtask.value='unzipfile';document.adminForm.submit( );" title="<?php echo _UNPACK?>">
+		<img src="components/com_jwmmxtd/images/compress.png" alt="<?php echo _UNPACK?>" title="<?php echo _UNPACK?>" /></a>
+<?php } ?>
+			<a href="#" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $doc ?>';document.adminForm.subtask.value='renamefile';document.adminForm.submit( );" title="<?php echo _RENAME?>">
+			<img src="images/ico/rename.png" alt="<?php echo _RENAME?>" title="<?php echo _RENAME?>" /></a>
+			<a href="#" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $doc ?>';document.adminForm.subtask.value='copyfile';document.adminForm.submit( );" title="<?php echo _COPY?>">
+			<img src="images/ico/copy.png" alt="<?php echo _COPY?>" title="<?php echo _COPY?>" /></a>
+			<a href="#" onclick="javascript:document.adminForm.selectedfile.value='<?php echo $doc ?>';document.adminForm.subtask.value='movefile';document.adminForm.submit( );" title="<?php echo _JWMM_MOVE?>">
+			<img src="images/ico/cut.png" alt="<?php echo _JWMM_MOVE?>" title="<?php echo _JWMM_MOVE?>" /></a>
+			<a href="index2.php?option=com_jwmmxtd&amp;task=delete&amp;delFile=<?php echo $doc; ?>&amp;curdirectory=<?php echo $cur; ?>" onclick="javascript:if(confirm('<?php echo _JWMM_DELETE_FILE_CONFIRM?>: <?php echo $doc; ?>')) return true; return false;" title="<?php echo _CMN_DELETE?>">
+			<img src="images/ico/delete.png" alt="<?php echo _CMN_DELETE?>" title="<?php echo _CMN_DELETE?>" /></a>
+		</td>
+	</tr>
+</table>
+<div class="fileimage">
+<?php
+	// ôëåø - ôàéë flv
+	if($icon == "../images/icons/flv.png") {
+?>
+	<a href="components/com_jwmmxtd/js/flvplayer.swf?file=<?php echo $doc_url_link; ?>&amp;autostart=true&amp;allowfullscreen=true" rel="vidbox 800 600" title="<?php echo _JWMM_VIDEO_FILE?>:<br /><?php echo $doc; ?>" alt="<?php echo _CLICK_TO_PREVIEW?>">
+	<img src="<?php echo $icon ?>" alt="<?php echo $doc; ?>" title="<?php echo _CLICK_TO_PREVIEW?>" /></a>
+<?php
+	// ôëåø - ôàéë swf
+	} elseif($icon == "../images/icons/swf.png") {
+		$swfinfo = @getimagesize($doc_url_link);
+?>
+	<a href="<?php echo $doc_url_link; ?>" rel="vidbox <?php echo $swfinfo[0]; ?> <?php echo $swfinfo[1]; ?>" title="<?php echo _FILE?>:</b><br /><?php echo $doc; ?>" alt="<?php echo _CLICK_TO_PREVIEW?>">
+	<img src="<?php echo $icon ?>" alt="<?php echo $doc; ?>" title="<?php echo _CLICK_TO_PREVIEW?>" /></a>
+<?php
+	} else {
+?>
+	<img src="<?php echo $icon ?>" alt="<?php echo $doc; ?>" />
+<?php
 	}
-
-// Ñ€Ð°ÑÑ‡ÐµÑ‚ Ð¸ Ð¾Ñ‚Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ð¸Ðµ Ñ€Ð°Ð·Ð¼ÐµÑ€Ð° Ð¸Ð·Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ð¸Ñ
+?>
+</div>
+</div>
+<?php
+	}
+// ðàñ÷åò è îòîáðàæåíèå ðàçìåðà èçîáðàæåíèÿ
 	function imageResize($width,$height,$target) {
 		if($width > $height) {
 			$percentage = ($target / $width);
@@ -200,5 +195,7 @@ class HTML_mmxtd {
 		$width = round($width* $percentage);
 		$height = round($height* $percentage);
 		return 'width="'.$width.'" height="'.$height.'"';
+
 	}
 }
+?>

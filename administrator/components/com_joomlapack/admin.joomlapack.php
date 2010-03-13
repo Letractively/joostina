@@ -1,33 +1,36 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
 
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
-// ÑÑŽÐ´Ð° Ð´Ð¾ÑÑ‚ÑƒÐ¿ - Ñ‚Ð¾Ð»ÑŒÐºÐ¾ Ð°Ð´Ð¼Ð¸Ð½Ð°Ð¼ Ð¸ ÑÑƒÐ¿ÐµÑ€Ð°Ð´Ð¼Ð¸Ð½Ð°Ð¼
+// ñþäà äîñòóï - òîëüêî àäìèíàì è ñóïåðàäìèíàì
 if(!$acl->acl_check('administration','config','users',$my->usertype)) {
 	mosRedirect('index2.php',_NOT_AUTH);
 }
 
 require_once ($mainframe->getPath('admin_html'));
+// îòêëþ÷àåì êýøèðîâàíèå áàçû äàííûõ
+$mosConfig_db_cache_handler = 'none';
+
 
 $option = 'com_joomlapack';
 
 $act	= mosGetParam($_REQUEST,'act','default');
 $task	= mosGetParam($_REQUEST,'task','');
 
-// Ð¿Ð¾Ð´ÐºÐ»ÑŽÑ‡ÐµÐ½Ð¸Ðµ ÐºÐ»Ð°ÑÑÐ° ÐºÐ¾Ð½Ñ„Ð¸Ð³ÑƒÑ€Ð°Ñ†Ð¸Ð¸
-require_once (JPATH_BASE_ADMIN.'/components/com_joomlapack/includes/configuration.php');
+// ïîäêëþ÷åíèå êëàññà êîíôèãóðàöèè
+require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_joomlapack/includes/configuration.php');
 
 switch($act) {
-	// Ñ„ÑƒÐ½ÐºÑ†Ð¸Ð¸ Ñ€Ð°Ð±Ð¾Ñ‚Ñ‹ Ñ Ð±Ð°Ð·Ð¾Ð¹ Ð´Ð°Ð½Ð½Ñ‹Ñ…
+	// ôóíêöèè ðàáîòû ñ áàçîé äàííûõ
 	case 'db':
-		require_once (JPATH_BASE_ADMIN.'/components/com_joomlapack/includes/engine.dboption.php');
+		require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_joomlapack/includes/engine.dboption.php');
 		break;
 
 	case 'config':
@@ -49,27 +52,26 @@ switch($act) {
 		}
 		break;
 	case 'pack':
-		require_once (JPATH_BASE_ADMIN.'/components/com_joomlapack/includes/sajax.php');
-		require_once (JPATH_BASE_ADMIN.'/components/com_joomlapack/includes/ajaxtool.php');
+		require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_joomlapack/includes/sajax.php');
+		require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_joomlapack/includes/ajaxtool.php');
 		jpackScreens::fPack();
 		break;
 	case 'def':
-	// ÑÐ¿Ð¸ÑÐ¾Ðº ÐºÐ°Ñ‚Ð°Ð»Ð¾Ð³Ð¾Ð² ÐºÐ¾Ñ‚Ð¾Ñ€Ñ‹Ðµ Ð½Ðµ Ð¿Ð¾Ð¿Ð°Ð´ÑƒÑ‚ Ð² Ð±ÑÐºÐ°Ð¿
-		require_once (JPATH_BASE_ADMIN.'/components/com_joomlapack/includes/engine.exdirs.php');
+		// ñïèñîê êàòàëîãîâ êîòîðûå íå ïîïàäóò â áýêàï
+		require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_joomlapack/includes/engine.exdirs.php');
 		jpackScreens::fDirExclusion();
 		break;
 	case 'log':
 		jpackScreens::fLog();
 		break;
 	default:
-	// Application status check
+		// Application status check
 		jpackScreens::fMain();
 		break;
 }
-// Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ðµ Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ð¾Ð² ÐºÐ¾Ð½Ñ„Ð¸Ð³ÑƒÑ€Ð°Ñ†Ð¸Ð¸ Ð¸ ÑÐ¾Ñ…Ñ€Ð°Ð½ÐµÐ½Ð¸Ðµ
+// ïîëó÷åíèå ïàðàìåòðîâ êîíôèãóðàöèè è ñîõðàíåíèå
 function processSave() {
 	global $JPConfiguration;
-
 	$outdir		= mosGetParam($_REQUEST,'outdir','');
 	$tempdir	= mosGetParam($_REQUEST,'tempdir','');
 	$sqlcompat	= mosGetParam($_REQUEST,'sqlcompat','');
@@ -94,5 +96,8 @@ function processSave() {
 	$JPConfiguration->sql_pack			= $sql_pack;
 	$JPConfiguration->sql_pref			= $sql_pref;
 
+
+
 	$JPConfiguration->SaveConfiguration();
 }
+?>

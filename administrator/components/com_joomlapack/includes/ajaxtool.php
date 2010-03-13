@@ -1,25 +1,25 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
 
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
 
 
-// ÑÐºÑÐ¿Ð¾Ñ€Ñ‚ Ñ„ÑƒÐ½ÐºÑ†Ð¸Ð¹ Ð´Ð»Ñ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ð½Ð¸Ñ Ð² Ajax
+// ýêñïîðò ôóíêöèé äëÿ èñïîëüçîâàíèÿ â Ajax
 sajax_export('tick','getCUBEArray','ping','dirSelectionHTML','toggleDirFilter','errorTrapReport');
 sajax_handle_client_request();
 
 
 /**
- * Continues the procedure
- * @param $forceStart boolean When set to true, forces the procedure to start over
- */
+* Continues the procedure
+* @param $forceStart boolean When set to true, forces the procedure to start over
+*/
 function tick($forceStart = 0,$forceDBOnly = 0) {
 	global $CUBE,$JPConfiguration;
 	require_once ('ccube.php');
@@ -38,27 +38,27 @@ function tick($forceStart = 0,$forceDBOnly = 0) {
 }
 
 /**
- * Returns the stored copy of the CUBE Array
- */
+* Returns the stored copy of the CUBE Array
+*/
 function getCUBEArray() {
 	require_once ('ccube.php');
 	return loadJPCUBEArray();
 }
 
 /**
- * Simple PING server for debugging purposes
- * @return integer Always 1
- */
+* Simple PING server for debugging purposes
+* @return integer Always 1
+*/
 function ping() {
 	return 1;
 }
 
 /**
- * JPSetErrorReporting will reset error reporting to only syntax and parse errors,
- * storing the old value for later use. It'll also try to set an infinite time
- * limit on the script. All this is required to avoid PHP messing output meant
- * for AJAX client-side parsing which caused notorious timeouts.
- */
+* JPSetErrorReporting will reset error reporting to only syntax and parse errors,
+* storing the old value for later use. It'll also try to set an infinite time
+* limit on the script. All this is required to avoid PHP messing output meant
+* for AJAX client-side parsing which caused notorious timeouts.
+*/
 function JPSetErrorReporting() {
 	global $JP_Error_Reporting;
 	$JP_Error_Reporting = @error_reporting(E_ERROR | E_PARSE);
@@ -67,11 +67,11 @@ function JPSetErrorReporting() {
 }
 
 /**
- * JPRestoreErrorReporing will restore error reporting. It'll also try to clear
- * (erase) the output buffer, so that the script can send back only the intended
- * result. All this is required to avoid PHP messing output meant for AJAX
- * client-side parsing which caused notorious timeouts.
- */
+* JPRestoreErrorReporing will restore error reporting. It'll also try to clear
+* (erase) the output buffer, so that the script can send back only the intended
+* result. All this is required to avoid PHP messing output meant for AJAX
+* client-side parsing which caused notorious timeouts.
+*/
 function JPRestoreErrorReporing() {
 	global $JP_Error_Reporting;
 	@error_reporting($JP_Error_Reporting);
@@ -79,6 +79,7 @@ function JPRestoreErrorReporing() {
 }
 
 function dirSelectionHTML($root) {
+	global $mosConfig_absolute_path;
 	global $option;
 	require_once ('engine.exdirs.php');
 
@@ -109,7 +110,7 @@ END;
 		if($excluded) {
 			$out .= htmlentities($dir);
 		} else {
-			$out .= "<a href=\"javascript:dirSelectionHTML('".$def->ReplaceSlashes($root.DS.$dir)."');\">".htmlentities($dir)."</a>";
+			$out .= "<a href=\"javascript:dirSelectionHTML('".$def->ReplaceSlashes($root.DIRECTORY_SEPARATOR.$dir)."');\">".htmlentities($dir)."</a>";
 		}
 		$out .= '</td></tr>';
 	}
@@ -121,7 +122,7 @@ END;
 }
 
 function toggleDirFilter($root,$dir,$checked) {
-	global $option;
+	global $mosConfig_absolute_path,$option;
 	require_once ('engine.exdirs.php');
 	JPSetErrorReporting();
 	$def = new CDirExclusionFilter();
@@ -134,8 +135,10 @@ function errorTrapReport($badData) {
 	global $JPConfiguration;
 	JPSetErrorReporting();
 	$JPConfiguration->WriteDebugVar('BadData', $badData, true);
-	CJPLogger::WriteLog(_JP_LOG_ERROR,'ÐžÑˆÐ¸Ð±ÐºÐ° Ð²Ð¾ Ð²Ñ€ÐµÐ¼Ñ Ð²Ñ‹Ð¿Ð¾Ð»Ð½ÐµÐ½Ð¸Ñ, ÑÐµÑ€Ð²ÐµÑ€ Ð²ÐµÑ€Ð½ÑƒÐ» Ð¾Ñ‚Ð²ÐµÑ‚:');
+	CJPLogger::WriteLog(_JP_LOG_ERROR,'Îøèáêà âî âðåìÿ âûïîëíåíèÿ, ñåðâåð âåðíóë îòâåò:');
 	CJPLogger::WriteLog(_JP_LOG_ERROR,htmlspecialchars($badData));
 	JPRestoreErrorReporing();
 	return 1;
 }
+
+?>

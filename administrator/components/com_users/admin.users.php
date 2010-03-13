@@ -1,13 +1,13 @@
 <?php
 /**
- * @package Joostina
- * @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2010 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
- * @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
- * Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
- * Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
- */
+* @package Joostina
+* @copyright Авторские права (C) 2008 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+*/
 
-// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+// запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 if(!$acl->acl_check('administration','manage','users',$my->usertype,'components','com_users')) {
@@ -16,7 +16,6 @@ if(!$acl->acl_check('administration','manage','users',$my->usertype,'components'
 
 require_once ($mainframe->getPath('admin_html'));
 require_once ($mainframe->getPath('class'));
-require_once ($mainframe->getPath('config','com_users'));
 
 $cid = josGetArrayInts('cid');
 
@@ -35,8 +34,8 @@ switch($task) {
 
 	case 'save':
 	case 'apply':
-	// check to see if functionality restricted for use as demo site
-		if(coreVersion::get('RESTRICT') == 1) {
+		// check to see if functionality restricted for use as demo site
+		if($_VERSION->RESTRICT == 1) {
 			mosRedirect('index2.php?mosmsg='._RESTRICT_FUNCTION);
 		} else {
 			saveUser($task);
@@ -48,8 +47,8 @@ switch($task) {
 		break;
 
 	case 'block':
-	// check to see if functionality restricted for use as demo site
-		if(coreVersion::get('RESTRICT') == 1) {
+		// check to see if functionality restricted for use as demo site
+		if($_VERSION->RESTRICT == 1) {
 			mosRedirect('index2.php?mosmsg='._RESTRICT_FUNCTION);
 		} else {
 			changeUserBlock($cid,1,$option);
@@ -77,52 +76,17 @@ switch($task) {
 		mosRedirect('index2.php?option=com_contact&task=editA&id='.$contact_id);
 		break;
 
-	case 'config':
-		config($option);
-		break;
-
-	case 'save_config':
-		save_config();
-		break;
-
 	default:
 		showUsers($option);
 		break;
 }
 
-function config($option) {
-	$database = &database::getInstance();
-
-	mosCommonHTML::loadOverlib();
-
-	$act = mosGetParam($_REQUEST,'act','');
-	$config_class = 'configUser_'.$act;
-	$config = new $config_class($database);
-	$config->display_config($option);
-
-}
-
-function save_config() {
-	$database = &database::getInstance();
-
-	$act = mosGetParam($_REQUEST,'act','');
-	$config_class = 'configUser_'.$act;
-	$config = new $config_class($database);
-	$config->save_config();
-
-	mosRedirect('index2.php?option=com_users&task=config&act='.$act, _CONFIG_SAVED);
-}
-
 function showUsers($option) {
-	global $my;
-
-	$database = &database::getInstance();
-	$mainframe = mosMainFrame::getInstance(true);
-	$acl = &gacl::getInstance();
+	global $database,$mainframe,$my,$acl,$mosConfig_list_limit;
 
 	$filter_type = $mainframe->getUserStateFromRequest("filter_type{$option}",'filter_type',0);
 	$filter_logged = intval($mainframe->getUserStateFromRequest("filter_logged{$option}",'filter_logged',0));
-	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mainframe->getCfg('list_limit')));
+	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mosConfig_list_limit));
 	$limitstart = intval($mainframe->getUserStateFromRequest("view{$option}limitstart",'limitstart',0));
 	$search = $mainframe->getUserStateFromRequest("search{$option}",'search','');
 	if(get_magic_quotes_gpc()) {
@@ -132,25 +96,25 @@ function showUsers($option) {
 	$where = array();
 
 	if(isset($search) && $search != "") {
-		$searchEscaped = $database->getEscaped(Jstring::trim(Jstring::strtolower($search)));
+		$searchEscaped = $database->getEscaped(trim(strtolower($search)));
 		$where[] = "(a.username LIKE '%$searchEscaped%' OR a.email LIKE '%$searchEscaped%' OR a.name LIKE '%$searchEscaped%')";
 	}
 	if($filter_type) {
 		if($filter_type == 'Public Frontend') {
 			$where[] = "(a.usertype = 'Registered' OR a.usertype = 'Author' OR a.usertype = 'Editor'OR a.usertype = 'Publisher')";
 		} else
-		if($filter_type == 'Public Backend') {
-			$where[] = "(a.usertype = 'Manager' OR a.usertype = 'Administrator' OR a.usertype = 'Super Administrator')";
-		} else {
-			$where[] = "a.usertype = LOWER( ".$database->Quote($filter_type)." )";
-		}
+			if($filter_type == 'Public Backend') {
+				$where[] = "(a.usertype = 'Manager' OR a.usertype = 'Administrator' OR a.usertype = 'Super Administrator')";
+			} else {
+				$where[] = "a.usertype = LOWER( ".$database->Quote($filter_type)." )";
+			}
 	}
 	if($filter_logged == 1) {
 		$where[] = "s.userid = a.id";
 	} else
-	if($filter_logged == 2) {
-		$where[] = "s.userid IS NULL";
-	}
+		if($filter_logged == 2) {
+			$where[] = "s.userid IS NULL";
+		}
 
 	// exclude any child group id's for this user
 	$pgids = $acl->get_group_children($my->gid,'ARO','RECURSE');
@@ -170,15 +134,14 @@ function showUsers($option) {
 	$database->setQuery($query);
 	$total = $database->loadResult();
 
-	require_once (JPATH_BASE.DS.JADMIN_BASE.'/includes/pageNavigation.php');
+	require_once ($GLOBALS['mosConfig_absolute_path'].'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
-	$query = "SELECT a.*, g.name AS groupname FROM #__users AS a"
-			."\n INNER JOIN #__core_acl_aro AS aro ON aro.value = a.id"
-			// map user to aro
-			."\n INNER JOIN #__core_acl_groups_aro_map AS gm ON gm.aro_id = aro.aro_id"
-			// map aro to group
-			."\n INNER JOIN #__core_acl_aro_groups AS g ON g.group_id = gm.group_id";
+	$query = "SELECT a.*, g.name AS groupname"."\n FROM #__users AS a"."\n INNER JOIN #__core_acl_aro AS aro ON aro.value = a.id"
+		// map user to aro
+		."\n INNER JOIN #__core_acl_groups_aro_map AS gm ON gm.aro_id = aro.aro_id"
+		// map aro to group
+		."\n INNER JOIN #__core_acl_aro_groups AS g ON g.group_id = gm.group_id";
 	if($filter_logged == 1 || $filter_logged == 2) {
 		$query .= "\n INNER JOIN #__session AS s ON s.userid = a.id";
 	}
@@ -202,31 +165,27 @@ function showUsers($option) {
 	}
 
 	// get list of Groups for dropdown filter
-	$query = "SELECT name AS value, name AS text FROM #__core_acl_aro_groups WHERE name != 'ROOT' AND name != 'USERS'";
-	$types[] = mosHTML::makeOption('0',_com_users_SELECT_GROOP);
+	$query = "SELECT name AS value, name AS text"."\n FROM #__core_acl_aro_groups"."\n WHERE name != 'ROOT'"."\n AND name != 'USERS'";
+	$types[] = mosHTML::makeOption('0','- Выберите группу -');
 	$database->setQuery($query);
 	$types = array_merge($types,$database->loadObjectList());
 	$lists['type'] = mosHTML::selectList($types,'filter_type','class="inputbox" size="1" onchange="document.adminForm.submit( );"','value','text',"$filter_type");
 
 	// get list of Log Status for dropdown filter
-	$logged[] = mosHTML::makeOption(0,_com_users_SELECT_STATUS);
-	$logged[] = mosHTML::makeOption(1,_com_users_USER_LOGED);
+	$logged[] = mosHTML::makeOption(0,'- Выберите статус - ');
+	$logged[] = mosHTML::makeOption(1,'Авторизован(а) на сайте');
 	$lists['logged'] = mosHTML::selectList($logged,'filter_logged','class="inputbox" size="1" onchange="document.adminForm.submit( );"','value','text',"$filter_logged");
 
 	HTML_users::showUsers($rows,$pageNav,$search,$option,$lists);
 }
 
 /**
- * Edit the user
- * @param int The user ID
- * @param string The URL option
- */
+* Edit the user
+* @param int The user ID
+* @param string The URL option
+*/
 function editUser($uid = '0',$option = 'users') {
-	global $my;
-
-	$mainframe = mosMainFrame::getInstance(true);
-	$database = &$mainframe->getDBO();
-	$acl = &gacl::getInstance();
+	global $database,$my,$acl,$mainframe;
 
 	$msg = checkUserPermissions(array($uid),"edit",true);
 	if($msg) {
@@ -261,59 +220,56 @@ function editUser($uid = '0',$option = 'users') {
 	$my_group = strtolower($acl->get_group_name($row->gid,'ARO'));
 	if($my_group == 'super administrator' && $my->gid != 25) {
 		$lists['gid'] = '<input type="hidden" name="gid" value="'.$my->gid.'" /><strong>'._SUPER_ADMINISTRATOR.'</strong>';
-	} elseif($my->gid == 24 && $row->gid == 24) {
-		$lists['gid'] = '<input type="hidden" name="gid" value="'.$my->gid.'" /><strong>'._ADMINISTRATOR.'</strong>';
-	} else {
-		// ensure user can't add group higher than themselves
-		$my_groups = $acl->get_object_groups('users',$my->id,'ARO');
-		if(is_array($my_groups) && count($my_groups) > 0) {
-			$ex_groups = $acl->get_group_children($my_groups[0],'ARO','RECURSE');
+	} else
+		if($my->gid == 24 && $row->gid == 24) {
+			$lists['gid'] = '<input type="hidden" name="gid" value="'.$my->gid.'" /><strong>'._ADMINISTRATOR.'</strong>';
 		} else {
-			$ex_groups = array();
-		}
-		$gtree = $acl->get_group_children_tree(null,'USERS',false);
-		// remove users 'above' me
-		$i = 0;
-		while($i < count($gtree)) {
-			if(in_array($gtree[$i]->value,$ex_groups)) {
-				array_splice($gtree,$i,1);
+			// ensure user can't add group higher than themselves
+			$my_groups = $acl->get_object_groups('users',$my->id,'ARO');
+			if(is_array($my_groups) && count($my_groups) > 0) {
+				$ex_groups = $acl->get_group_children($my_groups[0],'ARO','RECURSE');
 			} else {
-				$i++;
+				$ex_groups = array();
 			}
-		}
-		$lists['gid'] = mosHTML::selectList($gtree,'gid','size="10"','value','text',$row->gid);
-	}
 
-	// build the html select list
-	$lists['block'] = mosHTML::yesnoRadioList('block','class="inputbox" size="1"',$row->block);
+			$gtree = $acl->get_group_children_tree(null,'USERS',false);
+
+			// remove users 'above' me
+			$i = 0;
+			while($i < count($gtree)) {
+				if(in_array($gtree[$i]->value,$ex_groups)) {
+					array_splice($gtree,$i,1);
+				} else {
+					$i++;
+				}
+			}
+
+			$lists['gid'] = mosHTML::selectList($gtree,'gid','size="10"','value','text',$row->gid);
+		}
+
+		// build the html select list
+		$lists['block'] = mosHTML::yesnoRadioList('block','class="inputbox" size="1"',$row->block);
 	// build the html select list
 	$lists['sendEmail'] = mosHTML::yesnoRadioList('sendEmail','class="inputbox" size="1"',$row->sendEmail);
 
 	$file = $mainframe->getPath('com_xml','com_users');
 	$params = &new mosUserParameters($row->params,$file,'component');
 
-	$user_extra = new userUsersExtra($database);
-	$user_extra->load((int)$uid);
-	$row->user_extra = $user_extra;
-
 	HTML_users::edituser($row,$contact,$lists,$option,$uid,$params);
 }
 
 function saveUser($task) {
-	global $my;
-	global $mosConfig_mailfrom,$mosConfig_fromname,$mosConfig_sitename;
-
+	global $database,$my,$acl;
+	global $mosConfig_live_site,$mosConfig_mailfrom,$mosConfig_fromname,$mosConfig_sitename;
 	josSpoofCheck();
-
-	$database = &database::getInstance();
-	$mainframe = mosMainFrame::getInstance(true);
-	$acl = &gacl::getInstance();
 
 	$userIdPosted = mosGetParam($_POST,'id');
 	if($userIdPosted) {
-		$msg = checkUserPermissions(array($userIdPosted),'save',in_array($my->gid,array(24,25)));
+		$msg = checkUserPermissions(array($userIdPosted),'save',in_array($my->gid,array
+			(24,25)));
 		if($msg) {
-			echo "<script type=\"text/javascript\"> alert('".$msg."'); window.history.go(-1);</script>\n";
+			echo "<script type=\"text/javascript\"> alert('".$msg.
+				"'); window.history.go(-1);</script>\n";
 			exit;
 		}
 	}
@@ -372,7 +328,7 @@ function saveUser($task) {
 		if($row->gid != $original->gid) {
 			if($original->gid == 25) {
 				// count number of active super admins
-				$query = "SELECT COUNT( id ) FROM #__users WHERE gid = 25 AND block = 0";
+				$query = "SELECT COUNT( id )"."\n FROM #__users"."\n WHERE gid = 25"."\n AND block = 0";
 				$database->setQuery($query);
 				$count = $database->loadResult();
 
@@ -389,18 +345,18 @@ function saveUser($task) {
 				echo "<script> alert('"._NO_RIGHT_TO_CHANGE_GROUP."'); window.history.go(-1); </script>\n";
 				exit();
 			} else
-			if($my->gid == 24 && $original->gid == 24) {
-				// disallow change of super-Admin by non-super admin
-				echo "<script> alert('"._NO_RIGHT_TO_CHANGE_GROUP."'); window.history.go(-1); </script>\n";
-				exit();
-			} // ensure user can't add group higher than themselves done below
+				if($my->gid == 24 && $original->gid == 24) {
+					// disallow change of super-Admin by non-super admin
+					echo "<script> alert('"._NO_RIGHT_TO_CHANGE_GROUP."'); window.history.go(-1); </script>\n";
+					exit();
+				} // ensure user can't add group higher than themselves done below
 		}
 	}
 	/*
 	* // if user is made a Super Admin group and user is NOT a Super Admin		
 	* if ( $row->gid == 25 && $my->gid != 25 ) {
 	* // disallow creation of Super Admin by non Super Admin users
-	* echo "<script> alert('Р’С‹ РЅРµ РјРѕР¶РµС‚Рµ СЃРѕР·РґР°С‚СЊ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ СЃ СЌС‚РёРј СѓСЂРѕРІРЅРµРј РґРѕСЃС‚СѓРїР°. Р­С‚Рѕ РјРѕР¶РµС‚ СЃРґРµР»Р°С‚СЊ С‚РѕР»СЊРєРѕ Р“Р»Р°РІРЅС‹Р№ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂ СЃР°Р№С‚Р°'); window.history.go(-1); </script>\n";
+	* echo "<script> alert('Вы не можете создать пользователя с этим уровнем доступа. Это может сделать только Главный администратор сайта'); window.history.go(-1); </script>\n";
 	* exit();
 	* }
 	*/
@@ -412,7 +368,9 @@ function saveUser($task) {
 	}
 
 	// save usertype to usertype column
-	$query = "SELECT name FROM #__core_acl_aro_groups WHERE group_id = ".(int)$row->gid;
+	$query = "SELECT name"
+			."\n FROM #__core_acl_aro_groups"
+			."\n WHERE group_id = ".(int)$row->gid;
 	$database->setQuery($query);
 	$usertype = $database->loadResult();
 	$row->usertype = $usertype;
@@ -435,23 +393,6 @@ function saveUser($task) {
 		echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
 		exit();
 	}
-
-	$user_id = $row->id;
-
-	//РЎРѕС…СЂР°РЅРµРЅРёРµ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅРѕР№ РёРЅС„РѕСЂРјР°С†РёРё
-	$user_extra = new userUsersExtra($database);
-	$ret = $user_extra->load((int)$user_id);
-	if(!$user_extra->bind($_POST)) {
-		echo "<script> alert('".$user_extra->getError()."'); window.history.go(-1); </script>\n";
-		exit();
-	}
-	$user_extra->birthdate  = $_POST['birthdate_year'].'-'.$_POST['birthdate_month'].'-'.$_POST['birthdate_day'].' 00:00:00';
-
-	if(!$ret) {
-		$user_extra->insert($user_id);
-	}
-	$user_extra->store();
-
 	$row->checkin();
 
 	// updates the current users param settings
@@ -463,29 +404,38 @@ function saveUser($task) {
 
 	// update the ACL
 	if(!$isNew) {
-		$query = "SELECT aro_id FROM #__core_acl_aro WHERE value = ".(int)$row->id;
+		$query = "SELECT aro_id"
+				."\n FROM #__core_acl_aro"
+				."\n WHERE value = ".(int)$row->id;
 		$database->setQuery($query);
 		$aro_id = $database->loadResult();
 
-		$query = "UPDATE #__core_acl_groups_aro_map SET group_id = ".(int)$row->gid." WHERE aro_id = ".(int)$aro_id;
+		$query = "UPDATE #__core_acl_groups_aro_map"
+				."\n SET group_id = ".(int)$row->gid
+				."\n WHERE aro_id = ".(int)$aro_id;
 		$database->setQuery($query);
 		$database->query() or die($database->stderr());
 	}
 
 	// for new users, email username and password
 	if($isNew) {
-		$query = "SELECT email FROM #__users WHERE id = ".(int)$my->id;
+		$query = "SELECT email"
+				."\n FROM #__users"
+				."\n WHERE id = ".(int)$my->id;
 		$database->setQuery($query);
 		$adminEmail = $database->loadResult();
 
 		$subject = _NEW_USER_MESSAGE_SUBJECT;
-		$message = sprintf(_NEW_USER_MESSAGE,$row->name,$mosConfig_sitename,JPATH_SITE,$row->username,$pwd);
+		$message = sprintf(_NEW_USER_MESSAGE,$row->name,$mosConfig_sitename,$mosConfig_live_site,
+			$row->username,$pwd);
 
 		if($mosConfig_mailfrom != "" && $mosConfig_fromname != "") {
 			$adminName = $mosConfig_fromname;
 			$adminEmail = $mosConfig_mailfrom;
 		} else {
-			$query = "SELECT name, email FROM #__users WHERE gid = 25";
+			$query = "SELECT name, email"
+					."\n FROM #__users"
+					."\n WHERE gid = 25";
 			$database->setQuery($query);
 			$admins = $database->loadObjectList();
 			$admin = $admins[0];
@@ -507,7 +457,8 @@ function saveUser($task) {
 	switch($task) {
 		case 'apply':
 			$msg = _PROFILE_SAVE_SUCCESS.': '.$row->name;
-			mosRedirect('index2.php?option=com_users&task=editA&hidemainmenu=1&id='.$row->id,$msg);
+			mosRedirect('index2.php?option=com_users&task=editA&hidemainmenu=1&id='.$row->id,
+				$msg);
 			break;
 
 		case 'save':
@@ -519,20 +470,16 @@ function saveUser($task) {
 }
 
 /**
- * Cancels an edit operation
- * @param option component option to call
- */
+* Cancels an edit operation
+* @param option component option to call
+*/
 function cancelUser($option) {
 	mosRedirect('index2.php?option='.$option.'&task=view');
 }
 
 function removeUsers($cid,$option) {
-	global $my;
+	global $database,$acl,$my;
 	josSpoofCheck();
-
-	$database = &database::getInstance();
-	$mainframe = mosMainFrame::getInstance(true);
-	$acl = &gacl::getInstance();
 
 	if(!is_array($cid) || count($cid) < 1) {
 		echo "<script> alert('"._CHOOSE_OBJ_DELETE."'); window.history.go(-1);</script>\n";
@@ -548,7 +495,7 @@ function removeUsers($cid,$option) {
 			$count = 2;
 			if($obj->gid == 25) {
 				// count number of active super admins
-				$query = "SELECT COUNT( id ) FROM #__users WHERE gid = 25 AND block = 0";
+				$query = "SELECT COUNT( id )"."\n FROM #__users"."\n WHERE gid = 25"."\n AND block = 0";
 				$database->setQuery($query);
 				$count = $database->loadResult();
 			}
@@ -572,15 +519,14 @@ function removeUsers($cid,$option) {
 
 
 /**
- * Blocks or Unblocks one or more user records
- * @param array An array of unique category id numbers
- * @param integer 0 if unblock, 1 if blocking
- * @param string The current url option
- */
+* Blocks or Unblocks one or more user records
+* @param array An array of unique category id numbers
+* @param integer 0 if unblock, 1 if blocking
+* @param string The current url option
+*/
 function changeUserBlock($cid = null,$block = 1,$option) {
+	global $database;
 	josSpoofCheck();
-
-	$database = &database::getInstance();
 
 	$action = $block?'block':'unblock';
 
@@ -615,23 +561,16 @@ function changeUserBlock($cid = null,$block = 1,$option) {
 		}
 	}
 
-	//TODO: СЃРґРµР»Р°С‚СЊ РѕС‚СЃС‹Р»РєСѓ РїРёСЃСЊРјР°
-	//Р•СЃР»Рё РІ РЅР°СЃС‚СЂРѕР№РєР°С… СЂРµРіРёСЃС‚СЂР°С†РёРё РІРєР»СЋС‡РµРЅ РїР°СЂР°РјРµС‚СЂ "РђРєС‚РёРІР°С†РёСЏ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂРѕРј",
-	//РѕС‚РїСЂР°РІР»СЏРµРј РїРёСЃСЊРјРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЋ, С‡С‚Рѕ РµРіРѕ Р°РєРєР°СѓРЅС‚ Р±С‹Р» Р°РєС‚РёРІРёСЂРѕРІР°РЅ
-
 	mosRedirect('index2.php?option='.$option);
 }
 
 /**
- * @param array An array of unique user id numbers
- * @param string The current url option
- */
+* @param array An array of unique user id numbers
+* @param string The current url option
+*/
 function logoutUser($cid = null,$option,$task) {
-	global $my;
+	global $database,$my;
 	josSpoofCheck(null, null, 'request');
-
-	$database = &database::getInstance();
-
 	if(is_array($cid)) {
 		if(count($cid) < 1) {
 			mosRedirect('index2.php?option='.$option,_PLEASE_CHOOSE_USER);
@@ -660,7 +599,8 @@ function logoutUser($cid = null,$option,$task) {
 		$ids = 'userid='.(int)$cid;
 	}
 
-	$query = "DELETE FROM #__session WHERE ( $ids )";
+	$query = "DELETE FROM #__session"
+			."\n WHERE ( $ids )";
 	$database->setQuery($query);
 	$database->query();
 
@@ -682,18 +622,15 @@ function logoutUser($cid = null,$option,$task) {
 }
 
 /**
- * Check if users are of lower permissions than current user (if not super-admin) and if the user himself is not included
- *
- * @param array of userId $cid
- * @param string $actionName to insert in message.
- * @return string of error if error, otherwise null
- * Added 1.0.11
- */
+* Check if users are of lower permissions than current user (if not super-admin) and if the user himself is not included
+*
+* @param array of userId $cid
+* @param string $actionName to insert in message.
+* @return string of error if error, otherwise null
+* Added 1.0.11
+*/
 function checkUserPermissions($cid,$actionName,$allowActionToMyself = false) {
-	global $my;
-
-	$database = &database::getInstance();
-	$acl = &gacl::getInstance();
+	global $database,$acl,$my;
 
 	$msg = null;
 	if(is_array($cid) && count($cid)) {
@@ -711,10 +648,10 @@ function checkUserPermissions($cid,$actionName,$allowActionToMyself = false) {
 			if(!$allowActionToMyself && $id == $my->id) {
 				$msg .= 'You cannot '.$actionName.' yourself!';
 			} else
-			if(($obj->gid == $my->gid && !in_array($my->gid,array(24,25))) || ($obj->gid &&
-							!in_array($obj->gid,getGIDSChildren($my->gid)))) {
-				$msg .= 'You cannot '.$actionName.' `'.$this_group.'`. '._THIS_CAN_DO_HIGHLEVEL_USERS;
-			}
+				if(($obj->gid == $my->gid && !in_array($my->gid,array(24,25))) || ($obj->gid &&
+					!in_array($obj->gid,getGIDSChildren($my->gid)))) {
+					$msg .= 'You cannot '.$actionName.' `'.$this_group.'`. '._THIS_CAN_DO_HIGHLEVEL_USERS;
+				}
 		}
 	}
 
@@ -722,15 +659,15 @@ function checkUserPermissions($cid,$actionName,$allowActionToMyself = false) {
 }
 
 /**
- * Added 1.0.11
- */
+* Added 1.0.11
+*/
 function getGIDSChildren($gid) {
-	$database = &database::getInstance();
+	global $database;
 
 	$standardlist = array(-2,);
 
-	$query = "SELECT g1.group_id, g1.name FROM #__core_acl_aro_groups g1"
-			."\n LEFT JOIN #__core_acl_aro_groups g2 ON g2.lft >= g1.lft WHERE g2.group_id = ".(int)$gid."\n ORDER BY g1.name";
+	$query = "SELECT g1.group_id, g1.name"."\n FROM #__core_acl_aro_groups g1"."\n LEFT JOIN #__core_acl_aro_groups g2 ON g2.lft >= g1.lft".
+		"\n WHERE g2.group_id = ".(int)$gid."\n ORDER BY g1.name";
 	$database->setQuery($query);
 	$array = $database->loadResultArray();
 
@@ -743,17 +680,16 @@ function getGIDSChildren($gid) {
 }
 
 /**
- * Added 1.0.11
- */
+* Added 1.0.11
+*/
 function getGIDSParents($gid) {
-	$database = &database::getInstance();
+	global $database;
 
-	$query = "SELECT g1.group_id, g1.name"
-			."\n FROM #__core_acl_aro_groups g1"
-			."\n LEFT JOIN #__core_acl_aro_groups g2 ON g2.lft <= g1.lft"
-			."\n WHERE g2.group_id = ".(int)$gid."\n ORDER BY g1.name";
+	$query = "SELECT g1.group_id, g1.name"."\n FROM #__core_acl_aro_groups g1"."\n LEFT JOIN #__core_acl_aro_groups g2 ON g2.lft <= g1.lft".
+		"\n WHERE g2.group_id = ".(int)$gid."\n ORDER BY g1.name";
 	$database->setQuery($query);
 	$array = $database->loadResultArray();
 
 	return $array;
 }
+?>

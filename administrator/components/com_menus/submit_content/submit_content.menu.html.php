@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2010 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
-* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
-* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
-* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
+* @copyright Авторские права (C) 2008 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
 */
 
-// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+// запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 /**
@@ -21,6 +21,7 @@ defined('_VALID_MOS') or die();
 class submit_content_menu_html {
 
 	function edit(&$menu,&$lists,&$params,$option) {
+		global $mosConfig_live_site;
 		mosCommonHTML::loadOverlib();
 
 ?>
@@ -31,20 +32,23 @@ class submit_content_menu_html {
 				submitform( pressbutton );
 				return;
 			}
-
 			var form = document.adminForm;
-
-             if(document.getElementById('mossection').value==0) {
-                form.link.value = "index.php?option=com_content&task=new";
-			 }else{
-                form.link.value = "index.php?option=com_content&task=new&section="+document.getElementById('mossection').value+"";
-			 }
-
-            if (form.name.value == '') {
-                alert( '<?php echo _OBJECT_MUST_HAVE_NAME?>' );
-			} else {
-			    submitform( pressbutton );
-			}
+<?php
+		if(!$menu->id) {
+?>
+				form.link.value = "index.php?option=com_content&task=new";
+				submitform( pressbutton );
+				<?php
+		} else {
+?>
+				if ( form.name.value == '' ) {
+					alert( '<?php echo _OBJECT_MUST_HAVE_NAME?>' );
+				} else {
+					submitform( pressbutton );
+				}
+				<?php
+		}
+?>
 		}
 		</script>
 		<form action="index2.php" method="post" name="adminForm">
@@ -52,7 +56,7 @@ class submit_content_menu_html {
 		<table class="adminheading">
 		<tr>
 			<th class="menus">
-			<?php echo $menu->id?_EDITING.' -':_CREATION.' - '._COM_MENUS_SUBMIT_CONTENT; ?>
+			<?php echo $menu->id?_O_EDITING.' -':_O_CREATION.' -'; ?> Пункт меню :: Добавить содержимое
 			</th>
 		</tr>
 		</table>
@@ -65,12 +69,11 @@ class submit_content_menu_html {
 					<th colspan="3"><?php echo _DETAILS?></th>
 				</tr>
 				<tr>
-					<td width="20%" align="right" valign="top"><?php echo _NAME?>:</td>
+					<td width="20%" align="right" valign="top"><?php echo _CMN_NAME?>:</td>
 					<td width="200px">
 						<input type="text" name="name" size="50" maxlength="100" class="inputbox" value="<?php echo htmlspecialchars($menu->name,ENT_QUOTES); ?>"/>
 					</td>
-					<td>
-<?php
+					<td><?php
 		if(!$menu->id) {
 			echo mosToolTip(_SECTION_TITLE_IF_FILED_IS_EMPTY);
 		}
@@ -96,11 +99,11 @@ class submit_content_menu_html {
 					<td colspan="2"><?php echo $lists['ordering']; ?></td>
 				</tr>
 				<tr>
-					<td valign="top" align="right"><?php echo _ACCESS?>:</td>
+					<td valign="top" align="right"><?php echo _CMN_ACCESS?>:</td>
 					<td colspan="2"><?php echo $lists['access']; ?></td>
 				</tr>
 				<tr>
-					<td valign="top" align="right"><?php echo _PUBLISHED?>:</td>
+					<td valign="top" align="right"><?php echo _CMN_PUBLISHED?>:</td>
 					<td colspan="2"><?php echo $lists['published']; ?></td>
 				</tr>
 				<tr>

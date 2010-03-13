@@ -1,19 +1,19 @@
 <?php
 /**
 * @package Joostina
-* @copyright ĞĞ²Ñ‚Ğ¾Ñ€ÑĞºĞ¸Ğµ Ğ¿Ñ€Ğ°Ğ²Ğ° (C) 2008-2010 Joostina team. Ğ’ÑĞµ Ğ¿Ñ€Ğ°Ğ²Ğ° Ğ·Ğ°Ñ‰Ğ¸Ñ‰ĞµĞ½Ñ‹.
-* @license Ğ›Ğ¸Ñ†ĞµĞ½Ğ·Ğ¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ğ¸Ğ»Ğ¸ help/license.php
-* Joostina! - ÑĞ²Ğ¾Ğ±Ğ¾Ğ´Ğ½Ğ¾Ğµ Ğ¿Ñ€Ğ¾Ğ³Ñ€Ğ°Ğ¼Ğ¼Ğ½Ğ¾Ğµ Ğ¾Ğ±ĞµÑĞ¿ĞµÑ‡ĞµĞ½Ğ¸Ğµ Ñ€Ğ°ÑĞ¿Ñ€Ğ¾ÑÑ‚Ñ€Ğ°Ğ½ÑĞµĞ¼Ğ¾Ğµ Ğ¿Ğ¾ ÑƒÑĞ»Ğ¾Ğ²Ğ¸ÑĞ¼ Ğ»Ğ¸Ñ†ĞµĞ½Ğ·Ğ¸Ğ¸ GNU/GPL
-* Ğ”Ğ»Ñ Ğ¿Ğ¾Ğ»ÑƒÑ‡ĞµĞ½Ğ¸Ñ Ğ¸Ğ½Ñ„Ğ¾Ñ€Ğ¼Ğ°Ñ†Ğ¸Ğ¸ Ğ¾ Ğ¸ÑĞ¿Ğ¾Ğ»ÑŒĞ·ÑƒĞµĞ¼Ñ‹Ñ… Ñ€Ğ°ÑÑˆĞ¸Ñ€ĞµĞ½Ğ¸ÑÑ… Ğ¸ Ğ·Ğ°Ğ¼ĞµÑ‡Ğ°Ğ½Ğ¸Ğ¹ Ğ¾Ğ± Ğ°Ğ²Ñ‚Ğ¾Ñ€ÑĞºĞ¾Ğ¼ Ğ¿Ñ€Ğ°Ğ²Ğµ, ÑĞ¼Ğ¾Ñ‚Ñ€Ğ¸Ñ‚Ğµ Ñ„Ğ°Ğ¹Ğ» help/copyright.php.
+* @copyright Àâòîğñêèå ïğàâà (C) 2008 Joostina team. Âñå ïğàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïğîãğàììíîå îáåñïå÷åíèå ğàñïğîñòğàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîğìàöèè î èñïîëüçóåìûõ ğàñøèğåíèÿõ è çàìå÷àíèé îá àâòîğñêîì ïğàâå, ñìîòğèòå ôàéë help/copyright.php.
 */
 
-// Ğ·Ğ°Ğ¿Ñ€ĞµÑ‚ Ğ¿Ñ€ÑĞ¼Ğ¾Ğ³Ğ¾ Ğ´Ğ¾ÑÑ‚ÑƒĞ¿Ğ°
+// çàïğåò ïğÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
 
-require_once (JPATH_BASE.
-	'/'.JADMIN_BASE.'/components/com_jce/languages/languages.html.php');
+require_once ($mainframe->getCfg('absolute_path').
+	'/'.ADMINISTRATOR_DIRECTORY.'/components/com_jce/languages/languages.html.php');
 // XML library
-require_once (JPATH_BASE.
+require_once ($mainframe->getCfg('absolute_path').
 	'/includes/domit/xml_domit_lite_include.php');
 
 $cid = mosGetParam($_REQUEST,'cid',array(0));
@@ -41,8 +41,8 @@ function viewLanguages($option) {
 
 	$rows = array();
 	// Read the template dir to find templates
-	$languageBaseDir = mosPathName(mosPathName(JPATH_BASE).
-		"/".JADMIN_BASE."/components/com_jce/language/");
+	$languageBaseDir = mosPathName(mosPathName($mainframe->getCfg('absolute_path')).
+		"/".ADMINISTRATOR_DIRECTORY."/components/com_jce/language/");
 
 	$rowid = 0;
 
@@ -73,10 +73,10 @@ function viewLanguages($option) {
 		$row->name = $element->getText();
 
 		$element = &$root->getElementsByPath('creationDate',1);
-		$row->creationdate = $element?$element->getText():'ĞĞµÑ‚ Ğ´Ğ°Ğ½Ğ½Ñ‹Ñ…';
+		$row->creationdate = $element?$element->getText():'Íåò äàííûõ';
 
 		$element = &$root->getElementsByPath('author',1);
-		$row->author = $element?$element->getText():'ĞĞµÑ‚ Ğ´Ğ°Ğ½Ğ½Ñ‹Ñ…';
+		$row->author = $element?$element->getText():'Íåò äàííûõ';
 
 		$element = &$root->getElementsByPath('copyright',1);
 		$row->copyright = $element?$element->getText():'';
@@ -103,8 +103,8 @@ function viewLanguages($option) {
 		$rowid++;
 	}
 
-	require_once (JPATH_BASE.
-		'/'.JADMIN_BASE.'/includes/pageNavigation.php');
+	require_once ($mainframe->getCfg('absolute_path').
+		'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav(count($rows),$limitstart,$limit);
 
 	$rows = array_slice($rows,$pageNav->limitstart,$pageNav->limit);

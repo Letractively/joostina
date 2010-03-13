@@ -1,88 +1,46 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <mosinstall type="module" version="1.0.0">
-	<name>Краткие новости</name>
+	<name>������� �������</name>
 	<author>Joostina! Project</author>
-	<creationDate>Июнь 2008</creationDate>
-	<copyright>(C) 2008-2010 Joostina team.</copyright>
+	<creationDate>���� 2008</creationDate>
+	<copyright>(C) 2008 Joostina team.</copyright>
 	<license>http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL</license>
 	<authorEmail>joostinacms@gmail.com</authorEmail>
 	<authorUrl>www.joostina.ru</authorUrl>
 	<version>1.0.1</version>
-	<description>Этот модуль случайно выбирает один или несколько (в зависимости от настроек) опубликованных объектов из определенной категории при каждом обновлении страницы. В зависимости от конфигурации новости показываются горизонтально или вертикально.</description>
+	<description>���� ������ �������� �������� ���� �� �������������� �������� �� ������������ ��������� ��� ������ ���������� ��������. � ����������� �� ������������ ������� ������������ ������������� ��� �����������.</description>
 	<files>
 		<filename module="mod_newsflash">mod_newsflash.php</filename>
 	</files>
 	<params>
-		<param name="cache" type="radio" default="0" label="Разрешить кэширование" description="Выберите, кэшировать ли содержимое этого модуля">
-			<option value="0">Нет</option>
-			<option value="1">Да</option>
+		<param name="cache" type="radio" default="0" label="��������� �����������" description="��������, ���������� �� ���������� ����� ������">
+			<option value="0">���</option>
+			<option value="1">��</option>
 		</param>
-		<param type="cache_list" name="cache_time" label="Кэшировать" description="Выберите время на которое необходимо кэшировать данный модуль. По умолчанию используется время, указанное в глобальной конфигураци." />
-		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="template" type="text" default="" label="Шаблон модуля (название.расширение)" description="Введите название файла (например: template.php). Внимание! В случае задания шаблона - указанные настройки стиля вывода будут проигнорированы, поскольку оформление будет браться из заданного шаблона. Если оставить поле пустым - будет использован шаблон по-умолчанию (с учетом заданного стиля вывода)." />
-		<param name="template_dir" type="radio" default="0" label="Директория шаблона" description="Системная - шаблон находится в modules/название_модуля/view. Папка шаблона сайта - шаблон находится в templates/текущий_шаблон_сайта/html/название_модуля ">
-			<option value="0">Системная</option>
-			<option value="1">Папка шаблона сайта</option>
+		<param name="moduleclass_sfx" type="text" default="" label="CSS-������� ������ ������" description="�������, ������� ����� ����������� � �������� ������ (table.moduletable) ������� ������ (CSS) ������. ��� ��������� ������������ �������������� ����� ������." />
+		<param name="items" type="text" default="" label="���������� ��������" description="���������� ������������ ��������" />
+		<param name="catid" type="mos_category" default="0" label="���������" description="��������� �����������" />
+		<param name="style" type="list" default="random" label="�����" description="����� ����������� ���������">
+			<option value="random">��������� ����� �� ������</option>
+			<option value="horiz">�������������</option>
+			<option value="vert">�����������</option>
 		</param>
-		<param name="moduleclass_sfx" type="text" default="" label="CSS-суффикс класса модуля" description="Суффикс, который будет использован в описании класса (table.moduletable) таблицы стилей (CSS) модуля. Это позволяет использовать индивидуальный стиль модуля." />
-		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="items" type="text" default="" label="Количество объектов" description="Количество показываемых объектов" />
-		<param name="catid" type="mos_category" default="0" label="Категория" description="Категория содержимого" />
-		<param name="date_type" type="list" default="created " label="По дате:" description="">
-			<option value="rdate">-создания</option>
-			<option value="rmodified">-изменения</option>
+		<param name="image" type="radio" default="0" label="���������� �����������" description="���������� ����������� ������� �����������">
+			<option value="1">��</option>
+			<option value="0">���</option>
 		</param>
-		<param name="style" type="list" default="random" label="Стиль" description="Стиль отображения категории">
-			<option value="random">Случайный выбор по одному</option>
-			<option value="horiz">Горизонтально</option>
-			<option value="vert">Вертикально</option>
+		<param name="link_titles" type="list" default="" label="��������� � ���� ������" description="�������� ���������� ������� � ���� ������">
+			<option value="">������������ ���������� ���������</option>
+			<option value="0">���</option>
+			<option value="1">��</option>
 		</param>
-		<param name="image" type="list" default="0" label="Показывать изображения" description="Показывать изображения объекта содержимого">
-			<option value="0">Нет</option>
-			<option value="mosimage">Использовать {mosimage}</option>
-			<option value="img">Использовать [img]</option>
+		<param name="readmore" type="radio" default="0" label="���������..." description="���������� �� ������ /�����.../">
+			<option value="0">������</option>
+			<option value="1">��������</option>
 		</param>
-		<param name="image_link" type="radio" default="0" label="Изображение - ссылка на материал" description="">
-			<option value="0">Нет</option>
-			<option value="1">Да</option>
+		<param name="item_title" type="list" default="0" label="��������� �������" description="���������� �� ��������� �������">
+			<option value="0">���</option>
+			<option value="1">��</option>
 		</param>
-		<param name="image_default" type="radio" default="0" label="Выводить изображение по-умолчанию" description="Если ДА - то вместо отсутствующего в материале изображения будет выведена картинка по-умолчанию (images/noimage.jpg)">
-			<option value="0">Нет</option>
-			<option value="1">Да</option>
-		</param>
-		<param name="item_title" type="radio" default="1" label="Заголовок объекта" description="Показывать ли заголовок объекта">
-			<option value="0">Нет</option>
-			<option value="1">Да</option>
-		</param>
-		<param name="link_titles" type="list" default="" label="Заголовки в виде ссылок" description="Создание заголовков объекта в виде ссылок">
-			<option value="">Использовать глобальные настройки</option>
-			<option value="0">Нет</option>
-			<option value="1">Да</option>
-		</param>
-		<param name="text" type="list" default="1" label="Текст новости" description="">
-			<option value="0">Не показывать</option>
-			<option value="1">Текстом</option>
-			<option value="2">Ссылкой</option>
-		</param>
-		<param name="crop_text" type="list" default="0" label="Лимит текста" description="">
-			<option value="0">Без лимита</option>
-			<option value="simbol">Лимит символов</option>
-			<option value="word">Лимит слов</option>
-		</param>
-		<param name="text_limit" type="text" default="" label="Размер лимита" description="" />
-		<param name="createdate" type="radio" default="0" label="Показать дату создания" description="">
-			<option value="0">Нет</option>
-			<option value="1">Да</option>
-		</param>
-		<param name="show_author" type="radio" default="0" label="Показать автора" description="">
-			<option value="0">Нет</option>
-			<option value="1">Да</option>
-		</param>
-		<param name="readmore" type="radio" default="0" label="Подробнее..." description="Показывать ли кнопку /Далее.../">
-			<option value="0">Скрыть</option>
-			<option value="1">Показать</option>
-		</param>
-		<param name="link_text" type="text" default="" label="Текст [Подробнее]" description="Если оставить поле пустым - будет использован текст по-умолчанию." />
-		<param name="Itemid" type="text" default="" label="Itemid" description="Параметр ItemId для ссылок." />
-	</params>
+</params>
 </mosinstall>

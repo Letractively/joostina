@@ -1,379 +1,282 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
-
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
-
 /**
- * Utility class for the button bar
- * @package Joostina
- */
+* Utility class for the button bar
+* @package Joostina
+*/
 class mosToolBar {
-
-	/**
-	 * Writes the start of the button bar table
-	 */
-	function startTable() {
-		?>
+/** Writes the start of the button bar table*/
+function startTable() {
+?>
 <style type="text/css">
-	table#toolbar {
-		margin-right: 10px;
-	}
-
-	table#toolbar a.toolbar {
-		color : #808080;
-		text-decoration : none;
-		display: block;
-		border: 1px solid #DDD;
-		width: 40px;
-		padding: 2px 5px 2px 5px;
-	}
-	table#toolbar a.toolbar:hover {
-		color : #C64934;
-		cursor: pointer;
-		border: 1px solid #c24733;
-		background-color: #f1e8e6;
-		padding: 3px 5px 1px 5px;
-	}
-	table#toolbar a.toolbar:active {
-		color : #FF9900;
-	}
+table#toolbar{margin-right:10px;}
+table#toolbar a.toolbar{color:#808080;text-decoration:none;display:block;border:1px solid #DDD;width:40px;padding:2px 5px 2px 5px;}
+table#toolbar a.toolbar:hover{color:#C64934;cursor:pointer;border:1px solid #c24733;background-color:#f1e8e6;padding:3px 5px 1px 5px;}
+table#toolbar a.toolbar:active{color:#FF9900;}
 </style>
 <table cellpadding="0" cellspacing="3" border="0" id="toolbar">
-	<tr height="60" valign="middle" align="center">
-				<?php
-			}
-
-			/**
-			 * Writes a custom option and task button for the button bar
-			 * @param string The task to perform (picked up by the switch($task) blocks
-			 * @param string The image to display
-			 * @param string The image to display when moused over
-			 * @param string The alt text for the icon image
-			 * @param boolean True if required to check that a standard list item is checked
-			 */
-			function custom($task = '',$icon = null,$iconOver = '',$alt = '',$listSelect = true) {
-				if($listSelect) {
-					$href = "javascript:if (document.adminForm.boxchecked.value == 0){ alert('Ð’Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ Ð¾Ð±ÑŠÐµÐºÑ‚ Ð¸Ð· ÑÐ¿Ð¸ÑÐºÐ° Ð´Ð»Ñ $alt');}else{submitbutton('$task')}";
-				} else {
-					$href = "javascript:submitbutton('$task')";
-				}
-				?>
-		<td>
-			<a class="toolbar" href="<?php echo $href; ?>" ><img name="<?php echo $task; ?>" src="images/system/<?php echo $iconOver; ?>" alt="<?php echo $alt; ?>" title="<?php echo $alt; ?>" border="0" /></a>
-		</td>
-				<?php
-			}
-
-			/**
-			 * Writes the common 'new' icon for the button bar
-			 * @param string An override for the task
-			 * @param string An override for the alt text
-			 */
-			function addNew($task = 'new',$alt = _NEW) {
-				$image = mosAdminMenus::ImageCheck('new_f2.png','/images/system/',null,null,$alt,$task,1,'middle',$alt);
-				?>
-		<td>
-			<a class="toolbar" href="javascript:submitbutton('<?php echo $task; ?>');" ><?php echo $image; ?></a>
-		</td>
-				<?php
-			}
-
-			/**
-			 * Writes a common 'publish' button
-			 * @param string An override for the task
-			 * @param string An override for the alt text
-			 */
-			function publish($task = 'publish',$alt = _PUBLISHED) {
-				$image = mosAdminMenus::ImageCheck('publish_f2.png','/images/system/',null,null,$alt,$task,1,'middle',$alt);
-				?>
-		<td>
-			<a class="toolbar" href="javascript:submitbutton('<?php echo $task; ?>');" >
-						<?php echo $image; ?></a>
-		</td>
-				<?php
-			}
-
-			/**
-			 * Writes a common 'publish' button for a list of records
-			 * @param string An override for the task
-			 * @param string An override for the alt text
-			 */
-			function publishList($task = 'publish',$alt = _PUBLISHED) {
-				$image = mosAdminMenus::ImageCheck('publish_f2.png','/images/system/',null,null,$alt,$task,1,'middle',$alt);
-				?>
-		<td>
-			<a class="toolbar" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Ð’Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ Ð¾Ð±ÑŠÐµÐºÑ‚ Ð¸Ð· ÑÐ¿Ð¸ÑÐºÐ° Ð´Ð»Ñ ÐµÐ³Ð¾ Ð¿ÑƒÐ±Ð»Ð¸ÐºÐ°Ñ†Ð¸Ð¸'); } else {submitbutton('<?php echo $task; ?>', '');}" ><?php echo $image; ?></a>
-		</td>
-				<?php
-			}
-
-			/**
-			 * Writes a common 'unpublish' button
-			 * @param string An override for the task
-			 * @param string An override for the alt text
-			 */
-			function unpublish($task = 'unpublish',$alt = _UNPUBLISHED) {
-				$image = mosAdminMenus::ImageCheck('unpublish_f2.png','/images/system/',null,null,$alt,
-						$task,1,'middle',$alt);
-				?>
-		<td>
-			<a class="toolbar" href="javascript:submitbutton('<?php echo $task; ?>');" ><?php echo $image; ?></a>
-		</td>
-				<?php
-			}
-
-			/**
-			 * Writes a common 'unpublish' button for a list of records
-			 * @param string An override for the task
-			 * @param string An override for the alt text
-			 */
-			function unpublishList($task = 'unpublish',$alt = _UNPUBLISHED) {
-				$image = mosAdminMenus::ImageCheck('unpublish_f2.png','/images/system/',null,null,$alt,
-						$task,1,'middle',$alt);
-				?>
-		<td>
-			<a class="toolbar" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Ð’Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ Ð¾Ð±ÑŠÐµÐºÑ‚ Ð¸Ð· ÑÐ¿Ð¸ÑÐºÐ° Ð´Ð»Ñ Ð¾Ñ‚Ð¼ÐµÐ½Ñ‹ ÐµÐ³Ð¾ Ð¿ÑƒÐ±Ð»Ð¸ÐºÐ°Ñ†Ð¸Ð¸'); } else {submitbutton('<?php echo $task; ?>', '');}" ><?php echo $image; ?></a>
-		</td>
-				<?php
-			}
-
-			/**
-			 * Writes a common 'archive' button for a list of records
-			 * @param string An override for the task
-			 * @param string An override for the alt text
-			 */
-			function archiveList($task = 'archive',$alt = _CMN_ARCHIVE) {
-				$image = mosAdminMenus::ImageCheck('archive_f2.png','/images/system/',null,null,$alt,$task,1,'middle',$alt);
-				?>
-		<td>
-			<a class="toolbar" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Ð’Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ Ð¾Ð±ÑŠÐµÐºÑ‚ Ð¸Ð· ÑÐ¿Ð¸ÑÐºÐ° Ð´Ð»Ñ Ð¿ÐµÑ€ÐµÐ¼ÐµÑ‰ÐµÐ½Ð¸Ñ Ð² Ð°Ñ€Ñ…Ð¸Ð²'); } else {submitbutton('<?php echo $task; ?>', '');}" ><?php echo $image; ?></a>
-		</td>
-				<?php
-			}
-
-			/**
-			 * Writes an unarchive button for a list of records
-			 * @param string An override for the task
-			 * @param string An override for the alt text
-			 */
-			function unarchiveList($task = 'unarchive',$alt = _CMN_UNARCHIVE) {
-				$image = mosAdminMenus::ImageCheck('unarchive_f2.png','/images/system/',null,null,$alt,$task,1,'middle',$alt);
-				?>
-		<td>
-			<a class="toolbar" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Ð’Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ Ð¼Ð°Ñ‚ÐµÑ€Ð¸Ð°Ð» Ð´Ð»Ñ Ð²Ð¾ÑÑÑ‚Ð°Ð½Ð¾Ð²Ð»ÐµÐ½Ð¸Ñ ÐµÐ³Ð¾ Ð¸Ð· Ð°Ñ€Ñ…Ð¸Ð²Ð°'); } else {submitbutton('<?php echo $task; ?>', '');}" ><?php echo $image; ?></a>
-		</td>
-				<?php
-			}
-
-			/**
-			 * Writes a common 'edit' button for a list of records
-			 * @param string An override for the task
-			 * @param string An override for the alt text
-			 */
-			function editList($task = 'edit',$alt = _EDIT) {
-				$image = mosAdminMenus::ImageCheck('edit_f2.png','/images/system/',null,null,$alt,$task,1,'middle',$alt);
-				?>
-		<td>
-			<a class="toolbar" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Ð’Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ Ð¾Ð±ÑŠÐµÐºÑ‚ Ð¸Ð· ÑÐ¿Ð¸ÑÐºÐ° Ð´Ð»Ñ ÐµÐ³Ð¾ Ñ€ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ñ'); } else {submitbutton('<?php echo $task; ?>', '');}" ><?php echo $image; ?></a>
-		</td>
-				<?php
-			}
-
-			/**
-			 * Writes a common 'edit' button for a template html
-			 * @param string An override for the task
-			 * @param string An override for the alt text
-			 */
-			function editHtml($task = 'edit_source',$alt = _CMN_EDIT_HTML) {
-				$image = mosAdminMenus::ImageCheck('edit_f2.png','/images/system/',null,null,$alt,$task,1,'middle',$alt);
-				?>
-		<td>
-			<a class="toolbar" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Ð’Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ Ð¾Ð±ÑŠÐµÐºÑ‚ Ð¸Ð· ÑÐ¿Ð¸ÑÐºÐ° Ð´Ð»Ñ ÐµÐ³Ð¾ Ñ€ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ñ'); } else {submitbutton('<?php echo $task; ?>', '');}" ><?php echo $image; ?></a>
-		</td>
-				<?php
-			}
-
-			/**
-			 * Writes a common 'edit' button for a template css
-			 * @param string An override for the task
-			 * @param string An override for the alt text
-			 */
-			function editCss($task = 'edit_css',$alt = _CMN_EDIT_CSS) {
-				$image = mosAdminMenus::ImageCheck('css_f2.png','/images/system/',null,null,$alt,$task,1,'middle',$alt);
-				?>
-		<td>
-			<a class="toolbar" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Ð’Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ Ð¾Ð±ÑŠÐµÐºÑ‚ Ð¸Ð· ÑÐ¿Ð¸ÑÐºÐ° Ð´Ð»Ñ ÐµÐ³Ð¾ Ñ€ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ñ'); } else {submitbutton('<?php echo $task; ?>', '');}" ><?php echo $image; ?></a>
-		</td>
-				<?php
-			}
-
-			/**
-			 * Writes a common 'delete' button for a list of records
-			 * @param string  Postscript for the 'are you sure' message
-			 * @param string An override for the task
-			 * @param string An override for the alt text
-			 */
-			function deleteList($msg = '',$task = 'remove',$alt = _DELETE) {
-				$image = mosAdminMenus::ImageCheck('delete_f2.png','/images/system/',null,null,$alt,$task,1,'middle',$alt);
-				?>
-		<td>
-			<a class="toolbar" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Ð’Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ Ð¾Ð±ÑŠÐµÐºÑ‚ Ð¸Ð· ÑÐ¿Ð¸ÑÐºÐ° Ð´Ð»Ñ ÐµÐ³Ð¾ ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ñ'); } else if (confirm('Ð’Ñ‹ Ð´ÐµÐ¹ÑÑ‚Ð²Ð¸Ñ‚ÐµÐ»ÑŒÐ½Ð¾ Ñ…Ð¾Ñ‚Ð¸Ñ‚Ðµ ÑƒÐ´Ð°Ð»Ð¸Ñ‚ÑŒ Ð²Ñ‹Ð±Ñ€Ð°Ð½Ð½Ñ‹Ðµ Ð¾Ð±ÑŠÐµÐºÑ‚Ñ‹? <?php echo $msg; ?>')){ submitbutton('<?php echo $task; ?>');}"><?php echo $image; ?></a>
-		</td>
-				<?php
-			}
-
-			/**
-			 * Writes a preview button for a given option (opens a popup window)
-			 * @param string The name of the popup file (excluding the file extension)
-			 */
-			function preview($popup = '') {
-				global $database;
-				$sql = "SELECT template FROM #__templates_menu WHERE client_id = 0 AND menuid = 0";
-				$database->setQuery($sql);
-				$cur_template = $database->loadResult();
-
-				$image = mosAdminMenus::ImageCheck('preview_f2.png','images/system/',null,null,'ÐŸÑ€Ð¾ÑÐ¼Ð¾Ñ‚Ñ€','preview',1);
-				?>
-		<td>
-			<a class="toolbar" href="#" onclick="window.open('popups/<?php echo $popup; ?>.php?t=<?php echo $cur_template; ?>', 'win1', 'status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=640,height=480,directories=no,location=no');" ><?php echo $image; ?></a>
-		</td>
-				<?php
-			}
-
-			/**
-			 * Writes a save button for a given option
-			 * @param string An override for the task
-			 * @param string An override for the alt text
-			 */
-			function save($task = 'save',$alt = _SAVE) {
-				$image = mosAdminMenus::ImageCheck('save_f2.png','/images/system/',null,null,$alt,$task,1,'middle',$alt);
-				?>
-		<td>
-			<a class="toolbar" href="javascript:submitbutton('<?php echo $task; ?>');" ><?php echo $image; ?></a>
-		</td>
-				<?php
-			}
-
-			/**
-			 * Writes a save button for a given option
-			 * @param string An override for the task
-			 * @param string An override for the alt text
-			 */
-			function apply($task = 'apply',$alt = _APPLY) {
-				$image = mosAdminMenus::ImageCheck('apply_f2.png','/images/system/',null,null,$alt,$task,1,'middle',$alt);
-				?>
-		<td>
-			<a class="toolbar" href="javascript:submitbutton('<?php echo $task; ?>');" ><?php echo $image; ?></a>
-		</td>
-				<?php
-			}
-
-			/**
-			 * Writes a save button for a given option (NOTE this is being deprecated)
-			 */
-			function savenew() {
-				$image = mosAdminMenus::ImageCheck('save_f2.png','/images/system/',null,null,'save','save',1);
-				?>
-		<td>
-			<a class="toolbar" href="javascript:submitbutton('savenew');" ><?php echo $image; ?></a>
-		</td>
-				<?php
-			}
-
-			/**
-			 * Writes a save button for a given option (NOTE this is being deprecated)
-			 */
-			function saveedit() {
-				$image = mosAdminMenus::ImageCheck('save_f2.png','/images/system/',null,null,'save','save',1);
-				?>
-		<td>
-			<a class="toolbar" href="javascript:submitbutton('saveedit');" ><?php echo $image; ?></a>
-		</td>
-				<?php
-			}
-
-			/**
-			 * Writes a cancel button and invokes a cancel operation (eg a checkin)
-			 * @param string An override for the task
-			 * @param string An override for the alt text
-			 */
-			function cancel($task = 'cancel',$alt = _CANCEL) {
-				$image = mosAdminMenus::ImageCheck('cancel_f2.png','/images/system/',null,null,$alt,$task,	1,'middle',$alt);
-				?>
-		<td>
-			<a class="toolbar" href="javascript:submitbutton('<?php echo $task; ?>');" ><?php echo $image; ?></a>
-		</td>
-				<?php
-			}
-
-			/**
-			 * Writes a cancel button that will go back to the previous page without doing
-			 * any other operation
-			 */
-			function back() {
-				$image = mosAdminMenus::ImageCheck('back_f2.png','/images/system/',null,null,'back','cancel',1);
-				?>
-		<td>
-			<a class="toolbar" href="javascript:window.history.back();" ><?php echo $image; ?></a>
-		</td>
-				<?php
-			}
-
-			/**
-			 * Write a divider between menu buttons
-			 */
-			function divider() {
-				$image = mosAdminMenus::ImageCheck('menu_divider.png','/images/system/');
-				?>
-		<td>
-					<?php echo $image; ?>
-		</td>
-				<?php
-			}
-
-			/**
-			 * Writes a media_manager button
-			 * @param string The sub-drectory to upload the media to
-			 */
-			function media_manager($directory = '') {
-				$image = mosAdminMenus::ImageCheck('upload_f2.png','/images/system/',null,null,_UPLOAD_FILE,'uploadPic',1);
-				?>
-		<td>
-			<a class="toolbar" href="#" onclick="popupWindow('popups/uploadimage.php?directory=<?php echo $directory; ?>','win1',250,100,'no');"><?php echo $image; ?></a>
-		</td>
-				<?php
-			}
-
-			/**
-			 * Writes a spacer cell
-			 * @param string The width for the cell
-			 */
-			function spacer($width = '') {
-				if($width != '') {
-					?>
-		<td width="<?php echo $width; ?>">&nbsp;</td>
-					<?php
-				} else {
-					?>
-		<td>&nbsp;</td>
-					<?php
-				}
-			}
-
-			/**
-			 * Writes the end of the menu bar table
-			 */
-			function endTable() {
-				?>
-	</tr>
-</table>
-		<?php
-	}
+<tr height="60" valign="middle" align="center">
+<?php
 }
+/**
+* Writes a custom option and task button for the button bar
+* @param string The task to perform (picked up by the switch($task) blocks
+* @param string The image to display
+* @param string The image to display when moused over
+* @param string The alt text for the icon image
+* @param boolean True if required to check that a standard list item is checked
+*/
+function custom($task = '',$icon = null,$iconOver = '',$alt = '',$listSelect = true) {
+if($listSelect) {
+$href = "javascript:if (document.adminForm.boxchecked.value == 0){ alert('Âûáåðèòå îáúåêò èç ñïèñêà äëÿ $alt');}else{submitbutton('$task')}";
+} else {
+$href = "javascript:submitbutton('$task')";
+}
+?>
+<td><a class="toolbar" href="<?php echo $href; ?>" ><img name="<?php echo $task; ?>" src="images/<?php echo $iconOver; ?>" alt="<?php echo $alt; ?>" title="<?php echo $alt; ?>" /></a></td>
+<?php
+}
+/**
+* Writes the common 'new' icon for the button bar
+* @param string An override for the task
+* @param string An override for the alt text
+*/
+function addNew($task = 'new',$alt = _CMN_NEW) {
+$image = mosAdminMenus::ImageCheck('new_f2.png','/images/',null,null,$alt,$task,1,'middle',$alt);
+?>
+<td><a class="toolbar" href="javascript:submitbutton('<?php echo $task; ?>');" ><?php echo $image; ?></a></td>
+<?php
+}
+/**
+* Writes a common 'publish' button
+* @param string An override for the task
+* @param string An override for the alt text
+*/
+function publish($task = 'publish',$alt = _CMN_PUBLISHED) {
+$image = mosAdminMenus::ImageCheck('publish_f2.png','/images/',null,null,$alt,$task,1,'middle',$alt);
+?>
+<td><a class="toolbar" href="javascript:submitbutton('<?php echo $task; ?>');" ><?php echo $image; ?></a></td>
+<?php
+}
+/**
+* Writes a common 'publish' button for a list of records
+* @param string An override for the task
+* @param string An override for the alt text
+*/
+function publishList($task = 'publish',$alt = _CMN_PUBLISHED) {
+$image = mosAdminMenus::ImageCheck('publish_f2.png','/images/',null,null,$alt,$task,1,'middle',$alt);
+?>
+<td><a class="toolbar" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Âûáåðèòå îáúåêò èç ñïèñêà äëÿ åãî ïóáëèêàöèè'); } else {submitbutton('<?php echo $task; ?>', '');}" ><?php echo $image; ?></a></td>
+<?php
+}
+/**
+* Writes a common 'unpublish' button
+* @param string An override for the task
+* @param string An override for the alt text
+*/
+function unpublish($task = 'unpublish',$alt = _CMN_UNPUBLISHED) {
+$image = mosAdminMenus::ImageCheck('unpublish_f2.png','/images/',null,null,$alt,
+$task,1,'middle',$alt);
+?>
+<td><a class="toolbar" href="javascript:submitbutton('<?php echo $task; ?>');" ><?php echo $image; ?></a></td>
+<?php
+}
+/**
+* Writes a common 'unpublish' button for a list of records
+* @param string An override for the task
+* @param string An override for the alt text
+*/
+function unpublishList($task = 'unpublish',$alt = _CMN_UNPUBLISHED) {
+$image = mosAdminMenus::ImageCheck('unpublish_f2.png','/images/',null,null,$alt,
+$task,1,'middle',$alt);
+?>
+<td><a class="toolbar" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Âûáåðèòå îáúåêò èç ñïèñêà äëÿ îòìåíû åãî ïóáëèêàöèè'); } else {submitbutton('<?php echo $task; ?>', '');}" ><?php echo $image; ?></a></td>
+<?php
+}
+/**
+* Writes a common 'archive' button for a list of records
+* @param string An override for the task
+* @param string An override for the alt text
+*/
+function archiveList($task = 'archive',$alt = _CMN_ARCHIVE) {
+$image = mosAdminMenus::ImageCheck('archive_f2.png','/images/',null,null,$alt,$task,1,'middle',$alt);
+?>
+<td><a class="toolbar" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Âûáåðèòå îáúåêò èç ñïèñêà äëÿ ïåðåìåùåíèÿ â àðõèâ'); } else {submitbutton('<?php echo $task; ?>', '');}" ><?php echo $image; ?></a></td>
+<?php
+}
+/**
+* Writes an unarchive button for a list of records
+* @param string An override for the task
+* @param string An override for the alt text
+*/
+function unarchiveList($task = 'unarchive',$alt = _CMN_UNARCHIVE) {
+$image = mosAdminMenus::ImageCheck('unarchive_f2.png','/images/',null,null,$alt,$task,1,'middle',$alt);
+?>
+<td><a class="toolbar" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Âûáåðèòå ìàòåðèàë äëÿ âîññòàíîâëåíèÿ åãî èç àðõèâà'); } else {submitbutton('<?php echo $task; ?>', '');}" ><?php echo $image; ?></a></td>
+<?php
+}
+/**
+* Writes a common 'edit' button for a list of records
+* @param string An override for the task
+* @param string An override for the alt text
+*/
+function editList($task = 'edit',$alt = _E_EDIT) {
+$image = mosAdminMenus::ImageCheck('edit_f2.png','/images/',null,null,$alt,$task,1,'middle',$alt);
+?>
+<td><a class="toolbar" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Âûáåðèòå îáúåêò èç ñïèñêà äëÿ åãî ðåäàêòèðîâàíèÿ'); } else {submitbutton('<?php echo $task; ?>', '');}" ><?php echo $image; ?></a></td>
+<?php
+}
+/**
+* Writes a common 'edit' button for a template html
+* @param string An override for the task
+* @param string An override for the alt text
+*/
+function editHtml($task = 'edit_source',$alt = _CMN_EDIT_HTML) {
+$image = mosAdminMenus::ImageCheck('edit_f2.png','/images/',null,null,$alt,$task,1,'middle',$alt);
+?>
+<td><a class="toolbar" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Âûáåðèòå îáúåêò èç ñïèñêà äëÿ åãî ðåäàêòèðîâàíèÿ'); } else {submitbutton('<?php echo $task; ?>', '');}" ><?php echo $image; ?></a></td>
+<?php
+}
+/**
+* Writes a common 'edit' button for a template css
+* @param string An override for the task
+* @param string An override for the alt text
+*/
+function editCss($task = 'edit_css',$alt = _CMN_EDIT_CSS) {
+$image = mosAdminMenus::ImageCheck('css_f2.png','/images/',null,null,$alt,$task,1,'middle',$alt);
+?>
+<td><a class="toolbar" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Âûáåðèòå îáúåêò èç ñïèñêà äëÿ åãî ðåäàêòèðîâàíèÿ'); } else {submitbutton('<?php echo $task; ?>', '');}" ><?php echo $image; ?></a></td>
+<?php
+}
+/**
+* Writes a common 'delete' button for a list of records
+* @param string  Postscript for the 'are you sure' message
+* @param string An override for the task
+* @param string An override for the alt text
+*/
+function deleteList($msg = '',$task = 'remove',$alt = _CMN_DELETE) {
+$image = mosAdminMenus::ImageCheck('delete_f2.png','/images/',null,null,$alt,$task,1,'middle',$alt);
+?>
+<td><a class="toolbar" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('Âûáåðèòå îáúåêò èç ñïèñêà äëÿ åãî óäàëåíèÿ'); } else if (confirm('Âû äåéñòâèòåëüíî õîòèòå óäàëèòü âûáðàííûå îáúåêòû? <?php echo $msg; ?>')){ submitbutton('<?php echo $task; ?>');}"><?php echo $image; ?></a></td>
+<?php
+}
+/**
+* Writes a preview button for a given option (opens a popup window)
+* @param string The name of the popup file (excluding the file extension)
+*/
+function preview($popup = '') {
+global $database;
+$sql = "SELECT template FROM #__templates_menu WHERE client_id = 0 AND menuid = 0";
+$database->setQuery($sql);
+$cur_template = $database->loadResult();
+$image = mosAdminMenus::ImageCheck('preview_f2.png','images/',null,null,'Ïðîñìîòð','preview',1);
+?>
+<td><a class="toolbar" href="#" onclick="window.open('popups/<?php echo $popup; ?>.php?t=<?php echo $cur_template; ?>', 'win1', 'status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=640,height=480,directories=no,location=no');" ><?php echo $image; ?></a></td>
+<?php
+}
+/**
+* Writes a save button for a given option
+* @param string An override for the task
+* @param string An override for the alt text
+*/
+function save($task = 'save',$alt = _CMN_SAVE) {
+$image = mosAdminMenus::ImageCheck('save_f2.png','/images/',null,null,$alt,$task,1,'middle',$alt);
+?>
+<td><a class="toolbar" href="javascript:submitbutton('<?php echo $task; ?>');" ><?php echo $image; ?></a></td>
+<?php
+}
+/**
+* Writes a save button for a given option
+* @param string An override for the task
+* @param string An override for the alt text
+*/
+function apply($task = 'apply',$alt = _CMN_APPLY) {
+$image = mosAdminMenus::ImageCheck('apply_f2.png','/images/',null,null,$alt,$task,1,'middle',$alt);
+?>
+<td><a class="toolbar" href="javascript:submitbutton('<?php echo $task; ?>');" ><?php echo $image; ?></a></td>
+<?php
+}
+/** Writes a save button for a given option (NOTE this is being deprecated)*/
+function savenew() {
+$image = mosAdminMenus::ImageCheck('save_f2.png','/images/',null,null,'save','save',1);
+?>
+<td><a class="toolbar" href="javascript:submitbutton('savenew');" ><?php echo $image; ?></a></td>
+<?php
+}
+/** Writes a save button for a given option (NOTE this is being deprecated)*/
+function saveedit() {
+$image = mosAdminMenus::ImageCheck('save_f2.png','/images/',null,null,'save','save',1);
+?>
+<td><a class="toolbar" href="javascript:submitbutton('saveedit');" ><?php echo $image; ?></a></td>
+<?php
+}
+/**
+* Writes a cancel button and invokes a cancel operation (eg a checkin)
+* @param string An override for the task
+* @param string An override for the alt text
+*/
+function cancel($task = 'cancel',$alt = _CMN_CANCEL) {
+$image = mosAdminMenus::ImageCheck('cancel_f2.png','/images/',null,null,$alt,$task,1,'middle',$alt);
+?>
+<td><a class="toolbar" href="javascript:submitbutton('<?php echo $task; ?>');" ><?php echo $image; ?></a></td>
+<?php
+}
+/**
+* Writes a cancel button that will go back to the previous page without doing
+* any other operation
+*/
+function back() {
+$image = mosAdminMenus::ImageCheck('back_f2.png','/images/',null,null,'back','cancel',1);
+?>
+<td><a class="toolbar" href="javascript:window.history.back();" ><?php echo $image; ?></a></td>
+<?php
+}
+/** Write a divider between menu buttons*/
+function divider() {
+$image = mosAdminMenus::ImageCheck('menu_divider.png','/images/');
+?>
+<td><?php echo $image; ?></td>
+<?php
+}
+/**
+* Writes a media_manager button
+* @param string The sub-drectory to upload the media to
+*/
+function media_manager($directory = '') {
+$image = mosAdminMenus::ImageCheck('upload_f2.png','/images/',null,null,_UPLOAD_FILE,'uploadPic',1);
+?>
+<td><a class="toolbar" href="#" onclick="popupWindow('popups/uploadimage.php?directory=<?php echo $directory; ?>','win1',250,100,'no');"><?php echo $image; ?></a></td>
+<?php
+}
+/**
+* Writes a spacer cell
+* @param string The width for the cell
+*/
+function spacer($width = '') {
+if($width != '') {
+?>
+<td width="<?php echo $width; ?>">&nbsp;</td>
+<?php
+} else {
+?>
+<td>&nbsp;</td>
+<?php
+}
+}
+/** Writes the end of the menu bar table*/
+function endTable() {
+?>
+</tr>
+</table>
+<?php
+}
+}
+?>

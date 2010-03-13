@@ -15,7 +15,7 @@ $version = "1.1.3";
 
 global $database;
 
-require_once( JPATH_BASE . '/mambots/editors/jce/jscripts/tiny_mce/libraries/classes/jce.class.php' );
+require_once( $mainframe->getCfg('absolute_path') . '/mambots/editors/jce/jscripts/tiny_mce/libraries/classes/jce.class.php' );
 
 $jce = new JCE();
 $jce->setPlugin('advlink');
@@ -38,7 +38,7 @@ $jce->processAjax();
 	<title><?php echo $jce->translate('title');?> : <?php echo $version;?></title>
 	<?php 
 	echo $jce->printLibJs( 'tiny_mce_utils' );
-	// Ð·Ð°Ð³Ñ€ÑƒÐ·ÐºÐ° ÑÐºÑ€Ð¸Ð¿Ñ‚Ð¾Ð² mootols
+	// çàãðóçêà ñêðèïòîâ mootols
 	mosCommonHTML::loadMootools(1);
 	echo $jce->printLibJs( 'utils' );
 	echo $jce->printPluginJs( 'functions' );
@@ -69,7 +69,7 @@ $jce->processAjax();
 						<td>
 						<table border="0" cellspacing="0" cellpadding="0">
 							<tr>
-								<td colspan="2"><input id="href" name="href" type="text" value="" size="200" /></td>
+								<td colspan="2"><input id="href" name="href" type="text" value="" size="150" /></td>
 							</tr>
 						</table>
 						</td>
@@ -84,7 +84,7 @@ $jce->processAjax();
 								<option value="_self"><?php echo $jce->translate('self');?></option>
 								<option value="_blank"><?php echo $jce->translate('blank');?></option>
 								<option value="_parent"><?php echo $jce->translate('parent');?></option>
-								<option value="_top"><?php echo $jce->translate('top');?></option>
+								<option value="_top"><?php echo $jce->translate('top');?></option>								
 							</select>
 						</td>
 					</tr>

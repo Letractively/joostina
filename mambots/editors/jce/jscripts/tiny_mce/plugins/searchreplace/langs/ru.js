@@ -1,21 +1,21 @@
-// Р СѓСЃСЃРєР°СЏ Р»РѕРєР°Р»РёР·Р°С†РёСЏ
+// Русская локализация
 
 tinyMCE.addToLang('',{
-searchreplace_search_desc : 'РџРѕРёСЃРє',
-searchreplace_searchnext_desc : 'РСЃРєР°С‚СЊ СЃРЅРѕРІР°',
-searchreplace_replace_desc : 'РќР°Р№С‚Рё/Р—Р°РјРµРЅРёС‚СЊ',
-searchreplace_notfound : 'РџРѕРёСЃРє Р·Р°РІРµСЂС€С‘РЅ. РЎС‚СЂРѕРєР° РїРѕРёСЃРєР° РЅРµ РЅР°Р№РґРµРЅР°.',
-searchreplace_SEARCH : 'РџРѕРёСЃРє',
-searchreplace_replace_title : 'РќР°Р№С‚Рё/Р—Р°РјРµРЅРёС‚СЊ',
-searchreplace_allreplaced : 'Р’СЃРµ РЅР°Р№РґРµРЅРЅС‹Рµ СЃС‚СЂРѕРєРё Р·Р°РјРµРЅРµРЅС‹.',
-searchreplace_findwhat : 'Р§С‚Рѕ РёСЃРєР°С‚СЊ',
-searchreplace_replacewith : 'Р—Р°РјРµРЅРёС‚СЊ РЅР°',
-searchreplace_direction : 'РќР°РїСЂР°РІР»РµРЅРёРµ',
-searchreplace_up : 'Р’РІРµСЂС…',
-searchreplace_down : 'Р’РЅРёР·',
-searchreplace_case : 'РЈС‡РёС‚С‹РІР°С‚СЊ СЂРµРіРёСЃС‚СЂ СЃРёРјРІРѕР»РѕРІ',
-searchreplace_findnext : 'РСЃРєР°С‚СЊ&nbsp;РґР°Р»РµРµ',
-searchreplace_replace : 'Р—Р°РјРµРЅРёС‚СЊ',
-searchreplace_replaceall : 'Р—Р°РјРµРЅРёС‚СЊ&nbsp;РІСЃС‘',
-searchreplace_cancel : 'Р’С‹С…РѕРґ'
+searchreplace_search_desc : 'Поиск',
+searchreplace_searchnext_desc : 'Искать снова',
+searchreplace_replace_desc : 'Найти/Заменить',
+searchreplace_notfound : 'Поиск завершён. Строка поиска не найдена.',
+searchreplace_search_title : 'Поиск',
+searchreplace_replace_title : 'Найти/Заменить',
+searchreplace_allreplaced : 'Все найденные строки заменены.',
+searchreplace_findwhat : 'Что искать',
+searchreplace_replacewith : 'Заменить на',
+searchreplace_direction : 'Направление',
+searchreplace_up : 'Вверх',
+searchreplace_down : 'Вниз',
+searchreplace_case : 'Учитывать регистр символов',
+searchreplace_findnext : 'Искать&nbsp;далее',
+searchreplace_replace : 'Заменить',
+searchreplace_replaceall : 'Заменить&nbsp;всё',
+searchreplace_cancel : 'Выход'
 });

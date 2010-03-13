@@ -1,13 +1,13 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
 
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
 
 // ensure user has access to this function
@@ -17,7 +17,7 @@ if(!$acl->acl_check('administration','config','users',$my->usertype)) {
 
 require_once ($mainframe->getPath('admin_html'));
 // XML library
-require_once (JPATH_BASE.'/includes/domit/xml_domit_lite_include.php');
+require_once ("$mosConfig_absolute_path/includes/domit/xml_domit_lite_include.php");
 
 $cid = mosGetParam($_REQUEST,'cid',array(0));
 if(!is_array($cid)) {
@@ -59,12 +59,12 @@ switch($task) {
 }
 
 /**
- * Compiles a list of installed languages
- */
+* Compiles a list of installed languages
+*/
 function viewLanguages($option) {
 	global $languages;
 	global $mainframe;
-	global $mosConfig_lang,$mosConfig_list_limit;
+	global $mosConfig_lang,$mosConfig_absolute_path,$mosConfig_list_limit;
 
 	$limit = $mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mosConfig_list_limit);
 	$limitstart = $mainframe->getUserStateFromRequest("view{$option}limitstart",'limitstart',0);
@@ -74,7 +74,7 @@ function viewLanguages($option) {
 
 	$rows = array();
 	// Read the template dir to find templates
-	$languageBaseDir = mosPathName(mosPathName(JPATH_BASE)."language");
+	$languageBaseDir = mosPathName(mosPathName($mosConfig_absolute_path)."language");
 
 	$rowid = 0;
 
@@ -135,7 +135,7 @@ function viewLanguages($option) {
 		$rowid++;
 	}
 
-	require_once (JPATH_BASE.'/'.JADMIN_BASE.'/includes/pageNavigation.php');
+	require_once ($GLOBALS['mosConfig_absolute_path'].'/'.ADMINISTRATOR_DIRECTORY.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav(count($rows),$limitstart,$limit);
 
 	$rows = array_slice($rows,$pageNav->limitstart,$pageNav->limit);
@@ -144,8 +144,8 @@ function viewLanguages($option) {
 }
 
 /**
- * Publish, or make current, the selected language
- */
+* Publish, or make current, the selected language
+*/
 function publishLanguage($p_lname,$option) {
 	global $mosConfig_lang;
 	josSpoofCheck();
@@ -167,14 +167,14 @@ function publishLanguage($p_lname,$option) {
 		fclose($fp);
 		mosRedirect('index2.php?option=com_languages',_LANGUAGE_SAVED." $p_lname");
 	} else {
-		mosRedirect('index2.php?option=com_languages','ÐžÑˆÐ¸Ð±ÐºÐ°!');
+		mosRedirect('index2.php?option=com_languages','Îøèáêà!');
 	}
 
 }
 
 /**
- * Remove the selected language
- */
+* Remove the selected language
+*/
 function removeLanguage($cid,$option,$client = 'admin') {
 	global $mosConfig_lang;
 	josSpoofCheck();
@@ -191,7 +191,7 @@ function removeLanguage($cid,$option,$client = 'admin') {
 }
 
 function editLanguageSource($p_lname,$option) {
-	$file = stripslashes("../language/$p_lname/system.php");
+	$file = stripslashes("../language/$p_lname.php");
 
 	if($fp = fopen($file,"r")) {
 		$content = fread($fp,filesize($file));
@@ -215,7 +215,7 @@ function saveLanguageSource($option) {
 		mosRedirect("index2.php?option=$option&mosmsg="._UNSUCCESS_OPERATION_NO_TEMPLATE);
 	}
 
-	$file = "../language/$language/system.php";
+	$file = "../language/$language.php";
 	$enable_write = mosGetParam($_POST,'enable_write',0);
 	$oldperms = fileperms($file);
 	if($enable_write) @chmod($file,$oldperms | 0222);
@@ -239,3 +239,4 @@ function saveLanguageSource($option) {
 		mosRedirect("index2.php?option=$option&mosmsg="._UNSUCCES_OPERATION_CANNOT_OPEN);
 	}
 }
+?>

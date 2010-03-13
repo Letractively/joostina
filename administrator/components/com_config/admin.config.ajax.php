@@ -1,26 +1,26 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
 
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
-
-$acl = &gacl::getInstance();
 
 if(!$acl->acl_check('administration','config','users',$my->usertype)) {
 	die('error-acl');
 }
 
+require_once ($mainframe->getPath('class'));
+
 $task	= mosGetParam($_GET,'task','publish');
 
 switch($task) {
 	case 'apply':
-		js_menu_cache_clear(false);
+		js_menu_cache_clear();
 		x_saveconfig($task);
 		break;
 	default:
@@ -29,13 +29,17 @@ switch($task) {
 }
 
 /**
- * Ð¡Ð¾Ñ…Ñ€Ð°Ð½ÐµÐ½Ð¸Ðµ ÐºÐ¾Ð½Ñ„Ð¸Ð³ÑƒÑ€Ð°Ñ†Ð¸Ð¸
- */
+* Ñîõðàíåíèå êîíôèãóðàöèè
+*/
 function x_saveconfig($task) {
-	global $database,$mosConfig_password,$mosConfig_session_type;
+	global $database,$mosConfig_absolute_path,$mosConfig_password,$mosConfig_session_type;
 	josSpoofCheck();
 
-	$row = new JConfig();
+	foreach($_POST as $key => $val) {
+		$_POST[$key] = joostina_api::convert($val);
+	}
+
+	$row = new mosConfig();
 	if(!$row->bind($_POST,'config_tseparator')) {
 		echo 'error-bind';
 	}
@@ -44,10 +48,10 @@ function x_saveconfig($task) {
 	if($mosConfig_session_type != $row->config_session_type) {
 		$past = time();
 		$query = "DELETE FROM #__session"
-				."\n WHERE time < ".$database->Quote($past)
-				."\n AND ("
-				."\n ( guest = 1 AND userid = 0 ) OR ( guest = 0 AND gid > 0 )"
-				."\n )";
+			."\n WHERE time < ".$database->Quote($past)
+			."\n AND ("
+			."\n ( guest = 1 AND userid = 0 ) OR ( guest = 0 AND gid > 0 )"
+			."\n )";
 		$database->setQuery($query);
 		$database->query();
 	}
@@ -66,14 +70,17 @@ function x_saveconfig($task) {
 	$row->config_error_message = str_replace('"','&quot;',$row->config_error_message);
 	$row->config_error_message = str_replace("'",'&#039;',$row->config_error_message);
 
-	// ÐºÐ»ÑŽÑ‡ ÐºÑÑˆÐ°
-	$row->config_cache_key = time();
+//	if(($row->config_joomlaxplorer_dir == $row->config_absolute_path) OR $row->config_joomlaxplorer_dir='' ) $row->config_joomlaxplorer_dir = '';
+if($row->config_joomlaxplorer_dir == $row->config_absolute_path) $row->config_joomlaxplorer_dir = 0;
+
+	$RGEmulation = intval(mosGetParam($_POST,'rgemulation',0));
 
 	$config = "<?php \n";
+	$config .= "if(!defined('RG_EMULATION')) { define( 'RG_EMULATION', $RGEmulation ); }\n";
 	$config .= $row->getVarText();
 	$config .= "setlocale (LC_TIME, \$mosConfig_locale);\n";
 	$config .= '?>';
-	$fname = JPATH_BASE.'/configuration.php';
+	$fname = $mosConfig_absolute_path.'/configuration.php';
 
 	$enable_write = intval(mosGetParam($_POST,'enable_write',0));
 	$oldperms = fileperms($fname);
@@ -96,7 +103,7 @@ function x_saveconfig($task) {
 		$applyFilePerms	= mosGetParam($_POST,'applyFilePerms',0) && $row->config_fileperms !='';
 		$applyDirPerms	= mosGetParam($_POST,'applyDirPerms',0) && $row->config_dirperms !='';
 		if($applyFilePerms || $applyDirPerms) {
-			$mosrootfiles = array(JADMIN_BASE,'cache','components','images','language','mambots','media','modules','templates','configuration.php');
+			$mosrootfiles = array(ADMINISTRATOR_DIRECTORY,'cache','components','images','language','mambots','media','modules','templates','configuration.php');
 			$filemode = null;
 			if($applyFilePerms) {
 				$filemode = octdec($row->config_fileperms);
@@ -106,7 +113,7 @@ function x_saveconfig($task) {
 				$dirmode = octdec($row->config_dirperms);
 			}
 			foreach($mosrootfiles as $file) {
-				mosChmodRecursive(JPATH_BASE.DS.$file,$filemode,$dirmode);
+				mosChmodRecursive($mosConfig_absolute_path.'/'.$file,$filemode,$dirmode);
 			}
 		} // if
 		mosCache::cleanCache('com_content');
@@ -118,3 +125,4 @@ function x_saveconfig($task) {
 		echo _CANNOT_OPEN_CONF_FILE;
 	}
 }
+?>

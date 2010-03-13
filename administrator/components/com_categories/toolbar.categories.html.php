@@ -1,40 +1,40 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
 
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
 
 /**
- * @package Joostina
- * @subpackage Categories
- */
+* @package Joostina
+* @subpackage Categories
+*/
 class TOOLBAR_categories {
 	/**
-	 * Draws the menu for Editing an existing category
-	 * @param int The published state (to display the inverse button)
-	 */
+	* Draws the menu for Editing an existing category
+	* @param int The published state (to display the inverse button)
+	*/
 	function _EDIT() {
 		global $id;
 		$option = mosGetParam($_REQUEST,'option','');
 
 		mosMenuBar::startTable();
 		mosMenuBar::media_manager();
-		if($option == 'com_categories') { // boston, ÑÑ‚Ð¾Ñ‚ Ñ„Ð°Ð¹Ð»Ð¸Ðº Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÑ‚ÑÑ ÐµÑ‰Ðµ Ð² ÐºÐ¾Ð¼Ð¿Ð¾Ð½ÐµÐ½Ñ‚Ðµ ÐºÐ°Ñ‚Ð°Ð»Ð¾Ð³Ð° ÑÑÑ‹Ð»Ð¾Ðº, Ñ‚Ð°Ðº Ñ‡Ñ‚Ð¾ Ð¿Ñ€Ð¾Ð²ÐµÑ€ÑÐµÐ¼ ÐºÐ°ÐºÐ¾Ð¹ ÑÐµÐ¹Ñ‡Ð°Ñ Ð°ÐºÑ‚Ð¸Ð²ÐµÐ½
+		if($option == 'com_categories') { // boston, ýòîò ôàéëèê èñïîëüçóåòñÿ åùå â êîìïîíåíòå êàòàëîãà ññûëîê, òàê ÷òî ïðîâåðÿåì êàêîé ñåé÷àñ àêòèâåí
 			mosMenuBar::spacer();
 			mosMenuBar::custom('save_and_new','-save','',_SAVE_AND_ADD,false);
 		}
 		mosMenuBar::spacer();
 		mosMenuBar::save();
 		mosMenuBar::spacer();
-		if($id) // Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼ Ajax ÐºÐ½Ð¾Ð¿ÐºÑƒ "ÐŸÑ€Ð¸Ð¼ÐµÐ½Ð¸Ñ‚ÑŒ" Ñ‚Ð¾Ð»ÑŒÐºÐ¾ Ð´Ð»Ñ ÑƒÐ¶Ðµ ÑÑƒÑ‰ÐµÑÑ‚Ð²ÑƒÑŽÑ‰ÐµÐ¹ ÐºÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸Ð¸
-		// ÐºÐ½Ð¾Ð¿ÐºÐ° "ÐŸÑ€Ð¸Ð¼ÐµÐ½Ð¸Ñ‚ÑŒ" Ñ Ajax
-			mosMenuBar::ext(_APPLY,'#','-apply','id="tb-apply" onclick="ch_apply();return;"');
+		if($id) // èñïîëüçóåì Ajax êíîïêó "Ïðèìåíèòü" òîëüêî äëÿ óæå ñóùåñòâóþùåé êàòåãîðèè
+			// êíîïêà "Ïðèìåíèòü" ñ Ajax
+			mosMenuBar::ext(_CMN_APPLY,'#','-apply','id="tb-apply" onclick="ch_apply();return;"');
 		else
 			mosMenuBar::apply();
 
@@ -50,9 +50,9 @@ class TOOLBAR_categories {
 		mosMenuBar::endTable();
 	}
 	/**
-	 * Draws the menu for Moving existing categories
-	 * @param int The published state (to display the inverse button)
-	 */
+	* Draws the menu for Moving existing categories
+	* @param int The published state (to display the inverse button)
+	*/
 	function _MOVE() {
 		mosMenuBar::startTable();
 		mosMenuBar::save('movesave');
@@ -61,9 +61,9 @@ class TOOLBAR_categories {
 		mosMenuBar::endTable();
 	}
 	/**
-	 * Draws the menu for Copying existing categories
-	 * @param int The published state (to display the inverse button)
-	 */
+	* Draws the menu for Copying existing categories
+	* @param int The published state (to display the inverse button)
+	*/
 	function _COPY() {
 		mosMenuBar::startTable();
 		mosMenuBar::save('copysave');
@@ -72,8 +72,8 @@ class TOOLBAR_categories {
 		mosMenuBar::endTable();
 	}
 	/**
-	 * Draws the menu for Editing an existing category
-	 */
+	* Draws the menu for Editing an existing category
+	*/
 	function _DEFAULT() {
 		$section = mosGetParam($_REQUEST,'section','');
 		$option = mosGetParam($_REQUEST,'option','');
@@ -102,3 +102,4 @@ class TOOLBAR_categories {
 		mosMenuBar::endTable();
 	}
 }
+?>

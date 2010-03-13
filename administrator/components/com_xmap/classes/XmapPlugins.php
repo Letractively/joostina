@@ -1,155 +1,33 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
 
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
 
-/** Wraps all configuration functions for Xmap */
-class XmapPlugin extends mosDBTable {
-	var $id			= '';
-	var $extension 	= '';
-	var $published	= 0;
-	var $params		= '';
-	var $_params    = '';
-
-	function XmapPlugin(&$_db,$id=NULL) {
-		$this->mosDBTable( '#__xmap_ext', 'id', $_db );
-		if ($id) {
-			$this->load($id);
-		}
-	}
-
-	function &getParams($Itemid='-1',$asTXT=0) {
-		if (!is_array($this->_params)) {
-			$this->parseParams();
-		}
-		if (!empty($this->_params[$Itemid])) {
-			$params = $this->_params[$Itemid];
-		} else {
-			$params = $this->_params[-1];
-		}
-		if ($asTXT) {
-			return $params['__TXT__'];
-		}
-		return $params;
-	}
-
-	function parseParams() {
-		$this->_params =array('-1'=>array());
-		if ($this->params) {
-			preg_match_all('/(.?[0-9]+){([^}]+)}/',$this->params,$paramsList);
-			$count = count($paramsList[1]);
-			for ($i=0; $i < $count; $i++) {
-				$this->_params[$paramsList[1][$i]] = $this->paramsToArray($paramsList[2][$i]);
-			}
-		}
-	}
-
-	function &loadDefaultsParams ($asText) {
-
-		$path = $this->getXmlPath();
-		$xmlDoc = new DOMIT_Lite_Document();
-		$xmlDoc->resolveErrors( true );
-
-		$params=null;
-		if ($xmlDoc->loadXML( $path, false, true )) {
-			$root =& $xmlDoc->documentElement;
-			$tagName = $root->getTagName();
-			$isParamsFile = ($tagName == 'mosinstall' || $tagName == 'mosparams');
-			if ($isParamsFile && $root->getAttribute( 'type' ) == 'xmap_ext') {
-				$params = &$root->getElementsByPath( 'params', 1 );
-			}
-		}
-
-		$result = ($asText)? '' : array();
-
-		if (is_object( $params )) {
-			foreach ($params->childNodes as $param) {
-				$name = $param->getAttribute( 'name' );
-				$label = $param->getAttribute( 'label' );
-
-				$key = $name ? $name : $label;
-				if ( $label != '@spacer' && $name != '@spacer') {
-					$value = str_replace("\n",'\n',$param->getAttribute( 'default' ));
-					if ($asText) {
-						$result.="$key=$value\n";
-					} else {
-						$result[$key]=$value;
-					}
-				}
-			}
-		}
-		return $result;
-	}
-
-	/** convert a menuitem's params field to an array */
-	function paramsToArray( &$menuparams ) {
-		$tmp = explode("\n", $menuparams);
-		$res = array();
-		foreach($tmp AS $a) {
-			@list($key, $val) = explode('=', $a, 2);
-			$res[$key] = str_replace('\n',"\n",$val);
-		}
-		$res['__TXT__'] = $menuparams;
-		return $res;
-	}
-
-	function setParams($params,$itemid) {
-		$this->_params[$itemid] = $params;
-	}
-
-	function getXmlPath () {
-		return JPATH_BASE_ADMIN.'/components/com_xmap/extensions/'.$this->extension.'.xml';
-	}
-
-	function store() {
-		if (is_array($this->_params)) {
-			$this->params='';
-			foreach ($this->_params as $itemid => $params) {
-				if ($params) {
-					$this->params .= $itemid . '{' . $params . '}';
-				}
-			}
-		}
-		return mosDBTable::store();
-	}
-
-	function restore() {
-		$database = &database::getInstance();
-
-		$query = "select * from #__xmap_ext where extension='".$this->extension.".bak'";
-		$database->setQuery($query);
-		if ($database->loadObject($row)) {
-			$this->params=$row->params;
-			mosDBTable::store();
-		}
-	}
-}
-
-
+global $mosConfig_absolute_path;
+require_once($mosConfig_absolute_path. '/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/classes/XmapPlugin.php');
 
 /** Wraps all extension functions for Xmap */
 class XmapPlugins {
 
 	/** list all extension files found in the extensions directory */
 	function &loadAvailablePlugins( ) {
-		$database = &database::getInstance();
-
+		global $database,$mosConfig_absolute_path;
 		$list = array();
 
-		$query="SELECT * FROM `#__xmap_ext` WHERE `published`=1";
+		$query="select * from `#__xmap_ext` where `published`=1 and extension not like '%.bak'";
 		$database->setQuery($query);
 		$rows = $database->loadAssocList();
 		foreach ($rows as $row) {
 			$extension = new XmapPlugin($database);
 			$extension->bind($row);
-			require_once(JPATH_BASE . '/'.JADMIN_BASE.'/components/com_xmap/extensions/'. $extension->extension.'.php');
+			require_once($mosConfig_absolute_path . '/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/extensions/'. $extension->extension.'.php');
 			$list[$extension->extension] = $extension;
 		}
 		return $list;

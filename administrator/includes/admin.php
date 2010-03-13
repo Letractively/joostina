@@ -1,56 +1,20 @@
 <?php
 /**
- * @package Joostina
- * @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2010 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
- * @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
- * Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
- * Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
- */
+* @package Joostina
+* @copyright Авторские права (C) 2008 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+*/
 
-// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+// запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 /**
- * РІС‹РІРѕРґ РїРѕРґРєР»СЋС‡РµРЅРёСЏ js Рё css
- */
-function adminHead($mainframe) {
-
-	$custom = $mainframe->getHeadData('custom');
-	if(!empty($custom)) {
-		$head = array();
-		foreach($custom as $html) {
-			$head[] = $html;
-		}
-		echo implode("\n",$head)."\n";
-	};
-
-	$js = $mainframe->getHeadData('js');
-	if(!empty($js)) {
-		$head = array();
-		foreach($js as $html) {
-			$head[] = $html;
-		}
-		echo implode("\n",$head)."\n";
-	};
-
-	$css = $mainframe->getHeadData('css');
-	if(!empty($css)) {
-		$head = array();
-		foreach($css as $html) {
-			$head[] = $html;
-		}
-		echo implode("\n",$head)."\n";
-	};
-	// РѕС‚РїСЂР°РІРёРј РїРѕР»СЊР·РѕРІР°С‚РµР»СЋ С€Р°РїРєСѓ - РїСѓСЃС‚СЊ Р±СЂР°СѓР·РµСЂ СЂР°Р±РѕС‚Р°РµС‚ РїРѕРєР° Р±СѓРґРµС‚ С„РѕСЂРјРёСЂРѕРІР°С‚СЊСЃСЏ РґР°Р»СЊРЅРµР№С€РёР№ РєРѕРґ СЃС‚СЂР°РЅРёС†С‹
-	flush();
-}
-
-
-/**
- * @param string THe template position
- */
+* @param string THe template position
+*/
 function mosCountAdminModules($position = 'left') {
-	$database = &database::getInstance();
+	global $database;
 
 	$query = "SELECT COUNT( m.id )"
 			."\n FROM #__modules AS m"
@@ -62,41 +26,38 @@ function mosCountAdminModules($position = 'left') {
 	return $database->loadResult();
 }
 /**
- * Loads admin modules via module position
- * @param string The position
- * @param int 0 = no style, 1 = tabbed
- */
+* Loads admin modules via module position
+* @param string The position
+* @param int 0 = no style, 1 = tabbed
+*/
 function mosLoadAdminModules($position = 'left',$style = 0) {
-	global $acl,$my;
+	global $database,$acl,$my;
 
-	static $all_modules;
-	if(!isset($all_modules)) {
-		$database = &database::getInstance();
+	$query = "SELECT id, title, module, position, content, showtitle, params"
+			."\n FROM #__modules AS m"
+			."\n WHERE m.published = 1"
+			."\n AND m.position = ".$database->Quote($position)
+			."\n AND m.client_id = 1"
+			."\n ORDER BY m.ordering";
+	$database->setQuery($query);
+	$modules = $database->loadObjectList();
 
-		$query = "SELECT id, title, module, position, content, showtitle, params FROM #__modules AS m WHERE m.published = 1 AND m.client_id = 1 ORDER BY m.ordering";
-		$database->setQuery($query);
-		$_all_modules = $database->loadObjectList();
-
-
-		$all_modules = array();
-		foreach($_all_modules as $__all_modules) {
-			$all_modules[$__all_modules->position][]=$__all_modules;
-		}
-		unset($_all_modules,$__all_modules);
+	if($database->getErrorNum()) {
+		echo "MA ".$database->stderr(true);
+		return;
 	}
-
-	$modules = isset($all_modules[$position]) ? $all_modules[$position] : array();
 
 	switch($style) {
 		case 1:
-		// Tabs
+			// Tabs
 			$tabs = new mosTabs(1,1);
 			$tabs->startPane('modules-'.$position);
 			foreach($modules as $module) {
 				$params = new mosParameters($module->params);
 				$editAllComponents = $acl->acl_check('administration','edit','users',$my->usertype,'components','all');
 				// special handling for components module
-				if($module->module != 'mod_components' || ($module->module == 'mod_components' && $editAllComponents)) {
+				if($module->module != 'mod_components' || ($module->module == 'mod_components' &&
+					$editAllComponents)) {
 					$tabs->startTab($module->title,'module'.$module->id);
 					if($module->module == '') {
 						mosLoadCustomModule($module,$params);
@@ -110,7 +71,7 @@ function mosLoadAdminModules($position = 'left',$style = 0) {
 			break;
 
 		case 2:
-		// Div'd
+			// Div'd
 			foreach($modules as $module) {
 				$params = new mosParameters($module->params);
 				echo '<div>';
@@ -137,30 +98,25 @@ function mosLoadAdminModules($position = 'left',$style = 0) {
 	}
 }
 /**
- * Loads an admin module
- */
+* Loads an admin module
+*/
 function mosLoadAdminModule($name,$params = null) {
-	global $task,$acl,$my,$option;
-
-	$mainframe = mosMainFrame::getInstance(true);
-	$database = &$mainframe->getDBO();
+	global $mosConfig_absolute_path,$mosConfig_live_site,$task;
+	global $database,$acl,$my,$mainframe,$option;
 
 	// legacy support for $act
 	$act = mosGetParam($_REQUEST,'act','');
 
 	$name = str_replace('/','',$name);
 	$name = str_replace('\\','',$name);
-	$path = JPATH_BASE_ADMIN."/modules/mod_$name.php";
+	$path = "$mosConfig_absolute_path/".ADMINISTRATOR_DIRECTORY."/modules/mod_$name.php";
 	if(file_exists($path)) {
-		if($mainframe->getLangFile('mod_'.$name)) {
-			include($mainframe->getLangFile('mod_'.$name));
-		}
 		require $path;
 	}
 }
 
 function mosLoadCustomModule(&$module,&$params) {
-	global $mosConfig_cachepath;
+	global $mosConfig_absolute_path,$mosConfig_cachepath;
 
 	$rssurl = $params->get('rssurl','');
 	$rssitems = $params->get('rssitems','');
@@ -180,8 +136,8 @@ function mosLoadCustomModule(&$module,&$params) {
 		if(!is_writable($cachePath)) {
 			echo '<tr><td>'._CACHE_DIR_IS_NOT_WRITEABLE.'</td></tr>';
 		} else {
-			$LitePath = JPATH_BASE.'/includes/Cache/Lite.php';
-			require_once (JPATH_BASE.'/includes/domit/xml_domit_rss_lite.php');
+			$LitePath = $mosConfig_absolute_path.'/includes/Cache/Lite.php';
+			require_once ($mosConfig_absolute_path.'/includes/domit/xml_domit_rss_lite.php');
 			$rssDoc = new xml_domit_rss_document_lite();
 			$rssDoc->setRSSTimeout(5);
 			$rssDoc->useHTTPClient(true);
@@ -249,7 +205,7 @@ function mosShowSource($filename,$withLineNums = false) {
 	ini_set('highlight.comment','#008000');
 
 	if(!($source = @highlight_file($filename,true))) {
-		return 'РћРїРµСЂР°С†РёСЏ РЅРµРІРѕР·РјРѕР¶РЅР°';
+		return 'Операция невозможна';
 	}
 	$source = explode("<br />",$source);
 
@@ -268,7 +224,7 @@ function mosShowSource($filename,$withLineNums = false) {
 	}
 	return $txt;
 }
-// РїСЂРѕРІРµСЂРєР° РЅР° РґРѕСЃС‚СѓРїРЅРѕСЃС‚СЊ СЃРјРµРЅС‹ РїСЂР°РІ
+// проверка на доступность смены прав
 function mosIsChmodable($file) {
 	$perms = fileperms($file);
 	if($perms !== false) {
@@ -281,11 +237,11 @@ function mosIsChmodable($file) {
 } // mosIsChmodable
 
 /**
- * @param string An existing base path
- * @param string A path to create from the base path
- * @param int Directory permissions
- * @return boolean True if successful
- */
+* @param string An existing base path
+* @param string A path to create from the base path
+* @param int Directory permissions
+* @return boolean True if successful
+*/
 function mosMakePath($base,$path = '',$mode = null) {
 	global $mosConfig_dirperms;
 
@@ -347,7 +303,7 @@ function mosMainBody_Admin() {
 	echo $GLOBALS['_MOS_OPTION']['buffer'];
 }
 
-// boston, РєСЌС€РёСЂРѕРІР°РЅРёРµ РјРµРЅСЋ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР°
+// boston, кэширование меню администратора
 function js_menu_cache($data,$usertype,$state = 0) {
 	global $mosConfig_secret,$mosConfig_cachepath,$mosConfig_adm_menu_cache;
 	if(!is_writeable($mosConfig_cachepath) && $mosConfig_adm_menu_cache) {
@@ -356,68 +312,74 @@ function js_menu_cache($data,$usertype,$state = 0) {
 	}
 	$menuname = md5($usertype.$mosConfig_secret);
 	$file = $mosConfig_cachepath.'/adm_menu_'.$menuname.'.js';
-	if(!file_exists($file)) { // С„Р°Р№Р»Р° РЅРµС‚Сѓ
-		if($state == 1) return false; // С„Р°Р№Р»Р° Сѓ РЅР°СЃ РЅРµ Р±С‹Р»Рѕ Рё РїРѕР»СѓС‡РµРЅ СЃРёРіРЅР°Р» 0 - РїСЂРѕРґРѕР»Р¶Р°РµРј РІС‹Р·С‹РІР°СЋС‰СѓСЋ С„СѓРЅРєС†РёСЋ, Р° РѕС‚СЃСЋРґР° РІС‹С…РѕРґРёРј
+	if(!file_exists($file)) { // файла нету
+		if($state == 1) return false; // файла у нас не было и получен сигнал 0 - продолжаем вызывающую функцию, а отсюда выходим
 		touch($file);
 		$handle = fopen($file,'w');
 		fwrite($handle,$data);
 		fclose($handle);
-		return true; // С„Р°Р№Р»Р° РЅРµ Р±С‹Р»Рѕ - РЅРѕ Р±С‹Р» СЃРѕР·РґР°РЅ Р·Р°РЅРѕРІРѕ
+		return true; // файла не было - но был создан заново
 	} else {
-		return true; // С„Р°Р№Р» СѓР¶Рµ Р±С‹Р», РїСЂРѕСЃС‚Рѕ Р·Р°РІРµСЂС€Р°РµРј С„СѓРЅРєС†РёСЋ
+		return true; // файл уже был, просто завершаем функцию
 	}
 }
 /*
-* Р”РѕР±Р°РІР»РµРЅРѕ РІ РІРµСЂСЃРёРё 1.0.11
+* Добавлено в версии 1.0.11
 */
 function josSecurityCheck($width = '95%') {
 	global $mosConfig_cachepath,$mosConfig_caching;
 	$wrongSettingsTexts = array();
-	// РїСЂРѕРІРµСЂРєР° РЅР° Р·Р°РїРёСЃСЊ  РІ РєР°С‚Р°Р»РѕРі РєСЌС€Р°
+	// проверка на запись  в каталог кэша
 	if(!is_writeable($mosConfig_cachepath) && $mosConfig_caching) $wrongSettingsTexts[] = _CACHE_DIR_IS_NOT_WRITEABLE2;
-	// РїСЂРѕРІРµСЂРєР° magic_quotes_gpc
+	// проверка magic_quotes_gpc
 	if(ini_get('magic_quotes_gpc') != '1') $wrongSettingsTexts[] = _PHP_MAGIC_QUOTES_ON_OFF;
-	// РїСЂРѕРІРµСЂРєР° СЂРµРіРёСЃС‚СЂР°С†РёРё РіР»РѕР±Р°Р»СЊРЅС‹С… РїРµСЂРµРјРµРЅРЅС‹С…
+	// проверка регистрации глобальных переменных
 	if(ini_get('register_globals') == '1')$wrongSettingsTexts[] = _PHP_REGISTER_GLOBALS_ON_OFF;
+	// проверка активированности внутренней системы защиты
+	if(RG_EMULATION != 0) $wrongSettingsTexts[] =	_RG_EMULATION_ON_OFF;
 
 	if(count($wrongSettingsTexts)) {
-		?>
-<div style="width: <?php echo $width; ?>;" class="jwarning">
-	<h3 style="color:#484848"><?php echo _PHP_SETTINGS_WARNING?>:</h3>
-	<ul style="margin: 0px; padding: 0px; padding-left: 15px; list-style: none;" >
-				<?php
+?>
+		<div style="clear: both; margin: 3px; margin-top: 10px; padding: 5px 15px; display: block; float: left; border: 1px solid #cc0000; background: #ffffcc; text-align: left; width: <?php echo $width; ?>;">
+			<p style="color: #CC0000;">
+				<?php echo _PHP_SETTINGS_WARNING?>:
+			</p>
+			<ul style="margin: 0px; padding: 0px; padding-left: 15px; list-style: none;" >
+<?php
 				foreach($wrongSettingsTexts as $txt) {
-					?>
-		<li style="font-size: 12px; color: red;"><b><?php echo $txt;?></b></li>
-					<?php
-				}
-				?>
-	</ul>
-</div>
+?>	
+				<li style="min-height: 25px; padding-bottom: 5px; padding-left: 25px; color: red; font-weight: bold; background-image: url(../includes/js/ThemeOffice/warning.png); background-repeat: no-repeat; background-position: 0px 2px;" >
+					<?php echo $txt;?>
+				</li>
+<?php
+		}
+?>
+			</ul>
+		</div>
 		<?php
 	}
 }
 
-//boston, СѓРґР°Р»РµРЅРёРµ РєСЌС€Р° РјРµРЅСЋ РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ
-function js_menu_cache_clear($echo = true) {
-	global $my,$mosConfig_secret,$mosConfig_adm_menu_cache;
-
+//boston, удаление кэша меню панели управления
+function js_menu_cache_clear() {
+	global $mosConfig_absolute_path,$my,$mosConfig_secret,$mosConfig_adm_menu_cache;
 	if(!$mosConfig_adm_menu_cache) return;
-
 	$usertype = str_replace(' ','_',$my->usertype);
 	$menuname = md5($usertype.$mosConfig_secret);
-	$file = JPATH_BASE.'/cache/adm_menu_'.$menuname.'.js';
+	$file = $mosConfig_absolute_path."/cache/adm_menu_".$menuname.".js";
 	if(file_exists($file)) {
 		if(unlink($file))
-			echo $echo ? joost_info(_MENU_CACHE_CLEANED):null;
+			echo joost_info(_MENU_CACHE_CLEANED);
 		else
-			echo $echo ? joost_info(_CLEANING_ADMIN_MENU_CACHE):null;
+			echo joost_info(_CLEANING_ADMIN_MENU_CACHE);
 	} else {
-		echo $echo ? joost_info(_NO_MENU_ADMIN_CACHE):null;
+		echo joost_info(_NO_MENU_ADMIN_CACHE);
 	}
 }
 
-/* РІС‹РІРѕРґ РёРЅС„РѕСЂРјР°С†РёРѕРЅРЅРѕРіРѕ РїРѕР»СЏ*/
+
+/* joostina+, вывод информационного поля*/
 function joost_info($msg) {
 	return '<div class="message">'.$msg.'</div>';
 }
+?>

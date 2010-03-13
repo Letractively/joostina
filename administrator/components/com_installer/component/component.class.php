@@ -1,67 +1,24 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
 
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
 
 /**
- * Component installer
- * @package Joostina
- * @subpackage Installer
- */
+* Component installer
+* @package Joostina
+* @subpackage Installer
+*/
 class mosInstallerComponent extends mosInstaller {
 	var $i_componentadmindir = '';
 	var $i_hasinstallfile = false;
 	var $i_installfile = '';
-
-	// name of the XML file with installation information
-	var $i_installfilename = "";
-	var $i_installarchive = "";
-	var $i_installdir = "";
-	var $i_iswin = false;
-	var $i_errno = 0;
-	var $i_error = "";
-	var $i_installtype = "";
-	var $i_unpackdir = "";
-	var $i_docleanup = true;
-
-	/**
-	 @var string The directory where the element is to be installed*/
-	var $i_elementdir = '';
-	/**
-	 @var string The name of the Joomla! element*/
-	var $i_elementname = '';
-	/**
-	 @var string The name of a special atttibute in a tag*/
-	var $i_elementspecial = '';
-	/**
-	 @var object A DOMIT XML document*/
-	var $i_xmldoc = null;
-
-	function __construct($pre_installer=null) {
-		if(!isset($pre_installer)) return;
-
-		// Copy data  from the base class
-		$this->i_installfilename = $pre_installer->i_installfilename;
-		$this->i_installarchive = $pre_installer->i_installarchive;
-		$this->i_installdir = $pre_installer->i_installdir;
-		$this->i_iswin = $pre_installer->i_iswin;
-		$this->i_errno = $pre_installer->i_errno;
-		$this->i_error = $pre_installer->i_error;
-		$this->i_installtype = $pre_installer->i_installtype;
-		$this->i_unpackdir = $pre_installer->i_unpackdir;
-		$this->i_docleanup = $pre_installer->i_docleanup;
-		$this->i_elementdir = $pre_installer->i_elementdir;
-		$this->i_elementname = $pre_installer->i_elementname;
-		$this->i_elementspecial = $pre_installer->i_elementspecial;
-		$this->i_xmldoc = $pre_installer->i_xmldoc;
-	}
 
 	function componentAdminDir($p_dirname = null) {
 		if(!is_null($p_dirname)) {
@@ -71,18 +28,12 @@ class mosInstallerComponent extends mosInstaller {
 	}
 
 	/**
-	 * Custom install method
-	 * @package Joostina
-	 * @subpackage Installer
-	 * @abstract
-	 * @param boolean True if installing from directory
-	 */
+	* Custom install method
+	* @param boolean True if installing from directory
+	*/
 	function install($p_fromdir = null) {
+		global $mosConfig_absolute_path,$database,$mosConfig_dbold;
 		josSpoofCheck();
-
-		$database = &database::getInstance();
-		$config = &Jconfig::getInstance();
-
 		if(!$this->preInstallCheck($p_fromdir,'component')) {
 			return false;
 		}
@@ -94,8 +45,8 @@ class mosInstallerComponent extends mosInstaller {
 		// Set some vars
 		$e = &$mosinstall->getElementsByPath('name',1);
 		$this->elementName($e->getText());
-		$this->elementDir(mosPathName(JPATH_BASE.DS.'components'.DS.strtolower("com_".str_replace(" ","",$this->elementName())).DS));
-		$this->componentAdminDir(mosPathName(JPATH_BASE_ADMIN.DS.'components'.DS.strtolower('com_'.str_replace(' ','',$this->elementName()))));
+		$this->elementDir(mosPathName($mosConfig_absolute_path."/components/".strtolower("com_".str_replace(" ","",$this->elementName()))."/"));
+		$this->componentAdminDir(mosPathName($mosConfig_absolute_path."/".ADMINISTRATOR_DIRECTORY."/components/".strtolower("com_".str_replace(" ","",$this->elementName()))));
 
 		if(file_exists($this->elementDir())) {
 			$this->setError(1,_OTHER_COMPONENT_USE_DIR.': "'.$this->elementDir().'"');
@@ -113,16 +64,11 @@ class mosInstallerComponent extends mosInstaller {
 		}
 
 		// Find files to copy
-		if ($this->parseFiles('files') === false) {
-			$this->cleanAfterError();
+		if($this->parseFiles('files') === false) {
 			return false;
 		}
 		$this->parseFiles('images');
-
-		if ($this->parseFiles('administration/files','','',1) === false) {
-			$this->cleanAfterError();
-			return false;
-		}
+		$this->parseFiles('administration/files','','',1);
 		$this->parseFiles('administration/images','','',1);
 
 		// Are there any SQL queries??
@@ -130,18 +76,18 @@ class mosInstallerComponent extends mosInstaller {
 		if(!is_null($query_element)) {
 			$queries = $query_element->childNodes;
 			foreach($queries as $query) {
-				// Ð¿Ñ€Ð¾Ð²ÐµÑ€ÑÐµÐ¼ Ð½Ð° Ð½Ð°Ð»Ð¸Ñ‡Ð¸Ðµ Ð² Ð·Ð°Ð¿Ñ€Ð¾ÑÐµ ÐºÐ¾Ð¼Ð°Ð½Ð´Ñ‹ Ð·Ð°Ð´Ð°Ð½Ð¸Ñ ÐºÐ¾Ð´Ð¸Ñ€Ð¾Ð²ÐºÐ¸ Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñ‹, Ð¸ ÐµÑÐ»Ð¸ Ð¾Ð½Ð° Ð°Ð²Ð½Ð¾ Ð½Ðµ ÑƒÐºÐ°Ð·Ð°Ð½Ð°
+				// ïðîâåðÿåì íà íàëè÷èå â çàïðîñå êîìàíäû çàäàíèÿ êîäèðîâêè òàáëèöû, è åñëè îíà àâíî íå óêàçàíà
 				$sql	= $query->getText();
-				// ÑÑ‚Ñ€Ð¾ÐºÐ¸ ÑÐ²Ð½Ð¾ ÑƒÐºÐ°Ð·Ñ‹Ð²Ð°ÑŽÑ‰Ð¸Ðµ ÐºÐ¾Ð´Ð¸Ñ€Ð¾Ð²ÐºÑƒ ÑÐ¾Ð·Ð´Ð°Ð²Ð°ÐµÐ¼Ð¾Ð¹ Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñ‹
+				// ñòðîêè ÿâíî óêàçûâàþùèå êîäèðîâêó ñîçäàâàåìîé òàáëèöû
 				$d		= strpos( $sql, 'DEFAULT' );
 				$c		= strpos( $sql, 'CHARSET' );
-				// ÐµÑÐ»Ð¸ ÑÑ‚Ð¸ ÑÐ»Ð¾Ð²Ð° ÐµÑÑ‚ÑŒ Ð² Ð·Ð°Ð¿Ñ€Ð¾ÑÐµ - Ñ‚Ð¾ Ð¸Ð´Ñ‘Ñ‚ ÑÐ¾Ð·Ð´Ð°Ð½Ð¸Ðµ Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñ‹
+				// åñëè ýòè ñëîâà åñòü â çàïðîñå - òî èä¸ò ñîçäàíèå òàáëèöû
 				$r		= strpos( $sql, 'CREATE' );
 				$t		= strpos( $sql, 'TABLE' );
-				// ÐµÑÐ»Ð¸ Ð² Ð·Ð°Ð¿Ñ€Ð¾ÑÐµ Ð½ÐµÑ‚ ÑƒÐºÐ°Ð·Ð°Ð½Ð¸Ñ ÐºÐ¾Ð´Ð¸Ñ€Ð¾Ð²ÐºÐ¸, Ð½Ð¾ ÐµÑÑ‚ÑŒ ÑÐ²Ð½Ñ‹Ðµ ÐºÐ¾Ð¼Ð°Ð½Ð´Ñ‹ ÑÐ¾Ð·Ð´Ð°Ð½Ð¸Ñ Ñ‚Ð°Ð±Ð»Ð¸Ñ†, Ð° Ð±Ð°Ð·Ð° Ñ€Ð°Ð±Ð¾Ñ‚Ð°ÐµÑ‚ Ð² Ñ€ÐµÐ¶Ð¸Ð¼Ðµ ÑÐ¾Ð²Ð¼ÐµÑÑ‚Ð¸Ð¼Ð¾ÑÑ‚Ð¸ ÑÐ¾ ÑÑ‚Ð°Ñ€ÑˆÐ¸Ð¼Ð¸ Ð²ÐµÑ€ÑÐ¸ÑÐ¼Ð¸ MySQL - Ð´Ð¾Ð±Ð°Ð²Ð¸Ð¼ Ð¾Ð¿Ñ€ÐµÐ´ÐµÐ»ÐµÐ½Ð¸Ðµ ÐºÐ¾Ð´Ð¸Ñ€Ð¾Ð²ÐºÐ¸
-				if((!$d) && (!$c) && ($r) && ($t) ) {
+				// åñëè â çàïðîñå íåò óêàçàíèÿ êîäèðîâêè, íî åñòü ÿâíûå êîìàíäû ñîçäàíèÿ òàáëèö, à áàçà ðàáîòàåò â ðåæèìå ñîâìåñòèìîñòè ñî ñòàðøèìè âåðñèÿìè MySQL - äîáàâèì îïðåäåëåíèå êîäèðîâêè
+				if(($mosConfig_dbold!=1) && (!$d) && (!$c) && ($r) && ($t) ){
 					$sql = str_replace(';','',$sql);
-					$sql .= ' CHARACTER SET utf8 COLLATE utf8_general_ci;';
+					$sql .= ' DEFAULT CHARSET=cp1251';
 				}
 
 				$database->setQuery( $sql );
@@ -204,15 +150,15 @@ class mosInstallerComponent extends mosInstaller {
 					if($admin_submenu->getAttribute("act")) {
 						$com->admin_menu_link = "option=$com_name&act=".$admin_submenu->getAttribute("act");
 					} else
-					if($admin_submenu->getAttribute("task")) {
-						$com->admin_menu_link = "option=$com_name&task=".$admin_submenu->getAttribute("task");
-					} else
-					if($admin_submenu->getAttribute("link")) {
-						$com->admin_menu_link = $admin_submenu->getAttribute("link");
-					} else {
-						$com->admin_menu_link = "option=$com_name";
-					}
-					$com->admin_menu_alt = $admin_submenu->getText();
+						if($admin_submenu->getAttribute("task")) {
+							$com->admin_menu_link = "option=$com_name&task=".$admin_submenu->getAttribute("task");
+						} else
+							if($admin_submenu->getAttribute("link")) {
+								$com->admin_menu_link = $admin_submenu->getAttribute("link");
+							} else {
+								$com->admin_menu_link = "option=$com_name";
+							}
+							$com->admin_menu_alt = $admin_submenu->getText();
 					$com->option = $com_name;
 					$com->ordering = $submenuordering++;
 					$com->admin_menu_img = "js/ThemeOffice/component.png";
@@ -234,9 +180,8 @@ class mosInstallerComponent extends mosInstaller {
 		$this->setError(0,$desc);
 
 		if($this->hasInstallfile()) {
-			if(is_file($this->componentAdminDir().DS.$this->installFile())) {
-				$mosConfig_live_site = JPATH_SITE;
-				require_once ($this->componentAdminDir().DS.$this->installFile());
+			if(is_file($this->componentAdminDir().'/'.$this->installFile())) {
+				require_once ($this->componentAdminDir()."/".$this->installFile());
 				$ret = com_install();
 				if($ret != '') {
 					$this->setError(0,$desc.$ret);
@@ -247,8 +192,7 @@ class mosInstallerComponent extends mosInstaller {
 	}
 
 	function createParentMenu($_menuname,$_comname,$_image ="js/ThemeOffice/component.png") {
-		$database = &database::getInstance();
-
+		global $database;
 		$db_name = $_menuname;
 		$db_link = "option=$_comname";
 		$db_menuid = 0;
@@ -261,7 +205,10 @@ class mosInstallerComponent extends mosInstaller {
 		$db_iscore = 0;
 		$db_params = '';
 
-		$query = "INSERT INTO #__components VALUES( '', ".$database->Quote($db_name).", ".$database->Quote($db_link).", ".(int)$db_menuid.", ".(int)$db_parent.", ".$database->Quote($db_admin_menu_link).", ".$database->Quote($db_admin_menu_alt).", ".$database->Quote($db_option).", ".(int)$db_ordering.", ".$database->Quote($db_admin_menu_img).", ".(int)$db_iscore.", '' )";
+		$query = "INSERT INTO #__components"
+				."\n VALUES( '', ".$database->Quote($db_name).", ".$database->Quote($db_link).", ".(int)$db_menuid.", ".(int)$db_parent.", "
+				.$database->Quote($db_admin_menu_link).", ".$database->Quote($db_admin_menu_alt).", ".$database->Quote($db_option)
+				.", ".(int)$db_ordering.", ".$database->Quote($db_admin_menu_img).", ".(int)$db_iscore.", '' )";
 		$database->setQuery($query);
 		if(!$database->query()) {
 			$this->setError(1,$database->stderr(true));
@@ -271,24 +218,24 @@ class mosInstallerComponent extends mosInstaller {
 		return $menuid;
 	}
 	/**
-	 * Custom install method
-	 * @param int The id of the module
-	 * @param string The URL option
-	 * @param int The client id
-	 */
+	* Custom install method
+	* @param int The id of the module
+	* @param string The URL option
+	* @param int The client id
+	*/
 	function uninstall($cid,$option,$client = 0) {
-		$database = &database::getInstance();
-		$config = &Jconfig::getInstance();
-
+		global $database,$mosConfig_absolute_path;
 		josSpoofCheck();
 		$uninstallret = '';
 
-		$sql = "SELECT* FROM #__components WHERE id = ".(int)$cid;
+		$sql = "SELECT*"
+			."\n FROM #__components"
+			."\n WHERE id = ".(int)$cid;
 		$database->setQuery($sql);
 
 		$row = null;
 		if(!$database->loadObject($row)) {
-			HTML_installer::showInstallMessage($database->stderr(true),_ERROR_DELETING,$this->returnTo($option,'component',$client));
+			HTML_installer::showInstallMessage($database->stderr(true),	_ERROR_DELETING,$this->returnTo($option,'component',$client));
 			exit();
 		}
 
@@ -298,29 +245,41 @@ class mosInstallerComponent extends mosInstaller {
 		}
 
 		// Delete entries in the DB
-		$sql = "DELETE FROM #__components WHERE parent = ".(int)$row->id;
+		$sql = "DELETE FROM #__components"
+				."\n WHERE parent = ".(int)$row->id;
 		$database->setQuery($sql);
 		if(!$database->query()) {
 			HTML_installer::showInstallMessage($database->stderr(true),_DELETE_ERROR,$this->returnTo($option,'component',$client));
 			exit();
 		}
 
-		$sql = "DELETE FROM #__components WHERE id = ".(int)$row->id;
+		$sql = "DELETE FROM #__components"
+				."\n WHERE id = ".(int)$row->id;
 		$database->setQuery($sql);
 		if(!$database->query()) {
 			HTML_installer::showInstallMessage($database->stderr(true),_DELETE_ERROR,$this->returnTo($option,'component',$client));
 			exit();
+		}
+
+		// Try to find the uninstall file
+		$filesindir = mosReadDirectory($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/'.$row->option,'uninstall');
+		if(count($filesindir) > 0) {
+			$uninstall_file = $filesindir[0];
+			if(file_exists($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/'.$row->option.'/'.$uninstall_file)) {
+				require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/'.$row->option.'/'.$uninstall_file);
+				$uninstallret = com_uninstall();
+			}
 		}
 
 		// Try to find the XML file
-		$filesindir = mosReadDirectory(mosPathName(JPATH_BASE_ADMIN.DS.'components'.DS.$row->option),'.xml$');
+		$filesindir = mosReadDirectory(mosPathName($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/'.$row->option),'.xml$');
 		if(count($filesindir) > 0) {
 			$ismosinstall = false;
 			$found = 0;
 			foreach($filesindir as $file) {
 				$xmlDoc = new DOMIT_Lite_Document();
 				$xmlDoc->resolveErrors(true);
-				if(!$xmlDoc->loadXML(JPATH_BASE_ADMIN.DS.'components'.DS.$row->option.DS.$file,false,true)) {
+				if(!$xmlDoc->loadXML($mosConfig_absolute_path."/".ADMINISTRATOR_DIRECTORY."/components/".$row->option."/".$file,false,true)) {
 					return false;
 				}
 				$root = &$xmlDoc->documentElement;
@@ -330,15 +289,6 @@ class mosInstallerComponent extends mosInstaller {
 				}
 				$found = 1;
 
-				// Is there an uninstallfile
-				$uninstallfile_elemet = &$root->getElementsByPath('uninstallfile',1);
-				if(!is_null($uninstallfile_elemet)) {
-					$uninstall_file = $uninstallfile_elemet->getText();
-					if(!is_null($uninstall_file) && file_exists(JPATH_BASE_ADMIN.DS.'components'.DS.$row->option.DS.$uninstall_file)) {
-						require_once (JPATH_BASE_ADMIN.DS.'components'.DS.$row->option.DS.$uninstall_file);
-						$uninstallret = com_uninstall();
-					}
-				}
 				$query_element = &$root->getElementsbyPath('uninstall/queries',1);
 				if(!is_null($query_element)) {
 					$queries = $query_element->childNodes;
@@ -361,11 +311,11 @@ class mosInstallerComponent extends mosInstaller {
 		// Delete directories
 		if(trim($row->option)) {
 			$result = 0;
-			$path = mosPathName(JPATH_BASE_ADMIN.DS.'components'.DS.$row->option);
+			$path = mosPathName($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/'.$row->option);
 			if(is_dir($path)) {
 				$result |= deldir($path);
 			}
-			$path = mosPathName(JPATH_BASE.DS.'components'.DS.$row->option);
+			$path = mosPathName($mosConfig_absolute_path.'/components/'.$row->option);
 			if(is_dir($path)) {
 				$result |= deldir($path);
 			}
@@ -377,57 +327,5 @@ class mosInstallerComponent extends mosInstaller {
 
 		return $uninstallret;
 	}
-	/**
-	 * Uninstall method
-	 */
-	function cleanAfterError() {
-		$config =&Jconfig::getInstance();
-
-		josSpoofCheck();
-		$basepath = mosPathName(JPATH_BASE.DS.'components'.DS.strtolower("com_".str_replace(" ","",$this->elementName())));
-		$adminpath = mosPathName(JPATH_BASE_ADMIN.DS.'components'.DS.strtolower("com_".str_replace(" ","",$this->elementName())));
-		;
-
-		if(file_exists($adminpath)) {
-			deldir($adminpath);
-		}
-		if(file_exists($basepath)) {
-			deldir($basepath);
-		}
-		$this->cleanMediaData(0);
-		$this->cleanMediaData(1);
-
-		return true;
-	}
-	function cleanMediaData($adminFiles = 0) {
-		$config =&Jconfig::getInstance();
-
-		$xmlDoc = &$this->xmlDoc();
-		$root = &$xmlDoc->documentElement;
-		if($adminFiles == 1) {
-			$files_element = &$root->getElementsByPath('administration/images',1);
-		}
-		else {
-			$files_element = &$root->getElementsByPath('images',1);
-		}
-
-		if(!is_null($files_element)) {
-			if($files_element->hasChildNodes()) {
-				$files = $files_element->childNodes;
-				if(count($files) != 0) {
-					foreach($files as $file) {
-						if($adminFiles == 1) {
-							if(file_exists(JPATH_BASE_ADMIN . DS . $file->getText())) {
-								unlink(JPATH_BASE_ADMIN . DS . $file->getText());
-							}
-						}else {
-							if(file_exists(JPATH_BASE .DS. $file->getText())) {
-								unlink(JPATH_BASE .DS. $file->getText());
-							}
-						}
-					}
-				}
-			}
-		}
-	}
 }
+?>

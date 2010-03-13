@@ -1,13 +1,13 @@
 <?php
 /**
- * @package Joostina
- * @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2010 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
- * @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
- * Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
- * Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
- */
+* @package Joostina
+* @copyright Авторские права (C) 2008 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+*/
 
-// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+// запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 global $JPConfiguration,$option;
@@ -73,7 +73,7 @@ $act	= mosGetParam($_REQUEST,'act','default');
 </form>
 <?php
 
-// РґРѕСЃС‚СѓРїРЅРѕСЃС‚СЊ СЃРѕС…СЂР°РЅРµРЅРёСЏ РЅР°СЃС‚СЂРѕРµРє
+// доступность сохранения настроек
 function colorizeWriteStatus($status) {
 	if($status) {
 		return _JP_AVAILABLE;
@@ -81,12 +81,12 @@ function colorizeWriteStatus($status) {
 		return _JP_NOT_AVAILABLE;
 	}
 }
-// С‚РёРї СЌРєСЃРїРѕСЂС‚Р° Р±Р°Р·С‹ РґР°РЅРЅС‹С…
+// тип экспорта базы данных
 function outputSQLCompat($sqlcompat) {
 	$options = array(array(
-					"value" => "compat","desc" =>_JP_MYSQL4_COMPAT),
+		"value" => "compat","desc" =>_JP_MYSQL4_COMPAT),
 			array(
-					"value" => "default","desc" =>_DEFAULT));
+		"value" => "default","desc" =>_DEFAULT));
 	echo '<select class="inputbox" name="sqlcompat">';
 	foreach($options as $choice) {
 		$selected = ($sqlcompat == $choice['value'])?"selected":"";
@@ -94,18 +94,18 @@ function outputSQLCompat($sqlcompat) {
 	}
 	echo '</select>';
 }
-// С‚РёРїС‹ СЃР¶Р°С‚РёСЏ
+// типы сжатия
 function outputBoolChooser($boolOption) {
 	echo '<select class="inputbox" name="sql_pack">';
-	$selected = ($boolOption == "0")?"selected":"";
-	echo "<option value=\"0\" $selected>"._JP_NO_GZIP."</option>";
-	$selected = ($boolOption == "1")?"selected":"";
-	echo "<option value=\"1\" $selected>"._JP_GZIP_TAR_GZ."</option>";
-	$selected = ($boolOption == "2")?"selected":"";
-	echo "<option value=\"2\" $selected>"._JP_GZIP_ZIP."</option>";
+		$selected = ($boolOption == "0")?"selected":"";
+		echo "<option value=\"0\" $selected>"._JP_NO_GZIP."</option>";
+		$selected = ($boolOption == "1")?"selected":"";
+		echo "<option value=\"1\" $selected>"._JP_GZIP_TAR_GZ."</option>";
+		$selected = ($boolOption == "2")?"selected":"";
+		echo "<option value=\"2\" $selected>"._JP_GZIP_ZIP."</option>";
 	echo '</select>';
 }
-// СЂРµР·РµСЂРІРёСЂРѕРІР°РЅРёСЏ
+// резервирования
 function AlgorithmChooser($strOption,$strName) {
 	echo "<select class=\"inputbox\" name=\"$strName\">";
 	$selected = ($strOption == "single")?"selected":"";
@@ -116,16 +116,17 @@ function AlgorithmChooser($strOption,$strName) {
 	echo "<option value=\"multi\" $selected>"._JP_SLOW_METHOD."</option>";
 	echo '</select>';
 }
-// СЃРїРёСЃРѕРє СѓСЂРѕРІРЅРµР№ СЂРµРіРёСЃС‚СЂР°С†РёРё Р»РѕРіР°
+// список уровней регистрации лога
 function outputLogLevel($strOption) {
 	echo '<select class="inputbox" name="logLevel">';
-	$selected = ($strOption == "1")?"selected":"";
-	echo "<option value=\"1\" $selected>"._JP_LOG_ERRORS_OLY."</option>";
-	$selected = ($strOption == "2")?"selected":"";
-	echo "<option value=\"2\" $selected>"._JP_LOG_ERROR_WARNINGS."</option>";
-	$selected = ($strOption == "3")?"selected":"";
-	echo "<option value=\"3\" $selected>"._JP_LOG_ALL."</option>";
-	$selected = ($strOption == "4")?"selected":"";
-	echo "<option value=\"4\" $selected>"._JP_LOG_ALL_DEBUG."</option>";
+		$selected = ($strOption == "1")?"selected":"";
+		echo "<option value=\"1\" $selected>"._JP_LOG_ERRORS_OLY."</option>";
+		$selected = ($strOption == "2")?"selected":"";
+		echo "<option value=\"2\" $selected>"._JP_LOG_ERROR_WARNINGS."</option>";
+		$selected = ($strOption == "3")?"selected":"";
+		echo "<option value=\"3\" $selected>"._JP_LOG_ALL."</option>";
+		$selected = ($strOption == "4")?"selected":"";
+		echo "<option value=\"4\" $selected>"._JP_LOG_ALL_DEBUG."</option>";
 	echo '</select>';
 }
+?>

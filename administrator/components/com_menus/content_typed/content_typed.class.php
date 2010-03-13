@@ -1,13 +1,13 @@
 <?php
 /**
 * @package Joostina
-* @copyright ĞĞ²Ñ‚Ğ¾Ñ€ÑĞºĞ¸Ğµ Ğ¿Ñ€Ğ°Ğ²Ğ° (C) 2008-2010 Joostina team. Ğ’ÑĞµ Ğ¿Ñ€Ğ°Ğ²Ğ° Ğ·Ğ°Ñ‰Ğ¸Ñ‰ĞµĞ½Ñ‹.
-* @license Ğ›Ğ¸Ñ†ĞµĞ½Ğ·Ğ¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ğ¸Ğ»Ğ¸ help/license.php
-* Joostina! - ÑĞ²Ğ¾Ğ±Ğ¾Ğ´Ğ½Ğ¾Ğµ Ğ¿Ñ€Ğ¾Ğ³Ñ€Ğ°Ğ¼Ğ¼Ğ½Ğ¾Ğµ Ğ¾Ğ±ĞµÑĞ¿ĞµÑ‡ĞµĞ½Ğ¸Ğµ Ñ€Ğ°ÑĞ¿Ñ€Ğ¾ÑÑ‚Ñ€Ğ°Ğ½ÑĞµĞ¼Ğ¾Ğµ Ğ¿Ğ¾ ÑƒÑĞ»Ğ¾Ğ²Ğ¸ÑĞ¼ Ğ»Ğ¸Ñ†ĞµĞ½Ğ·Ğ¸Ğ¸ GNU/GPL
-* Ğ”Ğ»Ñ Ğ¿Ğ¾Ğ»ÑƒÑ‡ĞµĞ½Ğ¸Ñ Ğ¸Ğ½Ñ„Ğ¾Ñ€Ğ¼Ğ°Ñ†Ğ¸Ğ¸ Ğ¾ Ğ¸ÑĞ¿Ğ¾Ğ»ÑŒĞ·ÑƒĞµĞ¼Ñ‹Ñ… Ñ€Ğ°ÑÑˆĞ¸Ñ€ĞµĞ½Ğ¸ÑÑ… Ğ¸ Ğ·Ğ°Ğ¼ĞµÑ‡Ğ°Ğ½Ğ¸Ğ¹ Ğ¾Ğ± Ğ°Ğ²Ñ‚Ğ¾Ñ€ÑĞºĞ¾Ğ¼ Ğ¿Ñ€Ğ°Ğ²Ğµ, ÑĞ¼Ğ¾Ñ‚Ñ€Ğ¸Ñ‚Ğµ Ñ„Ğ°Ğ¹Ğ» help/copyright.php.
+* @copyright Àâòîğñêèå ïğàâà (C) 2008 Joostina team. Âñå ïğàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïğîãğàììíîå îáåñïå÷åíèå ğàñïğîñòğàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîğìàöèè î èñïîëüçóåìûõ ğàñøèğåíèÿõ è çàìå÷àíèé îá àâòîğñêîì ïğàâå, ñìîòğèòå ôàéë help/copyright.php.
 */
 
-// Ğ·Ğ°Ğ¿Ñ€ĞµÑ‚ Ğ¿Ñ€ÑĞ¼Ğ¾Ğ³Ğ¾ Ğ´Ğ¾ÑÑ‚ÑƒĞ¿Ğ°
+// çàïğåò ïğÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
 
 /**
@@ -16,8 +16,12 @@ defined('_VALID_MOS') or die();
 */
 class content_typed_menu {
 
-	function edit(&$uid,$menutype,$option,$menu) {
+	function edit(&$uid,$menutype,$option) {
 		global $database,$my,$mainframe;
+		global $mosConfig_absolute_path;
+
+		$menu = new mosMenu($database);
+		$menu->load((int)$uid);
 
 		// fail if checked out not by 'me'
 		if($menu->checked_out && $menu->checked_out != $my->id) {
@@ -38,7 +42,8 @@ class content_typed_menu {
 
 		if($uid) {
 			$temp = explode('id=',$menu->link);
-			$query = "SELECT a.title, a.title_alias, a.id FROM #__content AS a WHERE a.id = ".(int)$temp[1];
+			$query = "SELECT a.title, a.title_alias, a.id"."\n FROM #__content AS a"."\n WHERE a.id = ".(int)
+				$temp[1];
 			$database->setQuery($query);
 			$content = $database->loadObjectlist();
 			// outputs item name, category & section instead of the select list
@@ -50,7 +55,7 @@ class content_typed_menu {
 			$contents = '';
 			$link = 'javascript:submitbutton( \'redirect\' );';
 			$lists['content'] = '<input type="hidden" name="content_typed" value="'.$temp[1].'" />';
-			$lists['content'] .= '<a href="'.$link.'" title="'._EDIT_CONTENT_TYPED.'">'.$content[0]->title.$alias.'</a>';
+			$lists['content'] .= '<a href="'.$link.'" title="Èçìåíèòü ñòàòè÷íîå ñîäåğæèìîå">'.$content[0]->title.$alias.'</a>';
 		} else {
 			$query = "SELECT a.id AS value, CONCAT( a.title, '(', a.title_alias, ')' ) AS text".
 				"\n FROM #__content AS a"."\n WHERE a.state = 1"."\n AND a.sectionid = 0"."\n AND a.catid = 0".
@@ -77,7 +82,8 @@ class content_typed_menu {
 		$lists['link'] = mosAdminMenus::Link($menu,$uid);
 
 		// get params definitions
-		$params = new mosParameters($menu->params,$mainframe->getPath('menu_xml',$menu->type),'menu');
+		$params = new mosParameters($menu->params,$mainframe->getPath('menu_xml',$menu->type),
+			'menu');
 
 		content_menu_html::edit($menu,$lists,$params,$option,$contents);
 	}
@@ -96,3 +102,4 @@ class content_typed_menu {
 		mosRedirect('index2.php?option=com_typedcontent&task=edit&id='.$id);
 	}
 }
+?>

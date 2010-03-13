@@ -1,10 +1,10 @@
 <?php
 /**
 * @package Joostina
-* @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
-* @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
-* Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
-* Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
 *
 * dom_xmlrpc_array_document wraps a PHP array with the DOM XML-RPC API
 * @package dom-xmlrpc
@@ -266,7 +266,8 @@ class xml_domit_rss_base_document extends xml_domit_rss_elementindexer {
 	var $parser;
 	var $httpConnection = null;
 	var $rssTimeout = 0;
-	function xml_domit_rss_base_document($url = '',$cacheDir = './',$cacheTime =3600) {
+	function xml_domit_rss_base_document($url = '',$cacheDir = './',$cacheTime =
+		3600) {
 		$success = null;
 		$this->createDocument();
 		if($url != '') {
@@ -291,7 +292,8 @@ class xml_domit_rss_base_document extends xml_domit_rss_elementindexer {
 
 	function setConnection($host,$path = '/',$port = 80,$timeout = 0,$user = null,$password = null) {
 		require_once (DOMIT_RSS_INCLUDE_PATH.'php_http_client_generic.php');
-		$this->httpConnection = new php_http_client_generic($host,$path,$port,$timeout,$user,$password);
+		$this->httpConnection = new php_http_client_generic($host,$path,$port,$timeout,
+			$user,$password);
 	}
 
 	function setAuthorization($user,$password) {
@@ -322,18 +324,15 @@ class xml_domit_rss_base_document extends xml_domit_rss_elementindexer {
 		$this->node->resolveErrors(true);
 	}
 
-	function useCacheLite($doUseCacheLite,$pathToLibrary = './Lite.php',$cacheDir ='./',$cacheTime = 3600) {
+	function useCacheLite($doUseCacheLite,$pathToLibrary = './Lite.php',$cacheDir =
+		'./',$cacheTime = 3600) {
 		$this->useCacheLite = $doUseCacheLite;
 		if($doUseCacheLite) {
 			if(!file_exists($pathToLibrary)) {
 				$this->useCacheLite(false);
 			} else {
 				require_once ($pathToLibrary);
-				$cacheOptions = array(
-					'cacheDir' => $cacheDir,
-					'lifeTime' => $cacheTime
-
-				);
+				$cacheOptions = array('cacheDir' => $cacheDir,'lifeTime' => $cacheTime);
 				$this->cache = new Cache_Lite($cacheOptions);
 			}
 		} else {
@@ -450,7 +449,6 @@ class xml_domit_rss_base_document extends xml_domit_rss_elementindexer {
 				}
 			}
 		}
-		$fileContents = Jstring::to_utf8($fileContents);
 		return $fileContents;
 	}
 

@@ -1,21 +1,21 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
 
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
 
 /**
- * Installer class
- * @package Joostina
- * @subpackage Installer
- * @abstract
- */
+* Installer class
+* @package Joostina
+* @subpackage Installer
+* @abstract
+*/
 class mosInstaller {
 	// name of the XML file with installation information
 	var $i_installfilename = "";
@@ -29,32 +29,32 @@ class mosInstaller {
 	var $i_docleanup = true;
 
 	/**
-	 @var string The directory where the element is to be installed*/
+	@var string The directory where the element is to be installed*/
 	var $i_elementdir = '';
 	/**
-	 @var string The name of the Joomla! element*/
+	@var string The name of the Joomla! element*/
 	var $i_elementname = '';
 	/**
-	 @var string The name of a special atttibute in a tag*/
+	@var string The name of a special atttibute in a tag*/
 	var $i_elementspecial = '';
 	/**
-	 @var object A DOMIT XML document*/
+	@var object A DOMIT XML document*/
 	var $i_xmldoc = null;
 	var $i_hasinstallfile = null;
 	var $i_installfile = null;
 
 	/**
-	 * Constructor
-	 */
+	* Constructor
+	*/
 	function mosInstaller() {
 		$this->i_iswin = (substr(PHP_OS,0,3) == 'WIN');
 	}
 	/**
-	 * Uploads and unpacks a file
-	 * @param string The uploaded package filename or install directory
-	 * @param boolean True if the file is an archive file
-	 * @return boolean True on success, False on error
-	 */
+	* Uploads and unpacks a file
+	* @param string The uploaded package filename or install directory
+	* @param boolean True if the file is an archive file
+	* @return boolean True on success, False on error
+	*/
 	function upload($p_filename = null,$p_unpack = true) {
 		$this->i_iswin = (substr(PHP_OS,0,3) == 'WIN');
 		$this->installArchive($p_filename);
@@ -68,11 +68,13 @@ class mosInstaller {
 		}
 	}
 	/**
-	 * Extracts the package archive file
-	 * @return boolean True on success, False on error
-	 */
+	* Extracts the package archive file
+	* @return boolean True on success, False on error
+	*/
 	function extractArchive() {
-		$base_Dir = mosPathName(JPATH_BASE.'/media');
+		global $mosConfig_absolute_path;
+
+		$base_Dir = mosPathName($mosConfig_absolute_path.'/media');
 
 		$archivename = $base_Dir.$this->installArchive();
 		$tmpdir = uniqid('install_');
@@ -84,9 +86,10 @@ class mosInstaller {
 
 		if(eregi('.zip$',$archivename)) {
 			// Extract functions
-			require_once (JPATH_BASE_ADMIN.'/includes/pcl/pclzip.lib.php');
-			require_once (JPATH_BASE_ADMIN.'/includes/pcl/pclerror.lib.php');
-
+			require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/includes/pcl/pclzip.lib.php');
+			require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/includes/pcl/pclerror.lib.php');
+			//require_once( $mosConfig_absolute_path . '/administrator/includes/pcl/pcltrace.lib.php' );
+			//require_once( $mosConfig_absolute_path . '/administrator/includes/pcl/pcltar.lib.php' );
 			$zipfile = new PclZip($archivename);
 			if($this->isWindows()) {
 				define('OS_WINDOWS',1);
@@ -96,11 +99,11 @@ class mosInstaller {
 
 			$ret = $zipfile->extract(PCLZIP_OPT_PATH,$extractdir);
 			if($ret == 0) {
-				$this->setError(1,'Error:: "'.$zipfile->errorName(true).'"');
+				$this->setError(1,'Íåèñïðàâèìàÿ îøèáêà "'.$zipfile->errorName(true).'"');
 				return false;
 			}
 		} else {
-			require_once (JPATH_BASE.'/includes/Archive/Tar.php');
+			require_once ($mosConfig_absolute_path.'/includes/Archive/Tar.php');
 			$archive = new Archive_Tar($archivename);
 			$archive->setErrorHandling(PEAR_ERROR_PRINT);
 
@@ -124,9 +127,9 @@ class mosInstaller {
 		return true;
 	}
 	/**
-	 * Tries to find the package XML file
-	 * @return boolean True on success, False on error
-	 */
+	* Tries to find the package XML file
+	* @return boolean True on success, False on error
+	*/
 	function findInstallFile() {
 		$found = false;
 		// Search the install dir for an xml file
@@ -148,9 +151,9 @@ class mosInstaller {
 		}
 	}
 	/**
-	 * @param string A file path
-	 * @return object A DOMIT XML document, or null if the file failed to parse
-	 */
+	* @param string A file path
+	* @return object A DOMIT XML document, or null if the file failed to parse
+	*/
 	function isPackageFile($p_file) {
 		$xmlDoc = new DOMIT_Lite_Document();
 		$xmlDoc->resolveErrors(true);
@@ -169,9 +172,9 @@ class mosInstaller {
 		return $xmlDoc;
 	}
 	/**
-	 * Loads and parses the XML setup file
-	 * @return boolean True on success, False on error
-	 */
+	* Loads and parses the XML setup file
+	* @return boolean True on success, False on error
+	*/
 	function readInstallFile() {
 
 		if($this->installFilename() == "") {
@@ -196,28 +199,28 @@ class mosInstaller {
 		return true;
 	}
 	/**
-	 * Abstract install method
-	 */
+	* Abstract install method
+	*/
 	function install() {
 		die(_CANNOT_RUN_INSTALL_METHOD.' '.strtolower(get_class($this)));
 	}
 	/**
-	 * Abstract uninstall method
-	 */
+	* Abstract uninstall method
+	*/
 	function uninstall() {
 		die(_CANNOT_RUN_UNINSTALL_METHOD.' '.strtolower(get_class($this)));
 	}
 	/**
-	 * return to method
-	 */
+	* return to method
+	*/
 	function returnTo($option,$element) {
 		return "index2.php?option=$option&element=$element";
 	}
 	/**
-	 * @param string Install from directory
-	 * @param string The install type
-	 * @return boolean
-	 */
+	* @param string Install from directory
+	* @param string The install type
+	* @return boolean
+	*/
 	function preInstallCheck($p_fromdir,$type) {
 
 		if(!is_null($p_fromdir)) {
@@ -246,15 +249,15 @@ class mosInstaller {
 		return true;
 	}
 	/**
-	 * @param string The tag name to parse
-	 * @param string An attribute to search for in a filename element
-	 * @param string The value of the 'special' element if found
-	 * @param boolean True for Administrator components
-	 * @return mixed Number of file or False on error
-	 */
-	function parseFiles($tagName = 'files',$special = '',$specialError = '',$adminFiles =0) {
-		$config = &Jconfig::getInstance();
-
+	* @param string The tag name to parse
+	* @param string An attribute to search for in a filename element
+	* @param string The value of the 'special' element if found
+	* @param boolean True for Administrator components
+	* @return mixed Number of file or False on error
+	*/
+	function parseFiles($tagName = 'files',$special = '',$specialError = '',$adminFiles =
+		0) {
+		global $mosConfig_absolute_path;
 		// Find files to copy
 		$xmlDoc = &$this->xmlDoc();
 		$root = &$xmlDoc->documentElement;
@@ -293,12 +296,14 @@ class mosInstaller {
 
 				if($adminFiles) {
 					if(!mosMakePath($this->componentAdminDir(),$newdir)) {
-						$this->setError(1,_CANNOT_CREATE_DIR.' "'.($this->componentAdminDir()).$newdir.'"');
+						$this->setError(1,_CANNOT_CREATE_DIR.' "'.($this->componentAdminDir()).$newdir.
+							'"');
 						return false;
 					}
 				} else {
 					if(!mosMakePath($this->elementDir(),$newdir)) {
-						$this->setError(1,_CANNOT_CREATE_DIR.' "'.($this->elementDir()).$newdir.'"');
+						$this->setError(1,_CANNOT_CREATE_DIR.' "'.($this->elementDir()).$newdir.
+							'"');
 						return false;
 					}
 				}
@@ -320,24 +325,24 @@ class mosInstaller {
 
 		if($tagName == 'media') {
 			// media is a special tag
-			$installTo = mosPathName(JPATH_BASE.'/images/stories');
+			$installTo = mosPathName($mosConfig_absolute_path.'/images/stories');
 		} else
-		if($adminFiles) {
-			$installTo = $this->componentAdminDir();
-		} else {
-			$installTo = $this->elementDir();
-		}
-		$result = $this->copyFiles($installFrom,$installTo,$copyfiles);
+			if($adminFiles) {
+				$installTo = $this->componentAdminDir();
+			} else {
+				$installTo = $this->elementDir();
+			}
+			$result = $this->copyFiles($installFrom,$installTo,$copyfiles);
 
 		return $result;
 	}
 	/**
-	 * @param string Source directory
-	 * @param string Destination directory
-	 * @param array array with filenames
-	 * @param boolean True is existing files can be replaced
-	 * @return boolean True on success, False on error
-	 */
+	* @param string Source directory
+	* @param string Destination directory
+	* @param array array with filenames
+	* @param boolean True is existing files can be replaced
+	* @return boolean True on success, False on error
+	*/
 	function copyFiles($p_sourcedir,$p_destdir,$p_files,$overwrite = false) {
 		if(is_array($p_files) && count($p_files) > 0) {
 			foreach($p_files as $_file) {
@@ -345,22 +350,22 @@ class mosInstaller {
 				$filedest = mosPathName(mosPathName($p_destdir).$_file,false);
 
 				if(!file_exists($filesource)) {
-					$this->setError(1,_FILE_NOT_EXISTSS." $filesource");
+					$this->setError(1,_FILE_NOT_EXISTS." $filesource");
 					return false;
 				} else
-				if(file_exists($filedest) && !$overwrite) {
-					$this->setError(1,_FILE_NOT_EXISTSS." $filedest - "._INSTALL_TWICE);
-					return false;
-				} else {
-					$path_info = pathinfo($_file);
-					if(!is_dir($path_info['dirname'])) {
-						mosMakePath($p_destdir,$path_info['dirname']);
-					}
-					if(!(copy($filesource,$filedest) && mosChmod($filedest))) {
-						$this->setError(1,_ERROR_COPYING_FILE.": $filesource Ð² $filedest");
+					if(file_exists($filedest) && !$overwrite) {
+						$this->setError(1,_FILE_NOT_EXISTS." $filedest - "._INSTALL_TWICE);
 						return false;
+					} else {
+						$path_info = pathinfo($_file);
+						if(!is_dir($path_info['dirname'])) {
+							mosMakePath($p_destdir,$path_info['dirname']);
+						}
+						if(!(copy($filesource,$filedest) && mosChmod($filedest))) {
+							$this->setError(1,_ERROR_COPYING_FILE.": $filesource â $filedest");
+							return false;
+						}
 					}
-				}
 			}
 		} else {
 			return false;
@@ -368,33 +373,34 @@ class mosInstaller {
 		return count($p_files);
 	}
 	/**
-	 * Copies the XML setup file to the element Admin directory
-	 * Used by Components/Modules/Mambot Installer Installer
-	 * @return boolean True on success, False on error
-	 */
+	* Copies the XML setup file to the element Admin directory
+	* Used by Components/Modules/Mambot Installer Installer
+	* @return boolean True on success, False on error
+	*/
 	function copySetupFile($where = 'admin') {
 		if($where == 'admin') {
 			return $this->copyFiles($this->installDir(),$this->componentAdminDir(),array(basename
-					($this->installFilename())),true);
+				($this->installFilename())),true);
 		} else
-		if($where == 'front') {
-			return $this->copyFiles($this->installDir(),$this->elementDir(),array(basename($this->installFilename())),true);
-		}
+			if($where == 'front') {
+				return $this->copyFiles($this->installDir(),$this->elementDir(),array(basename($this->installFilename
+					())),true);
+			}
 	}
 
 	/**
-	 * @param int The error number
-	 * @param string The error message
-	 */
+	* @param int The error number
+	* @param string The error message
+	*/
 	function setError($p_errno,$p_error) {
 		$this->errno($p_errno);
 		$this->error($p_error);
 	}
 	/**
-	 * @param boolean True to display both number and message
-	 * @param string The error message
-	 * @return string
-	 */
+	* @param boolean True to display both number and message
+	* @param string The error message
+	* @return string
+	*/
 	function getError($p_full = false) {
 		if($p_full) {
 			return $this->errno()." ".$this->error();
@@ -403,10 +409,10 @@ class mosInstaller {
 		}
 	}
 	/**
-	 * @param string The name of the property to set/get
-	 * @param mixed The value of the property to set
-	 * @return The value of the property
-	 */
+	* @param string The name of the property to set/get
+	* @param mixed The value of the property to set
+	* @return The value of the property
+	*/
 	function &setVar($name,$value = null) {
 		if(!is_null($value)) {
 			$this->$name = $value;
@@ -475,14 +481,14 @@ class mosInstaller {
 	function elementSpecial($p_name = null) {
 		return $this->setVar('i_elementspecial',$p_name);
 	}
-
 }
 
 function cleanupInstall($userfile_name,$resultdir) {
+	global $mosConfig_absolute_path;
 
 	if(file_exists($resultdir)) {
 		deldir($resultdir);
-		unlink(mosPathName(JPATH_BASE.DS.'media'.DS.$userfile_name,false));
+		unlink(mosPathName($mosConfig_absolute_path.'/media/'.$userfile_name,false));
 	}
 }
 
@@ -503,3 +509,4 @@ function deldir($dir) {
 	closedir($current_dir);
 	return rmdir($dir);
 }
+?>

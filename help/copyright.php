@@ -1,242 +1,242 @@
 <?php
 /**
 * @package Joostina
-* @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2010 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
-* @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
-* Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
-* Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
+* @copyright Авторские права (C) 2008 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
 */
 
-// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+// запрет прямого доступа
 defined('_VALID_MOS') or die();
 ?>
 
-Joostina! СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµС‚СЃСЏ РїРѕ Р»РёС†РµРЅР·РёРё GNU General Public License.
+Joostina! распространяется по лицензии GNU General Public License.
 
-Joostina! РІРєР»СЋС‡Р°РµС‚ РІ СЃРµР±СЏ СЃР»РµРґСѓСЋС‰РёРµ РїСЂРѕРіСЂР°РјРјРЅС‹Рµ РїСЂРѕРґСѓРєС‚С‹:
+Joostina! включает в себя следующие программные продукты:
 
 Joomla!
-РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР°: (C) 2005-2007 Open Source Matters.
-Р›РёС†РµРЅР·РёСЏ: GNU General Public License (GPL)
-РЎРёСЃС‚РµРјР° РѕСЃРЅРѕРІР°РЅР° РЅР° СЂР°Р·СЂР°Р±РѕС‚РєРµ Joomla, РїСЂРѕРёР·РІРѕРґРёРјРѕР№
-Open Source Matters СЃ 2005 РїРѕ 2007 РіРѕРґ, Р° С‚Р°Рє Р¶Рµ РЅР° СЂР°Р·СЂР°Р±РѕС‚РєР°С… РїСЂРѕРёР·РІРѕРґРёРјС‹С… СЃ 2000 РїРѕ 2005:
+Авторские права: (C) 2005-2007 Open Source Matters.
+Лицензия: GNU General Public License (GPL)
+Система основана на разработке Joomla, производимой
+Open Source Matters с 2005 по 2007 год, а так же на разработках производимых с 2000 по 2005:
 Nick Anies, Brad Baker, Ron Bakker, Shayne Bartlett, Tim Broeker, Levis Bisson, Michelle Bisson, Robert Castley, Andrew Eddie, Rey Gigataras,
 Johan Janssens, Alex Kempkens, Peter Koch, James Logan, Andy Miller, Mitch Pirtle, Steen Rabol, Peter Russel, Phil Taylor, Brian Teeman, Emir
-Sakic, Jean-Marie Simonet, Andy Stewart, Trijnie Wanders, Arno Zijlstra, Рё Miro International Pty Ltd.
+Sakic, Jean-Marie Simonet, Andy Stewart, Trijnie Wanders, Arno Zijlstra, и Miro International Pty Ltd.
 
 Joomla RE
-РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2005-2007 Joom.Ru - Р СѓСЃСЃРєРёР№ РґРѕРј Joomla
-Р›РёС†РµРЅР·РёСЏ: GNU General Public License (GPL)
+Авторские права (C) 2005-2007 Joom.Ru - Русский дом Joomla
+Лицензия: GNU General Public License (GPL)
 
 Joomla LE
-РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) http://andyr.mrezha.ru - AndyR
-Р›РёС†РµРЅР·РёСЏ: GNU General Public License (GPL)
+Авторские права (C) http://andyr.mrezha.ru - AndyR
+Лицензия: GNU General Public License (GPL)
 
 Mambo
-РђРІС‚РѕСЂСЃРєРѕРµ РїСЂР°РІРѕ: 2000 - 2004 Miro International Pty Ltd
-Р›РёС†РµРЅР·РёСЏ: GNU General Public License (GPL)
+Авторское право: 2000 - 2004 Miro International Pty Ltd
+Лицензия: GNU General Public License (GPL)
 
-Fullajax - AJAX Рё AHAH Р±РёР±Р»РёРѕС‚РµРєР° РґР»СЏ РјСѓР»СЊС‚РёРїРѕС‚РѕС‡РЅРѕР№ Р·Р°РіСЂСѓР·РєРё РІРµР± СЃС‚СЂР°РЅРёС† Рё РґСЂСѓРіРёС… РґР°РЅРЅС‹С…
-РђРІС‚РѕСЂСЃРєРѕРµ РїСЂР°РІРѕ: 2007-2008 Ruslan Sinitskiy ( http://www.fullajax.ru )
-Р›РёС†РµРЅР·РёСЏ: GNU General Public License (GPL)
+Fullajax - AJAX и AHAH библиотека для мультипоточной загрузки веб страниц и других данных
+Авторское право: 2007-2008 Ruslan Sinitskiy ( http://www.fullajax.ru )
+Лицензия: GNU General Public License (GPL)
 
 xAjax
-РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР°: (c) 2005 by Jared White & J. Max Wilson
-Р›РёС†РµРЅР·РёСЏ: GNU Lesser General Public License (LGPL)
+Авторские права: (c) 2005 by Jared White & J. Max Wilson
+Лицензия: GNU Lesser General Public License (LGPL)
 
 jQuery
-РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР°: (c) 2008 John Resig (jquery.com)
-Р›РёС†РµРЅР·РёСЏ: MIT and GNU General Public License (GPL)
+Авторские права: (c) 2008 John Resig (jquery.com)
+Лицензия: MIT and GNU General Public License (GPL)
 
 PrettyTable
-РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР°: ( http://www.askthecssguy.com/2006/12/row_locking_with_css_and_javas.html )
+Авторские права: ( http://www.askthecssguy.com/2006/12/row_locking_with_css_and_javas.html )
 
 Floating window
-РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР°: (C) 2006  Alf Magne Kalleland (post@dhtmlgoodies.com, www.dhtmlgoodies.com)
-Р›РёС†РµРЅР·РёСЏ: GNU General Public License (GPL)
+Авторские права: (C) 2006  Alf Magne Kalleland (post@dhtmlgoodies.com, www.dhtmlgoodies.com)
+Лицензия: GNU General Public License (GPL)
 
 MooTools
-РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР°: (c) 2006-2007 Valerio Proietti (http://mad4milk.net)
-Р›РёС†РµРЅР·РёСЏ: MIT Style License.
+Авторские права: (c) 2006-2007 Valerio Proietti (http://mad4milk.net)
+Лицензия: MIT Style License.
 
 
 PHP Client Sniffer (phpsniff)
-РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР°: (СЃ) 2002-2004 Roger Raymond
-Р›РёС†РµРЅР·РёСЏ: GNU Lesser General Public License (LGPL)
+Авторские права: (с) 2002-2004 Roger Raymond
+Лицензия: GNU Lesser General Public License (LGPL)
 
 ConvertCharset
-РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР°: (СЃ) 2003-2004 Mikolaj Jedrzejak 2003-2004
+Авторские права: (с) 2003-2004 Mikolaj Jedrzejak 2003-2004
 
 Ebackup
-РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР°: Harald Baer ( www.mambobaer.de )
-Р›РёС†РµРЅР·РёСЏ: GNU General Public License (GPL)
+Авторские права: Harald Baer ( www.mambobaer.de )
+Лицензия: GNU General Public License (GPL)
 
 JCE
-РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР°: Ryan Demmer ( http://www.cellardoor.za.net )
-Р›РёС†РµРЅР·РёСЏ: GNU General Public License (GPL)
+Авторские права: Ryan Demmer ( http://www.cellardoor.za.net )
+Лицензия: GNU General Public License (GPL)
 
 MyCheckin
-РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР°: Bart Eversdijk ( http://www.eversdijk.com )
-Р›РёС†РµРЅР·РёСЏ: GNU General Public License (GPL)
+Авторские права: Bart Eversdijk ( http://www.eversdijk.com )
+Лицензия: GNU General Public License (GPL)
 
 JoomlaPack
-РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР°: Nicholas K. Dionysopoulos ( http://www.joomlapack.net )
-Р›РёС†РµРЅР·РёСЏ: GNU General Public License (GPL)
+Авторские права: Nicholas K. Dionysopoulos ( http://www.joomlapack.net )
+Лицензия: GNU General Public License (GPL)
+
+joomlaXplorer
+Авторские права: Soeren, QuiX Project ( http://www.virtuemart.net )
+Лицензия: GNU General Public License (GPL)
 
 JW MMXTD
-РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР°: JoomlaWorks ( http://www.joomlaworks.gr )
-Р›РёС†РµРЅР·РёСЏ: GNU General Public License (GPL)
+Авторские права: JoomlaWorks ( http://www.joomlaworks.gr )
+Лицензия: GNU General Public License (GPL)
 
 JW AJAX Vote
-РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР°: JoomlaWorks ( http://www.joomlaworks.gr )
+Авторские права: JoomlaWorks ( http://www.joomlaworks.gr )
 
 Link Editor
-РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР°: Soner Ekici ( www.joomlaturkiye.org )
-Р›РёС†РµРЅР·РёСЏ: GNU General Public License (GPL)
+Авторские права: Soner Ekici ( www.joomlaturkiye.org )
+Лицензия: GNU General Public License (GPL)
 
 My Content
-РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР°: (C) 2006 Owl Watch Consulting Services ( www.owlwatch.com )
-Р›РёС†РµРЅР·РёСЏ: GNU General Public License (GPL)
+Авторские права: (C) 2006 Owl Watch Consulting Services ( www.owlwatch.com )
+Лицензия: GNU General Public License (GPL)
 
 ArtBannersplus
-РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР°: Dino Porcaro ( www.dinoporcaro.it )
-Р›РёС†РµРЅР·РёСЏ: GNU General Public License (GPL)
+Авторские права: Dino Porcaro ( www.dinoporcaro.it )
+Лицензия: GNU General Public License (GPL)
 
 QCache
-РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР°: (c) Anthony Ferrara ( www.joomlaperformance.com )
-Р›РёС†РµРЅР·РёСЏ: GNU General Public License (GPL)
+Авторские права: (c) Anthony Ferrara ( www.joomlaperformance.com )
+Лицензия: GNU General Public License (GPL)
 
 Xmap
-РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР°: Guillermo Vargas ( http://joomla.vargas.co.cr )
-Р›РёС†РµРЅР·РёСЏ: GNU General Public License (GPL)
+Авторские права: Guillermo Vargas ( http://joomla.vargas.co.cr )
+Лицензия: GNU General Public License (GPL)
 
 FrontpageBanner
-РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР°: smart ( http://joomlaportal.ru )
-Р›РёС†РµРЅР·РёСЏ: GNU General Public License (GPL)
+Авторские права: smart ( http://joomlaportal.ru )
+Лицензия: GNU General Public License (GPL)
 
 Joomla! Ukraine Print Engine
-РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР°: 2007 (c) Denys Nosov / Joomla! Ukraine - http://www.joomla-ua.org
-Р›РёС†РµРЅР·РёСЏ: Creative Commons Attribution-Noncommercial-No Derivative Works 3.0 License http://creativecommons.org/licenses/by-nc-nd/3.0/
+Авторские права: 2007 (c) Denys Nosov / Joomla! Ukraine - http://www.joomla-ua.org
+Лицензия: Creative Commons Attribution-Noncommercial-No Derivative Works 3.0 License http://creativecommons.org/licenses/by-nc-nd/3.0/
 
 ML Login Module
-РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР°: Mitrich ( http://mitrichlab.ru )
-Р›РёС†РµРЅР·РёСЏ: GNU General Public License (GPL)
+Авторские права: Mitrich ( http://mitrichlab.ru )
+Лицензия: GNU General Public License (GPL)
 
 ML Joostina Menu
-РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР°: Mitrich ( http://mitrichlab.ru )
-Р›РёС†РµРЅР·РёСЏ: GNU General Public License (GPL)
+Авторские права: Mitrich ( http://mitrichlab.ru )
+Лицензия: GNU General Public License (GPL)
 
 botClearCache
-РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР°: (C) 2008 Denis Ryabov ( http://physicist.phpnet.us/ )
-Р›РёС†РµРЅР·РёСЏ: GNU General Public License (GPL)
+Авторские права: (C) 2008 Denis Ryabov ( http://physicist.phpnet.us/ )
+Лицензия: GNU General Public License (GPL)
 
 seo_bot_redir
-РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР°:  Alecfyz (C) Gorsk.net Studio Dec 2006
-Р›РёС†РµРЅР·РёСЏ: GNU General Public License (GPL)
+Авторские права:  Alecfyz (C) Gorsk.net Studio Dec 2006
+Лицензия: GNU General Public License (GPL)
 
 OptimizeTables
-РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР°: smart ( http://joomlaportal.ru )
-Р›РёС†РµРЅР·РёСЏ: GNU General Public License (GPL)
+Авторские права: smart ( http://joomlaportal.ru )
+Лицензия: GNU General Public License (GPL)
 
 mod Total Users
-РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР°: Helder Garcia ( www.sounerd.com.br )
-Р›РёС†РµРЅР·РёСЏ: GNU General Public License (GPL)
+Авторские права: Helder Garcia ( www.sounerd.com.br )
+Лицензия: GNU General Public License (GPL)
 
 
 
 KCAPTCHA
-РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР°: Kruglov Sergei, 2006 ( www.captcha.ru, www.kruglov.ru )
+Авторские права: Kruglov Sergei, 2006 ( www.captcha.ru, www.kruglov.ru )
 
 Cache
-РђРІС‚РѕСЂСЃРєРѕРµ РїСЂР°РІРѕ: Fabien MARTY
-Р›РёС†РµРЅР·РёСЏ: GNU Lesser General Public License (LGPL)
+Авторское право: Fabien MARTY
+Лицензия: GNU Lesser General Public License (LGPL)
 
 DOMIT!
-РђРІС‚РѕСЂСЃРєРѕРµ РїСЂР°РІРѕ: 2004 John Heinstein. All rights reserved
-Р›РёС†РµРЅР·РёСЏ: GNU Lesser General Public License (LGPL)
+Авторское право: 2004 John Heinstein. All rights reserved
+Лицензия: GNU Lesser General Public License (LGPL)
 
 feedcreator
-РђРІС‚РѕСЂСЃРєРѕРµ РїСЂР°РІРѕ: Kai Blankenhorn
-Р›РёС†РµРЅР·РёСЏ: GNU General Public License (GPL)
+Авторское право: Kai Blankenhorn
+Лицензия: GNU General Public License (GPL)
 
 js-calendar
-РђРІС‚РѕСЂСЃРєРѕРµ РїСЂР°РІРѕ: Mihai Bazon, 2002
-Р›РёС†РµРЅР·РёСЏ: GNU Lesser General Public License (LGPL)
+Авторское право: Mihai Bazon, 2002
+Лицензия: GNU Lesser General Public License (LGPL)
 
 js-jscook-menu
-РђРІС‚РѕСЂСЃРєРѕРµ РїСЂР°РІРѕ: 2002-2005 by Heng Yuan
-Р›РёС†РµРЅР·РёСЏ: Custom open source license
+Авторское право: 2002-2005 by Heng Yuan
+Лицензия: Custom open source license
 
 js-overlib
-РђРІС‚РѕСЂСЃРєРѕРµ РїСЂР°РІРѕ: Erik Bosrup 1998-2004
-Р›РёС†РµРЅР·РёСЏ: Artistic (see http://www.bosrup.com/web/overlib/?License)
+Авторское право: Erik Bosrup 1998-2004
+Лицензия: Artistic (see http://www.bosrup.com/web/overlib/?License)
 
 js-tabs
-РђРІС‚РѕСЂСЃРєРѕРµ РїСЂР°РІРѕ: 1998 - 2003 Erik Arvidsson
-Р›РёС†РµРЅР·РёСЏ: GNU General Public License (GPL)
+Авторское право: 1998 - 2003 Erik Arvidsson
+Лицензия: GNU General Public License (GPL)
 
 CodePress
-РђРІС‚РѕСЂСЃРєРѕРµ РїСЂР°РІРѕ: (C) 2006 Fernando M.A.d.S. <fermads@gmail.com>
-Р›РёС†РµРЅР·РёСЏ: GNU General Public License (GPL)
+Авторское право: (C) 2006 Fernando M.A.d.S. <fermads@gmail.com>
+Лицензия: GNU General Public License (GPL)
 
 dtree + Andrew Eddie patch
-РђРІС‚РѕСЂСЃРєРѕРµ РїСЂР°РІРѕ:  (c) 2002-2003 Geir Landr ( www.destroydrop.com/javascript/tree/ )
-Р›РёС†РµРЅР·РёСЏ: GNU General Public License (GPL)
+Авторское право:  (c) 2002-2003 Geir Landr ( www.destroydrop.com/javascript/tree/ )
+Лицензия: GNU General Public License (GPL)
 
 
 patTemplate, patError
-РђРІС‚РѕСЂСЃРєРѕРµ РїСЂР°РІРѕ: Stephan Schmidt
-Р›РёС†РµРЅР·РёСЏ: GNU Lesser General Public License (LGPL)
+Авторское право: Stephan Schmidt
+Лицензия: GNU Lesser General Public License (LGPL)
 
 PEAR
-РђРІС‚РѕСЂСЃРєРѕРµ РїСЂР°РІРѕ: 1997-2004 The PHP Group
-Р›РёС†РµРЅР·РёСЏ: PHP license
+Авторское право: 1997-2004 The PHP Group
+Лицензия: PHP license
 
 phpGACL
-РђРІС‚РѕСЂСЃРєРѕРµ РїСЂР°РІРѕ: 2002,2003 Mike Benoit
-Р›РёС†РµРЅР·РёСЏ: GNU Lesser General Public License (LGPL)
+Авторское право: 2002,2003 Mike Benoit
+Лицензия: GNU Lesser General Public License (LGPL)
 
 phpInputfilter
-РђРІС‚РѕСЂСЃРєРѕРµ РїСЂР°РІРѕ: Daniel Morris
-Р›РёС†РµРЅР·РёСЏ: GNU General Public License (GPL)
+Авторское право: Daniel Morris
+Лицензия: GNU General Public License (GPL)
 
 phpMailer
-РђРІС‚РѕСЂСЃРєРѕРµ РїСЂР°РІРѕ: 2001 - 2003  Brent R. Matzelle
-Р›РёС†РµРЅР·РёСЏ: GNU Lesser General Public License (LGPL)
+Авторское право: 2001 - 2003  Brent R. Matzelle
+Лицензия: GNU Lesser General Public License (LGPL)
 
 tar-archive
-РђРІС‚РѕСЂСЃРєРѕРµ РїСЂР°РІРѕ: 1997-2003 The PHP Group
-Р›РёС†РµРЅР·РёСЏ: PHP License
+Авторское право: 1997-2003 The PHP Group
+Лицензия: PHP License
 
 vcard
-РђРІС‚РѕСЂСЃРєРѕРµ РїСЂР°РІРѕ: Kai Blankenhorn
-Р›РёС†РµРЅР·РёСЏ: GNU General Public License (GPL)
+Авторское право: Kai Blankenhorn
+Лицензия: GNU General Public License (GPL)
 
 wz-tooltip
-РђРІС‚РѕСЂСЃРєРѕРµ РїСЂР°РІРѕ: 2002-2004 Walter Zorn
-Р›РёС†РµРЅР·РёСЏ: GNU Lesser General Public License (LGPL)
+Авторское право: 2002-2004 Walter Zorn
+Лицензия: GNU Lesser General Public License (LGPL)
 
-Р—РЅР°С‡РєРё FOOOD (РџР°РЅРµР»СЊ СѓРїСЂР°РІР»РµРЅРёСЏ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР°)-
-РђРІС‚РѕСЂСЃРєРѕРµ РїСЂР°РІРѕ: 2004 FOOOD's Icons
-Р›РёС†РµРЅР·РёСЏ: http://www.foood.net/joomla.htm
-РџСЂРёРјРµС‡Р°РЅРёРµ: Please note these icons are NOT OPEN SOURCE but used with permission
+Значки FOOOD (Панель управления администратора)-
+Авторское право: 2004 FOOOD's Icons
+Лицензия: http://www.foood.net/joomla.htm
+Примечание: Please note these icons are NOT OPEN SOURCE but used with permission
 
-Р—РЅР°С‡РєРё СЃРёСЃС‚РµРјС‹: nuoveXT-kde-1.6
-РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР°: (СЃ) Alexandre Moore
-Р›РёС†РµРЅР·РёСЏ: GNU General Public License (GPL)
+Значки системы: nuoveXT-kde-1.6
+Авторские права: (с) Alexandre Moore
+Лицензия: GNU General Public License (GPL)
 
-Р—РЅР°С‡РєРё СЃРёСЃС‚РµРјС‹: Silk icon set
-РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР°: (СЃ) Mark James ( http://www.famfamfam.com/lab/icons/silk/ )
-Р›РёС†РµРЅР·РёСЏ: Creative Commons Attribution 2.5 License http://creativecommons.org/licenses/by/2.5/
+Значки системы: Silk icon set
+Авторские права: (с) Mark James ( http://www.famfamfam.com/lab/icons/silk/ )
+Лицензия: Creative Commons Attribution 2.5 License http://creativecommons.org/licenses/by/2.5/
 
-Р—РЅР°С‡РєРё СЃРёСЃС‚РµРјС‹: Sweetie WebCommunication
-РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР°: (СЃ) Joseph North ( sublick@gmail.com, sweetie.sublink.ca )
-Р›РёС†РµРЅР·РёСЏ: Creative Commons Attribution-ShareAlike 3.0 Unported
+Значки системы: Sweetie WebCommunication
+Авторские права: (с) Joseph North ( sublick@gmail.com, sweetie.sublink.ca )
+Лицензия: Creative Commons Attribution-ShareAlike 3.0 Unported
 
-Р—РЅР°С‡РєРё С€Р°Р±Р»РѕРЅР° "NewLine" (РІ Р±Р°Р·РѕРІРѕР№ РїРѕСЃС‚Р°РІРєРµ Joostina CMS): Diagona Icons
-РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР°: (СЃ) Yusuke Kamiyamane ( http://www.pinvoke.com/ )
-Р›РёС†РµРЅР·РёСЏ: Creative Commons Attribution 3.0 license
-
-Р—РЅР°С‡РєРё СЃРёСЃС‚РµРјС‹: Oxygen Icons
-РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР°: Vignoni David (http://www.oxygen-icons.org)
-Р›РёС†РµРЅР·РёСЏ: Creative Common Attribution-ShareAlike 3.0 License or the GNU Library General Public License
+Значки шаблона "NewLine" (в базовой поставке Joostina CMS): Diagona Icons
+Авторские права: (с) Yusuke Kamiyamane ( http://www.pinvoke.com/ )
+Лицензия: Creative Commons Attribution 3.0 license

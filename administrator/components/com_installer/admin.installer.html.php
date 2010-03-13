@@ -1,158 +1,118 @@
 <?php
 /**
- * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
+* @package Joostina
+* @copyright Àâòîðñêèå ïðàâà (C) 2008 Joostina team. Âñå ïðàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+*/
 
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die();
 
 function writableCell($folder) {
 	echo '<tr><td class="item">'.$folder.'/</td><td align="left">';
-	echo is_writable(JPATH_BASE.'/'.$folder)?'<b><font color="green">'._WRITEABLE.'</font></b>':'<b><font color="red">'._UNWRITEABLE.'</font></b></td>';
+	echo is_writable($GLOBALS['mosConfig_absolute_path'].'/'.$folder)?'<b><font color="green">'._WRITEABLE.'</font></b>':'<b><font color="red">'._UNWRITEABLE.'</font></b></td>';
 	echo '</tr>';
 }
 
 /**
- * @package Joostina
- */
+* @package Joostina
+*/
 class HTML_installer {
 
-	function showInstallForm($title,$option,$element,$client = "",$p_startdir = "",$backLink = "") {
-		?>
-<script language="javascript" type="text/javascript">
-	function submitbutton3(pressbutton) {
-		var form = document.adminForm_dir;
-		if (form.userfile.value == ""){
-			alert( "<?php echo _CHOOSE_DIRECTORY_PLEASE?>" );
-		} else {
-			form.submit();
+	function showInstallForm($title,$option,$element,$client = "",$p_startdir = "",
+		$backLink = "") {
+?>
+	<script language="javascript" type="text/javascript">
+		function submitbutton3(pressbutton) {
+			var form = document.adminForm_dir;
+			if (form.userfile.value == ""){
+				alert( "<?php echo _CHOOSE_DIRECTORY_PLEASE?>" );
+			} else {
+				form.submit();
+			}
 		}
-	}
-</script>
-<table class="adminheading">
-	<tr>
-		<th class="install"><?php echo $title; ?></th>
-		<td align="right" class="jtd_nowrap"><?php echo $backLink; ?></td>
-	</tr>
-</table>
-<table width="100%">
-	<tr>
-		<td style="width:49%">
-			<form enctype="multipart/form-data" action="index2.php" method="post" name="filename">
-				<table class="adminform">
+	</script>
+		<table class="adminheading">
+		<tr>
+			<th class="install"><?php echo $title; ?></th>
+			<td align="right" class="jtd_nowrap"><?php echo $backLink; ?></td>
+		</tr>
+		</table>
+		<table width="100%">
+			<tr>
+				<td style="width:49%">
+					<form enctype="multipart/form-data" action="index2.php" method="post" name="filename">
+					<table class="adminform">
 					<tr>
 						<th><?php echo _ZIP_UPLOAD_AND_INSTALL?></th>
 					</tr>
 					<tr>
 						<td align="left">
-									<?php echo _PACKAGE_FILE?>:
+							<?php echo _PACKAGE_FILE?>:
 							<input class="text_area" name="userfile" type="file" size="50"/>
 							<input class="button" type="submit" value="<?php echo _UPLOAD_AND_INSTALL?>" />
 						</td>
 					</tr>
-				</table>
-				<input type="hidden" name="task" value="uploadfile"/>
-				<input type="hidden" name="option" value="<?php echo $option; ?>"/>
-				<input type="hidden" name="element" value="<?php echo $element; ?>"/>
-				<input type="hidden" name="client" value="<?php echo $client; ?>"/>
-				<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
-			</form>
-		</td>
-		<td style="width:49%">
-			<form enctype="multipart/form-data" action="index2.php" method="post" name="adminForm_dir">
-				<table class="adminform">
+					</table>
+					<input type="hidden" name="task" value="uploadfile"/>
+					<input type="hidden" name="option" value="<?php echo $option; ?>"/>
+					<input type="hidden" name="element" value="<?php echo $element; ?>"/>
+					<input type="hidden" name="client" value="<?php echo $client; ?>"/>
+					<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
+					</form>
+				</td>
+				<td style="width:49%">
+					<form enctype="multipart/form-data" action="index2.php" method="post" name="adminForm_dir">
+					<table class="adminform">
 					<tr>
 						<th><?php echo _INSTALL_FROM_DIR?></th>
 					</tr>
 					<tr>
 						<td align="left">
-									<?php echo _INSTALLATION_DIRECTORY?>:
+							<?php echo _INSTALLATION_DIRECTORY?>:
 							<input type="text" name="userfile" class="text_area" size="50" value="<?php echo $p_startdir; ?>"/>
-							<input type="button" class="button" value="Ð£ÑÑ‚Ð°Ð½Ð¾Ð²Ð¸Ñ‚ÑŒ" onclick="submitbutton3()" />
+							<input type="button" class="button" value="Óñòàíîâèòü" onclick="submitbutton3()" />
 						</td>
 					</tr>
-				</table>
-				<input type="hidden" name="task" value="installfromdir" />
-				<input type="hidden" name="option" value="<?php echo $option; ?>"/>
-				<input type="hidden" name="element" value="<?php echo $element; ?>"/>
-				<input type="hidden" name="client" value="<?php echo $client; ?>"/>
-				<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
-			</form>
-		</td>
-	</tr>
-</table>
+					</table>
+					<input type="hidden" name="task" value="installfromdir" />
+					<input type="hidden" name="option" value="<?php echo $option; ?>"/>
+					<input type="hidden" name="element" value="<?php echo $element; ?>"/>
+					<input type="hidden" name="client" value="<?php echo $client; ?>"/>
+					<input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
+					</form>
+				</td>
+			</tr>
+		</table>
 
 		<?php
 	}
 
 	/**
-	 * @param string
-	 * @param string
-	 * @param string
-	 * @param string
-	 */
+	* @param string
+	* @param string
+	* @param string
+	* @param string
+	*/
 	function showInstallMessage($message,$title,$url) {
-		?>
-<table class="adminheading">
-	<tr>
-		<th class="install"><?php echo $title; ?></th>
-	</tr>
-</table>
-<table class="adminform">
-	<tr>
-		<td align="left"><strong><?php echo $message; ?></strong></td>
-	</tr>
-	<tr>
-		<td colspan="2" align="center">[&nbsp;<a href="<?php echo $url; ?>" style="font-size: 16px; font-weight: bold"><?php echo _CONTINUE ?> ...</a>&nbsp;]</td>
-	</tr>
-</table>
-		<?php
-	}
-	// Ð¿Ñ€Ð¾Ñ€Ð¸ÑÐ¾Ð²ÐºÐ° ÐºÐ½Ð¾Ð¿Ð¾Ðº ÑƒÐ¿Ñ€Ð°Ð²Ð»ÐµÐ½Ð¸Ñ
-	function quickiconButton($link,$image,$text) {
-		?>
-<span><a href="<?php echo $link; ?>" title="<?php echo $text; ?>">
-				<?php
-				echo mosAdminMenus::imageCheckAdmin($image,'/'.JADMIN_BASE.'/templates/'.mosMainFrame::getInstance(true)->getTemplate().'/images/system_ico/',null,null,$text);
-				echo $text;
-				?>
-	</a></span>
-		<?php
-	}
-	function cPanel() {?>
-
-<td width="100%" valign="top">
-	<div class="cpicons">
-				<?php
-
-				$link = 'index2.php?option=com_installer&amp;element=installer';
-				HTML_installer::quickiconButton($link,'install.png', _INSTALLATION);
-
-				$link = 'index2.php?option=com_installer&amp;element=component';
-				HTML_installer::quickiconButton($link,'db.png', _COMPONENTS);
-
-				$link = 'index2.php?option=com_installer&amp;element=module';
-				HTML_installer::quickiconButton($link,'db.png', _MODULES);
-
-				$link = 'index2.php?option=com_installer&amp;element=mambot';
-				HTML_installer::quickiconButton($link,'ext.png', _MAMBOTS);
-
-				$link = 'index2.php?option=com_installer&amp;element=template';
-				HTML_installer::quickiconButton($link,'joostina.png', _COM_INSTALLER_SITE_TEMPLATES);
-
-				$link = 'index2.php?option=com_installer&amp;element=template&client=admin';
-				HTML_installer::quickiconButton($link,'joostina.png', _COM_INSTALLER_ADMIN_TEMPLATES);
-
-				$link = 'index2.php?option=com_installer&amp;element=language';
-				HTML_installer::quickiconButton($link,'log.png', _COM_INSTALLER_SITE_LANGUAGES);
-
-				?>
-	</div>
-</td>
+		global $PHP_SELF;
+?>
+	<table class="adminheading">
+		<tr>
+			<th class="install"><?php echo $title; ?></th>
+		</tr>
+	</table>
+	<table class="adminform">
+		<tr>
+			<td align="left"><strong><?php echo $message; ?></strong></td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">[&nbsp;<a href="<?php echo $url; ?>" style="font-size: 16px; font-weight: bold"><?php echo _CONTINUE?> ...</a>&nbsp;]</td>
+		</tr>
+	</table>
 		<?php
 	}
 }
+?>

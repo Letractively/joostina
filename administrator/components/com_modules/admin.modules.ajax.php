@@ -1,25 +1,23 @@
 <?php
 /**
- * @package Joostina
- * @copyright РђРІС‚РѕСЂСЃРєРёРµ РїСЂР°РІР° (C) 2008-2010 Joostina team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
- * @license Р›РёС†РµРЅР·РёСЏ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, РёР»Рё help/license.php
- * Joostina! - СЃРІРѕР±РѕРґРЅРѕРµ РїСЂРѕРіСЂР°РјРјРЅРѕРµ РѕР±РµСЃРїРµС‡РµРЅРёРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµРјРѕРµ РїРѕ СѓСЃР»РѕРІРёСЏРј Р»РёС†РµРЅР·РёРё GNU/GPL
- * Р”Р»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… СЂР°СЃС€РёСЂРµРЅРёСЏС… Рё Р·Р°РјРµС‡Р°РЅРёР№ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЃРјРѕС‚СЂРёС‚Рµ С„Р°Р№Р» help/copyright.php.
- */
+* @package Joostina
+* @copyright Авторские права (C) 2008 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+*/
 
-// Р·Р°РїСЂРµС‚ РїСЂСЏРјРѕРіРѕ РґРѕСЃС‚СѓРїР°
+// запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-global $my;
-
-$acl = &gacl::getInstance();
+global $mosConfig_absolute_path,$mosConfig_live_site,$my;
 
 if(!($acl->acl_check('administration','edit','users',$my->usertype,'modules','all') | $acl->acl_check('administration','install','users',$my->usertype,'modules','all'))) {
 	die('error-acl');
 }
 
 $task	= mosGetParam($_GET,'task','publish');
-$id		= intval(mosGetParam($_GET,'id',0));
+$id		= intval(mosGetParam($_GET,'id','0'));
 
 
 switch($task) {
@@ -44,9 +42,8 @@ switch($task) {
 }
 
 function x_apply() {
+	global $database;
 	josSpoofCheck();
-
-	$database = &database::getInstance();
 
 	$params = mosGetParam($_POST,'params','');
 	$client = strval(mosGetParam($_REQUEST,'client',''));
@@ -66,7 +63,7 @@ function x_apply() {
 	$row = new mosModule($database);
 
 	$_POST['title'] = joostina_api::convert($_POST['title']);
-	if (isset($_POST['content'])) {
+	if (isset($_POST['content'])){
 		$_POST['content'] = joostina_api::convert(strval($_POST['content']));
 	}
 
@@ -115,9 +112,8 @@ function x_apply() {
 }
 
 
-function x_access($id) {
-	$database = &database::getInstance();
-
+function x_access($id){
+	global $database;
 	$access = mosGetParam($_GET,'chaccess','accessregistered');
 	$option = strval(mosGetParam($_REQUEST,'option',''));
 	switch($access) {
@@ -144,23 +140,21 @@ function x_access($id) {
 	if(!$row->access) {
 		$color_access = 'style="color: green;"';
 		$task_access = 'accessregistered';
-		$text_href = _USER_GROUP_ALL;
+		$text_href = 'Общий';
 	} elseif($row->access == 1) {
 		$color_access = 'style="color: red;"';
 		$task_access = 'accessspecial';
-		$text_href = _USER_GROUP_REGISTERED;
+		$text_href = 'Участники';
 	} else {
 		$color_access = 'style="color: black;"';
 		$task_access = 'accesspublic';
-		$text_href = _USER_GROUP_SPECIAL;
+		$text_href = 'Специальный';
 	}
 	return '<a href="#" onclick="ch_access('.$row->id.',\''.$task_access.'\',\''.$option.'\')" '.$color_access.'>'.$text_href.'</a>';
 }
 
 function x_publish($id = null) {
-	global $my;
-
-	$database = &database::getInstance();
+	global $database,$my;
 
 	if(!$id) return 'error-id';
 
@@ -186,21 +180,23 @@ function x_publish($id = null) {
 		return $ret_img;
 	}
 }
-// РїРѕР»СѓС‡РµРЅРёРµ СЃРїРёСЃРєР° РїРѕР·РёС†РёР№ РјРѕРґСѓР»РµР№
-function x_get_position($id) {
-	$database = &database::getInstance();
-
+// получение списка позиций модулей
+function x_get_position($id){
+	global $database;
 	$row = new mosModule($database);
 	$row->load((int)$id);
 	$active = ($row->position ? $row->position:'left');
 
-	$query = "SELECT position, description FROM #__template_positions WHERE position != '' ORDER BY position";
+	$query = "SELECT position, description"
+			."\n FROM #__template_positions"
+			."\n WHERE position != ''"
+			."\n ORDER BY position";
 	$database->setQuery($query);
 	$positions = $database->loadObjectList();
 
 	$orders2 = array();
 	$pos = array();
-	$pos[] = mosHTML::makeOption($active,'--'._CLOSE.'--');
+	$pos[] = mosHTML::makeOption($active,'--Закрыть--');
 	foreach($positions as $position) {
 		if($position->description=='') $position->description = $position->position;
 		if($row->position==$position->position) $position->description = '--'.$position->description.'--';
@@ -208,17 +204,20 @@ function x_get_position($id) {
 	}
 	return mosHTML::selectList($pos,'position','class="inputbox" size="1" onchange="ch_sav_pos('.$id.',this.value)"','value','text',$active);
 }
-function x_save_position($id) {
-	global $my;
-	$database = &database::getInstance();
-
+function x_save_position($id){
+	global $database,$my;
 	$new_pos = strval(mosGetParam($_GET,'new_pos','left'));
 	if($new_pos=='0') return 1;
-	$query = "UPDATE #__modules SET position = '".$new_pos."' WHERE id = ".$id." AND ( checked_out = 0 OR ( checked_out = ".(int)$my->id." ) )";
+	$query = "UPDATE #__modules"
+			."\n SET position = '".$new_pos
+			."'\n WHERE id = ".$id.
+			"\n AND ( checked_out = 0"
+			."\n OR ( checked_out = ".(int)$my->id." ) )";
 	$database->setQuery($query);
 	if($database->query()) {
-		return 1; // РЅРѕРІР°СЏ РїРѕР·РёС†РёСЏ СЃРѕС…СЂР°РЅРµРЅРёСЏ
+		return 1; // новая позиция сохранения
 	} else {
-		return 2; // РІРѕ РІСЂРµРјСЏ СЃРѕС…СЂР°РЅРµРЅРёСЏ РЅРѕРІРѕР№ РїРѕР·РёС†РёРё РїСЂРѕРёР·РѕС€Р»Р° РѕС€РёР±РєР°
+		return 2; // во время сохранения новой позиции произошла ошибка
 	}
 }
+?>

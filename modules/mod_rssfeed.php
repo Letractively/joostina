@@ -1,114 +1,113 @@
 <?php
 /**
- * @package Joostina
- * @copyright ĞĞ²Ñ‚Ğ¾Ñ€ÑĞºĞ¸Ğµ Ğ¿Ñ€Ğ°Ğ²Ğ° (C) 2008-2010 Joostina team. Ğ’ÑĞµ Ğ¿Ñ€Ğ°Ğ²Ğ° Ğ·Ğ°Ñ‰Ğ¸Ñ‰ĞµĞ½Ñ‹.
- * @license Ğ›Ğ¸Ñ†ĞµĞ½Ğ·Ğ¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ğ¸Ğ»Ğ¸ help/license.php
- * Joostina! - ÑĞ²Ğ¾Ğ±Ğ¾Ğ´Ğ½Ğ¾Ğµ Ğ¿Ñ€Ğ¾Ğ³Ñ€Ğ°Ğ¼Ğ¼Ğ½Ğ¾Ğµ Ğ¾Ğ±ĞµÑĞ¿ĞµÑ‡ĞµĞ½Ğ¸Ğµ Ñ€Ğ°ÑĞ¿Ñ€Ğ¾ÑÑ‚Ñ€Ğ°Ğ½ÑĞµĞ¼Ğ¾Ğµ Ğ¿Ğ¾ ÑƒÑĞ»Ğ¾Ğ²Ğ¸ÑĞ¼ Ğ»Ğ¸Ñ†ĞµĞ½Ğ·Ğ¸Ğ¸ GNU/GPL
- * Ğ”Ğ»Ñ Ğ¿Ğ¾Ğ»ÑƒÑ‡ĞµĞ½Ğ¸Ñ Ğ¸Ğ½Ñ„Ğ¾Ñ€Ğ¼Ğ°Ñ†Ğ¸Ğ¸ Ğ¾ Ğ¸ÑĞ¿Ğ¾Ğ»ÑŒĞ·ÑƒĞµĞ¼Ñ‹Ñ… Ñ€Ğ°ÑÑˆĞ¸Ñ€ĞµĞ½Ğ¸ÑÑ… Ğ¸ Ğ·Ğ°Ğ¼ĞµÑ‡Ğ°Ğ½Ğ¸Ğ¹ Ğ¾Ğ± Ğ°Ğ²Ñ‚Ğ¾Ñ€ÑĞºĞ¾Ğ¼ Ğ¿Ñ€Ğ°Ğ²Ğµ, ÑĞ¼Ğ¾Ñ‚Ñ€Ğ¸Ñ‚Ğµ Ñ„Ğ°Ğ¹Ğ» help/copyright.php.
- */
-
-// Ğ·Ğ°Ğ¿Ñ€ĞµÑ‚ Ğ¿Ñ€ÑĞ¼Ğ¾Ğ³Ğ¾ Ğ´Ğ¾ÑÑ‚ÑƒĞ¿Ğ°
-defined( '_VALID_MOS' ) or die();
-
-if (!defined( '_JOS_RSSFEED_MODULE' )) {
-	/** ensure that functions are declared only once*/
-	define( '_JOS_RSSFEED_MODULE', 1 );
-
-	function output_rssfeed( $link, $img_default, $img_file, $img_alt, $img_name  ) {
-		$img = mosAdminMenus::ImageCheck( $img_default, '/images/M_images/', $img_file, '/images/M_images/', $img_alt, $img_name );
-		?><a class="<?php echo $img_name;?>" href="<?php echo sefRelToAbs( $link ); ?>" title="<?php echo $img_alt;?>"><?php echo $img ?></a><?php
-	}
+* @package Joostina
+* @copyright Àâòîğñêèå ïğàâà (C) 2008 Joostina team. Âñå ïğàâà çàùèùåíû.
+* @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+* Joostina! - ñâîáîäíîå ïğîãğàììíîå îáåñïå÷åíèå ğàñïğîñòğàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+* Äëÿ ïîëó÷åíèÿ èíôîğìàöèè î èñïîëüçóåìûõ ğàñøèğåíèÿõ è çàìå÷àíèé îá àâòîğñêîì ïğàâå, ñìîòğèòå ôàéë help/copyright.php.
+*/
+// çàïğåò ïğÿìîãî äîñòóïà
+defined('_VALID_MOS') or die();
+if (!defined('_JOS_RSSFEED_MODULE')) {
+/** ensure that functions are declared only once*/
+define( '_JOS_RSSFEED_MODULE', 1 );
+function output_rssfeed( $link, $img_default, $img_file, $img_alt, $img_name  ) {
+$img = mosAdminMenus::ImageCheck( $img_default, '/images/M_images/', $img_file, '/images/M_images/', $img_alt, $img_name );?>
+<a class="<?php echo $img_name;?>" href="<?php echo sefRelToAbs( $link ); ?>" title="<?php echo $img_alt;?>"><?php echo $img ?></a>
+<?php
 }
-
-$text				= $params->get( 'text','');
-$moduleclass_sfx	= $params->get( 'moduleclass_sfx', '' );
-$rss091				= $params->get( 'rss091', 1 );
-$rss10				= $params->get( 'rss10', 1 );
-$rss20				= $params->get( 'rss20', 1 );
-$atom03				= $params->get( 'atom', 1 );
-$opml				= $params->get( 'opml', 1 );
-$yandex 			= $params->get( 'yandex', 1 );
-$rss091_image		= $params->get( 'rss091_image', '' );
-$rss10_image		= $params->get( 'rss10_image', '' );
-$rss20_image		= $params->get( 'rss20_image', '' );
-$atom_image			= $params->get( 'atom_image', '' );
-$opml_image			= $params->get( 'opml_image', '' );
-$yandex_image		= $params->get( 'yandex_image', '' );
-$t_path				= JPATH_SITE .'/templates/'. JTEMPLATE .'/images/';
-$d_path				= JPATH_SITE .'/images/M_images/';
-
+}
+global $mosConfig_live_site, $mosConfig_absolute_path, $cur_template;
+$text= $params->get('text','');
+$moduleclass_sfx= $params->get('moduleclass_sfx', '');
+$rss091= $params->get('rss091', 1);
+$rss10= $params->get('rss10', 1);
+$rss20= $params->get('rss20', 1);
+$atom03= $params->get('atom', 1);
+$opml= $params->get('opml', 1);
+$yandex = $params->get('yandex', 1);
+$rss091_image= $params->get('rss091_image', '');
+$rss10_image= $params->get('rss10_image', '');
+$rss20_image= $params->get('rss20_image', '');
+$atom_image= $params->get('atom_image', '');
+$opml_image= $params->get('opml_image', '');
+$yandex_image= $params->get('yandex_image', '');
+$cur_template= $mainframe->getTemplate();
+$t_path= $mosConfig_live_site.'/templates/'.$cur_template.'/images/';
+$d_path= $mosConfig_live_site.'/images/M_images/';
 // needed to reduce query
-if ( isset( $GLOBALS['syndicateParams'] ) ) {
+if (isset($GLOBALS['syndicateParams'])) {
 // load value stored in GLOBALS
-	$syndicateParams = $GLOBALS['syndicateParams'];
+$syndicateParams = $GLOBALS['syndicateParams'];
 } else {
 // query to oull syndication component params
-	$query = "SELECT a.*"
-			. "\n FROM #__components AS a"
-			. "\n WHERE ( a.admin_menu_link = 'option=com_syndicate' OR a.admin_menu_link = 'option=com_syndicate&hidemainmenu=1' )"
-			. "\n AND a.option = 'com_syndicate'";
-	$database->setQuery( $query );
-	$database->loadObject( $row );
-
-	// get params definitions
-	$syndicateParams = new mosParameters( $row->params, $mainframe->getPath( 'com_xml', $row->option ), 'component' );
+$query = "SELECT a.*"
+. "\n FROM #__components AS a"
+. "\n WHERE ( a.admin_menu_link = 'option=com_syndicate' OR a.admin_menu_link = 'option=com_syndicate&hidemainmenu=1' )"
+. "\n AND a.option = 'com_syndicate'"
+;
+$database->setQuery($query);
+$database->loadObject($row);
+// get params definitions
+$syndicateParams = new mosParameters($row->params, $mainframe->getPath('com_xml', $row->option), 'component');
 }
-
 // check for disabling/enabling of selected feed types
-if ( !$syndicateParams->get( 'rss091', 1 ) ) {
-	$rss091 = 0;
+if (!$syndicateParams->get('rss091', 1)) {
+$rss091 = 0;
 }
-if ( !$syndicateParams->get( 'rss10', 1 ) ) {
-	$rss10 = 0;
+if (!$syndicateParams->get('rss10', 1)) {
+$rss10 = 0;
 }
-if ( !$syndicateParams->get( 'rss20', 1 ) ) {
-	$rss20 = 0;
+if (!$syndicateParams->get('rss20', 1)) {
+$rss20 = 0;
 }
-if ( !$syndicateParams->get( 'atom03', 1 ) ) {
-	$atom03 = 0;
+if (!$syndicateParams->get('atom03', 1)) {
+$atom03 = 0;
 }
-if ( !$syndicateParams->get( 'opml', 1 ) ) {
-	$opml = 0;
+if (!$syndicateParams->get('opml', 1)) {
+$opml = 0;
 }
-if ( !$syndicateParams->get( 'yandex', 1 ) ) {
-	$yandex = 0;
+if (!$syndicateParams->get('yandex', 1)) {
+$yandex = 0;
 }
 ?>
 <div class="syndicate<?php echo $moduleclass_sfx;?>">
-	<?php
-	// Ñ‚ĞµĞºÑÑ‚
-	if ( $text ) {
-		?><div align="center" class="syndicate_text<?php echo $moduleclass_sfx;?>"><?php echo $text;?></div><?php
-	}
-	// ÑÑÑ‹Ğ»ĞºĞ° ÑÑ‚Ğ°Ğ½Ğ´Ğ°Ñ€Ñ‚Ğ° Yandex
-	if ( $yandex ) {
-		$link = 'index.php?option=com_rss&amp;feed=Yandex&amp;no_html=1';
-		output_rssfeed( $link, 'yandex_rss.png', $yandex_image, 'Yandex RSS', 'Yandex' );
-	}
-	// ÑÑÑ‹Ğ»ĞºĞ° ÑÑ‚Ğ°Ğ½Ğ´Ğ°Ñ€Ñ‚Ğ° rss091
-	if ( $rss091 ) {
-		$link = 'index.php?option=com_rss&amp;feed=RSS0.91&amp;no_html=1';
-		output_rssfeed( $link, 'rss091.gif', $rss091_image, 'RSS 0.91', 'RSS091' );
-	}
-	// ÑÑÑ‹Ğ»ĞºĞ° ÑÑ‚Ğ°Ğ½Ğ´Ğ°Ñ€Ñ‚Ğ° rss10
-	if ( $rss10 ) {
-		$link = 'index.php?option=com_rss&amp;feed=RSS1.0&amp;no_html=1';
-		output_rssfeed( $link, 'rss10.gif', $rss10_image, 'RSS 1.0', 'RSS10' );
-	}
-	// ÑÑÑ‹Ğ»ĞºĞ° ÑÑ‚Ğ°Ğ½Ğ´Ğ°Ñ€Ñ‚Ğ° rss20
-	if ( $rss20 ) {
-		$link = 'index.php?option=com_rss&amp;feed=RSS2.0&amp;no_html=1';
-		output_rssfeed( $link, 'rss20.gif', $rss20_image, 'RSS 2.0', 'RSS20' );
-	}
-	// ÑÑÑ‹Ğ»ĞºĞ° ÑÑ‚Ğ°Ğ½Ğ´Ğ°Ñ€Ñ‚Ğ° atom
-	if ( $atom03 ) {
-		$link = 'index.php?option=com_rss&amp;feed=ATOM0.3&amp;no_html=1';
-		output_rssfeed( $link, 'atom03.gif', $atom_image, 'ATOM 0.3', 'ATOM03' );
-	}
-	// ÑÑÑ‹Ğ»ĞºĞ° opml
-	if ( $opml ) {
-		$link = 'index.php?option=com_rss&amp;feed=OPML&amp;no_html=1';
-		output_rssfeed( $link, 'opml.png', $opml_image, 'OPML', 'OPML'  );
-	}
-	?>
+<?php
+// òåêñò
+if ($text) {
+?>
+<div align="center" class="syndicate_text<?php echo $moduleclass_sfx;?>"><?php echo $text;?></div>
+<?php
+}
+// ññûëêà ñòàíäàğòà Yandex
+if ($yandex) {
+$link = 'index.php?option=com_rss&amp;feed=Yandex&amp;no_html=1';
+output_rssfeed($link, 'yandex_rss.png', $yandex_image, 'Yandex RSS', 'Yandex');
+}
+// ññûëêà ñòàíäàğòà rss091
+if ($rss091) {
+$link = 'index.php?option=com_rss&amp;feed=RSS0.91&amp;no_html=1';
+output_rssfeed($link, 'rss091.gif', $rss091_image, 'RSS 0.91', 'RSS091');
+}
+// ññûëêà ñòàíäàğòà rss10
+if ($rss10) {
+$link = 'index.php?option=com_rss&amp;feed=RSS1.0&amp;no_html=1';
+output_rssfeed($link, 'rss10.gif', $rss10_image, 'RSS 1.0', 'RSS10');
+}
+// ññûëêà ñòàíäàğòà rss20
+if ($rss20) {
+$link = 'index.php?option=com_rss&amp;feed=RSS2.0&amp;no_html=1';
+output_rssfeed($link, 'rss20.gif', $rss20_image, 'RSS 2.0', 'RSS20');
+}
+// ññûëêà ñòàíäàğòà atom
+if ($atom03) {
+$link = 'index.php?option=com_rss&amp;feed=ATOM0.3&amp;no_html=1';
+output_rssfeed($link, 'atom03.gif', $atom_image, 'ATOM 0.3', 'ATOM03');
+}
+// ññûëêà opml
+if ($opml) {
+$link = 'index.php?option=com_rss&amp;feed=OPML&amp;no_html=1';
+output_rssfeed($link, 'opml.png', $opml_image, 'OPML', 'OPML');
+}
+?>
 </div>
