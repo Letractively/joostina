@@ -129,10 +129,14 @@ INSERT INTO `#__components` VALUES (1, 'Баннеры', '', 0, 0, 'option=com_b
 INSERT INTO `#__components` VALUES (2, 'Баннеры', '', 0, 1, 'option=com_banners&task=banners', 'Активные баннеры', 'com_banners', 1, 'js/ThemeOffice/edit.png', 0, '');
 INSERT INTO `#__components` VALUES (3, 'Клиенты', '', 0, 1, 'option=com_banners&task=clients', 'Управление клиентами', 'com_banners', 2, 'js/ThemeOffice/categories.png', 0, '');
 INSERT INTO `#__components` VALUES (25, 'Категории', '', 0, 1, 'option=com_banners&task=categories', 'Управление категориями', 'com_banners', 2, 'js/ThemeOffice/categories.png', 0, '');
+INSERT INTO `#__components` VALUES (4, 'Каталог ссылок', 'option=com_weblinks', 0, 0, '', 'Управление ссылками', 'com_weblinks', 0, 'js/ThemeOffice/globe2.png', 0, '');
+INSERT INTO `#__components` VALUES (5, 'Ссылки', '', 0, 4, 'option=com_weblinks', 'Просмотр существующих ссылок', 'com_weblinks', 1, 'js/ThemeOffice/edit.png', 0, '');
+INSERT INTO `#__components` VALUES (6, 'Категории', '', 0, 4, 'option=com_categories&section=com_weblinks', 'Управление категориями ссылок', '', 2, 'js/ThemeOffice/categories.png', 0, '');
 INSERT INTO `#__components` VALUES (7, 'Контакты', 'option=com_contact', 0, 0, '', 'Редактировать контактную информацию', 'com_contact', 0, 'js/ThemeOffice/user.png', 1, '');
 INSERT INTO `#__components` VALUES (8, 'Контакты', '', 0, 7, 'option=com_contact', 'Редактировать контактную информацию', 'com_contact', 0, 'js/ThemeOffice/edit.png', 1, '');
 INSERT INTO `#__components` VALUES (9, 'Категории', '', 0, 7, 'option=com_categories&section=com_contact_details', 'Управление категориями контактов', '', 2, 'js/ThemeOffice/categories.png', 1, '');
 INSERT INTO `#__components` VALUES (10, 'Главная страница', 'option=com_frontpage', 0, 0, '', 'Управление объектами главной страницы', 'com_frontpage', 0, 'js/ThemeOffice/component.png', 1, '');
+INSERT INTO `#__components` VALUES (11, 'Опросы', 'option=com_poll', 0, 0, 'option=com_poll', 'Управление опросами', 'com_poll', 0, 'js/ThemeOffice/component.png', 0, '');
 INSERT INTO `#__components` VALUES (12, 'Ленты новостей', 'option=com_newsfeeds', 0, 0, '', 'Управление настройками лент новостей', 'com_newsfeeds', 0, 'js/ThemeOffice/rss_go.png', 0, '');
 INSERT INTO `#__components` VALUES (13, 'Ленты новостей', '', 0, 12, 'option=com_newsfeeds', 'Управление лентами новостей', 'com_newsfeeds', 1, 'js/ThemeOffice/edit.png', 0, '');
 INSERT INTO `#__components` VALUES (14, 'Категории', '', 0, 12, 'option=com_categories&section=com_newsfeeds', 'Управление категориями', '', 2, 'js/ThemeOffice/categories.png', 0, '');
@@ -314,6 +318,7 @@ INSERT INTO `#__mambots` VALUES (2,'Разбиение на страницы MOS
 INSERT INTO `#__mambots` VALUES (4,'SEF','mossef','content',0,3,0,0,0,0,'0000-00-00 00:00:00','');
 INSERT INTO `#__mambots` VALUES (5,'Рейтинг статей','plugin_jw_ajaxvote','content',0,4,1,1,0,0,'0000-00-00 00:00:00','');
 INSERT INTO `#__mambots` VALUES (6,'Поиск содержимого','content.searchbot','search',0,1,1,1,0,0,'0000-00-00 00:00:00','');
+INSERT INTO `#__mambots` VALUES (7,'Поиск веб-ссылок','weblinks.searchbot','search',0,2,1,1,0,0,'0000-00-00 00:00:00','');
 INSERT INTO `#__mambots` VALUES (8,'Поддержка кода','moscode','content',0,2,0,0,0,0,'0000-00-00 00:00:00','');
 INSERT INTO `#__mambots` VALUES (9,'Простой редактор HTML','none','editors',0,0,1,1,0,0,'0000-00-00 00:00:00','');
 INSERT INTO `#__mambots` VALUES (10, 'WYSIWYG-редактор JCE', 'jce', 'editors', 0, 1, 1, 0, 0, 0, '0000-00-00 00:00:00', 'theme=advance\r\neditor_width=100%');
@@ -363,6 +368,35 @@ CREATE TABLE `#__menu` (
 ) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 INSERT INTO `#__menu` VALUES (1, 'mainmenu', 'Главная', 'index.php?option=com_frontpage', 'components', 1, 0, 10, 0, 2, 0, '0000-00-00 00:00:00', 0, 0, 0, 3, 'title=\npage_name=\nno_site_name=0\nrobots=-1\nmeta_description=\nmeta_keywords=\nmeta_author=\nmenu_image=-1\npageclass_sfx=\nheader=Добро пожаловать на главную страницу\npage_title=0\nback_button=0\nleading=2\nintro=2\ncolumns=1\nlink=0\norderby_pri=\norderby_sec=front\npagination=2\npagination_results=0\nimage=1\nsection=0\nsection_link=0\nsection_link_type=blog\ncategory=1\ncategory_link=0\ncat_link_type=blog\nitem_title=1\nlink_titles=1\nintro_only=1\nview_introtext=1\nintrotext_limit=\nview_tags=1\nreadmore=0\nrating=0\nauthor=1\nauthor_name=0\ncreatedate=1\nmodifydate=0\nhits=\nprint=0\nemail=0\nunpublished=0');
+# --------------------------------------------------------
+
+#
+# Структура таблицы `#__messages`
+#
+
+CREATE TABLE `#__messages` (
+  `message_id` int(10) unsigned NOT NULL auto_increment,
+  `user_id_from` int(10) unsigned NOT NULL default '0',
+  `user_id_to` int(10) unsigned NOT NULL default '0',
+  `folder_id` int(10) unsigned NOT NULL default '0',
+  `date_time` datetime NOT NULL default '0000-00-00 00:00:00',
+  `state` int(11) NOT NULL default '0',
+  `priority` int(1) unsigned NOT NULL default '0',
+  `subject` varchar(230) NOT NULL default '',
+  `message` text NOT NULL,
+  PRIMARY KEY  (`message_id`)
+) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+#
+# Структура таблицы `#__messages_cfg`
+#
+
+CREATE TABLE `#__messages_cfg` (
+  `user_id` int(10) unsigned NOT NULL default '0',
+  `cfg_name` varchar(100) NOT NULL default '',
+  `cfg_value` varchar(255) NOT NULL default '',
+  UNIQUE `idx_user_var_name` (`user_id`,`cfg_name`)
+) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 #
 # Структура таблицы `#__modules`
@@ -394,6 +428,7 @@ CREATE TABLE `#__modules` (
 # Данные таблицы `#__modules`
 #
 
+INSERT INTO `#__modules` VALUES (1, 'Ваше мнение', '', 4, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_poll', 0, 0, 1, 'cache=1\nmoduleclass_sfx=', 0, 0);
 INSERT INTO `#__modules` VALUES (2, 'Меню пользователя', '', 1, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_mljoostinamenu', 0, 1, 1, 'moduleclass_sfx=_menu\nclass_sfx=\nmenutype=usermenu\nmenu_style=ulli\nml_imaged=0\nml_module_number=1\nml_first_hidden=0\nfull_active_id=0\nmenu_images=0\nmenu_images_align=0\nexpand_menu=0\nactivate_parent=0\nindent_image=0\nindent_image1=\nindent_image2=\nindent_image3=\nindent_image4=\nindent_image5=\nindent_image6=\nml_separated_link=0\nml_linked_sep=0\nml_separated_link_first=0\nml_separated_link_last=0\nml_hide_active=0\nml_separated_active=0\nml_linked_sep_active=0\nml_separated_active_first=0\nml_separated_active_last=0\nml_separated_element=0\nml_separated_element_first=0\nml_separated_element_last=0\nml_td_width=0\nml_div=0\nml_aligner=left\nml_rollover_use=0\nml_image1=-1\nml_image2=-1\nml_image3=-1\nml_image4=-1\nml_image5=-1\nml_image6=-1\nml_image7=-1\nml_image8=-1\nml_image9=-1\nml_image10=-1\nml_image11=-1\nml_image_roll_1=-1\nml_image_roll_2=-1\nml_image_roll_3=-1\nml_image_roll_4=-1\nml_image_roll_5=-1\nml_image_roll_6=-1\nml_image_roll_7=-1\nml_image_roll_8=-1\nml_image_roll_9=-1\nml_image_roll_10=-1\nml_image_roll_11=-1\nml_hide_logged1=1\nml_hide_logged2=1\nml_hide_logged3=1\nml_hide_logged4=1\nml_hide_logged5=1\nml_hide_logged6=1\nml_hide_logged7=1\nml_hide_logged8=1\nml_hide_logged9=1\nml_hide_logged10=1\nml_hide_logged11=1', 1, 0);
 INSERT INTO `#__modules` VALUES (3, 'Главное меню', '', 2, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_mljoostinamenu', 0, 0, 0, 'cache=1\nmoduleclass_sfx=-round\nclass_sfx=\nmenutype=mainmenu\nmenu_style=ulli\nml_imaged=0\nml_module_number=1\nnumrow=5\nml_first_hidden=1\nfull_active_id=0\nmenu_images=0\nmenu_images_align=0\nexpand_menu=0\nactivate_parent=0\nindent_image=0\nindent_image1=\nindent_image2=\nindent_image3=\nindent_image4=\nindent_image5=\nindent_image6=\nml_separated_link=0\nml_linked_sep=0\nml_separated_link_first=0\nml_separated_link_last=0\nml_hide_active=0\nml_separated_active=0\nml_linked_sep_active=0\nml_separated_active_first=0\nml_separated_active_last=0\nml_separated_element=0\nml_separated_element_first=0\nml_separated_element_last=0\nml_td_width=0\nml_div=0\nml_aligner=left\nml_rollover_use=0\nml_image1=-1\nml_image2=-1\nml_image3=-1\nml_image4=-1\nml_image5=-1\nml_image6=apply.png\nml_image7=apply.png\nml_image8=apply.png\nml_image9=apply.png\nml_image10=apply.png\nml_image11=apply.png\nml_image_roll_1=-1\nml_image_roll_2=-1\nml_image_roll_3=-1\nml_image_roll_4=-1\nml_image_roll_5=-1\nml_image_roll_6=-1\nml_image_roll_7=-1\nml_image_roll_8=-1\nml_image_roll_9=-1\nml_image_roll_10=-1\nml_image_roll_11=-1\nml_hide_logged1=1\nml_hide_logged2=1\nml_hide_logged3=1\nml_hide_logged4=1\nml_hide_logged5=1\nml_hide_logged6=1\nml_hide_logged7=1\nml_hide_logged8=1\nml_hide_logged9=1\nml_hide_logged10=1\nml_hide_logged11=1', 1, 0);
 INSERT INTO `#__modules` VALUES (4, 'Авторизация', '', 1, 'toolbar', 0, '0000-00-00 00:00:00', 1, 'mod_ml_login', 0, 0, 0, 'moduleclass_sfx=\nml_visibility=1\ndr_login_text=Вход\norientation=0\nml_avatar=0\npretext=\nposttext=\nlogin=\nlogin_message=0\ngreeting=1\nuser_name=0\nprofile_link=0\nprofile_link_text=Личный кабинет\nlogout=\nlogout_message=0\nshow_login_text=1\nshow_login_tooltip=1\nml_login_text=Логин\nlogin_tooltip_text=\nshow_pass_text=1\nshow_pass_tooltip=0\nml_pass_text=\npass_tooltip_text=\nshow_remember=0\nml_rem_text=\nshow_lost_pass=1\nml_rem_pass_text=\nshow_register=1\nml_reg_text=\nsubmit_button_text=', 1, 0);
@@ -402,6 +437,7 @@ INSERT INTO `#__modules` VALUES (6, 'Последние новости', '', 1, 
 INSERT INTO `#__modules` VALUES (7, 'Статистика', '', 2, 'user9', 0, '0000-00-00 00:00:00', 1, 'mod_stats', 0, 0, 0, 'cache=1\nserverinfo=1\nsiteinfo=0\ncounter=0\nincrease=0\nmoduleclass_sfx=-stat', 0, 0);
 INSERT INTO `#__modules` VALUES (8, 'Пользователи', '', 1, 'user9', 0, '0000-00-00 00:00:00', 1, 'mod_whosonline', 0, 0, 1, 'nmoduleclass_sfx=\nmodule_orientation=0\nall_user=1\nonline_user_count=0\nonline_users=0\nuser_avatar=0', 0, 0);
 INSERT INTO `#__modules` VALUES (9, 'Популярное', '', 1, 'user6', 0, '0000-00-00 00:00:00', 1, 'mod_mostread', 0, 0, 1, 'cache=1\nmoduleclass_sfx=\ncache=1\nnoncss=0\ntype=1\nshow_front=1\nshow_hits=0\ncount=3\ncatid=\nsecid=\ndef_itemid=0', 0, 0);
+INSERT INTO `#__modules` VALUES (10, 'Выбор шаблона', '', 7, 'left', 0, '0000-00-00 00:00:00', 0, 'mod_templatechooser', 0, 0, 1, 'show_preview=1', 0, 0);
 INSERT INTO `#__modules` VALUES (11, 'Архив', '', 8, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_archive', 0, 0, 1, '', 1, 0);
 INSERT INTO `#__modules` VALUES (12, 'Разделы', '', 9, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_sections', 0, 0, 1, '', 1, 0);
 INSERT INTO `#__modules` VALUES (13, 'Краткие новости', '', 1, 'top', 0, '0000-00-00 00:00:00', 0, 'mod_newsflash', 0, 0, 0, 'ncatid=3\nstyle=random\nimage=0\nlink_titles=\nreadmore=0\nitem_title=0\nitems=\ncache=0\nmoduleclass_sfx=', 0, 0);
@@ -415,6 +451,7 @@ INSERT INTO `#__modules` VALUES (20, 'Популярное содержимое'
 INSERT INTO `#__modules` VALUES (21, 'Последнее добавленное содержимое', '', 4, 'advert1', 0, '0000-00-00 00:00:00', 1, 'mod_latest', 0, 99, 1, '', 1, 1);
 INSERT INTO `#__modules` VALUES (22, 'Меню', '', 5, 'cpanel', 0, '0000-00-00 00:00:00', 1, 'mod_stats', 0, 99, 1, '', 0, 1);
 INSERT INTO `#__modules` VALUES (23, 'Последние зарегистрированные пользователи', '', 4, 'advert2', 0, '0000-00-00 00:00:00', 1, 'mod_latest_users', 0, 99, 1, '', 1, 1);
+INSERT INTO `#__modules` VALUES (24, 'Новые сообщения', '', 1, 'header', 0, '0000-00-00 00:00:00', 0, 'mod_unread', 0, 99, 1, '', 1, 1);
 INSERT INTO `#__modules` VALUES (25, 'Активные пользователи', '', 2, 'header', 0, '0000-00-00 00:00:00', 0, 'mod_online', 0, 99, 1, '', 1, 1);
 INSERT INTO `#__modules` VALUES (26, 'Полное меню', '', 1, 'top', 0, '0000-00-00 00:00:00', 1, 'mod_fullmenu', 0, 99, 1, '', 1, 1);
 INSERT INTO `#__modules` VALUES (27, 'Путь', '', 1, 'pathway', 0, '0000-00-00 00:00:00', 0, 'mod_pathway', 0, 99, 1, '', 1, 1);
@@ -490,6 +527,58 @@ CREATE TABLE `#__newsfeeds` (
   `code` int(2) NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `published` (`published`)
+) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+#
+# Структура таблицы `#__poll_data`
+#
+
+CREATE TABLE `#__poll_data` (
+  `id` int(11) NOT NULL auto_increment,
+  `pollid` int(4) NOT NULL default '0',
+  `text` text NOT NULL,
+  `hits` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  KEY `pollid` (`pollid`,`text`(1))
+) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+#
+# Структура таблицы `#__poll_date`
+#
+
+CREATE TABLE `#__poll_date` (
+  `id` bigint(20) NOT NULL auto_increment,
+  `date` datetime NOT NULL default '0000-00-00 00:00:00',
+  `vote_id` int(11) NOT NULL default '0',
+  `poll_id` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  KEY `poll_id` (`poll_id`)
+) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+#
+# Структура таблицы `#__polls`
+#
+
+CREATE TABLE `#__polls` (
+  `id` int(11) unsigned NOT NULL auto_increment,
+  `title` varchar(100) NOT NULL default '',
+  `voters` int(9) NOT NULL default '0',
+  `checked_out` int(11) NOT NULL default '0',
+  `checked_out_time` datetime NOT NULL default '0000-00-00 00:00:00',
+  `published` tinyint(1) NOT NULL default '0',
+  `access` int(11) NOT NULL default '0',
+  `lag` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+#
+# Структура таблицы `#__poll_menu`
+#
+
+CREATE TABLE `#__poll_menu` (
+  `pollid` int(11) NOT NULL default '0',
+  `menuid` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`pollid`,`menuid`)
 ) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 #
@@ -657,6 +746,30 @@ INSERT INTO `#__usertypes` VALUES (4, 'author', '');
 INSERT INTO `#__usertypes` VALUES (5, 'publisher', '');
 INSERT INTO `#__usertypes` VALUES (6, 'manager', '');
 # --------------------------------------------------------
+
+#
+# Структура таблицы `#__weblinks`
+#
+
+CREATE TABLE `#__weblinks` (
+  `id` int(11) unsigned NOT NULL auto_increment,
+  `catid` int(11) NOT NULL default '0',
+  `sid` int(11) NOT NULL default '0',
+  `title` varchar(250) NOT NULL default '',
+  `url` varchar(250) NOT NULL default '',
+  `description` varchar(250) NOT NULL default '',
+  `date` datetime NOT NULL default '0000-00-00 00:00:00',
+  `hits` int(11) NOT NULL default '0',
+  `published` tinyint(1) NOT NULL default '0',
+  `checked_out` int(11) NOT NULL default '0',
+  `checked_out_time` datetime NOT NULL default '0000-00-00 00:00:00',
+  `ordering` int(11) NOT NULL default '0',
+  `archived` tinyint(1) NOT NULL default '0',
+  `approved` tinyint(1) NOT NULL default '1',
+  `params` text NOT NULL,
+  PRIMARY KEY  (`id`),
+  KEY `catid` (`catid`,`published`,`archived`)
+) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 #
 # Структура таблицы `#__core_acl_aro`
@@ -846,19 +959,20 @@ CREATE TABLE `#__quickicons` (
 
 
 # Настройки компонента значков быстрого доступа
-INSERT INTO `#__quickicons` VALUES (null, 'Добавить содержимое', 'index2.php?option=com_content&sectionid=0&task=new', '/administrator/templates/joostfree/images/cpanel_ico/add_new.png', 1, 0, 1, 'Добавить новость / статью', 0, 0, 0);
-INSERT INTO `#__quickicons` VALUES (null, 'Разделы', 'index2.php?option=com_sections&scope=content', '/administrator/templates/joostfree/images/cpanel_ico/sections.png', 4, 0, 1, 'Управление разделами', 0, 0, 0);
-INSERT INTO `#__quickicons` VALUES (null, 'Главная страница', 'index2.php?option=com_frontpage', '/administrator/templates/joostfree/images/cpanel_ico/frontpage.png', 6, 0, 1, 'Управление объектами главной страницы', 0, 0, 0);
-INSERT INTO `#__quickicons` VALUES (null, 'Все содержимое сайта', 'index2.php?option=com_content&sectionid=0', '/administrator/templates/joostfree/images/cpanel_ico/all_content.png', 2, 0, 1, 'Управление объектами содержимого', 0, 0, 0);
-INSERT INTO `#__quickicons` VALUES (null, 'Статичное содержимое', 'index2.php?option=com_typedcontent', '/administrator/templates/joostfree/images/cpanel_ico/all_typed.png', 3, 0, 1, 'Управление объектами статичного содержимого', 0, 0, 0);
-INSERT INTO `#__quickicons` VALUES (null, 'Медиа менеджер', 'index2.php?option=com_jwmmxtd', '/administrator/templates/joostfree/images/cpanel_ico/mediamanager.png', 7, 0, 1, 'Управление медиа файлами', 0, 0, 0);
-INSERT INTO `#__quickicons` VALUES (null, 'Категории', 'index2.php?option=com_categories&section=content', '/administrator/templates/joostfree/images/cpanel_ico/categories.png', 5, 0, 1, 'Управление категориями', 0, 0, 0);
-INSERT INTO `#__quickicons` VALUES (null, 'Корзина', 'index2.php?option=com_trash', '/administrator/templates/joostfree/images/cpanel_ico/trash.png', 12, 0, 1, 'Управление корзиной удаленных объектов', 0, 0, 0);
-INSERT INTO `#__quickicons` VALUES (null, 'Редактор меню', 'index2.php?option=com_menumanager', '/administrator/templates/joostfree/images/cpanel_ico/menu.png', 9, 0, 1, 'Управление объектами меню', 0, 0, 24);
-INSERT INTO `#__quickicons` VALUES (null, 'Пользователи', 'index2.php?option=com_users', '/administrator/templates/joostfree/images/cpanel_ico/user.png', 10, 0, 1, 'Управление пользователями', 0, 0, 24);
-INSERT INTO `#__quickicons` VALUES (null, 'Глобальная конфигурация', 'index2.php?option=com_config&hidemainmenu=1', '/administrator/templates/joostfree/images/cpanel_ico/config.png', 13, 0, 1, 'Глобальная конфигурация сайта', 0, 0, 25);
-INSERT INTO `#__quickicons` VALUES (null, 'Резервное копирование', 'index2.php?option=com_joomlapack&act=pack&hidemainmenu=1', '/administrator/templates/joostfree/images/cpanel_ico/backup.png', 11, 0, 1, 'Резервное копирование информации сайта', 0, 0, 24);
-INSERT INTO `#__quickicons` VALUES (null, 'Очистить весь кэш', 'index2.php?option=com_admin&task=clean_all_cache', '/administrator/templates/joostfree/images/cpanel_ico/clear.png', 14, 0, 1, 'Очистить весь кэш сайта', 0, 0, 24);
+INSERT INTO `#__quickicons` VALUES (1, 'Добавить содержимое', 'index2.php?option=com_content&sectionid=0&task=new', '/administrator/templates/joostfree/images/cpanel_ico/add_new.png', 1, 0, 1, 'Добавить новость / статью', 0, 0, 0);
+INSERT INTO `#__quickicons` VALUES (2, 'Разделы', 'index2.php?option=com_sections&scope=content', '/administrator/templates/joostfree/images/cpanel_ico/sections.png', 4, 0, 1, 'Управление разделами', 0, 0, 0);
+INSERT INTO `#__quickicons` VALUES (3, 'Главная страница', 'index2.php?option=com_frontpage', '/administrator/templates/joostfree/images/cpanel_ico/frontpage.png', 6, 0, 1, 'Управление объектами главной страницы', 0, 0, 0);
+INSERT INTO `#__quickicons` VALUES (4, 'Все содержимое сайта', 'index2.php?option=com_content&sectionid=0', '/administrator/templates/joostfree/images/cpanel_ico/all_content.png', 2, 0, 1, 'Управление объектами содержимого', 0, 0, 0);
+INSERT INTO `#__quickicons` VALUES (5, 'Статичное содержимое', 'index2.php?option=com_typedcontent', '/administrator/templates/joostfree/images/cpanel_ico/all_typed.png', 3, 0, 1, 'Управление объектами статичного содержимого', 0, 0, 0);
+INSERT INTO `#__quickicons` VALUES (6, 'Медиа менеджер', 'index2.php?option=com_jwmmxtd', '/administrator/templates/joostfree/images/cpanel_ico/mediamanager.png', 7, 0, 1, 'Управление медиа файлами', 0, 0, 0);
+INSERT INTO `#__quickicons` VALUES (7, 'Категории', 'index2.php?option=com_categories&section=content', '/administrator/templates/joostfree/images/cpanel_ico/categories.png', 5, 0, 1, 'Управление категориями', 0, 0, 0);
+INSERT INTO `#__quickicons` VALUES (8, 'Корзина', 'index2.php?option=com_trash', '/administrator/templates/joostfree/images/cpanel_ico/trash.png', 12, 0, 1, 'Управление корзиной удаленных объектов', 0, 0, 0);
+INSERT INTO `#__quickicons` VALUES (9, 'Редактор меню', 'index2.php?option=com_menumanager', '/administrator/templates/joostfree/images/cpanel_ico/menu.png', 9, 0, 1, 'Управление объектами меню', 0, 0, 24);
+INSERT INTO `#__quickicons` VALUES (10, 'Файловый менеджер', 'index2.php?option=com_joomlaxplorer', '/administrator/templates/joostfree/images/cpanel_ico/filemanager.png', 8, 0, 1, 'Управление всеми файлами', 0, 0, 25);
+INSERT INTO `#__quickicons` VALUES (11, 'Пользователи', 'index2.php?option=com_users', '/administrator/templates/joostfree/images/cpanel_ico/user.png', 10, 0, 1, 'Управление пользователями', 0, 0, 24);
+INSERT INTO `#__quickicons` VALUES (12, 'Глобальная конфигурация', 'index2.php?option=com_config&hidemainmenu=1', '/administrator/templates/joostfree/images/cpanel_ico/config.png', 13, 0, 1, 'Глобальная конфигурация сайта', 0, 0, 25);
+INSERT INTO `#__quickicons` VALUES (13, 'Резервное копирование', 'index2.php?option=com_joomlapack&act=pack&hidemainmenu=1', '/administrator/templates/joostfree/images/cpanel_ico/backup.png', 11, 0, 1, 'Резервное копирование информации сайта', 0, 0, 24);
+INSERT INTO `#__quickicons` VALUES (14, 'Очистить весь кэш', 'index2.php?option=com_admin&task=clean_all_cache', '/administrator/templates/joostfree/images/cpanel_ico/clear.png', 14, 0, 1, 'Очистить весь кэш сайта', 0, 0, 24);
 
 
 # Таблицы компонента Xmap
@@ -916,6 +1030,7 @@ CREATE TABLE IF NOT EXISTS `#__xmap_ext` (
 ) ENGINE=MyISAM  CHARACTER SET utf8 COLLATE utf8_general_ci;
 # запись о расширении для создания карты контента
 INSERT INTO `#__xmap_ext` ( `extension`, `published`, `params`) VALUES ( 'com_content', 1, '-1{expand_categories=1\nexpand_sections=1\nshow_unauth=0\ncat_priority=-1\ncat_changefreq=-1\nart_priority=-1\nart_changefreq=-1}');
+INSERT INTO `#__xmap_ext` ( `extension`, `published`, `params`) VALUES ( 'com_weblinks', 1, '');
 
 # таблица хранения конфигураций сайта
 CREATE TABLE IF NOT EXISTS `#__config` (

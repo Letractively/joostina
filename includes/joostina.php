@@ -515,7 +515,6 @@ class mosMainFrame {
 		return implode("\n",$footer)."\n";
 	}
 
-
 	/**
 	 * добавление js файлов в шапку или футер страницы
 	 * если $footer - скрипт будет добавлен в $mainframe->_footer
@@ -523,12 +522,11 @@ class mosMainFrame {
 	 * 	'js' - скрипт будет добавлен в $mainfrane->_footer['js'] (первый этап вывода футера)
 	 * 	'custom' - скрипт будет добавлен в $mainfrane->_footer['custom'] (второй этап вывода футера)
 	 */
-	public function addJS($path, $footer = '', &$def = '') {
-		$mainframe = mosMainFrame::getInstance();
+	function addJS($path, $footer = '', &$def = '') {
 		if($footer) {
-			$mainframe->_footer[$footer][] = '<script language="JavaScript" src="'. $path .'" type="text/javascript"></script>';
+			$this->_footer[$footer][] = '<script language="JavaScript" src="'. $path .'" type="text/javascript"></script>';
 		}else {
-			$mainframe->_head['js'][] = '<script language="JavaScript" src="'. $path .'" type="text/javascript"></script>';
+			$this->_head['js'][] = '<script language="JavaScript" src="'. $path .'" type="text/javascript"></script>';
 		}
 	}
 	/**
@@ -767,7 +765,7 @@ class mosMainFrame {
 					// check if site designated as a production site
 					// for a demo site disallow expired page functionality
 					// link must also be a Joomla link to stop malicious redirection
-					if($link && strpos($link,'index2.php?option=com_') === 0 && coreVersion::get('SITE') == 1) {
+					if($link && strpos($link,'index2.php?option=com_') === 0 && joomlaVersion::get('SITE') == 1) {
 						$now = time();
 
 						$file = $this->getPath('com_xml','com_users');
@@ -1052,7 +1050,7 @@ class mosMainFrame {
 
 				// check to see if site is a production site
 				// allows multiple logins with same user for a demo site
-				if(coreVersion::get('SITE')) {
+				if(joomlaVersion::get('SITE')) {
 					// delete any old front sessions to stop duplicate sessions
 					$query = "DELETE FROM #__session WHERE session_id != ".$this->_db->Quote($session->session_id)." AND username = ".$this->_db->Quote($row->username)." AND userid = ".(int)$row->id." AND gid = ".(int)$row->gid." AND guest = 0";
 					$this->_db->setQuery($query)->query();
@@ -2142,6 +2140,8 @@ class JConfig {
 	var $config_com_frontpage_clear = 1;
 	/** @str корень для компонента управления медиа содержимым*/
 	var $config_media_dir = 'images/stories';
+	/** @str корень файлового менеджера*/
+	var $config_joomlaxplorer_dir = null;
 	/** @int автоматическая установка "Публиковать на главной"*/
 	var $config_auto_frontpage = 0;
 	/** @int уникальные идентификаторы новостей*/
@@ -2182,6 +2182,8 @@ class JConfig {
 	var $config_disable_access_control = 0;
 	/** @var int включение оптимизации функции кэширования*/
 	var $config_cache_opt = 0;
+	/** @var int включение сжатия css и js файлов*/
+	var $config_gz_js_css = 0;
 	/** @var int captcha для регистрации*/
 	var $config_captcha_reg = 0;
 	/** @var int captcha для формы контактов*/
@@ -4625,8 +4627,15 @@ class mosTabs {
 	function mosTabs($useCookies,$xhtml = 0) {
 		$mainframe = &MosMainFrame::getInstance();
 		$config = $mainframe->get('config');
-		$css_f = 'tabpane.css';
-		$js_f = 'tabpane.js';
+
+		// активация gzip сжатия css и js файлов
+		if($config->config_gz_js_css) {
+			$css_f = 'joostina.tabs.css.php';
+			$js_f = 'joostina.tabs.js.php';
+		} else {
+			$css_f = 'tabpane.css';
+			$js_f = 'tabpane.js';
+		}
 
 		$r_dir = '';
 		if($mainframe->isAdmin()==1) {

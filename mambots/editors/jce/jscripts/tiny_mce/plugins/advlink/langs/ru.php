@@ -8,10 +8,12 @@ $pl['category'] = 'Категория';
 $pl['static'] = 'Статичный материал';
 $pl['contact'] = 'Контакт';
 $pl['menu'] = 'Меню';
+$pl['weblink'] = 'Веб-ссылка';
 
 //1.1
 $pl['select_link_type'] = 'Выберите тип ссылки';
 $pl['select_menu'] = 'Выберите меню';
+$pl['select_weblink'] = 'Выберите веб-ссылку';
 
 $pl['select_article'] = 'Выберите статью';
 $pl['select_section'] = 'Выберите раздел';

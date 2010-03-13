@@ -14,37 +14,56 @@ defined('_VALID_MOS') or die();
  * Информация о версии
  * @package Joostina
  */
-class coreVersion {
+class joomlaVersion {
+	/** @var строка Продукт*/
+	var $PRODUCT = 'Joomla!';
 	/** @var строка CMS*/
-	public static $CMS = 'Joostina';
+	var $CMS = 'Joostina';
 	/** @var версия*/
-	public static $CMS_ver = '1.3.1';
+	var $CMS_ver = '1.3.0';
+	/** @var int Номер основной версии*/
+	var $RELEASE = '1.0';
+	/** @var строка  статус разработки*/
+	var $DEV_STATUS = '';
+	/** @var int Подверсия*/
+	var $DEV_LEVEL = '15';
 	/** @var int Номер сборки*/
-	public static $BUILD = '$: 609';
+	var $BUILD = '$: 609';
+	/** @var string Кодовое имя*/
+	var $CODENAME = '';
 	/** @var string Дата*/
-	public static $RELDATE = '**:03:2010';
+	var $RELDATE = '12:03:2010';
 	/** @var string Время*/
-	public static $RELTIME = '**:**';
+	var $RELTIME = '01:10';
+	/** @var string Временная зона*/
+	var $RELTZ = '+5 GMT';
 	/** @var string Текст авторских прав*/
-	public static $COPYRIGHT = 'Авторские права &copy; 2007-2010 Joostina Team. Все права защищены.';
+	var $COPYRIGHT = 'Авторские права &copy; 2007-2010 Joostina Team. Все права защищены.';
 	/** @var string URL*/
-	public static $URL = '<a href="http://www.joostina.ru" target="_blank" title="Система создания и управления сайтами Joostina CMS">Joostina!</a> - бесплатное и свободное программное обеспечение для создания сайтов, распространяемое по лицензии GNU/GPL.';
+	var $URL = '<a href="http://www.joostina.ru" target="_blank" title="Система создания и управления сайтами Joostina CMS">Joostina!</a> - бесплатное и свободное программное обеспечение для создания сайтов, распространяемое по лицензии GNU/GPL.';
 	/** @var string для реального использования сайта установите = 1 для демонстраций = 0: 1 используется по умолчанию*/
-	public static $SITE = 1;
+	var $SITE = 1;
 	/** @var string Whether site has restricted functionality mostly used for demo sites: 0 is default*/
-	public static $RESTRICT = 0;
+	var $RESTRICT = 0;
 	/** @var string Whether site is still in development phase (disables checks for /installation folder) - should be set to 0 for package release: 0 is default*/
-	public static $SVN = 1;
+	var $SVN = 1;
 	/** @var string ссылки на сайты поддержки*/
-	public static $SUPPORT = 'Поддержка: <a href="http://www.joostina.ru" target="_blank" title="Официальный сайт CMS Joostina">www.joostina.ru</a> | <a href="http://www.joomlaportal.ru" target="_blank" title="Joomla! CMS по-русски">www.joomlaportal.ru</a> | <a href="http://www.joom.ru" target="_blank" title="Русский дом Joomla">www.joom.ru</a> | <a href="http://www.joomla.ru" target="_blank" title="Бесплатная система управления сайтом Joomla!">www.joomla.ru</a>';
-	
+	var $SUPPORT = 'Поддержка: <a href="http://www.joostina.ru" target="_blank" title="Официальный сайт CMS Joostina">www.joostina.ru</a> | <a href="http://www.joomlaportal.ru" target="_blank" title="Joomla! CMS по-русски">www.joomlaportal.ru</a> | <a href="http://www.joom.ru" target="_blank" title="Русский дом Joomla">www.joom.ru</a> | <a href="http://www.joomla.ru" target="_blank" title="Бесплатная система управления сайтом Joomla!">www.joomla.ru</a>';
+	/** * @return string Длинный формат версии */
+	function getLongVersion() {
+		return $this->CMS.' '.$this->RELEASE.'. '.$this->CMS_ver.' [ '.$this->CODENAME.' ] '.$this->RELDATE.' '.$this->RELTIME.' '.$this->RELTZ;
+	}
+	/*** @return string Краткий формат версии */
+	function getShortVersion() {
+		return $this->RELEASE.'.'.$this->DEV_LEVEL;
+	}
 	/*** @return string Version suffix for help files*/
-	public function getHelpVersion() {
+	function getHelpVersion() {
 		return '.'.str_replace('.','',$this->RELEASE);
 	}
-
 	// получение переменных окружения информации осистеме
 	public static function get($name) {
-		return self::$$name;
+		$v = new joomlaVersion();
+		return $v->$name;
 	}
 }

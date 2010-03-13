@@ -86,7 +86,7 @@ if($config->config_enable_admin_secure_code) {
 			</noscript>
 		</div>
 		<div id="footer" align="center">
-			<div align="center"><?php echo coreVersion::get('URL'); ?></div>
+			<div align="center"><?php echo joomlaVersion::get('URL'); ?></div>
 		</div>
 	</body>
 </html>

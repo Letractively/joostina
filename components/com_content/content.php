@@ -1791,7 +1791,26 @@ function _after_create_content($row, $page) {
 
 	$database = &database::getInstance();
 
-	// TODO прописать мамботы срабатывающие после сохранения содержимого
+	// gets section name of item
+	$query = "SELECT s.title FROM #__sections AS s WHERE s.scope = 'content' AND s.id = ".(int)$row->sectionid;
+	$database->setQuery($query);
+	// gets category name of item
+	$section = $database->loadResult();
+
+	$query = "SELECT c.title FROM #__categories AS c WHERE c.id = ".(int)$row->catid;
+	$database->setQuery($query);
+	$category = $database->loadResult();
+	$category = stripslashes($category);
+
+	// Отправка сообщения админам о новой записе
+	require_once (JPATH_BASE.'/components/com_messages/messages.class.php');
+	$query = "SELECT id FROM #__users WHERE sendEmail = 1";
+	$database->setQuery($query);
+	$users = $database->loadResultArray();
+	foreach ($users as $user_id) {
+		$msg = new mosMessage($database);
+		$msg->send($my->id, $user_id, _COM_CONTENT_NEW_ITEM, sprintf(_ON_NEW_CONTENT, $my->username, $row->title, $section, $category));
+	}
 
 	switch ($page->task) {
 

@@ -16,6 +16,9 @@ function getListOptions(){
 	if( $jce->getAuthOption( 'static', '18' ) ){
 		$options .= '<option value="static_link">' . $pl['static'] . '</option>';
 	}
+	if( $jce->getAuthOption( 'weblink', '18' ) ){
+		$options .= '<option value="category_select_weblink">' . $pl['weblink'] . '</option>';
+	}
 	if( $jce->getAuthOption( 'contact', '18' ) ){	
 		$options .= '<option value="category_select_contact">' . $pl['contact'] . '</option>';
 	}
@@ -67,9 +70,15 @@ function getByType( $type, $id='' ){
 			}
 			break;
 		case 'category_select_article':
+		case 'category_select_weblink':
 		case 'category_select_contact':
 			$onchange = "if(this.value!=''){loadType('article_link', this.value);}";
 			$div = 'list_level_2';
+			if( $type == 'category_select_weblink' ) {
+				$id = 'com_weblinks';
+				$onchange = "if(this.value!=''){loadType('weblink_link', this.value);}";
+				$div = 'list_level_1';
+			}
 			if( $type == 'category_select_contact' ) {
 				$id = 'com_contact_details';
 				$onchange = "if(this.value!=''){loadType('contact_link', this.value);}";
@@ -94,6 +103,17 @@ function getByType( $type, $id='' ){
 				$itemid = $mainframe->getItemId( $article->value );
 				if( !$itemid ) $itemid = '1'; 
 				$html .= '<option value="index.php?option=com_content&amp;task=view&amp;id=' . $article->value . '&amp;Itemid=' . $itemid . '">' . $article->text . '</option>';
+			}
+			break;
+		case 'weblink_link':
+			$label = $pl['select_weblink'];
+			$weblink_content = getWeblink( $id );
+			$onchange = "insertLink(this.value);";
+			$div = 'list_level_2';
+			$html = '<select class="link_select" name="' . $type . '" onchange="' . $onchange . '">';
+			$html .= '<option value="">--' . $pl['select_weblink'] . '--</option>';
+			foreach( $weblink_content as $weblink ){
+				$html .= '<option value="index.php?option=com_weblinks&task=view&catid=' .$id  . '&amp;id=' . $weblink->value . '">' . $weblink->text . '</option>';
 			}
 			break;
 		case 'contact_link':
@@ -172,6 +192,18 @@ function getArticle( $cid ){
 			$article_content = $database->loadObjectList();
 			
 	return $article_content;
+}
+function getWeblink( $cid ){
+	global $database;
+	$query = "SELECT a.id AS value, a.title AS text, a.url AS href
+			 FROM #__weblinks AS a
+			 WHERE a.published = '1' AND a.catid = '" . $cid . "'
+			 ORDER BY a.title";
+	
+			$database->setQuery( $query );
+			$weblink_content = $database->loadObjectList();
+			
+	return $weblink_content;
 }
 function getContact( $cid ){
 	global $database;

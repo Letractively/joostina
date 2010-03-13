@@ -145,6 +145,8 @@ function showconfig($option) {
 	$lists['captcha']= mosHTML::yesnoRadioList('config_captcha','class="inputbox"',$row->config_captcha);
 	// управление captcha
 	$lists['com_frontpage_clear']= mosHTML::yesnoRadioList('config_com_frontpage_clear','class="inputbox"',$row->config_com_frontpage_clear);
+	// корень файлового менеджера
+	$row->config_joomlaxplorer_dir = $row->config_joomlaxplorer_dir ? $row->config_joomlaxplorer_dir : JPATH_BASE;
 	// автоматическая установка чекбокса "Публиковать на главной"
 	$lists['auto_frontpage']= mosHTML::yesnoRadioList('config_auto_frontpage','class="inputbox"',$row->config_auto_frontpage);
 	// уникальные идентификаторы новостей
@@ -197,6 +199,8 @@ function showconfig($option) {
 	$lists['config_disable_access_control']= mosHTML::yesnoRadioList('config_disable_access_control','class="inputbox"',$row->config_disable_access_control);
 	// оптимизация функции кэширования
 	$lists['config_cache_opt']= mosHTML::yesnoRadioList('config_cache_opt','class="inputbox"',$row->config_cache_opt);
+	// включение сжатия css и js файлов
+	$lists['config_gz_js_css']= mosHTML::yesnoRadioList('config_gz_js_css','class="inputbox"',$row->config_gz_js_css);
 	// captcha для регистрации
 	$lists['config_captcha_reg']= mosHTML::yesnoRadioList('config_captcha_reg','class="inputbox"',$row->config_captcha_reg);
 	// captcha для формы контактов
@@ -611,6 +615,8 @@ function saveconfig($task) {
 
 	// ключ кэша
 	$row->config_cache_key = time();
+
+	if($row->config_joomlaxplorer_dir == $row->config_absolute_path) $row->config_joomlaxplorer_dir = 0;
 
 	$config = "<?php \n";
 

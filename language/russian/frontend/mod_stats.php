@@ -14,4 +14,5 @@ DEFINE('_TIME_STAT','Время');
 DEFINE('_MEMBERS_STAT','Пользователей');
 DEFINE('_HITS_STAT','Посещений');
 DEFINE('_NEWS_STAT','Новостей');
+DEFINE('_LINKS_COUNT','Ссылок');
 DEFINE('_VISITORS','Посетителей');

@@ -433,6 +433,7 @@ DEFINE('_TEMPLATE_ITEM_EDIT', 'Страница добавления/редак�
 DEFINE('_CONTACT', 'Контакт');
 
 DEFINE('_ALIAS','Псевдоним');
+DEFINE('_POLLS','Опросы');
 
 /* content,users,avatars */
 DEFINE('_C_USERS_AVATARS_SHOISE','Сменить');

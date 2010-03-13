@@ -577,8 +577,16 @@ class HTML_config {
 							<td><input class="text_area" type="text" name="config_media_dir" size="50" value="<?php echo $row->config_media_dir; ?>"/></td>
 						</tr>
 						<tr>
+							<td><?php echo mosToolTip(_FILE_ROOT2,'','','',_FILE_ROOT)?>:</td>
+							<td><input class="text_area" type="text" name="config_joomlaxplorer_dir" size="50" value="<?php echo $row->config_joomlaxplorer_dir; ?>"/></td>
+						</tr>
+						<tr>
 							<td><?php echo _SECRET_WORD?>:</td>
 							<td><strong><?php echo $row->config_secret; ?></strong></td>
+						</tr>
+						<tr>
+							<td><?php echo _GZ_CSS_JS?>:</td>
+							<td><?php echo $lists['config_gz_js_css']; ?></td>
 						</tr>
 						<tr>
 							<td><?php echo _SESSION_TYPE?>:</td>
