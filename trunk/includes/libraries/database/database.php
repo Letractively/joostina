@@ -405,6 +405,21 @@ class database {
     }
 
     /**
+     * Load a assoc list of database rows
+     * @param string The field name of a primary key
+     * @return array If <var>key</var> is empty as sequential list of returned records.
+     */
+    function loadAssocRow() {
+        if (!($cur = $this->query())) {
+            return null;
+        }
+        $array = array();
+        $row = mysql_fetch_assoc($cur);
+         mysql_free_result($cur);
+        return $row;
+    }
+
+    /**
      * This global function loads the first row of a query into an object
      *
      * If an object is passed to this function, the returned row is bound to the existing elements of <var>object</var>.
