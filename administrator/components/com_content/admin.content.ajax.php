@@ -56,11 +56,12 @@ function x_resethits($id) {
 	echo _COUNTER_RESET;
 }
 
+// формирование ключевых слов
 function x_metakey($count = 25,$minlench = 4) {
-	$mainframe	= &mosMainFrame::getInstance(true);
+	$mainframe	= mosMainFrame::getInstance(true);
 
 	// подключаем файл стоп-слов
-	include JPATH_BASE.DS.'language'.DS.$mainframe->lang.DS.'ignore.php';
+	include JPATH_BASE.DS.'language'.DS.$mainframe->getCfg('lang').DS.'ignore.php';
 
 	$introtext	= mosGetParam($_POST,'introtext','',_MOS_ALLOWRAW);
 	$fulltext	= mosGetParam($_POST,'fulltext','',_MOS_ALLOWRAW);
