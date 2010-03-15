@@ -390,10 +390,6 @@ class HTML_config {
 							<td><?php echo $lists['admin_expired'];?></td>
 						</tr>
 						<tr>
-							<td><?php echo mosToolTip(_HTML_CSS_EDITOR2,'','','',_HTML_CSS_EDITOR)?>:</td>
-							<td><?php echo $lists['config_codepress'];?></td>
-						</tr>
-						<tr>
 							<td><?php echo mosToolTip(_USE_TEMPLATE2,'','','',_USE_TEMPLATE)?>:</td>
 							<td><?php echo $lists['config_admin_template']; ?></td>
 						</tr>

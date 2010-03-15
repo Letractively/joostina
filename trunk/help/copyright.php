@@ -175,10 +175,6 @@ js-tabs
 Авторское право: 1998 - 2003 Erik Arvidsson
 Лицензия: GNU General Public License (GPL)
 
-CodePress
-Авторское право: (C) 2006 Fernando M.A.d.S. <fermads@gmail.com>
-Лицензия: GNU General Public License (GPL)
-
 dtree + Andrew Eddie patch
 Авторское право:  (c) 2002-2003 Geir Landr ( www.destroydrop.com/javascript/tree/ )
 Лицензия: GNU General Public License (GPL)

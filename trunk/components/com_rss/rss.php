@@ -34,17 +34,20 @@ switch($task) {
 * Creates feed from Content Iems associated to teh frontpage component
 */
 function feedFrontpage($showFeed) {
-	$mainframe = &mosMainFrame::getInstance();
+	$mainframe = mosMainFrame::getInstance();
 
-	$database = &$mainframe->getDBO();
-	$config = &$mainframe->config;
-
+	$database = $mainframe->getDBO();
+	$config = $mainframe->config;
+	
 
 	$nullDate = $database->getNullDate();
 	// pull id of syndication component
 	$query = "SELECT a.id FROM #__components AS a WHERE ( a.admin_menu_link = 'option=com_syndicate' OR a.admin_menu_link = 'option=com_syndicate&hidemainmenu=1' ) AND a.option = 'com_syndicate'";
 	$database->setQuery($query);
 	$id = $database->loadResult();
+
+	// подключаем класс работы с компонентами
+	mosMainFrame::addClass('component');
 
 	// load syndication parameters
 	$component = new mosComponent($database);

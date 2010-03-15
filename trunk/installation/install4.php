@@ -265,8 +265,6 @@ if($siteUrl) {
 	$config .= "\$mosConfig_disable_date_state = '0';\n";
 	// отключение контроля уровня доступа к содержимому
 	$config .= "\$mosConfig_disable_access_control = '0';\n";
-	// визуальный редактор для css и html
-	$config .= "\$mosConfig_codepress = '0';\n";
 	// использование страницы печати из каталога текущего шаблона
 	$config .= "\$mosConfig_custom_print = '0';\n";
 

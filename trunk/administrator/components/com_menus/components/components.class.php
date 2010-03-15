@@ -1,26 +1,32 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2010 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2010 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 /**
-* @package Joostina
-* @subpackage Menus
-*/
+ * @package Joostina
+ * @subpackage Menus
+ */
 class components_menu {
 	/**
-	* @param database A database connector object
-	* @param integer The unique id of the category to edit (0 if new)
-	*/
+	 * @param database A database connector object
+	 * @param integer The unique id of the category to edit (0 if new)
+	 */
 	function edit($uid,$menutype,$option,$menu) {
-		global $database,$my,$mainframe;
+		global $my;
+
+		$mainframe = mosMainFrame::getInstance(true);
+		$database = $mainframe->getDBO();
+
+		// подключаем класс работы с компонентами
+		mosMainFrame::addClass('component');
 
 		$row = new mosComponent($database);
 		// load the row from the db table
