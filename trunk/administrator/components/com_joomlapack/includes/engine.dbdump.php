@@ -252,7 +252,7 @@ class CDBBackupEngine {
 									break;
 								case 1:
 								// архивирование в tar.gz
-									require_once (JPATH_BASE.'/includes/Archive/Tar.php');
+									include_once (JPATH_BASE.'/includes/libraries/arhive/Tar.php');
 									$filename = $filename.'.tar.gz';
 									$tar = new Archive_Tar($filename);
 									$tar->setErrorHandling(PEAR_ERROR_PRINT);
@@ -262,7 +262,7 @@ class CDBBackupEngine {
 									break;
 								case 2:
 								// архивирование в zip
-									include_once (JPATH_BASE_ADMIN.'/includes/pcl/pclzip.lib.php');
+									include_once (JPATH_BASE.'/includes/libraries/arhive/pclzip.lib.php');
 									$filename = $filename.'.zip';
 									$zip = new PclZip($filename);
 									$zip->add($this->_filenameCore,'',PclZipUtilTranslateWinPath(dirname($this->_filenameCore)));
@@ -357,9 +357,9 @@ class CDBBackupEngine {
 
 				for($j = 0; $j < $numRows; $j++) {
 					$out .= 'INSERT INTO `'.$abstracttablename.'` values (';
-					$row2 = mysql_fetch_row($database->_cursor);
+					$row2 = mysql_fetch_row($database->getCursor() );
 					// run through each field
-					$nf = mysql_num_fields($database->_cursor);
+					$nf = mysql_num_fields($database->getCursor() );
 					for($k = 0; $k < $nf; $k++) {
 						if(!is_null($row2[$k])) {
 							if(get_magic_quotes_runtime()) {
@@ -386,7 +386,7 @@ class CDBBackupEngine {
 						}
 					}
 				}
-				mysql_free_result($database->_cursor);
+				mysql_free_result($database->getCursor() );
 			}
 
 			// Increment _nextRange pointer. If it was an empty table increase by one
