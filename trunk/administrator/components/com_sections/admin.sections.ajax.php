@@ -38,12 +38,10 @@ switch($task) {
  * @param string The name of the category section
  */
 function x_apply() {
-	global $database;
-	josSpoofCheck();
 
-	foreach($_POST as $key => $val) {
-		$_POST[$key] = joostina_api::convert($val);
-	}
+	$database = &database::getInstance();
+
+	josSpoofCheck();
 
 	$oldtitle = stripslashes(strval(mosGetParam($_POST,'oldtitle',null)));
 

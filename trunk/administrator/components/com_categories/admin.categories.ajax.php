@@ -51,10 +51,6 @@ function x_apply() {
 
 	$row = new mosCategory($database);
 
-	foreach($_POST as $key => $val) {
-		$_POST[$key] = joostina_api::convert($val);
-	}
-
 	if(!$row->bind($_POST,'folders')) return 'error-bind';
 	$row->title = addslashes($row->title);
 	$row->name = addslashes($row->name);

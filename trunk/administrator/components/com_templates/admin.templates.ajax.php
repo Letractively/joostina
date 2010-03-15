@@ -36,9 +36,9 @@ switch($task) {
 function saveTemplateSource() {
 	josSpoofCheck();
 
-	$template		= strval(mosGetParam($_POST,'template',''));
-	$client			= strval(mosGetParam($_REQUEST,'client',''));
-	$filecontent	= joostina_api::convert(mosGetParam($_POST,'filecontent','',_MOS_ALLOWHTML));
+	$template	= strval(mosGetParam($_POST,'template',''));
+	$client		 = strval(mosGetParam($_REQUEST,'client',''));
+	$filecontent  = mosGetParam($_POST,'filecontent','',_MOS_ALLOWHTML);
 
 	if(!$template) {
 		echo _UNSUCCESS_OPERATION_NO_TEMPLATE;
@@ -90,7 +90,7 @@ function saveTemplateCSS() {
 	josSpoofCheck();
 	$template = strval(mosGetParam($_POST,'template',''));
 	$client = strval(mosGetParam($_REQUEST,'client',''));
-	$filecontent = joostina_api::convert(mosGetParam($_POST,'filecontent','',_MOS_ALLOWHTML));
+	$filecontent = mosGetParam($_POST,'filecontent','',_MOS_ALLOWHTML);
 	if(!$template) {
 		echo _UNSUCCESS_OPERATION_NO_TEMPLATE;
 		return;

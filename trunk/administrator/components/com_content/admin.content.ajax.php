@@ -164,10 +164,6 @@ function x_save() {
 	$nullDate	= $database->getNullDate();
 	$sectionid	=intval(mosGetParam($_POST,'sectionid',0));
 
-	foreach($_POST as $key => $val) {
-		$_POST[$key] = joostina_api::convert($val);
-	}
-
 	$row = new mosContent($database);
 	if(!$row->bind($_POST)) {
 		echo $row->getError();

@@ -17,7 +17,7 @@ if ( !( $acl->acl_check('administration', 'config', 'users', $my->usertype) ) ||
 	mosRedirect( 'index2.php', _NOT_AUTH );
 }
 
-$value = joostina_api::convert( mosGetParam($_REQUEST ,'value',''));
+$value = mosGetParam($_REQUEST ,'value','');
 
 $action = mosGetParam($_REQUEST ,'action','');
 
@@ -86,7 +86,7 @@ switch ($action) {
 	case 'save_property':
 		$id = intval (mosGetParam($_REQUEST ,'sitemap',''));
 		$property = mosGetParam($_REQUEST ,'property','');
-		$value = joostina_api::convert(mosGetParam($_POST ,'value',''));
+		$value = mosGetParam($_POST ,'value','');
 		$value = str_replace(array('"',"'",'\\'),'',$value);
 		$sitemap = new XmapSitemap();
 		if ($sitemap->load($id) ) {
@@ -243,7 +243,7 @@ switch ($action) {
 		if ( $sitemap->load($id) ) {
 			$menus = $sitemap->getMenus();
 			$newMenus = mosGetParam($_REQUEST ,'menus',array());
-			$newMenus = joostina_api::convert( $newMenus);
+			$newMenus = $newMenus;
 			$ordering = count($menus);
 			foreach ($newMenus as $aMenu) {
 				if (empty($menus[$aMenu])) {
