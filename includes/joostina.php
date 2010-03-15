@@ -257,7 +257,7 @@ class mosMainFrame {
 	}
 
 	// получение объекта базы данных
-	public function getDBO(){
+	public function getDBO() {
 		return $this->_db;
 	}
 
@@ -479,7 +479,7 @@ class mosMainFrame {
 		return implode("\n",$head)."\n";
 	}
 
-	public function getHeadData($name){
+	public function getHeadData($name) {
 		return isset($this->_head[$name]) ? $this->_head[$name] : array();
 	}
 
@@ -617,8 +617,8 @@ class mosMainFrame {
 		// purge expired sessions
 		(rand(0,2)==1) ? $session->purge('core','',$this->config->config_lifetime) : null;
 
-			// Session Cookie `name`
-			$sessionCookieName = mosMainFrame::sessionCookieName();
+		// Session Cookie `name`
+		$sessionCookieName = mosMainFrame::sessionCookieName();
 
 
 		// Get Session Cookie `value`
@@ -645,7 +645,7 @@ class mosMainFrame {
 			// check if neither remembermecookie or sessioncookie found
 			if(!$cookie_found) {
 				// create sessioncookie and set it to a test value set to expire on session end
-					setcookie($sessionCookieName,'-',false,'/');
+				setcookie($sessionCookieName,'-',false,'/');
 
 			} else {
 				// otherwise, sessioncookie was found, but set to test val or the session expired, prepare for session registration and register the session
@@ -662,7 +662,7 @@ class mosMainFrame {
 						die($session->getError());
 					}
 					// create Session Tracking Cookie set to expire on session end
-						setcookie($sessionCookieName,$session->getCookie(),false,'/');
+					setcookie($sessionCookieName,$session->getCookie(),false,'/');
 
 				}
 			}
@@ -1012,7 +1012,7 @@ class mosMainFrame {
 
 						// Now lets store it in the database
 						$query = 'UPDATE #__users SET password = '.$this->_db->Quote($row->password).' WHERE id = '.(int)$row->id;
-						
+
 						if(!$this->_db->setQuery($query)->query()) {
 							echo 'error';
 						}
@@ -1132,8 +1132,9 @@ class mosMainFrame {
 		$user->gid = intval($this->_session->gid);
 		if($user->id) {
 			$query = "SELECT id, name, email, avatar, block, sendEmail, registerDate, lastvisitDate, activation, params FROM #__users WHERE id = ".(int)$user->id;
-			$database->setQuery($query,0,1)->loadObject($my);;
-			
+			$database->setQuery($query,0,1)->loadObject($my);
+			;
+
 			$user->params = $my->params;
 			$user->name = $my->name;
 			$user->email = $my->email;
@@ -1177,7 +1178,7 @@ class mosMainFrame {
 			FROM #__users WHERE id = ".(int)$user->id;
 
 			$database->setQuery($query,0,1)->loadObject($my);
-			
+
 			$user->params = $my->params;
 			$user->name = $my->name;
 			$user->username = $my->username;
@@ -1265,11 +1266,11 @@ class mosMainFrame {
 		return $this->_template;
 	}
 
-            function setPath($name, $path) {
-                if (is_file($path)) {
-                    $this->_path->$name = $path;
-                }
-            }
+	function setPath($name, $path) {
+		if (is_file($path)) {
+			$this->_path->$name = $path;
+		}
+	}
 
 	/**
 	 * Determines the paths for including engine and menu files
@@ -1564,7 +1565,7 @@ class mosMainFrame {
 				// add query result to temp array storage
 				$query = "SELECT id FROM #__menu WHERE type = 'content_item_link' AND published = 1 AND link = 'index.php?option=com_content&task=view&id=".(int)$id."'";
 				$ContentItemLink[$id] = $this->_db->setQuery($query)->loadResult();
-								// save temp array to main array storage
+				// save temp array to main array storage
 				$this->set('_ContentItemLink',$ContentItemLink);
 
 				$_Itemid = $ContentItemLink[$id];
@@ -1593,7 +1594,8 @@ class mosMainFrame {
 						."\n LEFT JOIN #__menu AS mc ON mc.componentid = c.id "
 						."\n WHERE ( ms.type IN ( 'content_section', 'content_blog_section' ) OR mc.type IN ( 'content_blog_category', 'content_category' ) )"
 						."\n AND i.id = ".(int)$id."\n ORDER BY ms.type DESC, mc.type DESC, ms.id, mc.id";
-				$links = $this->_db->setQuery($query)->loadObjectList();;
+				$links = $this->_db->setQuery($query)->loadObjectList();
+				;
 
 				if(count($links)) {
 					foreach($links as $link) {
@@ -1915,7 +1917,7 @@ class mosMainFrame {
 	function check_option($option) {
 		if($option=='com_content') return true;
 		$sql = 'SELECT menuid FROM #__components WHERE #__components.option=\''.$option.'\' AND parent=0';
-		
+
 		($this->_db->setQuery($sql)->loadResult()==0) ? null : mosRedirect(JPATH_SITE);
 		return true;
 	}
@@ -2730,51 +2732,51 @@ class mosModule extends mosDBTable {
 	 * Cache some modules information
 	 * @return array
 	 */
-        function initModules() {
-            global $my,$Itemid;
+	function initModules() {
+		global $my,$Itemid;
 
-            $cache = &mosCache::getCache('init_modules');
-            $this->_all_modules = $cache->call('mosModule::_initModules', $Itemid,$my->gid);
-            require_once (JPATH_BASE.'/includes/frontend.html.php');
-            $this->_view = new modules_html($this->_mainframe);
-            unset($cache,$r);
-        }
-
-
-        public function &_initModules( $Itemid,$my_gid ) {
-
-            $mainframe = mosMainFrame::getInstance();
-            $database = $mainframe->getDBO();
-            $config = $mainframe->get('config');
-
-            $all_modules = array();
-
-            $Itemid = intval($Itemid);
-            $check_Itemid = ($Itemid) ? "OR mm.menuid = ".(int)$Itemid:'';
-
-            $where_ac = $config->config_disable_access_control ? '' : "\n AND (m.access=3 OR m.access <= ".(int)$my_gid.') ';
-
-            $query = "SELECT id, title, module, position, content, showtitle, params,access FROM #__modules AS m"
-                    ."\n INNER JOIN #__modules_menu AS mm ON mm.moduleid = m.id"
-                    ."\n WHERE m.published = 1"
-                    .$where_ac
-                    ."\n AND m.client_id != 1 AND ( mm.menuid = 0 $check_Itemid )"
-                    ."\n ORDER BY ordering";
-
-            $database->setQuery($query);
-            $modules = $database->loadObjectList();
-
-            foreach($modules as $module) {
-                if($module->access==3) {
-                    $my_gid ==0 ? $all_modules[$module->position][] = $module : null;
-                }else {
-                    $all_modules[$module->position][] = $module;
-                }
-            }
+		$cache = &mosCache::getCache('init_modules');
+		$this->_all_modules = $cache->call('mosModule::_initModules', $Itemid,$my->gid);
+		require_once (JPATH_BASE.'/includes/frontend.html.php');
+		$this->_view = new modules_html($this->_mainframe);
+		unset($cache,$r);
+	}
 
 
-            return $all_modules;
-        }
+	public function &_initModules( $Itemid,$my_gid ) {
+
+		$mainframe = mosMainFrame::getInstance();
+		$database = $mainframe->getDBO();
+		$config = $mainframe->get('config');
+
+		$all_modules = array();
+
+		$Itemid = intval($Itemid);
+		$check_Itemid = ($Itemid) ? "OR mm.menuid = ".(int)$Itemid:'';
+
+		$where_ac = $config->config_disable_access_control ? '' : "\n AND (m.access=3 OR m.access <= ".(int)$my_gid.') ';
+
+		$query = "SELECT id, title, module, position, content, showtitle, params,access FROM #__modules AS m"
+				."\n INNER JOIN #__modules_menu AS mm ON mm.moduleid = m.id"
+				."\n WHERE m.published = 1"
+				.$where_ac
+				."\n AND m.client_id != 1 AND ( mm.menuid = 0 $check_Itemid )"
+				."\n ORDER BY ordering";
+
+		$database->setQuery($query);
+		$modules = $database->loadObjectList();
+
+		foreach($modules as $module) {
+			if($module->access==3) {
+				$my_gid ==0 ? $all_modules[$module->position][] = $module : null;
+			}else {
+				$all_modules[$module->position][] = $module;
+			}
+		}
+
+
+		return $all_modules;
+	}
 
 	/**
 	 * @param string the template position
@@ -3423,9 +3425,9 @@ class mosHTML {
 				<?php
 			} else {
 				?>
-				<?php if(!Jconfig::getInstance()->config_index_print) { ?>
+					<?php if(!Jconfig::getInstance()->config_index_print) { ?>
 <span style="display:none"><![CDATA[<noindex>]]></span><a href="#" rel="nofollow" target="_blank" onclick="window.open('<?php echo $link; ?>','win2','<?php echo $status; ?>'); return false;" title="<?php echo _PRINT; ?>"><?php echo $image; ?></a><span style="display:none"><![CDATA[</noindex>]]></span>
-						<?php } else { ?>
+					<?php } else { ?>
 <a href="<?php echo $link; ?>" target="_blank" title="<?php echo _PRINT; ?>"><?php echo $image; ?></a>
 					<?php } ; ?>
 
@@ -5487,7 +5489,7 @@ class mosCommonHTML {
 </tr>
 <tr>
 	<td width="90px" valign="top">
-					<?php echo _MENU?>
+			<?php echo _MENU?>
 	</td>
 	<td>
 		<a href="javascript:go2( 'go2menu', '<?php echo $menu->menutype; ?>' );"><?php echo $menu->menutype; ?></a>
@@ -5516,8 +5518,8 @@ class mosCommonHTML {
 						default:
 							echo '<font color="green">'._PUBLISHED.'</font>';
 							break;
-					}
-					?>
+			}
+			?>
 	</td>
 </tr>
 			<?php
@@ -5585,8 +5587,8 @@ class mosCommonHTML {
 						default:
 							echo '<font color="green">'._PUBLISHED.'</font>';
 							break;
-					}
-					?>
+			}
+			?>
 	</td>
 </tr>
 			<?php } ?>
@@ -6430,7 +6432,6 @@ class mosComponent extends mosDBTable {
 
 		$component = str_replace('com_', '', $this->option);
 
-		$controller = $component.'Controller';
 		$view = $component.'View';
 
 		if(class_exists($view)) {
@@ -6451,34 +6452,33 @@ class joostina_api {
 	 */
 	function optimizetables() {
 		if(mt_rand(1,50)==1) {
-			register_shutdown_function('_optimizetables');
+			register_shutdown_function('joostina_api::_optimizetables');
 		}
 	}
-}
 
-// Оптимизация таблиц базы данных
-function _optimizetables() {
-	$database = &database::getInstance();
-	$config = &Jconfig::getInstance();
+	// Оптимизация таблиц базы данных
+	public static function _optimizetables() {
 
-	$flag = $config->config_cachepath.'/optimizetables.flag';
-	$filetime = @filemtime($flag);
-	$currenttime = time();
-	if($filetime + 86400 > $currenttime) {
+		$database = database::getInstance();
+		$config = Jconfig::getInstance();
+		
+		$flag = $config->config_cachepath.'/optimizetables.flag';
+		$filetime = @filemtime($flag);
+		$currenttime = time();
+		if($filetime + 86400 > $currenttime) {
+			return;
+		}
+		$f = fopen($flag,'w+');
+		@fwrite($f,time());
+		fclose($f);
+		@chmod($flag,0777);
+		$tables = $database->getTableList();
+		$database->setQuery("OPTIMIZE TABLE `". implode('`,`',$tables) ."`;")->query();
+		echo $database->getQuery();
 		return;
 	}
-	$f = fopen($flag,'w+');
-	@fwrite($f,time());
-	fclose($f);
-	@chmod($flag,0777);
-	$database->setQuery('SHOW TABLES FROM `'.$config->config_db.'`');
-	$tables = $database->loadResultArray();
-	foreach($tables as $table) {
-		$database->setQuery("OPTIMIZE TABLE `$table`;");
-		$database->query();
-	}
-	return;
 }
+
 
 // отладка определённой переменной
 function _xdump( $var, $text='<pre>' ) {
