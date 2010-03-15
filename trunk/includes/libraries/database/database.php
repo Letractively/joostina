@@ -29,7 +29,7 @@ class database {
 	protected $_errorMsg;
 	/**
 	 @var string преффикс таблиц активного соединения */
-	protected $_table_prefi;
+	protected $_table_prefix;
 	/**
 	 @var активное соединение с базой данных */
 	protected $_resource;
@@ -228,7 +228,7 @@ class database {
 	/**
 	 * @return string The current value of the internal SQL vairable
 	 */
-	function getQuery() {
+	public function getQuery() {
 		return '<pre>' . htmlspecialchars($this->_sql) . '</pre>';
 	}
 
@@ -600,9 +600,9 @@ class database {
 	/**
 	 * @return array A list of all the tables in the database
 	 */
-	function getTableList() {
-		$this->setQuery('SHOW TABLES');
-		return $this->loadResultArray();
+	function getTableList( $only_joostina = true ) {
+		$only_joostina = $only_joostina ? " LIKE '$this->_table_prefix%' " : '';
+		return $this->setQuery('SHOW TABLES '.$only_joostina)->loadResultArray();
 	}
 
 	/**
