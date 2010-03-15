@@ -1265,6 +1265,12 @@ class mosMainFrame {
 		return $this->_template;
 	}
 
+            function setPath($name, $path) {
+                if (is_file($path)) {
+                    $this->_path->$name = $path;
+                }
+            }
+
 	/**
 	 * Determines the paths for including engine and menu files
 	 * @param string The current option used in the url
