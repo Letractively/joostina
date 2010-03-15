@@ -45,10 +45,6 @@ function x_apply() {
 	$params = mosGetParam($_POST,'params','');
 	$client = strval(mosGetParam($_REQUEST,'client',''));
 
-	foreach($_POST as $key => $val) {
-		$_POST[$key] = joostina_api::convert($val);
-	}
-
 	if(is_array($params)) {
 		$txt = array();
 		foreach($params as $k => $v) {

@@ -198,8 +198,7 @@ class HTML_modules {
 					</tr>
 					<tr>
 						<td valign="top" class="key"><?php echo _DESCRIPTION?>:</td>
-						<td><?php echo $text = joostina_api::convert($row->description,true);
-		; ?></td>
+						<td><?php echo $text = $row->description?></td>
 					</tr>
 				</table>
 			</td>

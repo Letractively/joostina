@@ -46,14 +46,10 @@ switch($task) {
 function x_apply() {
 	josSpoofCheck();
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$params = mosGetParam($_POST,'params','');
 	$client = strval(mosGetParam($_REQUEST,'client',''));
-
-	foreach($params as $key => $val) {
-		$params[$key] = joostina_api::convert($val);
-	}
 
 	if(is_array($params)) {
 		$txt = array();
