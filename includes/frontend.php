@@ -286,7 +286,9 @@ class PageModel {
 	function syndicate_header() {
 		$mainframe = $this->_mainframe;
 
-		$row = new mosComponent();
+		$row = new stdClass();
+		$row->params = '';
+		$row->option = '';
 		$query = "SELECT a.params, a.option FROM #__components AS a WHERE ( a.admin_menu_link = 'option=com_syndicate' OR a.admin_menu_link = 'option=com_syndicate&hidemainmenu=1' ) AND a.option = 'com_syndicate'";
 		$mainframe->getDBO()->setQuery($query)->loadObject($row);
 

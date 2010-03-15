@@ -542,8 +542,8 @@ function saveRegistration() {
 
 	josSpoofCheck();
 
-	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
+	$mainframe = mosMainFrame::getInstance();
+	$database = $mainframe->getDBO();
 	$acl = &gacl::getInstance();
 
 	if($mainframe->getCfg('allowUserRegistration') == 0) {

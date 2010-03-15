@@ -266,15 +266,25 @@ class mosMainFrame {
 	 * @param string $lib Название библиотеки. Может быть сформировано как: `lib_name`, `lib_name/lib_name.php`, `lib_name.php`
 	 * @param string $dir Директория библиотеки. Необязательный параметр. По умолчанию, поиск файла осуществляется в 'includes/libraries'
 	 */
-	public static function addLib($lib, $dir = '') {
-		$dir = (!$dir) ? 'includes/libraries' : $dir;
+	public static function addLib($lib, $dir = null) {
+		$dir = $dir ? $dir : 'includes/libraries';
 
 		$file_lib = JPATH_BASE.DS.$dir.DS.$lib.DS.$lib.'.php';
-		if(is_file($file_lib)) {
-			require_once($file_lib);
-		}
+		is_file($file_lib) ? require_once($file_lib): null;
 	}
 
+	/**
+	 * Подключение классов
+	 * @param string $lib Название библиотеки. Может быть сформировано как: `lib_name`, `lib_name/lib_name.php`, `lib_name.php`
+	 * @param string $dir Директория библиотеки. Необязательный параметр. По умолчанию, поиск файла осуществляется в 'includes/libraries'
+	 */
+	public static function addClass($class, $dir = null) {
+		$dir = $dir ? $dir : 'includes/classes';
+
+		$file_class = JPATH_BASE.DS.$dir.DS.$class.'.class.php';
+		is_file($file_class) ? require_once($file_class): null;
+	}	
+	
 	public static function getLangFile($name = '',$mosConfig_lang='') {
 		if(empty($mosConfig_lang)) {
 			global $mosConfig_lang;
@@ -2194,8 +2204,6 @@ class JConfig {
 	var $config_captcha_reg = 0;
 	/** @var int captcha для формы контактов*/
 	var $config_captcha_cont = 0;
-	/** @var int визуальный редактор для правки html и css*/
-	var $config_codepress = 0;
 	/** @var int обработчик кэширования запросов базы данных */
 	var $config_db_cache_handler = 'none';
 	/** @var int время жизни кэша запросов базы данных */
@@ -4346,26 +4354,6 @@ function mosMakePassword($length = 8) {
 	return $makepass;
 }
 
-if(!function_exists('html_entity_decode')) {
-	/**
-	 * html_entity_decode function for backward compatability in PHP
-	 * @param string
-	 * @param string
-	 */
-	function html_entity_decode($string,$opt = ENT_COMPAT) {
-		$trans_tbl = get_html_translation_table(HTML_ENTITIES);
-		$trans_tbl = array_flip($trans_tbl);
-		if($opt & 1) { // Translating single quotes
-			$trans_tbl["&apos;"] = "'";
-		}
-		if(!($opt & 2)) { // Not translating double quotes
-			unset($trans_tbl["&quot;"]);
-		}
-		return strtr($string,$trans_tbl);
-	}
-}
-
-
 /**
  * Plugin handler
  * @package Joostina
@@ -5735,34 +5723,6 @@ class mosCommonHTML {
 		return true;
 	}
 
-	/* подключение codepress*/
-	public static function loadCodepress() {
-		if(!defined('_CODEPRESS_LOADED')) {
-			define('_CODEPRESS_LOADED',1);
-			$mainframe = &MosMainFrame::getInstance();
-			$mainframe->addJS(JPATH_SITE.'/includes/js/codepress/codepress.js');
-			?><script language="JavaScript" type="text/javascript">
-				CodePress.run = function() {
-					CodePress.path = '<?php echo JPATH_SITE ?>/includes/js/codepress/';
-					t = document.getElementsByTagName('textarea');
-					for(var i=0,n=t.length;i<n;i++) {
-						if(t[i].className.match('codepress')) {
-							id = t[i].id;
-							t[i].id = id+'_cp';
-							eval(id+' = new CodePress(t[i])');
-							t[i].parentNode.insertBefore(eval(id), t[i]);
-						}
-					}
-				}
-				if(window.attachEvent){
-					window.attachEvent('onload',CodePress.run);
-				}else{
-					window.addEventListener('DOMContentLoaded',CodePress.run,false);
-				}</script>
-			<?php
-		}
-	}
-
 	/* подключение dTree*/
 	public static function loadDtree() {
 		if(!defined('_DTR_LOADED')) {
@@ -6017,7 +5977,7 @@ function mosPrepareSearchContent($text,$length = 200,$searchword='') {
  * @return string
  */
 function mosSmartSubstr($text,$length = 200,$searchword='') {
-	$wordpos = Jstring::strpos(Jstring::strtolower($text),Jstring::strtolower($searchword));
+	$wordpos = Jstring::strpos( Jstring::strtolower($text), Jstring::strtolower($searchword));
 	$halfside = intval($wordpos - $length / 2 - Jstring::strlen($searchword));
 	if($wordpos && $halfside > 0) {
 		return '...'.Jstring::substr($text,$halfside,$length).'...';
@@ -6077,10 +6037,7 @@ function mosChmod($path) {
 	if($config->config_dirperms != '') {
 		$dirmode = octdec($config->config_dirperms);
 	}
-	if(isset($filemode) || isset($dirmode)) {
-		return mosChmodRecursive($path,$filemode,$dirmode);
-	}
-	return true;
+	return (isset($filemode) || isset($dirmode)) ? mosChmodRecursive($path,$filemode,$dirmode) : true;
 } // mosChmod
 
 /**
@@ -6106,8 +6063,8 @@ function mosArrayToInts(&$array,$default = null) {
 }
 
 /*
-* Function to handle an array of integers
-* Added 1.0.11
+* Получение массива значений
+* $name - название переменной
 */
 function josGetArrayInts($name,$type = null) {
 	if($type == null) {
@@ -6134,23 +6091,8 @@ function mosHash($seed) {
 	return md5($GLOBALS['mosConfig_secret'].md5($seed));
 }
 
-/**
- * Format a backtrace error
- * @since 1.0.5
- */
-function mosBackTrace() {
-	if(function_exists('debug_backtrace')) {
-		echo '<div align="left">';
-		foreach(debug_backtrace() as $back) {
-			if(isset($back['file'])) {
-				echo '<br />'.str_replace(JPATH_BASE,'',$back['file']).':'.$back['line'];
-			}
-		}
-		echo '</div>';
-	}
-}
-
 function josSpoofCheck( $header=NULL, $alt=NULL , $method = 'post') {
+	
 	switch(strtolower($method)) {
 		case 'get':
 			$validate 	= mosGetParam( $_GET, josSpoofValue($alt), 0 );
@@ -6229,22 +6171,15 @@ function _josSpoofCheck($array,$badStrings) {
  * @static
  */
 function josSpoofValue($alt=NULL) {
-	global $mainframe, $my;
+	global $my;
 
 	if ($alt) {
-		if ( $alt == 1 ) {
-			$random	= date( 'Ymd' );
-		} else {
-			$random	= $alt . date( 'Ymd' );
-		}
+		$random = ( $alt == 1 ) ? $random = date( 'Ymd' ) : $alt . date( 'Ymd' );
 	} else {
-		$random		= date( 'dmY' );
+		$random	= date( 'dmY' );
 	}
-	// the prefix ensures that the hash is non-numeric
-	// otherwise it will be intercepted by globals.php
-	$validate 	= 'j' . mosHash( $mainframe->getCfg( 'db' ) . $random . $my->id );
 
-	return $validate;
+	return 'j' . mosHash( JPATH_BASE . $random . $my->id );
 }
 /**
  * A simple helper function to salt and hash a clear-text password.
@@ -6253,96 +6188,13 @@ function josSpoofValue($alt=NULL) {
  * @param	string	$password	A plain-text password
  * @return	string	An md5 hashed password with salt
  */
+// TODO использщвать эжтуфункцию активнее!
 function josHashPassword($password) {
 	// Salt and hash the password
 	$salt = mosMakePassword(16);
 	$crypt = md5($password.$salt);
 	$hash = $crypt.':'.$salt;
 	return $hash;
-}
-
-
-/**
- * Page generation time
- * @package Joostina
- */
-class mosProfiler {
-	/**
-	 @var int Start time stamp*/
-	var $start = 0;
-	/**
-	 @var string A prefix for mark messages*/
-	var $prefix = '';
-	/**
-	 * Constructor
-	 * @param string A prefix for mark messages
-	 */
-	function mosProfiler($prefix = '') {
-		$this->start = $this->getmicrotime();
-		$this->prefix = $prefix;
-	}
-	/**
-	 * @return string A format message of the elapsed time
-	 */
-	function mark($label) {
-		return sprintf("\n<div class=\"profiler\">$this->prefix %.3f $label</div>",$this->getmicrotime() - $this->start);
-	}
-	/**
-	 * @return float The current time in milliseconds
-	 */
-	function getmicrotime() {
-		list($usec,$sec) = explode(' ',microtime());
-		return ((float)$usec + (float)$sec);
-	}
-}
-
-
-/**
- * @package Joostina
- * @abstract
- */
-class mosAbstractLog {
-	/**
-	 @var array*/
-	var $_log = null;
-	/**
-	 * Constructor
-	 */
-	function mosAbstractLog() {
-		$this->__constructor();
-	}
-	/**
-	 * Generic constructor
-	 */
-	function __constructor() {
-		$this->_log = array();
-	}
-	/**
-	 * @param string Log message
-	 * @param boolean True to append to last message
-	 */
-	function log($text,$append = false) {
-		$n = count($this->_log);
-		if($append && $n > 0) {
-			$this->_log[count($this->_log) - 1] .= $text;
-		} else {
-			$this->_log[] = $text;
-		}
-	}
-	/**
-	 * @param string The glue for each log item
-	 * @return string Returns the log
-	 */
-	function getLog($glue = '<br/>',$truncate = 9000,$htmlSafe = false) {
-		$logs = array();
-		foreach($this->_log as $log) {
-			if($htmlSafe) {
-				$log = htmlspecialchars($log);
-			}
-			$logs[] = substr($log,0,$truncate);
-		}
-		return implode($glue,$logs);
-	}
 }
 
 class errorCase {
@@ -6370,76 +6222,6 @@ class errorCase {
 }
 
 
-/**
- * Component database table class
- * @package Joostina
- */
-class mosComponent extends mosDBTable {
-	/**
-	 @var int Primary key*/
-	var $id = null;
-	/**
-	 @var string*/
-	var $name = null;
-	/**
-	 @var string*/
-	var $link = null;
-	/**
-	 @var int*/
-	var $menuid = null;
-	/**
-	 @var int*/
-	var $parent = null;
-	/**
-	 @var string*/
-	var $admin_menu_link = null;
-	/**
-	 @var string*/
-	var $admin_menu_alt = null;
-	/**
-	 @var string*/
-	var $option = null;
-	/**
-	 @var string*/
-	var $ordering = null;
-	/**
-	 @var string*/
-	var $admin_menu_img = null;
-	/**
-	 @var int*/
-	var $iscore = null;
-	/**
-	 @var string*/
-	var $params = null;
-	/*@var int права доступа к компоненту */
-	#var $access = null;
-	var $_model = null;
-	var $_controller = null;
-	var $_view = null;
-	var $_mainframe = null;
-
-	/**
-	 * @param database A database connector object
-	 */
-	function mosComponent(&$db=null) {
-		$this->mosDBTable('#__components','id',$db);
-	}
-
-	function _init($option, $mainframe) {
-
-		$this->option = $option;
-		$this->_mainframe = $mainframe;
-
-		$component = str_replace('com_', '', $this->option);
-
-		$view = $component.'View';
-
-		if(class_exists($view)) {
-			$this->_view = 	new $view($this->_mainframe) ;
-		}
-
-	}
-}
 
 /**
  * Объединение расширений системы в одно пространство имён
@@ -6456,7 +6238,7 @@ class joostina_api {
 		}
 	}
 
-	// Оптимизация таблиц базы данных
+	// Непосредственно оптимизация таблиц базы данных
 	public static function _optimizetables() {
 
 		$database = database::getInstance();

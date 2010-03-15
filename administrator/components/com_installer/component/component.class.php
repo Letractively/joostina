@@ -192,6 +192,9 @@ class mosInstallerComponent extends mosInstaller {
 				}
 				$com_admin_submenus = $adminsubmenu_element->childNodes;
 
+				// подключаем класс работы с компонентами
+				mosMainFrame::addClass('component');
+
 				$submenuordering = 0;
 				foreach($com_admin_submenus as $admin_submenu) {
 					$com = new mosComponent($database);

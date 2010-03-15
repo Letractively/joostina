@@ -201,9 +201,6 @@ function showconfig($option) {
 	$lists['config_captcha_reg']= mosHTML::yesnoRadioList('config_captcha_reg','class="inputbox"',$row->config_captcha_reg);
 	// captcha для формы контактов
 	$lists['config_captcha_cont']= mosHTML::yesnoRadioList('config_captcha_cont','class="inputbox"',$row->config_captcha_cont);
-	// визуальный редактор для html и css - codepress
-	$lists['config_codepress']= mosHTML::yesnoRadioList('config_codepress','class="inputbox"',$row->config_codepress);
-
 	// DEBUG - ОТЛАДКА
 	$lists['debug']= mosHTML::yesnoRadioList('config_debug','class="inputbox"',$row->config_debug);
 

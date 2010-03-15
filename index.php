@@ -264,6 +264,5 @@ if($mosConfig_debug) {
 }
 
 doGzip();
-$mosConfig_optimizetables = 1;
 // запускаем встроенный оптимизатор таблиц
 ($mosConfig_optimizetables == 1) ? joostina_api::optimizetables():null;

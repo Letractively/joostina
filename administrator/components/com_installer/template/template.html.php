@@ -146,16 +146,13 @@ class HTML_templates {
 	 * @param string The option
 	 */
 	function editTemplateSource($template,&$content,$option,$client) {
-		global $mosConfig_codepress;
+
 		$template_path = JPATH_BASE.($client == 'admin'?'/'.JADMIN_BASE:'').'/templates/'.$template.'/index.php';
-		/* подключение js файла codepress*/
-		if($mosConfig_codepress) mosCommonHTML::loadCodepress();
 		?>
 <script language="javascript" type="text/javascript">
 
 	function ch_apply(){
 		SRAX.get('tb-apply').className='tb-load';
-		<?php if($mosConfig_codepress) echo 'document.adminForm.filecontent.value=codearea.getCode();';?>
 			dax({
 				url: 'ajax.index.php?option=com_templates&task=source',
 				id:'publ-1',
@@ -171,7 +168,7 @@ class HTML_templates {
 		-->
 </script>
 
-<form action="index2.php" method="post" name="adminForm" id="adminForm" <?php if($mosConfig_codepress) echo 'onsubmit="document.adminForm.filecontent.value=codearea.getCode();document.adminForm.submit();"';?>>
+<form action="index2.php" method="post" name="adminForm" id="adminForm" >
 	<table cellpadding="1" cellspacing="1" border="0" width="100%">
 		<tr>
 			<td width="290"><table class="adminheading"><tr><th class="templates">HTML-редактор шаблона</th></tr></table></td>
@@ -201,18 +198,7 @@ class HTML_templates {
 		</tr>
 	</table>
 	<table class="adminform">
-				<?php if($mosConfig_codepress) {?>
-		<tr><th><a href="#" onclick="codearea.toggleEditor();return false;"><?php echo _CHANGE_EDITOR?></a>: <?php echo $template_path; ?></th></tr>
-		<tr>
-			<td>
-				<textarea style="width:100%;height:600px" cols="130" rows="35" name="codearea" id="codearea" class="codepress html inputbox"><?php echo $content; ?></textarea>
-				<input type="hidden" name="filecontent" value="" />
-			</td>
-		</tr>
-					<?php }else {
-			;?>
 		<tr><td><textarea style="width:100%;height:600px" cols="130" rows="35" name="filecontent"><?php echo $content; ?></textarea></td></tr>
-			<?php };?>
 	</table>
 	<input type="hidden" name="template" value="<?php echo $template; ?>" />
 	<input type="hidden" name="option" value="<?php echo $option; ?>" />
@@ -230,16 +216,12 @@ class HTML_templates {
 	 * @param string The option
 	 */
 	function editCSSSource($template,&$content,$option,$client) {
-		global $mosConfig_codepress;
 		$css_path = JPATH_BASE.($client == 'admin'?'/'.JADMIN_BASE:'').'/templates/'.$template.'/css/template_css.css';
-		/* подключение js файла codepress*/
-		if($mosConfig_codepress) mosCommonHTML::loadCodepress();
 		?>
 <script language="javascript" type="text/javascript">
 
 	function ch_apply(){
 		SRAX.get('tb-apply').className='tb-load';
-		<?php if($mosConfig_codepress) echo 'document.adminForm.filecontent.value=codearea.getCode();';?>
 			dax({
 				url: 'ajax.index.php?option=com_templates&task=css',
 				id:'publ-1',
@@ -255,7 +237,7 @@ class HTML_templates {
 		-->
 </script>
 
-<form action="index2.php" method="post" name="adminForm" id="adminForm" <?php if($mosConfig_codepress) echo 'onsubmit="document.adminForm.filecontent.value=codearea.getCode();document.adminForm.submit();"';?>>
+<form action="index2.php" method="post" name="adminForm" id="adminForm">
 	<table cellpadding="1" cellspacing="1" border="0" width="100%">
 		<tr>
 			<td width="280">
@@ -288,18 +270,7 @@ class HTML_templates {
 		</tr>
 	</table>
 	<table class="adminform">
-		<?php if($mosConfig_codepress) {?>
-		<tr><th><a href="#" onclick="codearea.toggleEditor();return false;"><?php echo _CHANGE_EDITOR?></a>: <?php echo $css_path; ?></th></tr>
-		<tr>
-			<td>
-				<textarea style="width:100%;height:600px" cols="130" rows="35" name="codearea" id="codearea" class="codepress css inputbox"><?php echo $content; ?></textarea>
-				<input type="hidden" name="filecontent" value="" />
-			</td>
-		</tr>
-			<?php }else {
-					;?>
 		<tr><td><textarea style="width:100%;height:600px" cols="130" rows="35" name="filecontent"><?php echo $content; ?></textarea></td></tr>
-			<?php };?>
 	</table>
 	<input type="hidden" name="template" value="<?php echo $template; ?>" />
 	<input type="hidden" name="option" value="<?php echo $option; ?>" />
