@@ -191,7 +191,7 @@ class CPackerEngine {
 	function _archiveFileList() {
 		global $JPConfiguration,$database;
 
-		include_once (JPATH_BASE_ADMIN.'/includes/pcl/pclzip.lib.php');
+		require_once (JPATH_BASE.'/includes/libraries/arhive/pclzip.lib.php');
 
 		// Check for existing instance of the object stored in db
 		$sql = "SELECT COUNT(*) FROM #__jp_packvars WHERE `key`='zipobject'";
