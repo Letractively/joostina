@@ -1,10 +1,10 @@
 <?php
 /**
  * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
+ * @copyright Àâòîðñêèå ïðàâà (C) 2008-2010 Joostina team. Âñå ïðàâà çàùèùåíû.
+ * @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+ * Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+ * Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
  * phpGACL - Generic Access Control List
  * Copyright (C) 2002,2003 Mike Benoit
  **/
@@ -52,9 +52,8 @@ class gacl {
 		$this->_mos_add_acl('administration', 'install', 'users', 'super administrator','components', 'all');
 		$this->_mos_add_acl('administration', 'edit', 'users', 'super administrator','components', 'all');
 		$this->_mos_add_acl('administration', 'edit', 'users', 'administrator','components', 'all');
-		$this->_mos_add_acl('administration', 'edit', 'users', 'manager', 'components','com_newsflash');
+		//$this->_mos_add_acl('administration', 'edit', 'users', 'manager', 'components','com_newsflash');
 		$this->_mos_add_acl('administration', 'edit', 'users', 'manager', 'components','com_frontpage');
-		$this->_mos_add_acl('administration', 'edit', 'users', 'manager', 'components','com_jwmmxtd');
 		$this->_mos_add_acl('administration', 'manage', 'users', 'super administrator','components', 'com_massmail');
 		$this->_mos_add_acl('administration', 'manage', 'users', 'administrator','components', 'com_users');
 		$this->_mos_add_acl('administration', 'manage', 'users', 'super administrator','components', 'com_users');
@@ -91,7 +90,7 @@ class gacl {
 
 	function _mos_add_acl($aco_section_value, $aco_value, $aro_section_value, $aro_value, $axo_section_value = null, $axo_value = null) {
 		$this->acl[] = array($aco_section_value, $aco_value, $aro_section_value, $aro_value, $axo_section_value, $axo_value);
-// 		// TODO, Ð¾Ñ‚ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ Ð¿Ñ€Ð¸ Ð¾ÑˆÐ¸Ð±ÐºÐ°Ñ… ACL Ð¿ÐµÑ€ÐµÐ¼ÐµÐ½Ð½Ð°Ñ Ð²Ñ‹Ð·Ñ‹Ð²Ð°ÐµÑ‚ÑÑ ÐºÐ°Ð¶Ð´Ñ‹Ð¹ Ñ€Ð°Ð· Ð¿Ð¾ÑÐ»Ðµ Ð´Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð¸Ñ ACL Ð¿Ñ€Ð°Ð²Ð¸Ð» Ð² _mos_add_acl, Ð½Ð¾ Ð½Ð° 79 ÑÑ‚Ñ€Ð¾ÐºÐµ Ð²ÑÑ‘ Ñ€Ð°Ð²Ð½Ð¾ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ Ð±ÐµÑ€Ñ‘Ñ‚ÑÑ Ð¿Ð¾ÑÐ»Ðµ Ñ€ÐµÐ·ÑƒÐ»ÑŒÑ‚Ð°Ñ‚Ð°
+// 		// TODO, îòêëþ÷èòü ïðè îøèáêàõ ACL ïåðåìåííàÿ âûçûâàåòñÿ êàæäûé ðàç ïîñëå äîáàâëåíèÿ ACL ïðàâèë â _mos_add_acl, íî íà 79 ñòðîêå âñ¸ ðàâíî çíà÷åíèå áåð¸òñÿ ïîñëå ðåçóëüòàòà
 		//$this->acl_count = count($this->acl);
 	}
 	function debug_text($text) {
