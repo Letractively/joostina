@@ -1947,7 +1947,7 @@ class JConfig {
 	/** @public string*/
 	public $config_sitename = null;
 	/** @public string*/
-	public $config_editor = 'jce';
+	public $config_editor = 'none';
 	/** @public int*/
 	public $config_list_limit = 30;
 	/** @public string*/

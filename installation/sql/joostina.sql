@@ -140,11 +140,6 @@ INSERT INTO `#__components` VALUES (15, 'Авторизация', 'option=com_lo
 INSERT INTO `#__components` VALUES (16, 'Поиск', 'option=com_search', 0, 0, '', '', 'com_search', 0, '', 1, '');
 INSERT INTO `#__components` VALUES (17, 'RSS экспорт', '', 0, 0, 'option=com_syndicate&hidemainmenu=1', 'Управление настройками экспорта новостей', 'com_syndicate', 0, 'js/ThemeOffice/rss.png', 0, '');
 INSERT INTO `#__components` VALUES (18, 'Рассылка почты', '', 0, 0, 'option=com_massmail&hidemainmenu=1', 'Массовая рассылка почты', 'com_massmail', 0, 'js/ThemeOffice/mass_email.png', 0, '');
-INSERT INTO `#__components` VALUES (19, 'Визуальный редактор', 'option=com_jce', 0, 0, 'option=com_jce', 'Визуальный редактор JCE', 'com_jce', 0, 'js/ThemeOffice/editor_on.png', 0, '');
-INSERT INTO `#__components` VALUES (20, 'Настройки', '', 0, 19, 'option=com_jce&task=config', 'Настройки редактора JCE', 'com_jce', 0, 'js/ThemeOffice/controlpanel.png', 0, '');
-INSERT INTO `#__components` VALUES (21, 'Языки интерфейса', '', 0, 19, 'option=com_jce&task=lang', 'Языки интерфейса JCE', 'com_jce', 1, 'js/ThemeOffice/language.png', 0, '');
-INSERT INTO `#__components` VALUES (22, 'Расширения', '', 0, 19, 'option=com_jce&task=showplugins', 'Расширения JCE', 'com_jce', 2, 'js/ThemeOffice/add_section.png', 0, '');
-INSERT INTO `#__components` VALUES (23, 'Расположение кнопок', '0', 0, 19, 'option=com_jce&task=editlayout', 'Расположение кнопок JCE', 'com_jce', 3, 'js/ThemeOffice/content.png', 0, '');
 INSERT INTO `#__components` VALUES (24, 'Карта сайта', 'option=com_xmap', 0, 0, 'option=com_xmap', '', 'com_xmap', 0, 'js/ThemeOffice/map.png', 0, '');
 
 #
@@ -316,7 +311,6 @@ INSERT INTO `#__mambots` VALUES (5,'Рейтинг статей','plugin_jw_ajax
 INSERT INTO `#__mambots` VALUES (6,'Поиск содержимого','content.searchbot','search',0,1,1,1,0,0,'0000-00-00 00:00:00','');
 INSERT INTO `#__mambots` VALUES (8,'Поддержка кода','moscode','content',0,2,0,0,0,0,'0000-00-00 00:00:00','');
 INSERT INTO `#__mambots` VALUES (9,'Простой редактор HTML','none','editors',0,0,1,1,0,0,'0000-00-00 00:00:00','');
-INSERT INTO `#__mambots` VALUES (10, 'WYSIWYG-редактор JCE', 'jce', 'editors', 0, 1, 1, 0, 0, 0, '0000-00-00 00:00:00', 'theme=advance\r\neditor_width=100%');
 INSERT INTO `#__mambots` VALUES (11,'Кнопка изображения MOS в редакторе','mosimage.btn','editors-xtd',0,0,1,0,0,0,'0000-00-00 00:00:00','');
 INSERT INTO `#__mambots` VALUES (12,'Кнопка разрыва страницы MOS в редакторе','mospage.btn','editors-xtd',0,0,1,0,0,0,'0000-00-00 00:00:00','');
 INSERT INTO `#__mambots` VALUES (13,'Поиск контактов','contacts.searchbot','search',0,3,1,1,0,0,'0000-00-00 00:00:00','');
@@ -749,84 +743,6 @@ CREATE TABLE `#__jp_def` (
   `directory` VARCHAR(255) NOT NULL,
   PRIMARY KEY(`def_id`)
 )ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
-
-
-CREATE TABLE `#__jce_langs` (
-  `id` int(11) NOT NULL auto_increment,
-  `Name` varchar(100) NOT NULL default '',
-  `lang` varchar(100) NOT NULL default '',
-  `published` tinyint(3) NOT NULL default '0',
-PRIMARY KEY (`id`)
-)ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
-
-insert into `#__jce_langs` values ('1', 'Русский (Russian utf8_general_ci)', 'ru', '1');
-
-CREATE TABLE `#__jce_plugins` (
-  `id` int(11) NOT NULL auto_increment,
-  `name` varchar(100) NOT NULL default '',
-  `plugin` varchar(100) NOT NULL default '',
-  `type` varchar(100) NOT NULL default 'plugin',
-  `icon` varchar(255) NOT NULL default '',
-  `layout_icon` varchar(255) NOT NULL default '',
-  `access` tinyint(3) unsigned NOT NULL default '18',
-  `row` int(11) NOT NULL default '0',
-  `ordering` int(11) NOT NULL default '0',
-  `published` tinyint(3) NOT NULL default '0',
-  `editable` tinyint(3) NOT NULL default '0',
-  `elements` varchar(255) NOT NULL default '',
-  `iscore` tinyint(3) NOT NULL default '0',
-  `client_id` tinyint(3) NOT NULL default '0',
-  `checked_out` int(11) unsigned NOT NULL default '0',
-  `checked_out_time` datetime NOT NULL default '0000-00-00 00:00:00',
-  `params` text NOT NULL,
-PRIMARY KEY  (`id`),
- UNIQUE KEY `plugin` (`plugin`) )
-ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
-
-# плагины редактора JCE
-INSERT INTO `#__jce_plugins` VALUES(null, 'Полноэкранный режим', 'fullscreen', 'plugin', 'fullscreen', 'fullscreen', 18, 1, 22, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES(null, 'Вставка', 'paste', 'plugin', 'pasteword,pastetext', 'paste', 18, 1, 18, 1, 1, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES(null, 'Предпросмотр', 'preview', 'plugin', 'preview', 'preview', 18, 4, 1, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES(null, 'Таблицы', 'table', 'plugin', 'tablecontrols', 'buttons', 18, 2, 3, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES(null, 'Поиск и замена', 'searchreplace', 'plugin', 'search,replace', 'searchreplace', 18, 1, 8, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES(null, 'Стили', 'style', 'plugin', 'styleprops', 'styleprops', 18, 4, 2, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES(null, 'Видимые символы', 'visualchars', 'plugin', 'visualchars', 'visualchars', 18, 4, 4, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES(null, 'XHTML Xtras', 'xhtmlxtras', 'plugin', 'cite,abbr,acronym,del,ins', 'xhtmlxtras', 18, 4, 5, 0, 0, 'del[*],ins[*]', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES(null, 'Редактор изображений', 'imgmanager', 'plugin', '', 'imgmanager', 18, 4, 6, 1, 1, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES(null, 'Гиперссылки', 'advlink', 'plugin', '', 'advlink', 18, 4, 7, 1, 1, '', 1, 0, 0, '0000-00-00 00:00:00', 'article=18\nsection=18\ncategory=18\nstatic=18\ncontact=18\nmenu=18');
-INSERT INTO `#__jce_plugins` VALUES(null, 'Цвет текста', 'forecolor', 'command', 'forecolor', 'forecolor', 18, 1, 7, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES(null, 'Жирный', 'bold', 'command', 'bold', 'bold', 18, 1, 3, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES(null, 'Курсив', 'italic', 'command', 'italic', 'italic', 18, 1, 4, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES(null, 'Подчеркнутый', 'underline', 'command', 'underline', 'underline', 18, 1, 5, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES(null, 'Цвет фона', 'backcolor', 'command', 'backcolor', 'backcolor', 18, 1, 8, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES(null, 'Удалить ссылку', 'unlink', 'command', 'unlink', 'unlink', 18, 1, 16, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES(null, 'Выбор шрифта', 'fontselect', 'command', 'fontselect', 'fontselect', 18, 3, 2, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES(null, 'Размер шрифта', 'fontsizeselect', 'command', 'fontsizeselect', 'fontsizeselect', 18, 1, 19, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES(null, 'Стиль', 'styleselect', 'command', 'styleselect', 'styleselect', 18, 3, 1, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES(null, 'Новый документ', 'newdocument', 'command', 'newdocument', 'newdocument', 18, 1, 4, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES(null, 'Зачеркнутый', 'strikethrough', 'command', 'strikethrough', 'strikethrough', 18, 1, 6, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES(null, 'Вправо', 'indent', 'command', 'indent', 'indent', 18, 1, 11, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES(null, 'Влево', 'outdent', 'command', 'outdent', 'outdent', 18, 1, 10, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES(null, 'Отмена', 'undo', 'command', 'undo', 'undo', 18, 1, 1, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES(null, 'Повтор', 'redo', 'command', 'redo', 'redo', 18, 1, 2, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES(null, 'Горизонтальная линия', 'hr', 'command', 'hr', 'hr', 18, 2, 1, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES(null, 'HTML', 'html', 'command', 'code', 'code', 18, 1, 20, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES(null, 'Нумерованный список', 'numlist', 'command', 'numlist', 'numlist', 18, 1, 10, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES(null, 'Маркированный список', 'bullist', 'command', 'bullist', 'bullist', 18, 1, 9, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES(null, 'Буфер обмена', 'clipboard', 'command', 'cut,copy,paste', 'clipboard', 18, 1, 16, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES(null, 'Подстрочный', 'sub', 'command', 'sub', 'sub', 18, 2, 2, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES(null, 'Надстрочный', 'sup', 'command', 'sup', 'sup', 18, 2, 3, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES(null, 'Контуры', 'visualaid', 'command', 'visualaid', 'visualaid', 18, 3, 7, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES(null, 'Спецсимволы', 'charmap', 'command', 'charmap', 'charmap', 18, 3, 6, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES(null, 'По ширине', 'full', 'command', 'justifyfull', 'justifyfull', 18, 1, 14, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES(null, 'По центру', 'center', 'command', 'justifycenter', 'justifycenter', 18, 1, 12, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES(null, 'Слева', 'left', 'command', 'justifyleft', 'justifyleft', 18, 1, 13, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES(null, 'Справа', 'right', 'command', 'justifyright', 'justifyright', 18, 1, 11, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES(null, 'Удалить форматирование', 'removeformat', 'command', 'removeformat', 'removeformat', 18, 1, 21, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES(null, 'Якорь', 'anchor', 'command', 'anchor', 'anchor', 18, 2, 9, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES(null, 'Формат', 'formatselect', 'command', 'formatselect', 'formatselect', 18, 3, 9, 0, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES(null, 'Изображение', 'image', 'command', 'image', 'image', 18, 1, 17, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
-INSERT INTO `#__jce_plugins` VALUES(null, 'Ссылка', 'link', 'command', 'link', 'link', 18, 1, 15, 1, 0, '', 1, 0, 0, '0000-00-00 00:00:00', '');
 
 # Компонент значков быстрого доступа
 CREATE TABLE `#__quickicons` (
