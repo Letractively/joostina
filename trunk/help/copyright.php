@@ -71,10 +71,6 @@ Ebackup
 Авторские права: Harald Baer ( www.mambobaer.de )
 Лицензия: GNU General Public License (GPL)
 
-JCE
-Авторские права: Ryan Demmer ( http://www.cellardoor.za.net )
-Лицензия: GNU General Public License (GPL)
-
 MyCheckin
 Авторские права: Bart Eversdijk ( http://www.eversdijk.com )
 Лицензия: GNU General Public License (GPL)
