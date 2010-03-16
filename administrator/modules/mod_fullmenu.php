@@ -1,13 +1,14 @@
 <?php
 /**
  * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
- */
+ * @copyright Àâòîðñêèå ïðàâà (C) 2008-2010 Joostina team. Âñå ïðàâà çàùèùåíû.
+ * @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+ * Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+ * Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
+ * phpGACL - Generic Access Control List
+ * Copyright (C) 2002,2003 Mike Benoit
+ **/
 
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
 defined('_VALID_MOS') or die();
 
 if(!defined('_JOS_FULLMENU_MODULE')) {
@@ -39,7 +40,6 @@ if(!defined('_JOS_FULLMENU_MODULE')) {
 					return; // Ð´Ð°Ð»ÑŒÐ½ÐµÐ¹ÑˆÑƒÑŽ Ð¾Ð±Ñ€Ð°Ð±Ð¾Ñ‚ÐºÑƒ Ð¼ÐµÐ½ÑŽ Ð½Ðµ Ð²ÐµÐ´Ñ‘Ð¼
 				} // Ñ„Ð°Ð¹Ð»Ð° Ð½Ðµ Ð±Ñ‹Ð»Ð¾ - Ð³ÐµÐ½ÐµÑ€Ð¸Ñ€ÑƒÐµÐ¼ ÐµÐ³Ð¾, ÑÐ¾Ð·Ð´Ð°Ñ‘Ð¼ Ð¸ Ð²ÑÑ‘ Ñ€Ð°Ð²Ð½Ð¾ Ð²Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°ÐµÐ¼ ÑÑÑ‹Ð»ÐºÑƒ
 			}
-			// Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ðµ Ð´Ð°Ð½Ð½Ñ‹Ñ… Ð¾ Ð¿Ñ€Ð°Ð²Ð°Ñ… Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»Ñ
 			$canConfig = $acl->acl_check('administration','config','users',$usertype);
 			$manageTemplates = $acl->acl_check('administration','manage','users',$usertype,'components','com_templates');
 			$manageTrash = $acl->acl_check('administration','manage','users',$usertype,'components','com_trash');
@@ -275,8 +275,6 @@ _cmSplit,
 [null,'<?php echo _MOD_FULLMENU_JOOMLA_TOOLS?>',null,null,'<?php echo _MOD_FULLMENU_JOOMLA_TOOLS?>',
 ['<img src="<?php echo $cur_file_icons_path ?>messaging_inbox.png" />','<?php echo _PRIVATE_MESSAGES?>','index2.php?option=com_messages',null,'<?php echo _PRIVATE_MESSAGES?>'],
 ['<img src="<?php echo $cur_file_icons_path ?>messaging_config.png" />','<?php echo _PRIVATE_MESSAGES_CONFIG?>','index2.php?option=com_messages&task=config&hidemainmenu=1',null,'<?php echo _PRIVATE_MESSAGES_CONFIG?>'],
-_cmSplit,
-['<img src="<?php echo $cur_file_icons_path ?>media.png" />','<?php echo _MOD_FULLMENU_MEDIA_MANAGER?>','index2.php?option=com_jwmmxtd',null,'<?php echo _MOD_FULLMENU_MEDIA_MANAGER?>'],
 			<?php if($canConfig) { ?>
 ['<img src="<?php echo $cur_file_icons_path ?>license.png" />','<?php echo _SQL_CONSOLE?>','index2.php?option=com_easysql',null,'<?php echo _SQL_CONSOLE?>'],
 _cmSplit,
