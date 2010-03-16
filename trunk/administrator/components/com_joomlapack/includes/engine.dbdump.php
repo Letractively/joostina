@@ -252,7 +252,7 @@ class CDBBackupEngine {
 									break;
 								case 1:
 								// архивирование в tar.gz
-									include_once (JPATH_BASE.'/includes/libraries/arhive/Tar.php');
+									include_once (JPATH_BASE.'/includes/libraries/arhive/tar.php');
 									$filename = $filename.'.tar.gz';
 									$tar = new Archive_Tar($filename);
 									$tar->setErrorHandling(PEAR_ERROR_PRINT);
