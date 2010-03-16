@@ -75,6 +75,8 @@ unset($request_uri);
  * @package Joostina
  */
 class mosMainFrame {
+
+	private static $_instance;
 	/**
 	 @var database Internal database class pointer*/
 	var $_db = null;
@@ -165,16 +167,14 @@ class mosMainFrame {
 		}
 	}
 
+	// получение прямой ссылки на объект ядра
 	public static function &getInstance($isAdmin = false) {
-		static $instance;
 
-		//jd_inc('mosMainFrame::getInstance()');
-
-		if (!is_object( $instance )) {
-			$instance = new mosMainFrame(null,null,null,$isAdmin);
+		if (self::$_instance === NULL) {
+			self::$_instance = new mosMainFrame(null,null,null,$isAdmin);
 		}
 
-		return $instance;
+		return self::$_instance;
 	}
 
 	function adminView($target) {
@@ -384,7 +384,7 @@ class mosMainFrame {
 	 * Tags ordered in with Site Keywords and Description first
 	 */
 	function appendMetaTag($name,$content) {
-		$name = Jstring::trim(htmlspecialchars($name));
+		$name = Jstring::trim( htmlspecialchars($name) );
 		$n = count($this->_head['meta']);
 		for($i = 0; $i < $n; $i++) {
 			if($this->_head['meta'][$i][0] == $name) {
@@ -1143,7 +1143,6 @@ class mosMainFrame {
 		if($user->id) {
 			$query = "SELECT id, name, email, avatar, block, sendEmail, registerDate, lastvisitDate, activation, params FROM #__users WHERE id = ".(int)$user->id;
 			$database->setQuery($query,0,1)->loadObject($my);
-			;
 
 			$user->params = $my->params;
 			$user->name = $my->name;
@@ -1154,53 +1153,6 @@ class mosMainFrame {
 			$user->registerDate = $my->registerDate;
 			$user->lastvisitDate = $my->lastvisitDate;
 			$user->activation = $my->activation;
-		}
-		/* чистка памяти */
-		unset($user->_db);
-		return $user;
-	}
-
-
-	function getUser_from_sess($sess_id) {
-		$mainframe = &mosMainFrame::getInstance();
-		$sess_id = $mainframe->sessionCookieValue($sess_id);
-
-
-		$database = &database::getInstance();
-		$user = new mosUser($database);
-		$user->id = 0;
-		$user->gid = 0;
-
-		$row = null;
-
-		if($mainframe->_session && $mainframe->_session->userid) {
-			$row = $mainframe->_session;
-		}
-		else {
-			$sql = "SELECT * FROM #__session WHERE session_id = '".$sess_id."' AND guest = 0";
-			$database->setQuery($sql)->loadObject($row);
-		}
-
-		if($row && $row->userid) {
-			$user->id = $row->userid;
-
-			$query = "SELECT id, name, username, usertype, email, avatar, block, sendEmail, registerDate, lastvisitDate, activation, params
-			FROM #__users WHERE id = ".(int)$user->id;
-
-			$database->setQuery($query,0,1)->loadObject($my);
-
-			$user->params = $my->params;
-			$user->name = $my->name;
-			$user->username = $my->username;
-			$user->email = $my->email;
-			$user->avatar = $my->avatar;
-			$user->block = $my->block;
-			$user->sendEmail = $my->sendEmail;
-			$user->registerDate = $my->registerDate;
-			$user->lastvisitDate = $my->lastvisitDate;
-			$user->activation = $my->activation;
-			$user->usertype = $my->usertype;
-			//$user->gid = $row->gid;
 		}
 		/* чистка памяти */
 		unset($user->_db);
@@ -1215,9 +1167,8 @@ class mosMainFrame {
 		$varname = 'config_'.$varname;
 
 		$config = $this->get('config');
-		$varname_saved = (isset($config->$varname)) ? $config->$varname : null;
+		return (isset($config->$varname)) ? $config->$varname : null;
 
-		return $varname_saved;
 	}
 
 	/**  функция определения шаблона, если в панели управления указано что использовать один шаблон - сразу возвращаем его название, функцию не проводим до конца*/
@@ -1983,289 +1934,288 @@ class mosMainFrame {
 
 		return array('option'=>$option,'Itemid'=>$Itemid);
 	}
-
 }
 
 // главный класс конфигурации системы
 class JConfig {
-	/** @var int*/
-	var $config_offline = null;
-	/** @var string*/
-	var $config_offline_message = null;
-	/** @var string*/
-	var $config_error_message = null;
-	/** @var string*/
-	var $config_sitename = null;
-	/** @var string*/
-	var $config_editor = 'jce';
-	/** @var int*/
-	var $config_list_limit = 30;
-	/** @var string*/
-	var $config_favicon = null;
-	/** @var string*/
-	var $config_frontend_login = 1;
-	/** @var int*/
-	var $config_debug = 0;
-	/** @var string*/
-	var $config_host = null;
-	/** @var string*/
-	var $config_user = null;
-	/** @var string*/
-	var $config_password = null;
-	/** @var string*/
-	var $config_db = null;
-	/** @var string*/
-	var $config_dbprefix = null;
-	/** @var string*/
-	var $config_absolute_path = null;
-	/** @var string*/
-	var $config_live_site = null;
-	/** @var string*/
-	var $config_secret = null;
-	/** @var int*/
-	var $config_gzip = 0;
-	/** @var int*/
-	var $config_lifetime = 900;
-	/** @var int*/
-	var $config_session_life_admin = 1800;
-	/** @var int*/
-	var $config_admin_expired = 1;
-	/** @var int*/
-	var $config_session_type = 0;
-	/** @var int*/
-	var $config_error_reporting = 0;
-	/** @var string*/
-	var $config_helpurl = 'http://help.joostina.ru';
-	/** @var string*/
-	var $config_fileperms = '0644';
-	/** @var string*/
-	var $config_dirperms = '0755';
-	/** @var string*/
-	var $config_locale = null;
-	/** @var string*/
-	var $config_lang = null;
-	/** @var int*/
-	var $config_offset = null;
-	/** @var int*/
-	var $config_offset_user = null;
-	/** @var string*/
-	var $config_mailer = null;
-	/** @var string*/
-	var $config_mailfrom = null;
-	/** @var string*/
-	var $config_fromname = null;
-	/** @var string*/
-	var $config_sendmail = '/usr/sbin/sendmail';
-	/** @var string*/
-	var $config_smtpauth = 0;
-	/** @var string*/
-	var $config_smtpuser = null;
-	/** @var string*/
-	var $config_smtppass = null;
-	/** @var string*/
-	var $config_smtphost = null;
-	/** @var int*/
-	var $config_caching = 0;
-	/** @var string*/
-	var $config_cachepath = null;
-	/** @var string*/
-	var $config_cachetime = null;
-	/** @var int*/
-	var $config_allowUserRegistration = 0;
-	/** @var int*/
-	var $config_useractivation = null;
-	/** @var int*/
-	var $config_uniquemail = null;
-	/** @var int*/
-	var $config_shownoauth = 0;
-	/** @var int*/
-	var $config_frontend_userparams = 1;
-	/** @var string*/
-	var $config_MetaDesc = null;
-	/** @var string*/
-	var $config_MetaKeys = null;
-	/** @var int*/
-	var $config_MetaTitle = null;
-	/** @var int*/
-	var $config_MetaAuthor = null;
-	/** @var int*/
-	var $config_enable_log_searches = null;
-	/** @var int*/
-	var $config_enable_stats = null;
-	/** @var int*/
-	var $config_enable_log_items = null;
-	/** @var int*/
-	var $config_sef = 0;
-	/** @var int*/
-	var $config_pagetitles = 1;
-	/** @var int*/
-	var $config_link_titles = 0;
-	/** @var int*/
-	var $config_readmore = 1;
-	/** @var int*/
-	var $config_vote = 0;
-	/** @var int*/
-	var $config_showAuthor = 0;
-	/** @var int*/
-	var $config_showCreateDate = 0;
-	/** @var int*/
-	var $config_showModifyDate = 0;
-	/** @var int*/
-	var $config_hits = 1;
-	/** @var int*/
-	var $config_showPrint = 0;
-	/** @var int*/
-	var $config_showEmail = 0;
-	/** @var int*/
-	var $config_icons = 1;
-	/** @var int*/
-	var $config_back_button = 0;
-	/** @var int*/
-	var $config_item_navigation = 0;
-	/** @var int*/
-	var $config_multilingual_support = 0;
-	/** @var int*/
-	var $config_multipage_toc = 0;
+	/** @public int*/
+	public $config_offline = null;
+	/** @public string*/
+	public $config_offline_message = null;
+	/** @public string*/
+	public $config_error_message = null;
+	/** @public string*/
+	public $config_sitename = null;
+	/** @public string*/
+	public $config_editor = 'jce';
+	/** @public int*/
+	public $config_list_limit = 30;
+	/** @public string*/
+	public $config_favicon = null;
+	/** @public string*/
+	public $config_frontend_login = 1;
+	/** @public int*/
+	public $config_debug = 0;
+	/** @public string*/
+	public $config_host = null;
+	/** @public string*/
+	public $config_user = null;
+	/** @public string*/
+	public $config_password = null;
+	/** @public string*/
+	public $config_db = null;
+	/** @public string*/
+	public $config_dbprefix = null;
+	/** @public string*/
+	public $config_absolute_path = null;
+	/** @public string*/
+	public $config_live_site = null;
+	/** @public string*/
+	public $config_secret = null;
+	/** @public int*/
+	public $config_gzip = 0;
+	/** @public int*/
+	public $config_lifetime = 900;
+	/** @public int*/
+	public $config_session_life_admin = 1800;
+	/** @public int*/
+	public $config_admin_expired = 1;
+	/** @public int*/
+	public $config_session_type = 0;
+	/** @public int*/
+	public $config_error_reporting = 0;
+	/** @public string*/
+	public $config_helpurl = 'http://help.joostina.ru';
+	/** @public string*/
+	public $config_fileperms = '0644';
+	/** @public string*/
+	public $config_dirperms = '0755';
+	/** @public string*/
+	public $config_locale = null;
+	/** @public string*/
+	public $config_lang = null;
+	/** @public int*/
+	public $config_offset = null;
+	/** @public int*/
+	public $config_offset_user = null;
+	/** @public string*/
+	public $config_mailer = null;
+	/** @public string*/
+	public $config_mailfrom = null;
+	/** @public string*/
+	public $config_fromname = null;
+	/** @public string*/
+	public $config_sendmail = '/usr/sbin/sendmail';
+	/** @public string*/
+	public $config_smtpauth = 0;
+	/** @public string*/
+	public $config_smtpuser = null;
+	/** @public string*/
+	public $config_smtppass = null;
+	/** @public string*/
+	public $config_smtphost = null;
+	/** @public int*/
+	public $config_caching = 0;
+	/** @public string*/
+	public $config_cachepath = null;
+	/** @public string*/
+	public $config_cachetime = null;
+	/** @public int*/
+	public $config_allowUserRegistration = 0;
+	/** @public int*/
+	public $config_useractivation = null;
+	/** @public int*/
+	public $config_uniquemail = null;
+	/** @public int*/
+	public $config_shownoauth = 0;
+	/** @public int*/
+	public $config_frontend_userparams = 1;
+	/** @public string*/
+	public $config_MetaDesc = null;
+	/** @public string*/
+	public $config_MetaKeys = null;
+	/** @public int*/
+	public $config_MetaTitle = null;
+	/** @public int*/
+	public $config_MetaAuthor = null;
+	/** @public int*/
+	public $config_enable_log_searches = null;
+	/** @public int*/
+	public $config_enable_stats = null;
+	/** @public int*/
+	public $config_enable_log_items = null;
+	/** @public int*/
+	public $config_sef = 0;
+	/** @public int*/
+	public $config_pagetitles = 1;
+	/** @public int*/
+	public $config_link_titles = 0;
+	/** @public int*/
+	public $config_readmore = 1;
+	/** @public int*/
+	public $config_vote = 0;
+	/** @public int*/
+	public $config_showAuthor = 0;
+	/** @public int*/
+	public $config_showCreateDate = 0;
+	/** @public int*/
+	public $config_showModifyDate = 0;
+	/** @public int*/
+	public $config_hits = 1;
+	/** @public int*/
+	public $config_showPrint = 0;
+	/** @public int*/
+	public $config_showEmail = 0;
+	/** @public int*/
+	public $config_icons = 1;
+	/** @public int*/
+	public $config_back_button = 0;
+	/** @public int*/
+	public $config_item_navigation = 0;
+	/** @public int*/
+	public $config_multilingual_support = 0;
+	/** @public int*/
+	public $config_multipage_toc = 0;
 	/** Режим работы с itemid, 0 - прежний режим*/
-	var $config_itemid_compat = 0;
-	/** @var int отключение ведения сессий на фронте*/
-	var $config_no_session_front = 0;
-	/** @var int отключение syndicate*/
-	var $config_syndicate_off = 0;
-	/** @var int отключение тега Generator*/
-	var $config_generator_off = 0;
-	/** @var int отключение мамботов группы system*/
-	var $config_mmb_system_off = 0;
-	/** @var str использование одного шаблона на весь сайт*/
-	var $config_one_template = '...';
-	/** @var int подсчет времени генерации страницы*/
-	var $config_time_generate = 0;
-	/** @var int индексация страницы печати*/
-	var $config_index_print = 0;
-	/** @var int расширенные теги индексации*/
-	var $config_index_tag = 0;
-	/** @var int использование ежесуточной оптимизации таблиц базы данных*/
-	var $config_optimizetables = 1;
-	/** @var int отключение мамботов группы content*/
-	var $config_mmb_content_off = 0;
-	/** @var int кэширование меню панели управления*/
-	var $config_adm_menu_cache = 0;
-	/** @var int расположение элементов title*/
-	var $config_pagetitles_first = 1;
-	/** @var string разделитель "заголовок страницы - Название сайта "*/
-	var $config_tseparator = ' - ';
+	public $config_itemid_compat = 0;
+	/** @public int отключение ведения сессий на фронте*/
+	public $config_no_session_front = 0;
+	/** @public int отключение syndicate*/
+	public $config_syndicate_off = 0;
+	/** @public int отключение тега Generator*/
+	public $config_generator_off = 0;
+	/** @public int отключение мамботов группы system*/
+	public $config_mmb_system_off = 0;
+	/** @public str использование одного шаблона на весь сайт*/
+	public $config_one_template = '...';
+	/** @public int подсчет времени генерации страницы*/
+	public $config_time_generate = 0;
+	/** @public int индексация страницы печати*/
+	public $config_index_print = 0;
+	/** @public int расширенные теги индексации*/
+	public $config_index_tag = 0;
+	/** @public int использование ежесуточной оптимизации таблиц базы данных*/
+	public $config_optimizetables = 1;
+	/** @public int отключение мамботов группы content*/
+	public $config_mmb_content_off = 0;
+	/** @public int кэширование меню панели управления*/
+	public $config_adm_menu_cache = 0;
+	/** @public int расположение элементов title*/
+	public $config_pagetitles_first = 1;
+	/** @public string разделитель "заголовок страницы - Название сайта "*/
+	public $config_tseparator = ' - ';
 	/** @int отключение captcha*/
-	var $config_captcha = 1;
+	public $config_captcha = 1;
 	/** @int очистка ссылки на com_frontpage*/
-	var $config_com_frontpage_clear = 1;
+	public $config_com_frontpage_clear = 1;
 	/** @str корень для компонента управления медиа содержимым*/
-	var $config_media_dir = 'images/stories';
+	public $config_media_dir = 'images/stories';
 	/** @int автоматическая установка "Публиковать на главной"*/
-	var $config_auto_frontpage = 0;
+	public $config_auto_frontpage = 0;
 	/** @int уникальные идентификаторы новостей*/
-	var $config_uid_news = 0;
+	public $config_uid_news = 0;
 	/** @int подсчет прочтений содержимого*/
-	var $config_content_hits = 1;
+	public $config_content_hits = 1;
 	/** @str формат даты*/
-	var $config_form_date = '%d.%m.%Y г.';
+	public $config_form_date = '%d.%m.%Y г.';
 	/** @str полный формат даты и времени*/
-	var $config_form_date_full = '%d.%m.%Y г. %H:%M';
+	public $config_form_date_full = '%d.%m.%Y г. %H:%M';
 	/** @int не показывать "Главная" на первой странице*/
-	var $config_pathway_clean = 1;
+	public $config_pathway_clean = 1;
 	/** @int автоматические разлогинивание в панели управления после окончания жизни сессии */
-	var $config_admin_autologout = 1;
+	public $config_admin_autologout = 1;
 	/** @int отключение кнопки "Помощь"*/
-	var $config_disable_button_help = 0;
+	public $config_disable_button_help = 0;
 	/** @int отключение блокировок объектов*/
-	var $config_disable_checked_out = 0;
+	public $config_disable_checked_out = 0;
 	/** @int отключение favicon*/
-	var $config_disable_favicon = 1;
+	public $config_disable_favicon = 1;
 	/** @str смещение для rss*/
-	var $config_feed_timeoffset = null;
+	public $config_feed_timeoffset = null;
 	/** @int использовать расширенную отладку на фронте*/
-	var $config_front_debug = 0;
-	/** @var int отключение мамботов группы mainbody*/
-	var $config_mmb_mainbody_off = 0;
-	/** @var int автоматическая авторизация после подтверждения регистрации*/
-	var $config_auto_activ_login = 0;
-	/** @var int отключение вкладки 'Изображения'*/
-	var $config_disable_image_tab = 0;
-	/** @var int обрамлять заголовки тегом h1*/
-	var $config_title_h1 = 0;
-	/** @var int обрамлять заголовки тегом h1 только в режиме полного просмотра содержимого*/
-	var $config_title_h1_only_view = 1;
-	/** @var int отключить проверки публикаций по датам*/
-	var $config_disable_date_state = 0;
-	/** @var int отключить контроль доступа к содержимому*/
-	var $config_disable_access_control = 0;
-	/** @var int включение оптимизации функции кэширования*/
-	var $config_cache_opt = 0;
-	/** @var int captcha для регистрации*/
-	var $config_captcha_reg = 0;
-	/** @var int captcha для формы контактов*/
-	var $config_captcha_cont = 0;
-	/** @var int обработчик кэширования запросов базы данных */
-	var $config_db_cache_handler = 'none';
-	/** @var int время жизни кэша запросов базы данных */
-	var $config_db_cache_time = 0;
-	/** @var int вывод мета-тега baser */
-	var $config_mtage_base = 1;
-	/** @var int вывод мета-тега revisit в днях */
-	var $config_mtage_revisit = 10;
-	/** @var int использование страницы печати из каталога текущего шаблона */
-	var $config_custom_print = 0;
-	/** @var int использование совместимого вывода туллбара */
-	var $config_old_toolbar = 0;
-	/** @var int отключение предпросмотра шаблонов через &tp=1 */
-	var $config_disable_tpreview = 0;
+	public $config_front_debug = 0;
+	/** @public int отключение мамботов группы mainbody*/
+	public $config_mmb_mainbody_off = 0;
+	/** @public int автоматическая авторизация после подтверждения регистрации*/
+	public $config_auto_activ_login = 0;
+	/** @public int отключение вкладки 'Изображения'*/
+	public $config_disable_image_tab = 0;
+	/** @public int обрамлять заголовки тегом h1*/
+	public $config_title_h1 = 0;
+	/** @public int обрамлять заголовки тегом h1 только в режиме полного просмотра содержимого*/
+	public $config_title_h1_only_view = 1;
+	/** @public int отключить проверки публикаций по датам*/
+	public $config_disable_date_state = 0;
+	/** @public int отключить контроль доступа к содержимому*/
+	public $config_disable_access_control = 0;
+	/** @public int включение оптимизации функции кэширования*/
+	public $config_cache_opt = 0;
+	/** @public int captcha для регистрации*/
+	public $config_captcha_reg = 0;
+	/** @public int captcha для формы контактов*/
+	public $config_captcha_cont = 0;
+	/** @public int обработчик кэширования запросов базы данных */
+	public $config_db_cache_handler = 'none';
+	/** @public int время жизни кэша запросов базы данных */
+	public $config_db_cache_time = 0;
+	/** @public int вывод мета-тега baser */
+	public $config_mtage_base = 1;
+	/** @public int вывод мета-тега revisit в днях */
+	public $config_mtage_revisit = 10;
+	/** @public int использование страницы печати из каталога текущего шаблона */
+	public $config_custom_print = 0;
+	/** @public int использование совместимого вывода туллбара */
+	public $config_old_toolbar = 0;
+	/** @public int отключение предпросмотра шаблонов через &tp=1 */
+	public $config_disable_tpreview = 0;
 	/** @int включение кода безопасности для доступа к панели управления*/
-	var $config_enable_admin_secure_code = 0;
+	public $config_enable_admin_secure_code = 0;
 	/** @int включение кода безопасности для доступа к панели управления*/
-	var $config_admin_secure_code = 'admin';
+	public $config_admin_secure_code = 'admin';
 	/** @int режим редиректа при включенном коде безопасноти*/
-	var $config_admin_redirect_options = 0;
+	public $config_admin_redirect_options = 0;
 	/** @int адрес редиректа при включенном коде безопасноти*/
-	var $config_admin_redirect_path = '404.html';
-	/** @var int число попыток автооизации для входа в админку*/
-	var $config_admin_bad_auth = 5;
-	/** @var int обработчик кэширования */
-	var $config_cache_handler = 'none';
-	/** @var int ключ для кэш файлов */
-	var $config_cache_key = '';
-	/** @var array настройки memCached */
-	var $config_memcache_persistent = 0;
-	/** @var array настройки memCached */
-	var $config_memcache_compression = 0;
-	/** @var array настройки memCached */
-	var $config_memcache_host = 'localhost';
-	/** @var array настройки memCached */
-	var $config_memcache_port = '11211';
-	/** @var int тип вывода ника автора материала */
-	var $config_author_name = 4;
-	/** @var int использование неопубликованных мамботов */
-	var $config_use_unpublished_mambots = 1;
-	/** @var int использование мамботов удаления содержимого */
-	var $config_use_content_delete_mambots = 0;
-	/** @var str название шаблона панели управления */
-	var $config_admin_template = '...';
-	/** @var int режим сортировки содержимого в панели управления */
-	var $config_admin_content_order_by = 2;
-	/** @var str порядок сортировки содержимого в панели управления */
-	var $config_admin_content_order_sort = 0;
-	/** @var int активация блокировок компонентов */
-	var $config_components_access = 0;
-	/** @var int использование мамботов редактирования содержимого */
-	var $config_use_content_edit_mambots = 0;
-	/** @var int использование мамботов сохранения содержимого */
-	var $config_use_content_save_mambots = 0;
-	/** @var int чисто неудачный авторизаций для блокировки аккаунта */
-	var $config_count_for_user_block = 10;
-	/** @var int директория шаблонов содержимого по-умолчанию */
-	var $config_global_templates = 0;
-	/** @var int включение/выключение отображения тэгов содержимого */
-	var $config_tags = 0;
-	/** @var int включение/выключение мамботов группы onAjaxStart */
-	var $config_mmb_ajax_starts_off = 1;
+	public $config_admin_redirect_path = '404.html';
+	/** @public int число попыток автооизации для входа в админку*/
+	public $config_admin_bad_auth = 5;
+	/** @public int обработчик кэширования */
+	public $config_cache_handler = 'none';
+	/** @public int ключ для кэш файлов */
+	public $config_cache_key = '';
+	/** @public array настройки memCached */
+	public $config_memcache_persistent = 0;
+	/** @public array настройки memCached */
+	public $config_memcache_compression = 0;
+	/** @public array настройки memCached */
+	public $config_memcache_host = 'localhost';
+	/** @public array настройки memCached */
+	public $config_memcache_port = '11211';
+	/** @public int тип вывода ника автора материала */
+	public $config_author_name = 4;
+	/** @public int использование неопубликованных мамботов */
+	public $config_use_unpublished_mambots = 1;
+	/** @public int использование мамботов удаления содержимого */
+	public $config_use_content_delete_mambots = 0;
+	/** @public str название шаблона панели управления */
+	public $config_admin_template = '...';
+	/** @public int режим сортировки содержимого в панели управления */
+	public $config_admin_content_order_by = 2;
+	/** @public str порядок сортировки содержимого в панели управления */
+	public $config_admin_content_order_sort = 0;
+	/** @public int активация блокировок компонентов */
+	public $config_components_access = 0;
+	/** @public int использование мамботов редактирования содержимого */
+	public $config_use_content_edit_mambots = 0;
+	/** @public int использование мамботов сохранения содержимого */
+	public $config_use_content_save_mambots = 0;
+	/** @public int чисто неудачный авторизаций для блокировки аккаунта */
+	public $config_count_for_user_block = 10;
+	/** @public int директория шаблонов содержимого по-умолчанию */
+	public $config_global_templates = 0;
+	/** @public int включение/выключение отображения тэгов содержимого */
+	public $config_tags = 0;
+	/** @public int включение/выключение мамботов группы onAjaxStart */
+	public $config_mmb_ajax_starts_off = 1;
 
 	// инициализация класса конфигурации - собираем переменные конфигурации
 	function JConfig() {
@@ -2345,54 +2295,6 @@ class JConfig {
 		if($mosConfig_live_site != $this->config_live_site) {
 			$this->config_live_site = $mosConfig_live_site;
 		}
-	}
-}
-
-
-/**
- * Class mosMambot
- * @package Joostina
- */
-class mosMambot extends mosDBTable {
-	/**
-	 @var int*/
-	var $id = null;
-	/**
-	 @var varchar*/
-	var $name = null;
-	/**
-	 @var varchar*/
-	var $element = null;
-	/**
-	 @var varchar*/
-	var $folder = null;
-	/**
-	 @var tinyint unsigned*/
-	var $access = null;
-	/**
-	 @var int*/
-	var $ordering = null;
-	/**
-	 @var tinyint*/
-	var $published = null;
-	/**
-	 @var tinyint*/
-	var $iscore = null;
-	/**
-	 @var tinyint*/
-	var $client_id = null;
-	/**
-	 @var int unsigned*/
-	var $checked_out = null;
-	/**
-	 @var datetime*/
-	var $checked_out_time = null;
-	/**
-	 @var text*/
-	var $params = null;
-
-	function mosMambot(&$db) {
-		$this->mosDBTable('#__mambots','id',$db);
 	}
 }
 
@@ -2546,9 +2448,7 @@ class mosMenu extends mosDBTable {
 		unset($menu,$menuss);
 		return $return;
 	}
-
 }
-
 
 /**
  * Module database table class
@@ -4057,22 +3957,6 @@ function mosWarning($warning,$title = _MOS_WARNING) {
 	return $tip;
 }
 
-function mosCreateGUID() {
-	srand((double)microtime()* 1000000);
-	$r = rand();
-	$u = uniqid(getmypid().$r.(double)microtime()* 1000000,1);
-	$m = md5($u);
-	return ($m);
-}
-
-function mosCompressID($ID) {
-	return (Base64_encode(pack("H*",$ID)));
-}
-
-function mosExpandID($ID) {
-	return (implode(unpack("H*",Base64_decode($ID)),''));
-}
-
 /**
  * Function to create a mail object for futher use (uses phpMailer)
  * @param string From e-mail address
@@ -4354,6 +4238,54 @@ function mosMakePassword($length = 8) {
 	return $makepass;
 }
 
+
+/**
+ * Class mosMambot
+ * @package Joostina
+ */
+class mosMambot extends mosDBTable {
+	/**
+	 @var int*/
+	var $id = null;
+	/**
+	 @var varchar*/
+	var $name = null;
+	/**
+	 @var varchar*/
+	var $element = null;
+	/**
+	 @var varchar*/
+	var $folder = null;
+	/**
+	 @var tinyint unsigned*/
+	var $access = null;
+	/**
+	 @var int*/
+	var $ordering = null;
+	/**
+	 @var tinyint*/
+	var $published = null;
+	/**
+	 @var tinyint*/
+	var $iscore = null;
+	/**
+	 @var tinyint*/
+	var $client_id = null;
+	/**
+	 @var int unsigned*/
+	var $checked_out = null;
+	/**
+	 @var datetime*/
+	var $checked_out_time = null;
+	/**
+	 @var text*/
+	var $params = null;
+
+	function mosMambot(&$db) {
+		$this->mosDBTable('#__mambots','id',$db);
+	}
+}
+
 /**
  * Plugin handler
  * @package Joostina
@@ -4385,8 +4317,8 @@ class mosMambotHandler {
 	 */
 	var $_mambot_params = array();
 
-	var $_config = null;
-	var $_db = null;
+	private $_config = null;
+	private $_db = null;
 	/**
 	 * Constructor
 	 */
