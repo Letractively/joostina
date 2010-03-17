@@ -8,7 +8,7 @@
 	<authorUrl>www.joostina.ru</authorUrl>
 	<version>1.3.1</version>
 	<description>Модуль отображающий форму авторизации<![CDATA[
-	<script type="text/javascript" src="../includes/js/tabs/tabpane_mini.js"></script>
+	<script type="text/javascript" src="../includes/js/tabs/tabpane.js"></script>
 	<link id="luna-tab-style-sheet" type="text/css" rel="stylesheet" href="../includes/js/tabs/tabpane.css" />]]></description>
 	<files>
 		<filename module="mod_ml_login">mod_ml_login.php</filename>
