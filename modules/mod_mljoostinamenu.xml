@@ -12,7 +12,7 @@
 	Mitrichlab Joostina Menu
 	<br />Copyleft <a href="http://mitrichlab.ru">Дмитрий [Mitrich] Смирнов</a> 2007</strong>
 	за вкладки (tabs) спасибо <a href="http://www.joomla-ua.org">Денису [DUTCH] Носову</a>
-	<script type="text/javascript" src="../includes/js/tabs/tabpane_mini.js"></script>
+	<script type="text/javascript" src="../includes/js/tabs/tabpane.js"></script>
 	<link id="luna-tab-style-sheet" type="text/css" rel="stylesheet" href="../includes/js/tabs/tabpane.css" />]]>
 	</description>
 	<files>
