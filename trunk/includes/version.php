@@ -48,3 +48,7 @@ class coreVersion {
 		return self::$$name;
 	}
 }
+
+// небольшая нежелательная заглушка
+// TODO убрать к 1.3.5
+class joomlaVersion extends coreVersion{}
