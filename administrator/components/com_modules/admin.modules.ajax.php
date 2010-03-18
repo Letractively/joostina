@@ -61,11 +61,6 @@ function x_apply() {
 
 	$row = new mosModule($database);
 
-	$_POST['title'] = joostina_api::convert($_POST['title']);
-	if (isset($_POST['content'])) {
-		$_POST['content'] = joostina_api::convert(strval($_POST['content']));
-	}
-
 	if(!$row->bind($_POST,'selections')) return 'error-bind';
 	if(!$row->check()) return 'error-check';
 	if(!$row->store()) return 'error-store';
