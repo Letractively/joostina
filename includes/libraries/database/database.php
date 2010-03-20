@@ -1264,4 +1264,10 @@ class mosDBTable {
 		$sql = "INSERT IGNORE INTO $name_table_keys ( $key_name,$value_name ) VALUES $values";
 		return $this->_db->setQuery( $sql )->query();
 	}
+
+	// булево изменение содержимого указанного столбца. Используется для смены статуса элемента
+	 public function changeState( $fieldname ){
+        $this->_db->setQuery("UPDATE $this->_tbl SET `$fieldname` = !`$fieldname` WHERE $this->_tbl_key = $this->id ",0,1)->query();
+        //echo $this->_db->getQuery();
+    }
 }
