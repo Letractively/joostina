@@ -117,7 +117,7 @@ class mosGeneralInstaller {
 	function uploadPackage($option,$element,$client) {
 		global $classMap;
 
-		$config = &Jconfig::getInstance();
+		$config = Jconfig::getInstance();
 
 		$pre_installer = new mosInstaller();
 		josSpoofCheck();
@@ -175,7 +175,7 @@ class mosGeneralInstaller {
 	 */
 	function installFromDirectory($option,$element,$client) {
 		global $classMap;
-		$config = &Jconfig::getInstance();
+		$config = Jconfig::getInstance();
 
 		$pre_installer = new mosInstaller();
 		$userfile = mosGetParam($_REQUEST,'userfile','');

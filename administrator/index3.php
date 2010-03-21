@@ -38,7 +38,7 @@ require_once (JPATH_BASE .DS. 'includes'.DS.'joostina.php');
 // подключаем расширенные административные функции
 require_once (JPATH_BASE_ADMIN.DS.'includes'.DS.'admin.php');
 
-$acl = &gacl::getInstance( true );
+$acl = gacl::getInstance( true );
 
 // must start the session before we create the mainframe object
 session_name(md5($mosConfig_live_site));

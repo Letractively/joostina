@@ -917,7 +917,7 @@ class mosMainFrame {
 	* Deperciated 1.1
 	*/
 	public static function sessionCookieValue($id = null) {
-		$config = &Jconfig::getInstance();
+		$config = Jconfig::getInstance();
 		$type		= $config->config_session_type;
 		$browser	= @$_SERVER['HTTP_USER_AGENT'];
 
@@ -2792,7 +2792,7 @@ class mosCache {
 		static $config;
 
 		if(!is_array($config)) {
-			$config_ = &Jconfig::getInstance();
+			$config_ = Jconfig::getInstance();
 			$config['config_caching'] = $config_->config_caching;
 			$config['config_cachetime'] = $config_->config_cachetime;
 			$config['config_cache_handler'] = $config_->config_cache_handler;
@@ -3194,7 +3194,7 @@ class mosHTML {
 	 */
 	//TODO: справка - Back Button
 	public static function BackButton(&$params = null,$hide_js = null) {
-		$config = &Jconfig::getInstance();
+		$config = Jconfig::getInstance();
 
 		if( !$params ||  ($params->get('back_button')==1 && !$params->get('popup') && !$hide_js) || ($params->get('back_button') == -1 && $config->config_back_button == 1 ) ) {
 			include_once(JPATH_BASE.'/templates/system/back_button.php');
@@ -3912,7 +3912,7 @@ function mosCreateMail($from = '',$fromname = '',$subject='',$body='') {
 	mosMainFrame::addLib('phpmailer');
 	$mail = new mosPHPMailer();
 
-	$config = &Jconfig::getInstance();
+	$config = Jconfig::getInstance();
 
 	$mail->PluginDir = JPATH_BASE.DS.'includes/libraries/phpmailer/';
 	$mail->SetLanguage(_LANGUAGE,JPATH_BASE.DS.'includes/libraries/phpmailer/language/');
@@ -3955,7 +3955,7 @@ function mosCreateMail($from = '',$fromname = '',$subject='',$body='') {
  * @return boolean
  */
 function mosMail($from,$fromname,$recipient,$subject,$body,$mode = 0,$cc = null,$bcc = null,$attachment = null,$replyto = null,$replytoname = null) {
-	$config = &Jconfig::getInstance();
+	$config = Jconfig::getInstance();
 
 	// Allow empty $from and $fromname settings (backwards compatibility)
 	if($from == '') {
@@ -4259,7 +4259,7 @@ class mosMambotHandler {
 	 */
 	function mosMambotHandler() {
 		$this->_db = database::getInstance();
-		$config = &Jconfig::getInstance();
+		$config = Jconfig::getInstance();
 		$this->_config = array('config_disable_access_control'=>$config->config_disable_access_control,'config_use_unpublished_mambots'=>$config->config_use_unpublished_mambots);
 		$this->_events = array();
 		unset($config);
@@ -5876,7 +5876,7 @@ function mosChmodRecursive($path,$filemode = null,$dirmode = null) {
  * @return TRUE=all succeeded FALSE=one or more chmods failed
  */
 function mosChmod($path) {
-	$config = &Jconfig::getInstance();
+	$config = Jconfig::getInstance();
 
 	$config->config_fileperms = trim($config->config_fileperms);
 	$config->config_dirperms = trim($config->config_fileperms);

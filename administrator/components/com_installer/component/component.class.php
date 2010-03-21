@@ -81,7 +81,7 @@ class mosInstallerComponent extends mosInstaller {
 		josSpoofCheck();
 
 		$database = database::getInstance();
-		$config = &Jconfig::getInstance();
+		$config = Jconfig::getInstance();
 
 		if(!$this->preInstallCheck($p_fromdir,'component')) {
 			return false;
@@ -281,7 +281,7 @@ class mosInstallerComponent extends mosInstaller {
 	 */
 	function uninstall($cid,$option,$client = 0) {
 		$database = database::getInstance();
-		$config = &Jconfig::getInstance();
+		$config = Jconfig::getInstance();
 
 		josSpoofCheck();
 		$uninstallret = '';
@@ -384,7 +384,7 @@ class mosInstallerComponent extends mosInstaller {
 	 * Uninstall method
 	 */
 	function cleanAfterError() {
-		$config =&Jconfig::getInstance();
+		$config =Jconfig::getInstance();
 
 		josSpoofCheck();
 		$basepath = mosPathName(JPATH_BASE.DS.'components'.DS.strtolower("com_".str_replace(" ","",$this->elementName())));
@@ -403,7 +403,7 @@ class mosInstallerComponent extends mosInstaller {
 		return true;
 	}
 	function cleanMediaData($adminFiles = 0) {
-		$config =&Jconfig::getInstance();
+		$config =Jconfig::getInstance();
 
 		$xmlDoc = &$this->xmlDoc();
 		$root = &$xmlDoc->documentElement;

@@ -134,7 +134,7 @@ function showUserItems($user_id) {
 
 	$mainframe = mosMainFrame::getInstance();
 	$database = $mainframe->getDBO();
-	$acl = &gacl::getInstance();
+	$acl = gacl::getInstance();
 
 	mosMainFrame::addLib('dbconfig');
 	require_once ($mainframe->getPath('config', 'com_content'));
@@ -1328,7 +1328,7 @@ function editItem($task) {
 	$database = $mainframe->getDBO();
 
 	mosMainFrame::addLib('gacl');
-	$acl = &gacl::getInstance();
+	$acl = gacl::getInstance();
 
 	$nullDate = $database->getNullDate();
 	$lists = array();

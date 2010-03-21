@@ -292,7 +292,7 @@ function userList($gid,$limit,$limitstart=0) {
 
 	$mainframe = mosMainFrame::getInstance();
 	$database = $mainframe->getDBO();
-	$acl = &gacl::getInstance();
+	$acl = gacl::getInstance();
 
 	$menu = null;
 
@@ -325,7 +325,7 @@ function userList($gid,$limit,$limitstart=0) {
 function CheckIn($userid,$access) {
 
 	$database = database::getInstance();
-	$config = &Jconfig::getInstance();
+	$config = Jconfig::getInstance();
 
 	$nullDate = $database->getNullDate();
 	if(!($access->canEdit || $access->canEditOwn || $userid > 0)) {
@@ -435,7 +435,7 @@ function lostPassForm($option) {
 	$mainframe = mosMainFrame::getInstance();
 	$mainframe->SetPageTitle(_LOST_PASSWORDWORD);
 
-	$config = &Jconfig::getInstance();
+	$config = Jconfig::getInstance();
 	$database = $mainframe->getDBO();
 
 	$user_config = new configUser_lostpass($database);
@@ -458,7 +458,7 @@ function sendNewPass() {
 	josSpoofCheck();
 
 	$database = database::getInstance();
-	$config = &Jconfig::getInstance();
+	$config = Jconfig::getInstance();
 
 	$checkusername = stripslashes(mosGetParam($_POST,'checkusername',''));
 	$confirmEmail = stripslashes(mosGetParam($_POST,'confirmEmail',''));
@@ -507,7 +507,7 @@ function registerForm($option,$useractivation) {
 
 	$mainframe = mosMainFrame::getInstance();
 	$database = $mainframe->getDBO();
-	$acl = &gacl::getInstance();
+	$acl = gacl::getInstance();
 
 	if(!$mainframe->getCfg('allowUserRegistration')) {
 		mosNotAuth();
@@ -547,7 +547,7 @@ function saveRegistration() {
 
 	$mainframe = mosMainFrame::getInstance();
 	$database = $mainframe->getDBO();
-	$acl = &gacl::getInstance();
+	$acl = gacl::getInstance();
 
 	if($mainframe->getCfg('allowUserRegistration') == 0) {
 		mosNotAuth();

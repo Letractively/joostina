@@ -18,7 +18,7 @@ class XmapCache {
 	function &getCache(&$sitemap, $handler = 'callback', $storage = 'file') {
 		$handler = ($handler == 'function') ? 'callback' : $handler;
 
-		$config = &Jconfig::getInstance();
+		$config = Jconfig::getInstance();
 
 		if(!isset($storage)) {
 			$storage =($config->config_cache_handler != '')? $config->config_cache_handler : 'file';

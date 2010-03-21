@@ -163,7 +163,7 @@ function deleteTrash($cid,$option) {
 	josSpoofCheck();
 
 	$database = database::getInstance();
-	$config = &Jconfig::getInstance();
+	$config = Jconfig::getInstance();
 
 	$type = mosGetParam($_POST,'type',array(0));
 	$total = count($cid);
@@ -204,7 +204,7 @@ function clearTrash() {
 	josSpoofCheck();
 
 	$database = database::getInstance();
-	$config = &Jconfig::getInstance();
+	$config = Jconfig::getInstance();
 
 	// выбираем из таблицы содержимого записи помеченные как удалённые
 	$sql_content = 'SELECT id FROM #__content WHERE state="-2" ';
