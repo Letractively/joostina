@@ -77,7 +77,7 @@ $loadbot_onBeforeDisplayContent; ?>
 
 
 <?php if($params->get('readmore',0)) : ?>
-	<span class="readmore">555<?php echo $readmore; ?></span>
+	<span class="readmore"><?php echo $readmore; ?></span>
 <?php endif; ?>
 
 <?php if($access->canEdit) : ?>	
