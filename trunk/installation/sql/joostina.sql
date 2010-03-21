@@ -1,78 +1,4 @@
-# $Id: joostina.sql Joostina 1.2.0 boston $
-
-
-#
-# Структура таблицы `#__banners`
-#
-
-CREATE TABLE IF NOT EXISTS `#__banners` (
-  `id` int(11) NOT NULL auto_increment,
-  `cid` int(11) NOT NULL default '0',
-  `tid` int(11) NOT NULL default '0',
-  `type` varchar(10) NOT NULL default 'banner',
-  `name` varchar(50) NOT NULL default '',
-  `imp_total` int(11) NOT NULL default '0',
-  `imp_made` int(11) NOT NULL default '0',
-  `clicks` int(11) NOT NULL default '0',
-  `image_url` varchar(100) default '',
-  `click_url` varchar(200) default '',
-  `custom_banner_code` text,
-  `state` tinyint(1) NOT NULL default '0',
-  `last_show` datetime NOT NULL default '0000-00-00 00:00:00',
-  `msec` int(11) NOT NULL default '0',
-  `publish_up_date` date NOT NULL default '0000-00-00',
-  `publish_up_time` time NOT NULL default '00:00:00',
-  `publish_down_date` date NOT NULL default '0000-00-00',
-  `publish_down_time` time NOT NULL default '00:00:00',
-  `reccurtype` tinyint(1) NOT NULL default '0',
-  `reccurweekdays` varchar(100) NOT NULL default '',
-  `access` int(11) NOT NULL default '0',
-  `target` varchar(15) NOT NULL default '',
-  `border_value` int(11) NOT NULL default '0',
-  `border_style` varchar(11) NOT NULL default '',
-  `border_color` varchar(11) NOT NULL default '',
-  `click_value` varchar(10) NOT NULL default '',
-  `complete_clicks` int(11) NOT NULL default '0',
-  `imp_value` varchar(10) NOT NULL default '',
-  `dta_mod_clicks` date default NULL,
-  `password` varchar(40) NOT NULL default '',
-  `checked_out` int(11) unsigned NOT NULL default '0',
-  `checked_out_time` datetime NOT NULL default '0000-00-00 00:00:00',
-  `alt` varchar(200) default '',
-  `title` varchar(200) default '',
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  CHARACTER SET utf8 COLLATE utf8_general_ci;
-
-#
-# Структура таблицы `#__banners_categories`
-#
-
-CREATE TABLE IF NOT EXISTS `#__banners_categories` (
-  `id` int(11) NOT NULL auto_increment,
-  `name` varchar(255) NOT NULL default '',
-  `description` text NOT NULL,
-  `published` tinyint(1) NOT NULL default '0',
-  `checked_out` int(11) unsigned NOT NULL default '0',
-  `checked_out_time` datetime NOT NULL default '0000-00-00 00:00:00',
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  CHARACTER SET utf8 COLLATE utf8_general_ci;
-
-
-#
-# Структура таблицы `#__banners_clients`
-#
-
-CREATE TABLE IF NOT EXISTS `#__banners_clients` (
-  `cid` int(11) NOT NULL auto_increment,
-  `name` varchar(60) NOT NULL default '',
-  `contact` varchar(60) NOT NULL default '',
-  `email` varchar(60) NOT NULL default '',
-  `extrainfo` text NOT NULL,
-  `published` tinyint(1) NOT NULL default '0',
-  `checked_out` int(11) unsigned NOT NULL default '0',
-  `checked_out_time` datetime NOT NULL default '0000-00-00 00:00:00',
-  PRIMARY KEY  (`cid`)
-) ENGINE=MyISAM  CHARACTER SET utf8 COLLATE utf8_general_ci;
+# $Id: joostina.sql Joostina 1.3.1 boston $
 
 #
 # Структура таблицы `#__categories`
@@ -125,10 +51,6 @@ CREATE TABLE `#__components` (
 # Данные таблицы `#__components`
 #
 
-INSERT INTO `#__components` VALUES (1, 'Баннеры', '', 0, 0, 'option=com_banners', 'Управление баннерами', 'com_banners', 0, 'js/ThemeOffice/component.png', 0, '');
-INSERT INTO `#__components` VALUES (2, 'Баннеры', '', 0, 1, 'option=com_banners&task=banners', 'Активные баннеры', 'com_banners', 1, 'js/ThemeOffice/edit.png', 0, '');
-INSERT INTO `#__components` VALUES (3, 'Клиенты', '', 0, 1, 'option=com_banners&task=clients', 'Управление клиентами', 'com_banners', 2, 'js/ThemeOffice/categories.png', 0, '');
-INSERT INTO `#__components` VALUES (25, 'Категории', '', 0, 1, 'option=com_banners&task=categories', 'Управление категориями', 'com_banners', 2, 'js/ThemeOffice/categories.png', 0, '');
 INSERT INTO `#__components` VALUES (7, 'Контакты', 'option=com_contact', 0, 0, '', 'Редактировать контактную информацию', 'com_contact', 0, 'js/ThemeOffice/user.png', 1, '');
 INSERT INTO `#__components` VALUES (8, 'Контакты', '', 0, 7, 'option=com_contact', 'Редактировать контактную информацию', 'com_contact', 0, 'js/ThemeOffice/edit.png', 1, '');
 INSERT INTO `#__components` VALUES (9, 'Категории', '', 0, 7, 'option=com_categories&section=com_contact_details', 'Управление категориями контактов', '', 2, 'js/ThemeOffice/categories.png', 1, '');
@@ -356,7 +278,7 @@ CREATE TABLE `#__menu` (
   KEY `menutype` (`menutype`)
 ) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
 
-INSERT INTO `#__menu` VALUES (1, 'mainmenu', 'Главная', 'index.php?option=com_frontpage', 'components', 1, 0, 10, 0, 2, 0, '0000-00-00 00:00:00', 0, 0, 0, 3, 'title=\npage_name=\nno_site_name=0\nrobots=-1\nmeta_description=\nmeta_keywords=\nmeta_author=\nmenu_image=-1\npageclass_sfx=\nheader=Добро пожаловать на главную страницу\npage_title=0\nback_button=0\nleading=2\nintro=2\ncolumns=1\nlink=0\norderby_pri=\norderby_sec=front\npagination=2\npagination_results=0\nimage=1\nsection=0\nsection_link=0\nsection_link_type=blog\ncategory=1\ncategory_link=0\ncat_link_type=blog\nitem_title=1\nlink_titles=1\nintro_only=1\nview_introtext=1\nintrotext_limit=\nview_tags=1\nreadmore=0\nrating=0\nauthor=1\nauthor_name=0\ncreatedate=1\nmodifydate=0\nhits=\nprint=0\nemail=0\nunpublished=0');
+INSERT INTO `#__menu` VALUES (1, 'mainmenu', 'Главная', 'index.php?option=com_frontpage', 'components', 1, 0, 10, 0, 1, 0, '0000-00-00 00:00:00', 0, 0, 0, 3, 'title=\npage_name=\nno_site_name=0\nrobots=-1\nmeta_description=\nmeta_keywords=\nmeta_author=\nmenu_image=-1\npageclass_sfx=\nheader=Добро пожаловать на главную страницу\npage_title=0\nback_button=0\nleading=2\nintro=2\ncolumns=1\nlink=0\norderby_pri=\norderby_sec=front\npagination=2\npagination_results=0\nimage=1\nsection=0\nsection_link=0\nsection_link_type=blog\ncategory=1\ncategory_link=0\ncat_link_type=blog\nitem_title=1\nlink_titles=1\nintro_only=1\nview_introtext=1\nintrotext_limit=\nview_tags=1\nreadmore=0\nrating=0\nauthor=1\nauthor_name=0\ncreatedate=1\nmodifydate=0\nhits=\nprint=0\nemail=0\nunpublished=0');
 
 #
 # Структура таблицы `#__modules`
@@ -403,7 +325,6 @@ INSERT INTO `#__modules` VALUES (14, 'Взаимосвязанные элеме�
 INSERT INTO `#__modules` VALUES (15, 'Поиск', '', 1, 'header', 0, '0000-00-00 00:00:00', 1, 'mod_search', 0, 0, 0, 'moduleclass_sfx=\ncache=1\nset_itemid=5\nwidth=20\ntext=Поиск\nbutton=1\nbutton_text=\ntext_pos=inside\nbutton_pos=right', 0, 0);
 INSERT INTO `#__modules` VALUES (16, 'Слайдшоу', '', 1, 'user1', 0, '0000-00-00 00:00:00', 1, 'mod_random_image', 0, 0, 0, 'rotate_type=1\ntype=jpg\nfolder=images/rotate\nlink=http://www.joostina.ru\nwidth=400\nheight=280\nmoduleclass_sfx=\nslideshow_name=jstSlideShow_1\nimg_pref=slide\ns_autoplay=1\ns_pause=2500\ns_fadeduration=500\npanel_height=55px\npanel_opacity=0.4\npanel_padding=5px\npanel_font=bold 11px Verdana', 0, 0);
 INSERT INTO `#__modules` VALUES (17, 'Верхнее меню', '', 1, 'top', 0, '0000-00-00 00:00:00', 1, 'mod_mainmenu', 0, 0, 0, 'cache=1\nclass_sfx=-nav\nmoduleclass_sfx=\nmenutype=topmenu\nmenu_style=list_flat\nfull_active_id=0\ncache=1\nmenu_images=0\nmenu_images_align=0\nexpand_menu=0\nactivate_parent=0\nindent_image=0\nindent_image1=\nindent_image2=\nindent_image3=\nindent_image4=\nindent_image5=\nindent_image6=\nspacer=\nend_spacer=', 1, 0);
-INSERT INTO `#__modules` VALUES (18, 'Баннеры', '', 1, 'banner', 0, '0000-00-00 00:00:00', 1, 'mod_banners', 0, 0, 0, 'categories=\nbanners=\nclients=\ncount=1\nrandom=0\norientation=0', 1, 0);
 INSERT INTO `#__modules` VALUES (19, 'Компоненты', '', 2, 'cpanel', 0, '0000-00-00 00:00:00', 0, 'mod_components', 0, 99, 1, '', 1, 1);
 INSERT INTO `#__modules` VALUES (20, 'Популярное содержимое', '', 3, 'advert2', 0, '0000-00-00 00:00:00', 0, 'mod_popular', 0, 99, 1, '', 1, 1);
 INSERT INTO `#__modules` VALUES (21, 'Последнее добавленное содержимое', '', 4, 'advert1', 0, '0000-00-00 00:00:00', 1, 'mod_latest', 0, 99, 1, '', 1, 1);
@@ -525,18 +446,6 @@ CREATE TABLE `#__session` (
   KEY `whosonline` (`guest`,`usertype`),
   KEY `userid` (`userid`)
 ) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
-
-#
-# Структура таблицы `#__stats_agents`
-#
-
-CREATE TABLE `#__stats_agents` (
-  `agent` varchar(255) NOT NULL default '',
-  `type` tinyint(1) unsigned NOT NULL default '0',
-  `hits` int(11) unsigned NOT NULL default '1',
-  KEY `type_agent` (`type`,`agent`)
-) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
-
 
 #
 # Структура таблицы `#__templates_menu`
@@ -882,7 +791,3 @@ ALTER TABLE `#__content_tags` ADD INDEX ( `obj_type` );
 ALTER TABLE `#__core_acl_aro_groups` DROP INDEX `parent_id_aro_groups`;
 ALTER TABLE `#__session` ADD INDEX ( `time` );
 ALTER TABLE `#__session` DROP PRIMARY KEY, ADD PRIMARY KEY ( `session_id` ( 64 ) );
-# com_banners
-ALTER TABLE `#__banners_categories` ADD INDEX ( `published` );
-ALTER TABLE `#__banners_clients` ADD INDEX ( `published` );
-ALTER TABLE `#__banners` ADD INDEX `ibx_select` (`state` ,`last_show` ,`msec` ,`publish_up_date` ,`publish_up_time` ,`publish_down_date` ,`publish_down_time` ,`reccurtype` ,`reccurweekdays` ( 2 ) ,`access`);

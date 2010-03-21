@@ -10,7 +10,7 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-$database = &database::getInstance();
+$database = database::getInstance();
 
 // check to see if site is a production site
 // allows multiple logins with same user for a demo site

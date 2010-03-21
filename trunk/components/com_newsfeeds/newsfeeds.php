@@ -30,9 +30,9 @@ switch($task) {
 function listFeeds($catid) {
 	global $my,$Itemid;
 
-	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
-	$config = &$mainframe->config;
+	$mainframe = mosMainFrame::getInstance();
+	$database = $mainframe->getDBO();
+	$config = $mainframe->config;
 
 	/* Query to retrieve all categories that belong under the contacts section and that are published.*/
 	$query = "SELECT cc.*, a.catid, COUNT(a.id) AS numlinks FROM #__categories AS cc"
@@ -139,9 +139,9 @@ function listFeeds($catid) {
 function showFeed($feedid) {
 	global $Itemid,$my;
 
-	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
-	$config = &$mainframe->config;
+	$mainframe = mosMainFrame::getInstance();
+	$database = $mainframe->getDBO();
+	$config = $mainframe->config;
 
 	// check if cache directory is writeable
 	$cacheDir = $config->config_cachepath.'/';

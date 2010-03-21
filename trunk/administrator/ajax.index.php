@@ -33,6 +33,8 @@ define('JPATH_SITE', $mosConfig_live_site );
 
 // подключаем ядро
 require_once (JPATH_BASE .DS. 'includes'.DS.'joostina.php');
+// подключаем расширенные административные функции
+require_once (JPATH_BASE_ADMIN.DS.'includes'.DS.'admin.php');
 
 // создаём сессии
 session_name(md5($mosConfig_live_site));
@@ -53,7 +55,6 @@ require_once($mainframe->getLangFile());
 $cur_template = $mainframe->getTemplate();
 define('JTEMPLATE', $cur_template );
 
-require_once (JPATH_BASE_ADMIN.DS.'includes'.DS.'admin.php');
 
 $my = $mainframe->initSessionAdmin($option,$task);
 

@@ -105,15 +105,6 @@ switch ( $type ) {
 		break;
 }
 
-if(!$def_itemid>0) {
-	// требование уменьшить запросы, используемые getItemid для объектов содержимого
-	if ( ( $type == 1 ) || ( $type == 3 ) ) {
-		$bs	= $mainframe->getBlogSectionCount();
-		$bc	= $mainframe->getBlogCategoryCount();
-		$gbs	= $mainframe->getGlobalBlogSectionCount();
-	}
-}
-
 // Вывод
 ?>
 <ul class="mostread<?php echo $moduleclass_sfx; ?>">
@@ -134,21 +125,16 @@ if(!$def_itemid>0) {
 
 				case 3:
 					if ( $row->sectionid ) {
-						$Itemid = $mainframe->getItemid( $row->id, 0, 0, $bs, $bc, $gbs );
+						$Itemid = $mainframe->getItemid( $row->id, 0, 0 );
 					} else {
-						$query = "SELECT id"
-								. "\n FROM #__menu"
-								. "\n WHERE type = 'content_typed'"
-								. "\n AND componentid = " . (int) $row->id
-						;
-						$database->setQuery( $query );
-						$Itemid = $database->loadResult();
+						$query = "SELECT id FROM #__menu WHERE type = 'content_typed' AND componentid = " . (int) $row->id;
+						$Itemid = $database->setQuery( $query )->loadResult();
 					}
 					break;
 
 				case 1:
 				default:
-					$Itemid = $mainframe->getItemid( $row->id, 0, 0, $bs, $bc, $gbs );
+					$Itemid = $mainframe->getItemid( $row->id, 0, 0 );
 					break;
 			}
 		}else {

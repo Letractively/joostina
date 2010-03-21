@@ -74,7 +74,7 @@ class jdebug {
 	}
 
 	function db_debug() {
-		$database = &database::getInstance();
+		$database = database::getInstance();
 		$database->setQuery('show profiles;');
 		$profs = $database->loadObjectList();
 		$r = array();

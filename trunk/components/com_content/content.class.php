@@ -121,7 +121,7 @@ class mosCategory extends mosDBTable {
 	}
 
 	function get_category_menu($cat_id, $type = null) {
-		$database = &database::getInstance();
+		$database = database::getInstance();
 
 		if(!$type) {
 			$and_type = "AND type IN ( 'content_category', 'content_blog_category' )";
@@ -153,7 +153,7 @@ class mosCategory extends mosDBTable {
 	}
 
 	function get_category_link($row, $params) {
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = mosMainFrame::getInstance();
 
 		$catLinkID = $mainframe->get('catID_'.$row->catid,-1);
 		$catLinkURL = $mainframe->get('catURL_'.$row->catid);
@@ -348,7 +348,7 @@ class mosSection extends mosDBTable {
 	function _load_table_section($section, $params, $access) {
 		global $my;
 
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = mosMainFrame::getInstance();
 
 		$gid = $my->gid;
 		$noauth = !$mainframe->getCfg('shownoauth');
@@ -412,7 +412,7 @@ class mosSection extends mosDBTable {
 	function get_count_all_cats($section, $access, $params) {
 		global $my;
 
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = mosMainFrame::getInstance();
 
 		$gid = $my->gid;
 		$noauth = !$mainframe->getCfg('shownoauth');
@@ -451,7 +451,7 @@ class mosSection extends mosDBTable {
 	}
 
 	function get_section_menu($section_id, $type = null) {
-		$database = &database::getInstance();
+		$database = database::getInstance();
 
 		if(!$type) {
 			$and_type = "AND type IN ( 'content_section', 'content_blog_section' )";
@@ -481,7 +481,7 @@ class mosSection extends mosDBTable {
 	}
 
 	function get_section_link($row, $params) {
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = mosMainFrame::getInstance();
 
 		// pull values from mainframe
 		$secLinkID = $mainframe->get('secID_'.$row->sectionid,-1);
@@ -761,7 +761,7 @@ class mosContent extends mosDBTable {
 	 * @param boolean Map foreign keys to text values
 	 */
 	function toXML($mapKeysToText = false) {
-		$database = &database::getInstance();
+		$database = database::getInstance();
 		if ($mapKeysToText) {
 			$query = "SELECT name FROM #__sections WHERE id = " . (int)$this->sectionid;
 			$database->setQuery($query);
@@ -790,7 +790,7 @@ class mosContent extends mosDBTable {
 	public static function _construct_where_for_fullItem($access) {
 		global $gid, $task;
 
-		$database = &database::getInstance();
+		$database = database::getInstance();
 		$config = &Jconfig::getInstance();
 
 		$now = _CURRENT_SERVER_TIME;
@@ -818,8 +818,8 @@ class mosContent extends mosDBTable {
 	public static function get_prev_next($row, $where, $access, $params) {
 		global $gid;
 
-		$mainframe = &mosMainFrame::getInstance();
-		$database = &$mainframe->getDBO();
+		$mainframe = mosMainFrame::getInstance();
+		$database = $mainframe->getDBO();
 
 		// Paramters for menu item as determined by controlling Itemid
 
@@ -1318,7 +1318,7 @@ class contentMeta {
 
 	function _meta_blog() {
 
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = mosMainFrame::getInstance();
 
 		if ($this->_params->menu) {
 			if (trim($this->_params->get('page_name'))) {
@@ -1332,7 +1332,7 @@ class contentMeta {
 			$mainframe->SetPageTitle($this->_params->get('header'), $this->_params);
 		}
 
-		set_robot_metatag($this->_params->get('robots'));
+		$mainframe->set_robot_metatag($this->_params->get('robots'));
 
 		if ($this->_params->get('meta_description') != "") {
 			$mainframe->addMetaTag('description', $this->_params->get('meta_description'));
@@ -1352,7 +1352,7 @@ class contentMeta {
 	}
 
 	function _meta_item() {
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = mosMainFrame::getInstance();
 
 		$row = $this->_params->object;
 
@@ -1414,7 +1414,7 @@ class contentVoiting {
 }
 
 class contentHelper {
-	public static function _load_core_js(&$mainframe) {
+	public static function _load_core_js($mainframe) {
 		$mainframe->addJS(JPATH_SITE.'/components/com_content/js/com_content.js','custom');
 	}
 }
@@ -1438,7 +1438,7 @@ class contentSqlHelper {
 		}
 
 		if(!isset($database)) {
-			$database = &database::getInstance();
+			$database = database::getInstance();
 		}
 
 
@@ -1526,8 +1526,8 @@ class contentSqlHelper {
 	function construct_where_table_category($category, $access, $params) {
 		global $my;
 
-		$mainframe = &mosMainFrame::getInstance();
-		$database = &$mainframe->getDBO();
+		$mainframe = mosMainFrame::getInstance();
+		$database = $mainframe->getDBO();
 
 		$gid = $my->gid;
 		$noauth = !$mainframe->getCfg('shownoauth');
@@ -1572,7 +1572,7 @@ class contentSqlHelper {
 				// clean filter variable
 				$filter = Jstring::strtolower($params->get('cur_filter'));
 
-				$database = &database::getInstance();
+				$database = database::getInstance();
 				switch ($params->get('filter_type')) {
 					case 'title':
 						$and = " AND LOWER( a.title ) LIKE '%" . $database->getEscaped($filter, true) . "%'";
@@ -1595,8 +1595,8 @@ class contentSqlHelper {
 	function construct_where_other_cats($category, $access, $params) {
 		global $my;
 
-		$mainframe = &mosMainFrame::getInstance();
-		$database = &$mainframe->getDBO();
+		$mainframe = mosMainFrame::getInstance();
+		$database = $mainframe->getDBO();
 
 		$gid = $my->gid;
 		$noauth = !$mainframe->getCfg('shownoauth');
@@ -1831,8 +1831,8 @@ class ContentTemplate {
 	}
 
 	function get_currtemplate_path($page_type) {
-		$mainframe = &mosMainFrame::getInstance();
-		$mainframe->_setTemplate();
+		$mainframe = mosMainFrame::getInstance();
+		$mainframe->setTemplate();
 		$template = $mainframe->getTemplate();
 		$template_dir = self::get_template_dir($page_type);
 		$currtemplate_path = 'templates'.DS.$template.DS.'html'.DS.'com_content'.DS.$template_dir;
@@ -1918,6 +1918,7 @@ class contentAccess {
 	function contentAccess() {
 		global $my;
 
+		mosMainFrame::addLib('gacl');
 		$acl = &gacl::getInstance();
 
 		$this->canEdit = $acl->acl_check('action', 'edit', 'users', $my->usertype, 'content', 'all');
@@ -1943,7 +1944,7 @@ class contentPageConfig {
 	 */
 	public static function setup_full_item_page($row, $params) {
 
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = mosMainFrame::getInstance();
 
 		if ($row->sectionid == 0) {
 			$params->set('item_navigation', 0);
@@ -1956,7 +1957,7 @@ class contentPageConfig {
 		if (!$row->sectionid) {
 			$params->page_type = 'item_static';
 		}else {
-			$database = &$mainframe->getDBO();
+			$database = $mainframe->getDBO();
 			$section = new mosSection($database);
 			$section->load((int)$row->sectionid);
 			$category = new mosCategory($database);
@@ -2034,7 +2035,7 @@ class contentPageConfig {
 	function setup_blog_section_page($id) {
 		global $Itemid;
 
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = mosMainFrame::getInstance();
 
 		//Отучаем com_content брать параметры из первого попавшегося пункта меню
 		//Мысль - если пункт меню для текущего раздела не создан,
@@ -2047,7 +2048,7 @@ class contentPageConfig {
 		}else {
 			$menu = '';
 			//$params = new mosParameters('');
-			$database = &$mainframe->getDBO();
+			$database = $mainframe->getDBO();
 			require_once ($mainframe->getPath('config', 'com_content'));
 			$params = new configContent_sectionblog($database);
 		}
@@ -2079,7 +2080,7 @@ class contentPageConfig {
 	function setup_blog_category_page($id) {
 		global $Itemid;
 
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = mosMainFrame::getInstance();
 
 		$menu = $mainframe->get('menu');
 
@@ -2087,7 +2088,7 @@ class contentPageConfig {
 			$params = new mosParameters($menu->params);
 		} else {
 			$menu = '';
-			$database = &$mainframe->getDBO();
+			$database = $mainframe->getDBO();
 			require_once ($mainframe->getPath('config', 'com_content'));
 			$params = new configContent_categoryblog($database);
 		}
@@ -2119,7 +2120,7 @@ class contentPageConfig {
 	function setup_blog_archive_section_page($id) {
 		global $Itemid;
 
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = mosMainFrame::getInstance();
 
 		$menu = $mainframe->get('menu');
 
@@ -2127,7 +2128,7 @@ class contentPageConfig {
 			$params = new mosParameters($menu->params);
 		} else {
 			$menu = '';
-			$database = &$mainframe->getDBO();
+			$database = $mainframe->getDBO();
 			require_once ($mainframe->getPath('config', 'com_content'));
 			$params = new configContent_sectionarchive($database);
 		}
@@ -2158,7 +2159,7 @@ class contentPageConfig {
 	function setup_blog_archive_category_page($id) {
 		global $Itemid;
 
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = mosMainFrame::getInstance();
 
 		$menu = $mainframe->get('menu');
 
@@ -2166,7 +2167,7 @@ class contentPageConfig {
 			$params = new mosParameters($menu->params);
 		} else {
 			$menu = '';
-			$database = &$mainframe->getDBO();
+			$database = $mainframe->getDBO();
 			require_once ($mainframe->getPath('config', 'com_content'));
 			$params = new configContent_categoryarchive($database);
 		}
@@ -2195,7 +2196,7 @@ class contentPageConfig {
 	function setup_table_category_page($category) {
 		global $Itemid;
 
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = mosMainFrame::getInstance();
 
 		$menu = $mainframe->get('menu');
 
@@ -2232,7 +2233,7 @@ class contentPageConfig {
 	function setup_section_catlist_page($section) {
 		global $Itemid;
 
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = mosMainFrame::getInstance();
 		$menu = $mainframe->get('menu');
 
 		if($menu && strpos($menu->link, 'task=section&id=' . $section->id) !== false) {
@@ -2257,7 +2258,7 @@ class contentPageConfig {
 	 *
 	 * @return object $params
 	 */
-	public static function setup_frontpage(&$mainframe) {
+	public static function setup_frontpage($mainframe) {
 
 		// странно делать одно и тоже разными путями
 		//if(!isset($mainframe->menu->id)){
@@ -2377,7 +2378,7 @@ class contentPageConfig {
 
 	}
 
-	public static function setup_blog_item(&$params,&$mainframe) {
+	public static function setup_blog_item(&$params,$mainframe) {
 
 		$params->def('link_titles', $mainframe->config->config_link_titles);
 		$params->def('author', $mainframe->config->config_showAuthor);
@@ -2407,5 +2408,29 @@ class contentPageConfig {
 		$params->set('intro_only', 1);
 
 		return $params;
+	}
+}
+
+class errorCase {
+	var $type = null;
+	var $message = null;
+
+	function errorCase($type = 1) {
+		$this->type = $type;
+		self::_display_error();
+	}
+
+	function _display_error() {
+		switch ($this->type) {
+			case 1:
+			default:
+				$this->message = _MESSAGE_ERROR_404;
+				break;
+
+			case 2:
+				$this->message = _MESSAGE_ERROR_403;
+				break;
+		}
+		echo $this->message;
 	}
 }

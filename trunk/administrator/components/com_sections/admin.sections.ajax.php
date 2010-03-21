@@ -39,7 +39,7 @@ switch($task) {
  */
 function x_apply() {
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	josSpoofCheck();
 

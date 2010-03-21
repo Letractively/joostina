@@ -52,7 +52,7 @@ if (!defined( '_MOS_MLJOOSTINAMENU_MODULE' )) {
 			case 'content_item_link':
 			case 'content_typed':
 			// load menu params
-				$mainframe = &mosMainFrame::getInstance();
+				$mainframe = mosMainFrame::getInstance();
 				$menuparams = new mosParameters( $mitem->params, $mainframe->getPath( 'menu_xml', $mitem->type ), 'menu' );
 				$unique_itemid = $menuparams->get( 'unique_itemid', 1 );
 
@@ -453,7 +453,7 @@ if (!defined( '_MOS_MLJOOSTINAMENU_MODULE' )) {
 		global $my, $cur_template, $Itemid,$mosConfig_disable_access_control;
 		global $mosConfig_shownoauth;
 
-		$database = &database::getInstance();
+		$database = database::getInstance();
 
 		$and = '';
 		if ( !$mosConfig_shownoauth AND !$mosConfig_disable_access_control ) {

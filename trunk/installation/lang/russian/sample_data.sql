@@ -1,21 +1,4 @@
 #
-# Данные для таблицы `#__banners_categories`
-#
-INSERT INTO `#__banners_categories` VALUES (1, 'Вертикальные баннеры', '', 1, 0, '0000-00-00 00:00:00');
-
-#
-# Данные для таблицы `#__banners_categories`
-#
-INSERT INTO `#__banners_clients` VALUES (1, 'Joostina Team', 'Joostina', 'info@joostina.ru', 'Разработчики Joostina CMS.', 1, 0, '0000-00-00 00:00:00');
-
-#
-# Данные для таблицы `#__banners`
-#
-INSERT INTO `#__banners` VALUES (1, 1, 1, '', 'Joostina_1', 0, 297, 0, 'joostina_v1.jpg', 'www.joostina.ru', '', 1, '2009-01-31 22:22:17', 843753, '2009-01-29', '00:00:00', '0000-00-00', '00:00:00', 0, '', 0, 'blank', 0, 'solid', 'green', '0', 0, '0', '2009-01-29', '', 0, '0000-00-00 00:00:00', 'www.joostina.ru', 'Официальный сайт Joostina CMS');
-INSERT INTO `#__banners` VALUES (2, 1, 1, '', 'Joostina_2', 0, 297, 0, 'joostina_v2.jpg', 'www.joostina.ru', '', 1, '2009-01-31 22:23:12', 937503, '2009-01-29', '00:00:00', '0000-00-00', '00:00:00', 0, '', 0, 'blank', 0, 'solid', 'green', '0', 0, '0', '2009-01-29', '', 0, '0000-00-00 00:00:00', 'www.joostina.ru', 'Официальный сайт Joostina CMS');
-INSERT INTO `#__banners` VALUES (3, 1, 1, '', 'Joostina_3', 0, 297, 0, 'joostina_v3.jpg', 'www.joostina.ru', '', 1, '2009-01-31 22:23:33', 750003, '2009-01-29', '00:00:00', '0000-00-00', '00:00:00', 0, '', 0, 'blank', 0, 'solid', 'green', '0', 0, '0', '2009-01-29', '', 0, '0000-00-00 00:00:00', 'www.joostina.ru', 'Официальный сайт Joostina CMS');
-
-#
 # Данные для таблицы `#__categories`
 #
 INSERT INTO `#__categories` VALUES (1, 0, 'Новости', 'Последние новости', 'taking_notes.jpg', '1', 'left', 'Последние новости от команды разработчиков Joostina!\r\n', 1, 0, '0000-00-00 00:00:00', '', 1, 0, 1, 'imagefolders=*2*','');
@@ -67,7 +50,7 @@ INSERT INTO `#__content_frontpage` VALUES (14, 2);
 # Данные для таблицы `#__menu`
 #
 INSERT INTO `#__menu` VALUES (2, 'mainmenu', 'Новости', 'index.php?option=com_content&task=section&id=1', 'content_section', 0, 0, 1, 0, 4, 0, '0000-00-00 00:00:00', 0, 0, 0, 3, '');
-INSERT INTO `#__menu` VALUES (3, 'mainmenu', 'Контакты', 'index.php?option=com_contact', 'components', 0, 0, 7, 0, 1, 0, '0000-00-00 00:00:00', 0, 0, 0, 3, '');
+INSERT INTO `#__menu` VALUES (3, 'mainmenu', 'Контакты', 'index.php?option=com_contact', 'components', 0, 0, 7, 0, 2, 0, '0000-00-00 00:00:00', 0, 0, 0, 3, '');
 INSERT INTO `#__menu` VALUES (5, 'mainmenu', 'Поиск', 'index.php?option=com_search', 'components', 1, 0, 16, 0, 7, 0, '0000-00-00 00:00:00', 0, 0, 0, 3, '');
 INSERT INTO `#__menu` VALUES (6, 'mainmenu', 'Лицензия Joostina', 'index.php?option=com_content&task=view&id=5', 'content_typed', 1, 0, 5, 0, 3, 0, '0000-00-00 00:00:00', 0, 0, 0, 0, 'title=Условия использования Joostina CMS\nmenu_image=-1\nunique_itemid=0');
 INSERT INTO `#__menu` VALUES (7, 'mainmenu', 'Ленты новостей', 'index.php?option=com_newsfeeds', 'components', 1, 0, 12, 0, 8, 0, '0000-00-00 00:00:00', 0, 0, 0, 3, 'title=\nmenu_image=-1\npageclass_sfx=\nback_button=\npage_title=1\nheader=\nother_cat_section=1\nother_cat=1\ncat_description=1\ncat_items=1\ndescription=0\ndescription_text=\nimage=-1\nimage_align=right\nheadings=1\nname=1\narticles=1\nlink=0\nfeed_image=1\nfeed_descr=1\nitem_descr=1\nword_count=0');

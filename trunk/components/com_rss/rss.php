@@ -296,7 +296,7 @@ function feedFrontpage($showFeed) {
 
 		if(isset($yes_yandex)) {
 			// yandex export
-			$item->fulltext = $row->fulltext?$row->introtext.$row->fulltext:$row->introtext;
+			$item->fulltext = $row->fulltext ? $row->introtext.$row->fulltext : $row->introtext;
 			$item->fulltext = htmlspecialchars(strip_tags($item->fulltext));
 			$item->fulltext = str_replace("'","&apos;",$item->fulltext);
 			$item->fulltext = preg_replace('/{mosimage\s*.*?}/iu','',$item->fulltext);
@@ -312,9 +312,9 @@ function feedFrontpage($showFeed) {
 					}
 				}
 			}
+			$item->fulltext = html_optimize($item->fulltext);
 			// yandex export
 		}
-		$item->fulltext = html_optimize($item->fulltext);
 		// loads item info into rss array
 		$rss->addItem($item);
 	}

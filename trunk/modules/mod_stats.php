@@ -10,7 +10,7 @@
 // запрет прямого доступа
 defined( '_VALID_MOS' ) or die();
 
-global $mosConfig_offset, $mosConfig_caching, $mosConfig_enable_stats;
+global $mosConfig_offset, $mosConfig_caching;
 global $mosConfig_gzip;
 
 $serverinfo = $params->get( 'serverinfo' );
@@ -37,22 +37,4 @@ if ($siteinfo) {
 	$query="SELECT COUNT( id ) AS count_items FROM #__content";
 	$database->setQuery($query);
 	echo "<strong>"._NEWS_STAT.":</strong> ".$database->loadResult() . "<br />\n";
-}
-
-if ($mosConfig_enable_stats) {
-	$counter	= $params->get( 'counter' );
-	$increase	= $params->get( 'increase' );
-	if ($counter) {
-		$query = "SELECT SUM( hits ) AS count FROM #__stats_agents WHERE type = 1";
-		$database->setQuery( $query );
-		$hits = $database->loadResult();
-
-		$hits = $hits + $increase;
-
-		if ($hits == NULL) {
-			$content .= "<strong>" . _VISITORS . ":</strong> 0\n";
-		} else {
-			$content .= "<strong>" . _VISITORS . ":</strong> " . $hits . "\n";
-		}
-	}
 }

@@ -56,7 +56,7 @@ function removeElement($client) {
  * @param string The URL option
  */
 function showInstalledComponents($option) {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$query = "SELECT * FROM #__components WHERE parent = 0 AND iscore = 0 ORDER BY name";
 	$database->setQuery($query);

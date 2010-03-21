@@ -13,6 +13,7 @@ define('_VALID_MOS',1);
 define('JPATH_BASE', dirname(__FILE__) );
 // разделитель каталогов
 define('DS', DIRECTORY_SEPARATOR );
+
 // рассчет памяти
 if(function_exists('memory_get_usage')) {
 	define('_MEM_USAGE_START', memory_get_usage());
@@ -73,7 +74,7 @@ if(file_exists(JPATH_BASE.DS.'components'.DS.'com_sef'.DS.'sef.php')) {
 require_once (JPATH_BASE.DS.'includes'.DS.'frontend.php');
 
 // mainframe - основная рабочая среда API, осуществляет взаимодействие с 'ядром'
-$mainframe = &mosMainFrame::getInstance();
+$mainframe = mosMainFrame::getInstance();
 
 $option = $mainframe->option;
 $Itemid = $mainframe->Itemid;
@@ -85,7 +86,6 @@ if($mosConfig_offline == 1) {
 
 // отключение ведения сессий на фронте
 ($mosConfig_no_session_front == 0) ? $mainframe->initSession() : null;
-
 
 // триггер событий onAfterStart
 ($mosConfig_mmb_system_off == 0) ? $_MAMBOTS->trigger('onAfterStart') : null;
@@ -104,26 +104,16 @@ $mosConfig_lang = ($mosConfig_lang == '') ? 'russian' : $mosConfig_lang;
 $mainframe->set('lang', $mosConfig_lang);
 include_once($mainframe->getLangFile('',$mosConfig_lang));
 
-// контроль входа и выхода в фронт-энд
-$return		= strval(mosGetParam($_REQUEST,'return',null));
-$message	= intval(mosGetParam($_POST,'message',0));
-
 $my = $mainframe->getUser();
 
 $gid = intval($my->gid);
 
+// авторизация
+
 if($option == 'login') {
 	$mainframe->login();
-	// Всплывающее сообщение JS
-	if($message) {?>
-<script language="javascript" type="text/javascript">
-	<!--//
-	alert( "<?php echo addslashes(_LOGIN_SUCCESS); ?>" );
-	//-->
-</script>
-		<?php
-	}
-
+	
+	$return	= strval(mosGetParam($_REQUEST,'return',null));
 	if($return && !(strpos($return,'com_registration') || strpos($return,'com_login'))) {
 		// checks for the presence of a return url
 		// and ensures that this url is not the registration or login pages
@@ -141,29 +131,21 @@ if($option == 'login') {
 			mosRedirect($mosConfig_live_site.'/index.php?option=cookiecheck&return='.urlencode($mosConfig_live_site.'/index.php'));
 		}
 	}
+// разлогинивание
 } elseif($option == 'logout') {
 	$mainframe->logout();
 
-	// Всплывающее сообщение JS
-	if($message) {?>
-<script language="javascript" type="text/javascript">
-	<!--//
-	alert( "<?php echo addslashes(_LOGOUT_SUCCESS); ?>" );
-	//-->
-</script>
-		<?php
-	}
-
+	$return	= strval(mosGetParam($_REQUEST,'return',null));
 	if($return && !(strpos($return,'com_registration') || strpos($return,'com_login'))) {
-		// checks for the presence of a return url
-		// and ensures that this url is not the registration or logout pages
 		mosRedirect($return);
 	} else {
 		mosRedirect($mosConfig_live_site.'/index.php');
 	}
+// проверка куков
 } elseif($option == 'cookiecheck') {
 	// No cookie was set upon login. If it is set now, redirect to the given page. Otherwise, show error message.
 	if(isset($_COOKIE[mosMainFrame::sessionCookieName()])) {
+		$return	= strval(mosGetParam($_REQUEST,'return',null));
 		mosRedirect($return);
 	} else {
 		mosErrorAlert(_ALERT_ENABLED);
@@ -245,17 +227,18 @@ if($mosConfig_mmb_mainbody_off == 0) {
 	$_MAMBOTS->loadBotGroup('mainbody');
 	$_MAMBOTS->trigger('onTemplate',array(&$_template_body));
 }
-unset($_MAMBOTS,$mainframe,$my,$_MOS_OPTION);
 
 // вывод стека всего тела страницы, уже после обработки мамботами группы onTemplate
 echo $_template_body;
+
+unset($_template_body,$_MAMBOTS,$mainframe,$my,$_MOS_OPTION,$database);
 
 // подсчет времени генерации страницы
 echo $mosConfig_time_generate ? '<div id="time_gen">'.round((microtime(true) - $sysstart),5).'</div>' : null;
 
 
 // вывод лога отладки
-if($mosConfig_debug) {
+if( JDEBUG ) {
 	if(defined('_MEM_USAGE_START')) {
 		$mem_usage = (memory_get_usage() - _MEM_USAGE_START);
 		jd_log_top('<b>'._SCRIPT_MEMORY_USING.':</b> '.sprintf('%0.2f',$mem_usage / 1048576).' MB');
@@ -265,4 +248,4 @@ if($mosConfig_debug) {
 
 doGzip();
 // запускаем встроенный оптимизатор таблиц
-($mosConfig_optimizetables == 1) ? joostina_api::optimizetables():null;
+($mosConfig_optimizetables == 1) ? joostina_api::optimizetables() : null;

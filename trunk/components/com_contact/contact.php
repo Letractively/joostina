@@ -46,9 +46,9 @@ switch($task) {
 function listContacts($option,$catid) {
 	global $my,$Itemid;
 
-	$mainframe = &mosMainFrame::getInstance();
-	$config = &$mainframe->config;
-	$database = &$mainframe->getDBO();
+	$mainframe = mosMainFrame::getInstance();
+	$config = $mainframe->config;
+	$database = $mainframe->getDBO();
 
 	/* Query to retrieve all categories that belong under the contacts section and that are published.*/
 	$query = "SELECT*, COUNT( a.id ) AS numlinks FROM #__categories AS cc"
@@ -202,9 +202,9 @@ function listContacts($option,$catid) {
 function contactpage($contact_id) {
 	global $my,$Itemid;
 
-	$mainframe = &mosMainFrame::getInstance();
-	$config = &$mainframe->config;
-	$database = &$mainframe->getDBO();
+	$mainframe = mosMainFrame::getInstance();
+	$config = $mainframe->config;
+	$database = $mainframe->getDBO();
 
 	$query = "SELECT a.id AS value, CONCAT_WS( ' - ', a.name, a.con_position ) AS text, a.catid, cc.access AS cat_access"
 			."\n FROM #__contact_details AS a"
@@ -405,9 +405,9 @@ function sendmail($con_id,$option) {
 	// simple spoof check security
 	josSpoofCheck(1);
 
-	$mainframe = &mosMainFrame::getInstance();
-	$config = &$mainframe->config;
-	$database = &$mainframe->getDBO();
+	$mainframe = mosMainFrame::getInstance();
+	$config = $mainframe->config;
+	$database = $mainframe->getDBO();
 
 	$query = "SELECT* FROM #__contact_details WHERE id = ".(int)$con_id;
 	$database->setQuery($query);
@@ -532,7 +532,7 @@ function sendmail($con_id,$option) {
 }
 
 function vCard($id) {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 	$config = &Jconfig::getInstance();
 
 	$contact = new mosContact($database);

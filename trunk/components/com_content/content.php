@@ -132,8 +132,8 @@ switch ($task) {
 function showUserItems($user_id) {
 	global $Itemid, $my;
 
-	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
+	$mainframe = mosMainFrame::getInstance();
+	$database = $mainframe->getDBO();
 	$acl = &gacl::getInstance();
 
 	mosMainFrame::addLib('dbconfig');
@@ -232,8 +232,8 @@ function showUserItems($user_id) {
 function frontpage($gid,$limit,$limitstart,$pop) {
 	global $my;
 
-	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
+	$mainframe = mosMainFrame::getInstance();
+	$database = $mainframe->getDBO();
 
 	//права доступа
 	$access = new contentAccess();
@@ -286,8 +286,8 @@ function showSectionCatlist($id,$cache) {
 function _showSectionCatlist($id) {
 	global $Itemid, $my;
 
-	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
+	$mainframe = mosMainFrame::getInstance();
+	$database = $mainframe->getDBO();
 
 	if(!$id) {
 		$error = new errorCase(1);
@@ -369,8 +369,8 @@ function showTableCategory($id) {
 function _showTableCategory($id,$gid,$limit,$limitstart,$sectionid,$selected,$filter) {
 	global $Itemid, $my;
 
-	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
+	$mainframe = mosMainFrame::getInstance();
+	$database = $mainframe->getDBO();
 
 	$selected = preg_replace('/[^a-z]/i', '', $selected);
 
@@ -489,8 +489,8 @@ function showBlogSection($id = 0,$gid=0) {
 function _showBlogSection($id,$gid,$pop,$limit,$limitstart) {
 	global $Itemid, $my;
 
-	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
+	$mainframe = mosMainFrame::getInstance();
+	$database = $mainframe->getDBO();
 
 	$section = new mosSection($database);
 	//Если ID найден - получаем данные о конкретном разделе
@@ -579,8 +579,8 @@ function showBlogCategory($id = 0,$gid=0) {
 function _showBlogCategory($id = 0,$gid,$pop,$limit,$limitstart) {
 	global $Itemid, $my;
 
-	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
+	$mainframe = mosMainFrame::getInstance();
+	$database = $mainframe->getDBO();
 
 	//права доступа
 	$access = new contentAccess();
@@ -656,8 +656,8 @@ function _showBlogCategory($id = 0,$gid,$pop,$limit,$limitstart) {
 function showArchiveSection($id = null) {
 	global $Itemid, $my;
 
-	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
+	$mainframe = mosMainFrame::getInstance();
+	$database = $mainframe->getDBO();
 
 	$year = intval(mosGetParam($_REQUEST, 'year', date('Y')));
 	$month = intval(mosGetParam($_REQUEST, 'month', date('m')));
@@ -737,8 +737,8 @@ function showArchiveSection($id = null) {
 function showArchiveCategory($id = 0) {
 	global $Itemid, $my;
 
-	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
+	$mainframe = mosMainFrame::getInstance();
+	$database = $mainframe->getDBO();
 
 	$year = intval(mosGetParam($_REQUEST, 'year', date('Y')));
 	$month = intval(mosGetParam($_REQUEST, 'month', date('m')));
@@ -832,10 +832,10 @@ function BlogOutput(&$obj, $params, &$access,$mainframe=null) {
 	global $Itemid, $task, $id, $option, $my;
 
 	if(!$mainframe) {
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = mosMainFrame::getInstance();
 	}
 
-	$database = &$mainframe->getDBO();
+	$database = $mainframe->getDBO();
 
 	$rows = $obj->content;
 	$total = $obj->total;
@@ -1093,10 +1093,8 @@ function BlogOutput(&$obj, $params, &$access,$mainframe=null) {
 
 // кэширование с сохранением мета-тэгов
 function showFullItem($id,$gid=0) {
-	$config = &Jconfig::getInstance();
-	if($config->config_enable_stats) {
-		$r =_showFullItem($id);
-	} elseif($config->config_caching==1) {
+	$config = Jconfig::getInstance();
+	if($config->config_caching==1) {
 		$cache = &mosCache::getCache('com_content');
 		$r = $cache->call('_showFullItem', $id,$gid);
 	}else {
@@ -1113,8 +1111,8 @@ function showFullItem($id,$gid=0) {
 function _showFullItem($id) {
 	global $my;
 
-	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
+	$mainframe = mosMainFrame::getInstance();
+	$database = $mainframe->getDBO();
 
 	$pop = intval(mosGetParam($_REQUEST, 'pop', 0));
 	$task = strval(mosGetParam($_REQUEST, 'task', ''));
@@ -1231,7 +1229,7 @@ function _showFullItem($id) {
 function _showItem($row, $params, $gid, &$access, $pop, $template = '',$mainframe=null) {
 
 	if(!isset($mainframe)) {
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = mosMainFrame::getInstance();
 		//jd_inc('_showItem');
 	}
 
@@ -1308,7 +1306,7 @@ function _showItem($row, $params, $gid, &$access, $pop, $template = '',$mainfram
 
 	// запись счетчика прочтения
 	if(!$params->get('intro_only') && ($page == 0) && ($mainframe->getCfg('content_hits'))) {
-		$database = &$mainframe->getDBO();
+		$database = $mainframe->getDBO();
 		$obj = new mosContent($database);
 		$obj->hit($row->id);
 	}
@@ -1326,8 +1324,10 @@ function _showItem($row, $params, $gid, &$access, $pop, $template = '',$mainfram
 function editItem($task) {
 	global $my, $gid;
 
-	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
+	$mainframe = mosMainFrame::getInstance();
+	$database = $mainframe->getDBO();
+
+	mosMainFrame::addLib('gacl');
 	$acl = &gacl::getInstance();
 
 	$nullDate = $database->getNullDate();
@@ -1632,8 +1632,8 @@ function editItem($task) {
 function saveContent($task) {
 	global $my,$Itemid;
 
-	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
+	$mainframe = mosMainFrame::getInstance();
+	$database = $mainframe->getDBO();
 
 	// simple spoof check security
 	josSpoofCheck();
@@ -1789,7 +1789,7 @@ function saveContent($task) {
 function _after_create_content($row, $page) {
 	global $my;
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	// TODO прописать мамботы срабатывающие после сохранения содержимого
 
@@ -1857,7 +1857,7 @@ function _after_update_content($row, $page) {
 function cancelContent() {
 	global $my, $task;
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	//права доступа
 	$access = new contentAccess();
@@ -1892,7 +1892,7 @@ function cancelContent() {
  */
 function emailContentForm($uid, $gid) {
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$id = intval(mosGetParam($_REQUEST, 'id', 0));
 	if($id) {
@@ -1974,8 +1974,8 @@ function emailContentForm($uid, $gid) {
  */
 function emailContentSend($uid, $gid) {
 
-	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
+	$mainframe = mosMainFrame::getInstance();
+	$database = $mainframe->getDBO();
 
 	$id = intval(mosGetParam($_REQUEST, 'id', 0));
 	if($id) {

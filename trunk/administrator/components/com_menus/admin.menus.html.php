@@ -18,7 +18,7 @@ class HTML_menusections {
 
 	function showMenusections($rows,$pageNav,$search,$levellist,$menutype,$option) {
 		global $my;
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 		
 		mosCommonHTML::loadOverlib();

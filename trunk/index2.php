@@ -68,7 +68,7 @@ if($pop=='1' && $page==0) $print = true;
 
 // главное окно рабочего компонента API, для взаимодействия многих 'ядер'
 //$mainframe = new mosMainFrame($database,$option,'.');
-$mainframe = &mosMainFrame::getInstance();
+$mainframe = mosMainFrame::getInstance();
 
 if($mosConfig_no_session_front == 0) {
 	$mainframe->initSession();

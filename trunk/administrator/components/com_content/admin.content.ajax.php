@@ -45,7 +45,7 @@ switch($task) {
 }
 
 function x_resethits($id) {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$row = new mosContent($database);
 	$row->load((int)$id);
@@ -86,7 +86,7 @@ function x_metakey($count = 25,$minlench = 4) {
 }
 
 function x_access($id) {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$access = mosGetParam($_GET,'chaccess','accessregistered');
 	$option = strval(mosGetParam($_REQUEST,'option',''));
@@ -131,7 +131,7 @@ function x_access($id) {
 
 
 function x_to_trash($id) {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$state = '-2';
 	$ordering = '0';
@@ -156,8 +156,8 @@ function x_to_trash($id) {
 function x_save() {
 	global $my;
 
-	$mainframe	= &mosMainFrame::getInstance(true);
-	$database	= &$mainframe->getDBO();
+	$mainframe	= mosMainFrame::getInstance(true);
+	$database	= $mainframe->getDBO();
 
 	$menu		= strval(mosGetParam($_POST,'menu','mainmenu'));
 	$menuid		= intval(mosGetParam($_POST,'menuid',0));
@@ -291,7 +291,7 @@ function x_save() {
 function x_publish($id = null) {
 	global $my;
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	// id содержимого для обработки не получен - выдаём ошибку
 	if(!$id) return 'error-id';
@@ -356,8 +356,8 @@ function x_publish($id = null) {
 * $id - идентификатор содержимого
 */
 function x_frontpage($id) {
-	$mainframe	= &mosMainFrame::getInstance(true);
-	$database	= &$mainframe->getDBO();
+	$mainframe	= mosMainFrame::getInstance(true);
+	$database	= $mainframe->getDBO();
 
 	require_once ($mainframe->getPath('class','com_frontpage'));
 

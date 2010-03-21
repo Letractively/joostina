@@ -17,7 +17,6 @@ DEFINE('_DB_VERSION','Версия базы данных');
 DEFINE('_PHP_VERSION','Версия PHP');
 DEFINE('_APACHE_VERSION','Веб-сервер');
 DEFINE('_PHP_APACHE_INTERFACE','Интерфейс между веб-сервером и PHP');
-DEFINE('_JOOSTINA_VERSION','Версия Joostina!');
 DEFINE('_PHP_SETTINGS','Важные настройки PHP');
 DEFINE('_REGISTER_GLOBALS','Register Globals - регистрация глобальных переменных');
 DEFINE('_MAGIC_QUOTES','Параметр Magic Quotes');

@@ -35,6 +35,8 @@ define('JPATH_SITE', $mosConfig_live_site );
 $mosConfig_absolute_path = JPATH_BASE;
 // ядро
 require_once (JPATH_BASE .DS. 'includes'.DS.'joostina.php');
+// подключаем расширенные административные функции
+require_once (JPATH_BASE_ADMIN.DS.'includes'.DS.'admin.php');
 
 $acl = &gacl::getInstance();
 
@@ -53,7 +55,6 @@ include_once($mainframe->getLangFile());
 $cur_template = $mainframe->getTemplate();
 define('JTEMPLATE', $cur_template );
 
-require_once (JPATH_BASE_ADMIN.DS.'includes'.DS.'admin.php');
 
 $act		= strtolower(mosGetParam($_REQUEST,'act',''));
 $section	= mosGetParam($_REQUEST,'section','');

@@ -164,15 +164,4 @@ class mosPageNav {
 		}
 		return $txt.'</ul></div>';
 	}
-	/**
-	 * Sets the vars {PAGE_LINKS}, {PAGE_LIST_OPTIONS} and {PAGE_COUNTER} for the page navigation template
-	 * @param object The patTemplate object
-	 * @param string The full link to be used in the nav link, eg index.php?option=com_content
-	 * @param string The name of the template to add the variables
-	 */
-	function setTemplateVars(&$tmpl,$link = '',$name = 'admin-list-footer') {
-		$tmpl->addVar($name,'PAGE_LINKS',$this->writePagesLinks($link));
-		$tmpl->addVar($name,'PAGE_LIST_OPTIONS',$this->getLimitBox($link));
-		$tmpl->addVar($name,'PAGE_COUNTER',$this->writePagesCounter());
-	}
 }

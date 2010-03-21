@@ -38,7 +38,8 @@ define('JPATH_SITE', $mosConfig_live_site );
 
 // подключаем ядро
 require_once (JPATH_BASE .DS. 'includes'.DS.'joostina.php');
-
+// подключаем расширенные административные функции
+require_once (JPATH_BASE_ADMIN.DS.'includes'.DS.'admin.php');
 
 // работа с сессиями начинается до создания главного объекта взаимодействия с ядром
 session_name(md5(JPATH_SITE));
@@ -58,7 +59,7 @@ $id			= intval(mosGetParam($_REQUEST,'id',0));
 $mainframe = mosMainFrame::getInstance(true);
 
 // объект работы с базой данных
-$database = &$mainframe->getDBO();
+$database = $mainframe->getDBO();
 
 // класс работы с правами пользователей
 $acl = &gacl::getInstance();
@@ -72,13 +73,10 @@ define('JTEMPLATE', $cur_template );
 
 require_once($mainframe->getLangFile());
 require_once($mainframe->getLangFile('administrator'));
-require_once (JPATH_BASE_ADMIN.DS.'includes'.DS.'admin.php');
+
 
 // запуск сессий панели управления
 $my = $mainframe->initSessionAdmin($option,$task);
-
-// установка параметра overlib
-$mainframe->set('loadOverlib',false);
 
 // страница панели управления по умолчанию
 if($option == '') {
@@ -129,9 +127,7 @@ if($no_html == 0) {
 }
 
 // информация отладки, число запросов в БД
-if($mosConfig_debug) {
-	jd_get();
-}
+JDEBUG ? jd_get() : null;
 
 // восстановление сессий
 if($task == 'save' || $task == 'apply' || $task == 'save_and_new' ) {

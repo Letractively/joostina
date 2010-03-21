@@ -21,6 +21,9 @@ userHelper::_load_core_js();
 </script>
 <?php
 
+mosMainFrame::addLib('gacl');
+$acl = gacl::getInstance();
+
 // Editor usertype check
 $access = new stdClass();
 $access->canEdit = $acl->acl_check('action','edit','users',$my->usertype,'content','all');
@@ -69,7 +72,7 @@ switch($task) {
 		break;
 
 	case 'lostPassword':
-		$config = &$mainframe->config;
+		$config = $mainframe->config;
 		if($config->config_frontend_login != null && ($config->config_frontend_login === 0 || $config->config_frontend_login=== '0')) {
 			echo _NOT_AUTH;
 			return;
@@ -78,7 +81,7 @@ switch($task) {
 		break;
 
 	case 'sendNewPass':
-		$config = &$mainframe->config;
+		$config = $mainframe->config;
 		if($config->config_frontend_login != null && ($config->config_frontend_login === 0 || $config->config_frontend_login=== '0')) {
 			echo _NOT_AUTH;
 			return;
@@ -87,7 +90,7 @@ switch($task) {
 		break;
 
 	case 'register':
-		$config = &$mainframe->config;
+		$config = $mainframe->config;
 		if($config->config_frontend_login != null && ($config->config_frontend_login === 0 || $config->config_frontend_login=== '0')) {
 			echo _NOT_AUTH;
 			return;
@@ -96,7 +99,7 @@ switch($task) {
 		break;
 
 	case 'saveRegistration':
-		$config = &$mainframe->config;
+		$config = $mainframe->config;
 		if($config->config_frontend_login != null && ($config->config_frontend_login === 0 || $config->config_frontend_login=== '0')) {
 			echo _NOT_AUTH;
 			return;
@@ -105,7 +108,7 @@ switch($task) {
 		break;
 
 	case 'activate':
-		$config = &$mainframe->config;
+		$config = $mainframe->config;
 		if($config->config_frontend_login != null && ($config->config_frontend_login === 0 || $config->config_frontend_login=== '0')) {
 			echo _NOT_AUTH;
 			return;
@@ -128,8 +131,8 @@ switch($task) {
 
 function profile($uid) {
 
-	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
+	$mainframe = mosMainFrame::getInstance();
+	$database = $mainframe->getDBO();
 
 	$row = new mosUser($database);
 	if($row->load($uid)) {
@@ -156,8 +159,8 @@ function profile($uid) {
 
 function userEdit($option,$uid,$submitvalue) {
 
-	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
+	$mainframe = mosMainFrame::getInstance();
+	$database = $mainframe->getDBO();
 
 	if($uid == 0) {
 		mosNotAuth();
@@ -188,9 +191,9 @@ function userSave($option,$uid) {
 
 	// simple spoof check security
 	josSpoofCheck();
-	$mainframe = &mosMainFrame::getInstance();
-	$config = &$mainframe->config;
-	$database = &$mainframe->getDBO();
+	$mainframe = mosMainFrame::getInstance();
+	$config = $mainframe->config;
+	$database = $mainframe->getDBO();
 
 	$user_id = intval(mosGetParam($_POST,'id',0));
 
@@ -287,8 +290,8 @@ function userSave($option,$uid) {
 
 function userList($gid,$limit,$limitstart=0) {
 
-	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
+	$mainframe = mosMainFrame::getInstance();
+	$database = $mainframe->getDBO();
 	$acl = &gacl::getInstance();
 
 	$menu = null;
@@ -321,7 +324,7 @@ function userList($gid,$limit,$limitstart=0) {
 
 function CheckIn($userid,$access) {
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 	$config = &Jconfig::getInstance();
 
 	$nullDate = $database->getNullDate();
@@ -348,7 +351,7 @@ function CheckIn($userid,$access) {
 	echo "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
 	while(list($tn) = mysql_fetch_array($lt)) {
 		// only check in the jos_* tables
-		if(strpos($tn,$database->_table_prefix) !== 0) {
+		if(strpos($tn,$database->getPrefix() ) !== 0) {
 			continue;
 		}
 		$lf = mysql_list_fields($config->config_db,"$tn");
@@ -429,11 +432,11 @@ function CheckIn($userid,$access) {
 /* форма восстановления пароля */
 function lostPassForm($option) {
 
-	$mainframe = &mosMainFrame::getInstance();
+	$mainframe = mosMainFrame::getInstance();
 	$mainframe->SetPageTitle(_LOST_PASSWORDWORD);
 
 	$config = &Jconfig::getInstance();
-	$database = &$mainframe->getDBO();
+	$database = $mainframe->getDBO();
 
 	$user_config = new configUser_lostpass($database);
 
@@ -454,7 +457,7 @@ function lostPassForm($option) {
 function sendNewPass() {
 	josSpoofCheck();
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 	$config = &Jconfig::getInstance();
 
 	$checkusername = stripslashes(mosGetParam($_POST,'checkusername',''));
@@ -502,8 +505,8 @@ function sendNewPass() {
 
 function registerForm($option,$useractivation) {
 
-	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
+	$mainframe = mosMainFrame::getInstance();
+	$database = $mainframe->getDBO();
 	$acl = &gacl::getInstance();
 
 	if(!$mainframe->getCfg('allowUserRegistration')) {
@@ -711,8 +714,8 @@ function saveRegistration() {
 function activate() {
 	global $my;
 
-	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
+	$mainframe = mosMainFrame::getInstance();
+	$database = $mainframe->getDBO();
 
 	if($my->id) {
 		mosRedirect('index.php');

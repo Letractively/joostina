@@ -29,9 +29,9 @@ function botUserContent_tab(&$user) {
 function botUserContent(&$user) {
 	global $_MAMBOTS,$Itemid;
 
-	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
-	$config = &$mainframe->config;
+	$mainframe = mosMainFrame::getInstance();
+	$database = $mainframe->getDBO();
+	$config = $mainframe->config;
 
 	require_once ($mainframe->getPath('class','com_content'));
 	require_once (JPATH_BASE.'/components/com_content/content.html.php');

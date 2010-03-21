@@ -42,15 +42,6 @@ switch ($type) {
 $params->def('numrows', count($rows));
 $params->set('intro_only',1);
 
-if(!$def_itemid>0) {
-	// требование уменьшить запросы, используемые getItemid для объектов содержимого
-	if (($type == 1) || ($type == 3)) {
-		$params->def('bs', $mainframe->getBlogSectionCount());
-		$params->def('bc', $mainframe->getBlogCategoryCount());
-		$params->def('gbs',$mainframe->getGlobalBlogSectionCount());
-	}
-}
-
 //Подключаем шаблон
 if($module->set_template($params)) {
 	require($module->template);
