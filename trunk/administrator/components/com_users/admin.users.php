@@ -118,7 +118,7 @@ function showUsers($option) {
 
 	$database = database::getInstance();
 	$mainframe = mosMainFrame::getInstance(true);
-	$acl = &gacl::getInstance( true );
+	$acl = gacl::getInstance( true );
 
 	$filter_type = $mainframe->getUserStateFromRequest("filter_type{$option}",'filter_type',0);
 	$filter_logged = intval($mainframe->getUserStateFromRequest("filter_logged{$option}",'filter_logged',0));
@@ -226,7 +226,7 @@ function editUser($uid = '0',$option = 'users') {
 
 	$mainframe = mosMainFrame::getInstance(true);
 	$database = $mainframe->getDBO();
-	$acl = &gacl::getInstance();
+	$acl = gacl::getInstance();
 
 	$msg = checkUserPermissions(array($uid),"edit",true);
 	if($msg) {
@@ -307,7 +307,7 @@ function saveUser($task) {
 
 	$database = database::getInstance();
 	$mainframe = mosMainFrame::getInstance(true);
-	$acl = &gacl::getInstance();
+	$acl = gacl::getInstance();
 
 	$userIdPosted = mosGetParam($_POST,'id');
 	if($userIdPosted) {
@@ -532,7 +532,7 @@ function removeUsers($cid,$option) {
 
 	$database = database::getInstance();
 	$mainframe = mosMainFrame::getInstance(true);
-	$acl = &gacl::getInstance();
+	$acl = gacl::getInstance();
 
 	if(!is_array($cid) || count($cid) < 1) {
 		echo "<script> alert('"._CHOOSE_OBJ_DELETE."'); window.history.go(-1);</script>\n";
@@ -693,7 +693,7 @@ function checkUserPermissions($cid,$actionName,$allowActionToMyself = false) {
 	global $my;
 
 	$database = database::getInstance();
-	$acl = &gacl::getInstance();
+	$acl = gacl::getInstance();
 
 	$msg = null;
 	if(is_array($cid) && count($cid)) {

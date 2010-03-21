@@ -86,7 +86,7 @@ class HTML_users {
 	function edituser(&$row, &$contact, &$lists, $option, $uid, &$params) {
 		global $my;
 
-		$acl = &gacl::getInstance( true );
+		$acl = gacl::getInstance( true );
 
 		mosMakeHtmlSafe($row);
 

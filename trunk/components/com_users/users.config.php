@@ -69,7 +69,7 @@ class configUser_registration extends dbConfig {
 
 	function display_config($option) {
 
-		$acl = &gacl::getInstance();
+		$acl = gacl::getInstance();
 
 		$gtree = $acl->get_group_children_tree(null, 'USERS', false); ?>
 <script language="javascript" type="text/javascript">
@@ -193,7 +193,7 @@ class configUser_profile extends dbConfig {
 
 	function display_config($option) {
 
-		$acl = &gacl::getInstance();
+		$acl = gacl::getInstance();
 
 		$gtree = $acl->get_group_children_tree(null, 'USERS', false); ?>
 <script language="javascript" type="text/javascript">

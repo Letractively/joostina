@@ -163,7 +163,7 @@ class Xmap {
 
 		/* класс работы с правами пользователей */
 		mosMainFrame::addLib('gacl');
-		$acl = &gacl::getInstance();
+		$acl = gacl::getInstance();
 
 		$access = new stdClass();
 		$access->canEdit	 = $acl->acl_check( 'action', 'edit', 'users', $my->usertype, 'content', 'all' );
@@ -279,7 +279,7 @@ class Xmap {
 
 	function getItemLink (&$node) {
 
-		$config = &Jconfig::getInstance();
+		$config = Jconfig::getInstance();
 
 		$link = $node->link;
 		if ( isset($node->id) ) {
