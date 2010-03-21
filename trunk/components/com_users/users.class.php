@@ -221,8 +221,6 @@ class mosUser extends mosDBTable {
 	 */
 	function get_avatar($user) {
 
-		$mainframe = &mosMainFrame::getInstance();
-
 		$avatar_file = JPATH_BASE.'/images/avatars/'.$user->avatar;
 
 		if(is_file($avatar_file)) {
@@ -234,8 +232,6 @@ class mosUser extends mosDBTable {
 	}
 
 	function get_link($user) {
-		$mainframe = &mosMainFrame::getInstance();
-
 		$url = 'index.php?option=com_users&task=profile&user='.$user->id;
 		return sefRelToAbs($url);
 	}
