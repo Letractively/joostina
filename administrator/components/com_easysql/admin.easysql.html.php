@@ -139,7 +139,7 @@ function ExecSQL($task = 'execsql') {
 function is_table($table) {
 	global $database;
 	$tables = $database->getTableList();
-	$table = str_replace("#__",$database->_table_prefix,$table);
+	$table = str_replace("#__",$database->getPrefix(),$table);
 	return (strpos(implode(";",$tables),$table) > 0);
 }
 
@@ -147,7 +147,7 @@ function is_table($table) {
 function record_html($query) {
 	global $database;
 
-	$mainframe = &mosMainFrame::getInstance();
+	$mainframe = mosMainFrame::getInstance();
 	$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images';
 
 	// exec query

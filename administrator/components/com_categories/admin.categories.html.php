@@ -22,7 +22,7 @@ class categories_html {
 	 */
 	function show(&$rows,$section,$section_name,&$pageNav,&$lists,$type) {
 		global $my;
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 		mosCommonHTML::loadOverlib();
 		?>

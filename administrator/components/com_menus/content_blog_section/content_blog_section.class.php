@@ -23,7 +23,7 @@ class content_blog_section {
 	function edit($uid,$menutype,$option,$menu) {
 		global $my,$mainframe;
 
-		$database = &database::getInstance();
+		$database = database::getInstance();
 
 		// fail if checked out not by 'me'
 		if($menu->checked_out && $menu->checked_out != $my->id) {
@@ -81,7 +81,7 @@ class content_blog_section {
 
 	function saveMenu($option,$task) {
 
-		$database = &database::getInstance();
+		$database = database::getInstance();
 
 		$params = mosGetParam($_POST,'params','');
 

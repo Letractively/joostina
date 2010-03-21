@@ -231,7 +231,7 @@ class HTML_menumanager {
 	 * Writes list of the items that have been selected for deletion
 	 */
 	function showDelete($option,$type,$items,$modules) {
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 		?>
 <form action="index2.php" method="post" name="adminForm">

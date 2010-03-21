@@ -30,6 +30,8 @@ if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset
 }
 
 require(JPATH_BASE.DS.'includes/joostina.php');
+// подключаем расширенные административные функции
+require_once (JPATH_BASE_ADMIN.DS.'includes'.DS.'admin.php');
 
 global $my;
 

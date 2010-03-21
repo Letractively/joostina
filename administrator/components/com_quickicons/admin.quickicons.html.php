@@ -17,7 +17,7 @@ class HTML_QuickIcons {
 
 	function show(&$rows,$option,$search,&$pageNav) {
 
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 		mosCommonHTML::loadOverlib();
 		?>

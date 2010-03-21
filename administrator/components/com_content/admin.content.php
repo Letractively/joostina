@@ -133,8 +133,8 @@ switch($task) {
 }
 
 function config($option) {
-	$mainframe = &mosMainFrame::getInstance(true);
-	$database = &$mainframe->getDBO();
+	$mainframe = mosMainFrame::getInstance(true);
+	$database = $mainframe->getDBO();
 
 	mosCommonHTML::loadOverlib();
 
@@ -145,7 +145,7 @@ function config($option) {
 }
 
 function save_config() {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$act = mosGetParam($_REQUEST,'act','');
 	$config_class = 'configContent_'.$act;
@@ -158,8 +158,8 @@ function save_config() {
 }
 
 function submitContent() {
-	$mainframe = &mosMainFrame::getInstance(true);
-	$database = &$mainframe->getDBO();
+	$mainframe = mosMainFrame::getInstance(true);
+	$database = $mainframe->getDBO();
 
 	$query = 'SELECT params from #__components WHERE id=25';
 	$database->setQuery($query);
@@ -176,9 +176,9 @@ function submitContent() {
  */
 function viewContent($sectionid,$option) {
 
-	$mainframe = &mosMainFrame::getInstance();
-	$config = &$mainframe->config;
-	$database = &$mainframe->getDBO();
+	$mainframe = mosMainFrame::getInstance();
+	$config = $mainframe->config;
+	$database = $mainframe->getDBO();
 
 	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit",'limit',$config->config_list_limit));
 	$limitstart = intval($mainframe->getUserStateFromRequest("view{$option}{$sectionid}limitstart",'limitstart',0));
@@ -344,8 +344,8 @@ function viewContent($sectionid,$option) {
  */
 function viewArchive($sectionid,$option) {
 
-	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
+	$mainframe = mosMainFrame::getInstance();
+	$database = $mainframe->getDBO();
 
 	$catid = intval($mainframe->getUserStateFromRequest("catidarc{$option}{$sectionid}",'catid',0));
 	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mainframe->getCfg('list_limit')));
@@ -442,8 +442,8 @@ function viewArchive($sectionid,$option) {
 function editContent($uid = 0,$sectionid = 0,$option) {
 	global $my;
 
-	$mainframe = &mosMainFrame::getInstance(true);
-	$database = &$mainframe->getDBO();
+	$mainframe = mosMainFrame::getInstance(true);
+	$database = $mainframe->getDBO();
 
 	$catid = intval( mosGetParam($_REQUEST,'catid',0));
 
@@ -745,8 +745,8 @@ function saveContent($sectionid,$task) {
 
 	josSpoofCheck();
 
-	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
+	$mainframe = mosMainFrame::getInstance();
+	$database = $mainframe->getDBO();
 
 	$menu		= strval(mosGetParam($_POST,'menu','mainmenu'));
 	$menuid		= intval(mosGetParam($_POST,'menuid',0));
@@ -932,8 +932,8 @@ function changeContent($cid = null,$state = 0,$option) {
 
 	josSpoofCheck();
 
-	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
+	$mainframe = mosMainFrame::getInstance();
+	$database = $mainframe->getDBO();
 
 	if(count($cid) < 1) {
 		$action = $state == 1?'publish':($state == -1?'archive':'unpublish');
@@ -1006,8 +1006,8 @@ function toggleFrontPage($cid,$section,$option) {
 
 	josSpoofCheck();
 
-	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
+	$mainframe = mosMainFrame::getInstance();
+	$database = $mainframe->getDBO();
 
 	if(count($cid) < 1) {
 		echo "<script> alert('"._CHOOSE_OBJ_TOGGLE."'); window.history.go(-1);</script>\n";
@@ -1051,7 +1051,7 @@ function toggleFrontPage($cid,$section,$option) {
 function removeContent(&$cid,$sectionid,$option) {
 	josSpoofCheck();
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$total = count($cid);
 	if($total < 1) {
@@ -1089,7 +1089,7 @@ function removeContent(&$cid,$sectionid,$option) {
 function cancelContent() {
 	josSpoofCheck();
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$row = new mosContent($database);
 	$row->bind($_POST);
@@ -1104,7 +1104,7 @@ function cancelContent() {
  * @param integer The increment to reorder by
  */
 function orderContent($uid,$inc,$option) {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	josSpoofCheck();
 	$row = new mosContent($database);
@@ -1126,7 +1126,7 @@ function orderContent($uid,$inc,$option) {
  * Form for moving item(s) to a different section and category
  */
 function moveSection($cid,$sectionid,$option) {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	if(!is_array($cid) || count($cid) < 1) {
 		echo "<script> alert('"._CHOOSE_OBJECT_TO_MOVE."'); window.history.go(-1);</script>\n";
@@ -1161,7 +1161,7 @@ function moveSectionSave(&$cid,$sectionid,$option) {
 	global $my;
 	josSpoofCheck();
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$sectcat = mosGetParam($_POST,'sectcat','');
 	list($newsect,$newcat) = explode(',',$sectcat);
@@ -1224,7 +1224,7 @@ function moveSectionSave(&$cid,$sectionid,$option) {
  * Form for copying item(s)
  **/
 function copyItem($cid,$sectionid,$option) {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	if(!is_array($cid) || count($cid) < 1) {
 		echo "<script> alert('"._CHOOSE_OBJECT_TO_MOVE."'); window.history.go(-1);</script>\n";
@@ -1260,7 +1260,7 @@ function copyItem($cid,$sectionid,$option) {
 function copyItemSave($cid,$sectionid,$option) {
 	josSpoofCheck();
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$sectcat = mosGetParam($_POST,'sectcat','');
 	//seperate sections and categories from selection
@@ -1344,7 +1344,7 @@ function copyItemSave($cid,$sectionid,$option) {
 function resethits($redirect,$id) {
 	josSpoofCheck();
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$row = new mosContent($database);
 	$row->Load((int)$id);
@@ -1364,7 +1364,7 @@ function resethits($redirect,$id) {
 function accessMenu($uid,$access,$option) {
 	josSpoofCheck();
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$row = new mosContent($database);
 	$row->load((int)$uid);
@@ -1386,7 +1386,7 @@ function accessMenu($uid,$access,$option) {
 }
 
 function filterCategory($query,$active = null) {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$categories[] = mosHTML::makeOption('0',_SEL_CATEGORY);
 	$database->setQuery($query);
@@ -1400,7 +1400,7 @@ function filterCategory($query,$active = null) {
 function menuLink($redirect,$id) {
 	josSpoofCheck();
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$menu = strval(mosGetParam($_POST,'menuselect',''));
 	$link = strval(mosGetParam($_POST,'link_name',''));
@@ -1450,7 +1450,7 @@ function go2menuitem() {
 function saveOrder(&$cid) {
 	josSpoofCheck();
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$total = count($cid);
 	$redirect = mosGetParam($_POST,'redirect');
@@ -1505,7 +1505,7 @@ function saveOrder(&$cid) {
 
 function seccatli($act = 0,$filter_authorid=0) {
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$showarchive = intval( mosGetParam($_REQUEST,'showarchive',0));
 
@@ -1554,7 +1554,7 @@ function seccatli($act = 0,$filter_authorid=0) {
 }
 
 function _cat_d($act) {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$query = "SELECT cat.id, cat.name as title, cat.section, COUNT(con.catid) AS countcon"
 			."\n FROM #__categories AS cat"
@@ -1582,7 +1582,7 @@ function _cat_d($act) {
 }
 
 function _user_d() {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/dtree_ico/';
 

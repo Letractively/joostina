@@ -928,10 +928,6 @@ class HTML_config {
 				?>
 		<table width="100%">
 			<tr>
-				<td width="300"><?php echo mosToolTip(_ENABLE_STATS2,'','','',_ENABLE_STATS)?>:</td>
-				<td><?php echo $lists['enable_stats']; ?></td>
-			</tr>
-			<tr>
 				<td><?php echo _STATS_HITS_DATE?>:</td>
 				<td><?php echo $lists['log_items']; ?><?php echo mosWarning(_STATS_HITS_DATE2); ?></td>
 			</tr>

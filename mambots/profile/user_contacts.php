@@ -36,7 +36,7 @@ function botUserContacts($user) {
 
 /** Функция - оболочка вывода */
 function UserContacts_output($user) {
-	$mainframe = &mosMainFrame::getInstance();
+	$mainframe = mosMainFrame::getInstance();
 	$ajax_handler = 'ajax.index.php?option=com_users&task=request_from_plugin&plugin=user_contacts';
 	?><!-- Всплывающее окно с формой отправки сообщения-->
 <script type="text/javascript">

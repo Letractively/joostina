@@ -80,7 +80,7 @@ class mosInstallerComponent extends mosInstaller {
 	function install($p_fromdir = null) {
 		josSpoofCheck();
 
-		$database = &database::getInstance();
+		$database = database::getInstance();
 		$config = &Jconfig::getInstance();
 
 		if(!$this->preInstallCheck($p_fromdir,'component')) {
@@ -250,7 +250,7 @@ class mosInstallerComponent extends mosInstaller {
 	}
 
 	function createParentMenu($_menuname,$_comname,$_image ="js/ThemeOffice/component.png") {
-		$database = &database::getInstance();
+		$database = database::getInstance();
 
 		$db_name = $_menuname;
 		$db_link = "option=$_comname";
@@ -280,7 +280,7 @@ class mosInstallerComponent extends mosInstaller {
 	 * @param int The client id
 	 */
 	function uninstall($cid,$option,$client = 0) {
-		$database = &database::getInstance();
+		$database = database::getInstance();
 		$config = &Jconfig::getInstance();
 
 		josSpoofCheck();

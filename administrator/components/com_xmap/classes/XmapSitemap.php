@@ -74,7 +74,7 @@ class XmapSitemap {
 
 	/** Remove the sitemap from the table */
 	function remove() {
-		$database = &database::getInstance();
+		$database = database::getInstance();
 
 		$query = "delete from #__xmap_sitemap where `id`=".$this->id;
 		$database->setQuery( $query );
@@ -88,7 +88,7 @@ class XmapSitemap {
 
 	/** Load settings from the database into this instance */
 	function load($id) {
-		$database = &database::getInstance();
+		$database = database::getInstance();
 
 		$id = intval($id);
 		$query = "SELECT * FROM #__xmap_sitemap where id=$id";
@@ -101,7 +101,7 @@ class XmapSitemap {
 
 	/** Save current settings to the database */
 	function save($forceinstall=false) {
-		$database = &database::getInstance();
+		$database = database::getInstance();
 
 		$fields = array();
 

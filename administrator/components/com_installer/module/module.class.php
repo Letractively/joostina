@@ -40,7 +40,7 @@ class mosInstallerModule extends mosInstaller {
 	 * @param boolean True if installing from directory
 	 */
 	function install($p_fromdir = null) {
-		$database = &database::getInstance();
+		$database = database::getInstance();
 
 		josSpoofCheck();
 		if(!$this->preInstallCheck($p_fromdir,'module')) {

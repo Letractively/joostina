@@ -43,6 +43,9 @@ function showSyndicate($option) {
 	$database->setQuery($query);
 	$id = $database->loadResult();
 
+	// подключение класса компонентов
+	mosMainFrame::addClass('component');
+
 	// load the row from the db table
 	$row = new mosComponent($database);
 	$row->load($id);

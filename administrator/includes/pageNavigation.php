@@ -237,13 +237,4 @@ class mosPageNav {
 			return '&nbsp;';
 		}
 	}
-
-	/**
-	 * Sets the vars for the page navigation template
-	 */
-	function setTemplateVars(&$tmpl,$name = 'admin-list-footer') {
-		$tmpl->addVar($name,'PAGE_LINKS',$this->getPagesLinks());
-		$tmpl->addVar($name,'PAGE_LIST_OPTIONS',$this->getLimitBox());
-		$tmpl->addVar($name,'PAGE_COUNTER',$this->getPagesCounter());
-	}
 }

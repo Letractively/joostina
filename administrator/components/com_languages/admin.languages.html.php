@@ -18,7 +18,7 @@ class HTML_languages {
 
 	function showLanguages($cur_lang,&$rows,&$pageNav,$option) {
 		global $my;
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 		?>
 <form action="index2.php" method="post" name="adminForm">

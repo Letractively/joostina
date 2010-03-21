@@ -29,7 +29,7 @@ class HTML_user {
 	function profile($user,$option, &$params, $config) {
 		global $my, $_MAMBOTS,$Itemid;
 
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = mosMainFrame::getInstance();
 		$database = $mainframe->getDBO();
 
 		$owner=0;

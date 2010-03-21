@@ -102,10 +102,12 @@ class database {
 	// получение объекта базы данных
 	public static function getInstance() {
 
-		if (self::$_instance === NULL) {
-			$config = & Jconfig::getInstance();
+		JDEBUG ? jd_inc('database::getInstance()') : null;
 
-			$instance = new database($config->config_host, $config->config_user, $config->config_password, $config->config_db, $config->config_dbprefix, true, $config->config_debug);
+		if (self::$_instance === NULL) {
+			$config = Jconfig::getInstance();
+
+			$instance = new database($config->config_host, $config->config_user, $config->config_password, $config->config_db, $config->config_dbprefix, true, JDEBUG);
 			if ($instance->getErrorNum()) {
 				$mosSystemError = $database->getErrorNum();
 				include JPATH_BASE . DS . 'configuration.php';

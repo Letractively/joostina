@@ -60,8 +60,8 @@ class HTML_admin_misc {
 	function system_info($version) {
 		global $mosConfig_cachepath;
 
-		$mainframe = &mosMainFrame::getInstance();
-		$database = &$mainframe->getDBO();
+		$mainframe = mosMainFrame::getInstance();
+		$database = $mainframe->getDBO();
 
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 
@@ -86,9 +86,7 @@ class HTML_admin_misc {
 	<tr>
 		<td>
 			<pre>
-						<?php
-						include(JPATH_BASE.'/help/copyright.php');
-						?>
+						<?php include(JPATH_BASE.'/help/copyright.php'); ?>
 			</pre>
 		</td>
 	</tr>
@@ -99,11 +97,11 @@ class HTML_admin_misc {
 		?>
 <table class="adminform">
 	<tr>
+		<td colspan="2"><h2><?php echo coreVersion::$CMS.' '.coreVersion::$CMS_ver.'.'.coreVersion::$RELDATE.' '.coreVersion::$RELTIME.'</h2><br />'.coreVersion::$SUPPORT; ?></td>
+	</tr>
+	<tr>
 		<td colspan="2">
-					<?php
-					// show security setting check
-					josSecurityCheck();
-					?>
+					<?php josSecurityCheck();?>
 		</td>
 	</tr>
 	<tr>
@@ -125,10 +123,6 @@ class HTML_admin_misc {
 	<tr>
 		<td><strong><?php echo _PHP_APACHE_INTERFACE?>:</strong></td>
 		<td><?php echo php_sapi_name(); ?></td>
-	</tr>
-	<tr>
-		<td><strong><?php echo _JOOSTINA_VERSION?>:</strong></td>
-		<td><?php echo $version->CMS.' '.$version->CMS_ver.'.'.$version->DEV_STATUS.' [ '.$version->CODENAME.' ] '.$version->RELDATE.' '.$version->RELTIME.' '.$version->RELTZ.'<br />'.$version->SUPPORT; ?></td>
 	</tr>
 	<tr>
 		<td><strong><?php echo _BROWSER?>:</strong></td>
@@ -263,6 +257,8 @@ class HTML_admin_misc {
 							$cf[$k] = '$mosConfig_password = \'xxxxxx\'';
 						} elseif(preg_match('/mosConfig_db /i',$v)) {
 							$cf[$k] = '$mosConfig_db = \'xxxxxx\'';
+						} elseif(preg_match('/mosConfig_smtppass /i',$v)) {
+							$cf[$k] = '$mosConfig_smtppass = \'xxxxxx\'';
 						}
 					}
 					foreach($cf as $k => $v) {

@@ -49,7 +49,7 @@ class myFunctions {
     }
 
     function check_user_function() {
-        $mainframe = &mosMainFrame::getInstance();
+        $mainframe = mosMainFrame::getInstance();
         if(!defined('_MYLIB')) {
             return false;
         }
@@ -66,7 +66,7 @@ class myFunctions {
     }
 
     function start_user_function() {
-        $mainframe = &mosMainFrame::getInstance();
+        $mainframe = mosMainFrame::getInstance();
         if($mainframe->isAdmin()) {
             $class = 'myLibAdmin';
         }else {

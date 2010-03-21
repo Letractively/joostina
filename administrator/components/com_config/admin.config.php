@@ -342,7 +342,6 @@ function showconfig($option) {
 
 // НАСТРОЙКИ СТАТИСТИКИ
 	$lists['log_searches']	= mosHTML::yesnoRadioList( 'config_enable_log_searches', 'class="inputbox"', $row->config_enable_log_searches );
-	$lists['enable_stats']	= mosHTML::yesnoRadioList( 'config_enable_stats', 'class="inputbox"', $row->config_enable_stats );
 	$lists['log_items']		= mosHTML::yesnoRadioList( 'config_enable_log_items', 'class="inputbox"', $row->config_enable_log_items );
 
 // НАСТРОЙКИ SEO

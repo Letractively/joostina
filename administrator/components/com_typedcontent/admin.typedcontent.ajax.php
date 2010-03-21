@@ -77,7 +77,7 @@ function x_access($id) {
 function x_publish($id = null) {
 	global $my;
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	// id содержимого для обработки не получен - выдаём ошибку
 	if(!$id) return 'error-id';

@@ -126,8 +126,8 @@ switch($task) {
 */
 function viewMenuItems($menutype,$option) {
 
-	$database = &database::getInstance();
-	$mainframe = &mosMainFrame::getInstance();
+	$database = database::getInstance();
+	$mainframe = mosMainFrame::getInstance();
 
 	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mainframe->getCfg('list_limit')));
 	$limitstart = intval($mainframe->getUserStateFromRequest("view{$option}limitstart$menutype",'limitstart',0));
@@ -343,7 +343,7 @@ function addMenuItem(&$cid,$menutype,$option,$task) {
 function saveMenu($option,$task = 'save') {
 	josSpoofCheck();
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$params = mosGetParam($_POST,'params','');
 	if(is_array($params)) {
@@ -402,7 +402,7 @@ function saveMenu($option,$task = 'save') {
 */
 function publishMenuSection($cid = null,$publish = 1,$menutype) {
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	if(!is_array($cid) || count($cid) < 1) {
 		return _CHOOSE_OBJECT_FOR.' '.($publish?'publish':'unpublish');
@@ -439,7 +439,7 @@ function publishMenuSection($cid = null,$publish = 1,$menutype) {
 * Trashes a menu record
 */
 function TrashMenuSection($cid = null,$menutype = 'mainmenu') {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$nullDate = $database->getNullDate();
 	$state = -2;
@@ -485,7 +485,7 @@ function TrashMenuSection($cid = null,$menutype = 'mainmenu') {
 function cancelMenu($option) {
 	josSpoofCheck();
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$menu = new mosMenu($database);
 	$menu->bind($_POST);
@@ -503,7 +503,7 @@ function cancelMenu($option) {
 * @param integer The increment to reorder by
 */
 function orderMenu($uid,$inc,$option) {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$row = new mosMenu($database);
 	$row->load($uid);
@@ -521,7 +521,7 @@ function orderMenu($uid,$inc,$option) {
 * @param integer The increment to reorder by
 */
 function accessMenu($uid,$access,$option,$menutype) {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$menu = new mosMenu($database);
 	$menu->load($uid);
@@ -544,7 +544,7 @@ function accessMenu($uid,$access,$option,$menutype) {
 * Form for moving item(s) to a specific menu
 */
 function moveMenu($option,$cid,$menutype) {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	if(!is_array($cid) || count($cid) < 1) {
 		echo "<script> alert('"._CHOOSE_OBJECT_TO_MOVE."'); window.history.go(-1);</script>\n";
@@ -574,7 +574,7 @@ function moveMenu($option,$cid,$menutype) {
 * Add all descendants to list of meni id's
 */
 function addDescendants($id,&$cid) {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$query = "SELECT id FROM #__menu WHERE parent = ".(int)$id;
 	$database->setQuery($query);
@@ -599,7 +599,7 @@ function addDescendants($id,&$cid) {
 * Save the item(s) to the menu selected
 */
 function moveMenuSave($option,$cid,$menu,$menutype) {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	// add all decendants to the list
 	foreach($cid as $id) addDescendants($id,$cid);
@@ -647,7 +647,7 @@ function moveMenuSave($option,$cid,$menu,$menutype) {
 * Form for copying item(s) to a specific menu
 */
 function copyMenu($option,$cid,$menutype) {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	if(!is_array($cid) || count($cid) < 1) {
 		echo "<script> alert('"._CHOOSE_OBJECT_TO_MOVE."'); window.history.go(-1);</script>\n";
@@ -676,7 +676,7 @@ function copyMenu($option,$cid,$menutype) {
 * Save the item(s) to the menu selected
 */
 function copyMenuSave($option,$cid,$menu,$menutype) {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$curr = new mosMenu($database);
 	$cidref = array();
@@ -758,7 +758,7 @@ function ReadMenuXML($type,$component = -1) {
 function saveOrder(&$cid,$menutype) {
 	josSpoofCheck();
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$total = count($cid);
 	$order = josGetArrayInts('order');

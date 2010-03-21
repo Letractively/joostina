@@ -41,7 +41,6 @@ if($config->config_enable_admin_secure_code) {
 				document.loginForm.usrname.select();
 				document.loginForm.usrname.focus();
 			}
-			var _js_defines = [];
 		</script>
 	</head>
 	<body onload="setFocus();">

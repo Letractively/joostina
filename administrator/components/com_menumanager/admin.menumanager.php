@@ -76,8 +76,8 @@ switch($task) {
  */
 function showMenu($option) {
 
-	$database	= &database::getInstance();
-	$mainframe	= &mosMainFrame::getInstance();
+	$database	= database::getInstance();
+	$mainframe	= mosMainFrame::getInstance();
 	$config		= &Jconfig::getInstance();
 
 	$limit		= intval($mainframe->getUserStateFromRequest("viewlistlimit",'limit',$config->config_list_limit));

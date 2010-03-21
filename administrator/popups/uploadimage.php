@@ -12,7 +12,7 @@ define("_VALID_MOS",1);
 /** проверка безопасности*/
 require ('../includes/auth.php');
 
-$mainframe = &mosMainFrame::getInstance(true);
+$mainframe = mosMainFrame::getInstance(true);
 $mainframe->set('lang', $mosConfig_lang);
 include_once($mainframe->getLangFile());
 
@@ -41,9 +41,6 @@ $option = strval(mosGetParam($_SESSION,'option',''));
 $task = strval(mosGetParam($_SESSION,'task',''));
 
 switch($option) {
-	case 'com_banners':
-		break;
-
 	case 'com_categories':
 	case 'com_content':
 	case 'com_sections':
@@ -81,8 +78,7 @@ $action = "window.location.href = 'uploadimage.php?directory=$directory&amp;t=$c
 if(isset($_FILES['userfile'])) {
 	if($directory == 'banners') {
 		$base_Dir = "../../images/banners/";
-	} else
-	if($directory != '') {
+	} elseif($directory != '') {
 		$base_Dir = '../../images/stories/'.$directory;
 
 		if(!is_dir(JPATH_BASE.'/images/stories/'.$directory)) {

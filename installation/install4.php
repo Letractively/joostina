@@ -163,7 +163,7 @@ if($siteUrl) {
 	$config .= "\$mosConfig_uniquemail = '1';\n";
 	$config .= "\$mosConfig_offline_message = 'Сайт временно закрыт.<br />Приносим свои извинения! Пожалуйста, зайдите позже.';\n";
 	$config .= "\$mosConfig_error_message = 'Сайт недоступен.<br />Пожалуйста, сообщите об этом Администратору';\n";
-	$config .= "\$mosConfig_debug = '0';\n";
+	$config .= "\$mosConfig_debug = '1';\n";
 	$config .= "\$mosConfig_lifetime = '900';\n";
 	$config .= "\$mosConfig_session_life_admin = '1800';\n";
 	$config .= "\$mosConfig_session_type = '0';\n";
@@ -183,7 +183,6 @@ if($siteUrl) {
 	$config .= "\$mosConfig_showEmail = '1';\n";
 	$config .= "\$mosConfig_enable_log_items = '0';\n";
 	$config .= "\$mosConfig_enable_log_searches = '0';\n";
-	$config .= "\$mosConfig_enable_stats = '0';\n";
 	$config .= "\$mosConfig_sef = '0';\n";
 	$config .= "\$mosConfig_vote = '1';\n";
 	$config .= "\$mosConfig_gzip = '0';\n";

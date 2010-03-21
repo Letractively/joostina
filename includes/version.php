@@ -37,11 +37,6 @@ class coreVersion {
 	public static $SVN = 1;
 	/** @var string ссылки на сайты поддержки*/
 	public static $SUPPORT = 'Поддержка: <a href="http://www.joostina.ru" target="_blank" title="Официальный сайт CMS Joostina">www.joostina.ru</a> | <a href="http://www.joomlaportal.ru" target="_blank" title="Joomla! CMS по-русски">www.joomlaportal.ru</a> | <a href="http://www.joom.ru" target="_blank" title="Русский дом Joomla">www.joom.ru</a> | <a href="http://www.joomla.ru" target="_blank" title="Бесплатная система управления сайтом Joomla!">www.joomla.ru</a>';
-	
-	/*** @return string Version suffix for help files*/
-	public function getHelpVersion() {
-		return '.'.str_replace('.','',$this->RELEASE);
-	}
 
 	// получение переменных окружения информации осистеме
 	public static function get($name) {
@@ -50,5 +45,5 @@ class coreVersion {
 }
 
 // небольшая нежелательная заглушка
-// TODO убрать к 1.3.5
+// TODO убрать к 1.3.3
 class joomlaVersion extends coreVersion{}

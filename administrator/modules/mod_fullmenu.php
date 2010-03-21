@@ -1,10 +1,10 @@
 <?php
 /**
  * @package Joostina
- * @copyright Авторские права (C) 2008-2010 Joostina team. Все права защищены.
- * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
- * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
- * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ * @copyright пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ (C) 2008-2010 Joostina team. пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
+ * @license пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, пїЅпїЅпїЅ help/license.php
+ * Joostina! - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ GNU/GPL
+ * пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ help/copyright.php.
  * phpGACL - Generic Access Control List
  * Copyright (C) 2002,2003 Mike Benoit
  **/
@@ -26,7 +26,7 @@ if(!defined('_JOS_FULLMENU_MODULE')) {
 		 */
 		public static function show($usertype = '') {
 			global $acl,$my;
-			$database = &database::getInstance();
+			$database = database::getInstance();
 			$config = &Jconfig::getInstance();
 
 			echo '<div id="myMenuID"></div>'; // РІ СЌС‚РѕС‚ СЃР»РѕР№ РІС‹РІРѕРґРёС‚СЃСЏ СЃРѕРґРµСЂР¶РёРјРѕРµ РјРµРЅСЋ
@@ -82,12 +82,7 @@ var myMenu =[
 ['<img src="<?php echo $cur_file_icons_path ?>preview.png" />','<?php echo _MOD_FULLMENU_SITE_PREVIEW_WITH_MODULE_POSITIONS?>','index2.php?option=com_admin&task=preview2',null,'<?php echo JPATH_SITE; ?>'],
 ],
 ['<img src="<?php echo $cur_file_icons_path ?>globe1.png" />', '<?php echo _MOD_FULLMENU_SITE_STATS?>', null, null, '<?php echo _MOD_FULLMENU_SITE_STATS_TIP?>',
-			<?php
-			if($config->config_enable_stats == 1) {
-				?> ['<img src="<?php echo $cur_file_icons_path ?>globe4.png" />', '<?php echo _MOD_FULLMENU_STATS_BROWSERS?>', 'index2.php?option=com_statistics', null, '<?php echo _MOD_FULLMENU_STATS_BROWSERS_TIP?>'],
-				<?php
-			}
-			?>['<img src="<?php echo $cur_file_icons_path ?>search_text.png" />', '<?php echo _MOD_FULLMENU_SEARCHES?>', 'index2.php?option=com_statistics&task=searches', null, '<?php echo _MOD_FULLMENU_SEARCHES_TIP?>'],
+['<img src="<?php echo $cur_file_icons_path ?>search_text.png" />', '<?php echo _MOD_FULLMENU_SEARCHES?>', 'index2.php?option=com_statistics&task=searches', null, '<?php echo _MOD_FULLMENU_SEARCHES_TIP?>'],
 ['<img src="<?php echo $cur_file_icons_path ?>globe3.png" />', '<?php echo _PAGES_HITS?>', 'index2.php?option=com_statistics&task=pageimp', null, '<?php echo _PAGES_HITS?>']
 ],
 			<?php
