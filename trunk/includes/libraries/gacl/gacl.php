@@ -1,30 +1,486 @@
 <?php
 /**
  * @package Joostina
- * @copyright ��������� ����� (C) 2008-2010 Joostina team. ��� ����� ��������.
- * @license �������� http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, ��� help/license.php
- * Joostina! - ��������� ����������� ����������� ���������������� �� �������� �������� GNU/GPL
- * ��� ��������� ���������� � ������������ ����������� � ��������� �� ��������� �����, �������� ���� help/copyright.php.
+ * @copyright Авторские права (C) 2008-2010 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
  * phpGACL - Generic Access Control List
  * Copyright (C) 2002,2003 Mike Benoit
  **/
 
 defined('_VALID_MOS') or die();
+
 class gacl {
 
-	var $_debug = false;
-	var $db = null;
-	var $_db_table_prefix = '#__core_acl_';
+	private static $_instance;
+
+	private $_debug = false;
+	public $db = null;
+	public $_db_table_prefix = '#__core_acl_';
 	var $_caching = false;
 	var $_force_cache_expire = true;
-	var $acl = null;
-	var $acl_count = 0;
 
-	function gacl($db = null) {
+	//var $acl = null;
+	var $acl_count = 50;
+	
+	// TODO - так-то
+	var $acl = array (
+			0 =>
+			array (
+							0 => 'administration',
+							1 => 'login',
+							2 => 'users',
+							3 => 'administrator',
+							4 => NULL,
+							5 => NULL,
+			),
+			1 =>
+			array (
+							0 => 'administration',
+							1 => 'login',
+							2 => 'users',
+							3 => 'super administrator',
+							4 => NULL,
+							5 => NULL,
+			),
+			2 =>
+			array (
+							0 => 'administration',
+							1 => 'login',
+							2 => 'users',
+							3 => 'manager',
+							4 => NULL,
+							5 => NULL,
+			),
+			3 =>
+			array (
+							0 => 'administration',
+							1 => 'config',
+							2 => 'users',
+							3 => 'super administrator',
+							4 => NULL,
+							5 => NULL,
+			),
+			4 =>
+			array (
+							0 => 'administration',
+							1 => 'edit',
+							2 => 'users',
+							3 => 'super administrator',
+							4 => 'components',
+							5 => 'com_cache',
+			),
+			5 =>
+			array (
+							0 => 'administration',
+							1 => 'manage',
+							2 => 'users',
+							3 => 'super administrator',
+							4 => 'components',
+							5 => 'com_templates',
+			),
+			6 =>
+			array (
+							0 => 'administration',
+							1 => 'install',
+							2 => 'users',
+							3 => 'super administrator',
+							4 => 'installers',
+							5 => 'all',
+			),
+			7 =>
+			array (
+							0 => 'administration',
+							1 => 'install',
+							2 => 'users',
+							3 => 'super administrator',
+							4 => 'templates',
+							5 => 'all',
+			),
+			8 =>
+			array (
+							0 => 'administration',
+							1 => 'manage',
+							2 => 'users',
+							3 => 'administrator',
+							4 => 'components',
+							5 => 'com_trash',
+			),
+			9 =>
+			array (
+							0 => 'administration',
+							1 => 'manage',
+							2 => 'users',
+							3 => 'super administrator',
+							4 => 'components',
+							5 => 'com_trash',
+			),
+			10 =>
+			array (
+							0 => 'administration',
+							1 => 'manage',
+							2 => 'users',
+							3 => 'administrator',
+							4 => 'components',
+							5 => 'com_menumanager',
+			),
+			11 =>
+			array (
+							0 => 'administration',
+							1 => 'manage',
+							2 => 'users',
+							3 => 'super administrator',
+							4 => 'components',
+							5 => 'com_menumanager',
+			),
+			12 =>
+			array (
+							0 => 'administration',
+							1 => 'manage',
+							2 => 'users',
+							3 => 'super administrator',
+							4 => 'components',
+							5 => 'com_languages',
+			),
+			13 =>
+			array (
+							0 => 'administration',
+							1 => 'install',
+							2 => 'users',
+							3 => 'super administrator',
+							4 => 'languages',
+							5 => 'all',
+			),
+			14 =>
+			array (
+							0 => 'administration',
+							1 => 'install',
+							2 => 'users',
+							3 => 'administrator',
+							4 => 'modules',
+							5 => 'all',
+			),
+			15 =>
+			array (
+							0 => 'administration',
+							1 => 'install',
+							2 => 'users',
+							3 => 'super administrator',
+							4 => 'modules',
+							5 => 'all',
+			),
+			16 =>
+			array (
+							0 => 'administration',
+							1 => 'edit',
+							2 => 'users',
+							3 => 'super administrator',
+							4 => 'modules',
+							5 => 'all',
+			),
+			17 =>
+			array (
+							0 => 'administration',
+							1 => 'edit',
+							2 => 'users',
+							3 => 'administrator',
+							4 => 'modules',
+							5 => 'all',
+			),
+			18 =>
+			array (
+							0 => 'administration',
+							1 => 'install',
+							2 => 'users',
+							3 => 'administrator',
+							4 => 'mambots',
+							5 => 'all',
+			),
+			19 =>
+			array (
+							0 => 'administration',
+							1 => 'install',
+							2 => 'users',
+							3 => 'super administrator',
+							4 => 'mambots',
+							5 => 'all',
+			),
+			20 =>
+			array (
+							0 => 'administration',
+							1 => 'edit',
+							2 => 'users',
+							3 => 'super administrator',
+							4 => 'mambots',
+							5 => 'all',
+			),
+			21 =>
+			array (
+							0 => 'administration',
+							1 => 'edit',
+							2 => 'users',
+							3 => 'administrator',
+							4 => 'mambots',
+							5 => 'all',
+			),
+			22 =>
+			array (
+							0 => 'administration',
+							1 => 'install',
+							2 => 'users',
+							3 => 'administrator',
+							4 => 'components',
+							5 => 'all',
+			),
+			23 =>
+			array (
+							0 => 'administration',
+							1 => 'install',
+							2 => 'users',
+							3 => 'super administrator',
+							4 => 'components',
+							5 => 'all',
+			),
+			24 =>
+			array (
+							0 => 'administration',
+							1 => 'edit',
+							2 => 'users',
+							3 => 'super administrator',
+							4 => 'components',
+							5 => 'all',
+			),
+			25 =>
+			array (
+							0 => 'administration',
+							1 => 'edit',
+							2 => 'users',
+							3 => 'administrator',
+							4 => 'components',
+							5 => 'all',
+			),
+			26 =>
+			array (
+							0 => 'administration',
+							1 => 'edit',
+							2 => 'users',
+							3 => 'manager',
+							4 => 'components',
+							5 => 'com_frontpage',
+			),
+			27 =>
+			array (
+							0 => 'administration',
+							1 => 'manage',
+							2 => 'users',
+							3 => 'super administrator',
+							4 => 'components',
+							5 => 'com_massmail',
+			),
+			28 =>
+			array (
+							0 => 'administration',
+							1 => 'manage',
+							2 => 'users',
+							3 => 'administrator',
+							4 => 'components',
+							5 => 'com_users',
+			),
+			29 =>
+			array (
+							0 => 'administration',
+							1 => 'manage',
+							2 => 'users',
+							3 => 'super administrator',
+							4 => 'components',
+							5 => 'com_users',
+			),
+			30 =>
+			array (
+							0 => 'administration',
+							1 => 'edit',
+							2 => 'users',
+							3 => 'administrator',
+							4 => 'user properties',
+							5 => 'block_user',
+			),
+			31 =>
+			array (
+							0 => 'administration',
+							1 => 'edit',
+							2 => 'users',
+							3 => 'super administrator',
+							4 => 'user properties',
+							5 => 'block_user',
+			),
+			32 =>
+			array (
+							0 => 'workflow',
+							1 => 'email_events',
+							2 => 'users',
+							3 => 'administrator',
+							4 => NULL,
+							5 => NULL,
+			),
+			33 =>
+			array (
+							0 => 'workflow',
+							1 => 'email_events',
+							2 => 'users',
+							3 => 'super administrator',
+							4 => NULL,
+							5 => NULL,
+			),
+			34 =>
+			array (
+							0 => 'action',
+							1 => 'add',
+							2 => 'users',
+							3 => 'author',
+							4 => 'content',
+							5 => 'all',
+			),
+			35 =>
+			array (
+							0 => 'action',
+							1 => 'add',
+							2 => 'users',
+							3 => 'editor',
+							4 => 'content',
+							5 => 'all',
+			),
+			36 =>
+			array (
+							0 => 'action',
+							1 => 'add',
+							2 => 'users',
+							3 => 'publisher',
+							4 => 'content',
+							5 => 'all',
+			),
+			37 =>
+			array (
+							0 => 'action',
+							1 => 'edit',
+							2 => 'users',
+							3 => 'author',
+							4 => 'content',
+							5 => 'own',
+			),
+			38 =>
+			array (
+							0 => 'action',
+							1 => 'edit',
+							2 => 'users',
+							3 => 'editor',
+							4 => 'content',
+							5 => 'all',
+			),
+			39 =>
+			array (
+							0 => 'action',
+							1 => 'edit',
+							2 => 'users',
+							3 => 'publisher',
+							4 => 'content',
+							5 => 'all',
+			),
+			40 =>
+			array (
+							0 => 'action',
+							1 => 'publish',
+							2 => 'users',
+							3 => 'publisher',
+							4 => 'content',
+							5 => 'all',
+			),
+			41 =>
+			array (
+							0 => 'action',
+							1 => 'add',
+							2 => 'users',
+							3 => 'manager',
+							4 => 'content',
+							5 => 'all',
+			),
+			42 =>
+			array (
+							0 => 'action',
+							1 => 'edit',
+							2 => 'users',
+							3 => 'manager',
+							4 => 'content',
+							5 => 'all',
+			),
+			43 =>
+			array (
+							0 => 'action',
+							1 => 'publish',
+							2 => 'users',
+							3 => 'manager',
+							4 => 'content',
+							5 => 'all',
+			),
+			44 =>
+			array (
+							0 => 'action',
+							1 => 'add',
+							2 => 'users',
+							3 => 'administrator',
+							4 => 'content',
+							5 => 'all',
+			),
+			45 =>
+			array (
+							0 => 'action',
+							1 => 'edit',
+							2 => 'users',
+							3 => 'administrator',
+							4 => 'content',
+							5 => 'all',
+			),
+			46 =>
+			array (
+							0 => 'action',
+							1 => 'publish',
+							2 => 'users',
+							3 => 'administrator',
+							4 => 'content',
+							5 => 'all',
+			),
+			47 =>
+			array (
+							0 => 'action',
+							1 => 'add',
+							2 => 'users',
+							3 => 'super administrator',
+							4 => 'content',
+							5 => 'all',
+			),
+			48 =>
+			array (
+							0 => 'action',
+							1 => 'edit',
+							2 => 'users',
+							3 => 'super administrator',
+							4 => 'content',
+							5 => 'all',
+			),
+			49 =>
+			array (
+							0 => 'action',
+							1 => 'publish',
+							2 => 'users',
+							3 => 'super administrator',
+							4 => 'content',
+							5 => 'all',
+			),
+	);
 
-		$database = database::getInstance();
-
-		$this->db = $db ? $db:$database;
+	function gacl(  ) {
+		return;
+/*
 		$this->acl = array();
 		$this->_mos_add_acl('administration', 'login', 'users', 'administrator', null, null);
 		$this->_mos_add_acl('administration', 'login', 'users', 'super administrator', null, null);
@@ -78,20 +534,20 @@ class gacl {
 		$this->_mos_add_acl('action', 'edit', 'users', 'super administrator', 'content','all');
 		$this->_mos_add_acl('action', 'publish', 'users', 'super administrator','content', 'all');
 		$this->acl_count = count($this->acl);
+*/
 	}
 
-	public static function &getInstance() {
-		static $instance;
-		if (!is_object( $instance )) {
-			$instance = new gacl_api();
+	public static function &getInstance( $use_db = false ) {
+		if ( self::$_instance===null ) {
+			self::$_instance = new gacl_api();
+			self::$_instance->db = $use_db ? database::getInstance() : null;
 		}
-		return $instance;
+		return self::$_instance;
 	}
 
 	function _mos_add_acl($aco_section_value, $aco_value, $aro_section_value, $aro_value, $axo_section_value = null, $axo_value = null) {
 		$this->acl[] = array($aco_section_value, $aco_value, $aro_section_value, $aro_value, $axo_section_value, $axo_value);
-// 		// TODO, ��������� ��� ������� ACL ���������� ���������� ������ ��� ����� ���������� ACL ������ � _mos_add_acl, �� �� 79 ������ �� ����� �������� ������ ����� ����������
-		//$this->acl_count = count($this->acl);
+		$this->acl_count = count($this->acl);
 	}
 	function debug_text($text) {
 		if($this->_debug) {
@@ -339,8 +795,7 @@ class gacl_api extends gacl {
 				$this->debug_text("add_group (): parent id ($parent_id) is empty, this is required");
 				return false;
 			}
-			$this->db->setQuery('SELECT group_id, lft, rgt FROM '.$table.' WHERE group_id='.
-					(int)$parent_id);
+			$this->db->setQuery('SELECT group_id, lft, rgt FROM '.$table.' WHERE group_id='.(int)$parent_id);
 			$rows = $this->db->loadRowList();
 			if(!is_array($rows) or $this->db->getErrorNum() > 0) {
 				$this->debug_db('add_group');
@@ -378,8 +833,7 @@ class gacl_api extends gacl {
 		$this->debug_text('add_group (): Added group as ID: '.$insert_id);
 		return $insert_id;
 	}
-	function get_group_objects($group_id, $group_type = 'ARO', $option =
-			'NO_RECURSE') {
+	function get_group_objects($group_id, $group_type = 'ARO', $option = 'NO_RECURSE') {
 		switch(strtolower(trim($group_type))) {
 			case 'axo':
 				$group_type = 'axo';
@@ -427,8 +881,7 @@ class gacl_api extends gacl {
 		}
 		return $retarr;
 	}
-	function add_group_object($group_id, $object_section_value, $object_value, $group_type =
-			'ARO') {
+	function add_group_object($group_id, $object_section_value, $object_value, $group_type = 'ARO') {
 		switch(strtolower(trim($group_type))) {
 			case 'axo':
 				$group_type = 'axo';
@@ -473,21 +926,18 @@ class gacl_api extends gacl {
 			return true;
 		}
 		$object_id = $row[1];
-		$this->db->setQuery('INSERT INTO '.$table.' (group_id,'.$group_type.
-				'_id) VALUES ('.(int)$group_id.','.(int)$object_id.')');
+		$this->db->setQuery('INSERT INTO '.$table.' (group_id,'.$group_type.'_id) VALUES ('.(int)$group_id.','.(int)$object_id.')');
 		if(!$this->db->query()) {
 			$this->debug_db('add_group_object');
 			return false;
 		}
-		$this->debug_text('add_group_object(): Added Object: '.$object_id.
-				' to Group ID: '.$group_id);
+		$this->debug_text('add_group_object(): Added Object: '.$object_id.' to Group ID: '.$group_id);
 		if($this->_caching == true and $this->_force_cache_expire == true) {
 			$this->Cache_Lite->clean('default');
 		}
 		return true;
 	}
-	function del_group_object($group_id, $object_section_value, $object_value, $group_type =
-			'ARO') {
+	function del_group_object($group_id, $object_section_value, $object_value, $group_type = 'ARO') {
 		switch(strtolower(trim($group_type))) {
 			case 'axo':
 				$group_type = 'axo';

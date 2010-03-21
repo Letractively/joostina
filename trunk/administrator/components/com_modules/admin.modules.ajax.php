@@ -12,7 +12,7 @@ defined('_VALID_MOS') or die();
 
 global $my;
 
-$acl = &gacl::getInstance();
+$acl = &gacl::getInstance( true );
 
 if(!($acl->acl_check('administration','edit','users',$my->usertype,'modules','all') | $acl->acl_check('administration','install','users',$my->usertype,'modules','all'))) {
 	die('error-acl');

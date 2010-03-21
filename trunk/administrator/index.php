@@ -107,7 +107,7 @@ if(isset($_POST['submit'])) {
 
 	/** find the user group (or groups in the future)*/
 	if(isset($my->id)) {
-		$acl = &gacl::getInstance();
+		$acl = &gacl::getInstance( true );
 
 		$grp = $acl->getAroGroup($my->id);
 		$my->gid = $grp->group_id;

@@ -10,7 +10,7 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-$acl = &gacl::getInstance();
+$acl = &gacl::getInstance( true );
 
 if(!$acl->acl_check('administration','manage','users',$GLOBALS['my']->usertype,'components','com_templates')) {
 	die('error-acl');

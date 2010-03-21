@@ -118,7 +118,7 @@ function showUsers($option) {
 
 	$database = database::getInstance();
 	$mainframe = mosMainFrame::getInstance(true);
-	$acl = &gacl::getInstance();
+	$acl = &gacl::getInstance( true );
 
 	$filter_type = $mainframe->getUserStateFromRequest("filter_type{$option}",'filter_type',0);
 	$filter_logged = intval($mainframe->getUserStateFromRequest("filter_logged{$option}",'filter_logged',0));

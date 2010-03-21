@@ -62,7 +62,7 @@ $mainframe = mosMainFrame::getInstance(true);
 $database = $mainframe->getDBO();
 
 // класс работы с правами пользователей
-$acl = &gacl::getInstance();
+$acl = &gacl::getInstance( true );
 
 // установка языка систему
 $mainframe->set('lang', $mosConfig_lang);

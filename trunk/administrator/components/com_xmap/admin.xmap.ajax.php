@@ -10,7 +10,7 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-$acl = &gacl::getInstance();
+$acl = &gacl::getInstance( true );
 
 // check access permissions (only superadmins & admins)
 if ( !( $acl->acl_check('administration', 'config', 'users', $my->usertype) ) ||  $acl->acl_check('administration', 'edit', 'users', $my->usertype, 'components', 'com_xmap') ) {
