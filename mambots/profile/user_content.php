@@ -14,7 +14,7 @@ $_MAMBOTS->registerFunction('userProfile','botUserContent');
 $_MAMBOTS->registerFunction('userProfileTab','botUserContent_tab');
 
 /* добавляем вкладку профиля */
-function botUserContent_tab(&$user) {
+function botUserContent_tab($user) {
 	return array(
 			'name'=>_USER_CONTENTS,
 			'title'=>_USER_CONTENTS,
