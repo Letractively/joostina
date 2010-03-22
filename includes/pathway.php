@@ -28,7 +28,10 @@ function pathwayMakeLink($id,$name,$link,$parent) {
  * @param int The db id field value of the current menu item
  */
 function showPathway($Itemid) {
-	global $database,$option,$task,$mainframe,$my,$mosConfig_pathway_clean,$mosConfig_disable_access_control;
+	global $option,$task,$mainframe,$my,$mosConfig_pathway_clean,$mosConfig_disable_access_control;
+
+        $database = database::getInstance();
+
 	if($_SERVER['QUERY_STRING'] == '' & $mosConfig_pathway_clean) {
 		echo '&nbsp;';
 		return;
@@ -43,8 +46,7 @@ function showPathway($Itemid) {
 			."\n FROM #__menu"
 			."\n WHERE published = 1".$where_ac
 			."\n ORDER BY menutype, parent, ordering";
-	$database->setQuery($query);
-	$mitems = $database->loadObjectList('id');
+	$mitems = $database->setQuery($query)->loadObjectList('id');
 
 	// get the home page
 	$home_menu = new mosMenu($database);
