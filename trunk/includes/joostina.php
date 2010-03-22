@@ -927,7 +927,7 @@ class mosMainFrame {
 		
 		// подключаем библиотеку работы с правами
 		mosMainFrame::addLib('gacl');
-		$acl = gacl::getInstance();
+		$acl = gacl::getInstance( true );
 
 		$bypost = 0;
 		$valid_remember = false;
