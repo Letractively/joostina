@@ -18,13 +18,13 @@ class coreVersion {
 	/** @var строка CMS*/
 	public static $CMS = 'Joostina';
 	/** @var версия*/
-	public static $CMS_ver = '1.3.1';
+	public static $CMS_ver = '1.3.1 alfa 1';
 	/** @var int Номер сборки*/
-	public static $BUILD = '$: 609';
+	public static $BUILD = '$: 683';
 	/** @var string Дата*/
-	public static $RELDATE = '**:03:2010';
+	public static $RELDATE = '23:03:2010';
 	/** @var string Время*/
-	public static $RELTIME = '**:**';
+	public static $RELTIME = '02:06';
 	/** @var string Текст авторских прав*/
 	public static $COPYRIGHT = 'Авторские права &copy; 2007-2010 Joostina Team. Все права защищены.';
 	/** @var string URL*/
