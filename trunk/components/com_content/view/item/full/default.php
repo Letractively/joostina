@@ -88,7 +88,7 @@ defined('_VALID_MOS') or die(); ?>
 		</span>
 		<?php endif; ?>
 	</div>
-	<?php echo ContentView::afterDisplayContent(&$row, &$params, $page); ?>
+	<?php echo ContentView::afterDisplayContent($row, $params, $page); ?>
 	<br />
 	<?php ContentView::Navigation($row, $params); ?>
 	<?php mosHTML::CloseButton($params, $hide_js); ?>

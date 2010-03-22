@@ -785,8 +785,7 @@ class mosMainFrame {
 					$_SESSION['task'] = $task;
 				}
 			}
-		} else
-		if($session_id == '') {
+		} elseif($session_id == '') {
 			// no session_id as user has not attempted to login, or session.auto_start is switched on
 			if(ini_get('session.auto_start') || !ini_get('session.use_cookies')) {
 				echo "<script>document.location.href='index.php?mosmsg="._YOU_NEED_TO_AUTH_AND_FIX_PHP_INI."'</script>\n";
