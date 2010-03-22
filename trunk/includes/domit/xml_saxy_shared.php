@@ -156,20 +156,20 @@ class SAXY_Parser_Base {
 		}
 	}
 	function fireStartElementEvent($tagName,$attributes) {
-		call_user_func($this->startElementHandler,$this,$tagName,$attributes);
+		call_user_func_array($this->startElementHandler, array(&$this,$tagName,$attributes) );
 	}
 	function fireEndElementEvent($tagName) {
-		call_user_func($this->endElementHandler,$this,$tagName);
+		call_user_func_array($this->endElementHandler, array(&$this,$tagName) );
 	}
 	function fireCharacterDataEvent($data) {
 		if($this->convertEntities && ((strpos($data,"&") != -1))) {
 			$data = strtr($data,$this->predefinedEntities);
 			$data = strtr($data,$this->definedEntities);
 		}
-		call_user_func($this->characterDataHandler,$this,$data);
+		call_user_func_array($this->characterDataHandler, array(&$this,$data) );
 	}
 	function fireCDataSectionEvent($data) {
-		call_user_func($this->cDataSectionHandler,$this,$data);
+		call_user_func_array($this->cDataSectionHandler, array(&$this,$data) );
 	}
 }
 ?>
