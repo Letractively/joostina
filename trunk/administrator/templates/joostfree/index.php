@@ -74,5 +74,10 @@ $option = mosGetParam( $_REQUEST, 'option', '' );
 			<div id="main_body"><?php mosMainBody_Admin(); ?></div>
 		</div>
 		<div id="footer" align="center" class="smallgrey"><?php echo coreVersion::$CMS.' '.coreVersion::$CMS_ver.' :: '.coreVersion::$RELDATE.' '.coreVersion::$RELTIME.'<br />'.coreVersion::$SUPPORT; ?></div>
+		<script type="text/javascript">
+			var _live_site = '<?php echo JPATH_SITE;?>';
+			var _option = '<?php echo mosGetParam( $_REQUEST, 'option', '' );?>';
+			var _cur_template = '<?php echo JTEMPLATE;?>';
+		</script>
 	</body>
 </html>
