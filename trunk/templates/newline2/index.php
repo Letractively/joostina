@@ -8,14 +8,6 @@ $iso = explode('=',_ISO); echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo $iso[1];?>" />
-<?php /* ?>
-<script type="text/javascript">
-	var _live_site = '<?php echo JPATH_SITE;?>';
-	var _option = '<?php echo mosGetParam( $_REQUEST, 'option', '' );?>';
-	var _cur_template = '<?php echo JTEMPLATE;?>';
-	var _js_defines = [];
-</script>
- <?php */ ?>
 <?php
 	// загружаем верхнюю часть страницы со всеми js и css файлами, и обязательным использованием jquery
 	mosShowHead(array('js'=>1,'css'=>1,'jquery'=>1));
@@ -129,8 +121,12 @@ $iso = explode('=',_ISO); echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'
             <?php mosLoadModules('bottom',-1); ?>
         </div>
     </div><!--footer:end-->
+	<script type="text/javascript">
+		var _live_site = '<?php echo JPATH_SITE;?>';
+		var _option = '<?php echo mosGetParam( $_REQUEST, 'option', '' );?>';
+		var _cur_template = '<?php echo JTEMPLATE;?>';
+	</script>
 <?php
-
 //подключаем js-скрипт
 $mainframe->addJS(JPATH_SITE.'/templates/'.JTEMPLATE.'/js/corners.js', 'js');
 //подключаем js-файл шаблона
