@@ -92,10 +92,10 @@ class database {
 
         if ($this->_debug == 1) {
             mysql_query('set profiling=1', $this->_resource);
-            mysql_query('set profiling_history_size=100', $this->_resource);
+            mysql_query('set profiling_history_size=150', $this->_resource);
         };
 
-        //mysql_query("SET NAMES 'utf8'", $this->_resource);
+        // устанавливаем верное соединение с сервером базы данных
         mysql_set_charset('utf8');
     }
 
@@ -112,8 +112,9 @@ class database {
 
             $instance = new database($config->config_host, $config->config_user, $config->config_password, $config->config_db, $config->config_dbprefix, true, JDEBUG);
             if ($instance->getErrorNum()) {
-                $mosSystemError = $database->getErrorNum();
-                include JPATH_BASE . DS . 'configuration.php';
+                // TODO убрать
+                $database = $instance;
+                $mosSystemError = $instance->getErrorNum();
                 include JPATH_BASE . DS . 'templates/system/offline.php';
                 exit();
             }
@@ -154,11 +155,7 @@ class database {
      */
     public function getEscaped($text, $extra = false) {
         $string = mysql_real_escape_string($text, $this->_resource);
-
-        if ($extra) {
-            $string = addcslashes($string, '%_');
-        }
-        return $string;
+        return $extra ? addcslashes($string, '%_') : $string;
     }
 
     /**
@@ -178,11 +175,7 @@ class database {
      */
     public function NameQuote($s) {
         $q = $this->_nameQuote;
-        if (strlen($q) == 1) {
-            return $q . $s . $q;
-        } else {
-            return $q{0}. $s . $q{1};
-        }
+        return (strlen($q) == 1) ? $q . $s . $q : $q{0}. $s . $q{1};
     }
 
     /**
@@ -209,7 +202,7 @@ class database {
      * @param <type> $prefix
      * @return <type>
      */
-    public function setQuery($sql, $offset = 0, $limit = 0, $prefix = '#__') {
+    public function setQuery( $sql, $offset = 0, $limit = 0, $prefix = '#__') {
         $this->_sql = $this->replacePrefix(trim($sql), $prefix);
         $this->_limit = intval($limit);
         $this->_offset = intval($offset);
@@ -264,7 +257,7 @@ class database {
             $this->_errorNum = mysql_errno($this->_resource);
             $this->_errorMsg = mysql_error($this->_resource) . " SQL=$this->_sql";
             if ($this->_debug) {
-                $this->show_db_error(mysql_error($this->_resource), $this->_sql);
+                $this->getUtils()->show_db_error(mysql_error($this->_resource), $this->_sql);
             }
             return false;
         }
@@ -299,10 +292,9 @@ class database {
         if (!($cur = $this->query())) {
             return null;
         }
-        $ret = null;
-        if ($row = mysql_fetch_row($cur)) {
-            $ret = $row[0];
-        }
+
+        $ret = ($row = mysql_fetch_row($cur)) ? $row[0] : null;
+
         mysql_free_result($cur);
         return $ret;
     }
@@ -342,6 +334,7 @@ class database {
             }
         }
         mysql_free_result($cur);
+
         return $array;
     }
 
@@ -353,9 +346,9 @@ class database {
         if (!($cur = $this->query())) {
             return null;
         }
-        $array = array();
         $row = mysql_fetch_assoc($cur);
         mysql_free_result($cur);
+
         return $row;
     }
 
@@ -409,6 +402,7 @@ class database {
             }
         }
         mysql_free_result($cur);
+
         return $array;
     }
 
@@ -420,11 +414,9 @@ class database {
         if (!($cur = $this->query())) {
             return null;
         }
-        $ret = null;
-        if ($row = mysql_fetch_row($cur)) {
-            $ret = $row;
-        }
+        $ret = ($row = mysql_fetch_row($cur)) ?  $row : null;
         mysql_free_result($cur);
+
         return $ret;
     }
 
@@ -446,6 +438,7 @@ class database {
             }
         }
         mysql_free_result($cur);
+
         return $array;
     }
 
@@ -466,7 +459,7 @@ class database {
             if (is_array($v) or is_object($v) or $v === null) {
                 continue;
             }
-            if ($k[0] == '_') { // internal field
+            if ($k[0] == '_') { // внешние поля
                 continue;
             }
             $fields[] = $this->NameQuote($k);
@@ -482,7 +475,8 @@ class database {
         if ($keyName && $id) {
             $object->$keyName = $id;
         }
-        return true;
+
+        return ($id>0) ? $id : true;
     }
 
     /**
@@ -517,7 +511,7 @@ class database {
         }
         $this->setQuery(sprintf($fmtsql, implode(",", $tmp), $where));
 
-        return $this->query();
+        return (bool) $this->query();
     }
 
     /**
@@ -535,25 +529,6 @@ class database {
      */
     public function insertid() {
         return mysql_insert_id($this->_resource);
-    }
-
-    /**
-     *
-     * @param <type> $message
-     * @param <type> $sql
-     */
-    public function show_db_error($message, $sql = null) {
-        echo '<div style="display:block;width:100%;"><b>DB::error:</b> ';
-        echo $message;
-        echo $sql ? '<pre>' . $sql . '</pre><b>UseFiles</b>::' : '';
-        if (function_exists('debug_backtrace')) {
-            foreach (debug_backtrace() as $back) {
-                if (@$back['file']) {
-                    echo '<br />' . $back['file'] . ':' . $back['line'];
-                }
-            }
-        }
-        echo '</div>';
     }
 
     /**
@@ -613,8 +588,7 @@ class UtulsDB extends database {
         $result = array();
 
         foreach ($tables as $tblval) {
-            $this->setQuery('SHOW CREATE table ' . $this->getEscaped($tblval));
-            $rows = $this->loadRowList();
+            $rows = $this->setQuery('SHOW CREATE table ' . $this->getEscaped($tblval))->loadRowList();
             foreach ($rows as $row) {
                 $result[$tblval] = $row[1];
             }
@@ -632,8 +606,8 @@ class UtulsDB extends database {
         $result = array();
 
         foreach ($tables as $tblval) {
-            $this->setQuery('SHOW FIELDS FROM ' . $tblval);
-            $fields = $this->loadObjectList();
+            $fields = $this->setQuery('SHOW FIELDS FROM ' . $tblval)->loadObjectList();
+
             foreach ($fields as $field) {
                 $result[$tblval][$field->Field] = preg_replace("/[(0-9)]/", '', $field->Type);
             }
@@ -680,7 +654,7 @@ class UtulsDB extends database {
                 }
             }
         }
-        return $error ? false : true;
+        return (bool) $error;
     }
 
     /**
@@ -721,6 +695,26 @@ class UtulsDB extends database {
 
         return '<div style="background-color:#FFFFCC" align="left">' . $buf . '</div>';
     }
+    
+    /**
+     *
+     * @param <type> $message
+     * @param <type> $sql
+     */
+    public function show_db_error($message, $sql = null) {
+        echo '<div style="display:block;width:100%;"><b>DB::error:</b> ';
+        echo $message;
+        echo $sql ? '<pre>' . $sql . '</pre><b>UseFiles</b>::' : '';
+        if (function_exists('debug_backtrace')) {
+            foreach (debug_backtrace() as $back) {
+                if (@$back['file']) {
+                    echo '<br />' . $back['file'] . ':' . $back['line'];
+                }
+            }
+        }
+        echo '</div>';
+    }
+
 }
 
 /**
@@ -876,7 +870,7 @@ class mosDBTable {
      *	can be overloaded/supplemented by the child class
      *	@return boolean True if the object is ok
      */
-    function check() {
+    public function check() {
         return true;
     }
 
@@ -887,7 +881,7 @@ class mosDBTable {
      * @param boolean If false, null object variables are not updated
      * @return null|string null if successful otherwise returns and error message
      */
-    function store($updateNulls = false) {
+    public function store($updateNulls = false) {
         $k = $this->_tbl_key;
 
         if ($this->$k != 0) {
@@ -1021,7 +1015,7 @@ class mosDBTable {
             $this->$k = $oid;
         }
 
-        $time = date('Y-m-d H:i:s');
+        $time = _CURRENT_SERVER_TIME;
 
         if (intval($user_id)) {
             $user_id = intval($user_id);
