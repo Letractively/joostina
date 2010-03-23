@@ -132,7 +132,7 @@ class mosUser extends mosDBTable {
 	function store($updateNulls = false) {
 		global $migrate;
 
-		$acl = gacl::getInstance();
+		$acl = gacl::getInstance( true );
 
 		$section_value = 'users';
 
@@ -141,9 +141,6 @@ class mosUser extends mosDBTable {
 		if($key && !$migrate) {
 			// existing record
 			$ret = $this->_db->updateObject($this->_tbl,$this,$this->_tbl_key,$updateNulls);
-			// syncronise ACL
-			// single group handled at the moment
-			// trivial to expand to multiple groups
 			$groups = $acl->get_object_groups($section_value,$this->$k,'ARO');
 			if(isset($groups[0])) {
 				$acl->del_group_object($groups[0],$section_value,$this->$k,'ARO');
@@ -153,7 +150,7 @@ class mosUser extends mosDBTable {
 			$object_id = $acl->get_object_id($section_value,$this->$k,'ARO');
 			$acl->edit_object($object_id,$section_value,$this->_db->getEscaped($this->name),$this->$k,0,0,'ARO');
 		} else {
-			// new record
+                    // new record
 			$ret = $this->_db->insertObject($this->_tbl,$this,$this->_tbl_key);
 			// syncronise ACL
 			$acl->add_object($section_value,$this->_db->getEscaped($this->name),$this->$k,null,null,'ARO');

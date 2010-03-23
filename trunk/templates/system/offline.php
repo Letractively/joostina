@@ -13,35 +13,35 @@ defined('_VALID_MOS') or die();
 global $database;
 global $mosConfig_lang;
 
-include_once (JPATH_BASE.DS.'language'.DS.$mosConfig_lang.DS.'system.php');
+include_once(JPATH_BASE.DS . 'language' . DS.$mosConfig_lang.DS . 'system.php');
 
 
 $adminOffline = false;
 
-if(!defined('_INSTALL_CHECK')) {
+if (!defined('_INSTALL_CHECK')) {
     session_name(md5(JPATH_SITE));
     session_start();
 
-    require_once(JPATH_BASE.'/components/com_users/users.class.php');
-    if(class_exists('mosUser') && $database != null ) {
+    require_once(JPATH_BASE . '/components/com_users/users.class.php');
+    if (class_exists('mosUser') && $database != null) {
         // восстановление некоторых переменных сессии
         $admin = new mosUser($database);
-        $admin->id = intval(mosGetParam($_SESSION,'session_user_id',''));
-        $admin->username = strval(mosGetParam($_SESSION,'session_USER',''));
-        $admin->usertype = strval(mosGetParam($_SESSION,'session_usertype',''));
-        $session_id = mosGetParam($_SESSION,'session_id','');
-        $logintime = mosGetParam($_SESSION,'session_logintime','');
+        $admin->id = intval(mosGetParam($_SESSION, 'session_user_id', ''));
+        $admin->username = strval(mosGetParam($_SESSION, 'session_USER', ''));
+        $admin->usertype = strval(mosGetParam($_SESSION, 'session_usertype', ''));
+        $session_id = mosGetParam($_SESSION, 'session_id', '');
+        $logintime = mosGetParam($_SESSION, 'session_logintime', '');
 
         // проверка наличия строки сессии в базе данных
-        if($session_id == md5($admin->id.$admin->username.$admin->usertype.$logintime)) {
-            $query = "SELECT* FROM #__session WHERE session_id = ".$database->Quote($session_id)." AND username = ".$database->Quote($admin->username)."\n AND userid = ".intval($admin->id);
+        if ($session_id == md5($admin->id.$admin->username.$admin->usertype.$logintime)) {
+            $query = "SELECT* FROM #__session WHERE session_id = " . $database->Quote($session_id) . " AND username = " . $database->Quote($admin->username) . "\n AND userid = " . intval($admin->id);
             $database->setQuery($query);
-            if(!$result = $database->query()) {
+            if (!$result = $database->query()) {
                 echo $database->stderr();
             }
 
-            if($database->getNumRows($result) == 1) {
-                define('_ADMIN_OFFLINE',1);
+            if ($database->getNumRows($result) == 1) {
+                define('_ADMIN_OFFLINE', 1);
             }
         }
     }
@@ -49,20 +49,17 @@ if(!defined('_INSTALL_CHECK')) {
 
 $config = Jconfig::getInstance();
 
-if(!defined('_ADMIN_OFFLINE') || defined('_INSTALL_CHECK')) {
-    include_once (JPATH_BASE.DS.'language'.DS.$mosConfig_lang.DS.'system.php');
-    require_once (JPATH_BASE.DS.'includes'.DS.'version.php');
+if (!defined('_ADMIN_OFFLINE') || defined('_INSTALL_CHECK')) {
+    include_once(JPATH_BASE.DS . 'language' . DS.$mosConfig_lang.DS . 'system.php');
+    require_once(JPATH_BASE.DS . 'includes' . DS . 'version.php');
 
-    $_VERSION	= new coreVersion();
-    $version	= $_VERSION->CMS.' '.$_VERSION->CMS_ver.' '.$_VERSION->DEV_STATUS.' [ '.$_VERSION->CODENAME.' ] '.$_VERSION->RELDATE.' '.$_VERSION->RELTIME.' '.$_VERSION->RELTZ;
-
-    if($database != null) {
+    if ($database != null) {
         // получение названия шаблона сайта по умолчанию
         $query = "SELECT template FROM #__templates_menu WHERE client_id = 0 AND menuid = 0";
         $database->setQuery($query);
         $cur_template = $database->loadResult();
         $path = "JPATH_BASE/templates/$cur_template/index.php";
-        if(!file_exists($path)) {
+        if (!file_exists($path)) {
             $cur_template = 'newline2';
         }
     } else {
@@ -70,9 +67,9 @@ if(!defined('_ADMIN_OFFLINE') || defined('_INSTALL_CHECK')) {
     }
 
     // требуется для разделения номера ISO из константы языкового файла _ISO
-    $iso = split('=',_ISO);
+    $iso = split('=', _ISO);
     // xml prolog
-    echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>';
+    echo '<?xml version="1.0" encoding="' . $iso[1] . '"?' . '>';
     ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -85,16 +82,16 @@ if(!defined('_ADMIN_OFFLINE') || defined('_INSTALL_CHECK')) {
             <?php
             // значок избранного (favicon)
             $config->config_favicon = $config->config_favicon ? $config->config_favicon : 'favicon.ico';
-            $icon = JPATH_BASE.'/images/'.$config->config_favicon;
+            $icon = JPATH_BASE . '/images/' . $config->config_favicon;
             // checks to see if file exists
-            $icon = (!file_exists($icon)) ? JPATH_SITE.'/images/favicon.ico' : JPATH_SITE.'/images/'.$config->config_favicon;
+            $icon = (!file_exists($icon)) ? JPATH_SITE . '/images/favicon.ico' : JPATH_SITE . '/images/' . $config->config_favicon;
             ?>
         <link rel="shortcut icon" href="<?php echo $icon; ?>" />
         <meta http-equiv="Content-Type" content="text/html; <?php echo _ISO; ?>" />
     </head>
     <body>
         <div id="joo">
-            <img src="<?php echo JPATH_SITE;?>/administrator/templates/joostfree/images/logo.png" alt="Joostina!" />
+            <img src="<?php echo JPATH_SITE;?>/administrator/templates/joostfree/images/logo_130.png" alt="Joostina!" />
         </div>
         <div id="ctr1" align="center">
             <p>&nbsp;</p><p>&nbsp;</p>
@@ -110,7 +107,7 @@ if(!defined('_ADMIN_OFFLINE') || defined('_INSTALL_CHECK')) {
                     </td>
                 </tr>
                     <?php
-                    if($config->config_offline == 1) {
+                    if ($config->config_offline == 1) {
                         ?>
                 <tr>
                     <td width="39%" align="center">
@@ -118,13 +115,13 @@ if(!defined('_ADMIN_OFFLINE') || defined('_INSTALL_CHECK')) {
                     </td>
                 </tr>
                         <?php
-                    } elseif( isset($mosSystemError)) {
+                    } elseif(isset($mosSystemError)) {
                         ?>
                 <tr>
                     <td width="39%" align="center">
                         <b><?php echo $config->config_error_message; ?></b>
                         <br />
-                        <span class="err"><?php echo defined('_SYSERR'.$mosSystemError) ? constant('_SYSERR'.$mosSystemError) : $mosSystemError; ?></span>
+                        <span class="err"><?php echo defined('_SYSERR' . $mosSystemError) ? constant('_SYSERR' . $mosSystemError) : $mosSystemError; ?></span>
                     </td>
                 </tr>
                         <?php
@@ -139,7 +136,7 @@ if(!defined('_ADMIN_OFFLINE') || defined('_INSTALL_CHECK')) {
             </table>
         </div>
         <div id="break"></div>
-        <div id="footer_off" align="center"><div align="center"><?php echo $version; ?></div></div>
+        <div id="footer_off" align="center"><div align="center"><?php echo coreVersion::$URL; ?></div></div>
     </body>
 </html>
     <?php

@@ -20,7 +20,7 @@ define('JDEBUG', $mosConfig_debug );
 // формат даты
 DEFINE('_CURRENT_SERVER_TIME_FORMAT','%Y-%m-%d %H:%M:%S');
 // текущее время сервера
-DEFINE('_CURRENT_SERVER_TIME',date('Y-m-d H:i',time()));
+DEFINE('_CURRENT_SERVER_TIME',date('Y-m-d H:i:s',time()));
 // схемы не http/https протоколов
 DEFINE('_URL_SCHEMES','data:, file:, ftp:, gopher:, imap:, ldap:, mailto:, news:, nntp:, telnet:, javascript:, irc:, mms:');
 

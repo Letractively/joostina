@@ -110,7 +110,7 @@ class HTML_admin_misc {
 	</tr>
 	<tr>
 		<td><strong><?php echo _DB_VERSION?>:</strong></td>
-		<td><?php echo $database->getVersion(); ?></td>
+		<td><?php echo $database->getUtils()->getVersion(); ?></td>
 	</tr>
 	<tr>
 		<td><strong><?php echo _PHP_VERSION?>:</strong></td>
@@ -360,8 +360,7 @@ class HTML_admin_misc {
 	function db_info() {
 		global $database,$mosConfig_db;
 		$sql = 'SHOW TABLE STATUS FROM '.$mosConfig_db;
-		$database->setQuery($sql);
-		return $database->loadObjectList();
+		return $database->setQuery($sql)->loadObjectList();
 	}
 
 	function ListComponents() {
