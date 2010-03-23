@@ -21,7 +21,7 @@ $content = '';
 if ($serverinfo) {
 	echo "<strong>OS:</strong> "  . substr(php_uname(),0,7) . "<br />\n";
 	echo "<strong>PHP:</strong> " .phpversion() . "<br />\n";
-	echo "<strong>MySQL:</strong> " .$database->getVersion() . "<br />\n";
+	echo "<strong>MySQL:</strong> " .$database->getUtils()->getVersion() . "<br />\n";
 	echo "<strong>"._TIME_STAT.": </strong> " .date("H:i",time()+($mosConfig_offset*60*60)) . "<br />\n";
 	$c = $mosConfig_caching ? _YES:_NO;
 	echo '<strong>'._CACHE.':</strong> ' . $c . '<br />';
