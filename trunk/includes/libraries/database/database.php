@@ -101,7 +101,7 @@ class database {
 
     /**
      *
-     * @return <type>
+     * @return database - объект базы данных
      */
     public static function getInstance() {
 
@@ -110,15 +110,13 @@ class database {
         if (self::$_instance === NULL) {
             $config = Jconfig::getInstance();
 
-            $instance = new database($config->config_host, $config->config_user, $config->config_password, $config->config_db, $config->config_dbprefix, true, JDEBUG);
-            if ($instance->getErrorNum()) {
-                // TODO убрать
-                $database = $instance;
-                $mosSystemError = $instance->getErrorNum();
+            $database = new database($config->config_host, $config->config_user, $config->config_password, $config->config_db, $config->config_dbprefix, true, JDEBUG);
+            if ($database->getErrorNum()) {
+                $mosSystemError = $database->getErrorNum();
                 include JPATH_BASE . DS . 'templates/system/offline.php';
                 exit();
             }
-            self::$_instance = $instance;
+            self::$_instance = $database;
         }
         return self::$_instance;
     }
@@ -772,7 +770,7 @@ class mosDBTable {
     function filter($ignoreList = null) {
         $ignore = is_array($ignoreList);
 
-        $iFilter = new InputFilter();
+        $iFilter = InputFilter::getInstance();
         foreach ($this->getPublicProperties() as $k) {
             if ($ignore && in_array($k, $ignoreList)) {
                 continue;

@@ -31,7 +31,7 @@ mosCommonHTML::loadJquery(1);
 	});
 </script>
 <div class="button">
-	<button type="button" class="button" id="log_in"><?php echo $params->get( 'dr_login_text', _LOGIN_TEXT);?></button>
+	<button type="button" class="button" id="log_in"><?php echo $params->get( 'dr_login_text', _MOD_LOGIN_TEXT);?></button>
 </div>
 <div id="box1">
 	<div class="loginform_area">

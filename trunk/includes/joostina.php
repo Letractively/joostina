@@ -49,7 +49,7 @@ require_once (JPATH_BASE.'/includes/version.php');
 require_once (JPATH_BASE.'/includes/parameters.xml.php');
 
 // TODO запретить к 1.3.2!!!
-//$database = database::getInstance();
+// $database = database::getInstance();
 
 /* класс работы с правами пользователей */
 //mosMainFrame::addLib('gacl');
@@ -572,9 +572,7 @@ class mosMainFrame {
 				$this->setUserState($var_name,$var_default);
 			}
 
-			// filter input
-			$iFilter = new InputFilter();
-			$this->_userstate[$var_name] = $iFilter->process($this->_userstate[$var_name]);
+			$this->_userstate[$var_name] = InputFilter::getInstance()->process($this->_userstate[$var_name]);
 			return $this->_userstate[$var_name];
 		} else {
 			return null;
@@ -3307,7 +3305,7 @@ define("_MOS_NOTRIM",0x0001);
 define("_MOS_ALLOWHTML",0x0002);
 define("_MOS_ALLOWRAW",0x0004);
 function mosGetParam(&$arr,$name,$def = null,$mask = 0) {
-	static $noHtmlFilter = null;
+	//static $noHtmlFilter = null;
 
 	$return = null;
 	if(isset($arr[$name])) {
@@ -3326,10 +3324,7 @@ function mosGetParam(&$arr,$name,$def = null,$mask = 0) {
 				// do nothing - compatibility mode
 			} else {
 				// send to inputfilter
-				if(is_null($noHtmlFilter)) {
-					$noHtmlFilter = new InputFilter( /* $tags, $attr, $tag_method, $attr_method, $xss_auto*/);
-				}
-				$return = $noHtmlFilter->process($return);
+				$return = InputFilter::getInstance()->process($return);
 
 				if (!empty($return) && is_numeric($def)) {
 					// if value is defined and default value is numeric set variable type to integer
@@ -3448,7 +3443,7 @@ function mosReadDirectory($path,$filter = '.',$recurse = false,$fullpath = false
  */
 function mosRedirect($url,$msg = '') {
 	// specific filters
-	$iFilter = new InputFilter();
+	$iFilter = InputFilter::getInstance();
 	$url = $iFilter->process($url);
 	if(!empty($msg)) {
 		$msg = $iFilter->process($msg);
