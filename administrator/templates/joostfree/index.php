@@ -77,8 +77,8 @@ $option = mosGetParam( $_REQUEST, 'option', '' );
 		<script type="text/javascript">
 			var _live_site = '<?php echo JPATH_SITE;?>';
 			var _option = '<?php echo mosGetParam( $_REQUEST, 'option', '' );?>';
-                        // путь к текущим графическим элементам
-                        var image_path ='<?php echo $cur_file_icons_path?>/';
+			// путь к текущим графическим элементам
+			var image_path ='<?php echo $cur_file_icons_path?>/';
 			var _cur_template = '<?php echo JTEMPLATE;?>';
 		</script>
 	</body>

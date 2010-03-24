@@ -5420,6 +5420,7 @@ class mosCommonHTML {
 		}
 	}
 	/* подключение mootools*/
+	// TODO убрать к 1.3.2
 	public static function loadMootools($ret = false) {
 		if(!defined('_MOO_LOADED')) {
 			define('_MOO_LOADED',1);
@@ -5430,6 +5431,7 @@ class mosCommonHTML {
 		}
 	}
 	/* подключение prettyTable*/
+	// TODO убрать к 1.3.2
 	public static function loadPrettyTable() {
 		if(!defined('_PRT_LOADED')) {
 			define('_PRT_LOADED',1);
@@ -5437,6 +5439,7 @@ class mosCommonHTML {
 		}
 	}
 	/* подключение Fullajax*/
+	// TODO убрать к 1.3.5
 	public static function loadFullajax($ret = false) {
 		if(!defined('_FAX_LOADED')) {
 			define('_FAX_LOADED',1);
