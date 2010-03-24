@@ -537,7 +537,7 @@ class gacl {
 */
 	}
 
-	public static function &getInstance( $use_db = true ) {
+	public static function getInstance( $use_db = true ) {
 		if ( self::$_instance===null ) {
 			self::$_instance = new gacl_api();
 			self::$_instance->db = $use_db ? database::getInstance() : null;

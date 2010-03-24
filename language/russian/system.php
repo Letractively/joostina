@@ -183,7 +183,7 @@ DEFINE('_MODULE','Модуль');
 DEFINE('_MODULES','Модули');
 DEFINE('_MORE','Далее...');
 DEFINE('_MOVE','Перенести');
-DEFINE('_NAME','Название:');  
+DEFINE('_NAME','Название');  
 DEFINE('_NEVER','Никогда');
 DEFINE('_NEW','Создать');
 DEFINE('_NO','Нет');
