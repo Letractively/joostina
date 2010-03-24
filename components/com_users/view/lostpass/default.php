@@ -33,7 +33,7 @@ $validate = josSpoofValue();
 			<input type="text" name="captcha" class="inputbox" size="40" value=""/>
 		</div>
 			<?php } ?>
-		<span class="button"><input type="submit" class="button" value="<?php echo _BUTTON_SEND_PASSWORD; ?>" /></span>
+		<input type="submit" class="button" value="<?php echo _BUTTON_SEND_PASSWORD; ?>" />
 		<input type="hidden" name="option" value="<?php echo $option; ?>" />
 		<input type="hidden" name="task" value="sendNewPass" />
 		<input type="hidden" name="<?php echo $validate; ?>" value="1" />

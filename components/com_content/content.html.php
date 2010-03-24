@@ -817,8 +817,8 @@ class ContentView {
 		</tr>
 		<tr>
 			<td colspan="2">
-				<span class="button"><input type="submit" name="submit" value="<?php echo _BUTTON_SUBMIT_MAIL; ?>" /></span>
-				<span class="button"><input type="button" name="cancel" value="<?php echo _CANCEL; ?>" onclick="window.close();" /></span>
+				<input type="submit" name="submit" value="<?php echo _BUTTON_SUBMIT_MAIL; ?>" />
+				<input type="button" name="cancel" value="<?php echo _CANCEL; ?>" onclick="window.close();" />
 			</td>
 		</tr>
 	</table>

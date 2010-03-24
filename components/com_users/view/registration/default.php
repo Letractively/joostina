@@ -110,8 +110,8 @@ defined('_VALID_MOS') or die();
 				<?php echo $params->get('post_text'); ?>
 		</div>
 			<?php }?>
-
-		<br /><span class="button"><input type="button" value="<?php echo _BUTTON_SEND_REG; ?>" class="button" onclick="submitbutton_reg()" /></span>
+		<br />
+		<input type="button" value="<?php echo _BUTTON_SEND_REG; ?>" class="button" onclick="submitbutton_reg()" />
 		<input type="hidden" name="option" value="<?php echo $option; ?>" />
 		<input type="hidden" name="task" value="saveRegistration" />
 		<input type="hidden" name="gid" value="<?php echo $gid; ?>" />

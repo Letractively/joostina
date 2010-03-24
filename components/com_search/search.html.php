@@ -33,7 +33,7 @@ class search_html {
 		<label for="search_searchword"><?php echo _PROMPT_KEYWORD; ?>:</label>
 		<br />
 		<input type="text" name="searchword" id="search_searchword" size="30" maxlength="20" value="<?php echo stripslashes($searchword);?>" class="inputbox" />
-		<span class="button"><input type="submit" name="submit2" value="<?php echo _SEARCH; ?>" class="button" /></span>
+		<input type="submit" name="submit2" value="<?php echo _SEARCH; ?>" class="button" />
 		<br />
 				<?php echo $lists['searchphrase']; ?>
 		<br />

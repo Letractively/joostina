@@ -25,9 +25,7 @@ $validate = josSpoofValue(1); ?>
 					<?php echo $params->_input_pass; ?>
 				</td>
                 <td id="loginbutton">
-					<span class="button">
 						<input type="submit" name="Submit" class="button" id="login_button" value="<?php echo $params->get( 'submit_button_text', _BUTTON_LOGIN );?>" />
-					</span>
 				</td>
             </tr>
         </table>

@@ -144,8 +144,8 @@ $tabs = new mosTabs(1);
 	} ?>
 	<?php $tabs->endTab(); ?>
 	<div class="buttons">
-		<span class="button"><button type="submit" class="button submit" name="submit" id="save"><?php echo _SAVE?></button></span>
-		<span class="button"><button type="submit" class="button cancel" name="cancel" id="cancel"><?php echo _CANCEL?></button></span>
+		<button type="submit" class="button submit" name="submit" id="save"><?php echo _SAVE?></button>
+		<button type="submit" class="button cancel" name="cancel" id="cancel"><?php echo _CANCEL?></button>
 	</div>
 	<?php $tabs->endPane(); ?>
 </div>

@@ -20,7 +20,7 @@ $module->helper->prepare_logout_form($params); ?>
 			<?php echo $params->_user_name; ?>
 			<?php } ?>
 		<?php echo $params->_profile_link; ?>
-		<span class="button"><input type="submit" name="Submit" id="logout_button" class="button" value="<?php echo _BUTTON_LOGOUT; ?>" /></span>
+		<input type="submit" name="Submit" id="logout_button" class="button" value="<?php echo _BUTTON_LOGOUT; ?>" />
 	</div>
 	<input type="hidden" name="option" value="logout" />
 	<input type="hidden" name="op2" value="logout" />

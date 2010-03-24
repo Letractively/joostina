@@ -66,11 +66,9 @@ getEditorContents('editor2', 'fulltext');
 		<strong><?php echo _HITS; ?></strong> <?php echo $row->hits; ?>
 	</div>
 		<?php } ?>
-	<span class="button">
-		<input type="submit" class="button submit" name="submit" id="save" value="<?php echo _SAVE?>" />
-	</span>
-	<span class="button"><input type="submit" class="button apply" name="apply" id="apply" value="<?php echo _APPLY?>" /></span>
-	<span class="button"><input type="submit" class="button cancel" name="cancel" id="cancel" value="<?php echo _CANCEL?>" /></span>
+	<input type="submit" class="button submit" name="submit" id="save" value="<?php echo _SAVE?>" />
+	<input type="submit" class="button apply" name="apply" id="apply" value="<?php echo _APPLY?>" />
+	<input type="submit" class="button cancel" name="cancel" id="cancel" value="<?php echo _CANCEL?>" />
 	<table class="cedit_misc" cellspacing="0" cellpadding="0" border="0">
 		<tr>
 			<?php if($access->canPublish || $auto_publish == 1 || $my->usertype == "Super Administrator") { ?>
@@ -154,28 +152,24 @@ getEditorContents('editor2', 'fulltext');
 			<td align="left"><?php echo _E_START_PUB; ?></td>
 			<td>
 				<input class="inputbox" type="text" name="publish_up" id="publish_up" size="25" maxlength="19" value="<?php echo $row->publish_up; ?>" />
-				<span class="button"><input type="reset" class="button" value="..." onclick="return showCalendar('publish_up', 'y-mm-dd');" /></span>
+				<input type="reset" class="button" value="..." onclick="return showCalendar('publish_up', 'y-mm-dd');" />
 			</td>
 		</tr>
 		<tr>
 			<td align="left"><?php echo _E_FINISH_PUB; ?></td>
 			<td>
 				<input class="inputbox" type="text" name="publish_down" id="publish_down" size="25" maxlength="19" value="<?php echo $row->publish_down; ?>" />
-				<span class="button"><input type="reset" class="button" value="..." onclick="return showCalendar('publish_down', 'y-mm-dd');" /></span>
+				<input type="reset" class="button" value="..." onclick="return showCalendar('publish_down', 'y-mm-dd');" />
 			</td>
 		</tr>
 	</table>
 		<?php } ?>
 	<div style="clear:both;"></div> <br /><br />
-	<span class="button">
 		<input type="submit" class="button submit" name="submit" id="save" value="<?php echo _SAVE?>" />
-	</span>
-	<span class="button"><input type="submit" class="button apply" name="apply" id="apply" value="<?php echo _APPLY?>" /></span>
-	<span class="button"><input type="submit" class="button cancel" name="cancel" id="cancel" value="<?php echo _CANCEL?>" /></span>
-
+	<input type="submit" class="button apply" name="apply" id="apply" value="<?php echo _APPLY?>" />
+	<input type="submit" class="button cancel" name="cancel" id="cancel" value="<?php echo _CANCEL?>" />
 	<input type="hidden" name="goodexit" id="goodexit" value="0" />
 	<input type="hidden" name="option" value="com_content" />
-
 	<input type="hidden" name="id" value="<?php echo $row->id; ?>" />
 	<input type="hidden" name="version" value="<?php echo $row->version; ?>" />
 	<input type="hidden" name="sectionid" value="<?php echo $section_id; ?>" />

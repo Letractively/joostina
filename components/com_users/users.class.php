@@ -581,7 +581,7 @@ class userHelper {
 </script>
 <form name="<?php echo $form_params->img_field;?>_uploadForm" class="ajaxForm" enctype="multipart/form-data" method="post" action="<?php echo $action; ?>" id="<?php echo $form_params->img_field;?>_uploadForm">
     <input name="<?php echo $form_params->img_field;?>"  id="upload_<?php echo $form_params->img_field;?>"  type="file" />
-    <span class="button"><button type="button" id="<?php echo $form_params->img_field;?>_upload_button" class="button" ><?php echo _TASK_UPLOAD?></button></span>
+    <button type="button" id="<?php echo $form_params->img_field;?>_upload_button" class="button" ><?php echo _TASK_UPLOAD?></button>
     <input type="hidden" name="task" value="upload_<?php echo $form_params->img_field;?>" />
     <input type="hidden" name="id" value="<?php echo $obj->id;?>" />
     <input type="hidden" name="option" value="com_users" />
