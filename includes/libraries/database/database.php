@@ -550,7 +550,7 @@ class database {
      * @return UtulsDB
      */
     public function getUtils() {
-        return new UtulsDB();
+        return new UtulsDB( $this );
     }
 }
 
@@ -558,6 +558,27 @@ class database {
  * Утилиты для работы с базой данных
  */
 class UtulsDB extends database {
+    /**
+     *
+     * @var <type> 
+     */
+    private $_db;
+
+    /**
+     *
+     * @param <type> $db
+     */
+    public function __construct( $db ){
+        $this->_db = $db;
+    }
+
+    /**
+     *
+     * @return <type>
+     */
+    private function db(){
+        return $this->_db;
+    }
 
     /**
      *
@@ -573,8 +594,8 @@ class UtulsDB extends database {
      * @return <type>
      */
     public function getTableList($only_joostina = true) {
-        $only_joostina = $only_joostina ? " LIKE '$this->_table_prefix%' " : '';
-        return $this->setQuery('SHOW TABLES ' . $only_joostina)->loadResultArray();
+        $only_joostina = $only_joostina ? " LIKE '".$this->db()->_table_prefix."%' " : '';
+        return  $this->db()->setQuery('SHOW TABLES ' . $only_joostina)->loadResultArray();
     }
 
     /**
@@ -586,7 +607,7 @@ class UtulsDB extends database {
         $result = array();
 
         foreach ($tables as $tblval) {
-            $rows = $this->setQuery('SHOW CREATE table ' . $this->getEscaped($tblval))->loadRowList();
+            $rows = $this->db()->setQuery('SHOW CREATE table ' . $this->getEscaped($tblval))->loadRowList();
             foreach ($rows as $row) {
                 $result[$tblval] = $row[1];
             }
@@ -604,7 +625,7 @@ class UtulsDB extends database {
         $result = array();
 
         foreach ($tables as $tblval) {
-            $fields = $this->setQuery('SHOW FIELDS FROM ' . $tblval)->loadObjectList();
+            $fields = $this->db()->setQuery('SHOW FIELDS FROM ' . $tblval)->loadObjectList();
 
             foreach ($fields as $field) {
                 $result[$tblval][$field->Field] = preg_replace("/[(0-9)]/", '', $field->Type);

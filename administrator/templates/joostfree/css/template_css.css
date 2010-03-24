@@ -1044,3 +1044,6 @@ div.cpicons div {
     padding: 0;
     cursor: default;
 }
+#status-info{
+    display: none;
+}

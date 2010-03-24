@@ -43,9 +43,9 @@ switch($task) {
 }
 
 function checkall() {
-	global $database,$mosConfig_dbprefix;
+        $database = database::getInstance();
 	$nullDate = $database->getNullDate();
-	$mainframe = mosMainFrame::getInstance();
+
 	$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 	?>
 <table class="adminheading">
@@ -61,14 +61,10 @@ function checkall() {
 		<th class="title">&nbsp;</th>
 	</tr>
 		<?php
-		$tables = $database->getTableList();
+		$tables = $database->getUtils()->getTableList();
 		$k = 0;
 		foreach($tables as $tn) {
-			// make sure we get the right tables based on prefix
-			if(!preg_match("/^".$mosConfig_dbprefix."/i",$tn)) {
-				continue;
-			}
-			$fields = $database->getTableFields(array($tn));
+			$fields = $database->getUtils()->getTableFields(array($tn));
 
 			$foundCO = false;
 			$foundCOT = false;
