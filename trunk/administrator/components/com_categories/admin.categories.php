@@ -193,7 +193,7 @@ function showCategories($section,$option) {
 	require_once (JPATH_BASE_ADMIN.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
-	$tablesAllowed = $database->getTableList();
+	$tablesAllowed = $database->getUtils()->getTableList();
 	if(!in_array($mosConfig_dbprefix.$table,$tablesAllowed)) {
 		$table = 'content';
 	}

@@ -25,8 +25,7 @@ function ExecSQL($task = 'execsql') {
 		$cCurrentSQL	= stripslashes($cCurrentSQL);
 	}
 
-	$tables = $database->getTableList();
-
+	$tables = $database->getUtils()->getTableList(  );
 	if(!empty($tables)) {
 		$htmTablesList = '';
 		foreach($tables as $val) {
