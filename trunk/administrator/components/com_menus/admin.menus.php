@@ -285,6 +285,7 @@ function addMenuItem(&$cid,$menutype,$option,$task) {
 		unset($row);
 	}
 
+	mosMainFrame::addLib('utils');
 	// sort array of objects alphabetically by name of menu type
 	SortArrayObjects($types,'name',1);
 

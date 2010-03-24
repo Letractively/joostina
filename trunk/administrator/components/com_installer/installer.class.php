@@ -356,6 +356,7 @@ class mosInstaller {
 					if(!is_dir($path_info['dirname'])) {
 						mosMakePath($p_destdir,$path_info['dirname']);
 					}
+					mosMainFrame::addLib('files');
 					if(!(copy($filesource,$filedest) && mosChmod($filedest))) {
 						$this->setError(1,_ERROR_COPYING_FILE.": $filesource в $filedest");
 						return false;

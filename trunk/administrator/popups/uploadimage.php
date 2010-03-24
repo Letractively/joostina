@@ -107,6 +107,7 @@ if(isset($_FILES['userfile'])) {
 		mosErrorAlert(_FILE_MUST_HAVE_THIS_EXTENSION.' gif, png, jpg, bmp, swf, doc, xls, ppt',$action);
 	}
 
+	mosMainFrame::addLib('files');
 
 	if(eregi('.pdf',$userfile_name) || eregi('.doc',$userfile_name) || eregi('.xls',$userfile_name) || eregi('.ppt',$userfile_name)) {
 		if(!move_uploaded_file($_FILES['userfile']['tmp_name'],$media_path.$_FILES['userfile']['name']) || !mosChmod($media_path.$_FILES['userfile']['name'])) {

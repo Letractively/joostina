@@ -56,6 +56,7 @@ class mosGeneralInstaller {
 		if(file_exists($baseDir)) {
 			if(is_writable($baseDir)) {
 				if(move_uploaded_file($filename,$baseDir.$userfile_name)) {
+					mosMainFrame::addLib('files');
 					if(mosChmod($baseDir.$userfile_name)) {
 						return true;
 					} else {

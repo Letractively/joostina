@@ -105,6 +105,7 @@ function x_saveconfig($task) {
 			if($applyDirPerms) {
 				$dirmode = octdec($row->config_dirperms);
 			}
+			mosMainFrame::addLib('files');
 			foreach($mosrootfiles as $file) {
 				mosChmodRecursive(JPATH_BASE.DS.$file,$filemode,$dirmode);
 			}

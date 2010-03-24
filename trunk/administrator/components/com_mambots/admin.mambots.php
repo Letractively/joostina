@@ -233,7 +233,7 @@ function editMambot($option,$uid,$client) {
 					."\n AND ordering > -10000"
 					."\n AND ordering < 10000"
 					."\n ORDER BY ordering";
-			$order = mosGetOrderingList($query);
+			$order = mosCommonHTML::mosGetOrderingList($query);
 			$lists['ordering'] = mosHTML::selectList($order,'ordering','class="inputbox" size="1"','value','text',intval($row->ordering));
 		} else {
 			$lists['ordering'] = '<input type="hidden" name="ordering" value="'.$row->ordering.'" />'._COM_MAMBOTS_NON_REORDER;

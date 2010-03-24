@@ -31,6 +31,8 @@ class jdebug {
         return self::$_instance;
     }
 
+	private function __clone() {}
+
     /* добавление сообщения в лог*/
     function add($text, $top = 0) {
         $top ? array_unshift($this->_log, $text) : $this->_log[] = $text;

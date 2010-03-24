@@ -121,6 +121,8 @@ class database {
         return self::$_instance;
     }
 
+	private function __clone() {}
+
     /**
      *
      * @param <type> $level
@@ -585,7 +587,7 @@ class UtulsDB extends database {
      * @return <type>
      */
     public function getVersion() {
-        return mysql_get_server_info($this->_resource);
+        return mysql_get_server_info($this->db()->_resource);
     }
 
     /**
@@ -765,6 +767,8 @@ class mosDBTable {
         $this->_tbl_key = $key;
         $this->_db = $db ? $db : database::getInstance();
     }
+
+	private function __clone() {}
 
     /**
      * Returns an array of public properties

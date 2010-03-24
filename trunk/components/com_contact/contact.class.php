@@ -10,7 +10,7 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-include_once (JPATH_BASE.'/includes/vcard.class.php');
+mosMainFrame::addClass( 'vcard' );
 
 /**
  * @package Joostina
