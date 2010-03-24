@@ -55,6 +55,8 @@ class InputFilter {
         return self::$_instance;
     }
 
+	private function __clone() {}
+
     /**
      *
      * @param <type> $source

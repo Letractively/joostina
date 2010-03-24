@@ -33,7 +33,7 @@ function mosLoadComponent($name) {
  */
 
 //Добавлено в класс mosModules
-function &initModules() {
+function initModules() {
 
 }
 /**
@@ -89,11 +89,13 @@ class PageModel {
 	var $_mainframe = null;
 	var $_view = null;
 
+	private function __clone() {}
+
 	function PageModel() {
 		$this->_mainframe = mosMainFrame::getInstance();
 	}
 
-	public static function &getInstance() {
+	public static function getInstance() {
 
 		JDEBUG ? jd_inc('PageModel') : null;
 

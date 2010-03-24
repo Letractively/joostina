@@ -111,7 +111,8 @@ class HTML_user {
 		// used for spoof hardening
 		$validate = josSpoofValue();
 
-		require_once (JPATH_BASE.'/includes/HTML_toolbar.php');
+		mosMainFrame::addClass( 'toolbarHTML' );
+		
 		$config = Jconfig::getInstance();
 
 		$user_extra = $user->user_extra;

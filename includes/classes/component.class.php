@@ -1,21 +1,14 @@
 <?php
 /**
- * @version $Id: module.php 5132 2006-09-22 15:59:38Z friesengeist $
  * @package Joostina
- * @localized Авторские права (C) 2005 Joom.Ru - Русский дом Joomla!
- * @copyright Авторские права (C) 2005 Open Source Matters. Все права защищены.
- * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, смотрите LICENSE.php
- * Joomla! - свободное программное обеспечение. Эта версия может быть изменена
- * в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
- * её дальнейшее распространение в составе результата работы, лицензированного
- * согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
- * программ или программ с открытым исходным кодом.
+ * @copyright Авторские права (C) 2008-2010 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
  * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
  */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
-
 /**
  * Component database table class
  * @package Joostina

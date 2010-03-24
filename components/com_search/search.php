@@ -269,6 +269,8 @@ function viewSearch() {
 				$needle = $searchwords[0];
 			}
 
+			mosMainFrame::addLib('utils');
+			
 			$text = mosPrepareSearchContent($text,200,$needle);
 
 			foreach ($searchwords as $k=>$hlword) {

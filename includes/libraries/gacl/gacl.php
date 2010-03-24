@@ -545,6 +545,8 @@ class gacl {
 		return self::$_instance;
 	}
 
+	private function __clone() {}
+
 	function _mos_add_acl($aco_section_value, $aco_value, $aro_section_value, $aro_value, $axo_section_value = null, $axo_value = null) {
 		$this->acl[] = array($aco_section_value, $aco_value, $aro_section_value, $aro_value, $axo_section_value, $axo_value);
 		$this->acl_count = count($this->acl);

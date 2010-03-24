@@ -34,19 +34,25 @@ DEFINE('_ISO','charset=UTF-8');
 // установка режима отображения ошибок
 ($mosConfig_error_reporting == 0) ? error_reporting(0) : error_reporting($mosConfig_error_reporting);
 
-/* ядро отладчика */
+/* библиотека отладчика */
 mosMainFrame::addLib('debug');
-/* ядро для работы с юникодом */
+/* библиотека для работы с юникодом */
 mosMainFrame::addLib('utf8');
-/* класс фильтрации данных */
+/* библиотека фильтрации данных */
 mosMainFrame::addLib('inputfilter');
-/* класс работы с базой данных */
+/* библиотека работы с базой данных */
 mosMainFrame::addLib('database');
+/* класс оформления */
+mosMainFrame::addClass('mosHTML');
+/* класс дополнительного оформления */
+mosMainFrame::addClass('mosCommonHTML');
+/* класс парсинга параметров и работы с XML */
+mosMainFrame::addClass('parameters');
+/* класс - свалка админ меню */
+mosMainFrame::addClass('mosAdminMenus');
 
 /* файл данных версии */
 require_once (JPATH_BASE.'/includes/version.php');
-/* ядро работы с XML */
-require_once (JPATH_BASE.'/includes/parameters.xml.php');
 
 // TODO запретить к 1.3.2!!!
 // $database = database::getInstance();
@@ -122,10 +128,15 @@ class mosMainFrame {
 	private $lang = null;
 
 	/**
+	 *
+	 */
+	private function __clone() {}
+
+	/**
 	 * Инициализация ядра
 	 * @param boolen $isAdmin - инициализация в пространстве панели управления
 	 */
-	function mosMainFrame($isAdmin = false) {
+	function __construct($isAdmin = false) {
 		// объект конфигурации системы
 		$this->config = Jconfig::getInstance();
 		// объект работы с базой данных
@@ -163,7 +174,7 @@ class mosMainFrame {
 	 * @param boolen $isAdmin - инициализация ядра в пространстве панели управления
 	 * @return <type>
 	 */
-	public static function &getInstance($isAdmin = false) {
+	public static function getInstance($isAdmin = false) {
 
 		JDEBUG ? jd_inc('mosMainFrame::getInstance()') : null;
 
@@ -315,15 +326,17 @@ class mosMainFrame {
 		$this->_head['pagename'] = isset($pageownname) ? $pageownname : $title;
 
 		switch($this->getCfg('pagetitles_first')) {
-			case '0':
-			case '1':
+			case 0:
+			case 1:
 			default:
 				$this->_head['title'] = $page_title;
 				break;
-			case '2':
+
+			case 2:
 				$this->_head['title'] = $sitename;
 				break;
-			case '3':
+			
+			case 3:
 				$this->_head['title'] = $pageownname ? $pageownname : $title;
 				break;
 		}
@@ -913,7 +926,7 @@ class mosMainFrame {
 	 * table. A successful validation updates the current session record with
 	 * the users details.
 	 */
-	function login($username = null,$passwd = null,$remember = 0,$userid = null) {
+	public function login($username = null,$passwd = null,$remember = 0,$userid = null) {
 
 		// если сесии на фронте отключены - прекращаем выполнение процедуры
 		if($this->getCfg('no_session_front')) return;
@@ -1078,7 +1091,7 @@ class mosMainFrame {
 	 * Разлогинивание пользователя
 	 * Записывает в текущию сесиию гостевые параметры
 	 */
-	function logout() {
+	public function logout() {
 		$session = &$this->_session;
 		$session->guest = 1;
 		$session->username = '';
@@ -1096,7 +1109,7 @@ class mosMainFrame {
 	/**
 	 * @return mosUser возвращает объект пользовательской сессии
 	 */
-	function getUser() {
+	public function getUser() {
 		$user = new mosUser($this->_db);
 
 		if($this->get('config')->config_no_session_front == 1) {
@@ -1194,7 +1207,7 @@ class mosMainFrame {
  * Получение текущего шаблона
  * @return string название шаблона
  */
-	function getTemplate() {
+	public function getTemplate() {
 		return $this->_template;
 	}
 
@@ -1203,7 +1216,7 @@ class mosMainFrame {
 	 * @param string $name - название переменной пути
 	 * @param string $path  - непосредственно сам путь
 	 */
-	function setPath($name, $path) {
+	public function setPath($name, $path) {
 		if (is_file($path)) {
 			$this->_path->$name = $path;
 		}
@@ -1283,7 +1296,7 @@ class mosMainFrame {
 	 * @param string $option - название компонента дял которого получается переменные окружения
 	 * @return string путь
 	 */
-	function getPath($varname,$option = '') {
+	public function getPath($varname,$option = '') {
 
 		if($option) {
 			$temp = $this->_path;
@@ -1371,7 +1384,7 @@ class mosMainFrame {
 	/**
 	 * @return правильный текущий Itemid для объектов содержимого
 	 */
-	function getItemid($id,$typed = 1,$link = 1) {
+	public function getItemid($id,$typed = 1,$link = 1) {
 		global $Itemid;
 
 		// getItemid compatibility mode, holds maintenance version number
@@ -1650,7 +1663,7 @@ class mosMainFrame {
 	/**
 	 * @return number of Static Content
 	 */
-	function getStaticContentCount() {
+	public function getStaticContentCount() {
 		// ensure that query is only called once
 		if(!$this->get('_StaticContentCount') && !defined('_JOS_SCC')) {
 			define('_JOS_SCC',1);
@@ -1667,7 +1680,7 @@ class mosMainFrame {
 	/**
 	 * @return number of Content Item Links
 	 */
-	function getContentItemLinkCount() {
+	public function getContentItemLinkCount() {
 		// ensure that query is only called once
 		if(!$this->get('_ContentItemLinkCount') && !defined('_JOS_CILC')) {
 			define('_JOS_CILC',1);
@@ -1685,7 +1698,7 @@ class mosMainFrame {
 	 * @return boolean
 	 * @since 1.0.2
 	 */
-	function isAdmin() {
+	public function isAdmin() {
 		return $this->_isAdmin;
 	}
 
@@ -1693,11 +1706,11 @@ class mosMainFrame {
 	 * Установка системного сообщения
 	 * @param string $msg - текст сообщения
 	 */
-	function set_mosmsg($msg='') {
+	public static function set_mosmsg($msg='') {
 		$msg = Jstring::trim($msg);
 
 		if($msg!='') {
-			if($this->_isAdmin) {
+			if( mosMainFrame::getInstance()->isAdmin() ) {
 				$_s = session_id();
 				if( empty($_s)) {
 					session_name(md5(JPATH_SITE));
@@ -1716,7 +1729,7 @@ class mosMainFrame {
 	 * Получение системного сообщения
 	 * @return string - текст сообщения
 	 */
-	function get_mosmsg() {
+	public function get_mosmsg() {
 
 		$_s = session_id();
 
@@ -1739,7 +1752,7 @@ class mosMainFrame {
 	}
 
 	/* проверка доступа к активному компоненту */
-	function check_option($option) {
+	public function check_option($option) {
 		if($option=='com_content') return true;
 		$sql = 'SELECT menuid FROM #__components WHERE #__components.option=\''.$option.'\' AND parent=0';
 
@@ -1747,7 +1760,7 @@ class mosMainFrame {
 		return true;
 	}
 
-	function get_option() {
+	private function get_option() {
 
 		$Itemid = intval(strtolower(mosGetParam($_REQUEST,'Itemid','')));
 		$option = trim(strval(strtolower(mosGetParam($_REQUEST,'option',''))));
@@ -2084,12 +2097,14 @@ class JConfig {
 	public $config_mmb_ajax_starts_off = 1;
 
 	// инициализация класса конфигурации - собираем переменные конфигурации
-	function JConfig() {
+	private function  __construct() {
 		$this->bindGlobals();
 	}
 
+	private function __clone() {}
+
 	// получение инстанции конфигурации системы
-	public static function &getInstance() {
+	public static function getInstance() {
 
 		JDEBUG ? jd_inc('JConfig::getInstance()') : null;
 
@@ -2250,6 +2265,10 @@ class mosMenu extends mosDBTable {
 		return self::$_all_menus_instance;
 	}
 
+	/**
+	 *
+	 * @return array
+	 */
 	function all_menu() {
 		// ведёргиваем из базы все пункты меню, они еще пригодяться несколько раз
 		$sql = 'SELECT* FROM #__menu WHERE published=1 ORDER BY parent, ordering ASC';
@@ -2263,6 +2282,10 @@ class mosMenu extends mosDBTable {
 		return $m;
 	}
 
+	/**
+	 *
+	 * @return boolean
+	 */
 	function check() {
 		$this->id = (int)$this->id;
 		$this->params = (string )trim($this->params.' ');
@@ -2391,7 +2414,7 @@ class mosModule extends mosDBTable {
 		}
 	}
 
-	public static function &getInstance() {
+	public static function getInstance() {
 		static $modules;
 		if(!is_object($modules) ) {
 			$mainframe = mosMainFrame::getInstance();
@@ -2510,7 +2533,7 @@ class mosModule extends mosDBTable {
 	function initModules() {
 		global $my,$Itemid;
 
-		$cache = &mosCache::getCache('init_modules');
+		$cache = mosCache::getCache('init_modules');
 		$this->_all_modules = $cache->call('mosModule::_initModules', $Itemid,$my->gid);
 		require_once (JPATH_BASE.'/includes/frontend.html.php');
 		$this->_view = new modules_html($this->_mainframe);
@@ -2518,7 +2541,7 @@ class mosModule extends mosDBTable {
 	}
 
 
-	public function &_initModules( $Itemid,$my_gid ) {
+	public function _initModules( $Itemid,$my_gid ) {
 
 		$mainframe = mosMainFrame::getInstance();
 		$database = $mainframe->getDBO();
@@ -2763,538 +2786,6 @@ class mosCache {
 }
 
 /**
- * Utility class for all HTML drawing classes
- * @package Joostina
- */
-class mosHTML {
-
-	public static function makeOption($value,$text = '',$value_name = 'value',$text_name = 'text') {
-		$obj = new stdClass;
-		$obj->$value_name = $value;
-		$obj->$text_name = trim($text)?$text:$value;
-		return $obj;
-	}
-
-	function writableCell($folder,$relative = 1,$text = '',$visible = 1) {
-
-		$writeable		= '<b><font color="green">'._WRITEABLE.'</font></b>';
-		$unwriteable	= '<b><font color="red">'._UNWRITEABLE.'</font></b>';
-
-		echo '<tr>';
-		echo '<td class="item">';
-		echo $text;
-		if($visible) {
-			echo $folder.'/';
-		}
-		echo '</td>';
-		echo '<td align="left">';
-		if($relative) {
-			echo is_writable("../$folder")?$writeable:$unwriteable;
-		} else {
-			echo is_writable($folder)?$writeable:$unwriteable;
-		}
-		echo '</td>';
-		echo '</tr>';
-	}
-
-	/**
-	 * Generates an HTML select list
-	 * @param array An array of objects
-	 * @param string The value of the HTML name attribute
-	 * @param string Additional HTML attributes for the <select> tag
-	 * @param string The name of the object variable for the option value
-	 * @param string The name of the object variable for the option text
-	 * @param mixed The key that is selected
-	 * @returns string HTML for the select list
-	 */
-	function selectList(&$arr,$tag_name,$tag_attribs,$key,$text,$selected = null, $first_el_key = '*000', $first_el_text = '*000') {
-		// check if array
-		if(is_array($arr)) {
-			reset($arr);
-		}
-
-		$html = "\n<select name=\"$tag_name\" $tag_attribs>";
-		$count = count($arr);
-
-		if ($first_el_key!='*000' && $first_el_text!='*000') {
-			$html .= "\n\t<option value=\"$first_el_key\">$first_el_text</option>";
-		}
-
-		for($i = 0,$n = $count; $i < $n; $i++) {
-			$k = $arr[$i]->$key;
-			$t = $arr[$i]->$text;
-			$id = (isset($arr[$i]->id)?@$arr[$i]->id:null);
-
-			$extra = '';
-			$extra .= $id?" id=\"".$arr[$i]->id."\"":'';
-			if(is_array($selected)) {
-				foreach($selected as $obj) {
-					$k2 = $obj->$key;
-					if($k == $k2) {
-						$extra .= " selected=\"selected\"";
-						break;
-					}
-				}
-			} else {
-				$extra .= ($k == $selected?" selected=\"selected\"":'');
-			}
-			$html .= "\n\t<option value=\"".$k."\"$extra>".$t."</option>";
-		}
-		$html .= "\n</select>\n";
-
-		return $html;
-	}
-
-	/**
-	 * Writes a select list of integers
-	 * @param int The start integer
-	 * @param int The end integer
-	 * @param int The increment
-	 * @param string The value of the HTML name attribute
-	 * @param string Additional HTML attributes for the <select> tag
-	 * @param mixed The key that is selected
-	 * @param string The printf format to be applied to the number
-	 * @returns string HTML for the select list
-	 */
-	function integerSelectList($start,$end,$inc,$tag_name,$tag_attribs,$selected,$format ="") {
-		$start = intval($start);
-		$end = intval($end);
-		$inc = intval($inc);
-		$arr = array();
-
-		for($i = $start; $i <= $end; $i += $inc) {
-			$fi = $format ? sprintf("$format",$i):"$i";
-			$arr[] = mosHTML::makeOption($fi,$fi);
-		}
-
-		return mosHTML::selectList($arr,$tag_name,$tag_attribs,'value','text',$selected);
-	}
-
-	/**
-	 * Writes a select list of month names based on Language settings
-	 * @param string The value of the HTML name attribute
-	 * @param string Additional HTML attributes for the <select> tag
-	 * @param mixed The key that is selected
-	 * @returns string HTML for the select list values
-	 */
-	function monthSelectList($tag_name,$tag_attribs,$selected,$type = 0) {
-		// месяца для выбора
-		$arr_1 = array(
-				mosHTML::makeOption('01',_JAN),
-				mosHTML::makeOption('02',_FEB),
-				mosHTML::makeOption('03',_MAR),
-				mosHTML::makeOption('04',_APR),
-				mosHTML::makeOption('05',_MAY),
-				mosHTML::makeOption('06',_JUN),
-				mosHTML::makeOption('07',_JUL),
-				mosHTML::makeOption('08',_AUG),
-				mosHTML::makeOption('09',_SEP),
-				mosHTML::makeOption('10',_OCT),
-				mosHTML::makeOption('11',_NOV),
-				mosHTML::makeOption('12',_DEC)
-		);
-		// месяца с правильным склонением
-		$arr_2 = array(
-				mosHTML::makeOption('01',_JAN_2),
-				mosHTML::makeOption('02',_FEB_2),
-				mosHTML::makeOption('03',_MAR_2),
-				mosHTML::makeOption('04',_APR_2),
-				mosHTML::makeOption('05',_MAY_2),
-				mosHTML::makeOption('06',_JUN_2),
-				mosHTML::makeOption('07',_JUL_2),
-				mosHTML::makeOption('08',_AUG_2),
-				mosHTML::makeOption('09',_SEP_2),
-				mosHTML::makeOption('10',_OCT_2),
-				mosHTML::makeOption('11',_NOV_2),
-				mosHTML::makeOption('12',_DEC_2)
-		);
-		$arr = $type ? $arr_2 : $arr_1;
-		return mosHTML::selectList($arr,$tag_name,$tag_attribs,'value','text',$selected);
-	}
-
-	function daySelectList($tag_name,$tag_attribs,$selected) {
-		$arr = array();
-
-		for($i = 1; $i <= 31; $i++) {
-			$pref = '';
-			if($i <= 9) {
-				$pref = '0';
-			}
-			$arr[] = mosHTML::makeOption($pref.$i,$pref.$i);
-		}
-
-		return mosHTML::selectList($arr,$tag_name,$tag_attribs,'value','text',$selected);
-	}
-
-	function yearSelectList($tag_name,$tag_attribs,$selected, $min = 1900, $max=null ) {
-
-		$max = ( $max == null) ? date('Y',time()) : $max;
-
-		$arr = array();
-		for($i = $min; $i <= $max; $i++) {
-			$arr[] = mosHTML::makeOption($i,$i);
-		}
-		return mosHTML::selectList($arr,$tag_name,$tag_attribs,'value','text',$selected);
-	}
-
-	function genderSelectList($tag_name,$tag_attribs,$selected) {
-		$arr = array(
-				mosHTML::makeOption('no_gender',_GENDER_NONE),
-				mosHTML::makeOption('male',_MALE),
-				mosHTML::makeOption('female',_FEMALE)
-		);
-		return mosHTML::selectList($arr,$tag_name,$tag_attribs,'value','text',$selected);
-	}
-
-
-	/**
-	 * Generates an HTML select list from a tree based query list
-	 * @param array Source array with id and parent fields
-	 * @param array The id of the current list item
-	 * @param array Target array.  May be an empty array.
-	 * @param array An array of objects
-	 * @param string The value of the HTML name attribute
-	 * @param string Additional HTML attributes for the <select> tag
-	 * @param string The name of the object variable for the option value
-	 * @param string The name of the object variable for the option text
-	 * @param mixed The key that is selected
-	 * @returns string HTML for the select list
-	 */
-	function treeSelectList(&$src_list,$src_id,$tgt_list,$tag_name,$tag_attribs,$key,
-			$text,$selected) {
-		// establish the hierarchy of the menu
-		$children = array();
-		// first pass - collect children
-		foreach($src_list as $v) {
-			$pt = $v->parent;
-			$list = @$children[$pt]?$children[$pt]:array();
-			array_push($list,$v);
-			$children[$pt] = $list;
-		}
-		// second pass - get an indent list of the items
-		$ilist = mosTreeRecurse(0,'',array(),$children);
-
-		// assemble menu items to the array
-		$this_treename = '';
-		foreach($ilist as $item) {
-			if($this_treename) {
-				if($item->id != $src_id && strpos($item->treename,$this_treename) === false) {
-					$tgt_list[] = mosHTML::makeOption($item->id,$item->treename);
-				}
-			} else {
-				if($item->id != $src_id) {
-					$tgt_list[] = mosHTML::makeOption($item->id,$item->treename);
-				} else {
-					$this_treename = "$item->treename/";
-				}
-			}
-		}
-		// build the html select list
-		return mosHTML::selectList($tgt_list,$tag_name,$tag_attribs,$key,$text,$selected);
-	}
-
-	/**
-	 * Writes a yes/no select list
-	 * @param string The value of the HTML name attribute
-	 * @param string Additional HTML attributes for the <select> tag
-	 * @param mixed The key that is selected
-	 * @returns string HTML for the select list values
-	 */
-	function yesnoSelectList($tag_name,$tag_attribs,$selected,$yes = _YES,$no =_NO) {
-		$arr = array(mosHTML::makeOption('0',$no),mosHTML::makeOption('1',$yes),);
-
-		return mosHTML::selectList($arr,$tag_name,$tag_attribs,'value','text',$selected);
-	}
-
-	/**
-	 * Generates an HTML radio list
-	 * @param array An array of objects
-	 * @param string The value of the HTML name attribute
-	 * @param string Additional HTML attributes for the <select> tag
-	 * @param mixed The key that is selected
-	 * @param string The name of the object variable for the option value
-	 * @param string The name of the object variable for the option text
-	 * @returns string HTML for the select list
-	 */
-	function radioList(&$arr,$tag_name,$tag_attribs,$selected = null,$key = 'value',$text = 'text') {
-		reset($arr);
-		$html = '';
-		for($i = 0,$n = count($arr); $i < $n; $i++) {
-			$k = $arr[$i]->$key;
-			$t = $arr[$i]->$text;
-			$id = (isset($arr[$i]->id)?@$arr[$i]->id:null);
-
-			$extra = '';
-			$extra .= $id?" id=\"".$arr[$i]->id."\"":'';
-			if(is_array($selected)) {
-				foreach($selected as $obj) {
-					$k2 = $obj->$key;
-					if($k == $k2) {
-						$extra .= " selected=\"selected\"";
-						break;
-					}
-				}
-			} else {
-				$extra .= ($k == $selected?" checked=\"checked\"":'');
-			}
-			$html .= "\n\t<input type=\"radio\" name=\"$tag_name\" id=\"$tag_name$k\" value=\"".$k."\"$extra $tag_attribs />";
-			$html .= "\n\t<label for=\"$tag_name$k\">$t</label>";
-		}
-		$html .= "\n";
-
-		return $html;
-	}
-
-	/**
-	 * Writes a yes/no radio list
-	 * @param string The value of the HTML name attribute
-	 * @param string Additional HTML attributes for the <select> tag
-	 * @param mixed The key that is selected
-	 * @returns string HTML for the radio list
-	 */
-	function yesnoRadioList($tag_name,$tag_attribs,$selected,$yes = _YES,$no = _NO) {
-		$arr = array(
-				mosHTML::makeOption('0',$no),
-				mosHTML::makeOption('1',$yes)
-		);
-
-		return mosHTML::radioList($arr,$tag_name,$tag_attribs,$selected);
-	}
-
-	/**
-	 * @param int The row index
-	 * @param int The record id
-	 * @param boolean
-	 * @param string The name of the form element
-	 * @return string
-	 */
-	function idBox($rowNum,$recId,$checkedOut = false,$name = 'cid') {
-		if($checkedOut) {
-			return '';
-		} else {
-			return '<input type="checkbox" id="cb'.$rowNum.'" name="'.$name.'[]" value="'.$recId.'" onclick="isChecked(this.checked);" />';
-		}
-	}
-
-	function sortIcon($base_href,$field,$state = 'none') {
-		$alts = array('none' => _SORT_NONE,'asc' => _SORT_ASC,'desc' =>_SORT_DESC,);
-		$next_state = 'asc';
-		if($state == 'asc') {
-			$next_state = 'desc';
-		} else
-		if($state == 'desc') {
-			$next_state = 'none';
-		}
-
-		$html = '<a href="'.$base_href.'&field='.$field.'&order='.$next_state.'"><img src="'.JPATH_SITE.'/'.JADMIN_BASE.'/images/sort_'.$state.'.png" width="12" height="12" border="0" alt="'.$alts[$next_state].'" /></a>';
-		return $html;
-	}
-
-	/**
-	 * Writes Close Button
-	 */
-	public static function CloseButton(&$params,$hide_js = null) {
-		// displays close button in Pop-up window
-		if($params->get('popup') && !$hide_js) {
-			?>
-<script language="javascript" type="text/javascript">
-	<!--
-	document.write('<div align="center" style="margin-top: 30px; margin-bottom: 30px;">');
-	document.write('<a class="print_button" href="#" onclick="javascript:window.close();"><span class="small"><?php echo _PROMPT_CLOSE; ?></span></a>');
-	document.write('</div>');
-	//-->
-</script>
-			<?php
-		}
-	}
-
-	/**
-	 * Writes Back Button
-	 * Сыылка "Вернуться" отображается в следующих случаях:
-	 * - не переданы параметры (если, например, нет необходимости проверять значения настроек, а нужно принудительно вывести ссылку);
-	 * - параметры переданы и имеют соответствующие значения (используется в com_content)
-	 * - параметры переданы, но настройка `back_button` не задана (т.е. должно использоваться глобальное значение параметра)
-	 * 	и в глобальных настройках включено отображение ссылки
-	 *
-	 */
-	//TODO: справка - Back Button
-	public static function BackButton(&$params = null,$hide_js = null) {
-		$config = Jconfig::getInstance();
-
-		if( !$params ||  ($params->get('back_button')==1 && !$params->get('popup') && !$hide_js) || ($params->get('back_button') == -1 && $config->config_back_button == 1 ) ) {
-			include_once(JPATH_BASE.'/templates/system/back_button.php');
-		}else {
-			return false;
-		}
-	}
-
-	function get_image($file, $directory = 'system', $front = 0) {
-
-		if(!$front) {
-			$path = '/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/'.$directory.'/';
-		} else {
-			$path = '/templates/'.JTEMPLATE.'/images/elements/';
-		}
-
-		$image = '';
-		if(is_file(JPATH_BASE.$path.$file)) {
-			$image = JPATH_SITE.$path.$file;
-		} elseif(is_file(JPATH_BASE.DS.$directory.DS.$file)) {
-			$image = JPATH_SITE.'/'.$directory.'/'.$file;
-		}
-		if($image) {
-			$image = '<img src="'.$image.'" alt="" border="0" />';
-			return $image;
-		}
-		return false;
-
-	}
-
-	/**
-	 * Cleans text of all formating and scripting code
-	 */
-	public static function cleanText(&$text) {
-		$text = preg_replace("'<script[^>]*>.*?</script>'si",'',$text);
-		//$text = preg_replace('/<a\s+.*?href="([^"]+)"[^>]*>([^<]+)<\/a>/is','\2 (\1)',$text);
-		$text = preg_replace('/<!--.+?-->/','',$text);
-		$text = preg_replace('/{.+?}/','',$text);
-		$text = preg_replace('/&nbsp;/',' ',$text);
-		$text = preg_replace('/&amp;/',' ',$text);
-		$text = preg_replace('/&quot;/',' ',$text);
-		$text = strip_tags($text);
-		$text = htmlspecialchars($text);
-		return $text;
-	}
-
-	/**
-	 * Вывод значка печати, встроен хак индексации печатной версии
-	 */
-	public static function PrintIcon($row,&$params,$hide_js,$link,$status = null) {
-		global $cpr_i;
-
-		if(!isset($cpr_i)) {
-			$cpr_i = '';
-		}
-
-		if($params->get('print') && !$hide_js) {
-			// use default settings if none declared
-			if(!$status) {
-				$status = 'status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=640,height=480,directories=no,location=no';
-			}
-			// checks template image directory for image, if non found default are loaded
-			if($params->get('icons')) {
-				$image = mosAdminMenus::ImageCheck('printButton.png','/images/M_images/',null,null,_PRINT,'print'.$cpr_i);
-				$cpr_i++;
-			} else {
-				$image = _ICON_SEP.'&nbsp;'._PRINT.'&nbsp;'._ICON_SEP;
-			}
-			if($params->get('popup') && !$hide_js) {
-				?>
-<script language="javascript" type="text/javascript">
-	<!--
-	document.write('<a href="#" class="print_button" onclick="javascript:window.print(); return false;" title="<?php echo _PRINT; ?>">');
-	document.write('<?php echo $image; ?>');
-	document.write('</a>');
-	//-->
-</script>
-				<?php
-			} else {
-				?>
-					<?php if(!Jconfig::getInstance()->config_index_print) { ?>
-<span style="display:none"><![CDATA[<noindex>]]></span><a href="#" rel="nofollow" target="_blank" onclick="window.open('<?php echo $link; ?>','win2','<?php echo $status; ?>'); return false;" title="<?php echo _PRINT; ?>"><?php echo $image; ?></a><span style="display:none"><![CDATA[</noindex>]]></span>
-					<?php } else { ?>
-<a href="<?php echo $link; ?>" target="_blank" title="<?php echo _PRINT; ?>"><?php echo $image; ?></a>
-					<?php } ; ?>
-
-				<?php
-			}
-		}
-	}
-
-	/**
-	 * simple Javascript Cloaking
-	 * email cloacking
-	 * by default replaces an email with a mailto link with email cloacked
-	 */
-	function emailCloaking($mail,$mailto = 1,$text = '',$email = 1) {
-		// convert text
-		$mail = mosHTML::encoding_converter($mail);
-		// split email by @ symbol
-		$mail = explode('@',$mail);
-		$mail_parts = explode('.',$mail[1]);
-		// random number
-		$rand = rand(1,100000);
-		$replacement = "\n <script language='JavaScript' type='text/javascript'>";
-		$replacement .= "\n <!--";
-		$replacement .= "\n var prefix = '&#109;a' + 'i&#108;' + '&#116;o';";
-		$replacement .= "\n var path = 'hr' + 'ef' + '=';";
-		$replacement .= "\n var addy".$rand." = '".@$mail[0]."' + '&#64;';";
-		$replacement .= "\n addy".$rand." = addy".$rand." + '".implode("' + '&#46;' + '",
-				$mail_parts)."';";
-		if($mailto) {
-			// special handling when mail text is different from mail addy
-			if($text) {
-				if($email) {
-					// convert text
-					$text = mosHTML::encoding_converter($text);
-					// split email by @ symbol
-					$text = explode('@',$text);
-					$text_parts = explode('.',$text[1]);
-					$replacement .= "\n var addy_text".$rand." = '".@$text[0]."' + '&#64;' + '".
-							implode("' + '&#46;' + '",@$text_parts)."';";
-				} else {
-					$replacement .= "\n var addy_text".$rand." = '".$text."';";
-				}
-				$replacement .= "\n document.write( '<a ' + path + '\'' + prefix + ':' + addy".
-						$rand." + '\'>' );";
-				$replacement .= "\n document.write( addy_text".$rand." );";
-				$replacement .= "\n document.write( '<\/a>' );";
-			} else {
-				$replacement .= "\n document.write( '<a ' + path + '\'' + prefix + ':' + addy".
-						$rand." + '\'>' );";
-				$replacement .= "\n document.write( addy".$rand." );";
-				$replacement .= "\n document.write( '<\/a>' );";
-			}
-		} else {
-			$replacement .= "\n document.write( addy".$rand." );";
-		}
-		$replacement .= "\n //-->";
-		$replacement .= '\n </script>';
-		// XHTML compliance `No Javascript` text handling
-		$replacement .= "<script language='JavaScript' type='text/javascript'>";
-		$replacement .= "\n <!--";
-		$replacement .= "\n document.write( '<span style=\'display: none;\'>' );";
-		$replacement .= "\n //-->";
-		$replacement .= "\n </script>";
-		$replacement .= _CLOAKING;
-		$replacement .= "\n <script language='JavaScript' type='text/javascript'>";
-		$replacement .= "\n <!--";
-		$replacement .= "\n document.write( '</' );";
-		$replacement .= "\n document.write( 'span>' );";
-		$replacement .= "\n //-->";
-		$replacement .= "\n </script>";
-
-		return $replacement;
-	}
-
-	function encoding_converter($text) {
-		// replace vowels with character encoding
-		$text = str_replace('a','&#97;',$text);
-		$text = str_replace('e','&#101;',$text);
-		$text = str_replace('i','&#105;',$text);
-		$text = str_replace('o','&#111;',$text);
-		$text = str_replace('u','&#117;',$text);
-		return $text;
-	}
-}
-
-// класс работы с контентом
-require_once(JPATH_BASE.'/components/com_content/content.class.php');
-
-// класс работы с пользователями
-require_once(JPATH_BASE.'/components/com_users/users.class.php');
-
-/**
  * Utility function to return a value from a named array or a specified default
  * @param array A named array
  * @param string The key to search for
@@ -3304,38 +2795,20 @@ require_once(JPATH_BASE.'/components/com_users/users.class.php');
 define("_MOS_NOTRIM",0x0001);
 define("_MOS_ALLOWHTML",0x0002);
 define("_MOS_ALLOWRAW",0x0004);
+
 function mosGetParam(&$arr,$name,$def = null,$mask = 0) {
-	//static $noHtmlFilter = null;
 
 	$return = null;
 	if(isset($arr[$name])) {
 		$return = $arr[$name];
 
 		if(is_string($return)) {
-			// trim data
-			if(!($mask & _MOS_NOTRIM)) {
-				$return = trim($return);
-			}
+			$return = (!($mask & _MOS_NOTRIM)) ? trim($return) : $return;
 
-			if($mask & _MOS_ALLOWRAW) {
-				// do nothing
-			} else
-			if($mask & _MOS_ALLOWHTML) {
-				// do nothing - compatibility mode
-			} else {
-				// send to inputfilter
-				$return = InputFilter::getInstance()->process($return);
-
-				if (!empty($return) && is_numeric($def)) {
-					// if value is defined and default value is numeric set variable type to integer
-					$return = intval($return);
-				}
-			}
+			$return = (!$mask && !_MOS_ALLOWRAW && !_MOS_ALLOWHTML) ? InputFilter::getInstance()->process($return) : $return;
 
 			// account for magic quotes setting
-			if(!get_magic_quotes_gpc()) {
-				$return = addslashes($return);
-			}
+			$return = (!get_magic_quotes_gpc()) ? addslashes($return) : $return;
 		}
 
 		return $return;
@@ -3447,8 +2920,7 @@ function mosRedirect($url,$msg = '') {
 	$url = $iFilter->process($url);
 	if(!empty($msg)) {
 		$msg = $iFilter->process($msg);
-		$mainframe = mosMainFrame::getInstance();
-		$mainframe->set_mosmsg($msg);
+		mosMainFrame::set_mosmsg($msg);
 	}
 
 	// Strip out any line breaks and throw away the rest
@@ -3488,6 +2960,17 @@ function mosErrorAlert($text,$action = 'window.history.go(-1);',$mode = 1) {
 	exit;
 }
 
+/**
+ *
+ * @param <type> $id
+ * @param <type> $indent
+ * @param <type> $list
+ * @param <type> $children
+ * @param <type> $maxlevel
+ * @param <type> $level
+ * @param <type> $type
+ * @return <type>
+ */
 function mosTreeRecurse($id,$indent,$list,&$children,$maxlevel = 9999,$level = 0,$type = 1) {
 
 	if(@$children[$id] && $level <= $maxlevel) {
@@ -3569,6 +3052,11 @@ function mosPathName($p_path,$p_addtrailingslash = true) {
 	return $retval;
 }
 
+/**
+ *
+ * @param <type> $p_obj
+ * @return <type> 
+ */
 function mosObjectToArray($p_obj) {
 	$retarray = null;
 	if(is_object($p_obj)) {
@@ -3579,70 +3067,6 @@ function mosObjectToArray($p_obj) {
 		}
 	}
 	return $retarray;
-}
-/**
- * Checks the user agent string against known browsers
- */
-function mosGetBrowser($agent) {
-	mosMainFrame::addLib('phpSniff');
-	$client = new phpSniff($agent);
-
-	$client_long_name = $client->property('long_name');
-	if(array_key_exists($client_long_name,$client->browsersAlias)) {
-		$name = $client->browsersAlias[$client_long_name];
-	} else {
-		$name = $client_long_name;
-	}
-	$name .= ' '.$client->property('version');
-	return ($name);
-}
-
-/**
- * Checks the user agent string against known operating systems
- */
-function mosGetOS($agent) {
-	mosMainFrame::addLib('phpSniff');
-	$client = new phpSniff($agent);
-	$osSearchOrder = $client->osSearchOrder;
-
-	foreach($osSearchOrder as $key) {
-		if(preg_match("/$key/i",$agent)) {
-			return $client->osAlias[$key];
-			break;
-		}
-	}
-	return 'Unknown';
-}
-
-/**
- * @param string SQL with ordering As value and 'name field' AS text
- * @param integer The length of the truncated headline
- */
-function mosGetOrderingList($sql,$chop = '30') {
-	$database = database::getInstance();
-
-	$order = array();
-	$database->setQuery($sql);
-	if(!($orders = $database->loadObjectList())) {
-		if($database->getErrorNum()) {
-			echo $database->stderr();
-			return false;
-		} else {
-			$order[] = mosHTML::makeOption(1,_FIRST);
-			return $order;
-		}
-	}
-	$order[] = mosHTML::makeOption(0,'0 '._FIRST);
-	for($i = 0,$n = count($orders); $i < $n; $i++) {
-		if(strlen($orders[$i]->text) > $chop) {
-			$text = Jstring::substr($orders[$i]->text,0,$chop)."...";
-		} else {
-			$text = $orders[$i]->text;
-		}
-		$order[] = mosHTML::makeOption($orders[$i]->value,$orders[$i]->value.' ('.$text.')');
-	}
-	$order[] = mosHTML::makeOption($orders[$i - 1]->value + 1,($orders[$i - 1]->value +1).' '._LAST);
-	return $order;
 }
 
 /**
@@ -3680,14 +3104,13 @@ function mosMakeHtmlSafe(&$mixed,$quote_style = ENT_QUOTES,$exclude_keys = '') {
  * @param database A database connector object
  * @return boolean True if the visitor's group at least equal to the menu access
  */
-
 function mosMenuCheck($Itemid,$menu_option,$task,$gid,$mainframe) {
 
 	$results = array();
 	$access = 0;
 
 	if($Itemid != '' && $Itemid != 0 && $Itemid != 99999999) {
-		$all_menus = &mosMenu::get_all();
+		$all_menus = mosMenu::get_all();
 		foreach($all_menus as $menu) {
 			if(isset($menu[$Itemid])) {
 				$results[0]=$menu[$Itemid];
@@ -3702,8 +3125,7 @@ function mosMenuCheck($Itemid,$menu_option,$task,$gid,$mainframe) {
 			$dblink .= "&task=".$database->getEscaped($task, true);
 		}
 		$query = "SELECT* FROM #__menu WHERE published = 1 AND link LIKE '$dblink%'";
-		$database->setQuery($query);
-		$results = $database->loadObjectList();
+		$results = $database->setQuery($query)->loadObjectList();
 		foreach($results as $result) {
 			$access = max($access,$result->access);
 		}
@@ -4002,11 +3424,7 @@ function JosIsValidName($string) {
 	* they must not be filtered.
 	*/
 	$invalid = preg_match('/[\x00-\x1F\x7F]/',$string);
-	if($invalid) {
-		return false;
-	} else {
-		return true;
-	}
+	return ($invalid) ? false : true;
 }
 
 /**
@@ -4261,11 +3679,7 @@ class mosMambotHandler {
 			$this->loadBot($bots[$i]->folder,$bots[$i]->element,$bots[$i]->published,$bots[$i]->params);
 		}
 
-		if(!$load) {
-			return true;
-		}else {
-			return $bots;
-		}
+		return (!$load) ? true : $bots;
 	}
 	/**
 	 * Loads the bot file
@@ -4470,1228 +3884,6 @@ class mosTabs {
 	}
 }
 
-/**
- * Common HTML Output Files
- * @package Joostina
- */
-class mosAdminMenus {
-	/**
-	 * build the select list for Menu Ordering
-	 */
-	function Ordering(&$row,$id) {
-		$database = database::getInstance();
-
-		if($id) {
-			$query = "SELECT ordering AS value, name AS text"
-					." FROM #__menu"
-					."\n WHERE menutype = ".$database->Quote($row->menutype)
-					."\n AND parent = ".(int)$row->parent."\n AND published != -2"
-					."\n ORDER BY ordering";
-			$order = mosGetOrderingList($query);
-			$ordering = mosHTML::selectList($order,'ordering','class="inputbox" size="1"','value','text',intval($row->ordering));
-		} else {
-			$ordering = '<input type="hidden" name="ordering" value="'.$row->ordering.'" />'._NEW_ITEM_LAST;
-		}
-		return $ordering;
-	}
-	/**
-	 * build the select list for access level
-	 */
-	function Access(&$row,$guest=false) {
-		$database = database::getInstance();
-
-		$query = "SELECT id AS value, name AS text FROM #__groups ORDER BY id";
-		$database->setQuery($query);
-		$groups = $database->loadObjectList();
-		$guest ? $groups[]=mosHTML::makeOption(3,_COM_MODULES_GUEST) : null;
-		$access = mosHTML::selectList($groups,'access','class="inputbox" size="4"','value','text',intval($row->access));
-		return $access;
-	}
-	/**
-	 * build the select list for parent item
-	 */
-	function Parent(&$row) {
-		$database = database::getInstance();
-
-		$id = '';
-		if($row->id) $id = "\n AND id != ".(int)$row->id;
-		// get a list of the menu items
-		// excluding the current menu item and its child elements
-		$query = "SELECT m.* FROM #__menu m WHERE menutype = ".$database->Quote($row->menutype)." AND published != -2".$id." ORDER BY parent, ordering";
-		$database->setQuery($query);
-		$mitems = $database->loadObjectList();
-		// establish the hierarchy of the menu
-		$children = array();
-		if($mitems) {
-			// first pass - collect children
-			foreach($mitems as $v) {
-				$pt = $v->parent;
-				$list = @$children[$pt]?$children[$pt]:array();
-				array_push($list,$v);
-				$children[$pt] = $list;
-			}
-		}
-		// second pass - get an indent list of the items
-		$list = mosTreeRecurse(0,'',array(),$children,20,0,0);
-		// assemble menu items to the array
-		$mitems = array();
-		$mitems[] = mosHTML::makeOption('0','Top');
-		foreach($list as $item) {
-			$mitems[] = mosHTML::makeOption($item->id,'&nbsp;&nbsp;&nbsp;'.$item->treename);
-		}
-		$output = mosHTML::selectList($mitems,'parent','class="inputbox" size="10"','value','text',$row->parent);
-		return $output;
-	}
-
-	/**
-	 * build a radio button option for published state
-	 */
-	function Published(&$row) {
-		$published = mosHTML::yesnoRadioList('published','class="inputbox"',$row->published);
-		return $published;
-	}
-
-	/**
-	 * build the link/url of a menu item
-	 */
-	function Link(&$row,$id,$link = null) {
-		global $mainframe;
-
-		if($id) {
-			switch($row->type) {
-				case 'content_item_link':
-				case 'content_typed':
-				// load menu params
-					$params = new mosParameters($row->params,$mainframe->getPath('menu_xml',$row->type),'menu');
-
-					if($params->get('unique_itemid')) {
-						$row->link .= '&Itemid='.$row->id;
-					} else {
-						$temp = split('&task=view&id=',$row->link);
-						$row->link .= '&Itemid='.$mainframe->getItemid($temp[1],0,0);
-					}
-
-					$link = $row->link;
-					break;
-
-				default:
-					if($link) {
-						$link = $row->link;
-					} else {
-						$link = $row->link.'&amp;Itemid='.$row->id;
-					}
-					break;
-			}
-		} else {
-			$link = null;
-		}
-
-		return $link;
-	}
-
-	/**
-	 * build the select list for target window
-	 */
-	function Target(&$row) {
-		$click[] = mosHTML::makeOption('0',_ADM_MENUS_TARGET_CUR_WINDOW);
-		$click[] = mosHTML::makeOption('1',_ADM_MENUS_TARGET_NEW_WINDOW_WITH_PANEL);
-		$click[] = mosHTML::makeOption('2',_ADM_MENUS_TARGET_NEW_WINDOW_WITHOUT_PANEL);
-		$target = mosHTML::selectList($click,'browserNav','class="inputbox" size="4"','value','text',intval($row->browserNav));
-		return $target;
-	}
-
-	/**
-	 * build the multiple select list for Menu Links/Pages
-	 */
-	function MenuLinks(&$lookup,$all = null,$none = null,$unassigned = 1) {
-		$database = database::getInstance();
-
-		// get a list of the menu items
-		$query = "SELECT m.* FROM #__menu AS m WHERE m.published = 1 ORDER BY m.menutype, m.parent, m.ordering";
-		$database->setQuery($query);
-		$mitems = $database->loadObjectList();
-		$mitems_temp = $mitems;
-
-		// establish the hierarchy of the menu
-		$children = array();
-		// first pass - collect children
-		foreach($mitems as $v) {
-			$pt = $v->parent;
-			$list = @$children[$pt]?$children[$pt]:array();
-			array_push($list,$v);
-			$children[$pt] = $list;
-		}
-		// second pass - get an indent list of the items
-		$list = mosTreeRecurse(intval($mitems[0]->parent),'',array(),$children,20,0,0);
-
-		// Code that adds menu name to Display of Page(s)
-		$text_count = 0;
-		$mitems_spacer = $mitems_temp[0]->menutype;
-		foreach($list as $list_a) {
-			foreach($mitems_temp as $mitems_a) {
-				if($mitems_a->id == $list_a->id) {
-					// Code that inserts the blank line that seperates different menus
-					if($mitems_a->menutype != $mitems_spacer) {
-						$list_temp[] = mosHTML::makeOption(-999,'----');
-						$mitems_spacer = $mitems_a->menutype;
-					}
-
-					// do not display `url` menu item types that contain `index.php` and `Itemid`
-					if(!($mitems_a->type == 'url' && strpos($mitems_a->link,'index.php') !== false &&
-							strpos($mitems_a->link,'Itemid=') !== false)) {
-						$text = $mitems_a->menutype.' : '.$list_a->treename;
-						$list_temp[] = mosHTML::makeOption($list_a->id,$text);
-
-						if(strlen($text) > $text_count) {
-							$text_count = strlen($text);
-						}
-					}
-				}
-			}
-		}
-		$list = $list_temp;
-
-		$mitems = array();
-		if($all) {
-			// prepare an array with 'all' as the first item
-			$mitems[] = mosHTML::makeOption(0,_ALL);
-			// adds space, in select box which is not saved
-			$mitems[] = mosHTML::makeOption(-999,'----');
-		}
-		if($none) {
-			// prepare an array with 'all' as the first item
-			$mitems[] = mosHTML::makeOption(-999,_NOT_EXISTS);
-			// adds space, in select box which is not saved
-			$mitems[] = mosHTML::makeOption(-999,'----');
-		}
-		if($unassigned) {
-			// prepare an array with 'all' as the first item
-			$mitems[] = mosHTML::makeOption(99999999,_WITH_UNASSIGNED);
-			// adds space, in select box which is not saved
-			$mitems[] = mosHTML::makeOption(-999,'----');
-		}
-
-		// append the rest of the menu items to the array
-		foreach($list as $item) {
-			$mitems[] = mosHTML::makeOption($item->value,$item->text);
-		}
-		/*
-		// добавляем в список типы страниц "по умолчанию"
-		$pages = array(
-			mosHTML::makeOption(0,'----'),
-			mosHTML::makeOption(0,_PAGES.' : '._CREATE_ACCOUNT),
-			mosHTML::makeOption(0,_PAGES.' : '._LOST_PASSWORDWORD),
-		);
-		$mitems = array_merge($mitems,$pages);
-		*/
-
-		$pages = mosHTML::selectList($mitems,'selections[]','class="inputbox" size="26" multiple="multiple"','value','text',$lookup);
-		return $pages;
-	}
-
-
-	/**
-	 * build the select list to choose a category
-	 */
-	function Category(&$menu,$id,$javascript = '') {
-		$database = database::getInstance();
-
-		$query = "SELECT c.id AS `value`, c.section AS `id`, CONCAT_WS( ' / ', s.title, c.title) AS `text` FROM #__sections AS s INNER JOIN #__categories AS c ON c.section = s.id WHERE s.scope = 'content' ORDER BY s.name, c.name";
-		$database->setQuery($query);
-		$rows = $database->loadObjectList();
-		$category = '';
-		if($id) {
-			foreach($rows as $row) {
-				if($row->value == $menu->componentid) {
-					$category = $row->text;
-				}
-			}
-			$category .= '<input type="hidden" name="componentid" value="'.$menu->componentid.'" />';
-			$category .= '<input type="hidden" name="link" value="'.$menu->link.'" />';
-		} else {
-			$category = mosHTML::selectList($rows,'componentid','class="inputbox" size="10"'.$javascript,'value','text');
-			$category .= '<input type="hidden" name="link" value="" />';
-		}
-		return $category;
-	}
-
-	/**
-	 * build the select list to choose a section
-	 */
-	function Section(&$menu,$id,$all = 0) {
-		$database = database::getInstance();
-
-		$query = "SELECT s.id AS `value`, s.id AS `id`, s.title AS `text` FROM #__sections AS s WHERE s.scope = 'content' ORDER BY s.name";
-		$database->setQuery($query);
-		if($all) {
-			$rows[] = mosHTML::makeOption(0,'- Все разделы -');
-			$rows = array_merge($rows,$database->loadObjectList());
-		} else {
-			$rows = $database->loadObjectList();
-		}
-
-		if($id) {
-			foreach($rows as $row) {
-				if($row->value == $menu->componentid) {
-					$section = $row->text;
-				}
-			}
-			$section .= '<input type="hidden" name="componentid" value="'.$menu->componentid.'" />';
-			$section .= '<input type="hidden" name="link" value="'.$menu->link.'" />';
-		} else {
-			$section = mosHTML::selectList($rows,'componentid','class="inputbox" size="10"','value','text');
-			$section .= '<input type="hidden" name="link" value="" />';
-		}
-		return $section;
-	}
-
-	/**
-	 * build the select list to choose a component
-	 */
-	function Component(&$menu,$id,$rows=null) {
-		$database = database::getInstance();
-
-		if(!$rows) {
-			$query = "SELECT c.id AS value, c.name AS text, c.link FROM #__components AS c WHERE c.link != '' ORDER BY c.name";
-			$database->setQuery($query);
-			$rows = $database->loadObjectList();
-		}
-		if($id) {
-			// existing component, just show name
-			foreach($rows as $row) {
-				if($row->value == $menu->componentid) {
-					$component = $row->text;
-				}else {
-					$component = $menu->name;
-				}
-			}
-			$component .= '<input type="hidden" name="componentid" value="'.$menu->componentid.'" />';
-		} else {
-			$component = mosHTML::selectList($rows,'componentid','class="inputbox" size="10"','value','text');
-		}
-
-		return $component;
-	}
-
-	/**
-	 * build the select list to choose a component
-	 */
-	function ComponentName(&$menu,$rows=null) {
-		$database = database::getInstance();
-
-		if(!$rows) {
-			$query = "SELECT c.id AS value, c.name AS text, c.link FROM #__components AS c WHERE c.link != '' ORDER BY c.name";
-			$database->setQuery($query);
-			$rows = $database->loadObjectList();
-		}
-
-		$component = 'Component';
-		foreach($rows as $row) {
-			if($row->value == $menu->componentid) {
-				$component = $row->text;
-			}
-		}
-
-		return $component;
-	}
-
-	/**
-	 * build the select list to choose an image
-	 */
-	function Images($name,&$active,$javascript = null,$directory = null) {
-
-		if(!$directory) {
-			$directory = '/images/stories';
-		}
-
-		if(!$javascript) {
-			$javascript = "onchange=\"javascript:if (document.forms[0].image.options[selectedIndex].value!='') {document.imagelib.src='..$directory/' + document.forms[0].image.options[selectedIndex].value} else {document.imagelib.src='../images/blank.png'}\"";
-		}
-
-		$imageFiles = mosReadDirectory(JPATH_BASE.$directory);
-		$images = array(mosHTML::makeOption('','- '._CHOOSE_IMAGE.' -'));
-		foreach($imageFiles as $file) {
-			if(preg_match("/bmp|gif|jpg|png/i",$file)) {
-				$images[] = mosHTML::makeOption($file);
-			}
-		}
-		$images = mosHTML::selectList($images,$name,'class="inputbox" size="1" '.$javascript,'value','text',$active);
-
-		return $images;
-	}
-
-	/**
-	 * build the select list for Ordering of a specified Table
-	 */
-	function SpecificOrdering(&$row,$id,$query,$neworder = 0,$limit = 30) {
-		if($neworder) {
-			$text = _NEW_ITEM_FIRST;
-		} else {
-			$text = _NEW_ITEM_LAST;
-		}
-
-		if($id) {
-			$order = mosGetOrderingList($query,$limit);
-			$ordering = mosHTML::selectList($order,'ordering','class="inputbox" size="1"','value','text',intval($row->ordering));
-		} else {
-			$ordering = '<input type="hidden" name="ordering" value="'.$row->ordering.'" />'.$text;
-		}
-		return $ordering;
-	}
-
-	/**
-	 * Select list of active users
-	 */
-	function UserSelect($name,$active,$nouser = 0,$javascript = null,$order = 'name',$reg = 1) {
-		$database = database::getInstance();
-
-		$and = '';
-		if($reg) {
-			// does not include registered users in the list
-			$and = "\n AND gid > 18";
-		}
-
-		$query = "SELECT id AS value, name AS text FROM #__users WHERE block = 0 $and ORDER BY $order";
-		$database->setQuery($query);
-		if($nouser) {
-			$users[] = mosHTML::makeOption('0','- '._NO_USER.' -');
-			$users = array_merge($users,$database->loadObjectList());
-		} else {
-			$users = $database->loadObjectList();
-		}
-
-		$users = mosHTML::selectList($users,$name,'class="inputbox" size="1" '.$javascript,'value','text',$active);
-
-		return $users;
-	}
-
-	/**
-	 * Select list of positions - generally used for location of images
-	 */
-	function Positions($name,$active = null,$javascript = null,$none = 1,$center = 1,
-			$left = 1,$right = 1) {
-		if($none) {
-			$pos[] = mosHTML::makeOption('',_NONE);
-		}
-		if($center) {
-			$pos[] = mosHTML::makeOption('center',_CENTER);
-		}
-		if($left) {
-			$pos[] = mosHTML::makeOption('left',_LEFT);
-		}
-		if($right) {
-			$pos[] = mosHTML::makeOption('right',_RIGHT);
-		}
-
-		$positions = mosHTML::selectList($pos,$name,'class="inputbox" size="1"'.$javascript,'value','text',$active);
-
-		return $positions;
-	}
-
-	/**
-	 * Select list of active categories for components
-	 */
-	function ComponentCategory($name,$section,$active = null,$javascript = null,$order ='ordering',$size = 1,$sel_cat = 1) {
-		$database = database::getInstance();
-
-		$query = "SELECT id AS value, name AS text"
-				."\n FROM #__categories"
-				."\n WHERE section = ".$database->Quote($section)
-				."\n AND published = 1"
-				."\n ORDER BY $order";
-		$database->setQuery($query);
-		if($sel_cat) {
-			$categories[] = mosHTML::makeOption('0',_SEL_CATEGORY);
-			$categories = array_merge($categories,$database->loadObjectList());
-		} else {
-			$categories = $database->loadObjectList();
-		}
-
-		if(count($categories) < 1) {
-			mosRedirect('index2.php?option=com_categories&section='.$section,_CREATE_CATEGORIES_FIRST);
-		}
-
-		$category = mosHTML::selectList($categories,$name,'class="inputbox" size="'.$size.'" '.$javascript,'value','text',$active);
-
-		return $category;
-	}
-
-	/**
-	 * Select list of active sections
-	 */
-	function SelectSection($name,$active = null,$javascript = null,$order ='ordering',$scope='content') {
-		$database = database::getInstance();
-
-		$categories[] = mosHTML::makeOption('0',_SEL_SECTION);
-		$query = "SELECT id AS value, title AS text"
-				."\n FROM #__sections"
-				."\n WHERE published = 1 AND scope='$scope'"
-				."\n ORDER BY $order";
-		$database->setQuery($query);
-		$sections = array_merge($categories,$database->loadObjectList());
-
-		$category = mosHTML::selectList($sections,$name,'class="inputbox" size="1" '.$javascript,'value','text',$active);
-
-		return $category;
-	}
-
-	/**
-	 * Select list of menu items for a specific menu
-	 */
-	function Links2Menu($type,$and) {
-		$database = database::getInstance();
-
-		$query = "SELECT* FROM #__menu WHERE type = ".$database->Quote($type)." AND published = 1".$and;
-		$database->setQuery($query);
-		$menus = $database->loadObjectList();
-		return $menus;
-	}
-
-	/**
-	 * Select list of menus
-	 * @param string The control name
-	 * @param string Additional javascript
-	 * @return string A select list
-	 */
-	function MenuSelect($name = 'menuselect',$javascript = null) {
-		$database = database::getInstance();
-
-		$query = "SELECT params FROM #__modules WHERE module = 'mod_mainmenu' OR module = 'mod_mljoostinamenu'";
-		$database->setQuery($query);
-		$menus = $database->loadObjectList();
-		$i=0;
-		$menuselect = array();
-		$menus_arr=array();
-		foreach($menus as $menu) {
-			$params = mosParseParams($menu->params);
-			if(!in_array($params->menutype, $menus_arr)) {
-				$menuselect[$i]->value = $params->menutype;
-				$menuselect[$i]->text = $params->menutype;
-				$menus_arr[$i]= $params->menutype;
-				$i++;
-			}
-		}
-		SortArrayObjects($menuselect,'text',1);
-		$menus = mosHTML::selectList($menuselect,$name,'class="inputbox" size="10" '.$javascript,'value','text');
-		return $menus;
-	}
-
-	/**
-	 * Internal function to recursive scan the media manager directories
-	 * @param string Path to scan
-	 * @param string root path of this folder
-	 * @param array  Value array of all existing folders
-	 * @param array  Value array of all existing images
-	 */
-	function ReadImages($imagePath,$folderPath,&$folders,&$images) {
-		$imgFiles = mosReadDirectory($imagePath);
-
-		foreach($imgFiles as $file) {
-			$ff_ = $folderPath.$file.'/';
-			$ff = $folderPath.$file;
-			$i_f = $imagePath.'/'.$file;
-
-			if(is_dir($i_f) && $file != 'CVS' && $file != '.svn') {
-				$folders[] = mosHTML::makeOption($ff_);
-				mosAdminMenus::ReadImages($i_f,$ff_,$folders,$images);
-			} else
-			if(preg_match("/bmp|gif|jpg|png/",$file) && is_file($i_f)) {
-				// leading / we don't need
-				$imageFile = substr($ff,1);
-				$images[$folderPath][] = mosHTML::makeOption($imageFile,$file);
-			}
-		}
-	}
-
-	/**
-	 * Internal function to recursive scan the media manager directories
-	 * @param string Path to scan
-	 * @param string root path of this folder
-	 * @param array  Value array of all existing folders
-	 * @param array  Value array of all existing images
-	 */
-	function ReadImagesX(&$folders,&$images) {
-
-		if($folders[0]->value != '*0*') {
-			foreach($folders as $folder) {
-				$imagePath = JPATH_BASE.'/images/stories'.$folder->value;
-				$imgFiles = mosReadDirectory($imagePath);
-				$folderPath = $folder->value.'/';
-
-				foreach($imgFiles as $file) {
-					$ff = $folderPath.$file;
-					$i_f = $imagePath.'/'.$file;
-
-					if(preg_match("/bmp|gif|jpg|png/i",$file) && is_file($i_f)) {
-						// leading / we don't need
-						$imageFile = substr($ff,1);
-						$images[$folderPath][] = mosHTML::makeOption($imageFile,$file);
-					}
-				}
-			}
-		} else {
-			$folders = array();
-			$folders[] = mosHTML::makeOption('None');
-		}
-	}
-
-	function GetImageFolders(&$temps) {
-		if($temps[0]->value != 'None') {
-			foreach($temps as $temp) {
-				if(substr($temp->value,-1,1) != '/') {
-					$temp = $temp->value.'/';
-					$folders[] = mosHTML::makeOption($temp,$temp);
-				} else {
-					$temp = $temp->value;
-					$temp = ampReplace($temp);
-					$folders[] = mosHTML::makeOption($temp,$temp);
-				}
-			}
-		} else {
-			$folders[] = mosHTML::makeOption(_NOT_CHOOSED);
-		}
-
-		$javascript = "onchange=\"changeDynaList( 'imagefiles', folderimages, document.adminForm.folders.options[document.adminForm.folders.selectedIndex].value, 0, 0);\"";
-		$getfolders = mosHTML::selectList($folders,'folders','class="inputbox" size="1" '.$javascript,'value','text','/');
-
-		return $getfolders;
-	}
-
-	function GetImages(&$images,$path,$base = '/') {
-		if(is_array($base) && count($base) > 0) {
-			if($base[0]->value != '/') {
-				$base = $base[0]->value.'/';
-			} else {
-				$base = $base[0]->value;
-			}
-		} else {
-			$base = '/';
-		}
-
-		if(!isset($images[$base])) {
-			$images[$base][] = mosHTML::makeOption('');
-		}
-
-		$javascript = "onchange=\"previewImage( 'imagefiles', 'view_imagefiles', '$path/' )\" onfocus=\"previewImage( 'imagefiles', 'view_imagefiles', '$path/' )\"";
-		$getimages = mosHTML::selectList($images[$base],'imagefiles','class="inputbox" size="10" multiple="multiple" '.$javascript,'value','text',null);
-
-		return $getimages;
-	}
-
-	function GetSavedImages(&$row,$path) {
-		$images2 = array();
-		foreach($row->images as $file) {
-			$temp = explode('|',$file);
-			if(strrchr($temp[0],'/')) {
-				$filename = substr(strrchr($temp[0],'/'),1);
-			} else {
-				$filename = $temp[0];
-			}
-			$images2[] = mosHTML::makeOption($file,$filename);
-		}
-		$javascript = "onchange=\"previewImage( 'imagelist', 'view_imagelist', '$path/' ); showImageProps( '$path/' ); \"";
-		$imagelist = mosHTML::selectList($images2,'imagelist','class="inputbox" size="10" '.$javascript,'value','text');
-		return $imagelist;
-	}
-
-	/**
-	 * Checks to see if an image exists in the current templates image directory
-	 * if it does it loads this image.  Otherwise the default image is loaded.
-	 * Also can be used in conjunction with the menulist param to create the chosen image
-	 * load the default or use no image
-	 */
-	public static function ImageCheck($file,$directory = '/images/M_images/',$param = null,$param_directory ='/images/M_images/',$alt = null,$name = null,$type = 1,$align = 'middle',$title = null,$admin = null) {
-
-		$id		= $name ? ' id="'.$name.'"':'';
-		$name	= $name ? ' name="'.$name.'"':'';
-		$title	= $title ? ' title="'.$title.'"':'';
-		$alt	= $alt ? ' alt="'.$alt.'"':' alt=""';
-		$align	= $align ? ' align="'.$align.'"':'';
-		// change directory path from frontend or backend
-		if($admin) {
-			$path = '/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico/';
-		} else {
-			$path = '/templates/'.JTEMPLATE.'/images/ico/';
-		}
-		if($param) {
-			$image = JPATH_SITE.$param_directory.$param;
-			if($type) {
-				$image = '<img src="'.$image.'" '.$alt.$id.$name.$align.' border="0" />';
-			}
-		} else
-		if($param == -1) {
-			$image = '';
-		} else {
-			if(file_exists(JPATH_BASE.$path.$file)) {
-				$image = JPATH_SITE.$path.$file;
-			} else {
-				$image = JPATH_SITE.$directory.$file;
-			}
-			if($type) {
-				$image = '<img src="'.$image.'" '.$alt.$id.$name.$title.$align.' border="0" />';
-			}
-		}
-		return $image;
-	}
-
-	/**
-	 * Checks to see if an image exists in the current templates image directory
-	 * if it does it loads this image.  Otherwise the default image is loaded.
-	 * Also can be used in conjunction with the menulist param to create the chosen image
-	 * load the default or use no image
-	 */
-	function ImageCheckAdmin($file,$directory = '/administrator/images/',$param = null,
-			$param_directory = '/administrator/images/',$alt = null,$name = null,$type = 1,
-			$align = 'middle',$title = null) {
-		$image = mosAdminMenus::ImageCheck($file,$directory,$param,$param_directory,$alt,$name,$type,$align,$title,1);
-		return $image;
-	}
-
-	public static function menutypes() {
-		$database = database::getInstance();
-
-		$query = "SELECT params FROM #__modules WHERE module = 'mod_mainmenu' OR module = 'mod_mljoostinamenu' ORDER BY title";
-		$database->setQuery($query);
-		$modMenus = $database->loadObjectList();
-
-		$query = "SELECT menutype FROM #__menu GROUP BY menutype ORDER BY menutype";
-		$database->setQuery($query);
-		$menuMenus = $database->loadObjectList();
-		$menuTypes = '';
-		foreach($modMenus as $modMenu) {
-			$check = 1;
-			mosMakeHtmlSafe($modMenu);
-			$modParams = mosParseParams($modMenu->params);
-			$menuType = @$modParams->menutype;
-			if(!$menuType) {
-				$menuType = 'mainmenu';
-			}
-			// stop duplicate menutype being shown
-			if(!is_array($menuTypes)) {
-				// handling to create initial entry into array
-				$menuTypes[] = $menuType;
-			} else {
-				$check = 1;
-				foreach($menuTypes as $a) {
-					if($a == $menuType) {
-						$check = 0;
-					}
-				}
-				if($check) {
-					$menuTypes[] = $menuType;
-				}
-			}
-		}
-		// add menutypes from jos_menu
-		foreach($menuMenus as $menuMenu) {
-			$check = 1;
-			foreach($menuTypes as $a) {
-				if($a == $menuMenu->menutype) {
-					$check = 0;
-				}
-			}
-			if($check) {
-				$menuTypes[] = $menuMenu->menutype;
-			}
-		}
-		// sorts menutypes
-		asort($menuTypes);
-		return $menuTypes;
-	}
-
-	/*
-	* loads files required for menu items
-	*/
-	function menuItem($item) {
-
-		$path = JPATH_BASE.DS.JADMIN_BASE.'/components/com_menus/'.$item.'/';
-		include_once ($path.$item.'.class.php');
-		include_once ($path.$item.'.menu.html.php');
-	}
-}
-
-
-class mosCommonHTML {
-	function ContentLegend() {
-		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
-		?>
-<table cellspacing="0" cellpadding="4" border="0" align="center">
-	<tr align="center">
-		<td><img src="<?php echo $cur_file_icons_path;?>/publish_y.png" alt="<?php echo _PUBLISHED_VUT_NOT_ACTIVE?>" border="0" /></td>
-		<td><?php echo _PUBLISHED_VUT_NOT_ACTIVE?> |</td>
-		<td><img src="<?php echo $cur_file_icons_path;?>/publish_g.png" alt="<?php echo _PUBLISHED_AND_ACTIVE?>" border="0" /></td>
-		<td><?php echo _PUBLISHED_AND_ACTIVE?> |</td>
-		<td><img src="<?php echo $cur_file_icons_path;?>/publish_r.png" alt="<?php echo _PUBLISHED_BUT_DATE_EXPIRED?>" border="0" /></td>
-		<td><?php echo _PUBLISHED_BUT_DATE_EXPIRED?> |</td>
-		<td><img src="<?php echo $cur_file_icons_path;?>/publish_x.png" alt="<?php echo _UNPUBLISHED?>" border="0" /></td>
-		<td><?php echo _UNPUBLISHED?></td>
-	</tr>
-</table>
-		<?php
-	}
-
-	function menuLinksContent(&$menus) {
-		?>
-<script language="javascript" type="text/javascript">
-	function go2( pressbutton, menu, id ) {
-		var form = document.adminForm;
-		// assemble the images back into one field
-		var temp = new Array;
-		for (var i=0, n=form.imagelist.options.length; i < n; i++) {
-			temp[i] = form.imagelist.options[i].value;
-		}
-		form.images.value = temp.join( '\n' );
-
-		if (pressbutton == 'go2menu') {
-			form.menu.value = menu;
-			submitform( pressbutton );
-			return;
-		}
-
-		if (pressbutton == 'go2menuitem') {
-			form.menu.value		 = menu;
-			form.menuid.value		 = id;
-			submitform( pressbutton );
-			return;
-		}
-	}
-</script>
-		<?php
-		foreach($menus as $menu) {
-			?>
-<tr>
-	<td colspan="2">
-		<hr />
-	</td>
-</tr>
-<tr>
-	<td width="90px" valign="top">
-			<?php echo _MENU?>
-	</td>
-	<td>
-		<a href="javascript:go2( 'go2menu', '<?php echo $menu->menutype; ?>' );"><?php echo $menu->menutype; ?></a>
-	</td>
-</tr>
-<tr>
-	<td width="90px" valign="top"><?php echo _LINK_NAME?></td>
-	<td>
-		<strong>
-			<a href="javascript:go2( 'go2menuitem', '<?php echo $menu->menutype; ?>', '<?php echo $menu->id; ?>' );" ><?php echo $menu->name; ?></a>
-		</strong>
-	</td>
-</tr>
-<tr>
-	<td width="90px" valign="top"><?php echo _E_STATE?></td>
-	<td>
-					<?php
-					switch($menu->published) {
-						case - 2:
-							echo '<font color="red">'._MENU_EXPIRED.'</font>';
-							break;
-						case 0:
-							echo _UNPUBLISHED;
-							break;
-						case 1:
-						default:
-							echo '<font color="green">'._PUBLISHED.'</font>';
-							break;
-			}
-			?>
-	</td>
-</tr>
-			<?php
-		}
-		?>
-<input type="hidden" name="menu" value="" />
-<input type="hidden" name="menuid" value="" />
-		<?php
-	}
-
-	function menuLinksSecCat(&$menus) {
-		?>
-<script language="javascript" type="text/javascript">
-	function go2( pressbutton, menu, id ) {
-		var form = document.adminForm;
-
-		if (pressbutton == 'go2menu') {
-			form.menu.value = menu;
-			submitform( pressbutton );
-			return;
-		}
-
-		if (pressbutton == 'go2menuitem') {
-			form.menu.value		 = menu;
-			form.menuid.value	 = id;
-			submitform( pressbutton );
-			return;
-		}
-	}
-</script>
-		<?php foreach($menus as $menu) { ?>
-<tr>
-	<td colspan="2"><hr /></td>
-</tr>
-<tr>
-	<td width="90px" valign="top"><?php echo _MENU?></td>
-	<td>
-		<a href="javascript:go2( 'go2menu', '<?php echo $menu->menutype; ?>' );" ><?php echo $menu->menutype; ?></a>
-	</td>
-</tr>
-<tr>
-	<td width="90px" valign="top"><?php echo _TYPE?></td>
-	<td><?php echo $menu->type; ?></td>
-</tr>
-<tr>
-	<td width="90px" valign="top"><?php echo _MENU_ITEM_NAME?></td>
-	<td>
-		<strong>
-			<a href="javascript:go2( 'go2menuitem', '<?php echo $menu->menutype; ?>', '<?php echo $menu->id; ?>' );"><?php echo $menu->name; ?></a>
-		</strong>
-	</td>
-</tr>
-<tr>
-	<td width="90px" valign="top"><?php echo _E_STATE?></td>
-	<td>
-					<?php
-					switch($menu->published) {
-						case - 2:
-							echo '<font color="red">'._MENU_EXPIRED.'</font>';
-							break;
-						case 0:
-							echo _UNPUBLISHED;
-							break;
-						case 1:
-						default:
-							echo '<font color="green">'._PUBLISHED.'</font>';
-							break;
-			}
-			?>
-	</td>
-</tr>
-			<?php } ?>
-<input type="hidden" name="menu" value="" />
-<input type="hidden" name="menuid" value="" />
-		<?php
-	}
-
-	function checkedOut(&$row,$overlib = 1) {
-		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
-		$hover = '';
-		if($overlib) {
-			$date = mosFormatDate($row->checked_out_time,'%A, %d %B %Y');
-			$time = mosFormatDate($row->checked_out_time,'%H:%M');
-			$editor = addslashes(htmlspecialchars(html_entity_decode($row->editor,ENT_QUOTES)));
-			$checked_out_text = '<table>';
-			$checked_out_text = '<tr><td>'.$editor.'</td></tr>';
-			$checked_out_text .= '<tr><td>'.$date.'</td></tr>';
-			$checked_out_text .= '<tr><td>'.$time.'</td></tr>';
-			$checked_out_text .= '</table>';
-			$hover = 'onMouseOver="return overlib(\''.$checked_out_text.'\', CAPTION, \''._CHECKED_OUT.'\', BELOW, RIGHT);" onMouseOut="return nd();"';
-		}
-		$checked = '<img src="'.$cur_file_icons_path.'/checked_out.png" '.$hover.'/>';
-		return $checked;
-	}
-
-	/* подключение библиотеки всплывающих подсказок */
-	function loadOverlib($ret = false) {
-		if(!defined('_LOADOVERLIB')) {
-			// установка флага о загруженной библиотеке всплывающих подсказок
-			define('_LOADOVERLIB',1);
-			MosMainFrame::getInstance()->addJS(JPATH_SITE.'/includes/js/overlib_full.js');
-		}
-		
-		if( $ret ){
-			?><script language="javascript" type="text/javascript" src="<?php echo JPATH_SITE;?>/includes/js/overlib_full.js"></script><?php
-		}
-	}
-
-	/*
-	* Подключение JS файлов Календаря
-	*/
-	public static function loadCalendar() {
-		if(!defined('_CALLENDAR_LOADED')) {
-			define('_CALLENDAR_LOADED',1);
-			$mainframe = MosMainFrame::getInstance();
-			$mainframe->addCSS(JPATH_SITE.'/includes/js/calendar/calendar.css');
-			$mainframe->addJS(JPATH_SITE.'/includes/js/calendar/calendar.js');
-			$_lang_file = JPATH_BASE.'/includes/js/calendar/lang/calendar-'._LANGUAGE.'.js';
-			$_lang_file = (is_file($_lang_file)) ? JPATH_SITE.'/includes/js/calendar/lang/calendar-'._LANGUAGE.'.js' : JPATH_SITE.'/includes/js/calendar/lang/calendar-ru.js';
-			$mainframe->addJS($_lang_file);
-		}
-	}
-	/* подключение mootools*/
-	// TODO убрать к 1.3.2
-	public static function loadMootools($ret = false) {
-		if(!defined('_MOO_LOADED')) {
-			define('_MOO_LOADED',1);
-			MosMainFrame::getInstance()->addJS(JPATH_SITE.'/includes/js/mootools/mootools.js');
-		}
-		if($ret==true){
-			?><script language="javascript" type="text/javascript" src="<?php echo JPATH_SITE?>/includes/js/mootools/mootools.js"></script><?php
-		}
-	}
-	/* подключение prettyTable*/
-	// TODO убрать к 1.3.2
-	public static function loadPrettyTable() {
-		if(!defined('_PRT_LOADED')) {
-			define('_PRT_LOADED',1);
-			mosMainFrame::getInstance()->addJS(JPATH_SITE.'/includes/js/jsfunction/jrow.js');
-		}
-	}
-	/* подключение Fullajax*/
-	// TODO убрать к 1.3.5
-	public static function loadFullajax($ret = false) {
-		if(!defined('_FAX_LOADED')) {
-			define('_FAX_LOADED',1);
-			if($ret) {?>
-<script language="javascript" type="text/javascript" src="<?php echo JPATH_SITE;?>/includes/js/fullajax/fullajax.js"></script>
-				<?php
-			}else {
-				mosMainFrame::getInstance()->addJS(JPATH_SITE.'/includes/js/fullajax/fullajax.js');
-			}
-		}
-	}
-
-	/* подключение Jquery*/
-	public static function loadJquery($ret = false) {
-		if(!defined('_JQUERY_LOADED')) {
-			define('_JQUERY_LOADED',1);
-			if($ret) {
-				return '<script language="javascript" type="text/javascript" src="'.JPATH_SITE.'/includes/js/jquery/jquery.js"></script>';
-			}else {
-				mosMainFrame::getInstance()->addJS(JPATH_SITE.'/includes/js/jquery/jquery.js');
-				return true;
-			}
-		}
-	}
-	/* подключение расширений Jquery*/
-	public static function loadJqueryPlugins($name,$ret = false, $css = false, $footer = '') {
-		$name = trim($name);
-
-		// если само ядро Jquery не загружено - сначала грузим его
-		if(!defined('_JQUERY_LOADED')) {
-			mosCommonHTML::loadJquery($ret);
-		}
-		// формируем константу-флаг для исключения повтороной загрузки
-		$const = '_JQUERY_PL_'.strtoupper($name).'_LOADED';
-		if(!defined($const)) {
-			define($const,1);
-			if($ret) {
-				?><script language="javascript" type="text/javascript" src="<?php echo JPATH_SITE;?>/includes/js/jquery/plugins/<?php echo $name; ?>.js"></script>
-				<?php
-				if($css) {
-					?><link type="text/css" rel="stylesheet" href="<?php echo JPATH_SITE;?>/includes/js/jquery/plugins/<?php echo $name; ?>.css" /><?php
-				}?>
-				<?php }else {
-				$mainframe = mosMainFrame::getInstance();
-				$mainframe->addJS(JPATH_SITE.'/includes/js/jquery/plugins/'.$name.'.js', $footer);
-				//$mainframe->addCustomHeadTag('<script language="JavaScript" type="text/javascript">if(_js_defines) {_js_defines.push(\''.$name.'\')} else {var _js_defines = [\''.$name.'\']}</script>');
-				$css ? $mainframe->addCSS(JPATH_SITE.'/includes/js/jquery/plugins/'.$name.'.css'): null;
-			}
-		}
-		return true;
-	}
-	/* подключение файла Jquery UI*/
-	public static function loadJqueryUI($ret = false) {
-		if(!defined('_JQUERY_UI_LOADED')) {
-			define('_JQUERY_UI_LOADED',1);
-			if($ret) {?>
-<script language="javascript" type="text/javascript" src="<?php echo JPATH_SITE?>/includes/js/jquery/ui.js"></script>
-				<?php }else {
-				mosMainFrame::getInstance()->addCSS(JPATH_SITE.'/includes/js/jquery/ui.js');
-			}
-		}
-		return true;
-	}
-
-	/* подключение dTree*/
-	public static function loadDtree() {
-		if(!defined('_DTR_LOADED')) {
-			define('_DTR_LOADED',1);
-			$mainframe = mosMainFrame::getInstance();
-			$mainframe->addCSS(JPATH_SITE.'/includes/js/dtree/dtree.css');
-			$mainframe->addJS(JPATH_SITE.'/includes/js/dtree/dtree.js');
-		}
-	}
-
-	function AccessProcessing(&$row,$i,$ajax=null) {
-		if(!$row->access) {
-			$color_access = 'style="color: green;"';
-			$task_access = 'accessregistered';
-		} elseif($row->access == 1) {
-			$color_access = 'style="color: red;"';
-			$task_access = 'accessspecial';
-		} else {
-			$color_access = 'style="color: black;"';
-			$task_access = 'accesspublic';
-		}
-		if(!$ajax) {
-			$href = '<a href="javascript: void(0);" onclick="return listItemTask(\'cb'.$i.'\',\''.$task_access.'\')" '.$color_access.'>'.$row->groupname.'</a>';
-		}else {
-			$option = strval(mosGetParam($_REQUEST,'option',''));
-			$href = '<a href="#" onclick="ch_access('.$row->id.',\''.$task_access.'\',\''.$option.'\');" '.$color_access.'>'.$row->groupname.'</a>';
-		}
-		return $href;
-	}
-
-	/*
-	* Проверка блокировки объекта
-	*/
-	function CheckedOutProcessing(&$row,$i) {
-		global $my;
-		if($row->checked_out) {
-			$checked = mosCommonHTML::checkedOut($row);
-		} else {
-			$checked = mosHTML::idBox($i,$row->id,($row->checked_out && $row->checked_out !=$my->id));
-		}
-		return $checked;
-	}
-
-	function PublishedProcessing(&$row,$i) {
-		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
-		$img = $row->published?'publish_g.png':'publish_x.png';
-		$task = $row->published?'unpublish':'publish';
-		$alt = $row->published?_PUBLISHED:_UNPUBLISHED;
-		$action = $row->published?_HIDE:_PUBLISH_ON_FRONTPAGE;
-		$href = '<a href="javascript: void(0);" onclick="return listItemTask(\'cb'.$i.'\',\''.$task.'\')" title="'.$action.'"><img src="'.$cur_file_icons_path.'/'.$img.'" border="0" alt="'.$alt.'" /></a>';
-		return $href;
-	}
-
-	/*
-	* Special handling for newfeed encoding and possible conflicts with page encoding and PHP version
-	* Added 1.0.8
-	* Static Function
-	*/
-	function newsfeedEncoding($rssDoc,$text,$utf8enc=null) {
-
-		if(!defined('_JOS_FEED_ENCODING')) {
-			// determine encoding of feed
-			$feed = $rssDoc->toNormalizedString(true);
-			$feed = strtolower(substr($feed,0,150));
-			$feedEncoding = strpos($feed,'encoding=&quot;utf-8&quot;');
-
-			if($feedEncoding !== false) {
-				// utf-8 feed
-				$utf8 = 1;
-			} else {
-				// non utf-8 page
-				$utf8 = 0;
-			}
-
-			define('_JOS_FEED_ENCODING',$utf8);
-		}
-
-		if(!defined('_JOS_SITE_ENCODING')) {
-			// determine encoding of page
-			if(strpos(strtolower(_ISO),'utf') !== false) {
-				// utf-8 page
-				$utf8 = 1;
-			} else {
-				// non utf-8 page
-				$utf8 = 0;
-			}
-
-			define('_JOS_SITE_ENCODING',$utf8);
-
-		}
-		if(phpversion() >= 5) {
-			// handling for PHP 5
-			if(_JOS_FEED_ENCODING) {
-				// handling for utf-8 feed
-				if(_JOS_SITE_ENCODING) {
-					// utf-8 page
-					$encoding = 'html_entity_decode';
-				} else {
-					// non utf-8 page
-					$encoding = 'utf8_decode';
-				}
-			} else {
-				// handling for non utf-8 feed
-				if(_JOS_SITE_ENCODING) {
-					// utf-8 page
-					$encoding = '';
-				} else {
-					// non utf-8 page
-					$encoding = 'utf8_decode';
-				}
-			}
-		} else {
-			// handling for PHP 4
-			if(_JOS_FEED_ENCODING) {
-				// handling for utf-8 feed
-				if(_JOS_SITE_ENCODING) {
-					// utf-8 page
-					$encoding = '';
-				} else {
-					// non utf-8 page
-					$encoding = 'utf8_decode';
-				}
-			} else {
-				// handling for non utf-8 feed
-				if(_JOS_SITE_ENCODING) {
-					// utf-8 page
-					$encoding = 'utf8_encode';
-				} else {
-					// non utf-8 page
-					$encoding = 'html_entity_decode';
-				}
-			}
-		}
-
-		$text = str_replace('&apos;',"'",$text);
-
-		return $text;
-	}
-
-	function get_element($file) {
-
-		$file_templ = 'templates/'.JTEMPLATE.'/images/elements/'.$file;
-		$file_system = 'M_images/'.$file;
-
-		$return = $file_templ;
-		if(!is_file(JPATH_BASE.DS.$file_templ)) {
-			$return = $file_system;
-		}
-
-		return $return;
-	}
-}
-
-/**
- * Sorts an Array of objects
- */
-function SortArrayObjects_cmp(&$a,&$b) {
-	global $csort_cmp;
-	if($a->$csort_cmp['key'] > $b->$csort_cmp['key']) {
-		return $csort_cmp['direction'];
-	}
-	if($a->$csort_cmp['key'] < $b->$csort_cmp['key']) {
-		return - 1* $csort_cmp['direction'];
-	}
-	return 0;
-}
-
-/**
- * Sorts an Array of objects
- * sort_direction [1 = Ascending] [-1 = Descending]
- */
-function SortArrayObjects(&$a,$k,$sort_direction = 1) {
-	global $csort_cmp;
-	$csort_cmp = array('key' => $k,'direction' => $sort_direction);
-	usort($a,'SortArrayObjects_cmp');
-	unset($csort_cmp);
-}
-
-/**
- * Sends mail to admin
- */
-function mosSendAdminMail($adminName,$adminEmail,$email,$type,$title='',$author='' ) {
-	$subject = _MAIL_SUB." '$type'";
-	$message = _MAIL_MSG;
-	eval("\$message = \"$message\";");
-	mosMail(Jconfig::getInstance()->config_mailfrom,Jconfig::getInstance()->config_fromname,$adminEmail,$subject,$message);
-}
-
 /*
 * Includes pathway file
 */
@@ -5726,94 +3918,6 @@ function ampReplace($text) {
 	$text = str_replace('*--*','&&',$text);
 	return $text;
 }
-/**
- * Prepares results from search for display
- * @param string The source string
- * @param int Number of chars to trim
- * @param string The searchword to select around
- * @return string
- */
-function mosPrepareSearchContent($text,$length = 200,$searchword='') {
-	// strips tags won't remove the actual jscript
-	$text = preg_replace("'<script[^>]*>.*?</script>'si","",$text);
-	$text = preg_replace('/{.+?}/','',$text);
-	//$text = preg_replace( '/<a\s+.*?href="([^"]+)"[^>]*>([^<]+)<\/a>/is','\2', $text );
-	// replace line breaking tags with whitespace
-	$text = preg_replace("'<(br[^/>]*?/|hr[^/>]*?/|/(div|h[1-6]|li|p|td))>'si",' ',$text);
-	$text = mosSmartSubstr(strip_tags($text),$length,$searchword);
-	return $text;
-}
-
-/**
- * returns substring of characters around a searchword
- * @param string The source string
- * @param int Number of chars to return
- * @param string The searchword to select around
- * @return string
- */
-function mosSmartSubstr($text,$length = 200,$searchword='') {
-	$wordpos = Jstring::strpos( Jstring::strtolower($text), Jstring::strtolower($searchword));
-	$halfside = intval($wordpos - $length / 2 - Jstring::strlen($searchword));
-	if($wordpos && $halfside > 0) {
-		return '...'.Jstring::substr($text,$halfside,$length).'...';
-	} else {
-		return Jstring::substr($text,0,$length);
-	}
-}
-
-/**
- * Chmods files and directories recursively to given permissions. Available from 1.0.0 up.
- * @param path The starting file or directory (no trailing slash)
- * @param filemode Integer value to chmod files. NULL = dont chmod files.
- * @param dirmode Integer value to chmod directories. NULL = dont chmod directories.
- * @return TRUE=all succeeded FALSE=one or more chmods failed
- */
-function mosChmodRecursive($path,$filemode = null,$dirmode = null) {
-	$ret = true;
-	if(is_dir($path)) {
-		$dh = opendir($path);
-		while($file = readdir($dh)) {
-			if($file != '.' && $file != '..') {
-				$fullpath = $path.'/'.$file;
-				if(is_dir($fullpath)) {
-					if(!mosChmodRecursive($fullpath,$filemode,$dirmode)) $ret = false;
-				} else {
-					if(isset($filemode))
-						if(!@chmod($fullpath,$filemode)) $ret = false;
-				} // if
-			} // if
-		} // while
-		closedir($dh);
-		if(isset($dirmode))
-			if(!@chmod($path,$dirmode)) $ret = false;
-	} else {
-		if(isset($filemode)) $ret = @chmod($path,$filemode);
-	} // if
-	return $ret;
-} // mosChmodRecursive
-
-/**
- * Chmods files and directories recursively to mos global permissions. Available from 1.0.0 up.
- * @param path The starting file or directory (no trailing slash)
- * @param filemode Integer value to chmod files. NULL = dont chmod files.
- * @param dirmode Integer value to chmod directories. NULL = dont chmod directories.
- * @return TRUE=all succeeded FALSE=one or more chmods failed
- */
-function mosChmod($path) {
-	$config = Jconfig::getInstance();
-
-	$config->config_fileperms = trim($config->config_fileperms);
-	$config->config_dirperms = trim($config->config_fileperms);
-	$filemode = null;
-	if($config->config_fileperms != '') {
-		$filemode = octdec($config->config_fileperms);
-	}
-	$dirmode = null;
-	if($config->config_dirperms != '') {
-		$dirmode = octdec($config->config_dirperms);
-	}
-	return (isset($filemode) || isset($dirmode)) ? mosChmodRecursive($path,$filemode,$dirmode) : true;
-} // mosChmod
 
 /**
  * Function to convert array to integer values
@@ -5963,7 +4067,7 @@ function josSpoofValue($alt=NULL) {
  * @param	string	$password	A plain-text password
  * @return	string	An md5 hashed password with salt
  */
-// TODO использщвать эжтуфункцию активнее!
+// TODO использщвать этуфункцию активнее!
 function josHashPassword($password) {
 	// Salt and hash the password
 	$salt = mosMakePassword(16);
@@ -6008,13 +4112,19 @@ class joostina_api {
 	}
 }
 
-
 // отладка определённой переменной
 function _xdump( $var, $text='<pre>' ) {
 	echo $text;
 	print_r( $var );
 	echo "\n";
 }
+
+
+// класс работы с контентом
+require_once(JPATH_BASE.'/components/com_content/content.class.php');
+
+// класс работы с пользователями
+require_once(JPATH_BASE.'/components/com_users/users.class.php');
 
 /**
  @global mosPlugin $_MAMBOTS*/

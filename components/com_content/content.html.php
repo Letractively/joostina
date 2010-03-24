@@ -696,7 +696,8 @@ class ContentView {
 		mosCommonHTML::loadJqueryPlugins('jquery.validate');
 		mosCommonHTML::loadCalendar();
 
-		require_once (JPATH_BASE.DS.'includes/HTML_toolbar.php');
+		mosMainFrame::addClass( 'toolbarHTML' );
+
 		$s_id = mosGetParam($_REQUEST, 'section', 0);
 		// used for spoof hardening
 		$validate = josSpoofValue();

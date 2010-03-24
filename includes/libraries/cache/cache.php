@@ -88,7 +88,7 @@ class JCache {
 	 * @since	1.3
 	 */
 
-	function &getInstance($type = 'output', $options = array(), $object = null) {
+	function getInstance($type = 'output', $options = array(), $object = null) {
 		$type = strtolower(preg_replace('/[^A-Z0-9_\.-]/i', '', $type));
 
 		$class = 'JCache'.ucfirst($type);
@@ -100,6 +100,8 @@ class JCache {
 		$instance = new $class($options,$object);
 		return $instance;
 	}
+
+	private function __clone() {}
 
 	/**
 	 * Get the storage handlers
@@ -340,7 +342,7 @@ class JCacheStorage {
 	 * @return	object	A JCacheStorageHandler object
 	 * @since	1.3
 	 */
-	function &getInstance($handler = 'file', $options = array()) {
+	function getInstance($handler = 'file', $options = array()) {
 		static $now = null;
 		if(is_null($now)) {
 			$now = time();
@@ -356,6 +358,8 @@ class JCacheStorage {
 		$return = new $class($options);
 		return $return;
 	}
+
+	private function __clone() {}
 
 	/**
 	 * Get cached data by id and group
