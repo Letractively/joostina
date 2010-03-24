@@ -107,7 +107,9 @@ class CDBBackupEngine {
 	 */
 	function CDBBackupEngine($onlyDBDumpMode = false) {
 		global $mosConfig_dbprefix;
-		global $JPConfiguration,$database;
+		global $JPConfiguration;
+
+                $database = database::getInstance();
 
 		// SECTION 1.
 		// Populate basic global variables
@@ -168,7 +170,10 @@ class CDBBackupEngine {
 	}
 
 	function tick() {
-		global $database,$JPConfiguration;
+		global $JPConfiguration;
+
+                $database = database::getInstance();
+
 		$out = ''; // joostina pach
 		if($this->_isFinished) {
 			// Indicate we're done
