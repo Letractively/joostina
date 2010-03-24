@@ -23,6 +23,8 @@ class ContentView {
 	function showContent(&$rows,$section,&$lists,$search,$pageNav,$all = null,$redirect='') {
 		global $my,$acl;
 
+                mosCommonHTML::loadDtree();
+
 		$mainframe = mosMainFrame::getInstance();
 		$database = $mainframe->getDBO();
 
@@ -31,9 +33,6 @@ class ContentView {
 
 		$selected_cat = intval( mosGetParam($_REQUEST,'catid',0));
 		$showarchive = intval( mosGetParam($_REQUEST,'showarchive',0));
-
-		mosCommonHTML::loadOverlib();
-		mosCommonHTML::loadDtree();
 
 		include_once($mainframe->adminView('showcontent'));
 	}

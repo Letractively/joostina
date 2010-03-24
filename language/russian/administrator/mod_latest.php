@@ -11,4 +11,4 @@
 defined('_VALID_MOS') or die();
 
 DEFINE('_LAST_ADDED_CONTENT','Последнее добавленное содержимое');
-DEFINE('_USER_WHO_ADD_CONTENT','Добавил');
+DEFINE('_USER_WHO_ADD_CONTENT','Добавлено');

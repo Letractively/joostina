@@ -1334,7 +1334,7 @@ class mosDBTable {
 
 // булево изменение содержимого указанного столбца. Используется для смены статуса элемента
     public function changeState($fieldname) {
-        $this->_db->setQuery("UPDATE $this->_tbl SET `$fieldname` = !`$fieldname` WHERE $this->_tbl_key = $this->id ", 0, 1)->query();
+        return $this->_db->setQuery("UPDATE $this->_tbl SET `$fieldname` = !`$fieldname` WHERE $this->_tbl_key = $this->id ", 0, 1)->query();
     }
 
 // селектор выбора отношений один-ко-многим
