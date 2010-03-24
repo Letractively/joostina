@@ -31,6 +31,8 @@ $option = mosGetParam( $_REQUEST, 'option', '' );
 		$mainframe->addJS(JPATH_SITE.'/includes/js/joomla.javascript.js');
 		$mainframe->addJS(JPATH_SITE.'/'.JADMIN_BASE.'/includes/js/admin.js');
 
+		mosCommonHTML::loadJqueryPlugins('jquery.textarearesizer');
+
 		include_once (JPATH_BASE.DS.'includes/editor.php');
 		initEditor();
 
