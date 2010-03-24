@@ -140,9 +140,9 @@ defined('_VALID_MOS') or die(); ?>
 	</table>
 		<?php } ?>
 	<div style="clear:both;"></div><br /><br />
-	<span class="button"><input type="submit" class="button submit" name="submit" id="save" value="<?php echo _SAVE?>" /></span>
-	<span class="button"><input type="submit" class="button apply" name="apply" id="apply" value="<?php echo _APPLY?>" /></span>
-	<span class="button"><input type="submit" class="button cancel" name="cancel" id="cancel" value="<?php echo _CANCEL?>" /></span>
+	<input type="submit" class="button submit" name="submit" id="save" value="<?php echo _SAVE?>" />
+	<input type="submit" class="button apply" name="apply" id="apply" value="<?php echo _APPLY?>" />
+	<input type="submit" class="button cancel" name="cancel" id="cancel" value="<?php echo _CANCEL?>" />
 	<input type="hidden" name="goodexit" id="goodexit" value="0" />
 	<input type="hidden" name="option" value="com_content" />
 	<input type="hidden" name="id" value="<?php echo $row->id; ?>" />

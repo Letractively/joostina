@@ -967,7 +967,7 @@ class mosContent extends mosDBTable {
 		$info .= $author;
 
 
-		$return = '<span class="button"><a class="button edit_button" href="' . sefRelToAbs($link) . '" title="'.$info.'" ><img src="' . $image . '" /> '.$text.'</a></span>';
+		$return = '<a class="button edit_button" href="' . sefRelToAbs($link) . '" title="'.$info.'" ><img src="' . $image . '" /> '.$text.'</a>';
 
 		return $return;
 	}

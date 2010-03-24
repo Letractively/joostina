@@ -47,9 +47,7 @@ mosCommonHTML::loadJquery(1);
 	<?php echo $params->get( 'ml_rem_text', _REMEMBER_ME );?>
 					</label>
 	<?php } ?>
-					<span class="button">
 						<input type="submit" name="Submit" class="button" id="login_button" value="<?php echo $params->get( 'submit_button_text', _BUTTON_LOGIN );?>" />
-					</span>
 					<br />
 <?php if ($params->get('show_lost_pass', 1)) { ?>
 					&nbsp;<a href="<?php echo sefRelToAbs( 'index.php?option=com_users&amp;task=lostPassword' );?>"><?php echo $params->get('ml_rem_pass_text', _LOST_PASSWORDWORD) ;?></a>

@@ -100,10 +100,8 @@ class loginHTML {
 			</td>
 			<td>
 				<div align="center">
-					<input type="submit" name="submit" class="button" value="<?php echo
-								   _BUTTON_LOGIN; ?>" />
+					<input type="submit" name="submit" class="button" value="<?php echo _BUTTON_LOGIN; ?>" />
 				</div>
-
 			</td>
 		</tr>
 		<tr>
@@ -164,8 +162,7 @@ class loginHTML {
 		<tr>
 			<td align="center">
 				<div align="center">
-					<input type="submit" name="Submit" class="button" value="<?php echo
-								   _BUTTON_LOGOUT; ?>" />
+					<input type="submit" name="Submit" class="button" value="<?php echo _BUTTON_LOGOUT; ?>" />
 				</div>
 			</td>
 		</tr>

@@ -406,8 +406,7 @@ class HTML_contact {
 <?php } ?>
 
 	<br />
-	<span class="button"><input type="button" name="send" value="<?php echo (_SEND_BUTTON); ?>" class="button" onclick="validate()" /></span>
-
+	<input type="button" name="send" value="<?php echo (_SEND_BUTTON); ?>" class="button" onclick="validate()" />
 	<input type="hidden" name="option" value="com_contact" />
 	<input type="hidden" name="con_id" value="<?php echo $contact->id; ?>" />
 	<input type="hidden" name="sitename" value="<?php echo $sitename; ?>" />
