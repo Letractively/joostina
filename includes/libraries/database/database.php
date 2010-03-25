@@ -62,7 +62,7 @@ class database {
      * @param <type> $goOffline
      * @param <type> $debug
      */
-    private function __construct($host = 'localhost', $user = 'root', $pass = '', $db = '', $table_prefix = '', $goOffline = true, $debug = 0) {
+    function __construct($host = 'localhost', $user = 'root', $pass = '', $db = '', $table_prefix = '', $goOffline = true, $debug = 0) {
         $this->_debug = $debug;
         $this->_table_prefix = $table_prefix;
 
