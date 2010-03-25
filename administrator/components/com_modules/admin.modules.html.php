@@ -22,10 +22,8 @@ class HTML_modules {
 	 */
 	function showModules(&$rows,$myid,$client,&$pageNav,$option,&$lists,$search) {
 		global $my;
-		$mainframe = mosMainFrame::getInstance();
-		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 
-		mosCommonHTML::loadOverlib();
+		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 		?>
 <script type="text/javascript">
 	function ch_get_positon(elID){
@@ -106,7 +104,9 @@ class HTML_modules {
 					$link		= 'index2.php?option=com_modules&client='.$client.'&task=editA&hidemainmenu=1&id='.$row->id;
 					$access		= mosCommonHTML::AccessProcessing($row,$i,1);
 					$checked	= mosCommonHTML::CheckedOutProcessing($row,$i);
-					$img		= $row->published ? 'publish_g.png' : 'publish_x.png';
+                    $title = $row->published ?  _PUBLISHED : _UNPUBLISHED;
+                    $img = $row->published ? 'publish_g.png' : 'publish_x.png';
+                    $img = $cur_file_icons_path.'/'.$img;
 					?>
 		<tr class="<?php echo "row$k"; ?>" id="tr-el-<?php echo $row->id;?>">
 			<td align="right"><?php echo $pageNav->rowNumber($i); ?></td>
@@ -122,9 +122,9 @@ class HTML_modules {
 							}
 							?>
 			</td>
-			<td align="center" <?php echo ($row->checked_out && ($row->checked_out != $my->id)) ? null : 'onclick="ch_publ('.$row->id.',\'com_modules\');" class="td-state"';?>>
-				<img class="img-mini-state" src="<?php echo $cur_file_icons_path;?>/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?php echo _PUBLISHING?>" />
-			</td>
+            <td align="center" class="td-state">
+                <img class="img-mini-state" src="<?php echo $img;?>" obj_id="<?php echo $row->id;?>" obj_task="publish" alt="<?php echo $title?>" title="<?php echo $title?>" />
+            </td>
 			<td><?php echo $pageNav->orderUpIcon($i,($row->position == @$rows[$i - 1]->position)); ?></td>
 			<td><?php echo $pageNav->orderDownIcon($i,$n,($row->position == @$rows[$i + 1]->position)); ?></td>
 			<td align="center" colspan="2">

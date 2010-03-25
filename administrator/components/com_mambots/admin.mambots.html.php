@@ -23,9 +23,7 @@ class HTML_modules {
 	function showMambots(&$rows,$client,&$pageNav,$option,&$lists,$search) {
 		global $my;
 
-		$mainframe = mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
-		mosCommonHTML::loadOverlib();
 		?>
 <form action="index2.php" method="post" name="adminForm">
 	<table class="adminheading">
@@ -64,7 +62,9 @@ class HTML_modules {
 					$link		= 'index2.php?option=com_mambots&client='.$client.'&task=editA&hidemainmenu=1&id='.$row->id;
 					$access		= mosCommonHTML::AccessProcessing($row,$i,1);
 					$checked	= mosCommonHTML::CheckedOutProcessing($row,$i);
-					$img		= $row->published ? 'publish_g.png' : 'publish_x.png';
+                    $title = $row->published ?  _PUBLISHED : _UNPUBLISHED;
+                    $img = $row->published ? 'publish_g.png' : 'publish_x.png';
+                    $img = $cur_file_icons_path.'/'.$img;
 					?>
 		<tr class="<?php echo "row$k"; ?>">
 			<td align="right"><?php echo $pageNav->rowNumber($i); ?></td>
@@ -80,9 +80,9 @@ class HTML_modules {
 							}
 							?>
 			</td>
-			<td align="center" <?php echo ($row->checked_out && ($row->checked_out != $my->id)) ? null : 'onclick="ch_publ('.$row->id.',\'com_mambots\');" class="td-state"';?>>
-				<img class="img-mini-state" src="<?php echo $cur_file_icons_path;?>/<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="<?php echo _PUBLISHING?>" />
-			</td>
+            <td align="center" class="td-state">
+                <img class="img-mini-state" src="<?php echo $img;?>" obj_id="<?php echo $row->id;?>" obj_task="publish" alt="<?php echo $title?>" title="<?php echo $title?>" />
+            </td>
 			<td><?php echo $pageNav->orderUpIcon($i,($row->folder == @$rows[$i - 1]->folder && $row->ordering > -10000 && $row->ordering < 10000)); ?></td>
 			<td><?php echo $pageNav->orderDownIcon($i,$n,($row->folder == @$rows[$i + 1]->folder && $row->ordering > -10000 && $row->ordering < 10000)); ?></td>
 			<td align="center" colspan="2"><input type="text" name="order[]" size="5" value="<?php echo $row->ordering; ?>" class="text_area" style="text-align: center" /></td>
@@ -215,7 +215,7 @@ class HTML_modules {
 									} else {
 										echo _NO_MAMBOT_PARAMS;
 									}
-		?>
+									?>
 						</td>
 					</tr>
 				</table>

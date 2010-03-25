@@ -20,16 +20,22 @@ if(!($acl->acl_check('administration','edit','users',$my->usertype,'modules','al
 $task = mosGetParam($_GET,'task','publish');
 $id = intval(mosGetParam($_GET,'id','0'));
 
+$obj_id = intval(mosGetParam($_POST, 'obj_id', false));
+
 switch($task) {
+
 	case "publish":
-		echo x_publish($id);
+		echo x_publish($obj_id);
 		return;
+
 	case "access":
 		echo x_access($id);
 		return;
+
 	case "apply":
 		echo x_apply();
 		return;
+
 	default:
 		echo 'error-task';
 		return;
@@ -114,27 +120,26 @@ function x_access($id) {
 }
 
 function x_publish($id = null) {
-	global $database,$my;
+    $database = database::getInstance();
 
-	if(!$id) return 'error-id';
+    if (!$id) return 'error-id';
 
-	$query = "SELECT published FROM #__mambots WHERE id = ".(int)$id;
-	$database->setQuery($query);
-	$state = $database->loadResult();
+    $mambot = new mosMambot($database);
+    $mambot->load($id);
 
-	if($state == '1') {
-		$ret_img = 'publish_x.png';
-		$state = '0';
-	} else {
-		$ret_img = 'publish_g.png';
-		$state = '1';
-	}
-	$query = "UPDATE #__mambots SET published = ".(int)$state." WHERE id = ".$id." "."\n AND ( checked_out = 0 OR ( checked_out = ".(int)$my->id." ) )";
-	$database->setQuery($query);
-	if(!$database->query()) {
-		return 'error-db';
-	} else {
-		mosCache::cleanCache('com_content');
-		return $ret_img;
-	}
+    // пустой объект для складирования результата
+    $return_onj = new stdClass();
+
+    // меняем состояние объекта на противоположное
+    if ( $mambot->changeState('published')) {
+        // формируем ответ из противоположных элементов текущему состоянию
+        $return_onj->image = $mambot->published ?  'publish_x.png' : 'publish_g.png';
+        $return_onj->mess = $mambot->published ?  _UNPUBLISHED : _PUBLISHED;
+        mosCache::cleanCache('com_content');
+    } else {
+        // формируем резульлтат с ошибкой
+        $return_onj->image = 'error.png';
+        $return_onj->mess = 'error-class';
+    }
+    return json_encode($return_onj);
 }
