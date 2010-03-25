@@ -14,6 +14,8 @@ global $mosConfig_sef;
 
 // редиректить ли с не-sef адресов
 DEFINE('_SEF_REDIRECT', true);
+// удалять из ссылок парамтер ItemId
+DEFINE('_SEF_DELETE_ITEMID', false);
 
 if ($mosConfig_sef) {
 
@@ -415,6 +417,7 @@ function sefRelToAbs($string) {
 	if ($mosConfig_sef && $mosConfig_com_frontpage_clear && strpos($string, 'option=com_frontpage') > 0 && !(strpos($string, 'limit'))) {
 		$string = '';
 	}
+
 	// SEF URL Handling
 	if ($mosConfig_sef && !preg_match("/^(([^:\/\?#]+):)/i", $string) && !strcasecmp(substr($string, 0, 9), 'index.php')) {
 //  TODO раскомментировать при ошибках с SEF
@@ -449,6 +452,10 @@ function sefRelToAbs($string) {
 			// break url into component parts
 			parse_str($url['query'], $parts);
 
+			// TODO удаляем Itemid
+			if(_SEF_DELETE_ITEMID==true){
+				unset($parts['Itemid'], $parts['ItemId'] );
+			}
 			$sefstring = '';
 
 			// Component com_content urls
@@ -526,7 +533,6 @@ function sefRelToAbs($string) {
 				// do not SEF where com_content - `edit` or `new` task link
 				if (!(($parts['option'] == 'com_content') && ((isset($parts['task']) == 'new') || (isset($parts['task']) == 'edit')))) {
 					$sefstring = 'component/';
-
 					foreach ($parts as $key => $value) {
 						// special handling for javascript
 						$parts[$key] = (strpos($value, '+') !== false) ? stripslashes(str_replace('%2b', '+', $value)) : $parts[$key];
@@ -557,15 +563,30 @@ function sefRelToAbs($string) {
 		// If the above doesnt work - try uncommenting this line instead
 		// return $mosConfig_live_site .'/index.php?/'. $string . $fragment;
 	} else {
+
+		if (_SEF_DELETE_ITEMID) {
+			$string = str_replace('&amp;', '&', $string);
+			$string = parse_url($string);
+
+			if (isset($string['host'])) {
+				return isset($string['scheme']) ? $string['scheme'] . '://' . $string['host'] : $string['host'];
+			}
+			
+			isset($string['query']) ? parse_str($string['query'], $q) : ( $q = array() );
+			// TODO удаляем Itemid !!!
+			unset($q['Itemid'], $q['ItemId']);
+
+			$string = isset($string['path']) ? $string['path'] : '';
+			$string .= '?' . http_build_query($q);
+		}
+
+
 		// Handling for when SEF is not activated
 		// Relative link handling
 		if ((strpos($string, JPATH_SITE) !== 0)) {
 			// if URI starts with a "/", means URL is at the root of the host...
 			if (strncmp($string, '/', 1) == 0) {
-				// splits http(s)://xx.xx/yy/zz..." into [1]="http(s)://xx.xx" and [2]="/yy/zz...":
 				$live_site_parts = array();
-//  TODO раскомментировать при ошибках с SEF
-//				eregi("^(https?:[\/]+[^\/]+)(.*$)",JPATH_SITE,$live_site_parts);
 				preg_match("/^(https?:[\/]+[^\/]+)(.*$)/i", JPATH_SITE, $live_site_parts);
 
 				$string = $live_site_parts[1].$string;
