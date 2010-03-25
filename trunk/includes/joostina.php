@@ -11,7 +11,7 @@
 defined('_VALID_MOS') or die();
 
 //Europe/Moscow // GMT0
-date_default_timezone_set('GMT0');
+function_exists('date_default_timezone_set') ? date_default_timezone_set('GMT0') : null;
 
 // каталог администратора
 DEFINE('JADMIN_BASE','administrator');
@@ -63,6 +63,7 @@ require_once (JPATH_BASE.'/includes/version.php');
 //$acl = gacl::getInstance();
 
 // TODO убрать к 1.3.3 корректировка работы с данными полученными от сервера
+/*
 if(isset($_SERVER['REQUEST_URI'])) {
 	$request_uri = $_SERVER['REQUEST_URI'];
 } else {
@@ -73,6 +74,7 @@ if(isset($_SERVER['REQUEST_URI'])) {
 }
 $_SERVER['REQUEST_URI'] = $request_uri;
 unset($request_uri);
+*/
 
 /**
  * Joostina! Mainframe class

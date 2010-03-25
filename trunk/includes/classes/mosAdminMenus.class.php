@@ -28,7 +28,7 @@ class mosAdminMenus {
 					."\n WHERE menutype = ".$database->Quote($row->menutype)
 					."\n AND parent = ".(int)$row->parent."\n AND published != -2"
 					."\n ORDER BY ordering";
-			$order = mosGetOrderingList($query);
+			$order = mosCommonHTML::mosGetOrderingList($query);
 			$ordering = mosHTML::selectList($order,'ordering','class="inputbox" size="1"','value','text',intval($row->ordering));
 		} else {
 			$ordering = '<input type="hidden" name="ordering" value="'.$row->ordering.'" />'._NEW_ITEM_LAST;
@@ -370,7 +370,7 @@ class mosAdminMenus {
 		}
 
 		if($id) {
-			$order = mosGetOrderingList($query,$limit);
+			$order = mosCommonHTML::mosGetOrderingList($query,$limit);
 			$ordering = mosHTML::selectList($order,'ordering','class="inputbox" size="1"','value','text',intval($row->ordering));
 		} else {
 			$ordering = '<input type="hidden" name="ordering" value="'.$row->ordering.'" />'.$text;

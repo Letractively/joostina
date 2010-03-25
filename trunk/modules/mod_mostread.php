@@ -97,11 +97,9 @@ switch ( $type ) {
 				. ( $show_front == "0" ? "\n AND f.content_id IS NULL" : '' )
 				. "\n AND s.published = 1"
 				. "\n AND cc.published = 1"
-				. "\n ORDER BY a.hits DESC"
-		;
+				. "\n ORDER BY a.hits DESC";
 		$database->setQuery( $query, 0, $count );
 		$rows = $database->loadObjectList();
-
 		break;
 }
 
