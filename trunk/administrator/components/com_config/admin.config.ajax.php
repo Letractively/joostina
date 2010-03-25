@@ -32,10 +32,12 @@ switch($task) {
  * Сохранение конфигурации
  */
 function x_saveconfig($task) {
-	global $database,$mosConfig_password,$mosConfig_session_type;
+	global $mosConfig_password,$mosConfig_session_type;
 	josSpoofCheck();
 
-	$row = new JConfig();
+	$database = database::getInstance();
+
+	$row = JConfig::getInstance();
 	if(!$row->bind($_POST,'config_tseparator')) {
 		echo 'error-bind';
 	}
