@@ -21,23 +21,30 @@ if(!($acl->acl_check('administration','edit','users',$my->usertype,'modules','al
 $task	= mosGetParam($_GET,'task','publish');
 $id		= intval(mosGetParam($_GET,'id',0));
 
+$obj_id = intval(mosGetParam($_POST, 'obj_id', false));
 
 switch($task) {
+
 	case 'publish':
-		echo x_publish($id);
+		echo x_publish($obj_id);
 		return;
+
 	case 'position':
 		echo x_get_position($id);
 		return;
+
 	case 'save_position':
 		echo x_save_position($id);
 		return;
+
 	case 'access':
 		echo x_access($id);
 		return;
+
 	case 'apply':
 		echo x_apply();
 		return;
+
 	default:
 		echo 'error-task';
 		return;
@@ -149,33 +156,28 @@ function x_access($id) {
 }
 
 function x_publish($id = null) {
-	global $my;
+    $database = database::getInstance();
 
-	$database = database::getInstance();
+    if (!$id) return 'error-id';
 
-	if(!$id) return 'error-id';
+    $module = new mosModule($database);
+    $module->load($id);
 
-	$query = "SELECT published FROM #__modules WHERE id = ".(int)$id;
-	$database->setQuery($query);
-	$state = $database->loadResult();
+    // пустой объект для складирования результата
+    $return_onj = new stdClass();
 
-	if($state == '1') {
-		$ret_img = 'publish_x.png';
-		$state = '0';
-	} else {
-		$ret_img = 'publish_g.png';
-		$state = '1';
-	}
-	$query = "UPDATE #__modules"
-			."\n SET published = ".(int)$state
-			."\n WHERE id = ".$id
-			."\n AND ( checked_out = 0 OR ( checked_out = ".(int)$my->id." ) )";
-	$database->setQuery($query);
-	if(!$database->query()) {
-		return 'error-db';
-	} else {
-		return $ret_img;
-	}
+    // меняем состояние объекта на противоположное
+    if ( $module->changeState('published')) {
+        // формируем ответ из противоположных элементов текущему состоянию
+        $return_onj->image = $module->published ?  'publish_x.png' : 'publish_g.png';
+        $return_onj->mess = $module->published ?  _UNPUBLISHED : _PUBLISHED;
+        mosCache::cleanCache('com_content');
+    } else {
+        // формируем резульлтат с ошибкой
+        $return_onj->image = 'error.png';
+        $return_onj->mess = 'error-class';
+    }
+    return json_encode($return_onj);
 }
 // получение списка позиций модулей
 function x_get_position($id) {
