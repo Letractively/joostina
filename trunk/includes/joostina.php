@@ -2541,8 +2541,7 @@ class mosModule extends mosDBTable {
 	}
 
 
-	public function _initModules( $Itemid,$my_gid ) {
-
+	public static function _initModules( $Itemid,$my_gid ) {
 		$mainframe = mosMainFrame::getInstance();
 		$database = $mainframe->getDBO();
 		$config = $mainframe->get('config');
@@ -2733,44 +2732,47 @@ class mosModule extends mosDBTable {
  * @package Joostina
  */
 class mosCache {
+	private static $_instance;
+
 	/**
 	 * @return object A function cache object
 	 */
-	function &getCache($group = 'default', $handler = 'callback', $storage = null,$cachetime = null, $object = null) {
-		static $config;
+	function getCache($group = 'default', $handler = 'callback', $storage = null,$cachetime = null, $object = null) {
 
-		if(!is_array($config)) {
-			$config_ = Jconfig::getInstance();
-			$config['config_caching'] = $config_->config_caching;
-			$config['config_cachetime'] = $config_->config_cachetime;
-			$config['config_cache_handler'] = $config_->config_cache_handler;
-			$config['config_cachepath'] = $config_->config_cachepath;
-			$config['config_lang'] = $config_->config_lang;
-			unset($config_);
+		if( self::$_instance===null ) {
+			jd_inc('cashe');
+			$config = Jconfig::getInstance();
+
+			self::$_instance = array();
+			self::$_instance['config_caching'] = $config->config_caching;
+			self::$_instance['config_cachetime'] = $config->config_cachetime;
+			self::$_instance['config_cache_handler'] = $config->config_cache_handler;
+			self::$_instance['config_cachepath'] = $config->config_cachepath;
+			self::$_instance['config_lang'] = $config->config_lang;
 			// подключаем библиотеку кэширования
 			mosMainFrame::addLib('cache');
 		}
 
 		$handler = ($handler == 'function') ? 'callback' : $handler;
 
-		$def_cachetime = (isset($cachetime)) ? $cachetime : $config['config_cachetime'];
+		$def_cachetime = (isset($cachetime)) ? $cachetime : self::$_instance['config_cachetime'];
 
 		if(!isset($storage)) {
-			$storage =($config['config_cache_handler'] != '')? $config['config_cache_handler'] : 'file';
+			$storage =(self::$_instance['config_cache_handler'] != '')? self::$_instance['config_cache_handler'] : 'file';
 		}
 
 		$options = array(
 				'defaultgroup' 	=> $group,
-				'cachebase' 	=> $config['config_cachepath'].DS,
+				'cachebase' 	=> self::$_instance['config_cachepath'].DS,
 				'lifetime' 		=> $def_cachetime,
-				'language' 		=> $config['config_lang'],
+				'language' 		=> self::$_instance['config_lang'],
 				'storage'		=> $storage
 		);
 
-		$cache =&JCache::getInstance( $handler, $options, $object );
+		$cache = JCache::getInstance( $handler, $options, $object );
 
 		if($cache != NULL) {
-			$cache->setCaching($config['config_caching']);
+			$cache->setCaching(self::$_instance['config_caching']);
 		}
 		return $cache;
 	}
@@ -2778,7 +2780,7 @@ class mosCache {
 	 * Cleans the cache
 	 */
 	function cleanCache($group = false) {
-		$cache = &mosCache::getCache($group);
+		$cache = mosCache::getCache($group);
 		if($cache != NULL) {
 			$cache->clean($group);
 		}
