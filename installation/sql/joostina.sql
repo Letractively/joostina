@@ -791,3 +791,8 @@ ALTER TABLE `#__content_tags` ADD INDEX ( `obj_type` );
 ALTER TABLE `#__core_acl_aro_groups` DROP INDEX `parent_id_aro_groups`;
 ALTER TABLE `#__session` ADD INDEX ( `time` );
 ALTER TABLE `#__session` DROP PRIMARY KEY, ADD PRIMARY KEY ( `session_id` ( 64 ) );
+# 1.3.1
+ALTER TABLE `#__content_frontpage` ADD INDEX ( `ordering` );
+ALTER TABLE `#__sections` ADD INDEX ( `access` );
+ALTER TABLE `#__sections` ADD INDEX ( `published` );
+ALTER TABLE `#__content` ADD INDEX ( `hits` );

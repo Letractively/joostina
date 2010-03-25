@@ -1231,8 +1231,8 @@ class mosContent extends mosDBTable {
 	function _load_frontpage($params, $access) {
 
 		// voting control
-		$voting = new contentVoiting($params);
-		$voting = $voting->_construct_sql();
+		//$voting = new contentVoiting($params);
+		//$voting = $voting->_construct_sql();
 
 		//Дополнительные условия
 		$where = contentSqlHelper::construct_where_blog(1, null, $access, $params,$this->_db);
@@ -1251,14 +1251,14 @@ class mosContent extends mosDBTable {
 				s.name AS section, s.id AS sec_id,
 				cc.name AS category, cc.id as cat_id,
 				g.name AS groups
-				' . $voting['select'] . '
+				' . /*$voting['select'] .*/ '
 				FROM #__content AS a
 				INNER JOIN #__content_frontpage AS f ON f.content_id = a.id
 				INNER JOIN #__categories AS cc ON cc.id = a.catid
 				INNER JOIN #__sections AS s ON s.id = a.sectionid
 				LEFT JOIN #__users AS u ON u.id = a.created_by
 				LEFT JOIN #__groups AS g ON a.access = g.id
-				' . $voting['join'] . $where . '
+				' . /*$voting['join']. */ $where . '
 				ORDER BY ' . $order_pri . $order_sec;
 
 		$this->_db->setQuery($query, $params->get('limitstart'), $params->get('limit'));

@@ -160,10 +160,7 @@ class mod_latestnews_Helper {
 			AND cc.published = 1
 			ORDER BY a.created DESC";
 
-		$database->setQuery( $query, 0, $count );
-		$rows = $database->loadObjectList();
-
-		return $rows;
+		return $database->setQuery( $query, 0, $count )->loadObjectList();
 	}
 
 	function get_itemid($row, $params) {
