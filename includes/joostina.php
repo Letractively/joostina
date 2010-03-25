@@ -174,7 +174,7 @@ class mosMainFrame {
 	/**
 	 * Получение прямой ссылки на объект ядра
 	 * @param boolen $isAdmin - инициализация ядра в пространстве панели управления
-	 * @return <type>
+	 * @return mosMainFrame - объект ядра
 	 */
 	public static function getInstance($isAdmin = false) {
 

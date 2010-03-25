@@ -109,9 +109,12 @@ function search_by_tag($tag) {
 }
 
 function viewSearch() {
-	global $mainframe,$mosConfig_lang;
-	global $Itemid,$database,$_MAMBOTS;
+	global $mosConfig_lang;
+	global $Itemid,$_MAMBOTS;
 	global $mosConfig_list_limit;
+
+	$mainframe = mosMainFrame::getInstance();
+	$database = $mainframe->getDBO();
 
 	$restriction = 0;
 
@@ -247,7 +250,7 @@ function viewSearch() {
 		mosLogSearch($searchword);
 
 		$_MAMBOTS->loadBotGroup('search');
-		$results	= $_MAMBOTS->trigger( 'onSearch', array( database::getInstance()->getEscaped( $searchword, true ), $searchphrase, $ordering ) );
+		$results	= $_MAMBOTS->trigger( 'onSearch', array( $database->getEscaped( $searchword, true ), $searchphrase, $ordering ) );
 		$totalRows = 0;
 
 		$rows = array();
@@ -329,17 +332,17 @@ function viewSearch() {
 }
 
 function mosLogSearch($search_term) {
-	global $database;
 	global $mosConfig_enable_log_searches;
 
 	if(@$mosConfig_enable_log_searches) {
-		$query = "SELECT hits FROM #__core_log_searches WHERE LOWER( search_term ) = ".
-				$database->Quote($search_term);
+
+		$database = database::getInstance();
+
+		$query = "SELECT hits FROM #__core_log_searches WHERE LOWER( search_term ) = ".$database->Quote($search_term);
 		$database->setQuery($query);
 		$hits = intval($database->loadResult());
 		if($hits) {
-			$query = "UPDATE #__core_log_searches SET hits = ( hits + 1 ) WHERE LOWER( search_term ) = ".
-					$database->Quote($search_term);
+			$query = "UPDATE #__core_log_searches SET hits = ( hits + 1 ) WHERE LOWER( search_term ) = ".$database->Quote($search_term);
 			$database->setQuery($query);
 			$database->query();
 		} else {
