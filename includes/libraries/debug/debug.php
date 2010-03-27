@@ -11,7 +11,7 @@
 defined('_VALID_MOS') or die();
 
 class jdebug {
-    
+
     private static $_instance;
     /* стек сообщений лога*/
     private $_log = array();
@@ -31,7 +31,9 @@ class jdebug {
         return self::$_instance;
     }
 
-	private function __clone() {}
+    private function __clone() {
+
+    }
 
     /* добавление сообщения в лог*/
     function add($text, $top = 0) {
@@ -78,10 +80,10 @@ class jdebug {
         echo '<div id="jdebug">' . $this->text . '</div>';
         echo '</pre><span style="display:none"><![CDATA[</noindex>]]></span>';
     }
-    
+
     function db_debug() {
         $profs = database::getInstance()->setQuery('show profiles;')->loadObjectList();
-       
+
         $r = array();
         $r[] = '<div onclick="$(\'#_sql_debug_log\').toggle();" style="cursor: pointer;border-bottom:1px solid #CCCCCC;border-top:1px solid #CCCCCC;">SQL: ' . count($profs) . '</div>';
         $r[] = '<table id="_sql_debug_log" style="display:none"><tr><th colspan="3"></th></tr>';

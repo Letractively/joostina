@@ -145,5 +145,4 @@ DEFINE('_JP_OPTIMIZE','Оптимизировать');
 DEFINE('_JP_ANALYSE','Анализировать');
 DEFINE('_JP_CHECK','Проверить');
 DEFINE('_SQL_TABLE','Таблица');
-DEFINE('_COM_MESSAGES_STATUS','Статус');
 DEFINE('_JP_GET_FILE_LISTING','Получение списка файлов');
