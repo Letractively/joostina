@@ -212,6 +212,8 @@ function saveLink() {
 	$admin_menu_img = "js/ThemeOffice/".$image;
 	$_POST['admin_menu_img'] = $admin_menu_img;
 	$_POST['option'] = $_POST['cur_option'];
+
+	mosMainFrame::addClass('component');
 	$row = new mosComponent($database);
 
 	if(!$row->bind($_POST)) {
