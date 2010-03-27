@@ -95,7 +95,7 @@ class HTML_joomlapack {
 				."\t<th align=\"left\">"._SQL_TABLE."</th>\n"
 				."\t<th align=\"left\" width=\"5%\">OP</th>\n"
 				."\t<th align=\"left\" width=\"5%\">"._TYPE."</th>\n"
-				."\t<th align=\"left\" width=\"5%\">"._COM_MESSAGES_STATUS."</th>\n"
+				."\t<th align=\"left\" width=\"5%\">"._E_STATE."</th>\n"
 				."</tr>\n".
 				$list
 				."<tr>\n"
