@@ -8,41 +8,41 @@
  */
 
 // Установка флага, что это - родительский файл
-define('_VALID_MOS',1);
+define('_VALID_MOS', 1);
 // корень файлов
-define('JPATH_BASE', dirname(__FILE__) );
+define('JPATH_BASE', dirname(__file__));
 // разделитель каталогов
-define('DS', DIRECTORY_SEPARATOR );
+define('DS', DIRECTORY_SEPARATOR);
 
-require (JPATH_BASE.'/includes/globals.php');
+require (JPATH_BASE . '/includes/globals.php');
 require_once ('./configuration.php');
 // live_site
-define('JPATH_SITE', $mosConfig_live_site );
+define('JPATH_SITE', $mosConfig_live_site);
 // для совместимости
 $mosConfig_absolute_path = JPATH_BASE;
 
 require_once ('includes/joostina.php');
 
 // отображение состояния выключенного сайта
-if($mosConfig_offline == 1) {
+if ($mosConfig_offline == 1) {
 	echo 'syte-offline';
 	exit();
 }
 
-if(file_exists(JPATH_BASE.'/components/com_sef/sef.php')) {
-	require_once (JPATH_BASE.'/components/com_sef/sef.php');
+if (file_exists(JPATH_BASE . '/components/com_sef/sef.php')) {
+	require_once (JPATH_BASE . '/components/com_sef/sef.php');
 } else {
-	require_once (JPATH_BASE.'/includes/sef.php');
+	require_once (JPATH_BASE . '/includes/sef.php');
 }
 
 // автоматическая перекодировка в юникод, по умолчанию актвино
-$utf_conv	= intval(mosGetParam($_REQUEST,'utf',1));
-$option		= strval(strtolower(mosGetParam($_REQUEST,'option','')));
-$task		= strval(mosGetParam($_REQUEST,'task',''));
+$utf_conv = intval(mosGetParam($_REQUEST, 'utf', 1));
+$option = strval(strtolower(mosGetParam($_REQUEST, 'option', '')));
+$task = strval(mosGetParam($_REQUEST, 'task', ''));
 
-$commponent = str_replace('com_','',$option);
+$commponent = str_replace('com_', '', $option);
 
-if($mosConfig_mmb_ajax_starts_off == 0) {
+if ($mosConfig_mmb_ajax_starts_off == 0) {
 	$_MAMBOTS->loadBotGroup('system');
 	$_MAMBOTS->trigger('onAjaxStart');
 }
@@ -53,25 +53,25 @@ $mainframe = mosMainFrame::getInstance();
 $mainframe->initSession();
 
 // загрузка файла русского языка по умолчанию
-if($mosConfig_lang == '') {
+if ($mosConfig_lang == '') {
 	$mosConfig_lang = 'russian';
 }
 $mainframe->set('lang', $mosConfig_lang);
-include_once($mainframe->getLangFile());
+include_once ($mainframe->getLangFile());
 
 $my = $mainframe->getUser();
 
 $gid = intval($my->gid);
 
-if($mosConfig_mmb_ajax_starts_off == 0) {
+if ($mosConfig_mmb_ajax_starts_off == 0) {
 	$_MAMBOTS->trigger('onAfterAjaxStart');
 }
 
 header("Content-type: text/html; charset=utf-8");
-header ("Cache-Control: no-cache, must-revalidate ");
+header("Cache-Control: no-cache, must-revalidate ");
 
 // проверяем, какой файл необходимо подключить, данные берутся из пришедшего GET запроса
-if(file_exists(JPATH_BASE . "/components/$option/$commponent.ajax.php")) {
+if (file_exists(JPATH_BASE . "/components/$option/$commponent.ajax.php")) {
 	include_once (JPATH_BASE . "/components/$option/$commponent.ajax.php");
 } else {
 	die('error-1');

@@ -55,6 +55,9 @@ class jdebug {
         foreach ($this->_inc as $key => $value) {
             $this->text .= '<small class="debug_counter">COUNTER:</small> <b>' . htmlentities($key) . '</b>: ' . $value . '<br />';
         }
+		
+		// выведем лог в более приятном отображении
+		array_multisort($this->_log);
 
         /* лог */
         $this->text .= '<ul class="debug_log">';

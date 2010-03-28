@@ -23,6 +23,8 @@ DEFINE('_CURRENT_SERVER_TIME_FORMAT','%Y-%m-%d %H:%M:%S');
 DEFINE('_CURRENT_SERVER_TIME',date('Y-m-d H:i:s',time()));
 // схемы не http/https протоколов
 DEFINE('_URL_SCHEMES','data:, file:, ftp:, gopher:, imap:, ldap:, mailto:, news:, nntp:, telnet:, javascript:, irc:, mms:');
+// безоговорочное использование компонента контента
+define('_USE_COM_CONTENT', true );
 
 // языковые константы
 DEFINE('_ISO2','utf-8');
@@ -129,10 +131,14 @@ class mosMainFrame {
 	 */
 	private $lang = null;
 
+	public static $is_admin = false;
+
 	/**
-	 *
+	 * Заглушка для запрета клонирования объекта
 	 */
-	private function __clone() {}
+	private function __clone() {
+
+	}
 
 	/**
 	 * Инициализация ядра
@@ -156,11 +162,13 @@ class mosMainFrame {
 			$this->_head['custom'] = array();
 		}else {// для панели управления работаем с меню напрямую
 			$option = strval(strtolower(mosGetParam($_REQUEST,'option')));
+			// указываем параметр работы в админ-панели унапрямую
+			self::$is_admin = true;
 		}
 
 		$this->setTemplate($isAdmin);
 		$this->_setAdminPaths($option,JPATH_BASE);
-		
+
 		$this->_isAdmin = (boolean)$isAdmin;
 
 		if(isset($_SESSION['session_userstate'])) {
@@ -168,8 +176,8 @@ class mosMainFrame {
 		} else {
 			$this->_userstate = null;
 		}
-  	}
- 
+	}
+
 
 	/**
 	 * Получение прямой ссылки на объект ядра
@@ -179,6 +187,11 @@ class mosMainFrame {
 	public static function getInstance($isAdmin = false) {
 
 		JDEBUG ? jd_inc('mosMainFrame::getInstance()') : null;
+
+		if(JDEBUG) {
+			$d = debug_backtrace();
+			jd_log( 'mosMainFrame::getInstance  '.$d[0]['file'].'::'.$d[0]['line'] );
+		}
 
 		if (self::$_instance === NULL) {
 			self::$_instance = new self($isAdmin);
@@ -251,16 +264,16 @@ class mosMainFrame {
 
 		$file_class = JPATH_BASE.DS.$dir.DS.$class.'.class.php';
 		is_file($file_class) ? require_once($file_class): null;
-	}	
+	}
 
 	/**
 	 *
 	 * @global string $mosConfig_lang
 	 * @param <type> $name
 	 * @param <type> $mosConfig_lang
-	 * @return <type> По
+	 * @return <type>
 	 */
-	public static function getLangFile($name = '',$mosConfig_lang='') {
+	public function getLangFile($name = '',$mosConfig_lang='') {
 		if(empty($mosConfig_lang)) {
 			global $mosConfig_lang;
 		}
@@ -273,7 +286,7 @@ class mosMainFrame {
 			$file = $name;
 		}
 
-		if( mosMainFrame::getInstance()->isAdmin() == true ) {
+		if( mosMainFrame::$is_admin == true ) {
 			if(is_file(JPATH_BASE.DS.'language'.DS.$lang.DS.'administrator'.DS.$file.'.php')) {
 				return JPATH_BASE.DS.'language'.DS.$lang.DS.'administrator'.DS.$file.'.php';
 			}else {
@@ -337,7 +350,7 @@ class mosMainFrame {
 			case 2:
 				$this->_head['title'] = $sitename;
 				break;
-			
+
 			case 3:
 				$this->_head['title'] = $pageownname ? $pageownname : $title;
 				break;
@@ -422,7 +435,7 @@ class mosMainFrame {
 	function addCustomFooterTag($html) {
 		$this->_footer['custom'][] = trim($html);
 	}
-	
+
 	/**
 	 *
 	 * @param <type> $params
@@ -525,11 +538,12 @@ class mosMainFrame {
 	 * @param <type> $def
 	 */
 	public function addJS($path, $footer = '', &$def = '') {
-		$mainframe = mosMainFrame::getInstance();
+		mosMainFrame::addClass('mosHTML');
+		$js = mosHTML::js_file($path);
 		if($footer) {
-			$mainframe->_footer[$footer][] = '<script language="JavaScript" src="'. $path .'" type="text/javascript"></script>';
+			$this->_footer[$footer][] = $js;
 		}else {
-			$mainframe->_head['js'][] = '<script language="JavaScript" src="'. $path .'" type="text/javascript"></script>';
+			$this->_head['js'][] = $js;
 		}
 	}
 
@@ -559,7 +573,7 @@ class mosMainFrame {
 	/**
 	 *
 	 * @param <type> $html
-	  */
+	 */
 	function appendPathWay($html) {
 		$this->_custom_pathway[] = $html;
 	}
@@ -605,10 +619,10 @@ class mosMainFrame {
 		}
 	}
 
-/**
- *
- * @return <type>
- */
+	/**
+	 *
+	 * @return <type>
+	 */
 	function initSession() {
 		if($this->getCfg('no_session_front')) return;
 
@@ -936,7 +950,7 @@ class mosMainFrame {
 		$return	= strval(mosGetParam($_REQUEST,'return',false));
 
 		$return = $return ? $return : strval(mosGetParam($_SERVER,'HTTP_REFERER',null));
-		
+
 		// подключаем библиотеку работы с правами
 		mosMainFrame::addLib('gacl');
 		$acl = gacl::getInstance( true );
@@ -1205,10 +1219,10 @@ class mosMainFrame {
 		$this->_template = $cur_template;
 	}
 
-/**
- * Получение текущего шаблона
- * @return string название шаблона
- */
+	/**
+	 * Получение текущего шаблона
+	 * @return string название шаблона
+	 */
 	public function getTemplate() {
 		return $this->_template;
 	}
@@ -1405,7 +1419,7 @@ class mosMainFrame {
 				}
 			}
 			unset($key,$value);
-			
+
 			// if id hasnt been checked before initaite query
 			if(!$exists) {
 				$ContentTyped = $this->get('_ContentTyped',array());
@@ -1712,7 +1726,7 @@ class mosMainFrame {
 		$msg = Jstring::trim($msg);
 
 		if($msg!='') {
-			if( mosMainFrame::getInstance()->isAdmin() ) {
+			if( mosMainFrame::$is_admin ) {
 				$_s = session_id();
 				if( empty($_s)) {
 					session_name(md5(JPATH_SITE));
@@ -1726,7 +1740,7 @@ class mosMainFrame {
 			$_SESSION['joostina.mosmsg'] = $msg;
 		}
 	}
-	
+
 	/**
 	 * Получение системного сообщения
 	 * @return string - текст сообщения
@@ -2103,12 +2117,19 @@ class JConfig {
 		$this->bindGlobals();
 	}
 
-	private function __clone() {}
+	private function __clone() {
+
+	}
 
 	// получение инстанции конфигурации системы
 	public static function getInstance() {
 
 		JDEBUG ? jd_inc('JConfig::getInstance()') : null;
+
+		if(JDEBUG) {
+			$d = debug_backtrace();
+			jd_log( 'JConfig::getInstance  '.$d[0]['file'].'::'.$d[0]['line'],1 );
+		}
 
 		if (self::$_instance === NULL) {
 			self::$_instance = new JConfig();
@@ -2187,58 +2208,62 @@ class JConfig {
  */
 class mosMenu extends mosDBTable {
 	/**
+	 * Инстанция хранения всех пунктов меню
+	 * @var instance
+	 */
+	private static $_all_menus_instance;
+
+	/**
 	 @var int Primary key*/
-	var $id = null;
+	public $id = null;
 	/**
 	 @var string*/
-	var $menutype = null;
+	public $menutype = null;
 	/**
 	 @var string*/
-	var $name = null;
+	public $name = null;
 	/**
 	 @var string*/
-	var $link = null;
+	public $link = null;
 	/**
 	 @var int*/
-	var $type = null;
+	public $type = null;
 	/**
 	 @var int*/
-	var $published = null;
+	public $published = null;
 	/**
 	 @var int*/
-	var $componentid = null;
+	public $componentid = null;
 	/**
 	 @var int*/
-	var $parent = null;
+	public $parent = null;
 	/**
 	 @var int*/
-	var $sublevel = null;
+	public $sublevel = null;
 	/**
 	 @var int*/
-	var $ordering = null;
+	public $ordering = null;
 	/**
 	 @var boolean*/
-	var $checked_out = null;
+	public $checked_out = null;
 	/**
 	 @var datetime*/
-	var $checked_out_time = null;
+	public $checked_out_time = null;
 	/**
 	 @var boolean*/
-	var $pollid = null;
+	public $pollid = null;
 	/**
 	 @var string*/
-	var $browserNav = null;
+	public $browserNav = null;
 	/**
 	 @var int*/
-	var $access = null;
+	public $access = null;
 	/**
 	 @var int*/
-	var $utaccess = null;
+	public $utaccess = null;
 	/**
 	 @var string*/
-	var $params = null;
-
-	private static $_all_menus_instance;
+	public $params = null;
 
 	/**
 	 * @param database A database connector object
@@ -2327,7 +2352,7 @@ class mosMenu extends mosDBTable {
 	}
 
 	public static function get_menu_links() {
-		$_all = mosMenu::get_all();
+		$_all = self::get_all();
 
 		$return = array();
 		foreach($_all as $menus) {
@@ -2348,68 +2373,72 @@ class mosMenu extends mosDBTable {
  */
 class mosModule extends mosDBTable {
 	/**
+	 * Инстанция инициализации модулей
+	 * @var instance
+	 */
+	private static $_instance;
+	/**
 	 @var int Primary key*/
-	var $id = null;
+	public $id = null;
 	/**
 	 @var string*/
-	var $title = null;
+	public $title = null;
 	/**
 	 @var string*/
-	var $showtitle = null;
+	public $showtitle = null;
 	/**
 	 @var int*/
-	var $content = null;
+	public $content = null;
 	/**
 	 @var int*/
-	var $ordering = null;
+	public $ordering = null;
 	/**
 	 @var string*/
-	var $position = null;
+	public $position = null;
 	/**
 	 @var boolean*/
-	var $checked_out = null;
+	public $checked_out = null;
 	/**
 	 @var time*/
-	var $checked_out_time = null;
+	public $checked_out_time = null;
 	/**
 	 @var boolean*/
-	var $published = null;
+	public $published = null;
 	/**
 	 @var string*/
-	var $module = null;
+	public $module = null;
 	/**
 	 @var int*/
-	var $numnews = null;
+	public $numnews = null;
 	/**
 	 @var int*/
-	var $access = null;
+	public $access = null;
 	/**
 	 @var string*/
-	var $params = null;
+	public $params = null;
 	/**
 	 @var string*/
-	var $iscore = null;
+	public $iscore = null;
 	/**
 	 @var string*/
-	var $client_id = null;
+	public $client_id = null;
 	/**
 	 @var string*/
-	var $template = null;
+	public $template = null;
 	/**
 	 @var string*/
-	var $helper = null;
+	public $helper = null;
 
-	var $_all_modules = null;
+	private $_all_modules = null;
 
-	var $_view = null;
+	private $_view = null;
 
-	var $_mainframe = null;
-
+	private $_mainframe = null;
 
 	/**
 	 * @param database A database connector object
 	 */
-	function mosModule(&$db, $mainframe = null) {
+	public function mosModule(&$db, $mainframe = null) {
 		$this->mosDBTable('#__modules','id',$db);
 		if($mainframe) {
 			$this->_mainframe = $mainframe;
@@ -2417,19 +2446,22 @@ class mosModule extends mosDBTable {
 	}
 
 	public static function getInstance() {
-		static $modules;
-		if(!is_object($modules) ) {
+
+		JDEBUG ? jd_inc('mosModule') : null;
+
+		if( self::$_instance === null ) {
 			$mainframe = mosMainFrame::getInstance();
 
 			$modules = new mosModule($mainframe->getDBO(), $mainframe);
 			$modules->initModules();
+			self::$_instance = $modules;
 		}
 
-		return $modules;
+		return self::$_instance;
 	}
 
 	// overloaded check function
-	function check() {
+	public function check() {
 		// check for valid name
 		if(trim($this->title) == '') {
 			$this->_error = _PLEASE_ENTER_MODULE_NAME;
@@ -2515,8 +2547,7 @@ class mosModule extends mosDBTable {
 		$query = 'SELECT * FROM #__modules AS m WHERE '.$where.' AND published=1';
 		$row = null;
 
-		$this->_view->_mainframe->getDBO()->setQuery($query);
-		$this->_view->_mainframe->getDBO()->loadObject($row);
+		$this->_view->_mainframe->getDBO()->setQuery($query)->loadObject($row);
 
 		$rows = get_object_vars($this);
 
@@ -2532,28 +2563,32 @@ class mosModule extends mosDBTable {
 	 * Cache some modules information
 	 * @return array
 	 */
-	function initModules() {
+	public function initModules() {
 		global $my,$Itemid;
 
-		$cache = mosCache::getCache('init_modules');
-		$this->_all_modules = $cache->call('mosModule::_initModules', $Itemid,$my->gid);
+		// TODO спорно
+		//$cache = mosCache::getCache('init_modules');
+		//$this->_all_modules = $cache->call('mosModule::_initModules', $Itemid,$my->gid);
+		$this->_all_modules = self::_initModules( $Itemid,$my->gid );
 		require_once (JPATH_BASE.'/includes/frontend.html.php');
 		$this->_view = new modules_html($this->_mainframe);
-		unset($cache,$r);
 	}
 
-
-	public static function _initModules( $Itemid,$my_gid ) {
+	/**
+	 * инициализация списка модулей
+	 * @param <type> $Itemid
+	 * @param <type> $my_gid
+	 * @return <type>
+	 */
+	public static function _initModules( $Itemid, $my_gid ) {
 		$mainframe = mosMainFrame::getInstance();
-		$database = $mainframe->getDBO();
-		$config = $mainframe->get('config');
 
 		$all_modules = array();
 
 		$Itemid = intval($Itemid);
-		$check_Itemid = ($Itemid) ? "OR mm.menuid = ".(int)$Itemid:'';
+		$check_Itemid = ($Itemid) ? "OR mm.menuid = ".$Itemid:'';
 
-		$where_ac = $config->config_disable_access_control ? '' : "\n AND (m.access=3 OR m.access <= ".(int)$my_gid.') ';
+		$where_ac = $mainframe->get('config')->config_disable_access_control ? '' : "\n AND (m.access=3 OR m.access <= ".(int)$my_gid.') ';
 
 		$query = "SELECT id, title, module, position, content, showtitle, params,access FROM #__modules AS m"
 				."\n INNER JOIN #__modules_menu AS mm ON mm.moduleid = m.id"
@@ -2562,8 +2597,7 @@ class mosModule extends mosDBTable {
 				."\n AND m.client_id != 1 AND ( mm.menuid = 0 $check_Itemid )"
 				."\n ORDER BY ordering";
 
-		$database->setQuery($query);
-		$modules = $database->loadObjectList();
+		$modules = $mainframe->getDBO()->setQuery($query)->loadObjectList();
 
 		foreach($modules as $module) {
 			if($module->access==3) {
@@ -2636,7 +2670,7 @@ class mosModule extends mosDBTable {
 				// normal modules
 				if(($params->get('cache',0) == 1 OR $def_cachetime>0) && $config_caching == 1) {
 					// module caching
-					$cache = &mosCache::getCache($module->module.'_'.$module->id,'function',null,$def_cachetime, $this->_view);
+					$cache = mosCache::getCache($module->module.'_'.$module->id,'function',null,$def_cachetime, $this->_view);
 					$cache->call('module2',$module,$params,$Itemid,$style,$my->gid);
 				} else {
 					$this->_view->module2($module,$params,$Itemid,$style,$count);
@@ -2645,7 +2679,7 @@ class mosModule extends mosDBTable {
 				// custom or new modules
 				if($params->get('cache') == 1 && $config_caching == 1) {
 					// module caching
-					$cache = &mosCache::getCache('mod_user_'.$module->id,'function',null,$def_cachetime, $this->_view);
+					$cache = mosCache::getCache('mod_user_'.$module->id,'function',null,$def_cachetime, $this->_view);
 					$cache->call('module',$module,$params,$Itemid,$style,0,$my->gid);
 				} else {
 					$this->_view->module($module,$params,$Itemid,$style);
@@ -2655,7 +2689,6 @@ class mosModule extends mosDBTable {
 			echo $postpend;
 
 			$count++;
-			unset($cache);
 		}
 
 		echo ($style   ==1 ) ? "</tr>\n</table>\n" : null;
@@ -2705,7 +2738,7 @@ class mosModule extends mosDBTable {
 			// normal modules
 			if($params->get('cache') == 1 && $config->config_caching == 1) {
 				// module caching
-				$cache = &mosCache::getCache('modules', '', null, null, $this->_view);
+				$cache = mosCache::getCache('modules', '', null, null, $this->_view);
 				$cache->call('module2',$module,$params,$Itemid,$style,$my->gid);
 			} else {
 				$this->_view->module2($module,$params,$Itemid,$style,$count);
@@ -2741,8 +2774,9 @@ class mosCache {
 	 */
 	function getCache($group = 'default', $handler = 'callback', $storage = null,$cachetime = null, $object = null) {
 
+		jd_inc('cache');
+
 		if( self::$_instance===null ) {
-			jd_inc('cashe');
 			$config = Jconfig::getInstance();
 
 			self::$_instance = array();
@@ -3059,7 +3093,7 @@ function mosPathName($p_path,$p_addtrailingslash = true) {
 /**
  *
  * @param <type> $p_obj
- * @return <type> 
+ * @return <type>
  */
 function mosObjectToArray($p_obj) {
 	$retarray = null;
@@ -3598,6 +3632,7 @@ class mosMambotHandler {
 
 	private $_config = null;
 	private $_db = null;
+	private $_admin = false;
 	/**
 	 * Constructor
 	 */
@@ -3812,82 +3847,6 @@ class mosMambotHandler {
 	}
 }
 
-/**
- * Создание табов
- * @package Joostina
- */
-class mosTabs {
-	/**
-	 @var int Use cookies*/
-	var $useCookies = 0;
-	/**
-	 * Constructor
-	 * Includes files needed for displaying tabs and sets cookie options
-	 * @param int useCookies, if set to 1 cookie will hold last used tab between page refreshes
-	 */
-	function mosTabs($useCookies,$xhtml = 0) {
-		$mainframe = mosMainFrame::getInstance();
-		$config = $mainframe->get('config');
-		$css_f = 'tabpane.css';
-		$js_f = 'tabpane.js';
-
-		$r_dir = '';
-		if($mainframe->isAdmin()==1) {
-			$r_dir = '/'.JADMIN_BASE;
-		}
-		$css_dir = $r_dir.'/templates/'.JTEMPLATE.'/css';
-		if(!is_file(JPATH_BASE.DS.$css_dir.DS.$css_f)) {
-			$css_dir = '/includes/js/tabs';
-		}
-
-		$css = '<link rel="stylesheet" type="text/css" media="all" href="'.JPATH_SITE.'/'.$css_dir.'/'.$css_f.'" id="luna-tab-style-sheet" />';
-		$js = '<script type="text/javascript" src="'.JPATH_SITE.'/includes/js/tabs/'.$js_f.'"></script>';
-		/* запрет повторного включения css и js файлов в документ*/
-		if(!defined('_MTABS_LOADED')) {
-			define('_MTABS_LOADED',1);
-
-			if($xhtml) {
-				$mainframe->addCustomHeadTag($css);
-				$mainframe->addCustomHeadTag($js);
-			} else {
-				echo $css."\n\t";
-				echo $js."\n\t";
-			}
-			$this->useCookies = $useCookies;
-		}
-	}
-	/**
-	 * creates a tab pane and creates JS obj
-	 * @param string The Tab Pane Name
-	 */
-	function startPane($id) {
-		echo '<div class="tab-page" id="'.$id.'">';
-		echo '<script type="text/javascript">var tabPane1 = new WebFXTabPane( document.getElementById( "'.$id.'" ), '.$this->useCookies.' )</script>';
-	}
-	/**
-	 * Ends Tab Pane
-	 */
-	function endPane() {
-		echo '</div>';
-	}
-	/*
-	* Creates a tab with title text and starts that tabs page
-	* @param tabText - This is what is displayed on the tab
-	* @param paneid - This is the parent pane to build this tab on
-	*/
-	function startTab($tabText,$paneid) {
-		echo '<div class="tab-page" id="'.$paneid.'">';
-		echo '<h2 class="tab">'.$tabText.'</h2>';
-		echo '<script type="text/javascript">tabPane1.addTabPage( document.getElementById( "'.$paneid.'" ) );</script>';
-	}
-	/*
-	* Ends a tab page
-	*/
-	function endTab() {
-		echo '</div>';
-	}
-}
-
 /*
 * Includes pathway file
 */
@@ -3975,7 +3934,7 @@ function mosHash($seed) {
 }
 
 function josSpoofCheck( $header=NULL, $alt=NULL , $method = 'post') {
-	
+
 	switch(strtolower($method)) {
 		case 'get':
 			$validate 	= mosGetParam( $_GET, josSpoofValue($alt), 0 );
@@ -4099,7 +4058,7 @@ class joostina_api {
 	public static function _optimizetables() {
 
 		$config = Jconfig::getInstance();
-		
+
 		$flag = $config->config_cachepath.'/optimizetables.flag';
 		$filetime = @filemtime($flag);
 		$currenttime = time();
@@ -4125,7 +4084,7 @@ function _xdump( $var, $text='<pre>' ) {
 
 
 // класс работы с контентом
-require_once(JPATH_BASE.'/components/com_content/content.class.php');
+_USE_COM_CONTENT ? require_once(JPATH_BASE.'/components/com_content/content.class.php') : null;
 
 // класс работы с пользователями
 require_once(JPATH_BASE.'/components/com_users/users.class.php');

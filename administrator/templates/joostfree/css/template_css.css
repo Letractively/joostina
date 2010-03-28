@@ -191,6 +191,7 @@ textarea {
 	border: 1px solid #D7D7D7;
 	font-size: 11px;
 	padding: 5px 0 5px 0;
+	width: 99%;
 }
 button {
 	font-size: 10px;

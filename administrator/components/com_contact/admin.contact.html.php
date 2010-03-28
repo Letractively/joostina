@@ -107,11 +107,12 @@ class HTML_contact {
 
 
 	function editContact(&$row,&$lists,$option,&$params) {
-		mosCommonHTML::loadOverlib();
+
 		if($row->image == '') {
 			$row->image = 'blank.png';
 		}
 
+		mosMainFrame::addClass('mosTabs');
 		$tabs = new mosTabs(0);
 
 		mosMakeHtmlSafe($row,ENT_QUOTES,'misc');

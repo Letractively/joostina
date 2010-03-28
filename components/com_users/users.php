@@ -12,7 +12,7 @@ defined('_VALID_MOS') or die();
 
 global $my, $task, $option;
 
-userHelper::_load_core_js();
+
 ?>
 <script type="text/javascript">
 	var _comuser_url = '<?php echo JPATH_SITE;?>/components/com_users';
@@ -161,6 +161,8 @@ function userEdit($option,$uid,$submitvalue) {
 
 	$mainframe = mosMainFrame::getInstance();
 	$database = $mainframe->getDBO();
+
+	$mainframe->addJS(JPATH_SITE.'/components/com_users/js/com_users.js','custom');
 
 	if($uid == 0) {
 		mosNotAuth();

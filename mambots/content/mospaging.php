@@ -29,9 +29,6 @@ $_MAMBOTS->registerFunction('onPrepareContent','botMosPaging');
 function botMosPaging($published,&$row,&$params,$page = 0) {
 	global $Itemid,$_MAMBOTS;
 
-	$mainframe = mosMainFrame::getInstance();
-	$database = $mainframe->getDBO();
-
 	// simple performance check to determine whether bot should process further
 	if(strpos($row->text,'mospagebreak') === false) {
 		return true;
@@ -58,12 +55,13 @@ function botMosPaging($published,&$row,&$params,$page = 0) {
 
 	// если найден хоть еще один мамбот, то как минимум 2 страницы
 	if($n > 1) {
+
+		$mainframe = mosMainFrame::getInstance();
 		// check if param query has previously been processed
 		if(!isset($_MAMBOTS->_content_mambot_params['mospaging'])) {
 			// load mambot params info
 			$query = "SELECT params FROM #__mambots WHERE element = 'mospaging' AND folder = 'content'";
-			$database->setQuery($query);
-			$database->loadObject($mambot);
+			$mainframe->getDBO()->setQuery($query)->loadObject($mambot);
 
 			// save query to class variable
 			$_MAMBOTS->_content_mambot_params['mospaging'] = $mambot;

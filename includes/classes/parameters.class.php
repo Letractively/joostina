@@ -15,12 +15,13 @@ defined('_VALID_MOS') or die();
  * @package Joostina
  */
 class mosParameters {
+	//public static $_instance_params;
 	/**
 	 @var object*/
 	private $_params = null;
 	/**
 	 @var string The raw params string*/
-	public $_raw = null;
+	private $_raw = null;
 	/**
 	 @var string Path to the xml setup file*/
 	private $_path = null;
@@ -38,6 +39,14 @@ class mosParameters {
 	 */
 	function mosParameters($text,$path = '',$type = 'component') {
 		JDEBUG ? jd_inc('mosParameters') : null;
+
+		/* TODO 1.3.3
+		if (isset( self::$_instance_params[md5($text)] )){
+			$this->_params = self::$_instance_params[md5($text)];
+		}else{
+			$this->_params = self::$_instance_params[md5($text)] = $this->parse($text);
+		}
+		*/
 
 		$this->_params = $this->parse($text);
 		$this->_raw = $text;
@@ -101,6 +110,9 @@ class mosParameters {
 	 * @return object
 	 */
 	public static function parse($txt,$process_sections = false,$asArray = false) {
+
+		JDEBUG ? jd_inc('mosParameters::parse') : null;
+
 		// если в параметрах ничего нет - не будем дальшепытаться его распатсить
 		if(trim($txt)=='') {
 			return $asArray ? array():new stdClass();
@@ -346,7 +358,7 @@ class mosParameters {
 		$result[5]=$type;
 		return $result;
 	}
-	
+
 	/**
 	 * @param string The name of the form element
 	 * @param string The value of the element
@@ -617,9 +629,12 @@ function mosParseParams($txt) {
 
 class mosEmpty {
 	function def() {
-		return 1;
+		return true;
 	}
 	function get() {
-		return 1;
+		return true;
+	}
+	function set() {
+		return true;
 	}
 }

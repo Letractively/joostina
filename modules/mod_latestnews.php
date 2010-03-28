@@ -23,7 +23,7 @@ $module->get_helper($mainframe);
 //статического содержимого или сразу обоих
 switch ($type) {
 	case 2:
-	//Только статическое содержимое
+	//Только статичное содержимое
 		$rows = $module->helper->get_static_items($params);
 		break;
 

@@ -126,7 +126,8 @@ class HTML_QuickIcons {
 	function edit(&$row,$lists,$option) {
 
 		mosMakeHtmlSafe($row,ENT_QUOTES);
-		mosCommonHTML::loadOverlib();
+
+		mosMainFrame::addClass('mosTabs');
 		$tabs = new mosTabs(0); ?>
 
 <script type="text/javascript">
