@@ -15,7 +15,14 @@ defined('_VALID_MOS') or die();
  * @package Joostina
  */
 class mosHTML {
-
+	/**
+	 *
+	 * @param <type> $value
+	 * @param <type> $text
+	 * @param <type> $value_name
+	 * @param <type> $text_name
+	 * @return <type>
+	 */
 	public static function makeOption($value,$text = '',$value_name = 'value',$text_name = 'text') {
 		$obj = new stdClass;
 		$obj->$value_name = $value;
@@ -23,7 +30,14 @@ class mosHTML {
 		return $obj;
 	}
 
-	function writableCell($folder,$relative = 1,$text = '',$visible = 1) {
+	/**
+	 *
+	 * @param <type> $folder
+	 * @param <type> $relative
+	 * @param <type> $text
+	 * @param <type> $visible
+	 */
+	public static function writableCell($folder,$relative = 1,$text = '',$visible = 1) {
 
 		$writeable		= '<b><font color="green">'._WRITEABLE.'</font></b>';
 		$unwriteable	= '<b><font color="red">'._UNWRITEABLE.'</font></b>';
@@ -37,9 +51,9 @@ class mosHTML {
 		echo '</td>';
 		echo '<td align="left">';
 		if($relative) {
-			echo is_writable("../$folder")?$writeable:$unwriteable;
+			echo is_writable("../$folder") ? $writeable:$unwriteable;
 		} else {
-			echo is_writable($folder)?$writeable:$unwriteable;
+			echo is_writable($folder) ? $writeable:$unwriteable;
 		}
 		echo '</td>';
 		echo '</tr>';
@@ -55,7 +69,7 @@ class mosHTML {
 	 * @param mixed The key that is selected
 	 * @returns string HTML for the select list
 	 */
-	function selectList(&$arr,$tag_name,$tag_attribs,$key,$text,$selected = null, $first_el_key = '*000', $first_el_text = '*000') {
+	public static function selectList(&$arr,$tag_name,$tag_attribs,$key,$text,$selected = null, $first_el_key = '*000', $first_el_text = '*000') {
 		// check if array
 		if(is_array($arr)) {
 			reset($arr);
@@ -104,7 +118,7 @@ class mosHTML {
 	 * @param string The printf format to be applied to the number
 	 * @returns string HTML for the select list
 	 */
-	function integerSelectList($start,$end,$inc,$tag_name,$tag_attribs,$selected,$format ="") {
+	public static function integerSelectList($start,$end,$inc,$tag_name,$tag_attribs,$selected,$format ="") {
 		$start = intval($start);
 		$end = intval($end);
 		$inc = intval($inc);
@@ -125,7 +139,7 @@ class mosHTML {
 	 * @param mixed The key that is selected
 	 * @returns string HTML for the select list values
 	 */
-	function monthSelectList($tag_name,$tag_attribs,$selected,$type = 0) {
+	public static function monthSelectList($tag_name,$tag_attribs,$selected,$type = 0) {
 		// месяца для выбора
 		$arr_1 = array(
 				mosHTML::makeOption('01',_JAN),
@@ -159,8 +173,14 @@ class mosHTML {
 		$arr = $type ? $arr_2 : $arr_1;
 		return mosHTML::selectList($arr,$tag_name,$tag_attribs,'value','text',$selected);
 	}
-
-	function daySelectList($tag_name,$tag_attribs,$selected) {
+	/**
+	 *
+	 * @param <type> $tag_name
+	 * @param <type> $tag_attribs
+	 * @param <type> $selected
+	 * @return <type>
+	 */
+	public static function daySelectList($tag_name,$tag_attribs,$selected) {
 		$arr = array();
 
 		for($i = 1; $i <= 31; $i++) {
@@ -174,7 +194,16 @@ class mosHTML {
 		return mosHTML::selectList($arr,$tag_name,$tag_attribs,'value','text',$selected);
 	}
 
-	function yearSelectList($tag_name,$tag_attribs,$selected, $min = 1900, $max=null ) {
+	/**
+	 *
+	 * @param <type> $tag_name
+	 * @param <type> $tag_attribs
+	 * @param <type> $selected
+	 * @param <type> $min
+	 * @param <type> $max
+	 * @return <type>
+	 */
+	public static function yearSelectList($tag_name,$tag_attribs,$selected, $min = 1900, $max=null ) {
 
 		$max = ( $max == null) ? date('Y',time()) : $max;
 
@@ -185,7 +214,14 @@ class mosHTML {
 		return mosHTML::selectList($arr,$tag_name,$tag_attribs,'value','text',$selected);
 	}
 
-	function genderSelectList($tag_name,$tag_attribs,$selected) {
+	/**
+	 *
+	 * @param <type> $tag_name
+	 * @param <type> $tag_attribs
+	 * @param <type> $selected
+	 * @return <type>
+	 */
+	public static function genderSelectList($tag_name,$tag_attribs,$selected) {
 		$arr = array(
 				mosHTML::makeOption('no_gender',_GENDER_NONE),
 				mosHTML::makeOption('male',_MALE),
@@ -208,7 +244,7 @@ class mosHTML {
 	 * @param mixed The key that is selected
 	 * @returns string HTML for the select list
 	 */
-	function treeSelectList(&$src_list,$src_id,$tgt_list,$tag_name,$tag_attribs,$key,
+	public static function treeSelectList(&$src_list,$src_id,$tgt_list,$tag_name,$tag_attribs,$key,
 			$text,$selected) {
 		// establish the hierarchy of the menu
 		$children = array();
@@ -248,7 +284,7 @@ class mosHTML {
 	 * @param mixed The key that is selected
 	 * @returns string HTML for the select list values
 	 */
-	function yesnoSelectList($tag_name,$tag_attribs,$selected,$yes = _YES,$no =_NO) {
+	public static function yesnoSelectList($tag_name,$tag_attribs,$selected,$yes = _YES,$no =_NO) {
 		$arr = array(mosHTML::makeOption('0',$no),mosHTML::makeOption('1',$yes),);
 
 		return mosHTML::selectList($arr,$tag_name,$tag_attribs,'value','text',$selected);
@@ -264,7 +300,7 @@ class mosHTML {
 	 * @param string The name of the object variable for the option text
 	 * @returns string HTML for the select list
 	 */
-	function radioList(&$arr,$tag_name,$tag_attribs,$selected = null,$key = 'value',$text = 'text') {
+	public static function radioList(&$arr,$tag_name,$tag_attribs,$selected = null,$key = 'value',$text = 'text') {
 		reset($arr);
 		$html = '';
 		for($i = 0,$n = count($arr); $i < $n; $i++) {
@@ -300,7 +336,7 @@ class mosHTML {
 	 * @param mixed The key that is selected
 	 * @returns string HTML for the radio list
 	 */
-	function yesnoRadioList($tag_name,$tag_attribs,$selected,$yes = _YES,$no = _NO) {
+	public static function yesnoRadioList($tag_name,$tag_attribs,$selected,$yes = _YES,$no = _NO) {
 		$arr = array(
 				mosHTML::makeOption('0',$no),
 				mosHTML::makeOption('1',$yes)
@@ -316,15 +352,11 @@ class mosHTML {
 	 * @param string The name of the form element
 	 * @return string
 	 */
-	function idBox($rowNum,$recId,$checkedOut = false,$name = 'cid') {
-		if($checkedOut) {
-			return '';
-		} else {
-			return '<input type="checkbox" id="cb'.$rowNum.'" name="'.$name.'[]" value="'.$recId.'" onclick="isChecked(this.checked);" />';
-		}
+	public static function idBox($rowNum,$recId,$checkedOut = false,$name = 'cid') {
+		return $checkedOut ? '' : '<input type="checkbox" id="cb'.$rowNum.'" name="'.$name.'[]" value="'.$recId.'" onclick="isChecked(this.checked);" />';
 	}
 
-	function sortIcon($base_href,$field,$state = 'none') {
+	public static function sortIcon($base_href,$field,$state = 'none') {
 		$alts = array('none' => _SORT_NONE,'asc' => _SORT_ASC,'desc' =>_SORT_DESC,);
 		$next_state = 'asc';
 		if($state == 'asc') {
@@ -334,8 +366,7 @@ class mosHTML {
 			$next_state = 'none';
 		}
 
-		$html = '<a href="'.$base_href.'&field='.$field.'&order='.$next_state.'"><img src="'.JPATH_SITE.'/'.JADMIN_BASE.'/images/sort_'.$state.'.png" width="12" height="12" border="0" alt="'.$alts[$next_state].'" /></a>';
-		return $html;
+		return '<a href="'.$base_href.'&field='.$field.'&order='.$next_state.'"><img src="'.JPATH_SITE.'/'.JADMIN_BASE.'/images/sort_'.$state.'.png" width="12" height="12" border="0" alt="'.$alts[$next_state].'" /></a>';
 	}
 
 	/**
@@ -367,16 +398,14 @@ class mosHTML {
 	 */
 	//TODO: справка - Back Button
 	public static function BackButton(&$params = null,$hide_js = null) {
-		$config = Jconfig::getInstance();
-
-		if( !$params ||  ($params->get('back_button')==1 && !$params->get('popup') && !$hide_js) || ($params->get('back_button') == -1 && $config->config_back_button == 1 ) ) {
+		if( !$params ||  ($params->get('back_button')==1 && !$params->get('popup') && !$hide_js) || ($params->get('back_button') == -1 && Jconfig::getInstance()->config_back_button == 1 ) ) {
 			include_once(JPATH_BASE.'/templates/system/back_button.php');
 		}else {
 			return false;
 		}
 	}
 
-	function get_image($file, $directory = 'system', $front = 0) {
+	public static function get_image($file, $directory = 'system', $front = 0) {
 
 		if(!$front) {
 			$path = '/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/'.$directory.'/';
@@ -448,9 +477,9 @@ class mosHTML {
 				<?php
 			} else {
 				?>
-					<?php if(!Jconfig::getInstance()->config_index_print) { ?>
+				<?php if(!Jconfig::getInstance()->config_index_print) { ?>
 <span style="display:none"><![CDATA[<noindex>]]></span><a href="#" rel="nofollow" target="_blank" onclick="window.open('<?php echo $link; ?>','win2','<?php echo $status; ?>'); return false;" title="<?php echo _PRINT; ?>"><?php echo $image; ?></a><span style="display:none"><![CDATA[</noindex>]]></span>
-					<?php } else { ?>
+						<?php } else { ?>
 <a href="<?php echo $link; ?>" target="_blank" title="<?php echo _PRINT; ?>"><?php echo $image; ?></a>
 					<?php } ; ?>
 
@@ -464,7 +493,7 @@ class mosHTML {
 	 * email cloacking
 	 * by default replaces an email with a mailto link with email cloacked
 	 */
-	function emailCloaking($mail,$mailto = 1,$text = '',$email = 1) {
+	public static function emailCloaking($mail,$mailto = 1,$text = '',$email = 1) {
 		// convert text
 		$mail = mosHTML::encoding_converter($mail);
 		// split email by @ symbol
@@ -525,7 +554,12 @@ class mosHTML {
 		return $replacement;
 	}
 
-	function encoding_converter($text) {
+	/**
+	 *
+	 * @param <type> $text
+	 * @return <type>
+	 */
+	public static function encoding_converter($text) {
 		// replace vowels with character encoding
 		$text = str_replace('a','&#97;',$text);
 		$text = str_replace('e','&#101;',$text);
@@ -533,5 +567,26 @@ class mosHTML {
 		$text = str_replace('o','&#111;',$text);
 		$text = str_replace('u','&#117;',$text);
 		return $text;
+	}
+	
+	/**
+	 * Подключение внешнего JS файла
+	 * @param string $script - путь к файлу скрипта
+	 * @return string - строка подключения js файла
+	 */
+	public static function js_file( $file ) {
+		$file = ( (strpos($file, '://') === FALSE) ) ? JPATH_SITE.$file : $file;
+		return '<script type="text/javascript" src="'.$file.'"></script>';
+	}
+
+	/**
+	 * Подключение фнешнего CSS файла
+	 * @param string $file - путь до файла
+	 * @param string $media - область действия css файла, по умолчанию all
+	 * @return string - строка подключения css файла
+	 */
+	public static function css_file( $file, $media = 'all' ) {
+		$file = ( (strpos($file, '://') === FALSE) ) ? JPATH_SITE.$file : $file;
+		return '<link rel="stylesheet" type="text/css" media="'.$media.'" href="'.$file.'" />';
 	}
 }

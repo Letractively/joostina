@@ -151,8 +151,10 @@ if (!defined( '_MOS_MAINMENU_MODULE' )) {
 	 * Вертикальный отступ меню
 	 */
 	function mosShowVIMenu(  &$params ) {
-		global $database, $my, $cur_template, $Itemid;
+		global $my, $cur_template, $Itemid;
 		global $mosConfig_shownoauth;
+
+		$database = database::getInstance();
 
 		$and = '';
 		if ( !$mosConfig_shownoauth ) {

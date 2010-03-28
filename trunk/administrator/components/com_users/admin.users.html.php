@@ -92,6 +92,7 @@ class HTML_users {
 
         mosMakeHtmlSafe($row);
 
+		mosMainFrame::addClass('mosTabs');
         $tabs = new mosTabs(1, 1);
 
         if (!defined('_JQUERY_LOADED')) {

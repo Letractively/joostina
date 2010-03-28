@@ -23,7 +23,7 @@ class ContentView {
 	function showContent(&$rows,$section,&$lists,$search,$pageNav,$all = null,$redirect='') {
 		global $my,$acl;
 
-                mosCommonHTML::loadDtree();
+		mosCommonHTML::loadDtree();
 
 		$mainframe = mosMainFrame::getInstance();
 		$database = $mainframe->getDBO();
@@ -73,6 +73,8 @@ class ContentView {
 		if($row->modified != $nullDate) {
 			$mod_date = mosFormatDate($row->modified,'%d %B %Y %H:%M','0');
 		}
+
+		mosMainFrame::addClass('mosTabs');
 		$tabs = new mosTabs(1);
 		// used to hide "Reset Hits" when hits = 0
 		if(!$row->hits) {

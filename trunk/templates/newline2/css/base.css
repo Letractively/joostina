@@ -158,8 +158,8 @@ input[type=radio]{
 	display:inline-block;
 	line-height:25px;
 	padding:0 9px 0 0;
-	background: url(../images/buttons/bg-button-r.png) right 0 no-repeat;
-	cursor:pointer; font-family: "Arial";
+	cursor:pointer;
+	font-family: "Arial";
 }
 .button a, .button b, .button input, .button button {
 	display:inline-block;
@@ -168,7 +168,6 @@ input[type=radio]{
 	color:#000;
 	text-decoration:none;
 	outline:none;
-	background:url(../images/buttons/bg-button-l.png) 0 0 no-repeat;
 	border:none;
 	cursor:pointer;
 }

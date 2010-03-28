@@ -1,15 +1,15 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2010 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2010 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 defined('_VALID_MOS') or die();
 
 class Image {
-
+	
 	var $id = null;
 	var $name = '';
 	var $field_name = 'file';
@@ -26,7 +26,7 @@ class Image {
 		$name_file=$this->field_name;
 		$up = 0;
 
-		$dir_name = JPATH_BASE."/".$this->directory;
+		$dir_name = JPATH_BASE.DS.$this->directory;
 		if(!is_dir($dir_name)) {
 			mkdir($dir_name, 0700);
 		}
@@ -84,7 +84,7 @@ class Image {
 									}
 								}else {
 									if(!Thumbnail::output($dir_name.'/'.$name, $dir_name.'/'.$name, $resize_options)) {
-										echo "<script> alert('Ошибка при добавлении файла. Возможно, файл поврежден2');  </script>\n";
+										echo "<script> alert('Ошибка при добавлении файла. Возможно, файл поврежден.');  </script>\n";
 										exit();
 									}
 								}

@@ -16,7 +16,7 @@ global $my;
 js_menu_cache_clear();
 
 
-$task = mosGetParam($_POST, 'task', false);
+$task = mosGetParam($_REQUEST, 'task', false);
 $id = intval(mosGetParam($_GET, 'id', '0'));
 
 $obj_id = intval(mosGetParam($_POST, 'obj_id', false));

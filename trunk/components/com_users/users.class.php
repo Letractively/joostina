@@ -150,7 +150,7 @@ class mosUser extends mosDBTable {
 			$object_id = $acl->get_object_id($section_value,$this->$k,'ARO');
 			$acl->edit_object($object_id,$section_value,$this->_db->getEscaped($this->name),$this->$k,0,0,'ARO');
 		} else {
-                    // new record
+			// new record
 			$ret = $this->_db->insertObject($this->_tbl,$this,$this->_tbl_key);
 			// syncronise ACL
 			$acl->add_object($section_value,$this->_db->getEscaped($this->name),$this->$k,null,null,'ARO');
@@ -395,25 +395,25 @@ class mosUser extends mosDBTable {
 /* расширенная информация о пользователе */
 class userUsersExtra extends mosDBTable {
 
-	var $user_id = null;
-	var $gender = null;
-	var $about = null;
-	var $location = null;
-	var $url = null;
-	var $icq = null;
-	var $skype = null;
-	var $jabber = null;
-	var $msn = null;
-	var $yahoo = null;
-	var $phone = null;
-	var $fax = null;
-	var $mobil = null;
-	var $birthdate = null;
+	public $user_id = null;
+	public $gender = null;
+	public $about = null;
+	public $location = null;
+	public $url = null;
+	public $icq = null;
+	public $skype = null;
+	public $jabber = null;
+	public $msn = null;
+	public $yahoo = null;
+	public $phone = null;
+	public $fax = null;
+	public $mobil = null;
+	public $birthdate = null;
 
 	/**
 	 * @param database A database connector object
 	 */
-	function userUsersExtra(&$db) {
+	function userUsersExtra( $db ) {
 		$this->mosDBTable('#__users_extra','user_id',$db);
 	}
 	function insert($id) {
@@ -425,61 +425,51 @@ class userUsersExtra extends mosDBTable {
 
 class userHelper {
 
-	function _load_core_js() {
-		$mainframe = mosMainFrame::getInstance();
-		$mainframe->addJS(JPATH_SITE.'/components/com_users/js/com_users.js','custom');
-	}
-
-	function _load_jquery_form() {
-		mosCommonHTML::loadJqueryPlugins('jquery.form', false, false, 'js');
-	}
-
-
 	function _build_img_upload_area($obj, $form_params, $state) {
 		$field = $form_params->img_field;
 
 		?><script type="text/javascript">
-	$(document).ready(function() {
+			$(document).ready(function() {
 
-		//---Кнопка "Сменить"
-		$("a#reupload_<?php echo $form_params->img_field;?>").live('click', function () {
-			$(".upload_area_<?php echo $form_params->img_field;?>").fadeIn(1000);
-			$("#<?php echo $form_params->img_field;?>").addClass("required");
-			return false;
-		});
-		//---Кнопка "Удалить"
-		$('a#del_<?php echo $form_params->img_field;?>').live('click', function(){
-			//Индикатор выполнения
-			$('#indicate_<?php echo $form_params->img_field;?>').fadeIn(1000, function () {
-				$("#indicate_<?php echo $form_params->img_field;?>").addClass("inprogress");
-				$("#indicate_<?php echo $form_params->img_field;?>").html("<?php echo _INPROGRESS; ?>");
+				//---Кнопка "Сменить"
+				$("a#reupload_<?php echo $form_params->img_field;?>").live('click', function () {
+					$(".upload_area_<?php echo $form_params->img_field;?>").fadeIn(1000);
+					$("#<?php echo $form_params->img_field;?>").addClass("required");
+					return false;
+				});
+				//---Кнопка "Удалить"
+				$('a#del_<?php echo $form_params->img_field;?>').live('click', function(){
+					//Индикатор выполнения
+					$('#indicate_<?php echo $form_params->img_field;?>').fadeIn(1000, function () {
+						$("#indicate_<?php echo $form_params->img_field;?>").addClass("inprogress");
+						$("#indicate_<?php echo $form_params->img_field;?>").html("<?php echo _INPROGRESS; ?>");
+					});
+
+					//отправляем ajax-запрос
+					$.post( //---post:begin
+					'<?php echo $form_params->ajax_handler; ?>',{
+						task: "del_avatar",
+					} ,
+					//пришёл ответ
+					function onAjaxSuccess(data){
+						//Плавная смена изображения
+						//$('#current_<?php echo $form_params->img_field;?>_img').fadeOut(1000);
+						$('#current_<?php echo $form_params->img_field;?>_img').fadeOut(1000, function(){
+							$('#current_<?php echo $form_params->img_field;?>_img').html('<img class="avatar" src="<?php echo JPATH_SITE;?>/<?php echo $form_params->img_path;?>/'+data+'" />');
+							//Скрываем индикатор
+							$("#indicate_<?php echo $form_params->img_field;?>").removeClass("inprogress");
+							$("#indicate_<?php echo $form_params->img_field;?>").html("");
+						});
+						$('#current_<?php echo $form_params->img_field;?>_img').fadeIn(1000, function () {
+							$('#current_<?php echo $form_params->img_field;?>_img').show('slow');
+						});
+						//Скрываем кнопку "Удалить"
+						$('a#del_<?php echo $form_params->img_field;?>').parent().fadeOut("slow");
+					}
+				); //---post:end
+					return false;
+				});
 			});
-
-			//отправляем ajax-запрос
-			$.post( //---post:begin
-			'<?php echo $form_params->ajax_handler; ?>',{
-				task: "del_avatar",
-			} ,
-			//пришёл ответ
-			function onAjaxSuccess(data){
-				//Плавная смена изображения
-				//$('#current_<?php echo $form_params->img_field;?>_img').fadeOut(1000);
-				$('#current_<?php echo $form_params->img_field;?>_img').fadeOut(1000, function(){
-					$('#current_<?php echo $form_params->img_field;?>_img').html('<img class="avatar" src="<?php echo JPATH_SITE;?>/<?php echo $form_params->img_path;?>/'+data+'" />');
-					//Скрываем индикатор
-					$("#indicate_<?php echo $form_params->img_field;?>").removeClass("inprogress");
-					$("#indicate_<?php echo $form_params->img_field;?>").html("");
-				});
-				$('#current_<?php echo $form_params->img_field;?>_img').fadeIn(1000, function () {
-					$('#current_<?php echo $form_params->img_field;?>_img').show('slow');
-				});
-				//Скрываем кнопку "Удалить"
-				$('a#del_<?php echo $form_params->img_field;?>').parent().fadeOut("slow");
-			}
-		); //---post:end
-			return false;
-		});
-	});
 </script>
 		<?php if($state!='upload') {?>
 <div id="current_<?php echo $form_params->img_field;?>">
@@ -523,7 +513,8 @@ class userHelper {
 	}
 
 	function _build_img_upload_form(&$obj, $form_params) {
-		self::_load_jquery_form();
+
+		mosCommonHTML::loadJqueryPlugins('jquery.form', false, false, 'js');
 
 
 		$mainframe = mosMainFrame::getInstance();
@@ -533,51 +524,51 @@ class userHelper {
 		}
 
 		?><script type="text/javascript">
-	$(document).ready(function(){
-		$('#<?php echo $form_params->img_field;?>_upload_button').live('click', function() {
-			$('#<?php echo $form_params->img_field;?>_uploadForm').ajaxSubmit({
-				beforeSubmit: function(a,f,o) {
-					o.dataType = "html";
-					$('#<?php echo $form_params->img_field;?>_uploadOutput').fadeIn(1000, function () {
-						$('#<?php echo $form_params->img_field;?>_uploadOutput').addClass("inprogress");
-					});
-					//$('#current_<?php echo $form_params->img_field;?>').fadeOut(1000);
-					if(!$('#upload_<?php echo $form_params->img_field;?>').val()){
-						$('#<?php echo $form_params->img_field;?>_uploadOutput').html('<?php echo _CHOOSE_IMAGE?>');
-						return false;
-					}
-					$('#current_<?php echo $form_params->img_field;?>').fadeIn(1000);
-
-				},
-				success: function(data) {
-					var $out = $('#<?php echo $form_params->img_field;?>_uploadOutput');
-					$out.html('');
-					if(data){
-						if (typeof data == 'object' && data.nodeType)
-							data = elementToString(data.documentElement, true);
-						else if (typeof data == 'object')
-							data = objToString(data);
-						$(".upload_area_<?php echo $form_params->img_field;?>").fadeOut(900);
-						$(".buttons_<?php echo $form_params->img_field;?>").fadeOut(1000);
-						//$('#current_<?php echo $form_params->img_field;?>_img').fadeOut(1000);
-						$('#current_<?php echo $form_params->img_field;?>_img').fadeOut(1000, function(){
-							$('#current_<?php echo $form_params->img_field;?>_img').html('<img class="avatar" src="<?php echo JPATH_SITE;?>/<?php echo $form_params->img_path;?>/'+data+'?r=' + Math.random()+'" />');
-						});
-						$('#current_<?php echo $form_params->img_field;?>_img').fadeIn(1000, function () {
-							$('#current_<?php echo $form_params->img_field;?>_img').show('slow', function () {
-								//$('#current_<?php echo $form_params->img_field;?>_img').fadeIn(1000);
+			$(document).ready(function(){
+				$('#<?php echo $form_params->img_field;?>_upload_button').live('click', function() {
+					$('#<?php echo $form_params->img_field;?>_uploadForm').ajaxSubmit({
+						beforeSubmit: function(a,f,o) {
+							o.dataType = "html";
+							$('#<?php echo $form_params->img_field;?>_uploadOutput').fadeIn(1000, function () {
+								$('#<?php echo $form_params->img_field;?>_uploadOutput').addClass("inprogress");
 							});
-						});
-						$(".buttons_<?php echo $form_params->img_field;?>").fadeIn(1000);
-						$('#new_<?php echo $form_params->img_field;?>').val(data);
-					}
+							//$('#current_<?php echo $form_params->img_field;?>').fadeOut(1000);
+							if(!$('#upload_<?php echo $form_params->img_field;?>').val()){
+								$('#<?php echo $form_params->img_field;?>_uploadOutput').html('<?php echo _CHOOSE_IMAGE?>');
+								return false;
+							}
+							$('#current_<?php echo $form_params->img_field;?>').fadeIn(1000);
 
-				}
+						},
+						success: function(data) {
+							var $out = $('#<?php echo $form_params->img_field;?>_uploadOutput');
+							$out.html('');
+							if(data){
+								if (typeof data == 'object' && data.nodeType)
+									data = elementToString(data.documentElement, true);
+								else if (typeof data == 'object')
+									data = objToString(data);
+								$(".upload_area_<?php echo $form_params->img_field;?>").fadeOut(900);
+								$(".buttons_<?php echo $form_params->img_field;?>").fadeOut(1000);
+								//$('#current_<?php echo $form_params->img_field;?>_img').fadeOut(1000);
+								$('#current_<?php echo $form_params->img_field;?>_img').fadeOut(1000, function(){
+									$('#current_<?php echo $form_params->img_field;?>_img').html('<img class="avatar" src="<?php echo JPATH_SITE;?>/<?php echo $form_params->img_path;?>/'+data+'?r=' + Math.random()+'" />');
+								});
+								$('#current_<?php echo $form_params->img_field;?>_img').fadeIn(1000, function () {
+									$('#current_<?php echo $form_params->img_field;?>_img').show('slow', function () {
+										//$('#current_<?php echo $form_params->img_field;?>_img').fadeIn(1000);
+									});
+								});
+								$(".buttons_<?php echo $form_params->img_field;?>").fadeIn(1000);
+								$('#new_<?php echo $form_params->img_field;?>').val(data);
+							}
+
+						}
+					});
+					return false;
+				});
+
 			});
-			return false;
-		});
-
-	});
 </script>
 <form name="<?php echo $form_params->img_field;?>_uploadForm" class="ajaxForm" enctype="multipart/form-data" method="post" action="<?php echo $action; ?>" id="<?php echo $form_params->img_field;?>_uploadForm">
     <input name="<?php echo $form_params->img_field;?>"  id="upload_<?php echo $form_params->img_field;?>"  type="file" />
@@ -598,28 +589,28 @@ class userHelper {
 class mosSession extends mosDBTable {
 	/**
 	 @var int Primary key*/
-	var $session_id = null;
+	public $session_id = null;
 	/**
 	 @var string*/
-	var $time = null;
+	public $time = null;
 	/**
 	 @var string*/
-	var $userid = null;
+	public $userid = null;
 	/**
 	 @var string*/
-	var $usertype = null;
+	public $usertype = null;
 	/**
 	 @var string*/
-	var $username = null;
+	public $username = null;
 	/**
 	 @var time*/
-	var $gid = null;
+	public $gid = null;
 	/**
 	 @var int*/
-	var $guest = null;
+	public $guest = null;
 	/**
 	 @var string*/
-	var $_session_cookie = null;
+	public $_session_cookie = null;
 
 	/**
 	 * @param database A database connector object
@@ -760,15 +751,15 @@ class mosUserParameters extends mosParameters {
 	 * @return string The html for the element
 	 */
 	function _form_editor_list($name,$value,&$node,$control_name) {
-		$database = database::getInstance();
+
 		// compile list of the editors
 		$query = "SELECT element AS value, name AS text"
 				."\n FROM #__mambots"
 				."\n WHERE folder = 'editors'"
 				."\n AND published = 1"
 				."\n ORDER BY ordering, name";
-		$database->setQuery($query);
-		$editors = $database->loadObjectList();
+		$editors = database::getInstance()->setQuery($query)->loadObjectList();
+
 		array_unshift($editors,mosHTML::makeOption('',_SELECT_EDITOR));
 
 		return mosHTML::selectList($editors,''.$control_name.'['.$name.']','class="inputbox"','value','text',$value);

@@ -42,7 +42,7 @@ class XmapAdminHtml {
 			echo "$coma'$menutype'";
 			$coma=',';
 		} ?>];
-	var joomla = '<?php echo (defined('JPATH_ADMINISTRATOR')? '1.5':'1.0'); ?>';
+				var joomla = '<?php echo (defined('JPATH_ADMINISTRATOR')? '1.5':'1.0'); ?>';
 </script>
 <table class="adminheading">
 	<tr>
@@ -53,10 +53,12 @@ class XmapAdminHtml {
 </table>
 <div id="sitemapsouter" onclick="handleClick();">
 			<?php
-		$pane = new mosTabs(1);// uses cookie to save last used tab
-				$pane->startPane( 'xmap-pane' );
-				$pane->startTab( _XMAP_TAB_SITEMAPS, 'sitemaps-tab' );
-				?>
+
+			mosMainFrame::addClass('mosTabs');
+			$pane = new mosTabs(1);// uses cookie to save last used tab
+			$pane->startPane( 'xmap-pane' );
+			$pane->startTab( _XMAP_TAB_SITEMAPS, 'sitemaps-tab' );
+			?>
 	<div id="sitemaps" onclick="handleClick();">
 				<?php
 				$sitemaps = $config->getSitemaps();
@@ -64,18 +66,18 @@ class XmapAdminHtml {
 					foreach ($sitemaps as $sitemap) {
 						XmapAdminHtml::showSitemapInfo($sitemap,($config->sitemap_default == $sitemap->id));
 					}
-		} else {
-				echo _XMAP_MSG_NO_SITEMAPS;
-			}
-			?>
+				} else {
+					echo _XMAP_MSG_NO_SITEMAPS;
+				}
+				?>
 	</div>
-		<?php
-				$pane->endTab();
-				$pane->startTab(_XMAP_TAB_EXTENSIONS,'ext-tab');
-		?>
+			<?php
+			$pane->endTab();
+			$pane->startTab(_XMAP_TAB_EXTENSIONS,'ext-tab');
+			?>
 	<div id="pluginstoolbar"><?php
-		XmapAdminHtml::showInstallForm( _INSTALL_NEW_PLUGIN, dirname(__FILE__) );
-		?>
+				XmapAdminHtml::showInstallForm( _INSTALL_NEW_PLUGIN, dirname(__FILE__) );
+				?>
 		<table class="adminheading">
 			<tbody>
 				<tr>
@@ -84,13 +86,13 @@ class XmapAdminHtml {
 			</tbody>
 		</table>
 		<div id="plugins">
-			<?php XmapAdminHtml::showInstalledPlugins($pluginList, 'com_xmap', $xmlfile, $lists); ?>
+					<?php XmapAdminHtml::showInstalledPlugins($pluginList, 'com_xmap', $xmlfile, $lists); ?>
 		</div>
 	</div>
-		<?php
-		$pane->endTab();
-		$pane->endPane();
-		?>
+			<?php
+			$pane->endTab();
+			$pane->endPane();
+			?>
 </div>
 <div id="divoptions"></div>
 <div id="divbg" style="display:none;"></div>
@@ -182,7 +184,7 @@ class XmapAdminHtml {
 								<label for="columns"><?php echo _XMAP_CFG_NUMBER_COLUMNS; ?></label>:
 							</td>
 							<td style="width:32%">
-		<?php echo $lists['columns']; ?>
+										<?php echo $lists['columns']; ?>
 							</td>
 							<td>
 								<label for="include_link"><?php echo _XMAP_CFG_INCLUDE_LINK; ?></label>:
@@ -196,10 +198,10 @@ class XmapAdminHtml {
 								// currently selected external link marker image
 								if( eregi( 'gif|jpg|jpeg|png', @$sitemap->ext_image )) {
 									$ext_imgurl = $xmapSiteURL.'/components/com_xmap/images/'.$sitemap->ext_image;
-		} else {
-			$ext_imgurl = $xmapSiteURL.'/images/blank.png';
-		}
-		?>
+								} else {
+									$ext_imgurl = $xmapSiteURL.'/images/blank.png';
+								}
+								?>
 						<tr>
 							<td>
 								<label for="exlinks"><?php echo _XMAP_EX_LINK; ?></label>:
@@ -207,7 +209,7 @@ class XmapAdminHtml {
 							<td colspan="4">
 								<input type="checkbox" name="exlinks" id="exlinks" value="1"<?php echo @$sitemap->exlinks ? ' checked="checked"' : ''; ?> />
 								&nbsp;
-		<?php echo $lists['ext_image']; ?>
+										<?php echo $lists['ext_image']; ?>
 								&nbsp;
 								<img src="<?php echo $ext_imgurl; ?>" name="imagelib" alt="" />
 							</td>
@@ -221,10 +223,10 @@ class XmapAdminHtml {
 				<fieldset>
 					<legend><?php echo _XMAP_CFG_URLS; ?></legend>
 					<table>
-		<?php
-		$xml_link = $xmapSiteURL . '/index.php?option=com_xmap&amp;sitemap='.$sitemap->id.'&amp;view=xml&amp;no_html=1';
-		$html_link = $xmapSiteURL . '/index.php?option=com_xmap&amp;sitemap='.$sitemap->id;
-		?>
+								<?php
+								$xml_link = $xmapSiteURL . '/index.php?option=com_xmap&amp;sitemap='.$sitemap->id.'&amp;view=xml&amp;no_html=1';
+								$html_link = $xmapSiteURL . '/index.php?option=com_xmap&amp;sitemap='.$sitemap->id;
+								?>
 						<tr>
 							<td><?php echo _XMAP_CFG_XML_MAP; ?>:</td>
 							<td>
@@ -232,7 +234,7 @@ class XmapAdminHtml {
 									<a href="<?php echo $xml_link; ?>" target="_blank" title="XML Sitemap Link"><?php echo $xml_link; ?></a>
 								</span>
 								&nbsp;
-		<?php echo mosToolTip( str_replace("'","\\'",_XMAP_XML_LINK_TIP) );?>
+										<?php echo mosToolTip( str_replace("'","\\'",_XMAP_XML_LINK_TIP) );?>
 							</td>
 						</tr>
 						<tr>
@@ -302,10 +304,10 @@ class XmapAdminHtml {
 									echo '<div id="'.$name.$sitemap->id.'" onmouseover="showMenuOptions(\''.str_replace("'","\\'",$name).$sitemap->id.'\',\'',str_replace("'","\\'",$name),'\','. $sitemap->id. ');" onmouseout="hideOptions(this.menu);"><span>',$i,'. ', $name,'</span></div>';
 									$i++;
 								}
-	}
+							}
 
-	function showMenuOptions (&$sitemap,&$menu,&$lists) {
-		if (is_object($menu) ) {?>
+							function showMenuOptions (&$sitemap,&$menu,&$lists) {
+								if (is_object($menu) ) {?>
 						<form name="frmMenuOptions" id="frmMenuOptions">
 							<input type="hidden" name="sitemap" value="<?php echo $sitemap->id; ?>" />
 							<input type="hidden" name="menutype" value="<?php echo $menu->menutype; ?>" />
@@ -341,10 +343,10 @@ class XmapAdminHtml {
 						</form>
 									<?php
 								}
-	}
+							}
 
-	function showInstalledPlugins( &$rows, $option, &$xmlfile, &$lists ) {
-		if (count($rows)) {?>
+							function showInstalledPlugins( &$rows, $option, &$xmlfile, &$lists ) {
+								if (count($rows)) {?>
 						<form action="index2.php" method="post" name="installedPlugins">
 							<table class="adminlist" width="100%">
 								<th><?php echo _EXTENSION_NAME;?></th>
@@ -358,16 +360,16 @@ class XmapAdminHtml {
 											$k = 0;
 											for ($i = 0, $n = count( $rows ); $i < $n; $i++) {
 												XmapAdminHtml::printPluginInfo ($rows[$i],$k);
-				$k = 1 - $k;
-			}
-		} else {
+												$k = 1 - $k;
+											}
+										} else {
 											?>
 								<table class="adminlist" width="100%">
 									<th><?php echo _XMAP_NO_PLUGINS_INSTALLED; ?></th>
 								</table>
-			<?php
-		}
-		?>
+											<?php
+										}
+										?>
 							</table>
 							<input type="hidden" name="task" value="plugins" />
 							<input type="hidden" name="boxchecked" value="0" />
@@ -376,16 +378,16 @@ class XmapAdminHtml {
 								<?php
 							}
 
-	function printPluginInfo (&$row,$k) {
-		$mainframe = mosMainFrame::getInstance();
-		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
-		?>
+							function printPluginInfo (&$row,$k) {
+								$mainframe = mosMainFrame::getInstance();
+								$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
+								?>
 						<tr id="plugin<?php echo $row->id; ?>" class="row<?php echo $k; ?>">
 							<td><a href="javascript:settingsPlugin(<?php echo $row->id; ?>);"><?php echo $row->name; ?></a></td>
 							<td align="center"><a href="javascript:changePluginState(<?php echo $row->id; ?>)"><img id="pluginstate<?php echo $row->id; ?>" src="<?php echo $cur_file_icons_path;?>/<?php echo $row->published?'publish_g.png" title="'._XMAP_EXT_PUBLISHED.'"':'publish_x.png" title="'._HIDE.'"'; ?>" border="0" /></a></td>
 							<td align="center"><?php echo @$row->version != "" ? $row->version : "&nbsp;"; ?></td>
 							<td align="center"><?php echo (@$row->author != "" ? $row->author : _XMAP_UNKNOWN_AUTHOR) . (@$row->authorEmail != "" ? ' &lt;'.$row->authorEmail.'&gt;' : "&nbsp;"); ?>
-		<?php echo @$row->authorUrl != "" ? "<a href=\"" .(substr( $row->authorUrl, 0, 7) == 'http://' ? $row->authorUrl : 'http://'.$row->authorUrl) ."\" target=\"_blank\">$row->authorUrl</a>" : "&nbsp;"; ?></div>
+										<?php echo @$row->authorUrl != "" ? "<a href=\"" .(substr( $row->authorUrl, 0, 7) == 'http://' ? $row->authorUrl : 'http://'.$row->authorUrl) ."\" target=\"_blank\">$row->authorUrl</a>" : "&nbsp;"; ?></div>
 							</td>
 							<td align="center"><a href="javascript:uninstallPlugin(<?php echo $row->id; ?>);"><?php echo _REMOVE; ?></a></td>
 							<td align="center"><?php echo @$row->creationdate != "" ? $row->creationdate : "&nbsp;"; ?></td>
@@ -398,19 +400,19 @@ class XmapAdminHtml {
 								echo '<td class="item">' . $folder . '/</td>';
 								echo '<td align="left">';
 								echo is_writable( JPATH_BASE.DS.$folder ) ? '<b><font color="green">'._XMAP_WRITEABLE.'</font></b>' : '<b><font color="red">'._XMAP_UNWRITEABLE.'</font></b>' . '</td>';
-		echo '</tr>';
-	}
-
-	function showInstallForm( $title,$p_startdir ) {  ?>
-						<script language="javascript" type="text/javascript">
-							function submitbutton3(pressbutton) {
-								var form = document.adminForm_dir;
-								if (form.install_directory.value == ""){
-									alert( "<?php echo str_replace('"','\\"',_XMAP_MSG_SELECT_FOLDER); ?>" );
-								} else {
-									form.submit();
-								}
+								echo '</tr>';
 							}
+
+							function showInstallForm( $title,$p_startdir ) {  ?>
+						<script language="javascript" type="text/javascript">
+								function submitbutton3(pressbutton) {
+									var form = document.adminForm_dir;
+									if (form.install_directory.value == ""){
+										alert( "<?php echo str_replace('"','\\"',_XMAP_MSG_SELECT_FOLDER); ?>" );
+									} else {
+										form.submit();
+									}
+								}
 						</script>
 						<form enctype="multipart/form-data" action="index2.php" method="post" name="filename">
 							<table class="adminheading">
@@ -446,7 +448,7 @@ class XmapAdminHtml {
 												</tr>
 												<tr>
 													<td align="left">
-		<?php echo _INSTALLATION_DIRECTORY; ?>:&nbsp;
+																<?php echo _INSTALLATION_DIRECTORY; ?>:&nbsp;
 														<input type="text" name="install_directory" class="text_area" size="60" value="<?php echo $p_startdir; ?>"/>&nbsp;
 														<input type="button" class="button" value="<?php echo _INSTALL; ?>" onclick="submitbutton3()" />
 													</td>
@@ -467,10 +469,10 @@ class XmapAdminHtml {
 							 * @param string
 							 * @param string
 							 * @param string
-	 */
-	function showInstallMessage( $message, $title, $url ) {
-		global $PHP_SELF;
-		?>
+							 */
+							function showInstallMessage( $message, $title, $url ) {
+								global $PHP_SELF;
+								?>
 						<table class="adminheading">
 							<tr>
 								<th class="install"><?php echo $title; ?></th>
@@ -493,20 +495,20 @@ class XmapAdminHtml {
 							}
 
 							function showPluginSettings (&$extension,$itemid='-1') {
-		// get params definitions
-		$xmlfile = $extension->getXmlPath();
-		$params = new mosParameters( $extension->getParams($itemid,true), $xmlfile, 'xmap_ext' );
-		?>
+								// get params definitions
+								$xmlfile = $extension->getXmlPath();
+								$params = new mosParameters( $extension->getParams($itemid,true), $xmlfile, 'xmap_ext' );
+								?>
 						<table class="adminform"><tr><th><?php echo _XMAP_PLUGIN_SET.$extension->extension;?></th></tr></table>
 						<form name="frmSettings" id="frmSettings<?php echo $extension->id; ?>">
 							<input type="hidden" name="id" value="<?php echo $extension->id; ?>" />
 							<input type="hidden" name="boston" value="boston" />
-		<?php echo $params->render(); ?>
+									<?php echo $params->render(); ?>
 							<div style="text-align: center;padding: 5px;">
 								<input type="button" name="save" onclick="saveSettings(<?php echo $extension->id; ?>,'save_plugin_settings','pluginsettings');" value="<?php echo _SAVE; ?>" />
 								<input type="button" name="cancel" onclick="closeSettings('pluginsettings');" value="<?php echo _XMAP_TOOLBAR_CANCEL; ?>" />&nbsp;&nbsp;&nbsp;
 							</div>
 						</form>
-		<?php
-	}
-}
+								<?php
+							}
+						}

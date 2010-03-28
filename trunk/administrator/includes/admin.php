@@ -92,6 +92,7 @@ function mosLoadAdminModules($position = 'left',$style = 0) {
 	switch($style) {
 		case 1:
 		// Tabs
+			mosMainFrame::addClass('mosTabs');
 			$tabs = new mosTabs(1,1);
 			$tabs->startPane('modules-'.$position);
 			foreach($modules as $module) {

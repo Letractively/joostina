@@ -707,10 +707,8 @@ $params->def('menutype', 'mainmenu');
 $config_caching = $mainframe->getCfg('caching');
 
 if($config_caching) {
-	$menu_cache = &mosCache::getCache('mod_mljoostinamenu');
+	$menu_cache = mosCache::getCache('mod_mljoostinamenu');
 }
-// убираем лишний элемент
-unset($params->_raw);
 
 switch ($params->get( 'menu_style' ) ) {
 

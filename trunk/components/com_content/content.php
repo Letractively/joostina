@@ -337,7 +337,7 @@ function _showSectionCatlist($id) {
 	$content_boby = ob_get_contents(); // главное содержимое - стек вывода компонента - mainbody
 	ob_end_clean();
 
-	unset($params->_raw,$params->section_data,$params->menu->params);
+	unset($params->section_data,$params->menu->params);
 
 	return array('content' => $content_boby, 'params' => $params);
 }
@@ -1208,8 +1208,9 @@ function _showFullItem($id) {
 		$meta_params->object->description = $row->metadesc;
 		$meta_params->object->metakey = $row->metakey;
 		$meta_params->page_type = $params->page_type;
+		
 		// убираем лишние объекты, для мета-тэгов они не испоользуются, и в кэше не нужны
-		unset($meta_params->_raw,$meta_params->section_data->_db,$meta_params->category_data->_db);
+		unset($meta_params->section_data->_db,$meta_params->category_data->_db);
 
 		// собираем содержимое страницы в буфер - для кэширования
 		ob_start();

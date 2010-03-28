@@ -66,6 +66,8 @@ class HTML_admin_misc {
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 
 		$width = 400; // width of 100%
+
+		mosMainFrame::addClass('mosTabs');
 		$tabs = new mosTabs(0);
 		?>
 <table class="adminheading">

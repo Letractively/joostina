@@ -197,10 +197,12 @@ class mosCommonHTML {
 			// установка флага о загруженной библиотеке всплывающих подсказок
 			define('_LOADOVERLIB',1);
 			MosMainFrame::getInstance()->addJS(JPATH_SITE.'/includes/js/overlib_full.js');
+			return true;
 		}
 
 		if( $ret ) {
-			?><script language="javascript" type="text/javascript" src="<?php echo JPATH_SITE;?>/includes/js/overlib_full.js"></script><?php
+			mosMainFrame::addClass('mosHTML');
+			echo mosHTML::js_file( JPATH_SITE.'/includes/js/overlib_full.js' );
 		}
 	}
 
@@ -224,9 +226,11 @@ class mosCommonHTML {
 		if(!defined('_MOO_LOADED')) {
 			define('_MOO_LOADED',1);
 			MosMainFrame::getInstance()->addJS(JPATH_SITE.'/includes/js/mootools/mootools.js');
+			return true;
 		}
 		if($ret==true) {
-			?><script language="javascript" type="text/javascript" src="<?php echo JPATH_SITE?>/includes/js/mootools/mootools.js"></script><?php
+			mosMainFrame::addClass('mosHTML');
+			echo mosHTML::js_file( JPATH_SITE.'/includes/js/mootools/mootools.js' );
 		}
 	}
 	/* подключение prettyTable*/
@@ -242,9 +246,9 @@ class mosCommonHTML {
 	public static function loadFullajax($ret = false) {
 		if(!defined('_FAX_LOADED')) {
 			define('_FAX_LOADED',1);
-			if($ret) {?>
-<script language="javascript" type="text/javascript" src="<?php echo JPATH_SITE;?>/includes/js/fullajax/fullajax.js"></script>
-				<?php
+			if($ret) {
+				mosMainFrame::addClass('mosHTML');
+				echo mosHTML::js_file( JPATH_SITE.'/includes/js/fullajax/fullajax.js' );
 			}else {
 				mosMainFrame::getInstance()->addJS(JPATH_SITE.'/includes/js/fullajax/fullajax.js');
 			}
@@ -256,10 +260,10 @@ class mosCommonHTML {
 		if(!defined('_JQUERY_LOADED')) {
 			define('_JQUERY_LOADED',1);
 			if($ret) {
-				return '<script language="javascript" type="text/javascript" src="'.JPATH_SITE.'/includes/js/jquery/jquery.js"></script>';
+				mosMainFrame::addClass('mosHTML');
+				echo mosHTML::js_file( JPATH_SITE.'/includes/js/jquery/jquery.js' );
 			}else {
 				mosMainFrame::getInstance()->addJS(JPATH_SITE.'/includes/js/jquery/jquery.js');
-				return true;
 			}
 		}
 	}
@@ -268,39 +272,36 @@ class mosCommonHTML {
 		$name = trim($name);
 
 		// если само ядро Jquery не загружено - сначала грузим его
-		if(!defined('_JQUERY_LOADED')) {
-			mosCommonHTML::loadJquery($ret);
-		}
+		defined('_JQUERY_LOADED') ? null : mosCommonHTML::loadJquery($ret);
+
 		// формируем константу-флаг для исключения повтороной загрузки
 		$const = '_JQUERY_PL_'.strtoupper($name).'_LOADED';
+
 		if(!defined($const)) {
 			define($const,1);
 			if($ret) {
-				?><script language="javascript" type="text/javascript" src="<?php echo JPATH_SITE;?>/includes/js/jquery/plugins/<?php echo $name; ?>.js"></script>
-				<?php
-				if($css) {
-					?><link type="text/css" rel="stylesheet" href="<?php echo JPATH_SITE;?>/includes/js/jquery/plugins/<?php echo $name; ?>.css" /><?php
-				}?>
-				<?php }else {
+				mosMainFrame::addClass('mosHTML');
+				echo mosHTML::js_file( JPATH_SITE.'/includes/js/jquery/plugins/'. $name.'.js' );
+				echo ($css) ? mosHTML::css_file( JPATH_SITE.'/includes/js/jquery/plugins/'. $name.'.css' ) : '';
+			}else {
 				$mainframe = mosMainFrame::getInstance();
 				$mainframe->addJS(JPATH_SITE.'/includes/js/jquery/plugins/'.$name.'.js', $footer);
-				//$mainframe->addCustomHeadTag('<script language="JavaScript" type="text/javascript">if(_js_defines) {_js_defines.push(\''.$name.'\')} else {var _js_defines = [\''.$name.'\']}</script>');
 				$css ? $mainframe->addCSS(JPATH_SITE.'/includes/js/jquery/plugins/'.$name.'.css'): null;
 			}
 		}
-		return true;
 	}
 	/* подключение файла Jquery UI*/
 	public static function loadJqueryUI($ret = false) {
 		if(!defined('_JQUERY_UI_LOADED')) {
 			define('_JQUERY_UI_LOADED',1);
-			if($ret) {?>
-<script language="javascript" type="text/javascript" src="<?php echo JPATH_SITE?>/includes/js/jquery/ui.js"></script>
-				<?php }else {
+
+			if($ret) {
+				mosMainFrame::addClass('mosHTML');
+				echo mosHTML::js_file( JPATH_SITE.'/includes/js/jquery/ui.js' );
+			}else {
 				mosMainFrame::getInstance()->addCSS(JPATH_SITE.'/includes/js/jquery/ui.js');
 			}
 		}
-		return true;
 	}
 
 	/* подключение dTree*/
@@ -348,10 +349,10 @@ class mosCommonHTML {
 
 	function PublishedProcessing(&$row,$i) {
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
-		$img = $row->published?'publish_g.png':'publish_x.png';
-		$task = $row->published?'unpublish':'publish';
-		$alt = $row->published?_PUBLISHED:_UNPUBLISHED;
-		$action = $row->published?_HIDE:_PUBLISH_ON_FRONTPAGE;
+		$img = $row->published ? 'publish_g.png':'publish_x.png';
+		$task = $row->published ? 'unpublish':'publish';
+		$alt = $row->published ? _PUBLISHED:_UNPUBLISHED;
+		$action = $row->published ? _HIDE:_PUBLISH_ON_FRONTPAGE;
 		$href = '<a href="javascript: void(0);" onclick="return listItemTask(\'cb'.$i.'\',\''.$task.'\')" title="'.$action.'"><img src="'.$cur_file_icons_path.'/'.$img.'" border="0" alt="'.$alt.'" /></a>';
 		return $href;
 	}
