@@ -681,9 +681,7 @@ class mosAdminMenus {
 	 * Also can be used in conjunction with the menulist param to create the chosen image
 	 * load the default or use no image
 	 */
-	function ImageCheckAdmin($file,$directory = '/administrator/images/',$param = null,
-			$param_directory = '/administrator/images/',$alt = null,$name = null,$type = 1,
-			$align = 'middle',$title = null) {
+	function ImageCheckAdmin($file,$directory = '/administrator/images/',$param = null,$param_directory = '/administrator/images/',$alt = null,$name = null,$type = 1,$align = 'middle',$title = null) {
 		$image = mosAdminMenus::ImageCheck($file,$directory,$param,$param_directory,$alt,$name,$type,$align,$title,1);
 		return $image;
 	}

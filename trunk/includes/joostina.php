@@ -57,7 +57,7 @@ mosMainFrame::addClass('mosAdminMenus');
 require_once (JPATH_BASE.'/includes/version.php');
 
 // TODO запретить к 1.3.2!!!
-// $database = database::getInstance();
+//$database = database::getInstance();
 
 /* класс работы с правами пользователей */
 //mosMainFrame::addLib('gacl');
@@ -2087,7 +2087,7 @@ class JConfig {
 	/** @public int тип вывода ника автора материала */
 	public $config_author_name = 4;
 	/** @public int использование неопубликованных мамботов */
-	public $config_use_unpublished_mambots = 1;
+	public $config_use_unpublished_mambots = 0;
 	/** @public int использование мамботов удаления содержимого */
 	public $config_use_content_delete_mambots = 0;
 	/** @public str название шаблона панели управления */
