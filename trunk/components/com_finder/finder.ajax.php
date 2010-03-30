@@ -10,7 +10,7 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-include_once 'elFinder.class.php';
+include_once 'finder.class.php';
 
 // эти настройки надо формировать в зависимости от текущей группы пользователя и его настроек в даминке
 $opts = array(
