@@ -187,12 +187,12 @@ class mosMainFrame {
 	public static function getInstance($isAdmin = false) {
 
 		JDEBUG ? jd_inc('mosMainFrame::getInstance()') : null;
-
+/* ОТЛАДКА
 		if(JDEBUG) {
 			$d = debug_backtrace();
 			jd_log( 'mosMainFrame::getInstance  '.$d[0]['file'].'::'.$d[0]['line'] );
 		}
-
+*/
 		if (self::$_instance === NULL) {
 			self::$_instance = new self($isAdmin);
 		}
@@ -747,7 +747,6 @@ class mosMainFrame {
 				} else {
 					$session_life_admin = 1800;
 				}
-
 				// если в настройка не указано что сессии админки не уничтожаются - выполняем запрос по очистке сессий
 				if($_config->config_admin_autologout==1) {
 					// purge expired admin sessions only
@@ -2116,7 +2115,9 @@ class JConfig {
 	private function  __construct() {
 		$this->bindGlobals();
 	}
-
+	/**
+	 * Запрет клонирования объекта
+	 */
 	private function __clone() {
 
 	}
@@ -2125,11 +2126,6 @@ class JConfig {
 	public static function getInstance() {
 
 		JDEBUG ? jd_inc('JConfig::getInstance()') : null;
-
-		if(JDEBUG) {
-			$d = debug_backtrace();
-			jd_log( 'JConfig::getInstance  '.$d[0]['file'].'::'.$d[0]['line'],1 );
-		}
 
 		if (self::$_instance === NULL) {
 			self::$_instance = new JConfig();

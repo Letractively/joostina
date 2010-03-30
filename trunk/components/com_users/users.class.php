@@ -132,7 +132,8 @@ class mosUser extends mosDBTable {
 	function store($updateNulls = false) {
 		global $migrate;
 
-		$acl = gacl::getInstance( true );
+		mosMainFrame::addLib('gacl');
+		$acl = gacl::getInstance( );
 
 		$section_value = 'users';
 
@@ -166,6 +167,7 @@ class mosUser extends mosDBTable {
 
 	function delete($oid = null) {
 
+		mosMainFrame::addLib('gacl');
 		$acl = gacl::getInstance();
 
 		$k = $this->_tbl_key;
@@ -196,6 +198,7 @@ class mosUser extends mosDBTable {
 	 */
 	function getUserListFromGroup($value,$name,$recurse = 'NO_RECURSE',$order ='name') {
 
+		mosMainFrame::addLib('gacl');
 		$acl = gacl::getInstance();
 
 		$group_id = $acl->get_group_id($name, 'ARO');

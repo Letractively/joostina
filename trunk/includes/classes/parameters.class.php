@@ -115,7 +115,7 @@ class mosParameters {
 
 		// если в параметрах ничего нет - не будем дальшепытаться его распатсить
 		if(trim($txt)=='') {
-			return $asArray ? array():new stdClass();
+			return $asArray ? array() : new stdClass();
 		};
 
 		if(is_string($txt)) {

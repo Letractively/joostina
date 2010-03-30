@@ -68,7 +68,7 @@ class configUser_registration extends dbConfig {
 	}
 
 	function display_config($option) {
-
+		mosMainFrame::addLib('gacl');
 		$acl = gacl::getInstance();
 
 		$gtree = $acl->get_group_children_tree(null, 'USERS', false); ?>
@@ -192,7 +192,7 @@ class configUser_profile extends dbConfig {
 	}
 
 	function display_config($option) {
-
+		mosMainFrame::addLib('gacl');
 		$acl = gacl::getInstance();
 
 		$gtree = $acl->get_group_children_tree(null, 'USERS', false); ?>
