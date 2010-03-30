@@ -16,7 +16,7 @@ function_exists('date_default_timezone_set') ? date_default_timezone_set('GMT0')
 // каталог администратора
 DEFINE('JADMIN_BASE','administrator');
 // параметр активации отладки
-define('JDEBUG', $mosConfig_debug );
+define('JDEBUG', (bool)$mosConfig_debug );
 // формат даты
 DEFINE('_CURRENT_SERVER_TIME_FORMAT','%Y-%m-%d %H:%M:%S');
 // текущее время сервера

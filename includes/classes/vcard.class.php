@@ -35,14 +35,6 @@ defined('_VALID_MOS') or die();
 * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 ***************************************************************************/
 
-function encode($string) {
-	return escape(quoted_printable_encode($string));
-}
-
-function escape($string) {
-	return str_replace(';',"\;",$string);
-}
-
 // taken from PHP documentation comments
 if( !function_exists('quoted_printable_encode') ){
 	function quoted_printable_encode($input,$line_max = 76) {
@@ -83,6 +75,14 @@ if( !function_exists('quoted_printable_encode') ){
 
 		return trim($output);
 	}
+}
+
+function encode($string) {
+	return escape(quoted_printable_encode($string));
+}
+
+function escape($string) {
+	return str_replace(';',"\;",$string);
 }
 
 class vCard {

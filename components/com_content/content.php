@@ -1096,8 +1096,9 @@ function BlogOutput(&$obj, $params, &$access,$mainframe=null) {
 function showFullItem($id,$gid=0) {
 	$config = Jconfig::getInstance();
 	if($config->config_caching==1) {
+		$limitstart = intval(mosGetParam($_REQUEST, 'limitstart', 0));
 		$cache = &mosCache::getCache('com_content');
-		$r = $cache->call('_showFullItem', $id,$gid);
+		$r = $cache->call('_showFullItem', $id,$gid,$limitstart);
 	}else {
 		$r =_showFullItem($id);
 	}
