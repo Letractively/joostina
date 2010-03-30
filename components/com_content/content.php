@@ -134,6 +134,7 @@ function showUserItems($user_id) {
 
 	$mainframe = mosMainFrame::getInstance();
 	$database = $mainframe->getDBO();
+	mosMainFrame::addLib('gacl');
 	$acl = gacl::getInstance();
 
 	mosMainFrame::addLib('dbconfig');

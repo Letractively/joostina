@@ -294,6 +294,7 @@ function userList($gid,$limit,$limitstart=0) {
 
 	$mainframe = mosMainFrame::getInstance();
 	$database = $mainframe->getDBO();
+	mosMainFrame::addLib('gacl');
 	$acl = gacl::getInstance();
 
 	$menu = null;
@@ -509,6 +510,7 @@ function registerForm($option,$useractivation) {
 
 	$mainframe = mosMainFrame::getInstance();
 	$database = $mainframe->getDBO();
+	mosMainFrame::addLib('gacl');
 	$acl = gacl::getInstance();
 
 	if(!$mainframe->getCfg('allowUserRegistration')) {
@@ -549,6 +551,7 @@ function saveRegistration() {
 
 	$mainframe = mosMainFrame::getInstance();
 	$database = $mainframe->getDBO();
+	mosMainFrame::addLib('gacl');
 	$acl = gacl::getInstance();
 
 	if($mainframe->getCfg('allowUserRegistration') == 0) {

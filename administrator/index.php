@@ -107,6 +107,7 @@ if(isset($_POST['submit'])) {
 
 	/** find the user group (or groups in the future)*/
 	if(isset($my->id)) {
+		mosMainFrame::addLib('gacl');
 		$acl = gacl::getInstance( true );
 
 		$grp = $acl->getAroGroup($my->id);

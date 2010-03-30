@@ -97,8 +97,6 @@ class PageModel {
 
 	public static function getInstance() {
 
-		JDEBUG ? jd_inc('PageModel') : null;
-
 		if( self::$_instance === null ) {
 			self::$_instance = new PageModel( );
 		}
