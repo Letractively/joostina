@@ -296,7 +296,7 @@ if($siteUrl) {
 	$config .= "\$mosConfig_enable_admin_secure_code = '0';\n";
 	$config .= "\$mosConfig_author_name = '4';\n";
 	$config .= "\$mosConfig_mmb_ajax_starts_off = '0';\n";
-
+	$config .= "\$mosConfig_use_unpublished_mambots = '0';\n";
 
 	$config .= "setlocale (LC_TIME, \$mosConfig_locale);\n";
 	$config .= "?>";
