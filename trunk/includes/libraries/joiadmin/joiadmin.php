@@ -99,448 +99,473 @@ defined('_VALID_MOS') or die();
 
 class JoiAdmin {
 
-	/**
-	 * JoiAdmin::listing()
-	 *
-	 * Генерация таблицы с записями
-	 *
-	 * @param object mosDBTable $obj
-	 * @param array $obj_list
-	 * @param object mosPageNav $pagenav
-	 * @param array $fields_list
-	 */
-	public static function listing(mosDBTable $obj, array $obj_list, mosPageNav $pagenav, array $fields_list) {
+    // текущее действие
+    public static $model;
 
-		// получаем название текущего компонента
-		$option = mosGetParam($_REQUEST, 'option', '');
+    /**
+     * Автоматическое определение и запуск метода действия
+     */
+    public static function dispatch() {
+        $id = (int) mosGetParam($_REQUEST, 'id', 0);
 
-		// путь к текущим графическим элементам
-		$image_path = JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
-		echo '<script type="text/javascript">image_path ="'.$image_path.'/"; _option="'.$option.'";</script>';
+        $task    = (string) mosGetParam($_REQUEST, 'task', 'index');
+        $option = (string) mosGetParam($_REQUEST, 'option');
+        $action  = (string) mosGetParam($_REQUEST, 'action', $option);
+        $action = self::$model = str_replace('com_', '', $action);
 
-		// класс работы с формами
-		mosMainFrame::addLib('form');
+        $class = 'actions'.ucfirst( $action );
 
-		// устанавливаем туллбар для таблицы
-		mosMainFrame::getInstance(true)->setPath('toolbar', JPATH_BASE . '/includes/libraries/joiadmin/html/list_toolbar.php');
+        JDEBUG ? jd_log( $class.'::'.$task ) : null;
 
-		mosCommonHTML::loadJquery();
-		// подключаем js код библиотеки
-		mosMainFrame::getInstance(true)->addJS(JPATH_SITE . '/includes/libraries/joiadmin/js/joiadmin.js');
+        if( method_exists($class, $task) ) {
+            call_user_func_array( $class.'::'.$task , array( $option, $id, $task ) );
+        }else {
+            call_user_func_array( $class.'::index', array( $option ) );
+        }
+    }
 
-		$header = $obj->get_tableinfo();
+    /**
+     * JoiAdmin::listing()
+     *
+     * Генерация таблицы с записями
+     *
+     * @param object mosDBTable $obj
+     * @param array $obj_list
+     * @param object mosPageNav $pagenav
+     * @param array $fields_list
+     */
+    public static function listing(mosDBTable $obj, array $obj_list, mosPageNav $pagenav, array $fields_list) {
 
-		echo self::header($header['header_list']);
+        // получаем название текущего компонента
+        $option = mosGetParam($_REQUEST, 'option', '');
 
-		echo '<form action="index2.php" method="post" name="adminForm" id="adminForm">';
-		echo '<table class="adminlist"><tr>';
-		echo '<th width="20px">#</th>';
+        // путь к текущим графическим элементам
+        $image_path = JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
+        echo '<script type="text/javascript">image_path ="'.$image_path.'/"; _option="'.$option.'";</script>';
 
-		$fields_info = $obj->get_fieldinfo();
-		$fields_to_table = array();
-		foreach ($fields_list as $field) {
-			if (isset($fields_info[$field]['in_admintable']) && $fields_info[$field]['in_admintable'] == TRUE) {
-				$sortable = $fields_info[$field]['sortable'] == true ? ' class="column_sortable"' : '';
-				$width = isset($fields_info[$field]['html_table_element_param']['width']) ? ' width="' . $fields_info[$field]['html_table_element_param']['width'] . '"' : '';
-				$class = isset($fields_info[$field]['html_table_element_param']['class']) ? ' class="' . $fields_info[$field]['html_table_element_param']['class'] . '"' : '';
+        // класс работы с формами
+        mosMainFrame::addLib('form');
 
-				echo '<th ' . $sortable.$width.$class . '>' . $fields_info[$field]['name'] . '</th>';
-				$fields_to_table[] = $field;
-			}
-		}
+        // устанавливаем туллбар для таблицы
+        mosMainFrame::getInstance(true)->setPath('toolbar', JPATH_BASE . '/includes/libraries/joiadmin/html/list_toolbar.php');
 
-		$n = count($fields_to_table);
-		$k = 1;
-		$i = 0;
-		foreach ($obj_list as $values) {
-			echo "\n\t".'<tr class="row' . $k . '">'."\n\t";
-			echo "\t".'<td>' . mosHTML::idBox($i, $values->id) . '</td>'."\n";
-			for ($index = 0; $index < $n; $index++) {
-				$data = JoiAdmin::get_listing_html_element($obj, $fields_info[$fields_to_table[$index]], $fields_to_table[$index], $values->$fields_to_table[$index], $values, $option);
-				$class = isset($fields_info[$fields_to_table[$index]]['html_table_element_param']['class']) ? ' class="' . $fields_info[$fields_to_table[$index]]['html_table_element_param']['class'] . '"' : '';
-				$align = isset($fields_info[$fields_to_table[$index]]['html_table_element_param']['align']) ? ' align="' . $fields_info[$fields_to_table[$index]]['html_table_element_param']['align'] . '" ' : '';
+        mosCommonHTML::loadJquery();
+        // подключаем js код библиотеки
+        mosMainFrame::getInstance(true)->addJS(JPATH_SITE . '/includes/libraries/joiadmin/js/joiadmin.js');
 
-				echo "\t\t".'<td ' . $align.$class . '>' . $data . '</td>'."\n";
-			}
-			echo "\t".'</tr>';
-			$k = 1 - $k;
-			++$i;
-		}
+        $header = $obj->get_tableinfo();
 
-		echo '</tr></table>';
-		echo $pagenav->getListFooter();
+        echo self::header($header['header_list']);
 
-		echo form::hidden('option', $option) . "\n";
-		echo form::hidden('task', '') . "\n";
-		echo form::hidden('boxchecked', '') . "\n";
-		echo form::hidden('obj_name', get_class($obj));
-		echo form::hidden(josSpoofValue(), 1) . "\n";
-		echo form::close();
-	}
+        echo '<form action="index2.php" method="post" name="adminForm" id="adminForm">';
+        echo '<table class="adminlist"><tr>';
+        echo '<th width="20px">#</th>';
 
-	public static function get_listing_html_element(mosDBTable $obj, array $element_param, $key, $value, stdClass $values, $option) {
+        $fields_info = $obj->get_fieldinfo();
+        $fields_to_table = array();
+        foreach ($fields_list as $field) {
+            if (isset($fields_info[$field]['in_admintable']) && $fields_info[$field]['in_admintable'] == TRUE) {
+                $sortable = $fields_info[$field]['sortable'] == true ? ' class="column_sortable"' : '';
+                $width = isset($fields_info[$field]['html_table_element_param']['width']) ? ' width="' . $fields_info[$field]['html_table_element_param']['width'] . '"' : '';
+                $class = isset($fields_info[$field]['html_table_element_param']['class']) ? ' class="' . $fields_info[$field]['html_table_element_param']['class'] . '"' : '';
 
-		static $element_datas = array();
+                echo '<th ' . $sortable.$width.$class . '>' . $fields_info[$field]['name'] . '</th>';
+                $fields_to_table[] = $field;
+            }
+        }
 
-		$element = '';
+        $n = count($fields_to_table);
+        $k = 1;
+        $i = 0;
+        foreach ($obj_list as $values) {
+            echo "\n\t".'<tr class="row' . $k . '">'."\n\t";
+            echo "\t".'<td>' . mosHTML::idBox($i, $values->id) . '</td>'."\n";
+            for ($index = 0; $index < $n; $index++) {
+                $data = JoiAdmin::get_listing_html_element($obj, $fields_info[$fields_to_table[$index]], $fields_to_table[$index], $values->$fields_to_table[$index], $values, $option);
+                $class = isset($fields_info[$fields_to_table[$index]]['html_table_element_param']['class']) ? ' class="' . $fields_info[$fields_to_table[$index]]['html_table_element_param']['class'] . '"' : '';
+                $align = isset($fields_info[$fields_to_table[$index]]['html_table_element_param']['align']) ? ' align="' . $fields_info[$fields_to_table[$index]]['html_table_element_param']['align'] . '" ' : '';
 
-		switch ($element_param['html_table_element']) {
+                echo "\t\t".'<td ' . $align.$class . '>' . $data . '</td>'."\n";
+            }
+            echo "\t".'</tr>';
+            $k = 1 - $k;
+            ++$i;
+        }
 
-			// тип - просто текст
-			case 'value':
-				$element .= $value;
-				//$element .= "\n\t";
-				break;
+        echo '</tr></table>';
+        echo $pagenav->getListFooter();
 
-			// тип - ссылка редактирования
-			case 'editlink':
-				$element .= '<a href="index2.php?option=' . $option . '&task=edit&id=' . $values->id . '">' . $value . '</a>';
-				break;
+        echo form::hidden('option', $option) . "\n";
+        echo form::hidden('task', '') . "\n";
+        echo form::hidden('boxchecked', '') . "\n";
+        echo form::hidden('obj_name', get_class($obj));
+        echo form::hidden(josSpoofValue(), 1) . "\n";
+        echo form::close();
+    }
 
-			// тип одно значение из массива
-			case 'ono_from_array':
-				$datas_for_select = array();
-				// избавления из от множества запросов
-				if (!isset($element_datas[$key])) {
-					// сохраняем полученные значения в статичном мессиве
-					$element_datas[$key] = ( isset($element_param['html_table_element_param']['call_from']) && is_callable($element_param['html_table_element_param']['call_from']) ) ? call_user_func($element_param['html_table_element_param']['call_from']) : $datas_for_select;
-				};
-				$datas_for_select = $element_datas[$key];
+    public static function get_listing_html_element(mosDBTable $obj, array $element_param, $key, $value, stdClass $values, $option) {
 
-				$datas_for_select = isset($element_param['html_table_element_param']['options']) ? $element_param['html_table_element_param']['options'] : $datas_for_select;
-				$element .= isset($datas_for_select[$value]) ? $datas_for_select[$value] : $value;
-				break;
+        static $element_datas = array();
 
-			// тип - аякс выбор состояния
-			case 'statuschanger':
-			// расположение текущих значков
-				$image_path = JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
+        $element = '';
 
-				$images = isset($element_param['html_table_element_param']['images'][$value]) ? $element_param['html_table_element_param']['images'][$value] : 'error.png';
-				$text = isset($element_param['html_table_element_param']['statuses'][$value]) ? $element_param['html_table_element_param']['statuses'][$value] : 'ERROR';
+        switch ($element_param['html_table_element']) {
 
-				$element .= '<img class="img-mini-state" src="' . $image_path . '/' . $images . '" id="img-pub-' . $values->id . '" obj_id="' . $values->id . '" obj_key="' . $key . '" alt="' . $text . '" />';
-				break;
+            // тип - просто текст
+            case 'value':
+                $element .= $value;
+                //$element .= "\n\t";
+                break;
 
-			// по умолчанию элемент выведем скрытым
-			default:
-				$element .= "\n\t";
-				$element = '<!-- no-viewed :: ' . $key . ' -->';
-				break;
-		}
+            // тип - ссылка редактирования
+            case 'editlink':
+                $element .= '<a href="index2.php?option=' . $option . '&task=edit&id=' . $values->id . '">' . $value . '</a>';
+                break;
 
-		return $element;
-	}
+            // тип одно значение из массива
+            case 'one_from_array':
+                $datas_for_select = array();
+                // избавления из от множества запросов
+                if (!isset($element_datas[$key])) {
+                    // сохраняем полученные значения в статичном мессиве
+                    $element_datas[$key] = ( isset($element_param['html_table_element_param']['call_from']) && is_callable($element_param['html_table_element_param']['call_from']) ) ? call_user_func($element_param['html_table_element_param']['call_from']) : $datas_for_select;
+                };
+                $datas_for_select = $element_datas[$key];
 
-	/**
-	 * JoiAdmin::edit()
-	 *
-	 * Генерация формы добавления/редактирования записи
-	 *
-	 * @param object $obj
-	 * @param object $obj_data
-	 * @param array $params
-	 */
-	public static function edit(mosDBTable $obj, $obj_data, $params = null) {
-		//Подключаем библиотеку работы с формами
-		mosMainFrame::addLib('form');
-		mosMainFrame::addClass('mosTabs');
-		$tabs = new mosTabs(1, 1);
+                $datas_for_select = isset($element_param['html_table_element_param']['options']) ? $element_param['html_table_element_param']['options'] : $datas_for_select;
+                $element .= isset($datas_for_select[$value]) ? $datas_for_select[$value] : $value;
+                break;
 
-		$option = mosGetParam($_REQUEST, 'option', '');
+            // тип - аякс выбор состояния
+            case 'statuschanger':
+            // расположение текущих значков
+                $image_path = JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
 
-		//Настраиваем параметры HTML-разметки формы
-		if(!$params) {
-			$params = array(
-					'wrap_begin'=>'<table class="adminform">',
-					'wrap_end'=>'</table>',
-					'label_begin'=>'<tr><td width="100" align="right">',
-					'label_end'=>'</td>',
-					'el_begin'=>'<td>',
-					'el_end'=>'</td></tr>'
-			);
-		}
+                $images = isset($element_param['html_table_element_param']['images'][$value]) ? $element_param['html_table_element_param']['images'][$value] : 'error.png';
+                $text = isset($element_param['html_table_element_param']['statuses'][$value]) ? $element_param['html_table_element_param']['statuses'][$value] : 'ERROR';
 
-		// устанавливаем туллбар для страницы создания/редактирования
-		mosMainFrame::getInstance(true)->setPath('toolbar', JPATH_BASE . '/includes/libraries/joiadmin/html/edit_toolbar.php');
+                $element .= '<img class="img-mini-state" src="' . $image_path . '/' . $images . '" id="img-pub-' . $values->id . '" obj_id="' . $values->id . '" obj_key="' . $key . '" alt="' . $text . '" />';
+                break;
 
-		//Вывод заголовка страницы с формой
-		$header = $obj->get_tableinfo(); //Получаем данные
-		$header_text = $obj_data->id > 0 ? $header['header_edit'] : $header['header_new'];
-		echo self::header($header_text);//Выводим заголовок
+            // по умолчанию элемент выведем скрытым
+            default:
+                $element .= "\n\t";
+                $element = '<!-- no-viewed :: ' . $key . ' -->';
+                break;
+        }
 
-		//-------------------------------------Форма: BEGIN
-		//Начало общего контейнера
-		echo $params['wrap_begin'];
+        return $element;
+    }
 
-		//открываем форму
-		echo form::open('index2.php', array('name' => 'adminForm'));
+    /**
+     * JoiAdmin::edit()
+     *
+     * Генерация формы добавления/редактирования записи
+     *
+     * @param object $obj
+     * @param object $obj_data
+     * @param array $params
+     */
+    public static function edit(mosDBTable $obj, $obj_data, $params = null) {
+        //Подключаем библиотеку работы с формами
+        mosMainFrame::addLib('form');
+        mosMainFrame::addClass('mosTabs');
+        $tabs = new mosTabs(1, 1);
 
-		//Получаем данные о элементах формы
-		$fields_info = $obj->get_fieldinfo();
-		foreach ($fields_info as $key => $field) {
-			if ($field['editable'] == true):
-				$v = isset($obj_data->$key) ? $obj_data->$key : '';
-				//Вывод элемента
-				echo self::get_edit_html_element($field, $key, $v, $obj_data, $params, $tabs);
-			endif;
-		}
+        $option = mosGetParam($_REQUEST, 'option', '');
 
-		//Выводим скрытые поля формы
-		echo form::hidden('id', $obj_data->id) . "\t";  // id объекта
-		echo form::hidden('option', $option) . "\t";   // ['option']
-		echo form::hidden('task', '') . "\t";         // ['task']
-		echo form::hidden(josSpoofValue(), 1); // элемент защиты от XSS
+        //Настраиваем параметры HTML-разметки формы
+        if(!$params) {
+            $params = array(
+                    'wrap_begin'=>'<table class="adminform">',
+                    'wrap_end'=>'</table>',
+                    'label_begin'=>'<tr><td width="100" align="right">',
+                    'label_end'=>'</td>',
+                    'el_begin'=>'<td>',
+                    'el_end'=>'</td></tr>'
+            );
+        }
 
-		//Закрываем форму
-		echo form::close();
+        // устанавливаем туллбар для страницы создания/редактирования
+        mosMainFrame::getInstance(true)->setPath('toolbar', JPATH_BASE . '/includes/libraries/joiadmin/html/edit_toolbar.php');
 
-		//Конец общего контейнера
-		echo $params['wrap_end'];
-		//-------------------------------------Форма: END
-	}
+        //Вывод заголовка страницы с формой
+        $header = $obj->get_tableinfo(); //Получаем данные
+        $header_text = $obj_data->id > 0 ? $header['header_edit'] : $header['header_new'];
+        echo self::header($header_text);//Выводим заголовок
+
+        //-------------------------------------Форма: BEGIN
+        //Начало общего контейнера
+        echo $params['wrap_begin'];
+
+        //открываем форму
+        echo form::open('index2.php', array('name' => 'adminForm'));
+
+        //Получаем данные о элементах формы
+        $fields_info = $obj->get_fieldinfo();
+        foreach ($fields_info as $key => $field) {
+            if ($field['editable'] == true):
+                $v = isset($obj_data->$key) ? $obj_data->$key : '';
+                //Вывод элемента
+                echo self::get_edit_html_element($field, $key, $v, $obj_data, $params, $tabs);
+            endif;
+        }
+
+        //Выводим скрытые поля формы
+        echo form::hidden('id', $obj_data->id) . "\t";  // id объекта
+        echo form::hidden('option', $option) . "\t";   // ['option']
+        echo form::hidden('task', '') . "\t";         // ['task']
+        echo form::hidden(josSpoofValue(), 1); // элемент защиты от XSS
+
+        //Закрываем форму
+        echo form::close();
+
+        //Конец общего контейнера
+        echo $params['wrap_end'];
+        //-------------------------------------Форма: END
+    }
 
 // получение типа элемента для формы редактирования
-	public static function get_edit_html_element($element_param, $key, $value, $obj_data, $params, $tabs) {
+    public static function get_edit_html_element($element_param, $key, $value, $obj_data, $params, $tabs) {
 
-		$element = '';
+        $element = '';
 
-		switch ($element_param['html_edit_element']) {
+        switch ($element_param['html_edit_element']) {
 
-			// тип - простое одностроное поле редактирования
-			case 'edit':
-				$element .= $params['label_begin'];
-				$element .= form::label(
-						array(
-						'for' => $key
-						), $element_param['name']);
-				$element .= $params['label_end'];
-				$element .= $params['el_begin'];
-				$element .= form::input(
-						array(
-						'name' => $key,
-						'class' => 'text_area',
-						'size' => 100,
-						'style' => ( isset($element_param['html_edit_element_param']['style']) ? $element_param['html_edit_element_param']['style'] : 'width:100%' ),
-						), $value);
-				$element .= $params['el_end'];
-				break;
+            // тип - простое одностроное поле редактирования
+            case 'edit':
+                $element .= $params['label_begin'];
+                $element .= form::label(
+                        array(
+                        'for' => $key
+                        ), $element_param['name']);
+                $element .= $params['label_end'];
+                $element .= $params['el_begin'];
+                $element .= form::input(
+                        array(
+                        'name' => $key,
+                        'class' => 'text_area',
+                        'size' => 100,
+                        'style' => ( isset($element_param['html_edit_element_param']['style']) ? $element_param['html_edit_element_param']['style'] : 'width:100%' ),
+                        ), $value);
+                $element .= $params['el_end'];
+                break;
 
-			// тип - большое текстовое поле
-			case 'text':
-				$element .= $params['label_begin'];
-				$element .= form::label(
-						array(
-						'for' => $key
-						), $element_param['name']);
-				$element .= $params['label_end'];
-				$element .= $params['el_begin'];
-				$element .= form::textarea(
-						array(
-						'name' => $key,
-						'class' => 'text_area',
-						'rows' => ( isset($element_param['html_edit_element_param']['rows']) ? $element_param['html_edit_element_param']['rows'] : 10 ),
-						'cols' => ( isset($element_param['html_edit_element_param']['cols']) ? $element_param['html_edit_element_param']['cols'] : 40 ),
-						'style' => ( isset($element_param['html_edit_element_param']['style']) ? $element_param['html_edit_element_param']['style'] : 'width:100%' ),
-						), $value);
-				$element .= $params['el_end'];
-				break;
+            // тип - большое текстовое поле
+            case 'text':
+                $element .= $params['label_begin'];
+                $element .= form::label(
+                        array(
+                        'for' => $key
+                        ), $element_param['name']);
+                $element .= $params['label_end'];
+                $element .= $params['el_begin'];
+                $element .= form::textarea(
+                        array(
+                        'name' => $key,
+                        'class' => 'text_area',
+                        'rows' => ( isset($element_param['html_edit_element_param']['rows']) ? $element_param['html_edit_element_param']['rows'] : 10 ),
+                        'cols' => ( isset($element_param['html_edit_element_param']['cols']) ? $element_param['html_edit_element_param']['cols'] : 40 ),
+                        'style' => ( isset($element_param['html_edit_element_param']['style']) ? $element_param['html_edit_element_param']['style'] : 'width:100%' ),
+                        ), $value);
+                $element .= $params['el_end'];
+                break;
 
-			// тип - большое текстовое поле
-			case 'text_area':
-				$element .= $params['label_begin'];
-				$element .= form::label(
-						array(
-						'for' => $key
-						), $element_param['name']);
-				$element .= $params['label_end'];
-				$element .= $params['el_begin'];
-				$element .= form::textarea(
-						array(
-						'name' => $key,
-						'class' => 'text_area',
-						'rows' => ( isset($element_param['html_edit_element_param']['rows']) ? $element_param['html_edit_element_param']['rows'] : 10 ),
-						'cols' => ( isset($element_param['html_edit_element_param']['cols']) ? $element_param['html_edit_element_param']['cols'] : 40 ),
-						'style' => ( isset($element_param['html_edit_element_param']['style']) ? $element_param['html_edit_element_param']['style'] : 'width:100%' ),
-						), $value);
-				$element .= $params['el_end'];
-				break;
+            // тип - большое текстовое поле
+            case 'text_area':
+                $element .= $params['label_begin'];
+                $element .= form::label(
+                        array(
+                        'for' => $key
+                        ), $element_param['name']);
+                $element .= $params['label_end'];
+                $element .= $params['el_begin'];
+                $element .= form::textarea(
+                        array(
+                        'name' => $key,
+                        'class' => 'text_area',
+                        'rows' => ( isset($element_param['html_edit_element_param']['rows']) ? $element_param['html_edit_element_param']['rows'] : 10 ),
+                        'cols' => ( isset($element_param['html_edit_element_param']['cols']) ? $element_param['html_edit_element_param']['cols'] : 40 ),
+                        'style' => ( isset($element_param['html_edit_element_param']['style']) ? $element_param['html_edit_element_param']['style'] : 'width:100%' ),
+                        ), $value);
+                $element .= $params['el_end'];
+                break;
 
-			// тип - большое текстовое поле
-			case 'text_area_wysiwyg':
-				$element .= $params['label_begin'];
-				$element .= form::label(
-						array(
-						'for' => $key
-						), $element_param['name']);
-				$element .= $params['label_end'];
-				$element .= $params['el_begin'];
-				$rows = isset($element_param['html_edit_element_param']['rows']) ? $element_param['html_edit_element_param']['rows'] : 10;
-				$cols = isset($element_param['html_edit_element_param']['cols']) ? $element_param['html_edit_element_param']['cols'] : 40;
-				$width = isset($element_param['html_edit_element_param']['width']) ? $element_param['html_edit_element_param']['width'] : '99%';
-				$height = isset($element_param['html_edit_element_param']['height']) ? $element_param['html_edit_element_param']['height'] : 350;
-				ob_start();
-				editorArea($key, $value, $key, $width, $height, $cols, $rows);
-				$element .= ob_get_contents();
-				ob_end_clean();
-				$element .= $params['el_end'];
-				break;
+            // тип - большое текстовое поле
+            case 'text_area_wysiwyg':
+                $element .= $params['label_begin'];
+                $element .= form::label(
+                        array(
+                        'for' => $key
+                        ), $element_param['name']);
+                $element .= $params['label_end'];
+                $element .= $params['el_begin'];
+                $rows = isset($element_param['html_edit_element_param']['rows']) ? $element_param['html_edit_element_param']['rows'] : 10;
+                $cols = isset($element_param['html_edit_element_param']['cols']) ? $element_param['html_edit_element_param']['cols'] : 40;
+                $width = isset($element_param['html_edit_element_param']['width']) ? $element_param['html_edit_element_param']['width'] : '99%';
+                $height = isset($element_param['html_edit_element_param']['height']) ? $element_param['html_edit_element_param']['height'] : 350;
+                ob_start();
+                editorArea($key, $value, $key, $width, $height, $cols, $rows);
+                $element .= ob_get_contents();
+                ob_end_clean();
+                $element .= $params['el_end'];
+                break;
 
-			// тип - чекбокс
-			case 'checkbox':
-				$element .= $params['label_begin'];
-				$element .= form::label(
-						array(
-						'for' => $key
-						), ( isset($element_param['html_edit_element_param']['text']) ? $element_param['html_edit_element_param']['text'] : $element_param['name'] ));
-				$element .= $params['label_end'];
-				$element .= form::hidden($key, 0);
-				$element .= $params['el_begin'];
-				$element .= form::checkbox(
-						array(
-						'name' => $key,
-						'class' => 'text_area',
-						), 1, $value);
-				$element .= $params['el_end'];
-				break;
+            // тип - чекбокс
+            case 'checkbox':
+                $element .= $params['label_begin'];
+                $element .= form::label(
+                        array(
+                        'for' => $key
+                        ), ( isset($element_param['html_edit_element_param']['text']) ? $element_param['html_edit_element_param']['text'] : $element_param['name'] ));
+                $element .= $params['label_end'];
+                $element .= form::hidden($key, 0);
+                $element .= $params['el_begin'];
+                $element .= form::checkbox(
+                        array(
+                        'name' => $key,
+                        'class' => 'text_area',
+                        ), 1, $value);
+                $element .= $params['el_end'];
+                break;
 
-			// тип - выпадающий список
-			case 'option':
-				$element .= $params['label_begin'];
-				$element .= form::label(
-						array(
-						'for' => $key
-						), ( isset($element_param['html_edit_element_param']['text']) ? $element_param['html_edit_element_param']['text'] : $element_param['name'] ));
+            // тип - выпадающий список
+            case 'option':
+                $element .= $params['label_begin'];
+                $element .= form::label(
+                        array(
+                        'for' => $key
+                        ), ( isset($element_param['html_edit_element_param']['text']) ? $element_param['html_edit_element_param']['text'] : $element_param['name'] ));
 
-				$element .= $params['label_end'];
-				$element .= $params['el_begin'];
-				$datas_for_select = array();
-				$datas_for_select = ( isset($element_param['html_edit_element_param']['call_from']) && is_callable($element_param['html_edit_element_param']['call_from']) ) ? call_user_func($element_param['html_edit_element_param']['call_from']) : $datas_for_select;
-				$datas_for_select = isset($element_param['html_edit_element_param']['options']) ? $element_param['html_edit_element_param']['options'] : $datas_for_select;
+                $element .= $params['label_end'];
+                $element .= $params['el_begin'];
+                $datas_for_select = array();
+                $datas_for_select = ( isset($element_param['html_edit_element_param']['call_from']) && is_callable($element_param['html_edit_element_param']['call_from']) ) ? call_user_func($element_param['html_edit_element_param']['call_from']) : $datas_for_select;
+                $datas_for_select = isset($element_param['html_edit_element_param']['options']) ? $element_param['html_edit_element_param']['options'] : $datas_for_select;
 
-				$element .= form::dropdown(array('name' => $key, 'options' => $datas_for_select, 'selected' => $value));
+                $element .= form::dropdown(array('name' => $key, 'options' => $datas_for_select, 'selected' => $value));
 
-				$element .= $params['el_end'];
-				break;
+                $element .= $params['el_end'];
+                break;
 
-			// тип - произвольнеое расширенное поле
-			case 'extra':
-				$element .= $params['label_begin'];
-				$element .= form::label(
-						array(
-						'for' => $key
-						), ( isset($element_param['html_edit_element_param']['text']) ? $element_param['html_edit_element_param']['text'] : $element_param['name'] ));
+            // тип - произвольнеое расширенное поле
+            case 'extra':
+                $element .= $params['label_begin'];
+                $element .= form::label(
+                        array(
+                        'for' => $key
+                        ), ( isset($element_param['html_edit_element_param']['text']) ? $element_param['html_edit_element_param']['text'] : $element_param['name'] ));
 
-				$element .= $params['label_end'];
-				$element .= $params['el_begin'];
-				$element .= ( isset($element_param['html_edit_element_param']['call_from']) && is_callable($element_param['html_edit_element_param']['call_from']) ) ? call_user_func($element_param['html_edit_element_param']['call_from'], $obj_data) : $datas_for_select;
-				$element .= form::hidden('extrafields[]', $key);
-				$element .= $params['el_end'];
-				break;
+                $element .= $params['label_end'];
+                $element .= $params['el_begin'];
+                $element .= ( isset($element_param['html_edit_element_param']['call_from']) && is_callable($element_param['html_edit_element_param']['call_from']) ) ? call_user_func($element_param['html_edit_element_param']['call_from'], $obj_data) : $datas_for_select;
+                $element .= form::hidden('extrafields[]', $key);
+                $element .= $params['el_end'];
+                break;
 
-			// тип - скрытое поле с идентификатором текущего пользователя
-			case 'current_user_id':
-				global $my;
-				$element .= form::hidden($key, $my->id);
-				break;
+            // тип - скрытое поле с идентификатором текущего пользователя
+            case 'current_user_id':
+                global $my;
+                $element .= form::hidden($key, $my->id);
+                break;
 
-			case 'h3':
-				$element .= $params['label_begin'];
-				$element .= $params['label_end'];
-				$element .= $params['el_begin'];
-				$element .= '<h3>'.$element_param['name'].'</h3>';
-				$element .= $params['el_end'];
-				break;
+            case 'h3':
+                $element .= $params['label_begin'];
+                $element .= $params['label_end'];
+                $element .= $params['el_begin'];
+                $element .= '<h3>'.$element_param['name'].'</h3>';
+                $element .= $params['el_end'];
+                break;
 
-			case 'start_pane':
-				$element .= $params['label_begin'];
-				$element .= $params['label_end'];
-				$element .= $params['el_begin'];
-				$element .= $tabs->startPane($key,1);
-				break;
+            case 'start_pane':
+                $element .= $params['label_begin'];
+                $element .= $params['label_end'];
+                $element .= $params['el_begin'];
+                $element .= $tabs->startPane($key,1);
+                break;
 
-			case 'end_pane':
-				$element .= '</div>';
-				$element .= $params['el_end'];
-				break;
+            case 'end_pane':
+                $element .= '</div>';
+                $element .= $params['el_end'];
+                break;
 
-			case 'start_tab':
-				$element .= $tabs->startTab($element_param['name'], $key, 1);
-				$element .= $params['wrap_begin'];
+            case 'start_tab':
+                $element .= $tabs->startTab($element_param['name'], $key, 1);
+                $element .= $params['wrap_begin'];
 
-				break;
+                break;
 
-			case 'end_tab':
-				$element .= $params['wrap_end'];
-				$element .= '</div>';
-				break;
+            case 'end_tab':
+                $element .= $params['wrap_end'];
+                $element .= '</div>';
+                break;
 
-			// по умолчанию поле вывод закомментированным
-			default:
-				$element .= "\n\t";
-				$element = '<!-- no-viewed :: ' . $key . ' -->';
-				break;
-		}
+            // по умолчанию поле вывод закомментированным
+            default:
+                $element .= "\n\t";
+                $element = '<!-- no-viewed :: ' . $key . ' -->';
+                break;
+        }
 
-		return $element;
-	}
+        return $element;
+    }
 
 // упрощенная система получения пагинатора
-	public static function pagenav($total, $com_name = '') {
+    public static function pagenav($total, $com_name = '') {
 
-		// подключаем класс навигации по страницам
-		require_once( JPATH_BASE_ADMIN.DS . '/includes/pageNavigation.php');
+        // подключаем класс навигации по страницам
+        require_once( JPATH_BASE_ADMIN.DS . '/includes/pageNavigation.php');
 
-		$mainframe = mosMainFrame::getInstance(true);
-		$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit", 'limit', $mainframe->getCfg('list_limit')));
-		$limitstart = intval($mainframe->getUserStateFromRequest("{$com_name}_limitstart", 'limitstart', 0));
+        $mainframe = mosMainFrame::getInstance(true);
+        $limit = intval($mainframe->getUserStateFromRequest("viewlistlimit", 'limit', $mainframe->getCfg('list_limit')));
+        $limitstart = intval($mainframe->getUserStateFromRequest("{$com_name}_limitstart", 'limitstart', 0));
 
-		return new mosPageNav($total, $limitstart, $limit);
-	}
+        return new mosPageNav($total, $limitstart, $limit);
+    }
 
 // вывод заголовка страницы
-	public static function header($header) {
-		return '<table class="adminheading"><tbody><tr><th class="config">' . $header . '</th></tr></tbody></table>';
-	}
+    public static function header($header) {
+        return '<table class="adminheading"><tbody><tr><th class="config">' . $header . '</th></tr></tbody></table>';
+    }
 
 // автоматическя обработка яксовых операций
-	public static function autoajax() {
+    public static function autoajax() {
 
-		require_once(mosMainFrame::getInstance(true)->getPath('class'));
+        require_once(mosMainFrame::getInstance(true)->getPath('class'));
 
-		// выполняемая задача
-		$task = (int) mosGetParam($_REQUEST, 'task', '');
-		// идентификатор запрашиваемого элемента
-		$obj_id = (int) mosGetParam($_POST, 'obj_id', 0);
-		// ключ-название запрашиваемого элемента
-		$obj_key = (string) mosGetParam($_POST, 'obj_key', '');
-		// название объекта запрашиваемого элемента
-		$obj_name = (string) mosGetParam($_POST, 'obj_name', '');
-		// пустой объект для складирования результата
-		$return_onj = new stdClass();
+        // выполняемая задача
+        $task = (int) mosGetParam($_REQUEST, 'task', '');
+        // идентификатор запрашиваемого элемента
+        $obj_id = (int) mosGetParam($_POST, 'obj_id', 0);
+        // ключ-название запрашиваемого элемента
+        $obj_key = (string) mosGetParam($_POST, 'obj_key', '');
+        // название объекта запрашиваемого элемента
+        $obj_name = (string) mosGetParam($_POST, 'obj_name', '');
+        // пустой объект для складирования результата
+        $return_onj = new stdClass();
 
-		// проверяем, существует ли запрашиваемый класс
-		if (class_exists($obj_name)) {
-			// создаём объект класса
-			$obj = new $obj_name;
-			$obj->load( $obj_id );
+        // проверяем, существует ли запрашиваемый класс
+        if (class_exists($obj_name)) {
+            // создаём объект класса
+            $obj = new $obj_name;
+            $obj->load( $obj_id );
 
-			// меняем состояние объекта на противоположное
-			$obj->changeState( $obj_key );
+            // меняем состояние объекта на противоположное
+            $obj->changeState( $obj_key );
 
-			// получаем настройки полей
-			$fields_info = $obj->get_fieldinfo();
+            // получаем настройки полей
+            $fields_info = $obj->get_fieldinfo();
 
-			// формируем ответ из противоположных элементов текущему состоянию
-			$return_onj->image = $fields_info[$obj_key]['html_table_element_param']['images'][ !$obj->$obj_key];
-			$return_onj->mess =  $fields_info[$obj_key]['html_table_element_param']['statuses'][ !$obj->$obj_key];
+            // формируем ответ из противоположных элементов текущему состоянию
+            $return_onj->image = $fields_info[$obj_key]['html_table_element_param']['images'][ !$obj->$obj_key];
+            $return_onj->mess =  $fields_info[$obj_key]['html_table_element_param']['statuses'][ !$obj->$obj_key];
 
-			return json_encode( $return_onj );
-		}
+            return json_encode( $return_onj );
+        }
 
-		$return_onj->image = 'error.png';
-		$return_onj->mess =  'error-class';
+        $return_onj->image = 'error.png';
+        $return_onj->mess =  'error-class';
 
-		return json_encode( $return_onj );
-	}
+        return json_encode( $return_onj );
+    }
 }
