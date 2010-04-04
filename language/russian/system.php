@@ -529,8 +529,6 @@ DEFINE('_CONTENT_ITEMS_TO_COPY','Копируемое содержимое');
 DEFINE('_USER_POSITION','Положение (должность)');
 DEFINE('_OBJECTS_DELETED','Объект(ы) успешно удален(ы)');
 DEFINE('_PASSWORDWORD','Пароль');
-
-/* langeditor */
 DEFINE('_ALL_SECTIONS','Все разделы');
 DEFINE('_MENU_ITEMS_TO_COPY','Будут скопированы следующие пункты');
 DEFINE('_PLEASE_ENTER_SUBJECT','Пожалуйста, впишите тему');
@@ -553,3 +551,4 @@ DEFINE('_BUTTON_LINK_IN_NEW_WINDOW','В новом окне');
 DEFINE('_SQL_CONSOLE','SQL консоль');
 DEFINE('_XMAP_MSG_NO_SITEMAP', 'Данная карта недоступна');
 DEFINE('_CACHE_MANAGEMENT', 'Управление кешем');
+DEFINE('_COM_FILES', 'Файловый менеджер');

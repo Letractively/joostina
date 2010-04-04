@@ -10,6 +10,11 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
+// разрешим доступ только пользователям с правами супер-администратора
+if(!$acl->acl_check('administration','config','users',$my->usertype)) {
+	mosRedirect('index2.php',_NOT_AUTH);
+}
+
 require_once($mainframe->getPath('admin_html'));
 
 mosMainFrame::addLib('elfinder');
