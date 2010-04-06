@@ -146,10 +146,11 @@ function viewMenuItems($menutype,$option) {
 		$search_rows = $database->loadResultArray();
 	}
 
-	$query = "SELECT m.*, u.name AS editor, g.name AS groupname, c.publish_up, c.publish_down, com.name AS com_name".
+	$query = "SELECT m.*, u.name AS editor, g.name AS groupname, ".(_USE_COM_CONTENT ? " c.publish_up, c.publish_down,": '')."com.name AS com_name".
 		"\n FROM #__menu AS m".
-		"\n LEFT JOIN #__users AS u ON u.id = m.checked_out"."\n LEFT JOIN #__groups AS g ON g.id = m.access".
-		"\n LEFT JOIN #__content AS c ON c.id = m.componentid AND m.type = 'content_typed'".
+		"\n LEFT JOIN #__users AS u ON u.id = m.checked_out".
+                "\n LEFT JOIN #__groups AS g ON g.id = m.access"
+		. (_USE_COM_CONTENT ? "\n LEFT JOIN #__content AS c ON c.id = m.componentid AND m.type = 'content_typed'" : '') .
 		"\n LEFT JOIN #__components AS com ON com.id = m.componentid AND m.type = 'components'".
 		"\n WHERE m.menutype = ".$database->Quote($menutype)."\n AND m.published != -2".
 		"\n ORDER BY parent, ordering";
@@ -237,7 +238,7 @@ function viewMenuItems($menutype,$option) {
 		}
 		$list[$i]->link = $mitem->link;
 		$list[$i]->edit = $edit;
-		
+
 		$row = ReadMenuXML($mitem->type,$mitem->com_name);
 		$list[$i]->type = $row[0];
 		if(!isset($list[$i]->descrip)){
@@ -560,7 +561,7 @@ function moveMenu($option,$cid,$menutype) {
 	$items = $database->loadObjectList();
 
 	$menuTypes = mosAdminMenus::menutypes();
-	
+
 	foreach($menuTypes as $menuType) {
 		$menu[] = mosHTML::makeOption($menuType,$menuType);
 	}
