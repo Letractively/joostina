@@ -18,7 +18,7 @@ var $PRODUCT = 'Joomla!';
 /** @var строка CMS*/
 var $CMS = 'Joostina';
 /** @var версия*/
-var $CMS_ver = '1.2.0';
+var $CMS_ver = '1.2.1';
 /** @var int Номер основной версии*/
 var $RELEASE = '1.0';
 /** @var строка  статус разработки*/
@@ -28,7 +28,7 @@ var $DEV_LEVEL = '15';
 /** @var int Номер сборки*/
 var $BUILD = '$: 191';
 /** @var string Кодовое имя*/
-var $CODENAME = 'stable v3 alpha 4';
+var $CODENAME = 'alpha 1';
 /** @var string Дата*/
 var $RELDATE = '21:02:2009';
 /** @var string Время*/

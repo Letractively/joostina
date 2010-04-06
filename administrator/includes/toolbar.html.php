@@ -6,25 +6,19 @@
 * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
 * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
 */
-
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
-
-/**
-* @package Joostina
-*/
+/** @package Joostina*/
 class MENU_Default {
-	/**
-	* Draws a default set of menu icons
-	*/
-	function MENU_Default() {
-		mosMenuBar::startTable();
-		mosMenuBar::publishList();
-		mosMenuBar::unpublishList();
-		mosMenuBar::addNew();
-		mosMenuBar::editList();
-		mosMenuBar::deleteList();
-		mosMenuBar::endTable();
-	}
+/** Draws a default set of menu icons*/
+function MENU_Default() {
+mosMenuBar::startTable();
+mosMenuBar::publishList();
+mosMenuBar::unpublishList();
+mosMenuBar::addNew();
+mosMenuBar::editList();
+mosMenuBar::deleteList();
+mosMenuBar::endTable();
+}
 }
 ?>

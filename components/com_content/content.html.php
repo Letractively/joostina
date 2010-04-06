@@ -1,4 +1,13 @@
-<?php defined('_VALID_MOS') or die();
+<?php
+/**
+* @package Joostina
+* @copyright Авторские права (C) 2008 Joostina team. Все права защищены.
+* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+*/
+// запрет прямого доступа
+defined('_VALID_MOS') or die();
 class HTML_content {
 function showMyContentList( &$items, &$access, &$params, &$pageNav, &$lists, $order ) {
 global $Itemid, $database;
@@ -428,11 +437,6 @@ $image = '&nbsp;'._CMN_EMAIL; } ?>
 <?php
 }
 }
-//doctorgrif: изменен вывод доп. информации для отображения в одну строку, завешал все на span, чтоб избавится от таблицы. надо добавить в css шаблона дабы заработало следующее:
-//.addinfo{weight:100%;}
-//.section_name,.category_name,.authorname,.date,.modify{font-size:14px;line-height:18px;color:#f63;padding:0;}
-//.author,.createdate,.modifydate{font-size:12px;line-height:16px;color:#999;padding:0;}
-//показатели модифицировать под свой сайт
 function Section_Category(&$row,&$params) { if($params->get('section') || $params->get('category')) { ?>
 <span class="addinfo"><?php }
 HTML_content::Section($row,$params);
@@ -465,8 +469,7 @@ if(($mod_date != '') && $params->get('modifydate')) {
 function ReadMore(&$row,&$params) {
 if($params->get('readmore')) {
 if($params->get('intro_only') && $row->link_text) {
-//doctorgrif: убрал вывод ячейки таблицы - повешал span. добавить в css:
-//.readmorelink{text-align:center;float:right;margin:0;padding:0;}
+//убрал вывод ячейки таблицы - повешал span (doctorgrif)
 ?>
 <span class="readmorelink"><a href="<?php echo $row->link_on; ?>" title="<?php echo $row->title; ?>" class="readon<?php echo $params->get('pageclass_sfx'); ?>"><?php echo $row->link_text; ?></a></span>
 <?php } } }

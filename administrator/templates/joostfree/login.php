@@ -17,12 +17,6 @@ defined('_VALID_MOS') or die();
 <?php echo $mosConfig_sitename; ?> - <?php echo _JOOSTINA_CONTRIL_PANEL?></title>
 <meta http-equiv="Content-Type" content="text/html; <?php echo _ISO; ?>" />
 <style type="text/css">@import url(templates/joostfree/css/admin_login.css);</style>
-<script language="javascript" type="text/javascript">
-function setFocus() {
-document.loginForm.usrname.select();
-document.loginForm.usrname.focus();
-}
-</script>
 </head>
 <body onload="setFocus();">
 <div id="joo"><img src="templates/joostfree/images/logo.png" alt="Joostina!" /></div>
@@ -34,8 +28,8 @@ include_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/modules/mod
 <div class="login-form">
 <form action="index.php" method="post" name="loginForm" id="loginForm">
 <div class="form-block">
-Логин<input name="usrname" id="usrname" type="text" class="inputbox" size="15" />
-Пароль<input name="pass" type="password" class="inputbox" size="15" />
+Логин  <input name="usrname" id="usrname" type="text" class="inputbox" size="15" />
+Пароль <input name="pass" type="password" class="inputbox" size="15" />
 <?php
 if($mosConfig_captcha) {
 session_start();
@@ -64,12 +58,16 @@ echo $mosConfig_live_site; ?>/includes/kcaptcha/index.php?' + new String(Math.ra
 </div>
 <div id="break"></div>
 <div align="center">
-<noscript>
-<div class="message"><?php echo _PLEASE_ENABLE_JAVASCRIPT?></div>
-</noscript>
+<noscript><div class="message"><?php echo _PLEASE_ENABLE_JAVASCRIPT?></div></noscript>
 </div>
 <div id="footer" align="center">
 <div align="center"><?php echo $_VERSION->URL; ?></div>
 </div>
+<script language="javascript" type="text/javascript"><!--
+function setFocus() {
+document.loginForm.usrname.select();
+document.loginForm.usrname.focus();
+}
+//--></script>
 </body>
 </html>

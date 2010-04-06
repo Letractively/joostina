@@ -58,15 +58,14 @@ flush();
 <td width="85%" align="left"><?php mosLoadAdminModule('fullmenu'); ?></td>
 <td align="right" class="header_info"><?php mosLoadAdminModules('header',-2); ?></td>
 <td align="right"><input type="image" name="jtoggle_editor" id="jtoggle_editor" title="<?php echo _TOGGLE_WYSIWYG_EDITOR?>" onclick="jtoggle_editor();" src="images/<?php echo (intval(mosGetParam($_SESSION,'user_editor_off',''))) ? 'editor_off.png':'editor_on.png'?>" alt="<?php echo _DISABLE_WYSIWYG_EDITOR?>" /></td>
-<td align="right"><a href="<?php echo $mosConfig_live_site; ?>/" target="_blank" title="<?php echo _PREVIEW_SITE?>">
-<img src="../includes/js/ThemeOffice/preview.png" border="0" alt="<?php echo _PREVIEW_SITE?>"/></a></td>
+<td align="right"><a href="<?php echo $mosConfig_live_site; ?>/" target="_blank" title="<?php echo _PREVIEW_SITE?>"><img src="../includes/js/ThemeOffice/preview.png" border="0" alt="<?php echo _PREVIEW_SITE?>"/></a></td>
 <td align="right" class="jtd_nowrap"><a href="index2.php?option=logout" class="logoff">Выход <?php echo $my->username; ?></a>&nbsp;</td>
 </tr>
 </table>
 </div>
 <div id="top-toolbar"><?php mosLoadAdminModule('toolbar'); ?></div>
 <?php mosLoadAdminModule('mosmsg'); ?>
-<div id="status-info" style="display: none;">&nbsp;</div>
+<div id="status-info" style="display:none;">&nbsp;</div>
 <table width="100%" class="menubar" cellpadding="0" cellspacing="0" border="0">
 <tr>
 <td align="center"><div id="main_body"><?php mosMainBody_Admin(); ?></div></td>
@@ -75,9 +74,11 @@ flush();
 <div id="footer_cleaner">&nbsp;</div>
 </div>
 <div id="footer" align="center" class="smallgrey"><?php echo $jostina_ru; ?></div>
-<?php if ( mosLoadAdminModule('debug',2) > 0 ) {?>
+<?php if (mosLoadAdminModule('debug',2) > 0) {?>
 <div id="debug"><?php mosLoadAdminModule('debug',2); ?></div>
 <?php }?>
-<script type="text/javascript" language="JavaScript">function jf_hideLoading() {document.getElementById('ajax_status').style.display='none';};if (window.addEventListener) {window.addEventListener('load', jf_hideLoading, false);} else if (window.attachEvent) {var r=window.attachEvent("onload", jf_hideLoading);}else{jf_hideLoading();}</script>
+<script type="text/javascript" language="JavaScript"><!--
+function jf_hideLoading() {document.getElementById('ajax_status').style.display='none';};if (window.addEventListener) {window.addEventListener('load', jf_hideLoading, false);} else if (window.attachEvent) {var r=window.attachEvent("onload", jf_hideLoading);}else{jf_hideLoading();}
+//--></script>
 </body>
 </html>
