@@ -14,52 +14,23 @@ defined('_VALID_MOS') or die();
  * @package Joostina
  */
 class mosComponent extends mosDBTable {
-	/**
-	 @var int Primary key*/
-	public $id = null;
-	/**
-	 @var string*/
-	public $name = null;
-	/**
-	 @var string*/
-	public $link = null;
-	/**
-	 @var int*/
-	public $menuid = null;
-	/**
-	 @var int*/
-	public $parent = null;
-	/**
-	 @var string*/
-	public $admin_menu_link = null;
-	/**
-	 @var string*/
-	public $admin_menu_alt = null;
-	/**
-	 @var string*/
-	public $option = null;
-	/**
-	 @var string*/
-	public $ordering = null;
-	/**
-	 @var string*/
-	public $admin_menu_img = null;
-	/**
-	 @var int*/
-	public $iscore = null;
-	/**
-	 @var string*/
-	public $params = null;
-	/*@var int права доступа к компоненту */
-	#var $access = null;
-	public $_model = null;
-	public $_controller = null;
-	public $_view = null;
-	public $_mainframe = null;
+	public $id;
+	public $name;
+	public $link;
+	public $menuid;
+	public $parent;
+	public $admin_menu_link;
+	public $admin_menu_alt;
+	public $option;
+	public $ordering;
+	public $admin_menu_img;
+	public $iscore;
+	public $params;
+	public $_model;
+	public $_controller;
+	public $_view;
+	public $_mainframe;
 
-	/**
-	 * @param database A database connector object
-	 */
 	function mosComponent(&$db=null) {
 		$this->mosDBTable('#__components','id',$db);
 	}
