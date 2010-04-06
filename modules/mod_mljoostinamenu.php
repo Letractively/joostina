@@ -258,9 +258,9 @@ if (!defined( '_MOS_MLJOOSTINAMENU_MODULE' )) {
 			switch ($style) {
 				case 1:
 					if ($ml_first_hide == 1 && $count_link == 1) {
-						echo '<td style="display:none;" '.$ml_elementer.'>';
-						echo $prelink.$link.$postlink;
-						echo '</td>';
+						//echo '<td style="display:none;" '.$ml_elementer.'>';
+						//echo $prelink.$link.$postlink;
+						//echo '</td>';
 					} else {
 						echo '<td'.$ml_elementer.'>';
 						echo $prelink.$link.$postlink;
@@ -269,9 +269,9 @@ if (!defined( '_MOS_MLJOOSTINAMENU_MODULE' )) {
 					break;
 				case 2:
 					if ($ml_first_hide == 1 && $count_link == 1) {
-						echo '<li style="display:none;" '.$ml_elementer.'>';
-						echo $prelink.$link.$postlink;
-						echo '</li>';
+						//echo '<li style="display:none;" '.$ml_elementer.'>';
+						//echo $prelink.$link.$postlink;
+						//echo '</li>';
 					} else {
 						echo '<li'.$ml_elementer.'>';
 						echo $prelink.$link.$postlink;
@@ -281,9 +281,9 @@ if (!defined( '_MOS_MLJOOSTINAMENU_MODULE' )) {
 
 				case 3:
 					if ($ml_first_hide == 1 && $count_link == 1) {
-						echo '<div style="display:none">';
-						echo $prelink.$link.$postlink;
-						echo '</div>';
+						//echo '<div style="display:none">';
+						//echo $prelink.$link.$postlink;
+						//echo '</div>';
 					} else {
 						echo $prelink.$link.$postlink;
 					}
@@ -297,9 +297,9 @@ if (!defined( '_MOS_MLJOOSTINAMENU_MODULE' )) {
 						}else {
 							$ml_td_width = '';
 						}
-						echo '<td style="display:none;" '.$ml_elementer.' '.$ml_td_width.'>';
-						echo $prelink.$link.$postlink;
-						echo '</td>';
+						//echo '<td style="display:none;" '.$ml_elementer.' '.$ml_td_width.'>';
+						//echo $prelink.$link.$postlink;
+						//echo '</td>';
 					} else {
 						if ($params->get('ml_td_width') == 1) {
 							$ml_td_width = 'width="';
@@ -317,9 +317,9 @@ if (!defined( '_MOS_MLJOOSTINAMENU_MODULE' )) {
 
 				case 5:
 					if ($ml_first_hide == 1 && $count_link == 1) {
-						echo '<div style="display:none;" '.$ml_elementer.'>';
-						echo $prelink.$link.$postlink;
-						echo '</div>';
+						//echo '<div style="display:none;" '.$ml_elementer.'>';
+						//echo $prelink.$link.$postlink;
+						//echo '</div>';
 					} else {
 						echo '<div '.$ml_elementer.'>';
 						echo $prelink.$link.$postlink;
@@ -329,9 +329,9 @@ if (!defined( '_MOS_MLJOOSTINAMENU_MODULE' )) {
 
 				case 6:
 					if (($ml_first_hide == 1) && ($count_link == 1)) {
-						echo '<tr style="display:none;"><td '.$ml_elementer.'>';
-						echo $prelink.$link.$postlink;
-						echo '</td></tr>';
+						//echo '<tr style="display:none;"><td '.$ml_elementer.'>';
+						//echo $prelink.$link.$postlink;
+						//echo '</td></tr>';
 					} else {
 						echo '<tr><td '.$ml_elementer.'>';
 						echo $prelink.$link.$postlink;
@@ -344,7 +344,7 @@ if (!defined( '_MOS_MLJOOSTINAMENU_MODULE' )) {
 
 	function mosJoostinaGetmenu(&$params,$gid) {
 
-		$all_menu = &mosMenu::get_all();
+		$all_menu = mosMenu::get_all();
 
 		$menus = isset($all_menu[$params->get( 'menutype' )]) ? $all_menu[$params->get( 'menutype' )] : array() ;
 
