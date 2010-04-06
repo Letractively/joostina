@@ -19,80 +19,79 @@ mosMainFrame::addClass( 'vcard' );
 class mosContact extends mosDBTable {
 	/**
 	 @var int Primary key*/
-	var $id = null;
+	public $id;
 	/**
 	 @var string*/
-	var $name = null;
+	public $name;
 	/**
 	 @var string*/
-	var $con_position = null;
+	public $con_position;
 	/**
 	 @var string*/
-	var $address = null;
+	public $address;
 	/**
 	 @var string*/
-	var $suburb = null;
+	public $suburb;
 	/**
 	 @var string*/
-	var $state = null;
+	public $state;
 	/**
 	 @var string*/
-	var $country = null;
+	public $country;
 	/**
 	 @var string*/
-	var $postcode = null;
+	public $postcode;
 	/**
 	 @var string*/
-	var $telephone = null;
+	public $telephone;
 	/**
 	 @var string*/
-	var $fax = null;
+	public $fax;
 	/**
 	 @var string*/
-	var $misc = null;
+	public $misc;
 	/**
 	 @var string*/
-	var $image = null;
+	public $image;
 	/**
 	 @var string*/
-	var $imagepos = null;
+	public $imagepos;
 	/**
 	 @var string*/
-	var $email_to = null;
+	public $email_to;
 	/**
 	 @var int*/
-	var $default_con = null;
+	public $default_con;
 	/**
 	 @var int*/
-	var $published = null;
+	public $published;
 	/**
 	 @var int*/
-	var $checked_out = null;
+	public $checked_out;
 	/**
 	 @var datetime*/
-	var $checked_out_time = null;
+	public $checked_out_time;
 	/**
 	 @var int*/
-	var $ordering = null;
+	public $ordering;
 	/**
 	 @var string*/
-	var $params = null;
+	public $params;
 	/**
 	 @var int A link to a registered user*/
-	var $user_id = null;
+	public $user_id;
 	/**
 	 @var int A link to a category*/
-	var $catid = null;
+	public $catid;
 	/**
 	 @var int*/
-	var $access = null;
+	public $access;
 
 	/**
 	 * @param database A database connector object
 	 */
 	function mosContact() {
-		global $database;
-		$this->mosDBTable('#__contact_details','id',$database);
+		$this->mosDBTable('#__contact_details','id');
 	}
 
 	function check() {
@@ -166,7 +165,7 @@ class MambovCard extends vCard {
 		}
 		$text .= 'REV:'.date('Y-m-d').'T'.date('H:i:s').'Z';
 		$text .= "\r\n";
-		$text .= 'MAILER: Joomla! vCard for '.$sitename;
+		$text .= 'MAILER: Joostina! vCard for '.$sitename;
 		$text .= "\r\n";
 		$text .= 'END:VCARD';
 		$text .= "\r\n";
@@ -174,4 +173,3 @@ class MambovCard extends vCard {
 		return $text;
 	}
 }
-?>
