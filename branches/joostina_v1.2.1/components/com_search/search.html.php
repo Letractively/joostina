@@ -42,7 +42,7 @@ global $Itemid;
 function searchintro($searchword, $params) {
 ?>
 <div class="searchintro<?php echo $params->get('pageclass_sfx'); ?>">
-<h4><?php echo _PROMPT_KEYWORD,'<span>',stripslashes($searchword),'</span>'; ?></h4>
+<h4><?php echo _PROMPT_KEYWORD,' <span class="highlight">',stripslashes($searchword),'</span>'; ?></h4>
 <?php
 }
 function message($message) {

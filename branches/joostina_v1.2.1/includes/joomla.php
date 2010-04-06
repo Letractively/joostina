@@ -303,11 +303,22 @@ return null;
 * @package Joostina
 */
 class mosCache {
-/** @return object A function cache object*/
-function &getCache($group = '') {
+/** @return object A function cache object 
+Хак от Jocker (http://joomlaforum.ru/index.php?action=profile;u=4922)
+дает:
+1) возможность изменения времени 
+2) возможность изменения пути в определенных кеш
+*/
+function &getCache($group = '', $handler = 'callback', $storage = null,$cachetime = null) {
 global $mosConfig_absolute_path,$mosConfig_caching,$mosConfig_cachepath,$mosConfig_cachetime;
 require_once ($mosConfig_absolute_path.'/includes/joomla.cache.php');
-$options = array('cacheDir' => $mosConfig_cachepath.'/','caching' => $mosConfig_caching,'defaultGroup' => $group,'lifeTime' => $mosConfig_cachetime);
+if(!isset($cachetime)){$cachetime=$mosConfig_cachetime;}
+if(!isset($storage))  {$storage=$mosConfig_cachepath;}
+$options = array(
+'cacheDir' => $storage.'/',
+'caching' => $mosConfig_caching,
+'defaultGroup' => $group,
+'lifeTime' => $cachetime);
 $cache = new JCache_Lite_Function($options);
 return $cache;
 }
@@ -2565,7 +2576,7 @@ $img = '/images/avatars/'.$pach.'none.jpg';
 }
 return $img;
 }
-/** функция получения мини - аватара пользователя, возвращает путь к изображения аватара от корня сайта*/
+/** функция получения мини-аватара пользователя, возвращает путь к изображения аватара от корня сайта*/
 function miniavatar($id){
 global $mosConfig_absolute_path;
 if(file_exists($mosConfig_absolute_path.'/images/avatars/mini/'.$id.'.jpg'))
