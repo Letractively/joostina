@@ -16,16 +16,12 @@ defined('_VALID_MOS') or die();
  * @package Joostina
  */
 class mosAdminMenus {
-	/**
-	 * build the select list for Menu Ordering
-	 */
-	function Ordering(&$row,$id) {
-		$database = database::getInstance();
 
+	public static function Ordering(&$row,$id) {
 		if($id) {
 			$query = "SELECT ordering AS value, name AS text"
 					." FROM #__menu"
-					."\n WHERE menutype = ".$database->Quote($row->menutype)
+					."\n WHERE menutype = ".database::getInstance()->Quote($row->menutype)
 					."\n AND parent = ".(int)$row->parent."\n AND published != -2"
 					."\n ORDER BY ordering";
 			$order = mosCommonHTML::mosGetOrderingList($query);
@@ -35,29 +31,21 @@ class mosAdminMenus {
 		}
 		return $ordering;
 	}
-	/**
-	 * build the select list for access level
-	 */
-	function Access(&$row,$guest=false) {
-		$database = database::getInstance();
 
+	public static function Access(&$row,$guest=false) {
 		$query = "SELECT id AS value, name AS text FROM #__groups ORDER BY id";
-		$database->setQuery($query);
-		$groups = $database->loadObjectList();
-		$guest ? $groups[]=mosHTML::makeOption(3,_COM_MODULES_GUEST) : null;
-		$access = mosHTML::selectList($groups,'access','class="inputbox" size="4"','value','text',intval($row->access));
-		return $access;
+		$groups = database::getInstance()->setQuery($query)->loadObjectList();
+
+		$guest ? $groups[] = mosHTML::makeOption(3,_COM_MODULES_GUEST) : null;
+		return mosHTML::selectList($groups,'access','class="inputbox" size="4"','value','text',intval($row->access));
 	}
-	/**
-	 * build the select list for parent item
-	 */
-	function Parent(&$row) {
+
+	public static function Parent(&$row) {
 		$database = database::getInstance();
 
 		$id = '';
 		if($row->id) $id = "\n AND id != ".(int)$row->id;
-		// get a list of the menu items
-		// excluding the current menu item and its child elements
+
 		$query = "SELECT m.* FROM #__menu m WHERE menutype = ".$database->Quote($row->menutype)." AND published != -2".$id." ORDER BY parent, ordering";
 		$database->setQuery($query);
 		$mitems = $database->loadObjectList();
@@ -80,22 +68,14 @@ class mosAdminMenus {
 		foreach($list as $item) {
 			$mitems[] = mosHTML::makeOption($item->id,'&nbsp;&nbsp;&nbsp;'.$item->treename);
 		}
-		$output = mosHTML::selectList($mitems,'parent','class="inputbox" size="10"','value','text',$row->parent);
-		return $output;
+		return mosHTML::selectList($mitems,'parent','class="inputbox" size="10"','value','text',$row->parent);
 	}
 
-	/**
-	 * build a radio button option for published state
-	 */
-	function Published(&$row) {
-		$published = mosHTML::yesnoRadioList('published','class="inputbox"',$row->published);
-		return $published;
+	public static function Published(&$row) {
+		return mosHTML::yesnoRadioList('published','class="inputbox"',$row->published);
 	}
 
-	/**
-	 * build the link/url of a menu item
-	 */
-	function Link(&$row,$id,$link = null) {
+	public static function Link(&$row,$id,$link = null) {
 		global $mainframe;
 
 		if($id) {
@@ -130,20 +110,14 @@ class mosAdminMenus {
 		return $link;
 	}
 
-	/**
-	 * build the select list for target window
-	 */
-	function Target(&$row) {
+	public static function Target(&$row) {
 		$click[] = mosHTML::makeOption('0',_ADM_MENUS_TARGET_CUR_WINDOW);
 		$click[] = mosHTML::makeOption('1',_ADM_MENUS_TARGET_NEW_WINDOW_WITH_PANEL);
 		$click[] = mosHTML::makeOption('2',_ADM_MENUS_TARGET_NEW_WINDOW_WITHOUT_PANEL);
 		return mosHTML::selectList($click,'browserNav','class="inputbox" size="4"','value','text',intval($row->browserNav));
 	}
 
-	/**
-	 * build the multiple select list for Menu Links/Pages
-	 */
-	function MenuLinks(&$lookup,$all = null,$none = null,$unassigned = 1) {
+	public static function MenuLinks(&$lookup,$all = null,$none = null,$unassigned = 1) {
 		$database = database::getInstance();
 
 		// get a list of the menu items
@@ -215,24 +189,11 @@ class mosAdminMenus {
 		foreach($list as $item) {
 			$mitems[] = mosHTML::makeOption($item->value,$item->text);
 		}
-		/*
-		// добавляем в список типы страниц "по умолчанию"
-		$pages = array(
-			mosHTML::makeOption(0,'----'),
-			mosHTML::makeOption(0,_PAGES.' : '._CREATE_ACCOUNT),
-			mosHTML::makeOption(0,_PAGES.' : '._LOST_PASSWORDWORD),
-		);
-		$mitems = array_merge($mitems,$pages);
-		*/
 
 		return mosHTML::selectList($mitems,'selections[]','class="inputbox" size="26" multiple="multiple"','value','text',$lookup);
 	}
 
-
-	/**
-	 * build the select list to choose a category
-	 */
-	function Category(&$menu,$id,$javascript = '') {
+	public static function Category(&$menu,$id,$javascript = '') {
 		$database = database::getInstance();
 
 		$query = "SELECT c.id AS `value`, c.section AS `id`, CONCAT_WS( ' / ', s.title, c.title) AS `text` FROM #__sections AS s INNER JOIN #__categories AS c ON c.section = s.id WHERE s.scope = 'content' ORDER BY s.name, c.name";
@@ -254,10 +215,7 @@ class mosAdminMenus {
 		return $category;
 	}
 
-	/**
-	 * build the select list to choose a section
-	 */
-	function Section(&$menu,$id,$all = 0) {
+	public static function Section(&$menu,$id,$all = 0) {
 		$database = database::getInstance();
 
 		$query = "SELECT s.id AS `value`, s.id AS `id`, s.title AS `text` FROM #__sections AS s WHERE s.scope = 'content' ORDER BY s.name";
@@ -284,10 +242,7 @@ class mosAdminMenus {
 		return $section;
 	}
 
-	/**
-	 * build the select list to choose a component
-	 */
-	function Component(&$menu,$id,$rows=null) {
+	public static function Component(&$menu,$id,$rows=null) {
 		$database = database::getInstance();
 
 		if(!$rows) {
@@ -312,10 +267,7 @@ class mosAdminMenus {
 		return $component;
 	}
 
-	/**
-	 * build the select list to choose a component
-	 */
-	function ComponentName(&$menu,$rows=null) {
+	public static function ComponentName(&$menu,$rows=null) {
 		$database = database::getInstance();
 
 		if(!$rows) {
@@ -334,10 +286,7 @@ class mosAdminMenus {
 		return $component;
 	}
 
-	/**
-	 * build the select list to choose an image
-	 */
-	function Images($name,&$active,$javascript = null,$directory = null) {
+	public static function Images($name,&$active,$javascript = null,$directory = null) {
 
 		if(!$directory) {
 			$directory = '/images/stories';
@@ -354,15 +303,10 @@ class mosAdminMenus {
 				$images[] = mosHTML::makeOption($file);
 			}
 		}
-		$images = mosHTML::selectList($images,$name,'class="inputbox" size="1" '.$javascript,'value','text',$active);
-
-		return $images;
+		return mosHTML::selectList($images,$name,'class="inputbox" size="1" '.$javascript,'value','text',$active);
 	}
 
-	/**
-	 * build the select list for Ordering of a specified Table
-	 */
-	function SpecificOrdering(&$row,$id,$query,$neworder = 0,$limit = 30) {
+	public static function SpecificOrdering(&$row,$id,$query,$neworder = 0,$limit = 30) {
 		if($neworder) {
 			$text = _NEW_ITEM_FIRST;
 		} else {
@@ -378,10 +322,7 @@ class mosAdminMenus {
 		return $ordering;
 	}
 
-	/**
-	 * Select list of active users
-	 */
-	function UserSelect($name,$active,$nouser = 0,$javascript = null,$order = 'name',$reg = 1) {
+	public static function UserSelect($name,$active,$nouser = 0,$javascript = null,$order = 'name',$reg = 1) {
 		$database = database::getInstance();
 
 		$and = '';
@@ -399,15 +340,10 @@ class mosAdminMenus {
 			$users = $database->loadObjectList();
 		}
 
-		$users = mosHTML::selectList($users,$name,'class="inputbox" size="1" '.$javascript,'value','text',$active);
-
-		return $users;
+		return mosHTML::selectList($users,$name,'class="inputbox" size="1" '.$javascript,'value','text',$active);
 	}
 
-	/**
-	 * Select list of positions - generally used for location of images
-	 */
-	function Positions($name,$active = null,$javascript = null,$none = 1,$center = 1,
+	public static function Positions($name,$active = null,$javascript = null,$none = 1,$center = 1,
 			$left = 1,$right = 1) {
 		if($none) {
 			$pos[] = mosHTML::makeOption('',_NONE);
@@ -427,10 +363,7 @@ class mosAdminMenus {
 		return $positions;
 	}
 
-	/**
-	 * Select list of active categories for components
-	 */
-	function ComponentCategory($name,$section,$active = null,$javascript = null,$order ='ordering',$size = 1,$sel_cat = 1) {
+	public static function ComponentCategory($name,$section,$active = null,$javascript = null,$order ='ordering',$size = 1,$sel_cat = 1) {
 		$database = database::getInstance();
 
 		$query = "SELECT id AS value, name AS text"
@@ -450,15 +383,10 @@ class mosAdminMenus {
 			mosRedirect('index2.php?option=com_categories&section='.$section,_CREATE_CATEGORIES_FIRST);
 		}
 
-		$category = mosHTML::selectList($categories,$name,'class="inputbox" size="'.$size.'" '.$javascript,'value','text',$active);
-
-		return $category;
+		return mosHTML::selectList($categories,$name,'class="inputbox" size="'.$size.'" '.$javascript,'value','text',$active);
 	}
 
-	/**
-	 * Select list of active sections
-	 */
-	function SelectSection($name,$active = null,$javascript = null,$order ='ordering',$scope='content') {
+	public static function SelectSection($name,$active = null,$javascript = null,$order ='ordering',$scope='content') {
 		$database = database::getInstance();
 
 		$categories[] = mosHTML::makeOption('0',_SEL_SECTION);
@@ -474,25 +402,14 @@ class mosAdminMenus {
 		return $category;
 	}
 
-	/**
-	 * Select list of menu items for a specific menu
-	 */
-	function Links2Menu($type,$and) {
+	public static function Links2Menu($type,$and) {
 		$database = database::getInstance();
 
 		$query = "SELECT* FROM #__menu WHERE type = ".$database->Quote($type)." AND published = 1".$and;
-		$database->setQuery($query);
-		$menus = $database->loadObjectList();
-		return $menus;
+		return $database->setQuery($query)->loadObjectList();
 	}
 
-	/**
-	 * Select list of menus
-	 * @param string The control name
-	 * @param string Additional javascript
-	 * @return string A select list
-	 */
-	function MenuSelect($name = 'menuselect',$javascript = null) {
+	public static function MenuSelect($name = 'menuselect',$javascript = null) {
 		$database = database::getInstance();
 
 		$query = "SELECT params FROM #__modules WHERE module = 'mod_mainmenu' OR module = 'mod_mljoostinamenu'";
@@ -513,18 +430,11 @@ class mosAdminMenus {
 
 		mosMainFrame::addLib('utils');
 		SortArrayObjects($menuselect,'text',1);
-		$menus = mosHTML::selectList($menuselect,$name,'class="inputbox" size="10" '.$javascript,'value','text');
-		return $menus;
+
+		return mosHTML::selectList($menuselect,$name,'class="inputbox" size="10" '.$javascript,'value','text');
 	}
 
-	/**
-	 * Internal function to recursive scan the media manager directories
-	 * @param string Path to scan
-	 * @param string root path of this folder
-	 * @param array  Value array of all existing folders
-	 * @param array  Value array of all existing images
-	 */
-	function ReadImages($imagePath,$folderPath,&$folders,&$images) {
+	public static function ReadImages($imagePath,$folderPath,&$folders,&$images) {
 		$imgFiles = mosReadDirectory($imagePath);
 
 		foreach($imgFiles as $file) {
@@ -544,14 +454,7 @@ class mosAdminMenus {
 		}
 	}
 
-	/**
-	 * Internal function to recursive scan the media manager directories
-	 * @param string Path to scan
-	 * @param string root path of this folder
-	 * @param array  Value array of all existing folders
-	 * @param array  Value array of all existing images
-	 */
-	function ReadImagesX(&$folders,&$images) {
+	public static function ReadImagesX(&$folders,&$images) {
 
 		if($folders[0]->value != '*0*') {
 			foreach($folders as $folder) {
@@ -576,7 +479,7 @@ class mosAdminMenus {
 		}
 	}
 
-	function GetImageFolders(&$temps) {
+	public static function GetImageFolders(&$temps) {
 		if($temps[0]->value != 'None') {
 			foreach($temps as $temp) {
 				if(substr($temp->value,-1,1) != '/') {
@@ -593,12 +496,10 @@ class mosAdminMenus {
 		}
 
 		$javascript = "onchange=\"changeDynaList( 'imagefiles', folderimages, document.adminForm.folders.options[document.adminForm.folders.selectedIndex].value, 0, 0);\"";
-		$getfolders = mosHTML::selectList($folders,'folders','class="inputbox" size="1" '.$javascript,'value','text','/');
-
-		return $getfolders;
+		return mosHTML::selectList($folders,'folders','class="inputbox" size="1" '.$javascript,'value','text','/');
 	}
 
-	function GetImages(&$images,$path,$base = '/') {
+	public static function GetImages(&$images,$path,$base = '/') {
 		if(is_array($base) && count($base) > 0) {
 			if($base[0]->value != '/') {
 				$base = $base[0]->value.'/';
@@ -614,12 +515,10 @@ class mosAdminMenus {
 		}
 
 		$javascript = "onchange=\"previewImage( 'imagefiles', 'view_imagefiles', '$path/' )\" onfocus=\"previewImage( 'imagefiles', 'view_imagefiles', '$path/' )\"";
-		$getimages = mosHTML::selectList($images[$base],'imagefiles','class="inputbox" size="10" multiple="multiple" '.$javascript,'value','text',null);
-
-		return $getimages;
+		return mosHTML::selectList($images[$base],'imagefiles','class="inputbox" size="10" multiple="multiple" '.$javascript,'value','text',null);
 	}
 
-	function GetSavedImages(&$row,$path) {
+	public static function GetSavedImages(&$row,$path) {
 		$images2 = array();
 		foreach($row->images as $file) {
 			$temp = explode('|',$file);
@@ -631,16 +530,9 @@ class mosAdminMenus {
 			$images2[] = mosHTML::makeOption($file,$filename);
 		}
 		$javascript = "onchange=\"previewImage( 'imagelist', 'view_imagelist', '$path/' ); showImageProps( '$path/' ); \"";
-		$imagelist = mosHTML::selectList($images2,'imagelist','class="inputbox" size="10" '.$javascript,'value','text');
-		return $imagelist;
+		return mosHTML::selectList($images2,'imagelist','class="inputbox" size="10" '.$javascript,'value','text');
 	}
 
-	/**
-	 * Checks to see if an image exists in the current templates image directory
-	 * if it does it loads this image.  Otherwise the default image is loaded.
-	 * Also can be used in conjunction with the menulist param to create the chosen image
-	 * load the default or use no image
-	 */
 	public static function ImageCheck($file,$directory = '/images/M_images/',$param = null,$param_directory ='/images/M_images/',$alt = null,$name = null,$type = 1,$align = 'middle',$title = null,$admin = null) {
 
 		$id		= $name ? ' id="'.$name.'"':'';
@@ -675,27 +567,17 @@ class mosAdminMenus {
 		return $image;
 	}
 
-	/**
-	 * Checks to see if an image exists in the current templates image directory
-	 * if it does it loads this image.  Otherwise the default image is loaded.
-	 * Also can be used in conjunction with the menulist param to create the chosen image
-	 * load the default or use no image
-	 */
-	function ImageCheckAdmin($file,$directory = '/administrator/images/',$param = null,$param_directory = '/administrator/images/',$alt = null,$name = null,$type = 1,$align = 'middle',$title = null) {
-		$image = mosAdminMenus::ImageCheck($file,$directory,$param,$param_directory,$alt,$name,$type,$align,$title,1);
-		return $image;
+
+	public static function ImageCheckAdmin($file,$directory = '/administrator/images/',$param = null,$param_directory = '/administrator/images/',$alt = null,$name = null,$type = 1,$align = 'middle',$title = null) {
+		return mosAdminMenus::ImageCheck($file,$directory,$param,$param_directory,$alt,$name,$type,$align,$title,1);
 	}
 
 	public static function menutypes() {
 		$database = database::getInstance();
 
 		$query = "SELECT params FROM #__modules WHERE module = 'mod_mainmenu' OR module = 'mod_mljoostinamenu' ORDER BY title";
-		$database->setQuery($query);
-		$modMenus = $database->loadObjectList();
+		$modMenus = $database->setQuery($query)->loadObjectList();
 
-		$query = "SELECT menutype FROM #__menu GROUP BY menutype ORDER BY menutype";
-		$database->setQuery($query);
-		$menuMenus = $database->loadObjectList();
 		$menuTypes = '';
 		foreach($modMenus as $modMenu) {
 			$check = 1;
@@ -721,7 +603,10 @@ class mosAdminMenus {
 				}
 			}
 		}
-		// add menutypes from jos_menu
+
+		$query = "SELECT menutype FROM #__menu GROUP BY menutype ORDER BY menutype";
+		$menuMenus = $database->setQuery($query)->loadObjectList();
+
 		foreach($menuMenus as $menuMenu) {
 			$check = 1;
 			foreach($menuTypes as $a) {
@@ -733,15 +618,12 @@ class mosAdminMenus {
 				$menuTypes[] = $menuMenu->menutype;
 			}
 		}
-		// sorts menutypes
+
 		asort($menuTypes);
 		return $menuTypes;
 	}
 
-	/*
-	* loads files required for menu items
-	*/
-	function menuItem($item) {
+	public static function menuItem($item) {
 
 		$path = JPATH_BASE.DS.JADMIN_BASE.'/components/com_menus/'.$item.'/';
 		include_once ($path.$item.'.class.php');
