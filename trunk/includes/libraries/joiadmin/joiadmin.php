@@ -120,7 +120,7 @@ class JoiAdmin {
         if( method_exists($class, $task) ) {
             call_user_func_array( $class.'::'.$task , array( $option, $id, $task ) );
         }else {
-            call_user_func_array( $class.'::index', array( $option ) );
+            call_user_func_array( $class.'::index', array( $option, $id ) );
         }
     }
 
