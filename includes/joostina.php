@@ -2952,10 +2952,8 @@ function mosRedirect($url,$msg = '') {
 	// specific filters
 	$iFilter = InputFilter::getInstance();
 	$url = $iFilter->process($url);
-	if(!empty($msg)) {
-		$msg = $iFilter->process($msg);
-		mosMainFrame::set_mosmsg($msg);
-	}
+        
+	empty($msg) ? null : mosMainFrame::set_mosmsg( $iFilter->process($msg) );
 
 	// Strip out any line breaks and throw away the rest
 	$url = preg_split("/[\r\n]/",$url);
