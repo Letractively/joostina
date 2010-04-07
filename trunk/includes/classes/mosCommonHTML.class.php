@@ -11,7 +11,8 @@
 defined('_VALID_MOS') or die();
 
 class mosCommonHTML {
-	function ContentLegend() {
+
+	public static function ContentLegend() {
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 		?>
 <table cellspacing="0" cellpadding="4" border="0" align="center">
@@ -29,7 +30,7 @@ class mosCommonHTML {
 		<?php
 	}
 
-	function menuLinksContent(&$menus) {
+	public static function menuLinksContent(&$menus) {
 		?>
 <script language="javascript" type="text/javascript">
 	function go2( pressbutton, menu, id ) {
@@ -64,19 +65,13 @@ class mosCommonHTML {
 	</td>
 </tr>
 <tr>
-	<td width="90px" valign="top">
-					<?php echo _MENU?>
-	</td>
-	<td>
-		<a href="javascript:go2( 'go2menu', '<?php echo $menu->menutype; ?>' );"><?php echo $menu->menutype; ?></a>
-	</td>
+	<td width="90px" valign="top"><?php echo _MENU?></td>
+	<td><a href="javascript:go2( 'go2menu', '<?php echo $menu->menutype; ?>' );"><?php echo $menu->menutype; ?></a></td>
 </tr>
 <tr>
 	<td width="90px" valign="top"><?php echo _LINK_NAME?></td>
 	<td>
-		<strong>
-			<a href="javascript:go2( 'go2menuitem', '<?php echo $menu->menutype; ?>', '<?php echo $menu->id; ?>' );" ><?php echo $menu->name; ?></a>
-		</strong>
+		<strong><a href="javascript:go2( 'go2menuitem', '<?php echo $menu->menutype; ?>', '<?php echo $menu->id; ?>' );" ><?php echo $menu->name; ?></a></strong>
 	</td>
 </tr>
 <tr>
@@ -106,7 +101,7 @@ class mosCommonHTML {
 		<?php
 	}
 
-	function menuLinksSecCat(&$menus) {
+	public static function menuLinksSecCat(&$menus) {
 		?>
 <script language="javascript" type="text/javascript">
 	function go2( pressbutton, menu, id ) {
@@ -132,9 +127,7 @@ class mosCommonHTML {
 </tr>
 <tr>
 	<td width="90px" valign="top"><?php echo _MENU?></td>
-	<td>
-		<a href="javascript:go2( 'go2menu', '<?php echo $menu->menutype; ?>' );" ><?php echo $menu->menutype; ?></a>
-	</td>
+	<td><a href="javascript:go2( 'go2menu', '<?php echo $menu->menutype; ?>' );" ><?php echo $menu->menutype; ?></a></td>
 </tr>
 <tr>
 	<td width="90px" valign="top"><?php echo _TYPE?></td>
@@ -173,8 +166,7 @@ class mosCommonHTML {
 		<?php
 	}
 
-	function checkedOut(&$row,$overlib = 1) {
-		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
+	public static function checkedOut(&$row,$overlib = 1) {
 		$hover = '';
 		if($overlib) {
 			$date = mosFormatDate($row->checked_out_time,'%A, %d %B %Y');
@@ -187,12 +179,11 @@ class mosCommonHTML {
 			$checked_out_text .= '</table>';
 			$hover = 'onMouseOver="return overlib(\''.$checked_out_text.'\', CAPTION, \''._CHECKED_OUT.'\', BELOW, RIGHT);" onMouseOut="return nd();"';
 		}
-		$checked = '<img src="'.$cur_file_icons_path.'/checked_out.png" '.$hover.'/>';
-		return $checked;
+		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
+		return '<img src="'.$cur_file_icons_path.'/checked_out.png" '.$hover.'/>';
 	}
 
-	/* подключение библиотеки всплывающих подсказок */
-	function loadOverlib($ret = false) {
+	public static function loadOverlib($ret = false) {
 		if(!defined('_LOADOVERLIB')) {
 			// установка флага о загруженной библиотеке всплывающих подсказок
 			define('_LOADOVERLIB',1);
@@ -206,9 +197,6 @@ class mosCommonHTML {
 		}
 	}
 
-	/*
-	* Подключение JS файлов Календаря
-	*/
 	public static function loadCalendar() {
 		if(!defined('_CALLENDAR_LOADED')) {
 			define('_CALLENDAR_LOADED',1);
@@ -220,7 +208,7 @@ class mosCommonHTML {
 			$mainframe->addJS($_lang_file);
 		}
 	}
-	/* подключение mootools*/
+
 	// TODO убрать к 1.3.2
 	public static function loadMootools($ret = false) {
 		if(!defined('_MOO_LOADED')) {
@@ -233,7 +221,7 @@ class mosCommonHTML {
 			echo mosHTML::js_file( JPATH_SITE.'/includes/js/mootools/mootools.js' );
 		}
 	}
-	/* подключение prettyTable*/
+
 	// TODO убрать к 1.3.2
 	public static function loadPrettyTable() {
 		if(!defined('_PRT_LOADED')) {
@@ -241,7 +229,7 @@ class mosCommonHTML {
 			mosMainFrame::getInstance()->addJS(JPATH_SITE.'/includes/js/jsfunction/jrow.js');
 		}
 	}
-	/* подключение Fullajax*/
+
 	// TODO убрать к 1.3.5
 	public static function loadFullajax($ret = false) {
 		if(!defined('_FAX_LOADED')) {
@@ -255,7 +243,6 @@ class mosCommonHTML {
 		}
 	}
 
-	/* подключение Jquery*/
 	public static function loadJquery($ret = false) {
 		if(!defined('_JQUERY_LOADED')) {
 			define('_JQUERY_LOADED',1);
@@ -267,7 +254,7 @@ class mosCommonHTML {
 			}
 		}
 	}
-	/* подключение расширений Jquery*/
+
 	public static function loadJqueryPlugins($name,$ret = false, $css = false, $footer = '') {
 		$name = trim($name);
 
@@ -290,7 +277,7 @@ class mosCommonHTML {
 			}
 		}
 	}
-	/* подключение файла Jquery UI*/
+
 	public static function loadJqueryUI($ret = false) {
 		if(!defined('_JQUERY_UI_LOADED')) {
 			define('_JQUERY_UI_LOADED',1);
@@ -304,7 +291,6 @@ class mosCommonHTML {
 		}
 	}
 
-	/* подключение dTree*/
 	public static function loadDtree() {
 		if(!defined('_DTR_LOADED')) {
 			define('_DTR_LOADED',1);
@@ -314,7 +300,7 @@ class mosCommonHTML {
 		}
 	}
 
-	function AccessProcessing(&$row,$i,$ajax=null) {
+	public static function AccessProcessing(&$row,$i,$ajax=null) {
 		if(!$row->access) {
 			$color_access = 'style="color: green;"';
 			$task_access = 'accessregistered';
@@ -334,35 +320,26 @@ class mosCommonHTML {
 		return $href;
 	}
 
-	/*
-	* Проверка блокировки объекта
-	*/
-	function CheckedOutProcessing(&$row,$i) {
-		global $my;
+	public static function CheckedOutProcessing(&$row,$i) {
 		if($row->checked_out) {
 			$checked = mosCommonHTML::checkedOut($row);
 		} else {
+			global $my;
 			$checked = mosHTML::idBox($i,$row->id,($row->checked_out && $row->checked_out !=$my->id));
 		}
 		return $checked;
 	}
 
-	function PublishedProcessing(&$row,$i) {
+	public static function PublishedProcessing(&$row,$i) {
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 		$img = $row->published ? 'publish_g.png':'publish_x.png';
 		$task = $row->published ? 'unpublish':'publish';
 		$alt = $row->published ? _PUBLISHED:_UNPUBLISHED;
 		$action = $row->published ? _HIDE:_PUBLISH_ON_FRONTPAGE;
-		$href = '<a href="javascript: void(0);" onclick="return listItemTask(\'cb'.$i.'\',\''.$task.'\')" title="'.$action.'"><img src="'.$cur_file_icons_path.'/'.$img.'" border="0" alt="'.$alt.'" /></a>';
-		return $href;
+		return '<a href="javascript: void(0);" onclick="return listItemTask(\'cb'.$i.'\',\''.$task.'\')" title="'.$action.'"><img src="'.$cur_file_icons_path.'/'.$img.'" border="0" alt="'.$alt.'" /></a>';
 	}
 
-	/*
-	* Special handling for newfeed encoding and possible conflicts with page encoding and PHP version
-	* Added 1.0.8
-	* Static Function
-	*/
-	function newsfeedEncoding($rssDoc,$text,$utf8enc=null) {
+	public static function newsfeedEncoding($rssDoc,$text,$utf8enc=null) {
 
 		if(!defined('_JOS_FEED_ENCODING')) {
 			// determine encoding of feed
@@ -438,12 +415,10 @@ class mosCommonHTML {
 			}
 		}
 
-		$text = str_replace('&apos;',"'",$text);
-
-		return $text;
+		return str_replace('&apos;',"'",$text);
 	}
 
-	function get_element($file) {
+	public static function get_element($file) {
 
 		$file_templ = 'templates/'.JTEMPLATE.'/images/elements/'.$file;
 		$file_system = 'M_images/'.$file;
@@ -487,5 +462,4 @@ class mosCommonHTML {
 		$order[] = mosHTML::makeOption($orders[$i - 1]->value + 1,($orders[$i - 1]->value +1).' '._LAST);
 		return $order;
 	}
-
 }
