@@ -11,10 +11,6 @@
 defined('_VALID_MOS') or die();
 
 
-/**
- * Common HTML Output Files
- * @package Joostina
- */
 class mosAdminMenus {
 
 	public static function Ordering(&$row,$id) {
