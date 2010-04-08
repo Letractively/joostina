@@ -111,8 +111,7 @@ class HTML_contact {
 		if($row->image == '') {
 			$row->image = 'blank.png';
 		}
-
-		mosMainFrame::addClass('mosTabs');
+		
 		$tabs = new mosTabs(0);
 
 		mosMakeHtmlSafe($row,ENT_QUOTES,'misc');

@@ -10,105 +10,47 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-/**
- * Parameters handler
- * @package Joostina
- */
 class mosParameters {
-	//public static $_instance_params;
-	/**
-	 @var object*/
-	private $_params = null;
-	/**
-	 @var string The raw params string*/
-	private $_raw = null;
-	/**
-	 @var string Path to the xml setup file*/
-	private $_path = null;
-	/**
-	 @var string The type of setup file*/
-	private $_type = null;
-	/**
-	 @var object The xml params element*/
-	private $_xmlElem = null;
-	/**
-	 * Constructor
-	 * @param string The raw parms text
-	 * @param string Path to the xml setup file
-	 * @var string The type of setup file
-	 */
-	function mosParameters($text,$path = '',$type = 'component') {
-		JDEBUG ? jd_inc('mosParameters') : null;
 
-		/* TODO 1.3.3
-		if (isset( self::$_instance_params[md5($text)] )){
-			$this->_params = self::$_instance_params[md5($text)];
-		}else{
-			$this->_params = self::$_instance_params[md5($text)] = $this->parse($text);
-		}
-		*/
+	private $_params;
+	private $_raw;
+	private $_path;
+	private $_type;
+	private $_xmlElem;
+
+	public function mosParameters($text,$path = '',$type = 'component') {
+		JDEBUG ? jd_inc('mosParameters') : null;
 
 		$this->_params = $this->parse($text);
 		$this->_raw = $text;
 		$this->_path = $path;
 		$this->_type = $type;
 	}
-
-	/**
-	 * Returns the params array
-	 * @return object
-	 */
-	function toObject() {
+	
+	public function toObject() {
 		return $this->_params;
 	}
 
-	/**
-	 * Returns a named array of the parameters
-	 * @return object
-	 */
-	function toArray() {
+	public function toArray() {
 		return mosObjectToArray($this->_params);
 	}
 
-	/**
-	 * @param string The name of the param
-	 * @param string The value of the parameter
-	 * @return string The set value
-	 */
-	function set($key,$value = '') {
-		$this->_params->$key = $value;
-		return $value;
+	public function set($key,$value = '') {
+		return $this->_params->$key = $value;
 	}
 
-	/**
-	 * Sets a default value if not alreay assigned
-	 * @param string The name of the param
-	 * @param string The value of the parameter
-	 * @return string The set value
-	 */
-	function def($key,$value = '') {
+	public function def($key,$value = '') {
 		return $this->set($key,$this->get($key,$value));
 	}
 
-	/**
-	 * @param string The name of the param
-	 * @param mixed The default value if not found
-	 * @return string
-	 */
-	function get($key,$default = '') {
+	public  function get($key,$default = '') {
 		if(isset($this->_params->$key)) {
-			return $this->_params->$key === '' ? $default:$this->_params->$key;
+			return $this->_params->$key === '' ? $default : $this->_params->$key;
 		} else {
 			return $default;
 		}
 	}
 
-	/**
-	 * Parse an .ini string, based on phpDocumentor phpDocumentor_parse_ini_file function
-	 * @param mixed The ini string or array of lines
-	 * @param boolean add an associative index for each section [in brackets]
-	 * @return object
-	 */
 	public static function parse($txt,$process_sections = false,$asArray = false) {
 
 		JDEBUG ? jd_inc('mosParameters::parse') : null;
@@ -126,13 +68,7 @@ class mosParameters {
 			$lines = array();
 		}
 
-		if( (false==$process_sections) &&
-				(false==$asArray) &&
-				(is_string($txt)) &&
-				(false===strpos($txt,'[')) &&
-				(false===strpos($txt,'\\')) &&
-				(false===strpos($txt,'"')) &&
-				(false===strpos($txt,';')) ) {
+		if( (false==$process_sections) && (false==$asArray) && (is_string($txt)) && (false===strpos($txt,'[')) && (false===strpos($txt,'\\')) && (false===strpos($txt,'"')) && (false===strpos($txt,';')) ) {
 			$obj = new stdClass();
 			foreach($lines as $line) {
 				$vars=explode('=',$line,2);
@@ -152,15 +88,16 @@ class mosParameters {
 			return $obj;
 		}
 
-		$obj = $asArray ? array():new stdClass();
+		$obj = $asArray ? array() : new stdClass;
 
 		$sec_name = '';
 		$unparsed = 0;
 		if(!$lines) {
 			return $obj;
 		}
+
 		foreach($lines as $line) {
-			// ignore comments
+			// игнорирование комментариев
 			if($line && $line[0] == ';') {
 				continue;
 			}
@@ -169,6 +106,7 @@ class mosParameters {
 			if($line == '') {
 				continue;
 			}
+
 			if($line && $line[0] == '[' && $line[strlen($line) - 1] == ']') {
 				$sec_name = substr($line,1,strlen($line) - 2);
 				if($process_sections) {
@@ -253,11 +191,7 @@ class mosParameters {
 		return $obj;
 	}
 
-	/**
-	 * @param string The name of the control, or the default text area if a setup file is not found
-	 * @return string HTML
-	 */
-	function render($name = 'params') {
+	public function render($name = 'params') {
 
 		if($this->_path) {
 			if(!is_object($this->_xmlElem)) {
@@ -319,12 +253,8 @@ class mosParameters {
 		}
 	}
 
-	/**
-	 * @param object A param tag node
-	 * @param string The control name
-	 * @return array Any array of the label, the form element and the tooltip
-	 */
-	function renderParam(&$param,$control_name = 'params') {
+	public function renderParam(&$param,$control_name = 'params') {
+
 		$result = array();
 
 		$name = $param->getAttribute('name');
@@ -359,27 +289,12 @@ class mosParameters {
 		return $result;
 	}
 
-	/**
-	 * @param string The name of the form element
-	 * @param string The value of the element
-	 * @param object The xml element for the parameter
-	 * @param string The control name
-	 * @return string The html for the element
-	 */
-	function _form_text($name,$value,&$node,$control_name) {
+	private function _form_text($name,$value,&$node,$control_name) {
 		$size = $node->getAttribute('size');
-
 		return '<input type="text" name="'.$control_name.'['.$name.']" value="'.htmlspecialchars($value).'" class="text_area" size="'.$size.'" />';
 	}
-	/**
-	 * @param string The name of the form element
-	 * @param string The value of the element
-	 * @param object The xml element for the parameter
-	 * @param string The control name
-	 * @return string The html for the element
-	 */
-	function _form_list($name,$value,&$node,$control_name) {
-		//$size = $node->getAttribute('size');
+
+	private function _form_list($name,$value,&$node,$control_name) {
 
 		$options = array();
 		foreach($node->childNodes as $option) {
@@ -390,14 +305,9 @@ class mosParameters {
 
 		return mosHTML::selectList($options,''.$control_name.'['.$name.']','class="inputbox"','value','text',$value);
 	}
-	/**
-	 * @param string The name of the form element
-	 * @param string The value of the element
-	 * @param object The xml element for the parameter
-	 * @param string The control name
-	 * @return string The html for the element
-	 */
-	function _form_radio($name,$value,&$node,$control_name) {
+
+	private function _form_radio($name,$value,&$node,$control_name) {
+
 		$options = array();
 		foreach($node->childNodes as $option) {
 			$val = $option->getAttribute('value');
@@ -407,14 +317,8 @@ class mosParameters {
 
 		return mosHTML::radioList($options,''.$control_name.'['.$name.']','',$value);
 	}
-	/**
-	 * @param string The name of the form element
-	 * @param string The value of the element
-	 * @param object The xml element for the parameter
-	 * @param string The control name
-	 * @return string The html for the element
-	 */
-	function _form_mos_section($name,$value,&$node,$control_name) {
+
+	private function _form_mos_section($name,$value,&$node,$control_name) {
 		$database = database::getInstance();
 
 		$query = "SELECT id, title FROM #__sections WHERE published = 1 AND scope = 'content' ORDER BY title";
@@ -424,14 +328,8 @@ class mosParameters {
 
 		return mosHTML::selectList($options,''.$control_name.'['.$name.']','class="inputbox" id="mossection"','id','title',$value);
 	}
-	/**
-	 * @param string The name of the form element
-	 * @param string The value of the element
-	 * @param object The xml element for the parameter
-	 * @param string The control name
-	 * @return string The html for the element
-	 */
-	function _form_mos_category($name,$value,&$node,$control_name) {
+
+	private function _form_mos_category($name,$value,&$node,$control_name) {
 		$database = database::getInstance();
 
 		$scope = $node->getAttribute('scope');
@@ -440,7 +338,6 @@ class mosParameters {
 		}
 
 		if($scope == 'content') {
-			// This might get a conflict with the dynamic translation - TODO: search for better solution
 			$query = "SELECT c.id, CONCAT_WS( '/',s.title, c.title ) AS title FROM #__categories AS c LEFT JOIN #__sections AS s ON s.id=c.section WHERE c.published = 1 AND s.scope = ".$database->Quote($scope)."\n ORDER BY c.title";
 		} else {
 			$query = "SELECT c.id, c.title FROM #__categories AS c WHERE c.published = 1 AND c.section = ".$database->Quote($scope)." ORDER BY c.title";
@@ -451,14 +348,8 @@ class mosParameters {
 
 		return mosHTML::selectList($options,''.$control_name.'['.$name.']','class="inputbox"','id','title',$value);
 	}
-	/**
-	 * @param string The name of the form element
-	 * @param string The value of the element
-	 * @param object The xml element for the parameter
-	 * @param string The control name
-	 * @return string The html for the element
-	 */
-	function _form_mos_menu($name,$value,$node,$control_name) {
+
+	private function _form_mos_menu($name,$value,$node,$control_name) {
 		$menuTypes = mosAdminMenus::menutypes();
 
 		foreach($menuTypes as $menutype) {
@@ -468,16 +359,9 @@ class mosParameters {
 
 		return mosHTML::selectList($options,''.$control_name.'['.$name.']','class="inputbox"','value','text',$value);
 	}
-	/**
-	 * @param string The name of the form element
-	 * @param string The value of the element
-	 * @param object The xml element for the parameter
-	 * @param string The control name
-	 * @return string The html for the element
-	 */
-	function _form_filelist($name,$value,&$node,$control_name) {
 
-		// path to images directory
+	private function _form_filelist($name,$value,&$node,$control_name) {
+
 		$path = JPATH_BASE.$node->getAttribute('directory');
 		$filter = $node->getAttribute('filter');
 		$files = mosReadDirectory($path,$filter);
@@ -486,6 +370,7 @@ class mosParameters {
 		foreach($files as $file) {
 			$options[] = mosHTML::makeOption($file,$file);
 		}
+
 		if(!$node->getAttribute('hide_none')) {
 			array_unshift($options,mosHTML::makeOption('-1',_DONT_USE_IMAGE));
 		}
@@ -495,49 +380,25 @@ class mosParameters {
 
 		return mosHTML::selectList($options,''.$control_name.'['.$name.']','class="inputbox"','value','text',$value,"param$name");
 	}
-	/**
-	 * @param string The name of the form element
-	 * @param string The value of the element
-	 * @param object The xml element for the parameter
-	 * @param string The control name
-	 * @return string The html for the element
-	 */
-	function _form_imagelist($name,$value,&$node,$control_name) {
+
+	private function _form_imagelist($name,$value,&$node,$control_name) {
 		$node->setAttribute('filter','\.png$|\.gif$|\.jpg$|\.bmp$|\.ico$');
 		return $this->_form_filelist($name,$value,$node,$control_name);
 	}
-	/**
-	 * @param string The name of the form element
-	 * @param string The value of the element
-	 * @param object The xml element for the parameter
-	 * @param string The control name
-	 * @return string The html for the element
-	 */
-	function _form_textarea($name,$value,&$node,$control_name) {
+
+	private function _form_textarea($name,$value,&$node,$control_name) {
 		$rows = $node->getAttribute('rows');
 		$cols = $node->getAttribute('cols');
-		// convert <br /> tags so they are not visible when editing
 		$value = str_replace('<br />',"\n",$value);
 
 		return '<textarea name="'.$control_name.'['.$name.']" cols="'.$cols.'" rows="'.$rows.'" class="text_area">'.htmlspecialchars($value).'</textarea>';
 	}
 
-	/**
-	 * @param string The name of the form element
-	 * @param string The value of the element
-	 * @param object The xml element for the parameter
-	 * @param string The control name
-	 * @return string The html for the element
-	 */
-	function _form_spacer($name,$value) {
-		if($value) {
-			return $value;
-		} else {
-			return '<hr />';
-		}
+	private function _form_spacer($name,$value) {
+		return ($value) ? $value : '<hr />';
 	}
 
-	function _form_tabs($name,$value,$param,$control_name, $label) {
+	private function _form_tabs($name,$value,$param,$control_name, $label) {
 
 		$css = '<link rel="stylesheet" type="text/css" media="all" href="'.JPATH_SITE.'/includes/js/tabs/tabpane.css" id="luna-tab-style-sheet" />';
 		$js = '<script type="text/javascript" src="'.JPATH_SITE.'/includes/js/tabs/tabpane.js"></script>';
@@ -576,25 +437,19 @@ class mosParameters {
 		return $return;
 	}
 
-	/**
-	 * special handling for textarea param
-	 */
-	function textareaHandling(&$txt) {
+	public static function textareaHandling(&$txt) {
 		$total = count($txt);
+
 		for($i = 0; $i < $total; $i++) {
 			if(strstr($txt[$i],"\n")) {
 				$txt[$i] = str_replace("\n",'<br />',$txt[$i]);
 			}
 		}
-		$txt = implode("\n",$txt);
-
-		return $txt;
+		return implode("\n",$txt);
 	}
 
-	/*
-	* селектор выбора времени кэиширования
-	*/
-	function _form_cache_list($name,$value,$param,$control_name) {
+	private function _form_cache_list($name,$value,$param,$control_name) {
+
 		$options[] = mosHTML::makeOption('0',_M_CACHE_0);
 		$options[] = mosHTML::makeOption('60',_M_CACHE_60);
 		$options[] = mosHTML::makeOption('300',_M_CACHE_300);
@@ -617,24 +472,6 @@ class mosParameters {
 
 }
 
-/**
- * @param string
- * @return string
- */
-
-
-function mosParseParams($txt) {
+function mosParseParams( $txt ) {
 	return mosParameters::parse($txt);
-}
-
-class mosEmpty {
-	function def() {
-		return true;
-	}
-	function get() {
-		return true;
-	}
-	function set() {
-		return true;
-	}
 }

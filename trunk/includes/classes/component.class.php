@@ -31,22 +31,7 @@ class mosComponent extends mosDBTable {
 	public $_view;
 	public $_mainframe;
 
-	function mosComponent(&$db=null) {
-		$this->mosDBTable('#__components','id',$db);
-	}
-
-	function _init($option, $mainframe) {
-
-		$this->option = $option;
-		$this->_mainframe = $mainframe;
-
-		$component = str_replace('com_', '', $this->option);
-
-		$view = $component.'View';
-
-		if(class_exists($view)) {
-			$this->_view = 	new $view($this->_mainframe) ;
-		}
-
+	function mosComponent() {
+		$this->mosDBTable('#__components','id');
 	}
 }

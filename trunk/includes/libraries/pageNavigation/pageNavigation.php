@@ -10,35 +10,19 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-/**
- * Page navigation support class
- * @package Joostina
- */
 class mosPageNav {
-	/**
-	 @var int The record number to start dislpaying from*/
-	var $limitstart = null;
-	/**
-	 @var int Number of rows to display per page*/
-	var $limit = null;
-	/**
-	 @var int Total number of rows*/
-	var $total = null;
 
-	var $prev_exist = 0;
-	var $next_exist = 0;
+	private $limitstart;
+	private $limit;
+	private $total;
 
-	function mosPageNav($total,$limitstart,$limit) {
-		$this->total = (int)$total;
-		$this->limitstart = (int)max($limitstart,0);
-		$this->limit = (int)max($limit,0);
+	public function mosPageNav($total,$limitstart,$limit) {
+		$this->total     = (int)$total;
+		$this->limitstart = (int) max($limitstart,0);
+		$this->limit     = (int) max($limit,0);
 	}
-	/**
-	 * Returns the html limit # input box
-	 * @param string The basic link to include in the href
-	 * @return string
-	 */
-	function getLimitBox($link) {
+
+	public function getLimitBox($link) {
 		$limits = array();
 		for($i = 5; $i <= 30; $i += 5) {
 			$limits[] = mosHTML::makeOption($i);
@@ -47,22 +31,18 @@ class mosPageNav {
 		$limits[] = mosHTML::makeOption('100');
 		$limits[] = mosHTML::makeOption('150');
 		$limits[] = mosHTML::makeOption('5000',_PN_ALL);
-		// build the html select list
+
 		$link = $link."&amp;limit=' + this.options[selectedIndex].value + '&amp;limitstart=".$this->limitstart;
 		$link = sefRelToAbs($link);
+
 		return mosHTML::selectList($limits,'limit','class="inputbox" size="1" onchange="document.location.href=\''.$link.'\';"','value','text',$this->limit);
 	}
-	/**
-	 * Writes the html limit # input box
-	 * @param string The basic link to include in the href
-	 */
-	function writeLimitBox($link) {
+
+	public function writeLimitBox($link) {
 		echo mosPageNav::getLimitBox($link);
 	}
-	/**
-	 * Writes the html for the pages counter, eg, Results 1-10 of x
-	 */
-	function writePagesCounter() {
+
+	public function writePagesCounter() {
 		$txt = '';
 		$from_result = $this->limitstart + 1;
 		if($this->limitstart + $this->limit < $this->total) {
@@ -73,13 +53,10 @@ class mosPageNav {
 		if($this->total > 0) {
 			$txt .= _PN_RESULTS." $from_result - $to_result "._PN_OF." $this->total";
 		}
-		return $to_result?$txt:'';
+		return $to_result ? $txt : '';
 	}
 
-	/**
-	 * Writes the html for the leafs counter, eg, Page 1 of x
-	 */
-	function writeLeafsCounter() {
+	public function writeLeafsCounter() {
 		$txt = '';
 		$page = ceil(($this->limitstart + 1) / $this->limit);
 		if($this->total > 0) {
@@ -89,17 +66,13 @@ class mosPageNav {
 		return $txt;
 	}
 
-	/**
-	 * Writes the html links for pages, eg, previous, next, 1 2 3 ... x
-	 * @param string The basic link to include in the href
-	 */
-	function writePagesLinks($link) {
+	public function writePagesLinks($link) {
 
-		global $mainframe;
 		$txt = '<div class="pagenavigation"><ul>';
 
 		$displayed_pages = 10;
 		$total_pages = $this->limit?ceil($this->total / $this->limit):0;
+
 		// скрываем навигатор по страницам если их меньше 2х.
 		if($total_pages<2) return;
 
@@ -125,11 +98,6 @@ class mosPageNav {
 
 			$page = ($this_page - 2)* $this->limit;
 
-			if (!$this->prev_exist) {
-				$mainframe->addCustomHeadTag('<link rel="prev" href="'.sefRelToAbs($link.'&amp;limitstart='.$page).'" />');
-				$this->prev_exist = 1;
-			}
-
 			$txt .= '<li class="first_page"><a href="'.sefRelToAbs("$link&amp;limitstart=0").'" class="pagenav" title="'._PN_START.'">'._PN_START.'</a></li> ';
 			$txt .= '<li class="back"><a href="'.sefRelToAbs("$link&amp;limitstart=$page").'" class="pagenav" title="'._PN_PREVIOUS.'">'._PN_LT.$pnSpace._PN_PREVIOUS.'</a></li> ';
 		} else {
@@ -150,11 +118,6 @@ class mosPageNav {
 
 			$page = $this_page* $this->limit;
 			$end_page = ($total_pages - 1)* $this->limit;
-
-			if (!$this->next_exist) {
-				$mainframe->addCustomHeadTag("<link rel='next' href='".sefRelToAbs($link.'&amp;limitstart='.$page)."' />");
-				$this->next_exist = 1;
-			}
 
 			$txt .= '<li class="next"><a href="'.sefRelToAbs($link.'&amp;limitstart='.$page).' " class="pagenav" title="'._PN_NEXT.'">'._PN_NEXT.$pnSpace._PN_RT.'</a> </li>';
 			$txt .= '<li class="last_page"><a href="'.sefRelToAbs($link.'&amp;limitstart='.$end_page).' " class="pagenav" title="'._PN_END.'">'._PN_END.'</a></li>';

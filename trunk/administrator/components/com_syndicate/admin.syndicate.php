@@ -73,6 +73,8 @@ function saveSyndicate($option) {
 	}
 
 	$id = intval(mosGetParam($_POST,'id','17'));
+
+	mosMainFrame::addClass('component');
 	$row = new mosComponent($database);
 	$row->load($id);
 

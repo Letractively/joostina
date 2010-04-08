@@ -8,14 +8,7 @@
  */
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
-// удаляем зарегистрированные глобальные переменные если они разрешены
 
-/**
- * Adds an array to the GLOBALS array and checks that the GLOBALS variable is
- * not being attacked
- * @param array
- * @param boolean True if the array is to be added to the GLOBALS
- */
 function checkInputArray(&$array,$globalise = false) {
 	static $banned = array('_files','_env','_get','_post','_cookie','_server','_session','globals');
 
@@ -33,9 +26,6 @@ function checkInputArray(&$array,$globalise = false) {
 	}
 }
 
-/**
- * Emulates register globals = off
- */
 function unregisterGlobals() {
 	checkInputArray($_FILES);
 	checkInputArray($_ENV);

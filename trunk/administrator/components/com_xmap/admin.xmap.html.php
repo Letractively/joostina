@@ -53,8 +53,6 @@ class XmapAdminHtml {
 </table>
 <div id="sitemapsouter" onclick="handleClick();">
 			<?php
-
-			mosMainFrame::addClass('mosTabs');
 			$pane = new mosTabs(1);// uses cookie to save last used tab
 			$pane->startPane( 'xmap-pane' );
 			$pane->startTab( _XMAP_TAB_SITEMAPS, 'sitemaps-tab' );

@@ -20,10 +20,6 @@ class jdebug {
     /* счетчики */
     private $_inc = array();
 
-    /**
-     *
-     * @return jdebug
-     */
     public static function getInstance() {
         if (self::$_instance === null) {
             self::$_instance = new jdebug();
@@ -35,22 +31,20 @@ class jdebug {
 
     }
 
-    /* добавление сообщения в лог*/
-    function add($text, $top = 0) {
+    public function add($text, $top = 0) {
         $top ? array_unshift($this->_log, $text) : $this->_log[] = $text;
     }
 
-    /* добавление сообщения в лог*/
-    function inc($key) {
+    public function inc($key) {
         if (!isset($this->_inc[$key])) {
             $this->_inc[$key] = 0;
         }
         $this->_inc[$key]++;
     }
 
-    /* вывод сообщений из лога*/
-    function get() {
+    public function get() {
         echo '<span style="display:none"><![CDATA[<noindex>]]></span><pre>';
+
         /* счетчики */
         foreach ($this->_inc as $key => $value) {
             $this->text .= '<small class="debug_counter">COUNTER:</small> <b>' . htmlentities($key) . '</b>: ' . $value . '<br />';
@@ -84,7 +78,7 @@ class jdebug {
         echo '</pre><span style="display:none"><![CDATA[</noindex>]]></span>';
     }
 
-    function db_debug() {
+    public function db_debug() {
         $profs = database::getInstance()->setQuery('show profiles;')->loadObjectList();
 
         $r = array();

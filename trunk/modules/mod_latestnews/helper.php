@@ -14,11 +14,12 @@ require_once ($mainframe->getPath('front_html', 'com_content'));
 
 class mod_latestnews_Helper {
 
-	var $_mainframe = null;
+	private $_mainframe;
 
 	function mod_latestnews_Helper($mainframe) {
 
 		$this->_mainframe = $mainframe;
+
 		mosMainFrame::addLib('text');
 		mosMainFrame::addLib('images');
 	}
@@ -43,10 +44,7 @@ class mod_latestnews_Helper {
 			'.( $access ? 'AND a.access <= ' . (int) $my->gid : '' ).'
 			ORDER BY a.created DESC';
 
-		$database->setQuery($query, 0, intval($params->get('count',5)));
-		$rows = $database->loadObjectList();
-
-		return $rows;
+		return $database->setQuery($query, 0, intval($params->get('count',5)))->loadObjectList();
 	}
 
 	function get_items_both($params) {
@@ -96,8 +94,7 @@ class mod_latestnews_Helper {
 				. ( $show_front == '0' ? " AND f.content_id IS NULL" : '' )
 				. " ORDER BY a.created DESC";
 
-		$database->setQuery( $query, 0, $count );
-		$temp = $database->loadObjectList();
+		$temp = $database->setQuery( $query, 0, $count )->loadObjectList();
 
 		$rows = array();
 		if (count($temp)) {
@@ -107,8 +104,6 @@ class mod_latestnews_Helper {
 				}
 			}
 		}
-		unset($temp);
-
 		return $rows;
 	}
 
@@ -172,23 +167,21 @@ class mod_latestnews_Helper {
 		switch ($type) {
 			case 2:
 				$query = "SELECT id	FROM #__menu WHERE type = 'content_typed' AND componentid = ".(int) $row->id;
-				$database->setQuery($query);
-				$Itemid = $database->loadResult();
+				$Itemid = $database->setQuery($query)->loadResult();
 				break;
 
 			case 3:
 				if ($row->sectionid) {
-					$Itemid = $mainframe->getItemid( $row->id, 0, 0, $params->get('bs'), $params->get('bc'), $params->get('gbs') );
+					$Itemid = $mainframe->getItemid( $row->id, 0, 0 );
 				} else {
 					$query = "SELECT id FROM #__menu WHERE type = 'content_typed' AND componentid = ".(int) $row->id;
-					$database->setQuery( $query );
-					$Itemid = $database->loadResult();
+					$Itemid = $database->setQuery($query)->loadResult();
 				}
 				break;
 
 			case 1:
 			default:
-				$Itemid = $mainframe->getItemid( $row->id, 0, 0, $params->get('bs'), $params->get('bc'), $params->get('gbs') );
+				$Itemid = $mainframe->getItemid( $row->id, 0, 0 );
 				break;
 		}
 
@@ -213,17 +206,19 @@ class mod_latestnews_Helper {
 		$readmore = ContentView::ReadMore($row,$params);
 
 		$text = $row->introtext;
-		$text = mosHTML::cleanText($text);
+
+		$text = Text::cleanText($text);
+
 		if($params->get('crop_text', 1)) {
 
 			switch ($params->get('crop_text', 1)) {
+				case 'word':
+					$text = Text::word_limiter($text, $params->get('text_limit', 25), '');
+					break;
+
 				case 'simbol':
 				default:
 					$text = Text::character_limiter($text, $params->get('text_limit', 250), '');
-					break;
-
-				case 'word':
-					$text = Text::word_limiter($text, $params->get('text_limit', 25), '');
 					break;
 			}
 		}
@@ -241,7 +236,7 @@ class mod_latestnews_Helper {
 			}
 			$img = Image::get_image_from_text($text_with_image, $params->get('image', 'mosimage'), $params->get('image_default',1));
 
-			if( trim($img)!='' ){
+			if( trim($img)!='' ) {
 				if(substr($img, 0, 4)=='http') {
 					$row->image = '<img title="'.$row->title.'" alt="" src="'.$img.'" />';
 				} else {
@@ -253,7 +248,7 @@ class mod_latestnews_Helper {
 				}
 			}
 		}
-		$row->author =  mosContent::Author($row,$params);
+		$row->author = mosContent::Author($row,$params);
 		$row->title = ContentView::Title($row,$params);
 		$row->text = $text;
 		$row->readmore = $readmore;

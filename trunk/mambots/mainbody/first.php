@@ -14,8 +14,8 @@ defined('_VALID_MOS') or die();
 $_MAMBOTS->registerFunction('onTemplate','body_clear');
 
 /* функция производит очистку от спецсимволов*/
-function body_clear(&$body) {
+function body_clear( &$body ) {
 	mosMainFrame::addLib('html_optimize');
-	$body = html_optimize($body);
+	$body = html_optimize::optimize($body);
 	return true;
 }

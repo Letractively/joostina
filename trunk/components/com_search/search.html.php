@@ -192,10 +192,11 @@ class search_by_tag_HTML {
 
 	function view_group($items, $params, $groups) {
 		if(count($items->items['com_content'])>0) {
+			mosMainFrame::addLib('text');
 			foreach($groups as $key=>$group) {
 				foreach($items->items[$key] as $item) {
 					$item->link = searchByTag::construct_url($item, $group);
-					$item->text = Text::word_limiter(mosHTML::cleanText($item->text), 25);
+					$item->text = Text::word_limiter( Text::cleanText($item->text), 25);
 					?><div class="search_item">
 	<h2><a class="contentpagetitle" href="<?php echo $item->link;?>"><?php echo $item->title;?></a> </h2>
 	<span class="date"><?php echo $item->date;?></span> <br />

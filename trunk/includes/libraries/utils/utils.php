@@ -10,31 +10,14 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-/**
- * Prepares results from search for display
- * @param string The source string
- * @param int Number of chars to trim
- * @param string The searchword to select around
- * @return string
- */
 function mosPrepareSearchContent($text,$length = 200,$searchword='') {
-	// strips tags won't remove the actual jscript
 	$text = preg_replace("'<script[^>]*>.*?</script>'si","",$text);
 	$text = preg_replace('/{.+?}/','',$text);
-	//$text = preg_replace( '/<a\s+.*?href="([^"]+)"[^>]*>([^<]+)<\/a>/is','\2', $text );
-	// replace line breaking tags with whitespace
 	$text = preg_replace("'<(br[^/>]*?/|hr[^/>]*?/|/(div|h[1-6]|li|p|td))>'si",' ',$text);
 	$text = mosSmartSubstr(strip_tags($text),$length,$searchword);
 	return $text;
 }
 
-/**
- * returns substring of characters around a searchword
- * @param string The source string
- * @param int Number of chars to return
- * @param string The searchword to select around
- * @return string
- */
 function mosSmartSubstr($text,$length = 200,$searchword='') {
 	$wordpos = Jstring::strpos( Jstring::strtolower($text), Jstring::strtolower($searchword));
 	$halfside = intval($wordpos - $length / 2 - Jstring::strlen($searchword));
@@ -45,10 +28,6 @@ function mosSmartSubstr($text,$length = 200,$searchword='') {
 	}
 }
 
-/**
- * Sorts an Array of objects
- * sort_direction [1 = Ascending] [-1 = Descending]
- */
 function SortArrayObjects(&$a,$k,$sort_direction = 1) {
 	global $csort_cmp;
 	$csort_cmp = array('key' => $k,'direction' => $sort_direction);
@@ -56,9 +35,6 @@ function SortArrayObjects(&$a,$k,$sort_direction = 1) {
 	unset($csort_cmp);
 }
 
-/**
- * Sorts an Array of objects
- */
 function SortArrayObjects_cmp(&$a,&$b) {
 	global $csort_cmp;
 	if($a->$csort_cmp['key'] > $b->$csort_cmp['key']) {

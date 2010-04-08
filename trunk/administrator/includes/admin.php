@@ -11,6 +11,7 @@
 defined('_VALID_MOS') or die();
 
 mosMainFrame::addLib('gacl');
+mosMainFrame::addClass('mosTabs');
 
 /**
  * вывод подключения js и css

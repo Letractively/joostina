@@ -120,19 +120,16 @@ if (is_dir($abspath_folder)) {
 				}
 			}
 		}
+		
 		switch ($rotate_type) {
 			case '0':
 			default:
 				?><div class="random_image">
-<?php if ($link) { ?>
-	<a href="<?php echo $link; ?>" target="_self">
-<?php } ?>
+					<?php if ($link) { ?><a href="<?php echo $link; ?>" target="_self"><?php } ?>
 		<img src="<?php echo $image; ?>" border="0" width="<?php echo $width; ?>" height="<?php echo $height; ?>" alt="<?php echo $image_name; ?>" />
-<?php if ($link) { ?>
-	</a>
-<?php } ?>
+						<?php if ($link) { ?></a><?php } ?>
 </div>
-<?php
+				<?php
 				break;
 			case '1':
 				if(!count($pics)) {

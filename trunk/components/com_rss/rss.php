@@ -15,7 +15,6 @@ global $task;
 
 // load feed creator class
 mosMainFrame::addLib('feedcreator');
-mosMainFrame::addLib('html_optimize');
 
 $info = null;
 $rss = null;
@@ -42,17 +41,10 @@ function feedFrontpage($showFeed) {
 
 	$nullDate = $database->getNullDate();
 	// pull id of syndication component
-	$query = "SELECT a.id FROM #__components AS a WHERE ( a.admin_menu_link = 'option=com_syndicate' OR a.admin_menu_link = 'option=com_syndicate&hidemainmenu=1' ) AND a.option = 'com_syndicate'";
-	$database->setQuery($query);
-	$id = $database->loadResult();
+	$query = "SELECT a.id,a.params FROM #__components AS a WHERE ( a.admin_menu_link = 'option=com_syndicate' OR a.admin_menu_link = 'option=com_syndicate&hidemainmenu=1' ) AND a.option = 'com_syndicate'";
+	$params = $database->setQuery($query)->loadResult();
 
-	// подключаем класс работы с компонентами
-	mosMainFrame::addClass('component');
-
-	// load syndication parameters
-	$component = new mosComponent($database);
-	$component->load((int)$id);
-	$params = new mosParameters($component->params);
+	$params = new mosParameters( $params );
 
 	// test if security check is enbled
 	$check = $params->def('check',1);
@@ -244,6 +236,8 @@ function feedFrontpage($showFeed) {
 	$database->setQuery($query,0,$info['count']);
 	$rows = $database->loadObjectList();
 
+	mosMainFrame::addLib('html_optimize');
+	mosMainFrame::addLib('text');
 	foreach($rows as $row) {
 		// title for particular item
 		$item_title = htmlspecialchars($row->title);
@@ -262,8 +256,8 @@ function feedFrontpage($showFeed) {
 
 		// removes all formating from the intro text for the description text
 		$item_description = $row->introtext;
-		$item_description = mosHTML::cleanText($item_description);
-		$item_description = html_entity_decode($item_description);
+		$item_description = Text::cleanText($item_description);
+		$item_description = html_entity_decode($item_description,null,'UTF-8');
 		if($info['limit_text']) {
 			if($info['text_length']) {
 				// limits description text to x words
@@ -312,7 +306,7 @@ function feedFrontpage($showFeed) {
 					}
 				}
 			}
-			$item->fulltext = html_optimize($item->fulltext);
+			$item->fulltext = html_optimize::optimize($item->fulltext);
 			// yandex export
 		}
 		// loads item info into rss array

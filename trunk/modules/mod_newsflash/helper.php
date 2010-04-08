@@ -10,24 +10,23 @@
 // запрет прямого доступа
 defined( '_VALID_MOS' ) or die();
 
-
 class mod_newsflash_Helper {
 
-	var $_mainframe = null;
+	private $_mainframe;
 
 	function mod_newsflash_Helper($mainframe) {
 
 		$this->_mainframe = $mainframe;
 		$this->_mainframe->addLib('text');
 		$this->_mainframe->addLib('images');
+
 	}
 
 	function prepare_row($row, $params) {
 
 		if($params->get('Itemid', '29')) {
 			$row->Itemid_link = '&amp;Itemid='.$params->get('Itemid');
-		}
-		else {
+		}else {
 			$row->Itemid_link = '';
 		}
 
@@ -39,20 +38,19 @@ class mod_newsflash_Helper {
 
 		if($params->get('crop_text')) {
 			switch ($params->get('crop_text')) {
+				case 'word':
+					$text = Text::word_limiter($text, $params->get('text_limit', 25), '');
+					break;
+
 				case 'simbol':
 				default:
 					$text = Text::character_limiter($text, $params->get('text_limit', 250), '');
-					break;
-
-				case 'word':
-					$text = Text::word_limiter($text, $params->get('text_limit', 25), '');
 					break;
 			}
 		}
 		if($params->get('text')==2) {
 			$text = '<a href="'.$row->link_on.'">'.$text.'</a>';
 		}
-
 
 		$row->image = '';
 		if($params->get('image')) {
@@ -74,7 +72,5 @@ class mod_newsflash_Helper {
 		$row->readmore = $readmore;
 
 		return $row;
-
-		unset($row);
 	}
 }

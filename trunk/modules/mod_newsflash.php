@@ -12,6 +12,7 @@ defined( '_VALID_MOS' ) or die();
 
 require_once( $mainframe->getPath( 'class', 'com_content') );
 require_once( $mainframe->getPath( 'front_html', 'com_content') );
+
 global $my, $mosConfig_link_titles;
 
 $category = new stdClass();
@@ -42,7 +43,7 @@ $link_titles = $params->get('link_titles', $mosConfig_link_titles);
 
 if(!$params->get('template', '')) {
 	switch ($params->get('style', 'vert')) {
-		
+
 		case 'horiz':
 			$params->set('template', 'gorizontal.php');
 			break;

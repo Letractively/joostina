@@ -1,13 +1,13 @@
 <?php
 /**
- * Класс для получения конфигурации в базе данных
- *
  * @package Joostina
- * @copyright (C) 2009 Extention Team. Joostina Team. Все права зищищены.
- * @license GNU/GPL, подробнее в help/lisense.php
- * @version $Id: config.php 22.04.2009 21:49:48 e-FreeZe $;
- * @since 1.3 - 21.04.2009
+ * @copyright Авторские права (C) 2008-2010 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
  */
+
+// запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 
@@ -20,9 +20,7 @@ class DBconfig {
 	var $_db = null;
 	var $_error = '';
 	var $_loaded = null;
-	/**
-	 *
-	 */
+
 	function DBconfig($database, $group = '', $subgroup='') {
 		global $option;
 
