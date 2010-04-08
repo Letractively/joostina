@@ -70,8 +70,7 @@ function online_users($params_aray,$database) {
 
 	$output = '';
 	$query = "SELECT guest, usertype FROM #__session";
-	$database->setQuery($query);
-	$sessions = $database->loadObjectList();
+	$sessions = $database->setQuery($query)->loadObjectList();
 
 	// calculate number of guests and members
 	$user_array = 0;
@@ -129,8 +128,7 @@ function who_online($params_aray,$database) {
 
 	$output = '';
 	$query = "SELECT a.username, a.userid, b.name, b.id,b.avatar FROM #__session AS a, #__users AS b WHERE a.guest = 0 AND a.userid=b.id";
-	$database->setQuery($query);
-	$rows = $database->loadObjectList();
+	$rows = $database->setQuery($query)->loadObjectList();
 
 	if(count($rows)) {
 
@@ -173,7 +171,5 @@ function who_online($params_aray,$database) {
 // получение числа всех незаблокированных пользователей
 function all_user($database) {
 	$q = "SELECT COUNT(id) FROM #__users WHERE block = '0' ";
-	$database->setQuery($q);
-	$row = $database->loadResult();
-	return $row;
+	return $database->setQuery($q)->loadResult();
 }

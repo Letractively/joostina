@@ -13,10 +13,9 @@ defined( '_VALID_MOS' ) or die();
 
 class mod_ml_login_Helper {
 
-	var $_mainframe = null;
+	private $_mainframe;
 
 	function mod_ml_login_Helper($mainframe) {
-
 		$this->_mainframe = $mainframe;
 	}
 
@@ -86,7 +85,6 @@ class mod_ml_login_Helper {
 				break;
 
 			case '1':
-			default:
 				$params->_input_pass = $pass_label_def.'<br />'.$pass_input_def;
 				break;
 
@@ -100,12 +98,10 @@ class mod_ml_login_Helper {
 				break;
 		}
 
-
 		$params->_returnUrl = self::get_return($params);
 
 		return $params;
 	}
-
 
 	function get_return($params) {
 		// url of current page that user will be returned to after login
@@ -116,8 +112,6 @@ class mod_ml_login_Helper {
 			$return = 'index.php';
 		}
 		// converts & to &amp; for xtml compliance
-		$return	= str_replace( '&', '&amp;', $return );
-
-		return $return;
+		return str_replace( '&', '&amp;', $return );
 	}
 }

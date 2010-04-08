@@ -9,18 +9,18 @@
 defined('_VALID_MOS') or die();
 
 class Image {
-	
-	var $id = null;
-	var $name = '';
-	var $field_name = 'file';
-	var $directory = 'images';
-	var $valid_types = array( "jpg",  "gif", "png");
-	var $file_prefix = '';
-	var $return_params ='';
-	var $max_size = 1048576;
-	var $url ='';
 
-	function upload($resize_options=0) {
+	private $id = null;
+	private $name = '';
+	private $field_name = 'file';
+	private $directory = 'images';
+	private $valid_types = array( "jpg",  "gif", "png");
+	private $file_prefix = '';
+	private $return_params ='';
+	private $max_size = 1048576;
+	private $url ='';
+
+	public function upload($resize_options=0) {
 		global $_FILES;
 
 		$name_file=$this->field_name;
@@ -117,21 +117,12 @@ class Image {
 		return false;
 	}
 
-
-	function isFileIsset($file) {
-
+	private static function isFileIsset($file) {
 		$file_name = JPATH_BASE. DS .$file;
-
-		if(file_exists($file_name)) {
-			return true;
-		}
-		else {
-			return false;
-		}
+		return (bool) file_exists($file_name);
 	}
 
-
-	function delFile(&$file) {
+	public function delFile(&$file) {
 		$file_name = $file->directory.DS.$file->name;
 
 		if(self::isFileIsset($file_name)) {
@@ -142,16 +133,8 @@ class Image {
 	}
 
 	public static function get_image_from_text($text, $type = 'img', $default_image = null) {
-		if($type=='mosimage') {
-			$image = self::get_mosimage($text, $default_image);
-		}
-		else {
-			$image = self::get_image($text, $default_image);
-		}
-
-		return $image;
+		return ($type=='mosimage') ? self::get_mosimage($text, $default_image) : self::get_image($text, $default_image);
 	}
-
 
 	public static function get_mosimage($images, $default_image = null) {
 		$images = explode("\n", $images);
@@ -174,7 +157,6 @@ class Image {
 		else {
 			return false;
 		}
-
 	}
 
 	public static function get_image($text, $default_image = null) {
@@ -199,9 +181,6 @@ class Image {
 
 		return $href;
 	}
-
-
-
 }
 
 
@@ -543,5 +522,4 @@ class Thumbnail {
 		}
 		return $result;
 	}
-
 }

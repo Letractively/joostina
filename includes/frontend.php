@@ -10,16 +10,10 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-/**
- * Displays the capture output of the main element
- */
 function mosMainBody() {
 	echo PageModel::getInstance()->MainBody();
 }
-/**
- * Utility functions and classes
- * not used?
- */
+
 function mosLoadComponent($name) {
 	global $my,$task,$Itemid,$id,$option,$gid;
 
@@ -27,41 +21,25 @@ function mosLoadComponent($name) {
 	$database = $mainframe->getDBO();
 	include (JPATH_BASE.DS."components/com_$name/$name.php");
 }
-/**
- * Cache some modules information
- * @return array
- */
+
 
 //Добавлено в класс mosModules
 function initModules() {
 
 }
-/**
- * @param string the template position
- */
+
 function mosCountModules($position = 'left') {
 	return mosModule::getInstance()->mosCountModules($position);
 }
-/**
- * @param string The position
- * @param int The style.  0=normal, 1=horiz, -1=no wrapper
- */
-//Скопировано в класс
+
 function mosLoadModules($position = 'left',$style = 0,$noindex = 0) {
 	return mosModule::getInstance()->mosLoadModules($position,$style,$noindex);
 }
 
-/**
- * @param string The position
- * @param int The style.  0=normal, 1=horiz, -1=no wrapper
- */
 function mosLoadModule($name = '', $title = '', $style = 0, $noindex = 0, $inc_params = null) {
 	return mosModule::getInstance()->mosLoadModule($name,$title,$style,$noindex,$inc_params);
 }
 
-/**
- * Шапка страницы
- */
 function mosShowHead($params=array('js'=>1,'css'=>1)) {
 	// загружаем верхнюю часть страницы со всеми js и css файлами, и обязательным использованием jquery
 	PageModel::getInstance()->ShowHead($params);
@@ -77,19 +55,15 @@ function set_robot_metatag($robots) {
 	mosMainFrame::getInstance()->set_robot_metatag($robots);
 }
 
-
-
-/**
- * @package Joostina
- */
-
 class PageModel {
 	private static $_instance;
 
-	var $_mainframe = null;
-	var $_view = null;
+	private $_mainframe;
+	private $_view;
 
-	private function __clone() {}
+	private function __clone() {
+
+	}
 
 	function PageModel() {
 		$this->_mainframe = mosMainFrame::getInstance();
@@ -98,7 +72,7 @@ class PageModel {
 	public static function getInstance() {
 
 		if( self::$_instance === null ) {
-			self::$_instance = new PageModel( );
+			self::$_instance = new self();
 		}
 
 		return self::$_instance;
@@ -148,7 +122,7 @@ class PageModel {
 		if($mainframe->getCfg('mmb_mainbody_off') == 0) {
 			global $_MAMBOTS;
 			$_MAMBOTS->loadBotGroup('mainbody');
-			$_MAMBOTS->trigger('onMainbody',array(&$_body));
+			 $_MAMBOTS->trigger('onMainbody',array(&$_body));
 		}
 
 		echo $_body;
@@ -186,19 +160,9 @@ class PageModel {
 			}
 		}
 
-		if(!$description) {
-			$mainframe->appendMetaTag('description',$mainframe->getCfg('MetaDesc'));
-		}
-
-		if(!$keywords) {
-			$mainframe->appendMetaTag('keywords',$mainframe->getCfg('MetaKeys'));
-		}
-
-		// отключение тега Generator
-		if($mainframe->getCfg('generator_off') == 0) {
-			$mainframe->addMetaTag('Generator',coreVersion::get('CMS').' - '.coreVersion::get('COPYRIGHT'));
-		}
-
+		$description ? null : $mainframe->appendMetaTag('description',$mainframe->getCfg('MetaDesc'));
+		$keywords  ? null : $mainframe->appendMetaTag('keywords',$mainframe->getCfg('MetaKeys'));
+		($mainframe->getCfg('generator_off') == 0) ? $mainframe->addMetaTag('Generator',coreVersion::$CMS.' - '.coreVersion::$COPYRIGHT) : null;
 
 		if($mainframe->getCfg('index_tag') == 1) {
 			$mainframe->addMetaTag('distribution','global');
@@ -213,7 +177,7 @@ class PageModel {
 		}
 
 		echo $mainframe->getHead($params);
-
+		/* TODO это вообще надо?
 		// очистка ссылки на главную страницу даже при отключенном sef
 		if ( $mainframe->getCfg('mtage_base') == 1) {
 			// вычисление ткущего адреса страницы. Код взят из Joomla 1.5.x
@@ -233,10 +197,9 @@ class PageModel {
 			$theURI = str_replace(JPATH_SITE.'/','',$theURI);
 			echo '<base href="'.sefRelToAbs($theURI).'" />'."\r\n";
 		}
-
+		*/
 		if($my->id || $mainframe->get('joomlaJavascript')) {
-			?><script src="<?php echo JPATH_SITE; ?>/includes/js/joomla.javascript.js" type="text/javascript"></script>
-			<?php
+			echo JHTML::js_file( JPATH_SITE.'/includes/js/joomla.javascript.js' );
 		}
 
 		// отключение RSS вывода в шапку
@@ -263,11 +226,9 @@ class PageModel {
 		}
 	}
 
-
 	function ShowFooter($params=array('fromheader'=>1,'js'=>1)) {
 		echo $this->_mainframe->getFooter($params);
 	}
-
 
 	// выводк лент RSS
 	function syndicate_header() {
@@ -282,7 +243,6 @@ class PageModel {
 		// get params definitions
 		$syndicateParams = new mosParameters($row->params,$mainframe->getPath('com_xml',$row->option),'component');
 
-		//$GLOBALS['syndicateParams'] = $syndicateParams;
 		$live_bookmark = $syndicateParams->get('live_bookmark',0);
 
 		// and to allow disabling/enabling of selected feed types
@@ -312,27 +272,21 @@ class PageModel {
 				break;
 		}
 
-		// support for Live Bookmarks ability for site syndication
-		if($live_bookmark) {
+		if( $live_bookmark ) {
 			$show = 1;
 
-			$link_file = JPATH_SITE.'/index2.php?option=com_rss&feed='.$live_bookmark.'&no_html=1';
-
-			// xhtml check
-			$link_file = ampReplace($link_file);
-
-			// security chcek
-			$check = $syndicateParams->def('check',1);
-			if($check) {
+			if( $syndicateParams->def('check',1) ) {
 				// проверяем, не опубликован ли уже модуль с RSS
 				$query = "SELECT m.id FROM #__modules AS m WHERE m.module = 'mod_rssfeed' AND m.published = 1 LIMIT 1";
-				$mainframe->getDBO()->setQuery($query);
-				$check = $mainframe->getDBO()->loadResult();
+				$check = $mainframe->getDBO()->setQuery($query)->loadResult();
 				if($check>0) {
 					$show = 0;
 				}
 			}
+
 			if($show) {
+				$link_file = JPATH_SITE.'/index2.php?option=com_rss&feed='.$live_bookmark.'&no_html=1';
+				$link_file = ampReplace($link_file);
 				?><link rel="alternate" type="application/rss+xml" title="<?php echo $mainframe->getCfg('sitename'); ?>" href="<?php echo $link_file; ?>" /><?php
 			}
 		}

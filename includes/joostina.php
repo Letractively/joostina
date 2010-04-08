@@ -187,12 +187,12 @@ class mosMainFrame {
 	public static function getInstance($isAdmin = false) {
 
 		JDEBUG ? jd_inc('mosMainFrame::getInstance()') : null;
-/* ОТЛАДКА
+		/* ОТЛАДКА
 		if(JDEBUG) {
 			$d = debug_backtrace();
 			jd_log( 'mosMainFrame::getInstance  '.$d[0]['file'].'::'.$d[0]['line'] );
 		}
-*/
+		*/
 		if (self::$_instance === NULL) {
 			self::$_instance = new self($isAdmin);
 		}
@@ -249,6 +249,8 @@ class mosMainFrame {
 	 */
 	public static function addLib($lib, $dir = null) {
 		$dir = $dir ? $dir : 'includes/libraries';
+
+		(JDEBUG && $lib!='debug' ) ? jd_inc( 'addLib::'.$lib) : null;
 
 		$file_lib = JPATH_BASE.DS.$dir.DS.$lib.DS.$lib.'.php';
 		is_file($file_lib) ? require_once($file_lib): null;
@@ -539,7 +541,7 @@ class mosMainFrame {
 	 */
 	public function addJS($path, $footer = '', &$def = '') {
 		mosMainFrame::addClass('mosHTML');
-		$js = mosHTML::js_file($path);
+		$js = JHTML::js_file($path);
 		if($footer) {
 			$this->_footer[$footer][] = $js;
 		}else {
@@ -548,11 +550,11 @@ class mosMainFrame {
 	}
 
 	/**
-	 * Lобавление css файлов в шапку страницы
-	 * @param <type> $path
+	 * Добавление css файлов в шапку страницы
+	 * @param string $path путь до css файла
 	 */
 	public function addCSS($path) {
-		$this->_head['css'][] = '<link type="text/css" rel="stylesheet" href="'. $path .'" />';
+		$this->_head['css'][] = JHTML::css_file( $path );
 	}
 
 	/**
@@ -2353,7 +2355,7 @@ class mosMenu extends mosDBTable {
 		$return = array();
 		foreach($_all as $menus) {
 			foreach($menus as $menu) {
-				// тут еще можно будет сделать красивые sef-ссылки на пункты меню
+				// TODO тут еще можно будет сделать красивые sef-ссылки на пункты меню
 				//$return[$menu->link]=array('id'=>$menu->id,'name'=>$menu->name);
 				$return[$menu->link]=array('id'=>$menu->id,'type'=>$menu->type);
 			}
@@ -2363,77 +2365,31 @@ class mosMenu extends mosDBTable {
 	}
 }
 
-/**
- * Module database table class
- * @package Joostina
- */
 class mosModule extends mosDBTable {
-	/**
-	 * Инстанция инициализации модулей
-	 * @var instance
-	 */
 	private static $_instance;
-	/**
-	 @var int Primary key*/
+
 	public $id = null;
-	/**
-	 @var string*/
 	public $title = null;
-	/**
-	 @var string*/
 	public $showtitle = null;
-	/**
-	 @var int*/
 	public $content = null;
-	/**
-	 @var int*/
 	public $ordering = null;
-	/**
-	 @var string*/
 	public $position = null;
-	/**
-	 @var boolean*/
 	public $checked_out = null;
-	/**
-	 @var time*/
 	public $checked_out_time = null;
-	/**
-	 @var boolean*/
 	public $published = null;
-	/**
-	 @var string*/
 	public $module = null;
-	/**
-	 @var int*/
 	public $numnews = null;
-	/**
-	 @var int*/
 	public $access = null;
-	/**
-	 @var string*/
 	public $params = null;
-	/**
-	 @var string*/
 	public $iscore = null;
-	/**
-	 @var string*/
 	public $client_id = null;
-	/**
-	 @var string*/
 	public $template = null;
-	/**
-	 @var string*/
 	public $helper = null;
 
 	private $_all_modules = null;
-
 	private $_view = null;
-
 	private $_mainframe = null;
 
-	/**
-	 * @param database A database connector object
-	 */
 	public function mosModule(&$db, $mainframe = null) {
 		$this->mosDBTable('#__modules','id',$db);
 		if($mainframe) {
@@ -2456,9 +2412,7 @@ class mosModule extends mosDBTable {
 		return self::$_instance;
 	}
 
-	// overloaded check function
 	public function check() {
-		// check for valid name
 		if(trim($this->title) == '') {
 			$this->_error = _PLEASE_ENTER_MODULE_NAME;
 			return false;
@@ -2555,10 +2509,6 @@ class mosModule extends mosDBTable {
 		return true;
 	}
 
-	/**
-	 * Cache some modules information
-	 * @return array
-	 */
 	public function initModules() {
 		global $my,$Itemid;
 
@@ -2570,12 +2520,6 @@ class mosModule extends mosDBTable {
 		$this->_view = new modules_html($this->_mainframe);
 	}
 
-	/**
-	 * инициализация списка модулей
-	 * @param <type> $Itemid
-	 * @param <type> $my_gid
-	 * @return <type>
-	 */
 	public static function _initModules( $Itemid, $my_gid ) {
 		$mainframe = mosMainFrame::getInstance();
 
@@ -2607,9 +2551,6 @@ class mosModule extends mosDBTable {
 		return $all_modules;
 	}
 
-	/**
-	 * @param string the template position
-	 */
 	function mosCountModules($position = 'left') {
 		if(intval(mosGetParam($_GET,'tp',0))) {
 			return 1;
@@ -2620,10 +2561,6 @@ class mosModule extends mosDBTable {
 		return (isset($allModules[$position])) ? count($allModules[$position]) : 0;
 	}
 
-	/**
-	 * @param string The position
-	 * @param int The style.  0=normal, 1=horiz, -1=no wrapper
-	 */
 	function mosLoadModules($position = 'left',$style = 0,$noindex = 0) {
 		global $my,$Itemid;
 
@@ -2952,7 +2889,7 @@ function mosRedirect($url,$msg = '') {
 	// specific filters
 	$iFilter = InputFilter::getInstance();
 	$url = $iFilter->process($url);
-        
+
 	empty($msg) ? null : mosMainFrame::set_mosmsg( $iFilter->process($msg) );
 
 	// Strip out any line breaks and throw away the rest
@@ -3838,6 +3775,30 @@ class mosMambotHandler {
 			}
 		}
 		return null;
+	}
+}
+
+class JHTML {
+
+	/**
+	 * Подключение JS файла в тело страницы
+	 * @param string $file путь до js файла
+	 * @return string код включение js файла
+	 */
+	public static function js_file( $file ) {
+		$file = ( (strpos($file, '://') === FALSE) ) ? JPATH_SITE.$file : $file;
+		return '<script type="text/javascript" src="'.$file.'"></script>';
+	}
+
+	/**
+	 * Подключение CSS файла в тело страницы
+	 * @param string $file путь до js файла
+	 * @param string $media парматр media для css файла
+	 * @return string код включение js файла
+	 */
+	public static function css_file( $file, $media = 'all' ) {
+		$file = ( (strpos($file, '://') === FALSE) ) ? JPATH_SITE.$file : $file;
+		return '<link rel="stylesheet" type="text/css" media="'.$media.'" href="'.$file.'" />';
 	}
 }
 

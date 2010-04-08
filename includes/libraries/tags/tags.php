@@ -10,50 +10,41 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-
 class contentTags extends mosDBTable {
-	var $id = null;
-	var $obj_id = null;
-	var $obj_type = null;
-	var $tag = '';
-
+	public $id;
+	public $obj_id;
+	public $obj_type;
+	public $tag;
 
 	function contentTags(&$_db) {
 		$this->mosDBTable('#__content_tags','id',$_db);
 	}
 
-	function check() {
-		return true;
-	}
 	function classname() {
 		return __CLASS__;
 	}
 
 	function load_all() {
 		$sql = 'SELECT tag FROM #__content_tags ORDER BY tag ASC';
-		$this->_db->setQuery($sql);
-		return $this->_db->loadResultArray();
+		return $this->_db->setQuery($sql)->loadResultArray();
 	}
 
 
 	function load_by($obj) {
 		$sql = 'SELECT tag FROM #__content_tags WHERE obj_id = '.$obj->id;
-		$this->_db->setQuery($sql);
-		return $this->_db->loadResultArray();
+		return $this->_db->setQuery($sql)->loadResultArray();
 	}
 
 	function load_by_tag($tag) {
 		$sql = 'SELECT tag.obj_id, tag.obj_type, content.*  FROM #__content_tags AS tag
 				INNER JOIN #__content AS content ON content.id = tag.obj_id
 				WHERE tag.tag =\''.$tag.'\'';
-		$this->_db->setQuery($sql);
-		return $this->_db->loadObjectList();
+		return $this->_db->setQuery($sql)->loadObjectList();
 	}
 
 	function load_by_type($type) {
 		$sql = 'SELECT * FROM #__content_tags WHERE obj_type =\''.$type.'\'';
-		$this->_db->setQuery($sql);
-		return $this->_db->loadObjectList();
+		return $this->_db->setQuery($sql)->loadObjectList();
 	}
 
 	function load_by_type_tag($group, $tag) {
@@ -80,8 +71,7 @@ class contentTags extends mosDBTable {
 				'.$group["join"].'
 				WHERE tag.tag = \''.$tag.'\' '.$where.' AND tag.obj_type =\''.$group["group_name"].'\'
 				ORDER BY '.$order;
-		$this->_db->setQuery($sql);
-		return $this->_db->loadObjectList();
+		return $this->_db->setQuery($sql)->loadObjectList();
 	}
 
 	function add($tags,$obj) {
@@ -96,9 +86,7 @@ class contentTags extends mosDBTable {
 			$n++;
 		}
 		$sql = 'INSERT  #__content_tags (obj_id, obj_type, tag) VALUES  '. $sql_temp;
-		$this->_db->setQuery($sql);
-		return $this->_db->query();
-
+		return $this->_db->setQuery($sql)->query();
 	}
 
 	function update($tags,$obj) {
@@ -117,9 +105,7 @@ class contentTags extends mosDBTable {
 		}
 
 		$sql = 'INSERT  #__content_tags (obj_id, obj_type,  tag) VALUES  '. $sql_temp;
-		$this->_db->setQuery($sql);
-		return $this->_db->query();
-
+		return $this->_db->setQuery($sql)->query();
 	}
 
 	function clear_tags($tags) {
@@ -145,7 +131,8 @@ class contentTags extends mosDBTable {
 			return false;
 		}
 
-		$tag = mosHTML::cleanText($tag);
+		mosMainFrame::addLib('text');
+		$tag = Text::cleanText($tag);
 		return trim($tag);
 	}
 
@@ -169,15 +156,12 @@ class contentTags extends mosDBTable {
 }
 
 class TagsCloud {
-	var $tags;
-	var $font_size_min = 14;
-	var $font_size_step = 5;
+	public $tags;
+	public $font_size_min = 14;
+	public $font_size_step = 5;
 
 	function __construct($tags) {
-
-		//shuffle($tags);
 		$this->tags = $tags;
-
 	}
 
 	function get_tag_count($tag_name, $tags) {
@@ -191,18 +175,6 @@ class TagsCloud {
 		}
 
 		return $count;
-
-	}
-
-	// проверить необходимость
-	function tagscloud___($tags) {
-		$tags_list = array();
-
-		foreach ($tags as $tag) {
-			$tags_list[$tag] = self::get_tag_count($tag, $tags);
-		}
-
-		return $tags_list;
 	}
 
 	function get_min_count($tags_list) {
@@ -213,7 +185,6 @@ class TagsCloud {
 		}
 
 		return $min;
-
 	}
 
 	function get_cloud() {
@@ -224,12 +195,9 @@ class TagsCloud {
 		$min_count = self::get_min_count($tags_list);
 
 		foreach ($tags_list as $tag=>$count) {
-
 			$font_steps = $count - $min_count;
 			$font_size = $this->font_size_min + $this->font_size_step * $font_steps;
-
 			$cloud[$tag][] = $font_size;
-			// $cloud['tag'][] =
 		}
 		return $cloud;
 	}

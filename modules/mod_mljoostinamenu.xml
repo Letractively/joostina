@@ -156,28 +156,28 @@
 			<option value="0">Нет</option>
 			<option value="1">Да</option>
 		</param>
-		<param name="ml_image1" type="imagelist" default="1.gif" label="Картинка для пункта меню №1" directory="/modules/mod_mljoostinamenu/menuimages"  hide_none="0" hide_default="1" description="" />
-		<param name="ml_image2" type="imagelist" default="1.gif" label="Картинка для пункта меню №2" directory="/modules/mod_mljoostinamenu/menuimages"  hide_none="0" hide_default="1" description="" />
-		<param name="ml_image3" type="imagelist" default="1.gif" label="Картинка для пункта меню №3" directory="/modules/mod_mljoostinamenu/menuimages"  hide_none="0" hide_default="1" description="" />
-		<param name="ml_image4" type="imagelist" default="1.gif" label="Картинка для пункта меню №4" directory="/modules/mod_mljoostinamenu/menuimages"  hide_none="0" hide_default="1" description="" />
-		<param name="ml_image5" type="imagelist" default="1.gif" label="Картинка для пункта меню №5" directory="/modules/mod_mljoostinamenu/menuimages"  hide_none="0" hide_default="1" description="" />
-		<param name="ml_image6" type="imagelist" default="1.gif" label="Картинка для пункта меню №6" directory="/modules/mod_mljoostinamenu/menuimages"  hide_none="1" hide_default="1" description="" />
-		<param name="ml_image7" type="imagelist" default="1.gif" label="Картинка для пункта меню №7" directory="/modules/mod_mljoostinamenu/menuimages"  hide_none="1" hide_default="1" description="" />
-		<param name="ml_image8" type="imagelist" default="1.gif" label="Картинка для пункта меню №8" directory="/modules/mod_mljoostinamenu/menuimages"  hide_none="1" hide_default="1" description="" />
-		<param name="ml_image9" type="imagelist" default="1.gif" label="Картинка для пункта меню №9" directory="/modules/mod_mljoostinamenu/menuimages"  hide_none="1" hide_default="1" description="" />
-		<param name="ml_image10" type="imagelist" default="1.gif" label="Картинка для пункта меню №10" directory="/modules/mod_mljoostinamenu/menuimages"  hide_none="1" hide_default="1" description="" />
-		<param name="ml_image11" type="imagelist" default="1.gif" label="Картинка для пункта меню №11" directory="/modules/mod_mljoostinamenu/menuimages"  hide_none="1" hide_default="1" description="" />
-		<param name="ml_image_roll_1" type="imagelist" default="1r.gif" label="Картинка для пункта меню №1 при наведении" directory="/modules/mod_mljoostinamenu/menuimages"  hide_none="0" hide_default="1" description="" />
-		<param name="ml_image_roll_2" type="imagelist" default="1r.gif" label="Картинка для пункта меню №2 при наведении" directory="/modules/mod_mljoostinamenu/menuimages"  hide_none="0" hide_default="1" description="" />
-		<param name="ml_image_roll_3" type="imagelist" default="1r.gif" label="Картинка для пункта меню №3 при наведении" directory="/modules/mod_mljoostinamenu/menuimages"  hide_none="0" hide_default="1" description="" />
-		<param name="ml_image_roll_4" type="imagelist" default="1r.gif" label="Картинка для пункта меню №4 при наведении" directory="/modules/mod_mljoostinamenu/menuimages"  hide_none="0" hide_default="1" description="" />
-		<param name="ml_image_roll_5" type="imagelist" default="1r.gif" label="Картинка для пункта меню №5 при наведении" directory="/modules/mod_mljoostinamenu/menuimages"  hide_none="0" hide_default="1" description="" />
-		<param name="ml_image_roll_6" type="imagelist" default="1r.gif" label="Картинка для пункта меню №6 при наведении" directory="/modules/mod_mljoostinamenu/menuimages"  hide_none="0" hide_default="1" description="" />
-		<param name="ml_image_roll_7" type="imagelist" default="1r.gif" label="Картинка для пункта меню №7 при наведении" directory="/modules/mod_mljoostinamenu/menuimages"  hide_none="0" hide_default="1" description="" />
-		<param name="ml_image_roll_8" type="imagelist" default="1r.gif" label="Картинка для пункта меню №8 при наведении" directory="/modules/mod_mljoostinamenu/menuimages"  hide_none="0" hide_default="1" description="" />
-		<param name="ml_image_roll_9" type="imagelist" default="1r.gif" label="Картинка для пункта меню №9 при наведении" directory="/modules/mod_mljoostinamenu/menuimages"  hide_none="0" hide_default="1" description="" />
-		<param name="ml_image_roll_10" type="imagelist" default="1r.gif" label="Картинка для пункта меню №10 при наведении" directory="/modules/mod_mljoostinamenu/menuimages"  hide_none="0" hide_default="1" description="" />
-		<param name="ml_image_roll_11" type="imagelist" default="1r.gif" label="Картинка для пункта меню №11 при наведении" directory="/modules/mod_mljoostinamenu/menuimages"  hide_none="0" hide_default="1" description="" />
+		<param name="ml_image1" type="imagelist" default="1.gif" label="Картинка для пункта меню №1" directory="/images/menuimages"  hide_none="0" hide_default="1" description="" />
+		<param name="ml_image2" type="imagelist" default="1.gif" label="Картинка для пункта меню №2" directory="/images/menuimages"  hide_none="0" hide_default="1" description="" />
+		<param name="ml_image3" type="imagelist" default="1.gif" label="Картинка для пункта меню №3" directory="/images/menuimages"  hide_none="0" hide_default="1" description="" />
+		<param name="ml_image4" type="imagelist" default="1.gif" label="Картинка для пункта меню №4" directory="/images/menuimages"  hide_none="0" hide_default="1" description="" />
+		<param name="ml_image5" type="imagelist" default="1.gif" label="Картинка для пункта меню №5" directory="/images/menuimages"  hide_none="0" hide_default="1" description="" />
+		<param name="ml_image6" type="imagelist" default="1.gif" label="Картинка для пункта меню №6" directory="/images/menuimages"  hide_none="1" hide_default="1" description="" />
+		<param name="ml_image7" type="imagelist" default="1.gif" label="Картинка для пункта меню №7" directory="/images/menuimages"  hide_none="1" hide_default="1" description="" />
+		<param name="ml_image8" type="imagelist" default="1.gif" label="Картинка для пункта меню №8" directory="/images/menuimages"  hide_none="1" hide_default="1" description="" />
+		<param name="ml_image9" type="imagelist" default="1.gif" label="Картинка для пункта меню №9" directory="/images/menuimages"  hide_none="1" hide_default="1" description="" />
+		<param name="ml_image10" type="imagelist" default="1.gif" label="Картинка для пункта меню №10" directory="/images/menuimages"  hide_none="1" hide_default="1" description="" />
+		<param name="ml_image11" type="imagelist" default="1.gif" label="Картинка для пункта меню №11" directory="/images/menuimages"  hide_none="1" hide_default="1" description="" />
+		<param name="ml_image_roll_1" type="imagelist" default="1r.gif" label="Картинка для пункта меню №1 при наведении" directory="/images/menuimages"  hide_none="0" hide_default="1" description="" />
+		<param name="ml_image_roll_2" type="imagelist" default="1r.gif" label="Картинка для пункта меню №2 при наведении" directory="/images/menuimages"  hide_none="0" hide_default="1" description="" />
+		<param name="ml_image_roll_3" type="imagelist" default="1r.gif" label="Картинка для пункта меню №3 при наведении" directory="/images/menuimages"  hide_none="0" hide_default="1" description="" />
+		<param name="ml_image_roll_4" type="imagelist" default="1r.gif" label="Картинка для пункта меню №4 при наведении" directory="/images/menuimages"  hide_none="0" hide_default="1" description="" />
+		<param name="ml_image_roll_5" type="imagelist" default="1r.gif" label="Картинка для пункта меню №5 при наведении" directory="/images/menuimages"  hide_none="0" hide_default="1" description="" />
+		<param name="ml_image_roll_6" type="imagelist" default="1r.gif" label="Картинка для пункта меню №6 при наведении" directory="/images/menuimages"  hide_none="0" hide_default="1" description="" />
+		<param name="ml_image_roll_7" type="imagelist" default="1r.gif" label="Картинка для пункта меню №7 при наведении" directory="/images/menuimages"  hide_none="0" hide_default="1" description="" />
+		<param name="ml_image_roll_8" type="imagelist" default="1r.gif" label="Картинка для пункта меню №8 при наведении" directory="/images/menuimages"  hide_none="0" hide_default="1" description="" />
+		<param name="ml_image_roll_9" type="imagelist" default="1r.gif" label="Картинка для пункта меню №9 при наведении" directory="/images/menuimages"  hide_none="0" hide_default="1" description="" />
+		<param name="ml_image_roll_10" type="imagelist" default="1r.gif" label="Картинка для пункта меню №10 при наведении" directory="/images/menuimages"  hide_none="0" hide_default="1" description="" />
+		<param name="ml_image_roll_11" type="imagelist" default="1r.gif" label="Картинка для пункта меню №11 при наведении" directory="/images/menuimages"  hide_none="0" hide_default="1" description="" />
 		<param name="@spacer" type="spacer" default="&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt; &lt;div class=&quot;tab-page&quot; id=&quot;module19&quot;&gt;&lt;h2 class=&quot;tab&quot;&gt;Ссылки для гостей&lt;/h2&gt;&lt;script type=&quot;text/javascript&quot;&gt;tabPane1.addTabPage(document.getElementById( &quot;module20&quot; ) );&lt;/script&gt;&lt;table width=&quot;100%&quot; class=&quot;paramlist-m&quot;&gt;&lt;tr&gt;&lt;td&gt;" label="" description="" />
 		<param name="ml_hide_logged1" type="radio" default="1" label="Показывать только гостям ссылку №1" description="">
 			<option value="0">Только гостям</option>

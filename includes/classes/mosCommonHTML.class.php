@@ -192,8 +192,7 @@ class mosCommonHTML {
 		}
 
 		if( $ret ) {
-			mosMainFrame::addClass('mosHTML');
-			echo mosHTML::js_file( JPATH_SITE.'/includes/js/overlib_full.js' );
+			echo JHTML::js_file( JPATH_SITE.'/includes/js/overlib_full.js' );
 		}
 	}
 
@@ -217,8 +216,7 @@ class mosCommonHTML {
 			return true;
 		}
 		if($ret==true) {
-			mosMainFrame::addClass('mosHTML');
-			echo mosHTML::js_file( JPATH_SITE.'/includes/js/mootools/mootools.js' );
+			echo JHTML::js_file( JPATH_SITE.'/includes/js/mootools/mootools.js' );
 		}
 	}
 
@@ -235,8 +233,7 @@ class mosCommonHTML {
 		if(!defined('_FAX_LOADED')) {
 			define('_FAX_LOADED',1);
 			if($ret) {
-				mosMainFrame::addClass('mosHTML');
-				echo mosHTML::js_file( JPATH_SITE.'/includes/js/fullajax/fullajax.js' );
+				echo JHTML::js_file( JPATH_SITE.'/includes/js/fullajax/fullajax.js' );
 			}else {
 				mosMainFrame::getInstance()->addJS(JPATH_SITE.'/includes/js/fullajax/fullajax.js');
 			}
@@ -247,8 +244,7 @@ class mosCommonHTML {
 		if(!defined('_JQUERY_LOADED')) {
 			define('_JQUERY_LOADED',1);
 			if($ret) {
-				mosMainFrame::addClass('mosHTML');
-				echo mosHTML::js_file( JPATH_SITE.'/includes/js/jquery/jquery.js' );
+				echo JHTML::js_file( JPATH_SITE.'/includes/js/jquery/jquery.js' );
 			}else {
 				mosMainFrame::getInstance()->addJS(JPATH_SITE.'/includes/js/jquery/jquery.js');
 			}
@@ -267,9 +263,8 @@ class mosCommonHTML {
 		if(!defined($const)) {
 			define($const,1);
 			if($ret) {
-				mosMainFrame::addClass('mosHTML');
-				echo mosHTML::js_file( JPATH_SITE.'/includes/js/jquery/plugins/'. $name.'.js' );
-				echo ($css) ? mosHTML::css_file( JPATH_SITE.'/includes/js/jquery/plugins/'. $name.'.css' ) : '';
+				echo JHTML::js_file( JPATH_SITE.'/includes/js/jquery/plugins/'. $name.'.js' );
+				echo ($css) ? JHTML::css_file( JPATH_SITE.'/includes/js/jquery/plugins/'. $name.'.css' ) : '';
 			}else {
 				$mainframe = mosMainFrame::getInstance();
 				$mainframe->addJS(JPATH_SITE.'/includes/js/jquery/plugins/'.$name.'.js', $footer);
@@ -283,8 +278,7 @@ class mosCommonHTML {
 			define('_JQUERY_UI_LOADED',1);
 
 			if($ret) {
-				mosMainFrame::addClass('mosHTML');
-				echo mosHTML::js_file( JPATH_SITE.'/includes/js/jquery/ui.js' );
+				echo JHTML::js_file( JPATH_SITE.'/includes/js/jquery/ui.js' );
 			}else {
 				mosMainFrame::getInstance()->addCSS(JPATH_SITE.'/includes/js/jquery/ui.js');
 			}

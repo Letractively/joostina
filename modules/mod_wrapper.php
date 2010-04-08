@@ -63,8 +63,7 @@ if ( $params->def( 'height_auto' ) ) {
 	width="<?php echo $params->get( 'width' ); ?>"
 	height="<?php echo $params->get( 'height' ); ?>"
 	scrolling="<?php echo $params->get( 'scrolling' ); ?>"
-	align="top"
-	frameborder="0"
+	align="top" frameborder="0"
 	class="wrapper<?php echo $params->get( 'moduleclass_sfx' ); ?>">
 		<?php echo _IFRAMES; ?>
 </iframe>

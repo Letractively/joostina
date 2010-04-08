@@ -33,9 +33,7 @@ if($config->config_enable_admin_secure_code) {
 		<title>
 			<?php echo $config->config_sitename; ?> - <?php echo _JOOSTINA_CONTROL_PANEL?></title>
 		<meta http-equiv="Content-Type" content="text/html; <?php echo _ISO; ?>" />
-		<style type="text/css">
-			@import url(templates/joostfree/css/admin_login.css);
-		</style>
+		<style type="text/css">@import url(templates/joostfree/css/admin_login.css);</style>
 		<script language="javascript" type="text/javascript">
 			function setFocus() {
 				document.loginForm.usrname.select();

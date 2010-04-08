@@ -1,94 +1,65 @@
 <?php
 /**
- * @version $Id: module.php 5132 2006-09-22 15:59:38Z friesengeist $
  * @package Joostina
- * @localized Авторские права (C) 2005 Joom.Ru - Русский дом Joomla!
- * @copyright Авторские права (C) 2005 Open Source Matters. Все права защищены.
- * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, смотрите LICENSE.php
- * Joomla! - свободное программное обеспечение. Эта версия может быть изменена
- * в соответствии с Генеральной Общественной Лицензией GNU, поэтому возможно
- * её дальнейшее распространение в составе результата работы, лицензированного
- * согласно Генеральной Общественной Лицензией GNU или других лицензий свободных
- * программ или программ с открытым исходным кодом.
+ * @copyright Авторские права (C) 2008-2010 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
  * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
  */
-
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-/**
- * @package Joostina
- */
 class modules_html {
 
-	var $_mainframe = null;
+	public $_mainframe;
 
 	function modules_html($mainframe) {
 		$this->_mainframe = $mainframe;
 	}
 
-	/*
-	* Output Handling for Custom modules
-	*/
+
 	function module(&$module,&$params,$Itemid,$style = 0) {
 		global $_MAMBOTS;
 
 		$database = $this->_mainframe->getDBO();
 
-		// custom module params
 		$moduleclass_sfx = $params->get('moduleclass_sfx');
 		$rssurl		= $params->get('rssurl');
 		$firebots	= $params->get('firebots',0);
 
 		if($rssurl) {
-			// feed output
 			modules_html::modoutput_feed($module,$params,$moduleclass_sfx);
 		}
 
 		if($module->content != '' && $firebots) {
-			// mambot handling for custom modules
-			// load content bots
 			$_MAMBOTS->loadBotGroup('content');
-
 			$row = $module;
 			$row->text = $module->content;
 
 			$results = $_MAMBOTS->trigger('onPrepareContent',array(&$row,&$params,0),true);
-
 			$module->content = $row->text;
 		}
 
 		$module = mosModule::convert_to_object($module, $this->_mainframe);
 		switch($style) {
 			case - 3:
-			// allows for rounded corners
-				modules_html::modoutput_rounded($module,$params,$Itemid,$moduleclass_sfx,1);
+				$this->modoutput_rounded($module,$params,$Itemid,$moduleclass_sfx,1);
 				break;
 
 			case - 2:
-			// xhtml (divs and font headder tags)
-				modules_html::modoutput_xhtml($module,$params,$Itemid,$moduleclass_sfx,1);
+				$this->modoutput_xhtml($module,$params,$Itemid,$moduleclass_sfx,1);
 				break;
 
 			case - 1:
-			// show a naked module - no wrapper and no title
-				modules_html::modoutput_naked($module,$params,$Itemid,$moduleclass_sfx,1);
+				$this->modoutput_naked($module,$params,$Itemid,$moduleclass_sfx,1);
 				break;
 
 			default:
-			// standard tabled output
-				modules_html::modoutput_table($module,$params,$Itemid,$moduleclass_sfx,1);
+				$this->modoutput_table($module,$params,$Itemid,$moduleclass_sfx,1);
 				break;
 		}
 	}
 
-	/**
-	 * Output Handling for 3PD modules
-	 * @param object
-	 * @param object
-	 * @param int The menu item ID
-	 * @param int -1=show without wrapper and title, -2=xhtml style
-	 */
 	function module2(&$module,&$params,$Itemid,$style = 0,$count = 0) {
 		$config = $this->_mainframe->config;
 
@@ -108,32 +79,26 @@ class modules_html {
 
 		switch($style) {
 			case - 3:
-			// allows for rounded corners
-				modules_html::modoutput_rounded($module,$params,$Itemid,$moduleclass_sfx);
+				$this->modoutput_rounded($module,$params,$Itemid,$moduleclass_sfx);
 				break;
 
 			case - 2:
-			// xhtml (divs and font headder tags)
-				modules_html::modoutput_xhtml($module,$params,$Itemid,$moduleclass_sfx);
+				$this->modoutput_xhtml($module,$params,$Itemid,$moduleclass_sfx);
 				break;
 
 			case - 1:
-			// show a naked module - no wrapper and no title
-				modules_html::modoutput_naked($module,$params,$Itemid,$moduleclass_sfx);
+				$this->modoutput_naked($module,$params,$Itemid,$moduleclass_sfx);
 				break;
 
 			default:
-			// standard tabled output
-				modules_html::modoutput_table($module,$params,$Itemid,$moduleclass_sfx);
+				$this->modoutput_table($module,$params,$Itemid,$moduleclass_sfx);
 				break;
 		}
 	}
 
-	// feed output
 	function modoutput_feed(&$module,&$params,$moduleclass_sfx) {
 		$config = $this->_mainframe->get('config');
 
-		// check if cache directory is writeable
 		$cacheDir = $config->config_cachepath.DS;
 		if(!is_writable($cacheDir)) {
 			$module->content = _CACHE_DIR_IS_NOT_WRITEABLE2;
@@ -151,18 +116,19 @@ class modules_html {
 
 		$contentBuffer = '';
 
-		$LitePath = JPATH_BASE.'/includes/Cache/Lite.php';
 		require_once (JPATH_BASE.'/includes/domit/xml_domit_rss.php');
 
 		$rssDoc = new xml_domit_rss_document();
 		$rssDoc->setRSSTimeout(2);
-		$rssDoc->useCacheLite(true,$LitePath,$cacheDir,$rsscache);
+		// TODO сделать тут что-нить
+		//$rssDoc->useCacheLite(true,$LitePath,$cacheDir,$rsscache);
 		$success = $rssDoc->loadRSS($rssurl);
 
 		if($success) {
 			$content_buffer = '';
 			$totalChannels = $rssDoc->getChannelCount();
 
+			mosMainFrame::addClass('mosCommonHTML');
 			for($i = 0; $i < $totalChannels; $i++) {
 				$currChannel = &$rssDoc->getChannel($i);
 				$elements = $currChannel->getElementList();
@@ -288,26 +254,18 @@ class modules_html {
 		}
 	}
 
-	/*
-	* standard tabled output
-	*/
-	function modoutput_table($module,$params,$Itemid,$moduleclass_sfx,$type = 0) {
+	private function modoutput_table($module,$params,$Itemid,$moduleclass_sfx,$type = 0) {
 		global $my;
 
 		$mainframe = $this->_mainframe;
 		$database = $this->_mainframe->getDBO();
-
 		?>
 <table cellpadding="0" cellspacing="0" class="moduletable<?php echo $moduleclass_sfx; ?>">
-			<?php
-			if($module->showtitle != 0) {
-				?>
+			<?php if($module->showtitle != 0) { ?>
 	<tr>
 		<th valign="top"><?php echo htmlspecialchars($module->title); ?></th>
 	</tr>
-				<?php
-			}
-			?>
+				<?php } ?>
 	<tr>
 		<td>
 					<?php
@@ -315,10 +273,7 @@ class modules_html {
 						modules_html::CustomContent($module,$params);
 					} else {
 						include (JPATH_BASE.DS.'modules'.DS.$module->module.'.php');
-
-						if(isset($content)) {
-							echo $content;
-						}
+						echo isset($content) ? $content:null;
 					}
 					?>
 		</td>
@@ -327,10 +282,7 @@ class modules_html {
 		<?php
 	}
 
-	/*
-	* show a naked module - no wrapper and no title
-	*/
-	function modoutput_naked($module,$params,$Itemid,$moduleclass_sfx,$type = 0) {
+	private function modoutput_naked($module,$params,$Itemid,$moduleclass_sfx,$type = 0) {
 		global $my;
 
 		$mainframe = $this->_mainframe;
@@ -340,17 +292,11 @@ class modules_html {
 			modules_html::CustomContent($module,$params);
 		} else {
 			include (JPATH_BASE.DS.'modules'.DS.$module->module.'.php');
-
-			if(isset($content)) {
-				echo $content;
-			}
+			echo isset($content) ? $content:null;
 		}
 	}
 
-	/*
-	* xhtml (divs and font headder tags)
-	*/
-	function modoutput_xhtml($module,$params,$Itemid,$moduleclass_sfx,$type = 0) {
+	private function modoutput_xhtml($module,$params,$Itemid,$moduleclass_sfx,$type = 0) {
 		global $my;
 
 		$mainframe = $this->_mainframe;
@@ -367,19 +313,14 @@ class modules_html {
 				modules_html::CustomContent($module,$params);
 			} else {
 				include (JPATH_BASE.DS.'modules'.DS.$module->module.'.php');
-				if(isset($content)) {
-					echo $content;
-				}
+				echo isset($content) ? $content:null;
 			}
 			?>
 </div>
 		<?php
 	}
 
-	/*
-	* allows for rounded corners
-	*/
-	function modoutput_rounded($module,$params,$Itemid,$moduleclass_sfx,$type = 0) {
+	private function modoutput_rounded($module,$params,$Itemid,$moduleclass_sfx,$type = 0) {
 		global $my;
 
 		$mainframe = $this->_mainframe;
@@ -400,10 +341,7 @@ class modules_html {
 							modules_html::CustomContent($module,$params);
 						} else {
 							include (JPATH_BASE.DS.'modules'.DS.$module->module.'.php');
-
-							if(isset($content)) {
-								echo $content;
-							}
+							echo isset($content) ? $content:null;
 						}
 						?>
 			</div>
@@ -413,7 +351,7 @@ class modules_html {
 		<?php
 	}
 
-	function CustomContent(&$module,$params) {
+	private function CustomContent(&$module,$params) {
 		global $_MAMBOTS;
 
 		$firebots = $params->get('firebots',0);
@@ -425,18 +363,16 @@ class modules_html {
 			echo trim(implode("\n",$results));
 			$module->content = $row->text;
 		}
-		// output custom module contents
+
 		if($params->get('user_template', '') && $module->set_template_custom($params->get('user_template', ''))) {
 			require($module->template);
-		}
-		else {
+		}else {
 			echo $module->content;
 		}
 
 		if($firebots) {
 			$results = $_MAMBOTS->trigger('onAfterDisplayContent',array(&$row,&$params,0));
 			echo trim(implode("\n",$results));
-
 			$module->content = $row->text;
 		}
 	}

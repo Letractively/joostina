@@ -14,15 +14,14 @@ global $mosConfig_offset,$my;
 
 $count	= intval( $params->get( 'count', 20 ) );
 $access = !$mainframe->getCfg( 'shownoauth' );
-$now	= _CURRENT_SERVER_TIME;
 $nullDate = $database->getNullDate();
 
 $query = "SELECT a.id AS id, a.title AS title, COUNT(b.id) as cnt"
 		. "\n FROM #__sections as a"
 		. "\n LEFT JOIN #__content as b ON a.id = b.sectionid"
 		. ( $access ? "\n AND b.access <= " . (int) $my->gid : '' )
-		. "\n AND ( b.publish_up = " . $database->Quote( $nullDate ) . " OR b.publish_up <= " . $database->Quote( $now ) . " )"
-		. "\n AND ( b.publish_down = " . $database->Quote( $nullDate ) . " OR b.publish_down >= " . $database->Quote( $now ) . " )"
+		. "\n AND ( b.publish_up = " . $database->Quote( $nullDate ) . " OR b.publish_up <= " . $database->Quote( _CURRENT_SERVER_TIME ) . " )"
+		. "\n AND ( b.publish_down = " . $database->Quote( $nullDate ) . " OR b.publish_down >= " . $database->Quote( _CURRENT_SERVER_TIME ) . " )"
 		. "\n WHERE a.scope = 'content'"
 		. "\n AND a.published = 1"
 		. ( $access ? "\n AND a.access <= " . (int) $my->gid : '' )
@@ -30,8 +29,7 @@ $query = "SELECT a.id AS id, a.title AS title, COUNT(b.id) as cnt"
 		. "\n HAVING COUNT( b.id ) > 0"
 		. "\n ORDER BY a.ordering"
 ;
-$database->setQuery( $query, 0, $count );
-$rows = $database->loadObjectList();
+$rows = $database->setQuery( $query, 0, $count )->loadObjectList();
 
 if ( $rows ) {
 	// list of sectionids, used to find corresponding Itemids
@@ -50,11 +48,10 @@ if ( $rows ) {
 			. "\n AND ( m.componentid=" . implode( " OR m.componentid=", $sids ) . " )"
 			. "\n ORDER BY m.type DESC, m.id DESC"
 	;
-	$database->setQuery( $query );
-	$itemids = $database->loadObjectList( 'sectionid' );
+	$itemids = $database->setQuery( $query )->loadObjectList( 'sectionid' );
 	?>
 <ul>
-<?php
+		<?php
 		foreach ($rows as $row) {
 			if (isset( $itemids[$row->id] )) {
 				$link = sefRelToAbs( "index.php?option=com_content&task=blogsection&id=". $row->id . "&Itemid=" . $itemids[$row->id]->Itemid );
@@ -63,11 +60,7 @@ if ( $rows ) {
 			} else {
 				$link = sefRelToAbs( "index.php?option=com_content&task=blogsection&id=". $row->id );
 			}
-			?>
-	<li>
-		<a href="<?php echo $link;?>" title="<?php echo $row->title;?>"><?php echo $row->title;?></a>
-	</li>
-			<?php
+			?><li><a href="<?php echo $link;?>" title="<?php echo $row->title;?>"><?php echo $row->title;?></a></li><?php
 		}
 		?>
 </ul>

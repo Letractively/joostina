@@ -49,8 +49,7 @@ if ($option == 'com_content' && $task == 'view' && $id) {
 					. "\n AND ( a.publish_up = " . $database->Quote( $nullDate ) . " OR a.publish_up <= " . $database->Quote( $now ) . " )"
 					. "\n AND ( a.publish_down = " . $database->Quote( $nullDate ) . " OR a.publish_down >= " . $database->Quote( $now ) . " )"
 			;
-			$database->setQuery( $query, 0, $limit );
-			$temp = $database->loadObjectList();
+			$temp = $database->setQuery( $query, 0, $limit )->loadObjectList();
 
 			$related = array();
 			if (count($temp)) {
@@ -64,7 +63,7 @@ if ($option == 'com_content' && $task == 'view' && $id) {
 
 			if ( count( $related ) ) {?>
 <ul>
-<?php
+					<?php
 					foreach ($related as $item) {
 						if ($option == 'com_content' && $task == 'view') {
 							$Itemid = $mainframe->getItemid($item->id);
@@ -74,11 +73,11 @@ if ($option == 'com_content' && $task == 'view' && $id) {
 	<li>
 		<a href="<?php echo $href; ?>"><?php echo $item->title; ?></a>
 	</li>
-<?php
+						<?php
 					}
-?>
+					?>
 </ul>
-<?php
+				<?php
 			}
 		}
 	}

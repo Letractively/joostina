@@ -47,10 +47,7 @@ if ( isset( $GLOBALS['syndicateParams'] ) ) {
 			. "\n FROM #__components AS a"
 			. "\n WHERE ( a.admin_menu_link = 'option=com_syndicate' OR a.admin_menu_link = 'option=com_syndicate&hidemainmenu=1' )"
 			. "\n AND a.option = 'com_syndicate'";
-	$database->setQuery( $query );
-	$database->loadObject( $row );
-
-	// get params definitions
+	$database->setQuery( $query )->loadObject( $row );
 	$syndicateParams = new mosParameters( $row->params, $mainframe->getPath( 'com_xml', $row->option ), 'component' );
 }
 

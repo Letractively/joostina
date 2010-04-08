@@ -67,7 +67,6 @@ class HTML_admin_misc {
 
 		$width = 400; // width of 100%
 
-		mosMainFrame::addClass('mosTabs');
 		$tabs = new mosTabs(0);
 		?>
 <table class="adminheading">

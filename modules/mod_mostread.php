@@ -27,7 +27,7 @@ $access	= !$mainframe->getCfg( 'shownoauth' );
 $nullDate = $database->getNullDate();
 // Выбор между выводом содержимого объектов, статического содержимого или сразу обоих
 switch ( $type ) {
-	
+
 	case 2:
 	// Только статичное содержимое
 		$query = "SELECT a.id, a.title, a.hits"
@@ -38,8 +38,7 @@ switch ( $type ) {
 				. ( $access ? "\n AND a.access <= " . (int) $my->gid : '' )
 				. "\n ORDER BY a.hits DESC"
 		;
-		$database->setQuery( $query, 0, $count );
-		$rows = $database->loadObjectList();
+		$rows = $database->setQuery( $query, 0, $count )->loadObjectList();
 		break;
 
 	case 3:
@@ -54,8 +53,7 @@ switch ( $type ) {
 				. ( $access ? "\n AND a.access <= " . (int) $my->gid : '' )
 				. "\n ORDER BY a.hits DESC"
 		;
-		$database->setQuery( $query, 0, $count );
-		$temp = $database->loadObjectList();
+		$temp = $database->setQuery( $query, 0, $count )->loadObjectList();
 
 		$rows = array();
 		if (count($temp)) {
@@ -98,8 +96,7 @@ switch ( $type ) {
 				. "\n AND s.published = 1"
 				. "\n AND cc.published = 1"
 				. "\n ORDER BY a.hits DESC";
-		$database->setQuery( $query, 0, $count );
-		$rows = $database->loadObjectList();
+		$rows = $database->setQuery( $query, 0, $count )->loadObjectList();
 		break;
 }
 
@@ -112,13 +109,8 @@ switch ( $type ) {
 			// get Itemid
 			switch ( $type ) {
 				case 2:
-					$query = "SELECT id"
-							. "\n FROM #__menu"
-							. "\n WHERE type = 'content_typed'"
-							. "\n AND componentid = " . (int) $row->id
-					;
-					$database->setQuery( $query );
-					$Itemid = $database->loadResult();
+					$query = "SELECT id FROM #__menu WHERE type = 'content_typed AND componentid = " . (int) $row->id;
+					$Itemid = $database->setQuery( $query )->loadResult();
 					break;
 
 				case 3:
@@ -147,10 +139,7 @@ switch ( $type ) {
 
 		$link = sefRelToAbs( 'index.php?option=com_content&amp;task=view&amp;id='. $row->id . $Itemid );
 		$class	= ($noncss ? '':' class="mostread'.$moduleclass_sfx.'"');
-		?>
-	<li<?php echo $class ?>>
-		<a href="<?php echo $link; ?>" title="<?php echo $row->title; ?>"<?php echo $class ?>><?php echo $row->title; ?></a><?php echo $show_hits ? ' ('.$row->hits.')':'';?>
-	</li><?php
+		?><li<?php echo $class ?>><a href="<?php echo $link; ?>" title="<?php echo $row->title; ?>"<?php echo $class ?>><?php echo $row->title; ?></a><?php echo $show_hits ? ' ('.$row->hits.')':'';?></li><?php
 	}
 	?>
 </ul>
