@@ -11,13 +11,14 @@
 defined('_VALID_MOS') or die();
 
 mosCommonHTML::loadJquery();
+mosCommonHTML::loadJqueryUI( true );
+
 $mainframe = mosMainFrame::getInstance();
-$mainframe->addJS(JPATH_SITE . '/includes/libraries/elfinder/js/jquery-ui-1.7.2.custom.min.js');
-$mainframe->addJS(JPATH_SITE . '/includes/libraries/elfinder/js/elFinder.js');
-$mainframe->addJS(JPATH_SITE . '/includes/libraries/elfinder/js/elFinder.view.js');
-$mainframe->addJS(JPATH_SITE . '/includes/libraries/elfinder/js/elFinder.quickLook.js');
-$mainframe->addJS(JPATH_SITE . '/includes/libraries/elfinder/js/elFinder.eventsManager.js');
-$mainframe->addJS(JPATH_SITE . '/includes/libraries/elfinder/js/elFinder.ui.js');
-$mainframe->addJS(JPATH_SITE . '/includes/libraries/elfinder/js/i18n/elfinder.ru.js');
+$mainframe->addJS( JPATH_SITE . '/includes/libraries/elfinder/js/elFinder.js');
+$mainframe->addJS( JPATH_SITE . '/includes/libraries/elfinder/js/elFinder.view.js');
+$mainframe->addJS( JPATH_SITE . '/includes/libraries/elfinder/js/elFinder.quickLook.js');
+$mainframe->addJS( JPATH_SITE . '/includes/libraries/elfinder/js/elFinder.eventsManager.js');
+$mainframe->addJS( JPATH_SITE . '/includes/libraries/elfinder/js/elFinder.ui.js');
+$mainframe->addJS( JPATH_SITE . '/includes/libraries/elfinder/js/i18n/elfinder.ru.js');
 $mainframe->addCSS( JPATH_SITE . '/includes/libraries/elfinder/js/ui-themes/base/ui.all.css' );
 $mainframe->addCSS( JPATH_SITE . '/includes/libraries/elfinder/css/elfinder.css' );

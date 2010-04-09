@@ -22,7 +22,6 @@ class HTML_mambot {
 	 * @param strong The URL option
 	 */
 	function showInstalledMambots(&$rows,$option) {
-		mosCommonHTML::loadPrettyTable();
 		?>
 <form action="index2.php" method="post" name="adminForm">
 	<table class="adminheading">

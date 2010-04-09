@@ -19,6 +19,7 @@ class HTML_config {
 	function showconfig(&$row,&$lists,$option) {
 		global $mosConfig_session_type,$mainframe;
 
+		mosCommonHTML::loadOverlib();
 		$tabs = new mosTabs(1,1);
 
 		?>

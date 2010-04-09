@@ -23,15 +23,17 @@ $option = mosGetParam( $_REQUEST, 'option', '' );
 		<meta http-equiv="Content-Type" content="text/html; <?php echo _ISO; ?>" />
 		<?php
 		/* подключаем fullajax */
-		mosCommonHTML::loadFullajax();
-		mosCommonHTML::loadJquery();
+		//mosCommonHTML::loadFullajax();
+
+		if( $option!='com_xmap' ) mosCommonHTML::loadJquery();
+
 		$mainframe->addCSS(JPATH_SITE.'/'.JADMIN_BASE.'/templates/joostfree/css/template_css.css');
 		$mainframe->addJS(JPATH_SITE.'/includes/js/JSCookMenu.js');
 		$mainframe->addJS(JPATH_SITE.'/includes/js/ThemeOffice/theme.js');
 		$mainframe->addJS(JPATH_SITE.'/includes/js/joomla.javascript.js');
 		$mainframe->addJS(JPATH_SITE.'/'.JADMIN_BASE.'/includes/js/admin.js');
 
-		mosCommonHTML::loadJqueryPlugins('jquery.textarearesizer');
+		if( $option!='com_xmap' ) mosCommonHTML::loadJqueryPlugins('jquery.textarearesizer');
 
 		include_once (JPATH_BASE.DS.'includes/editor.php');
 		initEditor();

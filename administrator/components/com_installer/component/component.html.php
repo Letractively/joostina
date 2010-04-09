@@ -23,9 +23,6 @@ class HTML_component {
 	function showInstalledComponents($rows,$option) {
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 		if(count($rows)) {
-			// подключение скрипта чудесных таблиц
-			mosCommonHTML::loadPrettyTable();
-
 			?>
 <form action="index2.php" method="post" name="adminForm" id="adminForm">
 	<table class="adminheading">

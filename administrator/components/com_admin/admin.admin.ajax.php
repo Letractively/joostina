@@ -15,12 +15,15 @@ $task	= mosGetParam($_GET,'task','publish');
 
 // обрабатываем полученный параметр task
 switch($task) {
+	
 	case 'toggle_editor':
 		echo x_toggle_editor();
 		return;
+
 	case 'upload':
 		echo x_upload();
 		return;
+
 	default:
 		echo 'error-task';
 		return;
@@ -28,17 +31,21 @@ switch($task) {
 
 // включение / отключение визуального редактора
 function x_toggle_editor() {
-	$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
+	$r = new stdClass;
 
 	if(!intval(mosGetParam($_SESSION,'user_editor_off',''))) {
 		// отключаем редактор
 		$_SESSION['user_editor_off'] = 1;
-		return $cur_file_icons_path.'/editor_off.png';
+		$r->text = 'Включить';
+		$r->image = 'editor_off.png';
 	}else {
 		// включаем редактор
 		$_SESSION['user_editor_off'] = 0;
-		return $cur_file_icons_path.'/editor_on.png';
+		$r->text = 'Выключить';
+		$r->image = 'editor_on.png';
 	}
+
+	return json_encode( $r );
 }
 
 function x_upload() {
