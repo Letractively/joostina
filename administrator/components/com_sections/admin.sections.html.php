@@ -44,7 +44,7 @@ class sections_html {
             <th colspan="2" width="5%"><?php echo _ORDERING?></th>
             <th width="2%"><?php echo _ORDER_DROPDOWN?></th>
             <th width="1%">
-                <a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="<?php echo $cur_file_icons_path;?>/filesave.png" border="0" width="16" height="16" alt="<?php echo _SAVE_ORDER?>" /></a>
+                <a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="<?php echo $cur_file_icons_path;?>/saveorder.png" border="0" width="16" height="16" alt="<?php echo _SAVE_ORDER?>" /></a>
             </th>
             <th width="10%"><?php echo _ACCESS?></th>
             <th width="10%" class="jtd_nowrap"><?php echo _SECTION_CATEGORIES?></th>

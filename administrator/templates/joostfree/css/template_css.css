@@ -1,4 +1,3 @@
-/*------------------------------------------------------------------html, body*/
 html {
 	height: 100%;
 	margin: 0;
@@ -8,7 +7,6 @@ body {
 	height: 100%;
 	margin: 0;
 }
-/*-------------------------------------------------------------------���������*/
 h1 {
 	color: #000;
 	font: normal 18px "Lucida Sans Unicode";
@@ -28,7 +26,7 @@ h3 {
 	padding: 0;
 }
 .adminheader {
-	color: #FF9900;
+	color: #F90;
 	font-size: 24px;
 }
 .contentheading, .componentheading, .moduleheading {
@@ -38,8 +36,8 @@ h3 {
 table.adminheading {
 	margin-top: 5px;
 	margin-bottom: 5px;
-	padding: 0px;
-	border: 0px;
+	padding: 0;
+	border: 0;
 	width: 100%;
 	border-collapse: collapse;
 	text-align: left;
@@ -60,107 +58,81 @@ table.adminheading th.filemanager {
 table.adminheading th.edit {
 	background: url(../images/system_ico/edit.png) no-repeat left;
 }
-/* ������������ */
 table.adminheading th.user {
 	background: url(../images/system_ico/user.png) no-repeat left;
 }
-/* ������������ */
 table.adminheading th.config {
 	background: url(../images/system_ico/config.png) no-repeat left;
 }
-/* RSS */
 table.adminheading th.rss {
 	background: url(../images/system_ico/rss.png) no-repeat left;
 }
-/* ��������� */
 table.adminheading th.install {
 	background: url(../images/system_ico/install.png) no-repeat left;
 }
-/* ������ ��������� */
 table.adminheading th.inbox {
 	background: url(../images/system_ico/inbox.png) no-repeat left;
 }
-/* �����-�������� */
 table.adminheading th.media {
 	background: url(../images/system_ico/media.png) no-repeat left;
 }
-/* ������������� */
 table.adminheading th.checkin {
 	background: url(../images/system_ico/checkin.png) no-repeat left;
 }
-/* ������� */
 table.adminheading th.trash {
 	background: url(../images/system_ico/trash.png) no-repeat left;
 }
-/* ����� */
 table.adminheading th.langmanager {
 	background: url(../images/system_ico/langmanager.png) no-repeat left;
 }
-/* ��������� ������� */
 table.adminheading th.searchtext {
 	background: url(../images/system_ico/searchtext.png) no-repeat left;
 }
-/* ���������� ��������� ������� */
 table.adminheading th.impressions {
 	background: url(../images/system_ico/impressions.png) no-repeat left;
 }
-/* ������� */
 table.adminheading th.templates {
 	background: url(../images/system_ico/templates.png) no-repeat left;
 }
-/* ���������� */
 table.adminheading th.info {
 	background: url(../images/system_ico/info.png) no-repeat left;
 }
-/* ���� */
 table.adminheading th.menus {
 	background: url(../images/system_ico/menus.png) no-repeat left;
 }
-/* ���������� ������� */
 table.adminheading th.frontpage {
 	background: url(../images/system_ico/frontpage.png) no-repeat left;
 }
-/* �������� ���������� */
 table.adminheading th.massadd {
 	background: url(../images/system_ico/massadd.png) no-repeat left;
 }
-/* ��������� */
 table.adminheading th.categories {
 	background: url(../images/system_ico/categories.png) no-repeat left;
 }
-/* ������� */
 table.adminheading th.sections {
 	background: url(../images/system_ico/sections.png) no-repeat left;
 }
-/* �������� ����� */
 table.adminheading th.massemail {
 	background: url(../images/system_ico/massemail.png) no-repeat left;
 }
-/* ������ */
 table.adminheading th.modules {
 	background: url(../images/system_ico/modules.png) no-repeat left;
 }
-/* ������� */
 table.adminheading th.mambots {
 	background: url(../images/system_ico/modules.png) no-repeat left;
 }
-/* ��������� ����������� */
 table.adminheading th.cpanel {
 	background: url(../images/system_ico/cpanel.png) no-repeat left;
 }
-/* ������ � ����� ������ */
 table.adminheading th.db {
 	background: url(../images/system_ico/db.png) no-repeat left;
 }
-/* ������ �������� ������� */
 table.adminheading th.quickicons {
 	background: url(../images/system_ico/menus.png) no-repeat left;
 }
-/* ���� ����������� ������ ���������� */
 table.adminheading th.linkeditor {
 	background: url(../images/system_ico/menus.png) no-repeat left;
 }
-/*---------------------------------------------------------------�������� ����*/
 form {
 	margin: 0;
 }
@@ -190,7 +162,7 @@ textarea {
 	background: url(../images/input_bg.png) top left repeat-x #FEFEFE;
 	border: 1px solid #D7D7D7;
 	font-size: 11px;
-	padding: 5px 0 5px 0;
+	padding: 5px 0;
 	width: 99%;
 }
 button {
@@ -201,10 +173,10 @@ input.button {
 	cursor: pointer;
 }
 .text_area:focus, input:focus, select:focus, textarea:focus {
-	border-color: #999999;
+	border-color: #999;
 }
 input.button:focus, table.adminlist tr.row1 {
-	background-color: #FFF;
+	background: #FFF;
 }
 select.options, input.options {
 	border: 1px solid #3d8fe3;
@@ -212,7 +184,7 @@ select.options, input.options {
 	font-weight: normal;
 }
 input.disabled {
-	background-color: #F0F0F0;
+	background: #F0F0F0;
 }
 label {
 	color: #3C3C3C;
@@ -221,7 +193,6 @@ label:hover {
 	color: black;
 	cursor: pointer;
 }
-/*---------------------------------------------------------------------������*/
 a:link {
 	color: #2D6B9D;
 	text-decoration: none;
@@ -234,52 +205,40 @@ a:hover {
 	text-decoration: underline;
 }
 a.abig {
-	border-bottom: 1px	dashed #aaa;
+	border-bottom: 1pxdashed #aaa;
 	font-size: 12px;
 }
-/*------------------------------------------------------������������ ���������*/
 .pagenav {
 	font-size: 10px;
 	padding: 2px;
 }
 a.pagenav {
 	text-decoration: none;
-	color: #336699;
+	color: #369;
 }
 a.pagenav:hover {
-	color: #224488;
+	color: #248;
 	text-decoration: underline;
 }
 a.pagenav:active {
 	color: #333;
 }
-/*--------------------------------------------------------------��������������*/
-/* �������������� */
 .jwarning {
 	margin-top: 5px;
 	border-top: 1px solid #EAA6B5;
 	border-bottom: 1px solid #EAA6B5;
-	padding: 5px 0 5px 0;
+	padding: 5px 0;
 	background: #FBEEF1 url(../images/ico/error.png) no-repeat scroll 15px 50%;
-	/** -moz-background-clip: -moz-initial;
-	-moz-background-origin: -moz-initial;
-	-moz-background-inline-policy: -moz-initial;
-**/
 	text-align: center;
 	clear: both;
-	margin: 10px 0 10px 0;
+	margin: 10px 0;
 }
-/* ��������� */
 .message {
-	margin: 5px 0 5px 0;
+	margin: 5px 0;
 	border-top: 1px solid #70A1C8;
 	border-bottom: 1px solid #70A1C8;
 	padding: 5px 20px 5px 45px;
 	background: #e4eef6 url(../images/ico/info.png) no-repeat scroll 15px 50%;
-	/** -moz-background-clip: -moz-initial;
-	-moz-background-origin: -moz-initial;
-	-moz-background-inline-policy: -moz-initial;
-**/
 	text-align: center;
 }
 .error {
@@ -287,22 +246,18 @@ a.pagenav:active {
 	font-size: 11px;
 	font-weight: bold;
 }
-/* ���� ��� ������ ������������/������ � �.�. ��� ��������� ������� */
 .mini_ico {
 	width: 12px;
 	height: 12px;
 }
 .sectionname {
-	color: #FF9900;
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 18px;
-	font-weight: bold;
+	color: #F90;
+	font: bold 18px Arial, Helvetica, sans-serif;
 }
 .small {
-	color: #FF9900;
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 10px;
+	color: #F90;
 	text-decoration: none;
+	font: 10px Arial, Helvetica, sans-serif;
 }
 .smallgrey {
 	color: #3D3D3D;
@@ -310,11 +265,11 @@ a.pagenav:active {
 }
 .quote {
 	margin: 4px;
-	border: 1px solid #cccccc;
-	background-color: #E9ECEF;
+	border: 1px solid #ccc;
 	padding: 10px;
 	font-size: 12px;
 	color: #254D78;
+	background: #E9ECEF;
 }
 span.editlinktip {
 	text-decoration: none;
@@ -322,17 +277,17 @@ span.editlinktip {
 }
 .pathway {
 	border: 1px solid #CFCFCF;
-	background-color: #FFF;
 	padding: 2px;
 	margin: 3px;
 	float: left;
+	background: #FFF;
 }
 .jpstatus {
 	text-align: center;
-	background-color: #FFFFCC;
 	border: thin dotted gray;
 	padding: 1em;
 	width: auto;
+	background: #FFC;
 }
 #qsett {
 	height: 20px;
@@ -341,7 +296,6 @@ span.editlinktip {
 	padding: 5px;
 	text-align: center;
 }
-/*---------------------------------------------------------------------�������*/
 table {
 	border-collapse: collapse;
 }
@@ -350,9 +304,8 @@ td {
 }
 .jtd_nowrap {
 	white-space: nowrap;
-	border: none
+	border: none;
 }
-/* standard list style table */
 table.adminlist {
 	color: #666;
 	width: 100%;
@@ -360,7 +313,6 @@ table.adminlist {
 table.adminlist tr {
 	border-bottom: 1px solid #CCC;
 }
-/* ��������� ������ � ������� */
 table.adminlist th {
 	padding: 5px 2px;
 	text-align: center;
@@ -374,10 +326,10 @@ table.adminlist th.title {
 	text-align: left;
 }
 table.adminlist tr.row0 {
-	background-color: #FFF;
+	background: #FFF;
 }
 table.adminlist tr.row1 {
-	background-color: #F5F5F5;
+	background: #F5F5F5;
 }
 table.adminlisttop {
 	vertical-align: top;
@@ -388,13 +340,13 @@ table.adminlist td {
 	padding: 4px 2px;
 }
 table.adminlist tr.row0:hover {
-	background-color: #F2F7FB;
+	background: #F2F7FB;
 }
 table.adminlist tr.row1:hover {
-	background-color: #F2F7FB;
+	background: #F2F7FB;
 }
 table.adminlist td.options {
-	background-color: #ffffff;
+	background: #fff;
 }
 table.adminlist td img {
 	vertical-align: middle;
@@ -404,20 +356,19 @@ select.options, input.options {
 	font-weight: normal;
 	border: 1px solid #3d8fe3;
 }
-/* standard form style table */
 table.adminform {
-	background-color: #F9F9F9;
 	border: solid 1px #d5d5d5;
 	width: 99%;
-	padding: 0px;
+	padding: 0;
 	border-collapse: collapse;
-	margin: 0px;
+	margin: 0;
+	background: #F9F9F9;
 }
 table.adminform tr.row0 {
-	background-color: #f5f5f5;
+	background: #f5f5f5;
 }
 table.adminform tr.row1 {
-	background-color: #eeeeee;
+	background: #eee;
 }
 table.adminform th {
 	background: url(../images/th.png);
@@ -425,28 +376,24 @@ table.adminform th {
 	padding-left: 4px;
 	text-align: left;
 	height: 24px;
-	color: #666666;
+	color: #666;
 }
 table.adminform td {
 	padding: 2px;
-	/*text-align: left;
-	*/
 }
 table.adminform td.editor {
 	font-size: 9px;
 }
-/* ����� ���������� � �������� */
 .pkey, .key {
-	background-color: #F1F1F1;
 	border-bottom: 1px solid #E9E9E9;
 	border-right: 1px solid #E9E9E9;
-	color: #666666;
+	color: #666;
 	font-weight: bold;
 	text-align: right;
 	width: 200px;
 	vertical-align: top;
+	background: #F1F1F1;
 }
-/* ����� ����� �������*/
 td.header_info, td.header_info a {
 	margin: 0;
 	padding: 0 5px;
@@ -464,7 +411,6 @@ td.header_info img {
 .td-state {
 	cursor: pointer;
 }
-/*-------------------------------------------------------������������ ������� */
 #ntree, #Init, .item, table.adminlist th.title {
 	text-align: left;
 }
@@ -488,27 +434,25 @@ td.header_info img {
 	background: url(../images/tgr.gif) no-repeat #E2E2E2;
 }
 .tdtoogleoff:hover, .tdtoogleon:hover {
-	background-color: #FFFFCC;
 	cursor: pointer;
+	background: #FFC;
 }
-/*------------------------------------------------ �������� ��������� ��������*/
 .joopage {
 	display: block;
 	height: 14px;
 	background: url(../images/mbbg.gif) repeat-x;
 	text-align: left;
 	font-size: 12px;
-	color: #336699;
+	color: #369;
 	font-weight: bold;
 	padding: 5px 2px;
 }
 .joopage:hover {
-	color: #003366;
+	color: #036;
 }
 .item {
 	text-align: left;
 }
-/* div � ������������ �������/������ ������ ������������ ������� */
 .dimc_d {
 	float: left;
 	margin: 3px 6px;
@@ -533,11 +477,11 @@ td.header_info img {
 	width: auto;
 }
 .page {
-	padding: 0 0 0 0;
+	padding: 0;
 }
 #footer {
 	clear: both;
-	padding: 0 0 0 0;
+	padding: 0;
 	width: auto;
 	height: 34px;
 	background: url(../images/bg.png) repeat-x #EFF4F9;
@@ -545,11 +489,11 @@ td.header_info img {
 	position: relative;
 }
 #wrapper {
-	border: 0px;
-	margin: 0px;
+	border: 0;
+	margin: 0;
 	margin-left: auto;
 	margin-right: auto;
-	padding: 0px;
+	padding: 0;
 }
 .logo {
 	position: absolute;
@@ -569,11 +513,11 @@ td.header_info img {
 	color: #000;
 }
 #wrapper1 div {
-	border: 0px;
-	margin: 0px;
+	border: 0;
+	margin: 0;
 	margin-left: auto;
 	margin-right: auto;
-	padding: 0px 5px 0px 5px;
+	padding: 0 5px;
 	display: inline;
 }
 #topper {
@@ -590,12 +534,12 @@ table.menubar {
 }
 #main_body {
 	margin: 10px;
-	padding: 0 0 40px 0;
+	padding: 0 0 40px;
 	text-align: left;
 }
 div.page {
 	min-height: 100%;
-	margin: 0 0 -34px 0;
+	margin: 0 0 -34px;
 }
 input#jtoggle_editor {
 	background: none;
@@ -607,18 +551,16 @@ a.logoff {
 	background: url(../images/menu_ico/logout.png) left no-repeat;
 	padding: 0 0 0 20px;
 }
-a.preview{
+a.preview {
 	margin: 0 12px 0  0;
 	background: url(../images/menu_ico/preview.png) left no-repeat;
 	padding: 0 0 0 20px;
 }
-/*------------------------------------------------------------------- ������ */
 #top-toolbar {
 	border-bottom: 1px solid #D5E4F0;
-	background-color: #F2F7FB;
 	height: 25px;
+	background: #F2F7FB;
 }
-/* ������ */
 #toolbar {
 	text-align: right;
 	float: right;
@@ -630,8 +572,8 @@ a.preview{
 	height: 25px;
 	text-align: right;
 	float: right;
-	margin: 0px;
-	padding: 0px;
+	margin: 0;
+	padding: 0;
 	list-style: none;
 }
 #toolbar ul li {
@@ -640,7 +582,7 @@ a.preview{
 	padding: 0;
 	text-align: right;
 }
-#toolbar a, #toolbar a:visited {
+#toolbar a, #toolbar a:visited{
 	display: block;
 	padding: 1px 10px;
 	padding-left: 25px;
@@ -653,96 +595,73 @@ a.preview{
 	background-position: 6px 4px;
 }
 #toolbar a:hover {
-	background-color: white;
 	text-decoration: underline;
+	background-color: white;
 }
-/* ��� �������� ������������ ������ ������� */
 #toolbar img, #toolbar br {
 	display: none;
 }
-/* ��������� ���������� */
 .tb-load {
 	background: url(../images/aload.gif);
 }
-/* ������� / ����� */
 .tb-cancel, .tb-custom-cancel, .tb-ext-cancel {
 	background: url(../images/toolbar_ico/cancel.png);
 }
-/* ��������� */
 .tb-save, .tb-save-new, .tb-save-edit, .tb-custom-save, .tb-ext-save {
 	background: url(../images/toolbar_ico/save.png);
 }
-/* ��������� */
 .tb-apply, .tb-makedefault, .tb-ext-apply {
 	background: url(../images/toolbar_ico/apply.png);
 }
-/* ������� */
 .tb-add-new-x, .tb-add-new, .tb-custom-new, .tb-ext-new {
 	background: url(../images/toolbar_ico/new.png) no-repeat top left;
-	;
 	background-position: 0 -50px;
 }
-/* ��������/������������ */
 .tb-publish, .tb-publish-list, .tb-custom-publish {
 	background: url(../images/toolbar_ico/publish.png);
 }
-/* ������ */
 .tb-unpublish, .tb-unpublish-list, .tb-ext-unpublis {
 	background: url(../images/toolbar_ico/unpublish.png);
 }
-/* ������������� ������ */
 .tb-custom-x {
 	background: url(../images/toolbar_ico/custom.png);
 }
-/* ����������� */
 .tb-custom-x-move, .tb-ext-move, .tb-move, .tb-x-move {
 	background: url(../images/toolbar_ico/move.png);
 }
-/* ���������� */
 .tb-custom-x-copy, .tb-custom-copy, .tb-ext-copy {
 	background: url(../images/toolbar_ico/copy.png);
 }
-/* ��������� � �������� */
 .tb-custom-save-and-new {
 	background: url(../images/toolbar_ico/save_and_new.png);
 }
-/* � ����� */
 .tb-archive-list {
 	background: url(../images/toolbar_ico/archive.png);
 }
-/* ��������� */
 .tb-ext-zip {
 	background: url(../images/toolbar_ico/zip.png);
 }
-/* � ������� */
 .tb-trash {
 	background: url(../images/toolbar_ico/trash.png);
 }
-/* ��������/������������� */
 .tb-edit-list-x, .tb-edit-list {
 	background: url(../images/toolbar_ico/edit.png);
 }
-/* ������������ */
 .tb-preview, .tb-custom-preview, .tb-ext-preview {
 	background: url(../images/toolbar_ico/preview.png);
 }
-/* �����-�������� */
 .tb-media-manager, .tb-ext-media-manager {
 	background: url(../images/toolbar_ico/manager.png);
 }
-/* ��������� */
 .tb-ext-upload {
 	background: url(../images/toolbar_ico/upload.png);
 }
-/* ������� */
 .tb-delete-list, .tb-delete-list-x, .tb-custom-delete, .tb-custom-x-delete, .tb-ext-delete {
 	background: url(../images/toolbar_ico/delete.png);
 }
-/* �������������� */
 .tb-custom-optimize {
 	background: url(../images/toolbar_ico/optimize.png);
 }
-/* ����� ���� */
 .tb-ext-chmod {
 	background: url(../images/toolbar_ico/chmod.png);
 }
@@ -773,17 +692,16 @@ a.preview{
 .tb-unarchive-list {
 	background: url(../images/toolbar_ico/unarch.png);
 }
-/*---------------------------------------------------------------������� ���� */
 .menubackgr {
 	background: url(../images/menu-bg.png)  bottom repeat-x #F1F1F1;
 }
 #myMenuID {
-	padding: 0 0 0 0;
+	padding: 0;
 }
 #myMenuID span {
 	cursor: pointer;
 	font-size: 11px;
-	margin: 2px 1px 0 1px;
+	margin: 2px 1px 0;
 	padding: 0;
 }
 .ThemeOfficeMenu, .ThemeOfficeSubMenuTable {
@@ -796,9 +714,7 @@ a.preview{
 .ThemeOfficeMenuItem .seq2, .ThemeOfficeMenuItemHover .seq1, .ThemeOfficeMenuItemActive .seq1 {
 	display: none;
 }
-/* ���� � ������������ �������� ������� ���� */
 .ThemeOfficeSubMenu {
-	border: 0;
 	border: 1px solid #CCC;
 	border-top: none !important;
 	margin: 0 1px 0 0;
@@ -818,53 +734,48 @@ a.preview{
 	cursor: pointer;
 	white-space: nowrap;
 }
-/* ������ �������� ���� */
 td.ThemeOfficeMainItem {
 	color: #000;
-	padding: 4px 0 4px 0;
+	padding: 4px 0;
 }
-/* ������� ������ � ����������� */
 .ThemeOfficeMenuItemHover, .ThemeOfficeMenuItemActive {
 	background: #E6E6E6;
 }
 .ThemeOfficeMenuItem, .ThemeOfficeMenuItem .ThemeOfficeMenuFolderText, .ThemeOfficeMenuItem .ThemeOfficeMenuItemText {
-	background-color: #F0F0F0;
+	background: #F0F0F0;
 }
-/* horizontal main menu */
 .themeofficemainitem {
 	border: 0;
-	padding: 4px 1px 4px 1px;
+	padding: 4px 1px;
 }
 td.ThemeOfficeMainItemHover, td.ThemeOfficeMainItemActive {
-	background: #E1E1E1;
-	color: #000;
-	padding: 0px;
 	background: url(../images/menu-bg-hover.png) top repeat-x;
+	color: #000;
+	padding: 0;
 }
 .ThemeOfficeMainFolderLeft, .ThemeOfficeMainItemLeft, .ThemeOfficeMainFolderText, .ThemeOfficeMainItemText, .ThemeOfficeMainFolderRight, .ThemeOfficeMainItemRight, .ThemeOfficeMenuItem .ThemeOfficeMenuFolderRight, .ThemeOfficeMenuItem .ThemeOfficeMenuItemRight {
-	background-color: inherit;
+	background: inherit;
 }
 .ThemeOfficeMenuItem .ThemeOfficeMenuFolderLeft, .ThemeOfficeMenuItem .ThemeOfficeMenuItemLeft {
-	background-color: #EFEFEF;
+	background: #EFEFEF;
 }
 .ThemeOfficeMenuSplit {
-	background-color: inherit;
 	border-top: 1px solid #C6C3BD;
 	height: 1px;
 	margin: 2px;
 	overflow: hidden;
+	background: inherit;
 }
 .ThemeOfficeMenuItem img.seq1, .ThemeOfficeMenuItemHover seq2, .ThemeOfficeMenuItemActive seq2 {
 	display: inline;
 }
-/*----------------------------------------- ������ ���������� ���� ���������� */
 #component_menu {
 	list-style: none;
-	background-color: #F1F3F5;
-	border-bottom: 1px solid #CCCCCC;
+	border-bottom: 1px solid #CCC;
 	height: 25px;
 	margin: 0;
 	padding: 0 0 0 10px;
+	background: #F1F3F5;
 }
 #component_menu li {
 	float: left;
@@ -872,7 +783,7 @@ td.ThemeOfficeMainItemHover, td.ThemeOfficeMainItemActive {
 	padding-left: 5px;
 	padding-right: 5px;
 	padding-top: 2px;
-	border-right: 2px dotted #CCCCCC;
+	border-right: 2px dotted #CCC;
 	height: 25px;
 	vertical-align: middle;
 }
@@ -881,7 +792,6 @@ td.ThemeOfficeMainItemHover, td.ThemeOfficeMainItemActive {
 	display: inline;
 	float: left;
 }
-/*----------------------------------------------------����������->������������*/
 #user_avatar {
 	text-align: center;
 }
@@ -891,16 +801,14 @@ td.ThemeOfficeMainItemHover, td.ThemeOfficeMainItemActive {
 	width: 100%;
 }
 #user_avatar img {
-	background-color: rgb(245, 245, 245);
 	border: 1px solid rgb(171, 171, 173);
 	margin: 2px;
 	padding: 2px;
+	background: rgb(245, 245, 245);
 }
-/* ��������� ����������� ������� */
 .miniavatar, table .adminform table.adminform {
 	border: none;
 }
-/*------------------------------------------�����������->��������� �����������*/
 #pack_step {
 	margin: 2px;
 	padding: 2px;
@@ -927,17 +835,14 @@ td.ThemeOfficeMainItemHover, td.ThemeOfficeMainItemActive {
 	padding: 2px 20px 2px 45px;
 	text-align: left;
 }
-/*----------------------------------------------------�����������->SQL-�������*/
 .c_sql {
-	background-color: #ccc;
 	padding: 10px;
 	text-align: left;
+	background: #ccc;
 }
-/*----------------------------------------------����������->���������/��������*/
 .content {
 	width: 98%;
 }
-/*------------------------------------------------------------------- cpanel- */
 #ico-page {
 	padding: 5px;
 }
@@ -950,8 +855,8 @@ table.cpanel td {
 	overflow: hidden;
 }
 .cpicons span {
-	margin: 4px 4px 0px 0px;
-	padding: 2px 2px 2px 2px;
+	margin: 4px 4px 0 0;
+	padding: 2px;
 	width: 160px;
 	text-align: left;
 	float: left;
@@ -962,12 +867,11 @@ table.cpanel td {
 .cpicons span a {
 	display: block;
 	padding: 8px 7px;
-	color: #333333;
+	color: #333;
 	height: 36px;
 	border: 1px solid #e6e6ff;
 	overflow: hidden;
 	vertical-align: middle;
-	/*background: url(../images/cp.png) bottom left repeat-x;*/
 	font-size: 11px;
 }
 .cpicons  span a:link, .cpicons span a:visited {
@@ -989,10 +893,10 @@ div.cpicons div {
 	border: none;
 }
 .cpicons  div div img.shortcut {
-	border: 0px;
-	background-color: inherit;
+	border: 0;
 	position: absolute;
 	top: 23px;
+	background: inherit;
 }
 #cpanel {
 	text-align: center;
@@ -1004,23 +908,21 @@ div.cpicons div {
 #cpanel div.icon a {
 	display: block;
 	float: left;
-	height: 97px !important;
 	height: 100px;
-	width: 108px !important;
 	width: 110px;
 	vertical-align: middle;
 	text-decoration: none;
 	border: 1px solid #DDD;
-	padding: 2px 5px 1px 5px;
+	padding: 2px 5px 1px;
 }
 #cpanel div.icon a:link {
 	color: #808080;
 }
 #cpanel div.icon a:hover {
 	color: #333;
-	background-color: #dedede;
 	border: 1px solid #191970;
-	padding: 2px 5px 1px 5px;
+	padding: 2px 5px 1px;
+	background: #dedede;
 }
 #cpanel div.icon a:active {
 	color: #808080;
@@ -1039,23 +941,21 @@ div.cpicons div {
 	width: 98%;
 }
 .inactive .ThemeOfficeMainItemHover, .inactive .ThemeOfficeMainItem, .inactive .ThemeOfficeMainItemActive {
-	background-image: none;
 	border: 0;
 	color: #808080;
 	padding: 0;
 	cursor: default;
+	background: none;
 }
-#status-info{
+#status-info {
 	display: none;
 }
-
-/* для jquery.textarearesizer */
 div.grippie {
-	background:#EEEEEE url( ../../../../includes/js/jquery/plugins/images/grippie.png) no-repeat scroll center 2px;
-	border-color:#DDDDDD;
-	border-style:solid;
-	border-width:0pt 1px 1px;
-	cursor:s-resize;
-	height:9px;
-	overflow:hidden;
+	background: #EEE url( ../../../../includes/js/jquery/plugins/images/grippie.png) no-repeat scroll center 2px;
+	border-color: #DDD;
+	border-style: solid;
+	border-width: 0 1px 1px;
+	cursor: s-resize;
+	height: 9px;
+	overflow: hidden;
 }

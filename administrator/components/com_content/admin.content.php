@@ -1591,7 +1591,7 @@ function _user_d() {
 	$rows = $database->loadObjectList();
 	$ret = '';
 	foreach($rows as $row) {
-		$ret .= "\n u.add($row->group_id,0,'$row->name','','','','','$cur_file_icons_path/folder_user.gif');";
+		$ret .= "\n u.add($row->group_id,0,'$row->name','','','','','$cur_file_icons_path/folder-users.png');";
 	}
 	unset($rows,$row);
 	return $ret;

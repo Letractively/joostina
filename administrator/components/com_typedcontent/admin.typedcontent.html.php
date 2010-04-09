@@ -44,7 +44,7 @@ class HTML_typedcontent {
             <th class="title"><?php echo _CAPTION?></th>
             <th width="5%"><?php echo _PUBLISHED?></th>
             <th width="2%"><?php echo _ORDERING?></th>
-            <th width="1%"><a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="<?php echo $cur_file_icons_path;?>/filesave.png" border="0" width="16" height="16" alt="<?php echo _SAVE_ORDER?>" /></a></th>
+            <th width="1%"><a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="<?php echo $cur_file_icons_path;?>/saveorder.png" border="0" width="16" height="16" alt="<?php echo _SAVE_ORDER?>" /></a></th>
             <th width="10%"><?php echo _ACCESS?></th>
             <th width="5%">ID</th>
             <th width="1%" align="left"><?php echo _LINKS_COUNT?></th>

@@ -84,9 +84,9 @@ defined('_VALID_MOS') or die();
 
     <table class="adminlisttop adminlist">
         <tr>
-            <td valign="top" class="jtd_nowrap" align="left" id="ntdree"><?php echo $lists['sectree'];?></td>
-            <td onclick="ntreetoggle();" width="1" id="tdtoogle" <?php echo $lists['sectreetoggle'];?>><img border="0" alt="<?php echo _HIDE_NAV_TREE?>" src="<?php echo $cur_file_icons_path2;?>/tgl.png" /></td>
-            <td valign="top" width="100%">
+            <td valign="top" class="jtd_nowrap" width="25%" align="left" id="ntdree"><?php echo $lists['sectree'];?></td>
+            <!--<td onclick="ntreetoggle();" width="1" id="tdtoogle" <?php echo $lists['sectreetoggle'];?>><img border="0" alt="<?php echo _HIDE_NAV_TREE?>" src="<?php echo $cur_file_icons_path2;?>/tgl.png" /></td>-->
+            <td valign="top" width="75%">
                 <table class="adminlist" width="100%">
                     <thead>
                         <tr>
@@ -98,7 +98,7 @@ defined('_VALID_MOS') or die();
                             <th class="jtd_nowrap"><?php echo _ON_FRONTPAGE?></th>
                             <th width="2%"><?php echo _ORDER_DROPDOWN?></th>
                             <th width="1%">
-                                <a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="<?php echo $cur_file_icons_path;?>/filesave.png" border="0" width="16" height="16" alt="<?php echo _SAVE_ORDER?>" /></a>
+                                <a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="<?php echo $cur_file_icons_path;?>/saveorder.png" border="0" width="16" height="16" alt="<?php echo _SAVE_ORDER?>" /></a>
                             </th>
                             <th width="10%"><?php echo _ACCESS_RIGHTS?></th>
                             <th align="center"><?php echo _TO_TRASH?></th>

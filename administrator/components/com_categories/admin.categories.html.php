@@ -78,7 +78,7 @@ class categories_html {
                         <?php } ?>
             <th width="2%"><?php echo _ORDER_DROPDOWN?></th>
             <th width="1%">
-                <a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="<?php echo $cur_file_icons_path;?>/filesave.png" border="0" width="16" height="16" alt="Сохранить порядок" /></a>
+                <a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="<?php echo $cur_file_icons_path;?>/saveorder.png" border="0" width="16" height="16" alt="Сохранить порядок" /></a>
             </th>
             <th width="8%"><?php echo _ACCESS?></th>
                     <?php if ($section == 'content') { ?>

@@ -34,7 +34,7 @@ class HTML_linkeditor {
 			<th width="60%"><?php echo _DESCRIPTION?></th>
 			<th width="30"><?php echo _KERNEL?></th>
 			<th width="30" class="jtd_nowrap"><?php echo _ORDER_DROPDOWN?></th>
-			<th width="1%"><a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="<?php echo $cur_file_icons_path;?>/filesave.png" border="0" width="16" height="16" alt="Save Order" /></a></th>
+			<th width="1%"><a href="javascript: saveorder( <?php echo count($rows) - 1; ?> )"><img src="<?php echo $cur_file_icons_path;?>/saveorder.png" border="0" width="16" height="16" alt="Save Order" /></a></th>
 		</tr>
 				<?php
 				$k = 0;
