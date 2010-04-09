@@ -29,3 +29,42 @@ $(document).ready(function() {
 	$('textarea').TextAreaResizer();
 
 });
+
+/**
+* Включение - выключение визуального редактора
+*/
+function jtoggle_editor(){
+	var jeimage = $('#jtoggle_editor');
+	jeimage.attr('src','images/aload.gif');
+
+	$.ajax({
+		url: 'ajax.index.php?option=com_admin&task=toggle_editor',
+		dataType: 'json',
+		// обрабатываем результат
+		success: function( data ){
+			jeimage.attr('src', image_path + data.image ).attr('alt', data.text );
+		}
+	});
+
+	return true;
+}
+
+// TODO переписать на Jquery
+function writeDynaList( selectParams, source, key, orig_key, orig_val ) {
+	var html = '<select ' + selectParams + '>';
+	var i = 0;
+	for (x in source) {
+		if (source[x][0] == key) {
+			var selected = '';
+			if ((orig_key == key && orig_val == source[x][1]) || (i == 0 && orig_key != key)) {
+				selected = 'selected="selected"';
+			}
+			html += '\n<option value="'+source[x][1]+'" '+selected+'>'+source[x][2]+'</option>';
+		}
+		i++;
+	}
+	html += '\n</select>';
+
+	document.writeln( html );
+}
+

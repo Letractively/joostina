@@ -443,12 +443,10 @@ function updateSitemapProperty(elm,input,id,event) {
 function optionsMenu(id) {
 	currSitemapMenu=id;
 	if (!divOptions) {
-		divOptions = $('optionsmenu');
-		divOptions.setStyle('display','');
-		divOptions.set({
-			'events':{
-				'click': closeOptionsMenu
-			}
+		divOptions = $('#optionsmenu');
+		divOptions.attr('style','display','');
+		divOptions.live('onclick', function(){
+			closeOptionsMenu();
 		});
 	}
 	if (divOptions.sitemapid && divOptions.sitemapid != id) {

@@ -11,18 +11,10 @@
 defined('_VALID_MOS') or die();
 
 if(!defined('_JOS_FULLMENU_MODULE')) {
-    /** ensure that functions are declared only once*/
     define('_JOS_FULLMENU_MODULE',1);
 
-    /**
-     * Full DHTML Admnistrator Menus
-     * @package Joostina
-     */
     class mosFullAdminMenu {
-        /**
-         * Show the menu
-         * @param string The current user type
-         */
+
         public static function show($usertype = '') {
             global $acl,$my;
             $database = database::getInstance();
@@ -277,6 +269,7 @@ _cmSplit,
                 <?php }?>
 [null,'<?php echo _MOD_FULLMENU_JOOMLA_TOOLS?>',null,null,'<?php echo _MOD_FULLMENU_JOOMLA_TOOLS?>',
             <?php if($canConfig) { ?>
+['<img src="<?php echo $cur_file_icons_path ?>finder.png" />','<?php echo _COM_FILES?>','index2.php?option=com_finder',null,'<?php echo _COM_FILES?>'],
 ['<img src="<?php echo $cur_file_icons_path ?>license.png" />','<?php echo _SQL_CONSOLE?>','index2.php?option=com_easysql',null,'<?php echo _SQL_CONSOLE?>'],
 _cmSplit,
 ['<img src="<?php echo $cur_file_icons_path ?>checkin.png" />', '<?php echo _GLOBAL_CHECKIN?>', 'index2.php?option=com_checkin', null,'<?php echo _GLOBAL_CHECKIN?>'],

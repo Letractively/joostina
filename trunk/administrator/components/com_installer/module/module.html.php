@@ -17,8 +17,6 @@ defined('_VALID_MOS') or die();
 class HTML_module {
 	function showInstalledModules(&$rows,$option,&$xmlfile,&$lists) {
 		if(count($rows)) {
-			// подключение скрипта чудесных таблиц
-			mosCommonHTML::loadPrettyTable();
 			?>
 <form action="index2.php" method="post" name="adminForm">
 	<table class="adminheading">

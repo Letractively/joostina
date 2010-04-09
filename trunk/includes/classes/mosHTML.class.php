@@ -237,7 +237,7 @@ class mosHTML {
 	}
 
 	public static function idBox($rowNum,$recId,$checkedOut = false,$name = 'cid') {
-		return $checkedOut ? '' : '<input type="checkbox" id="cb'.$rowNum.'" name="'.$name.'[]" value="'.$recId.'" onclick="isChecked(this.checked);" />';
+		return $checkedOut ? '' : '<input boxtype="idbox" type="checkbox" id="cb'.$rowNum.'" name="'.$name.'[]" value="'.$recId.'" onclick="isChecked(this.checked);" />';
 	}
 
 	public static function sortIcon($base_href,$field,$state = 'none') {

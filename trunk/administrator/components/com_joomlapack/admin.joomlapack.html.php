@@ -47,7 +47,6 @@ class jpackScreens {
 class HTML_joomlapack {
 	function showTables($option,$list,&$table_lists,$stats_list) {
 		// подключение скрипта чудесных таблиц
-		mosCommonHTML::loadPrettyTable();
 		$content = "<form action=\"index2.php?option=com_joomlapack\" method=\"post\" name=\"adminForm\" id=\"adminForm\">\n"
 				."<table class=\"adminheading\">\n"
 				."<tr>\n"

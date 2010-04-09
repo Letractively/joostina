@@ -220,14 +220,6 @@ class mosCommonHTML {
 		}
 	}
 
-	// TODO убрать к 1.3.2
-	public static function loadPrettyTable() {
-		if(!defined('_PRT_LOADED')) {
-			define('_PRT_LOADED',1);
-			mosMainFrame::getInstance()->addJS(JPATH_SITE.'/includes/js/jsfunction/jrow.js');
-		}
-	}
-
 	// TODO убрать к 1.3.5
 	public static function loadFullajax($ret = false) {
 		if(!defined('_FAX_LOADED')) {
@@ -276,11 +268,21 @@ class mosCommonHTML {
 	public static function loadJqueryUI($ret = false) {
 		if(!defined('_JQUERY_UI_LOADED')) {
 			define('_JQUERY_UI_LOADED',1);
-
 			if($ret) {
-				echo JHTML::js_file( JPATH_SITE.'/includes/js/jquery/ui.js' );
+				echo JHTML::js_file( JPATH_SITE.'/includes/js/jquery/ui/jquery-ui.js' );
 			}else {
-				mosMainFrame::getInstance()->addCSS(JPATH_SITE.'/includes/js/jquery/ui.js');
+				mosMainFrame::getInstance()->addCSS(JPATH_SITE.'/includes/js/jquery/ui/jquery-ui.js');
+			}
+		}
+	}
+
+	public static function loadJqueryUICSS($ret = false, $theme='ui-lightness') {
+		if(!defined('_JQUERY_UICSS_LOADED')) {
+			define('_JQUERY_UICSS_LOADED',1);
+			if($ret) {
+				echo JHTML::css_file( JPATH_SITE.'/includes/js/jquery/ui/css/'.$theme.'/jquery-ui.css' );
+			}else {
+				mosMainFrame::getInstance()->addCSS(JPATH_SITE.'/includes/js/jquery/ui/css/'.$theme.'/jquery-ui.css');
 			}
 		}
 	}

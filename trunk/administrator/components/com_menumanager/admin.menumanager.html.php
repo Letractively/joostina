@@ -234,6 +234,7 @@ class HTML_menumanager {
 		$mainframe = mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 		?>
+
 <form action="index2.php" method="post" name="adminForm">
 	<table class="adminheading">
 		<tr>
@@ -290,7 +291,7 @@ class HTML_menumanager {
 						<?php echo _THIS_OP_REMOVES_MENU?>
 				<br /><br /><br />
 				<div style="border: 1px dotted gray; width: 70px; padding: 10px; margin-left: 100px;">
-					<a class="toolbar" href="javascript:if (confirm('<?php echo _REALLY_DELETE_MENU?>')){ submitbutton('deletemenu');}" onmouseout="MM_swapImgRestore();"  onmouseover="MM_swapImage('remove','','<?php echo $cur_file_icons_path;?>/delete.png',1);">
+					<a class="toolbar" href="javascript:if (confirm('<?php echo _REALLY_DELETE_MENU?>')){ submitbutton('deletemenu');}">
 						<img name="remove" src="<?php echo $cur_file_icons_path;?>/delete.png" alt="<?php echo _DELETE?>" border="0" align="middle" />
 						&nbsp;<?php echo _DELETE?>
 					</a>
