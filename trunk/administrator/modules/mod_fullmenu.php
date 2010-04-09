@@ -267,10 +267,9 @@ _cmSplit,
                     <?php } ?>
 ],
                 <?php }?>
-[null,'<?php echo _MOD_FULLMENU_JOOMLA_TOOLS?>',null,null,'<?php echo _MOD_FULLMENU_JOOMLA_TOOLS?>',
+[null,'<?php echo _MOD_FULLMENU_TOOLS?>',null,null,'<?php echo _MOD_FULLMENU_TOOLS?>',
             <?php if($canConfig) { ?>
 ['<img src="<?php echo $cur_file_icons_path ?>finder.png" />','<?php echo _COM_FILES?>','index2.php?option=com_finder',null,'<?php echo _COM_FILES?>'],
-['<img src="<?php echo $cur_file_icons_path ?>license.png" />','<?php echo _SQL_CONSOLE?>','index2.php?option=com_easysql',null,'<?php echo _SQL_CONSOLE?>'],
 _cmSplit,
 ['<img src="<?php echo $cur_file_icons_path ?>checkin.png" />', '<?php echo _GLOBAL_CHECKIN?>', 'index2.php?option=com_checkin', null,'<?php echo _GLOBAL_CHECKIN?>'],
 ['<img src="<?php echo $cur_file_icons_path ?>checkin.png" />', '<?php echo _BLOCKED_OBJECTS?>', 'index2.php?option=com_checkin&task=mycheckin', null,'<?php echo _BLOCKED_OBJECTS?>'],
@@ -329,10 +328,8 @@ cmDraw ('myMenuID', myMenu, 'hbr', cmThemeOffice, 'ThemeOffice');
     var myMenu =
         [
         [null,'<?php echo _SITE; ?>',null,null,'<?php echo $text; ?>'],
-        _cmSplit,
         [null,'<?php echo _USERS?>',null,null,'<?php echo _USERS?>'],
         [null,'<?php echo _MENU; ?>',null,null,'<?php echo $text; ?>'],
-        _cmSplit,
             <?php
             /* Content Sub-Menu*/
             ?>
@@ -342,7 +339,6 @@ cmDraw ('myMenuID', myMenu, 'hbr', cmThemeOffice, 'ThemeOffice');
             /* Components Sub-Menu*/
             if ( $installComponents | $editAllComponents) {
                 ?>
-                        _cmSplit,
                         [null,'<?php echo _COMPONENTS; ?>',null,null,'<?php echo $text; ?>'
                         ],
                 <?php
@@ -353,7 +349,6 @@ cmDraw ('myMenuID', myMenu, 'hbr', cmThemeOffice, 'ThemeOffice');
             /* Modules Sub-Menu*/
             if($installModules | $editAllModules) {
                 ?>
-                        _cmSplit,
                         [null,'<?php echo _MODULES; ?>',null,null,'<?php echo $text; ?>'
                         ],
                 <?php
@@ -361,22 +356,19 @@ cmDraw ('myMenuID', myMenu, 'hbr', cmThemeOffice, 'ThemeOffice');
             /* Mambots Sub-Menu*/
             if($installMambots | $editAllMambots) {
                 ?>
-                        _cmSplit,
                         [null,'<?php echo _MAMBOTS; ?>',null,null,'<?php echo $text; ?>'],
                 <?php
             } // if ( $installMambots | $editAllMambots)
             /* Installer Sub-Menu*/
             if($installModules) {
                 ?>
-                        _cmSplit,
-                        [null,'<?php echo _EXTENSIONS; ?>',null,null,'<?php echo $text; ?>'
-                        ],
+                        [null,'<?php echo _EXTENSIONS; ?>',null,null,'<?php echo $text; ?>'],
                 <?php
             } // if ( $installModules)
             /* System Sub-Menu*/
             if($canConfig) {
                 ?>
-                        _cmSplit,[null,'<?php echo _MOD_FULLMENU_JOOMLA_TOOLS; ?>',null,null,'<?php echo $text; ?>'],
+                        _cmSplit,[null,'<?php echo _MOD_FULLMENU_TOOLS; ?>',null,null,'<?php echo $text; ?>'],
                 <?php
             }
             ?>

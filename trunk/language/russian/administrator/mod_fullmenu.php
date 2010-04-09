@@ -39,7 +39,7 @@ DEFINE('_MOD_FULLMENU_COMPONENTS_INSTALL_UNINSTALL','Управление ком
 DEFINE('_MOD_FULLMENU_MODULES_SETUP','Управление модулями');
 DEFINE('_MOD_FULLMENU_SITE_MAMBOTS','Мамботы сайта');
 DEFINE('_MOD_FULLMENU_MAMBOTS_INSTALL_UNINSTALL','Управление мамботами');
-DEFINE('_MOD_FULLMENU_JOOMLA_TOOLS','Инструменты');
+DEFINE('_MOD_FULLMENU_TOOLS','Инструменты');
 DEFINE('_PRIVATE_MESSAGES_CONFIG','Настройки сообщений');
 DEFINE('_MOD_FULLMENU_FILE_MANAGER','Менеджер файлов');
 DEFINE('_MOD_FULLMENU_BACKUP_CONFIG','Настройки сохранения данных');

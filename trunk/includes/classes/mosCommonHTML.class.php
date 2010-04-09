@@ -17,14 +17,14 @@ class mosCommonHTML {
 		?>
 <table cellspacing="0" cellpadding="4" border="0" align="center">
 	<tr align="center">
-		<td><img src="<?php echo $cur_file_icons_path;?>/publish_y.png" alt="<?php echo _PUBLISHED_VUT_NOT_ACTIVE?>" border="0" /></td>
-		<td><?php echo _PUBLISHED_VUT_NOT_ACTIVE?> |</td>
 		<td><img src="<?php echo $cur_file_icons_path;?>/publish_g.png" alt="<?php echo _PUBLISHED_AND_ACTIVE?>" border="0" /></td>
 		<td><?php echo _PUBLISHED_AND_ACTIVE?> |</td>
-		<td><img src="<?php echo $cur_file_icons_path;?>/publish_r.png" alt="<?php echo _PUBLISHED_BUT_DATE_EXPIRED?>" border="0" /></td>
-		<td><?php echo _PUBLISHED_BUT_DATE_EXPIRED?> |</td>
 		<td><img src="<?php echo $cur_file_icons_path;?>/publish_x.png" alt="<?php echo _UNPUBLISHED?>" border="0" /></td>
 		<td><?php echo _UNPUBLISHED?></td>
+		<td><img src="<?php echo $cur_file_icons_path;?>/publish_r.png" alt="<?php echo _PUBLISHED_BUT_DATE_EXPIRED?>" border="0" /></td>
+		<td><?php echo _PUBLISHED_BUT_DATE_EXPIRED?> |</td>
+		<td><img src="<?php echo $cur_file_icons_path;?>/publish_y.png" alt="<?php echo _PUBLISHED_VUT_NOT_ACTIVE?>" border="0" /></td>
+		<td><?php echo _PUBLISHED_VUT_NOT_ACTIVE?> |</td>
 	</tr>
 </table>
 		<?php

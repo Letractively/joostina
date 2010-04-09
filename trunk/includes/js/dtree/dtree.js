@@ -51,8 +51,8 @@ function dTree(objName,basePath) {
 	}
 	this.icon = {
 		root		: basePath+'empty.gif',
-		folder		: basePath+'folder.gif',
-		folderOpen	: basePath+'folderopen.gif',
+		folder		: basePath+'folder.png',
+		folderOpen	: basePath+'folder-open.png',
 		//node		: basePath+'empty.gif',
 		empty		: basePath+'empty.gif',
 		line		: basePath+'line.gif',

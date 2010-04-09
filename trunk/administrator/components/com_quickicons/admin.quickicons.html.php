@@ -45,7 +45,7 @@ class HTML_QuickIcons {
 			<th width="7%" colspan="2" class="jtd_nowrap"><?php echo _ORDERING?></th>
 			<th width="2%"><?php echo _SORT_ORDER ?></th>
 			<th width="1%">
-				<a href="javascript:saveorder(<?php echo count($rows) - 1; ?>)" title="<?php echo _SAVE_ORDER?>"><img src="<?php echo $cur_file_icons_path;?>/filesave.png" border="0" width="16" height="16" alt="<?php echo _SAVE_ORDER?>" /></a>
+				<a href="javascript:saveorder(<?php echo count($rows) - 1; ?>)" title="<?php echo _SAVE_ORDER?>"><img src="<?php echo $cur_file_icons_path;?>/saveorder.png" border="0" width="16" height="16" alt="<?php echo _SAVE_ORDER?>" /></a>
 			</th>
 		</tr>
 				<?php
