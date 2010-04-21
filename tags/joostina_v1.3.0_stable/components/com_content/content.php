@@ -12,6 +12,7 @@ defined('_VALID_MOS') or die();
 
 require_once ($mainframe->getPath('front_html', 'com_content'));
 include_once ($mainframe->getLangFile('com_content'));
+require_once ($mainframe->getPath('class'));
 
 global $task, $Itemid, $option, $my;
 
