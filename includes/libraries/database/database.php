@@ -20,37 +20,37 @@ class database {
     private static $_instance;
     /**
      @var string Internal variable to hold the query sql*/
-    protected $_sql;
+    public $_sql;
     /**
      @var int Internal variable to hold the database error number*/
-    protected $_errorNum = 0;
+    public $_errorNum = 0;
     /**
      @var string Internal variable to hold the database error message*/
-    protected $_errorMsg;
+    public $_errorMsg;
     /**
      @var string Internal variable to hold the prefix used on all database tables*/
-    protected $_table_prefi;
+    public $_table_prefi;
     /**
      @var Internal variable to hold the connector resource*/
-    protected $_resource;
+    public $_resource;
     /**
      @var Internal variable to hold the last query cursor*/
-    protected $_cursor;
+    public $_cursor;
     /**
      @var boolean Debug option*/
-    protected $_debug;
+    public $_debug;
     /**
      @var int The limit for the query*/
-    protected $_limit;
+    public $_limit;
     /**
      @var int The for offset for the limit*/
-    protected $_offset;
+    public $_offset;
     /**
      @var string The null/zero date string*/
-    protected $_nullDate = '0000-00-00 00:00:00';
+    public $_nullDate = '0000-00-00 00:00:00';
     /**
      @var string Quote for named objects*/
-    protected $_nameQuote = '`';
+    public $_nameQuote = '`';
 
     /**
      /**

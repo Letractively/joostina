@@ -22,6 +22,9 @@ DEFINE('_CURRENT_SERVER_TIME',date('Y-m-d H:i',time()));
 // схемы не http/https протоколов
 DEFINE('_URL_SCHEMES','data:, file:, ftp:, gopher:, imap:, ldap:, mailto:, news:, nntp:, telnet:, javascript:, irc:, mms:');
 
+//path to admin folder (experiment)
+DEFINE("ADMINISTRATOR_DIRECTORY",'administrator');
+
 // языковые константы
 DEFINE('_ISO2','utf-8');
 DEFINE('_ISO','charset=UTF-8');
@@ -80,45 +83,45 @@ class mosMainFrame {
 	var $_db = null;
 	/**
 	 @var object An object of configuration variables*/
-	private $_config = null;
+	public $_config = null;
 	public $config = null;
 
 	/**
 	 @var object An object of path variables*/
-	private $_path = null;
+	public $_path = null;
 	/**
 	 @var mosSession The current session*/
-	private $_session = null;
+	public $_session = null;
 	/**
 	 @var string The current template*/
-	private $_template = null;
+	public $_template = null;
 	/**
 	 @var array An array to hold global user state within a session*/
-	private $_userstate = null;
+	public $_userstate = null;
 	/**
 	 @var array An array of page meta information*/
-	private $_head = null;
+	public $_head = null;
 	/**
 	 @var string Custom html string to append to the pathway*/
-	private $_custom_pathway = null;
+	public $_custom_pathway = null;
 	/**
 	 @var boolean True if in the admin client*/
-	private $_isAdmin = false;
+	public $_isAdmin = false;
 	/**
 	 * флаг визуального редактора
 	 */
 	public $allow_wysiwyg = 0;
 	/**
 	 @var массив данных выводящися в нижней части страницы */
-	protected $_footer = null;
+	public $_footer = null;
 	/**
 	 * системное сообщение
 	 */
-	protected $mosmsg = '';
+	public $mosmsg = '';
 	/**
 	 * текущий язык
 	 */
-	private $lang = null;
+	public $lang = null;
 
 
 	/**
