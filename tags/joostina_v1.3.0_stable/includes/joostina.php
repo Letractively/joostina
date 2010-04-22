@@ -11,14 +11,14 @@
 defined('_VALID_MOS') or die();
 
 //Europe/Moscow // GMT0
-date_default_timezone_set( date_default_timezone_get() );
+function_exists('date_default_timezone_set') ? date_default_timezone_set( date_default_timezone_get()) : null;
 
 // каталог администратора
 DEFINE('JADMIN_BASE','administrator');
 // формат даты
 DEFINE('_CURRENT_SERVER_TIME_FORMAT','%Y-%m-%d %H:%M:%S');
 // текущее время сервера
-DEFINE('_CURRENT_SERVER_TIME',date('Y-m-d H:i',time()));
+DEFINE('_CURRENT_SERVER_TIME',date('Y-m-d H:i:s',time()));
 // схемы не http/https протоколов
 DEFINE('_URL_SCHEMES','data:, file:, ftp:, gopher:, imap:, ldap:, mailto:, news:, nntp:, telnet:, javascript:, irc:, mms:');
 
@@ -2732,7 +2732,7 @@ class mosModule extends mosDBTable {
         function initModules() {
             global $my,$Itemid;
 
-            $cache = &mosCache::getCache('init_modules');
+            $cache = mosCache::getCache('init_modules');
             $this->_all_modules = $cache->call('mosModule::_initModules', $Itemid,$my->gid);
             require_once (JPATH_BASE.'/includes/frontend.html.php');
             $this->_view = new modules_html($this->_mainframe);
@@ -2927,57 +2927,51 @@ class mosModule extends mosDBTable {
 	}
 }
 
-/**
- * Class to support function caching
- * @package Joostina
- */
-class mosCache {
-	/**
-	 * @return object A function cache object
-	 */
-	function &getCache($group = 'default', $handler = 'callback', $storage = null,$cachetime = null, $object = null) {
-		static $config;
 
-		if(!is_array($config)) {
-			$config_ = &Jconfig::getInstance();
-			$config['config_caching'] = $config_->config_caching;
-			$config['config_cachetime'] = $config_->config_cachetime;
-			$config['config_cache_handler'] = $config_->config_cache_handler;
-			$config['config_cachepath'] = $config_->config_cachepath;
-			$config['config_lang'] = $config_->config_lang;
-			unset($config_);
+class mosCache {
+	private static $_instance;
+
+	public static function getCache($group = 'default', $handler = 'callback', $storage = null,$cachetime = null, $object = null) {
+
+		if( self::$_instance===null ) {
+			$config = Jconfig::getInstance();
+
+			self::$_instance = array();
+			self::$_instance['config_caching'] = $config->config_caching;
+			self::$_instance['config_cachetime'] = $config->config_cachetime;
+			self::$_instance['config_cache_handler'] = $config->config_cache_handler;
+			self::$_instance['config_cachepath'] = $config->config_cachepath;
+			self::$_instance['config_lang'] = $config->config_lang;
 			// подключаем библиотеку кэширования
 			mosMainFrame::addLib('cache');
 		}
 
 		$handler = ($handler == 'function') ? 'callback' : $handler;
 
-		$def_cachetime = (isset($cachetime)) ? $cachetime : $config['config_cachetime'];
+		$def_cachetime = (isset($cachetime)) ? $cachetime : self::$_instance['config_cachetime'];
 
 		if(!isset($storage)) {
-			$storage =($config['config_cache_handler'] != '')? $config['config_cache_handler'] : 'file';
+			$storage =(self::$_instance['config_cache_handler'] != '')? self::$_instance['config_cache_handler'] : 'file';
 		}
 
 		$options = array(
 				'defaultgroup' 	=> $group,
-				'cachebase' 	=> $config['config_cachepath'].DS,
+				'cachebase' 	=> self::$_instance['config_cachepath'].DS,
 				'lifetime' 		=> $def_cachetime,
-				'language' 		=> $config['config_lang'],
+				'language' 		=> self::$_instance['config_lang'],
 				'storage'		=> $storage
 		);
 
-		$cache =&JCache::getInstance( $handler, $options, $object );
+		$cache = JCache::getInstance( $handler, $options, $object );
 
 		if($cache != NULL) {
-			$cache->setCaching($config['config_caching']);
+			$cache->setCaching(self::$_instance['config_caching']);
 		}
 		return $cache;
 	}
-	/**
-	 * Cleans the cache
-	 */
-	function cleanCache($group = false) {
-		$cache = &mosCache::getCache($group);
+
+	public static function cleanCache($group = false) {
+		$cache = mosCache::getCache($group);
 		if($cache != NULL) {
 			$cache->clean($group);
 		}
