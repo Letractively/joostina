@@ -4560,9 +4560,9 @@ class mosMambotHandler {
 				if(function_exists($func[0])) {
 					if($doUnpublished) {
 						$args[0] = $this->_bots[$func[1]]->published;
-						return call_user_func_array($func[0], array(&$args) );
+						$result[] = call_user_func_array($func[0], $args);
 					} elseif($this->_bots[$func[1]]->published) {
-						$result[] = call_user_func_array($func[0],$args);
+						$result[] = call_user_func_array($func[0], $args);
 					}
 				}
 			}
@@ -4599,7 +4599,7 @@ class mosMambotHandler {
 				if($this->_bots[$func[1]]->element == $element && function_exists($func[0])) {
 					$this->_mambot_params[$element] = $this->_bots[$func[1]]->params;
 					if($this->_bots[$func[1]]->published) {
-						return call_user_func($func[0],$args);
+						return call_user_func_array($func[0], array(&$args) );
 					}
 				}
 			}
