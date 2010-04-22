@@ -14,7 +14,7 @@ $_MAMBOTS->registerFunction('userProfile','botUserContent');
 $_MAMBOTS->registerFunction('userProfileTab','botUserContent_tab');
 
 /* добавляем вкладку профиля */
-function botUserContent_tab(&$user) {
+function botUserContent_tab($user) {
 	return array(
 			'name'=>_USER_CONTENTS,
 			'title'=>_USER_CONTENTS,
@@ -29,9 +29,9 @@ function botUserContent_tab(&$user) {
 function botUserContent(&$user) {
 	global $_MAMBOTS,$Itemid;
 
-	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
-	$config = &$mainframe->config;
+	$mainframe = mosMainFrame::getInstance();
+	$database = $mainframe->getDBO();
+	$config = $mainframe->config;
 
 	require_once ($mainframe->getPath('class','com_content'));
 	require_once (JPATH_BASE.'/components/com_content/content.html.php');

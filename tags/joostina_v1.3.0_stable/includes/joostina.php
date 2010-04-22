@@ -11,7 +11,7 @@
 defined('_VALID_MOS') or die();
 
 //Europe/Moscow // GMT0
-date_default_timezone_set('Boston');
+date_default_timezone_set( date_default_timezone_get() );
 
 // каталог администратора
 DEFINE('JADMIN_BASE','administrator');
@@ -4566,7 +4566,7 @@ class mosMambotHandler {
 				if(function_exists($func[0])) {
 					if($doUnpublished) {
 						$args[0] = $this->_bots[$func[1]]->published;
-						$result[] = call_user_func_array($func[0],$args);
+						return call_user_func_array($func[0], array(&$args) );
 					} elseif($this->_bots[$func[1]]->published) {
 						$result[] = call_user_func_array($func[0],$args);
 					}
@@ -4589,7 +4589,7 @@ class mosMambotHandler {
 			foreach($this->_events[$event] as $func) {
 				if(function_exists($func[0])) {
 					if($this->_bots[$func[1]]->published) {
-						return call_user_func_array($func[0],$args);
+						return call_user_func_array($func[0], array(&$args) );
 					}
 				}
 			}

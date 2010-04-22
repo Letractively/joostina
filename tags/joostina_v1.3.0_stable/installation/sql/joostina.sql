@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `#__banners` (
 CREATE TABLE IF NOT EXISTS `#__banners_categories` (
   `id` int(11) NOT NULL auto_increment,
   `name` varchar(255) NOT NULL default '',
-  `description` text NOT NULL,
+  `description` text,
   `published` tinyint(1) NOT NULL default '0',
   `checked_out` int(11) unsigned NOT NULL default '0',
   `checked_out_time` datetime NOT NULL default '0000-00-00 00:00:00',
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `#__banners_clients` (
   `name` varchar(60) NOT NULL default '',
   `contact` varchar(60) NOT NULL default '',
   `email` varchar(60) NOT NULL default '',
-  `extrainfo` text NOT NULL,
+  `extrainfo` text,
   `published` tinyint(1) NOT NULL default '0',
   `checked_out` int(11) unsigned NOT NULL default '0',
   `checked_out_time` datetime NOT NULL default '0000-00-00 00:00:00',
@@ -86,7 +86,7 @@ CREATE TABLE `#__categories` (
   `image` varchar(100) NOT NULL default '',
   `section` varchar(50) NOT NULL default '',
   `image_position` varchar(10) NOT NULL default '',
-  `description` text NOT NULL,
+  `description` text,
   `published` tinyint(1) NOT NULL default '0',
   `checked_out` int(11) unsigned NOT NULL default '0',
   `checked_out_time` datetime NOT NULL default '0000-00-00 00:00:00',
@@ -94,7 +94,7 @@ CREATE TABLE `#__categories` (
   `ordering` int(11) NOT NULL default '0',
   `access` tinyint(3) unsigned NOT NULL default '0',
   `count` int(11) NOT NULL default '0',
-  `params` text NOT NULL,
+  `params` text,
   PRIMARY KEY  (`id`),
   KEY `cat_idx` (`section`,`published`,`access`),
   KEY `idx_access` (`access`),
@@ -117,7 +117,7 @@ CREATE TABLE `#__components` (
   `ordering` int(11) NOT NULL default '0',
   `admin_menu_img` varchar(255) NOT NULL default '',
   `iscore` tinyint(4) NOT NULL default '0',
-  `params` text NOT NULL,
+  `params` text,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
 
@@ -175,7 +175,7 @@ CREATE TABLE `#__contact_details` (
   `checked_out` int(11) unsigned NOT NULL default '0',
   `checked_out_time` datetime NOT NULL default '0000-00-00 00:00:00',
   `ordering` int(11) NOT NULL default '0',
-  `params` text NOT NULL,
+  `params` text,
   `user_id` int(11) NOT NULL default '0',
   `catid` int(11) NOT NULL default '0',
   `access` tinyint(3) unsigned NOT NULL default '0',
@@ -190,8 +190,8 @@ CREATE TABLE `#__content` (
   `id` int(11) unsigned NOT NULL auto_increment,
   `title` varchar(255) NOT NULL default '',
   `title_alias` varchar(255) NOT NULL default '',
-  `introtext` mediumtext NOT NULL,
-  `fulltext` mediumtext NOT NULL,
+  `introtext` mediumtext,
+  `fulltext` mediumtext,
   `state` tinyint(3) NOT NULL default '0',
   `sectionid` int(11) unsigned NOT NULL default '0',
   `mask` int(11) unsigned NOT NULL default '0',
@@ -205,17 +205,17 @@ CREATE TABLE `#__content` (
   `checked_out_time` datetime NOT NULL default '0000-00-00 00:00:00',
   `publish_up` datetime NOT NULL default '0000-00-00 00:00:00',
   `publish_down` datetime NOT NULL default '0000-00-00 00:00:00',
-  `images` text NOT NULL,
-  `urls` text NOT NULL,
-  `attribs` text NOT NULL,
+  `images` text,
+  `urls` text,
+  `attribs` text,
   `version` int(11) unsigned NOT NULL default '1',
   `parentid` int(11) unsigned NOT NULL default '0',
   `ordering` int(11) NOT NULL default '0',
-  `metakey` text NOT NULL,
-  `metadesc` text NOT NULL,
+  `metakey` text,
+  `metadesc` text,
   `access` int(11) unsigned NOT NULL default '0',
   `hits` int(11) unsigned NOT NULL default '0',
-  `notetext` text NOT NULL,
+  `notetext` text,
   PRIMARY KEY  (`id`),
   KEY `idx_section` (`sectionid`),
   KEY `idx_access` (`access`),
@@ -307,7 +307,7 @@ CREATE TABLE `#__mambots` (
   `client_id` tinyint(3) NOT NULL default '0',
   `checked_out` int(11) unsigned NOT NULL default '0',
   `checked_out_time` datetime NOT NULL default '0000-00-00 00:00:00',
-  `params` text NOT NULL,
+  `params` text,
   PRIMARY KEY (`id`),
   KEY `idx_folder` (`published`,`client_id`,`access`,`folder`)
 ) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
@@ -361,7 +361,7 @@ CREATE TABLE `#__menu` (
   `browserNav` tinyint(4) default '0',
   `access` tinyint(3) unsigned NOT NULL default '0',
   `utaccess` tinyint(3) unsigned NOT NULL default '0',
-  `params` text NOT NULL,
+  `params` text,
   PRIMARY KEY  (`id`),
   KEY `componentid` (`componentid`,`menutype`,`published`,`access`),
   KEY `menutype` (`menutype`)
@@ -383,7 +383,7 @@ CREATE TABLE `#__messages` (
   `state` int(11) NOT NULL default '0',
   `priority` int(1) unsigned NOT NULL default '0',
   `subject` varchar(230) NOT NULL default '',
-  `message` text NOT NULL,
+  `message` text,
   PRIMARY KEY  (`message_id`)
 ) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
 
@@ -404,8 +404,8 @@ CREATE TABLE `#__messages_cfg` (
 
 CREATE TABLE `#__modules` (
   `id` int(11) NOT NULL auto_increment,
-  `title` text NOT NULL,
-  `content` text NOT NULL,
+  `title` text,
+  `content` text,
   `ordering` int(11) NOT NULL default '0',
   `position` varchar(10) default NULL,
   `checked_out` int(11) unsigned NOT NULL default '0',
@@ -415,7 +415,7 @@ CREATE TABLE `#__modules` (
   `numnews` int(11) NOT NULL default '0',
   `access` tinyint(3) unsigned NOT NULL default '0',
   `showtitle` tinyint(3) unsigned NOT NULL default '1',
-  `params` text NOT NULL,
+  `params` text,
   `iscore` tinyint(4) NOT NULL default '0',
   `client_id` tinyint(4) NOT NULL default '0',
 #  `assign_to_url` blob not null,
@@ -515,8 +515,8 @@ INSERT INTO `#__modules_menu` VALUES (39, 1);
 CREATE TABLE `#__newsfeeds` (
   `catid` int(11) NOT NULL default '0',
   `id` int(11) NOT NULL auto_increment,
-  `name` text NOT NULL,
-  `link` text NOT NULL,
+  `name` text,
+  `link` text,
   `filename` varchar(200) default NULL,
   `published` tinyint(1) NOT NULL default '0',
   `numarticles` int(11) unsigned NOT NULL default '1',
@@ -536,7 +536,7 @@ CREATE TABLE `#__newsfeeds` (
 CREATE TABLE `#__poll_data` (
   `id` int(11) NOT NULL auto_increment,
   `pollid` int(4) NOT NULL default '0',
-  `text` text NOT NULL,
+  `text` text,
   `hits` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `pollid` (`pollid`,`text`(1))
@@ -592,14 +592,14 @@ CREATE TABLE `#__sections` (
   `image` varchar(100) NOT NULL default '',
   `scope` varchar(50) NOT NULL default '',
   `image_position` varchar(10) NOT NULL default '',
-  `description` text NOT NULL,
+  `description` text,
   `published` tinyint(1) NOT NULL default '0',
   `checked_out` int(11) unsigned NOT NULL default '0',
   `checked_out_time` datetime NOT NULL default '0000-00-00 00:00:00',
   `ordering` int(11) NOT NULL default '0',
   `access` tinyint(3) unsigned NOT NULL default '0',
   `count` int(11) NOT NULL default '0',
-  `params` text NOT NULL,
+  `params` text,
   PRIMARY KEY  (`id`),
   KEY `idx_scope` (`scope`)
 ) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
@@ -712,7 +712,7 @@ CREATE TABLE `#__users` (
   `registerDate` datetime NOT NULL default '0000-00-00 00:00:00',
   `lastvisitDate` datetime NOT NULL default '0000-00-00 00:00:00',
   `activation` varchar(100) NOT NULL default '',
-  `params` text NOT NULL,
+  `params` text,
   `bad_auth_count` int(2) default '0',
   `avatar` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`id`),
@@ -766,7 +766,7 @@ CREATE TABLE `#__weblinks` (
   `ordering` int(11) NOT NULL default '0',
   `archived` tinyint(1) NOT NULL default '0',
   `approved` tinyint(1) NOT NULL default '1',
-  `params` text NOT NULL,
+  `params` text,
   PRIMARY KEY  (`id`),
   KEY `catid` (`catid`,`published`,`archived`)
 ) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
@@ -891,7 +891,7 @@ CREATE TABLE `#__jce_plugins` (
   `client_id` tinyint(3) NOT NULL default '0',
   `checked_out` int(11) unsigned NOT NULL default '0',
   `checked_out_time` datetime NOT NULL default '0000-00-00 00:00:00',
-  `params` text NOT NULL,
+  `params` text,
 PRIMARY KEY  (`id`),
  UNIQUE KEY `plugin` (`plugin`) )
 ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
@@ -1038,7 +1038,7 @@ CREATE TABLE IF NOT EXISTS `#__config` (
   `group` varchar(255) NOT NULL,
   `subgroup` varchar(255) NOT NULL,
   `name` varchar(50) NOT NULL,
-  `value` text NOT NULL,
+  `value` text,
   PRIMARY KEY  (`id`),
   KEY `name` (`name`)
 ) ENGINE=MYISAM  CHARACTER SET utf8 COLLATE utf8_general_ci;
@@ -1048,7 +1048,7 @@ CREATE TABLE IF NOT EXISTS `#__config` (
 CREATE TABLE IF NOT EXISTS `#__users_extra` (
   `user_id` int(11) NOT NULL,
   `gender` varchar(10) NOT NULL,
-  `about` tinytext NOT NULL,
+  `about` tinytext,
   `location` varchar(255) NOT NULL,
   `url` varchar(255) NOT NULL,
   `icq` varchar(255) NOT NULL,
@@ -1074,8 +1074,8 @@ CREATE TABLE `#__content_tags` (
 ) ENGINE=MYISAM  CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 # новые поля в таблицах
-ALTER TABLE `#__sections` ADD `templates` TEXT NOT NULL ;
-ALTER TABLE `#__categories` ADD `templates` TEXT NOT NULL ;
+ALTER TABLE `#__sections` ADD `templates` text ;
+ALTER TABLE `#__categories` ADD `templates` text ;
 ALTER TABLE `#__content` ADD `templates` VARCHAR( 255 ) NOT NULL ;
 # RC3
 ALTER TABLE `#__content_tags` ADD INDEX ( `obj_type` );
@@ -1086,3 +1086,8 @@ ALTER TABLE `#__session` DROP PRIMARY KEY, ADD PRIMARY KEY ( `session_id` ( 64 )
 ALTER TABLE `#__banners_categories` ADD INDEX ( `published` );
 ALTER TABLE `#__banners_clients` ADD INDEX ( `published` );
 ALTER TABLE `#__banners` ADD INDEX `ibx_select` (`state` ,`last_show` ,`msec` ,`publish_up_date` ,`publish_up_time` ,`publish_down_date` ,`publish_down_time` ,`reccurtype` ,`reccurweekdays` ( 2 ) ,`access`);
+# 1.3.0.1
+ALTER TABLE `#__content_frontpage` ADD INDEX ( `ordering` );
+ALTER TABLE `#__sections` ADD INDEX ( `access` );
+ALTER TABLE `#__sections` ADD INDEX ( `published` );
+ALTER TABLE `#__content` ADD INDEX ( `hits` );
