@@ -404,21 +404,14 @@ class database {
 		return $array;
 	}
 	
-	public function loadAssocList($key = '') {
+	public function loadAssocRow() {
 		if (!($cur = $this->query())) {
 			return null;
 		}
-		$array = array();
-		while ($row = mysql_fetch_assoc($cur)) {
-			if ($key) {
-				$array[$row[$key]] = $row;
-			} else {
-				$array[] = $row;
-			}
-		}
+		$row = mysql_fetch_assoc($cur);
 		mysql_free_result($cur);
 
-		return $array;
+		return $row;
 	}
 
 	/**
