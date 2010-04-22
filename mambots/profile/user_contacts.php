@@ -14,7 +14,7 @@ $_MAMBOTS->registerFunction('userProfile','botUserContacts');
 $_MAMBOTS->registerFunction('userProfileTab','botUserContacts_tab');
 
 /* добавляем вкладку профиля */
-function botUserContacts_tab(&$user) {
+function botUserContacts_tab($user) {
 	return array(
 			'name'=>_USER_CONTACTS,
 			'title'=>_USER_CONTACTS,
@@ -36,7 +36,7 @@ function botUserContacts($user) {
 
 /** Функция - оболочка вывода */
 function UserContacts_output($user) {
-	$mainframe = &mosMainFrame::getInstance();
+	$mainframe = mosMainFrame::getInstance();
 	$ajax_handler = 'ajax.index.php?option=com_users&task=request_from_plugin&plugin=user_contacts';
 	?><!-- Всплывающее окно с формой отправки сообщения-->
 <script type="text/javascript">

@@ -261,7 +261,7 @@ class mosInstallerComponent extends mosInstaller {
 		$db_iscore = 0;
 		$db_params = '';
 
-		$query = "INSERT INTO #__components VALUES( '', ".$database->Quote($db_name).", ".$database->Quote($db_link).", ".(int)$db_menuid.", ".(int)$db_parent.", ".$database->Quote($db_admin_menu_link).", ".$database->Quote($db_admin_menu_alt).", ".$database->Quote($db_option).", ".(int)$db_ordering.", ".$database->Quote($db_admin_menu_img).", ".(int)$db_iscore.", '' )";
+		$query = "INSERT INTO #__components VALUES( null, ".$database->Quote($db_name).", ".$database->Quote($db_link).", ".(int)$db_menuid.", ".(int)$db_parent.", ".$database->Quote($db_admin_menu_link).", ".$database->Quote($db_admin_menu_alt).", ".$database->Quote($db_option).", ".(int)$db_ordering.", ".$database->Quote($db_admin_menu_img).", ".(int)$db_iscore.", '' )";
 		$database->setQuery($query);
 		if(!$database->query()) {
 			$this->setError(1,$database->stderr(true));

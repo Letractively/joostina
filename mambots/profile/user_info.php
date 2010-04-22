@@ -14,7 +14,7 @@ $_MAMBOTS->registerFunction('userProfile','botUserInfo');
 $_MAMBOTS->registerFunction('userProfileTab','botUserInfo_tab');
 
 /* добавляем вкладку профиля */
-function botUserInfo_tab(&$user) {
+function botUserInfo_tab($user) {
 	return array(
 			'name'=>_USER_PERSONAL_DATA,
 			'title'=>_USER_PERSONAL_DATA,
@@ -29,7 +29,7 @@ function botUserInfo_tab(&$user) {
 function botUserInfo(&$user) {
 	global $_MAMBOTS;
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 	$params = new mosParameters($_MAMBOTS->_mambot_params['user_info']);
 
 	?><div id="userInfo_area">
