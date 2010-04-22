@@ -1098,8 +1098,9 @@ function showFullItem($id,$gid=0) {
 	if($config->config_enable_stats) {
 		$r =_showFullItem($id);
 	} elseif($config->config_caching==1) {
+		$limitstart = intval(mosGetParam($_REQUEST, 'limitstart', 0));
 		$cache = &mosCache::getCache('com_content');
-		$r = $cache->call('_showFullItem', $id,$gid);
+		$r = $cache->call('_showFullItem', $id,$gid,$limitstart);
 	}else {
 		$r =_showFullItem($id);
 	}
@@ -1114,8 +1115,8 @@ function showFullItem($id,$gid=0) {
 function _showFullItem($id) {
 	global $my;
 
-	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
+	$mainframe = mosMainFrame::getInstance();
+	$database = $mainframe->getDBO();
 
 	$pop = intval(mosGetParam($_REQUEST, 'pop', 0));
 	$task = strval(mosGetParam($_REQUEST, 'task', ''));
