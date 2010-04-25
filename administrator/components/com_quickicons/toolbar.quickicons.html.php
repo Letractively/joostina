@@ -6,42 +6,35 @@
 * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
 * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
 */
-
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
-
-/**
-* @package Custom QuickIcons
-*/
+/** @package Custom QuickIcons*/
 class QI_Toolbar {
-
-	function _edit() {
-		mosMenuBar::startTable();
-		mosMenuBar::save('save');
-		mosMenuBar::spacer();
-		mosMenuBar::apply('apply');
-		mosMenuBar::spacer();
-		mosMenuBar::cancel('');
-		mosMenuBar::endTable();
-	}
-
-	function _show() {
-		mosMenuBar::startTable();
-		mosMenuBar::publishList('publish');
-		mosMenuBar::spacer();
-		mosMenuBar::unpublishList('unpublish');
-		mosMenuBar::spacer();
-		mosMenuBar::addNew('new');
-		mosMenuBar::spacer();
-		mosMenuBar::editListX('editA');
-		mosMenuBar::spacer();
-		mosMenuBar::deleteList('','delete');
-		mosMenuBar::endTable();
-	}
-
-	function _chooseIcon() {
-		mosMenuBar::startTable();
-		mosMenuBar::endTable();
-	}
+function _edit() {
+mosMenuBar::startTable();
+mosMenuBar::save('save');
+mosMenuBar::spacer();
+mosMenuBar::apply('apply');
+mosMenuBar::spacer();
+mosMenuBar::cancel('');
+mosMenuBar::endTable();
+}
+function _show() {
+mosMenuBar::startTable();
+mosMenuBar::publishList('publish');
+mosMenuBar::spacer();
+mosMenuBar::unpublishList('unpublish');
+mosMenuBar::spacer();
+mosMenuBar::addNew('new');
+mosMenuBar::spacer();
+mosMenuBar::editListX('editA');
+mosMenuBar::spacer();
+mosMenuBar::deleteList('','delete');
+mosMenuBar::endTable();
+}
+function _chooseIcon() {
+mosMenuBar::startTable();
+mosMenuBar::endTable();
+}
 }
 ?>

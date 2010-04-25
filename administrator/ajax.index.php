@@ -48,8 +48,8 @@ header("Content-type: text/html; "._ISO);
 header ("Cache-Control: no-cache, must-revalidate ");
 }
 // проверяем, какой файл необходимо подключить, данные берутся из пришедшего GET запроса
-if(file_exists($mosConfig_absolute_path . "/".ADMINISTRATOR_DIRECTORY."/components/$option/admin.$commponent.ajax.php")) {
-include_once ($mosConfig_absolute_path . "/".ADMINISTRATOR_DIRECTORY."/components/$option/admin.$commponent.ajax.php");
+if(file_exists($mosConfig_absolute_path."/".ADMINISTRATOR_DIRECTORY."/components/$option/admin.$commponent.ajax.php")) {
+include_once ($mosConfig_absolute_path."/".ADMINISTRATOR_DIRECTORY."/components/$option/admin.$commponent.ajax.php");
 } else {
 die('error-inc-component');
 }

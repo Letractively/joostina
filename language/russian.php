@@ -1655,6 +1655,7 @@ DEFINE('_MENU_MASS_ADD','Добавить еще');
 
 /* administrator components com_poll */
 /*doctorgrif: дополнил языковые переменные, вынес в файл расширения*/
+DEFINE('_POLL','Опрос');
 DEFINE('_POLLS','Опросы');
 DEFINE('_POLL_HEADER','Заголовок опроса');
 DEFINE('_POLL_LAG','Задержка');

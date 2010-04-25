@@ -6,56 +6,51 @@
 * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
 * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
 */
-
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
-
 /**
 * @package Joostina
 * @subpackage Newsfeeds
 */
 class TOOLBAR_newsfeeds {
-	function _DEFAULT() {
-		mosMenuBar::startTable();
-		mosMenuBar::publishList();
-		mosMenuBar::spacer();
-		mosMenuBar::unpublishList();
-		mosMenuBar::spacer();
-		mosMenuBar::deleteList();
-		mosMenuBar::spacer();
-		mosMenuBar::editListX();
-		mosMenuBar::spacer();
-		mosMenuBar::addNewX();
-		mosMenuBar::spacer();
-		mosMenuBar::help('screen.newsfeeds');
-		mosMenuBar::endTable();
-	}
-
-	function _NEW() {
-		mosMenuBar::startTable();
-		mosMenuBar::save();
-		mosMenuBar::spacer();
-		mosMenuBar::cancel();
-		mosMenuBar::spacer();
-		mosMenuBar::help('screen.newsfeeds.edit');
-		mosMenuBar::endTable();
-	}
-
-	function _EDIT() {
-		global $id;
-
-		mosMenuBar::startTable();
-		mosMenuBar::save();
-		mosMenuBar::spacer();
-		if($id) {
-			// for existing content items the button is renamed `close`
-			mosMenuBar::cancel('cancel',_CLOSE);
-		} else {
-			mosMenuBar::cancel();
-		}
-		mosMenuBar::spacer();
-		mosMenuBar::help('screen.newsfeeds.edit');
-		mosMenuBar::endTable();
-	}
+function _DEFAULT() {
+mosMenuBar::startTable();
+mosMenuBar::publishList();
+mosMenuBar::spacer();
+mosMenuBar::unpublishList();
+mosMenuBar::spacer();
+mosMenuBar::deleteList();
+mosMenuBar::spacer();
+mosMenuBar::editListX();
+mosMenuBar::spacer();
+mosMenuBar::addNewX();
+mosMenuBar::spacer();
+mosMenuBar::help('screen.newsfeeds');
+mosMenuBar::endTable();
+}
+function _NEW() {
+mosMenuBar::startTable();
+mosMenuBar::save();
+mosMenuBar::spacer();
+mosMenuBar::cancel();
+mosMenuBar::spacer();
+mosMenuBar::help('screen.newsfeeds.edit');
+mosMenuBar::endTable();
+}
+function _EDIT() {
+global $id;
+mosMenuBar::startTable();
+mosMenuBar::save();
+mosMenuBar::spacer();
+if($id) {
+// for existing content items the button is renamed `close`
+mosMenuBar::cancel('cancel',_CLOSE);
+} else {
+mosMenuBar::cancel();
+}
+mosMenuBar::spacer();
+mosMenuBar::help('screen.newsfeeds.edit');
+mosMenuBar::endTable();
+}
 }
 ?>

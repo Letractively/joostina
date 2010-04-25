@@ -165,10 +165,10 @@ echo '</tr>';
 echo '</table>';
 }
 function mosShowSource($filename,$withLineNums = false) {
-ini_set('highlight.html','#000000');
+ini_set('highlight.html','#000');
 ini_set('highlight.default','#800000');
-ini_set('highlight.keyword','#0000ff');
-ini_set('highlight.string','#ff00ff');
+ini_set('highlight.keyword','#00f');
+ini_set('highlight.string','#f0f');
 ini_set('highlight.comment','#008000');
 if(!($source = @highlight_file($filename,true))) {
 return 'Операция невозможна';
@@ -179,7 +179,7 @@ $txt = '';
 foreach($source as $line) {
 $txt .= "<code>";
 if($withLineNums) {
-$txt .= "<font color=\"#aaaaaa\">";
+$txt .= "<font color=\"#aaa\">";
 $txt .= str_replace(' ','&nbsp;',sprintf("%4d:",$ln));
 $txt .= "</font>";
 }
@@ -256,7 +256,6 @@ if(isset($origmask)) {
 }
 return $ret;
 }
-
 function mosMainBody_Admin() {
 echo $GLOBALS['_MOS_OPTION']['buffer'];
 }

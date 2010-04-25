@@ -1,6 +1,3 @@
-/* doctorgrif:заменил sitemap на xmap - 
- * нормализация соответствия содержимого в административной части расширения и данных css на выходе в сгенерированном браузером коде, внес padding-left для img
- * 2 boston - коля, может избавить xmap от загрузки css, вынеся его в основной стилевой файл?*/
 .xmap .contentpaneopen{padding:10px 0 10px 10px;}
 .xmap ul{display:block;list-style:none;margin:0;padding:0;}
 .xmap ul li{margin:0;padding:0;white-space:nowrap;background:transparent;}

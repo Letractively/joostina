@@ -23,8 +23,8 @@ $http_host = explode(':',$_SERVER['HTTP_HOST']);
 if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset($http_host[1]) && $http_host[1] == 443) && substr($mosConfig_live_site,0,8) !='https://') {
 $mosConfig_live_site = 'https://'.substr($mosConfig_live_site,7);
 }
-require_once ($mosConfig_absolute_path .'/includes/joomla.php');
-include_once ($mosConfig_absolute_path .'/language/'.$mosConfig_lang.'.php');
+require_once ($mosConfig_absolute_path.'/includes/joomla.php');
+include_once ($mosConfig_absolute_path.'/language/'.$mosConfig_lang.'.php');
 require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/includes/admin.php');
 global $database;
 // работа с сессиями начинается до создания главного объекта взаимодействия с ядром
@@ -55,7 +55,7 @@ if($path = $mainframe->getPath('admin')) {
 require_once ($path);
 } else {
 ?>
-<img src="images/error.png" border="0" alt="Joostina!" />
+<img src="images/error.png" alt="Joostina!" />
 <?php
 }
 $_MOS_OPTION['buffer'] = ob_get_contents();

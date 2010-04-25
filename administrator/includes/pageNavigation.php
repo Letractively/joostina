@@ -134,7 +134,7 @@ return $i + 1 + $this->limitstart;
 */
 function orderUpIcon($i,$condition = true,$task = 'orderup',$alt ='Передвинуть выше') {
 if(($i > 0 || ($i + $this->limitstart > 0)) && $condition) {
-return '<a href="#reorder" onClick="return listItemTask(\'cb'.$i.'\',\''.$task.'\')" title="'.$alt.'"><img src="images/uparrow.png" width="12" height="12" border="0" alt="'.$alt.'" /></a>';
+return '<a href="#reorder" onClick="return listItemTask(\'cb'.$i.'\',\''.$task.'\')" title="'.$alt.'"><img src="images/uparrow.png" width="12" height="12" alt="'.$alt.'" /></a>';
 } else {
 return '&nbsp;';
 }
@@ -148,7 +148,7 @@ return '&nbsp;';
 */
 function orderDownIcon($i,$n,$condition = true,$task = 'orderdown',$alt ='Передвинуть ниже') {
 if(($i < $n - 1 || $i + $this->limitstart < $this->total - 1) && $condition) {
-return '<a href="#reorder" onClick="return listItemTask(\'cb'.$i.'\',\''.$task.'\')" title="'.$alt.'"><img src="images/downarrow.png" width="12" height="12" border="0" alt="'.$alt.'" /></a>';
+return '<a href="#reorder" onClick="return listItemTask(\'cb'.$i.'\',\''.$task.'\')" title="'.$alt.'"><img src="images/downarrow.png" width="12" height="12" alt="'.$alt.'" /></a>';
 } else {
 return '&nbsp;';
 }
@@ -174,7 +174,7 @@ $show = true;
 ;
 if($show) {
 $output = '<a href="#ordering" onClick="listItemTask(\'cb'.$id.'\',\'orderup\')" title="'._NAV_ORDER_UP.'">';
-$output .= '<img src="images/'.$img.'" width="12" height="12" border="0" alt="'._NAV_ORDER_UP.'" title="'._NAV_ORDER_UP.'" /></a>';
+$output .= '<img src="images/'.$img.'" width="12" height="12" alt="'._NAV_ORDER_UP.'" title="'._NAV_ORDER_UP.'" /></a>';
 return $output;
 } else {
 return '&nbsp;';
@@ -203,7 +203,7 @@ $show = true;
 ;
 if($show) {
 $output = '<a href="#ordering" onClick="listItemTask(\'cb'.$id.'\',\'orderdown\')" title="'._NAV_ORDER_DOWN.'">';
-$output .= '<img src="images/'.$img.'" width="12" height="12" border="0" alt="'._NAV_ORDER_DOWN.'" title="'._NAV_ORDER_DOWN.'" /></a>';
+$output .= '<img src="images/'.$img.'" width="12" height="12" alt="'._NAV_ORDER_DOWN.'" title="'._NAV_ORDER_DOWN.'" /></a>';
 return $output;
 } else {
 return '&nbsp;';

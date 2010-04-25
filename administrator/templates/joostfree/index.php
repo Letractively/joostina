@@ -25,10 +25,10 @@ mosCommonHTML::loadFullajax();
 * $mainframe->addCSS(полный_путь_к_файлу) - добавление css файла
 * $mainframe->addJS(полный_путь_к_файлу) - добавление java-script файла
 **/
-if($mosConfig_gz_js_css) { // работа со сжатыми css и js файлами
+if($mosConfig_gz_js_css) {// работа со сжатыми css и js файлами
 $mainframe->addCSS($mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/templates/joostfree/css/joostfree_css.php');
 $mainframe->addJS($mosConfig_live_site.'/includes/js/joostina.admin.php');
-} else { // использовать стандартные - не сжатые файлы
+} else {// использовать стандартные - не сжатые файлы
 $mainframe->addCSS($mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/templates/joostfree/css/template_css.css');
 $mainframe->addJS($mosConfig_live_site.'/includes/js/joomla.javascript.full.js');
 };
@@ -42,7 +42,7 @@ $head[] = $html;
 }
 echo implode("\n",$head)."\n";
 };
-// отправим пользователю шапку - пусть браузер работает пока будет формироваться дальнейший код страницы
+//отправим пользователю шапку - пусть браузер работает пока будет формироваться дальнейший код страницы
 flush();
 ?>
 <link rel="shortcut icon" href="<?php echo $mosConfig_live_site; ?>/images/favicon.ico" />
@@ -50,15 +50,17 @@ flush();
 <body>
 <div class="page">
 <div id="topper">
-<div id="wrapper"><div id="joo"><a href="index2.php" title="<?php echo _GO_TO_MAIN_ADMIN_PAGE?>"><img border="0" alt="<?php echo _GO_TO_MAIN_ADMIN_PAGE?>" src="templates/joostfree/images/logo.png" /></a></div></div>
+<div id="wrapper">
+<div id="joo"><a href="index2.php" title="<?php echo _GO_TO_MAIN_ADMIN_PAGE?>"><img alt="<?php echo _GO_TO_MAIN_ADMIN_PAGE?>" src="templates/joostfree/images/logo.png" /></a></div>
+</div>
 <div id="ajax_status"><?php echo _PLEASE_WAIT?></div>
 <table width="100%" class="menubar" cellpadding="0" cellspacing="0" border="0">
 <tr class="menubackgr">
-<td style="padding-left:7px;width:25px;"><a href="<?php echo $mosConfig_live_site; ?>/<?php echo ADMINISTRATOR_DIRECTORY?>/index2.php" title="<?php echo _GO_TO_MAIN_ADMIN_PAGE?>"><img border="0" alt="J!" src="templates/joostfree/images/m-logo.png" /></a></td>
+<td style="padding-left:7px;width:25px;"><a href="<?php echo $mosConfig_live_site; ?>/<?php echo ADMINISTRATOR_DIRECTORY?>/index2.php" title="<?php echo _GO_TO_MAIN_ADMIN_PAGE?>"><img alt="J!" src="templates/joostfree/images/m-logo.png" /></a></td>
 <td width="85%" align="left"><?php mosLoadAdminModule('fullmenu'); ?></td>
 <td align="right" class="header_info"><?php mosLoadAdminModules('header',-2); ?></td>
-<td align="right"><input type="image" name="jtoggle_editor" id="jtoggle_editor" title="<?php echo _TOGGLE_WYSIWYG_EDITOR?>" onclick="jtoggle_editor();" src="images/<?php echo (intval(mosGetParam($_SESSION,'user_editor_off',''))) ? 'editor_off.png':'editor_on.png'?>" alt="<?php echo _DISABLE_WYSIWYG_EDITOR?>" /></td>
-<td align="right"><a href="<?php echo $mosConfig_live_site; ?>/" target="_blank" title="<?php echo _PREVIEW_SITE?>"><img src="../includes/js/ThemeOffice/preview.png" border="0" alt="<?php echo _PREVIEW_SITE?>"/></a></td>
+<td align="right"><input type="image" name="jtoggle_editor" id="jtoggle_editor" title="<?php echo _TOGGLE_WYSIWYG_EDITOR?>" onclick="jtoggle_editor();" src="images/<?php echo (intval(mosGetParam($_SESSION,'user_editor_off',''))) ? 'editor_off.png':'editor_on.png'?>" alt="<?php echo _DISABLE_WYSIWYG_EDITOR?>" />&nbsp;</td>
+<td align="right"><a href="<?php echo $mosConfig_live_site; ?>/" target="_blank" title="<?php echo _PREVIEW_SITE?>"><img src="../includes/js/ThemeOffice/preview.png" alt="<?php echo _PREVIEW_SITE?>"/></a>&nbsp;</td>
 <td align="right" class="jtd_nowrap"><a href="index2.php?option=logout" class="logoff">Выход <?php echo $my->username; ?></a>&nbsp;</td>
 </tr>
 </table>

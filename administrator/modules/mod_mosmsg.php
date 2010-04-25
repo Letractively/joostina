@@ -8,17 +8,12 @@
 */
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
-
 $mosmsg = strval((stripslashes(htmlspecialchars(mosGetParam($_REQUEST,'mosmsg','')))));
-
 if($mosmsg) {
-
-	//200 chars max
-	if(strlen($mosmsg) > 200) {
-		
-		$mosmsg = substr($mosmsg,0,200);
-	}
-	
-	echo "<div id=\"message\" class=\"message\">{$mosmsg}</div>";
+//200 chars max
+if(strlen($mosmsg) > 200) {
+$mosmsg = substr($mosmsg,0,200);
+}
+echo "<div id=\"message\" class=\"message\">{$mosmsg}</div>";
 }
 ?>
