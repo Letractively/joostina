@@ -16,7 +16,7 @@ $title = $row->title ? $row->title : $row->text;
 <span>
 <a href="<?php echo htmlentities($row->target); ?>" title="<?php echo $title; ?>"<?php echo $newWindow; ?>>
 <?php
-$icon = '<img src="'.$mosConfig_live_site.$row->icon.'" alt="'.$title.'" border="0" />';
+$icon = '<img src="'.$mosConfig_live_site.$row->icon.'" alt="'.$title.'" />';
 if($row->display == 1) { ?>
 <p><?php echo $row->text; ?></p>
 <?php
@@ -51,9 +51,9 @@ $securitycheck = intval($params->get('securitycheck',1));
 if(!empty($securitycheck)) {
 josSecurityCheck('88%');
 } ?>
-<div style="display: block; clear: both; text-align:left; padding-top:10px;">
+<div style="display:block;clear:both;text-align:left;padding-top:10px;">
 <?php if($my->usertype == 'Super Administrator') { ?>
-<a href="index2.php?option=com_quickicons"><img border="0" src="<?php echo $mosConfig_live_site; ?>/<?php echo ADMINISTRATOR_DIRECTORY?>/templates/joostfree/images/shortcut.png" /><?php echo _CHANGE_QUICK_BUTTONS?></a>
+<a href="index2.php?option=com_quickicons"><img src="<?php echo $mosConfig_live_site; ?>/<?php echo ADMINISTRATOR_DIRECTORY?>/templates/joostfree/images/shortcut.png" /><?php echo _CHANGE_QUICK_BUTTONS?></a>
 <?php
 }
 ?>

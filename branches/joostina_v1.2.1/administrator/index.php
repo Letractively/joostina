@@ -195,7 +195,7 @@ mosErrorAlert(_BAD_USERNAME_OR_PASSWORD2,"document.location.href='index.php?mosm
 }
 } else {
 initGzip();
-$path = $mosConfig_absolute_path . '/'.ADMINISTRATOR_DIRECTORY.'/templates/' . $mainframe->getTemplate() . '/login.php';
+$path = $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/templates/'.$mainframe->getTemplate().'/login.php';
 require_once ($path);
 doGzip();
 }

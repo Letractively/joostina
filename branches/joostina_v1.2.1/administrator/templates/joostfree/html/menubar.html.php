@@ -39,8 +39,7 @@ $href = "javascript:if (document.adminForm.boxchecked.value == 0){ alert('"._PLE
 $href = "javascript:submitbutton('$task')";
 }
 ?>
-<li><a class="tb-custom<?php echo $icon; ?>" href="<?php echo $href; ?>"><span><?php echo
-$alt; ?></span></a></li>
+<li><a class="tb-custom<?php echo $icon; ?>" href="<?php echo $href; ?>"><span><?php echo $alt; ?></span></a></li>
 <?php
 }
 /**
@@ -59,8 +58,7 @@ $href = "javascript:if (document.adminForm.boxchecked.value == 0){ alert('"._PLE
 $href = "javascript:hideMainMenu();submitbutton('$task')";
 }
 ?>
-<li><a class="tb-custom-x<?php echo $class; ?>" href="<?php echo $href; ?>"><span><?php echo
-$alt; ?></span></a></li>
+<li><a class="tb-custom-x<?php echo $class; ?>" href="<?php echo $href; ?>"><span><?php echo $alt; ?></span></a></li>
 <?php
 }
 /**
@@ -70,8 +68,7 @@ $alt; ?></span></a></li>
 */
 function addNew($task = 'new',$alt = _CMN_NEW) {
 ?>
-<li><a class="tb-add-new" href="javascript:submitbutton('<?php echo $task; ?>');"><span><?php echo
-$alt; ?></span></a></li>
+<li><a class="tb-add-new" href="javascript:submitbutton('<?php echo $task; ?>');"><span><?php echo $alt; ?></span></a></li>
 <?php
 }
 /**
@@ -82,8 +79,7 @@ $alt; ?></span></a></li>
 */
 function addNewX($task = 'new',$alt = _CMN_NEW) {
 ?>
-<li><a class="tb-add-new-x" href="javascript:hideMainMenu();submitbutton('<?php echo
-$task; ?>');"><span><?php echo $alt; ?></span></a></li>
+<li><a class="tb-add-new-x" href="javascript:hideMainMenu();submitbutton('<?php echo $task; ?>');"><span><?php echo $alt; ?></span></a></li>
 <?php
 }
 /**
@@ -93,8 +89,7 @@ $task; ?>');"><span><?php echo $alt; ?></span></a></li>
 */
 function publish($task = 'publish',$alt = _CMN_SHOW) {
 ?>
-<li><a class="tb-publish" href="javascript:submitbutton('<?php echo $task; ?>');"><span><?php echo
-$alt; ?></span></a></li>
+<li><a class="tb-publish" href="javascript:submitbutton('<?php echo $task; ?>');"><span><?php echo $alt; ?></span></a></li>
 <?php
 }
 /**
@@ -104,8 +99,7 @@ $alt; ?></span></a></li>
 */
 function publishList($task = 'publish',$alt = _CMN_SHOW) {
 ?>
-<li><a class="tb-publish-list" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('<?php echo _PLEASE_CHOOSE_ELEMENT_FOR_PUBLICATION?>'); } else {submitbutton('<?php echo
-$task; ?>', '');}"><span><?php echo $alt; ?></span></a></li>
+<li><a class="tb-publish-list" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('<?php echo _PLEASE_CHOOSE_ELEMENT_FOR_PUBLICATION?>'); } else {submitbutton('<?php echo $task; ?>', '');}"><span><?php echo $alt; ?></span></a></li>
 <?php
 }
 /**
@@ -115,8 +109,7 @@ $task; ?>', '');}"><span><?php echo $alt; ?></span></a></li>
 */
 function makeDefault($task = 'default',$alt = _DEFAULT) {
 ?>
-<li><a class="tb-makedefault" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('<?php echo _PLEASE_CHOOSE_ELEMENT_TO_MAKE_DEFAULT?>'); } else {submitbutton('<?php echo
-$task; ?>', '');}"><span><?php echo $alt; ?></span></a></li>
+<li><a class="tb-makedefault" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('<?php echo _PLEASE_CHOOSE_ELEMENT_TO_MAKE_DEFAULT?>'); } else {submitbutton('<?php echo $task; ?>', '');}"><span><?php echo $alt; ?></span></a></li>
 <?php
 }
 /**
@@ -126,8 +119,7 @@ $task; ?>', '');}"><span><?php echo $alt; ?></span></a></li>
 */
 function assign($task = 'assign',$alt = _ASSIGN) {
 ?>
-<li><a class="tb-assign" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('<?php echo _PLEASE_CHOOSE_ELEMENT_TO_ASSIGN?>'); } else {submitbutton('<?php echo
-$task; ?>', '');}"><span><?php echo $alt; ?></span></a></li>
+<li><a class="tb-assign" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('<?php echo _PLEASE_CHOOSE_ELEMENT_TO_ASSIGN?>'); } else {submitbutton('<?php echo $task; ?>', '');}"><span><?php echo $alt; ?></span></a></li>
 <?php
 }
 /**
@@ -137,8 +129,7 @@ $task; ?>', '');}"><span><?php echo $alt; ?></span></a></li>
 */
 function unpublish($task = 'unpublish',$alt = _CMN_HIDE) {
 ?>
-<li><a class="tb-unpublish" href="javascript:submitbutton('<?php echo $task; ?>');"><span><?php echo
-$alt; ?></span></a></li>
+<li><a class="tb-unpublish" href="javascript:submitbutton('<?php echo $task; ?>');"><span><?php echo $alt; ?></span></a></li>
 <?php
 }
 /**
@@ -148,8 +139,7 @@ $alt; ?></span></a></li>
 */
 function unpublishList($task = 'unpublish',$alt = _CMN_HIDE) {
 ?>
-<li><a class="tb-unpublish-list" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('<?php echo _PLEASE_CHOOSE_ELEMENT_TO_UNPUBLISH?>'); } else {submitbutton('<?php echo
-$task; ?>', '');}"><span><?php echo $alt; ?></span></a></li>
+<li><a class="tb-unpublish-list" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('<?php echo _PLEASE_CHOOSE_ELEMENT_TO_UNPUBLISH?>'); } else {submitbutton('<?php echo $task; ?>', '');}"><span><?php echo $alt; ?></span></a></li>
 <?php
 }
 /**
@@ -277,19 +267,9 @@ $js = "javascript:submitbutton('$task');";
 function preview() {
 global $mosConfig_live_site,$task;
 ?>
-<li><script language="javascript" type="text/javascript">
-<!--
-function popup() {
-document.adminForm.target='_blank';
-var action=document.adminForm.action;
-document.adminForm.action='<?php echo $mosConfig_live_site; ?>/<?php echo ADMINISTRATOR_DIRECTORY?>/popups/contentwindow.php';
-submitbutton('<?php echo $task; ?>');
-document.adminForm.target='_self';
-document.adminForm.action=action;
-return false;
-}
-//-->
-</script>
+<li><script language="javascript" type="text/javascript"><!--
+function popup() {document.adminForm.target='_blank';var action=document.adminForm.action;document.adminForm.action='<?php echo $mosConfig_live_site; ?>/<?php echo ADMINISTRATOR_DIRECTORY?>/popups/contentwindow.php';submitbutton('<?php echo $task; ?>');document.adminForm.target='_self';document.adminForm.action=action;return false;}
+//--></script>
 <a class="tb-preview" href="#" onclick="popup();"><span><?php echo _PREVIEW?></span></a></li>
 <?php
 }
@@ -317,8 +297,7 @@ $url .= $ref;
 if($helpUrl) {
 // Online help site as defined in GC
 $ref .= $GLOBALS['_VERSION']->getHelpVersion();
-$url = $helpUrl.'/index2.php?option=com_content&amp;task=findkey&amp;pop=1&amp;keyref='.
-urlencode($ref);
+$url = $helpUrl.'/index2.php?option=com_content&amp;task=findkey&amp;pop=1&amp;keyref='.urlencode($ref);
 } else {
 // Included html help files
 $url = $mosConfig_live_site.'/help/';
@@ -375,10 +354,7 @@ function cancel($task = 'cancel',$alt = _CMN_CANCEL) {
 <li><a class="tb-cancel" href="javascript:submitbutton('<?php echo $task; ?>');"><span><?php echo $alt; ?></span></a></li>
 <?php
 }
-/**
-* Writes a cancel button that will go back to the previous page without doing
-* any other operation
-*/
+/** Writes a cancel button that will go back to the previous page without doing any other operation */
 function back($alt = _MENU_BACK,$href = '') {
 if($href) {
 $link = $href;

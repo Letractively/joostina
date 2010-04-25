@@ -234,8 +234,7 @@ class HTML_content {
 		<?php echo $pageNav->getListFooter(); ?>
 		<?php mosCommonHTML::ContentLegend(); ?>
 		<input type="hidden" name="option" value="com_content" />
-		<!--<input type="hidden" name="sectionid" value="<?php echo $section->id; ?>" />-->
-		<input type="hidden" name="catid" value="<?php echo $section->id; ?>" />
+		<input type="hidden" name="sectionid" value="<?php echo $section->id; ?>" />
 		<input type="hidden" name="task" value="" />
 		<input type="hidden" name="boxchecked" value="0" />
 		<input type="hidden" name="hidemainmenu" value="0" />

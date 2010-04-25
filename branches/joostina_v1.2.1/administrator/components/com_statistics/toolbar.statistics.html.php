@@ -6,19 +6,17 @@
 * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
 * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
 */
-
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
-
 /**
 * @package Joostina
 * @subpackage Statistics
 */
 class TOOLBAR_statistics {
-	function _SEARCHES() {
-		mosMenuBar::startTable();
-		mosMenuBar::help('screen.stats.searches');
-		mosMenuBar::endTable();
-	}
+function _SEARCHES() {
+mosMenuBar::startTable();
+mosMenuBar::help('screen.stats.searches');
+mosMenuBar::endTable();
+}
 }
 ?>

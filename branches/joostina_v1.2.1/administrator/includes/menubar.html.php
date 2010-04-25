@@ -61,7 +61,6 @@ $href = "javascript:hideMainMenu();submitbutton('$task')";
 <li><a class="tb-custom-x<?php echo $class; ?>" href="<?php echo $href; ?>"><span><?php echo $alt; ?></span></a></li>
 <?php
 }
-
 /**
 * Writes the common 'new' icon for the button bar
 * @param string An override for the task
@@ -74,7 +73,6 @@ function addNew($task = 'new',$alt = _CMN_NEW) {
 $alt; ?></span></a></li>
 <?php
 }
-
 /**
 * Writes the common 'new' icon for the button bar.
 * Extended version of addNew() calling hideMainMenu() before submitbutton().

@@ -22,8 +22,8 @@ $http_host = explode(':',$_SERVER['HTTP_HOST']);
 if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset($http_host[1]) && $http_host[1] == 443) && substr($mosConfig_live_site,0,8) !='https://') {
 $mosConfig_live_site = 'https://' . substr($mosConfig_live_site,7);
 }
-require_once ($mosConfig_absolute_path . '/includes/joomla.php');
-include_once ($mosConfig_absolute_path . '/language/' . $mosConfig_lang . '.php');
+require_once ($mosConfig_absolute_path.'/includes/joomla.php');
+include_once ($mosConfig_absolute_path.'/language/'.$mosConfig_lang.'.php');
 require_once ($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/includes/admin.php');
 // must start the session before we create the mainframe object
 session_name(md5($mosConfig_live_site));
@@ -62,7 +62,7 @@ initGzip();
 <meta http-equiv="Content-Type" content="text/html; <?php echo _ISO; ?>" />
 <?php
 $mainframe->set('loadEditor',true);
-include_once ($mosConfig_absolute_path .'/editor/editor.php');
+include_once ($mosConfig_absolute_path.'/editor/editor.php');
 initEditor();
 ?>
 </head>
@@ -74,7 +74,6 @@ $mosmsg = addslashes($mosmsg);
 }
 echo "\n<script language=\"javascript\" type=\"text/javascript\">alert('$mosmsg');</script>";
 }
-
 // Show list of items to edit or delete or create new
 if($path = $mainframe->getPath('admin')) {
 require $path;

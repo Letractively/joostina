@@ -1,5 +1,6 @@
 html{height:100%;margin-bottom:0px;}
-body{margin:0px 0px 0px 0px;height:100%;font-size:12px;}
+body{margin:0px;height:100%;font-size:12px;}
+img{border:none;}
 #ntree{text-align:left;}
 #Init{text-align:left;}
 #pack_step{margin:2px;padding:2px;text-align:left;}
