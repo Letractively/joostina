@@ -17,16 +17,15 @@ switch($task) {
 	case 'edit':
 		$cid = mosGetParam($_POST,'cid',0);
 		if(!is_array($cid)) {
-			$mid = intval(mosGetParam($_POST,'id',0));
+			$mid = mosGetParam($_POST,'id',0);
 		} else {
 			$mid = $cid[0];
 		}
 
 		$published = 0;
 		if($mid) {
-			$query = "SELECT published"."\n FROM #__modules"."\n WHERE id = ".(int)$mid;
-			$database->setQuery($query);
-			$published = $database->loadResult();
+			$query = "SELECT published FROM #__modules WHERE id = ".(int)$mid;
+			$published = $database->setQuery($query)->loadResult();
 		}
 		$cur_template = JTEMPLATE;
 		TOOLBAR_modules::_EDIT($cur_template,$published);

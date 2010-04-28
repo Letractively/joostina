@@ -41,8 +41,7 @@ $database = database::getInstance();
 $database->debug( JDEBUG );
 
 $query = "SELECT* FROM #__modules WHERE title = ".$database->Quote($title);
-$database->setQuery($query);
-$database->loadObject($row);
+$database->setQuery($query)->loadObject($row);
 
 $pat = "src=images";
 $replace = "src=../../images";
@@ -66,7 +65,7 @@ echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>';
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<title><?php echo _MODULE_PREVIEW?></title>
-		<link rel="stylesheet" href="../../templates/<?php echo $css; ?>/css/template_css.css" type="text/css">
+		<link rel="stylesheet" href="../../templates/<?php echo $css; ?>/css/template_css.css" type="text/css" />
 			<script>
 				var content = window.opener.document.adminForm.content.value;
 				var title = window.opener.document.adminForm.title.value;
@@ -85,7 +84,7 @@ echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>';
 	</head>
 
 	<body style="background-color:#FFFFFF">
-		<table align="center" width="160" cellspacing="2" cellpadding="2" border="0" height="100%">
+		<table align="center" width="100%" cellspacing="2" cellpadding="2" border="0" height="100%">
 			<tr>
 				<td class="moduleheading"><script>document.write(title);</script></td>
 			</tr>

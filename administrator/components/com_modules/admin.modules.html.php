@@ -104,9 +104,9 @@ class HTML_modules {
 					$link		= 'index2.php?option=com_modules&client='.$client.'&task=editA&hidemainmenu=1&id='.$row->id;
 					$access		= mosCommonHTML::AccessProcessing($row,$i,1);
 					$checked	= mosCommonHTML::CheckedOutProcessing($row,$i);
-                    $title = $row->published ?  _PUBLISHED : _UNPUBLISHED;
-                    $img = $row->published ? 'publish_g.png' : 'publish_x.png';
-                    $img = $cur_file_icons_path.'/'.$img;
+					$title = $row->published ?  _PUBLISHED : _UNPUBLISHED;
+					$img = $row->published ? 'publish_g.png' : 'publish_x.png';
+					$img = $cur_file_icons_path.'/'.$img;
 					?>
 		<tr class="<?php echo "row$k"; ?>" id="tr-el-<?php echo $row->id;?>">
 			<td align="right"><?php echo $pageNav->rowNumber($i); ?></td>
@@ -190,20 +190,16 @@ class HTML_modules {
 	 * @param array An array of select lists
 	 * @param object Parameters
 	 */
-	function editModule(&$row,&$orders2,&$lists,&$params,$option) {
+	function editModule( mosModule $row,&$orders2, array $lists, mosParameters $params,$option) {
 		global $mosConfig_cachepath,$my;
 		$row->title = htmlspecialchars($row->title);
-		$row->titleA = '';
-		if($row->id) {
-			$row->titleA = '<small><small>[ '.$row->title.' ]</small></small>';
-		}
 		mosCommonHTML::loadOverlib();
 		?>
 <script language="javascript" type="text/javascript">
 	function ch_apply(){
 		SRAX.get('tb-apply').className='tb-load';
 		dax({
-			url: 'ajax.index.php?option=com_mambots&task=apply',
+			url: 'ajax.index.php?option=com_modules&task=apply',
 			id:'publ-1',
 			method:'post',
 			form: 'adminForm',
@@ -239,8 +235,8 @@ class HTML_modules {
 </script>
 <table class="adminheading">
 	<tr>
-		<th class="modules"><?php echo _MODULE?> -&nbsp;<?php echo $lists['client_id']?_CONTROL_PANEL:_SITE; ?> :
-			<small><?php echo $row->id ? _EDITING : _NEW ; ?></small><?php echo $row->titleA; ?></th>
+		<th class="modules"><?php echo _MODULE .' '.($lists['client_id'] ? _CONTROL_PANEL_2 : _SITE_2). ($row->id ? ' # '.$row->id.', ' : '' ).' '.$row->title.'' ?>  -
+			<small><?php echo $row->id ? _EDITING : _NEW ; ?></small></th>
 	</tr>
 </table>
 <form action="index2.php" method="post" name="adminForm" id="adminForm">
@@ -263,16 +259,10 @@ class HTML_modules {
 					</tr>
 					<tr>
 						<td valign="top" class="key"><?php echo _MODULE_POSITION?>:</td>
-						<td><?php echo $lists['position']; ?></td>
-					</tr>
-					<tr>
-						<td valign="top" class="key"><?php echo _MODULE_ORDER?>:</td>
 						<td>
-							<script language="javascript" type="text/javascript">
-								<!--
-								writeDynaList( 'class="inputbox" name="ordering" size="1"', orders, originalPos, originalPos, originalOrder );
-								//-->
-							</script>
+									<?php echo $lists['position']; ?>
+							<script language="javascript" type="text/javascript">writeDynaList( 'class="inputbox" name="ordering" size="1"', orders, originalPos, originalPos, originalOrder );</script>
+		
 						</td>
 					</tr>
 					<tr>
@@ -284,18 +274,15 @@ class HTML_modules {
 						<td><?php echo $lists['published']; ?></td>
 					</tr>
 					<tr>
-						<td valign="top"  class="key">ID:</td>
-						<td><?php echo $row->id; ?></td>
-					</tr>
-					<tr>
-						<td valign="top"  class="key"><?php echo _NAME?></td>
-						<td><?php echo $row->module; ?></td>
+						<td valign="top" class="key"><?php echo _CACHE_TO?>:</td>
+						<td><?php echo self::cache_time_selector($row->cache_time); ?></td>
 					</tr>
 					<tr>
 						<td valign="top" class="key"><?php echo _DESCRIPTION?>:</td>
 						<td><?php echo $row->description; ?></td>
 					</tr>
 				</table>
+				<br />
 				<table class="adminform">
 					<tr>
 						<th><?php echo _PARAMETERS?></th>
@@ -304,28 +291,6 @@ class HTML_modules {
 						<td><?php echo $params->render(); ?></td>
 					</tr>
 				</table>
-						<?php
-						if($row->module == "") {
-							?>
-				<table class="adminform">
-					<tr>
-						<td>
-							<table align="center">
-											<?php
-											$visible = 0;
-											// check to hide certain paths if not super admin
-											if($my->gid == 25) {
-												$visible = 1;
-											}
-											mosHTML::writableCell($mosConfig_cachepath,0,'<strong>'._CACHE_DIR.'</strong> ',$visible);
-											?>
-							</table>
-						</td>
-					</tr>
-				</table>
-							<?php
-						}
-						?>
 			</td>
 			<td width="40%" >
 				<table width="100%" class="adminform">
@@ -379,4 +344,28 @@ class HTML_modules {
 </form>
 		<?php
 	}
+
+	public static function cache_time_selector( $value = 0 ) {
+
+		$options = array();
+		$options[] = mosHTML::makeOption('0',_M_CACHE_0);
+		$options[] = mosHTML::makeOption('60',_M_CACHE_60);
+		$options[] = mosHTML::makeOption('300',_M_CACHE_300);
+		$options[] = mosHTML::makeOption('600',_M_CACHE_600);
+		$options[] = mosHTML::makeOption('900',_M_CACHE_900);
+		$options[] = mosHTML::makeOption('1200',_M_CACHE_1200);
+		$options[] = mosHTML::makeOption('1800',_M_CACHE_1800);
+		$options[] = mosHTML::makeOption('3600',_M_CACHE_3600);
+		$options[] = mosHTML::makeOption('7200',_M_CACHE_7200);
+		$options[] = mosHTML::makeOption('9000',_M_CACHE_9000);
+		$options[] = mosHTML::makeOption('7200',_M_CACHE_7200);
+		$options[] = mosHTML::makeOption('18000',_M_CACHE_18000);
+		$options[] = mosHTML::makeOption('43200',_M_CACHE_43200);
+		$options[] = mosHTML::makeOption('86400',_M_CACHE_86400);
+		$options[] = mosHTML::makeOption('172800',_M_CACHE_172800);
+		$options[] = mosHTML::makeOption('604800',_M_CACHE_604800);
+
+		return mosHTML::selectList($options,'cache_time','class="inputbox"','value','text',$value);
+	}
+
 }

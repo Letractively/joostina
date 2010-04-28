@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mosinstall version="1.0.0" type="mambot" group="profile">
+<mosinstall version="1.3.1" type="mambot" group="profile">
 	<name>Информация "О себе" в профиле пользователя</name>
 	<author>Joostina! Project</author>
 	<creationDate>Июль 2009</creationDate>

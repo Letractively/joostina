@@ -136,10 +136,4 @@ class DOMIT_DOMImplementation {
 	function &createDocumentType() {
 		DOMIT_DOMException::raiseException(DOMIT_NOT_SUPPORTED_ERROR,('Method createDocumentType is not yet implemented.'));
 	}
-
 }
-
-
-
-
-?>

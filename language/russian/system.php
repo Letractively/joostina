@@ -231,6 +231,7 @@ DEFINE('_SELECT','Выбрать');
 DEFINE('_SEND_BUTTON','Отправить'); 
 DEFINE('_SHOW','Показать');
 DEFINE('_SITE','Сайт'); 
+DEFINE('_SITE_2','сайта');
 DEFINE('_SORT_ASC','По возрастанию');
 DEFINE('_SORT_DESC','По убыванию');
 DEFINE('_SORT_NONE','Без сортировки');
@@ -326,6 +327,7 @@ DEFINE('_CHOOSE_MENUTYPE_PLEASE','Пожалуйста, выберите тип 
 DEFINE('_CMN_ARCHIVE','Добавить в архив');
 DEFINE('_CMN_UNARCHIVE','Извлечь из архива');
 DEFINE('_CONTROL_PANEL','Панель управления');
+DEFINE('_CONTROL_PANEL_2','панели управления');
 DEFINE('_CREATE_MENU_ITEM','Создать пункт меню');
 DEFINE('_ENABLE_ADMIN_SECURE_CODE','Включить код безопасности для доступа к панели управления');
 DEFINE('_ENTER_MENUITEM_NAME','Пожалуйста, введите название для этого пункта меню');

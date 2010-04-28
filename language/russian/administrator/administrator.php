@@ -23,3 +23,8 @@ DEFINE('_GLOBAL_CHECKIN','Глобальная разблокировка');
 DEFINE('_BLOCKED_OBJECTS','Заблокированные объекты');
 DEFINE('_EXTENSION_MANAGEMENT','Управление расширениями');
 DEFINE('_SELECT_OBJ_FOR_PUB','Выберите объект из списка для его публикации');
+DEFINE('_CACHE_TO','Кешировать на');
+DEFINE('_USE_FILE','- Выберите файл -');
+DEFINE('_DEFAULT_FILE','- Файл по умолчанию -');
+DEFINE('_FILE_FROM_TEMPLATE','из шаблона:: ');
+DEFINE('_FILE_FROM_SYSTEM','системный:: ');

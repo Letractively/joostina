@@ -13,6 +13,10 @@ defined('_VALID_MOS') or die();
 mosMainFrame::addLib('gacl');
 mosMainFrame::addClass('mosTabs');
 
+mosMainFrame::addClass('mosAdminMenus');
+
+mosMainFrame::addClass('mosHTML');
+
 /**
  * вывод подключения js и css
  */
@@ -60,9 +64,7 @@ function mosCountAdminModules($position = 'left') {
 			."\n WHERE m.published = 1"
 			."\n AND m.position = ".$database->Quote($position)
 			."\n AND m.client_id = 1";
-	$database->setQuery($query);
-
-	return $database->loadResult();
+	return $database->setQuery($query)->loadResult();
 }
 /**
  * Loads admin modules via module position
@@ -77,9 +79,7 @@ function mosLoadAdminModules($position = 'left',$style = 0) {
 		$database = database::getInstance();
 
 		$query = "SELECT id, title, module, position, content, showtitle, params FROM #__modules AS m WHERE m.published = 1 AND m.client_id = 1 ORDER BY m.ordering";
-		$database->setQuery($query);
-		$_all_modules = $database->loadObjectList();
-
+		$_all_modules = $database->setQuery($query)->loadObjectList();
 
 		$all_modules = array();
 		foreach($_all_modules as $__all_modules) {
@@ -154,7 +154,7 @@ function mosLoadAdminModule($name,$params = null) {
 
 	$name = str_replace('/','',$name);
 	$name = str_replace('\\','',$name);
-	$path = JPATH_BASE_ADMIN."/modules/mod_$name.php";
+	$path = JPATH_BASE_ADMIN."/modules/mod_$name/mod_$name.php";
 	if(file_exists($path)) {
 		if($mainframe->getLangFile('mod_'.$name)) {
 			include($mainframe->getLangFile('mod_'.$name));

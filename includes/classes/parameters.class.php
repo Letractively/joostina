@@ -26,7 +26,7 @@ class mosParameters {
 		$this->_path = $path;
 		$this->_type = $type;
 	}
-	
+
 	public function toObject() {
 		return $this->_params;
 	}
@@ -55,140 +55,7 @@ class mosParameters {
 
 		JDEBUG ? jd_inc('mosParameters::parse') : null;
 
-		// если в параметрах ничего нет - не будем дальшепытаться его распатсить
-		if(trim($txt)=='') {
-			return $asArray ? array() : new stdClass();
-		};
-
-		if(is_string($txt)) {
-			$lines = explode("\n",$txt);
-		} elseif(is_array($txt)) {
-			$lines = $txt;
-		} else {
-			$lines = array();
-		}
-
-		if( (false==$process_sections) && (false==$asArray) && (is_string($txt)) && (false===strpos($txt,'[')) && (false===strpos($txt,'\\')) && (false===strpos($txt,'"')) && (false===strpos($txt,';')) ) {
-			$obj = new stdClass();
-			foreach($lines as $line) {
-				$vars=explode('=',$line,2);
-				if(count($vars)==2) {
-					$property = trim($vars[0]);
-					$value = trim($vars[1]);
-					if($value) {
-						if($value == 'false') {
-							$value = false;
-						}elseif($value == 'true') {
-							$value = true;
-						}
-					}
-					$obj->$property = $value;
-				}
-			}
-			return $obj;
-		}
-
-		$obj = $asArray ? array() : new stdClass;
-
-		$sec_name = '';
-		$unparsed = 0;
-		if(!$lines) {
-			return $obj;
-		}
-
-		foreach($lines as $line) {
-			// игнорирование комментариев
-			if($line && $line[0] == ';') {
-				continue;
-			}
-			$line = trim($line);
-
-			if($line == '') {
-				continue;
-			}
-
-			if($line && $line[0] == '[' && $line[strlen($line) - 1] == ']') {
-				$sec_name = substr($line,1,strlen($line) - 2);
-				if($process_sections) {
-					if($asArray) {
-						$obj[$sec_name] = array();
-					} else {
-						$obj->$sec_name = new stdClass();
-					}
-				}
-			} else {
-				if($pos = strpos($line,'=')) {
-					$property = trim(substr($line,0,$pos));
-
-					if(substr($property,0,1) == '"' && substr($property,-1) == '"') {
-						$property = stripcslashes(substr($property,1,count($property) - 2));
-					}
-					$value = trim(substr($line,$pos + 1));
-					if($value == 'false') {
-						$value = false;
-					}
-					if($value == 'true') {
-						$value = true;
-					}
-					if(substr($value,0,1) == '"' && substr($value,-1) == '"') {
-						$value = stripcslashes(substr($value,1,count($value) - 2));
-					}
-
-					if($process_sections) {
-						$value = str_replace('\n',"\n",$value);
-						if($sec_name != '') {
-							if($asArray) {
-								$obj[$sec_name][$property] = $value;
-							} else {
-								$obj->$sec_name->$property = $value;
-							}
-						} else {
-							if($asArray) {
-								$obj[$property] = $value;
-							} else {
-								$obj->$property = $value;
-							}
-						}
-					} else {
-						$value = str_replace('\n',"\n",$value);
-						if($asArray) {
-							$obj[$property] = $value;
-						} else {
-							$obj->$property = $value;
-						}
-					}
-				} else {
-					if($line && trim($line[0]) == ';') {
-						continue;
-					}
-					if($process_sections) {
-						$property = '__invalid'.$unparsed++.'__';
-						if($process_sections) {
-							if($sec_name != '') {
-								if($asArray) {
-									$obj[$sec_name][$property] = trim($line);
-								} else {
-									$obj->$sec_name->$property = trim($line);
-								}
-							} else {
-								if($asArray) {
-									$obj[$property] = trim($line);
-								} else {
-									$obj->$property = trim($line);
-								}
-							}
-						} else {
-							if($asArray) {
-								$obj[$property] = trim($line);
-							} else {
-								$obj->$property = trim($line);
-							}
-						}
-					}
-				}
-			}
-		}
-		return $obj;
+		return json_decode($txt,$asArray);
 	}
 
 	public function render($name = 'params') {
@@ -235,8 +102,8 @@ class mosParameters {
 
 					default:
 						$html[] = '<tr>';
-						$html[] = '<td width="40%" align="right" valign="top" class="pkey"><span class="editlinktip">'.$result[0].'</span></td>';
-						$html[] = '<td>'.$result[1].'</td>';
+						$html[] = trim($result[0])!='&nbsp;' ? '<td width="40%" align="right" valign="top" class="pkey"><span class="editlinktip">'.$result[0].'</span></td>' : '';
+						$html[] = '<td '.(trim($result[0])=='&nbsp;' ? 'coolspan="2"':'').' >'.$result[1].'</td>';
 						$html[] = '</tr>';
 						break;
 				}
@@ -318,37 +185,6 @@ class mosParameters {
 		return mosHTML::radioList($options,''.$control_name.'['.$name.']','',$value);
 	}
 
-	private function _form_mos_section($name,$value,&$node,$control_name) {
-		$database = database::getInstance();
-
-		$query = "SELECT id, title FROM #__sections WHERE published = 1 AND scope = 'content' ORDER BY title";
-		$database->setQuery($query);
-		$options = $database->loadObjectList();
-		array_unshift($options,mosHTML::makeOption('0',_SEL_SECTION,'id','title'));
-
-		return mosHTML::selectList($options,''.$control_name.'['.$name.']','class="inputbox" id="mossection"','id','title',$value);
-	}
-
-	private function _form_mos_category($name,$value,&$node,$control_name) {
-		$database = database::getInstance();
-
-		$scope = $node->getAttribute('scope');
-		if(!isset($scope)) {
-			$scope = 'content';
-		}
-
-		if($scope == 'content') {
-			$query = "SELECT c.id, CONCAT_WS( '/',s.title, c.title ) AS title FROM #__categories AS c LEFT JOIN #__sections AS s ON s.id=c.section WHERE c.published = 1 AND s.scope = ".$database->Quote($scope)."\n ORDER BY c.title";
-		} else {
-			$query = "SELECT c.id, c.title FROM #__categories AS c WHERE c.published = 1 AND c.section = ".$database->Quote($scope)." ORDER BY c.title";
-		}
-		$database->setQuery($query);
-		$options = $database->loadObjectList();
-		array_unshift($options,mosHTML::makeOption('0',_SEL_CATEGORY,'id','title'));
-
-		return mosHTML::selectList($options,''.$control_name.'['.$name.']','class="inputbox"','id','title',$value);
-	}
-
 	private function _form_mos_menu($name,$value,$node,$control_name) {
 		$menuTypes = mosAdminMenus::menutypes();
 
@@ -372,7 +208,7 @@ class mosParameters {
 		}
 
 		if(!$node->getAttribute('hide_none')) {
-			array_unshift($options,mosHTML::makeOption('-1',_DONT_USE_IMAGE));
+			array_unshift($options,mosHTML::makeOption('-1',_USE_FILE));
 		}
 		if(!$node->getAttribute('hide_default')) {
 			array_unshift($options,mosHTML::makeOption('',_DEFAULT_IMAGE));
@@ -384,6 +220,37 @@ class mosParameters {
 	private function _form_imagelist($name,$value,&$node,$control_name) {
 		$node->setAttribute('filter','\.png$|\.gif$|\.jpg$|\.bmp$|\.ico$');
 		return $this->_form_filelist($name,$value,$node,$control_name);
+	}
+
+	private function _form_moduletemplates($name,$value,&$node,$control_name) {
+
+		$options = array();
+
+		$path = JPATH_BASE.DS.'modules'.DS.$node->getAttribute('directory').DS.'views';
+		$files = mosReadDirectory($path,'\.php$');
+
+		foreach($files as $file) {
+			$options[] = mosHTML::makeOption( $file, _FILE_FROM_SYSTEM.$file );
+		}
+
+		mosMainFrame::getInstance()->setTemplate();
+		$cur_template = mosMainFrame::getInstance()->getTemplate();
+
+		$path = JPATH_BASE.DS.'templates'.DS.$cur_template.DS.'html/modules'.DS.$node->getAttribute('directory');
+		$files = mosReadDirectory($path,'\.php$');
+
+		foreach($files as $file) {
+			$options[] = mosHTML::makeOption( $file, _FILE_FROM_TEMPLATE.$file );
+		}
+		
+		if(!$node->getAttribute('hide_none')) {
+			array_unshift($options,mosHTML::makeOption('-1',_USE_FILE));
+		}
+		if(!$node->getAttribute('hide_default')) {
+			array_unshift($options,mosHTML::makeOption('',_DEFAULT_FILE));
+		}
+
+		return mosHTML::selectList($options,''.$control_name.'['.$name.']','class="inputbox"','value','text',$value,"param$name");
 	}
 
 	private function _form_textarea($name,$value,&$node,$control_name) {
@@ -402,7 +269,6 @@ class mosParameters {
 
 		$css = '<link rel="stylesheet" type="text/css" media="all" href="'.JPATH_SITE.'/includes/js/tabs/tabpane.css" id="luna-tab-style-sheet" />';
 		$js = '<script type="text/javascript" src="'.JPATH_SITE.'/includes/js/tabs/tabpane.js"></script>';
-
 
 		$return = '';
 
@@ -447,29 +313,6 @@ class mosParameters {
 		}
 		return implode("\n",$txt);
 	}
-
-	private function _form_cache_list($name,$value,$param,$control_name) {
-
-		$options[] = mosHTML::makeOption('0',_M_CACHE_0);
-		$options[] = mosHTML::makeOption('60',_M_CACHE_60);
-		$options[] = mosHTML::makeOption('300',_M_CACHE_300);
-		$options[] = mosHTML::makeOption('600',_M_CACHE_600);
-		$options[] = mosHTML::makeOption('900',_M_CACHE_900);
-		$options[] = mosHTML::makeOption('1200',_M_CACHE_1200);
-		$options[] = mosHTML::makeOption('1800',_M_CACHE_1800);
-		$options[] = mosHTML::makeOption('3600',_M_CACHE_3600);
-		$options[] = mosHTML::makeOption('7200',_M_CACHE_7200);
-		$options[] = mosHTML::makeOption('9000',_M_CACHE_9000);
-		$options[] = mosHTML::makeOption('7200',_M_CACHE_7200);
-		$options[] = mosHTML::makeOption('18000',_M_CACHE_18000);
-		$options[] = mosHTML::makeOption('43200',_M_CACHE_43200);
-		$options[] = mosHTML::makeOption('86400',_M_CACHE_86400);
-		$options[] = mosHTML::makeOption('172800',_M_CACHE_172800);
-		$options[] = mosHTML::makeOption('604800',_M_CACHE_604800);
-
-		return mosHTML::selectList($options,$control_name.'['.$name.']','class="inputbox"','value','text',$value);
-	}
-
 }
 
 function mosParseParams( $txt ) {

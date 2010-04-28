@@ -265,10 +265,4 @@ class DOMIT_NamedNodeMap_Attr extends DOMIT_NamedNodeMap {
 			$result = $this->forHTML($result);
 		return $result;
 	}
-
 }
-
-
-
-
-?>
