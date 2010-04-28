@@ -4037,10 +4037,6 @@ function _xdump( $var, $text='<pre>' ) {
 	echo "\n";
 }
 
-
-// класс работы с контентом
-_USE_COM_CONTENT ? require_once(JPATH_BASE.'/components/com_content/content.class.php') : null;
-
 // класс работы с пользователями
 require_once(JPATH_BASE.'/components/com_users/users.class.php');
 

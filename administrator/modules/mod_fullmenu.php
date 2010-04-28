@@ -46,10 +46,6 @@ if(!defined('_JOS_FULLMENU_MODULE')) {
             $canManageUsers = $acl->acl_check('administration','manage','users',$usertype,'components','com_users');
             $menuTypes = mosAdminMenus::menutypes();
             $sections = array();
-            if( _USE_COM_CONTENT ) {
-                $query = "SELECT a.id, a.title, a.name FROM #__sections AS a WHERE a.scope = 'content' ORDER BY a.ordering";
-                $sections = $database->setQuery($query)->loadObjectList();
-            }
             // получеполучаем каталог с графикой верхнего меню
             $cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/menu_ico/';
 
@@ -114,54 +110,7 @@ _cmSplit,
             if($manageTrash) {
                 ?>
 _cmSplit,['<img src="<?php echo $cur_file_icons_path ?>trash.png" />','<?php echo _TRASH?>','index2.php?option=com_trash&catid=menu',null,'<?php echo _TRASH?>'],
-                <?php
-            }
-            if( _USE_COM_CONTENT ) {
-                ?>
-],[null,'<?php echo _CONTENT?>',null,null,'<?php echo _CONTENT?>',
-                <?php
-                if(count($sections) > 0) {
-                    ?>  ['<img src="<?php echo $cur_file_icons_path ?>edit.png" />','<?php echo _MOD_FULLMENU_CONTENT_IN_SECTIONS?>',null,null,'<?php echo _MOD_FULLMENU_CONTENT_IN_SECTIONS?>',
-                    <?php
-                    foreach($sections as $section) {
-                        $txt = addslashes($section->title ? $section->title:$section->name);
-                        ?>['<img src="<?php echo $cur_file_icons_path ?>document.png" />','<?php echo $txt; ?>', null, null,'<?php echo _SECTION?>: <?php echo $txt; ?>',
-	['<img src="<?php echo $cur_file_icons_path ?>edit.png" />', '<?php echo _MOD_FULLMENU_CONTENT_IN_SECTION?>: <?php echo $txt; ?>', 'index2.php?option=com_content&sectionid=<?php echo $section->id; ?>',null,null],
-	['<img src="<?php echo $cur_file_icons_path ?>backup.png" />', '<?php echo _MOD_FULLMENU_SECTION_ARCHIVE?>: <?php echo $txt; ?>', 'index2.php?option=com_content&task=showarchive&sectionid=<?php echo $section->id; ?>',null,null],
-	['<img src="<?php echo $cur_file_icons_path ?>sections.png" />', '<?php echo _MOD_FULLMENU_SECTION_CATEGORIES2?>: <?php echo $txt; ?>', 'index2.php?option=com_categories&section=<?php echo $section->id; ?>',null, null],
-],
-                        <?php
-                    } // foreach
-                    ?>
-],_cmSplit,
-                    <?php
-                }
-                ?>
-['<img src="<?php echo $cur_file_icons_path ?>edit.png" />','<?php echo _ALL_CONTENT?>','index2.php?option=com_content&sectionid=0',null,'<?php echo _ALL_CONTENT?>'],
-['<img src="<?php echo $cur_file_icons_path ?>edit.png" />','<?php echo _MOD_FULLMENU_ADD_CONTENT_ITEM?>','index2.php?option=com_content&sectionid=0&task=new',null,'<?php echo _MOD_FULLMENU_ADD_CONTENT_ITEM?>'],
-_cmSplit,
-['<img src="<?php echo $cur_file_icons_path ?>edit.png" />','<?php echo _STATIC_CONTENT?>','index2.php?option=com_typedcontent',null,'<?php echo _STATIC_CONTENT?>'],
-['<img src="<?php echo $cur_file_icons_path ?>edit.png" />','<?php echo _MOD_FULLMENU_ADD_STATIC_CONTENT?>','index2.php?option=com_typedcontent&task=new',null,'<?php echo _MOD_FULLMENU_ADD_STATIC_CONTENT?>'],
-_cmSplit,
-['<img src="<?php echo $cur_file_icons_path ?>add_section.png" />','<?php echo _SECTIONS?>','index2.php?option=com_sections&scope=content',null,'<?php echo _SECTIONS?>'],
-['<img src="<?php echo $cur_file_icons_path ?>sections.png" />','<?php echo _CATEGORIES?>','index2.php?option=com_categories&section=content',null,'<?php echo _CATEGORIES?>'],
-['<img src="<?php echo $cur_file_icons_path ?>masadd.png" />','<?php echo _MASS_CONTENT_ADD?>','index2.php?option=com_sections&task=masadd',null,'<?php echo _MASS_CONTENT_ADD?>'],
-_cmSplit,
-['<img src="<?php echo $cur_file_icons_path ?>home.png" />','<?php echo _MOD_FULLMENU_CONTENT_ON_FRONTPAGE?>','index2.php?option=com_frontpage',null,'<?php echo _MOD_FULLMENU_CONTENT_ON_FRONTPAGE?>'],
-['<img src="<?php echo $cur_file_icons_path ?>edit.png" />','<?php echo _ARCHIVE?>','index2.php?option=com_content&task=showarchive&sectionid=0',null,'<?php echo _ARCHIVE?>'],
-_cmSplit,
-['<img src="<?php echo $cur_file_icons_path ?>config.png" />','<?php echo _MOD_FULLMENU_C_DEF_SETUP?>',null,null,'<?php echo _MOD_FULLMENU_C_DEF_SETUP?>',
-	['<img src="<?php echo $cur_file_icons_path ?>config.png" />','<?php echo _SECTION_BLOG?>','index2.php?option=com_content&task=config&act=sectionblog',null,'<?php echo _SECTION_BLOG?>'],
-	['<img src="<?php echo $cur_file_icons_path ?>config.png" />','<?php echo _CATEGORIES_BLOG?>','index2.php?option=com_content&task=config&act=categoryblog',null,'<?php echo _CATEGORIES_BLOG?>'],
-	['<img src="<?php echo $cur_file_icons_path ?>config.png" />','<?php echo _SECTION_LIST?>','index2.php?option=com_content&task=config&act=sectionlist',null,'<?php echo _SECTION_LIST?>'],
-	['<img src="<?php echo $cur_file_icons_path ?>config.png" />','<?php echo _MOD_FULLMENU_C_TABLE_BLOG?>','index2.php?option=com_content&task=config&act=categorytable',null,'<?php echo _MOD_FULLMENU_C_TABLE_BLOG?>'],
-	['<img src="<?php echo $cur_file_icons_path ?>config.png" />','<?php echo _MOD_FULLMENU_SECTION_ARCHIVE?>','index2.php?option=com_content&task=config&act=sectionarchive',null,'<?php echo _MOD_FULLMENU_SECTION_ARCHIVE?>'],
-	['<img src="<?php echo $cur_file_icons_path ?>config.png" />','<?php echo _CATEGORIES_ARHIVE?>','index2.php?option=com_content&task=config&act=categoryarchive',null,'<?php echo _CATEGORIES_ARHIVE?>'],
-	['<img src="<?php echo $cur_file_icons_path ?>config.png" />','<?php echo _MOD_FULLMENU_USER_CONTENT?>','index2.php?option=com_content&task=config&act=ucontent',null,'<?php echo _MOD_FULLMENU_USER_CONTENT?>']
-],
-['<img src="<?php echo $cur_file_icons_path ?>globe3.png" />', '<?php echo _PAGES_HITS?>', 'index2.php?option=com_statistics&task=pageimp', null, '<?php echo _PAGES_HITS?>'],
-['<img src="<?php echo $cur_file_icons_path ?>trash.png" />','<?php echo _MOD_FULLMENU_CONTENT_TRASH?>','index2.php?option=com_trash&catid=content',null,'<?php echo _MOD_FULLMENU_CONTENT_TRASH?>'],
-                <?php }; ?>
+                <?php } ?>
 ],
             <?php
             // Components Sub-Menu
