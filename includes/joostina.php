@@ -2360,23 +2360,24 @@ class mosMenu extends mosDBTable {
 class mosModule extends mosDBTable {
     private static $_instance;
 
-    public $id = null;
-    public $title = null;
-    public $showtitle = null;
-    public $content = null;
-    public $ordering = null;
-    public $position = null;
-    public $checked_out = null;
-    public $checked_out_time = null;
-    public $published = null;
-    public $module = null;
-    public $numnews = null;
-    public $access = null;
-    public $params = null;
-    public $iscore = null;
-    public $client_id = null;
-    public $template = null;
-    public $helper = null;
+    public $id;
+    public $title;
+    public $showtitle;
+    public $content;
+    public $ordering;
+    public $position;
+    public $checked_out;
+    public $checked_out_time;
+    public $published;
+    public $module;
+    public $numnews;
+    public $access;
+    public $params;
+    public $iscore;
+    public $client_id;
+    public $template;
+    public $helper;
+    public $cache_time;
 
     private $_all_modules = null;
     private $_view = null;
@@ -2487,18 +2488,7 @@ class mosModule extends mosDBTable {
         }
 
         $query = 'SELECT * FROM #__modules AS m WHERE '.$where.' AND published=1';
-        $row = null;
-
-        $this->_view->_mainframe->getDBO()->setQuery($query)->loadObject($row);
-
-        $rows = get_object_vars($this);
-
-        foreach ($rows as $key => $value) {
-            if (isset($row->$key)) {
-                $this->$key = $row->$key;
-            }
-        }
-        return true;
+        $this->_view->_mainframe->getDBO()->setQuery($query)->loadObject( $this );
     }
 
     public function initModules() {
@@ -2547,56 +2537,41 @@ class mosModule extends mosDBTable {
         if(intval(mosGetParam($_GET,'tp',0))) {
             return 1;
         }
-
         $allModules = $this->_all_modules;
-
         return (isset($allModules[$position])) ? count($allModules[$position]) : 0;
     }
 
-    function mosLoadModules($position = 'left',$style = 0,$noindex = 0) {
+    function mosLoadModules($position = 'left') {
         global $my,$Itemid;
 
         $tp = intval(mosGetParam($_GET,'tp',0));
-        $style = intval($style);
-        
-        $config_caching = $this->_view->_mainframe->config->config_caching;
 
         if($tp && !$this->_view->_mainframe->config->config_disable_tpreview ) {
             echo '<div style="height:50px;background-color:#eee;margin:2px;padding:10px;border:1px solid #f00;color:#700;">'.$position.'</div>';
             return;
         }
 
+        $config_caching = $this->_view->_mainframe->config->config_caching;
         $allModules = $this->_all_modules;
 
         $modules = (isset($allModules[$position])) ? $modules = $allModules[$position]:array();
-
-        if(count($modules) < 1) {
-            $style = 0;
-        }
-
-
 
         foreach($modules as $module) {
             if( (int) $module->cache_time > 0  && $config_caching == 1) {
                 // кешируем модуль
                 $cache = mosCache::getCache($module->module.'_'.$module->id,'function',null,$module->cache_time , $this->_view);
-                $cache->call('module2',$module,$params,$Itemid,$style,$my->gid);
+                $cache->call('module',$module,$params,$Itemid,$my->gid);
             } else {
                 // не кешируем модуль
-                $this->_view->module2($module,$params,$Itemid,$style);
+                $this->_view->module($module,$params,$Itemid);
             }
         }
         return;
     }
 
-    /**
-     * @param string The position
-     * @param int The style.  0=normal, 1=horiz, -1=no wrapper
-     */
     function mosLoadModule($name = '', $title = '', $style = 0, $noindex = 0, $inc_params = null) {
         global $my,$Itemid;
 
-        $database = $this->_view->_mainframe->getDBO();
         $config = $this->_view->_mainframe->get('config');
 
         $tp = intval(mosGetParam($_GET,'tp',0));
@@ -2605,51 +2580,23 @@ class mosModule extends mosDBTable {
             echo '<div style="height:50px;background-color:#eee;margin:2px;padding:10px;border:1px solid #f00;color:#700;">'.$name.'</div>';
             return;
         }
-        $style = intval($style);
-        $module = $this;
-        $module->load_module($name, $title);
 
-        echo ($noindex == 1) ? '<del><![CDATA[<noindex>]]></del>' : null;
+        $this->load_module($name, $title);
 
-        echo ($style == 1) ? '<table cellspacing="1" cellpadding="0" border="0" width="100%"><tr>' : null;
-
-        $prepend = ($style == 1) ? "<td valign=\"top\">\n":'';
-        $postpend = ($style == 1) ? "</td>\n":'';
-
-        $count = 1;
-
-        $params = new mosParameters($module->params);
-        if($inc_params) {
-            foreach($inc_params as $key=>$val) {
-                $params->set($key, $val);
-            }
+        if( !$this->id ) {
+            echo JDEBUG ?  '<!-- mosLoadModule::'.$name.' - не найден -->' : '';
+            return ;
         }
-        echo $prepend;
 
-        if((substr($module->module,0,4)) == 'mod_') {
-            // normal modules
-            if($params->get('cache') == 1 && $config->config_caching == 1) {
-                // module caching
-                $cache = mosCache::getCache('modules', '', null, null, $this->_view);
-                $cache->call('module2',$module,$params,$Itemid,$style,$my->gid);
-            } else {
-                $this->_view->module2($module,$params,$Itemid,$style,$count);
-            }
+        if( (int) $this->cache_time > 0  && $config_caching == 1) {
+            // кешируем модуль
+            $cache = mosCache::getCache($this->module.'_'.$this->id,'function',null,$this->cache_time , $this->_view);
+            $cache->call('module',$this,$params,$Itemid,$my->gid);
         } else {
-            // custom or new modules
-            if($params->get('cache') == 1 && $config->config_caching == 1) {
-                // module caching
-                $cache->call('module',$module,$params,$Itemid,$style,0,$my->gid);
-            } else {
-                $this->_view->module($module,$params,$Itemid,$style);
-            }
+            // не кешируем модуль
+            $this->_view->module($this,$params,$Itemid);
         }
 
-        echo $postpend;
-        $count++;
-
-        echo ($style == 1) ? "</tr>\n</table>\n" : null;
-        echo ($noindex == 1) ? '<del><![CDATA[</noindex>]]></del>' : null;
         return;
     }
 }
