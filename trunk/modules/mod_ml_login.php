@@ -13,6 +13,10 @@ defined( '_VALID_MOS' ) or die();
 
 global $my;
 
+$mainframe = mosMainFrame::getInstance();
+
+$params = new mosParameters( $module->params );
+
 if ( $mainframe->getCfg('frontend_login') != NULL && ($mainframe->getCfg('frontend_login') === 0 || $mainframe->getCfg('frontend_login') === '0')) {
 	return;
 }

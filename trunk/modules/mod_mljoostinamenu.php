@@ -10,6 +10,9 @@
 // запрет прямого доступа
 defined( '_VALID_MOS' ) or die();
 
+$params = new mosParameters( $module->params );
+$mainframe = mosMainFrame::getInstance();
+
 if (!defined( '_MOS_MLJOOSTINAMENU_MODULE' )) {
 	/** ensure that functions are declared only once*/
 	define( '_MOS_MLJOOSTINAMENU_MODULE', 1 );

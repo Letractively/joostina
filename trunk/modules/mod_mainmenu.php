@@ -10,6 +10,8 @@
 // запрет прямого доступа
 defined( '_VALID_MOS' ) or die();
 
+$params = new mosParameters( $module->params );
+
 if (!defined( '_MOS_MAINMENU_MODULE' )) {
 	/** обеспечивает запуск функции только один раз*/
 	define( '_MOS_MAINMENU_MODULE', 1 );
