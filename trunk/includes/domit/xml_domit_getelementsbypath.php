@@ -191,9 +191,4 @@ class DOMIT_GetElementsByAttributePath {
 			}
 		}
 	}
-
 }
-
-
-
-?>

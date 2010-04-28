@@ -1085,10 +1085,4 @@ class DOMIT_Lite_Parser {
 			}
 		}
 	}
-
 }
-
-
-
-
-?>

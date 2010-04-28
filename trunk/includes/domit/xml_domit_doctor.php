@@ -69,9 +69,4 @@ class domit_doctor {
 		}
 		return $xmlText;
 	}
-
 }
-
-
-
-?>

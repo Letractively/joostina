@@ -172,4 +172,3 @@ class SAXY_Parser_Base {
 		call_user_func_array($this->cDataSectionHandler, array(&$this,$data) );
 	}
 }
-?>

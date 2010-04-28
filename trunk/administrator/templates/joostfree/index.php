@@ -23,7 +23,7 @@ $option = mosGetParam( $_REQUEST, 'option', '' );
 		<meta http-equiv="Content-Type" content="text/html; <?php echo _ISO; ?>" />
 		<?php
 		/* подключаем fullajax */
-		//mosCommonHTML::loadFullajax();
+		mosCommonHTML::loadFullajax();
 
 		if( $option!='com_xmap' ) mosCommonHTML::loadJquery();
 

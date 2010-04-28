@@ -26,7 +26,7 @@ if($cid[0] == 0 && isset($moduleid)) {
 	$cid[0] = $moduleid;
 }
 
- mosCache::cleanCache('init_modules');
+mosCache::cleanCache('init_modules');
 
 switch($task) {
 	case 'copy':
@@ -94,6 +94,7 @@ function viewModules($option,$client) {
 	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mosConfig_list_limit));
 	$limitstart = intval($mainframe->getUserStateFromRequest("view{$option}limitstart",'limitstart',0));
 	$search = $mainframe->getUserStateFromRequest("search{$option}{$client}",'search','');
+
 	if(get_magic_quotes_gpc()) {
 		$search = stripslashes($search);
 		$filter_position = stripslashes($filter_position);
@@ -125,8 +126,7 @@ function viewModules($option,$client) {
 
 	// get the total number of records
 	$query = "SELECT COUNT(*) FROM #__modules AS m".(count($where)?"\n WHERE ".implode(' AND ',$where):'');
-	$database->setQuery($query);
-	$total = $database->loadResult();
+	$total = $database->setQuery($query)->loadResult();
 
 	require_once (JPATH_BASE_ADMIN.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
@@ -220,21 +220,15 @@ function copyModule($option,$uid,$client) {
 	mosRedirect('index2.php?option='.$option.'&client='.$client,$msg);
 }
 
-/**
- * Saves the module after an edit form submit
- */
 function saveModule($option,$client,$task) {
+	josSpoofCheck();
+
 	$database = database::getInstance();
 
-	josSpoofCheck();
 	$params = mosGetParam($_POST,'params','');
-	if(is_array($params)) {
-		$txt = array();
-		foreach($params as $k => $v) {
-			$txt[] = "$k=$v";
-		}
-		$_POST['params'] = mosParameters::textareaHandling($txt);
-	}
+	// TODO тут бедас русским языком...
+	mosMainFrame::addLib('json');
+	$_POST['params'] = php2js($params);
 
 	$row = new mosModule($database);
 	if(!$row->bind($_POST,'selections')) {
@@ -250,7 +244,6 @@ function saveModule($option,$client,$task) {
 		exit();
 	}
 
-	$row->checkin();
 	if($client == 'admin') {
 		$where = "client_id=1";
 	} else {
@@ -263,16 +256,14 @@ function saveModule($option,$client,$task) {
 
 	// delete old module to menu item associations
 	$query = "DELETE FROM #__modules_menu WHERE moduleid = ".(int)$row->id;
-	$database->setQuery($query);
-	$database->query();
+	$database->setQuery($query)->query();
 
 	// check needed to stop a module being assigned to `All`
 	// and other menu items resulting in a module being displayed twice
 	if(in_array('0',$menus)) {
 		// assign new module to `all` menu item associations
 		$query = "INSERT INTO #__modules_menu SET moduleid = ".(int)$row->id.", menuid = 0";
-		$database->setQuery($query);
-		$database->query();
+		$database->setQuery($query)->query();
 	} else {
 		foreach($menus as $menuid) {
 			// this check for the blank spaces in the select box that have been added for cosmetic reasons
@@ -307,32 +298,20 @@ function saveModule($option,$client,$task) {
  * @param integer The unique id of the record to edit
  */
 function editModule($option,$uid,$client) {
-	global $database,$my,$mainframe;
+	global $my;
+
+	$database = database::getInstance();
 
 	$lists = array();
 	$row = new mosModule($database);
-	// load the row from the db table
 	$row->load((int)$uid);
-	// fail if checked out not by 'me'
-	if($row->isCheckedOut($my->id)) {
-		mosErrorAlert(_MODULE." ".$row->title." "._NOW_EDITING_BY_OTHER);
-	}
-
 	$row->content = htmlspecialchars($row->content);
 
-	if($uid) {
-		$row->checkout($my->id);
-	}
-	// if a new record we must still prime the mosModule object with a default
-	// position and the order; also add an extra item to the order list to
-	// place the 'new' record in last position if desired
 	if($uid == 0) {
 		$row->position = 'left';
 		$row->showtitle = true;
-		//$row->ordering = $l;
 		$row->published = 1;
 	}
-
 
 	if($client == 'admin') {
 		$where = "client_id = 1";
@@ -357,9 +336,7 @@ function editModule($option,$uid,$client) {
 			."\n FROM #__template_positions"
 			."\n WHERE position != ''"
 			."\n ORDER BY position";
-	$database->setQuery($query);
-	// hard code options for now
-	$positions = $database->loadObjectList();
+	$positions = $database->setQuery($query)->loadObjectList();
 
 	$orders2 = array();
 	$pos = array();
@@ -370,14 +347,14 @@ function editModule($option,$uid,$client) {
 
 	$l = 0;
 	$r = 0;
-	for($i = 0,$n = count($orders); $i < $n; $i++) {
+	$_c = count($orders);
+	for($i = 0,$n = $_c; $i < $n; $i++) {
 		$ord = 0;
 		if(array_key_exists($orders[$i]->position,$orders2)) {
 			$ord = count(array_keys($orders2[$orders[$i]->position])) + 1;
 		}
 
-		$orders2[$orders[$i]->position][] = mosHTML::makeOption($ord,$ord.'::'.
-				addslashes($orders[$i]->title));
+		$orders2[$orders[$i]->position][] = mosHTML::makeOption($ord,$ord.'::'.addslashes($orders[$i]->title));
 	}
 
 	// build the html select list
@@ -385,13 +362,9 @@ function editModule($option,$uid,$client) {
 	$active = ($row->position?$row->position:'left');
 	$lists['position'] = mosHTML::selectList($pos,'position','class="inputbox" size="1" '.$pos_select,'value','text',$active);
 
-	// get selected pages for $lists['selections']
 	if($uid) {
-		$query = "SELECT menuid AS value"
-				."\n FROM #__modules_menu"
-				."\n WHERE moduleid = ".(int)$row->id;
-		$database->setQuery($query);
-		$lookup = $database->loadObjectList();
+		$query = "SELECT menuid AS value FROM #__modules_menu WHERE moduleid = ".(int)$row->id;
+		$lookup = $database->setQuery($query)->loadObjectList();
 	} else {
 		$lookup = array(mosHTML::makeOption(0,'All'));
 	}
@@ -415,10 +388,9 @@ function editModule($option,$uid,$client) {
 	$lists['published'] = mosAdminMenus::Published($row);
 
 	$row->description = '';
-	// XML library
+
+	$xmlfile = mosMainFrame::getInstance()->getPath($path,$row->module);
 	require_once (JPATH_BASE.'/includes/domit/xml_domit_lite_include.php');
-	// xml file for module
-	$xmlfile = $mainframe->getPath($path,$row->module);
 	$xmlDoc = new DOMIT_Lite_Document();
 	$xmlDoc->resolveErrors(true);
 	if($xmlDoc->loadXML($xmlfile,false,true)) {
@@ -426,7 +398,7 @@ function editModule($option,$uid,$client) {
 
 		if($root->getTagName() == 'mosinstall' && $root->getAttribute('type') =='module') {
 			$element = &$root->getElementsByPath('description',1);
-			$row->description = $element?trim($element->getText()):'';
+			$row->description = $element ? trim($element->getText()):'';
 		}
 	}
 

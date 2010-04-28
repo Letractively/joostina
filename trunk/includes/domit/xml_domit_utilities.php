@@ -244,12 +244,5 @@ class DOMIT_Utilities {
 			}
 		}
 	}
-
-	function parseAttributes() {
-	}
-
+	function parseAttributes() {}
 }
-
-
-
-?>

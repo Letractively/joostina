@@ -174,9 +174,4 @@ class SAXY_Lite_Parser extends SAXY_Parser_Base {
 	function xml_error_string() {
 		return '';
 	}
-
 }
-
-
-
-?>
