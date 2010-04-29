@@ -274,7 +274,7 @@ class JoiAdmin {
 
         //Библиотека работы с табами
         mosMainFrame::addClass('mosTabs');
-        $tabs = new mosTabs(1, 1);
+        $tabs = new mosTabs();
 
         $option = mosGetParam($_REQUEST, 'option', '');
 
@@ -303,7 +303,7 @@ class JoiAdmin {
         echo $params['wrap_begin'];
 
         //открываем форму
-        echo form::open('index2.php', array('name' => 'adminForm'));
+        echo form::open('index2.php', array('name' => 'adminForm','id'=>'adminForm'));
 
         //Получаем данные о элементах формы
         $fields_info = $obj->get_fieldinfo();
@@ -318,7 +318,7 @@ class JoiAdmin {
         //Выводим скрытые поля формы
         echo form::hidden('id', $obj_data->id) . "\t";  // id объекта
         echo form::hidden('option', $option) . "\t";   // ['option']
-        echo form::hidden('task', '') . "\t";         // ['task']
+        echo form::hidden('task', 'save') . "\t";         // ['task']
         echo form::hidden(josSpoofValue(), 1); // элемент защиты от XSS
 
         //Закрываем форму
@@ -404,15 +404,17 @@ class JoiAdmin {
                         ), $element_param['name']);
                 $element .= $params['label_end'];
                 $element .= $params['el_begin'];
-                $rows = isset($element_param['html_edit_element_param']['rows']) ? $element_param['html_edit_element_param']['rows'] : 10;
-                $cols = isset($element_param['html_edit_element_param']['cols']) ? $element_param['html_edit_element_param']['cols'] : 40;
-                $width = isset($element_param['html_edit_element_param']['width']) ? $element_param['html_edit_element_param']['width'] : '99%';
-                $height = isset($element_param['html_edit_element_param']['height']) ? $element_param['html_edit_element_param']['height'] : 350;
-                ob_start();
-                editorArea($key, $value, $key, $width, $height, $cols, $rows);
-                $element .= ob_get_contents();
-                ob_end_clean();
-                $element .= $params['el_end'];
+
+
+                $params = array(
+                        'editor' => isset($element_param['html_edit_element_param']['editor']) ? $element_param['html_edit_element_param']['editor'] : 'elrte',
+                        'rows' => isset($element_param['html_edit_element_param']['rows']) ? $element_param['html_edit_element_param']['rows'] : null,
+                        'cols' => isset($element_param['html_edit_element_param']['cols']) ? $element_param['html_edit_element_param']['cols'] : null,
+                        'width' => isset($element_param['html_edit_element_param']['width']) ? $element_param['html_edit_element_param']['width'] : null,
+                        'height' => isset($element_param['html_edit_element_param']['height']) ? $element_param['html_edit_element_param']['height'] : null,
+                );
+
+                $element .= jooEditor::editor( $key, $value, $params );
                 break;
 
             // тип - чекбокс

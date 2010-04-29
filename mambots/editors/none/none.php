@@ -44,8 +44,6 @@ EOD;
      * @param int - Число строк области редактора
      */
     public static function getEditorArea( $name,$content,$hiddenField,$width,$height,$col,$row ) {
-        $width = $width.'px';
-        $height = $height.'px';
 
         return <<< EOD
 <textarea name="$hiddenField" id="$hiddenField" cols="$col" rows="$row" style="width:$width;height:$height;">$content</textarea>

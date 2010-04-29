@@ -91,10 +91,7 @@ class Pages extends mosDBTable {
                 'text' => array(
                         'name' => 'Описание',
                         'editable' => true,
-                        'sortable' => true,
-                        'in_admintable' => true,
-                        'editlink' => true,
-                        'html_edit_element' => 'text',
+                        'html_edit_element' => 'text_area_wysiwyg',
                         'html_edit_element_param' => array(
                                 'height' => 100,
                         )

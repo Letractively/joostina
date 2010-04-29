@@ -51,11 +51,6 @@ $mainframe = mosMainFrame::getInstance(true);
 $mainframe->set('lang', $mosConfig_lang);
 require_once($mainframe->getLangFile());
 
-// получение шаблона страницы
-$cur_template = $mainframe->getTemplate();
-define('JTEMPLATE', $cur_template );
-
-
 $my = $mainframe->initSessionAdmin($option,$task);
 
 if(!$my->id) {
