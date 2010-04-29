@@ -71,7 +71,9 @@ class actionsPages {
      */
     public static function save( $option ) {
         josSpoofCheck();
-
+        
+        _xdump($_POST);
+        return;
         $obj_data = new self::$model;
         $obj_data->save($_POST);
 
@@ -86,7 +88,7 @@ class actionsPages {
 
         // идентификаторы удаляемых объектов
         $cid = (array) josGetArrayInts('cid');
-        
+
         $obj_data = new self::$model;
         $obj_data->delete_array( $cid, 'id') ?  mosRedirect( 'index2.php?option='.$option, 'Удалено успешно!') : mosRedirect( 'index2.php?option='.$option , 'Ошибка удаления');
     }

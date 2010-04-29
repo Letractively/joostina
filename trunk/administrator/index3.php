@@ -51,9 +51,6 @@ $mainframe = mosMainFrame::getInstance(true);
 $mainframe->set('lang', $mosConfig_lang);
 include_once($mainframe->getLangFile());
 
-// получение шаблона страницы
-$cur_template = $mainframe->getTemplate();
-define('JTEMPLATE', $cur_template );
 
 
 $act		= strtolower(mosGetParam($_REQUEST,'act',''));

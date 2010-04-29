@@ -14,7 +14,7 @@ class mosTabs {
 
 	private $useCookies = 0;
 
-	public function mosTabs($useCookies,$xhtml = 0) {
+	public function mosTabs($useCookies=false,$xhtml = 0) {
 
 		/* запрет повторного включения css и js файлов в документ*/
 		if(!defined('_MTABS_LOADED')) {

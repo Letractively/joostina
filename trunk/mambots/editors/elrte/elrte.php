@@ -59,6 +59,8 @@ EOD;
     }
 
     public static function getContents($name) {
-
+        return <<< EOD
+        	<script type="text/javascript" charset="utf-8">$('#$name').elrte("updateSource");</script>
+EOD;
     }
 }
