@@ -268,10 +268,10 @@ class JoiAdmin {
      * @param array $params
      */
     public static function edit(mosDBTable $obj, $obj_data, $params = null) {
-        
+
         //Подключаем библиотеку работы с формами
         mosMainFrame::addLib('form');
-        
+
         //Библиотека работы с табами
         mosMainFrame::addClass('mosTabs');
         $tabs = new mosTabs(1, 1);
@@ -503,12 +503,12 @@ class JoiAdmin {
                 $element .= $params['wrap_end'];
                 $element .= '</div>';
                 break;
-                
+
             case 'tags':
                 require_once ( mosMainFrame::getInstance()->getPath('class','com_joitags'));
                 $tags = new joiTags;
                 $tags->obj_type = 'com_nodes';
-                
+
                 $element .= $params['label_begin'];
                 $element .= form::label(
                         array(
@@ -516,9 +516,9 @@ class JoiAdmin {
                         ), $element_param['name']);
                 $element .= $params['label_end'];
                 $element .= $params['el_begin'];
-                $element .= $tags->display_object_tags_edit($obj_data); 
-                $element .= $params['el_end'];                
- 
+                $element .= $tags->display_object_tags_edit($obj_data);
+                $element .= $params['el_end'];
+
                 break;
 
             // по умолчанию поле вывод закомментированным

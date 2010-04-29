@@ -10,11 +10,12 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
+// получаем название шаблона для панели управления
+define('JTEMPLATE', 'joostfree' );
+
+
 mosMainFrame::addLib('gacl');
-mosMainFrame::addClass('mosTabs');
-
 mosMainFrame::addClass('mosAdminMenus');
-
 mosMainFrame::addClass('mosHTML');
 
 /**

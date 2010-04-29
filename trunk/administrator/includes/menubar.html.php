@@ -64,9 +64,9 @@ if(!class_exists('mosMenuBar')) {
 				 */
 				public static function customX($task = '',$class = '',$iconOver = '',$alt = '',$listSelect = true) {
 					if($listSelect) {
-						$href = "javascript:if (document.adminForm.boxchecked.value == 0){ alert('"._PLEASE_CHOOSE_ELEMENT."');}else{hideMainMenu();submitbutton('$task')}";
+						$href = "javascript:if (document.adminForm.boxchecked.value == 0){ alert('"._PLEASE_CHOOSE_ELEMENT."');}else{submitbutton('$task')}";
 					} else {
-						$href = "javascript:hideMainMenu();submitbutton('$task')";
+						$href = "javascript:submitbutton('$task')";
 					}
 					?>
 		<li>
@@ -95,7 +95,7 @@ if(!class_exists('mosMenuBar')) {
 				 * @param string An override for the alt text
 				 */
 				public static function addNewX($task = 'new',$alt = _NEW) {
-						?><li><a class="tb-add-new-x" href="javascript:hideMainMenu();submitbutton('<?php echo $task; ?>');"><span><?php echo $alt; ?></span></a></li><?php
+						?><li><a class="tb-add-new-x" href="javascript:submitbutton('<?php echo $task; ?>');"><span><?php echo $alt; ?></span></a></li><?php
 					}
 
 					/**
@@ -225,7 +225,7 @@ if(!class_exists('mosMenuBar')) {
 				public static function editListX($task = 'edit',$alt = _EDIT) {
 					?>
 		<li>
-			<a class="tb-edit-list-x" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('<?php echo _PLEASE_CHOOSE_ELEMENT_TO_EDIT?>'); } else {hideMainMenu();submitbutton('<?php echo $task; ?>', '');}"><span><?php echo $alt; ?></span></a>
+			<a class="tb-edit-list-x" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('<?php echo _PLEASE_CHOOSE_ELEMENT_TO_EDIT?>'); } else {submitbutton('<?php echo $task; ?>', '');}"><span><?php echo $alt; ?></span></a>
 		</li>
 					<?php
 				}
@@ -252,7 +252,7 @@ if(!class_exists('mosMenuBar')) {
 				public static function editHtmlX($task = 'edit_source',$alt = _EDIT_HTML) {
 					?>
 		<li>
-			<a class="tb-edit-html-x" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('<?php echo _PLEASE_CHOOSE_ELEMENT_TO_EDIT?>'); } else {hideMainMenu();submitbutton('<?php echo $task; ?>', '');}"><span><?php echo $alt; ?></span></a>
+			<a class="tb-edit-html-x" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('<?php echo _PLEASE_CHOOSE_ELEMENT_TO_EDIT?>'); } else {submitbutton('<?php echo $task; ?>', '');}"><span><?php echo $alt; ?></span></a>
 		</li>
 					<?php
 				}
@@ -279,7 +279,7 @@ if(!class_exists('mosMenuBar')) {
 				public static function editCssX($task = 'edit_css',$alt = _EDIT_CSS) {
 					?>
 		<li>
-			<a class="tb-edit-css-x" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('<?php echo _PLEASE_CHOOSE_ELEMENT_TO_EDIT?>'); } else {hideMainMenu();submitbutton('<?php echo $task; ?>', '');}"><span><?php echo $alt; ?></span></a>
+			<a class="tb-edit-css-x" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('<?php echo _PLEASE_CHOOSE_ELEMENT_TO_EDIT?>'); } else {submitbutton('<?php echo $task; ?>', '');}"><span><?php echo $alt; ?></span></a>
 		</li>
 					<?php
 				}
@@ -308,7 +308,7 @@ if(!class_exists('mosMenuBar')) {
 				public static function deleteListX($msg = '',$task = 'remove',$alt = _DELETE) {
 					?>
 		<li>
-			<a class="tb-delete-list-x" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('<?php echo _PLEASE_CHOOSE_ELEMENT_TO_DELETE?>'); } else if (confirm('<?php echo _REALLY_WANT_TO_DELETE_OBJECTS?> <?php echo $msg; ?>')){ hideMainMenu();submitbutton('<?php echo $task; ?>');}"><span><?php echo $alt; ?></span></a>
+			<a class="tb-delete-list-x" href="javascript:if (document.adminForm.boxchecked.value == 0){ alert('<?php echo _PLEASE_CHOOSE_ELEMENT_TO_DELETE?>'); } else if (confirm('<?php echo _REALLY_WANT_TO_DELETE_OBJECTS?> <?php echo $msg; ?>')){ submitbutton('<?php echo $task; ?>');}"><span><?php echo $alt; ?></span></a>
 		</li>
 					<?php
 				}

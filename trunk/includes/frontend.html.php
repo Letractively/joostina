@@ -10,7 +10,7 @@
 defined('_VALID_MOS') or die();
 
 class modules_html {
-    
+
     public $_mainframe;
 
     function modules_html($mainframe) {
@@ -25,11 +25,11 @@ class modules_html {
 
         file_exists($path) ? include_once ($path) : (file_exists($path_def) ? include_once ($path_def):null);
 
-        if( !is_file(JPATH_BASE.DS.'modules'.DS.$module->module.DS.$module->module.'.php') ){
-                $d = debug_backtrace();
-			jd_log( 'mosMainFrame::getInstance  '.$d[0]['file'].'::'.$d[0]['line'] );
-        }else{
-                 include (JPATH_BASE.DS.'modules'.DS.$module->module.DS.$module->module.'.php');
+        if( !is_file(JPATH_BASE.DS.'modules'.DS.$module->module.DS.$module->module.'.php') ) {
+            $d = debug_backtrace();
+            jd_log( 'mosMainFrame::getInstance  '.$d[0]['file'].'::'.$d[0]['line'] );
+        }else {
+            include (JPATH_BASE.DS.'modules'.DS.$module->module.DS.$module->module.'.php');
         }
     }
 }

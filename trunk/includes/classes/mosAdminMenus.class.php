@@ -67,8 +67,8 @@ class mosAdminMenus {
         return mosHTML::selectList($mitems,'parent','class="inputbox" size="10"','value','text',$row->parent);
     }
 
-    public static function Published(&$row) {
-        return mosHTML::yesnoRadioList('published','class="inputbox"',$row->published);
+    public static function Published($row,$field_name = 'published' ) {
+        return mosHTML::yesnoRadioList('published','class="inputbox"',$row->$field_name);
     }
 
     public static function Link(&$row,$id,$link = null) {

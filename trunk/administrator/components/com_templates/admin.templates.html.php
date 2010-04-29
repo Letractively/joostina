@@ -161,7 +161,6 @@ class HTML_templates {
 				form: 'adminForm',
 				callback:
 					function(resp){
-					log('аЌаОаЛбібµаЕаН аОбІаВаЕбІ: ' + resp.responseText);
 					mess_cool(resp.responseText);
 					SRAX.get('tb-apply').className='tb-apply';
 				}});
@@ -230,7 +229,6 @@ class HTML_templates {
 				form: 'adminForm',
 				callback:
 					function(resp){
-					log('аЌаОаЛбібµаЕаН аОбІаВаЕбІ: ' + resp.responseText);
 					mess_cool(resp.responseText);
 					SRAX.get('tb-apply').className='tb-apply';
 				}});

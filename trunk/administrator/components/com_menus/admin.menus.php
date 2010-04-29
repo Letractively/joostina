@@ -333,7 +333,7 @@ function addMenuItem(&$cid,$menutype,$option,$task) {
         $i++;
     }
 
-    HTML_menusections::addMenuItem($cid,$menutype,$option,$types_content,$types_component,$types_link,$types_other,$types_submit);
+    HTML_menusections::addMenuItem($cid,$menutype,$option,$types_component,$types_link,$types_other);
 }
 
 
