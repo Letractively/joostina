@@ -27,27 +27,23 @@ class HTML_modules {
 		?>
 <script type="text/javascript">
 	function ch_get_positon(elID){
-		log('Получение списка позиций модуля: '+elID);
 		SRAX.replaceHtml('mod-id-'+elID,'<img src="images/aload.gif" />');
 		dax({
 			url: 'ajax.index.php?option=com_modules&task=position&id='+elID,
 			id:'publ-'+elID,
 			callback:
 				function(resp, idTread, status, ops){
-				log('Получен ответ: ' + resp.responseText);
 				SRAX.replaceHtml('mod-id-'+elID,resp.responseText);
 			}});
 	}
 	// смена позиции модуля
 	function ch_sav_pos(elID,newPOS){
-		log('Смена позиции модуля: '+elID+' на '+newPOS);
 		SRAX.replaceHtml('mod-id-'+elID,'<img src="images/aload.gif" />');
 		dax({
 			url: 'ajax.index.php?option=com_modules&task=save_position&id='+elID+'&new_pos='+newPOS,
 			id:'publ-'+elID,
 			callback:
 				function(resp, idTread, status, ops){
-				log('Получен ответ: ' + resp.responseText);
 				if(resp.responseText==1)
 					SRAX.replaceHtml('mod-id-'+elID,'<a href="#" onclick="ch_get_positon(\''+elID+'\');" >'+newPOS+'</a>');
 				else
@@ -205,7 +201,6 @@ class HTML_modules {
 			form: 'adminForm',
 			callback:
 				function(resp){
-				log('Получен ответ: ' + resp.responseText);
 				mess_cool(resp.responseText);
 				SRAX.get('tb-apply').className='tb-apply';
 			}});

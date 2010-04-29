@@ -17,20 +17,20 @@ define('JPATH_BASE', dirname(dirname(__FILE__)) );
 define('JPATH_BASE_ADMIN', dirname(__FILE__) );
 
 if(!file_exists(JPATH_BASE.DS.'configuration.php')) {
-	header('Location: ../installation/index.php');
-	exit();
+    header('Location: ../installation/index.php');
+    exit();
 }
 
 (ini_get('register_globals') == 1) ? require_once (JPATH_BASE.DS.'includes'.DS.'globals.php') : null;
 require_once (JPATH_BASE.DS.'configuration.php');
 
 // для совместимости
-$mosConfig_absolute_path = JPATH_BASE;
+//$mosConfig_absolute_path = JPATH_BASE;
 
 // SSL проверка  - $http_host returns <live site url>:<port number if it is 443>
 $http_host = explode(':',$_SERVER['HTTP_HOST']);
 if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset($http_host[1]) && $http_host[1] == 443) && substr($mosConfig_live_site,0,8) !='https://') {
-	$mosConfig_live_site = 'https://' . substr($mosConfig_live_site,7);
+    $mosConfig_live_site = 'https://' . substr($mosConfig_live_site,7);
 }
 
 // live_site
@@ -50,42 +50,33 @@ header('Content-type: text/html; charset=UTF-8');
 // получение основных параметров
 $option		= strval(strtolower(mosGetParam($_REQUEST,'option','')));
 $task		= strval(mosGetParam($_REQUEST,'task',''));
-$act		= strtolower(mosGetParam($_REQUEST,'act',''));
-$section	= mosGetParam($_REQUEST,'section','');
-$no_html	= intval(mosGetParam($_REQUEST,'no_html',0));
-$id			= intval(mosGetParam($_REQUEST,'id',0));
+$no_html	= (int)mosGetParam($_REQUEST,'no_html',0);
+$id	= (int)mosGetParam($_REQUEST,'id',0);
 
 // mainframe - основная рабочая среда API, осуществляет взаимодействие с 'ядром'
 $mainframe = mosMainFrame::getInstance(true);
 
 // объект работы с базой данных
-$database = $mainframe->getDBO();
+//$database = $mainframe->getDBO();
 
 // класс работы с правами пользователей
 $acl = gacl::getInstance( true );
 
 // установка языка систему
-$mainframe->set('lang', $mosConfig_lang);
-
-// получаем название шаблона для панели управления
-$cur_template = $mainframe->getTemplate();
-define('JTEMPLATE', $cur_template );
+//$mainframe->set('lang', $mosConfig_lang);
 
 require_once($mainframe->getLangFile());
 require_once($mainframe->getLangFile('administrator'));
-
 
 // запуск сессий панели управления
 $my = $mainframe->initSessionAdmin($option,$task);
 
 // страница панели управления по умолчанию
-if($option == '') {
-	$option = 'com_admin';
-}
+$option = ($option == '') ? 'com_admin' : $option;
 
-if($mosConfig_mmb_system_off == 0) {
-	$_MAMBOTS->loadBotGroup('admin');
-	$_MAMBOTS->trigger('onAfterAdminStart');
+if( FALSE ) {
+    $_MAMBOTS->loadBotGroup('admin');
+    $_MAMBOTS->trigger('onAfterAdminStart');
 }
 
 // инициализация редактора
@@ -94,15 +85,15 @@ require_once (JPATH_BASE . '/includes/editor.php');
 
 ob_start();
 if($path = $mainframe->getPath('admin')) {
-	//Подключаем язык компонента
-	if($mainframe->getLangFile($option)) {
-		include_once($mainframe->getLangFile($option));
-	}
-	require_once ($path);
+    //Подключаем язык компонента
+    if($mainframe->getLangFile($option)) {
+        include_once($mainframe->getLangFile($option));
+    }
+    require_once ($path);
 } else {
-	?>
+    ?>
 <img src="<?php echo JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE;?>/images/ico/error.png" border="0" alt="Joostina!" />
-	<?php
+    <?php
 }
 
 $_MOS_OPTION['buffer'] = ob_get_contents();
@@ -112,18 +103,18 @@ initGzip();
 
 // начало вывода html
 if($no_html == 0) {
-	// загрузка файла шаблона
-	if(!file_exists(JPATH_BASE .DS.JADMIN_BASE.DS.'templates'.DS. JTEMPLATE .DS.'index.php')) {
-		echo _TEMPLATE_NOT_FOUND.': '.JTEMPLATE;
-	} else {
-		//Подключаем язык шаблона
-		if($mainframe->getLangFile('tmpl_'.JTEMPLATE)) {
-			include_once($mainframe->getLangFile('tmpl_'.JTEMPLATE));
-		}
-		require_once (JPATH_BASE . DS.JADMIN_BASE.DS.'templates' .DS. JTEMPLATE .DS.'index.php');
-	}
+    // загрузка файла шаблона
+    if(!file_exists(JPATH_BASE .DS.JADMIN_BASE.DS.'templates'.DS. JTEMPLATE .DS.'index.php')) {
+        echo _TEMPLATE_NOT_FOUND.': '.JTEMPLATE;
+    } else {
+        //Подключаем язык шаблона
+        if($mainframe->getLangFile('tmpl_'.JTEMPLATE)) {
+            include_once($mainframe->getLangFile('tmpl_'.JTEMPLATE));
+        }
+        require_once (JPATH_BASE . DS.JADMIN_BASE.DS.'templates' .DS. JTEMPLATE .DS.'index.php');
+    }
 } else {
-	mosMainBody_Admin();
+    mosMainBody_Admin();
 }
 
 // информация отладки, число запросов в БД
@@ -131,7 +122,7 @@ JDEBUG ? jd_get() : null;
 
 // восстановление сессий
 if($task == 'save' || $task == 'apply' || $task == 'save_and_new' ) {
-	$mainframe->initSessionAdmin($option,'');
+    $mainframe->initSessionAdmin($option,'');
 }
 
 doGzip();

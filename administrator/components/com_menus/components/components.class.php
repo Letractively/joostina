@@ -51,8 +51,7 @@ class components_menu {
 		}
 
 		$query = "SELECT c.id AS value, c.name AS text, c.link FROM #__components AS c WHERE c.link != '' ORDER BY c.name";
-		$database->setQuery($query);
-		$components = $database->loadObjectList();
+		$components = $database->setQuery($query)->loadObjectList();
 
 		// build the html select list for section
 		$lists['componentid'] = mosAdminMenus::Component($menu,$uid,$components);

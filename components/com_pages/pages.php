@@ -19,9 +19,13 @@ JoiAdmin::dispatch();
 
 class actionsPages {
 
-    public static function index( $option, $id, $task ){
+    public static function index( ) {
+
+        $menu = mosMainFrame::getInstance()->get('menu');
+        $params = new mosParameters($menu->params);
+
         $page = new Pages();
-        $page->load( $id ? $id : 1 );
+        $page->load( $params->get('page_id',0) );
 
         mosMainFrame::getInstance()->addMetaTag('description',  $page->meta_description );
         mosMainFrame::getInstance()->addMetaTag('keywords',  $page->meta_keywords );
@@ -29,5 +33,4 @@ class actionsPages {
 
         pagesHTML::index($page);
     }
-
 }

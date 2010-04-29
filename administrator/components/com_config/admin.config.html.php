@@ -116,7 +116,6 @@ class HTML_config {
 			form: 'adminForm',
 			callback:
 				function(resp){
-				log('Получен ответ: ' + resp.responseText);
 				mess_cool(resp.responseText);
 				SRAX.get('tb-apply').className='tb-apply';
 			}});

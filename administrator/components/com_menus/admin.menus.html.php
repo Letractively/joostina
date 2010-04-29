@@ -128,7 +128,7 @@ class HTML_menusections {
     /**
      * Отображение списка типов пунктов меню для создания
      */
-    function addMenuItem(&$cid,$menutype,$option,$types_content,$types_component,$types_link,$types_other,$types_submit) {
+    function addMenuItem(&$cid,$menutype,$option,$types_component,$types_link,$types_other) {
 
         mosCommonHTML::loadOverlib();
         ?>
@@ -153,21 +153,6 @@ class HTML_menusections {
         <tr>
             <td width="50%" valign="top">
                 <fieldset>
-                    <legend><?php echo _CONTENT?></legend>
-                    <table class="adminform">
-                                <?php
-                                $k = 0;
-                                $count = count($types_content);
-                                for($i = 0; $i < $count; $i++) {
-                                    $row = &$types_content[$i];
-                                    $link = 'index2.php?option=com_menus&menutype='.$menutype.'&task=edit&type='.$row->type.'&hidemainmenu=1';
-                                    HTML_menusections::htmlOptions($row,$link,$k,$i);
-                                    $k = 1 - $k;
-                                }
-                                ?>
-                    </table>
-                </fieldset>
-                <fieldset>
                     <legend><?php echo _MENU_ITEMS_OTHER?></legend>
                     <table class="adminform">
                                 <?php
@@ -175,21 +160,6 @@ class HTML_menusections {
                                 $count = count($types_other);
                                 for($i = 0; $i < $count; $i++) {
                                     $row = &$types_other[$i];
-                                    $link = 'index2.php?option=com_menus&menutype='.$menutype.'&task=edit&type='.$row->type.'&hidemainmenu=1';
-                                    HTML_menusections::htmlOptions($row,$link,$k,$i);
-                                    $k = 1 - $k;
-                                }
-                                ?>
-                    </table>
-                </fieldset>
-                <fieldset>
-                    <legend><?php echo _MENU_ITEMS_SEND?></legend>
-                    <table class="adminform">
-                                <?php
-                                $k = 0;
-                                $count = count($types_submit);
-                                for($i = 0; $i < $count; $i++) {
-                                    $row = &$types_submit[$i];
 
                                     $link = 'index2.php?option=com_menus&menutype='.$menutype.'&task=edit&type='.$row->type.'&hidemainmenu=1';
                                     HTML_menusections::htmlOptions($row,$link,$k,$i);
@@ -281,7 +251,6 @@ class HTML_menusections {
             <th><?php echo _MOVE_MENU_ITEMS?></th>
         </tr>
     </table>
-
     <br />
     <table class="adminform">
         <tr>
@@ -296,13 +265,9 @@ class HTML_menusections {
                 <strong><?php echo _MENU_ITEMS_TO_MOVE?>:</strong>
                 <br />
                 <ol>
-                            <?php
-                            foreach($items as $item) {
-                                ?>
+                            <?php foreach($items as $item) { ?>
                     <li><?php echo $item->name; ?></li>
-                                <?php
-                            }
-                            ?>
+                                <?php } ?>
                 </ol>
             </td>
         </tr>
@@ -349,13 +314,9 @@ class HTML_menusections {
                 <strong><?php echo _MENU_ITEMS_TO_COPY?>:</strong>
                 <br />
                 <ol>
-                            <?php
-                            foreach($items as $item) {
-                                ?>
+                            <?php foreach($items as $item) { ?>
                     <li><?php echo $item->name; ?></li>
-                                <?php
-                            }
-                            ?>
+                                <?php } ?>
                 </ol>
             </td>
         </tr>
@@ -375,4 +336,3 @@ class HTML_menusections {
         <?php
     }
 }
-?>

@@ -68,3 +68,76 @@ function writeDynaList( selectParams, source, key, orig_key, orig_val ) {
     document.writeln( html );
 }
 
+function changeDynaList( listname, source, key, orig_key, orig_val ) {
+    var list = eval( 'document.adminForm.' + listname );
+    // empty the list
+    for (i in list.options.length) {
+        list.options[i] = null;
+    }
+    i = 0;
+    for (x in source) {
+        if (source[x][0] == key) {
+            opt = new Option();
+            opt.value = source[x][1];
+            opt.text = source[x][2];
+            if ((orig_key == key && orig_val == opt.value) || i == 0) {
+                opt.selected = true;
+            }
+            list.options[i++] = opt;
+        }
+    }
+    list.length = i;
+}
+
+function submitbutton(pressbutton) {
+    submitform(pressbutton);
+}
+
+function submitform(pressbutton){
+    document.adminForm.task.value=pressbutton;
+    try {
+        document.adminForm.onsubmit();
+    }
+    catch(e){}
+    document.adminForm.submit();
+}
+
+function listItemTask( id, task ) {
+    var f = document.adminForm;
+    cb = eval( 'f.' + id );
+    if (cb) {
+        for (i = 0; true; i++) {
+            cbx = eval('f.cb'+i);
+            if (!cbx) break;
+            cbx.checked = false;
+        } // for
+        cb.checked = true;
+        f.boxchecked.value = 1;
+        submitbutton(task);
+    }
+    return false;
+}
+
+var idbox_checked = false;
+function checkAll() {
+	var allCheckboxes = $("input[boxtype=idbox]");
+
+	if( idbox_checked ){
+		allCheckboxes.removeAttr('checked');
+		idbox_checked = false;
+	}else{
+		allCheckboxes.attr('checked', 'checked');
+		idbox_checked = true;
+	}
+
+	document.adminForm.boxchecked.value = !document.adminForm.boxchecked.value;
+}
+
+// TODO переписать на Jquery и изменить логику проверки на поиск зачекенного чеккера
+function isChecked(isitchecked){
+	if (isitchecked == true){
+		document.adminForm.boxchecked.value++;
+	}else {
+		document.adminForm.boxchecked.value--;
+	}
+}
