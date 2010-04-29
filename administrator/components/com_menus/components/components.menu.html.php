@@ -53,7 +53,7 @@ class components_menu_html {
 				form.link.value = comp_links[form.componentid.value];
 			}
 
-			if ( trim( form.name.value ) == "" ){
+			if ( $.trim( form.name.value ) == "" ){
 				alert( "<?php echo _OBJECT_MUST_HAVE_NAME?>" );
 			} else if (form.componentid.value == ""){
 				alert( "<?php echo _CHOOSE_COMPONENT?>" );
@@ -81,13 +81,13 @@ class components_menu_html {
 				<tr>
 					<td width="10%" align="right"><?php echo _NAME?>:</td>
 					<td width="80%">
-						<input class="inputbox" type="text" name="name" size="50" maxlength="100" value="<?php echo htmlspecialchars($menu->name,ENT_QUOTES); ?>" />
+						<input class="inputbox" type="text" name="name" size="50" maxlength="100" value="<?php echo htmlspecialchars($menu->name,ENT_QUOTES,'UTF-8'); ?>" />
 					</td>
 				</tr>
 				<tr>
 					<td width="10%" align="right" valign="top"><?php echo _LINK_TITLE?>:</td>
 					<td width="80%">
-						<input class="inputbox" type="text" name="params[title]" size="50" maxlength="100" value="<?php echo htmlspecialchars($params->get('title',''),ENT_QUOTES); ?>" />
+						<input class="inputbox" type="text" name="page_title" size="50" maxlength="100" value="<?php echo htmlspecialchars($menu->page_title,ENT_QUOTES,'UTF-8'); ?>" />
 					</td>
 				</tr>
 				<tr>
@@ -154,4 +154,3 @@ class components_menu_html {
 		<?php
 	}
 }
-?>
