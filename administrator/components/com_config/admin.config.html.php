@@ -20,6 +20,7 @@ class HTML_config {
 		global $mosConfig_session_type,$mainframe;
 
 		mosCommonHTML::loadOverlib();
+                mosMainFrame::addClass('mosTabs');
 		$tabs = new mosTabs(1,1);
 
 		?>

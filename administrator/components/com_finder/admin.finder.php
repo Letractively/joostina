@@ -12,7 +12,7 @@ defined('_VALID_MOS') or die();
 
 // разрешим доступ только пользователям с правами супер-администратора
 if(!$acl->acl_check('administration','config','users',$my->usertype)) {
-	mosRedirect('index2.php',_NOT_AUTH);
+    mosRedirect('index2.php',_NOT_AUTH);
 }
 
 require_once($mainframe->getPath('admin_html'));
@@ -21,18 +21,18 @@ mosMainFrame::addLib('elfinder');
 
 // конфигурация редактора, тут можно сдлеать настраиваемость для разных групп пользователям
 $elfinder_config = array(
-    'url' => JPATH_SITE . '/ajax.index.php?option=com_finder',
-    'lang' => _LANGUAGE,
-    'height' => '600px',
-    'wrap' => 14,
-	'places'=>'',
-    'placesFirst' => FALSE,
-    'view' => 'icons',
-    'width' => '100%',
-    'height' => '600px',
-    'disableShortcuts' => false,
-    'dialog' => null,
-    'docked' => false
+        'url' => JPATH_SITE . '/ajax.index.php?option=com_finder',
+        'lang' => _LANGUAGE,
+        'height' => '600px',
+        'wrap' => 14,
+        'places'=>'',
+        'placesFirst' => FALSE,
+        'view' => 'icons',
+        'width' => '100%',
+        'height' => '600px',
+        'disableShortcuts' => false,
+        'dialog' => null,
+        'docked' => false
 );
 
 // исправляем ошибку с кворированием URL сайта
