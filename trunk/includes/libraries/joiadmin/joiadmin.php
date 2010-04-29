@@ -98,29 +98,30 @@ defined('_VALID_MOS') or die();
 
 
 class JoiAdmin {
-
-    // текущее действие
-    public static $model;
-
     /**
      * Автоматическое определение и запуск метода действия
      */
     public static function dispatch() {
+
         $id = (int) mosGetParam($_REQUEST, 'id', 0);
+        $param_1 = (int) mosGetParam($_GET, 'param-1', false);
+
+        $page = $param_1 ? $id : 0;
+        $id      = $param_1 ? $param_1 : $id;
 
         $task    = (string) mosGetParam($_REQUEST, 'task', 'index');
         $option = (string) mosGetParam($_REQUEST, 'option');
         $action  = (string) mosGetParam($_REQUEST, 'action', $option);
-        $action = self::$model = str_replace('com_', '', $action);
+        $action  = str_replace('com_', '', $action);
 
         $class = 'actions'.ucfirst( $action );
 
         JDEBUG ? jd_log( $class.'::'.$task ) : null;
 
         if( method_exists($class, $task) ) {
-            call_user_func_array( $class.'::'.$task , array( $option, $id, $task ) );
+            call_user_func_array( $class.'::'.$task , array( $option, $id, $page, $task ) );
         }else {
-            call_user_func_array( $class.'::index', array( $option, $id ) );
+            call_user_func_array( $class.'::index', array( $option, $id, $page, $task ) );
         }
     }
 
@@ -195,11 +196,11 @@ class JoiAdmin {
         echo '</tr></table>';
         echo $pagenav->getListFooter();
 
-        echo form::hidden('option', $option) . "\n";
-        echo form::hidden('task', '') . "\n";
-        echo form::hidden('boxchecked', '') . "\n";
+        echo form::hidden('option', $option);
+        echo form::hidden('task', '');
+        echo form::hidden('boxchecked', '');
         echo form::hidden('obj_name', get_class($obj));
-        echo form::hidden(josSpoofValue(), 1) . "\n";
+        echo form::hidden(josSpoofValue(), 1);
         echo form::close();
     }
 
@@ -267,8 +268,11 @@ class JoiAdmin {
      * @param array $params
      */
     public static function edit(mosDBTable $obj, $obj_data, $params = null) {
+        
         //Подключаем библиотеку работы с формами
         mosMainFrame::addLib('form');
+        
+        //Библиотека работы с табами
         mosMainFrame::addClass('mosTabs');
         $tabs = new mosTabs(1, 1);
 
@@ -499,11 +503,28 @@ class JoiAdmin {
                 $element .= $params['wrap_end'];
                 $element .= '</div>';
                 break;
+                
+            case 'tags':
+                require_once ( mosMainFrame::getInstance()->getPath('class','com_joitags'));
+                $tags = new joiTags;
+                $tags->obj_type = 'com_nodes';
+                
+                $element .= $params['label_begin'];
+                $element .= form::label(
+                        array(
+                        'for' => $key
+                        ), $element_param['name']);
+                $element .= $params['label_end'];
+                $element .= $params['el_begin'];
+                $element .= $tags->display_object_tags_edit($obj_data); 
+                $element .= $params['el_end'];                
+ 
+                break;
 
             // по умолчанию поле вывод закомментированным
             default:
                 $element .= "\n\t";
-                $element = '<!-- no-viewed :: ' . $key . ' -->';
+                $element .= '<!-- no-viewed :: ' . $key . ' -->';
                 break;
         }
 

@@ -346,13 +346,9 @@ function saveMenu($option,$task = 'save') {
     $database = database::getInstance();
 
     $params = mosGetParam($_POST,'params','');
-    if(is_array($params)) {
-        $txt = array();
-        foreach($params as $k => $v) {
-            $txt[] = "$k=$v";
-        }
-        $_POST['params'] = mosParameters::textareaHandling($txt);
-    }
+    // TODO тут бедас русским языком...
+    mosMainFrame::addLib('json');
+    $_POST['params'] = php2js($params);
 
     $row = new mosMenu($database);
 
@@ -371,7 +367,6 @@ function saveMenu($option,$task = 'save') {
         echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
         exit();
     }
-    $row->checkin();
     $row->updateOrder('menutype = '.$database->Quote($row->menutype).' AND parent = '.(int)$row->parent);
 
     $msg = _MENU_ITEM_SAVED;
@@ -445,8 +440,7 @@ function TrashMenuSection($cid = null,$menutype = 'mainmenu') {
     $state = -2;
 
     $query = "SELECT* FROM #__menu WHERE menutype = ".$database->Quote($menutype)."\n AND published != ".(int)$state."\n ORDER BY menutype, parent, ordering";
-    $database->setQuery($query);
-    $mitems = $database->loadObjectList();
+    $mitems = $database->setQuery($query)->loadObjectList();
 
     // determine if selected item has an child items
     $children = array();
@@ -577,8 +571,7 @@ function addDescendants($id,&$cid) {
     $database = database::getInstance();
 
     $query = "SELECT id FROM #__menu WHERE parent = ".(int)$id;
-    $database->setQuery($query);
-    $rows = $database->loadObjectList();
+    $rows = $database->setQuery($query)->loadObjectList();
     if($database->getErrorNum()) {
         echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
         exit();

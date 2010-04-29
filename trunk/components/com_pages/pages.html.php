@@ -10,7 +10,10 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-mosMenuBar::startTable();
-mosMenuBar::addNew('create');
-mosMenuBar::deleteList();
-mosMenuBar::endTable();
+class pagesHTML {
+
+    public static function index( Pages $page ) {
+        echo sprintf('<div class="page"><h1>%s</h1></div>', $page->title );
+        echo  sprintf('<div class="pc">%s</div>',$page->text);
+    }
+}

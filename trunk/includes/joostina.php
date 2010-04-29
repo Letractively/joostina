@@ -2158,86 +2158,38 @@ class JConfig {
 	 * заполнение данных класса данными из глобальных перменных
 	 */
 	function bindGlobals() {
-		// странное место с двойным проходом по массиву переменных
-		//$vars = $this->getPublicVars();
 		$vars = array_keys(get_class_vars('JConfig'));
 		foreach($vars as $v) {
 			$k = str_replace('config_','mosConfig_',$v);
 			if(isset($GLOBALS[$k])) $this->$v = $GLOBALS[$k];
 		}
-		/*
-		* для корректной работы https://
-		*/
-		// TODO HTTPS - проверить правильность
-		//require (JPATH_BASE.DS.'configuration.php');
-		//if($mosConfig_live_site != $this->config_live_site) {
-		//	$this->config_live_site = $mosConfig_live_site;
-		//}
 	}
 }
 
-/**
- * Module database table class
- * @package Joostina
- */
 class mosMenu extends mosDBTable {
 	/**
 	 * Инстанция хранения всех пунктов меню
-	 * @var instance
 	 */
 	private static $_all_menus_instance;
 
-	/**
-	 @var int Primary key*/
-	public $id = null;
-	/**
-	 @var string*/
-	public $menutype = null;
-	/**
-	 @var string*/
-	public $name = null;
-	/**
-	 @var string*/
-	public $link = null;
-	/**
-	 @var int*/
-	public $type = null;
-	/**
-	 @var int*/
-	public $published = null;
-	/**
-	 @var int*/
-	public $componentid = null;
-	/**
-	 @var int*/
-	public $parent = null;
-	/**
-	 @var int*/
-	public $sublevel = null;
-	/**
-	 @var int*/
-	public $ordering = null;
-	/**
-	 @var boolean*/
-	public $checked_out = null;
-	/**
-	 @var datetime*/
-	public $checked_out_time = null;
-	/**
-	 @var boolean*/
-	public $pollid = null;
-	/**
-	 @var string*/
-	public $browserNav = null;
-	/**
-	 @var int*/
-	public $access = null;
-	/**
-	 @var int*/
-	public $utaccess = null;
-	/**
-	 @var string*/
-	public $params = null;
+	public $id;
+	public $menutype;
+	public $name;
+        public $page_title;
+	public $link;
+	public $type;
+	public $published;
+	public $componentid;
+	public $parent;
+	public $sublevel;
+	public $ordering;
+	public $checked_out;
+	public $checked_out_time;
+	public $pollid;
+	public $browserNav;
+	public $access;
+	public $utaccess;
+	public $params;
 
 	/**
 	 * @param database A database connector object

@@ -10,7 +10,24 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-mosMenuBar::startTable();
-mosMenuBar::addNew('create');
-mosMenuBar::deleteList();
-mosMenuBar::endTable();
+require_once ($mainframe->getPath('front_html'));
+require_once ($mainframe->getPath('class'));
+
+// управлятор
+mosMainFrame::addLib('joiadmin');
+JoiAdmin::dispatch();
+
+class actionsPages {
+
+    public static function index( $option, $id, $task ){
+        $page = new Pages();
+        $page->load( $id ? $id : 1 );
+
+        mosMainFrame::getInstance()->addMetaTag('description',  $page->meta_description );
+        mosMainFrame::getInstance()->addMetaTag('keywords',  $page->meta_keywords );
+        mosMainFrame::getInstance()->setPageTitle( $page->title_page );
+
+        pagesHTML::index($page);
+    }
+
+}
