@@ -18,9 +18,9 @@ class coreVersion {
 	/** @var строка CMS*/
 	public static $CMS = 'Joostina';
 	/** @var версия*/
-	public static $CMS_ver = '1.3.1 beta 1';
+	public static $CMS_ver = '1.3.1 r`evolution 1';
 	/** @var int Номер сборки*/
-	public static $BUILD = '$: 715';
+	public static $BUILD = '$: 7**';
 	/** @var string Дата*/
 	public static $RELDATE = '05:04:2010';
 	/** @var string Время*/
