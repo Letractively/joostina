@@ -10,17 +10,10 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-/**
- * @package Joostina
- * @subpackage Mambots
- */
+
 class HTML_modules {
 
-	/**
-	 * Writes a list of the defined modules
-	 * @param array An array of category objects
-	 */
-	function showMambots(&$rows,$client,&$pageNav,$option,&$lists,$search) {
+	public static function showMambots(&$rows,$client,&$pageNav,$option,&$lists,$search) {
 		global $my;
 
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
@@ -121,7 +114,7 @@ class HTML_modules {
 	 * @param object Parameters
 	 */
 	function editMambot(&$row,&$lists,&$params,$option) {
-		mosCommonHTML::loadOverlib();
+		
 		$row->nameA = '';
 		if($row->id) {
 			$row->nameA = '<small><small>[ '.$row->name.' ]</small></small>';

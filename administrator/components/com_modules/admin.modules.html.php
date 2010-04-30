@@ -10,17 +10,9 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-/**
- * @package Joostina
- * @subpackage Modules
- */
 class HTML_modules {
 
-	/**
-	 * Writes a list of the defined modules
-	 * @param array An array of category objects
-	 */
-	function showModules(&$rows,$myid,$client,&$pageNav,$option,&$lists,$search) {
+	public static function showModules(&$rows,$myid,$client,&$pageNav,$option,&$lists,$search) {
 		global $my;
 
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
@@ -172,24 +164,10 @@ class HTML_modules {
 		<?php
 	}
 
-	/**
-	 * Writes the edit form for new and existing module
-	 *
-	 * A new record is defined when <var>$row</var> is passed with the <var>id</var>
-	 * property set to 0.
-	 * @param mosCategory The category object
-	 * @param array <p>The modules of the left side.  The array elements are in the form
-	 * <var>$leftorder[<i>order</i>] = <i>label</i></var>
-	 * where <i>order</i> is the module order from the db table and <i>label</i> is a
-	 * text label associciated with the order.</p>
-	 * @param array See notes for leftorder
-	 * @param array An array of select lists
-	 * @param object Parameters
-	 */
-	function editModule( mosModule $row,&$orders2, array $lists, mosParameters $params,$option) {
+	public static function editModule( mosModule $row,&$orders2, array $lists, mosParameters $params,$option) {
 		global $mosConfig_cachepath,$my;
 		$row->title = htmlspecialchars($row->title);
-		mosCommonHTML::loadOverlib();
+		
 		?>
 <script language="javascript" type="text/javascript">
 	function ch_apply(){

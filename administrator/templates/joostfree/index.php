@@ -25,6 +25,7 @@ $option = mosGetParam( $_REQUEST, 'option', '' );
         //moCommonHTML::loadFullajax();
 
         mosCommonHTML::loadJquery();
+		mosCommonHTML::loadJqueryPlugins('jquery.textarearesizer');
 
         $mainframe->addCSS(JPATH_SITE.'/'.JADMIN_BASE.'/templates/joostfree/css/template_css.css');
         $mainframe->addJS(JPATH_SITE.'/includes/js/JSCookMenu.js');

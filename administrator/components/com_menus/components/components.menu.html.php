@@ -13,7 +13,7 @@ defined('_VALID_MOS') or die();
 class components_menu_html {
 
 	public static function edit(&$menu,&$components,&$lists,&$params,$option) {
-		mosCommonHTML::loadOverlib();
+
 
 		mosCommonHTML::loadJqueryPlugins('jquery.validate');
 		mosCommonHTML::loadJqueryPlugins('validate/localization/messages_ru');
@@ -45,7 +45,12 @@ class components_menu_html {
 						$('#link').val( comp_links[form.componentid.value] );
 					}
 					submitform( pressbutton );
-				}
+				};
+
+	function update_params(){
+		var comp_id = getSelectedValueById( 'componentid' );
+		$('#component_params_form').load( _live_site + '/administrator/ajax.index.php?option=com_menus', { obj_id:comp_id, task:'component_params' } );
+	}
 </script>
 <form action="index2.php" method="post" name="adminForm" id="adminForm">
     <table class="adminheading">
@@ -57,7 +62,7 @@ class components_menu_html {
     </table>
     <table width="100%">
         <tr valign="top">
-            <td width="60%">
+            <td width="50%">
                 <table class="adminform">
                     <tr>
                         <th colspan="2"><?php echo _DETAILS?></th>
@@ -75,7 +80,7 @@ class components_menu_html {
                     <tr>
                         <td width="10%" align="right" valign="top"><?php echo _LINK_TITLE?>:</td>
                         <td width="80%">
-                            <input class="inputbox" type="text" name="page_title" size="50" maxlength="100" value="<?php echo htmlspecialchars($menu->page_title,ENT_QUOTES,'UTF-8'); ?>" />
+                            <input class="inputbox" type="text" name="link_title" size="50" maxlength="100" value="<?php echo htmlspecialchars($menu->link_title,ENT_QUOTES,'UTF-8'); ?>" />
                         </td>
                     </tr>
                     <tr>
@@ -105,11 +110,11 @@ class components_menu_html {
                     </tr>
                 </table>
             </td>
-            <td width="40%">
+            <td width="50%">
                 <table class="adminform">
                     <tr><th><?php echo _PARAMETERS?></th></tr>
                     <tr>
-                        <td>
+                        <td id="component_params_form">
 									<?php
 									if($menu->id) {
 										echo $params->render();
@@ -133,7 +138,6 @@ class components_menu_html {
     <input type="hidden" name="task" value="" />
     <input type="hidden" name="hidemainmenu" value="0" />
     <input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
-	<input type="submit" value="Хоп!" />
 </form>
 		<?php
 	}

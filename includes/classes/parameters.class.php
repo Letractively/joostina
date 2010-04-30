@@ -56,8 +56,10 @@ class mosParameters {
 
         JDEBUG ? jd_inc('mosParameters::parse') : null;
 
-        return json_decode($txt,$asArray);
-    }
+        $r = json_decode( $txt ,$asArray);
+
+		return $r;
+	}
 
     public function render($name = 'params') {
 

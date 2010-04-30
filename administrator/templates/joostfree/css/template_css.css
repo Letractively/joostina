@@ -951,11 +951,16 @@ div.cpicons div {
     display: none;
 }
 div.grippie {
-    background: #EEE url( ../../../../includes/js/jquery/plugins/images/grippie.png) no-repeat scroll center 2px;
+    background: #EEE url( ../../../../includes/js/jquery/plugins/textarearesizer/grippie.png) no-repeat scroll center 2px;
     border-color: #DDD;
     border-style: solid;
     border-width: 0 1px 1px;
     cursor: s-resize;
     height: 9px;
     overflow: hidden;
+}
+
+/* селектор выбора компонента */
+select#componentid{
+	width: 100%
 }

@@ -70,16 +70,16 @@ switch($task) {
 		break;
 }
 
-/**
- * Compiles a list of installed or defined modules
- */
 function viewMambots($option,$client) {
-	global $database,$mainframe,$mosConfig_list_limit;
 
-	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mosConfig_list_limit));
+	$mainframe = mosMainFrame::getInstance();
+	$database = $mainframe->getDBO();
+
+	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mainframe->getCfg('config_list_limit')));
 	$limitstart = intval($mainframe->getUserStateFromRequest("view{$option}limitstart",'limitstart',0));
 	$filter_type = $mainframe->getUserStateFromRequest("filter_type{$option}{$client}",'filter_type',1);
 	$search = $mainframe->getUserStateFromRequest("search{$option}{$client}",'search','');
+
 	if(get_magic_quotes_gpc()) {
 		$search = stripslashes($search);
 	}
@@ -102,8 +102,7 @@ function viewMambots($option,$client) {
 
 	// get the total number of records
 	$query = "SELECT COUNT(*) FROM #__mambots AS m".(count($where)?"\n WHERE ".implode(' AND ',$where):'');
-	$database->setQuery($query);
-	$total = $database->loadResult();
+	$total = $database->setQuery($query)->loadResult();
 
 	require_once (JPATH_BASE.DS.JADMIN_BASE.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
@@ -115,43 +114,35 @@ function viewMambots($option,$client) {
 			.(count($where)?"\n WHERE ".implode(' AND ',$where):'')
 			."\n GROUP BY m.id"
 			."\n ORDER BY m.folder ASC, m.ordering ASC, m.name ASC";
-	$database->setQuery($query,$pageNav->limitstart,$pageNav->limit);
-	$rows = $database->loadObjectList();
+	$rows = $database->setQuery($query,$pageNav->limitstart,$pageNav->limit)->loadObjectList();
+
 	if($database->getErrorNum()) {
 		echo $database->stderr();
 		return false;
 	}
 
-	// get list of Positions for dropdown filter
 	$query = "SELECT folder AS value, folder AS text"
 			."\n FROM #__mambots"
 			."\n WHERE client_id = ".(int)$client_id
 			."\n GROUP BY folder"
 			."\n ORDER BY folder";
 	$types[] = mosHTML::makeOption(1,_SEL_TYPE);
-	$database->setQuery($query);
-	$types = array_merge($types,$database->loadObjectList());
+	$types = array_merge($types,$database->setQuery($query)->loadObjectList());
+
 	$lists['type'] = mosHTML::selectList($types,'filter_type','class="inputbox" size="1" onchange="document.adminForm.submit( );"','value','text',$filter_type);
 
 	HTML_modules::showMambots($rows,$client,$pageNav,$option,$lists,$search);
 }
 
-/**
- * Saves the module after an edit form submit
- */
 function saveMambot($option,$client,$task) {
-	global $database;
 	josSpoofCheck();
+
 	$params = mosGetParam($_POST,'params','');
-	if(is_array($params)) {
-		$txt = array();
-		foreach($params as $k => $v) {
-			$txt[] = "$k=$v";
-		}
+	// TODO тут бедас русским языком...
+	mosMainFrame::addLib('json');
+	$_POST['params'] = php2js($params);
 
-		$_POST['params'] = mosParameters::textareaHandling($txt);
-	}
-
+	$database = database::getInstance();
 	$row = new mosMambot($database);
 	if(!$row->bind($_POST)) {
 		echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
@@ -165,7 +156,7 @@ function saveMambot($option,$client,$task) {
 		echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
 		exit();
 	}
-	$row->checkin();
+
 	if($client == 'admin') {
 		$where = "client_id='1'";
 	} else {
@@ -186,13 +177,10 @@ function saveMambot($option,$client,$task) {
 	}
 }
 
-/**
- * Compiles information to add or edit a module
- * @param string The current GET/POST option
- * @param integer The unique id of the record to edit
- */
 function editMambot($option,$uid,$client) {
-	global $database,$my,$mainframe;
+	global $my;
+
+	$database = database::getInstance();
 
 	$lists = array();
 	$row = new mosMambot($database);
@@ -220,7 +208,6 @@ function editMambot($option,$uid,$client) {
 	}
 
 	if($uid) {
-		$row->checkout($my->id);
 
 		if($row->ordering > -10000 && $row->ordering < 10000) {
 			// build the html select list for ordering
@@ -282,12 +269,6 @@ function editMambot($option,$uid,$client) {
 	HTML_modules::editMambot($row,$lists,$params,$option);
 }
 
-/**
- * Deletes one or more mambots
- *
- * Also deletes associated entries in the #__mambots table.
- * @param array An array of unique category id numbers
- */
 function removeMambot(&$cid,$option,$client) {
 	global $database,$my;
 	josSpoofCheck();
@@ -299,19 +280,18 @@ function removeMambot(&$cid,$option,$client) {
 	mosRedirect( 'index2.php?option=com_installer&element=mambot&client='. $client .'&task=remove&cid[]='. $cid[0] . '&' . josSpoofValue() . '=1');
 }
 
-/**
- * Publishes or Unpublishes one or more modules
- * @param array An array of unique category id numbers
- * @param integer 0 if unpublishing, 1 if publishing
- */
 function publishMambot($cid = null,$publish = 1,$option,$client) {
-	global $database,$my;
+	global $my;
 	josSpoofCheck();
+
+
 	if(count($cid) < 1) {
 		$action = $publish?'publish':'unpublish';
 		echo "<script> alert('"._CHOOSE_MAMBOT_FOR." $action'); window.history.go(-1);</script>\n";
 		exit;
 	}
+
+	$database = database::getInstance();
 
 	mosArrayToInts($cid);
 	$cids = 'id='.implode(' OR id=',$cid);
@@ -331,12 +311,12 @@ function publishMambot($cid = null,$publish = 1,$option,$client) {
 	mosRedirect('index2.php?option='.$option.'&client='.$client);
 }
 
-/**
- * Cancels an edit operation
- */
+
 function cancelMambot($option,$client) {
-	global $database;
 	josSpoofCheck();
+
+	$database = database::getInstance();
+
 	$row = new mosMambot($database);
 	$row->bind($_POST);
 	$row->checkin();
@@ -344,20 +324,17 @@ function cancelMambot($option,$client) {
 	mosRedirect('index2.php?option='.$option.'&client='.$client);
 }
 
-/**
- * Moves the order of a record
- * @param integer The unique id of record
- * @param integer The increment to reorder by
- */
 function orderMambot($uid,$inc,$option,$client) {
-	global $database;
 	josSpoofCheck();
-	// Currently Unsupported
+
 	if($client == 'admin') {
 		$where = "client_id = 1";
 	} else {
 		$where = "client_id = 0";
 	}
+
+	$database = database::getInstance();
+
 	$row = new mosMambot($database);
 	$row->load((int)$uid);
 	$row->move($inc,"folder=".$database->Quote($row->folder)." AND ordering > -10000 AND ordering < 10000 AND ($where)");
@@ -365,13 +342,9 @@ function orderMambot($uid,$inc,$option,$client) {
 	mosRedirect('index2.php?option='.$option);
 }
 
-/**
- * changes the access level of a record
- * @param integer The increment to reorder by
- */
 function accessMenu($uid,$access,$option,$client) {
-	global $database;
 	josSpoofCheck();
+
 	switch($access) {
 		case 'accesspublic':
 			$access = 0;
@@ -386,6 +359,7 @@ function accessMenu($uid,$access,$option,$client) {
 			break;
 	}
 
+	$database = database::getInstance();
 	$row = new mosMambot($database);
 	$row->load((int)$uid);
 	$row->access = $access;
@@ -401,11 +375,12 @@ function accessMenu($uid,$access,$option,$client) {
 }
 
 function saveOrder(&$cid) {
-	global $database;
 	josSpoofCheck();
+
 	$total = count($cid);
 	$order = josGetArrayInts('order');
 
+	$database = database::getInstance();
 	$row = new mosMambot($database);
 	$conditions = array();
 
@@ -438,4 +413,4 @@ function saveOrder(&$cid) {
 
 	$msg = _NEW_ORDER_SAVED;
 	mosRedirect('index2.php?option=com_mambots',$msg);
-} // saveOrder
+}

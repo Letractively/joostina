@@ -41,7 +41,7 @@ class components_menu {
 
 		$query = "SELECT c.id AS value, c.name AS text, c.link FROM #__components AS c WHERE c.link != '' ORDER BY c.name";
 		$components = $database->setQuery($query)->loadObjectList();
-		$lists['componentid'] = mosAdminMenus::Component($menu,$uid,$components);
+		$lists['componentid'] = mosAdminMenus::Component($menu,$uid,$components,'onclick="update_params();"');
 		$lists['componentname'] = mosAdminMenus::ComponentName($menu,$components);
 		$lists['ordering'] = mosAdminMenus::Ordering($menu,$uid);
 		$lists['access'] = mosAdminMenus::Access($menu);

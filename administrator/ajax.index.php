@@ -48,8 +48,9 @@ $task		= strval(mosGetParam($_REQUEST,'task',''));
 
 // mainframe - основная рабочая среда API, осуществляет взаимодействие с 'ядром'
 $mainframe = mosMainFrame::getInstance(true);
-$mainframe->set('lang', $mosConfig_lang);
+
 require_once($mainframe->getLangFile());
+require_once($mainframe->getLangFile('administrator'));
 
 $my = $mainframe->initSessionAdmin($option,$task);
 
