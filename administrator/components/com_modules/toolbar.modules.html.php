@@ -10,15 +10,9 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-/**
- * @package Joostina
- * @subpackage Modules
- */
 class TOOLBAR_modules {
-	/**
-	 * Draws the menu for a New module
-	 */
-	function _NEW() {
+
+	public static function _NEW() {
 		mosMenuBar::startTable();
 		mosMenuBar::preview('modulewindow');
 		mosMenuBar::spacer();
@@ -32,10 +26,7 @@ class TOOLBAR_modules {
 		mosMenuBar::endTable();
 	}
 
-	/**
-	 * Draws the menu for Editing an existing module
-	 */
-	function _EDIT($cur_template,$publish) {
+	public static function _EDIT($cur_template,$publish) {
 		global $id;
 		mosMenuBar::startTable();
 		mosMenuBar::ext(_PREVIEW,'#','-preview'," onclick=\"if (typeof document.adminForm.content == 'undefined') { alert('"._PREVIEW_ONLY_CREATED_MODULES."');} else { var content = document.adminForm.content.value; content = content.replace('#', ''); var title = document.adminForm.title.value; title = title.replace('#', ''); window.open('popups/modulewindow.php?title=' + title + '&amp;content=' + content + '&amp;t=$cur_template', 'win1', 'status=no,toolbar=no,scrollbars=auto,titlebar=no,menubar=no,resizable=yes,width=600,height=500,directories=no,location=no');}\"");
@@ -55,7 +46,8 @@ class TOOLBAR_modules {
 		mosMenuBar::help('screen.modules.edit');
 		mosMenuBar::endTable();
 	}
-	function _DEFAULT() {
+
+	public static function _DEFAULT() {
 		mosMenuBar::startTable();
 		mosMenuBar::publishList();
 		mosMenuBar::spacer();

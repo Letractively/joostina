@@ -10,15 +10,10 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-/**
- * @package Joostina
- * @subpackage Users
- */
+
 class TOOLBAR_users {
-	/**
-	 * Draws the menu to edit a user
-	 */
-	function _EDIT() {
+
+	public static function _EDIT() {
 		global $id;
 
 		mosMenuBar::startTable();
@@ -27,7 +22,6 @@ class TOOLBAR_users {
 		mosMenuBar::apply();
 		mosMenuBar::spacer();
 		if($id) {
-			// for existing content items the button is renamed `close`
 			mosMenuBar::cancel('cancel',_CLOSE);
 		} else {
 			mosMenuBar::cancel();
@@ -37,7 +31,7 @@ class TOOLBAR_users {
 		mosMenuBar::endTable();
 	}
 
-	function _CONFIG() {
+	public static function _CONFIG() {
 		mosMenuBar::startTable();
 		mosMenuBar::save('save_config');
 		mosMenuBar::spacer();
@@ -45,7 +39,7 @@ class TOOLBAR_users {
 		mosMenuBar::endTable();
 	}
 
-	function _DEFAULT() {
+	public static function _DEFAULT() {
 		mosMenuBar::startTable();
 		mosMenuBar::custom('logout','-cancel','',_DISABLE);
 		mosMenuBar::spacer();

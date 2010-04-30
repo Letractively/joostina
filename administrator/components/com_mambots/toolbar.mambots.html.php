@@ -10,15 +10,9 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-/**
- * @package Joostina
- * @subpackage Mambots
- */
 class TOOLBAR_modules {
-	/**
-	 * Draws the menu for Editing an existing module
-	 */
-	function _EDIT() {
+
+	public static function _EDIT() {
 		global $id;
 
 		mosMenuBar::startTable();
@@ -39,7 +33,7 @@ class TOOLBAR_modules {
 		mosMenuBar::endTable();
 	}
 
-	function _DEFAULT() {
+	public static function _DEFAULT() {
 		mosMenuBar::startTable();
 		mosMenuBar::publishList();
 		mosMenuBar::spacer();

@@ -10,18 +10,15 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-/**
- * @package Joostina
- * @subpackage Installer
- */
 class TOOLBAR_installer {
-	function _DEFAULT() {
+
+	public static function _DEFAULT() {
 		mosMenuBar::startTable();
 		mosMenuBar::help('screen.installer');
 		mosMenuBar::endTable();
 	}
 
-	function _DEFAULT2() {
+	public static function _DEFAULT2() {
 		mosMenuBar::startTable();
 		mosMenuBar::deleteList('','remove',_DELETE);
 		mosMenuBar::spacer();
@@ -29,7 +26,7 @@ class TOOLBAR_installer {
 		mosMenuBar::endTable();
 	}
 
-	function _NEW() {
+	public static function _NEW() {
 		mosMenuBar::startTable();
 		mosMenuBar::save();
 		mosMenuBar::spacer();

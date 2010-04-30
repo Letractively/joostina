@@ -12,25 +12,18 @@
  * See COPYRIGHT.php for copyright notices and details.
  */
 
-
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-/**
- * @package		Joomla
- * @subpackage	Cache
- */
 class TOOLBAR_cache {
-	/**
-	 * Draws the menu for a New category
-	 */
-	function _DEFAULT() {
+
+	public static function _DEFAULT() {
 		mosMenuBar::startTable();
 		mosMenuBar::deleteList('', 'delete');
 		mosMenuBar::endTable();
 	}
 
-	function DEFAULT_MENU() {
+	public static function DEFAULT_MENU() {
 		mosMenuBar::startTable();
 		mosMenuBar::deleteList('', 'delete');
 		mosMenuBar::endTable();

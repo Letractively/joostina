@@ -52,7 +52,7 @@ class JCacheCallback extends JCache {
 	 * @return	mixed	Result of the callback
 	 * @since	1.3
 	 */
-	function get( $callback, $args, $id=false ) {
+	public function get( $callback, $args=null, $id=false ) {
 		// Normalize callback
 		if (is_array( $callback )) {
 			// We have a standard php callback array -- do nothing

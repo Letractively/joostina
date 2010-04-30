@@ -259,16 +259,17 @@ function addMenuItem(&$cid,$menutype,$option,$task) {
     $dirs = mosReadDirectory(JPATH_BASE_ADMIN.DS.'components/com_menus');
 
     // load files for menu types
-    foreach($dirs as $dir) {
+	$i = 0;
+	foreach($dirs as $dir) {
         // needed within menu type .php files
         $type = $dir;
         $dir = JPATH_BASE_ADMIN.DS.'components/com_menus/'.$dir;
         if(is_dir($dir)) {
             $files = mosReadDirectory($dir,".\.menu\.php$");
             foreach($files as $file) {
-                //require_once ("$dir/$file");
-                // type of menu type
-                $types[]->type = $type;
+				$types[$i] = new stdClass;
+                $types[$i]->type = $type;
+				$i++;
             }
         }
     }
@@ -306,6 +307,7 @@ function addMenuItem(&$cid,$menutype,$option,$task) {
         $i++;
     }
 
+	$types_component = array();
     // split into Component
     $i = 0;
     foreach($types as $type) {
@@ -721,17 +723,17 @@ function ReadMenuXML($type,$component = -1) {
     $xmlDoc->resolveErrors(true);
 
     if($xmlDoc->loadXML($xmlfile,false,true)) {
-        $root = &$xmlDoc->documentElement;
+        $root = $xmlDoc->documentElement;
 
         if($root->getTagName() == 'mosinstall' && ($root->getAttribute('type') =='component' || $root->getAttribute('type') == 'menu')) {
             // Menu Type Name
-            $element = &$root->getElementsByPath('name',1);
+            $element = $root->getElementsByPath('name',1);
             $name = $element?trim($element->getText()):'';
             // Menu Type Description
-            $element = &$root->getElementsByPath('description',1);
+            $element = $root->getElementsByPath('description',1);
             $descrip = $element?trim($element->getText()):'';
             // Menu Type Group
-            $element = &$root->getElementsByPath('group',1);
+            $element = $root->getElementsByPath('group',1);
             $group = $element?trim($element->getText()):'';
         }
     }

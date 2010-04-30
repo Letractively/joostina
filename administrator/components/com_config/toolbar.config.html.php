@@ -19,7 +19,7 @@ class TOOLBAR_config {
 	/**
 	 * Меню для сохранялки параметров отдельных компонентов
 	 */
-	function _SAVE_EXT_CONFIG() {
+	public static function _SAVE_EXT_CONFIG() {
 		mosMenuBar::startTable();
 		mosMenuBar::save('save_component_config');
 		mosMenuBar::spacer();
@@ -27,7 +27,7 @@ class TOOLBAR_config {
 		mosMenuBar::endTable();
 	}
 
-	function _DEFAULT() {
+	public static function _DEFAULT() {
 		mosMenuBar::startTable();
 		mosMenuBar::save();
 		mosMenuBar::spacer();
