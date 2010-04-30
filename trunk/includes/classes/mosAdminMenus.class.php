@@ -238,7 +238,7 @@ class mosAdminMenus {
 		return $section;
 	}
 
-	public static function Component($menu,$id,$rows=null) {
+	public static function Component($menu,$id,$rows=null,$extra = '') {
 
 		if(!$rows) {
 			$database = database::getInstance();
@@ -256,7 +256,7 @@ class mosAdminMenus {
 			}
 			$component .= '<input type="hidden" name="componentid" value="'.$menu->componentid.'" />';
 		} else {
-			$component = mosHTML::selectList($rows,'componentid','id="componentid" class="inputbox required" size="15"','value','text');
+			$component = mosHTML::selectList($rows,'componentid','id="componentid" class="inputbox required" size="15" '.$extra,'value','text');
 		}
 
 		return $component;
@@ -407,7 +407,7 @@ class mosAdminMenus {
 	public static function MenuSelect($name = 'menuselect',$javascript = null) {
 		$database = database::getInstance();
 
-		$query = "SELECT params FROM #__modules WHERE module = 'mod_mainmenu' OR module = 'mod_mljoostinamenu'";
+		$query = "SELECT params FROM #__modules WHERE module LIKE '%menu% ";
 		$database->setQuery($query);
 		$menus = $database->loadObjectList();
 		$i=0;
@@ -562,7 +562,6 @@ class mosAdminMenus {
 		return $image;
 	}
 
-
 	public static function ImageCheckAdmin($file,$directory = '/administrator/images/',$param = null,$param_directory = '/administrator/images/',$alt = null,$name = null,$type = 1,$align = 'middle',$title = null) {
 		return mosAdminMenus::ImageCheck($file,$directory,$param,$param_directory,$alt,$name,$type,$align,$title,1);
 	}
@@ -570,21 +569,19 @@ class mosAdminMenus {
 	public static function menutypes() {
 		$database = database::getInstance();
 
-		$query = "SELECT params FROM #__modules WHERE module = 'mod_mainmenu' OR module = 'mod_mljoostinamenu' ORDER BY title";
+		// ищем все модули содержащие в себе название menu
+		$query = "SELECT params FROM #__modules WHERE module LIKE '%menu%' ORDER BY title";
 		$modMenus = $database->setQuery($query)->loadObjectList();
 
 		$menuTypes = '';
 		foreach($modMenus as $modMenu) {
 			$check = 1;
-			mosMakeHtmlSafe($modMenu);
+			
 			$modParams = mosParseParams($modMenu->params);
-			$menuType = @$modParams->menutype;
-			if(!$menuType) {
-				$menuType = 'mainmenu';
-			}
-			// stop duplicate menutype being shown
+			$menuType = isset($modParams->menutype) ? $modParams->menutype : 'mainmenu' ;
+
+			// защита от дублей
 			if(!is_array($menuTypes)) {
-				// handling to create initial entry into array
 				$menuTypes[] = $menuType;
 			} else {
 				$check = 1;

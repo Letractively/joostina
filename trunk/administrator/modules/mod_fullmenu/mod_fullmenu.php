@@ -256,10 +256,7 @@ cmDraw ('myMenuID', myMenu, 'hbr', cmThemeOffice, 'ThemeOffice');
             }
 
         }
-        /**
-         * Show an disbaled version of the menu, used in edit pages
-         * @param string The current user type
-         */
+
         public static function showDisabled($usertype = '') {
             global $acl;
 
@@ -280,11 +277,6 @@ cmDraw ('myMenuID', myMenu, 'hbr', cmThemeOffice, 'ThemeOffice');
         [null,'<?php echo _USERS?>',null,null,'<?php echo _USERS?>'],
         [null,'<?php echo _MENU; ?>',null,null,'<?php echo $text; ?>'],
             <?php
-            /* Content Sub-Menu*/
-            ?>
-                    [null,'<?php echo _CONTENT; ?>',null,null,'<?php echo $text; ?>'
-                    ],
-            <?php
             /* Components Sub-Menu*/
             if ( $installComponents | $editAllComponents) {
                 ?>
@@ -301,23 +293,20 @@ cmDraw ('myMenuID', myMenu, 'hbr', cmThemeOffice, 'ThemeOffice');
                         [null,'<?php echo _MODULES; ?>',null,null,'<?php echo $text; ?>'
                         ],
                 <?php
-            } // if ( $installModules | $editAllModules)
-            /* Mambots Sub-Menu*/
+            } 
             if($installMambots | $editAllMambots) {
                 ?>
                         [null,'<?php echo _MAMBOTS; ?>',null,null,'<?php echo $text; ?>'],
                 <?php
-            } // if ( $installMambots | $editAllMambots)
-            /* Installer Sub-Menu*/
+            } 
             if($installModules) {
                 ?>
                         [null,'<?php echo _EXTENSIONS; ?>',null,null,'<?php echo $text; ?>'],
                 <?php
-            } // if ( $installModules)
-            /* System Sub-Menu*/
+            } 
             if($canConfig) {
                 ?>
-                        _cmSplit,[null,'<?php echo _MOD_FULLMENU_TOOLS; ?>',null,null,'<?php echo $text; ?>'],
+                        ,[null,'<?php echo _MOD_FULLMENU_TOOLS; ?>',null,null,'<?php echo $text; ?>'],
                 <?php
             }
             ?>

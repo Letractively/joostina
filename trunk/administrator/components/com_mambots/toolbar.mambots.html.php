@@ -43,9 +43,6 @@ class TOOLBAR_modules {
 		mosMenuBar::spacer();
 		mosMenuBar::editListX();
 		mosMenuBar::spacer();
-		mosMenuBar::addNewX();
-		mosMenuBar::spacer();
-		mosMenuBar::help('screen.mambots');
 		mosMenuBar::endTable();
 	}
 }

@@ -13,40 +13,40 @@ defined('_VALID_MOS') or die();
 
 class elrteEditor {
 
-    public static function init() {
+	public static function init() {
 
-        mosCommonHTML::loadJquery();
-        mosCommonHTML::loadJqueryUI( true );
+		mosCommonHTML::loadJquery();
+		mosCommonHTML::loadJqueryUI( true );
 
-        $mainframe = mosMainFrame::getInstance();
+		$mainframe = mosMainFrame::getInstance();
 
-        $mainframe->addCSS( JPATH_SITE.'/mambots/editors/elrte/js/ui-themes/base/ui.all.css');
-        $mainframe->addCSS( JPATH_SITE.'/mambots/editors/elrte/css/elrte.full.css');
+		$mainframe->addCSS( JPATH_SITE.'/mambots/editors/elrte/js/ui-themes/base/ui.all.css');
+		$mainframe->addCSS( JPATH_SITE.'/mambots/editors/elrte/css/elrte.full.css');
 
-        $mainframe->addJS( JPATH_SITE.'/mambots/editors/elrte/js/elrte.min.js');
-        $mainframe->addJS( JPATH_SITE.'/mambots/editors/elrte/js/i18n/elrte.ru.js');
+		$mainframe->addJS( JPATH_SITE.'/mambots/editors/elrte/js/elrte.min.js');
+		$mainframe->addJS( JPATH_SITE.'/mambots/editors/elrte/js/i18n/elrte.ru.js');
 
-    }
+	}
 
-    public static function getEditorArea( $name,$content,$hiddenField,$width,$height,$col,$row,$params ) {
+	public static function getEditorArea( $name,$content,$hiddenField,$width,$height,$col,$row,$params ) {
 
-        /**
-         *  tiny: только кнопки изменения стиля текста (жирный, наклонный, подчеркнутый, перечеркнутый, subscript, superscript)
-         * compact: тоже, что и tiny + сохранить, отмена/повтор, выравнивание, списки, ссылки, полноэкранный режим
-         * normal: compact + копировать/вставить, цвета, отступы, элементы, изображения
-         * complete: normal + форматирование, размер и стиль шрифта
-         * maxi: complete + таблицы
-         */
-        $toolbar = isset( $params['toolbar'] ) ? $params['toolbar'] : 'complete';
+		/**
+		 *  tiny: только кнопки изменения стиля текста (жирный, наклонный, подчеркнутый, перечеркнутый, subscript, superscript)
+		 * compact: тоже, что и tiny + сохранить, отмена/повтор, выравнивание, списки, ссылки, полноэкранный режим
+		 * normal: compact + копировать/вставить, цвета, отступы, элементы, изображения
+		 * complete: normal + форматирование, размер и стиль шрифта
+		 * maxi: complete + таблицы
+		 */
+		$toolbar = isset( $params['toolbar'] ) ? $params['toolbar'] : 'complete';
 
-        return <<< EOD
-        	<script type="text/javascript" charset="utf-8">
+		return <<< EOD
+	<script type="text/javascript" charset="utf-8">
 		$().ready(function() {
 			var opts = {
 				cssClass : 'el-rte',
 				lang     : 'ru',
 				height   : $height,
-                                width: $width,
+                width: $width,
 				toolbar  : '$toolbar',
 				cssfiles : ['css/elrte-inner.css']
 			}
@@ -56,11 +56,9 @@ class elrteEditor {
         <textarea name="$hiddenField" id="$hiddenField" cols="$col" rows="$row" style="width:$width;height:$height;">$content</textarea>
 EOD;
 
-    }
+	}
 
-    public static function getContents($name) {
-        return <<< EOD
-        	<script type="text/javascript" charset="utf-8">$('#$name').elrte("updateSource");</script>
-EOD;
-    }
+	public static function getContents($name,$params = array()) {
+		return isset( $params['js_wrap'] ) ? JHTML::js_code( '$(\'#'.$name.'\').elrte("updateSource");' ) : '$(\'#'.$name.'\').elrte("updateSource");';
+	}
 }

@@ -15,7 +15,7 @@ class HTML_linkeditor {
 	function viewall(&$rows,$pageNav) {
 		$mainframe = mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
-		mosCommonHTML::loadOverlib();
+		
 		?>
 <form action="index2.php" method="post" name="adminForm">
 	<table class="adminheading">
@@ -73,7 +73,7 @@ class HTML_linkeditor {
 	}
 
 	function edit($row,$lists) {
-		mosCommonHTML::loadOverlib();
+		
 		?>
 
 <table class="adminheading">

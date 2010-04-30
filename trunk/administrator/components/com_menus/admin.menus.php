@@ -27,7 +27,7 @@ switch($task) {
 
     case 'edit':
         $cid[0] = ($id?$id:intval($cid[0]));
-        $menu = new mosMenu($database);
+        $menu = new mosMenu();
         if($cid[0]) {
             $menu->load($cid[0]);
         } else {
@@ -46,8 +46,6 @@ switch($task) {
 
     // очитска кэша контента
         mosCache::cleanCache('com_content');
-        // очистка кэша модуля меню
-        mosCache::cleanCache('mod_mljoostinamenu');
 
         require_once ($path.$type.DS.$type.'.menu.php');
         break;

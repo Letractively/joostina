@@ -226,7 +226,7 @@ CREATE TABLE IF NOT EXISTS `#__menu` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `menutype` varchar(25) DEFAULT NULL,
   `name` varchar(100) DEFAULT NULL,
-  `page_title` varchar(200) NOT NULL,
+  `link_title` varchar(200) NOT NULL,
   `link` text,
   `type` varchar(50) NOT NULL DEFAULT '',
   `published` tinyint(1) NOT NULL DEFAULT '0',

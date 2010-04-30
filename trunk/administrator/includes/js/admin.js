@@ -26,11 +26,11 @@ $(document).ready(function() {
 	} );
 
 	// все формы прогоняем через валидатор
-	$("#adminForm").validate();
+	$('#adminForm .required').length ? $("#adminForm").validate() : null;
 
 
-// все поля типа textarea делаем растягиваемыми
-//$('textarea').TextAreaResizer();
+	// все поля типа textarea делаем растягиваемыми
+	$('textarea').TextAreaResizer();
 
 });
 
@@ -99,7 +99,8 @@ function submitbutton(pressbutton) {
 
 function submitform(pressbutton){
 	var form = $("form[name=adminForm]");
-	$( 'input[name=task]', form).val(pressbutton);
+	$( 'input[name=task]').val( pressbutton );
+
 	try {
 		form.onsubmit();
 	}

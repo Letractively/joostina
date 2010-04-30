@@ -69,16 +69,18 @@ class actionsPages {
     /**
      * Сохранение отредактированного или созданного объекта
      */
-    public static function save( $option ) {
+    public static function save( $option, $create_new = false ) {
         josSpoofCheck();
         
-        _xdump($_POST);
-        return;
         $obj_data = new self::$model;
         $obj_data->save($_POST);
 
-        $create_new ? mosRedirect( 'index2.php?option='.$option.'&task=new', 'Сохранено успешно!, Создаём новое' ) : mosRedirect( 'index2.php?option='.$option , 'Сохранено успешно!');
+        $create_new ? mosRedirect( 'index2.php?option='.$option.'&task=create', $obj_data->title . ', cохранено успешно!, Создаём новое' ) : mosRedirect( 'index2.php?option='.$option , $obj_data->title . ', cохранено успешно!');
     }
+
+	public static function save_and_new( $option ){
+		self::save($option, true);
+	}
 
     /**
      * Удаление одного или группы объектов

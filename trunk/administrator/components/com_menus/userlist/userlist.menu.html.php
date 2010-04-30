@@ -23,7 +23,7 @@ class userlist_menu_html {
 
 	function edit($menu,$lists,$params,$option) {
 		global $acl;
-		mosCommonHTML::loadOverlib();
+		
 
 		$gtree = $acl->get_group_children_tree(null,'USERS',false);
 		$gtree[0] = mosHTML::makeOption(0, 'All');

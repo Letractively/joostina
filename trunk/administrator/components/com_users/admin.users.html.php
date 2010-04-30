@@ -9,17 +9,13 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-/**
- * @package Joostina
- * @subpackage Users
- */
 class HTML_users {
-    
-    function showUsers( & $rows, $pageNav, $search, $option, $lists) {
-        global $my;
-        $mainframe = mosMainFrame::getInstance();
-        $cur_file_icons_path = JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
-        ?>
+
+	public static function showUsers( & $rows, $pageNav, $search, $option, $lists) {
+		global $my;
+		$mainframe = mosMainFrame::getInstance();
+		$cur_file_icons_path = JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
+		?>
 <form action="index2.php" method="post" name="adminForm" id="adminForm">
     <table class="adminheading">
         <tr>
@@ -45,17 +41,17 @@ class HTML_users {
             <th width="13%"><?php echo _LAST_LOGIN ?></th>
             <th width="1%">ID</th>
         </tr>
-                <?php
-                $k = 0;
-                $num = count($rows);
-                for ($i = 0, $n = $num; $i < $n; $i++) {
-                    $row = & $rows[$i];
-                    $img = $row->block ? 'publish_x.png' : 'tick.png';
-                    $img = $cur_file_icons_path . '/' . $img;
-                    
-                    $task = $row->block ? 'unblock' : 'block';
-                    $alt = $row->block ? _ALLOW : _DISALLOW;
-                    $link = 'index2.php?option=com_users&amp;task=editA&amp;id=' . $row->id . '&amp;hidemainmenu=1'; ?>
+				<?php
+				$k = 0;
+				$num = count($rows);
+				for ($i = 0, $n = $num; $i < $n; $i++) {
+					$row = & $rows[$i];
+					$img = $row->block ? 'publish_x.png' : 'tick.png';
+					$img = $cur_file_icons_path . '/' . $img;
+
+					$task = $row->block ? 'unblock' : 'block';
+					$alt = $row->block ? _ALLOW : _DISALLOW;
+					$link = 'index2.php?option=com_users&amp;task=editA&amp;id=' . $row->id . '&amp;hidemainmenu=1'; ?>
         <tr class="row<?php echo $k; ?>">
             <td><?php echo $i + 1 + $pageNav->limitstart; ?></td>
             <td><?php echo mosHTML::idBox($i, $row->id); ?></td>
@@ -71,75 +67,55 @@ class HTML_users {
             <td class="jtd_nowrap"><?php echo mosFormatDate($row->lastvisitDate, _CURRENT_SERVER_TIME_FORMAT); ?></td>
             <td><?php echo $row->id; ?></td>
         </tr>
-                    <?php $k = 1 - $k;
-                } ?>
+					<?php $k = 1 - $k;
+				} ?>
     </table>
-            <?php echo $pageNav->getListFooter(); ?>
+			<?php echo $pageNav->getListFooter(); ?>
     <input type="hidden" name="option" value="<?php echo $option; ?>" />
     <input type="hidden" name="task" value="" />
     <input type="hidden" name="boxchecked" value="0" />
     <input type="hidden" name="hidemainmenu" value="0" />
     <input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
 </form>
-        <?php
-    }
+		<?php
+	}
 
-    /* редактирование пользователя */
-    function edituser( & $row, & $contact, & $lists, $option, $uid, & $params) {
-        global $my;
+	public static function edituser( $row,$lists, $option, $uid,$params) {
+		global $my;
 
-        $acl = gacl::getInstance(true);
+		$acl = gacl::getInstance(true);
 
-        mosMakeHtmlSafe($row);
+		mosMakeHtmlSafe($row);
 
-        $tabs = new mosTabs(1, 1);
+		mosMainFrame::addClass('mosTabs');
+		$tabs = new mosTabs(1, 1);
 
-        if (!defined('_JQUERY_LOADED')) {
-            define('_JQUERY_LOADED', 1);
-            $mainframe = mosMainFrame::getInstance(true);
-            $mainframe->addJS($mainframe->getCfg('live_site') . '/includes/js/jquery/jquery.js');
-        }
-        mosCommonHTML::loadOverlib();
-        mosCommonHTML::loadJqueryPlugins('jquery.form', true, false);
+		mosCommonHTML::loadJqueryPlugins('jquery.form');
 
-        $canBlockUser = $acl->acl_check('administration', 'edit', 'users', $my->usertype, 'user properties', 'block_user');
-        $canEmailEvents = $acl->acl_check('workflow', 'email_events', 'users', $acl->get_group_name($row->gid, 'ARO'));
+		// подключаем валидатор форм
+		mosCommonHTML::loadJqueryPlugins('jquery.validate');
+		mosCommonHTML::loadJqueryPlugins('validate/localization/messages_ru');
 
-        $bday_date = mosFormatDate($row->user_extra->birthdate, '%d', '0');
-        $bday_month = mosFormatDate($row->user_extra->birthdate, '%m', '0');
-        $bday_year = mosFormatDate($row->user_extra->birthdate, '%Y', '0'); ?>
+		$canBlockUser = $acl->acl_check('administration', 'edit', 'users', $my->usertype, 'user properties', 'block_user');
+		$canEmailEvents = $acl->acl_check('workflow', 'email_events', 'users', $acl->get_group_name($row->gid, 'ARO'));
+
+		$bday_date = mosFormatDate($row->user_extra->birthdate, '%d', '0');
+		$bday_month = mosFormatDate($row->user_extra->birthdate, '%m', '0');
+		$bday_year = mosFormatDate($row->user_extra->birthdate, '%Y', '0'); ?>
 <script language="javascript" type="text/javascript">
-    $(document).ready(function() {
-        $("#save").click(function () {
-            $("input#task").val('saveUserEdit');
-            $("#mosUserForm").submit();
-        });
-        $("#cancel").click(function () {
-            $("input#task").val('cancel');
-            $("#mosUserForm").submit();
-        });
-    });
+	function submitbutton(pressbutton) {
+		var form = document.adminForm;
+		if (pressbutton == 'cancel') {
+			// TODO разобраться с ПРАВИЛЬНЫМ отключением валидатора...
+			$('#adminForm .required').removeClass('required');
+			submitform( pressbutton );
+			return;
+		}
 
-    function submitbutton(pressbutton) {
-        var form = document.adminForm;
-        if (pressbutton == 'cancel') {
-            submitform( pressbutton );
-            return;
-        }
-        var r = new RegExp("[\<|\>|\"|\'|\%|\;|\(|\)|\&|\+|\-]", "i");
-
-        // do field validation
-        if (trim(form.name.value) == "") {
-            alert( "<?php echo _ENTER_NAME_PLEASE ?>" );
-        } else if (form.username.value == "") {
-            alert( "<?php echo _ENTER_LOGIN_PLEASE ?>" );
-        } else if (r.exec(form.username.value) || form.username.value.length < 3) {
-            alert( "<?php echo _BAD_USER_LOGIN ?>" );
-        } else if (trim(form.email.value) == "") {
-            alert( "<?php echo _ENTER_EMAIL_PLEASE ?>" );
-        } else if (form.gid.value == "") {
+		// do field validation
+		if (form.gid.value == "") {
             alert( "<?php echo _ENTER_GROUP_PLEASE ?>" );
-        } else if (trim(form.password.value) != "" && form.password.value != form.password2.value){
+        } else if ($.trim(form.password.value) != "" && form.password.value != form.password2.value){
             alert( "<?php echo _BAD_PASSWORDWORD ?>" );
         } else if (form.gid.value == "29") {
             alert( "<?php echo _BAD_GROUP_1 ?>" );
@@ -148,12 +124,7 @@ class HTML_users {
         } else {
             submitform( pressbutton );
         }
-    }
-    function gotocontact( id ) {
-        var form = document.adminForm;
-        form.contact_id.value = id;
-        submitform( 'contact' );
-    }
+	}
 </script>
 <table class="adminheading">
     <tr>
@@ -161,20 +132,20 @@ class HTML_users {
     </tr>
 </table>
 <br clear="all">
-            <?php $tabs->startPane("userInfo"); ?>
+		<?php $tabs->startPane("userInfo"); ?>
 <form action="index2.php" method="post" name="adminForm" id="adminForm" enctype="multipart/form-data">
-        <?php $tabs->startTab(_USER_INFO, "general"); ?>
+			<?php $tabs->startTab(_USER_INFO, "general"); ?>
     <table width="100%">
         <tr>
             <td width="400" class="key"><?php echo _YOUR_NAME ?>:</td>
-            <td><input type="text" name="name" class="inputbox" size="40" value="<?php echo $row->name; ?>" maxlength="50" /></td>
+            <td><input type="text" name="name" class="inputbox required" size="40" value="<?php echo $row->name; ?>" maxlength="50" /></td>
         </tr>
         <tr>
             <td class="key"><?php echo _USER_LOGIN_TXT ?>:</td>
-            <td><input type="text" name="username" class="inputbox" size="40" value="<?php echo $row->username; ?>" maxlength="25" /></td>
+            <td><input type="text" name="username" class="inputbox required" size="40" value="<?php echo $row->username; ?>" maxlength="25" /></td>
         <tr>
             <td class="key">E-mail:</td>
-            <td><input class="inputbox" type="text" name="email" size="40" value="<?php echo $row->email; ?>" /></td>
+            <td><input class="inputbox required email" type="text" name="email" size="40" value="<?php echo $row->email; ?>" /></td>
         </tr>
         <tr>
             <td class="key"><?php echo _NEW_PASSWORDWORD ?>:</td>
@@ -188,21 +159,19 @@ class HTML_users {
             <td valign="top" class="key"><?php echo _GROUP ?>:</td>
             <td><?php echo $lists['gid']; ?></td>
         </tr>
-        <?php if ($canBlockUser) { ?>
+				<?php if ($canBlockUser) { ?>
         <tr>
             <td class="key"><?php echo _BLOCK_USER ?>:</td>
             <td ><?php echo $lists['block']; ?></td>
         </tr>
-            <?php }
-        if ($canEmailEvents) { ?>
+					<?php } if ($canEmailEvents) { ?>
         <tr>
             <td class="key"><?php echo _RECEIVE_EMAILS ?>:</td>
             <td colspan="2">
-            <?php echo $lists['sendEmail']; ?>
+							<?php echo $lists['sendEmail']; ?>
             </td>
         </tr>
-            <?php }
-        if ($uid) { ?>
+					<?php } if ($uid) { ?>
         <tr>
             <td class="key"><?php echo _REGISTRATION_DATE ?>:</td>
             <td colspan="2"><?php echo $row->registerDate; ?></td>
@@ -211,22 +180,14 @@ class HTML_users {
             <td class="key"><?php echo _LAST_LOGIN ?>:</td>
             <td colspan="2"><?php echo $row->lastvisitDate; ?></td>
         </tr>
-            <?php } ?>
+					<?php } ?>
         <tr>
             <td colspan="3">&nbsp;</td>
         </tr>
     </table>
-            <?php $tabs->endTab(); ?>
+			<?php $tabs->endTab(); ?>
 
-        <?php $tabs->startTab(_PARAMETERS, "params"); ?>
-    <table>
-        <tr>
-            <td><?php echo $params->render('params'); ?></td>
-        </tr>
-    </table>
-            <?php $tabs->endTab(); ?>
-
-        <?php $tabs->startTab(_ADDITIONAL_INFO, "user_info_extra"); ?>
+			<?php $tabs->startTab(_ADDITIONAL_INFO, "user_info_extra"); ?>
     <table width="100%">
         <tr>
             <td width="400" class="key"><label for="gender"><?php echo _C_USERS_GENDER ?></label></td>
@@ -235,9 +196,9 @@ class HTML_users {
         <tr>
             <td class="key"><label><?php echo _C_USERS_B_DAY ?></label></td>
             <td>
-                        <?php echo mosHTML::daySelectList('birthdate_day', 'class="inputbox"', $bday_date); ?>
-        <?php echo mosHTML::monthSelectList('birthdate_month', 'class="inputbox"', $bday_month, 1); ?>
-        <?php echo mosHTML::yearSelectList('birthdate_year', 'class="inputbox"', $bday_year); ?>
+						<?php echo mosHTML::daySelectList('birthdate_day', 'class="inputbox"', $bday_date); ?>
+						<?php echo mosHTML::monthSelectList('birthdate_month', 'class="inputbox"', $bday_month, 1); ?>
+						<?php echo mosHTML::yearSelectList('birthdate_year', 'class="inputbox"', $bday_year); ?>
             </td>
         </tr>
         <tr>
@@ -253,8 +214,8 @@ class HTML_users {
             </td>
         </tr>
     </table>
-        <?php $tabs->endTab(); ?>
-        <?php $tabs->startTab(_C_USERS_CONTACT_INFO, "user_info_contacts"); ?>
+			<?php $tabs->endTab(); ?>
+			<?php $tabs->startTab(_C_USERS_CONTACT_INFO, "user_info_contacts"); ?>
     <table width="100%">
         <tr>
             <td width="400" class="key"><label><?php echo _C_USERS_CONTACT_SITE ?></label></td>
@@ -293,89 +254,45 @@ class HTML_users {
             <td><input size="100" class="inputbox" type="text" name="mobil" id="mobil" value="<?php echo $row->user_extra->mobil ?>"/></td>
         </tr>
     </table>
-            <?php $tabs->endTab(); ?>
-        <?php $tabs->startTab(_CONTACT_INFO_COM_CONTACT, "user_info_com_contact"); ?>
-        <?php if (!$contact) { ?>
-    <table class="adminform">
-        <tr>
-            <td>
-                <br />
-            <?php echo _NO_USER_CONTACTS ?>
-                <br />
-            </td>
-        </tr>
-    </table>
-            <?php } else { ?>
-    <table class="adminform">
-        <tr>
-            <td width="400" class="key"><?php echo _FULL_NAME ?>:</td>
-            <td><strong><?php echo $contact[0]->name; ?></strong></td>
-        </tr>
-        <tr>
-            <td class="key"><?php echo _USER_POSITION ?>:</td>
-            <td><strong><?php echo $contact[0]->con_position; ?></strong></td>
-        </tr>
-        <tr>
-            <td class="key"><?php echo _C_USERS_CONTACT_PHONE ?>:</td>
-            <td><strong><?php echo $contact[0]->telephone; ?></strong></td>
-        </tr>
-        <tr>
-            <td class="key"><?php echo _C_USERS_CONTACT_FAX ?>:</td>
-            <td><strong><?php echo $contact[0]->fax; ?></strong></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td><strong><?php echo $contact[0]->misc; ?></strong></td>
-        </tr>
-            <?php if ($contact[0]->image) { ?>
-        <tr>
-            <td></td>
-            <td valign="top">
-                <img src="<?php echo JPATH_SITE; ?>/images/stories/<?php echo $contact[0]->image; ?>" align="middle" alt="" />
-            </td>
-        </tr>
-                <?php } ?>
-        <tr>
-            <td colspan="2">
-                <br /><br />
-                <input class="button" type="button" value="<?php echo _CHANGE_CONTACT_INFO ?>" onclick="javascript: gotocontact( '<?php echo $contact[0]->id; ?>' )">
-                <i><br /><?php echo _CONTACT_INFO_PATH_URL ?>.</i>
-            </td>
-        </tr>
-    </table>
-            <?php } ?>
-        <?php $tabs->endTab(); ?>
+			<?php $tabs->endTab(); ?>
 
     <input type="hidden" name="id" value="<?php echo $row->id; ?>" />
     <input type="hidden" name="user_id" value="<?php echo $row->id; ?>" />
     <input type="hidden" name="option" value="<?php echo $option; ?>" />
     <input type="hidden" name="task" id="task" value="" />
     <input type="hidden" name="contact_id" value="" />
-            <?php if (!$canEmailEvents) { ?>
+			<?php if (!$canEmailEvents) { ?>
     <input type="hidden" name="sendEmail" value="0" />
-            <?php } ?>
+				<?php } ?>
     <input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
 </form>
 
-                    <?php $tabs->startTab(_C_USERS_AVATARS, "avatar"); ?>
+		<?php $tabs->startTab(_C_USERS_AVATARS, "avatar"); ?>
 <table class="adminform"><tr><td>
-                    <?php
-                    $form_params = new stdClass();
-                    $form_params->id = 'avatar_uploadForm';
-                    $form_params->img_field = 'avatar';
-                    $form_params->img_path = 'images/avatars';
-                    $form_params->default_img = 'images/avatars/none.jpg';
-                    $form_params->img_class = 'user_avatar';
-                    $form_params->ajax_handler = 'ajax.index.php?option=com_users';
+					<?php
+					$form_params = new stdClass();
+					$form_params->id = 'avatar_uploadForm';
+					$form_params->img_field = 'avatar';
+					$form_params->img_path = 'images/avatars';
+					$form_params->default_img = 'images/avatars/none.jpg';
+					$form_params->img_class = 'user_avatar';
+					$form_params->ajax_handler = 'ajax.index.php?option=com_users';
 
-                    if (!$row->avatar) {
-                        userHelper::_build_img_upload_area($row, $form_params, 'upload');
-                    } else {
-            userHelper::_build_img_upload_area($row, $form_params, 'reupload');
-        } ?>
+					if (!$row->avatar) {
+						userHelper::_build_img_upload_area($row, $form_params, 'upload');
+					} else {
+						userHelper::_build_img_upload_area($row, $form_params, 'reupload');
+					} ?>
         </td></tr></table>
-        <?php $tabs->endTab(); ?>
-        <?php $tabs->endPane(); ?>
-        <?php
-    }
+		<?php $tabs->endTab(); ?>
+		<?php $tabs->startTab(_PARAMETERS, "params"); ?>
+<table>
+	<tr>
+		<td><?php echo $params->render('params'); ?></td>
+	</tr>
+</table>
+		<?php $tabs->endTab(); ?>
+		<?php $tabs->endPane(); ?>
+		<?php
+	}
 }

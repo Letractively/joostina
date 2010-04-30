@@ -27,7 +27,7 @@ class HTML_templates {
 		if(isset($row->authorUrl) && $row->authorUrl != '') {
 			$row->authorUrl = str_replace('http://','',$row->authorUrl);
 		}
-		mosCommonHTML::loadOverlib();
+		
 		?>
 <script language="Javascript">
 	<!--

@@ -87,7 +87,9 @@ switch($task) {
  * Compiles a list of installed or defined modules
  */
 function viewModules($option,$client) {
-	global $database,$my,$mainframe,$mosConfig_list_limit;
+	global $my,$mainframe,$mosConfig_list_limit;
+
+	$database = database::getInstance();
 
 	$filter_position = $mainframe->getUserStateFromRequest("filter_position{$option}{$client}",'filter_position',0);
 	$filter_type = $mainframe->getUserStateFromRequest("filter_type{$option}{$client}",	'filter_type',0);
@@ -177,9 +179,12 @@ function viewModules($option,$client) {
  * @param integer The unique id of the record to edit
  */
 function copyModule($option,$uid,$client) {
-	global $database,$my;
+	global $my;
 	josSpoofCheck();
-	$row = new mosModule($database);
+
+	$database = database::getInstance();
+
+	$row = new mosModule();
 	// load the row from the db table
 	$row->load((int)$uid);
 	$row->title = _MODULES_COPY.$row->title;
@@ -203,8 +208,7 @@ function copyModule($option,$uid,$client) {
 	}
 	$row->updateOrder('position='.$database->Quote($row->position)." AND ($where)");
 
-	$query = "SELECT menuid FROM #__modules_menu WHERE moduleid = ".(int)
-			$uid;
+	$query = "SELECT menuid FROM #__modules_menu WHERE moduleid = ".(int)$uid;
 	$database->setQuery($query);
 	$rows = $database->loadResultArray();
 
@@ -397,7 +401,7 @@ function editModule($option,$uid,$client) {
 		$root = &$xmlDoc->documentElement;
 
 		if($root->getTagName() == 'mosinstall' && $root->getAttribute('type') =='module') {
-			$element = &$root->getElementsByPath('description',1);
+			$element = $root->getElementsByPath('description',1);
 			$row->description = $element ? trim($element->getText()):'';
 		}
 	}

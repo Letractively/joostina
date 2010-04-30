@@ -134,7 +134,6 @@ DEFINE('_CLOSE','Закрыть');
 DEFINE('_COMPONENT','Компонент');  
 DEFINE('_COMPONENTS','Компоненты'); 
 DEFINE('_CONTACT_NAME','Имя: ');
-DEFINE('_CONTENT','Содержимое');
 DEFINE('_CONTINUE','Продолжить');
 DEFINE('_COPY','Копировать');
 DEFINE('_CREATE_ACCOUNT','Регистрация');

@@ -128,7 +128,7 @@ class HTML_menusections {
 	 */
 	public static function addMenuItem(&$cid,$menutype,$option,$types_component,$types_link,$types_other) {
 
-		mosCommonHTML::loadOverlib();
+		
 		?>
 <style type="text/css">
     fieldset {

@@ -10,7 +10,6 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-// ensure user has access to this function
 if(!$acl->acl_check('administration','manage','users',$my->usertype,'components','com_menumanager')) {
 	mosRedirect('index2.php',_NOT_AUTH);
 }
@@ -19,10 +18,13 @@ require_once ($mainframe->getPath('admin_html'));
 
 $menu = stripslashes(strval(mosGetParam($_GET,'menu','')));
 $type = stripslashes(strval(mosGetParam($_POST,'type','')));
+
 $cid = mosGetParam($_POST,'cid','');
 if(isset($cid[0]) && get_magic_quotes_gpc()) {
 	$cid[0] = stripslashes($cid[0]);
 }
+
+js_menu_cache_clear();
 
 switch($task) {
 	case 'new':
@@ -37,27 +39,22 @@ switch($task) {
 		break;
 
 	case 'savemenu':
-		js_menu_cache_clear(); //boston, чистим кэш меню панели управления
 		saveMenu();
 		break;
 
 	case 'deleteconfirm':
-		js_menu_cache_clear(); //boston, чистим кэш меню панели управления
 		deleteconfirm($option,$cid[0]);
 		break;
 
 	case 'deletemenu':
-		js_menu_cache_clear(); //boston, чистим кэш меню панели управления
 		deleteMenu($option,$cid,$type);
 		break;
 
 	case 'copyconfirm':
-		js_menu_cache_clear(); //boston, чистим кэш меню панели управления
 		copyConfirm($option,$cid[0]);
 		break;
 
 	case 'copymenu':
-		js_menu_cache_clear(); //boston, чистим кэш меню панели управления
 		copyMenu($option,$cid,$type);
 		break;
 
@@ -70,17 +67,13 @@ switch($task) {
 		break;
 }
 
-
-/**
- * Compiles a list of menumanager items
- */
 function showMenu($option) {
 
-	$database	= database::getInstance();
 	$mainframe	= mosMainFrame::getInstance();
-	$config		= Jconfig::getInstance();
+	$config		 = $mainframe->config;
+	$database	= $mainframe->getDBO();
 
-	$limit		= intval($mainframe->getUserStateFromRequest("viewlistlimit",'limit',$config->config_list_limit));
+	$limit	   = intval($mainframe->getUserStateFromRequest("viewlistlimit",'limit',$config->config_list_limit));
 	$limitstart	= intval($mainframe->getUserStateFromRequest("view{".$option."}limitstart",'limitstart',0));
 
 	$menuTypes = mosAdminMenus::menutypes();
@@ -88,15 +81,14 @@ function showMenu($option) {
 	$total = count($menuTypes);
 	$i = 0;
 	foreach($menuTypes as $a) {
+		$menus[$i] = new stdClass();
 		$menus[$i]->type = $a;
-		//$count = strlen($a);
 
 		$menus[$i]->modules = 0;
 
 		// query to get number of modules for menutype
-		$query = "SELECT id, params  FROM #__modules WHERE module = 'mod_mainmenu' OR module = 'mod_mljoostinamenu' AND params LIKE '%".$a."%'";
-		$database->setQuery($query);
-		$modules = $database->loadObjectList();
+		$query = "SELECT id, params  FROM #__modules WHERE module = 'mod_menu' OR module LIKE '%menu%' AND params LIKE '%".$a."%'";
+		$modules = $database->setQuery($query)->loadObjectList();
 
 		foreach($modules as $mod) {
 			if(stripos($mod->params, $a)!==false) {
@@ -112,32 +104,26 @@ function showMenu($option) {
 		$i++;
 	}
 
-	// Query to get published menu item counts
 	$query = "SELECT a.menutype, count( a.menutype ) as num FROM #__menu AS a WHERE a.published = 1 GROUP BY a.menutype ORDER BY a.menutype";
-	$database->setQuery($query);
-	$published = $database->loadObjectList();
+	$published = $database->setQuery($query)->loadObjectList();
 
-	// Query to get unpublished menu item counts
 	$query = "SELECT a.menutype, count( a.menutype ) as num FROM #__menu AS a WHERE a.published = 0 GROUP BY a.menutype ORDER BY a.menutype";
-	$database->setQuery($query);
-	$unpublished = $database->loadObjectList();
+	$unpublished = $database->setQuery($query)->loadObjectList();
 
-	// Query to get trash menu item counts
 	$query = "SELECT a.menutype, count( a.menutype ) as num FROM #__menu AS a WHERE a.published = -2 GROUP BY a.menutype ORDER BY a.menutype";
-	$database->setQuery($query);
-	$trash = $database->loadObjectList();
+	$trash = $database->setQuery($query)->loadObjectList();
 
 	for($i = 0; $i < $total; $i++) {
-		// adds published count
 		foreach($published as $count) {
 			if($menus[$i]->type == $count->menutype) {
 				$menus[$i]->published = $count->num;
 			}
 		}
+
 		if(@!$menus[$i]->published) {
 			$menus[$i]->published = '-';
 		}
-		// adds unpublished count
+
 		foreach($unpublished as $count) {
 			if($menus[$i]->type == $count->menutype) {
 				$menus[$i]->unpublished = $count->num;
@@ -146,7 +132,7 @@ function showMenu($option) {
 		if(@!$menus[$i]->unpublished) {
 			$menus[$i]->unpublished = '-';
 		}
-		// adds trash count
+
 		foreach($trash as $count) {
 			if($menus[$i]->type == $count->menutype) {
 				$menus[$i]->trash = $count->num;
@@ -163,43 +149,29 @@ function showMenu($option) {
 	HTML_menumanager::show($option,$menus,$pageNav);
 }
 
-
-/**
- * Edits a mod_mainmenu module
- *
- * @param option	options for the edit mode
- * @param cid	menu id
- */
 function editMenu($option,$menu) {
-	global $database;
 
+	$database = database::getInstance();
+	$row = new mosModule($database);
 	if($menu) {
 		$row->menutype = $menu;
 	} else {
-		$row = new mosModule($database);
-		// setting default values
 		$row->menutype = '';
 		$row->iscore = 0;
 		$row->published = 0;
 		$row->position = 'left';
-		$row->module = 'mod_mljoostinamenu';
+		$row->module = 'mod_menu';
 	}
 
 	HTML_menumanager::edit($row,$option);
 }
 
-/**
- * Creates a new mod_mainmenu module, which makes the menu visible
- * this is a workaround until a new dedicated table for menu management can be created
- */
 function saveMenu() {
-	global $database;
 
 	$menutype = stripslashes(strval(mosGetParam($_POST,'menutype','')));
 	$old_menutype = stripslashes(strval(mosGetParam($_POST,'old_menutype','')));
 	$new = intval(mosGetParam($_POST,'new',1));
 
-	// block to stop renaming of 'mainmenu' menutype
 	if($old_menutype == 'mainmenu') {
 		if($menutype != 'mainmenu') {
 			echo "<script> alert('"._CANNOT_RENAME_MAINMENU."'); window.history.go(-1); </script>\n";
@@ -207,16 +179,16 @@ function saveMenu() {
 		}
 	}
 
-	// check for ' in menu name
 	if(strstr($menutype,'\'')) {
 		echo "<script> alert('"._NO_QUOTES_IN_NAME."'); window.history.go(-1); </script>\n";
 		exit;
 	}
 
-	// check for unique menutype for new menus
-	$query = "SELECT params FROM #__modules WHERE module = 'mod_mainmenu' OR module = 'mod_mljoostinamenu'";
-	$database->setQuery($query);
-	$menus = $database->loadResultArray();
+	$database = database::getInstance();
+
+	$query = "SELECT params FROM #__modules WHERE module LIKE '%menu%' ";
+	$menus = $database->setQuery($query)->loadResultArray();
+
 	foreach($menus as $menu) {
 		$params = mosParseParams($menu);
 		if($params->menutype == $menutype) {
@@ -231,7 +203,7 @@ function saveMenu() {
 			$row = new mosModule($database);
 			$row->bind($_POST);
 
-			$row->params = 'menutype='.$menutype;
+			$row->params = '{"menutype":"'.$menutype.'"}';
 
 			// check then store data in db
 			if(!$row->check()) {
@@ -243,14 +215,12 @@ function saveMenu() {
 				exit();
 			}
 
-			$row->checkin();
 			$row->updateOrder("position=".$database->Quote($row->position));
 
 			// module assigned to show on All pages by default
 			// ToDO: Changed to become a Joomla! db-object
 			$query = "INSERT INTO #__modules_menu VALUES ( ".(int)$row->id.", 0 )";
-			$database->setQuery($query);
-			if(!$database->query()) {
+			if(!$database->setQuery($query)->query()) {
 				echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
 				exit();
 			}
@@ -259,11 +229,8 @@ function saveMenu() {
 			break;
 
 		default:
-		// change menutype being of all mod_mainmenu modules calling old menutype
-			$query = "SELECT id FROM #__modules WHERE module = 'mod_mainmenu' OR module = 'mod_mljoostinamenu'"
-					."\n AND params LIKE '%".$database->getEscaped($old_menutype)."%'";
-			$database->setQuery($query);
-			$modules = $database->loadResultArray();
+			$query = "SELECT id FROM #__modules WHERE module = 'mod_menu' AND params LIKE '%".$database->getEscaped($old_menutype)."%'";
+			$modules = $database->setQuery($query)->loadResultArray();
 
 			foreach($modules as $module) {
 				$row = new mosModule($database);
@@ -293,17 +260,13 @@ function saveMenu() {
 						echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
 						exit();
 					}
-
-					$row->checkin();
 				}
 			}
 
 			// change menutype of all menuitems using old menutype
 			if($menutype != $old_menutype) {
-				$query = "UPDATE #__menu"."\n SET menutype = ".$database->Quote($menutype)."\n WHERE menutype = ".
-						$database->Quote($old_menutype);
-				$database->setQuery($query);
-				$database->query();
+				$query = "UPDATE #__menu SET menutype = ".$database->Quote($menutype)."\n WHERE menutype = ".$database->Quote($old_menutype);
+				$database->setQuery($query)->query();
 			}
 
 			$msg = _MENU_ITEMS_AND_MODULES_UPDATED;
@@ -313,27 +276,21 @@ function saveMenu() {
 	mosRedirect('index2.php?option=com_menumanager',$msg);
 }
 
-/**
- * Compiles a list of the items you have selected to permanently delte
- */
 function deleteConfirm($option,$type) {
-	global $database;
 
 	if($type == 'mainmenu') {
-		echo "<script> alert('"._CANNOT_RENAME_MAINMENU."'); window.history.go(-1); </script>\n";
+		mosMainFrame::set_mosmsg( _CANNOT_RENAME_MAINMENU );
+		echo "<script>window.history.go(-1); </script>\n";
 		exit();
 	}
 
-	// list of menu items to delete
-	$query = "SELECT a.name, a.id"."\n FROM #__menu AS a"."\n WHERE a.menutype = ".
-			$database->Quote($type)."\n ORDER BY a.name";
-	$database->setQuery($query);
-	$items = $database->loadObjectList();
+	$database = database::getInstance();
 
-	// list of modules to delete
-	$query = "SELECT id FROM #__modules WHERE module = 'mod_mainmenu' OR module = 'mod_mljoostinamenu' AND params LIKE '%".$database->getEscaped($type)."%'";
-	$database->setQuery($query);
-	$mods = $database->loadResultArray();
+	$query = "SELECT a.name, a.id FROM #__menu AS a WHERE a.menutype = ".$database->Quote($type)." ORDER BY a.name";
+	$items = $database->setQuery($query)->loadObjectList();
+
+	$query = "SELECT id FROM #__modules WHERE module LIKE '%menu%' AND params LIKE '%".$database->getEscaped($type)."%'";
+	$mods = $database->setQuery($query)->loadResultArray();
 
 	foreach($mods as $module) {
 		$row = new mosModule($database);
@@ -349,8 +306,7 @@ function deleteConfirm($option,$type) {
 	if(count($mid)) {
 		$mids = 'id='.implode(' OR id=',$mid);
 		$query = "SELECT id, title FROM #__modules WHERE ( $mids )";
-		$database->setQuery($query);
-		$modules = $database->loadObjectList();
+		$modules = $database->setQuery($query)->loadObjectList();
 	} else {
 		$modules = null;
 	}
@@ -358,16 +314,14 @@ function deleteConfirm($option,$type) {
 	HTML_menumanager::showDelete($option,$type,$items,$modules);
 }
 
-/**
- * Deletes menu items(s) you have selected
- */
 function deleteMenu($option,$cid,$type) {
-	global $database;
 
 	if($type == 'mainmenu') {
 		echo "<script> alert('"._CANNOT_RENAME_MAINMENU."'); window.history.go(-1); </script>\n";
 		exit();
 	}
+
+	$database = database::getInstance();
 
 	$mid = mosGetParam($_POST,'mids');
 	mosArrayToInts($mid);
@@ -375,8 +329,7 @@ function deleteMenu($option,$cid,$type) {
 		// delete menu items
 		$mids = 'id='.implode(' OR id=',$mid);
 		$query = "DELETE FROM #__menu WHERE ( $mids )";
-		$database->setQuery($query);
-		if(!$database->query()) {
+		if(!$database->setQuery($query)->query()) {
 			echo "<script> alert('".$database->getErrorMsg()."');</script>\n";
 			exit;
 		}
@@ -388,16 +341,14 @@ function deleteMenu($option,$cid,$type) {
 		// delete modules
 		$cids = 'id='.implode(' OR id=',$cid);
 		$query = "DELETE FROM #__modules WHERE ( $cids )";
-		$database->setQuery($query);
-		if(!$database->query()) {
+		if(!$database->setQuery($query)->query()) {
 			echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
 			exit;
 		}
 		// delete all module entires in jos_modules_menu
 		$cids = 'moduleid='.implode(' OR moduleid=',$cid);
 		$query = "DELETE FROM #__modules_menu"."\n WHERE ( $cids )";
-		$database->setQuery($query);
-		if(!$database->query()) {
+		if(!$database->setQuery($query)->query()) {
 			echo "<script> alert('".$database->getErrorMsg()."');</script>\n";
 			exit;
 		}
@@ -416,35 +367,24 @@ function deleteMenu($option,$cid,$type) {
 	mosRedirect('index2.php?option='.$option,$msg);
 }
 
-
-/**
- * Compiles a list of the items you have selected to Copy
- */
 function copyConfirm($option,$type) {
-	global $database;
+	$database = database::getInstance();
 
-	// Content Items query
 	$query = 'SELECT a.name, a.id FROM #__menu AS a WHERE a.menutype ='. $database->Quote($type).' ORDER BY a.name';
-	$database->setQuery($query);
-	$items = $database->loadObjectList();
+	$items = $database->setQuery($query)->loadObjectList();
 
 	HTML_menumanager::showCopy($option,$type,$items);
 }
 
-
-/**
- * Copies a complete menu, all its items and creates a new module, using the name speified
- */
 function copyMenu($option,$cid,$type) {
-	global $database;
 
 	$menu_name = stripslashes(strval(mosGetParam($_POST,'menu_name',_NEW_MENU)));
 	$module_name = stripslashes(strval(mosGetParam($_POST,'module_name',_NEW_MENU_MODULE)));
 
-	// check for unique menutype for new menu copy
-	$query = "SELECT params FROM #__modules WHERE module = 'mod_mainmenu' OR module = 'mod_mljoostinamenu'";
-	$database->setQuery($query);
-	$menus = $database->loadResultArray();
+	$database = database::getInstance();
+
+	$query = "SELECT params FROM #__modules WHERE module LIKE '%menu%' ";
+	$menus = $database->setQuery($query)->loadResultArray();
 	foreach($menus as $menu) {
 		$params = mosParseParams($menu);
 		if($params->menutype == $menu_name) {
@@ -486,7 +426,7 @@ function copyMenu($option,$cid,$type) {
 	$row->iscore = 0;
 	$row->published = 1;
 	$row->position = 'left';
-	$row->module = 'mod_mljoostinamenu';
+	$row->module = 'mod_menu';
 	$row->params = 'menutype='.$menu_name;
 
 	if(!$row->check()) {
@@ -497,13 +437,12 @@ function copyMenu($option,$cid,$type) {
 		echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
 		exit();
 	}
-	$row->checkin();
+
 	$row->updateOrder('position='.$database->Quote($row->position));
-	// module assigned to show on All pages by default
-	// ToDO: Changed to become a Joomla! db-object
+
 	$query = "INSERT INTO #__modules_menu VALUES ( ".(int)$row->id.", 0 )";
-	$database->setQuery($query);
-	if(!$database->query()) {
+
+	if(!$database->setQuery($query)->query()) {
 		echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
 		exit();
 	}
@@ -515,10 +454,6 @@ function copyMenu($option,$cid,$type) {
 	mosRedirect('index2.php?option='.$option,$msg);
 }
 
-/**
- * Cancels an edit operation
- * @param option	options for the operation
- */
 function cancelMenu($option) {
 	mosRedirect('index2.php?option='.$option.'&task=view');
 }

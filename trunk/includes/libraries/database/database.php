@@ -155,7 +155,9 @@ class database {
 	/**
 	 * Закрытый метод для предотвращения клонирования объекта базы данных
 	 */
-	private function __clone() {}
+	private function __clone() {
+
+	}
 
 	/**
 	 * Установка пааметра отладки базы данных
@@ -783,7 +785,7 @@ class UtulsDB extends database {
  * @author Andrew Eddie <eddieajau@users.sourceforge.net
  */
 class mosDBTable {
-	
+
 	public $_tbl;
 	public $_tbl_key;
 	public $_error;
@@ -801,9 +803,9 @@ class mosDBTable {
 		$this->_tbl_key = $key;
 		$this->_db = $db ? $db : database::getInstance();
 	}
-	
+
 	private function __clone() {
-	
+
 	}
 
 	/**
@@ -980,7 +982,7 @@ class mosDBTable {
 			return false;
 		}
 	}
-	
+
 	function delete_array($oid = array(), $key = false, $table = false) {
 		$key = $key ? $key : $this->_tbl_key;
 		$table = $table ? $table : $this->_tbl;
@@ -995,13 +997,6 @@ class mosDBTable {
 		}
 	}
 
-	/**
-	 * Generic save function
-	 * @param array Source array for binding to class vars
-	 * @param string Filter for the order updating. This is expected to be a valid (and safe!) SQL expression
-	 * @returns TRUE if completely successful, FALSE if partially or not succesful
-	 * NOTE: Filter will be deprecated in verion 1.1
-	 */
 	function save($source, $order_filter = '') {
 		if (!$this->bind($source)) {
 			return false;
@@ -1017,24 +1012,13 @@ class mosDBTable {
 		return true;
 	}
 
-	/**
-	 * @deprecated As of 1.0.3, replaced by publish
-	 */
 	function publish_array($cid = null, $publish = 1, $user_id = 0) {
 		$this->publish($cid, $publish, $user_id);
 	}
 
-	/**
-	 * Generic Publish/Unpublish function
-	 * @param array An array of id numbers
-	 * @param integer 0 if unpublishing, 1 if publishing
-	 * @param integer The id of the user performnig the operation
-	 * @since 1.0.4
-	 */
-	function publish($cid = null, $publish = 1, $user_id = 0) {
+	function publish($cid = null, $publish = 1) {
 		mosArrayToInts($cid, array());
 
-		$user_id = (int) $user_id;
 		$publish = (int) $publish;
 		if (count($cid) < 1) {
 			$this->_error = "No items selected.";
@@ -1043,7 +1027,7 @@ class mosDBTable {
 
 		$cids = $this->_tbl_key . '=' . implode(' OR ' . $this->_tbl_key . '=', $cid);
 
-		$query = "UPDATE $this->_tbl SET published = " . (int) $publish . " WHERE ($cids) AND (checked_out = 0 OR checked_out = " . (int) $user_id . ")";
+		$query = "UPDATE $this->_tbl SET published = " . (int) $publish . " WHERE ($cids)";
 
 		if (!$this->_db->setQuery($query)->query()) {
 			$this->_error = $this->_db->getErrorMsg();
@@ -1054,122 +1038,20 @@ class mosDBTable {
 		return true;
 	}
 
-	/**
-	 * Checks out an object
-	 * @param int User id
-	 * @param int Object id
-	 */
 	function checkout($user_id, $oid = null) {
-		global $mosConfig_disable_checked_out;
-
-		// отключение блокировок
-		if ($mosConfig_disable_checked_out) return true;
-
-		if (!array_key_exists('checked_out', get_class_vars(strtolower(get_class($this))))) {
-			$this->_error = "ВНИМАНИЕ: " . strtolower(get_class($this)) . " не поддерживает проверку.";
-			return false;
-		}
-		$k = $this->_tbl_key;
-		if ($oid !== null) {
-			$this->$k = $oid;
-		}
-
-		$time = _CURRENT_SERVER_TIME;
-
-		if (intval($user_id)) {
-			$user_id = intval($user_id);
-			// new way of storing editor, by id
-			$query = "UPDATE $this->_tbl SET checked_out = $user_id, checked_out_time = " . $this->_db->Quote($time) . " WHERE $this->_tbl_key = " . $this->_db->Quote($this->$k);
-			$this->_db->setQuery($query);
-
-			$this->checked_out = $user_id;
-			$this->checked_out_time = $time;
-		} else {
-			$user_id = $this->_db->Quote($user_id);
-			// old way of storing editor, by name
-			$query = "UPDATE $this->_tbl SET checked_out = 1, checked_out_time = " . $this->_db->Quote($time) . ", editor = $user_id WHERE $this->_tbl_key = " . $this->_db->Quote($this->$k);
-			$this->_db->setQuery($query);
-
-			$this->checked_out = 1;
-			$this->checked_out_time = $time;
-			$this->checked_out_editor = $user_id;
-		}
-
-		return $this->_db->query();
+		jd_log( 'error::mosDBTable::checkin' );
+		return true;
 	}
 
-	/**
-	 * Checks in an object
-	 * @param int Object id
-	 */
 	function checkin($oid = null) {
-		global $mosConfig_disable_checked_out;
-
-		// отключение блокировок
-		if ($mosConfig_disable_checked_out) return true;
-
-		if (!array_key_exists('checked_out', get_class_vars(strtolower(get_class($this))))) {
-			$this->_error = "WARNING: " . strtolower(get_class($this)) . " does not support checkin.";
-			return false;
-		}
-
-		$k = $this->_tbl_key;
-		$nullDate = $this->_db->getNullDate();
-
-		if ($oid !== null) {
-			$this->$k = intval($oid);
-		}
-		if ($this->$k == null) {
-			return false;
-		}
-
-		$query = "UPDATE $this->_tbl SET checked_out = 0, checked_out_time = " . $this->_db->Quote($nullDate) . " WHERE $this->_tbl_key = " . $this->_db->Quote($this->$k);
-		$this->_db->setQuery($query);
-
-		$this->checked_out = 0;
-		$this->checked_out_time = '';
-
-		return $this->_db->query();
+		jd_log( 'error::mosDBTable::checkin' );
+		return true;
 	}
 
-	/**
-	 * Increments the hit counter for an object
-	 * @param int Object id
-	 */
 	function hit($oid = null) {
-		global $mosConfig_enable_log_items, $mosConfig_content_hits;
-
-		if (!$mosConfig_content_hits) return false;
-
-		$k = $this->_tbl_key;
-		if ($oid !== null) {
-			$this->$k = intval($oid);
-		}
-
-		$query = "UPDATE $this->_tbl SET hits = ( hits + 1 ) WHERE $this->_tbl_key = " . $this->_db->Quote($this->id);
-		$this->_db->setQuery($query)->query();
-
-		if (@$mosConfig_enable_log_items) {
-			$now = date('Y-m-d');
-			$query = "SELECT hits FROM #__core_log_items WHERE time_stamp = " . $this->_db->Quote($now) . " AND item_table = " . $this->_db->Quote($this->_tbl) . " AND item_id = " . $this->_db->Quote($this->$k);
-			$this->_db->setQuery($query);
-			$hits = intval($this->_db->loadResult());
-			if ($hits) {
-				$query = "UPDATE #__core_log_items SET hits = ( hits + 1 ) WHERE time_stamp = " . $this->_db->Quote($now) . " AND item_table = " . $this->_db->Quote($this->_tbl) . " AND item_id = " .
-						$this->_db->Quote($this->$k);
-				$this->_db->setQuery($query);
-				$this->_db->query();
-			} else {
-				$query = "INSERT INTO #__core_log_items VALUES ( " . $this->_db->Quote($now) . ", " . $this->_db->Quote($this->_tbl) . ", " . $this->_db->Quote($this->$k) . ", 1 )";
-				$this->_db->setQuery($query);
-				$this->_db->query();
-			}
-		}
+		jd_log( 'error::mosDBTable::hit' );
 	}
 
-	/**
-	 * @param string $where This is expected to be a valid (and safe!) SQL expression
-	 */
 	function move($dirn, $where = '') {
 		$k = $this->_tbl_key;
 
@@ -1292,11 +1174,7 @@ class mosDBTable {
 	 * @return boolean
 	 */
 	function isCheckedOut($user_id = 0) {
-		if ($user_id) {
-			return ($this->checked_out && $this->checked_out != $user_id);
-		} else {
-			return $this->checked_out;
-		}
+		return true;
 	}
 
 //  число записей в таблице по условию

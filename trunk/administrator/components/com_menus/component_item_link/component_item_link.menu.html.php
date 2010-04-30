@@ -18,7 +18,7 @@ defined('_VALID_MOS') or die();
 class component_item_link_menu_html {
 
     function edit(&$menu,&$lists,&$params,$option) {
-        mosCommonHTML::loadOverlib();
+        
         ?>
 <div id="overDiv" style="position:absolute; visibility:hidden; z-index:10000;"></div>
 <script language="javascript" type="text/javascript">

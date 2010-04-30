@@ -140,7 +140,7 @@ class JCache {
 	 * @return	void
 	 * @since	1.3
 	 */
-	function setCaching($enabled) {
+	public function setCaching($enabled) {
 		$this->_options['caching'] = $enabled;
 	}
 

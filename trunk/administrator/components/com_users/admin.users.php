@@ -35,12 +35,9 @@ switch($task) {
 
 	case 'save':
 	case 'apply':
-	// check to see if functionality restricted for use as demo site
-		if(coreVersion::get('RESTRICT') == 1) {
-			mosRedirect('index2.php?mosmsg='._RESTRICT_FUNCTION);
-		} else {
+
 			saveUser($task);
-		}
+
 		break;
 
 	case 'remove':
@@ -48,12 +45,9 @@ switch($task) {
 		break;
 
 	case 'block':
-	// check to see if functionality restricted for use as demo site
-		if(coreVersion::get('RESTRICT') == 1) {
-			mosRedirect('index2.php?mosmsg='._RESTRICT_FUNCTION);
-		} else {
+
 			changeUserBlock($cid,1,$option);
-		}
+
 		break;
 
 	case 'unblock':
@@ -92,8 +86,6 @@ switch($task) {
 
 function config($option) {
 	$database = database::getInstance();
-
-	mosCommonHTML::loadOverlib();
 
 	$act = mosGetParam($_REQUEST,'act','');
 	$config_class = 'configUser_'.$act;
@@ -216,11 +208,6 @@ function showUsers($option) {
 	HTML_users::showUsers($rows,$pageNav,$search,$option,$lists);
 }
 
-/**
- * Edit the user
- * @param int The user ID
- * @param string The URL option
- */
 function editUser($uid = '0',$option = 'users') {
 	global $my;
 
@@ -239,17 +226,12 @@ function editUser($uid = '0',$option = 'users') {
 	$row->load((int)$uid);
 
 	if($uid) {
-		$query = "SELECT* FROM #__contact_details WHERE user_id = ".(int)$row->id;
-		$database->setQuery($query);
-		$contact = $database->loadObjectList();
-
 		$row->name = trim($row->name);
 		$row->email = trim($row->email);
 		$row->username = trim($row->username);
 		$row->password = trim($row->password);
 
 	} else {
-		$contact = null;
 		$row->block = 0;
 	}
 
@@ -290,13 +272,13 @@ function editUser($uid = '0',$option = 'users') {
 	$lists['sendEmail'] = mosHTML::yesnoRadioList('sendEmail','class="inputbox" size="1"',$row->sendEmail);
 
 	$file = $mainframe->getPath('com_xml','com_users');
-	$params = &new mosUserParameters($row->params,$file,'component');
+	$params = new mosUserParameters($row->params,$file,'component');
 
 	$user_extra = new userUsersExtra($database);
 	$user_extra->load((int)$uid);
 	$row->user_extra = $user_extra;
 
-	HTML_users::edituser($row,$contact,$lists,$option,$uid,$params);
+	HTML_users::edituser($row,$lists,$option,$uid,$params);
 }
 
 function saveUser($task) {

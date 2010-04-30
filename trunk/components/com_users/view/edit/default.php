@@ -13,7 +13,7 @@ defined('_VALID_MOS') or die();
 //Подключение плагина валидации форм
 mosCommonHTML::loadJqueryPlugins('jquery.validate', false, false, 'js');
 //Подключение скрипта всплывающих подсказок
-mosCommonHTML::loadOverlib();
+
 
 mosMainFrame::addClass('mosTabs');
 $tabs = new mosTabs(1);

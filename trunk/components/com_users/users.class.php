@@ -362,13 +362,11 @@ class mosUser extends mosDBTable {
 			$and .= " AND usertype='".$usertype."'";
 		}
 
-		$query = "SELECT COUNT(id)
-		FROM #__users AS u
+		$query = "SELECT COUNT(id) FROM #__users AS u
 		LEFT JOIN #__users_extra AS u_extra ON u_extra.user_id = u.id 
 		WHERE block = '0'" .$and;
 
-		$this->_db->setQuery($query);
-		return  $this->_db->loadResult();
+		return $this->_db->setQuery($query)->loadResult();
 
 	}
 
@@ -382,9 +380,7 @@ class mosUser extends mosDBTable {
 				LEFT JOIN #__users_extra AS u_extra ON u_extra.user_id = u.id
 				WHERE u.block = '0'"
 				.$and;
-		$this->_db->setQuery($query, $limitstart, $limit);
-		return $this->_db->loadObjectList();
-
+		return $this->_db->setQuery($query, $limitstart, $limit)->loadObjectList();
 	}
 
 	function paginate($total,$page, $limit) {
@@ -398,20 +394,20 @@ class mosUser extends mosDBTable {
 /* расширенная информация о пользователе */
 class userUsersExtra extends mosDBTable {
 
-	public $user_id = null;
-	public $gender = null;
-	public $about = null;
-	public $location = null;
-	public $url = null;
-	public $icq = null;
-	public $skype = null;
-	public $jabber = null;
-	public $msn = null;
-	public $yahoo = null;
-	public $phone = null;
-	public $fax = null;
-	public $mobil = null;
-	public $birthdate = null;
+	public $user_id;
+	public $gender;
+	public $about;
+	public $location;
+	public $url;
+	public $icq;
+	public $skype;
+	public $jabber;
+	public $msn;
+	public $yahoo;
+	public $phone;
+	public $fax;
+	public $mobil;
+	public $birthdate;
 
 	/**
 	 * @param database A database connector object
@@ -428,7 +424,7 @@ class userUsersExtra extends mosDBTable {
 
 class userHelper {
 
-	function _build_img_upload_area($obj, $form_params, $state) {
+	public static function _build_img_upload_area($obj, $form_params, $state) {
 		$field = $form_params->img_field;
 
 		?><script type="text/javascript">
@@ -515,10 +511,9 @@ class userHelper {
 		<?php
 	}
 
-	function _build_img_upload_form(&$obj, $form_params) {
+	public static function _build_img_upload_form(&$obj, $form_params) {
 
 		mosCommonHTML::loadJqueryPlugins('jquery.form', false, false, 'js');
-
 
 		$mainframe = mosMainFrame::getInstance();
 		$action = 'ajax.index.php';

@@ -10,16 +10,9 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-/**
- * HTML class for all menumanager component output
- * @package Joostina
- * @subpackage Menus
- */
 class HTML_menumanager {
-	/**
-	 * Writes a list of the menumanager items
-	 */
-	function show($option,$menus,$pageNav) {
+
+	public static function show($option,$menus,$pageNav) {
 		?>
 <script language="javascript" type="text/javascript">
 	function menu_listItemTask( id, task, option ) {
@@ -76,26 +69,10 @@ class HTML_menumanager {
 					<img src="<?php echo JPATH_SITE; ?>/includes/js/ThemeOffice/mainmenu.png" border="0"/>
 				</a>
 			</td>
-			<td align="center">
-							<?php
-							echo $menu->published;
-							?>
-			</td>
-			<td align="center">
-							<?php
-							echo $menu->unpublished;
-							?>
-			</td>
-			<td align="center">
-							<?php
-							echo $menu->trash;
-							?>
-			</td>
-			<td align="center">
-							<?php
-							echo $menu->modules;
-							?>
-			</td>
+			<td align="center"><?php echo $menu->published; ?></td>
+			<td align="center"><?php echo $menu->unpublished; ?></td>
+			<td align="center"><?php echo $menu->trash;?></td>
+			<td align="center"><?php echo $menu->modules;?></td>
 		</tr>
 					<?php
 					$k = 1 - $k;
@@ -113,14 +90,9 @@ class HTML_menumanager {
 		<?php
 	}
 
-
-	/**
-	 * writes a form to take the name of the menu you would like created
-	 * @param option	display options for the form
-	 */
-	function edit(&$row,$option) {
+	public static function edit(&$row,$option) {
 		$new = $row->menutype ? 0:1;
-		mosCommonHTML::loadOverlib();
+
 		$row->menutype = htmlspecialchars($row->menutype);
 		?>
 <script language="javascript" type="text/javascript">
@@ -142,19 +114,19 @@ class HTML_menumanager {
 		<?php
 		if($new) {
 			?>
-	if ( form.title.value == '' ) {
-		alert( '<?php echo _PLEASE_ENTER_MENU_MODULE_NAME?>' );
-		form.title.focus();
-		return;
-	}
+						if ( form.title.value == '' ) {
+							alert( '<?php echo _PLEASE_ENTER_MENU_MODULE_NAME?>' );
+							form.title.focus();
+							return;
+						}
 			<?php
 		}
 		?>
-	submitform( 'savemenu' );
-} else {
-	submitform( pressbutton );
-}
-}
+					submitform( 'savemenu' );
+				} else {
+					submitform( pressbutton );
+				}
+			}
 </script>
 <div id="overDiv" style="position:absolute; visibility:hidden; z-index:10000;"></div>
 <form action="index2.php" method="post" name="adminForm">
@@ -163,7 +135,6 @@ class HTML_menumanager {
 			<th class="menus"><?php echo _MENU_INFO?></th>
 		</tr>
 	</table>
-
 	<table class="adminform">
 		<tr height="45px;">
 			<td width="100px" align="left">
@@ -171,50 +142,35 @@ class HTML_menumanager {
 			</td>
 			<td>
 				<input class="inputbox" type="text" name="menutype" size="30" maxlength="25" value="<?php echo isset($row->menutype)?$row->menutype:''; ?>" />
-						<?php
-						echo mosToolTip(_MENU_NAME_TIP);
-						?>
+						<?php echo mosToolTip(_MENU_NAME_TIP); ?>
 			</td>
 		</tr>
-				<?php
-				if($new) {
-					?>
+				<?php if($new) { ?>
 		<tr>
 			<td width="100px" align="left" valign="top">
 				<strong><?php echo _MODULE_TITLE?>:</strong>
 			</td>
 			<td>
 				<input class="inputbox" type="text" name="title" size="30" value="<?php echo $row->title?$row->title:''; ?>" />
-							<?php
-							$tip = _MODULE_TITLE_TIP;
-							echo mosToolTip($tip);
-							?>
+							<?php echo mosToolTip(_MODULE_TITLE_TIP); ?>
 				<br /><br /><br />
-				<strong>
-								<?php echo _NEW_MENU_ITEM_TIP?>
-				</strong>
+				<strong><?php echo _NEW_MENU_ITEM_TIP?></strong>
 			</td>
 		</tr>
-					<?php
-				}
-				?>
+					<?php } ?>
 		<tr>
 			<td colspan="2">
 			</td>
 		</tr>
 	</table>
-			<?php
-			if($new) {
-				?>
+			<?php if($new) { ?>
 	<input type="hidden" name="id" value="<?php echo $row->id; ?>" />
 	<input type="hidden" name="iscore" value="<?php echo $row->iscore; ?>" />
 	<input type="hidden" name="published" value="<?php echo $row->published; ?>" />
 	<input type="hidden" name="position" value="<?php echo $row->position; ?>" />
-	<input type="hidden" name="module" value="mod_mljoostinamenu" />
+	<input type="hidden" name="module" value="mod_menu" />
 	<input type="hidden" name="params" value="<?php echo $row->params; ?>" />
-				<?php
-			}
-			?>
+				<?php } ?>
 	<input type="hidden" name="new" value="<?php echo $new; ?>" />
 	<input type="hidden" name="old_menutype" value="<?php echo $row->menutype; ?>" />
 	<input type="hidden" name="option" value="<?php echo $option; ?>" />
@@ -225,16 +181,10 @@ class HTML_menumanager {
 		<?php
 	}
 
-
-	/**
-	 * A delete confirmation page
-	 * Writes list of the items that have been selected for deletion
-	 */
-	function showDelete($option,$type,$items,$modules) {
+	public static function showDelete($option,$type,$items,$modules) {
 		$mainframe = mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 		?>
-
 <form action="index2.php" method="post" name="adminForm">
 	<table class="adminheading">
 		<tr>
@@ -247,44 +197,32 @@ class HTML_menumanager {
 		<tr>
 			<td width="3%"></td>
 			<td align="left" valign="top" width="20%">
-						<?php
-						if($modules) {
-							?>
+						<?php if($modules) { ?>
 				<strong><?php echo _MODULES_TO_REMOVE?>:</strong>
 				<ol>
-								<?php
-								foreach($modules as $module) {
-									?>
+								<?php foreach($modules as $module) { ?>
 					<li>
 						<font color="#000066">
 							<strong><?php echo $module->title; ?></strong>
 						</font>
 					</li>
 					<input type="hidden" name="cid[]" value="<?php echo $module->id; ?>" />
-									<?php
-								}
-								?>
+									<?php } ?>
 				</ol>
-							<?php
-						}
-						?>
+							<?php } ?>
 			</td>
 			<td align="left" valign="top" width="25%">
 				<strong><?php echo _MENU_ITEMS_TO_REMOVE?>:</strong>
 				<br />
 				<ol>
-							<?php
-							foreach($items as $item) {
-								?>
+							<?php foreach($items as $item) { ?>
 					<li>
 						<font color="#000066">
 										<?php echo $item->name; ?>
 						</font>
 					</li>
 					<input type="hidden" name="mids[]" value="<?php echo $item->id; ?>" />
-								<?php
-							}
-							?>
+								<?php } ?>
 				</ol>
 			</td>
 			<td>
@@ -303,7 +241,6 @@ class HTML_menumanager {
 		</tr>
 	</table>
 	<br /><br />
-
 	<input type="hidden" name="option" value="<?php echo $option; ?>" />
 	<input type="hidden" name="task" value="" />
 	<input type="hidden" name="type" value="<?php echo $type; ?>" />
@@ -313,13 +250,7 @@ class HTML_menumanager {
 		<?php
 	}
 
-
-	/**
-	 * A copy confirmation page
-	 * Writes list of the items that have been selected for copy
-	 */
-	function showCopy($option,$type,$items) {
-		?>
+	public static function showCopy($option,$type,$items) { ?>
 <script language="javascript" type="text/javascript">
 	function submitbutton(pressbutton) {
 		if (pressbutton == 'copymenu') {
@@ -358,33 +289,21 @@ class HTML_menumanager {
 				<br /><br />
 			</td>
 			<td align="left" valign="top" width="25%">
-				<strong>
-							<?php echo _MENU_TO_COPY?>:
-				</strong>
+				<strong><?php echo _MENU_TO_COPY?>:</strong>
 				<br />
 				<font color="#000066">
-					<strong>
-								<?php echo $type; ?>
-					</strong>
+					<strong><?php echo $type; ?></strong>
 				</font>
 				<br /><br />
-				<strong>
-							<?php echo _MENU_ITEMS_TO_COPY?>:
-				</strong>
+				<strong><?php echo _MENU_ITEMS_TO_COPY?>:</strong>
 				<br />
 				<ol>
-							<?php
-							foreach($items as $item) {
-								?>
+							<?php foreach($items as $item) { ?>
 					<li>
-						<font color="#000066">
-										<?php echo $item->name; ?>
-						</font>
+						<font color="#000066"><?php echo $item->name; ?></font>
 					</li>
 					<input type="hidden" name="mids[]" value="<?php echo $item->id; ?>" />
-								<?php
-							}
-							?>
+								<?php } ?>
 				</ol>
 			</td>
 			<td valign="top">
