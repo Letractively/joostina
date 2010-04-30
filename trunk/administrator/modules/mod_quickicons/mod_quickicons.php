@@ -32,7 +32,7 @@ if(!defined('_QUICKICON_MODULE')) {
     }
 }
 // значки быстрого доступа кэшируем
-$cache = &mosCache::getCache('quick_icons', 'callback','file',2592000);
+$cache = mosCache::getCache('quick_icons', 'callback','file',2592000);
 $cache->_options['caching'] = $use_cache;
 $r = $cache->call('show_quick_icons', $use_ext);
 unset($cache,$r);

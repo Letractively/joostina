@@ -28,3 +28,4 @@ DEFINE('_USE_FILE','- Выберите файл -');
 DEFINE('_DEFAULT_FILE','- Файл по умолчанию -');
 DEFINE('_FILE_FROM_TEMPLATE','из шаблона:: ');
 DEFINE('_FILE_FROM_SYSTEM','системный:: ');
+DEFINE('_SELECT_OBJ',' - выберите объект - ');

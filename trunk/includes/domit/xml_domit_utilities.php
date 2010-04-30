@@ -188,7 +188,7 @@ class DOMIT_Utilities {
 		return (substr($fileName,0,$index));
 	}
 
-	function validateXML($xmlText) {
+	public static function validateXML($xmlText) {
 
 
 		$isValid = true;

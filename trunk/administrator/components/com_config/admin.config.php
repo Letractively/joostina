@@ -49,15 +49,12 @@ function showconfig($option) {
 	// compile list of the languages
 	$langs = array();
 	$lists = array();
-
-	// PRE-PROCESS SOME LISTS
-
 	// -- Языки --
 	if ($handle = opendir(JPATH_BASE . '/language/')) {
 		$i = 0;
 		while (false !== ($file = readdir($handle))) {
-			if (!strcasecmp(substr($file, - 4), ".xml") && $file != "." && $file != "..") {
-				$langs[] = mosHTML::makeOption(substr($file, 0, - 4));
+			if ( is_dir( JPATH_BASE.DS.'language'.DS.$file) && $file!='.svn' && $file != "." && $file != "..") {
+				$langs[] = mosHTML::makeOption($file);
 			}
 		}
 	}
@@ -169,8 +166,8 @@ function showconfig($option) {
 		mosHTML::makeOption('%H/%M', strftime('%H/%M')),
 		mosHTML::makeOption('%H:%M', strftime('%H:%M')),
 		mosHTML::makeOption('%H ' . _COM_CONFIG_HOURS . '%M ' . _COM_CONFIG_MONTH, strftime('%H ' . _COM_CONFIG_HOURS . ' %M ' . _COM_CONFIG_MONTH)),
-		mosHTML::makeOption('%A %d/%m/%Y ' . _COM_CONFIG_YEAR . ' %H/%M', Jstring::to_utf8(strftime('%A %d/%m/%Y ' . _COM_CONFIG_YEAR . ' %H/%M'))),
-		mosHTML::makeOption('%d %B %Y', Jstring::to_utf8(strftime('%d %B %Y')))
+		mosHTML::makeOption('%A %d/%m/%Y ' . _COM_CONFIG_YEAR . ' %H/%M', strftime('%A %d/%m/%Y ' . _COM_CONFIG_YEAR . ' %H/%M')),
+		mosHTML::makeOption('%d %B %Y', strftime('%d %B %Y'))
 	);
 	$lists['form_date_help'] = mosHTML::selectList($date_help, 'config_form_date_h', 'class="inputbox" size="1" onchange="adminForm.config_form_date.value=this.value;"', 'value', 'text', $row->config_form_date);
 	// полный формат даты и времени
@@ -217,7 +214,7 @@ function showconfig($option) {
 	$lists['session_type'] = mosHTML::selectList($session, 'config_session_type', 'class="inputbox" size="1"', 'value', 'text', $row->config_session_type);
 
 	$errors = array(
-		mosHTML::makeOption( - 1, _COM_CONFIG_ERROR_SYSTEM),
+		mosHTML::makeOption( -1, _COM_CONFIG_ERROR_SYSTEM),
 		mosHTML::makeOption(0, _COM_CONFIG_ERROR_HIDE),
 		mosHTML::makeOption(E_ERROR | E_WARNING | E_PARSE, _COM_CONFIG_ERROR_TINY),
 		mosHTML::makeOption(E_ALL, _COM_CONFIG_ERROR_ALL),

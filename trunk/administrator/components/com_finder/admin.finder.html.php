@@ -15,12 +15,12 @@ class elFinder {
      * Вывод файлового менеджера elFinder
      * @param string $elfinder_config - конфигурация клиента elFinder
      */
-    function index( $elfinder_config) {
+    public static function index( $elfinder_config) {
         ?>
 <table class="adminheading">
     <tbody>
         <tr>
-            <th class="config" colspan="3">Файловый менеджер</th>
+            <th class="config" colspan="3"><?php echo _COM_FILES ?></th>
         </tr>
     </tbody>
 </table>

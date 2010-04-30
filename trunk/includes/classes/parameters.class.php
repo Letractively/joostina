@@ -18,10 +18,11 @@ class mosParameters {
     private $_type;
     private $_xmlElem;
 
-    public function mosParameters($text,$path = '',$type = 'component') {
+    public function  __construct($text,$path = '',$type = 'component') {
         JDEBUG ? jd_inc('mosParameters') : null;
 
-        $this->_params = $this->parse($text);
+		$params = $this->parse($text);
+        $this->_params = empty ($params) ? new stdClass : $params ;
         $this->_raw = $text;
         $this->_path = $path;
         $this->_type = $type;
@@ -61,16 +62,16 @@ class mosParameters {
     public function render($name = 'params') {
 
         if($this->_path) {
-            if(!is_object($this->_xmlElem)) {
-                require_once (JPATH_BASE.'/includes/domit/xml_domit_lite_include.php');
+			if(!is_object($this->_xmlElem)) {
+				require_once (JPATH_BASE.'/includes/domit/xml_domit_lite_include.php');
                 $xmlDoc = new DOMIT_Lite_Document();
                 $xmlDoc->resolveErrors(true);
                 if($xmlDoc->loadXML($this->_path,false,true)) {
-                    $root = &$xmlDoc->documentElement;
+                    $root = $xmlDoc->documentElement;
                     $tagName = $root->getTagName();
                     $isParamsFile = ($tagName == 'mosinstall' || $tagName == 'mosparams');
                     if($isParamsFile && $root->getAttribute('type') == $this->_type) {
-                        if($params = &$root->getElementsByPath('params',1)) {
+                        if($params = $root->getElementsByPath('params',1)) {
                             $this->_xmlElem = &$params;
                         }
                     }
@@ -309,7 +310,7 @@ class mosParameters {
 
         $default = $value ? $value : $node->getAttribute('default');
 
-        $null[] = mosHTML::makeOption(-1,'- выберите город -');
+        $null[] = mosHTML::makeOption(-1, _SELECT_OBJ);
         $rows = array_merge( $null, $rows);
         return mosHTML::selectList($rows,$control_name.'['.$name.']','class="inputbox" size="1"','value','text', $default ? $default : -1 );
 

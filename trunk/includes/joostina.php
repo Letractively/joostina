@@ -2283,7 +2283,7 @@ class mosModule extends mosDBTable {
     private $_view = null;
     private $_mainframe = null;
 
-    public function mosModule(&$db, $mainframe = null) {
+    public function mosModule($db, $mainframe = null) {
         $this->mosDBTable('#__modules','id',$db);
         if($mainframe) {
             $this->_mainframe = $mainframe;
@@ -2511,9 +2511,9 @@ class mosCache {
     /**
      * @return object A function cache object
      */
-    function getCache($group = 'default', $handler = 'callback', $storage = null,$cachetime = null, $object = null) {
+    public static function getCache($group = 'default', $handler = 'callback', $storage = null,$cachetime = null, $object = null) {
 
-        jd_inc('cache');
+        JDEBUG ? jd_inc('cache') : null;
 
         if( self::$_instance===null ) {
             $config = Jconfig::getInstance();
@@ -2940,7 +2940,7 @@ function mosFormatDate($date,$format = '',$offset = null) {
     if(is_null($offset)) {
         $offset = $config_offset;
     }
-    if($date && ereg("([0-9]{4})-([0-9]{2})-([0-9]{2})[ ]([0-9]{2}):([0-9]{2}):([0-9]{2})",$date,$regs)) {
+    if($date && preg_match("/^([0-9]{4})-([0-9]{2})-([0-9]{2})[ ]([0-9]{2}):([0-9]{2}):([0-9]{2})/",$date,$regs)) {
         $date = mktime($regs[4],$regs[5],$regs[6],$regs[2],$regs[3],$regs[1]);
         $date = strftime($format,$date + ($offset* 60* 60));
     }

@@ -17,7 +17,7 @@
 
 defined('_VALID_MOS') or die();
 class domit_doctor {
-	function fixAmpersands($xmlText) {
+	public static function fixAmpersands($xmlText) {
 		$xmlText = trim($xmlText);
 		$startIndex = -1;
 		$processing = true;

@@ -12,52 +12,46 @@ defined('_VALID_MOS') or die();
 
 class components_menu_html {
 
-    public static function edit(&$menu,&$components,&$lists,&$params,$option) {
-        mosCommonHTML::loadOverlib();
-        if($menu->id) {
-            $title = '[ '.$lists['componentname'].' ]';
-        } else {
-            $title = '';
-        }
-        ?>
-<div id="overDiv" style="position:absolute; visibility:hidden; z-index:10000;"></div>
+	public static function edit(&$menu,&$components,&$lists,&$params,$option) {
+		mosCommonHTML::loadOverlib();
+
+		mosCommonHTML::loadJqueryPlugins('jquery.validate');
+		mosCommonHTML::loadJqueryPlugins('validate/localization/messages_ru');
+
+		if($menu->id) {
+			$title = '[ '.$lists['componentname'].' ]';
+		} else {
+			$title = '';
+		}
+		?>
 <script language="javascript" type="text/javascript">
     function submitbutton(pressbutton) {
         var form = document.adminForm;
         if (pressbutton == 'cancel') {
-            submitform( pressbutton );
+			// TODO разобраться с ПРАВИЛЬНЫМ отключением валидатора...
+			$('#adminForm .required').removeClass('required');
+			submitform( pressbutton );
             return;
         }
 
         var comp_links = new Array;
-        <?php
-        foreach($components as $row) {
-            ?>
-                    comp_links[ <?php echo $row->value; ?> ] = 'index.php?<?php echo addslashes($row->link); ?>';
-            <?php
-        }
-        ?>
-                if ( form.id.value == 0 ) {
-                    var comp_id = getSelectedValue( 'adminForm', 'componentid' );
-                    form.link.value = comp_links[comp_id];
-                } else {
-                    form.link.value = comp_links[form.componentid.value];
-                }
-
-                if ( $.trim( form.name.value ) == "" ){
-                    alert( "<?php echo _OBJECT_MUST_HAVE_NAME?>" );
-                } else if (form.componentid.value == ""){
-                    alert( "<?php echo _CHOOSE_COMPONENT?>" );
-                } else {
-                    submitform( pressbutton );
-                }
-            }
+		<?php foreach($components as $row) { ?>
+				comp_links[<?php echo $row->value; ?>] = 'index.php?<?php echo addslashes($row->link); ?>';
+			<?php } ?>
+					if ( form.id.value == 0 ) {
+						var comp_id = getSelectedValueById( 'componentid' );
+						$('#link').val( comp_links[comp_id] );
+					} else {
+						$('#link').val( comp_links[form.componentid.value] );
+					}
+					submitform( pressbutton );
+				}
 </script>
-<form action="index2.php" method="post" name="adminForm">
+<form action="index2.php" method="post" name="adminForm" id="adminForm">
     <table class="adminheading">
         <tr>
             <th class="menus">
-                        <?php echo $menu->id?_EDITING.' -':_CREATION.' -'; ?> <?php echo _MENU_ITEM_COMPONENT?> <small><small><?php echo $title; ?></small></small>
+						<?php echo $menu->id?_EDITING.' -':_CREATION.' -'; ?> <?php echo _MENU_ITEM_COMPONENT?> <small><small><?php echo $title; ?></small></small>
             </th>
         </tr>
     </table>
@@ -71,7 +65,7 @@ class components_menu_html {
                     <tr>
                         <td width="10%" align="right"><?php echo _NAME?>:</td>
                         <td width="80%">
-                            <input class="inputbox" type="text" name="name" size="50" maxlength="100" value="<?php echo htmlspecialchars($menu->name,ENT_QUOTES,'UTF-8'); ?>" />
+                            <input class="inputbox required" type="text" name="name" size="50" maxlength="100" value="<?php echo htmlspecialchars($menu->name,ENT_QUOTES,'UTF-8'); ?>" />
                         </td>
                     </tr>
                     <tr>
@@ -116,15 +110,15 @@ class components_menu_html {
                     <tr><th><?php echo _PARAMETERS?></th></tr>
                     <tr>
                         <td>
-                                    <?php
-                                    if($menu->id) {
-                                        echo $params->render();
-                                    } else {
-                                        ?>
+									<?php
+									if($menu->id) {
+										echo $params->render();
+									} else {
+										?>
                             <strong><?php echo _MENU_PARAMS_AFTER_SAVE?></strong>
-                                        <?php
-                                    }
-                                    ?>
+										<?php
+									}
+									?>
                         </td>
                     </tr>
                 </table>
@@ -133,13 +127,14 @@ class components_menu_html {
     </table>
     <input type="hidden" name="option" value="<?php echo $option; ?>" />
     <input type="hidden" name="id" value="<?php echo $menu->id; ?>" />
-    <input type="hidden" name="link" value="" />
+    <input type="hidden" name="link" id="link" value="" />
     <input type="hidden" name="menutype" value="<?php echo $menu->menutype; ?>" />
     <input type="hidden" name="type" value="<?php echo $menu->type; ?>" />
     <input type="hidden" name="task" value="" />
     <input type="hidden" name="hidemainmenu" value="0" />
     <input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
+	<input type="submit" value="Хоп!" />
 </form>
-        <?php
-    }
+		<?php
+	}
 }

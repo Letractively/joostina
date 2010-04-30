@@ -16,12 +16,12 @@ defined('_VALID_MOS') or die();
  */
 class HTML_menusections {
 
-    function showMenusections($rows,$pageNav,$search,$levellist,$menutype,$option) {
-        global $my;
+	public static function showMenusections($rows,$pageNav,$search,$levellist,$menutype,$option) {
+		global $my;
 
-        $cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
+		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 
-        ?>
+		?>
 <form action="index2.php" method="post" name="adminForm">
     <table class="adminheading">
         <tr>
@@ -33,15 +33,15 @@ class HTML_menusections {
                 <input type="text" name="search" value="<?php echo htmlspecialchars($search); ?>" class="inputbox" onChange="document.adminForm.submit();" />
             </td>
         </tr>
-                <?php if($menutype == 'mainmenu') { ?>
+				<?php if($menutype == 'mainmenu') { ?>
         <tr>
             <td align="right" class="jtd_nowrap" style="color: red; font-weight: normal;" colspan="5">
-                            <?php echo _MAINMENU_DEL; ?>
+							<?php echo _MAINMENU_DEL; ?>
                 <br />
                 <span style="color: black;"><?php echo _MAINMENU_HOME; ?></span>
             </td>
         </tr>
-                    <?php } ?>
+					<?php } ?>
     </table>
     <table class="adminlist">
         <tr>
@@ -61,32 +61,32 @@ class HTML_menusections {
             <th width="35%" align="left"><?php echo _TYPE?></th>
             <th>CID</th>
         </tr>
-                <?php
-                $k = 0;
-                $i = 0;
-                $n = count($rows);
-                foreach($rows as $row) {
-                    mosMakeHtmlSafe($row,ENT_QUOTES,'treename');
-                    $access		= mosCommonHTML::AccessProcessing($row,$i,1);
-                    $checked	= mosCommonHTML::CheckedOutProcessing($row,$i);
-                    $title = $row->published ?  _PUBLISHED : _UNPUBLISHED;
-                    $img = $row->published ? 'publish_g.png' : 'publish_x.png';
-                    $img = $cur_file_icons_path.'/'.$img;
-                    ?>
+				<?php
+				$k = 0;
+				$i = 0;
+				$n = count($rows);
+				foreach($rows as $row) {
+					mosMakeHtmlSafe($row,ENT_QUOTES,'treename');
+					$access		= mosCommonHTML::AccessProcessing($row,$i,1);
+					$checked	= mosCommonHTML::CheckedOutProcessing($row,$i);
+					$title = $row->published ?  _PUBLISHED : _UNPUBLISHED;
+					$img = $row->published ? 'publish_g.png' : 'publish_x.png';
+					$img = $cur_file_icons_path.'/'.$img;
+					?>
         <tr class="<?php echo "row$k"; ?>" id="tr-el-<?php echo $row->id;?>">
             <td><?php echo $i + 1 + $pageNav->limitstart; ?></td>
             <td><?php echo $checked; ?></td>
             <td class="jtd_nowrap" align="left">
-                            <?php
-                            if($row->checked_out && ($row->checked_out != $my->id)) {
-                                echo $row->treename;
-                            } else {
-                                $link = 'index2.php?option=com_menus&menutype='.$row->menutype.'&task=edit&id='.$row->id.'&hidemainmenu=1';
-                                ?>
+							<?php
+							if($row->checked_out && ($row->checked_out != $my->id)) {
+								echo $row->treename;
+							} else {
+								$link = 'index2.php?option=com_menus&menutype='.$row->menutype.'&task=edit&id='.$row->id.'&hidemainmenu=1';
+								?>
                 <a href="<?php echo $link; ?>"><?php echo $row->treename; ?></a>
-                                <?php
-                            }
-                            ?>
+								<?php
+							}
+							?>
             </td>
             <td align="center" class="td-state">
                 <img class="img-mini-state" src="<?php echo $img;?>" obj_id="<?php echo $row->id;?>" obj_task="publish" alt="<?php echo $title?>" title="<?php echo $title?>" />
@@ -100,20 +100,18 @@ class HTML_menusections {
             <td align="center"><?php echo $row->id; ?></td>
             <td align="left">
                 <span class="editlinktip">
-                                <?php
-                                echo mosToolTip($row->descrip,'',280,'tooltip.png',$row->type,$row->edit);
-                                ?>
+								<?php echo mosToolTip($row->descrip,'',280,'tooltip.png',$row->type,$row->edit); ?>
                 </span>
             </td>
             <td align="center"><?php echo $row->componentid; ?></td>
         </tr>
-                    <?php
-                    $k = 1 - $k;
-                    $i++;
-                }
-                ?>
+					<?php
+					$k = 1 - $k;
+					$i++;
+				}
+				?>
     </table>
-            <?php echo $pageNav->getListFooter(); ?>
+			<?php echo $pageNav->getListFooter(); ?>
     <input type="hidden" name="option" value="<?php echo $option; ?>" />
     <input type="hidden" name="menutype" value="<?php echo $menutype; ?>" />
     <input type="hidden" name="task" value="" />
@@ -121,17 +119,17 @@ class HTML_menusections {
     <input type="hidden" name="hidemainmenu" value="0" />
     <input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
 </form>
-        <?php
-    }
+		<?php
+	}
 
 
-    /**
-     * Отображение списка типов пунктов меню для создания
-     */
-    function addMenuItem(&$cid,$menutype,$option,$types_component,$types_link,$types_other) {
+	/**
+	 * Отображение списка типов пунктов меню для создания
+	 */
+	public static function addMenuItem(&$cid,$menutype,$option,$types_component,$types_link,$types_other) {
 
-        mosCommonHTML::loadOverlib();
-        ?>
+		mosCommonHTML::loadOverlib();
+		?>
 <style type="text/css">
     fieldset {
         border: 1px solid #777;
@@ -145,7 +143,7 @@ class HTML_menusections {
         <tr>
             <th width="100px" class="menus"><?php echo _NEW_MENU_ITEM ?></th>
             <td class="jtd_nowrap" style="color: red;">
-                        <?php echo _NOTE_MENU_ITEMS1?>
+						<?php echo _NOTE_MENU_ITEMS1?>
             </td>
         </tr>
     </table>
@@ -155,18 +153,18 @@ class HTML_menusections {
                 <fieldset>
                     <legend><?php echo _MENU_ITEMS_OTHER?></legend>
                     <table class="adminform">
-                                <?php
-                                $k = 0;
-                                $count = count($types_other);
-                                for($i = 0; $i < $count; $i++) {
-                                    $row = &$types_other[$i];
+								<?php
+								$k = 0;
+								$count = count($types_other);
+								for($i = 0; $i < $count; $i++) {
+									$row = &$types_other[$i];
 
-                                    $link = 'index2.php?option=com_menus&menutype='.$menutype.'&task=edit&type='.$row->type.'&hidemainmenu=1';
-                                    HTML_menusections::htmlOptions($row,$link,$k,$i);
+									$link = 'index2.php?option=com_menus&menutype='.$menutype.'&task=edit&type='.$row->type.'&hidemainmenu=1';
+									HTML_menusections::htmlOptions($row,$link,$k,$i);
 
-                                    $k = 1 - $k;
-                                }
-                                ?>
+									$k = 1 - $k;
+								}
+								?>
                     </table>
                 </fieldset>
             </td>
@@ -174,35 +172,35 @@ class HTML_menusections {
                 <fieldset>
                     <legend><?php echo _COMPONENTS?></legend>
                     <table class="adminform">
-                                <?php
-                                $k = 0;
-                                $count = count($types_component);
-                                for($i = 0; $i < $count; $i++) {
-                                    $row = &$types_component[$i];
+								<?php
+								$k = 0;
+								$count = count($types_component);
+								for($i = 0; $i < $count; $i++) {
+									$row = &$types_component[$i];
 
-                                    $link = 'index2.php?option=com_menus&menutype='.$menutype.'&task=edit&type='.$row->type.'&hidemainmenu=1';
-                                    HTML_menusections::htmlOptions($row,$link,$k,$i);
+									$link = 'index2.php?option=com_menus&menutype='.$menutype.'&task=edit&type='.$row->type.'&hidemainmenu=1';
+									HTML_menusections::htmlOptions($row,$link,$k,$i);
 
-                                    $k = 1 - $k;
-                                }
-                                ?>
+									$k = 1 - $k;
+								}
+								?>
                     </table>
                 </fieldset>
                 <fieldset>
                     <legend><?php echo _LINKS?></legend>
                     <table class="adminform">
-                                <?php
-                                $k = 0;
-                                $count = count($types_link);
-                                for($i = 0; $i < $count; $i++) {
-                                    $row = &$types_link[$i];
+								<?php
+								$k = 0;
+								$count = count($types_link);
+								for($i = 0; $i < $count; $i++) {
+									$row = &$types_link[$i];
 
-                                    $link = 'index2.php?option=com_menus&menutype='.$menutype.'&task=edit&type='.$row->type.'&hidemainmenu=1';
-                                    HTML_menusections::htmlOptions($row,$link,$k,$i);
+									$link = 'index2.php?option=com_menus&menutype='.$menutype.'&task=edit&type='.$row->type.'&hidemainmenu=1';
+									HTML_menusections::htmlOptions($row,$link,$k,$i);
 
-                                    $k = 1 - $k;
-                                }
-                                ?>
+									$k = 1 - $k;
+								}
+								?>
                     </table>
                 </fieldset>
             </td>
@@ -215,19 +213,19 @@ class HTML_menusections {
     <input type="hidden" name="hidemainmenu" value="0" />
     <input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
 </form>
-        <?php
-    }
+		<?php
+	}
 
-    function htmlOptions(&$row,$link,$k,$i) {
-        ?>
+	public static function htmlOptions($row,$link,$k,$i) {
+		?>
 <tr class="<?php echo "row$k"; ?>">
     <td width="20">
     </td>
     <td style="height: 30px;">
         <span class="editlinktip" style="cursor: pointer;">
-                    <?php
-                    echo mosToolTip($row->descrip,$row->name,250,'',$row->name,$link,1);
-                    ?>
+					<?php
+					echo mosToolTip($row->descrip,$row->name,250,'',$row->name,$link,1);
+					?>
         </span>
     </td>
     <td width="20">
@@ -236,14 +234,14 @@ class HTML_menusections {
     <td width="20">
     </td>
 </tr>
-        <?php
-    }
+		<?php
+	}
 
-    /**
-     * Form to select Menu to move menu item(s) to
-     */
-    function moveMenu($option,$cid,$MenuList,$items,$menutype) {
-        ?>
+	/**
+	 * Form to select Menu to move menu item(s) to
+	 */
+	function moveMenu($option,$cid,$MenuList,$items,$menutype) {
+		?>
 <form action="index2.php" method="post" name="adminForm">
     <br />
     <table class="adminheading">
@@ -258,16 +256,16 @@ class HTML_menusections {
             <td align="left" valign="top" width="30%">
                 <strong><?php echo _MOVE_MENU_ITEMS?>:</strong>
                 <br />
-                        <?php echo $MenuList ?>
+						<?php echo $MenuList ?>
                 <br /><br />
             </td>
             <td align="left" valign="top">
                 <strong><?php echo _MENU_ITEMS_TO_MOVE?>:</strong>
                 <br />
                 <ol>
-                            <?php foreach($items as $item) { ?>
+							<?php foreach($items as $item) { ?>
                     <li><?php echo $item->name; ?></li>
-                                <?php } ?>
+								<?php } ?>
                 </ol>
             </td>
         </tr>
@@ -277,22 +275,22 @@ class HTML_menusections {
     <input type="hidden" name="boxchecked" value="1" />
     <input type="hidden" name="task" value="" />
     <input type="hidden" name="menutype" value="<?php echo $menutype; ?>" />
-            <?php
-            foreach($cid as $id) {
-                echo "\n <input type=\"hidden\" name=\"cid[]\" value=\"$id\" />";
-            }
-            ?>
+			<?php
+			foreach($cid as $id) {
+				echo "\n <input type=\"hidden\" name=\"cid[]\" value=\"$id\" />";
+			}
+			?>
     <input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
 </form>
-        <?php
-    }
+		<?php
+	}
 
 
-    /**
-     * Form to select Menu to copy menu item(s) to
-     */
-    function copyMenu($option,$cid,$MenuList,$items,$menutype) {
-        ?>
+	/**
+	 * Form to select Menu to copy menu item(s) to
+	 */
+	function copyMenu($option,$cid,$MenuList,$items,$menutype) {
+		?>
 <form action="index2.php" method="post" name="adminForm">
     <br />
     <table class="adminheading">
@@ -307,16 +305,16 @@ class HTML_menusections {
             <td align="left" valign="top" width="30%">
                 <strong><?php echo _COPY_MENU_ITEMS_TO?>:</strong>
                 <br />
-                        <?php echo $MenuList ?>
+						<?php echo $MenuList ?>
                 <br /><br />
             </td>
             <td align="left" valign="top">
                 <strong><?php echo _MENU_ITEMS_TO_COPY?>:</strong>
                 <br />
                 <ol>
-                            <?php foreach($items as $item) { ?>
+							<?php foreach($items as $item) { ?>
                     <li><?php echo $item->name; ?></li>
-                                <?php } ?>
+								<?php } ?>
                 </ol>
             </td>
         </tr>
@@ -326,13 +324,13 @@ class HTML_menusections {
     <input type="hidden" name="boxchecked" value="0" />
     <input type="hidden" name="task" value="" />
     <input type="hidden" name="menutype" value="<?php echo $menutype; ?>" />
-            <?php
-            foreach($cid as $id) {
-                echo "\n <input type=\"hidden\" name=\"cid[]\" value=\"$id\" />";
-            }
-            ?>
+			<?php
+			foreach($cid as $id) {
+				echo "\n <input type=\"hidden\" name=\"cid[]\" value=\"$id\" />";
+			}
+			?>
     <input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
 </form>
-        <?php
-    }
+		<?php
+	}
 }
