@@ -15,9 +15,7 @@ define('JPATH_BASE', dirname(__FILE__) );
 define('DS', DIRECTORY_SEPARATOR );
 
 // рассчет памяти
-if(function_exists('memory_get_usage')) {
-	define('_MEM_USAGE_START', memory_get_usage());
-}
+function_exists('memory_get_usage') ? define('_MEM_USAGE_START', memory_get_usage()) : null;
 
 // проверка конфигурационного файла, если не обнаружен, то загружается страница установки
 if(!file_exists('configuration.php') || filesize('configuration.php') < 10) {
@@ -112,7 +110,7 @@ $gid = intval($my->gid);
 
 if($option == 'login') {
 	$mainframe->login();
-	
+
 	$return	= strval(mosGetParam($_REQUEST,'return',null));
 	if($return && !(strpos($return,'com_registration') || strpos($return,'com_login'))) {
 		// checks for the presence of a return url

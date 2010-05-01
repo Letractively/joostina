@@ -12,15 +12,6 @@ defined('_VALID_MOS') or die();
 
 global $my, $task, $option;
 
-
-?>
-<script type="text/javascript">
-	var _comuser_url = '<?php echo JPATH_SITE;?>/components/com_users';
-	var _comuser_ajax_handler = 'ajax.index.php?option=com_users';
-	var _comuser_defines = new Array();
-</script>
-<?php
-
 mosMainFrame::addLib('gacl');
 $acl = gacl::getInstance();
 
@@ -43,12 +34,7 @@ switch($task) {
 		break;
 
 	case 'saveUserEdit':
-	// check to see if functionality restricted for use as demo site
-		if(coreVersion::get('RESTRICT') == 1) {
-			mosRedirect('index.php',_RESTRICT_FUNCTION);
-		} else {
-			userSave($option,$my->id);
-		}
+		userSave($option,$my->id);
 		break;
 
 	case 'CheckIn':
@@ -62,7 +48,7 @@ switch($task) {
 	case 'profile':
 		$_view = strval(mosGetParam( $_REQUEST, 'view', '' ));
 		if($mainframe->getCfg('caching')==1) {
-			$cache = &mosCache::getCache('user_profile');
+			$cache = mosCache::getCache('user_profile');
 			$r = $cache->call('profile',$uid,$_view);
 		}else {
 			$r = profile($uid,$_view);
@@ -117,7 +103,7 @@ switch($task) {
 		break;
 
 	case 'userlist':
-		$cache = &mosCache::getCache('user_lists');
+		$cache = mosCache::getCache('user_lists');
 		$gid = intval(mosGetParam($_GET,'group',0));
 		$limit = intval(mosGetParam($_REQUEST,'limit',null));
 		$limitstart = intval(mosGetParam($_REQUEST,'limitstart',0));
@@ -140,7 +126,7 @@ function profile($uid) {
 		$row->user_extra = $row->get_user_extra();
 
 		$file = $mainframe->getPath('com_xml','com_users');
-		$params = &new mosUserParameters($row->params,$file,'component');
+		$params = new mosUserParameters($row->params,$file,'component');
 
 		$config = new configUser_profile($database);
 		$config->set('title',sprintf($config->get('title'),$row->name));
@@ -177,7 +163,7 @@ function userEdit($option,$uid,$submitvalue) {
 	$user->username = trim($user->username);
 
 	$file = $mainframe->getPath('com_xml','com_users');
-	$params = &new mosUserParameters($user->params,$file,'component');
+	$params = new mosUserParameters($user->params,$file,'component');
 
 	$user_extra = new userUsersExtra($database);
 	$user_extra->load((int)$uid);

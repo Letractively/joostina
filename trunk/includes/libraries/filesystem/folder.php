@@ -24,10 +24,8 @@ defined('_VALID_MOS') or die();
  * @subpackage	FileSystem
  * @since		1.5
  */
-class JFolder
-{
-	function clean($path, $ds=DS)
-	{
+class JFolder {
+	public static function clean($path, $ds=DS) {
 		$path = trim($path);
 
 		if (empty($path)) {
@@ -39,16 +37,14 @@ class JFolder
 
 		return $path;
 	}
-	function delete_files($file)
-	{
+	public static function delete_files($file) {
 		if (is_array($file)) {
 			$files = $file;
 		} else {
 			$files[] = $file;
 		}
 
-		foreach ($files as $file)
-		{
+		foreach ($files as $file) {
 			$file = JFolder::clean($file);
 
 			// Try making the file writeable first. If it's read-only, it can't be deleted
@@ -58,7 +54,7 @@ class JFolder
 			// In case of restricted permissions we zap it one way or the other
 			// as long as the owner is either the webserver or the ftp
 			if (@unlink($file)) {
-				
+
 			} else {
 				$filename	= basename($file);
 				return false;
@@ -67,7 +63,7 @@ class JFolder
 
 		return true;
 	}
-	
+
 	/**
 	 * Delete a folder
 	 *
@@ -75,14 +71,13 @@ class JFolder
 	 * @return boolean True on success
 	 * @since 1.5
 	 */
-	function delete($path)
-	{
+	public static function delete($path) {
 		// Sanity check
 		if ( ! $path ) {
 			// Bad programmer! Bad Bad programmer!
 			return false;
 		}
-		
+
 		// Check to make sure the path valid and clean
 		$path = JFolder::clean($path);
 
@@ -95,7 +90,7 @@ class JFolder
 		$files = JFolder::files($path, '.', false, true, array());
 		if (count($files)) {
 			//require_once(dirname(__FILE__).DS.'file.php');
-			
+
 			if (JFolder::delete_files($files) !== true) {
 				return false;
 			}
@@ -119,7 +114,7 @@ class JFolder
 
 		return $ret;
 	}
-	
+
 	/**
 	 * Utility function to read the files in a folder
 	 *
@@ -131,8 +126,7 @@ class JFolder
 	 * @return	array	Files in the given folder
 	 * @since 1.5
 	 */
-	function files($path, $filter = '.', $recurse = false, $fullpath = false, $exclude = array('.svn', 'CVS'))
-	{
+	public static function files($path, $filter = '.', $recurse = false, $fullpath = false, $exclude = array('.svn', 'CVS')) {
 		// Initialize variables
 		$arr = array ();
 
@@ -146,8 +140,7 @@ class JFolder
 
 		// read the source directory
 		$handle = opendir($path);
-		while (($file = readdir($handle)) !== false)
-		{
+		while (($file = readdir($handle)) !== false) {
 			$dir = $path.DS.$file;
 			$isDir = is_dir($dir);
 			if (($file != '.') && ($file != '..') && (!in_array($file, $exclude))) {
@@ -187,8 +180,7 @@ class JFolder
 	 * @return	array	Folders in the given folder
 	 * @since 1.5
 	 */
-	function folders($path, $filter = '.', $recurse = false, $fullpath = false, $exclude = array('.svn', 'CVS'))
-	{
+	public static function folders($path, $filter = '.', $recurse = false, $fullpath = false, $exclude = array('.svn', 'CVS')) {
 		// Initialize variables
 		$arr = array ();
 
@@ -202,8 +194,7 @@ class JFolder
 
 		// read the source directory
 		$handle = opendir($path);
-		while (($file = readdir($handle)) !== false)
-		{
+		while (($file = readdir($handle)) !== false) {
 			$dir = $path.DS.$file;
 			$isDir = is_dir($dir);
 			if (($file != '.') && ($file != '..') && (!in_array($file, $exclude)) && $isDir) {

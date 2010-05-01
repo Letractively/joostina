@@ -929,8 +929,8 @@ class mosMainFrame {
 
 		$row = null;
 		if(!$username || !$passwd) {
+
 			mosRedirect($return, _LOGIN_INCOMPLETE);
-			//mosErrorAlert(_LOGIN_INCOMPLETE . "555" );
 			exit();
 		} else {
 			if($remember && strlen($username) == 32 && $userid) {
@@ -955,17 +955,15 @@ class mosMainFrame {
 			} else {
 				// query used for login via login module
 				$query = "SELECT id, name, username, password, usertype, block, gid FROM #__users WHERE username = ".$this->_db->Quote($username);
-
 				$this->_db->setQuery($query)->loadObject($row);
 			}
 
 			if(is_object($row)) {
+
 				// user blocked from login
 				if($row->block == 1) {
 					mosRedirect($return, _LOGIN_BLOCKED);
-					//mosErrorAlert(_LOGIN_BLOCKED);
 					exit();
-
 				}
 
 				if(!$valid_remember) {
@@ -1017,17 +1015,11 @@ class mosMainFrame {
 				$session->gid = intval($row->gid);
 				$session->update();
 
-				// check to see if site is a production site
-				// allows multiple logins with same user for a demo site
-				if(coreVersion::get('SITE')) {
-					// delete any old front sessions to stop duplicate sessions
-					$query = "DELETE FROM #__session WHERE session_id != ".$this->_db->Quote($session->session_id)." AND username = ".$this->_db->Quote($row->username)." AND userid = ".(int)$row->id." AND gid = ".(int)$row->gid." AND guest = 0";
-					$this->_db->setQuery($query)->query();
-				}
+				$query = "DELETE FROM #__session WHERE session_id != ".$this->_db->Quote($session->session_id)." AND username = ".$this->_db->Quote($row->username)." AND userid = ".(int)$row->id." AND gid = ".(int)$row->gid." AND guest = 0";
+				$this->_db->setQuery($query)->query();
 
 				// update user visit data
 				$currentDate = date("Y-m-d H:i:s");
-
 				$query = "UPDATE #__users SET lastvisitDate = ".$this->_db->Quote($currentDate)." WHERE id = ".(int)$session->userid;
 
 				if(!$this->_db->setQuery($query)->query()) {
@@ -1046,7 +1038,6 @@ class mosMainFrame {
 			} else {
 				if($bypost) {
 					mosRedirect($return, _LOGIN_INCORRECT);
-					//mosErrorAlert(_LOGIN_INCORRECT);
 				} else {
 					$this->logout();
 					mosRedirect('index.php');
@@ -1184,8 +1175,7 @@ class mosMainFrame {
 		if(file_exists("$basePath/templates/$this->_template/components/$name.html.php")) {
 			$this->_path->front = "$basePath/components/$option/$name.php";
 			$this->_path->front_html = "$basePath/templates/$this->_template/components/$name.html.php";
-		} else
-		if(file_exists("$basePath/components/$option/$name.php")) {
+		} elseif(file_exists("$basePath/components/$option/$name.php")) {
 			$this->_path->front = "$basePath/components/$option/$name.php";
 			$this->_path->front_html = "$basePath/components/$option/$name.html.php";
 		}
@@ -1306,9 +1296,7 @@ class mosMainFrame {
 	public function getItemid($id,$typed = 1,$link = 1) {
 		global $Itemid;
 
-		// getItemid compatibility mode, holds maintenance version number
-		$compat = (int)$this->getCfg('itemid_compat');
-		$compat = ($compat == 0) ? 12 : $compat;
+		$compat = 0;
 		$_Itemid = '';
 
 		if($_Itemid == '' && $typed && $this->getStaticContentCount()) {
@@ -1847,39 +1835,11 @@ class JConfig {
 	/** @public int*/
 	public $config_pagetitles = 1;
 	/** @public int*/
-	public $config_link_titles = 0;
-	/** @public int*/
-	public $config_readmore = 1;
-	/** @public int*/
-	public $config_vote = 0;
-	/** @public int*/
-	public $config_showAuthor = 0;
-	/** @public int*/
-	public $config_showCreateDate = 0;
-	/** @public int*/
-	public $config_showModifyDate = 0;
-	/** @public int*/
-	public $config_hits = 1;
-	/** @public int*/
-	public $config_showPrint = 0;
-	/** @public int*/
-	public $config_showEmail = 0;
-	/** @public int*/
-	public $config_icons = 1;
-	/** @public int*/
-	public $config_back_button = 0;
-	/** @public int*/
-	public $config_item_navigation = 0;
-	/** @public int*/
 	public $config_multilingual_support = 0;
-	/** @public int*/
-	public $config_multipage_toc = 0;
 	/** Режим работы с itemid, 0 - прежний режим*/
 	public $config_itemid_compat = 0;
 	/** @public int отключение ведения сессий на фронте*/
 	public $config_no_session_front = 0;
-	/** @public int отключение syndicate*/
-	public $config_syndicate_off = 0;
 	/** @public int отключение тега Generator*/
 	public $config_generator_off = 0;
 	/** @public int отключение мамботов группы system*/
@@ -1904,16 +1864,8 @@ class JConfig {
 	public $config_tseparator = ' - ';
 	/** @int отключение captcha*/
 	public $config_captcha = 1;
-	/** @int очистка ссылки на com_frontpage*/
-	public $config_com_frontpage_clear = 1;
 	/** @str корень для компонента управления медиа содержимым*/
 	public $config_media_dir = 'images/stories';
-	/** @int автоматическая установка "Публиковать на главной"*/
-	public $config_auto_frontpage = 0;
-	/** @int уникальные идентификаторы новостей*/
-	public $config_uid_news = 0;
-	/** @int подсчет прочтений содержимого*/
-	public $config_content_hits = 1;
 	/** @str формат даты*/
 	public $config_form_date = '%d.%m.%Y г.';
 	/** @str полный формат даты и времени*/
@@ -1924,8 +1876,6 @@ class JConfig {
 	public $config_admin_autologout = 1;
 	/** @int отключение кнопки "Помощь"*/
 	public $config_disable_button_help = 0;
-	/** @int отключение блокировок объектов*/
-	public $config_disable_checked_out = 0;
 	/** @int отключение favicon*/
 	public $config_disable_favicon = 1;
 	/** @str смещение для rss*/
@@ -1988,30 +1938,12 @@ class JConfig {
 	public $config_memcache_host = 'localhost';
 	/** @public array настройки memCached */
 	public $config_memcache_port = '11211';
-	/** @public int тип вывода ника автора материала */
-	public $config_author_name = 4;
-	/** @public int использование неопубликованных мамботов */
-	public $config_use_unpublished_mambots = 0;
-	/** @public int использование мамботов удаления содержимого */
-	public $config_use_content_delete_mambots = 0;
 	/** @public str название шаблона панели управления */
 	public $config_admin_template = '...';
-	/** @public int режим сортировки содержимого в панели управления */
-	public $config_admin_content_order_by = 2;
-	/** @public str порядок сортировки содержимого в панели управления */
-	public $config_admin_content_order_sort = 0;
 	/** @public int активация блокировок компонентов */
 	public $config_components_access = 0;
-	/** @public int использование мамботов редактирования содержимого */
-	public $config_use_content_edit_mambots = 0;
-	/** @public int использование мамботов сохранения содержимого */
-	public $config_use_content_save_mambots = 0;
 	/** @public int чисто неудачный авторизаций для блокировки аккаунта */
 	public $config_count_for_user_block = 10;
-	/** @public int директория шаблонов содержимого по-умолчанию */
-	public $config_global_templates = 0;
-	/** @public int включение/выключение отображения тэгов содержимого */
-	public $config_tags = 0;
 	/** @public int включение/выключение мамботов группы onAjaxStart */
 	public $config_mmb_ajax_starts_off = 1;
 
@@ -2787,11 +2719,6 @@ function mosPathName($p_path,$p_addtrailingslash = true) {
 	return $retval;
 }
 
-/**
- *
- * @param <type> $p_obj
- * @return <type>
- */
 function mosObjectToArray($p_obj) {
 	$retarray = null;
 	if(is_object($p_obj)) {
@@ -2804,16 +2731,6 @@ function mosObjectToArray($p_obj) {
 	return $retarray;
 }
 
-/**
- * Makes a variable safe to display in forms
- *
- * Object parameters that are non-string, array, object or start with underscore
- * will be converted
- * @param object An object to be parsed
- * @param int The optional quote style for the htmlspecialchars function
- * @param string|array An optional single field name or array of field names not
- * to be parsed (eg, for a textarea)
- */
 function mosMakeHtmlSafe(&$mixed,$quote_style = ENT_QUOTES,$exclude_keys = '') {
 	if(is_object($mixed)) {
 		foreach(get_object_vars($mixed) as $k => $v) {
@@ -2826,19 +2743,11 @@ function mosMakeHtmlSafe(&$mixed,$quote_style = ENT_QUOTES,$exclude_keys = '') {
 			if(is_array($exclude_keys) && in_array($k,$exclude_keys)) {
 				continue;
 			}
-			$mixed->$k = htmlspecialchars($v,$quote_style);
+			$mixed->$k = htmlspecialchars($v,$quote_style,'UTF-8');
 		}
 	}
 }
 
-/**
- * Checks whether a menu option is within the users access level
- * @param int Item id number
- * @param string The menu option
- * @param int The users group ID number
- * @param database A database connector object
- * @return boolean True if the visitor's group at least equal to the menu access
- */
 function mosMenuCheck($Itemid,$menu_option,$task,$gid,$mainframe) {
 
 	$results = array();
@@ -2877,13 +2786,6 @@ function mosMenuCheck($Itemid,$menu_option,$task,$gid,$mainframe) {
 	return ($access <= $gid);
 }
 
-/**
- * Returns formated date according to current local and adds time offset
- * @param string date in datetime format
- * @param string format optional format for strftime
- * @param offset time offset if different than global one
- * @returns formated date
- */
 function mosFormatDate($date,$format = '',$offset = null) {
 	static $config_offset;
 
@@ -2908,11 +2810,6 @@ function mosFormatDate($date,$format = '',$offset = null) {
 	return $date;
 }
 
-/**
- * Returns current date according to current local and time offset
- * @param string format optional format for strftime
- * @returns current date
- */
 function mosCurrentDate($format = "") {
 	static $config_offset;
 
@@ -2928,49 +2825,18 @@ function mosCurrentDate($format = "") {
 	return $date;
 }
 
-/**
- * Utility function to provide ToolTips
- * @param string ToolTip text
- * @param string Box title
- * @returns HTML code for ToolTip
- */
-function mosToolTip($tooltip,$title = '',$width = '',$image = 'tooltip.png',$text ='',$href = '#',$link = 1) {
+function mosToolTip($tooltip,$title = '',$n='',$image = 'tooltip.png',$text ='',$href = '#') {
 
-	if($width) {
-		$width = ', WIDTH, \''.$width.'\'';
-	}
-	if($title) {
-		$title = ', CAPTION, \''.$title.'\'';
-	}
 	if(!$text) {
 		$image = JPATH_SITE.'/includes/js/ThemeOffice/'.$image;
 		$text = '<img src="'.$image.'" border="0" alt="tooltip"/>';
 	}
-	$style = 'style="text-decoration: none; color: #333;"';
-	if($href) {
-		$style = '';
-	} else {
-		$href = '#';
-	}
 
-	$mousover = 'return overlib(\''.$tooltip.'\''.$title.', BELOW, RIGHT'.$width.');';
-
-	$tip = "";
-	if($link) {
-		$tip .= '<a href="'.$href.'" onmouseover="'.$mousover.'" onmouseout="return nd();" '.$style.'>'.$text.'</a>';
-	} else {
-		$tip .= '<span onmouseover="'.$mousover.'" onmouseout="return nd();" '.$style.'>'.$text.'</span>';
-	}
+	$tip = '<a href="'.$href.'" title="'.$tooltip.'" >'.$text.'</a>';
 
 	return $tip;
 }
 
-/**
- * Utility function to provide Warning Icons
- * @param string Warning text
- * @param string Box title
- * @returns HTML code for Warning
- */
 function mosWarning($warning,$title = _MOS_WARNING) {
 	$mouseover = 'return overlib(\''.$warning.'\', CAPTION, \''.$title.'\', BELOW, RIGHT);';
 	$tip = '<a href="javascript: void(0)" onmouseover="'.$mouseover.'" onmouseout="return nd();">';
@@ -2978,14 +2844,6 @@ function mosWarning($warning,$title = _MOS_WARNING) {
 	return $tip;
 }
 
-/**
- * Function to create a mail object for futher use (uses phpMailer)
- * @param string From e-mail address
- * @param string From name
- * @param string E-mail subject
- * @param string Message body
- * @return object Mail object
- */
 function mosCreateMail($from = '',$fromname = '',$subject='',$body='') {
 
 	mosMainFrame::addLib('phpmailer');
@@ -3130,41 +2988,16 @@ function mosMail($from,$fromname,$recipient,$subject,$body,$mode = 0,$cc = null,
 	return $mailssend;
 } // mosMail
 
-/**
- * Checks if a given string is a valid email address
- *
- * @param	string	$email	String to check for a valid email address
- * @return	boolean
- */
 function JosIsValidEmail($email) {
 	$valid = preg_match('/^[\w\.\-]+@\w+[\w\.\-]*?\.\w{1,4}$/',$email);
 	return $valid;
 }
 
-/**
- * Checks if a given string is a valid (from-)name or subject for an email
- *
- * @since		1.0.11
- * @deprecated	1.5
- * @param		string		$string		String to check for validity
- * @return		boolean
- */
 function JosIsValidName($string) {
-	/*
-	* The following regular expression blocks all strings containing any low control characters:
-	* 0x00-0x1F, 0x7F
-	* These should be control characters in almost all used charsets.
-	* The high control chars in ISO-8859-n (0x80-0x9F) are unused (e.g. http://en.wikipedia.org/wiki/ISO_8859-1)
-	* Since they are valid UTF-8 bytes (e.g. used as the second byte of a two byte char),
-	* they must not be filtered.
-	*/
 	$invalid = preg_match('/[\x00-\x1F\x7F]/',$string);
 	return ($invalid) ? false : true;
 }
 
-/**
- * Initialise GZIP
- */
 function initGzip() {
 	global $do_gzip_compress;
 
@@ -3214,9 +3047,6 @@ function initGzip() {
 	ob_start();
 }
 
-/**
- * Perform GZIP
- */
 function doGzip() {
 	global $do_gzip_compress;
 
@@ -3236,10 +3066,6 @@ function doGzip() {
 	}
 }
 
-/**
- * Random password generator
- * @return password
- */
 function mosMakePassword($length = 8) {
 	$salt = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 	$makepass = '';
@@ -3248,103 +3074,46 @@ function mosMakePassword($length = 8) {
 	return $makepass;
 }
 
-
-/**
- * Class mosMambot
- * @package Joostina
- */
 class mosMambot extends mosDBTable {
-	/**
-	 @var int*/
-	var $id = null;
-	/**
-	 @var varchar*/
-	var $name = null;
-	/**
-	 @var varchar*/
-	var $element = null;
-	/**
-	 @var varchar*/
-	var $folder = null;
-	/**
-	 @var tinyint unsigned*/
-	var $access = null;
-	/**
-	 @var int*/
-	var $ordering = null;
-	/**
-	 @var tinyint*/
-	var $published = null;
-	/**
-	 @var tinyint*/
-	var $iscore = null;
-	/**
-	 @var tinyint*/
-	var $client_id = null;
-	/**
-	 @var int unsigned*/
-	var $checked_out = null;
-	/**
-	 @var datetime*/
-	var $checked_out_time = null;
-	/**
-	 @var text*/
-	var $params = null;
+	public $id;
+	public $name;
+	public $element;
+	public $folder;
+	public $access;
+	public $ordering;
+	public $published;
+	public $iscore;
+	public $checked_out;
+	public $checked_out_time;
+	public $params;
 
-	function mosMambot(&$db) {
-		$this->mosDBTable('#__mambots','id',$db);
+	function mosMambot() {
+		$this->mosDBTable('#__mambots','id');
 	}
 }
 
-/**
- * Plugin handler
- * @package Joostina
- */
 class mosMambotHandler {
-	/**
-	 @var array An array of functions in event groups*/
 	var $_events = null;
-	/**
-	 @var array An array of lists*/
 	var $_lists = null;
-	/**
-	 @var array An array of mambots*/
 	var $_bots = null;
-	/**
-	 @var int Index of the mambot being loaded*/
 	var $_loading = null;
-	/**
-	 @var array An array of the content mambots in the system*/
 	var $_content_mambots = null;
-	/**
-	 @var array An array of the content mambot params*/
 	var $_content_mambot_params = array();
-	/**
-	 @var array An array of the search mambot params*/
 	var $_search_mambot_params = array();
-	/**
-	 * @var array An array of the  mambot params
-	 */
 	var $_mambot_params = array();
 
 	private $_config = null;
 	private $_db = null;
 	private $_admin = false;
-	/**
-	 * Constructor
-	 */
-	function mosMambotHandler() {
+
+	function  __construct() {
 		$this->_db = database::getInstance();
 		$config = Jconfig::getInstance();
-		$this->_config = array('config_disable_access_control'=>$config->config_disable_access_control,'config_use_unpublished_mambots'=>$config->config_use_unpublished_mambots);
+		$this->_config = array('config_disable_access_control'=>$config->config_disable_access_control);
 		$this->_events = array();
 		unset($config);
 	}
 
-	/**
-	 * Loads all the bot files for a particular group
-	 * @param string The group name, relates to the sub-directory in the mambots directory
-	 */
 	function loadBotGroup($group, $load = 0) {
 		global $my;
 
@@ -3365,11 +3134,8 @@ class mosMambotHandler {
 				if(!defined('_JOS_CONTENT_MAMBOTS')) {
 					/** ensure that query is only called once*/
 					define('_JOS_CONTENT_MAMBOTS',1);
-					$where_ac_2 = $where_ac.($config['config_use_unpublished_mambots']==1) ? ' published=1 AND':'';
-					$query = 'SELECT folder, element, published, params FROM #__mambots WHERE '.$where_ac_2.' folder = \'content\' AND client_id=0 ORDER BY ordering ASC';
-					$database->setQuery($query);
-					// load query into class variable _content_mambots
-					if(!($this->_content_mambots = $database->loadObjectList())) {
+					$query = 'SELECT folder, element, published, params FROM #__mambots WHERE published=1 AND folder = \'content\' AND client_id=0 ORDER BY ordering ASC';
+					if(!($this->_content_mambots = $database->setQuery($query)->loadObjectList())) {
 						return false;
 					}
 					foreach($this->_content_mambots as $bot) {

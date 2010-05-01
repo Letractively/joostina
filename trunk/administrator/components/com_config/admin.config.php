@@ -100,8 +100,6 @@ function showconfig($option) {
 
 	// отключение ведения сессий подсчета числа пользователей на сайте
 	$lists['session_front'] = mosHTML::yesnoRadioList('config_no_session_front', 'class="inputbox"', $row->config_no_session_front);
-	// отключение syndicate
-	$lists['syndicate_off'] = mosHTML::yesnoRadioList('config_syndicate_off', 'class="inputbox"', $row->config_syndicate_off);
 	// отключение тега Generator
 	$lists['generator_off'] = mosHTML::yesnoRadioList('config_generator_off', 'class="inputbox"', $row->config_generator_off);
 	// отключение мамботов группы system
@@ -142,14 +140,6 @@ function showconfig($option) {
 	$lists['adm_menu_cache'] = mosHTML::yesnoRadioList('config_adm_menu_cache', 'class="inputbox"', $row->config_adm_menu_cache);
 	// управление captcha
 	$lists['captcha'] = mosHTML::yesnoRadioList('config_captcha', 'class="inputbox"', $row->config_captcha);
-	// управление captcha
-	$lists['com_frontpage_clear'] = mosHTML::yesnoRadioList('config_com_frontpage_clear', 'class="inputbox"', $row->config_com_frontpage_clear);
-	// автоматическая установка чекбокса "Публиковать на главной"
-	$lists['auto_frontpage'] = mosHTML::yesnoRadioList('config_auto_frontpage', 'class="inputbox"', $row->config_auto_frontpage);
-	// уникальные идентификаторы новостей
-	$lists['config_uid_news'] = mosHTML::yesnoRadioList('config_uid_news', 'class="inputbox"', $row->config_uid_news);
-	// подсчет прочтений содержимого
-	$lists['config_content_hits'] = mosHTML::yesnoRadioList('config_content_hits', 'class="inputbox"', $row->config_content_hits);
 	// формат времени
 	$date_help = array(
 		mosHTML::makeOption('%d.%m.%Y ' . _COM_CONFIG_YEAR . ' %H:%M', strftime('%d.%m.%Y ' . _COM_CONFIG_YEAR . ' %H:%M')),
@@ -178,8 +168,6 @@ function showconfig($option) {
 	$lists['config_admin_autologout'] = mosHTML::yesnoRadioList('config_admin_autologout', 'class="inputbox"', $row->config_admin_autologout);
 	// отключение кнопки "Помощь"
 	$lists['config_disable_button_help'] = mosHTML::yesnoRadioList('config_disable_button_help', 'class="inputbox"', $row->config_disable_button_help);
-	// отключение блокировок объектов
-	$lists['config_disable_checked_out'] = mosHTML::yesnoRadioList('config_disable_checked_out', 'class="inputbox"', $row->config_disable_checked_out);
 	// отключение favicon
 	$lists['config_disable_favicon'] = mosHTML::yesnoRadioList('config_disable_favicon', 'class="inputbox"', $row->config_disable_favicon);
 	// использование расширенного отладчика на фронте
@@ -355,103 +343,14 @@ function showconfig($option) {
 	);
 	$lists['pagetitles_first'] = mosHTML::selectList($pagetitles_first, 'config_pagetitles_first', 'class="inputbox" size="1"', 'value', 'text', $row->config_pagetitles_first);
 
-// НАСТРОЙКИ СОДЕРЖИМОГО
-	$author_name_type = array(
-		mosHTML::makeOption(1, _COM_CONFIG_CC_NAME_TEXT),
-		mosHTML::makeOption(2, _COM_CONFIG_CC_LOGIN_TEXT),
-		mosHTML::makeOption(3, _COM_CONFIG_CC_NAME_LINK),
-		mosHTML::makeOption(4, _COM_CONFIG_CC_LIGIN_LINK),
-	);
-	$lists['authorName'] = mosHTML::selectList($author_name_type, 'config_author_name', 'class="inputbox" size="1"', 'value', 'text', $row->config_author_name);
-
-	$lists['link_titles'] = mosHTML::yesnoRadioList('config_link_titles', 'class="inputbox"', $row->config_link_titles);
-	$lists['readmore'] = mosHTML::yesnoRadioList('config_readmore', 'class="inputbox"', $row->config_readmore);
-	$lists['vote'] = mosHTML::yesnoRadioList('config_vote', 'class="inputbox"', $row->config_vote);
-	$lists['showAuthor'] = mosHTML::yesnoRadioList('config_showAuthor', 'class="inputbox"', $row->config_showAuthor);
-	$lists['showCreateDate'] = mosHTML::yesnoRadioList('config_showCreateDate', 'class="inputbox"', $row->config_showCreateDate);
-	$lists['showModifyDate'] = mosHTML::yesnoRadioList('config_showModifyDate', 'class="inputbox"', $row->config_showModifyDate);
-	$lists['hits'] = mosHTML::yesnoRadioList('config_hits', 'class="inputbox"', $row->config_hits);
-	$lists['tags'] = mosHTML::yesnoRadioList('config_tags', 'class="inputbox"', $row->config_tags);
-	$lists['back_button'] = mosHTML::yesnoRadioList('config_back_button', 'class="inputbox"', $row->config_back_button);
-	$lists['item_navigation'] = mosHTML::yesnoRadioList('config_item_navigation', 'class="inputbox"', $row->config_item_navigation);
-	$lists['multipage_toc'] = mosHTML::yesnoRadioList('config_multipage_toc', 'class="inputbox"', $row->config_multipage_toc);
-	$lists['showPrint'] = mosHTML::yesnoRadioList('config_showPrint', 'class="inputbox"', $row->config_showPrint);
-	$lists['showEmail'] = mosHTML::yesnoRadioList('config_showEmail', 'class="inputbox"', $row->config_showEmail);
-	$lists['icons'] = mosHTML::yesnoRadioList('config_icons', 'class="inputbox"', $row->config_icons);
 	$lists['mtage_base'] = mosHTML::yesnoRadioList('config_mtage_base', 'class="inputbox"', $row->config_mtage_base);
 	$lists['config_custom_print'] = mosHTML::yesnoRadioList('config_custom_print', 'class="inputbox"', $row->config_custom_print);
-	$lists['config_old_toolbar'] = mosHTML::yesnoRadioList('config_old_toolbar', 'class="inputbox"', $row->config_old_toolbar);
-	$global_templates = array(
-		mosHTML::makeOption(0, _GLOBAL_TEMPLATES_SYSTEMDIR),
-		mosHTML::makeOption(1, _GLOBAL_TEMPLATES_CURTEMPLATE),
-	);
-	$lists['global_templates'] = mosHTML::selectList($global_templates, 'config_global_templates', 'class="inputbox" size="1"', 'value', 'text', $row->config_global_templates);
-
-	$itemid_compat = array(
-		mosHTML::makeOption('11', '< Joomla! 1.0.11'),
-		mosHTML::makeOption('0', 'Joomla! 1.0.12 >'),
-	);
-	$lists['itemid_compat'] = mosHTML::selectList($itemid_compat, 'config_itemid_compat', 'class="inputbox" size="1"', 'value', 'text', $row->config_itemid_compat);
-
 	$lists['tpreview'] = mosHTML::yesnoRadioList('config_disable_tpreview', 'class="inputbox"', $row->config_disable_tpreview);
 
 	$locales = array(
 		mosHTML::makeOption('ru_RU.utf8', 'ru_RU.utf8'),
 		mosHTML::makeOption('russian', 'russian (windows)'),
 		mosHTML::makeOption('english', 'english (for windows)'),
-		mosHTML::makeOption('az_AZ.utf8', 'az_AZ.utf8'),
-		mosHTML::makeOption('ar_EG.utf8', 'ar_EG.utf8'),
-		mosHTML::makeOption('ar_LB.utf8', 'ar_LB.utf8'),
-		mosHTML::makeOption('eu_ES.utf8', 'eu_ES.utf8'),
-		mosHTML::makeOption('bg_BG.utf8', 'bg_BG.utf8'),
-		mosHTML::makeOption('ca_ES.utf8', 'ca_ES.utf8'),
-		mosHTML::makeOption('zh_CN.utf8', 'zh_CN.utf8'),
-		mosHTML::makeOption('zh_TW.utf8', 'zh_TW.utf8'),
-		mosHTML::makeOption('hr_HR.utf8', 'hr_HR.utf8'),
-		mosHTML::makeOption('cs_CZ.utf8', 'cs_CZ.utf8'),
-		mosHTML::makeOption('da_DK.utf8', 'da_DK.utf8'),
-		mosHTML::makeOption('nl_NL.utf8', 'nl_NL.utf8'),
-		mosHTML::makeOption('et_EE.utf8', 'et_EE.utf8'),
-		mosHTML::makeOption('en_GB.utf8', 'en_GB.utf8'),
-		mosHTML::makeOption('en_US.utf8', 'en_US.utf8'),
-		mosHTML::makeOption('en_AU.utf8', 'en_AU.utf8'),
-		mosHTML::makeOption('en_IE.utf8', 'en_IE.utf8'),
-		mosHTML::makeOption('fa_IR.utf8', 'fa_IR.utf8'),
-		mosHTML::makeOption('fi_FI.utf8', 'fi_FI.utf8'),
-		mosHTML::makeOption('fr_FR.utf8', 'fr_FR.utf8'),
-		mosHTML::makeOption('gl_ES.utf8', 'gl_ES.utf8'),
-		mosHTML::makeOption('de_DE.utf8', 'de_DE.utf8'),
-		mosHTML::makeOption('el_GR.utf8', 'el_GR.utf8'),
-		mosHTML::makeOption('he_IL.utf8', 'he_IL.utf8'),
-		mosHTML::makeOption('hu_HU.utf8', 'hu_HU.utf8'),
-		mosHTML::makeOption('is_IS.utf8', 'is_IS.utf8'),
-		mosHTML::makeOption('ga_IE.utf8', 'ga_IE.utf8'),
-		mosHTML::makeOption('it_IT.utf8', 'it_IT.utf8'),
-		mosHTML::makeOption('ja_JP.utf8', 'ja_JP.utf8'),
-		mosHTML::makeOption('ko_KR.utf8', 'ko_KR.utf8'),
-		mosHTML::makeOption('lv_LV.utf8', 'lv_LV.utf8'),
-		mosHTML::makeOption('lt_LT.utf8', 'lt_LT.utf8'),
-		mosHTML::makeOption('mk_MK.utf8', 'mk_MK.utf8'),
-		mosHTML::makeOption('ms_MY.utf8', 'ms_MY.utf8'),
-		mosHTML::makeOption('no_NO.utf8', 'no_NO.utf8'),
-		mosHTML::makeOption('nn_NO.utf8', 'nn_NO.utf8'),
-		mosHTML::makeOption('pl_PL.utf8', 'pl_PL.utf8'),
-		mosHTML::makeOption('pt_PT.utf8', 'pt_PT.utf8'),
-		mosHTML::makeOption('pt_BR.utf8', 'pt_BR.utf8'),
-		mosHTML::makeOption('ro_RO.utf8', 'ro_RO.utf8'),
-		mosHTML::makeOption('sk_SK.utf8', 'sk_SK.utf8'),
-		mosHTML::makeOption('sl_SI.utf8', 'sl_SI.utf8'),
-		mosHTML::makeOption('sr_CS.utf8', 'sr_CS.utf8'),
-		mosHTML::makeOption('rs_SR.utf8', 'rs_SR.utf8'),
-		mosHTML::makeOption('es_ES.utf8', 'es_ES.utf8'),
-		mosHTML::makeOption('es_MX.utf8', 'es_MX.utf8'),
-		mosHTML::makeOption('sv_SE.utf8', 'sv_SE.utf8'),
-		mosHTML::makeOption('sv_FI.utf8', 'sv_FI.utf8'),
-		mosHTML::makeOption('ta_IN.utf8', 'ta_IN.utf8'),
-		mosHTML::makeOption('tr_TR.utf8', 'tr_TR.utf8'),
-		mosHTML::makeOption('uk_UA.utf8', 'uk_UA.utf8'),
-		mosHTML::makeOption('vi_VN.utf8', 'vi_VN.utf8'),
-		mosHTML::makeOption('wa_BE.utf8', 'wa_BE.utf8')
 	);
 	$lists['locale'] = mosHTML::selectList($locales, 'config_locale', 'class="selectbox" size="1" dir="ltr"', 'value', 'text', $row->config_locale);
 
@@ -502,12 +401,6 @@ function showconfig($option) {
 	$lists['memcache_persist'] = mosHTML::yesnoRadioList('config_memcache_persistent', 'class="inputbox"', $row->config_memcache_persistent);
 	$lists['memcache_compress'] = mosHTML::yesnoRadioList('config_memcache_compression', 'class="inputbox"', $row->config_memcache_compression);
 
-	// использование неопубликованных мамботов
-	$lists['config_use_unpublished_mambots'] = mosHTML::yesnoRadioList('config_use_unpublished_mambots', 'class="inputbox"', $row->config_use_unpublished_mambots);
-
-	// отключение syndicate
-	$lists['syndicate_off'] = mosHTML::yesnoRadioList('config_syndicate_off', 'class="inputbox"', $row->config_syndicate_off);
-
 	// список шаблонов панели управления
 	$titlelength = 20;
 	$admin_template_path = JPATH_BASE.DS . 'administrator' . DS . 'templates';
@@ -532,32 +425,8 @@ function showconfig($option) {
 	sort($admin_templates);
 	$lists['config_admin_template'] = mosHTML::selectList($admin_templates, 'config_admin_template', 'class="inputbox" ', 'value', 'text', $row->config_admin_template);
 
-	// режим сортировки содержимого в панели управления
-	$order_list = array(
-		mosHTML::makeOption(0, _ORDER_BY_NAME),
-		mosHTML::makeOption(1, _ORDER_BY_HEADERS),
-		mosHTML::makeOption(2, _ORDER_BY_DATE_CR),
-		mosHTML::makeOption(3, _ORDER_BY_DATE_MOD),
-		mosHTML::makeOption(4, _ORDER_BY_ID),
-		mosHTML::makeOption(5, _ORDER_BY_HITS)
-	);
-	$lists['admin_content_order_by'] = mosHTML::selectList($order_list, 'config_admin_content_order_by', 'class="inputbox" size="1"', 'value', 'text', $row->config_admin_content_order_by);
-
-	$order_sort_list = array(
-		mosHTML::makeOption(1, _SORT_ASC),
-		mosHTML::makeOption(0, _SORT_DESC)
-	);
-	$lists['admin_content_order_sort'] = mosHTML::selectList($order_sort_list, 'config_admin_content_order_sort', 'class="inputbox" size="1"', 'value', 'text', $row->config_admin_content_order_sort);
-
 	// блокировка компонентов
 	$lists['components_access'] = mosHTML::yesnoRadioList('config_components_access', 'class="inputbox"', $row->config_components_access);
-
-	// использование мамботов удаления содержимого
-	$lists['config_use_content_delete_mambots'] = mosHTML::yesnoRadioList('config_use_content_delete_mambots', 'class="inputbox"', $row->config_use_content_delete_mambots);
-	// использование редактирования смодержимого
-	$lists['config_use_content_edit_mambots'] = mosHTML::yesnoRadioList('config_use_content_edit_mambots', 'class="inputbox"', $row->config_use_content_edit_mambots);
-	// использование мамботов сохранения содержимого
-	$lists['config_use_content_save_mambots'] = mosHTML::yesnoRadioList('config_use_content_save_mambots', 'class="inputbox"', $row->config_use_content_save_mambots);
 
 	HTML_config::showconfig($row, $lists, $option);
 }

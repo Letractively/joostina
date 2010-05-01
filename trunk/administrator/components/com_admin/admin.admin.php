@@ -12,22 +12,34 @@ defined('_VALID_MOS') or die();
 
 require_once ($mainframe->getPath('admin_html'));
 
-switch($task) {
+mosMainFrame::addLib('joiadmin');
+
+JoiAdmin::dispatch();
+
+class actionsAdmin {
+
+	public static function index() {
+		HTML_admin_misc::controlPanel();
+	}
+
+	public static function cpanel() {
+		self::index();
+	}
 
 	// очистка кэша содержимого
-	case 'clean_cache':
+	public static function clean_cache() {
 		mosCache::cleanCache('com_content');
 		mosRedirect('index2.php',_CACHE_CLEAR_CONTENT);
-		break;
+	}
 
 	// очистка всего кэша
-	case 'clean_all_cache':
+	public static function clean_all_cache() {
 		mosCache::cleanCache();
 		mosCache::cleanCache('page');
 		mosRedirect('index2.php',_CACHE_CLEAR_ALL);
-		break;
+	}
 
-	case 'redirect':
+	public static function redirect() {
 		$goto = strval(strtolower(mosGetParam($_REQUEST,'link')));
 		if($goto == 'null') {
 			$msg = _COM_ADMIN_NON_LINK_OBJ;
@@ -36,39 +48,34 @@ switch($task) {
 		}
 		$goto = str_replace("'",'',$goto);
 		mosRedirect($goto);
-		break;
+	}
 
-	case 'listcomponents':
+	public static function listcomponents() {
 		HTML_admin_misc::ListComponents();
-		break;
+	}
 
-	case 'sysinfo':
+	public static function sysinfo() {
 		$version = new coreVersion();
-		HTML_admin_misc::system_info($version,$option);
-		break;
+		HTML_admin_misc::system_info($version);
+	}
 
-	case 'changelog':
+	public static function changelog() {
 		HTML_admin_misc::changelog();
-		break;
+	}
 
-	case 'help':
+	public static function help() {
 		HTML_admin_misc::help();
-		break;
+	}
 
-	case 'version':
+	public static function version() {
 		HTML_admin_misc::version();
-		break;
+	}
 
-	case 'preview':
+	public static function preview() {
 		HTML_admin_misc::preview();
-		break;
+	}
 
-	case 'preview2':
+	public static function preview2() {
 		HTML_admin_misc::preview(1);
-		break;
-
-	case 'cpanel':
-	default:
-		HTML_admin_misc::controlPanel();
-		break;
+	}
 }

@@ -10,15 +10,8 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-/**
- * @package Joostina
- * @subpackage Admin
- */
-
 class HTML_admin_misc {
-	/**
-	 * Control panel
-	 */
+
 	public static function controlPanel() {
 		global $mainframe;
 		$path = JPATH_BASE_ADMIN.'/templates/'.JTEMPLATE.'/html/cpanel.php';
@@ -30,7 +23,7 @@ class HTML_admin_misc {
 		}
 	}
 
-	function get_php_setting($val,$colour = 0,$yn = 1) {
+	public static function get_php_setting($val,$colour = 0,$yn = 1) {
 		$r = (ini_get($val) == '1'?1:0);
 
 		if($colour) {
@@ -46,7 +39,7 @@ class HTML_admin_misc {
 		}
 	}
 
-	function get_server_software() {
+	public static function get_server_software() {
 		if(isset($_SERVER['SERVER_SOFTWARE'])) {
 			return $_SERVER['SERVER_SOFTWARE'];
 		} else
@@ -57,7 +50,7 @@ class HTML_admin_misc {
 		}
 	}
 
-	function system_info($version) {
+	public static function system_info($version) {
 		global $mosConfig_cachepath;
 
 		$mainframe = mosMainFrame::getInstance();
@@ -65,8 +58,9 @@ class HTML_admin_misc {
 
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 
-		$width = 400; // width of 100%
+		$width = 400;
 
+		mosMainFrame::addClass('mosTabs');
 		$tabs = new mosTabs(0);
 		?>
 <table class="adminheading">
@@ -81,29 +75,14 @@ class HTML_admin_misc {
 </div>
 		<?php
 		$tabs->startPane("sysinfo");
-		$tabs->startTab(_ABOUT_JOOSTINA,"joostina-page");
-		?>
-<table class="adminform">
-	<tr>
-		<td>
-			<pre>
-						<?php include(JPATH_BASE.'/help/copyright.php'); ?>
-			</pre>
-		</td>
-	</tr>
-</table>
-		<?php
-		$tabs->endTab();
 		$tabs->startTab(_ABOUT_SYSTEM,"system-page");
 		?>
 <table class="adminform">
 	<tr>
-		<td colspan="2"><h2><?php echo coreVersion::$CMS.' '.coreVersion::$CMS_ver.'.'.coreVersion::$RELDATE.' '.coreVersion::$RELTIME.'</h2><br />'.coreVersion::$SUPPORT; ?></td>
+		<td colspan="2"><h2><?php echo coreVersion::$CMS.' '.coreVersion::$CMS_ver.'.'.coreVersion::$RELDATE.' '.coreVersion::$RELTIME?></h2><br /><?php echo coreVersion::$SUPPORT; ?></td>
 	</tr>
 	<tr>
-		<td colspan="2">
-					<?php josSecurityCheck();?>
-		</td>
+		<td colspan="2"><?php josSecurityCheck();?></td>
 	</tr>
 	<tr>
 		<td valign="top" width="250"><strong><?php echo _SYSTEM_OS?>:</strong></td>
@@ -311,8 +290,6 @@ class HTML_admin_misc {
 					mosHTML::writableCell(JADMIN_BASE.'/templates');
 					mosHTML::writableCell('components');
 					mosHTML::writableCell('images');
-					mosHTML::writableCell('images/show');
-					mosHTML::writableCell('images/stories');
 					mosHTML::writableCell('language');
 					mosHTML::writableCell('mambots');
 					mosHTML::writableCell('mambots/content');
@@ -358,13 +335,12 @@ class HTML_admin_misc {
 		<?php
 	}
 	// получение информации о базе данных
-	function db_info() {
-		global $database,$mosConfig_db;
-		$sql = 'SHOW TABLE STATUS FROM '.$mosConfig_db;
-		return $database->setQuery($sql)->loadObjectList();
+	public static function db_info() {
+		$sql = 'SHOW TABLE STATUS FROM '.Jconfig::getInstance()->config_db;
+		return database::getInstance()->setQuery($sql)->loadObjectList();
 	}
 
-	function ListComponents() {
+	public static function ListComponents() {
 		global $database;
 
 		$query = "SELECT params FROM #__modules WHERE module = 'mod_components'";
@@ -375,15 +351,8 @@ class HTML_admin_misc {
 		mosLoadAdminModule('components',$params);
 	}
 
-	/**
-	 * Display Help Page
-	 */
-	function help() {
-		$helpurl = strval(mosGetParam($GLOBALS,'mosConfig_helpurl',''));
-
-		if($helpurl == 'http://help.mamboserver.com') {
-			$helpurl = 'http://help.joomla.org';
-		}
+	public static function help() {
+		$helpurl = 'http://help.joostina.ru';
 
 		$fullhelpurl = $helpurl.'/index2.php?option=com_content&amp;task=findkey&pop=1&keyref=';
 
@@ -497,10 +466,7 @@ class HTML_admin_misc {
 		<?php
 	}
 
-	/**
-	 * Preview site
-	 */
-	function preview($tp = 0) {
+	public static function preview($tp = 0) {
 		$tp = intval($tp);
 		?>
 <style type="text/css">
@@ -527,24 +493,11 @@ class HTML_admin_misc {
 		<?php
 	}
 
-	/*
-	* Displays contents of Changelog.php file
-	*/
-	function changelog() {
-		?>
-<pre>
-			<?php
-			readfile(JPATH_BASE.'/changeslog');
-			?>
-</pre>
-		<?php
+	public static function changelog() {
+		?><pre><?php readfile(JPATH_BASE.'/changeslog'); ?></pre><?php
 	}
 }
 
-/**
- * Compiles the help table of contents
- * @param string A specific keyword on which to filter the resulting list
- */
 function getHelpTOC($helpsearch) {
 	$helpurl = strval(mosGetParam($GLOBALS,'mosConfig_helpurl',''));
 	$files = mosReadDirectory(JPATH_BASE.'/help/','\.xml$|\.html$');
