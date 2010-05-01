@@ -25,8 +25,7 @@ require_once(dirname(__FILE__).DS.'path.php');
  * @subpackage	FileSystem
  * @since		1.5
  */
-class JFile
-{
+class JFile {
 	/**
 	 * Gets the extension of a file name
 	 *
@@ -71,8 +70,7 @@ class JFile
 	 * @return boolean True on success
 	 * @since 1.5
 	 */
-	function copy($src, $dest, $path = null)
-	{
+	function copy($src, $dest, $path = null) {
 		// Initialize variables
 		jimport('joomla.client.helper');
 		$FTPOptions = JClientHelper::getCredentials('ftp');
@@ -122,8 +120,7 @@ class JFile
 	 * @return boolean  True on success
 	 * @since 1.5
 	 */
-	function delete($file)
-	{
+	function delete($file) {
 		// Initialize variables
 		jimport('joomla.client.helper');
 		$FTPOptions = JClientHelper::getCredentials('ftp');
@@ -135,15 +132,13 @@ class JFile
 		}
 
 		// Do NOT use ftp if it is not enabled
-		if ($FTPOptions['enabled'] == 1)
-		{
+		if ($FTPOptions['enabled'] == 1) {
 			// Connect the FTP client
 			jimport('joomla.client.ftp');
 			$ftp = & JFTP::getInstance($FTPOptions['host'], $FTPOptions['port'], null, $FTPOptions['user'], $FTPOptions['pass']);
 		}
 
-		foreach ($files as $file)
-		{
+		foreach ($files as $file) {
 			$file = JPath::clean($file);
 
 			// Try making the file writeable first. If it's read-only, it can't be deleted
@@ -178,8 +173,7 @@ class JFile
 	 * @return boolean True on success
 	 * @since 1.5
 	 */
-	function move($src, $dest, $path = '')
-	{
+	function move($src, $dest, $path = '') {
 		// Initialize variables
 		jimport('joomla.client.helper');
 		$FTPOptions = JClientHelper::getCredentials('ftp');
@@ -226,11 +220,12 @@ class JFile
 	 * @return mixed Returns file contents or boolean False if failed
 	 * @since 1.5
 	 */
-	function read($filename, $incpath = false, $amount = 0, $chunksize = 8192, $offset = 0)
-	{
+	function read($filename, $incpath = false, $amount = 0, $chunksize = 8192, $offset = 0) {
 		// Initialize variables
 		$data = null;
-		if($amount && $chunksize > $amount) { $chunksize = $amount; }
+		if($amount && $chunksize > $amount) {
+			$chunksize = $amount;
+		}
 		if (false === $fh = fopen($filename, 'rb', $incpath)) {
 			return false;
 		}
@@ -266,8 +261,7 @@ class JFile
 	 * @return boolean True on success
 	 * @since 1.5
 	 */
-	function write($file, $buffer)
-	{
+	function write($file, $buffer) {
 		// Initialize variables
 		jimport('joomla.client.helper');
 		$FTPOptions = JClientHelper::getCredentials('ftp');
@@ -301,8 +295,7 @@ class JFile
 	 * @return boolean True on success
 	 * @since 1.5
 	 */
-	function upload($src, $dest)
-	{
+	function upload($src, $dest) {
 		// Initialize variables
 		jimport('joomla.client.helper');
 		$FTPOptions = JClientHelper::getCredentials('ftp');
@@ -327,21 +320,17 @@ class JFile
 			$dest = JPath::clean(str_replace(JPATH_ROOT, $FTPOptions['root'], $dest), '/');
 
 			// Copy the file to the destination directory
-			if ($ftp->store($src, $dest)) 
-			{
+			if ($ftp->store($src, $dest)) {
 				$ftp->chmod($dest, 0777);
 				$ret = true;
 			}
 		}
-		else 
-		{
-			if (is_writeable($baseDir) && move_uploaded_file($src, $dest)) 
-			{ // Short circuit to prevent file permission errors
-				if (JPath::setPermissions($dest)) 
-				{
+		else {
+			if (is_writeable($baseDir) && move_uploaded_file($src, $dest)) { // Short circuit to prevent file permission errors
+				if (JPath::setPermissions($dest)) {
 					$ret = true;
-				} 
-			} 
+				}
+			}
 		}
 		return $ret;
 	}
@@ -353,8 +342,7 @@ class JFile
 	 * @return boolean True if path is a file
 	 * @since 1.5
 	 */
-	function exists($file)
-	{
+	function exists($file) {
 		return is_file(JPath::clean($file));
 	}
 

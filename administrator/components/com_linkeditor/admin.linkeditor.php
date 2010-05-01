@@ -78,8 +78,7 @@ function saveOrder(&$cid) {
 		if($row->ordering != $order[$i]) {
 			$row->ordering = $order[$i];
 			if(!$row->store()) {
-				echo "<script> alert('".$database->getErrorMsg().
-						"'); window.history.go(-1); </script>\n";
+				echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
 				exit();
 			} // if
 			// remember to updateOrder this group
@@ -112,8 +111,8 @@ function editLink($id = 0) {
 	$row = new mosComponent;
 	$row->load($id);
 
-	$pathA = JPATH_BASE.'/includes/js/ThemeOffice';
-	$pathL = JPATH_SITE.'/includes/js/ThemeOffice';
+	$pathA = JPATH_BASE.'/administrator/images/menu';
+	$pathL = JPATH_SITE.'/administrator/images/menu';
 	$images = array();
 	$folders = array();
 	$folders[] = mosHTML::makeOption('/');
@@ -134,11 +133,9 @@ function GetImages(&$images,$pathL,$row) {
 	if(!isset($images['/'])) {
 		$images['/'][] = mosHTML::makeOption('');
 	}
-	$javascript = "onchange=\"previewImage( 'admin_menu_img', 'view_imagefiles', '$pathL/' )\"";
-	$admin_menu_img = str_replace('js/ThemeOffice/', '', $row->admin_menu_img);
-	$getimages = mosHTML::selectList($images['/'],'admin_menu_img','class="inputbox" size="10" style="width:95%"'.$javascript,'value','text',$admin_menu_img);
-
-	return $getimages;
+	$javascript = "onchange=\" $('#view_imagefiles').attr('src','$pathL/'+$(this).val() )\"";
+	$admin_menu_img = str_replace('administrator/images/menu/', '', $row->admin_menu_img);
+	return mosHTML::selectList($images['/'],'admin_menu_img','class="inputbox" size="10" style="width:95%"'.$javascript,'value','text',$admin_menu_img);
 }
 
 function ReadImages($imagePath,$folderPath,&$folders,&$images) {
@@ -146,7 +143,7 @@ function ReadImages($imagePath,$folderPath,&$folders,&$images) {
 	foreach($imgFiles as $file) {
 		$ff = $folderPath.$file;
 		$i_f = $imagePath.'/'.$file;
-		if(eregi("bmp|gif|jpg|png",$file) && is_file($i_f)) {
+		if( preg_match("/^bmp|gif|jpg|png/",$file) && is_file($i_f)) {
 			$imageFile = substr($ff,1);
 			$images[$folderPath][] = mosHTML::makeOption($imageFile,$file);
 		}
@@ -209,7 +206,7 @@ function saveLink() {
 
 	$image = mosGetParam($_POST,'admin_menu_img');
 
-	$admin_menu_img = "js/ThemeOffice/".$image;
+	$admin_menu_img = "administrator/images/menu/".$image;
 	$_POST['admin_menu_img'] = $admin_menu_img;
 	$_POST['option'] = $_POST['cur_option'];
 

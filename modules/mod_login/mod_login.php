@@ -12,25 +12,4 @@
 defined( '_VALID_MOS' ) or die();
 
 global $my;
-
-$mainframe = mosMainFrame::getInstance();
-
-$params = new mosParameters( $module->params );
-
-if ( $mainframe->getCfg('frontend_login') != NULL && ($mainframe->getCfg('frontend_login') === 0 || $mainframe->getCfg('frontend_login') === '0')) {
-	return;
-}
-
-if ($my->id) {
-	$params->set('template', 'logout.php');
-} else {
-	$params->def('template', 'vertical.php');
-}
-
-//Подключаем вспомогательный класс
-$module->get_helper($mainframe);
-
-//Подключаем шаблон
-if($module->set_template($params)) {
-	require($module->template);
-}
+require( 'views/vertical.php' );

@@ -72,16 +72,12 @@ require_once($mainframe->getLangFile('administrator'));
 $my = $mainframe->initSessionAdmin($option,$task);
 
 // страница панели управления по умолчанию
-$option = ($option == '') ? 'com_admin' : $option;
+$option = $_REQUEST['option'] = ($option == '') ? 'com_admin' : $option;
 
 if( FALSE ) {
     $_MAMBOTS->loadBotGroup('admin');
     $_MAMBOTS->trigger('onAfterAdminStart');
 }
-
-// инициализация редактора
-$mainframe->set( 'allow_wysiwyg', 1 );  
-require_once (JPATH_BASE . '/includes/editor.php');
 
 ob_start();
 if($path = $mainframe->getPath('admin')) {
@@ -91,9 +87,7 @@ if($path = $mainframe->getPath('admin')) {
     }
     require_once ($path);
 } else {
-    ?>
-<img src="<?php echo JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE;?>/images/ico/error.png" border="0" alt="Joostina!" />
-    <?php
+    ?><img src="<?php echo JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE;?>/images/ico/error.png" border="0" alt="Joostina!" /><?php
 }
 
 $_MOS_OPTION['buffer'] = ob_get_contents();

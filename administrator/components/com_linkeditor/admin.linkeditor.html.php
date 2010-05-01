@@ -12,7 +12,7 @@ defined('_VALID_MOS') or die();
 
 class HTML_linkeditor {
 
-	function viewall(&$rows,$pageNav) {
+	public static function viewall(&$rows,$pageNav) {
 		$mainframe = mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 		
@@ -48,7 +48,7 @@ class HTML_linkeditor {
 			<td><?php echo $pageNav->rowNumber($i); ?></td>
 			<td><?php echo $checked; ?></td>
 			<td align="center">
-				<img src="<?php echo JPATH_SITE; ?>/includes/<?php echo $img; ?>" />
+				<img src="<?php echo JPATH_SITE; ?>/<?php echo $img; ?>" />
 			</td>
 			<td align="left"><a href="<?php echo $link; ?>"><?php echo stripslashes($row->treename); ?></a></td>
 			<td align="left"><?php echo $row->admin_menu_alt; ?></td>
@@ -72,10 +72,9 @@ class HTML_linkeditor {
 		<?php
 	}
 
-	function edit($row,$lists) {
+	public static function edit($row,$lists) {
 		
 		?>
-
 <table class="adminheading">
 	<tr>
 		<th class="edit"><?php echo $row->id ? _COMPONENTS_MENU_EDIT : _COMPONENTS_MENU_NEW; ?></th>
@@ -96,7 +95,7 @@ class HTML_linkeditor {
 						?>
 			</td>
 			<td colspan="1" rowspan="4">
-				<img name="view_imagefiles" src="<?php echo JPATH_SITE; ?>/includes/<?php echo ($row->admin_menu_img !='js/ThemeOffice/')?$row->admin_menu_img:'js/ThemeOffice/spacer.png'; ?>" width="16" />
+				<img name="view_imagefiles" id="view_imagefiles" src="<?php echo JPATH_SITE; ?>/includes/<?php echo ($row->admin_menu_img !='js/ThemeOffice/')?$row->admin_menu_img:'js/ThemeOffice/spacer.png'; ?>" width="16" />
 						<?php echo _MENU_ITEM_ICON?>
 						<?php echo $lists['image']; ?>
 			</td>

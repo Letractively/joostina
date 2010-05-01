@@ -10,38 +10,24 @@
 // запрет прямого доступа
 defined( '_VALID_MOS' ) or die();
 
-$module->helper->prepare_login_form($params); 
-
-$validate = josSpoofValue(1); ?>
+?>
 <div class="mod_ml_login login vertical">
-	<div class="form_pretext"><?php echo $params->get('pretext' ,'')?></div>
     <form action="<?php echo sefRelToAbs( 'index.php' ); ?>" method="post" name="login">
 		<div class="login_form">
-			<?php echo $params->_input_login; ?><br />
-			<?php echo $params->_input_pass; ?><br />
-
-			<?php if ($params->get( 'show_remember', 1)) { ?>
+			<input type="text" name="username" id="mod_login_USER" class="inputbox" alt="username" value="" />
+			<input type="password" id="mod_login_password" name="passwd" class="inputbox" alt="password" value="" />
 			<input type="checkbox" name="remember" id="mod_login_remember"  value="yes" alt="Remember Me" />
-			<label for="mod_login_remember"><?php echo $params->get( 'ml_rem_text', _REMEMBER_ME );?></label>
-				<?php } ?>
-				<input type="submit" name="Submit" class="button" id="login_button" value="<?php echo $params->get( 'submit_button_text', _BUTTON_LOGIN );?>" />
-			<br />
-			<?php if ($params->get('show_lost_pass', 1)) { ?>
-			<a href="<?php echo sefRelToAbs( 'index.php?option=com_users&amp;task=lostPassword' );?>"><?php echo $params->get('ml_rem_pass_text', _LOST_PASSWORDWORD) ;?></a>
-				<?php }	?>
-			<?php if($params->get('show_register', 1)) {?>
-			<a href="<?php echo sefRelToAbs( 'index.php?option=com_users&amp;task=register' );?>"><?php echo $params->get('ml_reg_text', _CREATE_ACCOUNT)?></a>
-				<?php }?>
-		</div>
-		<div class="form_posttext">
-			<?php echo $params->get('posttext', '');?>
+			<label for="mod_login_remember"><?php echo _REMEMBER_ME?></label>
+			<input type="submit" name="Submit" class="button" id="login_button" value="<?php echo _BUTTON_LOGIN?>" />
+			<a href="<?php echo sefRelToAbs( 'index.php?option=com_users&amp;task=lostPassword' );?>"><?php echo _LOST_PASSWORDWORD?></a>
+			<a href="<?php echo sefRelToAbs( 'index.php?option=com_users&amp;task=register' );?>"><?php echo _CREATE_ACCOUNT?></a>
 		</div>
 		<input type="hidden" name="option" value="login" />
 		<input type="hidden" name="op2" value="login" />
-		<input type="hidden" name="lang" value="<?php echo $mainframe->getCfg('lang'); ?>" />
-		<input type="hidden" name="return" value="<?php echo sefRelToAbs($params->get('login',$params->_returnUrl)); ?>" />
-		<input type="hidden" name="message" value="<?php echo $params->get('login_message',''); ?>" />
+		<input type="hidden" name="lang" value="russian" />
+		<input type="hidden" name="return" value="<?php echo JPATH_SITE ?>" />
+		<input type="hidden" name="message" value="aaaa" />
 		<input type="hidden" name="force_session" value="1" />
-		<input type="hidden" name="<?php echo $validate; ?>" value="1" />
+		<input type="hidden" name="<?php echo josSpoofValue(1); ?>" value="1" />
 	</form>
 </div>

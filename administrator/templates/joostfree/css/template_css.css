@@ -159,7 +159,6 @@ select {
     padding: 4px 2px;
 }
 textarea {
-    background: url(../images/input_bg.png) top left repeat-x #FEFEFE;
     border: 1px solid #D7D7D7;
     font-size: 11px;
     padding: 5px 0;
@@ -169,7 +168,6 @@ button {
     font-size: 10px;
 }
 input.button {
-    background: url(../images/button_bg.png) top left repeat-x #FEFEFE;
     cursor: pointer;
 }
 .text_area:focus, input:focus, select:focus, textarea:focus {
@@ -963,4 +961,8 @@ div.grippie {
 /* селектор выбора компонента */
 select#componentid{
 	width: 100%
+}
+/* выбор значков кнопок быстрого доступа */
+div#quickicons_selector img{
+	cursor: pointer;
 }

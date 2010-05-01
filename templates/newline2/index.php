@@ -12,15 +12,6 @@ $iso = explode('=',_ISO); echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'
 	// загружаем верхнюю часть страницы со всеми js и css файлами, и обязательным использованием jquery
 	mosShowHead(array('js'=>1,'css'=>1,'jquery'=>1));
 
-	//Инициализация визуального редактора
-	if ($my->id && $mainframe->allow_wysiwyg) { initEditor(); }
-
-	//Принудительно настраиваем модуль авторизации
-	$login_params = new stdClass();
-	$login_params->template = 'popup.php'; 
-	$login_params->show_login_text = 3; 
-	$login_params->show_pass_text = 3; 
-
 	$block1_count = (mosCountModules('user1')>0) + (mosCountModules('user2')>0) + (mosCountModules('user3')>0);
 	$block2_count = (mosCountModules('user4')>0) + (mosCountModules('user5')>0) + (mosCountModules('user6')>0);
 	$block3_count = (mosCountModules('user7')>0) + (mosCountModules('user8')>0) + (mosCountModules('user9')>0);
@@ -44,7 +35,6 @@ $iso = explode('=',_ISO); echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'
                 </div>
                <div class="top_menu_l"><div class="top_menu_r"><div class="top_menu_mid">
                 <?php mosLoadModules('top',-1); ?>
-                <?php mosLoadModule('mod_login', '', -1, 0, $login_params); ?>
                 </div></div></div>
             </div><!--header:end-->
 <?php if($block1_count) { $block1_width = 'w' .$block1_count; ?>
