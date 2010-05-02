@@ -2828,7 +2828,7 @@ function mosCurrentDate($format = "") {
 function mosToolTip($tooltip,$title = '',$n='',$image = 'tooltip.png',$text ='',$href = '#') {
 
 	if(!$text) {
-		$image = JPATH_SITE.'/includes/js/ThemeOffice/'.$image;
+		$image = JPATH_SITE.'/media/images/'.$image;
 		$text = '<img src="'.$image.'" border="0" alt="tooltip"/>';
 	}
 
@@ -2840,7 +2840,7 @@ function mosToolTip($tooltip,$title = '',$n='',$image = 'tooltip.png',$text ='',
 function mosWarning($warning,$title = _MOS_WARNING) {
 	$mouseover = 'return overlib(\''.$warning.'\', CAPTION, \''.$title.'\', BELOW, RIGHT);';
 	$tip = '<a href="javascript: void(0)" onmouseover="'.$mouseover.'" onmouseout="return nd();">';
-	$tip .= '<img src="'.JPATH_SITE.'/includes/js/ThemeOffice/warning.png" border="0" alt="'._WARNING.'"/></a>';
+	$tip .= '<img src="'.JPATH_SITE.'/media/images/warning.png" border="0" alt="'._WARNING.'"/></a>';
 	return $tip;
 }
 

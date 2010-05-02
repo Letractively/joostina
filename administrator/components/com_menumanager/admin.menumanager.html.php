@@ -66,7 +66,7 @@ class HTML_menumanager {
 			</td>
 			<td align="center">
 				<a href="<?php echo $linkA; ?>" title="<?php echo _CHANGE_MENU_ITEMS?>">
-					<img src="<?php echo JPATH_SITE; ?>/includes/js/ThemeOffice/mainmenu.png" border="0"/>
+					<img src="<?php echo JPATH_SITE.'/'.JADMIN_BASE; ?>/images/menu/icon-16-menu.png" border="0"/>
 				</a>
 			</td>
 			<td align="center"><?php echo $menu->published; ?></td>

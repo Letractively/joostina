@@ -28,8 +28,8 @@ $option = mosGetParam( $_REQUEST, 'option', '' );
 		mosCommonHTML::loadJqueryPlugins('jquery.textarearesizer');
 
         $mainframe->addCSS(JPATH_SITE.'/'.JADMIN_BASE.'/templates/joostfree/css/template_css.css');
-        $mainframe->addJS(JPATH_SITE.'/includes/js/JSCookMenu.js');
-        $mainframe->addJS(JPATH_SITE.'/includes/js/ThemeOffice/theme.js');
+        $mainframe->addJS(JPATH_SITE.'/media/js/admin.menu.js');
+        $mainframe->addJS(JPATH_SITE.'/media/js/admin.menu/theme.js');
         //$mainframe->addJS(JPATH_SITE.'/includes/js/joomla.javascript.js');
         $mainframe->addJS(JPATH_SITE.'/'.JADMIN_BASE.'/includes/js/admin.js');
 

@@ -51,6 +51,7 @@ table.adminheading th {
     height: 32px;
     padding-left: 34px;
     width: 98%;
+	background: url(../images/system_ico/csg-4bddcddc99a85.png) no-repeat top left;
 }
 table.adminheading th.filemanager {
     background: url(../images/system_ico/folder.png) no-repeat left;
@@ -59,7 +60,7 @@ table.adminheading th.edit {
     background: url(../images/system_ico/edit.png) no-repeat left;
 }
 table.adminheading th.user {
-    background: url(../images/system_ico/user.png) no-repeat left;
+	background-position: 0 -1302px;
 }
 table.adminheading th.config {
     background: url(../images/system_ico/config.png) no-repeat left;
@@ -137,7 +138,6 @@ form {
     margin: 0;
 }
 input, textarea, select {
-    background: #fff url(../images/round.png) repeat-x 0 1px;
     border: 1px solid #D1D1D1;
     color: #000;
     font: 11px/18px Verdana, Sans-Serif;
@@ -546,12 +546,12 @@ input#jtoggle_editor {
 }
 a.logoff {
     margin: 0 12px 0  0;
-    background: url(../images/menu_ico/logout.png) left no-repeat;
+    background: url(../images/logout.png) left no-repeat;
     padding: 0 0 0 20px;
 }
 a.preview {
     margin: 0 12px 0  0;
-    background: url(../images/menu_ico/preview.png) left no-repeat;
+    background: url(../images/preview.png) left no-repeat;
     padding: 0 0 0 20px;
 }
 #top-toolbar {
@@ -806,32 +806,6 @@ td.ThemeOfficeMainItemHover, td.ThemeOfficeMainItemActive {
 }
 .miniavatar, table .adminform table.adminform {
     border: none;
-}
-#pack_step {
-    margin: 2px;
-    padding: 2px;
-    text-align: left;
-}
-#pack_step span div {
-    padding: 2px 10px 2px 30px;
-}
-.pack_step {
-    background: url(../images/ico/info.png) no-repeat scroll 15px 50%;
-    margin-top: 5px;
-    padding: 2px 20px 2px 40px;
-    text-align: left;
-}
-.pack_step_activ {
-    background: url(../images/aload.gif) no-repeat scroll 15px 50%;
-    margin-top: 5px;
-    padding: 2px 20px 2px 45px;
-    text-align: left;
-}
-.pack_step_done {
-    background: url(../images/ico/tick.png) no-repeat scroll 15px 50%;
-    margin-top: 5px;
-    padding: 2px 20px 2px 45px;
-    text-align: left;
 }
 .c_sql {
     padding: 10px;
