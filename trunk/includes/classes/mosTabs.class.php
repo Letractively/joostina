@@ -19,9 +19,9 @@ class mosTabs {
 		/* запрет повторного включения css и js файлов в документ*/
 		if(!defined('_MTABS_LOADED')) {
 			define('_MTABS_LOADED',1);
-
-			$js  = JHTML::js_file( JPATH_SITE.'/includes/js/tabs/tabpane.js' );
-			$css = JHTML::css_file( JPATH_SITE.'/includes/js/tabs/tabpane.css' );
+			
+			$js  = JHTML::js_file( JPATH_SITE.'/media/js/tabs.js' );
+			$css = JHTML::css_file( JPATH_SITE.'/media/js/tabs/tabpane.css' );
 
 			if($xhtml) {
 				$mainframe = mosMainFrame::getInstance();

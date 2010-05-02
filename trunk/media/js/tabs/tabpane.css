@@ -27,7 +27,7 @@
 	height: 30px;
 	line-height: 30px;
 	background-image: none;
-	background: url(images/tabpane.png) bottom left repeat-x #FFF;
+	background: url(tabpane.png) bottom left repeat-x #FFF;
 	padding: 3px 10px 0 15px;
 	border-bottom: 1px solid #CCC;
 }
@@ -35,7 +35,7 @@
 	width: auto;
 	height: 21px;
 	line-height: 21px;
-	background: url(images/tab.png) bottom left repeat-x #FFF;
+	background: url(tab.png) bottom left repeat-x #FFF;
 	position: relative;
 	bottom: 0;
 	display: inline;

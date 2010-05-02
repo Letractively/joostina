@@ -236,9 +236,9 @@ class mosCommonHTML {
 		if(!defined('_JQUERY_LOADED')) {
 			define('_JQUERY_LOADED',1);
 			if($ret) {
-				echo JHTML::js_file( JPATH_SITE.'/includes/js/jquery/jquery.js' );
+				echo JHTML::js_file( JPATH_SITE.'/media/js/jquery.js' );
 			}else {
-				mosMainFrame::getInstance()->addJS(JPATH_SITE.'/includes/js/jquery/jquery.js');
+				mosMainFrame::getInstance()->addJS(JPATH_SITE.'/media/js/jquery.js');
 			}
 		}
 	}
@@ -255,12 +255,12 @@ class mosCommonHTML {
 		if(!defined($const)) {
 			define($const,1);
 			if($ret) {
-				echo JHTML::js_file( JPATH_SITE.'/includes/js/jquery/plugins/'. $name.'.js' );
-				echo ($css) ? JHTML::css_file( JPATH_SITE.'/includes/js/jquery/plugins/'. $name.'.css' ) : '';
+				echo JHTML::js_file( JPATH_SITE.'/media/js/jquery.plugins/'. $name.'.js' );
+				echo ($css) ? JHTML::css_file( JPATH_SITE.'/media/js/jquery.plugins/'. $name.'.css' ) : '';
 			}else {
 				$mainframe = mosMainFrame::getInstance();
-				$mainframe->addJS(JPATH_SITE.'/includes/js/jquery/plugins/'.$name.'.js', $footer);
-				$css ? $mainframe->addCSS(JPATH_SITE.'/includes/js/jquery/plugins/'.$name.'.css'): null;
+				$mainframe->addJS(JPATH_SITE.'/media/js/jquery.plugins/'.$name.'.js', $footer);
+				$css ? $mainframe->addCSS(JPATH_SITE.'/media/js/jquery.plugins/'.$name.'.css'): null;
 			}
 		}
 	}
