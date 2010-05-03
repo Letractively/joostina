@@ -269,9 +269,9 @@ class mosCommonHTML {
 		if(!defined('_JQUERY_UI_LOADED')) {
 			define('_JQUERY_UI_LOADED',1);
 			if($ret) {
-				echo JHTML::js_file( JPATH_SITE.'/includes/js/jquery/ui/jquery-ui.js' );
+				echo JHTML::js_file( JPATH_SITE.'/media/js/jquery.ui/jquery-ui.js' );
 			}else {
-				mosMainFrame::getInstance()->addCSS(JPATH_SITE.'/includes/js/jquery/ui/jquery-ui.js');
+				mosMainFrame::getInstance()->addCSS(JPATH_SITE.'/media/js/jquery.ui/jquery-ui.js');
 			}
 		}
 	}
@@ -280,19 +280,10 @@ class mosCommonHTML {
 		if(!defined('_JQUERY_UICSS_LOADED')) {
 			define('_JQUERY_UICSS_LOADED',1);
 			if($ret) {
-				echo JHTML::css_file( JPATH_SITE.'/includes/js/jquery/ui/css/'.$theme.'/jquery-ui.css' );
+				echo JHTML::css_file( JPATH_SITE.'/media/js/jquery.ui/themes/'.$theme.'/jquery-ui.css' );
 			}else {
-				mosMainFrame::getInstance()->addCSS(JPATH_SITE.'/includes/js/jquery/ui/css/'.$theme.'/jquery-ui.css');
+				mosMainFrame::getInstance()->addCSS(JPATH_SITE.'/media/js/jquery.ui/themes/'.$theme.'/jquery-ui.css');
 			}
-		}
-	}
-
-	public static function loadDtree() {
-		if(!defined('_DTR_LOADED')) {
-			define('_DTR_LOADED',1);
-			$mainframe = mosMainFrame::getInstance();
-			$mainframe->addCSS(JPATH_SITE.'/includes/js/dtree/dtree.css');
-			$mainframe->addJS(JPATH_SITE.'/includes/js/dtree/dtree.js');
 		}
 	}
 

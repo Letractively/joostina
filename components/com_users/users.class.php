@@ -17,60 +17,25 @@ defined('_VALID_MOS') or die();
  * @package Joostina
  */
 class mosUser extends mosDBTable {
-	/**
-	 @var int Unique id*/
-	public $id = null;
-	/**
-	 @var string The users real name (or nickname)*/
-	public $name = null;
-	/**
-	 @var string The login name*/
-	public $username = null;
-	/**
-	 @var string email*/
-	public $email = null;
-	/**
-	 @var string MD5 encrypted password*/
-	public $password = null;
-	/**
-	 @var string*/
-	public $usertype = null;
-	/**
-	 @var int*/
-	public $block = null;
-	/**
-	 @var int*/
-	public $sendEmail = null;
-	/**
-	 @var int The group id number*/
-	public $gid = null;
-	/**
-	 @var datetime*/
-	public $registerDate = null;
-	/**
-	 @var datetime*/
-	public $lastvisitDate = null;
-	/**
-	 @var string activation hash*/
-	public $activation = null;
-	/**
-	 @var string*/
-	public $params = null;
-	/**
-	 @var string*/
-	public $avatar = null;
+	public $id;
+	public $name;
+	public $username;
+	public $email;
+	public $password;
+	public $usertype;
+	public $block;
+	public $sendEmail;
+	public $gid;
+	public $registerDate;
+	public $lastvisitDate;
+	public $activation;
+	public $params;
+	public $avatar;
 
-	/**
-	 * @param database A database connector object
-	 */
-	function mosUser(&$database) {
-		$this->mosDBTable('#__users','id',$database);
+	function  __construct() {
+		$this->mosDBTable('#__users','id');
 	}
 
-	/**
-	 * Validation and filtering
-	 * @return boolean True is satisfactory
-	 */
 	function check() {
 
 		// Validate user information
@@ -428,47 +393,47 @@ class userHelper {
 		$field = $form_params->img_field;
 
 		?><script type="text/javascript">
-			$(document).ready(function() {
+	$(document).ready(function() {
 
-				//---Кнопка "Сменить"
-				$("a#reupload_<?php echo $form_params->img_field;?>").live('click', function () {
-					$(".upload_area_<?php echo $form_params->img_field;?>").fadeIn(1000);
-					$("#<?php echo $form_params->img_field;?>").addClass("required");
-					return false;
-				});
-				//---Кнопка "Удалить"
-				$('a#del_<?php echo $form_params->img_field;?>').live('click', function(){
-					//Индикатор выполнения
-					$('#indicate_<?php echo $form_params->img_field;?>').fadeIn(1000, function () {
-						$("#indicate_<?php echo $form_params->img_field;?>").addClass("inprogress");
-						$("#indicate_<?php echo $form_params->img_field;?>").html("<?php echo _INPROGRESS; ?>");
-					});
-
-					//отправляем ajax-запрос
-					$.post( //---post:begin
-					'<?php echo $form_params->ajax_handler; ?>',{
-						task: "del_avatar",
-					} ,
-					//пришёл ответ
-					function onAjaxSuccess(data){
-						//Плавная смена изображения
-						//$('#current_<?php echo $form_params->img_field;?>_img').fadeOut(1000);
-						$('#current_<?php echo $form_params->img_field;?>_img').fadeOut(1000, function(){
-							$('#current_<?php echo $form_params->img_field;?>_img').html('<img class="avatar" src="<?php echo JPATH_SITE;?>/<?php echo $form_params->img_path;?>/'+data+'" />');
-							//Скрываем индикатор
-							$("#indicate_<?php echo $form_params->img_field;?>").removeClass("inprogress");
-							$("#indicate_<?php echo $form_params->img_field;?>").html("");
-						});
-						$('#current_<?php echo $form_params->img_field;?>_img').fadeIn(1000, function () {
-							$('#current_<?php echo $form_params->img_field;?>_img').show('slow');
-						});
-						//Скрываем кнопку "Удалить"
-						$('a#del_<?php echo $form_params->img_field;?>').parent().fadeOut("slow");
-					}
-				); //---post:end
-					return false;
-				});
+		//---Кнопка "Сменить"
+		$("a#reupload_<?php echo $form_params->img_field;?>").live('click', function () {
+			$(".upload_area_<?php echo $form_params->img_field;?>").fadeIn(1000);
+			$("#<?php echo $form_params->img_field;?>").addClass("required");
+			return false;
+		});
+		//---Кнопка "Удалить"
+		$('a#del_<?php echo $form_params->img_field;?>').live('click', function(){
+			//Индикатор выполнения
+			$('#indicate_<?php echo $form_params->img_field;?>').fadeIn(1000, function () {
+				$("#indicate_<?php echo $form_params->img_field;?>").addClass("inprogress");
+				$("#indicate_<?php echo $form_params->img_field;?>").html("<?php echo _INPROGRESS; ?>");
 			});
+
+			//отправляем ajax-запрос
+			$.post( //---post:begin
+			'<?php echo $form_params->ajax_handler; ?>',{
+				task: "del_avatar",
+			} ,
+			//пришёл ответ
+			function onAjaxSuccess(data){
+				//Плавная смена изображения
+				//$('#current_<?php echo $form_params->img_field;?>_img').fadeOut(1000);
+				$('#current_<?php echo $form_params->img_field;?>_img').fadeOut(1000, function(){
+					$('#current_<?php echo $form_params->img_field;?>_img').html('<img class="avatar" src="<?php echo JPATH_SITE;?>/<?php echo $form_params->img_path;?>/'+data+'" />');
+					//Скрываем индикатор
+					$("#indicate_<?php echo $form_params->img_field;?>").removeClass("inprogress");
+					$("#indicate_<?php echo $form_params->img_field;?>").html("");
+				});
+				$('#current_<?php echo $form_params->img_field;?>_img').fadeIn(1000, function () {
+					$('#current_<?php echo $form_params->img_field;?>_img').show('slow');
+				});
+				//Скрываем кнопку "Удалить"
+				$('a#del_<?php echo $form_params->img_field;?>').parent().fadeOut("slow");
+			}
+		); //---post:end
+			return false;
+		});
+	});
 </script>
 		<?php if($state!='upload') {?>
 <div id="current_<?php echo $form_params->img_field;?>">
@@ -522,51 +487,51 @@ class userHelper {
 		}
 
 		?><script type="text/javascript">
-			$(document).ready(function(){
-				$('#<?php echo $form_params->img_field;?>_upload_button').live('click', function() {
-					$('#<?php echo $form_params->img_field;?>_uploadForm').ajaxSubmit({
-						beforeSubmit: function(a,f,o) {
-							o.dataType = "html";
-							$('#<?php echo $form_params->img_field;?>_uploadOutput').fadeIn(1000, function () {
-								$('#<?php echo $form_params->img_field;?>_uploadOutput').addClass("inprogress");
-							});
-							//$('#current_<?php echo $form_params->img_field;?>').fadeOut(1000);
-							if(!$('#upload_<?php echo $form_params->img_field;?>').val()){
-								$('#<?php echo $form_params->img_field;?>_uploadOutput').html('<?php echo _CHOOSE_IMAGE?>');
-								return false;
-							}
-							$('#current_<?php echo $form_params->img_field;?>').fadeIn(1000);
-
-						},
-						success: function(data) {
-							var $out = $('#<?php echo $form_params->img_field;?>_uploadOutput');
-							$out.html('');
-							if(data){
-								if (typeof data == 'object' && data.nodeType)
-									data = elementToString(data.documentElement, true);
-								else if (typeof data == 'object')
-									data = objToString(data);
-								$(".upload_area_<?php echo $form_params->img_field;?>").fadeOut(900);
-								$(".buttons_<?php echo $form_params->img_field;?>").fadeOut(1000);
-								//$('#current_<?php echo $form_params->img_field;?>_img').fadeOut(1000);
-								$('#current_<?php echo $form_params->img_field;?>_img').fadeOut(1000, function(){
-									$('#current_<?php echo $form_params->img_field;?>_img').html('<img class="avatar" src="<?php echo JPATH_SITE;?>/<?php echo $form_params->img_path;?>/'+data+'?r=' + Math.random()+'" />');
-								});
-								$('#current_<?php echo $form_params->img_field;?>_img').fadeIn(1000, function () {
-									$('#current_<?php echo $form_params->img_field;?>_img').show('slow', function () {
-										//$('#current_<?php echo $form_params->img_field;?>_img').fadeIn(1000);
-									});
-								});
-								$(".buttons_<?php echo $form_params->img_field;?>").fadeIn(1000);
-								$('#new_<?php echo $form_params->img_field;?>').val(data);
-							}
-
-						}
+	$(document).ready(function(){
+		$('#<?php echo $form_params->img_field;?>_upload_button').live('click', function() {
+			$('#<?php echo $form_params->img_field;?>_uploadForm').ajaxSubmit({
+				beforeSubmit: function(a,f,o) {
+					o.dataType = "html";
+					$('#<?php echo $form_params->img_field;?>_uploadOutput').fadeIn(1000, function () {
+						$('#<?php echo $form_params->img_field;?>_uploadOutput').addClass("inprogress");
 					});
-					return false;
-				});
+					//$('#current_<?php echo $form_params->img_field;?>').fadeOut(1000);
+					if(!$('#upload_<?php echo $form_params->img_field;?>').val()){
+						$('#<?php echo $form_params->img_field;?>_uploadOutput').html('<?php echo _CHOOSE_IMAGE?>');
+						return false;
+					}
+					$('#current_<?php echo $form_params->img_field;?>').fadeIn(1000);
 
+				},
+				success: function(data) {
+					var $out = $('#<?php echo $form_params->img_field;?>_uploadOutput');
+					$out.html('');
+					if(data){
+						if (typeof data == 'object' && data.nodeType)
+							data = elementToString(data.documentElement, true);
+						else if (typeof data == 'object')
+							data = objToString(data);
+						$(".upload_area_<?php echo $form_params->img_field;?>").fadeOut(900);
+						$(".buttons_<?php echo $form_params->img_field;?>").fadeOut(1000);
+						//$('#current_<?php echo $form_params->img_field;?>_img').fadeOut(1000);
+						$('#current_<?php echo $form_params->img_field;?>_img').fadeOut(1000, function(){
+							$('#current_<?php echo $form_params->img_field;?>_img').html('<img class="avatar" src="<?php echo JPATH_SITE;?>/<?php echo $form_params->img_path;?>/'+data+'?r=' + Math.random()+'" />');
+						});
+						$('#current_<?php echo $form_params->img_field;?>_img').fadeIn(1000, function () {
+							$('#current_<?php echo $form_params->img_field;?>_img').show('slow', function () {
+								//$('#current_<?php echo $form_params->img_field;?>_img').fadeIn(1000);
+							});
+						});
+						$(".buttons_<?php echo $form_params->img_field;?>").fadeIn(1000);
+						$('#new_<?php echo $form_params->img_field;?>').val(data);
+					}
+
+				}
 			});
+			return false;
+		});
+
+	});
 </script>
 <form name="<?php echo $form_params->img_field;?>_uploadForm" class="ajaxForm" enctype="multipart/form-data" method="post" action="<?php echo $action; ?>" id="<?php echo $form_params->img_field;?>_uploadForm">
     <input name="<?php echo $form_params->img_field;?>"  id="upload_<?php echo $form_params->img_field;?>"  type="file" />

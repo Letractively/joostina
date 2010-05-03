@@ -1,5 +1,3 @@
-# $Id: joostina.sql Joostina 1.3.1 boston $
-
 --
 -- Структура таблицы `#__categories`
 --
@@ -29,6 +27,40 @@ CREATE TABLE IF NOT EXISTS `#__categories` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
+-- Дамп данных таблицы `#__categories`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `#__comments`
+--
+
+CREATE TABLE IF NOT EXISTS `#__comments` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `obj_id` int(11) unsigned NOT NULL DEFAULT '0',
+  `obj_option` varchar(30) NOT NULL,
+  `user_id` int(11) unsigned NOT NULL DEFAULT '0',
+  `user_name` varchar(100) NOT NULL,
+  `user_email` varchar(50) NOT NULL,
+  `user_ip` varchar(50) NOT NULL,
+  `comment_text` mediumtext NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `state` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `obj_id` (`obj_id`,`obj_option`),
+  KEY `state` (`state`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `#__comments`
+--
+
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `#__components`
 --
 
@@ -53,7 +85,8 @@ CREATE TABLE IF NOT EXISTS `#__components` (
 --
 
 INSERT INTO `#__components` (`id`, `name`, `link`, `menuid`, `parent`, `admin_menu_link`, `admin_menu_alt`, `option`, `ordering`, `admin_menu_img`, `iscore`, `params`) VALUES
-(null, 'Страницо', 'option=com_pages', 0, 0, 'Страницо', 'Страницо', 'com_pages', 0, 'js/ThemeOffice/checkin.png', 0, '');
+(1, 'Странички', 'option=com_pages', 0, 0, 'option=com_pages', 'Странички', 'com_pages', 0, 'administrator/images/menu/icon-16-featured.png', 0, ''),
+(2, 'Авторизация', 'option=com_login', 0, 0, 'option=com_login', 'wqewe', 'com_login', 0, 'administrator/images/menu/icon-16-clear.png', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -70,6 +103,11 @@ CREATE TABLE IF NOT EXISTS `#__config` (
   PRIMARY KEY (`id`),
   KEY `name` (`name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `#__config`
+--
+
 
 -- --------------------------------------------------------
 
@@ -89,6 +127,13 @@ CREATE TABLE IF NOT EXISTS `#__core_acl_aro` (
   UNIQUE KEY `gacl_section_value_value_aro` (`section_value`(100),`value`(100)),
   KEY `gacl_hidden_aro` (`hidden`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `#__core_acl_aro`
+--
+
+
+-- --------------------------------------------------------
 
 --
 -- Структура таблицы `#__core_acl_aro_groups`
@@ -143,8 +188,6 @@ CREATE TABLE IF NOT EXISTS `#__core_acl_aro_sections` (
 -- Дамп данных таблицы `#__core_acl_aro_sections`
 --
 
-INSERT INTO `#__core_acl_aro_sections` (`section_id`, `value`, `order_value`, `name`, `hidden`) VALUES
-(10, 'users', 1, 'Users', 0);
 
 -- --------------------------------------------------------
 
@@ -164,8 +207,26 @@ CREATE TABLE IF NOT EXISTS `#__core_acl_groups_aro_map` (
 -- Дамп данных таблицы `#__core_acl_groups_aro_map`
 --
 
-INSERT INTO `#__core_acl_groups_aro_map` (`group_id`, `section_value`, `aro_id`) VALUES
-(25, '', 10);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `#__counters`
+--
+
+CREATE TABLE IF NOT EXISTS `#__counters` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `obj_id` int(11) unsigned NOT NULL,
+  `obj_option` varchar(30) NOT NULL,
+  `counter` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `obj_id` (`obj_id`,`obj_option`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `#__counters`
+--
+
 
 -- --------------------------------------------------------
 
@@ -250,8 +311,8 @@ CREATE TABLE IF NOT EXISTS `#__menu` (
 -- Дамп данных таблицы `#__menu`
 --
 
-INSERT INTO `#__menu` (`id`, `menutype`, `name`, `page_title`, `link`, `type`, `published`, `parent`, `componentid`, `sublevel`, `ordering`, `checked_out`, `checked_out_time`, `pollid`, `browserNav`, `access`, `utaccess`, `params`) VALUES
-(null, 'mainmenu', 'Главная', 'werwerwer werwer werewew ', 'index.php?option=com_pages', 'components', 1, 0, 15, 0, 1, 62, '2010-04-29 16:40:28', 0, 0, 0, 0, '{ "page_id": "1" }');
+INSERT INTO `#__menu` (`id`, `menutype`, `name`, `link_title`, `link`, `type`, `published`, `parent`, `componentid`, `sublevel`, `ordering`, `checked_out`, `checked_out_time`, `pollid`, `browserNav`, `access`, `utaccess`, `params`) VALUES
+(1, 'mainmenu', 'Главная', 'Главнее не бывает', 'index.php?option=com_pages', 'components', 1, 0, 1, 0, 9999, 0, '0000-00-00 00:00:00', 0, 0, 0, 0, '{ "page_id": "1" }');
 
 -- --------------------------------------------------------
 
@@ -286,10 +347,9 @@ CREATE TABLE IF NOT EXISTS `#__modules` (
 --
 
 INSERT INTO `#__modules` (`id`, `title`, `content`, `ordering`, `position`, `checked_out`, `checked_out_time`, `published`, `module`, `numnews`, `access`, `showtitle`, `params`, `iscore`, `client_id`, `cache_time`) VALUES
-(3, 'Главное меню', '', 2, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_mljoostinamenu', 0, 0, 0, '', 0, 0, 32767),
-(4, 'Авторизация', '', 1, 'toolbar', 0, '0000-00-00 00:00:00', 1, 'mod_login', 0, 0, 0, '', 0, 0, 0),
-(17, 'Верхнее меню', '', 1, 'top', 0, '0000-00-00 00:00:00', 1, 'mod_mainmenu', 0, 0, 0, '', 0, 0, 0),
-(19, 'Компоненты', '', 2, 'cpanel', 0, '0000-00-00 00:00:00', 0, 'mod_components', 0, 99, 1, '', 0, 1, 0),
+(3, 'Главное меню', '', 2, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_menu', 0, 0, 0, '', 0, 0, 32767),
+(4, 'Авторизация', '', 1, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_login', 0, 0, 0, '""', 0, 0, 0),
+(19, 'Компоненты', '', 2, 'cpanel', 0, '0000-00-00 00:00:00', 1, 'mod_components', 0, 99, 1, '', 0, 1, 0),
 (23, 'Последние зарегистрированные пользователи', '', 4, 'advert2', 0, '0000-00-00 00:00:00', 0, 'mod_latest_users', 0, 99, 1, '', 0, 1, 0),
 (26, 'Полное меню', '', 1, 'top', 0, '0000-00-00 00:00:00', 1, 'mod_fullmenu', 0, 99, 1, '', 0, 1, 0),
 (27, 'Путь', '', 1, 'pathway', 0, '0000-00-00 00:00:00', 1, 'mod_pathway', 0, 99, 1, '', 0, 1, 0),
@@ -321,8 +381,17 @@ INSERT INTO `#__modules_menu` (`moduleid`, `menuid`) VALUES
 (17, 0),
 (18, 0),
 (30, 0),
+(31, 0),
+(32, 0),
+(33, 0),
+(34, 0),
+(35, 0),
+(36, 0),
+(37, 0),
 (37, 1),
+(38, 0),
 (38, 1),
+(39, 0),
 (39, 1);
 
 -- --------------------------------------------------------
@@ -345,6 +414,13 @@ CREATE TABLE IF NOT EXISTS `#__pages` (
   KEY `state` (`state`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
+--
+-- Дамп данных таблицы `#__pages`
+--
+
+INSERT INTO `#__pages` (`id`, `title`, `title_page`, `slug`, `text`, `meta_keywords`, `meta_description`, `created_at`, `state`) VALUES
+(1, 'Тыц тыц', '', '', 'Ога ога', '', '', '2010-05-01 04:59:17', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -364,19 +440,17 @@ CREATE TABLE IF NOT EXISTS `#__quickicons` (
   `access` int(11) unsigned NOT NULL DEFAULT '0',
   `gid` int(3) DEFAULT '25',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `#__quickicons`
 --
 
 INSERT INTO `#__quickicons` (`id`, `text`, `target`, `icon`, `ordering`, `new_window`, `published`, `title`, `display`, `access`, `gid`) VALUES
-(null, 'Категории', 'index2.php?option=com_categories&section=content', '/administrator/templates/joostfree/images/cpanel_ico/categories.png', 5, 0, 1, 'Управление категориями', 0, 0, 0),
-(null, 'Редактор меню', 'index2.php?option=com_menumanager', '/administrator/templates/joostfree/images/cpanel_ico/menu.png', 9, 0, 1, 'Управление объектами меню', 0, 0, 24),
-(null, 'Пользователи', 'index2.php?option=com_users', '/administrator/templates/joostfree/images/cpanel_ico/user.png', 10, 0, 1, 'Управление пользователями', 0, 0, 24),
-(null, 'Глобальная конфигурация', 'index2.php?option=com_config&hidemainmenu=1', '/administrator/templates/joostfree/images/cpanel_ico/config.png', 13, 0, 1, 'Глобальная конфигурация сайта', 0, 0, 25),
-(null, 'Очистить весь кэш', 'index2.php?option=com_admin&task=clean_all_cache', '/administrator/templates/joostfree/images/cpanel_ico/clear.png', 14, 0, 1, 'Очистить весь кэш сайта', 0, 0, 24),
-(null, 'Странички', 'index2.php?option=com_pages', '/administrator/templates/joostfree/images/cpanel_ico/all_typed.png', 0, 0, 1, '', 0, 0, 25);
+(14, 'Категории', 'index2.php?option=com_categories&section=content', '/administrator/images/quickicons/USB-Connection.png', 5, 0, 1, 'Управление категориями', 0, 0, 0),
+(15, 'Редактор меню', 'index2.php?option=com_menumanager', '/administrator/images/quickicons/Photo-Settings.png', 9, 0, 1, 'Управление объектами меню', 0, 0, 24),
+(16, 'Пользователи', 'index2.php?option=com_users', '/administrator/images/quickicons/Power-Save-Settings.png', 10, 0, 1, 'Управление пользователями', 0, 0, 24),
+(19, 'Странички', 'index2.php?option=com_pages', '/administrator/images/quickicons/Online-Instruction-Manuals.png', 0, 0, 1, '', 0, 0, 25);
 
 -- --------------------------------------------------------
 
@@ -397,6 +471,32 @@ CREATE TABLE IF NOT EXISTS `#__session` (
   KEY `userid` (`userid`),
   KEY `time` (`time`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `#__session`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `#__tags`
+--
+
+CREATE TABLE IF NOT EXISTS `#__tags` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `obj_id` int(11) NOT NULL,
+  `obj_option` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `tag_text` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `obj_id` (`obj_id`,`obj_option`),
+  KEY `tag_text` (`tag_text`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Дамп данных таблицы `#__tags`
+--
+
 
 -- --------------------------------------------------------
 
@@ -493,7 +593,12 @@ CREATE TABLE IF NOT EXISTS `#__users` (
   KEY `idxemail` (`email`),
   KEY `block_id` (`block`,`id`),
   KEY `username` (`username`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `#__users`
+--
+
 
 -- --------------------------------------------------------
 
@@ -518,6 +623,11 @@ CREATE TABLE IF NOT EXISTS `#__users_extra` (
   `birthdate` datetime DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`user_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `#__users_extra`
+--
+
 
 -- --------------------------------------------------------
 

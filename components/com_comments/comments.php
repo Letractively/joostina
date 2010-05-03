@@ -9,15 +9,3 @@
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
-
-class pagesHTML {
-
-	public static function index( Pages $page ) {
-		echo sprintf('<div class="page"><h1>%s</h1></div>', $page->title );
-		echo sprintf('<div class="pc">%s</div>',$page->text);
-
-		require_once mosMainFrame::getInstance()->getPath('class','com_comments');
-		$comments = new Comments;
-		echo '<div class="comments">'.$comments->load_comments('com_pages_view', $page->id, 5, 5).'</div>';
-	}
-}
