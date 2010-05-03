@@ -211,6 +211,13 @@ class JoiAdmin {
 		static $element_datas = array();
 
 		$element = '';
+		
+		// ограничение на длину текста
+		$text_limit = isset($element_param['html_table_element_param']['text_limit']) ? $element_param['html_table_element_param']['text_limit'] : false;
+		if( $text_limit ) {
+			mosMainFrame::addLib('text');
+			$value = Text::character_limiter($value, $text_limit);
+		};
 
 		switch ($element_param['html_table_element']) {
 

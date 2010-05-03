@@ -33,9 +33,6 @@ $option = mosGetParam( $_REQUEST, 'option', '' );
         //$mainframe->addJS(JPATH_SITE.'/includes/js/joomla.javascript.js');
         $mainframe->addJS(JPATH_SITE.'/'.JADMIN_BASE.'/includes/js/admin.js');
 
-        include_once (JPATH_BASE.DS.'includes/editor.php');
-        initEditor();
-
         // TODO передалать на стандартную функцию фронта вывод подключения js и css
         adminHead($mainframe);
         ?>

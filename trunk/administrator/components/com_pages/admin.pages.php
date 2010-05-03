@@ -69,7 +69,7 @@ class actionsPages {
     /**
      * Сохранение отредактированного или созданного объекта
      */
-    public static function save( $option, $create_new = false ) {
+    public static function save( $option, $id, $page, $task, $create_new = false ) {
         josSpoofCheck();
         
         $obj_data = new self::$model;
@@ -79,7 +79,7 @@ class actionsPages {
     }
 
 	public static function save_and_new( $option ){
-		self::save($option, true);
+		self::save($option, null, null, null, true);
 	}
 
     /**

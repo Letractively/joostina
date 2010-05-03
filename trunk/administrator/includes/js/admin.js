@@ -30,7 +30,7 @@ $(document).ready(function() {
 
 
 	// все поля типа textarea делаем растягиваемыми
-	$('textarea').TextAreaResizer();
+	//$('textarea').TextAreaResizer();
 
 });
 

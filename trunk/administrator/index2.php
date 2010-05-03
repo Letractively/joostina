@@ -22,10 +22,8 @@ if(!file_exists(JPATH_BASE.DS.'configuration.php')) {
 }
 
 (ini_get('register_globals') == 1) ? require_once (JPATH_BASE.DS.'includes'.DS.'globals.php') : null;
-require_once (JPATH_BASE.DS.'configuration.php');
 
-// для совместимости
-//$mosConfig_absolute_path = JPATH_BASE;
+require_once (JPATH_BASE.DS.'configuration.php');
 
 // SSL проверка  - $http_host returns <live site url>:<port number if it is 443>
 $http_host = explode(':',$_SERVER['HTTP_HOST']);
@@ -40,6 +38,8 @@ define('JPATH_SITE', $mosConfig_live_site );
 require_once (JPATH_BASE .DS. 'includes'.DS.'joostina.php');
 // подключаем расширенные административные функции
 require_once (JPATH_BASE_ADMIN.DS.'includes'.DS.'admin.php');
+// класс работы с визуальным редактором
+require_once (JPATH_BASE .DS. 'includes'.DS.'editor.php');
 
 // работа с сессиями начинается до создания главного объекта взаимодействия с ядром
 session_name(md5(JPATH_SITE));
