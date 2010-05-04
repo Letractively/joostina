@@ -9,11 +9,6 @@ defined('_VALID_MOS') or die();
 
 /**
  * joiTags
- *
- * @package  JoiTags
- * @author JoostinaTeam
- * @copyright (C) 2008-2009 Joostina Team
- * @version 1.0 a
  */
 class Tags extends mosDBTable {
 	/**
@@ -25,9 +20,9 @@ class Tags extends mosDBTable {
 	 */
 	public $obj_id = null;
 	/**
-	 * @var $obj_type string Тип объекта, которому сопоставлен тэг [com_component]
+	 * @var $obj_option string Тип объекта, которому сопоставлен тэг [com_component]
 	 */
-	public $obj_type = null;
+	public $obj_option = null;
 	/**
 	 * @var $tag string Тэг
 	 */
@@ -35,7 +30,7 @@ class Tags extends mosDBTable {
 	/**
 	 * @var $_tags array Массив тэгов
 	 */
-	public $_tags = array();
+	//public $_tags = array();
 
 
 	/**
@@ -43,7 +38,7 @@ class Tags extends mosDBTable {
 	 *
 	 */
 	function __construct() {
-		$this->mosDBTable('#__joitags', 'id');
+		$this->mosDBTable('#__tags', 'id');
 	}
 
 
@@ -55,11 +50,11 @@ class Tags extends mosDBTable {
 	 */
 	function display_object_tags($obj) {
 
-		$plugin = new joiTagsPlugins($this->obj_type);
+		$plugin = new tagsPlugins($this->obj_option);
 
 		if($plugin->check()) {
 			require_once($plugin->plugin);
-			$func = 'joiTags_'.$plugin->option.'_object_tags';
+			$func = 'tags_'.$plugin->option.'_object_tags';
 			return call_user_func($func,$obj, $this);
 		}
 
@@ -74,11 +69,11 @@ class Tags extends mosDBTable {
 	 */
 	function display_object_tags_edit($obj) {
 
-		$plugin = new joiTagsPlugins($this->obj_type);
+		$plugin = new tagsPlugins($this->obj_option);
 
 		if($plugin->check()) {
 			require_once($plugin->plugin);
-			$func = 'joiTags_'.$plugin->option.'_object_tags_edit';
+			$func = 'tags_'.$plugin->option.'_object_tags_edit';
 			return call_user_func($func,$obj, $this);
 		}
 
@@ -93,11 +88,11 @@ class Tags extends mosDBTable {
 	 */
 	function display_group_tags($objs) {
 
-		$plugin = new joiTagsPlugins($this->obj_type);
+		$plugin = new tagsPlugins($this->obj_option);
 
 		if($plugin->check()) {
 			require_once($plugin->plugin);
-			$func = 'joiTags_'.$plugin->option.'_group_tags';
+			$func = 'tags_'.$plugin->option.'_group_tags';
 			call_user_func($func,$objs, $this);
 		}
 
@@ -112,9 +107,7 @@ class Tags extends mosDBTable {
 	 */
 	function load_by_obj($id) {
 
-		$tags = $this->get_list( array(
-				'where'=>"obj_type = '$this->obj_type' AND obj_id = $id"
-		));
+		$tags = $this->get_list( array('where'=>"obj_option = '$this->obj_option' AND obj_id = $id"));
 
 		foreach($tags as $tag) {
 			$this->_tags[$id][] = $tag;
@@ -131,13 +124,12 @@ class Tags extends mosDBTable {
 	 */
 	function load_by_obj_simple($id) {
 		$arr = array();
-		$tags = $this->get_list( array(
-				'where'=>"obj_type = '$this->obj_type' AND obj_id = $id"
-		));
+		$tags = $this->get_list( array('where'=>"obj_option = '$this->obj_option' AND obj_id = $id"));
 
 		if(!$tags) {
 			return null;
 		}
+
 		foreach($tags as $tag) {
 			$arr[] = "'".$tag->tag."'";
 		}
@@ -165,10 +157,8 @@ class Tags extends mosDBTable {
 		}
 		$_ids = implode(',', $ids);
 
-		$sql = 'SELECT * FROM '.$this->_tbl.' WHERE obj_type = \''.$this->obj_type.'\' AND obj_id  IN ('.$_ids.' )';
-		$this->_mainframe->_db->setQuery( $sql );
-
-		$tags = $this->_mainframe->_db->loadObjectList();
+		$sql = 'SELECT * FROM '.$this->_tbl.' WHERE obj_option = \''.$this->obj_option.'\' AND obj_id  IN ('.$_ids.' )';
+		$tags = $this->_mainframe->_db->setQuery( $sql )->loadObjectList();
 
 		if(!$tags) {
 			return;
@@ -200,14 +190,13 @@ class Tags extends mosDBTable {
 		$sql = 'SELECT tag.*,
 				item.'.$group["id"].' AS id, item.'.$group["title"].' AS title, item.'.$group["text"].' AS text, item.'.$group["date"].' AS date
 				'.$select.'
-				FROM #__joitags AS tag
+				FROM #__tags AS tag
 				INNER JOIN #__'.$group["table"].' AS item ON item.'.$group["id"].' = tag.obj_id
 				'.$group["join"].'
-				WHERE tag.tag = \''.$tag.'\' AND tag.obj_type =\''.$group["group_name"].'\'
+				WHERE tag.tag = \''.$tag.'\' AND tag.obj_option =\''.$group["group_name"].'\'
                 '.$where.'  AND item.state=1
 				ORDER BY '.$order;
-		$this->_db->setQuery($sql, $offset, $limit);
-		return $this->_db->loadObjectList();
+		return $this->_db->setQuery($sql, $offset, $limit)->loadObjectList();
 	}
 
 	function search_by_type_count($group, $tag) {
@@ -227,14 +216,13 @@ class Tags extends mosDBTable {
 		}
 
 		$sql = 'SELECT COUNT(tag.id), tag.obj_id, item.state
-				FROM #__joitags AS tag
+				FROM #__tags AS tag
 				INNER JOIN #__'.$group["table"].' AS item ON item.'.$group["id"].' = tag.obj_id
 				'.$group["join"].'
-				WHERE tag.tag = \''.$tag.'\' AND tag.obj_type =\''.$group["group_name"].'\'
+				WHERE tag.tag = \''.$tag.'\' AND tag.obj_option =\''.$group["group_name"].'\'
                 '.$where.'  AND item.state=1
 				ORDER BY '.$order;
-		$this->_db->setQuery($sql);
-		return $this->_db->loadResult();
+		return $this->_db->setQuery($sql)->loadResult();
 	}
 
 	/**
@@ -243,7 +231,7 @@ class Tags extends mosDBTable {
 	 * @return
 	 */
 	function load_by_type() {
-		$sql = "SELECT tag, obj_id, obj_type FROM $this->_tbl WHERE obj_type = '$this->obj_type'";
+		$sql = "SELECT tag, obj_id, obj_option FROM $this->_tbl WHERE obj_option = '$this->obj_option'";
 		return $this->_db->setQuery($sql)->loadResultArray();
 	}
 
@@ -305,9 +293,8 @@ class Tags extends mosDBTable {
 	 */
 	function save_tags($obj_id) {
 
-		$sql = 'DELETE FROM '.$this->_tbl.' WHERE obj_id = '.$obj_id.' AND obj_type = \''.$this->obj_type.'\'';
-		$this->_db->setQuery($sql);
-		$this->_db->Query();
+		$sql = 'DELETE FROM '.$this->_tbl.' WHERE obj_id = '.$obj_id.' AND obj_option = \''.$this->obj_option.'\'';
+		$this->_db->setQuery($sql)->Query();
 
 		$tags = $this->clear_tags( explode(',', mosGetParam($_REQUEST, 'tags')));
 
@@ -320,17 +307,15 @@ class Tags extends mosDBTable {
 		$sql_ = '';
 		$n = 1;
 		foreach($tags as $tag) {
-			$sql_ .= '('.$obj_id.', \''.$this->obj_type.'\',   \''.$tag.'\')';
+			$sql_ .= '('.$obj_id.', \''.$this->obj_option.'\',   \''.$tag.'\')';
 			if($n<$max) {
 				$sql_ .= ',';
 			}
 			$n++;
 		}
 
-		$sql = 'INSERT  #__joitags (obj_id, obj_type, tag) VALUES  '. $sql_;
-		$this->_db->setQuery($sql);
-		return $this->_db->query();
-
+		$sql = 'INSERT  #__tags (obj_id, obj_option, tag) VALUES  '. $sql_;
+		return $this->_db->setQuery($sql)->query();
 	}
 
 	/**
@@ -352,7 +337,7 @@ class Tags extends mosDBTable {
 	 * @return
 	 */
 	function get_tag_url($tag, $group = '') {
-		$link = 'index.php?option=com_joitags';
+		$link = 'index.php?option=com_tags';
 
 		if($group) {
 			$link .= '&group='.$group;
@@ -399,19 +384,12 @@ class Tags extends mosDBTable {
 		$tag = mosHTML::cleanText($tag);
 		return trim($tag);
 	}
-
 }
 
 /**
  * joiTagsCloud
- *
- * @package
- * @author Азбука
- * @copyright ZaiSL
- * @version 2010
- * @access public
  */
-class joiTagsCloud {
+class tagsCloud {
 
 	/**
 	 * @var array $tags Простой одномерный массив тэгов
@@ -479,13 +457,11 @@ class joiTagsCloud {
 		foreach ($tags_weights as $tag=>$count) {
 
 			$font_size = round($this->font_size_min + (($count - $min_count)  * $this->step));
-			$cloud[] = '<a title="'.$tag.'" style="font-size: '.$font_size.'px;"  href="'.joiTags::get_tag_url($tag, $group).'">'.$tag.'</a>';
+			$cloud[] = '<a title="'.$tag.'" style="font-size: '.$font_size.'px;"  href="'.Tags::get_tag_url($tag, $group).'">'.$tag.'</a>';
 
 		}
 		return $cloud;
 	}
-
-
 
 	/**
 	 * joiTagsCloud::get_tag_count()
@@ -507,23 +483,13 @@ class joiTagsCloud {
 		}
 
 		return $tags_weights;
-
 	}
-
-
-
 }
 
 /**
  * joiTagsPlugins
- *
- * @package
- * @author Азбука
- * @copyright ZaiSL
- * @version 2010
- * @access public
  */
-class joiTagsPlugins {
+class tagsPlugins {
 
 	var $option = null;
 	var $plugin = null;
@@ -534,7 +500,7 @@ class joiTagsPlugins {
 	 * @param string $option
 	 * @return
 	 */
-	function joiTagsPlugins($option = '') {
+	function  __construct($option = '') {
 		$this->option = $option;
 	}
 
@@ -544,14 +510,12 @@ class joiTagsPlugins {
 	 * @return
 	 */
 	function check() {
-		$mainframe = &mosMainFrame::getInstance();
-		$plugin = $mainframe->getCfg('absolute_path').DS.'components'.DS.'com_joitags'.DS.'plugins'.DS.$this->option.'.plugin.php';
+		$plugin = JPATH_BASE.DS.'components'.DS.'com_tags'.DS.'plugins'.DS.$this->option.'.plugin.php';
 
 		if(is_file($plugin)) {
 			$this->plugin = $plugin;
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
 	}

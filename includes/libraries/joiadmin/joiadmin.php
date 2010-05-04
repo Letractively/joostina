@@ -106,10 +106,10 @@ class JoiAdmin {
 	public static function dispatch() {
 
 		$id = (int) mosGetParam($_REQUEST, 'id', 0);
-		$param_1 = (int) mosGetParam($_GET, 'param-1', false);
+		$page = (int) mosGetParam($_GET, 'page', false);
 
-		$page = $param_1 ? $id : 0;
-		$id      = $param_1 ? $param_1 : $id;
+		$page = $page ? $page : 0;
+		$id    = $id ? $id : $page;
 
 		$task    = (string) mosGetParam($_REQUEST, 'task', 'index');
 		$option = (string) mosGetParam($_REQUEST, 'option');

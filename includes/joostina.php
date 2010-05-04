@@ -1953,6 +1953,7 @@ class JConfig {
 	}
 	/**
 	 * Запрет клонирования объекта
+	 * @return  JConfig
 	 */
 	private function __clone() {
 
@@ -3568,6 +3569,38 @@ class joostina_api {
 
 		$database = database::getInstance();
 		$database->setQuery("OPTIMIZE TABLE `". implode('`,`', $database->getTableList() ) ."`;")->query();
+	}
+}
+
+/**
+ * Системный счетчик
+ */
+class Jhit {
+
+	// массив названных событий для активации / деактивации подсчета хитов
+	public static $hook = array();
+
+	/**
+	 * Проверка на разрешённость подсчета хитов события
+	 * @param string $hook название события
+	 * @return boolean разрешение на подсчет хитов на событие
+	 */
+	public static function allow($hook){
+		return isset( self::$hook[$hook] );
+	}
+
+	/**
+	 * Добавление / увеличение счетчика хитов
+	 * @param string $option название компонента
+	 * @param integer $id - идентификатор объекта
+	 * @param string $task - подзадача
+	 * @return boolean результат увеличения счетчика
+	 */
+	public static function add( $option, $id, $task='' ) {
+		$sql = sprintf("INSERT INTO `#__hits` (`id`, `obj_id`, `obj_option`, `obj_task`, `hit`) VALUES (NULL, %s, '%s', '%s', 1)
+									ON DUPLICATE KEY UPDATE hit=hit+1;;",
+					(int)$id, $option, $task );
+		return database::getInstance()->setQuery($sql)->query();
 	}
 }
 
