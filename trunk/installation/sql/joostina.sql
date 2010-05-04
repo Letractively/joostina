@@ -1,3 +1,5 @@
+-- --------------------------------------------------------
+
 --
 -- Структура таблицы `#__categories`
 --
@@ -126,7 +128,7 @@ CREATE TABLE IF NOT EXISTS `#__core_acl_aro` (
   UNIQUE KEY `value` (`value`),
   UNIQUE KEY `gacl_section_value_value_aro` (`section_value`(100),`value`(100)),
   KEY `gacl_hidden_aro` (`hidden`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `#__core_acl_aro`
@@ -182,7 +184,7 @@ CREATE TABLE IF NOT EXISTS `#__core_acl_aro_sections` (
   PRIMARY KEY (`section_id`),
   UNIQUE KEY `value_aro_sections` (`value`),
   KEY `hidden_aro_sections` (`hidden`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `#__core_acl_aro_sections`
@@ -211,26 +213,6 @@ CREATE TABLE IF NOT EXISTS `#__core_acl_groups_aro_map` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `#__counters`
---
-
-CREATE TABLE IF NOT EXISTS `#__counters` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `obj_id` int(11) unsigned NOT NULL,
-  `obj_option` varchar(30) NOT NULL,
-  `counter` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `obj_id` (`obj_id`,`obj_option`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Дамп данных таблицы `#__counters`
---
-
-
--- --------------------------------------------------------
-
---
 -- Структура таблицы `#__groups`
 --
 
@@ -248,6 +230,29 @@ INSERT INTO `#__groups` (`id`, `name`) VALUES
 (0, 'Общий'),
 (1, 'Участники'),
 (2, 'Специальный');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `#__hits`
+--
+
+CREATE TABLE IF NOT EXISTS `#__hits` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `obj_id` int(11) unsigned NOT NULL,
+  `obj_option` varchar(30) NOT NULL,
+  `obj_task` varchar(20) NOT NULL,
+  `hit` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `obj_id` (`obj_id`,`obj_option`,`obj_task`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `#__hits`
+--
+
+INSERT INTO `#__hits` (`id`, `obj_id`, `obj_option`, `obj_task`, `hit`) VALUES
+(1, 1, 'pages', 'view', 3);
 
 -- --------------------------------------------------------
 
@@ -419,7 +424,7 @@ CREATE TABLE IF NOT EXISTS `#__pages` (
 --
 
 INSERT INTO `#__pages` (`id`, `title`, `title_page`, `slug`, `text`, `meta_keywords`, `meta_description`, `created_at`, `state`) VALUES
-(1, 'Тыц тыц', '', '', 'Ога ога', '', '', '2010-05-01 04:59:17', 1);
+(1, 'Тыц тыц 2342', '', '', 'Ога ога', '', '', '2010-05-01 04:59:17', 1);
 
 -- --------------------------------------------------------
 
@@ -487,10 +492,10 @@ CREATE TABLE IF NOT EXISTS `#__tags` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `obj_id` int(11) NOT NULL,
   `obj_option` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `tag_text` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `tag` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `obj_id` (`obj_id`,`obj_option`),
-  KEY `tag_text` (`tag_text`)
+  KEY `tag_text` (`tag`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --

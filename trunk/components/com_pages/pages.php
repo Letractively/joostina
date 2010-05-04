@@ -19,18 +19,51 @@ JoiAdmin::dispatch();
 
 class actionsPages {
 
-    public static function index( ) {
+	public static function index( ) {
 
-        $menu = mosMainFrame::getInstance()->get('menu');
-        $params = new mosParameters($menu->params);
+		$menu = mosMainFrame::getInstance()->get('menu');
+		$params = new mosParameters($menu->params);
 
-        $page = new Pages();
-        $page->load( $params->get('page_id',0) );
+		$page = new Pages();
+		$page->load( $params->get('page_id',0) );
 
-        mosMainFrame::getInstance()->addMetaTag('description',  $page->meta_description );
-        mosMainFrame::getInstance()->addMetaTag('keywords',  $page->meta_keywords );
-        mosMainFrame::getInstance()->setPageTitle( $page->title_page );
+		mosMainFrame::getInstance()->addMetaTag('description',  $page->meta_description );
+		mosMainFrame::getInstance()->addMetaTag('keywords',  $page->meta_keywords );
+		mosMainFrame::getInstance()->setPageTitle( $page->title_page );
 
-        pagesHTML::index($page);
-    }
+		pagesHTML::index($page);
+
+		// если для текущего действия аквирован счетчик хитов - то обновим его
+		Jhit::$hook['pages::view'] = true;
+		Jhit::allow('pages::view') ? Jhit::add('pages', $page->id, 'view') : null;
+	}
+
+	public static function blog( $option, $id, $page, $task ) {
+		$obj = new Pages;
+		$obj_count = $obj->count( 'WHERE state=1' );
+
+		mosMainFrame::addLib('pager');
+		$pager = new Pager( sefRelToAbs('index.php?option=com_pages&task=blog', true ) , $obj_count, 2, 5, '&larr;', '&rarr;' );
+		$pager->paginate( $page );
+
+		$param = array(
+				'select'=>'id,title',
+				'where'=>'state=1',
+				'offset'=>$pager->offset,
+				'limit'=>$pager->limit,
+				'order'=>'id DESC'
+		);
+		$obj_list = $obj->get_list($param);
+		/*
+				echo $pager->output;
+				echo $pager->defaultCss;
+				echo $pager->components['jump_menu'];
+
+				foreach ($obj_list as $obj) {
+					echo $obj->title.'<br />';
+				}
+		*/
+	}
+
+
 }

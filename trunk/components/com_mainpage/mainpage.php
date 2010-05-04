@@ -9,25 +9,9 @@
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
-
 /*
- * Класс формирования представлений
+* Компонент - главная страница
+* Позволяет использовать 2 типа страниц:
+* 1. Компонент - выбирается любой доступный компонент системы и настройки для него
+* 2. Страница модулей - позволяет расположить конструкцию составленную из произвольных модулей по специально подготовленному макету
 */
-class tagsHTML {
-
-    /**
-     * Страница с результатами поиска по тэгу
-     */
-    public static function tag_search($tag, $search_results_nodes, $pager) {
-        mosMainFrame::addLib( 'text' );
-        mosMainFrame::addLib( 'images' );
-        require_once 'views/results/default.php';
-    }
-    
-    /**
-     * Страница с полным облаком
-     */
-    public static function full_cloud($tags_cloud) {
-        require_once 'views/full_cloud/default.php';
-    }
-}

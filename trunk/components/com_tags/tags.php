@@ -28,21 +28,19 @@ class actionsTags {
 	 */
 	public static function index($option, $page, $task, $tag ) {
 
-		$tag = Jstring::clean(urldecode($tag));
+		$tag = (string) mosGetParam($_GET, 'tag', '');
+		$tag = Jstring::clean( urldecode($tag) );
 
-		// постраничная навигация
-		mosMainFrame::addLib('pager');
+		mosMainFrame::getInstance()->setPageTitle( $tag );
 
-
-		$tags = new joiTags;
-
+		$tags = new Tags;
 		$com_nodes_params = array(
-				'group_name' => 'com_nodes',
-				'group_title' => 'Статьи',
-				'table'=>'node_contents',
+				'group_name' => 'com_pages',
+				'group_title' => 'Cnhfybws',
+				'table'=>'pages',
 				'id'=>'id',
 				'title'=>'title',
-				'text'=>'introtext',
+				'text'=>'text',
 				'date'=>'created_at',
 				'image'=>'',
 				'task'=>'view',
@@ -52,19 +50,16 @@ class actionsTags {
 				'where'=>'',
 				'order'=>'id DESC'
 		);
-
 		$search_results_nodes_count = $tags->search_by_type_count($com_nodes_params, $tag);
 
-		$pager = new DooPager( sefRelToAbs('index.php?:antisuf=true&option=com_joitags&tag='.$tag, true) , $search_results_nodes_count, 10, 15 );
+		// постраничная навигация
+		mosMainFrame::addLib('pager');
+		$pager = new Pager( sefRelToAbs('index.php?option=com_tags&tag='.$tag, true) , $search_results_nodes_count, 10, 15 );
 		$pager->paginate( $page );
-		$lo = explode(',', $pager->limit);
 
-		$search_results_nodes = $tags->search_by_type($com_nodes_params, $tag, $lo[0], $lo[1]);
+		$search_results_nodes = $tags->search_by_type($com_nodes_params, $tag, $pager->offset, $pager->limit );
 
-
-		mosMainFrame::getInstance()->setPageTitle( sprintf('Статьи про %s', $tag)  );
-
-		joiTagsHTML::tag_search($tag, $search_results_nodes, $pager);
+		tagsHTML::tag_search($tag, $search_results_nodes, $pager);
 	}
 
 	/**
@@ -72,15 +67,13 @@ class actionsTags {
 	 */
 	public static function cloud() {
 
-		$tags = new joiTags;
+		$tags = new Tags;
 		$tags->obj_type = 'com_nodes';
 		$tag_arr = $tags->load_by_type();
 
-		$tags_cloud = new joiTagsCloud($tag_arr);
+		$tags_cloud = new tagsCloud($tag_arr);
 		$tags_cloud = $tags_cloud->get_cloud('', 400);
 
-		joiTagsHTML::full_cloud($tags_cloud);
-
+		tagsHTML::full_cloud($tags_cloud);
 	}
-
 }
