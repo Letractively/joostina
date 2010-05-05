@@ -1,5 +1,5 @@
 $(document).ready(function(){
-        
+
 	function load_comments(into){
 		$.get(_live_site + "/ajax.index.php", {
 			option: "com_comments",
@@ -18,27 +18,33 @@ $(document).ready(function(){
 	load_comments('comments');
 
 	$('.comment_button').live('click', function(){
-		$.get(
-			_live_site + "/ajax.index.php?obj_option="+_comments_objoption+"&obj_id="+_comments_objid,
-			$("#comments_addform").serialize(),
-
-			function(data){
+		$.ajax({
+			url: _live_site + "/ajax.index.php",
+			type: 'post',
+			data:{
+				obj_option: _comments_objoption,
+				obj_id: _comments_objid,
+				task : 'add_comment',
+				option: 'com_comments',
+				comment_text: $('#comment_input').val()
+			},
+			dataType: 'json',
+			success: function( data ){
 				if(!data){
 					$.prompt('Что-то пошло не так( Попробуйте оставить комментарий чуть позже');
 					return false;
-				}
-				else if(data.error){
+				}else if(data.error){
 					$.prompt(data.error);
 					return false;
 				}
 				else{
 					load_comments('comments');
 				}
-			},
-			'json'
-			);
-	})
-        
+			}
+		});
+		return false;
+	});
+
 	$('.comments_del').live('click', function(){
 		if(!confirm('Правда-правда?')){
 			return false;
@@ -63,6 +69,3 @@ $(document).ready(function(){
 		return false;
 	})
 });
-
-
-
