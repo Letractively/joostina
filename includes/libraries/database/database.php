@@ -804,10 +804,6 @@ class mosDBTable {
 		$this->_db = $db ? $db : database::getInstance();
 	}
 
-	private function __clone() {
-
-	}
-
 	/**
 	 * Returns an array of public properties
 	 * @return array
@@ -946,6 +942,7 @@ class mosDBTable {
 		$k = $this->_tbl_key;
 
 		if ($this->$k != 0) {
+			// TODO сюда можно добавить "версионность", т.е. сохранять текущие версии объектов перед внесением правок
 			$ret = $this->_db->updateObject($this->_tbl, $this, $this->_tbl_key, $updateNulls);
 		} else {
 			$ret = $this->_db->insertObject($this->_tbl, $this, $this->_tbl_key);
@@ -959,18 +956,15 @@ class mosDBTable {
 		}
 	}
 
-	/**
-	 *	Default delete method
-	 *
-	 *	can be overloaded/supplemented by the child class
-	 *	@return true if successful otherwise returns and error message
-	 */
-	function delete($oid = null) {
+	public function delete($oid = null) {
 		$k = $this->_tbl_key;
 
 		if ($oid) {
 			$this->$k = intval($oid);
 		}
+
+		// активируем "мягкое удаление", т.е. сохраняем копию в корзине
+		_DB_SOFTDELETE ? Jtrash::add( $this ) : null;
 
 		$query = "DELETE FROM $this->_tbl WHERE $this->_tbl_key = " . $this->_db->Quote($this->$k);
 		$this->_db->setQuery($query);
@@ -983,7 +977,8 @@ class mosDBTable {
 		}
 	}
 
-	function delete_array($oid = array(), $key = false, $table = false) {
+	// TODO добавить "мягкое удаление"
+	public function delete_array($oid = array(), $key = false, $table = false) {
 		$key = $key ? $key : $this->_tbl_key;
 		$table = $table ? $table : $this->_tbl;
 
@@ -997,7 +992,7 @@ class mosDBTable {
 		}
 	}
 
-	function save($source, $order_filter = '') {
+	public function save($source, $order_filter = '') {
 		if (!$this->bind($source)) {
 			return false;
 		}
