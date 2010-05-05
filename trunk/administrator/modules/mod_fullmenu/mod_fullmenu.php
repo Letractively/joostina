@@ -225,15 +225,7 @@ _cmSplit,
 [null,'<?php echo _MOD_FULLMENU_TOOLS?>',null,null,'<?php echo _MOD_FULLMENU_TOOLS?>',
 		<?php if($canConfig) { ?>
 ['<img src="<?php echo $cur_file_icons_path ?>finder.png" />','<?php echo _COM_FILES?>','index2.php?option=com_finder',null,'<?php echo _COM_FILES?>'],
-_cmSplit,
-['<img src="<?php echo $cur_file_icons_path ?>checkin.png" />', '<?php echo _GLOBAL_CHECKIN?>', 'index2.php?option=com_checkin', null,'<?php echo _GLOBAL_CHECKIN?>'],
-['<img src="<?php echo $cur_file_icons_path ?>checkin.png" />', '<?php echo _BLOCKED_OBJECTS?>', 'index2.php?option=com_checkin&task=mycheckin', null,'<?php echo _BLOCKED_OBJECTS?>'],
-_cmSplit,
-['<img src="<?php echo $cur_file_icons_path ?>jbackup.png" />','<?php echo _MOD_FULLMENU_JP_BACKUP_MANAGEMENT?>','index2.php?option=com_joomlapack',null,'<?php echo _MOD_FULLMENU_JP_BACKUP_MANAGEMENT?>',
-['<img src="<?php echo $cur_file_icons_path ?>jbackup.png" />','<?php echo _MOD_FULLMENU_JP_CREATE_BACKUP?>','index2.php?option=com_joomlapack&act=pack&hidemainmenu=1',null,'<?php echo _MOD_FULLMENU_JP_CREATE_BACKUP?>'],
-['<img src="<?php echo $cur_file_icons_path ?>db.png" />','<?php echo _MOD_FULLMENU_DB_MANAGEMENT?>','index2.php?option=com_joomlapack&act=db',null,'<?php echo _MOD_FULLMENU_DB_MANAGEMENT?>'],
-['<img src="<?php echo $cur_file_icons_path ?>config.png" />','<?php echo _MOD_FULLMENU_BACKUP_CONFIG?>','index2.php?option=com_joomlapack&act=config',null,'<?php echo _MOD_FULLMENU_BACKUP_CONFIG?>']],
-			<?php } ?>
+		<?php } ?>
 		<?php if($config->config_caching == 1) { ?>
 			<?php if($config->config_cache_handler == 'file') { ?>
 		['<img src="<?php echo $cur_file_icons_path ?>config.png" />','<?php echo _CACHE_MANAGEMENT?>','index2.php?option=com_cache',null,'<?php echo _CACHE_MANAGEMENT?>'],

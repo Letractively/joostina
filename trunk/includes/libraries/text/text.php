@@ -339,4 +339,21 @@ class Text {
 		return htmlspecialchars($text,null,'UTF-8');
 	}
 
+	public static function month_name($month) {
+		$all_month = array(
+				1=>_JAN,
+				2=>_FEB,
+				3=>_MAR,
+				4=>_APR,
+				5=>_MAY,
+				6=>_JUN,
+				7=>_JUL,
+				8=>_AUG,
+				9=>_SEP,
+				10=>_OCT,
+				11=>_NOV,
+				12=>_DEC
+		);
+		return $all_month[$month];
+	}
 }
