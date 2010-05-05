@@ -570,6 +570,25 @@ INSERT INTO `#__template_positions` (`id`, `position`, `description`) VALUES
 (26, 'icon', ''),
 (27, 'debug', '');
 
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `#__trash`
+--
+
+CREATE TABLE IF NOT EXISTS `#__trash` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `obj_id` int(11) unsigned NOT NULL,
+  `obj_table` varchar(50) NOT NULL,
+  `title` varchar(250) NOT NULL,
+  `data` longtext NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `deleted_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ;
+
+
 -- --------------------------------------------------------
 
 --
