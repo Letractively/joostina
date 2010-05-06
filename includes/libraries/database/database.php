@@ -846,7 +846,7 @@ class mosDBTable {
 		if ($oid !== null) {
 			$this->$k = $oid;
 		}
-		
+
 		$oid = $this->$k;
 
 		if ($oid === null) {
@@ -940,6 +940,16 @@ class mosDBTable {
 	public function delete_array($oid = array(), $key = false, $table = false) {
 		$key = $key ? $key : $this->_tbl_key;
 		$table = $table ? $table : $this->_tbl;
+
+		if (_DB_SOFTDELETE) {
+			$obj = clone $this;
+			foreach ($oid as $cur_id) {
+				$obj->load( $cur_id );
+				Jtrash::add( $obj );
+				$obj->reset();
+			}
+			unset( $obj );
+		}
 
 		$query = "DELETE FROM $table WHERE $key IN (" . implode(',', $oid) . ')';
 
