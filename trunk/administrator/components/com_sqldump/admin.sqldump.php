@@ -47,9 +47,9 @@ class actionsSqldump {
 			$result = mysql_query('SELECT * FROM '.$table);
 			$num_fields = mysql_num_fields($result);
 
-			$return.= 'DROP TABLE '.$table.';';
+			$return.= 'DROP TABLE IF EXISTS '.$table.';';
 			$row2 = mysql_fetch_row(mysql_query('SHOW CREATE TABLE '.$table));
-			$return.= "\n\n".$row2[1].";\n\n";
+			$return.= "\n".$row2[1].";\n";
 
 			for ($i = 0; $i < $num_fields; $i++) {
 				while($row = mysql_fetch_row($result)) {
@@ -69,7 +69,7 @@ class actionsSqldump {
 					$return.= ");\n";
 				}
 			}
-			$return.="\n\n\n";
+			$return.="\n\n";
 		}
 
 		$file = 'backups/db-backup-'.time().'-'.(md5(implode(',',$tables))).'.sql';

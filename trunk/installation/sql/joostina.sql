@@ -1,40 +1,3 @@
--- --------------------------------------------------------
-
---
--- Структура таблицы `#__categories`
---
-
-CREATE TABLE IF NOT EXISTS `#__categories` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `parent_id` int(11) NOT NULL DEFAULT '0',
-  `title` varchar(50) NOT NULL DEFAULT '',
-  `name` varchar(255) NOT NULL DEFAULT '',
-  `image` varchar(100) NOT NULL DEFAULT '',
-  `section` varchar(50) NOT NULL DEFAULT '',
-  `image_position` varchar(10) NOT NULL DEFAULT '',
-  `description` text,
-  `published` tinyint(1) NOT NULL DEFAULT '0',
-  `checked_out` int(11) unsigned NOT NULL DEFAULT '0',
-  `checked_out_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `editor` varchar(50) DEFAULT NULL,
-  `ordering` int(11) NOT NULL DEFAULT '0',
-  `access` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  `count` int(11) NOT NULL DEFAULT '0',
-  `params` text,
-  `templates` text,
-  PRIMARY KEY (`id`),
-  KEY `cat_idx` (`section`,`published`,`access`),
-  KEY `idx_access` (`access`),
-  KEY `idx_checkout` (`checked_out`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Дамп данных таблицы `#__categories`
---
-
-
--- --------------------------------------------------------
-
 --
 -- Структура таблицы `#__comments`
 --
@@ -53,10 +16,30 @@ CREATE TABLE IF NOT EXISTS `#__comments` (
   PRIMARY KEY (`id`),
   KEY `obj_id` (`obj_id`,`obj_option`),
   KEY `state` (`state`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Дамп данных таблицы `#__comments`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `#__comments_counter`
+--
+
+CREATE TABLE IF NOT EXISTS `#__comments_counter` (
+  `obj_id` int(11) unsigned NOT NULL,
+  `obj_option` varchar(30) NOT NULL,
+  `last_user_id` int(11) unsigned NOT NULL,
+  `last_comment_id` int(11) unsigned NOT NULL,
+  `counter` int(11) unsigned NOT NULL,
+  UNIQUE KEY `obj_id` (`obj_id`,`obj_option`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `#__comments_counter`
 --
 
 
@@ -80,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `#__components` (
   `iscore` tinyint(4) NOT NULL DEFAULT '0',
   `params` text,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Дамп данных таблицы `#__components`
@@ -104,7 +87,7 @@ CREATE TABLE IF NOT EXISTS `#__config` (
   `value` text,
   PRIMARY KEY (`id`),
   KEY `name` (`name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Дамп данных таблицы `#__config`
@@ -128,7 +111,7 @@ CREATE TABLE IF NOT EXISTS `#__core_acl_aro` (
   UNIQUE KEY `value` (`value`),
   UNIQUE KEY `gacl_section_value_value_aro` (`section_value`(100),`value`(100)),
   KEY `gacl_hidden_aro` (`hidden`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Дамп данных таблицы `#__core_acl_aro`
@@ -150,7 +133,7 @@ CREATE TABLE IF NOT EXISTS `#__core_acl_aro_groups` (
   PRIMARY KEY (`group_id`),
   KEY `#__gacl_parent_id_aro_groups` (`parent_id`),
   KEY `#__gacl_lft_rgt_aro_groups` (`lft`,`rgt`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=31 ;
 
 --
 -- Дамп данных таблицы `#__core_acl_aro_groups`
@@ -184,7 +167,7 @@ CREATE TABLE IF NOT EXISTS `#__core_acl_aro_sections` (
   PRIMARY KEY (`section_id`),
   UNIQUE KEY `value_aro_sections` (`value`),
   KEY `hidden_aro_sections` (`hidden`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Дамп данных таблицы `#__core_acl_aro_sections`
@@ -245,14 +228,12 @@ CREATE TABLE IF NOT EXISTS `#__hits` (
   `hit` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `obj_id` (`obj_id`,`obj_option`,`obj_task`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Дамп данных таблицы `#__hits`
 --
 
-INSERT INTO `#__hits` (`id`, `obj_id`, `obj_option`, `obj_task`, `hit`) VALUES
-(1, 1, 'pages', 'view', 3);
 
 -- --------------------------------------------------------
 
@@ -275,7 +256,7 @@ CREATE TABLE IF NOT EXISTS `#__mambots` (
   `params` text,
   PRIMARY KEY (`id`),
   KEY `idx_folder` (`published`,`client_id`,`access`,`folder`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Дамп данных таблицы `#__mambots`
@@ -310,14 +291,14 @@ CREATE TABLE IF NOT EXISTS `#__menu` (
   PRIMARY KEY (`id`),
   KEY `componentid` (`componentid`,`menutype`,`published`,`access`),
   KEY `menutype` (`menutype`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Дамп данных таблицы `#__menu`
 --
 
 INSERT INTO `#__menu` (`id`, `menutype`, `name`, `link_title`, `link`, `type`, `published`, `parent`, `componentid`, `sublevel`, `ordering`, `checked_out`, `checked_out_time`, `pollid`, `browserNav`, `access`, `utaccess`, `params`) VALUES
-(1, 'mainmenu', 'Главная', 'Главнее не бывает', 'index.php?option=com_pages', 'components', 1, 0, 1, 0, 9999, 0, '0000-00-00 00:00:00', 0, 0, 0, 0, '{ "page_id": "1" }');
+(1, 'mainmenu', 'Главная', 'Главнее не бывает', 'index.php?option=com_pages', 'components', 1, 0, 1, 0, 9999, 0, '0000-00-00 00:00:00', 0, 0, 0, 0, '{ "page_id": "7" }');
 
 -- --------------------------------------------------------
 
@@ -345,7 +326,7 @@ CREATE TABLE IF NOT EXISTS `#__modules` (
   PRIMARY KEY (`id`),
   KEY `published` (`published`,`access`),
   KEY `newsfeeds` (`module`,`published`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=31 ;
 
 --
 -- Дамп данных таблицы `#__modules`
@@ -360,7 +341,7 @@ INSERT INTO `#__modules` (`id`, `title`, `content`, `ordering`, `position`, `che
 (27, 'Путь', '', 1, 'pathway', 0, '0000-00-00 00:00:00', 1, 'mod_pathway', 0, 99, 1, '', 0, 1, 0),
 (28, 'Панель инструментов', '', 1, 'toolbar', 0, '0000-00-00 00:00:00', 1, 'mod_toolbar', 0, 99, 1, '', 0, 1, 0),
 (29, 'Системные сообщения', '', 1, 'inset', 0, '0000-00-00 00:00:00', 1, 'mod_mosmsg', 0, 99, 1, '', 0, 1, 0),
-(30, 'Кнопки быстрого доступа', '', 2, 'icon', 0, '0000-00-00 00:00:00', 1, 'mod_quickicons', 0, 99, 1, '', 0, 1, 0);
+(30, 'Кнопки быстрого доступа', '', 1, 'icon', 0, '0000-00-00 00:00:00', 1, 'mod_quickicons', 0, 99, 1, '{ "use_cache": "1", "use_ext": "0" }', 0, 1, 604800);
 
 -- --------------------------------------------------------
 
@@ -417,14 +398,12 @@ CREATE TABLE IF NOT EXISTS `#__pages` (
   `state` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `state` (`state`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- Дамп данных таблицы `#__pages`
 --
 
-INSERT INTO `#__pages` (`id`, `title`, `title_page`, `slug`, `text`, `meta_keywords`, `meta_description`, `created_at`, `state`) VALUES
-(1, 'Тыц тыц 2342', '', '', 'Ога ога', '', '', '2010-05-01 04:59:17', 1);
 
 -- --------------------------------------------------------
 
@@ -445,17 +424,17 @@ CREATE TABLE IF NOT EXISTS `#__quickicons` (
   `access` int(11) unsigned NOT NULL DEFAULT '0',
   `gid` int(3) DEFAULT '25',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
 
 --
 -- Дамп данных таблицы `#__quickicons`
 --
 
 INSERT INTO `#__quickicons` (`id`, `text`, `target`, `icon`, `ordering`, `new_window`, `published`, `title`, `display`, `access`, `gid`) VALUES
-(14, 'Категории', 'index2.php?option=com_categories&section=content', '/administrator/images/quickicons/USB-Connection.png', 5, 0, 1, 'Управление категориями', 0, 0, 0),
-(15, 'Редактор меню', 'index2.php?option=com_menumanager', '/administrator/images/quickicons/Photo-Settings.png', 9, 0, 1, 'Управление объектами меню', 0, 0, 24),
-(16, 'Пользователи', 'index2.php?option=com_users', '/administrator/images/quickicons/Power-Save-Settings.png', 10, 0, 1, 'Управление пользователями', 0, 0, 24),
-(19, 'Странички', 'index2.php?option=com_pages', '/administrator/images/quickicons/Online-Instruction-Manuals.png', 0, 0, 1, '', 0, 0, 25);
+(1, 'Комментарии', 'index2.php?option=com_comments', '/administrator/images/quickicons/USB-Connection.png', 5, 0, 1, 'Управление комментариями', 0, 0, 0),
+(2, 'Редактор меню', 'index2.php?option=com_menumanager', '/administrator/images/quickicons/Photo-Settings.png', 9, 0, 1, 'Управление объектами меню', 0, 0, 24),
+(3, 'Пользователи', 'index2.php?option=com_users', '/administrator/images/quickicons/Power-Save-Settings.png', 10, 0, 1, 'Управление пользователями', 0, 0, 24),
+(4, 'Странички', 'index2.php?option=com_pages', '/administrator/images/quickicons/Online-Instruction-Manuals.png', 0, 0, 1, '', 0, 0, 25);
 
 -- --------------------------------------------------------
 
@@ -496,7 +475,7 @@ CREATE TABLE IF NOT EXISTS `#__tags` (
   PRIMARY KEY (`id`),
   KEY `obj_id` (`obj_id`,`obj_option`),
   KEY `tag_text` (`tag`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 --
 -- Дамп данных таблицы `#__tags`
@@ -535,7 +514,7 @@ CREATE TABLE IF NOT EXISTS `#__template_positions` (
   `position` varchar(10) NOT NULL DEFAULT '',
   `description` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=28 ;
 
 --
 -- Дамп данных таблицы `#__template_positions`
@@ -570,7 +549,6 @@ INSERT INTO `#__template_positions` (`id`, `position`, `description`) VALUES
 (26, 'icon', ''),
 (27, 'debug', '');
 
-
 -- --------------------------------------------------------
 
 --
@@ -586,7 +564,11 @@ CREATE TABLE IF NOT EXISTS `#__trash` (
   `user_id` int(11) NOT NULL,
   `deleted_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- Дамп данных таблицы `#__trash`
+--
 
 
 -- --------------------------------------------------------
@@ -617,7 +599,7 @@ CREATE TABLE IF NOT EXISTS `#__users` (
   KEY `idxemail` (`email`),
   KEY `block_id` (`block`,`id`),
   KEY `username` (`username`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Дамп данных таблицы `#__users`
