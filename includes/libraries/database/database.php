@@ -774,16 +774,6 @@ class UtulsDB extends database {
 	}
 }
 
-/**
- * mosDBTable Abstract Class.
- * @abstract
- * @package Joostina
- * @subpackage Database
- *
- * Parent classes to all database derived objects.  Customisation will generally
- * not involve tampering with this object.
- * @author Andrew Eddie <eddieajau@users.sourceforge.net
- */
 class mosDBTable {
 
 	public $_tbl;
@@ -791,24 +781,13 @@ class mosDBTable {
 	public $_error;
 	public $_db;
 
-	/**
-	 *	Object constructor to set table and key field
-	 *
-	 *	Can be overloaded/supplemented by the child class
-	 *	@param string $table name of the table in the db schema relating to child class
-	 *	@param string $key name of the primary key field in the table
-	 */
-	function mosDBTable($table, $key, $db = null) {
+	public function  mosDBTable($table, $key, $db = null) {
 		$this->_tbl = $table;
 		$this->_tbl_key = $key;
 		$this->_db = $db ? $db : database::getInstance();
 	}
 
-	/**
-	 * Returns an array of public properties
-	 * @return array
-	 */
-	function getPublicProperties() {
+	public function getPublicProperties() {
 		static $cache = null;
 		if (is_null($cache)) {
 			$cache = array();
@@ -821,12 +800,7 @@ class mosDBTable {
 		return $cache;
 	}
 
-	/**
-	 * Filters public properties
-	 * @access protected
-	 * @param array List of fields to ignore
-	 */
-	function filter($ignoreList = null) {
+	public function filter($ignoreList = null) {
 		$ignore = is_array($ignoreList);
 
 		$iFilter = InputFilter::getInstance();
@@ -838,49 +812,25 @@ class mosDBTable {
 		}
 	}
 
-	/**
-	 *	@return string Returns the error message
-	 */
-	function getError() {
+	public function getError() {
 		return $this->_error;
 	}
 
-	/**
-	 * Gets the value of the class variable
-	 * @param string The name of the class variable
-	 * @return mixed The value of the class var (or null if no var of that name exists)
-	 */
-	function get($_property) {
+	public function get($_property) {
 		return isset($this->$_property) ? $this->$_property : null;
 	}
 
-	/**
-	 * Set the value of the class variable
-	 * @param string The name of the class variable
-	 * @param mixed The value to assign to the variable
-	 */
-	function set($_property, $_value) {
+	public function set($_property, $_value) {
 		$this->$_property = $_value;
 	}
 
-	/**
-	 * Resets public properties
-	 * @param mixed The value to set all properties to, default is null
-	 */
-	function reset($value = null) {
+	public function reset($value = null) {
 		$keys = $this->getPublicProperties();
 		foreach ($keys as $k) {
 			$this->$k = $value;
 		}
 	}
 
-	/**
-	 *	binds a named array/hash to this object
-	 *
-	 *	can be overloaded/supplemented by the child class
-	 *	@param array $hash named array
-	 *	@return null|string	null is operation was satisfactory, otherwise returns an error
-	 */
 	function bind($array, $ignore = '') {
 		if (!is_array($array)) {
 			$this->_error = strtolower(get_class($this)) . '::ошибка выполнения bind.';
@@ -890,62 +840,45 @@ class mosDBTable {
 		}
 	}
 
-	/**
-	 *	binds an array/hash to this object
-	 *	@param int $oid optional argument, if not specifed then the value of current key is used
-	 *	@return any result from the database operation
-	 */
 	function load($oid = null) {
 		$k = $this->_tbl_key;
 
 		if ($oid !== null) {
 			$this->$k = $oid;
 		}
-
+		
 		$oid = $this->$k;
 
 		if ($oid === null) {
 			return false;
 		}
-
+		/*
+ * // TODO это зачем?
 		$class_vars = get_class_vars(get_class($this));
 		foreach ($class_vars as $name => $value) {
 			if (($name != $k) and ($name != '_db') and ($name != '_tbl') and ($name != '_tbl_key')) {
 				$this->$name = $value;
 			}
 		}
-
 		$this->reset();
+		*/
 
 		$query = 'SELECT * FROM ' . $this->_tbl . ' WHERE ' . $this->_tbl_key . ' = ' . $this->_db->Quote($oid);
 		return $this->_db->setQuery($query)->loadObject($this);
 	}
 
-	/**
-	 *	generic check method
-	 *
-	 *	can be overloaded/supplemented by the child class
-	 *	@return boolean True if the object is ok
-	 */
-	public function check() {
-		return true;
-	}
-
-	/**
-	 * Inserts a new row if id is zero or updates an existing row in the database table
-	 *
-	 * Can be overloaded/supplemented by the child class
-	 * @param boolean If false, null object variables are not updated
-	 * @return null|string null if successful otherwise returns and error message
-	 */
 	public function store($updateNulls = false) {
 		$k = $this->_tbl_key;
+
+		$this->before_store();
 
 		if ($this->$k != 0) {
 			// TODO сюда можно добавить "версионность", т.е. сохранять текущие версии объектов перед внесением правок
 			$ret = $this->_db->updateObject($this->_tbl, $this, $this->_tbl_key, $updateNulls);
+			$this->after_update();
 		} else {
 			$ret = $this->_db->insertObject($this->_tbl, $this, $this->_tbl_key);
+			$this->after_insert();
 		}
 
 		if (!$ret) {
@@ -956,12 +889,38 @@ class mosDBTable {
 		}
 	}
 
+	public function check() {
+		return true;
+	}
+
+	public function after_update() {
+		return true;
+	}
+
+	public function after_insert() {
+		return true;
+	}
+
+	public function after_store() {
+		return true;
+	}
+
+	public function before_store() {
+		return true;
+	}
+
+	public function before_delete() {
+		return true;
+	}
+
 	public function delete($oid = null) {
 		$k = $this->_tbl_key;
 
 		if ($oid) {
 			$this->$k = intval($oid);
 		}
+
+		$this->before_delete();
 
 		// активируем "мягкое удаление", т.е. сохраняем копию в корзине
 		_DB_SOFTDELETE ? Jtrash::add( $this ) : null;
@@ -992,14 +951,14 @@ class mosDBTable {
 		}
 	}
 
-	public function save($source, $order_filter = '') {
-		if (!$this->bind($source)) {
+	public function save($source = false, $order_filter = '') {
+		if ( $source && !$this->bind($source,$order_filter)) {
 			return false;
 		}
-		if (!$this->check()) {
+		if ( !$this->check() ) {
 			return false;
 		}
-		if (!$this->store()) {
+		if ( !$this->store() ) {
 			return false;
 		}
 
@@ -1024,27 +983,13 @@ class mosDBTable {
 
 		$query = "UPDATE $this->_tbl SET published = " . (int) $publish . " WHERE ($cids)";
 
-		if (!$this->_db->setQuery($query)->query()) {
+		if ( !$this->_db->setQuery($query)->query()) {
 			$this->_error = $this->_db->getErrorMsg();
 			return false;
 		}
 
 		$this->_error = '';
 		return true;
-	}
-
-	function checkout($user_id, $oid = null) {
-		jd_log( 'error::mosDBTable::checkin' );
-		return true;
-	}
-
-	function checkin($oid = null) {
-		jd_log( 'error::mosDBTable::checkin' );
-		return true;
-	}
-
-	function hit($oid = null) {
-		jd_log( 'error::mosDBTable::hit' );
 	}
 
 	function move($dirn, $where = '') {
@@ -1101,10 +1046,6 @@ class mosDBTable {
 		}
 	}
 
-	/**
-	 * Compacts the ordering sequence of the selected records
-	 * @param string Additional where query to limit ordering to a particular subset of records. This is expected to be a valid (and safe!) SQL expression
-	 */
 	function updateOrder($where = '') {
 		$k = $this->_tbl_key;
 
@@ -1113,19 +1054,13 @@ class mosDBTable {
 			return false;
 		}
 
-		if ($this->_tbl == "#__content_frontpage") {
-			$order2 = ", content_id DESC";
-		} else {
-			$order2 = '';
-		}
-
-		$query = "SELECT $this->_tbl_key, ordering" . "\n FROM $this->_tbl" . ($where ? "\n WHERE $where" : '') . "\n ORDER BY ordering$order2 ";
+		$query = "SELECT $this->_tbl_key, ordering" . "\n FROM $this->_tbl" . ($where ? "\n WHERE $where" : '') . "\n ORDER BY ordering";
 		$this->_db->setQuery($query);
 		if (!($orders = $this->_db->loadObjectList())) {
 			$this->_error = $this->_db->getErrorMsg();
 			return false;
 		}
-		// first pass, compact the ordering numbers
+
 		for ($i = 0, $n = count($orders); $i < $n; $i++) {
 			if ($orders[$i]->ordering >= 0) {
 				$orders[$i]->ordering = $i + 1;
@@ -1136,7 +1071,6 @@ class mosDBTable {
 		$n = count($orders);
 		for ($i = 0; $i < $n; $i++) {
 			if ($orders[$i]->$k == $this->$k) {
-				// place 'this' record in the desired location
 				$orders[$i]->ordering = min($this->ordering, $n);
 				$shift = 1;
 			} else
@@ -1145,7 +1079,6 @@ class mosDBTable {
 			}
 		}
 
-		// compact once more until I can find a better algorithm
 		for ($i = 0, $n = count($orders); $i < $n; $i++) {
 			if ($orders[$i]->ordering >= 0) {
 				$orders[$i]->ordering = $i + 1;
@@ -1154,7 +1087,6 @@ class mosDBTable {
 			}
 		}
 
-		// if we didn't reorder the current record, make it last
 		if ($shift == 0) {
 			$order = $n + 1;
 			$query = "UPDATE $this->_tbl" . "\n SET ordering = " . (int) $order . "\n WHERE $k = " . $this->_db->Quote($this->$k);
@@ -1163,17 +1095,8 @@ class mosDBTable {
 		return true;
 	}
 
-	/**
-	 * Tests if item is checked out
-	 * @param int A user id
-	 * @return boolean
-	 */
-	function isCheckedOut($user_id = 0) {
-		return true;
-	}
-
 //  число записей в таблице по условию
-	public function count($where = '') {
+	public function count( $where = '' ) {
 		$sql = "SELECT count(*) FROM $this->_tbl " . $where;
 		return $this->_db->setQuery($sql)->loadResult();
 	}

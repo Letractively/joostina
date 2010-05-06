@@ -28,11 +28,7 @@ class separator_menu {
 			mosErrorAlert($menu->title." "._MODULE_IS_EDITING_MY_ADMIN);
 		}
 
-		if($uid) {
-			// do stuff for existing item
-			$menu->checkout($my->id);
-
-		} else {
+		if(!$uid){
 			// do stuff for new item
 			$menu->type = 'separator';
 			$menu->menutype = $menutype;

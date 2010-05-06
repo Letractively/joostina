@@ -28,9 +28,7 @@ class url_menu {
 			mosErrorAlert($menu->title." "._MODULE_IS_EDITING_MY_ADMIN);
 		}
 
-		if($uid) {
-			$menu->checkout($my->id);
-		} else {
+		if( !$uid){
 			$menu->type = 'url';
 			$menu->menutype = $menutype;
 			$menu->browserNav = 0;

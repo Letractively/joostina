@@ -10,6 +10,7 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
+$search_ignore = array();
 $search_ignore[] = "в";
 $search_ignore[] = "на";
 $search_ignore[] = "и";

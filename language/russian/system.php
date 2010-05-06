@@ -553,3 +553,5 @@ DEFINE('_SQL_CONSOLE','SQL консоль');
 DEFINE('_XMAP_MSG_NO_SITEMAP', 'Данная карта недоступна');
 DEFINE('_CACHE_MANAGEMENT', 'Управление кешем');
 DEFINE('_COM_FILES', 'Файловый менеджер');
+
+DEFINE('_GUEST_USER','Гость');

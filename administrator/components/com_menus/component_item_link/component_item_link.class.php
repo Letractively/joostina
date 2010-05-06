@@ -1,20 +1,20 @@
 <?php
 /**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2010 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2010 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 /**
-* Component item link class
-* @package Joostina
-* @subpackage Menus
-*/
+ * Component item link class
+ * @package Joostina
+ * @subpackage Menus
+ */
 class component_item_link_menu {
 
 	function edit(&$uid,$menutype,$option,$menu) {
@@ -24,18 +24,15 @@ class component_item_link_menu {
 		if($menu->checked_out && $menu->checked_out != $my->id) {
 			mosErrorAlert($menu->title." "._MODULE_IS_EDITING_MY_ADMIN);
 		}
-
-		if($uid) {
-			$menu->checkout($my->id);
-		} else {
-			// load values for new entry
-			$menu->type = 'component_item_link';
-			$menu->menutype = $menutype;
-			$menu->browserNav = 0;
-			$menu->ordering = 9999;
-			$menu->parent = intval(mosGetParam($_POST,'parent',0));
-			$menu->published = 1;
-		}
+		
+		if( !$uid) {
+		// load values for new entry
+		$menu->type = 'component_item_link';
+		$menu->menutype = $menutype;
+		$menu->browserNav = 0;
+		$menu->ordering = 9999;
+		$menu->parent = intval(mosGetParam($_POST,'parent',0));
+		$menu->published = 1;
 
 		if($uid) {
 			$temp = explode('&Itemid=',$menu->link);
@@ -46,8 +43,8 @@ class component_item_link_menu {
 			$lists['components'] .= '<input type="hidden" name="link" value="'.$menu->link.'" />';
 		} else {
 			$query = "SELECT CONCAT( a.link, '&amp;Itemid=', a.id ) AS value, a.name AS text".
-				"\n FROM #__menu AS a"."\n WHERE a.published = 1"."\n AND a.type = 'components'".
-				"\n ORDER BY a.menutype, a.name";
+					"\n FROM #__menu AS a"."\n WHERE a.published = 1"."\n AND a.type = 'components'".
+					"\n ORDER BY a.menutype, a.name";
 			$database->setQuery($query);
 			$components = $database->loadObjectList();
 
@@ -71,7 +68,7 @@ class component_item_link_menu {
 
 		// get params definitions
 		$params = new mosParameters($menu->params,$mainframe->getPath('menu_xml',$menu->type),
-			'menu');
+				'menu');
 
 		component_item_link_menu_html::edit($menu,$lists,$params,$option);
 	}
