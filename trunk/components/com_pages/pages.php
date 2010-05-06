@@ -66,4 +66,15 @@ class actionsPages {
 	}
 
 
+	public static function cache(){
+
+		mosMainFrame::addLib('doocache');
+
+		$cache = doocache::cache();
+
+
+		echo 5555;
+
+	}
+
 }
