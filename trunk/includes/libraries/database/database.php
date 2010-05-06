@@ -787,8 +787,38 @@ class mosDBTable {
 		$this->_db = $db ? $db : database::getInstance();
 	}
 
+	/**
+	 * Магический метод восстановления объекта
+	 * Используется при прямом кэшировании модели
+	 * @param array $values - массив значений востановленного объекта
+	 * @return stdClass восстановленный объект модели
+	 */
+	public static function __set_state( array $values ) {
+		// формируем объект по сохранённым параметрам
+		$obj = new  $values['__obj_name']( $values['_tbl'], $values['_tbl_key'] );
+		// заполняем сохранёнными параметрами настоящие поля модели
+		$obj->bind( $values );
+
+		return $obj;
+	}
+
+	/**
+	 * Подготовка модели к кэшированию
+	 * @return stdClass подготовленный к кэшированию объект
+	 */
+	public function tocache() {
+		$obj = clone $this;
+		// удаляем ненужную ссылку на ресурс базы данных и стек ошибок
+		unset( $obj->_db, $obj->_error );
+		// сохраняем оригинальное название модели
+		$obj->__obj_name = get_class( $obj );
+
+		return $obj;
+	}
+
 	public function getPublicProperties() {
 		static $cache = null;
+
 		if (is_null($cache)) {
 			$cache = array();
 			foreach (get_class_vars(get_class($this)) as $key => $val) {
@@ -797,6 +827,7 @@ class mosDBTable {
 				}
 			}
 		}
+
 		return $cache;
 	}
 
@@ -833,7 +864,7 @@ class mosDBTable {
 
 	function bind($array, $ignore = '') {
 		if (!is_array($array)) {
-			$this->_error = strtolower(get_class($this)) . '::ошибка выполнения bind.';
+			$this->_error = strtolower(get_class($this)) . '::bind - error';
 			return false;
 		} else {
 			return mosBindArrayToObject($array, $this, $ignore);
@@ -889,28 +920,42 @@ class mosDBTable {
 		}
 	}
 
+	/**
+	 * Переопределяемая функция проверки правильности заполнения полей модели
+	 * @return boolean результат проверки
+	 */
 	public function check() {
 		return true;
 	}
 
+	/**
+	 * Метод выполняемый после обновления значений модели
+	 */
 	public function after_update() {
-		return true;
 	}
 
+	/**
+	 * Метод выполняемый после вставки значений модели
+	 */
 	public function after_insert() {
-		return true;
 	}
 
+	/**
+	 * Метод выполняемый после полного сохранения данных модели ( вставка / обновление )
+	 */
 	public function after_store() {
-		return true;
 	}
 
+	/**
+	 * Метод выполняемый до сохранения значений модели ( вставка / обновление )
+	 */
 	public function before_store() {
-		return true;
 	}
-
+	
+	/**
+	 * Метод выполняемый после удаления конкретной записи модели
+	 */
 	public function before_delete() {
-		return true;
 	}
 
 	public function delete($oid = null) {

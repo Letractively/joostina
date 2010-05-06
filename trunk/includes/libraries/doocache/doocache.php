@@ -17,10 +17,17 @@ defined('_VALID_MOS') or die();
  * @copyright Copyright &copy; 2009 Leng Sheng Hong
  * @license http://www.doophp.com/license
 */
-class doocache {
+class Doo {
 
+	protected static $_conf;
 	protected static $_cache;
 
+	public static function conf() {
+		if(self::$_conf===NULL) {
+			self::$_conf = new DooConfig;
+		}
+		return self::$_conf;
+	}
 	/**
 	 * @param string $cacheType Cache type: file, php, front, apc, memcache, xcache, eaccelerator. Default is file based cache.
 	 * @return DooFileCache|DooPhpCache|DooFrontCache|DooApcCache|DooMemCache|DooXCache|DooEAcceleratorCache file/php/apc/memcache/xcache/eaccelerator & frontend caching tool, singleton, auto create if the singleton has not been created yet.
@@ -88,24 +95,37 @@ class doocache {
 		require_once JPATH_BASE.DS.'includes'.DS.'libraries'.DS.'doocache'.DS.$name.'.php';
 	}
 
-}
 
-class Doo {
-
-	protected static $_conf;
-
-	public static function conf() {
-		if(self::$_conf===NULL) {
-			self::$_conf = new DooConfig;
-		}
-		return self::$_conf;
-	}
 
 }
 
 class DooConfig {
 	public $SITE_PATH;
 	public $BASE_PATH;
-	public $PROTECTED_FOLDER = 'protected/';
+	public $PROTECTED_FOLDER;
 	public $SUBFOLDER;
+	public $CACHE_PATH;
+
+	/**
+	 * Settings for Memcache servers, defined in arrays: array(host, port, persistent, weight)
+	 * <code>
+	 * // host, port, persistent, weight
+	 * $config['MEMCACHE'] = array(
+	 *                       array('192.168.1.31', '11211', true, 40),
+	 *                       array('192.168.1.23', '11211', true, 80)
+	 *                     );
+	 * </code>
+	 * @var array
+	 */
+	public $MEMCACHE;
+
+	public function  __construct() {
+		$config = JConfig::getInstance();
+
+		$this->CACHE_PATH = $config->config_cachepath.DS;
+		$this->SITE_PATH = JPATH_SITE;
+		$this->BASE_PATH = JPATH_BASE;
+		$this->PROTECTED_FOLDER = '';
+	}
+
 }
