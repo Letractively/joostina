@@ -18,6 +18,6 @@ class pagesHTML {
 
 		require_once mosMainFrame::getInstance()->getPath('class','com_comments');
 		$comments = new Comments;
-		echo '<div class="comments">'.$comments->load_comments('com_pages_view', $page->id, 5, 5).'</div>';
+		echo '<div class="comments">'.$comments->load_comments($page, 5, 5).'</div>';
 	}
 }

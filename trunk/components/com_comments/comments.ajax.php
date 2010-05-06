@@ -87,12 +87,13 @@ class actionsComments {
 
 		$comment_arr = array();
 
+/*
 		if( !$my->id ) {
 			$comment_arr['error'] = '<div>Комментарии могут оставлять только авторизованные пользователи</div>';
 			echo json_encode($comment_arr);
 			return false;
 		}
-
+*/
 		mosMainFrame::addLib( 'text' );
 
 		$comment = new Comments;
@@ -101,6 +102,7 @@ class actionsComments {
 		$comment->comment_text = mosGetParam($_POST, 'comment_text', '');
 		$comment->comment_text = Text::word_limiter( Text::strip_tags_smart( $comment->comment_text ), 60 );
 		$comment->user_id = $my->id;
+		$comment->user_name = $my->id ? $my->name : _GUEST_USER;
 		$comment->created_at = _CURRENT_SERVER_TIME;
 		$comment->state = 1;
 
@@ -110,11 +112,13 @@ class actionsComments {
 			return false;
 		}
 		else {
-			$comment->store();
+			$comment->check();
+                        $comment->store();
 			echo json_encode($comment_arr);
 		}
 
 		return false;
+
 	}
 
 	/**

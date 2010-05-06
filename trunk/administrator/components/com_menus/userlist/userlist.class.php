@@ -23,14 +23,7 @@ class userlist_menu {
 	function edit(&$uid,$menutype,$option,$menu) {
 		global $database,$my,$mainframe;
 
-		// fail if checked out not by 'me'
-		if($menu->checked_out && $menu->checked_out != $my->id) {
-			mosErrorAlert($menu->title." "._MODULE_IS_EDITING_MY_ADMIN);
-		}
-
-		if($uid) {
-			$menu->checkout($my->id);
-		} else {
+		if( !$uid) {
 			$menu->type = 'userlist';
 			$menu->menutype = $menutype;
 			$menu->browserNav = 0;

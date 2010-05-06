@@ -1,5 +1,5 @@
 $(document).ready(function(){
-
+        
 	function load_comments(into){
 		$.get(_live_site + "/ajax.index.php", {
 			option: "com_comments",
@@ -18,6 +18,7 @@ $(document).ready(function(){
 	load_comments('comments');
 
 	$('.comment_button').live('click', function(){
+
 		$.ajax({
 			url: _live_site + "/ajax.index.php",
 			type: 'post',
@@ -42,9 +43,10 @@ $(document).ready(function(){
 				}
 			}
 		});
-		return false;
-	});
 
+		return false;
+	})
+        
 	$('.comments_del').live('click', function(){
 		if(!confirm('Правда-правда?')){
 			return false;
@@ -69,3 +71,6 @@ $(document).ready(function(){
 		return false;
 	})
 });
+
+
+
